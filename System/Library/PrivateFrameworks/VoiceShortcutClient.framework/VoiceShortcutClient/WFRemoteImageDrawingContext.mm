@@ -26,15 +26,15 @@
 
 - (WFRemoteImageDrawingContext)initWithCoder:(id)coder
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v25 = objc_opt_class();
-    v26 = NSStringFromClass(v25);
-    [currentHandler handleFailureInMethod:a2 object:self file:@"WFRemoteImageDrawingContext.m" lineNumber:252 description:{@"Attempting to decode %@ with a non-XPC coder--this is not allowed", v26}];
+    v24 = objc_opt_class();
+    v25 = NSStringFromClass(v24);
+    [currentHandler handleFailureInMethod:a2 object:self file:@"WFRemoteImageDrawingContext.m" lineNumber:252 description:{@"Attempting to decode %@ with a non-XPC coder--this is not allowed", v25}];
   }
 
   v6 = coderCopy;
@@ -122,7 +122,6 @@ LABEL_17:
   selfCopy = self;
 LABEL_20:
 
-  v22 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -182,7 +181,7 @@ LABEL_20:
 
 - (void)accessBitmapContextForImageAtIndex:(unint64_t)index accessBlock:(id)block
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if ([(WFRemoteImageDrawingContext *)self imageCount]<= index)
   {
@@ -225,14 +224,12 @@ LABEL_20:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v28 = "[WFRemoteImageDrawingContext accessBitmapContextForImageAtIndex:accessBlock:]";
-      v29 = 2048;
+      v27 = "[WFRemoteImageDrawingContext accessBitmapContextForImageAtIndex:accessBlock:]";
+      v28 = 2048;
       indexCopy = index;
       _os_log_impl(&dword_1B1DE3000, v19, OS_LOG_TYPE_FAULT, "%s Shared bitmap context is nil at index %lu", buf, 0x16u);
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (CGImage)imageAtIndex:(unint64_t)index
@@ -277,7 +274,7 @@ CGImageRef __44__WFRemoteImageDrawingContext_imageAtIndex___block_invoke(uint64_
 
 - (BOOL)allocateSharedBuffer
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (![(WFRemoteImageDrawingContext *)self buffer])
   {
     sizePerImage = [(WFRemoteImageDrawingContext *)self sizePerImage];
@@ -291,7 +288,7 @@ CGImageRef __44__WFRemoteImageDrawingContext_imageAtIndex___block_invoke(uint64_
     aBlock[1] = 3221225472;
     aBlock[2] = __51__WFRemoteImageDrawingContext_allocateSharedBuffer__block_invoke;
     aBlock[3] = &__block_descriptor_36_e5_v8__0l;
-    v21 = object_handle;
+    v20 = object_handle;
     v8 = _Block_copy(aBlock);
     if (memory_entry_64)
     {
@@ -300,9 +297,9 @@ CGImageRef __44__WFRemoteImageDrawingContext_imageAtIndex___block_invoke(uint64_
       if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v26 = "[WFRemoteImageDrawingContext allocateSharedBuffer]";
-        v27 = 2112;
-        v28 = v9;
+        v25 = "[WFRemoteImageDrawingContext allocateSharedBuffer]";
+        v26 = 2112;
+        v27 = v9;
         _os_log_impl(&dword_1B1DE3000, v10, OS_LOG_TYPE_FAULT, "%s Could not make memory entry for remote image drawing: %@", buf, 0x16u);
       }
     }
@@ -315,11 +312,11 @@ CGImageRef __44__WFRemoteImageDrawingContext_imageAtIndex___block_invoke(uint64_
         if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
         {
           *buf = 136315650;
-          v26 = "[WFRemoteImageDrawingContext allocateSharedBuffer]";
-          v27 = 2048;
-          v28 = v5;
-          v29 = 2048;
-          v30 = size;
+          v25 = "[WFRemoteImageDrawingContext allocateSharedBuffer]";
+          v26 = 2048;
+          v27 = v5;
+          v28 = 2048;
+          v29 = size;
           _os_log_impl(&dword_1B1DE3000, v11, OS_LOG_TYPE_FAULT, "%s Could not make memory entry of requested size for remote image drawing (expecting %lu bytes, got %llu bytes)", buf, 0x20u);
         }
 
@@ -329,24 +326,24 @@ CGImageRef __44__WFRemoteImageDrawingContext_imageAtIndex___block_invoke(uint64_
       v12 = mach_vm_map(*v6, &address, size, 0, 1, object_handle, 0, 0, 3, 3, 1u);
       if (!v12)
       {
-        v15 = mach_memory_entry_ownership(object_handle, *v6, 4, 0);
-        if (v15)
+        v14 = mach_memory_entry_ownership(object_handle, *v6, 4, 0);
+        if (v14)
         {
-          v16 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A5A0] code:v15 userInfo:0];
-          v17 = getWFVoiceShortcutClientLogObject();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v15 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A5A0] code:v14 userInfo:0];
+          v16 = getWFVoiceShortcutClientLogObject();
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315394;
-            v26 = "[WFRemoteImageDrawingContext allocateSharedBuffer]";
-            v27 = 2114;
-            v28 = v16;
-            _os_log_impl(&dword_1B1DE3000, v17, OS_LOG_TYPE_ERROR, "%s Could not move memory entry to the graphics ledger for remote image drawing: %{public}@. We're proceeding - this is not a blocking error.", buf, 0x16u);
+            v25 = "[WFRemoteImageDrawingContext allocateSharedBuffer]";
+            v26 = 2114;
+            v27 = v15;
+            _os_log_impl(&dword_1B1DE3000, v16, OS_LOG_TYPE_ERROR, "%s Could not move memory entry to the graphics ledger for remote image drawing: %{public}@. We're proceeding - this is not a blocking error.", buf, 0x16u);
           }
         }
 
-        v18 = size;
+        v17 = size;
         self->_buffer = address;
-        self->_bufferSize = v18;
+        self->_bufferSize = v17;
         buffer = [(WFRemoteImageDrawingContext *)self buffer];
         bzero(buffer, size);
         v3 = 1;
@@ -358,9 +355,9 @@ CGImageRef __44__WFRemoteImageDrawingContext_imageAtIndex___block_invoke(uint64_
       if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v26 = "[WFRemoteImageDrawingContext allocateSharedBuffer]";
-        v27 = 2112;
-        v28 = v9;
+        v25 = "[WFRemoteImageDrawingContext allocateSharedBuffer]";
+        v26 = 2112;
+        v27 = v9;
         _os_log_impl(&dword_1B1DE3000, v10, OS_LOG_TYPE_FAULT, "%s Could not map memory entry for remote image drawing: %@", buf, 0x16u);
       }
     }
@@ -370,13 +367,10 @@ LABEL_15:
 LABEL_16:
     v8[2](v8);
 
-    goto LABEL_17;
+    return v3;
   }
 
-  v3 = 1;
-LABEL_17:
-  v13 = *MEMORY[0x1E69E9840];
-  return v3;
+  return 1;
 }
 
 uint64_t __51__WFRemoteImageDrawingContext_allocateSharedBuffer__block_invoke(uint64_t result)

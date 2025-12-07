@@ -38,7 +38,7 @@
 
 - (JavaUtilLinkedList)initWithJavaUtilCollection:(id)collection
 {
-  JavaUtilLinkedList_init(self);
+  JavaUtilLinkedList_init(self, a2);
   [(JavaUtilLinkedList *)self addAllWithJavaUtilCollection:collection];
   return self;
 }
@@ -687,29 +687,29 @@ LABEL_6:
 
 - (id)removeLastImpl
 {
-  v1 = *(self + 16);
+  v1 = *(Weak + 2);
   if (!v1)
   {
     goto LABEL_6;
   }
 
-  Weak = objc_loadWeak((v1 + 16));
-  if (Weak == *(self + 16))
+  v3 = objc_loadWeak((v1 + 16));
+  if (v3 == *(Weak + 2))
   {
     v7 = new_JavaUtilNoSuchElementException_init();
     objc_exception_throw(v7);
   }
 
-  v4 = Weak;
-  if (!Weak || (v5 = objc_loadWeak(Weak + 2), objc_storeWeak((*(self + 16) + 16), v5), !v5))
+  v4 = v3;
+  if (!v3 || (v5 = objc_loadWeak(v3 + 2), objc_storeWeak((*(Weak + 2) + 16), v5), !v5))
   {
 LABEL_6:
     JreThrowNullPointerException();
   }
 
-  JreStrongAssign(v5 + 3, *(self + 16));
-  --*(self + 12);
-  ++*(self + 8);
+  JreStrongAssign(v5 + 3, *(Weak + 2));
+  --*(Weak + 3);
+  ++*(Weak + 2);
   return v4[1];
 }
 
@@ -911,7 +911,7 @@ LABEL_7:
 
 - (id)toArray
 {
-  v3 = [IOSObjectArray arrayWithLength:*(&self->super.super.modCount_ + 1) type:NSObject_class_()];
+  v3 = [IOSObjectArray arrayWithLength:*(&self->super.super.modCount_ + 1) type:NSObject_class_(self, a2)];
   v4 = *&self->size_;
   if (!v4)
   {

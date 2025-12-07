@@ -12,17 +12,17 @@
 
 - (CKDUpdateMissingAssetStatusURLRequest)initWithOperation:(id)operation recoveredAssetRepairRecordID:(id)d size:(unint64_t)size putReceipt:(id)receipt
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   dCopy = d;
   receiptCopy = receipt;
   v14 = objc_msgSend_numberWithUnsignedLongLong_(MEMORY[0x277CCABB0], v13, size);
-  v24[0] = v14;
-  v17 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v15, v24, 1);
+  v23[0] = v14;
+  v17 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v15, v23, 1);
   if (receiptCopy)
   {
-    v23 = receiptCopy;
-    v18 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v16, &v23, 1);
+    v22 = receiptCopy;
+    v18 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v16, &v22, 1);
     v20 = objc_msgSend_initWithOperation_repairRecordID_recovered_package_sizes_putReceipts_(self, v19, operationCopy, dCopy, 1, 0, v17, v18);
   }
 
@@ -31,7 +31,6 @@
     v20 = objc_msgSend_initWithOperation_repairRecordID_recovered_package_sizes_putReceipts_(self, v16, operationCopy, dCopy, 1, 0, v17, MEMORY[0x277CBEBF8]);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -71,18 +70,16 @@
 
 - (void)fillOutRequestProperties:(id)properties
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   v7 = objc_msgSend_repairRecordID(self, v5, v6);
-  v13[0] = v7;
-  v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v8, v13, 1);
+  v12[0] = v7;
+  v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v8, v12, 1);
   objc_msgSend_setModifyRecordIDs_(propertiesCopy, v10, v9);
 
-  v12.receiver = self;
-  v12.super_class = CKDUpdateMissingAssetStatusURLRequest;
-  [(CKDURLRequest *)&v12 fillOutRequestProperties:propertiesCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = CKDUpdateMissingAssetStatusURLRequest;
+  [(CKDURLRequest *)&v11 fillOutRequestProperties:propertiesCopy];
 }
 
 - (id)recordIDsUsedInZones:(id)zones
@@ -109,17 +106,16 @@
 
 - (id)requestOperationClasses
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = objc_opt_class();
-  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v6, 1);
-  v4 = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = objc_opt_class();
+  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v5, 1);
 
   return v3;
 }
 
 - (id)generateRequestOperations
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_operationType(self, a2, v2);
   v6 = objc_msgSend_operationRequestWithType_(self, v5, v4);
   v7 = objc_opt_new();
@@ -137,30 +133,30 @@
   {
     if (objc_msgSend_isPackage(self, v27, v28))
     {
-      v67 = 0u;
-      v68 = 0u;
-      v65 = 0u;
       v66 = 0u;
+      v67 = 0u;
+      v64 = 0u;
+      v65 = 0u;
       v31 = objc_msgSend_assetSizes(self, v29, v30, 0);
-      v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v31, v32, &v65, v70, 16);
+      v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v31, v32, &v64, v69, 16);
       if (v33)
       {
         v36 = v33;
-        v37 = *v66;
+        v37 = *v65;
         do
         {
           for (i = 0; i != v36; ++i)
           {
-            if (*v66 != v37)
+            if (*v65 != v37)
             {
               objc_enumerationMutation(v31);
             }
 
-            v39 = objc_msgSend_unsignedIntegerValue(*(*(&v65 + 1) + 8 * i), v34, v35);
+            v39 = objc_msgSend_unsignedIntegerValue(*(*(&v64 + 1) + 8 * i), v34, v35);
             objc_msgSend_addPackageAssetSize_(v11, v40, v39);
           }
 
-          v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v31, v34, &v65, v70, 16);
+          v36 = objc_msgSend_countByEnumeratingWithState_objects_count_(v31, v34, &v64, v69, 16);
         }
 
         while (v36);
@@ -184,10 +180,8 @@
     }
   }
 
-  v69 = v6;
-  v62 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v61, &v69, 1);
-
-  v63 = *MEMORY[0x277D85DE8];
+  v68 = v6;
+  v62 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v61, &v68, 1);
 
   return v62;
 }

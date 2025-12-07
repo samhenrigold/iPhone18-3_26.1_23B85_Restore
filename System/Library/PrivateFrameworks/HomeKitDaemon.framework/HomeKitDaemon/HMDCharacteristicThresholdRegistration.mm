@@ -61,11 +61,11 @@
   v8 = [(HMDCharacteristicThresholdRegistration *)&v14 init];
   if (v8)
   {
-    v9 = [dCopy copy];
+    v9 = objc_msgSend_copy(dCopy);
     clientID = v8->_clientID;
     v8->_clientID = v9;
 
-    v11 = [thresholdCopy copy];
+    v11 = objc_msgSend_copy(thresholdCopy);
     updateThreshold = v8->_updateThreshold;
     v8->_updateThreshold = v11;
   }

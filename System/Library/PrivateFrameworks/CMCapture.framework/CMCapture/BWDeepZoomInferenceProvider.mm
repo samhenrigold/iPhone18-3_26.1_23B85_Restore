@@ -1,5 +1,6 @@
 @interface BWDeepZoomInferenceProvider
 - (BWDeepZoomInferenceProvider)initWithConfiguration:(id)configuration resourceProvider:(id)provider;
+- (id)_tuningParametersForPortType:(id *)result;
 - (int)createInputTiles:(id)tiles withInputs:(id)inputs atPosition:(id *)position cmdBuffer:;
 - (int)preProcessOutputBuffer:(__CVBuffer *)buffer forMediaKey:(id)key;
 - (int)prepareForSubmissionWithWorkQueue:(id)queue;
@@ -7,7 +8,6 @@
 - (int)propagateInferenceResultForOutputRequirement:(id)requirement storage:(id)storage propagationSampleBuffer:(opaqueCMSampleBuffer *)buffer;
 - (int)submitForSampleBuffer:(opaqueCMSampleBuffer *)buffer usingStorage:(id)storage withSubmissionTime:(id *)time workQueue:(id)queue completionHandler:(id)handler;
 - (int)writeOutputFor:(id)for to:(__CVBuffer *)to fromNetworkOutputTiles:(id)tiles withAdditionalPixelBuffers:(id)buffers withInputTilePixelBuffers:(id)pixelBuffers withInputFullPixelBuffers:(id)fullPixelBuffers atPosition:(id *)position cmdBuffer:;
-- (uint64_t)_tuningParametersForPortType:(uint64_t)result;
 - (unsigned)allowedPixelBufferCompressionDirection;
 - (void)dealloc;
 @end
@@ -259,7 +259,7 @@ id __70__BWDeepZoomInferenceProvider_initWithConfiguration_resourceProvider___bl
   }
 
   v12 = v11;
-  v147 = BWStillImageProcessingFlagsForSampleBuffer(buffer);
+  v154 = BWStillImageProcessingFlagsForSampleBuffer(buffer);
   v13 = *off_1E798A3C8;
   v14 = CMGetAttachment(buffer, *off_1E798A3C8, 0);
   if (!v14)
@@ -274,7 +274,7 @@ id __70__BWDeepZoomInferenceProvider_initWithConfiguration_resourceProvider___bl
     goto LABEL_77;
   }
 
-  if ((v17 = v16, [(CMIDeepZoomProcessor *)self->_deepZoomProcessor resetMetadata], [(CMIDeepZoomProcessor *)self->_deepZoomProcessor updateMetadata:v15 forInputFullPixelBuffer:CMSampleBufferGetImageBuffer(buffer)], FinalCropRect = FigCaptureMetadataUtilitiesGetFinalCropRect(), v20 = v19, v22 = v21, v24 = v23, v25 = [(BWDeepZoomInferenceConfiguration *)self->_inferenceConfig type], AttachedMedia = buffer, v25 == 3) && (AttachedMedia = BWSampleBufferGetAttachedMedia(buffer, 0x1F219EC90)) == 0 || (ImageBuffer = CMSampleBufferGetImageBuffer(AttachedMedia)) == 0)
+  if ((v17 = v16, [(CMIDeepZoomProcessor *)self->_deepZoomProcessor resetMetadata], [(CMIDeepZoomProcessor *)self->_deepZoomProcessor updateMetadata:v15 forInputFullPixelBuffer:CMSampleBufferGetImageBuffer(buffer)], FinalCropRect = FigCaptureMetadataUtilitiesGetFinalCropRect(v15), v20 = v19, v22 = v21, v24 = v23, v25 = [(BWDeepZoomInferenceConfiguration *)self->_inferenceConfig type], AttachedMedia = buffer, v25 == 3) && (AttachedMedia = BWSampleBufferGetAttachedMedia(buffer, 0x1F219EC90)) == 0 || (ImageBuffer = CMSampleBufferGetImageBuffer(AttachedMedia)) == 0)
   {
 LABEL_78:
     v32 = 4294935584;
@@ -282,7 +282,7 @@ LABEL_78:
   }
 
   v28 = ImageBuffer;
-  v150 = v17;
+  v157 = v17;
   p_inputReferencePixelBufferDimensions = &self->_inputReferencePixelBufferDimensions;
   Width = CVPixelBufferGetWidth(ImageBuffer);
   Height = CVPixelBufferGetHeight(v28);
@@ -299,9 +299,9 @@ LABEL_78:
     goto LABEL_72;
   }
 
-  v33 = (v147 & 0x100000) == 0 && -[BWDeepZoomInferenceConfiguration type](self->_inferenceConfig, "type") == 3 && ([v150 isEqualToString:*off_1E798A0D0] & 1) != 0;
+  v33 = (v154 & 0x100000) == 0 && [(BWDeepZoomInferenceConfiguration *)self->_inferenceConfig type]== 3 && (objc_msgSend_isEqualToString_(v157) & 1) != 0;
   v34 = [objc_msgSend(v12 "requestedSettings")];
-  v140 = v33;
+  v147 = v33;
   if (v33)
   {
     stereoPhotoOutputDimensions = p_inputReferencePixelBufferDimensions->width;
@@ -315,16 +315,20 @@ LABEL_78:
   else
   {
     stereoPhotoOutputDimensions = v34;
-    if ((v147 & 0x100000) != 0)
+    if ((v154 & 0x100000) != 0)
     {
       stereoPhotoOutputDimensions = [(BWDeepZoomInferenceConfiguration *)self->_inferenceConfig stereoPhotoOutputDimensions];
     }
 
     v36 = HIDWORD(*&stereoPhotoOutputDimensions);
     v37 = FigCaptureAspectRatioForDimensions(*&stereoPhotoOutputDimensions);
-    FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(p_inputReferencePixelBufferDimensions->width, self->_inputReferencePixelBufferDimensions.height, FinalCropRect, v20, v22, v24, v37);
-    v41 = v44;
-    v43 = v45;
+    v44.n128_f64[0] = FinalCropRect;
+    v45.n128_u64[0] = v22;
+    v46.n128_u64[0] = v24;
+    v47.n128_f64[0] = v37;
+    FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(p_inputReferencePixelBufferDimensions->width, self->_inputReferencePixelBufferDimensions.height, v44, v20, v45, v46, v47, v48);
+    v41 = v49;
+    v43 = v50;
   }
 
   self->_denormalizedSourceCropRect.origin.x = v38;
@@ -337,103 +341,103 @@ LABEL_78:
     goto LABEL_72;
   }
 
-  if (![(NSDictionary *)[(BWInferenceConfiguration *)self->_inferenceConfig tuningParameters] objectForKeyedSubscript:v150]|| (v46 = [(BWDeepZoomInferenceProvider *)self _tuningParametersForPortType:v150]) == 0)
+  if (![(NSDictionary *)[(BWInferenceConfiguration *)self->_inferenceConfig tuningParameters] objectForKeyedSubscript:v157]|| (v51 = [(BWDeepZoomInferenceProvider *)&self->super.super.isa _tuningParametersForPortType:v157]) == 0)
   {
 LABEL_77:
     v32 = 4294935586;
     goto LABEL_72;
   }
 
-  v47 = v46;
-  [objc_msgSend(v46 objectForKeyedSubscript:{@"MinScaleFactor", "floatValue"}];
-  v49 = v48;
-  [objc_msgSend(v47 objectForKeyedSubscript:{@"MaxScaleFactor", "floatValue"}];
-  v51 = v50;
-  if (([objc_msgSend(v12 "captureSettings")] & 0x10) != 0 && objc_msgSend(v47, "objectForKeyedSubscript:", @"QSub"))
+  v52 = v51;
+  [objc_msgSend(v51 objectForKeyedSubscript:{@"MinScaleFactor", "floatValue"}];
+  v54 = v53;
+  [objc_msgSend(v52 objectForKeyedSubscript:{@"MaxScaleFactor", "floatValue"}];
+  v56 = v55;
+  if (([objc_msgSend(v12 "captureSettings")] & 0x10) != 0 && objc_msgSend(v52, "objectForKeyedSubscript:", @"QSub"))
   {
-    [objc_msgSend(objc_msgSend(v47 objectForKeyedSubscript:{@"QSub", "objectForKeyedSubscript:", @"MinScaleFactor", "floatValue"}];
-    v49 = v52;
+    [objc_msgSend(objc_msgSend(v52 objectForKeyedSubscript:{@"QSub", "objectForKeyedSubscript:", @"MinScaleFactor", "floatValue"}];
+    v54 = v57;
   }
 
   v32 = 4294935586;
-  if (v49 < 1.0 || v51 < v49)
+  if (v54 < 1.0 || v56 < v54)
   {
     goto LABEL_72;
   }
 
   var0 = stereoPhotoOutputDimensions.var0;
-  v54 = v36;
+  v59 = v36;
   if ([(BWDeepZoomInferenceConfiguration *)self->_inferenceConfig type]!= 3)
   {
 LABEL_46:
-    *&v103 = var0 / v41;
-    *&v104 = v54 / v43;
-    keya = *&v103;
-    v141 = *&v104;
-    *&v149 = COERCE_DOUBLE(__PAIR64__(v104, v103));
-    if ([objc_msgSend(v47 objectForKeyedSubscript:{@"UpsamplingDisabled", "BOOLValue"}])
+    *&v110 = var0 / v41;
+    *&v111 = v59 / v43;
+    keya = *&v110;
+    v148 = *&v111;
+    *&v156 = COERCE_DOUBLE(__PAIR64__(v111, v110));
+    if ([objc_msgSend(v52 objectForKeyedSubscript:{@"UpsamplingDisabled", "BOOLValue"}])
     {
       __asm { FMOV            V8.2S, #1.0 }
 
-      v109 = v150;
-      v110 = v149;
+      v116 = v157;
+      v117 = v156;
 LABEL_57:
-      v114 = vdiv_f32(v110, *&_D8);
-      v115 = v114.f32[1];
-      if (v114.f32[0] >= 1.0 && v114.f32[1] >= 1.0)
+      v121 = vdiv_f32(v117, *&_D8);
+      v122 = v121.f32[1];
+      if (v121.f32[0] >= 1.0 && v121.f32[1] >= 1.0)
       {
         [(CMIDeepZoomProcessor *)self->_deepZoomProcessor setInputROI:COERCE_DOUBLE(vmovn_s32(vuzp1q_s32(vcvtq_s64_f64(self->_denormalizedSourceCropRect.origin), vcvtq_s64_f64(self->_denormalizedSourceCropRect.size))))];
         [(CMIDeepZoomProcessor *)self->_deepZoomProcessor setZoomFactor:_D8];
-        [(CMIDeepZoomProcessor *)self->_deepZoomProcessor setPortType:v109];
+        [(CMIDeepZoomProcessor *)self->_deepZoomProcessor setPortType:v116];
         [(CMIDeepZoomProcessor *)self->_deepZoomProcessor tileCount];
-        HIWORD(v151) = v117;
-        LOWORD(v151) = v118;
-        v152.receiver = self;
-        v152.super_class = BWDeepZoomInferenceProvider;
-        *&v153[0].a = *&time->var0;
-        *&v153[0].c = time->var3;
-        LODWORD(v32) = [(BWTiledEspressoInferenceProvider *)&v152 submitForSampleBuffer:buffer usingStorage:storage withSubmissionTime:v153 workQueue:queueCopy completionHandler:handler currentTileCount:v151];
+        HIWORD(v158) = v124;
+        LOWORD(v158) = v125;
+        v159.receiver = self;
+        v159.super_class = BWDeepZoomInferenceProvider;
+        *&v160[0].a = *&time->var0;
+        *&v160[0].c = time->var3;
+        LODWORD(v32) = [(BWTiledEspressoInferenceProvider *)&v159 submitForSampleBuffer:buffer usingStorage:storage withSubmissionTime:v160 workQueue:queueCopy completionHandler:handler currentTileCount:v158];
         goto LABEL_74;
       }
 
-      if (v114.f32[0] < 0.99 || v114.f32[1] < 0.99)
+      if (v121.f32[0] < 0.99 || v121.f32[1] < 0.99)
       {
-        v119 = v114.f32[0];
+        v126 = v121.f32[0];
         FrameworkRadarComponent = FigCaptureGetFrameworkRadarComponent();
-        LODWORD(v155.a) = 0;
+        LODWORD(v162.a) = 0;
         type = OS_LOG_TYPE_DEFAULT;
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        a_low = LODWORD(v155.a);
+        a_low = LODWORD(v162.a);
         if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
         {
-          v123 = a_low;
+          v130 = a_low;
         }
 
         else
         {
-          v123 = a_low & 0xFFFFFFFE;
+          v130 = a_low & 0xFFFFFFFE;
         }
 
-        v124 = v115;
-        if (v123)
+        v131 = v122;
+        if (v130)
         {
-          LODWORD(v156.a) = 136315650;
-          *(&v156.a + 4) = "[BWDeepZoomInferenceProvider submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:]";
-          WORD2(v156.b) = 2048;
-          *(&v156.b + 6) = v119;
-          HIWORD(v156.c) = 2048;
-          v156.d = v124;
+          LODWORD(v163.a) = 136315650;
+          *(&v163.a + 4) = "[BWDeepZoomInferenceProvider submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:]";
+          WORD2(v163.b) = 2048;
+          *(&v163.b + 6) = v126;
+          HIWORD(v163.c) = 2048;
+          v163.d = v131;
           _os_log_send_and_compose_impl();
         }
 
         fig_log_call_emit_and_clean_up_after_send_and_compose();
-        LODWORD(v153[0].a) = 134218240;
-        *(&v153[0].a + 4) = v119;
-        WORD2(v153[0].b) = 2048;
-        *(&v153[0].b + 6) = v124;
-        v125 = _os_log_send_and_compose_impl();
-        FigCapturePleaseFileRadar(FrameworkRadarComponent, v125, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Inference/DeepZoom/BWDeepZoomInferenceProvider.m", 467, @"LastShownDate:BWDeepZoomInferenceProvider.m:467", @"LastShownBuild:BWDeepZoomInferenceProvider.m:467", 0);
-        free(v125);
+        LODWORD(v160[0].a) = 134218240;
+        *(&v160[0].a + 4) = v126;
+        WORD2(v160[0].b) = 2048;
+        *(&v160[0].b + 6) = v131;
+        v132 = _os_log_send_and_compose_impl();
+        FigCapturePleaseFileRadar(FrameworkRadarComponent, v132, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Inference/DeepZoom/BWDeepZoomInferenceProvider.m", 467, @"LastShownDate:BWDeepZoomInferenceProvider.m:467", @"LastShownBuild:BWDeepZoomInferenceProvider.m:467", 0);
+        free(v132);
         v32 = 4294935586;
       }
 
@@ -453,33 +457,33 @@ LABEL_72:
       goto LABEL_73;
     }
 
-    if (keya >= v141)
+    if (keya >= v148)
     {
-      v111 = v141;
+      v118 = v148;
     }
 
     else
     {
-      v111 = keya;
+      v118 = keya;
     }
 
-    v109 = v150;
-    if (v111 >= v49)
+    v116 = v157;
+    if (v118 >= v54)
     {
-      if (keya >= v141)
+      if (keya >= v148)
       {
-        v112 = keya;
+        v119 = keya;
       }
 
       else
       {
-        v112 = v141;
+        v119 = v148;
       }
 
-      v113 = v112 <= v51;
-      v110 = v149;
-      _D8 = *&v149;
-      if (!v113)
+      v120 = v119 <= v56;
+      v117 = v156;
+      _D8 = *&v156;
+      if (!v120)
       {
         _D8 = 2.00000048;
       }
@@ -490,167 +494,168 @@ LABEL_72:
     goto LABEL_77;
   }
 
-  v55 = BWSampleBufferGetAttachedMedia(buffer, 0x1F219EC90);
-  if (!v55)
+  v60 = BWSampleBufferGetAttachedMedia(buffer, 0x1F219EC90);
+  if (!v60)
   {
     goto LABEL_72;
   }
 
-  v56 = v55;
-  v57 = CMGetAttachment(v55, v13, 0);
-  if (!v57)
+  v61 = v60;
+  v62 = CMGetAttachment(v60, v13, 0);
+  if (!v62)
   {
     goto LABEL_72;
   }
 
-  v58 = v57;
-  v59 = CMSampleBufferGetImageBuffer(buffer);
-  if (!v59)
+  v63 = v62;
+  v64 = CMSampleBufferGetImageBuffer(buffer);
+  if (!v64)
   {
     goto LABEL_72;
   }
 
-  v60 = v59;
-  v61 = CMSampleBufferGetImageBuffer(v56);
-  if (!v61)
+  v65 = v64;
+  v66 = CMSampleBufferGetImageBuffer(v61);
+  if (!v66)
   {
     goto LABEL_72;
   }
 
-  v62 = v61;
-  [(CMIDeepZoomProcessor *)self->_deepZoomProcessor updateMetadata:v58 forInputFullPixelBuffer:v61];
-  v63 = CVPixelBufferGetWidth(v60);
-  v134 = CVPixelBufferGetHeight(v60);
-  CVPixelBufferGetWidth(v62);
-  CVPixelBufferGetHeight(v62);
-  key = FigCaptureMetadataUtilitiesGetFinalCropRect();
-  v138 = v65;
-  v139 = v64;
-  v136 = v54;
-  v137 = v66;
-  v135 = v37;
-  v133 = v51;
-  if (v140)
+  v67 = v66;
+  [(CMIDeepZoomProcessor *)self->_deepZoomProcessor updateMetadata:v63 forInputFullPixelBuffer:v66];
+  v68 = CVPixelBufferGetWidth(v65);
+  v141 = CVPixelBufferGetHeight(v65);
+  v69 = CVPixelBufferGetWidth(v67);
+  v70 = CVPixelBufferGetHeight(v67);
+  key = FigCaptureMetadataUtilitiesGetFinalCropRect(v15);
+  v145 = v72;
+  v146 = v71;
+  v143 = v59;
+  v144 = v73;
+  v142 = v37;
+  v140 = v56;
+  if (v147)
   {
-    v67 = FigCaptureUnityRect();
-    v69 = v68;
-    v71 = v70;
-    v73 = v72;
     v74 = FigCaptureUnityRect();
+    v76 = v75;
+    v78 = v77;
+    v80 = v79;
+    v81.n128_f64[0] = FigCaptureUnityRect();
 LABEL_44:
-    FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(v63, v134, v74, v75, v76, v77, v135);
-    self->_denormalizedDeepTransferLowResROI = v161;
-    if (CGRectIsNull(v161))
+    v85.n128_f64[0] = v142;
+    FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(v68, v141, v81, v82, v83, v84, v85, v86);
+    self->_denormalizedDeepTransferLowResROI = v168;
+    if (CGRectIsNull(v168))
     {
       [BWDeepZoomInferenceProvider submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:];
       v32 = 4294935582;
       goto LABEL_72;
     }
 
-    FigCaptureMetadataUtilitiesNormalizeCropRect(self->_denormalizedDeepTransferLowResROI.origin.x, self->_denormalizedDeepTransferLowResROI.origin.y, self->_denormalizedDeepTransferLowResROI.size.width, self->_denormalizedDeepTransferLowResROI.size.height);
+    FigCaptureMetadataUtilitiesNormalizeCropRect(self->_denormalizedDeepTransferLowResROI.origin.x, self->_denormalizedDeepTransferLowResROI.origin.y, self->_denormalizedDeepTransferLowResROI.size.width, self->_denormalizedDeepTransferLowResROI.size.height, v68, v141);
     self->_cachedInputImageFinalCropRect.origin.x = key;
-    self->_cachedInputImageFinalCropRect.origin.y = v139;
-    self->_cachedInputImageFinalCropRect.size.width = v138;
-    self->_cachedInputImageFinalCropRect.size.height = v137;
+    self->_cachedInputImageFinalCropRect.origin.y = v146;
+    self->_cachedInputImageFinalCropRect.size.width = v145;
+    self->_cachedInputImageFinalCropRect.size.height = v144;
     FigCFDictionarySetCGRect();
     FigCFDictionarySetCGRect();
-    FigCaptureMetadataUtilitiesDenormalizeCropRect(v67, v69, v71, v73);
-    self->_denormalizedSourceCropRect.origin.x = v99;
-    self->_denormalizedSourceCropRect.origin.y = v100;
-    self->_denormalizedSourceCropRect.size.width = v101;
-    self->_denormalizedSourceCropRect.size.height = v102;
-    self->_deepTransferLowResBufferDims.width = v63;
-    self->_deepTransferLowResBufferDims.height = v134;
-    v51 = v133;
-    v54 = v136;
+    FigCaptureMetadataUtilitiesDenormalizeCropRect(v74, v76, v78, v80, v69, v70);
+    self->_denormalizedSourceCropRect.origin.x = v106;
+    self->_denormalizedSourceCropRect.origin.y = v107;
+    self->_denormalizedSourceCropRect.size.width = v108;
+    self->_denormalizedSourceCropRect.size.height = v109;
+    self->_deepTransferLowResBufferDims.width = v68;
+    self->_deepTransferLowResBufferDims.height = v141;
+    v56 = v140;
+    v59 = v143;
     goto LABEL_46;
   }
 
-  if ((v147 & 0x100000) != 0)
+  if ((v154 & 0x100000) != 0)
   {
-    v67 = FigCaptureMetadataUtilitiesGetFinalCropRect();
-    v69 = v96;
-    v71 = v97;
-    v73 = v98;
-    v77 = v137;
-    v76 = v138;
-    v75 = v139;
-    v74 = key;
+    v74 = FigCaptureMetadataUtilitiesGetFinalCropRect(v63);
+    v76 = v105;
+    v78 = v83.n128_f64[0];
+    v80 = v84.n128_f64[0];
+    v84.n128_f64[0] = v144;
+    v83.n128_f64[0] = v145;
+    v82 = v146;
+    v81.n128_f64[0] = key;
     goto LABEL_44;
   }
 
-  v78 = *(MEMORY[0x1E695EFD0] + 16);
-  *&v153[0].a = *MEMORY[0x1E695EFD0];
-  *&v153[0].c = v78;
-  *&v153[0].tx = *(MEMORY[0x1E695EFD0] + 32);
-  if (!FigCaptureMetadataUtilitiesComputeNormalizedPixelBufferCoordinateTransformBetweenSampleBuffers(buffer, v56, 1, v153))
+  v87 = *(MEMORY[0x1E695EFD0] + 16);
+  *&v160[0].a = *MEMORY[0x1E695EFD0];
+  *&v160[0].c = v87;
+  *&v160[0].tx = *(MEMORY[0x1E695EFD0] + 32);
+  if (!FigCaptureMetadataUtilitiesComputeNormalizedPixelBufferCoordinateTransformBetweenSampleBuffers(buffer, v61, 1, v160))
   {
-    ValidBufferRect = FigCaptureMetadataUtilitiesGetValidBufferRect();
-    v81 = v80;
-    FigCaptureMetadataUtilitiesNormalizeCropRect(ValidBufferRect, v82, v80, v83);
-    v85 = v84;
-    v87 = v86;
-    v148 = v88;
-    v156 = v153[0];
-    v157.size.height = v137;
-    v157.origin.x = key;
-    v157.size.width = v138;
-    v157.origin.y = v139;
-    v158 = CGRectApplyAffineTransform(v157, &v156);
-    updated = FigCaptureUpdateRectSizeAndMaintainCenter(v158.origin.x, v158.origin.y, v158.size.width, v158.size.height, var0 / v81);
-    v67 = FigCaptureMetadataUtilitiesRectDenormalizedToRect(fmax(updated, 0.0), fmax(v90, 0.0), v91, v92, v85, v87, v148);
-    v69 = v93;
-    v71 = v94;
-    v73 = v95;
-    v155 = v153[0];
-    memset(&v156, 0, sizeof(v156));
-    CGAffineTransformInvert(&v156, &v155);
-    v155 = v156;
-    v159.origin.x = v67;
-    v159.origin.y = v69;
-    v159.size.width = v71;
-    v159.size.height = v73;
-    v160 = CGRectApplyAffineTransform(v159, &v155);
-    v162.origin.x = 0.0;
-    v162.origin.y = 0.0;
-    v162.size.width = 1.0;
-    v162.size.height = 1.0;
-    *&v74 = CGRectIntersection(v160, v162);
+    ValidBufferRect = FigCaptureMetadataUtilitiesGetValidBufferRect(v63);
+    v90 = v89;
+    FigCaptureMetadataUtilitiesNormalizeCropRect(ValidBufferRect, v91, v89, v92, v69, v70);
+    v94 = v93;
+    v96 = v95;
+    v155 = v97;
+    v163 = v160[0];
+    v164.size.height = v144;
+    v164.origin.x = key;
+    v164.size.width = v145;
+    v164.origin.y = v146;
+    v165 = CGRectApplyAffineTransform(v164, &v163);
+    updated = FigCaptureUpdateRectSizeAndMaintainCenter(v165.origin.x, v165.origin.y, v165.size.width, v165.size.height, var0 / v90);
+    v74 = FigCaptureMetadataUtilitiesRectDenormalizedToRect(fmax(updated, 0.0), fmax(v99, 0.0), v100, v101, v94, v96, v155);
+    v76 = v102;
+    v78 = v103;
+    v80 = v104;
+    v162 = v160[0];
+    memset(&v163, 0, sizeof(v163));
+    CGAffineTransformInvert(&v163, &v162);
+    v162 = v163;
+    v166.origin.x = v74;
+    v166.origin.y = v76;
+    v166.size.width = v78;
+    v166.size.height = v80;
+    v167 = CGRectApplyAffineTransform(v166, &v162);
+    v169.origin.x = 0.0;
+    v169.origin.y = 0.0;
+    v169.size.width = 1.0;
+    v169.size.height = 1.0;
+    *v81.n128_u64 = CGRectIntersection(v167, v169);
     goto LABEL_44;
   }
 
   if (handler)
   {
-    v128 = FigCaptureGetFrameworkRadarComponent();
-    LODWORD(v155.a) = 0;
+    v135 = FigCaptureGetFrameworkRadarComponent();
+    LODWORD(v162.a) = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    v129 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v130 = LODWORD(v155.a);
-    if (os_log_type_enabled(v129, type))
+    v136 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v137 = LODWORD(v162.a);
+    if (os_log_type_enabled(v136, type))
     {
-      v131 = v130;
+      v138 = v137;
     }
 
     else
     {
-      v131 = v130 & 0xFFFFFFFE;
+      v138 = v137 & 0xFFFFFFFE;
     }
 
-    if (v131)
+    if (v138)
     {
-      LODWORD(v156.a) = 136315394;
-      *(&v156.a + 4) = "[BWDeepZoomInferenceProvider submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:]";
-      WORD2(v156.b) = 1024;
-      *(&v156.b + 6) = -31710;
+      LODWORD(v163.a) = 136315394;
+      *(&v163.a + 4) = "[BWDeepZoomInferenceProvider submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:]";
+      WORD2(v163.b) = 1024;
+      *(&v163.b + 6) = -31710;
       _os_log_send_and_compose_impl();
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    v153[0].a = NAN;
+    v160[0].a = NAN;
     v32 = 4294935586;
-    v132 = _os_log_send_and_compose_impl();
-    FigCapturePleaseFileRadar(v128, v132, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Inference/DeepZoom/BWDeepZoomInferenceProvider.m", 546, @"LastShownDate:BWDeepZoomInferenceProvider.m:546", @"LastShownBuild:BWDeepZoomInferenceProvider.m:546", 0);
-    free(v132);
+    v139 = _os_log_send_and_compose_impl();
+    FigCapturePleaseFileRadar(v135, v139, 0, 0, "/Library/Caches/com.apple.xbs/Sources/CameraCapture/CMCapture/Sources/Graph/Inference/DeepZoom/BWDeepZoomInferenceProvider.m", 546, @"LastShownDate:BWDeepZoomInferenceProvider.m:546", @"LastShownBuild:BWDeepZoomInferenceProvider.m:546", 0);
+    free(v139);
     handlerCopy2 = handler;
 LABEL_73:
     handlerCopy2[2](handlerCopy2, v32, self);
@@ -689,12 +694,12 @@ LABEL_74:
   return result;
 }
 
-- (uint64_t)_tuningParametersForPortType:(uint64_t)result
+- (id)_tuningParametersForPortType:(id *)result
 {
   if (result)
   {
     v3 = result;
-    type = [*(result + 112) type];
+    type = [result[14] type];
     v5 = @"Lite";
     if (type == 2)
     {
@@ -711,7 +716,7 @@ LABEL_74:
       v6 = v5;
     }
 
-    v7 = [objc_msgSend(*(v3 + 112) "tuningParameters")];
+    v7 = [objc_msgSend(v3[14] "tuningParameters")];
 
     return [v7 objectForKeyedSubscript:v6];
   }
@@ -731,7 +736,7 @@ LABEL_74:
 
   if (*v12 == 1)
   {
-    OUTLINED_FUNCTION_5_14();
+    OUTLINED_FUNCTION_5_14(822152577);
   }
 
   if (([inputs count], v13 = objc_msgSend(OUTLINED_FUNCTION_37_0(), "arrayWithCapacity:"), objc_msgSend(inputs, "objectForKeyedSubscript:", @"PrimaryFormat"), objc_msgSend(OUTLINED_FUNCTION_37_0(), "setObject:atIndexedSubscript:"), objc_msgSend(v13, "objectAtIndexedSubscript:", 0)) && (!objc_msgSend(inputs, "objectForKeyedSubscript:", 0x1F219EC90) || (objc_msgSend(inputs, "objectForKeyedSubscript:", 0x1F219EC90), objc_msgSend(OUTLINED_FUNCTION_37_0(), "setObject:atIndexedSubscript:"), objc_msgSend(v13, "objectAtIndexedSubscript:", 1))) && !-[CMIDeepZoomProcessor createInputTiles:atPosition:inputFullPixelBuffers:cmdBuffer:](self->_deepZoomProcessor, "createInputTiles:atPosition:inputFullPixelBuffers:cmdBuffer:", tiles, position, v13, v6))
@@ -747,7 +752,7 @@ LABEL_13:
 
   if (*v12 == 1)
   {
-    OUTLINED_FUNCTION_5_14();
+    OUTLINED_FUNCTION_5_14(822152578);
   }
 
   return v14;
@@ -777,40 +782,41 @@ LABEL_13:
   }
 
   [(BWDeepZoomInferenceConfiguration *)self->_inferenceConfig outputAttachedMediaKey];
-  if (![OUTLINED_FUNCTION_37_0() isEqualToString:?])
+  v15 = OUTLINED_FUNCTION_37_0();
+  if (!objc_msgSend_isEqualToString_(v15))
   {
     goto LABEL_15;
   }
 
   if (*v9 == 1)
   {
-    OUTLINED_FUNCTION_5_14();
+    OUTLINED_FUNCTION_5_14(822152585);
   }
 
-  v15 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(fullPixelBuffers, "count")}];
-  [v15 setObject:objc_msgSend(fullPixelBuffers atIndexedSubscript:{"objectForKeyedSubscript:", @"PrimaryFormat", 0}];
+  v16 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(fullPixelBuffers, "count")}];
+  [v16 setObject:objc_msgSend(fullPixelBuffers atIndexedSubscript:{"objectForKeyedSubscript:", @"PrimaryFormat", 0}];
   if ([fullPixelBuffers objectForKeyedSubscript:0x1F219EC90])
   {
-    [v15 setObject:objc_msgSend(fullPixelBuffers atIndexedSubscript:{"objectForKeyedSubscript:", 0x1F219EC90), 1}];
+    [v16 setObject:objc_msgSend(fullPixelBuffers atIndexedSubscript:{"objectForKeyedSubscript:", 0x1F219EC90), 1}];
   }
 
-  if (![(CMIDeepZoomProcessor *)self->_deepZoomProcessor writeOutputTiles:tiles atPosition:position outputPixelBuffer:to inputTilePixelBuffers:pixelBuffers inputFullPixelBuffers:v15 cmdBuffer:v18])
+  if (![(CMIDeepZoomProcessor *)self->_deepZoomProcessor writeOutputTiles:tiles atPosition:position outputPixelBuffer:to inputTilePixelBuffers:pixelBuffers inputFullPixelBuffers:v16 cmdBuffer:v19])
   {
-    v16 = 0;
+    v17 = 0;
   }
 
   else
   {
 LABEL_15:
-    v16 = -31710;
+    v17 = -31710;
   }
 
   if (*v9 == 1)
   {
-    OUTLINED_FUNCTION_5_14();
+    OUTLINED_FUNCTION_5_14(822152586);
   }
 
-  return v16;
+  return v17;
 }
 
 - (int)propagateInferenceResultForOutputRequirement:(id)requirement storage:(id)storage propagationSampleBuffer:(opaqueCMSampleBuffer *)buffer
@@ -824,7 +830,8 @@ LABEL_15:
   {
     v12 = attachedMediaKey;
     [(BWDeepZoomInferenceConfiguration *)self->_inferenceConfig outputAttachedMediaKey];
-    if (![OUTLINED_FUNCTION_37_0() isEqualToString:?])
+    v13 = OUTLINED_FUNCTION_37_0();
+    if (!objc_msgSend_isEqualToString_(v13))
     {
       goto LABEL_30;
     }
@@ -840,40 +847,40 @@ LABEL_15:
       goto LABEL_30;
     }
 
-    v13 = *off_1E798A3C8;
-    v14 = CMGetAttachment(target, *off_1E798A3C8, 0);
-    v10 = v14;
-    if (!v14)
+    v14 = *off_1E798A3C8;
+    v15 = CMGetAttachment(target, *off_1E798A3C8, 0);
+    v10 = v15;
+    if (!v15)
     {
       goto LABEL_27;
     }
 
-    v15 = [v14 objectForKeyedSubscript:*off_1E798B540];
-    if (v15)
+    v16 = [v15 objectForKeyedSubscript:*off_1E798B540];
+    if (v16)
     {
-      v16 = v15;
+      v17 = v16;
       v10 = [v10 mutableCopy];
       if (!v10)
       {
         goto LABEL_27;
       }
 
-      CMSetAttachment(target, v13, v10, 1u);
+      CMSetAttachment(target, v14, v10, 1u);
       CVPixelBufferGetWidth(v8);
       CVPixelBufferGetHeight(v8);
-      v17 = CMGetAttachment(target, @"StillSettings", 0);
-      if (v17)
+      v18 = CMGetAttachment(target, @"StillSettings", 0);
+      if (v18)
       {
-        v18 = v17;
-        v19 = [CMGetAttachment(target @"StillImageProcessingFlags"];
+        v19 = v18;
+        v20 = [CMGetAttachment(target @"StillImageProcessingFlags"];
         if ([(BWDeepZoomInferenceConfiguration *)self->_inferenceConfig type]!= 3)
         {
           [(CMIDeepZoomProcessor *)self->_deepZoomProcessor zoomFactor];
           [(CMIDeepZoomProcessor *)self->_deepZoomProcessor zoomFactor];
-          v22 = OUTLINED_FUNCTION_2_133();
-          FigCaptureMetadataUtilitiesUpdateMetadataForStillImageCrop(v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32);
+          v23 = OUTLINED_FUNCTION_2_133();
+          FigCaptureMetadataUtilitiesUpdateMetadataForStillImageCrop(v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33);
 LABEL_26:
-          CMSetAttachment(target, @"StillImageProcessingFlags", [MEMORY[0x1E696AD98] numberWithUnsignedInt:v19 | 0x20000u], 1u);
+          CMSetAttachment(target, @"StillImageProcessingFlags", [MEMORY[0x1E696AD98] numberWithUnsignedInt:v20 | 0x20000u], 1u);
           outputAttachedMediaKey = [(BWDeepZoomInferenceConfiguration *)self->_inferenceConfig outputAttachedMediaKey];
           BWSampleBufferSetAttachedMedia(buffer, outputAttachedMediaKey, target);
           v11 = 0;
@@ -881,32 +888,32 @@ LABEL_26:
         }
 
         AttachedMedia = BWSampleBufferGetAttachedMedia(target, 0x1F219EC90);
-        if (AttachedMedia && CMGetAttachment(AttachedMedia, v13, 0))
+        if (AttachedMedia && CMGetAttachment(AttachedMedia, v14, 0))
         {
           FigCFDictionarySetCGRect();
-          v21 = (v19 & 0x100000) == 0 && -[BWDeepZoomInferenceConfiguration type](self->_inferenceConfig, "type") == 3 && ([v16 isEqualToString:*off_1E798A0D0] & 1) != 0;
-          requestedSettings = [objc_msgSend(v18 requestedSettings];
-          if (v21)
+          v22 = (v20 & 0x100000) == 0 && [(BWDeepZoomInferenceConfiguration *)self->_inferenceConfig type]== 3 && (objc_msgSend_isEqualToString_(v17) & 1) != 0;
+          requestedSettings = [objc_msgSend(v19 requestedSettings];
+          if (v22)
           {
-            LODWORD(v34) = self->_inputReferencePixelBufferDimensions.height;
+            LODWORD(v35) = self->_inputReferencePixelBufferDimensions.height;
           }
 
-          else if ((v19 & 0x100000) != 0)
+          else if ((v20 & 0x100000) != 0)
           {
-            v34 = [(BWDeepZoomInferenceConfiguration *)self->_inferenceConfig stereoPhotoOutputDimensions]>> 32;
+            v35 = [(BWDeepZoomInferenceConfiguration *)self->_inferenceConfig stereoPhotoOutputDimensions]>> 32;
           }
 
           else
           {
-            v34 = HIDWORD(requestedSettings);
+            v35 = HIDWORD(requestedSettings);
           }
 
-          v35 = v34;
-          v36 = *off_1E798B240;
-          v37 = [v10 objectForKeyedSubscript:*off_1E798B240];
-          v38 = OUTLINED_FUNCTION_2_133();
-          FigCaptureMetadataUtilitiesUpdateMetadataForStillImageCrop(v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v35);
-          [v10 setObject:v37 forKeyedSubscript:v36];
+          v36 = v35;
+          v37 = *off_1E798B240;
+          v38 = [v10 objectForKeyedSubscript:*off_1E798B240];
+          v39 = OUTLINED_FUNCTION_2_133();
+          FigCaptureMetadataUtilitiesUpdateMetadataForStillImageCrop(v39, v40, v41, v42, v43, v44, v45, v46, v47, v48, v36);
+          [v10 setObject:v38 forKeyedSubscript:v37];
           BWSampleBufferRemoveAttachedMedia(target, 0x1F219EC90);
           goto LABEL_26;
         }

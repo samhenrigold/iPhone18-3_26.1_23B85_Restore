@@ -53,7 +53,7 @@
     UIKBAddRoundedRectToPath(Mutable, v5, 0, 0.0, 0.0, v13, v6 + v14, v10);
     layer2 = [MEMORY[0x1E69794A0] layer];
     [layer2 setPath:Mutable];
-    v15 = +[UIColor blackColor];
+    v15 = objc_msgSend_blackColor(UIColor);
     [layer2 setFillColor:{objc_msgSend(v15, "CGColor")}];
 
     CGPathRelease(Mutable);

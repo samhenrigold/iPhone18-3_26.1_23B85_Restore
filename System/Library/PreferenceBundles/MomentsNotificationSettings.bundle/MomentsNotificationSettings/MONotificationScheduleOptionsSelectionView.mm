@@ -4,6 +4,7 @@
 + (id)notificationScheduleOptionsSelectionViewOfType:(unint64_t)type;
 + (id)notificationSettingsBundle;
 - (BOOL)gestureRecognizer:(id)recognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(id)gestureRecognizer;
+- (CGRect)_selectionLabelLayoutRectForRect:(CGRect)rect;
 - (CGSize)sizeThatFits:(CGSize)fits;
 - (MONotificationScheduleOptionsSelectionView)initWithFrame:(CGRect)frame;
 - (MONotificationScheduleSelectionViewDelegate)delegate;
@@ -17,6 +18,7 @@
 - (void)_swapSelectionLabelsOnToggledSelected:(BOOL)selected;
 - (void)layoutSubviews;
 - (void)setHighlighted:(BOOL)highlighted;
+- (void)setSelected:(BOOL)selected;
 @end
 
 @implementation MONotificationScheduleOptionsSelectionView
@@ -89,6 +91,21 @@
   }
 
   return v3;
+}
+
+- (void)setSelected:(BOOL)selected
+{
+  if (self->_selected != selected)
+  {
+    selectedCopy = selected;
+    self->_selected = selected;
+    [(MONotificationScheduleOptionsSelectionView *)self _swapSelectionLabelsOnToggledSelected:?];
+    selectionImageView = [(MONotificationScheduleOptionsSelectionView *)self selectionImageView];
+    v7 = [(MONotificationScheduleOptionsSelectionView *)self _selectionImageViewTintColorSelected:selectedCopy];
+    [selectionImageView setTintColor:v7];
+
+    [(MONotificationScheduleOptionsSelectionView *)self setNeedsLayout];
+  }
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
@@ -189,9 +206,7 @@
     v4 = 0;
   }
 
-  v5 = [(MONotificationScheduleOptionsSelectionView *)self _newSelectionLabelIsEncapsulated:v4];
-  v6 = *p_selectionLabel;
-  *p_selectionLabel = v5;
+  *p_selectionLabel = [(MONotificationScheduleOptionsSelectionView *)self _newSelectionLabelIsEncapsulated:v4];
 
   _objc_release_x1();
 }
@@ -297,6 +312,16 @@
   CGRectGetMaxY(v26);
   UIRectRoundToScale();
   [(UILabel *)v21 setFrame:?];
+}
+
+- (CGRect)_selectionLabelLayoutRectForRect:(CGRect)rect
+{
+  _UIRectInset(self, a2, rect.origin, *&rect.origin.y, rect.size, *&rect.size.height, 0.0, 5.0, 0.0, 5.0);
+  result.size.height = v6;
+  result.size.width = v5;
+  result.origin.y = v4;
+  result.origin.x = v3;
+  return result;
 }
 
 - (void)_swapSelectionLabelsOnToggledSelected:(BOOL)selected

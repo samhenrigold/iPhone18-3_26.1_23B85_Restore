@@ -37,26 +37,26 @@
 
 - (unint64_t)nextIntWithUpperBound:(unint64_t)bound
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   lowest = self->_lowest;
   v6 = lowest & ~(lowest >> 63);
   if (v6 > bound)
   {
-    v11 = MEMORY[0x277CBEAD8];
-    v18[0] = @"lowestInclusive";
-    v12 = [MEMORY[0x277CCABB0] numberWithInteger:?];
-    v19[0] = v12;
-    v18[1] = @"highestInclusive";
-    v13 = [MEMORY[0x277CCABB0] numberWithInteger:self->_highest];
-    v19[1] = v13;
-    v18[2] = @"upper";
-    v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:bound];
-    v19[2] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
-    v16 = [v11 exceptionWithName:*MEMORY[0x277CBE660] reason:@"upper bound provided is less than lowestInclusive" userInfo:v15];
-    v17 = v16;
+    v9 = MEMORY[0x277CBEAD8];
+    v16[0] = @"lowestInclusive";
+    v10 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+    v17[0] = v10;
+    v16[1] = @"highestInclusive";
+    v11 = [MEMORY[0x277CCABB0] numberWithInteger:self->_highest];
+    v17[1] = v11;
+    v16[2] = @"upper";
+    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:bound];
+    v17[2] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
+    v14 = [v9 exceptionWithName:*MEMORY[0x277CBE660] reason:@"upper bound provided is less than lowestInclusive" userInfo:v13];
+    v15 = v14;
 
-    objc_exception_throw(v16);
+    objc_exception_throw(v14);
   }
 
   v7 = self->_highest & ~(self->_highest >> 63);
@@ -65,9 +65,7 @@
     v7 = bound - 1;
   }
 
-  v8 = [(ATXGamePlayKitRandom *)self->_source nextIntWithUpperBound:v7 - lowest + 1];
-  v9 = *MEMORY[0x277D85DE8];
-  return v8 + v6;
+  return [(ATXGamePlayKitRandom *)self->_source nextIntWithUpperBound:v7 - lowest + 1]+ v6;
 }
 
 + (id)distributionWithLowestValue:(int64_t)value highestValue:(int64_t)highestValue

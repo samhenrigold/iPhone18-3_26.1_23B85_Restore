@@ -1,13 +1,14 @@
-void _DADispatchCallback(CFTypeRef cf, int a2, uint64_t a3, unsigned int a4, const __CFData *a5, const __CFNumber *a6)
+void _DADispatchCallback(CFTypeRef cf, uint64_t a2, uint64_t a3, unsigned int a4, const __CFData *a5, const __CFNumber *a6)
 {
   v7 = a5;
+  v9 = a2;
   if (a5)
   {
     v11 = CFGetAllocator(cf);
     v7 = _DADiskCreateFromSerialization(v11, cf, v7);
   }
 
-  v12 = DAGetCallbackFromSession(cf, a2);
+  v12 = DAGetCallbackFromSession(cf, v9);
   if (v12)
   {
     v13 = v12;
@@ -120,7 +121,7 @@ LABEL_32:
 
             else
             {
-              v21 = _DASerialize(*MEMORY[0x277CBECE8]);
+              v21 = _DASerialize(*MEMORY[0x277CBECE8], v19);
             }
 
             ID = _DASessionGetID(cf);
@@ -130,13 +131,13 @@ LABEL_32:
               v26 = v20;
               BytePtr = CFDataGetBytePtr(v21);
               Length = CFDataGetLength(v21);
-              _DAServerSessionQueueResponse(ID, a2, a2, a4, v23, BytePtr, Length, v26);
+              _DAServerSessionQueueResponse(ID, v9, v9, a4, v23, BytePtr, Length, v26);
               CFRelease(v21);
             }
 
             else
             {
-              _DAServerSessionQueueResponse(ID, a2, a2, a4, v23, 0, 0, v20);
+              _DAServerSessionQueueResponse(ID, v9, v9, a4, v23, 0, 0, v20);
             }
 
             v18 = v27;
@@ -180,7 +181,7 @@ LABEL_24:
   if (a4 <= 0x11 && ((1 << a4) & 0x234A2) != 0)
   {
 LABEL_46:
-    DARemoveCallbackFromSessionWithKey(cf, a2);
+    DARemoveCallbackFromSessionWithKey(cf, v9);
   }
 
 LABEL_47:
@@ -253,9 +254,16 @@ void __DAInitialize()
   kDADiskDescriptionWatchVolumePath = v13;
 }
 
-void _DARegisterCallback(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5, const __CFDictionary *a6, CFMutableDataRef a7, unsigned int a8)
+void _DARegisterCallback(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, const __CFDictionary *a6, CFMutableDataRef a7, uint64_t a8)
 {
-  if (!a1 || !_DASessionGetID(a1) && _DASessionIsKeepAlive(a1) && _DASessionRecreate(a1))
+  if (!a1)
+  {
+    return;
+  }
+
+  v8 = a8;
+  v12 = a4;
+  if (!_DASessionGetID(a1) && _DASessionIsKeepAlive(a1) && _DASessionRecreate(a1))
   {
     return;
   }
@@ -268,10 +276,10 @@ void _DARegisterCallback(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4,
 
   if (a7)
   {
-    a7 = _DASerialize(v16);
+    a7 = _DASerialize(v16, a7);
   }
 
-  v17 = DACallbackCreate(v16, a2, a3, a4, a5, a6, a7, a8);
+  v17 = DACallbackCreate(v16, a2, a3, v12, a5, a6, a7, v8);
   v18 = DAAddCallbackToSession(a1, v17);
   CFRelease(v17);
   ID = _DASessionGetID(a1);
@@ -302,7 +310,7 @@ LABEL_11:
   v23 = CFDataGetBytePtr(a7);
   v24 = CFDataGetLength(a7);
 LABEL_14:
-  _DAServerSessionRegisterCallback(ID, v20, v20, a4, a5, BytePtr, Length, v23, v24);
+  _DAServerSessionRegisterCallback(ID, v20, v20, v12, a5, BytePtr, Length, v23, v24);
   if (a6)
   {
     CFRelease(a6);
@@ -332,8 +340,9 @@ uint64_t _DAUnregisterCallback(uint64_t result, const __CFNumber *a2, const __CF
   return result;
 }
 
-void DADiskClaimCommon(uint64_t a1, int a2, uint64_t a3, uint64_t a4, void (**a5)(void, void, void), uint64_t a6, unsigned int a7)
+void DADiskClaimCommon(uint64_t a1, int a2, uint64_t a3, uint64_t a4, void (**a5)(void, void, void), uint64_t a6, uint64_t a7)
 {
+  v7 = a7;
   v11 = MEMORY[0x277CBECE8];
   if (!a1)
   {
@@ -354,7 +363,7 @@ void DADiskClaimCommon(uint64_t a1, int a2, uint64_t a3, uint64_t a4, void (**a5
   v17 = ___CFNumberCreateWithIntegerValue(v13, v16);
   v18 = ___CFNumberCreateWithIntegerValue(v13, v16);
   v19 = _DADiskGetSession(a1);
-  v20 = __DAQueueRequest(v19, 1, a1, a2, v17, v18, a5, a6, a7);
+  v20 = __DAQueueRequest(v19, 1, a1, a2, v17, v18, a5, a6, v7);
   if (v17)
   {
     CFRelease(v17);
@@ -371,7 +380,7 @@ LABEL_9:
     if (v20)
     {
       v21 = DADissenterCreate(*v11, v20, 0);
-      if (a7)
+      if (v7)
       {
         (a5)[2](a5, a1, v21);
         _Block_release(a5);
@@ -398,12 +407,12 @@ uint64_t __DAQueueRequest(uint64_t a1, int a2, uint64_t a3, int a4, const __CFDa
   v18 = *MEMORY[0x277CBECE8];
   if (a5)
   {
-    a5 = _DASerialize(*MEMORY[0x277CBECE8]);
+    a5 = _DASerialize(*MEMORY[0x277CBECE8], a5);
   }
 
   if (a6)
   {
-    a6 = _DASerialize(v18);
+    a6 = _DASerialize(v18, a6);
   }
 
   v19 = DACallbackCreate(v18, a7, a8, 0xFFFFFFFF, 0, 0, 0, a9);
@@ -519,12 +528,12 @@ uint64_t __DAQueueRequestWithUserToken(uint64_t a1, int a2, uint64_t a3, int a4,
   v19 = *MEMORY[0x277CBECE8];
   if (a5)
   {
-    a5 = _DASerialize(*MEMORY[0x277CBECE8]);
+    a5 = _DASerialize(*MEMORY[0x277CBECE8], a5);
   }
 
   if (a6)
   {
-    a6 = _DASerialize(v19);
+    a6 = _DASerialize(v19, a6);
   }
 
   v20 = DACallbackCreate(v19, a7, a8, 0xFFFFFFFF, 0, 0, 0, a9);
@@ -913,8 +922,9 @@ void DADiskUnclaim(DADiskRef disk)
   }
 }
 
-uint64_t _DADiskSetAdoption(uint64_t a1, int a2)
+uint64_t _DADiskSetAdoption(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   _DADiskGetSession(a1);
   result = _DAAuthorize();
   if (!result)
@@ -930,7 +940,7 @@ uint64_t _DADiskSetAdoption(uint64_t a1, int a2)
       SessionID = _DADiskGetSessionID(a1);
       ID = _DADiskGetID(a1);
 
-      return _DAServerDiskSetAdoption(SessionID, ID, a2);
+      return _DAServerDiskSetAdoption(SessionID, ID, v2);
     }
   }
 
@@ -941,56 +951,56 @@ void DARegisterIdleCallbackWithBlock(uint64_t a1, void *aBlock)
 {
   v3 = _Block_copy(aBlock);
 
-  _DARegisterCallback(a1, v3, 0, 0xFu, 0, 0, 0, 1u);
+  _DARegisterCallback(a1, v3, 0, 15, 0, 0, 0, 1);
 }
 
 void DARegisterDiskAppearedCallbackBlock(uint64_t a1, const __CFDictionary *a2, void *aBlock)
 {
   v5 = _Block_copy(aBlock);
 
-  _DARegisterCallback(a1, v5, 0, 0, 0, a2, 0, 1u);
+  _DARegisterCallback(a1, v5, 0, 0, 0, a2, 0, 1);
 }
 
-void DARegisterDiskDescriptionChangedCallbackBlock(uint64_t a1, const __CFDictionary *a2, __CFData *a3, void *aBlock)
+void DARegisterDiskDescriptionChangedCallbackBlock(uint64_t a1, const __CFDictionary *a2, const __CFData *a3, void *aBlock)
 {
   v7 = _Block_copy(aBlock);
 
-  _DARegisterCallback(a1, v7, 0, 3u, 0, a2, a3, 1u);
+  _DARegisterCallback(a1, v7, 0, 3, 0, a2, a3, 1);
 }
 
 void DARegisterDiskDisappearedCallbackBlock(uint64_t a1, const __CFDictionary *a2, void *aBlock)
 {
   v5 = _Block_copy(aBlock);
 
-  _DARegisterCallback(a1, v5, 0, 4u, 0, a2, 0, 1u);
+  _DARegisterCallback(a1, v5, 0, 4, 0, a2, 0, 1);
 }
 
 void DARegisterDiskEjectApprovalCallbackBlock(uint64_t a1, const __CFDictionary *a2, void *aBlock)
 {
   v5 = _Block_copy(aBlock);
 
-  _DARegisterCallback(a1, v5, 0, 6u, 0, a2, 0, 1u);
+  _DARegisterCallback(a1, v5, 0, 6, 0, a2, 0, 1);
 }
 
 void DARegisterDiskPeekCallbackBlock(uint64_t a1, const __CFDictionary *a2, uint64_t a3, void *aBlock)
 {
   v7 = _Block_copy(aBlock);
 
-  _DARegisterCallback(a1, v7, 0, 9u, a3, a2, 0, 1u);
+  _DARegisterCallback(a1, v7, 0, 9, a3, a2, 0, 1);
 }
 
 void DARegisterDiskMountApprovalCallbackBlock(uint64_t a1, const __CFDictionary *a2, void *aBlock)
 {
   v5 = _Block_copy(aBlock);
 
-  _DARegisterCallback(a1, v5, 0, 8u, 0, a2, 0, 1u);
+  _DARegisterCallback(a1, v5, 0, 8, 0, a2, 0, 1);
 }
 
 void DARegisterDiskUnmountApprovalCallbackBlock(uint64_t a1, const __CFDictionary *a2, void *aBlock)
 {
   v5 = _Block_copy(aBlock);
 
-  _DARegisterCallback(a1, v5, 0, 0xEu, 0, a2, 0, 1u);
+  _DARegisterCallback(a1, v5, 0, 14, 0, a2, 0, 1);
 }
 
 __n128 DADiskMountWithBlock(uint64_t a1, const __CFURL *a2, int a3, void *aBlock)
@@ -1053,10 +1063,10 @@ void DADiskClaimWithBlock(uint64_t a1, int a2, void *aBlock, const void *a4)
   v7 = _Block_copy(aBlock);
   v8 = _Block_copy(a4);
 
-  DADiskClaimCommon(a1, a2, v7, 0, v8, 0, 1u);
+  DADiskClaimCommon(a1, a2, v7, 0, v8, 0, 1);
 }
 
-void DADiskMountWithBlockAndAuditToken(uint64_t a1, const __CFURL *a2, int a3, const void *a4, __int128 *a5)
+void DADiskMountWithBlockAndAuditToken(uint64_t a1, const __CFURL *a2, uint64_t a3, const void *a4, __int128 *a5)
 {
   v5 = a5[1];
   v6[0] = *a5;
@@ -1353,92 +1363,86 @@ DADiskRef DADiskCopyWholeDisk(DADiskRef disk)
 
 DADiskRef DADiskCreateFromIOMedia(CFAllocatorRef allocator, DASessionRef session, io_service_t media)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  if (media && (CFProperty = IORegistryEntryCreateCFProperty(media, @"BSD Name", allocator, 0)) != 0)
+  v10 = *MEMORY[0x277D85DE8];
+  if (!media)
   {
-    v6 = CFProperty;
-    CFStringGetCString(CFProperty, buffer, 1024, 0x8000100u);
-    v7 = DADiskCreateFromBSDName(allocator, session, buffer);
-    CFRelease(v6);
+    return 0;
   }
 
-  else
+  CFProperty = IORegistryEntryCreateCFProperty(media, @"BSD Name", allocator, 0);
+  if (!CFProperty)
   {
-    v7 = 0;
+    return 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
+  v6 = CFProperty;
+  CFStringGetCString(CFProperty, buffer, 1024, 0x8000100u);
+  v7 = DADiskCreateFromBSDName(allocator, session, buffer);
+  CFRelease(v6);
   return v7;
 }
 
 DADiskRef DADiskCreateFromBSDName(CFAllocatorRef allocator, DASessionRef session, const char *name)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  if (name)
+  v9 = *MEMORY[0x277D85DE8];
+  if (!name)
   {
-    v6 = strstr(name, "://disk");
-    if (v6)
-    {
-      if (!strchr(v6 + 3, 47))
-      {
-LABEL_9:
-        result = _DADiskCreate(allocator, session, __s);
-        goto LABEL_10;
-      }
-
-      __strlcpy_chk();
-      strlen(__s);
-    }
-
-    else
-    {
-      if (!strncmp(name, "/dev/", 5uLL))
-      {
-        __strlcpy_chk();
-        goto LABEL_9;
-      }
-
-      __strlcpy_chk();
-    }
-
-    __strlcat_chk();
-    goto LABEL_9;
+    return 0;
   }
 
-  result = 0;
-LABEL_10:
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  v6 = strstr(name, "://disk");
+  if (!v6)
+  {
+    if (!strncmp(name, "/dev/", 5uLL))
+    {
+      __strlcpy_chk();
+      return _DADiskCreate(allocator, session, __s);
+    }
+
+    __strlcpy_chk();
+    goto LABEL_8;
+  }
+
+  if (strchr(v6 + 3, 47))
+  {
+    __strlcpy_chk();
+    strlen(__s);
+LABEL_8:
+    __strlcat_chk();
+  }
+
+  return _DADiskCreate(allocator, session, __s);
 }
 
 DADiskRef DADiskCreateFromVolumePath(CFAllocatorRef allocator, DASessionRef session, CFURLRef path)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (path && (v5 = ___CFURLCopyFileSystemRepresentation(path)) != 0)
+  v13 = *MEMORY[0x277D85DE8];
+  if (!path)
   {
-    v6 = v5;
-    memset(v13, 0, 512);
-    if (___statfs(v5, v13, 2) && (!realpath_DARWIN_EXTSN(v6, v12) || ___statfs(v12, v13, 2)) || (v7 = _DAVolumeCopyID(v13)) == 0)
-    {
-      v9 = 0;
-    }
-
-    else
-    {
-      v8 = v7;
-      v9 = _DADiskCreate(allocator, session, v7);
-      free(v8);
-    }
-
-    free(v6);
+    return 0;
   }
 
-  else
+  v5 = ___CFURLCopyFileSystemRepresentation(path);
+  if (!v5)
+  {
+    return 0;
+  }
+
+  v6 = v5;
+  memset(v12, 0, 512);
+  if (___statfs(v5, v12, 2) && (!realpath_DARWIN_EXTSN(v6, v11) || ___statfs(v11, v12, 2)) || (v7 = _DAVolumeCopyID(v12)) == 0)
   {
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v8 = v7;
+    v9 = _DADiskCreate(allocator, session, v7);
+    free(v8);
+  }
+
+  free(v6);
   return v9;
 }
 
@@ -1748,7 +1752,7 @@ const char *_DACallbackKindGetName(unsigned int a1)
   }
 }
 
-CFMutableDataRef _DASerialize(const __CFAllocator *a1)
+CFMutableDataRef _DASerialize(const __CFAllocator *a1, uint64_t a2)
 {
   Mutable = CFDataCreateMutable(a1, 0);
   if (Mutable && !__CFBinaryPlistWriteToStream())
@@ -1810,7 +1814,7 @@ CFMutableDataRef _DASerializeDiskDescription(const __CFAllocator *a1, CFDictiona
     }
   }
 
-  v15 = _DASerialize(a1);
+  v15 = _DASerialize(a1, v5);
   CFRelease(v5);
   return v15;
 }
@@ -1901,27 +1905,24 @@ CFPropertyListRef _DAUnserializeWithBytes(const __CFAllocator *a1, const UInt8 *
 
 char *_DAVolumeCopyID(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5 = 0;
-  if (!strcmp((a1 + 72), "lifs") && (__strlcpy_chk(), !__DAVolumeGetDeviceIDForLifsMount(v7, v6, 1024)))
+  v6 = *MEMORY[0x277D85DE8];
+  v3 = 0;
+  if (!strcmp((a1 + 72), "lifs") && (__strlcpy_chk(), !__DAVolumeGetDeviceIDForLifsMount(v5, v4, 1024)))
   {
-    asprintf(&v5, "/dev/%s");
+    asprintf(&v3, "/dev/%s");
   }
 
   else if (!strncmp((a1 + 1112), "/dev/", 5uLL))
   {
-    asprintf(&v5, "%s");
+    asprintf(&v3, "%s");
   }
 
   else
   {
-    v4 = *(a1 + 56);
-    asprintf(&v5, "%s?owner=%u");
+    asprintf(&v3, "%s?owner=%u");
   }
 
-  result = v5;
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  return v3;
 }
 
 uint64_t __DAVolumeGetDeviceIDForLifsMount(char *a1, char *a2, int a3)
@@ -1951,8 +1952,8 @@ uint64_t __DAVolumeGetDeviceIDForLifsMount(char *a1, char *a2, int a3)
 
 char *_DAVolumeGetID(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  if (!strcmp((a1 + 72), "lifs") && (__strlcpy_chk(), !__DAVolumeGetDeviceIDForLifsMount(v6, v5, 1024)))
+  v5 = *MEMORY[0x277D85DE8];
+  if (!strcmp((a1 + 72), "lifs") && (__strlcpy_chk(), !__DAVolumeGetDeviceIDForLifsMount(v4, v3, 1024)))
   {
     snprintf(_DAVolumeGetID_id, 0x411uLL, "/dev/%s");
   }
@@ -1964,37 +1965,36 @@ char *_DAVolumeGetID(uint64_t a1)
 
   else
   {
-    v4 = *(a1 + 56);
     snprintf(_DAVolumeGetID_id, 0x411uLL, "%s?owner=%u");
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return _DAVolumeGetID_id;
 }
 
 uint64_t _DAVolumeGetDevicePathForLifsMount(uint64_t a1, char *a2, int a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   __strlcpy_chk();
   v5 = strstr(__s1, "://");
-  if (v5 && (v6 = v5, (v7 = strchr(v5 + 3, 47)) != 0))
+  if (!v5)
   {
-    *v7 = 0;
-    strlcpy(a2, "/dev/", a3);
-    strlcat(a2, v6 + 3, a3);
-    result = 0;
+    return 0xFFFFFFFFLL;
   }
 
-  else
+  v6 = v5;
+  v7 = strchr(v5 + 3, 47);
+  if (!v7)
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  *v7 = 0;
+  strlcpy(a2, "/dev/", a3);
+  strlcat(a2, v6 + 3, a3);
+  return 0;
 }
 
-uint64_t _DASessionCallback(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
+uint64_t _DASessionCallback(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int *a4)
 {
   v20 = 0;
   v19 = 0;
@@ -2157,17 +2157,8 @@ DASessionRef DASessionCreate(CFAllocatorRef allocator)
 
     special_port = 0;
     v5 = MEMORY[0x277D85F48];
-    if (task_get_special_port(*MEMORY[0x277D85F48], 4, &special_port))
+    if (task_get_special_port(*MEMORY[0x277D85F48], 4, &special_port) || (name = 0, v6 = bootstrap_look_up2(), mach_port_deallocate(*v5, special_port), v6) || (v15 = 0, v7 = _dyld_get_image_name(0), v8 = basename(v7), v9 = _DAServerSessionCreate(name, v8, &v15), mach_port_deallocate(*v5, name), v9))
     {
-      goto LABEL_9;
-    }
-
-    name = 0;
-    v6 = bootstrap_look_up2();
-    mach_port_deallocate(*v5, special_port);
-    if (v6 || (v15 = 0, v7 = _dyld_get_image_name(0), v8 = basename(v7), v9 = _DAServerSessionCreate(name, v8, &v15), mach_port_deallocate(*v5, name), v9))
-    {
-LABEL_9:
       CFRelease(v2);
       return 0;
     }
@@ -2497,10 +2488,10 @@ uint64_t _DASessionRecreate(uint64_t a1)
       mach_port_deallocate(*v2, special_port[0]);
       if (!v3)
       {
-        v31 = 0;
+        v33 = 0;
         image_name = _dyld_get_image_name(0);
         v5 = basename(image_name);
-        v6 = _DAServerSessionCreate(name, v5, &v31);
+        v6 = _DAServerSessionCreate(name, v5, &v33);
         mach_port_deallocate(*v2, name);
         if (!v6)
         {
@@ -2508,7 +2499,7 @@ uint64_t _DASessionRecreate(uint64_t a1)
           v10 = basename(v9);
           *(a1 + 24) = strdup(v10);
           v11 = getpid();
-          v12 = v31;
+          v12 = v33;
           *(a1 + 32) = v11;
           *(a1 + 36) = v12;
           DASessionSetDispatchQueue(a1, *(a1 + 152));
@@ -2517,58 +2508,58 @@ uint64_t _DASessionRecreate(uint64_t a1)
           pthread_mutex_unlock((a1 + 80));
           if (Count < 1)
           {
-            return _DAServerSessionSetKeepAlive(*(a1 + 36));
+            return _DAServerSessionSetKeepAlive(*(a1 + 36), v14, v15);
           }
 
-          v14 = 0;
-          v28 = Count;
+          v16 = 0;
+          v30 = Count;
           while (1)
           {
-            v15 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-            if (v15)
+            v17 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
+            if (v17)
             {
               break;
             }
 
 LABEL_19:
             ++valuePtr;
-            if (Count <= v14)
+            if (Count <= v16)
             {
-              return _DAServerSessionSetKeepAlive(*(a1 + 36));
+              return _DAServerSessionSetKeepAlive(*(a1 + 36), v14, v15);
             }
           }
 
-          v16 = v15;
+          v18 = v17;
           pthread_mutex_lock((a1 + 80));
-          Value = CFDictionaryGetValue(*(a1 + 64), v16);
+          Value = CFDictionaryGetValue(*(a1 + 64), v18);
           pthread_mutex_unlock((a1 + 80));
           if (!Value)
           {
 LABEL_18:
-            CFRelease(v16);
+            CFRelease(v18);
             goto LABEL_19;
           }
 
           IntegerValue = ___CFDictionaryGetIntegerValue(Value, @"DACallbackKind");
-          v18 = ___CFDictionaryGetIntegerValue(Value, @"DACallbackOrder");
-          v19 = CFDictionaryGetValue(Value, @"DACallbackMatch");
-          v20 = CFDictionaryGetValue(Value, @"DACallbackWatch");
-          v21 = v20;
-          v22 = *(a1 + 36);
-          v23 = valuePtr;
-          if (v19)
+          v20 = ___CFDictionaryGetIntegerValue(Value, @"DACallbackOrder");
+          v21 = CFDictionaryGetValue(Value, @"DACallbackMatch");
+          v22 = CFDictionaryGetValue(Value, @"DACallbackWatch");
+          v23 = v22;
+          v24 = *(a1 + 36);
+          v25 = valuePtr;
+          if (v21)
           {
-            BytePtr = CFDataGetBytePtr(v19);
-            Length = CFDataGetLength(v19);
-            if (v21)
+            BytePtr = CFDataGetBytePtr(v21);
+            Length = CFDataGetLength(v21);
+            if (v23)
             {
 LABEL_14:
-              v26 = CFDataGetBytePtr(v21);
-              v27 = CFDataGetLength(v21);
+              v28 = CFDataGetBytePtr(v23);
+              v29 = CFDataGetLength(v23);
 LABEL_17:
-              _DAServerSessionRegisterCallback(v22, v23, v23, IntegerValue, v18, BytePtr, Length, v26, v27);
-              ++v14;
-              Count = v28;
+              _DAServerSessionRegisterCallback(v24, v25, v25, IntegerValue, v20, BytePtr, Length, v28, v29);
+              ++v16;
+              Count = v30;
               goto LABEL_18;
             }
           }
@@ -2577,14 +2568,14 @@ LABEL_17:
           {
             BytePtr = 0;
             Length = 0;
-            if (v20)
+            if (v22)
             {
               goto LABEL_14;
             }
           }
 
-          v26 = 0;
-          v27 = 0;
+          v28 = 0;
+          v29 = 0;
           goto LABEL_17;
         }
       }
@@ -2616,7 +2607,7 @@ uint64_t DASessionKeepAlive(uint64_t a1, dispatch_queue_t queue)
   handler[3] = &__block_descriptor_tmp_5;
   handler[4] = a1;
   *(a1 + 148) = notify_register_dispatch("com.apple.diskarbitrationd.launched", (a1 + 148), queue, handler);
-  return _DAServerSessionSetKeepAlive(*(a1 + 36));
+  return _DAServerSessionSetKeepAlive(*(a1 + 36), v3, v4);
 }
 
 uint64_t __DASessionKeepAlive_block_invoke(uint64_t a1)
@@ -2716,59 +2707,59 @@ CFStringRef __DASessionCopyDescription(uint64_t a1)
 
 uint64_t _DAServerDiskCopyDescription(unsigned int a1, const char *a2, void *a3, mach_port_name_t *a4)
 {
-  v46 = *MEMORY[0x277D85DE8];
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
+  v45 = *MEMORY[0x277D85DE8];
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  memset(v16, 0, sizeof(v16));
-  *&v16[1].msgh_bits = *MEMORY[0x277D85EF8];
+  v18 = 0u;
+  v16 = 0u;
+  memset(v15, 0, sizeof(v15));
+  *&v15[1].msgh_bits = *MEMORY[0x277D85EF8];
   if (MEMORY[0x28223BE50])
   {
-    v7 = mig_strncpy_zerofill(&v16[1].msgh_voucher_port, a2, 1024);
+    v7 = mig_strncpy_zerofill(&v15[1].msgh_voucher_port, a2, 1024);
   }
 
   else
   {
-    v7 = mig_strncpy(&v16[1].msgh_voucher_port, a2, 1024);
+    v7 = mig_strncpy(&v15[1].msgh_voucher_port, a2, 1024);
   }
 
-  v16[1].msgh_remote_port = 0;
-  v16[1].msgh_local_port = v7;
+  v15[1].msgh_remote_port = 0;
+  v15[1].msgh_local_port = v7;
   v8 = (v7 + 3) & 0xFFFFFFFC;
   special_reply_port = mig_get_special_reply_port();
-  v16[0].msgh_bits = 5395;
-  *&v16[0].msgh_remote_port = __PAIR64__(special_reply_port, a1);
-  *&v16[0].msgh_voucher_port = 0;
+  v15[0].msgh_bits = 5395;
+  *&v15[0].msgh_remote_port = __PAIR64__(special_reply_port, a1);
+  *&v15[0].msgh_voucher_port = 0;
   if (MEMORY[0x28223BE58])
   {
-    voucher_mach_msg_set(v16);
-    msgh_local_port = v16[0].msgh_local_port;
+    voucher_mach_msg_set(v15);
+    msgh_local_port = v15[0].msgh_local_port;
   }
 
   else
@@ -2776,34 +2767,34 @@ uint64_t _DAServerDiskCopyDescription(unsigned int a1, const char *a2, void *a3,
     msgh_local_port = special_reply_port;
   }
 
-  v11 = mach_msg(v16, 3162115, v8 + 40, 0x40u, msgh_local_port, 0, 0);
+  v11 = mach_msg(v15, 3162115, v8 + 40, 0x40u, msgh_local_port, 0, 0);
   msgh_remote_port = v11;
   if ((v11 - 268435458) > 0xE || ((1 << (v11 - 2)) & 0x4003) == 0)
   {
     if (!v11)
     {
-      if (v16[0].msgh_id == 71)
+      if (v15[0].msgh_id == 71)
       {
         msgh_remote_port = 4294966988;
       }
 
-      else if (v16[0].msgh_id == 100)
+      else if (v15[0].msgh_id == 100)
       {
-        if ((v16[0].msgh_bits & 0x80000000) == 0)
+        if ((v15[0].msgh_bits & 0x80000000) == 0)
         {
-          if (v16[0].msgh_size == 36)
+          if (v15[0].msgh_size == 36)
           {
             msgh_remote_port = 4294966996;
-            if (v16[1].msgh_remote_port)
+            if (v15[1].msgh_remote_port)
             {
-              if (v16[0].msgh_remote_port)
+              if (v15[0].msgh_remote_port)
               {
                 msgh_remote_port = 4294966996;
               }
 
               else
               {
-                msgh_remote_port = v16[1].msgh_remote_port;
+                msgh_remote_port = v15[1].msgh_remote_port;
               }
             }
           }
@@ -2817,15 +2808,15 @@ uint64_t _DAServerDiskCopyDescription(unsigned int a1, const char *a2, void *a3,
         }
 
         msgh_remote_port = 4294966996;
-        if (v16[1].msgh_bits == 1 && *&v16[0].msgh_size == 56 && HIBYTE(v16[1].msgh_local_port) == 1)
+        if (v15[1].msgh_bits == 1 && *&v15[0].msgh_size == 56 && HIBYTE(v15[1].msgh_local_port) == 1)
         {
-          msgh_voucher_port = v16[1].msgh_voucher_port;
-          if (v16[1].msgh_voucher_port == DWORD1(v17))
+          msgh_voucher_port = v15[1].msgh_voucher_port;
+          if (v15[1].msgh_voucher_port == DWORD1(v16))
           {
             msgh_remote_port = 0;
-            *a3 = *&v16[1].msgh_size;
+            *a3 = *&v15[1].msgh_size;
             *a4 = msgh_voucher_port;
-            goto LABEL_28;
+            return msgh_remote_port;
           }
         }
       }
@@ -2836,355 +2827,17 @@ uint64_t _DAServerDiskCopyDescription(unsigned int a1, const char *a2, void *a3,
       }
 
 LABEL_27:
-      mach_msg_destroy(v16);
-      goto LABEL_28;
+      mach_msg_destroy(v15);
+      return msgh_remote_port;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_28:
-  v14 = *MEMORY[0x277D85DE8];
   return msgh_remote_port;
 }
 
 uint64_t _DAServerDiskGetOptions(unsigned int a1, const char *a2, _DWORD *a3)
-{
-  v17 = *MEMORY[0x277D85DE8];
-  memset(v16, 0, 480);
-  v14 = 0u;
-  v15 = 0u;
-  *(&v15 + 1) = *MEMORY[0x277D85EF8];
-  if (MEMORY[0x28223BE50])
-  {
-    v5 = mig_strncpy_zerofill(v16 + 8, a2, 1024);
-  }
-
-  else
-  {
-    v5 = mig_strncpy(v16 + 8, a2, 1024);
-  }
-
-  LODWORD(v16[0]) = 0;
-  DWORD1(v16[0]) = v5;
-  v6 = (v5 + 3) & 0xFFFFFFFC;
-  special_reply_port = mig_get_special_reply_port();
-  *(&v14 + 1) = __PAIR64__(special_reply_port, a1);
-  LODWORD(v14) = 5395;
-  *&v15 = 0x100000000;
-  if (MEMORY[0x28223BE58])
-  {
-    voucher_mach_msg_set(&v14);
-    v8 = HIDWORD(v14);
-  }
-
-  else
-  {
-    v8 = special_reply_port;
-  }
-
-  v9 = mach_msg(&v14, 3162115, v6 + 40, 0x30u, v8, 0, 0);
-  v10 = v9;
-  if ((v9 - 268435458) > 0xE || ((1 << (v9 - 2)) & 0x4003) == 0)
-  {
-    if (!v9)
-    {
-      if (DWORD1(v15) == 71)
-      {
-        v10 = 4294966988;
-      }
-
-      else if (DWORD1(v15) == 101)
-      {
-        if ((v14 & 0x80000000) == 0)
-        {
-          if (DWORD1(v14) == 40)
-          {
-            if (!DWORD2(v14))
-            {
-              v10 = LODWORD(v16[0]);
-              if (!LODWORD(v16[0]))
-              {
-                *a3 = DWORD1(v16[0]);
-                goto LABEL_27;
-              }
-
-              goto LABEL_26;
-            }
-          }
-
-          else if (DWORD1(v14) == 36)
-          {
-            if (DWORD2(v14))
-            {
-              v11 = 1;
-            }
-
-            else
-            {
-              v11 = LODWORD(v16[0]) == 0;
-            }
-
-            if (v11)
-            {
-              v10 = 4294966996;
-            }
-
-            else
-            {
-              v10 = LODWORD(v16[0]);
-            }
-
-            goto LABEL_26;
-          }
-        }
-
-        v10 = 4294966996;
-      }
-
-      else
-      {
-        v10 = 4294966995;
-      }
-
-LABEL_26:
-      mach_msg_destroy(&v14);
-      goto LABEL_27;
-    }
-
-    mig_dealloc_special_reply_port();
-  }
-
-LABEL_27:
-  v12 = *MEMORY[0x277D85DE8];
-  return v10;
-}
-
-uint64_t _DAServerDiskGetUserUID(unsigned int a1, const char *a2, _DWORD *a3)
-{
-  v17 = *MEMORY[0x277D85DE8];
-  memset(v16, 0, 480);
-  v14 = 0u;
-  v15 = 0u;
-  *(&v15 + 1) = *MEMORY[0x277D85EF8];
-  if (MEMORY[0x28223BE50])
-  {
-    v5 = mig_strncpy_zerofill(v16 + 8, a2, 1024);
-  }
-
-  else
-  {
-    v5 = mig_strncpy(v16 + 8, a2, 1024);
-  }
-
-  LODWORD(v16[0]) = 0;
-  DWORD1(v16[0]) = v5;
-  v6 = (v5 + 3) & 0xFFFFFFFC;
-  special_reply_port = mig_get_special_reply_port();
-  *(&v14 + 1) = __PAIR64__(special_reply_port, a1);
-  LODWORD(v14) = 5395;
-  *&v15 = 0x200000000;
-  if (MEMORY[0x28223BE58])
-  {
-    voucher_mach_msg_set(&v14);
-    v8 = HIDWORD(v14);
-  }
-
-  else
-  {
-    v8 = special_reply_port;
-  }
-
-  v9 = mach_msg(&v14, 3162115, v6 + 40, 0x30u, v8, 0, 0);
-  v10 = v9;
-  if ((v9 - 268435458) > 0xE || ((1 << (v9 - 2)) & 0x4003) == 0)
-  {
-    if (!v9)
-    {
-      if (DWORD1(v15) == 71)
-      {
-        v10 = 4294966988;
-      }
-
-      else if (DWORD1(v15) == 102)
-      {
-        if ((v14 & 0x80000000) == 0)
-        {
-          if (DWORD1(v14) == 40)
-          {
-            if (!DWORD2(v14))
-            {
-              v10 = LODWORD(v16[0]);
-              if (!LODWORD(v16[0]))
-              {
-                *a3 = DWORD1(v16[0]);
-                goto LABEL_27;
-              }
-
-              goto LABEL_26;
-            }
-          }
-
-          else if (DWORD1(v14) == 36)
-          {
-            if (DWORD2(v14))
-            {
-              v11 = 1;
-            }
-
-            else
-            {
-              v11 = LODWORD(v16[0]) == 0;
-            }
-
-            if (v11)
-            {
-              v10 = 4294966996;
-            }
-
-            else
-            {
-              v10 = LODWORD(v16[0]);
-            }
-
-            goto LABEL_26;
-          }
-        }
-
-        v10 = 4294966996;
-      }
-
-      else
-      {
-        v10 = 4294966995;
-      }
-
-LABEL_26:
-      mach_msg_destroy(&v14);
-      goto LABEL_27;
-    }
-
-    mig_dealloc_special_reply_port();
-  }
-
-LABEL_27:
-  v12 = *MEMORY[0x277D85DE8];
-  return v10;
-}
-
-uint64_t _DAServerDiskIsClaimed(unsigned int a1, const char *a2, _DWORD *a3)
-{
-  v17 = *MEMORY[0x277D85DE8];
-  memset(v16, 0, 480);
-  v14 = 0u;
-  v15 = 0u;
-  *(&v15 + 1) = *MEMORY[0x277D85EF8];
-  if (MEMORY[0x28223BE50])
-  {
-    v5 = mig_strncpy_zerofill(v16 + 8, a2, 1024);
-  }
-
-  else
-  {
-    v5 = mig_strncpy(v16 + 8, a2, 1024);
-  }
-
-  LODWORD(v16[0]) = 0;
-  DWORD1(v16[0]) = v5;
-  v6 = (v5 + 3) & 0xFFFFFFFC;
-  special_reply_port = mig_get_special_reply_port();
-  *(&v14 + 1) = __PAIR64__(special_reply_port, a1);
-  LODWORD(v14) = 5395;
-  *&v15 = 0x300000000;
-  if (MEMORY[0x28223BE58])
-  {
-    voucher_mach_msg_set(&v14);
-    v8 = HIDWORD(v14);
-  }
-
-  else
-  {
-    v8 = special_reply_port;
-  }
-
-  v9 = mach_msg(&v14, 3162115, v6 + 40, 0x30u, v8, 0, 0);
-  v10 = v9;
-  if ((v9 - 268435458) > 0xE || ((1 << (v9 - 2)) & 0x4003) == 0)
-  {
-    if (!v9)
-    {
-      if (DWORD1(v15) == 71)
-      {
-        v10 = 4294966988;
-      }
-
-      else if (DWORD1(v15) == 103)
-      {
-        if ((v14 & 0x80000000) == 0)
-        {
-          if (DWORD1(v14) == 40)
-          {
-            if (!DWORD2(v14))
-            {
-              v10 = LODWORD(v16[0]);
-              if (!LODWORD(v16[0]))
-              {
-                *a3 = DWORD1(v16[0]);
-                goto LABEL_27;
-              }
-
-              goto LABEL_26;
-            }
-          }
-
-          else if (DWORD1(v14) == 36)
-          {
-            if (DWORD2(v14))
-            {
-              v11 = 1;
-            }
-
-            else
-            {
-              v11 = LODWORD(v16[0]) == 0;
-            }
-
-            if (v11)
-            {
-              v10 = 4294966996;
-            }
-
-            else
-            {
-              v10 = LODWORD(v16[0]);
-            }
-
-            goto LABEL_26;
-          }
-        }
-
-        v10 = 4294966996;
-      }
-
-      else
-      {
-        v10 = 4294966995;
-      }
-
-LABEL_26:
-      mach_msg_destroy(&v14);
-      goto LABEL_27;
-    }
-
-    mig_dealloc_special_reply_port();
-  }
-
-LABEL_27:
-  v12 = *MEMORY[0x277D85DE8];
-  return v10;
-}
-
-uint64_t _DAServerDiskSetAdoption(unsigned int a1, const char *a2, int a3)
 {
   v16 = *MEMORY[0x277D85DE8];
   memset(v15, 0, 480);
@@ -3204,11 +2857,10 @@ uint64_t _DAServerDiskSetAdoption(unsigned int a1, const char *a2, int a3)
   LODWORD(v15[0]) = 0;
   DWORD1(v15[0]) = v5;
   v6 = (v5 + 3) & 0xFFFFFFFC;
-  *(v15 + v6 + 8) = a3;
   special_reply_port = mig_get_special_reply_port();
   *(&v13 + 1) = __PAIR64__(special_reply_port, a1);
   LODWORD(v13) = 5395;
-  *&v14 = 0x400000000;
+  *&v14 = 0x100000000;
   if (MEMORY[0x28223BE58])
   {
     voucher_mach_msg_set(&v13);
@@ -3220,30 +2872,361 @@ uint64_t _DAServerDiskSetAdoption(unsigned int a1, const char *a2, int a3)
     v8 = special_reply_port;
   }
 
-  v9 = mach_msg(&v13, 3162115, v6 + 44, 0x2Cu, v8, 0, 0);
+  v9 = mach_msg(&v13, 3162115, v6 + 40, 0x30u, v8, 0, 0);
+  v10 = v9;
+  if ((v9 - 268435458) > 0xE || ((1 << (v9 - 2)) & 0x4003) == 0)
+  {
+    if (!v9)
+    {
+      if (DWORD1(v14) == 71)
+      {
+        v10 = 4294966988;
+      }
+
+      else if (DWORD1(v14) == 101)
+      {
+        if ((v13 & 0x80000000) == 0)
+        {
+          if (DWORD1(v13) == 40)
+          {
+            if (!DWORD2(v13))
+            {
+              v10 = LODWORD(v15[0]);
+              if (!LODWORD(v15[0]))
+              {
+                *a3 = DWORD1(v15[0]);
+                return v10;
+              }
+
+              goto LABEL_26;
+            }
+          }
+
+          else if (DWORD1(v13) == 36)
+          {
+            if (DWORD2(v13))
+            {
+              v11 = 1;
+            }
+
+            else
+            {
+              v11 = LODWORD(v15[0]) == 0;
+            }
+
+            if (v11)
+            {
+              v10 = 4294966996;
+            }
+
+            else
+            {
+              v10 = LODWORD(v15[0]);
+            }
+
+            goto LABEL_26;
+          }
+        }
+
+        v10 = 4294966996;
+      }
+
+      else
+      {
+        v10 = 4294966995;
+      }
+
+LABEL_26:
+      mach_msg_destroy(&v13);
+      return v10;
+    }
+
+    mig_dealloc_special_reply_port();
+  }
+
+  return v10;
+}
+
+uint64_t _DAServerDiskGetUserUID(unsigned int a1, const char *a2, _DWORD *a3)
+{
+  v16 = *MEMORY[0x277D85DE8];
+  memset(v15, 0, 480);
+  v13 = 0u;
+  v14 = 0u;
+  *(&v14 + 1) = *MEMORY[0x277D85EF8];
+  if (MEMORY[0x28223BE50])
+  {
+    v5 = mig_strncpy_zerofill(v15 + 8, a2, 1024);
+  }
+
+  else
+  {
+    v5 = mig_strncpy(v15 + 8, a2, 1024);
+  }
+
+  LODWORD(v15[0]) = 0;
+  DWORD1(v15[0]) = v5;
+  v6 = (v5 + 3) & 0xFFFFFFFC;
+  special_reply_port = mig_get_special_reply_port();
+  *(&v13 + 1) = __PAIR64__(special_reply_port, a1);
+  LODWORD(v13) = 5395;
+  *&v14 = 0x200000000;
+  if (MEMORY[0x28223BE58])
+  {
+    voucher_mach_msg_set(&v13);
+    v8 = HIDWORD(v13);
+  }
+
+  else
+  {
+    v8 = special_reply_port;
+  }
+
+  v9 = mach_msg(&v13, 3162115, v6 + 40, 0x30u, v8, 0, 0);
+  v10 = v9;
+  if ((v9 - 268435458) > 0xE || ((1 << (v9 - 2)) & 0x4003) == 0)
+  {
+    if (!v9)
+    {
+      if (DWORD1(v14) == 71)
+      {
+        v10 = 4294966988;
+      }
+
+      else if (DWORD1(v14) == 102)
+      {
+        if ((v13 & 0x80000000) == 0)
+        {
+          if (DWORD1(v13) == 40)
+          {
+            if (!DWORD2(v13))
+            {
+              v10 = LODWORD(v15[0]);
+              if (!LODWORD(v15[0]))
+              {
+                *a3 = DWORD1(v15[0]);
+                return v10;
+              }
+
+              goto LABEL_26;
+            }
+          }
+
+          else if (DWORD1(v13) == 36)
+          {
+            if (DWORD2(v13))
+            {
+              v11 = 1;
+            }
+
+            else
+            {
+              v11 = LODWORD(v15[0]) == 0;
+            }
+
+            if (v11)
+            {
+              v10 = 4294966996;
+            }
+
+            else
+            {
+              v10 = LODWORD(v15[0]);
+            }
+
+            goto LABEL_26;
+          }
+        }
+
+        v10 = 4294966996;
+      }
+
+      else
+      {
+        v10 = 4294966995;
+      }
+
+LABEL_26:
+      mach_msg_destroy(&v13);
+      return v10;
+    }
+
+    mig_dealloc_special_reply_port();
+  }
+
+  return v10;
+}
+
+uint64_t _DAServerDiskIsClaimed(unsigned int a1, const char *a2, _DWORD *a3)
+{
+  v16 = *MEMORY[0x277D85DE8];
+  memset(v15, 0, 480);
+  v13 = 0u;
+  v14 = 0u;
+  *(&v14 + 1) = *MEMORY[0x277D85EF8];
+  if (MEMORY[0x28223BE50])
+  {
+    v5 = mig_strncpy_zerofill(v15 + 8, a2, 1024);
+  }
+
+  else
+  {
+    v5 = mig_strncpy(v15 + 8, a2, 1024);
+  }
+
+  LODWORD(v15[0]) = 0;
+  DWORD1(v15[0]) = v5;
+  v6 = (v5 + 3) & 0xFFFFFFFC;
+  special_reply_port = mig_get_special_reply_port();
+  *(&v13 + 1) = __PAIR64__(special_reply_port, a1);
+  LODWORD(v13) = 5395;
+  *&v14 = 0x300000000;
+  if (MEMORY[0x28223BE58])
+  {
+    voucher_mach_msg_set(&v13);
+    v8 = HIDWORD(v13);
+  }
+
+  else
+  {
+    v8 = special_reply_port;
+  }
+
+  v9 = mach_msg(&v13, 3162115, v6 + 40, 0x30u, v8, 0, 0);
+  v10 = v9;
+  if ((v9 - 268435458) > 0xE || ((1 << (v9 - 2)) & 0x4003) == 0)
+  {
+    if (!v9)
+    {
+      if (DWORD1(v14) == 71)
+      {
+        v10 = 4294966988;
+      }
+
+      else if (DWORD1(v14) == 103)
+      {
+        if ((v13 & 0x80000000) == 0)
+        {
+          if (DWORD1(v13) == 40)
+          {
+            if (!DWORD2(v13))
+            {
+              v10 = LODWORD(v15[0]);
+              if (!LODWORD(v15[0]))
+              {
+                *a3 = DWORD1(v15[0]);
+                return v10;
+              }
+
+              goto LABEL_26;
+            }
+          }
+
+          else if (DWORD1(v13) == 36)
+          {
+            if (DWORD2(v13))
+            {
+              v11 = 1;
+            }
+
+            else
+            {
+              v11 = LODWORD(v15[0]) == 0;
+            }
+
+            if (v11)
+            {
+              v10 = 4294966996;
+            }
+
+            else
+            {
+              v10 = LODWORD(v15[0]);
+            }
+
+            goto LABEL_26;
+          }
+        }
+
+        v10 = 4294966996;
+      }
+
+      else
+      {
+        v10 = 4294966995;
+      }
+
+LABEL_26:
+      mach_msg_destroy(&v13);
+      return v10;
+    }
+
+    mig_dealloc_special_reply_port();
+  }
+
+  return v10;
+}
+
+uint64_t _DAServerDiskSetAdoption(unsigned int a1, const char *a2, int a3)
+{
+  v15 = *MEMORY[0x277D85DE8];
+  memset(v14, 0, 480);
+  v12 = 0u;
+  v13 = 0u;
+  *(&v13 + 1) = *MEMORY[0x277D85EF8];
+  if (MEMORY[0x28223BE50])
+  {
+    v5 = mig_strncpy_zerofill(v14 + 8, a2, 1024);
+  }
+
+  else
+  {
+    v5 = mig_strncpy(v14 + 8, a2, 1024);
+  }
+
+  LODWORD(v14[0]) = 0;
+  DWORD1(v14[0]) = v5;
+  v6 = (v5 + 3) & 0xFFFFFFFC;
+  *(v14 + v6 + 8) = a3;
+  special_reply_port = mig_get_special_reply_port();
+  *(&v12 + 1) = __PAIR64__(special_reply_port, a1);
+  LODWORD(v12) = 5395;
+  *&v13 = 0x400000000;
+  if (MEMORY[0x28223BE58])
+  {
+    voucher_mach_msg_set(&v12);
+    v8 = HIDWORD(v12);
+  }
+
+  else
+  {
+    v8 = special_reply_port;
+  }
+
+  v9 = mach_msg(&v12, 3162115, v6 + 44, 0x2Cu, v8, 0, 0);
   v10 = v9;
   if ((v9 - 268435458) > 0xE || ((1 << (v9 - 2)) & 0x4003) == 0)
   {
     if (v9)
     {
       mig_dealloc_special_reply_port();
-      goto LABEL_20;
+      return v10;
     }
 
-    if (DWORD1(v14) == 71)
+    if (DWORD1(v13) == 71)
     {
       v10 = 4294966988;
     }
 
-    else if (DWORD1(v14) == 104)
+    else if (DWORD1(v13) == 104)
     {
       v10 = 4294966996;
-      if ((v13 & 0x80000000) == 0 && *(&v13 + 4) == 36)
+      if ((v12 & 0x80000000) == 0 && *(&v12 + 4) == 36)
       {
-        v10 = LODWORD(v15[0]);
-        if (!LODWORD(v15[0]))
+        v10 = LODWORD(v14[0]);
+        if (!LODWORD(v14[0]))
         {
-          goto LABEL_20;
+          return v10;
         }
       }
     }
@@ -3253,45 +3236,43 @@ uint64_t _DAServerDiskSetAdoption(unsigned int a1, const char *a2, int a3)
       v10 = 4294966995;
     }
 
-    mach_msg_destroy(&v13);
+    mach_msg_destroy(&v12);
   }
 
-LABEL_20:
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t _DAServerDiskSetOptions(unsigned int a1, const char *a2, int a3, int a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  memset(v18, 0, 480);
+  v18 = *MEMORY[0x277D85DE8];
+  memset(v17, 0, 480);
+  v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  *(&v17 + 1) = *MEMORY[0x277D85EF8];
+  *(&v16 + 1) = *MEMORY[0x277D85EF8];
   if (MEMORY[0x28223BE50])
   {
-    v7 = mig_strncpy_zerofill(v18 + 8, a2, 1024);
+    v7 = mig_strncpy_zerofill(v17 + 8, a2, 1024);
   }
 
   else
   {
-    v7 = mig_strncpy(v18 + 8, a2, 1024);
+    v7 = mig_strncpy(v17 + 8, a2, 1024);
   }
 
-  LODWORD(v18[0]) = 0;
-  DWORD1(v18[0]) = v7;
+  LODWORD(v17[0]) = 0;
+  DWORD1(v17[0]) = v7;
   v8 = (v7 + 3) & 0xFFFFFFFC;
-  v9 = &v16 + v8;
+  v9 = &v15 + v8;
   *(v9 + 10) = a3;
   *(v9 + 11) = a4;
   special_reply_port = mig_get_special_reply_port();
-  *(&v16 + 1) = __PAIR64__(special_reply_port, a1);
-  LODWORD(v16) = 5395;
-  *&v17 = 0x500000000;
+  *(&v15 + 1) = __PAIR64__(special_reply_port, a1);
+  LODWORD(v15) = 5395;
+  *&v16 = 0x500000000;
   if (MEMORY[0x28223BE58])
   {
-    voucher_mach_msg_set(&v16);
-    v11 = HIDWORD(v16);
+    voucher_mach_msg_set(&v15);
+    v11 = HIDWORD(v15);
   }
 
   else
@@ -3299,30 +3280,30 @@ uint64_t _DAServerDiskSetOptions(unsigned int a1, const char *a2, int a3, int a4
     v11 = special_reply_port;
   }
 
-  v12 = mach_msg(&v16, 3162115, v8 + 48, 0x2Cu, v11, 0, 0);
+  v12 = mach_msg(&v15, 3162115, v8 + 48, 0x2Cu, v11, 0, 0);
   v13 = v12;
   if ((v12 - 268435458) > 0xE || ((1 << (v12 - 2)) & 0x4003) == 0)
   {
     if (v12)
     {
       mig_dealloc_special_reply_port();
-      goto LABEL_20;
+      return v13;
     }
 
-    if (DWORD1(v17) == 71)
+    if (DWORD1(v16) == 71)
     {
       v13 = 4294966988;
     }
 
-    else if (DWORD1(v17) == 105)
+    else if (DWORD1(v16) == 105)
     {
       v13 = 4294966996;
-      if ((v16 & 0x80000000) == 0 && *(&v16 + 4) == 36)
+      if ((v15 & 0x80000000) == 0 && *(&v15 + 4) == 36)
       {
-        v13 = LODWORD(v18[0]);
-        if (!LODWORD(v18[0]))
+        v13 = LODWORD(v17[0]);
+        if (!LODWORD(v17[0]))
         {
-          goto LABEL_20;
+          return v13;
         }
       }
     }
@@ -3332,54 +3313,51 @@ uint64_t _DAServerDiskSetOptions(unsigned int a1, const char *a2, int a3, int a4
       v13 = 4294966995;
     }
 
-    mach_msg_destroy(&v16);
+    mach_msg_destroy(&v15);
   }
 
-LABEL_20:
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 uint64_t _DAServerDiskUnclaim(unsigned int a1, const char *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  memset(v9, 0, 480);
+  v9 = *MEMORY[0x277D85DE8];
+  memset(v8, 0, 480);
+  v6 = 0u;
   v7 = 0u;
-  v8 = 0u;
-  *(&v8 + 1) = *MEMORY[0x277D85EF8];
+  *(&v7 + 1) = *MEMORY[0x277D85EF8];
   if (MEMORY[0x28223BE50])
   {
-    v3 = mig_strncpy_zerofill(v9 + 8, a2, 1024);
+    v3 = mig_strncpy_zerofill(v8 + 8, a2, 1024);
   }
 
   else
   {
-    v3 = mig_strncpy(v9 + 8, a2, 1024);
+    v3 = mig_strncpy(v8 + 8, a2, 1024);
   }
 
   v4 = v3;
-  LODWORD(v9[0]) = 0;
-  DWORD1(v9[0]) = v3;
-  LODWORD(v7) = 19;
-  *(&v7 + 1) = a1;
-  *&v8 = 0x600000000;
+  LODWORD(v8[0]) = 0;
+  DWORD1(v8[0]) = v3;
+  LODWORD(v6) = 19;
+  *(&v6 + 1) = a1;
+  *&v7 = 0x600000000;
   if (MEMORY[0x28223BE58])
   {
-    voucher_mach_msg_set(&v7);
+    voucher_mach_msg_set(&v6);
   }
 
-  result = mach_msg(&v7, 2097153, ((v4 + 3) & 0xFFFFFFFC) + 40, 0, 0, 0, 0);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return mach_msg(&v6, 2097153, ((v4 + 3) & 0xFFFFFFFC) + 40, 0, 0, 0, 0);
 }
 
-uint64_t _DAServerSessionCopyCallbackQueue(int a1, void *a2, _DWORD *a3)
+uint64_t _DAServerSessionCopyCallbackQueue(uint64_t a1, void *a2, _DWORD *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v5 = a1;
+  v17 = *MEMORY[0x277D85DE8];
   memset(&msg_16[4], 0, 44);
   msg_4 = 0;
   special_reply_port = mig_get_special_reply_port();
-  msg_8 = a1;
+  msg_8 = v5;
   msg_12 = special_reply_port;
   msg = 5395;
   *msg_16 = 0x700000000;
@@ -3443,7 +3421,7 @@ uint64_t _DAServerSessionCopyCallbackQueue(int a1, void *a2, _DWORD *a3)
             v9 = 0;
             *a2 = *&msg_16[12];
             *a3 = v10;
-            goto LABEL_26;
+            return v9;
           }
         }
       }
@@ -3455,45 +3433,43 @@ uint64_t _DAServerSessionCopyCallbackQueue(int a1, void *a2, _DWORD *a3)
 
 LABEL_25:
       mach_msg_destroy(&msg);
-      goto LABEL_26;
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_26:
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 uint64_t _DAServerSessionCreate(unsigned int a1, const char *a2, _DWORD *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  memset(v15, 0, 480);
+  v15 = *MEMORY[0x277D85DE8];
+  memset(v14, 0, 480);
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  *(&v14 + 1) = *MEMORY[0x277D85EF8];
+  *(&v13 + 1) = *MEMORY[0x277D85EF8];
   if (MEMORY[0x28223BE50])
   {
-    v5 = mig_strncpy_zerofill(v15 + 8, a2, 1024);
+    v5 = mig_strncpy_zerofill(v14 + 8, a2, 1024);
   }
 
   else
   {
-    v5 = mig_strncpy(v15 + 8, a2, 1024);
+    v5 = mig_strncpy(v14 + 8, a2, 1024);
   }
 
-  LODWORD(v15[0]) = 0;
-  DWORD1(v15[0]) = v5;
+  LODWORD(v14[0]) = 0;
+  DWORD1(v14[0]) = v5;
   v6 = (v5 + 3) & 0xFFFFFFFC;
   special_reply_port = mig_get_special_reply_port();
-  *(&v13 + 1) = __PAIR64__(special_reply_port, a1);
-  LODWORD(v13) = 5395;
-  *&v14 = 0x800000000;
+  *(&v12 + 1) = __PAIR64__(special_reply_port, a1);
+  LODWORD(v12) = 5395;
+  *&v13 = 0x800000000;
   if (MEMORY[0x28223BE58])
   {
-    voucher_mach_msg_set(&v13);
-    v8 = HIDWORD(v13);
+    voucher_mach_msg_set(&v12);
+    v8 = HIDWORD(v12);
   }
 
   else
@@ -3501,34 +3477,34 @@ uint64_t _DAServerSessionCreate(unsigned int a1, const char *a2, _DWORD *a3)
     v8 = special_reply_port;
   }
 
-  v9 = mach_msg(&v13, 3162115, v6 + 40, 0x30u, v8, 0, 0);
+  v9 = mach_msg(&v12, 3162115, v6 + 40, 0x30u, v8, 0, 0);
   v10 = v9;
   if ((v9 - 268435458) > 0xE || ((1 << (v9 - 2)) & 0x4003) == 0)
   {
     if (!v9)
     {
-      if (DWORD1(v14) == 71)
+      if (DWORD1(v13) == 71)
       {
         v10 = 4294966988;
       }
 
-      else if (DWORD1(v14) == 108)
+      else if (DWORD1(v13) == 108)
       {
-        if ((v13 & 0x80000000) == 0)
+        if ((v12 & 0x80000000) == 0)
         {
-          if (DWORD1(v13) == 36)
+          if (DWORD1(v12) == 36)
           {
             v10 = 4294966996;
-            if (LODWORD(v15[0]))
+            if (LODWORD(v14[0]))
             {
-              if (DWORD2(v13))
+              if (DWORD2(v12))
               {
                 v10 = 4294966996;
               }
 
               else
               {
-                v10 = LODWORD(v15[0]);
+                v10 = LODWORD(v14[0]);
               }
             }
           }
@@ -3542,11 +3518,11 @@ uint64_t _DAServerSessionCreate(unsigned int a1, const char *a2, _DWORD *a3)
         }
 
         v10 = 4294966996;
-        if (DWORD2(v14) == 1 && *(&v13 + 4) == 40 && WORD3(v15[0]) << 16 == 1114112)
+        if (DWORD2(v13) == 1 && *(&v12 + 4) == 40 && WORD3(v14[0]) << 16 == 1114112)
         {
           v10 = 0;
-          *a3 = HIDWORD(v14);
-          goto LABEL_27;
+          *a3 = HIDWORD(v13);
+          return v10;
         }
       }
 
@@ -3556,61 +3532,59 @@ uint64_t _DAServerSessionCreate(unsigned int a1, const char *a2, _DWORD *a3)
       }
 
 LABEL_26:
-      mach_msg_destroy(&v13);
-      goto LABEL_27;
+      mach_msg_destroy(&v12);
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_27:
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t _DAServerSessionQueueRequest(mach_port_t a1, int a2, char *src, int a4, uint64_t a5, int a6, uint64_t a7, unsigned int a8, uint64_t a9, uint64_t a10)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  *&v30[8] = 0u;
-  memset(v31, 0, 432);
-  memset(&v23, 0, sizeof(v23));
-  v24 = 2;
-  v25 = a5;
-  v26 = 16777472;
-  v27 = a6;
-  v28 = a7;
-  v29 = 16777472;
-  *v30 = a8;
-  *&v30[4] = *MEMORY[0x277D85EF8];
-  *&v30[12] = a2;
+  v31 = *MEMORY[0x277D85DE8];
+  *&v29[8] = 0u;
+  memset(v30, 0, 432);
+  memset(&v22, 0, sizeof(v22));
+  v23 = 2;
+  v24 = a5;
+  v25 = 16777472;
+  v26 = a6;
+  v27 = a7;
+  v28 = 16777472;
+  *v29 = a8;
+  *&v29[4] = *MEMORY[0x277D85EF8];
+  *&v29[12] = a2;
   if (MEMORY[0x28223BE50])
   {
-    v14 = mig_strncpy_zerofill(v31, src, 1024);
+    v14 = mig_strncpy_zerofill(v30, src, 1024);
   }
 
   else
   {
-    v14 = mig_strncpy(v31, src, 1024);
+    v14 = mig_strncpy(v30, src, 1024);
   }
 
-  *&v30[16] = 0;
-  *&v30[20] = v14;
+  *&v29[16] = 0;
+  *&v29[20] = v14;
   v15 = (v14 + 3) & 0xFFFFFFFC;
-  v16 = &v23 + v15;
+  v16 = &v22 + v15;
   *(v16 + 20) = a4;
   *(v16 + 21) = a6;
   *(v16 + 22) = a8;
   *(v16 + 92) = a9;
   *(v16 + 100) = a10;
   special_reply_port = mig_get_special_reply_port();
-  v23.msgh_remote_port = a1;
-  v23.msgh_local_port = special_reply_port;
-  v23.msgh_bits = -2147478253;
-  *&v23.msgh_voucher_port = 0x900000000;
+  v22.msgh_remote_port = a1;
+  v22.msgh_local_port = special_reply_port;
+  v22.msgh_bits = -2147478253;
+  *&v22.msgh_voucher_port = 0x900000000;
   if (MEMORY[0x28223BE58])
   {
-    voucher_mach_msg_set(&v23);
-    msgh_local_port = v23.msgh_local_port;
+    voucher_mach_msg_set(&v22);
+    msgh_local_port = v22.msgh_local_port;
   }
 
   else
@@ -3618,30 +3592,30 @@ uint64_t _DAServerSessionQueueRequest(mach_port_t a1, int a2, char *src, int a4,
     msgh_local_port = special_reply_port;
   }
 
-  v19 = mach_msg(&v23, 3162115, v15 + 108, 0x2Cu, msgh_local_port, 0, 0);
+  v19 = mach_msg(&v22, 3162115, v15 + 108, 0x2Cu, msgh_local_port, 0, 0);
   v20 = v19;
   if ((v19 - 268435458) > 0xE || ((1 << (v19 - 2)) & 0x4003) == 0)
   {
     if (v19)
     {
       mig_dealloc_special_reply_port();
-      goto LABEL_20;
+      return v20;
     }
 
-    if (v23.msgh_id == 71)
+    if (v22.msgh_id == 71)
     {
       v20 = 4294966988;
     }
 
-    else if (v23.msgh_id == 109)
+    else if (v22.msgh_id == 109)
     {
       v20 = 4294966996;
-      if ((v23.msgh_bits & 0x80000000) == 0 && *&v23.msgh_size == 36)
+      if ((v22.msgh_bits & 0x80000000) == 0 && *&v22.msgh_size == 36)
       {
-        v20 = HIDWORD(v25);
-        if (!HIDWORD(v25))
+        v20 = HIDWORD(v24);
+        if (!HIDWORD(v24))
         {
-          goto LABEL_20;
+          return v20;
         }
       }
     }
@@ -3651,60 +3625,58 @@ uint64_t _DAServerSessionQueueRequest(mach_port_t a1, int a2, char *src, int a4,
       v20 = 4294966995;
     }
 
-    mach_msg_destroy(&v23);
+    mach_msg_destroy(&v22);
   }
 
-LABEL_20:
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 uint64_t _DAServerSessionQueueRequestWithUserToken(unsigned int a1, int a2, _OWORD *a3, char *src, int a5, uint64_t a6, int a7, uint64_t a8, int a9, uint64_t a10, uint64_t a11)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  memset(v26, 0, 400);
-  memset(&v25[16], 0, 80);
-  v24 = 0u;
-  *v25 = 0u;
+  v26 = *MEMORY[0x277D85DE8];
+  memset(v25, 0, 400);
+  memset(&v24[16], 0, 80);
+  v23 = 0u;
+  *v24 = 0u;
   v14 = a3[1];
-  *&v25[56] = *a3;
-  *&v25[8] = 2;
-  *&v25[12] = a6;
-  *&v25[20] = 16777472;
-  *&v25[24] = a7;
-  *&v25[28] = a8;
-  *&v25[36] = 16777472;
-  *&v25[40] = a9;
-  *&v25[44] = *MEMORY[0x277D85EF8];
-  *&v25[52] = a2;
-  *&v25[72] = v14;
+  *&v24[56] = *a3;
+  *&v24[8] = 2;
+  *&v24[12] = a6;
+  *&v24[20] = 16777472;
+  *&v24[24] = a7;
+  *&v24[28] = a8;
+  *&v24[36] = 16777472;
+  *&v24[40] = a9;
+  *&v24[44] = *MEMORY[0x277D85EF8];
+  *&v24[52] = a2;
+  *&v24[72] = v14;
   if (MEMORY[0x28223BE50])
   {
-    v15 = mig_strncpy_zerofill(v26, src, 1024);
+    v15 = mig_strncpy_zerofill(v25, src, 1024);
   }
 
   else
   {
-    v15 = mig_strncpy(v26, src, 1024);
+    v15 = mig_strncpy(v25, src, 1024);
   }
 
-  *&v25[88] = 0;
-  *&v25[92] = v15;
+  *&v24[88] = 0;
+  *&v24[92] = v15;
   v16 = (v15 + 3) & 0xFFFFFFFC;
-  v17 = &v25[v16 - 16];
+  v17 = &v24[v16 - 16];
   *(v17 + 28) = a5;
   *(v17 + 29) = a7;
   *(v17 + 30) = a9;
   *(v17 + 124) = a10;
   *(v17 + 132) = a11;
   special_reply_port = mig_get_special_reply_port();
-  *(&v24 + 1) = __PAIR64__(special_reply_port, a1);
-  LODWORD(v24) = -2147478253;
-  *v25 = 0xA00000000;
+  *(&v23 + 1) = __PAIR64__(special_reply_port, a1);
+  LODWORD(v23) = -2147478253;
+  *v24 = 0xA00000000;
   if (MEMORY[0x28223BE58])
   {
-    voucher_mach_msg_set(&v24);
-    v19 = HIDWORD(v24);
+    voucher_mach_msg_set(&v23);
+    v19 = HIDWORD(v23);
   }
 
   else
@@ -3712,30 +3684,30 @@ uint64_t _DAServerSessionQueueRequestWithUserToken(unsigned int a1, int a2, _OWO
     v19 = special_reply_port;
   }
 
-  v20 = mach_msg(&v24, 3162115, v16 + 140, 0x2Cu, v19, 0, 0);
+  v20 = mach_msg(&v23, 3162115, v16 + 140, 0x2Cu, v19, 0, 0);
   v21 = v20;
   if ((v20 - 268435458) > 0xE || ((1 << (v20 - 2)) & 0x4003) == 0)
   {
     if (v20)
     {
       mig_dealloc_special_reply_port();
-      goto LABEL_20;
+      return v21;
     }
 
-    if (*&v25[4] == 71)
+    if (*&v24[4] == 71)
     {
       v21 = 4294966988;
     }
 
-    else if (*&v25[4] == 110)
+    else if (*&v24[4] == 110)
     {
       v21 = 4294966996;
-      if ((v24 & 0x80000000) == 0 && *(&v24 + 4) == 36)
+      if ((v23 & 0x80000000) == 0 && *(&v23 + 4) == 36)
       {
-        v21 = *&v25[16];
-        if (!*&v25[16])
+        v21 = *&v24[16];
+        if (!*&v24[16])
         {
-          goto LABEL_20;
+          return v21;
         }
       }
     }
@@ -3745,84 +3717,81 @@ uint64_t _DAServerSessionQueueRequestWithUserToken(unsigned int a1, int a2, _OWO
       v21 = 4294966995;
     }
 
-    mach_msg_destroy(&v24);
+    mach_msg_destroy(&v23);
   }
 
-LABEL_20:
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 uint64_t _DAServerSessionQueueResponse(unsigned int a1, uint64_t a2, uint64_t a3, int a4, char *src, uint64_t a6, unsigned int a7, int a8)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  *&v20[24] = 0u;
-  memset(v21, 0, 432);
-  *&v20[8] = 0u;
-  memset(&v16, 0, sizeof(v16));
-  v17 = 1;
-  v18 = a6;
-  v19 = 16777472;
-  *v20 = a7;
-  *&v20[4] = *MEMORY[0x277D85EF8];
-  *&v20[12] = a2;
-  *&v20[20] = a3;
-  *&v20[28] = a4;
+  v21 = *MEMORY[0x277D85DE8];
+  *&v19[24] = 0u;
+  memset(v20, 0, 432);
+  *&v19[8] = 0u;
+  memset(&v15, 0, sizeof(v15));
+  v16 = 1;
+  v17 = a6;
+  v18 = 16777472;
+  *v19 = a7;
+  *&v19[4] = *MEMORY[0x277D85EF8];
+  *&v19[12] = a2;
+  *&v19[20] = a3;
+  *&v19[28] = a4;
   if (MEMORY[0x28223BE50])
   {
-    v11 = mig_strncpy_zerofill(v21, src, 1024);
+    v11 = mig_strncpy_zerofill(v20, src, 1024);
   }
 
   else
   {
-    v11 = mig_strncpy(v21, src, 1024);
+    v11 = mig_strncpy(v20, src, 1024);
   }
 
-  *&v20[32] = 0;
-  *&v20[36] = v11;
+  *&v19[32] = 0;
+  *&v19[36] = v11;
   v12 = (v11 + 3) & 0xFFFFFFFC;
-  v13 = &v16 + v12;
+  v13 = &v15 + v12;
   *(v13 + 20) = a7;
   *(v13 + 21) = a8;
-  v16.msgh_bits = -2147483629;
-  *&v16.msgh_remote_port = a1;
-  *&v16.msgh_voucher_port = 0xB00000000;
+  v15.msgh_bits = -2147483629;
+  *&v15.msgh_remote_port = a1;
+  *&v15.msgh_voucher_port = 0xB00000000;
   if (MEMORY[0x28223BE58])
   {
-    voucher_mach_msg_set(&v16);
+    voucher_mach_msg_set(&v15);
   }
 
-  result = mach_msg(&v16, 2097153, v12 + 88, 0, 0, 0, 0);
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return mach_msg(&v15, 2097153, v12 + 88, 0, 0, 0, 0);
 }
 
-uint64_t _DAServerSessionRegisterCallback(mach_port_t a1, uint64_t a2, uint64_t a3, int a4, int a5, uint64_t a6, int a7, uint64_t a8, int a9)
+uint64_t _DAServerSessionRegisterCallback(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, uint64_t a6, int a7, uint64_t a8, int a9)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v17 = 2;
-  v18 = a6;
-  v19 = 16777472;
-  v20 = a7;
-  v21 = a8;
-  v22 = 16777472;
-  v23 = a9;
-  v24 = *MEMORY[0x277D85EF8];
-  v25 = a2;
-  v26 = a3;
-  v27 = a4;
-  v28 = a5;
-  v29 = a7;
-  v30 = a9;
+  v9 = a1;
+  v30 = *MEMORY[0x277D85DE8];
+  v16 = 2;
+  v17 = a6;
+  v18 = 16777472;
+  v19 = a7;
+  v20 = a8;
+  v21 = 16777472;
+  v22 = a9;
+  v23 = *MEMORY[0x277D85EF8];
+  v24 = a2;
+  v25 = a3;
+  v26 = a4;
+  v27 = a5;
+  v28 = a7;
+  v29 = a9;
   special_reply_port = mig_get_special_reply_port();
-  *&v16.msgh_bits = 2147489043;
-  v16.msgh_remote_port = a1;
-  v16.msgh_local_port = special_reply_port;
-  *&v16.msgh_voucher_port = 0xC00000000;
+  *&v15.msgh_bits = 2147489043;
+  v15.msgh_remote_port = v9;
+  v15.msgh_local_port = special_reply_port;
+  *&v15.msgh_voucher_port = 0xC00000000;
   if (MEMORY[0x28223BE58])
   {
-    voucher_mach_msg_set(&v16);
-    msgh_local_port = v16.msgh_local_port;
+    voucher_mach_msg_set(&v15);
+    msgh_local_port = v15.msgh_local_port;
   }
 
   else
@@ -3830,30 +3799,30 @@ uint64_t _DAServerSessionRegisterCallback(mach_port_t a1, uint64_t a2, uint64_t 
     msgh_local_port = special_reply_port;
   }
 
-  v12 = mach_msg(&v16, 3162115, 0x64u, 0x2Cu, msgh_local_port, 0, 0);
+  v12 = mach_msg(&v15, 3162115, 0x64u, 0x2Cu, msgh_local_port, 0, 0);
   v13 = v12;
   if ((v12 - 268435458) > 0xE || ((1 << (v12 - 2)) & 0x4003) == 0)
   {
     if (v12)
     {
       mig_dealloc_special_reply_port();
-      goto LABEL_17;
+      return v13;
     }
 
-    if (v16.msgh_id == 71)
+    if (v15.msgh_id == 71)
     {
       v13 = 4294966988;
     }
 
-    else if (v16.msgh_id == 112)
+    else if (v15.msgh_id == 112)
     {
       v13 = 4294966996;
-      if ((v16.msgh_bits & 0x80000000) == 0 && *&v16.msgh_size == 36)
+      if ((v15.msgh_bits & 0x80000000) == 0 && v15.msgh_size == 36 && !v15.msgh_remote_port)
       {
-        v13 = HIDWORD(v18);
-        if (!HIDWORD(v18))
+        v13 = HIDWORD(v17);
+        if (!HIDWORD(v17))
         {
-          goto LABEL_17;
+          return v13;
         }
       }
     }
@@ -3863,11 +3832,9 @@ uint64_t _DAServerSessionRegisterCallback(mach_port_t a1, uint64_t a2, uint64_t 
       v13 = 4294966995;
     }
 
-    mach_msg_destroy(&v16);
+    mach_msg_destroy(&v15);
   }
 
-LABEL_17:
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -3886,64 +3853,65 @@ uint64_t _DAServerSessionRelease(mach_port_t a1)
   return mach_msg(&msg, 2097153, 0x18u, 0, 0, 0, 0);
 }
 
-uint64_t _DAServerSessionSetKeepAlive(int a1)
+uint64_t _DAServerSessionSetKeepAlive(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8 = 0;
+  v3 = a1;
+  v10 = 0;
   *&msg[20] = 0u;
   *&msg[4] = 0;
   special_reply_port = mig_get_special_reply_port();
-  *&msg[8] = a1;
+  *&msg[8] = v3;
   *&msg[12] = special_reply_port;
   *msg = 5395;
   *&msg[16] = 0xE00000000;
   if (MEMORY[0x28223BE58])
   {
     voucher_mach_msg_set(msg);
-    v3 = *&msg[12];
+    v5 = *&msg[12];
   }
 
   else
   {
-    v3 = special_reply_port;
+    v5 = special_reply_port;
   }
 
-  v4 = mach_msg(msg, 3162115, 0x18u, 0x2Cu, v3, 0, 0);
-  v5 = v4;
-  if ((v4 - 268435458) > 0xE || ((1 << (v4 - 2)) & 0x4003) == 0)
+  v6 = mach_msg(msg, 3162115, 0x18u, 0x2Cu, v5, 0, 0);
+  v7 = v6;
+  if ((v6 - 268435458) > 0xE || ((1 << (v6 - 2)) & 0x4003) == 0)
   {
-    if (v4)
+    if (v6)
     {
       mig_dealloc_special_reply_port();
-      return v5;
+      return v7;
     }
 
     if (*&msg[20] == 71)
     {
-      v5 = 4294966988;
+      v7 = 4294966988;
     }
 
     else if (*&msg[20] == 114)
     {
-      v5 = 4294966996;
+      v7 = 4294966996;
       if ((*msg & 0x80000000) == 0 && *&msg[4] == 36 && !*&msg[8])
       {
-        v5 = *&msg[32];
+        v7 = *&msg[32];
         if (!*&msg[32])
         {
-          return v5;
+          return v7;
         }
       }
     }
 
     else
     {
-      v5 = 4294966995;
+      v7 = 4294966995;
     }
 
     mach_msg_destroy(msg);
   }
 
-  return v5;
+  return v7;
 }
 
 uint64_t _DAServerSessionSetClientPort(int a1, int a2)
@@ -3983,9 +3951,8 @@ uint64_t _DAServerSessionUnregisterCallback(mach_port_t a1, uint64_t a2, uint64_
 
 void DASessionCreate_cold_1(int a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 67109120;
-  v2[1] = a1;
-  _os_log_fault_impl(&dword_248D95000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Now using %d DASessionRef objects", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 67109120;
+  v1[1] = a1;
+  _os_log_fault_impl(&dword_248D95000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Now using %d DASessionRef objects", v1, 8u);
 }

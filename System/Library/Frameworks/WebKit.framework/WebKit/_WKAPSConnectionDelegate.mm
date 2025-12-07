@@ -67,7 +67,7 @@
               return;
             }
 
-            v10 = WTF::fastMalloc(v8);
+            v10 = WTF::fastMalloc(0, v8);
             LODWORD(v15) = v9;
             v14 = v10;
             do

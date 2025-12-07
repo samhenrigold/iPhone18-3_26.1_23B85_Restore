@@ -58,47 +58,45 @@ id SVXLocalizationGetAllTables()
 
 void __SVXLocalizationGetAllTables_block_invoke()
 {
-  v3[6] = *MEMORY[0x277D85DE8];
-  v3[0] = @"Localizable";
-  v3[1] = @"Clock";
-  v3[2] = @"DeviceSetup";
-  v3[3] = @"Errors";
-  v3[4] = @"Interstitials";
-  v3[5] = @"StoreDemo";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:6];
+  v2[6] = *MEMORY[0x277D85DE8];
+  v2[0] = @"Localizable";
+  v2[1] = @"Clock";
+  v2[2] = @"DeviceSetup";
+  v2[3] = @"Errors";
+  v2[4] = @"Interstitials";
+  v2[5] = @"StoreDemo";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:6];
   v1 = SVXLocalizationGetAllTables_tables;
   SVXLocalizationGetAllTables_tables = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 id SVXLocalizationGetKeysInTable(void *a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v1 = a1;
-  v15 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v14 = +[SVXBundleUtils sharedInstance];
-  v2 = [v14 getSiriVOXFramework];
+  v14 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v13 = +[SVXBundleUtils sharedInstance];
+  v2 = [v13 getSiriVOXFramework];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v3 = CFBundleCopyLocalizationsForPreferences([v2 localizations], &unk_287A33E38);
-  v4 = [(__CFArray *)v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [(__CFArray *)v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [v2 URLForResource:v1 withExtension:@"strings" subdirectory:0 localization:*(*(&v18 + 1) + 8 * i)];
+        v8 = [v2 URLForResource:v1 withExtension:@"strings" subdirectory:0 localization:*(*(&v17 + 1) + 8 * i)];
         if (v8)
         {
           v9 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithContentsOfURL:v8];
@@ -111,25 +109,23 @@ id SVXLocalizationGetKeysInTable(void *a1)
 
         if ([v9 count])
         {
-          v16[0] = MEMORY[0x277D85DD0];
-          v16[1] = 3221225472;
-          v16[2] = __SVXLocalizationGetKeysInTable_block_invoke;
-          v16[3] = &unk_279C66768;
-          v17 = v15;
-          [v9 enumerateKeysAndObjectsUsingBlock:v16];
+          v15[0] = MEMORY[0x277D85DD0];
+          v15[1] = 3221225472;
+          v15[2] = __SVXLocalizationGetKeysInTable_block_invoke;
+          v15[3] = &unk_279C66768;
+          v16 = v14;
+          [v9 enumerateKeysAndObjectsUsingBlock:v15];
         }
       }
 
-      v5 = [(__CFArray *)v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [(__CFArray *)v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
   }
 
-  v10 = [v15 allObjects];
+  v10 = [v14 allObjects];
   v11 = [v10 sortedArrayUsingSelector:sel_compare_];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -363,11 +359,11 @@ void sub_2695CEB20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2695CFD4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_2695CFD4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 128), 8);
+  _Block_object_dispose((v24 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -401,33 +397,33 @@ id SVXSpeechSynthesisOptionsGetNames(uint64_t a1)
 
 uint64_t SVXSpeechSynthesisOptionsGetFromNames(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if ([v1 count])
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
-    v13 = v1;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    v12 = v1;
     v2 = v1;
-    v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v3)
     {
       v4 = v3;
       v5 = 0;
-      v6 = *v15;
+      v6 = *v14;
       do
       {
         v7 = 0;
         do
         {
-          if (*v15 != v6)
+          if (*v14 != v6)
           {
             objc_enumerationMutation(v2);
           }
 
-          v8 = *(*(&v14 + 1) + 8 * v7);
+          v8 = *(*(&v13 + 1) + 8 * v7);
           if ([v8 length])
           {
             if (_SVXSpeechSynthesisOptionsGetFromName_onceToken != -1)
@@ -449,7 +445,7 @@ uint64_t SVXSpeechSynthesisOptionsGetFromNames(void *a1)
         }
 
         while (v4 != v7);
-        v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v4);
@@ -460,7 +456,7 @@ uint64_t SVXSpeechSynthesisOptionsGetFromNames(void *a1)
       v5 = 0;
     }
 
-    v1 = v13;
+    v1 = v12;
   }
 
   else
@@ -468,7 +464,6 @@ uint64_t SVXSpeechSynthesisOptionsGetFromNames(void *a1)
     v5 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -626,7 +621,7 @@ uint64_t _getSchemaInvocationSourceForVoiceTrigger(void *a1)
 
 uint64_t SVXInstrumentationEmitUIStateTransition(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = MEMORY[0x277CEF098];
   if (a2 == 1 && a3 == 2)
@@ -669,9 +664,9 @@ LABEL_11:
   v9 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
   {
-    v17 = 136315138;
-    v18 = "SVXInstrumentationEmitUIStateTransition";
-    _os_log_debug_impl(&dword_2695B9000, v9, OS_LOG_TYPE_DEBUG, "%s Emitting unknown UIStateTransition; this implies there are unaccounted session state transitions, add them here", &v17, 0xCu);
+    v16 = 136315138;
+    v17 = "SVXInstrumentationEmitUIStateTransition";
+    _os_log_debug_impl(&dword_2695B9000, v9, OS_LOG_TYPE_DEBUG, "%s Emitting unknown UIStateTransition; this implies there are unaccounted session state transitions, add them here", &v16, 0xCu);
   }
 
   a3 = 0;
@@ -696,17 +691,16 @@ LABEL_15:
     }
 
     v14 = off_279C67268[a3];
-    v17 = 136315650;
-    v18 = "SVXInstrumentationEmitUIStateTransition";
-    v19 = 2112;
-    v20 = v13;
-    v21 = 2112;
-    v22 = v14;
-    _os_log_impl(&dword_2695B9000, v12, OS_LOG_TYPE_INFO, "%s #SVXInstrumentation - Emit state transition event (current: %@, next: %@)", &v17, 0x20u);
+    v16 = 136315650;
+    v17 = "SVXInstrumentationEmitUIStateTransition";
+    v18 = 2112;
+    v19 = v13;
+    v20 = 2112;
+    v21 = v14;
+    _os_log_impl(&dword_2695B9000, v12, OS_LOG_TYPE_INFO, "%s #SVXInstrumentation - Emit state transition event (current: %@, next: %@)", &v16, 0x20u);
   }
 
   [v7 emitInstrumentation:v11];
-  v15 = *MEMORY[0x277D85DE8];
   return a3;
 }
 
@@ -870,9 +864,9 @@ id SVXSessionResignActiveOptionsGetNames(uint64_t a1)
   return v4;
 }
 
-void sub_2695E7240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2695E7240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -917,53 +911,48 @@ void __getRadarComponentClass_block_invoke(uint64_t a1)
 
 void TapToRadarKitLibrary()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!TapToRadarKitLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __TapToRadarKitLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_279C67550;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __TapToRadarKitLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_279C67550;
+    v5 = 0;
     TapToRadarKitLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!TapToRadarKitLibraryCore_frameworkLibrary)
   {
-    v2 = [MEMORY[0x277CCA890] currentHandler];
-    v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *TapToRadarKitLibrary(void)"];
-    [v2 handleFailureInFunction:v3 file:@"SVXRadarDraftFactory.m" lineNumber:15 description:{@"%s", v4[0]}];
+    v1 = [MEMORY[0x277CCA890] currentHandler];
+    v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *TapToRadarKitLibrary(void)"];
+    [v1 handleFailureInFunction:v2 file:@"SVXRadarDraftFactory.m" lineNumber:15 description:{@"%s", v3[0]}];
 
     __break(1u);
     goto LABEL_7;
   }
 
-  v0 = v4[0];
-  if (v4[0])
+  v0 = v3[0];
+  if (v3[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __TapToRadarKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   TapToRadarKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_2695EA60C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2695EA60C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1084,67 +1073,63 @@ id getTapToRadarServiceClass()
   return v1;
 }
 
-void sub_2695F2D7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2695F2D7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getTapToRadarServiceClass_block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v7[0] = 0;
+  v9 = *MEMORY[0x277D85DE8];
+  v6[0] = 0;
   if (!TapToRadarKitLibraryCore_frameworkLibrary_8017)
   {
-    v7[1] = MEMORY[0x277D85DD0];
-    v7[2] = 3221225472;
-    v7[3] = __TapToRadarKitLibraryCore_block_invoke_8018;
-    v7[4] = &__block_descriptor_40_e5_v8__0l;
-    v7[5] = v7;
-    v8 = xmmword_279C677E0;
-    v9 = 0;
+    v6[1] = MEMORY[0x277D85DD0];
+    v6[2] = 3221225472;
+    v6[3] = __TapToRadarKitLibraryCore_block_invoke_8018;
+    v6[4] = &__block_descriptor_40_e5_v8__0l;
+    v6[5] = v6;
+    v7 = xmmword_279C677E0;
+    v8 = 0;
     TapToRadarKitLibraryCore_frameworkLibrary_8017 = _sl_dlopen();
   }
 
   if (!TapToRadarKitLibraryCore_frameworkLibrary_8017)
   {
-    v4 = [MEMORY[0x277CCA890] currentHandler];
-    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *TapToRadarKitLibrary(void)"];
-    [v4 handleFailureInFunction:v5 file:@"SVXRadarFiler.m" lineNumber:13 description:{@"%s", v7[0]}];
+    v3 = [MEMORY[0x277CCA890] currentHandler];
+    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *TapToRadarKitLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"SVXRadarFiler.m" lineNumber:13 description:{@"%s", v6[0]}];
 
     goto LABEL_10;
   }
 
-  if (v7[0])
+  if (v6[0])
   {
-    free(v7[0]);
+    free(v6[0]);
   }
 
   result = objc_getClass("TapToRadarService");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    v4 = [MEMORY[0x277CCA890] currentHandler];
-    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Class getTapToRadarServiceClass(void)_block_invoke"];
-    [v4 handleFailureInFunction:v6 file:@"SVXRadarFiler.m" lineNumber:14 description:{@"Unable to find class %s", "TapToRadarService"}];
+    v3 = [MEMORY[0x277CCA890] currentHandler];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Class getTapToRadarServiceClass(void)_block_invoke"];
+    [v3 handleFailureInFunction:v5 file:@"SVXRadarFiler.m" lineNumber:14 description:{@"Unable to find class %s", "TapToRadarService"}];
 
 LABEL_10:
     __break(1u);
   }
 
   getTapToRadarServiceClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __TapToRadarKitLibraryCore_block_invoke_8018(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   TapToRadarKitLibraryCore_frameworkLibrary_8017 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1230,9 +1215,9 @@ void __SVXSpeechSynthesisResultTypeGetFromName_block_invoke()
   SVXSpeechSynthesisResultTypeGetFromName_map = &unk_287A34E60;
 }
 
-void sub_2695F8DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2695F8DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1244,11 +1229,12 @@ uint64_t __Block_byref_object_copy__9035(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2695F91E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_2695F91E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
-  objc_destroyWeak((v17 + 48));
+  va_start(va, location);
+  objc_destroyWeak((v16 + 48));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1274,7 +1260,7 @@ void _recordStartEndBiomeEvent(void *a1, void *a2, void *a3)
 
 void ___recordStartEndBiomeEvent_block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = BiomeLibrary();
   v3 = [v2 Siri];
   v4 = [v3 UI];
@@ -1316,15 +1302,13 @@ void ___recordStartEndBiomeEvent_block_invoke(uint64_t a1)
     v16 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
-      v18 = 136315138;
-      v19 = "_recordStartEndBiomeEvent_block_invoke";
-      _os_log_impl(&dword_2695B9000, v16, OS_LOG_TYPE_INFO, "%s Donating biome event from SVXSession Manager", &v18, 0xCu);
+      v17 = 136315138;
+      v18 = "_recordStartEndBiomeEvent_block_invoke";
+      _os_log_impl(&dword_2695B9000, v16, OS_LOG_TYPE_INFO, "%s Donating biome event from SVXSession Manager", &v17, 0xCu);
     }
 
     [v5 sendEvent:v15];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2695FE1AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id location)
@@ -1374,33 +1358,33 @@ id SVXPerformingOptionsGetNames(uint64_t a1)
 
 uint64_t SVXPerformingOptionsGetFromNames(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if ([v1 count])
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
-    v13 = v1;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    v12 = v1;
     v2 = v1;
-    v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v3)
     {
       v4 = v3;
       v5 = 0;
-      v6 = *v15;
+      v6 = *v14;
       do
       {
         v7 = 0;
         do
         {
-          if (*v15 != v6)
+          if (*v14 != v6)
           {
             objc_enumerationMutation(v2);
           }
 
-          v8 = *(*(&v14 + 1) + 8 * v7);
+          v8 = *(*(&v13 + 1) + 8 * v7);
           if ([v8 length])
           {
             if (_SVXPerformingOptionsGetFromName_onceToken != -1)
@@ -1422,7 +1406,7 @@ uint64_t SVXPerformingOptionsGetFromNames(void *a1)
         }
 
         while (v4 != v7);
-        v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v4);
@@ -1433,7 +1417,7 @@ uint64_t SVXPerformingOptionsGetFromNames(void *a1)
       v5 = 0;
     }
 
-    v1 = v13;
+    v1 = v12;
   }
 
   else
@@ -1441,7 +1425,6 @@ uint64_t SVXPerformingOptionsGetFromNames(void *a1)
     v5 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1477,14 +1460,14 @@ void *__SoundBoardServicesLibrary_block_invoke()
   return result;
 }
 
-void sub_269601EBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_269601EBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1533,15 +1516,15 @@ void __SVXActivationSourceGetFromName_block_invoke()
 
 __CFString *SVXStoreDemoGetLocalizationKey(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315394;
-    v12 = "SVXStoreDemoGetLocalizationKey";
-    v13 = 2048;
-    v14 = a1;
-    _os_log_impl(&dword_2695B9000, v2, OS_LOG_TYPE_DEFAULT, "%s SVXStoreDemoTranscriptID = %lu", &v11, 0x16u);
+    v10 = 136315394;
+    v11 = "SVXStoreDemoGetLocalizationKey";
+    v12 = 2048;
+    v13 = a1;
+    _os_log_impl(&dword_2695B9000, v2, OS_LOG_TYPE_DEFAULT, "%s SVXStoreDemoTranscriptID = %lu", &v10, 0x16u);
   }
 
   v3 = 0;
@@ -1591,7 +1574,6 @@ LABEL_15:
 
   v3 = 0;
 LABEL_17:
-  v9 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -1752,7 +1734,7 @@ void sub_269610E74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 id _SVXSessionCreateSetApplicationContext(void *a1)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = objc_alloc_init(MEMORY[0x277D477C8]);
   v3 = objc_alloc_init(MEMORY[0x277D47178]);
@@ -1782,26 +1764,24 @@ id _SVXSessionCreateSetApplicationContext(void *a1)
     v11 = objc_alloc_init(MEMORY[0x277D47280]);
     [v11 setSetupSceneId:v10];
     v12 = [v3 dictionary];
-    v20[0] = v12;
+    v19[0] = v12;
     v13 = [v11 dictionary];
-    v20[1] = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
-    v21[0] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+    v19[1] = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+    v20[0] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
     [v2 setOrderedContext:v15];
   }
 
   else
   {
     v10 = [v3 dictionary];
-    v18 = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
-    v19 = v11;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+    v17 = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+    v18 = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
     [v2 setOrderedContext:v12];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -2033,9 +2013,9 @@ uint64_t _audioFileReadData(void *a1, uint64_t a2, unsigned int a3, uint64_t a4,
   return v12;
 }
 
-void sub_26962C26C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_26962C26C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2055,9 +2035,9 @@ void sub_269635344(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_269637270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_269637270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2086,82 +2066,82 @@ SVXSpeechSynthesisRequest *SVXDeviceSetupCreateSpeechSynthesisRequestForSceneWit
 
 id SVXDeviceSetupCreateOptionsArray(void *a1)
 {
-  v84[1] = *MEMORY[0x277D85DE8];
+  v83[1] = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 languageCode];
 
-  v35 = v1;
+  v34 = v1;
   if (v2)
   {
     v3 = [v1 languageCode];
-    v84[0] = v3;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v84 count:1];
+    v83[0] = v3;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:1];
   }
 
   else
   {
     v3 = objc_alloc_init(MEMORY[0x277CBEB40]);
+    v73 = 0u;
     v74 = 0u;
     v75 = 0u;
     v76 = 0u;
-    v77 = 0u;
     obj = AFPreferencesSupportedLanguages();
-    v5 = [obj countByEnumeratingWithState:&v74 objects:v83 count:16];
+    v5 = [obj countByEnumeratingWithState:&v73 objects:v82 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v75;
+      v7 = *v74;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v75 != v7)
+          if (*v74 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v74 + 1) + 8 * i);
+          v9 = *(*(&v73 + 1) + 8 * i);
+          v69 = 0u;
           v70 = 0u;
           v71 = 0u;
           v72 = 0u;
-          v73 = 0u;
-          v10 = [MEMORY[0x277CEF528] allVoicesForSiriSessionLanguage:{v9, v35}];
-          v11 = [v10 countByEnumeratingWithState:&v70 objects:v82 count:16];
+          v10 = [MEMORY[0x277CEF528] allVoicesForSiriSessionLanguage:{v9, v34}];
+          v11 = [v10 countByEnumeratingWithState:&v69 objects:v81 count:16];
           if (v11)
           {
             v12 = v11;
-            v13 = *v71;
+            v13 = *v70;
             do
             {
               for (j = 0; j != v12; ++j)
               {
-                if (*v71 != v13)
+                if (*v70 != v13)
                 {
                   objc_enumerationMutation(v10);
                 }
 
-                v15 = [*(*(&v70 + 1) + 8 * j) languageCode];
+                v15 = [*(*(&v69 + 1) + 8 * j) languageCode];
                 [v3 addObject:v15];
               }
 
-              v12 = [v10 countByEnumeratingWithState:&v70 objects:v82 count:16];
+              v12 = [v10 countByEnumeratingWithState:&v69 objects:v81 count:16];
             }
 
             while (v12);
           }
         }
 
-        v6 = [obj countByEnumeratingWithState:&v74 objects:v83 count:16];
+        v6 = [obj countByEnumeratingWithState:&v73 objects:v82 count:16];
       }
 
       while (v6);
     }
 
     v4 = [v3 array];
-    v1 = v35;
+    v1 = v34;
   }
 
-  v39 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v38 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if ([v1 gender] == 2)
   {
     v16 = &unk_287A34C60;
@@ -2176,15 +2156,15 @@ id SVXDeviceSetupCreateOptionsArray(void *a1)
   {
     if ([v1 gender] != 3)
     {
-      [v39 addObject:&unk_287A34C60];
-      [v39 addObject:&unk_287A34C78];
+      [v38 addObject:&unk_287A34C60];
+      [v38 addObject:&unk_287A34C78];
     }
 
     v16 = &unk_287A34C90;
   }
 
-  [v39 addObject:{v16, v35}];
-  v43 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  [v38 addObject:{v16, v34}];
+  v42 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if ([v1 hasActiveAccount] == 2)
   {
     v17 = &unk_287A34C60;
@@ -2194,14 +2174,14 @@ id SVXDeviceSetupCreateOptionsArray(void *a1)
   {
     if ([v1 hasActiveAccount] != 1)
     {
-      [v43 addObject:&unk_287A34C60];
+      [v42 addObject:&unk_287A34C60];
     }
 
     v17 = &unk_287A34C78;
   }
 
-  [v43 addObject:v17];
-  v48 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  [v42 addObject:v17];
+  v47 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if ([v1 isNewsRestricted] == 2)
   {
     v18 = &unk_287A34C60;
@@ -2211,110 +2191,110 @@ id SVXDeviceSetupCreateOptionsArray(void *a1)
   {
     if ([v1 isNewsRestricted] != 1)
     {
-      [v48 addObject:&unk_287A34C60];
+      [v47 addObject:&unk_287A34C60];
     }
 
     v18 = &unk_287A34C78;
   }
 
-  [v48 addObject:v18];
+  [v47 addObject:v18];
   v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v65 = 0u;
   v66 = 0u;
   v67 = 0u;
   v68 = 0u;
-  v69 = 0u;
-  v37 = v4;
-  v40 = [v37 countByEnumeratingWithState:&v66 objects:v81 count:16];
-  if (v40)
+  v36 = v4;
+  v39 = [v36 countByEnumeratingWithState:&v65 objects:v80 count:16];
+  if (v39)
   {
-    v38 = *v67;
+    v37 = *v66;
     do
     {
       v20 = 0;
       do
       {
-        if (*v67 != v38)
+        if (*v66 != v37)
         {
-          objc_enumerationMutation(v37);
+          objc_enumerationMutation(v36);
         }
 
-        v41 = v20;
-        v21 = *(*(&v66 + 1) + 8 * v20);
+        v40 = v20;
+        v21 = *(*(&v65 + 1) + 8 * v20);
+        v61 = 0u;
         v62 = 0u;
         v63 = 0u;
         v64 = 0u;
-        v65 = 0u;
-        v42 = v39;
-        v45 = [v42 countByEnumeratingWithState:&v62 objects:v80 count:16];
-        if (v45)
+        v41 = v38;
+        v44 = [v41 countByEnumeratingWithState:&v61 objects:v79 count:16];
+        if (v44)
         {
-          v44 = *v63;
+          v43 = *v62;
           do
           {
             v22 = 0;
             do
             {
-              if (*v63 != v44)
+              if (*v62 != v43)
               {
-                objc_enumerationMutation(v42);
+                objc_enumerationMutation(v41);
               }
 
-              v46 = v22;
-              v23 = *(*(&v62 + 1) + 8 * v22);
+              v45 = v22;
+              v23 = *(*(&v61 + 1) + 8 * v22);
+              v57 = 0u;
               v58 = 0u;
               v59 = 0u;
               v60 = 0u;
-              v61 = 0u;
-              v47 = v43;
-              v50 = [v47 countByEnumeratingWithState:&v58 objects:v79 count:16];
-              if (v50)
+              v46 = v42;
+              v49 = [v46 countByEnumeratingWithState:&v57 objects:v78 count:16];
+              if (v49)
               {
-                v49 = *v59;
+                v48 = *v58;
                 do
                 {
                   v24 = 0;
                   do
                   {
-                    if (*v59 != v49)
+                    if (*v58 != v48)
                     {
-                      objc_enumerationMutation(v47);
+                      objc_enumerationMutation(v46);
                     }
 
                     obja = v24;
-                    v25 = *(*(&v58 + 1) + 8 * v24);
+                    v25 = *(*(&v57 + 1) + 8 * v24);
+                    v53 = 0u;
                     v54 = 0u;
                     v55 = 0u;
                     v56 = 0u;
-                    v57 = 0u;
-                    v26 = v48;
-                    v27 = [v26 countByEnumeratingWithState:&v54 objects:v78 count:16];
+                    v26 = v47;
+                    v27 = [v26 countByEnumeratingWithState:&v53 objects:v77 count:16];
                     if (v27)
                     {
                       v28 = v27;
-                      v29 = *v55;
+                      v29 = *v54;
                       do
                       {
                         for (k = 0; k != v28; ++k)
                         {
-                          if (*v55 != v29)
+                          if (*v54 != v29)
                           {
                             objc_enumerationMutation(v26);
                           }
 
-                          v31 = *(*(&v54 + 1) + 8 * k);
-                          v53[0] = MEMORY[0x277D85DD0];
-                          v53[1] = 3221225472;
-                          v53[2] = __SVXDeviceSetupCreateOptionsArray_block_invoke;
-                          v53[3] = &unk_279C68F98;
-                          v53[4] = v21;
-                          v53[5] = v23;
-                          v53[6] = v25;
-                          v53[7] = v31;
-                          v32 = [SVXDeviceSetupOptions newWithBuilder:v53];
+                          v31 = *(*(&v53 + 1) + 8 * k);
+                          v52[0] = MEMORY[0x277D85DD0];
+                          v52[1] = 3221225472;
+                          v52[2] = __SVXDeviceSetupCreateOptionsArray_block_invoke;
+                          v52[3] = &unk_279C68F98;
+                          v52[4] = v21;
+                          v52[5] = v23;
+                          v52[6] = v25;
+                          v52[7] = v31;
+                          v32 = [SVXDeviceSetupOptions newWithBuilder:v52];
                           [v19 addObject:v32];
                         }
 
-                        v28 = [v26 countByEnumeratingWithState:&v54 objects:v78 count:16];
+                        v28 = [v26 countByEnumeratingWithState:&v53 objects:v77 count:16];
                       }
 
                       while (v28);
@@ -2323,34 +2303,32 @@ id SVXDeviceSetupCreateOptionsArray(void *a1)
                     v24 = obja + 1;
                   }
 
-                  while (obja + 1 != v50);
-                  v50 = [v47 countByEnumeratingWithState:&v58 objects:v79 count:16];
+                  while (obja + 1 != v49);
+                  v49 = [v46 countByEnumeratingWithState:&v57 objects:v78 count:16];
                 }
 
-                while (v50);
+                while (v49);
               }
 
-              v22 = v46 + 1;
+              v22 = v45 + 1;
             }
 
-            while (v46 + 1 != v45);
-            v45 = [v42 countByEnumeratingWithState:&v62 objects:v80 count:16];
+            while (v45 + 1 != v44);
+            v44 = [v41 countByEnumeratingWithState:&v61 objects:v79 count:16];
           }
 
-          while (v45);
+          while (v44);
         }
 
-        v20 = v41 + 1;
+        v20 = v40 + 1;
       }
 
-      while (v41 + 1 != v40);
-      v40 = [v37 countByEnumeratingWithState:&v66 objects:v81 count:16];
+      while (v40 + 1 != v39);
+      v39 = [v36 countByEnumeratingWithState:&v65 objects:v80 count:16];
     }
 
-    while (v40);
+    while (v39);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

@@ -329,29 +329,29 @@
 
 - (void)_drillDownControllersWithArray:(id)array
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   [arrayCopy addObject:self];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   regionList = [(CNFRegRegionChooserController *)self regionList];
-  v6 = [regionList countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [regionList countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v21;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(regionList);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * i);
+        v10 = *(*(&v20 + 1) + 8 * i);
         selectedRegionID = [(CNFRegRegionChooserController *)self selectedRegionID];
         v12 = [v10 regionWithID:selectedRegionID];
 
@@ -381,7 +381,7 @@
         }
       }
 
-      v7 = [regionList countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [regionList countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v7)
       {
         continue;
@@ -392,8 +392,6 @@
   }
 
 LABEL_12:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)drillDownControllerList
@@ -495,36 +493,36 @@ LABEL_12:
 
 - (void)updateSearchResultsForSearchController:(id)controller
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   searchBar = [controllerCopy searchBar];
   text = [searchBar text];
 
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   regionList = [(CNFRegRegionChooserController *)self regionList];
-  v9 = [regionList countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v9 = [regionList countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v9)
   {
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       v11 = 0;
       do
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(regionList);
         }
 
-        [*(*(&v17 + 1) + 8 * v11++) search:text withResults:v7];
+        [*(*(&v16 + 1) + 8 * v11++) search:text withResults:v7];
       }
 
       while (v9 != v11);
-      v9 = [regionList countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v9 = [regionList countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v9);
@@ -535,24 +533,22 @@ LABEL_12:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412546;
-    v22 = text;
-    v23 = 2112;
-    v24 = v7;
+    v21 = text;
+    v22 = 2112;
+    v23 = v7;
     _os_log_impl(&dword_243BE5000, v12, OS_LOG_TYPE_DEBUG, "Search results for {%@} : %@", buf, 0x16u);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v15 = text;
-    v16 = v7;
+    v14 = text;
+    v15 = v7;
     IMLogString();
   }
 
-  [(CNFRegRegionChooserController *)self setFilteredRegionList:v7, v15, v16];
+  [(CNFRegRegionChooserController *)self setFilteredRegionList:v7, v14, v15];
   tableView = [(CNFRegRegionChooserController *)self tableView];
   [tableView reloadData];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __72__CNFRegRegionChooserController_updateSearchResultsForSearchController___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -567,78 +563,74 @@ uint64_t __72__CNFRegRegionChooserController_updateSearchResultsForSearchControl
 
 - (void)_hideTableViewCells
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   tableView = [(CNFRegRegionChooserController *)self tableView];
   visibleCells = [tableView visibleCells];
 
-  v4 = [visibleCells countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [visibleCells countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(visibleCells);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) setAlpha:0.0];
+        [*(*(&v8 + 1) + 8 * v7++) setAlpha:0.0];
       }
 
       while (v5 != v7);
-      v5 = [visibleCells countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [visibleCells countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_showTableViewCells
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   tableView = [(CNFRegRegionChooserController *)self tableView];
   visibleCells = [tableView visibleCells];
 
-  v4 = [visibleCells countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [visibleCells countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(visibleCells);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) setAlpha:1.0];
+        [*(*(&v8 + 1) + 8 * v7++) setAlpha:1.0];
       }
 
       while (v5 != v7);
-      v5 = [visibleCells countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [visibleCells countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)willPresentSearchController:(id)controller

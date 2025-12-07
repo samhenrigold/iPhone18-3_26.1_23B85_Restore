@@ -15,7 +15,7 @@
 {
   v30.receiver = self;
   v30.super_class = TVRUIDeviceHardwareInfo;
-  result = objc_msgSendSuper2(&v30, sel_init);
+  result = objc_msgSendSuper2(&v30, sel_init, a11, a12, a13, a14, a15, a16);
   if (result)
   {
     result[3] = button;

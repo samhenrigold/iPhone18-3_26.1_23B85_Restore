@@ -22,18 +22,18 @@
 
 - (void)_addArgumentsToInvocation:(id)invocation primaryArgument:(id)argument expectedValues:(id)values expectedValueInterval:(id)interval completionHandlerArgument:(id)handlerArgument characteristicDescriptor:(id)descriptor forCharacteristic:(id)characteristic
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   invocationCopy = invocation;
   argumentCopy = argument;
   valuesCopy = values;
   intervalCopy = interval;
   handlerArgumentCopy = handlerArgument;
-  v64 = handlerArgumentCopy;
+  v63 = handlerArgumentCopy;
   descriptorCopy = descriptor;
   characteristicCopy = characteristic;
   [HMMTRHAPService chipPluginServiceForCharacteristic:characteristicCopy];
-  v58 = v57 = descriptorCopy;
-  if (!v58)
+  v57 = v56 = descriptorCopy;
+  if (!v57)
   {
     v18 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -52,7 +52,7 @@
     }
 
     objc_autoreleasePoolPop(v18);
-    descriptorCopy = v57;
+    descriptorCopy = v56;
   }
 
   arguments = [descriptorCopy arguments];
@@ -94,41 +94,41 @@
   if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
   {
     HMFGetLogIdentifier();
-    v32 = v55 = arguments;
+    v32 = v54 = arguments;
     NSStringFromSelector([invocationCopy selector]);
-    v33 = v53 = handlerArgumentCopy;
-    endpoint = [v58 endpoint];
+    v33 = v52 = handlerArgumentCopy;
+    endpoint = [v57 endpoint];
     [MEMORY[0x277CCABB0] numberWithInt:v27];
-    v52 = v29;
+    v51 = v29;
     v36 = v35 = primaryArgIndex;
     *buf = 138544386;
     *&buf[4] = v32;
-    v70 = 2112;
-    v71 = characteristicCopy;
-    v72 = 2112;
-    v73 = v33;
-    v74 = 2112;
-    v75 = endpoint;
-    v76 = 2112;
-    v77 = v36;
+    v69 = 2112;
+    v70 = characteristicCopy;
+    v71 = 2112;
+    v72 = v33;
+    v73 = 2112;
+    v74 = endpoint;
+    v75 = 2112;
+    v76 = v36;
     _os_log_impl(&dword_22AEAE000, v31, OS_LOG_TYPE_DEBUG, "%{public}@Characteristic: (%@), selector: %@, endpoint: %@, numberOfArguments = %@", buf, 0x34u);
 
     primaryArgIndex = v35;
-    v29 = v52;
+    v29 = v51;
 
     v28 = invocationCopy;
-    handlerArgumentCopy = v53;
+    handlerArgumentCopy = v52;
 
-    arguments = v55;
+    arguments = v54;
   }
 
-  v56 = characteristicCopy;
+  v55 = characteristicCopy;
 
   objc_autoreleasePoolPop(v29);
   v37 = v27;
   if (handlerArgumentCopy)
   {
-    [v28 setArgument:&v64 atIndex:v27 + 1];
+    [v28 setArgument:&v63 atIndex:v27 + 1];
     v37 = v27 - 1;
   }
 
@@ -144,7 +144,7 @@
     [v28 setArgument:&valuesCopy atIndex:v37];
   }
 
-  v54 = primaryArgIndex;
+  v53 = primaryArgIndex;
   if (primaryArgIndex)
   {
     integerValue = [primaryArgIndex integerValue];
@@ -156,27 +156,27 @@
     integerValue = -1;
   }
 
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
   v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   v40 = arguments;
   allKeys = [arguments allKeys];
-  v42 = [allKeys countByEnumeratingWithState:&v60 objects:v68 count:16];
+  v42 = [allKeys countByEnumeratingWithState:&v59 objects:v67 count:16];
   if (v42)
   {
     v43 = v42;
-    v44 = *v61;
+    v44 = *v60;
     do
     {
       for (i = 0; i != v43; ++i)
       {
-        if (*v61 != v44)
+        if (*v60 != v44)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v46 = *(*(&v60 + 1) + 8 * i);
+        v46 = *(*(&v59 + 1) + 8 * i);
         integerValue2 = [v46 integerValue];
         if (integerValue2 != v38 && integerValue2 != integerValue)
         {
@@ -194,26 +194,24 @@
         }
       }
 
-      v43 = [allKeys countByEnumeratingWithState:&v60 objects:v68 count:16];
+      v43 = [allKeys countByEnumeratingWithState:&v59 objects:v67 count:16];
     }
 
     while (v43);
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addArgumentsToInvocation:(id)invocation primaryArgument:(id)argument completionHandlerArgument:(id)handlerArgument characteristicDescriptor:(id)descriptor forCharacteristic:(id)characteristic
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   invocationCopy = invocation;
   argumentCopy = argument;
   handlerArgumentCopy = handlerArgument;
-  v53 = handlerArgumentCopy;
+  v52 = handlerArgumentCopy;
   descriptorCopy = descriptor;
   characteristicCopy = characteristic;
-  v46 = [HMMTRHAPService chipPluginServiceForCharacteristic:?];
-  if (!v46)
+  v45 = [HMMTRHAPService chipPluginServiceForCharacteristic:?];
+  if (!v45)
   {
     v14 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -260,36 +258,36 @@
   v23 = objc_autoreleasePoolPush();
   selfCopy2 = self;
   v25 = HMFGetOSLogHandle();
-  v44 = descriptorCopy;
-  v45 = v20;
+  v43 = descriptorCopy;
+  v44 = v20;
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
   {
     v26 = HMFGetLogIdentifier();
     v27 = NSStringFromSelector([invocationCopy selector]);
-    [v46 endpoint];
+    [v45 endpoint];
     v29 = v28 = handlerArgumentCopy;
     v30 = [MEMORY[0x277CCABB0] numberWithInt:v22];
     *buf = 138544386;
     *&buf[4] = v26;
-    v57 = 2112;
-    v58 = characteristicCopy;
-    v59 = 2112;
-    v60 = v27;
-    v61 = 2112;
-    v62 = v29;
-    v63 = 2112;
-    v64 = v30;
+    v56 = 2112;
+    v57 = characteristicCopy;
+    v58 = 2112;
+    v59 = v27;
+    v60 = 2112;
+    v61 = v29;
+    v62 = 2112;
+    v63 = v30;
     _os_log_impl(&dword_22AEAE000, v25, OS_LOG_TYPE_DEBUG, "%{public}@Characteristic: (%@), selector: %@, endpoint: %@, numberOfArguments = %@", buf, 0x34u);
 
     handlerArgumentCopy = v28;
-    v20 = v45;
+    v20 = v44;
   }
 
   objc_autoreleasePoolPop(v23);
   if (handlerArgumentCopy)
   {
     v31 = v22 - 1;
-    [invocationCopy setArgument:&v53 atIndex:v31 + 2];
+    [invocationCopy setArgument:&v52 atIndex:v31 + 2];
     if (v20)
     {
 LABEL_17:
@@ -310,26 +308,26 @@ LABEL_17:
 
   integerValue = -1;
 LABEL_20:
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   allKeys = [arguments allKeys];
-  v34 = [allKeys countByEnumeratingWithState:&v49 objects:v55 count:16];
+  v34 = [allKeys countByEnumeratingWithState:&v48 objects:v54 count:16];
   if (v34)
   {
     v35 = v34;
-    v36 = *v50;
+    v36 = *v49;
     do
     {
       for (i = 0; i != v35; ++i)
       {
-        if (*v50 != v36)
+        if (*v49 != v36)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v38 = *(*(&v49 + 1) + 8 * i);
+        v38 = *(*(&v48 + 1) + 8 * i);
         integerValue2 = [v38 integerValue];
         if (integerValue2 != v31 && integerValue2 != integerValue)
         {
@@ -346,21 +344,19 @@ LABEL_20:
         }
       }
 
-      v35 = [allKeys countByEnumeratingWithState:&v49 objects:v55 count:16];
+      v35 = [allKeys countByEnumeratingWithState:&v48 objects:v54 count:16];
     }
 
     while (v35);
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addParamsToInvocation:(id)invocation paramsObject:(id)object expectedValues:(id)values expectedValueInterval:(id)interval completionHandlerArgument:(id)argument characteristicDescriptor:(id)descriptor forCharacteristic:(id)characteristic
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   invocationCopy = invocation;
   objectCopy = object;
-  v60 = objectCopy;
+  v59 = objectCopy;
   valuesCopy = values;
   intervalCopy = interval;
   argumentCopy = argument;
@@ -370,34 +366,34 @@ LABEL_20:
   paramsIndex = [descriptorCopy paramsIndex];
   integerValue = [paramsIndex integerValue];
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   obj = [descriptorCopy paramsArguments];
-  v51 = [obj countByEnumeratingWithState:&v53 objects:v69 count:16];
-  if (v51)
+  v50 = [obj countByEnumeratingWithState:&v52 objects:v68 count:16];
+  if (v50)
   {
-    v19 = *v54;
-    v48 = descriptorCopy;
-    v49 = *v54;
-    v46 = selfCopy;
+    v19 = *v53;
+    v47 = descriptorCopy;
+    v48 = *v53;
+    v45 = selfCopy;
     do
     {
-      for (i = 0; i != v51; ++i)
+      for (i = 0; i != v50; ++i)
       {
-        if (*v54 != v19)
+        if (*v53 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v53 + 1) + 8 * i);
+        v21 = *(*(&v52 + 1) + 8 * i);
         v22 = NSSelectorFromString(v21);
         paramsArguments = [descriptorCopy paramsArguments];
-        v52 = [paramsArguments objectForKey:v21];
+        v51 = [paramsArguments objectForKey:v21];
 
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) != 0 && [v52 isEqualToString:@"NULL"])
+        if ((objc_opt_isKindOfClass() & 1) != 0 && [v51 isEqualToString:@"NULL"])
         {
           v24 = objc_autoreleasePoolPush();
           v25 = selfCopy;
@@ -406,15 +402,15 @@ LABEL_20:
           {
             v27 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v62 = v27;
+            v61 = v27;
             _os_log_impl(&dword_22AEAE000, v26, OS_LOG_TYPE_DEBUG, "%{public}@NULL argument requested, setting arg to nil.", buf, 0xCu);
 
-            v19 = v49;
+            v19 = v48;
           }
 
           objc_autoreleasePoolPop(v24);
-          v28 = v52;
-          v52 = 0;
+          v28 = v51;
+          v51 = 0;
         }
 
         if (objc_opt_respondsToSelector())
@@ -424,10 +420,10 @@ LABEL_20:
           {
             v30 = [MEMORY[0x277CBEAE8] invocationWithMethodSignature:v29];
             [v30 setSelector:v22];
-            [v30 setArgument:&v52 atIndex:2];
+            [v30 setArgument:&v51 atIndex:2];
             [v30 invokeWithTarget:objectCopy];
 
-            descriptorCopy = v48;
+            descriptorCopy = v47;
           }
 
           else
@@ -441,18 +437,18 @@ LABEL_20:
               paramsClass = [descriptorCopy paramsClass];
               instanceID = [characteristicCopy instanceID];
               *buf = 138544130;
-              v62 = v40;
-              v63 = 2112;
-              v64 = v21;
-              v65 = 2112;
-              v66 = paramsClass;
-              v19 = v49;
-              v67 = 2112;
-              v68 = instanceID;
+              v61 = v40;
+              v62 = 2112;
+              v63 = v21;
+              v64 = 2112;
+              v65 = paramsClass;
+              v19 = v48;
+              v66 = 2112;
+              v67 = instanceID;
               _os_log_impl(&dword_22AEAE000, v39, OS_LOG_TYPE_ERROR, "%{public}@Couldn't get Signature for Property %@ for Params of type %@ for characteristic %@", buf, 0x2Au);
 
-              descriptorCopy = v48;
-              selfCopy = v46;
+              descriptorCopy = v47;
+              selfCopy = v45;
             }
 
             objc_autoreleasePoolPop(v37);
@@ -470,78 +466,76 @@ LABEL_20:
             paramsClass2 = [descriptorCopy paramsClass];
             instanceID2 = [characteristicCopy instanceID];
             *buf = 138544130;
-            v62 = v34;
-            v63 = 2112;
-            v64 = v21;
-            v65 = 2112;
-            v66 = paramsClass2;
-            v19 = v49;
-            v67 = 2112;
-            v68 = instanceID2;
+            v61 = v34;
+            v62 = 2112;
+            v63 = v21;
+            v64 = 2112;
+            v65 = paramsClass2;
+            v19 = v48;
+            v66 = 2112;
+            v67 = instanceID2;
             _os_log_impl(&dword_22AEAE000, v33, OS_LOG_TYPE_ERROR, "%{public}@Failed to set Property %@ for Params of type %@ for characteristic %@", buf, 0x2Au);
 
-            selfCopy = v46;
+            selfCopy = v45;
           }
 
           objc_autoreleasePoolPop(v31);
         }
       }
 
-      v51 = [obj countByEnumeratingWithState:&v53 objects:v69 count:16];
+      v50 = [obj countByEnumeratingWithState:&v52 objects:v68 count:16];
     }
 
-    while (v51);
+    while (v50);
   }
 
-  [invocationCopy setArgument:&v60 atIndex:integerValue + 2];
+  [invocationCopy setArgument:&v59 atIndex:integerValue + 2];
   [invocationCopy setArgument:&valuesCopy atIndex:integerValue + 3];
   [invocationCopy setArgument:&intervalCopy atIndex:integerValue + 4];
   [invocationCopy setArgument:&argumentCopy atIndex:integerValue + 5];
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addParamsToInvocation:(id)invocation paramsObject:(id)object completionHandlerArgument:(id)argument characteristicDescriptor:(id)descriptor forCharacteristic:(id)characteristic
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   invocationCopy = invocation;
   objectCopy = object;
   selfCopy = self;
   v14 = objectCopy;
-  v56 = objectCopy;
+  v55 = objectCopy;
   argumentCopy = argument;
   descriptorCopy = descriptor;
   characteristicCopy = characteristic;
   paramsIndex = [descriptorCopy paramsIndex];
   integerValue = [paramsIndex integerValue];
 
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   obj = [descriptorCopy paramsArguments];
-  v49 = [obj countByEnumeratingWithState:&v51 objects:v65 count:16];
-  if (v49)
+  v48 = [obj countByEnumeratingWithState:&v50 objects:v64 count:16];
+  if (v48)
   {
-    v48 = *v52;
-    v46 = v14;
+    v47 = *v51;
+    v45 = v14;
     selfCopy2 = self;
     do
     {
-      for (i = 0; i != v49; ++i)
+      for (i = 0; i != v48; ++i)
       {
-        if (*v52 != v48)
+        if (*v51 != v47)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v51 + 1) + 8 * i);
+        v18 = *(*(&v50 + 1) + 8 * i);
         v19 = NSSelectorFromString(v18);
         paramsArguments = [descriptorCopy paramsArguments];
-        v50 = [paramsArguments objectForKey:v18];
+        v49 = [paramsArguments objectForKey:v18];
 
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) != 0 && [v50 isEqualToString:@"NULL"])
+        if ((objc_opt_isKindOfClass() & 1) != 0 && [v49 isEqualToString:@"NULL"])
         {
           v21 = objc_autoreleasePoolPush();
           v22 = selfCopy;
@@ -550,15 +544,15 @@ LABEL_20:
           {
             v24 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v58 = v24;
+            v57 = v24;
             _os_log_impl(&dword_22AEAE000, v23, OS_LOG_TYPE_DEBUG, "%{public}@NULL argument requested, setting arg to nil.", buf, 0xCu);
 
-            v14 = v46;
+            v14 = v45;
           }
 
           objc_autoreleasePoolPop(v21);
-          v25 = v50;
-          v50 = 0;
+          v25 = v49;
+          v49 = 0;
         }
 
         if (objc_opt_respondsToSelector())
@@ -568,7 +562,7 @@ LABEL_20:
           {
             v27 = [MEMORY[0x277CBEAE8] invocationWithMethodSignature:v26];
             [v27 setSelector:v19];
-            [v27 setArgument:&v50 atIndex:2];
+            [v27 setArgument:&v49 atIndex:2];
             [v27 invokeWithTarget:v14];
           }
 
@@ -584,14 +578,14 @@ LABEL_20:
               [characteristicCopy instanceID];
               v40 = v39 = descriptorCopy;
               *buf = 138544130;
-              v58 = v37;
-              v59 = 2112;
-              v60 = v18;
-              v61 = 2112;
-              v62 = paramsClass;
-              v14 = v46;
-              v63 = 2112;
-              v64 = v40;
+              v57 = v37;
+              v58 = 2112;
+              v59 = v18;
+              v60 = 2112;
+              v61 = paramsClass;
+              v14 = v45;
+              v62 = 2112;
+              v63 = v40;
               _os_log_impl(&dword_22AEAE000, v36, OS_LOG_TYPE_ERROR, "%{public}@Couldn't get Signature for Property %@ for Params of type %@ for characteristic %@", buf, 0x2Au);
 
               descriptorCopy = v39;
@@ -613,14 +607,14 @@ LABEL_20:
             paramsClass2 = [descriptorCopy paramsClass];
             instanceID = [characteristicCopy instanceID];
             *buf = 138544130;
-            v58 = v31;
-            v59 = 2112;
-            v60 = v18;
-            v61 = 2112;
-            v62 = paramsClass2;
-            v14 = v46;
-            v63 = 2112;
-            v64 = instanceID;
+            v57 = v31;
+            v58 = 2112;
+            v59 = v18;
+            v60 = 2112;
+            v61 = paramsClass2;
+            v14 = v45;
+            v62 = 2112;
+            v63 = instanceID;
             _os_log_impl(&dword_22AEAE000, v30, OS_LOG_TYPE_ERROR, "%{public}@Failed to set Property %@ for Params of type %@ for characteristic %@", buf, 0x2Au);
           }
 
@@ -628,21 +622,19 @@ LABEL_20:
         }
       }
 
-      v49 = [obj countByEnumeratingWithState:&v51 objects:v65 count:16];
+      v48 = [obj countByEnumeratingWithState:&v50 objects:v64 count:16];
     }
 
-    while (v49);
+    while (v48);
   }
 
-  [invocationCopy setArgument:&v56 atIndex:integerValue + 2];
+  [invocationCopy setArgument:&v55 atIndex:integerValue + 2];
   [invocationCopy setArgument:&argumentCopy atIndex:integerValue + 3];
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_processReadResponseForOperation:(id)operation readResponseValues:(id)values readResponseError:(id)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   valuesCopy = values;
   errorCopy = error;
@@ -654,15 +646,15 @@ LABEL_20:
   {
     v15 = HMFGetLogIdentifier();
     instanceID = [characteristic instanceID];
-    v25 = 138544130;
-    v26 = v15;
-    v27 = 2112;
-    v28 = instanceID;
-    v29 = 2112;
-    v30 = valuesCopy;
-    v31 = 2112;
-    v32 = errorCopy;
-    _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Processing read response for characteristic %@. Value: %@ Error: %@", &v25, 0x2Au);
+    v24 = 138544130;
+    v25 = v15;
+    v26 = 2112;
+    v27 = instanceID;
+    v28 = 2112;
+    v29 = valuesCopy;
+    v30 = 2112;
+    v31 = errorCopy;
+    _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Processing read response for characteristic %@. Value: %@ Error: %@", &v24, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v12);
@@ -674,11 +666,11 @@ LABEL_20:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       v20 = HMFGetLogIdentifier();
-      v25 = 138543618;
-      v26 = v20;
-      v27 = 2112;
-      v28 = characteristic;
-      _os_log_impl(&dword_22AEAE000, v19, OS_LOG_TYPE_DEBUG, "%{public}@Could not find description for characteristic %@, falling back to localized version", &v25, 0x16u);
+      v24 = 138543618;
+      v25 = v20;
+      v26 = 2112;
+      v27 = characteristic;
+      _os_log_impl(&dword_22AEAE000, v19, OS_LOG_TYPE_DEBUG, "%{public}@Could not find description for characteristic %@, falling back to localized version", &v24, 0x16u);
     }
 
     objc_autoreleasePoolPop(v17);
@@ -692,14 +684,12 @@ LABEL_20:
 
   v22 = v21;
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 - (id)_responseTupleWithMappedValueForOperation:(id)operation responseValue:(id)value responseError:(id)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   valueCopy = value;
   errorCopy = error;
@@ -733,15 +723,15 @@ LABEL_20:
           v23 = HMFGetLogIdentifier();
           value = [characteristic value];
           instanceID = [characteristic instanceID];
-          v29 = 138544130;
-          v30 = v23;
-          v31 = 2112;
-          v32 = valueCopy;
-          v33 = 2112;
-          v34 = value;
-          v35 = 2112;
-          v36 = instanceID;
-          _os_log_impl(&dword_22AEAE000, v22, OS_LOG_TYPE_DEBUG, "%{public}@Mapped value from dictionary %@ to %@ for instanceID %@.", &v29, 0x2Au);
+          v28 = 138544130;
+          v29 = v23;
+          v30 = 2112;
+          v31 = valueCopy;
+          v32 = 2112;
+          v33 = value;
+          v34 = 2112;
+          v35 = instanceID;
+          _os_log_impl(&dword_22AEAE000, v22, OS_LOG_TYPE_DEBUG, "%{public}@Mapped value from dictionary %@ to %@ for instanceID %@.", &v28, 0x2Au);
         }
 
         objc_autoreleasePoolPop(v20);
@@ -758,14 +748,12 @@ LABEL_20:
 
   v26 = [MEMORY[0x277CFEA90] responseTupleForCharacteristic:characteristic error:v14];
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v26;
 }
 
 - (id)_processWriteResponseForOperation:(id)operation writeResponseValues:(id)values writeResponseError:(id)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   valuesCopy = values;
   errorCopy = error;
@@ -778,15 +766,15 @@ LABEL_20:
     characteristic = [operationCopy characteristic];
     instanceID = [characteristic instanceID];
     value = [operationCopy value];
-    v27 = 138544130;
-    v28 = v14;
-    v29 = 2112;
-    v30 = instanceID;
-    v31 = 2112;
-    v32 = value;
-    v33 = 2112;
-    v34 = errorCopy;
-    _os_log_impl(&dword_22AEAE000, v13, OS_LOG_TYPE_INFO, "%{public}@CHIP Accessory received write response for characteristic %@. Targeted value: %@\nError: %@", &v27, 0x2Au);
+    v26 = 138544130;
+    v27 = v14;
+    v28 = 2112;
+    v29 = instanceID;
+    v30 = 2112;
+    v31 = value;
+    v32 = 2112;
+    v33 = errorCopy;
+    _os_log_impl(&dword_22AEAE000, v13, OS_LOG_TYPE_INFO, "%{public}@CHIP Accessory received write response for characteristic %@. Targeted value: %@\nError: %@", &v26, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -810,14 +798,12 @@ LABEL_20:
   characteristic3 = [operationCopy characteristic];
   v24 = [v22 responseTupleForCharacteristic:characteristic3 error:v20];
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v24;
 }
 
 - (id)_processGenericResponseForOperation:(id)operation responseValues:(id)values responseError:(id)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   valuesCopy = values;
   errorCopy = error;
@@ -827,19 +813,17 @@ LABEL_20:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     v14 = HMFGetLogIdentifier();
-    v18 = 138543874;
-    v19 = v14;
-    v20 = 2112;
-    v21 = errorCopy;
-    v22 = 2112;
-    v23 = valuesCopy;
-    _os_log_impl(&dword_22AEAE000, v13, OS_LOG_TYPE_DEBUG, "%{public}@CHIP Accessory received response. Error: %@ Response %@", &v18, 0x20u);
+    v17 = 138543874;
+    v18 = v14;
+    v19 = 2112;
+    v20 = errorCopy;
+    v21 = 2112;
+    v22 = valuesCopy;
+    _os_log_impl(&dword_22AEAE000, v13, OS_LOG_TYPE_DEBUG, "%{public}@CHIP Accessory received response. Error: %@ Response %@", &v17, 0x20u);
   }
 
   objc_autoreleasePoolPop(v11);
   v15 = [(HMMTRProtocolOperationManager *)selfCopy _responseTupleWithMappedValueForOperation:operationCopy responseValue:valuesCopy responseError:errorCopy];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -903,18 +887,18 @@ LABEL_12:
 
 - (void)registerOperation:(id)operation accessoryServer:(id)server clientQueue:(id)queue reportDistributor:(id)distributor operationResponseHandler:(id)handler updatedAttributesHandler:(id)attributesHandler
 {
-  v138 = *MEMORY[0x277D85DE8];
+  v137 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   serverCopy = server;
   queueCopy = queue;
   distributorCopy = distributor;
   handlerCopy = handler;
   attributesHandlerCopy = attributesHandler;
-  v112 = serverCopy;
+  v111 = serverCopy;
   if (![(HMMTRProtocolOperationManager *)self handleSpecialCaseCharacteristicWithOperation:operationCopy accessoryServer:serverCopy clientQueue:queueCopy operationResponseHandler:handlerCopy updatedAttributesHandler:attributesHandlerCopy])
   {
     characteristicDescription = [operationCopy characteristicDescription];
-    v114 = characteristicDescription;
+    v113 = characteristicDescription;
     v20 = characteristicDescription;
     if (!characteristicDescription)
     {
@@ -926,7 +910,7 @@ LABEL_12:
     {
       v21 = objc_alloc(MEMORY[0x277CD5250]);
       matterDevice = [operationCopy matterDevice];
-      v109 = [v21 initWithDevice:matterDevice endpoint:objc_msgSend(operationCopy queue:{"endpoint"), queueCopy}];
+      v108 = [v21 initWithDevice:matterDevice endpoint:objc_msgSend(operationCopy queue:{"endpoint"), queueCopy}];
       clusterID = &unk_283EE7F50;
     }
 
@@ -935,7 +919,7 @@ LABEL_12:
       v24 = objc_alloc([v20 clusterClass]);
       matterDevice2 = [operationCopy matterDevice];
       v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(operationCopy, "endpoint")}];
-      v109 = [v24 initWithDevice:matterDevice2 endpointID:v26 queue:queueCopy];
+      v108 = [v24 initWithDevice:matterDevice2 endpointID:v26 queue:queueCopy];
 
       matterDevice = [operationCopy characteristicDescription];
       clusterID = [matterDevice clusterID];
@@ -944,14 +928,14 @@ LABEL_12:
     characteristicDescription2 = [operationCopy characteristicDescription];
     attributeID = [characteristicDescription2 attributeID];
 
-    [v114 clusterSelector];
-    v28 = v109;
-    if ((objc_opt_respondsToSelector() & 1) == 0 || ([v109 methodSignatureForSelector:{objc_msgSend(v114, "clusterSelector")}], (v111 = objc_claimAutoreleasedReturnValue()) == 0))
+    [v113 clusterSelector];
+    v28 = v108;
+    if ((objc_opt_respondsToSelector() & 1) == 0 || ([v108 methodSignatureForSelector:{objc_msgSend(v113, "clusterSelector")}], (v110 = objc_claimAutoreleasedReturnValue()) == 0))
     {
-      v111 = 0;
+      v110 = 0;
 LABEL_16:
 
-      if (v111)
+      if (v110)
       {
         v32 = 0;
 LABEL_105:
@@ -965,14 +949,14 @@ LABEL_105:
       if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         v36 = HMFGetLogIdentifier();
-        v37 = NSStringFromSelector([v114 clusterSelector]);
-        clusterClass = [v114 clusterClass];
+        v37 = NSStringFromSelector([v113 clusterSelector]);
+        clusterClass = [v113 clusterClass];
         *buf = 138543874;
         *&buf[4] = v36;
-        v132 = 2112;
-        v133 = v37;
-        v134 = 2112;
-        v135 = clusterClass;
+        v131 = 2112;
+        v132 = v37;
+        v133 = 2112;
+        v134 = clusterClass;
         _os_log_impl(&dword_22AEAE000, v35, OS_LOG_TYPE_ERROR, "%{public}@CHIP Accessory couldn't get signature for Selector:%@ on Cluster:%@", buf, 0x20u);
       }
 
@@ -981,19 +965,19 @@ LABEL_105:
 LABEL_21:
       v39 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HMMTRProtocolOperationErrorDomain" code:v23 userInfo:0];
       v32 = v39;
-      v111 = 0;
+      v110 = 0;
       if (handlerCopy && v39)
       {
-        v110 = [(HMMTRProtocolOperationManager *)self _processResponseForOperation:operationCopy responseValues:0 responseError:v39];
-        handlerCopy[2](handlerCopy, v110);
-        v111 = 0;
+        v109 = [(HMMTRProtocolOperationManager *)self _processResponseForOperation:operationCopy responseValues:0 responseError:v39];
+        handlerCopy[2](handlerCopy, v109);
+        v110 = 0;
       }
 
       goto LABEL_105;
     }
 
-    v106 = [MEMORY[0x277CBEAE8] invocationWithMethodSignature:?];
-    [v106 setSelector:{objc_msgSend(v114, "clusterSelector")}];
+    v105 = [MEMORY[0x277CBEAE8] invocationWithMethodSignature:?];
+    [v105 setSelector:{objc_msgSend(v113, "clusterSelector")}];
     objc_initWeak(&location, self);
     type = [operationCopy type];
     if (type != 1 || ([operationCopy matterDevice], (v28 = objc_claimAutoreleasedReturnValue()) != 0))
@@ -1008,64 +992,64 @@ LABEL_21:
 LABEL_13:
           if ([operationCopy type] != 1)
           {
-            v118[0] = MEMORY[0x277D85DD0];
-            v118[1] = 3221225472;
-            v118[2] = __147__HMMTRProtocolOperationManager_registerOperation_accessoryServer_clientQueue_reportDistributor_operationResponseHandler_updatedAttributesHandler___block_invoke_2;
-            v118[3] = &unk_2786EDBB8;
-            objc_copyWeak(&v122, &location);
-            v118[4] = self;
-            v119 = operationCopy;
-            v121 = handlerCopy;
-            v120 = queueCopy;
-            v105 = MEMORY[0x2318887D0](v118);
-            v101 = MEMORY[0x2318887D0](v105);
+            v117[0] = MEMORY[0x277D85DD0];
+            v117[1] = 3221225472;
+            v117[2] = __147__HMMTRProtocolOperationManager_registerOperation_accessoryServer_clientQueue_reportDistributor_operationResponseHandler_updatedAttributesHandler___block_invoke_2;
+            v117[3] = &unk_2786EDBB8;
+            objc_copyWeak(&v121, &location);
+            v117[4] = self;
+            v118 = operationCopy;
+            v120 = handlerCopy;
+            v119 = queueCopy;
+            v104 = MEMORY[0x2318887D0](v117);
+            v100 = MEMORY[0x2318887D0](v104);
 
-            objc_destroyWeak(&v122);
+            objc_destroyWeak(&v121);
             goto LABEL_28;
           }
 
-          v123[0] = MEMORY[0x277D85DD0];
-          v123[1] = 3221225472;
-          v123[2] = __147__HMMTRProtocolOperationManager_registerOperation_accessoryServer_clientQueue_reportDistributor_operationResponseHandler_updatedAttributesHandler___block_invoke_119;
-          v123[3] = &unk_2786EF8C8;
-          v123[4] = self;
-          v124 = operationCopy;
-          v126 = handlerCopy;
-          v125 = queueCopy;
-          v101 = MEMORY[0x2318887D0](v123);
+          v122[0] = MEMORY[0x277D85DD0];
+          v122[1] = 3221225472;
+          v122[2] = __147__HMMTRProtocolOperationManager_registerOperation_accessoryServer_clientQueue_reportDistributor_operationResponseHandler_updatedAttributesHandler___block_invoke_119;
+          v122[3] = &unk_2786EF8C8;
+          v122[4] = self;
+          v123 = operationCopy;
+          v125 = handlerCopy;
+          v124 = queueCopy;
+          v100 = MEMORY[0x2318887D0](v122);
 
 LABEL_26:
-          v105 = 0;
+          v104 = 0;
 LABEL_28:
-          v40 = v114;
-          v99 = objc_alloc_init([v114 paramsClass]);
+          v40 = v113;
+          v98 = objc_alloc_init([v113 paramsClass]);
           value = [operationCopy value];
-          v117 = objc_alloc_init(MEMORY[0x277CD54D8]);
+          v116 = objc_alloc_init(MEMORY[0x277CD54D8]);
           matterDevice3 = [operationCopy matterDevice];
           if (matterDevice3)
           {
             v42 = [operationCopy type] == 4;
 
-            v40 = v114;
+            v40 = v113;
             if (v42)
             {
-              [v106 setArgument:&v117 atIndex:2];
+              [v105 setArgument:&v116 atIndex:2];
 LABEL_44:
-              v98 = 0;
-              v100 = 0;
+              v97 = 0;
+              v99 = 0;
               goto LABEL_74;
             }
           }
 
           matterDevice4 = [operationCopy matterDevice];
-          if (!matterDevice4 || (v44 = [operationCopy type] == 1, matterDevice4, v40 = v114, !v44))
+          if (!matterDevice4 || (v44 = [operationCopy type] == 1, matterDevice4, v40 = v113, !v44))
           {
             matterDevice5 = [operationCopy matterDevice];
             if (matterDevice5)
             {
               v55 = [operationCopy type] == 2;
 
-              v40 = v114;
+              v40 = v113;
               if (!v55)
               {
                 context = objc_autoreleasePoolPush();
@@ -1078,10 +1062,10 @@ LABEL_44:
                   v61 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(operationCopy, "type")}];
                   *buf = 138543874;
                   *&buf[4] = v59;
-                  v132 = 2112;
-                  v133 = characteristic;
-                  v134 = 2112;
-                  v135 = v61;
+                  v131 = 2112;
+                  v132 = characteristic;
+                  v133 = 2112;
+                  v134 = v61;
                   _os_log_impl(&dword_22AEAE000, v58, OS_LOG_TYPE_ERROR, "%{public}@Unexpected operation for characteristic %@: %@ with MTRDevice, not building arguments", buf, 0x20u);
                 }
 
@@ -1093,7 +1077,7 @@ LABEL_44:
             if ([v40 paramsClass])
             {
               characteristic2 = [operationCopy characteristic];
-              [(HMMTRProtocolOperationManager *)self _addParamsToInvocation:v106 paramsObject:v99 completionHandlerArgument:v101 characteristicDescriptor:v40 forCharacteristic:characteristic2];
+              [(HMMTRProtocolOperationManager *)self _addParamsToInvocation:v105 paramsObject:v98 completionHandlerArgument:v100 characteristicDescriptor:v40 forCharacteristic:characteristic2];
             }
 
             else
@@ -1105,22 +1089,22 @@ LABEL_44:
 
                 if (!v63)
                 {
-                  mapValue2 = [v114 mapValue];
+                  mapValue2 = [v113 mapValue];
                   value2 = [operationCopy value];
                   v66 = (mapValue2)[2](mapValue2, value2);
 
                   value = v66;
                 }
 
-                v40 = v114;
+                v40 = v113;
               }
 
               characteristic2 = [operationCopy characteristic];
-              [(HMMTRProtocolOperationManager *)self _addArgumentsToInvocation:v106 primaryArgument:value completionHandlerArgument:v101 characteristicDescriptor:v40 forCharacteristic:characteristic2];
+              [(HMMTRProtocolOperationManager *)self _addArgumentsToInvocation:v105 primaryArgument:value completionHandlerArgument:v100 characteristicDescriptor:v40 forCharacteristic:characteristic2];
             }
 
-            v98 = 0;
-            v100 = 0;
+            v97 = 0;
+            v99 = 0;
 LABEL_73:
 
 LABEL_74:
@@ -1129,22 +1113,22 @@ LABEL_74:
             v77 = HMFGetOSLogHandle();
             if (os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
             {
-              v97 = v76;
+              v96 = v76;
               v78 = HMFGetLogIdentifier();
               characteristic3 = [operationCopy characteristic];
               v80 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(operationCopy, "type")}];
               v81 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(operationCopy, "endpoint")}];
               *buf = 138544130;
               *&buf[4] = v78;
-              v132 = 2112;
-              v133 = characteristic3;
-              v134 = 2112;
-              v135 = v80;
-              v136 = 2112;
-              v137 = v81;
+              v131 = 2112;
+              v132 = characteristic3;
+              v133 = 2112;
+              v134 = v80;
+              v135 = 2112;
+              v136 = v81;
               _os_log_impl(&dword_22AEAE000, v77, OS_LOG_TYPE_INFO, "%{public}@CHIP Accessory sending request for characteristic %@ of type %@ on endpoint %@", buf, 0x2Au);
 
-              v76 = v97;
+              v76 = v96;
             }
 
             objc_autoreleasePoolPop(v76);
@@ -1155,17 +1139,17 @@ LABEL_74:
               v87 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(operationCopy, "endpoint")}];
               v88 = [(HMMTRDeviceReader *)v85 initWithClientQueue:queueCopy distributor:distributorCopy device:matterDevice6 endpointID:v87 clusterID:clusterID attributeID:attributeID];
 
-              v115[0] = MEMORY[0x277D85DD0];
-              v115[1] = 3221225472;
-              v115[2] = __147__HMMTRProtocolOperationManager_registerOperation_accessoryServer_clientQueue_reportDistributor_operationResponseHandler_updatedAttributesHandler___block_invoke_125;
-              v115[3] = &unk_2786EDBE0;
-              v116 = v105;
-              [(HMMTRDeviceReader *)v88 readAttributeWithCompletion:v115];
+              v114[0] = MEMORY[0x277D85DD0];
+              v114[1] = 3221225472;
+              v114[2] = __147__HMMTRProtocolOperationManager_registerOperation_accessoryServer_clientQueue_reportDistributor_operationResponseHandler_updatedAttributesHandler___block_invoke_125;
+              v114[3] = &unk_2786EDBE0;
+              v115 = v104;
+              [(HMMTRDeviceReader *)v88 readAttributeWithCompletion:v114];
             }
 
             else
             {
-              [v106 invokeWithTarget:v109];
+              [v105 invokeWithTarget:v108];
             }
 
             matterDevice7 = [operationCopy matterDevice];
@@ -1175,7 +1159,7 @@ LABEL_74:
               if ([operationCopy type] == 4 && !attributeID)
               {
                 *buf = 0;
-                [v106 getReturnValue:buf];
+                [v105 getReturnValue:buf];
                 v90 = *buf;
                 if (v90)
                 {
@@ -1187,7 +1171,7 @@ LABEL_74:
                   v91 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CD5120] code:1 userInfo:0];
                 }
 
-                (v105)[2](v105, v90, v91);
+                (v104)[2](v104, v90, v91);
 
 LABEL_102:
                 v95 = 0;
@@ -1196,7 +1180,7 @@ LABEL_102:
 
               if ([operationCopy type] == 1)
               {
-                v92 = [v114 syncWriteFunc] ^ 1;
+                v92 = [v113 syncWriteFunc] ^ 1;
                 if (!handlerCopy)
                 {
                   LOBYTE(v92) = 1;
@@ -1232,23 +1216,23 @@ LABEL_103:
             goto LABEL_16;
           }
 
-          mapWriteValueToExpectedValues = [v114 mapWriteValueToExpectedValues];
+          mapWriteValueToExpectedValues = [v113 mapWriteValueToExpectedValues];
 
           if (mapWriteValueToExpectedValues)
           {
-            mapWriteValueToExpectedValues2 = [v114 mapWriteValueToExpectedValues];
+            mapWriteValueToExpectedValues2 = [v113 mapWriteValueToExpectedValues];
             endpoint = [operationCopy endpoint];
             value3 = [operationCopy value];
-            v100 = (mapWriteValueToExpectedValues2)[2](mapWriteValueToExpectedValues2, endpoint, value3);
+            v99 = (mapWriteValueToExpectedValues2)[2](mapWriteValueToExpectedValues2, endpoint, value3);
 
-            v49 = [v100 count];
-            v50 = v114;
+            v49 = [v99 count];
+            v50 = v113;
             if (!v49)
             {
               goto LABEL_55;
             }
 
-            v51 = [v100 objectAtIndexedSubscript:0];
+            v51 = [v99 objectAtIndexedSubscript:0];
             v52 = [v51 objectForKeyedSubscript:*MEMORY[0x277CD50B8]];
             v53 = v52 == 0;
 
@@ -1259,21 +1243,21 @@ LABEL_103:
 
             else
             {
-              v49 = v100;
-              v100 = v49;
+              v49 = v99;
+              v99 = v49;
             }
           }
 
           else
           {
             v49 = 0;
-            v100 = 0;
+            v99 = 0;
           }
 
-          v50 = v114;
+          v50 = v113;
 LABEL_55:
           v67 = &unk_283EE7F20;
-          v98 = v49;
+          v97 = v49;
           if (!v49)
           {
             v67 = 0;
@@ -1283,7 +1267,7 @@ LABEL_55:
           if ([v50 paramsClass])
           {
             characteristic4 = [operationCopy characteristic];
-            [(HMMTRProtocolOperationManager *)self _addParamsToInvocation:v106 paramsObject:v99 expectedValues:v98 expectedValueInterval:characteristic2 completionHandlerArgument:v101 characteristicDescriptor:v50 forCharacteristic:characteristic4];
+            [(HMMTRProtocolOperationManager *)self _addParamsToInvocation:v105 paramsObject:v98 expectedValues:v97 expectedValueInterval:characteristic2 completionHandlerArgument:v100 characteristicDescriptor:v50 forCharacteristic:characteristic4];
 LABEL_72:
 
             goto LABEL_73;
@@ -1295,9 +1279,9 @@ LABEL_72:
             goto LABEL_68;
           }
 
-          if ([v50 syncWriteFunc] && objc_msgSend(v100, "count") == 1)
+          if ([v50 syncWriteFunc] && objc_msgSend(v99, "count") == 1)
           {
-            mapValue4 = [v100 objectAtIndexedSubscript:0];
+            mapValue4 = [v99 objectAtIndexedSubscript:0];
             v70 = [mapValue4 objectForKeyedSubscript:*MEMORY[0x277CD50D8]];
             value4 = value;
           }
@@ -1309,7 +1293,7 @@ LABEL_72:
             if (!mapValue3)
             {
 LABEL_66:
-              v50 = v114;
+              v50 = v113;
 LABEL_68:
               syncWriteFunc = [v50 syncWriteFunc];
               characteristic5 = [operationCopy characteristic];
@@ -1321,14 +1305,14 @@ LABEL_68:
 
               else
               {
-                v75 = v101;
+                v75 = v100;
               }
 
-              [(HMMTRProtocolOperationManager *)self _addArgumentsToInvocation:v106 primaryArgument:value expectedValues:v98 expectedValueInterval:characteristic2 completionHandlerArgument:v75 characteristicDescriptor:v50 forCharacteristic:characteristic5];
+              [(HMMTRProtocolOperationManager *)self _addArgumentsToInvocation:v105 primaryArgument:value expectedValues:v97 expectedValueInterval:characteristic2 completionHandlerArgument:v75 characteristicDescriptor:v50 forCharacteristic:characteristic5];
               goto LABEL_72;
             }
 
-            mapValue4 = [v114 mapValue];
+            mapValue4 = [v113 mapValue];
             value4 = [operationCopy value];
             v70 = (mapValue4)[2](mapValue4, value4);
           }
@@ -1344,27 +1328,25 @@ LABEL_68:
       }
     }
 
-    v127[0] = MEMORY[0x277D85DD0];
-    v127[1] = 3221225472;
-    v127[2] = __147__HMMTRProtocolOperationManager_registerOperation_accessoryServer_clientQueue_reportDistributor_operationResponseHandler_updatedAttributesHandler___block_invoke;
-    v127[3] = &unk_2786EDB90;
-    objc_copyWeak(&v129, &location);
-    v127[4] = self;
-    v128 = operationCopy;
-    v101 = MEMORY[0x2318887D0](v127);
+    v126[0] = MEMORY[0x277D85DD0];
+    v126[1] = 3221225472;
+    v126[2] = __147__HMMTRProtocolOperationManager_registerOperation_accessoryServer_clientQueue_reportDistributor_operationResponseHandler_updatedAttributesHandler___block_invoke;
+    v126[3] = &unk_2786EDB90;
+    objc_copyWeak(&v128, &location);
+    v126[4] = self;
+    v127 = operationCopy;
+    v100 = MEMORY[0x2318887D0](v126);
 
-    objc_destroyWeak(&v129);
+    objc_destroyWeak(&v128);
     goto LABEL_26;
   }
 
 LABEL_106:
-
-  v96 = *MEMORY[0x277D85DE8];
 }
 
 void __147__HMMTRProtocolOperationManager_registerOperation_accessoryServer_clientQueue_reportDistributor_operationResponseHandler_updatedAttributesHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = objc_autoreleasePoolPush();
@@ -1373,11 +1355,11 @@ void __147__HMMTRProtocolOperationManager_registerOperation_accessoryServer_clie
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_DEBUG, "%{public}@CHIP Accessory received response. Error: %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_DEBUG, "%{public}@CHIP Accessory received response. Error: %@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -1385,13 +1367,11 @@ void __147__HMMTRProtocolOperationManager_registerOperation_accessoryServer_clie
   {
     v9 = [WeakRetained _processResponseForOperation:*(a1 + 40) responseValues:0 responseError:v3];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __147__HMMTRProtocolOperationManager_registerOperation_accessoryServer_clientQueue_reportDistributor_operationResponseHandler_updatedAttributesHandler___block_invoke_119(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1400,9 +1380,9 @@ void __147__HMMTRProtocolOperationManager_registerOperation_accessoryServer_clie
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v16 = v7;
-    v17 = 2112;
-    v18 = v3;
+    v15 = v7;
+    v16 = 2112;
+    v17 = v3;
     _os_log_impl(&dword_22AEAE000, v6, OS_LOG_TYPE_DEBUG, "%{public}@CHIP Accessory received response. Error: %@", buf, 0x16u);
   }
 
@@ -1412,21 +1392,19 @@ void __147__HMMTRProtocolOperationManager_registerOperation_accessoryServer_clie
   if (v9)
   {
     v10 = *(a1 + 48);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __147__HMMTRProtocolOperationManager_registerOperation_accessoryServer_clientQueue_reportDistributor_operationResponseHandler_updatedAttributesHandler___block_invoke_120;
-    v12[3] = &unk_2786EF5A8;
-    v14 = v9;
-    v13 = v8;
-    dispatch_async(v10, v12);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __147__HMMTRProtocolOperationManager_registerOperation_accessoryServer_clientQueue_reportDistributor_operationResponseHandler_updatedAttributesHandler___block_invoke_120;
+    v11[3] = &unk_2786EF5A8;
+    v13 = v9;
+    v12 = v8;
+    dispatch_async(v10, v11);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __147__HMMTRProtocolOperationManager_registerOperation_accessoryServer_clientQueue_reportDistributor_operationResponseHandler_updatedAttributesHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
@@ -1437,11 +1415,11 @@ void __147__HMMTRProtocolOperationManager_registerOperation_accessoryServer_clie
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v20 = v11;
-    v21 = 2112;
-    v22 = v5;
-    v23 = 2112;
-    v24 = v6;
+    v19 = v11;
+    v20 = 2112;
+    v21 = v5;
+    v22 = 2112;
+    v23 = v6;
     _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_DEBUG, "%{public}@CHIP Accessory received response. Values: %@ Error: %@", buf, 0x20u);
   }
 
@@ -1453,17 +1431,15 @@ void __147__HMMTRProtocolOperationManager_registerOperation_accessoryServer_clie
     if (v13)
     {
       v14 = *(a1 + 48);
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __147__HMMTRProtocolOperationManager_registerOperation_accessoryServer_clientQueue_reportDistributor_operationResponseHandler_updatedAttributesHandler___block_invoke_121;
-      v16[3] = &unk_2786EF5A8;
-      v18 = v13;
-      v17 = v12;
-      dispatch_async(v14, v16);
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __147__HMMTRProtocolOperationManager_registerOperation_accessoryServer_clientQueue_reportDistributor_operationResponseHandler_updatedAttributesHandler___block_invoke_121;
+      v15[3] = &unk_2786EF5A8;
+      v17 = v13;
+      v16 = v12;
+      dispatch_async(v14, v15);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __147__HMMTRProtocolOperationManager_registerOperation_accessoryServer_clientQueue_reportDistributor_operationResponseHandler_updatedAttributesHandler___block_invoke_125(uint64_t a1, void *a2)
@@ -1484,7 +1460,7 @@ void __147__HMMTRProtocolOperationManager_registerOperation_accessoryServer_clie
 
 - (void)handleLockTargetStateWriteWithOperation:(id)operation accessoryServer:(id)server clientQueue:(id)queue operationResponseHandler:(id)handler
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   serverCopy = server;
   queueCopy = queue;
@@ -1503,31 +1479,31 @@ void __147__HMMTRProtocolOperationManager_registerOperation_accessoryServer_clie
 
     if (integerValue == 1)
     {
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __126__HMMTRProtocolOperationManager_handleLockTargetStateWriteWithOperation_accessoryServer_clientQueue_operationResponseHandler___block_invoke_2;
-      v36[3] = &unk_2786F0C10;
-      v36[4] = self;
-      v37 = operationCopy;
-      v38 = handlerCopy;
-      [(HMMTRSyncClusterDoorLock *)v19 lockDoorWithAccessoryUUID:hmdAccessoryUUID completionHandler:v36];
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __126__HMMTRProtocolOperationManager_handleLockTargetStateWriteWithOperation_accessoryServer_clientQueue_operationResponseHandler___block_invoke_2;
+      v35[3] = &unk_2786F0C10;
+      v35[4] = self;
+      v36 = operationCopy;
+      v37 = handlerCopy;
+      [(HMMTRSyncClusterDoorLock *)v19 lockDoorWithAccessoryUUID:hmdAccessoryUUID completionHandler:v35];
 
-      v22 = v37;
+      v22 = v36;
       goto LABEL_10;
     }
 
     if (!integerValue)
     {
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = __126__HMMTRProtocolOperationManager_handleLockTargetStateWriteWithOperation_accessoryServer_clientQueue_operationResponseHandler___block_invoke;
-      v39[3] = &unk_2786F0C10;
-      v39[4] = self;
-      v40 = operationCopy;
-      v41 = handlerCopy;
-      [(HMMTRSyncClusterDoorLock *)v19 unlockDoorWithAccessoryUUID:hmdAccessoryUUID completionHandler:v39];
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __126__HMMTRProtocolOperationManager_handleLockTargetStateWriteWithOperation_accessoryServer_clientQueue_operationResponseHandler___block_invoke;
+      v38[3] = &unk_2786F0C10;
+      v38[4] = self;
+      v39 = operationCopy;
+      v40 = handlerCopy;
+      [(HMMTRSyncClusterDoorLock *)v19 unlockDoorWithAccessoryUUID:hmdAccessoryUUID completionHandler:v38];
 
-      v22 = v40;
+      v22 = v39;
 LABEL_10:
 
       goto LABEL_14;
@@ -1540,14 +1516,14 @@ LABEL_10:
     {
       v32 = HMFGetLogIdentifier();
       [operationCopy value];
-      v33 = v35 = v29;
+      v33 = v34 = v29;
       *buf = 138543618;
-      v43 = v32;
-      v44 = 2112;
-      v45 = v33;
+      v42 = v32;
+      v43 = 2112;
+      v44 = v33;
       _os_log_impl(&dword_22AEAE000, v31, OS_LOG_TYPE_ERROR, "%{public}@Unhandled write value for lock target state: %@", buf, 0x16u);
 
-      v29 = v35;
+      v29 = v34;
     }
 
     objc_autoreleasePoolPop(v29);
@@ -1563,11 +1539,11 @@ LABEL_10:
       v26 = HMFGetLogIdentifier();
       matterDevice2 = [operationCopy matterDevice];
       *buf = 138543874;
-      v43 = v26;
-      v44 = 2112;
-      v45 = hmdAccessoryUUID;
-      v46 = 2112;
-      v47 = matterDevice2;
+      v42 = v26;
+      v43 = 2112;
+      v44 = hmdAccessoryUUID;
+      v45 = 2112;
+      v46 = matterDevice2;
       _os_log_impl(&dword_22AEAE000, v25, OS_LOG_TYPE_ERROR, "%{public}@A required parameter was not included in write request for door lock target state. accessoryUUID: %@, matterDevice: %@", buf, 0x20u);
     }
 
@@ -1578,39 +1554,39 @@ LABEL_10:
   }
 
 LABEL_14:
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __126__HMMTRProtocolOperationManager_handleLockTargetStateWriteWithOperation_accessoryServer_clientQueue_operationResponseHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  [*(a1 + 32) _processWriteResponseForOperation:*(a1 + 40) writeResponseValues:0 writeResponseError:a2];
-  objc_claimAutoreleasedReturnValue();
-  v3 = *(a1 + 48);
-  if (v3)
+  v3 = [*(a1 + 32) _processWriteResponseForOperation:*(a1 + 40) writeResponseValues:0 writeResponseError:a2];
+  v4 = *(a1 + 48);
+  if (v4)
   {
-    (*(v3 + 16))();
+    v6 = v3;
+    v4 = (*(v4 + 16))();
+    v3 = v6;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v4, v3);
 }
 
 uint64_t __126__HMMTRProtocolOperationManager_handleLockTargetStateWriteWithOperation_accessoryServer_clientQueue_operationResponseHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  [*(a1 + 32) _processWriteResponseForOperation:*(a1 + 40) writeResponseValues:0 writeResponseError:a2];
-  objc_claimAutoreleasedReturnValue();
-  v3 = *(a1 + 48);
-  if (v3)
+  v3 = [*(a1 + 32) _processWriteResponseForOperation:*(a1 + 40) writeResponseValues:0 writeResponseError:a2];
+  v4 = *(a1 + 48);
+  if (v4)
   {
-    (*(v3 + 16))();
+    v6 = v3;
+    v4 = (*(v4 + 16))();
+    v3 = v6;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v4, v3);
 }
 
 - (void)handleHueSaturationWriteWithOperation:(id)operation clientQueue:(id)queue operationResponseHandler:(id)handler updatedAttributesHandler:(id)attributesHandler
 {
-  v145 = *MEMORY[0x277D85DE8];
+  v144 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   queueCopy = queue;
   handlerCopy = handler;
@@ -1620,17 +1596,17 @@ uint64_t __126__HMMTRProtocolOperationManager_handleLockTargetStateWriteWithOper
   if (matterDevice)
   {
     characteristicDescription = [operationCopy characteristicDescription];
-    v132[0] = MEMORY[0x277D85DD0];
-    v132[1] = 3221225472;
-    v132[2] = __133__HMMTRProtocolOperationManager_handleHueSaturationWriteWithOperation_clientQueue_operationResponseHandler_updatedAttributesHandler___block_invoke;
-    v132[3] = &unk_2786EF5A8;
+    v131[0] = MEMORY[0x277D85DD0];
+    v131[1] = 3221225472;
+    v131[2] = __133__HMMTRProtocolOperationManager_handleHueSaturationWriteWithOperation_clientQueue_operationResponseHandler_updatedAttributesHandler___block_invoke;
+    v131[3] = &unk_2786EF5A8;
     v16 = operationCopy;
-    v133 = v16;
-    v134 = attributesHandlerCopy;
-    v119 = MEMORY[0x2318887D0](v132);
+    v132 = v16;
+    v133 = attributesHandlerCopy;
+    v118 = MEMORY[0x2318887D0](v131);
     v17 = objc_alloc([characteristicDescription clusterClass]);
     matterDevice2 = [v16 matterDevice];
-    v118 = [v17 initWithDevice:matterDevice2 endpoint:objc_msgSend(v16 queue:{"endpoint"), queueCopy}];
+    v117 = [v17 initWithDevice:matterDevice2 endpoint:objc_msgSend(v16 queue:{"endpoint"), queueCopy}];
 
     mapWriteValueToExpectedValues = [characteristicDescription mapWriteValueToExpectedValues];
 
@@ -1651,30 +1627,30 @@ uint64_t __126__HMMTRProtocolOperationManager_handleLockTargetStateWriteWithOper
         if (v27)
         {
           v24 = v26;
-          v116 = v24;
+          v115 = v24;
         }
 
         else
         {
-          v116 = v26;
+          v115 = v26;
           v24 = 0;
         }
       }
 
       else
       {
-        v116 = v23;
+        v115 = v23;
       }
     }
 
     else
     {
       v24 = 0;
-      v116 = 0;
+      v115 = 0;
     }
 
     v33 = &unk_283EE7F20;
-    v117 = v24;
+    v116 = v24;
     if (!v24)
     {
       v33 = 0;
@@ -1682,14 +1658,14 @@ uint64_t __126__HMMTRProtocolOperationManager_handleLockTargetStateWriteWithOper
 
     v34 = v33;
     handlingType = [v16 handlingType];
-    v36 = v119;
+    v36 = v118;
     if (handlingType == 2)
     {
-      v102 = operationCopy;
-      v105 = attributesHandlerCopy;
-      v113 = queueCopy;
-      v115 = v34;
-      v110 = handlerCopy;
+      v101 = operationCopy;
+      v104 = attributesHandlerCopy;
+      v112 = queueCopy;
+      v114 = v34;
+      v109 = handlerCopy;
       v58 = objc_alloc_init(MEMORY[0x277CD52D0]);
       characteristic = [v16 characteristic];
       type = [characteristic type];
@@ -1731,44 +1707,44 @@ uint64_t __126__HMMTRProtocolOperationManager_handleLockTargetStateWriteWithOper
         characteristic2 = [v16 characteristic];
         writeSecondaryRequestTuple2 = [v16 writeSecondaryRequestTuple];
         [writeSecondaryRequestTuple2 characteristic];
-        v79 = v100 = v58;
+        v79 = v99 = v58;
         v80 = v74;
         v81 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v16, "type")}];
         v82 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v16, "endpoint")}];
         *buf = 138544386;
-        v136 = v77;
-        v137 = 2112;
-        v138 = characteristic2;
-        v139 = 2112;
-        v140 = v79;
-        v141 = 2112;
-        v142 = v81;
-        v143 = 2112;
-        v144 = v82;
+        v135 = v77;
+        v136 = 2112;
+        v137 = characteristic2;
+        v138 = 2112;
+        v139 = v79;
+        v140 = 2112;
+        v141 = v81;
+        v142 = 2112;
+        v143 = v82;
         _os_log_impl(&dword_22AEAE000, v76, OS_LOG_TYPE_INFO, "%{public}@CHIP Accessory sending request for characteristics %@ and %@ of type %@ on endpoint %@", buf, 0x34u);
 
         v74 = v80;
-        v58 = v100;
+        v58 = v99;
       }
 
       objc_autoreleasePoolPop(v74);
-      v120[0] = MEMORY[0x277D85DD0];
-      v120[1] = 3221225472;
-      v120[2] = __133__HMMTRProtocolOperationManager_handleHueSaturationWriteWithOperation_clientQueue_operationResponseHandler_updatedAttributesHandler___block_invoke_113;
-      v120[3] = &unk_2786EDB68;
-      v120[4] = selfCopy;
-      v121 = v16;
-      handlerCopy = v110;
-      v122 = v110;
-      v36 = v119;
-      v123 = v119;
-      v51 = v117;
-      v54 = v115;
-      [v118 moveToHueAndSaturationWithParams:v58 expectedValues:v117 expectedValueInterval:v115 completionHandler:v120];
+      v119[0] = MEMORY[0x277D85DD0];
+      v119[1] = 3221225472;
+      v119[2] = __133__HMMTRProtocolOperationManager_handleHueSaturationWriteWithOperation_clientQueue_operationResponseHandler_updatedAttributesHandler___block_invoke_113;
+      v119[3] = &unk_2786EDB68;
+      v119[4] = selfCopy;
+      v120 = v16;
+      handlerCopy = v109;
+      v121 = v109;
+      v36 = v118;
+      v122 = v118;
+      v51 = v116;
+      v54 = v114;
+      [v117 moveToHueAndSaturationWithParams:v58 expectedValues:v116 expectedValueInterval:v114 completionHandler:v119];
 
-      queueCopy = v113;
-      operationCopy = v102;
-      attributesHandlerCopy = v105;
+      queueCopy = v112;
+      operationCopy = v101;
+      attributesHandlerCopy = v104;
       goto LABEL_38;
     }
 
@@ -1781,12 +1757,12 @@ uint64_t __126__HMMTRProtocolOperationManager_handleLockTargetStateWriteWithOper
         (*(handlerCopy + 2))(handlerCopy, v57);
       }
 
-      v51 = v117;
+      v51 = v116;
       v54 = v56;
       goto LABEL_38;
     }
 
-    v114 = v34;
+    v113 = v34;
     if (handlingType)
     {
       v69 = objc_autoreleasePoolPush();
@@ -1795,21 +1771,21 @@ uint64_t __126__HMMTRProtocolOperationManager_handleLockTargetStateWriteWithOper
       if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v72 = v106 = attributesHandlerCopy;
+        v72 = v105 = attributesHandlerCopy;
         handlingType2 = [v16 handlingType];
         *buf = 138543618;
-        v136 = v72;
-        v137 = 2048;
-        v138 = handlingType2;
+        v135 = v72;
+        v136 = 2048;
+        v137 = handlingType2;
         _os_log_impl(&dword_22AEAE000, v71, OS_LOG_TYPE_ERROR, "%{public}@Unhandled handling type: %lu", buf, 0x16u);
 
-        attributesHandlerCopy = v106;
+        attributesHandlerCopy = v105;
       }
 
       objc_autoreleasePoolPop(v69);
-      v36 = v119;
-      v51 = v117;
-      v54 = v114;
+      v36 = v118;
+      v51 = v116;
+      v54 = v113;
       goto LABEL_38;
     }
 
@@ -1819,8 +1795,8 @@ uint64_t __126__HMMTRProtocolOperationManager_handleLockTargetStateWriteWithOper
 
     if (v39)
     {
-      v109 = handlerCopy;
-      v112 = queueCopy;
+      v108 = handlerCopy;
+      v111 = queueCopy;
       v40 = objc_alloc_init(MEMORY[0x277CD52D8]);
       mapValue2 = [characteristicDescription mapValue];
       writePrimaryRequestTuple2 = [v16 writePrimaryRequestTuple];
@@ -1836,42 +1812,42 @@ uint64_t __126__HMMTRProtocolOperationManager_handleLockTargetStateWriteWithOper
       v47 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
       {
-        v104 = HMFGetLogIdentifier();
+        v103 = HMFGetLogIdentifier();
         [v16 characteristic];
-        v48 = v101 = v45;
+        v48 = v100 = v45;
         v49 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v16, "type")}];
         v50 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v16, "endpoint")}];
         *buf = 138544130;
-        v136 = v104;
-        v137 = 2112;
-        v138 = v48;
-        v139 = 2112;
-        v140 = v49;
-        v141 = 2112;
-        v142 = v50;
+        v135 = v103;
+        v136 = 2112;
+        v137 = v48;
+        v138 = 2112;
+        v139 = v49;
+        v140 = 2112;
+        v141 = v50;
         _os_log_impl(&dword_22AEAE000, v47, OS_LOG_TYPE_INFO, "%{public}@CHIP Accessory sending request for characteristic %@ of type %@ on endpoint %@", buf, 0x2Au);
 
-        v45 = v101;
+        v45 = v100;
       }
 
       objc_autoreleasePoolPop(v45);
-      v128[0] = MEMORY[0x277D85DD0];
-      v128[1] = 3221225472;
-      v128[2] = __133__HMMTRProtocolOperationManager_handleHueSaturationWriteWithOperation_clientQueue_operationResponseHandler_updatedAttributesHandler___block_invoke_108;
-      v128[3] = &unk_2786EDB68;
-      v128[4] = selfCopy3;
-      v129 = v16;
-      handlerCopy = v109;
-      v130 = v109;
-      v36 = v119;
-      v131 = v119;
-      v51 = v117;
+      v127[0] = MEMORY[0x277D85DD0];
+      v127[1] = 3221225472;
+      v127[2] = __133__HMMTRProtocolOperationManager_handleHueSaturationWriteWithOperation_clientQueue_operationResponseHandler_updatedAttributesHandler___block_invoke_108;
+      v127[3] = &unk_2786EDB68;
+      v127[4] = selfCopy3;
+      v128 = v16;
+      handlerCopy = v108;
+      v129 = v108;
+      v36 = v118;
+      v130 = v118;
+      v51 = v116;
       v52 = v40;
       v53 = v40;
-      v54 = v114;
-      [v118 moveToHueWithParams:v52 expectedValues:v117 expectedValueInterval:v114 completionHandler:v128];
+      v54 = v113;
+      [v117 moveToHueWithParams:v52 expectedValues:v116 expectedValueInterval:v113 completionHandler:v127];
 
-      v55 = v129;
+      v55 = v128;
     }
 
     else
@@ -1881,19 +1857,19 @@ uint64_t __126__HMMTRProtocolOperationManager_handleLockTargetStateWriteWithOper
       type3 = [characteristic4 type];
       v85 = [type3 isEqualToString:@"0000002F-0000-1000-8000-0026BB765291"];
 
-      v36 = v119;
-      v51 = v117;
-      v54 = v114;
+      v36 = v118;
+      v51 = v116;
+      v54 = v113;
       if (!v85)
       {
 LABEL_38:
 
-        v32 = v118;
+        v32 = v117;
         goto LABEL_39;
       }
 
-      v111 = handlerCopy;
-      v112 = queueCopy;
+      v110 = handlerCopy;
+      v111 = queueCopy;
       v86 = objc_alloc_init(MEMORY[0x277CD52E0]);
       mapValue3 = [characteristicDescription mapValue];
       writePrimaryRequestTuple3 = [v16 writePrimaryRequestTuple];
@@ -1909,45 +1885,45 @@ LABEL_38:
       v93 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v93, OS_LOG_TYPE_INFO))
       {
-        v108 = HMFGetLogIdentifier();
+        v107 = HMFGetLogIdentifier();
         [v16 characteristic];
-        v94 = v103 = v91;
+        v94 = v102 = v91;
         v95 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v16, "type")}];
         v96 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v16, "endpoint")}];
         *buf = 138544130;
-        v136 = v108;
-        v137 = 2112;
-        v138 = v94;
-        v139 = 2112;
-        v140 = v95;
-        v141 = 2112;
-        v142 = v96;
+        v135 = v107;
+        v136 = 2112;
+        v137 = v94;
+        v138 = 2112;
+        v139 = v95;
+        v140 = 2112;
+        v141 = v96;
         _os_log_impl(&dword_22AEAE000, v93, OS_LOG_TYPE_INFO, "%{public}@CHIP Accessory sending request for characteristic %@ of type %@ on endpoint %@", buf, 0x2Au);
 
-        v91 = v103;
+        v91 = v102;
       }
 
       objc_autoreleasePoolPop(v91);
-      v124[0] = MEMORY[0x277D85DD0];
-      v124[1] = 3221225472;
-      v124[2] = __133__HMMTRProtocolOperationManager_handleHueSaturationWriteWithOperation_clientQueue_operationResponseHandler_updatedAttributesHandler___block_invoke_110;
-      v124[3] = &unk_2786EDB68;
-      v124[4] = v92;
-      v125 = v16;
-      handlerCopy = v111;
-      v126 = v111;
-      v36 = v119;
-      v127 = v119;
-      v51 = v117;
+      v123[0] = MEMORY[0x277D85DD0];
+      v123[1] = 3221225472;
+      v123[2] = __133__HMMTRProtocolOperationManager_handleHueSaturationWriteWithOperation_clientQueue_operationResponseHandler_updatedAttributesHandler___block_invoke_110;
+      v123[3] = &unk_2786EDB68;
+      v123[4] = v92;
+      v124 = v16;
+      handlerCopy = v110;
+      v125 = v110;
+      v36 = v118;
+      v126 = v118;
+      v51 = v116;
       v97 = v86;
       v53 = v86;
-      v54 = v114;
-      [v118 moveToSaturationWithParams:v97 expectedValues:v117 expectedValueInterval:v114 completionHandler:v124];
+      v54 = v113;
+      [v117 moveToSaturationWithParams:v97 expectedValues:v116 expectedValueInterval:v113 completionHandler:v123];
 
-      v55 = v125;
+      v55 = v124;
     }
 
-    queueCopy = v112;
+    queueCopy = v111;
     goto LABEL_38;
   }
 
@@ -1958,7 +1934,7 @@ LABEL_38:
   {
     v31 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v136 = v31;
+    v135 = v31;
     _os_log_impl(&dword_22AEAE000, v30, OS_LOG_TYPE_ERROR, "%{public}@Required parameter matterDevice is nil in the hue/saturation write request", buf, 0xCu);
   }
 
@@ -1967,89 +1943,95 @@ LABEL_38:
   characteristicDescription = [(HMMTRProtocolOperationManager *)selfCopy5 _processWriteResponseForOperation:operationCopy writeResponseValues:0 writeResponseError:v32];
   (*(handlerCopy + 2))(handlerCopy, characteristicDescription);
 LABEL_39:
-
-  v98 = *MEMORY[0x277D85DE8];
 }
 
 void __133__HMMTRProtocolOperationManager_handleHueSaturationWriteWithOperation_clientQueue_operationResponseHandler_updatedAttributesHandler___block_invoke(uint64_t a1)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
-  v13[0] = *MEMORY[0x277CD50B8];
+  v14[1] = *MEMORY[0x277D85DE8];
+  v12[0] = *MEMORY[0x277CD50B8];
   v2 = MEMORY[0x277CD51C0];
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "endpoint")}];
   v4 = [v2 attributePathWithEndpointID:v3 clusterID:&unk_283EE7ED8 attributeID:&unk_283EE7EF0];
-  v14[0] = v4;
-  v13[1] = *MEMORY[0x277CD50D8];
+  v13[0] = v4;
+  v12[1] = *MEMORY[0x277CD50D8];
   v5 = *MEMORY[0x277CD5198];
   v6 = *MEMORY[0x277CD51A0];
-  v11[0] = *MEMORY[0x277CD5188];
-  v11[1] = v6;
-  v12[0] = v5;
-  v12[1] = &unk_283EE7F08;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-  v14[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-  v15[0] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v10[0] = *MEMORY[0x277CD5188];
+  v10[1] = v6;
+  v11[0] = v5;
+  v11[1] = &unk_283EE7F08;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v13[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v14[0] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
 
   (*(*(a1 + 40) + 16))();
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __133__HMMTRProtocolOperationManager_handleHueSaturationWriteWithOperation_clientQueue_operationResponseHandler_updatedAttributesHandler___block_invoke_108(uint64_t a1, uint64_t a2)
 {
   v4 = [*(a1 + 32) _processWriteResponseForOperation:*(a1 + 40) writeResponseValues:0 writeResponseError:a2];
   v5 = *(a1 + 48);
+  v7 = v4;
   if (v5)
   {
-    (*(v5 + 16))(v5, v4);
+    v5 = (*(v5 + 16))(v5, v4);
+    v4 = v7;
   }
 
   if (!a2)
   {
-    (*(*(a1 + 56) + 16))();
+    v5 = (*(*(a1 + 56) + 16))();
+    v4 = v7;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v5, v4);
 }
 
 uint64_t __133__HMMTRProtocolOperationManager_handleHueSaturationWriteWithOperation_clientQueue_operationResponseHandler_updatedAttributesHandler___block_invoke_110(uint64_t a1, uint64_t a2)
 {
   v4 = [*(a1 + 32) _processWriteResponseForOperation:*(a1 + 40) writeResponseValues:0 writeResponseError:a2];
   v5 = *(a1 + 48);
+  v7 = v4;
   if (v5)
   {
-    (*(v5 + 16))(v5, v4);
+    v5 = (*(v5 + 16))(v5, v4);
+    v4 = v7;
   }
 
   if (!a2)
   {
-    (*(*(a1 + 56) + 16))();
+    v5 = (*(*(a1 + 56) + 16))();
+    v4 = v7;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v5, v4);
 }
 
 uint64_t __133__HMMTRProtocolOperationManager_handleHueSaturationWriteWithOperation_clientQueue_operationResponseHandler_updatedAttributesHandler___block_invoke_113(uint64_t a1, uint64_t a2)
 {
   v4 = [*(a1 + 32) _processWriteResponseForOperation:*(a1 + 40) writeResponseValues:0 writeResponseError:a2];
   v5 = *(a1 + 48);
+  v7 = v4;
   if (v5)
   {
-    (*(v5 + 16))(v5, v4);
+    v5 = (*(v5 + 16))(v5, v4);
+    v4 = v7;
   }
 
   if (!a2)
   {
-    (*(*(a1 + 56) + 16))();
+    v5 = (*(*(a1 + 56) + 16))();
+    v4 = v7;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v5, v4);
 }
 
 - (void)handleIdentifyDeviceWriteWithOperation:(id)operation clientQueue:(id)queue operationResponseHandler:(id)handler
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   queueCopy = queue;
   handlerCopy = handler;
@@ -2064,14 +2046,14 @@ uint64_t __133__HMMTRProtocolOperationManager_handleHueSaturationWriteWithOperat
     v17 = [(HMMTRIdentifyDevice *)v14 initWithDevice:matterDevice topology:topology queue:queueCopy];
 
     LOWORD(matterDevice) = [operationCopy endpoint];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __109__HMMTRProtocolOperationManager_handleIdentifyDeviceWriteWithOperation_clientQueue_operationResponseHandler___block_invoke;
-    v25[3] = &unk_2786F0C10;
-    v25[4] = self;
-    v26 = operationCopy;
-    v27 = handlerCopy;
-    [(HMMTRIdentifyDevice *)v17 identifyWithEndpoint:matterDevice completionHandler:v25];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __109__HMMTRProtocolOperationManager_handleIdentifyDeviceWriteWithOperation_clientQueue_operationResponseHandler___block_invoke;
+    v24[3] = &unk_2786F0C10;
+    v24[4] = self;
+    v25 = operationCopy;
+    v26 = handlerCopy;
+    [(HMMTRIdentifyDevice *)v17 identifyWithEndpoint:matterDevice completionHandler:v24];
   }
 
   else
@@ -2084,11 +2066,11 @@ uint64_t __133__HMMTRProtocolOperationManager_handleHueSaturationWriteWithOperat
       v21 = HMFGetLogIdentifier();
       matterDevice2 = [operationCopy matterDevice];
       *buf = 138543874;
-      v29 = v21;
-      v30 = 2112;
-      v31 = hmdAccessoryUUID;
-      v32 = 2112;
-      v33 = matterDevice2;
+      v28 = v21;
+      v29 = 2112;
+      v30 = hmdAccessoryUUID;
+      v31 = 2112;
+      v32 = matterDevice2;
       _os_log_impl(&dword_22AEAE000, v20, OS_LOG_TYPE_ERROR, "%{public}@A required parameter was not included in identify write request. accessoryUUID: %@, matterDevice: %@", buf, 0x20u);
     }
 
@@ -2097,26 +2079,25 @@ uint64_t __133__HMMTRProtocolOperationManager_handleHueSaturationWriteWithOperat
     v23 = [(HMMTRProtocolOperationManager *)selfCopy _processWriteResponseForOperation:operationCopy writeResponseValues:0 writeResponseError:v17];
     (*(handlerCopy + 2))(handlerCopy, v23);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __109__HMMTRProtocolOperationManager_handleIdentifyDeviceWriteWithOperation_clientQueue_operationResponseHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  [*(a1 + 32) _processWriteResponseForOperation:*(a1 + 40) writeResponseValues:0 writeResponseError:a2];
-  objc_claimAutoreleasedReturnValue();
-  v3 = *(a1 + 48);
-  if (v3)
+  v3 = [*(a1 + 32) _processWriteResponseForOperation:*(a1 + 40) writeResponseValues:0 writeResponseError:a2];
+  v4 = *(a1 + 48);
+  if (v4)
   {
-    (*(v3 + 16))();
+    v6 = v3;
+    v4 = (*(v4 + 16))();
+    v3 = v6;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v4, v3);
 }
 
 - (BOOL)handleSpecialCaseCharacteristicWithOperation:(id)operation accessoryServer:(id)server clientQueue:(id)queue operationResponseHandler:(id)handler updatedAttributesHandler:(id)attributesHandler
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   serverCopy = server;
   queueCopy = queue;
@@ -2177,7 +2158,7 @@ LABEL_13:
     v28 = queueCopy;
     v29 = attributesHandlerCopy;
     v31 = v30 = serverCopy;
-    v52 = [v31 isEqualToString:@"0000002F-0000-1000-8000-0026BB765291"];
+    v51 = [v31 isEqualToString:@"0000002F-0000-1000-8000-0026BB765291"];
 
     serverCopy = v30;
     attributesHandlerCopy = v29;
@@ -2185,7 +2166,7 @@ LABEL_13:
     handlerCopy = v27;
     self = selfCopy;
 
-    if (v52)
+    if (v51)
     {
       goto LABEL_13;
     }
@@ -2213,35 +2194,35 @@ LABEL_13:
             v40 = HMFGetLogIdentifier();
             writePrimaryRequestTuple = [operationCopy writePrimaryRequestTuple];
             [writePrimaryRequestTuple hmdAccessoryUUID];
-            v42 = v53 = serverCopy;
+            v42 = v52 = serverCopy;
             *buf = 138543618;
-            v56 = v40;
-            v57 = 2112;
-            v58 = v42;
+            v55 = v40;
+            v56 = 2112;
+            v57 = v42;
             _os_log_impl(&dword_22AEAE000, v39, OS_LOG_TYPE_DEBUG, "%{public}@Dropping write request for active characteristic. accessoryUUID: %@", buf, 0x16u);
 
-            serverCopy = v53;
+            serverCopy = v52;
           }
         }
 
         else if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v44 = v51 = v36;
+          v44 = v50 = v36;
           handlingType2 = [operationCopy handlingType];
           [operationCopy writePrimaryRequestTuple];
-          v46 = v54 = serverCopy;
+          v46 = v53 = serverCopy;
           hmdAccessoryUUID = [v46 hmdAccessoryUUID];
           *buf = 138543874;
-          v56 = v44;
-          v57 = 2048;
-          v58 = handlingType2;
-          v59 = 2112;
-          v60 = hmdAccessoryUUID;
+          v55 = v44;
+          v56 = 2048;
+          v57 = handlingType2;
+          v58 = 2112;
+          v59 = hmdAccessoryUUID;
           _os_log_impl(&dword_22AEAE000, v39, OS_LOG_TYPE_ERROR, "%{public}@Invalid handling type %lu. Dropping write request for active characteristic. accessoryUUID: %@", buf, 0x20u);
 
-          serverCopy = v54;
-          v36 = v51;
+          serverCopy = v53;
+          v36 = v50;
         }
 
         objc_autoreleasePoolPop(v36);
@@ -2259,7 +2240,6 @@ LABEL_13:
   v43 = 0;
 LABEL_27:
 
-  v49 = *MEMORY[0x277D85DE8];
   return v43;
 }
 
@@ -2288,10 +2268,11 @@ LABEL_27:
 
 uint64_t __44__HMMTRProtocolOperationManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v32 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v32;
+  logCategory__hmf_once_v32 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (HMMTRProtocolOperationManager)sharedInstance
@@ -2308,9 +2289,11 @@ uint64_t __44__HMMTRProtocolOperationManager_logCategory__block_invoke()
 
 uint64_t __47__HMMTRProtocolOperationManager_sharedInstance__block_invoke()
 {
-  sharedInstance_manager = objc_alloc_init(HMMTRProtocolOperationManager);
+  v0 = objc_alloc_init(HMMTRProtocolOperationManager);
+  v1 = sharedInstance_manager;
+  sharedInstance_manager = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

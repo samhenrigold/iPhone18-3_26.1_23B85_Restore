@@ -43,7 +43,7 @@
 - (void)pingWithObjectID:(int64_t)d
 {
   selfCopy = self;
-  sub_10004DF20(d);
+  sub_10004DF20(d, selfCopy, v4, v5, v6, v7, v8, v9, v10);
 }
 
 - (void)crashServer
@@ -110,13 +110,19 @@
 
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_100053794;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   selfCopy = self;
   sub_100051BBC(v6);
-  sub_100053784(v6);
+  sub_100053784(v6, v7);
 }
 
 - (void)logUpdates

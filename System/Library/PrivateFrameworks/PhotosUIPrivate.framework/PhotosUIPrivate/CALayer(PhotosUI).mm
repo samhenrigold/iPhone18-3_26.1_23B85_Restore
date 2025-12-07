@@ -1,8 +1,8 @@
 @interface CALayer(PhotosUI)
 + (void)pu_animateAlongsideView:()PhotosUI animations:;
 - (id)_pu_uniqueAnimationKeyWithProposedKey:()PhotosUI;
-- (uint64_t)pu_setPosition:()PhotosUI;
 - (uint64_t)pu_setTransform:()PhotosUI;
+- (void)pu_setPosition:()PhotosUI;
 @end
 
 @implementation CALayer(PhotosUI)
@@ -36,7 +36,7 @@
 - (uint64_t)pu_setTransform:()PhotosUI
 {
   memset(&v33, 0, sizeof(v33));
-  [self transform];
+  objc_msgSend_transform(self, a2);
   v5 = a3[5];
   *&a.m31 = a3[4];
   *&a.m33 = v5;
@@ -129,7 +129,7 @@
   return result;
 }
 
-- (uint64_t)pu_setPosition:()PhotosUI
+- (void)pu_setPosition:()PhotosUI
 {
   result = [self position];
   if (a2 != v7 || a3 != v8)

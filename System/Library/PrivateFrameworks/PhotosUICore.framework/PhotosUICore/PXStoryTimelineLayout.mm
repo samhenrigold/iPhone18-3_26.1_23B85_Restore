@@ -174,7 +174,7 @@ void __46__PXStoryTimelineLayout_enumerateClipLayouts___block_invoke(uint64_t a1
     [(PXGAbsoluteCompositeLayout *)self setContentSize:v4, v6];
     [(PXStoryTimelineLayout *)self displayedTimeline];
     objc_claimAutoreleasedReturnValue();
-    [(PXStoryTimelineLayout *)self displayedTimeRange];
+    objc_msgSend_displayedTimeRange(self);
     [(PXStoryTimelineLayout *)self displayedTimelineRect];
     [(PXStoryTimelineLayout *)self cornerRadius];
     [(PXStoryTimelineLayout *)self clipsCornerRadius];
@@ -240,51 +240,51 @@ void __39__PXStoryTimelineLayout__updateContent__block_invoke_4(uint64_t a1, uin
 {
   if (a2 >= 1)
   {
-    v124 = v14;
-    v125 = v13;
-    v126 = v12;
-    v127 = v11;
-    v128 = v10;
-    v129 = v9;
-    v130 = v8;
-    v131 = v7;
-    v132 = v5;
-    v133 = v6;
-    v96 = *(off_1E7721FA8 + 1);
-    v97 = *off_1E7721FA8;
-    v94 = *(off_1E7721FA8 + 3);
-    v95 = *(off_1E7721FA8 + 2);
+    v120 = v14;
+    v121 = v13;
+    v122 = v12;
+    v123 = v11;
+    v124 = v10;
+    v125 = v9;
+    v126 = v8;
+    v127 = v7;
+    v128 = v5;
+    v129 = v6;
+    v94 = *(off_1E7721FA8 + 1);
+    v95 = *off_1E7721FA8;
+    v92 = *(off_1E7721FA8 + 3);
+    v93 = *(off_1E7721FA8 + 2);
     v17 = (a5 + 16);
     v18 = (a4 + 16);
     do
     {
-      v111 = a2;
+      v109 = a2;
       v20 = *(v17 - 2);
       v19 = *(v17 - 1);
       memcpy(__dst, v17, sizeof(__dst));
       v21 = *(a1 + 80);
       v22 = *(v21 + 16);
-      *&v121 = v20;
-      *(&v121 + 1) = v19;
-      memcpy(v122, v17, sizeof(v122));
-      if (v22(v21, &v121))
+      *&v117 = v20;
+      *(&v117 + 1) = v19;
+      memcpy(v118, v17, sizeof(v118));
+      if (v22(v21, &v117))
       {
-        v110 = [*(a1 + 32) clipWithIdentifier:v20];
+        v108 = [*(a1 + 32) clipWithIdentifier:v20];
         [*(*(a1 + 40) + 1024) addIndex:v20];
         v23 = (*(*(a1 + 88) + 16))();
         v24 = [*(*(a1 + 40) + 1032) indexOfObject:v23];
-        v108 = v23;
-        v105 = v20;
+        v106 = v23;
+        v103 = v20;
         if (v24 == 0x7FFFFFFFFFFFFFFFLL)
         {
           v25 = *(a1 + 48);
-          v119[0] = MEMORY[0x1E69E9820];
-          v119[1] = 3221225472;
-          v119[2] = __39__PXStoryTimelineLayout__updateContent__block_invoke_5;
-          v119[3] = &unk_1E7739308;
+          v115[0] = MEMORY[0x1E69E9820];
+          v115[1] = 3221225472;
+          v115[2] = __39__PXStoryTimelineLayout__updateContent__block_invoke_5;
+          v115[3] = &unk_1E7739308;
           v26 = v23;
-          v120 = v26;
-          v27 = [v25 objectsPassingTest:v119];
+          v116 = v26;
+          v27 = [v25 objectsPassingTest:v115];
           v28 = [v27 anyObject];
 
           if (v28)
@@ -292,12 +292,12 @@ void __39__PXStoryTimelineLayout__updateContent__block_invoke_4(uint64_t a1, uin
             v29 = [*(*(a1 + 40) + 1032) indexOfObject:v28];
             if (v29 == 0x7FFFFFFFFFFFFFFFLL)
             {
-              v93 = [MEMORY[0x1E696AAA8] currentHandler];
-              [v93 handleFailureInMethod:*(a1 + 96) object:*(a1 + 40) file:@"PXStoryTimelineLayout.m" lineNumber:284 description:@"Should be able to find a sublayout for a near match identifier"];
+              v91 = [MEMORY[0x1E696AAA8] currentHandler];
+              [v91 handleFailureInMethod:*(a1 + 96) object:*(a1 + 40) file:@"PXStoryTimelineLayout.m" lineNumber:284 description:@"Should be able to find a sublayout for a near match identifier"];
             }
 
             v30 = [*(a1 + 40) sublayoutAtIndex:v29 loadIfNeeded:0];
-            v104 = v29;
+            v102 = v29;
             [*(*(a1 + 40) + 1032) replaceObjectAtIndex:v29 withObject:v26];
             [*(a1 + 48) removeObject:v28];
             [*(a1 + 56) removeObject:v28];
@@ -310,12 +310,12 @@ void __39__PXStoryTimelineLayout__updateContent__block_invoke_4(uint64_t a1, uin
             [*(a1 + 40) configureClipLayout:v30];
             v36 = [*(*(a1 + 40) + 1032) count];
             [*(*(a1 + 40) + 1032) addObject:v26];
-            v104 = v36;
+            v102 = v36;
             [*(a1 + 40) insertSublayout:v30 atIndex:v36];
           }
 
-          v31 = v105;
-          v35 = v108;
+          v31 = v103;
+          v35 = v106;
         }
 
         else
@@ -325,24 +325,24 @@ void __39__PXStoryTimelineLayout__updateContent__block_invoke_4(uint64_t a1, uin
           v30 = [*(a1 + 40) sublayoutAtIndex:v24 loadIfNeeded:0];
           v33 = [*(*(a1 + 40) + 1032) objectAtIndexedSubscript:v32];
 
-          _ZF = v33 == v108;
-          v35 = v108;
+          _ZF = v33 == v106;
+          v35 = v106;
           if (!_ZF)
           {
-            [*(*(a1 + 40) + 1032) replaceObjectAtIndex:v32 withObject:v108];
+            [*(*(a1 + 40) + 1032) replaceObjectAtIndex:v32 withObject:v106];
           }
 
-          v104 = v32;
-          [*(a1 + 48) removeObject:v108];
+          v102 = v32;
+          [*(a1 + 48) removeObject:v106];
         }
 
-        [(PXStoryClipLayout *)v30 setClip:v110];
+        [(PXStoryClipLayout *)v30 setClip:v108];
         v37 = a3[1];
-        v121 = *a3;
+        v117 = *a3;
         v38 = a3[2];
-        v122[0] = v37;
-        v122[1] = v38;
-        [(PXStoryClipLayout *)v30 setClipTimeRange:&v121];
+        v118[0] = v37;
+        v118[1] = v38;
+        [(PXStoryClipLayout *)v30 setClipTimeRange:&v117];
         v40 = *(v18 - 2);
         v39 = *(v18 - 1);
         v42 = *v18;
@@ -356,8 +356,8 @@ void __39__PXStoryTimelineLayout__updateContent__block_invoke_4(uint64_t a1, uin
 
         v45 = *(a1 + 184);
         v46 = *(a1 + 196);
-        v106 = *(a1 + 192);
-        v107 = *(a1 + 188);
+        v104 = *(a1 + 192);
+        v105 = *(a1 + 188);
         [*(a1 + 40) proposedZPositionForClipLayoutWithClipIdentifier:v31];
         v48 = v47 * *(a1 + 136);
         if (*(a1 + 216) == 1)
@@ -366,10 +366,10 @@ void __39__PXStoryTimelineLayout__updateContent__block_invoke_4(uint64_t a1, uin
           v50 = v31;
           v51 = *(a1 + 144);
           v52 = *(a1 + 40);
-          *&v121 = v50;
-          *(&v121 + 1) = 3;
-          memcpy(v122, __dst, sizeof(v122));
-          [v49 frameForClipWithInfo:&v121 proposedFrame:v51 inViewMode:v52 layout:{v40, v39, v42, v41}];
+          *&v117 = v50;
+          *(&v117 + 1) = 3;
+          memcpy(v118, __dst, sizeof(v118));
+          [v49 frameForClipWithInfo:&v117 proposedFrame:v51 inViewMode:v52 layout:{v40, v39, v42, v41}];
           v40 = v53;
           v39 = v54;
           v42 = v55;
@@ -377,114 +377,110 @@ void __39__PXStoryTimelineLayout__updateContent__block_invoke_4(uint64_t a1, uin
           v57 = *(a1 + 64);
           v58 = *(a1 + 144);
           v59 = *(a1 + 40);
-          *&v121 = v50;
-          *(&v121 + 1) = 3;
-          memcpy(v122, __dst, sizeof(v122));
-          [v57 alphaForClipWithInfo:&v121 proposedAlpha:v58 inViewMode:v59 layout:v44];
+          *&v117 = v50;
+          *(&v117 + 1) = 3;
+          memcpy(v118, __dst, sizeof(v118));
+          [v57 alphaForClipWithInfo:&v117 proposedAlpha:v58 inViewMode:v59 layout:v44];
           v44 = v60;
           v61 = *(a1 + 64);
           v62 = *(a1 + 144);
           v63 = *(a1 + 40);
-          *&v121 = v50;
-          *(&v121 + 1) = 3;
-          memcpy(v122, __dst, sizeof(v122));
-          [v61 zPositionForClipWithInfo:&v121 proposedZPosition:v62 inViewMode:v63 layout:v48];
+          *&v117 = v50;
+          *(&v117 + 1) = 3;
+          memcpy(v118, __dst, sizeof(v118));
+          [v61 zPositionForClipWithInfo:&v117 proposedZPosition:v62 inViewMode:v63 layout:v48];
           v48 = v64;
           v65 = *(a1 + 64);
           v66 = *(a1 + 144);
           v67 = *(a1 + 40);
-          *&v121 = v50;
-          *(&v121 + 1) = 3;
-          memcpy(v122, __dst, sizeof(v122));
+          *&v117 = v50;
+          *(&v117 + 1) = 3;
+          memcpy(v118, __dst, sizeof(v118));
           LODWORD(v68) = v45;
-          LODWORD(v70) = v106;
-          LODWORD(v69) = v107;
+          LODWORD(v70) = v104;
+          LODWORD(v69) = v105;
           LODWORD(v71) = v46;
-          [v65 cornerRadiusForClipWithInfo:&v121 proposedCornerRadius:v66 inViewMode:v67 layout:{v68, v69, v70, v71}];
+          [v65 cornerRadiusForClipWithInfo:&v117 proposedCornerRadius:v66 inViewMode:v67 layout:{v68, v69, v70, v71}];
           v45 = v72;
-          v106 = v74;
-          v107 = v73;
+          v104 = v74;
+          v105 = v73;
           v46 = v75;
           v76 = *(a1 + 64);
           if (v76)
           {
-            v77 = *(a1 + 40);
-            v78 = *(a1 + 144);
-            *&v121 = v50;
-            *(&v121 + 1) = 3;
-            memcpy(v122, __dst, sizeof(v122));
-            memset(v112, 0, sizeof(v112));
+            *&v117 = v50;
+            *(&v117 + 1) = 3;
+            memcpy(v118, __dst, sizeof(v118));
             __asm { FMOV            V0.2D, #1.0 }
 
-            v113 = _Q0;
-            [v76 contentsTransformOverrideForClipWithInfo:&v121 proposedOverride:v112 inViewMode:v78 layout:v77];
-            v98 = v114;
-            v99 = v115;
-            v100 = v117;
-            v101 = v116;
-            v102 = v118;
+            objc_msgSend_contentsTransformOverrideForClipWithInfo_proposedOverride_inViewMode_layout_(v76);
+            v96 = v110;
+            v97 = v111;
+            v98 = v113;
+            v99 = v112;
+            v100 = v114;
           }
 
           else
           {
-            v101 = 0.0;
-            v102 = 0.0;
             v99 = 0.0;
             v100 = 0.0;
+            v97 = 0.0;
             v98 = 0.0;
+            v96 = 0.0;
           }
 
-          v35 = v108;
-          v31 = v105;
+          v35 = v106;
+          v31 = v103;
         }
 
         else
         {
-          v101 = 0.0;
-          v102 = 1.0;
           v99 = 0.0;
           v100 = 1.0;
-          v98 = 0.0;
+          v97 = 0.0;
+          v98 = 1.0;
+          v96 = 0.0;
         }
 
-        v103 = v46;
-        v109 = v44;
+        v101 = v46;
+        v107 = v44;
         if (*(a1 + 217))
         {
           PXEdgeInsetsBetweenRects();
         }
 
-        v83 = v41;
-        v84 = v42;
-        [(PXStoryClipLayout *)v30 setAlpha:v109];
-        LODWORD(v86) = v103;
-        LODWORD(v85) = v45;
-        LODWORD(v88) = v106;
-        LODWORD(v87) = v107;
-        [(PXStoryClipLayout *)v30 setCornerRadius:v85, v87, v88, v86];
-        [(PXStoryClipLayout *)v30 setClippingInsets:v97, v96, v95, v94];
-        [(PXStoryClipLayout *)v30 setManualContentsRectAmount:v98];
-        [(PXStoryClipLayout *)v30 setManualContentsRect:v99, v101, v100, v102];
+        v81 = v41;
+        v82 = v42;
+        [(PXStoryClipLayout *)v30 setAlpha:v107];
+        LODWORD(v84) = v101;
+        LODWORD(v83) = v45;
+        LODWORD(v86) = v104;
+        LODWORD(v85) = v105;
+        [(PXStoryClipLayout *)v30 setCornerRadius:v83, v85, v86, v84];
+        [(PXStoryClipLayout *)v30 setClippingInsets:v95, v94, v93, v92];
+        [(PXStoryClipLayout *)v30 setManualContentsRectAmount:v96];
+        [(PXStoryClipLayout *)v30 setManualContentsRect:v97, v99, v98, v100];
         [(PXStoryClipLayout *)v30 setReferenceDepth:*(a1 + 136)];
-        v89 = *(a1 + 136);
+        v87 = *(a1 + 136);
         [(PXStoryClipLayout *)v30 referenceDepth];
-        v91 = v90 / *(a1 + 136);
+        v89 = v88 / *(a1 + 136);
         [*(a1 + 40) relativeZPositionAboveLegibilityGradients];
-        [(PXStoryClipLayout *)v30 setRelativeZPositionAboveLegibilityGradients:(v48 / v89 + v92) / v91];
-        [*(a1 + 40) setZPosition:v104 forSublayoutAtIndex:v48];
-        [*(a1 + 40) setFrame:v104 forSublayoutAtIndex:{v40, v39, v84, v83}];
+        [(PXStoryClipLayout *)v30 setRelativeZPositionAboveLegibilityGradients:(v48 / v87 + v90) / v89];
+        [*(a1 + 40) setZPosition:v102 forSublayoutAtIndex:v48];
+        [*(a1 + 40) setFrame:v102 forSublayoutAtIndex:{v40, v39, v82, v81}];
         [*(a1 + 56) removeObject:v35];
         [*(a1 + 72) removeIndex:v31];
-        [*(a1 + 40) didUpdateClipLayout:v30 frame:{v40, v39, v84, v83}];
+        [*(a1 + 40) didUpdateClipLayout:v30 frame:{v40, v39, v82, v81}];
       }
 
       v17 += 96;
       a3 += 3;
       v18 += 4;
-      a2 = v111 - 1;
+      a2 = v109 - 1;
     }
 
-    while (v111 != 1);
+    while (v109 != 1);
   }
 }
 
@@ -504,7 +500,7 @@ void __39__PXStoryTimelineLayout__updateContent__block_invoke_7(uint64_t a1, uin
   [v2 removeObjectForKey:v3];
 }
 
-uint64_t __39__PXStoryTimelineLayout__updateContent__block_invoke_5(uint64_t a1, void *a2, _BYTE *a3)
+void *__39__PXStoryTimelineLayout__updateContent__block_invoke_5(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 hasResourceEqualTo:*(a1 + 32)];
   *a3 = result;
@@ -626,7 +622,7 @@ LABEL_5:
   v8 = v7;
   v10 = v9;
   v12 = v11;
-  [(PXStoryTimelineLayout *)self displayedTimeRange];
+  objc_msgSend_displayedTimeRange(self);
   [(PXStoryTimelineLayout *)self clipsCornerRadius];
   LODWORD(v14) = v13;
   LODWORD(v16) = v15;

@@ -19,7 +19,7 @@ BOOL ___SecItemAddAndNotifyOnSync_block_invoke(uint64_t a1, __CFString **a2)
   return v7;
 }
 
-uint64_t ___SecItemAddAndNotifyOnSync_block_invoke_2(uint64_t a1, void *a2, const __CFDictionary *a3, uint64_t a4, const __CFDictionary *a5, __CFString **a6)
+uint64_t ___SecItemAddAndNotifyOnSync_block_invoke_2(uint64_t a1, void *a2, const __CFDictionary *a3, uint64_t a4, const __CFDictionary *a5, CFErrorRef *a6)
 {
   v10 = a2;
   if (v10)

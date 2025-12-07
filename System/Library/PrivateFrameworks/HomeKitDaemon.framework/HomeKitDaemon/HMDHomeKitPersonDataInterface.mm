@@ -52,7 +52,7 @@
 
 - (void)handleRemovedFaceprintWithUUID:(id)d mirrorOutputFuture:(id)future
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   futureCopy = future;
   workQueue = [(HMDHomeKitPersonDataInterface *)self workQueue];
@@ -65,24 +65,23 @@
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v19 = v12;
-    v20 = 2112;
-    v21 = dCopy;
+    v18 = v12;
+    v19 = 2112;
+    v20 = dCopy;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Notifying subscribers of removed faceprint UUID: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
   v13 = [MEMORY[0x277CBEB98] setWithObject:{dCopy, *MEMORY[0x277CD0BA8]}];
-  v17 = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+  v16 = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
 
   [(HMDHomeKitPersonDataInterface *)selfCopy _notifySubscribersOfMessageWithName:*MEMORY[0x277CD0B38] payload:v14];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRemovedFaceCropWithUUID:(id)d mirrorOutputFuture:(id)future
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   futureCopy = future;
   workQueue = [(HMDHomeKitPersonDataInterface *)self workQueue];
@@ -95,24 +94,23 @@
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v19 = v12;
-    v20 = 2112;
-    v21 = dCopy;
+    v18 = v12;
+    v19 = 2112;
+    v20 = dCopy;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Notifying subscribers of removed face crop UUID: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
   v13 = [MEMORY[0x277CBEB98] setWithObject:{dCopy, *MEMORY[0x277CD0BA0]}];
-  v17 = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+  v16 = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
 
   [(HMDHomeKitPersonDataInterface *)selfCopy _notifySubscribersOfMessageWithName:*MEMORY[0x277CD0B38] payload:v14];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRemovedPersonWithUUID:(id)d mirrorOutputFuture:(id)future
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   futureCopy = future;
   workQueue = [(HMDHomeKitPersonDataInterface *)self workQueue];
@@ -125,24 +123,23 @@
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v19 = v12;
-    v20 = 2112;
-    v21 = dCopy;
+    v18 = v12;
+    v19 = 2112;
+    v20 = dCopy;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Notifying subscribers of removed person UUID: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
   v13 = [MEMORY[0x277CBEB98] setWithObject:{dCopy, *MEMORY[0x277CD0BB0]}];
-  v17 = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+  v16 = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
 
   [(HMDHomeKitPersonDataInterface *)selfCopy _notifySubscribersOfMessageWithName:*MEMORY[0x277CD0B38] payload:v14];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUpdatedFaceprint:(id)faceprint mirrorOutputFuture:(id)future
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   faceprintCopy = faceprint;
   futureCopy = future;
   workQueue = [(HMDHomeKitPersonDataInterface *)self workQueue];
@@ -155,25 +152,24 @@
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v20 = v12;
-    v21 = 2112;
-    v22 = faceprintCopy;
+    v19 = v12;
+    v20 = 2112;
+    v21 = faceprintCopy;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Notifying subscribers of updated faceprint: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
   v13 = [MEMORY[0x277CBEB98] setWithObject:{faceprintCopy, *MEMORY[0x277CD0BC0]}];
   v14 = encodeRootObject();
-  v18 = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+  v17 = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
 
   [(HMDHomeKitPersonDataInterface *)selfCopy _notifySubscribersOfMessageWithName:*MEMORY[0x277CD0B38] payload:v15];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUpdatedPersonFaceCrop:(id)crop mirrorOutputFuture:(id)future
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   cropCopy = crop;
   futureCopy = future;
   workQueue = [(HMDHomeKitPersonDataInterface *)self workQueue];
@@ -187,25 +183,24 @@
     v12 = HMFGetLogIdentifier();
     uUID = [cropCopy UUID];
     *buf = 138543618;
-    v21 = v12;
-    v22 = 2112;
-    v23 = uUID;
+    v20 = v12;
+    v21 = 2112;
+    v22 = uUID;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Notifying subscribers of updated person face crop: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
   v14 = [MEMORY[0x277CBEB98] setWithObject:{cropCopy, *MEMORY[0x277CD0BC8]}];
   v15 = encodeRootObject();
-  v19 = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+  v18 = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
 
   [(HMDHomeKitPersonDataInterface *)selfCopy _notifySubscribersOfMessageWithName:*MEMORY[0x277CD0B38] payload:v16];
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUpdatedUnassociatedFaceCrop:(id)crop mirrorOutputFuture:(id)future
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   cropCopy = crop;
   futureCopy = future;
   workQueue = [(HMDHomeKitPersonDataInterface *)self workQueue];
@@ -218,25 +213,24 @@
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v20 = v12;
-    v21 = 2112;
-    v22 = cropCopy;
+    v19 = v12;
+    v20 = 2112;
+    v21 = cropCopy;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Notifying subscribers of updated unassociated face crop: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
   v13 = [MEMORY[0x277CBEB98] setWithObject:{cropCopy, *MEMORY[0x277CD0BD8]}];
   v14 = encodeRootObject();
-  v18 = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+  v17 = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
 
   [(HMDHomeKitPersonDataInterface *)selfCopy _notifySubscribersOfMessageWithName:*MEMORY[0x277CD0B38] payload:v15];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUpdatedPerson:(id)person mirrorOutputFuture:(id)future
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   personCopy = person;
   futureCopy = future;
   workQueue = [(HMDHomeKitPersonDataInterface *)self workQueue];
@@ -249,25 +243,24 @@
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v20 = v12;
-    v21 = 2112;
-    v22 = personCopy;
+    v19 = v12;
+    v20 = 2112;
+    v21 = personCopy;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Notifying subscribers of updated person: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
   v13 = [MEMORY[0x277CBEB98] setWithObject:{personCopy, *MEMORY[0x277CD0BD0]}];
   v14 = encodeRootObject();
-  v18 = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+  v17 = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
 
   [(HMDHomeKitPersonDataInterface *)selfCopy _notifySubscribersOfMessageWithName:*MEMORY[0x277CD0B38] payload:v15];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithDataSource:(id)source home:(id)home
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   homeCopy = home;
   workQueue = [(HMDHomeKitPersonDataInterface *)self workQueue];
@@ -292,23 +285,23 @@ LABEL_7:
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v48 = v12;
+    v47 = v12;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Configuring HomeKit person data interface", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v9);
   [(HMDHomeKitPersonDataInterface *)selfCopy setDataSource:sourceCopy];
   v13 = [HMDXPCMessagePolicy policyWithEntitlements:8197];
-  v41 = [HMDUserMessagePolicy userMessagePolicyWithHome:homeCopy userPrivilege:0 remoteAccessRequired:0];
+  v40 = [HMDUserMessagePolicy userMessagePolicyWithHome:homeCopy userPrivilege:0 remoteAccessRequired:0];
   [HMDUserMessagePolicy userMessagePolicyWithHome:homeCopy userPrivilege:4 remoteAccessRequired:0];
-  v14 = v42 = sourceCopy;
-  v39 = [HMDConfigurationMessagePolicy policyWithOperationTypes:1];
+  v14 = v41 = sourceCopy;
+  v38 = [HMDConfigurationMessagePolicy policyWithOperationTypes:1];
   v15 = [HMDConfigurationMessagePolicy policyWithOperationTypes:2];
   [HMDConfigurationMessagePolicy policyWithOperationTypes:4];
-  v16 = v40 = homeCopy;
-  v46[0] = v13;
-  v46[1] = v41;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
+  v16 = v39 = homeCopy;
+  v45[0] = v13;
+  v45[1] = v40;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
   messageDispatcher = [(HMDHomeKitPersonDataInterface *)selfCopy messageDispatcher];
   [messageDispatcher registerForMessage:*MEMORY[0x277CD0C00] receiver:selfCopy policies:v17 selector:sel_handleSubscribeMessage_];
 
@@ -333,18 +326,18 @@ LABEL_7:
   messageDispatcher8 = [(HMDHomeKitPersonDataInterface *)selfCopy messageDispatcher];
   [messageDispatcher8 registerForMessage:*MEMORY[0x277CD0B50] receiver:selfCopy policies:v17 selector:sel_handleFetchFaceprintsMessage_];
 
-  v45[0] = v13;
-  v45[1] = v14;
-  v45[2] = v39;
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:3];
   v44[0] = v13;
   v44[1] = v14;
-  v44[2] = v15;
-  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:3];
+  v44[2] = v38;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:3];
   v43[0] = v13;
   v43[1] = v14;
-  v43[2] = v16;
-  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:3];
+  v43[2] = v15;
+  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:3];
+  v42[0] = v13;
+  v42[1] = v14;
+  v42[2] = v16;
+  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:3];
   messageDispatcher9 = [(HMDHomeKitPersonDataInterface *)selfCopy messageDispatcher];
   [messageDispatcher9 registerForMessage:*MEMORY[0x277CD0B28] receiver:selfCopy policies:v26 selector:sel_handleAddOrUpdatePersonsMessage_];
 
@@ -371,8 +364,6 @@ LABEL_7:
 
   clientConnectionsTimer = [(HMDHomeKitPersonDataInterface *)selfCopy clientConnectionsTimer];
   [clientConnectionsTimer setDelegate:selfCopy];
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (id)logIdentifier
@@ -385,7 +376,7 @@ LABEL_7:
 
 - (void)handleRemoveFaceprintsMessage:(id)message
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDHomeKitPersonDataInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -398,9 +389,9 @@ LABEL_7:
     v9 = HMFGetLogIdentifier();
     messagePayload = [messageCopy messagePayload];
     *buf = 138543618;
-    v25 = v9;
-    v26 = 2112;
-    v27 = messagePayload;
+    v24 = v9;
+    v25 = 2112;
+    v26 = messagePayload;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling remove face crops message payload: %@", buf, 0x16u);
   }
 
@@ -410,14 +401,14 @@ LABEL_7:
   {
     dataSource = [(HMDHomeKitPersonDataInterface *)selfCopy dataSource];
     v13 = [dataSource removeFaceprintsWithUUIDs:v11];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __63__HMDHomeKitPersonDataInterface_handleRemoveFaceprintsMessage___block_invoke;
-    v22[3] = &unk_278687CC0;
-    v23 = messageCopy;
-    v14 = [v13 addCompletionBlock:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __63__HMDHomeKitPersonDataInterface_handleRemoveFaceprintsMessage___block_invoke;
+    v21[3] = &unk_278687CC0;
+    v22 = messageCopy;
+    v14 = [v13 addCompletionBlock:v21];
 
-    v15 = v23;
+    v15 = v22;
   }
 
   else
@@ -430,9 +421,9 @@ LABEL_7:
       v19 = HMFGetLogIdentifier();
       messagePayload2 = [messageCopy messagePayload];
       *buf = 138543618;
-      v25 = v19;
-      v26 = 2112;
-      v27 = messagePayload2;
+      v24 = v19;
+      v25 = 2112;
+      v26 = messagePayload2;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Could not find faceprints UUIDs in message payload: %@", buf, 0x16u);
     }
 
@@ -440,13 +431,11 @@ LABEL_7:
     v15 = [MEMORY[0x277CCA9B8] hmErrorWithCode:20];
     [messageCopy respondWithError:v15];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRemoveFaceCropsMessage:(id)message
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDHomeKitPersonDataInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -459,9 +448,9 @@ LABEL_7:
     v9 = HMFGetLogIdentifier();
     messagePayload = [messageCopy messagePayload];
     *buf = 138543618;
-    v25 = v9;
-    v26 = 2112;
-    v27 = messagePayload;
+    v24 = v9;
+    v25 = 2112;
+    v26 = messagePayload;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling remove face crops message payload: %@", buf, 0x16u);
   }
 
@@ -471,14 +460,14 @@ LABEL_7:
   {
     dataSource = [(HMDHomeKitPersonDataInterface *)selfCopy dataSource];
     v13 = [dataSource removeFaceCropsWithUUIDs:v11];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __62__HMDHomeKitPersonDataInterface_handleRemoveFaceCropsMessage___block_invoke;
-    v22[3] = &unk_278687CC0;
-    v23 = messageCopy;
-    v14 = [v13 addCompletionBlock:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __62__HMDHomeKitPersonDataInterface_handleRemoveFaceCropsMessage___block_invoke;
+    v21[3] = &unk_278687CC0;
+    v22 = messageCopy;
+    v14 = [v13 addCompletionBlock:v21];
 
-    v15 = v23;
+    v15 = v22;
   }
 
   else
@@ -491,9 +480,9 @@ LABEL_7:
       v19 = HMFGetLogIdentifier();
       messagePayload2 = [messageCopy messagePayload];
       *buf = 138543618;
-      v25 = v19;
-      v26 = 2112;
-      v27 = messagePayload2;
+      v24 = v19;
+      v25 = 2112;
+      v26 = messagePayload2;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Could not find face crop UUIDs in message payload: %@", buf, 0x16u);
     }
 
@@ -501,13 +490,11 @@ LABEL_7:
     v15 = [MEMORY[0x277CCA9B8] hmErrorWithCode:20];
     [messageCopy respondWithError:v15];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRemovePersonsMessage:(id)message
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDHomeKitPersonDataInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -520,9 +507,9 @@ LABEL_7:
     v9 = HMFGetLogIdentifier();
     messagePayload = [messageCopy messagePayload];
     *buf = 138543618;
-    v25 = v9;
-    v26 = 2112;
-    v27 = messagePayload;
+    v24 = v9;
+    v25 = 2112;
+    v26 = messagePayload;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling remove persons message payload: %@", buf, 0x16u);
   }
 
@@ -532,14 +519,14 @@ LABEL_7:
   {
     dataSource = [(HMDHomeKitPersonDataInterface *)selfCopy dataSource];
     v13 = [dataSource removePersonsWithUUIDs:v11];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __60__HMDHomeKitPersonDataInterface_handleRemovePersonsMessage___block_invoke;
-    v22[3] = &unk_278687CC0;
-    v23 = messageCopy;
-    v14 = [v13 addCompletionBlock:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __60__HMDHomeKitPersonDataInterface_handleRemovePersonsMessage___block_invoke;
+    v21[3] = &unk_278687CC0;
+    v22 = messageCopy;
+    v14 = [v13 addCompletionBlock:v21];
 
-    v15 = v23;
+    v15 = v22;
   }
 
   else
@@ -552,9 +539,9 @@ LABEL_7:
       v19 = HMFGetLogIdentifier();
       messagePayload2 = [messageCopy messagePayload];
       *buf = 138543618;
-      v25 = v19;
-      v26 = 2112;
-      v27 = messagePayload2;
+      v24 = v19;
+      v25 = 2112;
+      v26 = messagePayload2;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Could not find person UUIDs in message payload: %@", buf, 0x16u);
     }
 
@@ -562,13 +549,11 @@ LABEL_7:
     v15 = [MEMORY[0x277CCA9B8] hmErrorWithCode:20];
     [messageCopy respondWithError:v15];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDisassociateFaceCropsMessage:(id)message
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDHomeKitPersonDataInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -581,9 +566,9 @@ LABEL_7:
     v9 = HMFGetLogIdentifier();
     messagePayload = [messageCopy messagePayload];
     *buf = 138543618;
-    v25 = v9;
-    v26 = 2112;
-    v27 = messagePayload;
+    v24 = v9;
+    v25 = 2112;
+    v26 = messagePayload;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling disassociate face crops message payload: %@", buf, 0x16u);
   }
 
@@ -593,14 +578,14 @@ LABEL_7:
   {
     dataSource = [(HMDHomeKitPersonDataInterface *)selfCopy dataSource];
     v13 = [dataSource disassociateFaceCropsWithUUIDs:v11];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __68__HMDHomeKitPersonDataInterface_handleDisassociateFaceCropsMessage___block_invoke;
-    v22[3] = &unk_278687CC0;
-    v23 = messageCopy;
-    v14 = [v13 addCompletionBlock:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __68__HMDHomeKitPersonDataInterface_handleDisassociateFaceCropsMessage___block_invoke;
+    v21[3] = &unk_278687CC0;
+    v22 = messageCopy;
+    v14 = [v13 addCompletionBlock:v21];
 
-    v15 = v23;
+    v15 = v22;
   }
 
   else
@@ -613,9 +598,9 @@ LABEL_7:
       v19 = HMFGetLogIdentifier();
       messagePayload2 = [messageCopy messagePayload];
       *buf = 138543618;
-      v25 = v19;
-      v26 = 2112;
-      v27 = messagePayload2;
+      v24 = v19;
+      v25 = 2112;
+      v26 = messagePayload2;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Could not find face crop UUIDs in message payload: %@", buf, 0x16u);
     }
 
@@ -623,13 +608,11 @@ LABEL_7:
     v15 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
     [messageCopy respondWithError:v15];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAssociateFaceCropsMessage:(id)message
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDHomeKitPersonDataInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -642,9 +625,9 @@ LABEL_7:
     v9 = HMFGetLogIdentifier();
     messagePayload = [messageCopy messagePayload];
     *buf = 138543618;
-    v40 = v9;
-    v41 = 2112;
-    v42 = messagePayload;
+    v39 = v9;
+    v40 = 2112;
+    v41 = messagePayload;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling associate face crops message payload: %@", buf, 0x16u);
   }
 
@@ -664,14 +647,14 @@ LABEL_7:
         integerValue = [v14 integerValue];
         dataSource = [(HMDHomeKitPersonDataInterface *)selfCopy dataSource];
         v18 = [dataSource associateFaceCropsWithUUIDs:v11 toPersonWithUUID:anyObject forSource:integerValue];
-        v37[0] = MEMORY[0x277D85DD0];
-        v37[1] = 3221225472;
-        v37[2] = __65__HMDHomeKitPersonDataInterface_handleAssociateFaceCropsMessage___block_invoke;
-        v37[3] = &unk_278687CC0;
-        v38 = messageCopy;
-        v19 = [v18 addCompletionBlock:v37];
+        v36[0] = MEMORY[0x277D85DD0];
+        v36[1] = 3221225472;
+        v36[2] = __65__HMDHomeKitPersonDataInterface_handleAssociateFaceCropsMessage___block_invoke;
+        v36[3] = &unk_278687CC0;
+        v37 = messageCopy;
+        v19 = [v18 addCompletionBlock:v36];
 
-        v20 = v38;
+        v20 = v37;
       }
 
       else
@@ -684,9 +667,9 @@ LABEL_7:
           v34 = HMFGetLogIdentifier();
           messagePayload2 = [messageCopy messagePayload];
           *buf = 138543618;
-          v40 = v34;
-          v41 = 2112;
-          v42 = messagePayload2;
+          v39 = v34;
+          v40 = 2112;
+          v41 = messagePayload2;
           _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_ERROR, "%{public}@Could not find source in message payload: %@", buf, 0x16u);
         }
 
@@ -706,9 +689,9 @@ LABEL_7:
         v29 = HMFGetLogIdentifier();
         messagePayload3 = [messageCopy messagePayload];
         *buf = 138543618;
-        v40 = v29;
-        v41 = 2112;
-        v42 = messagePayload3;
+        v39 = v29;
+        v40 = 2112;
+        v41 = messagePayload3;
         _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Could not find person UUID in message payload: %@", buf, 0x16u);
       }
 
@@ -728,9 +711,9 @@ LABEL_7:
       v24 = HMFGetLogIdentifier();
       messagePayload4 = [messageCopy messagePayload];
       *buf = 138543618;
-      v40 = v24;
-      v41 = 2112;
-      v42 = messagePayload4;
+      v39 = v24;
+      v40 = 2112;
+      v41 = messagePayload4;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Could not find face crop UUIDs in message payload: %@", buf, 0x16u);
     }
 
@@ -738,13 +721,11 @@ LABEL_7:
     anyObject = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
     [messageCopy respondWithError:anyObject];
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAddOrUpdateFaceprintsMessage:(id)message
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDHomeKitPersonDataInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -757,31 +738,31 @@ LABEL_7:
     v9 = HMFGetLogIdentifier();
     messagePayload = [messageCopy messagePayload];
     *buf = 138543618;
-    v28 = v9;
-    v29 = 2112;
-    v30 = messagePayload;
+    v27 = v9;
+    v28 = 2112;
+    v29 = messagePayload;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling add/update faceprints message payload: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
   v11 = *MEMORY[0x277CD0B88];
-  v26[0] = objc_opt_class();
-  v26[1] = objc_opt_class();
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+  v25[0] = objc_opt_class();
+  v25[1] = objc_opt_class();
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
   v13 = [messageCopy unarchivedObjectForKey:v11 ofClasses:v12];
 
   if (v13)
   {
     dataSource = [(HMDHomeKitPersonDataInterface *)selfCopy dataSource];
     v15 = [dataSource addOrUpdateFaceprints:v13];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __68__HMDHomeKitPersonDataInterface_handleAddOrUpdateFaceprintsMessage___block_invoke;
-    v24[3] = &unk_278687CC0;
-    v25 = messageCopy;
-    v16 = [v15 addCompletionBlock:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __68__HMDHomeKitPersonDataInterface_handleAddOrUpdateFaceprintsMessage___block_invoke;
+    v23[3] = &unk_278687CC0;
+    v24 = messageCopy;
+    v16 = [v15 addCompletionBlock:v23];
 
-    v17 = v25;
+    v17 = v24;
   }
 
   else
@@ -794,9 +775,9 @@ LABEL_7:
       v21 = HMFGetLogIdentifier();
       messagePayload2 = [messageCopy messagePayload];
       *buf = 138543618;
-      v28 = v21;
-      v29 = 2112;
-      v30 = messagePayload2;
+      v27 = v21;
+      v28 = 2112;
+      v29 = messagePayload2;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Could not find faceprints in message payload: %@", buf, 0x16u);
     }
 
@@ -804,13 +785,11 @@ LABEL_7:
     v17 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
     [messageCopy respondWithError:v17];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAddOrUpdateFaceCropsMessage:(id)message
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDHomeKitPersonDataInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -823,31 +802,31 @@ LABEL_7:
     v9 = HMFGetLogIdentifier();
     messagePayload = [messageCopy messagePayload];
     *buf = 138543618;
-    v28 = v9;
-    v29 = 2112;
-    v30 = messagePayload;
+    v27 = v9;
+    v28 = 2112;
+    v29 = messagePayload;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling add/update face crops message payload: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
   v11 = *MEMORY[0x277CD0B78];
-  v26[0] = objc_opt_class();
-  v26[1] = objc_opt_class();
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+  v25[0] = objc_opt_class();
+  v25[1] = objc_opt_class();
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
   v13 = [messageCopy unarchivedObjectForKey:v11 ofClasses:v12];
 
   if (v13)
   {
     dataSource = [(HMDHomeKitPersonDataInterface *)selfCopy dataSource];
     v15 = [dataSource addOrUpdateFaceCrops:v13];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __67__HMDHomeKitPersonDataInterface_handleAddOrUpdateFaceCropsMessage___block_invoke;
-    v24[3] = &unk_278687CC0;
-    v25 = messageCopy;
-    v16 = [v15 addCompletionBlock:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __67__HMDHomeKitPersonDataInterface_handleAddOrUpdateFaceCropsMessage___block_invoke;
+    v23[3] = &unk_278687CC0;
+    v24 = messageCopy;
+    v16 = [v15 addCompletionBlock:v23];
 
-    v17 = v25;
+    v17 = v24;
   }
 
   else
@@ -860,9 +839,9 @@ LABEL_7:
       v21 = HMFGetLogIdentifier();
       messagePayload2 = [messageCopy messagePayload];
       *buf = 138543618;
-      v28 = v21;
-      v29 = 2112;
-      v30 = messagePayload2;
+      v27 = v21;
+      v28 = 2112;
+      v29 = messagePayload2;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Could not find face crops in message payload: %@", buf, 0x16u);
     }
 
@@ -870,13 +849,11 @@ LABEL_7:
     v17 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
     [messageCopy respondWithError:v17];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAddOrUpdatePersonsMessage:(id)message
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDHomeKitPersonDataInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -889,31 +866,31 @@ LABEL_7:
     v9 = HMFGetLogIdentifier();
     messagePayload = [messageCopy messagePayload];
     *buf = 138543618;
-    v28 = v9;
-    v29 = 2112;
-    v30 = messagePayload;
+    v27 = v9;
+    v28 = 2112;
+    v29 = messagePayload;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling add/update persons message payload: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
   v11 = *MEMORY[0x277CD0B98];
-  v26[0] = objc_opt_class();
-  v26[1] = objc_opt_class();
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+  v25[0] = objc_opt_class();
+  v25[1] = objc_opt_class();
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
   v13 = [messageCopy unarchivedObjectForKey:v11 ofClasses:v12];
 
   if (v13)
   {
     dataSource = [(HMDHomeKitPersonDataInterface *)selfCopy dataSource];
     v15 = [dataSource addOrUpdatePersons:v13];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __65__HMDHomeKitPersonDataInterface_handleAddOrUpdatePersonsMessage___block_invoke;
-    v24[3] = &unk_278687CC0;
-    v25 = messageCopy;
-    v16 = [v15 addCompletionBlock:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __65__HMDHomeKitPersonDataInterface_handleAddOrUpdatePersonsMessage___block_invoke;
+    v23[3] = &unk_278687CC0;
+    v24 = messageCopy;
+    v16 = [v15 addCompletionBlock:v23];
 
-    v17 = v25;
+    v17 = v24;
   }
 
   else
@@ -926,9 +903,9 @@ LABEL_7:
       v21 = HMFGetLogIdentifier();
       messagePayload2 = [messageCopy messagePayload];
       *buf = 138543618;
-      v28 = v21;
-      v29 = 2112;
-      v30 = messagePayload2;
+      v27 = v21;
+      v28 = 2112;
+      v29 = messagePayload2;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Could not find persons in message payload: %@", buf, 0x16u);
     }
 
@@ -936,13 +913,11 @@ LABEL_7:
     v17 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
     [messageCopy respondWithError:v17];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleFetchFaceprintsMessage:(id)message
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDHomeKitPersonDataInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -955,9 +930,9 @@ LABEL_7:
     v9 = HMFGetLogIdentifier();
     messagePayload = [messageCopy messagePayload];
     *buf = 138543618;
-    v32 = v9;
-    v33 = 2112;
-    v34 = messagePayload;
+    v31 = v9;
+    v32 = 2112;
+    v33 = messagePayload;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling fetch faceprints message payload: %@", buf, 0x16u);
   }
 
@@ -973,32 +948,32 @@ LABEL_7:
       v14 = [messageCopy setForKey:*MEMORY[0x277CD0B70]];
       if (v14)
       {
-        v29[0] = MEMORY[0x277D85DD0];
-        v29[1] = 3221225472;
-        v29[2] = __62__HMDHomeKitPersonDataInterface_handleFetchFaceprintsMessage___block_invoke;
-        v29[3] = &unk_27867F760;
-        v15 = &v30;
-        v30 = v13;
-        [dataSource enumerateFaceprintsForFaceCropsWithUUIDs:v14 usingBlock:v29];
+        v28[0] = MEMORY[0x277D85DD0];
+        v28[1] = 3221225472;
+        v28[2] = __62__HMDHomeKitPersonDataInterface_handleFetchFaceprintsMessage___block_invoke;
+        v28[3] = &unk_27867F760;
+        v15 = &v29;
+        v29 = v13;
+        [dataSource enumerateFaceprintsForFaceCropsWithUUIDs:v14 usingBlock:v28];
       }
 
       else
       {
-        v27[0] = MEMORY[0x277D85DD0];
-        v27[1] = 3221225472;
-        v27[2] = __62__HMDHomeKitPersonDataInterface_handleFetchFaceprintsMessage___block_invoke_2;
-        v27[3] = &unk_27867F760;
-        v15 = &v28;
-        v28 = v13;
-        [dataSource enumerateFaceprintsUsingBlock:v27];
+        v26[0] = MEMORY[0x277D85DD0];
+        v26[1] = 3221225472;
+        v26[2] = __62__HMDHomeKitPersonDataInterface_handleFetchFaceprintsMessage___block_invoke_2;
+        v26[3] = &unk_27867F760;
+        v15 = &v27;
+        v27 = v13;
+        [dataSource enumerateFaceprintsUsingBlock:v26];
       }
 
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __62__HMDHomeKitPersonDataInterface_handleFetchFaceprintsMessage___block_invoke_3;
-      v25[3] = &unk_27868A728;
-      v26 = messageCopy;
-      [v13 sendCurrentlyBatchedFetchedObjectsWithCompletion:v25];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __62__HMDHomeKitPersonDataInterface_handleFetchFaceprintsMessage___block_invoke_3;
+      v24[3] = &unk_27868A728;
+      v25 = messageCopy;
+      [v13 sendCurrentlyBatchedFetchedObjectsWithCompletion:v24];
     }
 
     else
@@ -1010,9 +985,9 @@ LABEL_7:
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v32 = v23;
-        v33 = 2112;
-        v34 = messageCopy;
+        v31 = v23;
+        v32 = 2112;
+        v33 = messageCopy;
         _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to create fetch server from message: %@", buf, 0x16u);
       }
 
@@ -1031,7 +1006,7 @@ LABEL_7:
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v32 = v19;
+      v31 = v19;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Cannot fetch faceprints because data is not available", buf, 0xCu);
     }
 
@@ -1039,11 +1014,9 @@ LABEL_7:
     v13 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v13];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __62__HMDHomeKitPersonDataInterface_handleFetchFaceprintsMessage___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__62__HMDHomeKitPersonDataInterface_handleFetchFaceprintsMessage___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   [*(a1 + 32) handleFetchedObject:a2];
   result = [*(a1 + 32) canHandleMoreFetchedObjects];
@@ -1051,7 +1024,7 @@ uint64_t __62__HMDHomeKitPersonDataInterface_handleFetchFaceprintsMessage___bloc
   return result;
 }
 
-uint64_t __62__HMDHomeKitPersonDataInterface_handleFetchFaceprintsMessage___block_invoke_2(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__62__HMDHomeKitPersonDataInterface_handleFetchFaceprintsMessage___block_invoke_2(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   [*(a1 + 32) handleFetchedObject:a2];
   result = [*(a1 + 32) canHandleMoreFetchedObjects];
@@ -1061,7 +1034,7 @@ uint64_t __62__HMDHomeKitPersonDataInterface_handleFetchFaceprintsMessage___bloc
 
 - (void)handleFetchUnassociatedFaceCropsMessage:(id)message
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDHomeKitPersonDataInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1074,9 +1047,9 @@ uint64_t __62__HMDHomeKitPersonDataInterface_handleFetchFaceprintsMessage___bloc
     v9 = HMFGetLogIdentifier();
     messagePayload = [messageCopy messagePayload];
     *buf = 138543618;
-    v30 = v9;
-    v31 = 2112;
-    v32 = messagePayload;
+    v29 = v9;
+    v30 = 2112;
+    v31 = messagePayload;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling fetch unassociated face crops message payload: %@", buf, 0x16u);
   }
 
@@ -1089,21 +1062,21 @@ uint64_t __62__HMDHomeKitPersonDataInterface_handleFetchFaceprintsMessage___bloc
 
     if (v13)
     {
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __73__HMDHomeKitPersonDataInterface_handleFetchUnassociatedFaceCropsMessage___block_invoke;
-      v27[3] = &unk_27867F710;
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __73__HMDHomeKitPersonDataInterface_handleFetchUnassociatedFaceCropsMessage___block_invoke;
+      v26[3] = &unk_27867F710;
       v14 = v13;
-      v28 = v14;
-      [dataSource enumerateUnassociatedFaceCropsUsingBlock:v27];
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __73__HMDHomeKitPersonDataInterface_handleFetchUnassociatedFaceCropsMessage___block_invoke_2;
-      v25[3] = &unk_27868A728;
-      v26 = messageCopy;
-      [v14 sendCurrentlyBatchedFetchedObjectsWithCompletion:v25];
+      v27 = v14;
+      [dataSource enumerateUnassociatedFaceCropsUsingBlock:v26];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __73__HMDHomeKitPersonDataInterface_handleFetchUnassociatedFaceCropsMessage___block_invoke_2;
+      v24[3] = &unk_27868A728;
+      v25 = messageCopy;
+      [v14 sendCurrentlyBatchedFetchedObjectsWithCompletion:v24];
 
-      v15 = v28;
+      v15 = v27;
     }
 
     else
@@ -1115,9 +1088,9 @@ uint64_t __62__HMDHomeKitPersonDataInterface_handleFetchFaceprintsMessage___bloc
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v30 = v23;
-        v31 = 2112;
-        v32 = messageCopy;
+        v29 = v23;
+        v30 = 2112;
+        v31 = messageCopy;
         _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to create fetch server from message: %@", buf, 0x16u);
       }
 
@@ -1136,7 +1109,7 @@ uint64_t __62__HMDHomeKitPersonDataInterface_handleFetchFaceprintsMessage___bloc
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v30 = v19;
+      v29 = v19;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Cannot fetch face crops because data is not available", buf, 0xCu);
     }
 
@@ -1144,11 +1117,9 @@ uint64_t __62__HMDHomeKitPersonDataInterface_handleFetchFaceprintsMessage___bloc
     v13 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v13];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __73__HMDHomeKitPersonDataInterface_handleFetchUnassociatedFaceCropsMessage___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__73__HMDHomeKitPersonDataInterface_handleFetchUnassociatedFaceCropsMessage___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   [*(a1 + 32) handleFetchedObject:a2];
   result = [*(a1 + 32) canHandleMoreFetchedObjects];
@@ -1158,7 +1129,7 @@ uint64_t __73__HMDHomeKitPersonDataInterface_handleFetchUnassociatedFaceCropsMes
 
 - (void)handleFetchPersonFaceCropsMessage:(id)message
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDHomeKitPersonDataInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1171,9 +1142,9 @@ uint64_t __73__HMDHomeKitPersonDataInterface_handleFetchUnassociatedFaceCropsMes
     v9 = HMFGetLogIdentifier();
     messagePayload = [messageCopy messagePayload];
     *buf = 138543618;
-    v39 = v9;
-    v40 = 2112;
-    v41 = messagePayload;
+    v38 = v9;
+    v39 = 2112;
+    v40 = messagePayload;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling fetch person face crops message payload: %@", buf, 0x16u);
   }
 
@@ -1185,21 +1156,21 @@ uint64_t __73__HMDHomeKitPersonDataInterface_handleFetchUnassociatedFaceCropsMes
     if (v12)
     {
       v13 = [dataSource fetchFaceCropsForPersonsWithUUIDs:v12];
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __67__HMDHomeKitPersonDataInterface_handleFetchPersonFaceCropsMessage___block_invoke;
-      v36[3] = &unk_278682ED8;
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __67__HMDHomeKitPersonDataInterface_handleFetchPersonFaceCropsMessage___block_invoke;
+      v35[3] = &unk_278682ED8;
       v14 = messageCopy;
-      v37 = v14;
-      v15 = [v13 addSuccessBlock:v36];
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __67__HMDHomeKitPersonDataInterface_handleFetchPersonFaceCropsMessage___block_invoke_2;
-      v34[3] = &unk_27868A250;
-      v35 = v14;
-      v16 = [v15 addFailureBlock:v34];
+      v36 = v14;
+      v15 = [v13 addSuccessBlock:v35];
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __67__HMDHomeKitPersonDataInterface_handleFetchPersonFaceCropsMessage___block_invoke_2;
+      v33[3] = &unk_27868A250;
+      v34 = v14;
+      v16 = [v15 addFailureBlock:v33];
 
-      v17 = v37;
+      v17 = v36;
     }
 
     else
@@ -1209,21 +1180,21 @@ uint64_t __73__HMDHomeKitPersonDataInterface_handleFetchUnassociatedFaceCropsMes
 
       if (v17)
       {
-        v32[0] = MEMORY[0x277D85DD0];
-        v32[1] = 3221225472;
-        v32[2] = __67__HMDHomeKitPersonDataInterface_handleFetchPersonFaceCropsMessage___block_invoke_15;
-        v32[3] = &unk_27867F738;
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __67__HMDHomeKitPersonDataInterface_handleFetchPersonFaceCropsMessage___block_invoke_15;
+        v31[3] = &unk_27867F738;
         v23 = v17;
-        v33 = v23;
-        [dataSource enumeratePersonFaceCropsUsingBlock:v32];
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __67__HMDHomeKitPersonDataInterface_handleFetchPersonFaceCropsMessage___block_invoke_2_17;
-        v30[3] = &unk_27868A728;
-        v31 = messageCopy;
-        [v23 sendCurrentlyBatchedFetchedObjectsWithCompletion:v30];
+        v32 = v23;
+        [dataSource enumeratePersonFaceCropsUsingBlock:v31];
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __67__HMDHomeKitPersonDataInterface_handleFetchPersonFaceCropsMessage___block_invoke_2_17;
+        v29[3] = &unk_27868A728;
+        v30 = messageCopy;
+        [v23 sendCurrentlyBatchedFetchedObjectsWithCompletion:v29];
 
-        v24 = v33;
+        v24 = v32;
       }
 
       else
@@ -1235,9 +1206,9 @@ uint64_t __73__HMDHomeKitPersonDataInterface_handleFetchUnassociatedFaceCropsMes
         {
           v28 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v39 = v28;
-          v40 = 2112;
-          v41 = messageCopy;
+          v38 = v28;
+          v39 = 2112;
+          v40 = messageCopy;
           _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to create fetch server from message: %@", buf, 0x16u);
         }
 
@@ -1257,7 +1228,7 @@ uint64_t __73__HMDHomeKitPersonDataInterface_handleFetchUnassociatedFaceCropsMes
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v39 = v21;
+      v38 = v21;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Cannot fetch person face crops because data is not available", buf, 0xCu);
     }
 
@@ -1265,24 +1236,20 @@ uint64_t __73__HMDHomeKitPersonDataInterface_handleFetchUnassociatedFaceCropsMes
     v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v12];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HMDHomeKitPersonDataInterface_handleFetchPersonFaceCropsMessage___block_invoke(uint64_t a1, void *a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v6 = *MEMORY[0x277CD0B78];
+  v5 = *MEMORY[0x277CD0B78];
   v3 = encodeRootObjectForIncomingXPCMessage(a2, 0);
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   [v2 respondWithPayload:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __67__HMDHomeKitPersonDataInterface_handleFetchPersonFaceCropsMessage___block_invoke_15(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__67__HMDHomeKitPersonDataInterface_handleFetchPersonFaceCropsMessage___block_invoke_15(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   [*(a1 + 32) handleFetchedObject:a2];
   result = [*(a1 + 32) canHandleMoreFetchedObjects];
@@ -1292,7 +1259,7 @@ uint64_t __67__HMDHomeKitPersonDataInterface_handleFetchPersonFaceCropsMessage__
 
 - (void)handleFetchFaceCropsMessage:(id)message
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDHomeKitPersonDataInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1305,9 +1272,9 @@ uint64_t __67__HMDHomeKitPersonDataInterface_handleFetchPersonFaceCropsMessage__
     v9 = HMFGetLogIdentifier();
     messagePayload = [messageCopy messagePayload];
     *buf = 138543618;
-    v39 = v9;
-    v40 = 2112;
-    v41 = messagePayload;
+    v38 = v9;
+    v39 = 2112;
+    v40 = messagePayload;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling fetch face crops message payload: %@", buf, 0x16u);
   }
 
@@ -1319,21 +1286,21 @@ uint64_t __67__HMDHomeKitPersonDataInterface_handleFetchPersonFaceCropsMessage__
     if (v12)
     {
       v13 = [dataSource fetchFaceCropsWithUUIDs:v12];
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __61__HMDHomeKitPersonDataInterface_handleFetchFaceCropsMessage___block_invoke;
-      v36[3] = &unk_278682ED8;
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __61__HMDHomeKitPersonDataInterface_handleFetchFaceCropsMessage___block_invoke;
+      v35[3] = &unk_278682ED8;
       v14 = messageCopy;
-      v37 = v14;
-      v15 = [v13 addSuccessBlock:v36];
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __61__HMDHomeKitPersonDataInterface_handleFetchFaceCropsMessage___block_invoke_2;
-      v34[3] = &unk_27868A250;
-      v35 = v14;
-      v16 = [v15 addFailureBlock:v34];
+      v36 = v14;
+      v15 = [v13 addSuccessBlock:v35];
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __61__HMDHomeKitPersonDataInterface_handleFetchFaceCropsMessage___block_invoke_2;
+      v33[3] = &unk_27868A250;
+      v34 = v14;
+      v16 = [v15 addFailureBlock:v33];
 
-      v17 = v37;
+      v17 = v36;
     }
 
     else
@@ -1343,21 +1310,21 @@ uint64_t __67__HMDHomeKitPersonDataInterface_handleFetchPersonFaceCropsMessage__
 
       if (v17)
       {
-        v32[0] = MEMORY[0x277D85DD0];
-        v32[1] = 3221225472;
-        v32[2] = __61__HMDHomeKitPersonDataInterface_handleFetchFaceCropsMessage___block_invoke_12;
-        v32[3] = &unk_27867F710;
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __61__HMDHomeKitPersonDataInterface_handleFetchFaceCropsMessage___block_invoke_12;
+        v31[3] = &unk_27867F710;
         v23 = v17;
-        v33 = v23;
-        [dataSource enumerateFaceCropsUsingBlock:v32];
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __61__HMDHomeKitPersonDataInterface_handleFetchFaceCropsMessage___block_invoke_2_14;
-        v30[3] = &unk_27868A728;
-        v31 = messageCopy;
-        [v23 sendCurrentlyBatchedFetchedObjectsWithCompletion:v30];
+        v32 = v23;
+        [dataSource enumerateFaceCropsUsingBlock:v31];
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __61__HMDHomeKitPersonDataInterface_handleFetchFaceCropsMessage___block_invoke_2_14;
+        v29[3] = &unk_27868A728;
+        v30 = messageCopy;
+        [v23 sendCurrentlyBatchedFetchedObjectsWithCompletion:v29];
 
-        v24 = v33;
+        v24 = v32;
       }
 
       else
@@ -1369,9 +1336,9 @@ uint64_t __67__HMDHomeKitPersonDataInterface_handleFetchPersonFaceCropsMessage__
         {
           v28 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v39 = v28;
-          v40 = 2112;
-          v41 = messageCopy;
+          v38 = v28;
+          v39 = 2112;
+          v40 = messageCopy;
           _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to create fetch server from message: %@", buf, 0x16u);
         }
 
@@ -1391,7 +1358,7 @@ uint64_t __67__HMDHomeKitPersonDataInterface_handleFetchPersonFaceCropsMessage__
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v39 = v21;
+      v38 = v21;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Cannot fetch person face crops because data is not available", buf, 0xCu);
     }
 
@@ -1399,24 +1366,20 @@ uint64_t __67__HMDHomeKitPersonDataInterface_handleFetchPersonFaceCropsMessage__
     v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v12];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __61__HMDHomeKitPersonDataInterface_handleFetchFaceCropsMessage___block_invoke(uint64_t a1, void *a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v6 = *MEMORY[0x277CD0B78];
+  v5 = *MEMORY[0x277CD0B78];
   v3 = encodeRootObjectForIncomingXPCMessage(a2, 0);
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   [v2 respondWithPayload:v4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __61__HMDHomeKitPersonDataInterface_handleFetchFaceCropsMessage___block_invoke_12(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__61__HMDHomeKitPersonDataInterface_handleFetchFaceCropsMessage___block_invoke_12(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   [*(a1 + 32) handleFetchedObject:a2];
   result = [*(a1 + 32) canHandleMoreFetchedObjects];
@@ -1426,7 +1389,7 @@ uint64_t __61__HMDHomeKitPersonDataInterface_handleFetchFaceCropsMessage___block
 
 - (void)handleFetchPersonsMessage:(id)message
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDHomeKitPersonDataInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1439,9 +1402,9 @@ uint64_t __61__HMDHomeKitPersonDataInterface_handleFetchFaceCropsMessage___block
     v9 = HMFGetLogIdentifier();
     messagePayload = [messageCopy messagePayload];
     *buf = 138543618;
-    v34 = v9;
-    v35 = 2112;
-    v36 = messagePayload;
+    v33 = v9;
+    v34 = 2112;
+    v35 = messagePayload;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling fetch persons message payload: %@", buf, 0x16u);
   }
 
@@ -1453,10 +1416,10 @@ uint64_t __61__HMDHomeKitPersonDataInterface_handleFetchFaceCropsMessage___block
     if (v12)
     {
       v13 = [dataSource personsWithUUIDs:v12];
-      v31 = *MEMORY[0x277CD0B98];
+      v30 = *MEMORY[0x277CD0B98];
       v14 = encodeRootObjectForIncomingXPCMessage(v13, 0);
-      v32 = v14;
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+      v31 = v14;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
       [messageCopy respondWithPayload:v15];
     }
 
@@ -1467,21 +1430,21 @@ uint64_t __61__HMDHomeKitPersonDataInterface_handleFetchFaceCropsMessage___block
 
       if (v21)
       {
-        v29[0] = MEMORY[0x277D85DD0];
-        v29[1] = 3221225472;
-        v29[2] = __59__HMDHomeKitPersonDataInterface_handleFetchPersonsMessage___block_invoke;
-        v29[3] = &unk_27867F6E8;
+        v28[0] = MEMORY[0x277D85DD0];
+        v28[1] = 3221225472;
+        v28[2] = __59__HMDHomeKitPersonDataInterface_handleFetchPersonsMessage___block_invoke;
+        v28[3] = &unk_27867F6E8;
         v13 = v21;
-        v30 = v13;
-        [dataSource enumeratePersonsUsingBlock:v29];
-        v27[0] = MEMORY[0x277D85DD0];
-        v27[1] = 3221225472;
-        v27[2] = __59__HMDHomeKitPersonDataInterface_handleFetchPersonsMessage___block_invoke_2;
-        v27[3] = &unk_27868A728;
-        v28 = messageCopy;
-        [v13 sendCurrentlyBatchedFetchedObjectsWithCompletion:v27];
+        v29 = v13;
+        [dataSource enumeratePersonsUsingBlock:v28];
+        v26[0] = MEMORY[0x277D85DD0];
+        v26[1] = 3221225472;
+        v26[2] = __59__HMDHomeKitPersonDataInterface_handleFetchPersonsMessage___block_invoke_2;
+        v26[3] = &unk_27868A728;
+        v27 = messageCopy;
+        [v13 sendCurrentlyBatchedFetchedObjectsWithCompletion:v26];
 
-        v14 = v30;
+        v14 = v29;
       }
 
       else
@@ -1493,9 +1456,9 @@ uint64_t __61__HMDHomeKitPersonDataInterface_handleFetchFaceCropsMessage___block
         {
           v25 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v34 = v25;
-          v35 = 2112;
-          v36 = messageCopy;
+          v33 = v25;
+          v34 = 2112;
+          v35 = messageCopy;
           _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to create fetch server from message: %@", buf, 0x16u);
         }
 
@@ -1516,7 +1479,7 @@ uint64_t __61__HMDHomeKitPersonDataInterface_handleFetchFaceCropsMessage___block
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v34 = v19;
+      v33 = v19;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Cannot fetch persons because data is not available", buf, 0xCu);
     }
 
@@ -1524,11 +1487,9 @@ uint64_t __61__HMDHomeKitPersonDataInterface_handleFetchFaceCropsMessage___block
     v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v12];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __59__HMDHomeKitPersonDataInterface_handleFetchPersonsMessage___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__59__HMDHomeKitPersonDataInterface_handleFetchPersonsMessage___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   [*(a1 + 32) handleFetchedObject:a2];
   result = [*(a1 + 32) canHandleMoreFetchedObjects];
@@ -1538,7 +1499,7 @@ uint64_t __59__HMDHomeKitPersonDataInterface_handleFetchPersonsMessage___block_i
 
 - (void)handlePerformCloudPullMessage:(id)message
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDHomeKitPersonDataInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1550,27 +1511,25 @@ uint64_t __59__HMDHomeKitPersonDataInterface_handleFetchPersonsMessage___block_i
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v18 = v9;
+    v17 = v9;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling perform cloud pull message", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
   dataSource = [(HMDHomeKitPersonDataInterface *)selfCopy dataSource];
   performCloudPull = [dataSource performCloudPull];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __63__HMDHomeKitPersonDataInterface_handlePerformCloudPullMessage___block_invoke;
-  v15[3] = &unk_278687CC0;
-  v16 = messageCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __63__HMDHomeKitPersonDataInterface_handlePerformCloudPullMessage___block_invoke;
+  v14[3] = &unk_278687CC0;
+  v15 = messageCopy;
   v12 = messageCopy;
-  v13 = [performCloudPull addCompletionBlock:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = [performCloudPull addCompletionBlock:v14];
 }
 
 - (void)handleUnsubscribeMessage:(id)message
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDHomeKitPersonDataInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1581,9 +1540,9 @@ uint64_t __59__HMDHomeKitPersonDataInterface_handleFetchPersonsMessage___block_i
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v22 = 138543362;
-    v23 = v9;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling unsubscribe message", &v22, 0xCu);
+    v21 = 138543362;
+    v22 = v9;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling unsubscribe message", &v21, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -1619,26 +1578,24 @@ uint64_t __59__HMDHomeKitPersonDataInterface_handleFetchPersonsMessage___block_i
       v17 = HMFGetLogIdentifier();
       v18 = objc_opt_class();
       transport2 = [messageCopy transport];
-      v22 = 138543874;
-      v23 = v17;
-      v24 = 2112;
-      v25 = v18;
-      v26 = 2112;
-      v27 = transport2;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unsubscribing transport was not of expected class %@: %@", &v22, 0x20u);
+      v21 = 138543874;
+      v22 = v17;
+      v23 = 2112;
+      v24 = v18;
+      v25 = 2112;
+      v26 = transport2;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unsubscribing transport was not of expected class %@: %@", &v21, 0x20u);
     }
 
     objc_autoreleasePoolPop(v14);
     v20 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v20];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleSubscribeMessage:(id)message
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDHomeKitPersonDataInterface *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1649,9 +1606,9 @@ uint64_t __59__HMDHomeKitPersonDataInterface_handleFetchPersonsMessage___block_i
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v22 = 138543362;
-    v23 = v9;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling subscribe message", &v22, 0xCu);
+    v21 = 138543362;
+    v22 = v9;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling subscribe message", &v21, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -1687,26 +1644,24 @@ uint64_t __59__HMDHomeKitPersonDataInterface_handleFetchPersonsMessage___block_i
       v17 = HMFGetLogIdentifier();
       v18 = objc_opt_class();
       transport2 = [messageCopy transport];
-      v22 = 138543874;
-      v23 = v17;
-      v24 = 2112;
-      v25 = v18;
-      v26 = 2112;
-      v27 = transport2;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Subscribing transport was not of expected class %@: %@", &v22, 0x20u);
+      v21 = 138543874;
+      v22 = v17;
+      v23 = 2112;
+      v24 = v18;
+      v25 = 2112;
+      v26 = transport2;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Subscribing transport was not of expected class %@: %@", &v21, 0x20u);
     }
 
     objc_autoreleasePoolPop(v14);
     v20 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [messageCopy respondWithError:v20];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifySubscribersOfMessageWithName:(id)name payload:(id)payload
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   payloadCopy = payload;
   workQueue = [(HMDHomeKitPersonDataInterface *)self workQueue];
@@ -1728,36 +1683,36 @@ uint64_t __59__HMDHomeKitPersonDataInterface_handleFetchPersonsMessage___block_i
       clientConnectionsTimer2 = [(HMDHomeKitPersonDataInterface *)selfCopy clientConnectionsTimer];
       clientConnections2 = [clientConnectionsTimer2 clientConnections];
       *buf = 138543618;
-      v39 = v14;
-      v40 = 2048;
-      v41 = [clientConnections2 count];
+      v38 = v14;
+      v39 = 2048;
+      v40 = [clientConnections2 count];
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Notifying %lu subscribers", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     clientConnectionsTimer3 = [(HMDHomeKitPersonDataInterface *)selfCopy clientConnectionsTimer];
     clientConnections3 = [clientConnectionsTimer3 clientConnections];
 
-    v19 = [clientConnections3 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v19 = [clientConnections3 countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v34;
+      v21 = *v33;
       do
       {
         v22 = 0;
         do
         {
-          if (*v34 != v21)
+          if (*v33 != v21)
           {
             objc_enumerationMutation(clientConnections3);
           }
 
-          v23 = *(*(&v33 + 1) + 8 * v22);
+          v23 = *(*(&v32 + 1) + 8 * v22);
           v24 = [MEMORY[0x277D0F848] entitledMessageWithName:nameCopy messagePayload:payloadCopy];
           [v24 setTransport:v23];
           v25 = objc_alloc(MEMORY[0x277D0F820]);
@@ -1773,7 +1728,7 @@ uint64_t __59__HMDHomeKitPersonDataInterface_handleFetchPersonsMessage___block_i
         }
 
         while (v20 != v22);
-        v20 = [clientConnections3 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v20 = [clientConnections3 countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v20);
@@ -1786,14 +1741,12 @@ uint64_t __59__HMDHomeKitPersonDataInterface_handleFetchPersonsMessage___block_i
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v39 = v29;
+      v38 = v29;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_DEBUG, "%{public}@No subscribed transports to notify", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDHomeKitPersonDataInterface)initWithUUID:(id)d messageDispatcher:(id)dispatcher workQueue:(id)queue clientConnectionsTimer:(id)timer
@@ -1809,7 +1762,7 @@ uint64_t __59__HMDHomeKitPersonDataInterface_handleFetchPersonsMessage___block_i
   if (v14)
   {
     objc_storeStrong(&v14->_workQueue, queue);
-    v16 = [dCopy copy];
+    v16 = objc_msgSend_copy(dCopy);
     UUID = v15->_UUID;
     v15->_UUID = v16;
 
@@ -1864,10 +1817,9 @@ id __97__HMDHomeKitPersonDataInterface_initWithUUID_messageDispatcher_workQueue_
 
 void __44__HMDHomeKitPersonDataInterface_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v43_202175;
-  logCategory__hmf_once_v43_202175 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v43_202175;
+  logCategory__hmf_once_v43_202175 = v0;
 }
 
 @end

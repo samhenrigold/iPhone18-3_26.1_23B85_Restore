@@ -9,45 +9,44 @@
   immediatelyCopy = immediately;
   eventCopy = event;
   v14 = sub_1C4EF9CD8();
-  v37 = *(v14 - 8);
-  v38 = v14;
-  v15 = *(v37 + 64);
+  v36 = *(v14 - 8);
+  v37 = v14;
   MEMORY[0x1EEE9AC00](v14);
-  v17 = &v33 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = _Block_copy(completion);
+  v16 = &v32 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = _Block_copy(completion);
   feedbackCopy = feedback;
   typeCopy = type;
   timestampCopy = timestamp;
   selfCopy = self;
   variantCopy = variant;
-  v23 = sub_1C4EF9A68();
-  v25 = v24;
+  v22 = sub_1C4EF9A68();
+  v24 = v23;
 
-  v26 = sub_1C4F01138();
-  v28 = v27;
+  v25 = sub_1C4F01138();
+  v27 = v26;
 
   if (variantCopy)
   {
-    v29 = sub_1C4F01138();
-    v31 = v30;
+    v28 = sub_1C4F01138();
+    v30 = v29;
   }
 
   else
   {
-    v29 = 0;
-    v31 = 0;
+    v28 = 0;
+    v30 = 0;
   }
 
   sub_1C4EF9C78();
 
-  _Block_copy(v18);
-  v32 = selfCopy;
-  sub_1C4807420(v23, v25, v26, v28, v29, v31, eventCopy, v17, immediatelyCopy, selfCopy, v18);
-  _Block_release(v18);
+  _Block_copy(v17);
+  v31 = selfCopy;
+  sub_1C4807420(v22, v24, v25, v27, v28, v30, eventCopy, v16, immediatelyCopy, selfCopy, v17);
+  _Block_release(v17);
 
-  sub_1C4434000(v23, v25);
+  sub_1C4434000(v22, v24);
 
-  (*(v37 + 8))(v17, v38);
+  (*(v36 + 8))(v16, v37);
 }
 
 @end

@@ -1,6 +1,9 @@
 @interface msdosVolume
 - (BOOL)isOffsetInMetadataZone:(unint64_t)zone;
+- (id)createDirItemWithParent:(id)parent firstCluster:(unsigned int)cluster dirEntryData:(id)data name:(id)name isRoot:(BOOL)root;
+- (id)createFileItemWithParent:(id)parent firstCluster:(unsigned int)cluster dirEntryData:(id)data name:(id)name;
 - (id)createRootDirItem;
+- (id)createSymlinkItemWithParent:(id)parent firstCluster:(unsigned int)cluster dirEntryData:(id)data name:(id)name symlinkLength:(unsigned __int16)length;
 - (id)supportedXattrNamesForItem:(id)item;
 - (id)sync;
 - (id)updateLabelInBootSector:(char)sector[11] toName:(char)name[11];
@@ -49,7 +52,7 @@
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_100034BA8(v10);
+        sub_100034BA8();
       }
 
       goto LABEL_26;
@@ -57,7 +60,7 @@
 
     if ((bytes[510] != 85 || bytes[511] != 170) && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_100033E00(v10 + 510);
+      sub_100033E00();
     }
 
     v11 = *(v10 + 11);
@@ -95,7 +98,7 @@
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_100033F54(v19);
+        sub_100033F54();
       }
 
       goto LABEL_26;
@@ -915,6 +918,46 @@ LABEL_14:
   _Block_object_dispose(&v69, 8);
 }
 
+- (id)createDirItemWithParent:(id)parent firstCluster:(unsigned int)cluster dirEntryData:(id)data name:(id)name isRoot:(BOOL)root
+{
+  rootCopy = root;
+  v9 = *&cluster;
+  nameCopy = name;
+  dataCopy = data;
+  parentCopy = parent;
+  v15 = [[MsdosDirItem alloc] initInVolume:self inDir:parentCopy startingAt:v9 withData:dataCopy andName:nameCopy isRoot:rootCopy];
+
+  return v15;
+}
+
+- (id)createFileItemWithParent:(id)parent firstCluster:(unsigned int)cluster dirEntryData:(id)data name:(id)name
+{
+  v7 = *&cluster;
+  nameCopy = name;
+  dataCopy = data;
+  parentCopy = parent;
+  v13 = [[MsdosFileItem alloc] initInVolume:self inDir:parentCopy startingAt:v7 withData:dataCopy andName:nameCopy];
+
+  return v13;
+}
+
+- (id)createSymlinkItemWithParent:(id)parent firstCluster:(unsigned int)cluster dirEntryData:(id)data name:(id)name symlinkLength:(unsigned __int16)length
+{
+  lengthCopy = length;
+  v9 = *&cluster;
+  nameCopy = name;
+  dataCopy = data;
+  parentCopy = parent;
+  v15 = [(FATItem *)[SymLinkItem alloc] initInVolume:self inDir:parentCopy startingAt:v9 withData:dataCopy andName:nameCopy isRoot:0];
+
+  if (v15)
+  {
+    [v15 setSymlinkLength:lengthCopy];
+  }
+
+  return v15;
+}
+
 - (void)calcNumOfDirEntriesForName:(unistr255 *)name replyHandler:(id)handler
 {
   handlerCopy = handler;
@@ -1122,7 +1165,7 @@ LABEL_6:
     {
       if ((mutableBytes[510] != 85 || mutableBytes[511] != 170) && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_1000350FC(v13 + 510);
+        sub_1000350FC();
       }
 
       systemInfo2 = [(FATVolume *)self systemInfo];
@@ -1153,7 +1196,7 @@ LABEL_6:
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_100035188(v13);
+        sub_100035188();
       }
 
       v11 = fs_errorForPOSIXError();

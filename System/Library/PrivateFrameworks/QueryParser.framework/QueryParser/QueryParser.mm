@@ -1,16 +1,16 @@
-void sub_1C6586A88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C6586A88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v9 - 176), 8);
+  _Block_object_dispose((v16 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -23,39 +23,39 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 
 id createStringFromSet(void *a1, void *a2, void *a3, void *a4)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v7 = a1;
   v8 = a2;
   v9 = a3;
   v10 = a4;
   if ([v7 count])
   {
-    v23 = v8;
+    v22 = v8;
     v11 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v7, "count")}];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v12 = v7;
-    v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v25;
+      v15 = *v24;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v25 != v15)
+          if (*v24 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = [MEMORY[0x1E696AEC0] stringWithFormat:v9, *(*(&v24 + 1) + 8 * i)];
+          v17 = [MEMORY[0x1E696AEC0] stringWithFormat:v9, *(*(&v23 + 1) + 8 * i)];
           [v11 addObject:v17];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v14);
@@ -63,8 +63,8 @@ id createStringFromSet(void *a1, void *a2, void *a3, void *a4)
 
     v18 = MEMORY[0x1E696AEC0];
     v19 = [v11 componentsJoinedByString:v10];
-    v8 = v23;
-    v20 = [v18 stringWithFormat:v23, v19];
+    v8 = v22;
+    v20 = [v18 stringWithFormat:v22, v19];
   }
 
   else
@@ -72,21 +72,19 @@ id createStringFromSet(void *a1, void *a2, void *a3, void *a4)
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v20;
 }
 
-id getAccountsManagerInstance()
+id getAccountsManagerInstance(uint64_t a1)
 {
   if (getAccountsManagerInstance_onceToken != -1)
   {
     getAccountsManagerInstance_cold_1();
   }
 
-  v1 = getAccountsManagerInstance_instance;
+  v2 = getAccountsManagerInstance_instance;
 
-  return v1;
+  return v2;
 }
 
 void __getAccountsManagerInstance_block_invoke()
@@ -99,54 +97,53 @@ void __getAccountsManagerInstance_block_invoke()
   readFromGroundTruthECRForUnitTests = [v2 BOOLForKey:@"SpotlightForSearchToolUnitTestECRCache"];
 }
 
-void *getContentsArray()
+void *getContentsArray(uint64_t a1)
 {
-  v0 = getAccountsManagerInstance();
-  v1 = [v0 contentsArray];
+  v1 = getAccountsManagerInstance(a1);
+  v2 = [v1 contentsArray];
 
-  return v1;
+  return v2;
 }
 
-void *getMeCardData()
+void *getMeCardData(uint64_t a1)
 {
   v16 = *MEMORY[0x1E69E9840];
-  v0 = getAccountsManagerInstance();
+  v1 = getAccountsManagerInstance(a1);
   if (readFromGroundTruthECRForUnitTests == 1)
   {
-    v1 = [MEMORY[0x1E695E000] standardUserDefaults];
-    v2 = [v1 valueForKey:@"testID"];
+    v2 = [MEMORY[0x1E695E000] standardUserDefaults];
+    v3 = [v2 valueForKey:@"testID"];
 
-    v3 = [MEMORY[0x1E695E000] standardUserDefaults];
-    v4 = [v3 valueForKey:v2];
-    v5 = [v4 valueForKey:@"kQPParseResultEcrGroundedOutput"];
-    v6 = [v5 valueForKey:@"me"];
-    [v0 setMeCard:v6];
+    v4 = [MEMORY[0x1E695E000] standardUserDefaults];
+    v5 = [v4 valueForKey:v3];
+    v6 = [v5 valueForKey:@"kQPParseResultEcrGroundedOutput"];
+    v7 = [v6 valueForKey:@"me"];
+    [v1 setMeCard:v7];
 
-    v7 = [v0 meCard];
+    v8 = [v1 meCard];
 
-    if (v7)
+    if (v8)
     {
       if (accountsLogger_token != -1)
       {
         [QPAccountsManager nameToEmailAddresses];
       }
 
-      v8 = accountsLogger_log;
+      v9 = accountsLogger_log;
       if (os_log_type_enabled(accountsLogger_log, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = v8;
-        v10 = [v0 meCard];
+        v10 = v9;
+        v11 = [v1 meCard];
         v14 = 138412290;
-        v15 = v10;
-        _os_log_impl(&dword_1C6584000, v9, OS_LOG_TYPE_DEFAULT, "[QPNLU] Received token value SELF from ground truth:%@", &v14, 0xCu);
+        v15 = v11;
+        _os_log_impl(&dword_1C6584000, v10, OS_LOG_TYPE_DEFAULT, "[QPNLU] Received token value SELF from ground truth:%@", &v14, 0xCu);
       }
     }
   }
 
-  v11 = [v0 meCard];
+  v12 = [v1 meCard];
 
-  v12 = *MEMORY[0x1E69E9840];
-  return v11;
+  return v12;
 }
 
 void __initEntitlements_block_invoke()
@@ -245,25 +242,34 @@ void __normalizeRelationLabelString_block_invoke()
 __CFString *QPAnnotationsCopyNormalizedString(const __CFLocale *a1, const __CFString *a2, CFIndex a3, CFIndex length)
 {
   MutableCopy = 0;
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (a2 && length)
   {
-    v25 = 0;
+    v24 = 0;
     MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(length, 0x8000100u);
     v10 = MaximumSizeForEncoding + 1;
     MEMORY[0x1EEE9AC00](MaximumSizeForEncoding);
-    v12 = (&v23 - v11);
-    bzero(&v23 - v11, v13);
-    v27.location = a3;
-    v27.length = length;
-    CFStringGetCharacters(a2, v27, v12);
-    v24 = 0;
+    v12 = (&v22 - v11);
+    bzero(&v22 - v11, v13);
+    v26.location = a3;
+    v26.length = length;
+    CFStringGetCharacters(a2, v26, v12);
+    v23 = 0;
     MEMORY[0x1EEE9AC00](v14);
-    v16 = &v23 - v15;
-    bzero(&v23 - v15, v10);
-    if (CFStringEncodingUnicodeToBytes() || (v17 = v24, v16[v24] = 0, v18 = *MEMORY[0x1E695E480], (v19 = CFStringCreateWithBytesNoCopy(*MEMORY[0x1E695E480], v16, v17, 0x8000100u, 0, *MEMORY[0x1E695E498])) == 0))
+    v16 = &v22 - v15;
+    bzero(&v22 - v15, v10);
+    if (CFStringEncodingUnicodeToBytes())
     {
-      MutableCopy = 0;
+      return 0;
+    }
+
+    v17 = v23;
+    v16[v23] = 0;
+    v18 = *MEMORY[0x1E695E480];
+    v19 = CFStringCreateWithBytesNoCopy(*MEMORY[0x1E695E480], v16, v17, 0x8000100u, 0, *MEMORY[0x1E695E498]);
+    if (!v19)
+    {
+      return 0;
     }
 
     else
@@ -275,11 +281,10 @@ __CFString *QPAnnotationsCopyNormalizedString(const __CFLocale *a1, const __CFSt
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return MutableCopy;
 }
 
-uint64_t QPAnnotationsGetPayloadWithTokens(int a1, uint64_t a2, __CFLocale *a3, CFStringRef theString, CFRange *a5, uint64_t a6, uint64_t a7, _BYTE *a8)
+uint64_t QPAnnotationsGetPayloadWithTokens(uint64_t a1, uint64_t a2, __CFLocale *a3, CFStringRef theString, CFRange *a5, uint64_t a6, uint64_t a7, _BYTE *a8)
 {
   v9 = hashTokens(a3, theString, a2, a5, a6, a7);
   [v9 bytes];
@@ -304,15 +309,15 @@ LABEL_6:
 
 id hashTokens(const __CFLocale *a1, CFStringRef theString, uint64_t a3, const CFRange *a4, uint64_t a5, uint64_t a6)
 {
-  v30 = a3;
-  v31[1] = *MEMORY[0x1E69E9840];
+  v29 = a3;
+  v30[1] = *MEMORY[0x1E69E9840];
   Length = CFStringGetLength(theString);
   MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
-  v29 = &v29;
+  v28 = &v28;
   v13 = a6 + MaximumSizeForEncoding + 1;
   MEMORY[0x1EEE9AC00](MaximumSizeForEncoding);
-  v15 = &v29 - v14;
-  bzero(&v29 - v14, v13);
+  v15 = &v28 - v14;
+  bzero(&v28 - v14, v13);
   if (a6 >= 1)
   {
     v16 = 0;
@@ -321,16 +326,16 @@ id hashTokens(const __CFLocale *a1, CFStringRef theString, uint64_t a3, const CF
     p_length = &a4[a5].length;
     do
     {
-      v31[0] = 0;
+      v30[0] = 0;
       v20 = QPAnnotationsCopyNormalizedString(a1, theString, *(p_length - 1), *p_length);
       if (v20)
       {
         v21 = v20;
-        v33.length = CFStringGetLength(v20);
-        v33.location = 0;
-        CFStringGetBytes(v21, v33, 0x8000100u, 0x2Du, 0, &v15[v17], v13 - v17, v31);
+        v32.length = CFStringGetLength(v20);
+        v32.location = 0;
+        CFStringGetBytes(v21, v32, 0x8000100u, 0x2Du, 0, &v15[v17], v13 - v17, v30);
         CFRelease(v21);
-        v22 = v31[0] + v17;
+        v22 = v30[0] + v17;
         v15[v22] = v16;
         v17 = v22 + 1;
       }
@@ -344,11 +349,10 @@ id hashTokens(const __CFLocale *a1, CFStringRef theString, uint64_t a3, const CF
   }
 
   OutputSize = CCDigestGetOutputSize();
-  v24 = &v29 - ((MEMORY[0x1EEE9AC00](OutputSize) + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = &v28 - ((MEMORY[0x1EEE9AC00](OutputSize) + 15) & 0xFFFFFFFFFFFFFFF0);
   bzero(v24, v25);
   CCDigest();
-  v26 = [MEMORY[0x1E695DEF0] dataWithBytes:v24 length:v30];
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = [MEMORY[0x1E695DEF0] dataWithBytes:v24 length:v29];
 
   return v26;
 }
@@ -455,8 +459,8 @@ LABEL_16:
     v8 = dataDetectorLogger_log;
     if (os_log_type_enabled(dataDetectorLogger_log, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 0;
-      _os_log_impl(&dword_1C6584000, v8, OS_LOG_TYPE_DEFAULT, "QueryParserDataDetectors: Creating lexicon scanner", &v11, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_1C6584000, v8, OS_LOG_TYPE_DEFAULT, "QueryParserDataDetectors: Creating lexicon scanner", v10, 2u);
     }
 
     v9 = DDScannerCreateWithCacheFile();
@@ -481,7 +485,6 @@ LABEL_16:
     else
     {
       DDScannerSetOptions();
-      v10 = a1[2];
       v2 = 1;
       DDScannerEnableOptionalSource();
     }
@@ -530,10 +533,9 @@ void QPDataDetectorClearResources(uint64_t a1)
 
 uint64_t QPDataDetectorSetDynamicSources(uint64_t result)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   if (result)
   {
-    v1 = result;
     if (*(result + 16))
     {
       MEMORY[0x1EEE9AC00](result);
@@ -542,25 +544,23 @@ uint64_t QPDataDetectorSetDynamicSources(uint64_t result)
         QPDataDetectorLoadResources_cold_1();
       }
 
-      v2 = dataDetectorLogger_log;
+      v1 = dataDetectorLogger_log;
       if (os_log_type_enabled(dataDetectorLogger_log, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1C6584000, v2, OS_LOG_TYPE_DEFAULT, "QueryParserDataDetectors: setting dynamic sources on lexicon scanner", buf, 2u);
+        _os_log_impl(&dword_1C6584000, v1, OS_LOG_TYPE_DEFAULT, "QueryParserDataDetectors: setting dynamic sources on lexicon scanner", buf, 2u);
       }
 
-      v3 = *(v1 + 16);
       DDScannerSetClientTables();
-      result = 1;
+      return 1;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -689,50 +689,41 @@ LABEL_39:
 
 void __QPDataDetectorEnumerateResults_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 48);
-  v3 = **(a1 + 40);
   DDScannerScanString();
-  v4 = **(a1 + 40);
+  v2 = DDScannerCopyResultsWithOptions();
+  if (v2)
+  {
+    v3 = v2;
+    v4 = *(*(*(a1 + 32) + 8) + 24);
+    v12.length = CFArrayGetCount(v2);
+    v12.location = 0;
+    CFArrayAppendArray(v4, v3, v12);
+    CFRelease(v3);
+  }
+
+  DDScannerScanString();
   v5 = DDScannerCopyResultsWithOptions();
   if (v5)
   {
     v6 = v5;
     v7 = *(*(*(a1 + 32) + 8) + 24);
-    v21.length = CFArrayGetCount(v5);
-    v21.location = 0;
-    CFArrayAppendArray(v7, v6, v21);
+    v13.length = CFArrayGetCount(v5);
+    v13.location = 0;
+    CFArrayAppendArray(v7, v6, v13);
     CFRelease(v6);
   }
 
-  v8 = *(a1 + 48);
-  v9 = *(*(a1 + 40) + 8);
   DDScannerScanString();
-  v10 = *(*(a1 + 40) + 8);
-  v11 = DDScannerCopyResultsWithOptions();
-  if (v11)
+  v8 = DDScannerCopyResultsWithOptions();
+  if (v8)
   {
-    v12 = v11;
-    v13 = *(*(*(a1 + 32) + 8) + 24);
-    v22.length = CFArrayGetCount(v11);
-    v22.location = 0;
-    CFArrayAppendArray(v13, v12, v22);
-    CFRelease(v12);
-  }
+    v9 = v8;
+    v10 = *(*(*(a1 + 32) + 8) + 24);
+    v14.length = CFArrayGetCount(v8);
+    v14.location = 0;
+    CFArrayAppendArray(v10, v9, v14);
 
-  v14 = *(a1 + 48);
-  v15 = *(*(a1 + 40) + 16);
-  DDScannerScanString();
-  v16 = *(*(a1 + 40) + 16);
-  v17 = DDScannerCopyResultsWithOptions();
-  if (v17)
-  {
-    v18 = v17;
-    v19 = *(*(*(a1 + 32) + 8) + 24);
-    v23.length = CFArrayGetCount(v17);
-    v23.location = 0;
-    CFArrayAppendArray(v19, v18, v23);
-
-    CFRelease(v18);
+    CFRelease(v9);
   }
 }
 
@@ -751,9 +742,9 @@ void __QPDataDetectorEnumerateResults_block_invoke_2(uint64_t a1, uint64_t a2, _
     {
       v7 = Count;
       v8 = 0;
-      v27 = v5;
+      v26 = v5;
       theDict = Mutable;
-      v26 = Count;
+      v25 = Count;
       do
       {
         CFArrayGetValueAtIndex(v5, v8);
@@ -794,8 +785,8 @@ void __QPDataDetectorEnumerateResults_block_invoke_2(uint64_t a1, uint64_t a2, _
             Mutable = theDict;
             CFDictionarySetValue(theDict, Type, v16);
             CFRelease(v16);
-            v7 = v26;
-            v5 = v27;
+            v7 = v25;
+            v5 = v26;
           }
         }
 
@@ -818,7 +809,6 @@ void __QPDataDetectorEnumerateResults_block_invoke_2(uint64_t a1, uint64_t a2, _
 
   if (Mutable)
   {
-    v23 = *(*(a1 + 40) + 8);
     (*(*(a1 + 32) + 16))();
     CFRelease(Mutable);
   }
@@ -872,18 +862,18 @@ dispatch_queue_t __getDataDetectorsQueue_block_invoke()
   return result;
 }
 
-uint64_t ResultCompare()
+uint64_t ResultCompare(uint64_t a1, uint64_t a2)
 {
   Range = DDResultGetRange();
-  v2 = v1;
-  v3 = DDResultGetRange();
-  if (Range == v3)
+  v4 = v3;
+  v5 = DDResultGetRange();
+  if (Range == v5)
   {
-    v5 = v2 <= v4;
-    if (v2 != v4)
+    v7 = v4 <= v6;
+    if (v4 != v6)
     {
 LABEL_14:
-      if (v5)
+      if (v7)
       {
         return 1;
       }
@@ -895,20 +885,20 @@ LABEL_14:
     }
 
     SubResults = DDResultGetSubResults();
-    v7 = DDResultGetSubResults();
+    v9 = DDResultGetSubResults();
     if (SubResults)
     {
-      v8 = v7;
-      if (v7)
+      v10 = v9;
+      if (v9)
       {
         Count = CFArrayGetCount(SubResults);
-        if (Count == CFArrayGetCount(v8))
+        if (Count == CFArrayGetCount(v10))
         {
           return 0;
         }
 
-        v11 = CFArrayGetCount(SubResults);
-        v5 = v11 <= CFArrayGetCount(v8);
+        v13 = CFArrayGetCount(SubResults);
+        v7 = v13 <= CFArrayGetCount(v10);
         goto LABEL_14;
       }
     }
@@ -924,7 +914,7 @@ LABEL_14:
     }
   }
 
-  else if (Range < v3)
+  else if (Range < v5)
   {
     return -1;
   }
@@ -938,7 +928,7 @@ LABEL_14:
 void QPDataDetectorsEnumerateDatesInString(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  v6 = getParser();
+  v6 = getParser(v5);
   v8[0] = MEMORY[0x1E69E9820];
   v8[1] = 3221225472;
   v8[2] = __QPDataDetectorsEnumerateDatesInString_block_invoke;
@@ -948,22 +938,22 @@ void QPDataDetectorsEnumerateDatesInString(uint64_t a1, uint64_t a2, void *a3)
   [v6 enumerateDatesInString:a1 options:a2 withBlock:v8];
 }
 
-id getParser(void)
+id getParser(uint64_t a1)
 {
   if (getParser(void)::dateDetectorsParserOnceToken != -1)
   {
     getParser();
   }
 
-  v1 = getParser(void)::sDDParser;
+  v2 = getParser(void)::sDDParser;
 
-  return v1;
+  return v2;
 }
 
 void QPDataDetectorsEnumerateEntitiesInString(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  v6 = getParser();
+  v6 = getParser(v5);
   v8[0] = MEMORY[0x1E69E9820];
   v8[1] = 3221225472;
   v8[2] = __QPDataDetectorsEnumerateEntitiesInString_block_invoke;
@@ -996,7 +986,6 @@ void sub_1C6589720(_Unwind_Exception *a1)
 
 uint64_t QP::getDateComponentsOffsetMap@<X0>(QP *this@<X0>, uint64_t a2@<X8>)
 {
-  v9 = *MEMORY[0x1E69E9840];
   Value = CFLocaleGetValue(this, *MEMORY[0x1E695E6D0]);
   if (Value == @"AT")
   {
@@ -1004,95 +993,87 @@ uint64_t QP::getDateComponentsOffsetMap@<X0>(QP *this@<X0>, uint64_t a2@<X8>)
       operator new();
     }
 
-    result = std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::ATQPDateComponentsPeriodOffsetMap(void)::dateComponentsOffsetMap);
-    goto LABEL_26;
+    return std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::ATQPDateComponentsPeriodOffsetMap(void)::dateComponentsOffsetMap);
   }
 
-  if (Value == @"CN")
+  else if (Value == @"CN")
   {
     {
       operator new();
     }
 
-    result = std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::CNQPDateComponentsPeriodOffsetMap(void)::dateComponentsOffsetMap);
-    goto LABEL_26;
+    return std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::CNQPDateComponentsPeriodOffsetMap(void)::dateComponentsOffsetMap);
   }
 
-  if (Value == @"DE")
+  else if (Value == @"DE")
   {
     {
       operator new();
     }
 
-    result = std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::DEQPDateComponentsPeriodOffsetMap(void)::dateComponentsOffsetMap);
-    goto LABEL_26;
+    return std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::DEQPDateComponentsPeriodOffsetMap(void)::dateComponentsOffsetMap);
   }
 
-  if (Value == @"HK")
+  else if (Value == @"HK")
   {
     {
       operator new();
     }
 
-    result = std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::HKQPDateComponentsPeriodOffsetMap(void)::dateComponentsOffsetMap);
-    goto LABEL_26;
+    return std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::HKQPDateComponentsPeriodOffsetMap(void)::dateComponentsOffsetMap);
   }
 
-  if (Value == @"IT")
+  else if (Value == @"IT")
   {
     {
       operator new();
     }
 
-    result = std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::ITQPDateComponentsPeriodOffsetMap(void)::dateComponentsOffsetMap);
-    goto LABEL_26;
+    return std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::ITQPDateComponentsPeriodOffsetMap(void)::dateComponentsOffsetMap);
   }
 
-  if (Value == @"JP")
+  else if (Value == @"JP")
   {
     {
       operator new();
     }
 
-    result = std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::JPQPDateComponentsPeriodOffsetMap(void)::dateComponentsOffsetMap);
-    goto LABEL_26;
+    return std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::JPQPDateComponentsPeriodOffsetMap(void)::dateComponentsOffsetMap);
   }
 
-  if (Value == @"MY")
+  else if (Value == @"MY")
   {
     {
       operator new();
     }
 
-    result = std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::MYQPDateComponentsPeriodOffsetMap(void)::dateComponentsOffsetMap);
-LABEL_26:
-    v7 = *MEMORY[0x1E69E9840];
-    return result;
-  }
-
-  if (Value == @"NO")
-  {
-    v5 = QP::NOQPDateComponentsPeriodOffsetMap(Value);
-  }
-
-  else if (Value == @"ES")
-  {
-    v5 = QP::ESQPDateComponentsPeriodOffsetMap(Value);
-  }
-
-  else if (Value == @"TW")
-  {
-    v5 = QP::TWQPDateComponentsPeriodOffsetMap(Value);
+    return std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::MYQPDateComponentsPeriodOffsetMap(void)::dateComponentsOffsetMap);
   }
 
   else
   {
-    v5 = QP::QPDateComponentsPeriodOffsetMap(Value);
+    if (Value == @"NO")
+    {
+      v4 = QP::NOQPDateComponentsPeriodOffsetMap(Value);
+    }
+
+    else if (Value == @"ES")
+    {
+      v4 = QP::ESQPDateComponentsPeriodOffsetMap(Value);
+    }
+
+    else if (Value == @"TW")
+    {
+      v4 = QP::TWQPDateComponentsPeriodOffsetMap(Value);
+    }
+
+    else
+    {
+      v4 = QP::QPDateComponentsPeriodOffsetMap(Value);
+    }
+
+    return std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
-
-  return std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, v5);
 }
 
 void sub_1C658B478(_Unwind_Exception *a1)
@@ -1103,14 +1084,12 @@ void sub_1C658B478(_Unwind_Exception *a1)
 
 uint64_t QP::NOQPDateComponentsPeriodOffsetMap(QP *this)
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   {
     operator new();
   }
 
-  result = QP::NOQPDateComponentsPeriodOffsetMap(void)::dateComponentsOffsetMap;
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return QP::NOQPDateComponentsPeriodOffsetMap(void)::dateComponentsOffsetMap;
 }
 
 void sub_1C658B6A4(_Unwind_Exception *a1)
@@ -1121,14 +1100,12 @@ void sub_1C658B6A4(_Unwind_Exception *a1)
 
 uint64_t QP::ESQPDateComponentsPeriodOffsetMap(QP *this)
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   {
     operator new();
   }
 
-  result = QP::ESQPDateComponentsPeriodOffsetMap(void)::dateComponentsOffsetMap;
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return QP::ESQPDateComponentsPeriodOffsetMap(void)::dateComponentsOffsetMap;
 }
 
 void sub_1C658B7A8(_Unwind_Exception *a1)
@@ -1139,14 +1116,12 @@ void sub_1C658B7A8(_Unwind_Exception *a1)
 
 uint64_t QP::TWQPDateComponentsPeriodOffsetMap(QP *this)
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   {
     operator new();
   }
 
-  result = QP::TWQPDateComponentsPeriodOffsetMap(void)::dateComponentsOffsetMap;
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return QP::TWQPDateComponentsPeriodOffsetMap(void)::dateComponentsOffsetMap;
 }
 
 void sub_1C658B8AC(_Unwind_Exception *a1)
@@ -1157,14 +1132,12 @@ void sub_1C658B8AC(_Unwind_Exception *a1)
 
 uint64_t QP::QPDateComponentsPeriodOffsetMap(QP *this)
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   {
     operator new();
   }
 
-  result = QP::QPDateComponentsPeriodOffsetMap(void)::dateComponentsOffsetMap;
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return QP::QPDateComponentsPeriodOffsetMap(void)::dateComponentsOffsetMap;
 }
 
 void sub_1C658B9B0(_Unwind_Exception *a1)
@@ -1175,7 +1148,6 @@ void sub_1C658B9B0(_Unwind_Exception *a1)
 
 uint64_t QP::getDateComponentsStartMap@<X0>(QP *this@<X0>, uint64_t a2@<X8>)
 {
-  v9 = *MEMORY[0x1E69E9840];
   Value = CFLocaleGetValue(this, *MEMORY[0x1E695E6D0]);
   if (Value == @"AT")
   {
@@ -1183,95 +1155,87 @@ uint64_t QP::getDateComponentsStartMap@<X0>(QP *this@<X0>, uint64_t a2@<X8>)
       operator new();
     }
 
-    result = std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::ATQPDateComponentsPeriodStartMap(void)::dateComponentsStartMap);
-    goto LABEL_26;
+    return std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::ATQPDateComponentsPeriodStartMap(void)::dateComponentsStartMap);
   }
 
-  if (Value == @"CN")
+  else if (Value == @"CN")
   {
     {
       operator new();
     }
 
-    result = std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::CNQPDateComponentsPeriodStartMap(void)::dateComponentsStartMap);
-    goto LABEL_26;
+    return std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::CNQPDateComponentsPeriodStartMap(void)::dateComponentsStartMap);
   }
 
-  if (Value == @"DE")
+  else if (Value == @"DE")
   {
     {
       operator new();
     }
 
-    result = std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::DEQPDateComponentsPeriodStartMap(void)::dateComponentsStartMap);
-    goto LABEL_26;
+    return std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::DEQPDateComponentsPeriodStartMap(void)::dateComponentsStartMap);
   }
 
-  if (Value == @"HK")
+  else if (Value == @"HK")
   {
     {
       operator new();
     }
 
-    result = std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::HKQPDateComponentsPeriodStartMap(void)::dateComponentsStartMap);
-    goto LABEL_26;
+    return std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::HKQPDateComponentsPeriodStartMap(void)::dateComponentsStartMap);
   }
 
-  if (Value == @"IT")
+  else if (Value == @"IT")
   {
     {
       operator new();
     }
 
-    result = std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::ITQPDateComponentsPeriodStartMap(void)::dateComponentsStartMap);
-    goto LABEL_26;
+    return std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::ITQPDateComponentsPeriodStartMap(void)::dateComponentsStartMap);
   }
 
-  if (Value == @"JP")
+  else if (Value == @"JP")
   {
     {
       operator new();
     }
 
-    result = std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::JPQPDateComponentsPeriodStartMap(void)::dateComponentsStartMap);
-    goto LABEL_26;
+    return std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::JPQPDateComponentsPeriodStartMap(void)::dateComponentsStartMap);
   }
 
-  if (Value == @"MY")
+  else if (Value == @"MY")
   {
     {
       operator new();
     }
 
-    result = std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::MYQPDateComponentsPeriodStartMap(void)::dateComponentsStartMap);
-LABEL_26:
-    v7 = *MEMORY[0x1E69E9840];
-    return result;
-  }
-
-  if (Value == @"NO")
-  {
-    started = QP::NOQPDateComponentsPeriodStartMap(Value);
-  }
-
-  else if (Value == @"ES")
-  {
-    started = QP::ESQPDateComponentsPeriodStartMap(Value);
-  }
-
-  else if (Value == @"TW")
-  {
-    started = QP::TWQPDateComponentsPeriodStartMap(Value);
+    return std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, QP::MYQPDateComponentsPeriodStartMap(void)::dateComponentsStartMap);
   }
 
   else
   {
-    started = QP::QPDateComponentsPeriodStartMap(Value);
+    if (Value == @"NO")
+    {
+      started = QP::NOQPDateComponentsPeriodStartMap(Value);
+    }
+
+    else if (Value == @"ES")
+    {
+      started = QP::ESQPDateComponentsPeriodStartMap(Value);
+    }
+
+    else if (Value == @"TW")
+    {
+      started = QP::TWQPDateComponentsPeriodStartMap(Value);
+    }
+
+    else
+    {
+      started = QP::QPDateComponentsPeriodStartMap(Value);
+    }
+
+    return std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, started);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
-
-  return std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(a2, started);
 }
 
 void sub_1C658BF08(_Unwind_Exception *a1)
@@ -1282,14 +1246,12 @@ void sub_1C658BF08(_Unwind_Exception *a1)
 
 uint64_t QP::NOQPDateComponentsPeriodStartMap(QP *this)
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   {
     operator new();
   }
 
-  result = QP::NOQPDateComponentsPeriodStartMap(void)::dateComponentsStartMap;
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return QP::NOQPDateComponentsPeriodStartMap(void)::dateComponentsStartMap;
 }
 
 void sub_1C658C134(_Unwind_Exception *a1)
@@ -1300,14 +1262,12 @@ void sub_1C658C134(_Unwind_Exception *a1)
 
 uint64_t QP::ESQPDateComponentsPeriodStartMap(QP *this)
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   {
     operator new();
   }
 
-  result = QP::ESQPDateComponentsPeriodStartMap(void)::dateComponentsStartMap;
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return QP::ESQPDateComponentsPeriodStartMap(void)::dateComponentsStartMap;
 }
 
 void sub_1C658C238(_Unwind_Exception *a1)
@@ -1318,14 +1278,12 @@ void sub_1C658C238(_Unwind_Exception *a1)
 
 uint64_t QP::TWQPDateComponentsPeriodStartMap(QP *this)
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   {
     operator new();
   }
 
-  result = QP::TWQPDateComponentsPeriodStartMap(void)::dateComponentsStartMap;
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return QP::TWQPDateComponentsPeriodStartMap(void)::dateComponentsStartMap;
 }
 
 void sub_1C658C33C(_Unwind_Exception *a1)
@@ -1336,14 +1294,12 @@ void sub_1C658C33C(_Unwind_Exception *a1)
 
 uint64_t QP::QPDateComponentsPeriodStartMap(QP *this)
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   {
     operator new();
   }
 
-  result = QP::QPDateComponentsPeriodStartMap(void)::dateComponentsStartMap;
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return QP::QPDateComponentsPeriodStartMap(void)::dateComponentsStartMap;
 }
 
 void sub_1C658C440(_Unwind_Exception *a1)
@@ -1352,7 +1308,7 @@ void sub_1C658C440(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t QP::getOffsetForDateComponentsPeriod(unsigned __int16 a1, QP *this)
+uint64_t QP::getOffsetForDateComponentsPeriod(__int16 a1, QP *this)
 {
   v6 = a1;
   QP::getDateComponentsOffsetMap(this, v5);
@@ -1376,7 +1332,7 @@ uint64_t QP::getOffsetForDateComponentsPeriod(unsigned __int16 a1, QP *this)
   return v3;
 }
 
-uint64_t QP::getStartForDateComponentsPeriod(unsigned __int16 a1, QP *this)
+uint64_t QP::getStartForDateComponentsPeriod(__int16 a1, QP *this)
 {
   v6 = a1;
   QP::getDateComponentsStartMap(this, v5);
@@ -1973,7 +1929,7 @@ LABEL_41:
   }
 }
 
-uint64_t QP::updateDateComponentsWithHoliday(QP::HolidayReference **a1, __CFString *a2, const __CFString *a3, const __CFString *a4, __CFCalendar *a5, int a6, int a7, __CFString *a8, uint64_t a9)
+uint64_t QP::updateDateComponentsWithHoliday(QP::HolidayReference **a1, __CFString *a2, const __CFString *a3, const __CFString *a4, __CFCalendar *a5, int a6, unsigned int a7, __CFString *a8, uint64_t a9)
 {
   v9 = 0;
   if (a5)
@@ -2142,18 +2098,18 @@ LABEL_42:
   return v9;
 }
 
-void sub_1C658D6E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C658D6E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v8 = va_arg(va1, const void *);
+  va_start(va1, a11);
+  va_start(va, a11);
+  v13 = va_arg(va1, const void *);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   nlp::CFScopedPtr<__CFCalendar *>::reset(va1, 0);
-  nlp::CFScopedPtr<__CFDictionary const*>::reset((v6 - 72), 0);
+  nlp::CFScopedPtr<__CFDictionary const*>::reset((v11 - 72), 0);
   _Unwind_Resume(a1);
 }
 
-uint64_t QP::updateDateComponentsWithHolidayDisplayKey(uint64_t a1, const __CFString *a2, __CFCalendar *a3, uint64_t a4, int a5, uint64_t a6)
+uint64_t QP::updateDateComponentsWithHolidayDisplayKey(uint64_t a1, const __CFString *a2, __CFCalendar *a3, uint64_t a4, unsigned int a5, uint64_t a6)
 {
   if (!a2)
   {
@@ -2201,12 +2157,12 @@ LABEL_11:
   return updated;
 }
 
-void sub_1C658D894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C658D894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
-  if (v6)
+  va_start(va, a11);
+  if (v11)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
   }
 
   nlp::CFScopedPtr<__CFArray const*>::reset(va, 0);
@@ -2368,7 +2324,7 @@ __CFString *QP::copyDisplayKeyForOrdinalDate(QP *this, const QP::DateComponents 
   }
 }
 
-uint64_t QP::DateConverter::loadDateReferenceResourceURL(QP::DateConverter *this, CFURLRef url)
+uint64_t QP::DateConverter::loadDateReferenceResourceURL(QP::HolidayReference **this, CFURLRef url)
 {
   if (url)
   {
@@ -2387,10 +2343,10 @@ uint64_t QP::DateConverter::loadDateReferenceResourceURL(QP::DateConverter *this
   return 0;
 }
 
-void sub_1C658DC80(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C658DC80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  MEMORY[0x1C695B850](v2, 0x1070C40D30B4D84);
+  va_start(va, a3);
+  MEMORY[0x1C695B850](v3, 0x1070C40D30B4D84);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -2406,61 +2362,61 @@ void QP::DateConverter::clearResources(QP::DateConverter *this)
   }
 }
 
-BOOL QP::DateConverter::isValid(QP::DateConverter *this, QP::DatePeriod *a2)
+BOOL QP::DateConverter::isValid(QP::DateConverter *this, QP::DatePeriod *a2, const __CFDate *a3)
 {
-  v4 = *this;
+  v5 = *this;
   if (*(*this + 23) == 1)
   {
-    v5 = *(a2 + 3);
-    if (v5 < 91)
+    v6 = *(a2 + 3);
+    if (v6 < 91)
     {
-      if (v5 > 54)
+      if (v6 > 54)
       {
         return 0;
       }
 
-      if ((v5 - 1) <= 1)
+      if ((v6 - 1) <= 1)
       {
-        v7 = *(a2 + 11);
-        v13 = 0;
-        v11 = 0u;
+        v8 = *(a2 + 11);
+        v14 = 0;
         v12 = 0u;
-        v10 = 0u;
-        QP::getCurrentDateComponents(*(v4 + 88), *(v4 + 80), &v10);
-        if ((v7 & 0x80000000) == 0 && v7 > SDWORD1(v11))
+        v13 = 0u;
+        v11 = 0u;
+        QP::getCurrentDateComponents(&v11, *(v5 + 88), *(v5 + 80));
+        if ((v8 & 0x80000000) == 0 && v8 > SDWORD1(v12))
         {
           return 0;
         }
       }
     }
 
-    else if (v5 < 0x69)
+    else if (v6 < 0x69)
     {
       return 0;
     }
   }
 
-  else if (*(v4 + 24) == 1)
+  else if (*(v5 + 24) == 1)
   {
-    v6 = *(a2 + 3);
-    if (v6 < 19)
+    v7 = *(a2 + 3);
+    if (v7 < 19)
     {
-      if ((v6 - 1) <= 1)
+      if ((v7 - 1) <= 1)
       {
-        v8 = *(a2 + 11);
-        v13 = 0;
-        v11 = 0u;
+        v9 = *(a2 + 11);
+        v14 = 0;
         v12 = 0u;
-        v10 = 0u;
-        QP::getCurrentDateComponents(*(v4 + 88), *(v4 + 80), &v10);
-        if ((v8 & 0x80000000) == 0 && v8 < SDWORD1(v11))
+        v13 = 0u;
+        v11 = 0u;
+        QP::getCurrentDateComponents(&v11, *(v5 + 88), *(v5 + 80));
+        if ((v9 & 0x80000000) == 0 && v9 < SDWORD1(v12))
         {
           return 0;
         }
       }
     }
 
-    else if (v6 < 0x37)
+    else if (v7 < 0x37)
     {
       return 0;
     }
@@ -2469,30 +2425,30 @@ BOOL QP::DateConverter::isValid(QP::DateConverter *this, QP::DatePeriod *a2)
   return *(*this + 25) != 1 || (*(a2 + 3) - 105) >= 0x10;
 }
 
-__CFCalendar *QP::getCurrentDateComponents@<X0>(__CFCalendar *this@<X0>, __CFCalendar *a2@<X1>, uint64_t a3@<X8>)
+__CFCalendar *QP::getCurrentDateComponents@<X0>(uint64_t *__return_ptr a1@<X8>, __CFCalendar *this@<X0>, __CFCalendar *a3@<X1>)
 {
-  *(a3 + 48) = -1;
-  *&v5 = -1;
-  *(&v5 + 1) = -1;
-  *(a3 + 16) = v5;
-  *(a3 + 32) = v5;
-  *a3 = v5;
+  a1[6] = -1;
+  *&v4 = -1;
+  *(&v4 + 1) = -1;
+  *(a1 + 1) = v4;
+  *(a1 + 2) = v4;
+  *a1 = v4;
   if (this)
   {
-    v6 = this;
-    CurrentTime = getCurrentTime(this, a2);
-    return CFCalendarDecomposeAbsoluteTime(v6, CurrentTime, "dEMywYHms", a3 + 12, a3 + 32, a3 + 16, a3 + 20, a3 + 44, a3 + 48, a3 + 8, a3 + 4, a3);
+    v5 = this;
+    CurrentTime = getCurrentTime(this, a3);
+    return CFCalendarDecomposeAbsoluteTime(v5, CurrentTime, "dEMywYHms", a1 + 12, a1 + 4, a1 + 2, a1 + 20, a1 + 44, a1 + 6, a1 + 1, a1 + 4, a1);
   }
 
   return this;
 }
 
-void QP::DateConverter::datePeriodForValues(CFStringRef theString@<X1>, const __CFDictionary *a2@<X2>, void *a3@<X8>)
+void QP::DateConverter::datePeriodForValues(CFStringRef theString@<X1>, const __CFDictionary *a3@<X2>, QP::DatePeriod **a4@<X8>)
 {
   if (theString)
   {
     Length = CFStringGetLength(theString);
-    if (a2)
+    if (a3)
     {
       if (Length && !CFStringHasPrefix(theString, @"Formatted"))
       {
@@ -2501,26 +2457,26 @@ void QP::DateConverter::datePeriodForValues(CFStringRef theString@<X1>, const __
     }
   }
 
-  *a3 = 0;
+  *a4 = 0;
 }
 
-void sub_1C658E154(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C658E154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<QP::DatePeriod>::reset[abi:ne200100](va, 0);
   _Unwind_Resume(a1);
 }
 
-uint64_t QP::DateConverter::updatePeriodForCalendar(QP::ParserConfiguration **this, const __CFString *a2, CFDictionaryRef theDict, QP::DatePeriod *a4)
+const __CFString *QP::DateConverter::updatePeriodForCalendar(QP::ParserConfiguration **this, const __CFString *a2, CFDictionaryRef theDict, QP::DatePeriod *a4)
 {
   updated = 0;
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   if (a2 && theDict)
   {
     Value = CFDictionaryGetValue(theDict, @"CalendarSystem");
     if (!Value)
     {
-      goto LABEL_51;
+      return 0;
     }
 
     v10 = Value;
@@ -2528,7 +2484,7 @@ uint64_t QP::DateConverter::updatePeriodForCalendar(QP::ParserConfiguration **th
     v12 = MEMORY[0x1C695AA30](*(*this + 11));
     if (!CFStringHasPrefix(v10, @"generic") && CFStringFind(v10, v12, 0).location == -1)
     {
-      goto LABEL_51;
+      return 0;
     }
 
     HasPrefix = CFStringHasPrefix(a2, @"Ambiguous");
@@ -2555,7 +2511,7 @@ uint64_t QP::DateConverter::updatePeriodForCalendar(QP::ParserConfiguration **th
       v17 = v16;
     }
 
-    v46 = 0;
+    v45 = 0;
     updated = CFLocaleGetValue(v11, *MEMORY[0x1E695E6F0]);
     v18 = CFLocaleGetValue(v11, *MEMORY[0x1E695E6D0]);
     ScriptCode = getScriptCode(v11);
@@ -2582,7 +2538,7 @@ uint64_t QP::DateConverter::updatePeriodForCalendar(QP::ParserConfiguration **th
       {
         if (!updated)
         {
-          goto LABEL_61;
+          return updated;
         }
 
         v23 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%@_%@_%@", v17, v10, updated);
@@ -2595,7 +2551,7 @@ uint64_t QP::DateConverter::updatePeriodForCalendar(QP::ParserConfiguration **th
     }
 
     v24 = v23;
-    v46 = v23;
+    v45 = v23;
     if (v23)
     {
       v25 = CFDictionaryGetValue(theDict, v23);
@@ -2604,22 +2560,22 @@ uint64_t QP::DateConverter::updatePeriodForCalendar(QP::ParserConfiguration **th
         goto LABEL_52;
       }
 
-      v45 = -1;
+      v44 = -1;
       *&v26 = -1;
       *(&v26 + 1) = -1;
-      v43 = v26;
-      v44 = v26;
       v42 = v26;
+      v43 = v26;
+      v41 = v26;
       v27 = *this;
       v28 = this[1];
-      v41[0] = v27;
-      v41[1] = v28;
+      v40[0] = v27;
+      v40[1] = v28;
       if (v28)
       {
         atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      updated = QP::updateDateComponentsWithValues(v41, &v42, v25, 0);
+      updated = QP::updateDateComponentsWithValues(v40, &v41, v25, 0);
       if (v28)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v28);
@@ -2629,7 +2585,7 @@ uint64_t QP::DateConverter::updatePeriodForCalendar(QP::ParserConfiguration **th
       {
         Count = CFDictionaryGetCount(v25);
         MEMORY[0x1EEE9AC00](Count);
-        v31 = (v40 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0));
+        v31 = (v39 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0));
         bzero(v31, v30);
         CFDictionaryGetKeysAndValues(v25, v31, 0);
         if (Count < 1)
@@ -2639,7 +2595,7 @@ uint64_t QP::DateConverter::updatePeriodForCalendar(QP::ParserConfiguration **th
 
         else
         {
-          v40[1] = v40;
+          v39[1] = v39;
           LOBYTE(v32) = 0;
           do
           {
@@ -2656,22 +2612,22 @@ uint64_t QP::DateConverter::updatePeriodForCalendar(QP::ParserConfiguration **th
           while (Count);
           if (HasPrefix != 0 && v32)
           {
-            v34 = HIDWORD(v43);
-            v32 = v43 >= 0 || SDWORD2(v42) > 11;
+            v34 = HIDWORD(v42);
+            v32 = v42 >= 0 || SDWORD2(v41) > 11;
             if (!v32)
             {
               v34 = 1;
             }
 
-            HIDWORD(v43) = v34;
+            HIDWORD(v42) = v34;
           }
         }
 
-        v36 = v43;
-        *(a4 + 24) = v42;
+        v36 = v42;
+        *(a4 + 24) = v41;
         *(a4 + 40) = v36;
-        *(a4 + 56) = v44;
-        *(a4 + 9) = v45;
+        *(a4 + 56) = v43;
+        *(a4 + 9) = v44;
         *&v37 = -1;
         *(&v37 + 1) = -1;
         *(a4 + 5) = v37;
@@ -2694,13 +2650,10 @@ LABEL_52:
 
     else
     {
-LABEL_51:
-      updated = 0;
+      return 0;
     }
   }
 
-LABEL_61:
-  v38 = *MEMORY[0x1E69E9840];
   return updated;
 }
 
@@ -2964,9 +2917,9 @@ LABEL_29:
   return updated;
 }
 
-void sub_1C658EAB4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C658EAB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -3132,211 +3085,207 @@ LABEL_24:
   return v4;
 }
 
-void sub_1C658EE2C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C658EE2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
 
 uint64_t QP::DateConverter::updatePeriodForHolidayCompoundDate(std::__shared_weak_count **this, CFDictionaryRef theDict, QP::DatePeriod *a3)
 {
-  v37 = *MEMORY[0x1E69E9840];
-  if (theDict && CFDictionaryContainsKey(theDict, @"HolidayDate") && (*this)[4].__shared_weak_owners_ && (*this)[3].__shared_weak_owners_)
+  v36 = *MEMORY[0x1E69E9840];
+  if (!theDict || !CFDictionaryContainsKey(theDict, @"HolidayDate") || !(*this)[4].__shared_weak_owners_ || !(*this)[3].__shared_weak_owners_)
   {
-    v29 = 0;
-    v30 = 0;
-    v31 = 0;
-    *&v6 = -1;
-    *(&v6 + 1) = -1;
-    v32 = v6;
-    v33 = v6;
-    v34 = v6;
-    v35[0] = v6;
-    v35[1] = v6;
-    v35[2] = v6;
-    v35[3] = v6;
-    v35[4] = v6;
-    v35[5] = v6;
-    v35[6] = v6;
-    v36 = -1;
-    Count = CFDictionaryGetCount(theDict);
-    v23[1] = v23;
-    MEMORY[0x1EEE9AC00](Count);
-    v9 = (v23 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
-    bzero(v9, v8);
-    CFDictionaryGetKeysAndValues(theDict, v9, 0);
-    if (Count >= 1)
+    return 0;
+  }
+
+  v28 = 0;
+  v29 = 0;
+  v30 = 0;
+  *&v6 = -1;
+  *(&v6 + 1) = -1;
+  v31 = v6;
+  v32 = v6;
+  v33 = v6;
+  v34[0] = v6;
+  v34[1] = v6;
+  v34[2] = v6;
+  v34[3] = v6;
+  v34[4] = v6;
+  v34[5] = v6;
+  v34[6] = v6;
+  v35 = -1;
+  Count = CFDictionaryGetCount(theDict);
+  v22[1] = v22;
+  MEMORY[0x1EEE9AC00](Count);
+  v9 = (v22 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+  bzero(v9, v8);
+  CFDictionaryGetKeysAndValues(theDict, v9, 0);
+  if (Count >= 1)
+  {
+    do
     {
-      do
+      v10 = *v9;
+      if (!CFStringHasPrefix(*v9, @"HolidayDate"))
       {
-        v10 = *v9;
-        if (!CFStringHasPrefix(*v9, @"HolidayDate"))
+        if (CFStringHasPrefix(v10, @"Relative"))
         {
-          if (CFStringHasPrefix(v10, @"Relative"))
-          {
-            QP::DateConverter::updatePeriodForRelativeDate(this, v10, &v29);
-          }
-
-          else if (CFStringHasSuffix(v10, @"Date"))
-          {
-            Value = CFDictionaryGetValue(theDict, v10);
-            if (Value && (QP::DateConverter::updatePeriodForValueDate(this, v10, Value, &v29) & 1) == 0)
-            {
-              goto LABEL_31;
-            }
-          }
-
-          else
-          {
-            v28 = -1;
-            *&v12 = -1;
-            *(&v12 + 1) = -1;
-            v26 = v12;
-            v27 = v12;
-            v25 = v12;
-            v13 = this[1];
-            v24[0] = *this;
-            v24[1] = v13;
-            if (v13)
-            {
-              atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
-            }
-
-            updated = QP::updateDateComponentsWithValues(v24, &v25, theDict, 0);
-            if (v13)
-            {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v13);
-            }
-
-            if ((updated & 1) == 0)
-            {
-LABEL_31:
-              v16 = 0;
-              goto LABEL_47;
-            }
-
-            v32 = v25;
-            v33 = v26;
-            v34 = v27;
-            *&v35[0] = v28;
-            *&v15 = -1;
-            *(&v15 + 1) = -1;
-            *(v35 + 8) = v15;
-            *(&v35[1] + 8) = v15;
-            *(&v35[2] + 8) = v15;
-            *(&v35[3] + 1) = -1;
-            HIDWORD(v30) = 1;
-          }
+          QP::DateConverter::updatePeriodForRelativeDate(this, v10, &v28);
         }
 
-        ++v9;
-        --Count;
-      }
-
-      while (Count);
-    }
-
-    if ((HIDWORD(v30) - 6) >= 0xD)
-    {
-      if ((HIDWORD(v30) - 19) >= 0xC)
-      {
-        if ((HIDWORD(v30) - 55) >= 0xC)
+        else if (CFStringHasSuffix(v10, @"Date"))
         {
-          if ((HIDWORD(v30) - 78) >= 0xB)
+          Value = CFDictionaryGetValue(theDict, v10);
+          if (Value && (QP::DateConverter::updatePeriodForValueDate(this, v10, Value, &v28) & 1) == 0)
           {
-            if ((HIDWORD(v30) - 67) >= 0xB)
-            {
-              if ((HIDWORD(v30) - 31) >= 0xB)
-              {
-                if ((HIDWORD(v30) - 42) >= 0xB)
-                {
-                  if ((HIDWORD(v30) - 91) >= 0xE)
-                  {
-                    v19 = HIDWORD(v30);
-                  }
-
-                  else
-                  {
-                    v19 = 102;
-                  }
-                }
-
-                else
-                {
-                  v19 = 51;
-                }
-              }
-
-              else
-              {
-                v19 = 40;
-              }
-            }
-
-            else
-            {
-              v19 = 76;
-            }
-          }
-
-          else
-          {
-            v19 = 87;
+            goto LABEL_31;
           }
         }
 
         else
         {
-          v19 = 64;
+          v27 = -1;
+          *&v12 = -1;
+          *(&v12 + 1) = -1;
+          v25 = v12;
+          v26 = v12;
+          v24 = v12;
+          v13 = this[1];
+          v23[0] = *this;
+          v23[1] = v13;
+          if (v13)
+          {
+            atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+          }
+
+          updated = QP::updateDateComponentsWithValues(v23, &v24, theDict, 0);
+          if (v13)
+          {
+            std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+          }
+
+          if ((updated & 1) == 0)
+          {
+LABEL_31:
+            v16 = 0;
+            goto LABEL_47;
+          }
+
+          v31 = v24;
+          v32 = v25;
+          v33 = v26;
+          *&v34[0] = v27;
+          *&v15 = -1;
+          *(&v15 + 1) = -1;
+          *(v34 + 8) = v15;
+          *(&v34[1] + 8) = v15;
+          *(&v34[2] + 8) = v15;
+          *(&v34[3] + 1) = -1;
+          HIDWORD(v29) = 1;
+        }
+      }
+
+      ++v9;
+      --Count;
+    }
+
+    while (Count);
+  }
+
+  if ((HIDWORD(v29) - 6) >= 0xD)
+  {
+    if ((HIDWORD(v29) - 19) >= 0xC)
+    {
+      if ((HIDWORD(v29) - 55) >= 0xC)
+      {
+        if ((HIDWORD(v29) - 78) >= 0xB)
+        {
+          if ((HIDWORD(v29) - 67) >= 0xB)
+          {
+            if ((HIDWORD(v29) - 31) >= 0xB)
+            {
+              if ((HIDWORD(v29) - 42) >= 0xB)
+              {
+                if ((HIDWORD(v29) - 91) >= 0xE)
+                {
+                  v18 = HIDWORD(v29);
+                }
+
+                else
+                {
+                  v18 = 102;
+                }
+              }
+
+              else
+              {
+                v18 = 51;
+              }
+            }
+
+            else
+            {
+              v18 = 40;
+            }
+          }
+
+          else
+          {
+            v18 = 76;
+          }
+        }
+
+        else
+        {
+          v18 = 87;
         }
       }
 
       else
       {
-        v19 = 28;
+        v18 = 64;
       }
     }
 
     else
     {
-      v19 = 16;
-    }
-
-    v20 = DWORD1(v33);
-    *(a3 + 3) = -1;
-    *(a3 + 4) = -1;
-    *(a3 + 10) = -1;
-    *(a3 + 11) = v20;
-    *&v21 = -1;
-    *(&v21 + 1) = -1;
-    *(a3 + 3) = v21;
-    *(a3 + 4) = v21;
-    v22 = CFDictionaryGetValue(theDict, @"HolidayDate");
-    v16 = QP::DateConverter::updatePeriodForHolidayDate(this, v22, a3);
-    if (v16)
-    {
-      if (v19 == 1 || v19 == 89 || v19 == 53)
-      {
-        QP::DatePeriod::setDisplayKey(a3, @"FORMATTED");
-      }
-
-      *(a3 + 3) = v19;
-    }
-
-LABEL_47:
-    if (v29)
-    {
-      CFRelease(v29);
+      v18 = 28;
     }
   }
 
   else
   {
-    v16 = 0;
+    v18 = 16;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
+  v19 = DWORD1(v32);
+  *(a3 + 3) = -1;
+  *(a3 + 4) = -1;
+  *(a3 + 10) = -1;
+  *(a3 + 11) = v19;
+  *&v20 = -1;
+  *(&v20 + 1) = -1;
+  *(a3 + 3) = v20;
+  *(a3 + 4) = v20;
+  v21 = CFDictionaryGetValue(theDict, @"HolidayDate");
+  v16 = QP::DateConverter::updatePeriodForHolidayDate(this, v21, a3);
+  if (v16)
+  {
+    if (v18 == 1 || v18 == 89 || v18 == 53)
+    {
+      QP::DatePeriod::setDisplayKey(a3, @"FORMATTED");
+    }
+
+    *(a3 + 3) = v18;
+  }
+
+LABEL_47:
+  if (v28)
+  {
+    CFRelease(v28);
+  }
+
   return v16;
 }
 
@@ -3373,7 +3322,7 @@ atomic_ullong QP::DateConverter::updatePeriodForHolidayRelativeDate(atomic_ullon
           v16 = 0u;
           v17 = 0u;
           v15 = 0u;
-          QP::getCurrentDateComponents(result, v9[10], &v15);
+          QP::getCurrentDateComponents(&v15, result, v9[10]);
           if (CFStringHasSuffix(a2, @"ThisDate"))
           {
             v10 = 16;
@@ -3491,7 +3440,7 @@ uint64_t QP::DateConverter::updatePeriodForHolidayDate(atomic_ullong **this, CFD
   v38 = 0u;
   v39 = 0u;
   v37 = 0u;
-  QP::getCurrentDateComponents(v4, (*this)[10], &v37);
+  QP::getCurrentDateComponents(&v37, v4, (*this)[10]);
   AbsoluteTime = QP::DateComponents::getAbsoluteTime(&v37, v4, (*this)[10]);
   v14 = DWORD1(v46);
   isEmpty = QP::DateComponents::isEmpty(&v45);
@@ -3627,12 +3576,12 @@ LABEL_34:
   return v26;
 }
 
-void sub_1C658F764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1C658F764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
-  if (v10)
+  va_start(va, a17);
+  if (v17)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
   }
 
   nlp::CFScopedPtr<__CFString *>::reset(va, 0);
@@ -3641,17 +3590,16 @@ void sub_1C658F764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t QP::DateConverter::updatePeriodForValueCompoundDate(QP::DateConverter *this, const __CFString *a2, CFDictionaryRef theDict, QP::DatePeriod *a4)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if (!theDict)
   {
-    result = 0;
-    goto LABEL_58;
+    return 0;
   }
 
   Count = CFDictionaryGetCount(theDict);
-  v29 = &v29;
+  v28 = &v28;
   MEMORY[0x1EEE9AC00](Count);
-  v9 = (&v29 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v9 = (&v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
   bzero(v9, v8);
   CFDictionaryGetKeysAndValues(theDict, v9, 0);
   if (Count < 1)
@@ -3665,31 +3613,31 @@ uint64_t QP::DateConverter::updatePeriodForValueCompoundDate(QP::DateConverter *
     v11 = *v9;
     if (!CFStringHasSuffix(*v9, @"Date"))
     {
-      v35 = -1;
+      v34 = -1;
       *&v12 = -1;
       *(&v12 + 1) = -1;
-      v33 = v12;
-      v34 = v12;
       v32 = v12;
+      v33 = v12;
+      v31 = v12;
       v13 = *(this + 1);
-      v31[0] = *this;
-      v31[1] = v13;
+      v30[0] = *this;
+      v30[1] = v13;
       if (v13)
       {
         atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      QP::updateDateComponentsWithValues(v31, &v32, theDict, 0);
+      QP::updateDateComponentsWithValues(v30, &v31, theDict, 0);
       if (v13)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v13);
       }
 
-      v14 = v33;
-      *(a4 + 24) = v32;
+      v14 = v32;
+      *(a4 + 24) = v31;
       *(a4 + 40) = v14;
-      *(a4 + 56) = v34;
-      *(a4 + 9) = v35;
+      *(a4 + 56) = v33;
+      *(a4 + 9) = v34;
       *&v15 = -1;
       *(&v15 + 1) = -1;
       *(a4 + 5) = v15;
@@ -3705,190 +3653,174 @@ uint64_t QP::DateConverter::updatePeriodForValueCompoundDate(QP::DateConverter *
   }
 
   while (Count);
-  if (v11)
-  {
-    Value = CFDictionaryGetValue(theDict, v11);
-    if (CFStringHasPrefix(v11, @"Relative"))
-    {
-      result = QP::DateConverter::updatePeriodForRelativeDate(this, v11, a4);
-      if (result)
-      {
-        if (CFStringContainsString(v11, @"Every"))
-        {
-          if (CFStringContainsString(v11, @"EveryNum"))
-          {
-            if (QP::intValueForNumberInValues(*(*this + 112), Value, v18) <= 1)
-            {
-              v20 = 103;
-            }
-
-            else
-            {
-              v20 = 118;
-            }
-          }
-
-          else if (CFStringContainsString(v11, @"EveryTwo"))
-          {
-            v20 = 118;
-          }
-
-          else if (CFStringContainsString(v11, @"EveryThree"))
-          {
-            v20 = 118;
-          }
-
-          else
-          {
-            v20 = 103;
-          }
-
-          v25 = QP::copyDisplayKeyForOrdinalDate((a4 + 24), (a4 + 136), v19);
-          v30 = v25;
-          QP::DatePeriod::setDisplayKey(a4, v25);
-          *(a4 + 3) = v20;
-          if (!v25)
-          {
-            goto LABEL_44;
-          }
-
-          goto LABEL_43;
-        }
-
-LABEL_28:
-        QP::DatePeriod::setDisplayKey(a4, @"FORMATTED");
-LABEL_44:
-        result = 1;
-      }
-    }
-
-    else
-    {
-      v21 = CFDictionaryGetValue(theDict, v11);
-      if (CFStringHasPrefix(v11, @"Every"))
-      {
-        result = QP::DateConverter::updatePeriodForOrdinalDate(this, v11, v21, a4);
-        if (result)
-        {
-          if (CFStringContainsString(v11, @"EveryNum"))
-          {
-            if (QP::intValueForNumberInValues(*(*this + 112), v21, v22) <= 1)
-            {
-              v24 = 103;
-            }
-
-            else
-            {
-              v24 = 118;
-            }
-          }
-
-          else if (CFStringContainsString(v11, @"EveryTwo"))
-          {
-            v24 = 118;
-          }
-
-          else if (CFStringContainsString(v11, @"EveryThree"))
-          {
-            v24 = 118;
-          }
-
-          else
-          {
-            v24 = 103;
-          }
-
-          v25 = QP::copyDisplayKeyForOrdinalDate((a4 + 24), (a4 + 136), v23);
-          v30 = v25;
-          QP::DatePeriod::setDisplayKey(a4, v25);
-          *(a4 + 3) = v24;
-          if (!v25)
-          {
-            goto LABEL_44;
-          }
-
-LABEL_43:
-          CFRelease(v25);
-          goto LABEL_44;
-        }
-      }
-
-      else
-      {
-        result = QP::DateConverter::updatePeriodForValueDate(this, v11, v21, a4);
-        if (result)
-        {
-          goto LABEL_28;
-        }
-      }
-    }
-  }
-
-  else
+  if (!v11)
   {
 LABEL_19:
     result = 0;
+    goto LABEL_45;
   }
 
-  v26 = *(a4 + 3);
-  if ((v26 - 6) >= 0xD)
+  Value = CFDictionaryGetValue(theDict, v11);
+  if (CFStringHasPrefix(v11, @"Relative"))
   {
-    if ((v26 - 55) >= 0xC)
+    result = QP::DateConverter::updatePeriodForRelativeDate(this, v11, a4);
+    if (!result)
     {
-      if ((v26 - 19) >= 0xC)
+      goto LABEL_45;
+    }
+
+    if (CFStringContainsString(v11, @"Every"))
+    {
+      if (CFStringContainsString(v11, @"EveryNum"))
       {
-        if ((v26 - 55) >= 0x24)
+        if (QP::intValueForNumberInValues(*(*this + 112), Value, v18) <= 1)
         {
-          if ((v26 - 19) >= 0x24)
-          {
-            if ((v26 - 91) >= 0xE)
-            {
-              if ((v26 - 105) > 0xF)
-              {
-                goto LABEL_58;
-              }
-
-              v27 = 118;
-            }
-
-            else
-            {
-              v27 = 103;
-            }
-          }
-
-          else
-          {
-            v27 = 54;
-          }
+          v20 = 103;
         }
 
         else
         {
-          v27 = 90;
+          v20 = 118;
         }
+      }
+
+      else if (CFStringContainsString(v11, @"EveryTwo"))
+      {
+        v20 = 118;
+      }
+
+      else if (CFStringContainsString(v11, @"EveryThree"))
+      {
+        v20 = 118;
       }
 
       else
       {
-        v27 = 29;
+        v20 = 103;
       }
-    }
 
-    else
-    {
-      v27 = 65;
+      v25 = QP::copyDisplayKeyForOrdinalDate((a4 + 24), (a4 + 136), v19);
+      v29 = v25;
+      QP::DatePeriod::setDisplayKey(a4, v25);
+      *(a4 + 3) = v20;
+      if (!v25)
+      {
+        goto LABEL_44;
+      }
+
+      goto LABEL_43;
     }
   }
 
   else
   {
-    v27 = 17;
+    v21 = CFDictionaryGetValue(theDict, v11);
+    if (CFStringHasPrefix(v11, @"Every"))
+    {
+      result = QP::DateConverter::updatePeriodForOrdinalDate(this, v11, v21, a4);
+      if (!result)
+      {
+        goto LABEL_45;
+      }
+
+      if (CFStringContainsString(v11, @"EveryNum"))
+      {
+        if (QP::intValueForNumberInValues(*(*this + 112), v21, v22) <= 1)
+        {
+          v24 = 103;
+        }
+
+        else
+        {
+          v24 = 118;
+        }
+      }
+
+      else if (CFStringContainsString(v11, @"EveryTwo"))
+      {
+        v24 = 118;
+      }
+
+      else if (CFStringContainsString(v11, @"EveryThree"))
+      {
+        v24 = 118;
+      }
+
+      else
+      {
+        v24 = 103;
+      }
+
+      v25 = QP::copyDisplayKeyForOrdinalDate((a4 + 24), (a4 + 136), v23);
+      v29 = v25;
+      QP::DatePeriod::setDisplayKey(a4, v25);
+      *(a4 + 3) = v24;
+      if (!v25)
+      {
+        goto LABEL_44;
+      }
+
+LABEL_43:
+      CFRelease(v25);
+      goto LABEL_44;
+    }
+
+    result = QP::DateConverter::updatePeriodForValueDate(this, v11, v21, a4);
+    if (!result)
+    {
+      goto LABEL_45;
+    }
   }
 
-  *(a4 + 3) = v27;
-LABEL_58:
-  v28 = *MEMORY[0x1E69E9840];
+  QP::DatePeriod::setDisplayKey(a4, @"FORMATTED");
+LABEL_44:
+  result = 1;
+LABEL_45:
+  v26 = *(a4 + 3);
+  if ((v26 - 6) < 0xD)
+  {
+    v27 = 17;
+LABEL_57:
+    *(a4 + 3) = v27;
+    return result;
+  }
+
+  if ((v26 - 55) < 0xC)
+  {
+    v27 = 65;
+    goto LABEL_57;
+  }
+
+  if ((v26 - 19) < 0xC)
+  {
+    v27 = 29;
+    goto LABEL_57;
+  }
+
+  if ((v26 - 55) < 0x24)
+  {
+    v27 = 90;
+    goto LABEL_57;
+  }
+
+  if ((v26 - 19) < 0x24)
+  {
+    v27 = 54;
+    goto LABEL_57;
+  }
+
+  if ((v26 - 91) < 0xE)
+  {
+    v27 = 103;
+    goto LABEL_57;
+  }
+
+  if ((v26 - 105) <= 0xF)
+  {
+    v27 = 118;
+    goto LABEL_57;
+  }
+
   return result;
 }
 
@@ -5299,19 +5231,26 @@ LABEL_127:
   return v4;
 }
 
-void QP::DateConverter::datePeriodForRelativeDate(CFStringRef theString@<X1>, void *a2@<X8>)
+void sub_1C6592A9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
+  _Unwind_Resume(a1);
+}
+
+void QP::DateConverter::datePeriodForRelativeDate(CFStringRef theString@<X1>, uint64_t *a3@<X8>)
 {
   if (theString && CFStringGetLength(theString))
   {
     operator new();
   }
 
-  *a2 = 0;
+  *a3 = 0;
 }
 
-void sub_1C6592CE4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C6592CE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<QP::DatePeriod>::reset[abi:ne200100](va, 0);
   _Unwind_Resume(a1);
 }
@@ -6088,10 +6027,10 @@ LABEL_139:
   return result;
 }
 
-void sub_1C6594780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, const void *a34, const void *a35)
+void sub_1C6594780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, const void *a34, const void *a36)
 {
   nlp::CFScopedPtr<__CFString const*>::reset(&a34, 0);
-  nlp::CFScopedPtr<__CFString const*>::reset(&a35, 0);
+  nlp::CFScopedPtr<__CFString const*>::reset(&a36, 0);
   _Unwind_Resume(a1);
 }
 
@@ -6108,27 +6047,32 @@ void nlp::CFScopedPtr<__CFString const*>::reset(const void **a1, const void *a2)
 
 uint64_t QP::updateDateComponentsWithValues(uint64_t a1, _DWORD *a2, CFDictionaryRef theDict, int a4)
 {
-  v63 = *MEMORY[0x1E69E9840];
-  if (!theDict || (v62 = *(*a1 + 112)) == 0)
+  v62 = *MEMORY[0x1E69E9840];
+  if (!theDict)
   {
-    v27 = 0;
-    goto LABEL_132;
+    return 0;
   }
 
-  v61 = a2;
-  v59 = a1;
+  v61 = *(*a1 + 112);
+  if (!v61)
+  {
+    return 0;
+  }
+
+  v60 = a2;
+  v58 = a1;
   Count = CFDictionaryGetCount(theDict);
   MEMORY[0x1EEE9AC00](Count);
-  v8 = (&v56 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = (&v55 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
   bzero(v8, v7);
   CFDictionaryGetKeysAndValues(theDict, v8, 0);
   if (Count >= 1)
   {
-    v60 = a4;
+    v59 = a4;
     v9 = 1;
     v10 = Count;
     v11 = 1;
-    v58 = &v56;
+    v57 = &v55;
     while (1)
     {
       v12 = *v8;
@@ -6139,16 +6083,16 @@ uint64_t QP::updateDateComponentsWithValues(uint64_t a1, _DWORD *a2, CFDictionar
 
       if (CFStringHasPrefix(v12, @"SPELLED"))
       {
-        if ((v60 & 1) == 0)
+        if ((v59 & 1) == 0)
         {
           Value = CFDictionaryGetValue(theDict, v12);
-          IntFromSpelledNumber = getIntFromSpelledNumber(Value, v62);
+          IntFromSpelledNumber = getIntFromSpelledNumber(Value, v61);
           if (IntFromSpelledNumber < 0)
           {
             goto LABEL_89;
           }
 
-          v61[5] = IntFromSpelledNumber;
+          v60[5] = IntFromSpelledNumber;
         }
       }
 
@@ -6162,7 +6106,7 @@ uint64_t QP::updateDateComponentsWithValues(uint64_t a1, _DWORD *a2, CFDictionar
           if (CFDictionaryContainsKey(v16, @"NUMBERS"))
           {
             v18 = CFDictionaryGetValue(v17, @"NUMBERS");
-            if ((getIntFromSpelledNumber(v18, v62) & 0x80000000) != 0)
+            if ((getIntFromSpelledNumber(v18, v61) & 0x80000000) != 0)
             {
               goto LABEL_89;
             }
@@ -6177,58 +6121,58 @@ uint64_t QP::updateDateComponentsWithValues(uint64_t a1, _DWORD *a2, CFDictionar
 
         else
         {
-          v57 = v16;
+          v56 = v16;
           if (CFStringHasPrefix(v12, @"d") || CFStringHasPrefix(v12, @"DAY_ORDINAL"))
           {
-            v19 = v57;
-            IntValue = getIntFromSpelledNumber(v57, v62);
+            v19 = v56;
+            IntValue = getIntFromSpelledNumber(v56, v61);
             if (IntValue < 0)
             {
               IntValue = CFStringGetIntValue(v19);
               if (IntValue < 0)
               {
-                goto LABEL_92;
+                return 0;
               }
             }
 
-            v61[3] = IntValue;
+            v60[3] = IntValue;
           }
 
           else if (CFStringHasPrefix(v12, @"E"))
           {
-            IntFromNumber = QP::getIntFromNumber(v57, v62, v22);
+            IntFromNumber = QP::getIntFromNumber(v56, v61, v22);
             if (IntFromNumber < 0)
             {
-              goto LABEL_92;
+              return 0;
             }
 
-            v61[8] = IntFromNumber;
+            v60[8] = IntFromNumber;
           }
 
           else if (CFStringHasPrefix(v12, @"M"))
           {
-            v25 = QP::getIntFromNumber(v57, v62, v24);
+            v25 = QP::getIntFromNumber(v56, v61, v24);
             if (v25 < 0)
             {
-              goto LABEL_92;
+              return 0;
             }
 
-            v61[4] = v25;
+            v60[4] = v25;
           }
 
           else if (CFStringHasPrefix(v12, @"y") || CFStringHasPrefix(v12, @"Y"))
           {
-            v26 = CFStringGetIntValue(v57);
+            v26 = CFStringGetIntValue(v56);
             v27 = 0;
             if (!v26 || v26 > 2100)
             {
-              goto LABEL_132;
+              return v27;
             }
 
-            v61[5] = v26;
+            v60[5] = v26;
             if (CFStringCompare(v12, @"yy", 0) == kCFCompareEqualTo)
             {
-              v28 = v61[5];
+              v28 = v60[5];
               if (v28 > 39)
               {
                 v29 = v28 + 1900;
@@ -6239,80 +6183,78 @@ uint64_t QP::updateDateComponentsWithValues(uint64_t a1, _DWORD *a2, CFDictionar
                 v29 = v28 + 2000;
               }
 
-              v61[5] = v29;
+              v60[5] = v29;
             }
           }
 
           else if (CFStringHasPrefix(v12, @"F"))
           {
-            v30 = CFStringGetIntValue(v57);
+            v30 = CFStringGetIntValue(v56);
             if (!v30)
             {
-              goto LABEL_133;
+              return 0;
             }
 
-            v61[9] = v30;
+            v60[9] = v30;
           }
 
           else if (CFStringHasPrefix(v12, @"w"))
           {
-            v31 = CFStringGetIntValue(v57);
+            v31 = CFStringGetIntValue(v56);
             if (!v31)
             {
-LABEL_133:
-              v27 = 0;
-              goto LABEL_132;
+              return 0;
             }
 
-            v61[11] = v31;
+            v60[11] = v31;
           }
 
           else if (CFStringHasPrefix(v12, @"W"))
           {
-            v32 = CFStringGetIntValue(v57);
+            v32 = CFStringGetIntValue(v56);
             if (!v32)
             {
-              goto LABEL_134;
+              return 0;
             }
 
-            v61[10] = v32;
+            v60[10] = v32;
           }
 
           else if (CFStringHasPrefix(v12, @"q") || CFStringHasPrefix(v12, @"Q"))
           {
-            v33 = CFStringGetIntValue(v57);
+            v33 = CFStringGetIntValue(v56);
             if (!v33)
             {
-              goto LABEL_134;
+              return 0;
             }
 
-            v61[6] = v33;
+            v60[6] = v33;
           }
 
           else
           {
             if (CFStringHasPrefix(v12, @"hh") || CFStringHasPrefix(v12, @"H"))
             {
-              v35 = QP::getIntFromNumber(v57, v62, v34);
+              v35 = QP::getIntFromNumber(v56, v61, v34);
               if ((v35 & 0x80000000) != 0)
               {
-                goto LABEL_134;
+                return 0;
               }
 
               if (v35 < 0xC)
               {
-                v38 = v61;
-                v61[2] = v35;
+                v38 = v60;
+                v60[2] = v35;
                 if ((v38[7] & 0x80000000) != 0)
                 {
-                  v61[7] = 1;
+                  v60[7] = 1;
                 }
 
                 goto LABEL_7;
               }
 
-              v36 = v61;
-              v61[2] = v35 - 12;
+              v36 = v60;
+              v60[2] = v35 - 12;
               v37 = 2;
 LABEL_57:
               v36[7] = v37;
@@ -6321,24 +6263,24 @@ LABEL_57:
 
             if (CFStringHasPrefix(v12, @"h"))
             {
-              v40 = QP::getIntFromNumber(v57, v62, v39);
+              v40 = QP::getIntFromNumber(v56, v61, v39);
               if (v40 < 0)
               {
-                goto LABEL_134;
+                return 0;
               }
 
-              v61[2] = v40;
+              v60[2] = v40;
             }
 
             else if (CFStringHasPrefix(v12, @"m"))
             {
-              v42 = QP::getIntFromNumber(v57, v62, v41);
+              v42 = QP::getIntFromNumber(v56, v61, v41);
               if (v42 < 0)
               {
-                goto LABEL_134;
+                return 0;
               }
 
-              v61[1] = v42;
+              v60[1] = v42;
             }
 
             else
@@ -6350,44 +6292,44 @@ LABEL_57:
                   goto LABEL_89;
                 }
 
-                if (CFStringHasPrefix(v57, @"am"))
+                if (CFStringHasPrefix(v56, @"am"))
                 {
-                  v61[7] = 1;
+                  v60[7] = 1;
                   goto LABEL_7;
                 }
 
-                if (CFStringHasPrefix(v57, @"pm"))
+                if (CFStringHasPrefix(v56, @"pm"))
                 {
                   v37 = 2;
                 }
 
-                else if (CFStringHasPrefix(v57, @"morning"))
+                else if (CFStringHasPrefix(v56, @"morning"))
                 {
                   v37 = 3;
                 }
 
-                else if (CFStringHasPrefix(v57, @"noon"))
+                else if (CFStringHasPrefix(v56, @"noon"))
                 {
                   v37 = 4;
                 }
 
-                else if (CFStringHasPrefix(v57, @"afternoon"))
+                else if (CFStringHasPrefix(v56, @"afternoon"))
                 {
                   v37 = 5;
                 }
 
-                else if (CFStringHasPrefix(v57, @"evening"))
+                else if (CFStringHasPrefix(v56, @"evening"))
                 {
                   v37 = 6;
                 }
 
                 else
                 {
-                  if (!CFStringHasPrefix(v57, @"night"))
+                  if (!CFStringHasPrefix(v56, @"night"))
                   {
-                    if (CFStringHasPrefix(v57, @"midnight"))
+                    if (CFStringHasPrefix(v56, @"midnight"))
                     {
-                      v61[7] = 8;
+                      v60[7] = 8;
                     }
 
                     goto LABEL_7;
@@ -6396,19 +6338,17 @@ LABEL_57:
                   v37 = 7;
                 }
 
-                v36 = v61;
+                v36 = v60;
                 goto LABEL_57;
               }
 
-              v44 = QP::getIntFromNumber(v57, v62, v43);
+              v44 = QP::getIntFromNumber(v56, v61, v43);
               if (v44 < 0)
               {
-LABEL_134:
-                v27 = 0;
-                goto LABEL_132;
+                return 0;
               }
 
-              *v61 = v44;
+              *v60 = v44;
             }
           }
         }
@@ -6426,18 +6366,16 @@ LABEL_7:
 
   v11 = 0;
 LABEL_89:
-  v45 = *(*v59 + 64);
-  v46 = v61;
+  v45 = *(*v58 + 64);
+  v46 = v60;
   if (v45 == 1)
   {
-    v61[13] = v61[7];
+    v60[13] = v60[7];
   }
 
   if (v11)
   {
-LABEL_92:
-    v27 = 0;
-    goto LABEL_132;
+    return 0;
   }
 
   if ((v46[8] & 0x80000000) == 0 && (v46[3] & 0x80000000) == 0)
@@ -6457,7 +6395,7 @@ LABEL_92:
     v49 = v46[7];
     if (v49 < 0)
     {
-      goto LABEL_111;
+      return 1;
     }
 
     v27 = 1;
@@ -6489,7 +6427,7 @@ LABEL_92:
 
 LABEL_131:
         v46[2] = v53;
-        goto LABEL_132;
+        return v27;
       }
 
       if (v49 == 7)
@@ -6497,10 +6435,10 @@ LABEL_131:
         if (v45)
         {
           v51 = v46;
-          StartForDateComponentsPeriod = QP::getStartForDateComponentsPeriod(7u, v62);
+          StartForDateComponentsPeriod = QP::getStartForDateComponentsPeriod(7, v61);
           v51[1] = 59;
           v51[2] = StartForDateComponentsPeriod;
-          goto LABEL_132;
+          return v27;
         }
 
 LABEL_128:
@@ -6510,7 +6448,7 @@ LABEL_128:
 
       if (v49 != 8)
       {
-        goto LABEL_132;
+        return v27;
       }
     }
 
@@ -6522,13 +6460,13 @@ LABEL_128:
         {
           if (v49 != 2)
           {
-            goto LABEL_132;
+            return v27;
           }
 
           v50 = 2;
 LABEL_125:
-          v46[2] = QP::getStartForDateComponentsPeriod(v50, v62);
-          goto LABEL_132;
+          v46[2] = QP::getStartForDateComponentsPeriod(v50, v61);
+          return v27;
         }
 
         goto LABEL_121;
@@ -6554,9 +6492,7 @@ LABEL_121:
   v48 = v46[7];
   if (v48 < 0)
   {
-LABEL_111:
-    v27 = 1;
-    goto LABEL_132;
+    return 1;
   }
 
   v27 = 1;
@@ -6565,8 +6501,6 @@ LABEL_111:
     v46[2] = 0;
   }
 
-LABEL_132:
-  v54 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
@@ -6646,9 +6580,9 @@ LABEL_5:
   return IntFromSpelledNumber;
 }
 
-void sub_1C6595250(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C6595250(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString *>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -6941,80 +6875,80 @@ LABEL_48:
   return result;
 }
 
-void QP::DateConverter::mergeDateTime(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, void *a4@<X8>)
+void QP::DateConverter::mergeDateTime(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, const void ***a5@<X8>)
 {
-  *a4 = 0;
-  v6 = *a2;
+  *a5 = 0;
+  v7 = *a2;
   if ((*(*a2 + 12) - 91) <= 0x1D)
   {
-    v7 = *(v6 + 40);
-    v21 = *(v6 + 24);
-    v22 = v7;
-    v23 = *(v6 + 56);
-    v24 = *(v6 + 72);
-    QP::DateComponents::merge(&v21, (*a3 + 24));
-    v8 = *a3;
-    v9 = *(*a3 + 96);
-    v19[0] = *(*a3 + 80);
-    v19[1] = v9;
-    v19[2] = *(v8 + 112);
-    v20 = *(v8 + 128);
-    v10 = *a1;
-    v11 = a1[1];
-    v18[0] = v10;
-    v18[1] = v11;
-    if (v11)
+    v8 = *(v7 + 40);
+    v22 = *(v7 + 24);
+    v23 = v8;
+    v24 = *(v7 + 56);
+    v25 = *(v7 + 72);
+    QP::DateComponents::merge(&v22, (*a3 + 24));
+    v9 = *a3;
+    v10 = *(*a3 + 96);
+    v20[0] = *(*a3 + 80);
+    v20[1] = v10;
+    v20[2] = *(v9 + 112);
+    v21 = *(v9 + 128);
+    v11 = *a1;
+    v12 = a1[1];
+    v19[0] = v11;
+    v19[1] = v12;
+    if (v12)
     {
-      atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    QP::resolveDateComponents(v18, &v21, v19);
-    if (v11)
+    QP::resolveDateComponents(v19, &v22, v20);
+    if (v12)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v12);
     }
 
     operator new();
   }
 
-  v12 = *(v6 + 40);
-  v21 = *(v6 + 24);
-  v22 = v12;
-  v23 = *(v6 + 56);
-  v24 = *(v6 + 72);
-  if (*(*a3 + 12) != 3 || (HIDWORD(v22) & 0x80000000) != 0)
+  v13 = *(v7 + 40);
+  v22 = *(v7 + 24);
+  v23 = v13;
+  v24 = *(v7 + 56);
+  v25 = *(v7 + 72);
+  if (*(*a3 + 12) != 3 || (HIDWORD(v23) & 0x80000000) != 0)
   {
-    QP::DateComponents::merge(&v21, (*a3 + 24));
+    QP::DateComponents::merge(&v22, (*a3 + 24));
   }
 
-  v17 = -1;
-  *&v13 = -1;
-  *(&v13 + 1) = -1;
-  v16[1] = v13;
-  v16[2] = v13;
-  v16[0] = v13;
-  v14 = a1[1];
-  v15[0] = *a1;
-  v15[1] = v14;
-  if (v14)
+  v18 = -1;
+  *&v14 = -1;
+  *(&v14 + 1) = -1;
+  v17[1] = v14;
+  v17[2] = v14;
+  v17[0] = v14;
+  v15 = a1[1];
+  v16[0] = *a1;
+  v16[1] = v15;
+  if (v15)
   {
-    atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  QP::resolveDateComponents(v15, &v21, v16);
-  if (v14)
+  QP::resolveDateComponents(v16, &v22, v17);
+  if (v15)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
   }
 
   operator new();
 }
 
-void sub_1C6595AC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1C6595AC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
-  std::unique_ptr<QP::DatePeriod>::reset[abi:ne200100](v10, 0);
+  std::unique_ptr<QP::DatePeriod>::reset[abi:ne200100](v17, 0);
   _Unwind_Resume(a1);
 }
 
@@ -7142,7 +7076,7 @@ double QP::resolveDateComponents(void *a1, __int128 *a2, __int128 *a3)
   v18 = *(a3 + 6);
   v14 = 0;
   memset(v13, 0, sizeof(v13));
-  QP::getCurrentDateComponents(*(*a1 + 88), *(*a1 + 80), v13);
+  QP::getCurrentDateComponents(v13, *(*a1 + 88), *(*a1 + 80));
   v8 = a1[1];
   if (v8)
   {
@@ -7184,21 +7118,21 @@ const void ***std::unique_ptr<QP::DatePeriod>::reset[abi:ne200100](const void **
   return result;
 }
 
-const void ***QP::DateConverter::mergeDate@<X0>(void *a1@<X0>, const __CFString ***a2@<X1>, const __CFString ***a3@<X2>, void *a4@<X8>)
+const void ***QP::DateConverter::mergeDate@<X0>(void *a1@<X0>, const __CFString ***a2@<X1>, CFStringRef **a3@<X2>, const void ***a4@<X8>)
 {
   v8 = *a2;
   v9 = *(*a2 + 3);
   v10 = *(*a2 + 7);
   v61 = *(*a2 + 5);
   v62 = v10;
-  v63 = v8[9];
+  v63 = *(v8 + 9);
   v64 = 0;
   v60 = v9;
   v11 = *a3;
   v12 = *(*a3 + 3);
   v13 = *(*a3 + 5);
   v58 = *(*a3 + 7);
-  v59 = v11[9];
+  v59 = *(v11 + 9);
   v56 = v12;
   v57 = v13;
   if (QP::DateComponents::isEmpty(&v60) && (QP::DateComponents::isEmpty(&v56) & 1) != 0 || !QP::DateComponents::isEmpty((*a2 + 17)) || !QP::DateComponents::isEmpty((*a3 + 17)))
@@ -7379,7 +7313,7 @@ LABEL_51:
 
       else
       {
-        QP::updateDateComponentsWithRelativeDateOffset(v14, v48, v15, &v60, v34, 1, (*(*a1 + 8) > 0xDuLL) | (0x15FEu >> *(*a1 + 8)) & 1, (v20 - v50));
+        QP::updateDateComponentsWithRelativeDateOffset(v14, v48, v15, &v60, v34, 1, (*(*a1 + 8) > 0xDuLL) | (0x15FEu >> *(*a1 + 8)) & 1, v20 - v50);
       }
 
       v36 = QP::DateComponents::getAbsoluteTime(&v56, v14, v15);
@@ -7487,104 +7421,102 @@ LABEL_25:
   return std::unique_ptr<QP::DatePeriod>::reset[abi:ne200100](&v64, 0);
 }
 
-void sub_1C65966E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_1C65966E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   nlp::CFScopedPtr<__CFDate const*>::reset(va, 0);
-  std::unique_ptr<QP::DatePeriod>::reset[abi:ne200100]((v12 - 120), 0);
+  std::unique_ptr<QP::DatePeriod>::reset[abi:ne200100]((v19 - 120), 0);
   _Unwind_Resume(a1);
 }
 
-void QP::DateConverter::merge(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, void *a4@<X8>)
+void QP::DateConverter::merge(uint64_t *a1@<X0>, uint64_t *a2@<X1>, CFStringRef **a3@<X2>, const void ***a5@<X8>)
 {
-  v8 = *a2;
-  if (QP::DateComponents::hasDate((*a2 + 24)) || QP::DateComponents::hasDate((v8 + 80)))
+  v9 = *a2;
+  if (QP::DateComponents::hasDate((*a2 + 24)) || QP::DateComponents::hasDate((v9 + 80)))
   {
-    v9 = *a3;
-    if (QP::DateComponents::isTime((*a3 + 24)) || QP::DateComponents::isTime((v9 + 80)))
+    v10 = *a3;
+    if (QP::DateComponents::isTime((*a3 + 3)) || QP::DateComponents::isTime((v10 + 80)))
     {
-      v10 = *a2;
-      v11 = a2[1];
-      v28[0] = v10;
-      v28[1] = v11;
-      if (v11)
+      v11 = *a2;
+      v12 = a2[1];
+      v27[0] = v11;
+      v27[1] = v12;
+      if (v12)
       {
-        atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v12 + 8), 1uLL, memory_order_relaxed);
       }
 
-      v12 = *a3;
-      v13 = a3[1];
-      v27[0] = v12;
-      v27[1] = v13;
-      if (v13)
+      v13 = *a3;
+      v14 = a3[1];
+      v26[0] = v13;
+      v26[1] = v14;
+      if (v14)
       {
-        atomic_fetch_add_explicit((v13 + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(v14 + 1, 1uLL, memory_order_relaxed);
       }
 
-      QP::DateConverter::mergeDateTime(a1, v28, v27, a4);
+      QP::DateConverter::mergeDateTime(a1, v27, v26, a5);
     }
   }
 
-  v14 = *a2;
-  if ((QP::DateComponents::hasDate((*a2 + 24)) || QP::DateComponents::hasDate((v14 + 80))) && ((v15 = *a3, QP::DateComponents::hasDate((*a3 + 24))) || QP::DateComponents::hasDate((v15 + 80))))
+  v15 = *a2;
+  if ((QP::DateComponents::hasDate((*a2 + 24)) || QP::DateComponents::hasDate((v15 + 80))) && ((v16 = *a3, QP::DateComponents::hasDate((*a3 + 3))) || QP::DateComponents::hasDate((v16 + 80))))
   {
-    v16 = *a2;
-    v17 = a2[1];
-    v26[0] = v16;
-    v26[1] = v17;
-    if (v17)
-    {
-      atomic_fetch_add_explicit((v17 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v18 = a3[1];
-    v25[0] = *a3;
+    v17 = *a2;
+    v18 = a2[1];
+    v25[0] = v17;
     v25[1] = v18;
     if (v18)
     {
       atomic_fetch_add_explicit((v18 + 8), 1uLL, memory_order_relaxed);
     }
 
-    QP::DateConverter::mergeDate(a1, v26, v25, a4);
-    if (v18)
+    v19 = a3[1];
+    v24[0] = *a3;
+    v24[1] = v19;
+    if (v19)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+      atomic_fetch_add_explicit(v19 + 1, 1uLL, memory_order_relaxed);
     }
 
-    if (v17)
+    QP::DateConverter::mergeDate(a1, v25, v24, a5);
+    if (v19)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+    }
+
+    if (v18)
     {
 
-      std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v18);
     }
   }
 
   else
   {
-    v19 = *a2;
-    if (QP::DateComponents::isTime((*a2 + 24)) || QP::DateComponents::isTime((v19 + 80)))
+    v20 = *a2;
+    if (QP::DateComponents::isTime((*a2 + 24)) || QP::DateComponents::isTime((v20 + 80)))
     {
-      v20 = *a3;
-      if (QP::DateComponents::isTime((*a3 + 24)) || QP::DateComponents::isTime((v20 + 80)))
+      v21 = *a3;
+      if (QP::DateComponents::isTime((*a3 + 3)) || QP::DateComponents::isTime((v21 + 80)))
       {
-        v21 = *a2;
         v22 = a2[1];
         if (v22)
         {
           atomic_fetch_add_explicit((v22 + 8), 1uLL, memory_order_relaxed);
         }
 
-        v23 = *a3;
-        v24 = a3[1];
-        if (v24)
+        v23 = a3[1];
+        if (v23)
         {
-          atomic_fetch_add_explicit((v24 + 8), 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(v23 + 1, 1uLL, memory_order_relaxed);
         }
 
-        QP::DateConverter::mergeTime(a4);
+        QP::DateConverter::mergeTime(a5);
       }
     }
 
-    *a4 = 0;
+    *a5 = 0;
   }
 }
 
@@ -7716,7 +7648,7 @@ LABEL_16:
   return 1;
 }
 
-void QP::DateConverter::resolveDate(void *a1@<X0>, const __CFString ***a2@<X1>, int a3@<W2>, BOOL *a4@<X3>, const void ***a5@<X8>)
+void QP::DateConverter::resolveDate(void *a1@<X0>, CFTypeRef **a2@<X1>, int a3@<W2>, BOOL *a4@<X3>, const void ***a5@<X8>)
 {
   *a5 = 0;
   v10 = *(*a1 + 80);
@@ -8234,10 +8166,10 @@ const void ***QP::DateConverter::resolve@<X0>(void *a1@<X0>, uint64_t a2@<X1>, i
 {
   v6 = *(a2 + 8);
   v9[0] = *a2;
-  v9[1] = v6;
+  v9[1] = &v6->__vftable;
   if (v6)
   {
-    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   v10 = 0;
@@ -8277,7 +8209,7 @@ uint64_t std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(uint6
     v5 = 8 * a3;
     do
     {
-      std::__hash_table<std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::__unordered_map_hasher<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::hash<QP::QPDateComponentsPeriod>,std::equal_to<QP::QPDateComponentsPeriod>,true>,std::__unordered_map_equal<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::equal_to<QP::QPDateComponentsPeriod>,std::hash<QP::QPDateComponentsPeriod>,true>,std::allocator<std::__hash_value_type<QP::QPDateComponentsPeriod,int>>>::__emplace_unique_key_args<QP::QPDateComponentsPeriod,std::pair<QP::QPDateComponentsPeriod const,int> const&>(a1, a2);
+      std::__hash_table<std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::__unordered_map_hasher<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::hash<QP::QPDateComponentsPeriod>,std::equal_to<QP::QPDateComponentsPeriod>,true>,std::__unordered_map_equal<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::equal_to<QP::QPDateComponentsPeriod>,std::hash<QP::QPDateComponentsPeriod>,true>,std::allocator<std::__hash_value_type<QP::QPDateComponentsPeriod,int>>>::__emplace_unique_key_args<QP::QPDateComponentsPeriod,std::pair<QP::QPDateComponentsPeriod const,int> const&>(a1, a2, a2);
       a2 += 4;
       v5 -= 8;
     }
@@ -8288,33 +8220,33 @@ uint64_t std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(uint6
   return a1;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::__unordered_map_hasher<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::hash<QP::QPDateComponentsPeriod>,std::equal_to<QP::QPDateComponentsPeriod>,true>,std::__unordered_map_equal<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::equal_to<QP::QPDateComponentsPeriod>,std::hash<QP::QPDateComponentsPeriod>,true>,std::allocator<std::__hash_value_type<QP::QPDateComponentsPeriod,int>>>::__emplace_unique_key_args<QP::QPDateComponentsPeriod,std::pair<QP::QPDateComponentsPeriod const,int> const&>(void *a1, unsigned __int16 *a2)
+uint64_t **std::__hash_table<std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::__unordered_map_hasher<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::hash<QP::QPDateComponentsPeriod>,std::equal_to<QP::QPDateComponentsPeriod>,true>,std::__unordered_map_equal<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::equal_to<QP::QPDateComponentsPeriod>,std::hash<QP::QPDateComponentsPeriod>,true>,std::allocator<std::__hash_value_type<QP::QPDateComponentsPeriod,int>>>::__emplace_unique_key_args<QP::QPDateComponentsPeriod,std::pair<QP::QPDateComponentsPeriod const,int> const&>(float *a1, unsigned __int16 *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = *(a1 + 2);
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % a1[1];
+      v6 = v3 % *(a1 + 1);
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v6 = (v4.i32[0] - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -8322,44 +8254,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 8) != v2)
+  if (*(v8 + 8) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 void std::__throw_bad_array_new_length[abi:ne200100]()
@@ -8369,7 +8301,7 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x1E69E5420], MEMORY[0x1E69E52A8]);
 }
 
-void std::__hash_table<std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::__unordered_map_hasher<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::hash<QP::QPDateComponentsPeriod>,std::equal_to<QP::QPDateComponentsPeriod>,true>,std::__unordered_map_equal<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::equal_to<QP::QPDateComponentsPeriod>,std::hash<QP::QPDateComponentsPeriod>,true>,std::allocator<std::__hash_value_type<QP::QPDateComponentsPeriod,int>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::__unordered_map_hasher<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::hash<QP::QPDateComponentsPeriod>,std::equal_to<QP::QPDateComponentsPeriod>,true>,std::__unordered_map_equal<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::equal_to<QP::QPDateComponentsPeriod>,std::hash<QP::QPDateComponentsPeriod>,true>,std::allocator<std::__hash_value_type<QP::QPDateComponentsPeriod,int>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -8385,7 +8317,7 @@ void std::__hash_table<std::__hash_value_type<QP::QPDateComponentsPeriod,int>,st
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -8393,7 +8325,7 @@ void std::__hash_table<std::__hash_value_type<QP::QPDateComponentsPeriod,int>,st
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -8417,7 +8349,7 @@ void std::__hash_table<std::__hash_value_type<QP::QPDateComponentsPeriod,int>,st
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::__unordered_map_hasher<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::hash<QP::QPDateComponentsPeriod>,std::equal_to<QP::QPDateComponentsPeriod>,true>,std::__unordered_map_equal<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::equal_to<QP::QPDateComponentsPeriod>,std::hash<QP::QPDateComponentsPeriod>,true>,std::allocator<std::__hash_value_type<QP::QPDateComponentsPeriod,int>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::__unordered_map_hasher<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::hash<QP::QPDateComponentsPeriod>,std::equal_to<QP::QPDateComponentsPeriod>,true>,std::__unordered_map_equal<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::equal_to<QP::QPDateComponentsPeriod>,std::hash<QP::QPDateComponentsPeriod>,true>,std::allocator<std::__hash_value_type<QP::QPDateComponentsPeriod,int>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -8554,13 +8486,13 @@ uint64_t std::unordered_map<QP::QPDateComponentsPeriod,int>::unordered_map(uint6
   std::__hash_table<std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::__unordered_map_hasher<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::hash<QP::QPDateComponentsPeriod>,std::equal_to<QP::QPDateComponentsPeriod>,true>,std::__unordered_map_equal<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::equal_to<QP::QPDateComponentsPeriod>,std::hash<QP::QPDateComponentsPeriod>,true>,std::allocator<std::__hash_value_type<QP::QPDateComponentsPeriod,int>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::__unordered_map_hasher<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::hash<QP::QPDateComponentsPeriod>,std::equal_to<QP::QPDateComponentsPeriod>,true>,std::__unordered_map_equal<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::equal_to<QP::QPDateComponentsPeriod>,std::hash<QP::QPDateComponentsPeriod>,true>,std::allocator<std::__hash_value_type<QP::QPDateComponentsPeriod,int>>>::__emplace_unique_key_args<QP::QPDateComponentsPeriod,std::pair<QP::QPDateComponentsPeriod const,int> const&>(a1, i + 8);
+    std::__hash_table<std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::__unordered_map_hasher<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::hash<QP::QPDateComponentsPeriod>,std::equal_to<QP::QPDateComponentsPeriod>,true>,std::__unordered_map_equal<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::equal_to<QP::QPDateComponentsPeriod>,std::hash<QP::QPDateComponentsPeriod>,true>,std::allocator<std::__hash_value_type<QP::QPDateComponentsPeriod,int>>>::__emplace_unique_key_args<QP::QPDateComponentsPeriod,std::pair<QP::QPDateComponentsPeriod const,int> const&>(a1, i + 8, i + 2);
   }
 
   return a1;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::__unordered_map_hasher<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::hash<QP::QPDateComponentsPeriod>,std::equal_to<QP::QPDateComponentsPeriod>,true>,std::__unordered_map_equal<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::equal_to<QP::QPDateComponentsPeriod>,std::hash<QP::QPDateComponentsPeriod>,true>,std::allocator<std::__hash_value_type<QP::QPDateComponentsPeriod,int>>>::find<QP::QPDateComponentsPeriod>(void *a1, unsigned __int16 *a2)
+uint64_t ***std::__hash_table<std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::__unordered_map_hasher<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::hash<QP::QPDateComponentsPeriod>,std::equal_to<QP::QPDateComponentsPeriod>,true>,std::__unordered_map_equal<QP::QPDateComponentsPeriod,std::__hash_value_type<QP::QPDateComponentsPeriod,int>,std::equal_to<QP::QPDateComponentsPeriod>,std::hash<QP::QPDateComponentsPeriod>,true>,std::allocator<std::__hash_value_type<QP::QPDateComponentsPeriod,int>>>::find<QP::QPDateComponentsPeriod>(void *a1, unsigned __int16 *a2)
 {
   v2 = a1[1];
   if (!*&v2)
@@ -8648,9 +8580,9 @@ void std::shared_ptr<QP::HolidayReference>::shared_ptr[abi:ne200100]<QP::Holiday
   operator new();
 }
 
-void sub_1C6598554(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C6598554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<QP::HolidayReference>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8832,7 +8764,7 @@ CFStringRef QP::DateFormatter::copyWeekdayDisplayForDate(CFDateFormatterRef *a1,
   }
 
   memset(&__p, 0, sizeof(__p));
-  QP::DateComponents::getShortFormatWithOptions(&v19, 0, &__p);
+  QP::DateComponents::getShortFormatWithOptions(&__p, &v19, 0);
   CFStringFromString = QP::createCFStringFromString(&__p);
   DateFormatFromTemplate = CFDateFormatterCreateDateFormatFromTemplate(0, CFStringFromString, 0, *(*a1 + 14));
   StringWithDate = 0;
@@ -8931,7 +8863,7 @@ CFStringRef QP::DateFormatter::copyDateDisplayForDate(CFDateFormatterRef *a1, ui
 
   memset(&__p, 0, sizeof(__p));
   v13 = QP::ParserConfiguration::useEra(v10);
-  QP::DateComponents::getShortFormatWithOptions(&v20, v13, &__p);
+  QP::DateComponents::getShortFormatWithOptions(&__p, &v20, v13);
   CFStringFromString = QP::createCFStringFromString(&__p);
   DateFormatFromTemplate = CFDateFormatterCreateDateFormatFromTemplate(0, CFStringFromString, 0, *(*a1 + 14));
   StringWithDate = 0;
@@ -8978,80 +8910,80 @@ void sub_1C6598C84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void QP::DateComponents::getShortFormatWithOptions(QP::DateComponents *this@<X0>, char a2@<W1>, std::string *a3@<X8>)
+void QP::DateComponents::getShortFormatWithOptions(std::string *__return_ptr a1@<X8>, QP::DateComponents *this@<X0>, char a3@<W1>)
 {
   if (QP::DateComponents::isTime(this))
   {
 
-    std::string::basic_string[abi:ne200100]<0>(a3, "hma");
+    std::string::basic_string[abi:ne200100]<0>(a1, "hma");
     return;
   }
 
   if ((*(this + 11) & 0x80000000) != 0 && (*(this + 10) & 0x80000000) != 0 && (*(this + 9) & 0x80000000) != 0 && (*(this + 12) & 0x80000000) != 0)
   {
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x4002000000;
-    v16 = __Block_byref_object_copy__0;
-    v17 = __Block_byref_object_dispose__0;
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x4002000000;
+    v15 = __Block_byref_object_copy__0;
+    v16 = __Block_byref_object_dispose__0;
     __p = 0;
+    v18 = 0;
     v19 = 0;
-    v20 = 0;
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 0x40000000;
-    v11[2] = ___ZNK2QP14DateComponents25getShortFormatWithOptionsEbPd_block_invoke;
-    v11[3] = &unk_1E8266728;
-    v11[4] = &v13;
-    v12 = a2;
-    QP::DateComponents::enumerate(this, v11);
-    v7 = v14;
-    if ((*(v14 + 63) & 0x80000000) == 0)
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 0x40000000;
+    v10[2] = ___ZNK2QP14DateComponents25getShortFormatWithOptionsEbPd_block_invoke;
+    v10[3] = &unk_1E8266728;
+    v10[4] = &v12;
+    v11 = a3;
+    QP::DateComponents::enumerate(this, v10);
+    v6 = v13;
+    if ((*(v13 + 63) & 0x80000000) == 0)
     {
       goto LABEL_10;
     }
 
-    std::string::__init_copy_ctor_external(a3, v14[5], v14[6]);
+    std::string::__init_copy_ctor_external(a1, v13[5], v13[6]);
   }
 
   else
   {
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x4002000000;
-    v16 = __Block_byref_object_copy__0;
-    v17 = __Block_byref_object_dispose__0;
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x4002000000;
+    v15 = __Block_byref_object_copy__0;
+    v16 = __Block_byref_object_dispose__0;
     __p = 0;
+    v18 = 0;
     v19 = 0;
-    v20 = 0;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 0x40000000;
-    v9[2] = ___ZNK2QP14DateComponents25getShortFormatWithOptionsEbPd_block_invoke_2;
-    v9[3] = &unk_1E8266750;
-    v9[4] = &v13;
-    v10 = a2;
-    QP::DateComponents::enumerate(this, v9);
-    v7 = v14;
-    if ((*(v14 + 63) & 0x80000000) == 0)
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 0x40000000;
+    v8[2] = ___ZNK2QP14DateComponents25getShortFormatWithOptionsEbPd_block_invoke_2;
+    v8[3] = &unk_1E8266750;
+    v8[4] = &v12;
+    v9 = a3;
+    QP::DateComponents::enumerate(this, v8);
+    v6 = v13;
+    if ((*(v13 + 63) & 0x80000000) == 0)
     {
 LABEL_10:
-      v8 = *(v7 + 5);
-      a3->__r_.__value_.__r.__words[2] = v7[7];
-      *&a3->__r_.__value_.__l.__data_ = v8;
+      v7 = *(v6 + 5);
+      a1->__r_.__value_.__r.__words[2] = v6[7];
+      *&a1->__r_.__value_.__l.__data_ = v7;
       goto LABEL_12;
     }
 
-    std::string::__init_copy_ctor_external(a3, v14[5], v14[6]);
+    std::string::__init_copy_ctor_external(a1, v13[5], v13[6]);
   }
 
 LABEL_12:
-  _Block_object_dispose(&v13, 8);
-  if (SHIBYTE(v20) < 0)
+  _Block_object_dispose(&v12, 8);
+  if (SHIBYTE(v19) < 0)
   {
     operator delete(__p);
   }
 }
 
-void sub_1C6598F04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31)
+void sub_1C6598F04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31)
 {
   _Block_object_dispose(&a21, 8);
   if (a31 < 0)
@@ -9104,7 +9036,7 @@ CFStringRef QP::DateFormatter::copyTimeDisplayForDate(CFDateFormatterRef *a1, ui
   }
 
   memset(&__p, 0, sizeof(__p));
-  QP::DateComponents::getShortFormatWithOptions(v19, 0, &__p);
+  QP::DateComponents::getShortFormatWithOptions(&__p, v19, 0);
   CFStringFromString = QP::createCFStringFromString(&__p);
   DateFormatFromTemplate = CFDateFormatterCreateDateFormatFromTemplate(0, CFStringFromString, 0, *(*a1 + 14));
   StringWithDate = 0;
@@ -9194,7 +9126,7 @@ CFStringRef QP::DateFormatter::copyShortDisplayForDate(CFDateFormatterRef *a1, u
       __p[1] = 0;
       *v39 = 0;
       v21 = QP::ParserConfiguration::useEra(v18);
-      QP::DateComponents::getShortFormatWithOptions(&v42, v21, __p);
+      QP::DateComponents::getShortFormatWithOptions(__p, &v42, v21);
       CFStringFromString = QP::createCFStringFromString(__p);
       v36 = CFStringFromString;
       DateFormatFromTemplate = CFDateFormatterCreateDateFormatFromTemplate(0, CFStringFromString, 0, *(*a1 + 14));
@@ -9301,7 +9233,7 @@ LABEL_42:
 
         memset(&v35, 0, sizeof(v35));
         v30 = QP::ParserConfiguration::useEra(v27);
-        QP::DateComponents::getShortFormatWithOptions(&v42, v30, &v35);
+        QP::DateComponents::getShortFormatWithOptions(&v35, &v42, v30);
         v31 = QP::createCFStringFromString(&v35);
         v32 = CFDateFormatterCreateDateFormatFromTemplate(0, v31, 0, *(*a1 + 14));
         StringWithDate = 0;
@@ -9464,9 +9396,9 @@ __CFString *QP::DateFormatter::copyISODisplayForStartDate(uint64_t *a1, uint64_t
   return StringWithDate;
 }
 
-void sub_1C65998AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C65998AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFDate const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -9552,14 +9484,14 @@ __CFString *QP::DateFormatter::copyISODisplayForEndDate(uint64_t *a1, uint64_t *
   return StringWithDate;
 }
 
-void sub_1C6599B2C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C6599B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFDate const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
 
-__CFString *QP::DateFormatter::copyDisplayForPeriodWithKey(CFDateFormatterRef *a1, uint64_t *a2, const __CFString *a3, unsigned int a4, unsigned int a5, uint64_t a6, uint64_t a7)
+__CFString *QP::DateFormatter::copyDisplayForPeriodWithKey(CFDateFormatterRef *a1, uint64_t *a2, const __CFString *a3, int a4, unsigned int a5, uint64_t a6, uint64_t a7)
 {
   if (!a3)
   {

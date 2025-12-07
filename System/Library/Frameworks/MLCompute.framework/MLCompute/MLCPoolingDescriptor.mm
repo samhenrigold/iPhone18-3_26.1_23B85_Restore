@@ -5,6 +5,9 @@
 + (MLCPoolingDescriptor)l2NormPoolingDescriptorWithKernelSizes:(NSArray *)kernelSizes strides:(NSArray *)strides paddingPolicy:(MLCPaddingPolicy)paddingPolicy paddingSizes:(NSArray *)paddingSizes;
 + (MLCPoolingDescriptor)maxPoolingDescriptorWithKernelSizes:(NSArray *)kernelSizes strides:(NSArray *)strides dilationRates:(NSArray *)dilationRates paddingPolicy:(MLCPaddingPolicy)paddingPolicy paddingSizes:(NSArray *)paddingSizes;
 + (MLCPoolingDescriptor)maxPoolingDescriptorWithKernelSizes:(NSArray *)kernelSizes strides:(NSArray *)strides paddingPolicy:(MLCPaddingPolicy)paddingPolicy paddingSizes:(NSArray *)paddingSizes;
++ (MLCPoolingDescriptor)poolingDescriptorWithType:(MLCPoolingType)poolingType kernelSize:(NSUInteger)kernelSize stride:(NSUInteger)stride;
++ (MLCPoolingDescriptor)poolingDescriptorWithType:(int)type kernelSizes:(id)sizes strides:(id)strides dilationRates:(id)rates paddingPolicy:(int)policy paddingSizes:(id)paddingSizes;
++ (MLCPoolingDescriptor)poolingDescriptorWithType:(int)type kernelSizes:(id)sizes strides:(id)strides paddingPolicy:(int)policy paddingSizes:(id)paddingSizes;
 - (BOOL)isEqual:(id)equal;
 - (MLCPoolingDescriptor)initWithType:(int)type kernelWidth:(unint64_t)width kernelHeight:(unint64_t)height strideInX:(unint64_t)x strideInY:(unint64_t)y dilationRateInX:(unint64_t)inX dilationRateInY:(unint64_t)inY paddingPolicy:(int)self0 paddingSizeInX:(unint64_t)self1 paddingSizeInY:(unint64_t)self2 countIncludesPadding:(BOOL)self3;
 - (id)copyWithZone:(_NSZone *)zone;
@@ -22,6 +25,121 @@
   v5 = [v7 stringWithFormat:@"%@: { poolingType=%d : kernelWidth=%lu : kernelHeight=%lu : strideInX=%lu : strideInY=%lu : dilationRateInX=%lu :  dilationRateInY=%lu : paddingPolicy=%d : paddingSizeInX=%lu : paddingSizeInY=%lu }", v4, -[MLCPoolingDescriptor poolingType](self, "poolingType"), -[MLCPoolingDescriptor kernelWidth](self, "kernelWidth"), -[MLCPoolingDescriptor kernelHeight](self, "kernelHeight"), -[MLCPoolingDescriptor strideInX](self, "strideInX"), -[MLCPoolingDescriptor strideInY](self, "strideInY"), -[MLCPoolingDescriptor dilationRateInX](self, "dilationRateInX"), -[MLCPoolingDescriptor dilationRateInY](self, "dilationRateInY"), -[MLCPoolingDescriptor paddingPolicy](self, "paddingPolicy"), -[MLCPoolingDescriptor paddingSizeInX](self, "paddingSizeInX"), -[MLCPoolingDescriptor paddingSizeInY](self, "paddingSizeInY")];
 
   return v5;
+}
+
++ (MLCPoolingDescriptor)poolingDescriptorWithType:(MLCPoolingType)poolingType kernelSize:(NSUInteger)kernelSize stride:(NSUInteger)stride
+{
+  LOBYTE(v8) = 0;
+  LODWORD(v7) = 0;
+  v5 = [[self alloc] initWithType:*&poolingType kernelWidth:kernelSize kernelHeight:kernelSize strideInX:stride strideInY:stride dilationRateInX:1 dilationRateInY:1 paddingPolicy:v7 paddingSizeInX:0 paddingSizeInY:0 countIncludesPadding:v8];
+
+  return v5;
+}
+
++ (MLCPoolingDescriptor)poolingDescriptorWithType:(int)type kernelSizes:(id)sizes strides:(id)strides paddingPolicy:(int)policy paddingSizes:(id)paddingSizes
+{
+  v10 = *&type;
+  paddingSizesCopy = paddingSizes;
+  stridesCopy = strides;
+  sizesCopy = sizes;
+  v15 = [self alloc];
+  v16 = [sizesCopy objectAtIndexedSubscript:1];
+  unsignedIntegerValue = [v16 unsignedIntegerValue];
+  v17 = [sizesCopy objectAtIndexedSubscript:0];
+
+  unsignedIntegerValue2 = [v17 unsignedIntegerValue];
+  v19 = [stridesCopy objectAtIndexedSubscript:1];
+  unsignedIntegerValue3 = [v19 unsignedIntegerValue];
+  v20 = [stridesCopy objectAtIndexedSubscript:0];
+
+  unsignedIntegerValue4 = [v20 unsignedIntegerValue];
+  if (paddingSizesCopy)
+  {
+    v37 = unsignedIntegerValue4;
+    [paddingSizesCopy objectAtIndexedSubscript:1];
+    v38 = v17;
+    v23 = v22 = v10;
+    v24 = unsignedIntegerValue2;
+    v25 = v15;
+    v26 = v19;
+    policyCopy = policy;
+    unsignedIntegerValue5 = [v23 unsignedIntegerValue];
+    [paddingSizesCopy objectAtIndexedSubscript:0];
+    v39 = paddingSizesCopy;
+    v30 = v29 = v16;
+    unsignedIntegerValue6 = [v30 unsignedIntegerValue];
+    LOBYTE(v36) = 0;
+    LODWORD(v35) = policyCopy;
+    v19 = v26;
+    v32 = v22;
+    v17 = v38;
+    v33 = [v25 initWithType:v32 kernelWidth:unsignedIntegerValue kernelHeight:v24 strideInX:unsignedIntegerValue3 strideInY:v37 dilationRateInX:1 dilationRateInY:1 paddingPolicy:v35 paddingSizeInX:unsignedIntegerValue5 paddingSizeInY:unsignedIntegerValue6 countIncludesPadding:v36];
+
+    v16 = v29;
+    paddingSizesCopy = v39;
+  }
+
+  else
+  {
+    LOBYTE(v36) = 0;
+    LODWORD(v35) = policy;
+    v33 = [v15 initWithType:v10 kernelWidth:unsignedIntegerValue kernelHeight:unsignedIntegerValue2 strideInX:unsignedIntegerValue3 strideInY:unsignedIntegerValue4 dilationRateInX:1 dilationRateInY:1 paddingPolicy:v35 paddingSizeInX:0 paddingSizeInY:0 countIncludesPadding:v36];
+  }
+
+  return v33;
+}
+
++ (MLCPoolingDescriptor)poolingDescriptorWithType:(int)type kernelSizes:(id)sizes strides:(id)strides dilationRates:(id)rates paddingPolicy:(int)policy paddingSizes:(id)paddingSizes
+{
+  v12 = *&type;
+  paddingSizesCopy = paddingSizes;
+  ratesCopy = rates;
+  stridesCopy = strides;
+  sizesCopy = sizes;
+  v43 = [self alloc];
+  v18 = [sizesCopy objectAtIndexedSubscript:1];
+  unsignedIntegerValue = [v18 unsignedIntegerValue];
+  v19 = [sizesCopy objectAtIndexedSubscript:0];
+
+  unsignedIntegerValue2 = [v19 unsignedIntegerValue];
+  v20 = [stridesCopy objectAtIndexedSubscript:1];
+  unsignedIntegerValue3 = [v20 unsignedIntegerValue];
+  v21 = [stridesCopy objectAtIndexedSubscript:0];
+
+  unsignedIntegerValue4 = [v21 unsignedIntegerValue];
+  v40 = [ratesCopy objectAtIndexedSubscript:1];
+  unsignedIntegerValue5 = [v40 unsignedIntegerValue];
+  v23 = [ratesCopy objectAtIndexedSubscript:0];
+
+  unsignedIntegerValue6 = [v23 unsignedIntegerValue];
+  v25 = unsignedIntegerValue6;
+  if (paddingSizesCopy)
+  {
+    [paddingSizesCopy objectAtIndexedSubscript:1];
+    v26 = v37 = v18;
+    v35 = unsignedIntegerValue4;
+    v27 = v19;
+    unsignedIntegerValue7 = [v26 unsignedIntegerValue];
+    [paddingSizesCopy objectAtIndexedSubscript:0];
+    v29 = v36 = paddingSizesCopy;
+    LOBYTE(v34) = 0;
+    v33 = unsignedIntegerValue7;
+    v19 = v27;
+    LODWORD(v32) = policy;
+    v30 = [v43 initWithType:v12 kernelWidth:unsignedIntegerValue kernelHeight:unsignedIntegerValue2 strideInX:unsignedIntegerValue3 strideInY:v35 dilationRateInX:unsignedIntegerValue5 dilationRateInY:v25 paddingPolicy:v32 paddingSizeInX:v33 paddingSizeInY:objc_msgSend(v29 countIncludesPadding:{"unsignedIntegerValue"), v34}];
+
+    paddingSizesCopy = v36;
+    v18 = v37;
+  }
+
+  else
+  {
+    LOBYTE(v34) = 0;
+    LODWORD(v32) = policy;
+    v30 = [v43 initWithType:v12 kernelWidth:unsignedIntegerValue kernelHeight:unsignedIntegerValue2 strideInX:unsignedIntegerValue3 strideInY:unsignedIntegerValue4 dilationRateInX:unsignedIntegerValue5 dilationRateInY:unsignedIntegerValue6 paddingPolicy:v32 paddingSizeInX:0 paddingSizeInY:0 countIncludesPadding:v34];
+  }
+
+  return v30;
 }
 
 + (MLCPoolingDescriptor)maxPoolingDescriptorWithKernelSizes:(NSArray *)kernelSizes strides:(NSArray *)strides paddingPolicy:(MLCPaddingPolicy)paddingPolicy paddingSizes:(NSArray *)paddingSizes
@@ -376,25 +494,7 @@
   {
     v5 = equalCopy;
     poolingType = [v5 poolingType];
-    if (poolingType != [(MLCPoolingDescriptor *)self poolingType])
-    {
-      goto LABEL_14;
-    }
-
-    kernelWidth = [v5 kernelWidth];
-    if (kernelWidth != [(MLCPoolingDescriptor *)self kernelWidth])
-    {
-      goto LABEL_14;
-    }
-
-    kernelHeight = [v5 kernelHeight];
-    if (kernelHeight != [(MLCPoolingDescriptor *)self kernelHeight])
-    {
-      goto LABEL_14;
-    }
-
-    strideInX = [v5 strideInX];
-    if (strideInX == -[MLCPoolingDescriptor strideInX](self, "strideInX") && (v10 = [v5 strideInY], v10 == -[MLCPoolingDescriptor strideInY](self, "strideInY")) && (v11 = objc_msgSend(v5, "dilationRateInX"), v11 == -[MLCPoolingDescriptor dilationRateInX](self, "dilationRateInX")) && (v12 = objc_msgSend(v5, "dilationRateInY"), v12 == -[MLCPoolingDescriptor dilationRateInY](self, "dilationRateInY")) && (v13 = objc_msgSend(v5, "paddingPolicy"), v13 == -[MLCPoolingDescriptor paddingPolicy](self, "paddingPolicy")) && (v14 = objc_msgSend(v5, "paddingSizeInX"), v14 == -[MLCPoolingDescriptor paddingSizeInX](self, "paddingSizeInX")) && (v15 = objc_msgSend(v5, "paddingSizeInY"), v15 == -[MLCPoolingDescriptor paddingSizeInY](self, "paddingSizeInY")))
+    if (poolingType == -[MLCPoolingDescriptor poolingType](self, "poolingType") && (v7 = [v5 kernelWidth], v7 == -[MLCPoolingDescriptor kernelWidth](self, "kernelWidth")) && (v8 = objc_msgSend(v5, "kernelHeight"), v8 == -[MLCPoolingDescriptor kernelHeight](self, "kernelHeight")) && (v9 = objc_msgSend(v5, "strideInX"), v9 == -[MLCPoolingDescriptor strideInX](self, "strideInX")) && (v10 = objc_msgSend(v5, "strideInY"), v10 == -[MLCPoolingDescriptor strideInY](self, "strideInY")) && (v11 = objc_msgSend(v5, "dilationRateInX"), v11 == -[MLCPoolingDescriptor dilationRateInX](self, "dilationRateInX")) && (v12 = objc_msgSend(v5, "dilationRateInY"), v12 == -[MLCPoolingDescriptor dilationRateInY](self, "dilationRateInY")) && (v13 = objc_msgSend(v5, "paddingPolicy"), v13 == -[MLCPoolingDescriptor paddingPolicy](self, "paddingPolicy")) && (v14 = objc_msgSend(v5, "paddingSizeInX"), v14 == -[MLCPoolingDescriptor paddingSizeInX](self, "paddingSizeInX")) && (v15 = objc_msgSend(v5, "paddingSizeInY"), v15 == -[MLCPoolingDescriptor paddingSizeInY](self, "paddingSizeInY")))
     {
       countIncludesPadding = [v5 countIncludesPadding];
       v17 = countIncludesPadding ^ [(MLCPoolingDescriptor *)self countIncludesPadding]^ 1;
@@ -402,7 +502,6 @@
 
     else
     {
-LABEL_14:
       LOBYTE(v17) = 0;
     }
   }

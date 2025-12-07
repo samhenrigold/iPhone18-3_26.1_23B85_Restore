@@ -3,25 +3,25 @@
 
 @implementation UICollectionLayoutItemSolverState
 
-void *__63___UICollectionLayoutItemSolverState__generateGeometricIndexer__block_invoke(uint64_t a1, double *a2, uint64_t a3)
+void *__63___UICollectionLayoutItemSolverState__generateGeometricIndexer__block_invoke(uint64_t a1, double *a2, uint64_t a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7)
 {
   if (a2)
   {
-    v3 = a2[10];
-    v4 = a2[11];
-    v5 = a2[12];
-    v6 = a2[13];
+    v7 = a2[10];
+    v8 = a2[11];
+    v9 = a2[12];
+    v10 = a2[13];
   }
 
   else
   {
-    v4 = 0.0;
-    v5 = 0.0;
-    v6 = 0.0;
-    v3 = 0.0;
+    v8 = 0.0;
+    v9 = 0.0;
+    v10 = 0.0;
+    v7 = 0.0;
   }
 
-  return [(_UIRTree *)*(a1 + 32) insertFrame:a3 forIndex:v3, v4, v5, v6];
+  return [(_UIRTree *)*(a1 + 32) insertFrame:a3 forIndex:v7, v8, v9, v10];
 }
 
 @end

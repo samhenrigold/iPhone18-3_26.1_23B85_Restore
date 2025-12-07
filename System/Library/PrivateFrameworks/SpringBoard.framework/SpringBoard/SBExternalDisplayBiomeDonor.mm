@@ -112,8 +112,7 @@ void __79__SBExternalDisplayBiomeDonor__donateToBiomeIfNecessaryForDisplayInfo_c
   v12 = [v11 DisplayConnected];
 
   v13 = [v12 source];
-  [v13 sendEvent:v8];
-  v14 = SBLogBiome();
+  v14 = SBLogBiome([v13 sendEvent:v8]);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     v15 = NSStringFromBOOL();

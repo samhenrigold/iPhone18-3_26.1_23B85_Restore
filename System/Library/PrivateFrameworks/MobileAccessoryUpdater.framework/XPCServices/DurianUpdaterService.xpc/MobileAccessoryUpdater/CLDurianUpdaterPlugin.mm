@@ -6,6 +6,7 @@
 - (void)bootstrapWithOptions:(id)options;
 - (void)downloadFirmwareWithOptions:(id)options;
 - (void)encodeWithCoder:(id)coder;
+- (void)findFirmwareWithOptions:(id)options remote:(BOOL)remote;
 - (void)findMyAccessoryFirmwareUpdateManager:(id)manager didFailWithError:(id)error forDevice:(id)device;
 - (void)findMyAccessoryFirmwareUpdateManager:(id)manager firmwareUpdateRequestForDevice:(id)device completedWithError:(id)error;
 - (void)findMyAccessoryFirmwareUpdateManager:(id)manager personalizationRequestForDevice:(id)device completedWithInfo:(id)info andError:(id)error;
@@ -147,6 +148,28 @@ LABEL_19:
 
     optionsCopy = v24;
   }
+}
+
+- (void)findFirmwareWithOptions:(id)options remote:(BOOL)remote
+{
+  remoteCopy = remote;
+  optionsCopy = options;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v11 = optionsCopy;
+    v12 = 1024;
+    v13 = remoteCopy;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "#durian Querying MobileAsset for FW - options: %@, searchRemote: %d", buf, 0x12u);
+  }
+
+  clDurianMobileAssetUpdater = [(CLDurianUpdaterPlugin *)self clDurianMobileAssetUpdater];
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_1000014B4;
+  v9[3] = &unk_10000C260;
+  v9[4] = self;
+  v8 = [clDurianMobileAssetUpdater findAsset:remoteCopy completion:v9];
 }
 
 - (void)downloadFirmwareWithOptions:(id)options

@@ -122,14 +122,14 @@ void __36___NUImageTile_copyFromTile_region___block_invoke(uint64_t a1)
   [v3 _visitRead:v39];
 }
 
-uint64_t __36___NUImageTile_copyFromTile_region___block_invoke_2(void *a1, uint64_t a2)
+void *__36___NUImageTile_copyFromTile_region___block_invoke_2(void *a1, uint64_t a2)
 {
   result = [*(a1[4] + 16) copyFromStorage:a2 region:a1[5]];
   *(*(a1[6] + 8) + 24) = result;
   return result;
 }
 
-uint64_t __43___NUImageTile_writeStorageInRegion_block___block_invoke(uint64_t a1)
+void *__43___NUImageTile_writeStorageInRegion_block___block_invoke(uint64_t a1)
 {
   v23 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) isShared];
@@ -296,7 +296,7 @@ uint64_t __27___NUImageTile__visitRead___block_invoke(uint64_t a1)
   return v1();
 }
 
-uint64_t __61___NUImageTile_decrementAccessCountButLeaveAccessedIfLastUse__block_invoke(uint64_t a1)
+void *__61___NUImageTile_decrementAccessCountButLeaveAccessedIfLastUse__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) useCount];
   if (result != 1)
@@ -309,14 +309,14 @@ uint64_t __61___NUImageTile_decrementAccessCountButLeaveAccessedIfLastUse__block
   return result;
 }
 
-uint64_t __36___NUImageTile_decrementAccessCount__block_invoke(uint64_t a1)
+void *__36___NUImageTile_decrementAccessCount__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _decrementAccessCount];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __36___NUImageTile_incrementAccessCount__block_invoke(uint64_t a1)
+void *__36___NUImageTile_incrementAccessCount__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _incrementAccessCount];
   *(*(*(a1 + 40) + 8) + 24) = result;

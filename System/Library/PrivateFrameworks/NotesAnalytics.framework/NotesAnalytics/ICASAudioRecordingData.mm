@@ -28,8 +28,8 @@
 
 - (id)toDict
 {
-  v19[4] = *MEMORY[0x277D85DE8];
-  v18[0] = @"totalRecordingTime";
+  v18[4] = *MEMORY[0x277D85DE8];
+  v17[0] = @"totalRecordingTime";
   totalRecordingTime = [(ICASAudioRecordingData *)self totalRecordingTime];
   if (totalRecordingTime)
   {
@@ -42,8 +42,8 @@
   }
 
   v5 = totalRecordingTime2;
-  v19[0] = totalRecordingTime2;
-  v18[1] = @"recordingActionType";
+  v18[0] = totalRecordingTime2;
+  v17[1] = @"recordingActionType";
   recordingActionType = [(ICASAudioRecordingData *)self recordingActionType];
   if (recordingActionType)
   {
@@ -56,8 +56,8 @@
   }
 
   v8 = recordingActionType2;
-  v19[1] = recordingActionType2;
-  v18[2] = @"didAppBackgroundOccur";
+  v18[1] = recordingActionType2;
+  v17[2] = @"didAppBackgroundOccur";
   didAppBackgroundOccur = [(ICASAudioRecordingData *)self didAppBackgroundOccur];
   if (didAppBackgroundOccur)
   {
@@ -70,8 +70,8 @@
   }
 
   v11 = didAppBackgroundOccur2;
-  v19[2] = didAppBackgroundOccur2;
-  v18[3] = @"didNoteMultitaskingOccur";
+  v18[2] = didAppBackgroundOccur2;
+  v17[3] = @"didNoteMultitaskingOccur";
   didNoteMultitaskingOccur = [(ICASAudioRecordingData *)self didNoteMultitaskingOccur];
   if (didNoteMultitaskingOccur)
   {
@@ -84,10 +84,8 @@
   }
 
   v14 = didNoteMultitaskingOccur2;
-  v19[3] = didNoteMultitaskingOccur2;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v18[3] = didNoteMultitaskingOccur2;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
 
   return v15;
 }

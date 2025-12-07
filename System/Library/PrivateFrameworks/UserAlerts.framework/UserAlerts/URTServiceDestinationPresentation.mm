@@ -16,11 +16,11 @@
 
 - (URTServiceDestinationPresentation)initWithAlert:(id)alert forDestination:(int64_t)destination preferredPresentationStyle:(int64_t)style
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   alertCopy = alert;
-  v39.receiver = self;
-  v39.super_class = URTServiceDestinationPresentation;
-  v10 = [(URTServiceDestinationPresentation *)&v39 init];
+  v38.receiver = self;
+  v38.super_class = URTServiceDestinationPresentation;
+  v10 = [(URTServiceDestinationPresentation *)&v38 init];
   v11 = v10;
   if (v10)
   {
@@ -52,33 +52,31 @@
 
     objc_initWeak(&location, v11);
     v26 = v11->_connection;
-    v32 = MEMORY[0x277D85DD0];
-    v33 = 3221225472;
-    v34 = __93__URTServiceDestinationPresentation_initWithAlert_forDestination_preferredPresentationStyle___block_invoke;
-    v35 = &unk_279E0C030;
-    v36 = v11;
-    objc_copyWeak(v37, &location);
-    v37[1] = destination;
-    [(BSServiceConnection *)v26 configureConnection:&v32];
-    v27 = URTLog();
+    v31 = MEMORY[0x277D85DD0];
+    v32 = 3221225472;
+    v33 = __93__URTServiceDestinationPresentation_initWithAlert_forDestination_preferredPresentationStyle___block_invoke;
+    v34 = &unk_279E0C030;
+    v35 = v11;
+    objc_copyWeak(v36, &location);
+    v36[1] = destination;
+    v27 = URTLog([(BSServiceConnection *)v26 configureConnection:&v31]);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       v28 = URTDescriptionForAlertDestination(destination);
       v29 = v11->_connection;
       *buf = 138412546;
-      v41 = v28;
-      v42 = 2112;
-      v43 = v29;
+      v40 = v28;
+      v41 = 2112;
+      v42 = v29;
       _os_log_impl(&dword_270835000, v27, OS_LOG_TYPE_DEFAULT, "Activating %@ connection: %@", buf, 0x16u);
     }
 
-    [(BSServiceConnection *)v11->_connection activate:v32];
-    objc_destroyWeak(v37);
+    [(BSServiceConnection *)v11->_connection activate:v31];
+    objc_destroyWeak(v36);
 
     objc_destroyWeak(&location);
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -125,7 +123,7 @@ void __93__URTServiceDestinationPresentation_initWithAlert_forDestination_prefer
 void __93__URTServiceDestinationPresentation_initWithAlert_forDestination_preferredPresentationStyle___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = URTLog();
+  v4 = URTLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __93__URTServiceDestinationPresentation_initWithAlert_forDestination_preferredPresentationStyle___block_invoke_3_cold_1(a1);
@@ -138,7 +136,7 @@ void __93__URTServiceDestinationPresentation_initWithAlert_forDestination_prefer
 void __93__URTServiceDestinationPresentation_initWithAlert_forDestination_preferredPresentationStyle___block_invoke_8(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = URTLog();
+  v4 = URTLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __93__URTServiceDestinationPresentation_initWithAlert_forDestination_preferredPresentationStyle___block_invoke_8_cold_1(a1);
@@ -147,13 +145,13 @@ void __93__URTServiceDestinationPresentation_initWithAlert_forDestination_prefer
 
 - (void)present
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = URTLog();
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = URTLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [(URTServiceDestinationPresentation *)self description];
     *buf = 138412290;
-    v9 = v4;
+    v8 = v4;
     _os_log_impl(&dword_270835000, v3, OS_LOG_TYPE_DEFAULT, "attempting to present %@", buf, 0xCu);
   }
 
@@ -164,8 +162,6 @@ void __93__URTServiceDestinationPresentation_initWithAlert_forDestination_prefer
   block[3] = &unk_279E0BEC0;
   block[4] = self;
   dispatch_async(remoteTargetQueue, block);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __44__URTServiceDestinationPresentation_present__block_invoke(uint64_t a1)
@@ -179,13 +175,13 @@ void __44__URTServiceDestinationPresentation_present__block_invoke(uint64_t a1)
 
 - (void)dismiss
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = URTLog();
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = URTLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [(URTServiceDestinationPresentation *)self description];
     *buf = 138412290;
-    v9 = v4;
+    v8 = v4;
     _os_log_impl(&dword_270835000, v3, OS_LOG_TYPE_DEFAULT, "attempting to dismiss %@", buf, 0xCu);
   }
 
@@ -196,8 +192,6 @@ void __44__URTServiceDestinationPresentation_present__block_invoke(uint64_t a1)
   block[3] = &unk_279E0BEC0;
   block[4] = self;
   dispatch_async(remoteTargetQueue, block);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __44__URTServiceDestinationPresentation_dismiss__block_invoke(uint64_t a1)
@@ -210,21 +204,20 @@ void __44__URTServiceDestinationPresentation_dismiss__block_invoke(uint64_t a1)
 
 - (void)invalidate
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = URTLog();
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = URTLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     connection = self->_connection;
     v5 = [(URTServiceDestinationPresentation *)self description];
-    v7 = 138412546;
-    v8 = connection;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_270835000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating connection %@ for %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = connection;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_270835000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating connection %@ for %@", &v6, 0x16u);
   }
 
   [(BSServiceConnection *)self->_connection invalidate];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)description
@@ -278,33 +271,32 @@ void __44__URTServiceDestinationPresentation_dismiss__block_invoke(uint64_t a1)
 
 - (void)_handleConnectionActivated
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v3 = URTLog();
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = URTLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     connection = self->_connection;
     v5 = [(URTServiceDestinationPresentation *)self description];
-    v8 = 138412546;
-    v9 = connection;
-    v10 = 2112;
-    v11 = v5;
-    _os_log_impl(&dword_270835000, v3, OS_LOG_TYPE_DEFAULT, "Connection activated %@ for %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = connection;
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&dword_270835000, v3, OS_LOG_TYPE_DEFAULT, "Connection activated %@ for %@", &v7, 0x16u);
   }
 
   remoteTargetQueue = [(URTServiceDestinationPresentation *)self remoteTargetQueue];
   dispatch_resume(remoteTargetQueue);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleConnectionInterrupted
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = self[7];
-  v9 = [self description];
-  OUTLINED_FUNCTION_0(&dword_270835000, v2, v3, "Connection interrupted! Reactivating %@ for %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v2 = [self description];
+  *v9 = 138412546;
+  *&v9[4] = v1;
+  *&v9[12] = 2112;
+  *&v9[14] = v2;
+  OUTLINED_FUNCTION_0(&dword_270835000, v3, v4, "Connection interrupted! Reactivating %@ for %@", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16]);
 }
 
 - (URTDestinationPresentationDelegate)delegate
@@ -316,22 +308,16 @@ void __44__URTServiceDestinationPresentation_dismiss__block_invoke(uint64_t a1)
 
 void __93__URTServiceDestinationPresentation_initWithAlert_forDestination_preferredPresentationStyle___block_invoke_3_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = URTDescriptionForAlertDestination(*(a1 + 40));
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_270835000, v2, v3, "Connection for %@ interrupted! %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_270835000, v2, v3, "Connection for %@ interrupted! %@", v4, v5, v6, v7);
 }
 
 void __93__URTServiceDestinationPresentation_initWithAlert_forDestination_preferredPresentationStyle___block_invoke_8_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = URTDescriptionForAlertDestination(*(a1 + 32));
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_270835000, v2, v3, "Connection for %@ invalidated! %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_270835000, v2, v3, "Connection for %@ invalidated! %@", v4, v5, v6, v7);
 }
 
 @end

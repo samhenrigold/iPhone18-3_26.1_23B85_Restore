@@ -24,9 +24,10 @@
 
 uint64_t __61__SBSKeyboardFocusService_systemKeyCommandOverlayEnvironment__block_invoke()
 {
-  systemKeyCommandOverlayEnvironment___keyCommandOverlayEnvironment = [MEMORY[0x1E698E398] environmentWithIdentifier:@"systemKeyCommandOverlay"];
+  v0 = [MEMORY[0x1E698E398] environmentWithIdentifier:@"systemKeyCommandOverlay"];
+  systemKeyCommandOverlayEnvironment___keyCommandOverlayEnvironment = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 - (void)dealloc
@@ -67,12 +68,13 @@ void __85__SBSKeyboardFocusService_requestKeyboardFocusForSceneIdentity_processI
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = SBLogKeyboardFocus();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = SBLogKeyboardFocus(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __85__SBSKeyboardFocusService_requestKeyboardFocusForSceneIdentity_processID_completion___block_invoke_cold_1(a1, v6, v7);
+      __85__SBSKeyboardFocusService_requestKeyboardFocusForSceneIdentity_processID_completion___block_invoke_cold_1(a1, v7, v8);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -123,7 +125,7 @@ LABEL_9:
   if (v13)
   {
     v14 = v13;
-    v15 = SBLogKeyboardFocus();
+    v15 = SBLogKeyboardFocus(v13);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [SBSKeyboardFocusService applyAdditionalDeferringRules:rulesCopy whenSceneHasKeyboardFocus:v15 processID:?];
@@ -176,25 +178,25 @@ void __93__SBSKeyboardFocusService_applyAdditionalDeferringRules_whenSceneHasKey
   externalSceneIdentitiesAssertion = self->_externalSceneIdentitiesAssertion;
   if (!externalSceneIdentitiesAssertion)
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __64__SBSKeyboardFocusService_setExternalSceneIdentities_forReason___block_invoke;
-    v15[3] = &unk_1E735F198;
-    v15[4] = self;
-    v9 = [MEMORY[0x1E698E658] assertionWithIdentifier:@"SBSKeyboardFocusService-externalSceneIdentities" stateDidChangeHandler:v15];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __64__SBSKeyboardFocusService_setExternalSceneIdentities_forReason___block_invoke;
+    v16[3] = &unk_1E735F198;
+    v16[4] = self;
+    v9 = [MEMORY[0x1E698E658] assertionWithIdentifier:@"SBSKeyboardFocusService-externalSceneIdentities" stateDidChangeHandler:v16];
     v10 = self->_externalSceneIdentitiesAssertion;
     self->_externalSceneIdentitiesAssertion = v9;
 
     v11 = self->_externalSceneIdentitiesAssertion;
-    v12 = SBLogKeyboardFocus();
-    [(BSCompoundAssertion *)v11 setLog:v12];
+    v13 = SBLogKeyboardFocus(v12);
+    [(BSCompoundAssertion *)v11 setLog:v13];
 
     externalSceneIdentitiesAssertion = self->_externalSceneIdentitiesAssertion;
   }
 
-  v13 = [(BSCompoundAssertion *)externalSceneIdentitiesAssertion acquireForReason:reasonCopy withContext:identitiesCopy];
+  v14 = [(BSCompoundAssertion *)externalSceneIdentitiesAssertion acquireForReason:reasonCopy withContext:identitiesCopy];
 
-  return v13;
+  return v14;
 }
 
 void __64__SBSKeyboardFocusService_setExternalSceneIdentities_forReason___block_invoke(uint64_t a1, void *a2)
@@ -309,7 +311,7 @@ void __38__SBSKeyboardFocusService__connection__block_invoke_2(uint64_t a1)
 void __38__SBSKeyboardFocusService__connection__block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = SBLogKeyboardFocus();
+  v3 = SBLogKeyboardFocus(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __38__SBSKeyboardFocusService__connection__block_invoke_3_cold_1(v3);

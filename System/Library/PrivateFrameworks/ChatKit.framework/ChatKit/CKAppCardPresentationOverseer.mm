@@ -88,7 +88,7 @@
 {
   controllerCopy = controller;
   swift_unknownObjectRetain();
-  return CKAppCardPresentationOverseer.init(presenting:sendDelegate:)(controllerCopy);
+  return CKAppCardPresentationOverseer.init(presenting:sendDelegate:)(controllerCopy, delegate);
 }
 
 - (id)updateCurrentBrowserForPlugin:(id)plugin dataSource:(id)source pluginContext:(id)context
@@ -190,7 +190,7 @@
 
 - (void)presentCardWithStyle:(unint64_t)style animated:(BOOL)animated completion:(id)completion
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0, &qword_190DD7B00);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v18 - v10;
   v12 = _Block_copy(completion);
@@ -221,7 +221,7 @@
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0, &qword_190DD7B00);
   MEMORY[0x1EEE9AC00](v12 - 8);
   v14 = &v22 - v13;
   v15 = _Block_copy(completion);
@@ -256,7 +256,7 @@
   width = location.size.width;
   y = location.origin.y;
   x = location.origin.x;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0, &qword_190DD7B00);
   MEMORY[0x1EEE9AC00](v10 - 8);
   v12 = &v19 - v11;
   v13 = _Block_copy(completion);
@@ -294,7 +294,7 @@
 
 - (void)dismissCardAnimated:(BOOL)animated completion:(id)completion
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0, &qword_190DD7B00);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(completion);
@@ -320,7 +320,7 @@
 
 - (void)dismissCardAnimated:(BOOL)animated overrideExceptions:(BOOL)exceptions completion:(id)completion
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0, &qword_190DD7B00);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v18 - v10;
   v12 = _Block_copy(completion);
@@ -395,7 +395,7 @@
 
 - (void)checkForTouchInExtensionWithCompletion:(id)completion
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0, &qword_190DD7B00);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(completion);

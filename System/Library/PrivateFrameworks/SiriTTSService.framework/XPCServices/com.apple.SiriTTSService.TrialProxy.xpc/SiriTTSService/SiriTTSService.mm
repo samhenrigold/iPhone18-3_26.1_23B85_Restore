@@ -17,17 +17,15 @@ uint64_t sub_100000D60()
 uint64_t sub_100000DDC(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v1(v3);
+  v1(v2);
 }
 
-uint64_t sub_100000E2C(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_100000E2C(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -38,7 +36,6 @@ uint64_t sub_100000E2C(uint64_t a1, unint64_t *a2, uint64_t *a3)
 
 uint64_t sub_100000E74()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
 
   return _swift_deallocObject(v0, 24, 7);
@@ -46,9 +43,7 @@ uint64_t sub_100000E74()
 
 uint64_t sub_100000EAC()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 24);
   swift_unknownObjectRelease();
 
   return _swift_deallocObject(v0, 32, 7);
@@ -85,28 +80,25 @@ uint64_t sub_100000F60(_xpc_connection_s *a1)
 
 uint64_t sub_100001078(void *a1, uint64_t a2)
 {
-  v27 = a2;
+  v24 = a2;
   v3 = sub_1000016D0();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin();
-  v7 = &v26 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_100001700();
-  v28 = *(v8 - 8);
-  v9 = *(v28 + 64);
+  v6 = &v23 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = sub_100001700();
+  v25 = *(v7 - 8);
   __chkstk_darwin();
-  v11 = &v26 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = sub_1000016E0();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
+  v9 = &v23 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = sub_1000016E0();
+  v11 = *(v10 - 8);
   __chkstk_darwin();
-  v16 = &v26 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = &v23 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   type = xpc_get_type(a1);
   if (type == sub_1000016A0())
   {
-    v24 = sub_1000016B0();
+    v21 = sub_1000016B0();
     swift_unknownObjectRelease();
-    if (v24 == a1 || (v25 = sub_1000016C0(), result = swift_unknownObjectRelease(), v25 == a1))
+    if (v21 == a1 || (v22 = sub_1000016C0(), result = swift_unknownObjectRelease(), v22 == a1))
     {
       sub_100001710();
 
@@ -117,44 +109,43 @@ uint64_t sub_100001078(void *a1, uint64_t a2)
   else
   {
     sub_100000E2C(0, &qword_100008208, OS_dispatch_queue_ptr);
-    (*(v13 + 104))(v16, enum case for DispatchQoS.QoSClass.userInitiated(_:), v12);
-    v18 = sub_100001730();
-    v26 = v8;
-    v19 = v18;
-    (*(v13 + 8))(v16, v12);
-    v20 = swift_allocObject();
-    v21 = v27;
-    *(v20 + 16) = a1;
-    *(v20 + 24) = v21;
+    (*(v11 + 104))(v13, enum case for DispatchQoS.QoSClass.userInitiated(_:), v10);
+    v15 = sub_100001730();
+    v23 = v7;
+    v16 = v15;
+    (*(v11 + 8))(v13, v10);
+    v17 = swift_allocObject();
+    v18 = v24;
+    *(v17 + 16) = a1;
+    *(v17 + 24) = v18;
     aBlock[4] = sub_100000D60;
-    aBlock[5] = v20;
+    aBlock[5] = v17;
     aBlock[0] = _NSConcreteStackBlock;
     aBlock[1] = 1107296256;
     aBlock[2] = sub_100000DDC;
     aBlock[3] = &unk_100004218;
-    v22 = _Block_copy(aBlock);
+    v19 = _Block_copy(aBlock);
     swift_unknownObjectRetain();
     swift_unknownObjectRetain();
     sub_1000016F0();
-    v29 = &_swiftEmptyArrayStorage;
+    v26 = &_swiftEmptyArrayStorage;
     sub_100001520();
     sub_100001578(&qword_100008218, &unk_1000019C8);
     sub_1000015C0();
     sub_100001750();
     sub_100001720();
-    _Block_release(v22);
+    _Block_release(v19);
 
-    (*(v4 + 8))(v7, v3);
-    (*(v28 + 8))(v11, v26);
+    (*(v4 + 8))(v6, v3);
+    (*(v25 + 8))(v9, v23);
   }
 
   return result;
 }
 
-uint64_t sub_1000014B0(uint64_t a1)
+uint64_t sub_1000014B0(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
 
   v3 = swift_unknownObjectRetain();
   v2(v3);
@@ -187,7 +178,6 @@ uint64_t sub_100001578(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -213,7 +203,6 @@ uint64_t sub_100001624(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }

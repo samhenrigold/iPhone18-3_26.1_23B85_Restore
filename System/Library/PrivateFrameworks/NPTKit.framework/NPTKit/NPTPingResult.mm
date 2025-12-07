@@ -47,30 +47,30 @@
 
 - (void)populateFields
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   [(NPTPingResult *)self setMinLatency:INFINITY];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   pings = [(NPTPingResult *)self pings];
-  v4 = [pings countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v4 = [pings countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v27;
+    v7 = *v26;
     v8 = 0.0;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v27 != v7)
+        if (*v26 != v7)
         {
           objc_enumerationMutation(pings);
         }
 
-        v10 = *(*(&v26 + 1) + 8 * i);
+        v10 = *(*(&v25 + 1) + 8 * i);
         [v10 latency];
         v12 = v11;
         [(NPTPingResult *)self minLatency];
@@ -105,7 +105,7 @@
         }
       }
 
-      v5 = [pings countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v5 = [pings countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v5);
@@ -151,35 +151,34 @@
 
   [(NPTPingResult *)self calculateStandardDeviation];
   [(NPTPingResult *)self setStandardDeviation:?];
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (double)calculateStandardDeviation
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   pings = [(NPTPingResult *)self pings];
-  v4 = [pings countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v4 = [pings countByEnumeratingWithState:&v20 objects:v24 count:16];
   v5 = 0.0;
   if (v4)
   {
     v6 = v4;
     v7 = 0;
-    v8 = *v22;
+    v8 = *v21;
     v9 = 0.0;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(pings);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * i);
+        v11 = *(*(&v20 + 1) + 8 * i);
         if ([v11 wasSuccessful])
         {
           [v11 latency];
@@ -194,7 +193,7 @@
         }
       }
 
-      v6 = [pings countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v6 = [pings countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v6);
@@ -216,39 +215,38 @@
     v5 = sqrt(v9 / ([pings3 count] - v15));
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (NSDictionary)asDictionary
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   pings = [(NPTPingResult *)self pings];
-  v6 = [pings countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v6 = [pings countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v34;
+    v8 = *v33;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v34 != v8)
+        if (*v33 != v8)
         {
           objc_enumerationMutation(pings);
         }
 
-        dictionary = [*(*(&v33 + 1) + 8 * i) dictionary];
+        dictionary = [*(*(&v32 + 1) + 8 * i) dictionary];
         [v4 addObject:dictionary];
       }
 
-      v7 = [pings countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v7 = [pings countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v7);
@@ -302,8 +300,6 @@
   }
 
   v30 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v3];
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v30;
 }

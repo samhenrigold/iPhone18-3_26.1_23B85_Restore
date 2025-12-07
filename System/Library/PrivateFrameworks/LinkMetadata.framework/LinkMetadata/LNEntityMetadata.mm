@@ -379,20 +379,7 @@ LABEL_99:
 
             requiredCapabilities4 = [(LNEntityMetadata *)v6 requiredCapabilities];
 
-            if (!requiredCapabilities4)
-            {
-              goto LABEL_44;
-            }
-
-            v47 = MEMORY[0x1E695DFD8];
-            requiredCapabilities5 = [(LNEntityMetadata *)self requiredCapabilities];
-            v48 = [v47 setWithArray:requiredCapabilities5];
-            v49 = MEMORY[0x1E695DFD8];
-            requiredCapabilities6 = [(LNEntityMetadata *)v6 requiredCapabilities];
-            v51 = [v49 setWithArray:requiredCapabilities6];
-            v106 = [v48 isEqualToSet:v51];
-
-            if (!v106)
+            if (!requiredCapabilities4 || (v47 = MEMORY[0x1E695DFD8], -[LNEntityMetadata requiredCapabilities](self, "requiredCapabilities"), v108 = objc_claimAutoreleasedReturnValue(), [v47 setWithArray:v108], v48 = objc_claimAutoreleasedReturnValue(), v49 = MEMORY[0x1E695DFD8], -[LNEntityMetadata requiredCapabilities](v6, "requiredCapabilities"), v50 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v49, "setWithArray:", v50), v51 = objc_claimAutoreleasedReturnValue(), v106 = objc_msgSend(v48, "isEqualToSet:", v51), v51, v50, v48, v108, !v106))
             {
 LABEL_44:
               LOBYTE(requiredCapabilities3) = 0;
@@ -509,20 +496,7 @@ LABEL_72:
 
                         assistantDefinedSchemas3 = [(LNEntityMetadata *)v6 assistantDefinedSchemas];
 
-                        if (!assistantDefinedSchemas3)
-                        {
-                          goto LABEL_71;
-                        }
-
-                        v73 = MEMORY[0x1E695DFD8];
-                        assistantDefinedSchemas4 = [(LNEntityMetadata *)self assistantDefinedSchemas];
-                        v74 = [v73 setWithArray:assistantDefinedSchemas4];
-                        v75 = MEMORY[0x1E695DFD8];
-                        assistantDefinedSchemas5 = [(LNEntityMetadata *)v6 assistantDefinedSchemas];
-                        v76 = [v75 setWithArray:assistantDefinedSchemas5];
-                        v98 = [v74 isEqualToSet:v76];
-
-                        if (!v98)
+                        if (!assistantDefinedSchemas3 || (v73 = MEMORY[0x1E695DFD8], -[LNEntityMetadata assistantDefinedSchemas](self, "assistantDefinedSchemas"), v100 = objc_claimAutoreleasedReturnValue(), [v73 setWithArray:v100], v74 = objc_claimAutoreleasedReturnValue(), v75 = MEMORY[0x1E695DFD8], -[LNEntityMetadata assistantDefinedSchemas](v6, "assistantDefinedSchemas"), v96 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v75, "setWithArray:", v96), v76 = objc_claimAutoreleasedReturnValue(), v98 = objc_msgSend(v74, "isEqualToSet:", v76), v76, v96, v74, v100, !v98))
                         {
 LABEL_71:
                           LOBYTE(requiredCapabilities3) = 0;

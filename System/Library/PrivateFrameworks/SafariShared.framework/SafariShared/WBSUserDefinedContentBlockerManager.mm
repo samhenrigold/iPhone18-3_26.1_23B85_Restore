@@ -301,34 +301,34 @@ void __94__WBSUserDefinedContentBlockerManager_contentBlockerForHost_createIfNee
 
 void __81__WBSUserDefinedContentBlockerManager_globalContentBlockerWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (v3)
+  v4 = a2;
+  if (v4)
   {
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __81__WBSUserDefinedContentBlockerManager_globalContentBlockerWithCompletionHandler___block_invoke_2;
     block[3] = &unk_1E7FB83F8;
-    v4 = &v8;
-    v8 = *(a1 + 32);
-    v7 = v3;
+    v5 = &v9;
+    v9 = *(a1 + 32);
+    v8 = v4;
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
 
   else
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(0, v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __81__WBSUserDefinedContentBlockerManager_globalContentBlockerWithCompletionHandler___block_invoke_cold_1();
     }
 
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __81__WBSUserDefinedContentBlockerManager_globalContentBlockerWithCompletionHandler___block_invoke_26;
-    v9[3] = &unk_1E7FB7350;
-    v4 = &v10;
-    v10 = *(a1 + 32);
-    dispatch_async(MEMORY[0x1E69E96A0], v9);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __81__WBSUserDefinedContentBlockerManager_globalContentBlockerWithCompletionHandler___block_invoke_26;
+    v10[3] = &unk_1E7FB7350;
+    v5 = &v11;
+    v11 = *(a1 + 32);
+    dispatch_async(MEMORY[0x1E69E96A0], v10);
   }
 }
 
@@ -402,8 +402,8 @@ void __105__WBSUserDefinedContentBlockerManager_getNumberOfContentBlockersThatCo
 
   else
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(0, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [WBSUserDefinedContentBlockerManager addActions:forContentBlocker:];
     }
@@ -420,8 +420,8 @@ void __105__WBSUserDefinedContentBlockerManager_getNumberOfContentBlockersThatCo
 
   else
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(0, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [WBSUserDefinedContentBlockerManager deleteActionsForContentBlocker:];
     }

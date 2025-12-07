@@ -11,38 +11,43 @@
   shouldLog = [mEMORY[0x277D69B38] shouldLog];
   if ([mEMORY[0x277D69B38] shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (!v6)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
-  NSStringFromSelector(a2);
+  v8 = NSStringFromSelector(a2);
   v11 = 138412546;
   selfCopy = self;
-  v14 = v13 = 2112;
-  LODWORD(v10) = 22;
-  v8 = _os_log_send_and_compose_impl();
+  v13 = 2112;
+  v14 = v8;
+  v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_259CB8000, oSLogObject, 1, "Returning nil because %@ doesn't implement %@.", &v11, 22);
 
-  if (v8)
+  if (v9)
   {
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v8 encoding:{4, &v11, v10}];
-    free(v8);
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v9 encoding:4];
+    free(v9);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
   return 0;

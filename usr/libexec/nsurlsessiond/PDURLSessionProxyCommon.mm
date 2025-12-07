@@ -16,49 +16,24 @@
       {
         if (type != 1003)
         {
-          goto LABEL_44;
-        }
-
-        v4 = off_1000D48C8;
-        if (!reply)
-        {
-          v4 = off_1000D48C0;
+          goto LABEL_29;
         }
       }
 
-      else
+      else if (type != 1001)
       {
-        if (type != 1001)
-        {
-          goto LABEL_44;
-        }
-
-        v4 = off_1000D48A8;
-        if (!reply)
-        {
-          v4 = off_1000D48A0;
-        }
+        goto LABEL_29;
       }
     }
 
-    else
+    else if (type != 2)
     {
-      if (type != 2)
-      {
-        goto LABEL_44;
-      }
-
-      v4 = off_1000D4898;
-      if (!reply)
-      {
-        v4 = off_1000D4890;
-      }
+      goto LABEL_29;
     }
 
-LABEL_43:
-    v5 = *v4;
-    v6 = objc_opt_class();
-    goto LABEL_45;
+LABEL_28:
+    v4 = objc_opt_class();
+    goto LABEL_30;
   }
 
   if (type <= 1010)
@@ -67,65 +42,38 @@ LABEL_43:
     {
       if (type == 1008 || type == 1009)
       {
-        goto LABEL_44;
-      }
-
-      v4 = off_1000D48D8;
-      if (!reply)
-      {
-        v4 = off_1000D48D0;
+        goto LABEL_29;
       }
     }
 
-    else
+    else if (type != 1006)
     {
-      if (type != 1006)
-      {
-        goto LABEL_44;
-      }
-
-      v4 = off_1000D48B8;
-      if (!reply)
-      {
-        v4 = off_1000D48B0;
-      }
+      goto LABEL_29;
     }
 
-    goto LABEL_43;
+    goto LABEL_28;
   }
 
   if (type <= 3000)
   {
     if (type != 1012)
     {
-      goto LABEL_44;
+      goto LABEL_29;
     }
 
-    v4 = &off_1000D48F8;
-    if (!reply)
-    {
-      v4 = off_1000D48F0;
-    }
-
-    goto LABEL_43;
+    goto LABEL_28;
   }
 
   if (type == 3001)
   {
-    v4 = off_1000D48E8;
-    if (!reply)
-    {
-      v4 = off_1000D48E0;
-    }
-
-    goto LABEL_43;
+    goto LABEL_28;
   }
 
-LABEL_44:
-  v6 = objc_opt_class();
-LABEL_45:
+LABEL_29:
+  v4 = objc_opt_class();
+LABEL_30:
 
-  return v6;
+  return v4;
 }
 
 + (void)getComponentsForFullIdentifier:(id)identifier bundleIdentifier:(id *)bundleIdentifier sessionIdentifier:(id *)sessionIdentifier

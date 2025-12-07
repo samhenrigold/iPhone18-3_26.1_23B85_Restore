@@ -314,7 +314,7 @@ LABEL_25:
 + (id)dialogPhaseForAceDialogPhase:(id)phase
 {
   phaseCopy = phase;
-  if ([phaseCopy isEqualToString:*MEMORY[0x1E69C82F0]])
+  if (objc_msgSend_isEqualToString_(phaseCopy))
   {
     v4 = +[AFDialogPhase acknowledgementDialogPhase];
 LABEL_21:
@@ -322,55 +322,55 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  if ([phaseCopy isEqualToString:*MEMORY[0x1E69C8328]])
+  if (objc_msgSend_isEqualToString_(phaseCopy))
   {
     v4 = +[AFDialogPhase reflectionDialogPhase];
     goto LABEL_21;
   }
 
-  if ([phaseCopy isEqualToString:*MEMORY[0x1E69C8330]])
+  if (objc_msgSend_isEqualToString_(phaseCopy))
   {
     v4 = +[AFDialogPhase statusDialogPhase];
     goto LABEL_21;
   }
 
-  if ([phaseCopy isEqualToString:*MEMORY[0x1E69C8300]])
+  if (objc_msgSend_isEqualToString_(phaseCopy))
   {
     v4 = +[AFDialogPhase clarificationDialogPhase];
     goto LABEL_21;
   }
 
-  if ([phaseCopy isEqualToString:*MEMORY[0x1E69C8338]])
+  if (objc_msgSend_isEqualToString_(phaseCopy))
   {
     v4 = +[AFDialogPhase summaryDialogPhase];
     goto LABEL_21;
   }
 
-  if ([phaseCopy isEqualToString:*MEMORY[0x1E69C8310]])
+  if (objc_msgSend_isEqualToString_(phaseCopy))
   {
     v4 = +[AFDialogPhase confirmationDialogPhase];
     goto LABEL_21;
   }
 
-  if ([phaseCopy isEqualToString:*MEMORY[0x1E69C8308]])
+  if (objc_msgSend_isEqualToString_(phaseCopy))
   {
     v4 = +[AFDialogPhase completionDialogPhase];
     goto LABEL_21;
   }
 
-  if ([phaseCopy isEqualToString:*MEMORY[0x1E69C8320]])
+  if (objc_msgSend_isEqualToString_(phaseCopy))
   {
     v4 = +[AFDialogPhase errorDialogPhase];
     goto LABEL_21;
   }
 
-  if ([phaseCopy isEqualToString:*MEMORY[0x1E69C8318]])
+  if (objc_msgSend_isEqualToString_(phaseCopy))
   {
     v4 = +[AFDialogPhase confirmedDialogPhase];
     goto LABEL_21;
   }
 
-  if ([phaseCopy isEqualToString:*MEMORY[0x1E69C82F8]])
+  if (objc_msgSend_isEqualToString_(phaseCopy))
   {
     v4 = +[AFDialogPhase cancelledDialogPhase];
     goto LABEL_21;

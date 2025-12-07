@@ -32,7 +32,7 @@
 
 - (id)documentTypeDisplayName
 {
-  v2 = sub_275F37BC8();
+  v2 = sub_275F37BC8(self);
   v4 = objc_msgSend_localizedStringForKey_value_table_(v2, v3, @"Spreadsheet", &stru_2884F65E0, @"Numbers");
 
   return v4;
@@ -40,7 +40,7 @@
 
 - (id)documentTypeDisplayNameForSharingInvitation
 {
-  v2 = sub_275F37BC8();
+  v2 = sub_275F37BC8(self);
   v4 = objc_msgSend_localizedStringForKey_value_table_(v2, v3, @"spreadsheet", &stru_2884F65E0, @"Numbers");
 
   return v4;
@@ -48,7 +48,7 @@
 
 - (id)templateTypeDisplayName
 {
-  v2 = sub_275F37BC8();
+  v2 = sub_275F37BC8(self);
   v4 = objc_msgSend_localizedStringForKey_value_table_(v2, v3, @"Template", &stru_2884F65E0, @"Numbers");
 
   return v4;

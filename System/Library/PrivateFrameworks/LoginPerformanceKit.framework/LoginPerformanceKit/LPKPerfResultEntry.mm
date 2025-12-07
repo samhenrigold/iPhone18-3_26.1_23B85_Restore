@@ -34,35 +34,35 @@
 
 - (void)_reCalculateValuesIfNeeded
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if ([(LPKPerfResultEntry *)self needsReCalculation])
   {
     [(NSMutableArray *)self->_entryValues sortUsingComparator:&__block_literal_global];
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v3 = self->_entryValues;
-    v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v21;
+      v6 = *v20;
       v7 = 0.0;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v21 != v6)
+          if (*v20 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          [*(*(&v20 + 1) + 8 * i) doubleValue];
+          [*(*(&v19 + 1) + 8 * i) doubleValue];
           v7 = v7 + v9;
         }
 
-        v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v5);
@@ -96,8 +96,6 @@
 
     [(LPKPerfResultEntry *)self setNeedsReCalculation:0];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

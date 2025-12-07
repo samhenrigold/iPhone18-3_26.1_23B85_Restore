@@ -28,7 +28,7 @@
   v5 = connectionCopy;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else
@@ -45,7 +45,7 @@
     {
       if (v5)
       {
-        [v5 auditToken];
+        objc_msgSend_auditToken(v5);
       }
 
       else
@@ -65,7 +65,7 @@
 
   else
   {
-    v9 = sh_log_object();
+    v9 = sh_log_object(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       LOWORD(v13.val[0]) = 0;
@@ -80,7 +80,7 @@
 
 - (SHAttribution)initWithTask:(__SecTask *)task
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   error = 0;
   v4 = SecTaskCopySigningIdentifier(task, &error);
   if (v4)
@@ -89,11 +89,11 @@
     v6 = SecTaskCopyTeamIdentifier();
     if (!v6 && error)
     {
-      v7 = sh_log_object();
+      v7 = sh_log_object(0);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v15 = error;
+        v14 = error;
         _os_log_impl(&dword_230F52000, v7, OS_LOG_TYPE_DEFAULT, "Unable to get team identifier from task: %{public}@", buf, 0xCu);
       }
     }
@@ -113,18 +113,17 @@
 
   else
   {
-    v5 = sh_log_object();
+    v5 = sh_log_object(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v15 = error;
+      v14 = error;
       _os_log_impl(&dword_230F52000, v5, OS_LOG_TYPE_ERROR, "Unable to get signing identifier from task: %{public}@", buf, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -162,43 +161,45 @@
 
 + (id)findContainingAppBundleIdentifierForIdentifier:(id)identifier
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v20 = 0;
-  v4 = [MEMORY[0x277CC1E90] bundleRecordWithBundleIdentifier:identifierCopy allowPlaceholder:0 error:&v20];
-  v5 = v20;
+  v22 = 0;
+  v4 = [MEMORY[0x277CC1E90] bundleRecordWithBundleIdentifier:identifierCopy allowPlaceholder:0 error:&v22];
+  v5 = v22;
+  v6 = v5;
   if (!v4)
   {
-    v11 = sh_log_object();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = sh_log_object(v5);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v22 = v5;
-      v12 = "Failed to get bundle record, instead using bundle identifier. %{public}@";
-      v13 = v11;
-      v14 = OS_LOG_TYPE_ERROR;
-      v15 = 12;
+      v24 = v6;
+      v15 = "Failed to get bundle record, instead using bundle identifier. %{public}@";
+      v16 = v14;
+      v17 = OS_LOG_TYPE_ERROR;
+      v18 = 12;
 LABEL_10:
-      _os_log_impl(&dword_230F52000, v13, v14, v12, buf, v15);
+      _os_log_impl(&dword_230F52000, v16, v17, v15, buf, v18);
     }
 
 LABEL_11:
 
-    v16 = identifierCopy;
+    v19 = identifierCopy;
     goto LABEL_20;
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v11 = sh_log_object();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v14 = sh_log_object(isKindOfClass);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v12 = "Client is not an extension, use bundle identifier";
-      v13 = v11;
-      v14 = OS_LOG_TYPE_DEFAULT;
-      v15 = 2;
+      v15 = "Client is not an extension, use bundle identifier";
+      v16 = v14;
+      v17 = OS_LOG_TYPE_DEFAULT;
+      v18 = 2;
       goto LABEL_10;
     }
 
@@ -207,47 +208,47 @@ LABEL_11:
 
   containingBundleRecord = [v4 containingBundleRecord];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  v9 = objc_opt_isKindOfClass();
+  if (v9)
   {
     bundleIdentifier = [containingBundleRecord bundleIdentifier];
-    v8 = bundleIdentifier;
+    v11 = bundleIdentifier;
     if (bundleIdentifier)
     {
-      v9 = bundleIdentifier;
-      v10 = identifierCopy;
+      v12 = bundleIdentifier;
+      v13 = identifierCopy;
     }
 
     else
     {
-      v10 = sh_log_object();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v13 = sh_log_object(0);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_230F52000, v10, OS_LOG_TYPE_ERROR, "Client app is an app extension, but no containing app bundle identifier", buf, 2u);
+        _os_log_impl(&dword_230F52000, v13, OS_LOG_TYPE_ERROR, "Client app is an app extension, but no containing app bundle identifier", buf, 2u);
       }
 
-      v9 = identifierCopy;
+      v12 = identifierCopy;
     }
 
-    v16 = v9;
+    v19 = v12;
   }
 
   else
   {
-    v17 = sh_log_object();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v20 = sh_log_object(v9);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_230F52000, v17, OS_LOG_TYPE_ERROR, "Client is an app extension, but has a containing bundle that's not an application", buf, 2u);
+      _os_log_impl(&dword_230F52000, v20, OS_LOG_TYPE_ERROR, "Client is an app extension, but has a containing bundle that's not an application", buf, 2u);
     }
 
-    v16 = identifierCopy;
+    v19 = identifierCopy;
   }
 
 LABEL_20:
-  v18 = *MEMORY[0x277D85DE8];
 
-  return v16;
+  return v19;
 }
 
 + (id)productNameForBundleIdentifier:(id)identifier
@@ -301,14 +302,13 @@ LABEL_20:
 
 void __72__SHAttribution_musicRecognitionSensorActivityAttributionExceptionPlist__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v3 = [*MEMORY[0x277CE1E38] preferredFilenameExtension];
-  v6 = [v2 pathForResource:@"SHMusicRecognitionSensorActivityAttributionPlist" ofType:v3];
+  v1 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v2 = [*MEMORY[0x277CE1E38] preferredFilenameExtension];
+  v5 = [v1 pathForResource:@"SHMusicRecognitionSensorActivityAttributionPlist" ofType:v2];
 
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:v6];
-  v5 = musicRecognitionSensorActivityAttributionExceptionPlist_plist;
-  musicRecognitionSensorActivityAttributionExceptionPlist_plist = v4;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:v5];
+  v4 = musicRecognitionSensorActivityAttributionExceptionPlist_plist;
+  musicRecognitionSensorActivityAttributionExceptionPlist_plist = v3;
 }
 
 + (id)mediaLibraryAttributionExceptionPlist
@@ -330,14 +330,13 @@ void __72__SHAttribution_musicRecognitionSensorActivityAttributionExceptionPlist
 
 void __54__SHAttribution_mediaLibraryAttributionExceptionPlist__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v3 = [*MEMORY[0x277CE1E38] preferredFilenameExtension];
-  v6 = [v2 pathForResource:@"MediaLibraryAttributionException" ofType:v3];
+  v1 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v2 = [*MEMORY[0x277CE1E38] preferredFilenameExtension];
+  v5 = [v1 pathForResource:@"MediaLibraryAttributionException" ofType:v2];
 
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:v6];
-  v5 = mediaLibraryAttributionExceptionPlist_plist;
-  mediaLibraryAttributionExceptionPlist_plist = v4;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:v5];
+  v4 = mediaLibraryAttributionExceptionPlist_plist;
+  mediaLibraryAttributionExceptionPlist_plist = v3;
 }
 
 - ($115C4C562B26FF47E01F9F4EA65B5887)auditToken

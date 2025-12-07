@@ -9,7 +9,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_2BC28();
+  sub_2BC28(selfCopy);
 }
 
 - (void)layoutSubviews

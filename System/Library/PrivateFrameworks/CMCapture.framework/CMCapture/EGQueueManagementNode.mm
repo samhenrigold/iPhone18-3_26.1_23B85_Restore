@@ -1,7 +1,7 @@
 @interface EGQueueManagementNode
-- (uint64_t)_handleInput:(uint64_t)input queue:(uint64_t)queue sync:;
-- (uint64_t)_syncForInput:(uint64_t)result;
+- (id)_syncForInput:(id *)result;
 - (void)_handleAllInputOnQueue:(char)queue sync:;
+- (void)_handleInput:(uint64_t)input queue:(uint64_t)queue sync:;
 - (void)dealloc;
 - (void)receiveData:(id)data fromInput:(id)input;
 - (void)receiveData:(id)data fromInputGroup:(id)group;
@@ -34,26 +34,26 @@
   return result;
 }
 
-- (uint64_t)_handleInput:(uint64_t)input queue:(uint64_t)queue sync:
+- (void)_handleInput:(uint64_t)input queue:(uint64_t)queue sync:
 {
   if (result)
   {
     v7 = result;
-    v8 = *(result + 88);
+    v8 = result[11];
     if (!v8)
     {
       v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      *(v7 + 88) = v8;
+      v7[11] = v8;
     }
 
     [v8 setObject:input forKeyedSubscript:{objc_msgSend(a2, "name")}];
-    if (!*(v7 + 96))
+    if (!v7[12])
     {
-      *(v7 + 96) = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v7[12] = objc_alloc_init(MEMORY[0x1E695DF90]);
     }
 
     v9 = [MEMORY[0x1E696AD98] numberWithBool:queue];
-    v10 = *(v7 + 96);
+    v10 = v7[12];
     name = [a2 name];
 
     return [v10 setObject:v9 forKeyedSubscript:name];
@@ -62,12 +62,12 @@
   return result;
 }
 
-- (uint64_t)_syncForInput:(uint64_t)result
+- (id)_syncForInput:(id *)result
 {
   if (result)
   {
     v2 = result;
-    v3 = [*(result + 96) objectForKeyedSubscript:{objc_msgSend(a2, "name")}];
+    v3 = [result[12] objectForKeyedSubscript:{objc_msgSend(a2, "name")}];
     if (v3)
     {
 
@@ -99,7 +99,7 @@
     allInputQueue = 0;
   }
 
-  v7 = [(EGQueueManagementNode *)self _syncForInput:input];
+  v7 = [(EGQueueManagementNode *)&self->super.super.isa _syncForInput:input];
   v8 = MEMORY[0x1E696AEC0];
   name = [(EGNode *)self name];
   name2 = [input name];
@@ -135,7 +135,7 @@
     allInputQueue = 0;
   }
 
-  v7 = [(EGQueueManagementNode *)self _syncForInput:group];
+  v7 = [(EGQueueManagementNode *)&self->super.super.isa _syncForInput:group];
   v8 = MEMORY[0x1E696AEC0];
   name = [(EGNode *)self name];
   name2 = [group name];

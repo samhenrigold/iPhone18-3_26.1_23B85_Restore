@@ -63,21 +63,20 @@
 
 void __39__PLAudioAgent_setupAVSystemController__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = PLLogAudio();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412546;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v5;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "setupAVSystemController Trigger from output %@: %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v5;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "setupAVSystemController Trigger from output %@: %@", &v8, 0x16u);
   }
 
   [*(a1 + 32) logEventForwardOutput];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logEventForwardOutput
@@ -101,11 +100,11 @@ void __39__PLAudioAgent_setupAVSystemController__block_invoke(uint64_t a1, void 
   v3 = *MEMORY[0x277D3F5D0];
   v46 = [(PLOperator *)PLAudioAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"Output"];
   v4 = [(PLOperator *)PLAudioAgent entryKeyForType:v3 andName:@"Routing"];
-  storage = [(PLOperator *)self storage];
-  v6 = [storage lastEntryForKey:v46];
+  v5 = objc_msgSend_storage(self);
+  v6 = [v5 lastEntryForKey:v46];
 
-  storage2 = [(PLOperator *)self storage];
-  v8 = [storage2 lastEntryForKey:v4];
+  v7 = objc_msgSend_storage(self);
+  v8 = [v7 lastEntryForKey:v4];
 
   speakerIsPlayingAudio = [(PLAudioAgent *)self speakerIsPlayingAudio];
   headsetIsPlayingAudio = [(PLAudioAgent *)self headsetIsPlayingAudio];
@@ -245,49 +244,47 @@ LABEL_32:
 
 void __40__PLAudioAgent_initOperatorDependancies__block_invoke_310(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogAudio();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "Haptics Prewarm Count callback: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "Haptics Prewarm Count callback: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardHapticsPrewarmCount:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __40__PLAudioAgent_initOperatorDependancies__block_invoke_276(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogAudio();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "got callback! %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "got callback! %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventPointSpeakerAmp:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __39__PLAudioAgent_setupAVSystemController__block_invoke_220(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = PLLogAudio();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v13 = 138412546;
-    v14 = v6;
-    v15 = 2112;
-    v16 = v5;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "setupAVSystemController Trigger from routing %@: %@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = v6;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "setupAVSystemController Trigger from routing %@: %@", &v12, 0x16u);
   }
 
   v8 = [v5 objectForKeyedSubscript:@"Sessions"];
@@ -299,16 +296,14 @@ void __39__PLAudioAgent_setupAVSystemController__block_invoke_220(uint64_t a1, v
     v10 = PLLogAudio();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v12 = [*(a1 + 32) audioIsActive];
-      v13 = 67109120;
-      LODWORD(v14) = v12;
-      _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "setupAVSystemController audioIsActive: %d", &v13, 8u);
+      v11 = [*(a1 + 32) audioIsActive];
+      v12 = 67109120;
+      LODWORD(v13) = v11;
+      _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "setupAVSystemController audioIsActive: %d", &v12, 8u);
     }
   }
 
   [*(a1 + 32) logEventForwardRouting];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logEventForwardRouting
@@ -356,7 +351,7 @@ void __39__PLAudioAgent_setupAVSystemController__block_invoke_220(uint64_t a1, v
 
 - (id)BTEndpointType
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D26E58] = [MEMORY[0x277D26E58] sharedInstance];
   v3 = [mEMORY[0x277D26E58] attributeForKey:*MEMORY[0x277D26C70]];
 
@@ -364,9 +359,9 @@ void __39__PLAudioAgent_setupAVSystemController__block_invoke_220(uint64_t a1, v
   v5 = PLLogAudio();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v4;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "BTDetails_EndpointType: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v4;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "BTDetails_EndpointType: %@", &v8, 0xCu);
   }
 
   if (v4)
@@ -378,8 +373,6 @@ void __39__PLAudioAgent_setupAVSystemController__block_invoke_220(uint64_t a1, v
   {
     v6 = &stru_282B650A0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -426,34 +419,32 @@ void __39__PLAudioAgent_setupAVSystemController__block_invoke_220(uint64_t a1, v
 
 void __40__PLAudioAgent_initOperatorDependancies__block_invoke_305(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogAudio();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "Got callback for PLAudioAgent_EventForward_HapticsRunningCount: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "Got callback for PLAudioAgent_EventForward_HapticsRunningCount: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardHapticsRunningCount:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __40__PLAudioAgent_initOperatorDependancies__block_invoke_284(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogAudio();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "got callback! %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "got callback! %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventPointHaptics:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)load
@@ -465,557 +456,525 @@ void __40__PLAudioAgent_initOperatorDependancies__block_invoke_284(uint64_t a1, 
 
 + (id)entryEventPointDefinitions
 {
-  v11[4] = *MEMORY[0x277D85DE8];
-  v10[0] = @"AudioApp";
+  v10[4] = *MEMORY[0x277D85DE8];
+  v9[0] = @"AudioApp";
   entryEventPointDefinitionAudioApp = [self entryEventPointDefinitionAudioApp];
-  v11[0] = entryEventPointDefinitionAudioApp;
-  v10[1] = @"SpeakerAmp";
+  v10[0] = entryEventPointDefinitionAudioApp;
+  v9[1] = @"SpeakerAmp";
   entryEventPointDefinitionSpeakerAmp = [self entryEventPointDefinitionSpeakerAmp];
-  v11[1] = entryEventPointDefinitionSpeakerAmp;
-  v10[2] = @"Haptics";
+  v10[1] = entryEventPointDefinitionSpeakerAmp;
+  v9[2] = @"Haptics";
   entryEventPointDefinitionHaptics = [self entryEventPointDefinitionHaptics];
-  v11[2] = entryEventPointDefinitionHaptics;
-  v10[3] = @"HapticsAssertion";
+  v10[2] = entryEventPointDefinitionHaptics;
+  v9[3] = @"HapticsAssertion";
   entryEventPointDefinitionHapticsAssertion = [self entryEventPointDefinitionHapticsAssertion];
-  v11[3] = entryEventPointDefinitionHapticsAssertion;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:4];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[3] = entryEventPointDefinitionHapticsAssertion;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
 
   return v7;
 }
 
 + (id)entryEventPointDefinitionAudioApp
 {
-  v28[2] = *MEMORY[0x277D85DE8];
-  v27[0] = *MEMORY[0x277D3F4E8];
+  v27[2] = *MEMORY[0x277D85DE8];
+  v26[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v25[0] = *MEMORY[0x277D3F568];
-  v25[1] = v2;
-  v26[0] = &unk_282C1C518;
-  v26[1] = MEMORY[0x277CBEC28];
+  v24[0] = *MEMORY[0x277D3F568];
+  v24[1] = v2;
+  v25[0] = &unk_282C1C518;
+  v25[1] = MEMORY[0x277CBEC28];
   v3 = *MEMORY[0x277D3F4A0];
-  v25[2] = *MEMORY[0x277D3F558];
-  v25[3] = v3;
-  v26[2] = MEMORY[0x277CBEC38];
-  v26[3] = MEMORY[0x277CBEC38];
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:4];
-  v28[0] = v22;
-  v27[1] = *MEMORY[0x277D3F540];
-  v23[0] = @"ApplicationName";
+  v24[2] = *MEMORY[0x277D3F558];
+  v24[3] = v3;
+  v25[2] = MEMORY[0x277CBEC38];
+  v25[3] = MEMORY[0x277CBEC38];
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
+  v27[0] = v21;
+  v26[1] = *MEMORY[0x277D3F540];
+  v22[0] = @"ApplicationName";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withAppName = [mEMORY[0x277D3F198] commonTypeDict_StringFormat_withAppName];
-  v24[0] = commonTypeDict_StringFormat_withAppName;
-  v23[1] = @"AssertionID";
+  v23[0] = commonTypeDict_StringFormat_withAppName;
+  v22[1] = @"AssertionID";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v24[1] = commonTypeDict_IntegerFormat;
-  v23[2] = @"AssertionName";
+  v23[1] = commonTypeDict_IntegerFormat;
+  v22[2] = @"AssertionName";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]3 commonTypeDict_StringFormat];
-  v24[2] = commonTypeDict_StringFormat;
-  v23[3] = @"AudioRoute";
+  v23[2] = commonTypeDict_StringFormat;
+  v22[3] = @"AudioRoute";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]4 commonTypeDict_StringFormat];
-  v24[3] = commonTypeDict_StringFormat2;
-  v23[4] = @"Operation";
+  v23[3] = commonTypeDict_StringFormat2;
+  v22[4] = @"Operation";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat3 = [mEMORY[0x277D3F198]5 commonTypeDict_StringFormat];
-  v24[4] = commonTypeDict_StringFormat3;
-  v23[5] = @"PID";
+  v23[4] = commonTypeDict_StringFormat3;
+  v22[5] = @"PID";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-  v24[5] = commonTypeDict_IntegerFormat2;
-  v23[6] = @"MirroringState";
+  v23[5] = commonTypeDict_IntegerFormat2;
+  v22[6] = @"MirroringState";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198]7 commonTypeDict_BoolFormat];
-  v24[6] = commonTypeDict_BoolFormat;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:7];
-  v28[1] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v23[6] = commonTypeDict_BoolFormat;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:7];
+  v27[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
 
   return v13;
 }
 
 + (id)entryEventPointDefinitionSpeakerAmp
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = *MEMORY[0x277D3F4E8];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v12[0] = *MEMORY[0x277D3F568];
-  v12[1] = v2;
-  v13[0] = &unk_282C1C528;
-  v13[1] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v15[0] = v3;
-  v14[1] = *MEMORY[0x277D3F540];
-  v10 = @"Avg Watts Modelled";
+  v11[0] = *MEMORY[0x277D3F568];
+  v11[1] = v2;
+  v12[0] = &unk_282C1C528;
+  v12[1] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v14[0] = v3;
+  v13[1] = *MEMORY[0x277D3F540];
+  v9 = @"Avg Watts Modelled";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat = [mEMORY[0x277D3F198] commonTypeDict_RealFormat];
-  v11 = commonTypeDict_RealFormat;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-  v15[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = commonTypeDict_RealFormat;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v14[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v7;
 }
 
 + (id)entryEventPointDefinitionHaptics
 {
-  v21[2] = *MEMORY[0x277D85DE8];
-  v20[0] = *MEMORY[0x277D3F4E8];
+  v20[2] = *MEMORY[0x277D85DE8];
+  v19[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4A0];
-  v18[0] = *MEMORY[0x277D3F568];
-  v18[1] = v2;
-  v19[0] = &unk_282C1C538;
-  v19[1] = MEMORY[0x277CBEC38];
-  v18[2] = *MEMORY[0x277D3F4F0];
-  v17[0] = @"ApplicationName";
-  v17[1] = @"EngineOnDuration";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
-  v19[2] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
-  v21[0] = v4;
-  v20[1] = *MEMORY[0x277D3F540];
+  v17[0] = *MEMORY[0x277D3F568];
+  v17[1] = v2;
+  v18[0] = &unk_282C1C538;
+  v18[1] = MEMORY[0x277CBEC38];
+  v17[2] = *MEMORY[0x277D3F4F0];
+  v16[0] = @"ApplicationName";
+  v16[1] = @"EngineOnDuration";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v18[2] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
+  v20[0] = v4;
+  v19[1] = *MEMORY[0x277D3F540];
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198] commonTypeDict_StringFormat_withBundleID];
-  v16[0] = commonTypeDict_StringFormat_withBundleID;
-  v15[1] = @"EngineOnDuration";
+  v15[0] = commonTypeDict_StringFormat_withBundleID;
+  v14[1] = @"EngineOnDuration";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat = [mEMORY[0x277D3F198]2 commonTypeDict_RealFormat];
-  v16[1] = commonTypeDict_RealFormat;
-  v15[2] = @"TimestampEnd";
+  v15[1] = commonTypeDict_RealFormat;
+  v14[2] = @"TimestampEnd";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198]3 commonTypeDict_DateFormat];
-  v16[2] = commonTypeDict_DateFormat;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
-  v21[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[2] = commonTypeDict_DateFormat;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v20[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
 
   return v12;
 }
 
 + (id)entryEventPointDefinitionHapticsAssertion
 {
-  v16[2] = *MEMORY[0x277D85DE8];
-  v15[0] = *MEMORY[0x277D3F4E8];
-  v13 = *MEMORY[0x277D3F568];
-  v14 = &unk_282C1C548;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-  v16[0] = v2;
-  v15[1] = *MEMORY[0x277D3F540];
-  v11[0] = @"active_time";
+  v15[2] = *MEMORY[0x277D85DE8];
+  v14[0] = *MEMORY[0x277D3F4E8];
+  v12 = *MEMORY[0x277D3F568];
+  v13 = &unk_282C1C548;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v15[0] = v2;
+  v14[1] = *MEMORY[0x277D3F540];
+  v10[0] = @"active_time";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v11[1] = @"active_clients";
-  v12[0] = commonTypeDict_IntegerFormat;
+  v10[1] = @"active_clients";
+  v11[0] = commonTypeDict_IntegerFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat];
-  v12[1] = commonTypeDict_StringFormat;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-  v16[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[1] = commonTypeDict_StringFormat;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v15[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
 
   return v8;
 }
 
 + (id)entryEventForwardDefinitions
 {
-  v13[7] = *MEMORY[0x277D85DE8];
-  v12[0] = @"Output";
+  v12[7] = *MEMORY[0x277D85DE8];
+  v11[0] = @"Output";
   v2 = +[PLAudioAgent entryEventForwardDefinitionOutput];
-  v13[0] = v2;
-  v12[1] = @"Routing";
+  v12[0] = v2;
+  v11[1] = @"Routing";
   v3 = +[PLAudioAgent entryEventForwardDefinitionRouting];
-  v13[1] = v3;
-  v12[2] = @"NowPlaying";
+  v12[1] = v3;
+  v11[2] = @"NowPlaying";
   v4 = +[PLAudioAgent entryEventForwardDefinitionNowPlaying];
-  v13[2] = v4;
-  v12[3] = @"AudioDevice";
+  v12[2] = v4;
+  v11[3] = @"AudioDevice";
   v5 = +[PLAudioAgent entryEventForwardDefinitionAudioDevice];
-  v13[3] = v5;
-  v12[4] = @"MutedTalkerDetection";
+  v12[3] = v5;
+  v11[4] = @"MutedTalkerDetection";
   v6 = +[PLAudioAgent entryEventForwardDefinitionMutedTalkerDetection];
-  v13[4] = v6;
-  v12[5] = @"HapticsRunningCount";
+  v12[4] = v6;
+  v11[5] = @"HapticsRunningCount";
   v7 = +[PLAudioAgent entryEventForwardDefinitionHapticsRunningCount];
-  v13[5] = v7;
-  v12[6] = @"HapticsPrewarmCount";
+  v12[5] = v7;
+  v11[6] = @"HapticsPrewarmCount";
   v8 = +[PLAudioAgent entryEventForwardDefinitionHapticsPrewarmCount];
-  v13[6] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:7];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[6] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:7];
 
   return v9;
 }
 
 + (id)entryEventForwardDefinitionOutput
 {
-  v20[2] = *MEMORY[0x277D85DE8];
-  v19[0] = *MEMORY[0x277D3F4E8];
+  v19[2] = *MEMORY[0x277D85DE8];
+  v18[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F508];
-  v17[0] = *MEMORY[0x277D3F568];
-  v17[1] = v2;
-  v18[0] = &unk_282C1C538;
-  v18[1] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
-  v20[0] = v3;
-  v19[1] = *MEMORY[0x277D3F540];
-  v15 = @"Volume";
+  v16[0] = *MEMORY[0x277D3F568];
+  v16[1] = v2;
+  v17[0] = &unk_282C1C538;
+  v17[1] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v19[0] = v3;
+  v18[1] = *MEMORY[0x277D3F540];
+  v14 = @"Volume";
   v4 = *MEMORY[0x277D3F5B0];
-  v13[0] = *MEMORY[0x277D3F5A8];
-  v13[1] = v4;
-  v14[0] = &unk_282C11A60;
-  v14[1] = @"%";
-  v13[2] = *MEMORY[0x277D3F520];
-  v11 = *MEMORY[0x277D3F510];
-  v12 = &unk_282C1C558;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-  v14[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
-  v16 = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-  v20[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v12[0] = *MEMORY[0x277D3F5A8];
+  v12[1] = v4;
+  v13[0] = &unk_282C11A60;
+  v13[1] = @"%";
+  v12[2] = *MEMORY[0x277D3F520];
+  v10 = *MEMORY[0x277D3F510];
+  v11 = &unk_282C1C558;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  v13[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v15 = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+  v19[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
 
   return v8;
 }
 
 + (id)entryEventForwardDefinitionRouting
 {
-  v27[2] = *MEMORY[0x277D85DE8];
-  v26[0] = *MEMORY[0x277D3F4E8];
+  v26[2] = *MEMORY[0x277D85DE8];
+  v25[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F508];
-  v24[0] = *MEMORY[0x277D3F568];
-  v24[1] = v2;
-  v25[0] = &unk_282C1C538;
-  v25[1] = MEMORY[0x277CBEC38];
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
-  v27[0] = v21;
-  v26[1] = *MEMORY[0x277D3F540];
-  v22[0] = @"Active";
+  v23[0] = *MEMORY[0x277D3F568];
+  v23[1] = v2;
+  v24[0] = &unk_282C1C538;
+  v24[1] = MEMORY[0x277CBEC38];
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+  v26[0] = v20;
+  v25[1] = *MEMORY[0x277D3F540];
+  v21[0] = @"Active";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v23[0] = commonTypeDict_BoolFormat;
-  v22[1] = @"OutputCategory";
+  v22[0] = commonTypeDict_BoolFormat;
+  v21[1] = @"OutputCategory";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat];
-  v23[1] = commonTypeDict_StringFormat;
-  v22[2] = @"ActiveRoute";
+  v22[1] = commonTypeDict_StringFormat;
+  v21[2] = @"ActiveRoute";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_StringFormat];
-  v23[2] = commonTypeDict_StringFormat2;
-  v22[3] = @"HeadphonesConnected";
+  v22[2] = commonTypeDict_StringFormat2;
+  v21[3] = @"HeadphonesConnected";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat2 = [mEMORY[0x277D3F198]4 commonTypeDict_BoolFormat];
-  v23[3] = commonTypeDict_BoolFormat2;
-  v22[4] = @"HeadsetHasInput";
+  v22[3] = commonTypeDict_BoolFormat2;
+  v21[4] = @"HeadsetHasInput";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat3 = [mEMORY[0x277D3F198]5 commonTypeDict_BoolFormat];
-  v23[4] = commonTypeDict_BoolFormat3;
-  v22[5] = @"AudioSessionID";
+  v22[4] = commonTypeDict_BoolFormat3;
+  v21[5] = @"AudioSessionID";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-  v23[5] = commonTypeDict_IntegerFormat;
-  v22[6] = @"BTEndpointType";
+  v22[5] = commonTypeDict_IntegerFormat;
+  v21[6] = @"BTEndpointType";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat3 = [mEMORY[0x277D3F198]7 commonTypeDict_StringFormat];
-  v23[6] = commonTypeDict_StringFormat3;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:7];
-  v27[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v22[6] = commonTypeDict_StringFormat3;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:7];
+  v26[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
 
   return v12;
 }
 
 + (id)entryEventForwardDefinitionNowPlaying
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  v16[0] = *MEMORY[0x277D3F4E8];
+  v16[2] = *MEMORY[0x277D85DE8];
+  v15[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4A0];
-  v14[0] = *MEMORY[0x277D3F568];
-  v14[1] = v2;
-  v15[0] = &unk_282C1C548;
-  v15[1] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-  v17[0] = v3;
-  v16[1] = *MEMORY[0x277D3F540];
-  v12[0] = @"BundleID";
+  v13[0] = *MEMORY[0x277D3F568];
+  v13[1] = v2;
+  v14[0] = &unk_282C1C548;
+  v14[1] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v16[0] = v3;
+  v15[1] = *MEMORY[0x277D3F540];
+  v11[0] = @"BundleID";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198] commonTypeDict_StringFormat_withBundleID];
-  v12[1] = @"State";
-  v13[0] = commonTypeDict_StringFormat_withBundleID;
+  v11[1] = @"State";
+  v12[0] = commonTypeDict_StringFormat_withBundleID;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v13[1] = commonTypeDict_IntegerFormat;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v17[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = commonTypeDict_IntegerFormat;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v16[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
   return v9;
 }
 
 + (id)entryEventForwardDefinitionMutedTalkerDetection
 {
-  v14[2] = *MEMORY[0x277D85DE8];
-  v13[0] = *MEMORY[0x277D3F4E8];
-  v11 = *MEMORY[0x277D3F568];
-  v12 = &unk_282C1C548;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-  v14[0] = v2;
-  v13[1] = *MEMORY[0x277D3F540];
-  v9 = @"Muted";
+  v13[2] = *MEMORY[0x277D85DE8];
+  v12[0] = *MEMORY[0x277D3F4E8];
+  v10 = *MEMORY[0x277D3F568];
+  v11 = &unk_282C1C548;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  v13[0] = v2;
+  v12[1] = *MEMORY[0x277D3F540];
+  v8 = @"Muted";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v10 = commonTypeDict_BoolFormat;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
-  v14[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9 = commonTypeDict_BoolFormat;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+  v13[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   return v6;
 }
 
 + (id)entryEventForwardDefinitionHapticsRunningCount
 {
-  v18[2] = *MEMORY[0x277D85DE8];
-  v17[0] = *MEMORY[0x277D3F4E8];
-  v15 = *MEMORY[0x277D3F568];
-  v16 = &unk_282C1C568;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-  v18[0] = v2;
-  v17[1] = *MEMORY[0x277D3F540];
-  v13[0] = @"RunningCount";
+  v17[2] = *MEMORY[0x277D85DE8];
+  v16[0] = *MEMORY[0x277D3F4E8];
+  v14 = *MEMORY[0x277D3F568];
+  v15 = &unk_282C1C568;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+  v17[0] = v2;
+  v16[1] = *MEMORY[0x277D3F540];
+  v12[0] = @"RunningCount";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v14[0] = commonTypeDict_IntegerFormat;
-  v13[1] = @"pid";
+  v13[0] = commonTypeDict_IntegerFormat;
+  v12[1] = @"pid";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v14[1] = commonTypeDict_IntegerFormat2;
-  v13[2] = @"subsystem";
+  v13[1] = commonTypeDict_IntegerFormat2;
+  v12[2] = @"subsystem";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v14[2] = commonTypeDict_IntegerFormat3;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
-  v18[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[2] = commonTypeDict_IntegerFormat3;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v17[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
 
   return v10;
 }
 
 + (id)entryEventForwardDefinitionHapticsPrewarmCount
 {
-  v21[2] = *MEMORY[0x277D85DE8];
-  v20[0] = *MEMORY[0x277D3F4E8];
+  v20[2] = *MEMORY[0x277D85DE8];
+  v19[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4F0];
-  v18[0] = *MEMORY[0x277D3F568];
-  v18[1] = v2;
-  v19[0] = &unk_282C1C548;
-  v19[1] = &unk_282C14C40;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
-  v21[0] = v15;
-  v20[1] = *MEMORY[0x277D3F540];
-  v16[0] = @"PrewarmCount";
+  v17[0] = *MEMORY[0x277D3F568];
+  v17[1] = v2;
+  v18[0] = &unk_282C1C548;
+  v18[1] = &unk_282C14C40;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v20[0] = v14;
+  v19[1] = *MEMORY[0x277D3F540];
+  v15[0] = @"PrewarmCount";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v17[0] = commonTypeDict_IntegerFormat;
-  v16[1] = @"pid";
+  v16[0] = commonTypeDict_IntegerFormat;
+  v15[1] = @"pid";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v17[1] = commonTypeDict_IntegerFormat2;
-  v16[2] = @"subsystem";
+  v16[1] = commonTypeDict_IntegerFormat2;
+  v15[2] = @"subsystem";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v17[2] = commonTypeDict_IntegerFormat3;
-  v16[3] = @"process";
+  v16[2] = commonTypeDict_IntegerFormat3;
+  v15[3] = @"process";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withProcessName = [mEMORY[0x277D3F198]4 commonTypeDict_StringFormat_withProcessName];
-  v17[3] = commonTypeDict_StringFormat_withProcessName;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
-  v21[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v16[3] = commonTypeDict_StringFormat_withProcessName;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v20[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
 
   return v12;
 }
 
 + (id)entryEventIntervalDefinitions
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"ShazamRecording";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"ShazamRecording";
   v3 = +[PLAudioAgent entryEventIntervalDefinitionShazamRecording];
-  v10[0] = v3;
-  v9[1] = @"RMSLogging";
+  v9[0] = v3;
+  v8[1] = @"RMSLogging";
   entryEventIntervalDefinitionRMSLogging = [self entryEventIntervalDefinitionRMSLogging];
-  v10[1] = entryEventIntervalDefinitionRMSLogging;
-  v9[2] = @"CoreAudioVAD";
+  v9[1] = entryEventIntervalDefinitionRMSLogging;
+  v8[2] = @"CoreAudioVAD";
   entryEventIntervalDefinitionCoreAudioVAD = [self entryEventIntervalDefinitionCoreAudioVAD];
-  v10[2] = entryEventIntervalDefinitionCoreAudioVAD;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = entryEventIntervalDefinitionCoreAudioVAD;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
 
 + (id)entryEventIntervalDefinitionShazamRecording
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  v16[0] = *MEMORY[0x277D3F4E8];
+  v16[2] = *MEMORY[0x277D85DE8];
+  v15[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4A0];
-  v14[0] = *MEMORY[0x277D3F568];
-  v14[1] = v2;
-  v15[0] = &unk_282C1C548;
-  v15[1] = MEMORY[0x277CBEC38];
-  v14[2] = *MEMORY[0x277D3F4F0];
-  v15[2] = &unk_282C14C58;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
-  v17[0] = v3;
-  v16[1] = *MEMORY[0x277D3F540];
-  v12[0] = @"timestampEnd";
+  v13[0] = *MEMORY[0x277D3F568];
+  v13[1] = v2;
+  v14[0] = &unk_282C1C548;
+  v14[1] = MEMORY[0x277CBEC38];
+  v13[2] = *MEMORY[0x277D3F4F0];
+  v14[2] = &unk_282C14C58;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v16[0] = v3;
+  v15[1] = *MEMORY[0x277D3F540];
+  v11[0] = @"timestampEnd";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198] commonTypeDict_DateFormat];
-  v12[1] = @"BundleID";
-  v13[0] = commonTypeDict_DateFormat;
+  v11[1] = @"BundleID";
+  v12[0] = commonTypeDict_DateFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat_withBundleID];
-  v13[1] = commonTypeDict_StringFormat_withBundleID;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v17[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = commonTypeDict_StringFormat_withBundleID;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v16[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
   return v9;
 }
 
 + (id)entryEventIntervalDefinitionRMSLogging
 {
-  v33[2] = *MEMORY[0x277D85DE8];
-  v32[0] = *MEMORY[0x277D3F4E8];
+  v32[2] = *MEMORY[0x277D85DE8];
+  v31[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4A0];
-  v30[0] = *MEMORY[0x277D3F568];
-  v30[1] = v2;
-  v31[0] = &unk_282C1C578;
-  v31[1] = MEMORY[0x277CBEC38];
-  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
-  v33[0] = v27;
-  v32[1] = *MEMORY[0x277D3F540];
-  v28[0] = @"timestampEnd";
+  v29[0] = *MEMORY[0x277D3F568];
+  v29[1] = v2;
+  v30[0] = &unk_282C1C578;
+  v30[1] = MEMORY[0x277CBEC38];
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
+  v32[0] = v26;
+  v31[1] = *MEMORY[0x277D3F540];
+  v27[0] = @"timestampEnd";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198] commonTypeDict_DateFormat];
-  v29[0] = commonTypeDict_DateFormat;
-  v28[1] = @"ApplicationName";
+  v28[0] = commonTypeDict_DateFormat;
+  v27[1] = @"ApplicationName";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat_withBundleID];
-  v29[1] = commonTypeDict_StringFormat_withBundleID;
-  v28[2] = @"maxRms";
+  v28[1] = commonTypeDict_StringFormat_withBundleID;
+  v27[2] = @"maxRms";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat = [mEMORY[0x277D3F198]3 commonTypeDict_RealFormat];
-  v29[2] = commonTypeDict_RealFormat;
-  v28[3] = @"minRms";
+  v28[2] = commonTypeDict_RealFormat;
+  v27[3] = @"minRms";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat2 = [mEMORY[0x277D3F198]4 commonTypeDict_RealFormat];
-  v29[3] = commonTypeDict_RealFormat2;
-  v28[4] = @"silence_duration";
+  v28[3] = commonTypeDict_RealFormat2;
+  v27[4] = @"silence_duration";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-  v29[4] = commonTypeDict_IntegerFormat;
-  v28[5] = @"quiet_duration";
+  v28[4] = commonTypeDict_IntegerFormat;
+  v27[5] = @"quiet_duration";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-  v29[5] = commonTypeDict_IntegerFormat2;
-  v28[6] = @"audible_duration";
+  v28[5] = commonTypeDict_IntegerFormat2;
+  v27[6] = @"audible_duration";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat];
-  v29[6] = commonTypeDict_IntegerFormat3;
-  v28[7] = @"node";
+  v28[6] = commonTypeDict_IntegerFormat3;
+  v27[7] = @"node";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]8 commonTypeDict_StringFormat];
-  v29[7] = commonTypeDict_StringFormat;
-  v28[8] = @"pid";
+  v28[7] = commonTypeDict_StringFormat;
+  v27[8] = @"pid";
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]9 commonTypeDict_IntegerFormat];
-  v29[8] = commonTypeDict_IntegerFormat4;
-  v28[9] = @"reporterID";
+  v28[8] = commonTypeDict_IntegerFormat4;
+  v27[9] = @"reporterID";
   mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]10 commonTypeDict_IntegerFormat];
-  v29[9] = commonTypeDict_IntegerFormat5;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:10];
-  v33[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v28[9] = commonTypeDict_IntegerFormat5;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:10];
+  v32[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
 
   return v12;
 }
 
 + (id)entryEventIntervalDefinitionCoreAudioVAD
 {
-  v28[2] = *MEMORY[0x277D85DE8];
-  v27[0] = *MEMORY[0x277D3F4E8];
-  v25 = *MEMORY[0x277D3F568];
-  v26 = &unk_282C1C538;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-  v28[0] = v22;
-  v27[1] = *MEMORY[0x277D3F540];
-  v23[0] = @"Client";
+  v27[2] = *MEMORY[0x277D85DE8];
+  v26[0] = *MEMORY[0x277D3F4E8];
+  v24 = *MEMORY[0x277D3F568];
+  v25 = &unk_282C1C538;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+  v27[0] = v21;
+  v26[1] = *MEMORY[0x277D3F540];
+  v22[0] = @"Client";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v24[0] = commonTypeDict_StringFormat;
-  v23[1] = @"ClientID";
+  v23[0] = commonTypeDict_StringFormat;
+  v22[1] = @"ClientID";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat];
-  v24[1] = commonTypeDict_StringFormat2;
-  v23[2] = @"StartTime";
+  v23[1] = commonTypeDict_StringFormat2;
+  v22[2] = @"StartTime";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198]3 commonTypeDict_DateFormat];
-  v24[2] = commonTypeDict_DateFormat;
-  v23[3] = @"EndTime";
+  v23[2] = commonTypeDict_DateFormat;
+  v22[3] = @"EndTime";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat2 = [mEMORY[0x277D3F198]4 commonTypeDict_DateFormat];
-  v24[3] = commonTypeDict_DateFormat2;
-  v23[4] = @"State";
+  v23[3] = commonTypeDict_DateFormat2;
+  v22[4] = @"State";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-  v24[4] = commonTypeDict_IntegerFormat;
-  v23[5] = @"Device";
+  v23[4] = commonTypeDict_IntegerFormat;
+  v22[5] = @"Device";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat3 = [mEMORY[0x277D3F198]6 commonTypeDict_StringFormat];
-  v24[5] = commonTypeDict_StringFormat3;
-  v23[6] = @"SID";
+  v23[5] = commonTypeDict_StringFormat3;
+  v22[6] = @"SID";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat4 = [mEMORY[0x277D3F198]7 commonTypeDict_StringFormat];
-  v24[6] = commonTypeDict_StringFormat4;
-  v23[7] = @"LifespanInSeconds";
+  v23[6] = commonTypeDict_StringFormat4;
+  v22[7] = @"LifespanInSeconds";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]8 commonTypeDict_IntegerFormat];
-  v24[7] = commonTypeDict_IntegerFormat2;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:8];
-  v28[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v23[7] = commonTypeDict_IntegerFormat2;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:8];
+  v27[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
 
   return v11;
 }
@@ -1055,8 +1014,8 @@ void __40__PLAudioAgent_initOperatorDependancies__block_invoke_284(uint64_t a1, 
   v8 = [MEMORY[0x277CCABB0] numberWithBool:{-[PLAudioAgent audioIsActive](self, "audioIsActive")}];
   [v6 setObject:v8 forKeyedSubscript:@"State"];
 
-  storage = [(PLOperator *)self storage];
-  v10 = [storage lastEntryForKey:v18];
+  v9 = objc_msgSend_storage(self);
+  v10 = [v9 lastEntryForKey:v18];
 
   if (!v10)
   {
@@ -1093,8 +1052,8 @@ LABEL_8:
 
 - (void)setupAVSystemController
 {
-  v80[4] = *MEMORY[0x277D85DE8];
-  v51 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v79[4] = *MEMORY[0x277D85DE8];
+  v50 = objc_alloc_init(MEMORY[0x277CBEB18]);
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter removeObserver:self name:*MEMORY[0x277D26D40] object:0];
 
@@ -1117,141 +1076,141 @@ LABEL_8:
   self->_entryRoutingOld = v12;
 
   v14 = *MEMORY[0x277D26BF0];
-  v80[0] = *MEMORY[0x277D26DE8];
-  v80[1] = v14;
+  v79[0] = *MEMORY[0x277D26DE8];
+  v79[1] = v14;
   v15 = *MEMORY[0x277D26CA0];
-  v80[2] = *MEMORY[0x277D26C20];
-  v80[3] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:4];
+  v79[2] = *MEMORY[0x277D26C20];
+  v79[3] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:4];
   v17 = *MEMORY[0x277D26B50];
-  v79[0] = *MEMORY[0x277D26DA8];
-  v79[1] = v17;
+  v78[0] = *MEMORY[0x277D26DA8];
+  v78[1] = v17;
   v18 = *MEMORY[0x277D26C10];
-  v79[2] = *MEMORY[0x277D26DE0];
-  v79[3] = v18;
-  v79[4] = *MEMORY[0x277D26B00];
-  v54 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:5];
-  v78 = *MEMORY[0x277D26C38];
-  v52 = [MEMORY[0x277CBEA60] arrayWithObjects:&v78 count:1];
+  v78[2] = *MEMORY[0x277D26DE0];
+  v78[3] = v18;
+  v78[4] = *MEMORY[0x277D26B00];
+  v53 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:5];
+  v77 = *MEMORY[0x277D26C38];
+  v51 = [MEMORY[0x277CBEA60] arrayWithObjects:&v77 count:1];
+  v68 = 0u;
   v69 = 0u;
   v70 = 0u;
   v71 = 0u;
-  v72 = 0u;
   obj = v16;
-  v19 = [obj countByEnumeratingWithState:&v69 objects:v77 count:16];
+  v19 = [obj countByEnumeratingWithState:&v68 objects:v76 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v70;
+    v21 = *v69;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v70 != v21)
+        if (*v69 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v69 + 1) + 8 * i);
+        v23 = *(*(&v68 + 1) + 8 * i);
         nsOutputNotifications = [(PLAudioAgent *)self nsOutputNotifications];
         v25 = objc_alloc(MEMORY[0x277D3F1F0]);
-        v68[0] = MEMORY[0x277D85DD0];
-        v68[1] = 3221225472;
-        v68[2] = __39__PLAudioAgent_setupAVSystemController__block_invoke;
-        v68[3] = &unk_2782597E8;
-        v68[4] = self;
-        v26 = [v25 initWithOperator:self forNotification:v23 withBlock:v68];
+        v67[0] = MEMORY[0x277D85DD0];
+        v67[1] = 3221225472;
+        v67[2] = __39__PLAudioAgent_setupAVSystemController__block_invoke;
+        v67[3] = &unk_2782597E8;
+        v67[4] = self;
+        v26 = [v25 initWithOperator:self forNotification:v23 withBlock:v67];
         [nsOutputNotifications addObject:v26];
       }
 
-      v20 = [obj countByEnumeratingWithState:&v69 objects:v77 count:16];
+      v20 = [obj countByEnumeratingWithState:&v68 objects:v76 count:16];
     }
 
     while (v20);
   }
 
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
   v65 = 0u;
-  v55 = v54;
-  v27 = [v55 countByEnumeratingWithState:&v64 objects:v76 count:16];
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
+  v54 = v53;
+  v27 = [v54 countByEnumeratingWithState:&v63 objects:v75 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v65;
+    v29 = *v64;
     do
     {
       for (j = 0; j != v28; ++j)
       {
-        if (*v65 != v29)
+        if (*v64 != v29)
         {
-          objc_enumerationMutation(v55);
+          objc_enumerationMutation(v54);
         }
 
-        v31 = *(*(&v64 + 1) + 8 * j);
+        v31 = *(*(&v63 + 1) + 8 * j);
         nsOutputNotifications2 = [(PLAudioAgent *)self nsOutputNotifications];
         v33 = objc_alloc(MEMORY[0x277D3F1F0]);
-        v63[0] = MEMORY[0x277D85DD0];
-        v63[1] = 3221225472;
-        v63[2] = __39__PLAudioAgent_setupAVSystemController__block_invoke_220;
-        v63[3] = &unk_2782597E8;
-        v63[4] = self;
-        v34 = [v33 initWithOperator:self forNotification:v31 withBlock:v63];
+        v62[0] = MEMORY[0x277D85DD0];
+        v62[1] = 3221225472;
+        v62[2] = __39__PLAudioAgent_setupAVSystemController__block_invoke_220;
+        v62[3] = &unk_2782597E8;
+        v62[4] = self;
+        v34 = [v33 initWithOperator:self forNotification:v31 withBlock:v62];
         [nsOutputNotifications2 addObject:v34];
       }
 
-      v28 = [v55 countByEnumeratingWithState:&v64 objects:v76 count:16];
+      v28 = [v54 countByEnumeratingWithState:&v63 objects:v75 count:16];
     }
 
     while (v28);
   }
 
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
-  v53 = v52;
-  v35 = [v53 countByEnumeratingWithState:&v59 objects:v75 count:16];
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v52 = v51;
+  v35 = [v52 countByEnumeratingWithState:&v58 objects:v74 count:16];
   if (v35)
   {
     v36 = v35;
-    v37 = *v60;
+    v37 = *v59;
     do
     {
       for (k = 0; k != v36; ++k)
       {
-        if (*v60 != v37)
+        if (*v59 != v37)
         {
-          objc_enumerationMutation(v53);
+          objc_enumerationMutation(v52);
         }
 
-        v39 = *(*(&v59 + 1) + 8 * k);
+        v39 = *(*(&v58 + 1) + 8 * k);
         nsOutputNotifications3 = [(PLAudioAgent *)self nsOutputNotifications];
         v41 = objc_alloc(MEMORY[0x277D3F1F0]);
-        v58[0] = MEMORY[0x277D85DD0];
-        v58[1] = 3221225472;
-        v58[2] = __39__PLAudioAgent_setupAVSystemController__block_invoke_224;
-        v58[3] = &unk_2782597E8;
-        v58[4] = self;
-        v42 = [v41 initWithOperator:self forNotification:v39 withBlock:v58];
+        v57[0] = MEMORY[0x277D85DD0];
+        v57[1] = 3221225472;
+        v57[2] = __39__PLAudioAgent_setupAVSystemController__block_invoke_224;
+        v57[3] = &unk_2782597E8;
+        v57[4] = self;
+        v42 = [v41 initWithOperator:self forNotification:v39 withBlock:v57];
         [nsOutputNotifications3 addObject:v42];
       }
 
-      v36 = [v53 countByEnumeratingWithState:&v59 objects:v75 count:16];
+      v36 = [v52 countByEnumeratingWithState:&v58 objects:v74 count:16];
     }
 
     while (v36);
   }
 
-  [v51 addObjectsFromArray:obj];
-  [v51 addObjectsFromArray:v55];
-  [v51 addObjectsFromArray:v53];
+  [v50 addObjectsFromArray:obj];
+  [v50 addObjectsFromArray:v54];
+  [v50 addObjectsFromArray:v52];
   mEMORY[0x277D26E58]2 = [MEMORY[0x277D26E58] sharedInstance];
   v44 = *MEMORY[0x277D26DD0];
-  v57 = 0;
-  [mEMORY[0x277D26E58]2 setAttribute:v51 forKey:v44 error:&v57];
-  v45 = v57;
+  v56 = 0;
+  [mEMORY[0x277D26E58]2 setAttribute:v50 forKey:v44 error:&v56];
+  v45 = v56;
 
   if (v45)
   {
@@ -1259,7 +1218,7 @@ LABEL_8:
     if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v74 = v45;
+      v73 = v45;
       _os_log_error_impl(&dword_21A4C6000, v46, OS_LOG_TYPE_ERROR, "setupAVSystemController error setting subscribeToAVSCNotifications attribute: %@", buf, 0xCu);
     }
   }
@@ -1270,27 +1229,24 @@ LABEL_8:
   monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
   lastAudioStateChangeDate = self->_lastAudioStateChangeDate;
   self->_lastAudioStateChangeDate = monotonicDate;
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 void __39__PLAudioAgent_setupAVSystemController__block_invoke_224(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = PLLogAudio();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412546;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v5;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "setupAVSystemController Trigger from nowPlaying %@: %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v5;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "setupAVSystemController Trigger from nowPlaying %@: %@", &v8, 0x16u);
   }
 
   [*(a1 + 32) handleNowPlayingApplicationIsPlayingDidChange:v5];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)returnVolumeOrOutPutCategory:(int)category
@@ -1501,161 +1457,150 @@ LABEL_9:
 
 void __40__PLAudioAgent_initOperatorDependancies__block_invoke_260(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogAudio();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "got callback! %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "got callback! %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventPointAudioApp:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __40__PLAudioAgent_initOperatorDependancies__block_invoke_269(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogAudio();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "got callback! %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "got callback! %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventPointAudioApp:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __40__PLAudioAgent_initOperatorDependancies__block_invoke_292(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogAudio();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "got callback! %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "got callback! %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventPointHapticsAssertion:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __40__PLAudioAgent_initOperatorDependancies__block_invoke_300(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogAudio();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "got callback! %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "got callback! %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventIntervalRMSLogging:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __40__PLAudioAgent_initOperatorDependancies__block_invoke_320(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogAudio();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "Got callback for CoreAudioVAD payload: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "Got callback for CoreAudioVAD payload: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventIntervalCoreAudioVAD:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __40__PLAudioAgent_initOperatorDependancies__block_invoke_327(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogAudio();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "Got callback for PLAudioAgent_EventInterval_ShazamRecording: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "Got callback for PLAudioAgent_EventInterval_ShazamRecording: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventIntervalShazamRecording:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __40__PLAudioAgent_initOperatorDependancies__block_invoke_332(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogAudio();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "MutedTalkerDetection payload: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "MutedTalkerDetection payload: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardMutedTalkerDetection:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __40__PLAudioAgent_initOperatorDependancies__block_invoke_342(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogAudio();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "Audio Sing payload: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "Audio Sing payload: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardSing:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __40__PLAudioAgent_initOperatorDependancies__block_invoke_350(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogAudio();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "Audio SongTransitions payload: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "Audio SongTransitions payload: %@", &v8, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardSongTransitions:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __40__PLAudioAgent_initOperatorDependancies__block_invoke_362(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = PLLogCommon();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_debug_impl(&dword_21A4C6000, v3, OS_LOG_TYPE_DEBUG, "Notification from ThermalMonitor: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_debug_impl(&dword_21A4C6000, v3, OS_LOG_TYPE_DEBUG, "Notification from ThermalMonitor: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)buildCallBack:(id)back withGroup:(BOOL)group withHandler:(id)handler
@@ -1822,7 +1767,7 @@ LABEL_8:
 
 - (void)logEventForwardAudioDevice:(id)device
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   v5 = [(PLOperator *)PLAudioAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"AudioDevice"];
   v6 = objc_alloc(MEMORY[0x277D3F190]);
@@ -1856,15 +1801,13 @@ LABEL_8:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       lastUpdateTime2 = [deviceCopy lastUpdateTime];
-      v19 = 138412546;
-      v20 = lastUpdateTime2;
-      v21 = 2112;
-      v22 = v8;
-      _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "AudioDevice changed: %@, %@", &v19, 0x16u);
+      v18 = 138412546;
+      v19 = lastUpdateTime2;
+      v20 = 2112;
+      v21 = v8;
+      _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "AudioDevice changed: %@, %@", &v18, 0x16u);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logEventForwardHapticsRunningCount:(id)count
@@ -2016,7 +1959,7 @@ LABEL_8:
 
 - (void)logEventIntervalCoreAudioVAD:(id)d
 {
-  v72[1] = *MEMORY[0x277D85DE8];
+  v71[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = [dCopy objectForKeyedSubscript:@"State"];
   intValue = [v5 intValue];
@@ -2026,11 +1969,11 @@ LABEL_8:
   v9 = [dCopy objectForKeyedSubscript:@"ClientID"];
   v10 = [dCopy objectForKeyedSubscript:@"Client"];
   v11 = [v8 stringWithFormat:@"EndTime IS NULL AND ClientID = '%@' AND Client = '%@'", v9, v10];
-  v72[0] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:1];
+  v71[0] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:1];
 
-  storage = [(PLOperator *)self storage];
-  v14 = [storage lastEntryForKey:v7 withFilters:v12];
+  v13 = objc_msgSend_storage(self);
+  v14 = [v13 lastEntryForKey:v7 withFilters:v12];
 
   if (intValue == 1)
   {
@@ -2040,21 +1983,21 @@ LABEL_8:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109378;
-        LODWORD(v71[0]) = 1;
-        WORD2(v71[0]) = 2112;
-        *(v71 + 6) = v14;
+        LODWORD(v70[0]) = 1;
+        WORD2(v70[0]) = 2112;
+        *(v70 + 6) = v14;
         _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "CoreAudioVad Active Session state = %d, will update existing table openEntry = %@", buf, 0x12u);
       }
 
-      v67[0] = MEMORY[0x277D85DD0];
-      v67[1] = 3221225472;
-      v67[2] = __45__PLAudioAgent_logEventIntervalCoreAudioVAD___block_invoke;
-      v67[3] = &unk_278259658;
-      v68 = v14;
-      v69 = dCopy;
-      [(PLOperator *)self updateEntry:v68 withBlock:v67];
+      v66[0] = MEMORY[0x277D85DD0];
+      v66[1] = 3221225472;
+      v66[2] = __45__PLAudioAgent_logEventIntervalCoreAudioVAD___block_invoke;
+      v66[3] = &unk_278259658;
+      v67 = v14;
+      v68 = dCopy;
+      [(PLOperator *)self updateEntry:v67 withBlock:v66];
 
-      v16 = v68;
+      v16 = v67;
     }
 
     else
@@ -2090,9 +2033,9 @@ LABEL_8:
       if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109378;
-        LODWORD(v71[0]) = 1;
-        WORD2(v71[0]) = 2112;
-        *(v71 + 6) = v16;
+        LODWORD(v70[0]) = 1;
+        WORD2(v70[0]) = 2112;
+        *(v70 + 6) = v16;
         _os_log_debug_impl(&dword_21A4C6000, v35, OS_LOG_TYPE_DEBUG, "CoreAudioVad Active Session state = %d, creating new table entry =  %@", buf, 0x12u);
       }
 
@@ -2109,21 +2052,21 @@ LABEL_8:
       if (v18)
       {
         *buf = 67109378;
-        LODWORD(v71[0]) = intValue;
-        WORD2(v71[0]) = 2112;
-        *(v71 + 6) = v14;
+        LODWORD(v70[0]) = intValue;
+        WORD2(v70[0]) = 2112;
+        *(v70 + 6) = v14;
         _os_log_debug_impl(&dword_21A4C6000, v17, OS_LOG_TYPE_DEBUG, "CoreAudioVad state = %d Found OpenEntry openEntry = %@", buf, 0x12u);
       }
 
-      v64[0] = MEMORY[0x277D85DD0];
-      v64[1] = 3221225472;
-      v64[2] = __45__PLAudioAgent_logEventIntervalCoreAudioVAD___block_invoke_430;
-      v64[3] = &unk_278259658;
-      v65 = dCopy;
-      v66 = v14;
-      [(PLOperator *)self updateEntry:v66 withBlock:v64];
+      v63[0] = MEMORY[0x277D85DD0];
+      v63[1] = 3221225472;
+      v63[2] = __45__PLAudioAgent_logEventIntervalCoreAudioVAD___block_invoke_430;
+      v63[3] = &unk_278259658;
+      v64 = dCopy;
+      v65 = v14;
+      [(PLOperator *)self updateEntry:v65 withBlock:v63];
 
-      v16 = v65;
+      v16 = v64;
     }
 
     else
@@ -2132,7 +2075,7 @@ LABEL_8:
       if (v18)
       {
         *buf = 138412290;
-        v71[0] = dCopy;
+        v70[0] = dCopy;
         _os_log_debug_impl(&dword_21A4C6000, v17, OS_LOG_TYPE_DEBUG, "CoreAudioVad Didn't find OpenEntry, payload = %@", buf, 0xCu);
       }
 
@@ -2145,7 +2088,7 @@ LABEL_8:
       convertFromSystemToMonotonic2 = [v38 convertFromSystemToMonotonic];
 
       v40 = MEMORY[0x277CBEAA8];
-      v61 = convertFromSystemToMonotonic2;
+      v60 = convertFromSystemToMonotonic2;
       [convertFromSystemToMonotonic2 timeIntervalSince1970];
       v42 = [v40 dateWithTimeIntervalSince1970:round(v41 / 60.0) * 60.0];
       [v16 setObject:v42 forKeyedSubscript:@"StartTime"];
@@ -2179,20 +2122,18 @@ LABEL_8:
       if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v71[0] = v16;
+        v70[0] = v16;
         _os_log_debug_impl(&dword_21A4C6000, v59, OS_LOG_TYPE_DEBUG, "CoreAudioVad Didn't find OpenEntry calling logEntry entry = %@", buf, 0xCu);
       }
 
       [(PLOperator *)selfCopy2 logEntry:v16];
     }
   }
-
-  v60 = *MEMORY[0x277D85DE8];
 }
 
 void __45__PLAudioAgent_logEventIntervalCoreAudioVAD___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCABB0];
   v3 = [*(a1 + 40) objectForKeyedSubscript:@"LifespanInSeconds"];
   v4 = [v2 numberWithDouble:{round(objc_msgSend(v3, "intValue") / 60.0) * 60.0}];
@@ -2201,18 +2142,16 @@ void __45__PLAudioAgent_logEventIntervalCoreAudioVAD___block_invoke(uint64_t a1)
   v5 = PLLogAudio();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 32);
-    v8 = 138412290;
-    v9 = v7;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "CoreAudioVad updated openEntry = %@", &v8, 0xCu);
+    v6 = *(a1 + 32);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "CoreAudioVad updated openEntry = %@", &v7, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __45__PLAudioAgent_logEventIntervalCoreAudioVAD___block_invoke_430(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEAA8];
   v3 = [*(a1 + 32) objectForKeyedSubscript:@"EndTime"];
   [v3 doubleValue];
@@ -2236,13 +2175,11 @@ void __45__PLAudioAgent_logEventIntervalCoreAudioVAD___block_invoke_430(uint64_t
   v13 = PLLogAudio();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v15 = *(a1 + 40);
-    v16 = 138412290;
-    v17 = v15;
-    _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "CoreAudioVad updateEntry:openEntry = %@", &v16, 0xCu);
+    v14 = *(a1 + 40);
+    v15 = 138412290;
+    v16 = v14;
+    _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "CoreAudioVad updateEntry:openEntry = %@", &v15, 0xCu);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldModelAudioPowerSpeakerTemp
@@ -2318,7 +2255,8 @@ uint64_t __48__PLAudioAgent_shouldModelAudioPowerSpeakerTemp__block_invoke()
 - (void)modelAudioPowerSpeaker:(id)speaker
 {
   speakerCopy = speaker;
-  if (([MEMORY[0x277D3F208] isHomePod] & 1) == 0)
+  isHomePod = [MEMORY[0x277D3F208] isHomePod];
+  if ((isHomePod & 1) == 0)
   {
     if (!speakerCopy)
     {
@@ -2335,35 +2273,35 @@ uint64_t __48__PLAudioAgent_shouldModelAudioPowerSpeakerTemp__block_invoke()
     if ([(PLAudioAgent *)self speakerIsPlayingAudio])
     {
       lastAudioStateChangeDate = [(PLOperator *)PLAudioAgent entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"SpeakerAmp"];
-      storage = [(PLOperator *)self storage];
-      v7 = [storage lastEntryForKey:lastAudioStateChangeDate];
+      v7 = objc_msgSend_storage(self);
+      v8 = [v7 lastEntryForKey:lastAudioStateChangeDate];
 
       entryDate2 = [speakerCopy entryDate];
-      v9 = [entryDate2 dateByAddingTimeInterval:-60.0];
+      v10 = [entryDate2 dateByAddingTimeInterval:-60.0];
 
-      mEMORY[0x277D3F0C0]2 = [v9 laterDate:self->_lastAudioStateChangeDate];
+      mEMORY[0x277D3F0C0]2 = [v10 laterDate:self->_lastAudioStateChangeDate];
 
-      if (v7)
+      if (v8)
       {
-        entryDate3 = [v7 entryDate];
-        v12 = [mEMORY[0x277D3F0C0]2 laterDate:entryDate3];
+        entryDate3 = [v8 entryDate];
+        v13 = [mEMORY[0x277D3F0C0]2 laterDate:entryDate3];
 
-        mEMORY[0x277D3F0C0]2 = v12;
+        mEMORY[0x277D3F0C0]2 = v13;
       }
 
-      v13 = [speakerCopy objectForKeyedSubscript:@"Avg Watts Modelled"];
-      [v13 doubleValue];
-      [(PLAudioAgent *)self convertSpeakerProtectionModeledPowerToTotalSpeakerPower:v14 * 1000.0];
-      v16 = v15;
+      v14 = [speakerCopy objectForKeyedSubscript:@"Avg Watts Modelled"];
+      [v14 doubleValue];
+      [(PLAudioAgent *)self convertSpeakerProtectionModeledPowerToTotalSpeakerPower:v15 * 1000.0];
+      v17 = v16;
 
       mEMORY[0x277D3F0C0] = [MEMORY[0x277D3F0C0] sharedInstance];
-      [mEMORY[0x277D3F0C0] createPowerEventForwardWithRootNodeID:15 withPower:mEMORY[0x277D3F0C0]2 withStartDate:v16];
+      [mEMORY[0x277D3F0C0] createPowerEventForwardWithRootNodeID:15 withPower:mEMORY[0x277D3F0C0]2 withStartDate:v17];
 
       goto LABEL_11;
     }
 
-    v18 = [speakerCopy objectForKeyedSubscript:@"Avg Watts Modelled"];
-    if (!v18 || (v19 = v18, [speakerCopy objectForKeyedSubscript:@"Avg Watts Modelled"], v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "doubleValue"), v22 = v21, v20, v19, v22 <= 0.0))
+    v19 = [speakerCopy objectForKeyedSubscript:@"Avg Watts Modelled"];
+    if (!v19 || (v20 = v19, [speakerCopy objectForKeyedSubscript:@"Avg Watts Modelled"], v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "doubleValue"), v23 = v22, v21, v20, v23 <= 0.0))
     {
 LABEL_10:
       mEMORY[0x277D3F0C0]2 = [MEMORY[0x277D3F0C0] sharedInstance];
@@ -2373,7 +2311,7 @@ LABEL_11:
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](isHomePod);
 }
 
 - (double)convertSpeakerProtectionModeledPowerToTotalSpeakerPower:(double)power
@@ -2720,7 +2658,7 @@ LABEL_75:
 
 - (double)audioPowerForRoute:(id)route forVolume:(double)volume
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   routeCopy = route;
   isHomePod = [MEMORY[0x277D3F208] isHomePod];
   v8 = 0.0;
@@ -2772,28 +2710,28 @@ LABEL_75:
         allKeys2 = [v18 allKeys];
         v26 = [allKeys2 sortedArrayUsingSelector:sel_compareFloat_];
 
-        v57 = 0u;
-        v58 = 0u;
-        v55 = 0u;
         v56 = 0u;
+        v57 = 0u;
+        v54 = 0u;
+        v55 = 0u;
         routeCopy = v26;
-        v27 = [routeCopy countByEnumeratingWithState:&v55 objects:v61 count:16];
+        v27 = [routeCopy countByEnumeratingWithState:&v54 objects:v60 count:16];
         if (v27)
         {
           v28 = v27;
           v29 = 0;
-          v30 = *v56;
+          v30 = *v55;
 LABEL_25:
           v31 = 0;
           v32 = v29;
           while (1)
           {
-            if (*v56 != v30)
+            if (*v55 != v30)
             {
               objc_enumerationMutation(routeCopy);
             }
 
-            v33 = *(*(&v55 + 1) + 8 * v31);
+            v33 = *(*(&v54 + 1) + 8 * v31);
             [v33 doubleValue];
             v35 = v34;
             v29 = v33;
@@ -2806,7 +2744,7 @@ LABEL_25:
             v32 = v29;
             if (v28 == v31)
             {
-              v28 = [routeCopy countByEnumeratingWithState:&v55 objects:v61 count:16];
+              v28 = [routeCopy countByEnumeratingWithState:&v54 objects:v60 count:16];
               if (v28)
               {
                 goto LABEL_25;
@@ -2858,14 +2796,14 @@ LABEL_42:
         }
 
         v36 = objc_opt_class();
-        v59[0] = MEMORY[0x277D85DD0];
-        v59[1] = 3221225472;
-        v59[2] = __45__PLAudioAgent_audioPowerForRoute_forVolume___block_invoke_456;
-        v59[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v59[4] = v36;
+        v58[0] = MEMORY[0x277D85DD0];
+        v58[1] = 3221225472;
+        v58[2] = __45__PLAudioAgent_audioPowerForRoute_forVolume___block_invoke_456;
+        v58[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v58[4] = v36;
         if (qword_2811F4D98 != -1)
         {
-          dispatch_once(&qword_2811F4D98, v59);
+          dispatch_once(&qword_2811F4D98, v58);
         }
 
         if (byte_2811F4D72 != 1)
@@ -2884,7 +2822,7 @@ LABEL_42:
         if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v63 = routeCopy;
+          v62 = routeCopy;
           _os_log_debug_impl(&dword_21A4C6000, v32, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -2924,7 +2862,7 @@ LABEL_42:
       if (os_log_type_enabled(routeCopy, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v63 = v18;
+        v62 = v18;
         _os_log_debug_impl(&dword_21A4C6000, routeCopy, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -2933,18 +2871,17 @@ LABEL_46:
 LABEL_47:
   }
 
-  v53 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
-uint64_t __45__PLAudioAgent_audioPowerForRoute_forVolume___block_invoke(uint64_t a1)
+void *__45__PLAudioAgent_audioPowerForRoute_forVolume___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4D71 = result;
   return result;
 }
 
-uint64_t __45__PLAudioAgent_audioPowerForRoute_forVolume___block_invoke_456(uint64_t a1)
+void *__45__PLAudioAgent_audioPowerForRoute_forVolume___block_invoke_456(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4D72 = result;
@@ -2971,17 +2908,7 @@ uint64_t __45__PLAudioAgent_audioPowerForRoute_forVolume___block_invoke_456(uint
   if (([MEMORY[0x277D3F208] isHomePod] & 1) == 0)
   {
     v3 = [eventsCopy objectForKeyedSubscript:@"ApplicationName"];
-    if (!v3)
-    {
-      goto LABEL_5;
-    }
-
-    v4 = v3;
-    v5 = [eventsCopy objectForKeyedSubscript:@"Operation"];
-    v6 = [v5 description];
-    v7 = [v6 isEqualToString:@"AudioPlayback_Start"];
-
-    if (v7)
+    if (v3 && (v4 = v3, [eventsCopy objectForKeyedSubscript:@"Operation"], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "description"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "isEqualToString:", @"AudioPlayback_Start"), v6, v5, v4, v7))
     {
       mEMORY[0x277D3F0C0] = [MEMORY[0x277D3F0C0] sharedInstance];
       v9 = [eventsCopy objectForKeyedSubscript:@"ApplicationName"];
@@ -2991,7 +2918,6 @@ uint64_t __45__PLAudioAgent_audioPowerForRoute_forVolume___block_invoke_456(uint
 
     else
     {
-LABEL_5:
       v11 = [eventsCopy objectForKeyedSubscript:@"Operation"];
       v12 = [v11 description];
       v13 = [v12 isEqualToString:@"AudioPlayback_Stop"];
@@ -3013,7 +2939,7 @@ LABEL_8:
 
 - (void)createAirPlayAccountingEvents:(id)events
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   if ([MEMORY[0x277D3F208] isHomePod])
   {
@@ -3054,16 +2980,16 @@ LABEL_6:
 
           mEMORY[0x277D3F0C0]2 = [MEMORY[0x277D3F0C0] sharedInstance];
           v30 = [eventsCopy objectForKeyedSubscript:@"ApplicationName"];
-          v39 = v30;
-          v40[0] = &unk_282C1C548;
-          v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+          v38 = v30;
+          v39[0] = &unk_282C1C548;
+          v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
           entryDate2 = [eventsCopy entryDate];
           [mEMORY[0x277D3F0C0]2 createDistributionEventForwardWithDistributionID:36 withChildNodeNameToWeight:v31 withStartDate:entryDate2];
 
           mEMORY[0x277D3F0C0]3 = [MEMORY[0x277D3F0C0] sharedInstance];
           v34 = [eventsCopy objectForKeyedSubscript:@"ApplicationName"];
-          v38 = v34;
-          v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+          v37 = v34;
+          v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
           entryDate3 = [eventsCopy entryDate];
           [mEMORY[0x277D3F0C0]3 createQualificationEventForwardWithQualificationID:3 withChildNodeNames:v35 withStartDate:entryDate3];
 
@@ -3113,8 +3039,6 @@ LABEL_13:
   }
 
 LABEL_15:
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createCarPlayAccountingEvents:(id)events
@@ -3169,7 +3093,7 @@ LABEL_11:
 
 - (void)createBluetoothAccountingEvents:(id)events
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   if ([MEMORY[0x277D3F208] isHomePod])
   {
@@ -3200,27 +3124,27 @@ LABEL_5:
         {
           v17 = [mEMORY[0x277D3F0C0] currentDistributionEventForwardWithDistributionID:8];
 
-          v33 = 0u;
-          v34 = 0u;
-          v31 = 0u;
           v32 = 0u;
+          v33 = 0u;
+          v30 = 0u;
+          v31 = 0u;
           mEMORY[0x277D3F0C0]4 = v17;
-          v18 = [mEMORY[0x277D3F0C0]4 countByEnumeratingWithState:&v31 objects:v35 count:16];
+          v18 = [mEMORY[0x277D3F0C0]4 countByEnumeratingWithState:&v30 objects:v34 count:16];
           if (v18)
           {
             v19 = v18;
-            v20 = *v32;
+            v20 = *v31;
             do
             {
               for (i = 0; i != v19; ++i)
               {
-                if (*v32 != v20)
+                if (*v31 != v20)
                 {
                   objc_enumerationMutation(mEMORY[0x277D3F0C0]4);
                 }
 
-                v22 = *(*(&v31 + 1) + 8 * i);
-                if (([v22 isEqualToString:{@"Hotspot", v31}] & 1) == 0 && (objc_msgSend(v22, "isEqualToString:", @"IDSWatchBT") & 1) == 0)
+                v22 = *(*(&v30 + 1) + 8 * i);
+                if (([v22 isEqualToString:{@"Hotspot", v30}] & 1) == 0 && (objc_msgSend(v22, "isEqualToString:", @"IDSWatchBT") & 1) == 0)
                 {
                   mEMORY[0x277D3F0C0]2 = [MEMORY[0x277D3F0C0] sharedInstance];
                   entryDate = [eventsCopy entryDate];
@@ -3228,7 +3152,7 @@ LABEL_5:
                 }
               }
 
-              v19 = [mEMORY[0x277D3F0C0]4 countByEnumeratingWithState:&v31 objects:v35 count:16];
+              v19 = [mEMORY[0x277D3F0C0]4 countByEnumeratingWithState:&v30 objects:v34 count:16];
             }
 
             while (v19);
@@ -3278,8 +3202,6 @@ LABEL_23:
   }
 
 LABEL_24:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 @end

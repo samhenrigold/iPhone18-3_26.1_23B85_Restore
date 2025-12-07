@@ -323,10 +323,10 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(NSAttributedString *)v12 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v12);
 
   v8 = v12;
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v10 = [(NSAttributedString *)v8 copy];
@@ -371,7 +371,7 @@ LABEL_10:
 - (void)setTitleAttributes:(id)attributes
 {
   attributesCopy = attributes;
-  if (([(NSDictionary *)self->_titleAttributes isEqual:?]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_titleAttributes) & 1) == 0)
   {
     v4 = [attributesCopy copy];
     titleAttributes = self->_titleAttributes;
@@ -404,9 +404,9 @@ LABEL_10:
     goto LABEL_8;
   }
 
-  v7 = [(NSString *)v10 isEqual:subtitleCopy2];
+  isEqual = objc_msgSend_isEqual_(v10);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v8 = [(NSString *)v10 copy];

@@ -115,7 +115,7 @@ uint64_t __83__PUPhotosDiagnosticsAgent_captureDescriptionOfCloudPhotoLibraryWit
 
   else
   {
-    (*(v4 + 16))(*(a1 + 40));
+    (*(v4 + 16))(*(a1 + 40), a2);
   }
 
   v6 = *(a1 + 32);
@@ -307,7 +307,7 @@ void __76__PUPhotosDiagnosticsAgent_captureDescriptionOfStatisticsWithResultHand
   dispatch_group_leave(*(a1 + 40));
 }
 
-uint64_t __76__PUPhotosDiagnosticsAgent_captureDescriptionOfStatisticsWithResultHandler___block_invoke_2(uint64_t a1)
+void *__76__PUPhotosDiagnosticsAgent_captureDescriptionOfStatisticsWithResultHandler___block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) appendString:*(a1 + 40)];
   result = [*(a1 + 40) containsString:@"\n"];

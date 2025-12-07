@@ -284,23 +284,25 @@ void sub_100002B18(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_1000050B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000050B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_100005504(id a1)
 {
-  qword_1000DDA08 = objc_opt_new();
+  v1 = objc_opt_new();
+  v2 = qword_1000DDA08;
+  qword_1000DDA08 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-void sub_100006464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100006464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -370,9 +372,9 @@ void sub_100007060(uint64_t a1, int a2, void *a3)
   }
 }
 
-void sub_1000079F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000079F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -396,7 +398,6 @@ void sub_100008264()
 
 uint64_t sub_100008334(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1000DDA20 = result;
   return result;
@@ -429,10 +430,11 @@ Class sub_100008448(uint64_t a1)
   return result;
 }
 
-void sub_1000084A4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000084A4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 id sub_10000952C(void *a1)
@@ -567,7 +569,7 @@ void sub_10000A09C(uint64_t a1)
 
   v2 = [*(a1 + 32) properties];
   v3 = +[HIDAppleSiriRemoteDevice getButtonsHIDReportDescriptor:](HIDAppleSiriRemoteDevice, "getButtonsHIDReportDescriptor:", [*(a1 + 32) productID]);
-  v22 = [HIDAppleSiriRemoteDevice properties:v2 locationIdOffset:2 hidDescriptor:v3 extendedData:0];
+  v20 = [HIDAppleSiriRemoteDevice properties:v2 locationIdOffset:2 hidDescriptor:v3 extendedData:0];
 
   v4 = IOHIDUserDeviceCreateWithOptions();
   [*(a1 + 32) setButtons:v4];
@@ -590,29 +592,27 @@ void sub_10000A09C(uint64_t a1)
     }
 
     v8 = [*(a1 + 32) buttons];
-    v9 = *(a1 + 32);
     IOHIDUserDeviceRegisterGetReportWithReturnLengthCallback();
 
-    v10 = [*(a1 + 32) buttons];
-    v11 = *(a1 + 32);
+    v9 = [*(a1 + 32) buttons];
     IOHIDUserDeviceRegisterSetReportCallback();
 
-    v12 = [*(a1 + 32) buttons];
-    v13 = [*(a1 + 32) queue];
+    v10 = [*(a1 + 32) buttons];
+    v11 = [*(a1 + 32) queue];
     IOHIDUserDeviceScheduleWithDispatchQueue();
   }
 
-  v14 = +[DoAPAudioRelayHub instance];
-  v15 = [*(a1 + 32) peripheral];
-  v16 = [v15 identifier];
-  v17 = [v16 UUIDString];
-  v18 = [*(a1 + 32) properties];
-  v19 = [v14 relayWithIdentifier:v17 deviceType:1 properties:v18 codecType:0];
-  [*(a1 + 32) setDoapAudioRelay:v19];
+  v12 = +[DoAPAudioRelayHub instance];
+  v13 = [*(a1 + 32) peripheral];
+  v14 = [v13 identifier];
+  v15 = [v14 UUIDString];
+  v16 = [*(a1 + 32) properties];
+  v17 = [v12 relayWithIdentifier:v15 deviceType:1 properties:v16 codecType:0];
+  [*(a1 + 32) setDoapAudioRelay:v17];
 
-  v20 = *(a1 + 32);
-  v21 = [v20 doapAudioRelay];
-  [v21 setDelegate:v20];
+  v18 = *(a1 + 32);
+  v19 = [v18 doapAudioRelay];
+  [v19 setDelegate:v18];
 
   if (byte_1000DDBC0 == 1)
   {
@@ -621,14 +621,14 @@ void sub_10000A09C(uint64_t a1)
   }
 }
 
-void *sub_10000A3B4(void *a1, const char *a2, int a3)
+void *sub_10000A3B4(void *result, const char *a2, int a3)
 {
   if (a3 == -536870608)
   {
-    return [a1 verifyButtonDriverOpenedByEventSystem:a2];
+    return [result verifyButtonDriverOpenedByEventSystem:a2];
   }
 
-  return a1;
+  return result;
 }
 
 void sub_10000A408(uint64_t a1)
@@ -649,7 +649,7 @@ void sub_10000A408(uint64_t a1)
 
   v4 = [*(a1 + 32) properties];
   v5 = +[HIDAppleSiriRemoteDevice getTouchHIDReportDescriptor];
-  v15 = [HIDAppleSiriRemoteDevice properties:v4 locationIdOffset:1 hidDescriptor:v5 extendedData:0];
+  v13 = [HIDAppleSiriRemoteDevice properties:v4 locationIdOffset:1 hidDescriptor:v5 extendedData:0];
 
   v6 = IOHIDUserDeviceCreateWithOptions();
   [*(a1 + 32) setTouch:v6];
@@ -659,20 +659,18 @@ void sub_10000A408(uint64_t a1)
   if (v7)
   {
     v8 = [*(a1 + 32) touch];
-    v9 = *(a1 + 32);
     IOHIDUserDeviceRegisterGetReportWithReturnLengthCallback();
 
-    v10 = [*(a1 + 32) touch];
-    v11 = *(a1 + 32);
+    v9 = [*(a1 + 32) touch];
     IOHIDUserDeviceRegisterSetReportCallback();
 
-    v12 = [*(a1 + 32) touch];
-    v13 = [*(a1 + 32) queue];
+    v10 = [*(a1 + 32) touch];
+    v11 = [*(a1 + 32) queue];
     IOHIDUserDeviceScheduleWithDispatchQueue();
   }
 
-  v14 = [*(a1 + 32) groupTouch];
-  dispatch_group_leave(v14);
+  v12 = [*(a1 + 32) groupTouch];
+  dispatch_group_leave(v12);
 
   if (byte_1000DDBC0 == 1)
   {
@@ -706,7 +704,7 @@ void sub_10000A6F0(uint64_t a1)
 
   v4 = [*(a1 + 32) properties];
   v5 = +[HIDAppleSiriRemoteDevice getDeviceManagementHIDReportDescriptor];
-  v15 = [HIDAppleSiriRemoteDevice properties:v4 locationIdOffset:0 hidDescriptor:v5 extendedData:&off_1000C40D8];
+  v13 = [HIDAppleSiriRemoteDevice properties:v4 locationIdOffset:0 hidDescriptor:v5 extendedData:&off_1000C40D8];
 
   v6 = IOHIDUserDeviceCreateWithOptions();
   [*(a1 + 32) setDeviceManagement:v6];
@@ -716,20 +714,18 @@ void sub_10000A6F0(uint64_t a1)
   if (v7)
   {
     v8 = [*(a1 + 32) deviceManagement];
-    v9 = *(a1 + 32);
     IOHIDUserDeviceRegisterSetReportCallback();
 
-    v10 = [*(a1 + 32) deviceManagement];
-    v11 = *(a1 + 32);
+    v9 = [*(a1 + 32) deviceManagement];
     IOHIDUserDeviceRegisterGetReportWithReturnLengthCallback();
 
-    v12 = [*(a1 + 32) deviceManagement];
-    v13 = [*(a1 + 32) queue];
+    v10 = [*(a1 + 32) deviceManagement];
+    v11 = [*(a1 + 32) queue];
     IOHIDUserDeviceScheduleWithDispatchQueue();
   }
 
-  v14 = [*(a1 + 32) groupDeviceManagement];
-  dispatch_group_leave(v14);
+  v12 = [*(a1 + 32) groupDeviceManagement];
+  dispatch_group_leave(v12);
 
   if (byte_1000DDBC0 == 1)
   {
@@ -755,7 +751,7 @@ void sub_10000A9DC(uint64_t a1)
 
   v2 = [*(a1 + 32) properties];
   v3 = +[HIDAppleSiriRemoteDevice getInertialHIDReportDescriptor];
-  v13 = [HIDAppleSiriRemoteDevice properties:v2 locationIdOffset:3 hidDescriptor:v3 extendedData:0];
+  v11 = [HIDAppleSiriRemoteDevice properties:v2 locationIdOffset:3 hidDescriptor:v3 extendedData:0];
 
   v4 = IOHIDUserDeviceCreateWithOptions();
   [*(a1 + 32) setInertial:v4];
@@ -765,20 +761,18 @@ void sub_10000A9DC(uint64_t a1)
   if (v5)
   {
     v6 = [*(a1 + 32) inertial];
-    v7 = *(a1 + 32);
     IOHIDUserDeviceRegisterGetReportWithReturnLengthCallback();
 
-    v8 = [*(a1 + 32) inertial];
-    v9 = *(a1 + 32);
+    v7 = [*(a1 + 32) inertial];
     IOHIDUserDeviceRegisterSetReportCallback();
 
-    v10 = [*(a1 + 32) inertial];
-    v11 = [*(a1 + 32) queue];
+    v8 = [*(a1 + 32) inertial];
+    v9 = [*(a1 + 32) queue];
     IOHIDUserDeviceScheduleWithDispatchQueue();
   }
 
-  v12 = [*(a1 + 32) groupInertial];
-  dispatch_group_leave(v12);
+  v10 = [*(a1 + 32) groupInertial];
+  dispatch_group_leave(v10);
 
   if (byte_1000DDBC0 == 1)
   {
@@ -797,7 +791,7 @@ void sub_10000AC04(uint64_t a1)
 
   v2 = [*(a1 + 32) properties];
   v3 = +[HIDAppleSiriRemoteDevice getProximityHIDReportDescriptor];
-  v13 = [HIDAppleSiriRemoteDevice properties:v2 locationIdOffset:7 hidDescriptor:v3 extendedData:0];
+  v11 = [HIDAppleSiriRemoteDevice properties:v2 locationIdOffset:7 hidDescriptor:v3 extendedData:0];
 
   v4 = IOHIDUserDeviceCreateWithOptions();
   [*(a1 + 32) setProximity:v4];
@@ -807,20 +801,18 @@ void sub_10000AC04(uint64_t a1)
   if (v5)
   {
     v6 = [*(a1 + 32) proximity];
-    v7 = *(a1 + 32);
     IOHIDUserDeviceRegisterGetReportWithReturnLengthCallback();
 
-    v8 = [*(a1 + 32) proximity];
-    v9 = *(a1 + 32);
+    v7 = [*(a1 + 32) proximity];
     IOHIDUserDeviceRegisterSetReportCallback();
 
-    v10 = [*(a1 + 32) proximity];
-    v11 = [*(a1 + 32) queue];
+    v8 = [*(a1 + 32) proximity];
+    v9 = [*(a1 + 32) queue];
     IOHIDUserDeviceScheduleWithDispatchQueue();
   }
 
-  v12 = [*(a1 + 32) groupProximity];
-  dispatch_group_leave(v12);
+  v10 = [*(a1 + 32) groupProximity];
+  dispatch_group_leave(v10);
 
   if (byte_1000DDBC0 == 1)
   {
@@ -877,7 +869,7 @@ void sub_10000B01C(uint64_t a1)
 
   v2 = [*(a1 + 32) properties];
   v3 = +[HIDAppleSiriRemoteDevice getInfraredHIDReportDescriptor];
-  v12 = [HIDAppleSiriRemoteDevice properties:v2 locationIdOffset:4 hidDescriptor:v3 extendedData:0];
+  v10 = [HIDAppleSiriRemoteDevice properties:v2 locationIdOffset:4 hidDescriptor:v3 extendedData:0];
 
   v4 = IOHIDUserDeviceCreateWithOptions();
   [*(a1 + 32) setInfrared:v4];
@@ -887,15 +879,13 @@ void sub_10000B01C(uint64_t a1)
   if (v5)
   {
     v6 = [*(a1 + 32) infrared];
-    v7 = *(a1 + 32);
     IOHIDUserDeviceRegisterGetReportWithReturnLengthCallback();
 
-    v8 = [*(a1 + 32) infrared];
-    v9 = *(a1 + 32);
+    v7 = [*(a1 + 32) infrared];
     IOHIDUserDeviceRegisterSetReportCallback();
 
-    v10 = [*(a1 + 32) infrared];
-    v11 = [*(a1 + 32) queue];
+    v8 = [*(a1 + 32) infrared];
+    v9 = [*(a1 + 32) queue];
     IOHIDUserDeviceScheduleWithDispatchQueue();
   }
 
@@ -916,7 +906,7 @@ void sub_10000B22C(uint64_t a1)
 
   v2 = [*(a1 + 32) properties];
   v3 = +[HIDAppleSiriRemoteDevice getAudioHIDReportDescriptor];
-  v12 = [HIDAppleSiriRemoteDevice properties:v2 locationIdOffset:5 hidDescriptor:v3 extendedData:0];
+  v10 = [HIDAppleSiriRemoteDevice properties:v2 locationIdOffset:5 hidDescriptor:v3 extendedData:0];
 
   v4 = IOHIDUserDeviceCreateWithOptions();
   [*(a1 + 32) setAudio:v4];
@@ -926,15 +916,13 @@ void sub_10000B22C(uint64_t a1)
   if (v5)
   {
     v6 = [*(a1 + 32) audio];
-    v7 = *(a1 + 32);
     IOHIDUserDeviceRegisterGetReportWithReturnLengthCallback();
 
-    v8 = [*(a1 + 32) audio];
-    v9 = *(a1 + 32);
+    v7 = [*(a1 + 32) audio];
     IOHIDUserDeviceRegisterSetReportCallback();
 
-    v10 = [*(a1 + 32) audio];
-    v11 = [*(a1 + 32) queue];
+    v8 = [*(a1 + 32) audio];
+    v9 = [*(a1 + 32) queue];
     IOHIDUserDeviceScheduleWithDispatchQueue();
   }
 
@@ -955,7 +943,7 @@ void sub_10000B43C(uint64_t a1)
 
   v2 = [*(a1 + 32) properties];
   v3 = +[HIDAppleSiriRemoteDevice getRadioHIDReportDescriptor];
-  v12 = [HIDAppleSiriRemoteDevice properties:v2 locationIdOffset:6 hidDescriptor:v3 extendedData:0];
+  v10 = [HIDAppleSiriRemoteDevice properties:v2 locationIdOffset:6 hidDescriptor:v3 extendedData:0];
 
   v4 = IOHIDUserDeviceCreateWithOptions();
   [*(a1 + 32) setRadio:v4];
@@ -965,15 +953,13 @@ void sub_10000B43C(uint64_t a1)
   if (v5)
   {
     v6 = [*(a1 + 32) radio];
-    v7 = *(a1 + 32);
     IOHIDUserDeviceRegisterGetReportWithReturnLengthCallback();
 
-    v8 = [*(a1 + 32) radio];
-    v9 = *(a1 + 32);
+    v7 = [*(a1 + 32) radio];
     IOHIDUserDeviceRegisterSetReportCallback();
 
-    v10 = [*(a1 + 32) radio];
-    v11 = [*(a1 + 32) queue];
+    v8 = [*(a1 + 32) radio];
+    v9 = [*(a1 + 32) queue];
     IOHIDUserDeviceScheduleWithDispatchQueue();
   }
 
@@ -1136,9 +1122,9 @@ id sub_10000CC08(uint64_t a1)
   return v2;
 }
 
-void sub_10000D768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_10000D768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1449,16 +1435,18 @@ void sub_100010288(uint64_t a1)
   }
 }
 
-void sub_100010A78(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100010A78(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void sub_100010AD0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100010AD0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 8u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 8u);
 }
 
 void sub_100010AF0(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -1480,9 +1468,11 @@ void sub_100010C70(id a1)
 {
   if (sub_100010B3C() || sub_100010B68() || sub_100010B94())
   {
-    qword_1000DDA60 = objc_alloc_init(EndpointManager);
+    v1 = objc_alloc_init(EndpointManager);
+    v2 = qword_1000DDA60;
+    qword_1000DDA60 = v1;
 
-    _objc_release_x1();
+    _objc_release_x1(v1, v2);
   }
 }
 
@@ -1499,10 +1489,11 @@ void sub_1000130E4(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-void sub_100013390(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100013390(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_100013640(id a1, NSNumber *a2, HIDKeyholeUserDevice *a3, BOOL *a4)
@@ -1512,10 +1503,11 @@ void sub_100013640(id a1, NSNumber *a2, HIDKeyholeUserDevice *a3, BOOL *a4)
   [(HIDKeyholeUserDevice *)v4 setUseKeyholeOnGet:1];
 }
 
-void sub_100013F6C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100013F6C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 BOOL sub_100013F8C()
@@ -1524,10 +1516,11 @@ BOOL sub_100013F8C()
   return os_log_type_enabled(v0, OS_LOG_TYPE_ERROR);
 }
 
-void sub_100017C24(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100017C24(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_100017D40(id a1)
@@ -1720,14 +1713,16 @@ id sub_1000192E4(uint64_t a1)
 
 void sub_10001949C(id a1)
 {
-  qword_1000DDA80 = objc_alloc_init(PolicyManager);
+  v1 = objc_alloc_init(PolicyManager);
+  v2 = qword_1000DDA80;
+  qword_1000DDA80 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-void sub_10001A2E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10001A2E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1747,7 +1742,6 @@ Class sub_10001DCFC(uint64_t a1)
 
 uint64_t sub_10001DDFC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1000DDA98 = result;
   return result;
@@ -1785,10 +1779,11 @@ id sub_10001ED10(uint64_t a1, void *a2)
   return result;
 }
 
-void sub_10001F594(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10001F594(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 BOOL sub_10001F5B4()
@@ -1797,10 +1792,11 @@ BOOL sub_10001F5B4()
   return os_log_type_enabled(v0, OS_LOG_TYPE_ERROR);
 }
 
-void sub_10002477C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10002477C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x22u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x22u);
 }
 
 void sub_100024CD0(uint64_t a1)
@@ -2099,9 +2095,11 @@ void sub_1000284F0()
 
 void sub_100028594(id a1)
 {
-  qword_1000DDAA0 = objc_alloc_init(CattManager);
+  v1 = objc_alloc_init(CattManager);
+  v2 = qword_1000DDAA0;
+  qword_1000DDAA0 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000287CC(uint64_t a1, void *a2)
@@ -2347,7 +2345,7 @@ id sub_10002CFF4(void *a1)
   return v5;
 }
 
-uint64_t sub_10002D1DC(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t sub_10002D1DC(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = sub_10002C72C(a3);
   v6 = *(a1 + 32);
@@ -2377,10 +2375,11 @@ uint64_t sub_10002D220(void *a1, uint64_t a2, void *a3)
   return 1;
 }
 
-void sub_10002D2CC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10002D2CC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_10002D6E0(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -2396,9 +2395,11 @@ void sub_10002D6E0(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 
 void sub_10002F120(id a1)
 {
-  qword_1000DDAB8 = objc_alloc_init(DoAPAudioRelayHub);
+  v1 = objc_alloc_init(DoAPAudioRelayHub);
+  v2 = qword_1000DDAB8;
+  qword_1000DDAB8 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10002F7F8(id a1, OS_xpc_object *a2)
@@ -2465,17 +2466,20 @@ void sub_1000324EC(uint64_t a1, void *a2)
   [*(a1 + 32) sendMsg:"TransportDidStop" args:v6];
 }
 
-void sub_10003293C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10003293C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void sub_100032AE4(id a1)
 {
-  qword_1000DDAC8 = objc_opt_new();
+  v1 = objc_opt_new();
+  v2 = qword_1000DDAC8;
+  qword_1000DDAC8 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000335A4(uint64_t a1)
@@ -2505,17 +2509,20 @@ BOOL sub_1000339F8(id a1, NSURL *a2, NSError *a3)
   return 1;
 }
 
-void sub_100033C7C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100033C7C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_100033CDC(id a1)
 {
-  qword_1000DDAD8 = objc_alloc_init(ConnectionManager);
+  v1 = objc_alloc_init(ConnectionManager);
+  v2 = qword_1000DDAD8;
+  qword_1000DDAD8 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 id sub_100036EEC(uint64_t a1, void *a2)
@@ -2531,14 +2538,16 @@ id sub_100036EEC(uint64_t a1, void *a2)
 
 uint64_t sub_100038BA0(char *category)
 {
-  qword_1000DDBC8 = os_log_create("com.apple.bluetooth", category);
+  v1 = os_log_create("com.apple.bluetooth", category);
+  v2 = qword_1000DDBC8;
+  qword_1000DDBC8 = v1;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v1, v2);
 }
 
-void sub_10003C890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003C890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2563,9 +2572,9 @@ void sub_10003C8C0(uint64_t a1, void *a2, void *a3, _BYTE *a4)
   }
 }
 
-void sub_10003CC64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003CC64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2606,6 +2615,13 @@ void sub_10003CC7C(uint64_t a1, void *a2, void *a3)
   }
 }
 
+void sub_10003D6DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
+{
+  va_start(va, a40);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 id sub_10003D700(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 isPrimary];
@@ -2620,9 +2636,11 @@ id sub_10003D700(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 
 void sub_10003E488(id a1)
 {
-  qword_1000DDAF0 = objc_alloc_init(SDRDiagnosticReporter);
+  v1 = objc_alloc_init(SDRDiagnosticReporter);
+  v2 = qword_1000DDAF0;
+  qword_1000DDAF0 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10003E4C4(id a1, NSDictionary *a2)
@@ -2668,9 +2686,9 @@ uint64_t sub_1000424E0(uint64_t a1)
   return IOAllowPowerChange(v2, v3);
 }
 
-void sub_1000428B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000428B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2685,9 +2703,9 @@ void sub_1000428CC(uint64_t a1, void *a2, void *a3, _BYTE *a4)
   }
 }
 
-void sub_100042AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100042AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2703,17 +2721,18 @@ void sub_100042B10(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
   v9 = a2;
   v8 = a3;
-  if (*(a1 + 40) == [v8 ID] && *(a1 + 44) == objc_msgSend(v8, "type"))
+  if (*(a1 + 40) == __PAIR64__([v8 type], objc_msgSend(v8, "ID")))
   {
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
     *a4 = 1;
   }
 }
 
-void sub_100042E50(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100042E50(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x12u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x12u);
 }
 
 void sub_100043214(uint64_t a1)
@@ -2761,25 +2780,29 @@ void sub_1000464B0(uint64_t a1)
   [v1 stop];
 }
 
-void sub_10004754C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10004754C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_10004A45C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10004A45C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_10004A4C0(id a1)
 {
   if (!sub_100010B10())
   {
-    qword_1000DDB18 = objc_alloc_init(ServerServiceManager);
+    v1 = objc_alloc_init(ServerServiceManager);
+    v2 = qword_1000DDB18;
+    qword_1000DDB18 = v1;
 
-    _objc_release_x1();
+    _objc_release_x1(v1, v2);
   }
 }
 
@@ -2815,22 +2838,22 @@ void sub_10004BEA8(uint64_t a1)
   *(v5 + 32) = 0;
 }
 
-id sub_10004C320(uint64_t a1)
+id sub_10004C320(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  if (v1)
+  v3 = *(a1 + 32);
+  v2 = *(a1 + 40);
+  if (v2)
   {
-    [v1 codec];
-    v3 = v5;
+    objc_msgSend_codec(v2, a2);
+    v4 = v6;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  return [v2 selectCodec:v3];
+  return [v3 selectCodec:v4];
 }
 
 id sub_10004C370(uint64_t a1)
@@ -2862,18 +2885,13 @@ void sub_10004D550(id a1, NSNumber *a2, HIDKeyholeUserDevice *a3, BOOL *a4)
   [(HIDKeyholeUserDevice *)v4 setUseKeyholeOnGet:1];
 }
 
-uint64_t *sub_10004F810@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
-}
-
 void sub_10004FC18(id a1)
 {
-  qword_1000DDB28 = objc_alloc_init(BTLEXpcServer);
+  v1 = objc_alloc_init(BTLEXpcServer);
+  v2 = qword_1000DDB28;
+  qword_1000DDB28 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_1000510A4(uint64_t a1, uint64_t a2, void *a3)
@@ -2889,36 +2907,39 @@ void sub_1000510A4(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-void sub_100051410(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100051410(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x1Cu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x1Cu);
 }
 
 void sub_100051634(id a1)
 {
-  qword_1000DDB40 = objc_alloc_init(FitnessDeviceManager);
+  v1 = objc_alloc_init(FitnessDeviceManager);
+  v2 = qword_1000DDB40;
+  qword_1000DDB40 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-void sub_1000521FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1000521FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000523A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000523A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100052540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100052540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2936,9 +2957,9 @@ void sub_1000559B4(uint64_t a1)
   [WeakRetained stopHeartRateScanTimer];
 }
 
-void sub_100055BA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100055BA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3104,7 +3125,6 @@ void sub_1000565A4(uint64_t a1, int a2, void *a3)
   }
 
   [v7 setCustomProperty:@"UpdateHealth" value:v8];
-  v9 = *(a1 + 32);
   [*(*(a1 + 48) + 32) removeHealthServicePairing:? withCompletion:?];
   if ([*(*(a1 + 48) + 72) count])
   {
@@ -3151,13 +3171,12 @@ Class sub_1000569C4(uint64_t a1)
 
 uint64_t sub_100056AC4(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1000DDB58 = result;
   return result;
 }
 
-Class sub_100056B38(uint64_t a1)
+Class sub_100056B38(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   sub_100056B88();
   result = objc_getClass("HKActiveDataCollectionObserver");
@@ -3176,7 +3195,6 @@ void sub_100056B88()
 
 uint64_t sub_100056C58(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1000DDB68 = result;
   return result;
@@ -3224,7 +3242,6 @@ Class sub_100056DBC(uint64_t a1)
 
 uint64_t sub_100056EBC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1000DDB90 = result;
   return result;
@@ -3252,10 +3269,11 @@ void sub_100057AC8(uint64_t a1)
   [v3 sendData:*(a1 + 48)];
 }
 
-void sub_1000583D4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000583D4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
 void sub_100059470(uint64_t a1)
@@ -3277,22 +3295,22 @@ void sub_100059470(uint64_t a1)
   *(v5 + 32) = 0;
 }
 
-id sub_10005992C(uint64_t a1)
+id sub_10005992C(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
-  if (v1)
+  v3 = *(a1 + 32);
+  v2 = *(a1 + 40);
+  if (v2)
   {
-    [v1 codec];
-    v3 = v5;
+    objc_msgSend_codec(v2, a2);
+    v4 = v6;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  return [v2 selectCodec:v3];
+  return [v3 selectCodec:v4];
 }
 
 id sub_10005997C(uint64_t a1)
@@ -3663,16 +3681,18 @@ void sub_10005BF64(uint64_t a1)
   }
 }
 
-void sub_10005DF40(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10005DF40(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void sub_10005DF6C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10005DF6C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_10005E468(uint64_t a1, void *a2)
@@ -4081,10 +4101,11 @@ void sub_10006C004(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-void sub_10006CD98(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10006CD98(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x20u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
 void sub_10006D3FC(uint64_t a1, const void *a2)
@@ -4101,10 +4122,11 @@ void sub_10006E3EC(uint64_t a1, const void *a2)
   CFRelease(a2);
 }
 
-void sub_1000702F4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000702F4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x2Eu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x2Eu);
 }
 
 void sub_100070314(void *a1)
@@ -4137,15 +4159,14 @@ void sub_100070474(void *a1)
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
-void sub_100070524(void *a1, uint64_t a2)
+void sub_100070524(void *a1)
 {
-  v4 = a1;
-  v5 = [sub_100004F6C() peripheral];
-  v6 = [v5 name];
-  v7 = *(a2 + 89);
+  v2 = a1;
+  v3 = [sub_100004F6C() peripheral];
+  v4 = [v3 name];
   sub_100004F20();
   sub_100004F4C();
-  _os_log_error_impl(v8, v9, v10, v11, v12, 0x1Cu);
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x1Cu);
 }
 
 void sub_1000705E0()
@@ -4217,13 +4238,12 @@ void sub_10007096C(void *a1)
 void sub_100070A1C()
 {
   sub_100004F94();
-  v3 = v2;
-  v4 = [sub_100004F78() peripheral];
-  v5 = [v4 name];
-  v6 = *v0;
+  v2 = v1;
+  v3 = [sub_100004F78() peripheral];
+  v4 = [v3 name];
   sub_100004F20();
   sub_100004F5C();
-  _os_log_error_impl(v7, v8, v9, v10, v11, 0x1Cu);
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x1Cu);
 }
 
 void sub_100070AD0(void *a1)
@@ -4249,13 +4269,12 @@ void sub_100070B80(void *a1)
 void sub_100070C30()
 {
   sub_100004F94();
-  v3 = v2;
-  v4 = [sub_100004F78() peripheral];
-  v5 = [v4 name];
-  v6 = *v0;
+  v2 = v1;
+  v3 = [sub_100004F78() peripheral];
+  v4 = [v3 name];
   sub_100004F20();
   sub_100004F5C();
-  _os_log_error_impl(v7, v8, v9, v10, v11, 0x1Cu);
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x1Cu);
 }
 
 void sub_100070CF8(void *a1, void *a2)
@@ -4264,7 +4283,7 @@ void sub_100070CF8(void *a1, void *a2)
   v4 = [a2 peripheral];
   v5 = [v4 name];
   sub_100008498();
-  sub_1000084A4(&_mh_execute_header, v6, v7, "FitnessService - DeviceInformation ClientService not available for “%@”", v8, v9, v10, v11, v12);
+  sub_1000084A4(&_mh_execute_header, v6, v7, "FitnessService - DeviceInformation ClientService not available for “%@”", v8, v9, v10, v11);
 }
 
 void sub_100070DA4(void *a1, void *a2)
@@ -4308,7 +4327,7 @@ void sub_10007100C(void *a1, void *a2)
   v4 = [a2 peripheral];
   v5 = [v4 name];
   sub_100008498();
-  sub_1000084A4(&_mh_execute_header, v6, v7, "Could not create HKDevice for %@, could not soft load HKDevice class", v8, v9, v10, v11, v12);
+  sub_1000084A4(&_mh_execute_header, v6, v7, "Could not create HKDevice for %@, could not soft load HKDevice class", v8, v9, v10, v11);
 }
 
 void sub_100071100(uint64_t a1, uint64_t a2, void *a3)
@@ -4339,6 +4358,41 @@ void sub_1000711C4(uint64_t a1, void *a2)
   *a2 = 0;
 }
 
+void sub_100071278(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HIDAppleSiriRemoteDevice initWithProperties:reports:]";
+  sub_100010A78(&_mh_execute_header, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000712F0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "void HIDAppleSiriRemoteQueueFinalizer(void *)";
+  sub_100010A78(&_mh_execute_header, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100071368(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HIDAppleSiriRemoteDevice dealloc]";
+  sub_100010A78(&_mh_execute_header, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000713E0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HIDAppleSiriRemoteDevice stop]";
+  sub_100010A78(&_mh_execute_header, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100071458(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HIDAppleSiriRemoteDevice start]";
+  sub_100010A78(&_mh_execute_header, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1000714D0()
 {
   sub_100010AA0();
@@ -4351,7 +4405,7 @@ void sub_10007154C(void *a1, void *a2)
   v3 = a1;
   [a2 instanceID];
   sub_100010AB4();
-  sub_100010AD0(&_mh_execute_header, v4, v5, "match for instance ID %u", v6, v7, v8, v9, v10);
+  sub_100010AD0(&_mh_execute_header, v4, v5, "match for instance ID %u", v6, v7, v8, v9);
 }
 
 void sub_1000715D4(uint8_t *a1, void *a2, void *a3, unsigned int *a4)
@@ -4370,12 +4424,40 @@ void sub_10007164C(uint8_t *buf, _BYTE *a2, os_log_t log)
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "Matched AppleMultitouchDevice", buf, 2u);
 }
 
+void sub_10007168C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HIDAppleSiriRemoteDevice desiredConnectionParameters]";
+  sub_100010A78(&_mh_execute_header, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100071704(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HIDAppleSiriRemoteDevice setSleepPeripheralLatency]";
+  sub_100010A78(&_mh_execute_header, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10007177C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HIDAppleSiriRemoteDevice setNormalPeripheralLatency]";
+  sub_100010A78(&_mh_execute_header, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000717F4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HIDAppleSiriRemoteDevice setZeroPeripheralLatency]";
+  sub_100010A78(&_mh_execute_header, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_10007186C(void *a1, void *a2)
 {
   v3 = a1;
   [a2 buttonData];
   sub_100010AB4();
-  sub_100010AD0(&_mh_execute_header, v4, v5, "Button 0x%04X", v6, v7, v8, v9, v10);
+  sub_100010AD0(&_mh_execute_header, v4, v5, "Button 0x%04X", v6, v7, v8, v9);
 }
 
 void sub_1000718F8()
@@ -4383,13 +4465,6 @@ void sub_1000718F8()
   sub_100010AC0();
   sub_100010A94();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-}
-
-void sub_100071968(uint64_t a1)
-{
-  v6 = *(*a1 + 40);
-  sub_100010A94();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void sub_1000719E4(void *a1, void *a2)
@@ -4407,12 +4482,25 @@ void sub_100071A7C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_100071BDC(unsigned __int8 *a1, uint64_t a2, NSObject *a3)
+void sub_100071AEC(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v3 = *a1;
-  LOWORD(v4) = 1024;
-  HIWORD(v4) = a2;
-  sub_100010AF0(&_mh_execute_header, a2, a3, "Invalid report ID 0x%02X expecting 0x%02X", 67109376, v4);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HIDAppleSiriRemoteDevice getReport:reportLength:reportID:reportType:keyholeID:]";
+  sub_100010A78(&_mh_execute_header, a1, a3, "%s PART 1 SET success", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100071B64(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HIDAppleSiriRemoteDevice getReport:reportLength:reportID:reportType:keyholeID:]";
+  sub_100010A78(&_mh_execute_header, a1, a3, "%s PART 2 GET success", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100071BDC(uint64_t a1, uint64_t a2, NSObject *a3)
+{
+  LOWORD(v3) = 1024;
+  HIWORD(v3) = a2;
+  sub_100010AF0(&_mh_execute_header, a2, a3, "Invalid report ID 0x%02X expecting 0x%02X", 67109376, v3);
 }
 
 void sub_100071C58()
@@ -4466,7 +4554,7 @@ void sub_100072018(void *a1, void *a2)
   v4 = [a2 peripheral];
   v5 = [v4 name];
   sub_100013374();
-  sub_100013390(&_mh_execute_header, v6, v7, "Parse live observation data for peripheral %{private, mask.hash}@ failed.", v8, v9, v10, v11, v12);
+  sub_100013390(&_mh_execute_header, v6, v7, "Parse live observation data for peripheral %{private, mask.hash}@ failed.", v8, v9, v10, v11);
 }
 
 void sub_1000720C8(void *a1, void *a2)
@@ -4475,7 +4563,7 @@ void sub_1000720C8(void *a1, void *a2)
   v4 = [a2 peripheral];
   v5 = [v4 name];
   sub_100013374();
-  sub_100013390(&_mh_execute_header, v6, v7, "Parse stored observation data for peripheral %{private, mask.hash}@ failed due to unsupported observation type.", v8, v9, v10, v11, v12);
+  sub_100013390(&_mh_execute_header, v6, v7, "Parse stored observation data for peripheral %{private, mask.hash}@ failed due to unsupported observation type.", v8, v9, v10, v11);
 }
 
 void sub_100072178(uint64_t a1, void *a2, void *a3)
@@ -4513,14 +4601,15 @@ void sub_100072344(void *a1, void *a2)
   v4 = [a2 peripheral];
   v5 = [v4 name];
   sub_100013374();
-  sub_100013390(&_mh_execute_header, v6, v7, "Value for peripheral %{private, mask.hash}@ parse failed", v8, v9, v10, v11, v12);
+  sub_100013390(&_mh_execute_header, v6, v7, "Value for peripheral %{private, mask.hash}@ parse failed", v8, v9, v10, v11);
 }
 
 void sub_1000723F4(void *a1)
 {
   if (sub_100013F8C())
   {
-    sub_100013F6C(&_mh_execute_header, v2, v3, "Failed to create force interface", v4, v5, v6, v7, 0);
+    v8 = 0;
+    sub_100013F6C(&_mh_execute_header, v2, v3, "Failed to create force interface", v4, v5, v6, v7, v8);
   }
 
   *a1 = 0;
@@ -4530,7 +4619,8 @@ void sub_100072450(void *a1)
 {
   if (sub_100013F8C())
   {
-    sub_100013F6C(&_mh_execute_header, v2, v3, "Failed to create firmware upgrade interface", v4, v5, v6, v7, 0);
+    v8 = 0;
+    sub_100013F6C(&_mh_execute_header, v2, v3, "Failed to create firmware upgrade interface", v4, v5, v6, v7, v8);
   }
 
   *a1 = 0;
@@ -4540,7 +4630,8 @@ void sub_1000724AC(void *a1)
 {
   if (sub_100013F8C())
   {
-    sub_100013F6C(&_mh_execute_header, v2, v3, "Failed to create haptics interface", v4, v5, v6, v7, 0);
+    v8 = 0;
+    sub_100013F6C(&_mh_execute_header, v2, v3, "Failed to create haptics interface", v4, v5, v6, v7, v8);
   }
 
   *a1 = 0;
@@ -4550,7 +4641,8 @@ void sub_100072508(void *a1)
 {
   if (sub_100013F8C())
   {
-    sub_100013F6C(&_mh_execute_header, v2, v3, "Failed to create motion interface", v4, v5, v6, v7, 0);
+    v8 = 0;
+    sub_100013F6C(&_mh_execute_header, v2, v3, "Failed to create motion interface", v4, v5, v6, v7, v8);
   }
 
   *a1 = 0;
@@ -4560,7 +4652,8 @@ void sub_100072564(void *a1)
 {
   if (sub_100013F8C())
   {
-    sub_100013F6C(&_mh_execute_header, v2, v3, "Failed to create touch interface", v4, v5, v6, v7, 0);
+    v8 = 0;
+    sub_100013F6C(&_mh_execute_header, v2, v3, "Failed to create touch interface", v4, v5, v6, v7, v8);
   }
 
   *a1 = 0;
@@ -4570,7 +4663,8 @@ void sub_1000725C0(void *a1)
 {
   if (sub_100013F8C())
   {
-    sub_100013F6C(&_mh_execute_header, v2, v3, "Failed to create device management interface", v4, v5, v6, v7, 0);
+    v8 = 0;
+    sub_100013F6C(&_mh_execute_header, v2, v3, "Failed to create device management interface", v4, v5, v6, v7, v8);
   }
 
   *a1 = 0;
@@ -4709,7 +4803,8 @@ void sub_1000735C0(void *a1)
 {
   if (sub_100013F8C())
   {
-    sub_100013F6C(&_mh_execute_header, v2, v3, "[Firefly] Failed to create force interface", v4, v5, v6, v7, 0);
+    v8 = 0;
+    sub_100013F6C(&_mh_execute_header, v2, v3, "[Firefly] Failed to create force interface", v4, v5, v6, v7, v8);
   }
 
   *a1 = 0;
@@ -4719,7 +4814,8 @@ void sub_10007361C(void *a1)
 {
   if (sub_100013F8C())
   {
-    sub_100013F6C(&_mh_execute_header, v2, v3, "[Firefly] Failed to create radio interface", v4, v5, v6, v7, 0);
+    v8 = 0;
+    sub_100013F6C(&_mh_execute_header, v2, v3, "[Firefly] Failed to create radio interface", v4, v5, v6, v7, v8);
   }
 
   *a1 = 0;
@@ -4729,7 +4825,8 @@ void sub_100073678(void *a1)
 {
   if (sub_100013F8C())
   {
-    sub_100013F6C(&_mh_execute_header, v2, v3, "[Firefly] Failed to create inertial interface", v4, v5, v6, v7, 0);
+    v8 = 0;
+    sub_100013F6C(&_mh_execute_header, v2, v3, "[Firefly] Failed to create inertial interface", v4, v5, v6, v7, v8);
   }
 
   *a1 = 0;
@@ -4739,7 +4836,8 @@ void sub_1000736D4(void *a1)
 {
   if (sub_100013F8C())
   {
-    sub_100013F6C(&_mh_execute_header, v2, v3, "[Firefly] Failed to create device mgnt interface", v4, v5, v6, v7, 0);
+    v8 = 0;
+    sub_100013F6C(&_mh_execute_header, v2, v3, "[Firefly] Failed to create device mgnt interface", v4, v5, v6, v7, v8);
   }
 
   *a1 = 0;
@@ -4749,7 +4847,8 @@ void sub_100073730()
 {
   if (sub_10001F5B4())
   {
-    sub_10001F594(&_mh_execute_header, v0, v1, "[Firefly] Failed to create notify queue", v2, v3, v4, v5, 0);
+    v6 = 0;
+    sub_10001F594(&_mh_execute_header, v0, v1, "[Firefly] Failed to create notify queue", v2, v3, v4, v5, v6);
   }
 }
 
@@ -4757,7 +4856,8 @@ void sub_100073784()
 {
   if (sub_10001F5B4())
   {
-    sub_10001F594(&_mh_execute_header, v0, v1, "[Firefly] Failed to create semaphore", v2, v3, v4, v5, 0);
+    v6 = 0;
+    sub_10001F594(&_mh_execute_header, v0, v1, "[Firefly] Failed to create semaphore", v2, v3, v4, v5, v6);
   }
 }
 
@@ -4765,7 +4865,8 @@ void sub_1000737D8()
 {
   if (sub_10001F5B4())
   {
-    sub_10001F594(&_mh_execute_header, v0, v1, "[Firefly] Failed to create HID queue", v2, v3, v4, v5, 0);
+    v6 = 0;
+    sub_10001F594(&_mh_execute_header, v0, v1, "[Firefly] Failed to create HID queue", v2, v3, v4, v5, v6);
   }
 }
 
@@ -4773,7 +4874,8 @@ void sub_10007382C()
 {
   if (sub_10001F5B4())
   {
-    sub_10001F594(&_mh_execute_header, v0, v1, "[Firefly] Failed to create force input report set", v2, v3, v4, v5, 0);
+    v6 = 0;
+    sub_10001F594(&_mh_execute_header, v0, v1, "[Firefly] Failed to create force input report set", v2, v3, v4, v5, v6);
   }
 }
 
@@ -4782,7 +4884,7 @@ void sub_100073880(void *a1)
   v2 = a1;
   v3 = [sub_100004F6C() name];
   sub_100004F00();
-  sub_100013390(&_mh_execute_header, v4, v5, "UDS consent failed for peripheral %{private, mask.hash}@", v6, v7, v8, v9, v10);
+  sub_100013390(&_mh_execute_header, v4, v5, "UDS consent failed for peripheral %{private, mask.hash}@", v6, v7, v8, v9);
 }
 
 void sub_100073910()
@@ -4851,18 +4953,16 @@ void sub_100073D44(void *a1)
   v3 = [sub_100004F6C() peripheral];
   v4 = [v3 name];
   sub_100004F00();
-  sub_100013390(&_mh_execute_header, v5, v6, "RACP response for peripheral %{private, mask.hash}@: opCode parse failed", v7, v8, v9, v10, v11);
+  sub_100013390(&_mh_execute_header, v5, v6, "RACP response for peripheral %{private, mask.hash}@: opCode parse failed", v7, v8, v9, v10);
 }
 
-void sub_100073DEC(void *a1, unsigned __int8 *a2, unsigned __int8 *a3)
+void sub_100073DEC(void *a1, void *a2)
 {
-  v5 = a1;
-  v6 = [a2 peripheral];
-  v7 = [v6 name];
-  v8 = *a3;
-  v9 = a2[68];
+  v3 = a1;
+  v4 = [a2 peripheral];
+  v5 = [v4 name];
   sub_100024748();
-  sub_10002477C(&_mh_execute_header, v10, v11, "RACP response for peripheral %{private, mask.hash}@: invalid opCode %d, expected opCode %d", v12, v13, v14, v15, v16);
+  sub_10002477C(&_mh_execute_header, v6, v7, "RACP response for peripheral %{private, mask.hash}@: invalid opCode %d, expected opCode %d", v8, v9, v10, v11);
 }
 
 void sub_100073EB4(void *a1)
@@ -4871,7 +4971,7 @@ void sub_100073EB4(void *a1)
   v3 = [sub_100004F6C() peripheral];
   v4 = [v3 name];
   sub_100004F00();
-  sub_100013390(&_mh_execute_header, v5, v6, "Request retrieve stored observation for peripheral %{private, mask.hash}@ failed", v7, v8, v9, v10, v11);
+  sub_100013390(&_mh_execute_header, v5, v6, "Request retrieve stored observation for peripheral %{private, mask.hash}@ failed", v7, v8, v9, v10);
 }
 
 void sub_100073F5C(void *a1)
@@ -4880,7 +4980,7 @@ void sub_100073F5C(void *a1)
   v3 = [sub_100004F6C() peripheral];
   v4 = [v3 name];
   sub_100004F00();
-  sub_100013390(&_mh_execute_header, v5, v6, "Request retrieve last stored observation for peripheral %{private, mask.hash}@ failed", v7, v8, v9, v10, v11);
+  sub_100013390(&_mh_execute_header, v5, v6, "Request retrieve last stored observation for peripheral %{private, mask.hash}@ failed", v7, v8, v9, v10);
 }
 
 void sub_100074004(void *a1)
@@ -4889,7 +4989,7 @@ void sub_100074004(void *a1)
   v3 = [sub_100004F6C() peripheral];
   v4 = [v3 name];
   sub_100004F00();
-  sub_100013390(&_mh_execute_header, v5, v6, "Request delete stored observation for peripheral %{private, mask.hash}@ failed", v7, v8, v9, v10, v11);
+  sub_100013390(&_mh_execute_header, v5, v6, "Request delete stored observation for peripheral %{private, mask.hash}@ failed", v7, v8, v9, v10);
 }
 
 void sub_1000740AC(void *a1)
@@ -4898,7 +4998,7 @@ void sub_1000740AC(void *a1)
   v3 = [sub_100004F6C() peripheral];
   v4 = [v3 name];
   sub_100004F00();
-  sub_100013390(&_mh_execute_header, v5, v6, "GHS connection idle timeout for peripheral %{private, mask.hash}@", v7, v8, v9, v10, v11);
+  sub_100013390(&_mh_execute_header, v5, v6, "GHS connection idle timeout for peripheral %{private, mask.hash}@", v7, v8, v9, v10);
 }
 
 void sub_100074154(uint64_t a1, NSObject *a2)
@@ -4929,7 +5029,8 @@ void sub_1000742F4(void *a1)
 {
   if (sub_100013F8C())
   {
-    sub_100013F6C(&_mh_execute_header, v2, v3, "Failed to create wake interface", v4, v5, v6, v7, 0);
+    v8 = 0;
+    sub_100013F6C(&_mh_execute_header, v2, v3, "Failed to create wake interface", v4, v5, v6, v7, v8);
   }
 
   *a1 = 0;
@@ -4940,7 +5041,7 @@ void sub_1000744AC(void *a1, void *a2)
   v3 = a1;
   v4 = [a2 connection];
   sub_100008498();
-  sub_10002D2CC(&_mh_execute_header, v5, v6, "XPC client disconnection: %@", v7, v8, v9, v10, v11);
+  sub_10002D2CC(&_mh_execute_header, v5, v6, "XPC client disconnection: %@", v7, v8, v9, v10);
 }
 
 void sub_100074540(void *a1, void *a2)
@@ -4948,7 +5049,7 @@ void sub_100074540(void *a1, void *a2)
   v3 = a1;
   v4 = [a2 description];
   sub_100008498();
-  sub_10002D2CC(&_mh_execute_header, v5, v6, "Received XPC message: %@", v7, v8, v9, v10, v11);
+  sub_10002D2CC(&_mh_execute_header, v5, v6, "Received XPC message: %@", v7, v8, v9, v10);
 }
 
 void sub_1000745D4(void *a1, void *a2)
@@ -4957,19 +5058,18 @@ void sub_1000745D4(void *a1, void *a2)
   v4 = [a2 UUIDString];
   [v4 UTF8String];
   sub_100008498();
-  sub_10002D2CC(&_mh_execute_header, v5, v6, "handleUARPAACPTransportChangeMsg received from buds for UUID: %s", v7, v8, v9, v10, v11);
+  sub_10002D2CC(&_mh_execute_header, v5, v6, "handleUARPAACPTransportChangeMsg received from buds for UUID: %s", v7, v8, v9, v10);
 }
 
-void sub_100074670(void *a1, void *a2, uint64_t *a3)
+void sub_100074670(void *a1, void *a2)
 {
-  v5 = a1;
-  v6 = [a2 UUIDString];
-  [v6 UTF8String];
-  v7 = *a3;
+  v3 = a1;
+  v4 = [a2 UUIDString];
+  [v4 UTF8String];
   sub_100008498();
-  v10 = 2048;
-  v11 = v8;
-  _os_log_debug_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "handleUARPDataOverAACPMsg got data, uuid: %s length: %lu", v9, 0x16u);
+  v7 = 2048;
+  v8 = v5;
+  _os_log_debug_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "handleUARPDataOverAACPMsg got data, uuid: %s length: %lu", v6, 0x16u);
 }
 
 void sub_1000747AC(void *a1, void *a2)
@@ -5022,7 +5122,7 @@ void sub_100074B60(void *a1, void *a2)
   v3 = a1;
   v4 = [a2 soundSensorXpcConnection];
   sub_100008498();
-  sub_1000084A4(&_mh_execute_header, v5, v6, "DoAPAudioRelayHub previous Sound Sensor XPC connection still exists (%p). Tear that down.", v7, v8, v9, v10, v11);
+  sub_1000084A4(&_mh_execute_header, v5, v6, "DoAPAudioRelayHub previous Sound Sensor XPC connection still exists (%p). Tear that down.", v7, v8, v9, v10);
 }
 
 void sub_100074BF4(void *a1, void *a2)
@@ -5030,7 +5130,7 @@ void sub_100074BF4(void *a1, void *a2)
   v3 = a1;
   v4 = [a2 siriXpcConnection];
   sub_100008498();
-  sub_1000084A4(&_mh_execute_header, v5, v6, "DoAPAudioRelayHub previous Siri XPC connection still exists (%p). Tear that down.", v7, v8, v9, v10, v11);
+  sub_1000084A4(&_mh_execute_header, v5, v6, "DoAPAudioRelayHub previous Siri XPC connection still exists (%p). Tear that down.", v7, v8, v9, v10);
 }
 
 void sub_100074C88()
@@ -5124,7 +5224,7 @@ void sub_100075794(void *a1, void *a2)
   v3 = a1;
   v4 = [a2 name];
   sub_100008498();
-  sub_1000084A4(&_mh_execute_header, v5, v6, "Ignore peripheral %@ disconnection event", v7, v8, v9, v10, v11);
+  sub_1000084A4(&_mh_execute_header, v5, v6, "Ignore peripheral %@ disconnection event", v7, v8, v9, v10);
 }
 
 void sub_100075828()
@@ -5148,7 +5248,7 @@ void sub_100075950(void *a1, void *a2)
   v3 = a1;
   v4 = [a2 name];
   sub_100008498();
-  sub_1000084A4(&_mh_execute_header, v5, v6, "Connection timed out for peripheral %@...", v7, v8, v9, v10, v11);
+  sub_1000084A4(&_mh_execute_header, v5, v6, "Connection timed out for peripheral %@...", v7, v8, v9, v10);
 }
 
 void sub_100075B54(uint64_t a1, NSObject *a2)
@@ -5203,7 +5303,8 @@ void sub_1000761AC(_BYTE *a1)
 {
   if (sub_100013F8C())
   {
-    sub_100013F6C(&_mh_execute_header, v2, v3, "No <Last Timestamp Sync> key found", v4, v5, v6, v7, 0);
+    v8 = 0;
+    sub_100013F6C(&_mh_execute_header, v2, v3, "No <Last Timestamp Sync> key found", v4, v5, v6, v7, v8);
   }
 
   *a1 = 0;
@@ -5213,7 +5314,8 @@ void sub_100076208(_BYTE *a1)
 {
   if (sub_100013F8C())
   {
-    sub_100013F6C(&_mh_execute_header, v2, v3, "No <Timestamp Sync Count> key found", v4, v5, v6, v7, 0);
+    v8 = 0;
+    sub_100013F6C(&_mh_execute_header, v2, v3, "No <Timestamp Sync Count> key found", v4, v5, v6, v7, v8);
   }
 
   *a1 = 0;
@@ -5223,7 +5325,8 @@ void sub_100076264(_BYTE *a1)
 {
   if (sub_100013F8C())
   {
-    sub_100013F6C(&_mh_execute_header, v2, v3, "No <Timestamp Sync Period> key found", v4, v5, v6, v7, 0);
+    v8 = 0;
+    sub_100013F6C(&_mh_execute_header, v2, v3, "No <Timestamp Sync Period> key found", v4, v5, v6, v7, v8);
   }
 
   *a1 = 0;
@@ -5233,7 +5336,8 @@ void sub_1000762C0(_BYTE *a1)
 {
   if (sub_100013F8C())
   {
-    sub_100013F6C(&_mh_execute_header, v2, v3, "No timestamp sync driver exists.", v4, v5, v6, v7, 0);
+    v8 = 0;
+    sub_100013F6C(&_mh_execute_header, v2, v3, "No timestamp sync driver exists.", v4, v5, v6, v7, v8);
   }
 
   *a1 = 0;
@@ -5279,7 +5383,7 @@ void sub_100076714(void *a1, void *a2, void *a3)
   v6 = [a3 reportTypeToString:{objc_msgSend(a2, "type")}];
   [a2 ID];
   sub_100042E2C();
-  sub_100042E50(&_mh_execute_header, v7, v8, "Did set %@ report for ID #%u", v9, v10, v11, v12, v13);
+  sub_100042E50(&_mh_execute_header, v7, v8, "Did set %@ report for ID #%u", v9, v10, v11, v12);
 }
 
 void sub_1000767C8(void *a1, void *a2, void *a3)
@@ -5288,7 +5392,7 @@ void sub_1000767C8(void *a1, void *a2, void *a3)
   v6 = [a3 reportTypeToString:{objc_msgSend(a2, "type")}];
   [a2 ID];
   sub_100042E2C();
-  sub_100042E50(&_mh_execute_header, v7, v8, "Started notifications on %@ report for ID #%u", v9, v10, v11, v12, v13);
+  sub_100042E50(&_mh_execute_header, v7, v8, "Started notifications on %@ report for ID #%u", v9, v10, v11, v12);
 }
 
 void sub_100076924()
@@ -5312,34 +5416,6 @@ void sub_10007699C(void *a1, uint8_t *buf, int a3, os_log_t log)
   *(buf + 6) = 1024;
   *(buf + 14) = a3;
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Could not find %@ report characteristic for ID #%u", buf, 0x12u);
-}
-
-void sub_100076AAC(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 200);
-  sub_100045568();
-  sub_100045580(&_mh_execute_header, v3, v4, "Adding DI Read complete listener:%@ to list %@");
-}
-
-void sub_100076B20(uint64_t a1, uint64_t *a2)
-{
-  v2 = *a2;
-  sub_100045568();
-  sub_100045580(&_mh_execute_header, v3, v4, "Added DI Read complete listener:%@ to list %@");
-}
-
-void sub_100076B8C(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 200);
-  sub_100045568();
-  sub_100045580(&_mh_execute_header, v3, v4, "Removing DI Read complete listener:%@ from list %@");
-}
-
-void sub_100076C00(uint64_t a1, uint64_t *a2)
-{
-  v2 = *a2;
-  sub_100045568();
-  sub_100045580(&_mh_execute_header, v3, v4, "Removed DI Read complete listener:%@ from list %@");
 }
 
 void sub_100076C6C()
@@ -5378,7 +5454,7 @@ void sub_100076E40(void *a1, void *a2, void *a3)
   v7 = [v6 UUIDString];
   v8 = [a3 debugDescription];
   sub_100047534();
-  sub_10004754C(&_mh_execute_header, v9, v10, "Error discovering characteristics for service %@: %@", v11, v12, v13, v14, v15);
+  sub_10004754C(&_mh_execute_header, v9, v10, "Error discovering characteristics for service %@: %@", v11, v12, v13, v14);
 }
 
 void sub_100076F6C(void *a1, void *a2, void *a3)
@@ -5388,7 +5464,7 @@ void sub_100076F6C(void *a1, void *a2, void *a3)
   v7 = [v6 UUIDString];
   v8 = [a3 debugDescription];
   sub_100047534();
-  sub_10004754C(&_mh_execute_header, v9, v10, "Error reading HRM characteristic %@: %@", v11, v12, v13, v14, v15);
+  sub_10004754C(&_mh_execute_header, v9, v10, "Error reading HRM characteristic %@: %@", v11, v12, v13, v14);
 }
 
 void sub_100077030(void *a1, void *a2, void *a3)
@@ -5398,14 +5474,7 @@ void sub_100077030(void *a1, void *a2, void *a3)
   v7 = [v6 UUIDString];
   v8 = [a3 debugDescription];
   sub_100047534();
-  sub_10004754C(&_mh_execute_header, v9, v10, "Error setting notify state for HRM characteristic %@: %@", v11, v12, v13, v14, v15);
-}
-
-void sub_1000770F4(unsigned __int16 *a1)
-{
-  v6 = *a1;
-  sub_100042E44();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
+  sub_10004754C(&_mh_execute_header, v9, v10, "Error setting notify state for HRM characteristic %@: %@", v11, v12, v13, v14);
 }
 
 void sub_10007716C(void *a1, void *a2)
@@ -5487,7 +5556,9 @@ void sub_10007799C(void *a1, void *a2)
   [a2 UUID];
   objc_claimAutoreleasedReturnValue();
   v4 = [sub_10004A43C() uuidToString:?];
-  sub_10004A45C(&_mh_execute_header, v5, v6, "DoAP Started notifications on %@ characteristic", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  sub_10004A45C(&_mh_execute_header, v5, v6, "DoAP Started notifications on %@ characteristic", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void sub_100077A50(void *a1, void *a2)
@@ -5496,7 +5567,9 @@ void sub_100077A50(void *a1, void *a2)
   [a2 UUID];
   objc_claimAutoreleasedReturnValue();
   v4 = [sub_10004A43C() uuidToString:?];
-  sub_10004A45C(&_mh_execute_header, v5, v6, "DoAP Found CCCD for %@ chracteristic", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  sub_10004A45C(&_mh_execute_header, v5, v6, "DoAP Found CCCD for %@ chracteristic", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void sub_100077B04(void *a1, void *a2)
@@ -5532,13 +5605,12 @@ void sub_100077CB4()
   sub_100010AF0(&_mh_execute_header, v0, v1, "DoAP Received payload length(%d) is different to sent length(%d)", v2, v3);
 }
 
-void sub_100077D28(uint64_t a1)
+void sub_100077D28()
 {
-  v1 = *(a1 + 2);
   sub_10004A430();
-  v5 = 1024;
-  v6 = v2;
-  _os_log_debug_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "DoAP Receive data, packet#[%d] payload length %d", v4, 0xEu);
+  v3 = 1024;
+  v4 = v0;
+  _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "DoAP Receive data, packet#[%d] payload length %d", v2, 0xEu);
 }
 
 void sub_100077DB0()
@@ -5583,8 +5655,9 @@ void sub_10007804C(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 pendingUpdates];
-  [v4 count];
-  sub_10002D2CC(&_mh_execute_header, v5, v6, "Queued update, %lu pending", v7, v8, v9, v10, 0);
+  LODWORD(v11) = 134217984;
+  *(&v11 + 4) = [v4 count];
+  sub_10002D2CC(&_mh_execute_header, v5, v6, "Queued update, %lu pending", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void sub_1000780E8(void *a1, void *a2, void *a3)
@@ -5603,15 +5676,17 @@ void sub_1000781E0(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 pendingUpdates];
-  [v4 count];
-  sub_10002D2CC(&_mh_execute_header, v5, v6, "Ready to send updates, %lu pending", v7, v8, v9, v10, 0);
+  LODWORD(v11) = 134217984;
+  *(&v11 + 4) = [v4 count];
+  sub_10002D2CC(&_mh_execute_header, v5, v6, "Ready to send updates, %lu pending", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void sub_100078498(void *a1)
 {
   if (sub_100013F8C())
   {
-    sub_100013F6C(&_mh_execute_header, v2, v3, "Failed to create device mgnt interface", v4, v5, v6, v7, 0);
+    v8 = 0;
+    sub_100013F6C(&_mh_execute_header, v2, v3, "Failed to create device mgnt interface", v4, v5, v6, v7, v8);
   }
 
   *a1 = 0;
@@ -5642,52 +5717,51 @@ void sub_100078668(void *a1, void *a2)
   _os_log_debug_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "piconetClockNotification: %s", &v5, 0xCu);
 }
 
-void sub_100078718(uint64_t *a1)
+void sub_100078718()
 {
-  sub_10004F810(a1, __stack_chk_guard);
+  sub_10004F810(__stack_chk_guard);
   sub_10004F7BC();
   sub_10004F7D8();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x14u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x14u);
 }
 
-void sub_100078790(uint64_t *a1)
+void sub_100078790()
 {
-  sub_10004F810(a1, __stack_chk_guard);
+  sub_10004F810(__stack_chk_guard);
   sub_10004F7F8();
   sub_10004F7E8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_1000789E4(unsigned __int8 *a1)
+void sub_1000789E4()
 {
-  v1 = *a1;
   sub_10004F81C();
   sub_10004F7D8();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xEu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
-void sub_100078A5C(uint64_t *a1)
+void sub_100078A5C()
 {
-  sub_10004F810(a1, __stack_chk_guard);
+  sub_10004F810(__stack_chk_guard);
   sub_10004F7BC();
   sub_10004F7D8();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x14u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x14u);
 }
 
-void sub_100078AD4(uint64_t *a1)
+void sub_100078AD4()
 {
-  sub_10004F810(a1, __stack_chk_guard);
+  sub_10004F810(__stack_chk_guard);
   sub_10004F7BC();
   sub_10004F7D8();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x14u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x14u);
 }
 
-void sub_100078BC0(uint64_t *a1)
+void sub_100078BC0()
 {
-  sub_10004F810(a1, __stack_chk_guard);
+  sub_10004F810(__stack_chk_guard);
   sub_10004F7F8();
   sub_10004F7E8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void sub_100078CB8(void *a1, void *a2, uint64_t a3)
@@ -5721,7 +5795,7 @@ void sub_100078EC0(void *a1)
   v3 = [sub_100004F6C() peripheral];
   v4 = [v3 name];
   sub_100013374();
-  sub_100013390(&_mh_execute_header, v5, v6, "Parse live observation data for peripheral %{private, mask.hash}@ failed.", v7, v8, v9, v10, v11);
+  sub_100013390(&_mh_execute_header, v5, v6, "Parse live observation data for peripheral %{private, mask.hash}@ failed.", v7, v8, v9, v10);
 }
 
 void sub_100078F6C(void *a1)
@@ -5730,16 +5804,21 @@ void sub_100078F6C(void *a1)
   v3 = [sub_100004F6C() peripheral];
   v4 = [v3 name];
   sub_100013374();
-  sub_100013390(&_mh_execute_header, v5, v6, "Parse stored observation data for peripheral %{private, mask.hash}@ failed due to unsupported observation type.", v7, v8, v9, v10, v11);
+  sub_100013390(&_mh_execute_header, v5, v6, "Parse stored observation data for peripheral %{private, mask.hash}@ failed due to unsupported observation type.", v7, v8, v9, v10);
 }
 
 void sub_100079018(void *a1, void *a2, unsigned __int16 *a3)
 {
   v5 = a1;
   v6 = [a2 peripheral];
-  v13 = [v6 name];
-  v14 = *a3;
-  sub_100051410(&_mh_execute_header, v7, v8, "Unit for peripheral %{private, mask.hash}@: invalid unit %d", v9, v10, v11, v12, 3u);
+  v7 = [v6 name];
+  *v14 = 141558531;
+  *&v14[4] = 1752392040;
+  *&v14[12] = 2113;
+  *&v14[14] = v7;
+  *&v14[22] = 1024;
+  v15 = *a3;
+  sub_100051410(&_mh_execute_header, v8, v9, "Unit for peripheral %{private, mask.hash}@: invalid unit %d", v10, v11, v12, v13, *v14, *&v14[8], *&v14[16], v15);
 }
 
 void sub_1000790F0(void *a1)
@@ -5748,7 +5827,7 @@ void sub_1000790F0(void *a1)
   v3 = [sub_100004F6C() peripheral];
   v4 = [v3 name];
   sub_100013374();
-  sub_100013390(&_mh_execute_header, v5, v6, "Peripheral %{private, mask.hash}@ observation value parse failed", v7, v8, v9, v10, v11);
+  sub_100013390(&_mh_execute_header, v5, v6, "Peripheral %{private, mask.hash}@ observation value parse failed", v7, v8, v9, v10);
 }
 
 void sub_10007919C(void *a1)
@@ -5757,7 +5836,7 @@ void sub_10007919C(void *a1)
   v3 = [sub_100004F6C() peripheral];
   v4 = [v3 name];
   sub_100013374();
-  sub_100013390(&_mh_execute_header, v5, v6, "Peripheral %{private, mask.hash}@ observation value not saved due to invalid value", v7, v8, v9, v10, v11);
+  sub_100013390(&_mh_execute_header, v5, v6, "Peripheral %{private, mask.hash}@ observation value not saved due to invalid value", v7, v8, v9, v10);
 }
 
 void sub_100079248(void *a1, void *a2)
@@ -5766,7 +5845,7 @@ void sub_100079248(void *a1, void *a2)
   v4 = [a2 peripheral];
   v5 = [v4 name];
   sub_100013374();
-  sub_100051410(&_mh_execute_header, v6, v7, "Observation type for peripheral %{private, mask.hash}@ not supported : %d", v8, v9, v10, v11, v12);
+  sub_100051410(&_mh_execute_header, v6, v7, "Observation type for peripheral %{private, mask.hash}@ not supported : %d", v8, v9, v10, v11);
 }
 
 void sub_10007942C(void *a1)
@@ -5774,7 +5853,7 @@ void sub_10007942C(void *a1)
   v2 = a1;
   v3 = [sub_100004F6C() debugDescription];
   sub_100008498();
-  sub_1000084A4(&_mh_execute_header, v4, v5, "Error retrieving tagged peripherals: %@", v6, v7, v8, v9, v10);
+  sub_1000084A4(&_mh_execute_header, v4, v5, "Error retrieving tagged peripherals: %@", v6, v7, v8, v9);
 }
 
 void sub_1000794BC(void *a1)
@@ -5782,7 +5861,7 @@ void sub_1000794BC(void *a1)
   v2 = a1;
   v3 = [sub_100004F6C() debugDescription];
   sub_100008498();
-  sub_1000084A4(&_mh_execute_header, v4, v5, "Error retrieving peripherals with fitness custom property: %@", v6, v7, v8, v9, v10);
+  sub_1000084A4(&_mh_execute_header, v4, v5, "Error retrieving peripherals with fitness custom property: %@", v6, v7, v8, v9);
 }
 
 void sub_10007954C(void *a1)
@@ -5790,7 +5869,7 @@ void sub_10007954C(void *a1)
   v2 = a1;
   v3 = [sub_100004F6C() debugDescription];
   sub_100008498();
-  sub_1000084A4(&_mh_execute_header, v4, v5, "Error retrieving peripherals with Fitness custom property: %@", v6, v7, v8, v9, v10);
+  sub_1000084A4(&_mh_execute_header, v4, v5, "Error retrieving peripherals with Fitness custom property: %@", v6, v7, v8, v9);
 }
 
 void sub_10007978C(void *a1)
@@ -5798,7 +5877,7 @@ void sub_10007978C(void *a1)
   v2 = a1;
   v3 = [sub_100004F6C() description];
   sub_100008498();
-  sub_1000084A4(&_mh_execute_header, v4, v5, "Error activating audio routing control: %@", v6, v7, v8, v9, v10);
+  sub_1000084A4(&_mh_execute_header, v4, v5, "Error activating audio routing control: %@", v6, v7, v8, v9);
 }
 
 void sub_10007981C(char a1, NSObject *a2)
@@ -5819,7 +5898,7 @@ void sub_1000798AC(void *a1)
   v2 = a1;
   v3 = [sub_100004F6C() description];
   sub_100008498();
-  sub_1000084A4(&_mh_execute_header, v4, v5, "Error notifying HRM session state changed: %@", v6, v7, v8, v9, v10);
+  sub_1000084A4(&_mh_execute_header, v4, v5, "Error notifying HRM session state changed: %@", v6, v7, v8, v9);
 }
 
 void sub_10007993C(uint8_t *a1, void *a2, void *a3, void *a4)
@@ -5834,22 +5913,20 @@ void sub_10007993C(uint8_t *a1, void *a2, void *a3, void *a4)
 
 void sub_1000799D8(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [sub_100004F6C() identifier];
-  v6 = [v5 UUIDString];
+  v3 = a2;
+  v4 = [sub_100004F6C() identifier];
+  v5 = [v4 UUIDString];
   sub_100008498();
-  sub_1000084A4(&_mh_execute_header, v7, v8, "Failed to get HKHealthService enabled status during HRM migration for identifier %@", v9, v10, v11, v12, v13);
+  sub_1000084A4(&_mh_execute_header, v6, v7, "Failed to get HKHealthService enabled status during HRM migration for identifier %@", v8, v9, v10, v11);
 }
 
 void sub_100079A80(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [sub_100004F6C() identifier];
-  v6 = [v5 UUIDString];
+  v3 = a2;
+  v4 = [sub_100004F6C() identifier];
+  v5 = [v4 UUIDString];
   sub_100008498();
-  sub_1000084A4(&_mh_execute_header, v7, v8, "Failed to remove HKHealthService pairing during HRM migration for identifier %@", v9, v10, v11, v12, v13);
+  sub_1000084A4(&_mh_execute_header, v6, v7, "Failed to remove HKHealthService pairing during HRM migration for identifier %@", v8, v9, v10, v11);
 }
 
 void sub_100079B3C()
@@ -5894,7 +5971,7 @@ void sub_100079DC0(void *a1, void *a2)
   v4 = [a2 UUIDString];
   [v4 UTF8String];
   sub_100008498();
-  sub_10002D2CC(&_mh_execute_header, v5, v6, "addUARPTransportDict: adding UUID: %s", v7, v8, v9, v10, v11);
+  sub_10002D2CC(&_mh_execute_header, v5, v6, "addUARPTransportDict: adding UUID: %s", v7, v8, v9, v10);
 }
 
 void sub_100079E5C(void *a1, void *a2)
@@ -5903,7 +5980,7 @@ void sub_100079E5C(void *a1, void *a2)
   v4 = [a2 UUIDString];
   [v4 UTF8String];
   sub_100008498();
-  sub_10002D2CC(&_mh_execute_header, v5, v6, "getAndRemoveFromUARPTransportDict: got for UUID: %s", v7, v8, v9, v10, v11);
+  sub_10002D2CC(&_mh_execute_header, v5, v6, "getAndRemoveFromUARPTransportDict: got for UUID: %s", v7, v8, v9, v10);
 }
 
 void sub_100079EF8(void *a1, void *a2)
@@ -5912,23 +5989,28 @@ void sub_100079EF8(void *a1, void *a2)
   v4 = [a2 UUIDString];
   [v4 UTF8String];
   sub_100008498();
-  sub_10002D2CC(&_mh_execute_header, v5, v6, "getAndRemoveFromUARPTransportDict: did not find anything for UUID: %s", v7, v8, v9, v10, v11);
+  sub_10002D2CC(&_mh_execute_header, v5, v6, "getAndRemoveFromUARPTransportDict: did not find anything for UUID: %s", v7, v8, v9, v10);
 }
 
 void sub_100079F94(void *a1, void *a2, void *a3)
 {
   v5 = a1;
   v6 = [a2 UUIDString];
-  [v6 UTF8String];
-  [a3 length];
-  sub_1000583D4(&_mh_execute_header, v7, v8, "relayAACPUARP - accessory UUID:%s msgLength:%lu", v9, v10, v11, v12, 2u);
+  *v13 = 136315394;
+  *&v13[4] = [v6 UTF8String];
+  *&v13[12] = 2048;
+  *&v13[14] = [a3 length];
+  sub_1000583D4(&_mh_execute_header, v7, v8, "relayAACPUARP - accessory UUID:%s msgLength:%lu", v9, v10, v11, v12, *v13, *&v13[8], *&v13[16]);
 }
 
 void sub_10007A058(uint64_t a1, void *a2, void *a3)
 {
-  v4 = a2;
-  [a3 length];
-  sub_1000583D4(&_mh_execute_header, v5, v6, "sendMessageToAccessory - accessory:%@ msgLength:%lu", v7, v8, v9, v10, 2u);
+  v5 = a2;
+  *v12 = 138412546;
+  *&v12[4] = a1;
+  *&v12[12] = 2048;
+  *&v12[14] = [a3 length];
+  sub_1000583D4(&_mh_execute_header, v6, v7, "sendMessageToAccessory - accessory:%@ msgLength:%lu", v8, v9, v10, v11, *v12, *&v12[8], *&v12[16]);
 }
 
 void sub_10007A17C()
@@ -6066,8 +6148,10 @@ void sub_10007A944(void *a1, void *a2, const void *a3)
   v7 = [sub_10005DF60() peripheral];
   v8 = [v7 name];
   CFDictionaryGetValue([a2 authInfo], a3);
+  LODWORD(v15) = 138412546;
+  *(&v15 + 4) = v8;
   sub_10005DF30();
-  sub_10005DF40(&_mh_execute_header, v9, v10, "Read certificate for peripheral %@: %@", v11, v12, v13, v14, 2u);
+  sub_10005DF40(&_mh_execute_header, v9, v10, "Read certificate for peripheral %@: %@", v11, v12, v13, v14, v15, DWORD2(v15));
 }
 
 void sub_10007AA10(void *a1)
@@ -6076,7 +6160,7 @@ void sub_10007AA10(void *a1)
   v3 = [sub_100004F6C() peripheral];
   v4 = [v3 name];
   sub_100008498();
-  sub_1000084A4(&_mh_execute_header, v5, v6, "Certificate invalid for peripheral %@", v7, v8, v9, v10, v11);
+  sub_1000084A4(&_mh_execute_header, v5, v6, "Certificate invalid for peripheral %@", v7, v8, v9, v10);
 }
 
 void sub_10007AAB8(void *a1, void *a2, const void *a3)
@@ -6085,8 +6169,10 @@ void sub_10007AAB8(void *a1, void *a2, const void *a3)
   v7 = [sub_10005DF60() peripheral];
   v8 = [v7 name];
   CFDictionaryGetValue([a2 authInfo], a3);
+  LODWORD(v15) = 138412546;
+  *(&v15 + 4) = v8;
   sub_10005DF30();
-  sub_10005DF40(&_mh_execute_header, v9, v10, "Issuing challenge for peripheral %@: %@", v11, v12, v13, v14, 2u);
+  sub_10005DF40(&_mh_execute_header, v9, v10, "Issuing challenge for peripheral %@: %@", v11, v12, v13, v14, v15, DWORD2(v15));
 }
 
 void sub_10007AB84(void *a1, void *a2)
@@ -6096,8 +6182,10 @@ void sub_10007AB84(void *a1, void *a2)
   v6 = [v5 name];
   v7 = [a2 versionCharacteristic];
   v8 = [v7 value];
+  LODWORD(v15) = 138412546;
+  *(&v15 + 4) = v6;
   sub_10005DF30();
-  sub_10005DF6C(&_mh_execute_header, v9, v10, "Invalid version for peripheral %@: %@", v11, v12, v13, v14, 2u);
+  sub_10005DF6C(&_mh_execute_header, v9, v10, "Invalid version for peripheral %@: %@", v11, v12, v13, v14, v15, DWORD2(v15));
 }
 
 void sub_10007AC60(void *a1, void *a2, const void *a3)
@@ -6106,8 +6194,10 @@ void sub_10007AC60(void *a1, void *a2, const void *a3)
   v7 = [sub_10005DF60() peripheral];
   v8 = [v7 name];
   CFDictionaryGetValue([a2 authInfo], a3);
+  LODWORD(v15) = 138412546;
+  *(&v15 + 4) = v8;
   sub_10005DF30();
-  sub_10005DF40(&_mh_execute_header, v9, v10, "Read response for peripheral %@: %@", v11, v12, v13, v14, 2u);
+  sub_10005DF40(&_mh_execute_header, v9, v10, "Read response for peripheral %@: %@", v11, v12, v13, v14, v15, DWORD2(v15));
 }
 
 void sub_10007AD2C(void *a1)
@@ -6116,7 +6206,7 @@ void sub_10007AD2C(void *a1)
   v3 = [sub_100004F6C() peripheral];
   v4 = [v3 name];
   sub_100008498();
-  sub_1000084A4(&_mh_execute_header, v5, v6, "Challenge response invalid for peripheral %@", v7, v8, v9, v10, v11);
+  sub_1000084A4(&_mh_execute_header, v5, v6, "Challenge response invalid for peripheral %@", v7, v8, v9, v10);
 }
 
 void sub_10007ADD4(void *a1)
@@ -6134,8 +6224,10 @@ void sub_10007AE8C(void *a1, void *a2)
   v4 = [a2 authStateString];
   v5 = [a2 peripheral];
   v6 = [v5 name];
+  LODWORD(v13) = 138412546;
+  *(&v13 + 4) = v4;
   sub_10005DF30();
-  sub_10005DF6C(&_mh_execute_header, v7, v8, "Authentication has timed out (%@) on peripheral %@", v9, v10, v11, v12, 2u);
+  sub_10005DF6C(&_mh_execute_header, v7, v8, "Authentication has timed out (%@) on peripheral %@", v9, v10, v11, v12, v13, DWORD2(v13));
 }
 
 void sub_10007AF54(void *a1)
@@ -6144,7 +6236,7 @@ void sub_10007AF54(void *a1)
   v3 = [sub_100004F6C() peripheral];
   v4 = [v3 name];
   sub_100008498();
-  sub_1000084A4(&_mh_execute_header, v5, v6, "Still no response notification, attempting a last ditch read on peripheral %@", v7, v8, v9, v10, v11);
+  sub_1000084A4(&_mh_execute_header, v5, v6, "Still no response notification, attempting a last ditch read on peripheral %@", v7, v8, v9, v10);
 }
 
 void sub_10007B098(void *a1, void *a2, uint64_t a3)
@@ -6215,7 +6307,7 @@ void sub_10007B820(void *a1, void *a2)
   v4 = [a2 peripheral];
   v5 = [v4 name];
   sub_100013374();
-  sub_100013390(&_mh_execute_header, v6, v7, "Parse live observation data for peripheral %{private, mask.hash}@ failed due to unsupported device type.", v8, v9, v10, v11, v12);
+  sub_100013390(&_mh_execute_header, v6, v7, "Parse live observation data for peripheral %{private, mask.hash}@ failed due to unsupported device type.", v8, v9, v10, v11);
 }
 
 void sub_10007B8D0(void *a1, void *a2)
@@ -6224,7 +6316,7 @@ void sub_10007B8D0(void *a1, void *a2)
   v4 = [a2 peripheral];
   v5 = [v4 name];
   sub_100013374();
-  sub_100013390(&_mh_execute_header, v6, v7, "Parse stored observation data for peripheral %{private, mask.hash}@ failed due to unsupported device type.", v8, v9, v10, v11, v12);
+  sub_100013390(&_mh_execute_header, v6, v7, "Parse stored observation data for peripheral %{private, mask.hash}@ failed due to unsupported device type.", v8, v9, v10, v11);
 }
 
 void sub_10007B980(uint64_t a1, void *a2, void *a3)
@@ -6247,7 +6339,7 @@ void sub_10007BA64(void *a1)
   v3 = [sub_100004F78() peripheral];
   v4 = [v3 name];
   sub_100004F00();
-  sub_100051410(&_mh_execute_header, v5, v6, "Parse live observation data for peripheral %{private, mask.hash}@ failed due to unsupported observation type %d.", v7, v8, v9, v10, v11);
+  sub_100051410(&_mh_execute_header, v5, v6, "Parse live observation data for peripheral %{private, mask.hash}@ failed due to unsupported observation type %d.", v7, v8, v9, v10);
 }
 
 void sub_10007BB1C(void *a1)
@@ -6256,7 +6348,7 @@ void sub_10007BB1C(void *a1)
   v3 = [sub_100004F6C() peripheral];
   v4 = [v3 name];
   sub_100004F00();
-  sub_100013390(&_mh_execute_header, v5, v6, "Parse live observation data for peripheral %{private, mask.hash}@ failed.", v7, v8, v9, v10, v11);
+  sub_100013390(&_mh_execute_header, v5, v6, "Parse live observation data for peripheral %{private, mask.hash}@ failed.", v7, v8, v9, v10);
 }
 
 void sub_10007BBC4(void *a1)
@@ -6265,7 +6357,7 @@ void sub_10007BBC4(void *a1)
   v3 = [sub_100004F78() peripheral];
   v4 = [v3 name];
   sub_100004F00();
-  sub_100051410(&_mh_execute_header, v5, v6, "Parse stored observation data for peripheral %{private, mask.hash}@ failed due to unsupported observation type %d.", v7, v8, v9, v10, v11);
+  sub_100051410(&_mh_execute_header, v5, v6, "Parse stored observation data for peripheral %{private, mask.hash}@ failed due to unsupported observation type %d.", v7, v8, v9, v10);
 }
 
 void sub_10007BC7C(void *a1)
@@ -6274,7 +6366,7 @@ void sub_10007BC7C(void *a1)
   v3 = [sub_100004F6C() peripheral];
   v4 = [v3 name];
   sub_100004F00();
-  sub_100013390(&_mh_execute_header, v5, v6, "Parse stored observation data for peripheral %{private, mask.hash}@ failed", v7, v8, v9, v10, v11);
+  sub_100013390(&_mh_execute_header, v5, v6, "Parse stored observation data for peripheral %{private, mask.hash}@ failed", v7, v8, v9, v10);
 }
 
 void sub_10007BD24(uint64_t a1, void *a2, void *a3)
@@ -6293,14 +6385,13 @@ void sub_10007BD24(uint64_t a1, void *a2, void *a3)
   _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Save sample for peripheral %{private, mask.hash}@ failed : %{public}@", &v9, 0x20u);
 }
 
-void sub_10007BE1C(void *a1, uint64_t a2, unsigned __int16 *a3)
+void sub_10007BE1C(void *a1)
 {
-  v5 = a1;
-  v6 = [sub_100004F78() peripheral];
-  v7 = [v6 name];
-  v8 = *a3;
+  v2 = a1;
+  v3 = [sub_100004F78() peripheral];
+  v4 = [v3 name];
   sub_100004F20();
-  sub_100051410(&_mh_execute_header, v9, v10, "Unit for peripheral %{private, mask.hash}@: invalid unit %d", v11, v12, v13, v14, v15);
+  sub_100051410(&_mh_execute_header, v5, v6, "Unit for peripheral %{private, mask.hash}@: invalid unit %d", v7, v8, v9, v10);
 }
 
 void sub_10007BECC(void *a1)
@@ -6309,7 +6400,7 @@ void sub_10007BECC(void *a1)
   v3 = [sub_100004F6C() peripheral];
   v4 = [v3 name];
   sub_100004F00();
-  sub_100013390(&_mh_execute_header, v5, v6, "Peripheral %{private, mask.hash}@ observation value parse failed", v7, v8, v9, v10, v11);
+  sub_100013390(&_mh_execute_header, v5, v6, "Peripheral %{private, mask.hash}@ observation value parse failed", v7, v8, v9, v10);
 }
 
 void sub_10007BF74(void *a1)
@@ -6318,7 +6409,7 @@ void sub_10007BF74(void *a1)
   v3 = [sub_100004F6C() peripheral];
   v4 = [v3 name];
   sub_100004F00();
-  sub_100013390(&_mh_execute_header, v5, v6, "Peripheral %{private, mask.hash}@ observation value not saved due to invalid value", v7, v8, v9, v10, v11);
+  sub_100013390(&_mh_execute_header, v5, v6, "Peripheral %{private, mask.hash}@ observation value not saved due to invalid value", v7, v8, v9, v10);
 }
 
 void sub_10007C01C(void *a1, void *a2, void *a3)
@@ -6344,6 +6435,20 @@ void sub_10007C01C(void *a1, void *a2, void *a3)
   _os_log_debug_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "sendData - peripheral:%@ length:%lu profile: %s", &v12, 0x20u);
 }
 
+void sub_10007C13C(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_100033C7C(&_mh_execute_header, a2, a3, "didWriteValueForCharacteristic failed - error:%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10007C1A8(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_100033C7C(&_mh_execute_header, a2, a3, "didUpdateValueForCharacteristic failed - error:%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_10007C214(uint64_t *a1, NSObject *a2)
 {
   v2 = *a1;
@@ -6352,13 +6457,20 @@ void sub_10007C214(uint64_t *a1, NSObject *a2)
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "peripheral:didUpdateNotificationStateForCharacteristic: loggingSuperbinaryURL %@", &v3, 0xCu);
 }
 
+void sub_10007C2D4(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_100033C7C(&_mh_execute_header, a2, a3, "assetSolicitationComplete: Error decomposing asset:%@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_10007C340(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 peripheral];
   v5 = [v4 name];
   sub_100013374();
-  sub_100013390(&_mh_execute_header, v6, v7, "Parse live observation data for peripheral %{private, mask.hash}@ failed due to unsupported observation type.", v8, v9, v10, v11, v12);
+  sub_100013390(&_mh_execute_header, v6, v7, "Parse live observation data for peripheral %{private, mask.hash}@ failed due to unsupported observation type.", v8, v9, v10, v11);
 }
 
 void sub_10007C3F0(uint64_t a1, void *a2, void *a3)
@@ -6370,7 +6482,7 @@ void sub_10007C3F0(uint64_t a1, void *a2, void *a3)
   v8 = [a3 userInfo];
   sub_100013374();
   sub_10006CD84();
-  sub_10006CD98(&_mh_execute_header, v9, v10, "Save sample for peripheral %{private, mask.hash}@ failed : %{public}@", v11, v12, v13, v14, v15);
+  sub_10006CD98(&_mh_execute_header, v9, v10, "Save sample for peripheral %{private, mask.hash}@ failed : %{public}@", v11, v12, v13, v14);
 }
 
 void sub_10007C4B8(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -6408,7 +6520,7 @@ void sub_10007C620(void *a1, void *a2)
   v4 = [a2 peripheral];
   v5 = [v4 name];
   sub_100013374();
-  sub_100013390(&_mh_execute_header, v6, v7, "Peripheral %{private, mask.hash}@ observation value not saved due to invalid value", v8, v9, v10, v11, v12);
+  sub_100013390(&_mh_execute_header, v6, v7, "Peripheral %{private, mask.hash}@ observation value not saved due to invalid value", v8, v9, v10, v11);
 }
 
 void sub_10007C6D0(void *a1, void *a2, uint64_t a3)
@@ -6425,15 +6537,13 @@ void sub_10007C6D0(void *a1, void *a2, uint64_t a3)
   _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Read property “%@” from “%@” = “%@” and can't convert it to a number", &v8, 0x20u);
 }
 
-void sub_10007C7B0(void *a1, void *a2, uint64_t a3)
+void sub_10007C7B0(void *a1, void *a2)
 {
-  v5 = a1;
-  v6 = [a2 peripheral];
-  v7 = [v6 name];
-  v8 = *(a3 + 10);
-  v9 = *(a3 + 12);
+  v3 = a1;
+  v4 = [a2 peripheral];
+  v5 = [v4 name];
   sub_1000702B8();
-  sub_1000702F4(&_mh_execute_header, v10, v11, "“%@” READ CSC Measurement CADENCE, CrankRev:%d (0x%04X) last Crank Event Time:%d (0x%04X) (%f in sec)", v12, v13, v14, v15, v16);
+  sub_1000702F4(&_mh_execute_header, v6, v7, "“%@” READ CSC Measurement CADENCE, CrankRev:%d (0x%04X) last Crank Event Time:%d (0x%04X) (%f in sec)", v8, v9, v10, v11);
 }
 
 void sub_10007C86C(void *a1)
@@ -6442,7 +6552,7 @@ void sub_10007C86C(void *a1)
   v3 = [sub_100004F6C() peripheral];
   v4 = [v3 name];
   sub_100008498();
-  sub_1000084A4(&_mh_execute_header, v5, v6, "“%@” cadence data available but not requested", v7, v8, v9, v10, v11);
+  sub_1000084A4(&_mh_execute_header, v5, v6, "“%@” cadence data available but not requested", v7, v8, v9, v10);
 }
 
 void sub_10007C914(void *a1)
@@ -6451,18 +6561,16 @@ void sub_10007C914(void *a1)
   v3 = [sub_100004F6C() peripheral];
   v4 = [v3 name];
   sub_100008498();
-  sub_1000084A4(&_mh_execute_header, v5, v6, "“%@” Could not create cycling cadence HKQuantityType", v7, v8, v9, v10, v11);
+  sub_1000084A4(&_mh_execute_header, v5, v6, "“%@” Could not create cycling cadence HKQuantityType", v7, v8, v9, v10);
 }
 
-void sub_10007C9BC(void *a1, void *a2, uint64_t a3)
+void sub_10007C9BC(void *a1, void *a2)
 {
-  v5 = a1;
-  v6 = [a2 peripheral];
-  v7 = [v6 name];
-  v8 = *(a3 + 4);
-  v9 = *(a3 + 8);
+  v3 = a1;
+  v4 = [a2 peripheral];
+  v5 = [v4 name];
   sub_1000702B8();
-  sub_1000702F4(&_mh_execute_header, v10, v11, "“%@” READ CSC Measurement SPEED, CumWheelRev:%d (0x%08X) last Wheel Event Time:%d (0x%04X) (%f in sec)", v12, v13, v14, v15, v16);
+  sub_1000702F4(&_mh_execute_header, v6, v7, "“%@” READ CSC Measurement SPEED, CumWheelRev:%d (0x%08X) last Wheel Event Time:%d (0x%04X) (%f in sec)", v8, v9, v10, v11);
 }
 
 void sub_10007CA78(void *a1)
@@ -6471,7 +6579,7 @@ void sub_10007CA78(void *a1)
   v3 = [sub_100004F6C() peripheral];
   v4 = [v3 name];
   sub_100008498();
-  sub_1000084A4(&_mh_execute_header, v5, v6, "“%@” Could not create cycling speed HKQuantityType", v7, v8, v9, v10, v11);
+  sub_1000084A4(&_mh_execute_header, v5, v6, "“%@” Could not create cycling speed HKQuantityType", v7, v8, v9, v10);
 }
 
 void sub_10007CB20(void *a1)
@@ -6489,7 +6597,7 @@ void sub_10007CBD8(void *a1)
   v3 = [sub_100004F6C() peripheral];
   v4 = [v3 name];
   sub_100008498();
-  sub_1000084A4(&_mh_execute_header, v5, v6, "“%@” - Missing Cadence & Speed Measurement characteristic", v7, v8, v9, v10, v11);
+  sub_1000084A4(&_mh_execute_header, v5, v6, "“%@” - Missing Cadence & Speed Measurement characteristic", v7, v8, v9, v10);
 }
 
 void sub_10007CC80(void *a1)
@@ -6498,7 +6606,7 @@ void sub_10007CC80(void *a1)
   v3 = [sub_100004F6C() peripheral];
   v4 = [v3 name];
   sub_100008498();
-  sub_1000084A4(&_mh_execute_header, v5, v6, "“%@” - Missing Cadence & Speed Feature characteristic", v7, v8, v9, v10, v11);
+  sub_1000084A4(&_mh_execute_header, v5, v6, "“%@” - Missing Cadence & Speed Feature characteristic", v7, v8, v9, v10);
 }
 
 void sub_10007CD28(void *a1)
@@ -6507,7 +6615,7 @@ void sub_10007CD28(void *a1)
   v3 = [sub_100004F6C() peripheral];
   v4 = [v3 name];
   sub_100008498();
-  sub_1000084A4(&_mh_execute_header, v5, v6, "“%@” - Missing Cadence & Speed Control Point characteristic", v7, v8, v9, v10, v11);
+  sub_1000084A4(&_mh_execute_header, v5, v6, "“%@” - Missing Cadence & Speed Control Point characteristic", v7, v8, v9, v10);
 }
 
 CFRange CFStringFind(CFStringRef theString, CFStringRef stringToFind, CFStringCompareFlags compareOptions)

@@ -7,6 +7,7 @@
 - (SecureUIElement)currentConfiguration;
 - (_TtC28LocalAuthenticationUIService31SecureUIControllerDynamicIsland)init;
 - (void)recordingResettingToDescriptionOfFlipbook:(id)flipbook;
+- (void)recordingStarted:(BOOL)started;
 - (void)recordingUpdatedGlyphState:(int64_t)state;
 - (void)setCurrentStates:(id)states;
 - (void)setIsRecording:(BOOL)recording;
@@ -22,7 +23,6 @@
 {
   v5 = OBJC_IVAR____TtC28LocalAuthenticationUIService31SecureUIControllerDynamicIsland_observerOfRecording;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = recording;
   swift_unknownObjectRetain_n();
   selfCopy = self;
@@ -35,7 +35,6 @@
 {
   v5 = OBJC_IVAR____TtC28LocalAuthenticationUIService31SecureUIControllerDynamicIsland_observerOfPlayback;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = playback;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();
@@ -57,12 +56,11 @@
 
 - (NSArray)supportedConfigurations
 {
-  v2 = *(self + OBJC_IVAR____TtC28LocalAuthenticationUIService31SecureUIControllerDynamicIsland_supportedConfigurations);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo15SecureUIElement_pMd, &_sSo15SecureUIElement_pMR);
-  v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (BOOL)hasPendingTransitions
@@ -83,13 +81,11 @@
 
 - (NSDictionary)currentStates
 {
-  v3 = OBJC_IVAR____TtC28LocalAuthenticationUIService31SecureUIControllerDynamicIsland_currentStates;
   swift_beginAccess();
-  v4 = *(self + v3);
 
-  v5.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
-  return v5.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setCurrentStates:(id)states
@@ -97,7 +93,6 @@
   v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = OBJC_IVAR____TtC28LocalAuthenticationUIService31SecureUIControllerDynamicIsland_currentStates;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 
@@ -133,6 +128,19 @@
   LOBYTE(v8) = SecureUIControllerDynamicIsland.confirmTransition(toFlipbookName:stateName:)(v12, v13);
 
   return v8 & 1;
+}
+
+- (void)recordingStarted:(BOOL)started
+{
+  v3 = *(self + OBJC_IVAR____TtC28LocalAuthenticationUIService31SecureUIControllerDynamicIsland_watchdog);
+  if (v3)
+  {
+    startedCopy = started;
+    v5 = *(*v3 + 152);
+    selfCopy = self;
+
+    v5(startedCopy);
+  }
 }
 
 - (void)recordingResettingToDescriptionOfFlipbook:(id)flipbook

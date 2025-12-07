@@ -100,7 +100,6 @@
   MEMORY[0x1E69E5920](_authController3);
   objc_storeStrong(&v16, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)_requestFromContext:(id)context
@@ -235,7 +234,6 @@
   objc_storeStrong(&v32, 0);
   objc_storeStrong(&v33, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -306,7 +304,6 @@ id __53__AKFidoAuthorizationController__requestFromContext___block_invoke(void *
   MEMORY[0x1E69E5920](v8);
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -441,7 +438,6 @@ id __57__AKFidoAuthorizationController__authRequestFromContext___block_invoke(vo
   MEMORY[0x1E69E5920](v8);
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -608,7 +604,6 @@ id __57__AKFidoAuthorizationController__authRequestFromContext___block_invoke(vo
 
   objc_storeStrong(&v59, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)authorizationController:(id)controller didCompleteWithError:(id)error
@@ -651,7 +646,6 @@ id __57__AKFidoAuthorizationController__authRequestFromContext___block_invoke(vo
   objc_storeStrong(&selfCopy->_context, 0);
   objc_storeStrong(&v10, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)isFidoUserCancelError:(id)error
@@ -708,7 +702,6 @@ id __57__AKFidoAuthorizationController__authRequestFromContext___block_invoke(vo
   objc_storeStrong(&oslog, 0);
   v5 = v12;
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -788,7 +781,6 @@ id __57__AKFidoAuthorizationController__authRequestFromContext___block_invoke(vo
   MEMORY[0x1E69E5920](_authController6);
   MEMORY[0x1E69E5920](incorrectKeyPresentedMessage);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 @end

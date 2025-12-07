@@ -836,19 +836,18 @@ LABEL_12:
 
     v18 = v16;
     *buf = 136316162;
-    v42 = "[CSAttSiriSSRNode _setupSpeakerRecognitionForProfiles:WithVTEventInfo:WithLocale:]";
-    v43 = 2114;
-    v44 = v17;
-    v45 = 2114;
-    v46 = localeCopy;
-    v47 = 2050;
-    v48 = [profilesCopy count];
-    v49 = 2050;
-    v50 = v12;
+    v41 = "[CSAttSiriSSRNode _setupSpeakerRecognitionForProfiles:WithVTEventInfo:WithLocale:]";
+    v42 = 2114;
+    v43 = v17;
+    v44 = 2114;
+    v45 = localeCopy;
+    v46 = 2050;
+    v47 = [profilesCopy count];
+    v48 = 2050;
+    v49 = v12;
     _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%s Setting up SSR controller with {%{public}@, %{public}@, %{public}ldusers, %{public}fsecs}", buf, 0x34u);
   }
 
-  asset = self->_asset;
   if (SSRShouldUseTDTIWithAsset())
   {
     isContinuousConversation = 1;
@@ -859,50 +858,50 @@ LABEL_12:
     isContinuousConversation = [(CSAudioRecordContext *)self->_audioRecordContext isContinuousConversation];
   }
 
-  v39[0] = SSRSpeakerRecognitionStyleKey;
-  v21 = [NSNumber numberWithUnsignedInteger:v15];
-  v40[0] = v21;
-  v40[1] = localeCopy;
-  v39[1] = SSRSpeakerRecognitionLocaleKey;
-  v39[2] = SSRSpeakerRecognitionUsePayloadProfileKey;
-  v22 = [NSNumber numberWithBool:isContinuousConversation];
-  v40[2] = v22;
-  v40[3] = profilesCopy;
-  v39[3] = SSRSpeakerRecognitionProfileArrayKey;
-  v39[4] = SSRSpeakerRecognitionVTEventInfoKey;
-  v24 = &__NSDictionary0__struct;
+  v38[0] = SSRSpeakerRecognitionStyleKey;
+  v20 = [NSNumber numberWithUnsignedInteger:v15];
+  v39[0] = v20;
+  v39[1] = localeCopy;
+  v38[1] = SSRSpeakerRecognitionLocaleKey;
+  v38[2] = SSRSpeakerRecognitionUsePayloadProfileKey;
+  v21 = [NSNumber numberWithBool:isContinuousConversation];
+  v39[2] = v21;
+  v39[3] = profilesCopy;
+  v38[3] = SSRSpeakerRecognitionProfileArrayKey;
+  v38[4] = SSRSpeakerRecognitionVTEventInfoKey;
+  v23 = &__NSDictionary0__struct;
   if (infoCopy)
   {
-    v24 = infoCopy;
+    v23 = infoCopy;
   }
 
-  v40[4] = v24;
-  v39[5] = SSRSpeakerRecognitionMaxAudioDurationSecs;
-  *&v23 = v12;
-  v25 = [NSNumber numberWithFloat:v23];
-  v40[5] = v25;
-  v40[6] = &__kCFBooleanFalse;
-  v39[6] = SSRSpeakerRecognitionOSTransactionRequired;
-  v39[7] = SSRSpeakerRecognitionAssetArrayKey;
-  v40[7] = self->_ssrAssets;
-  v26 = [NSDictionary dictionaryWithObjects:v40 forKeys:v39 count:8];
+  v39[4] = v23;
+  v38[5] = SSRSpeakerRecognitionMaxAudioDurationSecs;
+  *&v22 = v12;
+  v24 = [NSNumber numberWithFloat:v22];
+  v39[5] = v24;
+  v39[6] = &__kCFBooleanFalse;
+  v38[6] = SSRSpeakerRecognitionOSTransactionRequired;
+  v38[7] = SSRSpeakerRecognitionAssetArrayKey;
+  v39[7] = self->_ssrAssets;
+  v25 = [NSDictionary dictionaryWithObjects:v39 forKeys:v38 count:8];
 
-  v38 = 0;
-  v27 = [[SSRSpeakerRecognitionContext alloc] initWithVoiceRecognitionContext:v26 error:&v38];
-  v28 = v38;
-  v29 = v28;
-  if (!v27 || v28)
+  v37 = 0;
+  v26 = [[SSRSpeakerRecognitionContext alloc] initWithVoiceRecognitionContext:v25 error:&v37];
+  v27 = v37;
+  v28 = v27;
+  if (!v26 || v27)
   {
-    v36 = CSLogCategorySpkrId;
+    v35 = CSLogCategorySpkrId;
     if (os_log_type_enabled(CSLogCategorySpkrId, OS_LOG_TYPE_ERROR))
     {
-      v33 = v36;
-      localizedDescription = [v29 localizedDescription];
+      v32 = v35;
+      localizedDescription = [v28 localizedDescription];
       *buf = 136315394;
-      v42 = "[CSAttSiriSSRNode _setupSpeakerRecognitionForProfiles:WithVTEventInfo:WithLocale:]";
-      v43 = 2112;
-      v44 = localizedDescription;
-      v35 = "%s ERR: Failed to create SSR context with error %@";
+      v41 = "[CSAttSiriSSRNode _setupSpeakerRecognitionForProfiles:WithVTEventInfo:WithLocale:]";
+      v42 = 2112;
+      v43 = localizedDescription;
+      v34 = "%s ERR: Failed to create SSR context with error %@";
       goto LABEL_26;
     }
 
@@ -911,26 +910,26 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v37 = 0;
-  v30 = [[SSRSpeakerRecognitionController alloc] initWithContext:v27 withDelegate:self error:&v37];
-  v29 = v37;
+  v36 = 0;
+  v29 = [[SSRSpeakerRecognitionController alloc] initWithContext:v26 withDelegate:self error:&v36];
+  v28 = v36;
   ssrController = self->_ssrController;
-  self->_ssrController = v30;
+  self->_ssrController = v29;
 
-  if (!self->_ssrController || v29)
+  if (!self->_ssrController || v28)
   {
-    v32 = CSLogCategorySpkrId;
+    v31 = CSLogCategorySpkrId;
     if (os_log_type_enabled(CSLogCategorySpkrId, OS_LOG_TYPE_ERROR))
     {
-      v33 = v32;
-      localizedDescription = [v29 localizedDescription];
+      v32 = v31;
+      localizedDescription = [v28 localizedDescription];
       *buf = 136315394;
-      v42 = "[CSAttSiriSSRNode _setupSpeakerRecognitionForProfiles:WithVTEventInfo:WithLocale:]";
-      v43 = 2112;
-      v44 = localizedDescription;
-      v35 = "%s ERR: Failed to create SSR controller with error %@";
+      v41 = "[CSAttSiriSSRNode _setupSpeakerRecognitionForProfiles:WithVTEventInfo:WithLocale:]";
+      v42 = 2112;
+      v43 = localizedDescription;
+      v34 = "%s ERR: Failed to create SSR controller with error %@";
 LABEL_26:
-      _os_log_error_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, v35, buf, 0x16u);
+      _os_log_error_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, v34, buf, 0x16u);
 
       goto LABEL_23;
     }
@@ -996,8 +995,8 @@ LABEL_24:
 
   v21 = [CSPlainAudioFileWriter alloc];
   v22 = [NSURL URLWithString:self->_leadingUtteranceAudioFile];
-  +[CSFAudioStreamBasicDescriptionFactory lpcmInt16ASBD];
-  +[CSFAudioStreamBasicDescriptionFactory lpcmInt16ASBD];
+  objc_msgSend_lpcmInt16ASBD(CSFAudioStreamBasicDescriptionFactory);
+  objc_msgSend_lpcmInt16ASBD(CSFAudioStreamBasicDescriptionFactory);
   v23 = [v21 initWithURL:v22 inputFormat:buf outputFormat:v27];
   leadingUtteranceLogger = self->_leadingUtteranceLogger;
   self->_leadingUtteranceLogger = v23;

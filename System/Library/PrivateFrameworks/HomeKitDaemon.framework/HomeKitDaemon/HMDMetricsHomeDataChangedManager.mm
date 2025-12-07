@@ -197,7 +197,7 @@ void __82__HMDMetricsHomeDataChangedManager__shouldExcludeUpdateForModelName_pro
 
 void __80__HMDMetricsHomeDataChangedManager__handleGeneratedHomeDataChangedNotification___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -205,11 +205,11 @@ void __80__HMDMetricsHomeDataChangedManager__handleGeneratedHomeDataChangedNotif
   {
     v5 = HMFGetLogIdentifier();
     v6 = [*(a1 + 40) userInfo];
-    v17 = 138543618;
-    v18 = v5;
-    v19 = 2112;
-    v20 = v6;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Handling HMDGeneratedHomeDataChangedNotification with userInfo: %@", &v17, 0x16u);
+    v16 = 138543618;
+    v17 = v5;
+    v18 = 2112;
+    v19 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Handling HMDGeneratedHomeDataChangedNotification with userInfo: %@", &v16, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -255,31 +255,29 @@ void __80__HMDMetricsHomeDataChangedManager__handleGeneratedHomeDataChangedNotif
   {
     [v15 _handleHDCDueToBecamePrimaryForHome:v14];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)serializeLogEvents:(id)events
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB18];
   eventsCopy = events;
   v6 = [v4 arrayWithCapacity:{objc_msgSend(eventsCopy, "count")}];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __55__HMDMetricsHomeDataChangedManager_serializeLogEvents___block_invoke;
-  v12[3] = &unk_278682DF0;
-  v12[4] = self;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __55__HMDMetricsHomeDataChangedManager_serializeLogEvents___block_invoke;
+  v11[3] = &unk_278682DF0;
+  v11[4] = self;
   v7 = v6;
-  v13 = v7;
-  [eventsCopy hmf_enumerateWithAutoreleasePoolUsingBlock:v12];
+  v12 = v7;
+  [eventsCopy hmf_enumerateWithAutoreleasePoolUsingBlock:v11];
 
   if ([v7 count])
   {
-    v14 = @"HMDMetricsHomeDataChangedLogEvents";
-    v8 = [v7 copy];
-    v15[0] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = @"HMDMetricsHomeDataChangedLogEvents";
+    v8 = objc_msgSend_copy(v7);
+    v14[0] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   }
 
   else
@@ -287,14 +285,12 @@ void __80__HMDMetricsHomeDataChangedManager__handleGeneratedHomeDataChangedNotif
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 void __55__HMDMetricsHomeDataChangedManager_serializeLogEvents___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -324,17 +320,15 @@ void __55__HMDMetricsHomeDataChangedManager_serializeLogEvents___block_invoke(ui
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v3;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Skipping unexpected log event during encoding: %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v11;
+      v14 = 2112;
+      v15 = v3;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Skipping unexpected log event during encoding: %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)logEventsFromDictionary:(id)dictionary
@@ -364,7 +358,7 @@ void __55__HMDMetricsHomeDataChangedManager_serializeLogEvents___block_invoke(ui
     v16 = v7;
     v8 = v7;
     [v6 hmf_enumerateWithAutoreleasePoolUsingBlock:&v11];
-    v9 = [v8 copy];
+    v9 = objc_msgSend_copy(v8, v11, v12, v13, v14, selfCopy);
   }
 
   else
@@ -377,7 +371,7 @@ void __55__HMDMetricsHomeDataChangedManager_serializeLogEvents___block_invoke(ui
 
 void __60__HMDMetricsHomeDataChangedManager_logEventsFromDictionary___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [[HMDHouseholdHomeDataChangedLogEvent alloc] initWithDictionary:v3];
   if (v4)
@@ -393,42 +387,40 @@ void __60__HMDMetricsHomeDataChangedManager_logEventsFromDictionary___block_invo
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543618;
-      v11 = v8;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode log event: %@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v8;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode log event: %@", &v9, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)coalescedLogEventsFromLogEvents:(id)events homeUUID:(id)d
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   dCopy = d;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
   dictionary3 = [MEMORY[0x277CBEB38] dictionary];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __77__HMDMetricsHomeDataChangedManager_coalescedLogEventsFromLogEvents_homeUUID___block_invoke;
-  v30[3] = &unk_278671178;
-  v30[4] = self;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __77__HMDMetricsHomeDataChangedManager_coalescedLogEventsFromLogEvents_homeUUID___block_invoke;
+  v29[3] = &unk_278671178;
+  v29[4] = self;
   v11 = dictionary;
-  v31 = v11;
+  v30 = v11;
   v12 = dCopy;
-  v32 = v12;
+  v31 = v12;
   v13 = dictionary2;
-  v33 = v13;
+  v32 = v13;
   v14 = dictionary3;
-  v34 = v14;
-  v29 = eventsCopy;
-  [eventsCopy hmf_enumerateWithAutoreleasePoolUsingBlock:v30];
+  v33 = v14;
+  v28 = eventsCopy;
+  [eventsCopy hmf_enumerateWithAutoreleasePoolUsingBlock:v29];
   array = [MEMORY[0x277CBEB18] array];
   allValues = [v11 allValues];
   [array addObjectsFromArray:allValues];
@@ -450,9 +442,9 @@ void __60__HMDMetricsHomeDataChangedManager_logEventsFromDictionary___block_invo
   {
     v22 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v36 = v22;
-    v37 = 2112;
-    v38 = array;
+    v35 = v22;
+    v36 = 2112;
+    v37 = array;
     _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_DEBUG, "%{public}@CoalescedLogEvents before truncating: %@", buf, 0x16u);
   }
 
@@ -471,14 +463,12 @@ void __60__HMDMetricsHomeDataChangedManager_logEventsFromDictionary___block_invo
 
   v26 = [array subarrayWithRange:{0, v25}];
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v26;
 }
 
 void __77__HMDMetricsHomeDataChangedManager_coalescedLogEventsFromLogEvents_homeUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -523,17 +513,15 @@ void __77__HMDMetricsHomeDataChangedManager_coalescedLogEventsFromLogEvents_home
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2112;
-      v15 = v3;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Skipping unexpected log event during coalescing: %@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v10;
+      v13 = 2112;
+      v14 = v3;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Skipping unexpected log event during coalescing: %@", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __77__HMDMetricsHomeDataChangedManager_coalescedLogEventsFromLogEvents_homeUUID___block_invoke_30(uint64_t a1, void *a2, void *a3)
@@ -557,27 +545,25 @@ uint64_t __77__HMDMetricsHomeDataChangedManager_coalescedLogEventsFromLogEvents_
 
 - (void)deleteCountersBeforeDate:(id)date
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   dateCopy = date;
   v5 = MEMORY[0x277CBEB98];
-  v15[0] = @"HMDHomeDataChangedReasonsInsertedEventGroup";
-  v15[1] = @"HMDHomeDataChangedReasonsUpdatedEventGroup";
-  v15[2] = @"HMDHomeDataChangedReasonsBecamePrimaryEventGroup";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
+  v14[0] = @"HMDHomeDataChangedReasonsInsertedEventGroup";
+  v14[1] = @"HMDHomeDataChangedReasonsUpdatedEventGroup";
+  v14[2] = @"HMDHomeDataChangedReasonsBecamePrimaryEventGroup";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
   v7 = [v5 setWithArray:v6];
 
   countersManager = [(HMDMetricsHomeDataChangedManager *)self countersManager];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __61__HMDMetricsHomeDataChangedManager_deleteCountersBeforeDate___block_invoke;
-  v12[3] = &unk_27867E4A0;
-  v13 = dateCopy;
-  v14 = v7;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __61__HMDMetricsHomeDataChangedManager_deleteCountersBeforeDate___block_invoke;
+  v11[3] = &unk_27867E4A0;
+  v12 = dateCopy;
+  v13 = v7;
   v9 = v7;
   v10 = dateCopy;
-  [countersManager removeCounterGroupsBasedOnPredicate:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [countersManager removeCounterGroupsBasedOnPredicate:v11];
 }
 
 uint64_t __61__HMDMetricsHomeDataChangedManager_deleteCountersBeforeDate___block_invoke(uint64_t a1, void *a2)
@@ -620,27 +606,25 @@ uint64_t __61__HMDMetricsHomeDataChangedManager_deleteCountersBeforeDate___block
 
 - (void)deleteCountersAfterDate:(id)date
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   dateCopy = date;
   v5 = MEMORY[0x277CBEB98];
-  v15[0] = @"HMDHomeDataChangedReasonsInsertedEventGroup";
-  v15[1] = @"HMDHomeDataChangedReasonsUpdatedEventGroup";
-  v15[2] = @"HMDHomeDataChangedReasonsBecamePrimaryEventGroup";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
+  v14[0] = @"HMDHomeDataChangedReasonsInsertedEventGroup";
+  v14[1] = @"HMDHomeDataChangedReasonsUpdatedEventGroup";
+  v14[2] = @"HMDHomeDataChangedReasonsBecamePrimaryEventGroup";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
   v7 = [v5 setWithArray:v6];
 
   countersManager = [(HMDMetricsHomeDataChangedManager *)self countersManager];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __60__HMDMetricsHomeDataChangedManager_deleteCountersAfterDate___block_invoke;
-  v12[3] = &unk_27867E4A0;
-  v13 = dateCopy;
-  v14 = v7;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __60__HMDMetricsHomeDataChangedManager_deleteCountersAfterDate___block_invoke;
+  v11[3] = &unk_27867E4A0;
+  v12 = dateCopy;
+  v13 = v7;
   v9 = v7;
   v10 = dateCopy;
-  [countersManager removeCounterGroupsBasedOnPredicate:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [countersManager removeCounterGroupsBasedOnPredicate:v11];
 }
 
 uint64_t __60__HMDMetricsHomeDataChangedManager_deleteCountersAfterDate___block_invoke(uint64_t a1, void *a2)
@@ -683,7 +667,7 @@ uint64_t __60__HMDMetricsHomeDataChangedManager_deleteCountersAfterDate___block_
 
 - (id)logEventsPopulatedForHomeWithUUID:(id)d associatedWithDate:(id)date
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dateCopy = date;
   currentHomeDataSource = [(HMDMetricsHomeDataChangedManager *)self currentHomeDataSource];
@@ -698,35 +682,35 @@ uint64_t __60__HMDMetricsHomeDataChangedManager_deleteCountersAfterDate___block_
     context = objc_autoreleasePoolPush();
     array = [MEMORY[0x277CBEB18] array];
     countersManager = [(HMDMetricsHomeDataChangedManager *)self countersManager];
-    v38 = v11;
-    v36 = [countersManager objectForKeyedSubscript:v11];
-    eventCounters = [v36 eventCounters];
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __89__HMDMetricsHomeDataChangedManager_logEventsPopulatedForHomeWithUUID_associatedWithDate___block_invoke;
-    v44[3] = &unk_278672F20;
+    v37 = v11;
+    v35 = [countersManager objectForKeyedSubscript:v11];
+    eventCounters = [v35 eventCounters];
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __89__HMDMetricsHomeDataChangedManager_logEventsPopulatedForHomeWithUUID_associatedWithDate___block_invoke;
+    v43[3] = &unk_278672F20;
     v17 = dCopy;
-    v45 = v17;
+    v44 = v17;
     v18 = array;
-    v46 = v18;
-    [eventCounters enumerateKeysAndObjectsUsingBlock:v44];
+    v45 = v18;
+    [eventCounters enumerateKeysAndObjectsUsingBlock:v43];
 
-    v35 = [countersManager objectForKeyedSubscript:v12];
-    eventCounters2 = [v35 eventCounters];
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __89__HMDMetricsHomeDataChangedManager_logEventsPopulatedForHomeWithUUID_associatedWithDate___block_invoke_2;
-    v41[3] = &unk_278680698;
-    v41[4] = self;
+    v34 = [countersManager objectForKeyedSubscript:v12];
+    eventCounters2 = [v34 eventCounters];
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __89__HMDMetricsHomeDataChangedManager_logEventsPopulatedForHomeWithUUID_associatedWithDate___block_invoke_2;
+    v40[3] = &unk_278680698;
+    v40[4] = self;
     v20 = v17;
-    v42 = v20;
+    v41 = v20;
     v21 = v18;
-    v43 = v21;
-    [eventCounters2 enumerateKeysAndObjectsUsingBlock:v41];
+    v42 = v21;
+    [eventCounters2 enumerateKeysAndObjectsUsingBlock:v40];
 
     [v21 sortUsingComparator:&__block_literal_global_20281];
-    v37 = countersManager;
-    v40 = v13;
+    v36 = countersManager;
+    v39 = v13;
     v22 = [countersManager objectForKeyedSubscript:v13];
     v23 = -[HMDHouseholdHomeDataChangedLogEvent initAsBecamePrimaryEventWithCount:homeUUID:]([HMDHouseholdHomeDataChangedLogEvent alloc], "initAsBecamePrimaryEventWithCount:homeUUID:", [v22 fetchEventCounterForEventName:@"becamePrimary"], v20);
     [v21 insertObject:v23 atIndex:0];
@@ -736,11 +720,11 @@ uint64_t __60__HMDMetricsHomeDataChangedManager_deleteCountersAfterDate___block_
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
       HMFGetLogIdentifier();
-      v27 = v34 = dateCopy;
+      v27 = v33 = dateCopy;
       *buf = 138543618;
-      v48 = v27;
-      v49 = 2112;
-      v50 = v21;
+      v47 = v27;
+      v48 = 2112;
+      v49 = v21;
       _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_DEBUG, "%{public}@PopulatedLogEvents before truncating: %@", buf, 0x16u);
     }
 
@@ -757,7 +741,7 @@ uint64_t __60__HMDMetricsHomeDataChangedManager_deleteCountersAfterDate___block_
       v30 = maxNumberEventsToReport;
     }
 
-    v31 = [v21 subarrayWithRange:{0, v30, v34}];
+    v31 = [v21 subarrayWithRange:{0, v30, v33}];
 
     objc_autoreleasePoolPop(context);
   }
@@ -766,8 +750,6 @@ uint64_t __60__HMDMetricsHomeDataChangedManager_deleteCountersAfterDate___block_
   {
     v31 = 0;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v31;
 }
@@ -785,7 +767,7 @@ void __89__HMDMetricsHomeDataChangedManager_logEventsPopulatedForHomeWithUUID_as
 
 void __89__HMDMetricsHomeDataChangedManager_logEventsPopulatedForHomeWithUUID_associatedWithDate___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v5 componentsSeparatedByString:@"_"];
@@ -801,13 +783,13 @@ void __89__HMDMetricsHomeDataChangedManager_logEventsPopulatedForHomeWithUUID_as
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         v13 = HMFGetLogIdentifier();
-        v20 = 138543874;
-        v21 = v13;
-        v22 = 2112;
-        v23 = v8;
-        v24 = 2112;
-        v25 = v9;
-        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Excluding update for modelName: %@ propertyName: %@ from HMDHomeDataChangedLogEvent", &v20, 0x20u);
+        v19 = 138543874;
+        v20 = v13;
+        v21 = 2112;
+        v22 = v8;
+        v23 = 2112;
+        v24 = v9;
+        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Excluding update for modelName: %@ propertyName: %@ from HMDHomeDataChangedLogEvent", &v19, 0x20u);
       }
 
       objc_autoreleasePoolPop(v10);
@@ -828,17 +810,15 @@ void __89__HMDMetricsHomeDataChangedManager_logEventsPopulatedForHomeWithUUID_as
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v17;
-      v22 = 2112;
-      v23 = v5;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Expected 2 event name components from eventName: %@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v17;
+      v21 = 2112;
+      v22 = v5;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Expected 2 event name components from eventName: %@", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v14);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __89__HMDMetricsHomeDataChangedManager_logEventsPopulatedForHomeWithUUID_associatedWithDate___block_invoke_19(uint64_t a1, void *a2, void *a3)
@@ -862,7 +842,7 @@ uint64_t __89__HMDMetricsHomeDataChangedManager_logEventsPopulatedForHomeWithUUI
 
 - (void)stop
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (self->_started)
   {
     v3 = objc_autoreleasePoolPush();
@@ -871,9 +851,9 @@ uint64_t __89__HMDMetricsHomeDataChangedManager_logEventsPopulatedForHomeWithUUI
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = HMFGetLogIdentifier();
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping", &v8, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -882,13 +862,11 @@ uint64_t __89__HMDMetricsHomeDataChangedManager_logEventsPopulatedForHomeWithUUI
 
     self->_started = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (!self->_started)
   {
     v3 = objc_autoreleasePoolPush();
@@ -897,9 +875,9 @@ uint64_t __89__HMDMetricsHomeDataChangedManager_logEventsPopulatedForHomeWithUUI
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = HMFGetLogIdentifier();
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting", &v8, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -908,8 +886,6 @@ uint64_t __89__HMDMetricsHomeDataChangedManager_logEventsPopulatedForHomeWithUUI
 
     self->_started = 1;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDMetricsHomeDataChangedManager)initWithCountersManager:(id)manager currentHomeDataSource:(id)source dateProvider:(id)provider notificationCenter:(id)center maxNumberEventsToReport:(unint64_t)report workQueue:(id)queue
@@ -963,10 +939,9 @@ uint64_t __89__HMDMetricsHomeDataChangedManager_logEventsPopulatedForHomeWithUUI
 
 void __47__HMDMetricsHomeDataChangedManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v20_20301;
-  logCategory__hmf_once_v20_20301 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v20_20301;
+  logCategory__hmf_once_v20_20301 = v0;
 }
 
 @end

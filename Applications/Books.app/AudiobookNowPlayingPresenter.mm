@@ -79,7 +79,7 @@
   }
 
   sub_100559960(v5, v6, to);
-  sub_100007020(v5);
+  sub_100007020(v5, v6);
 }
 
 - (void)setVolume:(float)volume
@@ -122,26 +122,28 @@
 
 - (id)contextMenuItemsFor:(id)for from:(id)from actionSource:(id)source
 {
-  sub_1007A2254();
+  v7 = sub_1007A2254();
+  v9 = v8;
   forCopy = for;
   fromCopy = from;
 
-  sub_10055A884(forCopy, fromCopy);
+  sub_10055A884(forCopy, fromCopy, v7, v9);
 
   sub_10055CBC8();
-  v9.super.isa = sub_1007A25D4().super.isa;
+  v12.super.isa = sub_1007A25D4().super.isa;
 
-  return v9.super.isa;
+  return v12.super.isa;
 }
 
 - (id)analyticsAssetPropertyProviderFor:(id)for actionSource:(id)source
 {
-  sub_1007A2254();
+  v5 = sub_1007A2254();
+  v7 = v6;
   forCopy = for;
 
-  v6 = sub_10055AA84(forCopy);
+  v9 = sub_10055AA84(forCopy, v5, v7);
 
-  return v6;
+  return v9;
 }
 
 - (id)analyticsData

@@ -36,20 +36,20 @@
 
 - (FCPrivateZoneFeedDescriptor)initWithPrivateDataController:(id)controller identifier:(id)identifier feedType:(int64_t)type
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   identifierCopy = identifier;
   if (!controllerCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateDataController"];
+    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateDataController"];
     *buf = 136315906;
-    v19 = "[FCPrivateZoneFeedDescriptor initWithPrivateDataController:identifier:feedType:]";
-    v20 = 2080;
-    v21 = "FCPrivateZoneFeedDescriptor.m";
-    v22 = 1024;
-    v23 = 55;
-    v24 = 2114;
-    v25 = v15;
+    v18 = "[FCPrivateZoneFeedDescriptor initWithPrivateDataController:identifier:feedType:]";
+    v19 = 2080;
+    v20 = "FCPrivateZoneFeedDescriptor.m";
+    v21 = 1024;
+    v22 = 55;
+    v23 = 2114;
+    v24 = v14;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (identifierCopy)
@@ -65,22 +65,22 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "identifier"];
+    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "identifier"];
     *buf = 136315906;
-    v19 = "[FCPrivateZoneFeedDescriptor initWithPrivateDataController:identifier:feedType:]";
-    v20 = 2080;
-    v21 = "FCPrivateZoneFeedDescriptor.m";
-    v22 = 1024;
-    v23 = 56;
-    v24 = 2114;
-    v25 = v16;
+    v18 = "[FCPrivateZoneFeedDescriptor initWithPrivateDataController:identifier:feedType:]";
+    v19 = 2080;
+    v20 = "FCPrivateZoneFeedDescriptor.m";
+    v21 = 1024;
+    v22 = 56;
+    v23 = 2114;
+    v24 = v15;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
-  v17.receiver = self;
-  v17.super_class = FCPrivateZoneFeedDescriptor;
-  v11 = [(FCFeedDescriptor *)&v17 initWithIdentifier:identifierCopy];
+  v16.receiver = self;
+  v16.super_class = FCPrivateZoneFeedDescriptor;
+  v11 = [(FCFeedDescriptor *)&v16 initWithIdentifier:identifierCopy];
   v12 = v11;
   if (v11)
   {
@@ -88,7 +88,6 @@ LABEL_6:
     v12->_feedType = type;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

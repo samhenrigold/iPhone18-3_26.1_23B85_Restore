@@ -44,27 +44,27 @@ void __39__TKSmartCardSlotNFCSession_endSession__block_invoke(uint64_t a1)
 
   if (WeakRetained)
   {
-    v3 = objc_loadWeakRetained((*(a1 + 32) + 8));
-    v6 = 0;
-    [v3 endNFCSlotWithError:&v6];
-    v4 = v6;
+    v4 = objc_loadWeakRetained((*(a1 + 32) + 8));
+    v8 = 0;
+    [v4 endNFCSlotWithError:&v8];
+    v5 = v8;
 
-    if (v4)
+    if (v5)
     {
-      v5 = TK_LOG_smartcard_1();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = TK_LOG_smartcard_1(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        __39__TKSmartCardSlotNFCSession_endSession__block_invoke_cold_1(v4, v5);
+        __39__TKSmartCardSlotNFCSession_endSession__block_invoke_cold_1(v5, v7);
       }
     }
   }
 
   else
   {
-    v4 = TK_LOG_smartcard_1();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = TK_LOG_smartcard_1(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      __39__TKSmartCardSlotNFCSession_endSession__block_invoke_cold_2(v4);
+      __39__TKSmartCardSlotNFCSession_endSession__block_invoke_cold_2(v5);
     }
   }
 }
@@ -116,11 +116,10 @@ void __53__TKSmartCardSlotNFCSession_updateWithMessage_error___block_invoke(void
 
 void __39__TKSmartCardSlotNFCSession_endSession__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DF413000, a2, OS_LOG_TYPE_ERROR, "Failed to end NFC session, error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DF413000, a2, OS_LOG_TYPE_ERROR, "Failed to end NFC session, error: %@", &v2, 0xCu);
 }
 
 @end

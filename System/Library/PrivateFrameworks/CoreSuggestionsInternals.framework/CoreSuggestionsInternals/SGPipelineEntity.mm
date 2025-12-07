@@ -63,31 +63,31 @@
 
 - (unint64_t)eventEnrichmentsCount
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = self->_enrichments;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v5 += [*(*(&v10 + 1) + 8 * i) isEvent];
+        v5 += [*(*(&v9 + 1) + 8 * i) isEvent];
       }
 
-      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -98,39 +98,38 @@
     v5 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (BOOL)hasEventEnrichment
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_enrichments;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) isEvent])
+        if ([*(*(&v7 + 1) + 8 * i) isEvent])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -142,7 +141,6 @@
 
 LABEL_11:
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -221,29 +219,29 @@ LABEL_11:
 
 - (void)enumeratePeople:(id)people
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   peopleCopy = people;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   enrichments = [(SGPipelineEntity *)self enrichments];
-  v6 = [enrichments countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [enrichments countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(enrichments);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         v11 = objc_autoreleasePoolPush();
         if ([v10 isPerson])
         {
@@ -255,51 +253,49 @@ LABEL_11:
       }
 
       while (v7 != v9);
-      v7 = [enrichments countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [enrichments countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)contactDetailsWithType:(unint64_t)type
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (type > 6)
   {
-    v22 = 0;
+    v21 = 0;
     v4 = 0;
   }
 
   else
   {
-    v22 = qword_23210C450[type];
+    v21 = qword_23210C450[type];
     v4 = qword_23210C488[type];
   }
 
   v5 = objc_opt_new();
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = [(SGPipelineEntity *)self enrichments];
-  v6 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v6 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v25;
+    v8 = *v24;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * i);
+        v10 = *(*(&v23 + 1) + 8 * i);
         duplicateKey = [v10 duplicateKey];
         if ([duplicateKey entityType] == v4)
         {
@@ -310,7 +306,7 @@ LABEL_11:
           duplicateKey2 = [v10 duplicateKey];
           entityType = [duplicateKey2 entityType];
 
-          if (entityType != v22)
+          if (entityType != v21)
           {
             continue;
           }
@@ -326,13 +322,11 @@ LABEL_11:
         [v5 addObject:v19];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v7 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v7);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -445,7 +439,7 @@ LABEL_11:
 
 - (void)addEmailAddressEnrichment:(id)enrichment
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   enrichmentCopy = enrichment;
   title = [enrichmentCopy title];
   v6 = [MEMORY[0x277D06F10] isLegalEmailAddress:title];
@@ -461,13 +455,11 @@ LABEL_11:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       title2 = [enrichmentCopy title];
-      v10 = 136315138;
+      v9 = 136315138;
       uTF8String = [title2 UTF8String];
-      _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_INFO, "Ignoring invalid email: %s", &v10, 0xCu);
+      _os_log_impl(&dword_231E60000, v7, OS_LOG_TYPE_INFO, "Ignoring invalid email: %s", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addDetectedPhoneNumber:(id)number forIdentity:(id)identity context:(id)context contextRangeOfInterest:(_NSRange)interest extractionInfo:(id)info
@@ -571,80 +563,78 @@ LABEL_11:
 
 - (void)setLastModifiedTimestamp:(SGUnixTimestamp_)timestamp
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v5 = self->_enrichments;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v12 + 1) + 8 * v9++) setLastModifiedTimestamp:timestamp.secondsFromUnixEpoch];
+        [*(*(&v11 + 1) + 8 * v9++) setLastModifiedTimestamp:timestamp.secondsFromUnixEpoch];
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
-  v11.receiver = self;
-  v11.super_class = SGPipelineEntity;
-  [(SGEntity *)&v11 setLastModifiedTimestamp:timestamp.secondsFromUnixEpoch];
-  v10 = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = SGPipelineEntity;
+  [(SGEntity *)&v10 setLastModifiedTimestamp:timestamp.secondsFromUnixEpoch];
 }
 
 - (void)setCreationTimestamp:(SGUnixTimestamp_)timestamp
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v5 = self->_enrichments;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v12 + 1) + 8 * v9++) setCreationTimestamp:timestamp.secondsFromUnixEpoch];
+        [*(*(&v11 + 1) + 8 * v9++) setCreationTimestamp:timestamp.secondsFromUnixEpoch];
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
-  v11.receiver = self;
-  v11.super_class = SGPipelineEntity;
-  [(SGEntity *)&v11 setCreationTimestamp:timestamp.secondsFromUnixEpoch];
-  v10 = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = SGPipelineEntity;
+  [(SGEntity *)&v10 setCreationTimestamp:timestamp.secondsFromUnixEpoch];
 }
 
 - (void)stripEventInformation
@@ -733,7 +723,7 @@ BOOL __41__SGPipelineEntity_stripEventInformation__block_invoke(uint64_t a1, voi
     [currentHandler handleFailureInMethod:a2 object:self file:@"SGPipelineEntity.m" lineNumber:477 description:@"a preferred enrichment must have a duplicateKey"];
   }
 
-  if (![(NSMutableArray *)self->_enrichments count])
+  if (!objc_msgSend_count(self->_enrichments))
   {
     goto LABEL_9;
   }
@@ -756,7 +746,7 @@ BOOL __41__SGPipelineEntity_stripEventInformation__block_invoke(uint64_t a1, voi
     ++v6;
   }
 
-  while (v6 < [(NSMutableArray *)self->_enrichments count]);
+  while (v6 < objc_msgSend_count(self->_enrichments));
   if ((v7 & 1) == 0)
   {
 LABEL_9:
@@ -775,7 +765,7 @@ LABEL_9:
     [currentHandler handleFailureInMethod:a2 object:self file:@"SGPipelineEntity.m" lineNumber:459 description:@"a preferred enrichment must have a duplicateKey"];
   }
 
-  if (![(NSMutableArray *)self->_enrichments count])
+  if (!objc_msgSend_count(self->_enrichments))
   {
     goto LABEL_9;
   }
@@ -796,7 +786,7 @@ LABEL_9:
     ++v6;
   }
 
-  while (v6 < [(NSMutableArray *)self->_enrichments count]);
+  while (v6 < objc_msgSend_count(self->_enrichments));
   if ((v7 & 1) == 0)
   {
 LABEL_9:
@@ -806,38 +796,36 @@ LABEL_9:
 
 - (void)addEnrichments:(id)enrichments
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   enrichmentsCopy = enrichments;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [enrichmentsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [enrichmentsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(enrichmentsCopy);
         }
 
-        [(NSMutableArray *)self->_enrichments addObject:*(*(&v10 + 1) + 8 * v8++)];
+        [(NSMutableArray *)self->_enrichments addObject:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [enrichmentsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [enrichmentsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -868,28 +856,28 @@ LABEL_9:
 
 void __27__SGPipelineEntity_dealloc__block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v10;
+    v4 = *v9;
     do
     {
       v5 = 0;
       do
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * v5);
+        v6 = *(*(&v8 + 1) + 8 * v5);
         v7 = objc_autoreleasePoolPush();
         [v6 flushWrites];
         objc_autoreleasePoolPop(v7);
@@ -897,13 +885,11 @@ void __27__SGPipelineEntity_dealloc__block_invoke_2(uint64_t a1)
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __27__SGPipelineEntity_dealloc__block_invoke()
@@ -1158,7 +1144,7 @@ LABEL_9:
 
 - (SGPipelineEntity)initWithMessageId:(id)id uniqueIdentifier:(id)identifier appleMailMessageId:(id)messageId mailboxIdentifiers:(id)identifiers accountType:(id)type mailingList:(id)list source:(id)source subject:(id)self0 date:(id)self1 author:(id)self2 textContentSnippet:(id)self3 isSent:(BOOL)self4 isPartiallyDownloaded:(BOOL)self5 hasInhumanHeaders:(BOOL)self6 primaryRecipients:(id)self7 accountHandles:(id)self8
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   idCopy = id;
   identifierCopy = identifier;
   messageIdCopy = messageId;
@@ -1177,7 +1163,7 @@ LABEL_9:
   context = objc_autoreleasePoolPush();
   v31 = idCopy;
   v32 = v31;
-  v68 = dateCopy;
+  v67 = dateCopy;
   if (!v31)
   {
     v32 = identifierCopy;
@@ -1185,23 +1171,23 @@ LABEL_9:
     if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v81 = 0;
+      v80 = 0;
       _os_log_impl(&dword_231E60000, v33, OS_LOG_TYPE_INFO, "Message-Id header not found. Using hash: %@", buf, 0xCu);
     }
 
     selfCopy2 = self;
   }
 
-  v65 = v32;
-  v63 = [SGDuplicateKey duplicateKeyForEmailWithSource:sourceCopy messageId:v32];
+  v64 = v32;
+  v62 = [SGDuplicateKey duplicateKeyForEmailWithSource:sourceCopy messageId:v32];
   v34 = [SGPipelineEntity initWithDuplicateKey:selfCopy2 title:"initWithDuplicateKey:title:"];
   v35 = v34;
   v36 = listCopy;
   if (v34)
   {
-    v57 = handlesCopy;
-    v58 = authorCopy;
-    v60 = identifierCopy;
+    v56 = handlesCopy;
+    v57 = authorCopy;
+    v59 = identifierCopy;
     [(SGEntity *)v34 setSourceKey:sourceCopy];
     v37 = sourceCopy;
     if (messageIdCopy)
@@ -1210,31 +1196,31 @@ LABEL_9:
       [(SGEntity *)v35 addTag:v38];
     }
 
-    v59 = v37;
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
+    v58 = v37;
     v76 = 0u;
+    v77 = 0u;
+    v74 = 0u;
+    v75 = 0u;
     v39 = identifiersCopy;
-    v40 = [v39 countByEnumeratingWithState:&v75 objects:v79 count:16];
+    v40 = [v39 countByEnumeratingWithState:&v74 objects:v78 count:16];
     if (v40)
     {
       v41 = v40;
-      v42 = *v76;
+      v42 = *v75;
       do
       {
         for (i = 0; i != v41; ++i)
         {
-          if (*v76 != v42)
+          if (*v75 != v42)
           {
             objc_enumerationMutation(v39);
           }
 
-          v44 = [MEMORY[0x277D01FA0] mailboxIdentifier:*(*(&v75 + 1) + 8 * i)];
+          v44 = [MEMORY[0x277D01FA0] mailboxIdentifier:*(*(&v74 + 1) + 8 * i)];
           [(SGEntity *)v35 addTag:v44];
         }
 
-        v41 = [v39 countByEnumeratingWithState:&v75 objects:v79 count:16];
+        v41 = [v39 countByEnumeratingWithState:&v74 objects:v78 count:16];
       }
 
       while (v41);
@@ -1246,19 +1232,19 @@ LABEL_9:
       [(SGEntity *)v35 addTag:isSent];
     }
 
-    dateCopy = v68;
-    [v68 timeIntervalSince1970];
+    dateCopy = v67;
+    [v67 timeIntervalSince1970];
     v47 = v46;
     [(SGPipelineEntity *)v35 setLastModifiedTimestamp:?];
     [(SGPipelineEntity *)v35 setCreationTimestamp:v47];
     v35->_inhumanFeatures.hasInhumanHeaders = headers;
     v36 = listCopy;
-    authorCopy = v58;
-    if (v58)
+    authorCopy = v57;
+    if (v57)
     {
       if ([MEMORY[0x277D02098] detectContacts])
       {
-        [(SGEntity *)v35 setAuthor:v58];
+        [(SGEntity *)v35 setAuthor:v57];
       }
 
       else
@@ -1272,8 +1258,8 @@ LABEL_9:
       }
     }
 
-    identifierCopy = v60;
-    handlesCopy = v57;
+    identifierCopy = v59;
+    handlesCopy = v56;
     if (headers)
     {
       v35->_messageInhumannessChecked = 1;
@@ -1297,26 +1283,25 @@ LABEL_9:
     objc_storeStrong(&v35->_primaryRecipients, recipients);
     objc_storeStrong(&v35->_accountHandles, handles);
     v52 = objc_alloc(MEMORY[0x277D425F0]);
-    v73[0] = MEMORY[0x277D85DD0];
-    v73[1] = 3221225472;
-    v73[2] = __243__SGPipelineEntity_initWithMessageId_uniqueIdentifier_appleMailMessageId_mailboxIdentifiers_accountType_mailingList_source_subject_date_author_textContentSnippet_isSent_isPartiallyDownloaded_hasInhumanHeaders_primaryRecipients_accountHandles___block_invoke;
-    v73[3] = &unk_278951348;
-    v74 = snippetCopy;
-    v53 = [v52 initWithBlock:v73];
+    v72[0] = MEMORY[0x277D85DD0];
+    v72[1] = 3221225472;
+    v72[2] = __243__SGPipelineEntity_initWithMessageId_uniqueIdentifier_appleMailMessageId_mailboxIdentifiers_accountType_mailingList_source_subject_date_author_textContentSnippet_isSent_isPartiallyDownloaded_hasInhumanHeaders_primaryRecipients_accountHandles___block_invoke;
+    v72[3] = &unk_278951348;
+    v73 = snippetCopy;
+    v53 = [v52 initWithBlock:v72];
     lazySnippetsContent = v35->_lazySnippetsContent;
     v35->_lazySnippetsContent = v53;
 
-    sourceCopy = v59;
+    sourceCopy = v58;
   }
 
   objc_autoreleasePoolPop(context);
-  v55 = *MEMORY[0x277D85DE8];
   return v35;
 }
 
 - (SGPipelineEntity)initWithEmailMessage:(id)message
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v6 = objc_autoreleasePoolPush();
   messageId = [messageCopy messageId];
@@ -1327,7 +1312,7 @@ LABEL_9:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v54 = messageId;
+      v53 = messageId;
       _os_log_impl(&dword_231E60000, v8, OS_LOG_TYPE_INFO, "Message-Id header not found. Using hash: %@", buf, 0xCu);
     }
   }
@@ -1339,7 +1324,7 @@ LABEL_9:
 
   if (v12)
   {
-    v45 = v6;
+    v44 = v6;
     source2 = [messageCopy source];
     [(SGEntity *)v12 setSourceKey:source2];
 
@@ -1354,34 +1339,34 @@ LABEL_9:
       [(SGEntity *)v12 addTag:v18];
     }
 
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
     v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
     mailboxIdentifiers = [messageCopy mailboxIdentifiers];
-    v20 = [mailboxIdentifiers countByEnumeratingWithState:&v48 objects:v52 count:16];
+    v20 = [mailboxIdentifiers countByEnumeratingWithState:&v47 objects:v51 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v49;
+      v22 = *v48;
       do
       {
         v23 = 0;
         do
         {
-          if (*v49 != v22)
+          if (*v48 != v22)
           {
             objc_enumerationMutation(mailboxIdentifiers);
           }
 
-          v24 = [MEMORY[0x277D01FA0] mailboxIdentifier:*(*(&v48 + 1) + 8 * v23)];
+          v24 = [MEMORY[0x277D01FA0] mailboxIdentifier:*(*(&v47 + 1) + 8 * v23)];
           [(SGEntity *)v12 addTag:v24];
 
           ++v23;
         }
 
         while (v21 != v23);
-        v21 = [mailboxIdentifiers countByEnumeratingWithState:&v48 objects:v52 count:16];
+        v21 = [mailboxIdentifiers countByEnumeratingWithState:&v47 objects:v51 count:16];
       }
 
       while (v21);
@@ -1421,7 +1406,7 @@ LABEL_9:
       }
     }
 
-    v6 = v45;
+    v6 = v44;
     if ([messageCopy hasInhumanHeaders])
     {
       v12->_messageInhumannessChecked = 1;
@@ -1452,18 +1437,17 @@ LABEL_9:
     objc_storeStrong(&v12->_message, message);
     objc_storeStrong(&v12->_mailMessage, message);
     v40 = objc_alloc(MEMORY[0x277D425F0]);
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __41__SGPipelineEntity_initWithEmailMessage___block_invoke;
-    v46[3] = &unk_278951348;
-    v47 = messageCopy;
-    v41 = [v40 initWithBlock:v46];
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __41__SGPipelineEntity_initWithEmailMessage___block_invoke;
+    v45[3] = &unk_278951348;
+    v46 = messageCopy;
+    v41 = [v40 initWithBlock:v45];
     lazySnippetsContent = v12->_lazySnippetsContent;
     v12->_lazySnippetsContent = v41;
   }
 
   objc_autoreleasePoolPop(v6);
-  v43 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -1490,12 +1474,12 @@ id __41__SGPipelineEntity_initWithEmailMessage___block_invoke(uint64_t a1)
 
 - (SGPipelineEntity)initWithDuplicateKey:(id)key title:(id)title
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   titleCopy = title;
-  v17.receiver = self;
-  v17.super_class = SGPipelineEntity;
-  v8 = [(SGEntity *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = SGPipelineEntity;
+  v8 = [(SGEntity *)&v16 init];
   if (v8)
   {
     v9 = objc_opt_new();
@@ -1518,23 +1502,22 @@ id __41__SGPipelineEntity_initWithEmailMessage___block_invoke(uint64_t a1)
     v8[368] = 0;
     v8[392] = 0;
     *(v8 + 376) = xmmword_232106CE0;
-    v18.__sig = 0;
-    *v18.__opaque = 0;
-    pthread_mutexattr_init(&v18);
-    pthread_mutexattr_settype(&v18, 2);
-    pthread_mutex_init((v8 + 304), &v18);
-    pthread_mutexattr_destroy(&v18);
+    v17.__sig = 0;
+    *v17.__opaque = 0;
+    pthread_mutexattr_init(&v17);
+    pthread_mutexattr_settype(&v17, 2);
+    pthread_mutex_init((v8 + 304), &v17);
+    pthread_mutexattr_destroy(&v17);
     [v8 setDuplicateKey:keyCopy];
     [v8 setTitle:titleCopy];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 + (id)fromCloudKitRecord:(id)record
 {
-  v129 = *MEMORY[0x277D85DE8];
+  v128 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   v4 = [recordCopy objectForKeyedSubscript:@"m"];
   unsignedLongLongValue = [v4 unsignedLongLongValue];
@@ -1547,11 +1530,11 @@ id __41__SGPipelineEntity_initWithEmailMessage___block_invoke(uint64_t a1)
       v7 = [recordCopy objectForKeyedSubscript:@"v"];
       v8 = [recordCopy objectForKeyedSubscript:@"m"];
       *buf = 138412802;
-      v124 = v7;
-      v125 = 2112;
-      v126 = v8;
-      v127 = 2112;
-      v128 = &unk_284749A40;
+      v123 = v7;
+      v124 = 2112;
+      v125 = v8;
+      v126 = 2112;
+      v127 = &unk_284749A40;
       _os_log_impl(&dword_231E60000, v6, OS_LOG_TYPE_INFO, "SGCK Skipping unsupported CloudKit record (record created by version: %@, version required to process record: %@, version running on this device: %@)", buf, 0x20u);
     }
 
@@ -1630,7 +1613,7 @@ LABEL_9:
         if (os_log_type_enabled(interactionInfo, OS_LOG_TYPE_ERROR))
         {
           *buf = 134217984;
-          v124 = v53;
+          v123 = v53;
           v55 = "SGCK Error: Record contained unsupported entity type %lld";
           v56 = interactionInfo;
           v57 = 12;
@@ -1662,7 +1645,7 @@ LABEL_10:
 
           v22 = [SGPipelineEnrichment alloc];
           title = [(SGDCKEvent *)v13 title];
-          v119 = v21;
+          v118 = v21;
           v24 = [(SGPipelineEnrichment *)v22 initWithDuplicateKey:v21 title:title parent:v18];
 
           [(SGDCKEvent *)v13 creationTimestamp];
@@ -1724,8 +1707,8 @@ LABEL_10:
           v44 = v43;
           hasStartUTCOffsetSeconds = [when hasStartUTCOffsetSeconds];
           v46 = MEMORY[0x277D020E8];
-          v117 = when;
-          v118 = v39;
+          v116 = when;
+          v117 = v39;
           if (hasStartUTCOffsetSeconds)
           {
             v47 = [MEMORY[0x277CBEBB0] timeZoneForSecondsFromGMT:{objc_msgSend(when, "startUTCOffsetSeconds")}];
@@ -1761,7 +1744,7 @@ LABEL_10:
             [(SGEntity *)v24 addTag:v66];
           }
 
-          v116 = v49;
+          v115 = v49;
           if ([(SGDCKEvent *)v13 cancelled])
           {
             extractedEventCancellation2 = [MEMORY[0x277D01FA0] extractedEventCancellation];
@@ -1773,9 +1756,9 @@ LABEL_10:
             v68 = v18;
             v69 = MEMORY[0x277CCAC58];
             schemaOrg = [(SGDCKEvent *)v13 schemaOrg];
-            v122 = 0;
-            v71 = [v69 propertyListWithData:schemaOrg options:0 format:0 error:&v122];
-            v72 = v122;
+            v121 = 0;
+            v71 = [v69 propertyListWithData:schemaOrg options:0 format:0 error:&v121];
+            v72 = v121;
 
             if (v71)
             {
@@ -1792,7 +1775,7 @@ LABEL_10:
                 if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v124 = v72;
+                  v123 = v72;
                   _os_log_error_impl(&dword_231E60000, v77, OS_LOG_TYPE_ERROR, "SGCK Error decoding schema.org plist: %@", buf, 0xCu);
                 }
 
@@ -1806,7 +1789,7 @@ LABEL_10:
               if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v124 = v72;
+                v123 = v72;
                 _os_log_error_impl(&dword_231E60000, v74, OS_LOG_TYPE_ERROR, "SGCK error decoding schema.org plist: %@", buf, 0xCu);
               }
             }
@@ -1817,18 +1800,18 @@ LABEL_10:
 
           if ([(SGDCKEvent *)v13 hasMetadata])
           {
-            v115 = v18;
+            v114 = v18;
             v78 = MEMORY[0x277CCAC58];
             metadata = [(SGDCKEvent *)v13 metadata];
-            v121 = 0;
-            v80 = [v78 propertyListWithData:metadata options:0 format:0 error:&v121];
-            v81 = v121;
+            v120 = 0;
+            v80 = [v78 propertyListWithData:metadata options:0 format:0 error:&v120];
+            v81 = v120;
 
             if (v80)
             {
-              v120 = v81;
-              v82 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v80 options:0 error:&v120];
-              v83 = v120;
+              v119 = v81;
+              v82 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v80 options:0 error:&v119];
+              v83 = v119;
 
               if (v82)
               {
@@ -1847,14 +1830,14 @@ LABEL_10:
               if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v124 = v81;
+                v123 = v81;
                 _os_log_error_impl(&dword_231E60000, v82, OS_LOG_TYPE_ERROR, "SGCK Error decoding metadata plist: %@", buf, 0xCu);
               }
 
               v83 = v81;
             }
 
-            v18 = v115;
+            v18 = v114;
             v63 = 0x277D01000uLL;
           }
 
@@ -1949,11 +1932,11 @@ LABEL_84:
           goto LABEL_84;
         }
 
-        v114 = sgLogHandle();
-        if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
+        v113 = sgLogHandle();
+        if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_error_impl(&dword_231E60000, v114, OS_LOG_TYPE_ERROR, "SGCK Error: Record with type interaction is missing interaction bundle id.", buf, 2u);
+          _os_log_error_impl(&dword_231E60000, v113, OS_LOG_TYPE_ERROR, "SGCK Error: Record with type interaction is missing interaction bundle id.", buf, 2u);
         }
 
         goto LABEL_47;
@@ -1990,7 +1973,6 @@ LABEL_84:
 LABEL_89:
 
 LABEL_90:
-  v112 = *MEMORY[0x277D85DE8];
 
   return v51;
 }

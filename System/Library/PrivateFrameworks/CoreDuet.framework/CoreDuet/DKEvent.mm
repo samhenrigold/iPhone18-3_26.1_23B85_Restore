@@ -147,10 +147,9 @@ uint64_t __23___DKEvent_description__block_invoke(uint64_t a1, void *a2)
 
 void __72___DKEvent_MOConversion__fetchCustomMetadataWithName_valueHash_context___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_191750000, v0, OS_LOG_TYPE_ERROR, "Error during fetch request: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_191750000, v0, OS_LOG_TYPE_ERROR, "Error during fetch request: %@", v1, 0xCu);
 }
 
 @end

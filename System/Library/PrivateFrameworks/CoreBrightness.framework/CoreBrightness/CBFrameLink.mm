@@ -580,11 +580,11 @@ void __25__CBFrameLink_frameSync___block_invoke(uint64_t a1)
 
 void __25__CBFrameLink_frameSync___block_invoke_23(uint64_t a1)
 {
-  v22 = a1;
   v21 = a1;
+  v20 = a1;
   if (*(*(a1 + 32) + 8))
   {
-    v11 = *(*(a1 + 32) + 8);
+    v10 = *(*(a1 + 32) + 8);
   }
 
   else
@@ -599,53 +599,52 @@ void __25__CBFrameLink_frameSync___block_invoke_23(uint64_t a1)
       inited = init_default_corebrightness_log();
     }
 
-    v11 = inited;
+    v10 = inited;
   }
 
-  v20 = v11;
-  v19 = 1;
-  v18 = 0xEEEEB0B5B2B2EEEELL;
-  if (os_signpost_enabled(v11))
+  v19 = v10;
+  v18 = 1;
+  v17 = 0xEEEEB0B5B2B2EEEELL;
+  if (os_signpost_enabled(v10))
   {
-    log = v20;
-    type = v19;
-    spid = v18;
-    __os_log_helper_16_0_0(v17);
-    _os_signpost_emit_with_name_impl(&dword_1DE8E5000, log, type, spid, "FrameSyncFrameNotificationBlock", &unk_1DEAD656F, v17, 2u);
+    log = v19;
+    type = v18;
+    spid = v17;
+    __os_log_helper_16_0_0(v16);
+    _os_signpost_emit_with_name_impl(&dword_1DE8E5000, log, type, spid, "FrameSyncFrameNotificationBlock", &unk_1DEAD656F, v16, 2u);
   }
 
-  v1 = *(a1 + 32);
-  (*(*(v1 + 48) + 16))();
+  (*(*(*(a1 + 32) + 48) + 16))();
   if (*(*(a1 + 32) + 8))
   {
-    v6 = *(*(a1 + 32) + 8);
+    v5 = *(*(a1 + 32) + 8);
   }
 
   else
   {
     if (_COREBRIGHTNESS_LOG_DEFAULT)
     {
-      v5 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v4 = _COREBRIGHTNESS_LOG_DEFAULT;
     }
 
     else
     {
-      v5 = init_default_corebrightness_log();
+      v4 = init_default_corebrightness_log();
     }
 
-    v6 = v5;
+    v5 = v4;
   }
 
-  v16 = v6;
-  v15 = 2;
-  v14 = 0xEEEEB0B5B2B2EEEELL;
-  if (os_signpost_enabled(v6))
+  v15 = v5;
+  v14 = 2;
+  v13 = 0xEEEEB0B5B2B2EEEELL;
+  if (os_signpost_enabled(v5))
   {
-    v2 = v16;
-    v3 = v15;
-    v4 = v14;
-    __os_log_helper_16_0_0(v13);
-    _os_signpost_emit_with_name_impl(&dword_1DE8E5000, v2, v3, v4, "FrameSyncFrameNotificationBlock", &unk_1DEAD656F, v13, 2u);
+    v1 = v15;
+    v2 = v14;
+    v3 = v13;
+    __os_log_helper_16_0_0(v12);
+    _os_signpost_emit_with_name_impl(&dword_1DE8E5000, v1, v2, v3, "FrameSyncFrameNotificationBlock", &unk_1DEAD656F, v12, 2u);
   }
 }
 

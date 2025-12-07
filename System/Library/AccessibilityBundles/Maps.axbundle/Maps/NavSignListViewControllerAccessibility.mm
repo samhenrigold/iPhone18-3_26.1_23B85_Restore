@@ -4,6 +4,7 @@
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_didPan:(id)pan;
 - (void)_didTap:(id)tap;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation NavSignListViewControllerAccessibility
@@ -40,6 +41,14 @@ uint64_t __84__NavSignListViewControllerAccessibility__accessibilityLoadAccessib
   isKindOfClass = objc_opt_isKindOfClass();
 
   return isKindOfClass & 1;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = NavSignListViewControllerAccessibility;
+  [(NavSignListViewControllerAccessibility *)&v4 viewWillAppear:appear];
+  [(NavSignListViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 - (id)collectionView:(id)view cellForItemAtIndexPath:(id)path

@@ -171,43 +171,8 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIButtonFooterSettingsHeaderFooterDescriptionView *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  v31.receiver = self;
-  v31.super_class = SKUIButtonFooterSettingsHeaderFooterDescriptionView;
-  [(SKUIButtonFooterSettingsHeaderFooterDescriptionView *)&v31 layoutSubviews];
-  titleLabel = [(UIButton *)self->_button titleLabel];
-  v12 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76938]];
-  [titleLabel setFont:v12];
-  [(SKUIButtonFooterSettingsHeaderFooterDescriptionView *)self bounds];
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
-  v20 = v19;
-  [(SKUIButtonFooterSettingsHeaderFooterDescriptionView *)self layoutMargins];
-  v22 = v21;
-  v24 = v23;
-  v32.origin.x = v14;
-  v32.origin.y = v16;
-  v32.size.width = v18;
-  v32.size.height = v20;
-  v25 = CGRectGetWidth(v32) - v22 - v24;
-  [titleLabel sizeThatFits:{v25, 1.0}];
-  v27 = v26;
-  [v12 _scaledValueForValue:20.0];
-  v29 = v28;
-  [titleLabel _firstBaselineOffsetFromTop];
-  [(UIButton *)self->_button setFrame:v22, v29 - v30, v25, v27];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIButtonFooterSettingsHeaderFooterDescriptionView layoutSubviews]";
 }
 
 - (void)_buttonTapped:(id)tapped
@@ -262,6 +227,42 @@
   [(UIButton *)v16 setTitleColor:v17 forState:1];
 
   [(SKUIButtonFooterSettingsHeaderFooterDescriptionView *)self addSubview:self->_button];
+}
+
++ (void)preferredSizeForSettingsHeaderFooterDescription:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIButtonFooterSettingsHeaderFooterDescriptionView preferredSizeForSettingsHeaderFooterDescription:context:]";
+}
+
++ (void)prefetchResourcesForSettingsHeaderFooterDescription:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIButtonFooterSettingsHeaderFooterDescriptionView prefetchResourcesForSettingsHeaderFooterDescription:reason:context:]";
+}
+
++ (void)requestLayoutForSettingsHeaderFooterDescription:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIButtonFooterSettingsHeaderFooterDescriptionView requestLayoutForSettingsHeaderFooterDescription:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 settingsHeaderFooterDescription:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIButtonFooterSettingsHeaderFooterDescriptionView sizeThatFitsWidth:settingsHeaderFooterDescription:context:]";
+}
+
+- (void)reloadWithSettingsHeaderFooterDescription:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIButtonFooterSettingsHeaderFooterDescriptionView reloadWithSettingsHeaderFooterDescription:width:context:]";
+}
+
+- (void)setImage:(uint64_t)a3 forArtworkRequest:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIButtonFooterSettingsHeaderFooterDescriptionView setImage:forArtworkRequest:context:]";
 }
 
 @end

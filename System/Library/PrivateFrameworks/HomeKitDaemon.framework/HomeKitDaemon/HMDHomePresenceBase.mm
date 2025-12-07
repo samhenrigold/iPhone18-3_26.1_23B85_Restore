@@ -23,23 +23,20 @@
 
 void __34__HMDHomePresenceBase_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_154081;
-  logCategory__hmf_once_v1_154081 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_154081;
+  logCategory__hmf_once_v1_154081 = v0;
 }
 
 + (id)messageTargetUUIDFromHomeUUID:(id)d
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAD78];
-  v10 = @"kPresenceMonitorIdentifierSalt";
+  v9 = @"kPresenceMonitorIdentifierSalt";
   v4 = MEMORY[0x277CBEA60];
   dCopy = d;
-  v6 = [v4 arrayWithObjects:&v10 count:1];
-  v7 = [v3 hm_deriveUUIDFromBaseUUID:dCopy withSalts:{v6, v10, v11}];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v6 = [v4 arrayWithObjects:&v9 count:1];
+  v7 = [v3 hm_deriveUUIDFromBaseUUID:dCopy withSalts:{v6, v9, v10}];
 
   return v7;
 }

@@ -9,36 +9,37 @@
 + (id)scoredItemWithFeaturesForFeatureDictionary:(id)dictionary score:(float)score;
 + (void)addBoilerplateToFeedbackLog:(id)log;
 + (void)recordUniversalSearchSpotlightStatsFromFeedback:(id)feedback clientBundleId:(id)id clientIdentifier:(id)identifier;
++ (void)recordUserEventsFromFeedback:(id)feedback matchingFeedbackItems:(id)items clientBundleId:(id)id clientIdentifier:(id)identifier domain:(unsigned __int8)domain;
 @end
 
 @implementation PPFeedbackUtils
 
 + (id)featuresForScoreDict:(id)dict
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   v4 = objc_opt_new();
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   obj = [dictCopy featureNames];
-  v5 = [obj countByEnumeratingWithState:&v39 objects:v46 count:16];
+  v5 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v40;
+    v7 = *v39;
     do
     {
       v8 = 0;
       do
       {
-        if (*v40 != v7)
+        if (*v39 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v39 + 1) + 8 * v8);
+        v9 = *(*(&v38 + 1) + 8 * v8);
         v10 = objc_autoreleasePoolPush();
         if ([v9 hasPrefix:@"scalar"])
         {
@@ -98,17 +99,17 @@ LABEL_12:
             v26 = [v24 initWithCapacity:{objc_msgSend(dictionaryValue, "count")}];
 
             dictionaryValue2 = [v11 dictionaryValue];
-            v43[0] = MEMORY[0x277D85DD0];
-            v43[1] = 3221225472;
-            v43[2] = __64__PPFeedbackUtils__flattenDictionarylikeToFeatures_featureName___block_invoke;
-            v43[3] = &unk_278971548;
+            v42[0] = MEMORY[0x277D85DD0];
+            v42[1] = 3221225472;
+            v42[2] = __64__PPFeedbackUtils__flattenDictionarylikeToFeatures_featureName___block_invoke;
+            v42[3] = &unk_278971548;
             v28 = v26;
-            v44 = v28;
-            v45 = v22;
-            v37 = v22;
-            [dictionaryValue2 enumerateKeysAndObjectsUsingBlock:v43];
+            v43 = v28;
+            v44 = v22;
+            v36 = v22;
+            [dictionaryValue2 enumerateKeysAndObjectsUsingBlock:v42];
 
-            v29 = v45;
+            v29 = v44;
             multiArrayValue = v28;
 
             goto LABEL_12;
@@ -159,14 +160,12 @@ LABEL_26:
       }
 
       while (v6 != v8);
-      v32 = [obj countByEnumeratingWithState:&v39 objects:v46 count:16];
+      v32 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
       v6 = v32;
     }
 
     while (v32);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -242,61 +241,379 @@ void __64__PPFeedbackUtils__flattenDictionarylikeToFeatures_featureName___block_
 
 + (void)recordUniversalSearchSpotlightStatsFromFeedback:(id)feedback clientBundleId:(id)id clientIdentifier:(id)identifier
 {
-  v22[4] = *MEMORY[0x277D85DE8];
+  v21[4] = *MEMORY[0x277D85DE8];
   feedbackCopy = feedback;
   idCopy = id;
   identifierCopy = identifier;
   v9 = objc_autoreleasePoolPush();
-  v21[0] = *MEMORY[0x277D3A270];
+  v20[0] = *MEMORY[0x277D3A270];
   v10 = objc_alloc(MEMORY[0x277CCACA8]);
   v11 = [PPMetricsUtils stringifyDomain:7];
   v12 = [v10 initWithFormat:@"%@%@", @"Portrait", v11];
-  v22[0] = v12;
-  v21[1] = *MEMORY[0x277D3A288];
+  v21[0] = v12;
+  v20[1] = *MEMORY[0x277D3A288];
   v13 = +[PPTrialWrapper sharedInstance];
   concatenatedTreatmentNames = [v13 concatenatedTreatmentNames];
-  v22[1] = concatenatedTreatmentNames;
-  v21[2] = *MEMORY[0x277D3A280];
+  v21[1] = concatenatedTreatmentNames;
+  v20[2] = *MEMORY[0x277D3A280];
   v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(feedbackCopy, "offeredCSSICount")}];
-  v22[2] = v15;
-  v21[3] = *MEMORY[0x277D3A260];
+  v21[2] = v15;
+  v20[3] = *MEMORY[0x277D3A260];
   v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(feedbackCopy, "engagedCSSICount")}];
-  v22[3] = v16;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:4];
+  v21[3] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
 
   mEMORY[0x277D3A250] = [MEMORY[0x277D3A250] sharedInstance];
   [mEMORY[0x277D3A250] logMessage:v17 messageName:*MEMORY[0x277D3A268]];
 
   objc_autoreleasePoolPop(v9);
-  v19 = *MEMORY[0x277D85DE8];
+}
+
++ (void)recordUserEventsFromFeedback:(id)feedback matchingFeedbackItems:(id)items clientBundleId:(id)id clientIdentifier:(id)identifier domain:(unsigned __int8)domain
+{
+  domainCopy = domain;
+  v126 = *MEMORY[0x277D85DE8];
+  feedbackCopy = feedback;
+  itemsCopy = items;
+  idCopy = id;
+  identifierCopy = identifier;
+  v95 = itemsCopy;
+  if (![identifierCopy isEqualToString:@"ICLex"])
+  {
+    _pas_stringBackedByUTF8CString = [idCopy _pas_stringBackedByUTF8CString];
+
+    _pas_stringBackedByUTF8CString2 = [identifierCopy _pas_stringBackedByUTF8CString];
+
+    feedbackItems = [feedbackCopy feedbackItems];
+    v92 = [feedbackItems count];
+
+    v49 = [PPMetricsUtils stringifyDomain:domainCopy];
+    v50 = objc_autoreleasePoolPush();
+    v100 = v49;
+    contexta = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@_%@", v49, _pas_stringBackedByUTF8CString];
+    objc_autoreleasePoolPop(v50);
+    v106 = 0u;
+    v107 = 0u;
+    v104 = 0u;
+    v105 = 0u;
+    feedbackItems2 = [feedbackCopy feedbackItems];
+    v52 = [feedbackItems2 countByEnumeratingWithState:&v104 objects:v118 count:16];
+    if (v52)
+    {
+      v53 = v52;
+      v54 = 0;
+      v55 = 0;
+      v56 = *v105;
+      do
+      {
+        for (i = 0; i != v53; ++i)
+        {
+          if (*v105 != v56)
+          {
+            objc_enumerationMutation(feedbackItems2);
+          }
+
+          v58 = *(*(&v104 + 1) + 8 * i);
+          if ([v58 itemFeedbackType] == 3)
+          {
+            v54 = (v54 + 1);
+          }
+
+          else if ([v58 itemFeedbackType] == 1 || objc_msgSend(v58, "itemFeedbackType") == 2)
+          {
+            v55 = (v55 + 1);
+          }
+        }
+
+        v53 = [feedbackItems2 countByEnumeratingWithState:&v104 objects:v118 count:16];
+      }
+
+      while (v53);
+    }
+
+    else
+    {
+      v54 = 0;
+      v55 = 0;
+    }
+
+    v59 = objc_autoreleasePoolPush();
+    v116[0] = @"clientId";
+    v116[1] = @"bundleId";
+    v117[0] = _pas_stringBackedByUTF8CString2;
+    v117[1] = _pas_stringBackedByUTF8CString;
+    v116[2] = @"domain";
+    v60 = [PPMetricsUtils stringifyDomain:domainCopy];
+    v117[2] = v60;
+    v116[3] = @"eventCount";
+    v61 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v55];
+    v117[3] = v61;
+    v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v117 forKeys:v116 count:4];
+
+    objc_autoreleasePoolPop(v59);
+    [PPMetricsDispatcher logPayloadForEvent:@"com.apple.proactive.PersonalizationPortrait.PositivePersonalizationEvent" payload:v62 inBackground:1];
+
+    v63 = objc_autoreleasePoolPush();
+    v114[0] = @"clientId";
+    v114[1] = @"bundleId";
+    v115[0] = _pas_stringBackedByUTF8CString2;
+    v115[1] = _pas_stringBackedByUTF8CString;
+    v114[2] = @"domain";
+    v64 = [PPMetricsUtils stringifyDomain:domainCopy];
+    v115[2] = v64;
+    v114[3] = @"eventCount";
+    v65 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v54];
+    v115[3] = v65;
+    v66 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v115 forKeys:v114 count:4];
+
+    objc_autoreleasePoolPop(v63);
+    [PPMetricsDispatcher logPayloadForEvent:@"com.apple.proactive.PersonalizationPortrait.FrustrationEvent" payload:v66 inBackground:1];
+
+    v67 = objc_autoreleasePoolPush();
+    v68 = *MEMORY[0x277D3A270];
+    v113[0] = contexta;
+    v69 = *MEMORY[0x277D3A288];
+    v112[0] = v68;
+    v112[1] = v69;
+    v70 = +[PPTrialWrapper sharedInstance];
+    concatenatedTreatmentNames = [v70 concatenatedTreatmentNames];
+    v113[1] = concatenatedTreatmentNames;
+    v112[2] = *MEMORY[0x277D3A278];
+    v72 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v54];
+    v113[2] = v72;
+    v112[3] = *MEMORY[0x277D3A260];
+    v73 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v55];
+    v113[3] = v73;
+    v112[4] = *MEMORY[0x277D3A280];
+    v74 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v92];
+    v113[4] = v74;
+    v75 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v113 forKeys:v112 count:5];
+
+    mEMORY[0x277D3A250] = [MEMORY[0x277D3A250] sharedInstance];
+    [mEMORY[0x277D3A250] logMessage:v75 messageName:*MEMORY[0x277D3A268]];
+
+    objc_autoreleasePoolPop(v67);
+    v77 = _pas_stringBackedByUTF8CString2;
+    goto LABEL_45;
+  }
+
+  v89 = identifierCopy;
+  v15 = itemsCopy;
+  v16 = idCopy;
+  objc_opt_self();
+  [v16 _pas_stringBackedByUTF8CString];
+  v91 = v90 = v16;
+
+  v17 = [v15 count];
+  v108 = 0u;
+  v109 = 0u;
+  v110 = 0u;
+  v111 = 0u;
+  v18 = v15;
+  v19 = [v18 countByEnumeratingWithState:&v108 objects:v125 count:16];
+  v99 = v18;
+  if (!v19)
+  {
+    v44 = 0;
+    v102 = 0;
+    itemString4 = 0;
+    v46 = v18;
+LABEL_40:
+
+    goto LABEL_44;
+  }
+
+  v88 = v17;
+  v93 = domainCopy;
+  v94 = feedbackCopy;
+  v20 = 0;
+  v21 = 0;
+  itemString4 = 0;
+  v23 = *v109;
+  v24 = v19;
+  context = *v109;
+  do
+  {
+    v25 = 0;
+    v101 = v24;
+    do
+    {
+      v26 = itemString4;
+      if (*v109 != v23)
+      {
+        objc_enumerationMutation(v18);
+      }
+
+      v27 = *(*(&v108 + 1) + 8 * v25);
+      if (v26)
+      {
+        itemString = [*(*(&v108 + 1) + 8 * v25) itemString];
+        if ([itemString isEqualToString:v26])
+        {
+          itemFeedbackType = [v27 itemFeedbackType];
+
+          if (itemFeedbackType == 2)
+          {
+            v21 = (v21 + 1);
+            goto LABEL_20;
+          }
+        }
+
+        else
+        {
+        }
+      }
+
+      else if ([v18 count] >= 2)
+      {
+        v30 = v20;
+        v31 = v21;
+        firstObject = [v18 firstObject];
+        itemString2 = [firstObject itemString];
+        v34 = [v18 objectAtIndexedSubscript:1];
+        itemString3 = [v34 itemString];
+        v36 = [itemString2 isEqual:itemString3];
+
+        if (v36)
+        {
+          v21 = (v31 + 1);
+          v18 = v99;
+          v20 = v30;
+        }
+
+        else
+        {
+          v20 = (v30 + 1);
+          v18 = v99;
+          v21 = v31;
+        }
+
+        v23 = context;
+        v24 = v101;
+        goto LABEL_20;
+      }
+
+      if ([v27 itemFeedbackType] == 2 || objc_msgSend(v27, "itemFeedbackType") == 1)
+      {
+        v20 = (v20 + 1);
+      }
+
+LABEL_20:
+      itemString4 = [v27 itemString];
+
+      ++v25;
+    }
+
+    while (v24 != v25);
+    v24 = [v18 countByEnumeratingWithState:&v108 objects:v125 count:16];
+  }
+
+  while (v24);
+
+  if (v21)
+  {
+    v37 = objc_autoreleasePoolPush();
+    v123[0] = @"clientId";
+    v123[1] = @"bundleId";
+    v124[0] = @"ICLex";
+    v124[1] = v91;
+    v123[2] = @"domain";
+    v38 = [PPMetricsUtils stringifyDomain:v93];
+    v124[2] = v38;
+    v123[3] = @"eventCount";
+    v39 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v21];
+    v124[3] = v39;
+    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v124 forKeys:v123 count:4];
+    v41 = v40 = v20;
+
+    objc_autoreleasePoolPop(v37);
+    [PPMetricsDispatcher logPayloadForEvent:@"com.apple.proactive.PersonalizationPortrait.FrustrationEvent" payload:v41 inBackground:1];
+
+    v20 = v40;
+  }
+
+  v102 = v21;
+  feedbackCopy = v94;
+  v17 = v88;
+  if (v20)
+  {
+    v42 = objc_autoreleasePoolPush();
+    v121[0] = @"clientId";
+    v121[1] = @"bundleId";
+    v122[0] = @"ICLex";
+    v122[1] = v91;
+    v121[2] = @"domain";
+    v43 = [PPMetricsUtils stringifyDomain:v93];
+    v122[2] = v43;
+    v121[3] = @"eventCount";
+    v44 = v20;
+    v45 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v20];
+    v122[3] = v45;
+    v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v122 forKeys:v121 count:4];
+
+    objc_autoreleasePoolPop(v42);
+    [PPMetricsDispatcher logPayloadForEvent:@"com.apple.proactive.PersonalizationPortrait.PositivePersonalizationEvent" payload:v46 inBackground:1];
+    goto LABEL_40;
+  }
+
+  v44 = 0;
+LABEL_44:
+  contextb = objc_autoreleasePoolPush();
+  v119[0] = *MEMORY[0x277D3A270];
+  v78 = objc_alloc(MEMORY[0x277CCACA8]);
+  v79 = [PPMetricsUtils stringifyDomain:1];
+  v80 = [v78 initWithFormat:@"%@%@", @"Portrait", v79];
+  v120[0] = v80;
+  v119[1] = *MEMORY[0x277D3A288];
+  v81 = +[PPTrialWrapper sharedInstance];
+  concatenatedTreatmentNames2 = [v81 concatenatedTreatmentNames];
+  v120[1] = concatenatedTreatmentNames2;
+  v119[2] = *MEMORY[0x277D3A280];
+  v83 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v17];
+  v120[2] = v83;
+  v119[3] = *MEMORY[0x277D3A260];
+  v84 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v44];
+  v120[3] = v84;
+  v119[4] = *MEMORY[0x277D3A278];
+  v85 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v102];
+  v120[4] = v85;
+  v86 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v120 forKeys:v119 count:5];
+
+  mEMORY[0x277D3A250]2 = [MEMORY[0x277D3A250] sharedInstance];
+  [mEMORY[0x277D3A250]2 logMessage:v86 messageName:*MEMORY[0x277D3A268]];
+
+  objc_autoreleasePoolPop(contextb);
+  v77 = v89;
+  _pas_stringBackedByUTF8CString = v90;
+LABEL_45:
 }
 
 + (id)scoredItemWithFeaturesForFeatureDictionary:(id)dictionary score:(float)score
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v6 = objc_opt_new();
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v7 = dictionaryCopy;
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
-        if ([v12 isEqualToString:{@"score", v19}])
+        v12 = *(*(&v18 + 1) + 8 * i);
+        if ([v12 isEqualToString:{@"score", v18}])
         {
           v13 = [v7 objectForKeyedSubscript:v12];
           [v13 floatValue];
@@ -315,7 +632,7 @@ void __64__PPFeedbackUtils__flattenDictionarylikeToFeatures_featureName___block_
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
@@ -323,8 +640,6 @@ void __64__PPFeedbackUtils__flattenDictionarylikeToFeatures_featureName___block_
 
   *&v16 = score;
   [v6 setScore:v16];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -445,29 +760,29 @@ void __64__PPFeedbackUtils__flattenDictionarylikeToFeatures_featureName___block_
 
 + (id)feedbackItemsByItemString:(id)string
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v4 = objc_opt_new();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = stringCopy;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         v11 = objc_autoreleasePoolPush();
         itemString = [v10 itemString];
         v13 = [v4 objectForKeyedSubscript:itemString];
@@ -484,13 +799,11 @@ void __64__PPFeedbackUtils__flattenDictionarylikeToFeatures_featureName___block_
         objc_autoreleasePoolPop(v11);
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

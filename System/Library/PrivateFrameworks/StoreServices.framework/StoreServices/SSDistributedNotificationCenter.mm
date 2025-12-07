@@ -12,8 +12,8 @@
 
 - (SSDistributedNotificationCenter)initWithNamedPort:(id)port
 {
-  v25 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  v24 = *MEMORY[0x1E69E9840];
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v5 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v5)
@@ -32,43 +32,41 @@
       v7 = shouldLog;
     }
 
-    if (os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_FAULT))
+    oSLogObject = [v5 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v8 = v7;
+      v9 = v7;
     }
 
     else
     {
-      v8 = v7 & 2;
+      v9 = v7 & 2;
     }
 
-    if (v8)
+    if (v9)
     {
-      v23 = 136446210;
-      v24 = "[SSDistributedNotificationCenter initWithNamedPort:]";
-      LODWORD(v21) = 12;
-      v20 = &v23;
-      v9 = _os_log_send_and_compose_impl();
-      if (v9)
+      v22 = 136446210;
+      v23 = "[SSDistributedNotificationCenter initWithNamedPort:]";
+      if (v10)
       {
-        v10 = v9;
-        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v23, v21}];
-        free(v10);
-        SSFileLog(v5, @"%@", v12, v13, v14, v15, v16, v17, v11);
+        v11 = v10;
+        v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+        free(v11);
+        SSFileLog(v5, @"%@", v13, v14, v15, v16, v17, v18, v12);
       }
     }
   }
 
   if ([port length])
   {
-    v22.receiver = self;
-    v22.super_class = SSDistributedNotificationCenter;
-    v18 = [(SSDistributedNotificationCenter *)&v22 init];
-    if (v18)
+    v21.receiver = self;
+    v21.super_class = SSDistributedNotificationCenter;
+    v19 = [(SSDistributedNotificationCenter *)&v21 init];
+    if (v19)
     {
-      v18->_dispatchQueue = dispatch_queue_create("com.apple.StoreServices.SSDistributedNotificationCenter", 0);
-      v18->_observers = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v18->_portName = [port copy];
+      v19->_dispatchQueue = dispatch_queue_create("com.apple.StoreServices.SSDistributedNotificationCenter", 0);
+      v19->_observers = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v19->_portName = [port copy];
     }
   }
 
@@ -79,7 +77,7 @@
     return 0;
   }
 
-  return v18;
+  return v19;
 }
 
 - (void)dealloc
@@ -99,8 +97,8 @@
 
 - (id)addObserverForName:(id)name queue:(id)queue usingBlock:(id)block
 {
-  v31 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  v30 = *MEMORY[0x1E69E9840];
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v9 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v9)
@@ -119,29 +117,27 @@
       v11 = shouldLog;
     }
 
-    if (os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_FAULT))
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v12 = v11;
+      v13 = v11;
     }
 
     else
     {
-      v12 = v11 & 2;
+      v13 = v11 & 2;
     }
 
-    if (v12)
+    if (v13)
     {
-      LODWORD(v28) = 136446210;
-      *(&v28 + 4) = "[SSDistributedNotificationCenter addObserverForName:queue:usingBlock:]";
-      LODWORD(v26) = 12;
-      v25 = &v28;
-      v13 = _os_log_send_and_compose_impl();
-      if (v13)
+      LODWORD(v27) = 136446210;
+      *(&v27 + 4) = "[SSDistributedNotificationCenter addObserverForName:queue:usingBlock:]";
+      if (v14)
       {
-        v14 = v13;
-        v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v28, v26}];
-        free(v14);
-        SSFileLog(v9, @"%@", v16, v17, v18, v19, v20, v21, v15);
+        v15 = v14;
+        v16 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+        free(v15);
+        SSFileLog(v9, @"%@", v17, v18, v19, v20, v21, v22, v16);
       }
     }
   }
@@ -150,8 +146,8 @@
   {
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:@"Invalid name"];
 LABEL_21:
-    v22 = 0;
-    return v22;
+    v23 = 0;
+    return v23;
   }
 
   if (!block)
@@ -160,11 +156,11 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  *&v28 = 0;
-  *(&v28 + 1) = &v28;
-  v29 = 0x2020000000;
-  v30 = 1;
-  v22 = [[SSDistributedNotificationCenterObserver alloc] initWithName:name queue:queue block:block];
+  *&v27 = 0;
+  *(&v27 + 1) = &v27;
+  v28 = 0x2020000000;
+  v29 = 1;
+  v23 = [[SSDistributedNotificationCenterObserver alloc] initWithName:name queue:queue block:block];
   dispatchQueue = self->_dispatchQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -172,16 +168,16 @@ LABEL_21:
   block[3] = &unk_1E84B0DA0;
   block[4] = self;
   block[5] = name;
-  block[6] = v22;
-  block[7] = &v28;
+  block[6] = v23;
+  block[7] = &v27;
   dispatch_sync(dispatchQueue, block);
-  if (*(*(&v28 + 1) + 24) == 1)
+  if (*(*(&v27 + 1) + 24) == 1)
   {
     [(SSDistributedNotificationCenter *)self _sendRegistrationMessage:42 name:name];
   }
 
-  _Block_object_dispose(&v28, 8);
-  return v22;
+  _Block_object_dispose(&v27, 8);
+  return v23;
 }
 
 uint64_t __71__SSDistributedNotificationCenter_addObserverForName_queue_usingBlock___block_invoke(void *a1)
@@ -244,7 +240,7 @@ uint64_t __71__SSDistributedNotificationCenter_addObserverForName_queue_usingBlo
 - (void)removeObserver:(id)observer
 {
   v30 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v5 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v5)
@@ -263,28 +259,27 @@ uint64_t __71__SSDistributedNotificationCenter_addObserverForName_queue_usingBlo
       v7 = shouldLog;
     }
 
-    if (os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_FAULT))
+    oSLogObject = [v5 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
     {
-      v8 = v7;
+      v9 = v7;
     }
 
     else
     {
-      v8 = v7 & 2;
+      v9 = v7 & 2;
     }
 
-    if (v8)
+    if (v9)
     {
       LODWORD(v25) = 136446210;
       *(&v25 + 4) = "[SSDistributedNotificationCenter removeObserver:]";
-      LODWORD(v19) = 12;
-      v9 = _os_log_send_and_compose_impl();
-      if (v9)
+      if (v10)
       {
-        v10 = v9;
-        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v25, v19}];
-        free(v10);
-        SSFileLog(v5, @"%@", v12, v13, v14, v15, v16, v17, v11);
+        v11 = v10;
+        v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+        free(v11);
+        SSFileLog(v5, @"%@", v13, v14, v15, v16, v17, v18, v12);
       }
     }
   }
@@ -318,7 +313,7 @@ uint64_t __71__SSDistributedNotificationCenter_addObserverForName_queue_usingBlo
   _Block_object_dispose(&v25, 8);
 }
 
-uint64_t __50__SSDistributedNotificationCenter_removeObserver___block_invoke(uint64_t a1)
+void *__50__SSDistributedNotificationCenter_removeObserver___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   result = [*(*(a1 + 32) + 16) indexOfObjectIdenticalTo:*(a1 + 40)];
@@ -354,7 +349,7 @@ uint64_t __50__SSDistributedNotificationCenter_removeObserver___block_invoke(uin
             return result;
           }
 
-          ++v7;
+          v7 = v7 + 1;
         }
 
         while (v5 != v7);
@@ -375,46 +370,46 @@ uint64_t __50__SSDistributedNotificationCenter_removeObserver___block_invoke(uin
 
 - (void)_distributedNotificationMessage:(id)message connection:(id)connection
 {
-  v20 = *MEMORY[0x1E69E9840];
-  objc_opt_class();
-  v6 = SSXPCDictionaryCopyCFObjectWithClass(message, "1");
-  if ([(__CFArray *)v6 length])
+  v21 = *MEMORY[0x1E69E9840];
+  v6 = objc_opt_class();
+  v7 = SSXPCDictionaryCopyCFObjectWithClass(message, "1", v6);
+  if ([(__CFDate *)v7 length])
   {
     selfCopy = self;
-    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
     observers = self->_observers;
-    v9 = [(NSMutableArray *)observers countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v9)
+    v10 = [(NSMutableArray *)observers countByEnumeratingWithState:&v16 objects:v20 count:16];
+    if (v10)
     {
-      v10 = v9;
-      v11 = *v16;
+      v11 = v10;
+      v12 = *v17;
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v16 != v11)
+          if (*v17 != v12)
           {
             objc_enumerationMutation(observers);
           }
 
-          v13 = *(*(&v15 + 1) + 8 * i);
-          if ([objc_msgSend(v13 "name")])
+          v14 = *(*(&v16 + 1) + 8 * i);
+          if ([objc_msgSend(v14 "name")])
           {
-            global_queue = [v13 dispatchQueue];
+            global_queue = [v14 dispatchQueue];
             if (global_queue || (global_queue = dispatch_get_global_queue(0, 0)) != 0)
             {
-              dispatch_async(global_queue, [v13 block]);
+              dispatch_async(global_queue, [v14 block]);
             }
           }
         }
 
-        v10 = [(NSMutableArray *)observers countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v11 = [(NSMutableArray *)observers countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
-      while (v10);
+      while (v11);
     }
   }
 }

@@ -117,123 +117,8 @@
 {
   oCopy = o;
   v5 = oCopy;
-  if (!oCopy)
+  if (!oCopy || (v6 = self->_date == 0, [oCopy date], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (date = self->_date) != 0 && (objc_msgSend(v5, "date"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSDate isEqual:](date, "isEqual:", v10), v10, !v11) || (v12 = self->_contextChangeReason == 0, objc_msgSend(v5, "contextChangeReason"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14) || (contextChangeReason = self->_contextChangeReason) != 0 && (objc_msgSend(v5, "contextChangeReason"), v16 = objc_claimAutoreleasedReturnValue(), v17 = -[NSString isEqual:](contextChangeReason, "isEqual:", v16), v16, !v17) || (v18 = self->_candidatesContainer == 0, objc_msgSend(v5, "candidatesContainer"), v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 != 0, v19, v18 == v20) || (candidatesContainer = self->_candidatesContainer) != 0 && (objc_msgSend(v5, "candidatesContainer"), v22 = objc_claimAutoreleasedReturnValue(), v23 = -[IRCandidatesContainerDO isEqual:](candidatesContainer, "isEqual:", v22), v22, !v23) || (v24 = self->_miloLslPrediction == 0, objc_msgSend(v5, "miloLslPrediction"), v25 = objc_claimAutoreleasedReturnValue(), v26 = v25 != 0, v25, v24 == v26) || (miloLslPrediction = self->_miloLslPrediction) != 0 && (objc_msgSend(v5, "miloLslPrediction"), v28 = objc_claimAutoreleasedReturnValue(), v29 = -[IRMiloLslPredictionDO isEqual:](miloLslPrediction, "isEqual:", v28), v28, !v29) || (v30 = self->_systemState == 0, objc_msgSend(v5, "systemState"), v31 = objc_claimAutoreleasedReturnValue(), v32 = v31 != 0, v31, v30 == v32) || (systemState = self->_systemState) != 0 && (objc_msgSend(v5, "systemState"), v34 = objc_claimAutoreleasedReturnValue(), v35 = -[IRSystemStateDO isEqual:](systemState, "isEqual:", v34), v34, !v35) || (v36 = self->_nearbyDeviceContainerDO == 0, objc_msgSend(v5, "nearbyDeviceContainerDO"), v37 = objc_claimAutoreleasedReturnValue(), v38 = v37 != 0, v37, v36 == v38))
   {
-    goto LABEL_20;
-  }
-
-  v6 = self->_date == 0;
-  date = [oCopy date];
-  v8 = date != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_20;
-  }
-
-  date = self->_date;
-  if (date)
-  {
-    date2 = [v5 date];
-    v11 = [(NSDate *)date isEqual:date2];
-
-    if (!v11)
-    {
-      goto LABEL_20;
-    }
-  }
-
-  v12 = self->_contextChangeReason == 0;
-  contextChangeReason = [v5 contextChangeReason];
-  v14 = contextChangeReason != 0;
-
-  if (v12 == v14)
-  {
-    goto LABEL_20;
-  }
-
-  contextChangeReason = self->_contextChangeReason;
-  if (contextChangeReason)
-  {
-    contextChangeReason2 = [v5 contextChangeReason];
-    v17 = [(NSString *)contextChangeReason isEqual:contextChangeReason2];
-
-    if (!v17)
-    {
-      goto LABEL_20;
-    }
-  }
-
-  v18 = self->_candidatesContainer == 0;
-  candidatesContainer = [v5 candidatesContainer];
-  v20 = candidatesContainer != 0;
-
-  if (v18 == v20)
-  {
-    goto LABEL_20;
-  }
-
-  candidatesContainer = self->_candidatesContainer;
-  if (candidatesContainer)
-  {
-    candidatesContainer2 = [v5 candidatesContainer];
-    v23 = [(IRCandidatesContainerDO *)candidatesContainer isEqual:candidatesContainer2];
-
-    if (!v23)
-    {
-      goto LABEL_20;
-    }
-  }
-
-  v24 = self->_miloLslPrediction == 0;
-  miloLslPrediction = [v5 miloLslPrediction];
-  v26 = miloLslPrediction != 0;
-
-  if (v24 == v26)
-  {
-    goto LABEL_20;
-  }
-
-  miloLslPrediction = self->_miloLslPrediction;
-  if (miloLslPrediction)
-  {
-    miloLslPrediction2 = [v5 miloLslPrediction];
-    v29 = [(IRMiloLslPredictionDO *)miloLslPrediction isEqual:miloLslPrediction2];
-
-    if (!v29)
-    {
-      goto LABEL_20;
-    }
-  }
-
-  v30 = self->_systemState == 0;
-  systemState = [v5 systemState];
-  v32 = systemState != 0;
-
-  if (v30 == v32)
-  {
-    goto LABEL_20;
-  }
-
-  systemState = self->_systemState;
-  if (systemState)
-  {
-    systemState2 = [v5 systemState];
-    v35 = [(IRSystemStateDO *)systemState isEqual:systemState2];
-
-    if (!v35)
-    {
-      goto LABEL_20;
-    }
-  }
-
-  v36 = self->_nearbyDeviceContainerDO == 0;
-  nearbyDeviceContainerDO = [v5 nearbyDeviceContainerDO];
-  v38 = nearbyDeviceContainerDO != 0;
-
-  if (v36 == v38)
-  {
-LABEL_20:
     v41 = 0;
   }
 
@@ -242,8 +127,8 @@ LABEL_20:
     nearbyDeviceContainerDO = self->_nearbyDeviceContainerDO;
     if (nearbyDeviceContainerDO)
     {
-      nearbyDeviceContainerDO2 = [v5 nearbyDeviceContainerDO];
-      v41 = [(IRNearbyDeviceContainerDO *)nearbyDeviceContainerDO isEqual:nearbyDeviceContainerDO2];
+      nearbyDeviceContainerDO = [v5 nearbyDeviceContainerDO];
+      v41 = [(IRNearbyDeviceContainerDO *)nearbyDeviceContainerDO isEqual:nearbyDeviceContainerDO];
     }
 
     else
@@ -274,7 +159,7 @@ LABEL_20:
 
 - (IRReplayEventDO)initWithCoder:(id)coder
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"date"];
   if (v5)
@@ -287,9 +172,9 @@ LABEL_20:
       v8 = objc_opt_class();
       v9 = NSStringFromClass(v8);
       v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRReplayEventDO key date (expected %@, decoded %@)", v7, v9, 0];
-      v31 = *MEMORY[0x277CCA450];
-      v32[0] = v10;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+      v30 = *MEMORY[0x277CCA450];
+      v31[0] = v10;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
       v12 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRReplayEventDOOCNTErrorDomain" code:3 userInfo:v11];
       [coderCopy failWithError:v12];
 LABEL_9:
@@ -313,9 +198,9 @@ LABEL_6:
         v16 = objc_opt_class();
         v10 = NSStringFromClass(v16);
         v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRReplayEventDO key contextChangeReason (expected %@, decoded %@)", v9, v10, 0];
-        v29 = *MEMORY[0x277CCA450];
-        v30 = v11;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+        v28 = *MEMORY[0x277CCA450];
+        v29 = v11;
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
         v17 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRReplayEventDOOCNTErrorDomain" code:3 userInfo:v12];
         [coderCopy failWithError:v17];
 
@@ -385,7 +270,6 @@ LABEL_6:
   selfCopy = 0;
 LABEL_30:
 
-  v27 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -438,11 +322,9 @@ LABEL_30:
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  v4 = *&self->_date;
-  v5 = [v3 initWithFormat:@"<IRReplayEventDO | date:%@ contextChangeReason:%@ candidatesContainer:%@ miloLslPrediction:%@ systemState:%@ nearbyDeviceContainerDO:%@>", self->_date, self->_contextChangeReason, self->_candidatesContainer, self->_miloLslPrediction, self->_systemState, self->_nearbyDeviceContainerDO];
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"<IRReplayEventDO | date:%@ contextChangeReason:%@ candidatesContainer:%@ miloLslPrediction:%@ systemState:%@ nearbyDeviceContainerDO:%@>", self->_date, self->_contextChangeReason, self->_candidatesContainer, self->_miloLslPrediction, self->_systemState, self->_nearbyDeviceContainerDO];
 
-  return v5;
+  return v2;
 }
 
 @end

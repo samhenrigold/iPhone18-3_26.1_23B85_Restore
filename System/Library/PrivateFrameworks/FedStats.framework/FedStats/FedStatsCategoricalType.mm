@@ -125,7 +125,7 @@
 
 + (id)createFromDict:(id)dict possibleError:(id *)error
 {
-  v149[4] = *MEMORY[0x277D85DE8];
+  v146[4] = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   v6 = [dictCopy objectForKey:@"categories"];
 
@@ -160,52 +160,50 @@
     if (error)
     {
       errorCopy = error;
-      v149[0] = @"categories";
-      v149[1] = @"categoryMap";
-      v149[2] = @"categoryFile";
-      v149[3] = @"prefixTreeParameters";
-      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v149 count:4];
-      v24 = MEMORY[0x277CCACA8];
-      v25 = [v11 componentsJoinedByString:{@", "}];
-      v26 = [v24 stringWithFormat:@"You're allowed to have exactly one of {%@} as key in parameters", v25];
-      *errorCopy = [FedStatsError errorWithCode:301 description:v26];
+      v146[0] = @"categories";
+      v146[1] = @"categoryMap";
+      v146[2] = @"categoryFile";
+      v146[3] = @"prefixTreeParameters";
+      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v146 count:4];
+      v23 = MEMORY[0x277CCACA8];
+      v24 = [v11 componentsJoinedByString:{@", "}];
+      v25 = [v23 stringWithFormat:@"You're allowed to have exactly one of {%@} as key in parameters", v24];
+      *errorCopy = [FedStatsError errorWithCode:301 description:v25];
 
       goto LABEL_23;
     }
 
 LABEL_81:
-    v22 = 0;
+    v21 = 0;
     goto LABEL_102;
   }
 
   errorCopy2 = error;
   if (v6)
   {
-    v11 = [dictCopy objectForKey:@"categories"];
-    v12 = objc_claimAutoreleasedReturnValue();
+    v12 = v11 = [dictCopy objectForKey:@"categories"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v142 = 0u;
-      v143 = 0u;
+      v139 = 0u;
       v140 = 0u;
-      v141 = 0u;
+      v137 = 0u;
+      v138 = 0u;
       v13 = v11;
-      v14 = [v13 countByEnumeratingWithState:&v140 objects:v148 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v137 objects:v145 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v141;
+        v16 = *v138;
         while (2)
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v141 != v16)
+            if (*v138 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = *(*(&v140 + 1) + 8 * i);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
@@ -218,7 +216,7 @@ LABEL_81:
             }
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v140 objects:v148 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v137 objects:v145 count:16];
           if (v15)
           {
             continue;
@@ -228,13 +226,13 @@ LABEL_81:
         }
       }
 
-      v19 = [MEMORY[0x277CBEB98] setWithArray:v13];
-      v20 = [v19 count];
-      v21 = [v13 count];
+      v18 = [MEMORY[0x277CBEB98] setWithArray:v13];
+      v19 = [v18 count];
+      v20 = [v13 count];
 
-      if (v20 == v21)
+      if (v19 == v20)
       {
-        v22 = [[self alloc] initWithCategories:v13];
+        v21 = [[self alloc] initWithCategories:v13];
         goto LABEL_59;
       }
     }
@@ -248,16 +246,15 @@ LABEL_81:
     errorCopy3 = error;
     if (v8)
     {
-      v11 = [dictCopy objectForKey:@"categoryFile"];
-      v12 = objc_claimAutoreleasedReturnValue();
+      v12 = v11 = [dictCopy objectForKey:@"categoryFile"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v52 = [dictCopy objectForKey:@"minIndex"];
-        v53 = v52;
-        if (v52)
+        v50 = [dictCopy objectForKey:@"minIndex"];
+        v51 = v50;
+        if (v50)
         {
-          unsignedIntegerValue = [v52 unsignedIntegerValue];
+          unsignedIntegerValue = [v50 unsignedIntegerValue];
         }
 
         else
@@ -265,11 +262,11 @@ LABEL_81:
           unsignedIntegerValue = 0x7FFFFFFFFFFFFFFFLL;
         }
 
-        v63 = [dictCopy objectForKey:@"maxIndex"];
-        v64 = v63;
-        if (v63)
+        v61 = [dictCopy objectForKey:@"maxIndex"];
+        v62 = v61;
+        if (v61)
         {
-          unsignedIntegerValue2 = [v63 unsignedIntegerValue];
+          unsignedIntegerValue2 = [v61 unsignedIntegerValue];
         }
 
         else
@@ -277,23 +274,23 @@ LABEL_81:
           unsignedIntegerValue2 = 0x7FFFFFFFFFFFFFFFLL;
         }
 
-        v127 = 0;
-        v66 = [FedStatsSQLiteCategoryDatabase databaseWithFileURL:v11 minIndex:unsignedIntegerValue maxIndex:unsignedIntegerValue2 checkForPrimaryKey:1 error:&v127];
-        v67 = v127;
-        if (v66)
+        v124 = 0;
+        v64 = [FedStatsSQLiteCategoryDatabase databaseWithFileURL:v11 minIndex:unsignedIntegerValue maxIndex:unsignedIntegerValue2 checkForPrimaryKey:1 error:&v124];
+        v65 = v124;
+        if (v64)
         {
-          v22 = [[self alloc] initWithCategoryFile:v66];
+          v21 = [[self alloc] initWithCategoryFile:v64];
         }
 
         else if (errorCopy2)
         {
-          [FedStatsError errorWithCode:302 underlyingError:v67 description:@"Cannot create database from the provided URL"];
-          *errorCopy2 = v22 = 0;
+          [FedStatsError errorWithCode:302 underlyingError:v65 description:@"Cannot create database from the provided URL"];
+          *errorCopy2 = v21 = 0;
         }
 
         else
         {
-          v22 = 0;
+          v21 = 0;
         }
 
         goto LABEL_59;
@@ -303,28 +300,28 @@ LABEL_53:
       if (errorCopy3)
       {
         [FedStatsError errorWithCode:302 description:v12];
-        *errorCopy3 = v22 = 0;
+        *errorCopy3 = v21 = 0;
         goto LABEL_59;
       }
 
 LABEL_58:
-      v22 = 0;
+      v21 = 0;
       goto LABEL_59;
     }
 
     if (v9)
     {
-      v55 = [dictCopy objectForKey:@"prefixSize"];
-      v11 = v55;
-      if (v55 && ([v55 integerValue] & 0x8000000000000000) == 0)
+      v53 = [dictCopy objectForKey:@"prefixSize"];
+      v11 = v53;
+      if (v53 && ([v53 integerValue] & 0x8000000000000000) == 0)
       {
-        v56 = [dictCopy objectForKey:@"fragmentSize"];
-        v12 = v56;
-        if (!v56 || [v56 integerValue] <= 0)
+        v54 = [dictCopy objectForKey:@"fragmentSize"];
+        v12 = v54;
+        if (!v54 || [v54 integerValue] <= 0)
         {
           if (errorCopy2)
-            v72 = {;
-            *errorCopy2 = [FedStatsError errorWithCode:101 description:v72];
+            v69 = {;
+            *errorCopy2 = [FedStatsError errorWithCode:101 description:v69];
           }
 
           goto LABEL_58;
@@ -332,19 +329,19 @@ LABEL_58:
 
         if ([v11 unsignedIntegerValue])
         {
-          v57 = [dictCopy objectForKey:@"prefixTreeParameters"];
+          v55 = [dictCopy objectForKey:@"prefixTreeParameters"];
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             if (errorCopy2)
-              v90 = {;
-              *errorCopy2 = [FedStatsError errorWithCode:302 description:v90];
+              v87 = {;
+              *errorCopy2 = [FedStatsError errorWithCode:302 description:v87];
             }
 
             goto LABEL_147;
           }
 
-          v58 = [v57 objectForKey:@"fileName"];
+          v56 = [v55 objectForKey:@"fileName"];
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -355,24 +352,24 @@ LABEL_146:
 LABEL_147:
               goto LABEL_58;
             }
-            v61 = ;
-            *errorCopy2 = [FedStatsError errorWithCode:302 description:v61];
+            v59 = ;
+            *errorCopy2 = [FedStatsError errorWithCode:302 description:v59];
 LABEL_145:
 
             goto LABEL_146;
           }
 
-          v126 = 0;
-          v59 = [FedStatsSQLiteCategoryDatabase databaseWithFileURL:v58 minIndex:0 maxIndex:0x7FFFFFFFFFFFFFFFLL checkForPrimaryKey:0 error:&v126];
-          v60 = v126;
-          v61 = v60;
-          if (errorCopy2 && !v59)
+          v123 = 0;
+          v57 = [FedStatsSQLiteCategoryDatabase databaseWithFileURL:v56 minIndex:0 maxIndex:0x7FFFFFFFFFFFFFFFLL checkForPrimaryKey:0 error:&v123];
+          v58 = v123;
+          v59 = v58;
+          if (errorCopy2 && !v57)
           {
-            *errorCopy2 = [FedStatsError errorWithCode:302 underlyingError:v60 description:@"Cannot load prefix tree as database"];
+            *errorCopy2 = [FedStatsError errorWithCode:302 underlyingError:v58 description:@"Cannot load prefix tree as database"];
             goto LABEL_145;
           }
 
-          if (!v59)
+          if (!v57)
           {
             goto LABEL_58;
           }
@@ -380,24 +377,24 @@ LABEL_145:
 
         else
         {
-          v59 = 0;
+          v57 = 0;
         }
 
-        v73 = [dictCopy objectForKey:@"filters"];
-        if (v73)
+        v70 = [dictCopy objectForKey:@"filters"];
+        if (v70)
         {
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             if (errorCopy2)
-              v116 = {;
+              v113 = {;
               [FedStatsError errorWithCode:101 description:?];
-              *errorCopy2 = v22 = 0;
+              *errorCopy2 = v21 = 0;
             }
 
             else
             {
-              v22 = 0;
+              v21 = 0;
             }
 
             goto LABEL_198;
@@ -405,87 +402,87 @@ LABEL_145:
         }
 
         array = [MEMORY[0x277CBEB18] array];
-        v107 = v11;
-        if (v73)
+        v104 = v11;
+        if (v70)
         {
-          obja = v73;
-          v124 = 0u;
-          v125 = 0u;
+          obja = v70;
+          v121 = 0u;
           v122 = 0u;
-          v123 = 0u;
-          v113 = v73;
-          v74 = [v113 countByEnumeratingWithState:&v122 objects:v144 count:16];
-          if (v74)
+          v119 = 0u;
+          v120 = 0u;
+          v110 = v70;
+          v71 = [v110 countByEnumeratingWithState:&v119 objects:v141 count:16];
+          if (v71)
           {
-            v75 = v74;
-            v76 = *v123;
+            v72 = v71;
+            v73 = *v120;
             do
             {
-              for (j = 0; j != v75; ++j)
+              for (j = 0; j != v72; ++j)
               {
-                if (*v123 != v76)
+                if (*v120 != v73)
                 {
-                  objc_enumerationMutation(v113);
+                  objc_enumerationMutation(v110);
                 }
 
-                v78 = *(*(&v122 + 1) + 8 * j);
+                v75 = *(*(&v119 + 1) + 8 * j);
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
-                  v73 = obja;
+                  v70 = obja;
                   if (errorCopy2)
-                    v79 = {;
-                    *errorCopy2 = [FedStatsError errorWithCode:101 description:v79];
+                    v76 = {;
+                    *errorCopy2 = [FedStatsError errorWithCode:101 description:v76];
                     goto LABEL_184;
                   }
 
                   goto LABEL_185;
                 }
 
-                v79 = [v78 objectForKey:@"filterVariant"];
-                if (v79)
+                v76 = [v75 objectForKey:@"filterVariant"];
+                if (v76)
                 {
                   objc_opt_class();
                   if ((objc_opt_isKindOfClass() & 1) == 0)
                   {
                     if (errorCopy2)
-                      v81 = {;
-                      *errorCopy2 = [FedStatsError errorWithCode:101 description:v81];
+                      v78 = {;
+                      *errorCopy2 = [FedStatsError errorWithCode:101 description:v78];
                       goto LABEL_183;
                     }
 
-                    v73 = obja;
+                    v70 = obja;
                     goto LABEL_184;
                   }
 
-                  v80 = [v78 objectForKey:@"filterParameters"];
-                  if (v80)
+                  v77 = [v75 objectForKey:@"filterParameters"];
+                  if (v77)
                   {
-                    v81 = v80;
+                    v78 = v77;
                   }
 
                   else
                   {
-                    v81 = MEMORY[0x277CBEC10];
+                    v78 = MEMORY[0x277CBEC10];
                   }
 
                   objc_opt_class();
                   if ((objc_opt_isKindOfClass() & 1) == 0)
                   {
                     if (errorCopy2)
-                      v83 = {;
-                      v99 = [FedStatsError errorWithCode:101 description:v83];
+                      v80 = {;
+                      v96 = [FedStatsError errorWithCode:101 description:v80];
                       goto LABEL_181;
                     }
 
 LABEL_183:
-                    v73 = obja;
+                    v70 = obja;
 
 LABEL_184:
 LABEL_185:
 
-                    v22 = 0;
-                    v11 = v107;
+                    v21 = 0;
+                    v11 = v104;
 LABEL_197:
 
 LABEL_198:
@@ -494,66 +491,66 @@ LABEL_59:
                     goto LABEL_101;
                   }
 
-                  v121 = 0;
-                  v82 = [FedStatsCategoricalTypeFilterFactory filterForVariant:v79 parameters:v81 error:&v121];
-                  v83 = v121;
-                  if (!v82)
+                  v118 = 0;
+                  v79 = [FedStatsCategoricalTypeFilterFactory filterForVariant:v76 parameters:v78 error:&v118];
+                  v80 = v118;
+                  if (!v79)
                   {
                     if (errorCopy2)
                     {
-                      v99 = [FedStatsError errorWithCode:101 underlyingError:v83 description:@"Cannot create filter with given parameters"];
+                      v96 = [FedStatsError errorWithCode:101 underlyingError:v80 description:@"Cannot create filter with given parameters"];
 LABEL_181:
-                      *errorCopy2 = v99;
+                      *errorCopy2 = v96;
                     }
 
                     goto LABEL_183;
                   }
 
-                  [array addObject:v82];
+                  [array addObject:v79];
                 }
               }
 
-              v75 = [v113 countByEnumeratingWithState:&v122 objects:v144 count:16];
+              v72 = [v110 countByEnumeratingWithState:&v119 objects:v141 count:16];
             }
 
-            while (v75);
+            while (v72);
           }
 
           errorCopy3 = errorCopy2;
-          v73 = obja;
+          v70 = obja;
         }
 
-        v84 = [dictCopy objectForKey:@"tokenizerVariant"];
-        if (v84)
+        v81 = [dictCopy objectForKey:@"tokenizerVariant"];
+        if (v81)
         {
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             if (errorCopy3)
-              v87 = {;
-              [FedStatsError errorWithCode:101 description:v87];
-              *errorCopy3 = v22 = 0;
+              v84 = {;
+              [FedStatsError errorWithCode:101 description:v84];
+              *errorCopy3 = v21 = 0;
 LABEL_195:
 
               goto LABEL_196;
             }
 
-            v22 = 0;
+            v21 = 0;
 LABEL_196:
 
-            v11 = v107;
+            v11 = v104;
             goto LABEL_197;
           }
 
-          v85 = [dictCopy objectForKey:@"tokenizerParameters"];
-          if (v85)
+          v82 = [dictCopy objectForKey:@"tokenizerParameters"];
+          if (v82)
           {
-            v86 = v85;
+            v83 = v82;
           }
 
           else
           {
-            v86 = MEMORY[0x277CBEC10];
+            v83 = MEMORY[0x277CBEC10];
           }
 
           objc_opt_class();
@@ -562,72 +559,72 @@ LABEL_196:
             if (!errorCopy3)
             {
 LABEL_172:
-              v22 = 0;
-              v87 = v86;
+              v21 = 0;
+              v84 = v83;
               goto LABEL_195;
             }
-            v89 = ;
-            *errorCopy2 = [FedStatsError errorWithCode:101 description:v89];
+            v86 = ;
+            *errorCopy2 = [FedStatsError errorWithCode:101 description:v86];
 LABEL_171:
 
             goto LABEL_172;
           }
 
-          v120 = 0;
-          v87 = [FedStatsCategoricalTypeTokenizerFactory tokenizerForVariant:v84 parameters:v86 error:&v120];
-          v88 = v120;
-          v89 = v88;
-          if (errorCopy3 && !v87)
+          v117 = 0;
+          v84 = [FedStatsCategoricalTypeTokenizerFactory tokenizerForVariant:v81 parameters:v83 error:&v117];
+          v85 = v117;
+          v86 = v85;
+          if (errorCopy3 && !v84)
           {
-            *errorCopy3 = [FedStatsError errorWithCode:101 underlyingError:v88 description:@"Cannot create tokenizer with given parameters"];
+            *errorCopy3 = [FedStatsError errorWithCode:101 underlyingError:v85 description:@"Cannot create tokenizer with given parameters"];
             goto LABEL_171;
           }
 
-          if (!v87)
+          if (!v84)
           {
-            v22 = 0;
+            v21 = 0;
             goto LABEL_196;
           }
         }
 
         else
         {
-          v87 = 0;
+          v84 = 0;
         }
 
-        objb = v73;
-        v91 = [dictCopy objectForKey:@"preEncodingVariant"];
-        if (v91)
+        objb = v70;
+        v88 = [dictCopy objectForKey:@"preEncodingVariant"];
+        if (v88)
         {
           objc_opt_class();
-          v92 = v91;
+          v89 = v88;
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             if (!errorCopy3)
             {
-              v22 = 0;
+              v21 = 0;
               goto LABEL_194;
             }
-            v94 = ;
-            [FedStatsError errorWithCode:101 description:v94];
-            *errorCopy2 = v22 = 0;
+            v91 = ;
+            [FedStatsError errorWithCode:101 description:v91];
+            *errorCopy2 = v21 = 0;
 LABEL_193:
 
 LABEL_194:
-            v73 = objb;
+            v70 = objb;
 
             goto LABEL_195;
           }
 
-          v93 = [dictCopy objectForKey:@"preEncodingParameters"];
-          if (v93)
+          v90 = [dictCopy objectForKey:@"preEncodingParameters"];
+          if (v90)
           {
-            v94 = v93;
+            v91 = v90;
           }
 
           else
           {
-            v94 = MEMORY[0x277CBEC10];
+            v91 = MEMORY[0x277CBEC10];
           }
 
           objc_opt_class();
@@ -636,177 +633,175 @@ LABEL_194:
             if (!errorCopy2)
             {
 LABEL_192:
-              v22 = 0;
+              v21 = 0;
               goto LABEL_193;
             }
-            v97 = ;
-            v98 = [FedStatsError errorWithCode:101 description:v97];
+            v94 = ;
+            v95 = [FedStatsError errorWithCode:101 description:v94];
 LABEL_191:
-            *errorCopy2 = v98;
+            *errorCopy2 = v95;
 
             goto LABEL_192;
           }
 
-          v119 = 0;
-          v95 = [FedStatsCategoricalTypePreEncoderFactory preEncoderForVariant:v92 parameters:v94 error:&v119];
-          v96 = v119;
-          v97 = v96;
-          if (errorCopy2 && !v95)
+          v116 = 0;
+          v92 = [FedStatsCategoricalTypePreEncoderFactory preEncoderForVariant:v89 parameters:v91 error:&v116];
+          v93 = v116;
+          v94 = v93;
+          if (errorCopy2 && !v92)
           {
-            v98 = [FedStatsError errorWithCode:101 underlyingError:v96 description:@"Cannot create pre-encoder with given parameters"];
+            v95 = [FedStatsError errorWithCode:101 underlyingError:v93 description:@"Cannot create pre-encoder with given parameters"];
             goto LABEL_191;
           }
 
-          if (!v95)
+          if (!v92)
           {
-            v22 = 0;
+            v21 = 0;
             goto LABEL_194;
           }
         }
 
         else
         {
+          v89 = 0;
           v92 = 0;
-          v95 = 0;
         }
 
-        v22 = [[self alloc] initWithPrefixSize:v107 fragmentSize:v12 prefixTree:v59 filters:array tokenizer:v87 preEncoder:v95];
-        v94 = v95;
+        v21 = [[self alloc] initWithPrefixSize:v104 fragmentSize:v12 prefixTree:v57 filters:array tokenizer:v84 preEncoder:v92];
+        v91 = v92;
         goto LABEL_193;
       }
 
       if (errorCopy2)
-        v62 = {;
-        *errorCopy2 = [FedStatsError errorWithCode:101 description:v62];
+        v60 = {;
+        *errorCopy2 = [FedStatsError errorWithCode:101 description:v60];
       }
 
 LABEL_23:
-      v22 = 0;
+      v21 = 0;
       goto LABEL_101;
     }
 
     goto LABEL_81;
   }
 
-  v11 = [dictCopy objectForKey:@"categoryMap"];
-  v27 = objc_claimAutoreleasedReturnValue();
+  v26 = v11 = [dictCopy objectForKey:@"categoryMap"];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     if (errorCopy2)
     {
-      [FedStatsError errorWithCode:302 description:v27];
-      *errorCopy2 = v22 = 0;
+      [FedStatsError errorWithCode:302 description:v26];
+      *errorCopy2 = v21 = 0;
       goto LABEL_100;
     }
 
     goto LABEL_69;
   }
 
-  v138 = 0u;
-  v139 = 0u;
+  v135 = 0u;
   v136 = 0u;
-  v137 = 0u;
-  v28 = v11;
-  v29 = [v28 countByEnumeratingWithState:&v136 objects:v147 count:16];
-  if (!v29)
+  v133 = 0u;
+  v134 = 0u;
+  v27 = v11;
+  v28 = [v27 countByEnumeratingWithState:&v133 objects:v144 count:16];
+  if (!v28)
   {
     goto LABEL_34;
   }
 
-  v30 = v29;
-  v31 = *v137;
+  v29 = v28;
+  v30 = *v134;
   do
   {
-    for (k = 0; k != v30; ++k)
+    for (k = 0; k != v29; ++k)
     {
-      if (*v137 != v31)
+      if (*v134 != v30)
       {
-        objc_enumerationMutation(v28);
+        objc_enumerationMutation(v27);
       }
 
-      v33 = *(*(&v136 + 1) + 8 * k);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         if (errorCopy2)
         {
-          *errorCopy2 = [FedStatsError errorWithCode:302 description:v27];
+          *errorCopy2 = [FedStatsError errorWithCode:302 description:v26];
         }
 
 LABEL_69:
-        v22 = 0;
+        v21 = 0;
         goto LABEL_100;
       }
     }
 
-    v30 = [v28 countByEnumeratingWithState:&v136 objects:v147 count:16];
+    v29 = [v27 countByEnumeratingWithState:&v133 objects:v144 count:16];
   }
 
-  while (v30);
+  while (v29);
 LABEL_34:
 
-  allKeys = [v28 allKeys];
-  v35 = [allKeys sortedArrayUsingSelector:sel_compare_];
+  allKeys = [v27 allKeys];
+  v33 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v129 = 0u;
+  v130 = 0u;
+  v131 = 0u;
   v132 = 0u;
-  v133 = 0u;
-  v134 = 0u;
-  v135 = 0u;
-  v36 = v35;
-  v37 = [v36 countByEnumeratingWithState:&v132 objects:v146 count:16];
-  if (!v37)
+  v34 = v33;
+  v35 = [v34 countByEnumeratingWithState:&v129 objects:v143 count:16];
+  if (!v35)
   {
     goto LABEL_51;
   }
 
-  v114 = 0;
-  v38 = *v133;
-  v105 = v36;
-  v106 = v11;
+  v111 = 0;
+  v36 = *v130;
+  v102 = v34;
+  v103 = v11;
 LABEL_36:
-  v39 = 0;
-  v40 = errorCopy2;
-  v101 = v37;
+  v37 = 0;
+  v38 = errorCopy2;
+  v98 = v35;
 LABEL_37:
-  if (*v133 != v38)
+  if (*v130 != v36)
   {
-    objc_enumerationMutation(v36);
+    objc_enumerationMutation(v34);
   }
 
-  v102 = v39;
-  v112 = *(*(&v132 + 1) + 8 * v39);
-  v41 = [v28 objectForKey:?];
+  v99 = v37;
+  v109 = *(*(&v129 + 1) + 8 * v37);
+  v39 = [v27 objectForKey:?];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v130 = 0u;
-    v131 = 0u;
+    v127 = 0u;
     v128 = 0u;
-    v129 = 0u;
-    v104 = v41;
-    obj = v41;
-    v42 = [obj countByEnumeratingWithState:&v128 objects:v145 count:16];
-    if (!v42)
+    v125 = 0u;
+    v126 = 0u;
+    v101 = v39;
+    obj = v39;
+    v40 = [obj countByEnumeratingWithState:&v125 objects:v142 count:16];
+    if (!v40)
     {
       goto LABEL_49;
     }
 
-    v43 = v42;
-    v44 = *v129;
-    v103 = v27;
-    v100 = v38;
+    v41 = v40;
+    v42 = *v126;
+    v100 = v26;
+    v97 = v36;
 LABEL_42:
-    v45 = 0;
+    v43 = 0;
     while (1)
     {
-      if (*v129 != v44)
+      if (*v126 != v42)
       {
         objc_enumerationMutation(obj);
       }
 
-      v46 = *(*(&v128 + 1) + 8 * v45);
+      v44 = *(*(&v125 + 1) + 8 * v43);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -814,54 +809,54 @@ LABEL_42:
       }
 
       allKeys2 = [dictionary allKeys];
-      v48 = [allKeys2 containsObject:v46];
+      v46 = [allKeys2 containsObject:v44];
 
-      if (v48)
+      if (v46)
       {
-        v36 = v105;
-        v11 = v106;
-        v68 = errorCopy2;
-        v27 = v103;
-        v41 = v104;
+        v34 = v102;
+        v11 = v103;
+        v66 = errorCopy2;
+        v26 = v100;
+        v39 = v101;
         if (errorCopy2)
         {
-          v69 = @"Subcategories must be distinct";
+          v67 = @"Subcategories must be distinct";
 LABEL_96:
-          *v68 = [FedStatsError errorWithCode:302 description:v69];
+          *v66 = [FedStatsError errorWithCode:302 description:v67];
         }
 
         goto LABEL_97;
       }
 
-      v49 = [FedStatsCategoricalTypeSubcategory categoryWithSuperCategory:v112 index:v114];
-      [dictionary setObject:v49 forKey:v46];
+      v47 = [FedStatsCategoricalTypeSubcategory categoryWithSuperCategory:v109 index:v111];
+      [dictionary setObject:v47 forKey:v44];
 
-      if (v43 == ++v45)
+      if (v41 == ++v43)
       {
-        v43 = [obj countByEnumeratingWithState:&v128 objects:v145 count:16];
-        v40 = errorCopy2;
-        v27 = v103;
-        v38 = v100;
-        if (v43)
+        v41 = [obj countByEnumeratingWithState:&v125 objects:v142 count:16];
+        v38 = errorCopy2;
+        v26 = v100;
+        v36 = v97;
+        if (v41)
         {
           goto LABEL_42;
         }
 
 LABEL_49:
 
-        ++v114;
-        v39 = v102 + 1;
-        v36 = v105;
-        v11 = v106;
-        if (v102 + 1 == v101)
+        ++v111;
+        v37 = v99 + 1;
+        v34 = v102;
+        v11 = v103;
+        if (v99 + 1 == v98)
         {
-          v37 = [v105 countByEnumeratingWithState:&v132 objects:v146 count:16];
-          if (!v37)
+          v35 = [v102 countByEnumeratingWithState:&v129 objects:v143 count:16];
+          if (!v35)
           {
 LABEL_51:
 
-            v50 = dictionary;
-            v22 = [[self alloc] initWithCategoryMap:dictionary categories:v36];
+            v48 = dictionary;
+            v21 = [[self alloc] initWithCategoryMap:dictionary categories:v34];
             goto LABEL_99;
           }
 
@@ -872,14 +867,14 @@ LABEL_51:
       }
     }
 
-    v36 = v105;
-    v11 = v106;
-    v68 = errorCopy2;
-    v27 = v103;
-    v41 = v104;
+    v34 = v102;
+    v11 = v103;
+    v66 = errorCopy2;
+    v26 = v100;
+    v39 = v101;
     if (errorCopy2)
     {
-      v69 = v103;
+      v67 = v100;
       goto LABEL_96;
     }
 
@@ -888,29 +883,28 @@ LABEL_97:
     goto LABEL_98;
   }
 
-  if (v40)
+  if (v38)
   {
-    *v40 = [FedStatsError errorWithCode:302 description:v27];
+    *v38 = [FedStatsError errorWithCode:302 description:v26];
   }
 
 LABEL_98:
 
-  v22 = 0;
-  v50 = dictionary;
+  v21 = 0;
+  v48 = dictionary;
 LABEL_99:
 
 LABEL_100:
 LABEL_101:
 
 LABEL_102:
-  v70 = *MEMORY[0x277D85DE8];
 
-  return v22;
+  return v21;
 }
 
 - (id)encodeToIndex:(id)index possibleError:(id *)error
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   indexCopy = index;
   null = [MEMORY[0x277CBEB68] null];
   v8 = [indexCopy isEqual:null];
@@ -926,18 +920,18 @@ LABEL_102:
     if (version == 3)
     {
       categoryFile = [(FedStatsCategoricalType *)self categoryFile];
-      v59 = 0;
-      v9 = [categoryFile encode:indexCopy error:&v59];
-      v30 = v59;
+      v58 = 0;
+      v9 = [categoryFile encode:indexCopy error:&v58];
+      v29 = v58;
 
       if (v9)
       {
-        v31 = v9;
+        v30 = v9;
       }
 
       else if (error)
       {
-        *error = [FedStatsError errorWithCode:401 underlyingError:v30 description:@"Error when encoding categorical type over database"];
+        *error = [FedStatsError errorWithCode:401 underlyingError:v29 description:@"Error when encoding categorical type over database"];
       }
 
       goto LABEL_3;
@@ -961,44 +955,44 @@ LABEL_23:
     }
 
     errorCopy = error;
-    v15 = indexCopy;
+    v14 = indexCopy;
+    v54 = 0u;
     v55 = 0u;
     v56 = 0u;
     v57 = 0u;
-    v58 = 0u;
     filters = [(FedStatsCategoricalType *)self filters];
-    v17 = [filters countByEnumeratingWithState:&v55 objects:v61 count:16];
-    if (v17)
+    v16 = [filters countByEnumeratingWithState:&v54 objects:v60 count:16];
+    if (v16)
     {
-      v18 = v17;
-      v19 = 0;
-      v20 = *v56;
+      v17 = v16;
+      v18 = 0;
+      v19 = *v55;
 LABEL_15:
-      v21 = 0;
-      v22 = v19;
-      v19 += v18;
-      v23 = v15;
+      v20 = 0;
+      v21 = v18;
+      v18 += v17;
+      v22 = v14;
       while (1)
       {
-        if (*v56 != v20)
+        if (*v55 != v19)
         {
           objc_enumerationMutation(filters);
         }
 
-        v15 = [*(*(&v55 + 1) + 8 * v21) filter:v23];
+        v14 = [*(*(&v54 + 1) + 8 * v20) filter:v22];
 
-        if (!v15)
+        if (!v14)
         {
           break;
         }
 
-        ++v22;
         ++v21;
-        v23 = v15;
-        if (v18 == v21)
+        ++v20;
+        v22 = v14;
+        if (v17 == v20)
         {
-          v18 = [filters countByEnumeratingWithState:&v55 objects:v61 count:16];
-          if (v18)
+          v17 = [filters countByEnumeratingWithState:&v54 objects:v60 count:16];
+          if (v17)
           {
             goto LABEL_15;
           }
@@ -1009,8 +1003,8 @@ LABEL_15:
 
       if (errorCopy)
       {
-        v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"Data point filtered out at Stage %lu (not necessarily an error)", v22];
-        [FedStatsError errorWithCode:401 description:v26];
+        v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"Data point filtered out at Stage %lu (not necessarily an error)", v21];
+        [FedStatsError errorWithCode:401 description:v25];
         *errorCopy = v9 = 0;
         goto LABEL_67;
       }
@@ -1025,25 +1019,25 @@ LABEL_21:
     if (tokenizer)
     {
       tokenizer2 = [(FedStatsCategoricalType *)self tokenizer];
-      v26 = [tokenizer2 tokenize:v15];
+      v25 = [tokenizer2 tokenize:v14];
     }
 
     else
     {
-      v60 = v15;
-      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
+      v59 = v14;
+      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
     }
 
     preEncoder = [(FedStatsCategoricalType *)self preEncoder];
     if (preEncoder)
     {
       preEncoder2 = [(FedStatsCategoricalType *)self preEncoder];
-      firstObject = [preEncoder2 preEncode:v26];
+      firstObject = [preEncoder2 preEncode:v25];
     }
 
     else
     {
-      firstObject = [v26 firstObject];
+      firstObject = [v25 firstObject];
     }
 
     if (!firstObject)
@@ -1061,21 +1055,21 @@ LABEL_21:
 
 LABEL_66:
 
-      filters = v15;
+      filters = v14;
 LABEL_67:
 
 LABEL_68:
       goto LABEL_3;
     }
 
-    v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", firstObject];
+    v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", firstObject];
     prefixSize = [(FedStatsCategoricalType *)self prefixSize];
     unsignedIntegerValue = [prefixSize unsignedIntegerValue];
 
     fragmentSize = [(FedStatsCategoricalType *)self fragmentSize];
     unsignedIntegerValue2 = [fragmentSize unsignedIntegerValue];
 
-    if ([v35 length] <= unsignedIntegerValue)
+    if ([v34 length] <= unsignedIntegerValue)
     {
       if (errorCopy)
       {
@@ -1091,73 +1085,73 @@ LABEL_68:
       goto LABEL_65;
     }
 
-    v40 = [v35 stringByPaddingToLength:unsignedIntegerValue2 + unsignedIntegerValue withString:@"0" startingAtIndex:0];
+    v39 = [v34 stringByPaddingToLength:unsignedIntegerValue2 + unsignedIntegerValue withString:@"0" startingAtIndex:0];
 
-    v52 = v40;
+    v51 = v39;
     if (unsignedIntegerValue)
     {
-      v41 = [v40 substringToIndex:unsignedIntegerValue];
+      v40 = [v39 substringToIndex:unsignedIntegerValue];
       categoryFile2 = [(FedStatsCategoricalType *)self categoryFile];
-      v54 = 0;
-      v43 = [categoryFile2 encode:v41 error:&v54];
-      v51 = v54;
+      v53 = 0;
+      v42 = [categoryFile2 encode:v40 error:&v53];
+      v50 = v53;
 
-      if (v43)
+      if (v42)
       {
-        if ([v43 unsignedIntegerValue])
+        if ([v42 unsignedIntegerValue])
         {
-          v44 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v43, "unsignedIntegerValue") - 1}];
+          v43 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v42, "unsignedIntegerValue") - 1}];
 
-          v43 = v44;
-          v40 = v52;
+          v42 = v43;
+          v39 = v51;
           goto LABEL_54;
         }
 
-        v48 = errorCopy;
+        v47 = errorCopy;
         if (!errorCopy)
         {
           goto LABEL_62;
         }
 
-        v50 = [FedStatsError errorWithCode:401 description:@"Pre-encoded data does not match a prefix (not necessarily an error)"];
-        v49 = v51;
+        v49 = [FedStatsError errorWithCode:401 description:@"Pre-encoded data does not match a prefix (not necessarily an error)"];
+        v48 = v50;
       }
 
       else
       {
-        v48 = errorCopy;
+        v47 = errorCopy;
         if (!errorCopy)
         {
           goto LABEL_62;
         }
 
-        v49 = v51;
-        v50 = [FedStatsError errorWithCode:401 underlyingError:v51 description:@"Error when encoding prefix over prefix tree"];
+        v48 = v50;
+        v49 = [FedStatsError errorWithCode:401 underlyingError:v50 description:@"Error when encoding prefix over prefix tree"];
       }
 
       v9 = 0;
-      *v48 = v50;
+      *v47 = v49;
 LABEL_64:
 
-      v35 = v52;
+      v34 = v51;
 LABEL_65:
 
       goto LABEL_66;
     }
 
-    v51 = 0;
-    v43 = &unk_285E12CE0;
+    v50 = 0;
+    v42 = &unk_285E12CE0;
 LABEL_54:
-    v45 = [v40 substringWithRange:{unsignedIntegerValue, unsignedIntegerValue2}];
-    v41 = [FedStatsUtils bitStringToInt:v45];
+    v44 = [v39 substringWithRange:{unsignedIntegerValue, unsignedIntegerValue2}];
+    v40 = [FedStatsUtils bitStringToInt:v44];
 
-    if (v41)
+    if (v40)
     {
-      v46 = [v43 unsignedIntegerValue] << unsignedIntegerValue2;
-      unsignedIntegerValue3 = [v41 unsignedIntegerValue];
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue3 + v46 + 1];
+      v45 = [v42 unsignedIntegerValue] << unsignedIntegerValue2;
+      unsignedIntegerValue3 = [v40 unsignedIntegerValue];
+      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue3 + v45 + 1];
 LABEL_63:
-      v49 = v51;
+      v48 = v50;
       goto LABEL_64;
     }
 
@@ -1171,11 +1165,11 @@ LABEL_62:
     if (version == 2)
     {
       categoryMap = [(FedStatsCategoricalType *)self categoryMap];
-      v14 = [categoryMap objectForKey:indexCopy];
+      v13 = [categoryMap objectForKey:indexCopy];
 
-      if (v14)
+      if (v13)
       {
-        v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v14, "index") + 1}];
+        v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v13, "index") + 1}];
       }
 
       else
@@ -1190,19 +1184,17 @@ LABEL_62:
   }
 
   categories = [(FedStatsCategoricalType *)self categories];
-  v28 = [categories indexOfObject:indexCopy];
+  v27 = [categories indexOfObject:indexCopy];
 
-  if (v28 == 0x7FFFFFFFFFFFFFFFLL)
+  if (v27 == 0x7FFFFFFFFFFFFFFFLL)
   {
 LABEL_2:
     v9 = &unk_285E12CE0;
     goto LABEL_3;
   }
 
-  v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v28 + 1];
+  v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v27 + 1];
 LABEL_3:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

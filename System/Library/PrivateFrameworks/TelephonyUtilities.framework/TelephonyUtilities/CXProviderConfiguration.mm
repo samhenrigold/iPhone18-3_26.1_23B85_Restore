@@ -102,7 +102,7 @@
 
         else
         {
-          v13 = sub_100004778();
+          v13 = sub_100004778(0);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = v16;
@@ -158,7 +158,7 @@
 
         else
         {
-          v13 = sub_100004778();
+          v13 = sub_100004778(0);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = v16;
@@ -214,7 +214,7 @@
 
         else
         {
-          v13 = sub_100004778();
+          v13 = sub_100004778(0);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = v16;

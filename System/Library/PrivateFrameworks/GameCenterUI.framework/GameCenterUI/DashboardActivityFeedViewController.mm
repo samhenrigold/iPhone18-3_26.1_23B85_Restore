@@ -25,13 +25,13 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_24E1B01C4();
+  sub_24E1B01C4(selfCopy);
 }
 
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_24E1B02E4();
+  sub_24E1B02E4(selfCopy);
 }
 
 - (NSDirectionalEdgeInsets)collectionViewFrameInsets

@@ -10,11 +10,11 @@
 
 - (FedStatsCombinationType)initWithCombinationSpec:(id)spec
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   specCopy = spec;
-  v41.receiver = self;
-  v41.super_class = FedStatsCombinationType;
-  v6 = [(FedStatsCombinationType *)&v41 init];
+  v40.receiver = self;
+  v40.super_class = FedStatsCombinationType;
+  v6 = [(FedStatsCombinationType *)&v40 init];
   v7 = v6;
   if (v6)
   {
@@ -24,31 +24,31 @@
     orderedKeys = v7->_orderedKeys;
     v7->_orderedKeys = v9;
 
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     orderedKeys = [(FedStatsCombinationType *)v7 orderedKeys];
-    v12 = [orderedKeys countByEnumeratingWithState:&v37 objects:v43 count:16];
+    v12 = [orderedKeys countByEnumeratingWithState:&v36 objects:v42 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v38;
+      v14 = *v37;
       v15 = 1;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v38 != v14)
+          if (*v37 != v14)
           {
             objc_enumerationMutation(orderedKeys);
           }
 
-          v17 = [specCopy objectForKeyedSubscript:*(*(&v37 + 1) + 8 * i)];
+          v17 = [specCopy objectForKeyedSubscript:*(*(&v36 + 1) + 8 * i)];
           v15 *= [v17 classCount];
         }
 
-        v13 = [orderedKeys countByEnumeratingWithState:&v37 objects:v43 count:16];
+        v13 = [orderedKeys countByEnumeratingWithState:&v36 objects:v42 count:16];
       }
 
       while (v13);
@@ -59,32 +59,32 @@
       v15 = 1;
     }
 
-    v36.receiver = v7;
-    v36.super_class = FedStatsCombinationType;
-    [(FedStatsBoundedULongType *)&v36 setBound:v15 - 1];
+    v35.receiver = v7;
+    v35.super_class = FedStatsCombinationType;
+    [(FedStatsBoundedULongType *)&v35 setBound:v15 - 1];
     v7->_classCount = v15;
     v18 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(specCopy, "count")}];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
-    v31 = v7;
+    v30 = v7;
     orderedKeys2 = [(FedStatsCombinationType *)v7 orderedKeys];
-    v20 = [orderedKeys2 countByEnumeratingWithState:&v32 objects:v42 count:16];
+    v20 = [orderedKeys2 countByEnumeratingWithState:&v31 objects:v41 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v33;
+      v22 = *v32;
       do
       {
         for (j = 0; j != v21; ++j)
         {
-          if (*v33 != v22)
+          if (*v32 != v22)
           {
             objc_enumerationMutation(orderedKeys2);
           }
 
-          v24 = *(*(&v32 + 1) + 8 * j);
+          v24 = *(*(&v31 + 1) + 8 * j);
           v25 = [specCopy objectForKeyedSubscript:v24];
           v15 /= [v25 classCount];
 
@@ -92,25 +92,24 @@
           [v18 setObject:v26 forKeyedSubscript:v24];
         }
 
-        v21 = [orderedKeys2 countByEnumeratingWithState:&v32 objects:v42 count:16];
+        v21 = [orderedKeys2 countByEnumeratingWithState:&v31 objects:v41 count:16];
       }
 
       while (v21);
     }
 
     v27 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v18];
-    v7 = v31;
-    strides = v31->_strides;
-    v31->_strides = v27;
+    v7 = v30;
+    strides = v30->_strides;
+    v30->_strides = v27;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 + (id)createFromDict:(id)dict possibleError:(id *)error
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   v7 = [dictCopy objectForKey:@"structure"];
   if (!v7)
@@ -156,41 +155,40 @@ LABEL_12:
   }
 
   selfCopy = self;
-  v49 = 0u;
-  v50 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v13 = v7;
-  v14 = [v13 countByEnumeratingWithState:&v47 objects:v53 count:16];
-  if (v14)
+  v45 = 0u;
+  v46 = 0u;
+  v12 = v7;
+  v13 = [v12 countByEnumeratingWithState:&v45 objects:v51 count:16];
+  if (v13)
   {
-    v15 = v14;
-    v16 = *v48;
+    v14 = v13;
+    v15 = *v46;
     while (2)
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v14; ++i)
       {
-        if (*v48 != v16)
+        if (*v46 != v15)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v12);
         }
 
-        v18 = *(*(&v47 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           if (error)
           {
-            v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"Every entry in the value of the key %@ must be a string", @"structure"];
-            *error = [FedStatsError errorWithCode:302 description:v33];
+            v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"Every entry in the value of the key %@ must be a string", @"structure"];
+            *error = [FedStatsError errorWithCode:302 description:v31];
           }
 
           goto LABEL_12;
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v47 objects:v53 count:16];
-      if (v15)
+      v14 = [v12 countByEnumeratingWithState:&v45 objects:v51 count:16];
+      if (v14)
       {
         continue;
       }
@@ -199,38 +197,38 @@ LABEL_12:
     }
   }
 
-  v19 = [dictCopy objectForKey:@"availableTypes"];
-  if (v19)
+  v17 = [dictCopy objectForKey:@"availableTypes"];
+  if (v17)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v45 = 0u;
-      v46 = 0u;
       v43 = 0u;
       v44 = 0u;
-      allValues = [v19 allValues];
-      v21 = [allValues countByEnumeratingWithState:&v43 objects:v52 count:16];
-      if (v21)
+      v41 = 0u;
+      v42 = 0u;
+      allValues = [v17 allValues];
+      v19 = [allValues countByEnumeratingWithState:&v41 objects:v50 count:16];
+      if (v19)
       {
-        v22 = v21;
-        v23 = *v44;
+        v20 = v19;
+        v21 = *v42;
         while (2)
         {
-          for (j = 0; j != v22; ++j)
+          for (j = 0; j != v20; ++j)
           {
-            if (*v44 != v23)
+            if (*v42 != v21)
             {
               objc_enumerationMutation(allValues);
             }
 
-            if (([*(*(&v43 + 1) + 8 * j) conformsToProtocol:&unk_282B4D078] & 1) == 0)
+            if (([*(*(&v41 + 1) + 8 * j) conformsToProtocol:&unk_282B4D078] & 1) == 0)
             {
-              v32 = v19;
+              v30 = v17;
               if (error)
               {
-                v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"Every value in the %@ dictionary must be a class conforming to %@", @"availableTypes", @"FedStatsDataTypeProtocol"];
-                *error = [FedStatsError errorWithCode:302 description:v35];
+                v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"Every value in the %@ dictionary must be a class conforming to %@", @"availableTypes", @"FedStatsDataTypeProtocol"];
+                *error = [FedStatsError errorWithCode:302 description:v33];
               }
 
 LABEL_57:
@@ -239,8 +237,8 @@ LABEL_57:
             }
           }
 
-          v22 = [allValues countByEnumeratingWithState:&v43 objects:v52 count:16];
-          if (v22)
+          v20 = [allValues countByEnumeratingWithState:&v41 objects:v50 count:16];
+          if (v20)
           {
             continue;
           }
@@ -249,47 +247,47 @@ LABEL_57:
         }
       }
 
-      allValues = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v13, "count")}];
+      allValues = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v12, "count")}];
+      v37 = 0u;
+      v38 = 0u;
       v39 = 0u;
       v40 = 0u;
-      v41 = 0u;
-      v42 = 0u;
-      obj = v13;
-      v25 = [obj countByEnumeratingWithState:&v39 objects:v51 count:16];
-      if (v25)
+      obj = v12;
+      v23 = [obj countByEnumeratingWithState:&v37 objects:v49 count:16];
+      if (v23)
       {
-        v26 = v25;
-        v27 = *v40;
+        v24 = v23;
+        v25 = *v38;
         while (2)
         {
-          for (k = 0; k != v26; ++k)
+          for (k = 0; k != v24; ++k)
           {
-            if (*v40 != v27)
+            if (*v38 != v25)
             {
               objc_enumerationMutation(obj);
             }
 
-            v29 = *(*(&v39 + 1) + 8 * k);
-            v30 = [v19 objectForKey:v29];
-            [allValues setObject:v30 forKeyedSubscript:v29];
+            v27 = *(*(&v37 + 1) + 8 * k);
+            v28 = [v17 objectForKey:v27];
+            [allValues setObject:v28 forKeyedSubscript:v27];
 
-            v31 = [allValues objectForKeyedSubscript:v29];
+            v29 = [allValues objectForKeyedSubscript:v27];
 
-            if (!v31)
+            if (!v29)
             {
-              v32 = v19;
+              v30 = v17;
               if (error)
               {
-                v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"There is no type defined for %@", v29];
-                *error = [FedStatsError errorWithCode:302 description:v36];
+                v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"There is no type defined for %@", v27];
+                *error = [FedStatsError errorWithCode:302 description:v34];
               }
 
               goto LABEL_57;
             }
           }
 
-          v26 = [obj countByEnumeratingWithState:&v39 objects:v51 count:16];
-          if (v26)
+          v24 = [obj countByEnumeratingWithState:&v37 objects:v49 count:16];
+          if (v24)
           {
             continue;
           }
@@ -298,30 +296,30 @@ LABEL_57:
         }
       }
 
-      v32 = v19;
+      v30 = v17;
 
       v10 = [[selfCopy alloc] initWithCombinationSpec:allValues];
       goto LABEL_58;
     }
 
-    v32 = v19;
+    v30 = v17;
     if (error)
     {
       allValues = [MEMORY[0x277CCACA8] stringWithFormat:@"The value of the key %@ must be a dictionary", @"availableTypes"];
-      v34 = 302;
+      v32 = 302;
       goto LABEL_50;
     }
   }
 
   else
   {
-    v32 = 0;
+    v30 = 0;
     if (error)
     {
       allValues = [MEMORY[0x277CCACA8] stringWithFormat:@"Missing key %@", @"availableTypes"];
-      v34 = 300;
+      v32 = 300;
 LABEL_50:
-      [FedStatsError errorWithCode:v34 description:allValues];
+      [FedStatsError errorWithCode:v32 description:allValues];
       *error = v10 = 0;
 LABEL_58:
 
@@ -333,38 +331,37 @@ LABEL_58:
 LABEL_59:
 
 LABEL_13:
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (id)encodeToIndex:(id)index possibleError:(id *)error
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   indexCopy = index;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     orderedKeys = [(FedStatsCombinationType *)self orderedKeys];
-    v8 = [orderedKeys countByEnumeratingWithState:&v40 objects:v45 count:16];
+    v8 = [orderedKeys countByEnumeratingWithState:&v39 objects:v44 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v41;
+      v10 = *v40;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v41 != v10)
+          if (*v40 != v10)
           {
             objc_enumerationMutation(orderedKeys);
           }
 
-          v12 = *(*(&v40 + 1) + 8 * i);
+          v12 = *(*(&v39 + 1) + 8 * i);
           v13 = [indexCopy objectForKey:v12];
 
           if (!v13)
@@ -379,7 +376,7 @@ LABEL_13:
           }
         }
 
-        v9 = [orderedKeys countByEnumeratingWithState:&v40 objects:v45 count:16];
+        v9 = [orderedKeys countByEnumeratingWithState:&v39 objects:v44 count:16];
         if (v9)
         {
           continue;
@@ -389,34 +386,34 @@ LABEL_13:
       }
     }
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     obj = [(FedStatsCombinationType *)self orderedKeys];
-    v34 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
-    if (v34)
+    v33 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
+    if (v33)
     {
       errorCopy = error;
       v14 = 0;
-      v33 = *v37;
+      v32 = *v36;
       while (2)
       {
-        for (j = 0; j != v34; ++j)
+        for (j = 0; j != v33; ++j)
         {
-          if (*v37 != v33)
+          if (*v36 != v32)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v36 + 1) + 8 * j);
+          v16 = *(*(&v35 + 1) + 8 * j);
           combinationSpec = [(FedStatsCombinationType *)self combinationSpec];
           v18 = [combinationSpec objectForKey:v16];
 
           v19 = [indexCopy objectForKeyedSubscript:v16];
-          v35 = 0;
-          v20 = [v18 encodeToIndex:v19 possibleError:&v35];
-          v21 = v35;
+          v34 = 0;
+          v20 = [v18 encodeToIndex:v19 possibleError:&v34];
+          v21 = v34;
 
           if (!v20)
           {
@@ -436,8 +433,8 @@ LABEL_13:
           v14 += [v20 unsignedLongValue] * unsignedLongValue;
         }
 
-        v34 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
-        if (v34)
+        v33 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
+        if (v33)
         {
           continue;
         }
@@ -466,14 +463,12 @@ LABEL_27:
     v25 = 0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v25;
 }
 
 - (id)decodeFromIndex:(id)index possibleError:(id *)error
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   indexCopy = index;
   v7 = indexCopy;
   if (!indexCopy)
@@ -504,37 +499,37 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v34 = v7;
+  v33 = v7;
   unsignedLongValue2 = [v7 unsignedLongValue];
   v10 = MEMORY[0x277CBEB38];
   orderedKeys = [(FedStatsCombinationType *)self orderedKeys];
-  v39 = [v10 dictionaryWithCapacity:{objc_msgSend(orderedKeys, "count")}];
+  v38 = [v10 dictionaryWithCapacity:{objc_msgSend(orderedKeys, "count")}];
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   obj = [(FedStatsCombinationType *)self orderedKeys];
-  v38 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
-  if (v38)
+  v37 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+  if (v37)
   {
     selfCopy = self;
-    v37 = *v42;
+    v36 = *v41;
     while (2)
     {
-      for (i = 0; i != v38; ++i)
+      for (i = 0; i != v37; ++i)
       {
-        if (*v42 != v37)
+        if (*v41 != v36)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v41 + 1) + 8 * i);
+        v13 = *(*(&v40 + 1) + 8 * i);
         strides = [(FedStatsCombinationType *)self strides];
         v15 = [strides objectForKey:v13];
         unsignedLongValue3 = [v15 unsignedLongValue];
 
-        v40 = unsignedLongValue3;
+        v39 = unsignedLongValue3;
         v17 = unsignedLongValue2 / unsignedLongValue3;
         v18 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:unsignedLongValue2 / unsignedLongValue3];
         combinationSpec = [(FedStatsCombinationType *)self combinationSpec];
@@ -542,9 +537,9 @@ LABEL_17:
         v21 = v20 = unsignedLongValue2;
         errorCopy = error;
         v23 = [v21 decodeFromIndex:v18 possibleError:error];
-        [v39 setValue:v23 forKey:v13];
+        [v38 setValue:v23 forKey:v13];
 
-        v24 = [v39 objectForKey:v13];
+        v24 = [v38 objectForKey:v13];
 
         if (!v24)
         {
@@ -558,18 +553,18 @@ LABEL_17:
           }
 
           v26 = 0;
-          v25 = v39;
+          v25 = v38;
           goto LABEL_21;
         }
 
-        unsignedLongValue2 = v20 - v17 * v40;
+        unsignedLongValue2 = v20 - v17 * v39;
 
         error = errorCopy;
         self = selfCopy;
       }
 
-      v38 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
-      if (v38)
+      v37 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+      if (v37)
       {
         continue;
       }
@@ -578,45 +573,43 @@ LABEL_17:
     }
   }
 
-  v25 = v39;
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v39];
+  v25 = v38;
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v38];
 LABEL_21:
 
-  v7 = v34;
+  v7 = v33;
 LABEL_22:
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
 
 - (id)sampleForIndex:(unint64_t)index
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CBEB38];
   orderedKeys = [(FedStatsCombinationType *)self orderedKeys];
-  v21 = [v5 dictionaryWithCapacity:{objc_msgSend(orderedKeys, "count")}];
+  v20 = [v5 dictionaryWithCapacity:{objc_msgSend(orderedKeys, "count")}];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   obj = [(FedStatsCombinationType *)self orderedKeys];
-  v7 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v20 = *v23;
+    v19 = *v22;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v20)
+        if (*v22 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         strides = [(FedStatsCombinationType *)self strides];
         v12 = [strides objectForKey:v10];
         unsignedLongValue = [v12 unsignedLongValue];
@@ -624,20 +617,18 @@ LABEL_22:
         combinationSpec = [(FedStatsCombinationType *)self combinationSpec];
         v15 = [combinationSpec objectForKey:v10];
         v16 = [v15 sampleForIndex:index / unsignedLongValue];
-        [v21 setObject:v16 forKey:v10];
+        [v20 setObject:v16 forKey:v10];
 
         index %= unsignedLongValue;
       }
 
-      v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v8);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v20;
 }
 
 @end

@@ -43,11 +43,11 @@
   loadingCopy = loading;
   selfCopy = self;
   displays = [loadingCopy displays];
-  sub_1000317B8(0, &qword_1000FF320);
+  sub_1000317B8(0, &qword_1000FF320, CRSUIClusterThemeDisplay_ptr);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   themeData = [loadingCopy themeData];
-  sub_1000317B8(0, &qword_1000FF328);
+  sub_1000317B8(0, &qword_1000FF328, CRDisplayThemeData_ptr);
   v8 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
   sub_100036DA0(v6, v8);

@@ -13,9 +13,9 @@
     +[NSNumberFormatter(HealthKit) hk_wholeNumberFormatter];
   }
 
-  v1 = hk_wholeNumberFormatter__formatter;
+  v2 = hk_wholeNumberFormatter__formatter;
 
-  return v1;
+  return v2;
 }
 
 + (id)hk_percentNumberFormatter
@@ -25,9 +25,9 @@
     +[NSNumberFormatter(HealthKit) hk_percentNumberFormatter];
   }
 
-  v1 = hk_percentNumberFormatter__formatter;
+  v2 = hk_percentNumberFormatter__formatter;
 
-  return v1;
+  return v2;
 }
 
 + (id)hk_percentDecimalNumberFormatter
@@ -37,9 +37,9 @@
     +[NSNumberFormatter(HealthKit) hk_percentDecimalNumberFormatter];
   }
 
-  v1 = hk_percentDecimalNumberFormatter__formatter;
+  v2 = hk_percentDecimalNumberFormatter__formatter;
 
-  return v1;
+  return v2;
 }
 
 @end

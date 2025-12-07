@@ -142,20 +142,18 @@ uint64_t __48__DDLinkPresentationAction_createViewController__block_invoke_2(uin
 
 - (id)previewActionsWithValidatedURL:(id)l
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v4 = self->super.super._result;
   context = self->super.super._context;
   lCopy = l;
   v7 = [(DDAction *)DDOpenURLAction actionsWithURL:lCopy result:v4 context:context];
   v8 = [[DDCopyAction alloc] initWithURL:self->super.super._url result:self->super.super._result context:self->super.super._context];
-  v14[0] = v8;
+  v13[0] = v8;
   v9 = [[DDShareAction alloc] initWithURL:lCopy result:self->super.super._result context:self->super.super._context];
 
-  v14[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   v11 = [v7 arrayByAddingObjectsFromArray:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -178,11 +176,10 @@ uint64_t __48__DDLinkPresentationAction_createViewController__block_invoke_2(uin
 
 void __48__DDLinkPresentationAction_createViewController__block_invoke_cold_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = a1;
-  _os_log_error_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Couldn't load link preview metadata. Error: %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = a1;
+  _os_log_error_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Couldn't load link preview metadata. Error: %@", &v1, 0xCu);
 }
 
 @end

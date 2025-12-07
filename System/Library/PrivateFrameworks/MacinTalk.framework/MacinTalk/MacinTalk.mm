@@ -14,7 +14,7 @@ void MT3BSegmentProducer::MT3BSegmentProducer(uint64_t a1, uint64_t a2, MT3BSegm
   v6 = &MT3BSegmentProducer::sHPNoise;
   if (a4[30] == 1)
   {
-    v6 = &MT3BSegmentProducer::sNoiseWave;
+    v6 = MT3BSegmentProducer::sNoiseWave;
   }
 
   if (a4[30])
@@ -24,7 +24,7 @@ void MT3BSegmentProducer::MT3BSegmentProducer(uint64_t a1, uint64_t a2, MT3BSegm
 
   else
   {
-    v7 = &MT3BSegmentProducer::sBandNoise;
+    v7 = MT3BSegmentProducer::sBandNoise;
   }
 
   *(a1 + 296) = v7;
@@ -284,30 +284,28 @@ void MT3BSegmentProducer::~MT3BSegmentProducer(MT3BSegmentProducer *this)
 
 uint64_t MT3BSegmentProducer::NextSegment(MT3BSegmentProducer *this, MTMBSegment *a2)
 {
-  v78 = *MEMORY[0x277D85DE8];
   v3 = *(this + 96);
   if (v3 > 0)
   {
 LABEL_2:
     v4 = *(this + 16);
-    v59 = *(this + 34);
-    v65 = *(this + 18);
-    v67 = *(this + 19);
+    v49 = *(this + 34);
+    v55 = *(this + 18);
+    v57 = *(this + 19);
     v5 = *(this + 20);
     v6 = *(this + 21);
     v7 = *(this + 22);
     v8 = *(this + 23);
-    v69 = *(this + 24);
-    v71 = *(this + 25);
-    v75 = *(this + 26);
-    v76 = *(this + 27);
-    v74 = *(this + 28);
-    v63 = *(this + 29);
+    v59 = *(this + 24);
+    v60 = *(this + 25);
+    v64 = *(this + 26);
+    v65 = *(this + 27);
+    v63 = *(this + 28);
+    v53 = *(this + 29);
     v9 = *(this + 30);
     v10 = *(this + 31);
-    v73 = *(this + 32);
-    v58 = *(this + 9);
-    v60 = *(this + 10);
+    v62 = *(this + 32);
+    v50 = *(this + 10);
     Frame = MTFEFrameFiller::FillNextFrame(*(this + 1), this + 32);
     *(this + 96) = Frame;
     if (!Frame || *(this + 34))
@@ -316,7 +314,7 @@ LABEL_2:
       *(this + 104) = *(*(this + 1) + 80);
     }
 
-    if (v59)
+    if (v49)
     {
       v12 = *(this + 11);
       if (v12)
@@ -341,7 +339,6 @@ LABEL_2:
       *(this + 47) = 0;
     }
 
-    v77 = *(this + 139);
     v15 = *(this + 3);
     v16 = v15[23] + v5;
     v17 = v16;
@@ -401,8 +398,8 @@ LABEL_2:
     v30 = (sBcoeffTbl[v28] * sCosTbl[v27 - 256]) >> 12;
     *(this + 103) = v30;
     *(this + 102) = 0x2000 - (v29 + v30);
-    v31 = v73;
-    if (v73 >= 1225)
+    v31 = v62;
+    if (v62 >= 1225)
     {
       v31 = 1225;
     }
@@ -423,142 +420,131 @@ LABEL_2:
     v34 = (sBcoeffTbl[v32] * sCosTbl[v21 - 256]) >> 12;
     *(this + 106) = v34;
     *(this + 105) = 0x2000 - (v33 + v34);
-    v35 = v15[148] + v74;
-    v36 = *(this + 138);
-    v37 = v15[18];
-    if (v37 >= 1225)
+    v35 = v15[148] + v63;
+    v36 = v15[18];
+    if (v36 >= 1225)
     {
-      v37 = 1225;
+      v36 = 1225;
     }
 
-    v38 = (((1717986919 * (v37 - 50)) >> 33) + ((1717986919 * (v37 - 50)) >> 63));
-    v39 = sCcoeffTbl[v38];
-    *(this + 122) = -v39;
-    LODWORD(v38) = sBcoeffTbl[v38] * sCosTbl[v35 - 256];
-    *(this + 121) = -(v38 >> 12);
-    *(this + 120) = 0x2000 - (v39 + (v38 >> 12));
-    v40 = *(this + 123);
-    *(this + 54) = v65 << 8;
-    v41 = v67 << 8;
-    *(this + 55) = v67 << 8;
-    *(this + 56) = v63 << 8;
+    v37 = (((1717986919 * (v36 - 50)) >> 33) + ((1717986919 * (v36 - 50)) >> 63));
+    v38 = sCcoeffTbl[v37];
+    *(this + 122) = -v38;
+    LODWORD(v37) = sBcoeffTbl[v37] * sCosTbl[v35 - 256];
+    *(this + 121) = -(v37 >> 12);
+    *(this + 120) = 0x2000 - (v38 + (v37 >> 12));
+    *(this + 54) = v55 << 8;
+    v39 = v57 << 8;
+    *(this + 55) = v57 << 8;
+    *(this + 56) = v53 << 8;
     if (v8)
     {
-      v42 = v8 << 8;
-      v68 = ((0x2000 - (v29 + v30)) * (v8 << 8)) >> 13;
+      v40 = v8 << 8;
+      v58 = ((0x2000 - (v29 + v30)) * (v8 << 8)) >> 13;
     }
 
     else
     {
-      v42 = 0;
-      v68 = 0;
+      v40 = 0;
+      v58 = 0;
       *(this + 42) = 0;
     }
 
-    v43 = a2;
-    *(this + 126) = v42;
-    v44 = v69;
-    if (v69)
+    v41 = a2;
+    *(this + 126) = v40;
+    v42 = v59;
+    if (v59)
     {
-      v44 = v69 << 8;
-      v66 = ((0x2000 - (v33 + v34)) * (v69 << 8)) >> 13;
+      v42 = v59 << 8;
+      v56 = ((0x2000 - (v33 + v34)) * (v59 << 8)) >> 13;
     }
 
     else
     {
-      v66 = 0;
+      v56 = 0;
       *(this + 43) = 0;
     }
 
-    *(this + 127) = v44;
-    if (!v71 || v41)
+    *(this + 127) = v42;
+    if (!v60 || v39)
     {
-      v45 = 0;
-      v64 = 0;
+      v43 = 0;
+      v54 = 0;
       *(this + 44) = 0;
     }
 
     else
     {
-      v45 = v71 << 8;
-      v64 = (*(this + 117) * (v71 << 8)) >> 13;
+      v43 = v60 << 8;
+      v54 = (*(this + 117) * (v60 << 8)) >> 13;
     }
 
-    *(this + 128) = v45;
-    if (v75)
+    *(this + 128) = v43;
+    if (v64)
     {
-      v46 = v75 << 8;
-      v62 = (*(this + 111) * (v75 << 8)) >> 13;
+      v44 = v64 << 8;
+      v52 = (*(this + 111) * (v64 << 8)) >> 13;
     }
 
     else
     {
-      v46 = 0;
-      v62 = 0;
+      v44 = 0;
+      v52 = 0;
       *(this + 40) = 0;
     }
 
-    v47 = v4;
-    *(this + 129) = v46;
-    v48 = v76;
-    if (v76)
+    v45 = v4;
+    *(this + 129) = v44;
+    v46 = v65;
+    if (v65)
     {
-      v48 = v76 << 8;
-      v61 = (*(this + 114) * (v76 << 8)) >> 13;
+      v46 = v65 << 8;
+      v51 = (*(this + 114) * (v65 << 8)) >> 13;
     }
 
     else
     {
-      v61 = 0;
+      v51 = 0;
       *(this + 41) = 0;
     }
 
-    *(this + 130) = v48;
+    *(this + 130) = v46;
     if ((MTBEDebugFlags::sMEOWDebug & 2) != 0)
     {
-      printf("P %8d%7d%7d %8d%7d%7d %8d%7d%7d %8d%7d%7d %8d%7d%7d\n", v68, v30, v29, v66, v34, v33, v64, *(this + 118), *(this + 119), v62, *(this + 112), *(this + 113), v61, *(this + 115), *(this + 116));
-      v43 = a2;
+      printf("P %8d%7d%7d %8d%7d%7d %8d%7d%7d %8d%7d%7d %8d%7d%7d\n", v58, v30, v29, v56, v34, v33, v54, *(this + 118), *(this + 119), v52, *(this + 112), *(this + 113), v51, *(this + 115), *(this + 116));
+      v41 = a2;
     }
 
     *(this + 131) = v4;
-    v49 = *(this + 2);
-    if (*(v49 + 210) == 1)
+    v47 = *(this + 2);
+    if (*(v47 + 210) == 1)
     {
       if (*(this + 54))
       {
-        *(this + 132) = *(v49 + 8);
+        *(this + 132) = *(v47 + 8);
       }
 
-      *(this + 31) = MT3BSegmentProducer::sTopOctave[(*(v49 + 192) + v4)] >> (3 - ((*(v49 + 192) + v4) >> 8));
-      if (*(v49 + 50) == 1)
+      *(this + 31) = MT3BSegmentProducer::sTopOctave[(*(v47 + 192) + v4)] >> (3 - ((*(v47 + 192) + v4) >> 8));
+      if (*(v47 + 50) == 1)
       {
-        if (*(*(this + 3) + 52))
+        if (v50 != -1)
         {
-          v55 = MT3BSegmentProducer::sTopOctave[(*(*(this + 3) + 52) - 51)] >> (7 - ((*(*(this + 3) + 52) + 461) >> 8));
-        }
-
-        if (v60 != -1)
-        {
-          *(this + 33) = v60 << 14;
-          *(this + 34) = v60 << 14;
+          *(this + 33) = v50 << 14;
+          *(this + 34) = v50 << 14;
         }
       }
 
       else
       {
-        if (!*(v49 + 200))
+        if (!*(v47 + 200))
         {
-          v4 = *(v49 + 190);
-          v47 = v4;
-          *(this + 131) = v4;
+          v45 = *(v47 + 190);
+          *(this + 131) = v45;
         }
 
-        v57 = MT3BSegmentProducer::sTopOctave[v4] >> (7 - HIBYTE(v4));
         if (*(*(this + 3) + 52))
         {
-          v51 = (*(*(this + 3) + 52) + v47) & ~((*(*(this + 3) + 52) + v47) >> 31);
-          *(this + 131) = v51;
-          v56 = MT3BSegmentProducer::sTopOctave[v51] >> (7 - BYTE1(v51));
+          *(this + 131) = (*(*(this + 3) + 52) + v45) & ~((*(*(this + 3) + 52) + v45) >> 15);
         }
       }
     }
@@ -568,41 +554,30 @@ LABEL_2:
       *(this + 31) = MT3BSegmentProducer::sTopOctave[v4] >> (3 - HIBYTE(v4));
       if (*(*(this + 3) + 52))
       {
-        v50 = (*(*(this + 3) + 52) + v4) & ~((*(*(this + 3) + 52) + v4) >> 31);
-        *(this + 131) = v50;
-        *(this + 32) = MT3BSegmentProducer::sTopOctave[v50] >> (3 - BYTE1(v50));
+        v48 = (*(*(this + 3) + 52) + v4) & ~((*(*(this + 3) + 52) + v4) >> 31);
+        *(this + 131) = v48;
+        *(this + 32) = MT3BSegmentProducer::sTopOctave[v48] >> (3 - BYTE1(v48));
       }
     }
 
-    if (!*(this + 53))
-    {
-      v70 = (*(this + 126) | *(this + 55) | *(this + 127) | *(this + 128) | *(this + 129) | *(this + 130) | *(this + 56)) == 0;
-    }
-
-    v52 = *(this + 133);
-    v53 = *(this + 35);
     *(this + 35) = *(this + 54) << 16;
-    MTMBSegment::Allocate(v43, 0);
+    MTMBSegment::Allocate(v41, 0);
   }
 
   *(this + 25) = 0;
-  if (v3 < 0)
+  if ((v3 & 0x80000000) == 0)
   {
-    result = MTFEFrameFiller::FillNextFrame(*(this + 1), this + 32);
-    *(this + 96) = result;
-    *(this + 104) = *(*(this + 1) + 80);
-    if (result)
-    {
-      goto LABEL_2;
-    }
+    return 0;
   }
 
-  else
+  result = MTFEFrameFiller::FillNextFrame(*(this + 1), this + 32);
+  *(this + 96) = result;
+  *(this + 104) = *(*(this + 1) + 80);
+  if (result)
   {
-    result = 0;
+    goto LABEL_2;
   }
 
-  v54 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -633,10 +608,10 @@ void sub_257B0A828(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_257B0AA48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_257B0AA48(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MTFrontendSimple;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -780,20 +755,18 @@ void MT3BEngineTask::MT3BEngineTask(MT3BEngineTask *this, const __CFString **a2)
   *(this + 79) = v5;
   *(this + 660) = 0;
   MTBEWorker::DebugLog("Create Engine %p\n", v8, this);
-  gettimeofday(&v11, 0);
-  *(this + 156) = v11.tv_usec + 1000000 * v11.tv_sec;
+  gettimeofday(&v9, 0);
+  *(this + 156) = v9.tv_usec + 1000000 * v9.tv_sec;
   pthread_once(&sScheduleInit, InitSchedules);
   pthread_mutex_init((this + 952), 0);
-  v9 = a2[7];
   *(this + 138) = a2[8];
-  v10 = a2[2];
   *(this + 134) = SLLexer::Create();
   operator new();
 }
 
-void sub_257B0B3A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, MTBEWorker::Task *a11, MTBEWorker::Task *a12, MTBEWorker::Task *a13, MTBEWorker::Task *a14, MTBEWorker::Task *a15)
+void sub_257B0B3A4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, MTBEWorker::Task *a11, MTBEWorker::Task *a12, MTBEWorker::Task *a13, MTBEWorker::Task *a14, MTBEWorker::Task *a15)
 {
-  MEMORY[0x259C6DA90](v20, 0x10A1C402F3E04C9);
+  MEMORY[0x259C6DA90](v20, 0x10A1C402F3E04C9, a3, a4, a5, a6, a7, a8);
   MTBENotifier::~MTBENotifier(v19);
   MTBEPersistentParam::~MTBEPersistentParam((v15 + 1016));
   SLCFStringTextSource::~SLCFStringTextSource(v18);
@@ -953,15 +926,15 @@ uint64_t MT3BEngineTask::Boundary(MT3BEngineTask *this, void *a2)
   return result;
 }
 
-void MT3BEngineTask::Stopped(MT3BEngineTask *this, const char *a2)
+void MT3BEngineTask::Stopped(uint64_t this, const char *a2)
 {
-  v2 = *(this + 74);
+  v2 = *(this + 592);
   if (!*(v2 + 340))
   {
     return;
   }
 
-  v4 = *(this + 310);
+  v4 = *(this + 1240);
   if (v4 == 2)
   {
     goto LABEL_5;
@@ -975,17 +948,17 @@ void MT3BEngineTask::Stopped(MT3BEngineTask *this, const char *a2)
     }
 
 LABEL_5:
-    *(this + 310) = 4;
+    *(this + 1240) = 4;
     v5 = sCallbackSchedule;
 
     MTBEWorker::AddTask(v5, sDoneTask, v2);
     return;
   }
 
-  *(this + 310) = 3;
+  *(this + 1240) = 3;
   *(this + 1233) = 0;
   MTBEWorker::DebugLog("Paused\n", a2);
-  v6 = *(this + 74);
+  v6 = *(this + 592);
 
   SpeechChannelManager::RegisterCurSpeechState(v6, 3);
 }
@@ -1355,15 +1328,15 @@ const char *MT3BEngineTask::AdjustBaseline(const char *this)
   return this;
 }
 
-void MT3BEngineTask::Execute(MT3BEngineTask *this, const char *a2)
+void MT3BEngineTask::Execute(uint64_t this, const char *a2)
 {
-  if (*(*(this + 74) + 340) != 2)
+  if (*(*(this + 592) + 340) != 2)
   {
     *(this + 1233) = 0;
     return;
   }
 
-  v3 = *(this + 116);
+  v3 = *(this + 928);
   if (!v3)
   {
     return;
@@ -1380,81 +1353,80 @@ void MT3BEngineTask::Execute(MT3BEngineTask *this, const char *a2)
     MTBEWorker::DebugLog("Baseline\n", a2);
     if (*(this + 1235) == 1)
     {
-      gettimeofday(&v18, 0);
-      v4 = v18.tv_usec + 1000000 * v18.tv_sec - 1728000000000;
+      gettimeofday(&v17, 0);
+      v4 = v17.tv_usec + 1000000 * v17.tv_sec - 1728000000000;
     }
 
     else
     {
-      gettimeofday(&v18, 0);
-      v4 = v18.tv_usec + 1000000 * v18.tv_sec;
+      gettimeofday(&v17, 0);
+      v4 = v17.tv_usec + 1000000 * v17.tv_sec;
     }
 
-    *(this + 156) = v4;
+    *(this + 1248) = v4;
     *(this + 1233) = 0;
   }
 
-  updated = MTBEPhraseProcessor::UpdateEngineFromNotifier(*(this + 116));
-  if (*(this + 1236) == 1 && ((*(**(this + 75) + 96))(*(this + 75), updated) & 1) == 0)
+  updated = MTBEPhraseProcessor::UpdateEngineFromNotifier(*(this + 928));
+  if (*(this + 1236) == 1 && ((*(**(this + 600) + 96))(*(this + 600), updated) & 1) == 0)
   {
     (*(*this + 48))(this);
   }
 
-  v6 = *(this + 311);
-  v8 = (*(**(this + 116) + 56))(*(this + 116), *(this + 75), this + 1244);
-  v9 = (*(this + 311) - v6);
-  v10 = "";
+  v6 = *(this + 1244);
+  v8 = (*(**(this + 928) + 56))(*(this + 928), *(this + 600), this + 1244);
+  v9 = "";
   if (v8)
   {
-    v10 = ", more to come";
+    v9 = ", more to come";
   }
 
-  MTBEWorker::DebugLog("Generated %d samples%s\n", v7, (*(this + 311) - v6), v10);
-  MTBEPhraseProcessor::UpdateNotifierFromEngine(*(this + 116));
-  v11 = *(this + 311);
-  if (v11 >= 44101)
+  MTBEWorker::DebugLog("Generated %d samples%s\n", v7, (*(this + 1244) - v6), v9);
+  MTBEPhraseProcessor::UpdateNotifierFromEngine(*(this + 928));
+  v10 = *(this + 1244);
+  if (v10 >= 44101)
   {
-    *(this + 156) += 1000000;
-    v11 -= 22050;
-    *(this + 311) = v11;
+    *(this + 1248) += 1000000;
+    v10 -= 22050;
+    *(this + 1244) = v10;
   }
 
   if (v8)
   {
-    v12 = sSampleSchedule;
-    if (v11 == v6)
+    v11 = sSampleSchedule;
+    if (v10 == v6)
     {
-      gettimeofday(&v18, 0);
-      v13 = v18.tv_usec + 1000000 * v18.tv_sec + 20000;
+      gettimeofday(&v17, 0);
+      v12 = v17.tv_usec + 1000000 * v17.tv_sec + 20000;
     }
 
     else
     {
-      v13 = *(this + 156) + 1000 * (1000 * v11 / 22050) - 100000;
+      v12 = *(this + 1248) + 1000 * (1000 * v10 / 22050) - 100000;
     }
 
-    v18.tv_sec = v13;
-    v16 = v12;
-    v15 = this;
-    v17 = this;
+    v17.tv_sec = v12;
+    v15 = v11;
+    v14 = this;
+    v16 = this;
   }
 
   else
   {
-    if (*(this + 660))
+    if (*(this + 1320))
     {
       return;
     }
 
-    v14 = sSampleSchedule;
-    gettimeofday(&v18, 0);
-    v18.tv_sec = v18.tv_usec + 1000000 * v18.tv_sec + 1000;
-    v15 = (this + 528);
-    v16 = v14;
-    v17 = 0;
+    v13 = sSampleSchedule;
+    gettimeofday(&v17, 0);
+    v17.tv_sec = v17.tv_usec + 1000000 * v17.tv_sec + 1000;
+    v14 = (this + 528);
+    v15 = v13;
+    v16 = 0;
   }
 
-  MTBEWorker::AddTask(v16, v15, v17, &v18.tv_sec);
+  MTBEWorker::AddTask(v15, v14, v16, &v17.tv_sec);
 }
 
 uint64_t SpeechChannelManager::CallWordCallBackProc(SpeechChannelManager *this, CFRange a2)
@@ -1588,14 +1560,14 @@ uint64_t MT3BEngineTask::AncillaryTask::Execute(MT3BEngineTask::AncillaryTask *t
   }
 }
 
-uint64_t MT3BNotifier::ResetFromVoice(MTBENotifier *this, void *a2, int a3)
+uint64_t MT3BNotifier::ResetFromVoice(MTBENotifier *this, void *a2, BOOL a3)
 {
-  v5 = MTBENotifier::ResetFromVoice(this, a2, a3);
-  MTBEParam::MTBEParam(v7, 0, a2, 0, 0, v5);
-  this->var1 = MTBEParam::GetRate(v7) << 16;
-  this->var2 = 3072 * MTBEParam::GetPitch(v7) + 2054400;
-  this->var3 = MTBEParam::GetModulation(v7);
-  result = MTBEParam::GetVolume(v7);
+  MTBENotifier::ResetFromVoice(this, a2, a3);
+  MTBEParam::MTBEParam(v6, 0, a2, 0);
+  this->var1 = MTBEParam::GetRate(v6) << 16;
+  this->var2 = 3072 * MTBEParam::GetPitch(v6) + 2054400;
+  this->var3 = MTBEParam::GetModulation(v6);
+  result = MTBEParam::GetVolume(v6);
   this->var4 = result;
   return result;
 }
@@ -1621,9 +1593,9 @@ uint64_t MT3BNotifier::NotifyTextDone(uint64_t this, const void **a2, unint64_t 
   return this;
 }
 
-void MT3BNotifier::NotifySync(MT3BNotifier *this, unsigned int a2, int a3)
+void MT3BNotifier::NotifySync(uint64_t this, unsigned int a2, int a3)
 {
-  v3 = *(*(this + 8) + 24);
+  v3 = *(*(this + 64) + 24);
   if (v3)
   {
     v4 = 797831567000 * *(v3 + 1244);
@@ -1644,9 +1616,9 @@ void MT3BNotifier::NotifyPhoneme(MTBENotifier *this, int a2, int a3, int a4)
   }
 }
 
-void MT3BNotifier::NotifyWord(MT3BNotifier *this, uint64_t a2, unsigned __int8 a3, int a4)
+void MT3BNotifier::NotifyWord(uint64_t this, uint64_t a2, unsigned __int8 a3, int a4)
 {
-  v4 = *(*(this + 8) + 24);
+  v4 = *(*(this + 64) + 24);
   if (v4)
   {
     v5 = 797831567000 * *(v4 + 1244);
@@ -1719,15 +1691,15 @@ uint64_t MT3BNotifier::WantWord(MT3BNotifier *this)
   return v2 & 1;
 }
 
-uint64_t MTPBNotifier::ResetFromVoice(MTBENotifier *this, void *a2, int a3)
+uint64_t MTPBNotifier::ResetFromVoice(MTBENotifier *this, void *a2, BOOL a3)
 {
-  v5 = MTBENotifier::ResetFromVoice(this, a2, a3);
-  v6 = MTPBVoice::MTPBVoice(v9, a2, v5);
-  MTBEParam::MTBEParam(v8, 1, v9, 0, 0, v6);
-  this->var1 = MTBEParam::GetRate(v8) << 16;
-  this->var2 = 3072 * MTBEParam::GetPitch(v8) + 2054400;
-  this->var3 = MTBEParam::GetModulation(v8);
-  result = MTBEParam::GetVolume(v8);
+  MTBENotifier::ResetFromVoice(this, a2, a3);
+  MTPBVoice::MTPBVoice(v7, a2);
+  MTBEParam::MTBEParam(v6, 1, v7, 0);
+  this->var1 = MTBEParam::GetRate(v6) << 16;
+  this->var2 = 3072 * MTBEParam::GetPitch(v6) + 2054400;
+  this->var3 = MTBEParam::GetModulation(v6);
+  result = MTBEParam::GetVolume(v6);
   this->var4 = result;
   return result;
 }
@@ -1736,9 +1708,8 @@ void InitSpeechProcessing(SpeechChannelManager *a1)
 {
   pthread_once(&sScheduleInit, InitSchedules);
   MTBEWorker::DebugLog("Init %p\n", v2, a1);
-  v3 = *(a1 + 4);
-  v4 = *(*(a1 + 33) + 4);
-  if (v4 != 1835364215 && v4 != 1734437985)
+  v3 = *(*(a1 + 33) + 4);
+  if (v3 != 1835364215 && v3 != 1734437985)
   {
     operator new();
   }
@@ -1752,7 +1723,6 @@ uint64_t ResetSpeechProcessing(SpeechChannelManager *a1)
   MTBEWorker::DebugLog("Reset %p\n", v2, a1);
   (*(**(a1 + 4) + 96))(*(a1 + 4), *(a1 + 33) + 362, 1);
   v3 = *(**(a1 + 5) + 96);
-  v4 = *(a1 + 33) + 362;
 
   return v3();
 }
@@ -1799,20 +1769,20 @@ uint64_t ShutdownSpeechProcessing(SpeechChannelManager *a1)
   return result;
 }
 
-uint64_t StartSpeechProcessing(SpeechChannelManager *a1)
+uint64_t StartSpeechProcessing(SpeechChannelManager *a1, int a2)
 {
   MTBEDebugFlags::Update(a1);
   pthread_once(&sScheduleInit, InitSchedules);
-  MTBEWorker::DebugLog("Start %p\n", v2, a1);
+  MTBEWorker::DebugLog("Start %p\n", v3, a1);
   pthread_mutex_lock((sSampleSchedule + 104));
   pthread_mutex_lock((sSampleSchedule + 40));
   if (*(a1 + 9))
   {
-    v3 = *(a1 + 3);
+    v4 = *(a1 + 3);
     *(a1 + 3) = 0;
-    if (v3)
+    if (v4)
     {
-      (*(*v3 + 24))(v3);
+      (*(*v4 + 24))(v4);
     }
 
     pthread_mutex_unlock((sSampleSchedule + 40));
@@ -1829,9 +1799,9 @@ uint64_t StartSpeechProcessing(SpeechChannelManager *a1)
     pthread_mutex_unlock((sSampleSchedule + 40));
   }
 
-  v4 = (sSampleSchedule + 104);
+  v5 = (sSampleSchedule + 104);
 
-  return pthread_mutex_unlock(v4);
+  return pthread_mutex_unlock(v5);
 }
 
 uint64_t StopSpeechProcessing(SpeechChannelManager *a1, char a2)
@@ -1897,62 +1867,58 @@ uint64_t ContinueSpeechProcessing(SpeechChannelManager *a1)
   return pthread_mutex_unlock(v5);
 }
 
-void DoTextToPhon(SpeechChannelManager *a1, const __CFString *a2, uint64_t a3, MTBEWritePhonemes *a4)
+void DoTextToPhon(SpeechChannelManager *a1, const __CFString *a2, unint64_t a3, MTBEWritePhonemes *a4)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   MTBEDebugFlags::Update(a1);
   pthread_once(&sScheduleInit, InitSchedules);
   MTBEWorker::DebugLog("TextToPhon %p\n", v6, a1);
-  SLCFStringTextSource::SLCFStringTextSource(&v23, a2);
-  MTBEPersistentParam::MTBEPersistentParam(&v24);
+  SLCFStringTextSource::SLCFStringTextSource(&v19, a2);
+  MTBEPersistentParam::MTBEPersistentParam(&v20);
   v7 = CFLocaleCreate(0, @"en_US");
-  v9 = *(a1 + 7);
-  v8 = *(a1 + 8);
-  v10 = *(a1 + 2);
-  v24.var9 = SLLexer::Create();
+  v20.var9 = SLLexer::Create();
   CFRelease(v7);
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 0x40000000;
-  v22[2] = ___Z12DoTextToPhonP20SpeechChannelManagerPK10__CFStringlP17MTBEWritePhonemes_block_invoke;
-  v22[3] = &__block_descriptor_tmp_54;
-  v22[4] = a1;
-  (*(v24.var9->var0 + 5))(v24.var9, v22);
-  *&v24.var10 = *(a1 + 232);
-  v24.var12 = *(a1 + 31);
-  v24.var6 = *(a1 + 6);
-  v11 = *(a1 + 4);
-  v21.var0 = &unk_2868F4960;
-  v12 = *(v11 + 24);
-  v13 = *(v11 + 56);
-  v14 = *(v11 + 40);
-  *&v21.var1 = *(v11 + 8);
-  *(&v21.var5.newPos + 2) = v14;
-  *&v21.var8[2] = v13;
-  *&v21.var5.count = v12;
-  (*(v24.var9->var0 + 2))(v24.var9, DWORD2(v14));
-  (*(v24.var9->var0 + 3))(v24.var9, v21.var8);
-  MTFEBuilder::MTFEBuilder(&v20, v24.var9);
-  MTFEBuilder::ParseSentence(&v20);
-  var2 = v20.var2;
-  MTFEBuilder::ResetProduct(&v20, 0);
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 0x40000000;
+  v18[2] = ___Z12DoTextToPhonP20SpeechChannelManagerPK10__CFStringlP17MTBEWritePhonemes_block_invoke;
+  v18[3] = &__block_descriptor_tmp_54;
+  v18[4] = a1;
+  (*(v20.var9->var0 + 5))(v20.var9, v18);
+  *&v20.var10 = *(a1 + 232);
+  v20.var12 = *(a1 + 31);
+  v20.var6 = *(a1 + 6);
+  v8 = *(a1 + 4);
+  v17.var0 = &unk_2868F4960;
+  v9 = *(v8 + 24);
+  v10 = *(v8 + 56);
+  v11 = *(v8 + 40);
+  *&v17.var1 = *(v8 + 8);
+  *(&v17.var5.newPos + 2) = v11;
+  *&v17.var8[2] = v10;
+  *&v17.var5.count = v9;
+  (*(v20.var9->var0 + 2))(v20.var9, DWORD2(v11));
+  (*(v20.var9->var0 + 3))(v20.var9, v17.var8);
+  MTFEBuilder::MTFEBuilder(&v16, v20.var9);
+  MTFEBuilder::ParseSentence(&v16);
+  var2 = v16.var2;
+  MTFEBuilder::ResetProduct(&v16, 0);
   if (var2)
   {
-    v16.var0 = *(a1 + 304);
-    MTBEPhraseParam::MTBEPhraseParam(v19, v16, var2, *(a1 + 4), &v21, *(a1 + 5), &v24);
-    v19[61] = 1;
-    MTBEPhraseProcessor::Create(*(a1 + 33), (*(a1 + 33) + 362), v19, v17);
+    v13.var0 = *(a1 + 304);
+    MTBEPhraseParam::MTBEPhraseParam(v15, v13, var2, *(a1 + 4), &v17, *(a1 + 5), &v20);
+    v15[61] = 1;
+    MTBEPhraseProcessor::Create(*(a1 + 33), (*(a1 + 33) + 362), v15, v14);
   }
 
-  if (v24.var9)
+  if (v20.var9)
   {
-    (*(v24.var9->var0 + 7))(v24.var9);
+    (*(v20.var9->var0 + 7))(v20.var9);
   }
 
-  MTFEBuilder::~MTFEBuilder(&v20);
-  MTBENotifier::~MTBENotifier(&v21);
-  MTBEPersistentParam::~MTBEPersistentParam(&v24);
-  SLCFStringTextSource::~SLCFStringTextSource(&v23);
-  v18 = *MEMORY[0x277D85DE8];
+  MTFEBuilder::~MTFEBuilder(&v16);
+  MTBENotifier::~MTBENotifier(&v17);
+  MTBEPersistentParam::~MTBEPersistentParam(&v20);
+  SLCFStringTextSource::~SLCFStringTextSource(&v19);
 }
 
 void sub_257B0DD04(_Unwind_Exception *a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, MTFEBuilder *a12, MTBENotifier *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, SLCFStringTextSource *a19, MTBEPersistentParam *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46)
@@ -1963,7 +1929,7 @@ void sub_257B0DD04(_Unwind_Exception *a1, uint64_t a2, char a3, uint64_t a4, uin
   _Unwind_Resume(a1);
 }
 
-void TextToPhonemesProcessing(SpeechChannelManager *a1, const __CFString *a2, char a3, const __CFString **a4)
+void TextToPhonemesProcessing(SpeechChannelManager *a1, const __CFString *a2, unint64_t a3, const __CFString **a4)
 {
   if ((a3 & 1) == 0)
   {
@@ -2331,7 +2297,7 @@ LABEL_25:
   JUMPOUT(0x259C6DA90);
 }
 
-uint64_t SpeechChannelManager::CreateSoundChannel(SpeechChannelManager *this, OpaqueExtAudioFile *a2)
+MTBESoundOutput *SpeechChannelManager::CreateSoundChannel(SpeechChannelManager *this, OpaqueExtAudioFile *a2)
 {
   result = *(this + 56);
   if (!result)
@@ -2426,8 +2392,8 @@ CFIndex SpeechChannelManager::SpeakCFString(SpeechChannelManager *this, CFString
     *(this + 43) = 0;
     *(this + 44) = 0;
     *(this + 358) = 0;
-    TestOption(a3, @"PreflightThenPause");
-    StartSpeechProcessing(this);
+    v13 = TestOption(a3, @"PreflightThenPause");
+    StartSpeechProcessing(this, v13);
   }
 
   return 0;
@@ -2477,84 +2443,42 @@ const __CFDictionary *TestOption(const __CFDictionary *result, const __CFString 
 
 uint64_t SpeechChannelManager::UseVoice(SpeechChannelManager *this, VoiceSpec *a2, __CFBundle *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
-    result = -50;
-    goto LABEL_27;
+    return -50;
   }
 
-  if (!*(this + 85))
+  if (*(this + 85))
   {
-    ClearSpeechProcessing(this);
-    if (*a2 == *(this + 32))
-    {
-      v9 = *a2;
-      *(this + 1) = a3;
-      v10 = (this + 8);
-      v11 = *(this + 31);
-      *(this + 32) = v9;
-      if (v11)
-      {
-        goto LABEL_25;
-      }
+    return -231;
+  }
 
-      goto LABEL_24;
+  ClearSpeechProcessing(this);
+  if (*a2 == *(this + 32))
+  {
+    v9 = *a2;
+    *(this + 1) = a3;
+    v10 = (this + 8);
+    v11 = *(this + 31);
+    *(this + 32) = v9;
+    if (v11)
+    {
+      goto LABEL_25;
     }
 
-    v12 = *(this + 33);
-    if (v12)
-    {
-      free(v12);
-      *(this + 33) = 0;
-    }
+    goto LABEL_24;
+  }
 
-    if (!*(this + 34))
-    {
-LABEL_19:
-      v16 = *(this + 37);
-      if (v16)
-      {
-        free(v16);
-        *(this + 37) = 0;
-      }
+  v12 = *(this + 33);
+  if (v12)
+  {
+    free(v12);
+    *(this + 33) = 0;
+  }
 
-      v17 = *(this + 31);
-      if (v17)
-      {
-        CFRelease(v17);
-        *(this + 31) = 0;
-      }
-
-      v18 = *a2;
-      *(this + 1) = a3;
-      v10 = (this + 8);
-      *(this + 32) = v18;
-LABEL_24:
-      *(this + 31) = SpeechChannelManager::ReadVoicePitchCoefficients(a3, v7);
-LABEL_25:
-      if (!*(this + 33))
-      {
-        result = SpeechChannelManager::ReadPCMVoiceData(*(this + 1), *(this + 32), this + 38, this + 35, this + 34, v8);
-        if (result < 0)
-        {
-          goto LABEL_27;
-        }
-
-        SpeechChannelManager::ReadVoiceDescription(*v10, (this + 264), v20);
-        if (!*(this + 33))
-        {
-          Identifier = CFBundleGetIdentifier(a3);
-          CFStringGetCString(Identifier, buffer, 200, 0x8000100u);
-          asl_log(0, 0, 3, "SpeechChannelManager::UseVoice - %s voiceDescription file reading failed", buffer);
-          result = -241;
-          goto LABEL_27;
-        }
-      }
-
-      InitSpeechProcessing(this);
-    }
-
+  if (*(this + 34))
+  {
     v13 = *(this + 64);
     if (v13 == 1734437985)
     {
@@ -2590,9 +2514,49 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  result = -231;
-LABEL_27:
-  v19 = *MEMORY[0x277D85DE8];
+LABEL_19:
+  v16 = *(this + 37);
+  if (v16)
+  {
+    free(v16);
+    *(this + 37) = 0;
+  }
+
+  v17 = *(this + 31);
+  if (v17)
+  {
+    CFRelease(v17);
+    *(this + 31) = 0;
+  }
+
+  v18 = *a2;
+  *(this + 1) = a3;
+  v10 = (this + 8);
+  *(this + 32) = v18;
+LABEL_24:
+  *(this + 31) = SpeechChannelManager::ReadVoicePitchCoefficients(a3, v7);
+LABEL_25:
+  if (*(this + 33))
+  {
+    goto LABEL_26;
+  }
+
+  result = SpeechChannelManager::ReadPCMVoiceData(*(this + 1), *(this + 32), this + 38, this + 35, this + 34, v8);
+  if ((result & 0x8000000000000000) == 0)
+  {
+    SpeechChannelManager::ReadVoiceDescription(*v10, (this + 264), v19);
+    if (*(this + 33))
+    {
+LABEL_26:
+      InitSpeechProcessing(this);
+    }
+
+    Identifier = CFBundleGetIdentifier(a3);
+    CFStringGetCString(Identifier, buffer, 200, 0x8000100u);
+    asl_log(0, 0, 3, "SpeechChannelManager::UseVoice - %s voiceDescription file reading failed", buffer);
+    return -241;
+  }
+
   return result;
 }
 
@@ -2623,7 +2587,7 @@ CFPropertyListRef SpeechChannelManager::ReadVoicePitchCoefficients(SpeechChannel
   return v6;
 }
 
-uint64_t SpeechChannelManager::ReadPCMVoiceData(SpeechChannelManager *this, __CFBundle *a2, void *a3, MTBEVoiceContents *a4, unint64_t *a5, void **a6)
+uint64_t SpeechChannelManager::ReadPCMVoiceData(SpeechChannelManager *this, unint64_t a2, PROWReader **a3, MTBEVoiceContents *a4, void **a5, void **a6)
 {
   v8 = a2;
   v27 = *MEMORY[0x277D85DE8];
@@ -2640,9 +2604,9 @@ uint64_t SpeechChannelManager::ReadPCMVoiceData(SpeechChannelManager *this, __CF
     CFRelease(v12);
     if (v13 == 0xFFFFFFFFLL)
     {
-      v15 = *MEMORY[0x277D85DF8];
-      v16 = __error();
-      fprintf(v15, "Speech Synthesis can't map voice file (%d)\n", *v16);
+      v16 = *MEMORY[0x277D85DF8];
+      v17 = __error();
+      fprintf(v16, "Speech Synthesis can't map voice file (%d)\n", *v17);
       v23 = 0;
     }
 
@@ -2650,7 +2614,7 @@ uint64_t SpeechChannelManager::ReadPCMVoiceData(SpeechChannelManager *this, __CF
     {
       if (v26)
       {
-        MEOWReader::AdvisePreload(*&buffer[8], &v23, v25);
+        MEOWReader::AdvisePreload(*&buffer[8], &v23, v25, v14);
       }
 
       else
@@ -2668,16 +2632,16 @@ uint64_t SpeechChannelManager::ReadPCMVoiceData(SpeechChannelManager *this, __CF
     }
 
     SLMMapHint::~SLMMapHint(buffer);
-    v14 = v23;
+    v15 = v23;
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  v17 = v8 == 1734437985 || v8 == 1835364215;
-  if (!v17 || v14)
+  v18 = v8 == 1734437985 || v8 == 1835364215;
+  if (!v18 || v15)
   {
     if (v8 == 1835364215)
     {
@@ -2693,7 +2657,7 @@ uint64_t SpeechChannelManager::ReadPCMVoiceData(SpeechChannelManager *this, __CF
         SpeechChannelManager::ReadPCMVoiceData();
       }
 
-      result = -241;
+      return -241;
     }
 
     else
@@ -2704,7 +2668,7 @@ uint64_t SpeechChannelManager::ReadPCMVoiceData(SpeechChannelManager *this, __CF
       }
 
       result = 0;
-      *a3 = v14;
+      *a3 = v15;
     }
   }
 
@@ -2713,25 +2677,24 @@ uint64_t SpeechChannelManager::ReadPCMVoiceData(SpeechChannelManager *this, __CF
     Identifier = CFBundleGetIdentifier(this);
     CFStringGetCString(Identifier, buffer, 200, 0x8000100u);
     asl_log(0, 0, 3, "SpeechChannelManager::ReadPCMVoiceData - %s PCMWave file not found", buffer);
-    result = -43;
+    return -43;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_257B0F074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_257B0F074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   SLMMapHint::~SLMMapHint(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t SpeechChannelManager::ReadVoiceDescription(SpeechChannelManager *this, __CFBundle *a2, void **a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v21 = 0;
-  if (OpenResourceFile(this, @"VoiceDescription", &v21))
+  v21 = *MEMORY[0x277D85DE8];
+  v19 = 0;
+  if (OpenResourceFile(this, @"VoiceDescription", &v19))
   {
     Identifier = CFBundleGetIdentifier(this);
     CFStringGetCString(Identifier, &buffer, 200, 0x8000100u);
@@ -2741,28 +2704,28 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  if (fstat(v21, &buffer))
+  if (fstat(v19, &buffer))
   {
     goto LABEL_4;
   }
 
   st_size = buffer.st_size;
   v6 = malloc_type_malloc(buffer.st_size, 0xC15436DuLL);
-  if (v6 && read(v21, v6, st_size) != st_size)
+  if (v6 && read(v19, v6, st_size) != st_size)
   {
     free(v6);
-    v11 = *__error();
+    __error();
     asl_log(0, 0, 3, "SpeechChannelManager::ReadVoiceDescription -  Read failed with code %d");
     goto LABEL_4;
   }
 
-  v10 = vrev32_s8(*(v6 + 4));
-  *(v6 + 4) = v10;
+  v9 = vrev32_s8(*(v6 + 4));
+  *(v6 + 4) = v9;
   *(v6 + 3) = bswap32(*(v6 + 3));
   *(v6 + 42) = vrev16_s8(*(v6 + 336));
   *(v6 + 172) = bswap32(*(v6 + 172)) >> 16;
   *(v6 + 346) = vrev32q_s8(*(v6 + 346));
-  if (v10.i32[0] == 1734437985)
+  if (v9.i32[0] == 1734437985)
   {
 LABEL_11:
     *(v6 + 362) = vrev16q_s8(*(v6 + 362));
@@ -2774,9 +2737,9 @@ LABEL_11:
     goto LABEL_5;
   }
 
-  if (v10.i32[0] != 1836346163)
+  if (v9.i32[0] != 1836346163)
   {
-    if (v10.i32[0] != 1835364215)
+    if (v9.i32[0] != 1835364215)
     {
       fwrite("Unknown voice creator in SpeechChannelManager::ReadVoiceDescription\n", 0x44uLL, 1uLL, *MEMORY[0x277D85DF8]);
       goto LABEL_5;
@@ -2785,35 +2748,35 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v12 = vrev16q_s8(*(v6 + 378));
+  v10 = vrev16q_s8(*(v6 + 378));
   *(v6 + 362) = vrev16q_s8(*(v6 + 362));
-  *(v6 + 378) = v12;
-  v13 = vrev16q_s8(*(v6 + 410));
+  *(v6 + 378) = v10;
+  v11 = vrev16q_s8(*(v6 + 410));
   *(v6 + 394) = vrev16q_s8(*(v6 + 394));
-  *(v6 + 410) = v13;
+  *(v6 + 410) = v11;
   *(v6 + 426) = vrev16_s8(*(v6 + 426));
   *(v6 + 434) = bswap32(*(v6 + 434));
-  v14 = vrev16_s8(*(v6 + 438));
+  v12 = vrev16_s8(*(v6 + 438));
   *(v6 + 446) = bswap32(*(v6 + 446));
   *(v6 + 225) = bswap32(*(v6 + 225)) >> 16;
   *(v6 + 226) = bswap32(*(v6 + 226)) >> 16;
   *(v6 + 227) = bswap32(*(v6 + 227)) >> 16;
-  v15 = 456;
-  *(v6 + 438) = v14;
+  v13 = 456;
+  *(v6 + 438) = v12;
   do
   {
-    *&v6[v15] = vrev16q_s8(*&v6[v15]);
-    v15 += 16;
+    *&v6[v13] = vrev16q_s8(*&v6[v13]);
+    v13 += 16;
   }
 
-  while (v15 != 552);
+  while (v13 != 552);
   do
   {
-    *&v6[v15] = vrev16q_s8(*&v6[v15]);
-    v15 += 16;
+    *&v6[v13] = vrev16q_s8(*&v6[v13]);
+    v13 += 16;
   }
 
-  while (v15 != 648);
+  while (v13 != 648);
   *(v6 + 324) = bswap32(*(v6 + 324)) >> 16;
   *(v6 + 325) = bswap32(*(v6 + 325)) >> 16;
   *(v6 + 163) = bswap32(*(v6 + 163));
@@ -2823,31 +2786,29 @@ LABEL_11:
   *(v6 + 338) = bswap32(*(v6 + 338)) >> 16;
   *(v6 + 678) = vrev32q_s8(*(v6 + 678));
   *(v6 + 694) = vrev32q_s8(*(v6 + 694));
-  v16 = *(v6 + 355);
-  v17 = __rev16(v16);
-  *(v6 + 355) = v17;
-  if (v16)
+  v14 = *(v6 + 355);
+  v15 = __rev16(v14);
+  *(v6 + 355) = v15;
+  if (v14)
   {
-    v18 = v17;
-    v19 = 356;
+    v16 = v15;
+    v17 = 356;
     do
     {
-      *&v6[2 * v19] = bswap32(*&v6[2 * v19]) >> 16;
-      v20 = v19 - 355;
-      ++v19;
+      *&v6[2 * v17] = bswap32(*&v6[2 * v17]) >> 16;
+      v18 = v17 - 355;
+      ++v17;
     }
 
-    while (v20 < v18);
+    while (v18 < v16);
   }
 
 LABEL_5:
   *a2 = v6;
-  result = close(v21);
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return close(v19);
 }
 
-uint64_t MEOWMMapHint::MappedSize(MEOWMMapHint *this)
+uint64_t MEOWMMapHint::MappedSize(MEOWMMapHint *this, uint64_t a2, unint64_t a3)
 {
   if (*(this + 32) == 1)
   {
@@ -2919,7 +2880,7 @@ void SpeechChannelManager::RegisterCurSpeechState(uint64_t a1, int a2)
 
 void SpeechChannelManager::RegisterCurSpeechError(SpeechChannelManager *this, CFIndex a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     if (!pthread_mutex_lock((this + 80)))
@@ -2950,9 +2911,12 @@ void SpeechChannelManager::RegisterCurSpeechError(SpeechChannelManager *this, CF
         if (v6)
         {
           v7 = *(this + 46);
-          if (v7 && *(this + 424) == 1)
+          if (v7)
           {
-            v7(*(this + 9), *(this + 39), v6);
+            if (*(this + 424) == 1)
+            {
+              v7(*(this + 9), *(this + 39), v6);
+            }
           }
 
           CFRelease(v6);
@@ -2960,8 +2924,6 @@ void SpeechChannelManager::RegisterCurSpeechError(SpeechChannelManager *this, CF
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t SpeechChannelManager::GetCurSpeechErrors(SpeechChannelManager *this)
@@ -3930,10 +3892,10 @@ void MTBEDelayedNotifier::~MTBEDelayedNotifier(MTBEDelayedNotifier *this)
   JUMPOUT(0x259C6DA90);
 }
 
-void *MTBEDelayedNotifier::StartUnit(MTBEDelayedNotifier *this)
+MEOWVectorBase *MTBEDelayedNotifier::StartUnit(MTBEDelayedNotifier *this)
 {
   *(this + 9) = 0x3F80000000000000;
-  result = MEOWVectorBase::Append(this + 10);
+  result = MEOWVectorBase::Append((this + 80));
   *(*(this + 10) + 8 * *(this + 12) - 8) = 0;
   return result;
 }
@@ -3997,17 +3959,17 @@ LABEL_6:
   }
 }
 
-void *MEOWVectorBase::Append(void *this)
+MEOWVectorBase *MEOWVectorBase::Append(MEOWVectorBase *this)
 {
   v1 = this;
-  v2 = this[2];
-  if (v2 == this[3])
+  v2 = *(this + 2);
+  if (v2 == *(this + 3))
   {
     this = MEOWVectorBase::Allocate(this, v2 + 1, 0);
-    v2 = v1[2];
+    v2 = *(v1 + 2);
   }
 
-  v1[2] = v2 + 1;
+  *(v1 + 2) = v2 + 1;
   return this;
 }
 
@@ -4030,6 +3992,7 @@ void MTBEPhraseParam::MTBEPhraseParam(MTBEPhraseParam *this, MTBEVoiceContents a
 
 void MTBEPhraseProcessor::MTBEPhraseProcessor(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4)
 {
+  v4 = a4;
   v6 = *a3;
   v7 = a3[1];
   v8 = a3[2];
@@ -4039,18 +4002,17 @@ void MTBEPhraseProcessor::MTBEPhraseProcessor(uint64_t a1, uint64_t a2, __int128
   *(a1 + 8) = v6;
   *a1 = &unk_2868F4B70;
   *(a1 + 80) = a2;
-  v9 = *a3;
   if (a4)
   {
-    v10 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v10 = *a3;
+    v9 = *a3;
   }
 
-  MTBEParam::MTBEParam(a1 + 88, a4, a2, v10, 0, *&v6);
+  MTBEParam::MTBEParam(a1 + 88, v4, a2, v9);
   memcpy((a1 + 1392), (a1 + 88), 0x518uLL);
   *(a1 + 2696) = 1024;
   operator new[]();
@@ -4119,7 +4081,7 @@ void MTBEPhraseProcessor::~MTBEPhraseProcessor(MTBEPhraseProcessor *this)
 
 void MTBEPhraseProcessor::ProcessPhrase(MTBEPhraseProcessor *this)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v2 = (this + 88);
   MTBEParam::SetRate(this + 11, *(*(this + 3) + 10));
   v3 = MTBEParam::MidiToPitch(v2, *(*(this + 3) + 12) >> 8);
@@ -4131,23 +4093,23 @@ void MTBEPhraseProcessor::ProcessPhrase(MTBEPhraseProcessor *this)
   MTBEParam::SetPitch(this + 1392, v4);
   MTBEParam::SetModulation(this + 1392, *(*(this + 5) + 16));
   MTBEParam::SetVolume(this + 696, *(*(this + 5) + 20));
-  v33[0] = &unk_2868F4F40;
-  v34 = 0;
-  MTFEWord::MTFEWord(&v35, 0, 0);
-  MTFESpeechVisitor::Visit(v33, *(this + 2));
-  v32[0] = &unk_2868F7A98;
+  v32[0] = &unk_2868F4F40;
+  v33 = 0;
+  MTFEWord::MTFEWord(&v34, 0, 0);
   MTFESpeechVisitor::Visit(v32, *(this + 2));
-  v31[0] = &unk_2868F8BB8;
+  v31[0] = &unk_2868F7A98;
   MTFESpeechVisitor::Visit(v31, *(this + 2));
+  v30[0] = &unk_2868F8BB8;
+  MTFESpeechVisitor::Visit(v30, *(this + 2));
   if (kMTFEBoundaryModel)
   {
     MTBEDebugParams::GetParam(kMTFEBoundaryModel, &byte_27F8F08F8, byte_27F8F08F8);
     kMTFEBoundaryModel = 0;
   }
 
-  v29 = &unk_2868F4E88;
-  v30 = byte_27F8F08F8;
-  MTFESpeechVisitor::Visit(&v29, *(this + 2));
+  v28 = &unk_2868F4E88;
+  v29 = byte_27F8F08F8;
+  MTFESpeechVisitor::Visit(&v28, *(this + 2));
   if (kMTFEBoundaryModel)
   {
     MTBEDebugParams::GetParam(kMTFEBoundaryModel, &byte_27F8F08F8, byte_27F8F08F8);
@@ -4156,54 +4118,54 @@ void MTBEPhraseProcessor::ProcessPhrase(MTBEPhraseProcessor *this)
 
   if (byte_27F8F08F8 == 1)
   {
-    v12 = &unk_2868F8930;
-    MTFESpeechVisitor::Visit(&v12, *(this + 2));
-    MTFESpeechVisitor::~MTFESpeechVisitor(&v12);
+    v11 = &unk_2868F8930;
+    MTFESpeechVisitor::Visit(&v11, *(this + 2));
+    MTFESpeechVisitor::~MTFESpeechVisitor(&v11);
   }
 
-  MTFEMarkStress::MTFEMarkStress(v28, *(this + 10), v2, this + 1392, *(this + 3));
-  MTFESpeechVisitor::Visit(v28, *(this + 2));
-  v27[0] = &unk_2868F77E0;
+  MTFEMarkStress::MTFEMarkStress(v27, *(this + 10), v2, this + 1392, *(this + 3));
   MTFESpeechVisitor::Visit(v27, *(this + 2));
-  v24 = &unk_2868F57B8;
-  v25 = &unk_2868F5860;
-  v26 = &unk_2868F5908;
-  MTFESpeechVisitor::Visit(&v24, *(this + 2));
+  v26[0] = &unk_2868F77E0;
+  MTFESpeechVisitor::Visit(v26, *(this + 2));
+  v23 = &unk_2868F57B8;
+  v24 = &unk_2868F5860;
+  v25 = &unk_2868F5908;
+  MTFESpeechVisitor::Visit(&v23, *(this + 2));
   (**this)(this, *(this + 2));
-  v23[0] = &unk_2868F8C40;
-  MTFESpeechVisitor::Visit(v23, *(this + 2));
-  v20[0] = &unk_2868F6158;
+  v22[0] = &unk_2868F8C40;
+  MTFESpeechVisitor::Visit(v22, *(this + 2));
+  v19[0] = &unk_2868F6158;
+  v20 = 0;
   v21 = 0;
-  v22 = 0;
-  MTFESpeechVisitor::Visit(v20, *(this + 2));
+  MTFESpeechVisitor::Visit(v19, *(this + 2));
   if (*(this + 1391) == 1)
   {
-    MTFEDuration::MTFEDuration(&v12, v2, *(this + 10));
-    MTFESpeechVisitor::Visit(&v12, *(this + 2));
-    MTFESpeechVisitor::~MTFESpeechVisitor(&v12);
+    MTFEDuration::MTFEDuration(&v11, v2);
+    MTFESpeechVisitor::Visit(&v11, *(this + 2));
+    MTFESpeechVisitor::~MTFESpeechVisitor(&v11);
   }
 
   (*(*this + 8))(this, *(this + 2));
   v5 = *(this + 4216);
   v6 = *(this + 1391);
-  v17 = 0;
-  v16[0] = &unk_2868F5DE0;
-  v18 = v5;
-  v19 = v6;
-  MTFESpeechVisitor::Visit(v16, *(this + 2));
+  v16 = 0;
+  v15[0] = &unk_2868F5DE0;
+  v17 = v5;
+  v18 = v6;
+  MTFESpeechVisitor::Visit(v15, *(this + 2));
   if ((*(this + 65) & 1) == 0)
   {
-    v12 = &unk_2868F5A38;
-    v13[0] = &unk_2868F59B0;
-    v14 = &v12;
-    MTFESpeechVisitor::Visit(&v12, *(this + 2));
-    v12 = &unk_2868F5A38;
-    MTFESpeechVisitor::~MTFESpeechVisitor(v13);
-    MTFESpeechVisitor::~MTFESpeechVisitor(&v12);
+    v11 = &unk_2868F5A38;
+    v12[0] = &unk_2868F59B0;
+    v13 = &v11;
+    MTFESpeechVisitor::Visit(&v11, *(this + 2));
+    v11 = &unk_2868F5A38;
+    MTFESpeechVisitor::~MTFESpeechVisitor(v12);
+    MTFESpeechVisitor::~MTFESpeechVisitor(&v11);
   }
 
-  MTFEModDuration::MTFEModDuration(v11, v2, *(this + 10), *(this + 1057));
-  MTFESpeechVisitor::Visit(v11, *(this + 2));
+  MTFEModDuration::MTFEModDuration(v10, v2, *(this + 10), *(this + 1057));
+  MTFESpeechVisitor::Visit(v10, *(this + 2));
   (*(*this + 16))(this, *(this + 2));
   if (*(this + 65) == 1)
   {
@@ -4215,55 +4177,54 @@ void MTBEPhraseProcessor::ProcessPhrase(MTBEPhraseProcessor *this)
     operator new();
   }
 
-  v10[0] = &unk_2868F5E98;
-  v10[2] = v2;
-  MTFESpeechVisitor::Visit(v10, *(this + 2));
+  v9[0] = &unk_2868F5E98;
+  v9[2] = v2;
+  MTFESpeechVisitor::Visit(v9, *(this + 2));
   v7 = *(this + 10);
-  v12 = &unk_2868F5AF0;
-  v13[0] = this + 2696;
-  v13[1] = v7;
-  v14 = v2;
-  MTFESpeechVisitor::Visit(&v12, *(this + 2));
-  MTFESpeechVisitor::~MTFESpeechVisitor(&v12);
-  MTFESpeechVisitor::~MTFESpeechVisitor(v10);
-  v10[0] = &unk_2868F78B8;
-  MTFESpeechVisitor::Visit(v10, *(this + 2));
+  v11 = &unk_2868F5AF0;
+  v12[0] = this + 2696;
+  v12[1] = v7;
+  v13 = v2;
+  MTFESpeechVisitor::Visit(&v11, *(this + 2));
+  MTFESpeechVisitor::~MTFESpeechVisitor(&v11);
+  MTFESpeechVisitor::~MTFESpeechVisitor(v9);
+  v9[0] = &unk_2868F78B8;
+  MTFESpeechVisitor::Visit(v9, *(this + 2));
   v8 = *(this + 7);
   if (v8)
   {
-    v12 = &unk_2868F79F8;
-    v15 = v8;
-    MTFESpeechVisitor::Visit(&v12, *(this + 2));
-    MTFESpeechVisitor::~MTFESpeechVisitor(&v12);
+    v11 = &unk_2868F79F8;
+    v14 = v8;
+    MTFESpeechVisitor::Visit(&v11, *(this + 2));
+    MTFESpeechVisitor::~MTFESpeechVisitor(&v11);
   }
 
   (*(*this + 24))(this, *(this + 2));
   MTFEFrameFiller::InitPhrase((this + 2728), *(this + 2));
+  MTFESpeechVisitor::~MTFESpeechVisitor(v9);
   MTFESpeechVisitor::~MTFESpeechVisitor(v10);
-  MTFESpeechVisitor::~MTFESpeechVisitor(v11);
-  MTFESpeechVisitor::~MTFESpeechVisitor(v16);
-  MTFESpeechVisitor::~MTFESpeechVisitor(v20);
-  MTFESpeechVisitor::~MTFESpeechVisitor(v23);
-  v24 = &unk_2868F57B8;
-  MTFESpeechVisitor::~MTFESpeechVisitor(&v26);
+  MTFESpeechVisitor::~MTFESpeechVisitor(v15);
+  MTFESpeechVisitor::~MTFESpeechVisitor(v19);
+  MTFESpeechVisitor::~MTFESpeechVisitor(v22);
+  v23 = &unk_2868F57B8;
   MTFESpeechVisitor::~MTFESpeechVisitor(&v25);
   MTFESpeechVisitor::~MTFESpeechVisitor(&v24);
+  MTFESpeechVisitor::~MTFESpeechVisitor(&v23);
+  MTFESpeechVisitor::~MTFESpeechVisitor(v26);
   MTFESpeechVisitor::~MTFESpeechVisitor(v27);
-  MTFESpeechVisitor::~MTFESpeechVisitor(v28);
-  MTFESpeechVisitor::~MTFESpeechVisitor(&v29);
+  MTFESpeechVisitor::~MTFESpeechVisitor(&v28);
+  MTFESpeechVisitor::~MTFESpeechVisitor(v30);
   MTFESpeechVisitor::~MTFESpeechVisitor(v31);
+  v32[0] = &unk_2868F4F40;
+  v34.var0 = &unk_2868F5118;
+  MTFESpeechElement::~MTFESpeechElement(&v34.var18);
+  MTFESpeechElement::~MTFESpeechElement(&v34);
   MTFESpeechVisitor::~MTFESpeechVisitor(v32);
-  v33[0] = &unk_2868F4F40;
-  v35.var0 = &unk_2868F5118;
-  MTFESpeechElement::~MTFESpeechElement(&v35.var18);
-  MTFESpeechElement::~MTFESpeechElement(&v35);
-  MTFESpeechVisitor::~MTFESpeechVisitor(v33);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void sub_257B11DF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48)
 {
-  MEMORY[0x259C6DA90](v48, 0x1000C404A43BE38);
+  MEMORY[0x259C6DA90](v48, 0x1000C404A43BE38, a3, a4, a5, a6, a7, a8);
   MTFESpeechVisitor::~MTFESpeechVisitor(&a48);
   MTFESpeechVisitor::~MTFESpeechVisitor(&STACK[0x3F8]);
   MTFESpeechVisitor::~MTFESpeechVisitor(&STACK[0x4D8]);
@@ -4293,9 +4254,9 @@ void MTBEPhraseProcessor::SelectUnits(MTBEPhraseProcessor *this, MTFESpeechEleme
   }
 }
 
-void sub_257B1200C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_257B1200C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   MTFESpeechVisitor::~MTFESpeechVisitor(va);
   _Unwind_Resume(a1);
 }
@@ -4303,7 +4264,7 @@ void sub_257B1200C(_Unwind_Exception *a1, uint64_t a2, ...)
 uint64_t MTBEPhraseProcessor::GenerateSamples(MTBEPhraseProcessor *this, MTBESoundOutput *a2, int *a3)
 {
   v4 = a2;
-  v26 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if ((*(*a2 + 48))(a2) >= 0x200)
   {
     v6 = -7;
@@ -4315,10 +4276,10 @@ uint64_t MTBEPhraseProcessor::GenerateSamples(MTBEPhraseProcessor *this, MTBESou
         break;
       }
 
-      v24 = 0;
+      v26 = 0;
       __Y = 0;
       *__N = 0;
-      v23 = 0;
+      v25 = 0;
       if (((***(this + 9))() & 1) == 0)
       {
         (*(*v4 + 32))(v4);
@@ -4334,60 +4295,58 @@ uint64_t MTBEPhraseProcessor::GenerateSamples(MTBEPhraseProcessor *this, MTBESou
           *(this + 531) = 0;
         }
 
-        v18 = 0;
-        goto LABEL_17;
+        v21 = 0;
+        return (v21 | v4) & 1;
       }
 
-      v9 = MTBEDebugFlags::sMEOWDebug;
+      v12 = MTBEDebugFlags::sMEOWDebug;
       if (MTBEDebugFlags::sMEOWDebug)
       {
-        v10 = v24;
-        if (v24 != *(this + 530))
+        v13 = v26;
+        if (v26 != *(this + 530))
         {
-          *(this + 530) = v24;
-          if (v10)
+          *(this + 530) = v26;
+          if (v13)
           {
-            v11 = MTMBDemiProperties::Phon(v10, v25);
+            v14 = MTMBDemiProperties::Phon(v13, v27);
           }
 
           else
           {
-            v11 = "SIL";
+            v14 = "SIL";
           }
 
-          fprintf(*v7, "Cut %s at sample %ld\n", v11, *(this + 531));
-          (*(*v4 + 24))(v4, v11);
-          v9 = MTBEDebugFlags::sMEOWDebug;
+          fprintf(*v7, "Cut %s at sample %ld\n", v14, *(this + 531));
+          (*(*v4 + 24))(v4, v14);
+          v12 = MTBEDebugFlags::sMEOWDebug;
         }
       }
 
-      if ((v9 & 0x10) != 0)
+      if ((v12 & 0x10) != 0)
       {
-        v12 = *v7;
-        v13 = MTMBSegment::Abstract(&__Y);
-        v14 = cblas_sdot(LOWORD(__N[0]), __Y, 1, __Y, 1);
-        LOWORD(v15) = __N[0];
-        fprintf(v12, "PP %s %f\n", v13, sqrtf(v14 / v15));
+        v15 = *v7;
+        v16 = MTMBSegment::Abstract(&__Y, v9, v10, v11);
+        v17 = cblas_sdot(LOWORD(__N[0]), __Y, 1, __Y, 1);
+        LOWORD(v18) = __N[0];
+        fprintf(v15, "PP %s %f\n", v16, sqrtf(v17 / v18));
       }
 
-      v16 = LOWORD(__N[0]);
+      v19 = LOWORD(__N[0]);
       if (a3)
       {
         *a3 += LOWORD(__N[0]);
       }
 
-      *(this + 531) += v16;
-      v17 = (*(*v4 + 16))(v4, __Y);
+      *(this + 531) += v19;
+      v20 = (*(*v4 + 16))(v4, __Y);
       MTMBSegment::Free(&__Y);
     }
 
-    while ((v17 & 1) != 0);
+    while ((v20 & 1) != 0);
   }
 
-  v18 = 1;
-LABEL_17:
-  v19 = *MEMORY[0x277D85DE8];
-  return (v18 | v4) & 1;
+  v21 = 1;
+  return (v21 | v4) & 1;
 }
 
 __n128 MTBEPhraseProcessor::UpdateEngineFromNotifier(float32x2_t *this)
@@ -4884,11 +4843,11 @@ void MTBEWorker::Purge(MTBEWorker *this, const char *a2)
 
 void MTBEWorker::AddTask(uint64_t *a1, uint64_t (***a2)(void), uint64_t a3, uint64_t *a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  sprintf(v27, "%u", (*a4 - MTBEWorker::sBigBang) / 1000);
+  v27 = *MEMORY[0x277D85DE8];
+  sprintf(v26, "%u", (*a4 - MTBEWorker::sBigBang) / 1000);
   v8 = *a1;
   v9 = (**a2)(a2);
-  MTBEWorker::DebugLog("<%s> Add Task %p[%s]@%s\n", v10, v8, a2, v9, v27);
+  MTBEWorker::DebugLog("<%s> Add Task %p[%s]@%s\n", v10, v8, a2, v9, v26);
   v11 = *a4;
   pthread_mutex_lock((a1 + 5));
   v12 = a1[2];
@@ -4954,37 +4913,34 @@ void MTBEWorker::AddTask(uint64_t *a1, uint64_t (***a2)(void), uint64_t a3, uint
   }
 
   a1[2] = v14;
-  std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,MTBEWorker::TimeCmp &,std::__wrap_iter<MTBEWorker::TaskRec *>>(a1[1], v14, &v26, (v14 - a1[1]) >> 5);
+  std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,MTBEWorker::TimeCmp &,std::__wrap_iter<MTBEWorker::TaskRec *>>(a1[1], v14, &v25, (v14 - a1[1]) >> 5);
   pthread_mutex_unlock((a1 + 5));
   MTBEWorker::SleepTillReady(a1);
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 const char *MTBEWorker::DebugLog(const char *this, const char *a2, ...)
 {
   va_start(va, a2);
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (MTBEDebugFlags::sMTXDebug)
   {
     v2 = this;
-    gettimeofday(&v4, 0);
-    sprintf(v5, "%u", (v4.tv_usec + 1000000 * v4.tv_sec - MTBEWorker::sBigBang) / 1000);
-    vsprintf(&v4, v2, va);
-    this = asl_log(0, 0, 3, "MTX %s: %s", v5, &v4);
+    gettimeofday(&v3, 0);
+    sprintf(v4, "%u", (v3.tv_usec + 1000000 * v3.tv_sec - MTBEWorker::sBigBang) / 1000);
+    vsprintf(&v3, v2, va);
+    return asl_log(0, 0, 3, "MTX %s: %s", v4, &v3);
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return this;
 }
 
 void MTBEWorker::SleepTillReady(MTBEWorker *this)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   pthread_mutex_lock((this + 40));
   v2 = *(this + 1);
   if (v2 == *(this + 2))
   {
-    v8 = *MEMORY[0x277D85DE8];
 
     pthread_mutex_unlock((this + 40));
   }
@@ -4993,57 +4949,55 @@ void MTBEWorker::SleepTillReady(MTBEWorker *this)
   {
     v3 = *v2;
     pthread_mutex_unlock((this + 40));
-    gettimeofday(&v12, 0);
-    if (v3 <= v12.tv_usec + 1000000 * v12.tv_sec)
+    gettimeofday(&v9, 0);
+    if (v3 <= v9.tv_usec + 1000000 * v9.tv_sec)
     {
-      v9 = *(this + 21);
-      v10 = *MEMORY[0x277D85DE8];
+      v7 = *(this + 21);
 
-      dispatch_async_f(v9, this, MTBEWorkerExecuteTasks);
+      dispatch_async_f(v7, this, MTBEWorkerExecuteTasks);
     }
 
     else
     {
-      sprintf(&v12, "%u", (v3 - MTBEWorker::sBigBang) / 1000);
-      MTBEWorker::DebugLog("<%s> Sleep till %s\n", v4, *this, &v12);
+      sprintf(&v9, "%u", (v3 - MTBEWorker::sBigBang) / 1000);
+      MTBEWorker::DebugLog("<%s> Sleep till %s\n", v4, *this, &v9);
       when.tv_sec = v3 / 0xF4240;
       when.tv_nsec = 1000 * (v3 % 0xF4240);
       v5 = *(this + 22);
       v6 = dispatch_walltime(&when, 0);
       dispatch_source_set_timer(v5, v6, 0xFFFFFFFFFFFFFFFFLL, 0x4C4B40uLL);
-      v7 = *MEMORY[0x277D85DE8];
     }
   }
 }
 
 void MTBEWorker::PurgeTasks(MTBEWorker *this, const char *a2)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v4 = (this + 40);
   MTBEWorker::DebugLog("<%s> PurgeTasks %p\n", a2, *this, a2);
   __p = 0;
+  v36 = 0;
   v37 = 0;
-  v38 = 0;
   pthread_mutex_lock(v4);
   v5 = *(this + 1);
   for (i = *(this + 2); v5 != i; *(this + 2) = i)
   {
     v7 = *(v5 + 24);
-    v32 = *(v5 + 16);
+    v31 = *(v5 + 16);
     if (v7 != a2)
     {
-      v8 = v37;
-      if (v37 >= v38)
+      v8 = v36;
+      if (v36 >= v37)
       {
-        v11 = (v37 - __p) >> 5;
+        v11 = (v36 - __p) >> 5;
         v12 = v11 + 1;
         if ((v11 + 1) >> 59)
         {
           std::vector<MTBEWorker::TaskRec>::__throw_length_error[abi:ne200100]();
         }
 
-        v13 = v38 - __p;
-        if ((v38 - __p) >> 4 > v12)
+        v13 = v37 - __p;
+        if ((v37 - __p) >> 4 > v12)
         {
           v12 = v13 >> 4;
         }
@@ -5065,15 +5019,15 @@ void MTBEWorker::PurgeTasks(MTBEWorker *this, const char *a2)
 
         v15 = 32 * v11;
         *v15 = *v5;
-        *(v15 + 16) = v32;
+        *(v15 + 16) = v31;
         *(v15 + 24) = v7;
         v10 = (32 * v11 + 32);
-        v16 = (32 * v11 - (v37 - __p));
-        memcpy((v15 - (v37 - __p)), __p, v37 - __p);
+        v16 = (32 * v11 - (v36 - __p));
+        memcpy((v15 - (v36 - __p)), __p, v36 - __p);
         v17 = __p;
         __p = v16;
-        v37 = v10;
-        v38 = 0;
+        v36 = v10;
+        v37 = 0;
         if (v17)
         {
           operator delete(v17);
@@ -5083,14 +5037,14 @@ void MTBEWorker::PurgeTasks(MTBEWorker *this, const char *a2)
       else
       {
         v9 = *(v5 + 16);
-        *v37 = *v5;
+        *v36 = *v5;
         *(v8 + 2) = v9;
         *(v8 + 3) = v7;
         v10 = v8 + 32;
       }
 
-      v37 = v10;
-      std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,MTBEWorker::TimeCmp &,std::__wrap_iter<MTBEWorker::TaskRec *>>(__p, v10, &v34, (v10 - __p) >> 5);
+      v36 = v10;
+      std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,MTBEWorker::TimeCmp &,std::__wrap_iter<MTBEWorker::TaskRec *>>(__p, v10, &v33, (v10 - __p) >> 5);
       v5 = *(this + 1);
       i = *(this + 2);
     }
@@ -5100,8 +5054,8 @@ void MTBEWorker::PurgeTasks(MTBEWorker *this, const char *a2)
     {
       v19 = 0;
       v20 = *(v5 + 16);
-      v34 = *v5;
-      v35 = v20;
+      v33 = *v5;
+      v34 = v20;
       v21 = v5;
       do
       {
@@ -5129,8 +5083,8 @@ void MTBEWorker::PurgeTasks(MTBEWorker *this, const char *a2)
       v27 = (i - 32);
       if (v22 == v27)
       {
-        v30 = v35;
-        *v22 = v34;
+        v30 = v34;
+        *v22 = v33;
         *(v22 + 16) = v30;
       }
 
@@ -5139,10 +5093,10 @@ void MTBEWorker::PurgeTasks(MTBEWorker *this, const char *a2)
         v28 = v27[1];
         *v22 = *v27;
         *(v22 + 16) = v28;
-        v29 = v35;
-        *v27 = v34;
+        v29 = v34;
+        *v27 = v33;
         v27[1] = v29;
-        std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,MTBEWorker::TimeCmp &,std::__wrap_iter<MTBEWorker::TaskRec *>>(v5, v22 + 32, &v33, (v22 + 32 - v5) >> 5);
+        std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,MTBEWorker::TimeCmp &,std::__wrap_iter<MTBEWorker::TaskRec *>>(v5, v22 + 32, &v32, (v22 + 32 - v5) >> 5);
       }
 
       v5 = *(this + 1);
@@ -5154,18 +5108,16 @@ void MTBEWorker::PurgeTasks(MTBEWorker *this, const char *a2)
 
   if ((this + 8) != &__p)
   {
-    std::vector<MTBEWorker::TaskRec>::__assign_with_size[abi:ne200100]<MTBEWorker::TaskRec*,MTBEWorker::TaskRec*>(this + 1, __p, v37, (v37 - __p) >> 5);
+    std::vector<MTBEWorker::TaskRec>::__assign_with_size[abi:ne200100]<MTBEWorker::TaskRec*,MTBEWorker::TaskRec*>(this + 1, __p, v36, (v36 - __p) >> 5);
   }
 
   pthread_mutex_unlock(v4);
   MTBEWorker::SleepTillReady(this);
   if (__p)
   {
-    v37 = __p;
+    v36 = __p;
     operator delete(__p);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void sub_257B1368C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21)
@@ -5180,14 +5132,14 @@ void sub_257B1368C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void MTBEWorker::PurgeTasks(MTBEWorker *this, MTBEWorker::Task *a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v4 = (this + 40);
   v5 = *this;
   v6 = (**a2)(a2);
   MTBEWorker::DebugLog("<%s> PurgeTasks %s\n", v7, v5, v6);
   __p = 0;
+  v38 = 0;
   v39 = 0;
-  v40 = 0;
   pthread_mutex_lock(v4);
   v8 = *(this + 1);
   for (i = *(this + 2); v8 != i; *(this + 2) = i)
@@ -5196,18 +5148,18 @@ void MTBEWorker::PurgeTasks(MTBEWorker *this, MTBEWorker::Task *a2)
     if (v10 != a2)
     {
       v11 = *(v8 + 24);
-      v12 = v39;
-      if (v39 >= v40)
+      v12 = v38;
+      if (v38 >= v39)
       {
-        v14 = (v39 - __p) >> 5;
+        v14 = (v38 - __p) >> 5;
         v15 = v14 + 1;
         if ((v14 + 1) >> 59)
         {
           std::vector<MTBEWorker::TaskRec>::__throw_length_error[abi:ne200100]();
         }
 
-        v16 = v40 - __p;
-        if ((v40 - __p) >> 4 > v15)
+        v16 = v39 - __p;
+        if ((v39 - __p) >> 4 > v15)
         {
           v15 = v16 >> 4;
         }
@@ -5232,12 +5184,12 @@ void MTBEWorker::PurgeTasks(MTBEWorker *this, MTBEWorker::Task *a2)
         *(v18 + 16) = v10;
         *(v18 + 24) = v11;
         v13 = (32 * v14 + 32);
-        v19 = (32 * v14 - (v39 - __p));
-        memcpy(v19, __p, v39 - __p);
+        v19 = (32 * v14 - (v38 - __p));
+        memcpy(v19, __p, v38 - __p);
         v20 = __p;
         __p = v19;
-        v39 = v13;
-        v40 = 0;
+        v38 = v13;
+        v39 = 0;
         if (v20)
         {
           operator delete(v20);
@@ -5246,14 +5198,14 @@ void MTBEWorker::PurgeTasks(MTBEWorker *this, MTBEWorker::Task *a2)
 
       else
       {
-        *v39 = *v8;
+        *v38 = *v8;
         *(v12 + 2) = v10;
         *(v12 + 3) = v11;
         v13 = v12 + 32;
       }
 
-      v39 = v13;
-      std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,MTBEWorker::TimeCmp &,std::__wrap_iter<MTBEWorker::TaskRec *>>(__p, v13, &v36, (v13 - __p) >> 5);
+      v38 = v13;
+      std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,MTBEWorker::TimeCmp &,std::__wrap_iter<MTBEWorker::TaskRec *>>(__p, v13, &v35, (v13 - __p) >> 5);
       v8 = *(this + 1);
       i = *(this + 2);
     }
@@ -5263,8 +5215,8 @@ void MTBEWorker::PurgeTasks(MTBEWorker *this, MTBEWorker::Task *a2)
     {
       v22 = 0;
       v23 = *(v8 + 16);
-      v36 = *v8;
-      v37 = v23;
+      v35 = *v8;
+      v36 = v23;
       v24 = v8;
       do
       {
@@ -5292,8 +5244,8 @@ void MTBEWorker::PurgeTasks(MTBEWorker *this, MTBEWorker::Task *a2)
       v30 = (i - 32);
       if (v25 == v30)
       {
-        v33 = v37;
-        *v25 = v36;
+        v33 = v36;
+        *v25 = v35;
         *(v25 + 16) = v33;
       }
 
@@ -5302,10 +5254,10 @@ void MTBEWorker::PurgeTasks(MTBEWorker *this, MTBEWorker::Task *a2)
         v31 = v30[1];
         *v25 = *v30;
         *(v25 + 16) = v31;
-        v32 = v37;
-        *v30 = v36;
+        v32 = v36;
+        *v30 = v35;
         v30[1] = v32;
-        std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,MTBEWorker::TimeCmp &,std::__wrap_iter<MTBEWorker::TaskRec *>>(v8, v25 + 32, &v35, (v25 + 32 - v8) >> 5);
+        std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,MTBEWorker::TimeCmp &,std::__wrap_iter<MTBEWorker::TaskRec *>>(v8, v25 + 32, &v34, (v25 + 32 - v8) >> 5);
       }
 
       v8 = *(this + 1);
@@ -5317,18 +5269,16 @@ void MTBEWorker::PurgeTasks(MTBEWorker *this, MTBEWorker::Task *a2)
 
   if ((this + 8) != &__p)
   {
-    std::vector<MTBEWorker::TaskRec>::__assign_with_size[abi:ne200100]<MTBEWorker::TaskRec*,MTBEWorker::TaskRec*>(this + 1, __p, v39, (v39 - __p) >> 5);
+    std::vector<MTBEWorker::TaskRec>::__assign_with_size[abi:ne200100]<MTBEWorker::TaskRec*,MTBEWorker::TaskRec*>(this + 1, __p, v38, (v38 - __p) >> 5);
   }
 
   pthread_mutex_unlock(v4);
   MTBEWorker::SleepTillReady(this);
   if (__p)
   {
-    v39 = __p;
+    v38 = __p;
     operator delete(__p);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void sub_257B13978(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21)
@@ -5343,10 +5293,10 @@ void sub_257B13978(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t MTBEWorker::PendingTasks(MTBEWorker *this, MTBEWorker::Task *a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   __p = 0;
+  v40 = 0;
   v41 = 0;
-  v42 = 0;
   pthread_mutex_lock((this + 40));
   v4 = *(this + 1);
   if (v4 == *(this + 2))
@@ -5362,18 +5312,18 @@ uint64_t MTBEWorker::PendingTasks(MTBEWorker *this, MTBEWorker::Task *a2)
       v6 = *(v4 + 16);
       v7 = *(v4 + 24);
       v8 = v6 == a2;
-      v9 = v41;
-      if (v41 >= v42)
+      v9 = v40;
+      if (v40 >= v41)
       {
-        v11 = (v41 - __p) >> 5;
+        v11 = (v40 - __p) >> 5;
         v12 = v11 + 1;
         if ((v11 + 1) >> 59)
         {
           std::vector<MTBEWorker::TaskRec>::__throw_length_error[abi:ne200100]();
         }
 
-        v13 = v42 - __p;
-        if ((v42 - __p) >> 4 > v12)
+        v13 = v41 - __p;
+        if ((v41 - __p) >> 4 > v12)
         {
           v12 = v13 >> 4;
         }
@@ -5398,12 +5348,12 @@ uint64_t MTBEWorker::PendingTasks(MTBEWorker *this, MTBEWorker::Task *a2)
         *(v15 + 16) = v6;
         *(v15 + 24) = v7;
         v10 = (32 * v11 + 32);
-        v16 = (32 * v11 - (v41 - __p));
-        memcpy(v16, __p, v41 - __p);
+        v16 = (32 * v11 - (v40 - __p));
+        memcpy(v16, __p, v40 - __p);
         v17 = __p;
         __p = v16;
-        v41 = v10;
-        v42 = 0;
+        v40 = v10;
+        v41 = 0;
         if (v17)
         {
           operator delete(v17);
@@ -5412,22 +5362,22 @@ uint64_t MTBEWorker::PendingTasks(MTBEWorker *this, MTBEWorker::Task *a2)
 
       else
       {
-        *v41 = *v4;
+        *v40 = *v4;
         *(v9 + 2) = v6;
         *(v9 + 3) = v7;
         v10 = v9 + 32;
       }
 
-      v41 = v10;
-      std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,MTBEWorker::TimeCmp &,std::__wrap_iter<MTBEWorker::TaskRec *>>(__p, v10, &v38, (v10 - __p) >> 5);
+      v40 = v10;
+      std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,MTBEWorker::TimeCmp &,std::__wrap_iter<MTBEWorker::TaskRec *>>(__p, v10, &v37, (v10 - __p) >> 5);
       v4 = *(this + 1);
       v18 = *(this + 2);
       v19 = (v18 - v4) >> 5;
       if (v19 >= 2)
       {
         v20 = 0;
-        v38 = *v4;
-        v39 = *(v4 + 16);
+        v37 = *v4;
+        v38 = *(v4 + 16);
         v21 = v4;
         do
         {
@@ -5455,8 +5405,8 @@ uint64_t MTBEWorker::PendingTasks(MTBEWorker *this, MTBEWorker::Task *a2)
         v27 = (v18 - 32);
         if (v22 == v27)
         {
-          v29 = v39;
-          *v22 = v38;
+          v29 = v38;
+          *v22 = v37;
           *(v22 + 16) = v29;
         }
 
@@ -5465,9 +5415,9 @@ uint64_t MTBEWorker::PendingTasks(MTBEWorker *this, MTBEWorker::Task *a2)
           v28 = v27[1];
           *v22 = *v27;
           *(v22 + 16) = v28;
-          *v27 = v38;
-          v27[1] = v39;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,MTBEWorker::TimeCmp &,std::__wrap_iter<MTBEWorker::TaskRec *>>(v4, v22 + 32, &v37, (v22 + 32 - v4) >> 5);
+          *v27 = v37;
+          v27[1] = v38;
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,MTBEWorker::TimeCmp &,std::__wrap_iter<MTBEWorker::TaskRec *>>(v4, v22 + 32, &v36, (v22 + 32 - v4) >> 5);
         }
 
         v4 = *(this + 1);
@@ -5484,7 +5434,7 @@ uint64_t MTBEWorker::PendingTasks(MTBEWorker *this, MTBEWorker::Task *a2)
 
   if ((this + 8) != &__p)
   {
-    std::vector<MTBEWorker::TaskRec>::__assign_with_size[abi:ne200100]<MTBEWorker::TaskRec*,MTBEWorker::TaskRec*>(this + 1, __p, v41, (v41 - __p) >> 5);
+    std::vector<MTBEWorker::TaskRec>::__assign_with_size[abi:ne200100]<MTBEWorker::TaskRec*,MTBEWorker::TaskRec*>(this + 1, __p, v40, (v40 - __p) >> 5);
   }
 
   pthread_mutex_unlock((this + 40));
@@ -5499,11 +5449,10 @@ uint64_t MTBEWorker::PendingTasks(MTBEWorker *this, MTBEWorker::Task *a2)
   MTBEWorker::DebugLog("<%s> PendingTasks %s? -> %s\n", v33, v31, v32, v34);
   if (__p)
   {
-    v41 = __p;
+    v40 = __p;
     operator delete(__p);
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v5 & 1;
 }
 
@@ -5588,7 +5537,7 @@ __n128 std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,MTBEWorker::TimeCmp &
   return result;
 }
 
-void *std::vector<MTBEWorker::TaskRec>::__assign_with_size[abi:ne200100]<MTBEWorker::TaskRec*,MTBEWorker::TaskRec*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<MTBEWorker::TaskRec>::__assign_with_size[abi:ne200100]<MTBEWorker::TaskRec*,MTBEWorker::TaskRec*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -5663,7 +5612,7 @@ void *std::vector<MTBEWorker::TaskRec>::__assign_with_size[abi:ne200100]<MTBEWor
   return result;
 }
 
-void std::vector<MTBEWorker::TaskRec>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<MTBEWorker::TaskRec>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -5927,7 +5876,7 @@ void MTBEWritePhonemes::VisitPhoneme(MTBEWritePhonemes *this, MTFEPhoneme *a2)
   }
 }
 
-void MTBEWritePhonemes::VisitCommand(MTBEWritePhonemes *this, MTFECommand *a2)
+void MTBEWritePhonemes::VisitCommand(uint64_t this, MTFECommand *a2)
 {
   if (a2->var8 == 2003792484)
   {
@@ -6039,14 +5988,14 @@ void MTBEWritePhonemes::Write(MTBEWritePhonemes *this, std::string::value_type *
 
 void MTBEWritePhonemes::WriteFixed(MTBEWritePhonemes *this, unint64_t a2, int a3)
 {
-  *&v11[19] = *MEMORY[0x277D85DE8];
+  *&v10[19] = *MEMORY[0x277D85DE8];
   v4 = vcvtd_n_f64_s64(a2, 0x10uLL);
   v5 = __exp10(a3);
-  sprintf(&v10, "%g", floor(v4 * v5 + 0.5) / v5);
-  v6 = v10;
-  if (v10)
+  sprintf(&v9, "%g", floor(v4 * v5 + 0.5) / v5);
+  v6 = v9;
+  if (v9)
   {
-    v7 = v11;
+    v7 = v10;
     do
     {
       std::string::push_back((this + 16), v6);
@@ -6056,8 +6005,6 @@ void MTBEWritePhonemes::WriteFixed(MTBEWritePhonemes *this, unint64_t a2, int a3
 
     while (v8);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void MTBEWritePhonemes::WriteLong(MTBEWritePhonemes *this, unint64_t a2)
@@ -6227,7 +6174,7 @@ LABEL_5:
       switch(Class)
       {
         case ' ':
-          MTFEBuilder::ProcessWord(this, var19);
+          MTFEBuilder::ProcessWord(this, var19, 1);
         case '#':
           MTFEBuilder::ProcessMelody(this, var19);
           break;
@@ -6266,7 +6213,7 @@ uint64_t MTFEBuilder::ProcessInsert(MTFEBuilder *this, SLToken *a2, char a3)
   v8 = Info;
   if (v6 && (Info & 1) == 0 && this->var3)
   {
-    MTFEBuilder::ProcessInsertWord(this, a2);
+    MTFEBuilder::ProcessInsertWord(this, a2, 1);
   }
 
   result = MTFEBuilder::MakeIntonationalPhrase(this);
@@ -6278,14 +6225,14 @@ uint64_t MTFEBuilder::ProcessInsert(MTFEBuilder *this, SLToken *a2, char a3)
       this->var19 = v10;
       if (!v10)
       {
-        MTFEBuilder::ProcessInsertWord(this, a2);
+        MTFEBuilder::ProcessInsertWord(this, a2, 0);
       }
     }
 
     result = SLTokenGetClass();
     if (result != 43 && result != 46)
     {
-      MTFEBuilder::ProcessInsertWord(this, a2);
+      MTFEBuilder::ProcessInsertWord(this, a2, 0);
     }
   }
 
@@ -6299,11 +6246,9 @@ uint64_t MTFEBuilder::ProcessInsert(MTFEBuilder *this, SLToken *a2, char a3)
 
 void MTFEBuilder::ProcessCommand(MTFEBuilder *this, SLToken *a2)
 {
-  var3 = this->var3;
   SLTokenGetInfo();
   SLTokenGetInfo();
   MTFEBuilder::MakeIntonationalPhrase(this);
-  v4 = this->var3;
   operator new();
 }
 
@@ -6367,9 +6312,7 @@ MTFEBuilder *MTFEBuilder::MakePhrase(MTFEBuilder *this)
 {
   if (!this->var4)
   {
-    v1 = this;
     MTFEBuilder::MakeIntonationalPhrase(this);
-    var3 = v1->var3;
     operator new();
   }
 
@@ -6380,10 +6323,7 @@ MTFEBuilder *MTFEBuilder::MakeIntonationalPhrase(MTFEBuilder *this)
 {
   if (!this->var3)
   {
-    v1 = this;
-    var2 = this->var2;
     MTFEBuilder::MakeSentence(this);
-    v3 = v1->var2;
     operator new();
   }
 
@@ -6497,16 +6437,14 @@ size_t MTFEDebugVisitor::PrintTags(size_t this, const SLWordTagSet *a2)
       v4 = 0;
       do
       {
-        v5 = &a2->var0[v4];
-        v6 = SLTagEng::Name(v5[1]);
-        if (v6 && *v6)
+        v5 = SLTagEng::Name(a2->var0[v4 + 1]);
+        if (v5 && *v5)
         {
           fprintf(*(v3 + 8), "%s%s");
         }
 
         else
         {
-          v8 = v5[1];
           fprintf(*(v3 + 8), "%s(?%d?)");
         }
 
@@ -6516,9 +6454,9 @@ size_t MTFEDebugVisitor::PrintTags(size_t this, const SLWordTagSet *a2)
       while (v4 < a2->var0[0]);
     }
 
-    v7 = *(v3 + 8);
+    v6 = *(v3 + 8);
 
-    return fwrite("} ", 2uLL, 1uLL, v7);
+    return fwrite("} ", 2uLL, 1uLL, v6);
   }
 
   return this;
@@ -6613,7 +6551,7 @@ size_t MTFEDebugVisitor::VisitIntonationalPhrase(MTFEDebugVisitor *this, MTFESpe
   {
     MTFEDebugVisitor::StartElement(this, "Melody", 0);
     var6 = a2[3].var6;
-    if (*(var6 + 2))
+    if (var6->var3)
     {
       v9 = 0;
       do
@@ -6636,7 +6574,7 @@ size_t MTFEDebugVisitor::VisitIntonationalPhrase(MTFEDebugVisitor *this, MTFESpe
         var6 = a2[3].var6;
       }
 
-      while (v9 < *(var6 + 2));
+      while (v9 < var6->var3);
     }
 
     MTFEDebugVisitor::EndElement(this);
@@ -6897,12 +6835,12 @@ LABEL_16:
   if (var6)
   {
     v15 = this[1];
-    v16 = MEOWPhon::Name(*var6);
-    v17 = MEOWPhon::Name(*(var6 + 1));
-    v18 = bswap32(*(var6 + 1)) >> 16;
-    v19 = MEOWPhon::Name(*(var6 + 4));
-    v20 = MEOWPhon::Name(*(var6 + 5));
-    fprintf(v15, " [%s-%s#%d - %s-%s#%d]", v16, v17, v18, v19, v20, bswap32(*(var6 + 3)) >> 16);
+    v16 = MEOWPhon::Name(LOBYTE(var6->var0));
+    v17 = MEOWPhon::Name(BYTE1(var6->var0));
+    v18 = bswap32(WORD1(var6->var0)) >> 16;
+    v19 = MEOWPhon::Name(BYTE4(var6->var0));
+    v20 = MEOWPhon::Name(BYTE5(var6->var0));
+    fprintf(v15, " [%s-%s#%d - %s-%s#%d]", v16, v17, v18, v19, v20, bswap32(HIWORD(var6->var0)) >> 16);
   }
 
   MTFESpeechElement::VisitChildren(a2, this);
@@ -7024,20 +6962,20 @@ size_t MTFEDebugVisitor::VisitPhoneme(FILE **this, MTFESpeechElement *a2)
     fputc(32, this[1]);
     if (this[2] && SLOWORD(a2[1].var5) != -1 && SWORD1(a2[1].var5) != -1)
     {
-      MEOWVectorBase::MEOWVectorBase(v36, 2);
+      MEOWVectorBase::MEOWVectorBase(v35, 2);
       v16 = this[2];
       DemiRecord = MEOWReader::GetDemiRecord(v16, BYTE4(a2[1].var5), BYTE5(a2[1].var5), LOWORD(a2[1].var5), 1);
-      MEOWReader::GetDemi(v16, DemiRecord, 1, v34);
-      v18 = v35;
+      MEOWReader::GetDemi(v16, DemiRecord, 1, v33);
+      v18 = v34;
       v19 = this[2];
       v20 = MEOWReader::GetDemiRecord(v19, BYTE5(a2[1].var5), BYTE6(a2[1].var5), WORD1(a2[1].var5), 0);
-      MEOWReader::GetDemi(v19, v20, 0, v34);
-      if (v35 == v18)
+      MEOWReader::GetDemi(v19, v20, 0, v33);
+      if (v34 == v18)
       {
         fputc(38, this[1]);
       }
 
-      MEOWVectorBase::~MEOWVectorBase(v36);
+      MEOWVectorBase::~MEOWVectorBase(v35);
     }
 
     fputc(91, this[1]);
@@ -7046,36 +6984,35 @@ size_t MTFEDebugVisitor::VisitPhoneme(FILE **this, MTFESpeechElement *a2)
       v21 = this[1];
       v22 = MEOWPhon::Name(BYTE4(a2[1].var5));
       v23 = MEOWPhon::Name(BYTE5(a2[1].var5));
-      var5_low = LOWORD(a2[1].var5);
       if (SWORD1(a2[1].var5) == -1)
       {
-        v25 = " ...";
+        v24 = " ...";
       }
 
       else
       {
-        v25 = " ";
+        v24 = " ";
       }
 
-      fprintf(v21, "%s>%s#%d%s", v22, v23, LOWORD(a2[1].var5), v25);
+      fprintf(v21, "%s>%s#%d%s", v22, v23, LOWORD(a2[1].var5), v24);
     }
 
     if (SWORD1(a2[1].var5) != -1)
     {
-      v26 = this[1];
+      v25 = this[1];
       if (SLOWORD(a2[1].var5) == -1)
       {
-        v27 = "... ";
+        v26 = "... ";
       }
 
       else
       {
-        v27 = "";
+        v26 = "";
       }
 
-      v28 = MEOWPhon::Name(BYTE5(a2[1].var5));
-      v29 = MEOWPhon::Name(BYTE6(a2[1].var5));
-      fprintf(v26, "%s%s<%s#%d", v27, v28, v29, WORD1(a2[1].var5));
+      v27 = MEOWPhon::Name(BYTE5(a2[1].var5));
+      v28 = MEOWPhon::Name(BYTE6(a2[1].var5));
+      fprintf(v25, "%s%s<%s#%d", v26, v27, v28, WORD1(a2[1].var5));
     }
 
     fputc(93, this[1]);
@@ -7090,17 +7027,17 @@ size_t MTFEDebugVisitor::VisitPhoneme(FILE **this, MTFESpeechElement *a2)
   {
     MTFEDebugVisitor::StartElement(this, "Pitch", 0);
     var4 = a2[1].var4;
-    if (*var4 >= 1)
+    if (SLODWORD(var4->var0) >= 1)
     {
-      v31 = 0;
+      v30 = 0;
       do
       {
-        fprintf(this[1], " %5.1f:%d", ((*(var4 + v31 + 1) & 0xFFFFFFLL) / 100.0), *(var4 + v31 + 1) >> 24);
-        ++v31;
+        fprintf(this[1], " %5.1f:%d", ((*(&var4->var1 + v30) & 0xFFFFFFLL) / 100.0), *(&var4->var1 + v30) >> 24);
+        ++v30;
         var4 = a2[1].var4;
       }
 
-      while (v31 < *var4);
+      while (v30 < SLODWORD(var4->var0));
     }
 
     MTFEDebugVisitor::EndElement(this);
@@ -7108,17 +7045,17 @@ size_t MTFEDebugVisitor::VisitPhoneme(FILE **this, MTFESpeechElement *a2)
 
   if (v5)
   {
-    v32 = v7 + 1;
+    v31 = v7 + 1;
   }
 
   else
   {
-    v32 = v7;
+    v31 = v7;
   }
 
   MTFESpeechElement::VisitChildren(a2, this);
   result = MTFEDebugVisitor::EndElement(this);
-  *(this + 29) = v32;
+  *(this + 29) = v31;
   this[4] = a2;
   return result;
 }
@@ -7138,7 +7075,6 @@ size_t MTFEDebugVisitor::VisitCommand(FILE **this, MTFECommand *a2)
   }
 
   v6 = this[1];
-  var9_low = LODWORD(a2->var9);
   if (v5)
   {
     fprintf(v6, "%c%c%c%c %c%c%c%c", (SLODWORD(a2->var8) >> 24), ((LODWORD(a2->var8) << 8) >> 24));
@@ -7164,9 +7100,9 @@ void MTFEDebugVisitor::Dump(MTFESpeechElement *this, MTFESpeechElement *a2)
   MTFESpeechVisitor::~MTFESpeechVisitor(v3);
 }
 
-void sub_257B1766C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_257B1766C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   MTFESpeechVisitor::~MTFESpeechVisitor(va);
   _Unwind_Resume(a1);
 }
@@ -7241,25 +7177,7 @@ LABEL_9:
   if (a2->var12 != 62)
   {
     this = MTFEWord::NextWord(a2);
-    if (!this)
-    {
-      goto LABEL_14;
-    }
-
-    v25 = 0;
-    v26 = 0;
-    MTFEWord::POSForNext(this, &v29, 0, &v26);
-    v12 = v29 == 31;
-    this = v26;
-    if (!v26)
-    {
-      goto LABEL_14;
-    }
-
-    MTFEWord::POSForNext(v26, &v28, 0, &v25);
-    v10 = v28 == 31;
-    this = v25;
-    if (v25)
+    if (this && (v25 = 0, v26 = 0, MTFEWord::POSForNext(this, &v29, 0, &v26), v12 = v29 == 31, (this = v26) != 0) && (MTFEWord::POSForNext(v26, &v28, 0, &v25), v10 = v28 == 31, (this = v25) != 0))
     {
       this = MTFEWord::POSForNext(v25, &v27, 0, 0);
       v11 = v27 == 31;
@@ -7267,7 +7185,6 @@ LABEL_9:
 
     else
     {
-LABEL_14:
       v11 = 1;
     }
   }
@@ -7520,20 +7437,20 @@ void MTFEPOSResolver::VisitWord(MTFEPOSResolver *this, MTFESpeechElement *a2)
   *(this + 11) = 0;
   MTFECommands::Visit(&a2[2], this);
   var5 = a2[1].var5;
-  v863 = *(&a2[1].var5 + 4);
-  v862 = -1;
-  v861 = 0;
-  MTFESpeechPedigree::MTFESpeechPedigree(v858, a2);
+  v857 = *(&a2[1].var5 + 4);
+  v856 = -1;
+  v855 = 0;
+  MTFESpeechPedigree::MTFESpeechPedigree(v852, a2);
   if ((BYTE1(a2[1].var0) & 2) != 0)
   {
     BYTE6(a2[1].var4) = SLFirstPOSInSet();
   }
 
-  v848 = a2;
+  v842 = a2;
   if (!var5)
   {
     v10 = 0;
-    v846 = 0;
+    v840 = 0;
     var3 = a2->var3;
     LODWORD(var15) = 255;
     LODWORD(v13) = 255;
@@ -7544,7 +7461,7 @@ void MTFEPOSResolver::VisitWord(MTFEPOSResolver *this, MTFESpeechElement *a2)
   v5 = vcnt_s8(v4);
   v5.i16[0] = vaddlv_u8(v5);
   v7 = a2->var1 == 1 && v5.i32[0] <= 1u && (var5 & 0x10880) == 0;
-  v846 = var5;
+  v840 = var5;
   if (v7)
   {
     LODWORD(var15) = SLFirstPOSInSet();
@@ -7559,7 +7476,7 @@ void MTFEPOSResolver::VisitWord(MTFEPOSResolver *this, MTFESpeechElement *a2)
       v14 = *MEMORY[0x277D85E08];
       v15 = *(MEMORY[0x277D65538] + 8 * var15);
       v16 = SLTagEng::Name(0);
-      fprintf(v14, "POS %s %s%s%s %s [%d] %08x %08x\n", &a2[3].var5, v15, "", "", v16, 352, v846, v861);
+      fprintf(v14, "POS %s %s%s%s %s [%d] %08x %08x\n", &a2[3].var5, v15, "", "", v16, 352, v840, v855);
     }
 
     var3 = 0;
@@ -7567,15 +7484,15 @@ void MTFEPOSResolver::VisitWord(MTFEPOSResolver *this, MTFESpeechElement *a2)
     goto LABEL_207;
   }
 
-  v857 = 0;
+  v851 = 0;
   var17.var0[0] = 0;
-  v855 = -1;
-  v854.var0[0] = 0;
+  v849 = -1;
+  v848.var0[0] = 0;
   if (*&a2[1].var1 == 60)
   {
     v8 = 0;
     v9 = 0;
-    v838 = 1;
+    v832 = 1;
   }
 
   else
@@ -7584,20 +7501,20 @@ void MTFEPOSResolver::VisitWord(MTFEPOSResolver *this, MTFESpeechElement *a2)
     v9 = Word;
     if (Word)
     {
-      MTFEWord::POSForPrev(Word, &v862, &var17, &v857);
+      MTFEWord::POSForPrev(Word, &v856, &var17, &v851);
     }
 
-    if (v857)
+    if (v851)
     {
-      MTFEWord::POSForPrev(v857, &v855, &v854, 0);
+      MTFEWord::POSForPrev(v851, &v849, &v848, 0);
     }
 
-    if (v862 == 255)
+    if (v856 == 255)
     {
-      v838 = *(v859 + 48) == 0;
-      if (*(v859 + 176))
+      v832 = *(v853 + 48) == 0;
+      if (*(v853 + 176))
       {
-        v8 = (*(v859 + 184) & 3) == 1;
+        v8 = (*(v853 + 184) & 3) == 1;
       }
 
       else
@@ -7609,24 +7526,24 @@ void MTFEPOSResolver::VisitWord(MTFEPOSResolver *this, MTFESpeechElement *a2)
     else
     {
       v8 = 0;
-      v838 = 0;
+      v832 = 0;
     }
   }
 
-  v852 = 0;
-  v853 = 0;
-  *v851 = 0;
-  v850.var0[0] = 0;
-  v849.var0[0] = 0;
+  v846 = 0;
+  v847 = 0;
+  *v845 = 0;
+  v844.var0[0] = 0;
+  v843.var0[0] = 0;
   if (*&a2[1].var1 == 62)
   {
     v18 = 0;
-    v840 = 0;
-    v842 = 0;
+    v834 = 0;
+    v836 = 0;
     v19 = 0;
-    v837 = 1;
-    v835 = 0;
-    v836 = 1;
+    v831 = 1;
+    v829 = 0;
+    v830 = 1;
     goto LABEL_56;
   }
 
@@ -7646,25 +7563,25 @@ void MTFEPOSResolver::VisitWord(MTFEPOSResolver *this, MTFESpeechElement *a2)
 
     var0_high = HIBYTE(v20[1].var0);
     v19 = var0_high == 9 || var0_high == 4;
-    MTFEWord::POSForNext(v20, &v861, &v850, &v853);
-    if (v853)
+    MTFEWord::POSForNext(v20, &v855, &v844, &v847);
+    if (v847)
     {
       if (v21)
       {
-        v21 = (LOBYTE(v853->var8) >> 6) & 1;
+        v21 = (LOBYTE(v847->var8) >> 6) & 1;
       }
 
-      MTFEWord::POSForNext(v853, &v851[1], &v849, &v852);
+      MTFEWord::POSForNext(v847, &v845[1], &v843, &v846);
     }
 
-    if (v852)
+    if (v846)
     {
       if (v21)
       {
-        v21 = (LOBYTE(v852->var8) >> 6) & 1;
+        v21 = (LOBYTE(v846->var8) >> 6) & 1;
       }
 
-      MTFEWord::POSForNext(v852, v851, 0, 0);
+      MTFEWord::POSForNext(v846, v845, 0, 0);
     }
 
     if (!v21)
@@ -7678,24 +7595,24 @@ void MTFEPOSResolver::VisitWord(MTFEPOSResolver *this, MTFESpeechElement *a2)
     v19 = 0;
   }
 
-  if (!*(v860 + 40))
+  if (!*(v854 + 40))
   {
-    v840 = *(this + 13);
-    v842 = 0;
+    v834 = *(this + 13);
+    v836 = 0;
     goto LABEL_55;
   }
 
 LABEL_54:
-  v840 = 0;
-  v842 = 1;
+  v834 = 0;
+  v836 = 1;
 LABEL_55:
-  v836 = (v851[1] & 0x7FFFFFFF) == 0;
-  v837 = (v861 & 0x7FFFFFFF) == 0;
-  v835 = (v851[0] & 0x7FFFFFFF) != 0;
+  v830 = (v845[1] & 0x7FFFFFFF) == 0;
+  v831 = (v855 & 0x7FFFFFFF) == 0;
+  v829 = (v845[0] & 0x7FFFFFFF) != 0;
 LABEL_56:
-  if (SLWordTagSet::find(&v863))
+  if (SLWordTagSet::find(&v857))
   {
-    var8 = v848->var8;
+    var8 = v842->var8;
     if ((var8 & 0x80) != 0)
     {
       v26 = this;
@@ -7716,44 +7633,44 @@ LABEL_56:
       v26 = this;
     }
 
-    if (MTFEPOSResolver::RequireTagAndPOS(v26, v848, v25, 0x7FFFFFFF))
+    if (MTFEPOSResolver::RequireTagAndPOS(v26, v842, v25, 0x7FFFFFFF))
     {
-      v846 = *(this + 7);
-      v863 = *(this + 2);
+      v840 = *(this + 7);
+      v857 = *(this + 2);
     }
   }
 
-  else if (v848->var27[1])
+  else if (v842->var27[1])
   {
-    *(this + 10) = (v848->var8 & 0x80) != 0;
+    *(this + 10) = (v842->var8 & 0x80) != 0;
   }
 
-  if (SLWordTagSet::find(&v863))
+  if (SLWordTagSet::find(&v857))
   {
-    v27 = (v848->var8 & 0x100) != 0 ? 72 : 73;
-    if (MTFEPOSResolver::RequireTagAndPOS(this, v848, v27, 0x7FFFFFFF))
+    v27 = (v842->var8 & 0x100) != 0 ? 72 : 73;
+    if (MTFEPOSResolver::RequireTagAndPOS(this, v842, v27, 0x7FFFFFFF))
     {
-      v846 = *(this + 7);
-      v863 = *(this + 2);
+      v840 = *(this + 7);
+      v857 = *(this + 2);
     }
   }
 
-  if (SLWordTagSet::find(&v863))
+  if (SLWordTagSet::find(&v857))
   {
-    if ((v848->var8 & 0x200) != 0)
+    if ((v842->var8 & 0x200) != 0)
     {
       v28 = 1039;
     }
 
     else
     {
-      v28 = SLWordTagSet::find(&v850) ? 1038 : 1039;
+      v28 = SLWordTagSet::find(&v844) ? 1038 : 1039;
     }
 
-    if (MTFEPOSResolver::RequireTagAndPOS(this, v848, v28, 0x7FFFFFFF))
+    if (MTFEPOSResolver::RequireTagAndPOS(this, v842, v28, 0x7FFFFFFF))
     {
       v29 = *(this + 7);
-      v863 = *(this + 2);
+      v857 = *(this + 2);
       if (kMTFEDebugPOS)
       {
         MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
@@ -7765,39 +7682,39 @@ LABEL_56:
         v30 = *MEMORY[0x277D85E08];
         v31 = *(MEMORY[0x277D65538] + 2040);
         v32 = SLTagEng::Name(0);
-        fprintf(v30, "POS %s %s%s%s %s [%d] %08x %08x\n", v848->var27, v31, "", "", v32, 480, v29, v861);
+        fprintf(v30, "POS %s %s%s%s %s [%d] %08x %08x\n", v842->var27, v31, "", "", v32, 480, v29, v855);
       }
 
-      v846 = v29;
+      v840 = v29;
     }
   }
 
-  if (SLWordTagSet::find(&v863))
+  if (SLWordTagSet::find(&v857))
   {
-    if ((*(this + 9) & 1) != 0 || (*(this + 11) & 1) != 0 || *(this + 14) == 1 && strcmp(v848->var27, "THE") && (v848->var27[0] != 65 || v848->var27[1]))
+    if ((*(this + 9) & 1) != 0 || (*(this + 11) & 1) != 0 || *(this + 14) == 1 && strcmp(v842->var27, "THE") && (v842->var27[0] != 65 || v842->var27[1]))
     {
       goto LABEL_87;
     }
 
-    LOWORD(v844) = 66;
-    if (v848->var10 == 1)
+    LOWORD(v838) = 66;
+    if (v842->var10 == 1)
     {
       goto LABEL_90;
     }
 
-    v70 = (v848->var8 & 0x2000) != 0 ? 66 : 67;
-    LOWORD(v844) = v70;
-    if ((v842 | ((v848->var8 & 0x2000) >> 13)))
+    v70 = (v842->var8 & 0x2000) != 0 ? 66 : 67;
+    LOWORD(v838) = v70;
+    if ((v836 | ((v842->var8 & 0x2000) >> 13)))
     {
       goto LABEL_90;
     }
 
-    if (v19 || v848->var27[0] == 73 && v848->var27[1] == 84 && !v848->var27[2])
+    if (v19 || v842->var27[0] == 73 && v842->var27[1] == 84 && !v842->var27[2])
     {
-      v848->var10 = 2;
+      v842->var10 = 2;
     }
 
-    if ((v840 & 1) == 0 || strcmp(v848->var27, "THE") && (v848->var27[0] != 65 || v848->var27[1]))
+    if ((v834 & 1) == 0 || strcmp(v842->var27, "THE") && (v842->var27[0] != 65 || v842->var27[1]))
     {
 LABEL_87:
       v33 = 66;
@@ -7808,27 +7725,27 @@ LABEL_87:
       v33 = 67;
     }
 
-    LOWORD(v844) = v33;
+    LOWORD(v838) = v33;
   }
 
   else
   {
-    LOWORD(v844) = 0;
+    LOWORD(v838) = 0;
   }
 
 LABEL_90:
-  if (!SLWordTagSet::find(&v863))
+  if (!SLWordTagSet::find(&v857))
   {
     goto LABEL_104;
   }
 
-  v34 = v848;
-  if ((v848->var8 & 0x8020) != 0x20 || *(this + 12) == 1 && (v35 = SLWordTagSet::find(&v850), v34 = v848, !v35) || (var27 = v34->var27, v34->var27[0] == 73) && !v34->var27[1])
+  v34 = v842;
+  if ((v842->var8 & 0x8020) != 0x20 || *(this + 12) == 1 && (v35 = SLWordTagSet::find(&v844), v34 = v842, !v35) || (var27 = v34->var27, v34->var27[0] == 73) && !v34->var27[1])
   {
     if (MTFEPOSResolver::RequireTagAndPOS(this, v34, 77, 0x7FFFFFFF))
     {
-      v846 = *(this + 7);
-      v863 = *(this + 2);
+      v840 = *(this + 7);
+      v857 = *(this + 2);
     }
 
     goto LABEL_104;
@@ -7852,16 +7769,16 @@ LABEL_104:
     v37 = *MEMORY[0x277D85E08];
     v38 = *MEMORY[0x277D65538];
     v39 = SLTagEng::Name(0x4C);
-    fprintf(v37, "POS %s %s%s%s %s [%d] %08x %08x\n", var27, v38, "", "", v39, 520, v846, v861);
+    fprintf(v37, "POS %s %s%s%s %s [%d] %08x %08x\n", var27, v38, "", "", v39, 520, v840, v855);
   }
 
   LODWORD(var15) = 0;
-  LOWORD(v844) = 76;
+  LOWORD(v838) = 76;
 LABEL_105:
-  v40 = v848->var27;
-  if (!strcmp(v848->var27, "PRES."))
+  v40 = v842->var27;
+  if (!strcmp(v842->var27, "PRES."))
   {
-    if (SLWordTagSet::find(&v850))
+    if (SLWordTagSet::find(&v844))
     {
       HIBYTE(v18[1].var0) = 2;
       strcpy(v40, "PRESIDENT");
@@ -7876,7 +7793,7 @@ LABEL_105:
         v41 = *MEMORY[0x277D85E08];
         v42 = *(MEMORY[0x277D65538] + 8 * var15);
         v43 = SLTagEng::Name(0x40C);
-        fprintf(v41, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v42, "", "", v43, 536, v846, v861);
+        fprintf(v41, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v42, "", "", v43, 536, v840, v855);
       }
 
       v44 = 1036;
@@ -7896,14 +7813,14 @@ LABEL_105:
         v45 = *MEMORY[0x277D85E08];
         v46 = *(MEMORY[0x277D65538] + 8);
         v47 = SLTagEng::Name(0x40D);
-        fprintf(v45, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v46, "", "", v47, 541, v846, v861);
+        fprintf(v45, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v46, "", "", v47, 541, v840, v855);
       }
 
       LODWORD(var15) = 1;
       v44 = 1037;
     }
 
-    LOWORD(v844) = v44;
+    LOWORD(v838) = v44;
   }
 
   if (!strcmp(v40, "EXPY"))
@@ -7918,10 +7835,10 @@ LABEL_105:
       v48 = 1057;
     }
 
-    v844 = v48;
-    MTFEPOSResolver::RequireTagAndPOS(this, v848, v48, 0x7FFFFFFF);
+    v838 = v48;
+    MTFEPOSResolver::RequireTagAndPOS(this, v842, v48, 0x7FFFFFFF);
     v49 = *(this + 7);
-    v863 = *(this + 2);
+    v857 = *(this + 2);
     if (kMTFEDebugPOS)
     {
       MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
@@ -7932,19 +7849,19 @@ LABEL_105:
     {
       v50 = *MEMORY[0x277D85E08];
       v51 = *(MEMORY[0x277D65538] + 8 * var15);
-      v52 = SLTagEng::Name(v844);
-      fprintf(v50, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v51, "", "", v52, 556, v49, v861);
+      v52 = SLTagEng::Name(v838);
+      fprintf(v50, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v51, "", "", v52, 556, v49, v855);
     }
 
-    v846 = v49;
+    v840 = v49;
   }
 
-  if (SLWordTagSet::find(&v863))
+  if (SLWordTagSet::find(&v857))
   {
-    v53 = SLWordTagSet::find(&v863);
+    v53 = SLWordTagSet::find(&v857);
     if (SLWordTagSet::find(&var17))
     {
-      *&v848->var10 = 516;
+      *&v842->var10 = 516;
       strcpy(v40, "DRIVE");
       if (kMTFEDebugPOS)
       {
@@ -7957,7 +7874,7 @@ LABEL_105:
         v54 = *MEMORY[0x277D85E08];
         v55 = *MEMORY[0x277D65538];
         v56 = SLTagEng::Name(0x402);
-        fprintf(v54, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v55, "", "", v56, 577, v846, v861);
+        fprintf(v54, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v55, "", "", v56, 577, v840, v855);
       }
 
 LABEL_206:
@@ -7969,7 +7886,7 @@ LABEL_206:
 
     if (v53)
     {
-      if (SLWordTagSet::find(&v850))
+      if (SLWordTagSet::find(&v844))
       {
         HIBYTE(v18[1].var0) = 2;
         strcpy(v40, "DOCTOR");
@@ -7984,7 +7901,7 @@ LABEL_206:
           v64 = *MEMORY[0x277D85E08];
           v65 = *MEMORY[0x277D65538];
           v66 = SLTagEng::Name(0x403);
-          fprintf(v64, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v65, "", "", v66, 582, v846, v861);
+          fprintf(v64, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v65, "", "", v66, 582, v840, v855);
         }
 
 LABEL_157:
@@ -7994,9 +7911,9 @@ LABEL_157:
         goto LABEL_207;
       }
 
-      if (((1 << v862) & 0x41) == 0)
+      if (((1 << v856) & 0x41) == 0)
       {
-        if ((v861 & 0x41) != 0)
+        if ((v855 & 0x41) != 0)
         {
           HIBYTE(v18[1].var0) = 2;
           strcpy(v40, "DOCTOR");
@@ -8008,10 +7925,10 @@ LABEL_157:
 
           if (byte_27F8F0908 == 1)
           {
-            v121 = *MEMORY[0x277D85E08];
-            v122 = *MEMORY[0x277D65538];
-            v123 = SLTagEng::Name(0x403);
-            fprintf(v121, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v122, "", "", v123, 593, v846, v861);
+            v118 = *MEMORY[0x277D85E08];
+            v119 = *MEMORY[0x277D65538];
+            v120 = SLTagEng::Name(0x403);
+            fprintf(v118, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v119, "", "", v120, 593, v840, v855);
           }
         }
 
@@ -8026,10 +7943,10 @@ LABEL_157:
 
           if (byte_27F8F0908 == 1)
           {
-            v142 = *MEMORY[0x277D85E08];
-            v143 = *MEMORY[0x277D65538];
-            v144 = SLTagEng::Name(0x403);
-            fprintf(v142, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v143, "", "", v144, 598, v846, v861);
+            v139 = *MEMORY[0x277D85E08];
+            v140 = *MEMORY[0x277D65538];
+            v141 = SLTagEng::Name(0x403);
+            fprintf(v139, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v140, "", "", v141, 598, v840, v855);
           }
         }
 
@@ -8037,7 +7954,7 @@ LABEL_157:
       }
 
 LABEL_202:
-      *&v848->var10 = 516;
+      *&v842->var10 = 516;
       strcpy(v40, "DRIVE");
       if (kMTFEDebugPOS)
       {
@@ -8050,13 +7967,13 @@ LABEL_202:
         v81 = *MEMORY[0x277D85E08];
         v82 = *MEMORY[0x277D65538];
         v83 = SLTagEng::Name(0x402);
-        fprintf(v81, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v82, "", "", v83, 588, v846, v861);
+        fprintf(v81, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v82, "", "", v83, 588, v840, v855);
       }
 
       goto LABEL_206;
     }
 
-    if (((1 << v862) & 0x41) != 0)
+    if (((1 << v856) & 0x41) != 0)
     {
       goto LABEL_202;
     }
@@ -8064,10 +7981,10 @@ LABEL_202:
     goto LABEL_332;
   }
 
-  if (SLWordTagSet::find(&v863))
+  if (SLWordTagSet::find(&v857))
   {
-    v57 = SLWordTagSet::find(&v863);
-    if (v57 && SLWordTagSet::find(&v850))
+    v57 = SLWordTagSet::find(&v857);
+    if (v57 && SLWordTagSet::find(&v844))
     {
       HIBYTE(v18[1].var0) = 2;
       strcpy(v40, "SAINT");
@@ -8082,7 +7999,7 @@ LABEL_202:
         v58 = *MEMORY[0x277D85E08];
         v59 = *MEMORY[0x277D65538];
         v60 = SLTagEng::Name(0x401);
-        fprintf(v58, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v59, "", "", v60, 618, v846, v861);
+        fprintf(v58, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v59, "", "", v60, 618, v840, v855);
       }
 
 LABEL_142:
@@ -8096,7 +8013,7 @@ LABEL_207:
 
     if (SLWordTagSet::find(&var17))
     {
-      *&v848->var10 = 516;
+      *&v842->var10 = 516;
       if (v57)
       {
         strcpy(v40, "STREET");
@@ -8113,13 +8030,13 @@ LABEL_207:
         v67 = *MEMORY[0x277D85E08];
         v68 = *MEMORY[0x277D65538];
         v69 = SLTagEng::Name(0x400);
-        fprintf(v67, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v68, "", "", v69, 625, v846, v861);
+        fprintf(v67, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v68, "", "", v69, 625, v840, v855);
       }
     }
 
-    else if (((1 << v862) & 0x41) != 0)
+    else if (((1 << v856) & 0x41) != 0)
     {
-      v848->var10 = 4;
+      v842->var10 = 4;
       if (v57)
       {
         strcpy(v40, "STREET");
@@ -8136,7 +8053,7 @@ LABEL_207:
         v78 = *MEMORY[0x277D85E08];
         v79 = *MEMORY[0x277D65538];
         v80 = SLTagEng::Name(0x400);
-        fprintf(v78, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v79, "", "", v80, 631, v846, v861);
+        fprintf(v78, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v79, "", "", v80, 631, v840, v855);
       }
     }
 
@@ -8147,7 +8064,7 @@ LABEL_207:
         goto LABEL_332;
       }
 
-      if ((v861 & 0x41) != 0)
+      if ((v855 & 0x41) != 0)
       {
         HIBYTE(v18[1].var0) = 2;
         strcpy(v40, "SAINT");
@@ -8159,10 +8076,10 @@ LABEL_207:
 
         if (byte_27F8F0908 == 1)
         {
-          v113 = *MEMORY[0x277D85E08];
-          v114 = *MEMORY[0x277D65538];
-          v115 = SLTagEng::Name(0x401);
-          fprintf(v113, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v114, "", "", v115, 636, v846, v861);
+          v110 = *MEMORY[0x277D85E08];
+          v111 = *MEMORY[0x277D65538];
+          v112 = SLTagEng::Name(0x401);
+          fprintf(v110, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v111, "", "", v112, 636, v840, v855);
         }
 
         goto LABEL_142;
@@ -8177,10 +8094,10 @@ LABEL_207:
 
       if (byte_27F8F0908 == 1)
       {
-        v152 = *MEMORY[0x277D85E08];
-        v153 = *MEMORY[0x277D65538];
-        v154 = SLTagEng::Name(0x400);
-        fprintf(v152, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v153, "", "", v154, 642, v846, v861);
+        v149 = *MEMORY[0x277D85E08];
+        v150 = *MEMORY[0x277D65538];
+        v151 = SLTagEng::Name(0x400);
+        fprintf(v149, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v150, "", "", v151, 642, v840, v855);
       }
     }
 
@@ -8190,9 +8107,9 @@ LABEL_207:
     goto LABEL_207;
   }
 
-  if (SLWordTagSet::find(&v863))
+  if (SLWordTagSet::find(&v857))
   {
-    if (SLWordTagSet::find(&v863) && SLWordTagSet::find(&v850))
+    if (SLWordTagSet::find(&v857) && SLWordTagSet::find(&v844))
     {
       HIBYTE(v18[1].var0) = 2;
       strcpy(v40, "FORT");
@@ -8207,7 +8124,7 @@ LABEL_207:
         v61 = *MEMORY[0x277D85E08];
         v62 = *MEMORY[0x277D65538];
         v63 = SLTagEng::Name(0x404);
-        fprintf(v61, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v62, "", "", v63, 652, v846, v861);
+        fprintf(v61, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v62, "", "", v63, 652, v840, v855);
       }
 
       LODWORD(var15) = 0;
@@ -8217,7 +8134,7 @@ LABEL_207:
 
     else
     {
-      v848->var11 = 2;
+      v842->var11 = 2;
       strcpy(v40, "FEET");
       if (kMTFEDebugPOS)
       {
@@ -8230,7 +8147,7 @@ LABEL_207:
         v75 = *MEMORY[0x277D85E08];
         v76 = *MEMORY[0x277D65538];
         v77 = SLTagEng::Name(0x405);
-        fprintf(v75, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v76, "", "", v77, 657, v846, v861);
+        fprintf(v75, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v76, "", "", v77, 657, v840, v855);
       }
 
       LODWORD(var15) = 0;
@@ -8241,12 +8158,12 @@ LABEL_207:
     goto LABEL_207;
   }
 
-  if (SLWordTagSet::find(&v863))
+  if (SLWordTagSet::find(&v857))
   {
     if (SLWordTagSet::find(&var17))
     {
-      v848->var11 = 2;
-      if (v848->var27[2] == 83)
+      v842->var11 = 2;
+      if (v842->var27[2] == 83)
       {
         v71 = "POINTS";
       }
@@ -8268,26 +8185,26 @@ LABEL_207:
         v72 = *MEMORY[0x277D85E08];
         v73 = *(MEMORY[0x277D65538] + 8 * var15);
         v74 = SLTagEng::Name(0x417);
-        fprintf(v72, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v73, "", "", v74, 664, v846, v861);
+        fprintf(v72, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v73, "", "", v74, 664, v840, v855);
       }
     }
 
     else
     {
-      if (SLWordTagSet::find(&v850))
+      if (SLWordTagSet::find(&v844))
       {
         HIBYTE(v18[1].var0) = 2;
-        if (v848->var27[2] == 83)
+        if (v842->var27[2] == 83)
         {
-          v116 = "PARTS";
+          v113 = "PARTS";
         }
 
         else
         {
-          v116 = "PART";
+          v113 = "PART";
         }
 
-        strcpy(v40, v116);
+        strcpy(v40, v113);
         if (kMTFEDebugPOS)
         {
           MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
@@ -8296,27 +8213,27 @@ LABEL_207:
 
         if (byte_27F8F0908 == 1)
         {
-          v117 = *MEMORY[0x277D85E08];
-          v118 = *(MEMORY[0x277D65538] + 8 * var15);
-          v119 = SLTagEng::Name(0x416);
-          fprintf(v117, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v118, "", "", v119, 669, v846, v861);
+          v114 = *MEMORY[0x277D85E08];
+          v115 = *(MEMORY[0x277D65538] + 8 * var15);
+          v116 = SLTagEng::Name(0x416);
+          fprintf(v114, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v115, "", "", v116, 669, v840, v855);
         }
 
-        v120 = 1046;
+        v117 = 1046;
         goto LABEL_328;
       }
 
-      if (v848->var27[2] == 83)
+      if (v842->var27[2] == 83)
       {
-        v124 = "POINTS";
+        v121 = "POINTS";
       }
 
       else
       {
-        v124 = "POINT";
+        v121 = "POINT";
       }
 
-      strcpy(v40, v124);
+      strcpy(v40, v121);
       if (kMTFEDebugPOS)
       {
         MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
@@ -8325,25 +8242,25 @@ LABEL_207:
 
       if (byte_27F8F0908 == 1)
       {
-        v125 = *MEMORY[0x277D85E08];
-        v126 = *(MEMORY[0x277D65538] + 8 * var15);
-        v127 = SLTagEng::Name(0x417);
-        fprintf(v125, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v126, "", "", v127, 673, v846, v861);
+        v122 = *MEMORY[0x277D85E08];
+        v123 = *(MEMORY[0x277D65538] + 8 * var15);
+        v124 = SLTagEng::Name(0x417);
+        fprintf(v122, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v123, "", "", v124, 673, v840, v855);
       }
     }
 
-    v120 = 1047;
+    v117 = 1047;
 LABEL_328:
-    LOWORD(v844) = v120;
+    LOWORD(v838) = v117;
     goto LABEL_329;
   }
 
-  if (SLWordTagSet::find(&v863) && SLWordTagSet::find(&var17))
+  if (SLWordTagSet::find(&v857) && SLWordTagSet::find(&var17))
   {
-    if (MTFEPOSResolver::RequireTagAndPOS(this, v848, 86, 0x7FFFFFFF))
+    if (MTFEPOSResolver::RequireTagAndPOS(this, v842, 86, 0x7FFFFFFF))
     {
-      v107 = *(this + 7);
-      v863 = *(this + 2);
+      v104 = *(this + 7);
+      v857 = *(this + 2);
       if (kMTFEDebugPOS)
       {
         MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
@@ -8352,43 +8269,43 @@ LABEL_328:
 
       if (byte_27F8F0908 == 1)
       {
-        v108 = *MEMORY[0x277D85E08];
-        v109 = *(MEMORY[0x277D65538] + 8 * var15);
-        v110 = SLTagEng::Name(v844);
-        fprintf(v108, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v109, "", "", v110, 682, v107, v861);
+        v105 = *MEMORY[0x277D85E08];
+        v106 = *(MEMORY[0x277D65538] + 8 * var15);
+        v107 = SLTagEng::Name(v838);
+        fprintf(v105, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v106, "", "", v107, 682, v104, v855);
       }
 
-      v846 = v107;
+      v840 = v104;
     }
 
     goto LABEL_329;
   }
 
-  v111 = SLWordTagSet::find(&v863) ^ 1;
-  if (v844 == 66)
+  v108 = SLWordTagSet::find(&v857) ^ 1;
+  if (v838 == 66)
   {
-    LOBYTE(v111) = 1;
+    LOBYTE(v108) = 1;
   }
 
-  if ((v111 & 1) == 0)
+  if ((v108 & 1) == 0)
   {
-    v112 = v848->var8;
-    if ((v112 & 0x200) != 0)
+    v109 = v842->var8;
+    if ((v109 & 0x200) != 0)
     {
-      if (v848->var15 || !MTFEPOSResolver::RequireTagAndPOS(this, v848, 65, 1))
+      if (v842->var15 || !MTFEPOSResolver::RequireTagAndPOS(this, v842, 65, 1))
       {
         goto LABEL_329;
       }
 
 LABEL_436:
-      v846 = *(this + 7);
-      v863 = *(this + 2);
+      v840 = *(this + 7);
+      v857 = *(this + 2);
       goto LABEL_329;
     }
 
-    if (v844)
+    if (v838)
     {
-      if (!MTFEPOSResolver::RequireTagAndPOS(this, v848, 65, 0x7FFFFFFF))
+      if (!MTFEPOSResolver::RequireTagAndPOS(this, v842, 65, 0x7FFFFFFF))
       {
         goto LABEL_329;
       }
@@ -8396,10 +8313,10 @@ LABEL_436:
       goto LABEL_436;
     }
 
-    v160 = (*(this + 12) != 1 || ((v158 = SLWordTagSet::find(&v863), v112 = v848->var8, (v112 & 0x4000) == 0) ? (v159 = 1) : (v159 = v158), v159 == 1)) && (v112 & 0x8000) == 0;
-    v165 = SLWordTagSet::find(&var17);
-    v166 = SLWordTagSet::find(&v850);
-    if (v848->var8 & 0x20) != 0 && ((v160 | v165 | v166))
+    v157 = (*(this + 12) != 1 || ((v155 = SLWordTagSet::find(&v857), v109 = v842->var8, (v109 & 0x4000) == 0) ? (v156 = 1) : (v156 = v155), v156 == 1)) && (v109 & 0x8000) == 0;
+    v162 = SLWordTagSet::find(&var17);
+    v163 = SLWordTagSet::find(&v844);
+    if (v842->var8 & 0x20) != 0 && ((v157 | v162 | v163))
     {
       if (kMTFEDebugPOS)
       {
@@ -8409,10 +8326,10 @@ LABEL_436:
 
       if (byte_27F8F0908 == 1)
       {
-        v167 = *MEMORY[0x277D85E08];
-        v168 = *MEMORY[0x277D65538];
-        v169 = SLTagEng::Name(0x40);
-        fprintf(v167, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v168, "", "", v169, 707, v846, v861);
+        v164 = *MEMORY[0x277D85E08];
+        v165 = *MEMORY[0x277D65538];
+        v166 = SLTagEng::Name(0x40);
+        fprintf(v164, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v165, "", "", v166, 707, v840, v855);
       }
     }
 
@@ -8420,7 +8337,7 @@ LABEL_436:
     {
       if (!SLWordTagSet::find(&var17))
       {
-        v173 = 65;
+        v170 = 65;
         goto LABEL_434;
       }
 
@@ -8432,23 +8349,23 @@ LABEL_436:
 
       if (byte_27F8F0908 == 1)
       {
-        v170 = *MEMORY[0x277D85E08];
-        v171 = *MEMORY[0x277D65538];
-        v172 = SLTagEng::Name(0x40);
-        fprintf(v170, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v171, "", "", v172, 714, v846, v861);
+        v167 = *MEMORY[0x277D85E08];
+        v168 = *MEMORY[0x277D65538];
+        v169 = SLTagEng::Name(0x40);
+        fprintf(v167, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v168, "", "", v169, 714, v840, v855);
       }
     }
 
     LODWORD(var15) = 0;
-    v173 = 64;
+    v170 = 64;
 LABEL_434:
-    if (!MTFEPOSResolver::RequireTagAndPOS(this, v848, v173, 0x7FFFFFFF))
+    if (!MTFEPOSResolver::RequireTagAndPOS(this, v842, v170, 0x7FFFFFFF))
     {
-      LOWORD(v844) = 0;
+      LOWORD(v838) = 0;
       goto LABEL_329;
     }
 
-    LOWORD(v844) = 0;
+    LOWORD(v838) = 0;
     goto LABEL_436;
   }
 
@@ -8460,17 +8377,17 @@ LABEL_330:
 LABEL_331:
     LODWORD(v13) = 255;
 LABEL_401:
-    v10 = v844;
+    v10 = v838;
     goto LABEL_208;
   }
 
 LABEL_332:
-  v128 = v848->var8;
-  if ((v128 & 0x200) != 0)
+  v125 = v842->var8;
+  if ((v125 & 0x200) != 0)
   {
-    v848->var8 = v128 & 0xFFFFFDFF;
-    var15 = v848->var15;
-    if ((v846 >> var15))
+    v842->var8 = v125 & 0xFFFFFDFF;
+    var15 = v842->var15;
+    if ((v840 >> var15))
     {
       LODWORD(v13) = 255;
     }
@@ -8479,54 +8396,54 @@ LABEL_332:
     {
       fprintf(*MEMORY[0x277D85DF8], "TTS: Tuple forced illegal POS %s for %s\n", *(MEMORY[0x277D65538] + 8 * var15), v40);
       LODWORD(var15) = SLFirstPOSInSet();
-      LODWORD(v13) = v848->var15;
+      LODWORD(v13) = v842->var15;
     }
 
-    v132 = byte_27F8F0908;
+    v129 = byte_27F8F0908;
     if (kMTFEDebugPOS)
     {
       MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, (byte_27F8F0908 & 1));
       kMTFEDebugPOS = 0;
-      v132 = byte_27F8F0908;
+      v129 = byte_27F8F0908;
     }
 
-    if (v132)
+    if (v129)
     {
-      v133 = "";
+      v130 = "";
       if (v13 == 255)
       {
-        v134 = "";
+        v131 = "";
       }
 
       else
       {
-        v134 = "->";
+        v131 = "->";
       }
 
       if (v13 == 255)
       {
-        v135 = 255;
+        v132 = 255;
       }
 
       else
       {
-        v135 = v13;
-        v133 = *(MEMORY[0x277D65538] + 8 * v13);
+        v132 = v13;
+        v130 = *(MEMORY[0x277D65538] + 8 * v13);
       }
 
-      v139 = *MEMORY[0x277D85E08];
-      v140 = *(MEMORY[0x277D65538] + 8 * var15);
-      v141 = SLTagEng::Name(v844);
-      fprintf(v139, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v140, v134, v133, v141, 754, v846, v861);
-      v10 = v844;
-      LODWORD(v13) = v135;
+      v136 = *MEMORY[0x277D85E08];
+      v137 = *(MEMORY[0x277D65538] + 8 * var15);
+      v138 = SLTagEng::Name(v838);
+      fprintf(v136, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v137, v131, v130, v138, 754, v840, v855);
+      v10 = v838;
+      LODWORD(v13) = v132;
       goto LABEL_557;
     }
 
     goto LABEL_556;
   }
 
-  if ((v846 & 0x100000) != 0)
+  if ((v840 & 0x100000) != 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -8541,10 +8458,10 @@ LABEL_332:
     else if (byte_27F8F0908)
     {
 LABEL_370:
-      v136 = *MEMORY[0x277D85E08];
-      v137 = *(MEMORY[0x277D65538] + 160);
-      v138 = SLTagEng::Name(v844);
-      fprintf(v136, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v137, "", "", v138, 761, v846, v861);
+      v133 = *MEMORY[0x277D85E08];
+      v134 = *(MEMORY[0x277D65538] + 160);
+      v135 = SLTagEng::Name(v838);
+      fprintf(v133, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v134, "", "", v135, 761, v840, v855);
     }
 
     var3 = 0;
@@ -8553,7 +8470,7 @@ LABEL_370:
     goto LABEL_401;
   }
 
-  if ((v846 & 0x200000) != 0)
+  if ((v840 & 0x200000) != 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -8568,10 +8485,10 @@ LABEL_370:
     else if (byte_27F8F0908)
     {
 LABEL_399:
-      v155 = *MEMORY[0x277D85E08];
-      v156 = *(MEMORY[0x277D65538] + 168);
-      v157 = SLTagEng::Name(v844);
-      fprintf(v155, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v156, "", "", v157, 768, v846, v861);
+      v152 = *MEMORY[0x277D85E08];
+      v153 = *(MEMORY[0x277D65538] + 168);
+      v154 = SLTagEng::Name(v838);
+      fprintf(v152, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v153, "", "", v154, 768, v840, v855);
     }
 
     var3 = 0;
@@ -8580,7 +8497,7 @@ LABEL_399:
     goto LABEL_401;
   }
 
-  if ((SLWordTagSet::find(&var17) & v846) == 1)
+  if ((SLWordTagSet::find(&var17) & v840) == 1)
   {
     if (kMTFEDebugPOS)
     {
@@ -8590,16 +8507,16 @@ LABEL_399:
 
     if (byte_27F8F0908 == 1)
     {
-      v129 = *MEMORY[0x277D85E08];
-      v130 = *MEMORY[0x277D65538];
-      v131 = SLTagEng::Name(v844);
-      fprintf(v129, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v130, "", "", v131, 775, v846, v861);
+      v126 = *MEMORY[0x277D85E08];
+      v127 = *MEMORY[0x277D65538];
+      v128 = SLTagEng::Name(v838);
+      fprintf(v126, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v127, "", "", v128, 775, v840, v855);
     }
 
     goto LABEL_340;
   }
 
-  if (SLWordTagSet::find(&var17) && (v846 & 0x40) != 0 && (v861 & 1) != 0 || ((v145 = SLWordTagSet::find(&v854), v146 = v862, v862 == 14) ? (v147 = v145) : (v147 = 0), v147 == 1 && (v846 & 0x40) != 0 && (v861 & 1) != 0))
+  if (SLWordTagSet::find(&var17) && (v840 & 0x40) != 0 && (v855 & 1) != 0 || ((v142 = SLWordTagSet::find(&v848), v143 = v856, v856 == 14) ? (v144 = v142) : (v144 = 0), v144 == 1 && (v840 & 0x40) != 0 && (v855 & 1) != 0))
   {
     if (kMTFEDebugPOS)
     {
@@ -8609,19 +8526,19 @@ LABEL_399:
 
     if (byte_27F8F0908 == 1)
     {
-      v161 = *MEMORY[0x277D85E08];
-      v162 = *(MEMORY[0x277D65538] + 48);
-      v163 = SLTagEng::Name(v844);
-      fprintf(v161, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v162, "", "", v163, 784, v846, v861);
+      v158 = *MEMORY[0x277D85E08];
+      v159 = *(MEMORY[0x277D65538] + 48);
+      v160 = SLTagEng::Name(v838);
+      fprintf(v158, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v159, "", "", v160, 784, v840, v855);
     }
 
     goto LABEL_412;
   }
 
-  if ((~v846 & 0x483) == 0)
+  if ((~v840 & 0x483) == 0)
   {
-    v148 = 1 << v862;
-    if (((1 << v862) & 0x22000) != 0 && (v861 & 0x22000) == 0)
+    v145 = 1 << v856;
+    if (((1 << v856) & 0x22000) != 0 && (v855 & 0x22000) == 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -8629,13 +8546,13 @@ LABEL_399:
         kMTFEDebugPOS = 0;
       }
 
-      v10 = v844;
+      v10 = v838;
       if (byte_27F8F0908 == 1)
       {
-        v149 = *MEMORY[0x277D85E08];
-        v150 = *MEMORY[0x277D65538];
-        v151 = SLTagEng::Name(v844);
-        fprintf(v149, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v150, "", "", v151, 801, v846, v861);
+        v146 = *MEMORY[0x277D85E08];
+        v147 = *MEMORY[0x277D65538];
+        v148 = SLTagEng::Name(v838);
+        fprintf(v146, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v147, "", "", v148, 801, v840, v855);
 LABEL_340:
         LODWORD(var15) = 0;
         goto LABEL_330;
@@ -8644,9 +8561,9 @@ LABEL_340:
       goto LABEL_482;
     }
 
-    if (!(v861 & 0x8000 | v148 & 0x100000) && ((v148 & 0x14100) == 0 || (v851[1] & 0x10E) != 0) && ((v148 & 0x10E) != 0 || (v861 & 0x200000) == 0 || (v851[1] & 0x10E) != 0))
+    if (!(v855 & 0x8000 | v145 & 0x100000) && ((v145 & 0x14100) == 0 || (v845[1] & 0x10E) != 0) && ((v145 & 0x10E) != 0 || (v855 & 0x200000) == 0 || (v845[1] & 0x10E) != 0))
     {
-      if ((v148 & 0x250012) != 0 && ((v861 & 0x40000) != 0 || (v861 & 0x110000) != 0 && (v851[1] & 0x10E) != 0))
+      if ((v145 & 0x250012) != 0 && ((v855 & 0x40000) != 0 || (v855 & 0x110000) != 0 && (v845[1] & 0x10E) != 0))
       {
         if (kMTFEDebugPOS)
         {
@@ -8656,10 +8573,10 @@ LABEL_340:
 
         if (byte_27F8F0908 == 1)
         {
-          v189 = *MEMORY[0x277D85E08];
-          v190 = *(MEMORY[0x277D65538] + 80);
-          v191 = SLTagEng::Name(v844);
-          fprintf(v189, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v190, "", "", v191, 820, v846, v861);
+          v186 = *MEMORY[0x277D85E08];
+          v187 = *(MEMORY[0x277D65538] + 80);
+          v188 = SLTagEng::Name(v838);
+          fprintf(v186, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v187, "", "", v188, 820, v840, v855);
         }
 
 LABEL_522:
@@ -8677,10 +8594,10 @@ LABEL_522:
 
       if (byte_27F8F0908 == 1)
       {
-        v198 = *MEMORY[0x277D85E08];
-        v199 = *(MEMORY[0x277D65538] + 56);
-        v200 = SLTagEng::Name(v844);
-        fprintf(v198, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v199, "", "", v200, 826, v846, v861);
+        v195 = *MEMORY[0x277D85E08];
+        v196 = *(MEMORY[0x277D65538] + 56);
+        v197 = SLTagEng::Name(v838);
+        fprintf(v195, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v196, "", "", v197, 826, v840, v855);
       }
 
       goto LABEL_554;
@@ -8692,13 +8609,13 @@ LABEL_522:
       kMTFEDebugPOS = 0;
     }
 
-    v10 = v844;
+    v10 = v838;
     if (byte_27F8F0908 == 1)
     {
-      v174 = *MEMORY[0x277D85E08];
-      v175 = *(MEMORY[0x277D65538] + 8);
-      v176 = SLTagEng::Name(v844);
-      fprintf(v174, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v175, "", "", v176, 811, v846, v861);
+      v171 = *MEMORY[0x277D85E08];
+      v172 = *(MEMORY[0x277D65538] + 8);
+      v173 = SLTagEng::Name(v838);
+      fprintf(v171, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v172, "", "", v173, 811, v840, v855);
 LABEL_527:
       var3 = 0;
       LODWORD(v13) = 255;
@@ -8713,9 +8630,9 @@ LABEL_474:
     goto LABEL_208;
   }
 
-  if ((~v846 & 0x403) == 0)
+  if ((~v840 & 0x403) == 0)
   {
-    if (((1 << v862) & 0x22000) != 0 && (v861 & 0x22000) == 0)
+    if (((1 << v856) & 0x22000) != 0 && (v855 & 0x22000) == 0)
     {
 LABEL_478:
       if (kMTFEDebugPOS)
@@ -8724,13 +8641,13 @@ LABEL_478:
         kMTFEDebugPOS = 0;
       }
 
-      v10 = v844;
+      v10 = v838;
       if (byte_27F8F0908 == 1)
       {
-        v186 = *MEMORY[0x277D85E08];
-        v187 = *MEMORY[0x277D65538];
-        v188 = SLTagEng::Name(v844);
-        fprintf(v186, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v187, "", "", v188, 840, v846, v861);
+        v183 = *MEMORY[0x277D85E08];
+        v184 = *MEMORY[0x277D65538];
+        v185 = SLTagEng::Name(v838);
+        fprintf(v183, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v184, "", "", v185, 840, v840, v855);
         goto LABEL_340;
       }
 
@@ -8740,10 +8657,10 @@ LABEL_482:
       goto LABEL_207;
     }
 
-    if (((0x22000u >> v855) & 1) != 0 && v862 == 6)
+    if (((0x22000u >> v849) & 1) != 0 && v856 == 6)
     {
-      v164 = v861;
-      if ((v861 & 0x22000) == 0)
+      v161 = v855;
+      if ((v855 & 0x22000) == 0)
       {
         goto LABEL_478;
       }
@@ -8751,7 +8668,7 @@ LABEL_482:
 
     else
     {
-      if (v862 == 15)
+      if (v856 == 15)
       {
 LABEL_523:
         if (kMTFEDebugPOS)
@@ -8762,19 +8679,19 @@ LABEL_523:
 
         if (byte_27F8F0908 == 1)
         {
-          v204 = *MEMORY[0x277D85E08];
-          v205 = *(MEMORY[0x277D65538] + 8);
-          v206 = SLTagEng::Name(v844);
-          fprintf(v204, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v205, "", "", v206, 846, v846, v861);
+          v201 = *MEMORY[0x277D85E08];
+          v202 = *(MEMORY[0x277D65538] + 8);
+          v203 = SLTagEng::Name(v838);
+          fprintf(v201, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v202, "", "", v203, 846, v840, v855);
         }
 
         goto LABEL_527;
       }
 
-      if (v862 == 16)
+      if (v856 == 16)
       {
-        v164 = v861;
-        if ((v861 & 0x80000) == 0)
+        v161 = v855;
+        if ((v855 & 0x80000) == 0)
         {
           goto LABEL_478;
         }
@@ -8782,11 +8699,11 @@ LABEL_523:
 
       else
       {
-        v164 = v861;
+        v161 = v855;
       }
     }
 
-    if ((v164 & 0x80000) == 0)
+    if ((v161 & 0x80000) == 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -8796,10 +8713,10 @@ LABEL_523:
 
       if (byte_27F8F0908 == 1)
       {
-        v201 = *MEMORY[0x277D85E08];
-        v202 = *(MEMORY[0x277D65538] + 80);
-        v203 = SLTagEng::Name(v844);
-        fprintf(v201, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v202, "", "", v203, 852, v846, v861);
+        v198 = *MEMORY[0x277D85E08];
+        v199 = *(MEMORY[0x277D65538] + 80);
+        v200 = SLTagEng::Name(v838);
+        fprintf(v198, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v199, "", "", v200, 852, v840, v855);
       }
 
       goto LABEL_522;
@@ -8808,9 +8725,9 @@ LABEL_523:
     goto LABEL_523;
   }
 
-  if ((~v846 & 0x12400) == 0)
+  if ((~v840 & 0x12400) == 0)
   {
-    if (((v838 & 1) != 0 || ((1 << v862) & 0xBE) != 0) && (v861 & 0x30000) == 0 && (v851[1] & 0x30000) == 0 && (v851[0] & 0x30000) == 0 && (v836 & ((v861 & 0x20) >> 5) & 1) == 0 && ((v861 & 0x20) == 0 || (v851[1] & 0x80) == 0 || v835) && ((v861 & 0x41) != 0 || (v861 & 0x4000) != 0 && (v851[1] & 0x41) != 0))
+    if (((v832 & 1) != 0 || ((1 << v856) & 0xBE) != 0) && (v855 & 0x30000) == 0 && (v845[1] & 0x30000) == 0 && (v845[0] & 0x30000) == 0 && (v830 & ((v855 & 0x20) >> 5) & 1) == 0 && ((v855 & 0x20) == 0 || (v845[1] & 0x80) == 0 || v829) && ((v855 & 0x41) != 0 || (v855 & 0x4000) != 0 && (v845[1] & 0x41) != 0))
     {
       if (kMTFEDebugPOS)
       {
@@ -8820,10 +8737,10 @@ LABEL_523:
 
       if (byte_27F8F0908 == 1)
       {
-        v250 = *MEMORY[0x277D85E08];
-        v251 = *(MEMORY[0x277D65538] + 104);
-        v252 = SLTagEng::Name(v844);
-        fprintf(v250, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v251, "", "", v252, 868, v846, v861);
+        v247 = *MEMORY[0x277D85E08];
+        v248 = *(MEMORY[0x277D65538] + 104);
+        v249 = SLTagEng::Name(v838);
+        fprintf(v247, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v248, "", "", v249, 868, v840, v855);
       }
 
 LABEL_507:
@@ -8833,8 +8750,8 @@ LABEL_507:
       goto LABEL_401;
     }
 
-    v177 = 1 << v862;
-    if (((1 << v862) & 0x4000) != 0)
+    v174 = 1 << v856;
+    if (((1 << v856) & 0x4000) != 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -8844,16 +8761,16 @@ LABEL_507:
 
       if (byte_27F8F0908 == 1)
       {
-        v195 = *MEMORY[0x277D85E08];
-        v196 = *(MEMORY[0x277D65538] + 80);
-        v197 = SLTagEng::Name(v844);
-        fprintf(v195, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v196, "", "", v197, 874, v846, v861);
+        v192 = *MEMORY[0x277D85E08];
+        v193 = *(MEMORY[0x277D65538] + 80);
+        v194 = SLTagEng::Name(v838);
+        fprintf(v192, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v193, "", "", v194, 874, v840, v855);
       }
 
       goto LABEL_522;
     }
 
-    if ((((v862 == 255) & ~v838) != 0 || (v177 & 0x210033) != 0) && (*(&v861 + 1) & 0x1720) != 0 && (v851[1] & 0x1CF) != 0 || (v177 & 0x32) != 0 && (v861 & 0x10) != 0 && (v851[1] & 0x10000) != 0 || (v177 & 0x290001) != 0 && (v861 & 0x10E) != 0)
+    if ((((v856 == 255) & ~v832) != 0 || (v174 & 0x210033) != 0) && (*(&v855 + 1) & 0x1720) != 0 && (v845[1] & 0x1CF) != 0 || (v174 & 0x32) != 0 && (v855 & 0x10) != 0 && (v845[1] & 0x10000) != 0 || (v174 & 0x290001) != 0 && (v855 & 0x10E) != 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -8863,10 +8780,10 @@ LABEL_507:
 
       if (byte_27F8F0908 == 1)
       {
-        v178 = *MEMORY[0x277D85E08];
-        v179 = *(MEMORY[0x277D65538] + 80);
-        v180 = SLTagEng::Name(v844);
-        fprintf(v178, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v179, "", "", v180, 885, v846, v861);
+        v175 = *MEMORY[0x277D85E08];
+        v176 = *(MEMORY[0x277D65538] + 80);
+        v177 = SLTagEng::Name(v838);
+        fprintf(v175, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v176, "", "", v177, 885, v840, v855);
       }
 
       goto LABEL_522;
@@ -8880,19 +8797,19 @@ LABEL_507:
 
     if (byte_27F8F0908 == 1)
     {
-      v212 = *MEMORY[0x277D85E08];
-      v213 = *(MEMORY[0x277D65538] + 128);
-      v214 = SLTagEng::Name(v844);
-      fprintf(v212, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v213, "", "", v214, 891, v846, v861);
+      v209 = *MEMORY[0x277D85E08];
+      v210 = *(MEMORY[0x277D65538] + 128);
+      v211 = SLTagEng::Name(v838);
+      fprintf(v209, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v210, "", "", v211, 891, v840, v855);
     }
 
     goto LABEL_547;
   }
 
-  v181 = v846 & 0x8080;
-  if (v181 == 32896)
+  v178 = v840 & 0x8080;
+  if (v178 == 32896)
   {
-    if ((v861 & 0x480) != 0 && (v861 & 0x2000) == 0)
+    if ((v855 & 0x480) != 0 && (v855 & 0x2000) == 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -8902,11 +8819,11 @@ LABEL_507:
 
       if (byte_27F8F0908 == 1)
       {
-        v182 = *MEMORY[0x277D85E08];
-        v183 = *(MEMORY[0x277D65538] + 56);
-        v184 = *(MEMORY[0x277D65538] + 152);
-        v185 = SLTagEng::Name(0x42);
-        fprintf(v182, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v183, "->", v184, v185, 907, v846, v861);
+        v179 = *MEMORY[0x277D85E08];
+        v180 = *(MEMORY[0x277D65538] + 56);
+        v181 = *(MEMORY[0x277D65538] + 152);
+        v182 = SLTagEng::Name(0x42);
+        fprintf(v179, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v180, "->", v181, v182, 907, v840, v855);
       }
 
       LODWORD(var15) = 7;
@@ -8914,26 +8831,26 @@ LABEL_507:
       goto LABEL_472;
     }
 
-    if (v862 == 7)
+    if (v856 == 7)
     {
       if (v9->var27[0] != 79 || v9->var27[1] != 70)
       {
         goto LABEL_550;
       }
 
-      v207 = v837;
+      v204 = v831;
       if (v9->var27[2])
       {
-        v207 = 1;
+        v204 = 1;
       }
 
-      if (v207)
+      if (v204)
       {
         goto LABEL_550;
       }
     }
 
-    else if (v837)
+    else if (v831)
     {
 LABEL_550:
       if (kMTFEDebugPOS)
@@ -8944,10 +8861,10 @@ LABEL_550:
 
       if (byte_27F8F0908 == 1)
       {
-        v215 = *MEMORY[0x277D85E08];
-        v216 = *(MEMORY[0x277D65538] + 56);
-        v217 = SLTagEng::Name(v844);
-        fprintf(v215, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v216, "", "", v217, 923, v846, v861);
+        v212 = *MEMORY[0x277D85E08];
+        v213 = *(MEMORY[0x277D65538] + 56);
+        v214 = SLTagEng::Name(v838);
+        fprintf(v212, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v213, "", "", v214, 923, v840, v855);
       }
 
 LABEL_554:
@@ -8955,11 +8872,11 @@ LABEL_554:
 LABEL_555:
       LODWORD(v13) = 255;
 LABEL_556:
-      v10 = v844;
+      v10 = v838;
       goto LABEL_557;
     }
 
-    if ((v861 & 0x32C00) == 0 && ((v861 & 0x10E) != 0 || (v861 & 0x4000) != 0 && (v851[1] & 0x10E) != 0))
+    if ((v855 & 0x32C00) == 0 && ((v855 & 0x10E) != 0 || (v855 & 0x4000) != 0 && (v845[1] & 0x10E) != 0))
     {
       if (kMTFEDebugPOS)
       {
@@ -8969,10 +8886,10 @@ LABEL_556:
 
       if (byte_27F8F0908 == 1)
       {
-        v244 = *MEMORY[0x277D85E08];
-        v245 = *(MEMORY[0x277D65538] + 120);
-        v246 = SLTagEng::Name(v844);
-        fprintf(v244, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v245, "", "", v246, 916, v846, v861);
+        v241 = *MEMORY[0x277D85E08];
+        v242 = *(MEMORY[0x277D65538] + 120);
+        v243 = SLTagEng::Name(v838);
+        fprintf(v241, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v242, "", "", v243, 916, v840, v855);
       }
 
       var3 = 0;
@@ -8984,9 +8901,9 @@ LABEL_556:
     goto LABEL_550;
   }
 
-  if ((~v846 & 0x12000) == 0)
+  if ((~v840 & 0x12000) == 0)
   {
-    if ((v861 & 0x103) == 1 || (~v861 & 0x101) == 0 && (v851[1] & 0x10C) != 0 || (v861 & 0x4040) != 0 && (v851[1] & 0x41) != 0 && (v851[1] & 0x100) == 0)
+    if ((v855 & 0x103) == 1 || (~v855 & 0x101) == 0 && (v845[1] & 0x10C) != 0 || (v855 & 0x4040) != 0 && (v845[1] & 0x41) != 0 && (v845[1] & 0x100) == 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -8996,16 +8913,16 @@ LABEL_556:
 
       if (byte_27F8F0908 == 1)
       {
-        v192 = *MEMORY[0x277D85E08];
-        v193 = *(MEMORY[0x277D65538] + 104);
-        v194 = SLTagEng::Name(v844);
-        fprintf(v192, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v193, "", "", v194, 939, v846, v861);
+        v189 = *MEMORY[0x277D85E08];
+        v190 = *(MEMORY[0x277D65538] + 104);
+        v191 = SLTagEng::Name(v838);
+        fprintf(v189, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v190, "", "", v191, 939, v840, v855);
       }
 
       goto LABEL_507;
     }
 
-    if ((~v861 & 3) == 0 && (((1 << v862) & 0x32) != 0 || v836))
+    if ((~v855 & 3) == 0 && (((1 << v856) & 0x32) != 0 || v830))
     {
       if (kMTFEDebugPOS)
       {
@@ -9015,10 +8932,10 @@ LABEL_556:
 
       if (byte_27F8F0908 == 1)
       {
-        v232 = *MEMORY[0x277D85E08];
-        v233 = *(MEMORY[0x277D65538] + 104);
-        v234 = SLTagEng::Name(v844);
-        fprintf(v232, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v233, "", "", v234, 947, v846, v861);
+        v229 = *MEMORY[0x277D85E08];
+        v230 = *(MEMORY[0x277D65538] + 104);
+        v231 = SLTagEng::Name(v838);
+        fprintf(v229, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v230, "", "", v231, 947, v840, v855);
       }
 
       goto LABEL_507;
@@ -9032,10 +8949,10 @@ LABEL_556:
 
     if (byte_27F8F0908 == 1)
     {
-      v235 = *MEMORY[0x277D85E08];
-      v236 = *(MEMORY[0x277D65538] + 128);
-      v237 = SLTagEng::Name(v844);
-      fprintf(v235, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v236, "", "", v237, 953, v846, v861);
+      v232 = *MEMORY[0x277D85E08];
+      v233 = *(MEMORY[0x277D65538] + 128);
+      v234 = SLTagEng::Name(v838);
+      fprintf(v232, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v233, "", "", v234, 953, v840, v855);
     }
 
 LABEL_547:
@@ -9045,15 +8962,15 @@ LABEL_547:
     goto LABEL_401;
   }
 
-  if ((~v846 & 0x14200) == 0)
+  if ((~v840 & 0x14200) == 0)
   {
-    v208 = v837 ^ 1;
-    if (v862 != 255)
+    v205 = v831 ^ 1;
+    if (v856 != 255)
     {
-      v208 = 1;
+      v205 = 1;
     }
 
-    if ((v208 & 1) == 0)
+    if ((v205 & 1) == 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -9063,10 +8980,10 @@ LABEL_547:
 
       if (byte_27F8F0908 == 1)
       {
-        v209 = *MEMORY[0x277D85E08];
-        v210 = *(MEMORY[0x277D65538] + 72);
-        v211 = SLTagEng::Name(v844);
-        fprintf(v209, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v210, "", "", v211, 965, v846, v861);
+        v206 = *MEMORY[0x277D85E08];
+        v207 = *(MEMORY[0x277D65538] + 72);
+        v208 = SLTagEng::Name(v838);
+        fprintf(v206, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v207, "", "", v208, 965, v840, v855);
       }
 
 LABEL_579:
@@ -9076,7 +8993,7 @@ LABEL_579:
       goto LABEL_401;
     }
 
-    if ((v861 & 0x10C) != 0)
+    if ((v855 & 0x10C) != 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -9086,10 +9003,10 @@ LABEL_579:
 
       if (byte_27F8F0908 == 1)
       {
-        v224 = *MEMORY[0x277D85E08];
-        v225 = *(MEMORY[0x277D65538] + 128);
-        v226 = SLTagEng::Name(v844);
-        fprintf(v224, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v225, "", "", v226, 972, v846, v861);
+        v221 = *MEMORY[0x277D85E08];
+        v222 = *(MEMORY[0x277D65538] + 128);
+        v223 = SLTagEng::Name(v838);
+        fprintf(v221, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v222, "", "", v223, 972, v840, v855);
       }
 
       goto LABEL_547;
@@ -9103,24 +9020,24 @@ LABEL_579:
 
     if (byte_27F8F0908 == 1)
     {
-      v247 = *MEMORY[0x277D85E08];
-      v248 = *(MEMORY[0x277D65538] + 112);
-      v249 = SLTagEng::Name(v844);
-      fprintf(v247, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v248, "", "", v249, 979, v846, v861);
+      v244 = *MEMORY[0x277D85E08];
+      v245 = *(MEMORY[0x277D65538] + 112);
+      v246 = SLTagEng::Name(v838);
+      fprintf(v244, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v245, "", "", v246, 979, v840, v855);
     }
 
     goto LABEL_675;
   }
 
-  if ((~v846 & 0x4201) == 0)
+  if ((~v840 & 0x4201) == 0)
   {
-    v220 = v837 ^ 1;
-    if (v862 != 255)
+    v217 = v831 ^ 1;
+    if (v856 != 255)
     {
-      v220 = 1;
+      v217 = 1;
     }
 
-    if ((v220 & 1) == 0)
+    if ((v217 & 1) == 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -9130,16 +9047,100 @@ LABEL_579:
 
       if (byte_27F8F0908 == 1)
       {
-        v221 = *MEMORY[0x277D85E08];
-        v222 = *(MEMORY[0x277D65538] + 72);
-        v223 = SLTagEng::Name(v844);
-        fprintf(v221, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v222, "", "", v223, 991, v846, v861);
+        v218 = *MEMORY[0x277D85E08];
+        v219 = *(MEMORY[0x277D65538] + 72);
+        v220 = SLTagEng::Name(v838);
+        fprintf(v218, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v219, "", "", v220, 991, v840, v855);
       }
 
       goto LABEL_579;
     }
 
-    if (((0x22040u >> v862) & 1) != 0 && (v861 & 0x60) == 0)
+    if (((0x22040u >> v856) & 1) != 0 && (v855 & 0x60) == 0)
+    {
+      if (kMTFEDebugPOS)
+      {
+        MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+        kMTFEDebugPOS = 0;
+      }
+
+      if (byte_27F8F0908 == 1)
+      {
+        v272 = *MEMORY[0x277D85E08];
+        v273 = *MEMORY[0x277D65538];
+        v274 = SLTagEng::Name(v838);
+        fprintf(v272, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v273, "", "", v274, 998, v840, v855);
+      }
+
+      goto LABEL_340;
+    }
+
+    if (kMTFEDebugPOS)
+    {
+      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+      kMTFEDebugPOS = 0;
+    }
+
+    if (byte_27F8F0908 == 1)
+    {
+      v235 = *MEMORY[0x277D85E08];
+      v236 = *(MEMORY[0x277D65538] + 112);
+      v237 = SLTagEng::Name(v838);
+      fprintf(v235, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v236, "", "", v237, 1005, v840, v855);
+    }
+
+LABEL_675:
+    var3 = 0;
+    LODWORD(v13) = 255;
+    LODWORD(var15) = 14;
+    goto LABEL_401;
+  }
+
+  if ((v840 & 0x4043) == 0x4043)
+  {
+    v224 = 1 << v856;
+    if (((1 << v856) & 0x108C00) != 0 || (((1 << v849) & 0x3E) != 0 ? (v225 = 1) : (v225 = (v224 & 0x10001) == 0), ((v831 | v225) & 1) == 0))
+    {
+      if ((v855 & 0x10E) == 0)
+      {
+        if (kMTFEDebugPOS)
+        {
+          MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+          kMTFEDebugPOS = 0;
+        }
+
+        if (byte_27F8F0908 == 1)
+        {
+          v257 = *MEMORY[0x277D85E08];
+          v258 = *(MEMORY[0x277D65538] + 8);
+          v259 = SLTagEng::Name(v838);
+          fprintf(v257, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v258, "", "", v259, 1020, v840, v855);
+        }
+
+        goto LABEL_527;
+      }
+    }
+
+    if ((v224 & 0x22040) == 0)
+    {
+      if (kMTFEDebugPOS)
+      {
+        MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+        kMTFEDebugPOS = 0;
+      }
+
+      if (byte_27F8F0908 == 1)
+      {
+        v265 = *MEMORY[0x277D85E08];
+        v266 = *(MEMORY[0x277D65538] + 112);
+        v267 = SLTagEng::Name(v838);
+        fprintf(v265, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v266, "", "", v267, 1041, v840, v855);
+      }
+
+      goto LABEL_675;
+    }
+
+    if ((v855 & 0x41) == 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -9151,8 +9152,8 @@ LABEL_579:
       {
         v275 = *MEMORY[0x277D85E08];
         v276 = *MEMORY[0x277D65538];
-        v277 = SLTagEng::Name(v844);
-        fprintf(v275, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v276, "", "", v277, 998, v846, v861);
+        v277 = SLTagEng::Name(v838);
+        fprintf(v275, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v276, "", "", v277, 1027, v840, v855);
       }
 
       goto LABEL_340;
@@ -9166,94 +9167,10 @@ LABEL_579:
 
     if (byte_27F8F0908 == 1)
     {
-      v238 = *MEMORY[0x277D85E08];
-      v239 = *(MEMORY[0x277D65538] + 112);
-      v240 = SLTagEng::Name(v844);
-      fprintf(v238, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v239, "", "", v240, 1005, v846, v861);
-    }
-
-LABEL_675:
-    var3 = 0;
-    LODWORD(v13) = 255;
-    LODWORD(var15) = 14;
-    goto LABEL_401;
-  }
-
-  if ((v846 & 0x4043) == 0x4043)
-  {
-    v227 = 1 << v862;
-    if (((1 << v862) & 0x108C00) != 0 || (((1 << v855) & 0x3E) != 0 ? (v228 = 1) : (v228 = (v227 & 0x10001) == 0), ((v837 | v228) & 1) == 0))
-    {
-      if ((v861 & 0x10E) == 0)
-      {
-        if (kMTFEDebugPOS)
-        {
-          MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-          kMTFEDebugPOS = 0;
-        }
-
-        if (byte_27F8F0908 == 1)
-        {
-          v260 = *MEMORY[0x277D85E08];
-          v261 = *(MEMORY[0x277D65538] + 8);
-          v262 = SLTagEng::Name(v844);
-          fprintf(v260, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v261, "", "", v262, 1020, v846, v861);
-        }
-
-        goto LABEL_527;
-      }
-    }
-
-    if ((v227 & 0x22040) == 0)
-    {
-      if (kMTFEDebugPOS)
-      {
-        MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-        kMTFEDebugPOS = 0;
-      }
-
-      if (byte_27F8F0908 == 1)
-      {
-        v268 = *MEMORY[0x277D85E08];
-        v269 = *(MEMORY[0x277D65538] + 112);
-        v270 = SLTagEng::Name(v844);
-        fprintf(v268, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v269, "", "", v270, 1041, v846, v861);
-      }
-
-      goto LABEL_675;
-    }
-
-    if ((v861 & 0x41) == 0)
-    {
-      if (kMTFEDebugPOS)
-      {
-        MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-        kMTFEDebugPOS = 0;
-      }
-
-      if (byte_27F8F0908 == 1)
-      {
-        v278 = *MEMORY[0x277D85E08];
-        v279 = *MEMORY[0x277D65538];
-        v280 = SLTagEng::Name(v844);
-        fprintf(v278, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v279, "", "", v280, 1027, v846, v861);
-      }
-
-      goto LABEL_340;
-    }
-
-    if (kMTFEDebugPOS)
-    {
-      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-      kMTFEDebugPOS = 0;
-    }
-
-    if (byte_27F8F0908 == 1)
-    {
-      v229 = *MEMORY[0x277D85E08];
-      v230 = *(MEMORY[0x277D65538] + 48);
-      v231 = SLTagEng::Name(v844);
-      fprintf(v229, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v230, "", "", v231, 1034, v846, v861);
+      v226 = *MEMORY[0x277D85E08];
+      v227 = *(MEMORY[0x277D65538] + 48);
+      v228 = SLTagEng::Name(v838);
+      fprintf(v226, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v227, "", "", v228, 1034, v840, v855);
     }
 
 LABEL_412:
@@ -9263,9 +9180,9 @@ LABEL_412:
     goto LABEL_401;
   }
 
-  if ((~v846 & 0x4042) == 0)
+  if ((~v840 & 0x4042) == 0)
   {
-    if (v862 == 15 || v9 && (!strcmp(v9->var27, "HELP") || !strcmp(v9->var27, "HELPS") || !strcmp(v9->var27, "HELPED")) || (v271 = v857) != 0 && (!strcmp(v857->var27, "HELP") && ((1 << v146) & 0x210000) != 0 || !strcmp(v271->var27, "HELPS") && ((1 << v146) & 0x210000) != 0 || !strcmp(v271->var27, "HELPED") && ((1 << v146) & 0x210000) != 0))
+    if (v856 == 15 || v9 && (!strcmp(v9->var27, "HELP") || !strcmp(v9->var27, "HELPS") || !strcmp(v9->var27, "HELPED")) || (v268 = v851) != 0 && (!strcmp(v851->var27, "HELP") && ((1 << v143) & 0x210000) != 0 || !strcmp(v268->var27, "HELPS") && ((1 << v143) & 0x210000) != 0 || !strcmp(v268->var27, "HELPED") && ((1 << v143) & 0x210000) != 0))
     {
       if (kMTFEDebugPOS)
       {
@@ -9275,16 +9192,16 @@ LABEL_412:
 
       if (byte_27F8F0908 == 1)
       {
-        v241 = *MEMORY[0x277D85E08];
-        v242 = *(MEMORY[0x277D65538] + 8);
-        v243 = SLTagEng::Name(v844);
-        fprintf(v241, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v242, "", "", v243, 1059, v846, v861);
+        v238 = *MEMORY[0x277D85E08];
+        v239 = *(MEMORY[0x277D65538] + 8);
+        v240 = SLTagEng::Name(v838);
+        fprintf(v238, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v239, "", "", v240, 1059, v840, v855);
       }
 
       goto LABEL_527;
     }
 
-    if (v18 && !strcmp(&v18[3].var5, "FROM") && SLWordTagSet::find(&v849))
+    if (v18 && !strcmp(&v18[3].var5, "FROM") && SLWordTagSet::find(&v843))
     {
       if (kMTFEDebugPOS)
       {
@@ -9294,18 +9211,18 @@ LABEL_412:
 
       if (byte_27F8F0908 == 1)
       {
-        v272 = *MEMORY[0x277D85E08];
-        v273 = *(MEMORY[0x277D65538] + 112);
-        v274 = SLTagEng::Name(v844);
-        fprintf(v272, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v273, "", "", v274, 1066, v846, v861);
+        v269 = *MEMORY[0x277D85E08];
+        v270 = *(MEMORY[0x277D65538] + 112);
+        v271 = SLTagEng::Name(v838);
+        fprintf(v269, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v270, "", "", v271, 1066, v840, v855);
       }
 
       goto LABEL_675;
     }
 
-    if ((v838 & 1) != 0 || ((1 << v862) & 0x100D00) != 0 || (v288 = 1 << v855, ((1 << v862) & 0x10001) != 0) && (v288 & 0x13E) == 0 || v862 == 17 && v855 == 8 || !v862 && v855 == 10 || v862 == 14 && (v288 & 0x110001) != 0)
+    if ((v832 & 1) != 0 || ((1 << v856) & 0x100D00) != 0 || (v285 = 1 << v849, ((1 << v856) & 0x10001) != 0) && (v285 & 0x13E) == 0 || v856 == 17 && v849 == 8 || !v856 && v849 == 10 || v856 == 14 && (v285 & 0x110001) != 0)
     {
-      if ((v837 & 1) != 0 || (v861 & 0x880) != 0 || (v861 & 0x10E) == 0 || (~v861 & 0x43) == 0 && (v851[1] & 0x80080) == 0x80080 || (v851[1] & 0x10000) != 0 && (v851[0] & 0x10E) != 0)
+      if ((v831 & 1) != 0 || (v855 & 0x880) != 0 || (v855 & 0x10E) == 0 || (~v855 & 0x43) == 0 && (v845[1] & 0x80080) == 0x80080 || (v845[1] & 0x10000) != 0 && (v845[0] & 0x10E) != 0)
       {
         if (kMTFEDebugPOS)
         {
@@ -9315,17 +9232,17 @@ LABEL_412:
 
         if (byte_27F8F0908 == 1)
         {
-          v289 = *MEMORY[0x277D85E08];
-          v290 = *(MEMORY[0x277D65538] + 8);
-          v291 = SLTagEng::Name(v844);
-          fprintf(v289, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v290, "", "", v291, 1086, v846, v861);
+          v286 = *MEMORY[0x277D85E08];
+          v287 = *(MEMORY[0x277D65538] + 8);
+          v288 = SLTagEng::Name(v838);
+          fprintf(v286, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v287, "", "", v288, 1086, v840, v855);
         }
 
         goto LABEL_527;
       }
     }
 
-    if (((0x22040u >> v862) & 1) == 0 && ((v861 & 0x41) == 0 || (v861 & 0x10E) != 0))
+    if (((0x22040u >> v856) & 1) == 0 && ((v855 & 0x41) == 0 || (v855 & 0x10E) != 0))
     {
       if (kMTFEDebugPOS)
       {
@@ -9335,10 +9252,10 @@ LABEL_412:
 
       if (byte_27F8F0908 == 1)
       {
-        v323 = *MEMORY[0x277D85E08];
-        v324 = *(MEMORY[0x277D65538] + 112);
-        v325 = SLTagEng::Name(v844);
-        fprintf(v323, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v324, "", "", v325, 1100, v846, v861);
+        v320 = *MEMORY[0x277D85E08];
+        v321 = *(MEMORY[0x277D65538] + 112);
+        v322 = SLTagEng::Name(v838);
+        fprintf(v320, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v321, "", "", v322, 1100, v840, v855);
       }
 
       goto LABEL_675;
@@ -9352,17 +9269,36 @@ LABEL_412:
 
     if (byte_27F8F0908 == 1)
     {
-      v308 = *MEMORY[0x277D85E08];
-      v309 = *(MEMORY[0x277D65538] + 48);
-      v310 = SLTagEng::Name(v844);
-      fprintf(v308, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v309, "", "", v310, 1093, v846, v861);
+      v305 = *MEMORY[0x277D85E08];
+      v306 = *(MEMORY[0x277D65538] + 48);
+      v307 = SLTagEng::Name(v838);
+      fprintf(v305, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v306, "", "", v307, 1093, v840, v855);
     }
 
     goto LABEL_412;
   }
 
-  v253 = v846 & 0x880;
-  if (v253 == 2176 && (v861 & 0x100000) == 0)
+  v250 = v840 & 0x880;
+  if (v250 == 2176 && (v855 & 0x100000) == 0)
+  {
+    if (kMTFEDebugPOS)
+    {
+      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+      kMTFEDebugPOS = 0;
+    }
+
+    if (byte_27F8F0908 == 1)
+    {
+      v251 = *MEMORY[0x277D85E08];
+      v252 = *(MEMORY[0x277D65538] + 56);
+      v253 = SLTagEng::Name(v838);
+      fprintf(v251, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v252, "", "", v253, 1109, v840, v855);
+    }
+
+    goto LABEL_554;
+  }
+
+  if ((~v840 & 0x4800) == 0 && v856 != 255 && (((v855 & 0x414E) == 0) & ~v831) == 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -9373,34 +9309,15 @@ LABEL_412:
     if (byte_27F8F0908 == 1)
     {
       v254 = *MEMORY[0x277D85E08];
-      v255 = *(MEMORY[0x277D65538] + 56);
-      v256 = SLTagEng::Name(v844);
-      fprintf(v254, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v255, "", "", v256, 1109, v846, v861);
-    }
-
-    goto LABEL_554;
-  }
-
-  if ((~v846 & 0x4800) == 0 && v862 != 255 && (((v861 & 0x414E) == 0) & ~v837) == 0)
-  {
-    if (kMTFEDebugPOS)
-    {
-      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-      kMTFEDebugPOS = 0;
-    }
-
-    if (byte_27F8F0908 == 1)
-    {
-      v257 = *MEMORY[0x277D85E08];
-      v258 = *(MEMORY[0x277D65538] + 112);
-      v259 = SLTagEng::Name(v844);
-      fprintf(v257, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v258, "", "", v259, 1118, v846, v861);
+      v255 = *(MEMORY[0x277D65538] + 112);
+      v256 = SLTagEng::Name(v838);
+      fprintf(v254, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v255, "", "", v256, 1118, v840, v855);
     }
 
     goto LABEL_675;
   }
 
-  if (!strcmp(v40, "WIND") && ((v861 & 0x2000) != 0 && (v851[1] & 0x41) != 0 || (v861 & 0x10000) != 0 && (v851[1] & 0x480) != 0))
+  if (!strcmp(v40, "WIND") && ((v855 & 0x2000) != 0 && (v845[1] & 0x41) != 0 || (v855 & 0x10000) != 0 && (v845[1] & 0x480) != 0))
   {
     if (kMTFEDebugPOS)
     {
@@ -9410,16 +9327,61 @@ LABEL_412:
 
     if (byte_27F8F0908 == 1)
     {
-      v281 = *MEMORY[0x277D85E08];
-      v282 = *(MEMORY[0x277D65538] + 8);
-      v283 = SLTagEng::Name(v844);
-      fprintf(v281, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v282, "", "", v283, 1128, v846, v861);
+      v278 = *MEMORY[0x277D85E08];
+      v279 = *(MEMORY[0x277D65538] + 8);
+      v280 = SLTagEng::Name(v838);
+      fprintf(v278, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v279, "", "", v280, 1128, v840, v855);
     }
 
     goto LABEL_527;
   }
 
-  if ((v846 & 0x10000) != 0 && v146 == 6 && (!strcmp(v40, "ONE") || !strcmp(v40, "ONES")))
+  if ((v840 & 0x10000) != 0 && v143 == 6 && (!strcmp(v40, "ONE") || !strcmp(v40, "ONES")))
+  {
+    if (kMTFEDebugPOS)
+    {
+      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+      kMTFEDebugPOS = 0;
+    }
+
+    if (byte_27F8F0908 == 1)
+    {
+      v289 = *MEMORY[0x277D85E08];
+      v290 = *(MEMORY[0x277D65538] + 128);
+      v291 = SLTagEng::Name(v838);
+      fprintf(v289, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v290, "", "", v291, 1137, v840, v855);
+    }
+
+    goto LABEL_547;
+  }
+
+  v260 = strcmp(v40, "CLOSE");
+  v261 = v831 ^ 1;
+  if (v260)
+  {
+    v261 = 1;
+  }
+
+  if ((v261 & 1) == 0)
+  {
+    if (kMTFEDebugPOS)
+    {
+      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+      kMTFEDebugPOS = 0;
+    }
+
+    if (byte_27F8F0908 == 1)
+    {
+      v262 = *MEMORY[0x277D85E08];
+      v263 = *(MEMORY[0x277D65538] + 48);
+      v264 = SLTagEng::Name(v838);
+      fprintf(v262, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v263, "", "", v264, 1147, v840, v855);
+    }
+
+    goto LABEL_412;
+  }
+
+  if ((v840 & 0x800) != 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -9430,54 +9392,9 @@ LABEL_412:
     if (byte_27F8F0908 == 1)
     {
       v292 = *MEMORY[0x277D85E08];
-      v293 = *(MEMORY[0x277D65538] + 128);
-      v294 = SLTagEng::Name(v844);
-      fprintf(v292, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v293, "", "", v294, 1137, v846, v861);
-    }
-
-    goto LABEL_547;
-  }
-
-  v263 = strcmp(v40, "CLOSE");
-  v264 = v837 ^ 1;
-  if (v263)
-  {
-    v264 = 1;
-  }
-
-  if ((v264 & 1) == 0)
-  {
-    if (kMTFEDebugPOS)
-    {
-      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-      kMTFEDebugPOS = 0;
-    }
-
-    if (byte_27F8F0908 == 1)
-    {
-      v265 = *MEMORY[0x277D85E08];
-      v266 = *(MEMORY[0x277D65538] + 48);
-      v267 = SLTagEng::Name(v844);
-      fprintf(v265, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v266, "", "", v267, 1147, v846, v861);
-    }
-
-    goto LABEL_412;
-  }
-
-  if ((v846 & 0x800) != 0)
-  {
-    if (kMTFEDebugPOS)
-    {
-      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-      kMTFEDebugPOS = 0;
-    }
-
-    if (byte_27F8F0908 == 1)
-    {
-      v295 = *MEMORY[0x277D85E08];
-      v296 = *(MEMORY[0x277D65538] + 88);
-      v297 = SLTagEng::Name(v844);
-      fprintf(v295, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v296, "", "", v297, 1153, v846, v861);
+      v293 = *(MEMORY[0x277D65538] + 88);
+      v294 = SLTagEng::Name(v838);
+      fprintf(v292, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v293, "", "", v294, 1153, v840, v855);
     }
 
     var3 = 0;
@@ -9486,10 +9403,10 @@ LABEL_412:
     goto LABEL_401;
   }
 
-  if ((v838 & ((v846 & 0x1000) >> 12)) == 1)
+  if ((v832 & ((v840 & 0x1000) >> 12)) == 1)
   {
-    v284 = v861;
-    if ((v861 & 0x10C) != 0 || (v861 & 0x41) != 0 && (v851[1] & 0x10C) != 0)
+    v281 = v855;
+    if ((v855 & 0x10C) != 0 || (v855 & 0x41) != 0 && (v845[1] & 0x10C) != 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -9499,25 +9416,25 @@ LABEL_412:
 
       if (byte_27F8F0908 == 1)
       {
-        v285 = *MEMORY[0x277D85E08];
-        v286 = *(MEMORY[0x277D65538] + 96);
-        v287 = SLTagEng::Name(v844);
-        fprintf(v285, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v286, "", "", v287, 1164, v846, v861);
+        v282 = *MEMORY[0x277D85E08];
+        v283 = *(MEMORY[0x277D65538] + 96);
+        v284 = SLTagEng::Name(v838);
+        fprintf(v282, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v283, "", "", v284, 1164, v840, v855);
       }
 
       goto LABEL_792;
     }
 
 LABEL_781:
-    if (v284 < 0)
+    if (v281 < 0)
     {
-      if (((v837 | ((v851[1] & 2) >> 1)) & 1) == 0)
+      if (((v831 | ((v845[1] & 2) >> 1)) & 1) == 0)
       {
         goto LABEL_783;
       }
     }
 
-    else if (!v837)
+    else if (!v831)
     {
 LABEL_783:
       if (kMTFEDebugPOS)
@@ -9528,10 +9445,10 @@ LABEL_783:
 
       if (byte_27F8F0908 == 1)
       {
-        v311 = *MEMORY[0x277D85E08];
-        v312 = *(MEMORY[0x277D65538] + 80);
-        v313 = SLTagEng::Name(v844);
-        fprintf(v311, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v312, "", "", v313, 1179, v846, v861);
+        v308 = *MEMORY[0x277D85E08];
+        v309 = *(MEMORY[0x277D65538] + 80);
+        v310 = SLTagEng::Name(v838);
+        fprintf(v308, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v309, "", "", v310, 1179, v840, v855);
       }
 
       goto LABEL_522;
@@ -9545,10 +9462,10 @@ LABEL_783:
 
     if (byte_27F8F0908 == 1)
     {
-      v314 = *MEMORY[0x277D85E08];
-      v315 = *(MEMORY[0x277D65538] + 96);
-      v316 = SLTagEng::Name(v844);
-      fprintf(v314, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v315, "", "", v316, 1172, v846, v861);
+      v311 = *MEMORY[0x277D85E08];
+      v312 = *(MEMORY[0x277D65538] + 96);
+      v313 = SLTagEng::Name(v838);
+      fprintf(v311, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v312, "", "", v313, 1172, v840, v855);
     }
 
 LABEL_792:
@@ -9558,13 +9475,13 @@ LABEL_792:
     goto LABEL_401;
   }
 
-  if ((v846 & 0x1000) != 0)
+  if ((v840 & 0x1000) != 0)
   {
-    v284 = v861;
+    v281 = v855;
     goto LABEL_781;
   }
 
-  if ((v846 & 0x400) != 0 && (v861 & 0x150001) != 0 && (v851[1] & 0x10E) != 0)
+  if ((v840 & 0x400) != 0 && (v855 & 0x150001) != 0 && (v845[1] & 0x10E) != 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -9574,16 +9491,16 @@ LABEL_792:
 
     if (byte_27F8F0908 == 1)
     {
-      v298 = *MEMORY[0x277D85E08];
-      v299 = *(MEMORY[0x277D65538] + 80);
-      v300 = SLTagEng::Name(v844);
-      fprintf(v298, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v299, "", "", v300, 1186, v846, v861);
+      v295 = *MEMORY[0x277D85E08];
+      v296 = *(MEMORY[0x277D65538] + 80);
+      v297 = SLTagEng::Name(v838);
+      fprintf(v295, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v296, "", "", v297, 1186, v840, v855);
     }
 
     goto LABEL_522;
   }
 
-  if ((~v846 & 0x4400) == 0 && ((v861 & 0x42) == 2 || (v861 & 0x410C) != 0 || (v861 & 3) == 2))
+  if ((~v840 & 0x4400) == 0 && ((v855 & 0x42) == 2 || (v855 & 0x410C) != 0 || (v855 & 3) == 2))
   {
     if (kMTFEDebugPOS)
     {
@@ -9593,25 +9510,25 @@ LABEL_792:
 
     if (byte_27F8F0908 == 1)
     {
-      v320 = *MEMORY[0x277D85E08];
-      v321 = *(MEMORY[0x277D65538] + 112);
-      v322 = SLTagEng::Name(v844);
-      fprintf(v320, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v321, "", "", v322, 1196, v846, v861);
+      v317 = *MEMORY[0x277D85E08];
+      v318 = *(MEMORY[0x277D65538] + 112);
+      v319 = SLTagEng::Name(v838);
+      fprintf(v317, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v318, "", "", v319, 1196, v840, v855);
     }
 
     goto LABEL_675;
   }
 
-  v834 = v846 & 0x63;
-  if (!v844 && v834 == 99)
+  v828 = v840 & 0x63;
+  if (!v838 && v828 == 99)
   {
-    v301 = v848->var3;
-    v302 = 1 << v146;
-    v303 = 1 << v855;
-    if (((1 << v146) & 0x22040) != 0)
+    v298 = v842->var3;
+    v299 = 1 << v143;
+    v300 = 1 << v849;
+    if (((1 << v143) & 0x22040) != 0)
     {
-      v304 = v861;
-      if (!((1 << v855) & 0x10C | v861 & 0x22041))
+      v301 = v855;
+      if (!((1 << v849) & 0x10C | v855 & 0x22041))
       {
         if (kMTFEDebugPOS)
         {
@@ -9621,33 +9538,33 @@ LABEL_792:
 
         if (byte_27F8F0908 == 1)
         {
-          v305 = *MEMORY[0x277D85E08];
-          v306 = *MEMORY[0x277D65538];
-          v307 = SLTagEng::Name(0);
-          fprintf(v305, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v306, "", "", v307, 1211, v846, v861);
+          v302 = *MEMORY[0x277D85E08];
+          v303 = *MEMORY[0x277D65538];
+          v304 = SLTagEng::Name(0);
+          fprintf(v302, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v303, "", "", v304, 1211, v840, v855);
         }
 
         LODWORD(var15) = 0;
         v10 = 0;
 LABEL_842:
-        var3 = v301;
+        var3 = v298;
         goto LABEL_207;
       }
     }
 
     else
     {
-      if (v146 != 14 || (v303 & 0x26000) == 0)
+      if (v143 != 14 || (v300 & 0x26000) == 0)
       {
         goto LABEL_836;
       }
 
-      v304 = v861;
+      v301 = v855;
     }
 
-    if ((v304 & 0x41) != 0)
+    if ((v301 & 0x41) != 0)
     {
-      v301 = v301->var6;
+      v298 = v298->var6;
       if (kMTFEDebugPOS)
       {
         MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
@@ -9656,10 +9573,10 @@ LABEL_842:
 
       if (byte_27F8F0908 == 1)
       {
-        v326 = *MEMORY[0x277D85E08];
-        v327 = *(MEMORY[0x277D65538] + 48);
-        v328 = SLTagEng::Name(0);
-        fprintf(v326, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v327, "", "", v328, 1219, v846, v861);
+        v323 = *MEMORY[0x277D85E08];
+        v324 = *(MEMORY[0x277D65538] + 48);
+        v325 = SLTagEng::Name(0);
+        fprintf(v323, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v324, "", "", v325, 1219, v840, v855);
       }
 
       v10 = 0;
@@ -9668,7 +9585,7 @@ LABEL_842:
     }
 
 LABEL_836:
-    if ((v302 & 0x118100) != 0 || v9 && (!strcmp(v9->var27, "HELP") || !strcmp(v9->var27, "HELPS") || !strcmp(v9->var27, "HELPED")) || (v303 & 0x118100) != 0 && v146 == 14 || (v342 = v857) != 0 && ((v343 = strcmp(v857->var27, "HELP"), (v302 & 0x200000) != 0) && !v343 || (v344 = strcmp(v342->var27, "HELPS"), (v302 & 0x200000) != 0) && !v344 || (v345 = strcmp(v342->var27, "HELPED"), (v302 & 0x200000) != 0) && !v345))
+    if ((v299 & 0x118100) != 0 || v9 && (!strcmp(v9->var27, "HELP") || !strcmp(v9->var27, "HELPS") || !strcmp(v9->var27, "HELPED")) || (v300 & 0x118100) != 0 && v143 == 14 || (v339 = v851) != 0 && ((v340 = strcmp(v851->var27, "HELP"), (v299 & 0x200000) != 0) && !v340 || (v341 = strcmp(v339->var27, "HELPS"), (v299 & 0x200000) != 0) && !v341 || (v342 = strcmp(v339->var27, "HELPED"), (v299 & 0x200000) != 0) && !v342))
     {
       if (kMTFEDebugPOS)
       {
@@ -9678,10 +9595,10 @@ LABEL_836:
 
       if (byte_27F8F0908 == 1)
       {
-        v332 = *MEMORY[0x277D85E08];
-        v333 = *(MEMORY[0x277D65538] + 8);
-        v334 = SLTagEng::Name(0);
-        fprintf(v332, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v333, "", "", v334, 1233, v846, v861);
+        v329 = *MEMORY[0x277D85E08];
+        v330 = *(MEMORY[0x277D65538] + 8);
+        v331 = SLTagEng::Name(0);
+        fprintf(v329, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v330, "", "", v331, 1233, v840, v855);
       }
 
       v10 = 0;
@@ -9690,7 +9607,7 @@ LABEL_836:
 
     else
     {
-      v301 = v301->var6;
+      v298 = v298->var6;
       if (kMTFEDebugPOS)
       {
         MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
@@ -9699,10 +9616,10 @@ LABEL_836:
 
       if (byte_27F8F0908 == 1)
       {
-        v346 = *MEMORY[0x277D85E08];
-        v347 = *(MEMORY[0x277D65538] + 40);
-        v348 = SLTagEng::Name(0);
-        fprintf(v346, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v347, "", "", v348, 1243, v846, v861);
+        v343 = *MEMORY[0x277D85E08];
+        v344 = *(MEMORY[0x277D65538] + 40);
+        v345 = SLTagEng::Name(0);
+        fprintf(v343, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v344, "", "", v345, 1243, v840, v855);
       }
 
       v10 = 0;
@@ -9714,7 +9631,7 @@ LABEL_836:
 
   if (!strcmp(v40, "USED"))
   {
-    if ((v861 & 0x8000) != 0 && ((v851[1] & 0xE) != 0 || (v851[1] & 0x4000) != 0 && (v851[0] & 0xE) != 0))
+    if ((v855 & 0x8000) != 0 && ((v845[1] & 0xE) != 0 || (v845[1] & 0x4000) != 0 && (v845[0] & 0xE) != 0))
     {
       if (kMTFEDebugPOS)
       {
@@ -9724,10 +9641,10 @@ LABEL_836:
 
       if (byte_27F8F0908 == 1)
       {
-        v339 = *MEMORY[0x277D85E08];
-        v340 = *(MEMORY[0x277D65538] + 8);
-        v341 = SLTagEng::Name(0x41F);
-        fprintf(v339, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v340, "", "", v341, 1256, v846, v861);
+        v336 = *MEMORY[0x277D85E08];
+        v337 = *(MEMORY[0x277D65538] + 8);
+        v338 = SLTagEng::Name(0x41F);
+        fprintf(v336, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v337, "", "", v338, 1256, v840, v855);
       }
 
       var3 = 0;
@@ -9735,7 +9652,7 @@ LABEL_836:
       goto LABEL_474;
     }
 
-    if ((((1 << v146) & 0x22040) != 0 || v146 == 14 && ((1 << v855) & 0x26000) != 0) && (v861 & 0x41) != 0 && (v861 & 0x40C00) == 0)
+    if ((((1 << v143) & 0x22040) != 0 || v143 == 14 && ((1 << v849) & 0x26000) != 0) && (v855 & 0x41) != 0 && (v855 & 0x40C00) == 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -9745,10 +9662,10 @@ LABEL_836:
 
       if (byte_27F8F0908 == 1)
       {
-        v329 = *MEMORY[0x277D85E08];
-        v330 = *(MEMORY[0x277D65538] + 48);
-        v331 = SLTagEng::Name(0x41E);
-        fprintf(v329, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v330, "", "", v331, 1264, v846, v861);
+        v326 = *MEMORY[0x277D85E08];
+        v327 = *(MEMORY[0x277D65538] + 48);
+        v328 = SLTagEng::Name(0x41E);
+        fprintf(v326, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v327, "", "", v328, 1264, v840, v855);
       }
 
 LABEL_939:
@@ -9759,7 +9676,7 @@ LABEL_939:
       goto LABEL_208;
     }
 
-    if ((v861 & 0x8000) != 0 && (v851[1] & 0x10) != 0)
+    if ((v855 & 0x8000) != 0 && (v845[1] & 0x10) != 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -9769,18 +9686,18 @@ LABEL_939:
 
       if (byte_27F8F0908 == 1)
       {
-        v376 = *MEMORY[0x277D85E08];
-        v377 = *(MEMORY[0x277D65538] + 48);
-        v378 = SLTagEng::Name(0x41E);
-        fprintf(v376, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v377, "", "", v378, 1271, v846, v861);
+        v373 = *MEMORY[0x277D85E08];
+        v374 = *(MEMORY[0x277D65538] + 48);
+        v375 = SLTagEng::Name(0x41E);
+        fprintf(v373, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v374, "", "", v375, 1271, v840, v855);
       }
 
       goto LABEL_939;
     }
 
-    if (((1 << v146) & 0x4003C) != 0)
+    if (((1 << v143) & 0x4003C) != 0)
     {
-      if (v861)
+      if (v855)
       {
 LABEL_930:
         if (kMTFEDebugPOS)
@@ -9791,10 +9708,10 @@ LABEL_930:
 
         if (byte_27F8F0908 == 1)
         {
-          v373 = *MEMORY[0x277D85E08];
-          v374 = *(MEMORY[0x277D65538] + 8);
-          v375 = SLTagEng::Name(0x41E);
-          fprintf(v373, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v374, "", "", v375, 1286, v846, v861);
+          v370 = *MEMORY[0x277D85E08];
+          v371 = *(MEMORY[0x277D65538] + 8);
+          v372 = SLTagEng::Name(0x41E);
+          fprintf(v370, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v371, "", "", v372, 1286, v840, v855);
         }
 
         var3 = 0;
@@ -9803,7 +9720,7 @@ LABEL_930:
       }
     }
 
-    else if (v146 != 14 || (v861 & 1) != 0 || ((1 << v855) & 0x4003C) == 0)
+    else if (v143 != 14 || (v855 & 1) != 0 || ((1 << v849) & 0x4003C) == 0)
     {
       goto LABEL_930;
     }
@@ -9816,10 +9733,10 @@ LABEL_930:
 
     if (byte_27F8F0908 == 1)
     {
-      v370 = *MEMORY[0x277D85E08];
-      v371 = *(MEMORY[0x277D65538] + 40);
-      v372 = SLTagEng::Name(0x41E);
-      fprintf(v370, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v371, "", "", v372, 1279, v846, v861);
+      v367 = *MEMORY[0x277D85E08];
+      v368 = *(MEMORY[0x277D65538] + 40);
+      v369 = SLTagEng::Name(0x41E);
+      fprintf(v367, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v368, "", "", v369, 1279, v840, v855);
     }
 
     var3 = 0;
@@ -9829,9 +9746,9 @@ LABEL_930:
     goto LABEL_208;
   }
 
-  v317 = v181 == 128 || v253 == 128;
-  v318 = v317;
-  if (v317 && (((v837 | ((v861 & 0x800) >> 11)) & 1) != 0 || (v861 & 0x4001) == 0x4000 && v836) && (*(this + 9) & 1) == 0)
+  v314 = v178 == 128 || v250 == 128;
+  v315 = v314;
+  if (v314 && (((v831 | ((v855 & 0x800) >> 11)) & 1) != 0 || (v855 & 0x4001) == 0x4000 && v830) && (*(this + 9) & 1) == 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -9841,22 +9758,22 @@ LABEL_930:
 
     if (byte_27F8F0908 == 1)
     {
-      v353 = *MEMORY[0x277D85E08];
-      v354 = *(MEMORY[0x277D65538] + 56);
-      v355 = *(MEMORY[0x277D65538] + 152);
-      v356 = SLTagEng::Name(v844);
-      fprintf(v353, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v354, "->", v355, v356, 1305, v846, v861);
+      v350 = *MEMORY[0x277D85E08];
+      v351 = *(MEMORY[0x277D65538] + 56);
+      v352 = *(MEMORY[0x277D65538] + 152);
+      v353 = SLTagEng::Name(v838);
+      fprintf(v350, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v351, "->", v352, v353, 1305, v840, v855);
     }
 
     goto LABEL_905;
   }
 
-  v319 = v855;
-  if (v181 != 128)
+  v316 = v849;
+  if (v178 != 128)
   {
-    if (v253 != 128 || v855 != 19 || v146 != 11)
+    if (v250 != 128 || v849 != 19 || v143 != 11)
     {
-      if (!v318)
+      if (!v315)
       {
         goto LABEL_885;
       }
@@ -9867,12 +9784,12 @@ LABEL_930:
     goto LABEL_846;
   }
 
-  if (v855 != 19)
+  if (v849 != 19)
   {
     goto LABEL_880;
   }
 
-  if (v146 == 11)
+  if (v143 == 11)
   {
 LABEL_846:
     if (kMTFEDebugPOS)
@@ -9883,19 +9800,19 @@ LABEL_846:
 
     if (byte_27F8F0908 == 1)
     {
-      v335 = *MEMORY[0x277D85E08];
-      v336 = *(MEMORY[0x277D65538] + 56);
-      v337 = *(MEMORY[0x277D65538] + 152);
-      v338 = SLTagEng::Name(v844);
-      fprintf(v335, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v336, "->", v337, v338, 1315, v846, v861);
+      v332 = *MEMORY[0x277D85E08];
+      v333 = *(MEMORY[0x277D65538] + 56);
+      v334 = *(MEMORY[0x277D65538] + 152);
+      v335 = SLTagEng::Name(v838);
+      fprintf(v332, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v333, "->", v334, v335, 1315, v840, v855);
     }
 
     goto LABEL_905;
   }
 
-  v319 = 19;
+  v316 = 19;
 LABEL_880:
-  if ((((1 << v146) & 0x32) != 0 || ((1 << v146) & 0x210000) != 0 && ((1 << v319) & 0x32) != 0) && ((v861 & 0x2080) == 0x80 || (v861 & 0x236441) == 0))
+  if ((((1 << v143) & 0x32) != 0 || ((1 << v143) & 0x210000) != 0 && ((1 << v316) & 0x32) != 0) && ((v855 & 0x2080) == 0x80 || (v855 & 0x236441) == 0))
   {
     if (kMTFEDebugPOS)
     {
@@ -9905,20 +9822,20 @@ LABEL_880:
 
     if (byte_27F8F0908 == 1)
     {
-      v360 = *MEMORY[0x277D85E08];
-      v361 = *(MEMORY[0x277D65538] + 56);
-      v362 = *(MEMORY[0x277D65538] + 152);
-      v363 = SLTagEng::Name(v844);
-      fprintf(v360, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v361, "->", v362, v363, 1332, v846, v861);
+      v357 = *MEMORY[0x277D85E08];
+      v358 = *(MEMORY[0x277D65538] + 56);
+      v359 = *(MEMORY[0x277D65538] + 152);
+      v360 = SLTagEng::Name(v838);
+      fprintf(v357, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v358, "->", v359, v360, 1332, v840, v855);
     }
 
     goto LABEL_905;
   }
 
 LABEL_885:
-  if ((v846 & 0x80080) == 0x80080 && v146 == 14)
+  if ((v840 & 0x80080) == 0x80080 && v143 == 14)
   {
-    if ((v861 & 0x10C00) != 0)
+    if ((v855 & 0x10C00) != 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -9928,11 +9845,11 @@ LABEL_885:
 
       if (byte_27F8F0908 == 1)
       {
-        v349 = *MEMORY[0x277D85E08];
-        v350 = *(MEMORY[0x277D65538] + 56);
-        v351 = *(MEMORY[0x277D65538] + 152);
-        v352 = SLTagEng::Name(v844);
-        fprintf(v349, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v350, "->", v351, v352, 1342, v846, v861);
+        v346 = *MEMORY[0x277D85E08];
+        v347 = *(MEMORY[0x277D65538] + 56);
+        v348 = *(MEMORY[0x277D65538] + 152);
+        v349 = SLTagEng::Name(v838);
+        fprintf(v346, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v347, "->", v348, v349, 1342, v840, v855);
       }
 
 LABEL_905:
@@ -9950,29 +9867,29 @@ LABEL_897:
 
     if (byte_27F8F0908 == 1)
     {
-      v357 = *MEMORY[0x277D85E08];
-      v358 = *(MEMORY[0x277D65538] + 56);
-      v359 = SLTagEng::Name(v844);
-      fprintf(v357, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v358, "", "", v359, 1348, v846, v861);
+      v354 = *MEMORY[0x277D85E08];
+      v355 = *(MEMORY[0x277D65538] + 56);
+      v356 = SLTagEng::Name(v838);
+      fprintf(v354, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v355, "", "", v356, 1348, v840, v855);
     }
 
     goto LABEL_554;
   }
 
-  if ((v846 & 0x80080) == 0x80080)
+  if ((v840 & 0x80080) == 0x80080)
   {
     goto LABEL_897;
   }
 
-  v364 = (~v846 & 0x4002) == 0 && v146 == 255;
-  v365 = v364;
-  v366 = v837;
-  if (!v364)
+  v361 = (~v840 & 0x4002) == 0 && v143 == 255;
+  v362 = v361;
+  v363 = v831;
+  if (!v361)
   {
-    v366 = 0;
+    v363 = 0;
   }
 
-  if (v366 == 1)
+  if (v363 == 1)
   {
     if (kMTFEDebugPOS)
     {
@@ -9982,31 +9899,31 @@ LABEL_897:
 
     if (byte_27F8F0908 == 1)
     {
-      v367 = *MEMORY[0x277D85E08];
-      v368 = *(MEMORY[0x277D65538] + 8);
-      v369 = SLTagEng::Name(v844);
-      fprintf(v367, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v368, "", "", v369, 1359, v846, v861);
+      v364 = *MEMORY[0x277D85E08];
+      v365 = *(MEMORY[0x277D65538] + 8);
+      v366 = SLTagEng::Name(v838);
+      fprintf(v364, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v365, "", "", v366, 1359, v840, v855);
     }
 
     goto LABEL_527;
   }
 
-  if (v146 != 255)
+  if (v143 != 255)
   {
-    v384 = v146 == 11 && v319 == 255;
-    v385 = (v846 >> 5) & 1;
-    if (!v384)
+    v381 = v143 == 11 && v316 == 255;
+    v382 = (v840 >> 5) & 1;
+    if (!v381)
     {
-      v385 = 0;
+      v382 = 0;
     }
 
-    if ((v837 & v385 & 1) == 0)
+    if ((v831 & v382 & 1) == 0)
     {
-      v389 = v146 == 0;
-      v390 = v846 & 0x43;
-      v391 = v390 == 67;
-      v392 = v390 == 67 && v146 == 0;
-      if (v837 & v392)
+      v386 = v143 == 0;
+      v387 = v840 & 0x43;
+      v388 = v387 == 67;
+      v389 = v387 == 67 && v143 == 0;
+      if (v831 & v389)
       {
         if (kMTFEDebugPOS)
         {
@@ -10016,17 +9933,17 @@ LABEL_897:
 
         if (byte_27F8F0908 == 1)
         {
-          v393 = *MEMORY[0x277D85E08];
-          v394 = *MEMORY[0x277D65538];
-          v395 = SLTagEng::Name(v844);
-          fprintf(v393, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v394, "", "", v395, 1377, v846, v861);
+          v390 = *MEMORY[0x277D85E08];
+          v391 = *MEMORY[0x277D65538];
+          v392 = SLTagEng::Name(v838);
+          fprintf(v390, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v391, "", "", v392, 1377, v840, v855);
         }
 
         goto LABEL_340;
       }
 
-      v380 = (~v846 & 0x4040) == 0;
-      v833 = (~v846 & 3) == 0;
+      v377 = (~v840 & 0x4040) == 0;
+      v827 = (~v840 & 3) == 0;
       goto LABEL_982;
     }
 
@@ -10039,28 +9956,28 @@ LABEL_955:
 
     if (byte_27F8F0908 == 1)
     {
-      v386 = *MEMORY[0x277D85E08];
-      v387 = *(MEMORY[0x277D65538] + 40);
-      v388 = SLTagEng::Name(v844);
-      fprintf(v386, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v387, "", "", v388, 1365, v846, v861);
+      v383 = *MEMORY[0x277D85E08];
+      v384 = *(MEMORY[0x277D65538] + 40);
+      v385 = SLTagEng::Name(v838);
+      fprintf(v383, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v384, "", "", v385, 1365, v840, v855);
     }
 
     goto LABEL_959;
   }
 
-  v379 = v837 ^ 1;
-  if ((v846 & 0x20) == 0)
+  v376 = v831 ^ 1;
+  if ((v840 & 0x20) == 0)
   {
-    v379 = 1;
+    v376 = 1;
   }
 
-  if ((v379 & 1) == 0)
+  if ((v376 & 1) == 0)
   {
     goto LABEL_955;
   }
 
-  v380 = (~v846 & 0x4040) == 0;
-  if (v380 && v836)
+  v377 = (~v840 & 0x4040) == 0;
+  if (v377 && v830)
   {
     if (kMTFEDebugPOS)
     {
@@ -10070,17 +9987,17 @@ LABEL_955:
 
     if (byte_27F8F0908 == 1)
     {
-      v381 = *MEMORY[0x277D85E08];
-      v382 = *(MEMORY[0x277D65538] + 48);
-      v383 = SLTagEng::Name(v844);
-      fprintf(v381, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v382, "", "", v383, 1371, v846, v861);
+      v378 = *MEMORY[0x277D85E08];
+      v379 = *(MEMORY[0x277D65538] + 48);
+      v380 = SLTagEng::Name(v838);
+      fprintf(v378, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v379, "", "", v380, 1371, v840, v855);
     }
 
     goto LABEL_412;
   }
 
-  v833 = (v846 & 3) == 3;
-  if ((v846 & 3) == 3 && ((v836 & ((v861 & 0x10000) >> 16) & 1) != 0 || (v861 & 2) != 0 && (v851[1] & 0x4000) != 0 && !v835))
+  v827 = (v840 & 3) == 3;
+  if ((v840 & 3) == 3 && ((v830 & ((v855 & 0x10000) >> 16) & 1) != 0 || (v855 & 2) != 0 && (v845[1] & 0x4000) != 0 && !v829))
   {
     if (kMTFEDebugPOS)
     {
@@ -10090,18 +10007,18 @@ LABEL_955:
 
     if (byte_27F8F0908 == 1)
     {
-      v396 = *MEMORY[0x277D85E08];
-      v397 = *(MEMORY[0x277D65538] + 8);
-      v398 = SLTagEng::Name(v844);
-      fprintf(v396, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v397, "", "", v398, 1392, v846, v861);
+      v393 = *MEMORY[0x277D85E08];
+      v394 = *(MEMORY[0x277D65538] + 8);
+      v395 = SLTagEng::Name(v838);
+      fprintf(v393, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v394, "", "", v395, 1392, v840, v855);
     }
 
     goto LABEL_527;
   }
 
-  if ((v846 & 0x43) == 0x43)
+  if ((v840 & 0x43) == 0x43)
   {
-    if ((*(&v861 + 1) & 0x220) != 0 && (v851[1] & 1) != 0 && !v835)
+    if ((*(&v855 + 1) & 0x220) != 0 && (v845[1] & 1) != 0 && !v829)
     {
       if (kMTFEDebugPOS)
       {
@@ -10111,57 +10028,55 @@ LABEL_955:
 
       if (byte_27F8F0908 == 1)
       {
-        v423 = *MEMORY[0x277D85E08];
-        v424 = *(MEMORY[0x277D65538] + 8);
-        v425 = SLTagEng::Name(v844);
-        fprintf(v423, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v424, "", "", v425, 1400, v846, v861);
+        v417 = *MEMORY[0x277D85E08];
+        v418 = *(MEMORY[0x277D65538] + 8);
+        v419 = SLTagEng::Name(v838);
+        fprintf(v417, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v418, "", "", v419, 1400, v840, v855);
       }
 
       goto LABEL_527;
     }
 
-    v389 = 0;
-    v390 = 67;
-    v391 = 1;
+    v386 = 0;
+    v387 = 67;
+    v388 = 1;
   }
 
   else
   {
-    v390 = v846 & 0x43;
-    v391 = 0;
-    v389 = 0;
+    v387 = v840 & 0x43;
+    v388 = 0;
+    v386 = 0;
   }
 
 LABEL_982:
-  if ((v838 | v8))
+  if ((v832 | v8))
   {
-    if (!v833)
+    if (!v827)
     {
-      v833 = 0;
+      v827 = 0;
       goto LABEL_994;
     }
   }
 
   else
   {
-    v400 = v319 == 255 && v146 == 11;
-    if (!v400 || !v833)
+    v397 = v316 == 255 && v143 == 11;
+    if (!v397 || !v827)
     {
       goto LABEL_994;
     }
   }
 
-  if ((v837 | v836))
+  if ((v831 | v830))
   {
-    if (v844)
+    if (v838)
     {
       goto LABEL_994;
     }
 
 LABEL_1018:
-    v409 = v848->var3;
-    v410 = *v409->var0;
-    v411 = v409;
+    v406 = v842->var3;
     LODWORD(var15) = SLFirstPOSInSet();
     if (kMTFEDebugPOS)
     {
@@ -10171,31 +10086,31 @@ LABEL_1018:
 
     if (byte_27F8F0908 == 1)
     {
-      v413 = *MEMORY[0x277D85E08];
-      v414 = *(MEMORY[0x277D65538] + 8 * var15);
-      v415 = SLTagEng::Name(v844);
-      fprintf(v413, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v414, "", "", v415, 1409, v846, v861);
+      v407 = *MEMORY[0x277D85E08];
+      v408 = *(MEMORY[0x277D65538] + 8 * var15);
+      v409 = SLTagEng::Name(v838);
+      fprintf(v407, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v408, "", "", v409, 1409, v840, v855);
     }
 
     v10 = 0;
     LODWORD(v13) = 255;
-    var3 = v411;
+    var3 = v406;
     goto LABEL_208;
   }
 
-  v408 = v835;
-  if (v844)
+  v405 = v829;
+  if (v838)
   {
-    v408 = 1;
+    v405 = 1;
   }
 
-  if ((v408 & 1) == 0)
+  if ((v405 & 1) == 0)
   {
     goto LABEL_1018;
   }
 
 LABEL_994:
-  if ((v846 & 0x400) != 0 && v146 == 255 && (v861 & 0x10000) != 0)
+  if ((v840 & 0x400) != 0 && v143 == 255 && (v855 & 0x10000) != 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -10205,17 +10120,17 @@ LABEL_994:
 
     if (byte_27F8F0908 == 1)
     {
-      v417 = *MEMORY[0x277D85E08];
-      v418 = *(MEMORY[0x277D65538] + 80);
-      v419 = SLTagEng::Name(v844);
-      fprintf(v417, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v418, "", "", v419, 1421, v846, v861);
+      v411 = *MEMORY[0x277D85E08];
+      v412 = *(MEMORY[0x277D65538] + 80);
+      v413 = SLTagEng::Name(v838);
+      fprintf(v411, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v412, "", "", v413, 1421, v840, v855);
     }
 
     goto LABEL_522;
   }
 
-  v401 = v146 == 12 || v146 == 255;
-  if (v401 && (v846 & 0x100) != 0 && (v851[1] & 0x10E) != 0)
+  v398 = v143 == 12 || v143 == 255;
+  if (v398 && (v840 & 0x100) != 0 && (v845[1] & 0x10E) != 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -10225,10 +10140,10 @@ LABEL_994:
 
     if (byte_27F8F0908 == 1)
     {
-      v402 = *MEMORY[0x277D85E08];
-      v403 = *(MEMORY[0x277D65538] + 64);
-      v404 = SLTagEng::Name(v844);
-      fprintf(v402, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v403, "", "", v404, 1438, v846, v861);
+      v399 = *MEMORY[0x277D85E08];
+      v400 = *(MEMORY[0x277D65538] + 64);
+      v401 = SLTagEng::Name(v838);
+      fprintf(v399, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v400, "", "", v401, 1438, v840, v855);
     }
 
 LABEL_1008:
@@ -10238,9 +10153,9 @@ LABEL_1008:
     goto LABEL_401;
   }
 
-  if (v365)
+  if (v362)
   {
-    if ((v861 & 0x10E) != 0)
+    if ((v855 & 0x10E) != 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -10250,28 +10165,28 @@ LABEL_1008:
 
       if (byte_27F8F0908 == 1)
       {
-        v405 = *MEMORY[0x277D85E08];
-        v406 = *(MEMORY[0x277D65538] + 112);
-        v407 = SLTagEng::Name(v844);
-        fprintf(v405, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v406, "", "", v407, 1444, v846, v861);
+        v402 = *MEMORY[0x277D85E08];
+        v403 = *(MEMORY[0x277D65538] + 112);
+        v404 = SLTagEng::Name(v838);
+        fprintf(v402, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v403, "", "", v404, 1444, v840, v855);
       }
 
       goto LABEL_675;
     }
   }
 
-  else if (v146 != 11 && v146 != 255)
+  else if (v143 != 11 && v143 != 255)
   {
-    v832 = v846 & 0x10;
-    v416 = (v846 & 0x10) == 0;
+    v826 = v840 & 0x10;
+    v410 = (v840 & 0x10) == 0;
     goto LABEL_1043;
   }
 
-  v832 = v846 & 0x10;
-  v416 = v832 == 0;
-  if ((v846 & 0x10) != 0)
+  v826 = v840 & 0x10;
+  v410 = v826 == 0;
+  if ((v840 & 0x10) != 0)
   {
-    if ((v861 & 0x320E0) != 0 || (v861 & 0x4000) != 0 && (v851[1] & 0x320E0) != 0)
+    if ((v855 & 0x320E0) != 0 || (v855 & 0x4000) != 0 && (v845[1] & 0x320E0) != 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -10281,24 +10196,24 @@ LABEL_1008:
 
       if (byte_27F8F0908 == 1)
       {
-        v420 = *MEMORY[0x277D85E08];
-        v421 = *(MEMORY[0x277D65538] + 32);
-        v422 = SLTagEng::Name(v844);
-        fprintf(v420, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v421, "", "", v422, 1452, v846, v861);
+        v414 = *MEMORY[0x277D85E08];
+        v415 = *(MEMORY[0x277D65538] + 32);
+        v416 = SLTagEng::Name(v838);
+        fprintf(v414, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v415, "", "", v416, 1452, v840, v855);
       }
 
       goto LABEL_1037;
     }
 
-    v429 = v838;
-    if (v146 != 255)
+    v423 = v832;
+    if (v143 != 255)
     {
-      v429 = 1;
+      v423 = 1;
     }
 
-    if ((v429 & 1) == 0)
+    if ((v423 & 1) == 0)
     {
-      if ((v861 & 0x41) != 0)
+      if ((v855 & 0x41) != 0)
       {
         if (kMTFEDebugPOS)
         {
@@ -10308,31 +10223,31 @@ LABEL_1008:
 
         if (byte_27F8F0908 == 1)
         {
-          v430 = *MEMORY[0x277D85E08];
-          v431 = *(MEMORY[0x277D65538] + 32);
-          v432 = SLTagEng::Name(v844);
-          fprintf(v430, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v431, "", "", v432, 1460, v846, v861);
+          v424 = *MEMORY[0x277D85E08];
+          v425 = *(MEMORY[0x277D65538] + 32);
+          v426 = SLTagEng::Name(v838);
+          fprintf(v424, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v425, "", "", v426, 1460, v840, v855);
         }
 
         goto LABEL_1037;
       }
 
-      v416 = 0;
+      v410 = 0;
       goto LABEL_1045;
     }
   }
 
-  if (v146 != 255)
+  if (v143 != 255)
   {
 LABEL_1043:
-    if (v146 != 11 || v319 != 255)
+    if (v143 != 11 || v316 != 255)
     {
       goto LABEL_1065;
     }
   }
 
 LABEL_1045:
-  if ((v391 || v833) && ((v861 & 0x222400) != 0 || (v861 & 0x10000) != 0 && (v851[1] & 0x80) != 0 || (v861 & 0x4000) != 0 && (v851[1] & 0x262080) != 0))
+  if ((v388 || v827) && ((v855 & 0x222400) != 0 || (v855 & 0x10000) != 0 && (v845[1] & 0x80) != 0 || (v855 & 0x4000) != 0 && (v845[1] & 0x262080) != 0))
   {
     if (kMTFEDebugPOS)
     {
@@ -10342,33 +10257,33 @@ LABEL_1045:
 
     if (byte_27F8F0908 == 1)
     {
-      v426 = *MEMORY[0x277D85E08];
-      v427 = *(MEMORY[0x277D65538] + 8);
-      v428 = SLTagEng::Name(v844);
-      fprintf(v426, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v427, "", "", v428, 1472, v846, v861);
+      v420 = *MEMORY[0x277D85E08];
+      v421 = *(MEMORY[0x277D65538] + 8);
+      v422 = SLTagEng::Name(v838);
+      fprintf(v420, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v421, "", "", v422, 1472, v840, v855);
     }
 
     goto LABEL_527;
   }
 
 LABEL_1065:
-  v433 = v838 ^ 1;
-  if ((v846 & 2) == 0)
+  v427 = v832 ^ 1;
+  if ((v840 & 2) == 0)
   {
-    v433 = 1;
+    v427 = 1;
   }
 
-  if ((v433 & 1) == 0 && (~v861 & 0x42) != 0 && (v861 & 0x11413C) == 0 && (v851[1] & 0x413C) == 0 && ((v861 & 1) == 0 || (v851[1] & 2) == 0))
+  if ((v427 & 1) == 0 && (~v855 & 0x42) != 0 && (v855 & 0x11413C) == 0 && (v845[1] & 0x413C) == 0 && ((v855 & 1) == 0 || (v845[1] & 2) == 0))
   {
-    if ((v861 & 0x80) != 0)
+    if ((v855 & 0x80) != 0)
     {
-      if (((v837 | ((v851[1] & 0x2000) >> 13)) & 1) == 0)
+      if (((v831 | ((v845[1] & 0x2000) >> 13)) & 1) == 0)
       {
         goto LABEL_1075;
       }
     }
 
-    else if ((v837 & 1) == 0)
+    else if ((v831 & 1) == 0)
     {
 LABEL_1075:
       if (kMTFEDebugPOS)
@@ -10379,24 +10294,62 @@ LABEL_1075:
 
       if (byte_27F8F0908 == 1)
       {
-        v434 = *MEMORY[0x277D85E08];
-        v435 = *(MEMORY[0x277D65538] + 8);
-        v436 = SLTagEng::Name(v844);
-        fprintf(v434, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v435, "", "", v436, 1488, v846, v861);
+        v428 = *MEMORY[0x277D85E08];
+        v429 = *(MEMORY[0x277D65538] + 8);
+        v430 = SLTagEng::Name(v838);
+        fprintf(v428, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v429, "", "", v430, 1488, v840, v855);
       }
 
       goto LABEL_527;
     }
   }
 
-  v437 = v846 & 0x42;
-  v438 = v838;
-  if (v437 != 66)
+  v431 = v840 & 0x42;
+  v432 = v832;
+  if (v431 != 66)
   {
-    v438 = 0;
+    v432 = 0;
   }
 
-  if ((v837 & v438) == 1)
+  if ((v831 & v432) == 1)
+  {
+    if (kMTFEDebugPOS)
+    {
+      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+      kMTFEDebugPOS = 0;
+    }
+
+    if (byte_27F8F0908 == 1)
+    {
+      v433 = *MEMORY[0x277D85E08];
+      v434 = *(MEMORY[0x277D65538] + 48);
+      v435 = SLTagEng::Name(v838);
+      fprintf(v433, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v434, "", "", v435, 1496, v840, v855);
+    }
+
+    goto LABEL_412;
+  }
+
+  if (v143 == 255 && (v840 & 0x40C0) == 0x40 && (~v855 & 0x41) == 0)
+  {
+    if (kMTFEDebugPOS)
+    {
+      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+      kMTFEDebugPOS = 0;
+    }
+
+    if (byte_27F8F0908 == 1)
+    {
+      v436 = *MEMORY[0x277D85E08];
+      v437 = *(MEMORY[0x277D65538] + 48);
+      v438 = SLTagEng::Name(v838);
+      fprintf(v436, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v437, "", "", v438, 1503, v840, v855);
+    }
+
+    goto LABEL_412;
+  }
+
+  if (v143 == 255 && (v840 & 0x4000) != 0 && (v855 & 0x51) == 0x50)
   {
     if (kMTFEDebugPOS)
     {
@@ -10407,56 +10360,18 @@ LABEL_1075:
     if (byte_27F8F0908 == 1)
     {
       v439 = *MEMORY[0x277D85E08];
-      v440 = *(MEMORY[0x277D65538] + 48);
-      v441 = SLTagEng::Name(v844);
-      fprintf(v439, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v440, "", "", v441, 1496, v846, v861);
-    }
-
-    goto LABEL_412;
-  }
-
-  if (v146 == 255 && (v846 & 0x40C0) == 0x40 && (~v861 & 0x41) == 0)
-  {
-    if (kMTFEDebugPOS)
-    {
-      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-      kMTFEDebugPOS = 0;
-    }
-
-    if (byte_27F8F0908 == 1)
-    {
-      v442 = *MEMORY[0x277D85E08];
-      v443 = *(MEMORY[0x277D65538] + 48);
-      v444 = SLTagEng::Name(v844);
-      fprintf(v442, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v443, "", "", v444, 1503, v846, v861);
-    }
-
-    goto LABEL_412;
-  }
-
-  if (v146 == 255 && (v846 & 0x4000) != 0 && (v861 & 0x51) == 0x50)
-  {
-    if (kMTFEDebugPOS)
-    {
-      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-      kMTFEDebugPOS = 0;
-    }
-
-    if (byte_27F8F0908 == 1)
-    {
-      v445 = *MEMORY[0x277D85E08];
-      v446 = *(MEMORY[0x277D65538] + 112);
-      v447 = SLTagEng::Name(v844);
-      fprintf(v445, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v446, "", "", v447, 1510, v846, v861);
+      v440 = *(MEMORY[0x277D65538] + 112);
+      v441 = SLTagEng::Name(v838);
+      fprintf(v439, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v440, "", "", v441, 1510, v840, v855);
     }
 
     goto LABEL_675;
   }
 
-  v831 = v846 & 0x101;
-  if (v831 == 257)
+  v825 = v840 & 0x101;
+  if (v825 == 257)
   {
-    if (((1 << v146) & 0x2000) != 0 || ((1 << v146) & 0x40) != 0 && v319 == 13 || v146 == 17 && ((v861 & 0x20000) == 0 || (v851[1] & 2) == 0) && ((v861 & 4) == 0 || (v851[1] & 0x20) == 0))
+    if (((1 << v143) & 0x2000) != 0 || ((1 << v143) & 0x40) != 0 && v316 == 13 || v143 == 17 && ((v855 & 0x20000) == 0 || (v845[1] & 2) == 0) && ((v855 & 4) == 0 || (v845[1] & 0x20) == 0))
     {
       if (kMTFEDebugPOS)
       {
@@ -10466,16 +10381,16 @@ LABEL_1075:
 
       if (byte_27F8F0908 == 1)
       {
-        v448 = *MEMORY[0x277D85E08];
-        v449 = *MEMORY[0x277D65538];
-        v450 = SLTagEng::Name(v844);
-        fprintf(v448, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v449, "", "", v450, 1526, v846, v861);
+        v442 = *MEMORY[0x277D85E08];
+        v443 = *MEMORY[0x277D65538];
+        v444 = SLTagEng::Name(v838);
+        fprintf(v442, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v443, "", "", v444, 1526, v840, v855);
       }
 
       goto LABEL_340;
     }
 
-    if ((v861 & 0x10E) != 0 || (v861 & 0x20000) != 0 && (v851[1] & 0x10E) != 0 || (v861 & 0x10000) != 0 && (v851[1] & 0x10E) != 0)
+    if ((v855 & 0x10E) != 0 || (v855 & 0x20000) != 0 && (v845[1] & 0x10E) != 0 || (v855 & 0x10000) != 0 && (v845[1] & 0x10E) != 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -10485,17 +10400,17 @@ LABEL_1075:
 
       if (byte_27F8F0908 == 1)
       {
-        v451 = *MEMORY[0x277D85E08];
-        v452 = *(MEMORY[0x277D65538] + 64);
-        v453 = SLTagEng::Name(v844);
-        fprintf(v451, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v452, "", "", v453, 1535, v846, v861);
+        v445 = *MEMORY[0x277D85E08];
+        v446 = *(MEMORY[0x277D65538] + 64);
+        v447 = SLTagEng::Name(v838);
+        fprintf(v445, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v446, "", "", v447, 1535, v840, v855);
       }
 
       goto LABEL_1008;
     }
   }
 
-  if (v146 == 5 && (v846 & 0x20) != 0)
+  if (v143 == 5 && (v840 & 0x20) != 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -10505,10 +10420,10 @@ LABEL_1075:
 
     if (byte_27F8F0908 == 1)
     {
-      v454 = *MEMORY[0x277D85E08];
-      v455 = *(MEMORY[0x277D65538] + 40);
-      v456 = SLTagEng::Name(v844);
-      fprintf(v454, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v455, "", "", v456, 1554, v846, v861);
+      v448 = *MEMORY[0x277D85E08];
+      v449 = *(MEMORY[0x277D65538] + 40);
+      v450 = SLTagEng::Name(v838);
+      fprintf(v448, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v449, "", "", v450, 1554, v840, v855);
     }
 
 LABEL_959:
@@ -10518,7 +10433,7 @@ LABEL_959:
     goto LABEL_401;
   }
 
-  if ((v846 & 8) != 0 && (v861 & 0x8000) != 0)
+  if ((v840 & 8) != 0 && (v855 & 0x8000) != 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -10528,11 +10443,11 @@ LABEL_959:
 
     if (byte_27F8F0908 == 1)
     {
-      v464 = *MEMORY[0x277D85E08];
-      v465 = *(MEMORY[0x277D65538] + 24);
-      v466 = *(MEMORY[0x277D65538] + 8);
-      v467 = SLTagEng::Name(0x42);
-      fprintf(v464, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v465, "->", v466, v467, 1564, v846, v861);
+      v458 = *MEMORY[0x277D85E08];
+      v459 = *(MEMORY[0x277D65538] + 24);
+      v460 = *(MEMORY[0x277D65538] + 8);
+      v461 = SLTagEng::Name(0x42);
+      fprintf(v458, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v459, "->", v460, v461, 1564, v840, v855);
     }
 
     var3 = 0;
@@ -10542,8 +10457,8 @@ LABEL_959:
     goto LABEL_208;
   }
 
-  v458 = v146 == 14 && v319 == 15;
-  if ((v146 == 15 || v458) && (v846 & 0x10C) != 0 && (v861 & 0x20) == 0)
+  v452 = v143 == 14 && v316 == 15;
+  if ((v143 == 15 || v452) && (v840 & 0x10C) != 0 && (v855 & 0x20) == 0)
   {
     LODWORD(var15) = SLFirstPOSInSet();
     if (kMTFEDebugPOS)
@@ -10554,11 +10469,11 @@ LABEL_959:
 
     if (byte_27F8F0908 == 1)
     {
-      v459 = *MEMORY[0x277D85E08];
-      v460 = *(MEMORY[0x277D65538] + 8 * var15);
-      v461 = *(MEMORY[0x277D65538] + 8);
-      v462 = SLTagEng::Name(0x42);
-      fprintf(v459, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v460, "->", v461, v462, 1575, v846, v861);
+      v453 = *MEMORY[0x277D85E08];
+      v454 = *(MEMORY[0x277D65538] + 8 * var15);
+      v455 = *(MEMORY[0x277D65538] + 8);
+      v456 = SLTagEng::Name(0x42);
+      fprintf(v453, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v454, "->", v455, v456, 1575, v840, v855);
     }
 
 LABEL_1269:
@@ -10566,14 +10481,14 @@ LABEL_1269:
 LABEL_472:
     v10 = 66;
 LABEL_557:
-    v218 = var15 == 7 && v10 == 66;
-    v219 = v842;
-    if (!v218)
+    v215 = var15 == 7 && v10 == 66;
+    v216 = v836;
+    if (!v215)
     {
-      v219 = 1;
+      v216 = 1;
     }
 
-    if (v219)
+    if (v216)
     {
       var3 = 0;
     }
@@ -10592,7 +10507,7 @@ LABEL_557:
         var3 = 0;
         if ((*(this + 11) & 1) == 0)
         {
-          if (v848->var10 == 1)
+          if (v842->var10 == 1)
           {
             v10 = 66;
           }
@@ -10610,18 +10525,18 @@ LABEL_557:
     goto LABEL_208;
   }
 
-  v463 = 1 << v146;
-  if (((1 << v146) & 0x110401) != 0)
+  v457 = 1 << v143;
+  if (((1 << v143) & 0x110401) != 0)
   {
-    if ((v846 & 0x100) == 0)
+    if ((v840 & 0x100) == 0)
     {
-      if ((v463 & 0x118441) != 0)
+      if ((v457 & 0x118441) != 0)
       {
         goto LABEL_1185;
       }
 
 LABEL_1168:
-      if (v146 != 14 || ((1 << v319) & 0x118441) == 0 || (v846 & 0x100) == 0)
+      if (v143 != 14 || ((1 << v316) & 0x118441) == 0 || (v840 & 0x100) == 0)
       {
         goto LABEL_1178;
       }
@@ -10630,12 +10545,63 @@ LABEL_1168:
     }
   }
 
-  else if (v146 != 14 || ((1 << v319) & 0x110401) == 0 || (v846 & 0x100) == 0)
+  else if (v143 != 14 || ((1 << v316) & 0x110401) == 0 || (v840 & 0x100) == 0)
   {
     goto LABEL_1165;
   }
 
-  if ((~v861 & 0x43) == 0 || (v861 & 0x4000) != 0 && (~v851[1] & 0x43) == 0)
+  if ((~v855 & 0x43) == 0 || (v855 & 0x4000) != 0 && (~v845[1] & 0x43) == 0)
+  {
+    if (kMTFEDebugPOS)
+    {
+      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+      kMTFEDebugPOS = 0;
+    }
+
+    if (byte_27F8F0908 == 1)
+    {
+      v462 = *MEMORY[0x277D85E08];
+      v463 = *(MEMORY[0x277D65538] + 64);
+      v464 = SLTagEng::Name(v838);
+      fprintf(v462, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v463, "", "", v464, 1586, v840, v855);
+    }
+
+    goto LABEL_1008;
+  }
+
+LABEL_1165:
+  if ((v457 & 0x118441) == 0)
+  {
+    goto LABEL_1168;
+  }
+
+  if ((v840 & 0x100) == 0)
+  {
+    goto LABEL_1185;
+  }
+
+LABEL_1171:
+  if ((v855 & 0x10E) != 0 || (v855 & 0x4000) != 0 && (v845[1] & 0x10E) != 0)
+  {
+    if (kMTFEDebugPOS)
+    {
+      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+      kMTFEDebugPOS = 0;
+    }
+
+    if (byte_27F8F0908 == 1)
+    {
+      v465 = *MEMORY[0x277D85E08];
+      v466 = *(MEMORY[0x277D65538] + 64);
+      v467 = SLTagEng::Name(v838);
+      fprintf(v465, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v466, "", "", v467, 1597, v840, v855);
+    }
+
+    goto LABEL_1008;
+  }
+
+LABEL_1178:
+  if ((v457 & 0x1C00) != 0 && (v840 & 0x100) != 0 && (v855 & 0x10E) != 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -10647,75 +10613,24 @@ LABEL_1168:
     {
       v468 = *MEMORY[0x277D85E08];
       v469 = *(MEMORY[0x277D65538] + 64);
-      v470 = SLTagEng::Name(v844);
-      fprintf(v468, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v469, "", "", v470, 1586, v846, v861);
-    }
-
-    goto LABEL_1008;
-  }
-
-LABEL_1165:
-  if ((v463 & 0x118441) == 0)
-  {
-    goto LABEL_1168;
-  }
-
-  if ((v846 & 0x100) == 0)
-  {
-    goto LABEL_1185;
-  }
-
-LABEL_1171:
-  if ((v861 & 0x10E) != 0 || (v861 & 0x4000) != 0 && (v851[1] & 0x10E) != 0)
-  {
-    if (kMTFEDebugPOS)
-    {
-      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-      kMTFEDebugPOS = 0;
-    }
-
-    if (byte_27F8F0908 == 1)
-    {
-      v471 = *MEMORY[0x277D85E08];
-      v472 = *(MEMORY[0x277D65538] + 64);
-      v473 = SLTagEng::Name(v844);
-      fprintf(v471, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v472, "", "", v473, 1597, v846, v861);
-    }
-
-    goto LABEL_1008;
-  }
-
-LABEL_1178:
-  if ((v463 & 0x1C00) != 0 && (v846 & 0x100) != 0 && (v861 & 0x10E) != 0)
-  {
-    if (kMTFEDebugPOS)
-    {
-      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-      kMTFEDebugPOS = 0;
-    }
-
-    if (byte_27F8F0908 == 1)
-    {
-      v474 = *MEMORY[0x277D85E08];
-      v475 = *(MEMORY[0x277D65538] + 64);
-      v476 = SLTagEng::Name(v844);
-      fprintf(v474, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v475, "", "", v476, 1605, v846, v861);
+      v470 = SLTagEng::Name(v838);
+      fprintf(v468, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v469, "", "", v470, 1605, v840, v855);
     }
 
     goto LABEL_1008;
   }
 
 LABEL_1185:
-  if (v146 == 8)
+  if (v143 == 8)
   {
     goto LABEL_1193;
   }
 
-  if (v319 != 8)
+  if (v316 != 8)
   {
-    if (v146 != 18)
+    if (v143 != 18)
     {
-      if (v319 != 18 || v146 != 14)
+      if (v316 != 18 || v143 != 14)
       {
         goto LABEL_1199;
       }
@@ -10724,7 +10639,7 @@ LABEL_1185:
     }
 
 LABEL_1193:
-    if ((v846 & 0x108) != 0)
+    if ((v840 & 0x108) != 0)
     {
       goto LABEL_1198;
     }
@@ -10732,16 +10647,16 @@ LABEL_1193:
     goto LABEL_1199;
   }
 
-  if ((v463 & 0x14000) == 0 && v146 != 18)
+  if ((v457 & 0x14000) == 0 && v143 != 18)
   {
     goto LABEL_1199;
   }
 
 LABEL_1197:
-  if ((v846 & 0x108) != 0)
+  if ((v840 & 0x108) != 0)
   {
 LABEL_1198:
-    if ((v861 & 0x30) == 0)
+    if ((v855 & 0x30) == 0)
     {
       LODWORD(var15) = SLFirstPOSInSet();
       if (kMTFEDebugPOS)
@@ -10752,11 +10667,11 @@ LABEL_1198:
 
       if (byte_27F8F0908 == 1)
       {
-        v487 = *MEMORY[0x277D85E08];
-        v488 = *(MEMORY[0x277D65538] + 8 * var15);
-        v489 = *(MEMORY[0x277D65538] + 8);
-        v490 = SLTagEng::Name(0x42);
-        fprintf(v487, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v488, "->", v489, v490, 1618, v846, v861);
+        v481 = *MEMORY[0x277D85E08];
+        v482 = *(MEMORY[0x277D65538] + 8 * var15);
+        v483 = *(MEMORY[0x277D65538] + 8);
+        v484 = SLTagEng::Name(0x42);
+        fprintf(v481, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v482, "->", v483, v484, 1618, v840, v855);
       }
 
       goto LABEL_1269;
@@ -10764,7 +10679,7 @@ LABEL_1198:
   }
 
 LABEL_1199:
-  if (v146 == 12 && (v846 & 0x10C) != 0 && (v861 & 0x10000) != 0)
+  if (v143 == 12 && (v840 & 0x10C) != 0 && (v855 & 0x10000) != 0)
   {
     LODWORD(var15) = SLFirstPOSInSet();
     if (kMTFEDebugPOS)
@@ -10775,25 +10690,25 @@ LABEL_1199:
 
     if (byte_27F8F0908 == 1)
     {
-      v509 = *MEMORY[0x277D85E08];
-      v510 = *(MEMORY[0x277D65538] + 8 * var15);
-      v511 = *(MEMORY[0x277D65538] + 8);
-      v512 = SLTagEng::Name(0x42);
-      fprintf(v509, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v510, "->", v511, v512, 1629, v846, v861);
+      v503 = *MEMORY[0x277D85E08];
+      v504 = *(MEMORY[0x277D65538] + 8 * var15);
+      v505 = *(MEMORY[0x277D65538] + 8);
+      v506 = SLTagEng::Name(0x42);
+      fprintf(v503, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v504, "->", v505, v506, 1629, v840, v855);
     }
 
     goto LABEL_1269;
   }
 
-  if ((v463 & 0x13E) == 0)
+  if ((v457 & 0x13E) == 0)
   {
-    v482 = v837 ^ 1;
-    if ((v846 & 0x10C) == 0)
+    v476 = v831 ^ 1;
+    if ((v840 & 0x10C) == 0)
     {
-      v482 = 1;
+      v476 = 1;
     }
 
-    if ((v482 & 1) == 0)
+    if ((v476 & 1) == 0)
     {
       LODWORD(var15) = SLFirstPOSInSet();
       if (kMTFEDebugPOS)
@@ -10804,17 +10719,17 @@ LABEL_1199:
 
       if (byte_27F8F0908 == 1)
       {
-        v483 = *MEMORY[0x277D85E08];
-        v484 = *(MEMORY[0x277D65538] + 8 * var15);
-        v485 = *(MEMORY[0x277D65538] + 8);
-        v486 = SLTagEng::Name(0x42);
-        fprintf(v483, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v484, "->", v485, v486, 1641, v846, v861);
+        v477 = *MEMORY[0x277D85E08];
+        v478 = *(MEMORY[0x277D65538] + 8 * var15);
+        v479 = *(MEMORY[0x277D65538] + 8);
+        v480 = SLTagEng::Name(0x42);
+        fprintf(v477, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v478, "->", v479, v480, 1641, v840, v855);
       }
 
       goto LABEL_1269;
     }
 
-    if ((v846 & 0x100) != 0 && (v861 & 0x13E) == 0 && (v851[1] & 0x13E) == 0)
+    if ((v840 & 0x100) != 0 && (v855 & 0x13E) == 0 && (v845[1] & 0x13E) == 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -10824,11 +10739,11 @@ LABEL_1199:
 
       if (byte_27F8F0908 == 1)
       {
-        v505 = *MEMORY[0x277D85E08];
-        v506 = *(MEMORY[0x277D65538] + 64);
-        v507 = *(MEMORY[0x277D65538] + 8);
-        v508 = SLTagEng::Name(0x42);
-        fprintf(v505, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v506, "->", v507, v508, 1655, v846, v861);
+        v499 = *MEMORY[0x277D85E08];
+        v500 = *(MEMORY[0x277D65538] + 64);
+        v501 = *(MEMORY[0x277D65538] + 8);
+        v502 = SLTagEng::Name(0x42);
+        fprintf(v499, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v500, "->", v501, v502, 1655, v840, v855);
       }
 
       var3 = 0;
@@ -10839,9 +10754,9 @@ LABEL_1199:
     }
   }
 
-  if ((v463 & 0x22000) != 0)
+  if ((v457 & 0x22000) != 0)
   {
-    if ((v846 & 0x10C) == 0)
+    if ((v840 & 0x10C) == 0)
     {
       goto LABEL_1229;
     }
@@ -10849,12 +10764,12 @@ LABEL_1199:
 
   else
   {
-    if ((v846 & 0x10C) == 0)
+    if ((v840 & 0x10C) == 0)
     {
       goto LABEL_1229;
     }
 
-    if (((v837 | ((v861 & 0x800) >> 11)) & 1) != 0 || (v836 & ((v861 & 0x4000) >> 14)) == 1)
+    if (((v831 | ((v855 & 0x800) >> 11)) & 1) != 0 || (v830 & ((v855 & 0x4000) >> 14)) == 1)
     {
       LODWORD(var15) = SLFirstPOSInSet();
       if (kMTFEDebugPOS)
@@ -10865,18 +10780,18 @@ LABEL_1199:
 
       if (byte_27F8F0908 == 1)
       {
-        v491 = *MEMORY[0x277D85E08];
-        v492 = *(MEMORY[0x277D65538] + 8 * var15);
-        v493 = *(MEMORY[0x277D65538] + 8);
-        v494 = SLTagEng::Name(0x42);
-        fprintf(v491, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v492, "->", v493, v494, 1667, v846, v861);
+        v485 = *MEMORY[0x277D85E08];
+        v486 = *(MEMORY[0x277D65538] + 8 * var15);
+        v487 = *(MEMORY[0x277D65538] + 8);
+        v488 = SLTagEng::Name(0x42);
+        fprintf(v485, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v486, "->", v487, v488, 1667, v840, v855);
       }
 
       goto LABEL_1269;
     }
   }
 
-  if ((((v861 & 0x800) == 0) & ~v837) == 0)
+  if ((((v855 & 0x800) == 0) & ~v831) == 0)
   {
     LODWORD(var15) = SLFirstPOSInSet();
     if (kMTFEDebugPOS)
@@ -10887,11 +10802,11 @@ LABEL_1199:
 
     if (byte_27F8F0908 == 1)
     {
-      v478 = *MEMORY[0x277D85E08];
-      v479 = *(MEMORY[0x277D65538] + 8 * var15);
-      v480 = *MEMORY[0x277D65538];
-      v481 = SLTagEng::Name(0x42);
-      fprintf(v478, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v479, "->", v480, v481, 1677, v846, v861);
+      v472 = *MEMORY[0x277D85E08];
+      v473 = *(MEMORY[0x277D65538] + 8 * var15);
+      v474 = *MEMORY[0x277D65538];
+      v475 = SLTagEng::Name(0x42);
+      fprintf(v472, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v473, "->", v474, v475, 1677, v840, v855);
     }
 
     LODWORD(v13) = 0;
@@ -10899,7 +10814,7 @@ LABEL_1199:
   }
 
 LABEL_1229:
-  if ((v463 & 0x110C00) != 0 && (v846 & 0x100) != 0 && (v861 & 0x4000) != 0 && (v851[1] & 0xE) != 0)
+  if ((v457 & 0x110C00) != 0 && (v840 & 0x100) != 0 && (v855 & 0x4000) != 0 && (v845[1] & 0xE) != 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -10909,17 +10824,17 @@ LABEL_1229:
 
     if (byte_27F8F0908 == 1)
     {
-      v495 = *MEMORY[0x277D85E08];
-      v496 = *(MEMORY[0x277D65538] + 64);
-      v497 = SLTagEng::Name(v844);
-      fprintf(v495, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v496, "", "", v497, 1686, v846, v861);
+      v489 = *MEMORY[0x277D85E08];
+      v490 = *(MEMORY[0x277D65538] + 64);
+      v491 = SLTagEng::Name(v838);
+      fprintf(v489, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v490, "", "", v491, 1686, v840, v855);
     }
 
     goto LABEL_1008;
   }
 
-  v498 = 1 << v319;
-  if (((1 << v319) & 0x110000) != 0 && (v463 & 0xE) != 0 && (v846 & 0x100) != 0 && (v861 & 0xE) != 0)
+  v492 = 1 << v316;
+  if (((1 << v316) & 0x110000) != 0 && (v457 & 0xE) != 0 && (v840 & 0x100) != 0 && (v855 & 0xE) != 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -10929,16 +10844,16 @@ LABEL_1229:
 
     if (byte_27F8F0908 == 1)
     {
-      v499 = *MEMORY[0x277D85E08];
-      v500 = *(MEMORY[0x277D65538] + 64);
-      v501 = SLTagEng::Name(v844);
-      fprintf(v499, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v500, "", "", v501, 1695, v846, v861);
+      v493 = *MEMORY[0x277D85E08];
+      v494 = *(MEMORY[0x277D65538] + 64);
+      v495 = SLTagEng::Name(v838);
+      fprintf(v493, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v494, "", "", v495, 1695, v840, v855);
     }
 
     goto LABEL_1008;
   }
 
-  if (v319 == 12 && (v463 & 0x41) != 0 && (v846 & 0x100) != 0 && ((v861 & 0x10000) != 0 && (v851[1] & 0xE) != 0 || (v861 & 0x22000) != 0 && (v851[1] & 0xE) != 0))
+  if (v316 == 12 && (v457 & 0x41) != 0 && (v840 & 0x100) != 0 && ((v855 & 0x10000) != 0 && (v845[1] & 0xE) != 0 || (v855 & 0x22000) != 0 && (v845[1] & 0xE) != 0))
   {
     if (kMTFEDebugPOS)
     {
@@ -10948,25 +10863,25 @@ LABEL_1229:
 
     if (byte_27F8F0908 == 1)
     {
-      v519 = *MEMORY[0x277D85E08];
-      v520 = *(MEMORY[0x277D65538] + 64);
-      v521 = SLTagEng::Name(v844);
-      fprintf(v519, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v520, "", "", v521, 1704, v846, v861);
+      v513 = *MEMORY[0x277D85E08];
+      v514 = *(MEMORY[0x277D65538] + 64);
+      v515 = SLTagEng::Name(v838);
+      fprintf(v513, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v514, "", "", v515, 1704, v840, v855);
     }
 
     goto LABEL_1008;
   }
 
-  if (v831 == 257)
+  if (v825 == 257)
   {
-    if ((v861 & 0xE) != 0 || (v861 & 0x4000) != 0 && (v851[1] & 0xE) != 0)
+    if ((v855 & 0xE) != 0 || (v855 & 0x4000) != 0 && (v845[1] & 0xE) != 0)
     {
       goto LABEL_1253;
     }
 
-    if (v146 == 11)
+    if (v143 == 11)
     {
-      if ((v861 & 0x10000) == 0 || (v851[1] & 0xE) == 0)
+      if ((v855 & 0x10000) == 0 || (v845[1] & 0xE) == 0)
       {
         goto LABEL_1282;
       }
@@ -10980,17 +10895,17 @@ LABEL_1253:
 
       if (byte_27F8F0908 == 1)
       {
-        v502 = *MEMORY[0x277D85E08];
-        v503 = *(MEMORY[0x277D65538] + 64);
-        v504 = SLTagEng::Name(v844);
-        fprintf(v502, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v503, "", "", v504, 1714, v846, v861);
+        v496 = *MEMORY[0x277D85E08];
+        v497 = *(MEMORY[0x277D65538] + 64);
+        v498 = SLTagEng::Name(v838);
+        fprintf(v496, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v497, "", "", v498, 1714, v840, v855);
       }
 
       goto LABEL_1008;
     }
   }
 
-  if (v146 == 15 && (v846 & 2) != 0)
+  if (v143 == 15 && (v840 & 2) != 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -11000,17 +10915,17 @@ LABEL_1253:
 
     if (byte_27F8F0908 == 1)
     {
-      v513 = *MEMORY[0x277D85E08];
-      v514 = *(MEMORY[0x277D65538] + 8);
-      v515 = SLTagEng::Name(v844);
-      fprintf(v513, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v514, "", "", v515, 1725, v846, v861);
+      v507 = *MEMORY[0x277D85E08];
+      v508 = *(MEMORY[0x277D65538] + 8);
+      v509 = SLTagEng::Name(v838);
+      fprintf(v507, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v508, "", "", v509, 1725, v840, v855);
     }
 
     goto LABEL_527;
   }
 
 LABEL_1282:
-  if (((v463 & 0x4001C) != 0 || v146 == 14 && (v498 & 0x4001C) != 0) && (v846 & 0x20) != 0 && (v861 & 1) == 0)
+  if (((v457 & 0x4001C) != 0 || v143 == 14 && (v492 & 0x4001C) != 0) && (v840 & 0x20) != 0 && (v855 & 1) == 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -11020,18 +10935,18 @@ LABEL_1282:
 
     if (byte_27F8F0908 == 1)
     {
-      v516 = *MEMORY[0x277D85E08];
-      v517 = *(MEMORY[0x277D65538] + 40);
-      v518 = SLTagEng::Name(v844);
-      fprintf(v516, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v517, "", "", v518, 1735, v846, v861);
+      v510 = *MEMORY[0x277D85E08];
+      v511 = *(MEMORY[0x277D65538] + 40);
+      v512 = SLTagEng::Name(v838);
+      fprintf(v510, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v511, "", "", v512, 1735, v840, v855);
     }
 
     goto LABEL_959;
   }
 
-  if ((v463 & 0x40024) != 0)
+  if ((v457 & 0x40024) != 0)
   {
-    if ((v837 | v416))
+    if ((v831 | v410))
     {
       goto LABEL_1293;
     }
@@ -11045,25 +10960,25 @@ LABEL_1308:
 
     if (byte_27F8F0908 == 1)
     {
-      v524 = *MEMORY[0x277D85E08];
-      v525 = *(MEMORY[0x277D65538] + 32);
-      v526 = SLTagEng::Name(v844);
-      fprintf(v524, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v525, "", "", v526, 1743, v846, v861);
+      v518 = *MEMORY[0x277D85E08];
+      v519 = *(MEMORY[0x277D65538] + 32);
+      v520 = SLTagEng::Name(v838);
+      fprintf(v518, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v519, "", "", v520, 1743, v840, v855);
     }
 
     goto LABEL_1037;
   }
 
-  v523 = (v498 & 0x40024) == 0 || v146 != 14;
-  if (((v837 | v416 | v523) & 1) == 0)
+  v517 = (v492 & 0x40024) == 0 || v143 != 14;
+  if (((v831 | v410 | v517) & 1) == 0)
   {
     goto LABEL_1308;
   }
 
 LABEL_1293:
-  if ((v463 & 0x4000C) != 0)
+  if ((v457 & 0x4000C) != 0)
   {
-    if (v834 != 66)
+    if (v828 != 66)
     {
       goto LABEL_1319;
     }
@@ -11077,35 +10992,35 @@ LABEL_1315:
 
     if (byte_27F8F0908 == 1)
     {
-      v527 = *MEMORY[0x277D85E08];
-      v528 = *(MEMORY[0x277D65538] + 48);
-      v529 = SLTagEng::Name(v844);
-      fprintf(v527, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v528, "", "", v529, 1752, v846, v861);
+      v521 = *MEMORY[0x277D85E08];
+      v522 = *(MEMORY[0x277D65538] + 48);
+      v523 = SLTagEng::Name(v838);
+      fprintf(v521, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v522, "", "", v523, 1752, v840, v855);
     }
 
     goto LABEL_412;
   }
 
-  if (v146 == 14 && v834 == 66 && (v498 & 0x4000C) != 0)
+  if (v143 == 14 && v828 == 66 && (v492 & 0x4000C) != 0)
   {
     goto LABEL_1315;
   }
 
 LABEL_1319:
-  if ((v463 & 0x22080) != 0)
+  if ((v457 & 0x22080) != 0)
   {
-    if (v834 != 66)
+    if (v828 != 66)
     {
       goto LABEL_1330;
     }
   }
 
-  else if (v146 != 14 || v834 != 66 || (v498 & 0x22080) == 0)
+  else if (v143 != 14 || v828 != 66 || (v492 & 0x22080) == 0)
   {
     goto LABEL_1330;
   }
 
-  if ((((v861 & 1) == 0) & ~v837) == 0)
+  if ((((v855 & 1) == 0) & ~v831) == 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -11115,17 +11030,17 @@ LABEL_1319:
 
     if (byte_27F8F0908 == 1)
     {
-      v530 = *MEMORY[0x277D85E08];
-      v531 = *(MEMORY[0x277D65538] + 48);
-      v532 = SLTagEng::Name(v844);
-      fprintf(v530, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v531, "", "", v532, 1761, v846, v861);
+      v524 = *MEMORY[0x277D85E08];
+      v525 = *(MEMORY[0x277D65538] + 48);
+      v526 = SLTagEng::Name(v838);
+      fprintf(v524, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v525, "", "", v526, 1761, v840, v855);
     }
 
     goto LABEL_412;
   }
 
 LABEL_1330:
-  if ((v389 || v146 == 14 && !v319) && (v846 & 0x62) == 0x60 && (((v861 & 0x80) == 0) & ~v837) == 0)
+  if ((v386 || v143 == 14 && !v316) && (v840 & 0x62) == 0x60 && (((v855 & 0x80) == 0) & ~v831) == 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -11135,20 +11050,20 @@ LABEL_1330:
 
     if (byte_27F8F0908 == 1)
     {
-      v533 = *MEMORY[0x277D85E08];
-      v534 = *(MEMORY[0x277D65538] + 40);
-      v535 = SLTagEng::Name(v844);
-      fprintf(v533, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v534, "", "", v535, 1770, v846, v861);
+      v527 = *MEMORY[0x277D85E08];
+      v528 = *(MEMORY[0x277D65538] + 40);
+      v529 = SLTagEng::Name(v838);
+      fprintf(v527, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v528, "", "", v529, 1770, v840, v855);
     }
 
     goto LABEL_959;
   }
 
-  if ((v463 & 0x40100) != 0)
+  if ((v457 & 0x40100) != 0)
   {
-    if ((v846 & 2) == 0)
+    if ((v840 & 2) == 0)
     {
-      v536 = v498 & 0x40100;
+      v530 = v492 & 0x40100;
       goto LABEL_1349;
     }
 
@@ -11161,23 +11076,23 @@ LABEL_1345:
 
     if (byte_27F8F0908 == 1)
     {
-      v537 = *MEMORY[0x277D85E08];
-      v538 = *(MEMORY[0x277D65538] + 8);
-      v539 = SLTagEng::Name(v844);
-      fprintf(v537, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v538, "", "", v539, 1778, v846, v861);
+      v531 = *MEMORY[0x277D85E08];
+      v532 = *(MEMORY[0x277D65538] + 8);
+      v533 = SLTagEng::Name(v838);
+      fprintf(v531, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v532, "", "", v533, 1778, v840, v855);
     }
 
     goto LABEL_527;
   }
 
-  v536 = v498 & 0x40100;
-  if (v146 == 14 && v536 && (v846 & 2) != 0)
+  v530 = v492 & 0x40100;
+  if (v143 == 14 && v530 && (v840 & 2) != 0)
   {
     goto LABEL_1345;
   }
 
 LABEL_1349:
-  if (v536 && (v463 & 0x310000) != 0 && (v846 & 2) != 0)
+  if (v530 && (v457 & 0x310000) != 0 && (v840 & 2) != 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -11187,18 +11102,18 @@ LABEL_1349:
 
     if (byte_27F8F0908 == 1)
     {
-      v540 = *MEMORY[0x277D85E08];
-      v541 = *(MEMORY[0x277D65538] + 8);
-      v542 = SLTagEng::Name(v844);
-      fprintf(v540, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v541, "", "", v542, 1785, v846, v861);
+      v534 = *MEMORY[0x277D85E08];
+      v535 = *(MEMORY[0x277D65538] + 8);
+      v536 = SLTagEng::Name(v838);
+      fprintf(v534, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v535, "", "", v536, 1785, v840, v855);
     }
 
     goto LABEL_527;
   }
 
-  if (v832)
+  if (v826)
   {
-    if ((v861 & 0x21) == 0x20 && (v851[1] & 1) == 0)
+    if ((v855 & 0x21) == 0x20 && (v845[1] & 1) == 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -11208,10 +11123,10 @@ LABEL_1349:
 
       if (byte_27F8F0908 == 1)
       {
-        v543 = *MEMORY[0x277D85E08];
-        v544 = *(MEMORY[0x277D65538] + 32);
-        v545 = SLTagEng::Name(v844);
-        fprintf(v543, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v544, "", "", v545, 1792, v846, v861);
+        v537 = *MEMORY[0x277D85E08];
+        v538 = *(MEMORY[0x277D65538] + 32);
+        v539 = SLTagEng::Name(v838);
+        fprintf(v537, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v538, "", "", v539, 1792, v840, v855);
       }
 
 LABEL_1037:
@@ -11221,7 +11136,7 @@ LABEL_1037:
       goto LABEL_401;
     }
 
-    if ((v463 & 0x4090) != 0)
+    if ((v457 & 0x4090) != 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -11231,24 +11146,24 @@ LABEL_1037:
 
       if (byte_27F8F0908 == 1)
       {
-        v546 = *MEMORY[0x277D85E08];
-        v547 = *(MEMORY[0x277D65538] + 32);
-        v548 = SLTagEng::Name(v844);
-        fprintf(v546, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v547, "", "", v548, 1800, v846, v861);
+        v540 = *MEMORY[0x277D85E08];
+        v541 = *(MEMORY[0x277D65538] + 32);
+        v542 = SLTagEng::Name(v838);
+        fprintf(v540, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v541, "", "", v542, 1800, v840, v855);
       }
 
       goto LABEL_1037;
     }
 
-    if (v146 == 10)
+    if (v143 == 10)
     {
-      v549 = v837;
-      if ((v861 & 0x10E) != 0)
+      v543 = v831;
+      if ((v855 & 0x10E) != 0)
       {
-        v549 = 1;
+        v543 = 1;
       }
 
-      if ((v549 & 1) == 0)
+      if ((v543 & 1) == 0)
       {
         if (kMTFEDebugPOS)
         {
@@ -11258,17 +11173,17 @@ LABEL_1037:
 
         if (byte_27F8F0908 == 1)
         {
-          v553 = *MEMORY[0x277D85E08];
-          v554 = *(MEMORY[0x277D65538] + 32);
-          v555 = SLTagEng::Name(v844);
-          fprintf(v553, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v554, "", "", v555, 1808, v846, v861);
+          v547 = *MEMORY[0x277D85E08];
+          v548 = *(MEMORY[0x277D65538] + 32);
+          v549 = SLTagEng::Name(v838);
+          fprintf(v547, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v548, "", "", v549, 1808, v840, v855);
         }
 
         goto LABEL_1037;
       }
     }
 
-    if (v389 && SLWordTagSet::find(&v850) && (v851[1] & 0x4040) != 0)
+    if (v386 && SLWordTagSet::find(&v844) && (v845[1] & 0x4040) != 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -11278,28 +11193,28 @@ LABEL_1037:
 
       if (byte_27F8F0908 == 1)
       {
-        v550 = *MEMORY[0x277D85E08];
-        v551 = *(MEMORY[0x277D65538] + 32);
-        v552 = SLTagEng::Name(v844);
-        fprintf(v550, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v551, "", "", v552, 1815, v846, v861);
+        v544 = *MEMORY[0x277D85E08];
+        v545 = *(MEMORY[0x277D65538] + 32);
+        v546 = SLTagEng::Name(v838);
+        fprintf(v544, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v545, "", "", v546, 1815, v840, v855);
       }
 
       goto LABEL_1037;
     }
   }
 
-  v556 = v862;
-  if (v862 == 17)
+  v550 = v856;
+  if (v856 == 17)
   {
-    if ((~v846 & 0x62) != 0)
+    if ((~v840 & 0x62) != 0)
     {
 LABEL_1403:
-      v560 = 0;
+      v554 = 0;
       goto LABEL_1405;
     }
 
 LABEL_1389:
-    if ((((v861 & 0x80) == 0) & ~v837) == 0)
+    if ((((v855 & 0x80) == 0) & ~v831) == 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -11309,10 +11224,10 @@ LABEL_1389:
 
       if (byte_27F8F0908 == 1)
       {
-        v557 = *MEMORY[0x277D85E08];
-        v558 = *(MEMORY[0x277D65538] + 40);
-        v559 = SLTagEng::Name(v844);
-        fprintf(v557, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v558, "", "", v559, 1824, v846, v861);
+        v551 = *MEMORY[0x277D85E08];
+        v552 = *(MEMORY[0x277D65538] + 40);
+        v553 = SLTagEng::Name(v838);
+        fprintf(v551, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v552, "", "", v553, 1824, v840, v855);
       }
 
       goto LABEL_959;
@@ -11321,15 +11236,15 @@ LABEL_1389:
     goto LABEL_1403;
   }
 
-  if (v862 == 14 && v855 == 17 && (v846 & 0x62) == 0x62)
+  if (v856 == 14 && v849 == 17 && (v840 & 0x62) == 0x62)
   {
     goto LABEL_1389;
   }
 
-  v560 = v862 == 0;
-  if (v560 && v391)
+  v554 = v856 == 0;
+  if (v554 && v388)
   {
-    if ((v861 & 0x80) != 0 && (v851[1] & 0x32001) != 0 || (v861 & 3) == 1 && ((v851[1] & 0x10E) != 0 || v836))
+    if ((v855 & 0x80) != 0 && (v845[1] & 0x32001) != 0 || (v855 & 3) == 1 && ((v845[1] & 0x10E) != 0 || v830))
     {
       if (kMTFEDebugPOS)
       {
@@ -11339,23 +11254,23 @@ LABEL_1389:
 
       if (byte_27F8F0908 == 1)
       {
-        v561 = *MEMORY[0x277D85E08];
-        v562 = *(MEMORY[0x277D65538] + 48);
-        v563 = SLTagEng::Name(v844);
-        fprintf(v561, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v562, "", "", v563, 1834, v846, v861);
+        v555 = *MEMORY[0x277D85E08];
+        v556 = *(MEMORY[0x277D65538] + 48);
+        v557 = SLTagEng::Name(v838);
+        fprintf(v555, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v556, "", "", v557, 1834, v840, v855);
       }
 
       goto LABEL_412;
     }
 
-    v560 = 1;
+    v554 = 1;
   }
 
 LABEL_1405:
-  if (v855 != 255)
+  if (v849 != 255)
   {
-    v564 = ((0x22041u >> v855) & 1) == 0 && v560;
-    if (v564 && v833 && ((v861 & 0x80) != 0 && (v851[1] & 0x32001) != 0 || (v861 & 3) == 1 && ((v851[1] & 0x10E) != 0 || v836)))
+    v558 = ((0x22041u >> v849) & 1) == 0 && v554;
+    if (v558 && v827 && ((v855 & 0x80) != 0 && (v845[1] & 0x32001) != 0 || (v855 & 3) == 1 && ((v845[1] & 0x10E) != 0 || v830)))
     {
       if (kMTFEDebugPOS)
       {
@@ -11365,32 +11280,81 @@ LABEL_1405:
 
       if (byte_27F8F0908 == 1)
       {
-        v565 = *MEMORY[0x277D85E08];
-        v566 = *MEMORY[0x277D65538];
-        v567 = SLTagEng::Name(v844);
-        fprintf(v565, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v566, "", "", v567, 1846, v846, v861);
+        v559 = *MEMORY[0x277D85E08];
+        v560 = *MEMORY[0x277D65538];
+        v561 = SLTagEng::Name(v838);
+        fprintf(v559, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v560, "", "", v561, 1846, v840, v855);
       }
 
       goto LABEL_340;
     }
   }
 
-  v568 = 1 << v862;
-  if (((1 << v862) & 0x118401) != 0)
+  v562 = 1 << v856;
+  if (((1 << v856) & 0x118401) != 0)
   {
-    if (v834 != 66)
+    if (v828 != 66)
     {
       goto LABEL_1425;
     }
   }
 
-  else if (v834 != 66 || v862 != 14 || ((1 << v855) & 0x118401) == 0)
+  else if (v828 != 66 || v856 != 14 || ((1 << v849) & 0x118401) == 0)
   {
     goto LABEL_1425;
   }
 
-  if (((v837 | v861) & 1) == 0)
+  if (((v831 | v855) & 1) == 0)
   {
+    if (kMTFEDebugPOS)
+    {
+      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+      kMTFEDebugPOS = 0;
+    }
+
+    if (byte_27F8F0908 == 1)
+    {
+      v563 = *MEMORY[0x277D85E08];
+      v564 = *(MEMORY[0x277D65538] + 8);
+      v565 = SLTagEng::Name(v838);
+      fprintf(v563, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v564, "", "", v565, 1856, v840, v855);
+    }
+
+    goto LABEL_1989;
+  }
+
+LABEL_1425:
+  if (((v562 & 0x15C500) != 0 || v856 == 14 && ((1 << v849) & 0x158500) != 0) && v387 == 3)
+  {
+    if ((v855 & 0x480) == 0 && ((~v855 & 3) != 0 || ((BYTE2(v845[1]) | v830) & 1) == 0))
+    {
+      if ((v855 & 0x101) == 1 && (v845[1] & 0x10C) != 0)
+      {
+        goto LABEL_1445;
+      }
+
+      if ((v855 & 0x10C) != 0)
+      {
+        v387 = 3;
+        if ((v855 & 0x22) == 2 || (v845[1] & 0x22) != 0 || v830)
+        {
+          goto LABEL_1446;
+        }
+      }
+
+      else if ((v855 & 0x22) == 2)
+      {
+LABEL_1445:
+        v387 = 3;
+        goto LABEL_1446;
+      }
+
+      if ((v855 & 1) != 0 && (v845[1] & 0x22) == 2)
+      {
+        goto LABEL_1445;
+      }
+    }
+
     if (kMTFEDebugPOS)
     {
       MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
@@ -11401,45 +11365,16 @@ LABEL_1405:
     {
       v569 = *MEMORY[0x277D85E08];
       v570 = *(MEMORY[0x277D65538] + 8);
-      v571 = SLTagEng::Name(v844);
-      fprintf(v569, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v570, "", "", v571, 1856, v846, v861);
+      v571 = SLTagEng::Name(v838);
+      fprintf(v569, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v570, "", "", v571, 1871, v840, v855);
     }
 
     goto LABEL_1989;
   }
 
-LABEL_1425:
-  if (((v568 & 0x15C500) != 0 || v862 == 14 && ((1 << v855) & 0x158500) != 0) && v390 == 3)
+LABEL_1446:
+  if (((1 << v849) & 0xC00) != 0 && (v562 & 0x110000) != 0 && v827)
   {
-    if ((v861 & 0x480) == 0 && ((~v861 & 3) != 0 || ((BYTE2(v851[1]) | v836) & 1) == 0))
-    {
-      if ((v861 & 0x101) == 1 && (v851[1] & 0x10C) != 0)
-      {
-        goto LABEL_1445;
-      }
-
-      if ((v861 & 0x10C) != 0)
-      {
-        v390 = 3;
-        if ((v861 & 0x22) == 2 || (v851[1] & 0x22) != 0 || v836)
-        {
-          goto LABEL_1446;
-        }
-      }
-
-      else if ((v861 & 0x22) == 2)
-      {
-LABEL_1445:
-        v390 = 3;
-        goto LABEL_1446;
-      }
-
-      if ((v861 & 1) != 0 && (v851[1] & 0x22) == 2)
-      {
-        goto LABEL_1445;
-      }
-    }
-
     if (kMTFEDebugPOS)
     {
       MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
@@ -11448,17 +11383,19 @@ LABEL_1445:
 
     if (byte_27F8F0908 == 1)
     {
-      v575 = *MEMORY[0x277D85E08];
-      v576 = *(MEMORY[0x277D65538] + 8);
-      v577 = SLTagEng::Name(v844);
-      fprintf(v575, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v576, "", "", v577, 1871, v846, v861);
+      v566 = *MEMORY[0x277D85E08];
+      v567 = *(MEMORY[0x277D65538] + 8);
+      v568 = SLTagEng::Name(v838);
+      fprintf(v566, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v567, "", "", v568, 1880, v840, v855);
     }
 
-    goto LABEL_1989;
+LABEL_1989:
+    var3 = 0;
+    LODWORD(var15) = 1;
+    goto LABEL_331;
   }
 
-LABEL_1446:
-  if (((1 << v855) & 0xC00) != 0 && (v568 & 0x110000) != 0 && v833)
+  if (v827 && (v830 & (v855 >> 7)) == 1)
   {
     if (kMTFEDebugPOS)
     {
@@ -11470,17 +11407,14 @@ LABEL_1446:
     {
       v572 = *MEMORY[0x277D85E08];
       v573 = *(MEMORY[0x277D65538] + 8);
-      v574 = SLTagEng::Name(v844);
-      fprintf(v572, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v573, "", "", v574, 1880, v846, v861);
+      v574 = SLTagEng::Name(v838);
+      fprintf(v572, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v573, "", "", v574, 1888, v840, v855);
     }
 
-LABEL_1989:
-    var3 = 0;
-    LODWORD(var15) = 1;
-    goto LABEL_331;
+    goto LABEL_1989;
   }
 
-  if (v833 && (v836 & (v861 >> 7)) == 1)
+  if (!((((1 << v856) & 0xC00) == 0 || !v827) | v831 & 1) && v18 && (LOBYTE(v18[3].var5) != 79 || BYTE1(v18[3].var5) != 70 || BYTE2(v18[3].var5)) && (v855 & 0x10E) == 0 && (v845[1] & 0x10E) == 0 && (v845[0] & 0x10E) == 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -11490,16 +11424,17 @@ LABEL_1989:
 
     if (byte_27F8F0908 == 1)
     {
-      v578 = *MEMORY[0x277D85E08];
-      v579 = *(MEMORY[0x277D65538] + 8);
-      v580 = SLTagEng::Name(v844);
-      fprintf(v578, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v579, "", "", v580, 1888, v846, v861);
+      v577 = *MEMORY[0x277D85E08];
+      v578 = *(MEMORY[0x277D65538] + 8);
+      v579 = SLTagEng::Name(v838);
+      fprintf(v577, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v578, "", "", v579, 1898, v840, v855);
     }
 
     goto LABEL_1989;
   }
 
-  if (!((((1 << v862) & 0xC00) == 0 || !v833) | v837 & 1) && v18 && (LOBYTE(v18[3].var5) != 79 || BYTE1(v18[3].var5) != 70 || BYTE2(v18[3].var5)) && (v861 & 0x10E) == 0 && (v851[1] & 0x10E) == 0 && (v851[0] & 0x10E) == 0)
+  v575 = v827 && v554;
+  if (v827 && v554 && (v855 & 0x2000) != 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -11509,39 +11444,19 @@ LABEL_1989:
 
     if (byte_27F8F0908 == 1)
     {
-      v583 = *MEMORY[0x277D85E08];
-      v584 = *(MEMORY[0x277D65538] + 8);
-      v585 = SLTagEng::Name(v844);
-      fprintf(v583, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v584, "", "", v585, 1898, v846, v861);
+      v580 = *MEMORY[0x277D85E08];
+      v581 = *(MEMORY[0x277D65538] + 8);
+      v582 = SLTagEng::Name(v838);
+      fprintf(v580, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v581, "", "", v582, 1907, v840, v855);
     }
 
     goto LABEL_1989;
   }
 
-  v581 = v833 && v560;
-  if (v833 && v560 && (v861 & 0x2000) != 0)
+  if (v856 == 20)
   {
-    if (kMTFEDebugPOS)
-    {
-      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-      kMTFEDebugPOS = 0;
-    }
-
-    if (byte_27F8F0908 == 1)
-    {
-      v586 = *MEMORY[0x277D85E08];
-      v587 = *(MEMORY[0x277D65538] + 8);
-      v588 = SLTagEng::Name(v844);
-      fprintf(v586, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v587, "", "", v588, 1907, v846, v861);
-    }
-
-    goto LABEL_1989;
-  }
-
-  if (v862 == 20)
-  {
-    v582 = v833;
-    if (!v833)
+    v576 = v827;
+    if (!v827)
     {
       goto LABEL_1520;
     }
@@ -11555,23 +11470,23 @@ LABEL_1487:
 
     if (byte_27F8F0908 == 1)
     {
-      v590 = *MEMORY[0x277D85E08];
-      v591 = *(MEMORY[0x277D65538] + 8);
-      v592 = SLTagEng::Name(v844);
-      fprintf(v590, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v591, "", "", v592, 1915, v846, v861);
+      v584 = *MEMORY[0x277D85E08];
+      v585 = *(MEMORY[0x277D65538] + 8);
+      v586 = SLTagEng::Name(v838);
+      fprintf(v584, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v585, "", "", v586, 1915, v840, v855);
     }
 
     goto LABEL_1989;
   }
 
-  v582 = v862 == 14;
-  v589 = v855 == 20 && v862 == 14;
-  if (v833 && v589)
+  v576 = v856 == 14;
+  v583 = v849 == 20 && v856 == 14;
+  if (v827 && v583)
   {
     goto LABEL_1487;
   }
 
-  if (v581 && (v861 & 0x4000) != 0 && ((v836 | (LOBYTE(v851[1]) >> 7)) & 1) != 0)
+  if (v575 && (v855 & 0x4000) != 0 && ((v830 | (LOBYTE(v845[1]) >> 7)) & 1) != 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -11581,17 +11496,17 @@ LABEL_1487:
 
     if (byte_27F8F0908 == 1)
     {
-      v593 = *MEMORY[0x277D85E08];
-      v594 = *(MEMORY[0x277D65538] + 8);
-      v595 = SLTagEng::Name(v844);
-      fprintf(v593, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v594, "", "", v595, 1924, v846, v861);
+      v587 = *MEMORY[0x277D85E08];
+      v588 = *(MEMORY[0x277D65538] + 8);
+      v589 = SLTagEng::Name(v838);
+      fprintf(v587, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v588, "", "", v589, 1924, v840, v855);
     }
 
     goto LABEL_1989;
   }
 
-  v597 = v862 == 14 && v855 != 2;
-  if (v597 && v391)
+  v591 = v856 == 14 && v849 != 2;
+  if (v591 && v388)
   {
     if (kMTFEDebugPOS)
     {
@@ -11601,16 +11516,16 @@ LABEL_1487:
 
     if (byte_27F8F0908 == 1)
     {
-      v598 = *MEMORY[0x277D85E08];
-      v599 = *(MEMORY[0x277D65538] + 8);
-      v600 = SLTagEng::Name(v844);
-      fprintf(v598, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v599, "", "", v600, 1931, v846, v861);
+      v592 = *MEMORY[0x277D85E08];
+      v593 = *(MEMORY[0x277D65538] + 8);
+      v594 = SLTagEng::Name(v838);
+      fprintf(v592, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v593, "", "", v594, 1931, v840, v855);
     }
 
     goto LABEL_1989;
   }
 
-  if (((v862 == 255) & ~v838 & v391) == 1)
+  if (((v856 == 255) & ~v832 & v388) == 1)
   {
     if (kMTFEDebugPOS)
     {
@@ -11620,33 +11535,33 @@ LABEL_1487:
 
     if (byte_27F8F0908 == 1)
     {
-      v601 = *MEMORY[0x277D85E08];
-      v602 = *(MEMORY[0x277D65538] + 48);
-      v603 = SLTagEng::Name(v844);
-      fprintf(v601, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v602, "", "", v603, 1938, v846, v861);
+      v595 = *MEMORY[0x277D85E08];
+      v596 = *(MEMORY[0x277D65538] + 48);
+      v597 = SLTagEng::Name(v838);
+      fprintf(v595, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v596, "", "", v597, 1938, v840, v855);
     }
 
     goto LABEL_1977;
   }
 
-  if (v862 != 1)
+  if (v856 != 1)
   {
 LABEL_1520:
-    v604 = v855 == 1 && v582;
-    if (v604 && (v846 & 0x51) == 0x51)
+    v598 = v849 == 1 && v576;
+    if (v598 && (v840 & 0x51) == 0x51)
     {
       goto LABEL_1525;
     }
 
-    v608 = (~v846 & 0x60) == 0 && v604;
-    if (!v608 || (v861 & 1) == 0)
+    v602 = (~v840 & 0x60) == 0 && v598;
+    if (!v602 || (v855 & 1) == 0)
     {
-      if (v390 != 66)
+      if (v387 != 66)
       {
-        LOBYTE(v604) = 0;
+        LOBYTE(v598) = 0;
       }
 
-      if (!v604)
+      if (!v598)
       {
         goto LABEL_1549;
       }
@@ -11663,16 +11578,16 @@ LABEL_1544:
 
     if (byte_27F8F0908 == 1)
     {
-      v613 = *MEMORY[0x277D85E08];
-      v614 = *(MEMORY[0x277D65538] + 48);
-      v615 = SLTagEng::Name(v844);
-      fprintf(v613, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v614, "", "", v615, 1963, v846, v861);
+      v607 = *MEMORY[0x277D85E08];
+      v608 = *(MEMORY[0x277D65538] + 48);
+      v609 = SLTagEng::Name(v838);
+      fprintf(v607, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v608, "", "", v609, 1963, v840, v855);
     }
 
     goto LABEL_1977;
   }
 
-  if ((~v846 & 0x51) == 0)
+  if ((~v840 & 0x51) == 0)
   {
 LABEL_1525:
     if (kMTFEDebugPOS)
@@ -11683,10 +11598,10 @@ LABEL_1525:
 
     if (byte_27F8F0908 == 1)
     {
-      v605 = *MEMORY[0x277D85E08];
-      v606 = *(MEMORY[0x277D65538] + 32);
-      v607 = SLTagEng::Name(v844);
-      fprintf(v605, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v606, "", "", v607, 1955, v846, v861);
+      v599 = *MEMORY[0x277D85E08];
+      v600 = *(MEMORY[0x277D65538] + 32);
+      v601 = SLTagEng::Name(v838);
+      fprintf(v599, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v600, "", "", v601, 1955, v840, v855);
     }
 
 LABEL_1983:
@@ -11695,24 +11610,24 @@ LABEL_1983:
     goto LABEL_331;
   }
 
-  if (~v846 & 0x60) == 0 && (v861)
+  if (~v840 & 0x60) == 0 && (v855)
   {
     goto LABEL_1544;
   }
 
-  if (v390 != 66)
+  if (v387 != 66)
   {
     goto LABEL_1549;
   }
 
 LABEL_1537:
-  v609 = v837 ^ 1;
-  if ((v846 & 0x62) != 0x42)
+  v603 = v831 ^ 1;
+  if ((v840 & 0x62) != 0x42)
   {
-    v609 = 1;
+    v603 = 1;
   }
 
-  if ((v609 & 1) == 0)
+  if ((v603 & 1) == 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -11722,46 +11637,46 @@ LABEL_1537:
 
     if (byte_27F8F0908 == 1)
     {
-      v610 = *MEMORY[0x277D85E08];
-      v611 = *(MEMORY[0x277D65538] + 48);
-      v612 = SLTagEng::Name(v844);
-      fprintf(v610, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v611, "", "", v612, 1973, v846, v861);
+      v604 = *MEMORY[0x277D85E08];
+      v605 = *(MEMORY[0x277D65538] + 48);
+      v606 = SLTagEng::Name(v838);
+      fprintf(v604, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v605, "", "", v606, 1973, v840, v855);
     }
 
     goto LABEL_1977;
   }
 
-  v390 = 66;
+  v387 = 66;
 LABEL_1549:
-  if ((v568 & 0xE) != 0)
+  if ((v562 & 0xE) != 0)
   {
     goto LABEL_1554;
   }
 
-  v616 = !v582;
-  if (((1 << v855) & 0xE) == 0)
+  v610 = !v576;
+  if (((1 << v849) & 0xE) == 0)
   {
-    v616 = 1;
+    v610 = 1;
   }
 
-  if ((v616 & 1) == 0)
+  if ((v610 & 1) == 0)
   {
 LABEL_1554:
-    if ((v846 & 0x4041) == 0x41 && v390 == 66)
+    if ((v840 & 0x4041) == 0x41 && v387 == 66)
     {
-      if ((v861 & 0x80) == 0)
+      if ((v855 & 0x80) == 0)
       {
-        if (v861)
+        if (v855)
         {
-          if (((v837 | SLWordTagSet::find(&v850)) & 1) == 0)
+          if (((v831 | SLWordTagSet::find(&v844)) & 1) == 0)
           {
-            v556 = v862;
-            v568 = 1 << v862;
+            v550 = v856;
+            v562 = 1 << v856;
             goto LABEL_1565;
           }
         }
 
-        else if (!v837)
+        else if (!v831)
         {
           goto LABEL_1565;
         }
@@ -11775,10 +11690,10 @@ LABEL_1554:
 
       if (byte_27F8F0908 == 1)
       {
-        v617 = *MEMORY[0x277D85E08];
-        v618 = *(MEMORY[0x277D65538] + 48);
-        v619 = SLTagEng::Name(v844);
-        fprintf(v617, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v618, "", "", v619, 1985, v846, v861);
+        v611 = *MEMORY[0x277D85E08];
+        v612 = *(MEMORY[0x277D65538] + 48);
+        v613 = SLTagEng::Name(v838);
+        fprintf(v611, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v612, "", "", v613, 1985, v840, v855);
       }
 
       goto LABEL_1977;
@@ -11786,7 +11701,7 @@ LABEL_1554:
   }
 
 LABEL_1565:
-  if (((v568 & 0x22040) != 0 || v556 == 14 && ((1 << v855) & 0x220C0) != 0) && v390 == 66)
+  if (((v562 & 0x22040) != 0 || v550 == 14 && ((1 << v849) & 0x220C0) != 0) && v387 == 66)
   {
     if (kMTFEDebugPOS)
     {
@@ -11796,50 +11711,50 @@ LABEL_1565:
 
     if (byte_27F8F0908 == 1)
     {
-      v620 = *MEMORY[0x277D85E08];
-      v621 = *(MEMORY[0x277D65538] + 48);
-      v622 = SLTagEng::Name(v844);
-      fprintf(v620, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v621, "", "", v622, 1995, v846, v861);
+      v614 = *MEMORY[0x277D85E08];
+      v615 = *(MEMORY[0x277D65538] + 48);
+      v616 = SLTagEng::Name(v838);
+      fprintf(v614, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v615, "", "", v616, 1995, v840, v855);
     }
 
     goto LABEL_1977;
   }
 
-  v623 = !v833;
-  if (v556)
+  v617 = !v827;
+  if (v550)
   {
-    v623 = 1;
+    v617 = 1;
   }
 
-  if ((v623 & 1) == 0)
+  if ((v617 & 1) == 0)
   {
-    if ((v861 & 0x8000) != 0)
+    if ((v855 & 0x8000) != 0)
     {
-      if ((~v861 & 3) == 0 || (v851[1] & 3) != 1)
+      if ((~v855 & 3) == 0 || (v845[1] & 3) != 1)
       {
         goto LABEL_1601;
       }
     }
 
-    else if ((~v861 & 3) == 0)
+    else if ((~v855 & 3) == 0)
     {
       goto LABEL_1601;
     }
 
-    if ((v861 & 0x32000) != 0 && (v851[1] & 0x41) != 0)
+    if ((v855 & 0x32000) != 0 && (v845[1] & 0x41) != 0)
     {
       goto LABEL_1607;
     }
 
-    if ((v861 & 0x80) != 0)
+    if ((v855 & 0x80) != 0)
     {
-      if ((v861 & 0x80080) == 0x80000 || (v851[1] & 0x10) != 0)
+      if ((v855 & 0x80080) == 0x80000 || (v845[1] & 0x10) != 0)
       {
         goto LABEL_1607;
       }
     }
 
-    else if ((v861 & 0x80000) != 0)
+    else if ((v855 & 0x80000) != 0)
     {
 LABEL_1607:
       if (kMTFEDebugPOS)
@@ -11850,23 +11765,42 @@ LABEL_1607:
 
       if (byte_27F8F0908 == 1)
       {
-        v627 = *MEMORY[0x277D85E08];
-        v628 = *(MEMORY[0x277D65538] + 8);
-        v629 = SLTagEng::Name(v844);
-        fprintf(v627, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v628, "", "", v629, 2015, v846, v861);
+        v621 = *MEMORY[0x277D85E08];
+        v622 = *(MEMORY[0x277D65538] + 8);
+        v623 = SLTagEng::Name(v838);
+        fprintf(v621, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v622, "", "", v623, 2015, v840, v855);
       }
 
       goto LABEL_1989;
     }
 
-    if (v861 & 2) != 0 && (v851[1] & 0x22080) != 0 && (v851[0] & 0x51) != 0 || (v861 & 0x800) != 0 && (v851[1] & 3) == 2 && (v851[0] & 0x22041) != 0 || (v861 & 1) != 0 && (v851[1] & 0x80) != 0 && (v851[0] & 0x22041) != 0 || (v861 & 0x40) != 0 && ((v836 | ((BYTE1(v851[1]) & 4) >> 2)) & 1) != 0 || (v861 & 0x41) != 0 && (v851[1])
+    if (v855 & 2) != 0 && (v845[1] & 0x22080) != 0 && (v845[0] & 0x51) != 0 || (v855 & 0x800) != 0 && (v845[1] & 3) == 2 && (v845[0] & 0x22041) != 0 || (v855 & 1) != 0 && (v845[1] & 0x80) != 0 && (v845[0] & 0x22041) != 0 || (v855 & 0x40) != 0 && ((v830 | ((BYTE1(v845[1]) & 4) >> 2)) & 1) != 0 || (v855 & 0x41) != 0 && (v845[1])
     {
       goto LABEL_1607;
     }
   }
 
 LABEL_1601:
-  if (v390 == 2 && (v861 & 0x22000) != 0)
+  if (v387 == 2 && (v855 & 0x22000) != 0)
+  {
+    if (kMTFEDebugPOS)
+    {
+      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+      kMTFEDebugPOS = 0;
+    }
+
+    if (byte_27F8F0908 == 1)
+    {
+      v618 = *MEMORY[0x277D85E08];
+      v619 = *(MEMORY[0x277D65538] + 8);
+      v620 = SLTagEng::Name(v838);
+      fprintf(v618, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v619, "", "", v620, 2022, v840, v855);
+    }
+
+    goto LABEL_1989;
+  }
+
+  if ((v840 & 2) != 0 && v550 == 20)
   {
     if (kMTFEDebugPOS)
     {
@@ -11878,14 +11812,21 @@ LABEL_1601:
     {
       v624 = *MEMORY[0x277D85E08];
       v625 = *(MEMORY[0x277D65538] + 8);
-      v626 = SLTagEng::Name(v844);
-      fprintf(v624, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v625, "", "", v626, 2022, v846, v861);
+      v626 = SLTagEng::Name(v838);
+      fprintf(v624, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v625, "", "", v626, 2028, v840, v855);
     }
 
     goto LABEL_1989;
   }
 
-  if ((v846 & 2) != 0 && v556 == 20)
+  v627 = v387 == 3 && v550 == 14;
+  v628 = v831;
+  if (!v627)
+  {
+    v628 = 1;
+  }
+
+  if ((v628 & 1) == 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -11895,44 +11836,18 @@ LABEL_1601:
 
     if (byte_27F8F0908 == 1)
     {
-      v630 = *MEMORY[0x277D85E08];
-      v631 = *(MEMORY[0x277D65538] + 8);
-      v632 = SLTagEng::Name(v844);
-      fprintf(v630, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v631, "", "", v632, 2028, v846, v861);
+      v632 = *MEMORY[0x277D85E08];
+      v633 = *(MEMORY[0x277D65538] + 8);
+      v634 = SLTagEng::Name(v838);
+      fprintf(v632, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v633, "", "", v634, 2043, v840, v855);
     }
 
     goto LABEL_1989;
   }
 
-  v633 = v390 == 3 && v556 == 14;
-  v634 = v837;
-  if (!v633)
+  if ((v840 & 2) != 0 && v550 == 11)
   {
-    v634 = 1;
-  }
-
-  if ((v634 & 1) == 0)
-  {
-    if (kMTFEDebugPOS)
-    {
-      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-      kMTFEDebugPOS = 0;
-    }
-
-    if (byte_27F8F0908 == 1)
-    {
-      v638 = *MEMORY[0x277D85E08];
-      v639 = *(MEMORY[0x277D65538] + 8);
-      v640 = SLTagEng::Name(v844);
-      fprintf(v638, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v639, "", "", v640, 2043, v846, v861);
-    }
-
-    goto LABEL_1989;
-  }
-
-  if ((v846 & 2) != 0 && v556 == 11)
-  {
-    if ((v861 & 0x200000) != 0)
+    if ((v855 & 0x200000) != 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -11942,16 +11857,16 @@ LABEL_1601:
 
       if (byte_27F8F0908 == 1)
       {
-        v648 = *MEMORY[0x277D85E08];
-        v649 = *(MEMORY[0x277D65538] + 8);
-        v650 = SLTagEng::Name(v844);
-        fprintf(v648, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v649, "", "", v650, 2050, v846, v861);
+        v642 = *MEMORY[0x277D85E08];
+        v643 = *(MEMORY[0x277D65538] + 8);
+        v644 = SLTagEng::Name(v838);
+        fprintf(v642, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v643, "", "", v644, 2050, v840, v855);
       }
 
       goto LABEL_1989;
     }
 
-    if ((v836 & ((v861 & 0x4000) >> 14)) == 1)
+    if ((v830 & ((v855 & 0x4000) >> 14)) == 1)
     {
       if (kMTFEDebugPOS)
       {
@@ -11961,10 +11876,10 @@ LABEL_1601:
 
       if (byte_27F8F0908 == 1)
       {
-        v635 = *MEMORY[0x277D85E08];
-        v636 = *(MEMORY[0x277D65538] + 8);
-        v637 = SLTagEng::Name(v844);
-        fprintf(v635, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v636, "", "", v637, 2057, v846, v861);
+        v629 = *MEMORY[0x277D85E08];
+        v630 = *(MEMORY[0x277D65538] + 8);
+        v631 = SLTagEng::Name(v838);
+        fprintf(v629, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v630, "", "", v631, 2057, v840, v855);
       }
 
       goto LABEL_1989;
@@ -11973,48 +11888,14 @@ LABEL_1601:
 
   else
   {
-    v7 = (v855 | v556) == 0;
-    v641 = !v833;
+    v7 = (v849 | v550) == 0;
+    v635 = !v827;
     if (!v7)
     {
-      v641 = 1;
+      v635 = 1;
     }
 
-    if ((v641 & 1) == 0 && (v861 & 0x41) != 0 && (v851[1] & 0x41) != 0 && !v835)
-    {
-      if (kMTFEDebugPOS)
-      {
-        MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-        kMTFEDebugPOS = 0;
-      }
-
-      if (byte_27F8F0908 == 1)
-      {
-        v651 = *MEMORY[0x277D85E08];
-        v652 = *(MEMORY[0x277D65538] + 8);
-        v653 = SLTagEng::Name(v844);
-        fprintf(v651, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v652, "", "", v653, 2088, v846, v861);
-      }
-
-      goto LABEL_1989;
-    }
-  }
-
-  v642 = SLWordTagSet::find(&v863);
-  v643 = v846 & 0x41;
-  if (v643 == 65)
-  {
-    v644 = v642;
-  }
-
-  else
-  {
-    v644 = 0;
-  }
-
-  if (v644 == 1)
-  {
-    if ((SLWordTagSet::find(&v850) & 1) != 0 || SLWordTagSet::find(&v850))
+    if ((v635 & 1) == 0 && (v855 & 0x41) != 0 && (v845[1] & 0x41) != 0 && !v829)
     {
       if (kMTFEDebugPOS)
       {
@@ -12025,16 +11906,30 @@ LABEL_1601:
       if (byte_27F8F0908 == 1)
       {
         v645 = *MEMORY[0x277D85E08];
-        v646 = *MEMORY[0x277D65538];
-        v647 = SLTagEng::Name(v844);
-        fprintf(v645, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v646, "", "", v647, 2100, v846, v861);
+        v646 = *(MEMORY[0x277D65538] + 8);
+        v647 = SLTagEng::Name(v838);
+        fprintf(v645, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v646, "", "", v647, 2088, v840, v855);
       }
 
-      goto LABEL_340;
+      goto LABEL_1989;
     }
+  }
 
-    v657 = v861;
-    if ((v861 & 0x400) != 0)
+  v636 = SLWordTagSet::find(&v857);
+  v637 = v840 & 0x41;
+  if (v637 == 65)
+  {
+    v638 = v636;
+  }
+
+  else
+  {
+    v638 = 0;
+  }
+
+  if (v638 == 1)
+  {
+    if ((SLWordTagSet::find(&v844) & 1) != 0 || SLWordTagSet::find(&v844))
     {
       if (kMTFEDebugPOS)
       {
@@ -12044,18 +11939,38 @@ LABEL_1601:
 
       if (byte_27F8F0908 == 1)
       {
-        v672 = *MEMORY[0x277D85E08];
-        v673 = *MEMORY[0x277D65538];
-        v674 = SLTagEng::Name(v844);
-        fprintf(v672, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v673, "", "", v674, 2106, v846, v861);
+        v639 = *MEMORY[0x277D85E08];
+        v640 = *MEMORY[0x277D65538];
+        v641 = SLTagEng::Name(v838);
+        fprintf(v639, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v640, "", "", v641, 2100, v840, v855);
       }
 
       goto LABEL_340;
     }
 
-    if ((v861 & 0x41) == 1)
+    v651 = v855;
+    if ((v855 & 0x400) != 0)
     {
-      if (SLWordTagSet::find(&v850))
+      if (kMTFEDebugPOS)
+      {
+        MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+        kMTFEDebugPOS = 0;
+      }
+
+      if (byte_27F8F0908 == 1)
+      {
+        v666 = *MEMORY[0x277D85E08];
+        v667 = *MEMORY[0x277D65538];
+        v668 = SLTagEng::Name(v838);
+        fprintf(v666, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v667, "", "", v668, 2106, v840, v855);
+      }
+
+      goto LABEL_340;
+    }
+
+    if ((v855 & 0x41) == 1)
+    {
+      if (SLWordTagSet::find(&v844))
       {
         if (!MTFEPOSResolver::RequireTagAndPOS(this, v18, 65, 1))
         {
@@ -12067,10 +11982,10 @@ LABEL_1601:
 
           if (byte_27F8F0908 == 1)
           {
-            v678 = *MEMORY[0x277D85E08];
-            v679 = *MEMORY[0x277D65538];
-            v680 = SLTagEng::Name(v844);
-            fprintf(v678, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v679, "", "", v680, 2119, v846, v861);
+            v672 = *MEMORY[0x277D85E08];
+            v673 = *MEMORY[0x277D65538];
+            v674 = SLTagEng::Name(v838);
+            fprintf(v672, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v673, "", "", v674, 2119, v840, v855);
           }
 
           goto LABEL_340;
@@ -12087,10 +12002,10 @@ LABEL_1601:
 
         if (byte_27F8F0908 == 1)
         {
-          v658 = *MEMORY[0x277D85E08];
-          v659 = *(MEMORY[0x277D65538] + 48);
-          v660 = SLTagEng::Name(v844);
-          fprintf(v658, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v659, "", "", v660, 2116, v846, v861);
+          v652 = *MEMORY[0x277D85E08];
+          v653 = *(MEMORY[0x277D65538] + 48);
+          v654 = SLTagEng::Name(v838);
+          fprintf(v652, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v653, "", "", v654, 2116, v840, v855);
         }
 
 LABEL_1977:
@@ -12099,10 +12014,10 @@ LABEL_1977:
         goto LABEL_331;
       }
 
-      v657 = v861;
+      v651 = v855;
     }
 
-    if ((v657 & 0x41) == 0)
+    if ((v651 & 0x41) == 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -12112,10 +12027,10 @@ LABEL_1977:
 
       if (byte_27F8F0908 == 1)
       {
-        v687 = *MEMORY[0x277D85E08];
-        v688 = *MEMORY[0x277D65538];
-        v689 = SLTagEng::Name(v844);
-        fprintf(v687, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v688, "", "", v689, 2127, v846, v861);
+        v681 = *MEMORY[0x277D85E08];
+        v682 = *MEMORY[0x277D65538];
+        v683 = SLTagEng::Name(v838);
+        fprintf(v681, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v682, "", "", v683, 2127, v840, v855);
       }
 
       goto LABEL_340;
@@ -12130,16 +12045,16 @@ LABEL_1977:
 
     if (byte_27F8F0908 == 1)
     {
-      v675 = *MEMORY[0x277D85E08];
-      v676 = *(MEMORY[0x277D65538] + 48);
-      v677 = SLTagEng::Name(v844);
-      fprintf(v675, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v676, "", "", v677, 2124, v846, v861);
+      v669 = *MEMORY[0x277D85E08];
+      v670 = *(MEMORY[0x277D65538] + 48);
+      v671 = SLTagEng::Name(v838);
+      fprintf(v669, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v670, "", "", v671, 2124, v840, v855);
     }
 
     goto LABEL_1977;
   }
 
-  if ((v846 & 0x4043) == 0x41 && ((v837 | !v836 | v861) & 1) == 0)
+  if ((v840 & 0x4043) == 0x41 && ((v831 | !v830 | v855) & 1) == 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -12149,21 +12064,21 @@ LABEL_1977:
 
     if (byte_27F8F0908 == 1)
     {
-      v661 = *MEMORY[0x277D85E08];
-      v662 = *MEMORY[0x277D65538];
-      v663 = SLTagEng::Name(v844);
-      fprintf(v661, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v662, "", "", v663, 2135, v846, v861);
+      v655 = *MEMORY[0x277D85E08];
+      v656 = *MEMORY[0x277D65538];
+      v657 = SLTagEng::Name(v838);
+      fprintf(v655, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v656, "", "", v657, 2135, v840, v855);
     }
 
     goto LABEL_340;
   }
 
-  if (v862 != 17 && v862 != 13)
+  if (v856 != 17 && v856 != 13)
   {
     goto LABEL_1687;
   }
 
-  if (v390 == 65 && (v861 & 0x41) == 0)
+  if (v387 == 65 && (v855 & 0x41) == 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -12173,18 +12088,18 @@ LABEL_1977:
 
     if (byte_27F8F0908 == 1)
     {
-      v664 = *MEMORY[0x277D85E08];
-      v665 = *MEMORY[0x277D65538];
-      v666 = SLTagEng::Name(v844);
-      fprintf(v664, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v665, "", "", v666, 2142, v846, v861);
+      v658 = *MEMORY[0x277D85E08];
+      v659 = *MEMORY[0x277D65538];
+      v660 = SLTagEng::Name(v838);
+      fprintf(v658, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v659, "", "", v660, 2142, v840, v855);
     }
 
     goto LABEL_340;
   }
 
-  if (v862 == 17 || v862 == 13)
+  if (v856 == 17 || v856 == 13)
   {
-    if (v390 == 3)
+    if (v387 == 3)
     {
       if (kMTFEDebugPOS)
       {
@@ -12194,24 +12109,24 @@ LABEL_1977:
 
       if (byte_27F8F0908 == 1)
       {
-        v654 = *MEMORY[0x277D85E08];
-        v655 = *MEMORY[0x277D65538];
-        v656 = SLTagEng::Name(v844);
-        fprintf(v654, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v655, "", "", v656, 2149, v846, v861);
+        v648 = *MEMORY[0x277D85E08];
+        v649 = *MEMORY[0x277D65538];
+        v650 = SLTagEng::Name(v838);
+        fprintf(v648, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v649, "", "", v650, 2149, v840, v855);
       }
 
       goto LABEL_340;
     }
 
-    v668 = 0;
-    v667 = 1 << v862;
+    v662 = 0;
+    v661 = 1 << v856;
   }
 
   else
   {
 LABEL_1687:
-    v667 = 1 << v862;
-    if (v390 == 3 && (v667 & 0x22040) != 0 && (v861 & 0x41) == 0)
+    v661 = 1 << v856;
+    if (v387 == 3 && (v661 & 0x22040) != 0 && (v855 & 0x41) == 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -12221,19 +12136,19 @@ LABEL_1687:
 
       if (byte_27F8F0908 == 1)
       {
-        v681 = *MEMORY[0x277D85E08];
-        v682 = *MEMORY[0x277D65538];
-        v683 = SLTagEng::Name(v844);
-        fprintf(v681, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v682, "", "", v683, 2156, v846, v861);
+        v675 = *MEMORY[0x277D85E08];
+        v676 = *MEMORY[0x277D65538];
+        v677 = SLTagEng::Name(v838);
+        fprintf(v675, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v676, "", "", v677, 2156, v840, v855);
       }
 
       goto LABEL_340;
     }
 
-    v668 = v862 == 1;
-    if (v862 == 1 && v643 == 65)
+    v662 = v856 == 1;
+    if (v856 == 1 && v637 == 65)
     {
-      if ((~v861 & 0x80080) == 0)
+      if ((~v855 & 0x80080) == 0)
       {
         if (kMTFEDebugPOS)
         {
@@ -12243,20 +12158,20 @@ LABEL_1687:
 
         if (byte_27F8F0908 == 1)
         {
-          v669 = *MEMORY[0x277D85E08];
-          v670 = *MEMORY[0x277D65538];
-          v671 = SLTagEng::Name(v844);
-          fprintf(v669, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v670, "", "", v671, 2164, v846, v861);
+          v663 = *MEMORY[0x277D85E08];
+          v664 = *MEMORY[0x277D65538];
+          v665 = SLTagEng::Name(v838);
+          fprintf(v663, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v664, "", "", v665, 2164, v840, v855);
         }
 
         goto LABEL_340;
       }
 
-      v668 = 1;
+      v662 = 1;
     }
   }
 
-  if (v831 == 1 && (v861 & 0x10C) != 0)
+  if (v825 == 1 && (v855 & 0x10C) != 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -12266,18 +12181,18 @@ LABEL_1687:
 
     if (byte_27F8F0908 == 1)
     {
-      v684 = *MEMORY[0x277D85E08];
-      v685 = *MEMORY[0x277D65538];
-      v686 = SLTagEng::Name(v844);
-      fprintf(v684, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v685, "", "", v686, 2170, v846, v861);
+      v678 = *MEMORY[0x277D85E08];
+      v679 = *MEMORY[0x277D65538];
+      v680 = SLTagEng::Name(v838);
+      fprintf(v678, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v679, "", "", v680, 2170, v840, v855);
     }
 
     goto LABEL_340;
   }
 
-  if (v862 == 17 || v862 == 13)
+  if (v856 == 17 || v856 == 13)
   {
-    if (v643 == 1 && (v861 & 0x41) == 0)
+    if (v637 == 1 && (v855 & 0x41) == 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -12287,24 +12202,24 @@ LABEL_1687:
 
       if (byte_27F8F0908 == 1)
       {
-        v694 = *MEMORY[0x277D85E08];
-        v695 = *MEMORY[0x277D65538];
-        v696 = SLTagEng::Name(v844);
-        fprintf(v694, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v695, "", "", v696, 2176, v846, v861);
+        v688 = *MEMORY[0x277D85E08];
+        v689 = *MEMORY[0x277D65538];
+        v690 = SLTagEng::Name(v838);
+        fprintf(v688, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v689, "", "", v690, 2176, v840, v855);
       }
 
       goto LABEL_340;
     }
 
-    v690 = 0;
+    v684 = 0;
   }
 
   else
   {
-    v690 = v862 == 6;
-    if (v862 == 6 && (v846 & 0x10041) == 1)
+    v684 = v856 == 6;
+    if (v856 == 6 && (v840 & 0x10041) == 1)
     {
-      if ((v861 & 0x41) == 0)
+      if ((v855 & 0x41) == 0)
       {
         if (kMTFEDebugPOS)
         {
@@ -12314,20 +12229,20 @@ LABEL_1687:
 
         if (byte_27F8F0908 == 1)
         {
-          v697 = *MEMORY[0x277D85E08];
-          v698 = *MEMORY[0x277D65538];
-          v699 = SLTagEng::Name(v844);
-          fprintf(v697, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v698, "", "", v699, 2183, v846, v861);
+          v691 = *MEMORY[0x277D85E08];
+          v692 = *MEMORY[0x277D65538];
+          v693 = SLTagEng::Name(v838);
+          fprintf(v691, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v692, "", "", v693, 2183, v840, v855);
         }
 
         goto LABEL_340;
       }
 
-      v690 = 1;
+      v684 = 1;
     }
   }
 
-  if ((v846 & 0x143) == 1 && *(this + 4) <= 1)
+  if ((v840 & 0x143) == 1 && *(this + 4) <= 1)
   {
     if (kMTFEDebugPOS)
     {
@@ -12337,16 +12252,16 @@ LABEL_1687:
 
     if (byte_27F8F0908 == 1)
     {
-      v691 = *MEMORY[0x277D85E08];
-      v692 = *MEMORY[0x277D65538];
-      v693 = SLTagEng::Name(v844);
-      fprintf(v691, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v692, "", "", v693, 2189, v846, v861);
+      v685 = *MEMORY[0x277D85E08];
+      v686 = *MEMORY[0x277D65538];
+      v687 = SLTagEng::Name(v838);
+      fprintf(v685, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v686, "", "", v687, 2189, v840, v855);
     }
 
     goto LABEL_340;
   }
 
-  if ((v861 & 0x100000) != 0 && v643 == 1)
+  if ((v855 & 0x100000) != 0 && v637 == 1)
   {
     if (kMTFEDebugPOS)
     {
@@ -12356,18 +12271,18 @@ LABEL_1687:
 
     if (byte_27F8F0908 == 1)
     {
-      v700 = *MEMORY[0x277D85E08];
-      v701 = *MEMORY[0x277D65538];
-      v702 = SLTagEng::Name(v844);
-      fprintf(v700, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v701, "", "", v702, 2195, v846, v861);
+      v694 = *MEMORY[0x277D85E08];
+      v695 = *MEMORY[0x277D65538];
+      v696 = SLTagEng::Name(v838);
+      fprintf(v694, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v695, "", "", v696, 2195, v840, v855);
     }
 
     goto LABEL_340;
   }
 
-  if (v862 == 7 && v643 == 1)
+  if (v856 == 7 && v637 == 1)
   {
-    if ((v861 & 0x41) == 0)
+    if ((v855 & 0x41) == 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -12377,10 +12292,10 @@ LABEL_1687:
 
       if (byte_27F8F0908 == 1)
       {
-        v703 = *MEMORY[0x277D85E08];
-        v704 = *MEMORY[0x277D65538];
-        v705 = SLTagEng::Name(v844);
-        fprintf(v703, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v704, "", "", v705, 2202, v846, v861);
+        v697 = *MEMORY[0x277D85E08];
+        v698 = *MEMORY[0x277D65538];
+        v699 = SLTagEng::Name(v838);
+        fprintf(v697, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v698, "", "", v699, 2202, v840, v855);
       }
 
       goto LABEL_340;
@@ -12389,14 +12304,14 @@ LABEL_1687:
 
   else
   {
-    v706 = (v861 & 0x41) == 0 && v862 == 10;
-    v707 = v833;
-    if (!v706)
+    v700 = (v855 & 0x41) == 0 && v856 == 10;
+    v701 = v827;
+    if (!v700)
     {
-      v707 = 0;
+      v701 = 0;
     }
 
-    if (v707)
+    if (v701)
     {
       if (kMTFEDebugPOS)
       {
@@ -12406,19 +12321,19 @@ LABEL_1687:
 
       if (byte_27F8F0908 == 1)
       {
-        v708 = *MEMORY[0x277D85E08];
-        v709 = *MEMORY[0x277D65538];
-        v710 = SLTagEng::Name(v844);
-        fprintf(v708, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v709, "", "", v710, 2209, v846, v861);
+        v702 = *MEMORY[0x277D85E08];
+        v703 = *MEMORY[0x277D65538];
+        v704 = SLTagEng::Name(v838);
+        fprintf(v702, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v703, "", "", v704, 2209, v840, v855);
       }
 
       goto LABEL_340;
     }
   }
 
-  if (v833)
+  if (v827)
   {
-    if ((v861 & 0x43) == 2)
+    if ((v855 & 0x43) == 2)
     {
       if (kMTFEDebugPOS)
       {
@@ -12428,63 +12343,37 @@ LABEL_1687:
 
       if (byte_27F8F0908 == 1)
       {
-        v711 = *MEMORY[0x277D85E08];
-        v712 = *MEMORY[0x277D65538];
-        v713 = SLTagEng::Name(v844);
-        fprintf(v711, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v712, "", "", v713, 2216, v846, v861);
+        v705 = *MEMORY[0x277D85E08];
+        v706 = *MEMORY[0x277D65538];
+        v707 = SLTagEng::Name(v838);
+        fprintf(v705, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v706, "", "", v707, 2216, v840, v855);
       }
 
       goto LABEL_340;
     }
 
-    if (!v668)
+    if (!v662)
     {
       goto LABEL_1786;
     }
 
-    if ((v861 & 0x14000) != 0)
+    if ((v855 & 0x14000) != 0)
     {
-      if ((v861 & 0x10000) == 0)
+      if ((v855 & 0x10000) == 0)
       {
         goto LABEL_1785;
       }
 
-      v714 = v837;
-      if ((v851[1] & 0x10E) == 0)
+      v708 = v831;
+      if ((v845[1] & 0x10E) == 0)
       {
-        v714 = 1;
+        v708 = 1;
       }
 
-      if (v714)
+      if (v708)
       {
 LABEL_1785:
-        if (((v837 | ((v861 & 0x4000) >> 14)) & 1) == 0)
-        {
-          if (kMTFEDebugPOS)
-          {
-            MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-            kMTFEDebugPOS = 0;
-          }
-
-          if (byte_27F8F0908 == 1)
-          {
-            v722 = *MEMORY[0x277D85E08];
-            v723 = *(MEMORY[0x277D65538] + 8);
-            v724 = SLTagEng::Name(v844);
-            fprintf(v722, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v723, "", "", v724, 2231, v846, v861);
-          }
-
-          goto LABEL_1989;
-        }
-
-LABEL_1786:
-        v715 = v837;
-        if (v862 != 21)
-        {
-          v715 = 1;
-        }
-
-        if ((v715 & 1) == 0)
+        if (((v831 | ((v855 & 0x4000) >> 14)) & 1) == 0)
         {
           if (kMTFEDebugPOS)
           {
@@ -12496,8 +12385,34 @@ LABEL_1786:
           {
             v716 = *MEMORY[0x277D85E08];
             v717 = *(MEMORY[0x277D65538] + 8);
-            v718 = SLTagEng::Name(v844);
-            fprintf(v716, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v717, "", "", v718, 2238, v846, v861);
+            v718 = SLTagEng::Name(v838);
+            fprintf(v716, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v717, "", "", v718, 2231, v840, v855);
+          }
+
+          goto LABEL_1989;
+        }
+
+LABEL_1786:
+        v709 = v831;
+        if (v856 != 21)
+        {
+          v709 = 1;
+        }
+
+        if ((v709 & 1) == 0)
+        {
+          if (kMTFEDebugPOS)
+          {
+            MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+            kMTFEDebugPOS = 0;
+          }
+
+          if (byte_27F8F0908 == 1)
+          {
+            v710 = *MEMORY[0x277D85E08];
+            v711 = *(MEMORY[0x277D65538] + 8);
+            v712 = SLTagEng::Name(v838);
+            fprintf(v710, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v711, "", "", v712, 2238, v840, v855);
           }
 
           goto LABEL_1989;
@@ -12507,7 +12422,7 @@ LABEL_1786:
       }
     }
 
-    else if (v837)
+    else if (v831)
     {
       goto LABEL_1794;
     }
@@ -12520,22 +12435,22 @@ LABEL_1786:
 
     if (byte_27F8F0908 == 1)
     {
-      v725 = *MEMORY[0x277D85E08];
-      v726 = *MEMORY[0x277D65538];
-      v727 = SLTagEng::Name(v844);
-      fprintf(v725, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v726, "", "", v727, 2224, v846, v861);
+      v719 = *MEMORY[0x277D85E08];
+      v720 = *MEMORY[0x277D65538];
+      v721 = SLTagEng::Name(v838);
+      fprintf(v719, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v720, "", "", v721, 2224, v840, v855);
     }
 
     goto LABEL_340;
   }
 
 LABEL_1794:
-  if ((v861 & 0x41) == 0)
+  if ((v855 & 0x41) == 0)
   {
-    v690 = 0;
+    v684 = 0;
   }
 
-  if (v391 && v690 && ((v861 & 2) == 0 || ((v836 | (BYTE1(v851[1]) >> 3)) & 1) != 0))
+  if (v388 && v684 && ((v855 & 2) == 0 || ((v830 | (BYTE1(v845[1]) >> 3)) & 1) != 0))
   {
     if (kMTFEDebugPOS)
     {
@@ -12545,23 +12460,23 @@ LABEL_1794:
 
     if (byte_27F8F0908 == 1)
     {
-      v719 = *MEMORY[0x277D85E08];
-      v720 = *(MEMORY[0x277D65538] + 48);
-      v721 = SLTagEng::Name(v844);
-      fprintf(v719, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v720, "", "", v721, 2253, v846, v861);
+      v713 = *MEMORY[0x277D85E08];
+      v714 = *(MEMORY[0x277D65538] + 48);
+      v715 = SLTagEng::Name(v838);
+      fprintf(v713, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v714, "", "", v715, 2253, v840, v855);
     }
 
     goto LABEL_1977;
   }
 
-  if (v862 == 255 || (v667 & 0x220C0) != 0)
+  if (v856 == 255 || (v661 & 0x220C0) != 0)
   {
-    if (v643 != 65 && (v846 & 0x50) != 0x50 && (v846 & 0x60) != 0x60)
+    if (v637 != 65 && (v840 & 0x50) != 0x50 && (v840 & 0x60) != 0x60)
     {
       goto LABEL_1832;
     }
 
-    if ((v861 & 0x43) == 0x41 && ((v851[1] & 0xC41) != 0 || v836) && ((v861 & 0x10) == 0 || (v851[1] & 0x22000) == 0) && ((v861 & 0x4000) == 0 || (v851[1] & 2) == 0))
+    if ((v855 & 0x43) == 0x41 && ((v845[1] & 0xC41) != 0 || v830) && ((v855 & 0x10) == 0 || (v845[1] & 0x22000) == 0) && ((v855 & 0x4000) == 0 || (v845[1] & 2) == 0))
     {
       if (kMTFEDebugPOS)
       {
@@ -12571,17 +12486,17 @@ LABEL_1794:
 
       if (byte_27F8F0908 == 1)
       {
-        v731 = *MEMORY[0x277D85E08];
-        v732 = *(MEMORY[0x277D65538] + 48);
-        v733 = SLTagEng::Name(v844);
-        fprintf(v731, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v732, "", "", v733, 2267, v846, v861);
+        v725 = *MEMORY[0x277D85E08];
+        v726 = *(MEMORY[0x277D65538] + 48);
+        v727 = SLTagEng::Name(v838);
+        fprintf(v725, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v726, "", "", v727, 2267, v840, v855);
       }
 
       goto LABEL_1977;
     }
   }
 
-  if (v643 == 65 && v862 == 14)
+  if (v637 == 65 && v856 == 14)
   {
     if (kMTFEDebugPOS)
     {
@@ -12591,20 +12506,77 @@ LABEL_1794:
 
     if (byte_27F8F0908 == 1)
     {
-      v728 = *MEMORY[0x277D85E08];
-      v729 = *(MEMORY[0x277D65538] + 48);
-      v730 = SLTagEng::Name(v844);
-      fprintf(v728, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v729, "", "", v730, 2274, v846, v861);
+      v722 = *MEMORY[0x277D85E08];
+      v723 = *(MEMORY[0x277D65538] + 48);
+      v724 = SLTagEng::Name(v838);
+      fprintf(v722, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v723, "", "", v724, 2274, v840, v855);
     }
 
     goto LABEL_1977;
   }
 
 LABEL_1832:
-  if (v846 != 1)
+  if (v840 != 1)
   {
-    v738 = 1 << v862;
-    if ((v861 & 0x43) == 0x41 && (v738 & 0x220C0) != 0 && (v846 & 0x40) != 0 && ((v861 & 0x10) == 0 || (v851[1] & 0x22000) == 0))
+    v732 = 1 << v856;
+    if ((v855 & 0x43) == 0x41 && (v732 & 0x220C0) != 0 && (v840 & 0x40) != 0 && ((v855 & 0x10) == 0 || (v845[1] & 0x22000) == 0))
+    {
+      if (kMTFEDebugPOS)
+      {
+        MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+        kMTFEDebugPOS = 0;
+      }
+
+      if (byte_27F8F0908 == 1)
+      {
+        v737 = *MEMORY[0x277D85E08];
+        v738 = *(MEMORY[0x277D65538] + 48);
+        v739 = SLTagEng::Name(v838);
+        fprintf(v737, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v738, "", "", v739, 2300, v840, v855);
+      }
+
+      goto LABEL_1977;
+    }
+
+    if (v732 & 0xC0) != 0 && (v840 & 0x40) != 0 && (v855 & v830)
+    {
+      if (kMTFEDebugPOS)
+      {
+        MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+        kMTFEDebugPOS = 0;
+      }
+
+      if (byte_27F8F0908 == 1)
+      {
+        v733 = *MEMORY[0x277D85E08];
+        v734 = *(MEMORY[0x277D65538] + 48);
+        v735 = SLTagEng::Name(v838);
+        fprintf(v733, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v734, "", "", v735, 2308, v840, v855);
+      }
+
+      goto LABEL_1977;
+    }
+
+    if ((v855 & 0xCC1) != 0 && v856 == 1 && v431 == 66)
+    {
+      if (kMTFEDebugPOS)
+      {
+        MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+        kMTFEDebugPOS = 0;
+      }
+
+      if (byte_27F8F0908 == 1)
+      {
+        v740 = *MEMORY[0x277D85E08];
+        v741 = *(MEMORY[0x277D65538] + 48);
+        v742 = SLTagEng::Name(v838);
+        fprintf(v740, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v741, "", "", v742, 2315, v840, v855);
+      }
+
+      goto LABEL_1977;
+    }
+
+    if ((v732 & 0x30) != 0 && v431 == 66)
     {
       if (kMTFEDebugPOS)
       {
@@ -12616,14 +12588,16 @@ LABEL_1832:
       {
         v743 = *MEMORY[0x277D85E08];
         v744 = *(MEMORY[0x277D65538] + 48);
-        v745 = SLTagEng::Name(v844);
-        fprintf(v743, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v744, "", "", v745, 2300, v846, v861);
+        v745 = SLTagEng::Name(v838);
+        fprintf(v743, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v744, "", "", v745, 2322, v840, v855);
       }
 
       goto LABEL_1977;
     }
 
-    if (v738 & 0xC0) != 0 && (v846 & 0x40) != 0 && (v861 & v836)
+    v736 = v856 == 0;
+    v746 = v431 == 66 && v856 == 0;
+    if ((v831 & v746) == 1)
     {
       if (kMTFEDebugPOS)
       {
@@ -12633,77 +12607,18 @@ LABEL_1832:
 
       if (byte_27F8F0908 == 1)
       {
-        v739 = *MEMORY[0x277D85E08];
-        v740 = *(MEMORY[0x277D65538] + 48);
-        v741 = SLTagEng::Name(v844);
-        fprintf(v739, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v740, "", "", v741, 2308, v846, v861);
+        v747 = *MEMORY[0x277D85E08];
+        v748 = *(MEMORY[0x277D65538] + 48);
+        v749 = SLTagEng::Name(v838);
+        fprintf(v747, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v748, "", "", v749, 2329, v840, v855);
       }
 
       goto LABEL_1977;
     }
 
-    if ((v861 & 0xCC1) != 0 && v862 == 1 && v437 == 66)
+    if (v856 == 14 && (v840 & 0x62) == 0x42)
     {
-      if (kMTFEDebugPOS)
-      {
-        MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-        kMTFEDebugPOS = 0;
-      }
-
-      if (byte_27F8F0908 == 1)
-      {
-        v746 = *MEMORY[0x277D85E08];
-        v747 = *(MEMORY[0x277D65538] + 48);
-        v748 = SLTagEng::Name(v844);
-        fprintf(v746, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v747, "", "", v748, 2315, v846, v861);
-      }
-
-      goto LABEL_1977;
-    }
-
-    if ((v738 & 0x30) != 0 && v437 == 66)
-    {
-      if (kMTFEDebugPOS)
-      {
-        MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-        kMTFEDebugPOS = 0;
-      }
-
-      if (byte_27F8F0908 == 1)
-      {
-        v749 = *MEMORY[0x277D85E08];
-        v750 = *(MEMORY[0x277D65538] + 48);
-        v751 = SLTagEng::Name(v844);
-        fprintf(v749, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v750, "", "", v751, 2322, v846, v861);
-      }
-
-      goto LABEL_1977;
-    }
-
-    v742 = v862 == 0;
-    v752 = v437 == 66 && v862 == 0;
-    if ((v837 & v752) == 1)
-    {
-      if (kMTFEDebugPOS)
-      {
-        MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-        kMTFEDebugPOS = 0;
-      }
-
-      if (byte_27F8F0908 == 1)
-      {
-        v753 = *MEMORY[0x277D85E08];
-        v754 = *(MEMORY[0x277D65538] + 48);
-        v755 = SLTagEng::Name(v844);
-        fprintf(v753, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v754, "", "", v755, 2329, v846, v861);
-      }
-
-      goto LABEL_1977;
-    }
-
-    if (v862 == 14 && (v846 & 0x62) == 0x42)
-    {
-      if ((((v861 & 0x41) == 0) & ~v837) == 0)
+      if ((((v855 & 0x41) == 0) & ~v831) == 0)
       {
         if (kMTFEDebugPOS)
         {
@@ -12713,10 +12628,10 @@ LABEL_1832:
 
         if (byte_27F8F0908 == 1)
         {
-          v756 = *MEMORY[0x277D85E08];
-          v757 = *(MEMORY[0x277D65538] + 48);
-          v758 = SLTagEng::Name(v844);
-          fprintf(v756, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v757, "", "", v758, 2337, v846, v861);
+          v750 = *MEMORY[0x277D85E08];
+          v751 = *(MEMORY[0x277D65538] + 48);
+          v752 = SLTagEng::Name(v838);
+          fprintf(v750, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v751, "", "", v752, 2337, v840, v855);
         }
 
         goto LABEL_1977;
@@ -12725,12 +12640,12 @@ LABEL_1832:
 
     else
     {
-      if ((~v846 & 0x60) != 0 || v862 != 10)
+      if ((~v840 & 0x60) != 0 || v856 != 10)
       {
         goto LABEL_1894;
       }
 
-      if ((v861 & 0x41) != 0)
+      if ((v855 & 0x41) != 0)
       {
         if (kMTFEDebugPOS)
         {
@@ -12740,21 +12655,21 @@ LABEL_1832:
 
         if (byte_27F8F0908 == 1)
         {
-          v759 = *MEMORY[0x277D85E08];
-          v760 = *(MEMORY[0x277D65538] + 48);
-          v761 = SLTagEng::Name(v844);
-          fprintf(v759, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v760, "", "", v761, 2344, v846, v861);
+          v753 = *MEMORY[0x277D85E08];
+          v754 = *(MEMORY[0x277D65538] + 48);
+          v755 = SLTagEng::Name(v838);
+          fprintf(v753, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v754, "", "", v755, 2344, v840, v855);
         }
 
         goto LABEL_1977;
       }
     }
 
-    v742 = 0;
+    v736 = 0;
     goto LABEL_1894;
   }
 
-  if ((SLWordTagSet::find(&v863) & 1) == 0 && (v861 & 3) == 1 && SLWordTagSet::find(&v850))
+  if ((SLWordTagSet::find(&v857) & 1) == 0 && (v855 & 3) == 1 && SLWordTagSet::find(&v844))
   {
     if (kMTFEDebugPOS)
     {
@@ -12764,38 +12679,38 @@ LABEL_1832:
 
     if (byte_27F8F0908 == 1)
     {
-      v734 = *MEMORY[0x277D85E08];
-      v735 = *MEMORY[0x277D65538];
-      v736 = *(MEMORY[0x277D65538] + 48);
-      v737 = SLTagEng::Name(v844);
-      fprintf(v734, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v735, "->", v736, v737, 2287, 1, v861);
+      v728 = *MEMORY[0x277D85E08];
+      v729 = *MEMORY[0x277D65538];
+      v730 = *(MEMORY[0x277D65538] + 48);
+      v731 = SLTagEng::Name(v838);
+      fprintf(v728, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v729, "->", v730, v731, 2287, 1, v855);
       LODWORD(var15) = 0;
       var3 = 0;
       LODWORD(v13) = 6;
-      v846 = 1;
+      v840 = 1;
     }
 
     else
     {
       LODWORD(var15) = 0;
       var3 = 0;
-      v846 = 1;
+      v840 = 1;
       LODWORD(v13) = 6;
     }
 
     goto LABEL_401;
   }
 
-  v742 = v862 == 0;
-  v738 = 1 << v862;
+  v736 = v856 == 0;
+  v732 = 1 << v856;
 LABEL_1894:
-  if (v380)
+  if (v377)
   {
-    if ((v861 & 0x41) == 1)
+    if ((v855 & 0x41) == 1)
     {
-      if ((v861 & 2) != 0)
+      if ((v855 & 2) != 0)
       {
-        if ((v738 & 0x22080) == 0)
+        if ((v732 & 0x22080) == 0)
         {
           goto LABEL_1912;
         }
@@ -12809,10 +12724,10 @@ LABEL_1908:
 
         if (byte_27F8F0908 == 1)
         {
-          v765 = *MEMORY[0x277D85E08];
-          v766 = *(MEMORY[0x277D65538] + 48);
-          v767 = SLTagEng::Name(v844);
-          fprintf(v765, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v766, "", "", v767, 2361, v846, v861);
+          v759 = *MEMORY[0x277D85E08];
+          v760 = *(MEMORY[0x277D65538] + 48);
+          v761 = SLTagEng::Name(v838);
+          fprintf(v759, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v760, "", "", v761, 2361, v840, v855);
         }
 
         goto LABEL_1977;
@@ -12827,28 +12742,28 @@ LABEL_1902:
 
       if (byte_27F8F0908 == 1)
       {
-        v762 = *MEMORY[0x277D85E08];
-        v763 = *(MEMORY[0x277D65538] + 48);
-        v764 = SLTagEng::Name(v844);
-        fprintf(v762, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v763, "", "", v764, 2353, v846, v861);
+        v756 = *MEMORY[0x277D85E08];
+        v757 = *(MEMORY[0x277D65538] + 48);
+        v758 = SLTagEng::Name(v838);
+        fprintf(v756, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v757, "", "", v758, 2353, v840, v855);
       }
 
       goto LABEL_1977;
     }
 
-    if (v861 & 0x40) != 0 && !v836 && (v861 & 2) == 0 && (v851[1])
+    if (v855 & 0x40) != 0 && !v830 && (v855 & 2) == 0 && (v845[1])
     {
       goto LABEL_1902;
     }
 
-    if ((v738 & 0x22080) != 0 && (v861 & 0x41) != 0)
+    if ((v732 & 0x22080) != 0 && (v855 & 0x41) != 0)
     {
       goto LABEL_1908;
     }
   }
 
 LABEL_1912:
-  if ((~v846 & 0xC0) == 0 && (v738 & 0x41) != 0 && (v738 & 2) == 0 && (v861 & 0x41) != 0 && (v861 & 2) == 0)
+  if ((~v840 & 0xC0) == 0 && (v732 & 0x41) != 0 && (v732 & 2) == 0 && (v855 & 0x41) != 0 && (v855 & 2) == 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -12858,10 +12773,10 @@ LABEL_1912:
 
     if (byte_27F8F0908 == 1)
     {
-      v768 = *MEMORY[0x277D85E08];
-      v769 = *(MEMORY[0x277D65538] + 56);
-      v770 = SLTagEng::Name(v844);
-      fprintf(v768, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v769, "", "", v770, 2376, v846, v861);
+      v762 = *MEMORY[0x277D85E08];
+      v763 = *(MEMORY[0x277D65538] + 56);
+      v764 = SLTagEng::Name(v838);
+      fprintf(v762, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v763, "", "", v764, 2376, v840, v855);
     }
 
 LABEL_2019:
@@ -12870,7 +12785,7 @@ LABEL_2019:
     goto LABEL_556;
   }
 
-  if (~v846 & 0xC2) == 0 && (v861 & 1) != 0 && ((v836 | (LOBYTE(v851[1]) >> 1)))
+  if (~v840 & 0xC2) == 0 && (v855 & 1) != 0 && ((v830 | (LOBYTE(v845[1]) >> 1)))
   {
     if (kMTFEDebugPOS)
     {
@@ -12880,24 +12795,24 @@ LABEL_2019:
 
     if (byte_27F8F0908 == 1)
     {
-      v771 = *MEMORY[0x277D85E08];
-      v772 = *(MEMORY[0x277D65538] + 56);
-      v773 = SLTagEng::Name(v844);
-      fprintf(v771, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v772, "", "", v773, 2384, v846, v861);
+      v765 = *MEMORY[0x277D85E08];
+      v766 = *(MEMORY[0x277D65538] + 56);
+      v767 = SLTagEng::Name(v838);
+      fprintf(v765, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v766, "", "", v767, 2384, v840, v855);
     }
 
     goto LABEL_2019;
   }
 
-  if ((~v846 & 0x11) == 0 && v742)
+  if ((~v840 & 0x11) == 0 && v736)
   {
-    v774 = v837;
-    if ((v861 & 0x41) != 0)
+    v768 = v831;
+    if ((v855 & 0x41) != 0)
     {
-      v774 = 1;
+      v768 = 1;
     }
 
-    if ((v774 & 1) == 0)
+    if ((v768 & 1) == 0)
     {
       if (kMTFEDebugPOS)
       {
@@ -12907,36 +12822,17 @@ LABEL_2019:
 
       if (byte_27F8F0908 == 1)
       {
-        v778 = *MEMORY[0x277D85E08];
-        v779 = *(MEMORY[0x277D65538] + 32);
-        v780 = SLTagEng::Name(v844);
-        fprintf(v778, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v779, "", "", v780, 2392, v846, v861);
+        v772 = *MEMORY[0x277D85E08];
+        v773 = *(MEMORY[0x277D65538] + 32);
+        v774 = SLTagEng::Name(v838);
+        fprintf(v772, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v773, "", "", v774, 2392, v840, v855);
       }
 
       goto LABEL_1983;
     }
   }
 
-  if ((v846 & 0x400) != 0 && (v861 & 0x132000) == 0x100000 && !v836)
-  {
-    if (kMTFEDebugPOS)
-    {
-      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-      kMTFEDebugPOS = 0;
-    }
-
-    if (byte_27F8F0908 == 1)
-    {
-      v781 = *MEMORY[0x277D85E08];
-      v782 = *(MEMORY[0x277D65538] + 80);
-      v783 = SLTagEng::Name(v844);
-      fprintf(v781, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v782, "", "", v783, 2399, v846, v861);
-    }
-
-    goto LABEL_1999;
-  }
-
-  if ((v846 & 0x80) != 0 && (v861 & 0x22000) != 0)
+  if ((v840 & 0x400) != 0 && (v855 & 0x132000) == 0x100000 && !v830)
   {
     if (kMTFEDebugPOS)
     {
@@ -12947,15 +12843,34 @@ LABEL_2019:
     if (byte_27F8F0908 == 1)
     {
       v775 = *MEMORY[0x277D85E08];
-      v776 = *(MEMORY[0x277D65538] + 56);
-      v777 = SLTagEng::Name(v844);
-      fprintf(v775, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v776, "", "", v777, 2406, v846, v861);
+      v776 = *(MEMORY[0x277D65538] + 80);
+      v777 = SLTagEng::Name(v838);
+      fprintf(v775, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v776, "", "", v777, 2399, v840, v855);
+    }
+
+    goto LABEL_1999;
+  }
+
+  if ((v840 & 0x80) != 0 && (v855 & 0x22000) != 0)
+  {
+    if (kMTFEDebugPOS)
+    {
+      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+      kMTFEDebugPOS = 0;
+    }
+
+    if (byte_27F8F0908 == 1)
+    {
+      v769 = *MEMORY[0x277D85E08];
+      v770 = *(MEMORY[0x277D65538] + 56);
+      v771 = SLTagEng::Name(v838);
+      fprintf(v769, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v770, "", "", v771, 2406, v840, v855);
     }
 
     goto LABEL_2019;
   }
 
-  if ((v846 & 0x24000) == 0x4000 && (v861 & 0x40) != 0)
+  if ((v840 & 0x24000) == 0x4000 && (v855 & 0x40) != 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -12965,81 +12880,22 @@ LABEL_2019:
 
     if (byte_27F8F0908 == 1)
     {
-      v788 = *MEMORY[0x277D85E08];
-      v789 = *(MEMORY[0x277D65538] + 112);
-      v790 = SLTagEng::Name(v844);
-      fprintf(v788, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v789, "", "", v790, 2413, v846, v861);
+      v782 = *MEMORY[0x277D85E08];
+      v783 = *(MEMORY[0x277D65538] + 112);
+      v784 = SLTagEng::Name(v838);
+      fprintf(v782, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v783, "", "", v784, 2413, v840, v855);
     }
 
     goto LABEL_2009;
   }
 
-  v784 = v837 ^ 1;
-  if ((v846 & 0x4000) == 0)
+  v778 = v831 ^ 1;
+  if ((v840 & 0x4000) == 0)
   {
-    v784 = 1;
+    v778 = 1;
   }
 
-  if ((v784 & 1) == 0)
-  {
-    if (kMTFEDebugPOS)
-    {
-      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-      kMTFEDebugPOS = 0;
-    }
-
-    if (byte_27F8F0908 == 1)
-    {
-      v791 = *MEMORY[0x277D85E08];
-      v792 = *(MEMORY[0x277D65538] + 112);
-      v793 = SLTagEng::Name(v844);
-      fprintf(v791, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v792, "", "", v793, 2420, v846, v861);
-    }
-
-    goto LABEL_2009;
-  }
-
-  if ((v846 & 8) != 0)
-  {
-    if (kMTFEDebugPOS)
-    {
-      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-      kMTFEDebugPOS = 0;
-    }
-
-    if (byte_27F8F0908 == 1)
-    {
-      v794 = *MEMORY[0x277D85E08];
-      v795 = *(MEMORY[0x277D65538] + 24);
-      v796 = SLTagEng::Name(v844);
-      fprintf(v794, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v795, "", "", v796, 2431, v846, v861);
-    }
-
-    var3 = 0;
-    LODWORD(var15) = 3;
-    goto LABEL_331;
-  }
-
-  if ((v846 & 0x40) != 0)
-  {
-    if (kMTFEDebugPOS)
-    {
-      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-      kMTFEDebugPOS = 0;
-    }
-
-    if (byte_27F8F0908 == 1)
-    {
-      v797 = *MEMORY[0x277D85E08];
-      v798 = *(MEMORY[0x277D65538] + 48);
-      v799 = SLTagEng::Name(v844);
-      fprintf(v797, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v798, "", "", v799, 2437, v846, v861);
-    }
-
-    goto LABEL_1977;
-  }
-
-  if (v846)
+  if ((v778 & 1) == 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -13050,15 +12906,15 @@ LABEL_2019:
     if (byte_27F8F0908 == 1)
     {
       v785 = *MEMORY[0x277D85E08];
-      v786 = *MEMORY[0x277D65538];
-      v787 = SLTagEng::Name(v844);
-      fprintf(v785, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v786, "", "", v787, 2443, v846, v861);
+      v786 = *(MEMORY[0x277D65538] + 112);
+      v787 = SLTagEng::Name(v838);
+      fprintf(v785, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v786, "", "", v787, 2420, v840, v855);
     }
 
-    goto LABEL_340;
+    goto LABEL_2009;
   }
 
-  if (v832)
+  if ((v840 & 8) != 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -13068,16 +12924,94 @@ LABEL_2019:
 
     if (byte_27F8F0908 == 1)
     {
-      v800 = *MEMORY[0x277D85E08];
-      v801 = *(MEMORY[0x277D65538] + 32);
-      v802 = SLTagEng::Name(v844);
-      fprintf(v800, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v801, "", "", v802, 2449, v846, v861);
+      v788 = *MEMORY[0x277D85E08];
+      v789 = *(MEMORY[0x277D65538] + 24);
+      v790 = SLTagEng::Name(v838);
+      fprintf(v788, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v789, "", "", v790, 2431, v840, v855);
+    }
+
+    var3 = 0;
+    LODWORD(var15) = 3;
+    goto LABEL_331;
+  }
+
+  if ((v840 & 0x40) != 0)
+  {
+    if (kMTFEDebugPOS)
+    {
+      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+      kMTFEDebugPOS = 0;
+    }
+
+    if (byte_27F8F0908 == 1)
+    {
+      v791 = *MEMORY[0x277D85E08];
+      v792 = *(MEMORY[0x277D65538] + 48);
+      v793 = SLTagEng::Name(v838);
+      fprintf(v791, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v792, "", "", v793, 2437, v840, v855);
+    }
+
+    goto LABEL_1977;
+  }
+
+  if (v840)
+  {
+    if (kMTFEDebugPOS)
+    {
+      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+      kMTFEDebugPOS = 0;
+    }
+
+    if (byte_27F8F0908 == 1)
+    {
+      v779 = *MEMORY[0x277D85E08];
+      v780 = *MEMORY[0x277D65538];
+      v781 = SLTagEng::Name(v838);
+      fprintf(v779, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v780, "", "", v781, 2443, v840, v855);
+    }
+
+    goto LABEL_340;
+  }
+
+  if (v826)
+  {
+    if (kMTFEDebugPOS)
+    {
+      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+      kMTFEDebugPOS = 0;
+    }
+
+    if (byte_27F8F0908 == 1)
+    {
+      v794 = *MEMORY[0x277D85E08];
+      v795 = *(MEMORY[0x277D65538] + 32);
+      v796 = SLTagEng::Name(v838);
+      fprintf(v794, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v795, "", "", v796, 2449, v840, v855);
     }
 
     goto LABEL_1983;
   }
 
-  if ((v846 & 2) != 0)
+  if ((v840 & 2) != 0)
+  {
+    if (kMTFEDebugPOS)
+    {
+      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+      kMTFEDebugPOS = 0;
+    }
+
+    if (byte_27F8F0908 == 1)
+    {
+      v797 = *MEMORY[0x277D85E08];
+      v798 = *(MEMORY[0x277D65538] + 8);
+      v799 = SLTagEng::Name(v838);
+      fprintf(v797, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v798, "", "", v799, 2455, v840, v855);
+    }
+
+    goto LABEL_1989;
+  }
+
+  if ((v840 & 0x20000) != 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -13088,28 +13022,9 @@ LABEL_2019:
     if (byte_27F8F0908 == 1)
     {
       v803 = *MEMORY[0x277D85E08];
-      v804 = *(MEMORY[0x277D65538] + 8);
-      v805 = SLTagEng::Name(v844);
-      fprintf(v803, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v804, "", "", v805, 2455, v846, v861);
-    }
-
-    goto LABEL_1989;
-  }
-
-  if ((v846 & 0x20000) != 0)
-  {
-    if (kMTFEDebugPOS)
-    {
-      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-      kMTFEDebugPOS = 0;
-    }
-
-    if (byte_27F8F0908 == 1)
-    {
-      v809 = *MEMORY[0x277D85E08];
-      v810 = *(MEMORY[0x277D65538] + 136);
-      v811 = SLTagEng::Name(v844);
-      fprintf(v809, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v810, "", "", v811, 2461, v846, v861);
+      v804 = *(MEMORY[0x277D65538] + 136);
+      v805 = SLTagEng::Name(v838);
+      fprintf(v803, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v804, "", "", v805, 2461, v840, v855);
     }
 
     var3 = 0;
@@ -13117,69 +13032,7 @@ LABEL_2019:
     goto LABEL_331;
   }
 
-  if ((v846 & 0x4000) != 0)
-  {
-    if (kMTFEDebugPOS)
-    {
-      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-      kMTFEDebugPOS = 0;
-    }
-
-    if (byte_27F8F0908 == 1)
-    {
-      v812 = *MEMORY[0x277D85E08];
-      v813 = *(MEMORY[0x277D65538] + 112);
-      v814 = SLTagEng::Name(v844);
-      fprintf(v812, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v813, "", "", v814, 2467, v846, v861);
-    }
-
-LABEL_2009:
-    var3 = 0;
-    LODWORD(var15) = 14;
-    goto LABEL_331;
-  }
-
-  if ((v846 & 0x20) != 0)
-  {
-    if (kMTFEDebugPOS)
-    {
-      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-      kMTFEDebugPOS = 0;
-    }
-
-    if (byte_27F8F0908 == 1)
-    {
-      v815 = *MEMORY[0x277D85E08];
-      v816 = *(MEMORY[0x277D65538] + 40);
-      v817 = SLTagEng::Name(v844);
-      fprintf(v815, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v816, "", "", v817, 2473, v846, v861);
-    }
-
-    var3 = 0;
-    LODWORD(var15) = 5;
-    goto LABEL_331;
-  }
-
-  if ((v846 & 0x80) != 0)
-  {
-    if (kMTFEDebugPOS)
-    {
-      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
-      kMTFEDebugPOS = 0;
-    }
-
-    if (byte_27F8F0908 == 1)
-    {
-      v818 = *MEMORY[0x277D85E08];
-      v819 = *(MEMORY[0x277D65538] + 56);
-      v820 = SLTagEng::Name(v844);
-      fprintf(v818, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v819, "", "", v820, 2479, v846, v861);
-    }
-
-    goto LABEL_2019;
-  }
-
-  if ((v846 & 0x400) != 0)
+  if ((v840 & 0x4000) != 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -13190,9 +13043,71 @@ LABEL_2009:
     if (byte_27F8F0908 == 1)
     {
       v806 = *MEMORY[0x277D85E08];
-      v807 = *(MEMORY[0x277D65538] + 80);
-      v808 = SLTagEng::Name(v844);
-      fprintf(v806, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v807, "", "", v808, 2485, v846, v861);
+      v807 = *(MEMORY[0x277D65538] + 112);
+      v808 = SLTagEng::Name(v838);
+      fprintf(v806, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v807, "", "", v808, 2467, v840, v855);
+    }
+
+LABEL_2009:
+    var3 = 0;
+    LODWORD(var15) = 14;
+    goto LABEL_331;
+  }
+
+  if ((v840 & 0x20) != 0)
+  {
+    if (kMTFEDebugPOS)
+    {
+      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+      kMTFEDebugPOS = 0;
+    }
+
+    if (byte_27F8F0908 == 1)
+    {
+      v809 = *MEMORY[0x277D85E08];
+      v810 = *(MEMORY[0x277D65538] + 40);
+      v811 = SLTagEng::Name(v838);
+      fprintf(v809, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v810, "", "", v811, 2473, v840, v855);
+    }
+
+    var3 = 0;
+    LODWORD(var15) = 5;
+    goto LABEL_331;
+  }
+
+  if ((v840 & 0x80) != 0)
+  {
+    if (kMTFEDebugPOS)
+    {
+      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+      kMTFEDebugPOS = 0;
+    }
+
+    if (byte_27F8F0908 == 1)
+    {
+      v812 = *MEMORY[0x277D85E08];
+      v813 = *(MEMORY[0x277D65538] + 56);
+      v814 = SLTagEng::Name(v838);
+      fprintf(v812, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v813, "", "", v814, 2479, v840, v855);
+    }
+
+    goto LABEL_2019;
+  }
+
+  if ((v840 & 0x400) != 0)
+  {
+    if (kMTFEDebugPOS)
+    {
+      MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, byte_27F8F0908);
+      kMTFEDebugPOS = 0;
+    }
+
+    if (byte_27F8F0908 == 1)
+    {
+      v800 = *MEMORY[0x277D85E08];
+      v801 = *(MEMORY[0x277D65538] + 80);
+      v802 = SLTagEng::Name(v838);
+      fprintf(v800, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v801, "", "", v802, 2485, v840, v855);
     }
 
 LABEL_1999:
@@ -13201,7 +13116,7 @@ LABEL_1999:
     goto LABEL_331;
   }
 
-  if ((v846 & 0x2000) == 0)
+  if ((v840 & 0x2000) == 0)
   {
     LODWORD(var15) = SLFirstPOSInSet();
     if (kMTFEDebugPOS)
@@ -13212,16 +13127,16 @@ LABEL_1999:
 
     if (byte_27F8F0908 == 1)
     {
-      v821 = *MEMORY[0x277D85E08];
-      v822 = *(MEMORY[0x277D65538] + 8 * var15);
-      v823 = SLTagEng::Name(v844);
-      fprintf(v821, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v822, "", "", v823, 2517, v846, v861);
+      v815 = *MEMORY[0x277D85E08];
+      v816 = *(MEMORY[0x277D65538] + 8 * var15);
+      v817 = SLTagEng::Name(v838);
+      fprintf(v815, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v816, "", "", v817, 2517, v840, v855);
     }
 
     goto LABEL_555;
   }
 
-  if (*v40 != 65 || (v848->var27[1] != 0) | v840 & 1 || (((v861 & 0x800) == 0) & ~v837) != 0)
+  if (*v40 != 65 || (v842->var27[1] != 0) | v834 & 1 || (((v855 & 0x800) == 0) & ~v831) != 0)
   {
     if (kMTFEDebugPOS)
     {
@@ -13231,10 +13146,10 @@ LABEL_1999:
 
     if (byte_27F8F0908 == 1)
     {
-      v828 = *MEMORY[0x277D85E08];
-      v829 = *(MEMORY[0x277D65538] + 104);
-      v830 = SLTagEng::Name(v844);
-      fprintf(v828, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v829, "", "", v830, 2501, v846, v861);
+      v822 = *MEMORY[0x277D85E08];
+      v823 = *(MEMORY[0x277D65538] + 104);
+      v824 = SLTagEng::Name(v838);
+      fprintf(v822, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v823, "", "", v824, 2501, v840, v855);
     }
 
     var3 = 0;
@@ -13250,11 +13165,11 @@ LABEL_1999:
 
   if (byte_27F8F0908 == 1)
   {
-    v824 = *MEMORY[0x277D85E08];
-    v825 = *(MEMORY[0x277D65538] + 104);
-    v826 = *MEMORY[0x277D65538];
-    v827 = SLTagEng::Name(0x42);
-    fprintf(v824, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v825, "->", v826, v827, 2495, v846, v861);
+    v818 = *MEMORY[0x277D85E08];
+    v819 = *(MEMORY[0x277D65538] + 104);
+    v820 = *MEMORY[0x277D65538];
+    v821 = SLTagEng::Name(0x42);
+    fprintf(v818, "POS %s %s%s%s %s [%d] %08x %08x\n", v40, v819, "->", v820, v821, 2495, v840, v855);
   }
 
   LODWORD(v13) = 0;
@@ -13268,7 +13183,7 @@ LABEL_208:
   }
 
   *(this + 4) = 0;
-  v845 = 13;
+  v839 = 13;
   LODWORD(var15) = 13;
   if (var3)
   {
@@ -13277,19 +13192,19 @@ LABEL_208:
 
   while (1)
   {
-    v839 = v13;
-    var3 = v848->var3;
+    v833 = v13;
+    var3 = v842->var3;
     if (var3)
     {
       break;
     }
 
 LABEL_236:
-    MTBEAbort(v848);
+    MTBEAbort(v842);
     __break(1u);
 LABEL_237:
     ++*(this + 4);
-    v845 = var15;
+    v839 = var15;
     if (var3)
     {
       goto LABEL_255;
@@ -13300,37 +13215,36 @@ LABEL_237:
   v84 = 0;
   v85 = v10;
   LODWORD(var15) = 1 << var15;
-  v841 = v10 != 67;
-  v843 = v10 == 67;
+  v835 = v10 != 67;
+  v837 = v10 == 67;
   do
   {
-    v86 = *var3->var0;
-    v88 = v87;
+    v87 = v86;
     if (!v85)
     {
-      if ((*(v87 + 14) & var15) == 0)
+      if ((*(v86 + 14) & var15) == 0)
       {
         goto LABEL_234;
       }
 
-      v91 = byte_27F8F0908;
+      v90 = byte_27F8F0908;
       if (kMTFEDebugPOS)
       {
         MTBEDebugParams::GetParam(kMTFEDebugPOS, &byte_27F8F0908, (byte_27F8F0908 & 1));
         kMTFEDebugPOS = 0;
-        v91 = byte_27F8F0908;
+        v90 = byte_27F8F0908;
       }
 
-      if ((v91 & 1) == 0)
+      if ((v90 & 1) == 0)
       {
         goto LABEL_252;
       }
 
-      v90 = "POS match";
+      v89 = "POS match";
       goto LABEL_251;
     }
 
-    if (SLWordTagSet::find((v87 + 60)))
+    if (SLWordTagSet::find((v86 + 60)))
     {
       if (kMTFEDebugPOS)
       {
@@ -13343,13 +13257,13 @@ LABEL_237:
         goto LABEL_252;
       }
 
-      v90 = "Positive tag match";
+      v89 = "Positive tag match";
       goto LABEL_251;
     }
 
-    if ((SLWordTagSet::find(&v863) & 1) == 0 && !SLWordTagSet::find((v88 + 60)))
+    if ((SLWordTagSet::find(&v857) & 1) == 0 && !SLWordTagSet::find((v87 + 60)))
     {
-      if ((*(v88 + 14) & var15) == 0)
+      if ((*(v87 + 14) & var15) == 0)
       {
         if (v84)
         {
@@ -13364,16 +13278,16 @@ LABEL_226:
           kMTFEDebugPOS = 0;
         }
 
-        v89 = "Negative tag match";
-        v84 = v841;
+        v88 = "Negative tag match";
+        v84 = v835;
         if ((byte_27F8F0908 & 1) == 0)
         {
-          v84 = v841;
+          v84 = v835;
           goto LABEL_233;
         }
 
 LABEL_231:
-        fprintf(*MEMORY[0x277D85E08], "POS %s\n", v89);
+        fprintf(*MEMORY[0x277D85E08], "POS %s\n", v88);
         goto LABEL_233;
       }
 
@@ -13388,9 +13302,9 @@ LABEL_231:
         goto LABEL_252;
       }
 
-      v90 = "POS match / no tag mismatch";
+      v89 = "POS match / no tag mismatch";
 LABEL_251:
-      fprintf(*MEMORY[0x277D85E08], "POS %s\n", v90);
+      fprintf(*MEMORY[0x277D85E08], "POS %s\n", v89);
       goto LABEL_252;
     }
 
@@ -13399,7 +13313,7 @@ LABEL_251:
       goto LABEL_226;
     }
 
-    if ((*(v88 + 14) & var15) == 0)
+    if ((*(v87 + 14) & var15) == 0)
     {
       v84 = 0;
       goto LABEL_234;
@@ -13411,16 +13325,16 @@ LABEL_251:
       kMTFEDebugPOS = 0;
     }
 
-    v89 = "POS match / tag mismatch";
-    v84 = v843;
+    v88 = "POS match / tag mismatch";
+    v84 = v837;
     if (byte_27F8F0908)
     {
       goto LABEL_231;
     }
 
-    v84 = v843;
+    v84 = v837;
 LABEL_233:
-    v13 = v88;
+    v13 = v87;
 LABEL_234:
     var3 = var3->var6;
   }
@@ -13433,34 +13347,32 @@ LABEL_234:
   }
 
 LABEL_252:
-  v92 = *var3->var0;
   {
-    v845 = SLFirstPOSInSet();
+    v839 = SLFirstPOSInSet();
   }
 
-  LODWORD(v13) = v839;
+  LODWORD(v13) = v833;
 LABEL_255:
-  p_var17 = &v848->var17;
-  var17 = v848->var17;
-  v94 = *var3->var0;
-  v848->var17.var0[0] = 0;
-  v95 = var17.var0[0];
+  p_var17 = &v842->var17;
+  var17 = v842->var17;
+  v842->var17.var0[0] = 0;
+  v92 = var17.var0[0];
   if (var17.var0[0])
   {
-    v96 = &var17.var0[1];
+    v93 = &var17.var0[1];
     do
     {
-      v98 = *v96++;
-      v97 = v98;
-      if (SLWordTagSet::find(&v854))
+      v95 = *v93++;
+      v94 = v95;
+      if (SLWordTagSet::find(&v848))
       {
         if (SLWordTagSet::find(p_var17))
         {
           goto LABEL_265;
         }
 
-        v99 = p_var17->var0[0];
-        if (v99 >= 7)
+        v96 = p_var17->var0[0];
+        if (v96 >= 7)
         {
           goto LABEL_265;
         }
@@ -13468,71 +13380,71 @@ LABEL_255:
 
       else
       {
-        if (v97)
+        if (v94)
         {
           goto LABEL_265;
         }
 
-        v97 |= 1u;
+        v94 |= 1u;
         if (SLWordTagSet::find(p_var17))
         {
           goto LABEL_265;
         }
 
-        v99 = p_var17->var0[0];
-        if (v99 > 6)
+        v96 = p_var17->var0[0];
+        if (v96 > 6)
         {
           goto LABEL_265;
         }
       }
 
-      v100 = v99 + 1;
-      p_var17->var0[0] = v100;
-      p_var17->var0[v100] = v97;
+      v97 = v96 + 1;
+      p_var17->var0[0] = v97;
+      p_var17->var0[v97] = v94;
 LABEL_265:
-      --v95;
+      --v92;
     }
 
-    while (v95);
+    while (v92);
   }
 
-  MTFESpeechElement::SelectChild(v848, var3);
+  MTFESpeechElement::SelectChild(v842, var3);
   if (v13 != 255)
   {
-    v848->var8 |= 0x200u;
-    v845 = v13;
+    v842->var8 |= 0x200u;
+    v839 = v13;
   }
 
-  v848->var15 = v845;
-  if ((v846 & (v846 - 1)) != 0)
+  v842->var15 = v839;
+  if ((v840 & (v840 - 1)) != 0)
   {
-    v848->var8 |= 0x10u;
+    v842->var8 |= 0x10u;
   }
 
-  if (v862 == 255 && v845 <= 8 && ((1 << v845) & 0x10C) != 0)
+  if (v856 == 255 && v839 <= 8 && ((1 << v839) & 0x10C) != 0)
   {
     *(this + 8) = 1;
   }
 
-  if (!strcmp(v848->var27, "THAT"))
+  if (!strcmp(v842->var27, "THAT"))
   {
-    if (v845 != 13)
+    if (v839 != 13)
     {
-      v105 = p_var17->var0[0];
-      if (v105 <= 6)
+      v102 = p_var17->var0[0];
+      if (v102 <= 6)
       {
-        v106 = v105 + 1;
-        p_var17->var0[0] = v106;
-        p_var17->var0[v106] = 75;
+        v103 = v102 + 1;
+        p_var17->var0[0] = v103;
+        p_var17->var0[v103] = 75;
       }
 
       goto LABEL_275;
     }
 
-    v104 = strchr(v848->var27, 124);
-    if (v104)
+    v101 = strchr(v842->var27, 124);
+    if (v101)
     {
-      v102 = v104;
+      v99 = v101;
       goto LABEL_281;
     }
   }
@@ -13540,22 +13452,22 @@ LABEL_265:
   else
   {
 LABEL_275:
-    v101 = strchr(v848->var27, 124);
-    if (v101)
+    v98 = strchr(v842->var27, 124);
+    if (v98)
     {
-      v102 = v101;
-      if (v845 == 6)
+      v99 = v98;
+      if (v839 == 6)
       {
-        v103 = strlen(v101 + 1);
-        memmove(v848->var27, v102 + 1, v103 + 1);
+        v100 = strlen(v98 + 1);
+        memmove(v842->var27, v99 + 1, v100 + 1);
         goto LABEL_282;
       }
 
 LABEL_281:
-      *v102 = 0;
+      *v99 = 0;
     }
   }
 
 LABEL_282:
-  MTFESpeechVisitor::~MTFESpeechVisitor(v858);
+  MTFESpeechVisitor::~MTFESpeechVisitor(v852);
 }

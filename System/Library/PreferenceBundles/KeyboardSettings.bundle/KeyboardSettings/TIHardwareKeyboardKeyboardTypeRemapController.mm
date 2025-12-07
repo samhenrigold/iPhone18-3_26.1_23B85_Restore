@@ -67,107 +67,103 @@
     {
       CFRunLoopGetCurrent();
       IOHIDEventSystemClientScheduleWithRunLoop();
-      v76[0] = @"DeviceUsagePage";
-      v76[1] = @"DeviceUsage";
-      v77[0] = &off_4DB08;
-      v77[1] = &off_4DB20;
-      v4 = [NSDictionary dictionaryWithObjects:v77 forKeys:v76 count:2];
-      eventSystemClient = self->_eventSystemClient;
+      v72[0] = @"DeviceUsagePage";
+      v72[1] = @"DeviceUsage";
+      v73[0] = &off_4DB08;
+      v73[1] = &off_4DB20;
+      v4 = [NSDictionary dictionaryWithObjects:v73 forKeys:v72 count:2];
       IOHIDEventSystemClientSetMatching();
-      v6 = self->_eventSystemClient;
-      v67 = _NSConcreteStackBlock;
-      v68 = 3221225472;
-      v69 = sub_207FC;
-      v70 = &unk_49278;
-      objc_copyWeak(&v71, &location);
+      v63 = _NSConcreteStackBlock;
+      v64 = 3221225472;
+      v65 = sub_207FC;
+      v66 = &unk_49278;
+      objc_copyWeak(&v67, &location);
       IOHIDEventSystemClientRegisterDeviceMatchingBlock();
-      objc_destroyWeak(&v71);
+      objc_destroyWeak(&v67);
     }
   }
 
   +[NSMutableArray array];
-  v43 = v42 = self;
-  v7 = IOHIDEventSystemClientCopyServices(self->_eventSystemClient);
-  v63 = 0u;
-  v64 = 0u;
-  v65 = 0u;
-  v66 = 0u;
-  obj = v7;
-  v8 = [(__CFArray *)obj countByEnumeratingWithState:&v63 objects:v75 count:16];
-  if (v8)
+  v39 = v38 = self;
+  v5 = IOHIDEventSystemClientCopyServices(self->_eventSystemClient);
+  v59 = 0u;
+  v60 = 0u;
+  v61 = 0u;
+  v62 = 0u;
+  obj = v5;
+  v6 = [(__CFArray *)obj countByEnumeratingWithState:&v59 objects:v71 count:16];
+  if (v6)
   {
-    v9 = v8;
-    v10 = *v64;
-    v11 = &TUIDictationTitle_ptr;
-    v44 = *v64;
+    v7 = v6;
+    v8 = *v60;
+    v40 = *v60;
     do
     {
-      v12 = 0;
-      v45 = v9;
+      v9 = 0;
+      v41 = v7;
       do
       {
-        if (*v64 != v10)
+        if (*v60 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        service = *(*(&v63 + 1) + 8 * v12);
-        v13 = IOHIDServiceClientCopyProperty(service, @"DeviceUsagePairs");
-        v14 = v11[415];
+        service = *(*(&v59 + 1) + 8 * v9);
+        v10 = IOHIDServiceClientCopyProperty(service, @"DeviceUsagePairs");
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v47 = v13;
-          v48 = v12;
-          v61 = 0u;
-          v62 = 0u;
-          v59 = 0u;
-          v60 = 0u;
-          v15 = v13;
-          v16 = [v15 countByEnumeratingWithState:&v59 objects:v74 count:16];
-          if (v16)
+          v43 = v10;
+          v44 = v9;
+          v57 = 0u;
+          v58 = 0u;
+          v55 = 0u;
+          v56 = 0u;
+          v11 = v10;
+          v12 = [v11 countByEnumeratingWithState:&v55 objects:v70 count:16];
+          if (v12)
           {
-            v17 = v16;
-            v18 = *v60;
+            v13 = v12;
+            v14 = *v56;
             while (2)
             {
-              for (i = 0; i != v17; i = i + 1)
+              for (i = 0; i != v13; i = i + 1)
               {
-                if (*v60 != v18)
+                if (*v56 != v14)
                 {
-                  objc_enumerationMutation(v15);
+                  objc_enumerationMutation(v11);
                 }
 
-                v20 = *(*(&v59 + 1) + 8 * i);
+                v16 = *(*(&v55 + 1) + 8 * i);
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v21 = [v20 objectForKey:@"DeviceUsagePage"];
-                  v22 = [v20 objectForKey:@"DeviceUsage"];
-                  if ([v21 isEqual:&off_4DB08] && objc_msgSend(v22, "isEqual:", &off_4DB20))
+                  v17 = [v16 objectForKey:@"DeviceUsagePage"];
+                  v18 = [v16 objectForKey:@"DeviceUsage"];
+                  if ([v17 isEqual:&off_4DB08] && objc_msgSend(v18, "isEqual:", &off_4DB20))
                   {
-                    v23 = IOHIDServiceClientGetRegistryID(service);
-                    [v23 unsignedLongLongValue];
+                    v19 = IOHIDServiceClientGetRegistryID(service);
+                    [v19 unsignedLongLongValue];
                     if ((BKSHIDKeyboardWantsStandardTypeOverride() & 1) != 0 || CFPreferencesGetAppBooleanValue(@"KeyboardTypeCustomization", @"com.apple.keyboard.preferences", 0))
                     {
-                      [(NSMutableArray *)v43 addObject:service];
+                      [(NSMutableArray *)v39 addObject:service];
                     }
 
-                    v54 = _NSConcreteStackBlock;
-                    v55 = 3221225472;
-                    v56 = sub_20894;
-                    v57 = &unk_49278;
-                    objc_copyWeak(&v58, &location);
+                    v50 = _NSConcreteStackBlock;
+                    v51 = 3221225472;
+                    v52 = sub_20894;
+                    v53 = &unk_49278;
+                    objc_copyWeak(&v54, &location);
                     IOHIDServiceClientRegisterRemovalBlock();
-                    objc_destroyWeak(&v58);
+                    objc_destroyWeak(&v54);
 
                     goto LABEL_26;
                   }
                 }
               }
 
-              v17 = [v15 countByEnumeratingWithState:&v59 objects:v74 count:16];
-              if (v17)
+              v13 = [v11 countByEnumeratingWithState:&v55 objects:v70 count:16];
+              if (v13)
               {
                 continue;
               }
@@ -178,65 +174,64 @@
 
 LABEL_26:
 
-          v10 = v44;
-          v9 = v45;
-          v11 = &TUIDictationTitle_ptr;
-          v13 = v47;
-          v12 = v48;
+          v8 = v40;
+          v7 = v41;
+          v10 = v43;
+          v9 = v44;
         }
 
-        v12 = v12 + 1;
+        v9 = v9 + 1;
       }
 
-      while (v12 != v9);
-      v9 = [(__CFArray *)obj countByEnumeratingWithState:&v63 objects:v75 count:16];
+      while (v9 != v7);
+      v7 = [(__CFArray *)obj countByEnumeratingWithState:&v59 objects:v71 count:16];
     }
 
-    while (v9);
+    while (v7);
   }
 
-  if ([(NSMutableArray *)v43 count])
+  if ([(NSMutableArray *)v39 count])
   {
-    v24 = v42;
-    if (!v42->_currentKeyboard || ([(NSMutableArray *)v43 containsObject:?]& 1) == 0)
+    v20 = v38;
+    if (!v38->_currentKeyboard || ([(NSMutableArray *)v39 containsObject:?]& 1) == 0)
     {
-      v25 = BKSHIDKeyboardGetDeviceProperties();
-      v50 = 0u;
-      v51 = 0u;
-      v52 = 0u;
-      v53 = 0u;
-      v26 = v43;
-      v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v50 objects:v73 count:16];
-      if (v27)
+      v21 = BKSHIDKeyboardGetDeviceProperties();
+      v46 = 0u;
+      v47 = 0u;
+      v48 = 0u;
+      v49 = 0u;
+      v22 = v39;
+      v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v46 objects:v69 count:16];
+      if (v23)
       {
-        v28 = v27;
-        v29 = *v51;
+        v24 = v23;
+        v25 = *v47;
         while (2)
         {
-          for (j = 0; j != v28; j = j + 1)
+          for (j = 0; j != v24; j = j + 1)
           {
-            if (*v51 != v29)
+            if (*v47 != v25)
             {
-              objc_enumerationMutation(v26);
+              objc_enumerationMutation(v22);
             }
 
-            v31 = *(*(&v50 + 1) + 8 * j);
-            v32 = IOHIDServiceClientCopyProperty(v31, @"StandardType");
+            v27 = *(*(&v46 + 1) + 8 * j);
+            v28 = IOHIDServiceClientCopyProperty(v27, @"StandardType");
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              standardType = [v25 standardType];
-              if (standardType == [v32 intValue])
+              standardType = [v21 standardType];
+              if (standardType == [v28 intValue])
               {
-                v42->_currentKeyboard = v31;
+                v38->_currentKeyboard = v27;
 
                 goto LABEL_46;
               }
             }
           }
 
-          v28 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v50 objects:v73 count:16];
-          if (v28)
+          v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v46 objects:v69 count:16];
+          if (v24)
           {
             continue;
           }
@@ -247,14 +242,14 @@ LABEL_26:
 
 LABEL_46:
 
-      v24 = v42;
-      if (v42->_currentKeyboard)
+      v20 = v38;
+      if (v38->_currentKeyboard)
       {
         goto LABEL_49;
       }
 
-      firstObject = [(NSMutableArray *)v26 firstObject];
-      v42->_currentKeyboard = firstObject;
+      firstObject = [(NSMutableArray *)v22 firstObject];
+      v38->_currentKeyboard = firstObject;
 LABEL_48:
 
 LABEL_49:
@@ -263,26 +258,26 @@ LABEL_49:
 
   else
   {
-    v24 = v42;
-    v42->_currentKeyboard = 0;
-    navigationController = [(TIHardwareKeyboardKeyboardTypeRemapController *)v42 navigationController];
+    v20 = v38;
+    v38->_currentKeyboard = 0;
+    navigationController = [(TIHardwareKeyboardKeyboardTypeRemapController *)v38 navigationController];
     viewControllers = [navigationController viewControllers];
-    v36 = [viewControllers indexOfObject:v42];
+    v32 = [viewControllers indexOfObject:v38];
 
-    if (v36 && v36 != 0x7FFFFFFFFFFFFFFFLL)
+    if (v32 && v32 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      navigationController2 = [(TIHardwareKeyboardKeyboardTypeRemapController *)v42 navigationController];
+      navigationController2 = [(TIHardwareKeyboardKeyboardTypeRemapController *)v38 navigationController];
       viewControllers2 = [navigationController2 viewControllers];
-      v25 = [viewControllers2 objectAtIndex:v36 - 1];
+      v21 = [viewControllers2 objectAtIndex:v32 - 1];
 
-      firstObject = [(TIHardwareKeyboardKeyboardTypeRemapController *)v42 navigationController];
-      v40 = [(__IOHIDServiceClient *)firstObject popToViewController:v25 animated:1];
+      firstObject = [(TIHardwareKeyboardKeyboardTypeRemapController *)v38 navigationController];
+      v36 = [(__IOHIDServiceClient *)firstObject popToViewController:v21 animated:1];
       goto LABEL_48;
     }
   }
 
-  keyboards = v24->_keyboards;
-  v24->_keyboards = v43;
+  keyboards = v20->_keyboards;
+  v20->_keyboards = v39;
 
   objc_destroyWeak(&location);
 }

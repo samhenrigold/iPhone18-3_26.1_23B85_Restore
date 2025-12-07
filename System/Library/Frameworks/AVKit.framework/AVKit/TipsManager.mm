@@ -126,7 +126,7 @@
 
 - (void)dismissTipIn:(id)in
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9C4E70);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9C4E70, &qword_18B6E8720);
   MEMORY[0x1EEE9AC00](v4 - 8, v5);
   v7 = &v13 - v6;
   v8 = sub_18B6C584C();

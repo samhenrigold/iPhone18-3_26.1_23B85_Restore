@@ -67,7 +67,7 @@
 
 - (id)buildCardSections
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
   v3 = MEMORY[0x1E69CA3A0];
   v4 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
@@ -75,10 +75,8 @@
   v6 = [v3 textWithString:v5];
   [v2 setTitle:v6];
 
-  v10[0] = v2;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = v2;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
 
   return v7;
 }

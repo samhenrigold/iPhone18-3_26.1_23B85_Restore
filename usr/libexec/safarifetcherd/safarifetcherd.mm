@@ -108,12 +108,12 @@ void sub_100002678(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_100002790(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_100002790(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = ReadingListFetcher;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -219,15 +219,16 @@ LABEL_19:
 void sub_100003E10(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v11 = 0;
-  v3 = [NSPropertyListSerialization dataWithPropertyList:v2 format:200 options:0 error:&v11];
-  v4 = v11;
+  v17 = 0;
+  v3 = [NSPropertyListSerialization dataWithPropertyList:v2 format:200 options:0 error:&v17];
+  v4 = v17;
+  v6 = v4;
   if (!v3)
   {
-    v8 = sub_100009E64();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v12 = sub_100009E64(v4, v5);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [v4 safari_privacyPreservingDescription];
+      [v6 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       sub_10000A4B4();
     }
@@ -235,36 +236,36 @@ void sub_100003E10(uint64_t a1)
     goto LABEL_11;
   }
 
-  v5 = [*(a1 + 40) pendingBookmarkChangesFilePath];
-  v10 = v4;
-  v6 = [v3 writeToFile:v5 options:1 error:&v10];
-  v7 = v10;
+  v7 = [*(a1 + 40) pendingBookmarkChangesFilePath];
+  v16 = v6;
+  v8 = [v3 writeToFile:v7 options:1 error:&v16];
+  v9 = v16;
 
-  if ((v6 & 1) == 0)
+  if ((v8 & 1) == 0)
   {
-    v9 = sub_100009E64();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v13 = sub_100009E64(v10, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [v7 safari_privacyPreservingDescription];
+      [v9 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       sub_10000A42C();
     }
 
-    v8 = sub_100009E64();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v12 = sub_100009E64(v14, v15);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       [*(a1 + 40) pendingBookmarkChangesFilePath];
       objc_claimAutoreleasedReturnValue();
       sub_10000A470();
     }
 
-    v4 = v7;
+    v6 = v9;
 LABEL_11:
 
     goto LABEL_12;
   }
 
-  v4 = v7;
+  v6 = v9;
 LABEL_12:
 }
 
@@ -278,14 +279,14 @@ void sub_10000409C(uint64_t a1)
   {
     v5 = +[NSFileManager defaultManager];
     v6 = [*(a1 + 32) pendingBookmarkChangesFilePath];
-    v10 = 0;
-    v7 = [v5 removeItemAtPath:v6 error:&v10];
-    v8 = v10;
+    v12 = 0;
+    v7 = [v5 removeItemAtPath:v6 error:&v12];
+    v8 = v12;
 
     if ((v7 & 1) == 0)
     {
-      v9 = sub_100009E64();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = sub_100009E64(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [v8 safari_privacyPreservingDescription];
         objc_claimAutoreleasedReturnValue();
@@ -295,17 +296,17 @@ void sub_10000409C(uint64_t a1)
   }
 }
 
-void sub_1000055A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000055A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
 }
 
-void sub_100005730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, ...)
+void sub_100005730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -315,7 +316,7 @@ intptr_t sub_100005768(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   if (a4)
   {
-    v7 = sub_100009E64();
+    v7 = sub_100009E64(a1, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [a4 safari_privacyPreservingDescription];
@@ -356,7 +357,7 @@ uint64_t sub_100005F74()
   v1 = v3[0];
   if (!qword_100022D58)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -371,7 +372,6 @@ LABEL_7:
 
 uint64_t sub_100006074(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100022D58 = result;
   return result;
@@ -386,10 +386,11 @@ void *sub_1000060E8(uint64_t a1)
   return result;
 }
 
-void sub_100006144(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100006144(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 uint64_t sub_100006160(uint64_t result, uint64_t a2, int a3, float a4)
@@ -408,10 +409,11 @@ uint64_t sub_100006178(uint64_t result, uint64_t a2, float a3)
   return result;
 }
 
-void sub_100006190(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100006190(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_1000061AC(void *a1, int a2, os_log_t log, const char *a4, uint8_t *a5)
@@ -436,60 +438,60 @@ void sub_1000062EC(void *a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = v6;
+  v8 = v6;
   if (v5)
   {
-    v8 = a1[5];
-    v24 = v6;
-    v9 = [v5 writeToFile:v8 options:0x40000000 error:&v24];
-    v10 = v24;
+    v9 = a1[5];
+    v27 = v6;
+    v10 = [v5 writeToFile:v9 options:0x40000000 error:&v27];
+    v11 = v27;
 
-    v11 = sub_100009E64();
-    v12 = v11;
-    if (v9)
+    v14 = sub_100009E64(v12, v13);
+    v15 = v14;
+    if (v10)
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        v14 = a1[4];
-        v15 = v12;
-        v16 = [v14 _mainFrameURL];
-        v17 = a1[5];
-        v18 = [v10 safari_privacyPreservingDescription];
+        v17 = a1[4];
+        v18 = v15;
+        v19 = [v17 _mainFrameURL];
+        v20 = a1[5];
+        v21 = [v11 safari_privacyPreservingDescription];
         *buf = 138478339;
-        v26 = v16;
-        v27 = 2114;
-        v28 = v17;
-        v29 = 2114;
-        v30 = v18;
-        _os_log_debug_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "Successfully wrote archive: %{private}@ to path: %{public}@: %{public}@", buf, 0x20u);
+        v29 = v19;
+        v30 = 2114;
+        v31 = v20;
+        v32 = 2114;
+        v33 = v21;
+        _os_log_debug_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "Successfully wrote archive: %{private}@ to path: %{public}@: %{public}@", buf, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v19 = a1[4];
-      v20 = v12;
-      v21 = [v19 _mainFrameURL];
-      v22 = a1[5];
-      v23 = [v10 safari_privacyPreservingDescription];
+      v22 = a1[4];
+      v23 = v15;
+      v24 = [v22 _mainFrameURL];
+      v25 = a1[5];
+      v26 = [v11 safari_privacyPreservingDescription];
       *buf = 138478339;
-      v26 = v21;
-      v27 = 2114;
-      v28 = v22;
-      v29 = 2114;
-      v30 = v23;
-      _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Could not archive: %{private}@ to path: %{public}@: %{public}@", buf, 0x20u);
+      v29 = v24;
+      v30 = 2114;
+      v31 = v25;
+      v32 = 2114;
+      v33 = v26;
+      _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Could not archive: %{private}@ to path: %{public}@: %{public}@", buf, 0x20u);
     }
 
-    v7 = v10;
+    v8 = v11;
   }
 
   else
   {
-    v13 = sub_100009E64();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v16 = sub_100009E64(v6, v7);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_10000A8B4(a1, v13);
+      sub_10000A8B4(a1, v16);
     }
   }
 
@@ -514,16 +516,18 @@ uint64_t sub_100006BBC(uint64_t a1, int a2)
   return result;
 }
 
-void sub_100006C4C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100006C4C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_100006C6C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100006C6C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t start()
@@ -570,19 +574,21 @@ void sub_100007150(uint64_t a1, void *a2)
     state = xpc_activity_get_state(v3);
     if (state)
     {
-      v6 = state;
-      if (xpc_activity_should_defer(v3))
+      v7 = state;
+      should_defer = xpc_activity_should_defer(v3);
+      if (should_defer)
       {
-        if (xpc_activity_set_state(v3, 3))
+        v10 = xpc_activity_set_state(v3, 3);
+        if (v10)
         {
-          v7 = sub_100009E64();
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+          v12 = sub_100009E64(v10, v11);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
-            v8 = v7;
-            v9 = [WeakRetained name];
+            v13 = v12;
+            v14 = [WeakRetained name];
             *buf = 138543362;
-            v24 = v9;
-            _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "background activity [%{public}@] is deferred.", buf, 0xCu);
+            v29 = v14;
+            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "background activity [%{public}@] is deferred.", buf, 0xCu);
           }
 
           block[0] = _NSConcreteStackBlock;
@@ -590,35 +596,35 @@ void sub_100007150(uint64_t a1, void *a2)
           block[2] = sub_100007450;
           block[3] = &unk_10001C8B0;
           block[4] = WeakRetained;
-          v22 = v3;
+          v27 = v3;
           dispatch_async(&_dispatch_main_q, block);
-          v10 = v22;
+          v15 = v27;
           goto LABEL_17;
         }
       }
 
-      else if (v6 == 2)
+      else if (v7 == 2)
       {
-        v16 = sub_100009E64();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v21 = sub_100009E64(should_defer, v9);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
-          v17 = v16;
-          v18 = [WeakRetained name];
+          v22 = v21;
+          v23 = [WeakRetained name];
           *buf = 138543362;
-          v24 = v18;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "background activity [%{public}@] is runnable.", buf, 0xCu);
+          v29 = v23;
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "background activity [%{public}@] is runnable.", buf, 0xCu);
         }
 
         if (xpc_activity_set_state(v3, 4))
         {
-          v19[0] = _NSConcreteStackBlock;
-          v19[1] = 3221225472;
-          v19[2] = sub_100007460;
-          v19[3] = &unk_10001C8B0;
-          v19[4] = WeakRetained;
-          v20 = v3;
-          dispatch_async(&_dispatch_main_q, v19);
-          v10 = v20;
+          v24[0] = _NSConcreteStackBlock;
+          v24[1] = 3221225472;
+          v24[2] = sub_100007460;
+          v24[3] = &unk_10001C8B0;
+          v24[4] = WeakRetained;
+          v25 = v3;
+          dispatch_async(&_dispatch_main_q, v24);
+          v15 = v25;
 LABEL_17:
         }
       }
@@ -626,22 +632,22 @@ LABEL_17:
 
     else
     {
-      v11 = sub_100009E64();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v16 = sub_100009E64(0, v6);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = v11;
-        v13 = [WeakRetained name];
+        v17 = v16;
+        v18 = [WeakRetained name];
         *buf = 138543362;
-        v24 = v13;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "background activity [%{public}@] is checked in.", buf, 0xCu);
+        v29 = v18;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "background activity [%{public}@] is checked in.", buf, 0xCu);
       }
 
-      v14 = xpc_activity_copy_criteria(v3);
+      v19 = xpc_activity_copy_criteria(v3);
 
-      if (!v14)
+      if (!v19)
       {
-        v15 = [WeakRetained requirements];
-        xpc_activity_set_criteria(v3, v15);
+        v20 = [WeakRetained requirements];
+        xpc_activity_set_criteria(v3, v20);
       }
     }
   }
@@ -671,31 +677,35 @@ void *sub_1000088DC(void *result)
   if ((result[7] & 1) == 0)
   {
     v1 = result;
-    if (![*(result[4] + 16) iconData] && +[WebMIMETypeRegistry isSupportedImageMIMEType:](WebMIMETypeRegistry, "isSupportedImageMIMEType:", v1[5]))
+    if (![*(result[4] + 16) iconData])
     {
-      v2 = sub_100009E64();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+      v2 = [WebMIMETypeRegistry isSupportedImageMIMEType:v1[5]];
+      if (v2)
       {
-        sub_10000AF28();
-      }
+        v4 = sub_100009E64(v2, v3);
+        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+        {
+          sub_10000AF28();
+        }
 
-      *(v1[4] + 24) = -[SiteIconDownloadRequest initWithBookmark:singleResourceURL:]([SiteIconDownloadRequest alloc], "initWithBookmark:singleResourceURL:", *(v1[4] + 16), [v1[6] _mainFrameURL]);
-      [*(v1[4] + 24) setDelegate:?];
-      [*(v1[4] + 24) start];
+        *(v1[4] + 24) = -[SiteIconDownloadRequest initWithBookmark:singleResourceURL:]([SiteIconDownloadRequest alloc], "initWithBookmark:singleResourceURL:", *(v1[4] + 16), [v1[6] _mainFrameURL]);
+        [*(v1[4] + 24) setDelegate:?];
+        [*(v1[4] + 24) start];
+      }
     }
 
-    v3 = v1[4];
-    if (*(v3 + 35))
+    v5 = v1[4];
+    if (*(v5 + 35))
     {
-      v4 = 2;
+      v6 = 2;
     }
 
     else
     {
-      v4 = 3;
+      v6 = 3;
     }
 
-    [*(v3 + 16) setArchiveStatus:v4];
+    [*(v5 + 16) setArchiveStatus:v6];
     return [v1[4] _saveAndSelfExpire];
   }
 
@@ -710,10 +720,11 @@ id sub_100008BA8(uint64_t a1, uint64_t a2)
   return [v3 _didCollectReadingListInfo:a2 withAvailability:v4];
 }
 
-void sub_100008F34(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100008F34(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_100009278(_Unwind_Exception *a1)
@@ -769,7 +780,7 @@ uint64_t sub_100009594(uint64_t a1)
   return _objc_release_x1();
 }
 
-uint64_t sub_100009E64()
+uint64_t sub_100009E64(uint64_t a1, uint64_t a2)
 {
   if (qword_100022D80 != -1)
   {
@@ -917,7 +928,7 @@ void sub_10000A8B4(uint64_t a1, void *a2)
   objc_claimAutoreleasedReturnValue();
   v4 = [sub_100006C40() safari_privacyPreservingDescription];
   sub_100006C28();
-  sub_100006C4C(&_mh_execute_header, v5, v6, "Could not archive: %{private}@: %{public}@", v7, v8, v9, v10, v11);
+  sub_100006C4C(&_mh_execute_header, v5, v6, "Could not archive: %{private}@: %{public}@", v7, v8, v9, v10);
 }
 
 void sub_10000A964(uint64_t a1, void *a2, void *a3)
@@ -925,21 +936,25 @@ void sub_10000A964(uint64_t a1, void *a2, void *a3)
   v4 = a2;
   v5 = [a3 safari_privacyPreservingDescription];
   sub_100006C28();
-  sub_100006C4C(&_mh_execute_header, v6, v7, "Could not remove sym link: %{public}@: %{public}@", v8, v9, v10, v11, v12);
+  sub_100006C4C(&_mh_execute_header, v6, v7, "Could not remove sym link: %{public}@: %{public}@", v8, v9, v10, v11);
 }
 
 void sub_10000AA04(void *a1)
 {
   v2 = a1;
   v3 = [sub_100006C40() safari_privacyPreservingDescription];
-  sub_100006C6C(&_mh_execute_header, v4, v5, "Could not create Directory for Reading List item archives: %{public}@", v6, v7, v8, v9, 2u);
+  LODWORD(v10) = 138543362;
+  *(&v10 + 4) = v3;
+  sub_100006C6C(&_mh_execute_header, v4, v5, "Could not create Directory for Reading List item archives: %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 void sub_10000AADC(void *a1)
 {
   v2 = a1;
   v3 = [sub_100006C40() safari_privacyPreservingDescription];
-  sub_100006C6C(&_mh_execute_header, v4, v5, "Could not create hard link for quicklook content: %{public}@", v6, v7, v8, v9, 2u);
+  LODWORD(v10) = 138543362;
+  *(&v10 + 4) = v3;
+  sub_100006C6C(&_mh_execute_header, v4, v5, "Could not create hard link for quicklook content: %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 void sub_10000ABB4(void *a1)
@@ -968,14 +983,14 @@ void sub_10000AE04(void *a1)
 {
   [a1 UUID];
   sub_100008F28();
-  sub_100008F34(&_mh_execute_header, v1, v2, "Retrying to load %{public}@", v3, v4, v5, v6, v7);
+  sub_100008F34(&_mh_execute_header, v1, v2, "Retrying to load %{public}@", v3, v4, v5, v6);
 }
 
 void sub_10000AE7C(void *a1)
 {
   [a1 UUID];
   sub_100008F28();
-  sub_100008F34(&_mh_execute_header, v1, v2, "Loading bookmark with UUID: %{public}@", v3, v4, v5, v6, v7);
+  sub_100008F34(&_mh_execute_header, v1, v2, "Loading bookmark with UUID: %{public}@", v3, v4, v5, v6);
 }
 
 void sub_10000AF5C(void *a1, NSObject *a2)

@@ -16,7 +16,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1BA46997C();
+  sub_1BA46997C(selfCopy);
 }
 
 - (_TtC18HealthExperienceUI37AllHighlightsByCategoryViewController)initWithCollectionViewLayout:(id)layout

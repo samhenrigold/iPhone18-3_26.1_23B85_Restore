@@ -98,9 +98,8 @@
 - (void)setOverrideDate:(id)date duration:(double)duration
 {
   v7 = sub_CA10(&qword_37C80, &qword_251F0);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v14 - v9;
+  v9 = &v13 - v8;
   sub_216EC();
   sub_216DC();
   sub_216CC();
@@ -112,20 +111,20 @@
   if (date)
   {
     sub_2159C();
-    v11 = sub_215AC();
-    (*(*(v11 - 8) + 56))(v10, 0, 1, v11);
+    v10 = sub_215AC();
+    (*(*(v10 - 8) + 56))(v9, 0, 1, v10);
   }
 
   else
   {
-    v12 = sub_215AC();
-    (*(*(v12 - 8) + 56))(v10, 1, 1, v12);
+    v11 = sub_215AC();
+    (*(*(v11 - 8) + 56))(v9, 1, 1, v11);
   }
 
   selfCopy = self;
-  ExactitudesFaceDialsView.setOverrideDate(_:duration:)(v10, duration);
+  ExactitudesFaceDialsView.setOverrideDate(_:duration:)(v9, duration);
 
-  sub_11958(v10);
+  sub_11958(v9);
 }
 
 - (void)setTimeOffset:(double)offset

@@ -204,7 +204,7 @@
   return v2;
 }
 
-void __46__SecExperiment_experimentIsAllowedForProcess__block_invoke()
+void __46__SecExperiment_experimentIsAllowedForProcess__block_invoke(uint64_t a1)
 {
   getpid();
   if (!csops())
@@ -213,7 +213,7 @@ void __46__SecExperiment_experimentIsAllowedForProcess__block_invoke()
   }
 }
 
-uint64_t __46__SecExperiment_experimentIsAllowedForProcess__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__46__SecExperiment_experimentIsAllowedForProcess__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isEqualToString:*(a1 + 32)];
   if (result)

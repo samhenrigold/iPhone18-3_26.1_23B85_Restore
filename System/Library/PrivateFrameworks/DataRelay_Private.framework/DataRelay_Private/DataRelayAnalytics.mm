@@ -9,6 +9,8 @@
 - (void)setDRSessionStarted;
 - (void)setHRMServiceSetupTime;
 - (void)submitDataRelaySessionAnalytics;
+- (void)updateDRDeviceTypes:(BOOL)types drClientDeviceType:(id)type drServerDeviceType:(id)deviceType;
+- (void)updateFromRemoteServer:(BOOL)server;
 - (void)updateRapportDiscoveryTime:(double)time;
 - (void)updateSetupReturnStatus:(id)status;
 @end
@@ -73,9 +75,7 @@ uint64_t __33__DataRelayAnalytics_getInstance__block_invoke()
   dm6ServiceStartedTimestamp = self->_dm6ServiceStartedTimestamp;
   self->_dm6ServiceStartedTimestamp = 0;
 
-  v6 = [MEMORY[0x277CBEB38] dictionaryWithObjectsAndKeys:{@"DRServerDeviceType", &stru_285B1B458, @"DRClientDeviceType", &unk_285B1C9C0, @"fromRemoteServer", &unk_285B1C9C0, @"localDeviceRole", &unk_285B1C9C0, @"rapportDiscoveryTime", &unk_285B1C9C0, @"sessionLength", &unk_285B1C9C0, @"setupReturnStatus", &unk_285B1C9C0, @"hrmServiceSetupTime", &unk_285B1C9C0, @"dm6ServiceSetupTime", &unk_285B1C9C0, @"hrmTimeToFirstPacket", &unk_285B1C9C0, @"dm6TimeToFirstPacket", 0}];
-  dataRelaySessionAnalyticDict = self->_dataRelaySessionAnalyticDict;
-  self->_dataRelaySessionAnalyticDict = v6;
+  self->_dataRelaySessionAnalyticDict = [MEMORY[0x277CBEB38] dictionaryWithObjectsAndKeys:{@"DRServerDeviceType", &stru_285B1B458, @"DRClientDeviceType", &unk_285B1C9C0, @"fromRemoteServer", &unk_285B1C9C0, @"localDeviceRole", &unk_285B1C9C0, @"rapportDiscoveryTime", &unk_285B1C9C0, @"sessionLength", &unk_285B1C9C0, @"setupReturnStatus", &unk_285B1C9C0, @"hrmServiceSetupTime", &unk_285B1C9C0, @"dm6ServiceSetupTime", &unk_285B1C9C0, @"hrmTimeToFirstPacket", &unk_285B1C9C0, @"dm6TimeToFirstPacket", 0}];
 
   MEMORY[0x2821F96F8]();
 }
@@ -87,9 +87,7 @@ uint64_t __33__DataRelayAnalytics_getInstance__block_invoke()
     [DataRelayAnalytics setDRSessionStarted];
   }
 
-  v3 = [MEMORY[0x277CBEAA8] now];
-  sessionStartTimestamp = self->_sessionStartTimestamp;
-  self->_sessionStartTimestamp = v3;
+  self->_sessionStartTimestamp = [MEMORY[0x277CBEAA8] now];
 
   MEMORY[0x2821F96F8]();
 }
@@ -162,10 +160,29 @@ uint64_t __33__DataRelayAnalytics_getInstance__block_invoke()
   [(DataRelayAnalytics *)self submitDataRelaySessionAnalytics];
 }
 
+- (void)updateDRDeviceTypes:(BOOL)types drClientDeviceType:(id)type drServerDeviceType:(id)deviceType
+{
+  typesCopy = types;
+  v8 = MEMORY[0x277CCABB0];
+  deviceTypeCopy = deviceType;
+  typeCopy = type;
+  v10 = [v8 numberWithBool:typesCopy];
+  [(NSMutableDictionary *)self->_dataRelaySessionAnalyticDict setObject:v10 forKeyedSubscript:@"localDeviceRole"];
+
+  [(NSMutableDictionary *)self->_dataRelaySessionAnalyticDict setObject:typeCopy forKeyedSubscript:@"DRClientDeviceType"];
+  [(NSMutableDictionary *)self->_dataRelaySessionAnalyticDict setObject:deviceTypeCopy forKeyedSubscript:@"DRServerDeviceType"];
+}
+
 - (void)updateRapportDiscoveryTime:(double)time
 {
   v4 = [MEMORY[0x277CCABB0] numberWithDouble:time];
   [(NSMutableDictionary *)self->_dataRelaySessionAnalyticDict setObject:v4 forKeyedSubscript:@"rapportDiscoveryTime"];
+}
+
+- (void)updateFromRemoteServer:(BOOL)server
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:server];
+  [(NSMutableDictionary *)self->_dataRelaySessionAnalyticDict setObject:v4 forKeyedSubscript:@"fromRemoteServer"];
 }
 
 @end

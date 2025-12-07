@@ -362,7 +362,7 @@ HDSPSleepTrackingManager *__60__HDSPEnvironment__sleepTrackingManagerProviderFor
 
 - (HDSPEnvironment)initWithBehavior:(id)behavior sleepStorageProvider:(id)provider sleepScheduleModelManagerProvider:(id)managerProvider sleepSchedulerProvider:(id)schedulerProvider sleepServerProvider:(id)serverProvider sleepCoordinatorProvider:(id)coordinatorProvider sleepModeManagerProvider:(id)modeManagerProvider sleepTrackingManagerProvider:(id)self0 goodMorningAlertManagerProvider:(id)self1 chargingReminderManagerProvider:(id)self2 wakeDetectionManagerProvider:(id)self3 wakeUpResultsNotificationManagerProvider:(id)self4 actionManagerProvider:(id)self5 sleepAlarmManagerProvider:(id)self6 healthStoreProvider:(id)self7 contextStoreManagerProvider:(id)self8 biomeManagerProvider:(id)self9 migrationManagerProvider:(id)migrationManagerProvider notificationManagerProvider:(id)a21 notificationListenerProvider:(id)listenerProvider sleepLockScreenManagerProvider:(id)screenManagerProvider sleepWidgetManagerProvider:(id)widgetManagerProvider idsServiceManagerProvider:(id)serviceManagerProvider diagnosticsProvider:(id)diagnosticsProvider systemMonitorProvider:(id)monitorProvider assertionManager:(id)manager timeChangeListenerProvider:(id)changeListenerProvider sensitiveUIMonitorProvider:(id)behavior0 analyticsManagerProvider:(id)behavior1 userDefaults:(id)behavior2 fileManager:(id)behavior3 currentDateProvider:(id)behavior4 defaultCallbackScheduler:(id)behavior5 mutexGenerator:(id)behavior6
 {
-  v161 = *MEMORY[0x277D85DE8];
+  v160 = *MEMORY[0x277D85DE8];
   behaviorCopy = behavior;
   providerCopy = provider;
   managerProviderCopy = managerProvider;
@@ -381,7 +381,7 @@ HDSPSleepTrackingManager *__60__HDSPEnvironment__sleepTrackingManagerProviderFor
   storeManagerProviderCopy = storeManagerProvider;
   biomeManagerProviderCopy = biomeManagerProvider;
   migrationManagerProviderCopy = migrationManagerProvider;
-  v146 = a21;
+  v145 = a21;
   listenerProviderCopy = listenerProvider;
   screenManagerProviderCopy = screenManagerProvider;
   widgetManagerProviderCopy = widgetManagerProvider;
@@ -396,13 +396,13 @@ HDSPSleepTrackingManager *__60__HDSPEnvironment__sleepTrackingManagerProviderFor
   dateProviderCopy = dateProvider;
   schedulerCopy = scheduler;
   generatorCopy = generator;
-  v156.receiver = self;
-  v156.super_class = HDSPEnvironment;
-  v48 = [(HDSPEnvironment *)&v156 init];
+  v155.receiver = self;
+  v155.super_class = HDSPEnvironment;
+  v48 = [(HDSPEnvironment *)&v155 init];
   if (v48)
   {
-    v126 = detectionManagerProviderCopy;
-    v129 = notificationManagerProviderCopy;
+    v125 = detectionManagerProviderCopy;
+    v128 = notificationManagerProviderCopy;
     v49 = trackingManagerProviderCopy;
     v50 = modeManagerProviderCopy;
     v51 = HKSPLogForCategory();
@@ -410,9 +410,9 @@ HDSPSleepTrackingManager *__60__HDSPEnvironment__sleepTrackingManagerProviderFor
     {
       v52 = objc_opt_class();
       *buf = 138543618;
-      v158 = v52;
-      v159 = 2048;
-      v160 = v48;
+      v157 = v52;
+      v158 = 2048;
+      v159 = v48;
       v53 = v52;
       _os_log_impl(&dword_269B11000, v51, OS_LOG_TYPE_DEFAULT, "[%{public}@.%p] initializing...", buf, 0x16u);
     }
@@ -609,9 +609,9 @@ HDSPSleepTrackingManager *__60__HDSPEnvironment__sleepTrackingManagerProviderFor
     chargingReminderManager = v48->_chargingReminderManager;
     v48->_chargingReminderManager = v93;
 
-    if (v129)
+    if (v128)
     {
-      v95 = v129[2](v129, v48);
+      v95 = v128[2](v128, v48);
     }
 
     else
@@ -622,9 +622,9 @@ HDSPSleepTrackingManager *__60__HDSPEnvironment__sleepTrackingManagerProviderFor
     wakeUpResultsNotificationManager = v48->_wakeUpResultsNotificationManager;
     v48->_wakeUpResultsNotificationManager = v95;
 
-    if (v126)
+    if (v125)
     {
-      v97 = v126[2](v126, v48);
+      v97 = v125[2](v125, v48);
     }
 
     else
@@ -657,10 +657,10 @@ HDSPSleepTrackingManager *__60__HDSPEnvironment__sleepTrackingManagerProviderFor
     sleepAlarmManager = v48->_sleepAlarmManager;
     v48->_sleepAlarmManager = v101;
 
-    v103 = v146;
-    if (v146)
+    v103 = v145;
+    if (v145)
     {
-      v103 = v146[2]();
+      v103 = v145[2]();
     }
 
     notificationManager = v48->_notificationManager;
@@ -731,7 +731,7 @@ HDSPSleepTrackingManager *__60__HDSPEnvironment__sleepTrackingManagerProviderFor
       v117 = iMonitorProviderCopy[2]();
     }
 
-    detectionManagerProviderCopy = v126;
+    detectionManagerProviderCopy = v125;
     sensitiveUIMonitor = v48->_sensitiveUIMonitor;
     v48->_sensitiveUIMonitor = v117;
 
@@ -751,10 +751,9 @@ HDSPSleepTrackingManager *__60__HDSPEnvironment__sleepTrackingManagerProviderFor
     v48->_stateMachine = v121;
 
     v123 = v48;
-    notificationManagerProviderCopy = v129;
+    notificationManagerProviderCopy = v128;
   }
 
-  v124 = *MEMORY[0x277D85DE8];
   return v48;
 }
 
@@ -782,25 +781,23 @@ HDSPSleepTrackingManager *__60__HDSPEnvironment__sleepTrackingManagerProviderFor
 
 - (void)shutdown
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v9 = objc_opt_class();
-    v4 = v9;
+    v8 = objc_opt_class();
+    v4 = v8;
     _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] shutdown", buf, 0xCu);
   }
 
   _environmentAwareComponents = [(HDSPEnvironment *)self _environmentAwareComponents];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __27__HDSPEnvironment_shutdown__block_invoke;
-  v7[3] = &unk_279C7BC00;
-  v7[4] = self;
-  [_environmentAwareComponents na_each:v7];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __27__HDSPEnvironment_shutdown__block_invoke;
+  v6[3] = &unk_279C7BC00;
+  v6[4] = self;
+  [_environmentAwareComponents na_each:v6];
 }
 
 void __27__HDSPEnvironment_shutdown__block_invoke(uint64_t a1, void *a2)
@@ -915,60 +912,57 @@ void __61__HDSPEnvironment_performWhenEnvironmentIsReady_withContext___block_inv
 
 - (void)prepare
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = objc_opt_class();
-    v4 = v7;
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] prepare", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = objc_opt_class();
+    v4 = v6;
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] prepare", &v5, 0xCu);
   }
 
   [(HDSPEnvironment *)self updateState];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateState
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v8 = objc_opt_class();
-    v4 = v8;
+    v7 = objc_opt_class();
+    v4 = v7;
     _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] updateState", buf, 0xCu);
   }
 
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __30__HDSPEnvironment_updateState__block_invoke;
-  v6[3] = &unk_279C7B108;
-  v6[4] = self;
-  [(HDSPEnvironment *)self _withLock:v6];
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __30__HDSPEnvironment_updateState__block_invoke;
+  v5[3] = &unk_279C7B108;
+  v5[4] = self;
+  [(HDSPEnvironment *)self _withLock:v5];
 }
 
 - (void)systemDidBecomeReady
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v8 = objc_opt_class();
-    v4 = v8;
+    v7 = objc_opt_class();
+    v4 = v7;
     _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] systemDidBecomeReady", buf, 0xCu);
   }
 
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __39__HDSPEnvironment_systemDidBecomeReady__block_invoke;
-  v6[3] = &unk_279C7B108;
-  v6[4] = self;
-  [(HDSPEnvironment *)self _withLock:v6];
-  v5 = *MEMORY[0x277D85DE8];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __39__HDSPEnvironment_systemDidBecomeReady__block_invoke;
+  v5[3] = &unk_279C7B108;
+  v5[4] = self;
+  [(HDSPEnvironment *)self _withLock:v5];
 }
 
 - (BOOL)isEnvironmentReady
@@ -998,52 +992,47 @@ void __37__HDSPEnvironment_isEnvironmentReady__block_invoke(uint64_t a1)
 
 - (void)environmentShouldMigrateData
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v10 = objc_opt_class();
-    v4 = v10;
+    v9 = objc_opt_class();
+    v4 = v9;
     _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] environment needs migration", buf, 0xCu);
   }
 
   performDataMigration = [(HDSPSleepScheduleModelMigrationManager *)self->_migrationManager performDataMigration];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __47__HDSPEnvironment_environmentShouldMigrateData__block_invoke;
-  v8[3] = &unk_279C7BC50;
-  v8[4] = self;
-  v6 = [performDataMigration addCompletionBlock:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __47__HDSPEnvironment_environmentShouldMigrateData__block_invoke;
+  v7[3] = &unk_279C7BC50;
+  v7[4] = self;
+  v6 = [performDataMigration addCompletionBlock:v7];
 }
 
 void __47__HDSPEnvironment_environmentShouldMigrateData__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 32);
     *buf = 138543618;
-    v12 = objc_opt_class();
-    v13 = 2114;
-    v14 = v4;
-    v7 = v12;
+    v10 = objc_opt_class();
+    v11 = 2114;
+    v12 = v4;
+    v6 = v10;
     _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] dataMigrationDidComplete (error: %{public}@))", buf, 0x16u);
   }
 
-  v8 = *(a1 + 32);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __47__HDSPEnvironment_environmentShouldMigrateData__block_invoke_422;
-  v10[3] = &unk_279C7B108;
-  v10[4] = v8;
-  [v8 _withLock:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = *(a1 + 32);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __47__HDSPEnvironment_environmentShouldMigrateData__block_invoke_422;
+  v8[3] = &unk_279C7B108;
+  v8[4] = v7;
+  [v7 _withLock:v8];
 }
 
 - (id)_environmentAwareComponents
@@ -1081,33 +1070,31 @@ void __47__HDSPEnvironment_environmentShouldMigrateData__block_invoke(uint64_t a
 
 - (void)environmentDidBecomeReady
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   _environmentAwareComponents = [(HDSPEnvironment *)self _environmentAwareComponents];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __44__HDSPEnvironment_environmentDidBecomeReady__block_invoke;
-  v9[3] = &unk_279C7BC00;
-  v9[4] = self;
-  [_environmentAwareComponents na_each:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __44__HDSPEnvironment_environmentDidBecomeReady__block_invoke;
+  v8[3] = &unk_279C7BC00;
+  v8[4] = self;
+  [_environmentAwareComponents na_each:v8];
   v4 = HKSPLogForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();
     *buf = 138543362;
-    v11 = v5;
+    v10 = v5;
     v6 = v5;
     _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] environment is ready", buf, 0xCu);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __44__HDSPEnvironment_environmentDidBecomeReady__block_invoke_426;
-  v8[3] = &unk_279C7BC00;
-  v8[4] = self;
-  [_environmentAwareComponents na_each:v8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __44__HDSPEnvironment_environmentDidBecomeReady__block_invoke_426;
+  v7[3] = &unk_279C7BC00;
+  v7[4] = self;
+  [_environmentAwareComponents na_each:v7];
   [(NAFuture *)self->_environmentIsReady finishWithNoResult];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __44__HDSPEnvironment_environmentDidBecomeReady__block_invoke(uint64_t a1, void *a2)
@@ -1159,10 +1146,7 @@ void __44__HDSPEnvironment_environmentDidBecomeReady__block_invoke_426(uint64_t 
 
 uint64_t __31__HDSPEnvironment_currentState__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 80) currentState];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 80) currentState];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1180,12 +1164,12 @@ uint64_t __31__HDSPEnvironment_currentState__block_invoke(uint64_t a1)
 
 - (id)diagnosticInfo
 {
-  v15[4] = *MEMORY[0x277D85DE8];
-  v14[0] = @"Environment";
+  v14[4] = *MEMORY[0x277D85DE8];
+  v13[0] = @"Environment";
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v15[0] = v4;
-  v14[1] = @"Current State";
+  v14[0] = v4;
+  v13[1] = @"Current State";
   currentState = [(HDSPEnvironment *)self currentState];
   stateName = [currentState stateName];
   v7 = stateName;
@@ -1195,16 +1179,14 @@ uint64_t __31__HDSPEnvironment_currentState__block_invoke(uint64_t a1)
     v8 = stateName;
   }
 
-  v15[1] = v8;
-  v14[2] = @"System Ready";
+  v14[1] = v8;
+  v13[2] = @"System Ready";
   v9 = [MEMORY[0x277CCABB0] numberWithBool:{-[HDSPEnvironment isSystemReady](self, "isSystemReady")}];
-  v15[2] = v9;
-  v14[3] = @"Environment Ready";
+  v14[2] = v9;
+  v13[3] = @"Environment Ready";
   v10 = [MEMORY[0x277CCABB0] numberWithBool:{-[HDSPEnvironment isEnvironmentReady](self, "isEnvironmentReady")}];
-  v15[3] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14[3] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
 
   return v11;
 }

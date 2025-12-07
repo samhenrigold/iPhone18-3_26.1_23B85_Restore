@@ -3,16 +3,16 @@
 
 @implementation CAContentStreamFrame
 
-uint64_t __72__CAContentStreamFrame_CAContentStreamFrameRevLockAdditions__updateTime__block_invoke()
+SEL __72__CAContentStreamFrame_CAContentStreamFrameRevLockAdditions__updateTime__block_invoke(uint64_t a1)
 {
   result = NSSelectorFromString(&cfstr_Updatebegintim.isa);
   if (![CAContentStreamFrame(CAContentStreamFrameRevLockAdditions) updateTime]::updateBeginTimeSel)
   {
-    v1 = result;
+    v2 = result;
     result = objc_opt_respondsToSelector();
     if (result)
     {
-      [CAContentStreamFrame(CAContentStreamFrameRevLockAdditions) updateTime]::updateBeginTimeSel = v1;
+      [CAContentStreamFrame(CAContentStreamFrameRevLockAdditions) updateTime]::updateBeginTimeSel = v2;
     }
   }
 

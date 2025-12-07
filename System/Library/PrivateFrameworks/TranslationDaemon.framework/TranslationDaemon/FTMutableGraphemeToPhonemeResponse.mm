@@ -6,9 +6,11 @@
 - (void)setAot_token_prons:(id)aot_token_prons;
 - (void)setG2p_model_version:(id)g2p_model_version;
 - (void)setG2p_version:(id)g2p_version;
+- (void)setIs_pron_guessed:(BOOL)is_pron_guessed;
 - (void)setJit_token_prons:(id)jit_token_prons;
 - (void)setPhonemes:(id)phonemes;
 - (void)setPhoneset_version:(id)phoneset_version;
+- (void)setReturn_code:(int)return_code;
 - (void)setReturn_str:(id)return_str;
 - (void)setSession_id:(id)session_id;
 @end
@@ -54,6 +56,12 @@
   return intValue;
 }
 
+- (void)setReturn_code:(int)return_code
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&return_code];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (void)setReturn_str:(id)return_str
 {
   v4 = [return_str copy];
@@ -72,6 +80,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setIs_pron_guessed:(BOOL)is_pron_guessed
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:is_pron_guessed];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (void)setG2p_version:(id)g2p_version

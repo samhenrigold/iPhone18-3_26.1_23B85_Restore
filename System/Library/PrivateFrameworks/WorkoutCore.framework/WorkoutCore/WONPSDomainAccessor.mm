@@ -16,26 +16,26 @@
 
 - (WONPSDomainAccessor)init
 {
-  v9 = a2;
-  v10 = 0;
-  v8.receiver = self;
-  v8.super_class = WONPSDomainAccessor;
-  v7 = [(WONPSDomainAccessor *)&v8 init];
-  v10 = v7;
-  objc_storeStrong(&v10, v7);
-  if (v7)
+  v10 = a2;
+  v11 = 0;
+  v9.receiver = self;
+  v9.super_class = WONPSDomainAccessor;
+  v8 = [(WONPSDomainAccessor *)&v9 init];
+  v11 = v8;
+  objc_storeStrong(&v11, v8);
+  if (v8)
   {
     v2 = objc_alloc(MEMORY[0x277D095A0]);
     v3 = [v2 initWithDomain:*MEMORY[0x277D09618]];
-    domainAccessor = v10->_domainAccessor;
-    v10->_domainAccessor = v3;
-    MEMORY[0x277D82BD8](domainAccessor);
-    [(WONPSDomainAccessor *)v10 setupNotificationObservers];
+    domainAccessor = v11->_domainAccessor;
+    v11->_domainAccessor = v3;
+    *&v5 = MEMORY[0x277D82BD8](domainAccessor).n128_u64[0];
+    [(WONPSDomainAccessor *)v11 setupNotificationObservers];
   }
 
-  v6 = MEMORY[0x277D82BE0](v10);
-  objc_storeStrong(&v10, 0);
-  return v6;
+  v7 = MEMORY[0x277D82BE0](v11);
+  objc_storeStrong(&v11, 0);
+  return v7;
 }
 
 - (BOOL)isWorkoutExtendedModeSupported
@@ -45,8 +45,7 @@
   location[0] = FIGetActivePairedDevice();
   v3 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"C26AD300-9198-11EC-8BC2-0800200C9A66"];
   v4 = [location[0] supportsCapability:?];
-  MEMORY[0x277D82BD8](v3);
-  v6 = [(WONPSDomainAccessor *)selfCopy _FIBoolForPerGizmoDomainAndKey:@"WorkoutExtendedModeForceHardwareSupportEnabled" defaultValue:0];
+  v6 = [(WONPSDomainAccessor *)selfCopy _FIBoolForPerGizmoDomainAndKey:@"WorkoutExtendedModeForceHardwareSupportEnabled" defaultValue:0, MEMORY[0x277D82BD8](v3).n128_f64[0]];
   v5 = 1;
   if ((v4 & 1) == 0)
   {
@@ -272,7 +271,6 @@
   MEMORY[0x277D82BD8](obj);
   objc_storeStrong(&location, 0);
   objc_storeStrong(v11, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)pairedDeviceStateChanged
@@ -299,11 +297,12 @@
   objc_storeStrong(v13, 0);
 }
 
-uint64_t __47__WONPSDomainAccessor_pairedDeviceStateChanged__block_invoke(uint64_t a1)
+double __47__WONPSDomainAccessor_pairedDeviceStateChanged__block_invoke(uint64_t a1)
 {
   v3 = [MEMORY[0x277CCAB98] defaultCenter];
   [v3 postNotificationName:@"WONPSDomainAccessorDidRefreshNotification" object:*(a1 + 32)];
-  return MEMORY[0x277D82BD8](v3);
+  *&result = MEMORY[0x277D82BD8](v3).n128_u64[0];
+  return result;
 }
 
 @end

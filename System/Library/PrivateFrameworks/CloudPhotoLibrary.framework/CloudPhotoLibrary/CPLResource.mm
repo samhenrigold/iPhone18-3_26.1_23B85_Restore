@@ -64,7 +64,7 @@
   return v6;
 }
 
-uint64_t __42__CPLResource_CPLNSCoding__initWithCoder___block_invoke()
+uint64_t __42__CPLResource_CPLNSCoding__initWithCoder___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = objc_opt_class();
   initWithCoder__stringClass_104 = result;
@@ -119,7 +119,7 @@ uint64_t __42__CPLResource_CPLNSCoding__initWithCoder___block_invoke()
   return v6;
 }
 
-uint64_t __48__CPLResource_CPLArchiver__initWithCPLArchiver___block_invoke()
+uint64_t __48__CPLResource_CPLArchiver__initWithCPLArchiver___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = objc_opt_class();
   initWithCPLArchiver__stringClass_1959 = result;
@@ -148,22 +148,20 @@ void __34__CPLResource_usesFakeDerivatives__block_invoke()
 
 + (id)predicateMatchingDynamicFingerprintForKey:(id)key
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v5 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K BEGINSWITH %@", keyCopy, @"#"];
   if ([self usesFakeDerivatives])
   {
     v6 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K BEGINSWITH %@", keyCopy, @"^"];
     v7 = MEMORY[0x1E696AB28];
-    v12[0] = v5;
-    v12[1] = v6;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+    v11[0] = v5;
+    v11[1] = v6;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
     v9 = [v7 orPredicateWithSubpredicates:v8];
 
     v5 = v9;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -563,57 +561,47 @@ uint64_t __43__CPLResource_cplShouldGenerateDerivatives__block_invoke()
 
 + (unint64_t)maxPixelSizeForResourceType:(unint64_t)type
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   result = 104857600;
   if (type <= 3)
   {
     if (type == 2)
     {
-      goto LABEL_16;
+      return result;
     }
 
     if (type == 3)
     {
-      result = 25165824;
-      goto LABEL_16;
+      return 25165824;
     }
-
-    goto LABEL_11;
   }
 
-  if (type == 4)
+  else
   {
-    result = 3145728;
-    goto LABEL_16;
-  }
-
-  if (type == 5)
-  {
-    result = 172800;
-    goto LABEL_16;
-  }
-
-  if (type != 15)
-  {
-LABEL_11:
-    if ((_CPLSilentLogging & 1) == 0)
+    switch(type)
     {
-      v6 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-      {
-        v7 = [self descriptionForResourceType:type];
-        v9 = 138412290;
-        v10 = v7;
-        _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_ERROR, "Unsupported resource type %@ for maxPixels", &v9, 0xCu);
-      }
+      case 4uLL:
+        return 3145728;
+      case 5uLL:
+        return 172800;
+      case 0xFuLL:
+        return result;
     }
-
-    result = 0;
   }
 
-LABEL_16:
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v6 = __CPLGenericOSLogDomain();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v7 = [self descriptionForResourceType:type];
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_ERROR, "Unsupported resource type %@ for maxPixels", &v8, 0xCu);
+    }
+  }
+
+  return 0;
 }
 
 + (id)shortDescriptionForResourceType:(unint64_t)type
@@ -975,63 +963,63 @@ void __48__CPLResource_resourceTypeFromShortDescription___block_invoke_2(uint64_
 
 + (id)normalizedResourcesFromResources:(id)resources resourcePerResourceType:(id *)type
 {
-  v34[16] = *MEMORY[0x1E69E9840];
+  v33[16] = *MEMORY[0x1E69E9840];
   resourcesCopy = resources;
   if ([resourcesCopy count])
   {
     typeCopy = type;
     v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v7 = resourcesCopy;
-    v8 = [v7 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v8)
     {
-      v9 = *v31;
+      v9 = *v30;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v31 != v9)
+          if (*v30 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v30 + 1) + 8 * i);
+          v11 = *(*(&v29 + 1) + 8 * i);
           v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v11, "resourceType", typeCopy)}];
           [v6 setObject:v11 forKey:v12];
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v8);
     }
 
     v13 = +[CPLResource countOfResourceTypes];
-    v14 = &v22[-1] - ((8 * v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v14 = &v21[-1] - ((8 * v13 + 15) & 0xFFFFFFFFFFFFFFF0);
     bzero(v14, 8 * v13);
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x2020000000;
-    v29 = 0;
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __72__CPLResource_normalizedResourcesFromResources_resourcePerResourceType___block_invoke;
-    v22[3] = &unk_1E861D9E0;
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x2020000000;
+    v28 = 0;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __72__CPLResource_normalizedResourcesFromResources_resourcePerResourceType___block_invoke;
+    v21[3] = &unk_1E861D9E0;
     v15 = v6;
-    v24 = &v26;
-    v25 = v14;
-    v23 = v15;
-    [CPLResource enumerateResourceTypesWithBlock:v22];
-    if (v27[3])
+    v23 = &v25;
+    v24 = v14;
+    v22 = v15;
+    [CPLResource enumerateResourceTypesWithBlock:v21];
+    if (v26[3])
     {
       v16 = v15;
       *typeCopy = v15;
       v17 = objc_alloc(MEMORY[0x1E695DEC8]);
-      v18 = [v17 initWithObjects:v14 count:v27[3]];
+      v18 = [v17 initWithObjects:v14 count:v26[3]];
     }
 
     else
@@ -1040,7 +1028,7 @@ void __48__CPLResource_resourceTypeFromShortDescription___block_invoke_2(uint64_
       v18 = MEMORY[0x1E695E0F0];
     }
 
-    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(&v25, 8);
   }
 
   else
@@ -1048,8 +1036,6 @@ void __48__CPLResource_resourceTypeFromShortDescription___block_invoke_2(uint64_
     *type = MEMORY[0x1E695E0F8];
     v18 = MEMORY[0x1E695E0F0];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }

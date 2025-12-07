@@ -9,7 +9,7 @@
 
 - (int)getOrdWithInt:(int)int
 {
-  v5 = OrgApacheLuceneIndexReaderUtil_subIndexWithInt_withIntArray_(int, self->docStarts_);
+  v5 = OrgApacheLuceneIndexReaderUtil_subIndexWithInt_withIntArray_(*&int, self->docStarts_);
   values = self->values_;
   if (!values)
   {

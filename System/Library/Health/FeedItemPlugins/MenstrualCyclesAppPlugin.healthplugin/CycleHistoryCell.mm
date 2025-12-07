@@ -16,7 +16,7 @@
   y = frame.origin.y;
   x = frame.origin.x;
   v8 = self + OBJC_IVAR____TtC24MenstrualCyclesAppPlugin16CycleHistoryCell_item;
-  v9 = type metadata accessor for CycleHistorySingleCycleView();
+  v9 = type metadata accessor for CycleHistorySingleCycleView(0);
   *v8 = 0u;
   *(v8 + 1) = 0u;
   *(v8 + 4) = 0;

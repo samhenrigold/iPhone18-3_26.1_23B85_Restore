@@ -515,7 +515,7 @@ LABEL_7:
   }
 
   memset(&slice, 0, sizeof(slice));
-  v70 = v16;
+  v96 = v16;
   if (template)
   {
     v17 = height;
@@ -524,11 +524,11 @@ LABEL_7:
 
   else
   {
-    v77.origin.x = x;
-    v77.origin.y = y;
-    v77.size.width = width;
-    v77.size.height = height;
-    CGRectDivide(v77, &slice, &remainder, v16, CGRectMaxYEdge);
+    v104.origin.x = x;
+    v104.origin.y = y;
+    v104.size.width = width;
+    v104.size.height = height;
+    CGRectDivide(v104, &slice, &remainder, v16, CGRectMaxYEdge);
     v18 = remainder.size.width;
     v17 = remainder.size.height;
   }
@@ -546,10 +546,10 @@ LABEL_7:
     v27 = remainder.size.height;
     if (v23)
     {
-      memset(&v72, 0, 32);
-      memset(&v73, 0, sizeof(v73));
-      CGRectDivide(*&v24, &v72, &v73, v20, CGRectMaxYEdge);
-      [(PKPeerPaymentMessagesContentAmountEntryView *)self _concentricEdgeInsetsForEdge:4 bounds:v72.a minimumEdgeInsets:v72.b, v72.c, v72.d, 0.0, 28.0, 28.0, 28.0];
+      memset(&v99, 0, 32);
+      memset(&v100, 0, sizeof(v100));
+      CGRectDivide(*&v24, &v99, &v100, v20, CGRectMaxYEdge);
+      [(PKPeerPaymentMessagesContentAmountEntryView *)self _concentricEdgeInsetsForEdge:4 bounds:v99.a minimumEdgeInsets:v99.b, v99.c, v99.d, 0.0, 28.0, 28.0, 28.0];
       v29 = v28;
       v31 = v30;
       v33 = v32;
@@ -569,11 +569,11 @@ LABEL_7:
 
   if (category - 1 < 2)
   {
-    v79.origin.x = x;
-    v79.origin.y = y;
-    v79.size.width = width;
-    v79.size.height = height;
-    v36 = CGRectGetHeight(v79);
+    v106.origin.x = x;
+    v106.origin.y = y;
+    v106.size.width = width;
+    v106.size.height = height;
+    v36 = CGRectGetHeight(v106);
     if (!v14)
     {
       v37 = 0.1;
@@ -585,11 +585,11 @@ LABEL_7:
 
   if (category == 3)
   {
-    v80.origin.x = x;
-    v80.origin.y = y;
-    v80.size.width = width;
-    v80.size.height = height;
-    v36 = CGRectGetHeight(v80);
+    v107.origin.x = x;
+    v107.origin.y = y;
+    v107.size.width = width;
+    v107.size.height = height;
+    v36 = CGRectGetHeight(v107);
     v37 = 0.12;
     goto LABEL_24;
   }
@@ -597,77 +597,100 @@ LABEL_7:
   v35 = 0.0;
   if (!category && (v14 & 1) == 0)
   {
-    v78.origin.x = x;
-    v78.origin.y = y;
-    v78.size.width = width;
-    v78.size.height = height;
-    v36 = CGRectGetHeight(v78);
+    v105.origin.x = x;
+    v105.origin.y = y;
+    v105.size.width = width;
+    v105.size.height = height;
+    v36 = CGRectGetHeight(v105);
 LABEL_21:
     v37 = 0.04;
 LABEL_24:
     v35 = v36 * v37;
   }
 
-  v69 = v22;
-  v71 = y;
+  v95 = v22;
+  v97 = x;
+  v98 = y;
   v38 = v35 * expanded;
   if (!template)
   {
     CGRectDivide(remainder, &slice, &remainder, v38, CGRectMinYEdge);
   }
 
-  v68 = v38;
+  v94 = v38;
   [(UIView *)self->_containerView setFrame:remainder.origin.x, remainder.origin.y, remainder.size.width, remainder.size.height];
   remainder.origin = *MEMORY[0x1E695EFF8];
   [PKPeerPaymentMessagesAmountStepperView sizeThatFits:category forSizeCategory:remainder.size.width, remainder.size.height];
   v40 = v39;
-  [(UIView *)self->_activeSubtitleView sizeThatFits:remainder.size.width, remainder.size.height];
   v42 = v41;
-  v43 = 51;
+  [(UIView *)self->_activeSubtitleView sizeThatFits:remainder.size.width, remainder.size.height];
+  v93 = v43;
+  v45 = v44;
+  v46 = 51;
   if (_isPresentedAsSheet)
   {
-    v43 = 52;
+    v46 = 52;
   }
 
-  v44 = OBJC_IVAR___PKPeerPaymentMessagesButton__highlightedBackgroundColor[v43];
-  [*(&self->super.super.super.isa + v44) sizeThatFits:{remainder.size.width, remainder.size.height}];
-  if (v42 <= v46)
+  v47 = OBJC_IVAR___PKPeerPaymentMessagesButton__highlightedBackgroundColor[v46];
+  [*(&self->super.super.super.isa + v47) sizeThatFits:{remainder.size.width, remainder.size.height}];
+  if (v45 <= v49.n128_f64[0])
   {
-    v47 = v46;
+    v55 = v49.n128_f64[0];
   }
 
   else
   {
-    v47 = v42;
+    v55 = v45;
   }
 
   if (!template)
   {
-    v67 = v45;
-    PKSizeAlignedInRect();
-    CGRectDivide(remainder, &slice, &remainder, (1.0 - expanded) * v48, CGRectMinYEdge);
-    CGRectDivide(remainder, &slice, &remainder, v40, CGRectMinYEdge);
+    v56 = v49.n128_u64[0];
+    v49.n128_f64[0] = v42 + v55;
+    v92 = v48.n128_u64[0];
+    v50.n128_u64[0] = *&remainder.origin.x;
+    v51.n128_u64[0] = *&remainder.origin.y;
+    v52.n128_u64[0] = *&remainder.size.width;
+    v53.n128_u64[0] = *&remainder.size.height;
+    v57 = *MEMORY[0x1E69BB7F8];
+    v48.n128_u64[0] = v40;
+    PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v48, v49, v50, v51, v52, v53, v54);
+    CGRectDivide(remainder, &slice, &remainder, (1.0 - expanded) * v58, CGRectMinYEdge);
+    CGRectDivide(remainder, &slice, &remainder, v42, CGRectMinYEdge);
     [(PKPeerPaymentMessagesAmountStepperView *)self->_amountStepperView setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
-    CGRectDivide(remainder, &slice, &remainder, v47, CGRectMinYEdge);
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    CGRectDivide(remainder, &slice, &remainder, v55, CGRectMinYEdge);
+    v59 = PKContentAlignmentMake();
+    v60.n128_u64[0] = *&slice.origin.x;
+    v61.n128_u64[0] = *&slice.origin.y;
+    v62.n128_u64[0] = *&slice.size.width;
+    v63.n128_u64[0] = *&slice.size.height;
+    v64.n128_u64[0] = v93;
+    v65.n128_f64[0] = v45;
+    PKSizeAlignedInRect(v59, v64, v65, v60, v61, v62, v63, v66);
     [(UIView *)self->_activeSubtitleView setFrame:?];
-    v49 = *(&self->super.super.super.isa + v44);
-    PKSizeAlignedInRect();
-    [v49 setFrame:?];
+    v67.n128_u64[0] = *&slice.origin.x;
+    v68.n128_u64[0] = *&slice.origin.y;
+    v69.n128_u64[0] = *&slice.size.width;
+    v70.n128_u64[0] = *&slice.size.height;
+    v71 = *(&self->super.super.super.isa + v47);
+    v72.n128_u64[0] = v92;
+    v73.n128_u64[0] = v56;
+    PKSizeAlignedInRect(v57, v72, v73, v67, v68, v69, v70, v74);
+    [v71 setFrame:?];
   }
 
-  v50 = 0.0;
-  v51 = v40 + 0.0 + v47;
+  v75 = 0.0;
+  v76 = v42 + 0.0 + v55;
   isExpansionSupported = self->_isExpansionSupported;
-  v53 = expanded >= 0.75 || self->_isExpansionSupported;
+  v78 = expanded >= 0.75 || self->_isExpansionSupported;
   expandedCopy = 0.001;
-  if (self->_isKeypadSupported && v53)
+  if (self->_isKeypadSupported && v78)
   {
     [PKPeerPaymentMessagesNumberPadView referenceSizeForSizeCategory:category];
     if (isExpansionSupported)
     {
-      v50 = v55 * expanded;
+      v75 = v80 * expanded;
       if (expanded >= 0.001)
       {
         expandedCopy = expanded;
@@ -683,12 +706,12 @@ LABEL_24:
     {
       if (expanded >= 0.75)
       {
-        v50 = v55;
+        v75 = v80;
       }
 
       else
       {
-        v50 = 0.0;
+        v75 = 0.0;
       }
 
       if (expanded >= 0.75)
@@ -702,45 +725,45 @@ LABEL_24:
       }
     }
 
-    v56 = v50;
+    v81 = v75;
     if (!template)
     {
-      v56 = remainder.size.height;
+      v81 = remainder.size.height;
     }
 
-    v51 = v51 + v56;
+    v76 = v76 + v81;
   }
 
   if (!template)
   {
-    CGRectDivide(remainder, &slice, &remainder, v50, CGRectMinYEdge);
+    CGRectDivide(remainder, &slice, &remainder, v75, CGRectMinYEdge);
     UIRectCenteredYInRect();
-    slice.origin.x = v57;
-    slice.origin.y = v58;
-    slice.size.width = v59;
-    slice.size.height = v60;
+    slice.origin.x = v82;
+    slice.origin.y = v83;
+    slice.size.width = v84;
+    slice.size.height = v85;
     numberPadView = self->_numberPadView;
-    CGAffineTransformMakeScale(&v72, 1.0, expandedCopy);
-    [(PKPeerPaymentMessagesNumberPadView *)numberPadView setTransform:&v72];
+    CGAffineTransformMakeScale(&v99, 1.0, expandedCopy);
+    [(PKPeerPaymentMessagesNumberPadView *)numberPadView setTransform:&v99];
     [(PKPeerPaymentMessagesNumberPadView *)self->_numberPadView setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
-    v62 = expanded >= 0.75 && self->_isKeypadSupported;
-    v63 = expanded >= 0.75;
-    v64 = [(PKPeerPaymentMessagesContentAmountEntryView *)self _isAnimationAllowed:0.75];
-    [(PKPeerPaymentMessagesContentAmountEntryView *)self _setNumberPadVisible:v62 animated:v64];
-    [(PKPeerPaymentMessagesContentAmountEntryView *)self _setActiveSubtitleVisible:v63 animated:v64];
-    [(PKPeerPaymentMessagesContentAmountEntryView *)self _setShowKeypadHintVisible:expanded < 0.75 animated:v64];
-    [(PKPeerPaymentMessagesMultiActionView *)self->_actionView setCenterButtonVisible:v63 animated:v64];
-    [(PKPeerPaymentMessagesAmountStepperView *)self->_amountStepperView setPlusMinusVisible:!v62 animated:v64];
+    v87 = expanded >= 0.75 && self->_isKeypadSupported;
+    v88 = expanded >= 0.75;
+    v89 = [(PKPeerPaymentMessagesContentAmountEntryView *)self _isAnimationAllowed:0.75];
+    [(PKPeerPaymentMessagesContentAmountEntryView *)self _setNumberPadVisible:v87 animated:v89];
+    [(PKPeerPaymentMessagesContentAmountEntryView *)self _setActiveSubtitleVisible:v88 animated:v89];
+    [(PKPeerPaymentMessagesContentAmountEntryView *)self _setShowKeypadHintVisible:expanded < 0.75 animated:v89];
+    [(PKPeerPaymentMessagesMultiActionView *)self->_actionView setCenterButtonVisible:v88 animated:v89];
+    [(PKPeerPaymentMessagesAmountStepperView *)self->_amountStepperView setPlusMinusVisible:!v87 animated:v89];
   }
 
-  v81.origin.x = x;
-  v81.origin.y = v71;
-  v81.size.width = width;
-  v81.size.height = height;
-  v65 = CGRectGetWidth(v81);
-  v66 = v68 + v70 + v69 + v51;
-  result.height = v66;
-  result.width = v65;
+  v108.origin.x = v97;
+  v108.origin.y = v98;
+  v108.size.width = width;
+  v108.size.height = height;
+  v90 = CGRectGetWidth(v108);
+  v91 = v94 + v96 + v95 + v76;
+  result.height = v91;
+  result.width = v90;
   return result;
 }
 

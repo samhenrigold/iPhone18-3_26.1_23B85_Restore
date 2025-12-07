@@ -629,7 +629,7 @@ uint64_t __37__CKVTaskManagerInfo_lastMaintenance__block_invoke(uint64_t a1)
   return self;
 }
 
-uint64_t __48__CKVTaskManagerInfo_updateSchemaVersion_error___block_invoke(void *a1)
+void *__48__CKVTaskManagerInfo_updateSchemaVersion_error___block_invoke(void *a1)
 {
   result = [*(a1[4] + 8) writeUpdatedObject:a1[5] forKey:@"schemaVersion" error:a1[7]];
   *(*(a1[6] + 8) + 24) = result;

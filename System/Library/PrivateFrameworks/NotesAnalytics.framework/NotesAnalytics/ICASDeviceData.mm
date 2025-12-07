@@ -30,8 +30,8 @@
 
 - (id)toDict
 {
-  v23[5] = *MEMORY[0x277D85DE8];
-  v22[0] = @"deviceModel";
+  v22[5] = *MEMORY[0x277D85DE8];
+  v21[0] = @"deviceModel";
   deviceModel = [(ICASDeviceData *)self deviceModel];
   if (deviceModel)
   {
@@ -44,8 +44,8 @@
   }
 
   v4 = deviceModel2;
-  v23[0] = deviceModel2;
-  v22[1] = @"devicePlatform";
+  v22[0] = deviceModel2;
+  v21[1] = @"devicePlatform";
   devicePlatform = [(ICASDeviceData *)self devicePlatform];
   if (devicePlatform)
   {
@@ -58,8 +58,8 @@
   }
 
   v7 = devicePlatform2;
-  v23[1] = devicePlatform2;
-  v22[2] = @"osInstallVariant";
+  v22[1] = devicePlatform2;
+  v21[2] = @"osInstallVariant";
   osInstallVariant = [(ICASDeviceData *)self osInstallVariant];
   if (osInstallVariant)
   {
@@ -72,8 +72,8 @@
   }
 
   v10 = osInstallVariant2;
-  v23[2] = osInstallVariant2;
-  v22[3] = @"osVersion";
+  v22[2] = osInstallVariant2;
+  v21[3] = @"osVersion";
   osVersion = [(ICASDeviceData *)self osVersion];
   if (osVersion)
   {
@@ -86,8 +86,8 @@
   }
 
   v13 = osVersion2;
-  v23[3] = osVersion2;
-  v22[4] = @"osBundleVersion";
+  v22[3] = osVersion2;
+  v21[4] = @"osBundleVersion";
   osBundleVersion = [(ICASDeviceData *)self osBundleVersion];
   if (osBundleVersion)
   {
@@ -100,10 +100,8 @@
   }
 
   v16 = osBundleVersion2;
-  v23[4] = osBundleVersion2;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:5];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v22[4] = osBundleVersion2;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:5];
 
   return v17;
 }

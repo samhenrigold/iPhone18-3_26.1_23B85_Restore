@@ -131,7 +131,7 @@ LABEL_9:
 
 - (id)commitSetDiff:(id)diff addBlock:(id)block updateBlock:(id)updateBlock deleteBlock:(id)deleteBlock
 {
-  v45[3] = *MEMORY[0x277D85DE8];
+  v44[3] = *MEMORY[0x277D85DE8];
   diffCopy = diff;
   blockCopy = block;
   updateBlockCopy = updateBlock;
@@ -157,34 +157,32 @@ LABEL_9:
   v24 = [(HFItemBuilder *)self _commitSetDiff:updates withBlock:updateBlockCopy];
 
   v25 = MEMORY[0x277D2C900];
-  v45[0] = v20;
-  v45[1] = v22;
-  v45[2] = v24;
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:3];
+  v44[0] = v20;
+  v44[1] = v22;
+  v44[2] = v24;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:3];
   v27 = [v25 chainFutures:v26];
 
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __64__HFItemBuilder_commitSetDiff_addBlock_updateBlock_deleteBlock___block_invoke;
-  v40[3] = &unk_277DF5010;
-  v41 = v20;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __64__HFItemBuilder_commitSetDiff_addBlock_updateBlock_deleteBlock___block_invoke;
+  v39[3] = &unk_277DF5010;
+  v40 = v20;
   v28 = v18;
-  v42 = v28;
-  v43 = v22;
-  v44 = v24;
+  v41 = v28;
+  v42 = v22;
+  v43 = v24;
   v29 = v24;
   v30 = v22;
   v31 = v20;
-  v32 = [v27 addCompletionBlock:v40];
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __64__HFItemBuilder_commitSetDiff_addBlock_updateBlock_deleteBlock___block_invoke_5;
-  v38[3] = &unk_277DF5038;
-  v39 = v28;
+  v32 = [v27 addCompletionBlock:v39];
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __64__HFItemBuilder_commitSetDiff_addBlock_updateBlock_deleteBlock___block_invoke_5;
+  v37[3] = &unk_277DF5038;
+  v38 = v28;
   v33 = v28;
-  v34 = [v27 recover:v38];
-
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = [v27 recover:v37];
 
   return v34;
 }
@@ -216,19 +214,17 @@ void __64__HFItemBuilder_commitSetDiff_addBlock_updateBlock_deleteBlock___block_
 
 id __64__HFItemBuilder_commitSetDiff_addBlock_updateBlock_deleteBlock___block_invoke_5(uint64_t a1, void *a2)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D2C900];
   v3 = *(a1 + 32);
-  v11 = @"HFItemBuilderErrorUserInfoSuccessfulChangesKey";
-  v12[0] = v3;
+  v10 = @"HFItemBuilderErrorUserInfoSuccessfulChangesKey";
+  v11[0] = v3;
   v4 = MEMORY[0x277CBEAC0];
   v5 = a2;
-  v6 = [v4 dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v7 = [v5 hf_errorWithAddedUserInfo:v6];
 
   v8 = [v2 futureWithError:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -338,27 +334,27 @@ id __63__HFItemBuilder_commitItemBuilderSetDiff_addBlock_deleteBlock___block_inv
 
 - (id)verifyPropertiesAreSet:(id)set
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   setCopy = set;
-  v5 = [setCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [setCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(setCopy);
         }
 
-        v9 = [(HFItemBuilder *)self verifyPropertyIsSet:*(*(&v13 + 1) + 8 * i), v13];
+        v9 = [(HFItemBuilder *)self verifyPropertyIsSet:*(*(&v12 + 1) + 8 * i), v12];
         if (v9)
         {
           v10 = v9;
@@ -366,7 +362,7 @@ id __63__HFItemBuilder_commitItemBuilderSetDiff_addBlock_deleteBlock___block_inv
         }
       }
 
-      v6 = [setCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [setCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -378,8 +374,6 @@ id __63__HFItemBuilder_commitItemBuilderSetDiff_addBlock_deleteBlock___block_inv
 
   v10 = 0;
 LABEL_11:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -401,7 +395,7 @@ LABEL_11:
 
 - (id)verifyProperty:(id)property matchesCondition:(id)condition description:(id)description
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   conditionCopy = condition;
   descriptionCopy = description;
@@ -427,15 +421,13 @@ LABEL_11:
     {
       *buf = 138412546;
       selfCopy = self;
-      v22 = 2112;
-      v23 = descriptionCopy;
+      v21 = 2112;
+      v22 = descriptionCopy;
       _os_log_error_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_ERROR, "Failed to verify builder: %@ for reason: %@", buf, 0x16u);
     }
 
     v14 = [(HFItemBuilder *)self _failureErrorWithReason:descriptionCopy];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -516,15 +508,13 @@ void __66__HFItemBuilder_lazy_verifyProperty_matchesCondition_description___bloc
 
 - (id)_failureErrorWithReason:(id)reason
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v9 = @"HFItemBuilderFailureReason";
-  v10[0] = reason;
+  v9[1] = *MEMORY[0x277D85DE8];
+  v8 = @"HFItemBuilderFailureReason";
+  v9[0] = reason;
   v3 = MEMORY[0x277CBEAC0];
   reasonCopy = reason;
-  v5 = [v3 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v5 = [v3 dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D2C8B8] code:2 userInfo:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

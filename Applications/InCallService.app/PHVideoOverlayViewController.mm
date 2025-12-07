@@ -60,7 +60,7 @@
 - (void)setVideoOverlayEnabled:(BOOL)enabled forMode:(int64_t)mode
 {
   enabledCopy = enabled;
-  v7 = sub_100004F84();
+  v7 = sub_100004F84(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = NSStringFromBOOL();
@@ -136,7 +136,7 @@
 
 - (void)showNextVideoOverlayMode
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     modesPriorityQueue = [(PHVideoOverlayViewController *)self modesPriorityQueue];
@@ -181,13 +181,13 @@
     shouldShowIconViewsWhenPipped = 0;
   }
 
-  v8 = sub_100004F84();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_100004F84(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = [NSNumber numberWithInteger:[(PHVideoOverlayViewController *)self currentVideoOverlayMode]];
-    v28 = 138412290;
-    v29 = v9;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "mode: %@", &v28, 0xCu);
+    v10 = [NSNumber numberWithInteger:[(PHVideoOverlayViewController *)self currentVideoOverlayMode]];
+    v29 = 138412290;
+    v30 = v10;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "mode: %@", &v29, 0xCu);
   }
 
   currentVideoOverlayMode = [(PHVideoOverlayViewController *)self currentVideoOverlayMode];
@@ -197,7 +197,7 @@
     {
       if (currentVideoOverlayMode == 6 || currentVideoOverlayMode == 7)
       {
-        v11 = [[PHVideoOverlayContentViewTitle alloc] initWithTitle:0];
+        v12 = [[PHVideoOverlayContentViewTitle alloc] initWithTitle:0];
         goto LABEL_21;
       }
 
@@ -206,22 +206,22 @@
 
     if (currentVideoOverlayMode == 4)
     {
-      v19 = [PHVideoOverlayContentViewActivity alloc];
+      v20 = [PHVideoOverlayContentViewActivity alloc];
       if (shouldShowIconViewsWhenPipped)
       {
-        v20 = &stru_100361FD0;
-        v21 = 101;
+        v21 = &stru_100361FD0;
+        v22 = 101;
       }
 
       else
       {
-        v8 = +[NSBundle mainBundle];
-        v20 = [v8 localizedStringForKey:@"VIDEO_RECONNECTING_TITLE" value:&stru_100361FD0 table:@"InCallService"];
-        v21 = 100;
+        v9 = +[NSBundle mainBundle];
+        v21 = [v9 localizedStringForKey:@"VIDEO_RECONNECTING_TITLE" value:&stru_100361FD0 table:@"InCallService"];
+        v22 = 100;
       }
 
-      v22 = [(PHVideoOverlayContentViewActivity *)v19 initWithTitle:v20 indicatorStyle:v21];
-      [(PHVideoOverlayViewController *)self setContentView:v22];
+      v23 = [(PHVideoOverlayContentViewActivity *)v20 initWithTitle:v21 indicatorStyle:v22];
+      [(PHVideoOverlayViewController *)self setContentView:v23];
 
       if (shouldShowIconViewsWhenPipped)
       {
@@ -232,14 +232,14 @@ LABEL_17:
       goto LABEL_23;
     }
 
-    v12 = [PHVideoOverlayContentViewTitle alloc];
-    v13 = +[NSBundle mainBundle];
-    v8 = v13;
-    v14 = @"CAMERA_UNAVAILABLE_OVERLAY";
+    v13 = [PHVideoOverlayContentViewTitle alloc];
+    v14 = +[NSBundle mainBundle];
+    v9 = v14;
+    v15 = @"CAMERA_UNAVAILABLE_OVERLAY";
 LABEL_16:
-    v15 = [v13 localizedStringForKey:v14 value:&stru_100361FD0 table:@"InCallService"];
-    v16 = [(PHVideoOverlayContentViewTitle *)v12 initWithTitle:v15];
-    [(PHVideoOverlayViewController *)self setContentView:v16];
+    v16 = [v14 localizedStringForKey:v15 value:&stru_100361FD0 table:@"InCallService"];
+    v17 = [(PHVideoOverlayContentViewTitle *)v13 initWithTitle:v16];
+    [(PHVideoOverlayViewController *)self setContentView:v17];
 
     goto LABEL_17;
   }
@@ -250,30 +250,30 @@ LABEL_16:
     {
       if (!shouldShowIconViewsWhenPipped)
       {
-        v23 = [PHVideoOverlayContentViewMessage alloc];
-        v17 = +[NSBundle mainBundle];
-        v24 = [v17 localizedStringForKey:@"VIDEO_DEGRADED_TITLE" value:&stru_100361FD0 table:@"InCallService"];
-        v25 = +[NSBundle mainBundle];
-        v26 = [v25 localizedStringForKey:@"VIDEO_DEGRADED_MESSAGE" value:&stru_100361FD0 table:@"InCallService"];
-        v27 = [(PHVideoOverlayContentViewMessage *)v23 initWithTitle:v24 message:v26];
-        [(PHVideoOverlayViewController *)self setContentView:v27];
+        v24 = [PHVideoOverlayContentViewMessage alloc];
+        v18 = +[NSBundle mainBundle];
+        v25 = [v18 localizedStringForKey:@"VIDEO_DEGRADED_TITLE" value:&stru_100361FD0 table:@"InCallService"];
+        v26 = +[NSBundle mainBundle];
+        v27 = [v26 localizedStringForKey:@"VIDEO_DEGRADED_MESSAGE" value:&stru_100361FD0 table:@"InCallService"];
+        v28 = [(PHVideoOverlayContentViewMessage *)v24 initWithTitle:v25 message:v27];
+        [(PHVideoOverlayViewController *)self setContentView:v28];
 
         goto LABEL_22;
       }
 
-      v11 = [[PHVideoOverlayContentViewIcon alloc] initWithSymbolType:43];
+      v12 = [[PHVideoOverlayContentViewIcon alloc] initWithSymbolType:43];
 LABEL_21:
-      v17 = v11;
-      [(PHVideoOverlayViewController *)self setContentView:v11];
+      v18 = v12;
+      [(PHVideoOverlayViewController *)self setContentView:v12];
 LABEL_22:
 
       goto LABEL_23;
     }
 
-    v12 = [PHVideoOverlayContentViewTitle alloc];
-    v13 = +[NSBundle mainBundle];
-    v8 = v13;
-    v14 = @"PAUSE_OVERLAY";
+    v13 = [PHVideoOverlayContentViewTitle alloc];
+    v14 = +[NSBundle mainBundle];
+    v9 = v14;
+    v15 = @"PAUSE_OVERLAY";
     goto LABEL_16;
   }
 
@@ -285,7 +285,7 @@ LABEL_22:
 
   if (currentVideoOverlayMode == 1)
   {
-    v11 = objc_alloc_init(PHVideoOverlayContentView);
+    v12 = objc_alloc_init(PHVideoOverlayContentView);
     goto LABEL_21;
   }
 
@@ -298,11 +298,11 @@ LABEL_23:
 {
   animatedCopy = animated;
   viewCopy = view;
-  v7 = sub_100004F84();
+  v7 = sub_100004F84(viewCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = viewCopy;
+    v18 = viewCopy;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "view: %@", buf, 0xCu);
   }
 
@@ -317,28 +317,28 @@ LABEL_23:
 
     if (v11 != 1.0)
     {
-      v12 = sub_100004F84();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_100004F84(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "animate in the overlay", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "animate in the overlay", buf, 2u);
       }
 
       delegate = [(PHVideoOverlayViewController *)self delegate];
       [delegate videoOverlayViewController:self isShowingOverlay:1];
 
-      v14 = 0.150000006;
+      v15 = 0.150000006;
       if (!animatedCopy)
       {
-        v14 = 0.0;
+        v15 = 0.0;
       }
 
-      v15[0] = _NSConcreteStackBlock;
-      v15[1] = 3221225472;
-      v15[2] = sub_100043A54;
-      v15[3] = &unk_100356988;
-      v15[4] = self;
-      [UIView animateWithDuration:4 delay:v15 options:0 animations:v14 completion:0.0];
+      v16[0] = _NSConcreteStackBlock;
+      v16[1] = 3221225472;
+      v16[2] = sub_100043A54;
+      v16[3] = &unk_100356988;
+      v16[4] = self;
+      [UIView animateWithDuration:4 delay:v16 options:0 animations:v15 completion:0.0];
     }
   }
 }
@@ -352,36 +352,36 @@ LABEL_23:
 
   if (v7 != 0.0)
   {
-    v8 = sub_100004F84();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100004F84(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "animate out the overlay", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "animate out the overlay", buf, 2u);
     }
 
-    v9 = 0.150000006;
+    v10 = 0.150000006;
     if (!animatedCopy)
     {
-      v9 = 0.0;
+      v10 = 0.0;
     }
 
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_100043BF4;
+    v12[3] = &unk_100356988;
+    v12[4] = self;
     v11[0] = _NSConcreteStackBlock;
     v11[1] = 3221225472;
-    v11[2] = sub_100043BF4;
-    v11[3] = &unk_100356988;
+    v11[2] = sub_100043C3C;
+    v11[3] = &unk_1003569B0;
     v11[4] = self;
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_100043C3C;
-    v10[3] = &unk_1003569B0;
-    v10[4] = self;
-    [UIView animateWithDuration:4 delay:v11 options:v10 animations:v9 completion:0.0];
+    [UIView animateWithDuration:4 delay:v12 options:v11 animations:v10 completion:0.0];
   }
 }
 
 - (void)disableVideoOverlayModes
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

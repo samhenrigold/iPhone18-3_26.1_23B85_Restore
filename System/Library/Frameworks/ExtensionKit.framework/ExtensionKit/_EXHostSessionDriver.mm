@@ -57,17 +57,15 @@
 
 - (void)dealloc
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = *self;
   WeakRetained = objc_loadWeakRetained((a2 + 64));
   delegate = [WeakRetained delegate];
-  v8 = 138543618;
-  v9 = v4;
-  v10 = 2048;
-  v11 = delegate;
-  _os_log_debug_impl(&dword_1D29CC000, a3, OS_LOG_TYPE_DEBUG, "end hosting session %{public}@ without calling delegate %p", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138543618;
+  v8 = v4;
+  v9 = 2048;
+  v10 = delegate;
+  _os_log_debug_impl(&dword_1D29CC000, a3, OS_LOG_TYPE_DEBUG, "end hosting session %{public}@ without calling delegate %p", &v7, 0x16u);
 }
 
 - (void)resume
@@ -96,7 +94,7 @@
 
 - (void)startSessionWithProcessConfiguration:(id)configuration configuration:(id)a4
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   v7 = a4;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
@@ -139,7 +137,7 @@
   p_activeSession = &self->_activeSession;
   if (!self->_activeSession)
   {
-    v37 = v9;
+    v36 = v9;
     v19 = v7;
     v20 = configurationCopy;
     extensionProcess = [(_EXHostViewControllerSession *)v16 extensionProcess];
@@ -149,7 +147,7 @@
 
       configurationCopy = v20;
       v7 = v19;
-      v9 = v37;
+      v9 = v36;
     }
 
     else
@@ -158,7 +156,7 @@
 
       configurationCopy = v20;
       v7 = v19;
-      v9 = v37;
+      v9 = v36;
       if (!remoteViewController)
       {
         goto LABEL_21;
@@ -208,7 +206,7 @@ LABEL_21:
       if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v39 = v7;
+        v38 = v7;
         _os_log_impl(&dword_1D29CC000, v30, OS_LOG_TYPE_DEFAULT, "Client has requested immediate hosting for configuration: %{public}@", buf, 0xCu);
       }
 
@@ -227,7 +225,7 @@ LABEL_42:
     v31 = _EXDefaultLog();
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
-      [_EXHostSessionDriver startSessionWithProcessConfiguration:? configuration:?];
+      [_EXHostSessionDriver startSessionWithProcessConfiguration:configuration:];
     }
 
     [(_EXHostViewControllerSession *)*p_session invalidate];
@@ -237,7 +235,7 @@ LABEL_42:
       v33 = _EXDefaultLog();
       if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
       {
-        [_EXHostSessionDriver startSessionWithProcessConfiguration:? configuration:?];
+        [_EXHostSessionDriver startSessionWithProcessConfiguration:configuration:];
       }
 
       [*p_activeSession invalidate];
@@ -263,8 +261,6 @@ LABEL_42:
     hostViewController2 = [(_EXHostSessionDriver *)self hostViewController];
     [(_EXHostViewControllerSession *)hostViewController2 embedViewController:0];
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (_EXHostViewControllerSession)session
@@ -375,7 +371,7 @@ LABEL_19:
         v21 = _EXDefaultLog();
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
-          [_EXHostSessionDriver setSession:?];
+          [_EXHostSessionDriver setSession:];
         }
 
         [(_EXHostViewControllerSession *)*p_activeSession invalidate];
@@ -420,53 +416,52 @@ LABEL_35:
 
 - (void)invalidateDeactivatingSessions
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   dispatch_source_set_timer(self->_deactivateSessionTimer, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0x5F5E100uLL);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   selfCopy = self;
   v3 = self->_deactivatingSessions;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v20 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if (([v8 detached] & 1) == 0)
         {
           v9 = _EXDefaultLog();
           if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136446466;
-            v17 = "[_EXHostSessionDriver invalidateDeactivatingSessions]";
-            v18 = 2114;
-            v19 = v8;
+            v16 = "[_EXHostSessionDriver invalidateDeactivatingSessions]";
+            v17 = 2114;
+            v18 = v8;
           }
 
           [v8 invalidate];
         }
       }
 
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v20 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v19 count:16];
     }
 
     while (v5);
   }
 
   [(NSMutableArray *)selfCopy->_deactivatingSessions removeAllObjects];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)makeXPCConnectionWithError:(id *)error
@@ -646,7 +641,7 @@ LABEL_32:
       v17 = _EXDefaultLog();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
-        [(_EXHostSessionDriver *)delegate hostSessionViewControllerReady:?];
+        [_EXHostSessionDriver hostSessionViewControllerReady:];
       }
 
       configuration = [(_EXHostViewControllerSession *)*p_activeSession configuration];
@@ -942,234 +937,132 @@ LABEL_14:
 
 - (void)startSessionWithProcessConfiguration:configuration:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startSessionWithProcessConfiguration:configuration:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-- (void)startSessionWithProcessConfiguration:configuration:.cold.3()
+- (void)startSessionWithProcessConfiguration:configuration:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-- (void)startSessionWithProcessConfiguration:(uint64_t *)a1 configuration:.cold.4(uint64_t *a1)
+- (void)startSessionWithProcessConfiguration:configuration:.cold.5()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-- (void)startSessionWithProcessConfiguration:(uint64_t *)a1 configuration:.cold.5(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
-  OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)setSession:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSession:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSession:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setSession:(uint64_t *)a1 .cold.4(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSession:.cold.5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)hostSessionDidPrepareForHosting:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_7_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)hostSessionDidPrepareForHosting:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2_2(&dword_1D29CC000, v0, v1, "EXHostViewController: Will try to call delegate %p 'hostViewControllerDidActivate:' for session: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)hostSessionDidPrepareForHosting:.cold.3()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2_2(&dword_1D29CC000, v0, v1, "EXHostViewController: Will try to call delegate %p 'hostViewController:didPrepareToHost:' for session: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)hostSessionViewControllerReady:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_7_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)hostSessionViewControllerReady:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)hostSessionViewControllerReady:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-- (void)hostSessionViewControllerReady:(uint64_t)a1 .cold.4(uint64_t a1, uint64_t *a2)
+- (void)hostSessionViewControllerReady:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_8();
-  OUTLINED_FUNCTION_2_2(&dword_1D29CC000, v3, v4, "EXHostViewController: Will try to call delegate %p 'hostViewController:didEndHosting:error:' for session: %{public}@");
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)hostSessionViewControllerReady:.cold.5()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2_2(&dword_1D29CC000, v0, v1, "EXHostViewController: Will try to call delegate %p 'hostViewController:didBeginHosting:' for session: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_2(&dword_1D29CC000, v0, v1, "EXHostViewController: Will try to call delegate %p 'hostViewController:didEndHosting:error:' for session: %{public}@");
 }
 
 - (void)hostSessionViewControllerReady:.cold.6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)notifyHostViewControllerWillDeactivate:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2_2(&dword_1D29CC000, v0, v1, "EXHostViewController: Will try to call delegate %p 'hostViewControllerWillDeactivate:error:' for session: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)notifyHostViewControllerDidEndHosting:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2_2(&dword_1D29CC000, v0, v1, "EXHostViewController: Will try to call delegate %p 'hostViewController:didFailToHost:error:' for session: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)notifyHostViewControllerDidEndHosting:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_2_2(&dword_1D29CC000, v0, v1, "EXHostViewController: Will try to call delegate %p 'hostViewController:didEndHosting:error:' for session: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)hostSessionDidInvalidate:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_7_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)hostSessionHostView:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_7_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)shouldAcceptXPCConnection:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

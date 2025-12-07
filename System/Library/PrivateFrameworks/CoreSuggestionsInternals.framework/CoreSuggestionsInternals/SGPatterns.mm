@@ -37,29 +37,29 @@
 
 void __34__SGPatterns__becomeImmuneToDeath__block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v4 = *(*(a1 + 32) + 40);
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [*(*(a1 + 32) + 24) objectForKey:{*(*(&v11 + 1) + 8 * v8), v11}];
+        v9 = [*(*(a1 + 32) + 24) objectForKey:{*(*(&v10 + 1) + 8 * v8), v10}];
         if (v9)
         {
           [v3[7] addObject:v9];
@@ -69,13 +69,11 @@ void __34__SGPatterns__becomeImmuneToDeath__block_invoke(uint64_t a1, void *a2)
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearRegexCache
@@ -90,36 +88,36 @@ void __34__SGPatterns__becomeImmuneToDeath__block_invoke(uint64_t a1, void *a2)
 
 - (id)regex2ForKey:(id)key
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v5 = objc_opt_new();
-  v70 = 0;
-  v71 = &v70;
-  v72 = 0x3032000000;
-  v73 = __Block_byref_object_copy__10187;
-  v74 = __Block_byref_object_dispose__10188;
-  v75 = 0;
-  v64 = 0;
-  v65 = &v64;
-  v66 = 0x3032000000;
-  v67 = __Block_byref_object_copy__10187;
-  v68 = __Block_byref_object_dispose__10188;
   v69 = 0;
+  v70 = &v69;
+  v71 = 0x3032000000;
+  v72 = __Block_byref_object_copy__10187;
+  v73 = __Block_byref_object_dispose__10188;
+  v74 = 0;
+  v63 = 0;
+  v64 = &v63;
+  v65 = 0x3032000000;
+  v66 = __Block_byref_object_copy__10187;
+  v67 = __Block_byref_object_dispose__10188;
+  v68 = 0;
   v6 = globalPatternsData;
-  v59[0] = MEMORY[0x277D85DD0];
-  v59[1] = 3221225472;
-  v59[2] = __27__SGPatterns_regex2ForKey___block_invoke;
-  v59[3] = &unk_27894D220;
+  v58[0] = MEMORY[0x277D85DD0];
+  v58[1] = 3221225472;
+  v58[2] = __27__SGPatterns_regex2ForKey___block_invoke;
+  v58[3] = &unk_27894D220;
   selfCopy = self;
-  v59[4] = self;
-  v62 = &v64;
-  v44 = keyCopy;
-  v60 = v44;
-  v63 = &v70;
-  v37 = v5;
-  v61 = v37;
-  [v6 runWithLockAcquired:v59];
-  v7 = v65[5];
+  v58[4] = self;
+  v61 = &v63;
+  v43 = keyCopy;
+  v59 = v43;
+  v62 = &v69;
+  v36 = v5;
+  v60 = v36;
+  [v6 runWithLockAcquired:v58];
+  v7 = v64[5];
   if (v7)
   {
     v8 = v7;
@@ -127,74 +125,74 @@ void __34__SGPatterns__becomeImmuneToDeath__block_invoke(uint64_t a1, void *a2)
 
   else
   {
-    v57 = 0u;
-    v58 = 0u;
     v56 = 0u;
+    v57 = 0u;
     v55 = 0u;
-    obj = v37;
-    v9 = [obj countByEnumeratingWithState:&v55 objects:v77 count:16];
+    v54 = 0u;
+    obj = v36;
+    v9 = [obj countByEnumeratingWithState:&v54 objects:v76 count:16];
     if (v9)
     {
-      v41 = *v56;
+      v40 = *v55;
       while (2)
       {
         v10 = 0;
-        v42 = v9;
+        v41 = v9;
         do
         {
-          if (*v56 != v41)
+          if (*v55 != v40)
           {
             objc_enumerationMutation(obj);
           }
 
-          v46 = v10;
-          v11 = *(*(&v55 + 1) + 8 * v10);
-          v45 = objc_autoreleasePoolPush();
-          v47 = [v11 objectForKey:v44];
-          if (v47)
+          v45 = v10;
+          v11 = *(*(&v54 + 1) + 8 * v10);
+          v44 = objc_autoreleasePoolPush();
+          v46 = [v11 objectForKey:v43];
+          if (v46)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
               context = objc_autoreleasePoolPush();
-              if (([v44 hasSuffix:@"/F"] & 1) == 0)
+              if (([v43 hasSuffix:@"/F"] & 1) == 0)
               {
                 currentHandler = [MEMORY[0x277CCA890] currentHandler];
-                [currentHandler handleFailureInMethod:a2 object:selfCopy file:@"SGPatterns.m" lineNumber:376 description:{@"Non-prefiltered regexp was array: %@", v44}];
+                [currentHandler handleFailureInMethod:a2 object:selfCopy file:@"SGPatterns.m" lineNumber:376 description:{@"Non-prefiltered regexp was array: %@", v43}];
               }
 
-              v12 = [v44 stringByAppendingString:@".filt"];
+              v12 = [v43 stringByAppendingString:@".filt"];
               v13 = [v11 objectForKeyedSubscript:v12];
-              v43 = dereferenceData(v13, 1);
+              v42 = dereferenceData(v13, 1);
 
-              if (!v43)
+              if (!v42)
               {
                 currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
-                [currentHandler2 handleFailureInMethod:a2 object:selfCopy file:@"SGPatterns.m" lineNumber:378 description:{@"Data not found for prefiltered regexp: %@", v44}];
+                [currentHandler2 handleFailureInMethod:a2 object:selfCopy file:@"SGPatterns.m" lineNumber:378 description:{@"Data not found for prefiltered regexp: %@", v43}];
               }
 
-              v40 = [[SGRe2PrefilterTree alloc] initWithData:v43];
-              v14 = v47;
-              v15 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v14, "count")}];
-              v53 = 0u;
-              v54 = 0u;
-              v51 = 0u;
+              v39 = [[SGRe2PrefilterTree alloc] initWithData:v42];
+              v14 = v46;
+              v15 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:objc_msgSend_count(v14)];
               v52 = 0u;
+              v53 = 0u;
+              v50 = 0u;
+              v51 = 0u;
               v16 = v14;
-              v17 = [v16 countByEnumeratingWithState:&v51 objects:v76 count:16];
+              v17 = [v16 countByEnumeratingWithState:&v50 objects:v75 count:16];
               if (v17)
               {
-                v18 = *v52;
+                v18 = *v51;
                 do
                 {
                   for (i = 0; i != v17; ++i)
                   {
-                    if (*v52 != v18)
+                    if (*v51 != v18)
                     {
                       objc_enumerationMutation(v16);
                     }
 
-                    v20 = dereferenceData(*(*(&v51 + 1) + 8 * i), 0);
+                    v20 = dereferenceData(*(*(&v50 + 1) + 8 * i), 0);
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
@@ -216,14 +214,14 @@ void __34__SGPatterns__becomeImmuneToDeath__block_invoke(uint64_t a1, void *a2)
                     [v15 addObject:v21];
                   }
 
-                  v17 = [v16 countByEnumeratingWithState:&v51 objects:v76 count:16];
+                  v17 = [v16 countByEnumeratingWithState:&v50 objects:v75 count:16];
                 }
 
                 while (v17);
               }
 
-              v23 = v71[5];
-              v24 = [SGRe2 re2WithSubregexps:v15 prefilter:v40];
+              v23 = v70[5];
+              v24 = [SGRe2 re2WithSubregexps:v15 prefilter:v39];
               [v23 addObject:v24];
 
               objc_autoreleasePoolPop(context);
@@ -231,7 +229,7 @@ void __34__SGPatterns__becomeImmuneToDeath__block_invoke(uint64_t a1, void *a2)
 
             else
             {
-              v25 = dereferenceData(v47, 0);
+              v25 = dereferenceData(v46, 0);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -252,16 +250,16 @@ LABEL_41:
               }
 
               v27 = v26;
-              [v71[5] addObject:v26];
+              [v70[5] addObject:v26];
             }
           }
 
-          objc_autoreleasePoolPop(v45);
-          v10 = v46 + 1;
+          objc_autoreleasePoolPop(v44);
+          v10 = v45 + 1;
         }
 
-        while (v46 + 1 != v42);
-        v9 = [obj countByEnumeratingWithState:&v55 objects:v77 count:16];
+        while (v45 + 1 != v41);
+        v9 = [obj countByEnumeratingWithState:&v54 objects:v76 count:16];
         if (v9)
         {
           continue;
@@ -271,48 +269,46 @@ LABEL_41:
       }
     }
 
-    if (![v71[5] count])
+    if (!objc_msgSend_count(v70[5]))
     {
 LABEL_42:
       currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
-      [currentHandler3 handleFailureInMethod:a2 object:selfCopy file:@"SGPatterns.m" lineNumber:409 description:{@"Could not find raw asset value for key %@", v44}];
+      [currentHandler3 handleFailureInMethod:a2 object:selfCopy file:@"SGPatterns.m" lineNumber:409 description:{@"Could not find raw asset value for key %@", v43}];
     }
 
-    if ([v71[5] count] == 1)
+    if (objc_msgSend_count(v70[5]) == 1)
     {
-      [v71[5] objectAtIndexedSubscript:0];
+      [v70[5] objectAtIndexedSubscript:0];
     }
 
     else
     {
-      [SGRe2 re2WithSubregexps:v71[5]];
+      [SGRe2 re2WithSubregexps:v70[5]];
     }
     v30 = ;
-    objc_storeStrong(v65 + 5, v30);
+    objc_storeStrong(v64 + 5, v30);
 
     v31 = globalPatternsData;
-    v48[0] = MEMORY[0x277D85DD0];
-    v48[1] = 3221225472;
-    v48[2] = __27__SGPatterns_regex2ForKey___block_invoke_2;
-    v48[3] = &unk_27894D1F8;
-    v48[4] = selfCopy;
-    v50 = &v64;
-    v49 = v44;
-    [v31 runWithLockAcquired:v48];
-    v8 = v65[5];
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = __27__SGPatterns_regex2ForKey___block_invoke_2;
+    v47[3] = &unk_27894D1F8;
+    v47[4] = selfCopy;
+    v49 = &v63;
+    v48 = v43;
+    [v31 runWithLockAcquired:v47];
+    v8 = v64[5];
   }
 
-  _Block_object_dispose(&v64, 8);
-  _Block_object_dispose(&v70, 8);
-
-  v32 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v63, 8);
+  _Block_object_dispose(&v69, 8);
 
   return v8;
 }
 
 void __27__SGPatterns_regex2ForKey___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(a1 + 32) resetIfNeeded];
   v4 = [*(*(a1 + 32) + 24) objectForKey:*(a1 + 40)];
@@ -323,32 +319,32 @@ void __27__SGPatterns_regex2ForKey___block_invoke(uint64_t a1, void *a2)
   if (!*(*(*(a1 + 56) + 8) + 40))
   {
     [*(*(a1 + 32) + 40) addObject:*(a1 + 40)];
-    v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(*(*(a1 + 32) + 16), "count")}];
+    v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:objc_msgSend_count(*(*(a1 + 32) + 16))];
     v8 = *(*(a1 + 64) + 8);
     v9 = *(v8 + 40);
     *(v8 + 40) = v7;
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v10 = *(*(a1 + 32) + 16);
-    v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v19;
+      v13 = *v18;
       do
       {
         v14 = 0;
         do
         {
-          if (*v19 != v13)
+          if (*v18 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = [v3[1] objectForKeyedSubscript:{*(*(&v18 + 1) + 8 * v14), v18}];
+          v15 = [v3[1] objectForKeyedSubscript:{*(*(&v17 + 1) + 8 * v14), v17}];
           v16 = [v15 objectForKeyedSubscript:*(*(a1 + 32) + 8)];
 
           if (v16)
@@ -360,14 +356,12 @@ void __27__SGPatterns_regex2ForKey___block_invoke(uint64_t a1, void *a2)
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v12);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)stringSetMatcherForKey:(id)key
@@ -419,28 +413,28 @@ void __27__SGPatterns_regex2ForKey___block_invoke(uint64_t a1, void *a2)
 
 void __29__SGPatterns_rawValueForKey___block_invoke(void *a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v4 = *(a1[4] + 16);
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [v3[1] objectForKeyedSubscript:{*(*(&v15 + 1) + 8 * i), v15}];
+        v9 = [v3[1] objectForKeyedSubscript:{*(*(&v14 + 1) + 8 * i), v14}];
         v10 = [v9 objectForKeyedSubscript:*(a1[4] + 8)];
 
         if (v10)
@@ -458,7 +452,7 @@ void __29__SGPatterns_rawValueForKey___block_invoke(void *a1, void *a2)
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -469,8 +463,6 @@ void __29__SGPatterns_rawValueForKey___block_invoke(void *a1, void *a2)
   }
 
 LABEL_12:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)rawValuesForKey:(id)key
@@ -502,34 +494,34 @@ LABEL_12:
 
 void __30__SGPatterns_rawValuesForKey___block_invoke(void *a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = [objc_alloc(MEMORY[0x277CBEB40]) initWithCapacity:{objc_msgSend(*(a1[4] + 16), "count")}];
+  v4 = [objc_alloc(MEMORY[0x277CBEB40]) initWithCapacity:objc_msgSend_count(*(a1[4] + 16))];
   v5 = *(a1[6] + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v4;
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v7 = *(a1[4] + 16);
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       v11 = 0;
       do
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [v3[1] objectForKeyedSubscript:{*(*(&v16 + 1) + 8 * v11), v16}];
+        v12 = [v3[1] objectForKeyedSubscript:{*(*(&v15 + 1) + 8 * v11), v15}];
         v13 = [v12 objectForKeyedSubscript:*(a1[4] + 8)];
 
         if (v13)
@@ -545,13 +537,11 @@ void __30__SGPatterns_rawValuesForKey___block_invoke(void *a1, void *a2)
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetIfNeeded
@@ -713,33 +703,33 @@ void __43__SGPatterns_pauseCacheEvictionTemporarily__block_invoke_3(uint64_t a1)
 
 void __43__SGPatterns_pauseCacheEvictionTemporarily__block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v3 = v2[5];
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v11 + 1) + 8 * v7++) _becomeImmuneToDeath];
+        [*(*(&v10 + 1) + 8 * v7++) _becomeImmuneToDeath];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v16 count:16];
     }
 
     while (v5);
@@ -748,66 +738,61 @@ void __43__SGPatterns_pauseCacheEvictionTemporarily__block_invoke(uint64_t a1, v
   v8 = sgLogHandle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v10 = [v2[7] count];
+    v9 = objc_msgSend_count(v2[7]);
     *buf = 67109120;
-    v16 = v10;
+    v15 = v9;
     _os_log_debug_impl(&dword_231E60000, v8, OS_LOG_TYPE_DEBUG, "Pausing death for %i objects", buf, 8u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __29__SGPatterns__reinstateDeath__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v5 = [v2[7] count];
-    v6[0] = 67109120;
-    v6[1] = v5;
-    _os_log_debug_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEBUG, "Reinstating death for %i objects", v6, 8u);
+    v4 = objc_msgSend_count(v2[7]);
+    v5[0] = 67109120;
+    v5[1] = v4;
+    _os_log_debug_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEBUG, "Reinstating death for %i objects", v5, 8u);
   }
 
   [v2[7] removeAllObjects];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __33__SGPatterns_clearAllRegexCaches__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a2 + 40);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) _clearRegexCache];
+        [*(*(&v7 + 1) + 8 * v6++) _clearRegexCache];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)useAllLanguagesAtOnce:(BOOL)once
@@ -842,20 +827,20 @@ void __33__SGPatterns_clearAllRegexCaches__block_invoke(uint64_t a1, uint64_t a2
 
 void __42__SGPatterns_calculateLangResolutionOrder__block_invoke(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (*(v3 + 48) == 1)
   {
     v4 = objc_autoreleasePoolPush();
     v5 = [MEMORY[0x277CBEB40] orderedSetWithObjects:{@"nolang", @"base", @"eu-me", @"w-europe", @"e-europe", @"asia", @"middleeast", 0}];
     v6 = *(v3 + 1);
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __42__SGPatterns_calculateLangResolutionOrder__block_invoke_2;
-    v29[3] = &unk_27894D188;
-    v30 = v5;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __42__SGPatterns_calculateLangResolutionOrder__block_invoke_2;
+    v28[3] = &unk_27894D188;
+    v29 = v5;
     v7 = v5;
-    [v6 enumerateKeysAndObjectsUsingBlock:v29];
+    [v6 enumerateKeysAndObjectsUsingBlock:v28];
     v8 = [v7 array];
     v9 = *(*(a1 + 32) + 8);
     v10 = *(v9 + 40);
@@ -866,30 +851,30 @@ void __42__SGPatterns_calculateLangResolutionOrder__block_invoke(uint64_t a1, vo
 
   else
   {
-    v23 = a1;
+    v22 = a1;
     v11 = objc_opt_new();
     v12 = objc_opt_new();
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     obj = *(v3 + 4);
-    v13 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
+    v13 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v26;
+      v15 = *v25;
       do
       {
         v16 = 0;
         do
         {
-          if (*v26 != v15)
+          if (*v25 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v25 + 1) + 8 * v16);
+          v17 = *(*(&v24 + 1) + 8 * v16);
           if (v17)
           {
             do
@@ -913,18 +898,16 @@ void __42__SGPatterns_calculateLangResolutionOrder__block_invoke(uint64_t a1, vo
         }
 
         while (v16 != v14);
-        v14 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
+        v14 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
       }
 
       while (v14);
     }
 
-    v20 = *(*(v23 + 32) + 8);
+    v20 = *(*(v22 + 32) + 8);
     v21 = *(v20 + 40);
     *(v20 + 40) = v11;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __42__SGPatterns_calculateLangResolutionOrder__block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -935,7 +918,7 @@ void __42__SGPatterns_calculateLangResolutionOrder__block_invoke_2(uint64_t a1, 
   if (v6)
   {
     v7 = v6;
-    v8 = [v5 count];
+    v8 = objc_msgSend_count(v5);
 
     if (v8 >= 2)
     {
@@ -994,7 +977,7 @@ void __42__SGPatterns_calculateLangResolutionOrder__block_invoke_2(uint64_t a1, 
 
 void __31__SGPatterns_forceLanguagesTo___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!*(v3 + 1))
   {
@@ -1003,15 +986,15 @@ void __31__SGPatterns_forceLanguagesTo___block_invoke(uint64_t a1, void *a2)
 
     if (!v5)
     {
-      v20 = [MEMORY[0x277CCA890] currentHandler];
-      [v20 handleFailureInMethod:*(a1 + 40) object:*(a1 + 48) file:@"SGPatterns.m" lineNumber:170 description:@"filesystemPathForAssetDataRelativePath returned nil"];
+      v19 = [MEMORY[0x277CCA890] currentHandler];
+      [v19 handleFailureInMethod:*(a1 + 40) object:*(a1 + 48) file:@"SGPatterns.m" lineNumber:170 description:@"filesystemPathForAssetDataRelativePath returned nil"];
     }
 
     v6 = sgLogHandle();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v28 = v5;
+      v27 = v5;
       _os_log_impl(&dword_231E60000, v6, OS_LOG_TYPE_INFO, "Loading pattern data from path %@", buf, 0xCu);
     }
 
@@ -1021,8 +1004,8 @@ void __31__SGPatterns_forceLanguagesTo___block_invoke(uint64_t a1, void *a2)
 
     if (!*(v3 + 1))
     {
-      v21 = [MEMORY[0x277CCA890] currentHandler];
-      [v21 handleFailureInMethod:*(a1 + 40) object:*(a1 + 48) file:@"SGPatterns.m" lineNumber:173 description:@"Could not load pattern data"];
+      v20 = [MEMORY[0x277CCA890] currentHandler];
+      [v20 handleFailureInMethod:*(a1 + 40) object:*(a1 + 48) file:@"SGPatterns.m" lineNumber:173 description:@"Could not load pattern data"];
     }
   }
 
@@ -1030,26 +1013,26 @@ void __31__SGPatterns_forceLanguagesTo___block_invoke(uint64_t a1, void *a2)
   v10 = *(v3 + 4);
   *(v3 + 4) = v9;
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v11 = *(v3 + 4);
-  v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v23;
+    v14 = *v22;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v23 != v14)
+        if (*v22 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v22 + 1) + 8 * i);
+        v16 = *(*(&v21 + 1) + 8 * i);
         v17 = [*(v3 + 1) objectForKeyedSubscript:v16];
 
         if (!v17)
@@ -1059,14 +1042,13 @@ void __31__SGPatterns_forceLanguagesTo___block_invoke(uint64_t a1, void *a2)
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v13);
   }
 
   ++*(v3 + 6);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (id)calculateCurrentLanguagesFromPreferredLocaleCodes:(id)codes
@@ -1091,34 +1073,34 @@ void __31__SGPatterns_forceLanguagesTo___block_invoke(uint64_t a1, void *a2)
 
 void __64__SGPatterns_calculateCurrentLanguagesFromPreferredLocaleCodes___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v4 = *(a1 + 32);
-  v23 = [v4 countByEnumeratingWithState:&v24 objects:v28 count:16];
-  if (!v23)
+  v22 = [v4 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  if (!v22)
   {
     goto LABEL_22;
   }
 
-  v5 = *v25;
+  v5 = *v24;
   v6 = 0x278948000uLL;
-  v20 = v4;
-  v21 = a1;
-  v22 = v3;
+  v19 = v4;
+  v20 = a1;
+  v21 = v3;
   while (2)
   {
-    for (i = 0; i != v23; ++i)
+    for (i = 0; i != v22; ++i)
     {
-      if (*v25 != v5)
+      if (*v24 != v5)
       {
         objc_enumerationMutation(v4);
       }
 
-      v8 = *(*(&v24 + 1) + 8 * i);
+      v8 = *(*(&v23 + 1) + 8 * i);
       v9 = objc_autoreleasePoolPush();
       v10 = [v8 lowercaseString];
       v11 = [v3[1] objectForKeyedSubscript:v10];
@@ -1151,7 +1133,7 @@ void __64__SGPatterns_calculateCurrentLanguagesFromPreferredLocaleCodes___block_
           v18 = [*(v6 + 3960) fallbackLanguageCodeForCountryCode:v17];
           if (v18)
           {
-            v12 = [v22[1] objectForKeyedSubscript:v18];
+            v12 = [v21[1] objectForKeyedSubscript:v18];
 
             if (v12)
             {
@@ -1164,12 +1146,12 @@ void __64__SGPatterns_calculateCurrentLanguagesFromPreferredLocaleCodes___block_
             v12 = 0;
           }
 
-          v4 = v20;
+          v4 = v19;
         }
 
         v5 = v13;
-        a1 = v21;
-        v3 = v22;
+        a1 = v20;
+        v3 = v21;
         v6 = 0x278948000;
         if (!v12)
         {
@@ -1177,8 +1159,8 @@ void __64__SGPatterns_calculateCurrentLanguagesFromPreferredLocaleCodes___block_
         }
       }
 
-      [*(a1 + 40) addObject:{v12, v20}];
-      if ([*(a1 + 40) count] == 5)
+      [*(a1 + 40) addObject:{v12, v19}];
+      if (objc_msgSend_count(*(a1 + 40)) == 5)
       {
 
         objc_autoreleasePoolPop(v9);
@@ -1190,8 +1172,8 @@ LABEL_18:
       objc_autoreleasePoolPop(v9);
     }
 
-    v23 = [v4 countByEnumeratingWithState:&v24 objects:v28 count:16];
-    if (v23)
+    v22 = [v4 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    if (v22)
     {
       continue;
     }
@@ -1201,12 +1183,10 @@ LABEL_18:
 
 LABEL_22:
 
-  if (![*(a1 + 40) count])
+  if (!objc_msgSend_count(*(a1 + 40)))
   {
     [*(a1 + 40) addObject:@"en"];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (void)changeLanguageOrPatternData
@@ -1222,7 +1202,7 @@ LABEL_22:
 
 void __41__SGPatterns_changeLanguageOrPatternData__block_invoke(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = +[SGAsset asset];
@@ -1240,24 +1220,24 @@ void __41__SGPatterns_changeLanguageOrPatternData__block_invoke(uint64_t a1, voi
     }
 
     *buf = 138412290;
-    v35 = v10;
+    v34 = v10;
     _os_log_impl(&dword_231E60000, v8, OS_LOG_TYPE_INFO, "Loading pattern plist, path: %@", buf, 0xCu);
   }
 
-  v33 = 0;
-  v11 = [MEMORY[0x277D425E0] dictionaryWithPath:v7 error:&v33];
-  v12 = v33;
+  v32 = 0;
+  v11 = [MEMORY[0x277D425E0] dictionaryWithPath:v7 error:&v32];
+  v12 = v32;
   if (!v11)
   {
-    v32 = v12;
-    v13 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v7 options:1 error:&v32];
-    v14 = v32;
+    v31 = v12;
+    v13 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v7 options:1 error:&v31];
+    v14 = v31;
 
     if (v13)
     {
-      v31 = 0;
-      v11 = [MEMORY[0x277CCAC58] propertyListWithData:v13 options:0 format:0 error:&v31];
-      v12 = v31;
+      v30 = 0;
+      v11 = [MEMORY[0x277CCAC58] propertyListWithData:v13 options:0 format:0 error:&v30];
+      v12 = v30;
 
       if (v11)
       {
@@ -1286,11 +1266,11 @@ LABEL_11:
 
   if ((isKindOfClass & 1) == 0)
   {
-    v27 = [MEMORY[0x277CCA890] currentHandler];
-    v28 = *(a1 + 32);
-    v30 = *(a1 + 40);
-    v29 = [v3[1] allKeys];
-    [v27 handleFailureInMethod:v28 object:v30 file:@"SGPatterns.m" lineNumber:103 description:{@"Invalid pattern plist: no nolang locale found! Keys: %@", v29}];
+    v26 = [MEMORY[0x277CCA890] currentHandler];
+    v27 = *(a1 + 32);
+    v29 = *(a1 + 40);
+    v28 = [v3[1] allKeys];
+    [v26 handleFailureInMethod:v27 object:v29 file:@"SGPatterns.m" lineNumber:103 description:{@"Invalid pattern plist: no nolang locale found! Keys: %@", v28}];
   }
 
   v18 = [v6 objectForKeyedSubscript:@"CompiledPatterns.pldat"];
@@ -1304,7 +1284,7 @@ LABEL_11:
     }
 
     *buf = 138412290;
-    v35 = v20;
+    v34 = v20;
     _os_log_impl(&dword_231E60000, v19, OS_LOG_TYPE_INFO, "Loading pattern pldat, path: %@", buf, 0xCu);
   }
 
@@ -1319,8 +1299,6 @@ LABEL_11:
 
   ++*(v3 + 6);
   objc_autoreleasePoolPop(v4);
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 + (void)initialize

@@ -98,7 +98,7 @@ uint64_t __70__PUCompositeVideoGenerator__workQueue_finishWithPlaybackVideo_erro
   v147 = v7 - 1;
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
-    LOWORD(buf.a) = 0;
+    LOWORD(buf.start.value) = 0;
     _os_signpost_emit_with_name_impl(&dword_1B36F3000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "CompositeVideoGeneration", "", &buf, 2u);
   }
 
@@ -169,8 +169,8 @@ uint64_t __70__PUCompositeVideoGenerator__workQueue_finishWithPlaybackVideo_erro
         firstObject = PLLivePhotoPlaybackGetLog();
         if (os_log_type_enabled(firstObject, OS_LOG_TYPE_ERROR))
         {
-          LODWORD(buf.a) = 138412290;
-          *(&buf.a + 4) = v23;
+          LODWORD(buf.start.value) = 138412290;
+          *(&buf.start.value + 4) = v23;
           _os_log_impl(&dword_1B36F3000, firstObject, OS_LOG_TYPE_ERROR, "Encountered an asset with no video track: %@", &buf, 0xCu);
         }
 
@@ -182,17 +182,17 @@ uint64_t __70__PUCompositeVideoGenerator__workQueue_finishWithPlaybackVideo_erro
 
       v187 = 0uLL;
       v188 = 0.0;
-      [v23 duration];
+      objc_msgSend_duration(v23);
       v185 = 0uLL;
       v186 = 0.0;
       lastObject = [v12 lastObject];
-      [PUCompositeVideoGenerator _overlapDurationBetweenAsset:lastObject andAsset:v21];
+      objc_msgSend__overlapDurationBetweenAsset_andAsset_(PUCompositeVideoGenerator);
 
       memset(&v184, 0, sizeof(v184));
       v28 = v165;
       if (v165)
       {
-        [v165 duration];
+        objc_msgSend_duration(v165);
       }
 
       else
@@ -202,11 +202,11 @@ uint64_t __70__PUCompositeVideoGenerator__workQueue_finishWithPlaybackVideo_erro
 
       *&rhs.a = v185;
       rhs.c = v186;
-      CMTimeSubtract(&buf, &lhs.start, &rhs);
+      CMTimeSubtract(&buf.start, &lhs.start, &rhs);
       v169 = v18;
       if (v21)
       {
-        [v21 photoIrisStillDisplayTime];
+        objc_msgSend_photoIrisStillDisplayTime(v21);
       }
 
       else
@@ -214,7 +214,7 @@ uint64_t __70__PUCompositeVideoGenerator__workQueue_finishWithPlaybackVideo_erro
         memset(&lhs, 0, 24);
       }
 
-      CMTimeAdd(&v184, &buf, &lhs.start);
+      CMTimeAdd(&v184, &buf.start, &lhs.start);
       [firstObject px_transformedNaturalSize];
       v30 = v29;
       v32 = v31;
@@ -250,7 +250,7 @@ uint64_t __70__PUCompositeVideoGenerator__workQueue_finishWithPlaybackVideo_erro
         memset(&rhs, 0, 24);
         if (v169)
         {
-          [v169 duration];
+          objc_msgSend_duration(v169);
         }
 
         t1.a = *MEMORY[0x1E6960C70];
@@ -277,7 +277,7 @@ uint64_t __70__PUCompositeVideoGenerator__workQueue_finishWithPlaybackVideo_erro
           flags = v149;
           if (v40)
           {
-            [v40 CMTimeValue];
+            objc_msgSend_CMTimeValue(v40);
             *&t1.a = lhs.start.value;
             flags = lhs.start.flags;
             LODWORD(t1.b) = lhs.start.timescale;
@@ -294,7 +294,7 @@ uint64_t __70__PUCompositeVideoGenerator__workQueue_finishWithPlaybackVideo_erro
 LABEL_30:
           *&start.a = *&rhs.a;
           start.c = rhs.c;
-          [MEMORY[0x1E69C0918] convertTime:&start fromAsset:v169 toAsset:v23];
+          objc_msgSend_convertTime_fromAsset_toAsset_(MEMORY[0x1E69C0918]);
           *&t1.a = lhs.start.value;
           flags = lhs.start.flags;
           LODWORD(t1.b) = lhs.start.timescale;
@@ -362,12 +362,12 @@ LABEL_81:
 
         else
         {
-          *&buf.a = v200;
-          LODWORD(buf.b) = DWORD2(v200);
-          HIDWORD(buf.b) = lhs.start.flags;
-          *&buf.c = *&lhs.start.epoch;
-          buf.tx = *&lhs.duration.timescale;
-          buf.ty = 0.0;
+          buf.start.value = v200;
+          buf.start.timescale = DWORD2(v200);
+          buf.start.flags = lhs.start.flags;
+          *&buf.start.epoch = *&lhs.start.epoch;
+          *&buf.duration.timescale = *&lhs.duration.timescale;
+          buf.duration.epoch = 0;
         }
 
         v13 = v19;
@@ -380,11 +380,11 @@ LABEL_46:
       v201 = 0.0;
       if (v28)
       {
-        [v28 duration];
+        objc_msgSend_duration(v28);
       }
 
       memset(&lhs, 0, sizeof(lhs));
-      [firstObject timeRange];
+      objc_msgSend_timeRange(firstObject);
       start = buf;
       PXConformCMTimeRangeWithinRange();
       if ((lhs.start.flags & 1) == 0 || (lhs.duration.flags & 1) == 0 || lhs.duration.epoch || lhs.duration.value < 0 || (*&rhs.a = *&lhs.duration.value, *&rhs.c = lhs.duration.epoch, *&start.a = v166, start.c = v33, CMTimeCompare(&rhs, &start) < 1))
@@ -447,10 +447,10 @@ LABEL_90:
       if (firstObject2)
       {
         memset(&rhs, 0, sizeof(rhs));
-        [firstObject2 timeRange];
+        objc_msgSend_timeRange(firstObject2);
         end = buf;
         PXConformCMTimeRangeWithinRange();
-        [firstObject timeRange];
+        objc_msgSend_timeRange(firstObject);
         t1 = rhs;
         PXConformCMTimeRangeWithinRange();
         rhs = start;
@@ -525,7 +525,7 @@ LABEL_90:
       [v164 setObject:v54 forKeyedSubscript:v21];
 
       memset(&rhs, 0, sizeof(rhs));
-      [firstObject px_preferredTransformBasedOnNaturalSize];
+      objc_msgSend_px_preferredTransformBasedOnNaturalSize(firstObject);
       v55 = fmax(v14 / v30, v13 / v32);
       CGAffineTransformMakeScale(&end, v55, v55);
       t1 = rhs;
@@ -553,8 +553,8 @@ LABEL_91:
     v68 = PLLivePhotoPlaybackGetLog();
     if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(buf.a) = 138412290;
-      *(&buf.a + 4) = v153;
+      LODWORD(buf.start.value) = 138412290;
+      *(&buf.start.value + 4) = v153;
       _os_log_impl(&dword_1B36F3000, v68, OS_LOG_TYPE_ERROR, "Unable to generate merged live photo video with error: %@", &buf, 0xCu);
     }
 
@@ -591,8 +591,8 @@ LABEL_91:
       {
         assets5 = [(PUCompositeVideoGenerator *)selfCopy assets];
         firstObject5 = [assets5 firstObject];
-        LODWORD(buf.a) = 138412290;
-        *(&buf.a + 4) = firstObject5;
+        LODWORD(buf.start.value) = 138412290;
+        *(&buf.start.value + 4) = firstObject5;
         _os_log_impl(&dword_1B36F3000, v78, OS_LOG_TYPE_ERROR, "Attempting fallback to first asset: %@", &buf, 0xCu);
 
         v77 = v163;
@@ -615,8 +615,8 @@ LABEL_91:
       v136 = [PUMergedLivePhotosVideo alloc];
       v195 = v75;
       v137 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v195 count:1];
-      *&buf.a = *MEMORY[0x1E6960CC0];
-      buf.c = *(MEMORY[0x1E6960CC0] + 16);
+      *&buf.start.value = *MEMORY[0x1E6960CC0];
+      buf.start.epoch = *(MEMORY[0x1E6960CC0] + 16);
       [MEMORY[0x1E696B098] valueWithCMTime:&buf];
       v139 = v138 = v75;
       v194 = v139;
@@ -657,10 +657,10 @@ LABEL_114:
         {
           assets6 = [(PUCompositeVideoGenerator *)selfCopy assets];
           firstObject7 = [assets6 firstObject];
-          LODWORD(buf.a) = 138412546;
-          *(&buf.a + 4) = firstObject7;
-          WORD2(buf.b) = 2112;
-          *(&buf.b + 6) = v85;
+          LODWORD(buf.start.value) = 138412546;
+          *(&buf.start.value + 4) = firstObject7;
+          LOWORD(buf.start.flags) = 2112;
+          *(&buf.start.flags + 2) = v85;
           _os_log_impl(&dword_1B36F3000, v88, OS_LOG_TYPE_ERROR, "Unable to fallback to first asset: %@. Reason: %@", &buf, 0x16u);
         }
 
@@ -697,7 +697,7 @@ LABEL_114:
     v67 = v66;
     if (v66)
     {
-      [v66 CGAffineTransformValue];
+      objc_msgSend_CGAffineTransformValue(v66);
     }
 
     else
@@ -727,7 +727,7 @@ LABEL_133:
         v99 = v98;
         if (v98)
         {
-          [v98 CGAffineTransformValue];
+          objc_msgSend_CGAffineTransformValue(v98);
         }
 
         else
@@ -777,8 +777,8 @@ LABEL_135:
       v106 = @"true";
     }
 
-    LODWORD(buf.a) = 138412290;
-    *(&buf.a + 4) = v106;
+    LODWORD(buf.start.value) = 138412290;
+    *(&buf.start.value + 4) = v106;
     _os_log_impl(&dword_1B36F3000, v105, OS_LOG_TYPE_DEBUG, "Assets have same size and transform: %@", &buf, 0xCu);
   }
 
@@ -790,7 +790,7 @@ LABEL_135:
     v109 = v108;
     if (v108)
     {
-      [v108 CGAffineTransformValue];
+      objc_msgSend_CGAffineTransformValue(v108);
     }
 
     else
@@ -832,7 +832,7 @@ LABEL_135:
         v116 = v115;
         if (v115)
         {
-          [v115 CGAffineTransformValue];
+          objc_msgSend_CGAffineTransformValue(v115);
         }
 
         else
@@ -849,7 +849,7 @@ LABEL_135:
         v118 = v117;
         if (v117)
         {
-          [v117 CMTimeValue];
+          objc_msgSend_CMTimeValue(v117);
         }
 
         else
@@ -864,7 +864,7 @@ LABEL_135:
           v120 = v119;
           if (v119)
           {
-            [v119 CMTimeValue];
+            objc_msgSend_CMTimeValue(v119);
           }
 
           else
@@ -913,7 +913,7 @@ LABEL_135:
     firstObject3 = [MEMORY[0x1E6988060] videoComposition];
     [firstObject3 setRenderSize:{v14, v13}];
     CMTimeMake(&v177, 1, 30);
-    *&buf.a = v177;
+    buf.start = v177;
     [firstObject3 setFrameDuration:&buf];
     v109 = [firstObject8 copy];
     [firstObject3 setInstructions:v109];
@@ -967,7 +967,7 @@ LABEL_179:
   v143 = v142;
   if (v147 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v142))
   {
-    LOWORD(buf.a) = 0;
+    LOWORD(buf.start.value) = 0;
     _os_signpost_emit_with_name_impl(&dword_1B36F3000, v143, OS_SIGNPOST_INTERVAL_END, spid, "CompositeVideoGeneration", "", &buf, 2u);
   }
 }
@@ -1065,7 +1065,7 @@ uint64_t __82__PUCompositeVideoGenerator__workQueue_generateVideoWithSingleAsset
   v15 = MEMORY[0x1E696B098];
   if (v12)
   {
-    [v12 photoIrisStillDisplayTime];
+    objc_msgSend_photoIrisStillDisplayTime(v12);
   }
 
   else
@@ -1827,16 +1827,16 @@ void __34__PUCompositeVideoGenerator_start__block_invoke(uint64_t a1)
         CMTimeMakeWithSeconds(&v34, v14, 600);
         v32 = 0uLL;
         v33 = 0;
-        [andAssetCopy photoIrisStillDisplayTime];
+        objc_msgSend_photoIrisStillDisplayTime(andAssetCopy);
         v30 = 0uLL;
         v31 = 0;
-        [andAssetCopy photoIrisVideoDuration];
+        objc_msgSend_photoIrisVideoDuration(andAssetCopy);
         v28 = 0uLL;
         v29 = 0;
-        [v9 photoIrisStillDisplayTime];
+        objc_msgSend_photoIrisStillDisplayTime(v9);
         v26 = 0uLL;
         v27 = 0;
-        [v9 photoIrisVideoDuration];
+        objc_msgSend_photoIrisVideoDuration(v9);
         memset(&v25, 0, sizeof(v25));
         v20 = *MEMORY[0x1E6960CC0];
         *&start.start.value = *MEMORY[0x1E6960CC0];
@@ -1904,7 +1904,7 @@ LABEL_13:
   v10 = 0;
   if (assetCopy && consecutiveAssetCopy)
   {
-    [self _overlapDurationBetweenAsset:assetCopy andAsset:consecutiveAssetCopy];
+    objc_msgSend__overlapDurationBetweenAsset_andAsset_(self);
     time2 = **&MEMORY[0x1E6960CC0];
     v11 = CMTimeCompare(&time1, &time2);
     objc_opt_class();

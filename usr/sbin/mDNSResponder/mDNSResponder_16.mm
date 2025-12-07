@@ -1,296 +1,26 @@
-uint64_t ParseHTTPResponseCode(const char **a1, unsigned __int8 *a2)
-{
-  v2 = *a1;
-  if (a2 - *a1 < 5)
-  {
-    return -1;
-  }
-
-  if (strncasecmp(*a1, "HTTP/", 5uLL))
-  {
-    return -3;
-  }
-
-  v12 = (v2 + 5);
-  if (v2 != -5 && v12 != a2)
-  {
-    while (1)
-    {
-      v19 = *v12;
-      if (v19 == 10)
-      {
-        return -3;
-      }
-
-      if (v19 != 32)
-      {
-        if (++v12)
-        {
-          if (v12 != a2)
-          {
-            continue;
-          }
-        }
-      }
-
-      break;
-    }
-  }
-
-  if (v12 == a2)
-  {
-    return -1;
-  }
-
-  v14 = v12 + 1;
-  if (a2 - (v12 + 1) < 3)
-  {
-    return -1;
-  }
-
-  v15 = v12 + 4;
-  if (v12 != -4)
-  {
-    do
-    {
-      if (v15 == a2)
-      {
-        break;
-      }
-
-      if (*v15 == 10)
-      {
-        break;
-      }
-
-      ++v15;
-    }
-
-    while (v15);
-  }
-
-  if (v15 == a2)
-  {
-    return -1;
-  }
-
-  *a1 = (v15 + 1);
-  if (*v14 == 12338 && v12[3] == 48)
-  {
-    return 200;
-  }
-
-  else if (*v14 == 12340 && v12[3] == 52)
-  {
-    return 404;
-  }
-
-  else if (*v14 == 12341 && v12[3] == 48)
-  {
-    return 500;
-  }
-
-  else
-  {
-    if (mDNS_LoggingEnabled == 1)
-    {
-      v20 = v12[2];
-      v21 = v12[3];
-      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "ParseHTTPResponseCode found unexpected result code: %c%c%c", v6, v7, v8, v9, v10, v12[1]);
-    }
-
-    return -2;
-  }
-}
-
-uint64_t ParseHttpUrl(uint64_t result, unint64_t a2, void *a3, _WORD *a4, void *a5)
-{
-  v8 = result;
-  if ((a2 - result) < 7)
-  {
-    goto LABEL_3;
-  }
-
-  v5 = a3;
-  result = strncasecmp(result, "http://", 7uLL);
-  if (result)
-  {
-    goto LABEL_3;
-  }
-
-  v19 = v8 + 7;
-  if ((v8 + 7) >= a2)
-  {
-    v15 = 4294901756;
-    if (mDNS_LoggingEnabled == 1)
-    {
-      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "ParseHttpUrl: past end of buffer parsing host:port", v10, v11, v12, v13, v14, v28);
-    }
-
-    return v15;
-  }
-
-  if (v8 != -7)
-  {
-    v20 = 0;
-    v8 += 7;
-    do
-    {
-      if (*v8 == 47)
-      {
-        break;
-      }
-
-      ++v20;
-      if (!++v8)
-      {
-        break;
-      }
-    }
-
-    while (v8 != a2);
-    v21 = v20 + 1;
-    if (v20 != -1)
-    {
-      v22 = v21;
-      result = malloc_type_malloc(v21, 0xD58F63CuLL);
-      if (result)
-      {
-        *v5 = result;
-        if (v20)
-        {
-          v23 = v19;
-          while (1)
-          {
-            v24 = *v23;
-            *result = v24;
-            if (!v24)
-            {
-              break;
-            }
-
-            ++result;
-            ++v23;
-            if (--v22 <= 1)
-            {
-              goto LABEL_24;
-            }
-          }
-        }
-
-        else
-        {
-LABEL_24:
-          *result = 0;
-        }
-
-        v25 = v8 - 1;
-        while (v25 > v19)
-        {
-          v26 = v25--;
-          v27 = *v26;
-          result = (v26 + 1);
-          if (v27 == 58)
-          {
-            result = strtol(result, 0, 10);
-            *a4 = bswap32(result) >> 16;
-            break;
-          }
-        }
-
-LABEL_3:
-        v15 = 0;
-        if (a5 && v8 < a2)
-        {
-          v16 = a2 - v8;
-          v17 = (a2 - v8 + 1);
-          if (v16 != -1)
-          {
-            result = malloc_type_malloc((v16 + 1), 0x187D57FDuLL);
-            if (result)
-            {
-              *a5 = result;
-              if (v8)
-              {
-                if (v17 == 1)
-                {
-LABEL_11:
-                  v15 = 0;
-                  *result = 0;
-                }
-
-                else
-                {
-                  while (1)
-                  {
-                    v18 = *v8;
-                    *result = v18;
-                    if (!v18)
-                    {
-                      return 0;
-                    }
-
-                    ++result;
-                    ++v8;
-                    if (--v17 <= 1)
-                    {
-                      goto LABEL_11;
-                    }
-                  }
-                }
-
-                return v15;
-              }
-            }
-          }
-
-          goto LABEL_34;
-        }
-
-        return v15;
-      }
-    }
-
-LABEL_34:
-    __break(1u);
-    goto LABEL_35;
-  }
-
-  result = malloc_type_malloc(1uLL, 0xD58F63CuLL);
-  if (!result)
-  {
-    goto LABEL_34;
-  }
-
-LABEL_35:
-  *v5 = result;
-  __break(1u);
-  return result;
-}
-
-void AllocAndCopy(void *a1, char *__s, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
+void AllocAndCopy(void *a1, char *__s)
 {
   if (__s)
   {
-    v11 = strlen(__s);
-    v17 = v11 + 1;
-    if ((v11 + 1) >> 32)
+    v4 = strlen(__s);
+    v5 = v4 + 1;
+    if ((v4 + 1) >> 32)
     {
-      v18 = mDNSLogCategory_Default;
+      v6 = mDNSLogCategory_Default;
 
-      LogMsgWithLevel(v18, OS_LOG_TYPE_DEFAULT, "AllocAndCopy: can't allocate string", v12, v13, v14, v15, v16, a9);
+      LogMsgWithLevel(v6, OS_LOG_TYPE_DEFAULT, "AllocAndCopy: can't allocate string");
     }
 
-    else if (v11 == -1 || (v19 = malloc_type_malloc(v11 + 1, 0xDDCB1BE0uLL)) == 0)
+    else if (v4 == -1 || (v7 = malloc_type_malloc(v4 + 1, 0xDDCB1BE0uLL)) == 0)
     {
       __break(1u);
     }
 
     else
     {
-      *a1 = v19;
+      *a1 = v7;
 
-      memcpy(v19, __s, v17);
+      memcpy(v7, __s, v5);
     }
   }
 }
@@ -357,9 +87,7 @@ void GetDeviceDescription(uint64_t a1, uint64_t a2)
       *(a2 + 64) = v6;
     }
 
-    v13 = *(a1 + 15040);
-    v14 = *(a1 + 15064);
-    *(a2 + 72) = mDNS_snprintf(v6);
+    *(a2 + 72) = mDNS_snprintf(v6, 0x2000, "GET %s HTTP/1.1\r\nAccept: text/xml, application/xml\r\nUser-Agent: Mozilla/4.0 (compatible; UPnP/1.0; Windows NT/5.1)\r\nHost: %s\r\nConnection: close\r\n\r\n", *(a1 + 15040), *(a1 + 15064));
     v10 = mDNSLogCategory_NAT;
     if (!mDNS_SensitiveLoggingEnableCount || mDNSLogCategory_NAT == mDNSLogCategory_State)
     {
@@ -367,7 +95,7 @@ void GetDeviceDescription(uint64_t a1, uint64_t a2)
       {
         v12 = *(a2 + 64);
         *buf = 136446210;
-        v16 = v12;
+        v14 = v12;
         goto LABEL_25;
       }
     }
@@ -379,7 +107,7 @@ void GetDeviceDescription(uint64_t a1, uint64_t a2)
       {
         v11 = *(a2 + 64);
         *buf = 136446210;
-        v16 = v11;
+        v14 = v11;
 LABEL_25:
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Describe Device: [%{public}s]", buf, 0xCu);
       }
@@ -417,27 +145,33 @@ void LNT_SendDiscoveryMsg(uint64_t a1)
       if (*(a1 + 14736) < 251)
       {
         *(a1 + 15032) = 0;
+        v5 = "IP";
+      }
+
+      else if (*(a1 + 15032))
+      {
+        v5 = "PPP";
       }
 
       else
       {
-        *(a1 + 15032);
+        v5 = "IP";
       }
 
-      v5 = mDNS_snprintf((a1 + 28960));
+      v6 = mDNS_snprintf((a1 + 28960), 8952, "M-SEARCH * HTTP/1.1\r\nHost:239.255.255.250:1900\r\nST:urn:schemas-upnp-org:service:WAN%sConnection:1\r\nMan:ssdp:discover\r\nMX:3\r\n\r\n", v5);
       if (*(a1 + 12700))
       {
-        v6 = v5;
-        v7 = *(a1 + 15024);
-        if (!v7)
+        v7 = v6;
+        v8 = *(a1 + 15024);
+        if (!v8)
         {
-          v7 = mDNSPlatformUDPSocket(0);
-          *(a1 + 15024) = v7;
+          v8 = mDNSPlatformUDPSocket(0);
+          *(a1 + 15024) = v8;
         }
 
-        v8 = v4 + v6;
-        mDNSPlatformSendUDP(a1, (a1 + 28960), v8, 0, v7, a1 + 12696, 0x6C07u, 0);
-        mDNSPlatformSendUDP(a1, (a1 + 28960), v8, 0, *(a1 + 15024), &LNT_SendDiscoveryMsg_multicastDest, 0x6C07u, 0);
+        v9 = v4 + v7;
+        mDNSPlatformSendUDP(a1, (a1 + 28960), v9, 0, v8, (a1 + 12696), 0x6C07u, 0);
+        mDNSPlatformSendUDP(a1, (a1 + 28960), v9, 0, *(a1 + 15024), LNT_SendDiscoveryMsg_multicastDest, 0x6C07u, 0);
       }
 
       *(v2 + 2744) = *(v2 + 2744) == 0;
@@ -445,1045 +179,1041 @@ void LNT_SendDiscoveryMsg(uint64_t a1)
   }
 }
 
-uint64_t dump_state_to_fd(int a1)
+uint64_t dump_state_to_fd(unsigned int a1)
 {
-  v1311 = time(0);
-  v1310 = mDNS_TimeNow(mDNSStorage, v2, v3, v4, v5, v6, v7, v8);
-  memset(v1327, 0, sizeof(v1327));
-  LogToFD(a1, "---- BEGIN STATE LOG ---- %s %s %d", v9, v10, v11, v12, v13, v14, "mDNSResponder mDNSResponder-2881.40.18 (Oct 11 2025 00:04:16)");
-  v1330.tv_sec = 0;
-  *&v1330.tv_usec = 0;
-  gettimeofday(&v1330, 0);
-  getLocalTimestampFromTimeval(&v1330, v1327);
-  LogToFD(a1, "Date: %s", v15, v16, v17, v18, v19, v20, v1327);
-  v21 = mDNSLogCategory_Default;
+  time(0);
+  v1279 = mDNS_TimeNow(mDNSStorage);
+  memset(v1295, 0, sizeof(v1295));
+  LogToFD(a1, "---- BEGIN STATE LOG ---- %s %s %d", v2, v3, v4, v5, v6, v7, "mDNSResponder mDNSResponder-2881.40.18 (Oct 11 2025 00:04:16)");
+  v1298.tv_sec = 0;
+  *&v1298.tv_usec = 0;
+  gettimeofday(&v1298, 0);
+  getLocalTimestampFromTimeval(&v1298, v1295);
+  LogToFD(a1, "Date: %s", v8, v9, v10, v11, v12, v13, v1295);
+  v14 = mDNSLogCategory_Default;
   if (!mDNS_SensitiveLoggingEnableCount || mDNSLogCategory_Default == mDNSLogCategory_State)
   {
     if (os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v1330.tv_sec) = 136446210;
-      *(&v1330.tv_sec + 4) = v1327;
+      LODWORD(v1298.tv_sec) = 136446210;
+      *(&v1298.tv_sec + 4) = v1295;
       goto LABEL_7;
     }
   }
 
   else
   {
-    v21 = mDNSLogCategory_Default_redacted;
+    v14 = mDNSLogCategory_Default_redacted;
     if (os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v1330.tv_sec) = 136446210;
-      *(&v1330.tv_sec + 4) = v1327;
+      LODWORD(v1298.tv_sec) = 136446210;
+      *(&v1298.tv_sec + 4) = v1295;
 LABEL_7:
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "---- BEGIN STATE LOG ---- (%{public}s)", &v1330, 0xCu);
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "---- BEGIN STATE LOG ---- (%{public}s)", &v1298, 0xCu);
     }
   }
 
-  v29 = mDNS_TimeNow(mDNSStorage, v22, v23, v24, v25, v26, v27, v28);
-  LODWORD(v1330.tv_sec) = 0;
-  LODWORD(v1328[0]) = 0;
-  v1326 = 0;
-  LogToFD(a1, "------------ Cache -------------", v30, v31, v32, v33, v34, v35, v1243);
-  v1323 = a1;
-  LogToFD(a1, "Slt Q     TTL if     U Type     DNSSEC                                   rdlen", v36, v37, v38, v39, v40, v41, v1244);
-  v48 = 0;
-  v49 = 0;
-  v50 = 0;
-  v1321 = v29;
-  v51 = a1;
+  v15 = mDNS_TimeNow(mDNSStorage);
+  LODWORD(v1298.tv_sec) = 0;
+  LODWORD(v1296[0]) = 0;
+  v1294 = 0;
+  LogToFD(a1, "------------ Cache -------------", v16, v17, v18, v19, v20, v21, v1219);
+  v1291 = a1;
+  LogToFD(a1, "Slt Q     TTL if     U Type     DNSSEC                                   rdlen", v22, v23, v24, v25, v26, v27, v1220);
+  v34 = 0;
+  v35 = 0;
+  v36 = 0;
+  v1289 = v15;
+  v37 = a1;
   do
   {
-    v52 = mDNSStorage[v48 + 34];
-    if (v52)
+    v38 = mDNSStorage[v34 + 34];
+    if (v38)
     {
       do
       {
-        v1314 = v52;
-        v1317 = v50;
-        for (i = *(v52 + 16); i; v29 = v1321)
+        v1282 = v38;
+        v1284 = v36;
+        for (i = *(v38 + 16); i; v15 = v1289)
         {
-          v54 = *(i + 32);
-          if (v54)
+          v40 = *(i + 32);
+          if (v40)
           {
-            v55 = (&v1326 + 4);
+            v41 = (&v1294 + 4);
           }
 
           else
           {
-            v55 = &v1326;
+            v41 = &v1294;
           }
 
-          v56 = *(i + 56);
-          if (v56)
+          v42 = *(i + 56);
+          if (v42)
           {
-            if (!v54)
+            if (!v40)
             {
-              v57 = *(v56 + 24);
-              if (v57)
+              v43 = *(v42 + 24);
+              if (v43)
               {
-                v58 = *(v57 + 280);
-                if (v58 == 5 || v58 == 2)
+                v44 = *(v43 + 280);
+                if (v44 == 5 || v44 == 2)
                 {
-                  v54 = *(v57 + 256);
+                  v40 = *(v43 + 256);
                 }
 
                 else
                 {
-                  v54 = 0;
+                  v40 = 0;
                 }
               }
             }
           }
 
-          v60 = *(i + 16);
-          v61 = -274877907 * (v29 - *(i + 80));
-          v62 = (v61 >> 63) + (SHIDWORD(v61) >> 6);
-          v63 = &xmmword_100170388;
+          v46 = *(i + 16);
+          v47 = -274877907 * (v15 - *(i + 80));
+          v48 = (v47 >> 63) + (SHIDWORD(v47) >> 6);
+          v49 = &xmmword_100170388;
           while (1)
           {
-            v63 = *v63;
-            if (!v63)
+            v49 = *v49;
+            if (!v49)
             {
               break;
             }
 
-            v64 = v63;
-            if (*(v63 + 444) == v54)
+            v50 = v49;
+            if (*(v49 + 444) == v40)
             {
               goto LABEL_28;
             }
           }
 
-          v64 = 0;
+          v50 = 0;
 LABEL_28:
-          if (v63)
+          if (v49)
           {
-            v65 = v64 + 3606;
+            v51 = v50 + 3606;
           }
 
           else
           {
-            v65 = 0;
+            v51 = 0;
           }
 
           if (*(i + 96))
           {
-            ++v49;
+            ++v35;
           }
 
-          PrintOneCacheRecordToFD(v51, i, v48, (v62 + v60), v65, v55);
-          v66 = *(i + 120);
-          if (v66)
+          PrintOneCacheRecordToFD(v37, i, v34, (v48 + v46), v51, v41);
+          v52 = *(i + 120);
+          if (v52)
           {
-            PrintOneCacheRecordToFD(v51, v66, v48, (v62 + v60), v65, v55);
+            PrintOneCacheRecordToFD(v37, v52, v34, (v48 + v46), v51, v41);
           }
 
           i = *i;
         }
 
-        v50 = v1317 + 1;
-        v52 = *v1314;
+        v36 = v1284 + 1;
+        v38 = *v1282;
       }
 
-      while (*v1314);
+      while (*v1282);
     }
 
-    ++v48;
+    ++v34;
   }
 
-  while (v48 != 499);
-  if (dword_10016D30C != HIDWORD(v1326) + v50 + v1326)
+  while (v34 != 499);
+  if (dword_10016D30C != HIDWORD(v1294) + v36 + v1294)
   {
-    LogToFD(v1323, "Cache use mismatch: rrcache_totalused is %lu, true count %lu", v42, v43, v44, v45, v46, v47, dword_10016D30C);
+    LogToFD(v1291, "Cache use mismatch: rrcache_totalused is %lu, true count %lu", v28, v29, v30, v31, v32, v33, dword_10016D30C);
   }
 
-  if (qword_10016D314 != v49)
+  if (qword_10016D314 != v35)
   {
-    LogToFD(v1323, "Cache use mismatch: rrcache_active is %lu, true count %lu", v42, v43, v44, v45, v46, v47, qword_10016D314);
+    LogToFD(v1291, "Cache use mismatch: rrcache_active is %lu, true count %lu", v28, v29, v30, v31, v32, v33, qword_10016D314);
   }
 
-  v67 = v1323;
-  LogToFD(v1323, "Cache size %u entities; %u in use (%u group, %u multicast, %u unicast); %u referenced by active questions", v42, v43, v44, v45, v46, v47, dword_10016D308);
-  LogToFD(v1323, "--------- Auth Records ---------", v68, v69, v70, v71, v72, v73, v1245);
-  LogAuthRecordsToFD(v1323, v29, xmmword_100170360, 0, v74, v75, v76, v77);
-  LogToFD(v1323, "--------- LocalOnly, P2P Auth Records ---------", v78, v79, v80, v81, v82, v83, v1246);
-  v90 = 0;
-  v91 = 1;
+  v53 = v1291;
+  LogToFD(v1291, "Cache size %u entities; %u in use (%u group, %u multicast, %u unicast); %u referenced by active questions", v28, v29, v30, v31, v32, v33, dword_10016D308);
+  LogToFD(v1291, "--------- Auth Records ---------", v54, v55, v56, v57, v58, v59, v1221);
+  LogAuthRecordsToFD(v1291, v15, xmmword_100170360, 0, v60, v61, v62, v63);
+  LogToFD(v1291, "--------- LocalOnly, P2P Auth Records ---------", v64, v65, v66, v67, v68, v69, v1222);
+  v76 = 0;
+  v77 = 1;
   do
   {
-    v1318 = v90;
-    for (j = mDNSStorage[v90 + 786]; j; j = *j)
+    v1285 = v76;
+    for (j = mDNSStorage[v76 + 786]; j; j = *j)
     {
       for (k = j[2]; k; k = *k)
       {
         if (k[13] != FreeEtcHosts)
         {
-          if (v91)
+          if (v77)
           {
-            LogToFD(v67, "  State       Interface", v84, v85, v86, v87, v88, v89, v1247);
+            LogToFD(v53, "  State       Interface", v70, v71, v72, v73, v74, v75, v1223);
           }
 
-          v94 = *(k + 43);
-          if (v94 == 5)
+          v80 = *(k + 43);
+          if (v80 == 5)
           {
-            v102 = k[4];
-            v103 = RecordTypeName(*(k + 8));
+            v88 = k[4];
+            v89 = RecordTypeName(*(k + 8));
             GetRRDisplayString_rdb(k + 8, (k[6] + 4), word_1001789D0);
-            if (v102 == -5)
+            if (v88 == -5)
             {
-              v67 = v1323;
-              LogToFD(v1323, " %s   BLE %s", v104, v105, v106, v107, v108, v109, v103);
+              v53 = v1291;
+              LogToFD(v1291, " %s   BLE %s", v90, v91, v92, v93, v94, v95, v89);
             }
 
             else
             {
-              v67 = v1323;
-              LogToFD(v1323, " %s   PP  %s", v104, v105, v106, v107, v108, v109, v103);
+              v53 = v1291;
+              LogToFD(v1291, " %s   PP  %s", v90, v91, v92, v93, v94, v95, v89);
             }
           }
 
-          else if (v94 == 4)
+          else if (v80 == 4)
           {
-            v95 = RecordTypeName(*(k + 8));
+            v81 = RecordTypeName(*(k + 8));
             GetRRDisplayString_rdb(k + 8, (k[6] + 4), word_1001789D0);
-            LogToFD(v67, " %s   LO  %s", v96, v97, v98, v99, v100, v101, v95);
+            LogToFD(v53, " %s   LO  %s", v82, v83, v84, v85, v86, v87, v81);
           }
 
-          v91 = 0;
+          v77 = 0;
         }
       }
     }
 
-    v90 = v1318 + 1;
+    v76 = v1285 + 1;
   }
 
-  while (v1318 != 498);
-  if (v91)
+  while (v1285 != 498);
+  if (v77)
   {
-    LogToFD(v67, "<None>", v84, v85, v86, v87, v88, v89, v1247);
+    LogToFD(v53, "<None>", v70, v71, v72, v73, v74, v75, v1223);
   }
 
-  LogToFD(v67, "--------- /etc/hosts ---------", v84, v85, v86, v87, v88, v89, v1247);
-  v116 = 0;
-  v117 = 0;
-  v118 = 0;
-  v119 = 0;
-  v120 = 1;
+  LogToFD(v53, "--------- /etc/hosts ---------", v70, v71, v72, v73, v74, v75, v1223);
+  v102 = 0;
+  v103 = 0;
+  v104 = 0;
+  v105 = 0;
+  v106 = 1;
   do
   {
-    v121 = mDNSStorage[v116 + 786];
-    if (v121)
+    v107 = mDNSStorage[v102 + 786];
+    if (v107)
     {
-      ++v118;
+      ++v104;
     }
 
-    for (m = v118; v121; v119 = v123)
+    for (m = v104; v107; v105 = v109)
     {
-      v122 = v121[2];
-      if (v122)
+      v108 = v107[2];
+      if (v108)
       {
         do
         {
-          if (*(v122 + 13) == FreeEtcHosts)
+          if (*(v108 + 13) == FreeEtcHosts)
           {
-            if (v120)
+            if (v106)
             {
-              LogToFD(v1323, "  State       Interface", v110, v111, v112, v113, v114, v115, v1248);
+              LogToFD(v1291, "  State       Interface", v96, v97, v98, v99, v100, v101, v1224);
             }
 
-            v123 = (v119 + 1);
-            if (v119 <= 49)
+            v109 = (v105 + 1);
+            if (v105 <= 49)
             {
-              if (*(v122 + 43) == 4)
+              if (*(v108 + 43) == 4)
               {
-                if (*(v122 + 4) == -2)
+                if (*(v108 + 4) == -2)
                 {
-                  v131 = RecordTypeName(v122[8]);
-                  GetRRDisplayString_rdb(v122 + 8, (*(v122 + 6) + 4), word_1001789D0);
-                  LogToFD(v1323, " %s   LO %s", v132, v133, v134, v135, v136, v137, v131);
+                  v117 = RecordTypeName(v108[8]);
+                  GetRRDisplayString_rdb(v108 + 8, (*(v108 + 6) + 4), word_1001789D0);
+                  LogToFD(v1291, " %s   LO %s", v118, v119, v120, v121, v122, v123, v117);
                 }
 
                 else
                 {
-                  v124 = RecordTypeName(v122[8]);
-                  GetRRDisplayString_rdb(v122 + 8, (*(v122 + 6) + 4), word_1001789D0);
-                  LogToFD(v1323, " %s   %u  %s", v125, v126, v127, v128, v129, v130, v124);
+                  v110 = RecordTypeName(v108[8]);
+                  GetRRDisplayString_rdb(v108 + 8, (*(v108 + 6) + 4), word_1001789D0);
+                  LogToFD(v1291, " %s   %u  %s", v111, v112, v113, v114, v115, v116, v110);
                 }
               }
 
-              v120 = 0;
+              v106 = 0;
             }
 
             else
             {
-              v120 = 0;
-              v117 = 1;
+              v106 = 0;
+              v103 = 1;
             }
           }
 
           else
           {
-            v123 = v119;
+            v109 = v105;
           }
 
-          v122 = *v122;
-          v119 = v123;
+          v108 = *v108;
+          v105 = v109;
         }
 
-        while (v122);
+        while (v108);
       }
 
       else
       {
-        v123 = v119;
+        v109 = v105;
       }
 
-      v121 = *v121;
+      v107 = *v107;
     }
 
-    ++v116;
-    v118 = m;
+    ++v102;
+    v104 = m;
   }
 
-  while (v116 != 499);
-  if (v120)
+  while (v102 != 499);
+  if (v106)
   {
-    v138 = v1323;
-    LogToFD(v1323, "<None>", v110, v111, v112, v113, v114, v115, v1248);
-    v139 = v1321;
+    v124 = v1291;
+    LogToFD(v1291, "<None>", v96, v97, v98, v99, v100, v101, v1224);
+    v125 = v1289;
   }
 
   else
   {
-    v138 = v1323;
-    v139 = v1321;
-    if (v117)
+    v124 = v1291;
+    v125 = v1289;
+    if (v103)
     {
-      LogToFD(v1323, "<Truncated: to 50 records, Total records %d, Total Auth Groups %d, Auth Slots %d>", v110, v111, v112, v113, v114, v115, v119);
+      LogToFD(v1291, "<Truncated: to 50 records, Total records %d, Total Auth Groups %d, Auth Slots %d>", v96, v97, v98, v99, v100, v101, v105);
     }
   }
 
-  LogToFD(v138, "------ Duplicate Records -------", v110, v111, v112, v113, v114, v115, v1248);
-  LogAuthRecordsToFD(v138, v139, *(&xmmword_100170360 + 1), 0, v140, v141, v142, v143);
-  LogToFD(v138, "----- Auth Records Proxied -----", v144, v145, v146, v147, v148, v149, v1249);
-  LogAuthRecordsToFD(v138, v139, xmmword_100170360, &v1330, v150, v151, v152, v153);
-  LogToFD(v138, "-- Duplicate Records Proxied ---", v154, v155, v156, v157, v158, v159, v1250);
-  LogAuthRecordsToFD(v138, v139, *(&xmmword_100170360 + 1), v1328, v160, v161, v162, v163);
-  LogToFD(v138, "---------- Questions -----------", v164, v165, v166, v167, v168, v169, v1251);
+  LogToFD(v124, "------ Duplicate Records -------", v96, v97, v98, v99, v100, v101, v1224);
+  LogAuthRecordsToFD(v124, v125, *(&xmmword_100170360 + 1), 0, v126, v127, v128, v129);
+  LogToFD(v124, "----- Auth Records Proxied -----", v130, v131, v132, v133, v134, v135, v1225);
+  LogAuthRecordsToFD(v124, v125, xmmword_100170360, &v1298, v136, v137, v138, v139);
+  LogToFD(v124, "-- Duplicate Records Proxied ---", v140, v141, v142, v143, v144, v145, v1226);
+  LogAuthRecordsToFD(v124, v125, *(&xmmword_100170360 + 1), v1296, v146, v147, v148, v149);
+  LogToFD(v124, "---------- Questions -----------", v150, v151, v152, v153, v154, v155, v1227);
   if (xmmword_10016D2D8)
   {
-    LogToFD(v138, "   Int  Next if     T NumAns Qptr               DupOf              SU SQ DNSSEC Type    Name", v170, v171, v172, v173, v174, v175, v1252);
-    v182 = xmmword_10016D2D8;
-    v183 = 0;
-    for (n = 0; v182; v182 = *(v182 + 8))
+    LogToFD(v124, "   Int  Next if     T NumAns Qptr               DupOf              SU SQ DNSSEC Type    Name", v156, v157, v158, v159, v160, v161, v1228);
+    v168 = xmmword_10016D2D8;
+    v169 = 0;
+    for (n = 0; v168; v168 = *(v168 + 8))
     {
-      v185 = *(v182 + 212);
-      v1320 = v185 / 1000;
-      v1315 = ((v185 - v1321 + *(v182 + 208)) / 1000);
-      v186 = &xmmword_100170388;
+      v171 = *(v168 + 212);
+      v1287 = v171 / 1000;
+      v172 = &xmmword_100170388;
       do
       {
-        v186 = *v186;
+        v172 = *v172;
       }
 
-      while (v186 && *(v186 + 444) != *(v182 + 136));
-      ++v183;
-      if (v185)
+      while (v172 && *(v172 + 444) != *(v168 + 136));
+      ++v169;
+      if (v171)
       {
         ++n;
       }
 
-      v187 = *(v182 + 690);
-      *(v182 + 632);
-      *(v182 + 632);
-      *(v182 + 340);
-      v188 = *(v182 + 40);
-      v189 = *(v182 + 636);
-      v138 = *(v182 + 354);
-      *(v182 + 144);
-      v190 = *(v182 + 228);
-      DNSTypeName(*(v182 + 342));
-      *(v182 + 40);
-      LODWORD(v138) = v1323;
-      LogToFD(v1323, "%6d%6d %-7s%s %6d 0x%p 0x%p %1d %2d  %-7s%-8s%##s%s", v191, v192, v193, v194, v195, v196, v1320);
+      DNSTypeName(*(v168 + 342));
+      LODWORD(v124) = v1291;
+      LogToFD(v1291, "%6d%6d %-7s%s %6d 0x%p 0x%p %1d %2d  %-7s%-8s%##s%s", v173, v174, v175, v176, v177, v178, v1287);
     }
 
-    LogToFD(v138, "%lu question%s; %lu active", v176, v177, v178, v179, v180, v181, v183);
+    LogToFD(v124, "%lu question%s; %lu active", v162, v163, v164, v165, v166, v167, v169);
   }
 
   else
   {
-    LogToFD(v138, "<None>", v170, v171, v172, v173, v174, v175, v1252);
+    LogToFD(v124, "<None>", v156, v157, v158, v159, v160, v161, v1228);
   }
 
-  LogToFD(v138, "----- LocalOnly, P2P Questions -----", v197, v198, v199, v200, v201, v202, v1253);
-  v209 = unk_10016D2F0;
+  LogToFD(v124, "----- LocalOnly, P2P Questions -----", v179, v180, v181, v182, v183, v184, v1229);
+  v191 = unk_10016D2F0;
   if (unk_10016D2F0)
   {
     do
     {
-      v210 = *(v209 + 136);
-      v211 = "P2P";
-      if (v210 == -5)
+      v192 = *(v191 + 136);
+      v193 = "P2P";
+      if (v192 == -5)
       {
-        v211 = "BLE";
+        v193 = "BLE";
       }
 
-      if (v210 == -2)
+      if (v192 == -2)
       {
-        v212 = "LO ";
+        v194 = "LO ";
       }
 
       else
       {
-        LODWORD(v212) = v211;
+        LODWORD(v194) = v193;
       }
 
-      v213 = *(v209 + 228);
-      DNSTypeName(*(v209 + 342));
-      *(v209 + 40);
-      LogToFD(v138, "                 %3s   %5d  %-6s%##s%s", v214, v215, v216, v217, v218, v219, v212);
-      v209 = *(v209 + 8);
+      DNSTypeName(*(v191 + 342));
+      LogToFD(v124, "                 %3s   %5d  %-6s%##s%s", v195, v196, v197, v198, v199, v200, v194);
+      v191 = *(v191 + 8);
     }
 
-    while (v209);
+    while (v191);
   }
 
   else
   {
-    LogToFD(v138, "<None>", v203, v204, v205, v206, v207, v208, v1254);
+    LogToFD(v124, "<None>", v185, v186, v187, v188, v189, v190, v1230);
   }
 
-  LogToFD(v138, "---- Active UDS Client Requests ----", v220, v221, v222, v223, v224, v225, v1255);
-  v232 = all_requests;
+  LogToFD(v124, "---- Active UDS Client Requests ----", v201, v202, v203, v204, v205, v206, v1231);
+  v213 = all_requests;
   if (all_requests)
   {
     do
     {
-      v233 = *(v232 + 24);
-      if (v233)
+      v214 = *(v213 + 24);
+      if (v214)
       {
-        for (ii = all_requests; ii && ii != v232; ii = *(ii + 16))
+        for (ii = all_requests; ii && ii != v213; ii = *(ii + 16))
         {
-          if (ii == v233)
+          if (ii == v214)
           {
             goto LABEL_115;
           }
         }
 
-        LogToFD(v1323, "%3d: Orhpan operation %p; parent %p not found in request list", v226, v227, v228, v229, v230, v231, *(v232 + 184));
+        LogToFD(v1291, "%3d: Orhpan operation %p; parent %p not found in request list", v207, v208, v209, v210, v211, v212, *(v213 + 184));
       }
 
-      LogClientInfoToFD(v1323, v232);
+      LogClientInfoToFD(v1291, v213);
 LABEL_115:
-      v232 = *(v232 + 16);
+      v213 = *(v213 + 16);
     }
 
-    while (v232);
+    while (v213);
   }
 
   else
   {
-    LogToFD(v138, "<None>", v226, v227, v228, v229, v230, v231, v1256);
+    LogToFD(v124, "<None>", v207, v208, v209, v210, v211, v212, v1232);
   }
 
-  LogToFD(v1323, "-------- NAT Traversals --------", v226, v227, v228, v229, v230, v231, v1256);
-  LogToFD(v1323, "ExtAddress %.4a Retry %d Interval %d", v236, v237, v238, v239, v240, v241, &dword_100170BB0);
+  LogToFD(v1291, "-------- NAT Traversals --------", v207, v208, v209, v210, v211, v212, v1232);
+  LogToFD(v1291, "ExtAddress %.4a Retry %d Interval %d", v217, v218, v219, v220, v221, v222, &dword_100170BB0);
   for (jj = xmmword_100170B98; jj; jj = *jj)
   {
-    *(jj + 172);
-    *(jj + 172);
-    v249 = *(jj + 6);
-    if (v249 < 3)
-    {
-      v250 = off_100150538[v249];
-    }
-
-    v251 = bswap32(*(jj + 87)) >> 16;
-    v252 = *(jj + 42);
-    *(jj + 4);
-    v253 = *(jj + 2);
-    v1306 = (*(jj + 3) / 1000);
-    v1309 = bswap32(*(jj + 80)) >> 16;
-    v1308 = bswap32(*(jj + 88)) >> 16;
-    LogToFD(v1323, "%p %s Int %5d %s Err %d Retry %5d Interval %5d Expire %5d Req %.4a:%d Ext %.4a:%d", v242, v243, v244, v245, v246, v247, jj);
+    LogToFD(v1291, "%p %s Int %5d %s Err %d Retry %5d Interval %5d Expire %5d Req %.4a:%d Ext %.4a:%d", v223, v224, v225, v226, v227, v228, jj);
   }
 
-  LogToFD(v1323, "--------- AuthInfoList ---------", v242, v243, v244, v245, v246, v247, v1257);
-  v260 = qword_1001703F0;
+  LogToFD(v1291, "--------- AuthInfoList ---------", v223, v224, v225, v226, v227, v228, v1233);
+  v236 = qword_1001703F0;
   if (qword_1001703F0)
   {
-    v261 = v1321;
+    v237 = v1289;
     do
     {
-      v262 = __rev16(*(v260 + 780));
-      *(v260 + 8);
-      LogToFD(v1323, "%##s %##s %##s %d %d", v254, v255, v256, v257, v258, v259, v260 + 12);
-      v260 = *v260;
+      LogToFD(v1291, "%##s %##s %##s %d %d", v230, v231, v232, v233, v234, v235, v236 + 12);
+      v236 = *v236;
     }
 
-    while (v260);
+    while (v236);
   }
 
   else
   {
-    LogToFD(v1323, "<None>", v254, v255, v256, v257, v258, v259, v1258);
-    v261 = v1321;
+    LogToFD(v1291, "<None>", v230, v231, v232, v233, v234, v235, v1234);
+    v237 = v1289;
   }
 
-  LogToFD(v1323, "---------- Misc State ----------", v254, v255, v256, v257, v258, v259, v1259);
-  LogToFD(v1323, "PrimaryMAC:   %.6a", v263, v264, v265, v266, v267, v268, &dword_10016D230);
-  LogToFD(v1323, "m->SleepState %d (%s) seq %d", v269, v270, v271, v272, v273, v274, BYTE1(dword_10016D2A4));
+  LogToFD(v1291, "---------- Misc State ----------", v230, v231, v232, v233, v234, v235, v1235);
+  LogToFD(v1291, "PrimaryMAC:   %.6a", v238, v239, v240, v241, v242, v243, &dword_10016D230);
+  LogToFD(v1291, "m->SleepState %d (%s) seq %d", v244, v245, v246, v247, v248, v249, BYTE1(dword_10016D2A4));
   if (*(&dword_10016D2A4 + &loc_100003A80 + 2 + 2))
   {
-    LogToFD(v1323, "Offering Sleep Proxy Service: %#s", v275, v276, v277, v278, v279, v280, qword_1001716C0);
+    LogToFD(v1291, "Offering Sleep Proxy Service: %#s", v250, v251, v252, v253, v254, v255, qword_1001716C0);
   }
 
   else
   {
-    LogToFD(v1323, "Not offering Sleep Proxy Service", v275, v276, v277, v278, v279, v280, v1260);
+    LogToFD(v1291, "Not offering Sleep Proxy Service", v250, v251, v252, v253, v254, v255, v1236);
   }
 
-  if (dword_100171FC8 == LODWORD(v1328[0]) + LODWORD(v1330.tv_sec))
+  if (dword_100171FC8 == LODWORD(v1296[0]) + LODWORD(v1298.tv_sec))
   {
-    LogToFD(v1323, "ProxyRecords: %d + %d = %d", v281, v282, v283, v284, v285, v286, v1330.tv_sec);
+    LogToFD(v1291, "ProxyRecords: %d + %d = %d", v256, v257, v258, v259, v260, v261, v1298.tv_sec);
   }
 
   else
   {
-    LogToFD(v1323, "ProxyRecords: MISMATCH %d + %d = %d ≠ %d", v281, v282, v283, v284, v285, v286, v1330.tv_sec);
+    LogToFD(v1291, "ProxyRecords: MISMATCH %d + %d = %d ≠ %d", v256, v257, v258, v259, v260, v261, v1298.tv_sec);
   }
 
-  LogToFD(v1323, "------ Auto Browse Domains -----", v287, v288, v289, v290, v291, v292, v1261);
-  v299 = AutoBrowseDomains;
+  LogToFD(v1291, "------ Auto Browse Domains -----", v262, v263, v264, v265, v266, v267, v1237);
+  v274 = AutoBrowseDomains;
   if (AutoBrowseDomains)
   {
     do
     {
-      LogToFD(v1323, "%##s", v293, v294, v295, v296, v297, v298, v299 + 12);
-      v299 = *v299;
+      LogToFD(v1291, "%##s", v268, v269, v270, v271, v272, v273, v274 + 12);
+      v274 = *v274;
     }
 
-    while (v299);
+    while (v274);
   }
 
   else
   {
-    LogToFD(v1323, "<None>", v293, v294, v295, v296, v297, v298, v1262);
+    LogToFD(v1291, "<None>", v268, v269, v270, v271, v272, v273, v1238);
   }
 
-  LogToFD(v1323, "--- Auto Registration Domains --", v293, v294, v295, v296, v297, v298, v1263);
-  v306 = AutoRegistrationDomains;
+  LogToFD(v1291, "--- Auto Registration Domains --", v268, v269, v270, v271, v272, v273, v1239);
+  v281 = AutoRegistrationDomains;
   if (AutoRegistrationDomains)
   {
     do
     {
-      LogToFD(v1323, "%##s", v300, v301, v302, v303, v304, v305, v306 + 12);
-      v306 = *v306;
+      LogToFD(v1291, "%##s", v275, v276, v277, v278, v279, v280, v281 + 12);
+      v281 = *v281;
     }
 
-    while (v306);
+    while (v281);
   }
 
   else
   {
-    LogToFD(v1323, "<None>", v300, v301, v302, v303, v304, v305, v1264);
+    LogToFD(v1291, "<None>", v275, v276, v277, v278, v279, v280, v1240);
   }
 
-  LogToFD(v1323, "--- Search Domains --", v300, v301, v302, v303, v304, v305, v1265);
-  v313 = SearchList;
+  LogToFD(v1291, "--- Search Domains --", v275, v276, v277, v278, v279, v280, v1241);
+  v288 = SearchList;
   if (SearchList)
   {
     do
     {
-      v314 = &xmmword_100170388;
+      v289 = &xmmword_100170388;
       do
       {
-        v314 = *v314;
+        v289 = *v289;
       }
 
-      while (v314 && *(v314 + 444) != v313[34]);
-      LogToFD(v1323, "%##s %s", v307, v308, v309, v310, v311, v312, v313 + 8);
-      v313 = *v313;
+      while (v289 && *(v289 + 444) != v288[34]);
+      LogToFD(v1291, "%##s %s", v282, v283, v284, v285, v286, v287, v288 + 8);
+      v288 = *v288;
     }
 
-    while (v313);
+    while (v288);
   }
 
   else
   {
-    LogToFD(v1323, "<None>", v307, v308, v309, v310, v311, v312, v1266);
+    LogToFD(v1291, "<None>", v282, v283, v284, v285, v286, v287, v1242);
   }
 
-  v315 = v1323;
-  LogToFD(v1323, "--- MDNS Statistics ---", v307, v308, v309, v310, v311, v312, v1267);
-  LogToFD(v1323, "Name Conflicts                 %u", v316, v317, v318, v319, v320, v321, *&byte_10016D290[&loc_100004D50]);
-  LogToFD(v1323, "KnownUnique Name Conflicts     %u", v322, v323, v324, v325, v326, v327, *&byte_10016D290[&loc_100004D54]);
-  LogToFD(v1323, "Duplicate Query Suppressions   %u", v328, v329, v330, v331, v332, v333, *&byte_10016D290[&loc_100004D58]);
-  LogToFD(v1323, "KA Suppressions                %u", v334, v335, v336, v337, v338, v339, *&byte_10016D290[&loc_100004D5C]);
-  LogToFD(v1323, "KA Multiple Packets            %u", v340, v341, v342, v343, v344, v345, *&byte_10016D290[&loc_100004D60]);
-  LogToFD(v1323, "Poof Cache Deletions           %u", v346, v347, v348, v349, v350, v351, *&byte_10016D290[&loc_100004D64]);
-  LogToFD(v1323, "--------------------------------", v352, v353, v354, v355, v356, v357, v1268);
-  LogToFD(v1323, "Multicast packets Sent         %u", v358, v359, v360, v361, v362, v363, dword_10016D2C4);
-  LogToFD(v1323, "Multicast packets Received     %u", v364, v365, v366, v367, v368, v369, dword_10016D2A0);
-  LogToFD(v1323, "Remote Subnet packets          %u", v370, v371, v372, v373, v374, v375, dword_10016D2C8);
-  LogToFD(v1323, "QU questions  received         %u", v376, v377, v378, v379, v380, v381, *&byte_10016D290[&loc_100004D68]);
-  LogToFD(v1323, "Normal multicast questions     %u", v382, v383, v384, v385, v386, v387, *&byte_10016D290[&loc_100004D68 + 4]);
-  LogToFD(v1323, "Answers for questions          %u", v388, v389, v390, v391, v392, v393, *&byte_10016D290[&loc_100004D70]);
-  LogToFD(v1323, "Unicast responses              %u", v394, v395, v396, v397, v398, v399, *&byte_10016D290[&loc_100004D74]);
-  LogToFD(v1323, "Multicast responses            %u", v400, v401, v402, v403, v404, v405, *&byte_10016D290[&loc_100004D78]);
-  LogToFD(v1323, "Unicast response Demotions     %u", v406, v407, v408, v409, v410, v411, *&byte_10016D290[&loc_100004D78 + 4]);
-  LogToFD(v1323, "--------------------------------", v412, v413, v414, v415, v416, v417, v1269);
-  LogToFD(v1323, "Sleeps                         %u", v418, v419, v420, v421, v422, v423, *&byte_10016D290[&loc_100004D80]);
-  LogToFD(v1323, "Wakeups                        %u", v424, v425, v426, v427, v428, v429, *&byte_10016D290[&loc_100004D84]);
-  LogToFD(v1323, "Interface UP events            %u", v430, v431, v432, v433, v434, v435, *&byte_10016D290[&loc_100004D84 + 4]);
-  LogToFD(v1323, "Interface UP Flap events       %u", v436, v437, v438, v439, v440, v441, *&byte_10016D290[&loc_100004D8C]);
-  LogToFD(v1323, "Interface Down events          %u", v442, v443, v444, v445, v446, v447, *&byte_10016D290[&loc_100004D90]);
-  LogToFD(v1323, "Interface DownFlap events      %u", v448, v449, v450, v451, v452, v453, *&byte_10016D290[&loc_100004D94]);
-  LogToFD(v1323, "Cache refresh queries          %u", v454, v455, v456, v457, v458, v459, *&byte_10016D290[&loc_100004D98]);
-  LogToFD(v1323, "Cache refreshed                %u", v460, v461, v462, v463, v464, v465, *&byte_10016D290[&loc_100004D9C]);
-  LogToFD(v1323, "Wakeup on Resolves             %u", v466, v467, v468, v469, v470, v471, *&byte_10016D290[&loc_100004DA0]);
-  LogToFD(v1323, "---- Task Scheduling Timers ----", v472, v473, v474, v475, v476, v477, v1270);
-  LogToFD(v1323, "BonjourEnabled %d", v478, v479, v480, v481, v482, v483, byte_10016D290[0]);
+  v290 = v1291;
+  LogToFD(v1291, "--- MDNS Statistics ---", v282, v283, v284, v285, v286, v287, v1243);
+  LogToFD(v1291, "Name Conflicts                 %u", v291, v292, v293, v294, v295, v296, *&byte_10016D290[&loc_100004D50]);
+  LogToFD(v1291, "KnownUnique Name Conflicts     %u", v297, v298, v299, v300, v301, v302, *&byte_10016D290[&loc_100004D54]);
+  LogToFD(v1291, "Duplicate Query Suppressions   %u", v303, v304, v305, v306, v307, v308, *&byte_10016D290[&loc_100004D58]);
+  LogToFD(v1291, "KA Suppressions                %u", v309, v310, v311, v312, v313, v314, *&byte_10016D290[&loc_100004D5C]);
+  LogToFD(v1291, "KA Multiple Packets            %u", v315, v316, v317, v318, v319, v320, *&byte_10016D290[&loc_100004D60]);
+  LogToFD(v1291, "Poof Cache Deletions           %u", v321, v322, v323, v324, v325, v326, *&byte_10016D290[&loc_100004D64]);
+  LogToFD(v1291, "--------------------------------", v327, v328, v329, v330, v331, v332, v1244);
+  LogToFD(v1291, "Multicast packets Sent         %u", v333, v334, v335, v336, v337, v338, dword_10016D2C4);
+  LogToFD(v1291, "Multicast packets Received     %u", v339, v340, v341, v342, v343, v344, dword_10016D2A0);
+  LogToFD(v1291, "Remote Subnet packets          %u", v345, v346, v347, v348, v349, v350, dword_10016D2C8);
+  LogToFD(v1291, "QU questions  received         %u", v351, v352, v353, v354, v355, v356, *&byte_10016D290[&loc_100004D68]);
+  LogToFD(v1291, "Normal multicast questions     %u", v357, v358, v359, v360, v361, v362, *&byte_10016D290[&loc_100004D68 + 4]);
+  LogToFD(v1291, "Answers for questions          %u", v363, v364, v365, v366, v367, v368, *&byte_10016D290[&loc_100004D70]);
+  LogToFD(v1291, "Unicast responses              %u", v369, v370, v371, v372, v373, v374, *&byte_10016D290[&loc_100004D74]);
+  LogToFD(v1291, "Multicast responses            %u", v375, v376, v377, v378, v379, v380, *&byte_10016D290[&loc_100004D78]);
+  LogToFD(v1291, "Unicast response Demotions     %u", v381, v382, v383, v384, v385, v386, *&byte_10016D290[&loc_100004D78 + 4]);
+  LogToFD(v1291, "--------------------------------", v387, v388, v389, v390, v391, v392, v1245);
+  LogToFD(v1291, "Sleeps                         %u", v393, v394, v395, v396, v397, v398, *&byte_10016D290[&loc_100004D80]);
+  LogToFD(v1291, "Wakeups                        %u", v399, v400, v401, v402, v403, v404, *&byte_10016D290[&loc_100004D84]);
+  LogToFD(v1291, "Interface UP events            %u", v405, v406, v407, v408, v409, v410, *&byte_10016D290[&loc_100004D84 + 4]);
+  LogToFD(v1291, "Interface UP Flap events       %u", v411, v412, v413, v414, v415, v416, *&byte_10016D290[&loc_100004D8C]);
+  LogToFD(v1291, "Interface Down events          %u", v417, v418, v419, v420, v421, v422, *&byte_10016D290[&loc_100004D90]);
+  LogToFD(v1291, "Interface DownFlap events      %u", v423, v424, v425, v426, v427, v428, *&byte_10016D290[&loc_100004D94]);
+  LogToFD(v1291, "Cache refresh queries          %u", v429, v430, v431, v432, v433, v434, *&byte_10016D290[&loc_100004D98]);
+  LogToFD(v1291, "Cache refreshed                %u", v435, v436, v437, v438, v439, v440, *&byte_10016D290[&loc_100004D9C]);
+  LogToFD(v1291, "Wakeup on Resolves             %u", v441, v442, v443, v444, v445, v446, *&byte_10016D290[&loc_100004DA0]);
+  LogToFD(v1291, "---- Task Scheduling Timers ----", v447, v448, v449, v450, v451, v452, v1246);
+  LogToFD(v1291, "BonjourEnabled %d", v453, v454, v455, v456, v457, v458, byte_10016D290[0]);
   if (*(&xmmword_10016D2D8 + 1))
   {
-    v490 = *(*(&xmmword_10016D2D8 + 1) + 204);
+    v465 = *(*(&xmmword_10016D2D8 + 1) + 204);
     DNSTypeName(*(*(&xmmword_10016D2D8 + 1) + 342));
-    v315 = v1323;
-    LogToFD(v1323, "NewQuestion DelayAnswering %d %d %##s (%s)", v491, v492, v493, v494, v495, v496, v490);
+    v290 = v1291;
+    LogToFD(v1291, "NewQuestion DelayAnswering %d %d %##s (%s)", v466, v467, v468, v469, v470, v471, v465);
   }
 
   else
   {
-    LogToFD(v1323, "NewQuestion <NONE>", v484, v485, v486, v487, v488, v489, v1271);
+    LogToFD(v1291, "NewQuestion <NONE>", v459, v460, v461, v462, v463, v464, v1247);
   }
 
   if (qword_10016D2F8)
   {
-    v503 = qword_10016D2F8 + 376;
+    v478 = qword_10016D2F8 + 376;
     DNSTypeName(*(qword_10016D2F8 + 342));
-    v315 = v1323;
-    LogToFD(v1323, "NewLocalOnlyQuestions %##s (%s)", v504, v505, v506, v507, v508, v509, v503);
+    v290 = v1291;
+    LogToFD(v1291, "NewLocalOnlyQuestions %##s (%s)", v479, v480, v481, v482, v483, v484, v478);
   }
 
   else
   {
-    LogToFD(v315, "NewLocalOnlyQuestions <NONE>", v497, v498, v499, v500, v501, v502, v1272);
+    LogToFD(v290, "NewLocalOnlyQuestions <NONE>", v472, v473, v474, v475, v476, v477, v1248);
   }
 
   if (qword_100170370)
   {
-    v516 = *(qword_100170370 + 8);
+    v491 = *(qword_100170370 + 8);
     GetRRDisplayString_rdb((qword_100170370 + 8), (*(qword_100170370 + 48) + 4), word_1001789D0);
-    LogToFD(v315, "NewLocalRecords %02X %s", v517, v518, v519, v520, v521, v522, v516);
+    LogToFD(v290, "NewLocalRecords %02X %s", v492, v493, v494, v495, v496, v497, v491);
   }
 
   else
   {
-    LogToFD(v315, "NewLocalRecords <NONE>", v510, v511, v512, v513, v514, v515, v1273);
+    LogToFD(v290, "NewLocalRecords <NONE>", v485, v486, v487, v488, v489, v490, v1249);
   }
 
   if (xmmword_100170D20)
   {
-    v529 = "";
+    v504 = "";
   }
 
   else
   {
-    v529 = " <NONE>";
+    v504 = " <NONE>";
   }
 
-  LogToFD(v315, "SPSProxyListChanged%s", v523, v524, v525, v526, v527, v528, v529);
+  LogToFD(v290, "SPSProxyListChanged%s", v498, v499, v500, v501, v502, v503, v504);
   if (dword_10016D2A4)
   {
-    v536 = "";
+    v511 = "";
   }
 
   else
   {
-    v536 = " <NONE>";
+    v511 = " <NONE>";
   }
 
-  LogToFD(v315, "LocalRemoveEvents%s", v530, v531, v532, v533, v534, v535, v536);
-  LogToFD(v315, "m->WABBrowseQueriesCount %d", v537, v538, v539, v540, v541, v542, SDWORD2(xmmword_100170B70));
-  LogToFD(v315, "m->WABLBrowseQueriesCount %d", v543, v544, v545, v546, v547, v548, SHIDWORD(xmmword_100170B70));
-  LogToFD(v315, "m->WABRegQueriesCount %d", v549, v550, v551, v552, v553, v554, dword_100170B80);
-  LogToFD(v315, "m->AutoTargetServices %u", v555, v556, v557, v558, v559, v560, *(mDNSStorage + &loc_100004DBC));
-  LogToFD(v315, "m->AutoTargetAWDLIncludedCount %u", v561, v562, v563, v564, v565, v566, dword_10016FCC0);
-  LogToFD(v315, "m->AutoTargetAWDLOnlyCount     %u", v567, v568, v569, v570, v571, v572, dword_10016FCC4);
-  LogToFD(v315, "                         ABS (hex)  ABS (dec)  REL (hex)  REL (dec)", v573, v574, v575, v576, v577, v578, v1274);
-  LogToFD(v315, "m->timenow               %08X %11d", v579, v580, v581, v582, v583, v584, v261);
-  LogToFD(v315, "m->timenow_adjust        %08X %11d", v585, v586, v587, v588, v589, v590, dword_10016D254);
-  LogToFD(v315, "m->NextScheduledEvent    %08X %11d  %08X %11d", v591, v592, v593, v594, v595, v596, dword_10016D260);
-  LogToFD(v315, "m->NextuDNSEvent         %08X %11d  %08X %11d", v597, v598, v599, v600, v601, v602, dword_1001703A0);
-  LogToFD(v315, "m->NextSRVUpdate         %08X %11d  %08X %11d", v603, v604, v605, v606, v607, v608, dword_1001703A4);
-  LogToFD(v315, "m->NextScheduledNATOp    %08X %11d  %08X %11d", v609, v610, v611, v612, v613, v614, dword_10016D280);
-  LogToFD(v315, "m->retryGetAddr          %08X %11d  %08X %11d", v615, v616, v617, v618, v619, v620, dword_100170BAC);
-  LogToFD(v315, "m->NextCacheCheck        %08X %11d  %08X %11d", v621, v622, v623, v624, v625, v626, dword_10016D270);
-  LogToFD(v315, "m->NextScheduledSPS      %08X %11d  %08X %11d", v627, v628, v629, v630, v631, v632, dword_10016D284);
-  LogToFD(v315, "m->NextScheduledKA       %08X %11d  %08X %11d", v633, v634, v635, v636, v637, v638, dword_10016D288);
-  LogToFD(v315, "m->NextBonjourDisableTime  %08X %11d  %08X %11d", v639, v640, v641, v642, v643, v644, dword_10016D28C);
-  LogToFD(v315, "m->NextScheduledSPRetry  %08X %11d  %08X %11d", v645, v646, v647, v648, v649, v650, dword_10016D2CC);
-  LogToFD(v315, "m->DelaySleep            %08X %11d  %08X %11d", v651, v652, v653, v654, v655, v656, qword_10016D2AC);
-  LogToFD(v315, "m->NextScheduledQuery    %08X %11d  %08X %11d", v657, v658, v659, v660, v661, v662, dword_10016D274);
-  LogToFD(v315, "m->NextScheduledProbe    %08X %11d  %08X %11d", v663, v664, v665, v666, v667, v668, dword_10016D278);
-  LogToFD(v315, "m->NextScheduledResponse %08X %11d  %08X %11d", v669, v670, v671, v672, v673, v674, dword_10016D27C);
-  LogToFD(v315, "m->SuppressQueries       %08X %11d  %08X %11d", v675, v676, v677, v678, v679, v680, qword_10016D268);
-  LogToFD(v315, "m->SuppressResponses     %08X %11d  %08X %11d", v681, v682, v683, v684, v685, v686, SHIDWORD(qword_10016D268));
-  LogToFD(v315, "m->SuppressProbes        %08X %11d  %08X %11d", v687, v688, v689, v690, v691, v692, dword_100170398);
-  LogToFD(v315, "m->ProbeFailTime         %08X %11d  %08X %11d", v693, v694, v695, v696, v697, v698, SDWORD2(xmmword_100170388));
-  LogToFD(v315, "m->DelaySleep            %08X %11d  %08X %11d", v699, v700, v701, v702, v703, v704, qword_10016D2AC);
-  LogToFD(v315, "m->SleepLimit            %08X %11d  %08X %11d", v705, v706, v707, v708, v709, v710, SHIDWORD(qword_10016D2AC));
-  LogToFD(v315, "m->NextScheduledStopTime  %08X %11d  %08X %11d", v711, v712, v713, v714, v715, v716, dword_10016D2D0);
-  LogToFD(v315, "----- Platform Timers -----", v717, v718, v719, v720, v721, v722, v1275);
-  LogToFD(v315, "m->NextCacheCheck        %08X %11d  %08X %11d", v723, v724, v725, v726, v727, v728, dword_10016D270);
-  LogToFD(v315, "m->NetworkChanged        %08X %11d  %08X %11d", v729, v730, v731, v732, v733, v734, dword_10016D220);
-  LogToFD(v315, "m->p->NotifyUser         %08X %11d  %08X %11d", v735, v736, v737, v738, v739, v740, *(mDNSStorage[0] + 492));
-  LogToFD(v315, "m->p->HostNameConflict   %08X %11d  %08X %11d", v741, v742, v743, v744, v745, v746, *(mDNSStorage[0] + 496));
-  LogToFD(v315, "m->p->KeyChainTimer      %08X %11d  %08X %11d", v747, v748, v749, v750, v751, v752, *(mDNSStorage[0] + 500));
-  LogToFD(v315, "----- KQSocketEventSources -----", v753, v754, v755, v756, v757, v758, v1276);
-  v765 = gEventSources;
+  LogToFD(v290, "LocalRemoveEvents%s", v505, v506, v507, v508, v509, v510, v511);
+  LogToFD(v290, "m->WABBrowseQueriesCount %d", v512, v513, v514, v515, v516, v517, SDWORD2(xmmword_100170B70));
+  LogToFD(v290, "m->WABLBrowseQueriesCount %d", v518, v519, v520, v521, v522, v523, SHIDWORD(xmmword_100170B70));
+  LogToFD(v290, "m->WABRegQueriesCount %d", v524, v525, v526, v527, v528, v529, dword_100170B80);
+  LogToFD(v290, "m->AutoTargetServices %u", v530, v531, v532, v533, v534, v535, *(mDNSStorage + &loc_100004DBC));
+  LogToFD(v290, "m->AutoTargetAWDLIncludedCount %u", v536, v537, v538, v539, v540, v541, dword_10016FCC0);
+  LogToFD(v290, "m->AutoTargetAWDLOnlyCount     %u", v542, v543, v544, v545, v546, v547, dword_10016FCC4);
+  LogToFD(v290, "                         ABS (hex)  ABS (dec)  REL (hex)  REL (dec)", v548, v549, v550, v551, v552, v553, v1250);
+  LogToFD(v290, "m->timenow               %08X %11d", v554, v555, v556, v557, v558, v559, v237);
+  LogToFD(v290, "m->timenow_adjust        %08X %11d", v560, v561, v562, v563, v564, v565, dword_10016D254);
+  LogToFD(v290, "m->NextScheduledEvent    %08X %11d  %08X %11d", v566, v567, v568, v569, v570, v571, dword_10016D260);
+  LogToFD(v290, "m->NextuDNSEvent         %08X %11d  %08X %11d", v572, v573, v574, v575, v576, v577, dword_1001703A0);
+  LogToFD(v290, "m->NextSRVUpdate         %08X %11d  %08X %11d", v578, v579, v580, v581, v582, v583, dword_1001703A4);
+  LogToFD(v290, "m->NextScheduledNATOp    %08X %11d  %08X %11d", v584, v585, v586, v587, v588, v589, dword_10016D280);
+  LogToFD(v290, "m->retryGetAddr          %08X %11d  %08X %11d", v590, v591, v592, v593, v594, v595, dword_100170BAC);
+  LogToFD(v290, "m->NextCacheCheck        %08X %11d  %08X %11d", v596, v597, v598, v599, v600, v601, dword_10016D270);
+  LogToFD(v290, "m->NextScheduledSPS      %08X %11d  %08X %11d", v602, v603, v604, v605, v606, v607, dword_10016D284);
+  LogToFD(v290, "m->NextScheduledKA       %08X %11d  %08X %11d", v608, v609, v610, v611, v612, v613, dword_10016D288);
+  LogToFD(v290, "m->NextBonjourDisableTime  %08X %11d  %08X %11d", v614, v615, v616, v617, v618, v619, dword_10016D28C);
+  LogToFD(v290, "m->NextScheduledSPRetry  %08X %11d  %08X %11d", v620, v621, v622, v623, v624, v625, dword_10016D2CC);
+  LogToFD(v290, "m->DelaySleep            %08X %11d  %08X %11d", v626, v627, v628, v629, v630, v631, qword_10016D2AC);
+  LogToFD(v290, "m->NextScheduledQuery    %08X %11d  %08X %11d", v632, v633, v634, v635, v636, v637, dword_10016D274);
+  LogToFD(v290, "m->NextScheduledProbe    %08X %11d  %08X %11d", v638, v639, v640, v641, v642, v643, dword_10016D278);
+  LogToFD(v290, "m->NextScheduledResponse %08X %11d  %08X %11d", v644, v645, v646, v647, v648, v649, dword_10016D27C);
+  LogToFD(v290, "m->SuppressQueries       %08X %11d  %08X %11d", v650, v651, v652, v653, v654, v655, qword_10016D268);
+  LogToFD(v290, "m->SuppressResponses     %08X %11d  %08X %11d", v656, v657, v658, v659, v660, v661, SHIDWORD(qword_10016D268));
+  LogToFD(v290, "m->SuppressProbes        %08X %11d  %08X %11d", v662, v663, v664, v665, v666, v667, dword_100170398);
+  LogToFD(v290, "m->ProbeFailTime         %08X %11d  %08X %11d", v668, v669, v670, v671, v672, v673, SDWORD2(xmmword_100170388));
+  LogToFD(v290, "m->DelaySleep            %08X %11d  %08X %11d", v674, v675, v676, v677, v678, v679, qword_10016D2AC);
+  LogToFD(v290, "m->SleepLimit            %08X %11d  %08X %11d", v680, v681, v682, v683, v684, v685, SHIDWORD(qword_10016D2AC));
+  LogToFD(v290, "m->NextScheduledStopTime  %08X %11d  %08X %11d", v686, v687, v688, v689, v690, v691, dword_10016D2D0);
+  LogToFD(v290, "----- Platform Timers -----", v692, v693, v694, v695, v696, v697, v1251);
+  LogToFD(v290, "m->NextCacheCheck        %08X %11d  %08X %11d", v698, v699, v700, v701, v702, v703, dword_10016D270);
+  LogToFD(v290, "m->NetworkChanged        %08X %11d  %08X %11d", v704, v705, v706, v707, v708, v709, dword_10016D220);
+  LogToFD(v290, "m->p->NotifyUser         %08X %11d  %08X %11d", v710, v711, v712, v713, v714, v715, *(mDNSStorage[0] + 492));
+  LogToFD(v290, "m->p->HostNameConflict   %08X %11d  %08X %11d", v716, v717, v718, v719, v720, v721, *(mDNSStorage[0] + 496));
+  LogToFD(v290, "m->p->KeyChainTimer      %08X %11d  %08X %11d", v722, v723, v724, v725, v726, v727, *(mDNSStorage[0] + 500));
+  LogToFD(v290, "----- KQSocketEventSources -----", v728, v729, v730, v731, v732, v733, v1252);
+  v740 = gEventSources;
   if (gEventSources)
   {
     do
     {
-      v766 = *(v765 + 32);
-      *(v765 + 8);
-      LogToFD(v315, "%3d %s %s", v759, v760, v761, v762, v763, v764, *(v765 + 8));
-      v765 = *v765;
+      LogToFD(v290, "%3d %s %s", v734, v735, v736, v737, v738, v739, *(v740 + 8));
+      v740 = *v740;
     }
 
-    while (v765);
+    while (v740);
   }
 
   else
   {
-    LogToFD(v315, "<None>", v759, v760, v761, v762, v763, v764, v1277);
+    LogToFD(v290, "<None>", v734, v735, v736, v737, v738, v739, v1253);
   }
 
-  LogToFD(v315, "------ Network Interfaces ------", v759, v760, v761, v762, v763, v764, v1278);
+  LogToFD(v290, "------ Network Interfaces ------", v734, v735, v736, v737, v738, v739, v1254);
   if (*mDNSStorage[0])
   {
-    LogToFD(v315, "Struct addr          Registered                     MAC               BSSID                                Functional Type  Interface Address", v767, v768, v769, v770, v771, v772, v1279);
+    LogToFD(v290, "Struct addr          Registered                     MAC               BSSID                                Functional Type  Interface Address", v741, v742, v743, v744, v745, v746, v1255);
     for (kk = *mDNSStorage[0]; kk; kk = *(kk + 3680))
     {
-      v780 = *(kk + 3552);
-      v781 = *(kk + 3768);
-      *(kk + 3730);
       if (*(kk + 3696))
       {
-        *(kk + 16);
-        *(kk + 17);
-        *(kk + 18);
-        *(kk + 3670);
-        *(kk + 3671);
-        if (*(kk + 16))
+        v754 = *(kk + 3748);
+        v755 = "Unrecognized";
+        if (v754 <= 7)
         {
-          *(kk + 3672);
+          v755 = off_100152328[v754];
         }
 
-        v782 = *(kk + 3748);
-        v783 = "Unrecognized";
-        if (v782 <= 7)
-        {
-          v783 = off_100152328[v782];
-        }
-
-        LogToFD(v1323, "%p %2ld, %p,  %s %-8.8s %.6a %.6a %s %s %s %s %s %s %-16.16s %#a", v783, kk + 3560, v775, v776, v777, v778, kk);
+        LogToFD(v1291, "%p %2ld, %p,  %s %-8.8s %.6a %.6a %s %s %s %s %s %s %-16.16s %#a", v755, kk + 3560, v749, v750, v751, v752, kk);
       }
 
       else
       {
-        v1307 = (v1311 - *(kk + 3704));
-        LogToFD(v1323, "%p %2ld, %p,  %s %-6s %.6a %.6a %#-14a dormant for %d seconds", v773, v774, v775, v776, v777, v778, kk);
+        LogToFD(v1291, "%p %2ld, %p,  %s %-6s %.6a %.6a %#-14a dormant for %d seconds", v747, v748, v749, v750, v751, v752, kk);
       }
     }
   }
 
   else
   {
-    LogToFD(v315, "<None>", v767, v768, v769, v770, v771, v772, v1279);
+    LogToFD(v290, "<None>", v741, v742, v743, v744, v745, v746, v1255);
   }
 
-  LogToFD(v1323, "----------- DNS Services -----------", v773, v774, v775, v776, v777, v778, v1280);
+  LogToFD(v1291, "----------- DNS Services -----------", v747, v748, v749, v750, v751, v752, v1256);
   DNSServiceManager = Querier_GetDNSServiceManager();
   if (DNSServiceManager)
   {
-    v1324[0] = _NSConcreteStackBlock;
-    v1324[1] = 0x40000000;
-    v1324[2] = __dump_state_to_fd_block_invoke;
-    v1324[3] = &__block_descriptor_tmp_5199;
-    v1325 = v1323;
-    mdns_dns_service_manager_enumerate(DNSServiceManager, v1324);
+    v1292[0] = _NSConcreteStackBlock;
+    v1292[1] = 0x40000000;
+    v1292[2] = __dump_state_to_fd_block_invoke;
+    v1292[3] = &__block_descriptor_tmp_5199;
+    v1293 = v1291;
+    mdns_dns_service_manager_enumerate(DNSServiceManager, v1292);
   }
 
-  LogToFD(v1323, "v4answers %d", v785, v786, v787, v788, v789, v790, *(mDNSStorage[0] + 688));
-  LogToFD(v1323, "v6answers %d", v791, v792, v793, v794, v795, v796, *(mDNSStorage[0] + 689));
-  LogToFD(v1323, "Last DNS Trigger: %d ms ago", v797, v798, v799, v800, v801, v802, v1310 - *(mDNSStorage[0] + 692));
-  LogToFD(v1323, "--------- Mcast Resolvers ----------", v803, v804, v805, v806, v807, v808, v1281);
-  v815 = qword_1001703A8;
+  LogToFD(v1291, "v4answers %d", v757, v758, v759, v760, v761, v762, *(mDNSStorage[0] + 688));
+  LogToFD(v1291, "v6answers %d", v763, v764, v765, v766, v767, v768, *(mDNSStorage[0] + 689));
+  LogToFD(v1291, "Last DNS Trigger: %d ms ago", v769, v770, v771, v772, v773, v774, v1279 - *(mDNSStorage[0] + 692));
+  LogToFD(v1291, "--------- Mcast Resolvers ----------", v775, v776, v777, v778, v779, v780, v1257);
+  v787 = qword_1001703A8;
   if (qword_1001703A8)
   {
     do
     {
-      v1304 = *(v815 + 276);
-      LogToFD(v1323, "Mcast Resolver %##s timeout %u", v809, v810, v811, v812, v813, v814, v815 + 20);
-      v815 = *v815;
+      LogToFD(v1291, "Mcast Resolver %##s timeout %u", v781, v782, v783, v784, v785, v786, v787 + 20);
+      v787 = *v787;
     }
 
-    while (v815);
+    while (v787);
   }
 
   else
   {
-    LogToFD(v1323, "<None>", v809, v810, v811, v812, v813, v814, v1282);
+    LogToFD(v1291, "<None>", v781, v782, v783, v784, v785, v786, v1258);
   }
 
-  LogToFD(v1323, "------------ Hostnames -------------", v809, v810, v811, v812, v813, v814, v1283);
-  v822 = xmmword_100170B70;
+  LogToFD(v1291, "------------ Hostnames -------------", v781, v782, v783, v784, v785, v786, v1259);
+  v794 = xmmword_100170B70;
   if (xmmword_100170B70)
   {
     do
     {
-      v823 = *(v822 + 202);
-      GetRRDisplayString_rdb(v822 + 472, (*(v822 + 64) + 4), word_1001789D0);
-      LogToFD(v1323, "%##s v4 %d %s", v824, v825, v826, v827, v828, v829, v822 + 208);
-      v830 = *(v822 + 496);
-      GetRRDisplayString_rdb(v822 + 1648, (*(v822 + 211) + 4), word_1001789D0);
-      LogToFD(v1323, "%##s v6 %d %s", v831, v832, v833, v834, v835, v836, v822 + 208);
-      v822 = *v822;
+      GetRRDisplayString_rdb(v794 + 472, (*(v794 + 64) + 4), word_1001789D0);
+      LogToFD(v1291, "%##s v4 %d %s", v795, v796, v797, v798, v799, v800, v794 + 208);
+      GetRRDisplayString_rdb(v794 + 1648, (*(v794 + 211) + 4), word_1001789D0);
+      LogToFD(v1291, "%##s v6 %d %s", v801, v802, v803, v804, v805, v806, v794 + 208);
+      v794 = *v794;
     }
 
-    while (v822);
+    while (v794);
   }
 
   else
   {
-    LogToFD(v1323, "<None>", v816, v817, v818, v819, v820, v821, v1284);
+    LogToFD(v1291, "<None>", v788, v789, v790, v791, v792, v793, v1260);
   }
 
-  LogToFD(v1323, "--------------- FQDN ---------------", v837, v838, v839, v840, v841, v842, v1285);
+  LogToFD(v1291, "--------------- FQDN ---------------", v807, v808, v809, v810, v811, v812, v1261);
   if (byte_100170A70[0])
   {
-    LogToFD(v1323, "%##s", v843, v844, v845, v846, v847, v848, byte_100170A70);
+    LogToFD(v1291, "%##s", v813, v814, v815, v816, v817, v818, byte_100170A70);
   }
 
   else
   {
-    LogToFD(v1323, "<None>", v843, v844, v845, v846, v847, v848, v1286);
+    LogToFD(v1291, "<None>", v813, v814, v815, v816, v817, v818, v1262);
   }
 
-  LogToFD(v1323, "----    DNS Cache Analytics     -----", v849, v850, v851, v852, v853, v854, v1287);
-  LogToFD(v1323, "----    Unicast Requests", v855, v856, v857, v858, v859, v860, v1288);
-  LogToFD(v1323, "Cache Hit: %llu", v861, v862, v863, v864, v865, v866, sCacheRequest_UnicastHitCount);
-  LogToFD(v1323, "Cache Miss: %llu", v867, v868, v869, v870, v871, v872, sCacheRequest_UnicastMissCount);
-  LogToFD(v1323, "----    Unicast Usage", v873, v874, v875, v876, v877, v878, v1289);
-  LogToFD(v1323, "Cache Hit: %llu", v879, v880, v881, v882, v883, v884, sCacheUsage_UnicastHitCount);
-  LogToFD(v1323, "Cache Miss: %llu", v885, v886, v887, v888, v889, v890, sCacheUsage_UnicastMissCount);
-  LogToFD(v1323, "----    Multicast Requests", v891, v892, v893, v894, v895, v896, v1290);
-  LogToFD(v1323, "Cache Hit: %llu", v897, v898, v899, v900, v901, v902, sCacheRequest_MulticastHitCount);
-  LogToFD(v1323, "Cache Miss: %llu", v903, v904, v905, v906, v907, v908, sCacheRequest_MulticastMissCount);
-  LogToFD(v1323, "----    Multicast Usage", v909, v910, v911, v912, v913, v914, v1291);
-  LogToFD(v1323, "Cache Hit: %llu", v915, v916, v917, v918, v919, v920, sCacheUsage_MulticastHitCount);
-  LogToFD(v1323, "Cache Miss: %llu", v921, v922, v923, v924, v925, v926, sCacheUsage_MulticastMissCount);
-  LogToFD(v1323, "----    DNS Query Analytics     -----", v927, v928, v929, v930, v931, v932, v1292);
-  v939 = 0;
-  v940 = &qword_100178C00;
+  LogToFD(v1291, "----    DNS Cache Analytics     -----", v819, v820, v821, v822, v823, v824, v1263);
+  LogToFD(v1291, "----    Unicast Requests", v825, v826, v827, v828, v829, v830, v1264);
+  LogToFD(v1291, "Cache Hit: %llu", v831, v832, v833, v834, v835, v836, sCacheRequest_UnicastHitCount);
+  LogToFD(v1291, "Cache Miss: %llu", v837, v838, v839, v840, v841, v842, sCacheRequest_UnicastMissCount);
+  LogToFD(v1291, "----    Unicast Usage", v843, v844, v845, v846, v847, v848, v1265);
+  LogToFD(v1291, "Cache Hit: %llu", v849, v850, v851, v852, v853, v854, sCacheUsage_UnicastHitCount);
+  LogToFD(v1291, "Cache Miss: %llu", v855, v856, v857, v858, v859, v860, sCacheUsage_UnicastMissCount);
+  LogToFD(v1291, "----    Multicast Requests", v861, v862, v863, v864, v865, v866, v1266);
+  LogToFD(v1291, "Cache Hit: %llu", v867, v868, v869, v870, v871, v872, sCacheRequest_MulticastHitCount);
+  LogToFD(v1291, "Cache Miss: %llu", v873, v874, v875, v876, v877, v878, sCacheRequest_MulticastMissCount);
+  LogToFD(v1291, "----    Multicast Usage", v879, v880, v881, v882, v883, v884, v1267);
+  LogToFD(v1291, "Cache Hit: %llu", v885, v886, v887, v888, v889, v890, sCacheUsage_MulticastHitCount);
+  LogToFD(v1291, "Cache Miss: %llu", v891, v892, v893, v894, v895, v896, sCacheUsage_MulticastMissCount);
+  LogToFD(v1291, "----    DNS Query Analytics     -----", v897, v898, v899, v900, v901, v902, v1268);
+  v909 = 0;
+  v910 = &qword_100178C00;
   do
   {
-    if (*(v940 - 6))
+    if (*(v910 - 6))
     {
-      LogToFD(v1323, "----    Network:   %s\n        Transport: %s", v933, v934, v935, v936, v937, v938, off_100153BE8[v939]);
-      LogToFD(v1323, "Latency: %llums", v941, v942, v943, v944, v945, v946, *(v940 - 5) / *(v940 - 6));
-      LogToFD(v1323, "Query Bytes: %llu", v947, v948, v949, v950, v951, v952, *(v940 - 4));
-      LogToFD(v1323, "Reply Bytes: %llu", v953, v954, v955, v956, v957, v958, *(v940 - 3));
-      LogToFD(v1323, "----    V4", v959, v960, v961, v962, v963, v964, v1294);
-      LogToFD(v1323, "Queries: %llu", v965, v966, v967, v968, v969, v970, *(v940 - 2));
-      LogToFD(v1323, "Reply Pos: %llu", v971, v972, v973, v974, v975, v976, *(v940 - 1));
-      LogToFD(v1323, "Reply Neg: %llu", v977, v978, v979, v980, v981, v982, *v940);
-      LogToFD(v1323, "----    V6", v983, v984, v985, v986, v987, v988, v1295);
-      LogToFD(v1323, "Queries: %llu", v989, v990, v991, v992, v993, v994, v940[1]);
-      LogToFD(v1323, "Reply Pos: %llu", v995, v996, v997, v998, v999, v1000, v940[2]);
-      LogToFD(v1323, "Reply Neg: %llu", v1001, v1002, v1003, v1004, v1005, v1006, v940[3]);
-      LogToFD(v1323, "----    HTTPS", v1007, v1008, v1009, v1010, v1011, v1012, v1296);
-      LogToFD(v1323, "Queries: %llu", v1013, v1014, v1015, v1016, v1017, v1018, v940[4]);
-      LogToFD(v1323, "Reply Pos: %llu", v1019, v1020, v1021, v1022, v1023, v1024, v940[5]);
-      LogToFD(v1323, "Reply Neg: %llu", v1025, v1026, v1027, v1028, v1029, v1030, v940[6]);
+      LogToFD(v1291, "----    Network:   %s\n        Transport: %s", v903, v904, v905, v906, v907, v908, off_100153BE8[v909]);
+      LogToFD(v1291, "Latency: %llums", v911, v912, v913, v914, v915, v916, *(v910 - 5) / *(v910 - 6));
+      LogToFD(v1291, "Query Bytes: %llu", v917, v918, v919, v920, v921, v922, *(v910 - 4));
+      LogToFD(v1291, "Reply Bytes: %llu", v923, v924, v925, v926, v927, v928, *(v910 - 3));
+      LogToFD(v1291, "----    V4", v929, v930, v931, v932, v933, v934, v1270);
+      LogToFD(v1291, "Queries: %llu", v935, v936, v937, v938, v939, v940, *(v910 - 2));
+      LogToFD(v1291, "Reply Pos: %llu", v941, v942, v943, v944, v945, v946, *(v910 - 1));
+      LogToFD(v1291, "Reply Neg: %llu", v947, v948, v949, v950, v951, v952, *v910);
+      LogToFD(v1291, "----    V6", v953, v954, v955, v956, v957, v958, v1271);
+      LogToFD(v1291, "Queries: %llu", v959, v960, v961, v962, v963, v964, v910[1]);
+      LogToFD(v1291, "Reply Pos: %llu", v965, v966, v967, v968, v969, v970, v910[2]);
+      LogToFD(v1291, "Reply Neg: %llu", v971, v972, v973, v974, v975, v976, v910[3]);
+      LogToFD(v1291, "----    HTTPS", v977, v978, v979, v980, v981, v982, v1272);
+      LogToFD(v1291, "Queries: %llu", v983, v984, v985, v986, v987, v988, v910[4]);
+      LogToFD(v1291, "Reply Pos: %llu", v989, v990, v991, v992, v993, v994, v910[5]);
+      LogToFD(v1291, "Reply Neg: %llu", v995, v996, v997, v998, v999, v1000, v910[6]);
     }
 
-    ++v939;
-    v940 += 13;
+    ++v909;
+    v910 += 13;
   }
 
-  while (v939 != 4);
-  v1031 = v1323;
-  LogToFD(v1323, "----    Unicast Assist", v933, v934, v935, v936, v937, v938, v1293);
-  LogToFD(v1323, "Assist Unicast: %llu", v1032, v1033, v1034, v1035, v1036, v1037, sUnicastAssist_UnicastCount);
-  LogToFD(v1323, "Assist Multicast: %llu", v1038, v1039, v1040, v1041, v1042, v1043, sUnicastAssist_MulticastCount);
-  LogToFD(v1323, "Non-assist Unicast: %llu", v1044, v1045, v1046, v1047, v1048, v1049, sNonUnicastAssist_UnicastCount);
-  LogToFD(v1323, "Non-assist Multicast: %llu", v1050, v1051, v1052, v1053, v1054, v1055, sNonUnicastAssist_MulticastCount);
-  LogToFD(v1323, "----    Unicast Assist Presence", v1056, v1057, v1058, v1059, v1060, v1061, v1297);
-  LogToFD(v1323, "Enabled: %llu", v1062, v1063, v1064, v1065, v1066, v1067, sUAPresence_Count_enabled);
-  LogToFD(v1323, "Asserts: %llu", v1068, v1069, v1070, v1071, v1072, v1073, sUAPresence_Count_assert);
-  LogToFD(v1323, "Assert addrs: %llu", v1074, v1075, v1076, v1077, v1078, v1079, sUAPresence_Count_assert_addrs);
-  LogToFD(v1323, "Assert hashes: %llu", v1080, v1081, v1082, v1083, v1084, v1085, sUAPresence_Count_assert_hashes);
-  LogToFD(v1323, "Updates received: %llu", v1086, v1087, v1088, v1089, v1090, v1091, sUAPresence_Count_update);
-  LogToFD(v1323, "Update devices: %llu", v1092, v1093, v1094, v1095, v1096, v1097, sUAPresence_Count_update_devices);
-  LogToFD(v1323, "Update devices old: %llu", v1098, v1099, v1100, v1101, v1102, v1103, sUAPresence_Count_update_devices_old);
-  LogToFD(v1323, "Update devices invalid: %llu", v1104, v1105, v1106, v1107, v1108, v1109, sUAPresence_Count_update_devices_invalid);
-  LogToFD(v1323, "Update devices missing: %llu", v1110, v1111, v1112, v1113, v1114, v1115, sUAPresence_Count_update_devices_missing);
-  LogToFD(v1323, "Addrs: %llu", v1116, v1117, v1118, v1119, v1120, v1121, sUAPresence_Count_addrs);
-  LogToFD(v1323, "Invalid addrs: %llu", v1122, v1123, v1124, v1125, v1126, v1127, sUAPresence_Count_addrs_invalid);
-  LogToFD(v1323, "Qhashes: %llu", v1128, v1129, v1130, v1131, v1132, v1133, sUAPresence_Count_qhashes);
-  LogToFD(v1323, "Qhashes found via multicast: %llu", v1134, v1135, v1136, v1137, v1138, v1139, sUAPresence_Count_qhashes_found_multicast);
-  LogToFD(v1323, "Qhashes found via unicast: %llu", v1140, v1141, v1142, v1143, v1144, v1145, sUAPresence_Count_qhashes_found_unicast);
-  LogToFD(v1323, "Qhashes not found: %llu", v1146, v1147, v1148, v1149, v1150, v1151, sUAPresence_Count_qhashes_not_found);
+  while (v909 != 4);
+  v1001 = v1291;
+  LogToFD(v1291, "----    Unicast Assist", v903, v904, v905, v906, v907, v908, v1269);
+  LogToFD(v1291, "Assist Unicast: %llu", v1002, v1003, v1004, v1005, v1006, v1007, sUnicastAssist_UnicastCount);
+  LogToFD(v1291, "Assist Multicast: %llu", v1008, v1009, v1010, v1011, v1012, v1013, sUnicastAssist_MulticastCount);
+  LogToFD(v1291, "Non-assist Unicast: %llu", v1014, v1015, v1016, v1017, v1018, v1019, sNonUnicastAssist_UnicastCount);
+  LogToFD(v1291, "Non-assist Multicast: %llu", v1020, v1021, v1022, v1023, v1024, v1025, sNonUnicastAssist_MulticastCount);
+  LogToFD(v1291, "----    Unicast Assist Presence", v1026, v1027, v1028, v1029, v1030, v1031, v1273);
+  LogToFD(v1291, "Enabled: %llu", v1032, v1033, v1034, v1035, v1036, v1037, sUAPresence_Count_enabled);
+  LogToFD(v1291, "Asserts: %llu", v1038, v1039, v1040, v1041, v1042, v1043, sUAPresence_Count_assert);
+  LogToFD(v1291, "Assert addrs: %llu", v1044, v1045, v1046, v1047, v1048, v1049, sUAPresence_Count_assert_addrs);
+  LogToFD(v1291, "Assert hashes: %llu", v1050, v1051, v1052, v1053, v1054, v1055, sUAPresence_Count_assert_hashes);
+  LogToFD(v1291, "Updates received: %llu", v1056, v1057, v1058, v1059, v1060, v1061, sUAPresence_Count_update);
+  LogToFD(v1291, "Update devices: %llu", v1062, v1063, v1064, v1065, v1066, v1067, sUAPresence_Count_update_devices);
+  LogToFD(v1291, "Update devices old: %llu", v1068, v1069, v1070, v1071, v1072, v1073, sUAPresence_Count_update_devices_old);
+  LogToFD(v1291, "Update devices invalid: %llu", v1074, v1075, v1076, v1077, v1078, v1079, sUAPresence_Count_update_devices_invalid);
+  LogToFD(v1291, "Update devices missing: %llu", v1080, v1081, v1082, v1083, v1084, v1085, sUAPresence_Count_update_devices_missing);
+  LogToFD(v1291, "Addrs: %llu", v1086, v1087, v1088, v1089, v1090, v1091, sUAPresence_Count_addrs);
+  LogToFD(v1291, "Invalid addrs: %llu", v1092, v1093, v1094, v1095, v1096, v1097, sUAPresence_Count_addrs_invalid);
+  LogToFD(v1291, "Qhashes: %llu", v1098, v1099, v1100, v1101, v1102, v1103, sUAPresence_Count_qhashes);
+  LogToFD(v1291, "Qhashes found via multicast: %llu", v1104, v1105, v1106, v1107, v1108, v1109, sUAPresence_Count_qhashes_found_multicast);
+  LogToFD(v1291, "Qhashes found via unicast: %llu", v1110, v1111, v1112, v1113, v1114, v1115, sUAPresence_Count_qhashes_found_unicast);
+  LogToFD(v1291, "Qhashes not found: %llu", v1116, v1117, v1118, v1119, v1120, v1121, sUAPresence_Count_qhashes_not_found);
   if (_os_feature_enabled_impl())
   {
-    v1159 = mDNS_TimeNow(mDNSStorage, v1152, v1153, v1154, v1155, v1156, v1157, v1158);
-    if (v1159 <= 1)
+    v1128 = mDNS_TimeNow(mDNSStorage);
+    if (v1128 <= 1)
     {
-      v1160 = 1;
+      v1129 = 1;
     }
 
     else
     {
-      v1160 = v1159;
+      v1129 = v1128;
     }
 
-    v1322 = v1160;
-    bzero(&v1330, 0x400uLL);
-    v1329 = 0;
-    memset(v1328, 0, sizeof(v1328));
-    LogToFD(v1323, "----    Unicast Assist Cache    -----", v1161, v1162, v1163, v1164, v1165, v1166, v1298);
-    LogToFD(v1323, "----    p=presence, P=presence-only", v1167, v1168, v1169, v1170, v1171, v1172, v1299);
-    LogToFD(v1323, "----    Cache Records", v1173, v1174, v1175, v1176, v1177, v1178, v1300);
-    v1185 = s_interface_head_0;
+    v1290 = v1129;
+    bzero(&v1298, 0x400uLL);
+    v1297 = 0;
+    memset(v1296, 0, sizeof(v1296));
+    LogToFD(v1291, "----    Unicast Assist Cache    -----", v1130, v1131, v1132, v1133, v1134, v1135, v1274);
+    LogToFD(v1291, "----    p=presence, P=presence-only", v1136, v1137, v1138, v1139, v1140, v1141, v1275);
+    LogToFD(v1291, "----    Cache Records", v1142, v1143, v1144, v1145, v1146, v1147, v1276);
+    v1154 = s_interface_head_0;
     if (s_interface_head_0)
     {
-      v1186 = 0;
-      v1187 = 0;
-      v1188 = 0;
-      v1189 = 0;
+      v1155 = 0;
+      v1156 = 0;
+      v1157 = 0;
+      v1158 = 0;
       do
       {
-        v1313 = v1186;
-        v1305 = *(v1185 + 24);
-        LogToFD(v1031, "ifhash %x ifid %2.2d", v1179, v1180, v1181, v1182, v1183, v1184, *(v1185 + 32));
-        v1187 += 40;
-        v1312 = v1185;
-        v1190 = *(v1185 + 8);
-        if (v1190)
+        v1281 = v1155;
+        LogToFD(v1001, "ifhash %x ifid %2.2d", v1148, v1149, v1150, v1151, v1152, v1153, *(v1154 + 32));
+        v1156 += 40;
+        v1280 = v1154;
+        v1159 = *(v1154 + 8);
+        if (v1159)
         {
           do
           {
-            *(v1190 + 4);
-            mDNS_snprintf(v1328);
-            LOBYTE(v1330.tv_sec) = 0;
-            v1191 = mDNS_snprintf(&v1330);
-            v1187 += 40;
-            v1316 = v1190;
-            v1198 = v1190[1];
-            if (v1198)
+            v1288 = v1158;
+            if (*(v1159 + 16) == 4)
             {
-              v1199 = 0;
-              v1200 = v1191;
+              mDNS_snprintf(v1296, 40, "%.4a");
+            }
+
+            else
+            {
+              mDNS_snprintf(v1296, 40, "%.16a");
+            }
+
+            LOBYTE(v1298.tv_sec) = 0;
+            v1160 = mDNS_snprintf(&v1298, 1024, "%-39s - ", v1296);
+            v1156 += 40;
+            v1283 = v1159;
+            v1167 = *(v1159 + 8);
+            if (v1167)
+            {
+              v1168 = v1160;
+              v1169 = 0;
+              v1170 = v1160;
               do
               {
-                if ((v1199 + 1) < 6)
+                if ((v1169 + 1) < 6)
                 {
-                  ++v1199;
+                  ++v1169;
                 }
 
                 else
                 {
-                  v1200 += mDNS_snprintf(&v1330 + v1200);
-                  v1199 -= 4;
+                  v1170 += mDNS_snprintf(&v1298 + v1170, 1024 - v1170, ", \n%-44s", " ");
+                  v1169 -= 4;
+                  v1168 = v1170;
                 }
 
-                v1201 = (v1322 - *(v1198 + 3)) / 1000;
-                v1202 = mDNS_snprintf(&v1330 + v1200) + v1200;
-                v1203 = mDNS_snprintf(&v1330 + v1202) + v1202;
-                v1302 = *(v1198 + 2);
-                v1200 = mDNS_snprintf(&v1330 + v1203) + v1203;
-                if (*(v1198 + 18) == 1)
+                v1171 = v1290 - *(v1167 + 3);
+                v1172 = "";
+                if (v1168 != v1170)
                 {
-                  *(v1198 + 19);
-                  v1200 += mDNS_snprintf(&v1330 + v1200);
+                  v1172 = ", ";
                 }
 
-                v1187 += 24;
-                ++v1188;
-                v1198 = *v1198;
+                v1173 = mDNS_snprintf(&v1298 + v1170, 1024 - v1170, "%s", v1172) + v1170;
+                v1174 = &v1298 + v1173;
+                v1175 = 1024 - v1173;
+                if (v1171 < 3600000)
+                {
+                  if (v1171 < 60000)
+                  {
+                    v1176 = mDNS_snprintf(v1174, v1175, "%ds");
+                  }
+
+                  else
+                  {
+                    v1176 = mDNS_snprintf(v1174, v1175, "%d:%2.2d");
+                  }
+                }
+
+                else
+                {
+                  v1176 = mDNS_snprintf(v1174, v1175, "%d:%2.2d:%2.2d");
+                }
+
+                v1170 = mDNS_snprintf(&v1298 + v1176 + v1173, 1024 - (v1176 + v1173), "|%x", *(v1167 + 2)) + v1176 + v1173;
+                if (*(v1167 + 18) == 1)
+                {
+                  v1177 = &v1298 + v1170;
+                  v1178 = 1024 - v1170;
+                  if (*(v1167 + 19))
+                  {
+                    v1179 = mDNS_snprintf(v1177, v1178, "|p");
+                  }
+
+                  else
+                  {
+                    v1179 = mDNS_snprintf(v1177, v1178, "|P");
+                  }
+
+                  v1170 += v1179;
+                }
+
+                v1156 += 24;
+                ++v1157;
+                v1167 = *v1167;
               }
 
-              while (v1198);
+              while (v1167);
             }
 
-            ++v1189;
-            v1031 = v1323;
-            LogToFD(v1323, "  %s", v1192, v1193, v1194, v1195, v1196, v1197, &v1330);
-            v1190 = *v1190;
+            v1158 = v1288 + 1;
+            v1001 = v1291;
+            LogToFD(v1291, "  %s", v1161, v1162, v1163, v1164, v1165, v1166, &v1298);
+            v1159 = *v1283;
           }
 
-          while (*v1316);
+          while (*v1283);
         }
 
-        v1186 = v1313 + 1;
-        v1185 = *v1312;
+        v1155 = v1281 + 1;
+        v1154 = *v1280;
       }
 
-      while (*v1312);
+      while (*v1280);
     }
 
     else
     {
-      v1189 = 0;
-      v1188 = 0;
-      LODWORD(v1187) = 0;
-      LODWORD(v1186) = 0;
+      LODWORD(v1158) = 0;
+      v1157 = 0;
+      LODWORD(v1156) = 0;
+      LODWORD(v1155) = 0;
     }
 
-    LogToFD(v1031, "----    Cache Record Stats", v1179, v1180, v1181, v1182, v1183, v1184, v1301);
-    LogToFD(v1031, "If Hash Count: %lu", v1211, v1212, v1213, v1214, v1215, v1216, v1186);
-    LogToFD(v1031, "Addr Count:    %lu", v1217, v1218, v1219, v1220, v1221, v1222, v1189);
-    LogToFD(v1031, "Qhash Count:   %lu", v1223, v1224, v1225, v1226, v1227, v1228, v1188);
-    v1303 = v1187;
-    v1210 = "Total Size:    %lu bytes";
+    LogToFD(v1001, "----    Cache Record Stats", v1148, v1149, v1150, v1151, v1152, v1153, v1277);
+    LogToFD(v1001, "If Hash Count: %lu", v1187, v1188, v1189, v1190, v1191, v1192, v1155);
+    LogToFD(v1001, "Addr Count:    %lu", v1193, v1194, v1195, v1196, v1197, v1198, v1158);
+    LogToFD(v1001, "Qhash Count:   %lu", v1199, v1200, v1201, v1202, v1203, v1204, v1157);
+    v1278 = v1156;
+    v1186 = "Total Size:    %lu bytes";
   }
 
   else
   {
-    LogToFD(v1323, "----    Unicast Assist Cache    -----", v1153, v1154, v1155, v1156, v1157, v1158, v1298);
-    v1210 = "Feature Flag: mDNSResponder/unicast_assist_cache DISABLED";
+    LogToFD(v1291, "----    Unicast Assist Cache    -----", v1122, v1123, v1124, v1125, v1126, v1127, v1274);
+    v1186 = "Feature Flag: mDNSResponder/unicast_assist_cache DISABLED";
   }
 
-  LogToFD(v1031, v1210, v1204, v1205, v1206, v1207, v1208, v1209, v1303);
-  LogToFD(v1031, "Date: %s", v1229, v1230, v1231, v1232, v1233, v1234, v1327);
-  v1235 = mDNSLogCategory_Default;
+  LogToFD(v1001, v1186, v1180, v1181, v1182, v1183, v1184, v1185, v1278);
+  LogToFD(v1001, "Date: %s", v1205, v1206, v1207, v1208, v1209, v1210, v1295);
+  v1211 = mDNSLogCategory_Default;
   if (!mDNS_SensitiveLoggingEnableCount || mDNSLogCategory_Default == mDNSLogCategory_State)
   {
     if (os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v1330.tv_sec) = 136446210;
-      *(&v1330.tv_sec + 4) = v1327;
-      goto LABEL_223;
+      LODWORD(v1298.tv_sec) = 136446210;
+      *(&v1298.tv_sec + 4) = v1295;
+      goto LABEL_232;
     }
   }
 
   else
   {
-    v1235 = mDNSLogCategory_Default_redacted;
+    v1211 = mDNSLogCategory_Default_redacted;
     if (os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v1330.tv_sec) = 136446210;
-      *(&v1330.tv_sec + 4) = v1327;
-LABEL_223:
-      _os_log_impl(&_mh_execute_header, v1235, OS_LOG_TYPE_DEFAULT, "---- END STATE LOG ---- (%{public}s)", &v1330, 0xCu);
+      LODWORD(v1298.tv_sec) = 136446210;
+      *(&v1298.tv_sec + 4) = v1295;
+LABEL_232:
+      _os_log_impl(&_mh_execute_header, v1211, OS_LOG_TYPE_DEFAULT, "---- END STATE LOG ---- (%{public}s)", &v1298, 0xCu);
     }
   }
 
-  return LogToFD(v1031, "----  END STATE LOG  ---- %s %s %d", v1236, v1237, v1238, v1239, v1240, v1241, "mDNSResponder mDNSResponder-2881.40.18 (Oct 11 2025 00:04:16)");
+  return LogToFD(v1001, "----  END STATE LOG  ---- %s %s %d", v1212, v1213, v1214, v1215, v1216, v1217, "mDNSResponder mDNSResponder-2881.40.18 (Oct 11 2025 00:04:16)");
 }
 
 uint64_t __dump_state_to_fd_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -1500,7 +1230,7 @@ uint64_t __dump_state_to_fd_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, 
     v10 = v9[3];
     if (v10)
     {
-      v11 = v10(a2, 0, 0);
+      v11 = v10(a2, 0, 0, a4, a5, a6, a7, a8);
       goto LABEL_6;
     }
   }
@@ -1522,92 +1252,92 @@ LABEL_6:
   return 1;
 }
 
-void UpdateDebugState(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
+void UpdateDebugState()
 {
-  v43 = 0;
+  v12 = 0;
   valuePtr = 1;
   Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   if (Mutable)
   {
-    v15 = Mutable;
-    v16 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-    if (v16)
+    v1 = Mutable;
+    v2 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
+    if (v2)
     {
-      v22 = v16;
-      v23 = CFNumberCreate(0, kCFNumberSInt32Type, &v43);
-      if (v23)
+      v3 = v2;
+      v4 = CFNumberCreate(0, kCFNumberSInt32Type, &v12);
+      if (v4)
       {
-        v29 = v23;
+        v5 = v4;
         if (mDNS_LoggingEnabled)
         {
-          v30 = v22;
+          v6 = v3;
         }
 
         else
         {
-          v30 = v23;
+          v6 = v4;
         }
 
-        CFDictionarySetValue(v15, @"VerboseLogging", v30);
+        CFDictionarySetValue(v1, @"VerboseLogging", v6);
         if (mDNS_PacketLoggingEnabled)
         {
-          v31 = v22;
+          v7 = v3;
         }
 
         else
         {
-          v31 = v29;
+          v7 = v5;
         }
 
-        CFDictionarySetValue(v15, @"PacketLogging", v31);
+        CFDictionarySetValue(v1, @"PacketLogging", v7);
         if (mDNS_McastLoggingEnabled)
         {
-          v32 = v22;
+          v8 = v3;
         }
 
         else
         {
-          v32 = v29;
+          v8 = v5;
         }
 
-        CFDictionarySetValue(v15, @"McastLogging", v32);
+        CFDictionarySetValue(v1, @"McastLogging", v8);
         if (mDNS_McastTracingEnabled)
         {
-          v33 = v22;
+          v9 = v3;
         }
 
         else
         {
-          v33 = v29;
+          v9 = v5;
         }
 
-        CFDictionarySetValue(v15, @"McastTracing", v33);
-        CFRelease(v22);
-        CFRelease(v29);
-        mDNSDynamicStoreSetConfig(6, v15, v34, v35, v36, v37, v38, v39, v42);
-        v40 = v15;
+        CFDictionarySetValue(v1, @"McastTracing", v9);
+        CFRelease(v3);
+        CFRelease(v5);
+        mDNSDynamicStoreSetConfig(6, v1);
+        v10 = v1;
       }
 
       else
       {
-        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "UpdateDebugState: Could not create CFNumber zero", v24, v25, v26, v27, v28, v42);
-        v40 = v22;
+        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "UpdateDebugState: Could not create CFNumber zero");
+        v10 = v3;
       }
 
-      CFRelease(v40);
+      CFRelease(v10);
     }
 
     else
     {
-      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "UpdateDebugState: Could not create CFNumber one", v17, v18, v19, v20, v21, v42);
+      LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "UpdateDebugState: Could not create CFNumber one");
     }
   }
 
   else
   {
-    v41 = mDNSLogCategory_Default;
+    v11 = mDNSLogCategory_Default;
 
-    LogMsgWithLevel(v41, OS_LOG_TYPE_DEFAULT, "UpdateDebugState: Could not create dict", v10, v11, v12, v13, v14, a9);
+    LogMsgWithLevel(v11, OS_LOG_TYPE_DEFAULT, "UpdateDebugState: Could not create dict");
   }
 }
 
@@ -2106,27 +1836,29 @@ LABEL_77:
 
 void SetLowWater(uint64_t a1, int a2)
 {
-  v23 = a2;
+  v17 = a2;
   v3 = *(a1 + 16);
-  if ((v3 & 0x80000000) == 0 && setsockopt(v3, 0xFFFF, 4100, &v23, 4u) < 0)
+  if ((v3 & 0x80000000) == 0 && setsockopt(v3, 0xFFFF, 4100, &v17, 4u) < 0)
   {
     v4 = mDNSLogCategory_Default;
     v5 = *(a1 + 16);
-    v6 = *__error();
-    v7 = __error();
-    strerror(*v7);
-    LogMsgWithLevel(v4, OS_LOG_TYPE_DEFAULT, "SO_RCVLOWAT IPv4 %d error %d errno %d (%s)", v8, v9, v10, v11, v12, v5);
+    v6 = v17;
+    v7 = *__error();
+    v8 = __error();
+    v9 = strerror(*v8);
+    LogMsgWithLevel(v4, OS_LOG_TYPE_DEFAULT, "SO_RCVLOWAT IPv4 %d error %d errno %d (%s)", v5, v6, v7, v9);
   }
 
-  v13 = *(a1 + 48);
-  if ((v13 & 0x80000000) == 0 && setsockopt(v13, 0xFFFF, 4100, &v23, 4u) < 0)
+  v10 = *(a1 + 48);
+  if ((v10 & 0x80000000) == 0 && setsockopt(v10, 0xFFFF, 4100, &v17, 4u) < 0)
   {
-    v14 = mDNSLogCategory_Default;
-    v15 = *(a1 + 48);
-    v16 = *__error();
-    v17 = __error();
-    strerror(*v17);
-    LogMsgWithLevel(v14, OS_LOG_TYPE_DEFAULT, "SO_RCVLOWAT IPv6 %d error %d errno %d (%s)", v18, v19, v20, v21, v22, v15);
+    v11 = mDNSLogCategory_Default;
+    v12 = *(a1 + 48);
+    v13 = v17;
+    v14 = *__error();
+    v15 = __error();
+    v16 = strerror(*v15);
+    LogMsgWithLevel(v11, OS_LOG_TYPE_DEFAULT, "SO_RCVLOWAT IPv6 %d error %d errno %d (%s)", v12, v13, v14, v16);
   }
 }
 
@@ -2212,16 +1944,16 @@ void EnableSocketReadEvent(int a1, void *a2)
 
 void SignalCallback(uint64_t a1, uint64_t a2)
 {
-  v3 = pthread_mutex_lock((mDNSStorage[0] + 616));
-  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime(v3, v4, v5, v6, v7, v8, v9, v10);
-  v11 = *(a2 + 20);
-  if (v11 > 26)
+  pthread_mutex_lock((mDNSStorage[0] + 616));
+  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime();
+  v3 = *(a2 + 20);
+  if (v3 > 26)
   {
-    if (v11 > 28)
+    if (v3 > 28)
     {
-      if (v11 == 29)
+      if (v3 == 29)
       {
-        v34 = mDNSLogCategory_Default;
+        v11 = mDNSLogCategory_Default;
         if (!mDNS_SensitiveLoggingEnableCount || mDNSLogCategory_Default == mDNSLogCategory_State)
         {
           if (!os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT))
@@ -2229,36 +1961,36 @@ void SignalCallback(uint64_t a1, uint64_t a2)
             goto LABEL_136;
           }
 
-          LOWORD(v71) = 0;
-          v35 = "Sending SIGINFO to mDNSResponder daemon is deprecated. To trigger state dump, please use 'dns-sd -O', enter 'dns-sd -h' for more information";
+          LOWORD(v35) = 0;
+          v12 = "Sending SIGINFO to mDNSResponder daemon is deprecated. To trigger state dump, please use 'dns-sd -O', enter 'dns-sd -h' for more information";
         }
 
         else
         {
-          v34 = mDNSLogCategory_Default_redacted;
+          v11 = mDNSLogCategory_Default_redacted;
           if (!os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_136;
           }
 
-          LOWORD(v71) = 0;
-          v35 = "Sending SIGINFO to mDNSResponder daemon is deprecated. To trigger state dump, please use 'dns-sd -O', enter 'dns-sd -h' for more information";
+          LOWORD(v35) = 0;
+          v12 = "Sending SIGINFO to mDNSResponder daemon is deprecated. To trigger state dump, please use 'dns-sd -O', enter 'dns-sd -h' for more information";
         }
 
 LABEL_131:
-        v69 = v34;
-        v70 = 2;
+        v33 = v11;
+        v34 = 2;
 LABEL_135:
-        _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_DEFAULT, v35, &v71, v70);
+        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, v12, &v35, v34);
         goto LABEL_136;
       }
 
-      if (v11 != 30)
+      if (v3 != 30)
       {
-        if (v11 == 31)
+        if (v3 == 31)
         {
           mDNS_PacketLoggingEnabled = 1;
-          v12 = mDNSLogCategory_Default;
+          v4 = mDNSLogCategory_Default;
           if (!mDNS_SensitiveLoggingEnableCount || mDNSLogCategory_Default == mDNSLogCategory_State)
           {
             if (!os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT))
@@ -2266,78 +1998,76 @@ LABEL_135:
               goto LABEL_103;
             }
 
-            v71 = 136446210;
-            v72 = "Enabled";
+            v35 = 136446210;
+            v36 = "Enabled";
           }
 
           else
           {
-            v12 = mDNSLogCategory_Default_redacted;
+            v4 = mDNSLogCategory_Default_redacted;
             if (!os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_103;
             }
 
-            v71 = 136446210;
-            v72 = "Enabled";
+            v35 = 136446210;
+            v36 = "Enabled";
           }
 
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "SIGUSR2: Packet Logging %{public}s on Apple Platforms", &v71, 0xCu);
+          _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "SIGUSR2: Packet Logging %{public}s on Apple Platforms", &v35, 0xCu);
 LABEL_103:
           if (mDNS_McastLoggingEnabled)
           {
-            v65 = mDNS_PacketLoggingEnabled;
+            v29 = mDNS_PacketLoggingEnabled;
           }
 
           else
           {
-            v65 = 0;
+            v29 = 0;
           }
 
-          mDNS_McastTracingEnabled = v65;
-          v62 = mDNSLogCategory_Default;
+          mDNS_McastTracingEnabled = v29;
+          v26 = mDNSLogCategory_Default;
           if (!mDNS_SensitiveLoggingEnableCount || mDNSLogCategory_Default == mDNSLogCategory_State)
           {
-            v14 = os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT);
-            if (v14)
+            if (os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT))
             {
-              v67 = "Disabled";
-              if (v65)
+              v31 = "Disabled";
+              if (v29)
               {
-                v67 = "Enabled";
+                v31 = "Enabled";
               }
 
-              v71 = 136446210;
-              v72 = v67;
-              v22 = "SIGUSR2: Multicast Tracing is %{public}s";
+              v35 = 136446210;
+              v36 = v31;
+              v6 = "SIGUSR2: Multicast Tracing is %{public}s";
               goto LABEL_116;
             }
           }
 
           else
           {
-            v62 = mDNSLogCategory_Default_redacted;
-            v14 = os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT);
-            if (v14)
+            v26 = mDNSLogCategory_Default_redacted;
+            if (os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT))
             {
-              v66 = "Disabled";
-              if (v65)
+              v30 = "Disabled";
+              if (v29)
               {
-                v66 = "Enabled";
+                v30 = "Enabled";
               }
 
-              v71 = 136446210;
-              v72 = v66;
-              v22 = "SIGUSR2: Multicast Tracing is %{public}s";
+              v35 = 136446210;
+              v36 = v30;
+              v6 = "SIGUSR2: Multicast Tracing is %{public}s";
 LABEL_116:
-              v54 = v62;
-              v55 = 12;
+              v18 = v26;
+              v19 = 12;
               goto LABEL_117;
             }
           }
 
 LABEL_118:
-          UpdateDebugState(v14, v15, v16, v17, v18, v19, v20, v21, v71);
+          UpdateDebugState();
           goto LABEL_136;
         }
 
@@ -2345,47 +2075,45 @@ LABEL_118:
       }
 
       mDNS_LoggingEnabled = 1;
-      v44 = mDNSLogCategory_Default;
+      v16 = mDNSLogCategory_Default;
       if (!mDNS_SensitiveLoggingEnableCount || mDNSLogCategory_Default == mDNSLogCategory_State)
       {
-        v45 = os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT);
-        if (!v45)
+        if (!os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_122;
         }
 
-        v71 = 136446210;
-        v72 = "Enabled";
+        v35 = 136446210;
+        v36 = "Enabled";
       }
 
       else
       {
-        v44 = mDNSLogCategory_Default_redacted;
-        v45 = os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT);
-        if (!v45)
+        v16 = mDNSLogCategory_Default_redacted;
+        if (!os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_122;
         }
 
-        v71 = 136446210;
-        v72 = "Enabled";
+        v35 = 136446210;
+        v36 = "Enabled";
       }
 
-      _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "SIGUSR1: Logging %{public}s on Apple Platforms", &v71, 0xCu);
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "SIGUSR1: Logging %{public}s on Apple Platforms", &v35, 0xCu);
 LABEL_122:
       if (mDNS_LoggingEnabled)
       {
-        v68 = 50;
+        v32 = 50;
       }
 
       else
       {
-        v68 = 250;
+        v32 = 250;
       }
 
-      WatchDogReportingThreshold = v68;
-      UpdateDebugState(v45, v46, v47, v48, v49, v50, v51, v52, v71);
-      v34 = mDNSLogCategory_Default;
+      WatchDogReportingThreshold = v32;
+      UpdateDebugState();
+      v11 = mDNSLogCategory_Default;
       if (!mDNS_SensitiveLoggingEnableCount || mDNSLogCategory_Default == mDNSLogCategory_State)
       {
         if (!os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT))
@@ -2393,28 +2121,28 @@ LABEL_122:
           goto LABEL_136;
         }
 
-        LOWORD(v71) = 0;
-        v35 = "USR1 Logging Enabled";
+        LOWORD(v35) = 0;
+        v12 = "USR1 Logging Enabled";
       }
 
       else
       {
-        v34 = mDNSLogCategory_Default_redacted;
+        v11 = mDNSLogCategory_Default_redacted;
         if (!os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_136;
         }
 
-        LOWORD(v71) = 0;
-        v35 = "USR1 Logging Enabled";
+        LOWORD(v35) = 0;
+        v12 = "USR1 Logging Enabled";
       }
 
       goto LABEL_131;
     }
 
-    if (v11 != 27)
+    if (v3 != 27)
     {
-      v23 = mDNSLogCategory_Default;
+      v7 = mDNSLogCategory_Default;
       if (!mDNS_SensitiveLoggingEnableCount || mDNSLogCategory_Default == mDNSLogCategory_State)
       {
         if (!os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT))
@@ -2422,43 +2150,43 @@ LABEL_122:
           goto LABEL_67;
         }
 
-        LOWORD(v71) = 0;
+        LOWORD(v35) = 0;
       }
 
       else
       {
-        v23 = mDNSLogCategory_Default_redacted;
+        v7 = mDNSLogCategory_Default_redacted;
         if (!os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_67;
         }
 
-        LOWORD(v71) = 0;
+        LOWORD(v35) = 0;
       }
 
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "SIGWINCH: Purge unicast assist cache", &v71, 2u);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "SIGWINCH: Purge unicast assist cache", &v35, 2u);
 LABEL_67:
       if (_os_feature_enabled_impl())
       {
         while (1)
         {
-          v56 = s_interface_head_0;
+          v20 = s_interface_head_0;
           if (!s_interface_head_0)
           {
             break;
           }
 
           s_interface_head_0 = *s_interface_head_0;
-          _unicast_assist_cache_free_interface(v56);
+          _unicast_assist_cache_free_interface(v20);
         }
       }
 
       goto LABEL_136;
     }
 
-    v36 = mDNS_McastLoggingEnabled;
+    v13 = mDNS_McastLoggingEnabled;
     mDNS_McastLoggingEnabled = mDNS_McastLoggingEnabled == 0;
-    v37 = mDNSLogCategory_Default;
+    v14 = mDNSLogCategory_Default;
     if (!mDNS_SensitiveLoggingEnableCount || mDNSLogCategory_Default == mDNSLogCategory_State)
     {
       if (!os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT))
@@ -2466,82 +2194,80 @@ LABEL_67:
         goto LABEL_87;
       }
 
-      v60 = "Disabled";
-      if (!v36)
+      v24 = "Disabled";
+      if (!v13)
       {
-        v60 = "Enabled";
+        v24 = "Enabled";
       }
 
-      v71 = 136446210;
-      v72 = v60;
+      v35 = 136446210;
+      v36 = v24;
     }
 
     else
     {
-      v37 = mDNSLogCategory_Default_redacted;
+      v14 = mDNSLogCategory_Default_redacted;
       if (!os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_87;
       }
 
-      v43 = "Disabled";
-      if (!v36)
+      v15 = "Disabled";
+      if (!v13)
       {
-        v43 = "Enabled";
+        v15 = "Enabled";
       }
 
-      v71 = 136446210;
-      v72 = v43;
+      v35 = 136446210;
+      v36 = v15;
     }
 
-    _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "SIGPROF: Multicast Logging %{public}s", &v71, 0xCu);
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "SIGPROF: Multicast Logging %{public}s", &v35, 0xCu);
 LABEL_87:
-    LogMcastStateInfo(0, 1, 1, v38, v39, v40, v41, v42, v71);
+    LogMcastStateInfo(0, 1, 1);
     if (mDNS_McastLoggingEnabled)
     {
-      v61 = mDNS_PacketLoggingEnabled;
+      v25 = mDNS_PacketLoggingEnabled;
     }
 
     else
     {
-      v61 = 0;
+      v25 = 0;
     }
 
-    mDNS_McastTracingEnabled = v61;
-    v62 = mDNSLogCategory_Default;
+    mDNS_McastTracingEnabled = v25;
+    v26 = mDNSLogCategory_Default;
     if (!mDNS_SensitiveLoggingEnableCount || mDNSLogCategory_Default == mDNSLogCategory_State)
     {
-      v14 = os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT);
-      if (v14)
+      if (os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT))
       {
-        v64 = "Disabled";
-        if (v61)
+        v28 = "Disabled";
+        if (v25)
         {
-          v64 = "Enabled";
+          v28 = "Enabled";
         }
 
-        v71 = 136446210;
-        v72 = v64;
-        v22 = "SIGPROF: Multicast Tracing is %{public}s";
+        v35 = 136446210;
+        v36 = v28;
+        v6 = "SIGPROF: Multicast Tracing is %{public}s";
         goto LABEL_116;
       }
     }
 
     else
     {
-      v62 = mDNSLogCategory_Default_redacted;
-      v14 = os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT);
-      if (v14)
+      v26 = mDNSLogCategory_Default_redacted;
+      if (os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT))
       {
-        v63 = "Disabled";
-        if (v61)
+        v27 = "Disabled";
+        if (v25)
         {
-          v63 = "Enabled";
+          v27 = "Enabled";
         }
 
-        v71 = 136446210;
-        v72 = v63;
-        v22 = "SIGPROF: Multicast Tracing is %{public}s";
+        v35 = 136446210;
+        v36 = v27;
+        v6 = "SIGPROF: Multicast Tracing is %{public}s";
         goto LABEL_116;
       }
     }
@@ -2549,46 +2275,44 @@ LABEL_87:
     goto LABEL_118;
   }
 
-  if (v11 > 14)
+  if (v3 > 14)
   {
-    if (v11 != 15)
+    if (v3 != 15)
     {
-      if (v11 == 18)
+      if (v3 == 18)
       {
         mDNS_McastTracingEnabled = 0;
         mDNS_McastLoggingEnabled = 0;
         mDNS_PacketLoggingEnabled = 0;
         mDNS_LoggingEnabled = 0;
-        v13 = mDNSLogCategory_Default;
+        v5 = mDNSLogCategory_Default;
         if (!mDNS_SensitiveLoggingEnableCount || mDNSLogCategory_Default == mDNSLogCategory_State)
         {
-          v14 = os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT);
-          if (!v14)
+          if (!os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_118;
           }
 
-          LOWORD(v71) = 0;
-          v22 = "All mDNSResponder Debug Logging/Tracing Disabled (USR1/USR2/PROF)";
+          LOWORD(v35) = 0;
+          v6 = "All mDNSResponder Debug Logging/Tracing Disabled (USR1/USR2/PROF)";
         }
 
         else
         {
-          v13 = mDNSLogCategory_Default_redacted;
-          v14 = os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT);
-          if (!v14)
+          v5 = mDNSLogCategory_Default_redacted;
+          if (!os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_118;
           }
 
-          LOWORD(v71) = 0;
-          v22 = "All mDNSResponder Debug Logging/Tracing Disabled (USR1/USR2/PROF)";
+          LOWORD(v35) = 0;
+          v6 = "All mDNSResponder Debug Logging/Tracing Disabled (USR1/USR2/PROF)";
         }
 
-        v54 = v13;
-        v55 = 2;
+        v18 = v5;
+        v19 = 2;
 LABEL_117:
-        _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, v22, &v71, v55);
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, v6, &v35, v19);
         goto LABEL_118;
       }
 
@@ -2596,26 +2320,26 @@ LABEL_117:
     }
 
 LABEL_25:
-    v24 = mDNSLogCategory_Default;
+    v8 = mDNSLogCategory_Default;
     if (!mDNS_SensitiveLoggingEnableCount || mDNSLogCategory_Default == mDNSLogCategory_State)
     {
       if (os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT))
       {
-        v71 = 136446210;
-        v72 = "mDNSResponder mDNSResponder-2881.40.18 (Oct 11 2025 00:04:16)";
+        v35 = 136446210;
+        v36 = "mDNSResponder mDNSResponder-2881.40.18 (Oct 11 2025 00:04:16)";
         goto LABEL_31;
       }
     }
 
     else
     {
-      v24 = mDNSLogCategory_Default_redacted;
+      v8 = mDNSLogCategory_Default_redacted;
       if (os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT))
       {
-        v71 = 136446210;
-        v72 = "mDNSResponder mDNSResponder-2881.40.18 (Oct 11 2025 00:04:16)";
+        v35 = 136446210;
+        v36 = "mDNSResponder mDNSResponder-2881.40.18 (Oct 11 2025 00:04:16)";
 LABEL_31:
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%{public}s stopping", &v71, 0xCu);
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}s stopping", &v35, 0xCu);
       }
     }
 
@@ -2627,7 +2351,7 @@ LABEL_31:
     for (i = LocalDomainEnumRecords; LocalDomainEnumRecords; i = LocalDomainEnumRecords)
     {
       LocalDomainEnumRecords = *i;
-      mDNS_Deregister(mDNSStorage, (i + 1));
+      mDNS_Deregister(mDNSStorage, i + 1);
     }
 
     if ((listenfd & 0x80000000) == 0)
@@ -2640,9 +2364,9 @@ LABEL_31:
     goto LABEL_136;
   }
 
-  if (v11 == 1)
+  if (v3 == 1)
   {
-    v33 = mDNSLogCategory_Default;
+    v10 = mDNSLogCategory_Default;
     if (!mDNS_SensitiveLoggingEnableCount || mDNSLogCategory_Default == mDNSLogCategory_State)
     {
       if (!os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT))
@@ -2650,21 +2374,21 @@ LABEL_31:
         goto LABEL_73;
       }
 
-      LOWORD(v71) = 0;
+      LOWORD(v35) = 0;
     }
 
     else
     {
-      v33 = mDNSLogCategory_Default_redacted;
+      v10 = mDNSLogCategory_Default_redacted;
       if (!os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_73;
       }
 
-      LOWORD(v71) = 0;
+      LOWORD(v35) = 0;
     }
 
-    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "SIGHUP: Purge cache", &v71, 2u);
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "SIGHUP: Purge cache", &v35, 2u);
 LABEL_73:
     mDNS_Lock_(mDNSStorage, "SignalCallback", 637);
     for (j = 0; j != 499; ++j)
@@ -2683,13 +2407,13 @@ LABEL_73:
     goto LABEL_136;
   }
 
-  if (v11 == 2)
+  if (v3 == 2)
   {
     goto LABEL_25;
   }
 
 LABEL_57:
-  v53 = mDNSLogCategory_Default;
+  v17 = mDNSLogCategory_Default;
   if (!mDNS_SensitiveLoggingEnableCount || mDNSLogCategory_Default == mDNSLogCategory_State)
   {
     if (!os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT))
@@ -2697,26 +2421,26 @@ LABEL_57:
       goto LABEL_136;
     }
 
-    v71 = 67109120;
-    LODWORD(v72) = v11;
-    v35 = "SignalCallback: Unknown signal %d";
+    v35 = 67109120;
+    LODWORD(v36) = v3;
+    v12 = "SignalCallback: Unknown signal %d";
     goto LABEL_134;
   }
 
-  v53 = mDNSLogCategory_Default_redacted;
+  v17 = mDNSLogCategory_Default_redacted;
   if (os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT))
   {
-    v71 = 67109120;
-    LODWORD(v72) = v11;
-    v35 = "SignalCallback: Unknown signal %d";
+    v35 = 67109120;
+    LODWORD(v36) = v3;
+    v12 = "SignalCallback: Unknown signal %d";
 LABEL_134:
-    v69 = v53;
-    v70 = 8;
+    v33 = v17;
+    v34 = 8;
     goto LABEL_135;
   }
 
 LABEL_136:
-  KQueueUnlock("Unix Signal", v26, v27, v28, v29, v30, v31, v32);
+  KQueueUnlock("Unix Signal");
 }
 
 void HandleSIG(mach_msg_id_t a1)
@@ -2743,14 +2467,14 @@ void HandleSIG(mach_msg_id_t a1)
 
 uint64_t SendDict_ToServer(void *a1)
 {
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2000000000;
-  v24 = 0;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2000000000;
-  v20 = -3;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2000000000;
+  v18 = 0;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2000000000;
+  v14 = -3;
   HelperLog("SendDict_ToServer Sending msg to Daemon", a1);
   mach_service = xpc_connection_create_mach_service("com.apple.mDNSResponder_Helper", HelperQueue, 2uLL);
   if (mach_service)
@@ -2767,21 +2491,21 @@ uint64_t SendDict_ToServer(void *a1)
       handler[1] = 0x40000000;
       handler[2] = __SendDict_ToServer_block_invoke;
       handler[3] = &unk_100152370;
-      handler[4] = &v17;
-      handler[5] = &v21;
+      handler[4] = &v11;
+      handler[5] = &v15;
       handler[6] = v5;
       xpc_connection_send_message_with_reply(v3, a1, HelperQueue, handler);
       v6 = dispatch_time(0, 5000000000);
       if (dispatch_semaphore_wait(v5, v6))
       {
-        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "SendDict_ToServer: UNEXPECTED WAIT_TIME in dispatch_semaphore_wait", v7, v8, v9, v10, v11, v15);
+        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "SendDict_ToServer: UNEXPECTED WAIT_TIME in dispatch_semaphore_wait");
         xpc_connection_cancel(v3);
         dispatch_semaphore_wait(v5, 0xFFFFFFFFFFFFFFFFLL);
       }
 
       if (mDNS_LoggingEnabled == 1)
       {
-        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "SendDict_ToServer returning with errorcode[%d]", v7, v8, v9, v10, v11, *(v18 + 6));
+        LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "SendDict_ToServer returning with errorcode[%d]", *(v12 + 6));
       }
 
       xpc_connection_cancel(v3);
@@ -2796,31 +2520,31 @@ uint64_t SendDict_ToServer(void *a1)
     }
   }
 
-  v12 = v22[3];
-  if (v12)
+  v7 = v16[3];
+  if (v7)
   {
-    xpc_release(v12);
-    v22[3] = 0;
+    xpc_release(v7);
+    v16[3] = 0;
   }
 
-  v13 = *(v18 + 6);
-  _Block_object_dispose(&v17, 8);
-  _Block_object_dispose(&v21, 8);
-  return v13;
+  v8 = *(v12 + 6);
+  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v15, 8);
+  return v8;
 }
 
-void HelperLog(int a1, xpc_object_t object)
+void HelperLog(const char *a1, xpc_object_t object)
 {
-  v8 = xpc_copy_description(object);
+  v3 = xpc_copy_description(object);
   if (mDNS_LoggingEnabled == 1)
   {
-    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "HelperLog %s: %s", v3, v4, v5, v6, v7, a1);
+    LogMsgWithLevel(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT, "HelperLog %s: %s", a1, v3);
   }
 
-  if (v8)
+  if (v3)
   {
 
-    free(v8);
+    free(v3);
   }
 }
 
@@ -2831,7 +2555,7 @@ char *_mdns_obj_copy_description(void *a1)
   return v2;
 }
 
-const char *_mdns_obj_copy_description_as_cfstring(uint64_t a1)
+char *_mdns_obj_copy_description_as_cfstring(uint64_t a1)
 {
   v1 = (a1 + 16);
   do
@@ -2863,8 +2587,10 @@ const char *_mdns_obj_copy_description_as_cfstring(uint64_t a1)
 
 char *_dnssec_obj_rr_rrsig_copy_rdata_rfc_description(uint64_t a1, int *a2)
 {
-  memset(v42, 0, 15);
-  memset(v41, 0, 15);
+  *&v42[7] = 0;
+  *v42 = 0;
+  *&v41[7] = 0;
+  *v41 = 0;
   v4 = *(a1 + 24);
   v39 = bswap32(*(v4 + 12));
   v38 = bswap32(*(v4 + 8));
@@ -3375,8 +3101,9 @@ void _dnssec_obj_rr_rrsig_finalize(uint64_t a1)
   }
 }
 
-void *dnssec_obj_rr_rrsig_create(unsigned __int8 *a1, const void *a2, unsigned int a3, int a4, int *a5)
+void *dnssec_obj_rr_rrsig_create(_BYTE *a1, const void *a2, uint64_t a3, int a4, int *a5)
 {
+  v7 = a3;
   v17 = 0;
   if (!rdata_parser_rrsig_check_validity(a2, a3))
   {
@@ -3415,8 +3142,8 @@ void *dnssec_obj_rr_rrsig_create(unsigned __int8 *a1, const void *a2, unsigned i
 
   while (v12);
   ++*v11;
-  dnssec_obj_rr_init_fields(v11, a1, 46, 1, a2, a3, a4, _dnssec_obj_rr_rrsig_copy_rdata_rfc_description, &v17);
-  *(v11 + 80) = dnssec_obj_domain_name_create_with_labels((*(v11 + 24) + 18), 0, &v17);
+  dnssec_obj_rr_init_fields(v11, a1, 46, 1, a2, v7, a4, _dnssec_obj_rr_rrsig_copy_rdata_rfc_description, &v17);
+  v11[10] = dnssec_obj_domain_name_create_with_labels((v11[3] + 18), 0, &v17);
   v14 = v17;
   if (v17)
   {
@@ -3526,7 +3253,7 @@ BOOL dnssec_obj_rr_rrsig_covers_rr(uint64_t a1, uint64_t a2, int *a3)
   return result;
 }
 
-uint64_t DNSMessageExtractDomainName(unint64_t a1, uint64_t a2, char *__src, char *__dst, void *a5)
+uint64_t DNSMessageExtractDomainName(unint64_t a1, uint64_t a2, char *__src, char *__dst, char **a5)
 {
   if (__dst)
   {
@@ -3672,7 +3399,7 @@ uint64_t DNSMessageExtractDomainNameString(unint64_t a1, uint64_t a2, char *a3, 
   return result;
 }
 
-uint64_t DomainNameToString(_BYTE *a1, unint64_t a2, unsigned __int8 *a3, void *a4)
+uint64_t DomainNameToString(unsigned __int8 *a1, unint64_t a2, unsigned __int8 *a3, void *a4)
 {
   if (a2 && (a2 - a1) < 1)
   {
@@ -3798,13 +3525,13 @@ uint64_t DNSMessageExtractQuestion(unint64_t a1, uint64_t a2, char *a3, char *a4
 
       if (a6)
       {
-        *a6 = bswap32(v13[1]) >> 16;
+        *a6 = bswap32(*(v13 + 1)) >> 16;
       }
 
       result = 0;
       if (a7)
       {
-        *a7 = v13 + 2;
+        *a7 = v13 + 4;
       }
     }
   }
@@ -3885,7 +3612,7 @@ uint64_t _DNSMessageExtractRecordEx(unint64_t a1, uint64_t a2, char *a3, char *a
   return result;
 }
 
-uint64_t DNSMessageExtractRData(unint64_t a1, uint64_t a2, char *__src, unint64_t a4, int a5, char *a6, size_t a7, size_t *a8, unint64_t *a9)
+uint64_t DNSMessageExtractRData(unint64_t a1, uint64_t a2, char *__src, size_t a4, int a5, char *a6, size_t a7, size_t *a8, unint64_t *a9)
 {
   v10 = a7;
   v12 = a4;
@@ -4320,7 +4047,7 @@ uint64_t DNSMessageGetAnswerSection(unint64_t a1, unint64_t a2, char **a3)
         return 4294960546;
       }
 
-      v8 = (v12[0] + 4);
+      v8 = v12[0] + 4;
       if (!--v7)
       {
         goto LABEL_7;
@@ -4341,7 +4068,7 @@ LABEL_7:
   return result;
 }
 
-char *DNSMessageCollapse(unint64_t a1, unint64_t a2, void *a3, char **a4)
+char *DNSMessageCollapse(char *a1, unint64_t a2, void *a3, char **a4)
 {
   v53 = 0;
   v52 = 0;
@@ -4355,10 +4082,10 @@ LABEL_68:
     DomainName = -6743;
   }
 
-  else if (__rev16(*(a1 + 4)) == 1)
+  else if (__rev16(*(a1 + 2)) == 1)
   {
-    v53 = (a1 + 12);
-    DomainName = DNSMessageExtractQuestion(a1, a2, (a1 + 12), __src, &v52 + 1, &v52, &v53);
+    v53 = a1 + 12;
+    DomainName = DNSMessageExtractQuestion(a1, a2, a1 + 12, __src, &v52 + 1, &v52, &v53);
     if (DomainName)
     {
 LABEL_57:
@@ -4389,7 +4116,7 @@ LABEL_57:
       __n = v10 - __src + 1;
       v41 = v53;
       __memcpy_chk();
-      v14 = __rev16(*(a1 + 6));
+      v14 = __rev16(*(a1 + 3));
       if (v14)
       {
         v15 = 0;
@@ -4504,7 +4231,7 @@ LABEL_45:
         }
 
         v30 = *a1;
-        *(v29 + 2) = *(a1 + 4);
+        *(v29 + 2) = *(a1 + 2);
         *v29 = v30;
         *(v29 + 6) = 0;
         *(v29 + 5) = 0;
@@ -4621,7 +4348,7 @@ LABEL_59:
               goto LABEL_59;
             }
 
-            v19 = &v51[v28];
+            v19 = v51 + v28;
             ++v45;
           }
 
@@ -4777,10 +4504,10 @@ uint64_t DomainNameFromString(_BYTE *a1, char *a2)
       LOBYTE(v2) = 46;
     }
 
-    v3 = (a1 + 255);
+    v3 = a1 + 255;
     while (2)
     {
-      if ((a1 + 64) >= v3)
+      if (a1 + 64 >= v3)
       {
         v4 = v3;
       }
@@ -4795,7 +4522,7 @@ uint64_t DomainNameFromString(_BYTE *a1, char *a2)
       v7 = a2;
       do
       {
-        a2 = (v7 + 1);
+        a2 = v7 + 1;
         if (v2 == 92)
         {
           v8 = *a2;
@@ -4805,7 +4532,7 @@ uint64_t DomainNameFromString(_BYTE *a1, char *a2)
           }
 
           LOBYTE(v2) = *a2;
-          a2 = (v7 + 2);
+          a2 = v7 + 2;
           if (v8 - 48 <= 9)
           {
             v9 = *a2;
@@ -4815,7 +4542,7 @@ uint64_t DomainNameFromString(_BYTE *a1, char *a2)
               if ((v10 - 48) <= 9)
               {
                 v11 = 100 * v8 + 10 * v9 + v10;
-                v12 = (v7 + 4);
+                v12 = v7 + 4;
                 if (v11 < 5584)
                 {
                   a2 = v12;
@@ -5189,40 +4916,40 @@ LABEL_101:
 
 void DNSMessageToString(char *a1, unint64_t a2, unsigned int a3, uint64_t a4)
 {
-  v126 = 0;
+  v125 = 0;
   if (_GetCUSymAddr_DataBuffer_Init_sOnce != -1)
   {
     dispatch_once(&_GetCUSymAddr_DataBuffer_Init_sOnce, &__block_literal_global_5688);
   }
 
-  v129 = 0;
-  memset(v128, 0, sizeof(v128));
-  v127 = 0;
-  v125 = 0;
-  memset(v139, 0, sizeof(v139));
-  bzero(v138, 0x3F1uLL);
-  memset(v137, 0, 256);
-  memset(v136, 0, sizeof(v136));
+  v128 = 0;
+  memset(v127, 0, sizeof(v127));
+  v126 = 0;
+  v124 = 0;
+  memset(v138, 0, sizeof(v138));
+  bzero(v137, 0x3F1uLL);
+  memset(v136, 0, 256);
+  memset(v135, 0, sizeof(v135));
   if (!_GetCUSymAddr_DataBuffer_Init_sAddr)
   {
     goto LABEL_647;
   }
 
-  _GetCUSymAddr_DataBuffer_Init_sAddr(v128, v139, 512, -1);
+  _GetCUSymAddr_DataBuffer_Init_sAddr(v127, v138, 512, -1);
   if (a2 < 0xC)
   {
     goto LABEL_647;
   }
 
-  v114 = (a1[2] >> 3) & 0xF;
-  v117 = a1[5];
-  v111 = a1[4];
-  v5 = v117 & 0xFFFF00FF | (v111 << 8);
-  v109 = a1[6];
-  v110 = a1[7];
-  v116 = _byteswap_ushort(*(a1 + 3));
-  v115 = __rev16(*(a1 + 4));
-  v113 = __rev16(*(a1 + 5));
+  v113 = (a1[2] >> 3) & 0xF;
+  v116 = a1[5];
+  v110 = a1[4];
+  v5 = v116 & 0xFFFF00FF | (v110 << 8);
+  v108 = a1[6];
+  v109 = a1[7];
+  v115 = _byteswap_ushort(*(a1 + 3));
+  v114 = __rev16(*(a1 + 4));
+  v112 = __rev16(*(a1 + 5));
   v6 = "";
   if ((a3 & 0x20) != 0)
   {
@@ -5257,9 +4984,9 @@ LABEL_74:
       v13 = 82;
     }
 
-    v107 = v8;
-    v108 = v13;
-    v106 = v9;
+    v106 = v8;
+    v107 = v13;
+    v105 = v9;
     v12 = "id: 0x%04X (%u), flags: 0x%04X (%c/";
   }
 
@@ -5270,7 +4997,7 @@ LABEL_74:
       dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
     }
 
-    if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "ID:               0x%04X (%u)\n", v9, v9))
+    if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "ID:               0x%04X (%u)\n", v9, v9))
     {
       goto LABEL_647;
     }
@@ -5292,16 +5019,16 @@ LABEL_74:
       v11 = 82;
     }
 
-    v106 = v11;
+    v105 = v11;
     v12 = "Flags:            0x%04X %c/";
   }
 
-  if (v10(v128, v12))
+  if (v10(v127, v12))
   {
     goto LABEL_647;
   }
 
-  if (v114 > 6 || v114 == 3)
+  if (v113 > 6 || v113 == 3)
   {
     if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
     {
@@ -5313,12 +5040,11 @@ LABEL_74:
       goto LABEL_647;
     }
 
-    CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "OPCODE%d");
+    CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "OPCODE%d");
   }
 
   else
   {
-    v15 = _DNSOpCodeToString_sNames[v114];
     if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
     {
       dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -5329,7 +5055,7 @@ LABEL_74:
       goto LABEL_647;
     }
 
-    CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "%s");
+    CUSymAddr_DataBuffer_AppendF_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "%s");
   }
 
   if (CUSymAddr_DataBuffer_AppendF_sAddr)
@@ -5337,28 +5063,28 @@ LABEL_74:
     goto LABEL_647;
   }
 
-  v16 = &word_100152418;
-  v17 = 7;
+  v15 = &word_100152418;
+  v16 = 7;
   do
   {
-    if ((*v16 & v8) != 0)
+    if ((*v15 & v8) != 0)
     {
       if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
       {
         dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
       }
 
-      if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, ", %s", *(v16 - 1)))
+      if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, ", %s", *(v15 - 1)))
       {
         goto LABEL_647;
       }
     }
 
-    v16 += 8;
-    --v17;
+    v15 += 8;
+    --v16;
   }
 
-  while (v17);
+  while (v16);
   if ((v8 & 0xF) > 0xB)
   {
     if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
@@ -5371,13 +5097,13 @@ LABEL_74:
       goto LABEL_647;
     }
 
-    v104 = (v8 & 0xF);
-    v19 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, ", RCODE%d");
+    v103 = (v8 & 0xF);
+    v18 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, ", RCODE%d");
   }
 
   else
   {
-    v18 = (&off_100154018)[v8 & 0xF];
+    v17 = (&off_100154018)[v8 & 0xF];
     if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
     {
       dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -5388,11 +5114,11 @@ LABEL_74:
       goto LABEL_647;
     }
 
-    v104 = v18;
-    v19 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, ", %s");
+    v103 = v17;
+    v18 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, ", %s");
   }
 
-  if (v19)
+  if (v18)
   {
     goto LABEL_647;
   }
@@ -5404,7 +5130,7 @@ LABEL_74:
       dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
     }
 
-    if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "\n", v104, v106))
+    if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "\n", v103, v105))
     {
       goto LABEL_647;
     }
@@ -5414,7 +5140,7 @@ LABEL_74:
       dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
     }
 
-    if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "Question count:   %u\n", v5))
+    if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "Question count:   %u\n", v5))
     {
       goto LABEL_647;
     }
@@ -5424,7 +5150,7 @@ LABEL_74:
       dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
     }
 
-    if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "Answer count:     %u\n", v116))
+    if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "Answer count:     %u\n", v115))
     {
       goto LABEL_647;
     }
@@ -5434,7 +5160,7 @@ LABEL_74:
       dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
     }
 
-    if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "Authority count:  %u\n", v115))
+    if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "Authority count:  %u\n", v114))
     {
       goto LABEL_647;
     }
@@ -5444,7 +5170,7 @@ LABEL_74:
       dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
     }
 
-    if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "Additional count: %u\n", v113))
+    if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "Additional count: %u\n", v112))
     {
       goto LABEL_647;
     }
@@ -5458,7 +5184,7 @@ LABEL_74:
     dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
   }
 
-  if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, ")", v104, v106))
+  if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, ")", v103, v105))
   {
     goto LABEL_647;
   }
@@ -5468,7 +5194,7 @@ LABEL_74:
     dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
   }
 
-  if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, ", counts: %u/%u/%u/%u", v5, v116, v115, v113))
+  if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, ", counts: %u/%u/%u/%u", v5, v115, v114, v112))
   {
     goto LABEL_647;
   }
@@ -5480,37 +5206,37 @@ LABEL_74:
   }
 
 LABEL_75:
-  v121 = v6;
-  v123 = (a3 >> 3) & 1;
-  v127 = a1 + 12;
+  v120 = v6;
+  v122 = (a3 >> 3) & 1;
+  v126 = a1 + 12;
   if (!v5)
   {
-    v21 = 0;
-    v27 = v137;
-    v23 = a2;
+    v20 = 0;
+    v26 = v136;
+    v22 = a2;
 LABEL_200:
-    if (v113 + v115 + v116)
+    if (v112 + v114 + v115)
     {
-      v43 = 0;
+      v42 = 0;
       while (1)
       {
         __src[0] = 0;
-        v140[0] = 0;
-        LODWORD(v135) = 0;
-        LOWORD(v134) = 0;
+        v139[0] = 0;
+        LODWORD(v134) = 0;
         LOWORD(v133) = 0;
-        if (_DNSMessageExtractRecordEx(a1, v23, v127, v27, &v134, &v133, &v135, __src, v140, 0, 0, 0, 0, &v127) || DomainNameToString(v27, 0, v138, 0))
+        LOWORD(v132) = 0;
+        if (_DNSMessageExtractRecordEx(a1, v22, v126, v26, &v133, &v132, &v134, __src, v139, 0, 0, 0, 0, &v126) || DomainNameToString(v26, 0, v137, 0))
         {
           goto LABEL_647;
         }
 
-        v44 = v133 < 0;
+        v43 = v132 < 0;
         if (a3)
         {
-          LOWORD(v133) = v133 & 0x7FFF;
+          LOWORD(v132) = v132 & 0x7FFF;
         }
 
-        v45 = a3 & v44;
+        v44 = a3 & v43;
         if ((a3 & 4) == 0)
         {
           break;
@@ -5521,25 +5247,25 @@ LABEL_200:
           dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
         }
 
-        if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "%s", v121))
+        if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "%s", v120))
         {
           goto LABEL_647;
         }
 
-        if (v21 && (DomainNameEqual(v27, v21) & 1) != 0)
+        if (v20 && (DomainNameEqual(v26, v20) & 1) != 0)
         {
-          v47 = v27;
-          v27 = v21;
+          v46 = v26;
+          v26 = v20;
         }
 
         else
         {
-          if (DomainNameToString(v27, 0, v138, 0))
+          if (DomainNameToString(v26, 0, v137, 0))
           {
             goto LABEL_647;
           }
 
-          if (v123 && _NameIsPrivate(v138))
+          if (v122 && _NameIsPrivate(v137))
           {
             if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
             {
@@ -5551,7 +5277,7 @@ LABEL_200:
               goto LABEL_647;
             }
 
-            v48 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "%~s ");
+            v47 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "%~s ");
           }
 
           else
@@ -5566,37 +5292,37 @@ LABEL_200:
               goto LABEL_647;
             }
 
-            v48 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "%s ");
+            v47 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "%s ");
           }
 
-          if (v48)
+          if (v47)
           {
             goto LABEL_647;
           }
 
-          if (v27 == v137)
+          if (v26 == v136)
           {
-            v47 = v136;
+            v46 = v135;
           }
 
           else
           {
-            v47 = v137;
+            v46 = v136;
           }
 
-          *v47 = 0;
+          *v46 = 0;
         }
 
-        if (v134 == 41)
+        if (v133 == 41)
         {
-          if (v45)
+          if (v44)
           {
             if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
             {
               dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
             }
 
-            if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "CF "))
+            if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "CF "))
             {
               goto LABEL_647;
             }
@@ -5607,12 +5333,12 @@ LABEL_200:
             dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
           }
 
-          if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "OPT %u", v133))
+          if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "OPT %u", v132))
           {
             goto LABEL_647;
           }
 
-          if (v135)
+          if (v134)
           {
             if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
             {
@@ -5624,7 +5350,7 @@ LABEL_200:
               goto LABEL_647;
             }
 
-            v49 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " 0x%08X");
+            v48 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " 0x%08X");
           }
 
           else
@@ -5639,7 +5365,7 @@ LABEL_200:
               goto LABEL_647;
             }
 
-            v49 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " 0");
+            v48 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " 0");
           }
         }
 
@@ -5650,76 +5376,76 @@ LABEL_200:
             dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
           }
 
-          if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "%u", v135))
+          if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "%u", v134))
           {
             goto LABEL_647;
           }
 
-          if (v45)
+          if (v44)
           {
             if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
             {
               dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
             }
 
-            if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " CF"))
+            if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " CF"))
             {
               goto LABEL_647;
             }
           }
 
-          v50 = "ANY";
-          if (v133 != 255)
+          v49 = "ANY";
+          if (v132 != 255)
           {
-            v50 = 0;
+            v49 = 0;
           }
 
-          if (v133 == 1)
+          if (v132 == 1)
           {
-            v51 = "IN";
+            v50 = "IN";
           }
 
           else
           {
-            v51 = v50;
+            v50 = v49;
+          }
+
+          if (v50)
+          {
+            if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
+            {
+              dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
+            }
+
+            if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
+            {
+              goto LABEL_647;
+            }
+
+            v51 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " %s");
+          }
+
+          else
+          {
+            if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
+            {
+              dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
+            }
+
+            if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
+            {
+              goto LABEL_647;
+            }
+
+            v51 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " CLASS%u");
           }
 
           if (v51)
           {
-            if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
-            {
-              dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
-            }
-
-            if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
-            {
-              goto LABEL_647;
-            }
-
-            v52 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " %s");
-          }
-
-          else
-          {
-            if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
-            {
-              dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
-            }
-
-            if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
-            {
-              goto LABEL_647;
-            }
-
-            v52 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " CLASS%u");
-          }
-
-          if (v52)
-          {
             goto LABEL_647;
           }
 
-          if (DNSRecordTypeValueToString(v134))
+          if (DNSRecordTypeValueToString(v133))
           {
             if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
             {
@@ -5731,7 +5457,7 @@ LABEL_200:
               goto LABEL_647;
             }
 
-            v49 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " %s");
+            v48 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " %s");
           }
 
           else
@@ -5746,46 +5472,46 @@ LABEL_200:
               goto LABEL_647;
             }
 
-            v49 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " TYPE%u");
+            v48 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " TYPE%u");
           }
         }
 
-        if (v49)
+        if (v48)
         {
           goto LABEL_647;
         }
 
-        v21 = v27;
-        v121 = ", ";
+        v20 = v26;
+        v120 = ", ";
         if ((a3 & 2) == 0)
         {
 LABEL_365:
-          DNSRecordDataToStringEx(__src[0], v140[0], v134, a1, v23, v123, &v126);
+          DNSRecordDataToStringEx(__src[0], v139[0], v133, a1, v22, v122, &v125);
         }
 
 LABEL_366:
-        if (v126)
+        if (v125)
         {
           if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
           {
             dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
           }
 
-          if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " %s", v126))
+          if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " %s", v125))
           {
             goto LABEL_647;
           }
 
-          if (v126)
+          if (v125)
           {
-            free(v126);
-            v126 = 0;
+            free(v125);
+            v125 = 0;
           }
         }
 
         else
         {
-          if (v123)
+          if (v122)
           {
             if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
             {
@@ -5797,8 +5523,8 @@ LABEL_366:
               goto LABEL_647;
             }
 
-            v103 = v140[0];
-            v61 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " [%zu B]");
+            v102 = v139[0];
+            v60 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " [%zu B]");
           }
 
           else
@@ -5813,13 +5539,13 @@ LABEL_366:
               goto LABEL_647;
             }
 
-            v105 = v140[0];
-            v107 = v140[0];
-            v103 = __src[0];
-            v61 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " %#H");
+            v104 = v139[0];
+            v106 = v139[0];
+            v102 = __src[0];
+            v60 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " %#H");
           }
 
-          if (v61)
+          if (v60)
           {
             goto LABEL_647;
           }
@@ -5827,22 +5553,22 @@ LABEL_366:
 
         if ((a3 & 4) != 0)
         {
-          if (v134 == 5)
+          if (v133 == 5)
           {
-            DomainName = DNSMessageExtractDomainName(a1, v23, __src[0], v47, 0);
-            v63 = v137;
-            if (v47 == v137)
+            DomainName = DNSMessageExtractDomainName(a1, v22, __src[0], v46, 0);
+            v62 = v136;
+            if (v46 == v136)
             {
-              v63 = v136;
+              v62 = v135;
             }
 
             if (!DomainName)
             {
-              v21 = v47;
-              v47 = v63;
+              v20 = v46;
+              v46 = v62;
             }
 
-            *v47 = 0;
+            *v46 = 0;
           }
         }
 
@@ -5853,23 +5579,23 @@ LABEL_366:
             dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
           }
 
-          if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "\n"))
+          if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "\n"))
           {
             goto LABEL_647;
           }
         }
 
-        ++v43;
-        v27 = v47;
-        if (v43 >= v113 + v115 + v116)
+        ++v42;
+        v26 = v46;
+        if (v42 >= v112 + v114 + v115)
         {
           goto LABEL_404;
         }
       }
 
-      if (!v116 || v43)
+      if (!v115 || v42)
       {
-        if (v115 && ((v109 << 8) + v110) == v43)
+        if (v114 && ((v108 << 8) + v109) == v42)
         {
           if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
           {
@@ -5881,12 +5607,12 @@ LABEL_366:
             goto LABEL_647;
           }
 
-          v46 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "\nAUTHORITY SECTION\n");
+          v45 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "\nAUTHORITY SECTION\n");
         }
 
         else
         {
-          if (v115 + v116 != v43)
+          if (v114 + v115 != v42)
           {
             goto LABEL_282;
           }
@@ -5901,7 +5627,7 @@ LABEL_366:
             goto LABEL_647;
           }
 
-          v46 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "\nADDITIONAL SECTION\n");
+          v45 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "\nADDITIONAL SECTION\n");
         }
       }
 
@@ -5917,18 +5643,18 @@ LABEL_366:
           goto LABEL_647;
         }
 
-        v46 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "\nANSWER SECTION\n");
+        v45 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "\nANSWER SECTION\n");
       }
 
-      if (v46)
+      if (v45)
       {
         goto LABEL_647;
       }
 
 LABEL_282:
-      if (v134 == 41)
+      if (v133 == 41)
       {
-        if (v123 && _NameIsPrivate(v138))
+        if (v122 && _NameIsPrivate(v137))
         {
           if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
           {
@@ -5940,7 +5666,7 @@ LABEL_282:
             goto LABEL_647;
           }
 
-          v53 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "%~s");
+          v52 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "%~s");
         }
 
         else
@@ -5955,7 +5681,96 @@ LABEL_282:
             goto LABEL_647;
           }
 
-          v53 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "%s");
+          v52 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "%s");
+        }
+
+        if (v52)
+        {
+          goto LABEL_647;
+        }
+
+        if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
+        {
+          dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
+        }
+
+        if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
+        {
+          goto LABEL_647;
+        }
+
+        v54 = "";
+        if (v44)
+        {
+          v54 = " CF";
+        }
+
+        if (_GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "%s OPT %u", v54, v132))
+        {
+          goto LABEL_647;
+        }
+
+        if (v134)
+        {
+          if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
+          {
+            dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
+          }
+
+          if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
+          {
+            goto LABEL_647;
+          }
+
+          v55 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " 0x%08X");
+        }
+
+        else
+        {
+          if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
+          {
+            dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
+          }
+
+          if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
+          {
+            goto LABEL_647;
+          }
+
+          v55 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " 0");
+        }
+      }
+
+      else
+      {
+        if (v122)
+        {
+          if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
+          {
+            dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
+          }
+
+          if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
+          {
+            goto LABEL_647;
+          }
+
+          v53 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "%~-42s");
+        }
+
+        else
+        {
+          if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
+          {
+            dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
+          }
+
+          if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
+          {
+            goto LABEL_647;
+          }
+
+          v53 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "%-42s");
         }
 
         if (v53)
@@ -5973,18 +5788,34 @@ LABEL_282:
           goto LABEL_647;
         }
 
-        v55 = "";
-        if (v45)
+        v56 = "";
+        if (v44)
         {
-          v55 = " CF";
+          v56 = "CF";
         }
 
-        if (_GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "%s OPT %u", v55, v133))
+        if (_GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " %6u %2s", v134, v56))
         {
           goto LABEL_647;
         }
 
-        if (v135)
+        v57 = "ANY";
+        if (v132 != 255)
+        {
+          v57 = 0;
+        }
+
+        if (v132 == 1)
+        {
+          v58 = "IN";
+        }
+
+        else
+        {
+          v58 = v57;
+        }
+
+        if (v58)
         {
           if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
           {
@@ -5996,7 +5827,7 @@ LABEL_282:
             goto LABEL_647;
           }
 
-          v56 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " 0x%08X");
+          v59 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " %s");
         }
 
         else
@@ -6011,120 +5842,15 @@ LABEL_282:
             goto LABEL_647;
           }
 
-          v56 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " 0");
-        }
-      }
-
-      else
-      {
-        if (v123)
-        {
-          if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
-          {
-            dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
-          }
-
-          if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
-          {
-            goto LABEL_647;
-          }
-
-          v54 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "%~-42s");
-        }
-
-        else
-        {
-          if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
-          {
-            dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
-          }
-
-          if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
-          {
-            goto LABEL_647;
-          }
-
-          v54 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "%-42s");
-        }
-
-        if (v54)
-        {
-          goto LABEL_647;
-        }
-
-        if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
-        {
-          dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
-        }
-
-        if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
-        {
-          goto LABEL_647;
-        }
-
-        v57 = "";
-        if (v45)
-        {
-          v57 = "CF";
-        }
-
-        if (_GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " %6u %2s", v135, v57))
-        {
-          goto LABEL_647;
-        }
-
-        v58 = "ANY";
-        if (v133 != 255)
-        {
-          v58 = 0;
-        }
-
-        if (v133 == 1)
-        {
-          v59 = "IN";
-        }
-
-        else
-        {
-          v59 = v58;
+          v59 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " CLASS%u");
         }
 
         if (v59)
         {
-          if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
-          {
-            dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
-          }
-
-          if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
-          {
-            goto LABEL_647;
-          }
-
-          v60 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " %s");
-        }
-
-        else
-        {
-          if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
-          {
-            dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
-          }
-
-          if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
-          {
-            goto LABEL_647;
-          }
-
-          v60 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " CLASS%u");
-        }
-
-        if (v60)
-        {
           goto LABEL_647;
         }
 
-        if (DNSRecordTypeValueToString(v134))
+        if (DNSRecordTypeValueToString(v133))
         {
           if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
           {
@@ -6136,7 +5862,7 @@ LABEL_282:
             goto LABEL_647;
           }
 
-          v56 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " %-5s");
+          v55 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " %-5s");
         }
 
         else
@@ -6151,12 +5877,12 @@ LABEL_282:
             goto LABEL_647;
           }
 
-          v56 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " TYPE%u");
+          v55 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " TYPE%u");
         }
       }
 
-      v47 = v27;
-      if (v56)
+      v46 = v26;
+      if (v55)
       {
         goto LABEL_647;
       }
@@ -6170,132 +5896,132 @@ LABEL_282:
     }
 
 LABEL_404:
-    if (v114 == 6)
+    if (v113 == 6)
     {
       if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
       {
         dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
       }
 
-      if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "["))
+      if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "["))
       {
         goto LABEL_647;
       }
 
-      v64 = v127;
-      v122 = &a1[a2];
-      if (v127 < &a1[a2])
+      v63 = v126;
+      v121 = &a1[a2];
+      if (v126 < &a1[a2])
       {
         if ((a3 >> 2))
         {
-          v65 = "";
+          v64 = "";
         }
 
         else
         {
-          v65 = "\n\t";
+          v64 = "\n\t";
         }
 
         if ((a3 >> 2))
         {
-          v66 = ", ";
+          v65 = ", ";
         }
 
         else
         {
-          v66 = ",\n\t";
+          v65 = ",\n\t";
         }
 
-        v119 = v66;
+        v118 = v65;
         do
         {
-          if (v64 < a1)
+          if (v63 < a1)
           {
             goto LABEL_647;
           }
 
-          if (v122 - v64 < 4)
+          if ((v121 - v63) < 4)
           {
             goto LABEL_647;
           }
 
-          v67 = __rev16(*(v64 + 1));
-          v68 = v64 + 4;
-          if ((v122 - (v64 + 4)) < v67)
+          v66 = __rev16(*(v63 + 1));
+          v67 = v63 + 4;
+          if (v121 - (v63 + 4) < v66)
           {
             goto LABEL_647;
           }
 
-          v69 = *v64;
-          v70 = &v68[v67];
-          v127 = &v68[v67];
+          v68 = *v63;
+          v69 = &v67[v66];
+          v126 = &v67[v66];
           if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
           {
             dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
           }
 
-          if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "%s", v65))
+          if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "%s", v64))
           {
             goto LABEL_647;
           }
 
-          v71 = __rev16(v69);
-          if (v71 > 63)
+          v70 = __rev16(v68);
+          if (v70 > 63)
           {
-            if (v71 <= 65)
+            if (v70 <= 65)
             {
-              if (v71 == 64)
+              if (v70 == 64)
               {
-                v72 = "SUBSCRIBE";
+                v71 = "SUBSCRIBE";
               }
 
               else
               {
-                v72 = "PUSH";
+                v71 = "PUSH";
               }
 
               goto LABEL_441;
             }
 
-            if (v71 == 66)
+            if (v70 == 66)
             {
-              v72 = "UNSUBSCRIBE";
+              v71 = "UNSUBSCRIBE";
               goto LABEL_441;
             }
 
-            if (v71 == 67)
+            if (v70 == 67)
             {
-              v72 = "RECONFIRM";
+              v71 = "RECONFIRM";
               goto LABEL_441;
             }
           }
 
-          else if (v71 > 1)
+          else if (v70 > 1)
           {
-            if (v71 == 2)
+            if (v70 == 2)
             {
-              v72 = "Retry Delay";
+              v71 = "Retry Delay";
               goto LABEL_441;
             }
 
-            if (v71 == 3)
+            if (v70 == 3)
             {
-              v72 = "Encryption Padding";
+              v71 = "Encryption Padding";
               goto LABEL_441;
             }
           }
 
           else
           {
-            v72 = "Reserved";
-            if (!v71)
+            v71 = "Reserved";
+            if (!v70)
             {
               goto LABEL_441;
             }
 
-            if (v71 == 1)
+            if (v70 == 1)
             {
-              v72 = "KeepAlive";
+              v71 = "KeepAlive";
 LABEL_441:
               if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
               {
@@ -6307,8 +6033,8 @@ LABEL_441:
                 goto LABEL_647;
               }
 
-              v103 = v72;
-              v73 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "%s: ");
+              v102 = v71;
+              v72 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "%s: ");
               goto LABEL_445;
             }
           }
@@ -6323,27 +6049,27 @@ LABEL_441:
             goto LABEL_647;
           }
 
-          v103 = v71;
-          v73 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "DSO-TYPE%u: ");
+          v102 = v70;
+          v72 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "DSO-TYPE%u: ");
 LABEL_445:
-          if (v73)
+          if (v72)
           {
             goto LABEL_647;
           }
 
-          v134 = 0;
-          v135 = (v64 + 4);
+          v133 = 0;
+          v134 = (v63 + 4);
           bzero(__src, 0x3F1uLL);
-          if (v71 > 65)
+          if (v70 > 65)
           {
-            if (v71 == 66)
+            if (v70 == 66)
             {
-              if (v67 != 2)
+              if (v66 != 2)
               {
                 goto LABEL_647;
               }
 
-              v85 = *(v64 + 2);
+              v84 = *(v63 + 2);
               if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
               {
                 dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -6351,17 +6077,17 @@ LABEL_445:
 
               if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
               {
-                v82 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "%u", __rev16(v85));
+                v81 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "%u", __rev16(v84));
                 goto LABEL_578;
               }
 
               goto LABEL_631;
             }
 
-            if (v71 != 67)
+            if (v70 != 67)
             {
 LABEL_522:
-              if (v123)
+              if (v122)
               {
                 if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
                 {
@@ -6370,8 +6096,8 @@ LABEL_522:
 
                 if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
                 {
-                  v103 = v67;
-                  v82 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "[%u B]");
+                  v102 = v66;
+                  v81 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "[%u B]");
                   goto LABEL_578;
                 }
               }
@@ -6385,12 +6111,12 @@ LABEL_522:
 
                 if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
                 {
-                  v105 = v67;
-                  v107 = v67;
-                  v103 = (v64 + 4);
-                  v82 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "'%H'");
+                  v104 = v66;
+                  v106 = v66;
+                  v102 = (v63 + 4);
+                  v81 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "'%H'");
 LABEL_578:
-                  v92 = v82;
+                  v91 = v81;
                   goto LABEL_626;
                 }
               }
@@ -6398,17 +6124,17 @@ LABEL_578:
               goto LABEL_631;
             }
 
-            v82 = DNSMessageExtractDomainNameString(a1, a2, v64 + 4, __src, &v135);
-            if (v82)
+            v81 = DNSMessageExtractDomainNameString(a1, a2, v63 + 4, __src, &v134);
+            if (v81)
             {
               goto LABEL_578;
             }
 
-            v83 = v135;
-            if (v70 - v135 >= 4)
+            v82 = v134;
+            if (v69 - v134 >= 4)
             {
-              v135 += 4;
-              if (v123 && _NameIsPrivate(__src))
+              v134 += 4;
+              if (v122 && _NameIsPrivate(__src))
               {
                 if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
                 {
@@ -6420,8 +6146,8 @@ LABEL_578:
                   goto LABEL_631;
                 }
 
-                v103 = __src;
-                v82 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "%~s");
+                v102 = __src;
+                v81 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "%~s");
               }
 
               else
@@ -6436,33 +6162,33 @@ LABEL_578:
                   goto LABEL_631;
                 }
 
-                v103 = __src;
-                v82 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "%s");
+                v102 = __src;
+                v81 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "%s");
               }
 
-              if (v82)
+              if (v81)
               {
                 goto LABEL_578;
               }
 
-              v86 = __rev16(*(v83 + 1));
-              v87 = "ANY";
-              if (v86 != 255)
+              v85 = __rev16(*(v82 + 1));
+              v86 = "ANY";
+              if (v85 != 255)
               {
-                v87 = 0;
+                v86 = 0;
               }
 
-              if (v86 == 1)
+              if (v85 == 1)
               {
-                v88 = "IN";
+                v87 = "IN";
               }
 
               else
               {
-                v88 = v87;
+                v87 = v86;
               }
 
-              if (v88)
+              if (v87)
               {
                 if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
                 {
@@ -6474,8 +6200,8 @@ LABEL_578:
                   goto LABEL_631;
                 }
 
-                v103 = v88;
-                v82 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " %s");
+                v102 = v87;
+                v81 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " %s");
               }
 
               else
@@ -6490,21 +6216,21 @@ LABEL_578:
                   goto LABEL_631;
                 }
 
-                v103 = v86;
-                v82 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " CLASS%u");
+                v102 = v85;
+                v81 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " CLASS%u");
               }
 
-              if (v82)
+              if (v81)
               {
                 goto LABEL_578;
               }
 
-              v93 = __rev16(*v83);
-              v94 = DNSRecordTypeValueToString(v93);
-              if (v94)
+              v92 = __rev16(*v82);
+              v93 = DNSRecordTypeValueToString(v92);
+              if (v93)
               {
-                v95 = v94;
-                v96 = a2;
+                v94 = v93;
+                v95 = a2;
                 if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
                 {
                   dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -6515,13 +6241,13 @@ LABEL_578:
                   goto LABEL_631;
                 }
 
-                v103 = v95;
-                v82 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " %s");
+                v102 = v94;
+                v81 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " %s");
               }
 
               else
               {
-                v96 = a2;
+                v95 = a2;
                 if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
                 {
                   dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -6532,19 +6258,19 @@ LABEL_578:
                   goto LABEL_631;
                 }
 
-                v103 = v93;
-                v82 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " TYPE%u");
+                v102 = v92;
+                v81 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " TYPE%u");
               }
 
-              if (v82)
+              if (v81)
               {
                 goto LABEL_578;
               }
 
-              v100 = v135;
-              v101 = v70 - v135;
-              DNSRecordDataToStringEx(v135, v70 - v135, v93, a1, v96, v123, &v134);
-              if (v134)
+              v99 = v134;
+              v100 = v69 - v134;
+              DNSRecordDataToStringEx(v134, v69 - v134, v92, a1, v95, v122, &v133);
+              if (v133)
               {
                 if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
                 {
@@ -6553,25 +6279,25 @@ LABEL_578:
 
                 if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
                 {
-                  v82 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " %s", v134);
-                  if (v82)
+                  v81 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " %s", v133);
+                  if (v81)
                   {
                     goto LABEL_578;
                   }
 
-                  if (v134)
+                  if (v133)
                   {
-                    free(v134);
-                    v134 = 0;
+                    free(v133);
+                    v133 = 0;
                   }
 
 LABEL_625:
-                  v92 = 0;
+                  v91 = 0;
                   goto LABEL_626;
                 }
               }
 
-              else if (v123)
+              else if (v122)
               {
                 if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
                 {
@@ -6580,8 +6306,8 @@ LABEL_625:
 
                 if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
                 {
-                  v103 = v101;
-                  v82 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " [%zu B]");
+                  v102 = v100;
+                  v81 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " [%zu B]");
                   goto LABEL_624;
                 }
               }
@@ -6595,31 +6321,31 @@ LABEL_625:
 
                 if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
                 {
-                  v105 = v101;
-                  v107 = v101;
-                  v103 = v100;
-                  v82 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " '%H'");
+                  v104 = v100;
+                  v106 = v100;
+                  v102 = v99;
+                  v81 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " '%H'");
                   goto LABEL_624;
                 }
               }
             }
           }
 
-          else if (v71 == 64)
+          else if (v70 == 64)
           {
-            v82 = DNSMessageExtractDomainNameString(a1, a2, v64 + 4, __src, &v135);
-            if (v82)
+            v81 = DNSMessageExtractDomainNameString(a1, a2, v63 + 4, __src, &v134);
+            if (v81)
             {
               goto LABEL_578;
             }
 
-            v84 = v135;
-            if (v70 - v135 != 4)
+            v83 = v134;
+            if (v69 - v134 != 4)
             {
               goto LABEL_631;
             }
 
-            if (v123 && _NameIsPrivate(__src))
+            if (v122 && _NameIsPrivate(__src))
             {
               if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
               {
@@ -6631,8 +6357,8 @@ LABEL_625:
                 goto LABEL_631;
               }
 
-              v103 = __src;
-              v82 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "%~s");
+              v102 = __src;
+              v81 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "%~s");
             }
 
             else
@@ -6647,33 +6373,33 @@ LABEL_625:
                 goto LABEL_631;
               }
 
-              v103 = __src;
-              v82 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "%s");
+              v102 = __src;
+              v81 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "%s");
             }
 
-            if (v82)
+            if (v81)
             {
               goto LABEL_578;
             }
 
-            v89 = __rev16(*(v84 + 1));
-            v90 = "ANY";
-            if (v89 != 255)
+            v88 = __rev16(*(v83 + 1));
+            v89 = "ANY";
+            if (v88 != 255)
             {
-              v90 = 0;
+              v89 = 0;
             }
 
-            if (v89 == 1)
+            if (v88 == 1)
             {
-              v91 = "IN";
+              v90 = "IN";
             }
 
             else
             {
-              v91 = v90;
+              v90 = v89;
             }
 
-            if (v91)
+            if (v90)
             {
               if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
               {
@@ -6685,8 +6411,8 @@ LABEL_625:
                 goto LABEL_631;
               }
 
-              v103 = v91;
-              v82 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " %s");
+              v102 = v90;
+              v81 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " %s");
             }
 
             else
@@ -6701,20 +6427,20 @@ LABEL_625:
                 goto LABEL_631;
               }
 
-              v103 = v89;
-              v82 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " CLASS%u");
+              v102 = v88;
+              v81 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " CLASS%u");
             }
 
-            if (v82)
+            if (v81)
             {
               goto LABEL_578;
             }
 
-            v97 = __rev16(*v84);
-            v98 = DNSRecordTypeValueToString(v97);
-            if (v98)
+            v96 = __rev16(*v83);
+            v97 = DNSRecordTypeValueToString(v96);
+            if (v97)
             {
-              v99 = v98;
+              v98 = v97;
               if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
               {
                 dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -6722,8 +6448,8 @@ LABEL_625:
 
               if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
               {
-                v103 = v99;
-                v82 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " %s");
+                v102 = v98;
+                v81 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " %s");
                 goto LABEL_624;
               }
             }
@@ -6737,10 +6463,10 @@ LABEL_625:
 
               if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
               {
-                v103 = v97;
-                v82 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " TYPE%u");
+                v102 = v96;
+                v81 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " TYPE%u");
 LABEL_624:
-                if (v82)
+                if (v81)
                 {
                   goto LABEL_578;
                 }
@@ -6752,29 +6478,29 @@ LABEL_624:
 
           else
           {
-            if (v71 != 65)
+            if (v70 != 65)
             {
               goto LABEL_522;
             }
 
-            if (v70 <= v68)
+            if (v69 <= v67)
             {
               goto LABEL_647;
             }
 
             while (1)
             {
-              v132 = 0;
-              v133 = 0;
-              v130 = 0;
               v131 = 0;
-              memset(v140, 0, sizeof(v140));
-              if (_DNSMessageExtractRecordEx(a1, a2, v68, v140, &v130 + 1, &v130, &v131, &v133, &v132, 0, 0, 0, 0, &v135) || v135 > v70 || DomainNameToString(v140, 0, __src, 0))
+              v132 = 0;
+              v129 = 0;
+              v130 = 0;
+              memset(v139, 0, sizeof(v139));
+              if (_DNSMessageExtractRecordEx(a1, a2, v67, v139, &v129 + 1, &v129, &v130, &v132, &v131, 0, 0, 0, 0, &v134) || v134 > v69 || DomainNameToString(v139, 0, __src, 0))
               {
                 break;
               }
 
-              if (v123 && _NameIsPrivate(__src))
+              if (v122 && _NameIsPrivate(__src))
               {
                 if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
                 {
@@ -6786,8 +6512,8 @@ LABEL_624:
                   break;
                 }
 
-                v103 = __src;
-                v74 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "%~s");
+                v102 = __src;
+                v73 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "%~s");
               }
 
               else
@@ -6802,11 +6528,11 @@ LABEL_624:
                   break;
                 }
 
-                v103 = __src;
-                v74 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "%s");
+                v102 = __src;
+                v73 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "%s");
               }
 
-              if (v74)
+              if (v73)
               {
                 break;
               }
@@ -6816,68 +6542,68 @@ LABEL_624:
                 dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
               }
 
-              if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " 0x%08X", v131))
+              if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " 0x%08X", v130))
               {
                 break;
               }
 
-              v75 = "ANY";
-              if (v130 != 255)
+              v74 = "ANY";
+              if (v129 != 255)
               {
-                v75 = 0;
+                v74 = 0;
               }
 
-              if (v130 == 1)
+              if (v129 == 1)
               {
-                v76 = "IN";
+                v75 = "IN";
               }
 
               else
               {
-                v76 = v75;
+                v75 = v74;
+              }
+
+              if (v75)
+              {
+                if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
+                {
+                  dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
+                }
+
+                if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
+                {
+                  break;
+                }
+
+                v102 = v75;
+                v76 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " %s");
+              }
+
+              else
+              {
+                if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
+                {
+                  dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
+                }
+
+                if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
+                {
+                  break;
+                }
+
+                v102 = v129;
+                v76 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " CLASS%u");
               }
 
               if (v76)
               {
-                if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
-                {
-                  dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
-                }
-
-                if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
-                {
-                  break;
-                }
-
-                v103 = v76;
-                v77 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " %s");
+                break;
               }
 
-              else
-              {
-                if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
-                {
-                  dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
-                }
-
-                if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
-                {
-                  break;
-                }
-
-                v103 = v130;
-                v77 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " CLASS%u");
-              }
-
+              v77 = DNSRecordTypeValueToString(HIWORD(v129));
               if (v77)
               {
-                break;
-              }
-
-              v78 = DNSRecordTypeValueToString(HIWORD(v130));
-              if (v78)
-              {
-                v79 = v78;
+                v78 = v77;
                 if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
                 {
                   dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -6888,8 +6614,8 @@ LABEL_624:
                   break;
                 }
 
-                v103 = v79;
-                v80 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " %s");
+                v102 = v78;
+                v79 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " %s");
               }
 
               else
@@ -6904,38 +6630,38 @@ LABEL_624:
                   break;
                 }
 
-                v103 = HIWORD(v130);
-                v80 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " TYPE%u");
+                v102 = HIWORD(v129);
+                v79 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " TYPE%u");
               }
 
-              if (v80)
+              if (v79)
               {
                 break;
               }
 
-              DNSRecordDataToStringEx(v133, v132, HIWORD(v130), a1, a2, v123, &v134);
-              if (v134)
+              DNSRecordDataToStringEx(v132, v131, HIWORD(v129), a1, a2, v122, &v133);
+              if (v133)
               {
                 if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
                 {
                   dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
                 }
 
-                if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " %s", v134))
+                if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " %s", v133))
                 {
                   break;
                 }
 
-                if (v134)
+                if (v133)
                 {
-                  free(v134);
-                  v134 = 0;
+                  free(v133);
+                  v133 = 0;
                 }
               }
 
               else
               {
-                if (v123)
+                if (v122)
                 {
                   if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
                   {
@@ -6947,8 +6673,8 @@ LABEL_624:
                     break;
                   }
 
-                  v103 = v132;
-                  v81 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " [%zu B]");
+                  v102 = v131;
+                  v80 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " [%zu B]");
                 }
 
                 else
@@ -6963,20 +6689,20 @@ LABEL_624:
                     break;
                   }
 
-                  v105 = v132;
-                  v107 = v132;
-                  v103 = v133;
-                  v81 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " %#H");
+                  v104 = v131;
+                  v106 = v131;
+                  v102 = v132;
+                  v80 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " %#H");
                 }
 
-                if (v81)
+                if (v80)
                 {
                   break;
                 }
               }
 
-              v68 = v135;
-              if (v135 >= v70)
+              v67 = v134;
+              if (v134 >= v69)
               {
                 goto LABEL_625;
               }
@@ -6984,23 +6710,23 @@ LABEL_624:
           }
 
 LABEL_631:
-          v92 = -6735;
+          v91 = -6735;
 LABEL_626:
-          if (v134)
+          if (v133)
           {
-            free(v134);
+            free(v133);
           }
 
-          if (v92)
+          if (v91)
           {
             goto LABEL_647;
           }
 
-          v64 = v127;
-          v65 = v119;
+          v63 = v126;
+          v64 = v118;
         }
 
-        while (v127 < v122);
+        while (v126 < v121);
       }
 
       if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
@@ -7013,7 +6739,7 @@ LABEL_626:
         goto LABEL_647;
       }
 
-      if (((a3 >> 2) & 1) != 0 ? _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "]", v103, v105, v107, v108) : _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "\n]", v103, v105, v107, v108))
+      if (((a3 >> 2) & 1) != 0 ? _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "]", v102, v104, v106, v107) : _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "\n]", v102, v104, v106, v107))
       {
         goto LABEL_647;
       }
@@ -7025,7 +6751,7 @@ LABEL_639:
       dispatch_once(&_GetCUSymAddr_DataBuffer_Append_sOnce, &__block_literal_global_235);
     }
 
-    if (_GetCUSymAddr_DataBuffer_Append_sAddr && !_GetCUSymAddr_DataBuffer_Append_sAddr(v128, "", 1))
+    if (_GetCUSymAddr_DataBuffer_Append_sAddr && !_GetCUSymAddr_DataBuffer_Append_sAddr(v127, "", 1))
     {
       if (_GetCUSymAddr_DataBuffer_Detach_sOnce != -1)
       {
@@ -7034,34 +6760,34 @@ LABEL_639:
 
       if (_GetCUSymAddr_DataBuffer_Detach_sAddr)
       {
-        _GetCUSymAddr_DataBuffer_Detach_sAddr(v128, a4, &v125);
+        _GetCUSymAddr_DataBuffer_Detach_sAddr(v127, a4, &v124);
       }
     }
 
     goto LABEL_647;
   }
 
+  v19 = 0;
   v20 = 0;
-  v21 = 0;
-  v118 = (v111 << 8) + v117;
-  v22 = v137;
-  v23 = a2;
+  v117 = (v110 << 8) + v116;
+  v21 = v136;
+  v22 = a2;
   while (1)
   {
     LOWORD(__src[0]) = 0;
-    LOWORD(v140[0]) = 0;
-    if (DNSMessageExtractQuestion(a1, v23, v127, v22, __src, v140, &v127))
+    LOWORD(v139[0]) = 0;
+    if (DNSMessageExtractQuestion(a1, v22, v126, v21, __src, v139, &v126))
     {
       break;
     }
 
-    v24 = SLOWORD(v140[0]) < 0;
+    v23 = SLOWORD(v139[0]) < 0;
     if (a3)
     {
-      LOWORD(v140[0]) &= ~0x8000u;
+      LOWORD(v139[0]) &= ~0x8000u;
     }
 
-    v25 = a3 & v24;
+    v24 = a3 & v23;
     if ((a3 & 4) != 0)
     {
       if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
@@ -7069,25 +6795,25 @@ LABEL_639:
         dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
       }
 
-      if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "%s", v121))
+      if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "%s", v120))
       {
         break;
       }
 
-      if (v21 && (DomainNameEqual(v22, v21) & 1) != 0)
+      if (v20 && (DomainNameEqual(v21, v20) & 1) != 0)
       {
-        v27 = v22;
-        v22 = v21;
+        v26 = v21;
+        v21 = v20;
       }
 
       else
       {
-        if (DomainNameToString(v22, 0, v138, 0))
+        if (DomainNameToString(v21, 0, v137, 0))
         {
           break;
         }
 
-        if (v123 && _NameIsPrivate(v138))
+        if (v122 && _NameIsPrivate(v137))
         {
           if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
           {
@@ -7099,7 +6825,7 @@ LABEL_639:
             break;
           }
 
-          v32 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "%~s ");
+          v31 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "%~s ");
         }
 
         else
@@ -7114,74 +6840,74 @@ LABEL_639:
             break;
           }
 
-          v32 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "%s ");
+          v31 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "%s ");
         }
 
-        if (v32)
+        if (v31)
         {
           break;
         }
 
-        if (v22 == v137)
+        if (v21 == v136)
         {
-          v27 = v136;
+          v26 = v135;
         }
 
         else
         {
-          v27 = v137;
+          v26 = v136;
         }
 
-        *v27 = 0;
+        *v26 = 0;
       }
 
-      v33 = "ANY";
-      if (LOWORD(v140[0]) != 255)
+      v32 = "ANY";
+      if (LOWORD(v139[0]) != 255)
       {
-        v33 = 0;
+        v32 = 0;
       }
 
-      if (LOWORD(v140[0]) == 1)
+      if (LOWORD(v139[0]) == 1)
       {
-        v34 = "IN";
+        v33 = "IN";
       }
 
       else
       {
-        v34 = v33;
+        v33 = v32;
+      }
+
+      if (v33)
+      {
+        if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
+        {
+          dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
+        }
+
+        if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
+        {
+          break;
+        }
+
+        v34 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "%s");
+      }
+
+      else
+      {
+        if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
+        {
+          dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
+        }
+
+        if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
+        {
+          break;
+        }
+
+        v34 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "CLASS%u");
       }
 
       if (v34)
-      {
-        if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
-        {
-          dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
-        }
-
-        if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
-        {
-          break;
-        }
-
-        v35 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "%s");
-      }
-
-      else
-      {
-        if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
-        {
-          dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
-        }
-
-        if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
-        {
-          break;
-        }
-
-        v35 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "CLASS%u");
-      }
-
-      if (v35)
       {
         break;
       }
@@ -7198,22 +6924,22 @@ LABEL_639:
           break;
         }
 
-        v36 = "QM";
-        if (v25)
+        v35 = "QM";
+        if (v24)
         {
-          v36 = "QU";
+          v35 = "QU";
         }
 
-        if (_GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " %s", v36))
+        if (_GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " %s", v35))
         {
           break;
         }
       }
 
-      v37 = DNSRecordTypeValueToString(LOWORD(__src[0]));
-      if (v37)
+      v36 = DNSRecordTypeValueToString(LOWORD(__src[0]));
+      if (v36)
       {
-        v38 = v37;
+        v37 = v36;
         if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
         {
           dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -7224,8 +6950,8 @@ LABEL_639:
           break;
         }
 
-        v103 = v38;
-        v39 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " %s?");
+        v102 = v37;
+        v38 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " %s?");
       }
 
       else
@@ -7240,40 +6966,40 @@ LABEL_639:
           break;
         }
 
-        v103 = LOWORD(__src[0]);
-        v39 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " TYPE%u?");
+        v102 = LOWORD(__src[0]);
+        v38 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " TYPE%u?");
       }
 
-      if (v39)
+      if (v38)
       {
         break;
       }
 
-      v21 = v22;
-      v121 = ", ";
+      v20 = v21;
+      v120 = ", ";
     }
 
     else
     {
-      if (!v20)
+      if (!v19)
       {
         if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
         {
           dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
         }
 
-        if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "\nQUESTION SECTION\n"))
+        if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr || _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "\nQUESTION SECTION\n"))
         {
           break;
         }
       }
 
-      if (DomainNameToString(v22, 0, v138, 0))
+      if (DomainNameToString(v21, 0, v137, 0))
       {
         break;
       }
 
-      if (v123 && _NameIsPrivate(v138))
+      if (v122 && _NameIsPrivate(v137))
       {
         if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
         {
@@ -7285,7 +7011,7 @@ LABEL_639:
           break;
         }
 
-        v26 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "%~-30s");
+        v25 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "%~-30s");
       }
 
       else
@@ -7300,10 +7026,10 @@ LABEL_639:
           break;
         }
 
-        v26 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, "%-30s");
+        v25 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, "%-30s");
       }
 
-      if (v26)
+      if (v25)
       {
         break;
       }
@@ -7318,77 +7044,77 @@ LABEL_639:
         break;
       }
 
-      v28 = "QM";
-      if (v25)
+      v27 = "QM";
+      if (v24)
       {
-        v28 = "QU";
+        v27 = "QU";
       }
 
       if ((a3 & 1) == 0)
       {
-        v28 = "";
+        v27 = "";
       }
 
-      if (_GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " %2s", v28))
+      if (_GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " %2s", v27))
       {
         break;
       }
 
-      v29 = "ANY";
-      if (LOWORD(v140[0]) != 255)
+      v28 = "ANY";
+      if (LOWORD(v139[0]) != 255)
       {
-        v29 = 0;
+        v28 = 0;
       }
 
-      if (LOWORD(v140[0]) == 1)
+      if (LOWORD(v139[0]) == 1)
       {
-        v30 = "IN";
+        v29 = "IN";
       }
 
       else
       {
-        v30 = v29;
+        v29 = v28;
+      }
+
+      if (v29)
+      {
+        if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
+        {
+          dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
+        }
+
+        if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
+        {
+          break;
+        }
+
+        v30 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " %s");
+      }
+
+      else
+      {
+        if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
+        {
+          dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
+        }
+
+        if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
+        {
+          break;
+        }
+
+        v30 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " CLASS%u");
       }
 
       if (v30)
       {
-        if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
-        {
-          dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
-        }
-
-        if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
-        {
-          break;
-        }
-
-        v31 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " %s");
-      }
-
-      else
-      {
-        if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
-        {
-          dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
-        }
-
-        if (!_GetCUSymAddr_DataBuffer_AppendF_sAddr)
-        {
-          break;
-        }
-
-        v31 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " CLASS%u");
-      }
-
-      if (v31)
-      {
         break;
       }
 
-      v40 = DNSRecordTypeValueToString(LOWORD(__src[0]));
-      if (v40)
+      v39 = DNSRecordTypeValueToString(LOWORD(__src[0]));
+      if (v39)
       {
-        v41 = v40;
+        v40 = v39;
         if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
         {
           dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -7399,8 +7125,8 @@ LABEL_639:
           break;
         }
 
-        v103 = v41;
-        v42 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " %-5s\n");
+        v102 = v40;
+        v41 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " %-5s\n");
       }
 
       else
@@ -7415,30 +7141,30 @@ LABEL_639:
           break;
         }
 
-        v103 = LOWORD(__src[0]);
-        v42 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v128, " TYPE%u\n");
+        v102 = LOWORD(__src[0]);
+        v41 = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v127, " TYPE%u\n");
       }
 
-      v27 = v22;
-      if (v42)
+      v26 = v21;
+      if (v41)
       {
         break;
       }
     }
 
-    ++v20;
-    v22 = v27;
-    v23 = a2;
-    if (v118 == v20)
+    ++v19;
+    v21 = v26;
+    v22 = a2;
+    if (v117 == v19)
     {
       goto LABEL_200;
     }
   }
 
 LABEL_647:
-  if (v126)
+  if (v125)
   {
-    free(v126);
+    free(v125);
   }
 
   if (_GetCUSymAddr_DataBuffer_Free_sOnce != -1)
@@ -7448,7 +7174,7 @@ LABEL_647:
 
   if (_GetCUSymAddr_DataBuffer_Free_sAddr)
   {
-    _GetCUSymAddr_DataBuffer_Free_sAddr(v128);
+    _GetCUSymAddr_DataBuffer_Free_sAddr(v127);
   }
 }
 
@@ -7470,20 +7196,20 @@ uint64_t DNSRecordDataToStringEx(unsigned __int8 *a1, unint64_t a2, int a3, unin
     dispatch_once(&_GetCUSymAddr_DataBuffer_Init_sOnce, &__block_literal_global_5688);
   }
 
-  v102 = 0;
-  *v103 = 0;
-  memset(v101, 0, sizeof(v101));
-  v100 = 0;
-  memset(v106, 0, sizeof(v106));
-  bzero(v105, 0x3F1uLL);
+  v95 = 0;
+  *v96 = 0;
+  memset(v94, 0, sizeof(v94));
+  v93 = 0;
+  memset(v99, 0, sizeof(v99));
+  bzero(v98, 0x3F1uLL);
   if (!_GetCUSymAddr_DataBuffer_Init_sAddr)
   {
     goto LABEL_464;
   }
 
-  v95 = a7;
+  v88 = a7;
   v13 = &a1[a2];
-  _GetCUSymAddr_DataBuffer_Init_sAddr(v101, v106, 256, -1);
+  _GetCUSymAddr_DataBuffer_Init_sAddr(v94, v99, 256, -1);
   CUSymAddr_DataBuffer_Append_sAddr = 4294960582;
   if (a3 <= 32)
   {
@@ -7506,7 +7232,7 @@ uint64_t DNSRecordDataToStringEx(unsigned __int8 *a1, unint64_t a2, int a3, unin
 LABEL_84:
           if (a4)
           {
-            DomainNameString = DNSMessageExtractDomainNameString(a4, a5, a1, v105, 0);
+            DomainNameString = DNSMessageExtractDomainNameString(a4, a5, a1, v98, 0);
             if (DomainNameString)
             {
               goto LABEL_441;
@@ -7515,7 +7241,7 @@ LABEL_84:
 
           else
           {
-            DomainNameString = DomainNameToString(a1, &a1[a2], v105, 0);
+            DomainNameString = DomainNameToString(a1, &a1[a2], v98, 0);
             if (DomainNameString)
             {
               goto LABEL_441;
@@ -7523,30 +7249,30 @@ LABEL_84:
           }
 
 LABEL_384:
-          v83 = 0;
+          v82 = 0;
           goto LABEL_432;
         }
 
         if (a4)
         {
-          DomainNameString = DNSMessageExtractDomainNameString(a4, a5, a1, v105, v103);
+          DomainNameString = DNSMessageExtractDomainNameString(a4, a5, a1, v98, v96);
           if (DomainNameString)
           {
             goto LABEL_441;
           }
 
-          if (*v103 >= v13)
+          if (*v96 >= v13)
           {
             goto LABEL_467;
           }
 
-          DomainNameString = _AppendDomainNameStringEx(v101, 0, a6, v105);
+          DomainNameString = _AppendDomainNameStringEx(v94, 0, a6, v98);
           if (DomainNameString)
           {
             goto LABEL_441;
           }
 
-          DomainNameString = DNSMessageExtractDomainNameString(a4, a5, *v103, v105, v103);
+          DomainNameString = DNSMessageExtractDomainNameString(a4, a5, *v96, v98, v96);
           if (DomainNameString)
           {
             goto LABEL_441;
@@ -7555,33 +7281,32 @@ LABEL_384:
 
         else
         {
-          DomainNameString = DomainNameToString(a1, &a1[a2], v105, v103);
+          DomainNameString = DomainNameToString(a1, &a1[a2], v98, v96);
           if (DomainNameString)
           {
             goto LABEL_441;
           }
 
-          DomainNameString = _AppendDomainNameStringEx(v101, 0, a6, v105);
+          DomainNameString = _AppendDomainNameStringEx(v94, 0, a6, v98);
           if (DomainNameString)
           {
             goto LABEL_441;
           }
 
-          DomainNameString = DomainNameToString(*v103, &a1[a2], v105, v103);
+          DomainNameString = DomainNameToString(*v96, &a1[a2], v98, v96);
           if (DomainNameString)
           {
             goto LABEL_441;
           }
         }
 
-        DomainNameString = _AppendDomainNameStringEx(v101, " ", a6, v105);
+        DomainNameString = _AppendDomainNameStringEx(v94, " ", a6, v98);
         if (DomainNameString)
         {
           goto LABEL_441;
         }
 
-        v82 = *v103;
-        if (v13 - *v103 == 20)
+        if (&v13[-*v96] == 20)
         {
           if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
           {
@@ -7593,12 +7318,7 @@ LABEL_384:
             goto LABEL_464;
           }
 
-          v93 = bswap32(v82[3]);
-          v94 = bswap32(v82[4]);
-          v91 = bswap32(v82[1]);
-          v92 = bswap32(v82[2]);
-          v89 = bswap32(*v82);
-          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, " %u %u %u %u %u");
+          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " %u %u %u %u %u");
           goto LABEL_377;
         }
 
@@ -7622,7 +7342,7 @@ LABEL_467:
         goto LABEL_467;
       }
 
-      DomainNameString = _AppendIPv4Address(v101, 0, a1, a6);
+      DomainNameString = _AppendIPv4Address(v94, 0, a1, a6);
       if (DomainNameString)
       {
         goto LABEL_441;
@@ -7639,7 +7359,7 @@ LABEL_433:
         goto LABEL_464;
       }
 
-      DomainNameString = _GetCUSymAddr_DataBuffer_Append_sAddr(v101, "", 1);
+      DomainNameString = _GetCUSymAddr_DataBuffer_Append_sAddr(v94, "", 1);
       if (!DomainNameString)
       {
         if (_GetCUSymAddr_DataBuffer_Detach_sOnce != -1)
@@ -7649,7 +7369,7 @@ LABEL_433:
 
         if (_GetCUSymAddr_DataBuffer_Detach_sAddr)
         {
-          DomainNameString = _GetCUSymAddr_DataBuffer_Detach_sAddr(v101, v95, &v100);
+          DomainNameString = _GetCUSymAddr_DataBuffer_Detach_sAddr(v94, v88, &v93);
           goto LABEL_441;
         }
 
@@ -7677,7 +7397,7 @@ LABEL_464:
             goto LABEL_467;
           }
 
-          DomainNameString = _AppendIPv6Address(v101, 0, a1, a6);
+          DomainNameString = _AppendIPv6Address(v94, 0, a1, a6);
           if (DomainNameString)
           {
             goto LABEL_441;
@@ -7702,14 +7422,14 @@ LABEL_227:
           goto LABEL_464;
         }
 
-        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "%u %u %u", __rev16(*a1), a1[2], a1[3]);
+        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%u %u %u", __rev16(*a1), a1[2], a1[3]);
         if (DomainNameString)
         {
           goto LABEL_441;
         }
 
-        *v103 = a1 + 4;
-        v107[0] = 0;
+        *v96 = a1 + 4;
+        v100[0] = 0;
         if (_GetCUSymAddr_Base64EncodeCopyEx_sOnce != -1)
         {
           dispatch_once(&_GetCUSymAddr_Base64EncodeCopyEx_sOnce, &__block_literal_global_253_5771);
@@ -7720,7 +7440,7 @@ LABEL_227:
           goto LABEL_464;
         }
 
-        DomainNameString = _GetCUSymAddr_Base64EncodeCopyEx_sAddr(*v103, v13 - *v103, 0, v107, 0);
+        DomainNameString = _GetCUSymAddr_Base64EncodeCopyEx_sAddr(*v96, &v13[-*v96], 0, v100, 0);
         if (DomainNameString)
         {
           goto LABEL_441;
@@ -7754,7 +7474,7 @@ LABEL_240:
             goto LABEL_464;
           }
 
-          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "[%zu B]");
+          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "[%zu B]");
         }
 
         else if (a2 == 1)
@@ -7769,7 +7489,7 @@ LABEL_240:
             goto LABEL_464;
           }
 
-          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "%#H");
+          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%#H");
         }
 
         else
@@ -7784,7 +7504,7 @@ LABEL_240:
             goto LABEL_464;
           }
 
-          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "%#{txt}");
+          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%#{txt}");
         }
 
 LABEL_377:
@@ -7819,7 +7539,7 @@ LABEL_377:
     v39 = v41;
     if (a4)
     {
-      DomainNameString = DNSMessageExtractDomainNameString(a4, a5, v40, v105, 0);
+      DomainNameString = DNSMessageExtractDomainNameString(a4, a5, v40, v98, 0);
       if (DomainNameString)
       {
         goto LABEL_441;
@@ -7828,7 +7548,7 @@ LABEL_377:
 
     else
     {
-      DomainNameString = DomainNameToString(v40, v13, v105, 0);
+      DomainNameString = DomainNameToString(v40, v13, v98, 0);
       if (DomainNameString)
       {
         goto LABEL_441;
@@ -7845,13 +7565,13 @@ LABEL_377:
       goto LABEL_464;
     }
 
-    DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "%u", __rev16(v39));
+    DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%u", __rev16(v39));
     if (!DomainNameString)
     {
 LABEL_431:
-      v83 = " ";
+      v82 = " ";
 LABEL_432:
-      DomainNameString = _AppendDomainNameStringEx(v101, v83, a6, v105);
+      DomainNameString = _AppendDomainNameStringEx(v94, v82, a6, v98);
       if (DomainNameString)
       {
         goto LABEL_441;
@@ -7873,7 +7593,7 @@ LABEL_441:
       {
         if (a4)
         {
-          DomainNameString = DNSMessageExtractDomainNameString(a4, a5, a1, v105, v103);
+          DomainNameString = DNSMessageExtractDomainNameString(a4, a5, a1, v98, v96);
           if (DomainNameString)
           {
             goto LABEL_441;
@@ -7882,24 +7602,24 @@ LABEL_441:
 
         else
         {
-          DomainNameString = DomainNameToString(a1, &a1[a2], v105, v103);
+          DomainNameString = DomainNameToString(a1, &a1[a2], v98, v96);
           if (DomainNameString)
           {
             goto LABEL_441;
           }
         }
 
-        if (*v103 < v13)
+        if (*v96 < v13)
         {
-          DomainNameString = _AppendDomainNameStringEx(v101, 0, a6, v105);
+          DomainNameString = _AppendDomainNameStringEx(v94, 0, a6, v98);
           if (DomainNameString)
           {
             goto LABEL_441;
           }
 
-          v21 = *v103;
+          v21 = *v96;
 LABEL_371:
-          DomainNameString = _DNSRecordDataAppendTypeBitMap(v101, v21, v13);
+          DomainNameString = _DNSRecordDataAppendTypeBitMap(v94, v21, v13);
           if (DomainNameString)
           {
             goto LABEL_441;
@@ -7936,19 +7656,19 @@ LABEL_371:
         goto LABEL_464;
       }
 
-      DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "%u %u %u", *a1, a1[1], __rev16(*(a1 + 1)));
+      DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%u %u %u", *a1, a1[1], __rev16(*(a1 + 1)));
       if (DomainNameString)
       {
         goto LABEL_441;
       }
 
-      *v103 = a1 + 4;
+      *v96 = a1 + 4;
       if ((a2 - 4) < 1)
       {
         goto LABEL_467;
       }
 
-      *v103 = a1 + 5;
+      *v96 = a1 + 5;
       v16 = a1[4];
       if (a2 - 5 < v16)
       {
@@ -7965,21 +7685,21 @@ LABEL_371:
         goto LABEL_464;
       }
 
-      DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, " %.4H", *v103, v16, v16);
+      DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " %.4H", *v96, v16, v16);
       if (DomainNameString)
       {
         goto LABEL_441;
       }
 
-      v17 = (*v103 + v16);
-      *v103 = v17;
-      if ((v13 - v17) < 1)
+      v17 = (*v96 + v16);
+      *v96 = v17;
+      if (v13 - v17 < 1)
       {
         goto LABEL_467;
       }
 
       v18 = v17 + 1;
-      *v103 = v17 + 1;
+      *v96 = v17 + 1;
       v19 = *v17;
       if (v13 - (v17 + 1) < v19)
       {
@@ -7998,26 +7718,26 @@ LABEL_371:
           goto LABEL_464;
         }
 
-        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, " ");
+        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " ");
         if (DomainNameString)
         {
           goto LABEL_441;
         }
 
-        v18 = *v103;
+        v18 = *v96;
       }
 
       v20 = &v18[v19];
       while (1)
       {
-        v21 = *v103;
-        v22 = &v20[-*v103];
-        if (v20 == *v103)
+        v21 = *v96;
+        v22 = &v20[-*v96];
+        if (v20 == *v96)
         {
           goto LABEL_371;
         }
 
-        v107[0] = 0;
+        v100[0] = 0;
         if (v22 > 2)
         {
           if (v22 == 4)
@@ -8031,11 +7751,11 @@ LABEL_371:
             goto LABEL_61;
           }
 
-          v26 = *(*v103 + 2);
-          v24 = (v26 << 16) | (*(*v103 + 1) << 24);
-          v25 = v24 | (**v103 << 32);
-          *v103 += 3;
-          BYTE4(v107[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[2 * (v26 & 0xF)];
+          v26 = *(*v96 + 2);
+          v24 = (v26 << 16) | (*(*v96 + 1) << 24);
+          v25 = v24 | (**v96 << 32);
+          *v96 += 3;
+          BYTE4(v100[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[2 * (v26 & 0xF)];
           v23 = 5;
         }
 
@@ -8044,20 +7764,20 @@ LABEL_371:
           if (v22 == 1)
           {
             v28 = 0;
-            v25 = **v103 << 32;
-            ++*v103;
+            v25 = **v96 << 32;
+            ++*v96;
             goto LABEL_74;
           }
 
           if (v22 != 2)
           {
 LABEL_61:
-            v27 = *(*v103 + 4);
+            v27 = *(*v96 + 4);
 LABEL_64:
-            v29 = *(*v103 + 3);
+            v29 = *(*v96 + 3);
             v30 = v27 | (v29 << 8);
-            v24 = (*(*v103 + 1) << 24) | (*(*v103 + 2) << 16) | v30;
-            v25 = v24 | (**v103 << 32);
+            v24 = (*(*v96 + 1) << 24) | (*(*v96 + 2) << 16) | v30;
+            v25 = v24 | (**v96 << 32);
             if (v22 >= 5)
             {
               v31 = 5;
@@ -8065,10 +7785,10 @@ LABEL_64:
 
             else
             {
-              v31 = &v20[-*v103];
+              v31 = &v20[-*v96];
             }
 
-            *v103 += v31;
+            *v96 += v31;
             if (v22 == 4)
             {
               v23 = 7;
@@ -8076,26 +7796,26 @@ LABEL_64:
 
             else
             {
-              HIBYTE(v107[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[v27 & 0x1F];
+              HIBYTE(v100[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[v27 & 0x1F];
               v23 = 8;
             }
 
             v32 = DNSRecordDataToStringEx_kBase32ExtendedHex[(v29 >> 2) & 0x1F];
-            BYTE6(v107[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[(v30 >> 5) & 0x1F];
-            BYTE5(v107[0]) = v32;
-            BYTE4(v107[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[(v24 >> 15) & 0x1F];
+            BYTE6(v100[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[(v30 >> 5) & 0x1F];
+            BYTE5(v100[0]) = v32;
+            BYTE4(v100[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[(v24 >> 15) & 0x1F];
             goto LABEL_71;
           }
 
           v23 = 0;
-          v24 = *(*v103 + 1) << 24;
-          v25 = v24 | (**v103 << 32);
-          *v103 += 2;
+          v24 = *(*v96 + 1) << 24;
+          v25 = v24 | (**v96 << 32);
+          *v96 += 2;
         }
 
 LABEL_71:
-        BYTE3(v107[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[(v24 >> 20) & 0x1F];
-        BYTE2(v107[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[(v24 >> 25) & 0x1F];
+        BYTE3(v100[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[(v24 >> 20) & 0x1F];
+        BYTE2(v100[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[(v24 >> 25) & 0x1F];
         if (v23)
         {
           v28 = v23;
@@ -8107,8 +7827,8 @@ LABEL_71:
         }
 
 LABEL_74:
-        BYTE1(v107[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[(v25 >> 30) & 0x1F];
-        LOBYTE(v107[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[v25 >> 35];
+        BYTE1(v100[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[(v25 >> 30) & 0x1F];
+        LOBYTE(v100[0]) = DNSRecordDataToStringEx_kBase32ExtendedHex[v25 >> 35];
         if (_GetCUSymAddr_DataBuffer_Append_sOnce != -1)
         {
           dispatch_once(&_GetCUSymAddr_DataBuffer_Append_sOnce, &__block_literal_global_235);
@@ -8129,7 +7849,7 @@ LABEL_74:
           v33 = 2;
         }
 
-        CUSymAddr_DataBuffer_Append_sAddr = _GetCUSymAddr_DataBuffer_Append_sAddr(v101, v107, v33);
+        CUSymAddr_DataBuffer_Append_sAddr = _GetCUSymAddr_DataBuffer_Append_sAddr(v94, v100, v33);
         if (CUSymAddr_DataBuffer_Append_sAddr)
         {
           goto LABEL_442;
@@ -8162,21 +7882,21 @@ LABEL_74:
       goto LABEL_464;
     }
 
-    DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "%u", __rev16(*a1));
+    DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%u", __rev16(*a1));
     if (DomainNameString)
     {
       goto LABEL_441;
     }
 
-    bzero(v107, 0x3F1uLL);
-    *v104 = a1 + 2;
-    DomainNameString = DomainNameToString(a1 + 2, v13, v107, v104);
+    bzero(v100, 0x3F1uLL);
+    *v97 = a1 + 2;
+    DomainNameString = DomainNameToString(a1 + 2, v13, v100, v97);
     if (DomainNameString)
     {
       goto LABEL_441;
     }
 
-    DomainNameString = _AppendDomainNameStringEx(v101, " ", a6, v107);
+    DomainNameString = _AppendDomainNameStringEx(v94, " ", a6, v100);
     if (DomainNameString)
     {
       goto LABEL_441;
@@ -8184,19 +7904,19 @@ LABEL_74:
 
     while (1)
     {
-      v42 = *v104;
-      if (*v104 >= v13)
+      v42 = *v97;
+      if (*v97 >= v13)
       {
         goto LABEL_433;
       }
 
-      if (v13 - *v104 < 4)
+      if (&v13[-*v97] < 4)
       {
         goto LABEL_462;
       }
 
-      v43 = __rev16(**v104);
-      v44 = *(*v104 + 2);
+      v43 = __rev16(**v97);
+      v44 = *(*v97 + 2);
       v45 = _DNSSVCBKeyToString(v43);
       if (v45)
       {
@@ -8211,8 +7931,8 @@ LABEL_74:
           goto LABEL_464;
         }
 
-        v88 = v46;
-        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, " %s=");
+        v87 = v46;
+        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " %s=");
       }
 
       else
@@ -8227,8 +7947,8 @@ LABEL_74:
           goto LABEL_464;
         }
 
-        v88 = v43;
-        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, " key%u=");
+        v87 = v43;
+        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " key%u=");
       }
 
       if (DomainNameString)
@@ -8237,9 +7957,9 @@ LABEL_74:
       }
 
       v47 = __rev16(v44);
-      v48 = v42 + 4;
-      *v104 = v42 + 4;
-      if (v13 - (v42 + 4) < v47)
+      v48 = (v42 + 4);
+      *v97 = v42 + 4;
+      if (&v13[-v42 - 4] < v47)
       {
 LABEL_462:
         CUSymAddr_DataBuffer_Append_sAddr = 4294960546;
@@ -8265,8 +7985,8 @@ LABEL_163:
                 goto LABEL_464;
               }
 
-              v88 = *v104;
-              DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "%.4H");
+              v87 = *v97;
+              DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%.4H");
 LABEL_218:
               if (DomainNameString)
               {
@@ -8289,19 +8009,19 @@ LABEL_213:
                   goto LABEL_464;
                 }
 
-                v88 = v47;
-                DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "<%u redacted bytes>");
+                v87 = v47;
+                DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "<%u redacted bytes>");
                 goto LABEL_218;
               }
 
-              DomainNameString = _AppendEscapedASCIIString(v101, v42 + 4, &v48[v47], "");
+              DomainNameString = _AppendEscapedASCIIString(v94, (v42 + 4), &v48[v47], "");
               if (DomainNameString)
               {
                 goto LABEL_441;
               }
             }
 
-            *v104 += v47;
+            *v97 += v47;
             goto LABEL_220;
           }
 
@@ -8324,13 +8044,13 @@ LABEL_213:
                   goto LABEL_464;
                 }
 
-                DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "%s", v68);
+                DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%s", v68);
                 if (DomainNameString)
                 {
                   goto LABEL_441;
                 }
 
-                v48 = *v104;
+                v48 = *v97;
               }
 
               v70 = *v48;
@@ -8346,8 +8066,8 @@ LABEL_213:
                   goto LABEL_464;
                 }
 
-                v88 = v70;
-                DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "sla%u");
+                v87 = v70;
+                DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "sla%u");
               }
 
               else
@@ -8363,8 +8083,8 @@ LABEL_213:
                   goto LABEL_464;
                 }
 
-                v88 = v71;
-                DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "%s");
+                v87 = v71;
+                DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%s");
               }
 
               if (DomainNameString)
@@ -8373,8 +8093,8 @@ LABEL_213:
               }
 
               v69 = 0;
-              v48 = (*v104 + 1);
-              *v104 = v48;
+              v48 = (*v97 + 1);
+              *v97 = v48;
               v68 = ",";
             }
 
@@ -8403,17 +8123,17 @@ LABEL_213:
           if (v48 < &v48[v47])
           {
             v56 = "";
-            v57 = (v42 + 4);
+            v57 = v42 + 4;
             while (1)
             {
-              CUSymAddr_DataBuffer_Append_sAddr = _AppendIPv6Address(v101, v56, v57, a6);
+              CUSymAddr_DataBuffer_Append_sAddr = _AppendIPv6Address(v94, v56, v57, a6);
               if (CUSymAddr_DataBuffer_Append_sAddr)
               {
                 goto LABEL_442;
               }
 
-              v57 = *v104 + 16;
-              *v104 = v57;
+              v57 = *v97 + 16;
+              *v97 = v57;
               if (v57 >= v55)
               {
                 break;
@@ -8434,8 +8154,8 @@ LABEL_213:
             goto LABEL_467;
           }
 
-          v66 = *(v42 + 2);
-          *v104 = &v48[v47];
+          v66 = *(v42 + 4);
+          *v97 = &v48[v47];
           if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
           {
             dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -8446,7 +8166,7 @@ LABEL_213:
             goto LABEL_464;
           }
 
-          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "%u", __rev16(v66));
+          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%u", __rev16(v66));
           if (DomainNameString)
           {
             goto LABEL_441;
@@ -8467,14 +8187,14 @@ LABEL_213:
             v60 = (v42 + 4);
             while (1)
             {
-              CUSymAddr_DataBuffer_Append_sAddr = _AppendIPv4Address(v101, v59, v60, a6);
+              CUSymAddr_DataBuffer_Append_sAddr = _AppendIPv4Address(v94, v59, v60, a6);
               if (CUSymAddr_DataBuffer_Append_sAddr)
               {
                 goto LABEL_442;
               }
 
-              v60 = (*v104 + 4);
-              *v104 = v60;
+              v60 = (*v97 + 4);
+              *v97 = v60;
               if (v60 >= v58)
               {
                 break;
@@ -8496,11 +8216,11 @@ LABEL_213:
         v49 = 0;
         v50 = &v48[v47];
         v51 = 1;
-        while (*v104 < v50)
+        while (*v97 < v50)
         {
-          v53 = (*v104 + 1);
-          v52 = **v104;
-          if (*v104 + 1 > v50)
+          v53 = (*v97 + 1);
+          v52 = **v97;
+          if (*v97 + 1 > v50)
           {
             goto LABEL_463;
           }
@@ -8511,7 +8231,7 @@ LABEL_213:
           }
 
           v54 = &v53[v52];
-          *v104 = &v53[v52];
+          *v97 = &v53[v52];
           if ((v51 & 1) == 0)
           {
             if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
@@ -8524,16 +8244,16 @@ LABEL_213:
               goto LABEL_464;
             }
 
-            DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "%s", v49);
+            DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%s", v49);
             if (DomainNameString)
             {
               goto LABEL_441;
             }
 
-            v54 = *v104;
+            v54 = *v97;
           }
 
-          DomainNameString = _AppendEscapedASCIIString(v101, v53, v54, ",");
+          DomainNameString = _AppendEscapedASCIIString(v94, v53, v54, ",");
           v51 = 0;
           v49 = ",";
           if (DomainNameString)
@@ -8558,7 +8278,7 @@ LABEL_213:
           do
           {
             v64 = __rev16(*v48);
-            *v104 = v48 + 2;
+            *v97 = v48 + 2;
             v65 = _DNSSVCBKeyToString(v64);
             if ((v63 & 1) == 0)
             {
@@ -8572,7 +8292,7 @@ LABEL_213:
                 goto LABEL_464;
               }
 
-              DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "%s", v62);
+              DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%s", v62);
               if (DomainNameString)
               {
                 goto LABEL_441;
@@ -8591,8 +8311,8 @@ LABEL_213:
                 goto LABEL_464;
               }
 
-              v88 = v65;
-              DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "%s");
+              v87 = v65;
+              DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%s");
             }
 
             else
@@ -8607,8 +8327,8 @@ LABEL_213:
                 goto LABEL_464;
               }
 
-              v88 = v64;
-              DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "key%u");
+              v87 = v64;
+              DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "key%u");
             }
 
             if (DomainNameString)
@@ -8617,11 +8337,11 @@ LABEL_213:
             }
 
             v63 = 0;
-            v48 = *v104;
+            v48 = *v97;
             v62 = ",";
           }
 
-          while (*v104 < v61);
+          while (*v97 < v61);
         }
       }
 
@@ -8636,7 +8356,7 @@ LABEL_220:
         goto LABEL_464;
       }
 
-      DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "", v88);
+      DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "", v87);
       if (DomainNameString)
       {
         goto LABEL_441;
@@ -8655,7 +8375,7 @@ LABEL_220:
 
       if (a4)
       {
-        DomainNameString = DNSMessageExtractDomainNameString(a4, a5, a1 + 6, v105, 0);
+        DomainNameString = DNSMessageExtractDomainNameString(a4, a5, a1 + 6, v98, 0);
         if (DomainNameString)
         {
           goto LABEL_441;
@@ -8664,7 +8384,7 @@ LABEL_220:
 
       else
       {
-        DomainNameString = DomainNameToString(a1 + 6, &a1[a2], v105, 0);
+        DomainNameString = DomainNameToString(a1 + 6, &a1[a2], v98, 0);
         if (DomainNameString)
         {
           goto LABEL_441;
@@ -8681,7 +8401,7 @@ LABEL_220:
         goto LABEL_464;
       }
 
-      DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "%u %u %u ", __rev16(*a1), __rev16(*(a1 + 1)), __rev16(*(a1 + 2)));
+      DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%u %u %u ", __rev16(*a1), __rev16(*(a1 + 1)), __rev16(*(a1 + 2)));
       if (!DomainNameString)
       {
         goto LABEL_384;
@@ -8696,22 +8416,22 @@ LABEL_220:
     }
 
     v34 = 1;
-    *v103 = a1;
+    *v96 = a1;
     while (1)
     {
       v35 = v34;
-      if (*v103 > v13)
+      if (*v96 > v13)
       {
         goto LABEL_463;
       }
 
-      if (v13 - *v103 < 2)
+      if (&v13[-*v96] < 2)
       {
         goto LABEL_462;
       }
 
-      v36 = **v103;
-      *v103 += 2;
+      v36 = **v96;
+      *v96 += 2;
       if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
       {
         dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -8733,7 +8453,7 @@ LABEL_220:
         v38 = " ";
       }
 
-      DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "%s%u", v38, v37);
+      DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%s%u", v38, v37);
       if (DomainNameString)
       {
         goto LABEL_441;
@@ -8742,27 +8462,27 @@ LABEL_220:
       v34 = 0;
       if ((v35 & 1) == 0)
       {
-        v85 = 3;
-        while (*v103 <= v13)
+        v84 = 3;
+        while (*v96 <= v13)
         {
-          if (v13 == *v103)
+          if (v13 == *v96)
           {
             goto LABEL_462;
           }
 
-          v87 = (*v103 + 1);
-          v86 = **v103;
-          if (*v103 + 1 > v13)
+          v86 = (*v96 + 1);
+          v85 = **v96;
+          if (*v96 + 1 > v13)
           {
             break;
           }
 
-          if (v13 - v87 < v86)
+          if (v13 - v86 < v85)
           {
             goto LABEL_462;
           }
 
-          *v103 = &v87[v86];
+          *v96 = &v86[v85];
           if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
           {
             dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -8773,13 +8493,13 @@ LABEL_220:
             goto LABEL_464;
           }
 
-          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, " ");
+          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " ");
           if (DomainNameString)
           {
             goto LABEL_441;
           }
 
-          DomainNameString = _AppendEscapedASCIIString(v101, v87, *v103, "");
+          DomainNameString = _AppendEscapedASCIIString(v94, v86, *v96, "");
           if (DomainNameString)
           {
             goto LABEL_441;
@@ -8795,15 +8515,15 @@ LABEL_220:
             goto LABEL_464;
           }
 
-          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "");
+          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "");
           if (DomainNameString)
           {
             goto LABEL_441;
           }
 
-          if (!--v85)
+          if (!--v84)
           {
-            DomainNameString = DomainNameToString(*v103, v13, v105, v103);
+            DomainNameString = DomainNameToString(*v96, v13, v98, v96);
             if (DomainNameString)
             {
               goto LABEL_441;
@@ -8830,7 +8550,7 @@ LABEL_220:
           goto LABEL_433;
         }
 
-        if (v13 - a1 < 4)
+        if ((v13 - a1) < 4)
         {
           goto LABEL_462;
         }
@@ -8853,7 +8573,7 @@ LABEL_220:
           goto LABEL_464;
         }
 
-        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "%s{", v72);
+        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%s{", v72);
         if (DomainNameString)
         {
           goto LABEL_441;
@@ -8872,7 +8592,7 @@ LABEL_220:
             goto LABEL_464;
           }
 
-          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "Padding");
+          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "Padding");
         }
 
         else if (v76 == 15)
@@ -8887,7 +8607,7 @@ LABEL_220:
             goto LABEL_464;
           }
 
-          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "EDE");
+          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "EDE");
         }
 
         else
@@ -8902,7 +8622,7 @@ LABEL_220:
             goto LABEL_464;
           }
 
-          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "CODE%u");
+          DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "CODE%u");
         }
 
         if (DomainNameString)
@@ -8920,7 +8640,7 @@ LABEL_220:
           goto LABEL_464;
         }
 
-        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, ", ");
+        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, ", ");
         if (DomainNameString)
         {
           goto LABEL_441;
@@ -8949,7 +8669,7 @@ LABEL_220:
         }
 
         v79 = __rev16(v78);
-        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "code: %u", v79);
+        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "code: %u", v79);
         if (DomainNameString)
         {
           goto LABEL_441;
@@ -8971,7 +8691,7 @@ LABEL_220:
               goto LABEL_464;
             }
 
-            DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, " (%s)", v81);
+            DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " (%s)", v81);
             if (DomainNameString)
             {
               goto LABEL_441;
@@ -8990,7 +8710,7 @@ LABEL_220:
               goto LABEL_464;
             }
 
-            DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, ", extra-text: ");
+            DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, ", extra-text: ");
             if (DomainNameString)
             {
               goto LABEL_441;
@@ -9008,7 +8728,7 @@ LABEL_220:
                 goto LABEL_464;
               }
 
-              DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "«REDACTED»");
+              DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "«REDACTED»");
             }
 
             else
@@ -9023,7 +8743,7 @@ LABEL_220:
                 goto LABEL_464;
               }
 
-              DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "'%.*s'");
+              DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "'%.*s'");
             }
 
 LABEL_333:
@@ -9044,7 +8764,7 @@ LABEL_333:
           goto LABEL_464;
         }
 
-        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "}");
+        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "}");
         a1 = v77;
         v72 = ", ";
         if (DomainNameString)
@@ -9065,7 +8785,7 @@ LABEL_333:
           goto LABEL_464;
         }
 
-        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "[%u B]");
+        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "[%u B]");
       }
 
       else if (v76 == 12 && v74 && !*v73 && !memcmp(a1 + 4, a1 + 5, v74 - 1))
@@ -9080,7 +8800,7 @@ LABEL_333:
           goto LABEL_464;
         }
 
-        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "<%u zero bytes>");
+        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "<%u zero bytes>");
       }
 
       else
@@ -9095,7 +8815,7 @@ LABEL_333:
           goto LABEL_464;
         }
 
-        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "'%H'");
+        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "'%H'");
       }
 
       goto LABEL_333;
@@ -9120,7 +8840,7 @@ LABEL_463:
         goto LABEL_464;
       }
 
-      DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "%u %u %u", __rev16(*a1), a1[2], a1[3]);
+      DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%u %u %u", __rev16(*a1), a1[2], a1[3]);
       if (DomainNameString)
       {
         goto LABEL_441;
@@ -9138,7 +8858,7 @@ LABEL_463:
           goto LABEL_464;
         }
 
-        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, " %.4H", a1 + 4, a2 - 4, a2 - 4);
+        DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " %.4H", a1 + 4, a2 - 4, a2 - 4);
         if (DomainNameString)
         {
           goto LABEL_441;
@@ -9156,10 +8876,10 @@ LABEL_463:
     goto LABEL_442;
   }
 
-  v104[0] = 0;
-  v98 = 0;
-  v99 = 0;
-  v97 = 0;
+  v97[0] = 0;
+  v91 = 0;
+  v92 = 0;
+  v90 = 0;
   if (a2 < 0x13)
   {
     goto LABEL_467;
@@ -9177,7 +8897,7 @@ LABEL_463:
       goto LABEL_464;
     }
 
-    DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "%s");
+    DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "%s");
   }
 
   else
@@ -9192,8 +8912,7 @@ LABEL_463:
       goto LABEL_464;
     }
 
-    v90 = __rev16(*a1);
-    DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, "TYPE%u");
+    DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, "TYPE%u");
   }
 
   if (DomainNameString)
@@ -9211,16 +8930,16 @@ LABEL_463:
     goto LABEL_464;
   }
 
-  DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, " %u %u %u", a1[2], a1[3], bswap32(*(a1 + 1)));
+  DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " %u %u %u", a1[2], a1[3], bswap32(*(a1 + 1)));
   if (DomainNameString)
   {
     goto LABEL_441;
   }
 
-  v104[0] = 0;
-  v98 = 0;
-  v99 = 0;
-  v97 = 0;
+  v97[0] = 0;
+  v91 = 0;
+  v92 = 0;
+  v90 = 0;
   if (_GetCUSymAddr_SecondsToYMD_HMS_sOnce != -1)
   {
     dispatch_once(&_GetCUSymAddr_SecondsToYMD_HMS_sOnce, &__block_literal_global_257);
@@ -9231,7 +8950,7 @@ LABEL_463:
     goto LABEL_464;
   }
 
-  _GetCUSymAddr_SecondsToYMD_HMS_sAddr(bswap32(*(a1 + 2)) + 0xE77934880, v104, &v99 + 4, &v99, &v98 + 4, &v98, &v97);
+  _GetCUSymAddr_SecondsToYMD_HMS_sAddr(bswap32(*(a1 + 2)) + 0xE77934880, v97, &v92 + 4, &v92, &v91 + 4, &v91, &v90);
   if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
   {
     dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -9242,7 +8961,7 @@ LABEL_463:
     goto LABEL_464;
   }
 
-  DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, " %u%02u%02u%02u%02u%02u", v104[0], HIDWORD(v99), v99, HIDWORD(v98), v98, v97);
+  DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " %u%02u%02u%02u%02u%02u", v97[0], HIDWORD(v92), v92, HIDWORD(v91), v91, v90);
   if (DomainNameString)
   {
     goto LABEL_441;
@@ -9258,7 +8977,7 @@ LABEL_463:
     goto LABEL_464;
   }
 
-  _GetCUSymAddr_SecondsToYMD_HMS_sAddr(bswap32(*(a1 + 3)) + 0xE77934880, v104, &v99 + 4, &v99, &v98 + 4, &v98, &v97);
+  _GetCUSymAddr_SecondsToYMD_HMS_sAddr(bswap32(*(a1 + 3)) + 0xE77934880, v97, &v92 + 4, &v92, &v91 + 4, &v91, &v90);
   if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
   {
     dispatch_once(&_GetCUSymAddr_DataBuffer_AppendF_sOnce, &__block_literal_global_224);
@@ -9269,7 +8988,7 @@ LABEL_463:
     goto LABEL_464;
   }
 
-  DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, " %u%02u%02u%02u%02u%02u", v104[0], HIDWORD(v99), v99, HIDWORD(v98), v98, v97);
+  DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " %u%02u%02u%02u%02u%02u", v97[0], HIDWORD(v92), v92, HIDWORD(v91), v91, v90);
   if (DomainNameString)
   {
     goto LABEL_441;
@@ -9285,26 +9004,26 @@ LABEL_463:
     goto LABEL_464;
   }
 
-  DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, " %u", __rev16(*(a1 + 8)));
+  DomainNameString = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " %u", __rev16(*(a1 + 8)));
   if (DomainNameString)
   {
     goto LABEL_441;
   }
 
-  *v103 = a1 + 18;
-  DomainNameString = DomainNameToString(a1 + 18, v13, v105, v103);
+  *v96 = a1 + 18;
+  DomainNameString = DomainNameToString(a1 + 18, v13, v98, v96);
   if (DomainNameString)
   {
     goto LABEL_441;
   }
 
-  DomainNameString = _AppendDomainNameStringEx(v101, " ", a6, v105);
+  DomainNameString = _AppendDomainNameStringEx(v94, " ", a6, v98);
   if (DomainNameString)
   {
     goto LABEL_441;
   }
 
-  v107[0] = 0;
+  v100[0] = 0;
   if (_GetCUSymAddr_Base64EncodeCopyEx_sOnce != -1)
   {
     dispatch_once(&_GetCUSymAddr_Base64EncodeCopyEx_sOnce, &__block_literal_global_253_5771);
@@ -9315,7 +9034,7 @@ LABEL_463:
     goto LABEL_464;
   }
 
-  DomainNameString = _GetCUSymAddr_Base64EncodeCopyEx_sAddr(*v103, v13 - *v103, 0, v107, 0);
+  DomainNameString = _GetCUSymAddr_Base64EncodeCopyEx_sAddr(*v96, &v13[-*v96], 0, v100, 0);
   if (DomainNameString)
   {
     goto LABEL_441;
@@ -9329,16 +9048,16 @@ LABEL_463:
   if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
   {
 LABEL_421:
-    CUSymAddr_DataBuffer_Append_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v101, " %s", v107[0]);
+    CUSymAddr_DataBuffer_Append_sAddr = _GetCUSymAddr_DataBuffer_AppendF_sAddr(v94, " %s", v100[0]);
     goto LABEL_422;
   }
 
 LABEL_468:
   CUSymAddr_DataBuffer_Append_sAddr = 4294960561;
 LABEL_422:
-  if (v107[0])
+  if (v100[0])
   {
-    free(v107[0]);
+    free(v100[0]);
   }
 
   if (!CUSymAddr_DataBuffer_Append_sAddr)
@@ -9354,7 +9073,7 @@ LABEL_442:
 
   if (_GetCUSymAddr_DataBuffer_Free_sAddr)
   {
-    _GetCUSymAddr_DataBuffer_Free_sAddr(v101);
+    _GetCUSymAddr_DataBuffer_Free_sAddr(v94);
   }
 
   return CUSymAddr_DataBuffer_Append_sAddr;
@@ -9411,8 +9130,18 @@ uint64_t _AppendIPv6Address(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
   return _AppendIPAddress(a1, a2, a3, 16, v5);
 }
 
-uint64_t _AppendDomainNameStringEx(uint64_t a1, uint64_t a2, int a3, const char *a4)
+uint64_t _AppendDomainNameStringEx(uint64_t a1, const char *a2, int a3, const char *a4)
 {
+  if (a2)
+  {
+    v6 = a2;
+  }
+
+  else
+  {
+    v6 = "";
+  }
+
   if (a3 && _NameIsPrivate(a4))
   {
     if (_GetCUSymAddr_DataBuffer_AppendF_sOnce != -1)
@@ -9422,8 +9151,7 @@ uint64_t _AppendDomainNameStringEx(uint64_t a1, uint64_t a2, int a3, const char 
 
     if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
     {
-      v5 = "%s%~s";
-      return _GetCUSymAddr_DataBuffer_AppendF_sAddr(a1, v5);
+      return _GetCUSymAddr_DataBuffer_AppendF_sAddr(a1, "%s%~s", v6, a4);
     }
   }
 
@@ -9436,8 +9164,7 @@ uint64_t _AppendDomainNameStringEx(uint64_t a1, uint64_t a2, int a3, const char 
 
     if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
     {
-      v5 = "%s%s";
-      return _GetCUSymAddr_DataBuffer_AppendF_sAddr(a1, v5);
+      return _GetCUSymAddr_DataBuffer_AppendF_sAddr(a1, "%s%s");
     }
   }
 
@@ -9702,7 +9429,7 @@ uint64_t _AppendIPAddress(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, in
 
     if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
     {
-      return (_GetCUSymAddr_DataBuffer_AppendF_sAddr)(a1, "%s%.*a");
+      return _GetCUSymAddr_DataBuffer_AppendF_sAddr(a1, "%s%.*a");
     }
 
     return 4294960561;
@@ -9730,7 +9457,7 @@ uint64_t _AppendIPAddress(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, in
 
     if (_GetCUSymAddr_DataBuffer_AppendF_sAddr)
     {
-      return (_GetCUSymAddr_DataBuffer_AppendF_sAddr)(a1, "%s%~s");
+      return _GetCUSymAddr_DataBuffer_AppendF_sAddr(a1, "%s%~s");
     }
 
     return 4294960561;
@@ -9750,8 +9477,7 @@ uint64_t DNSMessagePrintObfuscatedString(uint64_t a1, const char *a2)
 
     if (_GetCUSymAddr_SNPrintF_sAddr)
     {
-      v3 = "%~s";
-      return _GetCUSymAddr_SNPrintF_sAddr(a1, 64, v3);
+      return _GetCUSymAddr_SNPrintF_sAddr(a1, 64, "%~s", a2);
     }
   }
 
@@ -9764,8 +9490,7 @@ uint64_t DNSMessagePrintObfuscatedString(uint64_t a1, const char *a2)
 
     if (_GetCUSymAddr_SNPrintF_sAddr)
     {
-      v3 = "%s";
-      return _GetCUSymAddr_SNPrintF_sAddr(a1, 64, v3);
+      return _GetCUSymAddr_SNPrintF_sAddr(a1, 64, "%s");
     }
   }
 
@@ -9805,6 +9530,302 @@ uint64_t _DNSMessagePrintObfuscatedIPAddress(uint64_t a1, uint64_t a2, uint64_t 
     }
 
     return 4294960561;
+  }
+
+  return result;
+}
+
+char *put_hex_from_bytes(unsigned __int8 *a1, uint64_t a2, char *__str, unint64_t a4)
+{
+  v4 = __str;
+  if (a1)
+  {
+    v5 = a2;
+    if (a2)
+    {
+      if (2 * a2 < a4)
+      {
+        v6 = a1;
+        v7 = &__str[a4];
+        do
+        {
+          v8 = *v6++;
+          v4 += snprintf(v4, v7 - v4, "%02X", v8);
+          --v5;
+        }
+
+        while (v5);
+      }
+    }
+  }
+
+  return v4;
+}
+
+void _dnssec_obj_rr_nsec3_finalize(uint64_t a1)
+{
+  v2 = *(a1 + 80);
+  if (v2)
+  {
+    ref_count_obj_release(v2);
+    *(a1 + 80) = 0;
+  }
+}
+
+uint64_t _dnssec_obj_rr_nsec3_compare(uint64_t a1, uint64_t a2, char a3)
+{
+  if (a3)
+  {
+    return 3;
+  }
+
+  v6 = *(*(a2 + 16) + 16);
+  if (!domain_name_labels_get_parent(*(*(a1 + 16) + 16), 1uLL))
+  {
+    if (mDNS_SensitiveLoggingEnableCount)
+    {
+      v9 = mDNSLogCategory_DNSSEC == mDNSLogCategory_State;
+    }
+
+    else
+    {
+      v9 = 1;
+    }
+
+    if (v9)
+    {
+      v10 = mDNSLogCategory_DNSSEC;
+      if (!os_log_type_enabled(mDNSLogCategory_DNSSEC, OS_LOG_TYPE_FAULT))
+      {
+        return 2;
+      }
+    }
+
+    else
+    {
+      v10 = mDNSLogCategory_DNSSEC_redacted;
+      if (!os_log_type_enabled(mDNSLogCategory_DNSSEC_redacted, OS_LOG_TYPE_FAULT))
+      {
+        return 2;
+      }
+    }
+
+    v12 = 136447234;
+    v13 = "my_parent != NULL";
+    v14 = 2082;
+    v15 = "";
+    v16 = 2082;
+    v17 = "/Library/Caches/com.apple.xbs/Sources/mDNSResponder/mDNSMacOSX/dnssec_v2/dnssec_objs/dnssec_obj_rr_nsec3.c";
+    v18 = 1024;
+    v19 = 205;
+    v20 = 2048;
+    v21 = 0;
+LABEL_25:
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_FAULT, "AssertMacros: %{public}s, %{public}s file: %{public}s, line: %d, value: %ld", &v12, 0x30u);
+    return 2;
+  }
+
+  if (!domain_name_labels_get_parent(v6, 1uLL))
+  {
+    if (!mDNS_SensitiveLoggingEnableCount || mDNSLogCategory_DNSSEC == mDNSLogCategory_State)
+    {
+      v10 = mDNSLogCategory_DNSSEC;
+      if (!os_log_type_enabled(mDNSLogCategory_DNSSEC, OS_LOG_TYPE_FAULT))
+      {
+        return 2;
+      }
+    }
+
+    else
+    {
+      v10 = mDNSLogCategory_DNSSEC_redacted;
+      if (!os_log_type_enabled(mDNSLogCategory_DNSSEC_redacted, OS_LOG_TYPE_FAULT))
+      {
+        return 2;
+      }
+    }
+
+    v12 = 136447234;
+    v13 = "others_parent != NULL";
+    v14 = 2082;
+    v15 = "";
+    v16 = 2082;
+    v17 = "/Library/Caches/com.apple.xbs/Sources/mDNSResponder/mDNSMacOSX/dnssec_v2/dnssec_objs/dnssec_obj_rr_nsec3.c";
+    v18 = 1024;
+    v19 = 208;
+    v20 = 2048;
+    v21 = 0;
+    goto LABEL_25;
+  }
+
+  if (domain_name_labels_canonical_compare())
+  {
+    return 2;
+  }
+
+  v7 = *(*(a1 + 16) + 16);
+  v8 = *(*(a2 + 16) + 16);
+
+  return domain_name_label_canonical_compare(v7, v8, 0);
+}
+
+BOOL dnssec_obj_rr_nsec3_asserts_name_exists_data_does_not_exist(uint64_t a1, uint64_t a2, int a3, unsigned int a4)
+{
+  if (*(a1 + 34) != a3)
+  {
+    return 0;
+  }
+
+  v6 = *(a1 + 24);
+  v7 = (v6 + *(v6 + 4) + 5 + *(v6 + *(v6 + 4) + 5) + 1);
+  v8 = *(a1 + 36) - (*(v6 + 4) + 5 + *(v6 + *(v6 + 4) + 5) + 1);
+  if (rdata_parser_type_bit_maps_cover_dns_type(v7, v8, a4))
+  {
+    return 0;
+  }
+
+  v10 = &v7[v8];
+  if ((v7 + 1) < v10)
+  {
+    v11 = 0;
+    do
+    {
+      v12 = v7[1];
+      v13 = &v7[v12 + 2];
+      if (v13 > v10)
+      {
+        break;
+      }
+
+      if (!*v7 && v12 != 0)
+      {
+        v11 |= (v7[2] & 4) >> 2;
+      }
+
+      v7 += v12 + 2;
+    }
+
+    while (v13 + 1 < v10);
+    if (v11)
+    {
+      return 0;
+    }
+  }
+
+  nsec3_hashed_name = dnssec_obj_domain_name_get_nsec3_hashed_name(a2, a1);
+  if (nsec3_hashed_name)
+  {
+    return ref_count_obj_compare(*(a1 + 16), nsec3_hashed_name, 1) == 0;
+  }
+
+  v16 = mDNSLogCategory_DNSSEC;
+  if (!mDNS_SensitiveLoggingEnableCount || mDNSLogCategory_DNSSEC == mDNSLogCategory_State)
+  {
+    result = os_log_type_enabled(mDNSLogCategory_DNSSEC, OS_LOG_TYPE_FAULT);
+    if (result)
+    {
+LABEL_22:
+      v17 = 136447234;
+      v18 = "hashed_name != NULL";
+      v19 = 2082;
+      v20 = "";
+      v21 = 2082;
+      v22 = "/Library/Caches/com.apple.xbs/Sources/mDNSResponder/mDNSMacOSX/dnssec_v2/dnssec_objs/dnssec_obj_rr_nsec3.c";
+      v23 = 1024;
+      v24 = 316;
+      v25 = 2048;
+      v26 = 0;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_FAULT, "AssertMacros: %{public}s, %{public}s file: %{public}s, line: %d, value: %ld", &v17, 0x30u);
+      return 0;
+    }
+  }
+
+  else
+  {
+    v16 = mDNSLogCategory_DNSSEC_redacted;
+    result = os_log_type_enabled(mDNSLogCategory_DNSSEC_redacted, OS_LOG_TYPE_FAULT);
+    if (result)
+    {
+      goto LABEL_22;
+    }
+  }
+
+  return result;
+}
+
+BOOL dnssec_obj_rr_nsec3_asserts_name_does_not_exist(uint64_t a1, uint64_t a2, int a3)
+{
+  if (*(a1 + 34) != a3)
+  {
+    return 0;
+  }
+
+  v4 = *(a1 + 16);
+  v5 = *(a1 + 80);
+  nsec3_hashed_name = dnssec_obj_domain_name_get_nsec3_hashed_name(a2, a1);
+  if (nsec3_hashed_name)
+  {
+    v7 = nsec3_hashed_name;
+    v8 = *(a1 + 88);
+    v9 = ref_count_obj_compare(v4, nsec3_hashed_name, 0);
+    if (v8)
+    {
+      if (v9 == -1)
+      {
+        return 1;
+      }
+
+      return ref_count_obj_compare(v7, v5, 0) == -1;
+    }
+
+    if (v9 == -1)
+    {
+      return ref_count_obj_compare(v7, v5, 0) == -1;
+    }
+
+    return 0;
+  }
+
+  if (mDNS_SensitiveLoggingEnableCount)
+  {
+    v11 = mDNSLogCategory_DNSSEC == mDNSLogCategory_State;
+  }
+
+  else
+  {
+    v11 = 1;
+  }
+
+  if (v11)
+  {
+    v12 = mDNSLogCategory_DNSSEC;
+    result = os_log_type_enabled(mDNSLogCategory_DNSSEC, OS_LOG_TYPE_FAULT);
+    if (result)
+    {
+LABEL_18:
+      v13 = 136447234;
+      v14 = "hashed_name != NULL";
+      v15 = 2082;
+      v16 = "";
+      v17 = 2082;
+      v18 = "/Library/Caches/com.apple.xbs/Sources/mDNSResponder/mDNSMacOSX/dnssec_v2/dnssec_objs/dnssec_obj_rr_nsec3.c";
+      v19 = 1024;
+      v20 = 339;
+      v21 = 2048;
+      v22 = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_FAULT, "AssertMacros: %{public}s, %{public}s file: %{public}s, line: %d, value: %ld", &v13, 0x30u);
+      return 0;
+    }
+  }
+
+  else
+  {
+    v12 = mDNSLogCategory_DNSSEC_redacted;
+    result = os_log_type_enabled(mDNSLogCategory_DNSSEC_redacted, OS_LOG_TYPE_FAULT);
+    if (result)
+    {
+      goto LABEL_18;
+    }
   }
 
   return result;

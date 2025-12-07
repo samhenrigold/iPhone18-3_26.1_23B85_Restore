@@ -106,7 +106,7 @@
     [contentView addSubview:v3->_detailTextLabel];
     v42 = 0;
     v41 = 0u;
-    [(PKDashboardSearchResultCell *)v3 _cellLayoutState:0];
+    objc_msgSend__cellLayoutState(v3, 0, 0, 0, 0, 0);
     [(UIImageView *)v3->_thumbnailView setClipsToBounds:1];
     [(UIImageView *)v3->_thumbnailView _setContinuousCornerRadius:*(&v41 + 1)];
     [(PKDashboardSearchResultCell *)v3 resetFonts];
@@ -281,7 +281,7 @@ LABEL_9:
   if (self->_style != style)
   {
     self->_style = style;
-    [(PKDashboardSearchResultCell *)self _cellLayoutState:0];
+    objc_msgSend__cellLayoutState(self, a2, 0, 0, 0, 0, 0);
     [(UIImageView *)self->_thumbnailView _setContinuousCornerRadius:0.0];
     [(PKDashboardSearchResultCell *)self setNeedsLayout];
   }
@@ -444,7 +444,7 @@ LABEL_17:
 - (CGSize)sizeThatFits:(CGSize)fits
 {
   width = fits.width;
-  [(PKDashboardSearchResultCell *)self _cellLayoutState];
+  objc_msgSend__cellLayoutState(self, a2);
   [(PKDashboardCollectionViewCell *)self horizontalInset];
   v6 = width + v5 * -2.0;
   v7 = v6 - (0.0 + 0.0);
@@ -490,14 +490,14 @@ LABEL_17:
 
 - (void)layoutSubviews
 {
-  v52.receiver = self;
-  v52.super_class = PKDashboardSearchResultCell;
-  [(PKDashboardCollectionViewCell *)&v52 layoutSubviews];
-  v51 = 0;
-  v49 = 0u;
+  v81.receiver = self;
+  v81.super_class = PKDashboardSearchResultCell;
+  [(PKDashboardCollectionViewCell *)&v81 layoutSubviews];
+  v80 = 0;
+  v78 = 0u;
   *amount = 0u;
-  v48 = 0u;
-  [(PKDashboardSearchResultCell *)self _cellLayoutState];
+  v77 = 0u;
+  objc_msgSend__cellLayoutState(self);
   contentView = [(PKDashboardSearchResultCell *)self contentView];
   [contentView bounds];
   v5 = v4;
@@ -514,22 +514,28 @@ LABEL_17:
   remainder.size.width = v14;
   remainder.size.height = v15;
   v16 = *(MEMORY[0x1E695F050] + 16);
-  v46.origin = *MEMORY[0x1E695F050];
-  v46.size = v16;
+  v75.origin = *MEMORY[0x1E695F050];
+  v75.size = v16;
   superview = [(UIButton *)self->_actionButton superview];
 
   if (superview)
   {
-    v53.origin.x = v12;
-    v53.origin.y = v13;
-    v53.size.width = v14;
-    v53.size.height = v15;
-    CGRectDivide(v53, &v46, &remainder, 32.0, CGRectMaxXEdge);
+    v82.origin.x = v12;
+    v82.origin.y = v13;
+    v82.size.width = v14;
+    v82.size.height = v15;
+    CGRectDivide(v82, &v75, &remainder, 32.0, CGRectMaxXEdge);
     actionButton = self->_actionButton;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v19 = PKContentAlignmentMake();
+    v21.n128_u64[0] = *&v75.origin.y;
+    v20.n128_u64[0] = *&v75.origin.x;
+    v23.n128_u64[0] = *&v75.size.height;
+    v22.n128_u64[0] = *&v75.size.width;
+    v24.n128_u64[0] = 0x4040000000000000;
+    v25.n128_u64[0] = 0x4040000000000000;
+    PKSizeAlignedInRect(v19, v24, v25, v20, v21, v22, v23, v26);
     [(UIButton *)actionButton setFrame:?];
-    CGRectDivide(remainder, &v46, &remainder, 8.0, CGRectMaxXEdge);
+    CGRectDivide(remainder, &v75, &remainder, 8.0, CGRectMaxXEdge);
   }
 
   superview2 = [(UIActivityIndicatorView *)self->_spinner superview];
@@ -538,21 +544,37 @@ LABEL_17:
   {
     [(UIActivityIndicatorView *)self->_spinner frame];
     PKSizeAspectFit();
-    if (v20 >= 32.0)
+    if (v28 >= 32.0)
     {
-      v21 = v20;
+      v30 = v28;
     }
 
     else
     {
-      v21 = 32.0;
+      v30 = 32.0;
+    }
+
+    if (v28 >= 32.0)
+    {
+      v31 = v29;
+    }
+
+    else
+    {
+      v31 = 32.0;
     }
 
     spinner = self->_spinner;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v33 = PKContentAlignmentMake();
+    v34.n128_u64[0] = *&remainder.origin.x;
+    v35.n128_u64[0] = *&remainder.origin.y;
+    v36.n128_u64[0] = *&remainder.size.width;
+    v37.n128_u64[0] = *&remainder.size.height;
+    v38.n128_f64[0] = v30;
+    v39.n128_f64[0] = v31;
+    PKSizeAlignedInRect(v33, v38, v39, v34, v35, v36, v37, v40);
     [(UIActivityIndicatorView *)spinner setFrame:?];
-    CGRectDivide(remainder, &v46, &remainder, v21 + 8.0, CGRectMaxXEdge);
+    CGRectDivide(remainder, &v75, &remainder, v30 + 8.0, CGRectMaxXEdge);
   }
 
   superview3 = [(UIImageView *)self->_disclosureView superview];
@@ -560,75 +582,83 @@ LABEL_17:
   if (superview3)
   {
     [(UIImageView *)self->_disclosureView frame];
-    CGRectDivide(remainder, &v46, &remainder, v24, CGRectMaxXEdge);
+    v43 = *&v42;
+    v45 = v44;
+    CGRectDivide(remainder, &v75, &remainder, v42, CGRectMaxXEdge);
     disclosureView = self->_disclosureView;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v47 = PKContentAlignmentMake();
+    v49.n128_u64[0] = *&v75.origin.y;
+    v48.n128_u64[0] = *&v75.origin.x;
+    v51.n128_u64[0] = *&v75.size.height;
+    v50.n128_u64[0] = *&v75.size.width;
+    v52.n128_u64[0] = v43;
+    v53.n128_u64[0] = v45;
+    PKSizeAlignedInRect(v47, v52, v53, v48, v49, v50, v51, v54);
     [(UIImageView *)disclosureView setFrame:?];
-    CGRectDivide(remainder, &v46, &remainder, 8.0, CGRectMaxXEdge);
+    CGRectDivide(remainder, &v75, &remainder, 8.0, CGRectMaxXEdge);
   }
 
   image = [(UIImageView *)self->_thumbnailView image];
-  v27 = image;
+  v56 = image;
   if (image)
   {
     [image size];
     PKSizeAspectFit();
-    CGRectDivide(remainder, &v46, &remainder, v28, CGRectMinXEdge);
+    CGRectDivide(remainder, &v75, &remainder, v57, CGRectMinXEdge);
     thumbnailView = self->_thumbnailView;
     UIRectCenteredRect();
     [(UIImageView *)thumbnailView setFrame:?];
-    CGRectDivide(remainder, &v46, &remainder, amount[0], CGRectMinXEdge);
+    CGRectDivide(remainder, &v75, &remainder, amount[0], CGRectMinXEdge);
   }
 
   [(UILabel *)self->_titleLabel pkui_sizeThatFits:1 forceWordWrap:remainder.size.width, remainder.size.height];
-  v31 = v30;
-  v33 = *MEMORY[0x1E695F060];
-  v32 = *(MEMORY[0x1E695F060] + 8);
+  v60 = v59;
+  v62 = *MEMORY[0x1E695F060];
+  v61 = *(MEMORY[0x1E695F060] + 8);
   text = [(UILabel *)self->_subtitleLabel text];
-  v35 = [text length];
+  v64 = [text length];
 
-  v36 = v33;
-  v37 = v32;
-  if (v35)
+  v65 = v62;
+  v66 = v61;
+  if (v64)
   {
     [(UILabel *)self->_subtitleLabel pkui_sizeThatFits:1 forceWordWrap:remainder.size.width, remainder.size.height];
-    v36 = v38;
-    v37 = v39;
+    v65 = v67;
+    v66 = v68;
   }
 
   text2 = [(UILabel *)self->_detailTextLabel text];
-  v41 = [text2 length];
+  v70 = [text2 length];
 
-  if (v41)
+  if (v70)
   {
     [(UILabel *)self->_detailTextLabel pkui_sizeThatFits:1 forceWordWrap:remainder.size.width, remainder.size.height];
-    v43 = v42;
-    v45 = v44;
+    v72 = v71;
+    v74 = v73;
   }
 
   else
   {
-    v43 = v33;
-    v45 = v32;
+    v72 = v62;
+    v74 = v61;
   }
 
   UIRectCenteredRect();
-  remainder = v54;
-  CGRectDivide(v54, &v46, &remainder, v31, CGRectMinYEdge);
-  [(UILabel *)self->_titleLabel setFrame:*&v46.origin, *&v46.size];
-  if (v36 != v33 || v37 != v32)
+  remainder = v83;
+  CGRectDivide(v83, &v75, &remainder, v60, CGRectMinYEdge);
+  [(UILabel *)self->_titleLabel setFrame:*&v75.origin, *&v75.size];
+  if (v65 != v62 || v66 != v61)
   {
-    CGRectDivide(remainder, &v46, &remainder, 2.0, CGRectMinYEdge);
-    CGRectDivide(remainder, &v46, &remainder, v37, CGRectMinYEdge);
-    [(UILabel *)self->_subtitleLabel setFrame:*&v46.origin, *&v46.size];
+    CGRectDivide(remainder, &v75, &remainder, 2.0, CGRectMinYEdge);
+    CGRectDivide(remainder, &v75, &remainder, v66, CGRectMinYEdge);
+    [(UILabel *)self->_subtitleLabel setFrame:*&v75.origin, *&v75.size];
   }
 
-  if (v43 != v33 || v45 != v32)
+  if (v72 != v62 || v74 != v61)
   {
-    CGRectDivide(remainder, &v46, &remainder, 2.0, CGRectMinYEdge);
-    CGRectDivide(remainder, &v46, &remainder, v45, CGRectMinYEdge);
-    [(UILabel *)self->_detailTextLabel setFrame:*&v46.origin, *&v46.size];
+    CGRectDivide(remainder, &v75, &remainder, 2.0, CGRectMinYEdge);
+    CGRectDivide(remainder, &v75, &remainder, v74, CGRectMinYEdge);
+    [(UILabel *)self->_detailTextLabel setFrame:*&v75.origin, *&v75.size];
   }
 }
 

@@ -266,46 +266,44 @@ LABEL_10:
 
 - (id)parameters
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   regex = [(FedStatsCategoricalTypeAssetSpecifier *)self regex];
   assetSpecifierKey = [(FedStatsCategoricalTypeAssetSpecifier *)self assetSpecifierKey];
   assetSpecifierKey2 = [(FedStatsCategoricalTypeAssetSpecifier *)self assetSpecifierKey];
   v6 = [regex matchesInString:assetSpecifierKey options:16 range:{0, objc_msgSend(assetSpecifierKey2, "length")}];
 
   v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v6, "count")}];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         assetSpecifierKey3 = [(FedStatsCategoricalTypeAssetSpecifier *)self assetSpecifierKey];
         range = [v13 range];
         v17 = [assetSpecifierKey3 substringWithRange:{range + 1, v16 - 2}];
         [v7 addObject:v17];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

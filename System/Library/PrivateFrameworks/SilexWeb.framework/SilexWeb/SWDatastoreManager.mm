@@ -48,7 +48,7 @@
 
 - (void)updateDatastore:(id)datastore originatingSession:(id)session options:(unint64_t)options completion:(id)completion
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   datastoreCopy = datastore;
   sessionCopy = session;
   completionCopy = completion;
@@ -70,33 +70,33 @@
     datastoreSynchronizationManager = [(SWDatastoreManager *)self datastoreSynchronizationManager];
     [datastoreSynchronizationManager synchronizeDatastore:datastoreCopy from:self previousDatastore:datastore originatingSession:sessionCopy queueable:v14 completion:completionCopy];
 
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     observers = [(SWDatastoreManager *)self observers];
     allObjects = [observers allObjects];
 
-    v25 = [allObjects countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v25 = [allObjects countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v31;
+      v27 = *v30;
       do
       {
         v28 = 0;
         do
         {
-          if (*v31 != v27)
+          if (*v30 != v27)
           {
             objc_enumerationMutation(allObjects);
           }
 
-          [*(*(&v30 + 1) + 8 * v28++) datastoreManager:self didChangeFromDatastore:datastore toDatastore:datastoreCopy originatingSession:sessionCopy];
+          [*(*(&v29 + 1) + 8 * v28++) datastoreManager:self didChangeFromDatastore:datastore toDatastore:datastoreCopy originatingSession:sessionCopy];
         }
 
         while (v26 != v28);
-        v26 = [allObjects countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v26 = [allObjects countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v26);
@@ -107,8 +107,6 @@
   {
     completionCopy[2](completionCopy);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addObserver:(id)observer

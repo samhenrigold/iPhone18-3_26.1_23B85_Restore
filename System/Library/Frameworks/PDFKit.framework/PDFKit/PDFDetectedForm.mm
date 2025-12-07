@@ -13,9 +13,9 @@
 - (PDFDetectedForm)initWithPage:(id)page displayBox:(int64_t)box
 {
   pageCopy = page;
-  v37.receiver = self;
-  v37.super_class = PDFDetectedForm;
-  v7 = [(PDFDetectedForm *)&v37 init];
+  v38.receiver = self;
+  v38.super_class = PDFDetectedForm;
+  v7 = [(PDFDetectedForm *)&v38 init];
   if (!v7)
   {
 LABEL_19:
@@ -24,7 +24,7 @@ LABEL_19:
   }
 
   createDisplayListForFormDetection = [pageCopy createDisplayListForFormDetection];
-  v36[1] = createDisplayListForFormDetection;
+  v37 = createDisplayListForFormDetection;
   if (createDisplayListForFormDetection)
   {
     v7->_displayBox = box;
@@ -34,8 +34,8 @@ LABEL_19:
     [pageCopy boundsForBox:0];
     v14 = v13;
     v16 = v15;
-    v36[0] = 0;
-    [(PDFDetectedForm *)v7 _collectGlyphEntriesInDisplayList:createDisplayListForFormDetection medianGlyphHeight:v36];
+    v36 = 0;
+    objc_msgSend__collectGlyphEntriesInDisplayList_medianGlyphHeight_(v7);
     v23 = MEMORY[0x1E69E9820];
     v24 = 3321888768;
     v25 = __43__PDFDetectedForm_initWithPage_displayBox___block_invoke;
@@ -44,7 +44,7 @@ LABEL_19:
     v29 = v12 - v16;
     v17 = v7;
     v27 = v17;
-    v30 = v36[0];
+    v30 = v36;
     v32 = 0;
     v33 = 0;
     __p = 0;
@@ -115,103 +115,103 @@ LABEL_20:
   return createDisplayListForFormDetection;
 }
 
-void __43__PDFDetectedForm_initWithPage_displayBox___block_invoke(uint64_t a1)
+void __43__PDFDetectedForm_initWithPage_displayBox___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   CGDisplayListEntryGetBoundingBox();
-  if (!CGRectIsEmpty(v34))
+  if (!CGRectIsEmpty(v35))
   {
     if (CGDisplayListEntryGetType() == 2)
     {
       Path = CGDisplayListEntryPathGetPath();
       if (Path)
       {
-        v3 = Path;
-        v4 = *(MEMORY[0x1E695F050] + 16);
-        v28.origin = *MEMORY[0x1E695F050];
-        v28.size = v4;
-        if (CGPathIsLine() && v32.scale.height == v32.rotation)
+        v4 = Path;
+        v5 = *(MEMORY[0x1E695F050] + 16);
+        v29.origin = *MEMORY[0x1E695F050];
+        v29.size = v5;
+        if (CGPathIsLine() && v33.scale.height == v33.rotation)
         {
-          v28.origin = v32.scale;
-          v28.size.width = v32.horizontalShear - v32.scale.width;
-          v28.size.height = 0.0;
+          v29.origin = v33.scale;
+          v29.size.width = v33.horizontalShear - v33.scale.width;
+          v29.size.height = 0.0;
         }
 
-        else if (CGPathIsRect(v3, &recta))
+        else if (CGPathIsRect(v4, &recta))
         {
-          v28 = recta;
+          v29 = recta;
         }
 
-        if (!CGRectIsNull(v28))
+        if (!CGRectIsNull(v29))
         {
-          v35 = CGRectOffset(v28, *(a1 + 40), *(a1 + 48));
-          x = v35.origin.x;
-          y = v35.origin.y;
-          width = v35.size.width;
-          height = v35.size.height;
-          v28 = v35;
-          v9 = [*(a1 + 32) _classifyRect:?];
-          v10 = v9;
-          if (v9)
+          v36 = CGRectOffset(v29, *(a1 + 40), *(a1 + 48));
+          x = v36.origin.x;
+          y = v36.origin.y;
+          width = v36.size.width;
+          height = v36.size.height;
+          v29 = v36;
+          v10 = [*(a1 + 32) _classifyRect:?];
+          v11 = v10;
+          if (v10)
           {
-            if (v9 != 1)
+            if (v10 != 1)
             {
               goto LABEL_23;
             }
 
-            v36.origin.x = x;
-            v36.origin.y = y;
-            v36.size.width = width;
-            v36.size.height = height;
-            MidY = CGRectGetMidY(v36);
-            v28.origin.y = MidY;
-            v28.size.height = 0.0;
-            v12 = *(a1 + 56);
-            v13 = objc_opt_new();
-            v14 = *(a1 + 64);
-            v15 = *(a1 + 72);
-            if (v14 != v15)
+            v37.origin.x = x;
+            v37.origin.y = y;
+            v37.size.width = width;
+            v37.size.height = height;
+            MidY = CGRectGetMidY(v37);
+            v29.origin.y = MidY;
+            v29.size.height = 0.0;
+            v13 = *(a1 + 56);
+            v14 = objc_opt_new();
+            v15 = *(a1 + 64);
+            v16 = *(a1 + 72);
+            if (v15 != v16)
             {
-              v16 = ceil(v12);
+              v17 = ceil(v13);
               do
               {
                 CGDisplayListEntryGetBoundingBox();
-                v42.origin.x = x;
-                v42.origin.y = MidY;
-                v42.size.width = width;
-                v42.size.height = v16;
-                v38 = CGRectIntersection(v37, v42);
-                v17 = v38.origin.x;
-                v18 = v38.origin.y;
-                v19 = v38.size.width;
-                v20 = v38.size.height;
-                if (!CGRectIsNull(v38))
+                v43.origin.x = x;
+                v43.origin.y = MidY;
+                v43.size.width = width;
+                v43.size.height = v17;
+                v39 = CGRectIntersection(v38, v43);
+                v18 = v39.origin.x;
+                v19 = v39.origin.y;
+                v20 = v39.size.width;
+                v21 = v39.size.height;
+                if (!CGRectIsNull(v39))
                 {
-                  v39.origin.x = v17;
-                  v39.origin.y = v18;
-                  v39.size.width = v19;
-                  v39.size.height = v20;
-                  v40 = CGRectIntegral(v39);
-                  [v13 addIndexesInRange:{v40.origin.x, v40.size.width}];
+                  v40.origin.x = v18;
+                  v40.origin.y = v19;
+                  v40.size.width = v20;
+                  v40.size.height = v21;
+                  v41 = CGRectIntegral(v40);
+                  [v14 addIndexesInRange:{v41.origin.x, v41.size.width}];
                 }
 
-                v14 += 8;
+                v15 += 8;
               }
 
-              while (v14 != v15);
+              while (v15 != v16);
             }
 
-            v41.size.height = 0.0;
-            v41.origin.x = x;
-            v41.origin.y = MidY;
-            v41.size.width = width;
-            v21 = CGRectGetWidth(v41);
-            v22 = v21 - [v13 count] >= 20.0;
+            v42.size.height = 0.0;
+            v42.origin.x = x;
+            v42.origin.y = MidY;
+            v42.size.width = width;
+            v22 = CGRectGetWidth(v42);
+            v23 = v22 - [v14 count] >= 20.0;
 
-            if (v22)
+            if (v23)
             {
 LABEL_23:
-              [*(a1 + 32) _insertFieldRect:&v28 ofKind:v10];
+              [*(a1 + 32) _insertFieldRect:&v29 ofKind:v11];
             }
           }
         }
@@ -220,22 +220,22 @@ LABEL_23:
 
     else if (CGDisplayListEntryGetType() == 1)
     {
-      v31 = 0u;
+      v32 = 0u;
       memset(&recta, 0, sizeof(recta));
       CGDisplayListEntryGlyphsGetCTM();
-      v29 = 0u;
-      memset(&v28, 0, sizeof(v28));
+      v30 = 0u;
+      memset(&v29, 0, sizeof(v29));
       CGDisplayListEntryGlyphsGetFTM();
-      memset(&v32, 0, sizeof(v32));
+      memset(&v33, 0, sizeof(v33));
       memset(&t1, 0, sizeof(t1));
       memset(&t2, 0, sizeof(t2));
       CGAffineTransformConcat(&transform, &t1, &t2);
-      CGAffineTransformDecompose(&v32, &transform);
-      if (fabs(v32.rotation) <= 2.22044605e-14)
+      CGAffineTransformDecompose(&v33, &transform);
+      if (fabs(v33.rotation) <= 2.22044605e-14)
       {
         if (CGDisplayListEntryGlyphsGetFont())
         {
-          v24 = 95;
+          v25 = 95;
           glyphs = 0;
           CGFontGetGlyphsForUnichars();
         }
@@ -373,7 +373,7 @@ LABEL_12:
     do
     {
       v12 = v11 >> 1;
-      v13 = (begin + 32 * (v11 >> 1));
+      v13 = &begin[4 * (v11 >> 1)];
       v15 = *v13;
       v14 = (v13 + 4);
       v11 += ~(v11 >> 1);
@@ -500,7 +500,7 @@ void __71__PDFDetectedForm__collectGlyphEntriesInDisplayList_medianGlyphHeight__
       CGAffineTransformMakeScale(&t2, v6 / UnitsPerEm * v28.a, v6 / UnitsPerEm * v28.d);
       v27 = t2;
       *&t2.a = vmlaq_n_f64(vmulq_n_f64(v30, height * t2.d + t2.b * width), v29, height * t2.c + t2.a * width);
-      std::__tree<double>::__emplace_unique_key_args<double,double const&>(*(*(a1 + 32) + 8) + 48, &t2.b);
+      std::__tree<double>::__emplace_unique_key_args<double,double const&>(*(*(a1 + 32) + 8) + 48, &t2.b, &t2.b);
       v10 = *(*(a1 + 40) + 8);
       v12 = v10[7];
       v11 = v10[8];

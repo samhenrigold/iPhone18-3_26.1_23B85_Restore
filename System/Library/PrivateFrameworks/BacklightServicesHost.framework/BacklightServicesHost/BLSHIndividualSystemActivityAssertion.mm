@@ -28,15 +28,14 @@
 
 - (void)dealloc
 {
-  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"must invalidate before dealloc:%@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"must invalidate before dealloc:%@", self];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v4 = OUTLINED_FUNCTION_4();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a2);
+    v6 = OUTLINED_FUNCTION_4(v4, v5);
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, self, v12, v13);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
   [v3 UTF8String];
@@ -80,15 +79,14 @@
 
 - (void)acquireWithTimeout:(char *)a1 handler:(double)a2 .cold.1(char *a1, double a2)
 {
-  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"timeout must be 0 to use BLSHAggregatedSystemActivityAssertionFactory timeout:%lf"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"timeout must be 0 to use BLSHAggregatedSystemActivityAssertionFactory timeout:%lf", *&a2];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v4 = OUTLINED_FUNCTION_4();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v6 = OUTLINED_FUNCTION_4(v4, v5);
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, *&a2, v12, v13);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
   [v3 UTF8String];

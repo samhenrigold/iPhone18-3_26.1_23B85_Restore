@@ -29,7 +29,7 @@
   v7 = v6;
   if (v6)
   {
-    [v6 vcp_livePhotoStillDisplayTime];
+    objc_msgSend_vcp_livePhotoStillDisplayTime(v6);
   }
 
   else

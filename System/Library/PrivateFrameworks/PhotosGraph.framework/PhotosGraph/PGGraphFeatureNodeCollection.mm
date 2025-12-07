@@ -47,7 +47,7 @@ void __50__PGGraphFeatureNodeCollection_featureIdentifiers__block_invoke(uint64_
 
 void __43__PGGraphFeatureNodeCollection_allFeatures__block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 conformsToProtocol:&unk_284490578])
   {
@@ -65,14 +65,14 @@ void __43__PGGraphFeatureNodeCollection_allFeatures__block_invoke(uint64_t a1, v
 
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v13 = [v3 label];
-        v14 = objc_opt_class();
-        v15 = NSStringFromClass(v14);
-        v16 = 138412546;
-        v17 = v13;
-        v18 = 2112;
-        v19 = v15;
-        _os_log_error_impl(&dword_22F0FC000, v11, OS_LOG_TYPE_ERROR, "No feature found for feature node with label %@ of class %@", &v16, 0x16u);
+        v12 = [v3 label];
+        v13 = objc_opt_class();
+        v14 = NSStringFromClass(v13);
+        v15 = 138412546;
+        v16 = v12;
+        v17 = 2112;
+        v18 = v14;
+        _os_log_error_impl(&dword_22F0FC000, v11, OS_LOG_TYPE_ERROR, "No feature found for feature node with label %@ of class %@", &v15, 0x16u);
       }
 
       v5 = 0;
@@ -89,15 +89,13 @@ void __43__PGGraphFeatureNodeCollection_allFeatures__block_invoke(uint64_t a1, v
       v7 = [v3 label];
       v8 = objc_opt_class();
       v9 = NSStringFromClass(v8);
-      v16 = 138412546;
-      v17 = v7;
-      v18 = 2112;
-      v19 = v9;
-      _os_log_error_impl(&dword_22F0FC000, v5, OS_LOG_TYPE_ERROR, "Node with label %@ of class %@ in PGGraphFeatureNodeCollection does not conform to PGAssetCollectionFeature protocol", &v16, 0x16u);
+      v15 = 138412546;
+      v16 = v7;
+      v17 = 2112;
+      v18 = v9;
+      _os_log_error_impl(&dword_22F0FC000, v5, OS_LOG_TYPE_ERROR, "Node with label %@ of class %@ in PGGraphFeatureNodeCollection does not conform to PGAssetCollectionFeature protocol", &v15, 0x16u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (PGGraphMomentNodeCollection)momentNodes
@@ -119,39 +117,39 @@ void __43__PGGraphFeatureNodeCollection_allFeatures__block_invoke(uint64_t a1, v
 
 + (PGGraphFeatureNodeCollection)featureNodeCollectionWithFeatures:(id)features inGraph:(id)graph
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   graphCopy = graph;
-  v23 = objc_alloc_init(MEMORY[0x277D22BD0]);
+  v22 = objc_alloc_init(MEMORY[0x277D22BD0]);
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v7 = featuresCopy;
-  v8 = [v7 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v25;
+    v11 = *v24;
     *&v9 = 138412290;
-    v22 = v9;
+    v21 = v9;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v25 != v11)
+        if (*v24 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
-        v14 = [v13 nodeInGraph:{graphCopy, v22}];
+        v13 = *(*(&v23 + 1) + 8 * i);
+        v14 = [v13 nodeInGraph:{graphCopy, v21}];
         v15 = v14;
         if (v14)
         {
           if ([v14 conformsToProtocol:&unk_284490578])
           {
-            [v23 addIdentifier:{objc_msgSend(v15, "identifier")}];
+            [v22 addIdentifier:{objc_msgSend(v15, "identifier")}];
             goto LABEL_14;
           }
 
@@ -160,8 +158,8 @@ void __43__PGGraphFeatureNodeCollection_allFeatures__block_invoke(uint64_t a1, v
 
           if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
           {
-            *buf = v22;
-            v29 = v13;
+            *buf = v21;
+            v28 = v13;
             _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Feature node found for feature (%@) does not conform PGAssetCollectionFeature protocol", buf, 0xCu);
           }
         }
@@ -173,8 +171,8 @@ void __43__PGGraphFeatureNodeCollection_allFeatures__block_invoke(uint64_t a1, v
 
           if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_INFO))
           {
-            *buf = v22;
-            v29 = v13;
+            *buf = v21;
+            v28 = v13;
             _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "Feature node for feature (%@) not found in graph", buf, 0xCu);
           }
         }
@@ -182,14 +180,13 @@ void __43__PGGraphFeatureNodeCollection_allFeatures__block_invoke(uint64_t a1, v
 LABEL_14:
       }
 
-      v10 = [v7 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v10 = [v7 countByEnumeratingWithState:&v23 objects:v29 count:16];
     }
 
     while (v10);
   }
 
-  v19 = [(MAElementCollection *)[PGGraphFeatureNodeCollection alloc] initWithGraph:graphCopy elementIdentifiers:v23];
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = [(MAElementCollection *)[PGGraphFeatureNodeCollection alloc] initWithGraph:graphCopy elementIdentifiers:v22];
 
   return v19;
 }

@@ -116,12 +116,12 @@ LABEL_10:
 
 - (id)addAccentKeyAction:(id)action
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   actionCopy = action;
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen _referenceBounds];
-  Height = CGRectGetHeight(v19);
-  if (Height <= 1194.0 || ([MEMORY[0x277D759A0] mainScreen], v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "_referenceBounds"), CGRectGetHeight(v20) > 1194.0) && -[TypistKeyboard isFloating](self, "isFloating"))
+  Height = CGRectGetHeight(v18);
+  if (Height <= 1194.0 || ([MEMORY[0x277D759A0] mainScreen], v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "_referenceBounds"), CGRectGetHeight(v19) > 1194.0) && -[TypistKeyboard isFloating](self, "isFloating"))
   {
     kahakoKeys = [(TypistKeyboardHawaiian *)self kahakoKeys];
     v9 = [kahakoKeys objectForKeyedSubscript:actionCopy];
@@ -133,8 +133,8 @@ LABEL_10:
       {
         v12 = kahakoDiacriticKey;
         kahakoDiacriticKey2 = [(TypistKeyboardHawaiian *)self kahakoDiacriticKey];
-        v17[0] = kahakoDiacriticKey2;
-        v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+        v16[0] = kahakoDiacriticKey2;
+        v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
 
         goto LABEL_10;
       }
@@ -154,7 +154,6 @@ LABEL_10:
 LABEL_11:
 
 LABEL_12:
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

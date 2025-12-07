@@ -45,7 +45,7 @@
 - (Class)layerClass
 {
   blendMode = [(_TUIGradientStyler *)self->_style blendMode];
-  if ([blendMode isEqualToString:kCAFilterVariableBlur])
+  if (objc_msgSend_isEqualToString_(blendMode))
   {
 
 LABEL_4:
@@ -54,7 +54,7 @@ LABEL_4:
   }
 
   blendMode2 = [(_TUIGradientStyler *)self->_style blendMode];
-  v5 = [blendMode2 isEqualToString:kCAFilterGaussianBlur];
+  v5 = objc_msgSend_isEqualToString_(blendMode2);
 
   if (v5)
   {

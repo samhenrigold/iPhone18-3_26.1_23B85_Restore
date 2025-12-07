@@ -496,7 +496,7 @@ void __74__VUIDownloadDataSource__handleMediaLibraryContentsDidChangeNotificatio
             v16 = [VUISidebandMediaItem alloc];
             v17 = +[VUIMediaLibraryManager defaultManager];
             sidebandMediaLibrary2 = [v17 sidebandMediaLibrary];
-            v19 = VUIMediaEntityFetchRequestAllPropertiesSet();
+            v19 = VUIMediaEntityFetchRequestAllPropertiesSet(sidebandMediaLibrary2);
             adamID = [(VUISidebandMediaItem *)v16 initWithMediaLibrary:sidebandMediaLibrary2 videoManagedObject:v11 requestedProperties:v19];
 
             if (adamID)
@@ -605,7 +605,7 @@ void __74__VUIDownloadDataSource__handleMediaLibraryContentsDidChangeNotificatio
               v52 = [VUIMPMediaItem alloc];
               v53 = +[VUIMediaLibraryManager defaultManager];
               deviceMediaLibrary = [v53 deviceMediaLibrary];
-              v55 = VUIMediaEntityFetchRequestAllPropertiesSet();
+              v55 = VUIMediaEntityFetchRequestAllPropertiesSet(deviceMediaLibrary);
               v56 = [(VUIMPMediaItem *)v52 initWithMediaLibrary:deviceMediaLibrary mediaItem:v51 requestedProperties:v55];
 
               if (v56)
@@ -705,7 +705,7 @@ void __45__VUIDownloadDataSource__loadActiveDownloads__block_invoke(uint64_t a1,
             v16 = [VUISidebandMediaItem alloc];
             v17 = +[VUIMediaLibraryManager defaultManager];
             sidebandMediaLibrary2 = [v17 sidebandMediaLibrary];
-            v19 = VUIMediaEntityFetchRequestAllPropertiesSet();
+            v19 = VUIMediaEntityFetchRequestAllPropertiesSet(sidebandMediaLibrary2);
             v20 = [(VUISidebandMediaItem *)v16 initWithMediaLibrary:sidebandMediaLibrary2 videoManagedObject:v12 requestedProperties:v19];
 
             if (v20)
@@ -756,7 +756,7 @@ void __45__VUIDownloadDataSource__loadActiveDownloads__block_invoke(uint64_t a1,
           v34 = [VUIMPMediaItem alloc];
           v35 = +[VUIMediaLibraryManager defaultManager];
           deviceMediaLibrary = [v35 deviceMediaLibrary];
-          v37 = VUIMediaEntityFetchRequestAllPropertiesSet();
+          v37 = VUIMediaEntityFetchRequestAllPropertiesSet(deviceMediaLibrary);
           v38 = [(VUIMPMediaItem *)v34 initWithMediaLibrary:deviceMediaLibrary mediaItem:v33 requestedProperties:v37];
 
           if (v38)
@@ -1097,7 +1097,7 @@ LABEL_14:
 
   else
   {
-    v10 = VUIDefaultLogObject();
+    v10 = VUIDefaultLogObject(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(VUIDownloadDataSource *)entityCopy _upsertEpisodesDownloadingForShowWithMediaEntity:v10];

@@ -11,7 +11,7 @@
 {
   labelCopy = label;
   footerLabel = [(SUUIGiftFooterLabelTableViewCell *)self footerLabel];
-  if (footerLabel != labelCopy && ([labelCopy isEqualToString:footerLabel] & 1) == 0)
+  if (footerLabel != labelCopy && (objc_msgSend_isEqualToString_(labelCopy) & 1) == 0)
   {
     footerLabel = self->_footerLabel;
     if (labelCopy)

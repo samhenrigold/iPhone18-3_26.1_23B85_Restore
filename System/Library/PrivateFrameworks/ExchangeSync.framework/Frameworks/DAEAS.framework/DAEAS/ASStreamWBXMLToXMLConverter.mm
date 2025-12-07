@@ -1,4 +1,5 @@
 @interface ASStreamWBXMLToXMLConverter
+- (ASStreamWBXMLToXMLConverter)initWithWBXMLInput:(id)input forOutput:(id)output usingMetadata:(BOOL)metadata;
 - (BOOL)runSynchronously;
 - (int64_t)readFromInput;
 - (void)dealloc;
@@ -94,6 +95,24 @@ LABEL_6:
       [(ASWBXMLToXMLConverter *)self handleBytesAvailable];
       break;
   }
+}
+
+- (ASStreamWBXMLToXMLConverter)initWithWBXMLInput:(id)input forOutput:(id)output usingMetadata:(BOOL)metadata
+{
+  metadataCopy = metadata;
+  inputCopy = input;
+  outputCopy = output;
+  v14.receiver = self;
+  v14.super_class = ASStreamWBXMLToXMLConverter;
+  v11 = [(ASWBXMLToXMLConverter *)&v14 initUsingMetadata:metadataCopy];
+  v12 = v11;
+  if (v11)
+  {
+    objc_storeStrong(v11 + 2060, input);
+    objc_storeStrong(&v12->_output, output);
+  }
+
+  return v12;
 }
 
 - (void)dealloc

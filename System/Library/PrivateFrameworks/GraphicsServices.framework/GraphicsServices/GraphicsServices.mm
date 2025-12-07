@@ -3,18 +3,18 @@ CGFloat GSSetMainScreenInfo(double a1, double a2, float a3, float a4)
   __screenWidth = a1;
   __screenHeight = a2;
   __screenScale = LODWORD(a3);
-  __screenOrientation = LODWORD(a4);
+  __screenOrientation[0] = a4;
   return ResetTransforms();
 }
 
 CGFloat ResetTransforms()
 {
-  LODWORD(result) = __screenOrientation;
-  if (*&__screenOrientation != 0.0)
+  *&result = __screenOrientation[0];
+  if (__screenOrientation[0] != 0.0)
   {
     v10 = v0;
     v11 = v1;
-    CGAffineTransformMakeRotation(&v9, -*&__screenOrientation);
+    CGAffineTransformMakeRotation(&v9, -__screenOrientation[0]);
     *__screenWindowTransform = v9;
     v3 = (__screenWidth / *&__screenScale);
     v4 = (__screenHeight / *&__screenScale);
@@ -63,10 +63,11 @@ uint64_t __GSKeyboardClassInitialize()
   return result;
 }
 
-void _GSEventInitializeApp(int a1, NSObject *a2)
+void _GSEventInitializeApp(size_t result, NSObject *a2)
 {
   if ((_GSEventInitializeApp__initialized & 1) == 0)
   {
+    v3 = result;
     _GSEventInitializeApp__initialized = 1;
     _GSEventInitializeShared(a2);
     IdentifierCString = GetIdentifierCString();
@@ -80,18 +81,18 @@ void _GSEventInitializeApp(int a1, NSObject *a2)
       _GSEventInitializeApp_cold_1(&v9);
     }
 
-    if (a1)
+    if (v3)
     {
       if ((_GSEventInitializeApp__backboard & 1) == 0)
       {
         _GSEventInitializeApp__backboard = 1;
         v8 = 256;
-        v5 = _GSRegisterPurpleNamedPortInPrivateNamespace(__PurpleWorkspacePortName);
+        v5 = _GSRegisterPurpleNamedPortInPrivateNamespace(__PurpleWorkspacePortName, 0);
         __workspacePort = v5;
         v6 = MEMORY[0x277D85F48];
         MEMORY[0x223DF9400](*MEMORY[0x277D85F48], v5, 1, &v8, 1);
         AddSourceForEventPort(__workspacePort, a2);
-        v7 = _GSRegisterPurpleNamedPortInPrivateNamespace(__PurpleSystemEventPortName);
+        v7 = _GSRegisterPurpleNamedPortInPrivateNamespace(__PurpleSystemEventPortName, 0);
         __systemEventPort = v7;
         MEMORY[0x223DF9400](*v6, v7, 1, &v8, 1);
         AddSourceForEventPort(__systemEventPort, a2);
@@ -172,7 +173,7 @@ uint64_t GetHardwareKeyboardToken()
 
 char *GetIdentifierCString()
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   result = GetIdentifierCString___identifierCString;
   if (!GetIdentifierCString___identifierCString)
   {
@@ -184,12 +185,12 @@ char *GetIdentifierCString()
       {
         v3 = Identifier;
         Length = CFStringGetLength(Identifier);
-        CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
-        v5 = MEMORY[0x28223BE20]();
-        v7 = v9 - v6;
-        if (CFStringGetCString(v3, v9 - v6, v5 + 1, 0x8000100u))
+        MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
+        v6 = MEMORY[0x28223BE20](MaximumSizeForEncoding);
+        v8 = v10 - v7;
+        if (CFStringGetCString(v3, v10 - v7, v6 + 1, 0x8000100u))
         {
-          GetIdentifierCString___identifierCString = strdup(v7);
+          GetIdentifierCString___identifierCString = strdup(v8);
         }
       }
     }
@@ -197,10 +198,10 @@ char *GetIdentifierCString()
     result = GetIdentifierCString___identifierCString;
     if (!GetIdentifierCString___identifierCString)
     {
-      v8 = getprogname();
-      if (v8)
+      v9 = getprogname();
+      if (v9)
       {
-        result = strdup(v8);
+        result = strdup(v9);
         GetIdentifierCString___identifierCString = result;
       }
 
@@ -242,43 +243,43 @@ uint64_t GSEventGetHardwareKeyboardCountry()
 
 void GSSendAppPreferencesChanged(const __CFString *a1, const __CFString *a2)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   Length = CFStringGetLength(a1);
-  CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
-  v5 = MEMORY[0x28223BE20]();
-  v7 = v15 - v6;
-  CFStringGetCString(a1, v15 - v6, v5 + 1, 0x8000100u);
-  v15[0] = 0;
-  asprintf(v15, "%s.gsEvents", v7);
-  v8 = v15[0];
-  if (v15[0])
+  MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
+  v6 = MEMORY[0x28223BE20](MaximumSizeForEncoding);
+  v8 = v16 - v7;
+  CFStringGetCString(a1, v16 - v7, v6 + 1, 0x8000100u);
+  v16[0] = 0;
+  asprintf(v16, "%s.gsEvents", v8);
+  v9 = v16[0];
+  if (v16[0])
   {
-    LODWORD(v15[0]) = 0;
+    LODWORD(v16[0]) = 0;
     if (bootstrap_look_up2())
     {
-      v9 = 0;
+      v10 = 0;
     }
 
     else
     {
-      v9 = v15[0];
+      v10 = LODWORD(v16[0]);
     }
 
-    if (v9 - 1 <= 0xFFFFFFFD)
+    if ((v10 - 1) <= 0xFFFFFFFD)
     {
-      v10 = CFStringGetLength(a2);
-      MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(v10, 0x8000100u);
-      v12 = MEMORY[0x28223BE20]();
-      v14 = v15 - v13;
-      bzero(v15 - v13, v12 + 97);
-      *v14 = 60;
-      CFStringGetCString(a2, v14 + 88, MaximumSizeForEncoding + 1, 0x8000100u);
-      *(v14 + 18) = strlen(v14 + 88) + 1;
-      GSSendEvent(v14, v9);
-      mach_port_deallocate(*MEMORY[0x277D85F48], v9);
+      v11 = CFStringGetLength(a2);
+      v12 = CFStringGetMaximumSizeForEncoding(v11, 0x8000100u);
+      v13 = MEMORY[0x28223BE20](v12);
+      v15 = v16 - v14;
+      bzero(v16 - v14, v13 + 97);
+      *v15 = 60;
+      CFStringGetCString(a2, v15 + 88, v12 + 1, 0x8000100u);
+      *(v15 + 18) = strlen(v15 + 88) + 1;
+      GSSendEvent(v15, v10);
+      mach_port_deallocate(*MEMORY[0x277D85F48], v10);
     }
 
-    free(v8);
+    free(v9);
   }
 }
 
@@ -922,7 +923,7 @@ void GSEventSetCharacters(uint64_t a1, CFStringRef theString)
   CFStringGetCharacters(theString, v5, (a1 + 114));
 }
 
-uint64_t GSEventIsTabKeyEvent(uint64_t result)
+BOOL GSEventIsTabKeyEvent(_BOOL8 result)
 {
   if (result)
   {
@@ -1035,7 +1036,7 @@ uint64_t GSEventCreateKeyEvent(unsigned int a1, const __CFString *a2, const __CF
   return result;
 }
 
-unint64_t GSCurrentEventTimestamp()
+uint64_t GSCurrentEventTimestamp()
 {
   v0 = mach_absolute_time();
   if (GetTimebase_once != -1)
@@ -1061,14 +1062,15 @@ void GSEventSendKeyEvent(unsigned int a1, const __CFString *a2, const __CFString
   }
 }
 
-uint64_t GSSendEvent(unsigned int *a1, unsigned int a2)
+uint64_t GSSendEvent(unsigned int *a1, uint64_t a2)
 {
   v21 = *MEMORY[0x277D85DE8];
-  if (a2 - 1 > 0xFFFFFFFD)
+  if ((a2 - 1) > 0xFFFFFFFD)
   {
     return 268435459;
   }
 
+  v2 = a2;
   pthread_mutex_lock(&__dispatchQueuesLock);
   if (__dispatchQueues && (v4 = CFArrayGetCount(__dispatchQueues), v4 >= 1))
   {
@@ -1077,7 +1079,7 @@ uint64_t GSSendEvent(unsigned int *a1, unsigned int a2)
     while (1)
     {
       ValueAtIndex = CFArrayGetValueAtIndex(__dispatchQueues, v6);
-      if (ValueAtIndex[4] == a2)
+      if (ValueAtIndex[4] == v2)
       {
         break;
       }
@@ -1097,7 +1099,7 @@ uint64_t GSSendEvent(unsigned int *a1, unsigned int a2)
   else
   {
 LABEL_7:
-    v8 = _GSSendEvent(a1, a2, 0);
+    v8 = _GSSendEvent(a1, v2, 0);
     if (v8 == 268435460)
     {
       if (!__dispatchQueues)
@@ -1108,13 +1110,13 @@ LABEL_7:
       v9 = malloc_type_malloc(0x18uLL, 0x1020040EDCEB4C7uLL);
       *v9 = 0;
       v9[1] = 0;
-      *(v9 + 4) = a2;
+      *(v9 + 4) = v2;
       CFArrayAppendValue(__dispatchQueues, v9);
       memset(&v20, 0, sizeof(v20));
       pthread_attr_init(&v20);
       pthread_attr_setdetachstate(&v20, 2);
       v19 = 0;
-      pthread_create(&v19, &v20, DispatchThread, a2);
+      pthread_create(&v19, &v20, DispatchThread, v2);
       pthread_attr_destroy(&v20);
       if (__dispatchQueues)
       {
@@ -1126,7 +1128,7 @@ LABEL_7:
           while (1)
           {
             v13 = CFArrayGetValueAtIndex(__dispatchQueues, v12);
-            if (v13[4] == a2)
+            if (v13[4] == v2)
             {
               break;
             }
@@ -1189,7 +1191,7 @@ uint64_t GSEventFinishedActivating(int a1, int a2, char a3, char a4)
   v14[1] = *MEMORY[0x277D85DE8];
   IdentifierCString = GetIdentifierCString();
   v9 = strlen(IdentifierCString);
-  v10 = MEMORY[0x28223BE20]();
+  v10 = MEMORY[0x28223BE20](v9);
   v11 = (v14 - ((v10 + 114) & 0xFFFFFFFFFFFFFFF0));
   bzero(v11, v10 + 99);
   *v11 = 2001;
@@ -1215,7 +1217,7 @@ uint64_t GSEventCreateApplicationSuspendEvent(int a1, int a2, char a3, char a4, 
   v19[1] = *MEMORY[0x277D85DE8];
   IdentifierCString = GetIdentifierCString();
   v15 = strlen(IdentifierCString);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v15);
   v17 = v19 - ((v16 + 15) & 0x1FFFFFFF0);
   bzero(v17, v16);
   *v17 = a1;
@@ -1298,7 +1300,7 @@ void GSSendApplicationFinishedBackgroundNotificationActionEvent()
   CFRelease(v0);
 }
 
-uint64_t GSCopyPurpleNamedPort()
+uint64_t GSCopyPurpleNamedPort(uint64_t a1)
 {
   if (bootstrap_look_up2())
   {
@@ -1311,7 +1313,7 @@ uint64_t GSCopyPurpleNamedPort()
   }
 }
 
-void GSEventSendApplicationOpenURL(const __CFURL *a1, unsigned int a2)
+void GSEventSendApplicationOpenURL(const __CFURL *a1, uint64_t a2)
 {
   v10 = *MEMORY[0x277D85DE8];
   v3 = CFURLGetString(a1);
@@ -1376,7 +1378,7 @@ uint64_t GSGetPurpleSystemEventPort()
   return GSGetPurpleSystemEventPort_port;
 }
 
-uint64_t GSCopyPurpleNamedPerPIDPort()
+uint64_t GSCopyPurpleNamedPerPIDPort(uint64_t a1, uint64_t a2)
 {
   bootstrap_look_up2();
   if (bootstrap_look_up2())
@@ -1390,35 +1392,35 @@ uint64_t GSCopyPurpleNamedPerPIDPort()
   }
 }
 
-uint64_t _GSRegisterPurpleNamedPortInPrivateNamespace(const char *a1)
+uint64_t _GSRegisterPurpleNamedPortInPrivateNamespace(const char *a1, int a2)
 {
   name = 0;
   if (bootstrap_check_in2())
   {
-    v2 = MEMORY[0x277D85F48];
+    v3 = MEMORY[0x277D85F48];
     inserted = mach_port_allocate(*MEMORY[0x277D85F48], 1u, &name);
-    if (inserted || (inserted = mach_port_insert_right(*v2, name, name, 0x14u)) != 0)
+    if (inserted || (inserted = mach_port_insert_right(*v3, name, name, 0x14u)) != 0)
     {
-      v4 = inserted;
+      v5 = inserted;
     }
 
     else
     {
-      v4 = bootstrap_register2();
-      mach_port_deallocate(*v2, name);
-      if (!v4)
+      v5 = bootstrap_register2();
+      mach_port_deallocate(*v3, name);
+      if (!v5)
       {
         return name;
       }
     }
 
-    mach_port_mod_refs(*v2, name, 1u, -1);
-    v7 = 0;
-    v6 = mach_error_string(v4);
-    asprintf(&v7, "Couldn't register %s with the bootstrap server. Error: %s (%d).\nThis generally means that another instance of this process was already running or is hung in the debugger.", a1, v6, v4);
-    syslog(3, "%s %s", "_GSRegisterPurpleNamedPortInPrivateNamespace", v7);
-    _GSWriteStackshot(v7);
-    *MEMORY[0x277CBEC18] = v7;
+    mach_port_mod_refs(*v3, name, 1u, -1);
+    v8 = 0;
+    v7 = mach_error_string(v5);
+    asprintf(&v8, "Couldn't register %s with the bootstrap server. Error: %s (%d).\nThis generally means that another instance of this process was already running or is hung in the debugger.", a1, v7, v5);
+    syslog(3, "%s %s", "_GSRegisterPurpleNamedPortInPrivateNamespace", v8);
+    _GSWriteStackshot(v8);
+    *MEMORY[0x277CBEC18] = v8;
     abort();
   }
 
@@ -1484,7 +1486,7 @@ uint64_t _GSSendEvent(int *a1, int a2, int a3)
     v6 = a1[18] + 84;
   }
 
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](a1);
   v9 = v22 - v8;
   if (v6 < 0x401)
   {
@@ -1590,7 +1592,7 @@ uint64_t _GSSendEvent(int *a1, int a2, int a3)
   return v20;
 }
 
-uint64_t GSSendSimpleEventWithSubtype(unsigned int a1, unsigned int a2, unsigned int a3)
+uint64_t GSSendSimpleEventWithSubtype(unsigned int a1, unsigned int a2, uint64_t a3)
 {
   v10 = *MEMORY[0x277D85DE8];
   v9 = 0u;
@@ -1603,7 +1605,7 @@ uint64_t GSSendSimpleEventWithSubtype(unsigned int a1, unsigned int a2, unsigned
   return GSSendEvent(v4, a3);
 }
 
-uint64_t GSSendSimpleEvent(unsigned int a1, unsigned int a2)
+uint64_t GSSendSimpleEvent(unsigned int a1, uint64_t a2)
 {
   v9 = *MEMORY[0x277D85DE8];
   v8 = 0u;
@@ -2136,7 +2138,7 @@ LABEL_76:
       {
         v21 = v18;
         v18 = *v18;
-        v22 = *(v21 + 8);
+        v22 = v21[1];
         v23 = *(v1 + 16);
         if (!v20)
         {
@@ -2316,7 +2318,7 @@ uint64_t ReceiveEvent(mach_port_name_t rcv_name)
   return v7;
 }
 
-void RemoveNode(CFTypeRef *a1, uint64_t *a2, uint64_t a3)
+void RemoveNode(CFTypeRef *a1, uint64_t **a2, uint64_t *a3)
 {
   if (_queue == a1)
   {
@@ -2374,12 +2376,12 @@ void _AddRunLoopSourceForEventPort(unsigned int a1, const __CFString *a2)
   CFRelease(v3);
 }
 
-void _GSWriteStackshot(const char *a1)
+void _GSWriteStackshot(const char *result)
 {
-  v1 = a1;
+  v1 = result;
   if (_GSWriteStackshot_once == -1)
   {
-    if (a1)
+    if (result)
     {
       goto LABEL_3;
     }
@@ -2568,28 +2570,28 @@ uint64_t GSKeyboardHWKeyboardLayoutsPlist()
   {
     v1 = KeyboardLayoutsResourcePath();
     v2 = CFStringCreateWithFormat(0, 0, @"%@/USBKeyboardLayouts.plist", v1);
-    CFStringGetMaximumSizeOfFileSystemRepresentation(v2);
-    MEMORY[0x28223BE20]();
-    v4 = format - v3;
-    CFStringGetFileSystemRepresentation(v2, format - v3, v5);
-    v6 = strlen(v4);
-    v7 = CFURLCreateFromFileSystemRepresentation(0, v4, v6, 0);
-    v8 = CFReadStreamCreateWithFile(0, v7);
+    MaximumSizeOfFileSystemRepresentation = CFStringGetMaximumSizeOfFileSystemRepresentation(v2);
+    MEMORY[0x28223BE20](MaximumSizeOfFileSystemRepresentation);
+    v5 = format - v4;
+    CFStringGetFileSystemRepresentation(v2, format - v4, v6);
+    v7 = strlen(v5);
+    v8 = CFURLCreateFromFileSystemRepresentation(0, v5, v7, 0);
+    v9 = CFReadStreamCreateWithFile(0, v8);
     CFRelease(v2);
-    CFRelease(v7);
-    if (v8)
+    CFRelease(v8);
+    if (v9)
     {
-      CFReadStreamOpen(v8);
+      CFReadStreamOpen(v9);
       format[0] = 0;
-      GSKeyboardHWKeyboardLayoutsPlist_plist = CFPropertyListCreateWithStream(0, v8, 0, 0, format, 0);
-      CFReadStreamClose(v8);
-      CFRelease(v8);
+      GSKeyboardHWKeyboardLayoutsPlist_plist = CFPropertyListCreateWithStream(0, v9, 0, 0, format, 0);
+      CFReadStreamClose(v9);
+      CFRelease(v9);
       return GSKeyboardHWKeyboardLayoutsPlist_plist;
     }
 
     else
     {
-      fprintf(*MEMORY[0x277D85DF8], "*** error: cannot create stream: %s\n", v4);
+      fprintf(*MEMORY[0x277D85DF8], "*** error: cannot create stream: %s\n", v5);
       return 0;
     }
   }
@@ -2671,66 +2673,66 @@ uint64_t GSKeyboardCreateWithCountryCode(const __CFString *a1, int a2, int a3)
 
 uint64_t InitFileDataForLayoutName(const __CFString *a1, int *a2, size_t *a3, void *a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v8 = GSKeyboardHWKeyboardLayoutsForName(a1);
   if (v8 && (Value = CFDictionaryGetValue(v8, @"KeyLayoutFileName"), v10 = KeyboardLayoutsResourcePath(), (v11 = CFStringCreateWithFormat(0, 0, @"%@/uchrs/%@", v10, Value)) != 0) || (v12 = GSSystemRootDirectory(), (v11 = CFStringCreateWithFormat(0, 0, @"%@/System/Library/CoreServices/SpringBoard.app/US.uchr", v12)) != 0))
   {
     v13 = v11;
-    CFStringGetMaximumSizeOfFileSystemRepresentation(v11);
-    v14 = &v31 - ((MEMORY[0x28223BE20]() + 16) & 0xFFFFFFFFFFFFFFF0);
-    CFStringGetFileSystemRepresentation(v13, v14, v15);
+    MaximumSizeOfFileSystemRepresentation = CFStringGetMaximumSizeOfFileSystemRepresentation(v11);
+    v15 = &v32 - ((MEMORY[0x28223BE20](MaximumSizeOfFileSystemRepresentation) + 16) & 0xFFFFFFFFFFFFFFF0);
+    CFStringGetFileSystemRepresentation(v13, v15, v16);
     CFRelease(v13);
-    v16 = open(v14, 0, 256);
-    if (v16 < 0)
+    v17 = open(v15, 0, 256);
+    if (v17 < 0)
     {
-      v21 = *MEMORY[0x277D85DF8];
-      v22 = __error();
-      v23 = strerror(*v22);
-      fprintf(v21, "GSKeyboardRef: file open error: %s, (%s)\n", v14, v23);
+      v22 = *MEMORY[0x277D85DF8];
+      v23 = __error();
+      v24 = strerror(*v23);
+      fprintf(v22, "GSKeyboardRef: file open error: %s, (%s)\n", v15, v24);
       return 0;
     }
 
-    v17 = v16;
-    memset(&v31, 0, sizeof(v31));
-    if (stat(v14, &v31))
+    v18 = v17;
+    memset(&v32, 0, sizeof(v32));
+    if (stat(v15, &v32))
     {
       goto LABEL_6;
     }
 
-    LODWORD(v25) = v31.st_size;
-    if (!v31.st_size)
+    LODWORD(v26) = v32.st_size;
+    if (!v32.st_size)
     {
       goto LABEL_7;
     }
 
-    v26 = getpagesize();
-    v27 = v25 / v26 * v26;
-    v28 = v25 == v27;
-    v29 = v26 + v27;
-    v25 = v28 ? v25 : v29;
-    v30 = mmap(0, v25, 1, 1, v17, 0);
-    if (v30 == -1)
+    v27 = getpagesize();
+    v28 = v26 / v27 * v27;
+    v29 = v26 == v28;
+    v30 = v27 + v28;
+    v26 = v29 ? v26 : v30;
+    v31 = mmap(0, v26, 1, 1, v18, 0);
+    if (v31 == -1)
     {
 LABEL_6:
-      v18 = *MEMORY[0x277D85DF8];
-      v19 = __error();
-      v20 = strerror(*v19);
-      fprintf(v18, "GSKeyboardRef: stat error: %s\n", v20);
+      v19 = *MEMORY[0x277D85DF8];
+      v20 = __error();
+      v21 = strerror(*v20);
+      fprintf(v19, "GSKeyboardRef: stat error: %s\n", v21);
 LABEL_7:
-      close(v17);
+      close(v18);
       return 0;
     }
 
-    *a2 = v17;
-    *a3 = v25;
+    *a2 = v18;
+    *a3 = v26;
     result = 1;
-    *a4 = v30;
+    *a4 = v31;
   }
 
   else
   {
-    CFStringGetCString(a1, &v31, 127, 0x8000100u);
-    fprintf(*MEMORY[0x277D85DF8], "GSKeyboardRef: cannot find keylayout for: %s\n", &v31);
+    CFStringGetCString(a1, &v32, 127, 0x8000100u);
+    fprintf(*MEMORY[0x277D85DF8], "GSKeyboardRef: cannot find keylayout for: %s\n", &v32);
     return 0;
   }
 
@@ -3064,20 +3066,21 @@ uint64_t GSKeyboardGetLayoutContext(uint64_t a1)
 
 uint64_t GSKeyboardHWKeyboardNormalizeInput(uint64_t a1, const void **a2, _DWORD *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   pthread_mutex_lock((a1 + 80));
   GSKeyboardEnsureHWKeyboardNormalizationMap(a1);
   Value = CFDictionaryGetValue(*(a1 + 144), *a2);
   if (Value)
   {
     v7 = CFDictionaryGetValue(*(a1 + 152), *a2);
-    v11 = 8;
-    MEMORY[0x28223BE20]();
-    v10 = 0;
-    if (!GSKeyTranslate(a1, Value, 0, 0, 1, &v10, 8u, &v11, v9))
+    v8 = v7;
+    v12 = 8;
+    MEMORY[0x28223BE20](v7);
+    v11 = 0;
+    if (!GSKeyTranslate(a1, Value, 0, 0, 1, &v11, 8, &v12, v10))
     {
-      *a2 = CFStringCreateWithCharacters(*MEMORY[0x277CBECE8], v9, v11);
-      *a3 |= v7;
+      *a2 = CFStringCreateWithCharacters(*MEMORY[0x277CBECE8], v10, v12);
+      *a3 |= v8;
     }
   }
 
@@ -3086,41 +3089,43 @@ uint64_t GSKeyboardHWKeyboardNormalizeInput(uint64_t a1, const void **a2, _DWORD
 
 void GSKeyboardEnsureHWKeyboardNormalizationMap(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (!*(a1 + 144))
   {
     v2 = *MEMORY[0x277CBECE8];
     v3 = MEMORY[0x277CBF138];
     Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], 0);
     v4 = CFDictionaryCreateMutable(v2, 0, v3, 0);
+    v5 = v4;
     for (i = 0; i != 16; ++i)
     {
-      v6 = GSKeyboardEnsureHWKeyboardNormalizationMap_modifierCombinations[i];
+      v7 = GSKeyboardEnsureHWKeyboardNormalizationMap_modifierCombinations[i];
       for (j = 4; j != 57; ++j)
       {
-        v12 = 8;
-        MEMORY[0x28223BE20]();
-        v11 = 0;
-        if (!GSKeyTranslate(a1, j, 0, SWORD1(v6), 1, &v11, v12, &v12, v9))
+        v13 = 8;
+        MEMORY[0x28223BE20](v4);
+        v12 = 0;
+        v4 = GSKeyTranslate(a1, j, 0, SWORD1(v7), 1, &v12, v13, &v13, v10);
+        if (!v4)
         {
-          v8 = CFStringCreateWithCharacters(v2, v9, v12);
-          if (!CFDictionaryContainsKey(v4, v8))
+          v9 = CFStringCreateWithCharacters(v2, v10, v13);
+          if (!CFDictionaryContainsKey(v5, v9))
           {
-            CFDictionarySetValue(v4, v8, v6);
-            CFDictionarySetValue(Mutable, v8, j);
+            CFDictionarySetValue(v5, v9, v7);
+            CFDictionarySetValue(Mutable, v9, j);
           }
 
-          CFRelease(v8);
+          CFRelease(v9);
         }
       }
     }
 
     *(a1 + 144) = Mutable;
-    *(a1 + 152) = v4;
+    *(a1 + 152) = v5;
   }
 }
 
-uint64_t GSKeyTranslate(uint64_t a1, unsigned int a2, unsigned int a3, __int16 a4, char a5, int *a6, unsigned int a7, unsigned __int16 *a8, uint64_t a9)
+uint64_t GSKeyTranslate(uint64_t a1, unsigned int a2, unsigned int a3, __int16 a4, char a5, int *a6, uint64_t a7, _WORD *a8, uint64_t a9)
 {
   if (!a1)
   {
@@ -3176,6 +3181,7 @@ uint64_t GSKeyTranslate(uint64_t a1, unsigned int a2, unsigned int a3, __int16 a
           v17 = *(v10 + 8);
           if (v17)
           {
+            v18 = a7;
             *a8 = 0;
             v21 = *a6;
             v22 = *a6;
@@ -3303,9 +3309,9 @@ LABEL_94:
                             if (!v44[2])
                             {
 LABEL_111:
-                              if (a3 == 3 || (v67 = v26, v68 = GSKeyEmitStateTerminator(v10, v26, v70, a7, a8, a9), v26 = v67, !v68))
+                              if (a3 == 3 || (v67 = v26, v68 = GSKeyEmitStateTerminator(v10, v26, v70, v18, a8, a9), v26 = v67, !v68))
                               {
-                                result = GSKeyEmitCharOrSequence(v10, v26, *v44, a7, a8, a9);
+                                result = GSKeyEmitCharOrSequence(v10, v26, *v44, v18, a8, a9);
                               }
 
                               else
@@ -3349,7 +3355,7 @@ LABEL_111:
 
                               if (v70 == v66)
                               {
-                                result = GSKeyEmitCharOrSequence(v10, v26, *v65, a7, a8, a9);
+                                result = GSKeyEmitCharOrSequence(v10, v26, *v65, v18, a8, a9);
                                 v35 = 0;
 LABEL_122:
                                 if (v35)
@@ -3417,7 +3423,7 @@ LABEL_122:
                                   }
 
                                   v60 = v26;
-                                  v61 = GSKeyEmitCharOrSequence(v10, v26, v55, a7, a8, a9);
+                                  v61 = GSKeyEmitCharOrSequence(v10, v26, v55, v18, a8, a9);
                                   if (v58)
                                   {
                                     v35 = v59;
@@ -3435,7 +3441,7 @@ LABEL_122:
 
                                   else if ((a5 & 1) != 0 || (a3 | 2) == 3)
                                   {
-                                    result = GSKeyEmitStateTerminator(v10, v60, v59, a7, a8, a9);
+                                    result = GSKeyEmitStateTerminator(v10, v60, v59, v18, a8, a9);
                                   }
 
                                   else
@@ -3456,7 +3462,7 @@ LABEL_122:
                           else
                           {
                             v71 = v26;
-                            v64 = GSKeyEmitCharOrSequence(v10, v26, *v44, a7, a8, a9);
+                            v64 = GSKeyEmitCharOrSequence(v10, v26, *v44, v18, a8, a9);
                             if (v46)
                             {
                               v35 = v44[1];
@@ -3466,7 +3472,7 @@ LABEL_122:
                             {
                               if ((a5 & 1) != 0 || (a3 | 2) == 3)
                               {
-                                result = GSKeyEmitStateTerminator(v10, v71, v44[1], a7, a8, a9);
+                                result = GSKeyEmitStateTerminator(v10, v71, v44[1], v18, a8, a9);
                               }
 
                               else
@@ -3513,7 +3519,7 @@ LABEL_78:
                 {
                   v62 = v26;
                   v34 = 0;
-                  if (GSKeyEmitStateTerminator(v10, v26, v70, a7, a8, v37))
+                  if (GSKeyEmitStateTerminator(v10, v26, v70, v18, a8, v37))
                   {
                     result = 0xFFFFFFFFLL;
                     v35 = 0;
@@ -3535,7 +3541,7 @@ LABEL_78:
                 else
                 {
                   v63 = *a8;
-                  if (v63 >= a7)
+                  if (v63 >= v18)
                   {
                     result = 0xFFFFFFFFLL;
                   }
@@ -3551,7 +3557,7 @@ LABEL_78:
 
               else
               {
-                result = GSKeyEmitSequence(v10, v26, v38, a7, a8, v37);
+                result = GSKeyEmitSequence(v10, v26, v38, v18, a8, v37);
               }
 
               goto LABEL_94;
@@ -3626,7 +3632,7 @@ uint64_t GSKeyboardGetKeyCodeForChar(uint64_t a1, int a2, unsigned int a3)
   return v14;
 }
 
-uint64_t GSKeyboardTranslateKeyWithModifiers(uint64_t a1, int a2, unsigned int a3, int a4, char a5, unsigned int a6, unsigned __int16 *a7, uint64_t a8)
+uint64_t GSKeyboardTranslateKeyWithModifiers(uint64_t a1, int a2, unsigned int a3, int a4, char a5, uint64_t a6, _WORD *a7, uint64_t a8)
 {
   v12 = HIWORD(a4);
   pthread_mutex_lock((a1 + 80));
@@ -3675,7 +3681,7 @@ uint64_t GSKeyboardTranslateKeyWithModifiers(uint64_t a1, int a2, unsigned int a
   return v19;
 }
 
-uint64_t GSKeyboardTranslateKeyExtendedCommandWithUsagePage(uint64_t a1, signed int a2, unsigned int a3, unsigned int a4, unsigned __int16 *a5, uint64_t a6, unsigned __int16 *a7, uint64_t a8, unsigned __int16 *a9, uint64_t a10, unsigned __int16 *a11, uint64_t a12, unsigned __int16 *a13, uint64_t a14, unint64_t a15)
+uint64_t GSKeyboardTranslateKeyExtendedCommandWithUsagePage(uint64_t a1, signed int a2, unsigned int a3, unsigned int a4, unsigned __int16 *a5, uint64_t a6, unsigned __int16 *a7, uint64_t a8, _WORD *a9, uint64_t a10, _WORD *a11, uint64_t a12, _WORD *a13, uint64_t a14, unint64_t a15)
 {
   pthread_mutex_lock((a1 + 80));
   v22 = 0;

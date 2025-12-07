@@ -151,7 +151,7 @@ void __60__CACLabeledGridOverlayManager_startDelayedDimmingOfNumbers__block_invo
   [v1 setAlpha:1.0];
 }
 
-uint64_t __60__CACLabeledGridOverlayManager_startDelayedDimmingOfNumbers__block_invoke_2(uint64_t a1)
+void *__60__CACLabeledGridOverlayManager_startDelayedDimmingOfNumbers__block_invoke_2(uint64_t a1)
 {
   v2 = [*(a1 + 32) activeDimmingTransactionID];
   result = [*(a1 + 32) pendingDimmingTransactionID];
@@ -200,6 +200,7 @@ void __60__CACLabeledGridOverlayManager_startDelayedDimmingOfNumbers__block_invo
   y = rect.origin.y;
   x = rect.origin.x;
   _isNextLevelAvailable = [(CACLabeledGridOverlayManager *)self _isNextLevelAvailable];
+  v10 = _isNextLevelAvailable;
   if (_isNextLevelAvailable)
   {
     [(CACLabeledGridOverlayManager *)self setCurrentLevel:[(CACLabeledGridOverlayManager *)self currentLevel]+ 1];
@@ -217,14 +218,14 @@ void __60__CACLabeledGridOverlayManager_startDelayedDimmingOfNumbers__block_invo
 
   else
   {
-    v10 = CACLogGrid();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = CACLogGrid(_isNextLevelAvailable);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [CACLabeledGridOverlayManager updateOverlayWithPortraitUpRect:gridContainingLabel:];
     }
   }
 
-  return _isNextLevelAvailable;
+  return v10;
 }
 
 void __84__CACLabeledGridOverlayManager_updateOverlayWithPortraitUpRect_gridContainingLabel___block_invoke(uint64_t a1)
@@ -265,7 +266,7 @@ void __84__CACLabeledGridOverlayManager_updateOverlayWithPortraitUpRect_gridCont
 - (BOOL)_isNextLevelAvailable
 {
   v12 = *MEMORY[0x277D85DE8];
-  v3 = CACLogGrid();
+  v3 = CACLogGrid(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = NSStringFromCGRect(self->_currentGridPortraitUpFrame);
@@ -312,40 +313,40 @@ void __84__CACLabeledGridOverlayManager_updateOverlayWithPortraitUpRect_gridCont
 
   [(CACLabeledGridOverlayManager *)self maxX];
   v18 = v17;
-  [(CACLabeledGridOverlayManager *)self maxY];
-  v20 = v19;
-  v21 = CACLogGrid();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+  maxY = [(CACLabeledGridOverlayManager *)self maxY];
+  v21 = v20;
+  v22 = CACLogGrid(maxY);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
     [CACLabeledGridOverlayManager bestDrilledGridRectForPortraitUpRect:];
   }
 
-  v22 = fmax(v16, 27.0);
-  v23 = fmax(v14, 27.0);
-  if (v10 + v23 > v18)
+  v24 = fmax(v16, 27.0);
+  v25 = fmax(v14, 27.0);
+  if (v10 + v25 > v18)
   {
-    v10 = v18 - v23;
+    v10 = v18 - v25;
   }
 
-  if (v12 + v22 > v20)
+  if (v12 + v24 > v21)
   {
-    v12 = v20 - v22;
+    v12 = v21 - v24;
   }
 
   if (v10 < 0.0 || v12 < 0.0)
   {
-    v24 = CACLogGrid();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v26 = CACLogGrid(v23);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       [CACLabeledGridOverlayManager bestDrilledGridRectForPortraitUpRect:];
     }
   }
 
-  v25 = CACPortraitUpRectFromViewRect(0, v10, v12, v23, v22);
-  result.size.height = v28;
-  result.size.width = v27;
-  result.origin.y = v26;
-  result.origin.x = v25;
+  v27 = CACPortraitUpRectFromViewRect(0, v10, v12, v25, v24);
+  result.size.height = v30;
+  result.size.width = v29;
+  result.origin.y = v28;
+  result.origin.x = v27;
   return result;
 }
 
@@ -508,109 +509,108 @@ LABEL_19:
 
 - (void)_generateLabeledElementsForPortraitUpRect:(CGRect)rect
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   CACViewRectFromPortraitUpRect(0, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
-  [(CACLabeledGridOverlayManager *)self bestGridResolutionForPortraitUpRect:self->_currentGridPortraitUpFrame.origin.x, self->_currentGridPortraitUpFrame.origin.y, self->_currentGridPortraitUpFrame.size.width, self->_currentGridPortraitUpFrame.size.height];
-  v5 = v4;
-  v7 = v6;
-  v8 = CACLogGrid();
-  v9 = v5;
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v4 = [(CACLabeledGridOverlayManager *)self bestGridResolutionForPortraitUpRect:self->_currentGridPortraitUpFrame.origin.x, self->_currentGridPortraitUpFrame.origin.y, self->_currentGridPortraitUpFrame.size.width, self->_currentGridPortraitUpFrame.size.height];
+  v6 = v5;
+  v8 = v7;
+  v9 = CACLogGrid(v4);
+  v10 = v6;
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [CACLabeledGridOverlayManager _generateLabeledElementsForPortraitUpRect:];
   }
 
-  v10 = CACLogGrid();
-  v37 = v7;
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v12 = CACLogGrid(v11);
+  v40 = v8;
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [CACLabeledGridOverlayManager _generateLabeledElementsForPortraitUpRect:];
   }
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v12 = objc_opt_new();
+  v14 = objc_opt_new();
   labeledElements = selfCopy->_labeledElements;
-  selfCopy->_labeledElements = v12;
+  selfCopy->_labeledElements = v14;
 
-  if (v37 >= 1)
+  if (v40 >= 1)
   {
-    v14 = 0;
-    v36 = v37;
+    v16 = 0;
+    v39 = v40;
     do
     {
-      if (v9 <= 0)
+      if (v10 <= 0)
       {
-        ++v14;
+        ++v16;
       }
 
       else
       {
-        v15 = 0;
-        v16 = v14 * v9;
-        v38 = v14 + 1;
-        v17 = (v14 + 1) * v9;
+        v17 = 0;
+        v18 = v16 * v10;
+        v41 = v16 + 1;
+        v19 = (v16 + 1) * v10;
         do
         {
           [(CACLabeledGridOverlayManager *)selfCopy scale];
-          UIRoundToScale();
-          v19 = v18;
           UIRoundToScale();
           v21 = v20;
           UIRoundToScale();
           v23 = v22;
           UIRoundToScale();
           v25 = v24;
+          UIRoundToScale();
+          v27 = v26;
           mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
-          v27 = [mEMORY[0x277D75128] userInterfaceLayoutDirection] == 1;
+          v29 = [mEMORY[0x277D75128] userInterfaceLayoutDirection] == 1;
 
-          if (v27)
+          if (v29)
           {
-            v28 = v17 + ~v15 + [(CACLabeledGridOverlayManager *)selfCopy startingNumber];
+            v30 = v19 + ~v17 + [(CACLabeledGridOverlayManager *)selfCopy startingNumber];
           }
 
           else
           {
-            v28 = v16 + [(CACLabeledGridOverlayManager *)selfCopy startingNumber];
+            v30 = v18 + [(CACLabeledGridOverlayManager *)selfCopy startingNumber];
           }
 
           delegate = [(CACLabeledGridOverlayManager *)selfCopy delegate];
           viewController = [(CACSimpleContentViewManager *)selfCopy viewController];
           view = [viewController view];
-          v32 = [delegate labeledGridOverlayManager:selfCopy elementWithNumber:v28 rectangle:{CACPortraitUpRectFromViewRect(view, v19, v21, v23, v25)}];
+          v34 = [delegate labeledGridOverlayManager:selfCopy elementWithNumber:v30 rectangle:{CACPortraitUpRectFromViewRect(view, v21, v23, v25, v27)}];
 
-          [(NSMutableArray *)selfCopy->_labeledElements addObject:v32];
-          v33 = CACLogGrid();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+          v35 = CACLogGrid([(NSMutableArray *)selfCopy->_labeledElements addObject:v34]);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
           {
             *buf = 134218752;
-            v42 = v19;
-            v43 = 2048;
-            v44 = v21;
-            v45 = 2048;
-            v46 = v25;
-            v47 = 2048;
-            v48 = v23;
-            _os_log_debug_impl(&dword_26B354000, v33, OS_LOG_TYPE_DEBUG, "element.rectangle: origin (%f, %f),size (%f, %f)", buf, 0x2Au);
+            v45 = v21;
+            v46 = 2048;
+            v47 = v23;
+            v48 = 2048;
+            v49 = v27;
+            v50 = 2048;
+            v51 = v25;
+            _os_log_debug_impl(&dword_26B354000, v35, OS_LOG_TYPE_DEBUG, "element.rectangle: origin (%f, %f),size (%f, %f)", buf, 0x2Au);
           }
 
-          v34 = CACLogGrid();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+          v37 = CACLogGrid(v36);
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
           {
-            label = [v32 label];
-            [(CACLabeledGridOverlayManager *)label _generateLabeledElementsForPortraitUpRect:v39, &v40, v34];
+            label = [v34 label];
+            [(CACLabeledGridOverlayManager *)label _generateLabeledElementsForPortraitUpRect:v42, &v43, v37];
           }
 
-          ++v15;
-          ++v16;
+          ++v17;
+          ++v18;
         }
 
-        while (v9 != v15);
-        v14 = v38;
+        while (v10 != v17);
+        v16 = v41;
       }
     }
 
-    while (v14 != v37);
+    while (v16 != v40);
   }
 
   objc_sync_exit(selfCopy);

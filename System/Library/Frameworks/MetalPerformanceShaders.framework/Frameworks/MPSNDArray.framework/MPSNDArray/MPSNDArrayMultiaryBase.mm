@@ -112,7 +112,7 @@ LABEL_11:
       v11 = MEMORY[0x277CD73F8];
       do
       {
-        [(MPSNDArrayMultiaryBase *)self stridesAtSourceIndex:v10];
+        objc_msgSend_stridesAtSourceIndex_(self);
         v13 = v19;
         v12 = v20;
         v14 = v22;
@@ -338,18 +338,16 @@ LABEL_18:
 {
   if ((*(self->dimensions + *MEMORY[0x277CD7378]) & 1) == 0 && self->dimensions[11] <= sourceIndex)
   {
-    selfCopy = self;
-    v5 = retstr;
+    v4 = retstr;
     self = MTLReportFailureTypeEnabled();
-    retstr = v5;
+    retstr = v4;
     if (self)
     {
-      v7 = objc_opt_class();
-      NSStringFromClass(v7);
+      v6 = objc_opt_class();
+      NSStringFromClass(v6);
       NSStringFromSelector(index);
-      v8 = selfCopy->dimensions[11];
       self = MTLReportFailure();
-      retstr = v5;
+      retstr = v4;
     }
   }
 
@@ -371,7 +369,6 @@ LABEL_18:
     v5 = objc_opt_class();
     NSStringFromClass(v5);
     NSStringFromSelector(a2);
-    srcCount = self->_srcCount;
     MTLReportFailure();
   }
 
@@ -382,18 +379,16 @@ LABEL_18:
 {
   if ((*(self->dimensions + *MEMORY[0x277CD7378]) & 1) == 0 && self->dimensions[11] <= sourceIndex)
   {
-    selfCopy = self;
-    v5 = retstr;
+    v4 = retstr;
     self = MTLReportFailureTypeEnabled();
-    retstr = v5;
+    retstr = v4;
     if (self)
     {
-      v7 = objc_opt_class();
-      NSStringFromClass(v7);
+      v6 = objc_opt_class();
+      NSStringFromClass(v6);
       NSStringFromSelector(index);
-      v8 = selfCopy->dimensions[11];
       self = MTLReportFailure();
-      retstr = v5;
+      retstr = v4;
     }
   }
 
@@ -412,18 +407,16 @@ LABEL_18:
 {
   if ((*(self->dimensions + *MEMORY[0x277CD7378]) & 1) == 0 && self->dimensions[11] <= sourceIndex)
   {
-    selfCopy = self;
-    v5 = retstr;
+    v4 = retstr;
     self = MTLReportFailureTypeEnabled();
-    retstr = v5;
+    retstr = v4;
     if (self)
     {
-      v7 = objc_opt_class();
-      NSStringFromClass(v7);
+      v6 = objc_opt_class();
+      NSStringFromClass(v6);
       NSStringFromSelector(index);
-      v8 = selfCopy->dimensions[11];
       self = MTLReportFailure();
-      retstr = v5;
+      retstr = v4;
     }
   }
 
@@ -442,18 +435,16 @@ LABEL_18:
 {
   if ((*(self->dimensions + *MEMORY[0x277CD7378]) & 1) == 0 && self->dimensions[11] <= sourceIndex)
   {
-    selfCopy = self;
-    v5 = retstr;
+    v4 = retstr;
     self = MTLReportFailureTypeEnabled();
-    retstr = v5;
+    retstr = v4;
     if (self)
     {
-      v7 = objc_opt_class();
-      NSStringFromClass(v7);
+      v6 = objc_opt_class();
+      NSStringFromClass(v6);
       NSStringFromSelector(index);
-      v8 = selfCopy->dimensions[11];
       self = MTLReportFailure();
-      retstr = v5;
+      retstr = v4;
     }
   }
 
@@ -470,114 +461,114 @@ LABEL_18:
 
 - (MPSNDArrayDescriptor)destinationArrayDescriptorForSourceArrays:(NSArray *)sources sourceState:(MPSState *)state
 {
-  v83[16] = *MEMORY[0x277D85DE8];
+  v82[16] = *MEMORY[0x277D85DE8];
   [-[NSArray objectAtIndexedSubscript:](sources objectAtIndexedSubscript:{0), "descriptor"}];
   [(MPSNDArrayMultiaryBase *)self dimensionsNotToBeBroadcast];
-  v52 = v6;
+  v51 = v6;
   v7 = [(NSArray *)sources objectAtIndexedSubscript:0];
   v8 = &v7[*MEMORY[0x277CD7410]];
-  v48 = *(v8 + 1);
-  v50 = *v8;
-  v44 = *(v8 + 3);
-  v46 = *(v8 + 2);
+  v47 = *(v8 + 1);
+  v49 = *v8;
+  v43 = *(v8 + 3);
+  v45 = *(v8 + 2);
   v9 = [(NSArray *)sources objectAtIndexedSubscript:0];
   v10 = MEMORY[0x277CD73D8];
   v11 = *&v9[*MEMORY[0x277CD73D8]];
-  v82[3] = v44;
-  v82[2] = v46;
-  v82[1] = v48;
-  v82[0] = v50;
-  v83[0] = *(v82 + (v11 & 0xF));
+  v81[3] = v43;
+  v81[2] = v45;
+  v81[1] = v47;
+  v81[0] = v49;
+  v82[0] = *(v81 + (v11 & 0xF));
   v12 = *([(NSArray *)sources objectAtIndexedSubscript:0]+ *v10 + 1) & 0xF;
-  v81[3] = v44;
-  v81[2] = v46;
-  v81[1] = v48;
-  v81[0] = v50;
-  v83[1] = *(v81 + v12);
+  v80[3] = v43;
+  v80[2] = v45;
+  v80[1] = v47;
+  v80[0] = v49;
+  v82[1] = *(v80 + v12);
   v13 = *([(NSArray *)sources objectAtIndexedSubscript:0]+ *v10 + 2) & 0xF;
-  v80[3] = v44;
-  v80[2] = v46;
-  v80[1] = v48;
-  v80[0] = v50;
-  v83[2] = *(v80 + v13);
+  v79[3] = v43;
+  v79[2] = v45;
+  v79[1] = v47;
+  v79[0] = v49;
+  v82[2] = *(v79 + v13);
   v14 = *([(NSArray *)sources objectAtIndexedSubscript:0]+ *v10 + 3) & 0xF;
-  v79[3] = v44;
-  v79[2] = v46;
-  v79[1] = v48;
-  v79[0] = v50;
-  v83[3] = *(v79 + v14);
+  v78[3] = v43;
+  v78[2] = v45;
+  v78[1] = v47;
+  v78[0] = v49;
+  v82[3] = *(v78 + v14);
   v15 = *([(NSArray *)sources objectAtIndexedSubscript:0]+ *v10 + 4) & 0xF;
-  v78[3] = v44;
-  v78[2] = v46;
-  v78[1] = v48;
-  v78[0] = v50;
-  v83[4] = *(v78 + v15);
+  v77[3] = v43;
+  v77[2] = v45;
+  v77[1] = v47;
+  v77[0] = v49;
+  v82[4] = *(v77 + v15);
   v16 = *([(NSArray *)sources objectAtIndexedSubscript:0]+ *v10 + 5) & 0xF;
-  v77[3] = v44;
-  v77[2] = v46;
-  v77[1] = v48;
-  v77[0] = v50;
-  v83[5] = *(v77 + v16);
+  v76[3] = v43;
+  v76[2] = v45;
+  v76[1] = v47;
+  v76[0] = v49;
+  v82[5] = *(v76 + v16);
   v17 = *([(NSArray *)sources objectAtIndexedSubscript:0]+ *v10 + 6) & 0xF;
-  v76[3] = v44;
-  v76[2] = v46;
-  v76[1] = v48;
-  v76[0] = v50;
-  v83[6] = *(v76 + v17);
+  v75[3] = v43;
+  v75[2] = v45;
+  v75[1] = v47;
+  v75[0] = v49;
+  v82[6] = *(v75 + v17);
   v18 = *([(NSArray *)sources objectAtIndexedSubscript:0]+ *v10 + 7) & 0xF;
-  v75[3] = v44;
-  v75[2] = v46;
-  v75[1] = v48;
-  v75[0] = v50;
-  v83[7] = *(v75 + v18);
+  v74[3] = v43;
+  v74[2] = v45;
+  v74[1] = v47;
+  v74[0] = v49;
+  v82[7] = *(v74 + v18);
   v19 = *([(NSArray *)sources objectAtIndexedSubscript:0]+ *v10 + 8) & 0xF;
-  v74[3] = v44;
-  v74[2] = v46;
-  v74[1] = v48;
-  v74[0] = v50;
-  v83[8] = *(v74 + v19);
+  v73[3] = v43;
+  v73[2] = v45;
+  v73[1] = v47;
+  v73[0] = v49;
+  v82[8] = *(v73 + v19);
   v20 = *([(NSArray *)sources objectAtIndexedSubscript:0]+ *v10 + 9) & 0xF;
-  v73[3] = v44;
-  v73[2] = v46;
-  v73[0] = v50;
-  v73[1] = v48;
-  v83[9] = *(v73 + v20);
+  v72[3] = v43;
+  v72[2] = v45;
+  v72[0] = v49;
+  v72[1] = v47;
+  v82[9] = *(v72 + v20);
   v21 = *([(NSArray *)sources objectAtIndexedSubscript:0]+ *v10 + 10) & 0xF;
-  v72[2] = v46;
-  v72[3] = v44;
-  v72[0] = v50;
-  v72[1] = v48;
-  v83[10] = *(v72 + v21);
+  v71[2] = v45;
+  v71[3] = v43;
+  v71[0] = v49;
+  v71[1] = v47;
+  v82[10] = *(v71 + v21);
   v22 = *([(NSArray *)sources objectAtIndexedSubscript:0]+ *v10 + 11) & 0xF;
-  v71[2] = v46;
-  v71[3] = v44;
-  v71[0] = v50;
-  v71[1] = v48;
-  v83[11] = *(v71 + v22);
+  v70[2] = v45;
+  v70[3] = v43;
+  v70[0] = v49;
+  v70[1] = v47;
+  v82[11] = *(v70 + v22);
   v23 = *([(NSArray *)sources objectAtIndexedSubscript:0]+ *v10 + 12) & 0xF;
-  v70[2] = v46;
-  v70[3] = v44;
-  v70[0] = v50;
-  v70[1] = v48;
-  v83[12] = *(v70 + v23);
+  v69[2] = v45;
+  v69[3] = v43;
+  v69[0] = v49;
+  v69[1] = v47;
+  v82[12] = *(v69 + v23);
   v24 = *([(NSArray *)sources objectAtIndexedSubscript:0]+ *v10 + 13) & 0xF;
-  v69[2] = v46;
-  v69[3] = v44;
-  v69[0] = v50;
-  v69[1] = v48;
-  v83[13] = *(v69 + v24);
+  v68[2] = v45;
+  v68[3] = v43;
+  v68[0] = v49;
+  v68[1] = v47;
+  v82[13] = *(v68 + v24);
   v25 = *([(NSArray *)sources objectAtIndexedSubscript:0]+ *v10 + 14) & 0xF;
-  v68[2] = v46;
-  v68[3] = v44;
-  v68[0] = v50;
-  v68[1] = v48;
-  v83[14] = *(v68 + v25);
+  v67[2] = v45;
+  v67[3] = v43;
+  v67[0] = v49;
+  v67[1] = v47;
+  v82[14] = *(v67 + v25);
   v26 = *([(NSArray *)sources objectAtIndexedSubscript:0]+ *v10 + 15) & 0xF;
-  v67[2] = v46;
-  v67[3] = v44;
-  v67[0] = v50;
-  v67[1] = v48;
-  v83[15] = *(v67 + v26);
+  v66[2] = v45;
+  v66[3] = v43;
+  v66[0] = v49;
+  v66[1] = v47;
+  v82[15] = *(v66 + v26);
   v27 = [(NSArray *)sources objectAtIndexedSubscript:0];
   v28 = *&v27[*MEMORY[0x277CD73F0]];
   if ([(NSArray *)sources count]>= 2)
@@ -590,73 +581,73 @@ LABEL_18:
       v32 = [(NSArray *)sources objectAtIndexedSubscript:v29];
       v33 = 0;
       v34 = &v32[*MEMORY[0x277CD7410]];
-      v49 = *(v34 + 2);
-      v51 = *(v34 + 3);
-      v45 = *v34;
-      v47 = *(v34 + 1);
+      v48 = *(v34 + 2);
+      v50 = *(v34 + 3);
+      v44 = *v34;
+      v46 = *(v34 + 1);
       do
       {
-        v66 = v52;
-        if (*(&v66 | v33 & 0xF) != 1)
+        v65 = v51;
+        if (*(&v65 | v33 & 0xF) != 1)
         {
-          v35 = v83[v33];
-          v64 = *([(NSArray *)sources objectAtIndexedSubscript:v29]+ *v10);
-          v65[0] = v45;
-          v65[1] = v47;
-          v65[2] = v49;
-          v65[3] = v51;
-          v36 = *(v65 + (*(&v64 | v33 & 0xF) & 0xF));
+          v35 = v82[v33];
+          v63 = *([(NSArray *)sources objectAtIndexedSubscript:v29]+ *v10);
+          v64[0] = v44;
+          v64[1] = v46;
+          v64[2] = v48;
+          v64[3] = v50;
+          v36 = *(v64 + (*(&v63 | v33 & 0xF) & 0xF));
           if (v35 == 1)
           {
             if (v36 != 1)
             {
-              v53 = *([(NSArray *)sources objectAtIndexedSubscript:v29]+ *v10);
-              v54[0] = v45;
-              v54[1] = v47;
-              v54[2] = v49;
-              v54[3] = v51;
-              v83[v33] = *(v54 + (*(&v53 | v33 & 0xF) & 0xF));
+              v52 = *([(NSArray *)sources objectAtIndexedSubscript:v29]+ *v10);
+              v53[0] = v44;
+              v53[1] = v46;
+              v53[2] = v48;
+              v53[3] = v50;
+              v82[v33] = *(v53 + (*(&v52 | v33 & 0xF) & 0xF));
             }
           }
 
           else if (v35 != v36)
           {
-            v62 = *([(NSArray *)sources objectAtIndexedSubscript:v29]+ *v10);
-            v63[0] = v45;
-            v63[1] = v47;
-            v63[2] = v49;
-            v63[3] = v51;
-            if (*(v63 + (*(&v62 | v33 & 0xF) & 0xF)) != 1)
+            v61 = *([(NSArray *)sources objectAtIndexedSubscript:v29]+ *v10);
+            v62[0] = v44;
+            v62[1] = v46;
+            v62[2] = v48;
+            v62[3] = v50;
+            if (*(v62 + (*(&v61 | v33 & 0xF) & 0xF)) != 1)
             {
-              v60 = *([(NSArray *)sources objectAtIndexedSubscript:v29]+ *v10);
-              v61[0] = v45;
-              v61[1] = v47;
-              v61[2] = v49;
-              v61[3] = v51;
-              if (*(v61 + (*(&v60 | v33 & 0xF) & 0xF)) != 1)
+              v59 = *([(NSArray *)sources objectAtIndexedSubscript:v29]+ *v10);
+              v60[0] = v44;
+              v60[1] = v46;
+              v60[2] = v48;
+              v60[3] = v50;
+              if (*(v60 + (*(&v59 | v33 & 0xF) & 0xF)) != 1)
               {
                 [(NSArray *)sources objectAtIndexedSubscript:v29];
               }
 
-              v58 = *([(NSArray *)sources objectAtIndexedSubscript:v29, v41, v42]+ *v10);
-              v59[0] = v45;
-              v59[1] = v47;
-              v59[2] = v49;
-              v59[3] = v51;
-              if (*(v59 + (*(&v58 | v33 & 0xF) & 0xF)) != 1)
+              v57 = *([(NSArray *)sources objectAtIndexedSubscript:v29, v40, v41]+ *v10);
+              v58[0] = v44;
+              v58[1] = v46;
+              v58[2] = v48;
+              v58[3] = v50;
+              if (*(v58 + (*(&v57 | v33 & 0xF) & 0xF)) != 1)
               {
-                v56 = *([(NSArray *)sources objectAtIndexedSubscript:v29]+ *v10);
-                v57[0] = v45;
-                v57[1] = v47;
-                v57[2] = v49;
-                v57[3] = v51;
-                if (*(v57 + (*(&v56 | v33 & 0xF) & 0xF)))
+                v55 = *([(NSArray *)sources objectAtIndexedSubscript:v29]+ *v10);
+                v56[0] = v44;
+                v56[1] = v46;
+                v56[2] = v48;
+                v56[3] = v50;
+                if (*(v56 + (*(&v55 | v33 & 0xF) & 0xF)))
                 {
                   if (MTLReportFailureTypeEnabled())
                   {
-                    v55 = *([(NSArray *)sources objectAtIndexedSubscript:v29]+ *v10);
-                    v41 = v29;
-                    v42 = *(&v55 | v33 & 0xF);
+                    v54 = *([(NSArray *)sources objectAtIndexedSubscript:v29]+ *v10);
+                    v40 = v29;
+                    v41 = *(&v54 | v33 & 0xF);
                     MTLReportFailure();
                   }
                 }
@@ -677,10 +668,10 @@ LABEL_18:
       ++v29;
     }
 
-    while (v29 < [(NSArray *)sources count:v41]);
+    while (v29 < [(NSArray *)sources count:v40]);
   }
 
-  v37 = [MEMORY[0x277CD7268] descriptorWithDataType:objc_msgSend(-[NSArray objectAtIndexedSubscript:](sources dimensionCount:"objectAtIndexedSubscript:" dimensionSizes:{0), "dataType"), v28, v83}];
+  v37 = [MEMORY[0x277CD7268] descriptorWithDataType:objc_msgSend(-[NSArray objectAtIndexedSubscript:](sources dimensionCount:"objectAtIndexedSubscript:" dimensionSizes:{0), "dataType"), v28, v82}];
   if (state)
   {
     objc_opt_class();
@@ -689,9 +680,7 @@ LABEL_18:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v38 = [(MPSState *)state destinationArrayDescriptorForSourceArrays:sources sourceGradientIndex:self[1].super.super.isa];
-LABEL_26:
-        v37 = v38;
+        return [(MPSState *)state destinationArrayDescriptorForSourceArrays:sources sourceGradientIndex:self[1].super.super.isa];
       }
     }
   }
@@ -701,12 +690,10 @@ LABEL_26:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v38 = [-[NSArray objectAtIndexedSubscript:](sources objectAtIndexedSubscript:{self[1].super.super.isa), "descriptor"}];
-      goto LABEL_26;
+      return [-[NSArray objectAtIndexedSubscript:](sources objectAtIndexedSubscript:{self[1].super.super.isa), "descriptor"}];
     }
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return v37;
 }
 
@@ -800,15 +787,15 @@ LABEL_26:
 
 - (id)reshapeFitToTileToCommandBuffer:(id)buffer currentSource:(id)source kernelDimension:(unint64_t)dimension dimensionsToBeRetained:
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v9 = dimension + 1;
   if (dimension + 1 <= 0xF)
   {
     v10 = dimension + 2;
     do
     {
-      v34 = v5;
-      if (v9 < v10 - 1 && *(&v34 | (v10 - 1) & 0xF) != 0)
+      v33 = v5;
+      if (v9 < v10 - 1 && *(&v33 | (v10 - 1) & 0xF) != 0)
       {
         v9 = v10;
       }
@@ -826,29 +813,29 @@ LABEL_26:
   v15 = v14[3];
   v18 = *v14;
   v17 = v14[1];
-  v35[4] = xmmword_239B146A0;
-  v35[5] = unk_239B146B0;
-  v35[6] = xmmword_239B146C0;
-  v35[7] = unk_239B146D0;
-  v35[0] = xmmword_239B14660;
-  v35[1] = unk_239B14670;
-  v35[2] = xmmword_239B14680;
-  v35[3] = unk_239B14690;
+  v34[4] = xmmword_239B146A0;
+  v34[5] = unk_239B146B0;
+  v34[6] = xmmword_239B146C0;
+  v34[7] = unk_239B146D0;
+  v34[0] = xmmword_239B14660;
+  v34[1] = unk_239B14670;
+  v34[2] = xmmword_239B14680;
+  v34[3] = unk_239B14690;
   v19 = dimension - 1;
   if (dimension >= 17)
   {
-    *&v35[0] = 1;
+    *&v34[0] = 1;
 LABEL_24:
     v24 = 0;
     v25 = *&descriptor[*MEMORY[0x277CD7438]];
     do
     {
-      v29 = v25;
-      v30[0] = v18;
-      v30[1] = v17;
-      v30[2] = v16;
-      v30[3] = v15;
-      *(v35 + v24) = *(v30 + (*(&v29 | v24 & 0xF) & 0xF));
+      v28 = v25;
+      v29[0] = v18;
+      v29[1] = v17;
+      v29[2] = v16;
+      v29[3] = v15;
+      *(v34 + v24) = *(v29 + (*(&v28 | v24 & 0xF) & 0xF));
       ++v24;
     }
 
@@ -861,52 +848,50 @@ LABEL_24:
   v22 = 1;
   do
   {
-    v33[0] = v18;
-    v33[1] = v17;
-    v33[2] = v16;
-    v33[3] = v15;
-    v21 = (*(v33 + (v20 & 0xF)) * v21);
+    v32[0] = v18;
+    v32[1] = v17;
+    v32[2] = v16;
+    v32[3] = v15;
+    v21 = (*(v32 + (v20 & 0xF)) * v21);
     if (v20 < 1)
     {
       if (!v20)
       {
-        v22 = LODWORD(v33[0]);
+        v22 = LODWORD(v32[0]);
       }
     }
 
     else
     {
-      v32 = v28;
-      if (*(&v32 | (v20 - 1) & 0xF) == 1 || (v31 = v28, *(&v31 | v20 & 0xF) == 1))
+      v31 = v27;
+      if (*(&v31 | (v20 - 1) & 0xF) == 1 || (v30 = v27, *(&v30 | v20 & 0xF) == 1))
       {
-        *(v35 + v20) = v21;
+        *(v34 + v20) = v21;
         LODWORD(v21) = 1;
       }
 
       else if (v20 == v19)
       {
-        *(v35 + v19) = v21;
+        *(v34 + v19) = v21;
       }
 
       else
       {
-        *(v35 + v20) = 1;
+        *(v34 + v20) = 1;
       }
     }
   }
 
   while (v20-- >= dimension);
-  *&v35[0] = v22;
+  *&v34[0] = v22;
   if (dimension != 1)
   {
     goto LABEL_24;
   }
 
 LABEL_26:
-  [descriptor reshapeWithDimensionCount:v9 dimensionSizes:v35];
-  result = [source arrayViewWithCommandBuffer:buffer descriptor:v13 aliasing:0];
-  v27 = *MEMORY[0x277D85DE8];
-  return result;
+  [descriptor reshapeWithDimensionCount:v9 dimensionSizes:v34];
+  return [source arrayViewWithCommandBuffer:buffer descriptor:v13 aliasing:0];
 }
 
 - (BOOL)getDestContiguousFunctionConstant:(id)constant
@@ -934,12 +919,12 @@ LABEL_26:
 - (void)kernelDAGObjectSetup:(id *)setup sourceArrays:(id)arrays sourceGradient:(id)gradient destination:(id)destination
 {
   selfCopy = self;
-  v130 = *MEMORY[0x277D85DE8];
+  v129 = *MEMORY[0x277D85DE8];
   srcCount = self->_srcCount;
   if (gradient)
   {
     ++srcCount;
-    v124 = [arrays count] + 1;
+    v123 = [arrays count] + 1;
     destinationCopy2 = destination;
     if (*setup)
     {
@@ -949,7 +934,7 @@ LABEL_26:
 
   else
   {
-    v124 = [arrays count];
+    v123 = [arrays count];
     destinationCopy2 = destination;
     if (*setup)
     {
@@ -964,8 +949,8 @@ LABEL_26:
   }
 
   v11 = OBJC_IVAR___MPSNDArrayMultiaryMultiDestinationBase__srcCount[v10];
-  v120 = v11;
-  v121 = selfCopy;
+  v119 = v11;
+  v120 = selfCopy;
   v12 = *(&selfCopy->super.super.isa + v11);
   if (!v12)
   {
@@ -973,7 +958,7 @@ LABEL_40:
     operator new();
   }
 
-  v119 = *(&selfCopy->super.super.isa + v11);
+  v118 = *(&selfCopy->super.super.isa + v11);
   graph = [v12 graph];
   v14 = MEMORY[0x277CD73F0];
   v15 = MEMORY[0x277CD7410];
@@ -1036,8 +1021,8 @@ LABEL_130:
       while (v32 != v30)
       {
         v33 = &gradientCopy[*v15];
-        v128 = *&gradientCopy[*v16];
-        *(v31 + 8 * v30) = *&v33[4 * (*(&v128 | v30 & 0xF) & 0xF)];
+        v127 = *&gradientCopy[*v16];
+        *(v31 + 8 * v30) = *&v33[4 * (*(&v127 | v30 & 0xF) & 0xF)];
         if (++v30 >= *&gradientCopy[*v14])
         {
           goto LABEL_22;
@@ -1071,8 +1056,8 @@ LABEL_22:
   {
 LABEL_39:
 
-    selfCopy = v121;
-    *(&v121->super.super.isa + v120) = 0;
+    selfCopy = v120;
+    *(&v120->super.super.isa + v119) = 0;
     if (!*setup)
     {
       goto LABEL_40;
@@ -1081,14 +1066,14 @@ LABEL_39:
 LABEL_41:
     if (*(&selfCopy->super.super.isa + *MEMORY[0x277CD7378]))
     {
-      goto LABEL_115;
+      return;
     }
 
     goto LABEL_42;
   }
 
 LABEL_26:
-  finalOp = [v119 finalOp];
+  finalOp = [v118 finalOp];
   v39 = **(finalOp + 24);
   if (*(*(finalOp + 24) + 8) == v39)
   {
@@ -1121,8 +1106,8 @@ LABEL_26:
     while (v46 != v44)
     {
       v47 = destination + *v15;
-      v127 = *(destination + *v16);
-      *(v45 + 8 * v44) = *&v47[4 * (*(&v127 | v44 & 0xF) & 0xF)];
+      v126 = *(destination + *v16);
+      *(v45 + 8 * v44) = *&v47[4 * (*(&v126 | v44 & 0xF) & 0xF)];
       if (++v44 >= *(destination + *v14))
       {
         goto LABEL_35;
@@ -1133,7 +1118,7 @@ LABEL_26:
   }
 
 LABEL_35:
-  finalOp2 = [v119 finalOp];
+  finalOp2 = [v118 finalOp];
   v49 = **(finalOp2 + 24);
   if (*(*(finalOp2 + 24) + 8) == v49)
   {
@@ -1147,10 +1132,10 @@ LABEL_129:
     goto LABEL_39;
   }
 
-  *setup = v119;
-  if (*(&v121->super.super.isa + *MEMORY[0x277CD7378]))
+  *setup = v118;
+  if (*(&v120->super.super.isa + *MEMORY[0x277CD7378]))
   {
-    goto LABEL_115;
+    return;
   }
 
 LABEL_42:
@@ -1171,22 +1156,22 @@ LABEL_42:
     MTLReportFailure();
   }
 
-  v53 = v124;
-  if (v124 != (*(*(graph2 + 64) + 8) - **(graph2 + 64)) >> 3)
+  v53 = v123;
+  if (v123 != (*(*(graph2 + 64) + 8) - **(graph2 + 64)) >> 3)
   {
-    v116 = MTLReportFailureTypeEnabled();
-    v53 = v124;
-    if (v116)
+    v115 = MTLReportFailureTypeEnabled();
+    v53 = v123;
+    if (v115)
     {
       MTLReportFailure();
-      v53 = v124;
+      v53 = v123;
     }
   }
 
   if (v53)
   {
     v54 = 0;
-    v122 = vdupq_n_s64(1uLL);
+    v121 = vdupq_n_s64(1uLL);
     while (1)
     {
       gradientCopy2 = gradient;
@@ -1195,7 +1180,7 @@ LABEL_42:
         gradientCopy2 = [arrays objectAtIndexedSubscript:v54];
       }
 
-      [objc_msgSend(gradientCopy2 "descriptor")];
+      objc_msgSend_getShapeVector([gradientCopy2 descriptor]);
       v56 = **(graph2 + 64);
       if (v54 >= (*(*(graph2 + 64) + 8) - v56) >> 3)
       {
@@ -1210,11 +1195,11 @@ LABEL_128:
         goto LABEL_127;
       }
 
-      v59 = *v129;
+      v59 = *v128;
       v60 = *(*v57 + 16);
       v61 = *v60;
-      v62 = *(v129 + 8) - *v129;
-      if (memcmp(*v129, *v60, v62))
+      v62 = *(v128 + 8) - *v128;
+      if (memcmp(*v128, *v60, v62))
       {
         break;
       }
@@ -1303,13 +1288,13 @@ LABEL_127:
 
         if (dataType3 != *(*v98 + 8) && MTLReportFailureTypeEnabled())
         {
-          v117 = v54;
+          v116 = v54;
           MTLReportFailure();
         }
       }
 
-      v100 = v129;
-      *&v129 = 0;
+      v100 = v128;
+      *&v128 = 0;
       if (v100)
       {
         v101 = *v100;
@@ -1322,7 +1307,7 @@ LABEL_127:
         MEMORY[0x23EE7C8C0](v100, 0x10C402FEFCB83);
       }
 
-      if (++v54 == v124)
+      if (++v54 == v123)
       {
         goto LABEL_98;
       }
@@ -1334,7 +1319,7 @@ LABEL_127:
 LABEL_56:
       if (MTLReportFailureTypeEnabled())
       {
-        v118 = v54;
+        v117 = v54;
         MTLReportFailure();
       }
 
@@ -1416,7 +1401,7 @@ LABEL_72:
       v79 = *v77;
       v80 = v77[1];
       v77 += 2;
-      v76 = vand_s8(v76, vmovn_s32(vuzp1q_s32(vceqq_s64(v79, v122), vceqq_s64(v80, v122))));
+      v76 = vand_s8(v76, vmovn_s32(vuzp1q_s32(vceqq_s64(v79, v121), vceqq_s64(v80, v121))));
       v78 += 4;
     }
 
@@ -1437,9 +1422,9 @@ LABEL_75:
   }
 
 LABEL_98:
-  [objc_msgSend(destination descriptor];
-  v102 = *v129;
-  v103 = *(v129 + 8);
+  objc_msgSend_getShapeVector([destination descriptor]);
+  v102 = *v128;
+  v103 = *(v128 + 8);
   finalOp3 = [*setup finalOp];
   v105 = **(finalOp3 + 24);
   if (*(*(finalOp3 + 24) + 8) == v105)
@@ -1492,8 +1477,8 @@ LABEL_98:
     MTLReportFailure();
   }
 
-  v113 = v129;
-  *&v129 = 0;
+  v113 = v128;
+  *&v128 = 0;
   if (v113)
   {
     v114 = *v113;
@@ -1505,9 +1490,6 @@ LABEL_98:
 
     MEMORY[0x23EE7C8C0](v113, 0x10C402FEFCB83);
   }
-
-LABEL_115:
-  v115 = *MEMORY[0x277D85DE8];
 }
 
 @end

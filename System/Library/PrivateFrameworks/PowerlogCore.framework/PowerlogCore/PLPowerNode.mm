@@ -35,29 +35,29 @@
 
 - (id)energy
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   dictionary2 = [MEMORY[0x1E695DF90] dictionary];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = [(PLPowerNode *)self rootNodeEnergyRows];
-  v5 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v5 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v28;
+    v7 = *v27;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v28 != v7)
+        if (*v27 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v27 + 1) + 8 * i);
+        v9 = *(*(&v26 + 1) + 8 * i);
         v10 = [v9 objectForKeyedSubscript:@"RootNodeID"];
         intValue = [v10 intValue];
 
@@ -98,75 +98,71 @@
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v6 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
     }
 
     while (v6);
   }
 
-  v31[0] = @"fg";
-  v31[1] = @"bg";
-  v32[0] = dictionary;
-  v32[1] = dictionary2;
-  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:2];
-
-  v24 = *MEMORY[0x1E69E9840];
+  v30[0] = @"fg";
+  v30[1] = @"bg";
+  v31[0] = dictionary;
+  v31[1] = dictionary2;
+  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:2];
 
   return v23;
 }
 
 - (id)time
 {
-  v22[2] = *MEMORY[0x1E69E9840];
-  v21[0] = @"fg";
+  v21[2] = *MEMORY[0x1E69E9840];
+  v20[0] = @"fg";
   v3 = MEMORY[0x1E696AD98];
   [(PLPowerNode *)self fgTime];
   v5 = [v3 numberWithLong:llround(v4)];
-  v21[1] = @"bg";
-  v22[0] = v5;
-  v19[0] = @"total";
+  v20[1] = @"bg";
+  v21[0] = v5;
+  v18[0] = @"total";
   v6 = MEMORY[0x1E696AD98];
   [(PLPowerNode *)self bgTime];
   v8 = [v6 numberWithLong:llround(v7)];
-  v20[0] = v8;
-  v19[1] = @"audio";
+  v19[0] = v8;
+  v18[1] = @"audio";
   v9 = MEMORY[0x1E696AD98];
   [(PLPowerNode *)self bgAudioTime];
   v11 = [v9 numberWithLong:llround(v10)];
-  v20[1] = v11;
-  v19[2] = @"location";
+  v19[1] = v11;
+  v18[2] = @"location";
   v12 = MEMORY[0x1E696AD98];
   [(PLPowerNode *)self bgLocationTime];
   v14 = [v12 numberWithLong:llround(v13)];
-  v20[2] = v14;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:3];
-  v22[1] = v15;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
-
-  v17 = *MEMORY[0x1E69E9840];
+  v19[2] = v14;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:3];
+  v21[1] = v15;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
 
   return v16;
 }
 
 - (id)serialize
 {
-  v50[1] = *MEMORY[0x1E69E9840];
+  v49[1] = *MEMORY[0x1E69E9840];
   v3 = [PLValueComparison alloc];
   name = [(PLPowerNode *)self name];
   v5 = [(PLValueComparison *)v3 initWithKey:@"AppBundleId" withValue:name withComparisonOperation:0];
 
   v6 = +[PowerlogCore sharedCore];
   storage = [v6 storage];
-  v50[0] = v5;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:1];
+  v49[0] = v5;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:1];
   v9 = [storage lastEntryForKey:@"PLApplicationAgent_EventNone_AllApps" withComparisons:v8 isSingleton:1];
 
   if (v9 && ([v9 objectForKeyedSubscript:@"AppIs3rdParty"], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "BOOLValue"), v10, v11))
   {
-    v48[0] = @"app_bundleid";
+    v47[0] = @"app_bundleid";
     name2 = [(PLPowerNode *)self name];
-    v49[0] = name2;
-    v48[1] = @"app_build_version";
+    v48[0] = name2;
+    v47[1] = @"app_build_version";
     v12 = [v9 objectForKeyedSubscript:@"AppBuildVersion"];
     if (v12)
     {
@@ -178,9 +174,9 @@
       v13 = &stru_1F539D228;
     }
 
-    v40 = v13;
-    v49[1] = v13;
-    v48[2] = @"app_version";
+    v39 = v13;
+    v48[1] = v13;
+    v47[2] = @"app_version";
     v15 = [v9 objectForKeyedSubscript:@"AppBundleVersion"];
     if (v15)
     {
@@ -192,9 +188,9 @@
       v16 = &stru_1F539D228;
     }
 
-    v39 = v16;
-    v49[2] = v16;
-    v48[3] = @"app_sessionreporter_key";
+    v38 = v16;
+    v48[2] = v16;
+    v47[3] = @"app_sessionreporter_key";
     v17 = [v9 objectForKeyedSubscript:@"AppVendorID"];
     if (v17)
     {
@@ -206,9 +202,9 @@
       v18 = &stru_1F539D228;
     }
 
-    v38 = v18;
-    v49[3] = v18;
-    v48[4] = @"app_adamid";
+    v37 = v18;
+    v48[3] = v18;
+    v47[4] = @"app_adamid";
     v19 = [v9 objectForKeyedSubscript:@"AppItemID"];
     if (v19)
     {
@@ -220,12 +216,12 @@
       v20 = &stru_1F539D228;
     }
 
-    v37 = v20;
-    v49[4] = v20;
-    v48[5] = @"app_cohort";
-    v42 = [v9 objectForKeyedSubscript:@"AppCohort"];
-    v46 = v12;
-    if (v42)
+    v36 = v20;
+    v48[4] = v20;
+    v47[5] = @"app_cohort";
+    v41 = [v9 objectForKeyedSubscript:@"AppCohort"];
+    v45 = v12;
+    if (v41)
     {
       v21 = [v9 objectForKeyedSubscript:@"AppCohort"];
     }
@@ -235,9 +231,9 @@
       v21 = &stru_1F539D228;
     }
 
-    v36 = v21;
-    v49[5] = v21;
-    v48[6] = @"app_storefront";
+    v35 = v21;
+    v48[5] = v21;
+    v47[6] = @"app_storefront";
     v22 = [v9 objectForKeyedSubscript:@"AppStoreFront"];
     if (v22)
     {
@@ -249,20 +245,20 @@
       v23 = &stru_1F539D228;
     }
 
-    v49[6] = v23;
-    v48[7] = @"app_is_beta";
-    v41 = [v9 objectForKeyedSubscript:{@"AppIsBeta", v23}];
-    bOOLValue = [v41 BOOLValue];
+    v48[6] = v23;
+    v47[7] = @"app_is_beta";
+    v40 = [v9 objectForKeyedSubscript:{@"AppIsBeta", v23}];
+    bOOLValue = [v40 BOOLValue];
     v25 = @"false";
     if (bOOLValue)
     {
       v25 = @"true";
     }
 
-    v49[7] = v25;
-    v48[8] = @"app_arch";
+    v48[7] = v25;
+    v47[8] = @"app_arch";
     v26 = [v9 objectForKeyedSubscript:@"AppArchitecture"];
-    v44 = v17;
+    v43 = v17;
     if (v26)
     {
       v27 = [v9 objectForKeyedSubscript:@"AppArchitecture"];
@@ -273,10 +269,10 @@
       v27 = &stru_1F539D228;
     }
 
-    v43 = v19;
-    v45 = v15;
-    v49[8] = v27;
-    v48[9] = @"slice_uuid";
+    v42 = v19;
+    v44 = v15;
+    v48[8] = v27;
+    v47[9] = @"slice_uuid";
     v28 = [v9 objectForKeyedSubscript:@"AppUUID"];
     v29 = v5;
     if (v28)
@@ -289,14 +285,14 @@
       v30 = &stru_1F539D228;
     }
 
-    v49[9] = v30;
-    v48[10] = @"app_energy";
+    v48[9] = v30;
+    v47[10] = @"app_energy";
     energy = [(PLPowerNode *)self energy];
-    v49[10] = energy;
-    v48[11] = @"app_time";
+    v48[10] = energy;
+    v47[11] = @"app_time";
     time = [(PLPowerNode *)self time];
-    v49[11] = time;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:12];
+    v48[11] = time;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:12];
 
     if (v28)
     {
@@ -308,6 +304,10 @@
     }
 
     if (v22)
+    {
+    }
+
+    if (v41)
     {
     }
 
@@ -326,18 +326,12 @@
     if (v45)
     {
     }
-
-    if (v46)
-    {
-    }
   }
 
   else
   {
     v14 = 0;
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

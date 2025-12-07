@@ -221,9 +221,7 @@ LABEL_13:
 
 - (void)setClientSelectedBundleIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  clientSelectedBundleIdentifier = self->_clientSelectedBundleIdentifier;
-  self->_clientSelectedBundleIdentifier = v4;
+  self->_clientSelectedBundleIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

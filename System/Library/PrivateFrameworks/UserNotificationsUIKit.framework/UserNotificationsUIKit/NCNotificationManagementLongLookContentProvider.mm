@@ -6,25 +6,25 @@
 
 - (id)auxiliaryOptionActions
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  objc_initWeak(&location, self);
-  v2 = MEMORY[0x277D750C8];
-  v3 = NCUserNotificationsUIKitFrameworkBundle();
-  v4 = [v3 localizedStringForKey:@"NOTIFICATION_MANAGEMENT_SUGGESTION_MANAGE" value:&stru_282FE84F8 table:0];
-  v8 = MEMORY[0x277D85DD0];
-  v9 = 3221225472;
-  v10 = __73__NCNotificationManagementLongLookContentProvider_auxiliaryOptionActions__block_invoke;
-  v11 = &unk_27836F428;
-  objc_copyWeak(&v12, &location);
-  v5 = [v2 actionWithTitle:v4 image:0 identifier:@"notification-management-quieting-suggestion-manage" handler:&v8];
+  v15[1] = *MEMORY[0x277D85DE8];
+  inited = objc_initWeak(&location, self);
+  v3 = MEMORY[0x277D750C8];
+  v4 = NCUserNotificationsUIKitFrameworkBundle(inited);
+  v5 = [v4 localizedStringForKey:@"NOTIFICATION_MANAGEMENT_SUGGESTION_MANAGE" value:&stru_282FE84F8 table:0];
+  v9 = MEMORY[0x277D85DD0];
+  v10 = 3221225472;
+  v11 = __73__NCNotificationManagementLongLookContentProvider_auxiliaryOptionActions__block_invoke;
+  v12 = &unk_27836F428;
+  objc_copyWeak(&v13, &location);
+  v6 = [v3 actionWithTitle:v5 image:0 identifier:@"notification-management-quieting-suggestion-manage" handler:&v9];
 
-  v14[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:{1, v8, v9, v10, v11}];
+  v15[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:{1, v9, v10, v11, v12}];
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(&location);
 
-  return v6;
+  return v7;
 }
 
 void __73__NCNotificationManagementLongLookContentProvider_auxiliaryOptionActions__block_invoke(uint64_t a1, void *a2)

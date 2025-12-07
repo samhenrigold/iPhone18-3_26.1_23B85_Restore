@@ -34,7 +34,6 @@
 
 - (unint64_t)unsatisfiedConstraints
 {
-  queue = self->super._queue;
   BSDispatchQueueAssert();
   if (!self->_queue_isSyncing)
   {
@@ -81,25 +80,22 @@ uint64_t __66__SUInstallationConstraintMonitorSync_connection_updatedProgress___
 
 - (void)_queue_initilizaSyncState
 {
-  queue = self->super._queue;
   BSDispatchQueueAssert();
-  v4 = 0;
-  if ([(ATConnection *)self->_queue_airTrafficConnection isSyncing:&v4 automatically:0 wirelessly:0])
+  v3 = 0;
+  if ([(ATConnection *)self->_queue_airTrafficConnection isSyncing:&v3 automatically:0 wirelessly:0])
   {
-    [(SUInstallationConstraintMonitorSync *)self _queue_setSyncing:v4];
+    [(SUInstallationConstraintMonitorSync *)self _queue_setSyncing:v3];
   }
 }
 
 - (void)_queue_setSyncing:(BOOL)syncing
 {
   syncingCopy = syncing;
-  queue = self->super._queue;
-  BSDispatchQueueAssert();
+  v5 = BSDispatchQueueAssert();
   if (self->_queue_isSyncing != syncingCopy)
   {
     self->_queue_isSyncing = syncingCopy;
-    v6 = SULogInstallConstraints();
-    self->_queue_isSyncing;
+    v6 = SULogInstallConstraints(v5);
     SULogInfoForSubsystem(v6, @"%@ - iTunes sync constraint changed (satisfied? %@)", v7, v8, v9, v10, v11, v12, self);
 
     delegate = [(SUInstallationConstraintMonitorBase *)self delegate];

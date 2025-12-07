@@ -8,7 +8,7 @@
 
 - (id)selectedSpriteIndexesInLayout:(id)layout
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB858130);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB858130, &unk_1B3D01280);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v13 - v6;
   layoutCopy = layout;
@@ -40,7 +40,7 @@
 {
   layoutCopy = layout;
   selfCopy = self;
-  v7 = sub_1B37A2038();
+  v7 = sub_1B37A2038(selfCopy);
 
   return v7;
 }

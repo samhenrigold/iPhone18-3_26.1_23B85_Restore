@@ -22,30 +22,27 @@
 
 void __48__TRIPruningFactorLevelCache_pruneSynchronously__block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = TRILogCategory_ClientFramework();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v16 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v3 = TRILogCategory_ClientFramework();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = *(a1 + 32);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v8 = [v3[3] count];
-    v9 = [v3[3] count];
-    v10 = [v3[2] count];
-    v13 = 138412802;
-    v14 = v7;
-    v15 = 2048;
-    v16 = v8;
-    v17 = 2048;
-    v18 = v10 + v9;
-    _os_log_impl(&dword_22EA6B000, v4, OS_LOG_TYPE_INFO, "%@: pruning %tu prefetched factor levels of %tu total", &v13, 0x20u);
+    v4 = objc_opt_class();
+    v5 = NSStringFromClass(v4);
+    v6 = [v2[3] count];
+    v7 = [v2[3] count];
+    v8 = [v2[2] count];
+    v10 = 138412802;
+    v11 = v5;
+    v12 = 2048;
+    v13 = v6;
+    v14 = 2048;
+    v15 = v8 + v7;
+    _os_log_impl(&dword_22EA6B000, v3, OS_LOG_TYPE_INFO, "%@: pruning %tu prefetched factor levels of %tu total", &v10, 0x20u);
   }
 
-  v11 = v3[3];
-  v3[3] = 0;
-
-  v12 = *MEMORY[0x277D85DE8];
+  v9 = v2[3];
+  v2[3] = 0;
 }
 
 - (TRIPruningFactorLevelCache)initWithPruningDelaySeconds:(double)seconds loadFactorLevels:(id)levels
@@ -134,13 +131,13 @@ void __75__TRIPruningFactorLevelCache_initWithPruningDelaySeconds_loadFactorLeve
 
 void __54__TRIPruningFactorLevelCache_objectForKeyedSubscript___block_invoke(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3[2];
   if (!v4)
   {
-    v26 = [MEMORY[0x277CCA890] currentHandler];
-    [v26 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"TRIFactorLevelCaching.m" lineNumber:115 description:{@"Invalid parameter not satisfying: %@", @"guardedData->requiredLevels"}];
+    v23 = [MEMORY[0x277CCA890] currentHandler];
+    [v23 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"TRIFactorLevelCaching.m" lineNumber:115 description:{@"Invalid parameter not satisfying: %@", @"guardedData->requiredLevels"}];
 
     v4 = v3[2];
   }
@@ -152,28 +149,27 @@ void __54__TRIPruningFactorLevelCache_objectForKeyedSubscript___block_invoke(uin
 
   if (!*(*(*(a1 + 48) + 8) + 40))
   {
-    v9 = v3[3];
-    if (v9)
+    v8 = v3[3];
+    if (v8)
     {
-      v10 = [v9 objectForKeyedSubscript:*(a1 + 40)];
-      v11 = *(*(a1 + 48) + 8);
-      v12 = *(v11 + 40);
-      *(v11 + 40) = v10;
+      v9 = [v8 objectForKeyedSubscript:*(a1 + 40)];
+      v10 = *(*(a1 + 48) + 8);
+      v11 = *(v10 + 40);
+      *(v10 + 40) = v9;
 
       if (*(*(*(a1 + 48) + 8) + 40))
       {
-        v13 = TRILogCategory_ClientFramework();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        v12 = TRILogCategory_ClientFramework();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
-          v22 = *(a1 + 32);
-          v23 = objc_opt_class();
-          v24 = NSStringFromClass(v23);
-          v25 = *(a1 + 40);
+          v20 = objc_opt_class();
+          v21 = NSStringFromClass(v20);
+          v22 = *(a1 + 40);
           *buf = 138412546;
-          v29 = v24;
-          v30 = 2112;
-          v31 = v25;
-          _os_log_debug_impl(&dword_22EA6B000, v13, OS_LOG_TYPE_DEBUG, "%@: objectForKeyedSubscript:%@ prefetch hit", buf, 0x16u);
+          v26 = v21;
+          v27 = 2112;
+          v28 = v22;
+          _os_log_debug_impl(&dword_22EA6B000, v12, OS_LOG_TYPE_DEBUG, "%@: objectForKeyedSubscript:%@ prefetch hit", buf, 0x16u);
         }
 
         [v3[3] setObject:0 forKeyedSubscript:*(a1 + 40)];
@@ -184,35 +180,32 @@ void __54__TRIPruningFactorLevelCache_objectForKeyedSubscript___block_invoke(uin
 
     else
     {
-      v14 = TRILogCategory_ClientFramework();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v13 = TRILogCategory_ClientFramework();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v15 = *(a1 + 32);
-        v16 = objc_opt_class();
-        v17 = NSStringFromClass(v16);
-        v18 = *(a1 + 40);
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
+        v16 = *(a1 + 40);
         *buf = 138412546;
-        v29 = v17;
-        v30 = 2112;
-        v31 = v18;
-        _os_log_impl(&dword_22EA6B000, v14, OS_LOG_TYPE_INFO, "%@: objectForKeyedSubscript:%@ requires cache reload", buf, 0x16u);
+        v26 = v15;
+        v27 = 2112;
+        v28 = v16;
+        _os_log_impl(&dword_22EA6B000, v13, OS_LOG_TYPE_INFO, "%@: objectForKeyedSubscript:%@ requires cache reload", buf, 0x16u);
       }
 
       [*(a1 + 32) _populateCacheForRequiredKey:*(a1 + 40) guardedData:v3];
       if (!v3[3])
       {
-        v27 = [MEMORY[0x277CCA890] currentHandler];
-        [v27 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"TRIFactorLevelCaching.m" lineNumber:149 description:{@"Invalid parameter not satisfying: %@", @"guardedData->prefetchedLevels"}];
+        v24 = [MEMORY[0x277CCA890] currentHandler];
+        [v24 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"TRIFactorLevelCaching.m" lineNumber:149 description:{@"Invalid parameter not satisfying: %@", @"guardedData->prefetchedLevels"}];
       }
 
-      v19 = [v3[2] objectForKeyedSubscript:*(a1 + 40)];
-      v20 = *(*(a1 + 48) + 8);
-      v21 = *(v20 + 40);
-      *(v20 + 40) = v19;
+      v17 = [v3[2] objectForKeyedSubscript:*(a1 + 40)];
+      v18 = *(*(a1 + 48) + 8);
+      v19 = *(v18 + 40);
+      *(v18 + 40) = v17;
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateFactorLevelsUsingBlock:(id)block
@@ -247,12 +240,12 @@ void __54__TRIPruningFactorLevelCache_objectForKeyedSubscript___block_invoke(uin
 
 void __62__TRIPruningFactorLevelCache_enumerateFactorLevelsUsingBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!v3[2])
   {
-    v19 = [MEMORY[0x277CCA890] currentHandler];
-    [v19 handleFailureInMethod:*(a1 + 48) object:*(a1 + 32) file:@"TRIFactorLevelCaching.m" lineNumber:164 description:{@"Invalid parameter not satisfying: %@", @"guardedData->requiredLevels"}];
+    v16 = [MEMORY[0x277CCA890] currentHandler];
+    [v16 handleFailureInMethod:*(a1 + 48) object:*(a1 + 32) file:@"TRIFactorLevelCaching.m" lineNumber:164 description:{@"Invalid parameter not satisfying: %@", @"guardedData->requiredLevels"}];
   }
 
   v4 = v3[3];
@@ -262,11 +255,10 @@ void __62__TRIPruningFactorLevelCache_enumerateFactorLevelsUsingBlock___block_in
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v16 = *(a1 + 32);
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
       *buf = 138412290;
-      v21 = v18;
+      v18 = v15;
       _os_log_debug_impl(&dword_22EA6B000, v6, OS_LOG_TYPE_DEBUG, "%@: allValues prefetch hit", buf, 0xCu);
     }
 
@@ -275,11 +267,10 @@ void __62__TRIPruningFactorLevelCache_enumerateFactorLevelsUsingBlock___block_in
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v7 = *(a1 + 32);
-    v8 = objc_opt_class();
-    v9 = NSStringFromClass(v8);
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
     *buf = 138412290;
-    v21 = v9;
+    v18 = v8;
     _os_log_impl(&dword_22EA6B000, v6, OS_LOG_TYPE_INFO, "%@: allValues requires cache reload", buf, 0xCu);
   }
 
@@ -291,14 +282,12 @@ void __62__TRIPruningFactorLevelCache_enumerateFactorLevelsUsingBlock___block_in
 LABEL_6:
   }
 
-  v10 = [v3[2] allValues];
-  v11 = [v3[3] allValues];
-  v12 = [v10 arrayByAddingObjectsFromArray:v11];
-  v13 = *(*(a1 + 40) + 8);
-  v14 = *(v13 + 40);
-  *(v13 + 40) = v12;
-
-  v15 = *MEMORY[0x277D85DE8];
+  v9 = [v3[2] allValues];
+  v10 = [v3[3] allValues];
+  v11 = [v9 arrayByAddingObjectsFromArray:v10];
+  v12 = *(*(a1 + 40) + 8);
+  v13 = *(v12 + 40);
+  *(v12 + 40) = v11;
 }
 
 void __62__TRIPruningFactorLevelCache_enumerateFactorLevelsUsingBlock___block_invoke_49(uint64_t a1, void *a2)
@@ -311,7 +300,7 @@ void __62__TRIPruningFactorLevelCache_enumerateFactorLevelsUsingBlock___block_in
 
 - (void)_populateCacheForRequiredKey:(id)key guardedData:(id)data
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   dataCopy = data;
   v8 = objc_opt_new();
@@ -325,15 +314,15 @@ void __62__TRIPruningFactorLevelCache_enumerateFactorLevelsUsingBlock___block_in
     objc_autoreleasePoolPop(v10);
     if (v11)
     {
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __71__TRIPruningFactorLevelCache__populateCacheForRequiredKey_guardedData___block_invoke;
-      v22[3] = &unk_27885E440;
-      v23 = keyCopy;
-      v24 = dataCopy;
-      [v11 enumerateObjectsUsingBlock:v22];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __71__TRIPruningFactorLevelCache__populateCacheForRequiredKey_guardedData___block_invoke;
+      v21[3] = &unk_27885E440;
+      v22 = keyCopy;
+      v23 = dataCopy;
+      [v11 enumerateObjectsUsingBlock:v21];
 
-      v12 = v23;
+      v12 = v22;
     }
 
     else
@@ -344,7 +333,7 @@ void __62__TRIPruningFactorLevelCache_enumerateFactorLevelsUsingBlock___block_in
         v14 = objc_opt_class();
         v15 = NSStringFromClass(v14);
         *buf = 138412290;
-        v26 = v15;
+        v25 = v15;
         _os_log_impl(&dword_22EA6B000, v13, OS_LOG_TYPE_INFO, "%@: dropping loadFactorLevels because it failed", buf, 0xCu);
       }
 
@@ -366,11 +355,11 @@ void __62__TRIPruningFactorLevelCache_enumerateFactorLevelsUsingBlock___block_in
     v19 = [v11 count];
     v20 = [*(dataCopy + 3) count];
     *buf = 138412802;
-    v26 = v18;
-    v27 = 2048;
-    v28 = v19;
-    v29 = 2048;
-    v30 = v20;
+    v25 = v18;
+    v26 = 2048;
+    v27 = v19;
+    v28 = 2048;
+    v29 = v20;
     _os_log_impl(&dword_22EA6B000, v16, OS_LOG_TYPE_INFO, "%@: reloaded %tu factor levels (%tu prefetched)", buf, 0x20u);
   }
 
@@ -378,8 +367,6 @@ void __62__TRIPruningFactorLevelCache_enumerateFactorLevelsUsingBlock___block_in
   {
     [(_PASSimpleCoalescingTimer *)self->_pruningTimer runAfterDelaySeconds:1 coalescingBehavior:self->_pruningDelaySeconds];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __71__TRIPruningFactorLevelCache__populateCacheForRequiredKey_guardedData___block_invoke(uint64_t a1, void *a2)

@@ -2,6 +2,7 @@
 - (RMStoreClient)initWithActivationEngine:(id)engine statusEngine:(id)statusEngine storeIdentifier:(id)identifier;
 - (RMStoreClient)initWithManagementSourceObjectID:(id)d storeIdentifier:(id)identifier statusQuerier:(id)querier persistentContainer:(id)container;
 - (void)_sendStatusData:(id)data;
+- (void)_sendStatusOnlyIfNeeded:(BOOL)needed;
 - (void)create;
 - (void)remove;
 - (void)start;
@@ -111,6 +112,43 @@
   }
 
   [(RMStoreClient *)self _sendStatusOnlyIfNeeded:1];
+}
+
+- (void)_sendStatusOnlyIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  statusEngine = [(RMStoreClient *)self statusEngine];
+  v6 = [RMStatusReporter newStatusReporterWithStatusEngine:statusEngine onlyIfNeeded:neededCopy];
+
+  v10 = 0;
+  v7 = [v6 statusReportReturningError:&v10];
+  v8 = v10;
+  if (v8)
+  {
+    v9 = +[RMLog storeClient];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      sub_100073E34();
+    }
+  }
+
+  else
+  {
+    if (v7)
+    {
+      [(RMStoreClient *)self _sendStatusData:v7];
+      [v6 acknowledgeStatusSent];
+      goto LABEL_7;
+    }
+
+    v9 = +[RMLog storeClient];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    {
+      sub_100073EA8(v9);
+    }
+  }
+
+LABEL_7:
 }
 
 - (void)_sendStatusData:(id)data

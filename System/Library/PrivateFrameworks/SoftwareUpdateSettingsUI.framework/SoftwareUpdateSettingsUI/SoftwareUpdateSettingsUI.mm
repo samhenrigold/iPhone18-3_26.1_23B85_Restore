@@ -1,61 +1,14 @@
 uint64_t sub_26AC9628C()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
   MEMORY[0x277D82BD8](*(v0 + 32));
   return swift_deallocObject();
 }
 
-uint64_t sub_26AC962DC()
-{
-  v3 = *(v0 + 16);
-  v1 = *(v0 + 32);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_26AC96324()
-{
-  v3 = *(v0 + 16);
-  v1 = *(v0 + 32);
-
-  return swift_deallocObject();
-}
-
 uint64_t sub_26AC9636C()
 {
-  v3 = *(sub_26AD9E610() - 8);
-  v1 = (*(v3 + 80) + 16) & ~*(v3 + 80);
-  v4 = v1 + *(v3 + 64);
-  (*(v3 + 8))(v0 + v1);
-  return swift_deallocObject();
-}
-
-uint64_t sub_26AC96490()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_26AC964D0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_26AC96568()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_26AC965A8()
-{
-  v1 = *(v0 + 24);
-
+  v2 = *(sub_26AD9E610() - 8);
+  (*(v2 + 8))(v0 + ((*(v2 + 80) + 16) & ~*(v2 + 80)));
   return swift_deallocObject();
 }
 
@@ -1558,13 +1511,13 @@ id getSUErrorDomain()
   SUErrorDomainSymbolLoc = getSUErrorDomainSymbolLoc();
   if (!SUErrorDomainSymbolLoc)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *SUErrorDomainSymbolLoc;
+  v1 = *SUErrorDomainSymbolLoc;
 
-  return v0;
+  return v1;
 }
 
 uint64_t __os_log_helper_16_2_25_8_32_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_0_8_34_8_34_8_34_8_66_8_34_8_66_8_0_8_0_8_0_8_0_8_0_8_0_8_66_8_0_8_32(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26)
@@ -2158,7 +2111,7 @@ uint64_t __getSUNetworkMonitorClass_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "SUNetworkMonitor");
   }
 
   getSUNetworkMonitorClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -2171,7 +2124,7 @@ uint64_t SoftwareUpdateServicesLibrary()
   updated = SoftwareUpdateServicesLibraryCore(&v2);
   if (!updated)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -2203,11 +2156,8 @@ uint64_t SoftwareUpdateServicesLibraryCore(uint64_t a1)
 
 uint64_t __SoftwareUpdateServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SoftwareUpdateServicesLibraryCore_frameworkLibrary = result;
-  *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2494,13 +2444,13 @@ uint64_t SUPrefsDownloadPhaseIsStalled(id obj)
   IsStalledSymbolLoc = getSUDownloadPhaseIsStalledSymbolLoc();
   if (!IsStalledSymbolLoc)
   {
-    dlerror();
-    abort_report_np();
+    v1 = dlerror();
+    abort_report_np("%s", v1);
   }
 
-  v2 = IsStalledSymbolLoc(location);
+  v3 = IsStalledSymbolLoc(location);
   objc_storeStrong(&location, 0);
-  return v2;
+  return v3;
 }
 
 uint64_t __os_log_helper_16_2_6_8_32_8_66_8_66_8_0_8_66_8_0(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
@@ -2617,13 +2567,13 @@ id getSUErrorDomain_0()
   SUErrorDomainSymbolLoc_0 = getSUErrorDomainSymbolLoc_0();
   if (!SUErrorDomainSymbolLoc_0)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *SUErrorDomainSymbolLoc_0;
+  v1 = *SUErrorDomainSymbolLoc_0;
 
-  return v0;
+  return v1;
 }
 
 uint64_t __os_log_helper_16_2_4_8_32_8_66_8_66_8_0(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -2647,16 +2597,16 @@ uint64_t __os_log_helper_16_2_4_8_32_8_66_8_66_8_0(uint64_t result, uint64_t a2,
 
 id getkSUInstallationConstraintsUnmetKey()
 {
-  v2 = getkSUInstallationConstraintsUnmetKeySymbolLoc();
-  if (!v2)
+  v3 = getkSUInstallationConstraintsUnmetKeySymbolLoc();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *v2;
+  v1 = *v3;
 
-  return v0;
+  return v1;
 }
 
 uint64_t getSUDownloadPhaseIsStalledSymbolLoc()
@@ -2699,7 +2649,7 @@ uint64_t SoftwareUpdateServicesLibrary_0()
   updated = SoftwareUpdateServicesLibraryCore_0(&v2);
   if (!updated)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -2731,11 +2681,8 @@ uint64_t SoftwareUpdateServicesLibraryCore_0(uint64_t a1)
 
 uint64_t __SoftwareUpdateServicesLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SoftwareUpdateServicesLibraryCore_frameworkLibrary_0 = result;
-  *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2842,7 +2789,6 @@ id SUBetaUpdatesRestrictionToString(uint64_t a1)
     v5 = MEMORY[0x277D82BE0](@"None");
   }
 
-  *MEMORY[0x277D85DE8];
   v1 = v5;
 
   return v1;
@@ -3011,7 +2957,7 @@ uint64_t __getSUSUIUserDefaultsKeysClass_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "SUSUIUserDefaultsKeys");
   }
 
   getSUSUIUserDefaultsKeysClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -3024,7 +2970,7 @@ uint64_t SoftwareUpdateSettingsMockingKitLibrary()
   updated = SoftwareUpdateSettingsMockingKitLibraryCore(&v2);
   if (!updated)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -3056,11 +3002,8 @@ uint64_t SoftwareUpdateSettingsMockingKitLibraryCore(uint64_t a1)
 
 uint64_t __SoftwareUpdateSettingsMockingKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SoftwareUpdateSettingsMockingKitLibraryCore_frameworkLibrary = result;
-  *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3072,7 +3015,7 @@ uint64_t __getSUSMKTestCaseSessionPhaseUtilityClass_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "SUSMKTestCaseSessionPhaseUtility");
   }
 
   getSUSMKTestCaseSessionPhaseUtilityClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -3087,7 +3030,7 @@ uint64_t __getSUSMKMockedServiceTypeUtilityClass_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "SUSMKMockedServiceTypeUtility");
   }
 
   getSUSMKMockedServiceTypeUtilityClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -3102,7 +3045,7 @@ uint64_t __getSUSMKUserDefaultsCodedMockedStrategyClass_block_invoke(uint64_t a1
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "SUSMKUserDefaultsCodedMockedStrategy");
   }
 
   getSUSMKUserDefaultsCodedMockedStrategyClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -3156,16 +3099,16 @@ uint64_t __os_log_helper_16_2_2_8_64_8_0(uint64_t result, uint64_t a2, uint64_t 
 
 id getkSUDownloadPhasePreparingForInstallation()
 {
-  v2 = getkSUDownloadPhasePreparingForInstallationSymbolLoc();
-  if (!v2)
+  v3 = getkSUDownloadPhasePreparingForInstallationSymbolLoc();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *v2;
+  v1 = *v3;
 
-  return v0;
+  return v1;
 }
 
 uint64_t getkSUDownloadPhasePreparingForInstallationSymbolLoc()
@@ -3208,7 +3151,7 @@ uint64_t SoftwareUpdateServicesLibrary_1()
   updated = SoftwareUpdateServicesLibraryCore_1(&v2);
   if (!updated)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -3240,11 +3183,8 @@ uint64_t SoftwareUpdateServicesLibraryCore_1(uint64_t a1)
 
 uint64_t __SoftwareUpdateServicesLibraryCore_block_invoke_1(uint64_t a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SoftwareUpdateServicesLibraryCore_frameworkLibrary_1 = result;
-  *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3497,16 +3437,16 @@ uint64_t __os_log_helper_16_0_1_8_0(uint64_t result, uint64_t a2)
 
 id getkSUDownloadPhasePreparingForInstallation_0()
 {
-  v2 = getkSUDownloadPhasePreparingForInstallationSymbolLoc_0();
-  if (!v2)
+  v3 = getkSUDownloadPhasePreparingForInstallationSymbolLoc_0();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *v2;
+  v1 = *v3;
 
-  return v0;
+  return v1;
 }
 
 id getSUErrorDomain_1()
@@ -3514,27 +3454,27 @@ id getSUErrorDomain_1()
   SUErrorDomainSymbolLoc_1 = getSUErrorDomainSymbolLoc_1();
   if (!SUErrorDomainSymbolLoc_1)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *SUErrorDomainSymbolLoc_1;
+  v1 = *SUErrorDomainSymbolLoc_1;
 
-  return v0;
+  return v1;
 }
 
 id getkSUInstallationConstraintsUnmetKey_0()
 {
-  v2 = getkSUInstallationConstraintsUnmetKeySymbolLoc_0();
-  if (!v2)
+  v3 = getkSUInstallationConstraintsUnmetKeySymbolLoc_0();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *v2;
+  v1 = *v3;
 
-  return v0;
+  return v1;
 }
 
 uint64_t __os_log_helper_16_2_3_8_0_8_64_8_64(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -3606,8 +3546,6 @@ void __system_root_status_block_invoke(NSObject *a1)
 
     objc_storeStrong(&location, 0);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 uint64_t getkSUDownloadPhasePreparingForInstallationSymbolLoc_0()
@@ -3650,7 +3588,7 @@ uint64_t SoftwareUpdateServicesLibrary_2()
   updated = SoftwareUpdateServicesLibraryCore_2(&v2);
   if (!updated)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -3682,11 +3620,8 @@ uint64_t SoftwareUpdateServicesLibraryCore_2(uint64_t a1)
 
 uint64_t __SoftwareUpdateServicesLibraryCore_block_invoke_2(uint64_t a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SoftwareUpdateServicesLibraryCore_frameworkLibrary_2 = result;
-  *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4026,13 +3961,13 @@ id getSUErrorDomain_2()
   SUErrorDomainSymbolLoc_2 = getSUErrorDomainSymbolLoc_2();
   if (!SUErrorDomainSymbolLoc_2)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *SUErrorDomainSymbolLoc_2;
+  v1 = *SUErrorDomainSymbolLoc_2;
 
-  return v0;
+  return v1;
 }
 
 uint64_t __os_log_helper_16_2_4_8_32_8_66_8_32_8_66(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -4070,7 +4005,7 @@ uint64_t __getSUDownloadPolicyFactoryClass_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "SUDownloadPolicyFactory");
   }
 
   getSUDownloadPolicyFactoryClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -4083,7 +4018,7 @@ uint64_t SoftwareUpdateServicesLibrary_3()
   updated = SoftwareUpdateServicesLibraryCore_3(&v2);
   if (!updated)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -4115,11 +4050,8 @@ uint64_t SoftwareUpdateServicesLibraryCore_3(uint64_t a1)
 
 uint64_t __SoftwareUpdateServicesLibraryCore_block_invoke_3(uint64_t a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SoftwareUpdateServicesLibraryCore_frameworkLibrary_3 = result;
-  *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4651,11 +4583,8 @@ uint64_t SoftwareUpdateSettingsMockingKitLibraryCore_0(uint64_t a1)
 
 uint64_t __SoftwareUpdateSettingsMockingKitLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SoftwareUpdateSettingsMockingKitLibraryCore_frameworkLibrary_0 = result;
-  *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4667,7 +4596,7 @@ uint64_t __getSUSUIUserDefaultsKeysClass_block_invoke_0(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "SUSUIUserDefaultsKeys");
   }
 
   getSUSUIUserDefaultsKeysClass_softClass_0 = *(*(*(a1 + 32) + 8) + 24);
@@ -4680,7 +4609,7 @@ uint64_t SoftwareUpdateSettingsMockingKitLibrary_0()
   updated = SoftwareUpdateSettingsMockingKitLibraryCore_0(&v2);
   if (!updated)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -4699,7 +4628,7 @@ uint64_t __getSUSMKMockedServiceTypeUtilityClass_block_invoke_0(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "SUSMKMockedServiceTypeUtility");
   }
 
   getSUSMKMockedServiceTypeUtilityClass_softClass_0 = *(*(*(a1 + 32) + 8) + 24);
@@ -4714,7 +4643,7 @@ uint64_t __getSUSMKUserDefaultsCodedTestCaseSessionClass_block_invoke(uint64_t a
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "SUSMKUserDefaultsCodedTestCaseSession");
   }
 
   getSUSMKUserDefaultsCodedTestCaseSessionClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -4783,58 +4712,58 @@ uint64_t __os_log_helper_16_2_2_8_34_4_0(uint64_t result, uint64_t a2, int a3)
   return result;
 }
 
-id SUSUISoftwareUpdateStateToString(unsigned int a1)
+id SUSUISoftwareUpdateStateToString(uint64_t a1)
 {
   v7 = *MEMORY[0x277D85DE8];
   v4 = a1;
   switch(a1)
   {
-    case 0u:
+    case 0:
       v5 = MEMORY[0x277D82BE0](@"Idle");
       break;
-    case 1u:
+    case 1:
       v5 = MEMORY[0x277D82BE0](@"Checking");
       break;
-    case 2u:
+    case 2:
       v5 = MEMORY[0x277D82BE0](@"ScanFailed");
       break;
-    case 3u:
+    case 3:
       v5 = MEMORY[0x277D82BE0](@"NoUpdateFound");
       break;
-    case 4u:
+    case 4:
       v5 = MEMORY[0x277D82BE0](@"DelayingUpdate");
       break;
-    case 5u:
+    case 5:
       v5 = MEMORY[0x277D82BE0](@"Queued");
       break;
-    case 6u:
+    case 6:
       v5 = MEMORY[0x277D82BE0](@"ReadyToDownloadAlternate");
       break;
-    case 8u:
+    case 8:
       v5 = MEMORY[0x277D82BE0](@"ReadyToDownload");
       break;
-    case 9u:
+    case 9:
       v5 = MEMORY[0x277D82BE0](@"ReadyToDownloadRevealHidden");
       break;
-    case 0xAu:
+    case 10:
       v5 = MEMORY[0x277D82BE0](@"ReadyToInstall");
       break;
-    case 0xBu:
+    case 11:
       v5 = MEMORY[0x277D82BE0](@"ReadyToInstallWithAutoInstallEnabled");
       break;
-    case 0xCu:
+    case 12:
       v5 = MEMORY[0x277D82BE0](@"Downloading");
       break;
-    case 0xDu:
+    case 13:
       v5 = MEMORY[0x277D82BE0](@"DownloadingAlternateHidingPreferred");
       break;
-    case 0xEu:
+    case 14:
       v5 = MEMORY[0x277D82BE0](@"DownloadStalled");
       break;
-    case 0xFu:
+    case 15:
       v5 = MEMORY[0x277D82BE0](@"Installing");
       break;
-    case 0x10u:
+    case 16:
       v5 = MEMORY[0x277D82BE0](@"Installed");
       break;
     default:
@@ -4850,7 +4779,6 @@ id SUSUISoftwareUpdateStateToString(unsigned int a1)
       break;
   }
 
-  *MEMORY[0x277D85DE8];
   v1 = v5;
 
   return v1;
@@ -4891,7 +4819,6 @@ id SUInstallationTypeToString(uint64_t a1)
     v5 = MEMORY[0x277D82BE0](@"DoNotInstall");
   }
 
-  *MEMORY[0x277D85DE8];
   v1 = v5;
 
   return v1;
@@ -4924,16 +4851,16 @@ id getSUNetworkMonitorClass_0()
 
 id getkSUDownloadPhasePreparingForInstallation_1()
 {
-  v2 = getkSUDownloadPhasePreparingForInstallationSymbolLoc_1();
-  if (!v2)
+  v3 = getkSUDownloadPhasePreparingForInstallationSymbolLoc_1();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *v2;
+  v1 = *v3;
 
-  return v0;
+  return v1;
 }
 
 uint64_t __os_log_helper_16_2_19_8_32_8_66_4_0_8_66_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_66_4_0_8_66_4_0(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, int a18, uint64_t a19, int a20)
@@ -5716,13 +5643,13 @@ id getSUErrorDomain_3()
   SUErrorDomainSymbolLoc_3 = getSUErrorDomainSymbolLoc_3();
   if (!SUErrorDomainSymbolLoc_3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *SUErrorDomainSymbolLoc_3;
+  v1 = *SUErrorDomainSymbolLoc_3;
 
-  return v0;
+  return v1;
 }
 
 uint64_t __os_log_helper_16_2_17_8_32_8_66_4_0_8_66_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_66_8_66(uint64_t result, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
@@ -6087,13 +6014,13 @@ uint64_t SUPrefsDownloadPhaseIsStalled_0(id obj)
   IsStalledSymbolLoc_0 = getSUDownloadPhaseIsStalledSymbolLoc_0();
   if (!IsStalledSymbolLoc_0)
   {
-    dlerror();
-    abort_report_np();
+    v1 = dlerror();
+    abort_report_np("%s", v1);
   }
 
-  v2 = IsStalledSymbolLoc_0(location);
+  v3 = IsStalledSymbolLoc_0(location);
   objc_storeStrong(&location, 0);
-  return v2;
+  return v3;
 }
 
 uint64_t __os_log_helper_16_2_17_8_32_8_66_4_0_8_66_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_64_4_0(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, int a18)
@@ -6212,41 +6139,43 @@ uint64_t __os_log_helper_16_2_16_8_32_8_66_4_0_8_66_8_0_8_66_8_66_8_0_8_66_8_0_8
 
 id getkSUInstallationConstraintsUnmetKey_1()
 {
-  v2 = getkSUInstallationConstraintsUnmetKeySymbolLoc_1();
-  if (!v2)
+  v3 = getkSUInstallationConstraintsUnmetKeySymbolLoc_1();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *v2;
+  v1 = *v3;
 
-  return v0;
+  return v1;
 }
 
 uint64_t SUPrefsRequiredBatteryLevelForInstall()
 {
   SURequiredBatteryLevelForInstallSymbolLoc = getSURequiredBatteryLevelForInstallSymbolLoc();
-  v2 = SURequiredBatteryLevelForInstallSymbolLoc;
+  v4 = SURequiredBatteryLevelForInstallSymbolLoc;
+  v3 = 0;
   if (!SURequiredBatteryLevelForInstallSymbolLoc)
   {
-    dlerror();
-    SURequiredBatteryLevelForInstallSymbolLoc = abort_report_np();
+    v1 = dlerror();
+    SURequiredBatteryLevelForInstallSymbolLoc = abort_report_np("%s", v1);
   }
 
-  return v2(SURequiredBatteryLevelForInstallSymbolLoc);
+  v3 = v4;
+  return v4(SURequiredBatteryLevelForInstallSymbolLoc);
 }
 
 uint64_t SUPrefsconnectedToCharger(uint64_t a1)
 {
-  v2 = getconnectedToChargerSymbolLoc();
-  if (!v2)
+  v3 = getconnectedToChargerSymbolLoc();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v1 = dlerror();
+    abort_report_np("%s", v1);
   }
 
-  return v2(a1);
+  return v3(a1);
 }
 
 uint64_t __os_log_helper_16_2_16_8_32_8_66_4_0_8_66_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_4_0(uint64_t result, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, int a17)
@@ -6465,16 +6394,16 @@ uint64_t __os_log_helper_16_2_18_8_32_8_66_4_0_8_66_8_0_8_66_8_66_8_0_8_66_8_0_8
 
 id getkSUDownloadPhaseBrainFetchingQueuedRemote()
 {
-  v2 = getkSUDownloadPhaseBrainFetchingQueuedRemoteSymbolLoc();
-  if (!v2)
+  v3 = getkSUDownloadPhaseBrainFetchingQueuedRemoteSymbolLoc();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *v2;
+  v1 = *v3;
 
-  return v0;
+  return v1;
 }
 
 id getkSUDownloadPhaseUpdateFetchingQueuedRemote()
@@ -6482,13 +6411,13 @@ id getkSUDownloadPhaseUpdateFetchingQueuedRemote()
   updated = getkSUDownloadPhaseUpdateFetchingQueuedRemoteSymbolLoc();
   if (!updated)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *updated;
+  v1 = *updated;
 
-  return v0;
+  return v1;
 }
 
 uint64_t __os_log_helper_16_2_19_8_32_8_66_4_0_8_66_8_0_8_66_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_0_8_66_8_66_8_66_8_66_8_64(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
@@ -6691,7 +6620,7 @@ uint64_t __getSUNetworkMonitorClass_block_invoke_0(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "SUNetworkMonitor");
   }
 
   getSUNetworkMonitorClass_softClass_0 = *(*(*(a1 + 32) + 8) + 24);
@@ -6704,7 +6633,7 @@ uint64_t SoftwareUpdateServicesLibrary_4()
   updated = SoftwareUpdateServicesLibraryCore_4(&v2);
   if (!updated)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -6736,11 +6665,8 @@ uint64_t SoftwareUpdateServicesLibraryCore_4(uint64_t a1)
 
 uint64_t __SoftwareUpdateServicesLibraryCore_block_invoke_4(uint64_t a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SoftwareUpdateServicesLibraryCore_frameworkLibrary_4 = result;
-  *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6786,7 +6712,7 @@ uint64_t __getSUDownloadPolicyFactoryClass_block_invoke_0(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "SUDownloadPolicyFactory");
   }
 
   getSUDownloadPolicyFactoryClass_softClass_0 = *(*(*(a1 + 32) + 8) + 24);
@@ -6971,7 +6897,7 @@ uint64_t __getSUScanOptionsClass_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "SUScanOptions");
   }
 
   getSUScanOptionsClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -7404,7 +7330,7 @@ uint64_t __getSUSMKSoftwareUpdateServicesStrategyBaseClass_block_invoke(uint64_t
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "SUSMKSoftwareUpdateServicesStrategyBase");
   }
 
   getSUSMKSoftwareUpdateServicesStrategyBaseClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -7417,7 +7343,7 @@ uint64_t SoftwareUpdateSettingsMockingKitLibrary_1()
   updated = SoftwareUpdateSettingsMockingKitLibraryCore_1(&v2);
   if (!updated)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -7449,11 +7375,8 @@ uint64_t SoftwareUpdateSettingsMockingKitLibraryCore_1(uint64_t a1)
 
 uint64_t __SoftwareUpdateSettingsMockingKitLibraryCore_block_invoke_1(uint64_t a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SoftwareUpdateSettingsMockingKitLibraryCore_frameworkLibrary_1 = result;
-  *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7465,7 +7388,7 @@ uint64_t __getSUSMKSoftwareUpdateServicesStrategyOptionsClass_block_invoke(uint6
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "SUSMKSoftwareUpdateServicesStrategyOptions");
   }
 
   getSUSMKSoftwareUpdateServicesStrategyOptionsClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -7546,7 +7469,7 @@ uint64_t __getSUSMKSoftwareUpdateServicesStrategyBaseClass_block_invoke_0(uint64
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "SUSMKSoftwareUpdateServicesStrategyBase");
   }
 
   getSUSMKSoftwareUpdateServicesStrategyBaseClass_softClass_0 = *(*(*(a1 + 32) + 8) + 24);
@@ -7559,7 +7482,7 @@ uint64_t SoftwareUpdateSettingsMockingKitLibrary_2()
   updated = SoftwareUpdateSettingsMockingKitLibraryCore_2(&v2);
   if (!updated)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -7591,11 +7514,8 @@ uint64_t SoftwareUpdateSettingsMockingKitLibraryCore_2(uint64_t a1)
 
 uint64_t __SoftwareUpdateSettingsMockingKitLibraryCore_block_invoke_2(uint64_t a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SoftwareUpdateSettingsMockingKitLibraryCore_frameworkLibrary_2 = result;
-  *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7607,7 +7527,7 @@ uint64_t __getSUSMKSoftwareUpdateServicesStrategyOptionsClass_block_invoke_0(uin
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "SUSMKSoftwareUpdateServicesStrategyOptions");
   }
 
   getSUSMKSoftwareUpdateServicesStrategyOptionsClass_softClass_0 = *(*(*(a1 + 32) + 8) + 24);
@@ -7616,16 +7536,16 @@ uint64_t __getSUSMKSoftwareUpdateServicesStrategyOptionsClass_block_invoke_0(uin
 
 id getkSUInstallationConstraintsUnmetKey_2()
 {
-  v2 = getkSUInstallationConstraintsUnmetKeySymbolLoc_2();
-  if (!v2)
+  v3 = getkSUInstallationConstraintsUnmetKeySymbolLoc_2();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *v2;
+  v1 = *v3;
 
-  return v0;
+  return v1;
 }
 
 id getSUErrorDomain_4()
@@ -7633,26 +7553,28 @@ id getSUErrorDomain_4()
   SUErrorDomainSymbolLoc_4 = getSUErrorDomainSymbolLoc_4();
   if (!SUErrorDomainSymbolLoc_4)
   {
-    dlerror();
-    abort_report_np();
+    v0 = dlerror();
+    abort_report_np("%s", v0);
   }
 
-  v0 = *SUErrorDomainSymbolLoc_4;
+  v1 = *SUErrorDomainSymbolLoc_4;
 
-  return v0;
+  return v1;
 }
 
 uint64_t SUPrefsRequiredBatteryLevelForInstall_0()
 {
   SURequiredBatteryLevelForInstallSymbolLoc_0 = getSURequiredBatteryLevelForInstallSymbolLoc_0();
-  v2 = SURequiredBatteryLevelForInstallSymbolLoc_0;
+  v4 = SURequiredBatteryLevelForInstallSymbolLoc_0;
+  v3 = 0;
   if (!SURequiredBatteryLevelForInstallSymbolLoc_0)
   {
-    dlerror();
-    SURequiredBatteryLevelForInstallSymbolLoc_0 = abort_report_np();
+    v1 = dlerror();
+    SURequiredBatteryLevelForInstallSymbolLoc_0 = abort_report_np("%s", v1);
   }
 
-  return v2(SURequiredBatteryLevelForInstallSymbolLoc_0);
+  v3 = v4;
+  return v4(SURequiredBatteryLevelForInstallSymbolLoc_0);
 }
 
 uint64_t __os_log_helper_16_2_1_8_66(uint64_t result, uint64_t a2)
@@ -7667,14 +7589,14 @@ uint64_t __os_log_helper_16_2_1_8_66(uint64_t result, uint64_t a2)
 
 uint64_t SUPrefsconnectedToCharger_0(uint64_t a1)
 {
-  v2 = getconnectedToChargerSymbolLoc_0();
-  if (!v2)
+  v3 = getconnectedToChargerSymbolLoc_0();
+  if (!v3)
   {
-    dlerror();
-    abort_report_np();
+    v1 = dlerror();
+    abort_report_np("%s", v1);
   }
 
-  return v2(a1);
+  return v3(a1);
 }
 
 uint64_t getkSUInstallationConstraintsUnmetKeySymbolLoc_2()
@@ -7717,7 +7639,7 @@ uint64_t SoftwareUpdateServicesLibrary_5()
   updated = SoftwareUpdateServicesLibraryCore_5(&v2);
   if (!updated)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -7749,11 +7671,8 @@ uint64_t SoftwareUpdateServicesLibraryCore_5(uint64_t a1)
 
 uint64_t __SoftwareUpdateServicesLibraryCore_block_invoke_5(uint64_t a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SoftwareUpdateServicesLibraryCore_frameworkLibrary_5 = result;
-  *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7902,7 +7821,7 @@ uint64_t __getSUSMKSoftwareUpdateServicesStrategyBaseClass_block_invoke_1(uint64
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "SUSMKSoftwareUpdateServicesStrategyBase");
   }
 
   getSUSMKSoftwareUpdateServicesStrategyBaseClass_softClass_1 = *(*(*(a1 + 32) + 8) + 24);
@@ -7915,7 +7834,7 @@ uint64_t SoftwareUpdateSettingsMockingKitLibrary_3()
   updated = SoftwareUpdateSettingsMockingKitLibraryCore_3(&v2);
   if (!updated)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -7947,11 +7866,8 @@ uint64_t SoftwareUpdateSettingsMockingKitLibraryCore_3(uint64_t a1)
 
 uint64_t __SoftwareUpdateSettingsMockingKitLibraryCore_block_invoke_3(uint64_t a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SoftwareUpdateSettingsMockingKitLibraryCore_frameworkLibrary_3 = result;
-  *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8010,7 +7926,7 @@ uint64_t __getSUSMKMockedServiceTypeUtilityClass_block_invoke_1(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "SUSMKMockedServiceTypeUtility");
   }
 
   getSUSMKMockedServiceTypeUtilityClass_softClass_1 = *(*(*(a1 + 32) + 8) + 24);
@@ -8023,7 +7939,7 @@ uint64_t SoftwareUpdateSettingsMockingKitLibrary_4()
   updated = SoftwareUpdateSettingsMockingKitLibraryCore_4(&v2);
   if (!updated)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -8055,11 +7971,8 @@ uint64_t SoftwareUpdateSettingsMockingKitLibraryCore_4(uint64_t a1)
 
 uint64_t __SoftwareUpdateSettingsMockingKitLibraryCore_block_invoke_4(uint64_t a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SoftwareUpdateSettingsMockingKitLibraryCore_frameworkLibrary_4 = result;
-  *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8243,7 +8156,7 @@ uint64_t SUSUISoftwareUpdateController.shouldShowComingSoonTip.getter()
   return v2 & 1;
 }
 
-uint64_t *sub_26AD998E8(uint64_t *a1)
+void *sub_26AD998E8(void *a1)
 {
   if (a1[3])
   {
@@ -8253,15 +8166,17 @@ uint64_t *sub_26AD998E8(uint64_t *a1)
   return a1;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
-  v3 = a1[3];
-  if ((*(*(v3 - 8) + 80) & 0x20000) == 0)
+  v2 = a1[3];
+  if ((*(*(v2 - 8) + 80) & 0x20000) != 0)
   {
-    return (*(*(v3 - 8) + 8))(a1);
   }
 
-  v2 = *a1;
+  else
+  {
+    return (*(*(v2 - 8) + 8))(a1);
+  }
 }
 
 __n128 sub_26AD999C4(uint64_t a1, uint64_t a2)
@@ -8272,13 +8187,13 @@ __n128 sub_26AD999C4(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t SUSUISoftwareUpdateController.shouldShowComingSoonTip.setter()
+uint64_t SUSUISoftwareUpdateController.shouldShowComingSoonTip.setter(char a1)
 {
-  MEMORY[0x277D82BE0](v0);
+  MEMORY[0x277D82BE0](v1);
   key = sub_26AD996A8();
   value = sub_26AD9E6B0();
   swift_beginAccess();
-  objc_setAssociatedObject(v0, key, value, 0);
+  objc_setAssociatedObject(v1, key, value, 0);
   swift_endAccess();
   swift_unknownObjectRelease();
   return swift_unknownObjectRelease();
@@ -8293,9 +8208,8 @@ uint64_t sub_26AD99B0C@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
   return MEMORY[0x277D82BD8](v3);
 }
 
-uint64_t sub_26AD99B80(unsigned __int8 *a1, void *a2)
+uint64_t sub_26AD99B80(char *a1, void *a2)
 {
-  v4 = *a1;
   v3 = *a2;
   MEMORY[0x277D82BE0](*a2);
   [v3 setShouldShowComingSoonTip_];
@@ -8333,16 +8247,15 @@ Swift::Void __swiftcall SUSUISoftwareUpdateController.setupTipsObserver()()
 
 uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
-  v6 = *a1;
+  v5 = *a1;
   if (!*a1)
   {
-    v3 = *a2;
     TypeByMangledNameInContext2 = swift_getTypeByMangledNameInContext2();
     *a1 = TypeByMangledNameInContext2;
     return TypeByMangledNameInContext2;
   }
 
-  return v6;
+  return v5;
 }
 
 uint64_t sub_26AD99E08(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -8352,267 +8265,232 @@ uint64_t sub_26AD99E08(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v4[15] = 0;
   v5 = sub_26AD9E5D0();
   v4[20] = v5;
-  v16 = *(v5 - 8);
-  v4[21] = v16;
-  v6 = *(v16 + 64) + 15;
+  v4[21] = *(v5 - 8);
   v4[22] = swift_task_alloc();
-  v7 = sub_26AD9E610();
-  v4[23] = v7;
-  v17 = *(v7 - 8);
-  v4[24] = v17;
-  v4[25] = *(v17 + 64);
+  v6 = sub_26AD9E610();
+  v4[23] = v6;
+  v11 = *(v6 - 8);
+  v4[24] = v11;
+  v4[25] = *(v11 + 64);
   v4[26] = swift_task_alloc();
   v4[27] = swift_task_alloc();
-  v8 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_2803D9450, &qword_26ADC84D0) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2803D9450, &qword_26ADC84D0);
   v4[28] = swift_task_alloc();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2803D9458, &qword_26ADC84D8);
-  v4[29] = v9;
-  v18 = *(v9 - 8);
-  v4[30] = v18;
-  v10 = *(v18 + 64) + 15;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2803D9458, &qword_26ADC84D8);
+  v4[29] = v7;
+  v4[30] = *(v7 - 8);
   v4[31] = swift_task_alloc();
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2803D9460, &qword_26ADC84E0);
-  v4[32] = v11;
-  v19 = *(v11 - 8);
-  v4[33] = v19;
-  v12 = *(v19 + 64) + 15;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2803D9460, &qword_26ADC84E0);
+  v4[32] = v8;
+  v4[33] = *(v8 - 8);
   v4[34] = swift_task_alloc();
   v4[15] = a4;
   v4[35] = sub_26AD9E6E0();
   v4[36] = sub_26AD9E6D0();
-  v21 = sub_26AD9E6C0();
-  v4[37] = v21;
-  v4[38] = v13;
-  v14 = v4[14];
+  v4[37] = sub_26AD9E6C0();
+  v4[38] = v9;
 
-  return MEMORY[0x2822009F8](sub_26AD9A0F4, v21, v13);
+  return MEMORY[0x2822009F8](sub_26AD9A0F4);
 }
 
 uint64_t sub_26AD9A0F4()
 {
-  v16 = MEMORY[0x277D85700];
-  v10 = v0[34];
-  v12 = v0[31];
-  v11 = v0[30];
-  v13 = v0[29];
+  v11 = MEMORY[0x277D85700];
+  v7 = v0[31];
+  v6 = v0[30];
+  v8 = v0[29];
   v0[14] = v0;
   v0[39] = sub_26AD9E5A0();
-  v8 = sub_26AD9E590();
+  v5 = sub_26AD9E590();
   sub_26AD9E580();
-  MEMORY[0x277D82BD8](v8);
-  v9 = v0[6];
+  MEMORY[0x277D82BD8](v5);
   __swift_project_boxed_opaque_existential_1(v0 + 2, v0[5]);
   sub_26AD9E5E0();
   sub_26AD9E710();
-  (*(v11 + 8))(v12, v13);
+  (*(v6 + 8))(v7, v8);
   __swift_destroy_boxed_opaque_existential_1(v0 + 2);
   v0[40] = 0;
-  v1 = v0[35];
-  v15 = sub_26AD9E6D0();
-  v0[41] = v15;
-  v2 = *(MEMORY[0x277D85798] + 4);
-  v3 = swift_task_alloc();
-  v14[42] = v3;
-  *v3 = v14[14];
-  v3[1] = sub_26AD9A294;
-  v4 = v14[34];
-  v5 = v14[32];
-  v6 = v14[28];
+  v10 = sub_26AD9E6D0();
+  v0[41] = v10;
+  v1 = swift_task_alloc();
+  v9[42] = v1;
+  *v1 = v9[14];
+  v1[1] = sub_26AD9A294;
+  v2 = v9[32];
+  v3 = v9[28];
 
-  return MEMORY[0x2822003E8](v6, v15, v16, v5);
+  return MEMORY[0x2822003E8](v3, v10, v11, v2);
 }
 
 uint64_t sub_26AD9A294()
 {
-  v8 = *v0;
-  v7 = *v0;
-  v1 = *(*v0 + 336);
-  v6 = *(*v0 + 328);
-  *(v7 + 112) = *v0;
+  *(*v0 + 112) = *v0;
 
   swift_unknownObjectRelease();
-  v2 = *(v7 + 112);
-  v3 = *(v8 + 304);
-  v4 = *(v8 + 296);
 
-  return MEMORY[0x2822009F8](sub_26AD9A3F4, v4, v3);
+  return MEMORY[0x2822009F8](sub_26AD9A3F4);
 }
 
 uint64_t sub_26AD9A3F4()
 {
-  v65 = MEMORY[0x277D85700];
+  v51 = MEMORY[0x277D85700];
   v1 = v0[28];
   v2 = v0[24];
   v3 = v0[23];
   v0[14] = v0;
   if ((*(v2 + 48))(v1, 1, v3) == 1)
   {
-    v57 = *(v64 + 288);
-    v58 = *(v64 + 272);
-    v4 = *(v64 + 256);
-    v59 = *(v64 + 248);
-    v60 = *(v64 + 224);
-    v61 = *(v64 + 216);
-    v62 = *(v64 + 208);
-    v63 = *(v64 + 176);
-    (*(*(v64 + 264) + 8))();
+    (*(*(v50 + 264) + 8))();
 
-    v5 = *(*(v64 + 112) + 8);
-    v6 = *(v64 + 112);
+    v4 = *(*(v50 + 112) + 8);
 
-    return v5();
+    return v4();
   }
 
   else
   {
-    v8 = *(v64 + 312);
-    v40 = *(v64 + 216);
-    v43 = *(v64 + 208);
-    v41 = *(v64 + 200);
-    v44 = *(v64 + 184);
-    v36 = *(v64 + 176);
-    v38 = *(v64 + 160);
-    v39 = *(v64 + 192);
-    v37 = *(v64 + 168);
-    v34 = sub_26AD9E590();
+    v34 = *(v50 + 216);
+    v36 = *(v50 + 208);
+    v37 = *(v50 + 184);
+    v30 = *(v50 + 176);
+    v32 = *(v50 + 160);
+    v33 = *(v50 + 192);
+    v31 = *(v50 + 168);
+    v29 = sub_26AD9E590();
     sub_26AD9E580();
-    MEMORY[0x277D82BD8](v34);
-    v35 = *(v64 + 88);
-    __swift_project_boxed_opaque_existential_1((v64 + 56), *(v64 + 80));
+    MEMORY[0x277D82BD8](v29);
+    __swift_project_boxed_opaque_existential_1((v50 + 56), *(v50 + 80));
     sub_26AD9E5F0();
-    __swift_destroy_boxed_opaque_existential_1((v64 + 56));
-    v9 = sub_26AD995E4();
-    (*(v37 + 16))(v36, v9, v38);
-    (*(v39 + 16))(v43, v40, v44);
-    v42 = (*(v39 + 80) + 16) & ~*(v39 + 80);
-    v46 = swift_allocObject();
-    (*(v39 + 32))(v46 + v42, v43, v44);
-    v55 = sub_26AD9E5B0();
-    v56 = sub_26AD9E730();
-    v48 = swift_allocObject();
-    *(v48 + 16) = 32;
-    v49 = swift_allocObject();
-    *(v49 + 16) = 8;
+    __swift_destroy_boxed_opaque_existential_1((v50 + 56));
+    v6 = sub_26AD995E4();
+    (*(v31 + 16))(v30, v6, v32);
+    (*(v33 + 16))(v36, v34, v37);
+    v35 = (*(v33 + 80) + 16) & ~*(v33 + 80);
+    v39 = swift_allocObject();
+    (*(v33 + 32))(v39 + v35, v36, v37);
+    v48 = sub_26AD9E5B0();
+    v49 = sub_26AD9E730();
+    v41 = swift_allocObject();
+    *(v41 + 16) = 32;
+    v42 = swift_allocObject();
+    *(v42 + 16) = 8;
+    v38 = swift_allocObject();
+    *(v38 + 16) = sub_26AD9B31C;
+    *(v38 + 24) = 0;
+    v43 = swift_allocObject();
+    *(v43 + 16) = sub_26AD9E37C;
+    *(v43 + 24) = v38;
+    v44 = swift_allocObject();
+    *(v44 + 16) = 32;
     v45 = swift_allocObject();
-    *(v45 + 16) = sub_26AD9B31C;
-    *(v45 + 24) = 0;
-    v50 = swift_allocObject();
-    *(v50 + 16) = sub_26AD9E37C;
-    *(v50 + 24) = v45;
-    v51 = swift_allocObject();
-    *(v51 + 16) = 32;
-    v52 = swift_allocObject();
-    *(v52 + 16) = 8;
-    v47 = swift_allocObject();
-    *(v47 + 16) = sub_26AD9C660;
-    *(v47 + 24) = v46;
-    v53 = swift_allocObject();
-    *(v53 + 16) = sub_26AD9E3A4;
-    *(v53 + 24) = v47;
+    *(v45 + 16) = 8;
+    v40 = swift_allocObject();
+    *(v40 + 16) = sub_26AD9C660;
+    *(v40 + 24) = v39;
+    v46 = swift_allocObject();
+    *(v46 + 16) = sub_26AD9E3A4;
+    *(v46 + 24) = v40;
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2803D9468, &qword_26ADC84E8);
     sub_26AD9E7E0();
-    v54 = v10;
+    v47 = v7;
 
-    *v54 = sub_26AD9E36C;
-    v54[1] = v48;
+    *v47 = sub_26AD9E36C;
+    v47[1] = v41;
 
-    v54[2] = sub_26AD9E374;
-    v54[3] = v49;
+    v47[2] = sub_26AD9E374;
+    v47[3] = v42;
 
-    v54[4] = sub_26AD9E388;
-    v54[5] = v50;
+    v47[4] = sub_26AD9E388;
+    v47[5] = v43;
 
-    v54[6] = sub_26AD9E394;
-    v54[7] = v51;
+    v47[6] = sub_26AD9E394;
+    v47[7] = v44;
 
-    v54[8] = sub_26AD9E39C;
-    v54[9] = v52;
+    v47[8] = sub_26AD9E39C;
+    v47[9] = v45;
 
-    v54[10] = sub_26AD9E3B0;
-    v54[11] = v53;
+    v47[10] = sub_26AD9E3B0;
+    v47[11] = v46;
     sub_26AD9E3BC();
 
-    if (os_log_type_enabled(v55, v56))
+    if (os_log_type_enabled(v48, v49))
     {
-      v11 = *(v64 + 320);
+      v8 = *(v50 + 320);
       buf = sub_26AD9E760();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2803D9470, &qword_26ADC84F0);
-      v32 = sub_26AD9BC00(0);
-      v33 = sub_26AD9BC00(2);
-      *(v64 + 128) = buf;
-      *(v64 + 136) = v32;
-      *(v64 + 144) = v33;
-      sub_26AD9BC54(2, (v64 + 128));
-      sub_26AD9BC54(2, (v64 + 128));
-      *(v64 + 96) = sub_26AD9E36C;
-      *(v64 + 104) = v48;
-      sub_26AD9BC68(v64 + 96, v64 + 128, v64 + 136, v64 + 144);
-      if (v11)
+      v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2803D9470, &qword_26ADC84F0);
+      v27 = sub_26AD9BC00(0, v25, v25);
+      v28 = sub_26AD9BC00(2, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+      *(v50 + 128) = buf;
+      *(v50 + 136) = v27;
+      *(v50 + 144) = v28;
+      sub_26AD9BC54(2, (v50 + 128));
+      sub_26AD9BC54(2, (v50 + 128));
+      *(v50 + 96) = sub_26AD9E36C;
+      *(v50 + 104) = v41;
+      sub_26AD9BC68((v50 + 96), v50 + 128, v50 + 136, v50 + 144);
+      if (v8)
       {
       }
 
-      *(v64 + 96) = sub_26AD9E374;
-      *(v64 + 104) = v49;
-      sub_26AD9BC68(v64 + 96, v64 + 128, v64 + 136, v64 + 144);
-      *(v64 + 96) = sub_26AD9E388;
-      *(v64 + 104) = v50;
-      sub_26AD9BC68(v64 + 96, v64 + 128, v64 + 136, v64 + 144);
-      *(v64 + 96) = sub_26AD9E394;
-      *(v64 + 104) = v51;
-      sub_26AD9BC68(v64 + 96, v64 + 128, v64 + 136, v64 + 144);
-      *(v64 + 96) = sub_26AD9E39C;
-      *(v64 + 104) = v52;
-      sub_26AD9BC68(v64 + 96, v64 + 128, v64 + 136, v64 + 144);
-      *(v64 + 96) = sub_26AD9E3B0;
-      *(v64 + 104) = v53;
-      sub_26AD9BC68(v64 + 96, v64 + 128, v64 + 136, v64 + 144);
-      _os_log_impl(&dword_26AC94000, v55, v56, "%s: Coming Soon tip asked to refresh its status: %s", buf, 0x16u);
-      sub_26AD9BCB4(v32);
-      sub_26AD9BCB4(v33);
+      *(v50 + 96) = sub_26AD9E374;
+      *(v50 + 104) = v42;
+      sub_26AD9BC68((v50 + 96), v50 + 128, v50 + 136, v50 + 144);
+      *(v50 + 96) = sub_26AD9E388;
+      *(v50 + 104) = v43;
+      sub_26AD9BC68((v50 + 96), v50 + 128, v50 + 136, v50 + 144);
+      *(v50 + 96) = sub_26AD9E394;
+      *(v50 + 104) = v44;
+      sub_26AD9BC68((v50 + 96), v50 + 128, v50 + 136, v50 + 144);
+      *(v50 + 96) = sub_26AD9E39C;
+      *(v50 + 104) = v45;
+      sub_26AD9BC68((v50 + 96), v50 + 128, v50 + 136, v50 + 144);
+      *(v50 + 96) = sub_26AD9E3B0;
+      *(v50 + 104) = v46;
+      sub_26AD9BC68((v50 + 96), v50 + 128, v50 + 136, v50 + 144);
+      _os_log_impl(&dword_26AC94000, v48, v49, "%s: Coming Soon tip asked to refresh its status: %s", buf, 0x16u);
+      sub_26AD9BCB4(v27, 0, v25);
+      sub_26AD9BCB4(v28, 2, MEMORY[0x277D84F70] + 8);
       sub_26AD9E740();
 
-      v30 = 0;
+      v24 = 0;
     }
 
     else
     {
 
-      v30 = *(v64 + 320);
+      v24 = *(v50 + 320);
     }
 
-    v26 = *(v64 + 224);
-    v25 = *(v64 + 216);
-    v22 = *(v64 + 208);
-    v27 = *(v64 + 184);
-    v19 = *(v64 + 176);
-    v20 = *(v64 + 160);
-    v24 = *(v64 + 152);
-    v21 = *(v64 + 192);
-    v18 = *(v64 + 168);
-    MEMORY[0x277D82BD8](v55);
-    (*(v18 + 8))(v19, v20);
-    (*(v21 + 104))(v22, *MEMORY[0x277CE1A58], v27);
-    v23 = sub_26AD9E600();
-    v28 = *(v21 + 8);
-    v28(v22, v27);
-    [v24 setShouldShowComingSoonTip_];
-    [v24 refreshPane];
-    v28(v25, v27);
-    v28(v26, v27);
-    *(v64 + 320) = v30;
-    v12 = *(v64 + 280);
-    v29 = sub_26AD9E6D0();
-    *(v64 + 328) = v29;
-    v13 = *(MEMORY[0x277D85798] + 4);
-    v14 = swift_task_alloc();
-    *(v64 + 336) = v14;
-    *v14 = *(v64 + 112);
-    v14[1] = sub_26AD9A294;
-    v15 = *(v64 + 272);
-    v16 = *(v64 + 256);
-    v17 = *(v64 + 224);
+    v20 = *(v50 + 224);
+    v19 = *(v50 + 216);
+    v16 = *(v50 + 208);
+    v21 = *(v50 + 184);
+    v13 = *(v50 + 176);
+    v14 = *(v50 + 160);
+    v18 = *(v50 + 152);
+    v15 = *(v50 + 192);
+    v12 = *(v50 + 168);
+    MEMORY[0x277D82BD8](v48);
+    (*(v12 + 8))(v13, v14);
+    (*(v15 + 104))(v16, *MEMORY[0x277CE1A58], v21);
+    v17 = sub_26AD9E600();
+    v22 = *(v15 + 8);
+    v22(v16, v21);
+    [v18 setShouldShowComingSoonTip_];
+    [v18 refreshPane];
+    v22(v19, v21);
+    v22(v20, v21);
+    *(v50 + 320) = v24;
+    v23 = sub_26AD9E6D0();
+    *(v50 + 328) = v23;
+    v9 = swift_task_alloc();
+    *(v50 + 336) = v9;
+    *v9 = *(v50 + 112);
+    v9[1] = sub_26AD9A294;
+    v10 = *(v50 + 256);
+    v11 = *(v50 + 224);
 
-    return MEMORY[0x2822003E8](v17, v29, v65, v16);
+    return MEMORY[0x2822003E8](v11, v23, v51, v10);
   }
 }
 
@@ -8633,13 +8511,12 @@ uint64_t sub_26AD9B11C(uint64_t a1)
 
 uint64_t sub_26AD9B1F4()
 {
-  v4 = *v0;
-  v1 = *(*v0 + 24);
-  *(v4 + 16) = *v0;
+  v3 = *v0;
+  *(v3 + 16) = *v0;
 
-  v2 = *(*(v4 + 16) + 8);
+  v1 = *(*(v3 + 16) + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t sub_26AD9B34C(uint64_t a1)
@@ -8648,7 +8525,7 @@ uint64_t sub_26AD9B34C(uint64_t a1)
   v5 = sub_26AD9E610();
   v4 = *(v5 - 8);
   v3 = (*(v4 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v5);
   v6 = v2 - v3;
   (*(v4 + 16))();
   return sub_26AD9E620();
@@ -8656,136 +8533,135 @@ uint64_t sub_26AD9B34C(uint64_t a1)
 
 uint64_t sub_26AD9B400(uint64_t a1, uint64_t a2, const void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v46 = a1;
-  v47 = a2;
-  v55 = a3;
-  v56 = a4;
-  v57 = a5;
-  v48 = a6;
-  v49 = "Fatal error";
-  v50 = "Unexpectedly found nil while unwrapping an Optional value";
-  v51 = "_Concurrency/arm64e-apple-ios.private.swiftinterface";
-  v52 = &unk_26ADC84C0;
-  v53 = 0;
-  v66 = a6;
-  v54 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_2803D9448, &qword_26ADC84A0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v57);
-  v58 = &v15 - v54;
+  v45 = a1;
+  v46 = a2;
+  v54 = a3;
+  v55 = a4;
+  v56 = a5;
+  v47 = a6;
+  v48 = "Fatal error";
+  v49 = "Unexpectedly found nil while unwrapping an Optional value";
+  v50 = "_Concurrency/arm64e-apple-ios.private.swiftinterface";
+  v51 = &unk_26ADC84C0;
+  v52 = 0;
+  v65 = a6;
+  v53 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_2803D9448, &qword_26ADC84A0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v56);
+  v57 = &v14 - v53;
 
+  v63 = v55;
   v64 = v56;
-  v65 = v57;
-  sub_26AD9BA30(v55, v58);
-  v59 = sub_26AD9E700();
-  v60 = *(v59 - 8);
-  v61 = v59 - 8;
-  if ((*(v60 + 48))(v58, 1) == 1)
+  sub_26AD9BA30(v54, v57);
+  v58 = sub_26AD9E700();
+  v59 = *(v58 - 8);
+  v60 = v58 - 8;
+  if ((*(v59 + 48))(v57, 1) == 1)
   {
-    sub_26AD9BB58(v58);
-    v45 = 0;
+    sub_26AD9BB58(v57);
+    v44 = 0;
   }
 
   else
   {
-    v44 = sub_26AD9E6F0();
-    (*(v60 + 8))(v58, v59);
-    v45 = v44;
+    v43 = sub_26AD9E6F0();
+    (*(v59 + 8))(v57, v58);
+    v44 = v43;
   }
 
-  v41 = v45 | 0x1C00;
-  v43 = *(v57 + 16);
-  v42 = *(v57 + 24);
+  v40 = v44 | 0x1C00;
+  v42 = *(v56 + 16);
+  v41 = *(v56 + 24);
   swift_unknownObjectRetain();
 
-  if (v43)
+  if (v42)
   {
-    v39 = v43;
-    v40 = v42;
+    v38 = v42;
+    v39 = v41;
+    v32 = v41;
     v33 = v42;
-    v34 = v43;
     swift_getObjectType();
-    v35 = sub_26AD9E6C0();
-    v36 = v6;
+    v34 = sub_26AD9E6C0();
+    v35 = v6;
     swift_unknownObjectRelease();
+    v36 = v34;
     v37 = v35;
-    v38 = v36;
   }
 
   else
   {
+    v36 = 0;
     v37 = 0;
-    v38 = 0;
   }
 
-  v31 = v38;
-  v32 = v37;
+  v30 = v37;
+  v31 = v36;
 
-  if (v47)
+  if (v46)
   {
+    v28 = v45;
     v29 = v46;
-    v30 = v47;
-    v7 = v53;
-    v26 = v47;
-    v27 = sub_26AD9E630();
+    v7 = v52;
+    v25 = v46;
+    v26 = sub_26AD9E630();
 
-    v8 = *(v27 + 16);
-    sub_26AD9BD1C(v27 + 32, &v64, v48, &v62);
+    sub_26AD9BD1C(v26 + 32, &v63, v47, &v61);
     if (v7)
     {
       __break(1u);
     }
 
-    v25 = v62;
+    v24 = v61;
 
-    v28 = v25;
+    v27 = v24;
   }
 
   else
   {
-    v28 = 0;
+    v27 = 0;
   }
 
-  v24 = v28;
-  if (v28)
+  v23 = v27;
+  if (v27)
   {
-    v18 = v24;
-    v17 = v24;
-    sub_26AD9BB58(v55);
+    v17 = v23;
+    v16 = v23;
+    sub_26AD9BB58(v54);
 
-    v19 = v17;
+    v18 = v16;
   }
 
   else
   {
 
-    sub_26AD9BB58(v55);
+    sub_26AD9BB58(v54);
+    v19 = v63;
     v20 = v64;
-    v21 = v65;
 
-    v9 = swift_allocObject();
+    v8 = swift_allocObject();
+    v9 = v19;
     v10 = v20;
-    v11 = v21;
-    v12 = v32;
-    v13 = v31;
-    v22 = v9;
-    v9[2] = v48;
-    v9[3] = v10;
-    v9[4] = v11;
-    v23 = 0;
-    if (v12 != 0 || v13 != 0)
+    v11 = v31;
+    v12 = v30;
+    v21 = v8;
+    v8[2] = v47;
+    v8[3] = v9;
+    v8[4] = v10;
+    v22 = 0;
+    if (v11 != 0 || v12 != 0)
     {
-      v63[0] = 0;
-      v63[1] = 0;
-      v63[2] = v32;
-      v63[3] = v31;
-      v23 = v63;
+      v62[0] = 0;
+      v62[1] = 0;
+      v62[2] = v31;
+      v62[3] = v30;
+      v22 = v62;
     }
 
-    v19 = swift_task_create();
+    v18 = swift_task_create();
   }
 
-  v16 = v19;
+  v15 = v18;
 
-  return v16;
+  return v15;
 }
 
 void *sub_26AD9BA30(const void *a1, void *a2)
@@ -8819,7 +8695,7 @@ uint64_t sub_26AD9BB58(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_26AD9BC00(uint64_t a1)
+uint64_t sub_26AD9BC00(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a1)
   {
@@ -8840,7 +8716,7 @@ uint64_t sub_26AD9BC54(uint64_t result, _BYTE **a2)
   return result;
 }
 
-uint64_t sub_26AD9BCB4(uint64_t result)
+uint64_t sub_26AD9BCB4(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (result)
   {
@@ -8851,7 +8727,7 @@ uint64_t sub_26AD9BCB4(uint64_t result)
   return result;
 }
 
-uint64_t sub_26AD9BD1C@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X5>, uint64_t a3@<X6>, uint64_t *a4@<X8>)
+uint64_t sub_26AD9BD1C@<X0>(uint64_t a1@<X0>, uint64_t *a5@<X5>, uint64_t a6@<X6>, uint64_t *a7@<X8>)
 {
   if (!a1)
   {
@@ -8859,50 +8735,46 @@ uint64_t sub_26AD9BD1C@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X5>, uint64_t a3@<X6
     __break(1u);
   }
 
-  v5 = *a2;
-  v6 = a2[1];
+  v8 = *a5;
+  v9 = a5[1];
 
-  v7 = swift_allocObject();
-  v7[2] = a3;
-  v7[3] = v5;
-  v7[4] = v6;
+  v10 = swift_allocObject();
+  v10[2] = a6;
+  v10[3] = v8;
+  v10[4] = v9;
   result = swift_task_create();
-  *a4 = result;
+  *a7 = result;
   return result;
 }
 
 uint64_t sub_26AD9BEDC(uint64_t a1, int *a2)
 {
-  v6 = v2;
+  v5 = v2;
   *(v2 + 16) = v2;
-  v7 = (a2 + *a2);
-  v3 = a2[1];
-  v4 = swift_task_alloc();
-  *(v6 + 24) = v4;
-  *v4 = *(v6 + 16);
-  v4[1] = sub_26AD9BFF0;
+  v6 = (a2 + *a2);
+  v3 = swift_task_alloc();
+  *(v5 + 24) = v3;
+  *v3 = *(v5 + 16);
+  v3[1] = sub_26AD9BFF0;
 
-  return v7(a1);
+  return v6(a1);
 }
 
 uint64_t sub_26AD9BFF0()
 {
-  v4 = *v0;
-  v1 = *(*v0 + 24);
-  *(v4 + 16) = *v0;
+  v3 = *v0;
+  *(v3 + 16) = *v0;
 
-  v2 = *(*(v4 + 16) + 8);
+  v1 = *(*(v3 + 16) + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t sub_26AD9C11C(uint64_t a1)
 {
   v5 = v2;
   *(v2 + 16) = v2;
-  v8 = v1[2];
-  v6 = v1[3];
-  v7 = v1[4];
+  v6 = *(v1 + 24);
   v3 = swift_task_alloc();
   *(v5 + 24) = v3;
   *v3 = *(v5 + 16);
@@ -8913,22 +8785,19 @@ uint64_t sub_26AD9C11C(uint64_t a1)
 
 uint64_t sub_26AD9C210()
 {
-  v4 = *v0;
-  v1 = *(*v0 + 24);
-  *(v4 + 16) = *v0;
+  v3 = *v0;
+  *(v3 + 16) = *v0;
 
-  v2 = *(*(v4 + 16) + 8);
+  v1 = *(*(v3 + 16) + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t sub_26AD9C338(uint64_t a1)
 {
   v5 = v2;
   *(v2 + 16) = v2;
-  v8 = v1[2];
-  v6 = v1[3];
-  v7 = v1[4];
+  v6 = *(v1 + 24);
   v3 = swift_task_alloc();
   *(v5 + 24) = v3;
   *v3 = *(v5 + 16);
@@ -8939,13 +8808,12 @@ uint64_t sub_26AD9C338(uint64_t a1)
 
 uint64_t sub_26AD9C42C()
 {
-  v4 = *v0;
-  v1 = *(*v0 + 24);
-  *(v4 + 16) = *v0;
+  v3 = *v0;
+  *(v3 + 16) = *v0;
 
-  v2 = *(*(v4 + 16) + 8);
+  v1 = *(*(v3 + 16) + 8);
 
-  return v2();
+  return v1();
 }
 
 void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
@@ -8959,15 +8827,17 @@ void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
-  v3 = a1[3];
-  if ((*(*(v3 - 8) + 80) & 0x20000) == 0)
+  v2 = a1[3];
+  if ((*(*(v2 - 8) + 80) & 0x20000) != 0)
   {
-    return (*(*(v3 - 8) + 8))(a1);
   }
 
-  v2 = *a1;
+  else
+  {
+    return (*(*(v2 - 8) + 8))(a1);
+  }
 }
 
 uint64_t sub_26AD9C660()
@@ -8980,7 +8850,7 @@ uint64_t sub_26AD9C660()
 
 void *sub_26AD9C6F8(void *a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(void))
 {
-  v4 = a4();
+  v4 = (a4)(a1, a2);
   sub_26AD9C794(v4, v5, a3);
   v8 = *a1;
 
@@ -9045,7 +8915,7 @@ uint64_t sub_26AD9C794(uint64_t a1, uint64_t a2, uint64_t *a3)
   return v11;
 }
 
-uint64_t sub_26AD9C938(uint64_t result, char *a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6)
+void *sub_26AD9C938(void *result, char *a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6)
 {
   v19 = result;
   v25 = a6;
@@ -9191,15 +9061,15 @@ LABEL_8:
   return result;
 }
 
-uint64_t sub_26AD9CE6C(uint64_t a1, uint64_t a2)
+void *sub_26AD9CE6C(uint64_t a1, uint64_t a2)
 {
   v7 = sub_26AD9CF28(a1, a2);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2803D9478, &qword_26ADC84F8);
   inited = swift_initStackObject();
-  v3 = sub_26AD9D738(inited, 1);
-  *v4 = 0;
+  sub_26AD9D738(inited, 1);
+  *v3 = 0;
   sub_26AD9D784();
-  sub_26AD9D7B8(v3);
+  sub_26AD9D7B8(v4);
 
   v8 = sub_26AD9DB60(v7);
 
@@ -9213,7 +9083,7 @@ uint64_t sub_26AD9CE6C(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_26AD9CF28(uint64_t a1, uint64_t a2)
+void *sub_26AD9CF28(uint64_t a1, uint64_t a2)
 {
   v17[2] = a2;
   if ((a2 & 0x1000000000000000) != 0)
@@ -9337,46 +9207,44 @@ uint64_t sub_26AD9D738(uint64_t a1, uint64_t a2)
 
 void sub_26AD9D7B8(uint64_t a1)
 {
-  v20 = sub_26AD9DB60(a1);
+  v18 = sub_26AD9DB60(a1);
   v2 = sub_26AD9DB60(*v1);
-  v21 = v2 + v20;
-  if (__OFADD__(v2, v20))
+  v19 = v2 + v18;
+  if (__OFADD__(v2, v18))
   {
     goto LABEL_31;
   }
 
-  v16 = *v19;
+  v14 = *v17;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  *v19 = v16;
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0 || v21 > *(*v19 + 24) >> 1)
+  *v17 = v14;
+  if ((isUniquelyReferenced_nonNull_native & 1) == 0 || v19 > *(*v17 + 24) >> 1)
   {
-    if (*(*v19 + 16) < v21)
+    if (*(*v17 + 16) < v19)
     {
-      v15 = v21;
+      v13 = v19;
     }
 
     else
     {
-      v15 = *(*v19 + 16);
+      v13 = *(*v17 + 16);
     }
 
-    v14 = *v19;
+    v12 = *v17;
 
-    v4 = sub_26AD9E0BC(isUniquelyReferenced_nonNull_native, v15, 1, v14);
-    v5 = *v19;
-    *v19 = v4;
+    *v17 = sub_26AD9E0BC(isUniquelyReferenced_nonNull_native, v13, 1, v12);
   }
 
-  v6 = *(*v19 + 16);
-  v12 = (*v19 + 32 + v6);
-  v7 = *(*v19 + 24) >> 1;
-  v13 = v7 - v6;
-  if (__OFSUB__(v7, v6))
+  v4 = *(*v17 + 16);
+  v10 = (*v17 + 32 + v4);
+  v5 = *(*v17 + 24) >> 1;
+  v11 = v5 - v4;
+  if (__OFSUB__(v5, v4))
   {
     goto LABEL_32;
   }
 
-  if (v13 < 0)
+  if (v11 < 0)
   {
 LABEL_30:
     sub_26AD9E7D0();
@@ -9392,7 +9260,7 @@ LABEL_32:
   {
 LABEL_21:
 
-    if (v20 <= 0)
+    if (v18 <= 0)
     {
       goto LABEL_28;
     }
@@ -9402,26 +9270,26 @@ LABEL_21:
     goto LABEL_30;
   }
 
-  if (v13 < v20)
+  if (v11 < v18)
   {
     sub_26AD9E7C0();
     __break(1u);
     goto LABEL_21;
   }
 
-  sub_26AD9DCBC((a1 + 32), v20, v12);
+  sub_26AD9DCBC((a1 + 32), v18, v10);
 
   swift_unknownObjectRelease();
-  if (v20 <= 0)
+  if (v18 <= 0)
   {
     goto LABEL_28;
   }
 
-  v9 = *(*v19 + 16);
-  v11 = v9 + v20;
-  if (!__OFADD__(v9, v20))
+  v7 = *(*v17 + 16);
+  v9 = v7 + v18;
+  if (!__OFADD__(v7, v18))
   {
-    *(*v19 + 16) = v11;
+    *(*v17 + 16) = v9;
 LABEL_28:
     sub_26AD9E0B0();
     return;
@@ -9490,7 +9358,7 @@ void *sub_26AD9DCBC(char *a1, size_t a2, char *a3)
   return result;
 }
 
-uint64_t sub_26AD9DE0C(unint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t sub_26AD9DE0C(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v11 = a1;
   if ((a3 & 0x1000000000000000) != 0 && (a2 & 0x800000000000000) == 0)
@@ -9635,23 +9503,15 @@ uint64_t sub_26AD9E400(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_26AD9E498(uint64_t a1)
+uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v1 = *(a1 + 8);
-
-  return a1;
-}
-
-uint64_t __swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
-{
-  v6 = a2;
+  v5 = a2;
   if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v2 = *(*(a1 - 8) + 64);
-    v3 = swift_slowAlloc();
-    *a2 = v3;
-    return v3;
+    v2 = swift_slowAlloc();
+    *a2 = v2;
+    return v2;
   }
 
-  return v6;
+  return v5;
 }

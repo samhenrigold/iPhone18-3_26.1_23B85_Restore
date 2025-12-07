@@ -59,8 +59,7 @@
   [v3 addObjectsFromArray:v12];
   v13 = +[NSMutableArray array];
   [(BooksDiagnosticExtension *)self _appendBookManifestAttachmentsToArray:v13];
-  [v3 addObjectsFromArray:v13];
-  v14 = BLBooksDiagnosticExtensionLog();
+  v14 = BLBooksDiagnosticExtensionLog([v3 addObjectsFromArray:v13]);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
@@ -309,7 +308,7 @@
   consumeSandboxToken = [container consumeSandboxToken];
   if (!consumeSandboxToken)
   {
-    v4 = BLBooksDiagnosticExtensionLog();
+    v4 = BLBooksDiagnosticExtensionLog(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = *__error();

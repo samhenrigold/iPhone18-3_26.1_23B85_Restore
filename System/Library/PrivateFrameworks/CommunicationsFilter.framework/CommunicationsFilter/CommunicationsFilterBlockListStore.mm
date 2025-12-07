@@ -80,90 +80,91 @@
 
 - (void)migrateLegacyDataStoreIfNeeded
 {
-  if ([(CMFSyncAgentDataStore *)[(CommunicationsFilterBlockListStore *)self dataStore] objectForKey:@"__kCMFBlockListStoreTopLevelKey"])
+  v3 = [(CMFSyncAgentDataStore *)[(CommunicationsFilterBlockListStore *)self dataStore] objectForKey:@"__kCMFBlockListStoreTopLevelKey"];
+  if (v3)
   {
-    v3 = sub_1000015F8();
-    if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_1000015F8(v3, v4);
+    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       return;
     }
 
-    v9 = 138412290;
-    v10 = @"__kCMFBlockListStoreTopLevelKey";
-    v4 = "Cancelling legacy data store migration; data store contains a value for key %@";
-    v5 = v3;
+    v12 = 138412290;
+    v13 = @"__kCMFBlockListStoreTopLevelKey";
+    v6 = "Cancelling legacy data store migration; data store contains a value for key %@";
+    v7 = v5;
     goto LABEL_4;
   }
 
-  v6 = [+[NSUbiquitousKeyValueStore defaultStore](NSUbiquitousKeyValueStore objectForKey:"objectForKey:", @"__kCMFBlockListStoreTopLevelKey"];
-  v7 = sub_1000015F8();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-  if (v6)
+  v8 = [+[NSUbiquitousKeyValueStore defaultStore](NSUbiquitousKeyValueStore objectForKey:"objectForKey:", @"__kCMFBlockListStoreTopLevelKey"];
+  v10 = sub_1000015F8(v8, v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  if (v8)
   {
-    if (v8)
+    if (v11)
     {
-      v9 = 138412290;
-      v10 = @"__kCMFBlockListStoreTopLevelKey";
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Performing legacy data store migration for key %@", &v9, 0xCu);
+      v12 = 138412290;
+      v13 = @"__kCMFBlockListStoreTopLevelKey";
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Performing legacy data store migration for key %@", &v12, 0xCu);
     }
 
-    [(CMFSyncAgentDataStore *)[(CommunicationsFilterBlockListStore *)self dataStore] setObject:v6 forKey:@"__kCMFBlockListStoreTopLevelKey"];
+    [(CMFSyncAgentDataStore *)[(CommunicationsFilterBlockListStore *)self dataStore] setObject:v8 forKey:@"__kCMFBlockListStoreTopLevelKey"];
   }
 
-  else if (v8)
+  else if (v11)
   {
-    v9 = 138412290;
-    v10 = @"__kCMFBlockListStoreTopLevelKey";
-    v4 = "Cancelling legacy data store migration; legacy data store does not contain a value for key %@";
-    v5 = v7;
+    v12 = 138412290;
+    v13 = @"__kCMFBlockListStoreTopLevelKey";
+    v6 = "Cancelling legacy data store migration; legacy data store does not contain a value for key %@";
+    v7 = v10;
 LABEL_4:
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, v4, &v9, 0xCu);
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, v6, &v12, 0xCu);
   }
 }
 
 - (void)synchronizeDataStore
 {
-  dataStore = self->_dataStore;
   if (objc_opt_respondsToSelector())
   {
     synchronize = [(CMFSyncAgentDataStore *)self->_dataStore synchronize];
-    v5 = sub_1000015F8();
-    v6 = v5;
-    if (synchronize)
+    v4 = synchronize;
+    v6 = sub_1000015F8(synchronize, v5);
+    v7 = v6;
+    if (v4)
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v7 = 0;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Data store synchronization completed successfully.", v7, 2u);
+        *v8 = 0;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Data store synchronization completed successfully.", v8, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_100011EA8(v6);
+      sub_100011EA8(v7);
     }
   }
 }
 
 - (void)updateDataStore
 {
-  v3 = sub_100001E4C();
+  v3 = sub_100001E4C(self, a2);
   dispatch_assert_queue_V2(v3);
   dataStore = [(CommunicationsFilterBlockListStore *)self dataStore];
-  v8 = 0;
+  v10 = 0;
   v5 = objc_alloc_init(NSMutableArray);
-  v7 = 0;
-  sub_100001670(dataStore, v5, 0, &v8, &v7 + 1, &v7);
+  v9 = 0;
+  sub_100001670(dataStore, v5, 0, &v10, &v9 + 1, &v9);
   LODWORD(dataStore) = [v5 count] == 0;
 
-  sub_100002D70(dataStore);
-  v6 = sub_100001E4C();
-  dispatch_async(v6, &stru_100018BF0);
+  v6 = sub_100002D70(dataStore);
+  v8 = sub_100001E4C(v6, v7);
+  dispatch_async(v8, &stru_100018BF0);
 }
 
 - (void)_storeDidChangeExternally
 {
-  v3 = sub_1000015F8();
+  v3 = sub_1000015F8(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -178,33 +179,34 @@ LABEL_4:
 {
   if (services)
   {
-    v14 = 0;
+    v16 = 0;
     v5 = objc_alloc_init(NSMutableArray);
-    v13 = 0;
+    v15 = 0;
     [(CommunicationsFilterBlockListStore *)self clearBlockList];
-    sub_100001670([(CommunicationsFilterBlockListStore *)self dataStore], v5, 0, &v14, &v13 + 1, &v13);
-    if ([v5 count] >= 0x4E21)
+    sub_100001670([(CommunicationsFilterBlockListStore *)self dataStore], v5, 0, &v16, &v15 + 1, &v15);
+    v6 = [v5 count];
+    if (v6 >= 0x4E21)
     {
-      v6 = sub_1000015F8();
-      v7 = 0;
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = sub_1000015F8(v6, v7);
+      v9 = 0;
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v16 = 20000;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[WARN] Block list is too large, greater than %d, not adding", buf, 8u);
-        v7 = 0;
+        v18 = 20000;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Block list is too large, greater than %d, not adding", buf, 8u);
+        v9 = 0;
       }
 
       goto LABEL_15;
     }
 
-    v9 = [(CommunicationsFilterBlockListStore *)self _isItemInList:services blockList:v5];
-    v7 = v9 == 0;
-    if (v9)
+    v11 = [(CommunicationsFilterBlockListStore *)self _isItemInList:services blockList:v5];
+    v9 = v11 == 0;
+    if (v11)
     {
-      v10 = HIBYTE(v13);
-      v11 = HIBYTE(v13) ^ 1 | v13;
-      if ((v13 & 0x100) == 0 && (v13 & 1) == 0)
+      v12 = HIBYTE(v15);
+      v13 = HIBYTE(v15) ^ 1 | v15;
+      if ((v15 & 0x100) == 0 && (v15 & 1) == 0)
       {
         goto LABEL_14;
       }
@@ -213,25 +215,25 @@ LABEL_4:
     else
     {
       [v5 addObject:services];
-      ++v14;
-      v10 = 1;
-      v13 = 257;
-      v11 = 1;
+      ++v16;
+      v12 = 1;
+      v15 = 257;
+      v13 = 1;
     }
 
-    [(CommunicationsFilterBlockListStore *)self _updateStore:v5 revision:v14 updateKVS:v11 & 1 updateLocal:v10 & 1 itemsNeedConversion:1];
+    [(CommunicationsFilterBlockListStore *)self _updateStore:v5 revision:v16 updateKVS:v13 & 1 updateLocal:v12 & 1 itemsNeedConversion:1];
     [(CommunicationsFilterBlockListStore *)self _stopSharingFocusStatusWithFilterItem:services];
 LABEL_14:
     sub_100002D70([v5 count] == 0);
 LABEL_15:
 
-    return v7;
+    return v9;
   }
 
-  v8 = sub_1000015F8();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+  v10 = sub_1000015F8(self, a2);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
   {
-    sub_100011EEC(v8);
+    sub_100011EEC(v10);
   }
 
   return 0;
@@ -239,7 +241,7 @@ LABEL_15:
 
 - (BOOL)removeItemForAllServices:(id)services
 {
-  v5 = sub_1000015F8();
+  v5 = sub_1000015F8(self, a2);
   v6 = v5;
   if (services)
   {
@@ -298,101 +300,102 @@ LABEL_12:
 
 - (BOOL)removeAssociatedItems:(id)items
 {
-  v24 = 0;
-  v23 = 0;
+  v27 = 0;
+  v26 = 0;
   [(CommunicationsFilterBlockListStore *)self clearBlockList];
   v5 = objc_alloc_init(NSMutableArray);
-  sub_100001670([(CommunicationsFilterBlockListStore *)self dataStore], v5, 0, &v24, &v23 + 1, &v23);
-  if (![(CommunicationsFilterBlockListStore *)self isItemInList:items rebuiltBlockList:v5])
+  sub_100001670([(CommunicationsFilterBlockListStore *)self dataStore], v5, 0, &v27, &v26 + 1, &v26);
+  v6 = [(CommunicationsFilterBlockListStore *)self isItemInList:items rebuiltBlockList:v5];
+  if (!v6)
   {
-    v17 = sub_1000015F8();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_1000015F8(v6, v7);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "No need to query associated handles, we've already removed them", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "No need to query associated handles, we've already removed them", buf, 2u);
     }
 
     goto LABEL_17;
   }
 
-  v6 = [(CMFBlockedContactsCache *)self->_contactsCache associatedContacts:items];
-  v7 = [v6 objectForKeyedSubscript:@"associatedFilterItems"];
-  v8 = [v6 objectForKeyedSubscript:@"associatedContacts"];
-  v9 = sub_1000015F8();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v8 = [(CMFBlockedContactsCache *)self->_contactsCache associatedContacts:items];
+  v9 = [v8 objectForKeyedSubscript:@"associatedFilterItems"];
+  v10 = [v8 objectForKeyedSubscript:@"associatedContacts"];
+  v12 = sub_1000015F8(v10, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v27 = v7;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Remove the following handles: %@", buf, 0xCu);
+    v30 = v9;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Remove the following handles: %@", buf, 0xCu);
   }
 
-  v21 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v10 = [v7 countByEnumeratingWithState:&v19 objects:v25 count:16];
-  if (!v10)
+  v23 = 0u;
+  v13 = [v9 countByEnumeratingWithState:&v22 objects:v28 count:16];
+  if (!v13)
   {
     goto LABEL_17;
   }
 
-  v11 = v10;
-  v12 = 0;
-  v13 = *v20;
+  v14 = v13;
+  v15 = 0;
+  v16 = *v23;
   do
   {
-    for (i = 0; i != v11; i = i + 1)
+    for (i = 0; i != v14; i = i + 1)
     {
-      if (*v20 != v13)
+      if (*v23 != v16)
       {
-        objc_enumerationMutation(v7);
+        objc_enumerationMutation(v9);
       }
 
-      v15 = [(CommunicationsFilterBlockListStore *)self _isItemInList:*(*(&v19 + 1) + 8 * i) blockList:v5];
-      if (v15)
+      v18 = [(CommunicationsFilterBlockListStore *)self _isItemInList:*(*(&v22 + 1) + 8 * i) blockList:v5];
+      if (v18)
       {
-        [v5 removeObject:v15];
-        v12 = 1;
+        [v5 removeObject:v18];
+        v15 = 1;
       }
     }
 
-    v11 = [v7 countByEnumeratingWithState:&v19 objects:v25 count:16];
+    v14 = [v9 countByEnumeratingWithState:&v22 objects:v28 count:16];
   }
 
-  while (v11);
-  if ((v12 & 1) == 0)
+  while (v14);
+  if ((v15 & 1) == 0)
   {
 LABEL_17:
-    v16 = 0;
+    v19 = 0;
     goto LABEL_18;
   }
 
-  v16 = 1;
-  v23 = 257;
-  ++v24;
-  [(CMFBlockListAlertManager *)self->_blocklistAlertManager postBlockListChangeAlertIfNecessaryWithUpdatedContacts:v8];
+  v19 = 1;
+  v26 = 257;
+  ++v27;
+  [(CMFBlockListAlertManager *)self->_blocklistAlertManager postBlockListChangeAlertIfNecessaryWithUpdatedContacts:v10];
 LABEL_18:
-  if (v23 & 0x100) != 0 || (v23)
+  if (v26 & 0x100) != 0 || (v26)
   {
-    [CommunicationsFilterBlockListStore _updateStore:"_updateStore:revision:updateKVS:updateLocal:itemsNeedConversion:" revision:v5 updateKVS:v24 updateLocal:v23 & 1u | ((v23 & 0x100) == 0) itemsNeedConversion:?];
+    [CommunicationsFilterBlockListStore _updateStore:"_updateStore:revision:updateKVS:updateLocal:itemsNeedConversion:" revision:v5 updateKVS:v27 updateLocal:v26 & 1u | ((v26 & 0x100) == 0) itemsNeedConversion:?];
   }
 
   sub_100002D70([v5 count] == 0);
 
-  return v16;
+  return v19;
 }
 
 - (id)_copyItems:(BOOL)items
 {
   itemsCopy = items;
-  v34 = 0;
-  v33 = 0;
+  v38 = 0;
+  v37 = 0;
   [(CommunicationsFilterBlockListStore *)self clearBlockList];
   v5 = objc_alloc_init(NSMutableArray);
-  sub_100001670([(CommunicationsFilterBlockListStore *)self dataStore], v5, itemsCopy, &v34, &v33 + 1, &v33);
-  if (v33 & 0x100) != 0 || (v33)
+  sub_100001670([(CommunicationsFilterBlockListStore *)self dataStore], v5, itemsCopy, &v38, &v37 + 1, &v37);
+  if (v37 & 0x100) != 0 || (v37)
   {
-    [CommunicationsFilterBlockListStore _updateStore:"_updateStore:revision:updateKVS:updateLocal:itemsNeedConversion:" revision:v5 updateKVS:v34 updateLocal:v33 & 1u | ((v33 & 0x100) == 0) itemsNeedConversion:?];
+    [CommunicationsFilterBlockListStore _updateStore:"_updateStore:revision:updateKVS:updateLocal:itemsNeedConversion:" revision:v5 updateKVS:v38 updateLocal:v37 & 1u | ((v37 & 0x100) == 0) itemsNeedConversion:?];
   }
 
   if (!_os_feature_enabled_impl())
@@ -404,28 +407,28 @@ LABEL_18:
   v7 = objc_alloc_init(NSMutableArray);
   if (itemsCopy)
   {
-    v31 = 0uLL;
-    v32 = 0uLL;
-    v29 = 0uLL;
-    v30 = 0uLL;
-    v8 = [getBlockedCache countByEnumeratingWithState:&v29 objects:v38 count:16];
+    v35 = 0uLL;
+    v36 = 0uLL;
+    v33 = 0uLL;
+    v34 = 0uLL;
+    v8 = [getBlockedCache countByEnumeratingWithState:&v33 objects:v42 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v30;
+      v10 = *v34;
       do
       {
         for (i = 0; i != v9; i = i + 1)
         {
-          if (*v30 != v10)
+          if (*v34 != v10)
           {
             objc_enumerationMutation(getBlockedCache);
           }
 
-          [v7 addObject:{objc_msgSend(*(*(&v29 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v7 addObject:{objc_msgSend(*(*(&v33 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v9 = [getBlockedCache countByEnumeratingWithState:&v29 objects:v38 count:16];
+        v9 = [getBlockedCache countByEnumeratingWithState:&v33 objects:v42 count:16];
       }
 
       while (v9);
@@ -434,69 +437,69 @@ LABEL_18:
     v12 = [v7 arrayByAddingObjectsFromArray:v5];
     v13 = v12;
 
-    v14 = sub_1000015F8();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_1000015F8(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = [v12 count];
+      v17 = [v12 count];
       *buf = 134217984;
-      v37 = v15;
+      v41 = v17;
 LABEL_30:
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Returning blockList with size %lu", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Returning blockList with size %lu", buf, 0xCu);
     }
   }
 
   else
   {
-    v27 = 0uLL;
-    v28 = 0uLL;
-    v25 = 0uLL;
-    v26 = 0uLL;
-    v16 = [v5 countByEnumeratingWithState:&v25 objects:v35 count:16];
-    if (v16)
+    v31 = 0uLL;
+    v32 = 0uLL;
+    v29 = 0uLL;
+    v30 = 0uLL;
+    v18 = [v5 countByEnumeratingWithState:&v29 objects:v39 count:16];
+    if (v18)
     {
-      v17 = v16;
-      v18 = *v26;
+      v19 = v18;
+      v20 = *v30;
       do
       {
-        for (j = 0; j != v17; j = j + 1)
+        for (j = 0; j != v19; j = j + 1)
         {
-          if (*v26 != v18)
+          if (*v30 != v20)
           {
             objc_enumerationMutation(v5);
           }
 
-          v20 = *(*(&v25 + 1) + 8 * j);
+          v22 = *(*(&v29 + 1) + 8 * j);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [v7 addObject:v20];
+            [v7 addObject:v22];
           }
 
           else
           {
-            v21 = [[CommunicationFilterItem alloc] initWithDictionaryRepresentation:v20];
-            if (v21)
+            v23 = [[CommunicationFilterItem alloc] initWithDictionaryRepresentation:v22];
+            if (v23)
             {
-              [v7 addObject:v21];
+              [v7 addObject:v23];
             }
           }
         }
 
-        v17 = [v5 countByEnumeratingWithState:&v25 objects:v35 count:16];
+        v19 = [v5 countByEnumeratingWithState:&v29 objects:v39 count:16];
       }
 
-      while (v17);
+      while (v19);
     }
 
     v12 = [v7 arrayByAddingObjectsFromArray:getBlockedCache];
-    v22 = v12;
+    v24 = v12;
 
-    v14 = sub_1000015F8();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_1000015F8(v25, v26);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = [v12 count];
+      v27 = [v12 count];
       *buf = 134217984;
-      v37 = v23;
+      v41 = v27;
       goto LABEL_30;
     }
   }
@@ -595,56 +598,57 @@ LABEL_3:
       revisionCopy = revision;
       selfCopy = self;
       v13 = objc_alloc_init(NSMutableArray);
-      v34 = 0u;
-      v35 = 0u;
-      v36 = 0u;
-      v37 = 0u;
-      v14 = [store countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v38 = 0u;
+      v39 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v14 = [store countByEnumeratingWithState:&v38 objects:v46 count:16];
       if (v14)
       {
-        v15 = v14;
-        v16 = *v35;
+        v16 = v14;
+        v17 = *v39;
         do
         {
-          v17 = 0;
+          v18 = 0;
           do
           {
-            if (*v35 != v16)
+            if (*v39 != v17)
             {
               objc_enumerationMutation(store);
             }
 
-            v18 = *(*(&v34 + 1) + 8 * v17);
+            v19 = *(*(&v38 + 1) + 8 * v18);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              [v13 addObject:v18];
+              [v13 addObject:v19];
             }
 
             else
             {
-              v19 = [[CommunicationFilterItem alloc] initWithDictionaryRepresentation:v18];
-              if (v19)
+              v20 = [[CommunicationFilterItem alloc] initWithDictionaryRepresentation:v19];
+              if (v20)
               {
-                [v13 addObject:v19];
+                [v13 addObject:v20];
               }
             }
 
-            v17 = v17 + 1;
+            v18 = v18 + 1;
           }
 
-          while (v15 != v17);
-          v15 = [store countByEnumeratingWithState:&v34 objects:v42 count:16];
+          while (v16 != v18);
+          v14 = [store countByEnumeratingWithState:&v38 objects:v46 count:16];
+          v16 = v14;
         }
 
-        while (v15);
+        while (v14);
       }
 
-      v20 = sub_1000015F8();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v21 = sub_1000015F8(v14, v15);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Regenerating contacts cache", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Regenerating contacts cache", buf, 2u);
       }
 
       self = selfCopy;
@@ -657,62 +661,63 @@ LABEL_3:
     {
       if (conversionCopy)
       {
-        v21 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [store count]);
-        v38 = 0u;
-        v39 = 0u;
-        v40 = 0u;
-        v41 = 0u;
-        v22 = [store countByEnumeratingWithState:&v38 objects:buf count:16];
-        if (v22)
+        v22 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [store count]);
+        v42 = 0u;
+        v43 = 0u;
+        v44 = 0u;
+        v45 = 0u;
+        v23 = [store countByEnumeratingWithState:&v42 objects:buf count:16];
+        if (v23)
         {
-          v23 = v22;
-          v24 = *v39;
+          v24 = v23;
+          v25 = *v43;
           do
           {
-            v25 = 0;
+            v26 = 0;
             do
             {
-              if (*v39 != v24)
+              if (*v43 != v25)
               {
                 objc_enumerationMutation(store);
               }
 
-              -[NSMutableArray addObject:](v21, "addObject:", [*(*(&v38 + 1) + 8 * v25) dictionaryRepresentation]);
-              v25 = v25 + 1;
+              -[NSMutableArray addObject:](v22, "addObject:", [*(*(&v42 + 1) + 8 * v26) dictionaryRepresentation]);
+              v26 = v26 + 1;
             }
 
-            while (v23 != v25);
-            v23 = [store countByEnumeratingWithState:&v38 objects:buf count:16];
+            while (v24 != v26);
+            v24 = [store countByEnumeratingWithState:&v42 objects:buf count:16];
           }
 
-          while (v23);
+          while (v24);
         }
 
-        store = v21;
+        store = v22;
       }
 
-      v26 = +[NSDictionary dictionaryWithObjectsAndKeys:](NSDictionary, "dictionaryWithObjectsAndKeys:", +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", 1), @"__kCMFBlockListStoreVersionKey", store, @"__kCMFBlockListStoreArrayKey", +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", revision), @"__kCMFBlockListStoreRevisionKey", +[NSDate date], @"__kCMFBlockListStoreRevisionTimestampKey", @"__kCMFBlockListStoreTypeValue", @"__kCMFBlockListStoreTypeKey", 0);
+      v27 = +[NSDictionary dictionaryWithObjectsAndKeys:](NSDictionary, "dictionaryWithObjectsAndKeys:", +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", 1), @"__kCMFBlockListStoreVersionKey", store, @"__kCMFBlockListStoreArrayKey", +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", revision), @"__kCMFBlockListStoreRevisionKey", +[NSDate date], @"__kCMFBlockListStoreRevisionTimestampKey", @"__kCMFBlockListStoreTypeValue", @"__kCMFBlockListStoreTypeKey", 0);
     }
 
     else
     {
-      v26 = sCopy ? IMGetAppValueForKey() : [(CMFSyncAgentDataStore *)[(CommunicationsFilterBlockListStore *)self dataStore] objectForKey:@"__kCMFBlockListStoreTopLevelKey"];
+      v27 = sCopy ? IMGetAppValueForKey() : [(CMFSyncAgentDataStore *)[(CommunicationsFilterBlockListStore *)self dataStore] objectForKey:@"__kCMFBlockListStoreTopLevelKey"];
     }
 
-    v27 = v26;
-    if (v26)
+    v29 = v27;
+    if (v27)
     {
-      v28 = sub_1000015F8();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v30 = sub_1000015F8(v27, v28);
+      v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
+      if (v31)
       {
-        v31 = sub_100001BF8(v27);
+        v35 = sub_100001BF8(v29);
         *buf = 138412802;
-        v44 = v31;
-        v45 = 1024;
-        v46 = sCopy;
-        v47 = 1024;
-        v48 = localCopy;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "updating store to %@, updateKVS: %d, updateLocal: %d", buf, 0x18u);
+        v48 = v35;
+        v49 = 1024;
+        v50 = sCopy;
+        v51 = 1024;
+        v52 = localCopy;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "updating store to %@, updateKVS: %d, updateLocal: %d", buf, 0x18u);
         if (!sCopy)
         {
 LABEL_37:
@@ -730,21 +735,21 @@ LABEL_37:
         goto LABEL_37;
       }
 
-      [(CMFSyncAgentDataStore *)[(CommunicationsFilterBlockListStore *)self dataStore] setObject:v27 forKey:@"__kCMFBlockListStoreTopLevelKey"];
+      v31 = [(CMFSyncAgentDataStore *)[(CommunicationsFilterBlockListStore *)self dataStore] setObject:v29 forKey:@"__kCMFBlockListStoreTopLevelKey"];
       if (!localCopy)
       {
 LABEL_39:
-        v29 = sub_1000015F8();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        v33 = sub_1000015F8(v31, v32);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
-          v30 = sub_100001BF8([(CMFSyncAgentDataStore *)[(CommunicationsFilterBlockListStore *)self dataStore] objectForKey:@"__kCMFBlockListStoreTopLevelKey"]);
+          v34 = sub_100001BF8([(CMFSyncAgentDataStore *)[(CommunicationsFilterBlockListStore *)self dataStore] objectForKey:@"__kCMFBlockListStoreTopLevelKey"]);
           *buf = 138412802;
-          v44 = v30;
-          v45 = 1024;
-          v46 = sCopy;
-          v47 = 1024;
-          v48 = localCopy;
-          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "store after updating %@, updateKVS:%d, updateLocal:%d", buf, 0x18u);
+          v48 = v34;
+          v49 = 1024;
+          v50 = sCopy;
+          v51 = 1024;
+          v52 = localCopy;
+          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "store after updating %@, updateKVS:%d, updateLocal:%d", buf, 0x18u);
         }
 
         return;
@@ -752,7 +757,7 @@ LABEL_39:
 
 LABEL_38:
       IMSetAppValueForKey();
-      IMSyncronizeAppPreferences();
+      v31 = IMSyncronizeAppPreferences();
       goto LABEL_39;
     }
   }
@@ -761,19 +766,20 @@ LABEL_38:
 - (void)_stopSharingFocusStatusWithFilterItem:(id)item
 {
   unformattedID = [item unformattedID];
-  if ([unformattedID length])
+  v4 = [unformattedID length];
+  if (v4)
   {
-    v4 = sub_1000015F8();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_1000015F8(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = unformattedID;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Asking StatusKit to remove sharing of focus status with handle %@", &v7, 0xCu);
+      v9 = 138412290;
+      v10 = unformattedID;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Asking StatusKit to remove sharing of focus status with handle %@", &v9, 0xCu);
     }
 
-    v5 = IMWeakLinkClass();
-    v6 = IMWeakLinkClass();
-    [objc_msgSend([v6 alloc] initWithStatusTypeIdentifier:{*IMWeakLinkSymbol()), "removeInvitedHandle:completion:", objc_msgSend([v5 alloc], "initWithString:", unformattedID), &stru_100018C30}];
+    v7 = IMWeakLinkClass();
+    v8 = IMWeakLinkClass();
+    [objc_msgSend([v8 alloc] initWithStatusTypeIdentifier:{*IMWeakLinkSymbol()), "removeInvitedHandle:completion:", objc_msgSend([v7 alloc], "initWithString:", unformattedID), &stru_100018C30}];
   }
 }
 
@@ -785,30 +791,33 @@ LABEL_38:
     goto LABEL_7;
   }
 
-  v6 = [userInfo objectForKeyedSubscript:NSUbiquitousKeyValueStoreChangeReasonKey];
+  v7 = [userInfo objectForKeyedSubscript:NSUbiquitousKeyValueStoreChangeReasonKey];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v7 = sub_1000015F8();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v10 = sub_1000015F8(isKindOfClass, v9);
+    userInfo = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+    if (userInfo)
     {
-      sub_100011FEC(v6, v7);
+      sub_100011FEC(v7, v10);
     }
 
     goto LABEL_7;
   }
 
-  if ([v6 integerValue] != 2)
+  userInfo = [v7 integerValue];
+  if (userInfo != 2)
   {
 LABEL_7:
-    v8 = sub_100001E4C();
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_1000041DC;
-    v9[3] = &unk_100018C58;
-    v9[4] = self;
-    v9[5] = notification;
-    dispatch_async(v8, v9);
+    v11 = sub_100001E4C(userInfo, v6);
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_1000041DC;
+    v12[3] = &unk_100018C58;
+    v12[4] = self;
+    v12[5] = notification;
+    dispatch_async(v11, v12);
   }
 }
 

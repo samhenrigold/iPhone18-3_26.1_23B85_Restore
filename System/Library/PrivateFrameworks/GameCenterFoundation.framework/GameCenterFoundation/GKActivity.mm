@@ -3,6 +3,7 @@
 + (id)detachedNamed:(id)named;
 + (id)named:(id)named;
 + (void)named:(id)named execute:(id)execute;
+- (GKActivity)initWithName:(id)name parent:(id)parent mode:(unsigned int)mode;
 - (id)childNamed:(id)named;
 - (void)childNamed:(id)named execute:(id)execute;
 - (void)createActivity;
@@ -10,6 +11,25 @@
 @end
 
 @implementation GKActivity
+
+- (GKActivity)initWithName:(id)name parent:(id)parent mode:(unsigned int)mode
+{
+  v5 = *&mode;
+  nameCopy = name;
+  parentCopy = parent;
+  v13.receiver = self;
+  v13.super_class = GKActivity;
+  v10 = [(GKActivity *)&v13 init];
+  v11 = v10;
+  if (v10)
+  {
+    [(GKActivity *)v10 setName:nameCopy];
+    [(GKActivity *)v11 setParent:parentCopy];
+    [(GKActivity *)v11 setMode:v5];
+  }
+
+  return v11;
+}
 
 + (id)named:(id)named
 {

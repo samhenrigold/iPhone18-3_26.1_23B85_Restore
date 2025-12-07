@@ -7,7 +7,10 @@
 - (void)dealloc;
 - (void)listItemSelected:(id)selected;
 - (void)reloadFolders;
+- (void)setPushStateForMailbox:(id)mailbox state:(BOOL)state;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation ScheduleSettingsStyleController
@@ -21,16 +24,51 @@
   [(PSListItemsController *)&v3 dealloc];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  if (self->_isExchangeAccount)
+  {
+    DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+    CFNotificationCenterAddObserver(DarwinNotifyCenter, self, _DAFoldersThatExternalClientsCareAboutChanged, @"ASAccountFoldersThatExternalClientsCareAboutExternallyChangedNotification", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
+    v6 = CFNotificationCenterGetDarwinNotifyCenter();
+    CFNotificationCenterAddObserver(v6, self, _DAFolderHierarchyChanged, @"ASAccountFolderHierarchyExternallyChangedNotification", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
+  }
+
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter addObserver:self selector:sel__accountsChanged name:*MEMORY[0x277CB8B78] object:0];
+  v8.receiver = self;
+  v8.super_class = ScheduleSettingsStyleController;
+  [(PSListItemsController *)&v8 viewWillAppear:appearCopy];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [objc_msgSend(MEMORY[0x277CCAB98] "defaultCenter")];
+  if (self->_isExchangeAccount)
+  {
+    DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+    CFNotificationCenterRemoveObserver(DarwinNotifyCenter, self, @"ASAccountFoldersThatExternalClientsCareAboutExternallyChangedNotification", 0);
+    v6 = CFNotificationCenterGetDarwinNotifyCenter();
+    CFNotificationCenterRemoveObserver(v6, self, @"ASAccountFolderHierarchyExternallyChangedNotification", 0);
+  }
+
+  v7.receiver = self;
+  v7.super_class = ScheduleSettingsStyleController;
+  [(PSListItemsController *)&v7 viewWillDisappear:disappearCopy];
+}
+
 - (id)specifiers
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v2 = *(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
   if (!v2)
   {
-    v32 = *MEMORY[0x277D3FC48];
-    v42.receiver = self;
-    v42.super_class = ScheduleSettingsStyleController;
-    v2 = [-[PSListItemsController specifiers](&v42 specifiers)];
+    v31 = *MEMORY[0x277D3FC48];
+    v41.receiver = self;
+    v41.super_class = ScheduleSettingsStyleController;
+    v2 = [-[PSListItemsController specifiers](&v41 specifiers)];
     v4 = [-[ScheduleSettingsStyleController specifier](self "specifier")];
 
     v5 = [v4 objectForKey:@"ScheduleSettingsAccountKey"];
@@ -40,26 +78,26 @@
 
     self->_mailAccountUniqueId = 0;
     v7 = [v4 objectForKey:@"ScheduleSettingsAccountUniqueIdentifierKey"];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
     mailAccounts = [MEMORY[0x277D28280] mailAccounts];
-    v9 = [mailAccounts countByEnumeratingWithState:&v38 objects:v44 count:16];
+    v9 = [mailAccounts countByEnumeratingWithState:&v37 objects:v43 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v39;
+      v11 = *v38;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v39 != v11)
+          if (*v38 != v11)
           {
             objc_enumerationMutation(mailAccounts);
           }
 
-          v13 = *(*(&v38 + 1) + 8 * i);
+          v13 = *(*(&v37 + 1) + 8 * i);
           if ([objc_msgSend(v13 "uniqueIdForPersistentConnection")])
           {
             self->_mailAccountUniqueId = [v13 uniqueID];
@@ -68,7 +106,7 @@
           }
         }
 
-        v10 = [mailAccounts countByEnumeratingWithState:&v38 objects:v44 count:16];
+        v10 = [mailAccounts countByEnumeratingWithState:&v37 objects:v43 count:16];
         if (v10)
         {
           continue;
@@ -115,34 +153,34 @@ LABEL_12:
       if ([(NSArray *)mailboxInfos count])
       {
         [v2 addObject:{objc_msgSend(MEMORY[0x277D3FAD8], "groupSpecifierWithName:", objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8], "bundleForClass:", objc_opt_class()), "localizedStringForKey:value:table:", @"PUSHED_MAILBOXES", &stru_284EEC2E8, @"ScheduleSettings"}];
-        v36 = 0u;
-        v37 = 0u;
-        v34 = 0u;
         v35 = 0u;
+        v36 = 0u;
+        v33 = 0u;
+        v34 = 0u;
         v21 = self->_mailboxInfos;
-        v22 = [(NSArray *)v21 countByEnumeratingWithState:&v34 objects:v43 count:16];
+        v22 = [(NSArray *)v21 countByEnumeratingWithState:&v33 objects:v42 count:16];
         if (v22)
         {
           v23 = v22;
-          v24 = *v35;
+          v24 = *v34;
           v25 = *MEMORY[0x277D25820];
           do
           {
             for (j = 0; j != v23; ++j)
             {
-              if (*v35 != v24)
+              if (*v34 != v24)
               {
                 objc_enumerationMutation(v21);
               }
 
-              v27 = *(*(&v34 + 1) + 8 * j);
+              v27 = *(*(&v33 + 1) + 8 * j);
               v28 = [v27 objectForKey:v25];
               v29 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v28 target:0 set:0 get:0 detail:0 cell:13 edit:0];
               [v29 setProperty:v27 forKey:@"mailbox"];
               [v2 addObject:v29];
             }
 
-            v23 = [(NSArray *)v21 countByEnumeratingWithState:&v34 objects:v43 count:16];
+            v23 = [(NSArray *)v21 countByEnumeratingWithState:&v33 objects:v42 count:16];
           }
 
           while (v23);
@@ -150,80 +188,77 @@ LABEL_12:
       }
     }
 
-    *(&selfCopy->super.super.super.super.super.super.isa + v32) = v2;
+    *(&selfCopy->super.super.super.super.super.super.isa + v31) = v2;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (void)reloadFolders
 {
-  v9[5] = *MEMORY[0x277D85DE8];
+  v8[5] = *MEMORY[0x277D85DE8];
 
   self->_mailboxInfos = 0;
   self->_monitored = objc_alloc_init(MEMORY[0x277CBEB58]);
   v3 = *MEMORY[0x277D25838];
-  v9[0] = *MEMORY[0x277D25820];
-  v9[1] = v3;
+  v8[0] = *MEMORY[0x277D25820];
+  v8[1] = v3;
   v4 = *MEMORY[0x277D25830];
-  v9[2] = *MEMORY[0x277D25828];
-  v9[3] = v4;
-  v9[4] = *MEMORY[0x277D25840];
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:5];
+  v8[2] = *MEMORY[0x277D25828];
+  v8[3] = v4;
+  v8[4] = *MEMORY[0x277D25840];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:5];
   mailAccountUniqueId = self->_mailAccountUniqueId;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __48__ScheduleSettingsStyleController_reloadFolders__block_invoke;
-  v8[3] = &unk_278BB4680;
-  v8[4] = self;
-  [MEMORY[0x277D25848] mailboxListingForAccountWithUniqueIdentifier:mailAccountUniqueId keys:v5 completionBlock:v8];
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __48__ScheduleSettingsStyleController_reloadFolders__block_invoke;
+  v7[3] = &unk_278BB4680;
+  v7[4] = self;
+  [MEMORY[0x277D25848] mailboxListingForAccountWithUniqueIdentifier:mailAccountUniqueId keys:v5 completionBlock:v7];
 }
 
-uint64_t __48__ScheduleSettingsStyleController_reloadFolders__block_invoke(uint64_t a1, void *a2)
+void *__48__ScheduleSettingsStyleController_reloadFolders__block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 1504) = a2;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = *(*(a1 + 32) + 1504);
-  result = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  result = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (result)
   {
     v5 = result;
-    v6 = *v12;
+    v6 = *v11;
     v7 = *MEMORY[0x277D25830];
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
+        v9 = *(*(&v10 + 1) + 8 * v8);
         if ([objc_msgSend(v9 objectForKey:{v7), "BOOLValue"}])
         {
           [*(*(a1 + 32) + 1512) addObject:v9];
         }
 
-        ++v8;
+        v8 = v8 + 1;
       }
 
       while (v5 != v8);
-      result = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      result = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
       v5 = result;
     }
 
     while (result);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -258,6 +293,21 @@ uint64_t __48__ScheduleSettingsStyleController_reloadFolders__block_invoke(uint6
   [(PSListItemsController *)&v4 listItemSelected:selected];
   [-[ScheduleSettingsStyleController table](self "table")];
   [(ScheduleSettingsStyleController *)self reloadSpecifiers];
+}
+
+- (void)setPushStateForMailbox:(id)mailbox state:(BOOL)state
+{
+  stateCopy = state;
+  self->_ignoringNotifications = 1;
+  v6 = [mailbox objectForKey:*MEMORY[0x277D25840]];
+  [MEMORY[0x277D25848] setPushStateForMailboxWithPath:v6 account:self->_mailAccountUniqueId pushState:stateCopy error:0];
+  v7 = dispatch_time(0, 500000000);
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __64__ScheduleSettingsStyleController_setPushStateForMailbox_state___block_invoke;
+  block[3] = &unk_278BB4638;
+  block[4] = self;
+  dispatch_after(v7, MEMORY[0x277D85CD0], block);
 }
 
 - (void)_reloadFoldersAndSpecifiersForced:(BOOL)forced

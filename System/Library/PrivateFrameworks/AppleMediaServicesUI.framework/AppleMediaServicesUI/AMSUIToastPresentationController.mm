@@ -300,7 +300,7 @@ double __71__AMSUIToastPresentationController_frameOfPresentedViewInContainerVie
 
 - (void)_setupPassthroughView
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   containerView = [(AMSUIToastPresentationController *)self containerView];
 
   if (containerView)
@@ -324,13 +324,11 @@ double __71__AMSUIToastPresentationController_frameOfPresentedViewInContainerVie
     {
       presentingViewController = [(AMSUIToastPresentationController *)self presentingViewController];
       view = [presentingViewController view];
-      v21[0] = view;
-      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+      v20[0] = view;
+      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
       [(AMSUIToastPresentationController *)self setPassthroughViews:v19];
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startDismissTimer
@@ -477,7 +475,7 @@ LABEL_13:
 
 - (double)_yOffset
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   relativeTabBarController = [(AMSUIToastPresentationController *)self relativeTabBarController];
   if (!relativeTabBarController)
   {
@@ -492,23 +490,23 @@ LABEL_13:
     }
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   presentingViewController3 = [(AMSUIToastPresentationController *)self presentingViewController];
   childViewControllers = [presentingViewController3 childViewControllers];
 
-  v8 = [childViewControllers countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v8 = [childViewControllers countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(childViewControllers);
         }
@@ -519,7 +517,7 @@ LABEL_13:
           goto LABEL_23;
         }
 
-        v12 = *(*(&v24 + 1) + 8 * i);
+        v12 = *(*(&v23 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -537,7 +535,7 @@ LABEL_13:
         }
       }
 
-      v9 = [childViewControllers countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = [childViewControllers countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v9)
       {
         continue;
@@ -567,7 +565,6 @@ LABEL_23:
     v14 = v13;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

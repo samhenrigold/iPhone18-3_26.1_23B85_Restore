@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)stateAsString:(int)string;
 - (int)StringAsState:(id)state;
 - (unint64_t)hash;
 - (void)copyTo:(id)to;
@@ -12,6 +13,21 @@
 @end
 
 @implementation CSDMessagingSharePlayAvailable
+
+- (id)stateAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_10061E7B8[string];
+  }
+
+  return v4;
+}
 
 - (int)StringAsState:(id)state
 {
@@ -101,15 +117,12 @@
   toCopy = to;
   if (*&self->_has)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
   }
 
-  state = self->_state;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 2) != 0)
   {
-    supportsRequestToScreenShare = self->_supportsRequestToScreenShare;
     PBDataWriterWriteBOOLField();
   }
 }

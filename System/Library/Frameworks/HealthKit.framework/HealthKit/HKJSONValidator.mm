@@ -104,40 +104,40 @@
 
 - (HKJSONValidator)initWithSchemaNamed:(id)named bundle:(id)bundle
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   namedCopy = named;
   bundleCopy = bundle;
-  v8 = [bundleCopy URLForResource:namedCopy withExtension:@"json"];
-  if (v8)
+  v9 = [bundleCopy URLForResource:namedCopy withExtension:@"json"];
+  if (v9)
   {
-    v9 = [objc_alloc(MEMORY[0x1E695DF48]) initWithURL:v8];
-    v10 = v9;
-    if (v9)
+    v10 = [objc_alloc(MEMORY[0x1E695DF48]) initWithURL:v9];
+    v12 = v10;
+    if (v10)
     {
-      [v9 open];
-      v17 = 0;
-      v11 = [MEMORY[0x1E696ACB0] JSONObjectWithStream:v10 options:0 error:&v17];
-      v12 = v17;
-      [v10 close];
-      if (v11)
+      [v10 open];
+      v20 = 0;
+      v13 = [MEMORY[0x1E696ACB0] JSONObjectWithStream:v12 options:0 error:&v20];
+      v14 = v20;
+      close = [v12 close];
+      if (v13)
       {
-        self = [(HKJSONValidator *)self initWithSchema:v11];
+        self = [(HKJSONValidator *)self initWithSchema:v13];
         selfCopy = self;
       }
 
       else
       {
-        _HKInitializeLogging();
-        v14 = HKLogDefault;
+        _HKInitializeLogging(close, v16);
+        v18 = HKLogDefault;
         if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543874;
-          v19 = namedCopy;
-          v20 = 2114;
-          v21 = bundleCopy;
-          v22 = 2114;
-          v23 = v12;
-          _os_log_error_impl(&dword_19197B000, v14, OS_LOG_TYPE_ERROR, "Failed to deserialize schema %{public}@ in bundle %{public}@: %{public}@", buf, 0x20u);
+          v22 = namedCopy;
+          v23 = 2114;
+          v24 = bundleCopy;
+          v25 = 2114;
+          v26 = v14;
+          _os_log_error_impl(&dword_19197B000, v18, OS_LOG_TYPE_ERROR, "Failed to deserialize schema %{public}@ in bundle %{public}@: %{public}@", buf, 0x20u);
         }
 
         selfCopy = 0;
@@ -146,7 +146,7 @@
 
     else
     {
-      _HKInitializeLogging();
+      _HKInitializeLogging(0, v11);
       if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
       {
         [HKJSONValidator initWithSchemaNamed:bundle:];
@@ -158,7 +158,7 @@
 
   else
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(0, v8);
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
     {
       [HKJSONValidator initWithSchemaNamed:bundle:];
@@ -167,7 +167,6 @@
     selfCopy = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -276,7 +275,7 @@ LABEL_11:
 
 - (BOOL)_validateDictionary:(id)dictionary schema:(id)schema keyStack:(id)stack
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   schemaCopy = schema;
   stackCopy = stack;
@@ -293,12 +292,12 @@ LABEL_11:
     goto LABEL_24;
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v10 = schemaCopy;
-  v11 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (!v11)
   {
     v19 = 1;
@@ -306,18 +305,18 @@ LABEL_11:
   }
 
   v12 = v11;
-  v13 = *v25;
-  v22 = schemaCopy;
+  v13 = *v24;
+  v21 = schemaCopy;
   while (2)
   {
     for (i = 0; i != v12; ++i)
     {
-      if (*v25 != v13)
+      if (*v24 != v13)
       {
         objc_enumerationMutation(v10);
       }
 
-      v15 = *(*(&v24 + 1) + 8 * i);
+      v15 = *(*(&v23 + 1) + 8 * i);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -341,13 +340,13 @@ LABEL_11:
         v18 = [dictionaryCopy objectForKeyedSubscript:v15];
       }
 
-      [stackCopy addObject:{v15, v22}];
+      [stackCopy addObject:{v15, v21}];
       if (![(HKJSONValidator *)self _validateValue:v18 schema:v16 keyStack:stackCopy root:0])
       {
 
 LABEL_22:
         v19 = 0;
-        schemaCopy = v22;
+        schemaCopy = v21;
         goto LABEL_23;
       }
 
@@ -356,9 +355,9 @@ LABEL_22:
 LABEL_15:
     }
 
-    v12 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
     v19 = 1;
-    schemaCopy = v22;
+    schemaCopy = v21;
     if (v12)
     {
       continue;
@@ -370,13 +369,12 @@ LABEL_15:
 LABEL_23:
 
 LABEL_24:
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 - (BOOL)_validateArray:(id)array schema:(id)schema keyStack:(id)stack
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   schemaCopy = schema;
   stackCopy = stack;
@@ -386,33 +384,33 @@ LABEL_24:
     if ([schemaCopy count])
     {
       lastObject = [schemaCopy lastObject];
+      v19 = 0u;
       v20 = 0u;
       v21 = 0u;
       v22 = 0u;
-      v23 = 0u;
       v12 = arrayCopy;
-      v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v21;
+        v15 = *v20;
         while (2)
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v21 != v15)
+            if (*v20 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            if (![(HKJSONValidator *)self _validateValue:*(*(&v20 + 1) + 8 * i) schema:lastObject keyStack:stackCopy root:0, v20])
+            if (![(HKJSONValidator *)self _validateValue:*(*(&v19 + 1) + 8 * i) schema:lastObject keyStack:stackCopy root:0, v19])
             {
               v17 = 0;
               goto LABEL_14;
             }
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
           if (v14)
           {
             continue;
@@ -437,7 +435,6 @@ LABEL_14:
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -627,7 +624,7 @@ LABEL_21:
 
 - (id)_loadSubschemaNamed:(id)named
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   namedCopy = named;
   os_unfair_lock_lock(&self->_ivarLock);
   subschemaCache = self->_subschemaCache;
@@ -650,55 +647,55 @@ LABEL_21:
   else
   {
     v10 = [namedCopy stringByAppendingPathExtension:@"json"];
-    v26 = 0u;
-    v27 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     searchPaths = [objc_opt_class() searchPaths];
-    v12 = [searchPaths countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v12 = [searchPaths countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v27;
+      v14 = *v30;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v27 != v14)
+          if (*v30 != v14)
           {
             objc_enumerationMutation(searchPaths);
           }
 
-          v16 = [*(*(&v26 + 1) + 8 * i) URLByAppendingPathComponent:v10];
+          v16 = [*(*(&v29 + 1) + 8 * i) URLByAppendingPathComponent:v10];
           v17 = [objc_alloc(MEMORY[0x1E695DF48]) initWithURL:v16];
           if (v17)
           {
-            v19 = v17;
+            v21 = v17;
             [v17 open];
-            v25 = 0;
-            v20 = [MEMORY[0x1E696ACB0] JSONObjectWithStream:v19 options:0 error:&v25];
-            v21 = v25;
-            [v19 close];
-            if (!v20)
+            v28 = 0;
+            v22 = [MEMORY[0x1E696ACB0] JSONObjectWithStream:v21 options:0 error:&v28];
+            v23 = v28;
+            close = [v21 close];
+            if (!v22)
             {
-              _HKInitializeLogging();
-              v22 = HKLogDefault;
+              _HKInitializeLogging(close, v25);
+              v26 = HKLogDefault;
               if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
               {
-                [(HKJSONValidator *)v22 _loadSubschemaNamed:v16, v21];
+                [(HKJSONValidator *)v26 _loadSubschemaNamed:v16, v23];
               }
             }
 
             os_unfair_lock_lock(&self->_ivarLock);
-            [(NSMutableDictionary *)self->_subschemaCache setObject:v20 forKeyedSubscript:namedCopy];
+            [(NSMutableDictionary *)self->_subschemaCache setObject:v22 forKeyedSubscript:namedCopy];
             os_unfair_lock_unlock(&self->_ivarLock);
-            v9 = v20;
+            v9 = v22;
 
             goto LABEL_20;
           }
         }
 
-        v13 = [searchPaths countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v13 = [searchPaths countByEnumeratingWithState:&v29 objects:v33 count:16];
         if (v13)
         {
           continue;
@@ -708,75 +705,52 @@ LABEL_21:
       }
     }
 
-    _HKInitializeLogging();
-    v18 = HKLogDefault;
+    _HKInitializeLogging(v18, v19);
+    v20 = HKLogDefault;
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
     {
-      [(HKJSONValidator *)namedCopy _loadSubschemaNamed:v18];
+      [(HKJSONValidator *)namedCopy _loadSubschemaNamed:v20];
     }
 
     v9 = 0;
 LABEL_20:
   }
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)_mismatchErrorFromKeyStack:(id)stack
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v3 = [stack componentsJoinedByString:@"."];
   v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Schema mismatch at %@", v3];
   v5 = *MEMORY[0x1E696A578];
-  v10[0] = @"HKJSONErrorKeyPathKey";
-  v10[1] = v5;
-  v11[0] = v3;
-  v11[1] = v4;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v9[0] = @"HKJSONErrorKeyPathKey";
+  v9[1] = v5;
+  v10[0] = v3;
+  v10[1] = v4;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   v7 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"com.apple.healthkit.private.json" code:1 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
-- (void)initWithSchemaNamed:bundle:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v0, v1, "Failed to open schema %{public}@ in bundle %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initWithSchemaNamed:bundle:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v0, v1, "Schema %{public}@ not found in bundle %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 - (void)_loadSubschemaNamed:(uint64_t)a3 .cold.1(void *a1, void *a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = [a2 absoluteString];
   OUTLINED_FUNCTION_2_4();
-  v9 = a3;
-  _os_log_error_impl(&dword_19197B000, v5, OS_LOG_TYPE_ERROR, "Unable to load subschema at %{public}@: %{public}@", v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8 = a3;
+  _os_log_error_impl(&dword_19197B000, v5, OS_LOG_TYPE_ERROR, "Unable to load subschema at %{public}@: %{public}@", v7, 0x16u);
 }
 
 - (void)_loadSubschemaNamed:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Subschema not found: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Subschema not found: %{public}@", &v2, 0xCu);
 }
 
 @end

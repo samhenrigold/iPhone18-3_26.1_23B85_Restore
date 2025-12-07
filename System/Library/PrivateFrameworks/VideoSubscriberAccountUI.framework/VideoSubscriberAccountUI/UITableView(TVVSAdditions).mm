@@ -143,7 +143,7 @@ LABEL_9:
 
 - (void)vs_scrollViewDidEndScrollingAnimation
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   vs_scrollCompletionOperations = [self vs_scrollCompletionOperations];
   v3 = [vs_scrollCompletionOperations count];
 
@@ -152,9 +152,9 @@ LABEL_9:
     v4 = VSDefaultLogObject();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315138;
-      v10 = "[UITableView(TVVSAdditions) vs_scrollViewDidEndScrollingAnimation]";
-      _os_log_impl(&dword_270DD4000, v4, OS_LOG_TYPE_DEFAULT, "Entering %s", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[UITableView(TVVSAdditions) vs_scrollViewDidEndScrollingAnimation]";
+      _os_log_impl(&dword_270DD4000, v4, OS_LOG_TYPE_DEFAULT, "Entering %s", &v8, 0xCu);
     }
 
     vs_scrollCompletionOperations2 = [self vs_scrollCompletionOperations];
@@ -165,19 +165,17 @@ LABEL_9:
 
     [firstObject start];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)vs_scrollToTopAnimated:()TVVSAdditions completion:
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = a4;
   v7 = VSDefaultLogObject();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v17 = "[UITableView(TVVSAdditions) vs_scrollToTopAnimated:completion:]";
+    v16 = "[UITableView(TVVSAdditions) vs_scrollToTopAnimated:completion:]";
     _os_log_impl(&dword_270DD4000, v7, OS_LOG_TYPE_DEFAULT, "Entering %s", buf, 0xCu);
   }
 
@@ -193,12 +191,12 @@ LABEL_9:
   if ([self isScrollAnimating])
   {
     v10 = MEMORY[0x277CCA8C8];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __64__UITableView_TVVSAdditions__vs_scrollToTopAnimated_completion___block_invoke;
-    v14[3] = &unk_279E19698;
-    v15 = v6;
-    v11 = [v10 blockOperationWithBlock:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __64__UITableView_TVVSAdditions__vs_scrollToTopAnimated_completion___block_invoke;
+    v13[3] = &unk_279E19698;
+    v14 = v6;
+    v11 = [v10 blockOperationWithBlock:v13];
     vs_scrollCompletionOperations2 = [self vs_scrollCompletionOperations];
     [vs_scrollCompletionOperations2 addObject:v11];
   }
@@ -207,20 +205,18 @@ LABEL_9:
   {
     v6[2](v6);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)vs_scrollToIndexPath:()TVVSAdditions atScrollPosition:animated:withCompletion:
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v10 = a3;
   v11 = a6;
   v12 = VSDefaultLogObject();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v22 = "[UITableView(TVVSAdditions) vs_scrollToIndexPath:atScrollPosition:animated:withCompletion:]";
+    v21 = "[UITableView(TVVSAdditions) vs_scrollToIndexPath:atScrollPosition:animated:withCompletion:]";
     _os_log_impl(&dword_270DD4000, v12, OS_LOG_TYPE_DEFAULT, "Entering %s", buf, 0xCu);
   }
 
@@ -236,12 +232,12 @@ LABEL_9:
   if ([self isScrollAnimating])
   {
     v15 = MEMORY[0x277CCA8C8];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __92__UITableView_TVVSAdditions__vs_scrollToIndexPath_atScrollPosition_animated_withCompletion___block_invoke;
-    v19[3] = &unk_279E19698;
-    v20 = v11;
-    v16 = [v15 blockOperationWithBlock:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __92__UITableView_TVVSAdditions__vs_scrollToIndexPath_atScrollPosition_animated_withCompletion___block_invoke;
+    v18[3] = &unk_279E19698;
+    v19 = v11;
+    v16 = [v15 blockOperationWithBlock:v18];
     vs_scrollCompletionOperations2 = [self vs_scrollCompletionOperations];
     [vs_scrollCompletionOperations2 addObject:v16];
   }
@@ -250,8 +246,6 @@ LABEL_9:
   {
     v11[2](v11);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

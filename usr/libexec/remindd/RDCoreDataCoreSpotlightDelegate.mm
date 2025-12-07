@@ -17,16 +17,18 @@
   {
     v3 = v2;
     static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v5 = v4;
 
-    v4 = String._bridgeToObjectiveC()();
+    v6 = String._bridgeToObjectiveC()();
+    v5, v7, v8, v9, v10, v11, v12, v13;
   }
 
   else
   {
-    v4 = 0;
+    v6 = 0;
   }
 
-  return v4;
+  return v6;
 }
 
 - (id)attributeSetForObject:(id)object
@@ -55,7 +57,7 @@
 
   sub_1001F6A10(v3, v4);
 
-  sub_10003E114(v3);
+  sub_10003E114(v3, v4);
 }
 
 - (void)deleteAllIndicesWithCompletionHandler:(id)handler
@@ -86,7 +88,7 @@
 
   selfCopy = self;
   sub_1001F599C(v7, v6);
-  sub_10003E114(v7);
+  sub_10003E114(v7, v6);
 }
 
 - (void)reindexSearchableItemsWithIdentifiers:(id)identifiers acknowledgementHandler:(id)handler
@@ -107,7 +109,9 @@
 
   selfCopy = self;
   sub_1001F5BB4(v6, v5, v7);
-  sub_10003E114(v5);
+  sub_10003E114(v5, v7);
+
+  v6, v9, v10, v11, v12, v13, v14, v15;
 }
 
 - (id)initForStoreWithDescription:(id)description coordinator:(id)coordinator

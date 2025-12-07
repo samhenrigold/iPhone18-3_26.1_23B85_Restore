@@ -94,7 +94,7 @@
 
 - (void)taskHandler:(id)handler groupsWithGroupIDs:(id)ds completion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   completionCopy = completion;
   queue = [(IDSGroupContextController *)self queue];
@@ -104,22 +104,20 @@
   if (os_log_type_enabled(groupContext, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v19 = [dsCopy count];
+    v18 = [dsCopy count];
     _os_log_impl(&dword_1959FF000, groupContext, OS_LOG_TYPE_INFO, "Fetching groups from groupIDs {groupIDs.count: %ld}", buf, 0xCu);
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = sub_195A6E94C;
-  v14[3] = &unk_1E7440CA8;
-  v15 = dsCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = sub_195A6E94C;
+  v13[3] = &unk_1E7440CA8;
+  v14 = dsCopy;
   selfCopy = self;
-  v17 = completionCopy;
+  v16 = completionCopy;
   v11 = completionCopy;
   v12 = dsCopy;
-  [(IDSGroupContextController *)self groupContextWithCompletion:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(IDSGroupContextController *)self groupContextWithCompletion:v13];
 }
 
 - (void)taskHandler:(id)handler participantsWithDestinations:(id)destinations completion:(id)completion
@@ -285,7 +283,7 @@
 
 - (void)qGroupContextWithDeviceIdentity:(id)identity completion:(id)completion
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E699BB68];
   identityCopy = identity;
   v7 = [v5 alloc];
@@ -305,15 +303,15 @@
   queue3 = [(IDSGroupContextController *)self queue];
   v19 = [v17 initWithQueue:queue3];
 
-  v27 = MEMORY[0x1E69E9820];
-  v28 = 3221225472;
-  v29 = sub_195A70054;
-  v30 = &unk_1E7440D98;
+  v26 = MEMORY[0x1E69E9820];
+  v27 = 3221225472;
+  v28 = sub_195A70054;
+  v29 = &unk_1E7440D98;
   v20 = v16;
-  v31 = v20;
+  v30 = v20;
   selfCopy = self;
-  [v19 setOnGroupCreate:&v27];
-  [v15 appendMiddleware:{v19, v27, v28, v29, v30}];
+  [v19 setOnGroupCreate:&v26];
+  [v15 appendMiddleware:{v19, v26, v27, v28, v29}];
   [v15 appendMiddleware:v12];
   v21 = objc_alloc_init(IDSGroupContextControllerContent);
   [(IDSGroupContextControllerContent *)v21 setGroupContext:v15];
@@ -329,11 +327,9 @@
   if (os_log_type_enabled(groupContext, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v34 = v15;
+    v33 = v15;
     _os_log_impl(&dword_1959FF000, groupContext, OS_LOG_TYPE_INFO, "Group Context Created %@", buf, 0xCu);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_contentWithCompletion:(id)completion

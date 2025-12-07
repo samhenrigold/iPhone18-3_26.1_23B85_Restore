@@ -23,35 +23,35 @@
 
 - (id)_coderForKey:(id)key
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   keyCopy = key;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v5 = self->_subcoders;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
-        if ([v9 containsValueForKey:{keyCopy, v12}])
+        v9 = *(*(&v11 + 1) + 8 * i);
+        if ([v9 containsValueForKey:{keyCopy, v11}])
         {
           v6 = v9;
           goto LABEL_11;
         }
       }
 
-      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -63,50 +63,46 @@
 
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (void)msv_setUserInfo:(id)info
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v5 = [infoCopy copy];
   userInfo = self->_userInfo;
   self->_userInfo = v5;
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = self->_subcoders;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v13 + 1) + 8 * v11++) msv_setUserInfo:{infoCopy, v13}];
+        [*(*(&v12 + 1) + 8 * v11++) msv_setUserInfo:{infoCopy, v12}];
       }
 
       while (v9 != v11);
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)msv_userInfo
@@ -124,30 +120,30 @@ LABEL_11:
 
 - (const)decodeBytesForKey:(id)key returnedLength:(unint64_t *)length
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   keyCopy = key;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v7 = self->_subcoders;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     while (2)
     {
       v11 = 0;
       do
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * v11);
-        v13 = [v12 decodeBytesForKey:keyCopy returnedLength:{length, v17}];
+        v12 = *(*(&v16 + 1) + 8 * v11);
+        v13 = [v12 decodeBytesForKey:keyCopy returnedLength:{length, v16}];
         if (v13)
         {
           v14 = v13;
@@ -158,7 +154,7 @@ LABEL_11:
       }
 
       while (v9 != v11);
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v9)
       {
         continue;
@@ -171,7 +167,6 @@ LABEL_11:
   v14 = 0;
 LABEL_11:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -233,29 +228,29 @@ LABEL_11:
 
 - (id)decodeObjectOfClasses:(id)classes forKey:(id)key
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   classesCopy = classes;
   keyCopy = key;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v8 = self->_subcoders;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v17 + 1) + 8 * i) decodeObjectOfClasses:classesCopy forKey:{keyCopy, v17}];
+        v13 = [*(*(&v16 + 1) + 8 * i) decodeObjectOfClasses:classesCopy forKey:{keyCopy, v16}];
         if (v13)
         {
           v14 = v13;
@@ -263,7 +258,7 @@ LABEL_11:
         }
       }
 
-      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v10)
       {
         continue;
@@ -275,8 +270,6 @@ LABEL_11:
 
   v14 = 0;
 LABEL_11:
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -299,7 +292,7 @@ LABEL_11:
 
 - (id)decodeRootObjectOfClasses:(id)classes error:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   classesCopy = classes;
   if (([classesCopy containsObject:self->_rootClass] & 1) == 0)
   {
@@ -307,69 +300,69 @@ LABEL_11:
     [currentHandler handleFailureInMethod:a2 object:self file:@"MSVSegmentedEncoder.m" lineNumber:223 description:{@"Attempt to decode package of archived class: %@", self->_rootClass}];
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v8 = self->_subcoders;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v9)
   {
-    v10 = *v32;
+    v10 = *v31;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v32 != v10)
+        if (*v31 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        [*(*(&v31 + 1) + 8 * i) beginDecodingPartialTopLevelObjectOfClasses:classesCopy];
+        [*(*(&v30 + 1) + 8 * i) beginDecodingPartialTopLevelObjectOfClasses:classesCopy];
       }
 
-      v9 = [(NSArray *)v8 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v9 = [(NSArray *)v8 countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v9);
   }
 
   v12 = [objc_alloc(self->_rootClass) initWithCoder:self];
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v13 = self->_subcoders;
-  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v14)
   {
-    v15 = *v28;
+    v15 = *v27;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v28 != v15)
+        if (*v27 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        [*(*(&v27 + 1) + 8 * j) finishDecodingPartialTopLevelObject];
+        [*(*(&v26 + 1) + 8 * j) finishDecodingPartialTopLevelObject];
       }
 
-      v14 = [(NSArray *)v13 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v14 = [(NSArray *)v13 countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v14);
   }
 
   allVersions = [(MSVSegmentedCodingPackage *)self->_package allVersions];
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __55__MSVSegmentedDecoder_decodeRootObjectOfClasses_error___block_invoke;
-  v25[3] = &unk_1E7982520;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __55__MSVSegmentedDecoder_decodeRootObjectOfClasses_error___block_invoke;
+  v24[3] = &unk_1E7982520;
   v18 = v12;
-  v26 = v18;
-  [allVersions enumerateKeysAndObjectsUsingBlock:v25];
+  v25 = v18;
+  [allVersions enumerateKeysAndObjectsUsingBlock:v24];
 
   error = [(MSVSegmentedDecoder *)self error];
   if (error)
@@ -393,8 +386,6 @@ LABEL_11:
 
   v21 = v18;
 
-  v22 = *MEMORY[0x1E69E9840];
-
   return v21;
 }
 
@@ -407,27 +398,27 @@ void __55__MSVSegmentedDecoder_decodeRootObjectOfClasses_error___block_invoke(ui
 
 - (id)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = self->_subcoders;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        error = [*(*(&v12 + 1) + 8 * i) error];
+        error = [*(*(&v11 + 1) + 8 * i) error];
         if (error)
         {
           decodeError = error;
@@ -436,7 +427,7 @@ void __55__MSVSegmentedDecoder_decodeRootObjectOfClasses_error___block_invoke(ui
         }
       }
 
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -448,19 +439,18 @@ void __55__MSVSegmentedDecoder_decodeRootObjectOfClasses_error___block_invoke(ui
 
   decodeError = [(MSVSegmentedDecoder *)self decodeError];
 LABEL_11:
-  v10 = *MEMORY[0x1E69E9840];
 
   return decodeError;
 }
 
 - (MSVSegmentedDecoder)initWithCodingPackage:(id)package userInfo:(id)info error:(id *)error
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   packageCopy = package;
   infoCopy = info;
-  v36.receiver = self;
-  v36.super_class = MSVSegmentedDecoder;
-  v11 = [(MSVSegmentedDecoder *)&v36 init];
+  v35.receiver = self;
+  v35.super_class = MSVSegmentedDecoder;
+  v11 = [(MSVSegmentedDecoder *)&v35 init];
   if (!v11)
   {
     goto LABEL_17;
@@ -487,22 +477,22 @@ LABEL_11:
   v11->_rootClass = archivedClass;
 
   package = v11->_package;
-  v35 = 0;
-  v19 = [(MSVSegmentedCodingPackage *)package decodersWithError:&v35];
-  v20 = v35;
+  v34 = 0;
+  v19 = [(MSVSegmentedCodingPackage *)package decodersWithError:&v34];
+  v20 = v34;
   subcoders = v11->_subcoders;
   v11->_subcoders = v19;
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v22 = v11->_subcoders;
-  v23 = [(NSArray *)v22 countByEnumeratingWithState:&v31 objects:v37 count:16];
+  v23 = [(NSArray *)v22 countByEnumeratingWithState:&v30 objects:v36 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v32;
+    v25 = *v31;
     if (infoCopy)
     {
       v14 = infoCopy;
@@ -512,15 +502,15 @@ LABEL_11:
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v32 != v25)
+        if (*v31 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        [*(*(&v31 + 1) + 8 * i) msv_setUserInfo:{v14, v31}];
+        [*(*(&v30 + 1) + 8 * i) msv_setUserInfo:{v14, v30}];
       }
 
-      v24 = [(NSArray *)v22 countByEnumeratingWithState:&v31 objects:v37 count:16];
+      v24 = [(NSArray *)v22 countByEnumeratingWithState:&v30 objects:v36 count:16];
     }
 
     while (v24);
@@ -543,7 +533,6 @@ LABEL_17:
     v28 = v11;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v28;
 }
 

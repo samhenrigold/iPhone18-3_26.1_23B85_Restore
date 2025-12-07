@@ -39,7 +39,7 @@
 - (QLPreviewControllerDelegate)delegate
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for DOCPreviewController();
+  v4.super_class = type metadata accessor for DOCPreviewController(0);
   delegate = [(QLPreviewController *)&v4 delegate];
 
   return delegate;
@@ -54,7 +54,7 @@
   }
 
   v6.receiver = self;
-  v6.super_class = type metadata accessor for DOCPreviewController();
+  v6.super_class = type metadata accessor for DOCPreviewController(0);
   selfCopy2 = self;
   swift_unknownObjectRetain();
   [(QLPreviewController *)&v6 setDelegate:selfCopy];
@@ -69,7 +69,7 @@
 
   if (v3)
   {
-    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIKeyCommand);
+    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIKeyCommand, 0x277D75650);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -99,7 +99,7 @@
 
   v8 = DOCPreviewController.canPerformAction(_:withSender:)(action, v10);
 
-  outlined destroy of CharacterSet?(v10, &_sypSgMd);
+  outlined destroy of CharacterSet?(v10, &_sypSgMd, &_sypSgMR);
   return v8;
 }
 
@@ -121,7 +121,7 @@
 
   DOCPreviewController.duplicate(_:)();
 
-  outlined destroy of CharacterSet?(v6, &_sypSgMd);
+  outlined destroy of CharacterSet?(v6, &_sypSgMd, &_sypSgMR);
 }
 
 - (void)move:(id)move
@@ -142,7 +142,7 @@
 
   DOCPreviewController.moveCurrentItem()();
 
-  outlined destroy of CharacterSet?(v6, &_sypSgMd);
+  outlined destroy of CharacterSet?(v6, &_sypSgMd, &_sypSgMR);
 }
 
 + (id)sharedControllerFor:(id)for
@@ -174,9 +174,11 @@
       swift_once();
     }
 
-    static os_log_type_t.debug.getter();
+    v4 = static DOCLog.Source;
+    v5 = static os_log_type_t.debug.getter();
+    v6 = MEMORY[0x277D84F90];
 
-    os_log(_:dso:log:type:_:)();
+    os_log(_:dso:log:type:_:)("Scene Identifier was nil. This may not be not be a problem. Reproduce and investigate if it is ok.", 98, 2, &dword_2493AC000, v4, v5, v6);
   }
 }
 
@@ -184,7 +186,7 @@
 {
   appearCopy = appear;
   v6.receiver = self;
-  v6.super_class = type metadata accessor for DOCPreviewController();
+  v6.super_class = type metadata accessor for DOCPreviewController(0);
   v4 = v6.receiver;
   [(QLPreviewController *)&v6 viewWillAppear:appearCopy];
   swift_getKeyPath();
@@ -199,10 +201,10 @@
 - (void)viewDidAppear:(BOOL)appear
 {
   appearCopy = appear;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   MEMORY[0x28223BE20](v5 - 8, v6);
   v8 = &v14 - v7;
-  v9 = type metadata accessor for DOCPreviewController();
+  v9 = type metadata accessor for DOCPreviewController(0);
   v15.receiver = self;
   v15.super_class = v9;
   selfCopy = self;
@@ -219,7 +221,7 @@
 - (void)setModalPresentationStyle:(int64_t)style
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for DOCPreviewController();
+  v4.super_class = type metadata accessor for DOCPreviewController(0);
   [(DOCPreviewController *)&v4 setModalPresentationStyle:style];
 }
 
@@ -280,15 +282,15 @@
   controllerCopy = controller;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = specialized DOCPreviewController.previewController(_:editingModeFor:)();
+  v8 = specialized DOCPreviewController.previewController(_:editingModeFor:)(item);
 
   swift_unknownObjectRelease();
-  return v7;
+  return v8;
 }
 
 - (id)dismissActionsForPreviewController:(id)controller
 {
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for QLDismissAction);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for QLDismissAction, 0x277CDAA40);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -343,11 +345,11 @@
   controllerCopy = controller;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = specialized DOCPreviewController.previewController(_:transitionViewFor:)();
+  v8 = specialized DOCPreviewController.previewController(_:transitionViewFor:)(item);
 
   swift_unknownObjectRelease();
 
-  return v7;
+  return v8;
 }
 
 - (id)excludedActivityTypesForPreviewController:(id)controller

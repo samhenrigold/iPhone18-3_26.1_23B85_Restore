@@ -6,10 +6,10 @@
 
 - (void)_queue_start
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v26.receiver = self;
-  v26.super_class = HDSampleTypesQueryServer;
-  [(HDQueryServer *)&v26 _queue_start];
+  v27 = *MEMORY[0x277D85DE8];
+  v25.receiver = self;
+  v25.super_class = HDSampleTypesQueryServer;
+  [(HDQueryServer *)&v25 _queue_start];
   clientProxy = [(HDQueryServer *)self clientProxy];
   remoteObjectProxy = [clientProxy remoteObjectProxy];
 
@@ -19,9 +19,9 @@
   v8 = [filter predicateWithProfile:profile];
 
   profile2 = [(HDQueryServer *)self profile];
-  v25 = 0;
-  v10 = [HDSampleEntity sampleTypesForSamplesMatchingPredicate:v8 profile:profile2 error:&v25];
-  v11 = v25;
+  v24 = 0;
+  v10 = [HDSampleEntity sampleTypesForSamplesMatchingPredicate:v8 profile:profile2 error:&v24];
+  v11 = v24;
 
   -[HDQueryServer setDataCount:](self, "setDataCount:", [v10 count]);
   if (v11)
@@ -31,28 +31,28 @@
 
   else
   {
-    v20 = queryUUID;
+    v19 = queryUUID;
     v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v13 = v10;
-    v14 = [v13 countByEnumeratingWithState:&v21 objects:v27 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v20 objects:v26 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v22;
+      v16 = *v21;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v22 != v16)
+          if (*v21 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v21 + 1) + 8 * i);
+          v18 = *(*(&v20 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -60,17 +60,15 @@
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v21 objects:v27 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v20 objects:v26 count:16];
       }
 
       while (v15);
     }
 
-    queryUUID = v20;
-    [remoteObjectProxy client_deliverSampleTypes:v12 query:v20];
+    queryUUID = v19;
+    [remoteObjectProxy client_deliverSampleTypes:v12 query:v19];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

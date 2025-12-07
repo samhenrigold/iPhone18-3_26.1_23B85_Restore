@@ -275,16 +275,16 @@
   windowScene = [(_UISystemAppearanceManager *)self windowScene];
   v19 = notificationCopy;
   name = [v19 name];
-  if ([name isEqualToString:@"UIWindowDidBecomeVisibleNotification"])
+  if (objc_msgSend_isEqualToString_(name))
   {
   }
 
   else
   {
     name2 = [v19 name];
-    v8 = [name2 isEqualToString:@"UIWindowDidBecomeHiddenNotification"];
+    isEqualToString = objc_msgSend_isEqualToString_(name2);
 
-    if (!v8)
+    if (!isEqualToString)
     {
 LABEL_10:
       v16 = 0;
@@ -319,9 +319,9 @@ LABEL_14:
       goto LABEL_15;
     }
 
-    v15 = [windowScene2 isEqual:v13];
+    isEqual = objc_msgSend_isEqual_(windowScene2);
 
-    if (!v15)
+    if (!isEqual)
     {
       goto LABEL_14;
     }
@@ -495,10 +495,10 @@ LABEL_19:
 
       animationCopy2 = animation;
       orientationCopy2 = orientation;
-      v21 = [v17 isEqual:v18];
+      isEqual = objc_msgSend_isEqual_(v17);
 
       orientationsCopy3 = orientations;
-      if (!v21)
+      if (!isEqual)
       {
         goto LABEL_19;
       }

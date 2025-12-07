@@ -106,25 +106,22 @@ void __59__SBKAsynchronousTask_invokeTaskCompletionBlocksWithBlock___block_invok
   dispatch_async(v4, block);
 }
 
-uint64_t __59__SBKAsynchronousTask_invokeTaskCompletionBlocksWithBlock___block_invoke_4(uint64_t result)
+id *__59__SBKAsynchronousTask_invokeTaskCompletionBlocksWithBlock___block_invoke_4(id *result)
 {
-  if (*(*(*(result + 40) + 8) + 24) == 1)
+  if (*(*(result[5] + 1) + 24) == 1)
   {
-    return [*(result + 32) _invalidateAssertion:1];
+    return [result[4] _invalidateAssertion:1];
   }
 
   return result;
 }
 
-void __59__SBKAsynchronousTask_invokeTaskCompletionBlocksWithBlock___block_invoke_3(void *a1)
+void __59__SBKAsynchronousTask_invokeTaskCompletionBlocksWithBlock___block_invoke_3(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  v4 = a1[6];
-  (*(a1[8] + 16))();
-  v5 = a1[7];
+  (*(*(a1 + 64) + 16))();
+  v2 = *(a1 + 56);
 
-  dispatch_group_leave(v5);
+  dispatch_group_leave(v2);
 }
 
 - (void)addTaskCompletionBlock:(id)block
@@ -219,7 +216,7 @@ void __44__SBKAsynchronousTask__invalidateAssertion___block_invoke(uint64_t a1)
 
 void __59__SBKAsynchronousTask_finishTaskOperationWithResult_error___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) finishedHandler];
   if (v2)
   {
@@ -229,26 +226,24 @@ void __59__SBKAsynchronousTask_finishTaskOperationWithResult_error___block_invok
       v4 = *(a1 + 32);
       v5 = *(a1 + 40);
       v6 = *(a1 + 48);
-      v8 = 138412802;
-      v9 = v4;
-      v10 = 2112;
-      v11 = v5;
-      v12 = 2112;
-      v13 = v6;
-      _os_log_impl(&dword_26BC19000, v3, OS_LOG_TYPE_DEFAULT, "Invoking completion handler for %@, result = %@, error = %@", &v8, 0x20u);
+      v7 = 138412802;
+      v8 = v4;
+      v9 = 2112;
+      v10 = v5;
+      v11 = 2112;
+      v12 = v6;
+      _os_log_impl(&dword_26BC19000, v3, OS_LOG_TYPE_DEFAULT, "Invoking completion handler for %@, result = %@, error = %@", &v7, 0x20u);
     }
 
     v2[2](v2);
   }
 
   [*(a1 + 32) invalidate];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beginTaskOperation
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = os_log_create("com.apple.amp.StoreBookkeeper", "Default");
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -271,7 +266,6 @@ void __59__SBKAsynchronousTask_finishTaskOperationWithResult_error___block_invok
   block[3] = &unk_279D231C8;
   block[4] = self;
   dispatch_sync(queue, block);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __41__SBKAsynchronousTask_beginTaskOperation__block_invoke(uint64_t a1)
@@ -438,15 +432,15 @@ void __33__SBKAsynchronousTask_setResult___block_invoke(uint64_t a1)
   dispatch_sync(queue, v4);
 }
 
-uint64_t __37__SBKAsynchronousTask_setCancelType___block_invoke(uint64_t result)
+_DWORD *__37__SBKAsynchronousTask_setCancelType___block_invoke(_DWORD *result)
 {
-  v1 = *(result + 40);
-  v2 = *(result + 32);
+  v1 = result[10];
+  v2 = *(result + 4);
   if (v1 != *(v2 + 56))
   {
     *(v2 + 56) = v1;
-    result = *(result + 32);
-    if (*(result + 56))
+    result = *(result + 4);
+    if (result[14])
     {
       return [result _onQueueFireExpirationHandlerIfNecesary];
     }
@@ -478,22 +472,20 @@ uint64_t __37__SBKAsynchronousTask_setCancelType___block_invoke(uint64_t result)
 
 uint64_t __62__SBKAsynchronousTask__onQueueFireExpirationHandlerIfNecesary__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = os_log_create("com.apple.amp.StoreBookkeeper", "Default");
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 48);
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 1024;
-    v10 = v4;
-    _os_log_impl(&dword_26BC19000, v2, OS_LOG_TYPE_DEFAULT, "Invoking expiration handler for %@, with cancelType = %d", &v7, 0x12u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 1024;
+    v9 = v4;
+    _os_log_impl(&dword_26BC19000, v2, OS_LOG_TYPE_DEFAULT, "Invoking expiration handler for %@, with cancelType = %d", &v6, 0x12u);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (id)finishedHandler
@@ -520,10 +512,7 @@ uint64_t __62__SBKAsynchronousTask__onQueueFireExpirationHandlerIfNecesary__bloc
 
 uint64_t __38__SBKAsynchronousTask_finishedHandler__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 88) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 88) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -547,10 +536,7 @@ void *__42__SBKAsynchronousTask_setFinishedHandler___block_invoke(uint64_t a1)
   result = *(a1 + 40);
   if (result != *(*(a1 + 32) + 88))
   {
-    v3 = [result copy];
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 88);
-    *(v4 + 88) = v3;
+    *(*(a1 + 32) + 88) = [result copy];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -582,10 +568,7 @@ void *__42__SBKAsynchronousTask_setFinishedHandler___block_invoke(uint64_t a1)
 
 uint64_t __40__SBKAsynchronousTask_expirationHandler__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 80) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 80) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -609,10 +592,7 @@ void *__44__SBKAsynchronousTask_setExpirationHandler___block_invoke(uint64_t a1)
   result = *(a1 + 40);
   if (result != *(*(a1 + 32) + 80))
   {
-    v3 = [result copy];
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 80);
-    *(v4 + 80) = v3;
+    *(*(a1 + 32) + 80) = [result copy];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -720,21 +700,19 @@ void __39__SBKAsynchronousTask__invalidateTimer__block_invoke(uint64_t a1)
 
 uint64_t __69__SBKAsynchronousTask_initWithHandlerQueue_timeout_debugDescription___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = os_log_create("com.apple.amp.StoreBookkeeper", "Default");
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_26BC19000, v2, OS_LOG_TYPE_ERROR, "[SBKAsynchronousTask] WARNING: task timed out: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_26BC19000, v2, OS_LOG_TYPE_ERROR, "[SBKAsynchronousTask] WARNING: task timed out: %@", &v5, 0xCu);
   }
 
   [*(a1 + 32) _invalidateTimer];
   [*(a1 + 32) _invalidateAssertion:1];
-  result = [*(a1 + 32) setCancelType:2];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) setCancelType:2];
 }
 
 @end

@@ -317,13 +317,13 @@ void __49__AVTFaceTrackingManager_startTrackingLostTimers__block_invoke_2(uint64
 - (void)updateForPausingTrackingWithLabel:(BOOL)label
 {
   labelCopy = label;
-  [(AVTFaceTrackingManager *)self cancelLowLightAndSensorOcclusionTimer];
+  cancelLowLightAndSensorOcclusionTimer = [(AVTFaceTrackingManager *)self cancelLowLightAndSensorOcclusionTimer];
   if (labelCopy)
   {
-    v5 = AVTAvatarUIBundle();
-    v6 = [v5 localizedStringForKey:@"TAP_TO_RESUME" value:&stru_1F39618F0 table:@"Localized"];
+    v6 = AVTAvatarUIBundle(cancelLowLightAndSensorOcclusionTimer);
+    v7 = [v6 localizedStringForKey:@"TAP_TO_RESUME" value:&stru_1F39618F0 table:@"Localized"];
     userInfoView = [(AVTFaceTrackingManager *)self userInfoView];
-    [userInfoView setText:v6];
+    [userInfoView setText:v7];
 
     [(AVTFaceTrackingManager *)self updateUserInfoBackdropForCurrentLabel];
   }
@@ -359,9 +359,9 @@ LABEL_5:
 
     if (isSensorCovered)
     {
-      v13 = AVTAvatarUIBundle();
-      v7 = v13;
-      v14 = @"CAMERA_COVERED";
+      v15 = AVTAvatarUIBundle(v14);
+      v8 = v15;
+      v16 = @"CAMERA_COVERED";
     }
 
     else
@@ -369,32 +369,32 @@ LABEL_5:
       avatarView2 = [(AVTFaceTrackingManager *)self avatarView];
       captureImageIsTooDark = [avatarView2 captureImageIsTooDark];
 
-      v13 = AVTAvatarUIBundle();
-      v7 = v13;
+      v15 = AVTAvatarUIBundle(v19);
+      v8 = v15;
       if (captureImageIsTooDark)
       {
-        v14 = @"LOW_LIGHT";
+        v16 = @"LOW_LIGHT";
       }
 
       else
       {
-        v14 = @"TRACKING_LOST";
+        v16 = @"TRACKING_LOST";
       }
     }
 
-    v10 = [v13 localizedStringForKey:v14 value:&stru_1F39618F0 table:@"Localized"];
+    v11 = [v15 localizedStringForKey:v16 value:&stru_1F39618F0 table:@"Localized"];
     goto LABEL_11;
   }
 
-  v6 = MEMORY[0x1E696AEC0];
-  v7 = AVTAvatarUIBundle();
-  v8 = [v7 localizedStringForKey:@"ROTATE_DEVICE" value:&stru_1F39618F0 table:@"Localized"];
+  v7 = MEMORY[0x1E696AEC0];
+  v8 = AVTAvatarUIBundle(v6);
+  v9 = [v8 localizedStringForKey:@"ROTATE_DEVICE" value:&stru_1F39618F0 table:@"Localized"];
   localizedDeviceName = [(AVTFaceTrackingManager *)self localizedDeviceName];
-  v10 = [v6 stringWithFormat:v8, localizedDeviceName];
+  v11 = [v7 stringWithFormat:v9, localizedDeviceName];
 
 LABEL_11:
 
-  return v10;
+  return v11;
 }
 
 - (void)avatarView:(id)view didUpdateWithFaceTrackingStatus:(BOOL)status
@@ -408,7 +408,7 @@ LABEL_11:
   dispatch_async(MEMORY[0x1E69E96A0], v4);
 }
 
-uint64_t __69__AVTFaceTrackingManager_avatarView_didUpdateWithFaceTrackingStatus___block_invoke(uint64_t a1)
+void *__69__AVTFaceTrackingManager_avatarView_didUpdateWithFaceTrackingStatus___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) faceTrackingManagementPaused];
   if ((result & 1) == 0)
@@ -536,10 +536,10 @@ void __80__AVTFaceTrackingManager_avatarViewDidUpdateWithLowLightOrCameraOcclusi
     avatarView = [(AVTFaceTrackingManager *)self avatarView];
     [avatarView setFaceTrackingPaused:1];
 
-    v6 = AVTAvatarUIBundle();
-    v7 = [v6 localizedStringForKey:@"FACE_TRACKING_FAILED" value:&stru_1F39618F0 table:@"Localized"];
+    v7 = AVTAvatarUIBundle(v6);
+    v8 = [v7 localizedStringForKey:@"FACE_TRACKING_FAILED" value:&stru_1F39618F0 table:@"Localized"];
     userInfoView = [(AVTFaceTrackingManager *)self userInfoView];
-    [userInfoView setText:v7];
+    [userInfoView setText:v8];
 
     [(AVTFaceTrackingManager *)self updateUserInfoBackdropForCurrentLabel];
 
@@ -555,8 +555,7 @@ void __80__AVTFaceTrackingManager_avatarViewDidUpdateWithLowLightOrCameraOcclusi
     if ([(AVTFaceTrackingManager *)self interruptionType]== 2)
     {
       [(AVTFaceTrackingManager *)self invalidateFaceTrackingTimers];
-      [(AVTFaceTrackingManager *)self cancelLowLightAndSensorOcclusionTimer];
-      v4 = AVTAvatarUIBundle();
+      v4 = AVTAvatarUIBundle([(AVTFaceTrackingManager *)self cancelLowLightAndSensorOcclusionTimer]);
       v5 = [v4 localizedStringForKey:@"SESSION_INTERRUPTED" value:&stru_1F39618F0 table:@"Localized"];
       userInfoView = [(AVTFaceTrackingManager *)self userInfoView];
       [userInfoView setText:v5];
@@ -616,7 +615,7 @@ void __51__AVTFaceTrackingManager_setupDisplayLayoutMonitor__block_invoke(uint64
   dispatch_async(MEMORY[0x1E69E96A0], v7);
 }
 
-uint64_t __74__AVTFaceTrackingManager_layoutMonitorDidUpdateDisplayLayout_withContext___block_invoke(uint64_t a1)
+void *__74__AVTFaceTrackingManager_layoutMonitorDidUpdateDisplayLayout_withContext___block_invoke(uint64_t a1)
 {
   v1 = a1;
   v28 = *MEMORY[0x1E69E9840];

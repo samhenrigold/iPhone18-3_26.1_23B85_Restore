@@ -136,7 +136,7 @@
 
 - (BOOL)sendCompletion
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   stateLock = [(SSObservable *)self stateLock];
   [stateLock lock];
 
@@ -145,100 +145,105 @@
 
   if (condition == 1)
   {
-    v16 = SSObservableLogConfig();
-    if (!v16)
+    v17 = SSObservableLogConfig(v6);
+    if (!v17)
     {
-      v16 = +[SSLogConfig sharedConfig];
+      v17 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v16 shouldLog];
-    if ([v16 shouldLogToDisk])
+    shouldLog = [v17 shouldLog];
+    if ([v17 shouldLogToDisk])
     {
-      v18 = shouldLog | 2;
+      LODWORD(v19) = shouldLog | 2;
     }
 
     else
     {
-      v18 = shouldLog;
+      LODWORD(v19) = shouldLog;
     }
 
-    oSLogObject = [v16 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v17 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v18 &= 2u;
+      v19 = v19;
     }
 
-    if (v18)
+    else
     {
-      v20 = objc_opt_class();
-      v21 = v20;
-      [(SSObservable *)self logKey];
-      v36 = 138543618;
-      v37 = v20;
-      v39 = v38 = 2114;
-      LODWORD(v30) = 22;
-      v22 = _os_log_send_and_compose_impl();
+      v19 &= 2u;
+    }
 
-      if (!v22)
+    if (v19)
+    {
+      v21 = objc_opt_class();
+      v22 = v21;
+      logKey = [(SSObservable *)self logKey];
+      v37 = 138543618;
+      v38 = v21;
+      v39 = 2114;
+      v40 = logKey;
+      v24 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &dword_1D48BA000, oSLogObject, 2, "%{public}@: [%{public}@] Someone is attempting to send a completion from a completed SSObservable.", &v37, 22);
+
+      if (!v24)
       {
-LABEL_21:
+LABEL_22:
 
         stateLock3 = [(SSObservable *)self stateLock];
         [stateLock3 unlock];
-        goto LABEL_22;
+        goto LABEL_23;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:{4, &v36, v30}];
-      free(v22);
-      SSFileLog(v16, @"%@", v23, v24, v25, v26, v27, v28, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v24 encoding:4];
+      free(v24);
+      SSFileLog(v17, @"%@", v25, v26, v27, v28, v29, v30, oSLogObject);
     }
 
-    goto LABEL_21;
+    goto LABEL_22;
   }
 
   observers = [(SSObservable *)self observers];
-  v7 = [observers copy];
+  v8 = [observers copy];
 
   stateLock4 = [(SSObservable *)self stateLock];
   [stateLock4 unlockWithCondition:1];
 
-  v33 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  stateLock3 = v7;
-  v10 = [stateLock3 countByEnumeratingWithState:&v31 objects:v35 count:16];
-  if (v10)
+  v33 = 0u;
+  stateLock3 = v8;
+  v11 = [stateLock3 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  if (v11)
   {
-    v11 = v10;
-    v12 = *v32;
+    v12 = v11;
+    v13 = *v33;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v12; ++i)
       {
-        if (*v32 != v12)
+        if (*v33 != v13)
         {
           objc_enumerationMutation(stateLock3);
         }
 
-        v14 = *(*(&v31 + 1) + 8 * i);
+        v15 = *(*(&v32 + 1) + 8 * i);
         sendMessageQueue = [(SSObservable *)self sendMessageQueue];
-        [v14 _sendCompletionUsingQueue:sendMessageQueue];
+        [v15 _sendCompletionUsingQueue:sendMessageQueue];
       }
 
-      v11 = [stateLock3 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v12 = [stateLock3 countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
-    while (v11);
+    while (v12);
   }
 
-LABEL_22:
+LABEL_23:
   return condition != 1;
 }
 
 - (BOOL)sendFailure:(id)failure
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   failureCopy = failure;
   stateLock = [(SSObservable *)self stateLock];
   [stateLock lock];
@@ -248,95 +253,100 @@ LABEL_22:
 
   if (condition == 1)
   {
-    v18 = SSObservableLogConfig();
-    if (!v18)
+    v19 = SSObservableLogConfig(v8);
+    if (!v19)
     {
-      v18 = +[SSLogConfig sharedConfig];
+      v19 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v18 shouldLog];
-    if ([v18 shouldLogToDisk])
+    shouldLog = [v19 shouldLog];
+    if ([v19 shouldLogToDisk])
     {
-      v20 = shouldLog | 2;
+      LODWORD(v21) = shouldLog | 2;
     }
 
     else
     {
-      v20 = shouldLog;
+      LODWORD(v21) = shouldLog;
     }
 
-    oSLogObject = [v18 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v19 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v20 &= 2u;
+      v21 = v21;
     }
 
-    if (v20)
+    else
     {
-      v22 = objc_opt_class();
-      v23 = v22;
-      [(SSObservable *)self logKey];
-      v38 = 138543618;
-      v39 = v22;
-      v41 = v40 = 2114;
-      LODWORD(v32) = 22;
-      v24 = _os_log_send_and_compose_impl();
+      v21 &= 2u;
+    }
 
-      if (!v24)
+    if (v21)
+    {
+      v23 = objc_opt_class();
+      v24 = v23;
+      logKey = [(SSObservable *)self logKey];
+      v39 = 138543618;
+      v40 = v23;
+      v41 = 2114;
+      v42 = logKey;
+      v26 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &dword_1D48BA000, oSLogObject, 2, "%{public}@: [%{public}@] Someone is attempting to send a failure from a completed SSObservable.", &v39, 22);
+
+      if (!v26)
       {
-LABEL_21:
+LABEL_22:
 
         stateLock3 = [(SSObservable *)self stateLock];
         [stateLock3 unlock];
-        goto LABEL_22;
+        goto LABEL_23;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v24 encoding:{4, &v38, v32}];
-      free(v24);
-      SSFileLog(v18, @"%@", v25, v26, v27, v28, v29, v30, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:4];
+      free(v26);
+      SSFileLog(v19, @"%@", v27, v28, v29, v30, v31, v32, oSLogObject);
     }
 
-    goto LABEL_21;
+    goto LABEL_22;
   }
 
   [(SSObservable *)self setFailureError:failureCopy];
   observers = [(SSObservable *)self observers];
-  v9 = [observers copy];
+  v10 = [observers copy];
 
   stateLock4 = [(SSObservable *)self stateLock];
   [stateLock4 unlockWithCondition:1];
 
-  v35 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  stateLock3 = v9;
-  v12 = [stateLock3 countByEnumeratingWithState:&v33 objects:v37 count:16];
-  if (v12)
+  v35 = 0u;
+  stateLock3 = v10;
+  v13 = [stateLock3 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  if (v13)
   {
-    v13 = v12;
-    v14 = *v34;
+    v14 = v13;
+    v15 = *v35;
     do
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v14; ++i)
       {
-        if (*v34 != v14)
+        if (*v35 != v15)
         {
           objc_enumerationMutation(stateLock3);
         }
 
-        v16 = *(*(&v33 + 1) + 8 * i);
+        v17 = *(*(&v34 + 1) + 8 * i);
         sendMessageQueue = [(SSObservable *)self sendMessageQueue];
-        [v16 _sendFailure:failureCopy usingQueue:sendMessageQueue];
+        [v17 _sendFailure:failureCopy usingQueue:sendMessageQueue];
       }
 
-      v13 = [stateLock3 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v14 = [stateLock3 countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
-    while (v13);
+    while (v14);
   }
 
-LABEL_22:
+LABEL_23:
   return condition != 1;
 }
 
@@ -352,56 +362,61 @@ LABEL_22:
 
   if (condition == 1)
   {
-    v8 = SSObservableLogConfig();
-    if (!v8)
+    v9 = SSObservableLogConfig(v8);
+    if (!v9)
     {
-      v8 = +[SSLogConfig sharedConfig];
+      v9 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v8 shouldLog];
-    if ([v8 shouldLogToDisk])
+    shouldLog = [v9 shouldLog];
+    if ([v9 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
-    oSLogObject = [v8 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v10 &= 2u;
+      v11 = v11;
     }
 
-    if (v10)
+    else
     {
-      v12 = objc_opt_class();
-      v13 = v12;
-      [(SSObservable *)self logKey];
+      v11 &= 2u;
+    }
+
+    if (v11)
+    {
+      v13 = objc_opt_class();
+      v14 = v13;
+      logKey = [(SSObservable *)self logKey];
       v94 = 138543618;
-      v95 = v12;
-      v97 = v96 = 2114;
-      LODWORD(v77) = 22;
-      v14 = _os_log_send_and_compose_impl();
+      v95 = v13;
+      v96 = 2114;
+      v97 = logKey;
+      v16 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1D48BA000, oSLogObject, 2, "%{public}@: [%{public}@] Someone is attempting to send a result from a completed SSObservable.", &v94, 22);
 
-      if (!v14)
+      if (!v16)
       {
-LABEL_13:
+LABEL_14:
 
         stateLock3 = [(SSObservable *)self stateLock];
         [stateLock3 unlock];
-        v22 = 0;
-        goto LABEL_58;
+        v24 = 0;
+        goto LABEL_59;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:{4, &v94, v77}];
-      free(v14);
-      SSFileLog(v8, @"%@", v15, v16, v17, v18, v19, v20, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:4];
+      free(v16);
+      SSFileLog(v9, @"%@", v17, v18, v19, v20, v21, v22, oSLogObject);
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
   queuedResults = [(SSObservable *)self queuedResults];
@@ -411,15 +426,15 @@ LABEL_13:
   stateLock3 = [queuedResults2 copy];
 
   observers = [(SSObservable *)self observers];
-  v26 = [observers copy];
+  v28 = [observers copy];
 
-  v82 = v26;
-  v27 = [v26 count];
-  v28 = SSObservableLogConfig();
-  queuedResults3 = v28;
-  if (!v27)
+  v82 = v28;
+  v29 = [v28 count];
+  v30 = SSObservableLogConfig(v29);
+  queuedResults3 = v30;
+  if (!v29)
   {
-    if (!v28)
+    if (!v30)
     {
       queuedResults3 = +[SSLogConfig sharedConfig];
     }
@@ -427,59 +442,57 @@ LABEL_13:
     shouldLog2 = [queuedResults3 shouldLog];
     if ([queuedResults3 shouldLogToDisk])
     {
-      v47 = shouldLog2 | 2;
+      v49 = shouldLog2 | 2;
     }
 
     else
     {
-      v47 = shouldLog2;
+      v49 = shouldLog2;
     }
 
     oSLogObject2 = [queuedResults3 OSLogObject];
     if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
     {
-      v49 = v47;
+      v51 = v49;
     }
 
     else
     {
-      v49 = v47 & 2;
+      v51 = v49 & 2;
     }
 
-    if (v49)
+    if (v51)
     {
-      v50 = stateLock3;
-      v51 = resultCopy;
-      v52 = objc_opt_class();
-      v53 = v52;
-      logKey = [(SSObservable *)self logKey];
+      v52 = stateLock3;
+      v53 = resultCopy;
+      v54 = objc_opt_class();
+      v55 = v54;
+      logKey2 = [(SSObservable *)self logKey];
       v94 = 138543618;
-      v95 = v52;
+      v95 = v54;
       v96 = 2114;
-      v97 = logKey;
-      LODWORD(v77) = 22;
-      v76 = &v94;
-      v55 = _os_log_send_and_compose_impl();
+      v97 = logKey2;
+      v57 = _os_log_send_and_compose_impl(v51, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 2, "%{public}@: [%{public}@] The are no observers. Queuing the result.", &v94, 22);
 
-      if (v55)
+      if (v57)
       {
-        v56 = [MEMORY[0x1E696AEC0] stringWithCString:v55 encoding:{4, &v94, v77}];
-        free(v55);
-        SSFileLog(queuedResults3, @"%@", v57, v58, v59, v60, v61, v62, v56);
+        v58 = [MEMORY[0x1E696AEC0] stringWithCString:v57 encoding:4];
+        free(v57);
+        SSFileLog(queuedResults3, @"%@", v59, v60, v61, v62, v63, v64, v58);
       }
 
-      resultCopy = v51;
-      stateLock3 = v50;
+      resultCopy = v53;
+      stateLock3 = v52;
     }
 
     else
     {
     }
 
-    goto LABEL_41;
+    goto LABEL_42;
   }
 
-  if (!v28)
+  if (!v30)
   {
     queuedResults3 = +[SSLogConfig sharedConfig];
   }
@@ -487,63 +500,61 @@ LABEL_13:
   shouldLog3 = [queuedResults3 shouldLog];
   if ([queuedResults3 shouldLogToDisk])
   {
-    v31 = shouldLog3 | 2;
+    v33 = shouldLog3 | 2;
   }
 
   else
   {
-    v31 = shouldLog3;
+    v33 = shouldLog3;
   }
 
   oSLogObject3 = [queuedResults3 OSLogObject];
   if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEBUG))
   {
-    v33 = v31;
+    v35 = v33;
   }
 
   else
   {
-    v33 = v31 & 2;
+    v35 = v33 & 2;
   }
 
-  if (!v33)
+  if (!v35)
   {
-    goto LABEL_26;
+    goto LABEL_27;
   }
 
-  v34 = stateLock3;
-  v35 = objc_opt_class();
-  v36 = resultCopy;
-  v37 = v35;
-  logKey2 = [(SSObservable *)self logKey];
+  v36 = stateLock3;
+  v37 = objc_opt_class();
+  v38 = resultCopy;
+  v39 = v37;
+  logKey3 = [(SSObservable *)self logKey];
   v94 = 138543618;
-  v95 = v35;
-  stateLock3 = v34;
+  v95 = v37;
+  stateLock3 = v36;
   v96 = 2114;
-  v97 = logKey2;
-  LODWORD(v77) = 22;
-  v76 = &v94;
-  v39 = _os_log_send_and_compose_impl();
+  v97 = logKey3;
+  v41 = _os_log_send_and_compose_impl(v35, 0, 0, 0, &dword_1D48BA000, oSLogObject3, 2, "%{public}@: [%{public}@] There's at least one observer. Sending the result along with any queued results.", &v94, 22);
 
-  resultCopy = v36;
-  if (v39)
+  resultCopy = v38;
+  if (v41)
   {
-    oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v39 encoding:{4, &v94, v77}];
-    free(v39);
-    SSFileLog(queuedResults3, @"%@", v40, v41, v42, v43, v44, v45, oSLogObject3);
-LABEL_26:
+    oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v41 encoding:4];
+    free(v41);
+    SSFileLog(queuedResults3, @"%@", v42, v43, v44, v45, v46, v47, oSLogObject3);
+LABEL_27:
   }
 
   queuedResults3 = [(SSObservable *)self queuedResults];
   [queuedResults3 removeAllObjects];
-LABEL_41:
+LABEL_42:
 
   stateLock4 = [(SSObservable *)self stateLock];
   [stateLock4 unlock];
 
-  v64 = [v82 count];
-  v22 = v64 != 0;
-  if (v64)
+  v66 = [v82 count];
+  v24 = v66 != 0;
+  if (v66)
   {
     v78 = stateLock3;
     v79 = resultCopy;
@@ -565,36 +576,36 @@ LABEL_41:
             objc_enumerationMutation(obj);
           }
 
-          v66 = *(*(&v88 + 1) + 8 * i);
+          v68 = *(*(&v88 + 1) + 8 * i);
           v84 = 0u;
           v85 = 0u;
           v86 = 0u;
           v87 = 0u;
-          v67 = v82;
-          v68 = [v67 countByEnumeratingWithState:&v84 objects:v92 count:16];
-          if (v68)
+          v69 = v82;
+          v70 = [v69 countByEnumeratingWithState:&v84 objects:v92 count:16];
+          if (v70)
           {
-            v69 = v68;
-            v70 = *v85;
+            v71 = v70;
+            v72 = *v85;
             do
             {
-              for (j = 0; j != v69; ++j)
+              for (j = 0; j != v71; ++j)
               {
-                if (*v85 != v70)
+                if (*v85 != v72)
                 {
-                  objc_enumerationMutation(v67);
+                  objc_enumerationMutation(v69);
                 }
 
-                v72 = *(*(&v84 + 1) + 8 * j);
-                v73 = [v66 copy];
+                v74 = *(*(&v84 + 1) + 8 * j);
+                v75 = [v68 copy];
                 sendMessageQueue = [(SSObservable *)self sendMessageQueue];
-                [v72 _sendResult:v73 usingQueue:sendMessageQueue];
+                [v74 _sendResult:v75 usingQueue:sendMessageQueue];
               }
 
-              v69 = [v67 countByEnumeratingWithState:&v84 objects:v92 count:16];
+              v71 = [v69 countByEnumeratingWithState:&v84 objects:v92 count:16];
             }
 
-            while (v69);
+            while (v71);
           }
         }
 
@@ -606,16 +617,16 @@ LABEL_41:
 
     stateLock3 = v78;
     resultCopy = v79;
-    v22 = 1;
+    v24 = 1;
   }
 
-LABEL_58:
-  return v22;
+LABEL_59:
+  return v24;
 }
 
 - (void)subscribe:(id)subscribe
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   subscribeCopy = subscribe;
   stateLock = [(SSObservable *)self stateLock];
   [stateLock lock];
@@ -625,94 +636,113 @@ LABEL_58:
 
   if (condition == 1)
   {
-    v8 = SSObservableLogConfig();
-    if (!v8)
+    v9 = SSObservableLogConfig(v8);
+    if (!v9)
     {
-      v8 = +[SSLogConfig sharedConfig];
+      v9 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v8 shouldLog];
-    if ([v8 shouldLogToDisk])
+    shouldLog = [v9 shouldLog];
+    if ([v9 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
-    }
-
-    else
-    {
-      v10 = shouldLog;
-    }
-
-    oSLogObject = [v8 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
-    {
-      v10 &= 2u;
-    }
-
-    if (!v10)
-    {
-      goto LABEL_22;
-    }
-
-    goto LABEL_20;
-  }
-
-  observers = [(SSObservable *)self observers];
-  v13 = [observers containsObject:subscribeCopy];
-
-  if (v13)
-  {
-    v8 = SSObservableLogConfig();
-    if (!v8)
-    {
-      v8 = +[SSLogConfig sharedConfig];
-    }
-
-    shouldLog2 = [v8 shouldLog];
-    if ([v8 shouldLogToDisk])
-    {
-      v15 = shouldLog2 | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v15 = shouldLog2;
+      LODWORD(v11) = shouldLog;
     }
 
-    oSLogObject = [v8 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v15 &= 2u;
+      v11 = v11;
     }
 
-    if (!v15)
+    else
     {
-      goto LABEL_22;
+      v11 &= 2u;
     }
 
-LABEL_20:
-    v16 = objc_opt_class();
-    v17 = v16;
-    [(SSObservable *)self logKey];
-    v73 = 138543618;
-    v74 = v16;
-    v76 = v75 = 2114;
-    LODWORD(v57) = 22;
-    v18 = _os_log_send_and_compose_impl();
-
-    if (!v18)
+    if (!v11)
     {
+      goto LABEL_25;
+    }
+
+    v13 = objc_opt_class();
+    v14 = v13;
+    logKey = [(SSObservable *)self logKey];
+    v77 = 138543618;
+    v78 = v13;
+    v79 = 2114;
+    v80 = logKey;
+    v16 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1D48BA000, oSLogObject, 2, "%{public}@: [%{public}@] Someone is attempting to add an observer to a completed SSObservable.", &v77, 22);
 LABEL_23:
+    v23 = v16;
+
+    if (!v23)
+    {
+LABEL_26:
 
       stateLock3 = [(SSObservable *)self stateLock];
       [stateLock3 unlock];
-      goto LABEL_53;
+      goto LABEL_57;
     }
 
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:{4, &v73, v57}];
-    free(v18);
-    SSFileLog(v8, @"%@", v19, v20, v21, v22, v23, v24, oSLogObject);
-LABEL_22:
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v23 encoding:4];
+    free(v23);
+    SSFileLog(v9, @"%@", v24, v25, v26, v27, v28, v29, oSLogObject);
+LABEL_25:
 
+    goto LABEL_26;
+  }
+
+  observers = [(SSObservable *)self observers];
+  v18 = [observers containsObject:subscribeCopy];
+
+  if (v18)
+  {
+    v9 = SSObservableLogConfig(v19);
+    if (!v9)
+    {
+      v9 = +[SSLogConfig sharedConfig];
+    }
+
+    shouldLog2 = [v9 shouldLog];
+    if ([v9 shouldLogToDisk])
+    {
+      LODWORD(v21) = shouldLog2 | 2;
+    }
+
+    else
+    {
+      LODWORD(v21) = shouldLog2;
+    }
+
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v21 = v21;
+    }
+
+    else
+    {
+      v21 &= 2u;
+    }
+
+    if (!v21)
+    {
+      goto LABEL_25;
+    }
+
+    v22 = objc_opt_class();
+    v14 = v22;
+    logKey = [(SSObservable *)self logKey];
+    v77 = 138543618;
+    v78 = v22;
+    v79 = 2114;
+    v80 = logKey;
+    v16 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &dword_1D48BA000, oSLogObject, 2, "%{public}@: [%{public}@] Someone is attempting to add an observer to a SSObservable it's already observing.", &v77, 22);
     goto LABEL_23;
   }
 
@@ -720,133 +750,137 @@ LABEL_22:
   [observers2 addObject:subscribeCopy];
 
   queuedResults = [(SSObservable *)self queuedResults];
-  v28 = [queuedResults copy];
+  v33 = [queuedResults copy];
 
   queuedResults2 = [(SSObservable *)self queuedResults];
   [queuedResults2 removeAllObjects];
 
-  v58 = subscribeCopy;
-  if (![v28 count])
+  v35 = [v33 count];
+  v62 = subscribeCopy;
+  if (!v35)
   {
-    v61 = 0;
-    goto LABEL_38;
+    v65 = 0;
+    goto LABEL_42;
   }
 
-  v30 = SSObservableLogConfig();
-  if (!v30)
+  v36 = SSObservableLogConfig(v35);
+  if (!v36)
   {
-    v30 = +[SSLogConfig sharedConfig];
+    v36 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog3 = [v30 shouldLog];
-  if ([v30 shouldLogToDisk])
+  shouldLog3 = [v36 shouldLog];
+  if ([v36 shouldLogToDisk])
   {
-    v32 = shouldLog3 | 2;
+    LODWORD(v38) = shouldLog3 | 2;
   }
 
   else
   {
-    v32 = shouldLog3;
+    LODWORD(v38) = shouldLog3;
   }
 
-  oSLogObject2 = [v30 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
+  oSLogObject2 = [v36 OSLogObject];
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
   {
-    v32 &= 2u;
+    v38 = v38;
   }
 
-  if (!v32)
+  else
   {
-    goto LABEL_35;
+    v38 &= 2u;
   }
 
-  v34 = objc_opt_class();
-  v35 = v34;
-  logKey = [(SSObservable *)self logKey];
-  v73 = 138543618;
-  v74 = v34;
-  v75 = 2114;
-  v76 = logKey;
-  LODWORD(v57) = 22;
-  v56 = &v73;
-  v37 = _os_log_send_and_compose_impl();
-
-  if (v37)
+  if (!v38)
   {
-    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v37 encoding:{4, &v73, v57}];
-    free(v37);
-    SSFileLog(v30, @"%@", v38, v39, v40, v41, v42, v43, oSLogObject2);
-LABEL_35:
+    goto LABEL_39;
+  }
+
+  v40 = objc_opt_class();
+  v41 = v40;
+  logKey2 = [(SSObservable *)self logKey];
+  v77 = 138543618;
+  v78 = v40;
+  v79 = 2114;
+  v80 = logKey2;
+  v43 = _os_log_send_and_compose_impl(v38, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 2, "%{public}@: [%{public}@] There are pending results. Sending them now that we have an observer.", &v77, 22);
+
+  if (v43)
+  {
+    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v43 encoding:4];
+    free(v43);
+    SSFileLog(v36, @"%@", v44, v45, v46, v47, v48, v49, oSLogObject2);
+LABEL_39:
   }
 
   observers3 = [(SSObservable *)self observers];
-  v61 = [observers3 copy];
+  v65 = [observers3 copy];
 
-LABEL_38:
+LABEL_42:
   stateLock4 = [(SSObservable *)self stateLock];
   [stateLock4 unlock];
 
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
-  v68 = 0u;
-  stateLock3 = v28;
-  v62 = [stateLock3 countByEnumeratingWithState:&v67 objects:v72 count:16];
-  if (v62)
+  v73 = 0u;
+  v74 = 0u;
+  v71 = 0u;
+  v72 = 0u;
+  stateLock3 = v33;
+  v66 = [stateLock3 countByEnumeratingWithState:&v71 objects:v76 count:16];
+  if (v66)
   {
     obj = stateLock3;
-    v60 = *v68;
+    v64 = *v72;
     do
     {
-      for (i = 0; i != v62; ++i)
+      for (i = 0; i != v66; ++i)
       {
-        if (*v68 != v60)
+        if (*v72 != v64)
         {
           objc_enumerationMutation(obj);
         }
 
-        v47 = *(*(&v67 + 1) + 8 * i);
-        v63 = 0u;
-        v64 = 0u;
-        v65 = 0u;
-        v66 = 0u;
-        v48 = v61;
-        v49 = [v48 countByEnumeratingWithState:&v63 objects:v71 count:16];
-        if (v49)
+        v53 = *(*(&v71 + 1) + 8 * i);
+        v67 = 0u;
+        v68 = 0u;
+        v69 = 0u;
+        v70 = 0u;
+        v54 = v65;
+        v55 = [v54 countByEnumeratingWithState:&v67 objects:v75 count:16];
+        if (v55)
         {
-          v50 = v49;
-          v51 = *v64;
+          v56 = v55;
+          v57 = *v68;
           do
           {
-            for (j = 0; j != v50; ++j)
+            for (j = 0; j != v56; ++j)
             {
-              if (*v64 != v51)
+              if (*v68 != v57)
               {
-                objc_enumerationMutation(v48);
+                objc_enumerationMutation(v54);
               }
 
-              v53 = *(*(&v63 + 1) + 8 * j);
-              v54 = [v47 copy];
+              v59 = *(*(&v67 + 1) + 8 * j);
+              v60 = [v53 copy];
               sendMessageQueue = [(SSObservable *)self sendMessageQueue];
-              [v53 _sendResult:v54 usingQueue:sendMessageQueue];
+              [v59 _sendResult:v60 usingQueue:sendMessageQueue];
             }
 
-            v50 = [v48 countByEnumeratingWithState:&v63 objects:v71 count:16];
+            v56 = [v54 countByEnumeratingWithState:&v67 objects:v75 count:16];
           }
 
-          while (v50);
+          while (v56);
         }
       }
 
       stateLock3 = obj;
-      v62 = [obj countByEnumeratingWithState:&v67 objects:v72 count:16];
+      v66 = [obj countByEnumeratingWithState:&v71 objects:v76 count:16];
     }
 
-    while (v62);
+    while (v66);
   }
 
-  subscribeCopy = v58;
-LABEL_53:
+  subscribeCopy = v62;
+LABEL_57:
 }
 
 + (BOOL)_errorIsCanceledError:(id)error

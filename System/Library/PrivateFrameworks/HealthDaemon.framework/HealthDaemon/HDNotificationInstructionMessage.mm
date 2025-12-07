@@ -72,28 +72,28 @@
   v21 = [(HDNotificationInstructionMessage *)&v35 init];
   if (v21)
   {
-    v22 = [infoCopy copy];
+    v22 = objc_msgSend_copy(infoCopy);
     sendingDeviceInfo = v21->_sendingDeviceInfo;
     v21->_sendingDeviceInfo = v22;
 
     v21->_action = action;
-    v24 = [identifierCopy copy];
+    v24 = objc_msgSend_copy(identifierCopy);
     clientIdentifier = v21->_clientIdentifier;
     v21->_clientIdentifier = v24;
 
-    v26 = [categoryIdentifierCopy copy];
+    v26 = objc_msgSend_copy(categoryIdentifierCopy);
     categoryIdentifier = v21->_categoryIdentifier;
     v21->_categoryIdentifier = v26;
 
-    v28 = [dateCopy copy];
+    v28 = objc_msgSend_copy(dateCopy);
     creationDate = v21->_creationDate;
     v21->_creationDate = v28;
 
-    v30 = [expirationDateCopy copy];
+    v30 = objc_msgSend_copy(expirationDateCopy);
     expirationDate = v21->_expirationDate;
     v21->_expirationDate = v30;
 
-    v32 = [criteriaCopy copy];
+    v32 = objc_msgSend_copy(criteriaCopy);
     criteria = v21->_criteria;
     v21->_criteria = v32;
   }
@@ -202,12 +202,10 @@ LABEL_26:
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  action = self->_action;
-  v6 = NSStringFromHKNotificationInstructionAction();
-  criteria = self->_criteria;
-  v8 = [v3 stringWithFormat:@"<%@:%@ ctime:%@ %@:%@ expires:%@ criteria:%@ device:%@>", v4, v6, self->_creationDate, self->_clientIdentifier, self->_categoryIdentifier, self->_expirationDate, criteria, self->_sendingDeviceInfo];
+  v5 = NSStringFromHKNotificationInstructionAction();
+  v6 = [v3 stringWithFormat:@"<%@:%@ ctime:%@ %@:%@ expires:%@ criteria:%@ device:%@>", v4, v5, self->_creationDate, self->_clientIdentifier, self->_categoryIdentifier, self->_expirationDate, self->_criteria, self->_sendingDeviceInfo];
 
-  return v8;
+  return v6;
 }
 
 - (HDNotificationInstructionMessage)initWithMessageDictionary:(id)dictionary criteriaClasses:(id)classes
@@ -277,35 +275,35 @@ uint64_t __78__HDNotificationInstructionMessage_initWithMessageDictionary_criter
 
 - (NSDictionary)messageDictionary
 {
-  v20[8] = *MEMORY[0x277D85DE8];
-  v19[0] = @"currentCompatibilityVersion";
-  v19[1] = @"minimumCompatibleVersion";
-  v20[0] = &unk_283CB2F58;
-  v20[1] = &unk_283CB2F70;
-  v19[2] = @"creationDate";
+  v19[8] = *MEMORY[0x277D85DE8];
+  v18[0] = @"currentCompatibilityVersion";
+  v18[1] = @"minimumCompatibleVersion";
+  v19[0] = &unk_283CB2F58;
+  v19[1] = &unk_283CB2F70;
+  v18[2] = @"creationDate";
   v3 = MEMORY[0x277CCABB0];
   [(NSDate *)self->_creationDate timeIntervalSinceReferenceDate];
   v4 = [v3 numberWithDouble:?];
   sendingDeviceInfo = self->_sendingDeviceInfo;
   action = self->_action;
-  v20[2] = v4;
-  v20[3] = sendingDeviceInfo;
-  v19[3] = @"sendingDeviceInfo";
-  v19[4] = @"action";
+  v19[2] = v4;
+  v19[3] = sendingDeviceInfo;
+  v18[3] = @"sendingDeviceInfo";
+  v18[4] = @"action";
   v7 = [MEMORY[0x277CCABB0] numberWithInteger:action];
   clientIdentifier = self->_clientIdentifier;
   categoryIdentifier = self->_categoryIdentifier;
-  v20[4] = v7;
-  v20[5] = clientIdentifier;
-  v19[5] = @"clientIdentifier";
-  v19[6] = @"categoryIdentifier";
-  v20[6] = categoryIdentifier;
-  v19[7] = @"expirationDate";
+  v19[4] = v7;
+  v19[5] = clientIdentifier;
+  v18[5] = @"clientIdentifier";
+  v18[6] = @"categoryIdentifier";
+  v19[6] = categoryIdentifier;
+  v18[7] = @"expirationDate";
   v10 = MEMORY[0x277CCABB0];
   [(NSDate *)self->_expirationDate timeIntervalSinceReferenceDate];
   v11 = [v10 numberWithDouble:?];
-  v20[7] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:8];
+  v19[7] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:8];
   v13 = [v12 mutableCopy];
 
   if (self->_criteria)
@@ -317,9 +315,7 @@ uint64_t __78__HDNotificationInstructionMessage_initWithMessageDictionary_criter
     [v13 setObject:messageDictionary forKeyedSubscript:@"criteria"];
   }
 
-  v16 = [v13 copy];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = objc_msgSend_copy(v13);
 
   return v16;
 }

@@ -1,14 +1,14 @@
 @interface NSMutableString(NEPrettyPrint)
-- (uint64_t)appendToStringAtColumnWithContent:()NEPrettyPrint column:content:appendAsNewLine:addNewLine:;
 - (void)appendPrettyBOOL:()NEPrettyPrint withName:andIndent:options:;
 - (void)appendPrettyHex:()NEPrettyPrint withName:andIndent:options:;
 - (void)appendPrettyInt:()NEPrettyPrint withName:andIndent:options:;
 - (void)appendPrettyObject:()NEPrettyPrint withName:andIndent:options:;
+- (void)appendToStringAtColumnWithContent:()NEPrettyPrint column:content:appendAsNewLine:addNewLine:;
 @end
 
 @implementation NSMutableString(NEPrettyPrint)
 
-- (uint64_t)appendToStringAtColumnWithContent:()NEPrettyPrint column:content:appendAsNewLine:addNewLine:
+- (void)appendToStringAtColumnWithContent:()NEPrettyPrint column:content:appendAsNewLine:addNewLine:
 {
   v11 = a4;
   if (a4 && a6)
@@ -77,7 +77,7 @@
   {
     if ((a6 & 0xC) != 4)
     {
-      [(NSMutableString *)self appendPrettyObject:a3 withName:a4 andIndent:a5 options:a6 depth:1uLL];
+      [(NSMutableString *)result appendPrettyObject:a3 withName:a4 andIndent:a5 options:a6 depth:1uLL];
     }
   }
 }

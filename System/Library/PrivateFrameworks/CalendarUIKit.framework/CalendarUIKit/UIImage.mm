@@ -28,7 +28,7 @@ void *__47__UIImage_CUIKPlatforms__cuik_imageWithInsets___block_invoke(uint64_t 
   result = *(a1 + 32);
   if (result)
   {
-    return OUTLINED_FUNCTION_0_3(result, a2, *(a1 + 40), *(a1 + 48));
+    return OUTLINED_FUNCTION_0_3(result, *(a1 + 40), *(a1 + 48), a2);
   }
 
   return result;

@@ -8,7 +8,7 @@
 
 - (void)dumpForLoggingWithPrefix:(id)prefix logType:(unsigned __int8)type
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   prefixCopy = prefix;
   descriptionLines = [(HMCRedirectorChange *)self descriptionLines];
   v8 = [prefixCopy mutableCopy];
@@ -33,15 +33,14 @@
   if (os_log_type_enabled(v13, type))
   {
     v14 = HMFGetLogIdentifier();
-    v16 = 138543618;
-    v17 = v14;
-    v18 = 2112;
-    v19 = v8;
-    _os_log_impl(&dword_229538000, v13, type, "%{public}@%@", &v16, 0x16u);
+    v15 = 138543618;
+    v16 = v14;
+    v17 = 2112;
+    v18 = v8;
+    _os_log_impl(&dword_229538000, v13, type, "%{public}@%@", &v15, 0x16u);
   }
 
   objc_autoreleasePoolPop(v11);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)descriptionLines
@@ -92,7 +91,7 @@
     [deletes2 hmf_enumerateWithAutoreleasePoolUsingBlock:v15];
   }
 
-  v13 = [array copy];
+  v13 = objc_msgSend_copy(array);
 
   return v13;
 }

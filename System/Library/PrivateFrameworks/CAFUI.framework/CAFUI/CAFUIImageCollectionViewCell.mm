@@ -58,8 +58,9 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
+  highlightedCopy = highlighted;
   selfCopy = self;
-  CAFUIImageCollectionViewCell.isHighlighted.setter(highlighted);
+  CAFUIImageCollectionViewCell.isHighlighted.setter(highlightedCopy, selfCopy);
 }
 
 @end

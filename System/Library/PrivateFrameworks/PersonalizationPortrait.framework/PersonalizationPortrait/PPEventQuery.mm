@@ -15,11 +15,11 @@
 
 - (PPEventQuery)initWithCoder:(id)coder
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v17.receiver = self;
-  v17.super_class = PPEventQuery;
-  v5 = [(PPEventQuery *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = PPEventQuery;
+  v5 = [(PPEventQuery *)&v16 init];
   if (!v5)
   {
     goto LABEL_10;
@@ -56,14 +56,13 @@ LABEL_10:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v19 = coderCopy;
+    v18 = coderCopy;
     _os_log_error_impl(&dword_1A7FD3000, v10, OS_LOG_TYPE_ERROR, "failed to decode fromDate or toDate from %@", buf, 0xCu);
   }
 
   v11 = 0;
 LABEL_11:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

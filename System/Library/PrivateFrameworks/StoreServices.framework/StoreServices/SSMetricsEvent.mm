@@ -59,10 +59,10 @@ uint64_t __35__SSMetricsEvent__globalCanaryLock__block_invoke()
 
 - (id)allTableEntityPropertiesPermittedByConfiguration:(id)configuration externalValues:(id)values
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   valuesCopy = values;
-  v64 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v63 = objc_alloc_init(MEMORY[0x1E695DF90]);
   context = objc_autoreleasePoolPush();
   v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
   if (([configurationCopy disableEventDecoration] & 1) == 0)
@@ -96,8 +96,8 @@ uint64_t __35__SSMetricsEvent__globalCanaryLock__block_invoke()
       if (v12 != v13)
       {
         v14 = v13;
-        v59 = blacklistedEventFields;
-        v61 = valuesCopy;
+        v58 = blacklistedEventFields;
+        v60 = valuesCopy;
         v15 = +[SSLogConfig sharedStoreServicesConfig];
         if (!v15)
         {
@@ -107,16 +107,21 @@ uint64_t __35__SSMetricsEvent__globalCanaryLock__block_invoke()
         shouldLog = [v15 shouldLog];
         if ([v15 shouldLogToDisk])
         {
-          v17 = shouldLog | 2;
+          LODWORD(v17) = shouldLog | 2;
         }
 
         else
         {
-          v17 = shouldLog;
+          LODWORD(v17) = shouldLog;
         }
 
         oSLogObject = [v15 OSLogObject];
-        if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+        {
+          v17 = v17;
+        }
+
+        else
         {
           v17 &= 2u;
         }
@@ -125,53 +130,51 @@ uint64_t __35__SSMetricsEvent__globalCanaryLock__block_invoke()
         {
           v19 = objc_opt_class();
           v20 = v12 - v14;
-          v58 = v19;
+          v57 = v19;
           v21 = [v8 objectForKey:@"eventType"];
-          v66 = 138412802;
-          v67 = v19;
-          v68 = 1024;
-          *v69 = v20;
-          *&v69[4] = 2112;
-          *&v69[6] = v21;
-          LODWORD(v57) = 28;
-          v56 = &v66;
-          v22 = _os_log_send_and_compose_impl();
+          v65 = 138412802;
+          v66 = v19;
+          v67 = 1024;
+          *v68 = v20;
+          *&v68[4] = 2112;
+          *&v68[6] = v21;
+          v22 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_1D48BA000, oSLogObject, 1, "[%@] Configuration field-blacklisting trimmed %d fields from event [%@]", &v65, 28);
 
           if (!v22)
           {
-LABEL_24:
+LABEL_25:
 
-            blacklistedEventFields = v59;
-            valuesCopy = v61;
-            goto LABEL_25;
+            blacklistedEventFields = v58;
+            valuesCopy = v60;
+            goto LABEL_26;
           }
 
-          oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:{4, &v66, v57}];
+          oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:4];
           free(v22);
           SSFileLog(v15, @"%@", v23, v24, v25, v26, v27, v28, oSLogObject);
         }
 
-        goto LABEL_24;
+        goto LABEL_25;
       }
     }
   }
 
-LABEL_25:
+LABEL_26:
   if ([v8 count])
   {
-    v65 = 0;
-    oSLogObject3 = [MEMORY[0x1E696AE40] dataWithPropertyList:v8 format:200 options:0 error:&v65];
-    v30 = v65;
+    v64 = 0;
+    oSLogObject3 = [MEMORY[0x1E696AE40] dataWithPropertyList:v8 format:200 options:0 error:&v64];
+    v30 = v64;
     if (oSLogObject3)
     {
-      [v64 setObject:oSLogObject3 forKey:@"eventBody"];
-LABEL_49:
+      [v63 setObject:oSLogObject3 forKey:@"eventBody"];
+LABEL_52:
 
-      goto LABEL_50;
+      goto LABEL_53;
     }
 
-    v60 = blacklistedEventFields;
-    v62 = valuesCopy;
+    v59 = blacklistedEventFields;
+    v61 = valuesCopy;
     v42 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v42)
     {
@@ -181,16 +184,21 @@ LABEL_49:
     shouldLog2 = [v42 shouldLog];
     if ([v42 shouldLogToDisk])
     {
-      v44 = shouldLog2 | 2;
+      LODWORD(v44) = shouldLog2 | 2;
     }
 
     else
     {
-      v44 = shouldLog2;
+      LODWORD(v44) = shouldLog2;
     }
 
     oSLogObject2 = [v42 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    {
+      v44 = v44;
+    }
+
+    else
     {
       v44 &= 2u;
     }
@@ -198,31 +206,31 @@ LABEL_49:
     if (v44)
     {
       v46 = objc_opt_class();
-      v66 = 138412802;
-      v67 = v46;
-      v68 = 2112;
-      *v69 = v30;
-      *&v69[8] = 2112;
-      *&v69[10] = v8;
+      v65 = 138412802;
+      v66 = v46;
+      v67 = 2112;
+      *v68 = v30;
+      *&v68[8] = 2112;
+      *&v68[10] = v8;
       v47 = v46;
-      LODWORD(v57) = 32;
-      v48 = _os_log_send_and_compose_impl();
+      LODWORD(v56) = 32;
+      v48 = _os_log_send_and_compose_impl(v44, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 0, "[%@] Error creating PLIST: %@ -- Input: %@", &v65, v56);
 
       if (!v48)
       {
-LABEL_48:
+LABEL_51:
 
-        blacklistedEventFields = v60;
-        valuesCopy = v62;
-        goto LABEL_49;
+        blacklistedEventFields = v59;
+        valuesCopy = v61;
+        goto LABEL_52;
       }
 
-      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v48 encoding:{4, &v66, v57}];
+      oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v48 encoding:4];
       free(v48);
       SSFileLog(v42, @"%@", v49, v50, v51, v52, v53, v54, oSLogObject2);
     }
 
-    goto LABEL_48;
+    goto LABEL_51;
   }
 
   v30 = +[SSLogConfig sharedStoreServicesConfig];
@@ -231,48 +239,53 @@ LABEL_48:
     v30 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog3 = [v30 shouldLog];
+  LODWORD(v31) = [v30 shouldLog];
   if ([v30 shouldLogToDisk])
   {
-    shouldLog3 |= 2u;
+    LODWORD(v31) = v31 | 2;
   }
 
   oSLogObject3 = [v30 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
   {
-    shouldLog3 &= 2u;
+    v31 = v31;
   }
 
-  if (!shouldLog3)
+  else
   {
-    goto LABEL_49;
+    v31 &= 2u;
+  }
+
+  if (!v31)
+  {
+    goto LABEL_52;
   }
 
   v32 = valuesCopy;
   v33 = objc_opt_class();
-  v66 = 138412546;
-  v67 = v33;
-  v68 = 2112;
-  *v69 = self;
+  v65 = 138412546;
+  v66 = v33;
+  v67 = 2112;
+  *v68 = self;
   v34 = v33;
-  LODWORD(v57) = 22;
-  v35 = _os_log_send_and_compose_impl();
+  LODWORD(v56) = 22;
+  v35 = _os_log_send_and_compose_impl(v31, 0, 0, 0, &dword_1D48BA000, oSLogObject3, 0, "[%@] No Dictionary Representation for: %@", &v65, v56);
 
   if (v35)
   {
-    oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v35 encoding:{4, &v66, v57}];
+    oSLogObject3 = [MEMORY[0x1E696AEC0] stringWithCString:v35 encoding:4];
     free(v35);
     SSFileLog(v30, @"%@", v36, v37, v38, v39, v40, v41, oSLogObject3);
     valuesCopy = v32;
-    goto LABEL_49;
+    goto LABEL_52;
   }
 
   valuesCopy = v32;
-LABEL_50:
+LABEL_53:
 
   objc_autoreleasePoolPop(context);
 
-  return v64;
+  return v63;
 }
 
 - (BOOL)isBlacklistedByConfiguration:(id)configuration

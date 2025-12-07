@@ -21,7 +21,6 @@
     v8 = *(&selfCopy->super.isa + OBJC_IVAR____TtC19HealthBalanceDaemon31AnalyticsDailyMultiEventManager_unitTest_didObserveAnalyticsSubmissionCoordinator);
     if (v8)
     {
-      v9 = *&selfCopy->profile[OBJC_IVAR____TtC19HealthBalanceDaemon31AnalyticsDailyMultiEventManager_unitTest_didObserveAnalyticsSubmissionCoordinator];
       v8();
     }
 

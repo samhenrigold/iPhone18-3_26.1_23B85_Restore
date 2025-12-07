@@ -187,19 +187,18 @@ LABEL_17:
 
   if ([(_INPBResumeTimerIntent *)self hasResumeMultiple])
   {
-    resumeMultiple = self->_resumeMultiple;
     PBDataWriterWriteBOOLField();
   }
 
   targetTimer = [(_INPBResumeTimerIntent *)self targetTimer];
 
-  v8 = toCopy;
+  v7 = toCopy;
   if (targetTimer)
   {
     targetTimer2 = [(_INPBResumeTimerIntent *)self targetTimer];
     PBDataWriterWriteSubmessage();
 
-    v8 = toCopy;
+    v7 = toCopy;
   }
 }
 

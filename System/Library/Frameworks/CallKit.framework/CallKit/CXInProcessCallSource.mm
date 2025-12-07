@@ -8,12 +8,12 @@
 
 - (CXInProcessCallSource)initWithIdentifier:(id)identifier bundleIdentifier:(id)bundleIdentifier fallbackLocalizedName:(id)name
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   bundleIdentifierCopy = bundleIdentifier;
   nameCopy = name;
-  v24.receiver = self;
-  v24.super_class = CXInProcessCallSource;
-  v10 = [(CXCallSource *)&v24 initWithIdentifier:identifier];
+  v23.receiver = self;
+  v23.super_class = CXInProcessCallSource;
+  v10 = [(CXCallSource *)&v23 initWithIdentifier:identifier];
   if (v10)
   {
     v11 = [MEMORY[0x1E69635F8] cx_applicationRecordForBundleIdentifier:bundleIdentifierCopy];
@@ -36,11 +36,11 @@
 
     else
     {
-      v20 = CXDefaultLog();
+      v20 = CXDefaultLog(0);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v26 = bundleIdentifierCopy;
+        v25 = bundleIdentifierCopy;
         _os_log_impl(&dword_1B47F3000, v20, OS_LOG_TYPE_DEFAULT, "[WARN] Cannot find application record for bundle identifier: %@", buf, 0xCu);
       }
 
@@ -50,7 +50,6 @@
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

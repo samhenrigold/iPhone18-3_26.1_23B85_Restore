@@ -96,10 +96,10 @@
 {
   v3 = MEMORY[0x1EEE9AC00](self);
   v5 = v4;
-  v18 = *MEMORY[0x1E69E9840];
-  v16.receiver = v3;
-  v16.super_class = _PASBundleIdResolver;
-  v6 = [(_PASBundleIdResolver *)&v16 init];
+  v17 = *MEMORY[0x1E69E9840];
+  v15.receiver = v3;
+  v15.super_class = _PASBundleIdResolver;
+  v6 = [(_PASBundleIdResolver *)&v15 init];
   if (v6)
   {
     v7 = proc_pidpath(v5, buffer, 0x1000u);
@@ -123,7 +123,6 @@
     v6->_lock = v12;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

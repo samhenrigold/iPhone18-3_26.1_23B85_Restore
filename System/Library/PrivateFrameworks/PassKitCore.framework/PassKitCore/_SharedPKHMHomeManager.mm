@@ -41,7 +41,7 @@
 
         managerCopy2 = [objc_alloc(_MergedGlobals_177()) initWithOptions:524 cachePolicy:0];
         [managerCopy2 setAdaptive:1];
-        v18 = [objc_alloc(off_1ED6D1120()) initWithConfiguration:managerCopy2];
+        v18 = [objc_alloc((off_1ED6D1120)()) initWithConfiguration:managerCopy2];
         v19 = self->_manager;
         self->_manager = v18;
 

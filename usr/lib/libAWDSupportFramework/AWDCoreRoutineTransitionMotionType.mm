@@ -180,7 +180,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    coreRoutineTransitionMotionTypeStationary = self->_coreRoutineTransitionMotionTypeStationary;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x20) == 0)
@@ -200,7 +199,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  coreRoutineTransitionMotionTypeWalking = self->_coreRoutineTransitionMotionTypeWalking;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -215,7 +213,6 @@ LABEL_4:
   }
 
 LABEL_10:
-  coreRoutineTransitionMotionTypeRunning = self->_coreRoutineTransitionMotionTypeRunning;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -227,7 +224,6 @@ LABEL_5:
     }
 
 LABEL_12:
-    coreRoutineTransitionMotionTypeCycling = self->_coreRoutineTransitionMotionTypeCycling;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 0x10) == 0)
     {
@@ -238,7 +234,6 @@ LABEL_12:
   }
 
 LABEL_11:
-  coreRoutineTransitionMotionTypeAutomotive = self->_coreRoutineTransitionMotionTypeAutomotive;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) != 0)
@@ -253,7 +248,6 @@ LABEL_6:
   }
 
 LABEL_13:
-  coreRoutineTransitionMotionTypeUnknown = self->_coreRoutineTransitionMotionTypeUnknown;
 
   PBDataWriterWriteUint32Field();
 }

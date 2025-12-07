@@ -1,10 +1,60 @@
 @interface DAMailboxFetchSearchResultRequest
 - (BOOL)isEqual:(id)equal;
 - (id)description;
+- (id)initRequestForBodyFormat:(int)format withFolderID:(id)d withServerID:(id)iD withLongID:(id)longID withBodySizeLimit:(int)limit;
+- (id)initRequestForBodyFormat:(int)format withLongID:(id)d withBodySizeLimit:(int)limit;
 - (unint64_t)hash;
 @end
 
 @implementation DAMailboxFetchSearchResultRequest
+
+- (id)initRequestForBodyFormat:(int)format withLongID:(id)d withBodySizeLimit:(int)limit
+{
+  v5 = *&limit;
+  v6 = *&format;
+  dCopy = d;
+  v12.receiver = self;
+  v12.super_class = DAMailboxFetchSearchResultRequest;
+  v9 = [(DAMailboxFetchSearchResultRequest *)&v12 init];
+  if (v9)
+  {
+    v10 = [dCopy copy];
+    [(DAMailboxFetchSearchResultRequest *)v9 setLongID:v10];
+
+    [(DAMailboxFetchSearchResultRequest *)v9 setBodyFormat:v6];
+    [(DAMailboxFetchSearchResultRequest *)v9 setMaxSize:v5];
+  }
+
+  return v9;
+}
+
+- (id)initRequestForBodyFormat:(int)format withFolderID:(id)d withServerID:(id)iD withLongID:(id)longID withBodySizeLimit:(int)limit
+{
+  v7 = *&limit;
+  v10 = *&format;
+  dCopy = d;
+  iDCopy = iD;
+  longIDCopy = longID;
+  v20.receiver = self;
+  v20.super_class = DAMailboxFetchSearchResultRequest;
+  v15 = [(DAMailboxFetchSearchResultRequest *)&v20 init];
+  if (v15)
+  {
+    v16 = [dCopy copy];
+    [(DAMailboxFetchSearchResultRequest *)v15 setFolderID:v16];
+
+    v17 = [iDCopy copy];
+    [(DAMailboxFetchSearchResultRequest *)v15 setServerID:v17];
+
+    v18 = [longIDCopy copy];
+    [(DAMailboxFetchSearchResultRequest *)v15 setLongID:v18];
+
+    [(DAMailboxFetchSearchResultRequest *)v15 setBodyFormat:v10];
+    [(DAMailboxFetchSearchResultRequest *)v15 setMaxSize:v7];
+  }
+
+  return v15;
+}
 
 - (unint64_t)hash
 {

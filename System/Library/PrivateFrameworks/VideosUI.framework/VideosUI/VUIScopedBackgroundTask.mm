@@ -38,26 +38,27 @@
 
 void __64__VUIScopedBackgroundTask_initWithIdentifier_expirationHandler___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = VUIDefaultLogObject(WeakRetained);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 32);
-      v6 = 138412546;
-      v7 = v4;
-      v8 = 2048;
-      v9 = [WeakRetained taskIdentifier];
-      _os_log_impl(&dword_1E323F000, v3, OS_LOG_TYPE_DEFAULT, "VUIScopedBackgroundTask with identifier %@ (%lu) expired. Ending background task", &v6, 0x16u);
+      v5 = *(a1 + 32);
+      v7 = 138412546;
+      v8 = v5;
+      v9 = 2048;
+      v10 = [v3 taskIdentifier];
+      _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_DEFAULT, "VUIScopedBackgroundTask with identifier %@ (%lu) expired. Ending background task", &v7, 0x16u);
     }
 
-    [WeakRetained _endTask];
-    v5 = *(a1 + 40);
-    if (v5)
+    [v3 _endTask];
+    v6 = *(a1 + 40);
+    if (v6)
     {
-      (*(v5 + 16))();
+      (*(v6 + 16))();
     }
   }
 }

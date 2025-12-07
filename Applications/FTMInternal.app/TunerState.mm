@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)ratAsString:(int)string;
+- (id)scenarioDecisionAsString:(int)string;
 - (int)StringAsRat:(id)rat;
 - (int)StringAsScenarioDecision:(id)decision;
 - (int)rat;
@@ -47,6 +49,21 @@
   }
 
   *&self->_has = *&self->_has & 0xEF | v3;
+}
+
+- (id)ratAsString:(int)string
+{
+  if (string < 0x10 && ((0x9FFFu >> string) & 1) != 0)
+  {
+    v4 = off_100317138[string];
+  }
+
+  else
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsRat:(id)rat
@@ -186,6 +203,21 @@
   }
 
   *&self->_has = *&self->_has & 0xDF | v3;
+}
+
+- (id)scenarioDecisionAsString:(int)string
+{
+  if (string >= 0xE)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1003171B8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsScenarioDecision:(id)decision
@@ -434,7 +466,6 @@ LABEL_14:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    rat = self->_rat;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 0x40) == 0)
@@ -454,7 +485,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  txBand = self->_txBand;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -469,7 +499,6 @@ LABEL_4:
   }
 
 LABEL_14:
-  portBodypositionFs = self->_portBodypositionFs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -484,7 +513,6 @@ LABEL_5:
   }
 
 LABEL_15:
-  scenarioDecision = self->_scenarioDecision;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -499,7 +527,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  deembedVswrMag = self->_deembedVswrMag;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -514,12 +541,10 @@ LABEL_7:
   }
 
 LABEL_17:
-  deembedVswrPhase = self->_deembedVswrPhase;
   PBDataWriterWriteUint32Field();
   if (*&self->_has)
   {
 LABEL_8:
-    accessory = self->_accessory;
     PBDataWriterWriteUint32Field();
   }
 

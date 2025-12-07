@@ -147,7 +147,7 @@ void __32__MIBUNFCResponse__deserialize___block_invoke_6()
 
 - (void)serialize
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (MIBUOnceToken != -1)
   {
     dispatch_once(&MIBUOnceToken, &__block_literal_global_11);
@@ -156,15 +156,14 @@ void __32__MIBUNFCResponse__deserialize___block_invoke_6()
   v4 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
   {
-    v6 = v4;
+    v5 = v4;
     error = [self error];
-    v8 = 138543362;
-    v9 = error;
-    _os_log_error_impl(&dword_259ABF000, v6, OS_LOG_TYPE_ERROR, "Failed to serialize responseerror: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = error;
+    _os_log_error_impl(&dword_259ABF000, v5, OS_LOG_TYPE_ERROR, "Failed to serialize responseerror: %{public}@", &v7, 0xCu);
   }
 
   *a2 = 0;
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deserialize:(void *)a1 .cold.1(void *a1)

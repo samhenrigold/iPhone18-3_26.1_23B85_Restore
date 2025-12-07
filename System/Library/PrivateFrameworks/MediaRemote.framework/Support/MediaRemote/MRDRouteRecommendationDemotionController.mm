@@ -9,8 +9,8 @@
 + (id)controller
 {
   type metadata accessor for RouteRecommendationDemotionController();
-  v4[3] = type metadata accessor for MediaAppInFocusMonitor();
-  v4[4] = &off_1004C5058;
+  v5 = type metadata accessor for MediaAppInFocusMonitor();
+  v6 = &off_1004C5058;
   v4[0] = swift_allocObject();
   v2 = sub_1003801C4(v4);
 

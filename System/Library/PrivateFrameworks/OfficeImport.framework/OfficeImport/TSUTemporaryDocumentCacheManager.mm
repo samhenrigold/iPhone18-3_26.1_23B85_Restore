@@ -54,11 +54,11 @@ void __52__TSUTemporaryDocumentCacheManager_baseDirectoryURL__block_invoke()
   return v2;
 }
 
-void __49__TSUTemporaryDocumentCacheManager_sharedManager__block_invoke()
+void __49__TSUTemporaryDocumentCacheManager_sharedManager__block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_new();
-  v1 = sharedManager_sharedManager;
-  sharedManager_sharedManager = v0;
+  v1 = objc_opt_new();
+  v2 = sharedManager_sharedManager;
+  sharedManager_sharedManager = v1;
 }
 
 - (id)newDirectoryForDocumentUUID:(id)d

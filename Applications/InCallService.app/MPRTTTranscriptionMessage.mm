@@ -29,39 +29,39 @@
 - (void)fetchRTTConversationForCallUUID:(id)d
 {
   dCopy = d;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Starting fetchRTTConversationForCallUUID", buf, 2u);
   }
 
-  v6 = sub_10001A58C();
-  if (v6)
+  v7 = sub_10001A58C(v6);
+  if (v7)
   {
-    v7 = v6;
+    v8 = v7;
     objc_initWeak(buf, self);
     rttConversationsQueue = self->_rttConversationsQueue;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1000C9B6C;
     block[3] = &unk_100358F38;
-    objc_copyWeak(v12, buf);
-    v12[1] = v7;
-    v11 = dCopy;
+    objc_copyWeak(v13, buf);
+    v13[1] = v8;
+    v12 = dCopy;
     dispatch_async(rttConversationsQueue, block);
 
-    objc_destroyWeak(v12);
+    objc_destroyWeak(v13);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v9 = sub_100004F84();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100004F84(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Stopped fetchRTTConversationForCallUUID because we could not find RTTUIUtilities", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Stopped fetchRTTConversationForCallUUID because we could not find RTTUIUtilities", buf, 2u);
     }
   }
 }

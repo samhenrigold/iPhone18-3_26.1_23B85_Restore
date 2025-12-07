@@ -13,18 +13,20 @@
 
 - (void)_setEnabledInputsReport
 {
+  selfCopy = self;
   p_state = &self->super.super._state;
   touchMode = self->super.super._state.touchMode;
   if ((touchMode & 0x1000) != 0)
   {
-    touchMode = touchMode | [objc_opt_class() _haveToWake:touchMode];
+    self = [objc_opt_class() _haveToWake:touchMode];
+    touchMode = touchMode | self;
   }
 
   if ((touchMode & 5) == 4)
   {
-    if (*(&self->super.super._state + 14) == 1)
+    if (*(&selfCopy->super.super._state + 14) == 1)
     {
-      deviceObj = self->super.super._deviceObj;
+      deviceObj = selfCopy->super.super._deviceObj;
       if ((touchMode & 5) == 4)
       {
         v6 = 687;
@@ -35,22 +37,37 @@
         v6 = (((touchMode >> 2) & 1) << 8) | 0xAF;
       }
 
-      v9 = v6;
-      setReport<HSTPipeline::FirmwareInterface::FeatureReport::FaceDetectionMode>(deviceObj);
+      v16 = v6;
+      setReport<HSTPipeline::FirmwareInterface::FeatureReport::FaceDetectionMode>(deviceObj, &v16);
     }
   }
 
   else if ((touchMode & 1) != 0 || (p_state->prevTouchMode & 5) != 4)
   {
-    setReport<HSTPipeline::FirmwareInterface::FeatureReport::FaceDetectionMode>(self->super.super._deviceObj);
-    [(HSTiOSFirmwareManager *)self setPowerState:touchMode];
-    createEnabledInputsReport(touchMode, p_state->screenOrientation);
-    setReport<HSTPipeline::FirmwareInterface::FeatureReport::EnabledInputs::Awake>(self->super.super._deviceObj);
+    v8 = selfCopy->super.super._deviceObj;
+    if ((touchMode & 5) == 4)
+    {
+      v9 = 687;
+    }
+
+    else
+    {
+      v9 = (((touchMode >> 2) & 1) << 8) | 0xAF;
+    }
+
+    v14 = v9;
+    setReport<HSTPipeline::FirmwareInterface::FeatureReport::FaceDetectionMode>(v8, &v14);
+    [(HSTiOSFirmwareManager *)selfCopy setPowerState:touchMode];
+    EnabledInputsReport = createEnabledInputsReport(touchMode, p_state->screenOrientation);
+    v11 = selfCopy->super.super._deviceObj;
+    v13 = BYTE4(EnabledInputsReport);
+    v12 = EnabledInputsReport;
+    setReport<HSTPipeline::FirmwareInterface::FeatureReport::EnabledInputs::Awake>(v11, &v12);
   }
 
   else
   {
-    v7 = MTLoggingPlugin();
+    v7 = MTLoggingPlugin(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -221,34 +238,36 @@ LABEL_12:
     {
       v4 = IntProperty;
       _readAODLogging = [(HSTPhoneFirmwareManager *)self _readAODLogging];
-      v6 = MTLoggingPlugin();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v6 = _readAODLogging;
+      v8 = MTLoggingPlugin(_readAODLogging, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
-        v14 = v4;
-        v15 = 1024;
-        v16 = _readAODLogging;
-        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Setting AOD logging report 0x%x: %u", buf, 0xEu);
+        v18 = v4;
+        v19 = 1024;
+        v20 = v6;
+        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Setting AOD logging report 0x%x: %u", buf, 0xEu);
       }
 
       if (!self->super.super._deviceObj)
       {
-        v9 = +[NSAssertionHandler currentHandler];
-        v10 = [NSString stringWithUTF8String:"void setReport(MTDeviceRef, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::OneByteReport]"];
-        [v9 handleFailureInFunction:v10 file:@"HSTFirmwareManager.mm" lineNumber:200 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+        v13 = +[NSAssertionHandler currentHandler];
+        v14 = [NSString stringWithUTF8String:"void setReport(MTDeviceRef, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::OneByteReport]"];
+        [v13 handleFailureInFunction:v14 file:@"HSTFirmwareManager.mm" lineNumber:200 description:{@"Invalid parameter not satisfying: %@", @"device"}];
 
-        v11 = +[NSAssertionHandler currentHandler];
-        v12 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::SetReport(MTDeviceRef _Nonnull, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::OneByteReport]"];
-        [v11 handleFailureInFunction:v12 file:@"FirmwareUtil.h" lineNumber:9 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+        v15 = +[NSAssertionHandler currentHandler];
+        v16 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::SetReport(MTDeviceRef _Nonnull, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::OneByteReport]"];
+        [v15 handleFailureInFunction:v16 file:@"FirmwareUtil.h" lineNumber:9 description:{@"Invalid parameter not satisfying: %@", @"device"}];
       }
 
-      v7 = MTDeviceSetReport();
-      if (v7)
+      v9 = MTDeviceSetReport();
+      v11 = v9;
+      if (v9)
       {
-        v8 = MTLoggingPlugin();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v12 = MTLoggingPlugin(v9, v10);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          mach_error_string(v7);
+          mach_error_string(v11);
           setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostNotificationControl>();
         }
       }

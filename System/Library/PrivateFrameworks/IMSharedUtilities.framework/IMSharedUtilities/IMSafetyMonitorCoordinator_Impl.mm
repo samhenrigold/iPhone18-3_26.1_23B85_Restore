@@ -63,7 +63,7 @@
 - (NSDictionary)appPayload
 {
   sub_1A8739288(&unk_1F1BA97F8);
-  sub_1A85EF638(&unk_1F1BA9818, &qword_1EB305C88);
+  sub_1A85EF638(&unk_1F1BA9818, &qword_1EB305C88, &unk_1A88EB390);
   v2 = sub_1A88C8188();
 
   return v2;
@@ -79,7 +79,7 @@
 
 - (void)checkPreferredHandlesCacheForReceiverWith:(id)with completion:(id)completion
 {
-  v6 = sub_1A870CCE0(&unk_1EB3090D0);
+  v6 = sub_1A870CCE0(&unk_1EB3090D0, &qword_1A88E2A30);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = &v17 - v7;
   v9 = _Block_copy(completion);
@@ -103,7 +103,7 @@
 
 - (void)checkPreferredHandlesCacheForInitiatorHandleID:(id)d andReceiver:(id)receiver completion:(id)completion
 {
-  v7 = sub_1A870CCE0(&unk_1EB3090D0);
+  v7 = sub_1A870CCE0(&unk_1EB3090D0, &qword_1A88E2A30);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v21 - v8;
   v10 = _Block_copy(completion);
@@ -147,15 +147,16 @@
 
 - (void)informOfOutgoingMessageWithMessage:(id)message sentSuccessfully:(BOOL)successfully error:(id)error
 {
+  successfullyCopy = successfully;
   messageCopy = message;
   errorCopy = error;
   selfCopy = self;
-  sub_1A87BFA28(messageCopy, successfully, error);
+  sub_1A87BFA28(messageCopy, successfullyCopy, error);
 }
 
 - (void)informOfDeletedMessagesWithMessages:(id)messages
 {
-  sub_1A85E9718(0, &qword_1ED8C9380);
+  sub_1A85E9718(0, &qword_1ED8C9380, off_1E7824970);
   v4 = sub_1A88C85F8();
   selfCopy = self;
   sub_1A87BFE4C(v4);
@@ -174,10 +175,11 @@
 
 - (void)informOfScheduledMessageSendWithMessage:(id)message sentSuccessfully:(BOOL)successfully error:(id)error
 {
+  successfullyCopy = successfully;
   messageCopy = message;
   errorCopy = error;
   selfCopy = self;
-  sub_1A87C0584(messageCopy, successfully, error);
+  sub_1A87C0584(messageCopy, successfullyCopy, error);
 }
 
 - (void)informOfCancelledScheduledMessageSendWithMessageGUID:(id)d sentSuccessfully:(BOOL)successfully error:(id)error

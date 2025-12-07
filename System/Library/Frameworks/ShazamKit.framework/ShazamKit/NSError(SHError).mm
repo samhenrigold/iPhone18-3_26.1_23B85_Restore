@@ -1,11 +1,11 @@
 @interface NSError(SHError)
-- (uint64_t)isShazamPublicErrorWithCode:()SHError;
 - (uint64_t)sh_hasShazamKitPublicErrorDomain;
-- (uint64_t)sh_isMatchAttemptCancelledError;
-- (uint64_t)sh_isMediaItemFetchFailedError;
 - (uint64_t)sh_isMediaLibraryError;
-- (uint64_t)sh_isMediaLibraryPublicError;
-- (uint64_t)sh_isPrivacyDisclosureAcknowledgementNeededError;
+- (void)isShazamPublicErrorWithCode:()SHError;
+- (void)sh_isMatchAttemptCancelledError;
+- (void)sh_isMediaItemFetchFailedError;
+- (void)sh_isMediaLibraryPublicError;
+- (void)sh_isPrivacyDisclosureAcknowledgementNeededError;
 @end
 
 @implementation NSError(SHError)
@@ -18,23 +18,23 @@
   return v2;
 }
 
-- (uint64_t)sh_isMediaLibraryPublicError
+- (void)sh_isMediaLibraryPublicError
 {
   result = [self sh_isMediaLibraryError];
   if (result)
   {
-    return [self code] == 500;
+    return ([self code] == 500);
   }
 
   return result;
 }
 
-- (uint64_t)isShazamPublicErrorWithCode:()SHError
+- (void)isShazamPublicErrorWithCode:()SHError
 {
   result = [self sh_hasShazamKitPublicErrorDomain];
   if (result)
   {
-    return [self code] == a3;
+    return ([self code] == a3);
   }
 
   return result;
@@ -48,34 +48,34 @@
   return v2;
 }
 
-- (uint64_t)sh_isMatchAttemptCancelledError
+- (void)sh_isMatchAttemptCancelledError
 {
   result = [self sh_hasShazamKitPublicErrorDomain];
   if (result)
   {
-    return [self code] == 203;
+    return ([self code] == 203);
   }
 
   return result;
 }
 
-- (uint64_t)sh_isPrivacyDisclosureAcknowledgementNeededError
+- (void)sh_isPrivacyDisclosureAcknowledgementNeededError
 {
   result = [self sh_hasShazamKitPublicErrorDomain];
   if (result)
   {
-    return [self code] == 204;
+    return ([self code] == 204);
   }
 
   return result;
 }
 
-- (uint64_t)sh_isMediaItemFetchFailedError
+- (void)sh_isMediaItemFetchFailedError
 {
   result = [self sh_hasShazamKitPublicErrorDomain];
   if (result)
   {
-    return [self code] == 600;
+    return ([self code] == 600);
   }
 
   return result;

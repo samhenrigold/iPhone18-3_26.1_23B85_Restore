@@ -17,15 +17,16 @@
 
   else
   {
-    memset(v7, 0, sizeof(v7));
+    memset(v10, 0, sizeof(v10));
     keyCopy2 = key;
   }
 
-  sub_1C86F8EFC();
+  v7 = sub_1C86F8EFC();
+  v9 = v8;
 
-  sub_1C86D61F4(v7);
+  sub_1C86D61F4(v10, v7, v9);
 
-  sub_1C86885EC(v7);
+  sub_1C86885EC(v10);
 }
 
 @end

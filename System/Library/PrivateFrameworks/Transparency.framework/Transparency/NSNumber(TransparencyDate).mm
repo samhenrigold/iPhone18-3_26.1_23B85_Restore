@@ -1,10 +1,10 @@
 @interface NSNumber(TransparencyDate)
-- (unint64_t)kt_enumValueWithMax:()TransparencyDate defaultValue:;
+- (void)kt_enumValueWithMax:()TransparencyDate defaultValue:;
 @end
 
 @implementation NSNumber(TransparencyDate)
 
-- (unint64_t)kt_enumValueWithMax:()TransparencyDate defaultValue:
+- (void)kt_enumValueWithMax:()TransparencyDate defaultValue:
 {
   result = [self unsignedIntegerValue];
   if (result > a3)

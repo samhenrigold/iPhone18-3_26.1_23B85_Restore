@@ -1,7 +1,6 @@
 @interface RBDaemon
 + (id)_sharedInstance;
 + (void)run;
-- (NSString)debugDescription;
 - (RBDaemon)init;
 - (RBProcess)process;
 - (id)_EnterSandbox;
@@ -62,9 +61,9 @@ void __15__RBDaemon_run__block_invoke()
     +[RBDaemon _sharedInstance];
   }
 
-  v0 = _sharedInstance___sharedInstance;
+  v1 = _sharedInstance___sharedInstance;
 
-  return v0;
+  return v1;
 }
 
 - (RBDaemon)init
@@ -73,14 +72,6 @@ void __15__RBDaemon_run__block_invoke()
   [currentHandler handleFailureInMethod:a2 object:self file:@"RBDaemon.m" lineNumber:122 description:@"-init is not allowed on RBDaemon"];
 
   return 0;
-}
-
-- (NSString)debugDescription
-{
-  v3 = MEMORY[0x277CCACA8];
-  v4 = objc_opt_class();
-  listener = self->_listener;
-  return [v3 stringWithFormat:@"<%@: %p; listener=%p assertions=%p processes=%p monitor=%p>", v4, self, listener, self->_assertionManager, self->_processManager, self->_processMonitor];
 }
 
 - (void)assertionManager:(id)manager didUpdateProcessStates:(id)states completion:(id)completion
@@ -104,46 +95,45 @@ void __15__RBDaemon_run__block_invoke()
   [(RBProcessMonitor *)self->_processMonitor didUpdateProcessStates:v11];
 }
 
-uint64_t __63__RBDaemon_assertionManager_didUpdateProcessStates_completion___block_invoke(uint64_t a1)
+uint64_t __63__RBDaemon_assertionManager_didUpdateProcessStates_completion___block_invoke(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v2 = [(RBConnectionListener *)*(*(a1 + 32) + 64) readyClients];
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v2 = [(RBConnectionListener *)*(a1[4] + 64) readyClients];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [(RBConnectionClient *)*(*(&v9 + 1) + 8 * v6++) didUpdateProcessStates:?];
+        [(RBConnectionClient *)*(*(&v8 + 1) + 8 * v6++) didUpdateProcessStates:?];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
 
-  result = *(a1 + 48);
+  result = a1[6];
   if (result)
   {
-    result = (*(result + 16))(result);
+    return (*(result + 16))(result);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -161,145 +151,139 @@ uint64_t __63__RBDaemon_assertionManager_didUpdateProcessStates_completion___blo
 
 - (void)assertionManager:(id)manager didRemoveProcess:(id)process withState:(id)state
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   processCopy = process;
   stateCopy = state;
+  v14 = 0u;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
   readyClients = [(RBConnectionListener *)self->_listener readyClients];
-  v10 = [readyClients countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [readyClients countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v15;
     do
     {
       v13 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(readyClients);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * v13);
         [RBConnectionClient didRemoveProcess:withState:];
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [readyClients countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [readyClients countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v11);
   }
 
-  [(RBProcessMonitor *)self->_processMonitor didRemoveProcess:processCopy withState:stateCopy, v16];
-  v15 = *MEMORY[0x277D85DE8];
+  [(RBProcessMonitor *)self->_processMonitor didRemoveProcess:processCopy withState:stateCopy, v14];
 }
 
 - (void)assertionManager:(id)manager willExpireAssertionsSoonForProcess:(id)process expirationTime:(double)time
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   processCopy = process;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   readyClients = [(RBConnectionListener *)self->_listener readyClients];
-  v9 = [readyClients countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [readyClients countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(readyClients);
         }
 
-        [(RBConnectionClient *)*(*(&v14 + 1) + 8 * v12++) willExpireAssertionsSoonForProcess:processCopy expirationTime:time];
+        [(RBConnectionClient *)*(*(&v13 + 1) + 8 * v12++) willExpireAssertionsSoonForProcess:processCopy expirationTime:time];
       }
 
       while (v10 != v12);
-      v10 = [readyClients countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [readyClients countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assertionManager:(id)manager willInvalidateAssertion:(id)assertion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   assertionCopy = assertion;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   readyClients = [(RBConnectionListener *)self->_listener readyClients];
-  v7 = [readyClients countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [readyClients countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(readyClients);
         }
 
-        [(RBConnectionClient *)*(*(&v12 + 1) + 8 * v10++) willInvalidateAssertion:assertionCopy];
+        [(RBConnectionClient *)*(*(&v11 + 1) + 8 * v10++) willInvalidateAssertion:assertionCopy];
       }
 
       while (v8 != v10);
-      v8 = [readyClients countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [readyClients countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assertionManager:(id)manager didInvalidateAssertions:(id)assertions
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   assertionsCopy = assertions;
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
-  v6 = [assertionsCopy countByEnumeratingWithState:&v43 objects:v48 count:16];
+  v6 = [assertionsCopy countByEnumeratingWithState:&v42 objects:v47 count:16];
   if (v6)
   {
     v7 = v6;
-    v34 = v41;
-    v35 = *v44;
+    v33 = v40;
+    v34 = *v43;
     do
     {
       v8 = 0;
       do
       {
-        if (*v44 != v35)
+        if (*v43 != v34)
         {
           objc_enumerationMutation(assertionsCopy);
         }
 
-        v9 = *(*(&v43 + 1) + 8 * v8);
-        [(RBProcessReconnectManager *)self->_reconnectManager didInvalidateAssertion:v9, v34];
+        v9 = *(*(&v42 + 1) + 8 * v8);
+        [(RBProcessReconnectManager *)self->_reconnectManager didInvalidateAssertion:v9, v33];
         target = [v9 target];
         identity = [target identity];
 
@@ -337,10 +321,10 @@ LABEL_15:
               mEMORY[0x277D47028] = [MEMORY[0x277D47028] sharedBackgroundWorkloop];
               block[0] = MEMORY[0x277D85DD0];
               block[1] = 3221225472;
-              v41[0] = __53__RBDaemon_assertionManager_didInvalidateAssertions___block_invoke;
-              v41[1] = &unk_279B32B80;
-              v41[2] = self;
-              v42 = v24;
+              v40[0] = __53__RBDaemon_assertionManager_didInvalidateAssertions___block_invoke;
+              v40[1] = &unk_279B32B80;
+              v40[2] = self;
+              v41 = v24;
               v26 = v24;
               dispatch_async(mEMORY[0x277D47028], block);
             }
@@ -356,42 +340,40 @@ LABEL_15:
       }
 
       while (v7 != v8);
-      v27 = [assertionsCopy countByEnumeratingWithState:&v43 objects:v48 count:16];
+      v27 = [assertionsCopy countByEnumeratingWithState:&v42 objects:v47 count:16];
       v7 = v27;
     }
 
     while (v27);
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   readyClients = [(RBConnectionListener *)self->_listener readyClients];
-  v29 = [readyClients countByEnumeratingWithState:&v36 objects:v47 count:16];
+  v29 = [readyClients countByEnumeratingWithState:&v35 objects:v46 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v37;
+    v31 = *v36;
     do
     {
       for (i = 0; i != v30; ++i)
       {
-        if (*v37 != v31)
+        if (*v36 != v31)
         {
           objc_enumerationMutation(readyClients);
         }
 
-        [(RBConnectionClient *)*(*(&v36 + 1) + 8 * i) didInvalidateAssertions:assertionsCopy];
+        [(RBConnectionClient *)*(*(&v35 + 1) + 8 * i) didInvalidateAssertions:assertionsCopy];
       }
 
-      v30 = [readyClients countByEnumeratingWithState:&v36 objects:v47 count:16];
+      v30 = [readyClients countByEnumeratingWithState:&v35 objects:v46 count:16];
     }
 
     while (v30);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assertionManager:(id)manager didEndTrackingStateForProcessIdentity:(id)identity
@@ -405,7 +387,7 @@ LABEL_15:
 
 - (void)assertionManager:(id)manager didRejectAcquisitionFromOriginatorWithExcessiveAssertions:(id)assertions
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   assertionsCopy = assertions;
   v7 = MEMORY[0x277D47010];
   assertionsCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Process %@ has an excessive number of assertions. Direct this report to owners of that process", assertionsCopy];
@@ -444,7 +426,7 @@ LABEL_15:
     }
 
     *buf = 138543362;
-    v28 = consistentLaunchdJobLabel;
+    v27 = consistentLaunchdJobLabel;
     _os_signpost_emit_with_name_impl(&dword_262485000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "RBAssertionMaxCountReached_ProcessTerminated", "BundleIdOverride=%{public, signpost.description:attribute}@ enableTelemetry=YES ", buf, 0xCu);
     if (v14)
     {
@@ -467,11 +449,9 @@ LABEL_15:
   block[2] = __87__RBDaemon_assertionManager_didRejectAcquisitionFromOriginatorWithExcessiveAssertions___block_invoke;
   block[3] = &unk_279B32B80;
   block[4] = self;
-  v26 = v21;
+  v25 = v21;
   v23 = v21;
   dispatch_async(mEMORY[0x277D47028], block);
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processManager:(id)manager didReconnectProcesses:(id)processes
@@ -495,7 +475,7 @@ LABEL_15:
 
 - (void)processManager:(id)manager didRemoveProcess:(id)process
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   processCopy = process;
   identity = [processCopy identity];
   if ([identity isApplication])
@@ -510,45 +490,42 @@ LABEL_15:
       domain = [status domain];
       code = [status code];
       v14 = "NO";
-      *v16 = 138544130;
-      *&v16[12] = 1026;
-      *&v16[4] = embeddedApplicationIdentifier;
+      *v15 = 138544130;
+      *&v15[12] = 1026;
+      *&v15[4] = embeddedApplicationIdentifier;
       if (v10)
       {
         v14 = "YES";
       }
 
-      *&v16[14] = domain;
-      v17 = 2050;
-      v18 = code;
-      v19 = 2082;
-      v20 = v14;
-      _os_signpost_emit_with_name_impl(&dword_262485000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ProcessExited", "BundleIdOverride=%{public,signpost.description:attribute}@ exitStatusDomain=%{public,signpost.telemetry:number1}u exitStatusCode=%{public,signpost.telemetry:number2}llu foreground=%{public,signpost.telemetry:string1}s  enableTelemetry=YES ", v16, 0x26u);
+      *&v15[14] = domain;
+      v16 = 2050;
+      v17 = code;
+      v18 = 2082;
+      v19 = v14;
+      _os_signpost_emit_with_name_impl(&dword_262485000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ProcessExited", "BundleIdOverride=%{public,signpost.description:attribute}@ exitStatusDomain=%{public,signpost.telemetry:number1}u exitStatusCode=%{public,signpost.telemetry:number2}llu foreground=%{public,signpost.telemetry:string1}s  enableTelemetry=YES ", v15, 0x26u);
     }
   }
 
-  [(RBAssertionManager *)self->_assertionManager processDidTerminate:processCopy, *v16];
+  [(RBAssertionManager *)self->_assertionManager processDidTerminate:processCopy, *v15, *&v15[8]];
   [(RBPowerAssertionManager *)self->_powerAssertionManager removeProcess:processCopy];
   [(RBThrottleBestEffortNetworkingManager *)self->_throttleBestEffortNetworkingManager removeProcess:processCopy];
   [(RBBundlePropertiesManager *)self->_bundlePropertiesManager removeProcess:processCopy];
   [(RBCoalitionManager *)self->_coalitionManager removeProcess:processCopy];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)setLowDiskIOPolicy
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   if (result)
   {
     result = setiopolicy_np(9, 0, 1);
     if (result)
     {
-      [(RBDaemon *)&v2 setLowDiskIOPolicy];
+      [(RBDaemon *)&v1 setLowDiskIOPolicy];
     }
   }
 
-  v1 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -558,7 +535,6 @@ LABEL_15:
   *a2 = self;
   do
   {
-    v5 = *(a3 + v4);
     wd_endpoint_add_queue();
     v4 += 8;
   }
@@ -608,7 +584,7 @@ void __19__RBDaemon_process__block_invoke(uint64_t a1)
 
 - (void)_start
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v2 = rbs_general_log();
@@ -633,7 +609,7 @@ void __19__RBDaemon_process__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v72 = v6;
+        v67 = v6;
         _os_log_impl(&dword_262485000, v7, OS_LOG_TYPE_DEFAULT, "Back online after last exit: %{public}@", buf, 0xCu);
       }
     }
@@ -685,58 +661,52 @@ void __19__RBDaemon_process__block_invoke(uint64_t a1)
     *(self + 128) = v30;
 
     v32 = [RBProcessManager alloc];
-    v33 = *(self + 40);
-    v34 = *(self + 48);
-    v35 = *(self + 56);
-    v36 = +[RBTimeProvider sharedInstance];
-    v37 = *(self + 128);
-    v38 = [OUTLINED_FUNCTION_4_7() initWithBundlePropertiesManager:? entitlementManager:? jetsamPropertytManager:? timeProvider:? historialStatistics:? delegate:?];
-    v39 = *(self + 80);
-    *(self + 80) = v38;
+    v33 = +[RBTimeProvider sharedInstance];
+    v34 = [OUTLINED_FUNCTION_4_7() initWithBundlePropertiesManager:? entitlementManager:? jetsamPropertytManager:? timeProvider:? historialStatistics:? delegate:?];
+    v35 = *(self + 80);
+    *(self + 80) = v34;
 
-    v40 = [RBAssertionManager alloc];
-    v41 = *(self + 40);
-    v42 = *(self + 24);
-    v43 = *(self + 8);
-    v44 = +[RBTimeProvider sharedInstance];
-    v45 = [(RBAssertionManager *)v40 initWithDelegate:self bundlePropertiesManager:v41 originatorPidStore:v42 assertionDescriptorValidator:v43 timeProvider:v44 daemonContext:self maxOperationsInFlight:50 maxAssertionsPerOriginator:2000];
-    v46 = *(self + 16);
-    *(self + 16) = v45;
+    v36 = [RBAssertionManager alloc];
+    v37 = *(self + 40);
+    v38 = *(self + 24);
+    v39 = *(self + 8);
+    v40 = +[RBTimeProvider sharedInstance];
+    v41 = [(RBAssertionManager *)v36 initWithDelegate:self bundlePropertiesManager:v37 originatorPidStore:v38 assertionDescriptorValidator:v39 timeProvider:v40 daemonContext:self maxOperationsInFlight:50 maxAssertionsPerOriginator:2000];
+    v42 = *(self + 16);
+    *(self + 16) = v41;
 
-    v47 = [RBProcessReconnectManager alloc];
+    v43 = [RBProcessReconnectManager alloc];
     process = [self process];
-    v49 = [(RBProcessReconnectManager *)v47 initWithDaemonContext:self originatorProcess:process];
-    v50 = *(self + 96);
-    *(self + 96) = v49;
+    v45 = [(RBProcessReconnectManager *)v43 initWithDaemonContext:self originatorProcess:process];
+    v46 = *(self + 96);
+    *(self + 96) = v45;
 
-    v51 = objc_alloc_init(RBThrottleBestEffortNetworkingManager);
-    v52 = *(self + 112);
-    *(self + 112) = v51;
+    v47 = objc_alloc_init(RBThrottleBestEffortNetworkingManager);
+    v48 = *(self + 112);
+    *(self + 112) = v47;
 
-    v53 = +[RBResourceViolationHandler sharedInstance];
-    [(RBResourceViolationHandler *)v53 startWithAssertionManager:?];
+    v49 = +[RBResourceViolationHandler sharedInstance];
+    [(RBResourceViolationHandler *)v49 startWithAssertionManager:?];
 
-    v54 = [RBProcessMonitor alloc];
-    v55 = *(self + 104);
-    v56 = *(self + 128);
-    v57 = objc_alloc_init(RBXNUWrapper);
-    v58 = [OUTLINED_FUNCTION_4_7() initWithStateCaptureManager:? historialStatistics:? xnuWrapper:?];
-    v59 = *(self + 88);
-    *(self + 88) = v58;
+    v50 = [RBProcessMonitor alloc];
+    v51 = objc_alloc_init(RBXNUWrapper);
+    v52 = [OUTLINED_FUNCTION_4_7() initWithStateCaptureManager:? historialStatistics:? xnuWrapper:?];
+    v53 = *(self + 88);
+    *(self + 88) = v52;
 
-    v60 = [[RBConnectionListener alloc] initWithContext:self];
-    v61 = *(self + 64);
-    *(self + 64) = v60;
+    v54 = [[RBConnectionListener alloc] initWithContext:self];
+    v55 = *(self + 64);
+    *(self + 64) = v54;
 
-    v62 = objc_alloc_init(RBExtensionDataProvider);
-    v63 = *(self + 144);
-    *(self + 144) = v62;
+    v56 = objc_alloc_init(RBExtensionDataProvider);
+    v57 = *(self + 144);
+    *(self + 144) = v56;
 
-    v64 = [[RBRequestManager alloc] initWithContext:self];
-    v65 = *(self + 152);
-    *(self + 152) = v64;
+    v58 = [[RBRequestManager alloc] initWithContext:self];
+    v59 = *(self + 152);
+    *(self + 152) = v58;
 
-    v66 = *(self + 136);
+    v60 = *(self + 136);
     *(self + 136) = 0;
 
     [*(self + 104) addItem:*(self + 16) withIdentifier:@"assertion"];
@@ -749,34 +719,32 @@ void __19__RBDaemon_process__block_invoke(uint64_t a1)
     [*(self + 104) addItem:*(self + 40) withIdentifier:@"bundles"];
     [*(self + 104) addItem:*(self + 112) withIdentifier:@"throttleBestEffort"];
     [*(self + 104) addItem:*(self + 88) withIdentifier:@"processMonitor"];
-    [*(self + 80) start];
-    if (currentDeviceClass() == 2)
+    start = [*(self + 80) start];
+    if (currentDeviceClass(start, v62) == 2)
     {
-      v67 = [RBThermalResponseManager managerWithDaemonContext:self notificationName:@"com.apple.system.thermalpressurelevel"];
-      v68 = *(self + 120);
-      *(self + 120) = v67;
+      v63 = [RBThermalResponseManager managerWithDaemonContext:self notificationName:@"com.apple.system.thermalpressurelevel"];
+      v64 = *(self + 120);
+      *(self + 120) = v63;
     }
 
     else
     {
-      v68 = rbs_process_log();
-      if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
+      v64 = rbs_process_log();
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_262485000, v68, OS_LOG_TYPE_DEFAULT, "Thermal mitigation disabled, device is not an iPad", buf, 2u);
+        _os_log_impl(&dword_262485000, v64, OS_LOG_TYPE_DEFAULT, "Thermal mitigation disabled, device is not an iPad", buf, 2u);
       }
     }
 
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterPostNotification(DarwinNotifyCenter, *MEMORY[0x277D47068], 0, 0, 1u);
   }
-
-  v70 = *MEMORY[0x277D85DE8];
 }
 
 - (void)emitAssertionSignpostForTimeout:(uint64_t)timeout
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = v6;
   if (timeout)
@@ -1368,7 +1336,7 @@ LABEL_16:
           OUTLINED_FUNCTION_0_19();
           v14 = "ExceededTimeLimit_AudioRecording";
 LABEL_203:
-          _os_signpost_emit_with_name_impl(&dword_262485000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v14, "BundleIdOverride=%{public, signpost.description:attribute}@ permittedBackgroundDuration=%{public, signpost.telemetry:number1}f enableTelemetry=YES ", v16, 0x16u);
+          _os_signpost_emit_with_name_impl(&dword_262485000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v14, "BundleIdOverride=%{public, signpost.description:attribute}@ permittedBackgroundDuration=%{public, signpost.telemetry:number1}f enableTelemetry=YES ", v15, 0x16u);
           if (v4)
           {
           }
@@ -1723,8 +1691,6 @@ LABEL_203:
 
 LABEL_208:
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __27__RBDaemon__sharedInstance__block_invoke()
@@ -1749,12 +1715,26 @@ void __27__RBDaemon__sharedInstance__block_invoke()
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-  v3 = *__error();
-  v4 = __error();
-  strerror(*v4);
-  _os_log_send_and_compose_impl();
-  v5 = *self;
+  v4 = MEMORY[0x277D86220];
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  v6 = *__error();
+  v7 = __error();
+  v8 = strerror(*v7);
+  v10[0] = 67109378;
+  v10[1] = v6;
+  v11 = 2080;
+  v12 = v8;
+  LODWORD(v9) = 18;
+  _os_log_send_and_compose_impl(v5, self, a2, 80, &dword_262485000, v4, 16, "Error setting low space io policy: %d (%s)", v10, v9);
   _os_crash_msg();
   __break(1u);
 }

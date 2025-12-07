@@ -2,6 +2,7 @@
 + (BOOL)birthdayCalendarEnabled;
 + (id)sharedListener;
 + (void)reset;
++ (void)setBirthdayCalendarEnabled:(BOOL)enabled;
 + (void)start;
 - (CADBirthdayListener)init;
 - (void)reset;
@@ -95,6 +96,13 @@ uint64_t __37__CADBirthdayListener_sharedListener__block_invoke()
   {
     [ekBirthdayListener disableBirthdayCalendars];
   }
+}
+
++ (void)setBirthdayCalendarEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v4 = +[CADBirthdayListener sharedListener];
+  [v4 setBirthdayCalendarEnabled:enabledCopy];
 }
 
 + (BOOL)birthdayCalendarEnabled

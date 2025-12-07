@@ -59,7 +59,6 @@
   MEMORY[0x1B8C98A40](*(&self->super.isa + OBJC_IVAR___AAIDSessionKind_kind));
   if (*&self->kind[OBJC_IVAR___AAIDSessionKind_name])
   {
-    v3 = *(&self->super.isa + OBJC_IVAR___AAIDSessionKind_name);
     sub_1B6ABA210();
     selfCopy = self;
     sub_1B6AB9380();
@@ -71,9 +70,9 @@
     selfCopy2 = self;
   }
 
-  v6 = sub_1B6ABA220();
+  v5 = sub_1B6ABA220();
 
-  return v6;
+  return v5;
 }
 
 - (AAIDSessionKind)init

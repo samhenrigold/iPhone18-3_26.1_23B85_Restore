@@ -47,44 +47,44 @@
 
 - (id)debugDescription
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = [(NSMutableDictionary *)self->_cache count];
   selfCopy = self;
   allValues = [(NSMutableDictionary *)self->_cache allValues];
-  v21 = [MEMORY[0x1E696AB50] set];
+  v20 = [MEMORY[0x1E696AB50] set];
   if (v3)
   {
     for (i = 0; i != v3; ++i)
     {
       v5 = [allValues objectAtIndexedSubscript:i];
-      [v21 addObject:v5];
+      [v20 addObject:v5];
     }
   }
 
-  v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v21, "count")}];
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
+  v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v20, "count")}];
   v23 = 0u;
-  v7 = v21;
-  v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v7 = v20;
+  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v8)
   {
-    v9 = *v23;
+    v9 = *v22;
     do
     {
       for (j = 0; j != v8; ++j)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ [%lu]", *(*(&v22 + 1) + 8 * j), objc_msgSend(v7, "countForObject:", *(*(&v22 + 1) + 8 * j))];
+        v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ [%lu]", *(*(&v21 + 1) + 8 * j), objc_msgSend(v7, "countForObject:", *(*(&v21 + 1) + 8 * j))];
         [v6 addObject:v11];
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v8);
@@ -95,8 +95,6 @@
   capacity = selfCopy->_capacity;
   v15 = [v6 componentsJoinedByString:{@", "}];
   v16 = [v12 stringWithFormat:@"<%@: %p> capacity %lu, size %lu, distribution (%@)", v13, selfCopy, capacity, v3, v15];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -194,26 +192,17 @@ LABEL_9:
 
 - (void)removeAllObjectsForMessage:(id)message
 {
-  v12 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   [(NSLock *)self->_lock lock];
-  v4 = 0;
-  v11[0] = xmmword_1D36EFE90;
-  v11[1] = xmmword_1D36EFEA0;
-  do
+  for (i = 0; i != 32; i += 8)
   {
-    v5 = *(v11 + v4);
-    v6 = (*(self->_keyGenerator + 2))();
+    v5 = (*(self->_keyGenerator + 2))();
     cache = self->_cache;
-    v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v6];
-    [(NSMutableDictionary *)cache removeObjectForKey:v8];
-
-    v4 += 8;
+    v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v5];
+    [(NSMutableDictionary *)cache removeObjectForKey:v7];
   }
 
-  while (v4 != 32);
   [(NSLock *)self->_lock unlock];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)objectForMessage:(id)message kind:(int64_t)kind

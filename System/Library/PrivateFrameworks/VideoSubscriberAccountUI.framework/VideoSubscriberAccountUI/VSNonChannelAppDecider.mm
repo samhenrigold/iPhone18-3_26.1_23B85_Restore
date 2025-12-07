@@ -22,7 +22,7 @@
 
 - (id)decidedNonChannelApps
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   appDescriptions = [(VSNonChannelAppDecider *)self appDescriptions];
   preferredAppBundleOrAdamID = [(VSNonChannelAppDecider *)self preferredAppBundleOrAdamID];
   if ([appDescriptions count] <= 1)
@@ -38,12 +38,12 @@
     if (preferredDeviceFamily)
     {
       v30 = preferredDeviceFamily;
-      v42[0] = MEMORY[0x277D85DD0];
-      v42[1] = 3221225472;
-      v42[2] = __47__VSNonChannelAppDecider_decidedNonChannelApps__block_invoke;
-      v42[3] = &unk_279E1A608;
-      v43 = v30;
-      v5 = [appDescriptions sortedArrayUsingComparator:v42];
+      v41[0] = MEMORY[0x277D85DD0];
+      v41[1] = 3221225472;
+      v41[2] = __47__VSNonChannelAppDecider_decidedNonChannelApps__block_invoke;
+      v41[3] = &unk_279E1A608;
+      v42 = v30;
+      v5 = [appDescriptions sortedArrayUsingComparator:v41];
     }
 
     else
@@ -62,15 +62,15 @@
   }
 
   firstObject2 = [appDescriptions firstObject];
-  v33 = preferredAppBundleOrAdamID;
+  v32 = preferredAppBundleOrAdamID;
   v8 = preferredAppBundleOrAdamID;
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
-  v34 = appDescriptions;
+  v33 = appDescriptions;
   v9 = appDescriptions;
-  v10 = [v9 countByEnumeratingWithState:&v38 objects:v45 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v37 objects:v44 count:16];
   if (!v10)
   {
 
@@ -80,24 +80,24 @@
 
   v11 = v10;
   v12 = 0;
-  v36 = 0;
-  v13 = *v39;
-  v35 = *v39;
+  v35 = 0;
+  v13 = *v38;
+  v34 = *v38;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v39 != v13)
+      if (*v38 != v13)
       {
         objc_enumerationMutation(v9);
       }
 
-      v15 = *(*(&v38 + 1) + 8 * i);
+      v15 = *(*(&v37 + 1) + 8 * i);
       if ([v15 isDefaultAppForProvider])
       {
         v16 = v15;
 
-        v36 = 1;
+        v35 = 1;
         firstObject2 = v16;
       }
 
@@ -109,7 +109,7 @@
       else
       {
         [v15 adamID];
-        v37 = v12;
+        v36 = v12;
         v18 = v9;
         v20 = v19 = firstObject2;
         [v20 stringValue];
@@ -119,8 +119,8 @@
         v11 = v21;
         firstObject2 = v19;
         v9 = v18;
-        v12 = v37;
-        v13 = v35;
+        v12 = v36;
+        v13 = v34;
 
         if (!v23)
         {
@@ -133,12 +133,12 @@
       v12 = v24;
     }
 
-    v11 = [v9 countByEnumeratingWithState:&v38 objects:v45 count:16];
+    v11 = [v9 countByEnumeratingWithState:&v37 objects:v44 count:16];
   }
 
   while (v11);
 
-  if ((v36 & 1) == 0)
+  if ((v35 & 1) == 0)
   {
 LABEL_27:
     v5 = v9;
@@ -155,17 +155,15 @@ LABEL_27:
     v25 = firstObject2;
   }
 
-  v44 = v25;
+  v43 = v25;
   v26 = MEMORY[0x277CBEA60];
   v27 = v25;
-  v5 = [v26 arrayWithObjects:&v44 count:1];
+  v5 = [v26 arrayWithObjects:&v43 count:1];
 
 LABEL_28:
-  preferredAppBundleOrAdamID = v33;
-  appDescriptions = v34;
+  preferredAppBundleOrAdamID = v32;
+  appDescriptions = v33;
 LABEL_31:
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

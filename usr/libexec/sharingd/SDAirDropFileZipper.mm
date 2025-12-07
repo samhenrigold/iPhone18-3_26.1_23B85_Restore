@@ -897,39 +897,7 @@ LABEL_24:
 {
   infoCopy = info;
   v5 = infoCopy;
-  if (!infoCopy)
-  {
-    goto LABEL_12;
-  }
-
-  v6 = [infoCopy objectForKeyedSubscript:kSFOperationFileNameKey];
-
-  v7 = [v5 objectForKeyedSubscript:kSFOperationFileTypeKey];
-
-  v8 = [v5 objectForKeyedSubscript:kSFOperationFileIsDirectoryKey];
-
-  if (self->_shouldExtractMediaFromPhotosBundles)
-  {
-    v9 = 0;
-  }
-
-  else
-  {
-    if (v8)
-    {
-      Value = CFBooleanGetValue(v8);
-    }
-
-    else
-    {
-      Value = v7 ? UTTypeConformsTo(v7, kUTTypeDirectory) : 0;
-    }
-
-    v9 = Value != 0;
-  }
-
-  v11 = CFURLCreateWithFileSystemPathRelativeToBase(0, v6, kCFURLPOSIXPathStyle, v9, self->_destination);
-  if (v11)
+  if (infoCopy && (([infoCopy objectForKeyedSubscript:kSFOperationFileNameKey], v6 = objc_claimAutoreleasedReturnValue(), v6, objc_msgSend(v5, "objectForKeyedSubscript:", kSFOperationFileTypeKey), v7 = objc_claimAutoreleasedReturnValue(), v7, objc_msgSend(v5, "objectForKeyedSubscript:", kSFOperationFileIsDirectoryKey), v8 = objc_claimAutoreleasedReturnValue(), v8, !self->_shouldExtractMediaFromPhotosBundles) ? (!v8 ? (!v7 ? (Value = 0) : (Value = UTTypeConformsTo(v7, kUTTypeDirectory))) : (Value = CFBooleanGetValue(v8)), v9 = Value != 0) : (v9 = 0), (v11 = CFURLCreateWithFileSystemPathRelativeToBase(0, v6, kCFURLPOSIXPathStyle, v9, self->_destination)) != 0))
   {
     v12 = v11;
     v13 = CFURLCopyAbsoluteURL(v11);
@@ -938,7 +906,6 @@ LABEL_24:
 
   else
   {
-LABEL_12:
     v13 = 0;
   }
 
@@ -1392,40 +1359,33 @@ LABEL_16:
   copyCopy = copy;
   self->_bomCopier = BOMCopierNew();
   BOMCopierSetUserData();
-  bomCopier = self->_bomCopier;
   BOMCopierSetFileErrorHandler();
-  v12 = self->_bomCopier;
   BOMCopierSetFatalErrorHandler();
-  v13 = self->_bomCopier;
   BOMCopierSetCopyFileUpdateHandler();
-  v14 = self->_bomCopier;
   BOMCopierSetFatalFileErrorHandler();
-  v15 = self->_bomCopier;
   BOMCopierSetCopyFileFinishedHandler();
-  v16 = self->_bomCopier;
   BOMCopierSetFileConflictErrorHandler();
-  v17 = sub_1001F0F24(copyCopy);
+  v11 = sub_1001F0F24(copyCopy);
 
-  v18 = sub_1001F0F24(destinationCopy);
+  v12 = sub_1001F0F24(destinationCopy);
   if (self->_compressionEngine)
   {
-    v19 = dispatch_group_create();
-    dispatch_group_enter(v19);
+    v13 = dispatch_group_create();
+    dispatch_group_enter(v13);
     zipQueue = self->_zipQueue;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100182F54;
     block[3] = &unk_1008CE900;
-    v27 = destinationCopy;
+    v19 = destinationCopy;
     selfCopy = self;
-    v29 = v19;
-    v21 = v19;
+    v21 = v13;
+    v15 = v13;
     dispatch_async(zipQueue, block);
-    v22 = self->_bomCopier;
-    v23 = BOMCopierCopyWithOptions();
-    dispatch_group_wait(v21, 0xFFFFFFFFFFFFFFFFLL);
+    v16 = BOMCopierCopyWithOptions();
+    dispatch_group_wait(v15, 0xFFFFFFFFFFFFFFFFLL);
 
-    if (!v17)
+    if (!v11)
     {
       goto LABEL_4;
     }
@@ -1433,21 +1393,20 @@ LABEL_16:
     goto LABEL_3;
   }
 
-  v25 = self->_bomCopier;
-  v23 = BOMCopierCopyWithOptions();
-  if (v17)
+  v16 = BOMCopierCopyWithOptions();
+  if (v11)
   {
 LABEL_3:
-    free(v17);
+    free(v11);
   }
 
 LABEL_4:
-  if (v18)
+  if (v12)
   {
-    free(v18);
+    free(v12);
   }
 
-  return v23;
+  return v16;
 }
 
 - (void)allowProgressCircleToComplete
@@ -1480,20 +1439,20 @@ LABEL_4:
     self->_timeStarted = Current;
     self->_lastProgress = Current + -0.2;
     zipQueue = self->_zipQueue;
-    v33[0] = _NSConcreteStackBlock;
-    v33[1] = 3221225472;
-    v33[2] = sub_100183468;
-    v33[3] = &unk_1008CDEA0;
-    v33[4] = self;
-    v16 = sub_1001F0548(0, zipQueue, v33);
+    v32[0] = _NSConcreteStackBlock;
+    v32[1] = 3221225472;
+    v32[2] = sub_100183468;
+    v32[3] = &unk_1008CDEA0;
+    v32[4] = self;
+    v16 = sub_1001F0548(0, zipQueue, v32);
     progressTimer = self->_progressTimer;
     self->_progressTimer = v16;
 
     dispatch_resume(self->_progressTimer);
     if ([(SDAirDropFileZipper *)self isDecompressor]&& ![(SDAirDropFileZipper *)self createPlaceholderFiles])
     {
-      v21 = airdrop_log();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v20 = airdrop_log();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         sub_100184C84();
       }
@@ -1503,12 +1462,11 @@ LABEL_4:
     {
       if ([(SDAirDropFileZipper *)self isDecompressor])
       {
-        placeholderFiles = self->_placeholderFiles;
         (*(self->_creationCompletionHandler + 2))();
       }
 
-      v19 = [(SDAirDropFileZipper *)self bomCopierCopy:copyCopy destination:destinationCopy options:optionsCopy];
-      if (v19)
+      v18 = [(SDAirDropFileZipper *)self bomCopierCopy:copyCopy destination:destinationCopy options:optionsCopy];
+      if (v18)
       {
         goto LABEL_18;
       }
@@ -1520,7 +1478,7 @@ LABEL_4:
       }
     }
 
-    v19 = 0;
+    v18 = 0;
 LABEL_18:
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
@@ -1529,16 +1487,16 @@ LABEL_18:
       if ([(NSMutableArray *)self->_topLevelFiles count])
       {
         self->_totalBytesCopied = self->_totalBytes;
-        v23 = airdrop_log();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+        v22 = airdrop_log();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
-          v24 = [(NSMutableArray *)self->_topLevelFiles count];
+          v23 = [(NSMutableArray *)self->_topLevelFiles count];
           topLevelFiles = self->_topLevelFiles;
           *buf = 134218242;
-          *&buf[4] = v24;
+          *&buf[4] = v23;
           *&buf[12] = 2112;
           *&buf[14] = topLevelFiles;
-          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "SDAirDropFileZipper: %lu files saved: %@", buf, 0x16u);
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "SDAirDropFileZipper: %lu files saved: %@", buf, 0x16u);
         }
 
         [(SDAirDropFileZipper *)self notifyProgress:0 force:1];
@@ -1548,50 +1506,50 @@ LABEL_18:
 
       else
       {
-        v26 = airdrop_log();
-        v27 = os_log_type_enabled(v26, OS_LOG_TYPE_ERROR);
-        if (v19)
+        v25 = airdrop_log();
+        v26 = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
+        if (v18)
         {
-          if (v27)
+          if (v26)
           {
             sub_100184CC0();
           }
 
-          v28 = NSPOSIXErrorDomain;
-          v29 = v19;
+          v27 = NSPOSIXErrorDomain;
+          v28 = v18;
         }
 
         else
         {
-          if (v27)
+          if (v26)
           {
             sub_100184D34();
           }
 
-          v28 = NSPOSIXErrorDomain;
-          v29 = 2;
+          v27 = NSPOSIXErrorDomain;
+          v28 = 2;
         }
 
-        v30 = [NSError errorWithDomain:v28 code:v29 userInfo:0];
-        [(SDAirDropFileZipper *)self notifyClientForEvent:10 withProperty:v30];
+        v29 = [NSError errorWithDomain:v27 code:v28 userInfo:0];
+        [(SDAirDropFileZipper *)self notifyClientForEvent:10 withProperty:v29];
       }
     }
 
     dispatch_source_cancel(self->_progressTimer);
     queue = self->_queue;
-    v32[0] = _NSConcreteStackBlock;
-    v32[1] = 3221225472;
-    v32[2] = sub_100183478;
-    v32[3] = &unk_1008CDEA0;
-    v32[4] = self;
-    dispatch_async(queue, v32);
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_100183478;
+    v31[3] = &unk_1008CDEA0;
+    v31[4] = self;
+    dispatch_async(queue, v31);
     goto LABEL_32;
   }
 
-  v20 = airdrop_log();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+  v19 = airdrop_log();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
-    sub_100184BF4(self);
+    sub_100184BF4();
   }
 
   v12 = [NSError errorWithDomain:NSPOSIXErrorDomain code:2 userInfo:0];
@@ -1611,21 +1569,20 @@ LABEL_32:
     {
       if (!BOMFSObjectNewFromPath())
       {
-        v9 = airdrop_log();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v8 = airdrop_log();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           sub_100184E60();
         }
 
-        v7 = 0;
+        v6 = 0;
         goto LABEL_34;
       }
 
-      bomArchive = self->_bomArchive;
       if (BOMBomInsertFSObject())
       {
-        v6 = airdrop_log();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v5 = airdrop_log();
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
           sub_100184D70();
         }
@@ -1633,87 +1590,86 @@ LABEL_32:
 
       else
       {
-        v29 = kCFURLTotalFileSizeKey;
-        v6 = [NSArray arrayWithObjects:&v29 count:1];
-        v10 = sub_1001F0874(self->_sourceFiles);
-        v11 = airdrop_log();
-        v12 = v11;
-        if (v10)
+        v27 = kCFURLTotalFileSizeKey;
+        v5 = [NSArray arrayWithObjects:&v27 count:1];
+        v9 = sub_1001F0874(self->_sourceFiles);
+        v10 = airdrop_log();
+        v11 = v10;
+        if (v9)
         {
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "SDAirDropFileZipper: start adding files to BOM", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "SDAirDropFileZipper: start adding files to BOM", buf, 2u);
           }
 
-          v25 = 0u;
-          v26 = 0u;
           v23 = 0u;
           v24 = 0u;
-          v13 = self->_sourceFiles;
-          v14 = [(NSArray *)v13 countByEnumeratingWithState:&v23 objects:v28 count:16];
-          if (v14)
+          v21 = 0u;
+          v22 = 0u;
+          v12 = self->_sourceFiles;
+          v13 = [(NSArray *)v12 countByEnumeratingWithState:&v21 objects:v26 count:16];
+          if (v13)
           {
-            v15 = v14;
-            v16 = *v24;
+            v14 = v13;
+            v15 = *v22;
             do
             {
-              for (i = 0; i != v15; i = i + 1)
+              for (i = 0; i != v14; i = i + 1)
               {
-                if (*v24 != v16)
+                if (*v22 != v15)
                 {
-                  objc_enumerationMutation(v13);
+                  objc_enumerationMutation(v12);
                 }
 
-                [(SDAirDropFileZipper *)self addFileURLToBom:self->_bomArchive file:*(*(&v23 + 1) + 8 * i) base:v10 propertyKeys:v6 topLevel:1, v23];
+                [(SDAirDropFileZipper *)self addFileURLToBom:self->_bomArchive file:*(*(&v21 + 1) + 8 * i) base:v9 propertyKeys:v5 topLevel:1, v21];
               }
 
-              v15 = [(NSArray *)v13 countByEnumeratingWithState:&v23 objects:v28 count:16];
+              v14 = [(NSArray *)v12 countByEnumeratingWithState:&v21 objects:v26 count:16];
             }
 
-            while (v15);
+            while (v14);
           }
 
-          v18 = airdrop_log();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v17 = airdrop_log();
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "SDAirDropFileZipper: done adding files to BOM", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "SDAirDropFileZipper: done adding files to BOM", buf, 2u);
           }
 
           WeakRetained = objc_loadWeakRetained(&self->_delegate);
-          v7 = WeakRetained != 0;
+          v6 = WeakRetained != 0;
           if (!WeakRetained)
           {
-            v20 = airdrop_log();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            v19 = airdrop_log();
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
               sub_100184DAC();
             }
           }
 
-          CFRelease(v10);
+          CFRelease(v9);
           goto LABEL_33;
         }
 
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          sub_100184DE8(&self->_sourceFiles);
+          sub_100184DE8();
         }
       }
 
-      v7 = 0;
+      v6 = 0;
 LABEL_33:
 
       BOMFSObjectFree();
 LABEL_34:
-      v21 = self->_bomArchive;
       BOMBomCommit();
-      return v7;
+      return v6;
     }
 
-    v8 = airdrop_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = airdrop_log();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_100184E9C();
     }
@@ -1721,8 +1677,8 @@ LABEL_34:
 
   else
   {
-    v8 = airdrop_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = airdrop_log();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_100184ED8();
     }

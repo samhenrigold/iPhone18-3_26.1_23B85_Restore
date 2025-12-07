@@ -33,25 +33,25 @@
 + (PKRecognitionSessionManagerConfiguration)interactiveCanvasConfiguration
 {
   objc_opt_self();
-  v0 = objc_alloc_init(PKRecognitionSessionManagerConfiguration);
-  if (v0)
+  v1 = objc_alloc_init(PKRecognitionSessionManagerConfiguration);
+  if (v1)
   {
-    v0->_smartSelectionQuery = 1;
+    v1->_smartSelectionQuery = 1;
   }
 
-  return v0;
+  return v1;
 }
 
 + (PKRecognitionSessionManagerConfiguration)backgroundIndexingConfiguration
 {
   objc_opt_self();
-  v0 = objc_alloc_init(PKRecognitionSessionManagerConfiguration);
-  if (v0)
+  v1 = objc_alloc_init(PKRecognitionSessionManagerConfiguration);
+  if (v1)
   {
-    v0->_smartSelectionQuery = 0;
+    v1->_smartSelectionQuery = 0;
   }
 
-  return v0;
+  return v1;
 }
 
 @end

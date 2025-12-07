@@ -1,9 +1,11 @@
 @interface EscrowPrerecord
 + (id)createPrerecordFromCandidate:(id)candidate storedCertificate:(id)certificate request:(id)request error:(id *)error;
 - (BOOL)isEqual:(id)equal;
+- (EscrowPrerecord)initWithCandidate:(id)candidate certificate:(id)certificate escrowBlob:(id)blob passphraseType:(int)type;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)passphraseTypeAsString:(int)string;
 - (int)StringAsPassphraseType:(id)type;
 - (int)passphraseType;
 - (unint64_t)hash;
@@ -25,6 +27,21 @@
   {
     return 0;
   }
+}
+
+- (id)passphraseTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100075C68[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsPassphraseType:(id)type
@@ -168,84 +185,83 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_iCloudEnvironment)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_escrowBaseURL)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_dsid)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_escrowBlob)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_sosPeerID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_sosBackupKeybagPassword)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_sosBackupKeybagDigest)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_timestamp)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_bottleID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_escrowedSPKI)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    passphraseType = self->_passphraseType;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_duplicateEscrowBlob)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_passcodeGeneration)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -490,7 +506,6 @@
     }
   }
 
-  v15 = *(equalCopy + 112);
   if (*&self->_has)
   {
     if ((*(equalCopy + 112) & 1) == 0 || self->_passphraseType != *(equalCopy + 18))
@@ -502,7 +517,7 @@
   else if (*(equalCopy + 112))
   {
 LABEL_31:
-    v18 = 0;
+    v17 = 0;
     goto LABEL_32;
   }
 
@@ -515,17 +530,17 @@ LABEL_31:
   passcodeGeneration = self->_passcodeGeneration;
   if (passcodeGeneration | *(equalCopy + 8))
   {
-    v18 = [(EscrowPrerecordPasscodeGeneration *)passcodeGeneration isEqual:?];
+    v17 = [(EscrowPrerecordPasscodeGeneration *)passcodeGeneration isEqual:?];
   }
 
   else
   {
-    v18 = 1;
+    v17 = 1;
   }
 
 LABEL_32:
 
-  return v18;
+  return v17;
 }
 
 - (unint64_t)hash
@@ -647,6 +662,60 @@ LABEL_32:
   }
 
   _objc_release_x1();
+}
+
+- (EscrowPrerecord)initWithCandidate:(id)candidate certificate:(id)certificate escrowBlob:(id)blob passphraseType:(int)type
+{
+  v6 = *&type;
+  candidateCopy = candidate;
+  certificateCopy = certificate;
+  blobCopy = blob;
+  v33.receiver = self;
+  v33.super_class = EscrowPrerecord;
+  v13 = [(EscrowPrerecord *)&v33 init];
+  if (v13)
+  {
+    sosPeerID = [candidateCopy sosPeerID];
+    sosPeerID = v13->_sosPeerID;
+    v13->_sosPeerID = sosPeerID;
+
+    sosBackupKeybagPassword = [candidateCopy sosBackupKeybagPassword];
+    sosBackupKeybagPassword = v13->_sosBackupKeybagPassword;
+    v13->_sosBackupKeybagPassword = sosBackupKeybagPassword;
+
+    sosBackupKeybagDigest = [candidateCopy sosBackupKeybagDigest];
+    sosBackupKeybagDigest = v13->_sosBackupKeybagDigest;
+    v13->_sosBackupKeybagDigest = sosBackupKeybagDigest;
+
+    timestamp = [candidateCopy timestamp];
+    timestamp = v13->_timestamp;
+    v13->_timestamp = timestamp;
+
+    bottleID = [candidateCopy bottleID];
+    bottleID = v13->_bottleID;
+    v13->_bottleID = bottleID;
+
+    escrowedSPKI = [candidateCopy escrowedSPKI];
+    escrowedSPKI = v13->_escrowedSPKI;
+    v13->_escrowedSPKI = escrowedSPKI;
+
+    objc_storeStrong(&v13->_escrowBlob, blob);
+    dsid = [certificateCopy dsid];
+    dsid = v13->_dsid;
+    v13->_dsid = dsid;
+
+    iCloudEnvironment = [certificateCopy iCloudEnvironment];
+    iCloudEnvironment = v13->_iCloudEnvironment;
+    v13->_iCloudEnvironment = iCloudEnvironment;
+
+    escrowBaseURL = [certificateCopy escrowBaseURL];
+    escrowBaseURL = v13->_escrowBaseURL;
+    v13->_escrowBaseURL = escrowBaseURL;
+
+    [(EscrowPrerecord *)v13 setPassphraseType:v6];
+  }
+
+  return v13;
 }
 
 + (id)createPrerecordFromCandidate:(id)candidate storedCertificate:(id)certificate request:(id)request error:(id *)error

@@ -146,9 +146,10 @@ LABEL_8:
 - (BOOL)removeMuirfieldWithForce:(BOOL)force session:(id)session seid:(id)seid error:(id *)error
 {
   v9 = sub_26AA7EB44();
+  v11 = v10;
   sessionCopy = session;
   selfCopy = self;
-  sub_26A954F88(force, sessionCopy, v9);
+  sub_26A954F88(force, sessionCopy, v9, v11);
 
   return 1;
 }

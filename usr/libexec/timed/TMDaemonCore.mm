@@ -11,12 +11,15 @@
 - (void)resetTime;
 - (void)resetTimeZone:(id)zone;
 - (void)rtcDidReset;
+- (void)setAutomaticTimeEnabled:(BOOL)enabled;
+- (void)setAutomaticTimeZoneEnabled:(BOOL)enabled;
 - (void)setRequiresActiveBBTime:(BOOL)time;
 - (void)setSourceAvailable:(id)available;
 - (void)setSourceTime:(id)time;
 - (void)setSourceTimeZone:(id)zone;
 - (void)setSourceUnavailable:(id)unavailable;
 - (void)setSystemTimeSet:(BOOL)set;
+- (void)setSystemTimeZoneSet:(BOOL)set;
 - (void)testAndApplySystemTime;
 - (void)timeZoneManager:(id)manager didComputeResult:(id)result;
 - (void)timeZoneManager:(id)manager didReset:(id)reset;
@@ -312,6 +315,70 @@
     }
 
     [(NSMutableArray *)self->_pendingSetupTimeHandlers removeAllObjects];
+  }
+}
+
+- (void)setSystemTimeZoneSet:(BOOL)set
+{
+  CFPreferencesSetAppValue(@"timezoneset", [NSNumber numberWithBool:set], @"com.apple.preferences.datetime");
+
+  CFPreferencesAppSynchronize(@"com.apple.preferences.datetime");
+}
+
+- (void)setAutomaticTimeEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v5 = qword_100033218;
+  if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = "disabled";
+    if (enabledCopy)
+    {
+      v6 = "enabled";
+    }
+
+    v7 = 136315138;
+    v8 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Received automatic time %s\n", &v7, 0xCu);
+  }
+
+  [(TMPreferences *)self->_prefs setAutomaticTimeEnabled:enabledCopy];
+  if (enabledCopy)
+  {
+    [(TMDaemonCore *)self testAndApplySystemTime];
+    sub_100015844(&self->super.isa, &stru_100028D10);
+    [(TMTimeSynthesizer *)self->_STF reset];
+  }
+}
+
+- (void)setAutomaticTimeZoneEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v5 = qword_100033218;
+  if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = "disabled";
+    if (enabledCopy)
+    {
+      v6 = "enabled";
+    }
+
+    *buf = 136315138;
+    v10 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Received automatic time zone %s\n", buf, 0xCu);
+  }
+
+  isAutomaticTimeZoneEnabled = [(TMDaemonCore *)self isAutomaticTimeZoneEnabled];
+  [(TMPreferences *)self->_prefs setAutomaticTimeZoneEnabled:enabledCopy];
+  sub_1000158A0(self);
+  if (enabledCopy && (isAutomaticTimeZoneEnabled & 1) == 0)
+  {
+    [(TMMonotonicClock *)[(TMDaemonCore *)self clock] coarseMonotonicTime];
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_10000941C;
+    v8[3] = &unk_100028D38;
+    [(TMDaemonCore *)self executeCommand:[NSDictionary withHandler:"dictionaryWithObjectsAndKeys:" dictionaryWithObjectsAndKeys:@"TMCommand", @"AutomaticTimeZoneEnabled", @"TMResetTimeZoneReason", [NSNumber numberWithDouble:?], @"TMRtcTime", 0], v8];
   }
 }
 

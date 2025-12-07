@@ -124,7 +124,7 @@
 {
   v5 = [objc_alloc(MEMORY[0x277D75B90]) initWithView:self->_nubContainerView];
   v6 = [MEMORY[0x277D75878] effectWithPreview:v5];
-  [(UIView *)self->_nubContainerView frame];
+  objc_msgSend_frame(self->_nubContainerView);
   v8 = v7;
   v10 = v9;
   v12 = v11;

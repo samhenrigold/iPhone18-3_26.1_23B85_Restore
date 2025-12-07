@@ -50,18 +50,18 @@
 
 - (NSSManager)initWithQueue:(id)queue
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
-  v16.receiver = self;
-  v16.super_class = NSSManager;
-  v5 = [(NSSManager *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = NSSManager;
+  v5 = [(NSSManager *)&v15 init];
   if (v5)
   {
     v6 = NSSLogForType(1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v18 = v5;
+      v17 = v5;
       _os_log_impl(&dword_25B690000, v6, OS_LOG_TYPE_DEFAULT, "%p", buf, 0xCu);
     }
 
@@ -86,7 +86,6 @@
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -101,7 +100,7 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = NSSLogForType(1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -111,10 +110,9 @@
   }
 
   [(NSSManager *)self unsafe_invalidate];
-  v5.receiver = self;
-  v5.super_class = NSSManager;
-  [(NSSManager *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = NSSManager;
+  [(NSSManager *)&v4 dealloc];
 }
 
 - (id)connection
@@ -167,7 +165,7 @@
 
 void __24__NSSManager_connection__block_invoke(uint64_t a1)
 {
-  v35[5] = *MEMORY[0x277D85DE8];
+  v34[5] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CCAE90];
   v2 = [*(a1 + 32) protocol];
   v3 = [v1 interfaceWithProtocol:v2];
@@ -176,72 +174,70 @@ void __24__NSSManager_connection__block_invoke(uint64_t a1)
 
   v5 = connection_remoteObjectInterface;
   v6 = MEMORY[0x277CBEB98];
-  v35[0] = objc_opt_class();
-  v35[1] = objc_opt_class();
-  v35[2] = objc_opt_class();
-  v35[3] = objc_opt_class();
-  v35[4] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:5];
-  v8 = [v6 setWithArray:v7];
-  [v5 setClasses:v8 forSelector:sel_getUsageData_ argumentIndex:0 ofReply:1];
-
-  v9 = connection_remoteObjectInterface;
-  v10 = MEMORY[0x277CBEB98];
   v34[0] = objc_opt_class();
   v34[1] = objc_opt_class();
   v34[2] = objc_opt_class();
   v34[3] = objc_opt_class();
   v34[4] = objc_opt_class();
-  v34[5] = objc_opt_class();
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:6];
-  v12 = [v10 setWithArray:v11];
-  [v9 setClasses:v12 forSelector:sel_getUsage_ argumentIndex:0 ofReply:1];
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:5];
+  v8 = [v6 setWithArray:v7];
+  [v5 setClasses:v8 forSelector:sel_getUsageData_ argumentIndex:0 ofReply:1];
 
-  v13 = connection_remoteObjectInterface;
-  v14 = MEMORY[0x277CBEB98];
+  v9 = connection_remoteObjectInterface;
+  v10 = MEMORY[0x277CBEB98];
   v33[0] = objc_opt_class();
   v33[1] = objc_opt_class();
   v33[2] = objc_opt_class();
   v33[3] = objc_opt_class();
   v33[4] = objc_opt_class();
   v33[5] = objc_opt_class();
-  v33[6] = objc_opt_class();
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:7];
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:6];
+  v12 = [v10 setWithArray:v11];
+  [v9 setClasses:v12 forSelector:sel_getUsage_ argumentIndex:0 ofReply:1];
+
+  v13 = connection_remoteObjectInterface;
+  v14 = MEMORY[0x277CBEB98];
+  v32[0] = objc_opt_class();
+  v32[1] = objc_opt_class();
+  v32[2] = objc_opt_class();
+  v32[3] = objc_opt_class();
+  v32[4] = objc_opt_class();
+  v32[5] = objc_opt_class();
+  v32[6] = objc_opt_class();
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:7];
   v16 = [v14 setWithArray:v15];
   [v13 setClasses:v16 forSelector:sel_getProfilesInfo_ argumentIndex:0 ofReply:1];
 
   v17 = connection_remoteObjectInterface;
   v18 = MEMORY[0x277CBEB98];
-  v32[0] = objc_opt_class();
-  v32[1] = objc_opt_class();
-  v32[2] = objc_opt_class();
-  v32[3] = objc_opt_class();
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:4];
+  v31[0] = objc_opt_class();
+  v31[1] = objc_opt_class();
+  v31[2] = objc_opt_class();
+  v31[3] = objc_opt_class();
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:4];
   v20 = [v18 setWithArray:v19];
   [v17 setClasses:v20 forSelector:sel_getFullProfileInfoWithIdentifier_includeManagedPayloads_completionHandler_ argumentIndex:0 ofReply:1];
 
   v21 = connection_remoteObjectInterface;
   v22 = MEMORY[0x277CBEB98];
-  v31[0] = objc_opt_class();
-  v31[1] = objc_opt_class();
-  v31[2] = objc_opt_class();
-  v31[3] = objc_opt_class();
-  v31[4] = objc_opt_class();
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:5];
+  v30[0] = objc_opt_class();
+  v30[1] = objc_opt_class();
+  v30[2] = objc_opt_class();
+  v30[3] = objc_opt_class();
+  v30[4] = objc_opt_class();
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:5];
   v24 = [v22 setWithArray:v23];
   [v21 setClasses:v24 forSelector:sel_getAccountsInfoForAccountType_completionHandler_ argumentIndex:0 ofReply:1];
 
   v25 = connection_remoteObjectInterface;
   v26 = MEMORY[0x277CBEB98];
-  v30[0] = objc_opt_class();
-  v30[1] = objc_opt_class();
-  v30[2] = objc_opt_class();
-  v30[3] = objc_opt_class();
-  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:4];
+  v29[0] = objc_opt_class();
+  v29[1] = objc_opt_class();
+  v29[2] = objc_opt_class();
+  v29[3] = objc_opt_class();
+  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:4];
   v28 = [v26 setWithArray:v27];
   [v25 setClasses:v28 forSelector:sel_getWatchFaces_ argumentIndex:0 ofReply:1];
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __24__NSSManager_connection__block_invoke_2()
@@ -297,14 +293,14 @@ void __24__NSSManager_connection__block_invoke_145(uint64_t a1)
 
 void __51__NSSManager_setSafetyXpcInterruptionHandlerBlock___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = NSSLogForType(1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = MEMORY[0x25F86A620](*(a1 + 32));
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_25B690000, v2, OS_LOG_TYPE_DEFAULT, "Connection interrupted, calling safety block %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_25B690000, v2, OS_LOG_TYPE_DEFAULT, "Connection interrupted, calling safety block %@", &v7, 0xCu);
   }
 
   v4 = *(a1 + 32);
@@ -316,8 +312,6 @@ void __51__NSSManager_setSafetyXpcInterruptionHandlerBlock___block_invoke(uint64
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v6 = [WeakRetained xpcConnection];
   [v6 setInterruptionHandler:&__block_literal_global_149];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __51__NSSManager_setSafetyXpcInterruptionHandlerBlock___block_invoke_147()
@@ -332,7 +326,7 @@ void __51__NSSManager_setSafetyXpcInterruptionHandlerBlock___block_invoke_147()
 
 - (void)invalidate
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = NSSLogForType(1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -348,22 +342,21 @@ void __51__NSSManager_setSafetyXpcInterruptionHandlerBlock___block_invoke_147()
   block[3] = &unk_27995CCF8;
   block[4] = self;
   dispatch_async(internalQueue, block);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableAirplaneMode:(BOOL)mode completionHandler:(id)handler
 {
   modeCopy = mode;
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v7 = NSSLogForType(1);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = MEMORY[0x25F86A620](handlerCopy);
     *buf = 67109376;
-    v16 = modeCopy;
-    v17 = 2048;
-    v18 = v8;
+    v15 = modeCopy;
+    v16 = 2048;
+    v17 = v8;
     _os_log_impl(&dword_25B690000, v7, OS_LOG_TYPE_DEFAULT, "enable: (%d); replyBlock: (%p)", buf, 0x12u);
   }
 
@@ -373,28 +366,26 @@ void __51__NSSManager_setSafetyXpcInterruptionHandlerBlock___block_invoke_147()
   block[2] = __51__NSSManager_enableAirplaneMode_completionHandler___block_invoke;
   block[3] = &unk_27995CE30;
   block[4] = self;
-  v13 = handlerCopy;
-  v14 = modeCopy;
+  v12 = handlerCopy;
+  v13 = modeCopy;
   v10 = handlerCopy;
   dispatch_async(internalQueue, block);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __51__NSSManager_enableAirplaneMode_completionHandler___block_invoke(uint64_t a1)
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) connection];
   v3 = *(a1 + 40);
   if (v3)
   {
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __51__NSSManager_enableAirplaneMode_completionHandler___block_invoke_2;
-    v26[3] = &unk_27995CDB8;
-    v26[4] = *(a1 + 32);
-    v27 = v3;
-    v4 = MEMORY[0x25F86A620](v26);
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __51__NSSManager_enableAirplaneMode_completionHandler___block_invoke_2;
+    v25[3] = &unk_27995CDB8;
+    v25[4] = *(a1 + 32);
+    v26 = v3;
+    v4 = MEMORY[0x25F86A620](v25);
   }
 
   else
@@ -406,46 +397,46 @@ void __51__NSSManager_enableAirplaneMode_completionHandler___block_invoke(uint64
   v5 = [*(a1 + 32) externalQueue];
   if (v2)
   {
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __51__NSSManager_enableAirplaneMode_completionHandler___block_invoke_4;
-    v23[3] = &unk_27995CE08;
-    v25 = *(a1 + 40);
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __51__NSSManager_enableAirplaneMode_completionHandler___block_invoke_4;
+    v22[3] = &unk_27995CE08;
+    v24 = *(a1 + 40);
     v6 = v5;
-    v24 = v6;
-    v7 = [v2 remoteObjectProxyWithErrorHandler:v23];
+    v23 = v6;
+    v7 = [v2 remoteObjectProxyWithErrorHandler:v22];
     v8 = *(a1 + 48);
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __51__NSSManager_enableAirplaneMode_completionHandler___block_invoke_2_152;
-    v20[3] = &unk_27995CE08;
-    v22 = *(a1 + 40);
-    v21 = v6;
-    [v7 enableAirplaneMode:v8 completionHandler:v20];
-
     v19[0] = MEMORY[0x277D85DD0];
     v19[1] = 3221225472;
-    v19[2] = __51__NSSManager_enableAirplaneMode_completionHandler___block_invoke_2_154;
-    v19[3] = &unk_27995CCF8;
-    v19[4] = *(a1 + 32);
-    [v2 addBarrierBlock:v19];
+    v19[2] = __51__NSSManager_enableAirplaneMode_completionHandler___block_invoke_2_152;
+    v19[3] = &unk_27995CE08;
+    v21 = *(a1 + 40);
+    v20 = v6;
+    [v7 enableAirplaneMode:v8 completionHandler:v19];
 
-    v9 = v25;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __51__NSSManager_enableAirplaneMode_completionHandler___block_invoke_2_154;
+    v18[3] = &unk_27995CCF8;
+    v18[4] = *(a1 + 32);
+    [v2 addBarrierBlock:v18];
+
+    v9 = v24;
   }
 
   else
   {
     v10 = MEMORY[0x277CCA9B8];
-    v30 = *MEMORY[0x277CCA450];
-    v31[0] = @"NSS cannot be used when there is no active device";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+    v29 = *MEMORY[0x277CCA450];
+    v30[0] = @"NSS cannot be used when there is no active device";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
     v12 = [v10 errorWithDomain:@"com.apple.NanoPreferencesSync" code:1 userInfo:v11];
 
     v13 = NSSLogForType(1);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = v12;
+      v28 = v12;
       _os_log_impl(&dword_25B690000, v13, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
 
@@ -454,13 +445,11 @@ void __51__NSSManager_enableAirplaneMode_completionHandler___block_invoke(uint64
     block[2] = __51__NSSManager_enableAirplaneMode_completionHandler___block_invoke_162;
     block[3] = &unk_27995CDE0;
     v14 = *(a1 + 40);
-    v17 = v12;
-    v18 = v14;
+    v16 = v12;
+    v17 = v14;
     v9 = v12;
     dispatch_async(v5, block);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __51__NSSManager_enableAirplaneMode_completionHandler___block_invoke_2(uint64_t a1)
@@ -475,37 +464,6 @@ void __51__NSSManager_enableAirplaneMode_completionHandler___block_invoke_2(uint
 }
 
 void __51__NSSManager_enableAirplaneMode_completionHandler___block_invoke_4(uint64_t a1, void *a2)
-{
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  if (v3)
-  {
-    v4 = NSSLogForType(1);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138412290;
-      v12 = v3;
-      _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
-    }
-  }
-
-  v5 = *(a1 + 40);
-  if (v5)
-  {
-    v6 = *(a1 + 32);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __51__NSSManager_enableAirplaneMode_completionHandler___block_invoke_150;
-    v8[3] = &unk_27995CDE0;
-    v10 = v5;
-    v9 = v3;
-    dispatch_async(v6, v8);
-  }
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __51__NSSManager_enableAirplaneMode_completionHandler___block_invoke_2_152(uint64_t a1, void *a2)
 {
   v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
@@ -524,20 +482,47 @@ void __51__NSSManager_enableAirplaneMode_completionHandler___block_invoke_2_152(
   if (v5)
   {
     v6 = *(a1 + 32);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __51__NSSManager_enableAirplaneMode_completionHandler___block_invoke_150;
+    v7[3] = &unk_27995CDE0;
+    v9 = v5;
+    v8 = v3;
+    dispatch_async(v6, v7);
+  }
+}
+
+void __51__NSSManager_enableAirplaneMode_completionHandler___block_invoke_2_152(uint64_t a1, void *a2)
+{
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  if (v3)
+  {
+    v4 = NSSLogForType(1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v10 = v3;
+      _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
+    }
+  }
+
+  v5 = *(a1 + 40);
+  if (v5)
+  {
+    v6 = *(a1 + 32);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __51__NSSManager_enableAirplaneMode_completionHandler___block_invoke_153;
     block[3] = &unk_27995CD90;
-    v9 = v5;
+    v8 = v5;
     dispatch_async(v6, block);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)displayAlertWithTitle:(id)title body:(id)body icon:(id)icon
 {
-  v28[7] = *MEMORY[0x277D85DE8];
+  v27[7] = *MEMORY[0x277D85DE8];
   titleCopy = title;
   bodyCopy = body;
   iconCopy = icon;
@@ -549,30 +534,30 @@ void __51__NSSManager_enableAirplaneMode_completionHandler___block_invoke_2_152(
     *&buf[12] = 2112;
     *&buf[14] = bodyCopy;
     *&buf[22] = 2112;
-    v24 = iconCopy;
+    v23 = iconCopy;
     _os_log_impl(&dword_25B690000, v10, OS_LOG_TYPE_DEFAULT, "title: (%@); body: (%@); iconURL: (%@)", buf, 0x20u);
   }
 
   if (titleCopy && bodyCopy)
   {
     v11 = *MEMORY[0x277CBF198];
-    v27[0] = *MEMORY[0x277CBF188];
-    v27[1] = v11;
-    v28[0] = titleCopy;
-    v28[1] = bodyCopy;
+    v26[0] = *MEMORY[0x277CBF188];
+    v26[1] = v11;
+    v27[0] = titleCopy;
+    v27[1] = bodyCopy;
     v12 = *MEMORY[0x277CBF1B0];
-    v27[2] = *MEMORY[0x277D67320];
-    v27[3] = v12;
-    v28[2] = MEMORY[0x277CBEC28];
-    v28[3] = MEMORY[0x277CBEC38];
+    v26[2] = *MEMORY[0x277D67320];
+    v26[3] = v12;
+    v27[2] = MEMORY[0x277CBEC28];
+    v27[3] = MEMORY[0x277CBEC38];
     v13 = *MEMORY[0x277D67288];
-    v27[4] = *MEMORY[0x277D67340];
-    v27[5] = v13;
-    v28[4] = MEMORY[0x277CBEC28];
-    v28[5] = MEMORY[0x277CBEC28];
-    v27[6] = *MEMORY[0x277D673D8];
-    v28[6] = MEMORY[0x277CBEC28];
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:7];
+    v26[4] = *MEMORY[0x277D67340];
+    v26[5] = v13;
+    v27[4] = MEMORY[0x277CBEC28];
+    v27[5] = MEMORY[0x277CBEC28];
+    v26[6] = *MEMORY[0x277D673D8];
+    v27[6] = MEMORY[0x277CBEC28];
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:7];
     v15 = [v14 mutableCopy];
 
     if (iconCopy)
@@ -603,10 +588,10 @@ LABEL_12:
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v24 = __Block_byref_object_copy_;
-      v25 = __Block_byref_object_dispose_;
+      v23 = __Block_byref_object_copy_;
+      v24 = __Block_byref_object_dispose_;
       v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "+[NSSManager displayAlertWithTitle:body:icon:]"];
-      v26 = NSSOSTransactionCreate(v18);
+      v25 = NSSOSTransactionCreate(v18);
 
       v19 = dispatch_get_global_queue(0, 0);
       block[0] = MEMORY[0x277D85DD0];
@@ -633,8 +618,6 @@ LABEL_12:
       _os_log_impl(&dword_25B690000, v15, OS_LOG_TYPE_DEFAULT, "Error: alert has either nil title (%@) or body (%@)", buf, 0x16u);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __46__NSSManager_displayAlertWithTitle_body_icon___block_invoke(uint64_t a1)
@@ -707,14 +690,14 @@ void __46__NSSManager_displayAlertWithTitle_body_icon___block_invoke(uint64_t a1
 
 - (void)retrieveAirplaneModeSettingsWithCompletionHandler:(id)handler
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = NSSLogForType(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = MEMORY[0x25F86A620](handlerCopy);
     *buf = 134217984;
-    v14 = v6;
+    v13 = v6;
     _os_log_impl(&dword_25B690000, v5, OS_LOG_TYPE_DEFAULT, "replyblock: (%p)", buf, 0xCu);
   }
 
@@ -729,15 +712,14 @@ void __46__NSSManager_displayAlertWithTitle_body_icon___block_invoke(uint64_t a1
   block[1] = 3221225472;
   block[2] = __64__NSSManager_retrieveAirplaneModeSettingsWithCompletionHandler___block_invoke;
   block[3] = &unk_27995CEF8;
-  objc_copyWeak(&v12, buf);
+  objc_copyWeak(&v11, buf);
   block[4] = self;
-  v11 = handlerCopy;
+  v10 = handlerCopy;
   v8 = handlerCopy;
   dispatch_async(internalQueue, block);
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(buf);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __64__NSSManager_retrieveAirplaneModeSettingsWithCompletionHandler___block_invoke(id *a1)
@@ -768,7 +750,7 @@ void __64__NSSManager_retrieveAirplaneModeSettingsWithCompletionHandler___block_
 
 void __64__NSSManager_retrieveAirplaneModeSettingsWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -776,7 +758,7 @@ void __64__NSSManager_retrieveAirplaneModeSettingsWithCompletionHandler___block_
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -786,16 +768,14 @@ void __64__NSSManager_retrieveAirplaneModeSettingsWithCompletionHandler___block_
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __64__NSSManager_retrieveAirplaneModeSettingsWithCompletionHandler___block_invoke_196;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __64__NSSManager_retrieveAirplaneModeSettingsWithCompletionHandler___block_invoke_196;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __64__NSSManager_retrieveAirplaneModeSettingsWithCompletionHandler___block_invoke_2_197(uint64_t a1, void *a2, void *a3)
@@ -820,7 +800,7 @@ void __64__NSSManager_retrieveAirplaneModeSettingsWithCompletionHandler___block_
 
 - (void)setAirplaneModeSettings:(id)settings withCompletionHandler:(id)handler
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   handlerCopy = handler;
   v8 = NSSLogForType(1);
@@ -828,7 +808,7 @@ void __64__NSSManager_retrieveAirplaneModeSettingsWithCompletionHandler___block_
   {
     v9 = MEMORY[0x25F86A620](handlerCopy);
     *buf = 134217984;
-    v21 = v9;
+    v20 = v9;
     _os_log_impl(&dword_25B690000, v8, OS_LOG_TYPE_DEFAULT, "replyBlock: (%p)", buf, 0xCu);
   }
 
@@ -847,21 +827,20 @@ void __64__NSSManager_retrieveAirplaneModeSettingsWithCompletionHandler___block_
 
   objc_initWeak(buf, self);
   internalQueue = self->_internalQueue;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __60__NSSManager_setAirplaneModeSettings_withCompletionHandler___block_invoke;
-  v16[3] = &unk_27995CF20;
-  objc_copyWeak(&v19, buf);
-  v17 = settingsCopy;
-  v18 = handlerCopy;
-  v16[4] = self;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __60__NSSManager_setAirplaneModeSettings_withCompletionHandler___block_invoke;
+  v15[3] = &unk_27995CF20;
+  objc_copyWeak(&v18, buf);
+  v16 = settingsCopy;
+  v17 = handlerCopy;
+  v15[4] = self;
   v13 = settingsCopy;
   v14 = handlerCopy;
-  dispatch_async(internalQueue, v16);
+  dispatch_async(internalQueue, v15);
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(buf);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __60__NSSManager_setAirplaneModeSettings_withCompletionHandler___block_invoke(uint64_t a1)
@@ -893,7 +872,7 @@ void __60__NSSManager_setAirplaneModeSettings_withCompletionHandler___block_invo
 
 void __60__NSSManager_setAirplaneModeSettings_withCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -901,7 +880,7 @@ void __60__NSSManager_setAirplaneModeSettings_withCompletionHandler___block_invo
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -911,16 +890,14 @@ void __60__NSSManager_setAirplaneModeSettings_withCompletionHandler___block_invo
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __60__NSSManager_setAirplaneModeSettings_withCompletionHandler___block_invoke_205;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __60__NSSManager_setAirplaneModeSettings_withCompletionHandler___block_invoke_205;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __60__NSSManager_setAirplaneModeSettings_withCompletionHandler___block_invoke_2_206(uint64_t a1, void *a2, void *a3)
@@ -945,14 +922,14 @@ void __60__NSSManager_setAirplaneModeSettings_withCompletionHandler___block_invo
 
 - (void)getUsageData:(id)data
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = NSSLogForType(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = MEMORY[0x25F86A620](dataCopy);
     *buf = 134217984;
-    v14 = v6;
+    v13 = v6;
     _os_log_impl(&dword_25B690000, v5, OS_LOG_TYPE_DEFAULT, "replyBlock: (%p)", buf, 0xCu);
   }
 
@@ -963,18 +940,17 @@ void __60__NSSManager_setAirplaneModeSettings_withCompletionHandler___block_invo
 
   objc_initWeak(buf, self);
   internalQueue = self->_internalQueue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __27__NSSManager_getUsageData___block_invoke;
-  v10[3] = &unk_27995CF70;
-  objc_copyWeak(&v12, buf);
-  v11 = dataCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __27__NSSManager_getUsageData___block_invoke;
+  v9[3] = &unk_27995CF70;
+  objc_copyWeak(&v11, buf);
+  v10 = dataCopy;
   v8 = dataCopy;
-  dispatch_async(internalQueue, v10);
+  dispatch_async(internalQueue, v9);
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(buf);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __27__NSSManager_getUsageData___block_invoke(uint64_t a1)
@@ -1006,7 +982,7 @@ void __27__NSSManager_getUsageData___block_invoke(uint64_t a1)
 
 void __27__NSSManager_getUsageData___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1014,7 +990,7 @@ void __27__NSSManager_getUsageData___block_invoke_2(uint64_t a1, void *a2)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -1024,30 +1000,28 @@ void __27__NSSManager_getUsageData___block_invoke_2(uint64_t a1, void *a2)
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __27__NSSManager_getUsageData___block_invoke_207;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __27__NSSManager_getUsageData___block_invoke_207;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __27__NSSManager_getUsageData___block_invoke_2_208(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = NSSLogForType(1);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v18 = v5;
-    v19 = 2112;
-    v20 = v6;
+    v17 = v5;
+    v18 = 2112;
+    v19 = v6;
     _os_log_impl(&dword_25B690000, v7, OS_LOG_TYPE_DEFAULT, "usageRespMsg: (%@); error: (%@)", buf, 0x16u);
   }
 
@@ -1061,25 +1035,23 @@ void __27__NSSManager_getUsageData___block_invoke_2_208(uint64_t a1, void *a2, v
     block[1] = 3221225472;
     block[2] = __27__NSSManager_getUsageData___block_invoke_210;
     block[3] = &unk_27995CEA8;
-    v16 = *(a1 + 32);
-    v14 = v8;
-    v15 = v6;
+    v15 = *(a1 + 32);
+    v13 = v8;
+    v14 = v6;
     dispatch_async(v11, block);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceInUseAfterSetupWithCompletionHandler:(id)handler
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = NSSLogForType(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = MEMORY[0x25F86A620](handlerCopy);
     *buf = 134217984;
-    v14 = v6;
+    v13 = v6;
     _os_log_impl(&dword_25B690000, v5, OS_LOG_TYPE_DEFAULT, "replyBlock: (%p)", buf, 0xCu);
   }
 
@@ -1090,18 +1062,17 @@ void __27__NSSManager_getUsageData___block_invoke_2_208(uint64_t a1, void *a2, v
 
   objc_initWeak(buf, self);
   internalQueue = self->_internalQueue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __57__NSSManager_deviceInUseAfterSetupWithCompletionHandler___block_invoke;
-  v10[3] = &unk_27995CF70;
-  objc_copyWeak(&v12, buf);
-  v11 = handlerCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __57__NSSManager_deviceInUseAfterSetupWithCompletionHandler___block_invoke;
+  v9[3] = &unk_27995CF70;
+  objc_copyWeak(&v11, buf);
+  v10 = handlerCopy;
   v8 = handlerCopy;
-  dispatch_async(internalQueue, v10);
+  dispatch_async(internalQueue, v9);
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(buf);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __57__NSSManager_deviceInUseAfterSetupWithCompletionHandler___block_invoke(uint64_t a1)
@@ -1133,7 +1104,7 @@ void __57__NSSManager_deviceInUseAfterSetupWithCompletionHandler___block_invoke(
 
 void __57__NSSManager_deviceInUseAfterSetupWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1141,7 +1112,7 @@ void __57__NSSManager_deviceInUseAfterSetupWithCompletionHandler___block_invoke_
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "Notify Usage of Remote Device Error: (%@)", buf, 0xCu);
     }
   }
@@ -1151,29 +1122,27 @@ void __57__NSSManager_deviceInUseAfterSetupWithCompletionHandler___block_invoke_
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __57__NSSManager_deviceInUseAfterSetupWithCompletionHandler___block_invoke_212;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __57__NSSManager_deviceInUseAfterSetupWithCompletionHandler___block_invoke_212;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __57__NSSManager_deviceInUseAfterSetupWithCompletionHandler___block_invoke_2_213(uint64_t a1, int a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = NSSLogForType(1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    v16 = a2;
-    v17 = 2112;
-    v18 = v5;
+    v15 = a2;
+    v16 = 2112;
+    v17 = v5;
     _os_log_impl(&dword_25B690000, v6, OS_LOG_TYPE_DEFAULT, "Notify Usage of Remote Device Success: %{BOOL}d Error: (%@)", buf, 0x12u);
   }
 
@@ -1186,25 +1155,23 @@ void __57__NSSManager_deviceInUseAfterSetupWithCompletionHandler___block_invoke_
     block[1] = 3221225472;
     block[2] = __57__NSSManager_deviceInUseAfterSetupWithCompletionHandler___block_invoke_214;
     block[3] = &unk_27995CF98;
-    v13 = *(a1 + 32);
-    v14 = a2;
-    v12 = v5;
+    v12 = *(a1 + 32);
+    v13 = a2;
+    v11 = v5;
     dispatch_async(v9, block);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)passcodeLockRemoteDeviceWithCompletionHandler:(id)handler
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = NSSLogForType(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = MEMORY[0x25F86A620](handlerCopy);
     *buf = 134217984;
-    v14 = v6;
+    v13 = v6;
     _os_log_impl(&dword_25B690000, v5, OS_LOG_TYPE_DEFAULT, "replyBlock: (%p)", buf, 0xCu);
   }
 
@@ -1215,18 +1182,17 @@ void __57__NSSManager_deviceInUseAfterSetupWithCompletionHandler___block_invoke_
 
   objc_initWeak(buf, self);
   internalQueue = self->_internalQueue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __60__NSSManager_passcodeLockRemoteDeviceWithCompletionHandler___block_invoke;
-  v10[3] = &unk_27995CF70;
-  objc_copyWeak(&v12, buf);
-  v11 = handlerCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __60__NSSManager_passcodeLockRemoteDeviceWithCompletionHandler___block_invoke;
+  v9[3] = &unk_27995CF70;
+  objc_copyWeak(&v11, buf);
+  v10 = handlerCopy;
   v8 = handlerCopy;
-  dispatch_async(internalQueue, v10);
+  dispatch_async(internalQueue, v9);
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(buf);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __60__NSSManager_passcodeLockRemoteDeviceWithCompletionHandler___block_invoke(uint64_t a1)
@@ -1258,7 +1224,7 @@ void __60__NSSManager_passcodeLockRemoteDeviceWithCompletionHandler___block_invo
 
 void __60__NSSManager_passcodeLockRemoteDeviceWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1266,7 +1232,7 @@ void __60__NSSManager_passcodeLockRemoteDeviceWithCompletionHandler___block_invo
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "Passcode Lock Remote Device Error: (%@)", buf, 0xCu);
     }
   }
@@ -1276,27 +1242,25 @@ void __60__NSSManager_passcodeLockRemoteDeviceWithCompletionHandler___block_invo
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __60__NSSManager_passcodeLockRemoteDeviceWithCompletionHandler___block_invoke_216;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __60__NSSManager_passcodeLockRemoteDeviceWithCompletionHandler___block_invoke_216;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __60__NSSManager_passcodeLockRemoteDeviceWithCompletionHandler___block_invoke_2_217(uint64_t a1, char a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = NSSLogForType(1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = v5;
+    v15 = v5;
     _os_log_impl(&dword_25B690000, v6, OS_LOG_TYPE_DEFAULT, "Passcode Lock Remote Device. Error: (%@)", buf, 0xCu);
   }
 
@@ -1309,25 +1273,23 @@ void __60__NSSManager_passcodeLockRemoteDeviceWithCompletionHandler___block_invo
     block[1] = 3221225472;
     block[2] = __60__NSSManager_passcodeLockRemoteDeviceWithCompletionHandler___block_invoke_218;
     block[3] = &unk_27995CF98;
-    v13 = *(a1 + 32);
-    v14 = a2;
-    v12 = v5;
+    v12 = *(a1 + 32);
+    v13 = a2;
+    v11 = v5;
     dispatch_async(v9, block);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getUsage:(id)usage
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   usageCopy = usage;
   v5 = NSSLogForType(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = MEMORY[0x25F86A620](usageCopy);
     *buf = 134217984;
-    v12 = v6;
+    v11 = v6;
     _os_log_impl(&dword_25B690000, v5, OS_LOG_TYPE_DEFAULT, "replyBlock: (%p)", buf, 0xCu);
   }
 
@@ -1336,15 +1298,13 @@ void __60__NSSManager_passcodeLockRemoteDeviceWithCompletionHandler___block_invo
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"nil replyBlock"];
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __23__NSSManager_getUsage___block_invoke;
-  v9[3] = &unk_27995CFE8;
-  v10 = usageCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __23__NSSManager_getUsage___block_invoke;
+  v8[3] = &unk_27995CFE8;
+  v9 = usageCopy;
   v7 = usageCopy;
-  [(NSSManager *)self getUsageData:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(NSSManager *)self getUsageData:v8];
 }
 
 void __23__NSSManager_getUsage___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -1371,7 +1331,7 @@ void __23__NSSManager_getUsage___block_invoke(uint64_t a1, uint64_t a2, void *a3
 
 - (void)purgeUsageBundleWithId:(id)id completionHandler:(id)handler
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   idCopy = id;
   handlerCopy = handler;
   v8 = NSSLogForType(1);
@@ -1379,9 +1339,9 @@ void __23__NSSManager_getUsage___block_invoke(uint64_t a1, uint64_t a2, void *a3
   {
     v9 = MEMORY[0x25F86A620](handlerCopy);
     *buf = 138412546;
-    v18 = idCopy;
-    v19 = 2112;
-    v20 = v9;
+    v17 = idCopy;
+    v18 = 2112;
+    v19 = v9;
     _os_log_impl(&dword_25B690000, v8, OS_LOG_TYPE_DEFAULT, "bundleIdentifier: (%@); replyBlock: (%@)", buf, 0x16u);
   }
 
@@ -1395,87 +1355,84 @@ void __23__NSSManager_getUsage___block_invoke(uint64_t a1, uint64_t a2, void *a3
   block[1] = 3221225472;
   block[2] = __55__NSSManager_purgeUsageBundleWithId_completionHandler___block_invoke;
   block[3] = &unk_27995D038;
-  v15 = idCopy;
-  v16 = handlerCopy;
+  v14 = idCopy;
+  v15 = handlerCopy;
   block[4] = self;
   v11 = idCopy;
   v12 = handlerCopy;
   dispatch_async(internalQueue, block);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __55__NSSManager_purgeUsageBundleWithId_completionHandler___block_invoke(uint64_t a1)
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   objc_initWeak(&location, *(a1 + 32));
   v3 = [*v2 connection];
   v4 = [*(a1 + 32) externalQueue];
   if (v3)
   {
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __55__NSSManager_purgeUsageBundleWithId_completionHandler___block_invoke_2;
-    v21[3] = &unk_27995D010;
-    v22 = *(a1 + 48);
-    objc_copyWeak(&v23, &location);
-    v5 = [v3 remoteObjectProxyWithErrorHandler:v21];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __55__NSSManager_purgeUsageBundleWithId_completionHandler___block_invoke_2_227;
-    v18[3] = &unk_27995D010;
-    v6 = *(a1 + 40);
-    v19 = *(a1 + 48);
-    objc_copyWeak(&v20, &location);
-    [v5 purgeUsageBundle:v6 replyHandler:v18];
-
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __55__NSSManager_purgeUsageBundleWithId_completionHandler___block_invoke_2;
+    v20[3] = &unk_27995D010;
+    v21 = *(a1 + 48);
+    objc_copyWeak(&v22, &location);
+    v5 = [v3 remoteObjectProxyWithErrorHandler:v20];
     v17[0] = MEMORY[0x277D85DD0];
     v17[1] = 3221225472;
-    v17[2] = __55__NSSManager_purgeUsageBundleWithId_completionHandler___block_invoke_2_229;
-    v17[3] = &unk_27995CCF8;
-    v17[4] = *(a1 + 32);
-    [v3 addBarrierBlock:v17];
-    objc_destroyWeak(&v20);
+    v17[2] = __55__NSSManager_purgeUsageBundleWithId_completionHandler___block_invoke_2_227;
+    v17[3] = &unk_27995D010;
+    v6 = *(a1 + 40);
+    v18 = *(a1 + 48);
+    objc_copyWeak(&v19, &location);
+    [v5 purgeUsageBundle:v6 replyHandler:v17];
 
-    objc_destroyWeak(&v23);
-    v7 = v22;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __55__NSSManager_purgeUsageBundleWithId_completionHandler___block_invoke_2_229;
+    v16[3] = &unk_27995CCF8;
+    v16[4] = *(a1 + 32);
+    [v3 addBarrierBlock:v16];
+    objc_destroyWeak(&v19);
+
+    objc_destroyWeak(&v22);
+    v7 = v21;
   }
 
   else
   {
     v8 = MEMORY[0x277CCA9B8];
-    v27 = *MEMORY[0x277CCA450];
-    v28[0] = @"NSS cannot be used when there is no active device";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v26 = *MEMORY[0x277CCA450];
+    v27[0] = @"NSS cannot be used when there is no active device";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     v10 = [v8 errorWithDomain:@"com.apple.NanoPreferencesSync" code:1 userInfo:v9];
 
     v11 = NSSLogForType(1);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v26 = v10;
+      v25 = v10;
       _os_log_impl(&dword_25B690000, v11, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
 
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __55__NSSManager_purgeUsageBundleWithId_completionHandler___block_invoke_230;
-    v14[3] = &unk_27995CDE0;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __55__NSSManager_purgeUsageBundleWithId_completionHandler___block_invoke_230;
+    v13[3] = &unk_27995CDE0;
     v12 = *(a1 + 48);
-    v15 = v10;
-    v16 = v12;
+    v14 = v10;
+    v15 = v12;
     v7 = v10;
-    dispatch_async(v4, v14);
+    dispatch_async(v4, v13);
   }
 
   objc_destroyWeak(&location);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __55__NSSManager_purgeUsageBundleWithId_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1483,7 +1440,7 @@ void __55__NSSManager_purgeUsageBundleWithId_completionHandler___block_invoke_2(
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -1495,22 +1452,20 @@ void __55__NSSManager_purgeUsageBundleWithId_completionHandler___block_invoke_2(
     if (WeakRetained)
     {
       v7 = [WeakRetained externalQueue];
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __55__NSSManager_purgeUsageBundleWithId_completionHandler___block_invoke_226;
-      v9[3] = &unk_27995CDE0;
-      v11 = *(a1 + 32);
-      v10 = v3;
-      dispatch_async(v7, v9);
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = __55__NSSManager_purgeUsageBundleWithId_completionHandler___block_invoke_226;
+      v8[3] = &unk_27995CDE0;
+      v10 = *(a1 + 32);
+      v9 = v3;
+      dispatch_async(v7, v8);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __55__NSSManager_purgeUsageBundleWithId_completionHandler___block_invoke_2_227(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1518,7 +1473,7 @@ void __55__NSSManager_purgeUsageBundleWithId_completionHandler___block_invoke_2_
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -1530,22 +1485,20 @@ void __55__NSSManager_purgeUsageBundleWithId_completionHandler___block_invoke_2_
     if (WeakRetained)
     {
       v7 = [WeakRetained externalQueue];
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __55__NSSManager_purgeUsageBundleWithId_completionHandler___block_invoke_228;
-      v9[3] = &unk_27995CDE0;
-      v11 = *(a1 + 32);
-      v10 = v3;
-      dispatch_async(v7, v9);
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = __55__NSSManager_purgeUsageBundleWithId_completionHandler___block_invoke_228;
+      v8[3] = &unk_27995CDE0;
+      v10 = *(a1 + 32);
+      v9 = v3;
+      dispatch_async(v7, v8);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getDiagnosticLogFileFromGizmo:(id)gizmo withResults:(id)results
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   gizmoCopy = gizmo;
   resultsCopy = results;
   v8 = NSSLogForType(1);
@@ -1553,7 +1506,7 @@ void __55__NSSManager_purgeUsageBundleWithId_completionHandler___block_invoke_2_
   {
     v9 = MEMORY[0x25F86A620](resultsCopy);
     *buf = 134217984;
-    v19 = v9;
+    v18 = v9;
     _os_log_impl(&dword_25B690000, v8, OS_LOG_TYPE_DEFAULT, "replyBlock: (%p)", buf, 0xCu);
   }
 
@@ -1568,16 +1521,15 @@ void __55__NSSManager_purgeUsageBundleWithId_completionHandler___block_invoke_2_
   block[1] = 3221225472;
   block[2] = __56__NSSManager_getDiagnosticLogFileFromGizmo_withResults___block_invoke;
   block[3] = &unk_27995D088;
-  objc_copyWeak(&v17, buf);
-  v15 = gizmoCopy;
-  v16 = resultsCopy;
+  objc_copyWeak(&v16, buf);
+  v14 = gizmoCopy;
+  v15 = resultsCopy;
   v11 = gizmoCopy;
   v12 = resultsCopy;
   dispatch_async(internalQueue, block);
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(buf);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __56__NSSManager_getDiagnosticLogFileFromGizmo_withResults___block_invoke(uint64_t a1)
@@ -1610,7 +1562,7 @@ void __56__NSSManager_getDiagnosticLogFileFromGizmo_withResults___block_invoke(u
 
 void __56__NSSManager_getDiagnosticLogFileFromGizmo_withResults___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1618,7 +1570,7 @@ void __56__NSSManager_getDiagnosticLogFileFromGizmo_withResults___block_invoke_2
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -1628,30 +1580,28 @@ void __56__NSSManager_getDiagnosticLogFileFromGizmo_withResults___block_invoke_2
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __56__NSSManager_getDiagnosticLogFileFromGizmo_withResults___block_invoke_231;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __56__NSSManager_getDiagnosticLogFileFromGizmo_withResults___block_invoke_231;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __56__NSSManager_getDiagnosticLogFileFromGizmo_withResults___block_invoke_2_232(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = NSSLogForType(1);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v17 = v5;
-    v18 = 2112;
-    v19 = v6;
+    v16 = v5;
+    v17 = 2112;
+    v18 = v6;
     _os_log_impl(&dword_25B690000, v7, OS_LOG_TYPE_DEFAULT, "downloaded file path: %@; error: (%@)", buf, 0x16u);
   }
 
@@ -1664,18 +1614,16 @@ void __56__NSSManager_getDiagnosticLogFileFromGizmo_withResults___block_invoke_2
     block[1] = 3221225472;
     block[2] = __56__NSSManager_getDiagnosticLogFileFromGizmo_withResults___block_invoke_233;
     block[3] = &unk_27995CEA8;
-    v15 = *(a1 + 32);
-    v13 = v5;
-    v14 = v6;
+    v14 = *(a1 + 32);
+    v12 = v5;
+    v13 = v6;
     dispatch_async(v10, block);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retrieveDiagnosticLogTransferProgress:(id)progress withProgress:(id)withProgress
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   progressCopy = progress;
   withProgressCopy = withProgress;
   if (!withProgressCopy)
@@ -1687,27 +1635,26 @@ void __56__NSSManager_getDiagnosticLogFileFromGizmo_withResults___block_invoke_2
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = progressCopy;
+    v17 = progressCopy;
     _os_log_impl(&dword_25B690000, v8, OS_LOG_TYPE_DEFAULT, "retrieving file transfer progress for %@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   internalQueue = self->_internalQueue;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __65__NSSManager_retrieveDiagnosticLogTransferProgress_withProgress___block_invoke;
-  v13[3] = &unk_27995CF20;
-  objc_copyWeak(&v16, buf);
-  v14 = progressCopy;
-  v15 = withProgressCopy;
-  v13[4] = self;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __65__NSSManager_retrieveDiagnosticLogTransferProgress_withProgress___block_invoke;
+  v12[3] = &unk_27995CF20;
+  objc_copyWeak(&v15, buf);
+  v13 = progressCopy;
+  v14 = withProgressCopy;
+  v12[4] = self;
   v10 = progressCopy;
   v11 = withProgressCopy;
-  dispatch_async(internalQueue, v13);
+  dispatch_async(internalQueue, v12);
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __65__NSSManager_retrieveDiagnosticLogTransferProgress_withProgress___block_invoke(uint64_t a1)
@@ -1739,7 +1686,7 @@ void __65__NSSManager_retrieveDiagnosticLogTransferProgress_withProgress___block
 
 void __65__NSSManager_retrieveDiagnosticLogTransferProgress_withProgress___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1747,7 +1694,7 @@ void __65__NSSManager_retrieveDiagnosticLogTransferProgress_withProgress___block
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -1757,27 +1704,25 @@ void __65__NSSManager_retrieveDiagnosticLogTransferProgress_withProgress___block
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __65__NSSManager_retrieveDiagnosticLogTransferProgress_withProgress___block_invoke_235;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __65__NSSManager_retrieveDiagnosticLogTransferProgress_withProgress___block_invoke_235;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __65__NSSManager_retrieveDiagnosticLogTransferProgress_withProgress___block_invoke_2_236(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = NSSLogForType(1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v16 = a2;
+    v15 = a2;
     _os_log_impl(&dword_25B690000, v6, OS_LOG_TYPE_DEFAULT, "retrieved progress %lu", buf, 0xCu);
   }
 
@@ -1790,18 +1735,16 @@ void __65__NSSManager_retrieveDiagnosticLogTransferProgress_withProgress___block
     block[1] = 3221225472;
     block[2] = __65__NSSManager_retrieveDiagnosticLogTransferProgress_withProgress___block_invoke_237;
     block[3] = &unk_27995D0B0;
-    v13 = *(a1 + 32);
-    v14 = a2;
-    v12 = v5;
+    v12 = *(a1 + 32);
+    v13 = a2;
+    v11 = v5;
     dispatch_async(v9, block);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelDiagnosticLogTranfer:(id)tranfer withCompletion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   tranferCopy = tranfer;
   completionCopy = completion;
   v8 = NSSLogForType(1);
@@ -1809,7 +1752,7 @@ void __65__NSSManager_retrieveDiagnosticLogTransferProgress_withProgress___block
   {
     v9 = MEMORY[0x25F86A620](completionCopy);
     *buf = 134217984;
-    v19 = v9;
+    v18 = v9;
     _os_log_impl(&dword_25B690000, v8, OS_LOG_TYPE_DEFAULT, "replyBlock: (%p)", buf, 0xCu);
   }
 
@@ -1820,21 +1763,20 @@ void __65__NSSManager_retrieveDiagnosticLogTransferProgress_withProgress___block
 
   objc_initWeak(buf, self);
   internalQueue = self->_internalQueue;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __56__NSSManager_cancelDiagnosticLogTranfer_withCompletion___block_invoke;
-  v14[3] = &unk_27995CF20;
-  objc_copyWeak(&v17, buf);
-  v15 = tranferCopy;
-  v16 = completionCopy;
-  v14[4] = self;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __56__NSSManager_cancelDiagnosticLogTranfer_withCompletion___block_invoke;
+  v13[3] = &unk_27995CF20;
+  objc_copyWeak(&v16, buf);
+  v14 = tranferCopy;
+  v15 = completionCopy;
+  v13[4] = self;
   v11 = tranferCopy;
   v12 = completionCopy;
-  dispatch_async(internalQueue, v14);
+  dispatch_async(internalQueue, v13);
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(buf);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __56__NSSManager_cancelDiagnosticLogTranfer_withCompletion___block_invoke(uint64_t a1)
@@ -1867,7 +1809,7 @@ void __56__NSSManager_cancelDiagnosticLogTranfer_withCompletion___block_invoke(u
 
 void __56__NSSManager_cancelDiagnosticLogTranfer_withCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1875,7 +1817,7 @@ void __56__NSSManager_cancelDiagnosticLogTranfer_withCompletion___block_invoke_2
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -1885,30 +1827,28 @@ void __56__NSSManager_cancelDiagnosticLogTranfer_withCompletion___block_invoke_2
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __56__NSSManager_cancelDiagnosticLogTranfer_withCompletion___block_invoke_239;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __56__NSSManager_cancelDiagnosticLogTranfer_withCompletion___block_invoke_239;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __56__NSSManager_cancelDiagnosticLogTranfer_withCompletion___block_invoke_2_240(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = NSSLogForType(1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     *buf = 138412546;
-    v14 = v5;
-    v15 = 2112;
-    v16 = v3;
+    v13 = v5;
+    v14 = 2112;
+    v15 = v3;
     _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "cancelled log file %@ with error: %@", buf, 0x16u);
   }
 
@@ -1917,16 +1857,14 @@ void __56__NSSManager_cancelDiagnosticLogTranfer_withCompletion___block_invoke_2
   if (WeakRetained)
   {
     v8 = [WeakRetained externalQueue];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __56__NSSManager_cancelDiagnosticLogTranfer_withCompletion___block_invoke_241;
-    v10[3] = &unk_27995CDE0;
-    v12 = *(a1 + 40);
-    v11 = v3;
-    dispatch_async(v8, v10);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __56__NSSManager_cancelDiagnosticLogTranfer_withCompletion___block_invoke_241;
+    v9[3] = &unk_27995CDE0;
+    v11 = *(a1 + 40);
+    v10 = v3;
+    dispatch_async(v8, v9);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelFileTransfersInProgress
@@ -1942,7 +1880,7 @@ void __56__NSSManager_cancelDiagnosticLogTranfer_withCompletion___block_invoke_2
 
 void __43__NSSManager_cancelFileTransfersInProgress__block_invoke(uint64_t a1)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) connection];
   v3 = v2;
   if (v2)
@@ -1950,45 +1888,43 @@ void __43__NSSManager_cancelFileTransfersInProgress__block_invoke(uint64_t a1)
     v4 = [v2 remoteObjectProxy];
     [v4 cancelActiveLogFileTranfers];
 
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __43__NSSManager_cancelFileTransfersInProgress__block_invoke_2;
-    v10[3] = &unk_27995CCF8;
-    v10[4] = *(a1 + 32);
-    [v3 addBarrierBlock:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __43__NSSManager_cancelFileTransfersInProgress__block_invoke_2;
+    v9[3] = &unk_27995CCF8;
+    v9[4] = *(a1 + 32);
+    [v3 addBarrierBlock:v9];
   }
 
   else
   {
     v5 = MEMORY[0x277CCA9B8];
-    v13 = *MEMORY[0x277CCA450];
-    v14[0] = @"NSS cannot be used when there is no active device";
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = *MEMORY[0x277CCA450];
+    v13[0] = @"NSS cannot be used when there is no active device";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     v7 = [v5 errorWithDomain:@"com.apple.NanoPreferencesSync" code:1 userInfo:v6];
 
     v8 = NSSLogForType(1);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = v7;
+      v11 = v7;
       _os_log_impl(&dword_25B690000, v8, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)fileTransferInProgress:(id)progress
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAA00];
   progressCopy = progress;
   defaultManager = [v3 defaultManager];
   progressCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"SELF contains '%@'", progressCopy];
 
-  v15 = 0;
-  v7 = [defaultManager subpathsOfDirectoryAtPath:@"/var/mobile/Library/IdentityServices/files/" error:&v15];
-  v8 = v15;
+  v14 = 0;
+  v7 = [defaultManager subpathsOfDirectoryAtPath:@"/var/mobile/Library/IdentityServices/files/" error:&v14];
+  v8 = v14;
   v9 = [v7 filteredArrayUsingPredicate:progressCopy];
   firstObject = [v9 firstObject];
 
@@ -1998,7 +1934,7 @@ void __43__NSSManager_cancelFileTransfersInProgress__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v17 = v8;
+      v16 = v8;
       _os_log_impl(&dword_25B690000, v11, OS_LOG_TYPE_DEFAULT, "Failed to find files in transit with error: %@", buf, 0xCu);
     }
   }
@@ -2009,49 +1945,46 @@ void __43__NSSManager_cancelFileTransfersInProgress__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v17 = firstObject;
+      v16 = firstObject;
       _os_log_impl(&dword_25B690000, v12, OS_LOG_TYPE_DEFAULT, "Found file transfer in progress at path: %@", buf, 0xCu);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return firstObject != 0;
 }
 
 - (void)getDiagnosticLogsInfo:(id)info
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v5 = NSSLogForType(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = MEMORY[0x25F86A620](infoCopy);
     *buf = 134217984;
-    v12 = v6;
+    v11 = v6;
     _os_log_impl(&dword_25B690000, v5, OS_LOG_TYPE_DEFAULT, "replyBlock: (%p)", buf, 0xCu);
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __36__NSSManager_getDiagnosticLogsInfo___block_invoke;
-  v9[3] = &unk_27995D128;
-  v10 = infoCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __36__NSSManager_getDiagnosticLogsInfo___block_invoke;
+  v8[3] = &unk_27995D128;
+  v9 = infoCopy;
   v7 = infoCopy;
-  [(NSSManager *)self getDiagnosticLogsInfoByCateogry:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(NSSManager *)self getDiagnosticLogsInfoByCateogry:v8];
 }
 
 - (void)getDiagnosticLogsInfoByCateogry:(id)cateogry
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   cateogryCopy = cateogry;
   v5 = NSSLogForType(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = MEMORY[0x25F86A620](cateogryCopy);
     *buf = 134217984;
-    v14 = v6;
+    v13 = v6;
     _os_log_impl(&dword_25B690000, v5, OS_LOG_TYPE_DEFAULT, "replyBlock: (%p)", buf, 0xCu);
   }
 
@@ -2066,15 +1999,14 @@ void __43__NSSManager_cancelFileTransfersInProgress__block_invoke(uint64_t a1)
   block[1] = 3221225472;
   block[2] = __46__NSSManager_getDiagnosticLogsInfoByCateogry___block_invoke;
   block[3] = &unk_27995CEF8;
-  objc_copyWeak(&v12, buf);
+  objc_copyWeak(&v11, buf);
   block[4] = self;
-  v11 = cateogryCopy;
+  v10 = cateogryCopy;
   v8 = cateogryCopy;
   dispatch_async(internalQueue, block);
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(buf);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __46__NSSManager_getDiagnosticLogsInfoByCateogry___block_invoke(id *a1)
@@ -2105,7 +2037,7 @@ void __46__NSSManager_getDiagnosticLogsInfoByCateogry___block_invoke(id *a1)
 
 void __46__NSSManager_getDiagnosticLogsInfoByCateogry___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -2113,7 +2045,7 @@ void __46__NSSManager_getDiagnosticLogsInfoByCateogry___block_invoke_2(uint64_t 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -2123,21 +2055,19 @@ void __46__NSSManager_getDiagnosticLogsInfoByCateogry___block_invoke_2(uint64_t 
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __46__NSSManager_getDiagnosticLogsInfoByCateogry___block_invoke_248;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __46__NSSManager_getDiagnosticLogsInfoByCateogry___block_invoke_248;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __46__NSSManager_getDiagnosticLogsInfoByCateogry___block_invoke_2_249(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -2145,11 +2075,11 @@ void __46__NSSManager_getDiagnosticLogsInfoByCateogry___block_invoke_2_249(uint6
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218498;
-    v21 = [v7 count];
-    v22 = 2048;
-    v23 = [v8 count];
-    v24 = 2112;
-    v25 = v9;
+    v20 = [v7 count];
+    v21 = 2048;
+    v22 = [v8 count];
+    v23 = 2112;
+    v24 = v9;
     _os_log_impl(&dword_25B690000, v10, OS_LOG_TYPE_DEFAULT, "replyArr: (%lu paths); directoryPaths: (%lu categories) error: (%@)", buf, 0x20u);
   }
 
@@ -2158,23 +2088,21 @@ void __46__NSSManager_getDiagnosticLogsInfoByCateogry___block_invoke_2_249(uint6
   if (WeakRetained)
   {
     v13 = [WeakRetained externalQueue];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __46__NSSManager_getDiagnosticLogsInfoByCateogry___block_invoke_250;
-    v15[3] = &unk_27995D150;
-    v19 = *(a1 + 32);
-    v16 = v7;
-    v17 = v8;
-    v18 = v9;
-    dispatch_async(v13, v15);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __46__NSSManager_getDiagnosticLogsInfoByCateogry___block_invoke_250;
+    v14[3] = &unk_27995D150;
+    v18 = *(a1 + 32);
+    v15 = v7;
+    v16 = v8;
+    v17 = v9;
+    dispatch_async(v13, v14);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteDiagnosticLogFile:(id)file withResult:(id)result
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   resultCopy = result;
   v8 = NSSLogForType(1);
@@ -2182,7 +2110,7 @@ void __46__NSSManager_getDiagnosticLogsInfoByCateogry___block_invoke_2_249(uint6
   {
     v9 = MEMORY[0x25F86A620](resultCopy);
     *buf = 134217984;
-    v19 = v9;
+    v18 = v9;
     _os_log_impl(&dword_25B690000, v8, OS_LOG_TYPE_DEFAULT, "replyBlock: (%p)", buf, 0xCu);
   }
 
@@ -2197,16 +2125,15 @@ void __46__NSSManager_getDiagnosticLogsInfoByCateogry___block_invoke_2_249(uint6
   block[1] = 3221225472;
   block[2] = __49__NSSManager_deleteDiagnosticLogFile_withResult___block_invoke;
   block[3] = &unk_27995D088;
-  objc_copyWeak(&v17, buf);
-  v15 = fileCopy;
-  v16 = resultCopy;
+  objc_copyWeak(&v16, buf);
+  v14 = fileCopy;
+  v15 = resultCopy;
   v11 = fileCopy;
   v12 = resultCopy;
   dispatch_async(internalQueue, block);
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(buf);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __49__NSSManager_deleteDiagnosticLogFile_withResult___block_invoke(uint64_t a1)
@@ -2239,7 +2166,7 @@ void __49__NSSManager_deleteDiagnosticLogFile_withResult___block_invoke(uint64_t
 
 void __49__NSSManager_deleteDiagnosticLogFile_withResult___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -2247,7 +2174,7 @@ void __49__NSSManager_deleteDiagnosticLogFile_withResult___block_invoke_2(uint64
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -2257,27 +2184,25 @@ void __49__NSSManager_deleteDiagnosticLogFile_withResult___block_invoke_2(uint64
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __49__NSSManager_deleteDiagnosticLogFile_withResult___block_invoke_251;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __49__NSSManager_deleteDiagnosticLogFile_withResult___block_invoke_251;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __49__NSSManager_deleteDiagnosticLogFile_withResult___block_invoke_2_252(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = NSSLogForType(1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = v3;
+    v12 = v3;
     _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "Error returned from gizmo when attempting to delete log file: %@", buf, 0xCu);
   }
 
@@ -2286,28 +2211,26 @@ void __49__NSSManager_deleteDiagnosticLogFile_withResult___block_invoke_2_252(ui
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __49__NSSManager_deleteDiagnosticLogFile_withResult___block_invoke_253;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __49__NSSManager_deleteDiagnosticLogFile_withResult___block_invoke_253;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getAboutInfo:(id)info
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v5 = NSSLogForType(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = MEMORY[0x25F86A620](infoCopy);
     *buf = 134217984;
-    v14 = v6;
+    v13 = v6;
     _os_log_impl(&dword_25B690000, v5, OS_LOG_TYPE_DEFAULT, "replyBlock: (%p)", buf, 0xCu);
   }
 
@@ -2318,18 +2241,17 @@ void __49__NSSManager_deleteDiagnosticLogFile_withResult___block_invoke_2_252(ui
 
   objc_initWeak(buf, self);
   internalQueue = self->_internalQueue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __27__NSSManager_getAboutInfo___block_invoke;
-  v10[3] = &unk_27995CF70;
-  objc_copyWeak(&v12, buf);
-  v11 = infoCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __27__NSSManager_getAboutInfo___block_invoke;
+  v9[3] = &unk_27995CF70;
+  objc_copyWeak(&v11, buf);
+  v10 = infoCopy;
   v8 = infoCopy;
-  dispatch_async(internalQueue, v10);
+  dispatch_async(internalQueue, v9);
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(buf);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __27__NSSManager_getAboutInfo___block_invoke(uint64_t a1)
@@ -2361,7 +2283,7 @@ void __27__NSSManager_getAboutInfo___block_invoke(uint64_t a1)
 
 void __27__NSSManager_getAboutInfo___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -2369,7 +2291,7 @@ void __27__NSSManager_getAboutInfo___block_invoke_2(uint64_t a1, void *a2)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -2379,30 +2301,28 @@ void __27__NSSManager_getAboutInfo___block_invoke_2(uint64_t a1, void *a2)
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __27__NSSManager_getAboutInfo___block_invoke_254;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __27__NSSManager_getAboutInfo___block_invoke_254;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __27__NSSManager_getAboutInfo___block_invoke_2_255(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = NSSLogForType(1);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v17 = [v5 count];
-    v18 = 2112;
-    v19 = v6;
+    v16 = [v5 count];
+    v17 = 2112;
+    v18 = v6;
     _os_log_impl(&dword_25B690000, v7, OS_LOG_TYPE_DEFAULT, "replyDict: (%lu keys); error: (%@)", buf, 0x16u);
   }
 
@@ -2415,44 +2335,40 @@ void __27__NSSManager_getAboutInfo___block_invoke_2_255(uint64_t a1, void *a2, v
     block[1] = 3221225472;
     block[2] = __27__NSSManager_getAboutInfo___block_invoke_256;
     block[3] = &unk_27995CEA8;
-    v15 = *(a1 + 32);
-    v13 = v5;
-    v14 = v6;
+    v14 = *(a1 + 32);
+    v12 = v5;
+    v13 = v6;
     dispatch_async(v10, block);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDeviceName:(id)name
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v5 = NSSLogForType(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = nameCopy;
+    v12 = nameCopy;
     _os_log_impl(&dword_25B690000, v5, OS_LOG_TYPE_DEFAULT, "name: (%@)", buf, 0xCu);
   }
 
   v6 = [nameCopy copy];
   internalQueue = self->_internalQueue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __28__NSSManager_setDeviceName___block_invoke;
-  v10[3] = &unk_27995D1A0;
-  v10[4] = self;
-  v11 = v6;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __28__NSSManager_setDeviceName___block_invoke;
+  v9[3] = &unk_27995D1A0;
+  v9[4] = self;
+  v10 = v6;
   v8 = v6;
-  dispatch_async(internalQueue, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  dispatch_async(internalQueue, v9);
 }
 
 void __28__NSSManager_setDeviceName___block_invoke(uint64_t a1)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) connection];
   v3 = v2;
   if (v2)
@@ -2460,47 +2376,45 @@ void __28__NSSManager_setDeviceName___block_invoke(uint64_t a1)
     v4 = [v2 remoteObjectProxy];
     [v4 setDeviceName:*(a1 + 40)];
 
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __28__NSSManager_setDeviceName___block_invoke_2;
-    v10[3] = &unk_27995CCF8;
-    v10[4] = *(a1 + 32);
-    [v3 addBarrierBlock:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __28__NSSManager_setDeviceName___block_invoke_2;
+    v9[3] = &unk_27995CCF8;
+    v9[4] = *(a1 + 32);
+    [v3 addBarrierBlock:v9];
   }
 
   else
   {
     v5 = MEMORY[0x277CCA9B8];
-    v13 = *MEMORY[0x277CCA450];
-    v14[0] = @"NSS cannot be used when there is no active device";
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = *MEMORY[0x277CCA450];
+    v13[0] = @"NSS cannot be used when there is no active device";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     v7 = [v5 errorWithDomain:@"com.apple.NanoPreferencesSync" code:1 userInfo:v6];
 
     v8 = NSSLogForType(1);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = v7;
+      v11 = v7;
       _os_log_impl(&dword_25B690000, v8, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)obliterateGizmoPreservingeSIM:(BOOL)m completionHandler:(id)handler
 {
   mCopy = m;
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v7 = NSSLogForType(1);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = MEMORY[0x25F86A620](handlerCopy);
     *buf = 134218240;
-    v16 = v8;
-    v17 = 1024;
-    v18 = mCopy;
+    v15 = v8;
+    v16 = 1024;
+    v17 = mCopy;
     _os_log_impl(&dword_25B690000, v7, OS_LOG_TYPE_DEFAULT, "replyBlock: (%p); preserveeSIM: (%d)", buf, 0x12u);
   }
 
@@ -2510,85 +2424,82 @@ void __28__NSSManager_setDeviceName___block_invoke(uint64_t a1)
   block[2] = __62__NSSManager_obliterateGizmoPreservingeSIM_completionHandler___block_invoke;
   block[3] = &unk_27995CE30;
   block[4] = self;
-  v13 = handlerCopy;
-  v14 = mCopy;
+  v12 = handlerCopy;
+  v13 = mCopy;
   v10 = handlerCopy;
   dispatch_async(internalQueue, block);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __62__NSSManager_obliterateGizmoPreservingeSIM_completionHandler___block_invoke(uint64_t a1)
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   objc_initWeak(&location, *(a1 + 32));
   v3 = [*v2 connection];
   v4 = [*(a1 + 32) externalQueue];
   if (v3)
   {
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __62__NSSManager_obliterateGizmoPreservingeSIM_completionHandler___block_invoke_2;
-    v21[3] = &unk_27995D010;
-    v22 = *(a1 + 40);
-    objc_copyWeak(&v23, &location);
-    v5 = [v3 remoteObjectProxyWithErrorHandler:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __62__NSSManager_obliterateGizmoPreservingeSIM_completionHandler___block_invoke_2;
+    v20[3] = &unk_27995D010;
+    v21 = *(a1 + 40);
+    objc_copyWeak(&v22, &location);
+    v5 = [v3 remoteObjectProxyWithErrorHandler:v20];
     v6 = *(a1 + 48);
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __62__NSSManager_obliterateGizmoPreservingeSIM_completionHandler___block_invoke_2_258;
-    v18[3] = &unk_27995D010;
-    v19 = *(a1 + 40);
-    objc_copyWeak(&v20, &location);
-    [v5 obliterateGizmoPreservingeSIM:v6 & 1 completionHandler:v18];
-
     v17[0] = MEMORY[0x277D85DD0];
     v17[1] = 3221225472;
-    v17[2] = __62__NSSManager_obliterateGizmoPreservingeSIM_completionHandler___block_invoke_2_260;
-    v17[3] = &unk_27995CCF8;
-    v17[4] = *(a1 + 32);
-    [v3 addBarrierBlock:v17];
-    objc_destroyWeak(&v20);
+    v17[2] = __62__NSSManager_obliterateGizmoPreservingeSIM_completionHandler___block_invoke_2_258;
+    v17[3] = &unk_27995D010;
+    v18 = *(a1 + 40);
+    objc_copyWeak(&v19, &location);
+    [v5 obliterateGizmoPreservingeSIM:v6 & 1 completionHandler:v17];
 
-    objc_destroyWeak(&v23);
-    v7 = v22;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __62__NSSManager_obliterateGizmoPreservingeSIM_completionHandler___block_invoke_2_260;
+    v16[3] = &unk_27995CCF8;
+    v16[4] = *(a1 + 32);
+    [v3 addBarrierBlock:v16];
+    objc_destroyWeak(&v19);
+
+    objc_destroyWeak(&v22);
+    v7 = v21;
   }
 
   else
   {
     v8 = MEMORY[0x277CCA9B8];
-    v27 = *MEMORY[0x277CCA450];
-    v28[0] = @"NSS cannot be used when there is no active device";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v26 = *MEMORY[0x277CCA450];
+    v27[0] = @"NSS cannot be used when there is no active device";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     v10 = [v8 errorWithDomain:@"com.apple.NanoPreferencesSync" code:1 userInfo:v9];
 
     v11 = NSSLogForType(1);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v26 = v10;
+      v25 = v10;
       _os_log_impl(&dword_25B690000, v11, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
 
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __62__NSSManager_obliterateGizmoPreservingeSIM_completionHandler___block_invoke_261;
-    v14[3] = &unk_27995CDE0;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __62__NSSManager_obliterateGizmoPreservingeSIM_completionHandler___block_invoke_261;
+    v13[3] = &unk_27995CDE0;
     v12 = *(a1 + 40);
-    v15 = v10;
-    v16 = v12;
+    v14 = v10;
+    v15 = v12;
     v7 = v10;
-    dispatch_async(v4, v14);
+    dispatch_async(v4, v13);
   }
 
   objc_destroyWeak(&location);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __62__NSSManager_obliterateGizmoPreservingeSIM_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -2596,7 +2507,7 @@ void __62__NSSManager_obliterateGizmoPreservingeSIM_completionHandler___block_in
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -2608,22 +2519,20 @@ void __62__NSSManager_obliterateGizmoPreservingeSIM_completionHandler___block_in
     if (WeakRetained)
     {
       v7 = [WeakRetained externalQueue];
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __62__NSSManager_obliterateGizmoPreservingeSIM_completionHandler___block_invoke_257;
-      v9[3] = &unk_27995CDE0;
-      v11 = *(a1 + 32);
-      v10 = v3;
-      dispatch_async(v7, v9);
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = __62__NSSManager_obliterateGizmoPreservingeSIM_completionHandler___block_invoke_257;
+      v8[3] = &unk_27995CDE0;
+      v10 = *(a1 + 32);
+      v9 = v3;
+      dispatch_async(v7, v8);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __62__NSSManager_obliterateGizmoPreservingeSIM_completionHandler___block_invoke_2_258(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -2631,7 +2540,7 @@ void __62__NSSManager_obliterateGizmoPreservingeSIM_completionHandler___block_in
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -2643,22 +2552,20 @@ void __62__NSSManager_obliterateGizmoPreservingeSIM_completionHandler___block_in
     if (WeakRetained)
     {
       v7 = [WeakRetained externalQueue];
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __62__NSSManager_obliterateGizmoPreservingeSIM_completionHandler___block_invoke_259;
-      v9[3] = &unk_27995CDE0;
-      v11 = *(a1 + 32);
-      v10 = v3;
-      dispatch_async(v7, v9);
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = __62__NSSManager_obliterateGizmoPreservingeSIM_completionHandler___block_invoke_259;
+      v8[3] = &unk_27995CDE0;
+      v10 = *(a1 + 32);
+      v9 = v3;
+      dispatch_async(v7, v8);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getAccountsInfoForAccountType:(id)type completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   handlerCopy = handler;
   v8 = NSSLogForType(1);
@@ -2666,9 +2573,9 @@ void __62__NSSManager_obliterateGizmoPreservingeSIM_completionHandler___block_in
   {
     v9 = MEMORY[0x25F86A620](handlerCopy);
     *buf = 138412546;
-    v20 = typeCopy;
-    v21 = 2048;
-    v22 = v9;
+    v19 = typeCopy;
+    v20 = 2048;
+    v21 = v9;
     _os_log_impl(&dword_25B690000, v8, OS_LOG_TYPE_DEFAULT, "accountType: (%@); replyBlock: (%p)", buf, 0x16u);
   }
 
@@ -2684,17 +2591,15 @@ void __62__NSSManager_obliterateGizmoPreservingeSIM_completionHandler___block_in
   block[1] = 3221225472;
   block[2] = __62__NSSManager_getAccountsInfoForAccountType_completionHandler___block_invoke;
   block[3] = &unk_27995D088;
-  objc_copyWeak(&v18, buf);
-  v16 = v10;
-  v17 = handlerCopy;
+  objc_copyWeak(&v17, buf);
+  v15 = v10;
+  v16 = handlerCopy;
   v12 = v10;
   v13 = handlerCopy;
   dispatch_async(internalQueue, block);
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(buf);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __62__NSSManager_getAccountsInfoForAccountType_completionHandler___block_invoke(uint64_t a1)
@@ -2727,7 +2632,7 @@ void __62__NSSManager_getAccountsInfoForAccountType_completionHandler___block_in
 
 void __62__NSSManager_getAccountsInfoForAccountType_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -2735,7 +2640,7 @@ void __62__NSSManager_getAccountsInfoForAccountType_completionHandler___block_in
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -2745,30 +2650,28 @@ void __62__NSSManager_getAccountsInfoForAccountType_completionHandler___block_in
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __62__NSSManager_getAccountsInfoForAccountType_completionHandler___block_invoke_262;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __62__NSSManager_getAccountsInfoForAccountType_completionHandler___block_invoke_262;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __62__NSSManager_getAccountsInfoForAccountType_completionHandler___block_invoke_2_263(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = NSSLogForType(1);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v17 = [v5 count];
-    v18 = 2112;
-    v19 = v6;
+    v16 = [v5 count];
+    v17 = 2112;
+    v18 = v6;
     _os_log_impl(&dword_25B690000, v7, OS_LOG_TYPE_DEFAULT, "replyDict: (%lu keys); error: (%@)", buf, 0x16u);
   }
 
@@ -2781,25 +2684,23 @@ void __62__NSSManager_getAccountsInfoForAccountType_completionHandler___block_in
     block[1] = 3221225472;
     block[2] = __62__NSSManager_getAccountsInfoForAccountType_completionHandler___block_invoke_264;
     block[3] = &unk_27995CEA8;
-    v15 = *(a1 + 32);
-    v13 = v5;
-    v14 = v6;
+    v14 = *(a1 + 32);
+    v12 = v5;
+    v13 = v6;
     dispatch_async(v10, block);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getProfilesInfo:(id)info
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v5 = NSSLogForType(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = MEMORY[0x25F86A620](infoCopy);
     *buf = 134217984;
-    v14 = v6;
+    v13 = v6;
     _os_log_impl(&dword_25B690000, v5, OS_LOG_TYPE_DEFAULT, "replyBlock: (%p)", buf, 0xCu);
   }
 
@@ -2814,14 +2715,13 @@ void __62__NSSManager_getAccountsInfoForAccountType_completionHandler___block_in
   block[1] = 3221225472;
   block[2] = __30__NSSManager_getProfilesInfo___block_invoke;
   block[3] = &unk_27995CF70;
-  objc_copyWeak(&v12, buf);
-  v11 = infoCopy;
+  objc_copyWeak(&v11, buf);
+  v10 = infoCopy;
   v8 = infoCopy;
   dispatch_async(internalQueue, block);
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(buf);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __30__NSSManager_getProfilesInfo___block_invoke(uint64_t a1)
@@ -2853,7 +2753,7 @@ void __30__NSSManager_getProfilesInfo___block_invoke(uint64_t a1)
 
 void __30__NSSManager_getProfilesInfo___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -2861,7 +2761,7 @@ void __30__NSSManager_getProfilesInfo___block_invoke_2(uint64_t a1, void *a2)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -2871,30 +2771,28 @@ void __30__NSSManager_getProfilesInfo___block_invoke_2(uint64_t a1, void *a2)
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __30__NSSManager_getProfilesInfo___block_invoke_268;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __30__NSSManager_getProfilesInfo___block_invoke_268;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __30__NSSManager_getProfilesInfo___block_invoke_2_269(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = NSSLogForType(1);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v17 = [v5 count];
-    v18 = 2112;
-    v19 = v6;
+    v16 = [v5 count];
+    v17 = 2112;
+    v18 = v6;
     _os_log_impl(&dword_25B690000, v7, OS_LOG_TYPE_DEFAULT, "replyDict: (%lu keys); error: (%@)", buf, 0x16u);
   }
 
@@ -2907,18 +2805,16 @@ void __30__NSSManager_getProfilesInfo___block_invoke_2_269(uint64_t a1, void *a2
     block[1] = 3221225472;
     block[2] = __30__NSSManager_getProfilesInfo___block_invoke_270;
     block[3] = &unk_27995CEA8;
-    v15 = *(a1 + 32);
-    v13 = v5;
-    v14 = v6;
+    v14 = *(a1 + 32);
+    v12 = v5;
+    v13 = v6;
     dispatch_async(v10, block);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getProfileWithIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   handlerCopy = handler;
   v8 = NSSLogForType(1);
@@ -2926,7 +2822,7 @@ void __30__NSSManager_getProfilesInfo___block_invoke_2_269(uint64_t a1, void *a2
   {
     v9 = MEMORY[0x25F86A620](handlerCopy);
     *buf = 134217984;
-    v18 = v9;
+    v17 = v9;
     _os_log_impl(&dword_25B690000, v8, OS_LOG_TYPE_DEFAULT, "replyBlock: (%p)", buf, 0xCu);
   }
 
@@ -2938,15 +2834,13 @@ void __30__NSSManager_getProfilesInfo___block_invoke_2_269(uint64_t a1, void *a2
     [v10 raise:v11 format:{@"nil identifier: (%@) or replyBlock: (%@)", identifierCopy, v12}];
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __57__NSSManager_getProfileWithIdentifier_completionHandler___block_invoke;
-  v15[3] = &unk_27995D1C8;
-  v16 = handlerCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __57__NSSManager_getProfileWithIdentifier_completionHandler___block_invoke;
+  v14[3] = &unk_27995D1C8;
+  v15 = handlerCopy;
   v13 = handlerCopy;
-  [(NSSManager *)self getFullProfileInfoWithIdentifier:identifierCopy includeManagedPayloads:0 completionHandler:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [(NSSManager *)self getFullProfileInfoWithIdentifier:identifierCopy includeManagedPayloads:0 completionHandler:v14];
 }
 
 void __57__NSSManager_getProfileWithIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2959,7 +2853,7 @@ void __57__NSSManager_getProfileWithIdentifier_completionHandler___block_invoke(
 
 - (void)getFullProfileInfoWithIdentifier:(id)identifier includeManagedPayloads:(BOOL)payloads completionHandler:(id)handler
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   handlerCopy = handler;
   v10 = NSSLogForType(1);
@@ -2967,7 +2861,7 @@ void __57__NSSManager_getProfileWithIdentifier_completionHandler___block_invoke(
   {
     v11 = MEMORY[0x25F86A620](handlerCopy);
     *buf = 134217984;
-    v25 = v11;
+    v24 = v11;
     _os_log_impl(&dword_25B690000, v10, OS_LOG_TYPE_DEFAULT, "replyBlock: (%p)", buf, 0xCu);
   }
 
@@ -2985,17 +2879,16 @@ void __57__NSSManager_getProfileWithIdentifier_completionHandler___block_invoke(
   block[1] = 3221225472;
   block[2] = __88__NSSManager_getFullProfileInfoWithIdentifier_includeManagedPayloads_completionHandler___block_invoke;
   block[3] = &unk_27995D1F0;
-  objc_copyWeak(&v22, buf);
-  v20 = identifierCopy;
-  v21 = handlerCopy;
+  objc_copyWeak(&v21, buf);
+  v19 = identifierCopy;
+  v20 = handlerCopy;
   payloadsCopy = payloads;
   v16 = identifierCopy;
   v17 = handlerCopy;
   dispatch_async(internalQueue, block);
 
-  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v21);
   objc_destroyWeak(buf);
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __88__NSSManager_getFullProfileInfoWithIdentifier_includeManagedPayloads_completionHandler___block_invoke(uint64_t a1)
@@ -3029,7 +2922,7 @@ void __88__NSSManager_getFullProfileInfoWithIdentifier_includeManagedPayloads_co
 
 void __88__NSSManager_getFullProfileInfoWithIdentifier_includeManagedPayloads_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -3037,7 +2930,7 @@ void __88__NSSManager_getFullProfileInfoWithIdentifier_includeManagedPayloads_co
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -3047,30 +2940,28 @@ void __88__NSSManager_getFullProfileInfoWithIdentifier_includeManagedPayloads_co
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __88__NSSManager_getFullProfileInfoWithIdentifier_includeManagedPayloads_completionHandler___block_invoke_274;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __88__NSSManager_getFullProfileInfoWithIdentifier_includeManagedPayloads_completionHandler___block_invoke_274;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __88__NSSManager_getFullProfileInfoWithIdentifier_includeManagedPayloads_completionHandler___block_invoke_2_275(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = NSSLogForType(1);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v17 = [v5 count];
-    v18 = 2112;
-    v19 = v6;
+    v16 = [v5 count];
+    v17 = 2112;
+    v18 = v6;
     _os_log_impl(&dword_25B690000, v7, OS_LOG_TYPE_DEFAULT, "replyDict: (%lu keys); error: (%@)", buf, 0x16u);
   }
 
@@ -3083,18 +2974,16 @@ void __88__NSSManager_getFullProfileInfoWithIdentifier_includeManagedPayloads_co
     block[1] = 3221225472;
     block[2] = __88__NSSManager_getFullProfileInfoWithIdentifier_includeManagedPayloads_completionHandler___block_invoke_276;
     block[3] = &unk_27995CEA8;
-    v15 = *(a1 + 32);
-    v13 = v5;
-    v14 = v6;
+    v14 = *(a1 + 32);
+    v12 = v5;
+    v13 = v6;
     dispatch_async(v10, block);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)installProfile:(id)profile completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   handlerCopy = handler;
   v8 = NSSLogForType(1);
@@ -3103,9 +2992,9 @@ void __88__NSSManager_getFullProfileInfoWithIdentifier_includeManagedPayloads_co
     v9 = [profileCopy length];
     v10 = MEMORY[0x25F86A620](handlerCopy);
     *buf = 134218240;
-    v20 = v9;
-    v21 = 2048;
-    v22 = v10;
+    v19 = v9;
+    v20 = 2048;
+    v21 = v10;
     _os_log_impl(&dword_25B690000, v8, OS_LOG_TYPE_DEFAULT, "profileData: (%lu bytes); replyBlock: (%p)", buf, 0x16u);
   }
 
@@ -3120,86 +3009,83 @@ void __88__NSSManager_getFullProfileInfoWithIdentifier_includeManagedPayloads_co
   block[1] = 3221225472;
   block[2] = __47__NSSManager_installProfile_completionHandler___block_invoke;
   block[3] = &unk_27995D038;
-  v17 = v11;
-  v18 = handlerCopy;
+  v16 = v11;
+  v17 = handlerCopy;
   block[4] = self;
   v13 = v11;
   v14 = handlerCopy;
   dispatch_async(internalQueue, block);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __47__NSSManager_installProfile_completionHandler___block_invoke(uint64_t a1)
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   objc_initWeak(&location, *(a1 + 32));
   v3 = [*v2 connection];
   v4 = [*(a1 + 32) externalQueue];
   if (v3)
   {
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __47__NSSManager_installProfile_completionHandler___block_invoke_2;
-    v21[3] = &unk_27995CE80;
-    objc_copyWeak(&v23, &location);
-    v22 = *(a1 + 48);
-    v5 = [v3 remoteObjectProxyWithErrorHandler:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __47__NSSManager_installProfile_completionHandler___block_invoke_2;
+    v20[3] = &unk_27995CE80;
+    objc_copyWeak(&v22, &location);
+    v21 = *(a1 + 48);
+    v5 = [v3 remoteObjectProxyWithErrorHandler:v20];
     v6 = *(a1 + 40);
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __47__NSSManager_installProfile_completionHandler___block_invoke_2_281;
-    v18[3] = &unk_27995CE80;
-    objc_copyWeak(&v20, &location);
-    v19 = *(a1 + 48);
-    [v5 installProfile:v6 replyHandler:v18];
-
     v17[0] = MEMORY[0x277D85DD0];
     v17[1] = 3221225472;
-    v17[2] = __47__NSSManager_installProfile_completionHandler___block_invoke_2_283;
-    v17[3] = &unk_27995CCF8;
-    v17[4] = *(a1 + 32);
-    [v3 addBarrierBlock:v17];
+    v17[2] = __47__NSSManager_installProfile_completionHandler___block_invoke_2_281;
+    v17[3] = &unk_27995CE80;
+    objc_copyWeak(&v19, &location);
+    v18 = *(a1 + 48);
+    [v5 installProfile:v6 replyHandler:v17];
 
-    objc_destroyWeak(&v20);
-    objc_destroyWeak(&v23);
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __47__NSSManager_installProfile_completionHandler___block_invoke_2_283;
+    v16[3] = &unk_27995CCF8;
+    v16[4] = *(a1 + 32);
+    [v3 addBarrierBlock:v16];
+
+    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v22);
   }
 
   else
   {
     v7 = MEMORY[0x277CCA9B8];
-    v27 = *MEMORY[0x277CCA450];
-    v28[0] = @"NSS cannot be used when there is no active device";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v26 = *MEMORY[0x277CCA450];
+    v27[0] = @"NSS cannot be used when there is no active device";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     v9 = [v7 errorWithDomain:@"com.apple.NanoPreferencesSync" code:1 userInfo:v8];
 
     v10 = NSSLogForType(1);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v26 = v9;
+      v25 = v9;
       _os_log_impl(&dword_25B690000, v10, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
 
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __47__NSSManager_installProfile_completionHandler___block_invoke_284;
-    v14[3] = &unk_27995CDE0;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __47__NSSManager_installProfile_completionHandler___block_invoke_284;
+    v13[3] = &unk_27995CDE0;
     v11 = *(a1 + 48);
-    v15 = v9;
-    v16 = v11;
+    v14 = v9;
+    v15 = v11;
     v12 = v9;
-    dispatch_async(v4, v14);
+    dispatch_async(v4, v13);
   }
 
   objc_destroyWeak(&location);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __47__NSSManager_installProfile_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -3207,7 +3093,7 @@ void __47__NSSManager_installProfile_completionHandler___block_invoke_2(uint64_t
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -3217,21 +3103,19 @@ void __47__NSSManager_installProfile_completionHandler___block_invoke_2(uint64_t
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __47__NSSManager_installProfile_completionHandler___block_invoke_280;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __47__NSSManager_installProfile_completionHandler___block_invoke_280;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __47__NSSManager_installProfile_completionHandler___block_invoke_2_281(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -3239,7 +3123,7 @@ void __47__NSSManager_installProfile_completionHandler___block_invoke_2_281(uint
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -3249,21 +3133,19 @@ void __47__NSSManager_installProfile_completionHandler___block_invoke_2_281(uint
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __47__NSSManager_installProfile_completionHandler___block_invoke_282;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __47__NSSManager_installProfile_completionHandler___block_invoke_282;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeProfileWithIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   handlerCopy = handler;
   v8 = NSSLogForType(1);
@@ -3271,9 +3153,9 @@ void __47__NSSManager_installProfile_completionHandler___block_invoke_2_281(uint
   {
     v9 = MEMORY[0x25F86A620](handlerCopy);
     *buf = 138412546;
-    v19 = identifierCopy;
-    v20 = 2048;
-    v21 = v9;
+    v18 = identifierCopy;
+    v19 = 2048;
+    v20 = v9;
     _os_log_impl(&dword_25B690000, v8, OS_LOG_TYPE_DEFAULT, "identifier: (%@); replyBlock: (%p)", buf, 0x16u);
   }
 
@@ -3288,86 +3170,83 @@ void __47__NSSManager_installProfile_completionHandler___block_invoke_2_281(uint
   block[1] = 3221225472;
   block[2] = __60__NSSManager_removeProfileWithIdentifier_completionHandler___block_invoke;
   block[3] = &unk_27995D038;
-  v16 = v10;
-  v17 = handlerCopy;
+  v15 = v10;
+  v16 = handlerCopy;
   block[4] = self;
   v12 = v10;
   v13 = handlerCopy;
   dispatch_async(internalQueue, block);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __60__NSSManager_removeProfileWithIdentifier_completionHandler___block_invoke(uint64_t a1)
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   objc_initWeak(&location, *(a1 + 32));
   v3 = [*v2 connection];
   v4 = [*(a1 + 32) externalQueue];
   if (v3)
   {
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __60__NSSManager_removeProfileWithIdentifier_completionHandler___block_invoke_2;
-    v21[3] = &unk_27995CE80;
-    objc_copyWeak(&v23, &location);
-    v22 = *(a1 + 48);
-    v5 = [v3 remoteObjectProxyWithErrorHandler:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __60__NSSManager_removeProfileWithIdentifier_completionHandler___block_invoke_2;
+    v20[3] = &unk_27995CE80;
+    objc_copyWeak(&v22, &location);
+    v21 = *(a1 + 48);
+    v5 = [v3 remoteObjectProxyWithErrorHandler:v20];
     v6 = *(a1 + 40);
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __60__NSSManager_removeProfileWithIdentifier_completionHandler___block_invoke_2_289;
-    v18[3] = &unk_27995CE80;
-    objc_copyWeak(&v20, &location);
-    v19 = *(a1 + 48);
-    [v5 removeProfileWithIdentifier:v6 replyHandler:v18];
-
     v17[0] = MEMORY[0x277D85DD0];
     v17[1] = 3221225472;
-    v17[2] = __60__NSSManager_removeProfileWithIdentifier_completionHandler___block_invoke_2_291;
-    v17[3] = &unk_27995CCF8;
-    v17[4] = *(a1 + 32);
-    [v3 addBarrierBlock:v17];
+    v17[2] = __60__NSSManager_removeProfileWithIdentifier_completionHandler___block_invoke_2_289;
+    v17[3] = &unk_27995CE80;
+    objc_copyWeak(&v19, &location);
+    v18 = *(a1 + 48);
+    [v5 removeProfileWithIdentifier:v6 replyHandler:v17];
 
-    objc_destroyWeak(&v20);
-    objc_destroyWeak(&v23);
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __60__NSSManager_removeProfileWithIdentifier_completionHandler___block_invoke_2_291;
+    v16[3] = &unk_27995CCF8;
+    v16[4] = *(a1 + 32);
+    [v3 addBarrierBlock:v16];
+
+    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v22);
   }
 
   else
   {
     v7 = MEMORY[0x277CCA9B8];
-    v27 = *MEMORY[0x277CCA450];
-    v28[0] = @"NSS cannot be used when there is no active device";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v26 = *MEMORY[0x277CCA450];
+    v27[0] = @"NSS cannot be used when there is no active device";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     v9 = [v7 errorWithDomain:@"com.apple.NanoPreferencesSync" code:1 userInfo:v8];
 
     v10 = NSSLogForType(1);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v26 = v9;
+      v25 = v9;
       _os_log_impl(&dword_25B690000, v10, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
 
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __60__NSSManager_removeProfileWithIdentifier_completionHandler___block_invoke_292;
-    v14[3] = &unk_27995CDE0;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __60__NSSManager_removeProfileWithIdentifier_completionHandler___block_invoke_292;
+    v13[3] = &unk_27995CDE0;
     v11 = *(a1 + 48);
-    v15 = v9;
-    v16 = v11;
+    v14 = v9;
+    v15 = v11;
     v12 = v9;
-    dispatch_async(v4, v14);
+    dispatch_async(v4, v13);
   }
 
   objc_destroyWeak(&location);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __60__NSSManager_removeProfileWithIdentifier_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -3375,7 +3254,7 @@ void __60__NSSManager_removeProfileWithIdentifier_completionHandler___block_invo
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -3385,21 +3264,19 @@ void __60__NSSManager_removeProfileWithIdentifier_completionHandler___block_invo
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __60__NSSManager_removeProfileWithIdentifier_completionHandler___block_invoke_288;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __60__NSSManager_removeProfileWithIdentifier_completionHandler___block_invoke_288;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __60__NSSManager_removeProfileWithIdentifier_completionHandler___block_invoke_2_289(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -3407,7 +3284,7 @@ void __60__NSSManager_removeProfileWithIdentifier_completionHandler___block_invo
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -3417,16 +3294,14 @@ void __60__NSSManager_removeProfileWithIdentifier_completionHandler___block_invo
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __60__NSSManager_removeProfileWithIdentifier_completionHandler___block_invoke_290;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __60__NSSManager_removeProfileWithIdentifier_completionHandler___block_invoke_290;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)rebootDevice
@@ -3449,7 +3324,7 @@ void __60__NSSManager_removeProfileWithIdentifier_completionHandler___block_invo
 
 void __26__NSSManager_rebootDevice__block_invoke(uint64_t a1)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) connection];
   v3 = v2;
   if (v2)
@@ -3457,101 +3332,97 @@ void __26__NSSManager_rebootDevice__block_invoke(uint64_t a1)
     v4 = [v2 remoteObjectProxy];
     [v4 rebootDevice];
 
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __26__NSSManager_rebootDevice__block_invoke_2;
-    v10[3] = &unk_27995CCF8;
-    v10[4] = *(a1 + 32);
-    [v3 addBarrierBlock:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __26__NSSManager_rebootDevice__block_invoke_2;
+    v9[3] = &unk_27995CCF8;
+    v9[4] = *(a1 + 32);
+    [v3 addBarrierBlock:v9];
   }
 
   else
   {
     v5 = MEMORY[0x277CCA9B8];
-    v13 = *MEMORY[0x277CCA450];
-    v14[0] = @"NSS cannot be used when there is no active device";
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = *MEMORY[0x277CCA450];
+    v13[0] = @"NSS cannot be used when there is no active device";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     v7 = [v5 errorWithDomain:@"com.apple.NanoPreferencesSync" code:1 userInfo:v6];
 
     v8 = NSSLogForType(1);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = v7;
+      v11 = v7;
       _os_log_impl(&dword_25B690000, v8, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getLegalDocuments:(id)documents
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   documentsCopy = documents;
   v5 = NSSLogForType(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = MEMORY[0x25F86A620](documentsCopy);
     *buf = 134217984;
-    v13 = v6;
+    v12 = v6;
     _os_log_impl(&dword_25B690000, v5, OS_LOG_TYPE_DEFAULT, "replyBlock: (%p)", buf, 0xCu);
   }
 
   internalQueue = self->_internalQueue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __32__NSSManager_getLegalDocuments___block_invoke;
-  v10[3] = &unk_27995CDB8;
-  v10[4] = self;
-  v11 = documentsCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __32__NSSManager_getLegalDocuments___block_invoke;
+  v9[3] = &unk_27995CDB8;
+  v9[4] = self;
+  v10 = documentsCopy;
   v8 = documentsCopy;
-  dispatch_async(internalQueue, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  dispatch_async(internalQueue, v9);
 }
 
 void __32__NSSManager_getLegalDocuments___block_invoke(uint64_t a1)
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   objc_initWeak(&location, *(a1 + 32));
   v3 = [*v2 connection];
   v4 = [*(a1 + 32) externalQueue];
   if (v3)
   {
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __32__NSSManager_getLegalDocuments___block_invoke_2;
-    v19[3] = &unk_27995CE80;
-    objc_copyWeak(&v21, &location);
-    v20 = *(a1 + 40);
-    v5 = [v3 remoteObjectProxyWithErrorHandler:v19];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __32__NSSManager_getLegalDocuments___block_invoke_2_294;
-    v16[3] = &unk_27995CED0;
-    objc_copyWeak(&v18, &location);
-    v17 = *(a1 + 40);
-    [v5 getLegalDocuments:v16];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __32__NSSManager_getLegalDocuments___block_invoke_2;
+    v18[3] = &unk_27995CE80;
+    objc_copyWeak(&v20, &location);
+    v19 = *(a1 + 40);
+    v5 = [v3 remoteObjectProxyWithErrorHandler:v18];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __32__NSSManager_getLegalDocuments___block_invoke_2_294;
+    v15[3] = &unk_27995CED0;
+    objc_copyWeak(&v17, &location);
+    v16 = *(a1 + 40);
+    [v5 getLegalDocuments:v15];
 
-    objc_destroyWeak(&v18);
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v20);
   }
 
   else
   {
     v6 = MEMORY[0x277CCA9B8];
-    v25 = *MEMORY[0x277CCA450];
-    v26[0] = @"NSS cannot be used when there is no active device";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = *MEMORY[0x277CCA450];
+    v25[0] = @"NSS cannot be used when there is no active device";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     v8 = [v6 errorWithDomain:@"com.apple.NanoPreferencesSync" code:1 userInfo:v7];
 
     v9 = NSSLogForType(1);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v24 = v8;
+      v23 = v8;
       _os_log_impl(&dword_25B690000, v9, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
 
@@ -3560,19 +3431,18 @@ void __32__NSSManager_getLegalDocuments___block_invoke(uint64_t a1)
     block[2] = __32__NSSManager_getLegalDocuments___block_invoke_296;
     block[3] = &unk_27995CDE0;
     v10 = *(a1 + 40);
-    v14 = v8;
-    v15 = v10;
+    v13 = v8;
+    v14 = v10;
     v11 = v8;
     dispatch_async(v4, block);
   }
 
   objc_destroyWeak(&location);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __32__NSSManager_getLegalDocuments___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -3580,7 +3450,7 @@ void __32__NSSManager_getLegalDocuments___block_invoke_2(uint64_t a1, void *a2)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -3590,30 +3460,28 @@ void __32__NSSManager_getLegalDocuments___block_invoke_2(uint64_t a1, void *a2)
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __32__NSSManager_getLegalDocuments___block_invoke_293;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __32__NSSManager_getLegalDocuments___block_invoke_293;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __32__NSSManager_getLegalDocuments___block_invoke_2_294(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = NSSLogForType(1);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v17 = [v5 count];
-    v18 = 2112;
-    v19 = v6;
+    v16 = [v5 count];
+    v17 = 2112;
+    v18 = v6;
     _os_log_impl(&dword_25B690000, v7, OS_LOG_TYPE_DEFAULT, "replyDict: (%lu keys); error: (%@)", buf, 0x16u);
   }
 
@@ -3626,82 +3494,78 @@ void __32__NSSManager_getLegalDocuments___block_invoke_2_294(uint64_t a1, void *
     block[1] = 3221225472;
     block[2] = __32__NSSManager_getLegalDocuments___block_invoke_295;
     block[3] = &unk_27995CEA8;
-    v15 = *(a1 + 32);
-    v13 = v5;
-    v14 = v6;
+    v14 = *(a1 + 32);
+    v12 = v5;
+    v13 = v6;
     dispatch_async(v10, block);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getLocalesInfo:(id)info
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v5 = NSSLogForType(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = MEMORY[0x25F86A620](infoCopy);
     *buf = 134217984;
-    v13 = v6;
+    v12 = v6;
     _os_log_impl(&dword_25B690000, v5, OS_LOG_TYPE_DEFAULT, "replyBlock: (%p)", buf, 0xCu);
   }
 
   internalQueue = self->_internalQueue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __29__NSSManager_getLocalesInfo___block_invoke;
-  v10[3] = &unk_27995CDB8;
-  v10[4] = self;
-  v11 = infoCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __29__NSSManager_getLocalesInfo___block_invoke;
+  v9[3] = &unk_27995CDB8;
+  v9[4] = self;
+  v10 = infoCopy;
   v8 = infoCopy;
-  dispatch_async(internalQueue, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  dispatch_async(internalQueue, v9);
 }
 
 void __29__NSSManager_getLocalesInfo___block_invoke(uint64_t a1)
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   objc_initWeak(&location, *(a1 + 32));
   v3 = [*v2 connection];
   v4 = [*(a1 + 32) externalQueue];
   if (v3)
   {
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __29__NSSManager_getLocalesInfo___block_invoke_2;
-    v19[3] = &unk_27995CE80;
-    objc_copyWeak(&v21, &location);
-    v20 = *(a1 + 40);
-    v5 = [v3 remoteObjectProxyWithErrorHandler:v19];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __29__NSSManager_getLocalesInfo___block_invoke_2_298;
-    v16[3] = &unk_27995CED0;
-    objc_copyWeak(&v18, &location);
-    v17 = *(a1 + 40);
-    [v5 getLocalesInfo:v16];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __29__NSSManager_getLocalesInfo___block_invoke_2;
+    v18[3] = &unk_27995CE80;
+    objc_copyWeak(&v20, &location);
+    v19 = *(a1 + 40);
+    v5 = [v3 remoteObjectProxyWithErrorHandler:v18];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __29__NSSManager_getLocalesInfo___block_invoke_2_298;
+    v15[3] = &unk_27995CED0;
+    objc_copyWeak(&v17, &location);
+    v16 = *(a1 + 40);
+    [v5 getLocalesInfo:v15];
 
-    objc_destroyWeak(&v18);
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v20);
   }
 
   else
   {
     v6 = MEMORY[0x277CCA9B8];
-    v25 = *MEMORY[0x277CCA450];
-    v26[0] = @"NSS cannot be used when there is no active device";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = *MEMORY[0x277CCA450];
+    v25[0] = @"NSS cannot be used when there is no active device";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     v8 = [v6 errorWithDomain:@"com.apple.NanoPreferencesSync" code:1 userInfo:v7];
 
     v9 = NSSLogForType(1);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v24 = v8;
+      v23 = v8;
       _os_log_impl(&dword_25B690000, v9, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
 
@@ -3710,19 +3574,18 @@ void __29__NSSManager_getLocalesInfo___block_invoke(uint64_t a1)
     block[2] = __29__NSSManager_getLocalesInfo___block_invoke_300;
     block[3] = &unk_27995CDE0;
     v10 = *(a1 + 40);
-    v14 = v8;
-    v15 = v10;
+    v13 = v8;
+    v14 = v10;
     v11 = v8;
     dispatch_async(v4, block);
   }
 
   objc_destroyWeak(&location);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __29__NSSManager_getLocalesInfo___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -3730,7 +3593,7 @@ void __29__NSSManager_getLocalesInfo___block_invoke_2(uint64_t a1, void *a2)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -3740,30 +3603,28 @@ void __29__NSSManager_getLocalesInfo___block_invoke_2(uint64_t a1, void *a2)
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __29__NSSManager_getLocalesInfo___block_invoke_297;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __29__NSSManager_getLocalesInfo___block_invoke_297;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __29__NSSManager_getLocalesInfo___block_invoke_2_298(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = NSSLogForType(1);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v17 = [v5 count];
-    v18 = 2112;
-    v19 = v6;
+    v16 = [v5 count];
+    v17 = 2112;
+    v18 = v6;
     _os_log_impl(&dword_25B690000, v7, OS_LOG_TYPE_DEFAULT, "replyDict: (%lu keys); error: (%@)", buf, 0x16u);
   }
 
@@ -3776,18 +3637,16 @@ void __29__NSSManager_getLocalesInfo___block_invoke_2_298(uint64_t a1, void *a2,
     block[1] = 3221225472;
     block[2] = __29__NSSManager_getLocalesInfo___block_invoke_299;
     block[3] = &unk_27995CEA8;
-    v15 = *(a1 + 32);
-    v13 = v5;
-    v14 = v6;
+    v14 = *(a1 + 32);
+    v12 = v5;
+    v13 = v6;
     dispatch_async(v10, block);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordSoftwareUpdateSpaceFailure:(id)failure osBeingUpdatedTo:(id)to completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   failureCopy = failure;
   toCopy = to;
   completionCopy = completion;
@@ -3796,70 +3655,68 @@ void __29__NSSManager_getLocalesInfo___block_invoke_2_298(uint64_t a1, void *a2,
   {
     v12 = MEMORY[0x25F86A620](completionCopy);
     *buf = 134217984;
-    v23 = v12;
+    v22 = v12;
     _os_log_impl(&dword_25B690000, v11, OS_LOG_TYPE_DEFAULT, "replyBlock: (%p)", buf, 0xCu);
   }
 
   internalQueue = self->_internalQueue;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __75__NSSManager_recordSoftwareUpdateSpaceFailure_osBeingUpdatedTo_completion___block_invoke;
-  v18[3] = &unk_27995D218;
-  v18[4] = self;
-  v19 = failureCopy;
-  v20 = toCopy;
-  v21 = completionCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __75__NSSManager_recordSoftwareUpdateSpaceFailure_osBeingUpdatedTo_completion___block_invoke;
+  v17[3] = &unk_27995D218;
+  v17[4] = self;
+  v18 = failureCopy;
+  v19 = toCopy;
+  v20 = completionCopy;
   v14 = toCopy;
   v15 = failureCopy;
   v16 = completionCopy;
-  dispatch_async(internalQueue, v18);
-
-  v17 = *MEMORY[0x277D85DE8];
+  dispatch_async(internalQueue, v17);
 }
 
 void __75__NSSManager_recordSoftwareUpdateSpaceFailure_osBeingUpdatedTo_completion___block_invoke(uint64_t a1)
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   objc_initWeak(&location, *(a1 + 32));
   v3 = [*v2 connection];
   v4 = [*(a1 + 32) externalQueue];
   if (v3)
   {
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __75__NSSManager_recordSoftwareUpdateSpaceFailure_osBeingUpdatedTo_completion___block_invoke_2;
-    v21[3] = &unk_27995CE80;
-    objc_copyWeak(&v23, &location);
-    v22 = *(a1 + 56);
-    v5 = [v3 remoteObjectProxyWithErrorHandler:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __75__NSSManager_recordSoftwareUpdateSpaceFailure_osBeingUpdatedTo_completion___block_invoke_2;
+    v20[3] = &unk_27995CE80;
+    objc_copyWeak(&v22, &location);
+    v21 = *(a1 + 56);
+    v5 = [v3 remoteObjectProxyWithErrorHandler:v20];
     v6 = *(a1 + 40);
     v7 = *(a1 + 48);
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __75__NSSManager_recordSoftwareUpdateSpaceFailure_osBeingUpdatedTo_completion___block_invoke_2_302;
-    v18[3] = &unk_27995CE80;
-    objc_copyWeak(&v20, &location);
-    v19 = *(a1 + 56);
-    [v5 recordSoftwareUpdateSpaceFailure:v6 osBeingUpdatedTo:v7 completion:v18];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __75__NSSManager_recordSoftwareUpdateSpaceFailure_osBeingUpdatedTo_completion___block_invoke_2_302;
+    v17[3] = &unk_27995CE80;
+    objc_copyWeak(&v19, &location);
+    v18 = *(a1 + 56);
+    [v5 recordSoftwareUpdateSpaceFailure:v6 osBeingUpdatedTo:v7 completion:v17];
 
-    objc_destroyWeak(&v20);
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v22);
   }
 
   else
   {
     v8 = MEMORY[0x277CCA9B8];
-    v27 = *MEMORY[0x277CCA450];
-    v28[0] = @"NSS cannot be used when there is no active device";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v26 = *MEMORY[0x277CCA450];
+    v27[0] = @"NSS cannot be used when there is no active device";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     v10 = [v8 errorWithDomain:@"com.apple.NanoPreferencesSync" code:1 userInfo:v9];
 
     v11 = NSSLogForType(1);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v26 = v10;
+      v25 = v10;
       _os_log_impl(&dword_25B690000, v11, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
 
@@ -3868,19 +3725,18 @@ void __75__NSSManager_recordSoftwareUpdateSpaceFailure_osBeingUpdatedTo_completi
     block[2] = __75__NSSManager_recordSoftwareUpdateSpaceFailure_osBeingUpdatedTo_completion___block_invoke_304;
     block[3] = &unk_27995CDE0;
     v12 = *(a1 + 56);
-    v16 = v10;
-    v17 = v12;
+    v15 = v10;
+    v16 = v12;
     v13 = v10;
     dispatch_async(v4, block);
   }
 
   objc_destroyWeak(&location);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __75__NSSManager_recordSoftwareUpdateSpaceFailure_osBeingUpdatedTo_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -3888,7 +3744,7 @@ void __75__NSSManager_recordSoftwareUpdateSpaceFailure_osBeingUpdatedTo_completi
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -3898,27 +3754,25 @@ void __75__NSSManager_recordSoftwareUpdateSpaceFailure_osBeingUpdatedTo_completi
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __75__NSSManager_recordSoftwareUpdateSpaceFailure_osBeingUpdatedTo_completion___block_invoke_301;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __75__NSSManager_recordSoftwareUpdateSpaceFailure_osBeingUpdatedTo_completion___block_invoke_301;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __75__NSSManager_recordSoftwareUpdateSpaceFailure_osBeingUpdatedTo_completion___block_invoke_2_302(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = NSSLogForType(1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = v3;
+    v12 = v3;
     _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
   }
 
@@ -3927,87 +3781,83 @@ void __75__NSSManager_recordSoftwareUpdateSpaceFailure_osBeingUpdatedTo_completi
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __75__NSSManager_recordSoftwareUpdateSpaceFailure_osBeingUpdatedTo_completion___block_invoke_303;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __75__NSSManager_recordSoftwareUpdateSpaceFailure_osBeingUpdatedTo_completion___block_invoke_303;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getWatchFaces:(id)faces
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   facesCopy = faces;
   v5 = NSSLogForType(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = MEMORY[0x25F86A620](facesCopy);
     *buf = 136315394;
-    v13 = "[NSSManager getWatchFaces:]";
-    v14 = 2048;
-    v15 = v6;
+    v12 = "[NSSManager getWatchFaces:]";
+    v13 = 2048;
+    v14 = v6;
     _os_log_impl(&dword_25B690000, v5, OS_LOG_TYPE_DEFAULT, "%s replyBlock: (%p)", buf, 0x16u);
   }
 
   internalQueue = self->_internalQueue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __28__NSSManager_getWatchFaces___block_invoke;
-  v10[3] = &unk_27995CDB8;
-  v10[4] = self;
-  v11 = facesCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __28__NSSManager_getWatchFaces___block_invoke;
+  v9[3] = &unk_27995CDB8;
+  v9[4] = self;
+  v10 = facesCopy;
   v8 = facesCopy;
-  dispatch_async(internalQueue, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  dispatch_async(internalQueue, v9);
 }
 
 void __28__NSSManager_getWatchFaces___block_invoke(uint64_t a1)
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   objc_initWeak(&location, *(a1 + 32));
   v3 = [*v2 connection];
   v4 = [*(a1 + 32) externalQueue];
   if (v3)
   {
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __28__NSSManager_getWatchFaces___block_invoke_2;
-    v19[3] = &unk_27995CE80;
-    objc_copyWeak(&v21, &location);
-    v20 = *(a1 + 40);
-    v5 = [v3 remoteObjectProxyWithErrorHandler:v19];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __28__NSSManager_getWatchFaces___block_invoke_2_306;
-    v16[3] = &unk_27995D240;
-    objc_copyWeak(&v18, &location);
-    v17 = *(a1 + 40);
-    [v5 getWatchFaces:v16];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __28__NSSManager_getWatchFaces___block_invoke_2;
+    v18[3] = &unk_27995CE80;
+    objc_copyWeak(&v20, &location);
+    v19 = *(a1 + 40);
+    v5 = [v3 remoteObjectProxyWithErrorHandler:v18];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __28__NSSManager_getWatchFaces___block_invoke_2_306;
+    v15[3] = &unk_27995D240;
+    objc_copyWeak(&v17, &location);
+    v16 = *(a1 + 40);
+    [v5 getWatchFaces:v15];
 
-    objc_destroyWeak(&v18);
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v20);
   }
 
   else
   {
     v6 = MEMORY[0x277CCA9B8];
-    v25 = *MEMORY[0x277CCA450];
-    v26[0] = @"NSS cannot be used when there is no active device";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = *MEMORY[0x277CCA450];
+    v25[0] = @"NSS cannot be used when there is no active device";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     v8 = [v6 errorWithDomain:@"com.apple.NanoPreferencesSync" code:1 userInfo:v7];
 
     v9 = NSSLogForType(1);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v24 = v8;
+      v23 = v8;
       _os_log_impl(&dword_25B690000, v9, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
 
@@ -4016,19 +3866,18 @@ void __28__NSSManager_getWatchFaces___block_invoke(uint64_t a1)
     block[2] = __28__NSSManager_getWatchFaces___block_invoke_309;
     block[3] = &unk_27995CDE0;
     v10 = *(a1 + 40);
-    v14 = v8;
-    v15 = v10;
+    v13 = v8;
+    v14 = v10;
     v11 = v8;
     dispatch_async(v4, block);
   }
 
   objc_destroyWeak(&location);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __28__NSSManager_getWatchFaces___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -4036,7 +3885,7 @@ void __28__NSSManager_getWatchFaces___block_invoke_2(uint64_t a1, void *a2)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -4046,30 +3895,28 @@ void __28__NSSManager_getWatchFaces___block_invoke_2(uint64_t a1, void *a2)
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __28__NSSManager_getWatchFaces___block_invoke_305;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __28__NSSManager_getWatchFaces___block_invoke_305;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __28__NSSManager_getWatchFaces___block_invoke_2_306(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = NSSLogForType(1);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v17 = [v5 count];
-    v18 = 2112;
-    v19 = v6;
+    v16 = [v5 count];
+    v17 = 2112;
+    v18 = v6;
     _os_log_impl(&dword_25B690000, v7, OS_LOG_TYPE_DEFAULT, "getWatchFaces replyArray: (%lu items); error: (%@)", buf, 0x16u);
   }
 
@@ -4082,18 +3929,16 @@ void __28__NSSManager_getWatchFaces___block_invoke_2_306(uint64_t a1, void *a2, 
     block[1] = 3221225472;
     block[2] = __28__NSSManager_getWatchFaces___block_invoke_307;
     block[3] = &unk_27995CEA8;
-    v15 = *(a1 + 32);
-    v13 = v5;
-    v14 = v6;
+    v14 = *(a1 + 32);
+    v12 = v5;
+    v13 = v6;
     dispatch_async(v10, block);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setWatchFaceIdentifier:(id)identifier forFocusModeIdentifier:(id)modeIdentifier completionHandler:(id)handler
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   modeIdentifierCopy = modeIdentifier;
   handlerCopy = handler;
@@ -4103,76 +3948,74 @@ void __28__NSSManager_getWatchFaces___block_invoke_2_306(uint64_t a1, void *a2, 
     uUIDString = [identifierCopy UUIDString];
     v13 = MEMORY[0x25F86A620](handlerCopy);
     *buf = 136315906;
-    v24 = "[NSSManager setWatchFaceIdentifier:forFocusModeIdentifier:completionHandler:]";
-    v25 = 2112;
-    v26 = uUIDString;
-    v27 = 2112;
-    v28 = modeIdentifierCopy;
-    v29 = 2048;
-    v30 = v13;
+    v23 = "[NSSManager setWatchFaceIdentifier:forFocusModeIdentifier:completionHandler:]";
+    v24 = 2112;
+    v25 = uUIDString;
+    v26 = 2112;
+    v27 = modeIdentifierCopy;
+    v28 = 2048;
+    v29 = v13;
     _os_log_impl(&dword_25B690000, v11, OS_LOG_TYPE_DEFAULT, "%s watchFaceIdentifier: (%@) focusModeIdentifier: (%@) replyBlock: (%p)", buf, 0x2Au);
   }
 
   internalQueue = self->_internalQueue;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __78__NSSManager_setWatchFaceIdentifier_forFocusModeIdentifier_completionHandler___block_invoke;
-  v19[3] = &unk_27995D218;
-  v19[4] = self;
-  v20 = identifierCopy;
-  v21 = modeIdentifierCopy;
-  v22 = handlerCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __78__NSSManager_setWatchFaceIdentifier_forFocusModeIdentifier_completionHandler___block_invoke;
+  v18[3] = &unk_27995D218;
+  v18[4] = self;
+  v19 = identifierCopy;
+  v20 = modeIdentifierCopy;
+  v21 = handlerCopy;
   v15 = modeIdentifierCopy;
   v16 = identifierCopy;
   v17 = handlerCopy;
-  dispatch_async(internalQueue, v19);
-
-  v18 = *MEMORY[0x277D85DE8];
+  dispatch_async(internalQueue, v18);
 }
 
 void __78__NSSManager_setWatchFaceIdentifier_forFocusModeIdentifier_completionHandler___block_invoke(uint64_t a1)
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   objc_initWeak(&location, *(a1 + 32));
   v3 = [*v2 connection];
   v4 = [*(a1 + 32) externalQueue];
   if (v3)
   {
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __78__NSSManager_setWatchFaceIdentifier_forFocusModeIdentifier_completionHandler___block_invoke_2;
-    v21[3] = &unk_27995CE80;
-    objc_copyWeak(&v23, &location);
-    v22 = *(a1 + 56);
-    v5 = [v3 remoteObjectProxyWithErrorHandler:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __78__NSSManager_setWatchFaceIdentifier_forFocusModeIdentifier_completionHandler___block_invoke_2;
+    v20[3] = &unk_27995CE80;
+    objc_copyWeak(&v22, &location);
+    v21 = *(a1 + 56);
+    v5 = [v3 remoteObjectProxyWithErrorHandler:v20];
     v6 = *(a1 + 40);
     v7 = *(a1 + 48);
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __78__NSSManager_setWatchFaceIdentifier_forFocusModeIdentifier_completionHandler___block_invoke_2_311;
-    v18[3] = &unk_27995CE80;
-    objc_copyWeak(&v20, &location);
-    v19 = *(a1 + 56);
-    [v5 setWatchFaceIdentifier:v6 forFocusModeIdentifier:v7 completionHandler:v18];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __78__NSSManager_setWatchFaceIdentifier_forFocusModeIdentifier_completionHandler___block_invoke_2_311;
+    v17[3] = &unk_27995CE80;
+    objc_copyWeak(&v19, &location);
+    v18 = *(a1 + 56);
+    [v5 setWatchFaceIdentifier:v6 forFocusModeIdentifier:v7 completionHandler:v17];
 
-    objc_destroyWeak(&v20);
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v22);
   }
 
   else
   {
     v8 = MEMORY[0x277CCA9B8];
-    v27 = *MEMORY[0x277CCA450];
-    v28[0] = @"NSS cannot be used when there is no active device";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v26 = *MEMORY[0x277CCA450];
+    v27[0] = @"NSS cannot be used when there is no active device";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     v10 = [v8 errorWithDomain:@"com.apple.NanoPreferencesSync" code:1 userInfo:v9];
 
     v11 = NSSLogForType(1);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v26 = v10;
+      v25 = v10;
       _os_log_impl(&dword_25B690000, v11, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
 
@@ -4181,19 +4024,18 @@ void __78__NSSManager_setWatchFaceIdentifier_forFocusModeIdentifier_completionHa
     block[2] = __78__NSSManager_setWatchFaceIdentifier_forFocusModeIdentifier_completionHandler___block_invoke_313;
     block[3] = &unk_27995CDE0;
     v12 = *(a1 + 56);
-    v16 = v10;
-    v17 = v12;
+    v15 = v10;
+    v16 = v12;
     v13 = v10;
     dispatch_async(v4, block);
   }
 
   objc_destroyWeak(&location);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __78__NSSManager_setWatchFaceIdentifier_forFocusModeIdentifier_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -4201,7 +4043,7 @@ void __78__NSSManager_setWatchFaceIdentifier_forFocusModeIdentifier_completionHa
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v3;
+      v12 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "error: (%@)", buf, 0xCu);
     }
   }
@@ -4211,27 +4053,25 @@ void __78__NSSManager_setWatchFaceIdentifier_forFocusModeIdentifier_completionHa
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __78__NSSManager_setWatchFaceIdentifier_forFocusModeIdentifier_completionHandler___block_invoke_310;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __78__NSSManager_setWatchFaceIdentifier_forFocusModeIdentifier_completionHandler___block_invoke_310;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __78__NSSManager_setWatchFaceIdentifier_forFocusModeIdentifier_completionHandler___block_invoke_2_311(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = NSSLogForType(1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = v3;
+    v12 = v3;
     _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "setWatchFace error: (%@)", buf, 0xCu);
   }
 
@@ -4240,73 +4080,70 @@ void __78__NSSManager_setWatchFaceIdentifier_forFocusModeIdentifier_completionHa
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __78__NSSManager_setWatchFaceIdentifier_forFocusModeIdentifier_completionHandler___block_invoke_312;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __78__NSSManager_setWatchFaceIdentifier_forFocusModeIdentifier_completionHandler___block_invoke_312;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchBetaEnrollmentStatus:(id)status
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   v5 = NSSLogForType(1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = MEMORY[0x25F86A620](statusCopy);
     *buf = 136315394;
-    v14 = "[NSSManager fetchBetaEnrollmentStatus:]";
-    v15 = 2048;
-    v16 = v6;
+    v13 = "[NSSManager fetchBetaEnrollmentStatus:]";
+    v14 = 2048;
+    v15 = v6;
     _os_log_impl(&dword_25B690000, v5, OS_LOG_TYPE_DEFAULT, "%s: replyBlock: (%p)", buf, 0x16u);
   }
 
   objc_initWeak(buf, self);
   internalQueue = self->_internalQueue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __40__NSSManager_fetchBetaEnrollmentStatus___block_invoke;
-  v10[3] = &unk_27995CF70;
-  objc_copyWeak(&v12, buf);
-  v11 = statusCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __40__NSSManager_fetchBetaEnrollmentStatus___block_invoke;
+  v9[3] = &unk_27995CF70;
+  objc_copyWeak(&v11, buf);
+  v10 = statusCopy;
   v8 = statusCopy;
-  dispatch_async(internalQueue, v10);
+  dispatch_async(internalQueue, v9);
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(buf);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __40__NSSManager_fetchBetaEnrollmentStatus___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [WeakRetained connection];
   if (v3)
   {
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __40__NSSManager_fetchBetaEnrollmentStatus___block_invoke_2;
-    v13[3] = &unk_27995CE80;
-    objc_copyWeak(&v15, (a1 + 40));
-    v14 = *(a1 + 32);
-    v4 = [v3 remoteObjectProxyWithErrorHandler:v13];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __40__NSSManager_fetchBetaEnrollmentStatus___block_invoke_2_315;
-    v10[3] = &unk_27995D268;
-    objc_copyWeak(&v12, (a1 + 40));
-    v11 = *(a1 + 32);
-    [v4 fetchBetaEnrollmentStatus:v10];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __40__NSSManager_fetchBetaEnrollmentStatus___block_invoke_2;
+    v12[3] = &unk_27995CE80;
+    objc_copyWeak(&v14, (a1 + 40));
+    v13 = *(a1 + 32);
+    v4 = [v3 remoteObjectProxyWithErrorHandler:v12];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __40__NSSManager_fetchBetaEnrollmentStatus___block_invoke_2_315;
+    v9[3] = &unk_27995D268;
+    objc_copyWeak(&v11, (a1 + 40));
+    v10 = *(a1 + 32);
+    [v4 fetchBetaEnrollmentStatus:v9];
 
-    objc_destroyWeak(&v12);
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v11);
+    objc_destroyWeak(&v14);
   }
 
   else
@@ -4315,7 +4152,7 @@ void __40__NSSManager_fetchBetaEnrollmentStatus___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v17 = "[NSSManager fetchBetaEnrollmentStatus:]_block_invoke_2";
+      v16 = "[NSSManager fetchBetaEnrollmentStatus:]_block_invoke_2";
       _os_log_impl(&dword_25B690000, v5, OS_LOG_TYPE_DEFAULT, "%s: error connecting", buf, 0xCu);
     }
 
@@ -4324,16 +4161,14 @@ void __40__NSSManager_fetchBetaEnrollmentStatus___block_invoke(uint64_t a1)
     block[1] = 3221225472;
     block[2] = __40__NSSManager_fetchBetaEnrollmentStatus___block_invoke_318;
     block[3] = &unk_27995CD90;
-    v9 = *(a1 + 32);
+    v8 = *(a1 + 32);
     dispatch_async(v6, block);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __40__NSSManager_fetchBetaEnrollmentStatus___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -4341,9 +4176,9 @@ void __40__NSSManager_fetchBetaEnrollmentStatus___block_invoke_2(uint64_t a1, vo
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v13 = "[NSSManager fetchBetaEnrollmentStatus:]_block_invoke_2";
-      v14 = 2112;
-      v15 = v3;
+      v12 = "[NSSManager fetchBetaEnrollmentStatus:]_block_invoke_2";
+      v13 = 2112;
+      v14 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "%s: error: (%@)", buf, 0x16u);
     }
   }
@@ -4353,32 +4188,30 @@ void __40__NSSManager_fetchBetaEnrollmentStatus___block_invoke_2(uint64_t a1, vo
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __40__NSSManager_fetchBetaEnrollmentStatus___block_invoke_314;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __40__NSSManager_fetchBetaEnrollmentStatus___block_invoke_314;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __40__NSSManager_fetchBetaEnrollmentStatus___block_invoke_2_315(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = NSSLogForType(1);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v17 = "[NSSManager fetchBetaEnrollmentStatus:]_block_invoke_2";
-    v18 = 1024;
-    v19 = v5 != 0;
-    v20 = 2112;
-    v21 = v6;
+    v16 = "[NSSManager fetchBetaEnrollmentStatus:]_block_invoke_2";
+    v17 = 1024;
+    v18 = v5 != 0;
+    v19 = 2112;
+    v20 = v6;
     _os_log_impl(&dword_25B690000, v7, OS_LOG_TYPE_DEFAULT, "%s: replyData: %{BOOL}d error: (%@)", buf, 0x1Cu);
   }
 
@@ -4391,13 +4224,11 @@ void __40__NSSManager_fetchBetaEnrollmentStatus___block_invoke_2_315(uint64_t a1
     block[1] = 3221225472;
     block[2] = __40__NSSManager_fetchBetaEnrollmentStatus___block_invoke_316;
     block[3] = &unk_27995CEA8;
-    v15 = *(a1 + 32);
-    v13 = v5;
-    v14 = v6;
+    v14 = *(a1 + 32);
+    v12 = v5;
+    v13 = v6;
     dispatch_async(v10, block);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __40__NSSManager_fetchBetaEnrollmentStatus___block_invoke_318(uint64_t a1)
@@ -4409,14 +4240,14 @@ void __40__NSSManager_fetchBetaEnrollmentStatus___block_invoke_318(uint64_t a1)
 
 - (void)updateBetaEnrollmentStatus:(id)status withCompletion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   completionCopy = completion;
   v8 = NSSLogForType(1);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v17 = "[NSSManager updateBetaEnrollmentStatus:withCompletion:]";
+    v16 = "[NSSManager updateBetaEnrollmentStatus:withCompletion:]";
     _os_log_impl(&dword_25B690000, v8, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -4431,20 +4262,18 @@ void __40__NSSManager_fetchBetaEnrollmentStatus___block_invoke_318(uint64_t a1)
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v17 = "[NSSManager updateBetaEnrollmentStatus:withCompletion:]";
+      v16 = "[NSSManager updateBetaEnrollmentStatus:withCompletion:]";
       _os_log_impl(&dword_25B690000, v9, OS_LOG_TYPE_DEFAULT, "%s. Beta enrollment program info empty. Skipping", buf, 0xCu);
     }
 
     v10 = MEMORY[0x277CCA9B8];
-    v14 = *MEMORY[0x277CCA450];
-    v15 = @"Invalid Arguments";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x277CCA450];
+    v14 = @"Invalid Arguments";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
     v12 = [v10 errorWithDomain:@"NSSErrorDomain" code:10 userInfo:v11];
 
     completionCopy[2](completionCopy, 0, v12);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateBetaEnrollmentStatus:(id)status requiresUnenroll:(BOOL)unenroll withCompletion:(id)completion
@@ -4471,30 +4300,30 @@ void __40__NSSManager_fetchBetaEnrollmentStatus___block_invoke_318(uint64_t a1)
 
 void __74__NSSManager__updateBetaEnrollmentStatus_requiresUnenroll_withCompletion___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = [WeakRetained connection];
   if (v3)
   {
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __74__NSSManager__updateBetaEnrollmentStatus_requiresUnenroll_withCompletion___block_invoke_2;
-    v15[3] = &unk_27995CE80;
-    objc_copyWeak(&v17, (a1 + 48));
-    v16 = *(a1 + 40);
-    v4 = [v3 remoteObjectProxyWithErrorHandler:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __74__NSSManager__updateBetaEnrollmentStatus_requiresUnenroll_withCompletion___block_invoke_2;
+    v14[3] = &unk_27995CE80;
+    objc_copyWeak(&v16, (a1 + 48));
+    v15 = *(a1 + 40);
+    v4 = [v3 remoteObjectProxyWithErrorHandler:v14];
     v5 = *(a1 + 32);
     v6 = *(a1 + 56);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __74__NSSManager__updateBetaEnrollmentStatus_requiresUnenroll_withCompletion___block_invoke_2_326;
-    v12[3] = &unk_27995CFC0;
-    objc_copyWeak(&v14, (a1 + 48));
-    v13 = *(a1 + 40);
-    [v4 updateBetaEnrollmentStatus:v5 requiresUnenroll:v6 & 1 withCompletion:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __74__NSSManager__updateBetaEnrollmentStatus_requiresUnenroll_withCompletion___block_invoke_2_326;
+    v11[3] = &unk_27995CFC0;
+    objc_copyWeak(&v13, (a1 + 48));
+    v12 = *(a1 + 40);
+    [v4 updateBetaEnrollmentStatus:v5 requiresUnenroll:v6 & 1 withCompletion:v11];
 
-    objc_destroyWeak(&v14);
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v16);
   }
 
   else
@@ -4503,7 +4332,7 @@ void __74__NSSManager__updateBetaEnrollmentStatus_requiresUnenroll_withCompletio
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v19 = "[NSSManager _updateBetaEnrollmentStatus:requiresUnenroll:withCompletion:]_block_invoke_2";
+      v18 = "[NSSManager _updateBetaEnrollmentStatus:requiresUnenroll:withCompletion:]_block_invoke_2";
       _os_log_impl(&dword_25B690000, v7, OS_LOG_TYPE_DEFAULT, "%s: error connecting", buf, 0xCu);
     }
 
@@ -4512,16 +4341,14 @@ void __74__NSSManager__updateBetaEnrollmentStatus_requiresUnenroll_withCompletio
     block[1] = 3221225472;
     block[2] = __74__NSSManager__updateBetaEnrollmentStatus_requiresUnenroll_withCompletion___block_invoke_328;
     block[3] = &unk_27995CD90;
-    v11 = *(a1 + 40);
+    v10 = *(a1 + 40);
     dispatch_async(v8, block);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __74__NSSManager__updateBetaEnrollmentStatus_requiresUnenroll_withCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -4529,9 +4356,9 @@ void __74__NSSManager__updateBetaEnrollmentStatus_requiresUnenroll_withCompletio
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v13 = "[NSSManager _updateBetaEnrollmentStatus:requiresUnenroll:withCompletion:]_block_invoke_2";
-      v14 = 2112;
-      v15 = v3;
+      v12 = "[NSSManager _updateBetaEnrollmentStatus:requiresUnenroll:withCompletion:]_block_invoke_2";
+      v13 = 2112;
+      v14 = v3;
       _os_log_impl(&dword_25B690000, v4, OS_LOG_TYPE_DEFAULT, "%s: error: (%@)", buf, 0x16u);
     }
   }
@@ -4541,31 +4368,29 @@ void __74__NSSManager__updateBetaEnrollmentStatus_requiresUnenroll_withCompletio
   if (WeakRetained)
   {
     v7 = [WeakRetained externalQueue];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __74__NSSManager__updateBetaEnrollmentStatus_requiresUnenroll_withCompletion___block_invoke_325;
-    v9[3] = &unk_27995CDE0;
-    v11 = *(a1 + 32);
-    v10 = v3;
-    dispatch_async(v7, v9);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __74__NSSManager__updateBetaEnrollmentStatus_requiresUnenroll_withCompletion___block_invoke_325;
+    v8[3] = &unk_27995CDE0;
+    v10 = *(a1 + 32);
+    v9 = v3;
+    dispatch_async(v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __74__NSSManager__updateBetaEnrollmentStatus_requiresUnenroll_withCompletion___block_invoke_2_326(uint64_t a1, int a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = NSSLogForType(1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v16 = "[NSSManager _updateBetaEnrollmentStatus:requiresUnenroll:withCompletion:]_block_invoke_2";
-    v17 = 1024;
-    v18 = a2;
-    v19 = 2112;
-    v20 = v5;
+    v15 = "[NSSManager _updateBetaEnrollmentStatus:requiresUnenroll:withCompletion:]_block_invoke_2";
+    v16 = 1024;
+    v17 = a2;
+    v18 = 2112;
+    v19 = v5;
     _os_log_impl(&dword_25B690000, v6, OS_LOG_TYPE_DEFAULT, "%s: success: %{BOOL}d error: (%@)", buf, 0x1Cu);
   }
 
@@ -4578,13 +4403,11 @@ void __74__NSSManager__updateBetaEnrollmentStatus_requiresUnenroll_withCompletio
     block[1] = 3221225472;
     block[2] = __74__NSSManager__updateBetaEnrollmentStatus_requiresUnenroll_withCompletion___block_invoke_327;
     block[3] = &unk_27995CF98;
-    v13 = *(a1 + 32);
-    v14 = a2;
-    v12 = v5;
+    v12 = *(a1 + 32);
+    v13 = a2;
+    v11 = v5;
     dispatch_async(v9, block);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __74__NSSManager__updateBetaEnrollmentStatus_requiresUnenroll_withCompletion___block_invoke_328(uint64_t a1)
@@ -4596,14 +4419,12 @@ void __74__NSSManager__updateBetaEnrollmentStatus_requiresUnenroll_withCompletio
 
 + (id)cannotUseNSSError
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCA9B8];
-  v7 = *MEMORY[0x277CCA450];
-  v8[0] = @"NSS cannot be used when there is no active device";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = *MEMORY[0x277CCA450];
+  v7[0] = @"NSS cannot be used when there is no active device";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [v2 errorWithDomain:@"NSSErrorDomain" code:11 userInfo:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

@@ -27,8 +27,9 @@
 
 - (void)setHighlighted:(BOOL)highlighted
 {
+  highlightedCopy = highlighted;
   selfCopy = self;
-  sub_190CF8340(highlighted);
+  sub_190CF8340(highlightedCopy);
 }
 
 - (BOOL)beginTrackingWithTouch:(id)touch withEvent:(id)event

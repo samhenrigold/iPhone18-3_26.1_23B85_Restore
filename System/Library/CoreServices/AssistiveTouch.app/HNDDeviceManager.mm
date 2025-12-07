@@ -69,9 +69,9 @@
 
 - (HNDDeviceManager)init
 {
-  v119.receiver = self;
-  v119.super_class = HNDDeviceManager;
-  v2 = [(HNDDeviceManager *)&v119 init];
+  v121.receiver = self;
+  v121.super_class = HNDDeviceManager;
+  v2 = [(HNDDeviceManager *)&v121 init];
   v3 = v2;
   if (v2)
   {
@@ -89,10 +89,10 @@
     v9 = +[AXSettings sharedInstance];
     assistiveTouchHeadTrackingEnabled = [v9 assistiveTouchHeadTrackingEnabled];
 
-    v63 = [NSMutableSet setWithObject:&off_1001E4FB0];
+    v65 = [NSMutableSet setWithObject:&off_1001E4FB0];
     if (assistiveTouchHeadTrackingEnabled)
     {
-      [v63 addObject:&off_1001E4FC8];
+      [v65 addObject:&off_1001E4FC8];
     }
 
     if (AXDeviceSupportsOnDeviceEyeTracking())
@@ -103,70 +103,70 @@
 
       objc_initWeak(&location, v3);
       v13 = +[AXSettings sharedInstance];
-      v115[0] = _NSConcreteStackBlock;
-      v115[1] = 3221225472;
-      v115[2] = sub_10000500C;
-      v115[3] = &unk_1001D3438;
-      objc_copyWeak(&v117, &location);
+      v117[0] = _NSConcreteStackBlock;
+      v117[1] = 3221225472;
+      v117[2] = sub_10000500C;
+      v117[3] = &unk_1001D3438;
+      objc_copyWeak(&v119, &location);
       v14 = v3;
-      v116 = v14;
-      [v13 registerUpdateBlock:v115 forRetrieveSelector:"assistiveTouchMouseOnDeviceEyeTrackingEnabled" withListener:v14];
+      v118 = v14;
+      [v13 registerUpdateBlock:v117 forRetrieveSelector:"assistiveTouchMouseOnDeviceEyeTrackingEnabled" withListener:v14];
 
-      objc_destroyWeak(&v117);
+      objc_destroyWeak(&v119);
       v15 = +[AXSettings sharedInstance];
+      v114[0] = _NSConcreteStackBlock;
+      v114[1] = 3221225472;
+      v114[2] = sub_100005060;
+      v114[3] = &unk_1001D3438;
+      objc_copyWeak(&v116, &location);
+      v16 = v14;
+      v115 = v16;
+      [v15 registerUpdateBlock:v114 forRetrieveSelector:"switchControlOnDeviceEyeTrackingEnabled" withListener:v16];
+
+      objc_destroyWeak(&v116);
+      v17 = +[AXSettings sharedInstance];
       v112[0] = _NSConcreteStackBlock;
       v112[1] = 3221225472;
-      v112[2] = sub_100005060;
-      v112[3] = &unk_1001D3438;
-      objc_copyWeak(&v114, &location);
-      v16 = v14;
-      v113 = v16;
-      [v15 registerUpdateBlock:v112 forRetrieveSelector:"switchControlOnDeviceEyeTrackingEnabled" withListener:v16];
+      v112[2] = sub_1000050B4;
+      v112[3] = &unk_1001D3460;
+      objc_copyWeak(&v113, &location);
+      [v17 registerUpdateBlock:v112 forRetrieveSelector:"assistiveTouchMouseOnDeviceEyeTrackingShouldShowUncalibratedPoints" withListener:v16];
 
-      objc_destroyWeak(&v114);
-      v17 = +[AXSettings sharedInstance];
-      v110[0] = _NSConcreteStackBlock;
-      v110[1] = 3221225472;
-      v110[2] = sub_1000050B4;
-      v110[3] = &unk_1001D3460;
-      objc_copyWeak(&v111, &location);
-      [v17 registerUpdateBlock:v110 forRetrieveSelector:"assistiveTouchMouseOnDeviceEyeTrackingShouldShowUncalibratedPoints" withListener:v16];
-
-      objc_destroyWeak(&v111);
+      objc_destroyWeak(&v113);
       v18 = +[AXSettings sharedInstance];
       [v16[15] setUseGaussianBlur:{objc_msgSend(v18, "assistiveTouchOnDeviceEyeTrackingShouldUseGaussianBlur")}];
 
       v19 = +[AXSettings sharedInstance];
+      v110[0] = _NSConcreteStackBlock;
+      v110[1] = 3221225472;
+      v110[2] = sub_100005124;
+      v110[3] = &unk_1001D3460;
+      objc_copyWeak(&v111, &location);
+      [v19 registerUpdateBlock:v110 forRetrieveSelector:"assistiveTouchMouseOnDeviceEyeTrackingShouldShowUncalibratedPoints" withListener:v16];
+
+      objc_destroyWeak(&v111);
+      v20 = +[AXSettings sharedInstance];
       v108[0] = _NSConcreteStackBlock;
       v108[1] = 3221225472;
-      v108[2] = sub_100005124;
+      v108[2] = sub_1000051A0;
       v108[3] = &unk_1001D3460;
       objc_copyWeak(&v109, &location);
-      [v19 registerUpdateBlock:v108 forRetrieveSelector:"assistiveTouchMouseOnDeviceEyeTrackingShouldShowUncalibratedPoints" withListener:v16];
+      [v20 registerUpdateBlock:v108 forRetrieveSelector:"assistiveTouchOnDeviceEyeTrackingShouldUseMotionFilter" withListener:v16];
 
       objc_destroyWeak(&v109);
-      v20 = +[AXSettings sharedInstance];
+      v21 = +[AXSettings sharedInstance];
       v106[0] = _NSConcreteStackBlock;
       v106[1] = 3221225472;
-      v106[2] = sub_1000051A0;
+      v106[2] = sub_10000521C;
       v106[3] = &unk_1001D3460;
       objc_copyWeak(&v107, &location);
-      [v20 registerUpdateBlock:v106 forRetrieveSelector:"assistiveTouchOnDeviceEyeTrackingShouldUseMotionFilter" withListener:v16];
+      [v21 registerUpdateBlock:v106 forRetrieveSelector:"assistiveTouchOnDeviceEyeTrackingShouldUseGaussianBlur" withListener:v16];
 
       objc_destroyWeak(&v107);
-      v21 = +[AXSettings sharedInstance];
-      v104[0] = _NSConcreteStackBlock;
-      v104[1] = 3221225472;
-      v104[2] = sub_10000521C;
-      v104[3] = &unk_1001D3460;
-      objc_copyWeak(&v105, &location);
-      [v21 registerUpdateBlock:v104 forRetrieveSelector:"assistiveTouchOnDeviceEyeTrackingShouldUseGaussianBlur" withListener:v16];
-
-      objc_destroyWeak(&v105);
       objc_destroyWeak(&location);
     }
 
-    [v8 setAllowedTrackingTypes:{v63, v63}];
+    [v8 setAllowedTrackingTypes:{v65, v65}];
     v22 = [[AXSSMotionTrackingInputManager alloc] initWithConfiguration:v8];
     motionTrackingInputManager = v3->_motionTrackingInputManager;
     v3->_motionTrackingInputManager = v22;
@@ -180,14 +180,14 @@
       v3->_shouldSmoothOnDeviceEyeTrackingPoints = assistiveTouchOnDeviceEyeTrackingSmoothingBufferSize >= kAXSAssistiveTouchOnDeviceEyeTrackingSmoothingBufferSizeMinUserPreference;
       objc_initWeak(&location, v3);
       v26 = +[AXSettings sharedInstance];
-      v102[0] = _NSConcreteStackBlock;
-      v102[1] = 3221225472;
-      v102[2] = sub_100005298;
-      v102[3] = &unk_1001D3460;
-      objc_copyWeak(&v103, &location);
-      [v26 registerUpdateBlock:v102 forRetrieveSelector:"assistiveTouchOnDeviceEyeTrackingSmoothingBufferSize" withListener:v3];
+      v104[0] = _NSConcreteStackBlock;
+      v104[1] = 3221225472;
+      v104[2] = sub_100005298;
+      v104[3] = &unk_1001D3460;
+      objc_copyWeak(&v105, &location);
+      [v26 registerUpdateBlock:v104 forRetrieveSelector:"assistiveTouchOnDeviceEyeTrackingSmoothingBufferSize" withListener:v3];
 
-      objc_destroyWeak(&v103);
+      objc_destroyWeak(&v105);
       objc_destroyWeak(&location);
     }
 
@@ -207,90 +207,90 @@
     v3->_shouldSmoothPoints = v30;
     objc_initWeak(&location, v3);
     v31 = +[AXSettings sharedInstance];
-    v99[0] = _NSConcreteStackBlock;
-    v99[1] = 3221225472;
-    v99[2] = sub_10000543C;
-    v99[3] = &unk_1001D3438;
-    objc_copyWeak(&v101, &location);
+    v101[0] = _NSConcreteStackBlock;
+    v101[1] = 3221225472;
+    v101[2] = sub_10000543C;
+    v101[3] = &unk_1001D3438;
+    objc_copyWeak(&v103, &location);
     v32 = v3;
-    v100 = v32;
-    [v31 registerUpdateBlock:v99 forRetrieveSelector:"assistiveTouchEyeTrackerCustomizedSettings" withListener:v32];
+    v102 = v32;
+    [v31 registerUpdateBlock:v101 forRetrieveSelector:"assistiveTouchEyeTrackerCustomizedSettings" withListener:v32];
 
-    objc_destroyWeak(&v101);
+    objc_destroyWeak(&v103);
     v33 = +[AXSettings sharedInstance];
+    v98[0] = _NSConcreteStackBlock;
+    v98[1] = 3221225472;
+    v98[2] = sub_1000055E0;
+    v98[3] = &unk_1001D3438;
+    objc_copyWeak(&v100, &location);
+    v34 = v32;
+    v99 = v34;
+    [v33 registerUpdateBlock:v98 forRetrieveSelector:"assistiveTouchMotionTrackerSmoothingBufferSize" withListener:v34];
+
+    objc_destroyWeak(&v100);
+    v35 = +[AXSettings sharedInstance];
     v96[0] = _NSConcreteStackBlock;
     v96[1] = 3221225472;
-    v96[2] = sub_1000055E0;
-    v96[3] = &unk_1001D3438;
-    objc_copyWeak(&v98, &location);
-    v34 = v32;
-    v97 = v34;
-    [v33 registerUpdateBlock:v96 forRetrieveSelector:"assistiveTouchMotionTrackerSmoothingBufferSize" withListener:v34];
+    v96[2] = sub_100005790;
+    v96[3] = &unk_1001D3460;
+    objc_copyWeak(&v97, &location);
+    [v35 registerUpdateBlock:v96 forRetrieveSelector:"assistiveTouchMotionTrackerSmoothingMaxDelta" withListener:v34];
 
-    objc_destroyWeak(&v98);
-    v35 = +[AXSettings sharedInstance];
+    objc_destroyWeak(&v97);
+    v36 = +[AXSettings sharedInstance];
     v94[0] = _NSConcreteStackBlock;
     v94[1] = 3221225472;
-    v94[2] = sub_100005790;
+    v94[2] = sub_1000058D8;
     v94[3] = &unk_1001D3460;
     objc_copyWeak(&v95, &location);
-    [v35 registerUpdateBlock:v94 forRetrieveSelector:"assistiveTouchMotionTrackerSmoothingMaxDelta" withListener:v34];
+    [v36 registerUpdateBlock:v94 forRetrieveSelector:"assistiveTouchMotionTrackerXNormalizationOrder" withListener:v34];
 
     objc_destroyWeak(&v95);
-    v36 = +[AXSettings sharedInstance];
+    v37 = +[AXSettings sharedInstance];
     v92[0] = _NSConcreteStackBlock;
     v92[1] = 3221225472;
-    v92[2] = sub_1000058D8;
+    v92[2] = sub_100005A20;
     v92[3] = &unk_1001D3460;
     objc_copyWeak(&v93, &location);
-    [v36 registerUpdateBlock:v92 forRetrieveSelector:"assistiveTouchMotionTrackerXNormalizationOrder" withListener:v34];
+    [v37 registerUpdateBlock:v92 forRetrieveSelector:"assistiveTouchMotionTrackerYNormalizationOrder" withListener:v34];
 
     objc_destroyWeak(&v93);
-    v37 = +[AXSettings sharedInstance];
+    v38 = +[AXSettings sharedInstance];
     v90[0] = _NSConcreteStackBlock;
     v90[1] = 3221225472;
-    v90[2] = sub_100005A20;
+    v90[2] = sub_100005B68;
     v90[3] = &unk_1001D3460;
     objc_copyWeak(&v91, &location);
-    [v37 registerUpdateBlock:v90 forRetrieveSelector:"assistiveTouchMotionTrackerYNormalizationOrder" withListener:v34];
+    [v38 registerUpdateBlock:v90 forRetrieveSelector:"assistiveTouchMotionTrackerXNormalizationOffset" withListener:v34];
 
     objc_destroyWeak(&v91);
-    v38 = +[AXSettings sharedInstance];
+    v39 = +[AXSettings sharedInstance];
     v88[0] = _NSConcreteStackBlock;
     v88[1] = 3221225472;
-    v88[2] = sub_100005B68;
+    v88[2] = sub_100005CB0;
     v88[3] = &unk_1001D3460;
     objc_copyWeak(&v89, &location);
-    [v38 registerUpdateBlock:v88 forRetrieveSelector:"assistiveTouchMotionTrackerXNormalizationOffset" withListener:v34];
+    [v39 registerUpdateBlock:v88 forRetrieveSelector:"assistiveTouchMotionTrackerYNormalizationOffset" withListener:v34];
 
     objc_destroyWeak(&v89);
-    v39 = +[AXSettings sharedInstance];
+    v40 = +[AXSettings sharedInstance];
     v86[0] = _NSConcreteStackBlock;
     v86[1] = 3221225472;
-    v86[2] = sub_100005CB0;
+    v86[2] = sub_100005DF8;
     v86[3] = &unk_1001D3460;
     objc_copyWeak(&v87, &location);
-    [v39 registerUpdateBlock:v86 forRetrieveSelector:"assistiveTouchMotionTrackerYNormalizationOffset" withListener:v34];
+    [v40 registerUpdateBlock:v86 forRetrieveSelector:"assistiveTouchMotionTrackerShouldOffsetBufferPoints" withListener:v34];
 
     objc_destroyWeak(&v87);
-    v40 = +[AXSettings sharedInstance];
+    v41 = +[AXSettings sharedInstance];
     v84[0] = _NSConcreteStackBlock;
     v84[1] = 3221225472;
-    v84[2] = sub_100005DF8;
+    v84[2] = sub_100005F40;
     v84[3] = &unk_1001D3460;
     objc_copyWeak(&v85, &location);
-    [v40 registerUpdateBlock:v84 forRetrieveSelector:"assistiveTouchMotionTrackerShouldOffsetBufferPoints" withListener:v34];
+    [v41 registerUpdateBlock:v84 forRetrieveSelector:"assistiveTouchForceEyeTrackerExperience" withListener:v34];
 
     objc_destroyWeak(&v85);
-    v41 = +[AXSettings sharedInstance];
-    v82[0] = _NSConcreteStackBlock;
-    v82[1] = 3221225472;
-    v82[2] = sub_100005F40;
-    v82[3] = &unk_1001D3460;
-    objc_copyWeak(&v83, &location);
-    [v41 registerUpdateBlock:v82 forRetrieveSelector:"assistiveTouchForceEyeTrackerExperience" withListener:v34];
-
-    objc_destroyWeak(&v83);
     v42 = +[AXSettings sharedInstance];
     v34->_forceEyeTrackerExperience = [v42 assistiveTouchForceEyeTrackerExperience];
 
@@ -299,94 +299,94 @@
     v34->_pointSmoothers = v43;
 
     v45 = +[AXSettings sharedInstance];
+    v81[0] = _NSConcreteStackBlock;
+    v81[1] = 3221225472;
+    v81[2] = sub_100005FAC;
+    v81[3] = &unk_1001D3438;
+    objc_copyWeak(&v83, &location);
+    v46 = v34;
+    v82 = v46;
+    [v45 registerUpdateBlock:v81 forRetrieveSelector:"assistiveTouchHeadTrackingEnabled" withListener:v46];
+
+    objc_destroyWeak(&v83);
+    v47 = +[AXSettings sharedInstance];
     v79[0] = _NSConcreteStackBlock;
     v79[1] = 3221225472;
-    v79[2] = sub_100005FAC;
-    v79[3] = &unk_1001D3438;
-    objc_copyWeak(&v81, &location);
-    v46 = v34;
-    v80 = v46;
-    [v45 registerUpdateBlock:v79 forRetrieveSelector:"assistiveTouchHeadTrackingEnabled" withListener:v46];
+    v79[2] = sub_100006000;
+    v79[3] = &unk_1001D3460;
+    objc_copyWeak(&v80, &location);
+    [v47 registerUpdateBlock:v79 forRetrieveSelector:"assistiveTouchHeadTrackingSensitivity" withListener:v46];
 
-    objc_destroyWeak(&v81);
-    v47 = +[AXSettings sharedInstance];
-    v77[0] = _NSConcreteStackBlock;
-    v77[1] = 3221225472;
-    v77[2] = sub_100006000;
-    v77[3] = &unk_1001D3460;
+    objc_destroyWeak(&v80);
+    v48 = +[AXSettings sharedInstance];
+    v76[0] = _NSConcreteStackBlock;
+    v76[1] = 3221225472;
+    v76[2] = sub_100006070;
+    v76[3] = &unk_1001D3438;
     objc_copyWeak(&v78, &location);
-    [v47 registerUpdateBlock:v77 forRetrieveSelector:"assistiveTouchHeadTrackingSensitivity" withListener:v46];
+    v49 = v46;
+    v77 = v49;
+    [v48 registerUpdateBlock:v76 forRetrieveSelector:"assistiveTouchHeadTrackingMode" withListener:v49];
 
     objc_destroyWeak(&v78);
-    v48 = +[AXSettings sharedInstance];
+    v50 = +[AXSettings sharedInstance];
     v74[0] = _NSConcreteStackBlock;
     v74[1] = 3221225472;
-    v74[2] = sub_100006070;
-    v74[3] = &unk_1001D3438;
-    objc_copyWeak(&v76, &location);
-    v49 = v46;
-    v75 = v49;
-    [v48 registerUpdateBlock:v74 forRetrieveSelector:"assistiveTouchHeadTrackingMode" withListener:v49];
+    v74[2] = sub_1000060C4;
+    v74[3] = &unk_1001D3460;
+    objc_copyWeak(&v75, &location);
+    [v50 registerUpdateBlock:v74 forRetrieveSelector:"assistiveTouchHeadTrackingMovementToleranceInJoystickMode" withListener:v49];
 
-    objc_destroyWeak(&v76);
-    v50 = +[AXSettings sharedInstance];
-    v72[0] = _NSConcreteStackBlock;
-    v72[1] = 3221225472;
-    v72[2] = sub_1000060C4;
-    v72[3] = &unk_1001D3460;
+    objc_destroyWeak(&v75);
+    v51 = +[AXSettings sharedInstance];
+    v71[0] = _NSConcreteStackBlock;
+    v71[1] = 3221225472;
+    v71[2] = sub_100006134;
+    v71[3] = &unk_1001D3438;
     objc_copyWeak(&v73, &location);
-    [v50 registerUpdateBlock:v72 forRetrieveSelector:"assistiveTouchHeadTrackingMovementToleranceInJoystickMode" withListener:v49];
+    v52 = v49;
+    v72 = v52;
+    [v51 registerUpdateBlock:v71 forRetrieveSelector:"assistiveTouchHeadTrackingExpressionToSensitivityMapping" withListener:v52];
 
     objc_destroyWeak(&v73);
-    v51 = +[AXSettings sharedInstance];
-    v69[0] = _NSConcreteStackBlock;
-    v69[1] = 3221225472;
-    v69[2] = sub_100006134;
-    v69[3] = &unk_1001D3438;
-    objc_copyWeak(&v71, &location);
-    v52 = v49;
-    v70 = v52;
-    [v51 registerUpdateBlock:v69 forRetrieveSelector:"assistiveTouchHeadTrackingExpressionToSensitivityMapping" withListener:v52];
-
-    objc_destroyWeak(&v71);
     v53 = +[AXSettings sharedInstance];
-    v66[0] = _NSConcreteStackBlock;
-    v66[1] = 3221225472;
-    v66[2] = sub_100006188;
-    v66[3] = &unk_1001D3438;
-    objc_copyWeak(&v68, &location);
+    v68[0] = _NSConcreteStackBlock;
+    v68[1] = 3221225472;
+    v68[2] = sub_100006188;
+    v68[3] = &unk_1001D3438;
+    objc_copyWeak(&v70, &location);
     v54 = v52;
-    v67 = v54;
-    [v53 registerUpdateBlock:v66 forRetrieveSelector:"assistiveTouchHeadTrackingExpressionToActionMapping" withListener:v54];
+    v69 = v54;
+    [v53 registerUpdateBlock:v68 forRetrieveSelector:"assistiveTouchHeadTrackingExpressionToActionMapping" withListener:v54];
 
-    objc_destroyWeak(&v68);
+    objc_destroyWeak(&v70);
     [(HNDDeviceManager *)v54 _updateMotionTrackerActionConfig];
     v55 = +[AXSettings sharedInstance];
     assistiveTouchHeadTrackingEnabled2 = [v55 assistiveTouchHeadTrackingEnabled];
 
     if (assistiveTouchHeadTrackingEnabled2)
     {
-      [(HNDDeviceManager *)v54 _headTrackingToggled];
+      _headTrackingToggled = [(HNDDeviceManager *)v54 _headTrackingToggled];
     }
 
-    if (sub_100042C64())
+    if (sub_100042C64(_headTrackingToggled, v58))
     {
-      v57 = +[NSMutableSet set];
+      v59 = +[NSMutableSet set];
       connectedPointerDevices = v54->_connectedPointerDevices;
-      v54->_connectedPointerDevices = v57;
+      v54->_connectedPointerDevices = v59;
 
-      v65 = v54;
+      v67 = v54;
       AXPerformBlockAsynchronouslyOnMainThread();
     }
 
-    v59 = objc_alloc_init(HNDDeviceDetector);
+    v61 = objc_alloc_init(HNDDeviceDetector);
     deviceDetector = v54->_deviceDetector;
-    v54->_deviceDetector = v59;
+    v54->_deviceDetector = v61;
 
     if (AXDeviceSupportsOnDeviceEyeTracking())
     {
-      v61 = +[AXSettings sharedInstance];
-      -[HNDDeviceManager setShouldShowUncalibratedPoints:](v54, "setShouldShowUncalibratedPoints:", [v61 assistiveTouchMouseOnDeviceEyeTrackingShouldShowUncalibratedPoints]);
+      v63 = +[AXSettings sharedInstance];
+      -[HNDDeviceManager setShouldShowUncalibratedPoints:](v54, "setShouldShowUncalibratedPoints:", [v63 assistiveTouchMouseOnDeviceEyeTrackingShouldShowUncalibratedPoints]);
 
       [(HNDDeviceManager *)v54 _onDeviceEyeTrackingToggled];
     }
@@ -496,33 +496,33 @@
 
 - (void)deviceDetector:(id)detector didFindDevice:(__IOHIDDevice *)device
 {
-  v20 = 0u;
-  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v6 = self->_devices;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v22 objects:v28 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v23;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v21 != v9)
+      if (*v23 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      if ([*(*(&v20 + 1) + 8 * v10) containsHIDDevice:device])
+      if ([*(*(&v22 + 1) + 8 * v10) containsHIDDevice:device])
       {
         break;
       }
 
       if (v8 == ++v10)
       {
-        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v26 count:16];
+        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v22 objects:v28 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -548,7 +548,7 @@ LABEL_9:
         if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v25 = v6;
+          v27 = v6;
           _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Adding device: %@", buf, 0xCu);
         }
 
@@ -561,36 +561,37 @@ LABEL_9:
         }
 
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) != 0 && (sub_100042C64() & 1) == 0)
+        isKindOfClass = objc_opt_isKindOfClass();
+        if ((isKindOfClass & 1) != 0 && (sub_100042C64(isKindOfClass, v14) & 1) == 0)
         {
-          v13 = [AXCustomizableMouse mouseForHIDDevice:device];
-          v14 = v13;
-          if (v13)
+          v15 = [AXCustomizableMouse mouseForHIDDevice:device];
+          v16 = v15;
+          if (v15)
           {
-            v15 = [v13 customActionForButtonNumber:1];
+            v17 = [v15 customActionForButtonNumber:1];
 
-            if (!v15)
+            if (!v17)
             {
-              [v14 setDefaultActionForButtonNumber:1];
+              [v16 setDefaultActionForButtonNumber:1];
             }
 
             if ([(NSMutableArray *)v6 secondaryButton])
             {
-              v16 = [v14 customActionForButtonNumber:2];
+              v18 = [v16 customActionForButtonNumber:2];
 
-              if (!v16)
+              if (!v18)
               {
-                [v14 setDefaultActionForButtonNumber:2];
+                [v16 setDefaultActionForButtonNumber:2];
               }
             }
 
             if ([(NSMutableArray *)v6 tertiaryButton])
             {
-              v17 = [v14 customActionForButtonNumber:3];
+              v19 = [v16 customActionForButtonNumber:3];
 
-              if (!v17)
+              if (!v19)
               {
-                [v14 setDefaultActionForButtonNumber:3];
+                [v16 setDefaultActionForButtonNumber:3];
               }
             }
 
@@ -598,7 +599,7 @@ LABEL_9:
             block[1] = 3221225472;
             block[2] = sub_100006960;
             block[3] = &unk_1001D3488;
-            v19 = v14;
+            v21 = v16;
             dispatch_async(&_dispatch_main_q, block);
           }
         }
@@ -652,20 +653,22 @@ LABEL_9:
   }
 
   handManager = [(HNDDeviceManager *)self handManager];
-  if ([handManager shouldHideSystemPointerForFingersView])
+  shouldHideSystemPointerForFingersView = [handManager shouldHideSystemPointerForFingersView];
+  if (shouldHideSystemPointerForFingersView)
   {
-    v10 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v10 = [handManager shouldHandleSystemPointerButtonEvent:eventCopy];
+    shouldHideSystemPointerForFingersView = [handManager shouldHandleSystemPointerButtonEvent:eventCopy];
+    v12 = shouldHideSystemPointerForFingersView;
   }
 
-  if (!sub_100042C64() || (v10 & 1) != 0 || ([eventCopy isGamepadEvent] & 1) != 0 || (objc_msgSend(eventCopy, "isVirtualTrackpadEvent") & 1) != 0 || !+[HNDVirtualHIDMouse handleEvent:](HNDVirtualHIDMouse, "handleEvent:", eventCopy))
+  if (!sub_100042C64(shouldHideSystemPointerForFingersView, v11) || (v12 & 1) != 0 || ([eventCopy isGamepadEvent] & 1) != 0 || (objc_msgSend(eventCopy, "isVirtualTrackpadEvent") & 1) != 0 || !+[HNDVirtualHIDMouse handleEvent:](HNDVirtualHIDMouse, "handleEvent:", eventCopy))
   {
     [handManager touchSpeedMultiplier];
-    v12 = v11;
+    v14 = v13;
     type = [eventCopy type];
     if (type - 1 < 2)
     {
@@ -675,54 +678,54 @@ LABEL_9:
     else if (type == 4)
     {
       [eventCopy deltaY];
-      [eventCopy setDeltaY:v22 * 25.0];
+      [eventCopy setDeltaY:v24 * 25.0];
       [eventCopy deltaY];
-      self->_scrollAmount = (v23 + self->_scrollAmount);
+      self->_scrollAmount = (v25 + self->_scrollAmount);
       if (([(AXDispatchTimer *)self->_scrollHysteresisTimer isPending]& 1) == 0)
       {
         handManager2 = [(HNDDeviceManager *)self handManager];
         currentDisplayManager = [handManager2 currentDisplayManager];
         [currentDisplayManager screenPoint];
-        v27 = v26;
         v29 = v28;
+        v31 = v30;
 
-        v35[0] = 0;
-        v35[1] = v35;
-        v35[2] = 0x3032000000;
-        v35[3] = sub_100006E80;
-        v35[4] = sub_100006E90;
-        v36 = [AXUIElement uiApplicationAtCoordinate:v27, v29];
+        v37[0] = 0;
+        v37[1] = v37;
+        v37[2] = 0x3032000000;
+        v37[3] = sub_100006E80;
+        v37[4] = sub_100006E90;
+        v38 = [AXUIElement uiApplicationAtCoordinate:v29, v31];
         scrollHysteresisTimer = self->_scrollHysteresisTimer;
-        v34[0] = _NSConcreteStackBlock;
-        v34[1] = 3221225472;
-        v34[2] = sub_100006E98;
-        v34[3] = &unk_1001D34D8;
-        *&v34[6] = v27;
-        *&v34[7] = v29;
-        v34[4] = self;
-        v34[5] = v35;
-        [(AXDispatchTimer *)scrollHysteresisTimer afterDelay:v34 processBlock:0.025];
-        _Block_object_dispose(v35, 8);
+        v36[0] = _NSConcreteStackBlock;
+        v36[1] = 3221225472;
+        v36[2] = sub_100006E98;
+        v36[3] = &unk_1001D34D8;
+        *&v36[6] = v29;
+        *&v36[7] = v31;
+        v36[4] = self;
+        v36[5] = v37;
+        [(AXDispatchTimer *)scrollHysteresisTimer afterDelay:v36 processBlock:0.025];
+        _Block_object_dispose(v37, 8);
       }
     }
 
     else if (type == 3)
     {
       [eventCopy deltaX];
-      [eventCopy setDeltaX:v14 * self->_allowedMoveRate];
+      [eventCopy setDeltaX:v16 * self->_allowedMoveRate];
       [eventCopy deltaY];
-      [eventCopy setDeltaY:v15 * self->_allowedMoveRate];
+      [eventCopy setDeltaY:v17 * self->_allowedMoveRate];
       [eventCopy deltaX];
-      [eventCopy setDeltaX:v12 * v16];
+      [eventCopy setDeltaX:v14 * v18];
       [eventCopy deltaY];
-      [eventCopy setDeltaY:v12 * v17];
+      [eventCopy setDeltaY:v14 * v19];
       if ([(HNDDeviceManager *)self isTrackingInputActive])
       {
         handManager3 = [(HNDDeviceManager *)self handManager];
         [eventCopy deltaX];
-        v20 = v19;
+        v22 = v21;
         [eventCopy deltaY];
-        [handManager3 mouseEventRecordedWithDelta:{v20, v21}];
+        [handManager3 mouseEventRecordedWithDelta:{v22, v23}];
       }
 
       if ([eventCopy isVirtualTrackpadEvent])
@@ -733,9 +736,9 @@ LABEL_9:
       else
       {
         [eventCopy deltaX];
-        v32 = v31;
+        v34 = v33;
         [eventCopy deltaY];
-        [handManager moveFingerByDelta:{v32, v33}];
+        [handManager moveFingerByDelta:{v34, v35}];
       }
     }
   }
@@ -1478,12 +1481,12 @@ LABEL_17:
 
   handManager = [(HNDDeviceManager *)self handManager];
   mainDisplayManager = [handManager mainDisplayManager];
-  v82 = 0;
-  v83 = &v82;
-  v84 = 0x3010000000;
-  v85 = &unk_100179B77;
-  v86 = x;
-  v87 = y;
+  v84 = 0;
+  v85 = &v84;
+  v86 = 0x3010000000;
+  v87 = &unk_100179B77;
+  v88 = x;
+  v89 = y;
   v8 = self->_shouldSmoothPoints && !self->_shouldSmoothOnDeviceEyeTrackingPoints;
   motionTrackingQuitCurrentAppTimer = [(HNDDeviceManager *)self motionTrackingQuitCurrentAppTimer];
   [motionTrackingQuitCurrentAppTimer invalidate];
@@ -1491,16 +1494,16 @@ LABEL_17:
   if (v8)
   {
     v10 = +[AXAccessQueue mainAccessQueue];
-    v77[0] = _NSConcreteStackBlock;
-    v77[1] = 3221225472;
-    v77[2] = sub_1000093F0;
-    v77[3] = &unk_1001D35C8;
-    v77[4] = self;
-    v80 = x;
-    v81 = y;
-    v78 = handManager;
-    v79 = &v82;
-    [v10 performSynchronousWritingBlock:v77];
+    v79[0] = _NSConcreteStackBlock;
+    v79[1] = 3221225472;
+    v79[2] = sub_1000093F0;
+    v79[3] = &unk_1001D35C8;
+    v79[4] = self;
+    v82 = x;
+    v83 = y;
+    v80 = handManager;
+    v81 = &v84;
+    [v10 performSynchronousWritingBlock:v79];
   }
 
   v11 = AXDeviceSupportsOnDeviceEyeTracking();
@@ -1517,20 +1520,20 @@ LABEL_17:
       if (self->_shouldSmoothOnDeviceEyeTrackingPoints)
       {
         v15 = +[AXAccessQueue mainAccessQueue];
-        v76[0] = _NSConcreteStackBlock;
-        v76[1] = 3221225472;
-        v76[2] = sub_1000094D8;
-        v76[3] = &unk_1001D34D8;
-        *&v76[6] = x;
-        *&v76[7] = y;
-        v76[4] = self;
-        v76[5] = &v82;
-        [v15 performSynchronousWritingBlock:v76];
+        v78[0] = _NSConcreteStackBlock;
+        v78[1] = 3221225472;
+        v78[2] = sub_1000094D8;
+        v78[3] = &unk_1001D34D8;
+        *&v78[6] = x;
+        *&v78[7] = y;
+        v78[4] = self;
+        v78[5] = &v84;
+        [v15 performSynchronousWritingBlock:v78];
       }
 
       if ([mainDisplayManager isShowingCalibrationUI])
       {
-        self->_lastSeenLookAtPoint = v83[2];
+        self->_lastSeenLookAtPoint = v85[2];
       }
 
       shouldShowUncalibratedPoints = self->_shouldShowUncalibratedPoints;
@@ -1565,7 +1568,7 @@ LABEL_15:
         goto LABEL_15;
       }
 
-      [(ASTUIGazeEnrollmentManager *)self->_gazeEnrollmentManager calibratedGazePointForGazePoint:v83[2].x, v83[2].y];
+      [(ASTUIGazeEnrollmentManager *)self->_gazeEnrollmentManager calibratedGazePointForGazePoint:v85[2].x, v85[2].y];
       v14 = v17;
       v13 = v18;
     }
@@ -1573,12 +1576,13 @@ LABEL_15:
 
 LABEL_20:
   shouldIgnoreHIDDeviceMovementWhileMouseActive = [handManager shouldIgnoreHIDDeviceMovementWhileMouseActive];
-  if (shouldIgnoreHIDDeviceMovementWhileMouseActive & 1 | ((sub_100042C64() & 1) == 0) || (-[HNDDeviceManager handManager](self, "handManager"), v22 = objc_claimAutoreleasedReturnValue(), v23 = [v22 dwellControlPaused], v22, (v23 & 1) != 0))
+  v22 = shouldIgnoreHIDDeviceMovementWhileMouseActive;
+  if (shouldIgnoreHIDDeviceMovementWhileMouseActive & 1 | ((sub_100042C64(shouldIgnoreHIDDeviceMovementWhileMouseActive, v23) & 1) == 0) || (-[HNDDeviceManager handManager](self, "handManager"), v24 = objc_claimAutoreleasedReturnValue(), v25 = [v24 dwellControlPaused], v24, (v25 & 1) != 0))
   {
-    if ((shouldIgnoreHIDDeviceMovementWhileMouseActive & 1) == 0)
+    if ((v22 & 1) == 0)
     {
       [handManager setLastMoveWasMouse:0];
-      [handManager moveFingerToPoint:{v83[2].x, v83[2].y}];
+      [handManager moveFingerToPoint:{v85[2].x, v85[2].y}];
     }
   }
 
@@ -1599,12 +1603,12 @@ LABEL_20:
     }
 
     [mainDisplayManager convertPointToPortraitUpOrientation:?];
-    v27 = v26;
     v29 = v28;
+    v31 = v30;
 
     if (v14 == CGPointZero.x && v13 == v12)
     {
-      [mainDisplayManager convertPointToPortraitUpOrientation:{v83[2].x, v83[2].y}];
+      [mainDisplayManager convertPointToPortraitUpOrientation:{v85[2].x, v85[2].y}];
     }
 
     else
@@ -1612,83 +1616,83 @@ LABEL_20:
       [mainDisplayManager convertPointToPortraitUpOrientation:{v14, v13}];
     }
 
-    v32 = v30;
-    v33 = v31;
+    v34 = v32;
+    v35 = v33;
     if (AXDeviceSupportsOnDeviceEyeTracking())
     {
-      v34 = +[AXSettings sharedInstance];
-      onDeviceEyeTrackingEnabled = [v34 onDeviceEyeTrackingEnabled];
+      v36 = +[AXSettings sharedInstance];
+      onDeviceEyeTrackingEnabled = [v36 onDeviceEyeTrackingEnabled];
 
       if (onDeviceEyeTrackingEnabled)
       {
-        v75 = v27;
+        v77 = v29;
         currentDisplayManager = [handManager currentDisplayManager];
         [currentDisplayManager portraitUpScreenBounds];
-        v38 = v37;
         v40 = v39;
         v42 = v41;
         v44 = v43;
+        v46 = v45;
 
-        v88.origin.x = v38;
-        v88.origin.y = v40;
-        v88.size.width = v42;
-        v88.size.height = v44;
-        MinX = CGRectGetMinX(v88);
-        v89.origin.x = v38;
-        v89.origin.y = v40;
-        v89.size.width = v42;
-        v89.size.height = v44;
-        v46 = CGRectGetMaxX(v89) + -10.0;
-        if (v32 < v46)
+        v90.origin.x = v40;
+        v90.origin.y = v42;
+        v90.size.width = v44;
+        v90.size.height = v46;
+        MinX = CGRectGetMinX(v90);
+        v91.origin.x = v40;
+        v91.origin.y = v42;
+        v91.size.width = v44;
+        v91.size.height = v46;
+        v48 = CGRectGetMaxX(v91) + -10.0;
+        if (v34 < v48)
         {
-          v46 = v32;
+          v48 = v34;
         }
 
-        if (MinX + 10.0 >= v46)
+        if (MinX + 10.0 >= v48)
         {
-          v32 = MinX + 10.0;
-        }
-
-        else
-        {
-          v32 = v46;
-        }
-
-        v90.origin.x = v38;
-        v90.origin.y = v40;
-        v90.size.width = v42;
-        v90.size.height = v44;
-        MinY = CGRectGetMinY(v90);
-        v91.origin.x = v38;
-        v91.origin.y = v40;
-        v91.size.width = v42;
-        v91.size.height = v44;
-        v48 = CGRectGetMaxY(v91) + -10.0;
-        if (v33 < v48)
-        {
-          v48 = v33;
-        }
-
-        if (MinY + 10.0 >= v48)
-        {
-          v33 = MinY + 10.0;
+          v34 = MinX + 10.0;
         }
 
         else
         {
-          v33 = v48;
+          v34 = v48;
         }
 
-        v27 = v75;
+        v92.origin.x = v40;
+        v92.origin.y = v42;
+        v92.size.width = v44;
+        v92.size.height = v46;
+        MinY = CGRectGetMinY(v92);
+        v93.origin.x = v40;
+        v93.origin.y = v42;
+        v93.size.width = v44;
+        v93.size.height = v46;
+        v50 = CGRectGetMaxY(v93) + -10.0;
+        if (v35 < v50)
+        {
+          v50 = v35;
+        }
+
+        if (MinY + 10.0 >= v50)
+        {
+          v35 = MinY + 10.0;
+        }
+
+        else
+        {
+          v35 = v50;
+        }
+
+        v29 = v77;
       }
     }
 
-    [(HNDDeviceManager *)self convertPointToDeviceOrientation:v32, v33];
-    v50 = v49;
+    [(HNDDeviceManager *)self convertPointToDeviceOrientation:v34, v35];
     v52 = v51;
-    [(HNDDeviceManager *)self convertPointToDeviceOrientation:v27, v29];
     v54 = v53;
+    [(HNDDeviceManager *)self convertPointToDeviceOrientation:v29, v31];
     v56 = v55;
+    v58 = v57;
     handManager2 = [(HNDDeviceManager *)self handManager];
     mainDisplayManager3 = [handManager2 mainDisplayManager];
     isViewZoomed = [mainDisplayManager3 isViewZoomed];
@@ -1697,9 +1701,9 @@ LABEL_20:
     {
       handManager3 = [(HNDDeviceManager *)self handManager];
       mainDisplayManager4 = [handManager3 mainDisplayManager];
-      [mainDisplayManager4 zoomConvertToReplicatedViewFromTargetPoint:{v50, v52}];
-      v50 = v62;
-      v52 = v63;
+      [mainDisplayManager4 zoomConvertToReplicatedViewFromTargetPoint:{v52, v54}];
+      v52 = v64;
+      v54 = v65;
     }
 
     if ([(HNDDeviceManager *)self headTrackingEnabled])
@@ -1707,43 +1711,43 @@ LABEL_20:
       handManager4 = [(HNDDeviceManager *)self handManager];
       currentDisplayManager2 = [handManager4 currentDisplayManager];
       [currentDisplayManager2 portraitUpScreenBounds];
-      v67 = v66;
       v69 = v68;
+      v71 = v70;
 
       deviceOrientionIsLandscape = [(HNDDeviceManager *)self deviceOrientionIsLandscape];
       if (deviceOrientionIsLandscape)
       {
-        v71 = v69;
+        v73 = v71;
       }
 
       else
       {
-        v71 = v67;
+        v73 = v69;
       }
 
       if (deviceOrientionIsLandscape)
       {
-        v72 = v67;
+        v74 = v69;
       }
 
       else
       {
-        v72 = v69;
+        v74 = v71;
       }
 
-      v73 = v50 / v71;
-      v74 = v52 / v72;
-      [(HNDDeviceManager *)self _updateHeadTrackingPointsMovingWindowWithNormalizedPoint:v50 / v71, v52 / v72];
-      [HNDVirtualHIDMouse handleHeadTrackingMovementWithPoint:v73, v74];
+      v75 = v52 / v73;
+      v76 = v54 / v74;
+      [(HNDDeviceManager *)self _updateHeadTrackingPointsMovingWindowWithNormalizedPoint:v52 / v73, v54 / v74];
+      [HNDVirtualHIDMouse handleHeadTrackingMovementWithPoint:v75, v76];
     }
 
     else
     {
-      [HNDVirtualHIDMouse handleEyeTrackingMovementWithDelta:v50 - v54, v52 - v56];
+      [HNDVirtualHIDMouse handleEyeTrackingMovementWithDelta:v52 - v56, v54 - v58];
     }
   }
 
-  _Block_object_dispose(&v82, 8);
+  _Block_object_dispose(&v84, 8);
 }
 
 - (void)_updateHeadTrackingPointsMovingWindowWithNormalizedPoint:(CGPoint)point

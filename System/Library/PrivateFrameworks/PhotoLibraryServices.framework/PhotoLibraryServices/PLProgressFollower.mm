@@ -61,7 +61,7 @@
   [(PLProgressFollower *)&v5 dealloc];
 }
 
-uint64_t __32__PLProgressFollower_invalidate__block_invoke(uint64_t a1)
+void *__32__PLProgressFollower_invalidate__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) removeObserver:*(a1 + 32) forKeyPath:@"fractionCompleted" context:@"PLProgressFollowerFractionCompletedContext"];
   *(*(a1 + 32) + 16) = 1;

@@ -44,20 +44,20 @@
 
 - (FCPersistentDictionary)initWithFileURL:(id)l allowedClasses:(id)classes
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   lCopy = l;
   classesCopy = classes;
   if (!lCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "fileURL"];
+    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "fileURL"];
     *buf = 136315906;
-    v21 = "[FCPersistentDictionary initWithFileURL:allowedClasses:]";
-    v22 = 2080;
-    v23 = "FCFileCoordinatedDictionary.m";
-    v24 = 1024;
-    v25 = 143;
-    v26 = 2114;
-    v27 = v16;
+    v20 = "[FCPersistentDictionary initWithFileURL:allowedClasses:]";
+    v21 = 2080;
+    v22 = "FCFileCoordinatedDictionary.m";
+    v23 = 1024;
+    v24 = 143;
+    v25 = 2114;
+    v26 = v15;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (classesCopy)
@@ -73,37 +73,36 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "allowedClasses"];
+    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "allowedClasses"];
     *buf = 136315906;
-    v21 = "[FCPersistentDictionary initWithFileURL:allowedClasses:]";
-    v22 = 2080;
-    v23 = "FCFileCoordinatedDictionary.m";
-    v24 = 1024;
-    v25 = 144;
-    v26 = 2114;
-    v27 = v17;
+    v20 = "[FCPersistentDictionary initWithFileURL:allowedClasses:]";
+    v21 = 2080;
+    v22 = "FCFileCoordinatedDictionary.m";
+    v23 = 1024;
+    v24 = 144;
+    v25 = 2114;
+    v26 = v16;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
-  v18.receiver = self;
-  v18.super_class = FCPersistentDictionary;
-  v8 = [(FCPersistentDictionary *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = FCPersistentDictionary;
+  v8 = [(FCPersistentDictionary *)&v17 init];
   if (v8)
   {
     v9 = [lCopy copy];
     fileURL = v8->_fileURL;
     v8->_fileURL = v9;
 
-    v19[0] = objc_opt_class();
-    v19[1] = objc_opt_class();
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+    v18[0] = objc_opt_class();
+    v18[1] = objc_opt_class();
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
     v12 = [classesCopy setByAddingObjectsFromArray:v11];
     allowedClasses = v8->_allowedClasses;
     v8->_allowedClasses = v12;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

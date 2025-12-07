@@ -17,6 +17,7 @@
 - (void)_setupSectionInfoListWithCompletion:(id)completion;
 - (void)_spoolInitialSync;
 - (void)_storeSyncState:(unint64_t)state;
+- (void)_updateAllBBSectionsWithCompletion:(id)completion withProgress:(id)progress spoolToFile:(BOOL)file;
 - (void)clearSectionInfoSentCache;
 - (void)dealloc;
 - (void)handleAllSyncComplete;
@@ -27,6 +28,7 @@
 - (void)sectionInfoList:(id)list receivedRemoveSectionWithSectionID:(id)d transaction:(id)transaction;
 - (void)sectionInfoList:(id)list receivedUpdatedSectionInfoForSectionID:(id)d transaction:(id)transaction;
 - (void)sendAllSectionInfoWithSpool:(BOOL)spool completion:(id)completion;
+- (void)sendOverrideOnly:(id)only sectionID:(id)d spoolToFile:(BOOL)file;
 - (void)sendRemoveSectionWithSectionID:(id)d sent:(id)sent;
 - (void)sendSectionInfosWithSectionIDs:(id)ds completion:(id)completion spoolToFile:(BOOL)file;
 - (void)setNotificationsLevel:(unint64_t)level sectionID:(id)d mirror:(BOOL)mirror fromRemote:(BOOL)remote;
@@ -154,12 +156,12 @@ uint64_t __69__BLTSettingSync_initWithSectionConfiguration_queue_watchKitAppList
 
 void __69__BLTSettingSync_initWithSectionConfiguration_queue_watchKitAppList___block_invoke_4(uint64_t a1, void *a2, void *a3, char a4, void *a5, uint64_t a6)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v11 = a2;
   v12 = a3;
   v13 = a5;
   v14 = objc_autoreleasePoolPush();
-  v15 = blt_settings_log();
+  v15 = blt_settings_log(v14);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf) = 138412290;
@@ -169,27 +171,27 @@ void __69__BLTSettingSync_initWithSectionConfiguration_queue_watchKitAppList___b
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v30 = 0x2020000000;
-  v31 = 0;
+  v29 = 0x2020000000;
+  v30 = 0;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v17 = [WeakRetained connection];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __69__BLTSettingSync_initWithSectionConfiguration_queue_watchKitAppList___block_invoke_13;
-  v26[3] = &unk_278D32A20;
-  v27 = v12;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __69__BLTSettingSync_initWithSectionConfiguration_queue_watchKitAppList___block_invoke_13;
+  v25[3] = &unk_278D32A20;
+  v26 = v12;
   p_buf = &buf;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __69__BLTSettingSync_initWithSectionConfiguration_queue_watchKitAppList___block_invoke_3_16;
-  v21[3] = &unk_278D32A70;
-  v18 = v27;
-  v22 = v18;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __69__BLTSettingSync_initWithSectionConfiguration_queue_watchKitAppList___block_invoke_3_16;
+  v20[3] = &unk_278D32A70;
+  v18 = v26;
+  v21 = v18;
   v19 = v13;
-  v25 = a4;
-  v23 = v19;
-  v24 = &buf;
-  [v17 setSectionInfo:v11 withSent:v26 withAcknowledgement:v21 keypaths:0 spoolToFile:a6];
+  v24 = a4;
+  v22 = v19;
+  v23 = &buf;
+  [v17 setSectionInfo:v11 withSent:v25 withAcknowledgement:v20 keypaths:0 spoolToFile:a6];
 
   if (v19 && (a4 & 1) == 0)
   {
@@ -198,8 +200,6 @@ void __69__BLTSettingSync_initWithSectionConfiguration_queue_watchKitAppList___b
 
   _Block_object_dispose(&buf, 8);
   objc_autoreleasePoolPop(v14);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __69__BLTSettingSync_initWithSectionConfiguration_queue_watchKitAppList___block_invoke_13(uint64_t a1, char a2)
@@ -246,33 +246,33 @@ uint64_t __69__BLTSettingSync_initWithSectionConfiguration_queue_watchKitAppList
 
 void __69__BLTSettingSync_initWithSectionConfiguration_queue_watchKitAppList___block_invoke_5(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5, char a6, void *a7, char a8)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v15 = a2;
   v16 = a3;
   v17 = a5;
   v18 = a7;
   v19 = objc_autoreleasePoolPush();
-  v20 = blt_settings_log();
+  v20 = blt_settings_log(v19);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v30 = v16;
-    v31 = 2048;
-    v32 = a4;
+    v29 = v16;
+    v30 = 2048;
+    v31 = a4;
     _os_log_impl(&dword_241FB3000, v20, OS_LOG_TYPE_INFO, "Sending section icon for section %@, subtype %ld", buf, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v22 = [WeakRetained connection];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __69__BLTSettingSync_initWithSectionConfiguration_queue_watchKitAppList___block_invoke_20;
-  v26[3] = &unk_278D32AC0;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __69__BLTSettingSync_initWithSectionConfiguration_queue_watchKitAppList___block_invoke_20;
+  v25[3] = &unk_278D32AC0;
   v23 = v18;
-  v27 = v23;
-  v28 = a6;
-  LOBYTE(v25) = a8;
-  [v22 setSectionSubtypeParametersIcon:v15 forSectionID:v16 forSubtypeID:a4 withQueue:v17 withSent:0 withAcknowledgement:v26 spoolToFile:v25];
+  v26 = v23;
+  v27 = a6;
+  LOBYTE(v24) = a8;
+  [v22 setSectionSubtypeParametersIcon:v15 forSectionID:v16 forSubtypeID:a4 withQueue:v17 withSent:0 withAcknowledgement:v25 spoolToFile:v24];
 
   if (v23 && (a6 & 1) == 0)
   {
@@ -280,7 +280,6 @@ void __69__BLTSettingSync_initWithSectionConfiguration_queue_watchKitAppList___b
   }
 
   objc_autoreleasePoolPop(v19);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __69__BLTSettingSync_initWithSectionConfiguration_queue_watchKitAppList___block_invoke_20(uint64_t a1)
@@ -299,29 +298,27 @@ uint64_t __69__BLTSettingSync_initWithSectionConfiguration_queue_watchKitAppList
 
 void __69__BLTSettingSync_initWithSectionConfiguration_queue_watchKitAppList___block_invoke_2_22(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = blt_settings_log();
+  v7 = blt_settings_log(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v11 = 138412290;
-    v12 = v5;
-    _os_log_impl(&dword_241FB3000, v7, OS_LOG_TYPE_INFO, "Sending remove section %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v5;
+    _os_log_impl(&dword_241FB3000, v7, OS_LOG_TYPE_INFO, "Sending remove section %@", &v10, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v9 = [WeakRetained connection];
   [v9 removeSectionWithSectionID:v5 sent:v6];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_storeSyncState:(unint64_t)state
 {
   if (state == 1)
   {
-    v4 = blt_settings_log();
+    v4 = blt_settings_log(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v8) = 0;
@@ -337,7 +334,7 @@ LABEL_8:
 
   if (!state)
   {
-    v4 = blt_settings_log();
+    v4 = blt_settings_log(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 0;
@@ -372,7 +369,7 @@ LABEL_9:
   AppIntegerValue = CFPreferencesGetAppIntegerValue(@"BLTSettingSyncSendQueueMaxConcurrentSendCount", @"com.apple.bulletindistributor", &keyExistsAndHasValidFormat);
   if (!keyExistsAndHasValidFormat)
   {
-    goto LABEL_6;
+    return 2;
   }
 
   v3 = AppIntegerValue;
@@ -384,8 +381,8 @@ LABEL_9:
   [v7 doubleValue];
   v9 = v8;
 
-  v10 = blt_settings_log();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = blt_settings_log(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 134218496;
     v16 = v3;
@@ -393,42 +390,36 @@ LABEL_9:
     v18 = v9;
     v19 = 2048;
     v20 = v6;
-    _os_log_impl(&dword_241FB3000, v10, OS_LOG_TYPE_INFO, "Found override value: %ld timestamp: %f now: %f", buf, 0x20u);
+    _os_log_impl(&dword_241FB3000, v11, OS_LOG_TYPE_INFO, "Found override value: %ld timestamp: %f now: %f", buf, 0x20u);
   }
 
   if (v6 > v9 + 86400.0)
   {
     CFPreferencesSetAppValue(@"BLTSettingSyncSendQueueMaxConcurrentSendCount", 0, @"com.apple.bulletindistributor");
-LABEL_6:
-    result = 2;
-    goto LABEL_12;
+    return 2;
   }
 
-  v12 = 4;
+  v13 = 4;
   if (v3 < 4)
   {
-    v12 = v3;
+    v13 = v3;
   }
 
-  if (v12 <= 1)
+  if (v13 <= 1)
   {
-    result = 1;
+    return 1;
   }
 
   else
   {
-    result = v12;
+    return v13;
   }
-
-LABEL_12:
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (void)_initSettingSyncSendQueueMaxConcurrentSendCount
 {
   v13 = *MEMORY[0x277D85DE8];
-  v3 = blt_settings_log();
+  v3 = blt_settings_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     LOWORD(v11) = 0;
@@ -438,7 +429,7 @@ LABEL_12:
   self->_settingSyncSendQueueMaxConcurrentSendCount = 2;
   if ([(BLTSettingSync *)self _fetchSyncState]== 1)
   {
-    v4 = blt_settings_log();
+    v4 = blt_settings_log(1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       LOWORD(v11) = 0;
@@ -459,19 +450,18 @@ LABEL_12:
 
   else
   {
-    self->_settingSyncSendQueueMaxConcurrentSendCount = [(BLTSettingSync *)self _fetchSettingSyncMaxCountOverride];
+    _fetchSettingSyncMaxCountOverride = [(BLTSettingSync *)self _fetchSettingSyncMaxCountOverride];
+    self->_settingSyncSendQueueMaxConcurrentSendCount = _fetchSettingSyncMaxCountOverride;
   }
 
-  v8 = blt_settings_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = blt_settings_log(_fetchSettingSyncMaxCountOverride);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     settingSyncSendQueueMaxConcurrentSendCount = self->_settingSyncSendQueueMaxConcurrentSendCount;
     v11 = 134217984;
     v12 = settingSyncSendQueueMaxConcurrentSendCount;
-    _os_log_impl(&dword_241FB3000, v8, OS_LOG_TYPE_INFO, "Sync send queue max concurrent send count set to %lu", &v11, 0xCu);
+    _os_log_impl(&dword_241FB3000, v9, OS_LOG_TYPE_INFO, "Sync send queue max concurrent send count set to %lu", &v11, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupSectionInfoListWithCompletion:(id)completion
@@ -525,7 +515,7 @@ LABEL_8:
 {
   progressCopy = progress;
   completionCopy = completion;
-  v8 = blt_settings_log();
+  v8 = blt_settings_log(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -547,7 +537,7 @@ LABEL_8:
 
 void __60__BLTSettingSync_performInitialSyncWithProgress_completion___block_invoke(uint64_t a1)
 {
-  v2 = BLTWorkQueue();
+  v2 = BLTWorkQueue(a1);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __60__BLTSettingSync_performInitialSyncWithProgress_completion___block_invoke_2;
@@ -561,7 +551,7 @@ void __60__BLTSettingSync_performInitialSyncWithProgress_completion___block_invo
 
 void __60__BLTSettingSync_performInitialSyncWithProgress_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = blt_settings_log();
+  v2 = blt_settings_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -607,18 +597,16 @@ void __60__BLTSettingSync_performInitialSyncWithProgress_completion___block_invo
 
 uint64_t __60__BLTSettingSync_performInitialSyncWithProgress_completion___block_invoke_4(uint64_t a1, double a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v4 = blt_settings_log();
+  v8 = *MEMORY[0x277D85DE8];
+  v4 = blt_settings_log(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
-    v8 = a2;
-    _os_log_impl(&dword_241FB3000, v4, OS_LOG_TYPE_DEFAULT, "Setting sync completion: %f", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = a2;
+    _os_log_impl(&dword_241FB3000, v4, OS_LOG_TYPE_DEFAULT, "Setting sync completion: %f", &v6, 0xCu);
   }
 
-  result = (*(*(a1 + 32) + 16))(a2);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))(a2);
 }
 
 - (unint64_t)performSyncIfNeededForSectionID:(id)d gizmoSectionInfo:(id)info completion:(id)completion
@@ -651,32 +639,32 @@ uint64_t __60__BLTSettingSync_performInitialSyncWithProgress_completion___block_
 
 void __78__BLTSettingSync_performSyncIfNeededForSectionID_gizmoSectionInfo_completion___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 0;
+  v33 = *MEMORY[0x277D85DE8];
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
   v2 = [*(a1 + 32) mappedSectionID];
   v3 = v2 == 0;
 
   if (v3)
   {
-    v19 = *(a1 + 40);
-    v4 = *(v19 + 104);
+    v18 = *(a1 + 40);
+    v4 = *(v18 + 104);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __78__BLTSettingSync_performSyncIfNeededForSectionID_gizmoSectionInfo_completion___block_invoke_2;
     block[3] = &unk_278D32B88;
-    v5 = *(&v19 + 1);
+    v5 = *(&v18 + 1);
     *&v6 = *(a1 + 56);
     *(&v6 + 1) = *(a1 + 64);
-    v24 = v19;
-    v25 = v6;
-    v26 = &v27;
+    v23 = v18;
+    v24 = v6;
+    v25 = &v26;
     dispatch_sync(v4, block);
   }
 
-  if ((v28[3] & 1) == 0)
+  if ((v27[3] & 1) == 0)
   {
     [*(*(a1 + 40) + 72) mapSection:*(a1 + 48) map:*(a1 + 32)];
     v7 = [*(a1 + 32) mappedSectionID];
@@ -703,18 +691,18 @@ void __78__BLTSettingSync_performSyncIfNeededForSectionID_gizmoSectionInfo_compl
         goto LABEL_18;
       }
 
-      v31 = v9;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:{1, v19}];
+      v30 = v9;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:{1, v18}];
       [v11 sendSectionInfosWithSectionIDs:v17 completion:*(a1 + 56) spoolToFile:0];
     }
 
     else
     {
-      v13 = blt_settings_log();
+      v13 = blt_settings_log(0);
       if (os_log_type_enabled(v13, 0x90u))
       {
         *buf = 138412290;
-        v33 = v9;
+        v32 = v9;
         _os_log_impl(&dword_241FB3000, v13, 0x90u, "Section needs sync but doesn't exist in BB: %@", buf, 0xCu);
       }
 
@@ -727,22 +715,21 @@ void __78__BLTSettingSync_performSyncIfNeededForSectionID_gizmoSectionInfo_compl
 
       v15 = *(a1 + 40);
       v16 = *(v15 + 72);
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __78__BLTSettingSync_performSyncIfNeededForSectionID_gizmoSectionInfo_completion___block_invoke_46;
-      v20[3] = &unk_278D32BB0;
-      v20[4] = v15;
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __78__BLTSettingSync_performSyncIfNeededForSectionID_gizmoSectionInfo_completion___block_invoke_46;
+      v19[3] = &unk_278D32BB0;
+      v19[4] = v15;
       v17 = v14;
-      v22 = v17;
-      v21 = v9;
-      [v16 reloadBBSection:v21 completion:v20];
+      v21 = v17;
+      v20 = v9;
+      [v16 reloadBBSection:v20 completion:v19];
     }
 
 LABEL_18:
   }
 
-  _Block_object_dispose(&v27, 8);
-  v18 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v26, 8);
 }
 
 void __78__BLTSettingSync_performSyncIfNeededForSectionID_gizmoSectionInfo_completion___block_invoke_2(void *a1)
@@ -751,7 +738,7 @@ void __78__BLTSettingSync_performSyncIfNeededForSectionID_gizmoSectionInfo_compl
   if (v1)
   {
     v3 = a1[5];
-    v4 = BLTWorkQueue();
+    v4 = BLTWorkQueue(a1);
     v5 = [v1 performSyncForSectionID:v3 queue:v4 completion:a1[6]];
 
     if (v5 == 1)
@@ -776,11 +763,11 @@ LABEL_7:
   }
 }
 
-uint64_t __78__BLTSettingSync_performSyncIfNeededForSectionID_gizmoSectionInfo_completion___block_invoke_46(uint64_t result, char a2)
+id *__78__BLTSettingSync_performSyncIfNeededForSectionID_gizmoSectionInfo_completion___block_invoke_46(id *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
-    return [*(result + 32) _callAndRemoveReloadBBCompletion:*(result + 48) sectionID:*(result + 40)];
+    return [result[4] _callAndRemoveReloadBBCompletion:result[6] sectionID:result[5]];
   }
 
   return result;
@@ -804,7 +791,7 @@ uint64_t __78__BLTSettingSync_performSyncIfNeededForSectionID_gizmoSectionInfo_c
 
 void __35__BLTSettingSync__spoolInitialSync__block_invoke(uint64_t a1)
 {
-  v2 = BLTWorkQueue();
+  v2 = BLTWorkQueue(a1);
   v4[0] = MEMORY[0x277D85DD0];
   v4[1] = 3221225472;
   v4[2] = __35__BLTSettingSync__spoolInitialSync__block_invoke_2;
@@ -817,7 +804,7 @@ void __35__BLTSettingSync__spoolInitialSync__block_invoke(uint64_t a1)
 
 void __35__BLTSettingSync__spoolInitialSync__block_invoke_2(uint64_t a1)
 {
-  v2 = blt_settings_log();
+  v2 = blt_settings_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -837,7 +824,7 @@ void __35__BLTSettingSync__spoolInitialSync__block_invoke_2(uint64_t a1)
 {
   completionCopy = completion;
   progressCopy = progress;
-  v8 = blt_settings_log();
+  v8 = blt_settings_log(progressCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -931,10 +918,10 @@ uint64_t __62__BLTSettingSync__sendSpooledSyncWithCompletion_withProgress___bloc
 
 - (void)_sendSyncSupportedAppListWithInstalled:(id)installed removed:(id)removed
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   installedCopy = installed;
   removedCopy = removed;
-  v8 = BLTWorkQueue();
+  v8 = BLTWorkQueue(removedCopy);
   dispatch_assert_queue_V2(v8);
 
   allKeys = [installedCopy allKeys];
@@ -944,111 +931,108 @@ uint64_t __62__BLTSettingSync__sendSpooledSyncWithCompletion_withProgress___bloc
     v11 = v10;
     v12 = [MEMORY[0x277CBEB58] set];
     settingSendQueue = self->_settingSendQueue;
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __65__BLTSettingSync__sendSyncSupportedAppListWithInstalled_removed___block_invoke;
-    v49[3] = &unk_278D32C28;
-    v50 = allKeys;
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __65__BLTSettingSync__sendSyncSupportedAppListWithInstalled_removed___block_invoke;
+    v50[3] = &unk_278D32C28;
+    v51 = allKeys;
     selfCopy = self;
-    v52 = installedCopy;
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __65__BLTSettingSync__sendSyncSupportedAppListWithInstalled_removed___block_invoke_57;
-    v46[3] = &unk_278D32C50;
-    v47 = v50;
-    v48 = v12;
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __65__BLTSettingSync__sendSyncSupportedAppListWithInstalled_removed___block_invoke_2;
-    v44[3] = &unk_278D31400;
-    v44[4] = self;
-    v45 = v48;
-    v14 = v48;
-    [(BLTSettingSyncSendQueue *)settingSendQueue sendEffectiveSectionInfosUsingProvider:v49 count:v11 sectionInfoSendCompleted:v46 completion:v44 progress:&__block_literal_global_61 spoolToFile:0];
+    v53 = installedCopy;
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = __65__BLTSettingSync__sendSyncSupportedAppListWithInstalled_removed___block_invoke_57;
+    v47[3] = &unk_278D32C50;
+    v48 = v51;
+    v49 = v12;
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __65__BLTSettingSync__sendSyncSupportedAppListWithInstalled_removed___block_invoke_2;
+    v45[3] = &unk_278D31400;
+    v45[4] = self;
+    v46 = v49;
+    v14 = v49;
+    [(BLTSettingSyncSendQueue *)settingSendQueue sendEffectiveSectionInfosUsingProvider:v50 count:v11 sectionInfoSendCompleted:v47 completion:v45 progress:&__block_literal_global_61 spoolToFile:0];
   }
 
   if ([removedCopy count])
   {
-    v32 = allKeys;
-    v34 = installedCopy;
+    v33 = allKeys;
+    v35 = installedCopy;
     v15 = dispatch_group_create();
     v16 = [removedCopy mutableCopy];
-    v33 = removedCopy;
+    v34 = removedCopy;
     allObjects = [removedCopy allObjects];
     selfCopy2 = self;
     v19 = [(BLTSettingSync *)self _filteredAlertingSectionIDs:allObjects];
 
-    [v16 minusSet:v19];
-    v20 = blt_general_log();
+    v20 = blt_general_log([v16 minusSet:v19]);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v55 = v19;
+      v56 = v19;
       _os_log_impl(&dword_241FB3000, v20, OS_LOG_TYPE_DEFAULT, "Sync supported apps removed but because bundle IDs still alert for notifications, not sending setting/icon removals for %@", buf, 0xCu);
     }
 
-    v31 = v19;
+    v32 = v19;
 
-    v42 = 0u;
     v43 = 0u;
-    v40 = 0u;
+    v44 = 0u;
     v41 = 0u;
+    v42 = 0u;
     obj = v16;
-    v21 = [obj countByEnumeratingWithState:&v40 objects:v53 count:16];
+    v21 = [obj countByEnumeratingWithState:&v41 objects:v54 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v41;
+      v23 = *v42;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v41 != v23)
+          if (*v42 != v23)
           {
             objc_enumerationMutation(obj);
           }
 
-          v25 = *(*(&v40 + 1) + 8 * i);
+          v25 = *(*(&v41 + 1) + 8 * i);
           dispatch_group_enter(v15);
-          v26 = blt_general_log();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+          v27 = blt_general_log(v26);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v55 = v25;
-            _os_log_impl(&dword_241FB3000, v26, OS_LOG_TYPE_DEFAULT, "Removing sync supported app %@", buf, 0xCu);
+            v56 = v25;
+            _os_log_impl(&dword_241FB3000, v27, OS_LOG_TYPE_DEFAULT, "Removing sync supported app %@", buf, 0xCu);
           }
 
-          v27 = selfCopy2->_settingSendQueue;
-          v38[0] = MEMORY[0x277D85DD0];
-          v38[1] = 3221225472;
-          v38[2] = __65__BLTSettingSync__sendSyncSupportedAppListWithInstalled_removed___block_invoke_62;
-          v38[3] = &unk_278D32C78;
-          v39 = v15;
-          [(BLTSettingSyncSendQueue *)v27 sendRemoveSectionWithSectionID:v25 sent:v38, v31];
+          v28 = selfCopy2->_settingSendQueue;
+          v39[0] = MEMORY[0x277D85DD0];
+          v39[1] = 3221225472;
+          v39[2] = __65__BLTSettingSync__sendSyncSupportedAppListWithInstalled_removed___block_invoke_62;
+          v39[3] = &unk_278D32C78;
+          v40 = v15;
+          [(BLTSettingSyncSendQueue *)v28 sendRemoveSectionWithSectionID:v25 sent:v39, v32];
         }
 
-        v22 = [obj countByEnumeratingWithState:&v40 objects:v53 count:16];
+        v22 = [obj countByEnumeratingWithState:&v41 objects:v54 count:16];
       }
 
       while (v22);
     }
 
-    v28 = BLTWorkQueue();
+    v30 = BLTWorkQueue(v29);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __65__BLTSettingSync__sendSyncSupportedAppListWithInstalled_removed___block_invoke_2_63;
     block[3] = &unk_278D31400;
     block[4] = selfCopy2;
-    v37 = obj;
-    v29 = obj;
-    dispatch_group_notify(v15, v28, block);
+    v38 = obj;
+    v31 = obj;
+    dispatch_group_notify(v15, v30, block);
 
-    removedCopy = v33;
-    installedCopy = v34;
-    allKeys = v32;
+    removedCopy = v34;
+    installedCopy = v35;
+    allKeys = v33;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 BLTPBSectionInfo *__65__BLTSettingSync__sendSyncSupportedAppListWithInstalled_removed___block_invoke(uint64_t a1, uint64_t a2)
@@ -1056,7 +1040,7 @@ BLTPBSectionInfo *__65__BLTSettingSync__sendSyncSupportedAppListWithInstalled_re
   v16 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 32) objectAtIndexedSubscript:a2];
   v4 = [*(*(a1 + 40) + 72) effectiveSectionInfoForSectionID:v3];
-  v5 = blt_general_log();
+  v5 = blt_general_log(v4);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
   if (v4)
   {
@@ -1088,18 +1072,16 @@ BLTPBSectionInfo *__65__BLTSettingSync__sendSyncSupportedAppListWithInstalled_re
     [(BLTPBSectionInfo *)v4 setIcon:v5];
   }
 
-  v8 = blt_general_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = blt_general_log(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v9 = [(BLTPBSectionInfo *)v4 icon];
-    v10 = [v9 variants];
-    v11 = [v10 count];
+    v10 = [(BLTPBSectionInfo *)v4 icon];
+    v11 = [v10 variants];
+    v12 = [v11 count];
     v14 = 134217984;
-    v15 = v11;
-    _os_log_impl(&dword_241FB3000, v8, OS_LOG_TYPE_INFO, "Section info contains %lu icons", &v14, 0xCu);
+    v15 = v12;
+    _os_log_impl(&dword_241FB3000, v9, OS_LOG_TYPE_INFO, "Section info contains %lu icons", &v14, 0xCu);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1130,8 +1112,8 @@ void __65__BLTSettingSync__sendSyncSupportedAppListWithInstalled_removed___block
 
 - (void)handleAllSyncComplete
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v3 = BLTWorkQueue();
+  v13 = *MEMORY[0x277D85DE8];
+  v3 = BLTWorkQueue(self);
   dispatch_assert_queue_V2(v3);
 
   if ([MEMORY[0x277D2BCC8] activePairedDeviceSupportsSiriActionAppList])
@@ -1143,25 +1125,23 @@ void __65__BLTSettingSync__sendSyncSupportedAppListWithInstalled_removed___block
     [(BLTSyncSupportedAppList *)self->_syncSupportedAppList setDelegate:self];
     installed = [(BLTSyncSupportedAppList *)self->_syncSupportedAppList installed];
     removed = [(BLTSyncSupportedAppList *)self->_syncSupportedAppList removed];
-    v8 = blt_general_log();
+    v8 = blt_general_log(removed);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 134218240;
-      v11 = [installed count];
-      v12 = 2048;
-      v13 = [removed count];
-      _os_log_impl(&dword_241FB3000, v8, OS_LOG_TYPE_DEFAULT, "Sending sync supported app action list of %lu apps and removed %lu apps", &v10, 0x16u);
+      v9 = 134218240;
+      v10 = [installed count];
+      v11 = 2048;
+      v12 = [removed count];
+      _os_log_impl(&dword_241FB3000, v8, OS_LOG_TYPE_DEFAULT, "Sending sync supported app action list of %lu apps and removed %lu apps", &v9, 0x16u);
     }
 
     [(BLTSettingSync *)self _sendSyncSupportedAppListWithInstalled:installed removed:removed];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncSupportedAppListUpdated:(id)updated
 {
-  v4 = BLTWorkQueue();
+  v4 = BLTWorkQueue(self);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __46__BLTSettingSync_syncSupportedAppListUpdated___block_invoke;
@@ -1175,22 +1155,21 @@ void __46__BLTSettingSync_syncSupportedAppListUpdated___block_invoke(uint64_t a1
   v10 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 136) installed];
   v3 = [*(*(a1 + 32) + 136) removed];
-  if ([v2 count] || objc_msgSend(v3, "count"))
+  v4 = [v2 count];
+  if (v4 || (v4 = [v3 count]) != 0)
   {
-    v4 = blt_general_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = blt_general_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = 134218240;
       v7 = [v2 count];
       v8 = 2048;
       v9 = [v3 count];
-      _os_log_impl(&dword_241FB3000, v4, OS_LOG_TYPE_DEFAULT, "Sending updated sync supported app action list of %lu apps and removed %lu apps", &v6, 0x16u);
+      _os_log_impl(&dword_241FB3000, v5, OS_LOG_TYPE_DEFAULT, "Sending updated sync supported app action list of %lu apps and removed %lu apps", &v6, 0x16u);
     }
 
     [*(a1 + 32) _sendSyncSupportedAppListWithInstalled:v2 removed:v3];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -1264,11 +1243,87 @@ void __46__BLTSettingSync__filteredAlertingSectionIDs___block_invoke(uint64_t a1
   }
 }
 
+- (void)_updateAllBBSectionsWithCompletion:(id)completion withProgress:(id)progress spoolToFile:(BOOL)file
+{
+  fileCopy = file;
+  completionCopy = completion;
+  progressCopy = progress;
+  v10 = BLTWorkQueue(progressCopy);
+  dispatch_assert_queue_V2(v10);
+
+  sectionIDs = [(BLTSectionInfoList *)self->_sectionInfoList sectionIDs];
+  v12 = [(BLTSettingSync *)self _filteredAlertingSectionIDs:sectionIDs];
+
+  sectionInfoSyncCoordinatorQueue = self->_sectionInfoSyncCoordinatorQueue;
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __78__BLTSettingSync__updateAllBBSectionsWithCompletion_withProgress_spoolToFile___block_invoke;
+  block[3] = &unk_278D31400;
+  block[4] = self;
+  v14 = v12;
+  v32 = v14;
+  dispatch_sync(sectionInfoSyncCoordinatorQueue, block);
+  [(BLTSettingSync *)self _storeSyncState:1];
+  objc_initWeak(&location, self);
+  settingSendQueue = self->_settingSendQueue;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __78__BLTSettingSync__updateAllBBSectionsWithCompletion_withProgress_spoolToFile___block_invoke_2;
+  v29[3] = &unk_278D32D18;
+  v29[4] = self;
+  v16 = [v14 count];
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __78__BLTSettingSync__updateAllBBSectionsWithCompletion_withProgress_spoolToFile___block_invoke_2_72;
+  v28[3] = &unk_278D32D40;
+  v28[4] = self;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __78__BLTSettingSync__updateAllBBSectionsWithCompletion_withProgress_spoolToFile___block_invoke_4;
+  v25[3] = &unk_278D32D68;
+  objc_copyWeak(&v27, &location);
+  v25[4] = self;
+  v17 = completionCopy;
+  v26 = v17;
+  if (progressCopy)
+  {
+    v18 = v23;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __78__BLTSettingSync__updateAllBBSectionsWithCompletion_withProgress_spoolToFile___block_invoke_6;
+    v23[3] = &unk_278D32B38;
+    v20 = &v24;
+    v24 = progressCopy;
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  [(BLTSettingSyncSendQueue *)settingSendQueue sendEffectiveSectionInfosUsingProvider:v29 count:v16 sectionInfoSendCompleted:v28 completion:v25 progress:v18 spoolToFile:fileCopy];
+  sectionOverridesOnly = [(BLTSectionInfoList *)self->_sectionInfoList sectionOverridesOnly];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __78__BLTSettingSync__updateAllBBSectionsWithCompletion_withProgress_spoolToFile___block_invoke_7;
+  v21[3] = &unk_278D32D90;
+  v21[4] = self;
+  v22 = fileCopy;
+  [sectionOverridesOnly enumerateKeysAndObjectsUsingBlock:v21];
+
+  if (progressCopy)
+  {
+  }
+
+  objc_destroyWeak(&v27);
+  objc_destroyWeak(&location);
+}
+
 void __78__BLTSettingSync__updateAllBBSectionsWithCompletion_withProgress_spoolToFile___block_invoke(uint64_t a1)
 {
   if (*(*(a1 + 32) + 96))
   {
-    v1 = blt_settings_log();
+    v1 = blt_settings_log(a1);
     if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       __78__BLTSettingSync__updateAllBBSectionsWithCompletion_withProgress_spoolToFile___block_invoke_cold_1(v1);
@@ -1364,11 +1419,53 @@ void __78__BLTSettingSync__updateAllBBSectionsWithCompletion_withProgress_spoolT
   *(v1 + 96) = 0;
 }
 
+- (void)sendOverrideOnly:(id)only sectionID:(id)d spoolToFile:(BOOL)file
+{
+  fileCopy = file;
+  onlyCopy = only;
+  dCopy = d;
+  level = [onlyCopy level];
+
+  if (level)
+  {
+    connection = [(BLTSettingSyncInternal *)self connection];
+    level2 = [onlyCopy level];
+    [connection setNotificationsLevel:BLTPBSetNotificationsAlertLevelToBLTSettingSyncingNotificationsLevel(objc_msgSend(level2 sectionID:"intValue")) mirror:dCopy spoolToFile:{0, fileCopy}];
+  }
+
+  grouping = [onlyCopy grouping];
+
+  if (grouping)
+  {
+    connection2 = [(BLTSettingSyncInternal *)self connection];
+    grouping2 = [onlyCopy grouping];
+    [connection2 setNotificationsGrouping:objc_msgSend(grouping2 sectionID:"intValue") spoolToFile:{dCopy, fileCopy}];
+  }
+
+  sound = [onlyCopy sound];
+
+  if (sound)
+  {
+    connection3 = [(BLTSettingSyncInternal *)self connection];
+    sound2 = [onlyCopy sound];
+    [connection3 setNotificationsSoundEnabled:objc_msgSend(sound2 sectionID:{"intValue"), dCopy}];
+  }
+
+  criticalAlert = [onlyCopy criticalAlert];
+
+  if (criticalAlert)
+  {
+    connection4 = [(BLTSettingSyncInternal *)self connection];
+    criticalAlert2 = [onlyCopy criticalAlert];
+    [connection4 setNotificationsCriticalAlertEnabled:objc_msgSend(criticalAlert2 sectionID:{"intValue"), dCopy}];
+  }
+}
+
 - (void)sendSectionInfosWithSectionIDs:(id)ds completion:(id)completion spoolToFile:(BOOL)file
 {
   dsCopy = ds;
   completionCopy = completion;
-  v10 = BLTWorkQueue();
+  v10 = BLTWorkQueue(completionCopy);
   v13[0] = MEMORY[0x277D85DD0];
   v13[1] = 3221225472;
   v13[2] = __72__BLTSettingSync_sendSectionInfosWithSectionIDs_completion_spoolToFile___block_invoke;
@@ -1384,47 +1481,47 @@ void __78__BLTSettingSync__updateAllBBSectionsWithCompletion_withProgress_spoolT
 
 void __72__BLTSettingSync_sendSectionInfosWithSectionIDs_completion_spoolToFile___block_invoke(uint64_t a1)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _filteredAlertingSectionIDs:*(a1 + 40)];
   v3 = [MEMORY[0x277CBEB58] setWithArray:*(a1 + 40)];
   [v3 minusSet:v2];
   v4 = [v2 count];
-  v41 = v3;
-  v42 = v2;
-  v40 = v4;
+  v40 = v3;
+  v41 = v2;
+  v39 = v4;
   if (v4)
   {
     v5 = [v2 allObjects];
-    v6 = blt_settings_log();
+    v6 = blt_settings_log(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v56 = v5;
+      v55 = v5;
       _os_log_impl(&dword_241FB3000, v6, OS_LOG_TYPE_DEFAULT, "Sending single section infos %@", buf, 0xCu);
     }
 
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v49 objects:v54 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v48 objects:v53 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v50;
+      v10 = *v49;
       v11 = 0x27EC7C000uLL;
       v12 = 0x27EC7C000uLL;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v50 != v10)
+          if (*v49 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v14 = *(*(&v49 + 1) + 8 * i);
+          v14 = *(*(&v48 + 1) + 8 * i);
           v15 = [*(*(a1 + 32) + *(v11 + 3196)) watchKitAppDefinitionWithBundleID:v14];
           v16 = v15;
           if (v15)
@@ -1454,7 +1551,7 @@ void __72__BLTSettingSync_sendSectionInfosWithSectionIDs_completion_spoolToFile_
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v49 objects:v54 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v48 objects:v53 count:16];
       }
 
       while (v9);
@@ -1462,53 +1559,53 @@ void __72__BLTSettingSync_sendSectionInfosWithSectionIDs_completion_spoolToFile_
 
     v24 = *(a1 + 32);
     v25 = *(v24 + 80);
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __72__BLTSettingSync_sendSectionInfosWithSectionIDs_completion_spoolToFile___block_invoke_74;
-    v47[3] = &unk_278D32DB8;
-    v47[4] = v24;
-    v48 = v7;
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __72__BLTSettingSync_sendSectionInfosWithSectionIDs_completion_spoolToFile___block_invoke_74;
+    v46[3] = &unk_278D32DB8;
+    v46[4] = v24;
+    v47 = v7;
     v26 = *(a1 + 48);
     v27 = *(a1 + 56);
     v28 = v7;
-    v4 = v40;
-    [v25 sendEffectiveSectionInfosUsingProvider:v47 count:v40 sectionInfoSendCompleted:0 completion:v26 progress:0 spoolToFile:v27];
+    v4 = v39;
+    [v25 sendEffectiveSectionInfosUsingProvider:v46 count:v39 sectionInfoSendCompleted:0 completion:v26 progress:0 spoolToFile:v27];
 
-    v3 = v41;
-    v2 = v42;
+    v3 = v40;
+    v2 = v41;
   }
 
   if ([v3 count])
   {
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     v29 = v3;
-    v30 = [v29 countByEnumeratingWithState:&v43 objects:v53 count:16];
+    v30 = [v29 countByEnumeratingWithState:&v42 objects:v52 count:16];
     if (v30)
     {
       v31 = v30;
-      v32 = *v44;
+      v32 = *v43;
       do
       {
         for (j = 0; j != v31; ++j)
         {
-          if (*v44 != v32)
+          if (*v43 != v32)
           {
             objc_enumerationMutation(v29);
           }
 
-          v34 = *(*(&v43 + 1) + 8 * j);
+          v34 = *(*(&v42 + 1) + 8 * j);
           v35 = [*(*(a1 + 32) + 72) sectionOverrideOnlyForSectionID:v34];
-          v36 = blt_settings_log();
+          v36 = blt_settings_log(v35);
           v37 = os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT);
           if (v35)
           {
             if (v37)
             {
               *buf = 138412290;
-              v56 = v34;
+              v55 = v34;
               _os_log_impl(&dword_241FB3000, v36, OS_LOG_TYPE_DEFAULT, "Sending single section settings override for %@", buf, 0xCu);
             }
 
@@ -1520,21 +1617,21 @@ void __72__BLTSettingSync_sendSectionInfosWithSectionIDs_completion_spoolToFile_
             if (v37)
             {
               *buf = 138412290;
-              v56 = v34;
+              v55 = v34;
               _os_log_impl(&dword_241FB3000, v36, OS_LOG_TYPE_DEFAULT, "Not sending settings for %@ as it has no override and is not alerting", buf, 0xCu);
             }
           }
         }
 
-        v31 = [v29 countByEnumeratingWithState:&v43 objects:v53 count:16];
+        v31 = [v29 countByEnumeratingWithState:&v42 objects:v52 count:16];
       }
 
       while (v31);
     }
 
-    v3 = v41;
-    v2 = v42;
-    v4 = v40;
+    v3 = v40;
+    v2 = v41;
+    v4 = v39;
   }
 
   if (!v4)
@@ -1545,8 +1642,6 @@ void __72__BLTSettingSync_sendSectionInfosWithSectionIDs_completion_spoolToFile_
       (*(v38 + 16))();
     }
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 id __72__BLTSettingSync_sendSectionInfosWithSectionIDs_completion_spoolToFile___block_invoke_74(uint64_t a1, uint64_t a2)
@@ -1562,7 +1657,7 @@ id __72__BLTSettingSync_sendSectionInfosWithSectionIDs_completion_spoolToFile___
 {
   dCopy = d;
   sentCopy = sent;
-  v8 = BLTWorkQueue();
+  v8 = BLTWorkQueue(sentCopy);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __54__BLTSettingSync_sendRemoveSectionWithSectionID_sent___block_invoke;
@@ -1650,20 +1745,20 @@ uint64_t __57__BLTSettingSync_sendAllSectionInfoWithSpool_completion___block_inv
 
 - (void)setSectionInfo:(id)info keypaths:(id)keypaths completion:(id)completion
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   keypathsCopy = keypaths;
   completionCopy = completion;
-  v11 = blt_settings_log();
+  v11 = blt_settings_log(completionCopy);
   v12 = v11;
   if (infoCopy)
   {
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v38 = infoCopy;
-      v39 = 2112;
-      v40 = keypathsCopy;
+      v39 = infoCopy;
+      v40 = 2112;
+      v41 = keypathsCopy;
       _os_log_impl(&dword_241FB3000, v12, OS_LOG_TYPE_DEFAULT, "setSectionInfo: %@ keypaths: %@", buf, 0x16u);
     }
 
@@ -1682,48 +1777,48 @@ uint64_t __57__BLTSettingSync_sendAllSectionInfoWithSpool_completion___block_inv
 
     v18 = objc_alloc(MEMORY[0x277CC1E70]);
     sectionID2 = [v13 sectionID];
-    v36 = 0;
-    v20 = [v18 initWithBundleIdentifier:sectionID2 allowPlaceholder:0 error:&v36];
-    v21 = v36;
+    v37 = 0;
+    v20 = [v18 initWithBundleIdentifier:sectionID2 allowPlaceholder:0 error:&v37];
+    v21 = v37;
 
     if (v21)
     {
-      v22 = blt_settings_log();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v23 = blt_settings_log(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        [BLTSettingSync setSectionInfo:infoCopy keypaths:v21 completion:v22];
+        [BLTSettingSync setSectionInfo:infoCopy keypaths:v21 completion:v23];
       }
     }
 
     if (v20)
     {
-      v23 = blt_settings_log();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v24 = blt_settings_log(v22);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v38 = infoCopy;
-        v39 = 2112;
-        v40 = v20;
-        _os_log_impl(&dword_241FB3000, v23, OS_LOG_TYPE_DEFAULT, "setSectionInfo: %@ record: %@", buf, 0x16u);
+        v39 = infoCopy;
+        v40 = 2112;
+        v41 = v20;
+        _os_log_impl(&dword_241FB3000, v24, OS_LOG_TYPE_DEFAULT, "setSectionInfo: %@ record: %@", buf, 0x16u);
       }
 
-      v24 = [v13 copy];
+      v25 = [v13 copy];
       displayName = [v16 displayName];
 
       if (displayName)
       {
         displayName2 = [v16 displayName];
-        [v24 setDisplayName:displayName2];
+        [v25 setDisplayName:displayName2];
       }
 
       settingsGateway2 = [(BLTSettingSyncInternal *)self settingsGateway];
-      sectionID3 = [v24 sectionID];
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __53__BLTSettingSync_setSectionInfo_keypaths_completion___block_invoke;
-      v34[3] = &unk_278D314F0;
-      v35 = completionCopy;
-      [settingsGateway2 setSectionInfo:v24 forSectionID:sectionID3 withCompletion:v34];
+      sectionID3 = [v25 sectionID];
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __53__BLTSettingSync_setSectionInfo_keypaths_completion___block_invoke;
+      v35[3] = &unk_278D314F0;
+      v36 = completionCopy;
+      [settingsGateway2 setSectionInfo:v25 forSectionID:sectionID3 withCompletion:v35];
     }
 
     else
@@ -1735,13 +1830,13 @@ uint64_t __57__BLTSettingSync_sendAllSectionInfoWithSpool_completion___block_inv
         watchSectionID2 = [infoCopy watchSectionID];
         [v13 setSectionID:watchSectionID2];
 
-        v31 = blt_settings_log();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+        v33 = blt_settings_log(v32);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
         {
           watchSectionID3 = [infoCopy watchSectionID];
           *buf = 138412290;
-          v38 = watchSectionID3;
-          _os_log_impl(&dword_241FB3000, v31, OS_LOG_TYPE_INFO, "Setting custom settings for watch app %@", buf, 0xCu);
+          v39 = watchSectionID3;
+          _os_log_impl(&dword_241FB3000, v33, OS_LOG_TYPE_INFO, "Setting custom settings for watch app %@", buf, 0xCu);
         }
 
         [(BLTSectionInfoListBridgeProvider *)self->_bridgeProvider setCustomSettingsWithSectionInfo:v13];
@@ -1761,8 +1856,6 @@ uint64_t __57__BLTSettingSync_sendAllSectionInfoWithSpool_completion___block_inv
       completionCopy[2](completionCopy);
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __53__BLTSettingSync_setSectionInfo_keypaths_completion___block_invoke(uint64_t a1)
@@ -1779,68 +1872,67 @@ uint64_t __53__BLTSettingSync_setSectionInfo_keypaths_completion___block_invoke(
 - (void)setNotificationsLevel:(unint64_t)level sectionID:(id)d mirror:(BOOL)mirror fromRemote:(BOOL)remote
 {
   mirrorCopy = mirror;
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dCopy = d;
+  v10 = dCopy;
   if (level - 4 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v10 = blt_settings_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = blt_settings_log(dCopy);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v19 = 138412290;
-      v20 = dCopy;
-      _os_log_impl(&dword_241FB3000, v10, OS_LOG_TYPE_INFO, "Removing section info cache info for %@", &v19, 0xCu);
+      v20 = 138412290;
+      v21 = v10;
+      _os_log_impl(&dword_241FB3000, v11, OS_LOG_TYPE_INFO, "Removing section info cache info for %@", &v20, 0xCu);
     }
 
     connection = [(BLTSettingSyncInternal *)self connection];
-    [connection removeSectionInfoSentCacheForSectionID:dCopy];
+    [connection removeSectionInfoSentCacheForSectionID:v10];
   }
 
   if (mirrorCopy)
   {
-    v12 = [(BLTSectionInfoList *)self->_sectionInfoList bbSectionInfoForSectionID:dCopy];
-    v13 = [v12 copy];
+    v13 = [(BLTSectionInfoList *)self->_sectionInfoList bbSectionInfoForSectionID:v10];
+    v14 = [v13 copy];
 
-    v14 = v13 == 0;
-    settingsGateway = blt_settings_log();
-    v16 = os_log_type_enabled(settingsGateway, OS_LOG_TYPE_INFO);
-    if (v13)
+    v15 = v14 == 0;
+    settingsGateway = blt_settings_log(v16);
+    v18 = os_log_type_enabled(settingsGateway, OS_LOG_TYPE_INFO);
+    if (v14)
     {
-      if (v16)
+      if (v18)
       {
-        v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:level];
-        v19 = 138412546;
-        v20 = dCopy;
-        v21 = 2112;
-        v22 = v17;
-        _os_log_impl(&dword_241FB3000, settingsGateway, OS_LOG_TYPE_INFO, "Setting notification level for %@ to %@", &v19, 0x16u);
+        v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:level];
+        v20 = 138412546;
+        v21 = v10;
+        v22 = 2112;
+        v23 = v19;
+        _os_log_impl(&dword_241FB3000, settingsGateway, OS_LOG_TYPE_INFO, "Setting notification level for %@ to %@", &v20, 0x16u);
       }
 
-      [v13 bltApplyNotificationLevel:level];
+      [v14 bltApplyNotificationLevel:level];
       settingsGateway = [(BLTSettingSyncInternal *)self settingsGateway];
-      [settingsGateway setSectionInfo:v13 forSectionID:dCopy];
+      [settingsGateway setSectionInfo:v14 forSectionID:v10];
     }
 
-    else if (v16)
+    else if (v18)
     {
-      v19 = 138412290;
-      v20 = dCopy;
-      _os_log_impl(&dword_241FB3000, settingsGateway, OS_LOG_TYPE_INFO, "Phone section not found: %@. Must be watch section only", &v19, 0xCu);
+      v20 = 138412290;
+      v21 = v10;
+      _os_log_impl(&dword_241FB3000, settingsGateway, OS_LOG_TYPE_INFO, "Phone section not found: %@. Must be watch section only", &v20, 0xCu);
     }
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
   if (level != 3)
   {
-    [(BLTSectionInfoListBridgeProvider *)self->_bridgeProvider setNotificationsLevel:BLTSettingSyncingNotificationsLevelToBLTPBSetNotificationsAlertLevel(level) sectionID:dCopy forceCustom:v14 || !mirrorCopy];
+    [(BLTSectionInfoListBridgeProvider *)self->_bridgeProvider setNotificationsLevel:BLTSettingSyncingNotificationsLevelToBLTPBSetNotificationsAlertLevel(level) sectionID:v10 forceCustom:v15 || !mirrorCopy];
   }
 
-  [(BLTSettingSync *)self makeAuthorizationPermanentForSectionID:dCopy];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [(BLTSettingSync *)self makeAuthorizationPermanentForSectionID:v10];
 }
 
 - (void)makeAuthorizationPermanentForSectionID:(id)d
@@ -1870,42 +1962,38 @@ uint64_t __53__BLTSettingSync_setSectionInfo_keypaths_completion___block_invoke(
 
 void __57__BLTSettingSync_makeAuthorizationPermanentForSectionID___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = blt_settings_log();
+  v11 = *MEMORY[0x277D85DE8];
+  v2 = blt_settings_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v11 = v3;
+    v10 = v3;
     _os_log_impl(&dword_241FB3000, v2, OS_LOG_TYPE_INFO, "makeAuthorizationPermanentForSectionID settingsGateway saved %@", buf, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v9 = *(a1 + 32);
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __57__BLTSettingSync_makeAuthorizationPermanentForSectionID___block_invoke_81;
-  v7[3] = &unk_278D31428;
   v8 = *(a1 + 32);
-  [WeakRetained sendSectionInfosWithSectionIDs:v5 completion:v7 spoolToFile:0];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:1];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __57__BLTSettingSync_makeAuthorizationPermanentForSectionID___block_invoke_81;
+  v6[3] = &unk_278D31428;
+  v7 = *(a1 + 32);
+  [WeakRetained sendSectionInfosWithSectionIDs:v5 completion:v6 spoolToFile:0];
 }
 
 void __57__BLTSettingSync_makeAuthorizationPermanentForSectionID___block_invoke_81(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = blt_settings_log();
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = blt_settings_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_241FB3000, v2, OS_LOG_TYPE_INFO, "makeAuthorizationPermanentForSectionID sendSectionInfosWithSectionIDs complete %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_241FB3000, v2, OS_LOG_TYPE_INFO, "makeAuthorizationPermanentForSectionID sendSectionInfosWithSectionIDs complete %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observer:(id)observer noteSectionParametersChanged:(id)changed forSectionID:(id)d
@@ -1920,42 +2008,40 @@ void __57__BLTSettingSync_makeAuthorizationPermanentForSectionID___block_invoke_
   if ([v10 count])
   {
     v11 = [sectionParameterSubtypeIconSectionIDAllowList objectForKey:dCopy];
-    if ([v11 BOOLValue])
+    bOOLValue = [v11 BOOLValue];
+    if (bOOLValue)
     {
-      v12 = blt_settings_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v13 = blt_settings_log(bOOLValue);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         v14 = 138412290;
         v15 = dCopy;
-        _os_log_impl(&dword_241FB3000, v12, OS_LOG_TYPE_INFO, "Sending sectionSubtypeParameters icons for %@", &v14, 0xCu);
+        _os_log_impl(&dword_241FB3000, v13, OS_LOG_TYPE_INFO, "Sending sectionSubtypeParameters icons for %@", &v14, 0xCu);
       }
 
       [(BLTSettingSync *)self _sendSectionSubtypeParameterIcons:changedCopy sectionID:dCopy waitForAcknowledgement:0 spoolToFile:!self->_initialSyncPerformed andCompletion:0];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sectionInfoList:(id)list receivedUpdatedSectionInfoForSectionID:(id)d transaction:(id)transaction
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
-  v16[0] = d;
+  v15[0] = d;
   v8 = MEMORY[0x277CBEA60];
   dCopy = d;
-  v10 = [v8 arrayWithObjects:v16 count:1];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __85__BLTSettingSync_sectionInfoList_receivedUpdatedSectionInfoForSectionID_transaction___block_invoke;
-  v14[3] = &unk_278D31428;
-  v15 = transactionCopy;
+  v10 = [v8 arrayWithObjects:v15 count:1];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __85__BLTSettingSync_sectionInfoList_receivedUpdatedSectionInfoForSectionID_transaction___block_invoke;
+  v13[3] = &unk_278D31428;
+  v14 = transactionCopy;
   initialSyncPerformed = self->_initialSyncPerformed;
   v12 = transactionCopy;
-  [(BLTSettingSync *)self sendSectionInfosWithSectionIDs:v10 completion:v14 spoolToFile:!initialSyncPerformed];
+  [(BLTSettingSync *)self sendSectionInfosWithSectionIDs:v10 completion:v13 spoolToFile:!initialSyncPerformed];
 
   [(BLTSettingSync *)self _callReloadBBCompletionsForSectionID:dCopy];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sectionInfoList:(id)list receivedRemoveSectionWithSectionID:(id)d transaction:(id)transaction
@@ -2020,40 +2106,38 @@ void __57__BLTSettingSync_makeAuthorizationPermanentForSectionID___block_invoke_
 
 void __55__BLTSettingSync__callReloadBBCompletionsForSectionID___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 128) objectForKeyedSubscript:*(a1 + 40)];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        (*(*(*(&v8 + 1) + 8 * v6++) + 16))();
+        (*(*(*(&v7 + 1) + 8 * v6++) + 16))();
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
 
   [*(*(a1 + 32) + 128) removeObjectForKey:*(a1 + 40)];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addReloadBBCompletion:(id)completion sectionID:(id)d
@@ -2074,17 +2158,15 @@ void __55__BLTSettingSync__callReloadBBCompletionsForSectionID___block_invoke(ui
 
 void __51__BLTSettingSync__addReloadBBCompletion_sectionID___block_invoke(void *a1)
 {
-  v5 = [*(a1[4] + 128) objectForKeyedSubscript:a1[5]];
-  if (!v5)
+  v3 = [*(a1[4] + 128) objectForKeyedSubscript:a1[5]];
+  if (!v3)
   {
-    v2 = [MEMORY[0x277CBEB18] array];
-    v3 = a1[5];
-    v5 = v2;
+    v3 = [MEMORY[0x277CBEB18] array];
     [*(a1[4] + 128) setObject:? forKeyedSubscript:?];
   }
 
-  v4 = MEMORY[0x245D067A0](a1[6]);
-  [v5 addObject:v4];
+  v2 = MEMORY[0x245D067A0](a1[6]);
+  [v3 addObject:v2];
 }
 
 - (void)_callAndRemoveReloadBBCompletion:(id)completion sectionID:(id)d
@@ -2121,24 +2203,21 @@ void __61__BLTSettingSync__callAndRemoveReloadBBCompletion_sectionID___block_inv
 
 - (void)setSectionInfo:(uint64_t)a1 keypaths:(uint64_t)a2 completion:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_241FB3000, log, OS_LOG_TYPE_ERROR, "setSectionInfo: %@ error: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_241FB3000, log, OS_LOG_TYPE_ERROR, "setSectionInfo: %@ error: %@", &v3, 0x16u);
 }
 
 - (void)setSectionInfo:(NSObject *)a1 keypaths:completion:.cold.2(NSObject *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCACC8] callStackSymbols];
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_241FB3000, a1, OS_LOG_TYPE_ERROR, "**** sectionInfo is nil!\n%@", &v4, 0xCu);
-
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_241FB3000, a1, OS_LOG_TYPE_ERROR, "**** sectionInfo is nil!\n%@", &v3, 0xCu);
 }
 
 @end

@@ -53,25 +53,24 @@
 
 - (uint64_t)openHeartRateLearnMore
 {
-  v0 = *(*(sub_883C() - 8) + 64);
+  sub_883C();
   __chkstk_darwin();
-  v1 = *(*(sub_89DC() - 8) + 64);
+  sub_89DC();
   __chkstk_darwin();
   sub_84B8(0, &qword_106F8, &type metadata accessor for URL, &type metadata accessor for Optional);
-  v3 = (*(*(v2 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin();
-  v5 = &v16 - v4;
+  v1 = &v12 - v0;
   sub_89EC();
   type metadata accessor for SettingsViewController();
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v7 = [objc_opt_self() bundleForClass:ObjCClassFromMetadata];
+  v3 = [objc_opt_self() bundleForClass:ObjCClassFromMetadata];
   sub_882C();
   sub_8A4C();
   sub_880C();
 
-  v8 = sub_881C();
-  v9 = *(v8 - 8);
-  result = (*(v9 + 48))(v5, 1, v8);
+  v4 = sub_881C();
+  v5 = *(v4 - 8);
+  result = (*(v5 + 48))(v1, 1, v4);
   if (result == 1)
   {
     __break(1u);
@@ -80,16 +79,16 @@
   else
   {
     sharedApplication = [objc_opt_self() sharedApplication];
-    sub_87FC(v12);
-    v14 = v13;
+    sub_87FC(v8);
+    v10 = v9;
     sub_77F8(&_swiftEmptyArrayStorage);
     type metadata accessor for OpenExternalURLOptionsKey(0);
-    sub_8700(&qword_106B0, type metadata accessor for OpenExternalURLOptionsKey);
+    sub_8700(&qword_106B0, type metadata accessor for OpenExternalURLOptionsKey, &unk_9504);
     isa = sub_899C().super.isa;
 
-    [sharedApplication openURL:v14 options:isa completionHandler:0];
+    [sharedApplication openURL:v10 options:isa completionHandler:0];
 
-    return (*(v9 + 8))(v5, v8);
+    return (*(v5 + 8))(v1, v4);
   }
 
   return result;
@@ -97,25 +96,24 @@
 
 - (uint64_t)openWristTemperatureLearnMore
 {
-  v0 = *(*(sub_883C() - 8) + 64);
+  sub_883C();
   __chkstk_darwin();
-  v1 = *(*(sub_89DC() - 8) + 64);
+  sub_89DC();
   __chkstk_darwin();
   sub_84B8(0, &qword_106F8, &type metadata accessor for URL, &type metadata accessor for Optional);
-  v3 = (*(*(v2 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin();
-  v5 = &v16 - v4;
+  v1 = &v12 - v0;
   sub_89EC();
   type metadata accessor for SettingsViewController();
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v7 = [objc_opt_self() bundleForClass:ObjCClassFromMetadata];
+  v3 = [objc_opt_self() bundleForClass:ObjCClassFromMetadata];
   sub_882C();
   sub_8A4C();
   sub_880C();
 
-  v8 = sub_881C();
-  v9 = *(v8 - 8);
-  result = (*(v9 + 48))(v5, 1, v8);
+  v4 = sub_881C();
+  v5 = *(v4 - 8);
+  result = (*(v5 + 48))(v1, 1, v4);
   if (result == 1)
   {
     __break(1u);
@@ -124,16 +122,16 @@
   else
   {
     sharedApplication = [objc_opt_self() sharedApplication];
-    sub_87FC(v12);
-    v14 = v13;
+    sub_87FC(v8);
+    v10 = v9;
     sub_77F8(&_swiftEmptyArrayStorage);
     type metadata accessor for OpenExternalURLOptionsKey(0);
-    sub_8700(&qword_106B0, type metadata accessor for OpenExternalURLOptionsKey);
+    sub_8700(&qword_106B0, type metadata accessor for OpenExternalURLOptionsKey, &unk_9504);
     isa = sub_899C().super.isa;
 
-    [sharedApplication openURL:v14 options:isa completionHandler:0];
+    [sharedApplication openURL:v10 options:isa completionHandler:0];
 
-    return (*(v9 + 8))(v5, v8);
+    return (*(v5 + 8))(v1, v4);
   }
 
   return result;
@@ -142,13 +140,12 @@
 - (uint64_t)openHealthAppOnboarding
 {
   sub_84B8(0, &qword_106F8, &type metadata accessor for URL, &type metadata accessor for Optional);
-  v1 = (*(*(v0 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin();
-  v3 = &v12 - v2;
+  v1 = &v10 - v0;
   sub_880C();
-  v4 = sub_881C();
-  v5 = *(v4 - 8);
-  result = (*(v5 + 48))(v3, 1, v4);
+  v2 = sub_881C();
+  v3 = *(v2 - 8);
+  result = (*(v3 + 48))(v1, 1, v2);
   if (result == 1)
   {
     __break(1u);
@@ -157,16 +154,16 @@
   else
   {
     sharedApplication = [objc_opt_self() sharedApplication];
-    sub_87FC(v8);
-    v10 = v9;
+    sub_87FC(v6);
+    v8 = v7;
     sub_77F8(&_swiftEmptyArrayStorage);
     type metadata accessor for OpenExternalURLOptionsKey(0);
-    sub_8700(&qword_106B0, type metadata accessor for OpenExternalURLOptionsKey);
+    sub_8700(&qword_106B0, type metadata accessor for OpenExternalURLOptionsKey, &unk_9504);
     isa = sub_899C().super.isa;
 
-    [sharedApplication openURL:v10 options:isa completionHandler:0];
+    [sharedApplication openURL:v8 options:isa completionHandler:0];
 
-    return (*(v5 + 8))(v3, v4);
+    return (*(v3 + 8))(v1, v2);
   }
 
   return result;
@@ -175,13 +172,12 @@
 - (uint64_t)openHealthAppSettings
 {
   sub_84B8(0, &qword_106F8, &type metadata accessor for URL, &type metadata accessor for Optional);
-  v1 = (*(*(v0 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin();
-  v3 = &v12 - v2;
+  v1 = &v10 - v0;
   sub_880C();
-  v4 = sub_881C();
-  v5 = *(v4 - 8);
-  result = (*(v5 + 48))(v3, 1, v4);
+  v2 = sub_881C();
+  v3 = *(v2 - 8);
+  result = (*(v3 + 48))(v1, 1, v2);
   if (result == 1)
   {
     __break(1u);
@@ -190,16 +186,16 @@
   else
   {
     sharedApplication = [objc_opt_self() sharedApplication];
-    sub_87FC(v8);
-    v10 = v9;
+    sub_87FC(v6);
+    v8 = v7;
     sub_77F8(&_swiftEmptyArrayStorage);
     type metadata accessor for OpenExternalURLOptionsKey(0);
-    sub_8700(&qword_106B0, type metadata accessor for OpenExternalURLOptionsKey);
+    sub_8700(&qword_106B0, type metadata accessor for OpenExternalURLOptionsKey, &unk_9504);
     isa = sub_899C().super.isa;
 
-    [sharedApplication openURL:v10 options:isa completionHandler:0];
+    [sharedApplication openURL:v8 options:isa completionHandler:0];
 
-    return (*(v5 + 8))(v3, v4);
+    return (*(v3 + 8))(v1, v2);
   }
 
   return result;

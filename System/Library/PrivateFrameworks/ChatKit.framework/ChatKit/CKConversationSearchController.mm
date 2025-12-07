@@ -102,27 +102,28 @@ void __65__CKConversationSearchController_didSelectResult_visibleResults___block
 - (id)navigationBarTitleSummaryForSearchText:(id)text
 {
   textCopy = text;
-  if ([textCopy length])
+  v4 = [textCopy length];
+  if (v4)
   {
-    v4 = MEMORY[0x1E696AEC0];
-    v5 = CKFrameworkBundle();
-    v6 = [v5 localizedStringForKey:@"CONVERSATION_SEARCH_RESULTS_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-    textCopy = [v4 stringWithFormat:v6, textCopy];
+    v5 = MEMORY[0x1E696AEC0];
+    v6 = CKFrameworkBundle(v4);
+    v7 = [v6 localizedStringForKey:@"CONVERSATION_SEARCH_RESULTS_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    textCopy = [v5 stringWithFormat:v7, textCopy];
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection == 1)
     {
-      v10 = @"\u200F";
+      v11 = @"\u200F";
     }
 
     else
     {
-      v10 = @"\u200E";
+      v11 = @"\u200E";
     }
 
-    sectionTitle = [(__CFString *)v10 stringByAppendingString:textCopy];
+    sectionTitle = [(__CFString *)v11 stringByAppendingString:textCopy];
   }
 
   else
@@ -135,7 +136,7 @@ void __65__CKConversationSearchController_didSelectResult_visibleResults___block
 
 + (id)sectionTitle
 {
-  v2 = CKFrameworkBundle();
+  v2 = CKFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"SEARCH_CONVERSATIONS_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
   return v3;

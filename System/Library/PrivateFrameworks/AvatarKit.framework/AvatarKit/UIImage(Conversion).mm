@@ -16,7 +16,7 @@
   v4 = *MEMORY[0x1E6982E00];
   v5 = a3;
   identifier = [v4 identifier];
-  v7 = [self avt_animatedImageWithDataRepresentation:v5 ofType:identifier];
+  v7 = [self avt_animatedImageWithDataRepresentation:? ofType:?];
 
   return v7;
 }
@@ -26,7 +26,7 @@
   v4 = *MEMORY[0x1E6982F28];
   v5 = a3;
   identifier = [v4 identifier];
-  v7 = [self avt_animatedImageWithDataRepresentation:v5 ofType:identifier];
+  v7 = [self avt_animatedImageWithDataRepresentation:? ofType:?];
 
   return v7;
 }
@@ -39,7 +39,7 @@
   if (v6)
   {
     Count = CGImageSourceGetCount(v6);
-    v9 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:Count];
+    v9 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:?];
     if (Count)
     {
       for (i = 0; i != Count; ++i)
@@ -48,8 +48,8 @@
         if (ImageAtIndex)
         {
           v12 = ImageAtIndex;
-          v13 = [MEMORY[0x1E69DCAB8] imageWithCGImage:ImageAtIndex];
-          [v9 addObject:v13];
+          v13 = [MEMORY[0x1E69DCAB8] imageWithCGImage:?];
+          [v9 addObject:?];
 
           CGImageRelease(v12);
         }
@@ -61,7 +61,7 @@
       }
     }
 
-    valuePtr = 0.016667;
+    valuePtr = 1015580809;
     v14 = CGImageSourceCopyPropertiesAtIndex(v7, 0, 0);
     if (!v14)
     {
@@ -70,7 +70,7 @@
 
     v15 = v14;
     identifier = [*MEMORY[0x1E6982F28] identifier];
-    v17 = [v5 isEqualToString:identifier];
+    v17 = [v5 isEqualToString:?];
 
     if (v17)
     {
@@ -80,14 +80,14 @@
     }
 
     identifier2 = [*MEMORY[0x1E6982E00] identifier];
-    v22 = [v5 isEqualToString:identifier2];
+    v22 = [v5 isEqualToString:?];
 
     if (v22)
     {
-      valuePtr = 0.066667;
+      valuePtr = 1032358025;
     }
 
-    else if ([v5 isEqualToString:@"public.heics"])
+    else if ([v5 isEqualToString:?])
     {
       v23 = CGImageSourceCopyProperties(v7, 0);
       v24 = CFDictionaryGetValue(v23, *MEMORY[0x1E696DD20]);
@@ -105,9 +105,8 @@ LABEL_11:
     CFRelease(v15);
 LABEL_18:
     CFRelease(v7);
-    v25 = 1.0 / valuePtr;
-    v26 = [v9 count];
-    v7 = [MEMORY[0x1E69DCAB8] animatedImageWithImages:v9 duration:v26 / v25];
+    [v9 count];
+    v7 = [MEMORY[0x1E69DCAB8] animatedImageWithImages:? duration:?];
   }
 
   return v7;
@@ -116,9 +115,9 @@ LABEL_18:
 - (float)frameDelayInSeconds
 {
   images = [self images];
-  v3 = [images count];
-  [self duration];
-  v5 = v3 / v4;
+  v2 = [images count];
+  [v3 duration];
+  v5 = v2 / v4;
 
   return 1.0 / v5;
 }
@@ -126,7 +125,7 @@ LABEL_18:
 - (id)HEICRepresentation
 {
   identifier = [*MEMORY[0x1E6982E00] identifier];
-  v3 = [self avt_dataRepresentationForTypeIdentifier:identifier];
+  v3 = [self avt_dataRepresentationForTypeIdentifier:?];
 
   return v3;
 }
@@ -134,177 +133,152 @@ LABEL_18:
 - (id)APNGRepresentation
 {
   identifier = [*MEMORY[0x1E6982F28] identifier];
-  v3 = [self avt_dataRepresentationForTypeIdentifier:identifier];
+  v3 = [self avt_dataRepresentationForTypeIdentifier:?];
 
   return v3;
 }
 
 - (__CFData)avt_dataRepresentationForTypeIdentifier:()Conversion
 {
-  v84[3] = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   v4 = a3;
   Mutable = CFDataCreateMutable(0, 0);
   [self frameDelayInSeconds];
-  v7 = v6;
   identifier = [*MEMORY[0x1E6982F28] identifier];
-  v9 = [(__CFString *)v4 isEqualToString:identifier];
+  v7 = [(__CFString *)v4 isEqualToString:?];
 
-  if (v9)
+  if (v7)
   {
-    v57 = Mutable;
-    v83[0] = *MEMORY[0x1E696DEB0];
-    v11 = v83[0];
-    v12 = *MEMORY[0x1E696D3D0];
-    v81[0] = *MEMORY[0x1E696D3C8];
-    v81[1] = v12;
-    v82[0] = &unk_1F39D9368;
-    LODWORD(v10) = v7;
-    v13 = [MEMORY[0x1E696AD98] numberWithFloat:v10];
-    v82[1] = v13;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v82 forKeys:v81 count:2];
-    v84[0] = v14;
-    v83[1] = *MEMORY[0x1E696D888];
-    v15 = MEMORY[0x1E696AD98];
+    v31 = Mutable;
+    v60 = *MEMORY[0x1E696DEB0];
+    v8 = *MEMORY[0x1E696D3D0];
+    v56 = *MEMORY[0x1E696D3C8];
+    v57 = v8;
+    v58 = &unk_1F39D9368;
+    v59 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+    v63 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+    v61 = *MEMORY[0x1E696D888];
+    v9 = MEMORY[0x1E696AD98];
     [self scale];
-    v17 = [v15 numberWithDouble:v16 * 72.0];
-    v84[1] = v17;
-    v83[2] = *MEMORY[0x1E696D880];
-    v18 = MEMORY[0x1E696AD98];
+    v64 = [v9 numberWithDouble:?];
+    v62 = *MEMORY[0x1E696D880];
+    v10 = MEMORY[0x1E696AD98];
     [self scale];
-    v20 = [v18 numberWithDouble:v19 * 72.0];
-    v84[2] = v20;
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v84 forKeys:v83 count:3];
+    v65 = [v10 numberWithDouble:?];
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
 
-    v79 = v11;
-    v77[0] = *MEMORY[0x1E696D3C0];
-    LODWORD(v22) = v7;
-    v23 = [MEMORY[0x1E696AD98] numberWithFloat:v22];
-    v78[0] = v23;
-    v77[1] = *MEMORY[0x1E696D338];
-    LODWORD(v24) = 1.0;
-    v25 = [MEMORY[0x1E696AD98] numberWithFloat:v24];
-    v78[1] = v25;
-    v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v78 forKeys:v77 count:2];
-    v80 = v26;
-    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
+    v54 = v60;
+    v50 = *MEMORY[0x1E696D3C0];
+    v12 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+    v52 = v12;
+    v51 = *MEMORY[0x1E696D338];
+    v13 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+    v53 = v13;
+    v55 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
 
 LABEL_5:
-    Mutable = v57;
+    Mutable = v31;
     goto LABEL_7;
   }
 
-  if ([(__CFString *)v4 isEqualToString:@"public.heics"])
+  if ([(__CFString *)v4 isEqualToString:?])
   {
-    v57 = Mutable;
+    v31 = Mutable;
     [self size];
-    v29 = v28;
-    v31 = v30;
-    v75[0] = *MEMORY[0x1E696DD20];
-    v32 = v75[0];
-    v73 = *MEMORY[0x1E696DD30];
-    LODWORD(v28) = v7;
-    v33 = [MEMORY[0x1E696AD98] numberWithFloat:v28];
-    v74 = v33;
-    v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
-    v76[0] = v34;
-    v75[1] = *MEMORY[0x1E696DD10];
-    v35 = MEMORY[0x1E696AD98];
+    v44 = *MEMORY[0x1E696DD20];
+    v42 = *MEMORY[0x1E696DD30];
+    v43 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+    v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+    v45 = *MEMORY[0x1E696DD10];
+    v15 = MEMORY[0x1E696AD98];
     [self scale];
-    v37 = [v35 numberWithDouble:v29 * v36];
-    v76[1] = v37;
-    v75[2] = *MEMORY[0x1E696DD08];
-    v38 = MEMORY[0x1E696AD98];
+    v48 = [v15 numberWithDouble:?];
+    v46 = *MEMORY[0x1E696DD08];
+    v16 = MEMORY[0x1E696AD98];
     [self scale];
-    v40 = [v38 numberWithDouble:v31 * v39];
-    v76[2] = v40;
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v76 forKeys:v75 count:3];
+    v49 = [v16 numberWithDouble:?];
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
 
-    v71 = v32;
-    v69 = *MEMORY[0x1E696DD18];
-    LODWORD(v41) = v7;
-    v23 = [MEMORY[0x1E696AD98] numberWithFloat:v41];
-    v70 = v23;
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
-    v72 = v25;
-    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
+    v40 = v44;
+    v38 = *MEMORY[0x1E696DD18];
+    v12 = [MEMORY[0x1E696AD98] numberWithFloat:?];
+    v39 = v12;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
+    v41 = v13;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
     goto LABEL_5;
   }
 
-  v27 = MEMORY[0x1E695E0F8];
-  v21 = MEMORY[0x1E695E0F8];
+  v14 = MEMORY[0x1E695E0F8];
+  v11 = MEMORY[0x1E695E0F8];
 LABEL_7:
   images = [self images];
-  v43 = [images count];
-  v44 = v43;
-  if (v43 <= 1)
+  v18 = [images count];
+  v19 = v18;
+  if (v18 <= 1)
   {
-    v45 = 1;
+    v20 = 1;
   }
 
   else
   {
-    v45 = v43;
+    v20 = v18;
   }
 
-  v46 = CGImageDestinationCreateWithData(Mutable, v4, v45, 0);
-  CGImageDestinationSetProperties(v46, v21);
-  v63[0] = MEMORY[0x1E69E9820];
-  v63[1] = 3221225472;
-  v64 = __63__UIImage_Conversion__avt_dataRepresentationForTypeIdentifier___block_invoke;
-  v65 = &unk_1E7F484C0;
-  v67 = v46;
-  v47 = v27;
-  v66 = v47;
-  if (v44)
+  v21 = CGImageDestinationCreateWithData(Mutable, v4, v20, 0);
+  CGImageDestinationSetProperties(v21, v11);
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v34 = __63__UIImage_Conversion__avt_dataRepresentationForTypeIdentifier___block_invoke;
+  v35 = &unk_1E7F484C0;
+  v37 = v21;
+  v22 = v14;
+  v36 = v22;
+  if (v19)
   {
-    v58 = v21;
-    v48 = v4;
-    v49 = Mutable;
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
-    v60 = 0u;
-    v50 = images;
-    v51 = [v50 countByEnumeratingWithState:&v59 objects:v68 count:16];
-    if (v51)
+    v32 = v11;
+    v23 = v4;
+    v24 = Mutable;
+    v25 = images;
+    v26 = [v25 countByEnumeratingWithState:? objects:? count:?];
+    if (v26)
     {
-      v52 = v51;
-      v53 = *v60;
+      v27 = v26;
+      v28 = MEMORY[0];
       do
       {
-        for (i = 0; i != v52; ++i)
+        for (i = 0; i != v27; i = (i + 1))
         {
-          if (*v60 != v53)
+          if (MEMORY[0] != v28)
           {
-            objc_enumerationMutation(v50);
+            objc_enumerationMutation(v25);
           }
 
-          v64(v63, *(*(&v59 + 1) + 8 * i));
+          v34(v33, *(8 * i));
         }
 
-        v52 = [v50 countByEnumeratingWithState:&v59 objects:v68 count:16];
+        v27 = [v25 countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v52);
+      while (v27);
     }
 
-    Mutable = v49;
-    v4 = v48;
-    v21 = v58;
+    Mutable = v24;
+    v4 = v23;
+    v11 = v32;
   }
 
   else
   {
-    v64(v63, self);
+    v34(v33, self);
   }
 
-  CGImageDestinationFinalize(v46);
-  if (v46)
+  CGImageDestinationFinalize(v21);
+  if (v21)
   {
-    CFRelease(v46);
+    CFRelease(v21);
   }
-
-  v55 = *MEMORY[0x1E69E9840];
 
   return Mutable;
 }
@@ -315,19 +289,19 @@ LABEL_7:
   if (a2 > 0.0)
   {
     [self frameDelayInSeconds];
-    v6 = vcvtmd_s64_f64(a2 / v5);
-    v7 = [images subarrayWithRange:{0, v6}];
-    v8 = [images subarrayWithRange:{v6, objc_msgSend(images, "count") - v6}];
-    v9 = [v8 arrayByAddingObjectsFromArray:v7];
+    v5 = [images subarrayWithRange:?];
+    [images count];
+    v6 = [images subarrayWithRange:?];
+    v7 = [v6 arrayByAddingObjectsFromArray:?];
 
-    images = v9;
+    images = v7;
   }
 
-  v10 = MEMORY[0x1E69DCAB8];
-  [self duration];
-  v11 = [v10 animatedImageWithImages:images duration:?];
+  v8 = MEMORY[0x1E69DCAB8];
+  [0x1E69DC000 duration];
+  v9 = [v8 animatedImageWithImages:? duration:?];
 
-  return v11;
+  return v9;
 }
 
 @end

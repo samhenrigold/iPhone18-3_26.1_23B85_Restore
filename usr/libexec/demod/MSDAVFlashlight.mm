@@ -45,17 +45,18 @@
 
 - (BOOL)flash:(unsigned int)flash
 {
-  if (+[AVFlashlight hasFlashlight]&& [(MSDAVFlashlight *)self available])
+  v5 = +[AVFlashlight hasFlashlight];
+  if (v5 && (v5 = [(MSDAVFlashlight *)self available], (v5 & 1) != 0))
   {
     if (!flash)
     {
       flash = 20;
     }
 
-    v5 = sub_100063A54();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = sub_100063A54(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000D0138(flash, v5);
+      sub_1000D0138(flash, v6);
     }
 
     objc_initWeak(&location, self);
@@ -64,17 +65,17 @@
     block[1] = 3221225472;
     block[2] = sub_100040670;
     block[3] = &unk_10016AB58;
-    objc_copyWeak(&v9, &location);
+    objc_copyWeak(&v10, &location);
     flashCopy = flash;
     dispatch_async(flashQueue, block);
-    objc_destroyWeak(&v9);
+    objc_destroyWeak(&v10);
     objc_destroyWeak(&location);
     return 1;
   }
 
   else
   {
-    sub_1000D0094();
+    sub_1000D0094(v5);
     return 0;
   }
 }
@@ -139,26 +140,27 @@
 
 - (void)_startFlash
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 136315138;
-    v7 = "[MSDAVFlashlight _startFlash]";
-    _os_log_debug_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "%s - INFO - Start flashing ...", &v6, 0xCu);
+    v7 = 136315138;
+    v8 = "[MSDAVFlashlight _startFlash]";
+    _os_log_debug_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "%s - INFO - Start flashing ...", &v7, 0xCu);
   }
 
   self->_flashDone = 0;
-  if ([(MSDAVFlashlight *)self _turnPowerOn])
+  _turnPowerOn = [(MSDAVFlashlight *)self _turnPowerOn];
+  if (_turnPowerOn)
   {
     if (self->_flashDone)
     {
 LABEL_8:
-      v5 = sub_100063A54();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v6 = sub_100063A54(_turnPowerOn);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        v6 = 136315138;
-        v7 = "[MSDAVFlashlight _startFlash]";
-        _os_log_debug_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "%s - INFO - Done flashing ...", &v6, 0xCu);
+        v7 = 136315138;
+        v8 = "[MSDAVFlashlight _startFlash]";
+        _os_log_debug_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "%s - INFO - Done flashing ...", &v7, 0xCu);
       }
     }
 
@@ -166,8 +168,8 @@ LABEL_8:
     {
       while (1)
       {
-        LODWORD(v4) = 1.0;
-        if (![(MSDAVFlashlight *)self _setFlashlightLevel:v4])
+        LODWORD(v5) = 1.0;
+        if (![(MSDAVFlashlight *)self _setFlashlightLevel:v5])
         {
           break;
         }
@@ -178,7 +180,7 @@ LABEL_8:
           break;
         }
 
-        sleep(1u);
+        _turnPowerOn = sleep(1u);
         if (self->_flashDone)
         {
           goto LABEL_8;

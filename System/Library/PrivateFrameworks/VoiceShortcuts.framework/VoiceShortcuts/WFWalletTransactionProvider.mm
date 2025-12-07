@@ -50,7 +50,7 @@
 
 void __81__WFWalletTransactionProvider_transactionSourceIdentifier_didReceiveTransaction___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) requests];
   v3 = [*(a1 + 40) identifier];
   v4 = [v2 objectForKeyedSubscript:v3];
@@ -65,11 +65,11 @@ void __81__WFWalletTransactionProvider_transactionSourceIdentifier_didReceiveTra
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v8 = *(a1 + 40);
-        v10 = 136315394;
-        v11 = "[WFWalletTransactionProvider transactionSourceIdentifier:didReceiveTransaction:]_block_invoke";
-        v12 = 2112;
-        v13 = v8;
-        _os_log_impl(&dword_23103C000, v7, OS_LOG_TYPE_DEFAULT, "%s Found valid payment transaction (%@) finishing.", &v10, 0x16u);
+        v9 = 136315394;
+        v10 = "[WFWalletTransactionProvider transactionSourceIdentifier:didReceiveTransaction:]_block_invoke";
+        v11 = 2112;
+        v12 = v8;
+        _os_log_impl(&dword_23103C000, v7, OS_LOG_TYPE_DEFAULT, "%s Found valid payment transaction (%@) finishing.", &v9, 0x16u);
       }
 
       [*(a1 + 32) queue_finishWithPaymentTransaction:*(a1 + 40)];
@@ -79,14 +79,12 @@ void __81__WFWalletTransactionProvider_transactionSourceIdentifier_didReceiveTra
     {
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v10 = 136315138;
-        v11 = "[WFWalletTransactionProvider transactionSourceIdentifier:didReceiveTransaction:]_block_invoke";
-        _os_log_impl(&dword_23103C000, v7, OS_LOG_TYPE_ERROR, "%s Found valid transaction but it was incomplete, waiting.", &v10, 0xCu);
+        v9 = 136315138;
+        v10 = "[WFWalletTransactionProvider transactionSourceIdentifier:didReceiveTransaction:]_block_invoke";
+        _os_log_impl(&dword_23103C000, v7, OS_LOG_TYPE_ERROR, "%s Found valid transaction but it was incomplete, waiting.", &v9, 0xCu);
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queue_finishWithPaymentTransaction:(id)transaction
@@ -171,7 +169,7 @@ void __81__WFWalletTransactionProvider_transactionSourceIdentifier_didReceiveTra
 
 void __112__WFWalletTransactionProvider_observeForUpdatesWithInitialTransactionIfNeeded_transactionIdentifier_completion___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) transactionIsValid:*(a1 + 40)])
   {
     v2 = getWFTriggersLogObject();
@@ -179,71 +177,66 @@ void __112__WFWalletTransactionProvider_observeForUpdatesWithInitialTransactionI
     {
       v3 = *(a1 + 40);
       *buf = 136315394;
-      v22 = "[WFWalletTransactionProvider observeForUpdatesWithInitialTransactionIfNeeded:transactionIdentifier:completion:]_block_invoke";
-      v23 = 2112;
-      v24 = v3;
+      v20 = "[WFWalletTransactionProvider observeForUpdatesWithInitialTransactionIfNeeded:transactionIdentifier:completion:]_block_invoke";
+      v21 = 2112;
+      v22 = v3;
       _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_DEFAULT, "%s Found valid payment transaction (%@) returning", buf, 0x16u);
     }
 
     [*(a1 + 32) queue_endTransactionIfNeeded];
-    v4 = *(a1 + 40);
     (*(*(a1 + 56) + 16))();
   }
 
   else
   {
-    v5 = [*(a1 + 56) copy];
-    v6 = _Block_copy(v5);
-    v7 = [*(a1 + 32) requests];
-    [v7 setObject:v6 forKeyedSubscript:*(a1 + 48)];
+    v4 = [*(a1 + 56) copy];
+    v5 = _Block_copy(v4);
+    v6 = [*(a1 + 32) requests];
+    [v6 setObject:v5 forKeyedSubscript:*(a1 + 48)];
 
-    v8 = objc_alloc(MEMORY[0x277CD4300]);
-    v9 = [*(a1 + 32) queue];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __112__WFWalletTransactionProvider_observeForUpdatesWithInitialTransactionIfNeeded_transactionIdentifier_completion___block_invoke_228;
-    v17[3] = &unk_2789000F8;
-    v10 = *(a1 + 48);
-    v11 = *(a1 + 32);
-    v12 = *(a1 + 40);
-    v18 = v10;
-    v19 = v11;
-    v20 = v12;
-    v13 = [v8 initWithTimeoutInterval:v9 onQueue:v17 timeoutHandler:60.0];
+    v7 = objc_alloc(MEMORY[0x277CD4300]);
+    v8 = [*(a1 + 32) queue];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __112__WFWalletTransactionProvider_observeForUpdatesWithInitialTransactionIfNeeded_transactionIdentifier_completion___block_invoke_228;
+    v15[3] = &unk_2789000F8;
+    v9 = *(a1 + 48);
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    v16 = v9;
+    v17 = v10;
+    v18 = v11;
+    v12 = [v7 initWithTimeoutInterval:v8 onQueue:v15 timeoutHandler:60.0];
 
-    [v13 start];
-    v14 = [*(a1 + 32) timers];
-    [v14 setObject:v13 forKey:*(a1 + 48)];
+    [v12 start];
+    v13 = [*(a1 + 32) timers];
+    [v13 setObject:v12 forKey:*(a1 + 48)];
 
-    v15 = getWFTriggersLogObject();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v14 = getWFTriggersLogObject();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v22 = "[WFWalletTransactionProvider observeForUpdatesWithInitialTransactionIfNeeded:transactionIdentifier:completion:]_block_invoke";
-      _os_log_impl(&dword_23103C000, v15, OS_LOG_TYPE_DEFAULT, "%s Did not find valid payment transaction waiting...", buf, 0xCu);
+      v20 = "[WFWalletTransactionProvider observeForUpdatesWithInitialTransactionIfNeeded:transactionIdentifier:completion:]_block_invoke";
+      _os_log_impl(&dword_23103C000, v14, OS_LOG_TYPE_DEFAULT, "%s Did not find valid payment transaction waiting...", buf, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __112__WFWalletTransactionProvider_observeForUpdatesWithInitialTransactionIfNeeded_transactionIdentifier_completion___block_invoke_228(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = getWFTriggersLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = *(a1 + 32);
-    v6 = 136315394;
-    v7 = "[WFWalletTransactionProvider observeForUpdatesWithInitialTransactionIfNeeded:transactionIdentifier:completion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_ERROR, "%s Hit timeout waiting for transaction with identifier: %@, finishing.", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[WFWalletTransactionProvider observeForUpdatesWithInitialTransactionIfNeeded:transactionIdentifier:completion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_ERROR, "%s Hit timeout waiting for transaction with identifier: %@, finishing.", &v5, 0x16u);
   }
 
-  result = [*(a1 + 40) queue_finishWithPaymentTransaction:*(a1 + 48)];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) queue_finishWithPaymentTransaction:*(a1 + 48)];
 }
 
 - (void)fetchRemoteTransactionWithIdentifier:(id)identifier passUniqueID:(id)d completion:(id)completion
@@ -322,22 +315,20 @@ void __92__WFWalletTransactionProvider_fetchRemoteTransactionWithIdentifier_pass
 
 uint64_t __92__WFWalletTransactionProvider_fetchRemoteTransactionWithIdentifier_passUniqueID_completion___block_invoke_3(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = getWFTriggersLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = *(a1 + 32);
-    v6 = 136315394;
-    v7 = "[WFWalletTransactionProvider fetchRemoteTransactionWithIdentifier:passUniqueID:completion:]_block_invoke_3";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_ERROR, "%s Failed to get pass with id: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[WFWalletTransactionProvider fetchRemoteTransactionWithIdentifier:passUniqueID:completion:]_block_invoke_3";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_ERROR, "%s Failed to get pass with id: %@", &v5, 0x16u);
   }
 
   [*(a1 + 40) queue_endTransactionIfNeeded];
-  result = (*(*(a1 + 48) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 void __92__WFWalletTransactionProvider_fetchRemoteTransactionWithIdentifier_passUniqueID_completion___block_invoke_222(uint64_t a1, void *a2)

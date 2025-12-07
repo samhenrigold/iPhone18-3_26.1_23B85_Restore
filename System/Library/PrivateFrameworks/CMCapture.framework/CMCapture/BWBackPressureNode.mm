@@ -236,7 +236,7 @@ LABEL_8:
     v11 = 0;
     if (sample)
     {
-      [sample pts];
+      objc_msgSend_pts(sample);
     }
 
     v8 = v10;
@@ -258,76 +258,76 @@ LABEL_8:
 
   v8 = 152;
   os_unfair_lock_lock(&self->_presentationTimestampLock);
-  MEMORY[0x1EEE9AC00]();
-  v10 = v26 - v9;
+  MEMORY[0x1EEE9AC00](v9, v10, v11, v12);
+  v14 = v30 - v13;
   numberOfInputs = self->_numberOfInputs;
-  v12 = &OBJC_IVAR___BWVISProcessorControllerConfiguration__videoStabilizationStrength;
+  v16 = &OBJC_IVAR___BWVISProcessorControllerConfiguration__videoStabilizationStrength;
   if (!numberOfInputs)
   {
     goto LABEL_17;
   }
 
-  v26[1] = v26;
-  v27 = 152;
-  v13 = 0;
-  v14 = 0;
+  v30[1] = v30;
+  v31 = 152;
+  v17 = 0;
+  v18 = 0;
   do
   {
-    *&v10[4 * v13] = -1;
-    if (v13 != index)
+    *&v14[4 * v17] = -1;
+    if (v17 != index)
     {
-      v15 = [*(&self->super.super.isa + v12[235]) objectAtIndexedSubscript:v13];
-      if ([v15 count])
+      v19 = [*(&self->super.super.isa + v16[235]) objectAtIndexedSubscript:v17];
+      if ([v19 count])
       {
-        v16 = v12;
-        v17 = 0;
-        v18 = 0;
+        v20 = v16;
+        v21 = 0;
+        v22 = 0;
         while (1)
         {
-          [objc_msgSend(v15 objectAtIndexedSubscript:{v17), "doubleValue"}];
-          if (vabdd_f64(v19, Seconds) < 0.00001)
+          [objc_msgSend(v19 objectAtIndexedSubscript:{v21), "doubleValue"}];
+          if (vabdd_f64(v23, Seconds) < 0.00001)
           {
             break;
           }
 
-          v17 = ++v18;
-          if ([v15 count] <= v18)
+          v21 = ++v22;
+          if ([v19 count] <= v22)
           {
-            v20 = 0;
+            v24 = 0;
             goto LABEL_13;
           }
         }
 
-        *&v10[4 * v13] = v18;
-        v20 = (v18 & 0x80000000) == 0;
+        *&v14[4 * v17] = v22;
+        v24 = (v22 & 0x80000000) == 0;
 LABEL_13:
-        v12 = v16;
+        v16 = v20;
       }
 
       else
       {
-        v20 = 0;
+        v24 = 0;
       }
 
-      v14 += v20;
+      v18 += v24;
       numberOfInputs = self->_numberOfInputs;
     }
 
-    ++v13;
+    ++v17;
   }
 
-  while (v13 < numberOfInputs);
-  v8 = v27;
-  if (v14 >= numberOfInputs - 1)
+  while (v17 < numberOfInputs);
+  v8 = v31;
+  if (v18 >= numberOfInputs - 1)
   {
     if (numberOfInputs)
     {
       for (i = 0; i < numberOfInputs; ++i)
       {
-        v24 = *&v10[4 * i];
-        if ((v24 & 0x80000000) == 0)
+        v28 = *&v14[4 * i];
+        if ((v28 & 0x80000000) == 0)
         {
-          [objc_msgSend(*(&self->super.super.isa + v12[235]) objectAtIndexedSubscript:{i), "removeObjectAtIndex:", v24}];
+          [objc_msgSend(*(&self->super.super.isa + v16[235]) objectAtIndexedSubscript:{i), "removeObjectAtIndex:", v28}];
           numberOfInputs = self->_numberOfInputs;
         }
       }
@@ -360,10 +360,10 @@ LABEL_13:
   else
   {
 LABEL_17:
-    v21 = v12[235];
-    v22 = [*(&self->super.super.isa + v21) objectAtIndexedSubscript:index];
-    [v22 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithDouble:", Seconds)}];
-    [objc_msgSend(*(&self->super.super.isa + v21) objectAtIndexedSubscript:{index), "count"}];
+    v25 = v16[235];
+    v26 = [*(&self->super.super.isa + v25) objectAtIndexedSubscript:index];
+    [v26 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithDouble:", Seconds)}];
+    [objc_msgSend(*(&self->super.super.isa + v25) objectAtIndexedSubscript:{index), "count"}];
     os_unfair_lock_unlock((self + v8));
   }
 }

@@ -868,7 +868,7 @@ void __52__RTPersistenceDriver_onDataProtectionNotification___block_invoke(uint6
   [fileDescriptorsForPersistenceStoreDict2 removeAllObjects];
 }
 
-uint64_t __66__RTPersistenceDriver__cleanUpFileDescriptoersForPersistenceStore__block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__66__RTPersistenceDriver__cleanUpFileDescriptoersForPersistenceStore__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 intValue];
   if ((result & 0x80000000) == 0)
@@ -1703,13 +1703,13 @@ LABEL_29:
   }
 }
 
-uint64_t __110__RTPersistenceDriver__setupPersistenceAfterConfigurationChange_cloudSyncAuthorization_accountStatus_account___block_invoke(uint64_t result, int a2)
+id *__110__RTPersistenceDriver__setupPersistenceAfterConfigurationChange_cloudSyncAuthorization_accountStatus_account___block_invoke(id *result, int a2)
 {
   if (a2)
   {
     v2 = result;
-    [*(result + 32) setRequiresSetupTransaction:0];
-    v3 = *(v2 + 32);
+    [result[4] setRequiresSetupTransaction:0];
+    v3 = v2[4];
 
     return [v3 evaluateTransactions];
   }

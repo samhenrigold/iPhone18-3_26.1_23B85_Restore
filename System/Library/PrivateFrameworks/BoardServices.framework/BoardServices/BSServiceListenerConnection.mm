@@ -1,5 +1,5 @@
 @interface BSServiceListenerConnection
-+ (id)_connectionFromIncomingConnection:(char)connection requiresMessagingAfterHandshake:;
++ (id)_connectionFromIncomingConnection:(BOOL)connection requiresMessagingAfterHandshake:;
 - (BOOL)isRevoked;
 - (BSXPCDecoding)initiatingContext;
 - (id)addEventObserver:(id)observer;
@@ -27,7 +27,7 @@
   return isRevokedPeer;
 }
 
-+ (id)_connectionFromIncomingConnection:(char)connection requiresMessagingAfterHandshake:
++ (id)_connectionFromIncomingConnection:(BOOL)connection requiresMessagingAfterHandshake:
 {
   objc_opt_self();
   initiatingContext = [(BSXPCServiceConnection *)a2 initiatingContext];
@@ -65,30 +65,8 @@
     v5 = 0;
   }
 
-  if ((objc_opt_respondsToSelector() & 1) == 0)
+  if ((objc_opt_respondsToSelector() & 1) == 0 || (objc_initWeak(&location, self), objc_initWeak(&from, observer), -[BSServiceConnection _connection](&self->super.super.isa), v6 = objc_claimAutoreleasedReturnValue(), [@"observe-revoked:" stringByAppendingString:v5], v7 = objc_claimAutoreleasedReturnValue(), v12[0] = MEMORY[0x1E69E9820], v12[1] = 3221225472, v12[2] = __48__BSServiceListenerConnection_addEventObserver___block_invoke, v12[3] = &unk_1E75207D0, objc_copyWeak(&v13, &location), objc_copyWeak(&v14, &from), -[BSXPCServiceConnection addObserverWithReason:forRevocation:](v6, v7, v12), v8 = objc_claimAutoreleasedReturnValue(), v7, v6, objc_destroyWeak(&v14), objc_destroyWeak(&v13), objc_destroyWeak(&from), objc_destroyWeak(&location), !v8))
   {
-    goto LABEL_5;
-  }
-
-  objc_initWeak(&location, self);
-  objc_initWeak(&from, observer);
-  _connection = [(BSServiceConnection *)&self->super.super.isa _connection];
-  v7 = [@"observe-revoked:" stringByAppendingString:v5];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __48__BSServiceListenerConnection_addEventObserver___block_invoke;
-  v12[3] = &unk_1E75207D0;
-  objc_copyWeak(&v13, &location);
-  objc_copyWeak(&v14, &from);
-  v8 = [(BSXPCServiceConnection *)_connection addObserverWithReason:v7 forRevocation:v12];
-
-  objc_destroyWeak(&v14);
-  objc_destroyWeak(&v13);
-  objc_destroyWeak(&from);
-  objc_destroyWeak(&location);
-  if (!v8)
-  {
-LABEL_5:
     v9 = objc_alloc(MEMORY[0x1E698E778]);
     v10 = [@"observe-none:" stringByAppendingString:v5];
     v8 = [v9 initWithReason:v10 invalidatedBlock:&__block_literal_global_1];

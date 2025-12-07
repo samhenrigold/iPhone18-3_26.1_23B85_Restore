@@ -48,7 +48,7 @@
 
       else if (type == 8)
       {
-        v9 = __atxlog_handle_default();
+        v9 = __atxlog_handle_default(@"TimesTapped");
         if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
         {
           [ATXHomeScreenWidgetFeedback categoryStringForFeedbackType:v9];

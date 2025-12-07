@@ -3723,7 +3723,7 @@ unsigned __int8 *TSTSOS::TableStylePropertyChangeSetArchive::_InternalSerialize(
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v446 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v446 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TSTSOS::TableStylePropertyChangeSetArchive::ByteSizeLong(TSTSOS::TableStylePropertyChangeSetArchive *this, uint32x4_t a2)
@@ -8034,7 +8034,7 @@ LABEL_616:
   return this;
 }
 
-uint64_t *TSTSOS::TableStylePropertyChangeSetArchive::CopyFrom(uint64_t *this, const Message *a2)
+google::protobuf::UnknownFieldSet *TSTSOS::TableStylePropertyChangeSetArchive::CopyFrom(google::protobuf::UnknownFieldSet *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -8047,7 +8047,7 @@ uint64_t *TSTSOS::TableStylePropertyChangeSetArchive::CopyFrom(uint64_t *this, c
   return this;
 }
 
-uint64_t *TSTSOS::TableStylePropertyChangeSetArchive::CopyFrom(uint64_t *this, const TSTSOS::TableStylePropertyChangeSetArchive *a2)
+google::protobuf::UnknownFieldSet *TSTSOS::TableStylePropertyChangeSetArchive::CopyFrom(google::protobuf::UnknownFieldSet *this, const TSTSOS::TableStylePropertyChangeSetArchive *a2)
 {
   if (a2 != this)
   {
@@ -9191,9 +9191,9 @@ void sub_2215BE53C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2215BF24C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2215BF24C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   MEMORY[0x223D9FAE0](va);
   _Unwind_Resume(a1);
@@ -9206,16 +9206,16 @@ uint64_t sub_2215BF70C(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2215BF724(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_2215BF724(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v6 = objc_msgSend_documentRoot(*(*(a1[7] + 8) + 40), a2, a3, a4, a5);
-  v17 = objc_msgSend_documentLocale(v6, v7, v8, v9, v10);
+  v5 = objc_msgSend_documentRoot(*(*(a1[7] + 8) + 40), a2, a3, a4);
+  v14 = objc_msgSend_documentLocale(v5, v6, v7, v8);
 
-  v11 = [TSTCellFormulaSpec alloc];
-  v14 = objc_msgSend_initWithFormulaObject_locale_(v11, v12, a1[5], v17, v13);
-  v15 = a1[4];
-  v16 = *(v15 + 8);
-  *(v15 + 8) = v14;
+  v9 = [TSTCellFormulaSpec alloc];
+  v11 = objc_msgSend_initWithFormulaObject_locale_(v9, v10, a1[5], v14);
+  v12 = a1[4];
+  v13 = *(v12 + 8);
+  *(v12 + 8) = v11;
 
   (*(a1[6] + 16))();
 }
@@ -9295,20 +9295,20 @@ void sub_2215C13A8(uint64_t a1, void *a2)
   (*(*(a1 + 40) + 16))();
 }
 
-uint64_t sub_2215C15B8(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_2215C15B8(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  if (objc_msgSend_canBeStoredInAStringValueCell(a1, a2, a3, a4, a5))
+  if (objc_msgSend_canBeStoredInAStringValueCell(a1, a2, a3, a4))
   {
-    v10 = objc_msgSend_string(a1, v6, v7, v8, v9);
-    v15 = objc_msgSend_hash(v10, v11, v12, v13, v14);
+    v8 = objc_msgSend_string(a1, v5, v6, v7);
+    v12 = objc_msgSend_hash(v8, v9, v10, v11);
 
-    return v15;
+    return v12;
   }
 
   else
   {
 
-    return objc_msgSend_hash(a1, v6, v7, v8, v9);
+    return objc_msgSend_hash(a1, v5, v6, v7);
   }
 }
 
@@ -9339,40 +9339,40 @@ BOOL sub_2215C177C(uint64_t a1, int a2, int a3)
   return (v4 & v5) == 0;
 }
 
-uint64_t sub_2215C17D4(unsigned int *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t sub_2215C17D4(unsigned int *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
   if (!a1[2])
   {
     return 0;
   }
 
-  v8 = *a1;
-  if (*a1 > a2 || ((v9 = a1[1], v8 + 31 >= a2) ? (v10 = v9 > a3) : (v10 = 1), !v10 ? (v11 = v9 + 127 >= a3) : (v11 = 0), !v11))
+  v7 = *a1;
+  if (*a1 > a2 || ((v8 = a1[1], v7 + 31 >= a2) ? (v9 = v8 > a3) : (v9 = 1), !v9 ? (v10 = v8 + 127 >= a3) : (v10 = 0), !v10))
   {
-    v12 = MEMORY[0x277D81150];
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "BOOL TSCEBitGridTile::clearBit(TSUColumnOrRowIndex, TSURowIndex)", a4, a5);
-    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEBitGrid.mm", v15, v16);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v18, v13, v17, 197, 0, "clearBit, out of range [%d,%d]->[%d,%d]: request was [%d,%d]", *a1, a1[1], *a1 + 31, a1[1] + 127, a2, a3);
+    v11 = MEMORY[0x277D81150];
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "BOOL TSCEBitGridTile::clearBit(TSUColumnOrRowIndex, TSURowIndex)", a4);
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEBitGrid.mm", v14);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v16, v12, v15, 197, 0, "clearBit, out of range [%d,%d]->[%d,%d]: request was [%d,%d]", *a1, a1[1], *a1 + 31, a1[1] + 127, a2, a3);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20, v21, v22);
-    v8 = *a1;
-    v9 = a1[1];
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19);
+    v7 = *a1;
+    v8 = a1[1];
   }
 
-  v23 = a3 - v9;
-  v24 = a2 - v8;
-  v25 = (v24 & 0xE0) != 0 ? 0 : 1 << v24;
-  v26 = a1[v23 + 3];
-  if ((v25 & v26) == 0)
+  v20 = a3 - v8;
+  v21 = a2 - v7;
+  v22 = (v21 & 0xE0) != 0 ? 0 : 1 << v21;
+  v23 = a1[v20 + 3];
+  if ((v22 & v23) == 0)
   {
     return 0;
   }
 
-  a1[v23 + 3] = v26 & ~v25;
-  v27 = a1[2];
-  if (v27 != 0xFFFF)
+  a1[v20 + 3] = v23 & ~v22;
+  v24 = a1[2];
+  if (v24 != 0xFFFF)
   {
-    a1[2] = v27 - 1;
+    a1[2] = v24 - 1;
   }
 
   return 1;
@@ -9565,19 +9565,19 @@ uint64_t sub_2215C1B04(const float *a1, NSUInteger a2, NSUInteger a3, NSRange ra
   }
 
   v28 = 0;
-  v29 = (a1 + 3);
+  v29 = a1 + 3;
   v30 = -*(a1 + 1);
   do
   {
     while (1)
     {
       v31 = v29[v30 + location];
-      if ((v31 & v12) == 0)
+      if ((LODWORD(v31) & v12) == 0)
       {
         break;
       }
 
-      v29[v30 + location++] = v31 & ~v12;
+      LODWORD(v29[v30 + location++]) = LODWORD(v31) & ~v12;
       v28 = 1;
       if (location > v11)
       {
@@ -9628,19 +9628,18 @@ BOOL sub_2215C1CC0(unsigned int *a1, unsigned int a2, unsigned int a3)
   return (v6 & v7) != 0;
 }
 
-uint64_t sub_2215C1D20(unsigned int *a1, const char *a2, unsigned int a3, uint64_t a4, uint64_t a5, _DWORD *a6, int8x8_t a7)
+uint64_t sub_2215C1D20(unsigned int *a1, const char *a2, unsigned int a3, uint64_t a4, unsigned int a5, _DWORD *a6, int8x8_t a7)
 {
-  v8 = a5;
   v9 = a4;
   v11 = a2;
   if (a2 > a4 || a3 > a5)
   {
     v13 = MEMORY[0x277D81150];
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "TSUColumnOrRowIndex TSCEBitGridTile::countInRange(TSUColumnOrRowIndex, TSURowIndex, TSUColumnOrRowIndex, TSURowIndex, const TSCEBitGridTile *) const", a4, a5);
-    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEBitGrid.mm", v16, v17);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v19, v14, v18, 384, 0, "countInRange: first row/column must be <= last row/column");
+    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "TSUColumnOrRowIndex TSCEBitGridTile::countInRange(TSUColumnOrRowIndex, TSURowIndex, TSUColumnOrRowIndex, TSURowIndex, const TSCEBitGridTile *) const", a4, *&a7);
+    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEBitGrid.mm", v16);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v18, v14, v17, 384, 0, "countInRange: first row/column must be <= last row/column");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22, v23);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20, v21);
     if (!a6)
     {
       goto LABEL_9;
@@ -9654,121 +9653,121 @@ uint64_t sub_2215C1D20(unsigned int *a1, const char *a2, unsigned int a3, uint64
 
   if (*a6 != *a1 || a6[1] != a1[1])
   {
-    v24 = MEMORY[0x277D81150];
-    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "TSUColumnOrRowIndex TSCEBitGridTile::countInRange(TSUColumnOrRowIndex, TSURowIndex, TSUColumnOrRowIndex, TSURowIndex, const TSCEBitGridTile *) const", a4, a5);
-    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEBitGrid.mm", v27, v28);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v24, v30, v25, v29, 385, 0, "countInRange: exclude tile does not correspond to this tile.");
+    v22 = MEMORY[0x277D81150];
+    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "TSUColumnOrRowIndex TSCEBitGridTile::countInRange(TSUColumnOrRowIndex, TSURowIndex, TSUColumnOrRowIndex, TSURowIndex, const TSCEBitGridTile *) const", a4, *&a7);
+    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEBitGrid.mm", v25);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v27, v23, v26, 385, 0, "countInRange: exclude tile does not correspond to this tile.");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v31, v32, v33, v34);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29, v30);
   }
 
 LABEL_9:
-  v35 = a1[2];
-  if (!v35)
+  v31 = a1[2];
+  if (!v31)
   {
     return 0;
   }
 
-  v36 = a1[1];
-  if (v36 + 127 < a3)
+  v32 = a1[1];
+  if (v32 + 127 < a3)
   {
     return 0;
   }
 
   result = 0;
-  v38 = *a1;
-  if (v9 >= *a1 && v8 >= v36 && v38 + 31 >= v11)
+  v34 = *a1;
+  if (v9 >= *a1 && a5 >= v32 && v34 + 31 >= v11)
   {
-    if (a3 >= v36)
+    if (a3 >= v32)
     {
-      v39 = a3 - v36;
+      v35 = a3 - v32;
     }
 
     else
     {
-      v39 = 0;
+      v35 = 0;
     }
 
-    if (v36 + 127 <= v8)
+    if (v32 + 127 <= a5)
     {
-      v40 = 127;
+      v36 = 127;
     }
 
     else
     {
-      v40 = v8 - v36;
+      v36 = a5 - v32;
     }
 
-    if (v38 + 31 <= v9)
+    if (v34 + 31 <= v9)
     {
-      v41 = 31;
+      v37 = 31;
     }
 
     else
     {
-      v41 = v9 - *a1;
+      v37 = v9 - *a1;
     }
 
-    if (!a6 && v40 == 127 && v36 >= a3 && v38 >= v11 && v41 == 31)
+    if (!a6 && v36 == 127 && v32 >= a3 && v34 >= v11 && v37 == 31)
     {
       result = a1[2];
-      if (v35 == 0xFFFF)
+      if (v31 == 0xFFFF)
       {
-        v42 = 0;
-        v43 = 0uLL;
+        v38 = 0;
+        v39 = 0uLL;
         do
         {
-          v43 = vpadalq_u16(v43, vpaddlq_u8(vcntq_s8(*&a1[v42 + 3])));
-          v42 += 4;
+          v39 = vpadalq_u16(v39, vpaddlq_u8(vcntq_s8(*&a1[v38 + 3])));
+          v38 += 4;
         }
 
-        while (v42 != 128);
-        v44 = vaddvq_s32(v43);
-        a1[2] = v44;
-        return v44;
+        while (v38 != 128);
+        v40 = vaddvq_s32(v39);
+        a1[2] = v40;
+        return v40;
       }
     }
 
     else
     {
-      v45 = v11 - v38;
-      if (v11 < v38)
+      v41 = v11 - v34;
+      if (v11 < v34)
       {
-        v45 = 0;
+        v41 = 0;
       }
 
-      if ((v45 & 0xE0) != 0)
+      if ((v41 & 0xE0) != 0)
       {
-        v46 = 0;
-      }
-
-      else
-      {
-        v46 = -1 << v45;
-      }
-
-      if ((v41 + 1) < 0x20u)
-      {
-        v47 = ~(-1 << (v41 + 1));
+        v42 = 0;
       }
 
       else
       {
-        v47 = -1;
+        v42 = -1 << v41;
       }
 
-      v48 = v47 & v46;
-      if ((v47 & v46) == 0)
+      if ((v37 + 1) < 0x20u)
       {
-        v49 = MEMORY[0x277D81150];
-        v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "TSUColumnOrRowIndex TSCEBitGridTile::countInRange(TSUColumnOrRowIndex, TSURowIndex, TSUColumnOrRowIndex, TSURowIndex, const TSCEBitGridTile *) const", a4, a5);
-        v54 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v51, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEBitGrid.mm", v52, v53);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v49, v55, v50, v54, 404, 0, "countInRange: how did we end up masking off *all* bits?");
-
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v56, v57, v58, v59);
+        v43 = ~(-1 << (v37 + 1));
       }
 
-      if (v39 > v40)
+      else
+      {
+        v43 = -1;
+      }
+
+      v44 = v43 & v42;
+      if ((v43 & v42) == 0)
+      {
+        v45 = MEMORY[0x277D81150];
+        v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "TSUColumnOrRowIndex TSCEBitGridTile::countInRange(TSUColumnOrRowIndex, TSURowIndex, TSUColumnOrRowIndex, TSURowIndex, const TSCEBitGridTile *) const", a4, *&a7);
+        v49 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEBitGrid.mm", v48);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v45, v50, v46, v49, 404, 0, "countInRange: how did we end up masking off *all* bits?");
+
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v51, v52, v53);
+      }
+
+      if (v35 > v36)
       {
         return 0;
       }
@@ -9776,21 +9775,21 @@ LABEL_9:
       LODWORD(result) = 0;
       do
       {
-        v60 = a1[v39 + 3];
-        v61 = v39;
+        v54 = a1[v35 + 3];
+        v55 = v35;
         if (a6)
         {
-          v60 &= ~a6[v39 + 3];
+          v54 &= ~a6[v35 + 3];
         }
 
-        a7.i32[0] = v60 & v48;
+        a7.i32[0] = v54 & v44;
         a7 = vcnt_s8(a7);
         a7.i16[0] = vaddlv_u8(a7);
         result = (a7.i32[0] + result);
-        ++v39;
+        ++v35;
       }
 
-      while (v61 + 1 <= v40);
+      while (v55 + 1 <= v36);
     }
   }
 

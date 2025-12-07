@@ -9,35 +9,33 @@
 
 - (id)attributeDescriptions
 {
-  v24[6] = *MEMORY[0x277D85DE8];
+  v23[6] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   accessoryUUID = [(HMDCharacteristicNotificationRegistration *)self accessoryUUID];
-  v22 = [v3 initWithName:@"Accessory UUID" value:accessoryUUID];
-  v24[0] = v22;
+  v21 = [v3 initWithName:@"Accessory UUID" value:accessoryUUID];
+  v23[0] = v21;
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   characteristicInstanceID = [(HMDCharacteristicNotificationRegistration *)self characteristicInstanceID];
   v5 = [v4 initWithName:@"Characteristic Instance ID" value:characteristicInstanceID];
-  v24[1] = v5;
+  v23[1] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   deviceIdsDestination = [(HMDCharacteristicNotificationRegistration *)self deviceIdsDestination];
   v8 = [v6 initWithName:@"Device IDS Destination" value:deviceIdsDestination];
-  v24[2] = v8;
+  v23[2] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   userUUID = [(HMDCharacteristicNotificationRegistration *)self userUUID];
   v11 = [v9 initWithName:@"User UUID" value:userUUID];
-  v24[3] = v11;
+  v23[3] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   lastModified = [(HMDCharacteristicNotificationRegistration *)self lastModified];
   v14 = [v12 initWithName:@"Last Modified" value:lastModified];
-  v24[4] = v14;
+  v23[4] = v14;
   v15 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDCharacteristicNotificationRegistration *)self enabled];
   v16 = HMFBooleanToString();
   v17 = [v15 initWithName:@"Enabled" value:v16];
-  v24[5] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:6];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v23[5] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:6];
 
   return v18;
 }
@@ -164,14 +162,14 @@
     characteristicInstanceID = v22->_characteristicInstanceID;
     v22->_characteristicInstanceID = v23;
 
-    v25 = [destinationCopy copy];
+    v25 = objc_msgSend_copy(destinationCopy);
     deviceIdsDestination = v22->_deviceIdsDestination;
     v22->_deviceIdsDestination = v25;
 
     objc_storeStrong(&v22->_userUUID, uID);
     objc_storeStrong(&v22->_lastModified, modified);
     v22->_enabled = enabled;
-    v27 = [thresholdCopy copy];
+    v27 = objc_msgSend_copy(thresholdCopy);
     notificationThreshold = v22->_notificationThreshold;
     v22->_notificationThreshold = v27;
   }

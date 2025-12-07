@@ -21,7 +21,7 @@
     v60 = attendeeCopy;
     if (MEMORY[0x1D38B98D0]())
     {
-      contentView = [(EKEventDetailProposedTimeCell *)v9 contentView];
+      v10 = objc_msgSend_contentView(v9);
     }
 
     else
@@ -48,10 +48,10 @@
       v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v67 count:4];
       [v14 activateConstraints:v18];
 
-      contentView = v9->_bgView;
+      v10 = v9->_bgView;
     }
 
-    v19 = contentView;
+    v19 = v10;
     objc_storeStrong(&v9->_attendee, attendee);
     objc_storeStrong(&v9->_event, event);
     [(EKUITableViewCell *)v9 setDrawsOwnRowSeparators:1];
@@ -74,8 +74,8 @@
 
     [(EKEventDetailsHighlightControl *)v9->_control setTranslatesAutoresizingMaskIntoConstraints:0];
     [(EKEventDetailsHighlightControl *)v9->_control setEnabled:0];
-    contentView2 = [(EKEventDetailProposedTimeCell *)v9 contentView];
-    [contentView2 addSubview:v9->_control];
+    v24 = objc_msgSend_contentView(v9);
+    [v24 addSubview:v9->_control];
 
     v25 = objc_alloc(MEMORY[0x1E69DCAE0]);
     traitCollection = [(EKEventDetailProposedTimeCell *)v9 traitCollection];
@@ -83,8 +83,8 @@
     v28 = [v25 initWithImage:v27];
 
     [v28 setTranslatesAutoresizingMaskIntoConstraints:0];
-    contentView3 = [(EKEventDetailProposedTimeCell *)v9 contentView];
-    [contentView3 addSubview:v28];
+    v29 = objc_msgSend_contentView(v9);
+    [v29 addSubview:v28];
 
     v30 = MEMORY[0x1E696ACD8];
     v31 = 0.0;
@@ -113,10 +113,10 @@
     }
 
     v41 = v40;
-    contentView4 = [(EKEventDetailProposedTimeCell *)v9 contentView];
+    v42 = objc_msgSend_contentView(v9);
     v43 = [MEMORY[0x1E696ACD8] constraintsWithVisualFormat:v41 options:0 metrics:0 views:v38];
 
-    [contentView4 addConstraints:v43];
+    [v42 addConstraints:v43];
     v44 = MEMORY[0x1E696ACD8];
     v45 = [MEMORY[0x1E696ACD8] constraintWithItem:v28 attribute:10 relatedBy:0 toItem:v9 attribute:10 multiplier:1.0 constant:0.0];
     v65 = v45;

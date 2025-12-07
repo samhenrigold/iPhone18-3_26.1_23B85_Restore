@@ -22,15 +22,15 @@
     }
 
     *__error() = v11;
-    _SASetCrashLogMessage(435, "Neither thread nor dispatchQueue nor swiftTask provided", v13, v14, v15, v16, v17, v18, v19.receiver);
+    _SASetCrashLogMessage(435, "Neither thread nor dispatchQueue nor swiftTask provided");
     _os_crash();
     __break(1u);
     return 0;
   }
 
-  v19.receiver = self;
-  v19.super_class = SAThreadCallTree;
-  v8 = objc_msgSendSuper2(&v19, sel_initWithRootObjects_, task);
+  v13.receiver = self;
+  v13.super_class = SAThreadCallTree;
+  v8 = objc_msgSendSuper2(&v13, sel_initWithRootObjects_, task);
   v9 = v8;
   if (v8)
   {

@@ -51,86 +51,85 @@
 
 - (CUIPlaceholderCUINamedRenditionInfo)initWithKeyFormat:(const _renditionkeyfmt *)format andPlatform:(int64_t)platform
 {
-  v27.receiver = self;
-  v27.super_class = CUIPlaceholderCUINamedRenditionInfo;
-  v6 = [(CUIPlaceholderCUINamedRenditionInfo *)&v27 init];
+  v19.receiver = self;
+  v19.super_class = CUIPlaceholderCUINamedRenditionInfo;
+  v6 = [(CUIPlaceholderCUINamedRenditionInfo *)&v19 init];
   *(v6 + 1) = CUIBitVectorCreate(32 * format->var2);
   *(v6 + 2) = format;
   *(v6 + 3) = platform;
   var2 = format->var2;
   if (var2)
   {
-    v14 = 0;
+    v8 = 0;
     var3 = format->var3;
     do
     {
-      v16 = var3[v14];
-      if (*(v6 + 3) == -1 && v16 == 16)
+      v10 = var3[v8];
+      if (*(v6 + 3) == -1 && v10 == 16)
       {
         if (var2 <= 1)
         {
-          v21 = 1;
+          v15 = 1;
         }
 
         else
         {
-          v21 = var2;
+          v15 = var2;
         }
 
-        v22 = format->var3;
+        v16 = format->var3;
         while (1)
         {
-          v23 = *v22++;
-          if (v23 == 16)
+          v17 = *v16++;
+          if (v17 == 16)
           {
             break;
           }
 
-          if (!--v21)
+          if (!--v15)
           {
             goto LABEL_23;
           }
         }
       }
 
-      if (v16 > 0x1C || ((1 << v16) & 0x100600E6) == 0)
+      if (v10 > 0x1C || ((1 << v10) & 0x100600E6) == 0)
       {
-        v19 = 0;
-        v20 = var2;
+        v13 = 0;
+        v14 = var2;
         if (var2 <= 1uLL)
         {
-          v20 = 1;
+          v14 = 1;
         }
 
-        while (var3[v19] != v16)
+        while (var3[v13] != v10)
         {
-          if (v20 == ++v19)
+          if (v14 == ++v13)
           {
             goto LABEL_23;
           }
         }
 
-        if (v19 < 33)
+        if (v13 < 33)
         {
           goto LABEL_25;
         }
 
-        _CUILog(4, "CoreUI: attribute %d > 32 bits its value is %d **************************************************", v7, v8, v9, v10, v11, v12, var3[v14]);
+        _CUILog(4, "CoreUI: attribute %d > 32 bits its value is %d **************************************************", var3[v8], 0);
       }
 
 LABEL_23:
-      v24 = CUIBitVectorSetBitRange(*(v6 + 1), 32 * v14, 32 * v14 + 32);
-      if ((v24 & 0x80000000) != 0)
+      if ((CUIBitVectorSetBitRange(*(v6 + 1), 32 * v8, 32 * v8 + 32) & 0x80000000) != 0)
       {
-        [(CUIPlaceholderCUINamedRenditionInfo *)v24 initWithKeyFormat:v25 andPlatform:v7, v8, v9, v10, v11, v12];
+        [CUIPlaceholderCUINamedRenditionInfo initWithKeyFormat:andPlatform:];
       }
 
       var2 = format->var2;
 LABEL_25:
-      ++v14;
+      ++v8;
     }
 
-    while (v14 < var2);
+    while (v8 < var2);
   }
 
   return v6;
@@ -401,7 +400,6 @@ LABEL_25:
 
 - (int)attributePresent:(int)present withValue:(unsigned __int16)value
 {
-  v8 = *&present;
   keyFormat = self->_keyFormat;
   platform = self->_platform;
   if (present == 16 && platform == -1)
@@ -415,8 +413,8 @@ LABEL_25:
     var3 = keyFormat->var3;
     while (1)
     {
-      v14 = *var3++;
-      if (v14 == 16)
+      v10 = *var3++;
+      if (v10 == 16)
       {
         break;
       }
@@ -1054,32 +1052,32 @@ LABEL_164:
       }
     }
 
-    _CUILog(4, "CoreUI: %s got a device subtype that it doesn't know about %d in unknown platform", *&present, value, v4, v5, v6, v7, "int __CUISubtypeToIndex(CUIThemeSchemaPlatform, CUIRenditionKeyUInteger)");
-    *&value = 0xFFFFLL;
+    _CUILog(4, "CoreUI: %s got a device subtype that it doesn't know about %d in unknown platform", "int __CUISubtypeToIndex(CUIThemeSchemaPlatform, CUIRenditionKeyUInteger)", value);
+    *&value = 0xFFFF;
   }
 
 LABEL_23:
-  v16 = keyFormat->var2;
-  if (!v16)
+  v12 = keyFormat->var2;
+  if (!v12)
   {
     return -1;
   }
 
-  v17 = 0;
+  v13 = 0;
   valueCopy = value;
-  while (keyFormat->var3[v17] != v8)
+  while (keyFormat->var3[v13] != present)
   {
-    ++v17;
+    ++v13;
     valueCopy += 32;
-    if (v16 == v17)
+    if (v12 == v13)
     {
       return -1;
     }
   }
 
-  if (v17 >= 33)
+  if (v13 >= 33)
   {
-    _CUILog(4, "CoreUI: attribute %d > 32 bits its value is %d **************************************************", *&present, value, v4, v5, v6, v7, v8);
+    _CUILog(4, "CoreUI: attribute %d > 32 bits its value is %d **************************************************", present, value);
     return -1;
   }
 
@@ -1108,8 +1106,8 @@ LABEL_23:
     var3 = keyFormat->var3;
     while (1)
     {
-      v13 = *var3++;
-      if (v13 == 16)
+      v8 = *var3++;
+      if (v8 == 16)
       {
         break;
       }
@@ -1126,51 +1124,51 @@ LABEL_23:
     goto LABEL_10;
   }
 
-  v15 = keyFormat->var2;
-  if (!v15)
+  v10 = keyFormat->var2;
+  if (!v10)
   {
     goto LABEL_10;
   }
 
-  v16 = 0;
-  v17 = 0;
-  v18 = keyFormat->var3;
-  while (v18[v17] != attribute)
+  v11 = 0;
+  v12 = 0;
+  v13 = keyFormat->var3;
+  while (v13[v12] != attribute)
   {
     result = 0;
-    ++v17;
-    v16 += 32;
-    if (v15 == v17)
+    ++v12;
+    v11 += 32;
+    if (v10 == v12)
     {
       goto LABEL_11;
     }
   }
 
-  if (v17 >= 33)
+  if (v12 >= 33)
   {
-    _CUILog(4, "CoreUI: attribute %d > 32 bits its value is %d **************************************************", *&attribute, v3, v4, v5, v6, v7, *&attribute);
+    _CUILog(4, "CoreUI: attribute %d > 32 bits its value is %d **************************************************", attribute, 0);
 LABEL_10:
     result = 0;
     goto LABEL_11;
   }
 
-  if ((v17 & 0x80000000) != 0)
+  if ((v12 & 0x80000000) != 0)
   {
     goto LABEL_10;
   }
 
-  v19 = CUIBitVectorBucketValue(self->_bitmap, v16);
-  v20 = 0;
-  while (((v19 >> v20) & 1) == 0)
+  v14 = CUIBitVectorBucketValue(self->_bitmap, v11);
+  v15 = 0;
+  while (((v14 >> v15) & 1) == 0)
   {
     result = 0;
-    if (++v20 == 32)
+    if (++v15 == 32)
     {
       goto LABEL_11;
     }
   }
 
-  result = v20;
+  result = v15;
 LABEL_11:
   if (attribute == 16)
   {
@@ -1195,8 +1193,8 @@ LABEL_11:
     var3 = keyFormat->var3;
     while (1)
     {
-      v12 = *var3++;
-      if (v12 == 16)
+      v8 = *var3++;
+      if (v8 == 16)
       {
         break;
       }
@@ -1213,45 +1211,45 @@ LABEL_11:
     return 0;
   }
 
-  v15 = keyFormat->var2;
-  if (!v15)
+  v11 = keyFormat->var2;
+  if (!v11)
   {
     return 0;
   }
 
-  v16 = 0;
-  v17 = 0;
-  v18 = keyFormat->var3;
-  while (v18[v17] != attribute)
+  v12 = 0;
+  v13 = 0;
+  v14 = keyFormat->var3;
+  while (v14[v13] != attribute)
   {
-    v13 = 0;
-    ++v17;
-    v16 += 32;
-    if (v15 == v17)
+    v9 = 0;
+    ++v13;
+    v12 += 32;
+    if (v11 == v13)
     {
-      return v13;
+      return v9;
     }
   }
 
-  if (v17 >= 33)
+  if (v13 >= 33)
   {
-    _CUILog(4, "CoreUI: attribute %d > 32 bits its value is %d **************************************************", *&attribute, value, v4, v5, v6, v7, *&attribute);
+    _CUILog(4, "CoreUI: attribute %d > 32 bits its value is %d **************************************************", attribute, 0);
     return 0;
   }
 
-  if ((v17 & 0x80000000) != 0)
+  if ((v13 & 0x80000000) != 0)
   {
     return 0;
   }
 
-  v19 = CUIBitVectorBucketValue(self->_bitmap, v16);
-  while (((v19 >> valueCopy) & 1) == 0)
+  v15 = CUIBitVectorBucketValue(self->_bitmap, v12);
+  while (((v15 >> valueCopy) & 1) == 0)
   {
-    v13 = 0;
-    v20 = __OFSUB__(valueCopy--, 1);
-    if (valueCopy < 0 != v20)
+    v9 = 0;
+    v16 = __OFSUB__(valueCopy--, 1);
+    if (valueCopy < 0 != v16)
     {
-      return v13;
+      return v9;
     }
   }
 
@@ -1272,8 +1270,8 @@ LABEL_11:
     var3 = keyFormat->var3;
     while (1)
     {
-      v11 = *var3++;
-      if (v11 == 16)
+      v6 = *var3++;
+      if (v6 == 16)
       {
         break;
       }
@@ -1287,25 +1285,25 @@ LABEL_11:
 
   if ((attribute - 1) >= 0x1C || ((0x8030073u >> (attribute - 1)) & 1) == 0)
   {
-    v12 = keyFormat->var2;
-    if (v12)
+    v7 = keyFormat->var2;
+    if (v7)
     {
-      v13 = 0;
-      v14 = 0;
-      v15 = keyFormat->var3;
-      while (v15[v14] != attribute)
+      v8 = 0;
+      v9 = 0;
+      v10 = keyFormat->var3;
+      while (v10[v9] != attribute)
       {
-        ++v14;
-        v13 += 32;
-        if (v12 == v14)
+        ++v9;
+        v8 += 32;
+        if (v7 == v9)
         {
           return 0;
         }
       }
 
-      if (v14 < 33)
+      if (v9 < 33)
       {
-        if ((v14 & 0x80000000) == 0 && CUIBitVectorNumberOfBitsSetInBucket(self->_bitmap, v13) > 0)
+        if ((v9 & 0x80000000) == 0 && CUIBitVectorNumberOfBitsSetInBucket(self->_bitmap, v8) > 0)
         {
           return 1;
         }
@@ -1313,7 +1311,7 @@ LABEL_11:
 
       else
       {
-        _CUILog(4, "CoreUI: attribute %d > 32 bits its value is %d **************************************************", *&attribute, v3, v4, v5, v6, v7, *&attribute);
+        _CUILog(4, "CoreUI: attribute %d > 32 bits its value is %d **************************************************", attribute, 0);
       }
     }
   }
@@ -1335,8 +1333,8 @@ LABEL_11:
     var3 = keyFormat->var3;
     while (1)
     {
-      v12 = *var3++;
-      if (v12 == 16)
+      v8 = *var3++;
+      if (v8 == 16)
       {
         break;
       }
@@ -1350,34 +1348,34 @@ LABEL_11:
 
   if ((attribute - 1) >= 0x1C || ((0x8030073u >> (attribute - 1)) & 1) == 0)
   {
-    v13 = keyFormat->var2;
-    if (v13)
+    v9 = keyFormat->var2;
+    if (v9)
     {
-      v14 = 0;
-      v15 = 0;
-      v16 = keyFormat->var3;
-      while (v16[v15] != attribute)
+      v10 = 0;
+      v11 = 0;
+      v12 = keyFormat->var3;
+      while (v12[v11] != attribute)
       {
-        ++v15;
-        v14 += 32;
-        if (v13 == v15)
+        ++v11;
+        v10 += 32;
+        if (v9 == v11)
         {
           return 0;
         }
       }
 
-      if (v15 < 33)
+      if (v11 < 33)
       {
-        if ((v15 & 0x80000000) == 0)
+        if ((v11 & 0x80000000) == 0)
         {
-          v17 = CUIBitVectorBucketValue(self->_bitmap, v14);
-          return v17 == CUIBitVectorBucketValue(*(info + 1), v14);
+          v13 = CUIBitVectorBucketValue(self->_bitmap, v10);
+          return v13 == CUIBitVectorBucketValue(*(info + 1), v10);
         }
       }
 
       else
       {
-        _CUILog(4, "CoreUI: attribute %d > 32 bits its value is %d **************************************************", *&attribute, info, v4, v5, v6, v7, *&attribute);
+        _CUILog(4, "CoreUI: attribute %d > 32 bits its value is %d **************************************************", attribute, 0);
       }
     }
   }
@@ -1399,8 +1397,8 @@ LABEL_11:
     var3 = keyFormat->var3;
     while (1)
     {
-      v12 = *var3++;
-      if (v12 == 16)
+      v7 = *var3++;
+      if (v7 == 16)
       {
         break;
       }
@@ -1417,37 +1415,36 @@ LABEL_11:
     return 0;
   }
 
-  v13 = keyFormat->var2;
-  if (!v13)
+  v8 = keyFormat->var2;
+  if (!v8)
   {
     return 0;
   }
 
-  v14 = 0;
-  v15 = 0;
-  v16 = keyFormat->var3;
-  while (v16[v15] != attribute)
+  v9 = 0;
+  v10 = 0;
+  v11 = keyFormat->var3;
+  while (v11[v10] != attribute)
   {
-    ++v15;
-    v14 += 32;
-    if (v13 == v15)
+    ++v10;
+    v9 += 32;
+    if (v8 == v10)
     {
       return 0;
     }
   }
 
-  if (v15 >= 33)
+  if (v10 >= 33)
   {
-    _CUILog(4, "CoreUI: attribute %d > 32 bits its value is %d **************************************************", *&attribute, v3, v4, v5, v6, v7, *&attribute);
+    _CUILog(4, "CoreUI: attribute %d > 32 bits its value is %d **************************************************", attribute, 0);
     return 0;
   }
 
-  return (v15 & 0x80000000) == 0 && (CUIBitVectorNumberOfBitsSetInBucket(self->_bitmap, v14) != 1 || CUIBitVectorIsBitSet(self->_bitmap, v14) != 1);
+  return (v10 & 0x80000000) == 0 && (CUIBitVectorNumberOfBitsSetInBucket(self->_bitmap, v9) != 1 || CUIBitVectorIsBitSet(self->_bitmap, v9) != 1);
 }
 
 - (void)setAttributePresent:(int)present withValue:(unsigned __int16)value
 {
-  v8 = *&present;
   keyFormat = self->_keyFormat;
   platform = self->_platform;
   if (present == 16 && platform == -1)
@@ -1461,8 +1458,8 @@ LABEL_11:
     var3 = keyFormat->var3;
     while (1)
     {
-      v14 = *var3++;
-      if (v14 == 16)
+      v10 = *var3++;
+      if (v10 == 16)
       {
         break;
       }
@@ -1738,8 +1735,8 @@ LABEL_164:
       }
     }
 
-    _CUILog(4, "CoreUI: %s got a device subtype that it doesn't know about %d in unknown platform", *&present, value, v4, v5, v6, v7, "int __CUISubtypeToIndex(CUIThemeSchemaPlatform, CUIRenditionKeyUInteger)");
-    *&value = 0xFFFFLL;
+    _CUILog(4, "CoreUI: %s got a device subtype that it doesn't know about %d in unknown platform", "int __CUISubtypeToIndex(CUIThemeSchemaPlatform, CUIRenditionKeyUInteger)", value);
+    *&value = 0xFFFF;
     goto LABEL_23;
   }
 
@@ -2106,22 +2103,22 @@ LABEL_135:
 LABEL_188:
   *&value = 6;
 LABEL_23:
-  v15 = keyFormat->var2;
-  if (v15)
+  v11 = keyFormat->var2;
+  if (v11)
   {
-    v16 = 0;
+    v12 = 0;
     valueCopy = value;
-    while (keyFormat->var3[v16] != v8)
+    while (keyFormat->var3[v12] != present)
     {
-      ++v16;
+      ++v12;
       valueCopy += 32;
-      if (v15 == v16)
+      if (v11 == v12)
       {
         return;
       }
     }
 
-    if (v16 < 33)
+    if (v12 < 33)
     {
       if ((valueCopy & 0x80000000) == 0)
       {
@@ -2133,14 +2130,13 @@ LABEL_23:
 
     else
     {
-      _CUILog(4, "CoreUI: attribute %d > 32 bits its value is %d **************************************************", *&present, value, v4, v5, v6, v7, v8);
+      _CUILog(4, "CoreUI: attribute %d > 32 bits its value is %d **************************************************", present, value);
     }
   }
 }
 
 - (void)clearAttributePresent:(int)present withValue:(unsigned __int16)value
 {
-  v8 = *&present;
   keyFormat = self->_keyFormat;
   platform = self->_platform;
   if (present == 16 && platform == -1)
@@ -2154,8 +2150,8 @@ LABEL_23:
     var3 = keyFormat->var3;
     while (1)
     {
-      v14 = *var3++;
-      if (v14 == 16)
+      v10 = *var3++;
+      if (v10 == 16)
       {
         break;
       }
@@ -2431,8 +2427,8 @@ LABEL_164:
       }
     }
 
-    _CUILog(4, "CoreUI: %s got a device subtype that it doesn't know about %d in unknown platform", *&present, value, v4, v5, v6, v7, "int __CUISubtypeToIndex(CUIThemeSchemaPlatform, CUIRenditionKeyUInteger)");
-    *&value = 0xFFFFLL;
+    _CUILog(4, "CoreUI: %s got a device subtype that it doesn't know about %d in unknown platform", "int __CUISubtypeToIndex(CUIThemeSchemaPlatform, CUIRenditionKeyUInteger)", value);
+    *&value = 0xFFFF;
     goto LABEL_23;
   }
 
@@ -2799,22 +2795,22 @@ LABEL_135:
 LABEL_188:
   *&value = 6;
 LABEL_23:
-  v15 = keyFormat->var2;
-  if (v15)
+  v11 = keyFormat->var2;
+  if (v11)
   {
-    v16 = 0;
+    v12 = 0;
     valueCopy = value;
-    while (keyFormat->var3[v16] != v8)
+    while (keyFormat->var3[v12] != present)
     {
-      ++v16;
+      ++v12;
       valueCopy += 32;
-      if (v15 == v16)
+      if (v11 == v12)
       {
         return;
       }
     }
 
-    if (v16 < 33)
+    if (v12 < 33)
     {
       if ((valueCopy & 0x80000000) == 0)
       {
@@ -2826,15 +2822,14 @@ LABEL_23:
 
     else
     {
-      _CUILog(4, "CoreUI: attribute %d > 32 bits its value is %d **************************************************", *&present, value, v4, v5, v6, v7, v8);
+      _CUILog(4, "CoreUI: attribute %d > 32 bits its value is %d **************************************************", present, value);
     }
   }
 }
 
 - (void)decrementValue:(int64_t *)value forAttribute:(int)attribute
 {
-  v8 = *&attribute;
-  v11 = *value;
+  v7 = *value;
   keyFormat = self->_keyFormat;
   platform = self->_platform;
   if (attribute == 16 && platform == -1)
@@ -2848,8 +2843,8 @@ LABEL_23:
     var3 = keyFormat->var3;
     while (1)
     {
-      v16 = *var3++;
-      if (v16 == 16)
+      v12 = *var3++;
+      if (v12 == 16)
       {
         break;
       }
@@ -2870,15 +2865,15 @@ LABEL_23:
 
     if (attribute == 13)
     {
-      LOWORD(v11) = *value != 0;
+      LOWORD(v7) = *value != 0;
     }
 
     else if (attribute == 16)
     {
       if (platform == -1)
       {
-        v29 = *value;
-        if (v29 > 0x86F)
+        v24 = *value;
+        if (v24 > 0x86F)
         {
           if (*value > 0x9E3u)
           {
@@ -2886,29 +2881,29 @@ LABEL_23:
             {
               if (*value > 0xEFFu)
               {
-                if (v29 == 3840)
+                if (v24 == 3840)
                 {
                   goto LABEL_357;
                 }
 
-                if (v29 == 32401)
+                if (v24 == 32401)
                 {
 LABEL_374:
-                  LOWORD(v11) = 17;
+                  LOWORD(v7) = 17;
                   goto LABEL_23;
                 }
               }
 
               else
               {
-                if (v29 == 2778)
+                if (v24 == 2778)
                 {
 LABEL_363:
-                  LOWORD(v11) = 19;
+                  LOWORD(v7) = 19;
                   goto LABEL_23;
                 }
 
-                if (v29 == 2796)
+                if (v24 == 2796)
                 {
                   goto LABEL_322;
                 }
@@ -2917,27 +2912,27 @@ LABEL_363:
 
             else if (*value > 0xA7Fu)
             {
-              if (v29 == 2688)
+              if (v24 == 2688)
               {
                 goto LABEL_371;
               }
 
-              if (v29 == 2732)
+              if (v24 == 2732)
               {
 LABEL_369:
-                LOWORD(v11) = 4;
+                LOWORD(v7) = 4;
                 goto LABEL_23;
               }
             }
 
             else
             {
-              if (v29 == 2532)
+              if (v24 == 2532)
               {
                 goto LABEL_343;
               }
 
-              if (v29 == 2556)
+              if (v24 == 2556)
               {
                 goto LABEL_342;
               }
@@ -2948,12 +2943,12 @@ LABEL_369:
           {
             if (*value > 0x953u)
             {
-              if (v29 == 2388)
+              if (v24 == 2388)
               {
                 goto LABEL_358;
               }
 
-              if (v29 == 2436)
+              if (v24 == 2436)
               {
                 goto LABEL_347;
               }
@@ -2961,14 +2956,14 @@ LABEL_369:
 
             else
             {
-              if (v29 == 2340)
+              if (v24 == 2340)
               {
 LABEL_330:
-                LOWORD(v11) = 18;
+                LOWORD(v7) = 18;
                 goto LABEL_23;
               }
 
-              if (v29 == 2360)
+              if (v24 == 2360)
               {
                 goto LABEL_359;
               }
@@ -2977,14 +2972,14 @@ LABEL_330:
 
           else if (*value > 0x8B9u)
           {
-            if (v29 == 2234)
+            if (v24 == 2234)
             {
 LABEL_303:
-              LOWORD(v11) = 27;
+              LOWORD(v7) = 27;
               goto LABEL_23;
             }
 
-            if (v29 == 2266)
+            if (v24 == 2266)
             {
               goto LABEL_345;
             }
@@ -2992,14 +2987,14 @@ LABEL_303:
 
           else
           {
-            if (v29 == 2160)
+            if (v24 == 2160)
             {
 LABEL_351:
-              LOWORD(v11) = 21;
+              LOWORD(v7) = 21;
               goto LABEL_23;
             }
 
-            if (v29 == 2224)
+            if (v24 == 2224)
             {
               goto LABEL_346;
             }
@@ -3012,12 +3007,12 @@ LABEL_351:
           {
             if (*value > 0x6FFu)
             {
-              if (v29 == 1792)
+              if (v24 == 1792)
               {
                 goto LABEL_352;
               }
 
-              if (v29 == 1964)
+              if (v24 == 1964)
               {
                 goto LABEL_318;
               }
@@ -3025,12 +3020,12 @@ LABEL_351:
 
             else
             {
-              if (v29 == 720)
+              if (v24 == 720)
               {
                 goto LABEL_375;
               }
 
-              if (v29 == 1665)
+              if (v24 == 1665)
               {
                 goto LABEL_364;
               }
@@ -3039,12 +3034,12 @@ LABEL_351:
 
           else if (*value > 0x238u)
           {
-            if (v29 == 569)
+            if (v24 == 569)
             {
               goto LABEL_344;
             }
 
-            if (v29 == 570)
+            if (v24 == 570)
             {
               goto LABEL_353;
             }
@@ -3052,12 +3047,12 @@ LABEL_351:
 
           else
           {
-            if (v29 == 502)
+            if (v24 == 502)
             {
               goto LABEL_323;
             }
 
-            if (v29 == 568)
+            if (v24 == 568)
             {
               goto LABEL_265;
             }
@@ -3068,12 +3063,12 @@ LABEL_351:
         {
           if (*value > 0x1ADu)
           {
-            if (v29 == 430)
+            if (v24 == 430)
             {
               goto LABEL_325;
             }
 
-            if (v29 == 484)
+            if (v24 == 484)
             {
               goto LABEL_341;
             }
@@ -3081,12 +3076,12 @@ LABEL_351:
 
           else
           {
-            if (v29 == 384)
+            if (v24 == 384)
             {
               goto LABEL_324;
             }
 
-            if (v29 == 390)
+            if (v24 == 390)
             {
               goto LABEL_269;
             }
@@ -3095,12 +3090,12 @@ LABEL_351:
 
         else if (*value > 0x13Fu)
         {
-          if (v29 == 320)
+          if (v24 == 320)
           {
             goto LABEL_365;
           }
 
-          if (v29 == 340)
+          if (v24 == 340)
           {
             goto LABEL_370;
           }
@@ -3113,14 +3108,14 @@ LABEL_351:
             goto LABEL_23;
           }
 
-          if (v29 == 163)
+          if (v24 == 163)
           {
             goto LABEL_296;
           }
         }
 
-        _CUILog(4, "CoreUI: %s got a device subtype that it doesn't know about %d in unknown platform", value, *&attribute, v4, v5, v6, v7, "int __CUISubtypeToIndex(CUIThemeSchemaPlatform, CUIRenditionKeyUInteger)");
-        LOWORD(v11) = -1;
+        _CUILog(4, "CoreUI: %s got a device subtype that it doesn't know about %d in unknown platform", "int __CUISubtypeToIndex(CUIThemeSchemaPlatform, CUIRenditionKeyUInteger)", *value);
+        LOWORD(v7) = -1;
         goto LABEL_23;
       }
 
@@ -3132,12 +3127,12 @@ LABEL_351:
           {
             if (platform == 3)
             {
-              v17 = *value;
-              if (v17 != 3840)
+              v13 = *value;
+              if (v13 != 3840)
               {
-                if (v17 != 1088)
+                if (v13 != 1088)
                 {
-                  if (v17 != 720)
+                  if (v13 != 720)
                   {
                     goto LABEL_289;
                   }
@@ -3149,7 +3144,7 @@ LABEL_351:
               }
 
 LABEL_357:
-              LOWORD(v11) = 7;
+              LOWORD(v7) = 7;
               goto LABEL_23;
             }
 
@@ -3159,8 +3154,8 @@ LABEL_252:
               goto LABEL_289;
             }
 
-            v31 = *value;
-            if (v31 > 0x983)
+            v26 = *value;
+            if (v26 > 0x983)
             {
               if (*value > 0xAAFu)
               {
@@ -3168,9 +3163,9 @@ LABEL_252:
                 {
                   if (*value <= 0xBCFu)
                   {
-                    if (v31 != 2796)
+                    if (v26 != 2796)
                     {
-                      if (v31 != 2868)
+                      if (v26 != 2868)
                       {
                         goto LABEL_289;
                       }
@@ -3179,13 +3174,13 @@ LABEL_252:
                     }
 
 LABEL_322:
-                    LOWORD(v11) = 30;
+                    LOWORD(v7) = 30;
                     goto LABEL_23;
                   }
 
-                  if (v31 != 3024)
+                  if (v26 != 3024)
                   {
-                    if (v31 != 32401)
+                    if (v26 != 32401)
                     {
                       goto LABEL_289;
                     }
@@ -3194,15 +3189,15 @@ LABEL_322:
                   }
 
 LABEL_375:
-                  LOWORD(v11) = 6;
+                  LOWORD(v7) = 6;
                   goto LABEL_23;
                 }
 
-                if (v31 != 2736)
+                if (v26 != 2736)
                 {
-                  if (v31 != 2752)
+                  if (v26 != 2752)
                   {
-                    if (v31 != 2778)
+                    if (v26 != 2778)
                     {
                       goto LABEL_289;
                     }
@@ -3211,46 +3206,46 @@ LABEL_375:
                   }
 
 LABEL_365:
-                  LOWORD(v11) = 8;
+                  LOWORD(v7) = 8;
                   goto LABEL_23;
                 }
 
 LABEL_364:
-                LOWORD(v11) = 31;
+                LOWORD(v7) = 31;
                 goto LABEL_23;
               }
 
               if (*value <= 0xA3Du)
               {
-                if (v31 != 2436)
+                if (v26 != 2436)
                 {
-                  if (v31 != 2532)
+                  if (v26 != 2532)
                   {
-                    if (v31 != 2556)
+                    if (v26 != 2556)
                     {
                       goto LABEL_289;
                     }
 
 LABEL_342:
-                    LOWORD(v11) = 29;
+                    LOWORD(v7) = 29;
                     goto LABEL_23;
                   }
 
 LABEL_343:
-                  LOWORD(v11) = 22;
+                  LOWORD(v7) = 22;
                   goto LABEL_23;
                 }
 
 LABEL_347:
-                LOWORD(v11) = 11;
+                LOWORD(v7) = 11;
                 goto LABEL_23;
               }
 
-              if (v31 != 2622)
+              if (v26 != 2622)
               {
-                if (v31 != 2688)
+                if (v26 != 2688)
                 {
-                  if (v31 != 2732)
+                  if (v26 != 2732)
                   {
                     goto LABEL_289;
                   }
@@ -3259,12 +3254,12 @@ LABEL_347:
                 }
 
 LABEL_371:
-                LOWORD(v11) = 12;
+                LOWORD(v7) = 12;
                 goto LABEL_23;
               }
 
 LABEL_370:
-              LOWORD(v11) = 13;
+              LOWORD(v7) = 13;
               goto LABEL_23;
             }
 
@@ -3272,17 +3267,17 @@ LABEL_370:
             {
               if (*value <= 0x239u)
               {
-                if (v31 != 163)
+                if (v26 != 163)
                 {
-                  if (v31 != 568)
+                  if (v26 != 568)
                   {
-                    if (v31 != 569)
+                    if (v26 != 569)
                     {
                       goto LABEL_289;
                     }
 
 LABEL_344:
-                    LOWORD(v11) = 2;
+                    LOWORD(v7) = 2;
                     goto LABEL_23;
                   }
 
@@ -3290,15 +3285,15 @@ LABEL_344:
                 }
 
 LABEL_296:
-                LOWORD(v11) = 5;
+                LOWORD(v7) = 5;
                 goto LABEL_23;
               }
 
-              if (v31 != 570)
+              if (v26 != 570)
               {
-                if (v31 != 1792)
+                if (v26 != 1792)
                 {
-                  if (v31 != 2160)
+                  if (v26 != 2160)
                   {
                     goto LABEL_289;
                   }
@@ -3307,22 +3302,22 @@ LABEL_296:
                 }
 
 LABEL_352:
-                LOWORD(v11) = 16;
+                LOWORD(v7) = 16;
                 goto LABEL_23;
               }
 
 LABEL_353:
-              LOWORD(v11) = 3;
+              LOWORD(v7) = 3;
               goto LABEL_23;
             }
 
             if (*value <= 0x937u)
             {
-              if (v31 != 2224)
+              if (v26 != 2224)
               {
-                if (v31 != 2266)
+                if (v26 != 2266)
                 {
-                  if (v31 != 2340)
+                  if (v26 != 2340)
                   {
                     goto LABEL_289;
                   }
@@ -3331,20 +3326,20 @@ LABEL_353:
                 }
 
 LABEL_345:
-                LOWORD(v11) = 25;
+                LOWORD(v7) = 25;
                 goto LABEL_23;
               }
 
 LABEL_346:
-              LOWORD(v11) = 10;
+              LOWORD(v7) = 10;
               goto LABEL_23;
             }
 
-            if (v31 != 2360)
+            if (v26 != 2360)
             {
-              if (v31 != 2388)
+              if (v26 != 2388)
               {
-                if (v31 != 2420)
+                if (v26 != 2420)
                 {
                   goto LABEL_289;
                 }
@@ -3353,36 +3348,36 @@ LABEL_346:
               }
 
 LABEL_358:
-              LOWORD(v11) = 15;
+              LOWORD(v7) = 15;
               goto LABEL_23;
             }
 
 LABEL_359:
-            LOWORD(v11) = 20;
+            LOWORD(v7) = 20;
             goto LABEL_23;
           }
 
-          v32 = *value;
-          if (v32 <= 0x7AB)
+          v27 = *value;
+          if (v27 <= 0x7AB)
           {
-            if (v32 == 1665)
+            if (v27 == 1665)
             {
               goto LABEL_364;
             }
 
-            if (v32 != 1864)
+            if (v27 != 1864)
             {
               goto LABEL_289;
             }
 
 LABEL_265:
-            LOWORD(v11) = 1;
+            LOWORD(v7) = 1;
             goto LABEL_23;
           }
 
-          if (v32 != 1964)
+          if (v27 != 1964)
           {
-            if (v32 != 2234)
+            if (v27 != 2234)
             {
               goto LABEL_289;
             }
@@ -3391,7 +3386,7 @@ LABEL_265:
           }
 
 LABEL_318:
-          LOWORD(v11) = 26;
+          LOWORD(v7) = 26;
           goto LABEL_23;
         }
 
@@ -3410,59 +3405,59 @@ LABEL_318:
           goto LABEL_252;
         }
 
-        v30 = *value;
-        if (v30 <= 0x1BD)
+        v25 = *value;
+        if (v25 <= 0x1BD)
         {
           if (*value <= 0x17Fu)
           {
-            if (v30 == 320)
+            if (v25 == 320)
             {
               goto LABEL_365;
             }
 
-            if (v30 == 340)
+            if (v25 == 340)
             {
               goto LABEL_370;
             }
 
 LABEL_289:
-            [CUIPlaceholderCUINamedRenditionInfo decrementValue:v11 forAttribute:platform];
+            [CUIPlaceholderCUINamedRenditionInfo decrementValue:v7 forAttribute:platform];
           }
 
-          if (v30 != 384)
+          if (v25 != 384)
           {
-            if (v30 != 390)
+            if (v25 != 390)
             {
-              if (v30 != 430)
+              if (v25 != 430)
               {
                 goto LABEL_289;
               }
 
 LABEL_325:
-              LOWORD(v11) = 23;
+              LOWORD(v7) = 23;
               goto LABEL_23;
             }
 
 LABEL_269:
-            LOWORD(v11) = 14;
+            LOWORD(v7) = 14;
             goto LABEL_23;
           }
 
 LABEL_324:
-          LOWORD(v11) = 9;
+          LOWORD(v7) = 9;
           goto LABEL_23;
         }
 
         if (*value > 0x1EFu)
         {
-          if (v30 == 496)
+          if (v25 == 496)
           {
             goto LABEL_322;
           }
 
-          if (v30 != 502)
+          if (v25 != 502)
           {
-            if (v30 == 514)
+            if (v25 == 514)
             {
               goto LABEL_364;
             }
@@ -3471,164 +3466,164 @@ LABEL_324:
           }
 
 LABEL_323:
-          LOWORD(v11) = 28;
+          LOWORD(v7) = 28;
           goto LABEL_23;
         }
 
-        if (v30 == 446)
+        if (v25 == 446)
         {
           goto LABEL_342;
         }
 
-        if (v30 != 484)
+        if (v25 != 484)
         {
           goto LABEL_289;
         }
 
 LABEL_341:
-        LOWORD(v11) = 24;
+        LOWORD(v7) = 24;
         goto LABEL_23;
       }
 
-      LOWORD(v11) = 0;
+      LOWORD(v7) = 0;
     }
   }
 
 LABEL_23:
-  v18 = keyFormat->var2;
-  if (v18)
+  v14 = keyFormat->var2;
+  if (v14)
   {
-    v19 = 0;
-    v20 = v11;
-    while (keyFormat->var3[v19] != v8)
+    v15 = 0;
+    v16 = v7;
+    while (keyFormat->var3[v15] != attribute)
     {
-      ++v19;
-      v20 += 32;
-      if (v18 == v19)
+      ++v15;
+      v16 += 32;
+      if (v14 == v15)
       {
         return;
       }
     }
 
-    if (v19 > 32)
+    if (v15 > 32)
     {
 LABEL_29:
-      _CUILog(4, "CoreUI: attribute %d > 32 bits its value is %d **************************************************", value, *&attribute, v4, v5, v6, v7, v8);
+      _CUILog(4, "CoreUI: attribute %d > 32 bits its value is %d **************************************************", attribute, v7);
       return;
     }
 
-    if ((v20 & 0x80000000) == 0 && *value)
+    if ((v16 & 0x80000000) == 0 && *value)
     {
       do
       {
-        if (CUIBitVectorIsBitSet(self->_bitmap, v20))
+        if (CUIBitVectorIsBitSet(self->_bitmap, v16))
         {
           return;
         }
 
-        v21 = *value - 1;
-        *value = v21;
-        v23 = self->_keyFormat;
-        v22 = self->_platform;
-        if (v8 == 16 && v22 == -1)
+        v7 = *value - 1;
+        *value = v7;
+        v18 = self->_keyFormat;
+        v17 = self->_platform;
+        if (attribute == 16 && v17 == -1)
         {
-          v24 = v23->var2;
-          if (!v24)
+          v19 = v18->var2;
+          if (!v19)
           {
             return;
           }
 
-          v25 = v23->var3;
+          v20 = v18->var3;
           while (1)
           {
-            v26 = *v25++;
-            if (v26 == 16)
+            v21 = *v20++;
+            if (v21 == 16)
             {
               break;
             }
 
-            if (!--v24)
+            if (!--v19)
             {
               return;
             }
           }
         }
 
-        if (v8 <= 0x1C)
+        if (attribute <= 0x1C)
         {
-          if (v8 == 13)
+          if (attribute == 13)
           {
-            LOWORD(v21) = v21 != 0;
+            LOWORD(v7) = v7 != 0;
             goto LABEL_211;
           }
 
-          if (v8 == 16)
+          if (attribute == 16)
           {
-            if (v22 == -1)
+            if (v17 == -1)
             {
-              if (v21 > 0x86Fu)
+              if (v7 > 0x86Fu)
               {
-                if (v21 <= 0x9E3u)
+                if (v7 <= 0x9E3u)
                 {
-                  if (v21 <= 0x923u)
+                  if (v7 <= 0x923u)
                   {
-                    if (v21 > 0x8B9u)
+                    if (v7 > 0x8B9u)
                     {
-                      if (v21 == 2234)
+                      if (v7 == 2234)
                       {
                         goto LABEL_138;
                       }
 
-                      if (v21 != 2266)
+                      if (v7 != 2266)
                       {
                         goto LABEL_156;
                       }
 
 LABEL_180:
-                      LOWORD(v21) = 25;
+                      LOWORD(v7) = 25;
                       goto LABEL_211;
                     }
 
-                    if (v21 != 2160)
+                    if (v7 != 2160)
                     {
-                      if (v21 != 2224)
+                      if (v7 != 2224)
                       {
                         goto LABEL_156;
                       }
 
 LABEL_181:
-                      LOWORD(v21) = 10;
+                      LOWORD(v7) = 10;
                       goto LABEL_211;
                     }
 
                     goto LABEL_186;
                   }
 
-                  if (v21 > 0x953u)
+                  if (v7 > 0x953u)
                   {
-                    if (v21 != 2388)
+                    if (v7 != 2388)
                     {
-                      if (v21 != 2436)
+                      if (v7 != 2436)
                       {
                         goto LABEL_156;
                       }
 
 LABEL_182:
-                      LOWORD(v21) = 11;
+                      LOWORD(v7) = 11;
                       goto LABEL_211;
                     }
 
 LABEL_193:
-                    LOWORD(v21) = 15;
+                    LOWORD(v7) = 15;
                     goto LABEL_211;
                   }
 
-                  if (v21 == 2340)
+                  if (v7 == 2340)
                   {
                     goto LABEL_165;
                   }
 
-                  if (v21 != 2360)
+                  if (v7 != 2360)
                   {
                     goto LABEL_156;
                   }
@@ -3636,13 +3631,13 @@ LABEL_193:
                   goto LABEL_194;
                 }
 
-                if (v21 <= 0xAD9u)
+                if (v7 <= 0xAD9u)
                 {
-                  if (v21 <= 0xA7Fu)
+                  if (v7 <= 0xA7Fu)
                   {
-                    if (v21 != 2532)
+                    if (v7 != 2532)
                     {
-                      if (v21 != 2556)
+                      if (v7 != 2556)
                       {
                         goto LABEL_156;
                       }
@@ -3653,9 +3648,9 @@ LABEL_193:
                     goto LABEL_178;
                   }
 
-                  if (v21 != 2688)
+                  if (v7 != 2688)
                   {
-                    if (v21 != 2732)
+                    if (v7 != 2732)
                     {
                       goto LABEL_156;
                     }
@@ -3664,15 +3659,15 @@ LABEL_193:
                   }
 
 LABEL_206:
-                  LOWORD(v21) = 12;
+                  LOWORD(v7) = 12;
                   goto LABEL_211;
                 }
 
-                if (v21 <= 0xEFFu)
+                if (v7 <= 0xEFFu)
                 {
-                  if (v21 != 2778)
+                  if (v7 != 2778)
                   {
-                    if (v21 != 2796)
+                    if (v7 != 2796)
                     {
                       goto LABEL_156;
                     }
@@ -3683,12 +3678,12 @@ LABEL_206:
                   goto LABEL_198;
                 }
 
-                if (v21 == 3840)
+                if (v7 == 3840)
                 {
                   goto LABEL_192;
                 }
 
-                if (v21 != 32401)
+                if (v7 != 32401)
                 {
                   goto LABEL_156;
                 }
@@ -3696,15 +3691,15 @@ LABEL_206:
                 goto LABEL_209;
               }
 
-              if (v21 <= 0x1F5u)
+              if (v7 <= 0x1F5u)
               {
-                if (v21 > 0x17Fu)
+                if (v7 > 0x17Fu)
                 {
-                  if (v21 <= 0x1ADu)
+                  if (v7 <= 0x1ADu)
                   {
-                    if (v21 != 384)
+                    if (v7 != 384)
                     {
-                      if (v21 == 390)
+                      if (v7 == 390)
                       {
                         goto LABEL_104;
                       }
@@ -3713,16 +3708,16 @@ LABEL_206:
                     }
 
 LABEL_159:
-                    LOWORD(v21) = 9;
+                    LOWORD(v7) = 9;
                     goto LABEL_211;
                   }
 
-                  if (v21 == 430)
+                  if (v7 == 430)
                   {
                     goto LABEL_160;
                   }
 
-                  if (v21 != 484)
+                  if (v7 != 484)
                   {
                     goto LABEL_156;
                   }
@@ -3730,80 +3725,80 @@ LABEL_159:
                   goto LABEL_176;
                 }
 
-                if (v21 <= 0x13Fu)
+                if (v7 <= 0x13Fu)
                 {
-                  if (!v21)
+                  if (!v7)
                   {
                     goto LABEL_211;
                   }
 
-                  if (v21 == 163)
+                  if (v7 == 163)
                   {
 LABEL_131:
-                    LOWORD(v21) = 5;
+                    LOWORD(v7) = 5;
                     goto LABEL_211;
                   }
 
                   goto LABEL_156;
                 }
 
-                if (v21 == 320)
+                if (v7 == 320)
                 {
                   goto LABEL_200;
                 }
 
-                if (v21 != 340)
+                if (v7 != 340)
                 {
                   goto LABEL_156;
                 }
 
 LABEL_205:
-                LOWORD(v21) = 13;
+                LOWORD(v7) = 13;
                 goto LABEL_211;
               }
 
-              if (v21 <= 0x2CFu)
+              if (v7 <= 0x2CFu)
               {
-                if (v21 <= 0x238u)
+                if (v7 <= 0x238u)
                 {
-                  if (v21 != 502)
+                  if (v7 != 502)
                   {
-                    if (v21 == 568)
+                    if (v7 == 568)
                     {
                       goto LABEL_100;
                     }
 
 LABEL_156:
-                    _CUILog(4, "CoreUI: %s got a device subtype that it doesn't know about %d in unknown platform", value, *&attribute, v4, v5, v6, v7, "int __CUISubtypeToIndex(CUIThemeSchemaPlatform, CUIRenditionKeyUInteger)");
-                    LOWORD(v21) = -1;
+                    _CUILog(4, "CoreUI: %s got a device subtype that it doesn't know about %d in unknown platform", "int __CUISubtypeToIndex(CUIThemeSchemaPlatform, CUIRenditionKeyUInteger)", v7);
+                    LOWORD(v7) = -1;
                     goto LABEL_211;
                   }
 
 LABEL_158:
-                  LOWORD(v21) = 28;
+                  LOWORD(v7) = 28;
                   goto LABEL_211;
                 }
 
-                if (v21 == 569)
+                if (v7 == 569)
                 {
                   goto LABEL_179;
                 }
 
-                if (v21 != 570)
+                if (v7 != 570)
                 {
                   goto LABEL_156;
                 }
 
 LABEL_188:
-                LOWORD(v21) = 3;
+                LOWORD(v7) = 3;
                 goto LABEL_211;
               }
 
-              if (v21 > 0x6FFu)
+              if (v7 > 0x6FFu)
               {
-                if (v21 != 1792)
+                if (v7 != 1792)
                 {
-                  if (v21 == 1964)
+                  if (v7 == 1964)
                   {
                     goto LABEL_153;
                   }
@@ -3812,13 +3807,13 @@ LABEL_188:
                 }
 
 LABEL_187:
-                LOWORD(v21) = 16;
+                LOWORD(v7) = 16;
                 goto LABEL_211;
               }
 
-              if (v21 != 720)
+              if (v7 != 720)
               {
-                if (v21 != 1665)
+                if (v7 != 1665)
                 {
                   goto LABEL_156;
                 }
@@ -3829,17 +3824,17 @@ LABEL_187:
               goto LABEL_210;
             }
 
-            if (!v21)
+            if (!v7)
             {
-              LOWORD(v21) = 0;
+              LOWORD(v7) = 0;
               goto LABEL_211;
             }
 
-            if (v22 > 3)
+            if (v17 > 3)
             {
-              if (v22 == 5)
+              if (v17 == 5)
               {
-                if (v21 != 3648)
+                if (v7 != 3648)
                 {
                   goto LABEL_376;
                 }
@@ -3847,38 +3842,38 @@ LABEL_187:
                 goto LABEL_100;
               }
 
-              if (v22 == 4)
+              if (v17 == 4)
               {
-                if (v21 > 0x1BDu)
+                if (v7 > 0x1BDu)
                 {
-                  if (v21 <= 0x1EFu)
+                  if (v7 <= 0x1EFu)
                   {
-                    if (v21 != 446)
+                    if (v7 != 446)
                     {
-                      if (v21 != 484)
+                      if (v7 != 484)
                       {
                         goto LABEL_376;
                       }
 
 LABEL_176:
-                      LOWORD(v21) = 24;
+                      LOWORD(v7) = 24;
                       goto LABEL_211;
                     }
 
                     goto LABEL_177;
                   }
 
-                  if (v21 == 496)
+                  if (v7 == 496)
                   {
                     goto LABEL_157;
                   }
 
-                  if (v21 == 502)
+                  if (v7 == 502)
                   {
                     goto LABEL_158;
                   }
 
-                  if (v21 != 514)
+                  if (v7 != 514)
                   {
                     goto LABEL_376;
                   }
@@ -3886,34 +3881,34 @@ LABEL_176:
                   goto LABEL_199;
                 }
 
-                if (v21 > 0x17Fu)
+                if (v7 > 0x17Fu)
                 {
-                  if (v21 == 384)
+                  if (v7 == 384)
                   {
                     goto LABEL_159;
                   }
 
-                  if (v21 == 390)
+                  if (v7 == 390)
                   {
                     goto LABEL_104;
                   }
 
-                  if (v21 != 430)
+                  if (v7 != 430)
                   {
                     goto LABEL_376;
                   }
 
 LABEL_160:
-                  LOWORD(v21) = 23;
+                  LOWORD(v7) = 23;
                   goto LABEL_211;
                 }
 
-                if (v21 == 320)
+                if (v7 == 320)
                 {
                   goto LABEL_200;
                 }
 
-                if (v21 != 340)
+                if (v7 != 340)
                 {
                   goto LABEL_376;
                 }
@@ -3924,109 +3919,109 @@ LABEL_160:
 
             else
             {
-              if (!v22)
+              if (!v17)
               {
-                if (v21 > 0x7ABu)
+                if (v7 > 0x7ABu)
                 {
-                  if (v21 != 1964)
+                  if (v7 != 1964)
                   {
-                    if (v21 != 2234)
+                    if (v7 != 2234)
                     {
                       goto LABEL_376;
                     }
 
 LABEL_138:
-                    LOWORD(v21) = 27;
+                    LOWORD(v7) = 27;
                     goto LABEL_211;
                   }
 
 LABEL_153:
-                  LOWORD(v21) = 26;
+                  LOWORD(v7) = 26;
                   goto LABEL_211;
                 }
 
-                if (v21 != 1665)
+                if (v7 != 1665)
                 {
-                  if (v21 != 1864)
+                  if (v7 != 1864)
                   {
                     goto LABEL_376;
                   }
 
 LABEL_100:
-                  LOWORD(v21) = 1;
+                  LOWORD(v7) = 1;
                   goto LABEL_211;
                 }
 
 LABEL_199:
-                LOWORD(v21) = 31;
+                LOWORD(v7) = 31;
                 goto LABEL_211;
               }
 
-              if (v22 == 3)
+              if (v17 == 3)
               {
-                if (v21 == 3840)
+                if (v7 == 3840)
                 {
                   goto LABEL_192;
                 }
 
-                if (v21 == 1088)
+                if (v7 == 1088)
                 {
                   goto LABEL_131;
                 }
 
-                if (v21 != 720)
+                if (v7 != 720)
                 {
                   goto LABEL_376;
                 }
 
 LABEL_210:
-                LOWORD(v21) = 6;
+                LOWORD(v7) = 6;
                 goto LABEL_211;
               }
             }
 
-            if (v22 > 2)
+            if (v17 > 2)
             {
               goto LABEL_376;
             }
 
-            if (v21 <= 0x983u)
+            if (v7 <= 0x983u)
             {
-              if (v21 <= 0x8AFu)
+              if (v7 <= 0x8AFu)
               {
-                if (v21 <= 0x239u)
+                if (v7 <= 0x239u)
                 {
-                  if (v21 == 163)
+                  if (v7 == 163)
                   {
                     goto LABEL_131;
                   }
 
-                  if (v21 == 568)
+                  if (v7 == 568)
                   {
                     goto LABEL_100;
                   }
 
-                  if (v21 != 569)
+                  if (v7 != 569)
                   {
                     goto LABEL_376;
                   }
 
 LABEL_179:
-                  LOWORD(v21) = 2;
+                  LOWORD(v7) = 2;
                   goto LABEL_211;
                 }
 
-                if (v21 != 570)
+                if (v7 != 570)
                 {
-                  if (v21 != 1792)
+                  if (v7 != 1792)
                   {
-                    if (v21 != 2160)
+                    if (v7 != 2160)
                     {
                       goto LABEL_376;
                     }
 
 LABEL_186:
-                    LOWORD(v21) = 21;
+                    LOWORD(v7) = 21;
                     goto LABEL_211;
                   }
 
@@ -4036,19 +4031,19 @@ LABEL_186:
                 goto LABEL_188;
               }
 
-              if (v21 <= 0x937u)
+              if (v7 <= 0x937u)
               {
-                if (v21 != 2224)
+                if (v7 != 2224)
                 {
-                  if (v21 != 2266)
+                  if (v7 != 2266)
                   {
-                    if (v21 != 2340)
+                    if (v7 != 2340)
                     {
                       goto LABEL_376;
                     }
 
 LABEL_165:
-                    LOWORD(v21) = 18;
+                    LOWORD(v7) = 18;
                     goto LABEL_211;
                   }
 
@@ -4058,17 +4053,17 @@ LABEL_165:
                 goto LABEL_181;
               }
 
-              if (v21 != 2360)
+              if (v7 != 2360)
               {
-                if (v21 != 2388)
+                if (v7 != 2388)
                 {
-                  if (v21 != 2420)
+                  if (v7 != 2420)
                   {
                     goto LABEL_376;
                   }
 
 LABEL_192:
-                  LOWORD(v21) = 7;
+                  LOWORD(v7) = 7;
                   goto LABEL_211;
                 }
 
@@ -4076,158 +4071,157 @@ LABEL_192:
               }
 
 LABEL_194:
-              LOWORD(v21) = 20;
+              LOWORD(v7) = 20;
               goto LABEL_211;
             }
 
-            if (v21 <= 0xAAFu)
+            if (v7 <= 0xAAFu)
             {
-              if (v21 <= 0xA3Du)
+              if (v7 <= 0xA3Du)
               {
-                if (v21 != 2436)
+                if (v7 != 2436)
                 {
-                  if (v21 != 2532)
+                  if (v7 != 2532)
                   {
-                    if (v21 != 2556)
+                    if (v7 != 2556)
                     {
                       goto LABEL_376;
                     }
 
 LABEL_177:
-                    LOWORD(v21) = 29;
+                    LOWORD(v7) = 29;
                     goto LABEL_211;
                   }
 
 LABEL_178:
-                  LOWORD(v21) = 22;
+                  LOWORD(v7) = 22;
                   goto LABEL_211;
                 }
 
                 goto LABEL_182;
               }
 
-              if (v21 == 2622)
+              if (v7 == 2622)
               {
                 goto LABEL_205;
               }
 
-              if (v21 != 2688)
+              if (v7 != 2688)
               {
-                if (v21 != 2732)
+                if (v7 != 2732)
                 {
                   goto LABEL_376;
                 }
 
 LABEL_204:
-                LOWORD(v21) = 4;
+                LOWORD(v7) = 4;
                 goto LABEL_211;
               }
 
               goto LABEL_206;
             }
 
-            if (v21 <= 0xAEBu)
+            if (v7 <= 0xAEBu)
             {
-              if (v21 == 2736)
+              if (v7 == 2736)
               {
                 goto LABEL_199;
               }
 
-              if (v21 != 2752)
+              if (v7 != 2752)
               {
-                if (v21 != 2778)
+                if (v7 != 2778)
                 {
                   goto LABEL_376;
                 }
 
 LABEL_198:
-                LOWORD(v21) = 19;
+                LOWORD(v7) = 19;
                 goto LABEL_211;
               }
 
 LABEL_200:
-              LOWORD(v21) = 8;
+              LOWORD(v7) = 8;
               goto LABEL_211;
             }
 
-            if (v21 <= 0xBCFu)
+            if (v7 <= 0xBCFu)
             {
-              if (v21 != 2796)
+              if (v7 != 2796)
               {
-                if (v21 != 2868)
+                if (v7 != 2868)
                 {
                   goto LABEL_376;
                 }
 
 LABEL_104:
-                LOWORD(v21) = 14;
+                LOWORD(v7) = 14;
                 goto LABEL_211;
               }
 
 LABEL_157:
-              LOWORD(v21) = 30;
+              LOWORD(v7) = 30;
               goto LABEL_211;
             }
 
-            if (v21 != 3024)
+            if (v7 != 3024)
             {
-              if (v21 != 32401)
+              if (v7 != 32401)
               {
 LABEL_376:
-                [CUIPlaceholderCUINamedRenditionInfo decrementValue:v21 forAttribute:v22];
+                [CUIPlaceholderCUINamedRenditionInfo decrementValue:v7 forAttribute:v17];
               }
 
 LABEL_209:
-              LOWORD(v21) = 17;
+              LOWORD(v7) = 17;
               goto LABEL_211;
             }
 
             goto LABEL_210;
           }
 
-          if (((1 << v8) & 0x100600E6) != 0)
+          if (((1 << attribute) & 0x100600E6) != 0)
           {
             return;
           }
         }
 
 LABEL_211:
-        v27 = v23->var2;
-        if (!v27)
+        v22 = v18->var2;
+        if (!v22)
         {
           return;
         }
 
-        v28 = 0;
-        v20 = v21;
-        while (v23->var3[v28] != v8)
+        v23 = 0;
+        v16 = v7;
+        while (v18->var3[v23] != attribute)
         {
-          v20 += 32;
-          if (v27 == ++v28)
+          v16 += 32;
+          if (v22 == ++v23)
           {
             return;
           }
         }
 
-        if (v28 > 32)
+        if (v23 > 32)
         {
           goto LABEL_29;
         }
       }
 
-      while (*value && (v20 & 0x80000000) == 0);
+      while (*value && (v16 & 0x80000000) == 0);
     }
   }
 }
 
 - (void)incrementIndex:(unint64_t *)index inValues:(id)values forAttribute:(int)attribute
 {
-  v5 = *&attribute;
   v9 = [values count];
   platform = self->_platform;
   v11 = [objc_msgSend(values objectAtIndex:{*index), "integerValue"}];
   keyFormat = self->_keyFormat;
-  if (v5 == 16 && platform == -1)
+  if (attribute == 16 && platform == -1)
   {
     var2 = keyFormat->var2;
     if (!var2)
@@ -4238,8 +4232,8 @@ LABEL_211:
     var3 = keyFormat->var3;
     while (1)
     {
-      v21 = *var3++;
-      if (v21 == 16)
+      v15 = *var3++;
+      if (v15 == 16)
       {
         break;
       }
@@ -4251,19 +4245,19 @@ LABEL_211:
     }
   }
 
-  if (v5 <= 0x1C)
+  if (attribute <= 0x1C)
   {
-    if (((1 << v5) & 0x100600E6) != 0)
+    if (((1 << attribute) & 0x100600E6) != 0)
     {
       return;
     }
 
-    if (v5 == 13)
+    if (attribute == 13)
     {
       LOWORD(v11) = v11 != 0;
     }
 
-    else if (v5 == 16)
+    else if (attribute == 16)
     {
       if (platform == -1)
       {
@@ -4508,7 +4502,7 @@ LABEL_351:
           }
         }
 
-        _CUILog(4, "CoreUI: %s got a device subtype that it doesn't know about %d in unknown platform", v12, v13, v14, v15, v16, v17, "int __CUISubtypeToIndex(CUIThemeSchemaPlatform, CUIRenditionKeyUInteger)");
+        _CUILog(4, "CoreUI: %s got a device subtype that it doesn't know about %d in unknown platform", "int __CUISubtypeToIndex(CUIThemeSchemaPlatform, CUIRenditionKeyUInteger)", v11);
         LOWORD(v11) = -1;
         goto LABEL_23;
       }
@@ -4880,140 +4874,140 @@ LABEL_341:
   }
 
 LABEL_23:
-  v22 = keyFormat->var2;
-  if (v22)
+  v16 = keyFormat->var2;
+  if (v16)
   {
-    v23 = 0;
-    v24 = v11;
-    while (keyFormat->var3[v23] != v5)
+    v17 = 0;
+    v18 = v11;
+    while (keyFormat->var3[v17] != attribute)
     {
-      ++v23;
-      v24 += 32;
-      if (v22 == v23)
+      ++v17;
+      v18 += 32;
+      if (v16 == v17)
       {
         return;
       }
     }
 
-    if (v23 > 32)
+    if (v17 > 32)
     {
 LABEL_29:
-      _CUILog(4, "CoreUI: attribute %d > 32 bits its value is %d **************************************************", v12, v13, v14, v15, v16, v17, v5);
+      _CUILog(4, "CoreUI: attribute %d > 32 bits its value is %d **************************************************", attribute, v11);
       return;
     }
 
-    if ((v24 & 0x80000000) == 0 && *index < v9 - 1)
+    if ((v18 & 0x80000000) == 0 && *index < v9 - 1)
     {
       do
       {
-        if (CUIBitVectorIsBitSet(self->_bitmap, v24))
+        if (CUIBitVectorIsBitSet(self->_bitmap, v18))
         {
           return;
         }
 
         ++*index;
-        v25 = self->_platform;
-        v26 = [objc_msgSend(values "objectAtIndex:"integerValue"")];
-        v27 = self->_keyFormat;
-        if (v5 == 16 && v25 == -1)
+        v19 = self->_platform;
+        v11 = [objc_msgSend(values "objectAtIndex:"integerValue"")];
+        v20 = self->_keyFormat;
+        if (attribute == 16 && v19 == -1)
         {
-          v28 = v27->var2;
-          if (!v28)
+          v21 = v20->var2;
+          if (!v21)
           {
             return;
           }
 
-          v29 = v27->var3;
+          v22 = v20->var3;
           while (1)
           {
-            v30 = *v29++;
-            if (v30 == 16)
+            v23 = *v22++;
+            if (v23 == 16)
             {
               break;
             }
 
-            if (!--v28)
+            if (!--v21)
             {
               return;
             }
           }
         }
 
-        if (v5 <= 0x1C)
+        if (attribute <= 0x1C)
         {
-          if (v5 == 13)
+          if (attribute == 13)
           {
-            LOWORD(v26) = v26 != 0;
+            LOWORD(v11) = v11 != 0;
             goto LABEL_211;
           }
 
-          if (v5 == 16)
+          if (attribute == 16)
           {
-            if (v25 == -1)
+            if (v19 == -1)
             {
-              if (v26 > 0x86Fu)
+              if (v11 > 0x86Fu)
               {
-                if (v26 <= 0x9E3u)
+                if (v11 <= 0x9E3u)
                 {
-                  if (v26 <= 0x923u)
+                  if (v11 <= 0x923u)
                   {
-                    if (v26 > 0x8B9u)
+                    if (v11 > 0x8B9u)
                     {
-                      if (v26 == 2234)
+                      if (v11 == 2234)
                       {
                         goto LABEL_138;
                       }
 
-                      if (v26 != 2266)
+                      if (v11 != 2266)
                       {
                         goto LABEL_156;
                       }
 
 LABEL_180:
-                      LOWORD(v26) = 25;
+                      LOWORD(v11) = 25;
                       goto LABEL_211;
                     }
 
-                    if (v26 != 2160)
+                    if (v11 != 2160)
                     {
-                      if (v26 != 2224)
+                      if (v11 != 2224)
                       {
                         goto LABEL_156;
                       }
 
 LABEL_181:
-                      LOWORD(v26) = 10;
+                      LOWORD(v11) = 10;
                       goto LABEL_211;
                     }
 
                     goto LABEL_186;
                   }
 
-                  if (v26 > 0x953u)
+                  if (v11 > 0x953u)
                   {
-                    if (v26 != 2388)
+                    if (v11 != 2388)
                     {
-                      if (v26 != 2436)
+                      if (v11 != 2436)
                       {
                         goto LABEL_156;
                       }
 
 LABEL_182:
-                      LOWORD(v26) = 11;
+                      LOWORD(v11) = 11;
                       goto LABEL_211;
                     }
 
 LABEL_193:
-                    LOWORD(v26) = 15;
+                    LOWORD(v11) = 15;
                     goto LABEL_211;
                   }
 
-                  if (v26 == 2340)
+                  if (v11 == 2340)
                   {
                     goto LABEL_165;
                   }
 
-                  if (v26 != 2360)
+                  if (v11 != 2360)
                   {
                     goto LABEL_156;
                   }
@@ -5021,13 +5015,13 @@ LABEL_193:
                   goto LABEL_194;
                 }
 
-                if (v26 <= 0xAD9u)
+                if (v11 <= 0xAD9u)
                 {
-                  if (v26 <= 0xA7Fu)
+                  if (v11 <= 0xA7Fu)
                   {
-                    if (v26 != 2532)
+                    if (v11 != 2532)
                     {
-                      if (v26 != 2556)
+                      if (v11 != 2556)
                       {
                         goto LABEL_156;
                       }
@@ -5038,9 +5032,9 @@ LABEL_193:
                     goto LABEL_178;
                   }
 
-                  if (v26 != 2688)
+                  if (v11 != 2688)
                   {
-                    if (v26 != 2732)
+                    if (v11 != 2732)
                     {
                       goto LABEL_156;
                     }
@@ -5049,15 +5043,15 @@ LABEL_193:
                   }
 
 LABEL_206:
-                  LOWORD(v26) = 12;
+                  LOWORD(v11) = 12;
                   goto LABEL_211;
                 }
 
-                if (v26 <= 0xEFFu)
+                if (v11 <= 0xEFFu)
                 {
-                  if (v26 != 2778)
+                  if (v11 != 2778)
                   {
-                    if (v26 != 2796)
+                    if (v11 != 2796)
                     {
                       goto LABEL_156;
                     }
@@ -5068,12 +5062,12 @@ LABEL_206:
                   goto LABEL_198;
                 }
 
-                if (v26 == 3840)
+                if (v11 == 3840)
                 {
                   goto LABEL_192;
                 }
 
-                if (v26 != 32401)
+                if (v11 != 32401)
                 {
                   goto LABEL_156;
                 }
@@ -5081,15 +5075,15 @@ LABEL_206:
                 goto LABEL_209;
               }
 
-              if (v26 <= 0x1F5u)
+              if (v11 <= 0x1F5u)
               {
-                if (v26 > 0x17Fu)
+                if (v11 > 0x17Fu)
                 {
-                  if (v26 <= 0x1ADu)
+                  if (v11 <= 0x1ADu)
                   {
-                    if (v26 != 384)
+                    if (v11 != 384)
                     {
-                      if (v26 == 390)
+                      if (v11 == 390)
                       {
                         goto LABEL_104;
                       }
@@ -5098,16 +5092,16 @@ LABEL_206:
                     }
 
 LABEL_159:
-                    LOWORD(v26) = 9;
+                    LOWORD(v11) = 9;
                     goto LABEL_211;
                   }
 
-                  if (v26 == 430)
+                  if (v11 == 430)
                   {
                     goto LABEL_160;
                   }
 
-                  if (v26 != 484)
+                  if (v11 != 484)
                   {
                     goto LABEL_156;
                   }
@@ -5115,80 +5109,80 @@ LABEL_159:
                   goto LABEL_176;
                 }
 
-                if (v26 <= 0x13Fu)
+                if (v11 <= 0x13Fu)
                 {
-                  if (!v26)
+                  if (!v11)
                   {
                     goto LABEL_211;
                   }
 
-                  if (v26 == 163)
+                  if (v11 == 163)
                   {
 LABEL_131:
-                    LOWORD(v26) = 5;
+                    LOWORD(v11) = 5;
                     goto LABEL_211;
                   }
 
                   goto LABEL_156;
                 }
 
-                if (v26 == 320)
+                if (v11 == 320)
                 {
                   goto LABEL_200;
                 }
 
-                if (v26 != 340)
+                if (v11 != 340)
                 {
                   goto LABEL_156;
                 }
 
 LABEL_205:
-                LOWORD(v26) = 13;
+                LOWORD(v11) = 13;
                 goto LABEL_211;
               }
 
-              if (v26 <= 0x2CFu)
+              if (v11 <= 0x2CFu)
               {
-                if (v26 <= 0x238u)
+                if (v11 <= 0x238u)
                 {
-                  if (v26 != 502)
+                  if (v11 != 502)
                   {
-                    if (v26 == 568)
+                    if (v11 == 568)
                     {
                       goto LABEL_100;
                     }
 
 LABEL_156:
-                    _CUILog(4, "CoreUI: %s got a device subtype that it doesn't know about %d in unknown platform", v12, v13, v14, v15, v16, v17, "int __CUISubtypeToIndex(CUIThemeSchemaPlatform, CUIRenditionKeyUInteger)");
-                    LOWORD(v26) = -1;
+                    _CUILog(4, "CoreUI: %s got a device subtype that it doesn't know about %d in unknown platform", "int __CUISubtypeToIndex(CUIThemeSchemaPlatform, CUIRenditionKeyUInteger)", v11);
+                    LOWORD(v11) = -1;
                     goto LABEL_211;
                   }
 
 LABEL_158:
-                  LOWORD(v26) = 28;
+                  LOWORD(v11) = 28;
                   goto LABEL_211;
                 }
 
-                if (v26 == 569)
+                if (v11 == 569)
                 {
                   goto LABEL_179;
                 }
 
-                if (v26 != 570)
+                if (v11 != 570)
                 {
                   goto LABEL_156;
                 }
 
 LABEL_188:
-                LOWORD(v26) = 3;
+                LOWORD(v11) = 3;
                 goto LABEL_211;
               }
 
-              if (v26 > 0x6FFu)
+              if (v11 > 0x6FFu)
               {
-                if (v26 != 1792)
+                if (v11 != 1792)
                 {
-                  if (v26 == 1964)
+                  if (v11 == 1964)
                   {
                     goto LABEL_153;
                   }
@@ -5197,13 +5191,13 @@ LABEL_188:
                 }
 
 LABEL_187:
-                LOWORD(v26) = 16;
+                LOWORD(v11) = 16;
                 goto LABEL_211;
               }
 
-              if (v26 != 720)
+              if (v11 != 720)
               {
-                if (v26 != 1665)
+                if (v11 != 1665)
                 {
                   goto LABEL_156;
                 }
@@ -5214,17 +5208,17 @@ LABEL_187:
               goto LABEL_210;
             }
 
-            if (!v26)
+            if (!v11)
             {
-              LOWORD(v26) = 0;
+              LOWORD(v11) = 0;
               goto LABEL_211;
             }
 
-            if (v25 > 3)
+            if (v19 > 3)
             {
-              if (v25 == 5)
+              if (v19 == 5)
               {
-                if (v26 != 3648)
+                if (v11 != 3648)
                 {
                   goto LABEL_376;
                 }
@@ -5232,38 +5226,38 @@ LABEL_187:
                 goto LABEL_100;
               }
 
-              if (v25 == 4)
+              if (v19 == 4)
               {
-                if (v26 > 0x1BDu)
+                if (v11 > 0x1BDu)
                 {
-                  if (v26 <= 0x1EFu)
+                  if (v11 <= 0x1EFu)
                   {
-                    if (v26 != 446)
+                    if (v11 != 446)
                     {
-                      if (v26 != 484)
+                      if (v11 != 484)
                       {
                         goto LABEL_376;
                       }
 
 LABEL_176:
-                      LOWORD(v26) = 24;
+                      LOWORD(v11) = 24;
                       goto LABEL_211;
                     }
 
                     goto LABEL_177;
                   }
 
-                  if (v26 == 496)
+                  if (v11 == 496)
                   {
                     goto LABEL_157;
                   }
 
-                  if (v26 == 502)
+                  if (v11 == 502)
                   {
                     goto LABEL_158;
                   }
 
-                  if (v26 != 514)
+                  if (v11 != 514)
                   {
                     goto LABEL_376;
                   }
@@ -5271,34 +5265,34 @@ LABEL_176:
                   goto LABEL_199;
                 }
 
-                if (v26 > 0x17Fu)
+                if (v11 > 0x17Fu)
                 {
-                  if (v26 == 384)
+                  if (v11 == 384)
                   {
                     goto LABEL_159;
                   }
 
-                  if (v26 == 390)
+                  if (v11 == 390)
                   {
                     goto LABEL_104;
                   }
 
-                  if (v26 != 430)
+                  if (v11 != 430)
                   {
                     goto LABEL_376;
                   }
 
 LABEL_160:
-                  LOWORD(v26) = 23;
+                  LOWORD(v11) = 23;
                   goto LABEL_211;
                 }
 
-                if (v26 == 320)
+                if (v11 == 320)
                 {
                   goto LABEL_200;
                 }
 
-                if (v26 != 340)
+                if (v11 != 340)
                 {
                   goto LABEL_376;
                 }
@@ -5309,109 +5303,109 @@ LABEL_160:
 
             else
             {
-              if (!v25)
+              if (!v19)
               {
-                if (v26 > 0x7ABu)
+                if (v11 > 0x7ABu)
                 {
-                  if (v26 != 1964)
+                  if (v11 != 1964)
                   {
-                    if (v26 != 2234)
+                    if (v11 != 2234)
                     {
                       goto LABEL_376;
                     }
 
 LABEL_138:
-                    LOWORD(v26) = 27;
+                    LOWORD(v11) = 27;
                     goto LABEL_211;
                   }
 
 LABEL_153:
-                  LOWORD(v26) = 26;
+                  LOWORD(v11) = 26;
                   goto LABEL_211;
                 }
 
-                if (v26 != 1665)
+                if (v11 != 1665)
                 {
-                  if (v26 != 1864)
+                  if (v11 != 1864)
                   {
                     goto LABEL_376;
                   }
 
 LABEL_100:
-                  LOWORD(v26) = 1;
+                  LOWORD(v11) = 1;
                   goto LABEL_211;
                 }
 
 LABEL_199:
-                LOWORD(v26) = 31;
+                LOWORD(v11) = 31;
                 goto LABEL_211;
               }
 
-              if (v25 == 3)
+              if (v19 == 3)
               {
-                if (v26 == 3840)
+                if (v11 == 3840)
                 {
                   goto LABEL_192;
                 }
 
-                if (v26 == 1088)
+                if (v11 == 1088)
                 {
                   goto LABEL_131;
                 }
 
-                if (v26 != 720)
+                if (v11 != 720)
                 {
                   goto LABEL_376;
                 }
 
 LABEL_210:
-                LOWORD(v26) = 6;
+                LOWORD(v11) = 6;
                 goto LABEL_211;
               }
             }
 
-            if (v25 > 2)
+            if (v19 > 2)
             {
               goto LABEL_376;
             }
 
-            if (v26 <= 0x983u)
+            if (v11 <= 0x983u)
             {
-              if (v26 <= 0x8AFu)
+              if (v11 <= 0x8AFu)
               {
-                if (v26 <= 0x239u)
+                if (v11 <= 0x239u)
                 {
-                  if (v26 == 163)
+                  if (v11 == 163)
                   {
                     goto LABEL_131;
                   }
 
-                  if (v26 == 568)
+                  if (v11 == 568)
                   {
                     goto LABEL_100;
                   }
 
-                  if (v26 != 569)
+                  if (v11 != 569)
                   {
                     goto LABEL_376;
                   }
 
 LABEL_179:
-                  LOWORD(v26) = 2;
+                  LOWORD(v11) = 2;
                   goto LABEL_211;
                 }
 
-                if (v26 != 570)
+                if (v11 != 570)
                 {
-                  if (v26 != 1792)
+                  if (v11 != 1792)
                   {
-                    if (v26 != 2160)
+                    if (v11 != 2160)
                     {
                       goto LABEL_376;
                     }
 
 LABEL_186:
-                    LOWORD(v26) = 21;
+                    LOWORD(v11) = 21;
                     goto LABEL_211;
                   }
 
@@ -5421,19 +5415,19 @@ LABEL_186:
                 goto LABEL_188;
               }
 
-              if (v26 <= 0x937u)
+              if (v11 <= 0x937u)
               {
-                if (v26 != 2224)
+                if (v11 != 2224)
                 {
-                  if (v26 != 2266)
+                  if (v11 != 2266)
                   {
-                    if (v26 != 2340)
+                    if (v11 != 2340)
                     {
                       goto LABEL_376;
                     }
 
 LABEL_165:
-                    LOWORD(v26) = 18;
+                    LOWORD(v11) = 18;
                     goto LABEL_211;
                   }
 
@@ -5443,17 +5437,17 @@ LABEL_165:
                 goto LABEL_181;
               }
 
-              if (v26 != 2360)
+              if (v11 != 2360)
               {
-                if (v26 != 2388)
+                if (v11 != 2388)
                 {
-                  if (v26 != 2420)
+                  if (v11 != 2420)
                   {
                     goto LABEL_376;
                   }
 
 LABEL_192:
-                  LOWORD(v26) = 7;
+                  LOWORD(v11) = 7;
                   goto LABEL_211;
                 }
 
@@ -5461,146 +5455,146 @@ LABEL_192:
               }
 
 LABEL_194:
-              LOWORD(v26) = 20;
+              LOWORD(v11) = 20;
               goto LABEL_211;
             }
 
-            if (v26 <= 0xAAFu)
+            if (v11 <= 0xAAFu)
             {
-              if (v26 <= 0xA3Du)
+              if (v11 <= 0xA3Du)
               {
-                if (v26 != 2436)
+                if (v11 != 2436)
                 {
-                  if (v26 != 2532)
+                  if (v11 != 2532)
                   {
-                    if (v26 != 2556)
+                    if (v11 != 2556)
                     {
                       goto LABEL_376;
                     }
 
 LABEL_177:
-                    LOWORD(v26) = 29;
+                    LOWORD(v11) = 29;
                     goto LABEL_211;
                   }
 
 LABEL_178:
-                  LOWORD(v26) = 22;
+                  LOWORD(v11) = 22;
                   goto LABEL_211;
                 }
 
                 goto LABEL_182;
               }
 
-              if (v26 == 2622)
+              if (v11 == 2622)
               {
                 goto LABEL_205;
               }
 
-              if (v26 != 2688)
+              if (v11 != 2688)
               {
-                if (v26 != 2732)
+                if (v11 != 2732)
                 {
                   goto LABEL_376;
                 }
 
 LABEL_204:
-                LOWORD(v26) = 4;
+                LOWORD(v11) = 4;
                 goto LABEL_211;
               }
 
               goto LABEL_206;
             }
 
-            if (v26 <= 0xAEBu)
+            if (v11 <= 0xAEBu)
             {
-              if (v26 == 2736)
+              if (v11 == 2736)
               {
                 goto LABEL_199;
               }
 
-              if (v26 != 2752)
+              if (v11 != 2752)
               {
-                if (v26 != 2778)
+                if (v11 != 2778)
                 {
                   goto LABEL_376;
                 }
 
 LABEL_198:
-                LOWORD(v26) = 19;
+                LOWORD(v11) = 19;
                 goto LABEL_211;
               }
 
 LABEL_200:
-              LOWORD(v26) = 8;
+              LOWORD(v11) = 8;
               goto LABEL_211;
             }
 
-            if (v26 <= 0xBCFu)
+            if (v11 <= 0xBCFu)
             {
-              if (v26 != 2796)
+              if (v11 != 2796)
               {
-                if (v26 != 2868)
+                if (v11 != 2868)
                 {
                   goto LABEL_376;
                 }
 
 LABEL_104:
-                LOWORD(v26) = 14;
+                LOWORD(v11) = 14;
                 goto LABEL_211;
               }
 
 LABEL_157:
-              LOWORD(v26) = 30;
+              LOWORD(v11) = 30;
               goto LABEL_211;
             }
 
-            if (v26 != 3024)
+            if (v11 != 3024)
             {
-              if (v26 != 32401)
+              if (v11 != 32401)
               {
 LABEL_376:
-                [CUIPlaceholderCUINamedRenditionInfo decrementValue:v26 forAttribute:v25];
+                [CUIPlaceholderCUINamedRenditionInfo decrementValue:v11 forAttribute:v19];
               }
 
 LABEL_209:
-              LOWORD(v26) = 17;
+              LOWORD(v11) = 17;
               goto LABEL_211;
             }
 
             goto LABEL_210;
           }
 
-          if (((1 << v5) & 0x100600E6) != 0)
+          if (((1 << attribute) & 0x100600E6) != 0)
           {
             return;
           }
         }
 
 LABEL_211:
-        v31 = v27->var2;
-        if (!v31)
+        v24 = v20->var2;
+        if (!v24)
         {
           return;
         }
 
-        v32 = 0;
-        v24 = v26;
-        while (v27->var3[v32] != v5)
+        v25 = 0;
+        v18 = v11;
+        while (v20->var3[v25] != attribute)
         {
-          v24 += 32;
-          if (v31 == ++v32)
+          v18 += 32;
+          if (v24 == ++v25)
           {
             return;
           }
         }
 
-        if (v32 > 32)
+        if (v25 > 32)
         {
           goto LABEL_29;
         }
       }
 
-      while (*index < v9 - 1 && (v24 & 0x80000000) == 0);
+      while (*index < v9 - 1 && (v18 & 0x80000000) == 0);
     }
   }
 }
@@ -5839,7 +5833,7 @@ LABEL_211:
       }
     }
 
-    _CUILog(4, "CoreUI: %s got a device subtype that it doesn't know about %d in unknown platform", -1, input, v4, v5, v6, v7, "int __CUISubtypeToIndex(CUIThemeSchemaPlatform, CUIRenditionKeyUInteger)");
+    _CUILog(4, "CoreUI: %s got a device subtype that it doesn't know about %d in unknown platform", "int __CUISubtypeToIndex(CUIThemeSchemaPlatform, CUIRenditionKeyUInteger)", input);
     return -1;
   }
 
@@ -6270,15 +6264,15 @@ LABEL_8:
 
 - (void)attributePresent:(uint64_t)a1 withValue:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_1_1(a1, a2);
-  _CUILog(4, "CoreUI: %s got a device subtype %d is unknown for the platform %d:'%@'", v2, v3, v4, v5, v6, v7, "int __CUISubtypeToIndex(CUIThemeSchemaPlatform, CUIRenditionKeyUInteger)");
+  v4 = OUTLINED_FUNCTION_1_1(a1, a2);
+  _CUILog(4, "CoreUI: %s got a device subtype %d is unknown for the platform %d:'%@'", "int __CUISubtypeToIndex(CUIThemeSchemaPlatform, CUIRenditionKeyUInteger)", v3, v2, v4);
   abort();
 }
 
 - (void)decrementValue:(uint64_t)a1 forAttribute:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_0_2(a1, a2);
-  _CUILog(4, "CoreUI: %s got a device subtype %d is unknown for the platform %d:'%@'", v2, v3, v4, v5, v6, v7, "int __CUISubtypeToIndex(CUIThemeSchemaPlatform, CUIRenditionKeyUInteger)");
+  v4 = OUTLINED_FUNCTION_0_2(a1, a2);
+  _CUILog(4, "CoreUI: %s got a device subtype %d is unknown for the platform %d:'%@'", "int __CUISubtypeToIndex(CUIThemeSchemaPlatform, CUIRenditionKeyUInteger)", v3, v2, v4);
   abort();
 }
 

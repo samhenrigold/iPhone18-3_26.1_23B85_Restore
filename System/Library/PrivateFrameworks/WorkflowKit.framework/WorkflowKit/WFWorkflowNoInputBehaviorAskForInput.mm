@@ -11,11 +11,11 @@
 
 - (id)serializedRepresentation
 {
-  v14[1] = *MEMORY[0x1E69E9840];
-  v13 = @"ItemClass";
+  v13[1] = *MEMORY[0x1E69E9840];
+  v12 = @"ItemClass";
   v3 = NSStringFromClass([(WFWorkflowNoInputBehaviorAskForInput *)self contentItemClass]);
-  v14[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v13[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v5 = [v4 mutableCopy];
 
   serializedParameters = [(WFWorkflowNoInputBehaviorAskForInput *)self serializedParameters];
@@ -29,8 +29,6 @@
   behaviorName = [objc_opt_class() behaviorName];
   v9 = [v5 copy];
   v10 = WFNoInputBehaviorSerializedRepresentation(behaviorName, v9);
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -97,7 +95,7 @@ LABEL_13:
 
 - (void)resolveWithUserInterface:(id)interface runningDelegate:(id)delegate completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   interfaceCopy = interface;
   delegateCopy = delegate;
   handlerCopy = handler;
@@ -141,14 +139,12 @@ LABEL_3:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v22 = "[WFWorkflowNoInputBehaviorAskForInput resolveWithUserInterface:runningDelegate:completionHandler:]";
+      v21 = "[WFWorkflowNoInputBehaviorAskForInput resolveWithUserInterface:runningDelegate:completionHandler:]";
       _os_log_impl(&dword_1CA256000, v17, OS_LOG_TYPE_FAULT, "%s Tried to run an Ask For input behavior, but the content type is unknown?", buf, 0xCu);
     }
 
     v12[2](v12, 0, 0);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (NSDictionary)serializedParameters

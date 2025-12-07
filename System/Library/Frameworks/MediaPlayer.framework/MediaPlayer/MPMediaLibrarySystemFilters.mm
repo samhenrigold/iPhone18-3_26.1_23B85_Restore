@@ -11,23 +11,24 @@
 
 - (void)_updateFilters
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2020000000;
-  v13 = 0;
+  v25 = *MEMORY[0x1E69E9840];
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
   library = [(MPMediaLibraryView *)self->_libraryView library];
   sagaOnDiskDatabaseRevision = [library sagaOnDiskDatabaseRevision];
 
   if (sagaOnDiskDatabaseRevision)
   {
     v5 = MEMORY[0x1A58E1100]();
-    *&v15 = mlcore::ItemPropertyRemoteLocationID(v5);
-    v14 = 0;
-    std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>();
+    v10[0] = 100;
+    *&v16 = mlcore::ItemPropertyRemoteLocationID(v5);
+    v15 = 0;
+    std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>(buf, &v16, &v15, v10);
   }
 
-  self->_shouldExcludePurchaseHistoryContent = *(v11 + 24);
+  self->_shouldExcludePurchaseHistoryContent = *(v12 + 24);
   v6 = os_log_create("com.apple.amp.mediaplayer", "Library");
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
@@ -36,16 +37,16 @@
     shouldExcludePurchaseHistoryContent = self->_shouldExcludePurchaseHistoryContent;
     *buf = 134218754;
     selfCopy = self;
-    v18 = 2112;
-    v19 = uniqueIdentifier;
-    v20 = 1024;
-    v21 = 0;
-    v22 = 1024;
-    v23 = shouldExcludePurchaseHistoryContent;
+    v19 = 2112;
+    v20 = uniqueIdentifier;
+    v21 = 1024;
+    v22 = 0;
+    v23 = 1024;
+    v24 = shouldExcludePurchaseHistoryContent;
     _os_log_impl(&dword_1A238D000, v6, OS_LOG_TYPE_DEFAULT, "MPMediaLibrarySystemFilters %p - Updating filters - Library: %@ - has cloud library revision: %{BOOL}u - purchase history excluded: %{BOOL}u", buf, 0x22u);
   }
 
-  _Block_object_dispose(&v10, 8);
+  _Block_object_dispose(&v11, 8);
 }
 
 void __45__MPMediaLibrarySystemFilters__updateFilters__block_invoke(uint64_t a1, uint64_t a2)

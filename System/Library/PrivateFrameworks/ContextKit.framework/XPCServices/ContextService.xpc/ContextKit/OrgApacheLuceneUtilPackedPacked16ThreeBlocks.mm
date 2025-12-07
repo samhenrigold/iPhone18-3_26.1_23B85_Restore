@@ -1,5 +1,6 @@
 @interface OrgApacheLuceneUtilPackedPacked16ThreeBlocks
 - (id)description;
+- (int)getWithInt:(int)int withLongArray:(id)array withInt:(int)withInt withInt:(int)a6;
 - (int)setWithInt:(int)int withLongArray:(id)array withInt:(int)withInt withInt:(int)a6;
 - (int64_t)getWithInt:(int)int;
 - (int64_t)ramBytesUsed;
@@ -41,6 +42,51 @@
   }
 
   return (v7 << 32) | (v9 << 16) | *(&v6->super.size_ + v10 + 2);
+}
+
+- (int)getWithInt:(int)int withLongArray:(id)array withInt:(int)withInt withInt:(int)a6
+{
+  v6 = *&withInt;
+  v10 = JavaLangMath_minWithInt_withInt_((self->super.valueCount_ - int), a6);
+  v11 = (3 * int);
+  for (i = 3 * (v10 + int); v11 < i; v6 = (v6 + 1))
+  {
+    blocks = self->blocks_;
+    if (!blocks)
+    {
+      JreThrowNullPointerException();
+    }
+
+    size = blocks->super.size_;
+    if ((v11 & 0x80000000) != 0 || v11 >= size)
+    {
+      IOSArray_throwOutOfBoundsWithMsg(size, v11);
+    }
+
+    v15 = v11 + 1;
+    if (v11 < -1 || v15 >= size)
+    {
+      IOSArray_throwOutOfBoundsWithMsg(size, v15);
+    }
+
+    v16 = *(&self->blocks_->super.size_ + v15 + 2);
+    v17 = v11 + 2;
+    if (v11 + 2 < 0 || v17 >= size)
+    {
+      IOSArray_throwOutOfBoundsWithMsg(size, v17);
+    }
+
+    v18 = *(array + 2);
+    if ((v6 & 0x80000000) != 0 || v6 >= v18)
+    {
+      IOSArray_throwOutOfBoundsWithMsg(v18, v6);
+    }
+
+    *(array + v6 + 2) = (*(&blocks->super.size_ + v11 + 2) << 32) | (v16 << 16) | *(&blocks->super.size_ + v17 + 2);
+    v11 = (v11 + 3);
+  }
+
+  return v10;
 }
 
 - (void)setWithInt:(int)int withLong:(int64_t)long
@@ -198,16 +244,13 @@
 - (id)description
 {
   v3 = [-[OrgApacheLuceneUtilPackedPacked16ThreeBlocks getClass](self "getClass")];
-  bitsPerValue = self->super.bitsPerValue_;
   [(OrgApacheLuceneUtilPackedPackedInts_MutableImpl *)self size];
-  blocks = self->blocks_;
-  if (!blocks)
+  if (!self->blocks_)
   {
     JreThrowNullPointerException();
   }
 
-  size = blocks->super.size_;
-  return JreStrcat("$$I$I$IC", v5, v6, v7, v8, v9, v10, v11, v3);
+  return JreStrcat("$$I$I$IC", v4, v5, v6, v7, v8, v9, v10, v3);
 }
 
 - (void)dealloc

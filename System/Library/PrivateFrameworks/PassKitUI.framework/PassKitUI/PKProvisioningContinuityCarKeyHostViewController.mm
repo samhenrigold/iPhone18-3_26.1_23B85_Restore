@@ -8,10 +8,10 @@
 
 - (PKProvisioningContinuityCarKeyHostViewController)initWithHandle:(id)handle userInfo:(id)info parent:(id)parent
 {
-  v6 = sub_1BE052244();
+  v7 = sub_1BE052244();
   handleCopy = handle;
   swift_unknownObjectRetain();
-  ProvisioningContinuityCarKeyHostViewController.init(handle:userInfo:parent:)(handleCopy, v6);
+  ProvisioningContinuityCarKeyHostViewController.init(handle:userInfo:parent:)(handleCopy, v7, parent);
   return result;
 }
 

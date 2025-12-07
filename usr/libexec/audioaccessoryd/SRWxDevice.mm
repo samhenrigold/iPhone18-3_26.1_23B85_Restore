@@ -11,6 +11,7 @@
 - (void)setIsRoutingActionInitialized:(BOOL)initialized;
 - (void)setManualRouteChangeInProgress:(BOOL)progress;
 - (void)setManuallyRouted:(BOOL)routed;
+- (void)setOtherTipiAudioCategory:(unsigned int)category;
 - (void)setOtherTipiDeviceBuildVersion:(int64_t)version andMinorBuildVersion:(int64_t)buildVersion;
 - (void)setOtherTipiDeviceDRCompatible:(BOOL)compatible;
 - (void)setOtherTipiDeviceInfo:(id)info andName:(id)name andVersion:(id)version;
@@ -30,26 +31,44 @@
 
 - (void)setFirstBannerShown:(BOOL)shown
 {
-  if (self->firstBannerShown != shown)
+  firstBannerShown = self->firstBannerShown;
+  if (firstBannerShown != shown)
   {
+    shownCopy = shown;
     if (dword_1002F6700 <= 30)
     {
-      if (dword_1002F6700 == -1)
+      if (dword_1002F6700 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (firstBannerShown)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        firstBannerShown = self->firstBannerShown;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (shownCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F6700, "[SRWxDevice setFirstBannerShown:]", 30, "Setting firstBanner for Wx %@ %s -> %s", self->deviceAddress, v7, v6);
+        goto LABEL_11;
       }
 
-      deviceAddress = self->deviceAddress;
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(firstBannerShown) = self->firstBannerShown;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->firstBannerShown = shown;
+LABEL_11:
+    self->firstBannerShown = shownCopy;
   }
 }
 
@@ -104,10 +123,7 @@ LABEL_13:
             v6 = "yes";
           }
 
-          v9 = v7;
-          v10 = v6;
-          deviceAddress = self->deviceAddress;
-          LogPrintF();
+          LogPrintF(&dword_1002F6700, "[SRWxDevice checkSiriHijackEligibility]", 30, "Setting Siri Hijack Eligible for Wx %@ %s -> %s", self->deviceAddress, v7, v6);
           goto LABEL_20;
         }
 
@@ -120,40 +136,59 @@ LABEL_13:
 
 LABEL_20:
       self->siriHijackEligible = v4;
-      v11 = [BTSmartRoutingDaemon sharedBTSmartRoutingDaemon:deviceAddress];
-      [v11 systemStateUpdateRequired];
+      v8 = +[BTSmartRoutingDaemon sharedBTSmartRoutingDaemon];
+      [v8 systemStateUpdateRequired];
     }
   }
 }
 
 - (void)setDataRelayServerPublished:(BOOL)published
 {
-  if (self->dataRelayServerPublished != published)
+  dataRelayServerPublished = self->dataRelayServerPublished;
+  if (dataRelayServerPublished != published)
   {
+    publishedCopy = published;
     if (dword_1002F6700 <= 30)
     {
-      if (dword_1002F6700 == -1)
+      if (dword_1002F6700 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (dataRelayServerPublished)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        dataRelayServerPublished = self->dataRelayServerPublished;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (publishedCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F6700, "[SRWxDevice setDataRelayServerPublished:]", 30, "Setting dataRelayServerPublished for Wx %@ %s -> %s", self->deviceAddress, v7, v6);
+        goto LABEL_11;
       }
 
-      deviceAddress = self->deviceAddress;
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(dataRelayServerPublished) = self->dataRelayServerPublished;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->dataRelayServerPublished = published;
+LABEL_11:
+    self->dataRelayServerPublished = publishedCopy;
   }
 }
 
 - (void)setHijackBackoffTicks:(unint64_t)ticks
 {
-  if (self->hijackBackoffTicks != ticks)
+  hijackBackoffTicks = self->hijackBackoffTicks;
+  if (hijackBackoffTicks != ticks)
   {
     if (dword_1002F6700 <= 30)
     {
@@ -167,8 +202,7 @@ LABEL_6:
         hijackBackoffTicks = self->hijackBackoffTicks;
       }
 
-      deviceAddress = self->deviceAddress;
-      LogPrintF();
+      LogPrintF(&dword_1002F6700, "[SRWxDevice setHijackBackoffTicks:]", 30, "Setting hijackBackoffTicks for Wx %@ %u -> %u", self->deviceAddress, hijackBackoffTicks, ticks);
     }
 
 LABEL_6:
@@ -206,9 +240,7 @@ LABEL_4:
         v7 = "yes";
       }
 
-      v9 = v8;
-      v10 = v7;
-      LogPrintF();
+      LogPrintF(&dword_1002F6700, "[SRWxDevice setInEar:]", 30, "Setting inEar %s -> %s", v8, v7);
       goto LABEL_11;
     }
 
@@ -221,57 +253,126 @@ LABEL_4:
 
 LABEL_11:
   self->inEar = earCopy;
-  [(SRWxDevice *)self checkActiveHRMDeviceUpdate:v9];
+  [(SRWxDevice *)self checkActiveHRMDeviceUpdate];
 
   [(SRWxDevice *)self checkDataRelayServerPublishEligibility];
 }
 
 - (void)setManuallyRouted:(BOOL)routed
 {
-  if (self->manuallyRouted != routed)
+  manuallyRouted = self->manuallyRouted;
+  if (manuallyRouted != routed)
   {
+    routedCopy = routed;
     if (dword_1002F6700 <= 30)
     {
-      if (dword_1002F6700 == -1)
+      if (dword_1002F6700 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (manuallyRouted)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        manuallyRouted = self->manuallyRouted;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (routedCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F6700, "[SRWxDevice setManuallyRouted:]", 30, "Setting manuallyRouted %s -> %s", v7, v6);
+        goto LABEL_11;
       }
 
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(manuallyRouted) = self->manuallyRouted;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->manuallyRouted = routed;
+LABEL_11:
+    self->manuallyRouted = routedCopy;
   }
 }
 
 - (void)setManualRouteChangeInProgress:(BOOL)progress
 {
-  if (self->manualRouteChangeInProgress != progress)
+  manualRouteChangeInProgress = self->manualRouteChangeInProgress;
+  if (manualRouteChangeInProgress != progress)
   {
+    progressCopy = progress;
     if (dword_1002F6700 <= 30)
     {
-      if (dword_1002F6700 == -1)
+      if (dword_1002F6700 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (manualRouteChangeInProgress)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        manualRouteChangeInProgress = self->manualRouteChangeInProgress;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (progressCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F6700, "[SRWxDevice setManualRouteChangeInProgress:]", 30, "Setting manualRouteChangeInProgress %s -> %s", v7, v6);
+        goto LABEL_11;
       }
 
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(manualRouteChangeInProgress) = self->manualRouteChangeInProgress;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->manualRouteChangeInProgress = progress;
+LABEL_11:
+    self->manualRouteChangeInProgress = progressCopy;
   }
+}
+
+- (void)setOtherTipiAudioCategory:(unsigned int)category
+{
+  otherTipiAudioCategory = self->otherTipiAudioCategory;
+  if (otherTipiAudioCategory == category)
+  {
+    return;
+  }
+
+  v5 = *&category;
+  if (dword_1002F6700 <= 30)
+  {
+    if (dword_1002F6700 == -1)
+    {
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_6;
+      }
+
+      otherTipiAudioCategory = self->otherTipiAudioCategory;
+    }
+
+    LogPrintF(&dword_1002F6700, "[SRWxDevice setOtherTipiAudioCategory:]", 30, "Setting OtherTipiAudioCategory for Wx %@ %d -> %d", self->deviceAddress, otherTipiAudioCategory, v5);
+  }
+
+LABEL_6:
+  self->otherTipiAudioCategory = v5;
+  [(SRWxDevice *)self checkSiriHijackEligibility];
+
+  [(SRWxDevice *)self checkDataRelayServerPublishEligibility];
 }
 
 - (void)setOtherTipiDevicePlayingApp:(id)app
@@ -281,9 +382,7 @@ LABEL_6:
   {
     if (dword_1002F6700 <= 30 && (dword_1002F6700 != -1 || _LogCategory_Initialize()))
     {
-      otherTipiDevicePlayingApp = self->otherTipiDevicePlayingApp;
-      deviceAddress = self->deviceAddress;
-      LogPrintF();
+      LogPrintF(&dword_1002F6700, "[SRWxDevice setOtherTipiDevicePlayingApp:]", 30, "Setting OtherTipiDevicePlayingApp for Wx %@ %@ -> %@", self->deviceAddress, self->otherTipiDevicePlayingApp, appCopy);
     }
 
     objc_storeStrong(&self->otherTipiDevicePlayingApp, app);
@@ -297,7 +396,7 @@ LABEL_6:
   versionCopy = version;
   v12 = infoCopy;
   otherTipiDeviceBTAddress = self->otherTipiDeviceBTAddress;
-  v23 = v12;
+  v18 = v12;
   if (!(v12 | otherTipiDeviceBTAddress))
   {
     goto LABEL_9;
@@ -307,12 +406,7 @@ LABEL_6:
   {
     if (dword_1002F6700 <= 30 && (dword_1002F6700 != -1 || _LogCategory_Initialize()))
     {
-      v21 = nameCopy;
-      v22 = versionCopy;
-      v19 = self->otherTipiDeviceBTAddress;
-      v20 = v23;
-      deviceAddress = self->deviceAddress;
-      LogPrintF();
+      LogPrintF(&dword_1002F6700, "[SRWxDevice setOtherTipiDeviceInfo:andName:andVersion:]", 30, "Setting otherTipi for Wx %@ %@ -> %@ name %@ version %@", self->deviceAddress, self->otherTipiDeviceBTAddress, v18, nameCopy, versionCopy);
     }
 
     objc_storeStrong(&self->otherTipiDeviceBTAddress, info);
@@ -323,7 +417,7 @@ LABEL_6:
     [(SRWxDevice *)self checkDataRelayServerPublishEligibility];
   }
 
-  if (!v23)
+  if (!v18)
   {
 LABEL_9:
     self->otherTipiAudioCategory = 0;
@@ -350,34 +444,53 @@ LABEL_9:
     v16 = tipiAndRoutedState & 0xFFFFFFFC;
   }
 
-  v17 = [BTSmartRoutingDaemon sharedBTSmartRoutingDaemon:deviceAddress];
+  v17 = +[BTSmartRoutingDaemon sharedBTSmartRoutingDaemon];
   [v17 _setTipiAndRoutedStateFlags:v16 forDevice:self];
 }
 
 - (void)setOtherTipiDeviceIsStreamingAudio:(BOOL)audio
 {
-  if (self->otherTipiDeviceIsStreamingAudio == audio)
+  otherTipiDeviceIsStreamingAudio = self->otherTipiDeviceIsStreamingAudio;
+  if (otherTipiDeviceIsStreamingAudio == audio)
   {
     return;
   }
 
+  audioCopy = audio;
   if (dword_1002F6700 <= 30)
   {
-    if (dword_1002F6700 == -1)
+    if (dword_1002F6700 != -1)
     {
-      if (!_LogCategory_Initialize())
+LABEL_4:
+      v7 = "no";
+      if (otherTipiDeviceIsStreamingAudio)
       {
-        goto LABEL_6;
+        v8 = "yes";
       }
 
-      otherTipiDeviceIsStreamingAudio = self->otherTipiDeviceIsStreamingAudio;
+      else
+      {
+        v8 = "no";
+      }
+
+      if (audioCopy)
+      {
+        v7 = "yes";
+      }
+
+      LogPrintF(&dword_1002F6700, "[SRWxDevice setOtherTipiDeviceIsStreamingAudio:]", 30, "Setting otherTipiDeviceIsStreamingAudio %s -> %s", v8, v7);
+      goto LABEL_11;
     }
 
-    LogPrintF();
+    if (_LogCategory_Initialize())
+    {
+      LOBYTE(otherTipiDeviceIsStreamingAudio) = self->otherTipiDeviceIsStreamingAudio;
+      goto LABEL_4;
+    }
   }
 
-LABEL_6:
-  self->otherTipiDeviceIsStreamingAudio = audio;
+LABEL_11:
+  self->otherTipiDeviceIsStreamingAudio = audioCopy;
 
   [(SRWxDevice *)self checkDataRelayServerPublishEligibility];
 }
@@ -412,9 +525,7 @@ LABEL_4:
         v6 = "yes";
       }
 
-      v10 = v7;
-      v11 = v6;
-      LogPrintF();
+      LogPrintF(&dword_1002F6700, "[SRWxDevice setOtherTipiDeviceIsWatch:]", 30, "Setting otherTipiDeviceIsWatch %s -> %s", v7, v6);
       goto LABEL_11;
     }
 
@@ -439,12 +550,13 @@ LABEL_12:
     v9 = 0;
   }
 
-  v12 = [BTSmartRoutingDaemon sharedBTSmartRoutingDaemon:v10];
-  [v12 _setTipiAndRoutedStateFlags:v9 | v8 forDevice:self];
+  v10 = +[BTSmartRoutingDaemon sharedBTSmartRoutingDaemon];
+  [v10 _setTipiAndRoutedStateFlags:v9 | v8 forDevice:self];
 }
 
 - (void)setOtherTipiDeviceBuildVersion:(int64_t)version andMinorBuildVersion:(int64_t)buildVersion
 {
+  otherTipiDeviceMajorBuildVersion = self->otherTipiDeviceMajorBuildVersion;
   if (*&self->otherTipiDeviceMajorBuildVersion != __PAIR128__(buildVersion, version))
   {
     if (dword_1002F6700 <= 30)
@@ -459,9 +571,7 @@ LABEL_12:
         otherTipiDeviceMajorBuildVersion = self->otherTipiDeviceMajorBuildVersion;
       }
 
-      otherTipiDeviceMinorBuildVersion = self->otherTipiDeviceMinorBuildVersion;
-      deviceAddress = self->deviceAddress;
-      LogPrintF();
+      LogPrintF(&dword_1002F6700, "[SRWxDevice setOtherTipiDeviceBuildVersion:andMinorBuildVersion:]", 30, "Setting otherTipi build version for Wx %@ %d.%d -> %d.%d", self->deviceAddress, otherTipiDeviceMajorBuildVersion, self->otherTipiDeviceMinorBuildVersion, version, buildVersion);
     }
 
 LABEL_6:
@@ -472,25 +582,44 @@ LABEL_6:
 
 - (void)setOtherTipiDeviceDRCompatible:(BOOL)compatible
 {
-  if (self->otherTipiDeviceDRCompatible != compatible)
+  otherTipiDeviceDRCompatible = self->otherTipiDeviceDRCompatible;
+  if (otherTipiDeviceDRCompatible != compatible)
   {
+    compatibleCopy = compatible;
     if (dword_1002F6700 <= 30)
     {
-      if (dword_1002F6700 == -1)
+      if (dword_1002F6700 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (otherTipiDeviceDRCompatible)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        otherTipiDeviceDRCompatible = self->otherTipiDeviceDRCompatible;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (compatibleCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F6700, "[SRWxDevice setOtherTipiDeviceDRCompatible:]", 30, "Setting otherTipiDeviceDRCompatible %s -> %s", v7, v6);
+        goto LABEL_11;
       }
 
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(otherTipiDeviceDRCompatible) = self->otherTipiDeviceDRCompatible;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->otherTipiDeviceDRCompatible = compatible;
+LABEL_11:
+    self->otherTipiDeviceDRCompatible = compatibleCopy;
   }
 }
 
@@ -501,9 +630,7 @@ LABEL_6:
   {
     if (dword_1002F6700 <= 30 && (dword_1002F6700 != -1 || _LogCategory_Initialize()))
     {
-      otherTipiIDSIdentifier = self->_otherTipiIDSIdentifier;
-      deviceAddress = self->deviceAddress;
-      LogPrintF();
+      LogPrintF(&dword_1002F6700, "[SRWxDevice setOtherTipiIDSIdentifier:]", 30, "Setting otherTipi IDS Identifier for Wx %@ %@ -> %@", self->deviceAddress, self->_otherTipiIDSIdentifier, identifierCopy);
     }
 
     objc_storeStrong(&self->_otherTipiIDSIdentifier, identifier);
@@ -512,56 +639,90 @@ LABEL_6:
 
 - (void)setOtherTipiManuallyRouteTicks:(unint64_t)ticks
 {
-  if (self->otherTipiManuallyRouteTicks != ticks)
+  otherTipiManuallyRouteTicks = self->otherTipiManuallyRouteTicks;
+  if (otherTipiManuallyRouteTicks != ticks)
   {
     if (dword_1002F6700 <= 30)
     {
-      if (dword_1002F6700 == -1)
+      if (dword_1002F6700 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "yes";
+        if (otherTipiManuallyRouteTicks)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        otherTipiManuallyRouteTicks = self->otherTipiManuallyRouteTicks;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (!ticks)
+        {
+          v6 = "no";
+        }
+
+        LogPrintF(&dword_1002F6700, "[SRWxDevice setOtherTipiManuallyRouteTicks:]", 30, "Setting otherTipiManuallyRouteTick for Wx %@ %u -> %u", self->deviceAddress, v7, v6);
+        goto LABEL_11;
       }
 
-      deviceAddress = self->deviceAddress;
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        otherTipiManuallyRouteTicks = self->otherTipiManuallyRouteTicks;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
+LABEL_11:
     self->otherTipiManuallyRouteTicks = ticks;
   }
 }
 
 - (void)setOtherTipiDeviceSiriEnablement:(BOOL)enablement
 {
-  if (self->otherTipiDeviceSiriEnablement == enablement)
+  otherTipiDeviceSiriEnablement = self->otherTipiDeviceSiriEnablement;
+  if (otherTipiDeviceSiriEnablement == enablement)
   {
     return;
   }
 
+  enablementCopy = enablement;
   if (dword_1002F6700 <= 30)
   {
     if (dword_1002F6700 != -1)
     {
 LABEL_4:
-      deviceAddress = self->deviceAddress;
-      LogPrintF();
-      goto LABEL_6;
+      v6 = "no";
+      if (otherTipiDeviceSiriEnablement)
+      {
+        v7 = "yes";
+      }
+
+      else
+      {
+        v7 = "no";
+      }
+
+      if (enablementCopy)
+      {
+        v6 = "yes";
+      }
+
+      LogPrintF(&dword_1002F6700, "[SRWxDevice setOtherTipiDeviceSiriEnablement:]", 30, "Setting setOtherTipiDeviceSiriEnablement for Wx %@ %s -> %s", self->deviceAddress, v7, v6);
+      goto LABEL_11;
     }
 
     if (_LogCategory_Initialize())
     {
-      otherTipiDeviceSiriEnablement = self->otherTipiDeviceSiriEnablement;
+      LOBYTE(otherTipiDeviceSiriEnablement) = self->otherTipiDeviceSiriEnablement;
       goto LABEL_4;
     }
   }
 
-LABEL_6:
-  self->otherTipiDeviceSiriEnablement = enablement;
-  if (!enablement)
+LABEL_11:
+  self->otherTipiDeviceSiriEnablement = enablementCopy;
+  if (!enablementCopy)
   {
 
     [(SRWxDevice *)self checkSiriHijackEligibility];
@@ -570,34 +731,51 @@ LABEL_6:
 
 - (void)setHasOwnership:(BOOL)ownership
 {
-  if (self->hasOwnership == ownership)
+  hasOwnership = self->hasOwnership;
+  if (hasOwnership == ownership)
   {
     return;
   }
 
+  ownershipCopy = ownership;
   if (dword_1002F6700 <= 30)
   {
     if (dword_1002F6700 != -1)
     {
 LABEL_4:
-      deviceAddress = self->deviceAddress;
-      LogPrintF();
-      goto LABEL_6;
+      v6 = "no";
+      if (hasOwnership)
+      {
+        v7 = "yes";
+      }
+
+      else
+      {
+        v7 = "no";
+      }
+
+      if (ownershipCopy)
+      {
+        v6 = "yes";
+      }
+
+      LogPrintF(&dword_1002F6700, "[SRWxDevice setHasOwnership:]", 30, "Updating Wx ownership %@ %s -> %s", self->deviceAddress, v7, v6);
+      goto LABEL_11;
     }
 
     if (_LogCategory_Initialize())
     {
-      hasOwnership = self->hasOwnership;
+      LOBYTE(hasOwnership) = self->hasOwnership;
       goto LABEL_4;
     }
   }
 
-LABEL_6:
-  self->hasOwnership = ownership;
-  if (!ownership)
+LABEL_11:
+  self->hasOwnership = ownershipCopy;
+  if (!ownershipCopy)
   {
-    v7 = +[BTSmartRoutingDaemon sharedBTSmartRoutingDaemon];
-    [v7 _setConnectedBannerTick:0];
+    v8 = +[BTSmartRoutingDaemon sharedBTSmartRoutingDaemon];
+    [v8 _setConnectedBannerTick:0];
   }
 }
 
@@ -606,7 +784,7 @@ LABEL_6:
   routedCopy = routed;
   v5 = +[BTSmartRoutingDaemon sharedBTSmartRoutingDaemon];
   routed = self->routed;
-  v20 = v5;
+  v17 = v5;
   if (routed != routedCopy)
   {
     if (dword_1002F6700 <= 30)
@@ -630,10 +808,7 @@ LABEL_4:
           v7 = "yes";
         }
 
-        v18 = v8;
-        v19 = v7;
-        deviceAddress = self->deviceAddress;
-        LogPrintF();
+        LogPrintF(&dword_1002F6700, "[SRWxDevice setRouted:]", 30, "Setting routedState for Wx %@ %s -> %s", self->deviceAddress, v8, v7);
         goto LABEL_11;
       }
 
@@ -646,9 +821,9 @@ LABEL_4:
 
 LABEL_11:
     self->routed = routedCopy;
-    [(SRWxDevice *)self checkActiveHRMDeviceUpdate:deviceAddress];
+    [(SRWxDevice *)self checkActiveHRMDeviceUpdate];
     [(SRWxDevice *)self checkDataRelayServerPublishEligibility];
-    v5 = v20;
+    v5 = v17;
   }
 
   tipiAndRoutedState = self->tipiAndRoutedState;
@@ -660,13 +835,13 @@ LABEL_11:
     v12 = tipiAndRoutedState | 4;
     if (workoutActive)
     {
-      v13 = v20;
+      v13 = v17;
       if (!self->isHRMCapable)
       {
         goto LABEL_20;
       }
 
-      v14 = v20;
+      v14 = v17;
       selfCopy = self;
       goto LABEL_18;
     }
@@ -675,18 +850,18 @@ LABEL_11:
   else
   {
     v12 = tipiAndRoutedState & 0xFFFFFFFB;
-    workoutWx = [v20 workoutWx];
+    workoutWx = [v17 workoutWx];
 
     if (workoutWx == self)
     {
-      v14 = v20;
+      v14 = v17;
       selfCopy = 0;
 LABEL_18:
       [v14 setWorkoutWx:selfCopy];
     }
   }
 
-  v13 = v20;
+  v13 = v17;
 LABEL_20:
   [v13 _setTipiAndRoutedStateFlags:v12 forDevice:self];
 }
@@ -721,10 +896,7 @@ LABEL_4:
         v7 = "yes";
       }
 
-      v10 = v8;
-      v11 = v7;
-      deviceAddress = self->deviceAddress;
-      LogPrintF();
+      LogPrintF(&dword_1002F6700, "[SRWxDevice setIsHRMCapable:]", 30, "Setting isHRMCapable for Wx %@ %s -> %s", self->deviceAddress, v8, v7);
       goto LABEL_11;
     }
 
@@ -737,33 +909,51 @@ LABEL_4:
 
 LABEL_11:
   self->isHRMCapable = capableCopy;
-  [(SRWxDevice *)self checkDataRelayServerPublishEligibility:deviceAddress];
+  [(SRWxDevice *)self checkDataRelayServerPublishEligibility];
 
   [(SRWxDevice *)self checkActiveHRMDeviceUpdate];
 }
 
 - (void)setIsRoutingActionInitialized:(BOOL)initialized
 {
-  if (self->isRoutingActionInitialized != initialized)
+  isRoutingActionInitialized = self->isRoutingActionInitialized;
+  if (isRoutingActionInitialized != initialized)
   {
+    initializedCopy = initialized;
     if (dword_1002F6700 <= 30)
     {
-      if (dword_1002F6700 == -1)
+      if (dword_1002F6700 != -1)
       {
-        if (!_LogCategory_Initialize())
+LABEL_4:
+        v6 = "no";
+        if (isRoutingActionInitialized)
         {
-          goto LABEL_6;
+          v7 = "yes";
         }
 
-        isRoutingActionInitialized = self->isRoutingActionInitialized;
+        else
+        {
+          v7 = "no";
+        }
+
+        if (initializedCopy)
+        {
+          v6 = "yes";
+        }
+
+        LogPrintF(&dword_1002F6700, "[SRWxDevice setIsRoutingActionInitialized:]", 30, "Setting routingInit for Wx %@ %s -> %s", self->deviceAddress, v7, v6);
+        goto LABEL_11;
       }
 
-      deviceAddress = self->deviceAddress;
-      LogPrintF();
+      if (_LogCategory_Initialize())
+      {
+        LOBYTE(isRoutingActionInitialized) = self->isRoutingActionInitialized;
+        goto LABEL_4;
+      }
     }
 
-LABEL_6:
-    self->isRoutingActionInitialized = initialized;
+LABEL_11:
+    self->isRoutingActionInitialized = initializedCopy;
   }
 }
 
@@ -777,19 +967,28 @@ LABEL_6:
       if (dword_1002F6700 != -1)
       {
 LABEL_4:
-        if (routingAction <= 5)
+        if (routingAction > 5)
+        {
+          v6 = "?";
+        }
+
+        else
         {
           v6 = (&off_1002B7D20)[routingAction];
         }
 
-        if (action <= 5)
+        if (action > 5)
+        {
+          v7 = "?";
+        }
+
+        else
         {
           v7 = (&off_1002B7D20)[action];
         }
 
-        deviceAddress = self->deviceAddress;
-        LogPrintF();
-        goto LABEL_11;
+        LogPrintF(&dword_1002F6700, "[SRWxDevice setRoutingAction:]", 30, "Setting RoutingAction for Wx %@ %s -> %s", self->deviceAddress, v6, v7);
+        goto LABEL_13;
       }
 
       if (_LogCategory_Initialize())
@@ -799,7 +998,7 @@ LABEL_4:
       }
     }
 
-LABEL_11:
+LABEL_13:
     self->routingAction = action;
   }
 }
@@ -814,19 +1013,28 @@ LABEL_11:
       if (dword_1002F6700 != -1)
       {
 LABEL_4:
-        if (routingUI <= 5)
+        if (routingUI > 5)
+        {
+          v6 = "?";
+        }
+
+        else
         {
           v6 = (&off_1002B7D20)[routingUI];
         }
 
-        if (i <= 5)
+        if (i > 5)
+        {
+          v7 = "?";
+        }
+
+        else
         {
           v7 = (&off_1002B7D20)[i];
         }
 
-        deviceAddress = self->deviceAddress;
-        LogPrintF();
-        goto LABEL_11;
+        LogPrintF(&dword_1002F6700, "[SRWxDevice setRoutingUI:]", 30, "Setting RoutingUI for Wx %@ %s -> %s", self->deviceAddress, v6, v7);
+        goto LABEL_13;
       }
 
       if (_LogCategory_Initialize())
@@ -836,7 +1044,7 @@ LABEL_4:
       }
     }
 
-LABEL_11:
+LABEL_13:
     self->routingUI = i;
   }
 }
@@ -845,25 +1053,14 @@ LABEL_11:
 {
   if (self->tipiAndRoutedState != flags)
   {
-    if (dword_1002F6700 <= 30)
+    if (dword_1002F6700 <= 30 && (dword_1002F6700 != -1 || _LogCategory_Initialize()))
     {
-      if (dword_1002F6700 == -1)
-      {
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_6;
-        }
-
-        tipiAndRoutedState = self->tipiAndRoutedState;
-      }
-
       deviceAddress = self->deviceAddress;
       v6 = CUPrintFlags32();
-      v8 = CUPrintFlags32();
-      LogPrintF();
+      v7 = CUPrintFlags32();
+      LogPrintF(&dword_1002F6700, "[SRWxDevice setTipiAndRoutedStateFlags:]", 30, "Setting tipiAndRoutedState for Wx %@ %@ -> %@", deviceAddress, v6, v7);
     }
 
-LABEL_6:
     self->tipiAndRoutedState = flags;
   }
 }
@@ -875,86 +1072,140 @@ LABEL_6:
     return;
   }
 
-  v9 = +[BTSmartRoutingDaemon sharedBTSmartRoutingDaemon];
+  v15 = +[BTSmartRoutingDaemon sharedBTSmartRoutingDaemon];
   if (self->otherTipiDeviceBTAddress && !self->otherTipiDeviceDRCompatible)
   {
     if (dword_1002F6700 <= 30 && (dword_1002F6700 != -1 || _LogCategory_Initialize()))
     {
-LABEL_43:
-      LogPrintF();
+      LogPrintF(&dword_1002F6700, "[SRWxDevice checkDataRelayServerPublishEligibility]", 30, "Other tipi device is not DR compatible");
     }
+
+    goto LABEL_51;
+  }
+
+  if (!self->isHRMCapable)
+  {
+    if (dword_1002F6700 <= 30 && (dword_1002F6700 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&dword_1002F6700, "[SRWxDevice checkDataRelayServerPublishEligibility]", 30, "HRM not supported");
+    }
+
+    if (self->dataRelayServerPublished)
+    {
+      [v15 dataRelayRemoveAvailableDataTypesWithDevice:self];
+    }
+  }
+
+  if (GestaltGetDeviceClass() != 1 && GestaltGetDeviceClass() != 3 && GestaltGetDeviceClass() != 6)
+  {
+    if (dword_1002F6700 <= 30 && (dword_1002F6700 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&dword_1002F6700, "[SRWxDevice checkDataRelayServerPublishEligibility]", 30, "Device not an iPhone, iPad or Watch platform, ineligible for DR");
+    }
+
+    goto LABEL_51;
+  }
+
+  v3 = self->otherTipiAudioCategory != 100 || self->otherTipiDeviceIsStreamingAudio;
+  v4 = !self->routed && self->otherTipiDeviceBTAddress && self->inEar && v3;
+  workoutObserver = [v15 workoutObserver];
+  workoutActive = [workoutObserver workoutActive];
+
+  routed = self->routed;
+  if (routed)
+  {
+    v8 = 0;
   }
 
   else
   {
-    if (!self->isHRMCapable)
+    v8 = (self->otherTipiDeviceBTAddress != 0) & workoutActive;
+  }
+
+  if (dword_1002F6700 <= 30)
+  {
+    if (dword_1002F6700 != -1)
     {
-      if (dword_1002F6700 <= 30 && (dword_1002F6700 != -1 || _LogCategory_Initialize()))
+LABEL_26:
+      v9 = "no";
+      if (routed)
       {
-        LogPrintF();
-      }
-
-      if (self->dataRelayServerPublished)
-      {
-        [v9 dataRelayRemoveAvailableDataTypesWithDevice:self];
-      }
-    }
-
-    if (GestaltGetDeviceClass() == 1 || GestaltGetDeviceClass() == 3 || GestaltGetDeviceClass() == 6)
-    {
-      v3 = self->otherTipiAudioCategory != 100 || self->otherTipiDeviceIsStreamingAudio;
-      v4 = !self->routed && self->otherTipiDeviceBTAddress && self->inEar && v3;
-      workoutObserver = [v9 workoutObserver];
-      workoutActive = [workoutObserver workoutActive];
-
-      if (self->routed)
-      {
-        v7 = 0;
+        v10 = "yes";
       }
 
       else
       {
-        v7 = (self->otherTipiDeviceBTAddress != 0) & workoutActive;
+        v10 = "no";
       }
 
-      if (dword_1002F6700 <= 30)
+      if (self->isHRMCapable)
       {
-        if (dword_1002F6700 == -1)
-        {
-          if (!_LogCategory_Initialize())
-          {
-            goto LABEL_28;
-          }
-
-          routed = self->routed;
-        }
-
-        self->isHRMCapable;
-        self->dataRelayServerPublished;
-        LogPrintF();
+        v11 = "yes";
       }
 
-LABEL_28:
-      if (((v4 | v7) & 1) != 0 && !self->dataRelayServerPublished)
+      else
       {
-        [v9 dataRelayAddAvailableDataTypesWithDevice:self];
+        v11 = "no";
       }
 
-      else if (self->routed && self->dataRelayServerPublished)
+      if (v3)
       {
-        [v9 dataRelayRemoveAvailableDataTypesWithDevice:self];
+        v12 = "yes";
       }
 
-      goto LABEL_34;
+      else
+      {
+        v12 = "no";
+      }
+
+      if (v4)
+      {
+        v13 = "yes";
+      }
+
+      else
+      {
+        v13 = "no";
+      }
+
+      if (self->dataRelayServerPublished)
+      {
+        v14 = "yes";
+      }
+
+      else
+      {
+        v14 = "no";
+      }
+
+      if (workoutActive)
+      {
+        v9 = "yes";
+      }
+
+      LogPrintF(&dword_1002F6700, "[SRWxDevice checkDataRelayServerPublishEligibility]", 30, "Check Data Relay Server Publish eligibility routed %s isHRMCapable %s otherDeviceIsNotIdle %s isDeviceRoutedAndStreamingFromTipiDevice %s, dataRelayServerPublished %s isWorkoutActive %s", v10, v11, v12, v13, v14, v9);
+      goto LABEL_45;
     }
 
-    if (dword_1002F6700 <= 30 && (dword_1002F6700 != -1 || _LogCategory_Initialize()))
+    if (_LogCategory_Initialize())
     {
-      goto LABEL_43;
+      routed = self->routed;
+      goto LABEL_26;
     }
   }
 
-LABEL_34:
+LABEL_45:
+  if (((v4 | v8) & 1) != 0 && !self->dataRelayServerPublished)
+  {
+    [v15 dataRelayAddAvailableDataTypesWithDevice:self];
+  }
+
+  else if (self->routed && self->dataRelayServerPublished)
+  {
+    [v15 dataRelayRemoveAvailableDataTypesWithDevice:self];
+  }
+
+LABEL_51:
 }
 
 @end

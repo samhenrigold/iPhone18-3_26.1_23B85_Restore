@@ -7,7 +7,7 @@
 - (NSString)description
 {
   v13.receiver = self;
-  v13.super_class = type metadata accessor for PointerWithFields();
+  v13.super_class = type metadata accessor for PointerWithFields(0);
   v2 = v13.receiver;
   v3 = [(KnoxPointer *)&v13 description];
   v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();

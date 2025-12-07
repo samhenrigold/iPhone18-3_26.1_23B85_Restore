@@ -9,6 +9,7 @@
 + (uint64_t)fp_wordTokenizer;
 - (__CFString)fp_fpIdentifier;
 - (__CFString)fp_relativePathWithRealpath:()FPAdditions;
+- (char)fp_pathExtension;
 - (const)fp_fileSystemRepresentation;
 - (id)fp_alwaysObfuscatedDotSeparatedComponents;
 - (id)fp_alwaysObfuscatedExtendedAttributeName;
@@ -19,7 +20,6 @@
 - (id)fp_getCrashDate;
 - (id)fp_obfuscatedPath;
 - (id)fp_obfuscatedProviderDomainID;
-- (id)fp_pathExtension;
 - (id)fp_prettyPathWithObfuscation:()FPAdditions;
 - (id)fp_realpath;
 - (id)fp_representableHFSFileNameWithNumber:()FPAdditions addedExtension:makeDotFile:;
@@ -478,65 +478,65 @@ LABEL_10:
 
 + (id)fp_commonParentPathForItemURLs:()FPAdditions
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v3 = a3;
   if ([v3 count])
   {
-    v34 = 0;
-    v35 = &v34;
-    v36 = 0x3032000000;
-    v37 = __Block_byref_object_copy__12;
-    v38 = __Block_byref_object_dispose__12;
-    v21 = v3;
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x3032000000;
+    v36 = __Block_byref_object_copy__12;
+    v37 = __Block_byref_object_dispose__12;
+    v20 = v3;
     firstObject = [v3 firstObject];
     uRLByDeletingLastPathComponent = [firstObject URLByDeletingLastPathComponent];
     pathComponents = [uRLByDeletingLastPathComponent pathComponents];
 
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v6 = [v3 subarrayWithRange:{1, objc_msgSend(v3, "count") - 1}];
-    v7 = [v6 countByEnumeratingWithState:&v30 objects:v40 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v29 objects:v39 count:16];
     if (v7)
     {
-      v8 = *v31;
+      v8 = *v30;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v31 != v8)
+          if (*v30 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          pathComponents2 = [*(*(&v30 + 1) + 8 * i) pathComponents];
-          v26 = 0;
-          v27 = &v26;
-          v28 = 0x2020000000;
-          v29 = 0;
-          v22[0] = MEMORY[0x1E69E9820];
-          v22[1] = 3221225472;
-          v22[2] = __56__NSString_FPAdditions__fp_commonParentPathForItemURLs___block_invoke;
-          v22[3] = &unk_1E793BDD8;
-          v24 = &v34;
-          v25 = &v26;
+          pathComponents2 = [*(*(&v29 + 1) + 8 * i) pathComponents];
+          v25 = 0;
+          v26 = &v25;
+          v27 = 0x2020000000;
+          v28 = 0;
+          v21[0] = MEMORY[0x1E69E9820];
+          v21[1] = 3221225472;
+          v21[2] = __56__NSString_FPAdditions__fp_commonParentPathForItemURLs___block_invoke;
+          v21[3] = &unk_1E793BDD8;
+          v23 = &v33;
+          v24 = &v25;
           v11 = pathComponents2;
-          v23 = v11;
-          [v11 enumerateObjectsUsingBlock:v22];
-          if ((v27[3] & 1) == 0)
+          v22 = v11;
+          [v11 enumerateObjectsUsingBlock:v21];
+          if ((v26[3] & 1) == 0)
           {
             if ([v11 count])
             {
               v12 = [v11 subarrayWithRange:{0, objc_msgSend(v11, "count") - 1}];
-              v13 = v35[5];
-              v35[5] = v12;
+              v13 = v34[5];
+              v34[5] = v12;
             }
 
             else
             {
               v14 = v6;
-              v15 = v35;
+              v15 = v34;
               v16 = v11;
               v13 = v15[5];
               v15[5] = v16;
@@ -544,16 +544,16 @@ LABEL_10:
             }
           }
 
-          _Block_object_dispose(&v26, 8);
+          _Block_object_dispose(&v25, 8);
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v30 objects:v40 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v29 objects:v39 count:16];
       }
 
       while (v7);
     }
 
-    v17 = [MEMORY[0x1E696AEC0] pathWithComponents:v35[5]];
+    v17 = [MEMORY[0x1E696AEC0] pathWithComponents:v34[5]];
     if (([v17 hasSuffix:@"/"] & 1) == 0)
     {
       v18 = [v17 stringByAppendingString:@"/"];
@@ -561,17 +561,15 @@ LABEL_10:
       v17 = v18;
     }
 
-    _Block_object_dispose(&v34, 8);
+    _Block_object_dispose(&v33, 8);
 
-    v3 = v21;
+    v3 = v20;
   }
 
   else
   {
     v17 = 0;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -1068,7 +1066,7 @@ LABEL_26:
 
 + (id)fp_representableHFSFileNameWithBase:()FPAdditions suffix:extension:makeDotFile:
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v9 = a3;
   v10 = a4;
   v11 = a5;
@@ -1088,7 +1086,7 @@ LABEL_26:
     v9 = v14;
   }
 
-  memset(&v33[2], 0, 223);
+  memset(&v32[2], 0, 223);
   v16 = 254 - v12;
   if (v15)
   {
@@ -1100,28 +1098,28 @@ LABEL_26:
     v17 = 0;
   }
 
-  memset(v33, 0, 32);
+  memset(v32, 0, 32);
   if (a6)
   {
-    v18 = v33 + 1;
-    LOBYTE(v33[0]) = 46;
+    v18 = v32 + 1;
+    LOBYTE(v32[0]) = 46;
     v19 = 1;
   }
 
   else
   {
     v19 = 0;
-    v18 = v33;
+    v18 = v32;
   }
 
-  v32 = 0;
+  v31 = 0;
   if (!v12)
   {
     v16 = 255;
   }
 
-  v20 = [v9 getBytes:v18 maxLength:v16 + v17 - v19 usedLength:&v32 encoding:4 options:0 range:0 remainingRange:{objc_msgSend(v9, "length"), 0}];
-  v21 = v32;
+  v20 = [v9 getBytes:v18 maxLength:v16 + v17 - v19 usedLength:&v31 encoding:4 options:0 range:0 remainingRange:{objc_msgSend(v9, "length"), 0}];
+  v21 = v31;
   if (!v20)
   {
     v21 = 0;
@@ -1140,10 +1138,10 @@ LABEL_17:
   }
 
   v23 = v22 + 1;
-  *(v33 + v22) = 32;
-  if ([v10 getBytes:v33 + v22 + 1 maxLength:v12 usedLength:&v32 encoding:4 options:0 range:0 remainingRange:{objc_msgSend(v10, "length"), 0}])
+  *(v32 + v22) = 32;
+  if ([v10 getBytes:v32 + v22 + 1 maxLength:v12 usedLength:&v31 encoding:4 options:0 range:0 remainingRange:{objc_msgSend(v10, "length"), 0}])
   {
-    v22 = v32 + v23;
+    v22 = v31 + v23;
     goto LABEL_17;
   }
 
@@ -1155,23 +1153,21 @@ LABEL_17:
 
   uUID = [MEMORY[0x1E696AFB0] UUID];
   uUIDString = [uUID UUIDString];
-  v22 = v23 + snprintf(v33 + v23, 254 - v22, "com-apple-bird-recovered-%s", [uUIDString UTF8String]);
+  v22 = v23 + snprintf(v32 + v23, 254 - v22, "com-apple-bird-recovered-%s", [uUIDString UTF8String]);
 
   if (v15)
   {
 LABEL_22:
     v27 = v22 + 1;
-    *(v33 + v22) = 46;
-    if ([v11 getBytes:v33 + ++v22 maxLength:v15 usedLength:&v32 encoding:4 options:0 range:0 remainingRange:{objc_msgSend(v11, "length"), 0}])
+    *(v32 + v22) = 46;
+    if ([v11 getBytes:v32 + ++v22 maxLength:v15 usedLength:&v31 encoding:4 options:0 range:0 remainingRange:{objc_msgSend(v11, "length"), 0}])
     {
-      v22 = v32 + v27;
+      v22 = v31 + v27;
     }
   }
 
 LABEL_24:
-  v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v33 length:v22 encoding:4];
-
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v32 length:v22 encoding:4];
 
   return v29;
 }
@@ -1226,7 +1222,7 @@ LABEL_24:
   return v10;
 }
 
-- (id)fp_pathExtension
+- (char)fp_pathExtension
 {
   v1 = _extensionInFilename([self fileSystemRepresentation], 0);
   v2 = v1;
@@ -1323,21 +1319,21 @@ LABEL_24:
 
 + (id)fp_hashForToken:()FPAdditions
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (a3)
   {
-    memset(&v12, 0, sizeof(v12));
+    memset(&v11, 0, sizeof(v11));
     v3 = a3;
-    CC_SHA1_Init(&v12);
+    CC_SHA1_Init(&v11);
     v4 = v3;
     bytes = [v4 bytes];
     v6 = [v3 length];
 
-    CC_SHA1_Update(&v12, bytes, v6);
+    CC_SHA1_Update(&v11, bytes, v6);
     *md = 0;
+    v13 = 0;
     v14 = 0;
-    v15 = 0;
-    CC_SHA1_Final(md, &v12);
+    CC_SHA1_Final(md, &v11);
     v7 = [MEMORY[0x1E695DEF0] dataWithBytes:md length:20];
     v8 = [v7 base64EncodedDataWithOptions:0];
     v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v8 encoding:1];
@@ -1347,8 +1343,6 @@ LABEL_24:
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -1532,22 +1526,20 @@ LABEL_15:
 
 - (void)fp_realpath
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = *__error();
-  v6 = 138412546;
+  v5 = 138412546;
   selfCopy = self;
-  v8 = 1024;
-  v9 = v4;
-  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] realpath(%@) failed: %{errno}d", &v6, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
+  v7 = 1024;
+  v8 = v4;
+  _os_log_debug_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] realpath(%@) failed: %{errno}d", &v5, 0x12u);
 }
 
 + (void)fp_representableHFSFileNameWithBase:()FPAdditions suffix:extension:makeDotFile:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
 }
 
 - (void)fp_enumerateTokensInRange:()FPAdditions tokenizer:usingBlock:.cold.1(uint64_t a1, uint64_t a2)

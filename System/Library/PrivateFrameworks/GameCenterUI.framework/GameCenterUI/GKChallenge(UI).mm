@@ -87,13 +87,13 @@
 {
   if (!*MEMORY[0x277D0C2A0])
   {
-    v0 = GKOSLoggers();
+    v2 = GKOSLoggers();
   }
 
-  v1 = *MEMORY[0x277D0C290];
+  v3 = *MEMORY[0x277D0C290];
   if (os_log_type_enabled(*MEMORY[0x277D0C290], OS_LOG_TYPE_ERROR))
   {
-    [(GKChallenge(UI) *)v1 alertGoalText];
+    [(GKChallenge(UI) *)v3 alertGoalText];
   }
 
   return 0;
@@ -103,13 +103,13 @@
 {
   if (!*MEMORY[0x277D0C2A0])
   {
-    v0 = GKOSLoggers();
+    v2 = GKOSLoggers();
   }
 
-  v1 = *MEMORY[0x277D0C290];
+  v3 = *MEMORY[0x277D0C290];
   if (os_log_type_enabled(*MEMORY[0x277D0C290], OS_LOG_TYPE_ERROR))
   {
-    [(GKChallenge(UI) *)v1 alertGoalText];
+    [(GKChallenge(UI) *)v3 alertGoalText];
   }
 
   return 0;
@@ -119,13 +119,13 @@
 {
   if (!*MEMORY[0x277D0C2A0])
   {
-    v0 = GKOSLoggers();
+    v2 = GKOSLoggers();
   }
 
-  v1 = *MEMORY[0x277D0C290];
+  v3 = *MEMORY[0x277D0C290];
   if (os_log_type_enabled(*MEMORY[0x277D0C290], OS_LOG_TYPE_ERROR))
   {
-    [(GKChallenge(UI) *)v1 alertGoalText];
+    [(GKChallenge(UI) *)v3 alertGoalText];
   }
 
   return 0;
@@ -135,13 +135,13 @@
 {
   if (!*MEMORY[0x277D0C2A0])
   {
-    v0 = GKOSLoggers();
+    v2 = GKOSLoggers();
   }
 
-  v1 = *MEMORY[0x277D0C290];
+  v3 = *MEMORY[0x277D0C290];
   if (os_log_type_enabled(*MEMORY[0x277D0C290], OS_LOG_TYPE_ERROR))
   {
-    [(GKChallenge(UI) *)v1 alertGoalText];
+    [(GKChallenge(UI) *)v3 alertGoalText];
   }
 
   return 0;
@@ -151,13 +151,13 @@
 {
   if (!*MEMORY[0x277D0C2A0])
   {
-    v0 = GKOSLoggers();
+    v2 = GKOSLoggers();
   }
 
-  v1 = *MEMORY[0x277D0C290];
+  v3 = *MEMORY[0x277D0C290];
   if (os_log_type_enabled(*MEMORY[0x277D0C290], OS_LOG_TYPE_ERROR))
   {
-    [(GKChallenge(UI) *)v1 alertGoalText];
+    [(GKChallenge(UI) *)v3 alertGoalText];
   }
 
   return 0;
@@ -165,27 +165,27 @@
 
 - (id)detailFromText
 {
-  v2 = MEMORY[0x277CCACA8];
-  v3 = GKGameCenterUIFrameworkBundle();
-  v4 = GKGetLocalizedStringFromTableInBundle();
+  v3 = MEMORY[0x277CCACA8];
+  v4 = GKGameCenterUIFrameworkBundle();
+  v5 = GKGetLocalizedStringFromTableInBundle();
   issuingPlayer = [self issuingPlayer];
-  v6 = [issuingPlayer displayNameWithOptions:0];
-  v7 = [v2 stringWithFormat:v4, v6];
+  v7 = [issuingPlayer displayNameWithOptions:0];
+  v8 = [v3 stringWithFormat:v5, v7];
 
-  return v7;
+  return v8;
 }
 
 - (uint64_t)iconSource
 {
   if (!*MEMORY[0x277D0C2A0])
   {
-    v0 = GKOSLoggers();
+    v2 = GKOSLoggers();
   }
 
-  v1 = *MEMORY[0x277D0C290];
+  v3 = *MEMORY[0x277D0C290];
   if (os_log_type_enabled(*MEMORY[0x277D0C290], OS_LOG_TYPE_ERROR))
   {
-    [(GKChallenge(UI) *)v1 alertGoalText];
+    [(GKChallenge(UI) *)v3 alertGoalText];
   }
 
   return 0;
@@ -195,13 +195,13 @@
 {
   if (!*MEMORY[0x277D0C2A0])
   {
-    v0 = GKOSLoggers();
+    v2 = GKOSLoggers();
   }
 
-  v1 = *MEMORY[0x277D0C290];
+  v3 = *MEMORY[0x277D0C290];
   if (os_log_type_enabled(*MEMORY[0x277D0C290], OS_LOG_TYPE_ERROR))
   {
-    [(GKChallenge(UI) *)v1 alertGoalText];
+    [(GKChallenge(UI) *)v3 alertGoalText];
   }
 
   return 0;
@@ -211,13 +211,13 @@
 {
   if (!*MEMORY[0x277D0C2A0])
   {
-    v0 = GKOSLoggers();
+    v2 = GKOSLoggers();
   }
 
-  v1 = *MEMORY[0x277D0C290];
+  v3 = *MEMORY[0x277D0C290];
   if (os_log_type_enabled(*MEMORY[0x277D0C290], OS_LOG_TYPE_ERROR))
   {
-    [(GKChallenge(UI) *)v1 alertGoalText];
+    [(GKChallenge(UI) *)v3 alertGoalText];
   }
 
   return 0;
@@ -225,33 +225,12 @@
 
 + (id)challengesNotSupportedAlertController
 {
-  v0 = MEMORY[0x277D75110];
-  v1 = GKGameCenterUIFrameworkBundle();
-  v2 = GKGetLocalizedStringFromTableInBundle();
+  v2 = MEMORY[0x277D75110];
   v3 = GKGameCenterUIFrameworkBundle();
   v4 = GKGetLocalizedStringFromTableInBundle();
-  v5 = [v0 alertControllerWithTitle:v2 message:v4 preferredStyle:1];
-
-  v6 = MEMORY[0x277D750F8];
-  v7 = GKGameCenterUIFrameworkBundle();
-  v8 = GKGetLocalizedStringFromTableInBundle();
-  v9 = [v6 actionWithTitle:v8 style:0 handler:0];
-  [v5 addAction:v9];
-
-  return v5;
-}
-
-+ (id)tooManyPlayersAlertController
-{
-  v0 = MEMORY[0x277CCACA8];
-  v1 = GKGameCenterUIFrameworkBundle();
-  v2 = GKGetLocalizedStringFromTableInBundle();
-  v3 = [v0 stringWithFormat:v2, 10];
-
-  v4 = MEMORY[0x277D75110];
   v5 = GKGameCenterUIFrameworkBundle();
   v6 = GKGetLocalizedStringFromTableInBundle();
-  v7 = [v4 alertControllerWithTitle:v6 message:v3 preferredStyle:1];
+  v7 = [v2 alertControllerWithTitle:v4 message:v6 preferredStyle:1];
 
   v8 = MEMORY[0x277D750F8];
   v9 = GKGameCenterUIFrameworkBundle();
@@ -262,13 +241,34 @@
   return v7;
 }
 
++ (id)tooManyPlayersAlertController
+{
+  v2 = MEMORY[0x277CCACA8];
+  v3 = GKGameCenterUIFrameworkBundle();
+  v4 = GKGetLocalizedStringFromTableInBundle();
+  v5 = [v2 stringWithFormat:v4, 10];
+
+  v6 = MEMORY[0x277D75110];
+  v7 = GKGameCenterUIFrameworkBundle();
+  v8 = GKGetLocalizedStringFromTableInBundle();
+  v9 = [v6 alertControllerWithTitle:v8 message:v5 preferredStyle:1];
+
+  v10 = MEMORY[0x277D750F8];
+  v11 = GKGameCenterUIFrameworkBundle();
+  v12 = GKGetLocalizedStringFromTableInBundle();
+  v13 = [v10 actionWithTitle:v12 style:0 handler:0];
+  [v9 addAction:v13];
+
+  return v9;
+}
+
 - (void)alertGoalText
 {
   selfCopy = self;
   v3 = OUTLINED_FUNCTION_5_1();
   v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_12(&dword_24DE53000, v5, v6, "%@ needs to implement me!", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0_12(&dword_24DE53000, v5, v6, "%@ needs to implement me!", v7, v8, v9, v10);
 }
 
 @end

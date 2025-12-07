@@ -28,9 +28,9 @@
 
 + (NSString)shortDescription
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return NSStringFromClass(v0);
+  return NSStringFromClass(v2);
 }
 
 @end

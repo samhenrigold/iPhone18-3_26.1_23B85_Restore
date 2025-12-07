@@ -1,4 +1,5 @@
 @interface TISK123KeyEvent
+- (id)init:(id)init emojiSearchMode:(BOOL)mode order:(int64_t)order;
 - (void)reportInterKeyTiming:(id)timing previousEvent:(id)event;
 @end
 
@@ -56,6 +57,13 @@ LABEL_9:
   }
 
 LABEL_11:
+}
+
+- (id)init:(id)init emojiSearchMode:(BOOL)mode order:(int64_t)order
+{
+  v6.receiver = self;
+  v6.super_class = TISK123KeyEvent;
+  return [(TISKEvent *)&v6 init:5 emojiSearchMode:mode order:order tap:init];
 }
 
 @end

@@ -18,24 +18,22 @@
 
 void __49__HMDAssistantAccessControlModelV2_hmbProperties__block_invoke()
 {
-  v8[4] = *MEMORY[0x277D85DE8];
-  v7[0] = @"accessoryUUIDs";
+  v7[4] = *MEMORY[0x277D85DE8];
+  v6[0] = @"accessoryUUIDs";
   v0 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v8[0] = v0;
-  v7[1] = @"siriEndpointAccessoryUUIDs";
+  v7[0] = v0;
+  v6[1] = @"siriEndpointAccessoryUUIDs";
   v1 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v8[1] = v1;
-  v7[2] = @"requiresAuthenticationForSecureRequests";
+  v7[1] = v1;
+  v6[2] = @"requiresAuthenticationForSecureRequests";
   v2 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v8[2] = v2;
-  v7[3] = @"activityNotificationsEnabledForPersonalRequests";
+  v7[2] = v2;
+  v6[3] = @"activityNotificationsEnabledForPersonalRequests";
   v3 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v8[3] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:4];
+  v7[3] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:4];
   v5 = hmbProperties__properties_127368;
   hmbProperties__properties_127368 = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

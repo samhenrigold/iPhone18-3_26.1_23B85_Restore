@@ -241,7 +241,6 @@ LABEL_8:
   has = self->_has;
   if (has)
   {
-    tid0 = self->_tid0;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -261,7 +260,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  tid1 = self->_tid1;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -276,7 +274,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  tid2 = self->_tid2;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -291,7 +288,6 @@ LABEL_5:
   }
 
 LABEL_13:
-  tid3 = self->_tid3;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -306,7 +302,6 @@ LABEL_6:
   }
 
 LABEL_14:
-  tid4 = self->_tid4;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -318,7 +313,6 @@ LABEL_7:
     }
 
 LABEL_16:
-    tid6 = self->_tid6;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 0x80) == 0)
     {
@@ -329,7 +323,6 @@ LABEL_16:
   }
 
 LABEL_15:
-  tid5 = self->_tid5;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x40) != 0)
@@ -344,7 +337,6 @@ LABEL_8:
   }
 
 LABEL_17:
-  tid7 = self->_tid7;
 
   PBDataWriterWriteUint64Field();
 }

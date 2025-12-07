@@ -1,4 +1,6 @@
 @interface NRBluetoothPacketParser
+- ($3D27A55567FB06BC0E416B979767FD15)createWriteContextForPriority:(unsigned __int8)priority writeOutputCallback:(void *)callback writeOutputContext:(void *)context;
+- ($B174F4C94D76BD0ED270DA150CD5266A)createReadContextForPriority:(unsigned __int8)priority readAvailableCallback:(void *)callback readAvailableContext:(void *)context;
 - (BOOL)start;
 - (NRBluetoothPacketParser)initWithBluetoothUUID:(id)d queue:(id)queue;
 - (NRBluetoothPacketParser)initWithDeviceIdentifier:(id)identifier queue:(id)queue;
@@ -8,7 +10,7 @@
 - (void)dealloc;
 - (void)handleIncomingWakePacket:(uint64_t)packet spi:;
 - (void)handleInternalError:(uint64_t)error;
-- (void)resetContextForPriorityInner:(int)inner teardownContext:;
+- (void)resetContextForPriorityInner:(uint64_t)inner teardownContext:;
 - (void)sendDatapathReport:(uint64_t)report;
 - (void)sendXPCCommDictionary:(id)dictionary;
 - (void)sendXPCCommDictionaryInner:(uint64_t)inner;
@@ -23,7 +25,7 @@
 
 void __44__NRBluetoothPacketParser_armLinkStatsTimer__block_invoke(uint64_t a1)
 {
-  v317 = *MEMORY[0x277D85DE8];
+  v198 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained && *(WeakRetained + 13) != 4)
   {
@@ -34,17 +36,17 @@ void __44__NRBluetoothPacketParser_armLinkStatsTimer__block_invoke(uint64_t a1)
     v6 = *(WeakRetained + 81);
     *(WeakRetained + 81) = v5;
     v7 = *(WeakRetained + 77);
-    v294 = *(WeakRetained + 79);
+    v175 = *(WeakRetained + 79);
     *(WeakRetained + 79) = v7;
-    v309 = *(WeakRetained + 82);
-    v293 = *(WeakRetained + 76);
-    *(WeakRetained + 82) = v293;
-    v298 = *(WeakRetained + 80);
-    v299 = *(WeakRetained + 75);
-    *(WeakRetained + 80) = v299;
-    v296 = *(WeakRetained + 83);
-    v297 = *(WeakRetained + 74);
-    *(WeakRetained + 83) = v297;
+    v190 = *(WeakRetained + 82);
+    v174 = *(WeakRetained + 76);
+    *(WeakRetained + 82) = v174;
+    v179 = *(WeakRetained + 80);
+    v180 = *(WeakRetained + 75);
+    *(WeakRetained + 80) = v180;
+    v177 = *(WeakRetained + 83);
+    v178 = *(WeakRetained + 74);
+    *(WeakRetained + 83) = v178;
     v8 = *(WeakRetained + 68);
     v9 = *(WeakRetained + 60);
     v10 = *(WeakRetained + 61);
@@ -62,745 +64,761 @@ void __44__NRBluetoothPacketParser_armLinkStatsTimer__block_invoke(uint64_t a1)
     v17 = *(WeakRetained + 57);
     *(WeakRetained + 64) = v18;
     v19 = *(WeakRetained + 65);
-    v295 = v17;
+    v176 = v17;
     *(WeakRetained + 65) = v17;
-    v307 = *(WeakRetained + 66);
+    v188 = *(WeakRetained + 66);
     v20 = *(WeakRetained + 59);
-    v303 = v19;
-    v305 = *(WeakRetained + 58);
-    *(WeakRetained + 66) = v305;
-    v300 = *(WeakRetained + 67);
-    v301 = v20;
+    v184 = v19;
+    v186 = *(WeakRetained + 58);
+    *(WeakRetained + 66) = v186;
+    v181 = *(WeakRetained + 67);
+    v182 = v20;
     *(WeakRetained + 67) = v20;
-    v311 = WeakRetained;
+    v172 = v3 - v4;
+    v192 = WeakRetained;
     if (v3 != v4 || v5 != v6 || v9 != v8 || v13 != v12 || v10 != v11 || v14 != v15)
     {
-      v291 = v16;
+      v167 = v15;
+      v168 = v11;
+      v169 = v6;
+      v170 = v16;
       v21 = _NRCopyLogObjectForNRUUID(*(WeakRetained + 6));
       if (sNRCopyLogToStdErr == 1)
       {
 
+        v23 = v168;
+        v22 = v169;
+        v24 = v167;
 LABEL_12:
-        v23 = v7;
-        v24 = _NRCopyLogObjectForNRUUID(v311[6]);
-        v25 = *(a1 + 40);
-        _NRLogWithArgs(v24, 0, "LinkStats - BT(M): Tx [ be %4llu, bk %4llu, %8llu B, %8llu B/s ] Rx [ be %4llu, bk %4llu, %8llu B, %8llu B/s ]", v26, v27, v28, v29, v30, v9 - v8);
+        v26 = v5 - v22;
+        v27 = v9 - v8;
+        v28 = v10 - v23;
+        v29 = v13 - v12;
+        v30 = v14 - v24;
+        v31 = v7;
+        v32 = _NRCopyLogObjectForNRUUID(v192[6]);
+        _NRLogWithArgs(v32, 0, "LinkStats - BT(M): Tx [ be %4llu, bk %4llu, %8llu B, %8llu B/s ] Rx [ be %4llu, bk %4llu, %8llu B, %8llu B/s ]", v27, v29, v172, v172 / *(a1 + 40), v28, v30, v26, v26 / *(a1 + 40));
 
-        v16 = v291;
-        v7 = v23;
-        v19 = v303;
-        WeakRetained = v311;
+        v16 = v170;
+        v7 = v31;
+        v19 = v184;
+        WeakRetained = v192;
         goto LABEL_13;
       }
 
-      v290 = v7;
-      v22 = v21;
-      v289 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+      v166 = v7;
+      v25 = v21;
+      v165 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
 
-      v7 = v290;
-      v19 = v303;
-      WeakRetained = v311;
-      v16 = v291;
-      if (v289)
+      v7 = v166;
+      v24 = v167;
+      v19 = v184;
+      WeakRetained = v192;
+      v22 = v169;
+      v16 = v170;
+      v23 = v168;
+      if (v165)
       {
         goto LABEL_12;
       }
     }
 
 LABEL_13:
-    v292 = v18 - v16;
-    if (v7 != v294 || v293 != v309 || v305 != v307 || v18 != v16 || v301 != v300 || v295 != v19)
+    v173 = v18 - v16;
+    v171 = v176 - v19;
+    if (v7 != v175 || v174 != v190 || v186 != v188 || v18 != v16 || v182 != v181 || v176 != v19)
     {
-      v31 = _NRCopyLogObjectForNRUUID(*(WeakRetained + 6));
+      v33 = _NRCopyLogObjectForNRUUID(*(WeakRetained + 6));
       if (sNRCopyLogToStdErr == 1)
       {
 
 LABEL_22:
-        v34 = _NRCopyLogObjectForNRUUID(v311[6]);
-        v35 = *(a1 + 40);
-        _NRLogWithArgs(v34, 0, "LinkStats - BT(U): Tx [ vo %4llu, vi %4llu, %8llu B, %8llu B/s ] Rx [ vo %4llu, vi %4llu, %8llu B, %8llu B/s ]", v36, v37, v38, v39, v40, v292);
+        v37 = v7 - v175;
+        v38 = _NRCopyLogObjectForNRUUID(v192[6]);
+        _NRLogWithArgs(v38, 0, "LinkStats - BT(U): Tx [ vo %4llu, vi %4llu, %8llu B, %8llu B/s ] Rx [ vo %4llu, vi %4llu, %8llu B, %8llu B/s ]", v173, v186 - v188, v37, v37 / *(a1 + 40), v171, v182 - v181, v174 - v190, (v174 - v190) / *(a1 + 40));
 
-        v19 = v303;
-        WeakRetained = v311;
+        v19 = v184;
+        WeakRetained = v192;
         goto LABEL_23;
       }
 
-      v32 = v31;
-      v33 = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
+      v34 = v7;
+      v35 = v33;
+      v36 = os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT);
 
-      v19 = v303;
-      WeakRetained = v311;
-      if (v33)
+      v7 = v34;
+      v19 = v184;
+      WeakRetained = v192;
+      if (v36)
       {
         goto LABEL_22;
       }
     }
 
 LABEL_23:
-    if (v299 != v298 || v297 != v296 || v295 != v19)
+    if (v180 != v179 || v178 != v177 || v176 != v19)
     {
-      v41 = _NRCopyLogObjectForNRUUID(*(WeakRetained + 6));
+      v39 = _NRCopyLogObjectForNRUUID(*(WeakRetained + 6));
       if (sNRCopyLogToStdErr == 1)
       {
       }
 
       else
       {
-        v42 = v41;
-        v43 = os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT);
+        v40 = v39;
+        v41 = os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT);
 
-        WeakRetained = v311;
-        if (!v43)
+        WeakRetained = v192;
+        if (!v41)
         {
           goto LABEL_30;
         }
       }
 
-      v44 = _NRCopyLogObjectForNRUUID(v311[6]);
-      v45 = *(a1 + 40);
-      _NRLogWithArgs(v44, 0, "LinkStats - BT(D): Tx [ vo %4llu, %8llu B, %8llu B/s ] Rx [ vo %4llu, %8llu B, %8llu B/s ]", v46, v47, v48, v49, v50, v292);
+      v42 = _NRCopyLogObjectForNRUUID(v192[6]);
+      _NRLogWithArgs(v42, 0, "LinkStats - BT(D): Tx [ vo %4llu, %8llu B, %8llu B/s ] Rx [ vo %4llu, %8llu B, %8llu B/s ]", v173, v180 - v179, (v180 - v179) / *(a1 + 40), v171, v178 - v177, (v178 - v177) / *(a1 + 40));
 
-      WeakRetained = v311;
+      WeakRetained = v192;
     }
 
 LABEL_30:
     *(WeakRetained + 24) = *(WeakRetained + 23);
-    v51 = *(WeakRetained + 25);
-    if (*(a1 + 40) * v51 < 0xFuLL)
+    v43 = *(WeakRetained + 25);
+    if (*(a1 + 40) * v43 < 0xFuLL)
     {
 LABEL_187:
-      *(WeakRetained + 25) = v51 + 1;
+      *(WeakRetained + 25) = v43 + 1;
       goto LABEL_188;
     }
 
-    v52 = *(WeakRetained + 18);
-    if (v52)
+    v44 = *(WeakRetained + 18);
+    if (v44)
     {
-      v53 = *(WeakRetained + 20);
-      if (!v53)
+      v45 = *(WeakRetained + 20);
+      if (!v45)
       {
 LABEL_36:
-        v54 = 0;
+        v46 = 0;
         goto LABEL_37;
       }
 
-      if (v53 == *(WeakRetained + 19))
+      if (v45 == *(WeakRetained + 19))
       {
-        v54 = objc_alloc_init(MEMORY[0x277CBEB18]);
-        [v54 addObject:&unk_286D2CED8];
-        WeakRetained = v311;
-        v52 = v311[18];
-        LODWORD(v53) = 1;
+        v46 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        [v46 addObject:&unk_286D2CED8];
+        WeakRetained = v192;
+        v44 = v192[18];
+        LODWORD(v45) = 1;
 LABEL_37:
         *(WeakRetained + 20) = *(WeakRetained + 19);
-        if ((v52 & 2) != 0)
+        if ((v44 & 2) != 0)
         {
-          v55 = *(WeakRetained + 22);
-          if (v55)
+          v47 = *(WeakRetained + 22);
+          if (v47)
           {
-            if (v55 == *(WeakRetained + 21))
+            if (v47 == *(WeakRetained + 21))
             {
-              if (!v54)
+              if (!v46)
               {
-                v54 = objc_alloc_init(MEMORY[0x277CBEB18]);
+                v46 = objc_alloc_init(MEMORY[0x277CBEB18]);
               }
 
-              [v54 addObject:&unk_286D2CEF0];
-              WeakRetained = v311;
-              v52 = v311[18];
-              LODWORD(v53) = 1;
+              [v46 addObject:&unk_286D2CEF0];
+              WeakRetained = v192;
+              v44 = v192[18];
+              LODWORD(v45) = 1;
             }
           }
         }
 
         *(WeakRetained + 22) = *(WeakRetained + 21);
-        if ((v52 & 4) != 0 && (v56 = *(WeakRetained + 24)) != 0 && v56 == *(WeakRetained + 23))
+        if ((v44 & 4) != 0 && (v48 = *(WeakRetained + 24)) != 0 && v48 == *(WeakRetained + 23))
         {
-          if (!v54)
+          if (!v46)
           {
-            v54 = objc_alloc_init(MEMORY[0x277CBEB18]);
+            v46 = objc_alloc_init(MEMORY[0x277CBEB18]);
           }
 
-          [v54 addObject:&unk_286D2CF08];
-          v311[24] = v311[23];
-          v311[25] = 0;
+          [v46 addObject:&unk_286D2CF08];
+          v192[24] = v192[23];
+          v192[25] = 0;
         }
 
         else
         {
           *(WeakRetained + 24) = *(WeakRetained + 23);
           *(WeakRetained + 25) = 0;
-          if (!v53)
+          if (!v45)
           {
             goto LABEL_185;
           }
         }
 
-        v54 = v54;
-        if (*(v311 + 13) != 4)
+        v46 = v46;
+        if (*(v192 + 13) != 4)
         {
-          if (v54)
+          if (v46)
           {
-            v57 = objc_alloc_init(MEMORY[0x277CBEB18]);
-            v312 = 0u;
-            v313 = 0u;
-            v314 = 0u;
-            v315 = 0u;
-            v302 = v54;
-            v58 = v54;
-            v59 = [v58 countByEnumeratingWithState:&v312 objects:v316 count:16];
-            if (v59)
+            v49 = objc_alloc_init(MEMORY[0x277CBEB18]);
+            v193 = 0u;
+            v194 = 0u;
+            v195 = 0u;
+            v196 = 0u;
+            v183 = v46;
+            v50 = v46;
+            v51 = [v50 countByEnumeratingWithState:&v193 objects:v197 count:16];
+            if (v51)
             {
-              v60 = v59;
-              v61 = *v313;
-              v310 = *v313;
-              v304 = v58;
-              v306 = v57;
+              v52 = v51;
+              v53 = *v194;
+              v191 = *v194;
+              v185 = v50;
+              v187 = v49;
               do
               {
-                v62 = 0;
-                v308 = v60;
+                v54 = 0;
+                v189 = v52;
                 do
                 {
-                  if (*v313 != v61)
+                  if (*v194 != v53)
                   {
-                    objc_enumerationMutation(v58);
+                    objc_enumerationMutation(v50);
                   }
 
-                  v64 = [*(*(&v312 + 1) + 8 * v62) unsignedCharValue];
-                  v65 = v311;
-                  if (*(v311 + 13) == 4)
+                  v56 = [*(*(&v193 + 1) + 8 * v54) unsignedCharValue];
+                  v57 = v192;
+                  if (*(v192 + 13) == 4)
                   {
-                    v66 = v64 - 1;
+                    v58 = v56 - 1;
                     goto LABEL_176;
                   }
 
-                  v66 = v64 - 1;
-                  if ((v64 - 1) < 3)
+                  v58 = v56 - 1;
+                  if ((v56 - 1) < 3)
                   {
-                    v67 = v311[2 * (v66 & 0xF) + 13];
-                    if (!v67)
+                    v59 = v192[2 * (v58 & 0xF) + 13];
+                    if (!v59)
                     {
                       goto LABEL_56;
                     }
 
-                    v68 = v67[3];
-                    if (!v68)
+                    v60 = v59[3];
+                    if (!v60)
                     {
                       goto LABEL_56;
                     }
 
-                    v69 = 0;
-                    v70 = off_27996AFD8[(v64 - 1)];
-                    v71 = *(v68 + 82);
-                    v72 = v68 + 36;
+                    v61 = 0;
+                    v62 = off_27996AFD8[(v56 - 1)];
+                    v63 = *(v60 + 82);
+                    v64 = v60 + 36;
                     while (2)
                     {
-                      v80 = (((117 * v71) >> 8) + (((v71 - ((117 * v71) >> 8)) & 0xFE) >> 1)) >> 3;
-                      v81 = v71 - 11 * v80;
-                      v82 = *(v72 + 4 * (v71 - 11 * v80));
-                      if (!v82)
+                      v67 = (((117 * v63) >> 8) + (((v63 - ((117 * v63) >> 8)) & 0xFE) >> 1)) >> 3;
+                      v68 = v63 - 11 * v67;
+                      v69 = *(v64 + 4 * (v63 - 11 * v67));
+                      if (!v69)
                       {
                         goto LABEL_68;
                       }
 
-                      v83 = _NRCopyLogObjectForNRUUID(v65[6]);
+                      v70 = _NRCopyLogObjectForNRUUID(v57[6]);
                       if (sNRCopyLogToStdErr == 1)
                       {
 
                         goto LABEL_73;
                       }
 
-                      v84 = v83;
-                      v85 = os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT);
+                      v71 = v70;
+                      v72 = os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT);
 
-                      if (v85)
+                      if (v72)
                       {
 LABEL_73:
-                        v86 = _NRCopyLogObjectForNRUUID(v311[6]);
-                        _NRLogWithArgs(v86, 0, "LinkStats : %@ -----------------------------------", v87, v88, v89, v90, v91, v70);
+                        v73 = _NRCopyLogObjectForNRUUID(v192[6]);
+                        _NRLogWithArgs(v73, 0, "LinkStats : %@ -----------------------------------", v62);
                       }
 
-                      v65 = v311;
-                      if (v82)
+                      v57 = v192;
+                      if (v69)
                       {
-                        v92 = _NRCopyLogObjectForNRUUID(v311[6]);
+                        v74 = _NRCopyLogObjectForNRUUID(v192[6]);
                         if (sNRCopyLogToStdErr == 1)
                         {
 
                           goto LABEL_78;
                         }
 
-                        v93 = v92;
-                        v94 = os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT);
+                        v75 = v74;
+                        v76 = os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT);
 
-                        v65 = v311;
-                        if (v94)
+                        v57 = v192;
+                        if (v76)
                         {
 LABEL_78:
-                          v95 = _NRCopyLogObjectForNRUUID(v311[6]);
-                          _NRLogWithArgs(v95, 0, "LinkStats : %@ NtL - StartNtL", v96, v97, v98, v99, v100, v70);
+                          v77 = _NRCopyLogObjectForNRUUID(v192[6]);
+                          _NRLogWithArgs(v77, 0, "LinkStats : %@ NtL - StartNtL", v62);
 
-                          v65 = v311;
+                          v57 = v192;
                         }
                       }
 
-                      if ((v82 & 2) != 0)
+                      if ((v69 & 2) != 0)
                       {
-                        v101 = _NRCopyLogObjectForNRUUID(v65[6]);
+                        v78 = _NRCopyLogObjectForNRUUID(v57[6]);
                         if (sNRCopyLogToStdErr == 1)
                         {
 
                           goto LABEL_83;
                         }
 
-                        v102 = v101;
-                        v103 = os_log_type_enabled(v101, OS_LOG_TYPE_DEFAULT);
+                        v79 = v78;
+                        v80 = os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT);
 
-                        v65 = v311;
-                        if (v103)
+                        v57 = v192;
+                        if (v80)
                         {
 LABEL_83:
-                          v104 = _NRCopyLogObjectForNRUUID(v311[6]);
-                          _NRLogWithArgs(v104, 0, "LinkStats : %@ NtL - WaitForLinkOutput", v105, v106, v107, v108, v109, v70);
+                          v81 = _NRCopyLogObjectForNRUUID(v192[6]);
+                          _NRLogWithArgs(v81, 0, "LinkStats : %@ NtL - WaitForLinkOutput", v62);
 
-                          v65 = v311;
+                          v57 = v192;
                         }
                       }
 
-                      if ((v82 & 4) != 0)
+                      if ((v69 & 4) != 0)
                       {
-                        v110 = _NRCopyLogObjectForNRUUID(v65[6]);
+                        v82 = _NRCopyLogObjectForNRUUID(v57[6]);
                         if (sNRCopyLogToStdErr == 1)
                         {
 
                           goto LABEL_88;
                         }
 
-                        v111 = v110;
-                        v112 = os_log_type_enabled(v110, OS_LOG_TYPE_DEFAULT);
+                        v83 = v82;
+                        v84 = os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT);
 
-                        v65 = v311;
-                        if (v112)
+                        v57 = v192;
+                        if (v84)
                         {
 LABEL_88:
-                          v113 = _NRCopyLogObjectForNRUUID(v311[6]);
-                          _NRLogWithArgs(v113, 0, "LinkStats : %@ NtL - WriteContextInvalid", v114, v115, v116, v117, v118, v70);
+                          v85 = _NRCopyLogObjectForNRUUID(v192[6]);
+                          _NRLogWithArgs(v85, 0, "LinkStats : %@ NtL - WriteContextInvalid", v62);
 
-                          v65 = v311;
+                          v57 = v192;
                         }
                       }
 
-                      if ((v82 & 8) != 0)
+                      if ((v69 & 8) != 0)
                       {
-                        v119 = _NRCopyLogObjectForNRUUID(v65[6]);
+                        v86 = _NRCopyLogObjectForNRUUID(v57[6]);
                         if (sNRCopyLogToStdErr == 1)
                         {
 
                           goto LABEL_93;
                         }
 
-                        v120 = v119;
-                        v121 = os_log_type_enabled(v119, OS_LOG_TYPE_DEFAULT);
+                        v87 = v86;
+                        v88 = os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT);
 
-                        v65 = v311;
-                        if (v121)
+                        v57 = v192;
+                        if (v88)
                         {
 LABEL_93:
-                          v122 = _NRCopyLogObjectForNRUUID(v311[6]);
-                          _NRLogWithArgs(v122, 0, "LinkStats : %@ NtL - StartNtLOuter", v123, v124, v125, v126, v127, v70);
+                          v89 = _NRCopyLogObjectForNRUUID(v192[6]);
+                          _NRLogWithArgs(v89, 0, "LinkStats : %@ NtL - StartNtLOuter", v62);
 
-                          v65 = v311;
+                          v57 = v192;
                         }
                       }
 
-                      if ((v82 & 0x10) != 0)
+                      if ((v69 & 0x10) != 0)
                       {
-                        v128 = _NRCopyLogObjectForNRUUID(v65[6]);
+                        v90 = _NRCopyLogObjectForNRUUID(v57[6]);
                         if (sNRCopyLogToStdErr == 1)
                         {
 
                           goto LABEL_98;
                         }
 
-                        v129 = v128;
-                        v130 = os_log_type_enabled(v128, OS_LOG_TYPE_DEFAULT);
+                        v91 = v90;
+                        v92 = os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT);
 
-                        v65 = v311;
-                        if (v130)
+                        v57 = v192;
+                        if (v92)
                         {
 LABEL_98:
-                          v131 = _NRCopyLogObjectForNRUUID(v311[6]);
-                          _NRLogWithArgs(v131, 0, "LinkStats : %@ NtL - StartNtLInner", v132, v133, v134, v135, v136, v70);
+                          v93 = _NRCopyLogObjectForNRUUID(v192[6]);
+                          _NRLogWithArgs(v93, 0, "LinkStats : %@ NtL - StartNtLInner", v62);
 
-                          v65 = v311;
+                          v57 = v192;
                         }
                       }
 
-                      if ((v82 & 0x20) != 0)
+                      if ((v69 & 0x20) != 0)
                       {
-                        v137 = _NRCopyLogObjectForNRUUID(v65[6]);
+                        v94 = _NRCopyLogObjectForNRUUID(v57[6]);
                         if (sNRCopyLogToStdErr == 1)
                         {
 
                           goto LABEL_103;
                         }
 
-                        v138 = v137;
-                        v139 = os_log_type_enabled(v137, OS_LOG_TYPE_DEFAULT);
+                        v95 = v94;
+                        v96 = os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT);
 
-                        v65 = v311;
-                        if (v139)
+                        v57 = v192;
+                        if (v96)
                         {
 LABEL_103:
-                          v140 = _NRCopyLogObjectForNRUUID(v311[6]);
-                          _NRLogWithArgs(v140, 0, "LinkStats : %@ NtL - WroteBytesLWB", v141, v142, v143, v144, v145, v70);
+                          v97 = _NRCopyLogObjectForNRUUID(v192[6]);
+                          _NRLogWithArgs(v97, 0, "LinkStats : %@ NtL - WroteBytesLWB", v62);
 
-                          v65 = v311;
+                          v57 = v192;
                         }
                       }
 
-                      if ((v82 & 0x40) != 0)
+                      if ((v69 & 0x40) != 0)
                       {
-                        v146 = _NRCopyLogObjectForNRUUID(v65[6]);
+                        v98 = _NRCopyLogObjectForNRUUID(v57[6]);
                         if (sNRCopyLogToStdErr == 1)
                         {
 
                           goto LABEL_108;
                         }
 
-                        v147 = v146;
-                        v148 = os_log_type_enabled(v146, OS_LOG_TYPE_DEFAULT);
+                        v99 = v98;
+                        v100 = os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT);
 
-                        v65 = v311;
-                        if (v148)
+                        v57 = v192;
+                        if (v100)
                         {
 LABEL_108:
-                          v149 = _NRCopyLogObjectForNRUUID(v311[6]);
-                          _NRLogWithArgs(v149, 0, "LinkStats : %@ NtL - NotEnoughRoomForMaxTLVLen", v150, v151, v152, v153, v154, v70);
+                          v101 = _NRCopyLogObjectForNRUUID(v192[6]);
+                          _NRLogWithArgs(v101, 0, "LinkStats : %@ NtL - NotEnoughRoomForMaxTLVLen", v62);
 
-                          v65 = v311;
+                          v57 = v192;
                         }
                       }
 
-                      if ((v82 & 0x80) != 0)
+                      if ((v69 & 0x80) != 0)
                       {
-                        v155 = _NRCopyLogObjectForNRUUID(v65[6]);
+                        v102 = _NRCopyLogObjectForNRUUID(v57[6]);
                         if (sNRCopyLogToStdErr == 1)
                         {
 
                           goto LABEL_113;
                         }
 
-                        v156 = v155;
-                        v157 = os_log_type_enabled(v155, OS_LOG_TYPE_DEFAULT);
+                        v103 = v102;
+                        v104 = os_log_type_enabled(v102, OS_LOG_TYPE_DEFAULT);
 
-                        v65 = v311;
-                        if (v157)
+                        v57 = v192;
+                        if (v104)
                         {
 LABEL_113:
-                          v158 = _NRCopyLogObjectForNRUUID(v311[6]);
-                          _NRLogWithArgs(v158, 0, "LinkStats : %@ NtL - WroteBytesSlot", v159, v160, v161, v162, v163, v70);
+                          v105 = _NRCopyLogObjectForNRUUID(v192[6]);
+                          _NRLogWithArgs(v105, 0, "LinkStats : %@ NtL - WroteBytesSlot", v62);
 
-                          v65 = v311;
+                          v57 = v192;
                         }
                       }
 
-                      if ((v82 & 0x100) != 0)
+                      if ((v69 & 0x100) != 0)
                       {
-                        v164 = _NRCopyLogObjectForNRUUID(v65[6]);
+                        v106 = _NRCopyLogObjectForNRUUID(v57[6]);
                         if (sNRCopyLogToStdErr == 1)
                         {
 
                           goto LABEL_118;
                         }
 
-                        v165 = v164;
-                        v166 = os_log_type_enabled(v164, OS_LOG_TYPE_DEFAULT);
+                        v107 = v106;
+                        v108 = os_log_type_enabled(v106, OS_LOG_TYPE_DEFAULT);
 
-                        v65 = v311;
-                        if (v166)
+                        v57 = v192;
+                        if (v108)
                         {
 LABEL_118:
-                          v167 = _NRCopyLogObjectForNRUUID(v311[6]);
-                          _NRLogWithArgs(v167, 0, "LinkStats : %@ NtL - WroteBytesBuflet", v168, v169, v170, v171, v172, v70);
+                          v109 = _NRCopyLogObjectForNRUUID(v192[6]);
+                          _NRLogWithArgs(v109, 0, "LinkStats : %@ NtL - WroteBytesBuflet", v62);
 
-                          v65 = v311;
+                          v57 = v192;
                         }
                       }
 
-                      if ((v82 & 0x200) != 0)
+                      if ((v69 & 0x200) != 0)
                       {
-                        v173 = _NRCopyLogObjectForNRUUID(v65[6]);
+                        v110 = _NRCopyLogObjectForNRUUID(v57[6]);
                         if (sNRCopyLogToStdErr == 1)
                         {
 
                           goto LABEL_123;
                         }
 
-                        v174 = v173;
-                        v175 = os_log_type_enabled(v173, OS_LOG_TYPE_DEFAULT);
+                        v111 = v110;
+                        v112 = os_log_type_enabled(v110, OS_LOG_TYPE_DEFAULT);
 
-                        v65 = v311;
-                        if (v175)
+                        v57 = v192;
+                        if (v112)
                         {
 LABEL_123:
-                          v176 = _NRCopyLogObjectForNRUUID(v311[6]);
-                          _NRLogWithArgs(v176, 0, "LinkStats : %@ NtL - NoDataToWrite", v177, v178, v179, v180, v181, v70);
+                          v113 = _NRCopyLogObjectForNRUUID(v192[6]);
+                          _NRLogWithArgs(v113, 0, "LinkStats : %@ NtL - NoDataToWrite", v62);
 
-                          v65 = v311;
+                          v57 = v192;
                         }
                       }
 
-                      if ((v82 & 0x400) != 0)
+                      if ((v69 & 0x400) != 0)
                       {
-                        v182 = _NRCopyLogObjectForNRUUID(v65[6]);
+                        v114 = _NRCopyLogObjectForNRUUID(v57[6]);
                         if (sNRCopyLogToStdErr == 1)
                         {
 
                           goto LABEL_128;
                         }
 
-                        v183 = v182;
-                        v184 = os_log_type_enabled(v182, OS_LOG_TYPE_DEFAULT);
+                        v115 = v114;
+                        v116 = os_log_type_enabled(v114, OS_LOG_TYPE_DEFAULT);
 
-                        v65 = v311;
-                        if (v184)
+                        v57 = v192;
+                        if (v116)
                         {
 LABEL_128:
-                          v185 = _NRCopyLogObjectForNRUUID(v311[6]);
-                          _NRLogWithArgs(v185, 0, "LinkStats : %@ NtL - NoDataFromNexus", v186, v187, v188, v189, v190, v70);
+                          v117 = _NRCopyLogObjectForNRUUID(v192[6]);
+                          _NRLogWithArgs(v117, 0, "LinkStats : %@ NtL - NoDataFromNexus", v62);
 
-                          v65 = v311;
+                          v57 = v192;
                         }
                       }
 
-                      if ((v82 & 0x800) != 0)
+                      if ((v69 & 0x800) != 0)
                       {
-                        v191 = _NRCopyLogObjectForNRUUID(v65[6]);
+                        v118 = _NRCopyLogObjectForNRUUID(v57[6]);
                         if (sNRCopyLogToStdErr == 1)
                         {
 
                           goto LABEL_133;
                         }
 
-                        v192 = v191;
-                        v193 = os_log_type_enabled(v191, OS_LOG_TYPE_DEFAULT);
+                        v119 = v118;
+                        v120 = os_log_type_enabled(v118, OS_LOG_TYPE_DEFAULT);
 
-                        v65 = v311;
-                        if (v193)
+                        v57 = v192;
+                        if (v120)
                         {
 LABEL_133:
-                          v194 = _NRCopyLogObjectForNRUUID(v311[6]);
-                          _NRLogWithArgs(v194, 0, "LinkStats : %@ NtL - InvokeSendCallback", v195, v196, v197, v198, v199, v70);
+                          v121 = _NRCopyLogObjectForNRUUID(v192[6]);
+                          _NRLogWithArgs(v121, 0, "LinkStats : %@ NtL - InvokeSendCallback", v62);
 
-                          v65 = v311;
+                          v57 = v192;
                         }
                       }
 
-                      if ((v82 & 0x1000) != 0)
+                      if ((v69 & 0x1000) != 0)
                       {
-                        v200 = _NRCopyLogObjectForNRUUID(v65[6]);
+                        v122 = _NRCopyLogObjectForNRUUID(v57[6]);
                         if (sNRCopyLogToStdErr == 1)
                         {
 
                           goto LABEL_138;
                         }
 
-                        v201 = v200;
-                        v202 = os_log_type_enabled(v200, OS_LOG_TYPE_DEFAULT);
+                        v123 = v122;
+                        v124 = os_log_type_enabled(v122, OS_LOG_TYPE_DEFAULT);
 
-                        v65 = v311;
-                        if (v202)
+                        v57 = v192;
+                        if (v124)
                         {
 LABEL_138:
-                          v203 = _NRCopyLogObjectForNRUUID(v311[6]);
-                          _NRLogWithArgs(v203, 0, "LinkStats : %@ NtL - NoOutputSpace", v204, v205, v206, v207, v208, v70);
+                          v125 = _NRCopyLogObjectForNRUUID(v192[6]);
+                          _NRLogWithArgs(v125, 0, "LinkStats : %@ NtL - NoOutputSpace", v62);
 
-                          v65 = v311;
+                          v57 = v192;
                         }
                       }
 
-                      if ((v82 & 0x2000) != 0)
+                      if ((v69 & 0x2000) != 0)
                       {
-                        v209 = _NRCopyLogObjectForNRUUID(v65[6]);
+                        v126 = _NRCopyLogObjectForNRUUID(v57[6]);
                         if (sNRCopyLogToStdErr == 1)
                         {
 
                           goto LABEL_143;
                         }
 
-                        v210 = v209;
-                        v211 = os_log_type_enabled(v209, OS_LOG_TYPE_DEFAULT);
+                        v127 = v126;
+                        v128 = os_log_type_enabled(v126, OS_LOG_TYPE_DEFAULT);
 
-                        v65 = v311;
-                        if (v211)
+                        v57 = v192;
+                        if (v128)
                         {
 LABEL_143:
-                          v212 = _NRCopyLogObjectForNRUUID(v311[6]);
-                          _NRLogWithArgs(v212, 0, "LinkStats : %@ NtL - MemmovingLWB", v213, v214, v215, v216, v217, v70);
+                          v129 = _NRCopyLogObjectForNRUUID(v192[6]);
+                          _NRLogWithArgs(v129, 0, "LinkStats : %@ NtL - MemmovingLWB", v62);
 
-                          v65 = v311;
+                          v57 = v192;
                         }
                       }
 
-                      if ((v82 & 0x4000) != 0)
+                      if ((v69 & 0x4000) != 0)
                       {
-                        v218 = _NRCopyLogObjectForNRUUID(v65[6]);
+                        v130 = _NRCopyLogObjectForNRUUID(v57[6]);
                         if (sNRCopyLogToStdErr == 1)
                         {
 
                           goto LABEL_148;
                         }
 
-                        v219 = v218;
-                        v220 = os_log_type_enabled(v218, OS_LOG_TYPE_DEFAULT);
+                        v131 = v130;
+                        v132 = os_log_type_enabled(v130, OS_LOG_TYPE_DEFAULT);
 
-                        v65 = v311;
-                        if (v220)
+                        v57 = v192;
+                        if (v132)
                         {
 LABEL_148:
-                          v221 = _NRCopyLogObjectForNRUUID(v311[6]);
-                          _NRLogWithArgs(v221, 0, "LinkStats : %@ NtL - NotMemmovingLWB", v222, v223, v224, v225, v226, v70);
+                          v133 = _NRCopyLogObjectForNRUUID(v192[6]);
+                          _NRLogWithArgs(v133, 0, "LinkStats : %@ NtL - NotMemmovingLWB", v62);
 
-                          v65 = v311;
+                          v57 = v192;
                         }
                       }
 
-                      if ((v82 & 0x8000) != 0)
+                      if ((v69 & 0x8000) != 0)
                       {
-                        v227 = _NRCopyLogObjectForNRUUID(v65[6]);
+                        v134 = _NRCopyLogObjectForNRUUID(v57[6]);
                         if (sNRCopyLogToStdErr == 1)
                         {
 
                           goto LABEL_153;
                         }
 
-                        v228 = v227;
-                        v229 = os_log_type_enabled(v227, OS_LOG_TYPE_DEFAULT);
+                        v135 = v134;
+                        v136 = os_log_type_enabled(v134, OS_LOG_TYPE_DEFAULT);
 
-                        v65 = v311;
-                        if (v229)
+                        v57 = v192;
+                        if (v136)
                         {
 LABEL_153:
-                          v230 = _NRCopyLogObjectForNRUUID(v311[6]);
-                          _NRLogWithArgs(v230, 0, "LinkStats : %@ NtL - EndNtLInner", v231, v232, v233, v234, v235, v70);
+                          v137 = _NRCopyLogObjectForNRUUID(v192[6]);
+                          _NRLogWithArgs(v137, 0, "LinkStats : %@ NtL - EndNtLInner", v62);
 
-                          v65 = v311;
+                          v57 = v192;
                         }
                       }
 
-                      if ((v82 & 0x10000) != 0)
+                      if ((v69 & 0x10000) != 0)
                       {
-                        v236 = _NRCopyLogObjectForNRUUID(v65[6]);
+                        v138 = _NRCopyLogObjectForNRUUID(v57[6]);
                         if (sNRCopyLogToStdErr == 1)
                         {
 
                           goto LABEL_158;
                         }
 
-                        v237 = v236;
-                        v238 = os_log_type_enabled(v236, OS_LOG_TYPE_DEFAULT);
+                        v139 = v138;
+                        v140 = os_log_type_enabled(v138, OS_LOG_TYPE_DEFAULT);
 
-                        v65 = v311;
-                        if (v238)
+                        v57 = v192;
+                        if (v140)
                         {
 LABEL_158:
-                          v239 = _NRCopyLogObjectForNRUUID(v311[6]);
-                          _NRLogWithArgs(v239, 0, "LinkStats : %@ NtL - RxSync", v240, v241, v242, v243, v244, v70);
+                          v141 = _NRCopyLogObjectForNRUUID(v192[6]);
+                          _NRLogWithArgs(v141, 0, "LinkStats : %@ NtL - RxSync", v62);
 
-                          v65 = v311;
+                          v57 = v192;
                         }
                       }
 
-                      if ((v82 & 0x20000) != 0)
+                      if ((v69 & 0x20000) != 0)
                       {
-                        v245 = _NRCopyLogObjectForNRUUID(v65[6]);
+                        v142 = _NRCopyLogObjectForNRUUID(v57[6]);
                         if (sNRCopyLogToStdErr == 1)
                         {
 
                           goto LABEL_163;
                         }
 
-                        v246 = v245;
-                        v247 = os_log_type_enabled(v245, OS_LOG_TYPE_DEFAULT);
+                        v143 = v142;
+                        v144 = os_log_type_enabled(v142, OS_LOG_TYPE_DEFAULT);
 
-                        v65 = v311;
-                        if (v247)
+                        v57 = v192;
+                        if (v144)
                         {
 LABEL_163:
-                          v248 = _NRCopyLogObjectForNRUUID(v311[6]);
-                          _NRLogWithArgs(v248, 0, "LinkStats : %@ NtL - EndNtLOuter", v249, v250, v251, v252, v253, v70);
+                          v145 = _NRCopyLogObjectForNRUUID(v192[6]);
+                          _NRLogWithArgs(v145, 0, "LinkStats : %@ NtL - EndNtLOuter", v62);
 
-                          v65 = v311;
+                          v57 = v192;
                         }
                       }
 
-                      if ((v82 & 0x40000) != 0)
+                      if ((v69 & 0x40000) != 0)
                       {
-                        v254 = _NRCopyLogObjectForNRUUID(v65[6]);
+                        v146 = _NRCopyLogObjectForNRUUID(v57[6]);
                         if (sNRCopyLogToStdErr == 1)
                         {
 
                           goto LABEL_168;
                         }
 
-                        v255 = v254;
-                        v256 = os_log_type_enabled(v254, OS_LOG_TYPE_DEFAULT);
+                        v147 = v146;
+                        v148 = os_log_type_enabled(v146, OS_LOG_TYPE_DEFAULT);
 
-                        v65 = v311;
-                        if (v256)
+                        v57 = v192;
+                        if (v148)
                         {
 LABEL_168:
-                          v257 = _NRCopyLogObjectForNRUUID(v311[6]);
-                          _NRLogWithArgs(v257, 0, "LinkStats : %@ NtL - FinishNtL", v258, v259, v260, v261, v262, v70);
+                          v149 = _NRCopyLogObjectForNRUUID(v192[6]);
+                          _NRLogWithArgs(v149, 0, "LinkStats : %@ NtL - FinishNtL", v62);
 
-                          v65 = v311;
+                          v57 = v192;
                         }
                       }
 
-                      if ((v82 & 0x80000) != 0)
+                      if ((v69 & 0x80000) != 0)
                       {
-                        v263 = _NRCopyLogObjectForNRUUID(v65[6]);
+                        v150 = _NRCopyLogObjectForNRUUID(v57[6]);
                         if (sNRCopyLogToStdErr == 1)
                         {
                         }
 
                         else
                         {
-                          v264 = v263;
-                          v265 = os_log_type_enabled(v263, OS_LOG_TYPE_DEFAULT);
+                          v151 = v150;
+                          v152 = os_log_type_enabled(v150, OS_LOG_TYPE_DEFAULT);
 
-                          v65 = v311;
-                          if (!v265)
+                          v57 = v192;
+                          if (!v152)
                           {
                             goto LABEL_68;
                           }
                         }
 
-                        v73 = _NRCopyLogObjectForNRUUID(v311[6]);
-                        _NRLogWithArgs(v73, 0, "LinkStats : %@ NtL - LinkOutputAvailable", v74, v75, v76, v77, v78, v70);
+                        v65 = _NRCopyLogObjectForNRUUID(v192[6]);
+                        _NRLogWithArgs(v65, 0, "LinkStats : %@ NtL - LinkOutputAvailable", v62);
 
-                        v65 = v311;
+                        v57 = v192;
                       }
 
 LABEL_68:
-                      v71 = v81 + 1;
-                      if (v69++ >= 0xA)
+                      v63 = v68 + 1;
+                      if (v61++ >= 0xA)
                       {
-                        v58 = v304;
-                        v57 = v306;
-                        v60 = v308;
-                        v61 = v310;
+                        v50 = v185;
+                        v49 = v187;
+                        v52 = v189;
+                        v53 = v191;
 LABEL_176:
-                        if (v66 > 2u)
+                        if (v58 > 2u)
                         {
-                          v63 = &unk_286D2CF68;
+                          v55 = &unk_286D2CF68;
                           goto LABEL_57;
                         }
 
 LABEL_56:
-                        v63 = qword_27996B010[v66];
+                        v55 = qword_27996B010[v58];
                         goto LABEL_57;
                       }
 
@@ -808,66 +826,66 @@ LABEL_56:
                     }
                   }
 
-                  v266 = _NRCopyLogObjectForNRUUID(v311[6]);
-                  v267 = v266;
+                  v153 = _NRCopyLogObjectForNRUUID(v192[6]);
+                  v154 = v153;
                   if (sNRCopyLogToStdErr == 1)
                   {
 
 LABEL_179:
-                    v269 = _NRCopyLogObjectForNRUUID(v311[6]);
-                    _NRLogWithArgs(v269, 17, "Invalid priority %d", v270, v271, v272, v273, v274, v64);
+                    v156 = _NRCopyLogObjectForNRUUID(v192[6]);
+                    _NRLogWithArgs(v156, 17, "Invalid priority %d", v56);
 
                     goto LABEL_180;
                   }
 
-                  v268 = os_log_type_enabled(v266, OS_LOG_TYPE_FAULT);
+                  v155 = os_log_type_enabled(v153, OS_LOG_TYPE_FAULT);
 
-                  if (v268)
+                  if (v155)
                   {
                     goto LABEL_179;
                   }
 
 LABEL_180:
-                  v63 = &unk_286D2CF68;
-                  v61 = v310;
+                  v55 = &unk_286D2CF68;
+                  v53 = v191;
 LABEL_57:
-                  [v57 addObject:v63];
-                  ++v62;
+                  [v49 addObject:v55];
+                  ++v54;
                 }
 
-                while (v62 != v60);
-                v60 = [v58 countByEnumeratingWithState:&v312 objects:v316 count:16];
+                while (v54 != v52);
+                v52 = [v50 countByEnumeratingWithState:&v193 objects:v197 count:16];
               }
 
-              while (v60);
+              while (v52);
             }
 
-            v275 = objc_alloc_init(MEMORY[0x277CBEB38]);
-            [v275 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"datapath-report-stall"];
-            [v275 setObject:v57 forKeyedSubscript:@"channel-id-list"];
-            [(NRBluetoothPacketParser *)v311 sendDatapathReport:v275];
+            v157 = objc_alloc_init(MEMORY[0x277CBEB38]);
+            [v157 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"datapath-report-stall"];
+            [v157 setObject:v49 forKeyedSubscript:@"channel-id-list"];
+            [(NRBluetoothPacketParser *)v192 sendDatapathReport:v157];
 
-            v54 = v302;
+            v46 = v183;
             goto LABEL_182;
           }
 
-          v280 = nrCopyLogObj_560();
-          v281 = v280;
+          v161 = nrCopyLogObj_560();
+          v162 = v161;
           if (sNRCopyLogToStdErr == 1)
           {
 
 LABEL_194:
-            v283 = nrCopyLogObj_560();
-            _NRLogWithArgs(v283, 17, "%s called with null linkChannelPriorityArray", v284, v285, v286, v287, v288, "[NRBluetoothPacketParser reportDataStall:]");
+            v164 = nrCopyLogObj_560();
+            _NRLogWithArgs(v164, 17, "%s called with null linkChannelPriorityArray", "[NRBluetoothPacketParser reportDataStall:]");
 
-            v54 = 0;
+            v46 = 0;
             goto LABEL_182;
           }
 
-          v282 = os_log_type_enabled(v280, OS_LOG_TYPE_FAULT);
+          v163 = os_log_type_enabled(v161, OS_LOG_TYPE_FAULT);
 
-          v54 = 0;
-          if (v282)
+          v46 = 0;
+          if (v163)
           {
             goto LABEL_194;
           }
@@ -875,27 +893,27 @@ LABEL_194:
 
 LABEL_182:
 
-        WeakRetained = v311;
-        v276 = v311[26] + 1;
-        v311[26] = v276;
-        if ((15 * v276) < 0xB4)
+        WeakRetained = v192;
+        v158 = v192[26] + 1;
+        v192[26] = v158;
+        if ((15 * v158) < 0xB4)
         {
 LABEL_186:
 
-          WeakRetained = v311;
-          v51 = v311[25];
+          WeakRetained = v192;
+          v43 = v192[25];
           goto LABEL_187;
         }
 
-        if (*(v311 + 13) != 4)
+        if (*(v192 + 13) != 4)
         {
-          v277 = v54;
-          v278 = objc_alloc_init(MEMORY[0x277CBEB38]);
-          [v278 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"datapath-report-remediate"];
-          [(NRBluetoothPacketParser *)v311 sendDatapathReport:v278];
+          v159 = v46;
+          v160 = objc_alloc_init(MEMORY[0x277CBEB38]);
+          [v160 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"datapath-report-remediate"];
+          [(NRBluetoothPacketParser *)v192 sendDatapathReport:v160];
 
-          v54 = v277;
-          WeakRetained = v311;
+          v46 = v159;
+          WeakRetained = v192;
         }
 
 LABEL_185:
@@ -904,12 +922,400 @@ LABEL_185:
       }
     }
 
-    LODWORD(v53) = 0;
+    LODWORD(v45) = 0;
     goto LABEL_36;
   }
 
 LABEL_188:
-  v279 = *MEMORY[0x277D85DE8];
+}
+
+- ($3D27A55567FB06BC0E416B979767FD15)createWriteContextForPriority:(unsigned __int8)priority writeOutputCallback:(void *)callback writeOutputContext:(void *)context
+{
+  v49[1] = *MEMORY[0x277D85DE8];
+  if (self->_state == 4)
+  {
+    return 0;
+  }
+
+  if (!callback)
+  {
+    v19 = nrCopyLogObj_560();
+    if (sNRCopyLogToStdErr == 1)
+    {
+    }
+
+    else
+    {
+      v20 = v19;
+      v21 = os_log_type_enabled(v19, OS_LOG_TYPE_FAULT);
+
+      if (!v21)
+      {
+        return 0;
+      }
+    }
+
+    v17 = nrCopyLogObj_560();
+    _NRLogWithArgs(v17, 17, "%s called with null callback", "[NRBluetoothPacketParser createWriteContextForPriority:writeOutputCallback:writeOutputContext:]");
+    v10 = 0;
+LABEL_16:
+
+    return v10;
+  }
+
+  priorityCopy = priority;
+  if (!priority)
+  {
+    return 0;
+  }
+
+  v9 = malloc_type_calloc(1uLL, 0x20uLL, 0x609965A1uLL);
+  if (!v9)
+  {
+    v23 = nrCopyLogObj_560();
+    v24 = v23;
+    if (sNRCopyLogToStdErr == 1)
+    {
+    }
+
+    else
+    {
+      v29 = os_log_type_enabled(v23, OS_LOG_TYPE_ERROR);
+
+      if (!v29)
+      {
+LABEL_31:
+        v31 = _os_log_pack_size();
+        v33 = v49 - ((MEMORY[0x28223BE20](v31, v32) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v34 = __error();
+        v35 = _os_log_pack_fill(v33, v31, *v34, &dword_25B98C000, "%{public}s strict_calloc(%zu, %zu) failed");
+        *v35 = 136446722;
+        *(v35 + 4) = "[NRBluetoothPacketParser createWriteContextForPriority:writeOutputCallback:writeOutputContext:]";
+        *(v35 + 12) = 2048;
+        *(v35 + 14) = 1;
+        *(v35 + 22) = 2048;
+        *(v35 + 24) = 32;
+        goto LABEL_38;
+      }
+    }
+
+    v30 = nrCopyLogObj_560();
+    _NRLogWithArgs(v30, 16, "%s%.30s:%-4d ABORTING: strict_calloc(%zu, %zu) failed", ", "[NRBluetoothPacketParser createWriteContextForPriority:writeOutputCallback:writeOutputContext:]"", 1689, 1uLL, 0x20uLL);
+
+    goto LABEL_31;
+  }
+
+  v10 = v9;
+  v11 = malloc_type_calloc(1uLL, 0x58uLL, 0x274740F6uLL);
+  if (!v11)
+  {
+    v25 = nrCopyLogObj_560();
+    v26 = v25;
+    if (sNRCopyLogToStdErr == 1)
+    {
+    }
+
+    else
+    {
+      v36 = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
+
+      if (!v36)
+      {
+LABEL_34:
+        v38 = _os_log_pack_size();
+        v33 = v49 - ((MEMORY[0x28223BE20](v38, v39) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v40 = __error();
+        v41 = _os_log_pack_fill(v33, v38, *v40, &dword_25B98C000, "%{public}s strict_calloc(%zu, %zu) failed");
+        *v41 = 136446722;
+        *(v41 + 4) = "[NRBluetoothPacketParser createWriteContextForPriority:writeOutputCallback:writeOutputContext:]";
+        *(v41 + 12) = 2048;
+        *(v41 + 14) = 1;
+        *(v41 + 22) = 2048;
+        *(v41 + 24) = 88;
+        goto LABEL_38;
+      }
+    }
+
+    v37 = nrCopyLogObj_560();
+    _NRLogWithArgs(v37, 16, "%s%.30s:%-4d ABORTING: strict_calloc(%zu, %zu) failed", ", "[NRBluetoothPacketParser createWriteContextForPriority:writeOutputCallback:writeOutputContext:]"", 1690, 1uLL, 0x58uLL);
+
+    goto LABEL_34;
+  }
+
+  v12 = v11;
+  v13 = malloc_type_malloc(0x4000uLL, 0xC49FAEC8uLL);
+  if (!v13)
+  {
+    v27 = nrCopyLogObj_560();
+    v28 = v27;
+    if (sNRCopyLogToStdErr == 1)
+    {
+    }
+
+    else
+    {
+      v42 = os_log_type_enabled(v27, OS_LOG_TYPE_ERROR);
+
+      if (!v42)
+      {
+LABEL_37:
+        v44 = _os_log_pack_size();
+        v33 = v49 - ((MEMORY[0x28223BE20](v44, v45) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v46 = __error();
+        v47 = _os_log_pack_fill(v33, v44, *v46, &dword_25B98C000, "%{public}s strict allocator failed");
+        *v47 = 136446210;
+        *(v47 + 4) = "[NRBluetoothPacketParser createWriteContextForPriority:writeOutputCallback:writeOutputContext:]";
+LABEL_38:
+        v48 = nrCopyLogObj_560();
+        _NRLogAbortWithPack(v48, v33);
+      }
+    }
+
+    v43 = nrCopyLogObj_560();
+    _NRLogWithArgs(v43, 16, "%s%.30s:%-4d ABORTING: strict allocator failed", ", "[NRBluetoothPacketParser createWriteContextForPriority:writeOutputCallback:writeOutputContext:]"", 1691);
+
+    goto LABEL_37;
+  }
+
+  *v12 = v13;
+  v12[83] = priorityCopy;
+  *(v12 + 2) = self;
+  v10->var0 = context;
+  v10->var1 = callback;
+  v10->var2 = NRParserLinkWriteAvailable;
+  v10->var3 = v12;
+  if (priorityCopy <= 3)
+  {
+    *(&self->_writeContextForMedium + 2 * (priorityCopy - 1)) = v10;
+  }
+
+  v14 = _NRCopyLogObjectForNRUUID(self->_nrUUID);
+  if (sNRCopyLogToStdErr == 1)
+  {
+
+LABEL_12:
+    v17 = _NRCopyLogObjectForNRUUID(self->_nrUUID);
+    if (priorityCopy >= 4)
+    {
+      priorityCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unknown(%d)", priorityCopy];
+    }
+
+    else
+    {
+      priorityCopy = off_27996AFF0[priorityCopy];
+    }
+
+    _NRLogWithArgs(v17, 0, "%s%.30s:%-4d Created write context (%p) for %@", ", "[NRBluetoothPacketParser createWriteContextForPriority:writeOutputCallback:writeOutputContext:]"", 1712, v10, priorityCopy);
+
+    goto LABEL_16;
+  }
+
+  v15 = v14;
+  v16 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+
+  if (v16)
+  {
+    goto LABEL_12;
+  }
+
+  return v10;
+}
+
+- ($B174F4C94D76BD0ED270DA150CD5266A)createReadContextForPriority:(unsigned __int8)priority readAvailableCallback:(void *)callback readAvailableContext:(void *)context
+{
+  v50[1] = *MEMORY[0x277D85DE8];
+  if (self->_state == 4)
+  {
+    return 0;
+  }
+
+  if (!callback)
+  {
+    v20 = nrCopyLogObj_560();
+    if (sNRCopyLogToStdErr == 1)
+    {
+    }
+
+    else
+    {
+      v21 = v20;
+      v22 = os_log_type_enabled(v20, OS_LOG_TYPE_FAULT);
+
+      if (!v22)
+      {
+        return 0;
+      }
+    }
+
+    v18 = nrCopyLogObj_560();
+    _NRLogWithArgs(v18, 17, "%s called with null callback", "[NRBluetoothPacketParser createReadContextForPriority:readAvailableCallback:readAvailableContext:]");
+    v10 = 0;
+LABEL_16:
+
+    return v10;
+  }
+
+  priorityCopy = priority;
+  if (!priority)
+  {
+    return 0;
+  }
+
+  v9 = malloc_type_calloc(1uLL, 0x28uLL, 0x173B7627uLL);
+  if (!v9)
+  {
+    v24 = nrCopyLogObj_560();
+    v25 = v24;
+    if (sNRCopyLogToStdErr == 1)
+    {
+    }
+
+    else
+    {
+      v30 = os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
+
+      if (!v30)
+      {
+LABEL_31:
+        v32 = _os_log_pack_size();
+        v34 = v50 - ((MEMORY[0x28223BE20](v32, v33) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v35 = __error();
+        v36 = _os_log_pack_fill(v34, v32, *v35, &dword_25B98C000, "%{public}s strict_calloc(%zu, %zu) failed");
+        *v36 = 136446722;
+        *(v36 + 4) = "[NRBluetoothPacketParser createReadContextForPriority:readAvailableCallback:readAvailableContext:]";
+        *(v36 + 12) = 2048;
+        *(v36 + 14) = 1;
+        *(v36 + 22) = 2048;
+        v37 = 40;
+LABEL_35:
+        *(v36 + 24) = v37;
+        goto LABEL_39;
+      }
+    }
+
+    v31 = nrCopyLogObj_560();
+    _NRLogWithArgs(v31, 16, "%s%.30s:%-4d ABORTING: strict_calloc(%zu, %zu) failed", ", "[NRBluetoothPacketParser createReadContextForPriority:readAvailableCallback:readAvailableContext:]"", 1651, 1uLL, 0x28uLL);
+
+    goto LABEL_31;
+  }
+
+  v10 = v9;
+  v11 = malloc_type_calloc(1uLL, 0x30uLL, 0x95C9CD3CuLL);
+  if (!v11)
+  {
+    v26 = nrCopyLogObj_560();
+    v27 = v26;
+    if (sNRCopyLogToStdErr == 1)
+    {
+    }
+
+    else
+    {
+      v38 = os_log_type_enabled(v26, OS_LOG_TYPE_ERROR);
+
+      if (!v38)
+      {
+LABEL_34:
+        v40 = _os_log_pack_size();
+        v34 = v50 - ((MEMORY[0x28223BE20](v40, v41) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v42 = __error();
+        v36 = _os_log_pack_fill(v34, v40, *v42, &dword_25B98C000, "%{public}s strict_calloc(%zu, %zu) failed");
+        *v36 = 136446722;
+        *(v36 + 4) = "[NRBluetoothPacketParser createReadContextForPriority:readAvailableCallback:readAvailableContext:]";
+        *(v36 + 12) = 2048;
+        *(v36 + 14) = 1;
+        *(v36 + 22) = 2048;
+        v37 = 48;
+        goto LABEL_35;
+      }
+    }
+
+    v39 = nrCopyLogObj_560();
+    _NRLogWithArgs(v39, 16, "%s%.30s:%-4d ABORTING: strict_calloc(%zu, %zu) failed", ", "[NRBluetoothPacketParser createReadContextForPriority:readAvailableCallback:readAvailableContext:]"", 1652, 1uLL, 0x30uLL);
+
+    goto LABEL_34;
+  }
+
+  v12 = v11;
+  v11[2] = self;
+  v13 = malloc_type_malloc(0xFFFFuLL, 0xD0EBEC2FuLL);
+  if (!v13)
+  {
+    v28 = nrCopyLogObj_560();
+    v29 = v28;
+    if (sNRCopyLogToStdErr == 1)
+    {
+    }
+
+    else
+    {
+      v43 = os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
+
+      if (!v43)
+      {
+LABEL_38:
+        v45 = _os_log_pack_size();
+        v34 = v50 - ((MEMORY[0x28223BE20](v45, v46) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v47 = __error();
+        v48 = _os_log_pack_fill(v34, v45, *v47, &dword_25B98C000, "%{public}s strict allocator failed");
+        *v48 = 136446210;
+        *(v48 + 4) = "[NRBluetoothPacketParser createReadContextForPriority:readAvailableCallback:readAvailableContext:]";
+LABEL_39:
+        v49 = nrCopyLogObj_560();
+        _NRLogAbortWithPack(v49, v34);
+      }
+    }
+
+    v44 = nrCopyLogObj_560();
+    _NRLogWithArgs(v44, 16, "%s%.30s:%-4d ABORTING: strict allocator failed", ", "[NRBluetoothPacketParser createReadContextForPriority:readAvailableCallback:readAvailableContext:]"", 1654);
+
+    goto LABEL_38;
+  }
+
+  *v12 = v13;
+  v12[42] = priorityCopy;
+  v10->var3 = callback;
+  v10->var4 = context;
+  v10->var2 = NRBluetoothParserReadFlushCallback;
+  v10->var0 = v12;
+  v10->var1 = NRBluetoothParserReadInputCallback;
+  v14 = priorityCopy - 1;
+  if (priorityCopy <= 3)
+  {
+    *(&self->_readContextForMedium + 2 * v14) = v10;
+  }
+
+  ++self->_totalContextCount;
+  v15 = _NRCopyLogObjectForNRUUID(self->_nrUUID);
+  if (sNRCopyLogToStdErr == 1)
+  {
+
+LABEL_12:
+    v18 = _NRCopyLogObjectForNRUUID(self->_nrUUID);
+    if (priorityCopy >= 4)
+    {
+      priorityCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unknown(%d)", priorityCopy];
+    }
+
+    else
+    {
+      priorityCopy = off_27996AFD8[v14];
+    }
+
+    _NRLogWithArgs(v18, 0, "%s%.30s:%-4d Created read context (%p) for %@ (total: %llu)", ", "[NRBluetoothPacketParser createReadContextForPriority:readAvailableCallback:readAvailableContext:]"", 1672, v10, priorityCopy, self->_totalContextCount);
+
+    goto LABEL_16;
+  }
+
+  v16 = v15;
+  v17 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+
+  if (v17)
+  {
+    goto LABEL_12;
+  }
+
+  return v10;
 }
 
 - (void)handleInternalError:(uint64_t)error
@@ -920,24 +1326,24 @@ LABEL_188:
   {
     if (!v10)
     {
-      v23 = nrCopyLogObj_560();
+      v18 = nrCopyLogObj_560();
       if (sNRCopyLogToStdErr == 1)
       {
       }
 
       else
       {
-        v24 = v23;
-        v25 = os_log_type_enabled(v23, OS_LOG_TYPE_FAULT);
+        v19 = v18;
+        v20 = os_log_type_enabled(v18, OS_LOG_TYPE_FAULT);
 
-        if (!v25)
+        if (!v20)
         {
           goto LABEL_9;
         }
       }
 
-      v26 = nrCopyLogObj_560();
-      _NRLogWithArgs(v26, 17, "%s called with null errorFormat", v27, v28, v29, v30, v31, "[NRBluetoothPacketParser handleInternalError:]");
+      v21 = nrCopyLogObj_560();
+      _NRLogWithArgs(v21, 17, "%s called with null errorFormat", "[NRBluetoothPacketParser handleInternalError:]");
 
       goto LABEL_9;
     }
@@ -956,9 +1362,9 @@ LABEL_188:
       if (!v15)
       {
 LABEL_8:
-        v22 = objc_alloc_init(MEMORY[0x277CBEB38]);
-        [v22 setObject:v12 forKeyedSubscript:@"error"];
-        [(NRBluetoothPacketParser *)self sendXPCDictionary:v22];
+        v17 = objc_alloc_init(MEMORY[0x277CBEB38]);
+        [v17 setObject:v12 forKeyedSubscript:@"error"];
+        [(NRBluetoothPacketParser *)self sendXPCDictionary:v17];
         [(NRBluetoothPacketParser *)self teardown];
 
         goto LABEL_9;
@@ -966,7 +1372,7 @@ LABEL_8:
     }
 
     v16 = _NRCopyLogObjectForNRUUID(*(self + 48));
-    _NRLogWithArgs(v16, 0, "%s%.30s:%-4d internal error: %@", v17, v18, v19, v20, v21, "");
+    _NRLogWithArgs(v16, 0, "%s%.30s:%-4d internal error: %@", ", "[NRBluetoothPacketParser handleInternalError:]"", 996, v12);
 
     goto LABEL_8;
   }
@@ -1053,108 +1459,108 @@ uint64_t __45__NRBluetoothPacketParser_sendXPCDictionary___block_invoke(uint64_t
   }
 
   v5 = _NRCopyLogObjectForNRUUID(*(self + 48));
-  _NRLogWithArgs(v5, 0, "%s%.30s:%-4d Teardown", v6, v7, v8, v9, v10, "");
+  _NRLogWithArgs(v5, 0, "%s%.30s:%-4d Teardown", ", "[NRBluetoothPacketParser teardown]"", 946);
 
 LABEL_6:
   [(NRBluetoothPacketParser *)self changeStateTo:?];
   *(self + 15) = 0;
-  v11 = *(self + 416);
-  if (v11)
+  v6 = *(self + 416);
+  if (v6)
   {
-    [v11 cancel];
-    v12 = *(self + 416);
+    [v6 cancel];
+    v7 = *(self + 416);
     *(self + 416) = 0;
   }
 
-  v13 = *(self + 312);
-  if (v13)
+  v8 = *(self + 312);
+  if (v8)
   {
-    v14 = *(self + 144);
-    if ((v14 & 8) == 0)
+    v9 = *(self + 144);
+    if ((v9 & 8) == 0)
     {
 LABEL_12:
-      dispatch_source_cancel(v13);
-      v15 = *(self + 312);
+      dispatch_source_cancel(v8);
+      v10 = *(self + 312);
       *(self + 312) = 0;
 
       goto LABEL_13;
     }
 
-    *(self + 144) = v14 & 0xFFFFFFFFFFFFFFF7;
+    *(self + 144) = v9 & 0xFFFFFFFFFFFFFFF7;
     if (gNRPacketLoggingEnabled != 1)
     {
 LABEL_11:
       dispatch_resume(*(self + 312));
-      v13 = *(self + 312);
+      v8 = *(self + 312);
       goto LABEL_12;
     }
 
-    v43 = _NRCopyLogObjectForNRUUID(*(self + 48));
+    v38 = _NRCopyLogObjectForNRUUID(*(self + 48));
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v51 = v43;
-      v52 = os_log_type_enabled(v43, OS_LOG_TYPE_INFO);
+      v46 = v38;
+      v47 = os_log_type_enabled(v38, OS_LOG_TYPE_INFO);
 
-      if (!v52)
+      if (!v47)
       {
         goto LABEL_11;
       }
     }
 
-    v53 = _NRCopyLogObjectForNRUUID(*(self + 48));
-    _NRLogWithArgs(v53, 1, "%s%.30s:%-4d source-resume: NexusVOInput", v54, v55, v56, v57, v58, "");
+    v48 = _NRCopyLogObjectForNRUUID(*(self + 48));
+    _NRLogWithArgs(v48, 1, "%s%.30s:%-4d source-resume: NexusVOInput", ", "NRBluetoothPacketParserResumeNexusVOInputSource"", 489);
 
     goto LABEL_11;
   }
 
 LABEL_13:
-  v16 = *(self + 320);
-  if (!v16)
+  v11 = *(self + 320);
+  if (!v11)
   {
     goto LABEL_18;
   }
 
-  v17 = *(self + 144);
-  if ((v17 & 0x80) != 0)
+  v12 = *(self + 144);
+  if ((v12 & 0x80) != 0)
   {
-    *(self + 144) = v17 & 0xFFFFFFFFFFFFFF7FLL;
+    *(self + 144) = v12 & 0xFFFFFFFFFFFFFF7FLL;
     if (gNRPacketLoggingEnabled != 1)
     {
 LABEL_16:
       dispatch_resume(*(self + 320));
-      v16 = *(self + 320);
+      v11 = *(self + 320);
       goto LABEL_17;
     }
 
-    v44 = _NRCopyLogObjectForNRUUID(*(self + 48));
+    v39 = _NRCopyLogObjectForNRUUID(*(self + 48));
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v59 = v44;
-      v60 = os_log_type_enabled(v44, OS_LOG_TYPE_INFO);
+      v49 = v39;
+      v50 = os_log_type_enabled(v39, OS_LOG_TYPE_INFO);
 
-      if (!v60)
+      if (!v50)
       {
         goto LABEL_16;
       }
     }
 
-    v61 = _NRCopyLogObjectForNRUUID(*(self + 48));
-    _NRLogWithArgs(v61, 1, "%s%.30s:%-4d source-resume: NexusVOOutput", v62, v63, v64, v65, v66, "");
+    v51 = _NRCopyLogObjectForNRUUID(*(self + 48));
+    _NRLogWithArgs(v51, 1, "%s%.30s:%-4d source-resume: NexusVOOutput", ", "NRBluetoothPacketParserResumeNexusVOOutputSource"", 490);
 
     goto LABEL_16;
   }
 
 LABEL_17:
-  dispatch_source_cancel(v16);
-  v18 = *(self + 320);
+  dispatch_source_cancel(v11);
+  v13 = *(self + 320);
   *(self + 320) = 0;
 
 LABEL_18:
@@ -1170,95 +1576,95 @@ LABEL_18:
 
   *(self + 248) = 0;
   *(self + 256) = 0;
-  v19 = *(self + 328);
-  if (v19)
+  v14 = *(self + 328);
+  if (v14)
   {
-    v20 = *(self + 144);
-    if ((v20 & 0x10) == 0)
+    v15 = *(self + 144);
+    if ((v15 & 0x10) == 0)
     {
 LABEL_26:
-      dispatch_source_cancel(v19);
-      v21 = *(self + 328);
+      dispatch_source_cancel(v14);
+      v16 = *(self + 328);
       *(self + 328) = 0;
 
       goto LABEL_27;
     }
 
-    *(self + 144) = v20 & 0xFFFFFFFFFFFFFFEFLL;
+    *(self + 144) = v15 & 0xFFFFFFFFFFFFFFEFLL;
     if (gNRPacketLoggingEnabled != 1)
     {
 LABEL_25:
       dispatch_resume(*(self + 328));
-      v19 = *(self + 328);
+      v14 = *(self + 328);
       goto LABEL_26;
     }
 
-    v45 = _NRCopyLogObjectForNRUUID(*(self + 48));
+    v40 = _NRCopyLogObjectForNRUUID(*(self + 48));
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v67 = v45;
-      v68 = os_log_type_enabled(v45, OS_LOG_TYPE_INFO);
+      v52 = v40;
+      v53 = os_log_type_enabled(v40, OS_LOG_TYPE_INFO);
 
-      if (!v68)
+      if (!v53)
       {
         goto LABEL_25;
       }
     }
 
-    v69 = _NRCopyLogObjectForNRUUID(*(self + 48));
-    _NRLogWithArgs(v69, 1, "%s%.30s:%-4d source-resume: NexusVIInput", v70, v71, v72, v73, v74, "");
+    v54 = _NRCopyLogObjectForNRUUID(*(self + 48));
+    _NRLogWithArgs(v54, 1, "%s%.30s:%-4d source-resume: NexusVIInput", ", "NRBluetoothPacketParserResumeNexusVIInputSource"", 491);
 
     goto LABEL_25;
   }
 
 LABEL_27:
-  v22 = *(self + 336);
-  if (!v22)
+  v17 = *(self + 336);
+  if (!v17)
   {
     goto LABEL_32;
   }
 
-  v23 = *(self + 144);
-  if ((v23 & 0x100) != 0)
+  v18 = *(self + 144);
+  if ((v18 & 0x100) != 0)
   {
-    *(self + 144) = v23 & 0xFFFFFFFFFFFFFEFFLL;
+    *(self + 144) = v18 & 0xFFFFFFFFFFFFFEFFLL;
     if (gNRPacketLoggingEnabled != 1)
     {
 LABEL_30:
       dispatch_resume(*(self + 336));
-      v22 = *(self + 336);
+      v17 = *(self + 336);
       goto LABEL_31;
     }
 
-    v46 = _NRCopyLogObjectForNRUUID(*(self + 48));
+    v41 = _NRCopyLogObjectForNRUUID(*(self + 48));
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v75 = v46;
-      v76 = os_log_type_enabled(v46, OS_LOG_TYPE_INFO);
+      v55 = v41;
+      v56 = os_log_type_enabled(v41, OS_LOG_TYPE_INFO);
 
-      if (!v76)
+      if (!v56)
       {
         goto LABEL_30;
       }
     }
 
-    v77 = _NRCopyLogObjectForNRUUID(*(self + 48));
-    _NRLogWithArgs(v77, 1, "%s%.30s:%-4d source-resume: NexusVIOutput", v78, v79, v80, v81, v82, "");
+    v57 = _NRCopyLogObjectForNRUUID(*(self + 48));
+    _NRLogWithArgs(v57, 1, "%s%.30s:%-4d source-resume: NexusVIOutput", ", "NRBluetoothPacketParserResumeNexusVIOutputSource"", 492);
 
     goto LABEL_30;
   }
 
 LABEL_31:
-  dispatch_source_cancel(v22);
-  v24 = *(self + 336);
+  dispatch_source_cancel(v17);
+  v19 = *(self + 336);
   *(self + 336) = 0;
 
 LABEL_32:
@@ -1274,95 +1680,95 @@ LABEL_32:
 
   *(self + 264) = 0;
   *(self + 272) = 0;
-  v25 = *(self + 344);
-  if (v25)
+  v20 = *(self + 344);
+  if (v20)
   {
-    v26 = *(self + 144);
-    if ((v26 & 0x20) == 0)
+    v21 = *(self + 144);
+    if ((v21 & 0x20) == 0)
     {
 LABEL_40:
-      dispatch_source_cancel(v25);
-      v27 = *(self + 344);
+      dispatch_source_cancel(v20);
+      v22 = *(self + 344);
       *(self + 344) = 0;
 
       goto LABEL_41;
     }
 
-    *(self + 144) = v26 & 0xFFFFFFFFFFFFFFDFLL;
+    *(self + 144) = v21 & 0xFFFFFFFFFFFFFFDFLL;
     if (gNRPacketLoggingEnabled != 1)
     {
 LABEL_39:
       dispatch_resume(*(self + 344));
-      v25 = *(self + 344);
+      v20 = *(self + 344);
       goto LABEL_40;
     }
 
-    v47 = _NRCopyLogObjectForNRUUID(*(self + 48));
+    v42 = _NRCopyLogObjectForNRUUID(*(self + 48));
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v83 = v47;
-      v84 = os_log_type_enabled(v47, OS_LOG_TYPE_INFO);
+      v58 = v42;
+      v59 = os_log_type_enabled(v42, OS_LOG_TYPE_INFO);
 
-      if (!v84)
+      if (!v59)
       {
         goto LABEL_39;
       }
     }
 
-    v85 = _NRCopyLogObjectForNRUUID(*(self + 48));
-    _NRLogWithArgs(v85, 1, "%s%.30s:%-4d source-resume: NexusBEInput", v86, v87, v88, v89, v90, "");
+    v60 = _NRCopyLogObjectForNRUUID(*(self + 48));
+    _NRLogWithArgs(v60, 1, "%s%.30s:%-4d source-resume: NexusBEInput", ", "NRBluetoothPacketParserResumeNexusBEInputSource"", 487);
 
     goto LABEL_39;
   }
 
 LABEL_41:
-  v28 = *(self + 352);
-  if (!v28)
+  v23 = *(self + 352);
+  if (!v23)
   {
     goto LABEL_46;
   }
 
-  v29 = *(self + 144);
-  if ((v29 & 0x200) != 0)
+  v24 = *(self + 144);
+  if ((v24 & 0x200) != 0)
   {
-    *(self + 144) = v29 & 0xFFFFFFFFFFFFFDFFLL;
+    *(self + 144) = v24 & 0xFFFFFFFFFFFFFDFFLL;
     if (gNRPacketLoggingEnabled != 1)
     {
 LABEL_44:
       dispatch_resume(*(self + 352));
-      v28 = *(self + 352);
+      v23 = *(self + 352);
       goto LABEL_45;
     }
 
-    v48 = _NRCopyLogObjectForNRUUID(*(self + 48));
+    v43 = _NRCopyLogObjectForNRUUID(*(self + 48));
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v91 = v48;
-      v92 = os_log_type_enabled(v48, OS_LOG_TYPE_INFO);
+      v61 = v43;
+      v62 = os_log_type_enabled(v43, OS_LOG_TYPE_INFO);
 
-      if (!v92)
+      if (!v62)
       {
         goto LABEL_44;
       }
     }
 
-    v93 = _NRCopyLogObjectForNRUUID(*(self + 48));
-    _NRLogWithArgs(v93, 1, "%s%.30s:%-4d source-resume: NexusBEOutput", v94, v95, v96, v97, v98, "");
+    v63 = _NRCopyLogObjectForNRUUID(*(self + 48));
+    _NRLogWithArgs(v63, 1, "%s%.30s:%-4d source-resume: NexusBEOutput", ", "NRBluetoothPacketParserResumeNexusBEOutputSource"", 488);
 
     goto LABEL_44;
   }
 
 LABEL_45:
-  dispatch_source_cancel(v28);
-  v30 = *(self + 352);
+  dispatch_source_cancel(v23);
+  v25 = *(self + 352);
   *(self + 352) = 0;
 
 LABEL_46:
@@ -1378,93 +1784,93 @@ LABEL_46:
 
   *(self + 280) = 0;
   *(self + 288) = 0;
-  v31 = *(self + 360);
-  if (v31)
+  v26 = *(self + 360);
+  if (v26)
   {
-    v32 = *(self + 144);
-    if ((v32 & 0x40) == 0)
+    v27 = *(self + 144);
+    if ((v27 & 0x40) == 0)
     {
 LABEL_54:
-      dispatch_source_cancel(v31);
-      v33 = *(self + 360);
+      dispatch_source_cancel(v26);
+      v28 = *(self + 360);
       *(self + 360) = 0;
 
       goto LABEL_55;
     }
 
-    *(self + 144) = v32 & 0xFFFFFFFFFFFFFFBFLL;
+    *(self + 144) = v27 & 0xFFFFFFFFFFFFFFBFLL;
     if (gNRPacketLoggingEnabled != 1)
     {
 LABEL_53:
       dispatch_resume(*(self + 360));
-      v31 = *(self + 360);
+      v26 = *(self + 360);
       goto LABEL_54;
     }
 
-    v49 = _NRCopyLogObjectForNRUUID(*(self + 48));
+    v44 = _NRCopyLogObjectForNRUUID(*(self + 48));
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v99 = v49;
-      v100 = os_log_type_enabled(v49, OS_LOG_TYPE_INFO);
+      v64 = v44;
+      v65 = os_log_type_enabled(v44, OS_LOG_TYPE_INFO);
 
-      if (!v100)
+      if (!v65)
       {
         goto LABEL_53;
       }
     }
 
-    v101 = _NRCopyLogObjectForNRUUID(*(self + 48));
-    _NRLogWithArgs(v101, 1, "%s%.30s:%-4d source-resume: NexusBKInput", v102, v103, v104, v105, v106, "");
+    v66 = _NRCopyLogObjectForNRUUID(*(self + 48));
+    _NRLogWithArgs(v66, 1, "%s%.30s:%-4d source-resume: NexusBKInput", ", "NRBluetoothPacketParserResumeNexusBKInputSource"", 493);
 
     goto LABEL_53;
   }
 
 LABEL_55:
-  v34 = *(self + 368);
-  if (v34)
+  v29 = *(self + 368);
+  if (v29)
   {
-    v35 = *(self + 144);
-    if ((v35 & 0x400) == 0)
+    v30 = *(self + 144);
+    if ((v30 & 0x400) == 0)
     {
 LABEL_59:
-      dispatch_source_cancel(v34);
-      v36 = *(self + 368);
+      dispatch_source_cancel(v29);
+      v31 = *(self + 368);
       *(self + 368) = 0;
 
       goto LABEL_60;
     }
 
-    *(self + 144) = v35 & 0xFFFFFFFFFFFFFBFFLL;
+    *(self + 144) = v30 & 0xFFFFFFFFFFFFFBFFLL;
     if (gNRPacketLoggingEnabled != 1)
     {
 LABEL_58:
       dispatch_resume(*(self + 368));
-      v34 = *(self + 368);
+      v29 = *(self + 368);
       goto LABEL_59;
     }
 
-    v50 = _NRCopyLogObjectForNRUUID(*(self + 48));
+    v45 = _NRCopyLogObjectForNRUUID(*(self + 48));
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v107 = v50;
-      v108 = os_log_type_enabled(v50, OS_LOG_TYPE_INFO);
+      v67 = v45;
+      v68 = os_log_type_enabled(v45, OS_LOG_TYPE_INFO);
 
-      if (!v108)
+      if (!v68)
       {
         goto LABEL_58;
       }
     }
 
-    v109 = _NRCopyLogObjectForNRUUID(*(self + 48));
-    _NRLogWithArgs(v109, 1, "%s%.30s:%-4d source-resume: NexusBKOutput", v110, v111, v112, v113, v114, "");
+    v69 = _NRCopyLogObjectForNRUUID(*(self + 48));
+    _NRLogWithArgs(v69, 1, "%s%.30s:%-4d source-resume: NexusBKOutput", ", "NRBluetoothPacketParserResumeNexusBKOutputSource"", 494);
 
     goto LABEL_58;
   }
@@ -1482,28 +1888,28 @@ LABEL_60:
 
   *(self + 296) = 0;
   *(self + 304) = 0;
-  v37 = *(self + 72);
+  v32 = *(self + 72);
   *(self + 72) = 0;
 
   *(self + 16) = 0;
-  v38 = *(self + 440);
-  if (v38)
+  v33 = *(self + 440);
+  if (v33)
   {
-    dispatch_source_cancel(v38);
-    v39 = *(self + 440);
+    dispatch_source_cancel(v33);
+    v34 = *(self + 440);
     *(self + 440) = 0;
   }
 
-  v40 = *(self + 672);
-  if (v40)
+  v35 = *(self + 672);
+  if (v35)
   {
-    dispatch_source_cancel(v40);
-    v41 = *(self + 672);
+    dispatch_source_cancel(v35);
+    v36 = *(self + 672);
     *(self + 672) = 0;
   }
 
-  v42 = *(self + 408);
-  if (v42)
+  v37 = *(self + 408);
+  if (v37)
   {
     *(self + 408) = 0;
   }
@@ -1526,10 +1932,10 @@ LABEL_60:
 
     else
     {
-      v13 = v5;
-      v14 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+      v8 = v5;
+      v9 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-      if (!v14)
+      if (!v9)
       {
 LABEL_16:
         *(to + 13) = a2;
@@ -1537,20 +1943,20 @@ LABEL_16:
       }
     }
 
-    v20 = _NRCopyLogObjectForNRUUID(*(to + 48));
-    v21 = *(to + 13);
-    if (v21 >= 5)
+    v10 = _NRCopyLogObjectForNRUUID(*(to + 48));
+    v11 = *(to + 13);
+    if (v11 >= 5)
     {
-      v22 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unknown(%d)", v21];
+      v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unknown(%d)", v11];
     }
 
     else
     {
-      v22 = off_27996AFB0[*(to + 13)];
+      v12 = off_27996AFB0[*(to + 13)];
     }
 
-    v23 = off_27996AFB0[a2];
-    _NRLogWithArgs(v20, 0, "%s%.30s:%-4d Changing state: %@ -> %@", v15, v16, v17, v18, v19, "");
+    v13 = off_27996AFB0[a2];
+    _NRLogWithArgs(v10, 0, "%s%.30s:%-4d Changing state: %@ -> %@", ", "[NRBluetoothPacketParser changeStateTo:]"", 618, v12, v13);
 
     goto LABEL_16;
   }
@@ -1570,11 +1976,11 @@ LABEL_16:
     }
   }
 
-  v24 = _NRCopyLogObjectForNRUUID(*(to + 48));
-  _NRLogWithArgs(v24, 17, "Invalid state change %@", v8, v9, v10, v11, v12, to);
+  v14 = _NRCopyLogObjectForNRUUID(*(to + 48));
+  _NRLogWithArgs(v14, 17, "Invalid state change %@", to);
 }
 
-- (void)resetContextForPriorityInner:(int)inner teardownContext:
+- (void)resetContextForPriorityInner:(uint64_t)inner teardownContext:
 {
   if (!self)
   {
@@ -1597,27 +2003,27 @@ LABEL_16:
     }
   }
 
-  v14 = _NRCopyLogObjectForNRUUID(*(self + 48));
+  v9 = _NRCopyLogObjectForNRUUID(*(self + 48));
   if (a2 >= 4)
   {
-    v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unknown(%d)", a2];
+    v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unknown(%d)", a2];
   }
 
   else
   {
-    v15 = off_27996AFF0[a2];
+    v10 = off_27996AFF0[a2];
   }
 
-  _NRLogWithArgs(v14, 0, "%s%.30s:%-4d Resetting context for priority: %@ (%d)", v9, v10, v11, v12, v13, "");
+  _NRLogWithArgs(v9, 0, "%s%.30s:%-4d Resetting context for priority: %@ (%d)", ", "[NRBluetoothPacketParser resetContextForPriorityInner:teardownContext:]"", 1017, v10, inner);
 
 LABEL_9:
-  v16 = 0xF7FBFDFF >> (8 * a2);
+  v11 = 0xF7FBFDFF >> (8 * a2);
   if (a2 >= 4)
   {
-    LOBYTE(v16) = -1;
+    LOBYTE(v11) = -1;
   }
 
-  *(self + 15) &= v16;
+  *(self + 15) &= v11;
   if (!inner)
   {
     goto LABEL_59;
@@ -1625,32 +2031,32 @@ LABEL_9:
 
   if ((a2 - 1) >= 3)
   {
-    v18 = _NRCopyLogObjectForNRUUID(*(self + 48));
+    v13 = _NRCopyLogObjectForNRUUID(*(self + 48));
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v19 = v18;
-      v20 = os_log_type_enabled(v18, OS_LOG_TYPE_FAULT);
+      v14 = v13;
+      v15 = os_log_type_enabled(v13, OS_LOG_TYPE_FAULT);
 
-      if (!v20)
+      if (!v15)
       {
         goto LABEL_20;
       }
     }
 
-    v21 = _NRCopyLogObjectForNRUUID(*(self + 48));
-    _NRLogWithArgs(v21, 17, "Invalid priority %d", v22, v23, v24, v25, v26, a2);
+    v16 = _NRCopyLogObjectForNRUUID(*(self + 48));
+    _NRLogWithArgs(v16, 17, "Invalid priority %d", a2);
   }
 
   else if (*(16 * ((a2 - 1) & 0xF) + self + 96))
   {
-    v17 = *(self + 680);
-    if (v17)
+    v12 = *(self + 680);
+    if (v12)
     {
-      *(self + 680) = v17 - 1;
+      *(self + 680) = v12 - 1;
     }
   }
 
@@ -1658,138 +2064,122 @@ LABEL_20:
   switch(a2)
   {
     case 1:
-      v33 = *(self + 96);
-      if (v33)
+      v23 = *(self + 96);
+      if (v23)
       {
-        v34 = *v33;
-        if (!*v33)
+        v24 = *v23;
+        if (!*v23)
         {
           goto LABEL_50;
         }
 
-        if (*v34)
+        if (*v24)
         {
-          free(*v34);
+          free(*v24);
           ***(self + 96) = 0;
-          v34 = **(self + 96);
+          v24 = **(self + 96);
         }
 
-        if (v34[1] && (free(v34[1]), *(**(self + 96) + 8) = 0, v33 = *(self + 96), (v34 = *v33) == 0) || (free(v34), **(self + 96) = 0, (v33 = *(self + 96)) != 0))
+        if (v24[1] && (free(v24[1]), *(**(self + 96) + 8) = 0, v23 = *(self + 96), (v24 = *v23) == 0) || (free(v24), **(self + 96) = 0, (v23 = *(self + 96)) != 0))
         {
 LABEL_50:
-          free(v33);
+          free(v23);
           *(self + 96) = 0;
         }
       }
 
-      v30 = self + 104;
-      v29 = *(self + 104);
-      if (v29)
+      v20 = self + 104;
+      v19 = *(self + 104);
+      if (v19)
       {
         goto LABEL_52;
       }
 
       break;
     case 2:
-      v31 = *(self + 112);
-      if (v31)
+      v21 = *(self + 112);
+      if (v21)
       {
-        v32 = *v31;
-        if (!*v31)
+        v22 = *v21;
+        if (!*v21)
         {
           goto LABEL_40;
         }
 
-        if (*v32)
+        if (*v22)
         {
-          free(*v32);
+          free(*v22);
           ***(self + 112) = 0;
-          v32 = **(self + 112);
+          v22 = **(self + 112);
         }
 
-        if (v32[1] && (free(v32[1]), *(**(self + 112) + 8) = 0, v31 = *(self + 112), (v32 = *v31) == 0) || (free(v32), **(self + 112) = 0, (v31 = *(self + 112)) != 0))
+        if (v22[1] && (free(v22[1]), *(**(self + 112) + 8) = 0, v21 = *(self + 112), (v22 = *v21) == 0) || (free(v22), **(self + 112) = 0, (v21 = *(self + 112)) != 0))
         {
 LABEL_40:
-          free(v31);
+          free(v21);
           *(self + 112) = 0;
         }
       }
 
-      v30 = self + 120;
-      v29 = *(self + 120);
-      if (v29)
+      v20 = self + 120;
+      v19 = *(self + 120);
+      if (v19)
       {
         goto LABEL_52;
       }
 
       break;
     case 3:
-      v27 = *(self + 128);
-      if (v27)
+      v17 = *(self + 128);
+      if (v17)
       {
-        v28 = *v27;
-        if (!*v27)
+        v18 = *v17;
+        if (!*v17)
         {
           goto LABEL_30;
         }
 
-        if (*v28)
+        if (*v18)
         {
-          free(*v28);
+          free(*v18);
           ***(self + 128) = 0;
-          v28 = **(self + 128);
+          v18 = **(self + 128);
         }
 
-        if (v28[1] && (free(v28[1]), *(**(self + 128) + 8) = 0, v27 = *(self + 128), (v28 = *v27) == 0) || (free(v28), **(self + 128) = 0, (v27 = *(self + 128)) != 0))
+        if (v18[1] && (free(v18[1]), *(**(self + 128) + 8) = 0, v17 = *(self + 128), (v18 = *v17) == 0) || (free(v18), **(self + 128) = 0, (v17 = *(self + 128)) != 0))
         {
 LABEL_30:
-          free(v27);
+          free(v17);
           *(self + 128) = 0;
         }
       }
 
-      v30 = self + 136;
-      v29 = *(self + 136);
-      if (!v29)
+      v20 = self + 136;
+      v19 = *(self + 136);
+      if (!v19)
       {
         break;
       }
 
 LABEL_52:
-      v35 = v29[3];
-      if (!v35)
+      v25 = v19[3];
+      if (!v25)
       {
         goto LABEL_58;
       }
 
-      if (*v35)
+      if (*v25)
       {
-        free(*v35);
-        **(*v30 + 24) = 0;
-        v35 = *(*v30 + 24);
+        free(*v25);
+        **(*v20 + 24) = 0;
+        v25 = *(*v20 + 24);
       }
 
-      v36 = *(v35 + 8);
-      if (v36)
-      {
-        free(v36);
-        *(*(*v30 + 24) + 8) = 0;
-        v29 = *v30;
-        v35 = *(*v30 + 24);
-        if (!v35)
-        {
-          goto LABEL_58;
-        }
-      }
-
-      free(v35);
-      *(*v30 + 24) = 0;
-      v29 = *v30;
-      if (*v30)
+      if ((v26 = *(v25 + 8)) != 0 && (free(v26), *(*(*v20 + 24) + 8) = 0, v19 = *v20, (v25 = *(*v20 + 24)) == 0) || (free(v25), *(*v20 + 24) = 0, (v19 = *v20) != 0))
       {
 LABEL_58:
-        free(v29);
-        *v30 = 0;
+        free(v19);
+        *v20 = 0;
       }
 
       break;
@@ -1798,143 +2188,143 @@ LABEL_58:
   }
 
 LABEL_59:
-  v37 = *(self + 144);
-  if ((v37 & 8) != 0 && *(self + 312))
+  v27 = *(self + 144);
+  if ((v27 & 8) != 0 && *(self + 312))
   {
-    *(self + 144) = v37 & 0xFFFFFFFFFFFFFFF7;
+    *(self + 144) = v27 & 0xFFFFFFFFFFFFFFF7;
     if (gNRPacketLoggingEnabled != 1)
     {
 LABEL_62:
       dispatch_resume(*(self + 312));
-      v37 = *(self + 144);
+      v27 = *(self + 144);
       goto LABEL_63;
     }
 
-    v39 = _NRCopyLogObjectForNRUUID(*(self + 48));
+    v29 = _NRCopyLogObjectForNRUUID(*(self + 48));
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v43 = v39;
-      v44 = os_log_type_enabled(v39, OS_LOG_TYPE_INFO);
+      v33 = v29;
+      v34 = os_log_type_enabled(v29, OS_LOG_TYPE_INFO);
 
-      if (!v44)
+      if (!v34)
       {
         goto LABEL_62;
       }
     }
 
-    v45 = _NRCopyLogObjectForNRUUID(*(self + 48));
-    _NRLogWithArgs(v45, 1, "%s%.30s:%-4d source-resume: NexusVOInput", v46, v47, v48, v49, v50, "");
+    v35 = _NRCopyLogObjectForNRUUID(*(self + 48));
+    _NRLogWithArgs(v35, 1, "%s%.30s:%-4d source-resume: NexusVOInput", ", "NRBluetoothPacketParserResumeNexusVOInputSource"", 489);
 
     goto LABEL_62;
   }
 
 LABEL_63:
-  if ((v37 & 0x10) != 0 && *(self + 328))
+  if ((v27 & 0x10) != 0 && *(self + 328))
   {
-    *(self + 144) = v37 & 0xFFFFFFFFFFFFFFEFLL;
+    *(self + 144) = v27 & 0xFFFFFFFFFFFFFFEFLL;
     if (gNRPacketLoggingEnabled != 1)
     {
 LABEL_66:
       dispatch_resume(*(self + 328));
-      v37 = *(self + 144);
+      v27 = *(self + 144);
       goto LABEL_67;
     }
 
-    v40 = _NRCopyLogObjectForNRUUID(*(self + 48));
+    v30 = _NRCopyLogObjectForNRUUID(*(self + 48));
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v51 = v40;
-      v52 = os_log_type_enabled(v40, OS_LOG_TYPE_INFO);
+      v36 = v30;
+      v37 = os_log_type_enabled(v30, OS_LOG_TYPE_INFO);
 
-      if (!v52)
+      if (!v37)
       {
         goto LABEL_66;
       }
     }
 
-    v53 = _NRCopyLogObjectForNRUUID(*(self + 48));
-    _NRLogWithArgs(v53, 1, "%s%.30s:%-4d source-resume: NexusVIInput", v54, v55, v56, v57, v58, "");
+    v38 = _NRCopyLogObjectForNRUUID(*(self + 48));
+    _NRLogWithArgs(v38, 1, "%s%.30s:%-4d source-resume: NexusVIInput", ", "NRBluetoothPacketParserResumeNexusVIInputSource"", 491);
 
     goto LABEL_66;
   }
 
 LABEL_67:
-  if ((v37 & 0x20) != 0 && *(self + 344))
+  if ((v27 & 0x20) != 0 && *(self + 344))
   {
-    *(self + 144) = v37 & 0xFFFFFFFFFFFFFFDFLL;
+    *(self + 144) = v27 & 0xFFFFFFFFFFFFFFDFLL;
     if (gNRPacketLoggingEnabled != 1)
     {
 LABEL_70:
       dispatch_resume(*(self + 344));
-      v37 = *(self + 144);
+      v27 = *(self + 144);
       goto LABEL_71;
     }
 
-    v41 = _NRCopyLogObjectForNRUUID(*(self + 48));
+    v31 = _NRCopyLogObjectForNRUUID(*(self + 48));
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v59 = v41;
-      v60 = os_log_type_enabled(v41, OS_LOG_TYPE_INFO);
+      v39 = v31;
+      v40 = os_log_type_enabled(v31, OS_LOG_TYPE_INFO);
 
-      if (!v60)
+      if (!v40)
       {
         goto LABEL_70;
       }
     }
 
-    v61 = _NRCopyLogObjectForNRUUID(*(self + 48));
-    _NRLogWithArgs(v61, 1, "%s%.30s:%-4d source-resume: NexusBEInput", v62, v63, v64, v65, v66, "");
+    v41 = _NRCopyLogObjectForNRUUID(*(self + 48));
+    _NRLogWithArgs(v41, 1, "%s%.30s:%-4d source-resume: NexusBEInput", ", "NRBluetoothPacketParserResumeNexusBEInputSource"", 487);
 
     goto LABEL_70;
   }
 
 LABEL_71:
-  if ((v37 & 0x40) == 0 || !*(self + 360))
+  if ((v27 & 0x40) == 0 || !*(self + 360))
   {
     return;
   }
 
-  *(self + 144) = v37 & 0xFFFFFFFFFFFFFFBFLL;
+  *(self + 144) = v27 & 0xFFFFFFFFFFFFFFBFLL;
   if (gNRPacketLoggingEnabled != 1)
   {
     goto LABEL_74;
   }
 
-  v42 = _NRCopyLogObjectForNRUUID(*(self + 48));
+  v32 = _NRCopyLogObjectForNRUUID(*(self + 48));
   if (sNRCopyLogToStdErr == 1)
   {
 
 LABEL_93:
-    v69 = _NRCopyLogObjectForNRUUID(*(self + 48));
-    _NRLogWithArgs(v69, 1, "%s%.30s:%-4d source-resume: NexusBKInput", v70, v71, v72, v73, v74, "");
+    v44 = _NRCopyLogObjectForNRUUID(*(self + 48));
+    _NRLogWithArgs(v44, 1, "%s%.30s:%-4d source-resume: NexusBKInput", ", "NRBluetoothPacketParserResumeNexusBKInputSource"", 493);
 
     goto LABEL_74;
   }
 
-  v67 = v42;
-  v68 = os_log_type_enabled(v42, OS_LOG_TYPE_INFO);
+  v42 = v32;
+  v43 = os_log_type_enabled(v32, OS_LOG_TYPE_INFO);
 
-  if (v68)
+  if (v43)
   {
     goto LABEL_93;
   }
 
 LABEL_74:
-  v38 = *(self + 360);
+  v28 = *(self + 360);
 
-  dispatch_resume(v38);
+  dispatch_resume(v28);
 }
 
 - (void)cancel
@@ -1956,7 +2346,7 @@ LABEL_74:
   }
 
   v6 = _NRCopyLogObjectForNRUUID(self->_nrUUID);
-  _NRLogWithArgs(v6, 0, "%s%.30s:%-4d Cancel", v7, v8, v9, v10, v11, "");
+  _NRLogWithArgs(v6, 0, "%s%.30s:%-4d Cancel", ", "[NRBluetoothPacketParser cancel]"", 940);
 
 LABEL_5:
 
@@ -2116,7 +2506,7 @@ LABEL_48:
 
 LABEL_52:
     v18 = _NRCopyLogObjectForNRUUID(self->_nrUUID);
-    _NRLogWithArgs(v18, 0, "%s%.30s:%-4d Dealloc", v19, v20, v21, v22, v23, "");
+    _NRLogWithArgs(v18, 0, "%s%.30s:%-4d Dealloc", ", "[NRBluetoothPacketParser dealloc]"", 934);
 
     goto LABEL_53;
   }
@@ -2130,14 +2520,14 @@ LABEL_52:
   }
 
 LABEL_53:
-  v24 = self->_nrUUID;
+  v19 = self->_nrUUID;
   os_unfair_lock_lock(&sNRLogLock);
-  [sNRUUIDsEligibleForLogObject removeObject:v24];
+  [sNRUUIDsEligibleForLogObject removeObject:v19];
 
   os_unfair_lock_unlock(&sNRLogLock);
-  v25.receiver = self;
-  v25.super_class = NRBluetoothPacketParser;
-  [(NRBluetoothPacketParser *)&v25 dealloc];
+  v20.receiver = self;
+  v20.super_class = NRBluetoothPacketParser;
+  [(NRBluetoothPacketParser *)&v20 dealloc];
 }
 
 - (BOOL)start
@@ -2237,7 +2627,7 @@ void __32__NRBluetoothPacketParser_start__block_invoke_2(uint64_t a1, void *a2)
 
 - (void)sendDatapathReport:(uint64_t)report
 {
-  v13 = a2;
+  v8 = a2;
   v3 = _NRCopyLogObjectForNRUUID(*(report + 48));
   if (sNRCopyLogToStdErr == 1)
   {
@@ -2255,12 +2645,12 @@ void __32__NRBluetoothPacketParser_start__block_invoke_2(uint64_t a1, void *a2)
   }
 
   v6 = _NRCopyLogObjectForNRUUID(*(report + 48));
-  _NRLogWithArgs(v6, 0, "%s%.30s:%-4d sending datapath report: %@", v7, v8, v9, v10, v11, "");
+  _NRLogWithArgs(v6, 0, "%s%.30s:%-4d sending datapath report: %@", ", "[NRBluetoothPacketParser sendDatapathReport:]"", 1361, v8);
 
 LABEL_5:
-  v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  [v12 setObject:v13 forKeyedSubscript:@"datapath-report"];
-  [(NRBluetoothPacketParser *)report sendXPCDictionary:v12];
+  v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  [v7 setObject:v8 forKeyedSubscript:@"datapath-report"];
+  [(NRBluetoothPacketParser *)report sendXPCDictionary:v7];
 }
 
 - (void)setReceiveXPCCommDictionaryHandler:(id)handler
@@ -2269,7 +2659,7 @@ LABEL_5:
   xpcCommDictionaryCallback = self->_xpcCommDictionaryCallback;
   self->_xpcCommDictionaryCallback = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, xpcCommDictionaryCallback);
 }
 
 - (void)sendXPCCommDictionary:(id)dictionary
@@ -2296,7 +2686,7 @@ LABEL_5:
 
 - (void)sendXPCCommDictionaryInner:(uint64_t)inner
 {
-  v1103 = *MEMORY[0x277D85DE8];
+  v656 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!inner || *(inner + 13) == 4)
   {
@@ -2323,106 +2713,106 @@ LABEL_5:
   }
 
   v9 = _NRCopyLogObjectForNRUUID(*v4);
-  _NRLogWithArgs(v9, 0, "%s%.30s:%-4d Received notification: %@", v10, v11, v12, v13, v14, "");
+  _NRLogWithArgs(v9, 0, "%s%.30s:%-4d Received notification: %@", ", "[NRBluetoothPacketParser sendXPCCommDictionaryInner:]"", 641, v3);
 
 LABEL_7:
-  v15 = [v3 objectForKeyedSubscript:@"packet-logging"];
+  v10 = [v3 objectForKeyedSubscript:@"packet-logging"];
+
+  if (v10)
+  {
+    v11 = [v3 objectForKeyedSubscript:@"packet-logging"];
+    gNRPacketLoggingEnabled = [v11 BOOLValue];
+  }
+
+  v12 = [v3 objectForKeyedSubscript:@"test-wake-pkt"];
+
+  v13 = innerCopy;
+  if (v12)
+  {
+    v14 = [v3 objectForKeyedSubscript:@"test-wake-pkt"];
+    *(innerCopy + 23) = [v14 BOOLValue];
+  }
+
+  v15 = [v3 objectForKeyedSubscript:@"message"];
 
   if (v15)
   {
-    v16 = [v3 objectForKeyedSubscript:@"packet-logging"];
-    gNRPacketLoggingEnabled = [v16 BOOLValue];
-  }
-
-  v17 = [v3 objectForKeyedSubscript:@"test-wake-pkt"];
-
-  v18 = innerCopy;
-  if (v17)
-  {
-    v19 = [v3 objectForKeyedSubscript:@"test-wake-pkt"];
-    *(innerCopy + 23) = [v19 BOOLValue];
-  }
-
-  v20 = [v3 objectForKeyedSubscript:@"message"];
-
-  if (v20)
-  {
-    if (*(v18 + 13) == 1)
+    if (*(v13 + 13) == 1)
     {
-      [(NRBluetoothPacketParser *)v18 changeStateTo:?];
+      [(NRBluetoothPacketParser *)v13 changeStateTo:?];
     }
 
-    v21 = [v3 objectForKeyedSubscript:@"message"];
-    v22 = [v21 objectForKeyedSubscript:@"message-data"];
-    v23 = [v21 objectForKeyedSubscript:@"channel-id"];
-    v1082 = v21;
-    v1083 = v22;
-    if ([v23 integerValue] == 2)
+    v16 = [v3 objectForKeyedSubscript:@"message"];
+    v17 = [v16 objectForKeyedSubscript:@"message-data"];
+    v18 = [v16 objectForKeyedSubscript:@"channel-id"];
+    v635 = v16;
+    v636 = v17;
+    if ([v18 integerValue] == 2)
     {
-      LODWORD(v1090) = 2;
-      v24 = 112;
+      LODWORD(v643) = 2;
+      v19 = 112;
 LABEL_18:
 
 LABEL_19:
-      if (*(v18 + v24))
+      v20 = "*";
+      if (*(v13 + v19))
       {
-        v25 = _NRCopyLogObjectForNRUUID(*v4);
+        v21 = _NRCopyLogObjectForNRUUID(*v4);
         if (sNRCopyLogToStdErr == 1)
         {
         }
 
         else
         {
-          v26 = v25;
-          v27 = os_log_type_enabled(v25, OS_LOG_TYPE_INFO);
+          v22 = v21;
+          v23 = os_log_type_enabled(v21, OS_LOG_TYPE_INFO);
 
-          v18 = innerCopy;
-          if (!v27)
+          v13 = innerCopy;
+          if (!v23)
           {
             goto LABEL_24;
           }
         }
 
-        v28 = _NRCopyLogObjectForNRUUID(*(v18 + 48));
-        v1065 = *(innerCopy + v24);
-        _NRLogWithArgs(v28, 1, "%s%.30s:%-4d Read context: %p", v29, v30, v31, v32, v33, "");
+        v24 = _NRCopyLogObjectForNRUUID(*(v13 + 48));
+        _NRLogWithArgs(v24, 1, "%s%.30s:%-4d Read context: %p", ", "[NRBluetoothPacketParser sendXPCCommDictionaryInner:]"", 670, *(innerCopy + v19));
 
-        v18 = innerCopy;
+        v13 = innerCopy;
 LABEL_24:
-        v34 = **(v18 + v24);
-        v35 = _NRCopyLogObjectForNRUUID(*(v18 + 48));
+        v25 = **(v13 + v19);
+        v26 = _NRCopyLogObjectForNRUUID(*(v13 + 48));
         if (sNRCopyLogToStdErr == 1)
         {
         }
 
         else
         {
-          v36 = v35;
-          v37 = os_log_type_enabled(v35, OS_LOG_TYPE_INFO);
+          v27 = v26;
+          v28 = os_log_type_enabled(v26, OS_LOG_TYPE_INFO);
 
-          if (!v37)
+          if (!v28)
           {
 LABEL_28:
-            if (v34)
+            if (v25)
             {
-              v44 = innerCopy;
-              if ((*(v34 + 43) & 1) == 0)
+              v30 = innerCopy;
+              if ((v25[43] & 1) == 0)
               {
-                *(v34 + 43) |= 1u;
-                v45 = *(v44 + v24);
-                v46 = *(v45 + 24);
-                if (v46)
+                v25[43] |= 1u;
+                v31 = *(v30 + v19);
+                v32 = *(v31 + 24);
+                if (v32)
                 {
-                  v46(*(v45 + 32));
+                  v32(*(v31 + 32));
                 }
               }
 
-              v47 = off_27996AFD8[(v1090 - 1)];
-              v48 = v44 + 16 * (v1090 - 1);
-              v49 = v44;
-              v50 = *(v48 + 104);
-              v51 = _NRCopyLogObjectForNRUUID(*(v49 + 48));
-              if (!v50)
+              v33 = off_27996AFD8[(v643 - 1)];
+              v34 = v30 + 16 * (v643 - 1);
+              v35 = v30;
+              v36 = *(v34 + 104);
+              v37 = _NRCopyLogObjectForNRUUID(*(v35 + 48));
+              if (!v36)
               {
                 if (sNRCopyLogToStdErr)
                 {
@@ -2430,18 +2820,18 @@ LABEL_28:
 
                 else
                 {
-                  v682 = v51;
-                  v683 = os_log_type_enabled(v51, OS_LOG_TYPE_ERROR);
+                  v453 = v37;
+                  v454 = os_log_type_enabled(v37, OS_LOG_TYPE_ERROR);
 
-                  if (!v683)
+                  if (!v454)
                   {
                     goto LABEL_60;
                   }
                 }
 
-                v91 = _NRCopyLogObjectForNRUUID(*v4);
-                StringFromNRLinkChannelPriority = createStringFromNRLinkChannelPriority(v1090);
-                _NRLogWithArgs(v91, 16, "%s%.30s:%-4d Invalid write context %sptr for prio %@", v684, v685, v686, v687, v688, "");
+                v62 = _NRCopyLogObjectForNRUUID(*v4);
+                StringFromNRLinkChannelPriority = createStringFromNRLinkChannelPriority(v643);
+                _NRLogWithArgs(v62, 16, "%s%.30s:%-4d Invalid write context %sptr for prio %@", ", "[NRBluetoothPacketParser sendXPCCommDictionaryInner:]", 694, "*"", StringFromNRLinkChannelPriority);
 
                 goto LABEL_59;
               }
@@ -2452,81 +2842,80 @@ LABEL_28:
 
               else
               {
-                v53 = v51;
-                v54 = os_log_type_enabled(v51, OS_LOG_TYPE_INFO);
+                v39 = v37;
+                v40 = os_log_type_enabled(v37, OS_LOG_TYPE_INFO);
 
-                if (!v54)
+                if (!v40)
                 {
 LABEL_39:
-                  v61 = *(*(v48 + 104) + 24);
-                  v62 = _NRCopyLogObjectForNRUUID(*v4);
-                  if (v61)
+                  v42 = *(*(v34 + 104) + 24);
+                  v43 = _NRCopyLogObjectForNRUUID(*v4);
+                  if (v42)
                   {
-                    v1076 = v23;
+                    v629 = v18;
                     if (sNRCopyLogToStdErr)
                     {
                     }
 
                     else
                     {
-                      v64 = v62;
-                      v65 = os_log_type_enabled(v62, OS_LOG_TYPE_INFO);
+                      v45 = v43;
+                      v46 = os_log_type_enabled(v43, OS_LOG_TYPE_INFO);
 
-                      if (!v65)
+                      if (!v46)
                       {
                         goto LABEL_48;
                       }
                     }
 
-                    v66 = _NRCopyLogObjectForNRUUID(*v4);
-                    _NRLogWithArgs(v66, 1, "%s%.30s:%-4d link Write context: %p", v67, v68, v69, v70, v71, "");
+                    v47 = _NRCopyLogObjectForNRUUID(*v4);
+                    _NRLogWithArgs(v47, 1, "%s%.30s:%-4d link Write context: %p", ", "[NRBluetoothPacketParser sendXPCCommDictionaryInner:]"", 704, v42);
 
 LABEL_48:
-                    v72 = *(v61 + 24);
-                    v73 = *(v61 + 28);
-                    v74 = v1083;
-                    if ([v1083 length] + v73 <= v72)
+                    v48 = *(v42 + 24);
+                    v49 = *(v42 + 28);
+                    v50 = v636;
+                    if ([v636 length] + v49 <= v48)
                     {
                       goto LABEL_63;
                     }
 
-                    v75 = *(v61 + 28);
-                    v76 = [v1083 length];
-                    v77 = (v75 + v76);
-                    *(v61 + 24) = v77;
-                    if (v75 + v76)
+                    v51 = *(v42 + 28);
+                    v52 = [v636 length];
+                    v53 = (v51 + v52);
+                    *(v42 + 24) = v53;
+                    if (v51 + v52)
                     {
-                      v78 = reallocf(*(v61 + 8), v77);
-                      if (v78)
+                      v54 = reallocf(*(v42 + 8), v53);
+                      if (v54)
                       {
-                        *(v61 + 8) = v78;
-                        v79 = _NRCopyLogObjectForNRUUID(*v4);
+                        *(v42 + 8) = v54;
+                        v55 = _NRCopyLogObjectForNRUUID(*v4);
                         if (sNRCopyLogToStdErr == 1)
                         {
 
-                          v74 = v1083;
+                          v50 = v636;
                         }
 
                         else
                         {
-                          v97 = v79;
-                          v98 = os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT);
+                          v63 = v55;
+                          v64 = os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT);
 
-                          v74 = v1083;
-                          if (!v98)
+                          v50 = v636;
+                          if (!v64)
                           {
                             goto LABEL_63;
                           }
                         }
 
-                        v99 = _NRCopyLogObjectForNRUUID(*v4);
-                        v1052 = *(v61 + 24);
-                        _NRLogWithArgs(v99, 0, "%s%.30s:%-4d %@ link Write context staging buffer allocated: %u bytes", v100, v101, v102, v103, v104, "");
+                        v65 = _NRCopyLogObjectForNRUUID(*v4);
+                        _NRLogWithArgs(v65, 0, "%s%.30s:%-4d %@ link Write context staging buffer allocated: %u bytes", ", "[NRBluetoothPacketParser sendXPCCommDictionaryInner:]"", 708, v33, *(v42 + 24));
 
 LABEL_63:
-                        memcpy((*(v61 + 8) + *(v61 + 28)), [v74 bytes], objc_msgSend(v74, "length"));
-                        *(v61 + 28) += [v74 length];
-                        v18 = innerCopy;
+                        memcpy((*(v42 + 8) + *(v42 + 28)), [v50 bytes], objc_msgSend(v50, "length"));
+                        *(v42 + 28) += [v50 length];
+                        v13 = innerCopy;
                         if (*(innerCopy + 13) == 4)
                         {
 LABEL_276:
@@ -2535,382 +2924,386 @@ LABEL_276:
                         }
 
                         dispatch_assert_queue_V2(*(innerCopy + 64));
-                        if (v1090 == 1)
+                        if (v643 == 1)
                         {
-                          v105 = 0;
-                          v109 = 0;
-                          v1079 = NRBluetoothPacketParserSuspendNexusBEInputSource;
-                          v1087 = 21;
-                          v1086 = 480;
-                          v106 = 344;
-                          v107 = 280;
-                          v108 = 232;
+                          v66 = 0;
+                          v70 = 0;
+                          v632 = NRBluetoothPacketParserSuspendNexusBEInputSource;
+                          v640 = 21;
+                          v639 = 480;
+                          v67 = 344;
+                          v68 = 280;
+                          v69 = 232;
                         }
 
-                        else if (v1090 == 3)
+                        else if (v643 == 3)
                         {
-                          v1079 = NRBluetoothPacketParserSuspendNexusVOInputSource;
-                          v105 = 1;
-                          v1087 = 19;
-                          v1086 = 448;
-                          v106 = 312;
-                          v107 = 248;
-                          v108 = 216;
-                          v109 = 1;
+                          v632 = NRBluetoothPacketParserSuspendNexusVOInputSource;
+                          v66 = 1;
+                          v640 = 19;
+                          v639 = 448;
+                          v67 = 312;
+                          v68 = 248;
+                          v69 = 216;
+                          v70 = 1;
                         }
 
                         else
                         {
-                          v109 = 0;
-                          v1079 = NRBluetoothPacketParserSuspendNexusVIInputSource;
-                          v105 = 1;
-                          v1087 = 20;
-                          v1086 = 464;
-                          v106 = 328;
-                          v107 = 264;
-                          v108 = 224;
+                          v70 = 0;
+                          v632 = NRBluetoothPacketParserSuspendNexusVIInputSource;
+                          v66 = 1;
+                          v640 = 20;
+                          v639 = 464;
+                          v67 = 328;
+                          v68 = 264;
+                          v69 = 224;
                         }
 
-                        v1072 = *(innerCopy + v108);
-                        v1090 = *(innerCopy + v107);
-                        v126 = *(innerCopy + v106);
-                        v127 = 0x280D73000uLL;
+                        v78 = v643 ^ 0x67;
+                        v625 = *(innerCopy + v69);
+                        v643 = *(innerCopy + v68);
+                        v79 = *(innerCopy + v67);
+                        v80 = 0x280D73000uLL;
                         if (gNRPacketLoggingEnabled == 1)
                         {
-                          v1074 = v126;
-                          v691 = _NRCopyLogObjectForNRUUID(*v4);
-                          v692 = v691;
+                          v627 = v79;
+                          v458 = _NRCopyLogObjectForNRUUID(*v4);
+                          v459 = v458;
                           if (sNRCopyLogToStdErr == 1)
                           {
 
-                            v127 = 0x280D73000;
+                            v80 = 0x280D73000;
                           }
 
                           else
                           {
-                            v708 = os_log_type_enabled(v691, OS_LOG_TYPE_INFO);
+                            v470 = os_log_type_enabled(v458, OS_LOG_TYPE_INFO);
 
-                            v18 = innerCopy;
-                            v126 = v1074;
-                            v127 = 0x280D73000;
-                            if (!v708)
+                            v13 = innerCopy;
+                            v79 = v627;
+                            v80 = 0x280D73000;
+                            if (!v470)
                             {
                               goto LABEL_80;
                             }
                           }
 
-                          v709 = _NRCopyLogObjectForNRUUID(*v4);
-                          _NRLogWithArgs(v709, 1, "%s%.30s:%-4d starting NtL fast-path for %u", v710, v711, v712, v713, v714, "");
+                          v471 = _NRCopyLogObjectForNRUUID(*v4);
+                          _NRLogWithArgs(v471, 1, "%s%.30s:%-4d starting NtL fast-path for %u", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1858, v78);
 
-                          v126 = v1074;
-                          v18 = innerCopy;
+                          v79 = v627;
+                          v13 = innerCopy;
                         }
 
 LABEL_80:
-                        v128 = *(v18 + 15);
-                        v1089 = *&v109 & ((v128 & 8) >> 3);
-                        if (v1089 == 1)
+                        v81 = *(v13 + 15);
+                        v642 = *&v70 & ((v81 & 8) >> 3);
+                        if (v642 == 1)
                         {
-                          v129 = (v18 + 136);
-                          v130 = "Isochronous";
-                          v131 = 3;
+                          v82 = (v13 + 136);
+                          v83 = "Isochronous";
+                          v84 = 3;
                           p_inst_meths = (&OBJC_PROTOCOL___NSCopying + 24);
                           goto LABEL_98;
                         }
 
-                        if (!v105)
+                        if (!v66)
                         {
                           p_inst_meths = (&OBJC_PROTOCOL___NSCopying + 24);
                           goto LABEL_89;
                         }
 
-                        if ((v128 & 4) != 0)
+                        if ((v81 & 4) != 0)
                         {
-                          v129 = (v18 + 120);
+                          v82 = (v13 + 120);
                           p_inst_meths = &OBJC_PROTOCOL___NSCopying.inst_meths;
                           goto LABEL_97;
                         }
 
-                        v132 = *(v18 + 112);
+                        v85 = *(v13 + 112);
                         p_inst_meths = &OBJC_PROTOCOL___NSCopying.inst_meths;
-                        if (!v132)
+                        if (!v85)
                         {
 LABEL_89:
-                          v129 = (v18 + 104);
-                          v130 = "Medium";
-                          v131 = 1;
+                          v82 = (v13 + 104);
+                          v83 = "Medium";
+                          v84 = 1;
                           goto LABEL_98;
                         }
 
-                        if ((*(*v132 + 43) & 3) == 1 && (*(v18 + 17) & 1) == 0)
+                        if ((*(*v85 + 43) & 3) == 1 && (*(v13 + 17) & 1) == 0)
                         {
 
-                          v1079 = 0;
-                          v133 = 0;
-                          v126 = 0;
-                          v1090 = 0;
-                          v1072 = 0;
-                          v129 = (v18 + 120);
+                          v632 = 0;
+                          v86 = 0;
+                          v79 = 0;
+                          v643 = 0;
+                          v625 = 0;
+                          v82 = (v13 + 120);
                         }
 
                         else
                         {
-                          v129 = 0;
-                          v133 = 1;
+                          v82 = 0;
+                          v86 = 1;
                         }
 
-                        if (*(v18 + 17) == 1 && (*(v127 + 3640) & 1) != 0)
+                        if (*(v13 + 17) == 1 && (*(v80 + 3640) & 1) != 0)
                         {
-                          v1074 = v126;
-                          v801 = _NRCopyLogObjectForNRUUID(*v4);
-                          v802 = v801;
+                          v627 = v79;
+                          v514 = _NRCopyLogObjectForNRUUID(*v4);
+                          v515 = v514;
                           if (sNRCopyLogToStdErr == 1)
                           {
 
-                            v127 = 0x280D73000;
+                            v80 = 0x280D73000;
                           }
 
                           else
                           {
-                            LODWORD(v1088) = os_log_type_enabled(v801, OS_LOG_TYPE_INFO);
+                            LODWORD(v641) = os_log_type_enabled(v514, OS_LOG_TYPE_INFO);
 
-                            v18 = innerCopy;
-                            v126 = v1074;
-                            v127 = 0x280D73000;
-                            if (!v1088)
+                            v13 = innerCopy;
+                            v79 = v627;
+                            v80 = 0x280D73000;
+                            if (!v641)
                             {
                               goto LABEL_94;
                             }
                           }
 
-                          v827 = _NRCopyLogObjectForNRUUID(*v4);
-                          _NRLogWithArgs(v827, 1, "%s%.30s:%-4d sending packets over medium pipe", v828, v829, v830, v831, v832, "");
+                          v531 = _NRCopyLogObjectForNRUUID(*v4);
+                          _NRLogWithArgs(v531, 1, "%s%.30s:%-4d sending packets over medium pipe", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1887);
 
-                          v126 = v1074;
-                          v18 = innerCopy;
+                          v79 = v627;
+                          v13 = innerCopy;
                         }
 
 LABEL_94:
-                        if (v129)
+                        if (v82)
                         {
-                          if (v133)
+                          if (v86)
                           {
-                            v131 = 0;
-                            v130 = "Invalid";
+                            v84 = 0;
+                            v83 = "Invalid";
                             goto LABEL_98;
                           }
 
 LABEL_97:
-                          v130 = "High";
-                          v131 = 2;
+                          v83 = "High";
+                          v84 = 2;
 LABEL_98:
-                          v134 = *v129;
-                          v1074 = v126;
-                          if (v134)
+                          v87 = *v82;
+                          v627 = v79;
+                          if (v87)
                           {
-                            v135 = *(v134 + 24);
-                            if ((*(v135 + 84) & 1) == 0)
+                            v88 = *(v87 + 24);
+                            if ((*(v88 + 84) & 1) == 0)
                             {
-                              v1069 = v131;
-                              v1068 = v130;
-                              v1075 = v4;
-                              v1071 = v3;
-                              v136 = *(v135 + 8);
-                              v137 = *(v135 + 83);
-                              v138 = 584;
-                              if (v137 == 3)
+                              v622 = v84;
+                              v621 = v83;
+                              v628 = v4;
+                              v624 = v3;
+                              v89 = *(v88 + 8);
+                              v90 = *(v88 + 83);
+                              v91 = 584;
+                              if (v90 == 3)
                               {
-                                v138 = 600;
+                                v91 = 600;
                               }
 
-                              v383 = v137 == 2;
-                              v139 = 616;
-                              if (!v383)
+                              v256 = v90 == 2;
+                              v92 = 616;
+                              if (!v256)
                               {
-                                v139 = v138;
+                                v92 = v91;
                               }
 
-                              v1077 = v139;
-                              v140 = *(v127 + 3640);
-                              v1080 = v129;
-                              v1081 = v136;
-                              if (v140 != 1)
+                              v630 = v92;
+                              v93 = *(v80 + 3640);
+                              v633 = v82;
+                              v634 = v89;
+                              if (v93 != 1)
                               {
                                 goto LABEL_105;
                               }
 
-                              v733 = _NRCopyLogObjectForNRUUID(*v1075);
-                              v734 = v733;
+                              v480 = _NRCopyLogObjectForNRUUID(*v628);
+                              v481 = v480;
                               if (*(p_inst_meths + 556) == 1)
                               {
                               }
 
                               else
                               {
-                                v743 = os_log_type_enabled(v733, OS_LOG_TYPE_INFO);
+                                v491 = os_log_type_enabled(v480, OS_LOG_TYPE_INFO);
 
-                                v18 = innerCopy;
-                                v136 = v1081;
-                                if (!v743)
+                                v13 = innerCopy;
+                                v89 = v634;
+                                if (!v491)
                                 {
 LABEL_105:
-                                  v1070 = &v1068;
-                                  LODWORD(v1085) = 0;
-                                  v141 = 0;
-                                  v142 = 0;
-                                  ESPSequenceNumberFromPacket = 0;
-                                  v143 = 0;
-                                  v1078 = 0;
-                                  v1088 = v135 + 36;
-                                  v1100 = 0u;
-                                  v1101 = 0u;
-                                  v144 = 9;
-                                  v1098 = 0u;
-                                  v1099 = 0u;
+                                  v623 = &v621;
+                                  LODWORD(v638) = 0;
+                                  v94 = 0;
+                                  v95 = 0;
+                                  v637 = 0;
+                                  v96 = 0;
+                                  v631 = 0;
+                                  v641 = v88 + 36;
+                                  v653 = 0u;
+                                  v654 = 0u;
+                                  v97 = 9;
+                                  v651 = 0u;
+                                  v652 = 0u;
                                   while (1)
                                   {
-                                    if (*(v127 + 3640) == 1)
+                                    if (*(v80 + 3640) == 1)
                                     {
-                                      v224 = _NRCopyLogObjectForNRUUID(*v1075);
+                                      v156 = _NRCopyLogObjectForNRUUID(*v628);
                                       if (*(p_inst_meths + 556) == 1)
                                       {
 
 LABEL_217:
-                                        v229 = _NRCopyLogObjectForNRUUID(*v1075);
-                                        _NRLogWithArgs(v229, 1, "%s%.30s:%-4d %s: starting NtL inner loop", v230, v231, v232, v233, v234, "");
+                                        v161 = _NRCopyLogObjectForNRUUID(*v628);
+                                        _NRLogWithArgs(v161, 1, "%s%.30s:%-4d %s: starting NtL inner loop", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1949, v621);
 
-                                        v136 = v1081;
-                                        v18 = innerCopy;
+                                        v89 = v634;
+                                        v13 = innerCopy;
                                         goto LABEL_107;
                                       }
 
-                                      v227 = v224;
-                                      v228 = os_log_type_enabled(v224, OS_LOG_TYPE_INFO);
+                                      v159 = v156;
+                                      v160 = os_log_type_enabled(v156, OS_LOG_TYPE_INFO);
 
-                                      v18 = innerCopy;
-                                      v136 = v1081;
-                                      if (v228)
+                                      v13 = innerCopy;
+                                      v89 = v634;
+                                      if (v160)
                                       {
                                         goto LABEL_217;
                                       }
                                     }
 
 LABEL_107:
-                                    v145 = v144 | 0x10;
-                                    if ((v1089 & 1) == 0)
+                                    v98 = v97 | 0x10;
+                                    if ((v642 & 1) == 0)
                                     {
-                                      v147 = *(v135 + 28);
-                                      v146 = *(v135 + 32);
-                                      if (v147 > v146)
+                                      v100 = *(v88 + 28);
+                                      v99 = *(v88 + 32);
+                                      if (v100 > v99)
                                       {
-                                        v148 = *(v135 + 80);
-                                        v1073 = (0x4000 - v148);
-                                        if ((v147 - v146) >= (0x4000 - v148))
+                                        v101 = *(v88 + 80);
+                                        v102 = (v100 - v99);
+                                        v626 = (0x4000 - v101);
+                                        if (v102 >= (0x4000 - v101))
                                         {
-                                          v149 = (0x4000 - v148);
+                                          v103 = (0x4000 - v101);
                                         }
 
                                         else
                                         {
-                                          v149 = (v147 - v146);
+                                          v103 = (v100 - v99);
                                         }
 
-                                        v150 = v136;
-                                        memcpy((*v135 + v148), v136 + v146, v149);
-                                        v151 = *(v135 + 28);
-                                        v152 = *(v135 + 32) + v149;
-                                        *(v135 + 32) = v152;
-                                        if (v151 <= v152)
+                                        v104 = v89;
+                                        memcpy((*v88 + v101), v89 + v99, v103);
+                                        v105 = *(v88 + 28);
+                                        v106 = *(v88 + 32) + v103;
+                                        *(v88 + 32) = v106;
+                                        if (v105 <= v106)
                                         {
-                                          v153 = 0;
+                                          v107 = 0;
                                         }
 
                                         else
                                         {
-                                          memmove(v150, &v150[v152], v151 - v152);
-                                          v153 = *(v135 + 28) - *(v135 + 32);
+                                          memmove(v104, &v104[v106], v105 - v106);
+                                          v107 = *(v88 + 28) - *(v88 + 32);
                                         }
 
-                                        *(v135 + 28) = v153;
-                                        *(v135 + 32) = 0;
-                                        *(v135 + 80) += v149;
+                                        *(v88 + 28) = v107;
+                                        *(v88 + 32) = 0;
+                                        *(v88 + 80) += v103;
                                         if (gNRPacketLoggingEnabled != 1)
                                         {
                                           goto LABEL_116;
                                         }
 
-                                        v256 = _NRCopyLogObjectForNRUUID(*v1075);
-                                        v257 = v256;
+                                        v174 = _NRCopyLogObjectForNRUUID(*v628);
+                                        v175 = v174;
                                         if (sNRCopyLogToStdErr == 1)
                                         {
 
                                           goto LABEL_242;
                                         }
 
-                                        v285 = os_log_type_enabled(v256, OS_LOG_TYPE_INFO);
+                                        v183 = os_log_type_enabled(v174, OS_LOG_TYPE_INFO);
 
-                                        v18 = innerCopy;
-                                        if (v285)
+                                        v13 = innerCopy;
+                                        if (v183)
                                         {
 LABEL_242:
-                                          v286 = _NRCopyLogObjectForNRUUID(*v1075);
-                                          _NRLogWithArgs(v286, 1, "%s%.30s:%-4d %s: wrote %u (%u/%u) bytes from linkWriteBuffer", v287, v288, v289, v290, v291, "");
+                                          v184 = _NRCopyLogObjectForNRUUID(*v628);
+                                          _NRLogWithArgs(v184, 1, "%s%.30s:%-4d %s: wrote %u (%u/%u) bytes from linkWriteBuffer", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1968, v621, v103, v626, v102);
 
-                                          v18 = innerCopy;
+                                          v13 = innerCopy;
                                         }
 
 LABEL_116:
-                                        v145 = v144 | 0x30;
-                                        v142 += v149;
-                                        v127 = 0x280D73000;
+                                        v98 = v97 | 0x30;
+                                        v95 += v103;
+                                        v80 = 0x280D73000;
                                       }
                                     }
 
-                                    next_slot = ESPSequenceNumberFromPacket;
-                                    if (v1090)
+                                    next_slot = v637;
+                                    if (v643)
                                     {
                                       next_slot = os_channel_get_next_slot();
                                     }
 
                                     if (!next_slot)
                                     {
-                                      v200 = 0;
+                                      v138 = 0;
                                       goto LABEL_168;
                                     }
 
                                     while (1)
                                     {
-                                      v155 = 0x4000 - *(v135 + 80);
-                                      if (v155 < nrMaxTLVLengthForPacket(v1099 + *(v18 + 28), (WORD1(v1098) - *(v18 + 28))))
+                                      v109 = 0x4000 - *(v88 + 80);
+                                      v110 = nrMaxTLVLengthForPacket(v652 + *(v13 + 28), (WORD1(v651) - *(v13 + 28)));
+                                      if (v109 < v110)
                                       {
-                                        v145 |= 0x40u;
+                                        v98 |= 0x40u;
                                         if (gNRPacketLoggingEnabled != 1)
                                         {
 LABEL_166:
-                                          v200 = next_slot;
-                                          v18 = innerCopy;
-                                          v127 = 0x280D73000;
+                                          v138 = next_slot;
+                                          v13 = innerCopy;
+                                          v80 = 0x280D73000;
                                           goto LABEL_168;
                                         }
 
-                                        v251 = _NRCopyLogObjectForNRUUID(*v1075);
+                                        v168 = v110;
+                                        v169 = _NRCopyLogObjectForNRUUID(*v628);
                                         if (sNRCopyLogToStdErr == 1)
                                         {
                                         }
 
                                         else
                                         {
-                                          v266 = v251;
-                                          LODWORD(ESPSequenceNumberFromPacket) = os_log_type_enabled(v251, OS_LOG_TYPE_INFO);
+                                          v179 = v169;
+                                          LODWORD(v637) = os_log_type_enabled(v169, OS_LOG_TYPE_INFO);
 
-                                          if (!ESPSequenceNumberFromPacket)
+                                          if (!v637)
                                           {
                                             goto LABEL_166;
                                           }
                                         }
 
-                                        v267 = _NRCopyLogObjectForNRUUID(*v1075);
-                                        _NRLogWithArgs(v267, 1, "%s%.30s:%-4d %s: not enough room %u to fit maxTLVLen %u", v268, v269, v270, v271, v272, "");
+                                        v180 = _NRCopyLogObjectForNRUUID(*v628);
+                                        _NRLogWithArgs(v180, 1, "%s%.30s:%-4d %s: not enough room %u to fit maxTLVLen %u", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1984, v621, v109, v168);
 
                                         goto LABEL_166;
                                       }
@@ -2922,335 +3315,335 @@ LABEL_166:
                                       data_length = os_buflet_get_data_length();
                                       if (data_length >= 0x10000)
                                       {
-                                        v461 = nrCopyLogObj_560();
+                                        v314 = nrCopyLogObj_560();
                                         if (sNRCopyLogToStdErr == 1)
                                         {
 
-                                          goto LABEL_445;
+                                          goto LABEL_446;
                                         }
 
-                                        v470 = v461;
-                                        v471 = os_log_type_enabled(v461, OS_LOG_TYPE_ERROR);
+                                        v324 = v314;
+                                        v325 = os_log_type_enabled(v314, OS_LOG_TYPE_ERROR);
 
-                                        if (v471)
+                                        if (v325)
                                         {
-LABEL_445:
-                                          v472 = nrCopyLogObj_560();
-                                          _NRLogWithArgs(v472, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: dataLen <= 65535", v473, v474, v475, v476, v477, "");
+LABEL_446:
+                                          v326 = nrCopyLogObj_560();
+                                          _NRLogWithArgs(v326, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: dataLen <= 65535", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1997);
                                         }
 
-                                        v478 = _os_log_pack_size();
-                                        MEMORY[0x28223BE20](v478, v479);
-                                        v480 = *__error();
-                                        v481 = _os_log_pack_fill();
-                                        *v481 = 136446210;
-                                        *(v481 + 4) = "NRBluetoothPacketParserNexusToLinkLoop";
-                                        goto LABEL_447;
+                                        v327 = _os_log_pack_size();
+                                        v329 = &v621 - ((MEMORY[0x28223BE20](v327, v328) + 15) & 0xFFFFFFFFFFFFFFF0);
+                                        v330 = __error();
+                                        v331 = _os_log_pack_fill(v329, v327, *v330, &dword_25B98C000, "%{public}s Assertion Failed: dataLen <= 65535");
+                                        *v331 = 136446210;
+                                        *(v331 + 4) = "NRBluetoothPacketParserNexusToLinkLoop";
+                                        goto LABEL_448;
                                       }
 
                                       if (*(innerCopy + 9) == 1)
                                       {
-                                        v1096 = 0;
-                                        v1097 = 0;
-                                        v159 = (*v135 + *(v135 + 80));
-                                        v1096 = v159;
-                                        LODWORD(v1097) = v155;
-                                        v160 = *(innerCopy + 28);
-                                        v18 = innerCopy;
+                                        v649 = 0;
+                                        v650 = 0;
+                                        v114 = (*v88 + *(v88 + 80));
+                                        v649 = v114;
+                                        LODWORD(v650) = v109;
+                                        v115 = *(innerCopy + 28);
+                                        v13 = innerCopy;
                                         if (*(innerCopy + 10) == 1)
                                         {
-                                          v161 = nrPacketTo6LoWPAN((v1099 + v160), (WORD1(v1098) - v160), &v1096, 1u, innerCopy + 688, innerCopy + 704, 0);
+                                          v116 = nrPacketTo6LoWPAN((v652 + v115), (WORD1(v651) - v115), &v649, 1u, innerCopy + 688, innerCopy + 704, 0);
                                         }
 
                                         else
                                         {
-                                          memcpy(v159, (v1099 + v160), WORD1(v1098) - v160);
-                                          v161 = WORD1(v1098) - *(v18 + 28);
+                                          memcpy(v114, (v652 + v115), WORD1(v651) - v115);
+                                          v116 = WORD1(v651) - *(v13 + 28);
                                         }
 
-                                        v127 = 0x280D73000uLL;
+                                        v80 = 0x280D73000uLL;
                                         if (gNRPacketLoggingEnabled != 1)
                                         {
                                           goto LABEL_135;
                                         }
 
-                                        v168 = _NRCopyLogObjectForNRUUID(*v1075);
+                                        v123 = _NRCopyLogObjectForNRUUID(*v628);
                                         if (sNRCopyLogToStdErr == 1)
                                         {
 
                                           goto LABEL_152;
                                         }
 
-                                        v169 = v168;
-                                        v170 = os_log_type_enabled(v168, OS_LOG_TYPE_INFO);
+                                        v124 = v123;
+                                        v125 = os_log_type_enabled(v123, OS_LOG_TYPE_INFO);
 
-                                        v18 = innerCopy;
-                                        if (v170)
+                                        v13 = innerCopy;
+                                        if (v125)
                                         {
 LABEL_152:
-                                          v171 = _NRCopyLogObjectForNRUUID(*v1075);
-                                          _NRLogWithArgs(v171, 1, "%s%.30s:%-4d %s: wrote %u bytes from nexus (actual: %u)", v172, v173, v174, v175, v176, "");
+                                          v126 = _NRCopyLogObjectForNRUUID(*v628);
+                                          _NRLogWithArgs(v126, 1, "%s%.30s:%-4d %s: wrote %u bytes from nexus (actual: %u)", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2015, v621, v116, WORD1(v651));
                                           goto LABEL_157;
                                         }
 
                                         goto LABEL_135;
                                       }
 
-                                      if (!data_length && WORD1(v1098))
+                                      if (!data_length && WORD1(v651))
                                       {
-                                        v1096 = 0;
-                                        v1097 = 0;
-                                        v1096 = *v135 + *(v135 + 80);
-                                        LODWORD(v1097) = v155;
-                                        v18 = innerCopy;
-                                        v161 = nrPacketToTLV((v1099 + *(innerCopy + 28)), (WORD1(v1098) - *(innerCopy + 28)), &v1096, 1, innerCopy + 688, innerCopy + 704);
-                                        v127 = 0x280D73000uLL;
+                                        v649 = 0;
+                                        v650 = 0;
+                                        v649 = *v88 + *(v88 + 80);
+                                        LODWORD(v650) = v109;
+                                        v13 = innerCopy;
+                                        v116 = nrPacketToTLV((v652 + *(innerCopy + 28)), (WORD1(v651) - *(innerCopy + 28)), &v649, 1, innerCopy + 688, innerCopy + 704);
+                                        v80 = 0x280D73000uLL;
                                         if (gNRPacketLoggingEnabled == 1)
                                         {
-                                          v162 = _NRCopyLogObjectForNRUUID(*v1075);
+                                          v117 = _NRCopyLogObjectForNRUUID(*v628);
                                           if (sNRCopyLogToStdErr == 1)
                                           {
                                           }
 
                                           else
                                           {
-                                            v178 = v162;
-                                            v179 = os_log_type_enabled(v162, OS_LOG_TYPE_INFO);
+                                            v128 = v117;
+                                            v129 = os_log_type_enabled(v117, OS_LOG_TYPE_INFO);
 
-                                            v18 = innerCopy;
-                                            if (!v179)
+                                            v13 = innerCopy;
+                                            if (!v129)
                                             {
                                               goto LABEL_135;
                                             }
                                           }
 
-                                          v171 = _NRCopyLogObjectForNRUUID(*v1075);
-                                          getESPSequenceNumberFromPacket(v1099, WORD1(v1098));
-                                          getESPSPIFromPacket(v1099, WORD1(v1098));
-                                          _NRLogWithArgs(v171, 1, "%s%.30s:%-4d %s: wrote %u bytes from nexus for ESP seq: %u (spi: %u)", v180, v181, v182, v183, v184, "");
+                                          v126 = _NRCopyLogObjectForNRUUID(*v628);
+                                          ESPSequenceNumberFromPacket = getESPSequenceNumberFromPacket(v652, WORD1(v651));
+                                          ESPSPIFromPacket = getESPSPIFromPacket(v652, WORD1(v651));
+                                          _NRLogWithArgs(v126, 1, "%s%.30s:%-4d %s: wrote %u bytes from nexus for ESP seq: %u (spi: %u)", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2027, v621, v116, ESPSequenceNumberFromPacket, ESPSPIFromPacket);
 LABEL_157:
 
-                                          v18 = innerCopy;
+                                          v13 = innerCopy;
                                         }
 
 LABEL_135:
-                                        v145 |= 0x80u;
+                                        v98 |= 0x80u;
                                         goto LABEL_136;
                                       }
 
                                       if (data_length)
                                       {
-                                        v163 = object_address + data_offset;
-                                        v1096 = 0;
-                                        v1097 = 0;
-                                        v1096 = *v135 + *(v135 + 80);
-                                        LODWORD(v1097) = v155;
-                                        v18 = innerCopy;
-                                        v164 = data_length;
-                                        v161 = nrPacketToTLV((v163 + *(innerCopy + 28)), (data_length - *(innerCopy + 28)), &v1096, 1, innerCopy + 688, innerCopy + 704);
+                                        v118 = object_address + data_offset;
+                                        v649 = 0;
+                                        v650 = 0;
+                                        v649 = *v88 + *(v88 + 80);
+                                        LODWORD(v650) = v109;
+                                        v13 = innerCopy;
+                                        v119 = data_length;
+                                        v116 = nrPacketToTLV((v118 + *(innerCopy + 28)), (data_length - *(innerCopy + 28)), &v649, 1, innerCopy + 688, innerCopy + 704);
                                         if (gNRPacketLoggingEnabled != 1)
                                         {
 LABEL_132:
-                                          v145 |= 0x100u;
-                                          v127 = 0x280D73000;
+                                          v98 |= 0x100u;
+                                          v80 = 0x280D73000;
                                           goto LABEL_136;
                                         }
 
-                                        v177 = _NRCopyLogObjectForNRUUID(*v1075);
+                                        v127 = _NRCopyLogObjectForNRUUID(*v628);
                                         if (sNRCopyLogToStdErr == 1)
                                         {
                                         }
 
                                         else
                                         {
-                                          v186 = v177;
-                                          LODWORD(ESPSequenceNumberFromPacket) = os_log_type_enabled(v177, OS_LOG_TYPE_INFO);
+                                          v133 = v127;
+                                          LODWORD(v637) = os_log_type_enabled(v127, OS_LOG_TYPE_INFO);
 
-                                          v18 = innerCopy;
-                                          if (!ESPSequenceNumberFromPacket)
+                                          v13 = innerCopy;
+                                          if (!v637)
                                           {
                                             goto LABEL_132;
                                           }
                                         }
 
-                                        v187 = _NRCopyLogObjectForNRUUID(*v1075);
-                                        ESPSequenceNumberFromPacket = getESPSequenceNumberFromPacket(v163, v164);
-                                        getESPSPIFromPacket(v163, v164);
-                                        _NRLogWithArgs(v187, 1, "%s%.30s:%-4d %s: wrote %u bytes from nexus for ESP seq: %u (spi: %u)", v188, v189, v190, v191, v192, "");
+                                        v134 = _NRCopyLogObjectForNRUUID(*v628);
+                                        v637 = getESPSequenceNumberFromPacket(v118, v119);
+                                        v135 = getESPSPIFromPacket(v118, v119);
+                                        _NRLogWithArgs(v134, 1, "%s%.30s:%-4d %s: wrote %u bytes from nexus for ESP seq: %u (spi: %u)", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2037, v621, v116, v637, v135);
 
-                                        v18 = innerCopy;
+                                        v13 = innerCopy;
                                         goto LABEL_132;
                                       }
 
-                                      v145 |= 0x200u;
-                                      v127 = 0x280D73000uLL;
+                                      v98 |= 0x200u;
+                                      v80 = 0x280D73000uLL;
                                       if (gNRPacketLoggingEnabled == 1)
                                       {
-                                        v185 = _NRCopyLogObjectForNRUUID(*v1075);
+                                        v132 = _NRCopyLogObjectForNRUUID(*v628);
                                         if (sNRCopyLogToStdErr == 1)
                                         {
                                         }
 
                                         else
                                         {
-                                          v193 = v185;
-                                          v161 = os_log_type_enabled(v185, OS_LOG_TYPE_INFO);
+                                          v136 = v132;
+                                          v116 = os_log_type_enabled(v132, OS_LOG_TYPE_INFO);
 
-                                          if (!v161)
+                                          if (!v116)
                                           {
                                             goto LABEL_148;
                                           }
                                         }
 
-                                        v194 = _NRCopyLogObjectForNRUUID(*v1075);
-                                        _NRLogWithArgs(v194, 1, "%s%.30s:%-4d %s: No data to write", v195, v196, v197, v198, v199, "");
+                                        v137 = _NRCopyLogObjectForNRUUID(*v628);
+                                        _NRLogWithArgs(v137, 1, "%s%.30s:%-4d %s: No data to write", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2039, v621);
                                       }
 
-                                      v161 = 0;
+                                      v116 = 0;
 LABEL_148:
-                                      v18 = innerCopy;
+                                      v13 = innerCopy;
 LABEL_136:
-                                      *(v135 + 80) += v161;
-                                      v165 = (v1089 & 1) != 0 ? 0 : os_channel_get_next_slot();
-                                      ++v141;
-                                      ++*(v18 + v1086);
-                                      *(v18 + v1087) = 1;
-                                      v142 += v161;
-                                      if (!v165)
+                                      *(v88 + 80) += v116;
+                                      v120 = (v642 & 1) != 0 ? 0 : os_channel_get_next_slot();
+                                      ++v94;
+                                      ++*(v13 + v639);
+                                      *(v13 + v640) = 1;
+                                      v95 += v116;
+                                      if (!v120)
                                       {
                                         break;
                                       }
 
-                                      v166 = *(v135 + 82);
-                                      if (v166 >= 0xB)
+                                      v121 = *(v88 + 82);
+                                      if (v121 >= 0xB)
                                       {
-                                        v166 -= 11 * ((((117 * v166) >> 8) + (((v166 - ((117 * v166) >> 8)) & 0xFE) >> 1)) >> 3);
+                                        v121 -= 11 * ((((117 * v121) >> 8) + (((v121 - ((117 * v121) >> 8)) & 0xFE) >> 1)) >> 3);
                                       }
 
-                                      *(v1088 + 4 * v166) = v145;
-                                      if (v166 < 0xAu)
+                                      *(v641 + 4 * v121) = v98;
+                                      if (v121 < 0xAu)
                                       {
-                                        v167 = v166 + 1;
+                                        v122 = v121 + 1;
                                       }
 
                                       else
                                       {
-                                        v167 = v166 - 10;
+                                        v122 = v121 - 10;
                                       }
 
-                                      *(v135 + 82) = v167;
-                                      v143 = next_slot;
-                                      next_slot = v165;
-                                      v145 = 0;
+                                      *(v88 + 82) = v122;
+                                      v96 = next_slot;
+                                      next_slot = v120;
+                                      v98 = 0;
                                     }
 
-                                    v200 = 0;
-                                    v143 = next_slot;
+                                    v138 = 0;
+                                    v96 = next_slot;
 LABEL_168:
-                                    v201 = *(v135 + 80);
-                                    if (!*(v135 + 80))
+                                    v139 = *(v88 + 80);
+                                    if (!*(v88 + 80))
                                     {
-                                      v203 = v145 | 0x400;
-                                      if (*(v127 + 3640) != 1)
+                                      v141 = v98 | 0x400;
+                                      if (*(v80 + 3640) != 1)
                                       {
                                         goto LABEL_256;
                                       }
 
-                                      v758 = _NRCopyLogObjectForNRUUID(*v1075);
-                                      v759 = v758;
+                                      v496 = _NRCopyLogObjectForNRUUID(*v628);
+                                      v497 = v496;
                                       if (sNRCopyLogToStdErr == 1)
                                       {
 
-                                        goto LABEL_739;
+                                        goto LABEL_740;
                                       }
 
-                                      v788 = os_log_type_enabled(v758, OS_LOG_TYPE_INFO);
+                                      v506 = os_log_type_enabled(v496, OS_LOG_TYPE_INFO);
 
-                                      if (v788)
+                                      if (v506)
                                       {
-LABEL_739:
-                                        v789 = _NRCopyLogObjectForNRUUID(*v1075);
-                                        _NRLogWithArgs(v789, 1, "%s%.30s:%-4d %s: nothing to read from nexus", v790, v791, v792, v793, v794, "");
+LABEL_740:
+                                        v507 = _NRCopyLogObjectForNRUUID(*v628);
+                                        _NRLogWithArgs(v507, 1, "%s%.30s:%-4d %s: nothing to read from nexus", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2065, v621);
                                       }
 
-                                      v18 = innerCopy;
-                                      v127 = 0x280D73000;
+                                      v13 = innerCopy;
+                                      v80 = 0x280D73000;
 LABEL_256:
-                                      v309 = v203 | 0x8000;
-                                      if (*(v127 + 3640) == 1)
+                                      v187 = v141 | 0x8000;
+                                      if (*(v80 + 3640) == 1)
                                       {
-                                        v737 = _NRCopyLogObjectForNRUUID(*v1075);
-                                        v738 = v737;
+                                        v485 = _NRCopyLogObjectForNRUUID(*v628);
+                                        v486 = v485;
                                         if (sNRCopyLogToStdErr == 1)
                                         {
                                         }
 
                                         else
                                         {
-                                          v760 = os_log_type_enabled(v737, OS_LOG_TYPE_INFO);
+                                          v498 = os_log_type_enabled(v485, OS_LOG_TYPE_INFO);
 
-                                          v18 = innerCopy;
-                                          if (!v760)
+                                          v13 = innerCopy;
+                                          if (!v498)
                                           {
                                             goto LABEL_257;
                                           }
                                         }
 
-                                        v761 = _NRCopyLogObjectForNRUUID(*v1075);
-                                        _NRLogWithArgs(v761, 1, "%s%.30s:%-4d %s: out of NtL inner loop", v762, v763, v764, v765, v766, "");
+                                        v499 = _NRCopyLogObjectForNRUUID(*v628);
+                                        _NRLogWithArgs(v499, 1, "%s%.30s:%-4d %s: out of NtL inner loop", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2110, v621);
 
-                                        v18 = innerCopy;
+                                        v13 = innerCopy;
                                       }
 
 LABEL_257:
-                                      if (v143)
+                                      if (v96)
                                       {
                                         os_channel_advance_slot();
-                                        *(v18 + 18) = 1;
-                                        v3 = v1071;
+                                        *(v13 + 18) = 1;
+                                        v3 = v624;
 LABEL_260:
-                                        if (v1085 > 8u || v1090 && os_channel_available_slot_count() <= 1)
+                                        v188 = v638;
+                                        if (v638 > 8u || v643 && os_channel_available_slot_count() <= 1)
                                         {
-                                          v309 = v203 | 0x18000;
+                                          v187 = v141 | 0x18000;
                                           if (gNRPacketLoggingEnabled != 1)
                                           {
                                             goto LABEL_264;
                                           }
 
-                                          v756 = _NRCopyLogObjectForNRUUID(*v1075);
-                                          v757 = v756;
+                                          v494 = _NRCopyLogObjectForNRUUID(*v628);
+                                          v495 = v494;
                                           if (sNRCopyLogToStdErr == 1)
                                           {
 
-                                            v3 = v1071;
-                                            v18 = innerCopy;
-                                            goto LABEL_737;
+                                            v3 = v624;
+                                            v13 = innerCopy;
+                                            goto LABEL_738;
                                           }
 
-                                          v781 = os_log_type_enabled(v756, OS_LOG_TYPE_INFO);
+                                          v504 = os_log_type_enabled(v494, OS_LOG_TYPE_INFO);
 
-                                          v3 = v1071;
-                                          v18 = innerCopy;
-                                          if (v781)
+                                          v3 = v624;
+                                          v13 = innerCopy;
+                                          if (v504)
                                           {
-LABEL_737:
-                                            v782 = _NRCopyLogObjectForNRUUID(*(v18 + 48));
-                                            v1050 = *(innerCopy + 432) * 0.000001;
-                                            _NRLogWithArgs(v782, 1, "%s%.30s:%-4d %s: performing RX sync (%u packets, %u bytes, %u pending, %0.2f msec, canWriteMore %d, memmove %u)", v783, v784, v785, v786, v787, "");
+LABEL_738:
+                                            v505 = _NRCopyLogObjectForNRUUID(*(v13 + 48));
+                                            _NRLogWithArgs(v505, 1, "%s%.30s:%-4d %s: performing RX sync (%u packets, %u bytes, %u pending, %0.2f msec, canWriteMore %d, memmove %u)", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2123, v621, v94, v95, v188, *(innerCopy + 432) * 0.000001, v139 == 0, v631);
 
-                                            v18 = innerCopy;
+                                            v13 = innerCopy;
                                           }
 
 LABEL_264:
                                           os_channel_sync();
-                                          *(v18 + 18) = 0;
+                                          *(v13 + 18) = 0;
                                         }
                                       }
 
                                       else
                                       {
-                                        v3 = v1071;
-                                        if (*(v18 + 18))
+                                        v3 = v624;
+                                        if (*(v13 + 18))
                                         {
                                           goto LABEL_260;
                                         }
@@ -3258,35 +3651,35 @@ LABEL_264:
 
                                       if (gNRPacketLoggingEnabled == 1)
                                       {
-                                        v739 = _NRCopyLogObjectForNRUUID(*v1075);
-                                        v740 = v739;
+                                        v487 = _NRCopyLogObjectForNRUUID(*v628);
+                                        v488 = v487;
                                         if (sNRCopyLogToStdErr == 1)
                                         {
 
-                                          v3 = v1071;
-                                          v18 = innerCopy;
+                                          v3 = v624;
+                                          v13 = innerCopy;
                                         }
 
                                         else
                                         {
-                                          v767 = os_log_type_enabled(v739, OS_LOG_TYPE_INFO);
+                                          v500 = os_log_type_enabled(v487, OS_LOG_TYPE_INFO);
 
-                                          v3 = v1071;
-                                          v18 = innerCopy;
-                                          if (!v767)
+                                          v3 = v624;
+                                          v13 = innerCopy;
+                                          if (!v500)
                                           {
                                             goto LABEL_266;
                                           }
                                         }
 
-                                        v768 = _NRCopyLogObjectForNRUUID(*v1075);
-                                        _NRLogWithArgs(v768, 1, "%s%.30s:%-4d %s: out of NtL outer loop", v769, v770, v771, v772, v773, "");
+                                        v501 = _NRCopyLogObjectForNRUUID(*v628);
+                                        _NRLogWithArgs(v501, 1, "%s%.30s:%-4d %s: out of NtL outer loop", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2134, v621);
                                       }
 
 LABEL_266:
-                                      v4 = v1075;
+                                      v4 = v628;
                                       p_inst_meths = &OBJC_PROTOCOL___NSCopying.inst_meths;
-                                      if (v201)
+                                      if (v139)
                                       {
 LABEL_267:
                                         if (gNRPacketLoggingEnabled != 1)
@@ -3294,848 +3687,841 @@ LABEL_267:
                                           goto LABEL_268;
                                         }
 
-                                        v741 = _NRCopyLogObjectForNRUUID(*v4);
-                                        v742 = v741;
+                                        v489 = _NRCopyLogObjectForNRUUID(*v4);
+                                        v490 = v489;
                                         if (*(p_inst_meths + 556) == 1)
                                         {
 
-                                          v3 = v1071;
-                                          v18 = innerCopy;
-                                          v4 = v1075;
-                                          goto LABEL_735;
+                                          v3 = v624;
+                                          v13 = innerCopy;
+                                          v4 = v628;
+                                          goto LABEL_736;
                                         }
 
-                                        v774 = os_log_type_enabled(v741, OS_LOG_TYPE_INFO);
+                                        v502 = os_log_type_enabled(v489, OS_LOG_TYPE_INFO);
 
-                                        v3 = v1071;
-                                        v18 = innerCopy;
-                                        v4 = v1075;
-                                        if (v774)
+                                        v3 = v624;
+                                        v13 = innerCopy;
+                                        v4 = v628;
+                                        if (v502)
                                         {
-LABEL_735:
-                                          v775 = _NRCopyLogObjectForNRUUID(*v4);
-                                          _NRLogWithArgs(v775, 1, "%s%.30s:%-4d %s: done with NtL fast-path", v776, v777, v778, v779, v780, "");
+LABEL_736:
+                                          v503 = _NRCopyLogObjectForNRUUID(*v4);
+                                          _NRLogWithArgs(v503, 1, "%s%.30s:%-4d %s: done with NtL fast-path", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2168, v621);
                                         }
 
 LABEL_268:
-                                        v307 = *(v135 + 82);
-                                        if (v307 >= 0xB)
+                                        v185 = *(v88 + 82);
+                                        if (v185 >= 0xB)
                                         {
-                                          v307 -= 11 * ((((117 * v307) >> 8) + (((v307 - ((117 * v307) >> 8)) & 0xFE) >> 1)) >> 3);
+                                          v185 -= 11 * ((((117 * v185) >> 8) + (((v185 - ((117 * v185) >> 8)) & 0xFE) >> 1)) >> 3);
                                         }
 
-                                        v308 = v307;
-                                        *(v1088 + 4 * v307) = v309 | 0x60000;
+                                        v186 = v185;
+                                        *(v641 + 4 * v185) = v187 | 0x60000;
 LABEL_271:
-                                        if (v308 < 0xA)
+                                        if (v186 < 0xA)
                                         {
-                                          v310 = v307 + 1;
+                                          v189 = v185 + 1;
                                         }
 
                                         else
                                         {
-                                          v310 = v307 - 10;
+                                          v189 = v185 - 10;
                                         }
 
-                                        *(v135 + 82) = v310;
+                                        *(v88 + 82) = v189;
                                         goto LABEL_275;
                                       }
 
-                                      if (v1069 <= 1)
+                                      if (v622 <= 1)
                                       {
-                                        if (v1069)
+                                        if (v622)
                                         {
-                                          v361 = *(v18 + 144);
-                                          if ((*(v18 + 15) & 4) == 0)
+                                          v239 = *(v13 + 144);
+                                          if ((*(v13 + 15) & 4) == 0)
                                           {
-                                            goto LABEL_410;
+                                            goto LABEL_411;
                                           }
                                         }
 
                                         else
                                         {
-                                          v361 = *(v18 + 144);
-LABEL_410:
-                                          if ((v361 & 8) != 0 && *(v18 + 312))
+                                          v239 = *(v13 + 144);
+LABEL_411:
+                                          if ((v239 & 8) != 0 && *(v13 + 312))
                                           {
-                                            *(v18 + 144) = v361 & 0xFFFFFFFFFFFFFFF7;
+                                            *(v13 + 144) = v239 & 0xFFFFFFFFFFFFFFF7;
                                             if (gNRPacketLoggingEnabled != 1)
                                             {
-                                              goto LABEL_413;
+                                              goto LABEL_414;
                                             }
 
-                                            v835 = _NRCopyLogObjectForNRUUID(*v4);
-                                            v836 = v835;
+                                            v534 = _NRCopyLogObjectForNRUUID(*v4);
+                                            v535 = v534;
                                             if (sNRCopyLogToStdErr == 1)
                                             {
 
-                                              v3 = v1071;
-                                              v18 = innerCopy;
-                                              v4 = v1075;
-                                              goto LABEL_793;
+                                              v3 = v624;
+                                              v13 = innerCopy;
+                                              v4 = v628;
+                                              goto LABEL_794;
                                             }
 
-                                            v896 = os_log_type_enabled(v835, OS_LOG_TYPE_INFO);
+                                            v560 = os_log_type_enabled(v534, OS_LOG_TYPE_INFO);
 
-                                            v3 = v1071;
-                                            v18 = innerCopy;
-                                            v4 = v1075;
-                                            if (v896)
+                                            v3 = v624;
+                                            v13 = innerCopy;
+                                            v4 = v628;
+                                            if (v560)
                                             {
-LABEL_793:
-                                              v897 = _NRCopyLogObjectForNRUUID(*v4);
-                                              _NRLogWithArgs(v897, 1, "%s%.30s:%-4d source-resume: NexusVOInput", v898, v899, v900, v901, v902, "");
+LABEL_794:
+                                              v561 = _NRCopyLogObjectForNRUUID(*v4);
+                                              _NRLogWithArgs(v561, 1, "%s%.30s:%-4d source-resume: NexusVOInput", ", "NRBluetoothPacketParserResumeNexusVOInputSource"", 489);
                                             }
 
-LABEL_413:
-                                            dispatch_resume(*(v18 + 312));
-                                            v361 = *(v18 + 144);
+LABEL_414:
+                                            dispatch_resume(*(v13 + 312));
+                                            v239 = *(v13 + 144);
                                           }
 
-                                          if ((v361 & 0x10) != 0 && *(v18 + 328))
+                                          if ((v239 & 0x10) != 0 && *(v13 + 328))
                                           {
-                                            *(v18 + 144) = v361 & 0xFFFFFFFFFFFFFFEFLL;
+                                            *(v13 + 144) = v239 & 0xFFFFFFFFFFFFFFEFLL;
                                             if (gNRPacketLoggingEnabled != 1)
                                             {
-                                              goto LABEL_417;
+                                              goto LABEL_418;
                                             }
 
-                                            v837 = _NRCopyLogObjectForNRUUID(*v4);
-                                            v838 = v837;
+                                            v536 = _NRCopyLogObjectForNRUUID(*v4);
+                                            v537 = v536;
                                             if (sNRCopyLogToStdErr == 1)
                                             {
 
-                                              v3 = v1071;
-                                              v18 = innerCopy;
-                                              v4 = v1075;
-                                              goto LABEL_795;
+                                              v3 = v624;
+                                              v13 = innerCopy;
+                                              v4 = v628;
+                                              goto LABEL_796;
                                             }
 
-                                            v903 = os_log_type_enabled(v837, OS_LOG_TYPE_INFO);
+                                            v562 = os_log_type_enabled(v536, OS_LOG_TYPE_INFO);
 
-                                            v3 = v1071;
-                                            v18 = innerCopy;
-                                            v4 = v1075;
-                                            if (v903)
+                                            v3 = v624;
+                                            v13 = innerCopy;
+                                            v4 = v628;
+                                            if (v562)
                                             {
-LABEL_795:
-                                              v904 = _NRCopyLogObjectForNRUUID(*v4);
-                                              _NRLogWithArgs(v904, 1, "%s%.30s:%-4d source-resume: NexusVIInput", v905, v906, v907, v908, v909, "");
+LABEL_796:
+                                              v563 = _NRCopyLogObjectForNRUUID(*v4);
+                                              _NRLogWithArgs(v563, 1, "%s%.30s:%-4d source-resume: NexusVIInput", ", "NRBluetoothPacketParserResumeNexusVIInputSource"", 491);
                                             }
 
-LABEL_417:
-                                            dispatch_resume(*(v18 + 328));
-                                            v361 = *(v18 + 144);
+LABEL_418:
+                                            dispatch_resume(*(v13 + 328));
+                                            v239 = *(v13 + 144);
                                           }
                                         }
 
-                                        if ((v361 & 0x20) != 0 && *(v18 + 344))
+                                        if ((v239 & 0x20) != 0 && *(v13 + 344))
                                         {
-                                          *(v18 + 144) = v361 & 0xFFFFFFFFFFFFFFDFLL;
+                                          *(v13 + 144) = v239 & 0xFFFFFFFFFFFFFFDFLL;
                                           if (gNRPacketLoggingEnabled != 1)
                                           {
-                                            goto LABEL_421;
+                                            goto LABEL_422;
                                           }
 
-                                          v833 = _NRCopyLogObjectForNRUUID(*v4);
-                                          v834 = v833;
+                                          v532 = _NRCopyLogObjectForNRUUID(*v4);
+                                          v533 = v532;
                                           if (sNRCopyLogToStdErr == 1)
                                           {
 
-                                            v3 = v1071;
-                                            v18 = innerCopy;
-                                            v4 = v1075;
-                                            goto LABEL_791;
+                                            v3 = v624;
+                                            v13 = innerCopy;
+                                            v4 = v628;
+                                            goto LABEL_792;
                                           }
 
-                                          v889 = os_log_type_enabled(v833, OS_LOG_TYPE_INFO);
+                                          v558 = os_log_type_enabled(v532, OS_LOG_TYPE_INFO);
 
-                                          v3 = v1071;
-                                          v18 = innerCopy;
-                                          v4 = v1075;
-                                          if (v889)
+                                          v3 = v624;
+                                          v13 = innerCopy;
+                                          v4 = v628;
+                                          if (v558)
                                           {
-LABEL_791:
-                                            v890 = _NRCopyLogObjectForNRUUID(*v4);
-                                            _NRLogWithArgs(v890, 1, "%s%.30s:%-4d source-resume: NexusBEInput", v891, v892, v893, v894, v895, "");
+LABEL_792:
+                                            v559 = _NRCopyLogObjectForNRUUID(*v4);
+                                            _NRLogWithArgs(v559, 1, "%s%.30s:%-4d source-resume: NexusBEInput", ", "NRBluetoothPacketParserResumeNexusBEInputSource"", 487);
                                           }
 
-LABEL_421:
-                                          dispatch_resume(*(v18 + 344));
-                                          v361 = *(v18 + 144);
+LABEL_422:
+                                          dispatch_resume(*(v13 + 344));
+                                          v239 = *(v13 + 144);
                                         }
 
-                                        if ((v361 & 0x40) == 0 || !*(v18 + 360))
+                                        if ((v239 & 0x40) == 0 || !*(v13 + 360))
                                         {
                                           goto LABEL_267;
                                         }
 
-                                        v363 = (v18 + 360);
-                                        *(v18 + 144) = v361 & 0xFFFFFFFFFFFFFFBFLL;
+                                        v241 = (v13 + 360);
+                                        *(v13 + 144) = v239 & 0xFFFFFFFFFFFFFFBFLL;
                                         if (gNRPacketLoggingEnabled == 1)
                                         {
-                                          v458 = _NRCopyLogObjectForNRUUID(*v4);
-                                          v459 = v458;
+                                          v311 = _NRCopyLogObjectForNRUUID(*v4);
+                                          v312 = v311;
                                           if (sNRCopyLogToStdErr == 1)
                                           {
 
-                                            goto LABEL_787;
+                                            goto LABEL_788;
                                           }
 
-                                          v880 = os_log_type_enabled(v458, OS_LOG_TYPE_INFO);
+                                          v554 = os_log_type_enabled(v311, OS_LOG_TYPE_INFO);
 
-                                          if (v880)
+                                          if (v554)
                                           {
-LABEL_787:
-                                            v881 = _NRCopyLogObjectForNRUUID(*v1075);
-                                            _NRLogWithArgs(v881, 1, "%s%.30s:%-4d source-resume: NexusBKInput", v882, v883, v884, v885, v886, "");
-                                            goto LABEL_807;
+LABEL_788:
+                                            v555 = _NRCopyLogObjectForNRUUID(*v628);
+                                            _NRLogWithArgs(v555, 1, "%s%.30s:%-4d source-resume: NexusBKInput");
+                                            goto LABEL_808;
                                           }
 
-LABEL_808:
-                                          v3 = v1071;
-                                          v18 = innerCopy;
-                                          v4 = v1075;
+LABEL_809:
+                                          v3 = v624;
+                                          v13 = innerCopy;
+                                          v4 = v628;
                                         }
 
-LABEL_430:
-                                        dispatch_resume(*v363);
+LABEL_431:
+                                        dispatch_resume(*v241);
                                         p_inst_meths = (&OBJC_PROTOCOL___NSCopying + 24);
                                         goto LABEL_267;
                                       }
 
-                                      if (v1069 == 2)
+                                      if (v622 == 2)
                                       {
-                                        v362 = *(v18 + 144);
-                                        if ((v362 & 8) != 0 && *(v18 + 312))
+                                        v240 = *(v13 + 144);
+                                        if ((v240 & 8) != 0 && *(v13 + 312))
                                         {
-                                          *(v18 + 144) = v362 & 0xFFFFFFFFFFFFFFF7;
+                                          *(v13 + 144) = v240 & 0xFFFFFFFFFFFFFFF7;
                                           if (gNRPacketLoggingEnabled != 1)
                                           {
                                             goto LABEL_316;
                                           }
 
-                                          v878 = _NRCopyLogObjectForNRUUID(*v4);
-                                          v879 = v878;
+                                          v552 = _NRCopyLogObjectForNRUUID(*v4);
+                                          v553 = v552;
                                           if (sNRCopyLogToStdErr == 1)
                                           {
 
-                                            v3 = v1071;
-                                            v18 = innerCopy;
-                                            v4 = v1075;
-                                            goto LABEL_804;
+                                            v3 = v624;
+                                            v13 = innerCopy;
+                                            v4 = v628;
+                                            goto LABEL_805;
                                           }
 
-                                          v930 = os_log_type_enabled(v878, OS_LOG_TYPE_INFO);
+                                          v569 = os_log_type_enabled(v552, OS_LOG_TYPE_INFO);
 
-                                          v3 = v1071;
-                                          v18 = innerCopy;
-                                          v4 = v1075;
-                                          if (v930)
+                                          v3 = v624;
+                                          v13 = innerCopy;
+                                          v4 = v628;
+                                          if (v569)
                                           {
-LABEL_804:
-                                            v931 = _NRCopyLogObjectForNRUUID(*v4);
-                                            _NRLogWithArgs(v931, 1, "%s%.30s:%-4d source-resume: NexusVOInput", v932, v933, v934, v935, v936, "");
+LABEL_805:
+                                            v570 = _NRCopyLogObjectForNRUUID(*v4);
+                                            _NRLogWithArgs(v570, 1, "%s%.30s:%-4d source-resume: NexusVOInput", ", "NRBluetoothPacketParserResumeNexusVOInputSource"", 489);
                                           }
 
 LABEL_316:
-                                          dispatch_resume(*(v18 + 312));
-                                          v362 = *(v18 + 144);
+                                          dispatch_resume(*(v13 + 312));
+                                          v240 = *(v13 + 144);
                                         }
 
-                                        if ((v362 & 0x10) == 0 || !*(v18 + 328))
+                                        if ((v240 & 0x10) == 0 || !*(v13 + 328))
                                         {
                                           goto LABEL_267;
                                         }
 
-                                        v363 = (v18 + 328);
-                                        *(v18 + 144) = v362 & 0xFFFFFFFFFFFFFFEFLL;
+                                        v241 = (v13 + 328);
+                                        *(v13 + 144) = v240 & 0xFFFFFFFFFFFFFFEFLL;
                                         if (gNRPacketLoggingEnabled != 1)
                                         {
-                                          goto LABEL_430;
+                                          goto LABEL_431;
                                         }
 
-                                        v364 = _NRCopyLogObjectForNRUUID(*v4);
-                                        v365 = v364;
+                                        v242 = _NRCopyLogObjectForNRUUID(*v4);
+                                        v243 = v242;
                                         if (sNRCopyLogToStdErr == 1)
                                         {
                                         }
 
                                         else
                                         {
-                                          v924 = os_log_type_enabled(v364, OS_LOG_TYPE_INFO);
+                                          v568 = os_log_type_enabled(v242, OS_LOG_TYPE_INFO);
 
-                                          if (!v924)
+                                          if (!v568)
                                           {
-                                            goto LABEL_808;
+                                            goto LABEL_809;
                                           }
                                         }
 
-                                        v881 = _NRCopyLogObjectForNRUUID(*v1075);
-                                        _NRLogWithArgs(v881, 1, "%s%.30s:%-4d source-resume: NexusVIInput", v925, v926, v927, v928, v929, "");
+                                        v555 = _NRCopyLogObjectForNRUUID(*v628);
+                                        _NRLogWithArgs(v555, 1, "%s%.30s:%-4d source-resume: NexusVIInput");
                                       }
 
                                       else
                                       {
-                                        v460 = *(v18 + 144);
-                                        if ((v460 & 8) == 0 || !*(v18 + 312))
+                                        v313 = *(v13 + 144);
+                                        if ((v313 & 8) == 0 || !*(v13 + 312))
                                         {
                                           goto LABEL_267;
                                         }
 
-                                        v363 = (v18 + 312);
-                                        *(v18 + 144) = v460 & 0xFFFFFFFFFFFFFFF7;
+                                        v241 = (v13 + 312);
+                                        *(v13 + 144) = v313 & 0xFFFFFFFFFFFFFFF7;
                                         if (gNRPacketLoggingEnabled != 1)
                                         {
-                                          goto LABEL_430;
+                                          goto LABEL_431;
                                         }
 
-                                        v887 = _NRCopyLogObjectForNRUUID(*v4);
-                                        v888 = v887;
+                                        v556 = _NRCopyLogObjectForNRUUID(*v4);
+                                        v557 = v556;
                                         if (sNRCopyLogToStdErr == 1)
                                         {
                                         }
 
                                         else
                                         {
-                                          v937 = os_log_type_enabled(v887, OS_LOG_TYPE_INFO);
+                                          v571 = os_log_type_enabled(v556, OS_LOG_TYPE_INFO);
 
-                                          if (!v937)
+                                          if (!v571)
                                           {
-                                            goto LABEL_808;
+                                            goto LABEL_809;
                                           }
                                         }
 
-                                        v881 = _NRCopyLogObjectForNRUUID(*v1075);
-                                        _NRLogWithArgs(v881, 1, "%s%.30s:%-4d source-resume: NexusVOInput", v938, v939, v940, v941, v942, "");
+                                        v555 = _NRCopyLogObjectForNRUUID(*v628);
+                                        _NRLogWithArgs(v555, 1, "%s%.30s:%-4d source-resume: NexusVOInput");
                                       }
 
-LABEL_807:
+LABEL_808:
 
-                                      goto LABEL_808;
+                                      goto LABEL_809;
                                     }
 
-                                    ESPSequenceNumberFromPacket = v200;
-                                    v1096 = 0;
-                                    if (*(v127 + 3640) != 1)
+                                    v637 = v138;
+                                    v649 = 0;
+                                    if (*(v80 + 3640) != 1)
                                     {
                                       goto LABEL_170;
                                     }
 
-                                    v225 = _NRCopyLogObjectForNRUUID(*v1075);
+                                    v157 = _NRCopyLogObjectForNRUUID(*v628);
                                     if (sNRCopyLogToStdErr == 1)
                                     {
 
                                       goto LABEL_221;
                                     }
 
-                                    v236 = v225;
-                                    v237 = os_log_type_enabled(v225, OS_LOG_TYPE_INFO);
+                                    v163 = v157;
+                                    v164 = os_log_type_enabled(v157, OS_LOG_TYPE_INFO);
 
-                                    v18 = innerCopy;
-                                    if (v237)
+                                    v13 = innerCopy;
+                                    if (v164)
                                     {
 LABEL_221:
-                                      v238 = _NRCopyLogObjectForNRUUID(*v1075);
-                                      v1054 = *(v135 + 80);
-                                      _NRLogWithArgs(v238, 1, "%s%.30s:%-4d %s: invoking send callback w/ written %u", v239, v240, v241, v242, v243, "");
+                                      v165 = _NRCopyLogObjectForNRUUID(*v628);
+                                      _NRLogWithArgs(v165, 1, "%s%.30s:%-4d %s: invoking send callback w/ written %u", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2075, v621, *(v88 + 80));
 
-                                      v18 = innerCopy;
+                                      v13 = innerCopy;
                                     }
 
 LABEL_170:
-                                    v202 = (*(*v1080 + 8))(**v1080, *v135, *(v135 + 80), &v1096, 0, 0);
-                                    if (*(v127 + 3640) == 1)
+                                    v140 = (*(*v633 + 8))(**v633, *v88, *(v88 + 80), &v649, 0, 0);
+                                    if (*(v80 + 3640) == 1)
                                     {
-                                      v226 = _NRCopyLogObjectForNRUUID(*v1075);
+                                      v158 = _NRCopyLogObjectForNRUUID(*v628);
                                       if (sNRCopyLogToStdErr == 1)
                                       {
                                       }
 
                                       else
                                       {
-                                        v244 = v226;
-                                        LODWORD(v1073) = os_log_type_enabled(v226, OS_LOG_TYPE_INFO);
+                                        v166 = v158;
+                                        LODWORD(v626) = os_log_type_enabled(v158, OS_LOG_TYPE_INFO);
 
-                                        v18 = innerCopy;
-                                        if (!v1073)
+                                        v13 = innerCopy;
+                                        if (!v626)
                                         {
                                           goto LABEL_171;
                                         }
                                       }
 
-                                      v245 = _NRCopyLogObjectForNRUUID(*v1075);
-                                      v1055 = *(v135 + 80);
-                                      _NRLogWithArgs(v245, 1, "%s%.30s:%-4d %s: canWriteMore: %d bufferHandled=%zu/%u", v246, v247, v248, v249, v250, "");
+                                      v167 = _NRCopyLogObjectForNRUUID(*v628);
+                                      _NRLogWithArgs(v167, 1, "%s%.30s:%-4d %s: canWriteMore: %d bufferHandled=%zu/%u", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2078, v621, v140, v649, *(v88 + 80));
 
-                                      v18 = innerCopy;
+                                      v13 = innerCopy;
                                     }
 
 LABEL_171:
-                                    if (v202)
+                                    if (v140)
                                     {
-                                      v203 = v145 | 0x800;
+                                      v141 = v98 | 0x800;
                                       goto LABEL_173;
                                     }
 
-                                    if (v1079)
+                                    if (v632)
                                     {
-                                      v1079(v18);
+                                      v632(v13);
                                     }
 
-                                    *(v135 + 84) |= 1u;
-                                    v204 = *(v135 + 83);
-                                    if (v204 > 1)
+                                    *(v88 + 84) |= 1u;
+                                    v142 = *(v88 + 83);
+                                    if (v142 > 1)
                                     {
-                                      if (v204 == 2)
+                                      if (v142 == 2)
                                       {
-                                        ++*(v18 + 168);
-                                        *(v18 + 144) = *(v18 + 144) & 0xFFFFFFFFFFFFFFFDLL | (2 * (*(v135 + 84) & 1));
-                                        v136 = v1081;
-                                        if (*(v127 + 3640) != 1)
+                                        ++*(v13 + 168);
+                                        *(v13 + 144) = *(v13 + 144) & 0xFFFFFFFFFFFFFFFDLL | (2 * (*(v88 + 84) & 1));
+                                        v89 = v634;
+                                        if (*(v80 + 3640) != 1)
                                         {
                                           goto LABEL_195;
                                         }
 
-                                        v211 = _NRCopyLogObjectForNRUUID(*v1075);
-                                        v212 = v211;
+                                        v149 = _NRCopyLogObjectForNRUUID(*v628);
+                                        v150 = v149;
                                         if (sNRCopyLogToStdErr == 1)
                                         {
 
-                                          v127 = 0x280D73000;
+                                          v80 = 0x280D73000;
                                         }
 
                                         else
                                         {
-                                          LODWORD(v1073) = os_log_type_enabled(v211, OS_LOG_TYPE_INFO);
+                                          LODWORD(v626) = os_log_type_enabled(v149, OS_LOG_TYPE_INFO);
 
-                                          v18 = innerCopy;
-                                          v127 = 0x280D73000;
-                                          v136 = v1081;
-                                          if (!v1073)
+                                          v13 = innerCopy;
+                                          v80 = 0x280D73000;
+                                          v89 = v634;
+                                          if (!v626)
                                           {
                                             goto LABEL_195;
                                           }
                                         }
 
-                                        v214 = _NRCopyLogObjectForNRUUID(*v1075);
-                                        *(v135 + 84);
-                                        _NRLogWithArgs(v214, 1, "%s%.30s:%-4d source-%s: High", v302, v303, v304, v305, v306, "");
+                                        v152 = _NRCopyLogObjectForNRUUID(*v628);
+                                        _NRLogWithArgs(v152, 1, "%s%.30s:%-4d source-%s: High");
                                       }
 
                                       else
                                       {
-                                        v136 = v1081;
-                                        if (v204 != 3)
+                                        v89 = v634;
+                                        if (v142 != 3)
                                         {
                                           goto LABEL_195;
                                         }
 
-                                        ++*(v18 + 184);
-                                        *(v18 + 144) = *(v18 + 144) & 0xFFFFFFFFFFFFFFFBLL | (4 * (*(v135 + 84) & 1));
-                                        if (*(v127 + 3640) != 1)
+                                        ++*(v13 + 184);
+                                        *(v13 + 144) = *(v13 + 144) & 0xFFFFFFFFFFFFFFFBLL | (4 * (*(v88 + 84) & 1));
+                                        if (*(v80 + 3640) != 1)
                                         {
                                           goto LABEL_195;
                                         }
 
-                                        v208 = _NRCopyLogObjectForNRUUID(*v1075);
-                                        v209 = v208;
+                                        v146 = _NRCopyLogObjectForNRUUID(*v628);
+                                        v147 = v146;
                                         if (sNRCopyLogToStdErr == 1)
                                         {
 
-                                          v127 = 0x280D73000;
+                                          v80 = 0x280D73000;
                                         }
 
                                         else
                                         {
-                                          LODWORD(v1073) = os_log_type_enabled(v208, OS_LOG_TYPE_INFO);
+                                          LODWORD(v626) = os_log_type_enabled(v146, OS_LOG_TYPE_INFO);
 
-                                          v18 = innerCopy;
-                                          v127 = 0x280D73000;
-                                          v136 = v1081;
-                                          if (!v1073)
+                                          v13 = innerCopy;
+                                          v80 = 0x280D73000;
+                                          v89 = v634;
+                                          if (!v626)
                                           {
                                             goto LABEL_195;
                                           }
                                         }
 
-                                        v214 = _NRCopyLogObjectForNRUUID(*v1075);
-                                        *(v135 + 84);
-                                        _NRLogWithArgs(v214, 1, "%s%.30s:%-4d source-%s: Isochronous", v297, v298, v299, v300, v301, "");
+                                        v152 = _NRCopyLogObjectForNRUUID(*v628);
+                                        _NRLogWithArgs(v152, 1, "%s%.30s:%-4d source-%s: Isochronous");
                                       }
 
 LABEL_194:
 
-                                      v18 = innerCopy;
-                                      v136 = v1081;
+                                      v13 = innerCopy;
+                                      v89 = v634;
                                       goto LABEL_195;
                                     }
 
-                                    if (!*(v135 + 83))
+                                    if (!*(v88 + 83))
                                     {
-                                      v210 = _NRCopyLogObjectForNRUUID(*v1075);
+                                      v148 = _NRCopyLogObjectForNRUUID(*v628);
                                       if (sNRCopyLogToStdErr == 1)
                                       {
                                       }
 
                                       else
                                       {
-                                        v213 = v210;
-                                        LODWORD(v1073) = os_log_type_enabled(v210, OS_LOG_TYPE_ERROR);
+                                        v151 = v148;
+                                        LODWORD(v626) = os_log_type_enabled(v148, OS_LOG_TYPE_ERROR);
 
-                                        v18 = innerCopy;
-                                        v136 = v1081;
-                                        if (!v1073)
+                                        v13 = innerCopy;
+                                        v89 = v634;
+                                        if (!v626)
                                         {
                                           goto LABEL_195;
                                         }
                                       }
 
-                                      v214 = _NRCopyLogObjectForNRUUID(*v1075);
-                                      _NRLogWithArgs(v214, 16, "%s%.30s:%-4d invalid link channel priority", v215, v216, v217, v218, v219, "");
+                                      v152 = _NRCopyLogObjectForNRUUID(*v628);
+                                      _NRLogWithArgs(v152, 16, "%s%.30s:%-4d invalid link channel priority");
                                       goto LABEL_194;
                                     }
 
-                                    v136 = v1081;
-                                    if (v204 == 1)
+                                    v89 = v634;
+                                    if (v142 == 1)
                                     {
-                                      v205 = *(v18 + 144);
-                                      ++*(v18 + 152);
-                                      *(v18 + 144) = v205 & 0xFFFFFFFFFFFFFFFELL | *(v135 + 84) & 1;
-                                      if (*(v127 + 3640) == 1)
+                                      v143 = *(v13 + 144);
+                                      ++*(v13 + 152);
+                                      *(v13 + 144) = v143 & 0xFFFFFFFFFFFFFFFELL | *(v88 + 84) & 1;
+                                      if (*(v80 + 3640) == 1)
                                       {
-                                        v206 = _NRCopyLogObjectForNRUUID(*v1075);
-                                        v207 = v206;
+                                        v144 = _NRCopyLogObjectForNRUUID(*v628);
+                                        v145 = v144;
                                         if (sNRCopyLogToStdErr == 1)
                                         {
 
-                                          v127 = 0x280D73000;
+                                          v80 = 0x280D73000;
                                           goto LABEL_244;
                                         }
 
-                                        LODWORD(v1073) = os_log_type_enabled(v206, OS_LOG_TYPE_INFO);
+                                        LODWORD(v626) = os_log_type_enabled(v144, OS_LOG_TYPE_INFO);
 
-                                        v18 = innerCopy;
-                                        v127 = 0x280D73000;
-                                        v136 = v1081;
-                                        if (v1073)
+                                        v13 = innerCopy;
+                                        v80 = 0x280D73000;
+                                        v89 = v634;
+                                        if (v626)
                                         {
 LABEL_244:
-                                          v214 = _NRCopyLogObjectForNRUUID(*v1075);
-                                          *(v135 + 84);
-                                          _NRLogWithArgs(v214, 1, "%s%.30s:%-4d source-%s: Medium", v292, v293, v294, v295, v296, "");
+                                          v152 = _NRCopyLogObjectForNRUUID(*v628);
+                                          _NRLogWithArgs(v152, 1, "%s%.30s:%-4d source-%s: Medium");
                                           goto LABEL_194;
                                         }
                                       }
                                     }
 
 LABEL_195:
-                                    v203 = v145 | 0x1800;
-                                    if (*(v127 + 3640) == 1)
+                                    v141 = v98 | 0x1800;
+                                    if (*(v80 + 3640) == 1)
                                     {
-                                      v235 = _NRCopyLogObjectForNRUUID(*v1075);
+                                      v162 = _NRCopyLogObjectForNRUUID(*v628);
                                       if (sNRCopyLogToStdErr == 1)
                                       {
 
                                         goto LABEL_233;
                                       }
 
-                                      v258 = v235;
-                                      v259 = os_log_type_enabled(v235, OS_LOG_TYPE_INFO);
+                                      v176 = v162;
+                                      v177 = os_log_type_enabled(v162, OS_LOG_TYPE_INFO);
 
-                                      if (v259)
+                                      if (v177)
                                       {
 LABEL_233:
-                                        v260 = _NRCopyLogObjectForNRUUID(*v1075);
-                                        _NRLogWithArgs(v260, 1, "%s%.30s:%-4d ", v261, v262, v263, v264, v265, "");
+                                        v178 = _NRCopyLogObjectForNRUUID(*v628);
+                                        _NRLogWithArgs(v178, 1, "%s%.30s:%-4d ", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2086);
                                       }
 
-                                      v18 = innerCopy;
-                                      v127 = 0x280D73000;
+                                      v13 = innerCopy;
+                                      v80 = 0x280D73000;
 LABEL_173:
-                                      v136 = v1081;
+                                      v89 = v634;
                                     }
 
-                                    if (!v1096)
+                                    if (!v649)
                                     {
                                       goto LABEL_203;
                                     }
 
-                                    v220 = *(v127 + 3640);
-                                    if (v1096 >= *(v135 + 80))
+                                    if (v649 >= *(v88 + 80))
                                     {
-                                      if (!*(v127 + 3640))
+                                      if (!*(v80 + 3640))
                                       {
 LABEL_201:
-                                        v203 |= 0x4000u;
-                                        *(v135 + 80) = 0;
-                                        v221 = v1096;
+                                        v141 |= 0x4000u;
+                                        *(v88 + 80) = 0;
+                                        v153 = v649;
                                         goto LABEL_202;
                                       }
 
-                                      v254 = _NRCopyLogObjectForNRUUID(*v1075);
-                                      v255 = v254;
+                                      v172 = _NRCopyLogObjectForNRUUID(*v628);
+                                      v173 = v172;
                                       if (sNRCopyLogToStdErr == 1)
                                       {
 
-                                        v127 = 0x280D73000;
+                                        v80 = 0x280D73000;
                                       }
 
                                       else
                                       {
-                                        LODWORD(v1073) = os_log_type_enabled(v254, OS_LOG_TYPE_INFO);
+                                        LODWORD(v626) = os_log_type_enabled(v172, OS_LOG_TYPE_INFO);
 
-                                        v18 = innerCopy;
-                                        v127 = 0x280D73000;
-                                        v136 = v1081;
-                                        if (!v1073)
+                                        v13 = innerCopy;
+                                        v80 = 0x280D73000;
+                                        v89 = v634;
+                                        if (!v626)
                                         {
                                           goto LABEL_201;
                                         }
                                       }
 
-                                      v279 = _NRCopyLogObjectForNRUUID(*v1075);
-                                      v1057 = *(v135 + 80);
-                                      _NRLogWithArgs(v279, 1, "%s%.30s:%-4d %s: not memmoving filledIn=%u, bufferHandled=%zu", v280, v281, v282, v283, v284, "");
+                                      v182 = _NRCopyLogObjectForNRUUID(*v628);
+                                      _NRLogWithArgs(v182, 1, "%s%.30s:%-4d %s: not memmoving filledIn=%u, bufferHandled=%zu", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2099, v621, *(v88 + 80), v649);
 
-                                      v136 = v1081;
-                                      v18 = innerCopy;
+                                      v89 = v634;
+                                      v13 = innerCopy;
                                       goto LABEL_201;
                                     }
 
-                                    if (!*(v127 + 3640))
+                                    if (!*(v80 + 3640))
                                     {
                                       goto LABEL_199;
                                     }
 
-                                    v252 = _NRCopyLogObjectForNRUUID(*v1075);
-                                    v253 = v252;
+                                    v170 = _NRCopyLogObjectForNRUUID(*v628);
+                                    v171 = v170;
                                     if (sNRCopyLogToStdErr == 1)
                                     {
 
-                                      v127 = 0x280D73000;
+                                      v80 = 0x280D73000;
                                       goto LABEL_238;
                                     }
 
-                                    LODWORD(v1073) = os_log_type_enabled(v252, OS_LOG_TYPE_INFO);
+                                    LODWORD(v626) = os_log_type_enabled(v170, OS_LOG_TYPE_INFO);
 
-                                    v18 = innerCopy;
-                                    v127 = 0x280D73000;
-                                    if (v1073)
+                                    v13 = innerCopy;
+                                    v80 = 0x280D73000;
+                                    if (v626)
                                     {
 LABEL_238:
-                                      v273 = _NRCopyLogObjectForNRUUID(*v1075);
-                                      v1056 = *(v135 + 80);
-                                      _NRLogWithArgs(v273, 1, "%s%.30s:%-4d %s: memmoving filledIn=%u, bufferHandled=%zu", v274, v275, v276, v277, v278, "");
+                                      v181 = _NRCopyLogObjectForNRUUID(*v628);
+                                      _NRLogWithArgs(v181, 1, "%s%.30s:%-4d %s: memmoving filledIn=%u, bufferHandled=%zu", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2092, v621, *(v88 + 80), v649);
 
-                                      v18 = innerCopy;
+                                      v13 = innerCopy;
                                     }
 
 LABEL_199:
-                                    v203 |= 0x2000u;
-                                    memmove(*v135, (*v135 + v1096), *(v135 + 80) - v1096);
-                                    v221 = v1096;
-                                    *(v135 + 80) -= v1096;
-                                    v1078 = (v1078 + 1);
-                                    v136 = v1081;
+                                    v141 |= 0x2000u;
+                                    memmove(*v88, (*v88 + v649), *(v88 + 80) - v649);
+                                    v153 = v649;
+                                    *(v88 + 80) -= v649;
+                                    v631 = (v631 + 1);
+                                    v89 = v634;
 LABEL_202:
-                                    *&v1077[v18] += v221;
+                                    *&v630[v13] += v153;
 LABEL_203:
-                                    LODWORD(v1085) = v1085 + 1;
-                                    if ((v202 & 1) == 0)
+                                    LODWORD(v638) = v638 + 1;
+                                    if ((v140 & 1) == 0)
                                     {
                                       goto LABEL_256;
                                     }
 
-                                    v222 = *(v135 + 82);
-                                    if (v222 >= 0xB)
+                                    v154 = *(v88 + 82);
+                                    if (v154 >= 0xB)
                                     {
-                                      v222 -= 11 * ((((117 * v222) >> 8) + (((v222 - ((117 * v222) >> 8)) & 0xFE) >> 1)) >> 3);
+                                      v154 -= 11 * ((((117 * v154) >> 8) + (((v154 - ((117 * v154) >> 8)) & 0xFE) >> 1)) >> 3);
                                     }
 
-                                    v144 = 0;
-                                    *(v1088 + 4 * v222) = v203;
-                                    if (v222 < 0xAu)
+                                    v97 = 0;
+                                    *(v641 + 4 * v154) = v141;
+                                    if (v154 < 0xAu)
                                     {
-                                      v223 = v222 + 1;
+                                      v155 = v154 + 1;
                                     }
 
                                     else
                                     {
-                                      v223 = v222 - 10;
+                                      v155 = v154 - 10;
                                     }
 
-                                    *(v135 + 82) = v223;
+                                    *(v88 + 82) = v155;
                                     p_inst_meths = (&OBJC_PROTOCOL___NSCopying + 24);
                                   }
                                 }
                               }
 
-                              v744 = _NRCopyLogObjectForNRUUID(*v1075);
-                              _NRLogWithArgs(v744, 1, "%s%.30s:%-4d %s: starting NtL outer loop", v745, v746, v747, v748, v749, "");
+                              v492 = _NRCopyLogObjectForNRUUID(*v628);
+                              _NRLogWithArgs(v492, 1, "%s%.30s:%-4d %s: starting NtL outer loop", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1938, v621);
 
-                              v136 = v1081;
-                              v18 = innerCopy;
+                              v89 = v634;
+                              v13 = innerCopy;
                               goto LABEL_105;
                             }
 
-                            if (*(v127 + 3640) != 1)
+                            if (*(v80 + 3640) != 1)
                             {
 LABEL_250:
-                              if (v1079)
+                              if (v632)
                               {
-                                v1079(v18);
+                                v632(v13);
                               }
 
-                              v307 = *(v135 + 82);
-                              if (v307 >= 0xB)
+                              v185 = *(v88 + 82);
+                              if (v185 >= 0xB)
                               {
-                                v307 -= 11 * ((((117 * v307) >> 8) + (((v307 - ((117 * v307) >> 8)) & 0xFE) >> 1)) >> 3);
+                                v185 -= 11 * ((((117 * v185) >> 8) + (((v185 - ((117 * v185) >> 8)) & 0xFE) >> 1)) >> 3);
                               }
 
-                              v308 = v307;
-                              *(v135 + 4 * v307 + 36) = 3;
+                              v186 = v185;
+                              *(v88 + 4 * v185 + 36) = 3;
                               goto LABEL_271;
                             }
 
-                            v735 = _NRCopyLogObjectForNRUUID(*v4);
-                            v736 = v735;
+                            v482 = v83;
+                            v483 = _NRCopyLogObjectForNRUUID(*v4);
+                            v484 = v483;
                             if (*(p_inst_meths + 556) == 1)
                             {
                             }
 
                             else
                             {
-                              LODWORD(v1090) = os_log_type_enabled(v735, OS_LOG_TYPE_INFO);
+                              LODWORD(v643) = os_log_type_enabled(v483, OS_LOG_TYPE_INFO);
 
-                              v18 = innerCopy;
-                              if (!v1090)
+                              v13 = innerCopy;
+                              if (!v643)
                               {
                                 goto LABEL_250;
                               }
                             }
 
-                            v750 = _NRCopyLogObjectForNRUUID(*v4);
-                            _NRLogWithArgs(v750, 1, "%s%.30s:%-4d %s: ignoring NtL fast-path for %u, as waiting for link output available", v751, v752, v753, v754, v755, "");
+                            v493 = _NRCopyLogObjectForNRUUID(*v4);
+                            _NRLogWithArgs(v493, 1, "%s%.30s:%-4d %s: ignoring NtL fast-path for %u, as waiting for link output available", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1903, v482, v78);
 
-                            v18 = innerCopy;
+                            v13 = innerCopy;
                             goto LABEL_250;
                           }
 
-                          v693 = v130;
-                          if (*(v127 + 3640) != 1)
+                          v460 = v83;
+                          if (*(v80 + 3640) != 1)
                           {
-                            goto LABEL_697;
+                            goto LABEL_698;
                           }
 
-                          v991 = _NRCopyLogObjectForNRUUID(*v4);
-                          v992 = v991;
+                          v595 = _NRCopyLogObjectForNRUUID(*v4);
+                          v596 = v595;
                           if (sNRCopyLogToStdErr == 1)
                           {
                           }
 
                           else
                           {
-                            v1014 = os_log_type_enabled(v991, OS_LOG_TYPE_INFO);
+                            v603 = os_log_type_enabled(v595, OS_LOG_TYPE_INFO);
 
-                            if (!v1014)
+                            if (!v603)
                             {
-                              goto LABEL_697;
+                              goto LABEL_698;
                             }
                           }
 
-                          v1015 = _NRCopyLogObjectForNRUUID(*v4);
-                          _NRLogWithArgs(v1015, 1, "%s%.30s:%-4d ", v1016, v1017, v1018, v1019, v1020, "");
+                          v604 = _NRCopyLogObjectForNRUUID(*v4);
+                          _NRLogWithArgs(v604, 1, "%s%.30s:%-4d ", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1923);
 
-LABEL_697:
-                          v694 = _NRCopyLogObjectForNRUUID(*v4);
-                          v695 = v694;
+LABEL_698:
+                          v461 = _NRCopyLogObjectForNRUUID(*v4);
+                          v462 = v461;
                           if (sNRCopyLogToStdErr == 1)
                           {
                           }
 
                           else
                           {
-                            v715 = os_log_type_enabled(v694, OS_LOG_TYPE_FAULT);
+                            v472 = os_log_type_enabled(v461, OS_LOG_TYPE_FAULT);
 
-                            v18 = innerCopy;
-                            if (!v715)
+                            v13 = innerCopy;
+                            if (!v472)
                             {
                               goto LABEL_275;
                             }
                           }
 
-                          v716 = _NRCopyLogObjectForNRUUID(*v4);
-                          _NRLogWithArgs(v716, 17, "%s: Invalid write context for nexus priority: %u", v717, v718, v719, v720, v721, v693);
+                          v473 = _NRCopyLogObjectForNRUUID(*v4);
+                          _NRLogWithArgs(v473, 17, "%s: Invalid write context for nexus priority: %u", v460, v78);
 
-                          v18 = innerCopy;
+                          v13 = innerCopy;
 LABEL_275:
 
-                          v74 = v1083;
+                          v50 = v636;
                           goto LABEL_276;
                         }
 
                         goto LABEL_89;
                       }
 
-                      v696 = nrCopyLogObj_560();
-                      v697 = v696;
+                      v463 = nrCopyLogObj_560();
+                      v464 = v463;
                       if (sNRCopyLogToStdErr == 1)
                       {
                       }
 
                       else
                       {
-                        v722 = os_log_type_enabled(v696, OS_LOG_TYPE_ERROR);
+                        v474 = os_log_type_enabled(v463, OS_LOG_TYPE_ERROR);
 
-                        if (!v722)
+                        if (!v474)
                         {
-LABEL_710:
-                          v729 = _os_log_pack_size();
-                          MEMORY[0x28223BE20](v729, v730);
-                          v731 = *__error();
-                          v732 = _os_log_pack_fill();
-                          *v732 = 136446466;
-                          *(v732 + 4) = "[NRBluetoothPacketParser sendXPCCommDictionaryInner:]";
-                          *(v732 + 12) = 2048;
-                          *(v732 + 14) = v77;
-                          goto LABEL_447;
+LABEL_711:
+                          v476 = _os_log_pack_size();
+                          v329 = &v621 - ((MEMORY[0x28223BE20](v476, v477) + 15) & 0xFFFFFFFFFFFFFFF0);
+                          v478 = __error();
+                          v479 = _os_log_pack_fill(v329, v476, *v478, &dword_25B98C000, "%{public}s strict_reallocf(%zu) failed");
+                          *v479 = 136446466;
+                          *(v479 + 4) = "[NRBluetoothPacketParser sendXPCCommDictionaryInner:]";
+                          *(v479 + 12) = 2048;
+                          *(v479 + 14) = v53;
+                          goto LABEL_448;
                         }
                       }
 
-                      v723 = nrCopyLogObj_560();
-                      _NRLogWithArgs(v723, 16, "%s%.30s:%-4d ABORTING: strict_reallocf(%zu) failed", v724, v725, v726, v727, v728, "");
+                      v475 = nrCopyLogObj_560();
+                      _NRLogWithArgs(v475, 16, "%s%.30s:%-4d ABORTING: strict_reallocf(%zu) failed", ", "[NRBluetoothPacketParser sendXPCCommDictionaryInner:]"", 707, v53);
 
-                      goto LABEL_710;
+                      goto LABEL_711;
                     }
 
-                    v689 = nrCopyLogObj_560();
-                    v690 = v689;
+                    v456 = nrCopyLogObj_560();
+                    v457 = v456;
                     if (sNRCopyLogToStdErr == 1)
                     {
                     }
 
                     else
                     {
-                      v698 = os_log_type_enabled(v689, OS_LOG_TYPE_ERROR);
+                      v465 = os_log_type_enabled(v456, OS_LOG_TYPE_ERROR);
 
-                      if (!v698)
+                      if (!v465)
                       {
-LABEL_703:
-                        v705 = _os_log_pack_size();
-                        MEMORY[0x28223BE20](v705, v706);
-                        v707 = *__error();
-                        v680 = _os_log_pack_fill();
-                        *v680 = 136446210;
-                        v681 = "[NRBluetoothPacketParser sendXPCCommDictionaryInner:]";
-                        goto LABEL_689;
+LABEL_704:
+                        v467 = _os_log_pack_size();
+                        v329 = &v621 - ((MEMORY[0x28223BE20](v467, v468) + 15) & 0xFFFFFFFFFFFFFFF0);
+                        v469 = __error();
+                        v451 = _os_log_pack_fill(v329, v467, *v469, &dword_25B98C000, "%{public}s strict_reallocf called with size 0");
+                        *v451 = 136446210;
+                        v452 = "[NRBluetoothPacketParser sendXPCCommDictionaryInner:]";
+                        goto LABEL_690;
                       }
                     }
 
-                    v699 = nrCopyLogObj_560();
-                    _NRLogWithArgs(v699, 16, "%s%.30s:%-4d ABORTING: strict_reallocf called with size 0", v700, v701, v702, v703, v704, "");
+                    v466 = nrCopyLogObj_560();
+                    _NRLogWithArgs(v466, 16, "%s%.30s:%-4d ABORTING: strict_reallocf called with size 0", ", "[NRBluetoothPacketParser sendXPCCommDictionaryInner:]"", 707);
 
-                    goto LABEL_703;
+                    goto LABEL_704;
                   }
 
                   if (sNRCopyLogToStdErr)
@@ -4144,10 +4530,10 @@ LABEL_703:
 
                   else
                   {
-                    v89 = v62;
-                    v90 = os_log_type_enabled(v62, OS_LOG_TYPE_ERROR);
+                    v60 = v43;
+                    v61 = os_log_type_enabled(v43, OS_LOG_TYPE_ERROR);
 
-                    if (!v90)
+                    if (!v61)
                     {
 LABEL_60:
 
@@ -4156,40 +4542,38 @@ LABEL_76:
                     }
                   }
 
-                  v91 = _NRCopyLogObjectForNRUUID(*v4);
-                  _NRLogWithArgs(v91, 16, "%s%.30s:%-4d Invalid link-write context ptr for prio %@", v92, v93, v94, v95, v96, "");
+                  v62 = _NRCopyLogObjectForNRUUID(*v4);
+                  _NRLogWithArgs(v62, 16, "%s%.30s:%-4d Invalid link-write context ptr for prio %@", ", "[NRBluetoothPacketParser sendXPCCommDictionaryInner:]"", 701, v33);
 LABEL_59:
 
                   goto LABEL_60;
                 }
               }
 
-              v55 = _NRCopyLogObjectForNRUUID(*v4);
-              v1066 = *(v48 + 104);
-              _NRLogWithArgs(v55, 1, "%s%.30s:%-4d Write context: %p", v56, v57, v58, v59, v60, "");
+              v41 = _NRCopyLogObjectForNRUUID(*v4);
+              _NRLogWithArgs(v41, 1, "%s%.30s:%-4d Write context: %p", ", "[NRBluetoothPacketParser sendXPCCommDictionaryInner:]"", 697, *(v34 + 104));
 
               goto LABEL_39;
             }
 
-            v52 = _NRCopyLogObjectForNRUUID(*v4);
+            v38 = _NRCopyLogObjectForNRUUID(*v4);
             if (sNRCopyLogToStdErr == 1)
             {
 
-              v22 = v1083;
+              v17 = v636;
 LABEL_54:
-              v82 = _NRCopyLogObjectForNRUUID(*v4);
-              v1067 = off_27996AFD8[(v1090 - 1)];
-              _NRLogWithArgs(v82, 16, "%s%.30s:%-4d Invalid link-read context ptr for prio %@", v83, v84, v85, v86, v87, "");
+              v58 = _NRCopyLogObjectForNRUUID(*v4);
+              _NRLogWithArgs(v58, 16, "%s%.30s:%-4d Invalid link-read context ptr for prio %@", ", "[NRBluetoothPacketParser sendXPCCommDictionaryInner:]"", 675, off_27996AFD8[(v643 - 1)]);
 LABEL_74:
 
               goto LABEL_75;
             }
 
-            v80 = v52;
-            v81 = os_log_type_enabled(v52, OS_LOG_TYPE_ERROR);
+            v56 = v38;
+            v57 = os_log_type_enabled(v38, OS_LOG_TYPE_ERROR);
 
-            v22 = v1083;
-            if (v81)
+            v17 = v636;
+            if (v57)
             {
               goto LABEL_54;
             }
@@ -4200,888 +4584,1019 @@ LABEL_75:
           }
         }
 
-        v38 = _NRCopyLogObjectForNRUUID(*v4);
-        _NRLogWithArgs(v38, 1, "%s%.30s:%-4d Link Read context: %p", v39, v40, v41, v42, v43, "");
+        v29 = _NRCopyLogObjectForNRUUID(*v4);
+        _NRLogWithArgs(v29, 1, "%s%.30s:%-4d Link Read context: %p", ", "[NRBluetoothPacketParser sendXPCCommDictionaryInner:]"", 673, v25);
 
         goto LABEL_28;
       }
 
-      v22 = v1083;
+      v17 = v636;
 LABEL_70:
-      v118 = _NRCopyLogObjectForNRUUID(*v4);
+      v74 = _NRCopyLogObjectForNRUUID(*v4);
       if (sNRCopyLogToStdErr == 1)
       {
       }
 
       else
       {
-        v119 = v118;
-        v120 = os_log_type_enabled(v118, OS_LOG_TYPE_ERROR);
+        v75 = v74;
+        v76 = os_log_type_enabled(v74, OS_LOG_TYPE_ERROR);
 
-        if (!v120)
+        if (!v76)
         {
           goto LABEL_75;
         }
       }
 
-      v82 = _NRCopyLogObjectForNRUUID(*v4);
-      v1053 = createStringFromNRLinkChannelPriority(v1090);
-      _NRLogWithArgs(v82, 16, "%s%.30s:%-4d Invalid read context %sptr for prio %@", v121, v122, v123, v124, v125, "");
+      v58 = _NRCopyLogObjectForNRUUID(*v4);
+      v77 = createStringFromNRLinkChannelPriority(v643);
+      _NRLogWithArgs(v58, 16, "%s%.30s:%-4d Invalid read context %sptr for prio %@", ", "[NRBluetoothPacketParser sendXPCCommDictionaryInner:]"", 667, v20, v77);
 
       goto LABEL_74;
     }
 
-    if ([v23 integerValue] == 1)
+    if ([v18 integerValue] == 1)
     {
-      LODWORD(v1090) = 1;
-      v24 = 96;
+      LODWORD(v643) = 1;
+      v19 = 96;
       goto LABEL_18;
     }
 
-    integerValue = [v23 integerValue];
+    integerValue = [v18 integerValue];
 
     if (integerValue == 3)
     {
-      LODWORD(v1090) = 3;
-      v24 = 128;
-      v18 = innerCopy;
+      LODWORD(v643) = 3;
+      v19 = 128;
+      v13 = innerCopy;
       goto LABEL_19;
     }
 
-    v88 = _NRCopyLogObjectForNRUUID(*v4);
+    v59 = _NRCopyLogObjectForNRUUID(*v4);
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v110 = v88;
-      v111 = os_log_type_enabled(v88, OS_LOG_TYPE_FAULT);
+      v71 = v59;
+      v72 = os_log_type_enabled(v59, OS_LOG_TYPE_FAULT);
 
-      if (!v111)
+      if (!v72)
       {
 LABEL_69:
-        LODWORD(v1090) = 0;
+        LODWORD(v643) = 0;
+        v20 = "";
         goto LABEL_70;
       }
     }
 
-    v112 = _NRCopyLogObjectForNRUUID(*v4);
-    _NRLogWithArgs(v112, 17, "Invalid priority %d", v113, v114, v115, v116, v117, 0);
+    v73 = _NRCopyLogObjectForNRUUID(*v4);
+    _NRLogWithArgs(v73, 17, "Invalid priority %d", 0);
 
     goto LABEL_69;
   }
 
 LABEL_277:
-  v311 = [v3 objectForKeyedSubscript:{@"source-address-bytes", v1068}];
+  v190 = [v3 objectForKeyedSubscript:{@"source-address-bytes", v621}];
 
-  if (v311)
+  if (v190)
   {
-    v312 = [v3 objectForKeyedSubscript:@"source-address-bytes"];
-    if ([v312 length] != 16)
+    v191 = [v3 objectForKeyedSubscript:@"source-address-bytes"];
+    if ([v191 length] != 16)
     {
-      v1058 = [v312 length];
-      [(NRBluetoothPacketParser *)v18 handleInternalError:v325, v326, v327, v328, v329, v330, v1058];
+      v619 = [v191 length];
+      [(NRBluetoothPacketParser *)v13 handleInternalError:v204, v205, v206, v207, v208, v209, v619];
 LABEL_306:
 
       goto LABEL_307;
     }
 
-    [v312 getBytes:v18 + 688 length:{objc_msgSend(v312, "length")}];
+    [v191 getBytes:v13 + 688 length:{objc_msgSend(v191, "length")}];
   }
 
-  v313 = [v3 objectForKeyedSubscript:@"destination-address-bytes"];
+  v192 = [v3 objectForKeyedSubscript:@"destination-address-bytes"];
 
-  if (!v313)
+  if (!v192)
   {
     goto LABEL_283;
   }
 
-  v312 = [v3 objectForKeyedSubscript:@"destination-address-bytes"];
-  if ([v312 length] != 16)
+  v191 = [v3 objectForKeyedSubscript:@"destination-address-bytes"];
+  if ([v191 length] != 16)
   {
-    v1059 = [v312 length];
-    [(NRBluetoothPacketParser *)v18 handleInternalError:v354, v355, v356, v357, v358, v359, v1059];
+    v620 = [v191 length];
+    [(NRBluetoothPacketParser *)v13 handleInternalError:v233, v234, v235, v236, v237, v238, v620];
     goto LABEL_306;
   }
 
-  [v312 getBytes:v18 + 704 length:{objc_msgSend(v312, "length")}];
+  [v191 getBytes:v13 + 704 length:{objc_msgSend(v191, "length")}];
 
 LABEL_283:
-  v314 = [v3 objectForKeyedSubscript:@"nexus-instances"];
+  v193 = [v3 objectForKeyedSubscript:@"nexus-instances"];
 
-  if (!v314)
+  if (!v193)
   {
     goto LABEL_337;
   }
 
-  if (*(v18 + 13) == 1)
+  if (*(v13 + 13) == 1)
   {
-    [(NRBluetoothPacketParser *)v18 changeStateTo:?];
+    [(NRBluetoothPacketParser *)v13 changeStateTo:?];
   }
 
-  v315 = [v3 objectForKeyedSubscript:@"ip-header-offset"];
+  v194 = [v3 objectForKeyedSubscript:@"ip-header-offset"];
 
-  if (v315)
+  if (v194)
   {
-    v316 = [v3 objectForKeyedSubscript:@"ip-header-offset"];
-    if (v316)
+    v195 = [v3 objectForKeyedSubscript:@"ip-header-offset"];
+    if (v195)
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        *(v18 + 28) = [v316 unsignedShortValue];
+        *(v13 + 28) = [v195 unsignedShortValue];
       }
     }
   }
 
-  v317 = [v3 objectForKeyedSubscript:@"nexus-instances"];
-  v318 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v1092 = 0u;
-  v1093 = 0u;
-  v1094 = 0u;
-  v1095 = 0u;
-  v319 = v317;
-  v320 = [v319 countByEnumeratingWithState:&v1092 objects:v1102 count:16];
-  if (v320)
+  v196 = [v3 objectForKeyedSubscript:@"nexus-instances"];
+  v197 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v645 = 0u;
+  v646 = 0u;
+  v647 = 0u;
+  v648 = 0u;
+  v198 = v196;
+  v199 = [v198 countByEnumeratingWithState:&v645 objects:v655 count:16];
+  if (v199)
   {
-    v321 = v320;
-    v322 = *v1093;
+    v200 = v199;
+    v201 = *v646;
     do
     {
-      for (i = 0; i != v321; ++i)
+      for (i = 0; i != v200; ++i)
       {
-        if (*v1093 != v322)
+        if (*v646 != v201)
         {
-          objc_enumerationMutation(v319);
+          objc_enumerationMutation(v198);
         }
 
-        v324 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:*(*(&v1092 + 1) + 8 * i)];
-        [v318 addObject:v324];
+        v203 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:*(*(&v645 + 1) + 8 * i)];
+        [v197 addObject:v203];
       }
 
-      v321 = [v319 countByEnumeratingWithState:&v1092 objects:v1102 count:16];
+      v200 = [v198 countByEnumeratingWithState:&v645 objects:v655 count:16];
     }
 
-    while (v321);
+    while (v200);
   }
 
-  v331 = v318;
-  v338 = v331;
-  v339 = innerCopy;
+  v210 = v197;
+  v217 = v210;
+  v218 = innerCopy;
   if (*(innerCopy + 13) != 4 && (*(innerCopy + 16) & 1) == 0)
   {
-    if (v331)
+    if (v210)
     {
-      v340 = [v331 count];
-      if (v340 == 1)
+      v219 = [v210 count];
+      if (v219 == 1)
       {
-        v366 = innerCopy;
-        v367 = *(innerCopy + 11);
-        firstObject = [v338 firstObject];
-        if (v367)
+        v244 = innerCopy;
+        v245 = *(innerCopy + 11);
+        firstObject = [v217 firstObject];
+        if (v245)
         {
-          v353 = 100;
+          v232 = 100;
         }
 
         else
         {
-          v353 = 102;
+          v232 = 102;
         }
 
-        v352 = v366;
+        v231 = v244;
 LABEL_326:
-        [(NRBluetoothPacketParser *)v352 setupNexusChannelForPriority:v353 channelUUID:firstObject];
+        [(NRBluetoothPacketParser *)v231 setupNexusChannelForPriority:v232 channelUUID:firstObject];
 
-        v368 = _NRCopyLogObjectForNRUUID(*v4);
+        v246 = _NRCopyLogObjectForNRUUID(*v4);
         if (sNRCopyLogToStdErr == 1)
         {
         }
 
         else
         {
-          v369 = v368;
-          v370 = os_log_type_enabled(v368, OS_LOG_TYPE_DEFAULT);
+          v247 = v246;
+          v248 = os_log_type_enabled(v246, OS_LOG_TYPE_DEFAULT);
 
-          if (!v370)
+          if (!v248)
           {
             goto LABEL_330;
           }
         }
 
-        v371 = _NRCopyLogObjectForNRUUID(*v4);
-        _NRLogWithArgs(v371, 0, "%s%.30s:%-4d Setup nexus channels: %@", v372, v373, v374, v375, v376, "");
+        v249 = _NRCopyLogObjectForNRUUID(*v4);
+        _NRLogWithArgs(v249, 0, "%s%.30s:%-4d Setup nexus channels: %@", ", "[NRBluetoothPacketParser setupNexusChannels:]"", 1146, v217);
 
 LABEL_330:
-        v339 = innerCopy;
+        v218 = innerCopy;
         *(innerCopy + 16) = 1;
-        objc_storeStrong((v339 + 72), v318);
-        if (*(v339 + 13) != 3 && ([*(v339 + 72) count] || *(v339 + 12) == 1) && *(v339 + 15))
+        objc_storeStrong((v218 + 72), v197);
+        if (*(v218 + 13) != 3 && ([*(v218 + 72) count] || *(v218 + 12) == 1) && *(v218 + 15))
         {
-          [(NRBluetoothPacketParser *)v339 changeStateTo:?];
+          [(NRBluetoothPacketParser *)v218 changeStateTo:?];
         }
 
         goto LABEL_336;
       }
 
-      if (v340 == 4)
+      if (v219 == 4)
       {
-        v347 = [v338 objectAtIndexedSubscript:0];
-        v348 = innerCopy;
-        [(NRBluetoothPacketParser *)innerCopy setupNexusChannelForPriority:v347 channelUUID:?];
+        v226 = [v217 objectAtIndexedSubscript:0];
+        v227 = innerCopy;
+        [(NRBluetoothPacketParser *)innerCopy setupNexusChannelForPriority:v226 channelUUID:?];
 
-        v349 = [v338 objectAtIndexedSubscript:1];
-        [(NRBluetoothPacketParser *)v348 setupNexusChannelForPriority:v349 channelUUID:?];
+        v228 = [v217 objectAtIndexedSubscript:1];
+        [(NRBluetoothPacketParser *)v227 setupNexusChannelForPriority:v228 channelUUID:?];
 
-        v350 = [v338 objectAtIndexedSubscript:2];
-        [(NRBluetoothPacketParser *)v348 setupNexusChannelForPriority:v350 channelUUID:?];
+        v229 = [v217 objectAtIndexedSubscript:2];
+        [(NRBluetoothPacketParser *)v227 setupNexusChannelForPriority:v229 channelUUID:?];
 
-        firstObject = [v338 objectAtIndexedSubscript:3];
-        v352 = v348;
-        v353 = 103;
+        firstObject = [v217 objectAtIndexedSubscript:3];
+        v231 = v227;
+        v232 = 103;
         goto LABEL_326;
       }
 
-      v339 = innerCopy;
-      [(NRBluetoothPacketParser *)innerCopy handleInternalError:v341, v342, v343, v344, v345, v346, v340];
+      v218 = innerCopy;
+      [(NRBluetoothPacketParser *)innerCopy handleInternalError:v220, v221, v222, v223, v224, v225, v219];
     }
 
     else
     {
-      v339 = innerCopy;
-      [(NRBluetoothPacketParser *)innerCopy handleInternalError:v332, v333, v334, v335, v336, v337, v1068];
+      v218 = innerCopy;
+      [(NRBluetoothPacketParser *)innerCopy handleInternalError:v211, v212, v213, v214, v215, v216, v621];
     }
   }
 
 LABEL_336:
 
-  v18 = v339;
+  v13 = v218;
   p_inst_meths = &OBJC_PROTOCOL___NSCopying.inst_meths;
 LABEL_337:
-  v377 = [v3 objectForKeyedSubscript:@"activate-datapath"];
+  v250 = [v3 objectForKeyedSubscript:@"activate-datapath"];
 
-  if (!v377)
+  if (!v250)
   {
     goto LABEL_351;
   }
 
-  v312 = [v3 objectForKeyedSubscript:@"activate-datapath"];
-  v378 = [v312 objectForKeyedSubscript:@"activate-datapath-offset"];
-  v379 = [v312 objectForKeyedSubscript:@"channel-id"];
-  if ([v379 integerValue] == 2)
+  v191 = [v3 objectForKeyedSubscript:@"activate-datapath"];
+  v251 = [v191 objectForKeyedSubscript:@"activate-datapath-offset"];
+  v252 = [v191 objectForKeyedSubscript:@"channel-id"];
+  if ([v252 integerValue] == 2)
   {
 
-    v380 = 4;
-    v381 = 2;
+    v253 = 4;
+    v254 = 2;
   }
 
-  else if ([v379 integerValue] == 1)
+  else if ([v252 integerValue] == 1)
   {
 
-    v380 = 2;
-    v381 = 1;
+    v253 = 2;
+    v254 = 1;
   }
 
   else
   {
-    integerValue2 = [v379 integerValue];
+    integerValue2 = [v252 integerValue];
 
-    v383 = integerValue2 == 3;
-    v18 = innerCopy;
-    v384 = v383;
-    if (v383)
+    v256 = integerValue2 == 3;
+    v13 = innerCopy;
+    v257 = v256;
+    if (v256)
     {
-      v381 = 3;
+      v254 = 3;
     }
 
     else
     {
-      v381 = 0;
+      v254 = 0;
     }
 
-    v380 = 8 * v384;
+    v253 = 8 * v257;
   }
 
-  v385 = *(v18 + 15);
-  if ((v385 & v380) == 0)
+  v258 = *(v13 + 15);
+  if ((v258 & v253) == 0)
   {
-    *(v18 + 15) = v385 | v380;
-    v1085 = v378;
-    if (v381 > 1)
+    *(v13 + 15) = v258 | v253;
+    v638 = v251;
+    if (v254 > 1)
     {
-      if (v381 == 3)
+      if (v254 == 3)
       {
-        v393 = 128;
+        v266 = 128;
       }
 
       else
       {
-        v393 = 112;
+        v266 = 112;
       }
     }
 
     else
     {
-      if (!v381)
+      if (!v254)
       {
-        v390 = _NRCopyLogObjectForNRUUID(*v4);
+        v263 = _NRCopyLogObjectForNRUUID(*v4);
         if (*(p_inst_meths + 556) == 1)
         {
         }
 
         else
         {
-          v419 = v390;
-          v420 = os_log_type_enabled(v390, OS_LOG_TYPE_FAULT);
+          v287 = v263;
+          v288 = os_log_type_enabled(v263, OS_LOG_TYPE_FAULT);
 
-          if (!v420)
+          if (!v288)
           {
 LABEL_387:
-            v427 = _NRCopyLogObjectForNRUUID(*v4);
+            v290 = "";
+LABEL_388:
+            v291 = _NRCopyLogObjectForNRUUID(*v4);
             if (*(p_inst_meths + 556) == 1)
             {
 
-LABEL_390:
-              v412 = _NRCopyLogObjectForNRUUID(*v4);
-              v413 = createStringFromNRLinkChannelPriority(v381);
-              _NRLogWithArgs(v412, 16, "%s%.30s:%-4d Invalid read context %sptr for prio %@", v430, v431, v432, v433, v434, "");
+LABEL_391:
+              v285 = _NRCopyLogObjectForNRUUID(*v4);
+              v286 = createStringFromNRLinkChannelPriority(v254);
+              _NRLogWithArgs(v285, 16, "%s%.30s:%-4d Invalid read context %sptr for prio %@", ", "[NRBluetoothPacketParser sendXPCCommDictionaryInner:]"", 769, v290, v286);
+              goto LABEL_392;
+            }
+
+            v292 = v291;
+            v293 = os_log_type_enabled(v291, OS_LOG_TYPE_ERROR);
+
+            if (v293)
+            {
               goto LABEL_391;
             }
 
-            v428 = v427;
-            v429 = os_log_type_enabled(v427, OS_LOG_TYPE_ERROR);
-
-            if (v429)
-            {
-              goto LABEL_390;
-            }
-
-LABEL_397:
+LABEL_398:
 
             goto LABEL_306;
           }
         }
 
-        v421 = _NRCopyLogObjectForNRUUID(*v4);
-        _NRLogWithArgs(v421, 17, "Invalid priority %d", v422, v423, v424, v425, v426, v381);
+        v289 = _NRCopyLogObjectForNRUUID(*v4);
+        _NRLogWithArgs(v289, 17, "Invalid priority %d", 0);
 
         goto LABEL_387;
       }
 
-      v393 = 96;
+      v266 = 96;
     }
 
-    v1082 = v379;
-    v394 = *(v18 + v393);
-    if (!v394)
+    v635 = v252;
+    v267 = *(v13 + v266);
+    if (!v267)
     {
-      v379 = v1082;
-      goto LABEL_387;
+      v290 = "*";
+      v252 = v635;
+      goto LABEL_388;
     }
 
-    v395 = *v394;
-    if (!*v394)
+    v268 = *v267;
+    if (!*v267)
     {
-      v409 = _NRCopyLogObjectForNRUUID(*v4);
+      v282 = _NRCopyLogObjectForNRUUID(*v4);
       if (*(p_inst_meths + 556) == 1)
       {
 
-        v379 = v1082;
+        v252 = v635;
       }
 
       else
       {
-        v410 = v409;
-        v411 = os_log_type_enabled(v409, OS_LOG_TYPE_ERROR);
+        v283 = v282;
+        v284 = os_log_type_enabled(v282, OS_LOG_TYPE_ERROR);
 
-        v379 = v1082;
-        if (!v411)
+        v252 = v635;
+        if (!v284)
         {
-          goto LABEL_397;
+          goto LABEL_398;
         }
       }
 
-      v412 = _NRCopyLogObjectForNRUUID(*v4);
-      v413 = createStringFromNRLinkChannelPriority(v381);
-      _NRLogWithArgs(v412, 16, "%s%.30s:%-4d Invalid link-read context ptr for prio %@", v414, v415, v416, v417, v418, "");
-LABEL_391:
+      v285 = _NRCopyLogObjectForNRUUID(*v4);
+      v286 = createStringFromNRLinkChannelPriority(v254);
+      _NRLogWithArgs(v285, 16, "%s%.30s:%-4d Invalid link-read context ptr for prio %@", ", "[NRBluetoothPacketParser sendXPCCommDictionaryInner:]"", 775, v286);
+LABEL_392:
 
-      goto LABEL_397;
+      goto LABEL_398;
     }
 
-    v1075 = v4;
-    *(v395 + 43) |= 3u;
-    v396 = *(v18 + v393);
-    v397 = *(v396 + 24);
-    if (v397)
+    v628 = v4;
+    *(v268 + 43) |= 3u;
+    v269 = *(v13 + v266);
+    v270 = *(v269 + 24);
+    if (v270)
     {
-      v397(*(v396 + 32));
+      v270(*(v269 + 32));
     }
 
-    unsignedIntValue = [v378 unsignedIntValue];
-    v405 = unsignedIntValue;
-    v406 = *(v395 + 24);
-    if (v406 <= unsignedIntValue)
+    unsignedIntValue = [v251 unsignedIntValue];
+    v278 = unsignedIntValue;
+    v279 = *(v268 + 24);
+    if (v279 <= unsignedIntValue)
     {
-      if (v406 != unsignedIntValue)
+      if (v279 != unsignedIntValue)
       {
-        [(NRBluetoothPacketParser *)v18 handleInternalError:v399, v400, v401, v402, v403, v404, *(v395 + 24)];
-LABEL_396:
-        v379 = v1082;
-        goto LABEL_397;
+        [(NRBluetoothPacketParser *)v13 handleInternalError:v272, v273, v274, v275, v276, v277, *(v268 + 24)];
+LABEL_397:
+        v252 = v635;
+        goto LABEL_398;
       }
 
-      *(v395 + 24) = 0;
-LABEL_405:
-      v379 = v1082;
-      [(NRBluetoothPacketParser *)v18 updateReadyStateIfApplicable];
-      if (*(v18 + 13) == 4)
+      *(v268 + 24) = 0;
+LABEL_406:
+      v252 = v635;
+      [(NRBluetoothPacketParser *)v13 updateReadyStateIfApplicable];
+      if (*(v13 + 13) == 4)
       {
         goto LABEL_350;
       }
 
-      dispatch_assert_queue_V2(*(v18 + 64));
-      v1080 = NRBluetoothPacketParserSuspendNexusVOInputSource;
-      v1076 = v312;
-      if (v381 == 1)
+      dispatch_assert_queue_V2(*(v13 + 64));
+      v633 = NRBluetoothPacketParserSuspendNexusVOInputSource;
+      v629 = v191;
+      if (v254 == 1)
       {
-        v453 = 0;
-        v457 = 0;
-        v1080 = NRBluetoothPacketParserSuspendNexusBEInputSource;
-        v1087 = 21;
-        v1086 = 480;
-        v454 = 344;
-        v455 = 280;
-        v456 = 232;
+        v306 = 0;
+        v310 = 0;
+        v633 = NRBluetoothPacketParserSuspendNexusBEInputSource;
+        v640 = 21;
+        v639 = 480;
+        v307 = 344;
+        v308 = 280;
+        v309 = 232;
       }
 
-      else if (v381 == 3)
+      else if (v254 == 3)
       {
-        v453 = 1;
-        v1087 = 19;
-        v1086 = 448;
-        v454 = 312;
-        v455 = 248;
-        v456 = 216;
-        v457 = 1;
+        v306 = 1;
+        v640 = 19;
+        v639 = 448;
+        v307 = 312;
+        v308 = 248;
+        v309 = 216;
+        v310 = 1;
       }
 
       else
       {
-        v457 = 0;
-        v1080 = NRBluetoothPacketParserSuspendNexusVIInputSource;
-        v453 = 1;
-        v1087 = 20;
-        v1086 = 464;
-        v454 = 328;
-        v455 = 264;
-        v456 = 224;
+        v310 = 0;
+        v633 = NRBluetoothPacketParserSuspendNexusVIInputSource;
+        v306 = 1;
+        v640 = 20;
+        v639 = 464;
+        v307 = 328;
+        v308 = 264;
+        v309 = 224;
       }
 
-      v1072 = *(v18 + v456);
-      v1090 = *(v18 + v455);
-      v462 = *(v18 + v454);
+      v315 = v254 ^ 0x67;
+      v625 = *(v13 + v309);
+      v643 = *(v13 + v308);
+      v316 = *(v13 + v307);
       if (gNRPacketLoggingEnabled != 1)
       {
-        goto LABEL_436;
+        goto LABEL_437;
       }
 
-      v795 = v462;
-      v796 = _NRCopyLogObjectForNRUUID(*v1075);
-      v797 = v796;
+      v508 = v316;
+      v509 = _NRCopyLogObjectForNRUUID(*v628);
+      v510 = v509;
       if (sNRCopyLogToStdErr == 1)
       {
 
-        v379 = v1082;
+        v252 = v635;
       }
 
       else
       {
-        v803 = os_log_type_enabled(v796, OS_LOG_TYPE_INFO);
+        v516 = os_log_type_enabled(v509, OS_LOG_TYPE_INFO);
 
-        v18 = innerCopy;
-        v379 = v1082;
-        v462 = v795;
-        if (!v803)
+        v13 = innerCopy;
+        v252 = v635;
+        v316 = v508;
+        if (!v516)
         {
-LABEL_436:
-          v463 = *(v18 + 15);
-          v1089 = *&v457 & ((v463 & 8) >> 3);
-          if (v1089 == 1)
+LABEL_437:
+          v317 = *(v13 + 15);
+          v642 = *&v310 & ((v317 & 8) >> 3);
+          if (v642 == 1)
           {
-            v464 = (v18 + 136);
-            v465 = "Isochronous";
-            v466 = 3;
-            v467 = 0x280D73000;
-            goto LABEL_458;
+            v318 = (v13 + 136);
+            v319 = "Isochronous";
+            v320 = 3;
+            v321 = 0x280D73000;
+            goto LABEL_459;
           }
 
-          if (!v453)
+          if (!v306)
           {
-            goto LABEL_456;
+            goto LABEL_457;
           }
 
-          if ((v463 & 4) != 0)
+          if ((v317 & 4) != 0)
           {
-            v464 = (v18 + 120);
-LABEL_457:
-            v467 = 0x280D73000uLL;
-            v465 = "High";
-            v466 = 2;
+            v318 = (v13 + 120);
 LABEL_458:
-            v483 = *v464;
-            v1074 = v462;
-            if (v483)
+            v321 = 0x280D73000uLL;
+            v319 = "High";
+            v320 = 2;
+LABEL_459:
+            v333 = *v318;
+            v627 = v316;
+            if (v333)
             {
-              v484 = v483[3];
-              if ((*(v484 + 84) & 1) == 0)
+              v334 = v333[3];
+              if ((*(v334 + 84) & 1) == 0)
               {
-                v1081 = v464;
-                v1069 = v466;
-                v1068 = v465;
-                v1070 = &v1068;
-                v1071 = v3;
-                v485 = *(v484 + 83);
-                v486 = 584;
-                if (v485 == 3)
+                v634 = v318;
+                v622 = v320;
+                v621 = v319;
+                v623 = &v621;
+                v624 = v3;
+                v335 = *(v334 + 83);
+                v336 = 584;
+                if (v335 == 3)
                 {
-                  v486 = 600;
+                  v336 = 600;
                 }
 
-                v383 = v485 == 2;
-                v487 = 616;
-                if (!v383)
+                v256 = v335 == 2;
+                v337 = 616;
+                if (!v256)
                 {
-                  v487 = v486;
+                  v337 = v336;
                 }
 
-                v1077 = *(v484 + 8);
-                v1078 = v487;
-                if (*(v467 + 3640) != 1)
+                v630 = *(v334 + 8);
+                v631 = v337;
+                if (*(v321 + 3640) != 1)
                 {
-                  goto LABEL_465;
+                  goto LABEL_466;
                 }
 
-                v817 = _NRCopyLogObjectForNRUUID(*v1075);
-                v818 = v817;
+                v520 = _NRCopyLogObjectForNRUUID(*v628);
+                v521 = v520;
                 if (sNRCopyLogToStdErr == 1)
                 {
                 }
 
                 else
                 {
-                  v839 = os_log_type_enabled(v817, OS_LOG_TYPE_INFO);
+                  v538 = os_log_type_enabled(v520, OS_LOG_TYPE_INFO);
 
-                  v18 = innerCopy;
-                  if (!v839)
+                  v13 = innerCopy;
+                  if (!v538)
                   {
-LABEL_465:
-                    LODWORD(ESPSequenceNumberFromPacket) = 0;
-                    v488 = 0;
-                    v489 = 0;
-                    v1083 = 0;
-                    v490 = 0;
-                    v1079 = 0;
-                    v1088 = v484 + 36;
-                    v1100 = 0u;
-                    v1101 = 0u;
-                    v491 = 9;
-                    v1098 = 0u;
-                    v1099 = 0u;
+LABEL_466:
+                    LODWORD(v637) = 0;
+                    v338 = 0;
+                    v339 = 0;
+                    v636 = 0;
+                    v340 = 0;
+                    v632 = 0;
+                    v641 = v334 + 36;
+                    v653 = 0u;
+                    v654 = 0u;
+                    v341 = 9;
+                    v651 = 0u;
+                    v652 = 0u;
                     while (1)
                     {
-                      if (*(v467 + 3640) == 1)
+                      if (*(v321 + 3640) == 1)
                       {
-                        v572 = _NRCopyLogObjectForNRUUID(*v1075);
-                        v573 = v572;
+                        v401 = _NRCopyLogObjectForNRUUID(*v628);
+                        v402 = v401;
                         if (sNRCopyLogToStdErr == 1)
                         {
 
-                          v467 = 0x280D73000;
-LABEL_577:
-                          v579 = _NRCopyLogObjectForNRUUID(*v1075);
-                          _NRLogWithArgs(v579, 1, "%s%.30s:%-4d %s: starting NtL inner loop", v580, v581, v582, v583, v584, "");
+                          v321 = 0x280D73000;
+LABEL_578:
+                          v408 = _NRCopyLogObjectForNRUUID(*v628);
+                          _NRLogWithArgs(v408, 1, "%s%.30s:%-4d %s: starting NtL inner loop", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1949, v621);
 
-                          v18 = innerCopy;
-                          goto LABEL_467;
+                          v13 = innerCopy;
+                          goto LABEL_468;
                         }
 
-                        v578 = os_log_type_enabled(v572, OS_LOG_TYPE_INFO);
+                        v407 = os_log_type_enabled(v401, OS_LOG_TYPE_INFO);
 
-                        v18 = innerCopy;
-                        v467 = 0x280D73000;
-                        if (v578)
+                        v13 = innerCopy;
+                        v321 = 0x280D73000;
+                        if (v407)
                         {
-                          goto LABEL_577;
+                          goto LABEL_578;
                         }
                       }
 
-LABEL_467:
-                      v492 = v491 | 0x10;
-                      if ((v1089 & 1) == 0)
+LABEL_468:
+                      v342 = v341 | 0x10;
+                      if ((v642 & 1) == 0)
                       {
-                        v494 = *(v484 + 28);
-                        v493 = *(v484 + 32);
-                        if (v494 > v493)
+                        v344 = *(v334 + 28);
+                        v343 = *(v334 + 32);
+                        if (v344 > v343)
                         {
-                          v495 = *(v484 + 80);
-                          v1073 = (0x4000 - v495);
-                          if ((v494 - v493) >= (0x4000 - v495))
+                          v345 = *(v334 + 80);
+                          v346 = (v344 - v343);
+                          v626 = (0x4000 - v345);
+                          if (v346 >= (0x4000 - v345))
                           {
-                            v496 = (0x4000 - v495);
+                            v347 = (0x4000 - v345);
                           }
 
                           else
                           {
-                            v496 = (v494 - v493);
+                            v347 = (v344 - v343);
                           }
 
-                          v497 = v1077;
-                          memcpy((*v484 + v495), &v1077[v493], v496);
-                          v498 = *(v484 + 28);
-                          v499 = *(v484 + 32) + v496;
-                          *(v484 + 32) = v499;
-                          if (v498 <= v499)
+                          v348 = v630;
+                          memcpy((*v334 + v345), &v630[v343], v347);
+                          v349 = *(v334 + 28);
+                          v350 = *(v334 + 32) + v347;
+                          *(v334 + 32) = v350;
+                          if (v349 <= v350)
                           {
-                            v500 = 0;
+                            v351 = 0;
                           }
 
                           else
                           {
-                            memmove(v497, &v497[v499], v498 - v499);
-                            v500 = *(v484 + 28) - *(v484 + 32);
+                            memmove(v348, &v348[v350], v349 - v350);
+                            v351 = *(v334 + 28) - *(v334 + 32);
                           }
 
-                          *(v484 + 28) = v500;
-                          *(v484 + 32) = 0;
-                          *(v484 + 80) += v496;
+                          *(v334 + 28) = v351;
+                          *(v334 + 32) = 0;
+                          *(v334 + 80) += v347;
                           if (gNRPacketLoggingEnabled != 1)
                           {
-                            goto LABEL_476;
+                            goto LABEL_477;
                           }
 
-                          v606 = _NRCopyLogObjectForNRUUID(*v1075);
-                          v607 = v606;
+                          v421 = _NRCopyLogObjectForNRUUID(*v628);
+                          v422 = v421;
                           if (sNRCopyLogToStdErr == 1)
                           {
 
-                            goto LABEL_603;
+                            goto LABEL_604;
                           }
 
-                          v633 = os_log_type_enabled(v606, OS_LOG_TYPE_INFO);
+                          v428 = os_log_type_enabled(v421, OS_LOG_TYPE_INFO);
 
-                          v18 = innerCopy;
-                          if (v633)
+                          v13 = innerCopy;
+                          if (v428)
                           {
-LABEL_603:
-                            v634 = _NRCopyLogObjectForNRUUID(*v1075);
-                            _NRLogWithArgs(v634, 1, "%s%.30s:%-4d %s: wrote %u (%u/%u) bytes from linkWriteBuffer", v635, v636, v637, v638, v639, "");
+LABEL_604:
+                            v429 = _NRCopyLogObjectForNRUUID(*v628);
+                            _NRLogWithArgs(v429, 1, "%s%.30s:%-4d %s: wrote %u (%u/%u) bytes from linkWriteBuffer", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1968, v621, v347, v626, v346);
 
-                            v18 = innerCopy;
+                            v13 = innerCopy;
                           }
 
-LABEL_476:
-                          v492 = v491 | 0x30;
-                          v489 += v496;
-                          v467 = 0x280D73000;
+LABEL_477:
+                          v342 = v341 | 0x30;
+                          v339 += v347;
+                          v321 = 0x280D73000;
                         }
                       }
 
-                      v501 = v1083;
-                      if (v1090)
+                      v352 = v636;
+                      if (v643)
                       {
-                        v501 = os_channel_get_next_slot();
+                        v352 = os_channel_get_next_slot();
                       }
 
-                      if (!v501)
+                      if (!v352)
                       {
-                        v547 = 0;
-                        goto LABEL_528;
+                        v382 = 0;
+                        goto LABEL_529;
                       }
 
                       while (1)
                       {
-                        v502 = 0x4000 - *(v484 + 80);
-                        if (v502 < nrMaxTLVLengthForPacket(v1099 + *(v18 + 28), (WORD1(v1098) - *(v18 + 28))))
+                        v353 = 0x4000 - *(v334 + 80);
+                        v354 = nrMaxTLVLengthForPacket(v652 + *(v13 + 28), (WORD1(v651) - *(v13 + 28)));
+                        if (v353 < v354)
                         {
-                          v492 |= 0x40u;
+                          v342 |= 0x40u;
                           if (gNRPacketLoggingEnabled != 1)
                           {
-LABEL_526:
-                            v547 = v501;
-                            v18 = innerCopy;
-                            v467 = 0x280D73000;
-                            goto LABEL_528;
+LABEL_527:
+                            v382 = v352;
+                            v13 = innerCopy;
+                            v321 = 0x280D73000;
+                            goto LABEL_529;
                           }
 
-                          v600 = _NRCopyLogObjectForNRUUID(*v1075);
-                          v601 = v600;
+                          v414 = v354;
+                          v415 = _NRCopyLogObjectForNRUUID(*v628);
+                          v416 = v415;
                           if (sNRCopyLogToStdErr == 1)
                           {
                           }
 
                           else
                           {
-                            LODWORD(v1083) = os_log_type_enabled(v600, OS_LOG_TYPE_INFO);
+                            LODWORD(v636) = os_log_type_enabled(v415, OS_LOG_TYPE_INFO);
 
-                            if (!v1083)
+                            if (!v636)
                             {
-                              goto LABEL_526;
+                              goto LABEL_527;
                             }
                           }
 
-                          v615 = _NRCopyLogObjectForNRUUID(*v1075);
-                          _NRLogWithArgs(v615, 1, "%s%.30s:%-4d %s: not enough room %u to fit maxTLVLen %u", v616, v617, v618, v619, v620, "");
+                          v425 = _NRCopyLogObjectForNRUUID(*v628);
+                          _NRLogWithArgs(v425, 1, "%s%.30s:%-4d %s: not enough room %u to fit maxTLVLen %u", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1984, v621, v353, v414);
 
-                          goto LABEL_526;
+                          goto LABEL_527;
                         }
 
                         os_channel_slot_get_packet();
                         os_packet_get_next_buflet();
-                        v503 = os_buflet_get_data_offset();
-                        v504 = os_buflet_get_object_address();
-                        v505 = os_buflet_get_data_length();
-                        if (v505 >= 0x10000)
+                        v355 = os_buflet_get_data_offset();
+                        v356 = os_buflet_get_object_address();
+                        v357 = os_buflet_get_data_length();
+                        if (v357 >= 0x10000)
                         {
-                          v668 = nrCopyLogObj_560();
+                          v444 = nrCopyLogObj_560();
                           if (sNRCopyLogToStdErr == 1)
                           {
 
-                            goto LABEL_687;
+                            goto LABEL_688;
                           }
 
-                          v669 = v668;
-                          v670 = os_log_type_enabled(v668, OS_LOG_TYPE_ERROR);
+                          v445 = v444;
+                          v446 = os_log_type_enabled(v444, OS_LOG_TYPE_ERROR);
 
-                          if (v670)
+                          if (v446)
                           {
-LABEL_687:
-                            v671 = nrCopyLogObj_560();
-                            _NRLogWithArgs(v671, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: dataLen <= 65535", v672, v673, v674, v675, v676, "");
+LABEL_688:
+                            v447 = nrCopyLogObj_560();
+                            _NRLogWithArgs(v447, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: dataLen <= 65535", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1997);
                           }
 
-                          v677 = _os_log_pack_size();
-                          MEMORY[0x28223BE20](v677, v678);
-                          v679 = *__error();
-                          v680 = _os_log_pack_fill();
-                          *v680 = 136446210;
-                          v681 = "NRBluetoothPacketParserNexusToLinkLoop";
-LABEL_689:
-                          *(v680 + 4) = v681;
-LABEL_447:
-                          v482 = nrCopyLogObj_560();
-                          _NRLogAbortWithPack(v482);
+                          v448 = _os_log_pack_size();
+                          v329 = &v621 - ((MEMORY[0x28223BE20](v448, v449) + 15) & 0xFFFFFFFFFFFFFFF0);
+                          v450 = __error();
+                          v451 = _os_log_pack_fill(v329, v448, *v450, &dword_25B98C000, "%{public}s Assertion Failed: dataLen <= 65535");
+                          *v451 = 136446210;
+                          v452 = "NRBluetoothPacketParserNexusToLinkLoop";
+LABEL_690:
+                          *(v451 + 4) = v452;
+LABEL_448:
+                          v332 = nrCopyLogObj_560();
+                          _NRLogAbortWithPack(v332, v329);
                         }
 
                         if (*(innerCopy + 9) == 1)
                         {
-                          v1096 = 0;
-                          v1097 = 0;
-                          v506 = (*v484 + *(v484 + 80));
-                          v1096 = v506;
-                          LODWORD(v1097) = v502;
-                          v507 = *(innerCopy + 28);
-                          v18 = innerCopy;
+                          v649 = 0;
+                          v650 = 0;
+                          v358 = (*v334 + *(v334 + 80));
+                          v649 = v358;
+                          LODWORD(v650) = v353;
+                          v359 = *(innerCopy + 28);
+                          v13 = innerCopy;
                           if (*(innerCopy + 10) == 1)
                           {
-                            v508 = nrPacketTo6LoWPAN((v1099 + v507), (WORD1(v1098) - v507), &v1096, 1u, innerCopy + 688, innerCopy + 704, 0);
+                            v360 = nrPacketTo6LoWPAN((v652 + v359), (WORD1(v651) - v359), &v649, 1u, innerCopy + 688, innerCopy + 704, 0);
                           }
 
                           else
                           {
-                            memcpy(v506, (v1099 + v507), WORD1(v1098) - v507);
-                            v508 = WORD1(v1098) - *(v18 + 28);
+                            memcpy(v358, (v652 + v359), WORD1(v651) - v359);
+                            v360 = WORD1(v651) - *(v13 + 28);
                           }
 
-                          v467 = 0x280D73000uLL;
+                          v321 = 0x280D73000uLL;
                           if (gNRPacketLoggingEnabled != 1)
                           {
-                            goto LABEL_495;
+                            goto LABEL_496;
                           }
 
-                          v516 = _NRCopyLogObjectForNRUUID(*v1075);
+                          v368 = _NRCopyLogObjectForNRUUID(*v628);
                           if (sNRCopyLogToStdErr == 1)
                           {
 
-                            goto LABEL_512;
+                            goto LABEL_513;
                           }
 
-                          v517 = v516;
-                          v518 = os_log_type_enabled(v516, OS_LOG_TYPE_INFO);
+                          v369 = v368;
+                          v370 = os_log_type_enabled(v368, OS_LOG_TYPE_INFO);
 
-                          v18 = innerCopy;
-                          if (v518)
+                          v13 = innerCopy;
+                          if (v370)
                           {
-LABEL_512:
-                            v519 = _NRCopyLogObjectForNRUUID(*v1075);
-                            _NRLogWithArgs(v519, 1, "%s%.30s:%-4d %s: wrote %u bytes from nexus (actual: %u)", v520, v521, v522, v523, v524, "");
-                            goto LABEL_517;
+LABEL_513:
+                            v371 = _NRCopyLogObjectForNRUUID(*v628);
+                            _NRLogWithArgs(v371, 1, "%s%.30s:%-4d %s: wrote %u bytes from nexus (actual: %u)", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2015, v621, v360, WORD1(v651));
+                            goto LABEL_518;
                           }
 
-                          goto LABEL_495;
+                          goto LABEL_496;
                         }
 
-                        if (!v505 && WORD1(v1098))
+                        if (!v357 && WORD1(v651))
                         {
-                          v1096 = 0;
-                          v1097 = 0;
-                          v1096 = *v484 + *(v484 + 80);
-                          LODWORD(v1097) = v502;
-                          v18 = innerCopy;
-                          v508 = nrPacketToTLV((v1099 + *(innerCopy + 28)), (WORD1(v1098) - *(innerCopy + 28)), &v1096, 1, innerCopy + 688, innerCopy + 704);
-                          v467 = 0x280D73000uLL;
+                          v649 = 0;
+                          v650 = 0;
+                          v649 = *v334 + *(v334 + 80);
+                          LODWORD(v650) = v353;
+                          v13 = innerCopy;
+                          v360 = nrPacketToTLV((v652 + *(innerCopy + 28)), (WORD1(v651) - *(innerCopy + 28)), &v649, 1, innerCopy + 688, innerCopy + 704);
+                          v321 = 0x280D73000uLL;
                           if (gNRPacketLoggingEnabled == 1)
                           {
-                            v509 = _NRCopyLogObjectForNRUUID(*v1075);
-                            v510 = v509;
+                            v361 = _NRCopyLogObjectForNRUUID(*v628);
+                            v362 = v361;
                             if (sNRCopyLogToStdErr == 1)
                             {
                             }
 
                             else
                             {
-                              v527 = os_log_type_enabled(v509, OS_LOG_TYPE_INFO);
+                              v374 = os_log_type_enabled(v361, OS_LOG_TYPE_INFO);
 
-                              v18 = innerCopy;
-                              if (!v527)
+                              v13 = innerCopy;
+                              if (!v374)
                               {
-                                goto LABEL_495;
+                                goto LABEL_496;
                               }
                             }
 
-                            v519 = _NRCopyLogObjectForNRUUID(*v1075);
-                            getESPSequenceNumberFromPacket(v1099, WORD1(v1098));
-                            getESPSPIFromPacket(v1099, WORD1(v1098));
-                            _NRLogWithArgs(v519, 1, "%s%.30s:%-4d %s: wrote %u bytes from nexus for ESP seq: %u (spi: %u)", v528, v529, v530, v531, v532, "");
-LABEL_517:
+                            v371 = _NRCopyLogObjectForNRUUID(*v628);
+                            v375 = getESPSequenceNumberFromPacket(v652, WORD1(v651));
+                            v376 = getESPSPIFromPacket(v652, WORD1(v651));
+                            _NRLogWithArgs(v371, 1, "%s%.30s:%-4d %s: wrote %u bytes from nexus for ESP seq: %u (spi: %u)", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2027, v621, v360, v375, v376);
+LABEL_518:
 
-                            v18 = innerCopy;
+                            v13 = innerCopy;
                           }
 
-LABEL_495:
-                          v492 |= 0x80u;
-                          goto LABEL_496;
+LABEL_496:
+                          v342 |= 0x80u;
+                          goto LABEL_497;
                         }
 
-                        if (v505)
+                        if (v357)
                         {
-                          v511 = v504 + v503;
-                          v1096 = 0;
-                          v1097 = 0;
-                          v1096 = *v484 + *(v484 + 80);
-                          LODWORD(v1097) = v502;
-                          v18 = innerCopy;
-                          v512 = v505;
-                          v508 = nrPacketToTLV((v511 + *(innerCopy + 28)), (v505 - *(innerCopy + 28)), &v1096, 1, innerCopy + 688, innerCopy + 704);
+                          v363 = v356 + v355;
+                          v649 = 0;
+                          v650 = 0;
+                          v649 = *v334 + *(v334 + 80);
+                          LODWORD(v650) = v353;
+                          v13 = innerCopy;
+                          v364 = v357;
+                          v360 = nrPacketToTLV((v363 + *(innerCopy + 28)), (v357 - *(innerCopy + 28)), &v649, 1, innerCopy + 688, innerCopy + 704);
                           if (gNRPacketLoggingEnabled != 1)
                           {
-LABEL_492:
-                            v492 |= 0x100u;
-                            v467 = 0x280D73000;
-                            goto LABEL_496;
+LABEL_493:
+                            v342 |= 0x100u;
+                            v321 = 0x280D73000;
+                            goto LABEL_497;
                           }
 
-                          v525 = _NRCopyLogObjectForNRUUID(*v1075);
+                          v372 = _NRCopyLogObjectForNRUUID(*v628);
+                          v373 = v372;
+                          if (sNRCopyLogToStdErr == 1)
+                          {
+                          }
+
+                          else
+                          {
+                            LODWORD(v636) = os_log_type_enabled(v372, OS_LOG_TYPE_INFO);
+
+                            v13 = innerCopy;
+                            if (!v636)
+                            {
+                              goto LABEL_493;
+                            }
+                          }
+
+                          v379 = _NRCopyLogObjectForNRUUID(*v628);
+                          v636 = getESPSequenceNumberFromPacket(v363, v364);
+                          v380 = getESPSPIFromPacket(v363, v364);
+                          _NRLogWithArgs(v379, 1, "%s%.30s:%-4d %s: wrote %u bytes from nexus for ESP seq: %u (spi: %u)", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2037, v621, v360, v636, v380);
+
+                          v13 = innerCopy;
+                          goto LABEL_493;
+                        }
+
+                        v342 |= 0x200u;
+                        v321 = 0x280D73000uLL;
+                        if (gNRPacketLoggingEnabled == 1)
+                        {
+                          v377 = _NRCopyLogObjectForNRUUID(*v628);
+                          v378 = v377;
+                          if (sNRCopyLogToStdErr == 1)
+                          {
+                          }
+
+                          else
+                          {
+                            v360 = os_log_type_enabled(v377, OS_LOG_TYPE_INFO);
+
+                            if (!v360)
+                            {
+                              goto LABEL_509;
+                            }
+                          }
+
+                          v381 = _NRCopyLogObjectForNRUUID(*v628);
+                          _NRLogWithArgs(v381, 1, "%s%.30s:%-4d %s: No data to write", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2039, v621);
+                        }
+
+                        v360 = 0;
+LABEL_509:
+                        v13 = innerCopy;
+LABEL_497:
+                        *(v334 + 80) += v360;
+                        v365 = (v642 & 1) != 0 ? 0 : os_channel_get_next_slot();
+                        ++v338;
+                        ++*(v13 + v639);
+                        *(v13 + v640) = 1;
+                        v339 += v360;
+                        if (!v365)
+                        {
+                          break;
+                        }
+
+                        v366 = *(v334 + 82);
+                        if (v366 >= 0xB)
+                        {
+                          v366 -= 11 * ((((117 * v366) >> 8) + (((v366 - ((117 * v366) >> 8)) & 0xFE) >> 1)) >> 3);
+                        }
+
+                        *(v641 + 4 * v366) = v342;
+                        if (v366 < 0xAu)
+                        {
+                          v367 = v366 + 1;
+                        }
+
+                        else
+                        {
+                          v367 = v366 - 10;
+                        }
+
+                        *(v334 + 82) = v367;
+                        v340 = v352;
+                        v352 = v365;
+                        v342 = 0;
+                      }
+
+                      v382 = 0;
+                      v340 = v352;
+LABEL_529:
+                      v383 = *(v334 + 80);
+                      if (!*(v334 + 80))
+                      {
+                        v385 = v342 | 0x400;
+                        if (*(v321 + 3640) != 1)
+                        {
+                          goto LABEL_618;
+                        }
+
+                        v544 = _NRCopyLogObjectForNRUUID(*v628);
+                        v545 = v544;
+                        if (sNRCopyLogToStdErr == 1)
+                        {
+
+                          goto LABEL_800;
+                        }
+
+                        v566 = os_log_type_enabled(v544, OS_LOG_TYPE_INFO);
+
+                        if (v566)
+                        {
+LABEL_800:
+                          v567 = _NRCopyLogObjectForNRUUID(*v628);
+                          _NRLogWithArgs(v567, 1, "%s%.30s:%-4d %s: nothing to read from nexus", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2065, v621);
+                        }
+
+                        v13 = innerCopy;
+                        v321 = 0x280D73000;
+LABEL_618:
+                        v432 = v385 | 0x8000;
+                        if (*(v321 + 3640) == 1)
+                        {
+                          v525 = _NRCopyLogObjectForNRUUID(*v628);
                           v526 = v525;
                           if (sNRCopyLogToStdErr == 1)
                           {
@@ -5089,1282 +5604,1148 @@ LABEL_492:
 
                           else
                           {
-                            LODWORD(v1083) = os_log_type_enabled(v525, OS_LOG_TYPE_INFO);
+                            v546 = os_log_type_enabled(v525, OS_LOG_TYPE_INFO);
 
-                            v18 = innerCopy;
-                            if (!v1083)
+                            v13 = innerCopy;
+                            if (!v546)
                             {
-                              goto LABEL_492;
+                              goto LABEL_619;
                             }
                           }
 
-                          v535 = _NRCopyLogObjectForNRUUID(*v1075);
-                          v1083 = getESPSequenceNumberFromPacket(v511, v512);
-                          getESPSPIFromPacket(v511, v512);
-                          _NRLogWithArgs(v535, 1, "%s%.30s:%-4d %s: wrote %u bytes from nexus for ESP seq: %u (spi: %u)", v536, v537, v538, v539, v540, "");
+                          v547 = _NRCopyLogObjectForNRUUID(*v628);
+                          _NRLogWithArgs(v547, 1, "%s%.30s:%-4d %s: out of NtL inner loop", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2110, v621);
 
-                          v18 = innerCopy;
-                          goto LABEL_492;
+                          v13 = innerCopy;
                         }
 
-                        v492 |= 0x200u;
-                        v467 = 0x280D73000uLL;
-                        if (gNRPacketLoggingEnabled == 1)
-                        {
-                          v533 = _NRCopyLogObjectForNRUUID(*v1075);
-                          v534 = v533;
-                          if (sNRCopyLogToStdErr == 1)
-                          {
-                          }
-
-                          else
-                          {
-                            v508 = os_log_type_enabled(v533, OS_LOG_TYPE_INFO);
-
-                            if (!v508)
-                            {
-                              goto LABEL_508;
-                            }
-                          }
-
-                          v541 = _NRCopyLogObjectForNRUUID(*v1075);
-                          _NRLogWithArgs(v541, 1, "%s%.30s:%-4d %s: No data to write", v542, v543, v544, v545, v546, "");
-                        }
-
-                        v508 = 0;
-LABEL_508:
-                        v18 = innerCopy;
-LABEL_496:
-                        *(v484 + 80) += v508;
-                        v513 = (v1089 & 1) != 0 ? 0 : os_channel_get_next_slot();
-                        ++v488;
-                        ++*(v18 + v1086);
-                        *(v18 + v1087) = 1;
-                        v489 += v508;
-                        if (!v513)
-                        {
-                          break;
-                        }
-
-                        v514 = *(v484 + 82);
-                        if (v514 >= 0xB)
-                        {
-                          v514 -= 11 * ((((117 * v514) >> 8) + (((v514 - ((117 * v514) >> 8)) & 0xFE) >> 1)) >> 3);
-                        }
-
-                        *(v1088 + 4 * v514) = v492;
-                        if (v514 < 0xAu)
-                        {
-                          v515 = v514 + 1;
-                        }
-
-                        else
-                        {
-                          v515 = v514 - 10;
-                        }
-
-                        *(v484 + 82) = v515;
-                        v490 = v501;
-                        v501 = v513;
-                        v492 = 0;
-                      }
-
-                      v547 = 0;
-                      v490 = v501;
-LABEL_528:
-                      v548 = *(v484 + 80);
-                      if (!*(v484 + 80))
-                      {
-                        v550 = v492 | 0x400;
-                        if (*(v467 + 3640) != 1)
-                        {
-                          goto LABEL_617;
-                        }
-
-                        v855 = _NRCopyLogObjectForNRUUID(*v1075);
-                        v856 = v855;
-                        if (sNRCopyLogToStdErr == 1)
-                        {
-
-                          goto LABEL_799;
-                        }
-
-                        v917 = os_log_type_enabled(v855, OS_LOG_TYPE_INFO);
-
-                        if (v917)
-                        {
-LABEL_799:
-                          v918 = _NRCopyLogObjectForNRUUID(*v1075);
-                          _NRLogWithArgs(v918, 1, "%s%.30s:%-4d %s: nothing to read from nexus", v919, v920, v921, v922, v923, "");
-                        }
-
-                        v18 = innerCopy;
-                        v467 = 0x280D73000;
-LABEL_617:
-                        v657 = v550 | 0x8000;
-                        if (*(v467 + 3640) == 1)
-                        {
-                          v821 = _NRCopyLogObjectForNRUUID(*v1075);
-                          v822 = v821;
-                          if (sNRCopyLogToStdErr == 1)
-                          {
-                          }
-
-                          else
-                          {
-                            v857 = os_log_type_enabled(v821, OS_LOG_TYPE_INFO);
-
-                            v18 = innerCopy;
-                            if (!v857)
-                            {
-                              goto LABEL_618;
-                            }
-                          }
-
-                          v858 = _NRCopyLogObjectForNRUUID(*v1075);
-                          _NRLogWithArgs(v858, 1, "%s%.30s:%-4d %s: out of NtL inner loop", v859, v860, v861, v862, v863, "");
-
-                          v18 = innerCopy;
-                        }
-
-LABEL_618:
-                        if (v490)
+LABEL_619:
+                        if (v340)
                         {
                           os_channel_advance_slot();
-                          *(v18 + 18) = 1;
-                          v3 = v1071;
-LABEL_621:
-                          if (ESPSequenceNumberFromPacket > 8u || v1090 && os_channel_available_slot_count() <= 1)
+                          *(v13 + 18) = 1;
+                          v3 = v624;
+LABEL_622:
+                          v433 = v637;
+                          if (v637 > 8u || v643 && os_channel_available_slot_count() <= 1)
                           {
-                            v657 = v550 | 0x18000;
+                            v432 = v385 | 0x18000;
                             if (gNRPacketLoggingEnabled != 1)
                             {
-                              goto LABEL_625;
+                              goto LABEL_626;
                             }
 
-                            v853 = _NRCopyLogObjectForNRUUID(*v1075);
-                            v854 = v853;
+                            v542 = _NRCopyLogObjectForNRUUID(*v628);
+                            v543 = v542;
                             if (sNRCopyLogToStdErr == 1)
                             {
 
-                              v3 = v1071;
-                              v18 = innerCopy;
-                              goto LABEL_797;
+                              v3 = v624;
+                              v13 = innerCopy;
+                              goto LABEL_798;
                             }
 
-                            v910 = os_log_type_enabled(v853, OS_LOG_TYPE_INFO);
+                            v564 = os_log_type_enabled(v542, OS_LOG_TYPE_INFO);
 
-                            v3 = v1071;
-                            v18 = innerCopy;
-                            if (v910)
+                            v3 = v624;
+                            v13 = innerCopy;
+                            if (v564)
                             {
-LABEL_797:
-                              v911 = _NRCopyLogObjectForNRUUID(*(v18 + 48));
-                              v1051 = *(innerCopy + 432) * 0.000001;
-                              _NRLogWithArgs(v911, 1, "%s%.30s:%-4d %s: performing RX sync (%u packets, %u bytes, %u pending, %0.2f msec, canWriteMore %d, memmove %u)", v912, v913, v914, v915, v916, "");
+LABEL_798:
+                              v565 = _NRCopyLogObjectForNRUUID(*(v13 + 48));
+                              _NRLogWithArgs(v565, 1, "%s%.30s:%-4d %s: performing RX sync (%u packets, %u bytes, %u pending, %0.2f msec, canWriteMore %d, memmove %u)", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2123, v621, v338, v339, v433, *(innerCopy + 432) * 0.000001, v383 == 0, v632);
 
-                              v18 = innerCopy;
+                              v13 = innerCopy;
                             }
 
-LABEL_625:
+LABEL_626:
                             os_channel_sync();
-                            *(v18 + 18) = 0;
+                            *(v13 + 18) = 0;
                           }
                         }
 
                         else
                         {
-                          v3 = v1071;
-                          if (*(v18 + 18))
+                          v3 = v624;
+                          if (*(v13 + 18))
                           {
-                            goto LABEL_621;
+                            goto LABEL_622;
                           }
                         }
 
                         if (gNRPacketLoggingEnabled == 1)
                         {
-                          v823 = _NRCopyLogObjectForNRUUID(*v1075);
-                          v824 = v823;
+                          v527 = _NRCopyLogObjectForNRUUID(*v628);
+                          v528 = v527;
                           if (sNRCopyLogToStdErr == 1)
                           {
 
-                            v3 = v1071;
-                            v18 = innerCopy;
+                            v3 = v624;
+                            v13 = innerCopy;
                           }
 
                           else
                           {
-                            v864 = os_log_type_enabled(v823, OS_LOG_TYPE_INFO);
+                            v548 = os_log_type_enabled(v527, OS_LOG_TYPE_INFO);
 
-                            v3 = v1071;
-                            v18 = innerCopy;
-                            if (!v864)
+                            v3 = v624;
+                            v13 = innerCopy;
+                            if (!v548)
                             {
-                              goto LABEL_627;
+                              goto LABEL_628;
                             }
                           }
 
-                          v865 = _NRCopyLogObjectForNRUUID(*v1075);
-                          _NRLogWithArgs(v865, 1, "%s%.30s:%-4d %s: out of NtL outer loop", v866, v867, v868, v869, v870, "");
+                          v549 = _NRCopyLogObjectForNRUUID(*v628);
+                          _NRLogWithArgs(v549, 1, "%s%.30s:%-4d %s: out of NtL outer loop", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2134, v621);
                         }
 
-LABEL_627:
-                        if (v548)
-                        {
 LABEL_628:
-                          v658 = v657 | 0x60000;
+                        if (v383)
+                        {
+LABEL_629:
+                          v434 = v432 | 0x60000;
                           if (gNRPacketLoggingEnabled != 1)
+                          {
+                            goto LABEL_630;
+                          }
+
+                          v529 = _NRCopyLogObjectForNRUUID(*v628);
+                          v530 = v529;
+                          if (sNRCopyLogToStdErr == 1)
+                          {
+
+                            v3 = v624;
+                            v13 = innerCopy;
+                            goto LABEL_784;
+                          }
+
+                          v550 = os_log_type_enabled(v529, OS_LOG_TYPE_INFO);
+
+                          v3 = v624;
+                          v13 = innerCopy;
+                          if (v550)
+                          {
+LABEL_784:
+                            v551 = _NRCopyLogObjectForNRUUID(*v628);
+                            _NRLogWithArgs(v551, 1, "%s%.30s:%-4d %s: done with NtL fast-path", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2168, v621);
+                          }
+
+LABEL_630:
+                          v430 = *(v334 + 82);
+                          v252 = v635;
+                          if (v430 >= 0xB)
+                          {
+                            v430 -= 11 * ((((117 * v430) >> 8) + (((v430 - ((117 * v430) >> 8)) & 0xFE) >> 1)) >> 3);
+                          }
+
+                          v431 = v430;
+                          *(v641 + 4 * v430) = v434;
+LABEL_633:
+                          if (v431 < 0xA)
+                          {
+                            v435 = v430 + 1;
+                          }
+
+                          else
+                          {
+                            v435 = v430 - 10;
+                          }
+
+                          *(v334 + 82) = v435;
+                          goto LABEL_637;
+                        }
+
+                        if (v622 <= 1)
+                        {
+                          if (!v622)
+                          {
+                            v436 = *(v13 + 144);
+LABEL_653:
+                            if ((v436 & 8) != 0 && *(v13 + 312))
+                            {
+                              *(v13 + 144) = v436 & 0xFFFFFFFFFFFFFFF7;
+                              if (gNRPacketLoggingEnabled != 1)
+                              {
+                                goto LABEL_656;
+                              }
+
+                              v579 = _NRCopyLogObjectForNRUUID(*v628);
+                              v580 = v579;
+                              if (sNRCopyLogToStdErr == 1)
+                              {
+
+                                v3 = v624;
+                                v13 = innerCopy;
+                                goto LABEL_827;
+                              }
+
+                              v589 = os_log_type_enabled(v579, OS_LOG_TYPE_INFO);
+
+                              v3 = v624;
+                              v13 = innerCopy;
+                              if (v589)
+                              {
+LABEL_827:
+                                v590 = _NRCopyLogObjectForNRUUID(*v628);
+                                _NRLogWithArgs(v590, 1, "%s%.30s:%-4d source-resume: NexusVOInput", ", "NRBluetoothPacketParserResumeNexusVOInputSource"", 489);
+                              }
+
+LABEL_656:
+                              dispatch_resume(*(v13 + 312));
+                              v436 = *(v13 + 144);
+                            }
+
+                            if ((v436 & 0x10) != 0 && *(v13 + 328))
+                            {
+                              *(v13 + 144) = v436 & 0xFFFFFFFFFFFFFFEFLL;
+                              if (gNRPacketLoggingEnabled != 1)
+                              {
+                                goto LABEL_660;
+                              }
+
+                              v581 = _NRCopyLogObjectForNRUUID(*v628);
+                              v582 = v581;
+                              if (sNRCopyLogToStdErr == 1)
+                              {
+
+                                v3 = v624;
+                                v13 = innerCopy;
+                                goto LABEL_829;
+                              }
+
+                              v591 = os_log_type_enabled(v581, OS_LOG_TYPE_INFO);
+
+                              v3 = v624;
+                              v13 = innerCopy;
+                              if (v591)
+                              {
+LABEL_829:
+                                v592 = _NRCopyLogObjectForNRUUID(*v628);
+                                _NRLogWithArgs(v592, 1, "%s%.30s:%-4d source-resume: NexusVIInput", ", "NRBluetoothPacketParserResumeNexusVIInputSource"", 491);
+                              }
+
+LABEL_660:
+                              dispatch_resume(*(v13 + 328));
+                              v436 = *(v13 + 144);
+                            }
+
+                            if ((v436 & 0x20) != 0 && *(v13 + 344))
+                            {
+                              *(v13 + 144) = v436 & 0xFFFFFFFFFFFFFFDFLL;
+                              if (gNRPacketLoggingEnabled != 1)
+                              {
+                                goto LABEL_664;
+                              }
+
+                              v583 = _NRCopyLogObjectForNRUUID(*v628);
+                              v584 = v583;
+                              if (sNRCopyLogToStdErr == 1)
+                              {
+
+                                v3 = v624;
+                                v13 = innerCopy;
+                                goto LABEL_831;
+                              }
+
+                              v593 = os_log_type_enabled(v583, OS_LOG_TYPE_INFO);
+
+                              v3 = v624;
+                              v13 = innerCopy;
+                              if (v593)
+                              {
+LABEL_831:
+                                v594 = _NRCopyLogObjectForNRUUID(*v628);
+                                _NRLogWithArgs(v594, 1, "%s%.30s:%-4d source-resume: NexusBEInput", ", "NRBluetoothPacketParserResumeNexusBEInputSource"", 487);
+                              }
+
+LABEL_664:
+                              dispatch_resume(*(v13 + 344));
+                              v436 = *(v13 + 144);
+                            }
+
+                            if ((v436 & 0x40) == 0 || !*(v13 + 360))
+                            {
+                              goto LABEL_629;
+                            }
+
+                            v438 = (v13 + 360);
+                            *(v13 + 144) = v436 & 0xFFFFFFFFFFFFFFBFLL;
+                            if (gNRPacketLoggingEnabled == 1)
+                            {
+LABEL_814:
+                              v577 = _NRCopyLogObjectForNRUUID(*v628);
+                              v578 = v577;
+                              if (sNRCopyLogToStdErr == 1)
+                              {
+
+                                goto LABEL_825;
+                              }
+
+                              v587 = os_log_type_enabled(v577, OS_LOG_TYPE_INFO);
+
+                              if (v587)
+                              {
+LABEL_825:
+                                v588 = _NRCopyLogObjectForNRUUID(*v628);
+                                _NRLogWithArgs(v588, 1, "%s%.30s:%-4d source-resume: NexusBKInput");
+                                goto LABEL_838;
+                              }
+
+LABEL_685:
+                              v3 = v624;
+                              v13 = innerCopy;
+                            }
+
+                            dispatch_resume(*v438);
+                            goto LABEL_629;
+                          }
+
+                          v436 = *(v13 + 144);
+                          if ((*(v13 + 15) & 4) == 0)
+                          {
+                            goto LABEL_653;
+                          }
+
+                          if ((v436 & 0x20) != 0 && *(v13 + 344))
+                          {
+                            *(v13 + 144) = v436 & 0xFFFFFFFFFFFFFFDFLL;
+                            if (gNRPacketLoggingEnabled != 1)
+                            {
+                              goto LABEL_681;
+                            }
+
+                            v599 = _NRCopyLogObjectForNRUUID(*v628);
+                            v600 = v599;
+                            if (sNRCopyLogToStdErr == 1)
+                            {
+
+                              goto LABEL_846;
+                            }
+
+                            v605 = os_log_type_enabled(v599, OS_LOG_TYPE_INFO);
+
+                            if (v605)
+                            {
+LABEL_846:
+                              v606 = _NRCopyLogObjectForNRUUID(*v628);
+                              _NRLogWithArgs(v606, 1, "%s%.30s:%-4d source-resume: NexusBEInput", ", "NRBluetoothPacketParserResumeNexusBEInputSource"", 487);
+                            }
+
+LABEL_681:
+                            v13 = innerCopy;
+                            dispatch_resume(*(innerCopy + 344));
+                            v436 = *(v13 + 144);
+                          }
+
+                          v3 = v624;
+                          if ((v436 & 0x40) == 0 || !*(v13 + 360))
                           {
                             goto LABEL_629;
                           }
 
-                          v825 = _NRCopyLogObjectForNRUUID(*v1075);
-                          v826 = v825;
-                          if (sNRCopyLogToStdErr == 1)
-                          {
-
-                            v3 = v1071;
-                            v18 = innerCopy;
-                            goto LABEL_783;
-                          }
-
-                          v871 = os_log_type_enabled(v825, OS_LOG_TYPE_INFO);
-
-                          v3 = v1071;
-                          v18 = innerCopy;
-                          if (v871)
-                          {
-LABEL_783:
-                            v872 = _NRCopyLogObjectForNRUUID(*v1075);
-                            _NRLogWithArgs(v872, 1, "%s%.30s:%-4d %s: done with NtL fast-path", v873, v874, v875, v876, v877, "");
-                          }
-
-LABEL_629:
-                          v655 = *(v484 + 82);
-                          v379 = v1082;
-                          if (v655 >= 0xB)
-                          {
-                            v655 -= 11 * ((((117 * v655) >> 8) + (((v655 - ((117 * v655) >> 8)) & 0xFE) >> 1)) >> 3);
-                          }
-
-                          v656 = v655;
-                          *(v1088 + 4 * v655) = v658;
-LABEL_632:
-                          if (v656 < 0xA)
-                          {
-                            v659 = v655 + 1;
-                          }
-
-                          else
-                          {
-                            v659 = v655 - 10;
-                          }
-
-                          *(v484 + 82) = v659;
-                          goto LABEL_636;
-                        }
-
-                        if (v1069 <= 1)
-                        {
-                          if (!v1069)
-                          {
-                            v660 = *(v18 + 144);
-LABEL_652:
-                            if ((v660 & 8) != 0 && *(v18 + 312))
-                            {
-                              *(v18 + 144) = v660 & 0xFFFFFFFFFFFFFFF7;
-                              if (gNRPacketLoggingEnabled != 1)
-                              {
-                                goto LABEL_655;
-                              }
-
-                              v955 = _NRCopyLogObjectForNRUUID(*v1075);
-                              v956 = v955;
-                              if (sNRCopyLogToStdErr == 1)
-                              {
-
-                                v3 = v1071;
-                                v18 = innerCopy;
-                                goto LABEL_826;
-                              }
-
-                              v970 = os_log_type_enabled(v955, OS_LOG_TYPE_INFO);
-
-                              v3 = v1071;
-                              v18 = innerCopy;
-                              if (v970)
-                              {
-LABEL_826:
-                                v971 = _NRCopyLogObjectForNRUUID(*v1075);
-                                _NRLogWithArgs(v971, 1, "%s%.30s:%-4d source-resume: NexusVOInput", v972, v973, v974, v975, v976, "");
-                              }
-
-LABEL_655:
-                              dispatch_resume(*(v18 + 312));
-                              v660 = *(v18 + 144);
-                            }
-
-                            if ((v660 & 0x10) != 0 && *(v18 + 328))
-                            {
-                              *(v18 + 144) = v660 & 0xFFFFFFFFFFFFFFEFLL;
-                              if (gNRPacketLoggingEnabled != 1)
-                              {
-                                goto LABEL_659;
-                              }
-
-                              v957 = _NRCopyLogObjectForNRUUID(*v1075);
-                              v958 = v957;
-                              if (sNRCopyLogToStdErr == 1)
-                              {
-
-                                v3 = v1071;
-                                v18 = innerCopy;
-                                goto LABEL_828;
-                              }
-
-                              v977 = os_log_type_enabled(v957, OS_LOG_TYPE_INFO);
-
-                              v3 = v1071;
-                              v18 = innerCopy;
-                              if (v977)
-                              {
-LABEL_828:
-                                v978 = _NRCopyLogObjectForNRUUID(*v1075);
-                                _NRLogWithArgs(v978, 1, "%s%.30s:%-4d source-resume: NexusVIInput", v979, v980, v981, v982, v983, "");
-                              }
-
-LABEL_659:
-                              dispatch_resume(*(v18 + 328));
-                              v660 = *(v18 + 144);
-                            }
-
-                            if ((v660 & 0x20) != 0 && *(v18 + 344))
-                            {
-                              *(v18 + 144) = v660 & 0xFFFFFFFFFFFFFFDFLL;
-                              if (gNRPacketLoggingEnabled != 1)
-                              {
-                                goto LABEL_663;
-                              }
-
-                              v959 = _NRCopyLogObjectForNRUUID(*v1075);
-                              v960 = v959;
-                              if (sNRCopyLogToStdErr == 1)
-                              {
-
-                                v3 = v1071;
-                                v18 = innerCopy;
-                                goto LABEL_830;
-                              }
-
-                              v984 = os_log_type_enabled(v959, OS_LOG_TYPE_INFO);
-
-                              v3 = v1071;
-                              v18 = innerCopy;
-                              if (v984)
-                              {
-LABEL_830:
-                                v985 = _NRCopyLogObjectForNRUUID(*v1075);
-                                _NRLogWithArgs(v985, 1, "%s%.30s:%-4d source-resume: NexusBEInput", v986, v987, v988, v989, v990, "");
-                              }
-
-LABEL_663:
-                              dispatch_resume(*(v18 + 344));
-                              v660 = *(v18 + 144);
-                            }
-
-                            if ((v660 & 0x40) == 0 || !*(v18 + 360))
-                            {
-                              goto LABEL_628;
-                            }
-
-                            v662 = (v18 + 360);
-                            *(v18 + 144) = v660 & 0xFFFFFFFFFFFFFFBFLL;
-                            if (gNRPacketLoggingEnabled == 1)
-                            {
-LABEL_813:
-                              v953 = _NRCopyLogObjectForNRUUID(*v1075);
-                              v954 = v953;
-                              if (sNRCopyLogToStdErr == 1)
-                              {
-
-                                goto LABEL_824;
-                              }
-
-                              v963 = os_log_type_enabled(v953, OS_LOG_TYPE_INFO);
-
-                              if (v963)
-                              {
-LABEL_824:
-                                v964 = _NRCopyLogObjectForNRUUID(*v1075);
-                                _NRLogWithArgs(v964, 1, "%s%.30s:%-4d source-resume: NexusBKInput", v965, v966, v967, v968, v969, "");
-                                goto LABEL_837;
-                              }
-
-LABEL_684:
-                              v3 = v1071;
-                              v18 = innerCopy;
-                            }
-
-                            dispatch_resume(*v662);
-                            goto LABEL_628;
-                          }
-
-                          v660 = *(v18 + 144);
-                          if ((*(v18 + 15) & 4) == 0)
-                          {
-                            goto LABEL_652;
-                          }
-
-                          if ((v660 & 0x20) != 0 && *(v18 + 344))
-                          {
-                            *(v18 + 144) = v660 & 0xFFFFFFFFFFFFFFDFLL;
-                            if (gNRPacketLoggingEnabled != 1)
-                            {
-                              goto LABEL_680;
-                            }
-
-                            v1005 = _NRCopyLogObjectForNRUUID(*v1075);
-                            v1006 = v1005;
-                            if (sNRCopyLogToStdErr == 1)
-                            {
-
-                              goto LABEL_845;
-                            }
-
-                            v1021 = os_log_type_enabled(v1005, OS_LOG_TYPE_INFO);
-
-                            if (v1021)
-                            {
-LABEL_845:
-                              v1022 = _NRCopyLogObjectForNRUUID(*v1075);
-                              _NRLogWithArgs(v1022, 1, "%s%.30s:%-4d source-resume: NexusBEInput", v1023, v1024, v1025, v1026, v1027, "");
-                            }
-
-LABEL_680:
-                            v18 = innerCopy;
-                            dispatch_resume(*(innerCopy + 344));
-                            v660 = *(v18 + 144);
-                          }
-
-                          v3 = v1071;
-                          if ((v660 & 0x40) == 0 || !*(v18 + 360))
-                          {
-                            goto LABEL_628;
-                          }
-
-                          v662 = (v18 + 360);
-                          *(v18 + 144) = v660 & 0xFFFFFFFFFFFFFFBFLL;
+                          v438 = (v13 + 360);
+                          *(v13 + 144) = v436 & 0xFFFFFFFFFFFFFFBFLL;
                           if (gNRPacketLoggingEnabled == 1)
                           {
-                            goto LABEL_813;
+                            goto LABEL_814;
                           }
 
-                          goto LABEL_684;
+                          goto LABEL_685;
                         }
 
-                        if (v1069 == 2)
+                        if (v622 == 2)
                         {
-                          v661 = *(v18 + 144);
-                          if ((v661 & 8) != 0 && *(v18 + 312))
+                          v437 = *(v13 + 144);
+                          if ((v437 & 8) != 0 && *(v13 + 312))
                           {
-                            *(v18 + 144) = v661 & 0xFFFFFFFFFFFFFFF7;
+                            *(v13 + 144) = v437 & 0xFFFFFFFFFFFFFFF7;
                             if (gNRPacketLoggingEnabled != 1)
                             {
-                              goto LABEL_645;
+                              goto LABEL_646;
                             }
 
-                            v961 = _NRCopyLogObjectForNRUUID(*v1075);
-                            v962 = v961;
+                            v585 = _NRCopyLogObjectForNRUUID(*v628);
+                            v586 = v585;
                             if (sNRCopyLogToStdErr == 1)
                             {
 
-                              goto LABEL_841;
+                              goto LABEL_842;
                             }
 
-                            v1007 = os_log_type_enabled(v961, OS_LOG_TYPE_INFO);
+                            v601 = os_log_type_enabled(v585, OS_LOG_TYPE_INFO);
 
-                            if (v1007)
+                            if (v601)
                             {
-LABEL_841:
-                              v1008 = _NRCopyLogObjectForNRUUID(*v1075);
-                              _NRLogWithArgs(v1008, 1, "%s%.30s:%-4d source-resume: NexusVOInput", v1009, v1010, v1011, v1012, v1013, "");
+LABEL_842:
+                              v602 = _NRCopyLogObjectForNRUUID(*v628);
+                              _NRLogWithArgs(v602, 1, "%s%.30s:%-4d source-resume: NexusVOInput", ", "NRBluetoothPacketParserResumeNexusVOInputSource"", 489);
                             }
 
-LABEL_645:
-                            v18 = innerCopy;
+LABEL_646:
+                            v13 = innerCopy;
                             dispatch_resume(*(innerCopy + 312));
-                            v661 = *(v18 + 144);
-                            v3 = v1071;
+                            v437 = *(v13 + 144);
+                            v3 = v624;
                           }
 
-                          if ((v661 & 0x10) == 0 || !*(v18 + 328))
+                          if ((v437 & 0x10) == 0 || !*(v13 + 328))
                           {
-                            goto LABEL_628;
+                            goto LABEL_629;
                           }
 
-                          v662 = (v18 + 328);
-                          *(v18 + 144) = v661 & 0xFFFFFFFFFFFFFFEFLL;
+                          v438 = (v13 + 328);
+                          *(v13 + 144) = v437 & 0xFFFFFFFFFFFFFFEFLL;
                           if (gNRPacketLoggingEnabled != 1)
                           {
-                            goto LABEL_684;
+                            goto LABEL_685;
                           }
 
-                          v663 = _NRCopyLogObjectForNRUUID(*v1075);
-                          v664 = v663;
+                          v439 = _NRCopyLogObjectForNRUUID(*v628);
+                          v440 = v439;
                           if (sNRCopyLogToStdErr == 1)
                           {
                           }
 
                           else
                           {
-                            v993 = os_log_type_enabled(v663, OS_LOG_TYPE_INFO);
+                            v597 = os_log_type_enabled(v439, OS_LOG_TYPE_INFO);
 
-                            if (!v993)
+                            if (!v597)
                             {
-                              goto LABEL_684;
+                              goto LABEL_685;
                             }
                           }
 
-                          v964 = _NRCopyLogObjectForNRUUID(*v1075);
-                          _NRLogWithArgs(v964, 1, "%s%.30s:%-4d source-resume: NexusVIInput", v994, v995, v996, v997, v998, "");
+                          v588 = _NRCopyLogObjectForNRUUID(*v628);
+                          _NRLogWithArgs(v588, 1, "%s%.30s:%-4d source-resume: NexusVIInput");
                         }
 
                         else
                         {
-                          v665 = *(v18 + 144);
-                          if ((v665 & 8) == 0 || !*(v18 + 312))
+                          v441 = *(v13 + 144);
+                          if ((v441 & 8) == 0 || !*(v13 + 312))
                           {
-                            goto LABEL_628;
+                            goto LABEL_629;
                           }
 
-                          v662 = (v18 + 312);
-                          *(v18 + 144) = v665 & 0xFFFFFFFFFFFFFFF7;
+                          v438 = (v13 + 312);
+                          *(v13 + 144) = v441 & 0xFFFFFFFFFFFFFFF7;
                           if (gNRPacketLoggingEnabled != 1)
                           {
-                            goto LABEL_684;
+                            goto LABEL_685;
                           }
 
-                          v666 = _NRCopyLogObjectForNRUUID(*v1075);
-                          v667 = v666;
+                          v442 = _NRCopyLogObjectForNRUUID(*v628);
+                          v443 = v442;
                           if (sNRCopyLogToStdErr == 1)
                           {
                           }
 
                           else
                           {
-                            v999 = os_log_type_enabled(v666, OS_LOG_TYPE_INFO);
+                            v598 = os_log_type_enabled(v442, OS_LOG_TYPE_INFO);
 
-                            if (!v999)
+                            if (!v598)
                             {
-                              goto LABEL_684;
+                              goto LABEL_685;
                             }
                           }
 
-                          v964 = _NRCopyLogObjectForNRUUID(*v1075);
-                          _NRLogWithArgs(v964, 1, "%s%.30s:%-4d source-resume: NexusVOInput", v1000, v1001, v1002, v1003, v1004, "");
+                          v588 = _NRCopyLogObjectForNRUUID(*v628);
+                          _NRLogWithArgs(v588, 1, "%s%.30s:%-4d source-resume: NexusVOInput");
                         }
 
-LABEL_837:
+LABEL_838:
 
-                        goto LABEL_684;
+                        goto LABEL_685;
                       }
 
-                      v1083 = v547;
-                      v1096 = 0;
-                      if (*(v467 + 3640) != 1)
+                      v636 = v382;
+                      v649 = 0;
+                      if (*(v321 + 3640) != 1)
                       {
-                        goto LABEL_530;
+                        goto LABEL_531;
                       }
 
-                      v574 = _NRCopyLogObjectForNRUUID(*v1075);
-                      v575 = v574;
+                      v403 = _NRCopyLogObjectForNRUUID(*v628);
+                      v404 = v403;
                       if (sNRCopyLogToStdErr == 1)
                       {
 
-                        v467 = 0x280D73000;
-                        goto LABEL_581;
+                        v321 = 0x280D73000;
+                        goto LABEL_582;
                       }
 
-                      v587 = os_log_type_enabled(v574, OS_LOG_TYPE_INFO);
+                      v411 = os_log_type_enabled(v403, OS_LOG_TYPE_INFO);
 
-                      v18 = innerCopy;
-                      v467 = 0x280D73000;
-                      if (v587)
+                      v13 = innerCopy;
+                      v321 = 0x280D73000;
+                      if (v411)
                       {
-LABEL_581:
-                        v588 = _NRCopyLogObjectForNRUUID(*v1075);
-                        v1060 = *(v484 + 80);
-                        _NRLogWithArgs(v588, 1, "%s%.30s:%-4d %s: invoking send callback w/ written %u", v589, v590, v591, v592, v593, "");
+LABEL_582:
+                        v412 = _NRCopyLogObjectForNRUUID(*v628);
+                        _NRLogWithArgs(v412, 1, "%s%.30s:%-4d %s: invoking send callback w/ written %u", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2075, v621, *(v334 + 80));
 
-                        v18 = innerCopy;
-                      }
-
-LABEL_530:
-                      v549 = ((*v1081)[1])(**v1081, *v484, *(v484 + 80), &v1096, 0, 0);
-                      if (*(v467 + 3640) == 1)
-                      {
-                        v576 = _NRCopyLogObjectForNRUUID(*v1075);
-                        v577 = v576;
-                        if (sNRCopyLogToStdErr == 1)
-                        {
-
-                          v467 = 0x280D73000;
-                        }
-
-                        else
-                        {
-                          LODWORD(v1073) = os_log_type_enabled(v576, OS_LOG_TYPE_INFO);
-
-                          v18 = innerCopy;
-                          v467 = 0x280D73000;
-                          if (!v1073)
-                          {
-                            goto LABEL_531;
-                          }
-                        }
-
-                        v594 = _NRCopyLogObjectForNRUUID(*v1075);
-                        v1061 = *(v484 + 80);
-                        _NRLogWithArgs(v594, 1, "%s%.30s:%-4d %s: canWriteMore: %d bufferHandled=%zu/%u", v595, v596, v597, v598, v599, "");
-
-                        v18 = innerCopy;
+                        v13 = innerCopy;
                       }
 
 LABEL_531:
-                      if (v549)
+                      v384 = ((*v634)[1])(**v634, *v334, *(v334 + 80), &v649, 0, 0);
+                      if (*(v321 + 3640) == 1)
                       {
-                        v550 = v492 | 0x800;
-                        v551 = v1096;
-                        if (!v1096)
-                        {
-                          goto LABEL_563;
-                        }
-
-LABEL_557:
-                        v568 = *(v467 + 3640);
-                        if (v551 < *(v484 + 80))
-                        {
-                          if (!*(v467 + 3640))
-                          {
-                            goto LABEL_559;
-                          }
-
-                          v602 = _NRCopyLogObjectForNRUUID(*v1075);
-                          v603 = v602;
-                          if (sNRCopyLogToStdErr == 1)
-                          {
-
-                            v467 = 0x280D73000;
-                            goto LABEL_599;
-                          }
-
-                          LODWORD(v1073) = os_log_type_enabled(v602, OS_LOG_TYPE_INFO);
-
-                          v18 = innerCopy;
-                          v467 = 0x280D73000;
-                          if (v1073)
-                          {
-LABEL_599:
-                            v621 = _NRCopyLogObjectForNRUUID(*v1075);
-                            v1062 = *(v484 + 80);
-                            _NRLogWithArgs(v621, 1, "%s%.30s:%-4d %s: memmoving filledIn=%u, bufferHandled=%zu", v622, v623, v624, v625, v626, "");
-
-                            v18 = innerCopy;
-                          }
-
-LABEL_559:
-                          v550 |= 0x2000u;
-                          memmove(*v484, (*v484 + v1096), *(v484 + 80) - v1096);
-                          v569 = v1096;
-                          *(v484 + 80) -= v1096;
-                          v1079 = (v1079 + 1);
-LABEL_562:
-                          *(v18 + v1078) += v569;
-                          goto LABEL_563;
-                        }
-
-                        if (!*(v467 + 3640))
-                        {
-LABEL_561:
-                          v550 |= 0x4000u;
-                          *(v484 + 80) = 0;
-                          v569 = v1096;
-                          goto LABEL_562;
-                        }
-
-                        v604 = _NRCopyLogObjectForNRUUID(*v1075);
-                        v605 = v604;
+                        v405 = _NRCopyLogObjectForNRUUID(*v628);
+                        v406 = v405;
                         if (sNRCopyLogToStdErr == 1)
                         {
 
-                          v467 = 0x280D73000;
+                          v321 = 0x280D73000;
                         }
 
                         else
                         {
-                          LODWORD(v1073) = os_log_type_enabled(v604, OS_LOG_TYPE_INFO);
+                          LODWORD(v626) = os_log_type_enabled(v405, OS_LOG_TYPE_INFO);
 
-                          v18 = innerCopy;
-                          v467 = 0x280D73000;
-                          if (!v1073)
+                          v13 = innerCopy;
+                          v321 = 0x280D73000;
+                          if (!v626)
                           {
-                            goto LABEL_561;
+                            goto LABEL_532;
                           }
                         }
 
-                        v627 = _NRCopyLogObjectForNRUUID(*v1075);
-                        v1063 = *(v484 + 80);
-                        _NRLogWithArgs(v627, 1, "%s%.30s:%-4d %s: not memmoving filledIn=%u, bufferHandled=%zu", v628, v629, v630, v631, v632, "");
+                        v413 = _NRCopyLogObjectForNRUUID(*v628);
+                        _NRLogWithArgs(v413, 1, "%s%.30s:%-4d %s: canWriteMore: %d bufferHandled=%zu/%u", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2078, v621, v384, v649, *(v334 + 80));
 
-                        v18 = innerCopy;
-                        goto LABEL_561;
+                        v13 = innerCopy;
                       }
 
-                      if (v1080)
+LABEL_532:
+                      if (v384)
                       {
-                        v1080(v18);
-                      }
-
-                      *(v484 + 84) |= 1u;
-                      v552 = *(v484 + 83);
-                      if (v552 > 1)
-                      {
-                        if (v552 == 2)
+                        v385 = v342 | 0x800;
+                        v386 = v649;
+                        if (!v649)
                         {
-                          ++*(v18 + 168);
-                          *(v18 + 144) = *(v18 + 144) & 0xFFFFFFFFFFFFFFFDLL | (2 * (*(v484 + 84) & 1));
-                          if (*(v467 + 3640) != 1)
+                          goto LABEL_564;
+                        }
+
+LABEL_558:
+                        if (v386 < *(v334 + 80))
+                        {
+                          if (!*(v321 + 3640))
                           {
-                            goto LABEL_555;
+                            goto LABEL_560;
                           }
 
-                          v559 = _NRCopyLogObjectForNRUUID(*v1075);
-                          v560 = v559;
+                          v417 = _NRCopyLogObjectForNRUUID(*v628);
+                          v418 = v417;
                           if (sNRCopyLogToStdErr == 1)
                           {
 
-                            v467 = 0x280D73000;
+                            v321 = 0x280D73000;
+                            goto LABEL_600;
                           }
 
-                          else
+                          LODWORD(v626) = os_log_type_enabled(v417, OS_LOG_TYPE_INFO);
+
+                          v13 = innerCopy;
+                          v321 = 0x280D73000;
+                          if (v626)
                           {
-                            LODWORD(v1073) = os_log_type_enabled(v559, OS_LOG_TYPE_INFO);
+LABEL_600:
+                            v426 = _NRCopyLogObjectForNRUUID(*v628);
+                            _NRLogWithArgs(v426, 1, "%s%.30s:%-4d %s: memmoving filledIn=%u, bufferHandled=%zu", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2092, v621, *(v334 + 80), v649);
 
-                            v18 = innerCopy;
-                            v467 = 0x280D73000;
-                            if (!v1073)
-                            {
-                              goto LABEL_555;
-                            }
+                            v13 = innerCopy;
                           }
 
-                          v562 = _NRCopyLogObjectForNRUUID(*v1075);
-                          *(v484 + 84);
-                          _NRLogWithArgs(v562, 1, "%s%.30s:%-4d source-%s: High", v650, v651, v652, v653, v654, "");
+LABEL_560:
+                          v385 |= 0x2000u;
+                          memmove(*v334, (*v334 + v649), *(v334 + 80) - v649);
+                          v398 = v649;
+                          *(v334 + 80) -= v649;
+                          v632 = (v632 + 1);
+LABEL_563:
+                          *(v13 + v631) += v398;
+                          goto LABEL_564;
+                        }
+
+                        if (!*(v321 + 3640))
+                        {
+LABEL_562:
+                          v385 |= 0x4000u;
+                          *(v334 + 80) = 0;
+                          v398 = v649;
+                          goto LABEL_563;
+                        }
+
+                        v419 = _NRCopyLogObjectForNRUUID(*v628);
+                        v420 = v419;
+                        if (sNRCopyLogToStdErr == 1)
+                        {
+
+                          v321 = 0x280D73000;
                         }
 
                         else
                         {
-                          if (v552 != 3)
+                          LODWORD(v626) = os_log_type_enabled(v419, OS_LOG_TYPE_INFO);
+
+                          v13 = innerCopy;
+                          v321 = 0x280D73000;
+                          if (!v626)
                           {
-                            goto LABEL_555;
+                            goto LABEL_562;
+                          }
+                        }
+
+                        v427 = _NRCopyLogObjectForNRUUID(*v628);
+                        _NRLogWithArgs(v427, 1, "%s%.30s:%-4d %s: not memmoving filledIn=%u, bufferHandled=%zu", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2099, v621, *(v334 + 80), v649);
+
+                        v13 = innerCopy;
+                        goto LABEL_562;
+                      }
+
+                      if (v633)
+                      {
+                        v633(v13);
+                      }
+
+                      *(v334 + 84) |= 1u;
+                      v387 = *(v334 + 83);
+                      if (v387 > 1)
+                      {
+                        if (v387 == 2)
+                        {
+                          ++*(v13 + 168);
+                          *(v13 + 144) = *(v13 + 144) & 0xFFFFFFFFFFFFFFFDLL | (2 * (*(v334 + 84) & 1));
+                          if (*(v321 + 3640) != 1)
+                          {
+                            goto LABEL_556;
                           }
 
-                          ++*(v18 + 184);
-                          *(v18 + 144) = *(v18 + 144) & 0xFFFFFFFFFFFFFFFBLL | (4 * (*(v484 + 84) & 1));
-                          if (*(v467 + 3640) != 1)
-                          {
-                            goto LABEL_555;
-                          }
-
-                          v556 = _NRCopyLogObjectForNRUUID(*v1075);
-                          v557 = v556;
+                          v394 = _NRCopyLogObjectForNRUUID(*v628);
+                          v395 = v394;
                           if (sNRCopyLogToStdErr == 1)
                           {
 
-                            v467 = 0x280D73000;
+                            v321 = 0x280D73000;
                           }
 
                           else
                           {
-                            LODWORD(v1073) = os_log_type_enabled(v556, OS_LOG_TYPE_INFO);
+                            LODWORD(v626) = os_log_type_enabled(v394, OS_LOG_TYPE_INFO);
 
-                            v18 = innerCopy;
-                            v467 = 0x280D73000;
-                            if (!v1073)
+                            v13 = innerCopy;
+                            v321 = 0x280D73000;
+                            if (!v626)
                             {
-                              goto LABEL_555;
+                              goto LABEL_556;
                             }
                           }
 
-                          v562 = _NRCopyLogObjectForNRUUID(*v1075);
-                          *(v484 + 84);
-                          _NRLogWithArgs(v562, 1, "%s%.30s:%-4d source-%s: Isochronous", v645, v646, v647, v648, v649, "");
+                          v397 = _NRCopyLogObjectForNRUUID(*v628);
+                          _NRLogWithArgs(v397, 1, "%s%.30s:%-4d source-%s: High");
                         }
 
-LABEL_554:
+                        else
+                        {
+                          if (v387 != 3)
+                          {
+                            goto LABEL_556;
+                          }
 
-                        v18 = innerCopy;
+                          ++*(v13 + 184);
+                          *(v13 + 144) = *(v13 + 144) & 0xFFFFFFFFFFFFFFFBLL | (4 * (*(v334 + 84) & 1));
+                          if (*(v321 + 3640) != 1)
+                          {
+                            goto LABEL_556;
+                          }
+
+                          v391 = _NRCopyLogObjectForNRUUID(*v628);
+                          v392 = v391;
+                          if (sNRCopyLogToStdErr == 1)
+                          {
+
+                            v321 = 0x280D73000;
+                          }
+
+                          else
+                          {
+                            LODWORD(v626) = os_log_type_enabled(v391, OS_LOG_TYPE_INFO);
+
+                            v13 = innerCopy;
+                            v321 = 0x280D73000;
+                            if (!v626)
+                            {
+                              goto LABEL_556;
+                            }
+                          }
+
+                          v397 = _NRCopyLogObjectForNRUUID(*v628);
+                          _NRLogWithArgs(v397, 1, "%s%.30s:%-4d source-%s: Isochronous");
+                        }
+
+LABEL_555:
+
+                        v13 = innerCopy;
+                        goto LABEL_556;
+                      }
+
+                      if (!*(v334 + 83))
+                      {
+                        v393 = _NRCopyLogObjectForNRUUID(*v628);
+                        if (sNRCopyLogToStdErr == 1)
+                        {
+                        }
+
+                        else
+                        {
+                          v396 = v393;
+                          LODWORD(v626) = os_log_type_enabled(v393, OS_LOG_TYPE_ERROR);
+
+                          v13 = innerCopy;
+                          if (!v626)
+                          {
+                            goto LABEL_556;
+                          }
+                        }
+
+                        v397 = _NRCopyLogObjectForNRUUID(*v628);
+                        _NRLogWithArgs(v397, 16, "%s%.30s:%-4d invalid link channel priority");
                         goto LABEL_555;
                       }
 
-                      if (!*(v484 + 83))
+                      if (v387 == 1)
                       {
-                        v558 = _NRCopyLogObjectForNRUUID(*v1075);
-                        if (sNRCopyLogToStdErr == 1)
+                        v388 = *(v13 + 144);
+                        ++*(v13 + 152);
+                        *(v13 + 144) = v388 & 0xFFFFFFFFFFFFFFFELL | *(v334 + 84) & 1;
+                        if (*(v321 + 3640) == 1)
                         {
-                        }
-
-                        else
-                        {
-                          v561 = v558;
-                          LODWORD(v1073) = os_log_type_enabled(v558, OS_LOG_TYPE_ERROR);
-
-                          v18 = innerCopy;
-                          if (!v1073)
-                          {
-                            goto LABEL_555;
-                          }
-                        }
-
-                        v562 = _NRCopyLogObjectForNRUUID(*v1075);
-                        _NRLogWithArgs(v562, 16, "%s%.30s:%-4d invalid link channel priority", v563, v564, v565, v566, v567, "");
-                        goto LABEL_554;
-                      }
-
-                      if (v552 == 1)
-                      {
-                        v553 = *(v18 + 144);
-                        ++*(v18 + 152);
-                        *(v18 + 144) = v553 & 0xFFFFFFFFFFFFFFFELL | *(v484 + 84) & 1;
-                        if (*(v467 + 3640) == 1)
-                        {
-                          v554 = _NRCopyLogObjectForNRUUID(*v1075);
-                          v555 = v554;
+                          v389 = _NRCopyLogObjectForNRUUID(*v628);
+                          v390 = v389;
                           if (sNRCopyLogToStdErr == 1)
                           {
 
-                            v467 = 0x280D73000;
-                            goto LABEL_605;
+                            v321 = 0x280D73000;
+                            goto LABEL_606;
                           }
 
-                          LODWORD(v1073) = os_log_type_enabled(v554, OS_LOG_TYPE_INFO);
+                          LODWORD(v626) = os_log_type_enabled(v389, OS_LOG_TYPE_INFO);
 
-                          v18 = innerCopy;
-                          v467 = 0x280D73000;
-                          if (v1073)
+                          v13 = innerCopy;
+                          v321 = 0x280D73000;
+                          if (v626)
                           {
-LABEL_605:
-                            v562 = _NRCopyLogObjectForNRUUID(*v1075);
-                            *(v484 + 84);
-                            _NRLogWithArgs(v562, 1, "%s%.30s:%-4d source-%s: Medium", v640, v641, v642, v643, v644, "");
-                            goto LABEL_554;
+LABEL_606:
+                            v397 = _NRCopyLogObjectForNRUUID(*v628);
+                            _NRLogWithArgs(v397, 1, "%s%.30s:%-4d source-%s: Medium");
+                            goto LABEL_555;
                           }
                         }
                       }
 
-LABEL_555:
-                      v550 = v492 | 0x1800;
-                      if (*(v467 + 3640) != 1)
+LABEL_556:
+                      v385 = v342 | 0x1800;
+                      if (*(v321 + 3640) != 1)
                       {
-                        v551 = v1096;
-                        if (!v1096)
+                        v386 = v649;
+                        if (!v649)
                         {
-                          goto LABEL_563;
+                          goto LABEL_564;
                         }
 
-                        goto LABEL_557;
+                        goto LABEL_558;
                       }
 
-                      v585 = _NRCopyLogObjectForNRUUID(*v1075);
-                      v586 = v585;
+                      v409 = _NRCopyLogObjectForNRUUID(*v628);
+                      v410 = v409;
                       if (sNRCopyLogToStdErr == 1)
                       {
 
-                        goto LABEL_593;
+                        goto LABEL_594;
                       }
 
-                      v608 = os_log_type_enabled(v585, OS_LOG_TYPE_INFO);
+                      v423 = os_log_type_enabled(v409, OS_LOG_TYPE_INFO);
 
-                      if (v608)
+                      if (v423)
                       {
-LABEL_593:
-                        v609 = _NRCopyLogObjectForNRUUID(*v1075);
-                        _NRLogWithArgs(v609, 1, "%s%.30s:%-4d ", v610, v611, v612, v613, v614, "");
+LABEL_594:
+                        v424 = _NRCopyLogObjectForNRUUID(*v628);
+                        _NRLogWithArgs(v424, 1, "%s%.30s:%-4d ", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2086);
                       }
 
-                      v18 = innerCopy;
-                      v467 = 0x280D73000;
-                      v551 = v1096;
-                      if (v1096)
+                      v13 = innerCopy;
+                      v321 = 0x280D73000;
+                      v386 = v649;
+                      if (v649)
                       {
-                        goto LABEL_557;
+                        goto LABEL_558;
                       }
 
-LABEL_563:
-                      LODWORD(ESPSequenceNumberFromPacket) = ESPSequenceNumberFromPacket + 1;
-                      if ((v549 & 1) == 0)
+LABEL_564:
+                      LODWORD(v637) = v637 + 1;
+                      if ((v384 & 1) == 0)
                       {
-                        goto LABEL_617;
+                        goto LABEL_618;
                       }
 
-                      v570 = *(v484 + 82);
-                      if (v570 >= 0xB)
+                      v399 = *(v334 + 82);
+                      if (v399 >= 0xB)
                       {
-                        v570 -= 11 * ((((117 * v570) >> 8) + (((v570 - ((117 * v570) >> 8)) & 0xFE) >> 1)) >> 3);
+                        v399 -= 11 * ((((117 * v399) >> 8) + (((v399 - ((117 * v399) >> 8)) & 0xFE) >> 1)) >> 3);
                       }
 
-                      v491 = 0;
-                      *(v1088 + 4 * v570) = v550;
-                      if (v570 < 0xAu)
+                      v341 = 0;
+                      *(v641 + 4 * v399) = v385;
+                      if (v399 < 0xAu)
                       {
-                        v571 = v570 + 1;
+                        v400 = v399 + 1;
                       }
 
                       else
                       {
-                        v571 = v570 - 10;
+                        v400 = v399 - 10;
                       }
 
-                      *(v484 + 82) = v571;
+                      *(v334 + 82) = v400;
                     }
                   }
                 }
 
-                v840 = _NRCopyLogObjectForNRUUID(*v1075);
-                _NRLogWithArgs(v840, 1, "%s%.30s:%-4d %s: starting NtL outer loop", v841, v842, v843, v844, v845, "");
+                v539 = _NRCopyLogObjectForNRUUID(*v628);
+                _NRLogWithArgs(v539, 1, "%s%.30s:%-4d %s: starting NtL outer loop", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1938, v621);
 
-                v18 = innerCopy;
-                goto LABEL_465;
+                v13 = innerCopy;
+                goto LABEL_466;
               }
 
-              if (*(v467 + 3640) != 1)
+              if (*(v321 + 3640) != 1)
               {
-LABEL_611:
-                if (v1080)
+LABEL_612:
+                if (v633)
                 {
-                  v1080(v18);
+                  v633(v13);
                 }
 
-                v655 = *(v484 + 82);
-                if (v655 >= 0xB)
+                v430 = *(v334 + 82);
+                if (v430 >= 0xB)
                 {
-                  v655 -= 11 * ((((117 * v655) >> 8) + (((v655 - ((117 * v655) >> 8)) & 0xFE) >> 1)) >> 3);
+                  v430 -= 11 * ((((117 * v430) >> 8) + (((v430 - ((117 * v430) >> 8)) & 0xFE) >> 1)) >> 3);
                 }
 
-                v656 = v655;
-                *(v484 + 4 * v655 + 36) = 3;
-                goto LABEL_632;
+                v431 = v430;
+                *(v334 + 4 * v430 + 36) = 3;
+                goto LABEL_633;
               }
 
-              v819 = _NRCopyLogObjectForNRUUID(*v1075);
-              v820 = v819;
+              v522 = v319;
+              v523 = _NRCopyLogObjectForNRUUID(*v628);
+              v524 = v523;
               if (sNRCopyLogToStdErr == 1)
               {
 
-                v379 = v1082;
+                v252 = v635;
               }
 
               else
               {
-                v846 = os_log_type_enabled(v819, OS_LOG_TYPE_INFO);
+                v540 = os_log_type_enabled(v523, OS_LOG_TYPE_INFO);
 
-                v18 = innerCopy;
-                v379 = v1082;
-                if (!v846)
+                v13 = innerCopy;
+                v252 = v635;
+                if (!v540)
                 {
-                  goto LABEL_611;
+                  goto LABEL_612;
                 }
               }
 
-              v847 = _NRCopyLogObjectForNRUUID(*v1075);
-              _NRLogWithArgs(v847, 1, "%s%.30s:%-4d %s: ignoring NtL fast-path for %u, as waiting for link output available", v848, v849, v850, v851, v852, "");
+              v541 = _NRCopyLogObjectForNRUUID(*v628);
+              _NRLogWithArgs(v541, 1, "%s%.30s:%-4d %s: ignoring NtL fast-path for %u, as waiting for link output available", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1903, v522, v315);
 
-              v18 = innerCopy;
-              goto LABEL_611;
+              v13 = innerCopy;
+              goto LABEL_612;
             }
 
-            v798 = v465;
-            if (*(v467 + 3640) == 1)
+            v511 = v319;
+            if (*(v321 + 3640) == 1)
             {
-              v1030 = _NRCopyLogObjectForNRUUID(*v1075);
-              v1031 = v1030;
+              v609 = _NRCopyLogObjectForNRUUID(*v628);
+              v610 = v609;
               if (sNRCopyLogToStdErr == 1)
               {
               }
 
               else
               {
-                v1043 = os_log_type_enabled(v1030, OS_LOG_TYPE_INFO);
+                v617 = os_log_type_enabled(v609, OS_LOG_TYPE_INFO);
 
-                if (!v1043)
+                if (!v617)
                 {
-                  goto LABEL_744;
+                  goto LABEL_745;
                 }
               }
 
-              v1044 = _NRCopyLogObjectForNRUUID(*v1075);
-              _NRLogWithArgs(v1044, 1, "%s%.30s:%-4d ", v1045, v1046, v1047, v1048, v1049, "");
+              v618 = _NRCopyLogObjectForNRUUID(*v628);
+              _NRLogWithArgs(v618, 1, "%s%.30s:%-4d ", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1923);
             }
 
-LABEL_744:
-            v799 = _NRCopyLogObjectForNRUUID(*v1075);
-            v800 = v799;
+LABEL_745:
+            v512 = _NRCopyLogObjectForNRUUID(*v628);
+            v513 = v512;
             if (sNRCopyLogToStdErr == 1)
             {
 
-              v379 = v1082;
+              v252 = v635;
             }
 
             else
             {
-              v810 = os_log_type_enabled(v799, OS_LOG_TYPE_FAULT);
+              v518 = os_log_type_enabled(v512, OS_LOG_TYPE_FAULT);
 
-              v18 = innerCopy;
-              v379 = v1082;
-              if (!v810)
+              v13 = innerCopy;
+              v252 = v635;
+              if (!v518)
               {
-                goto LABEL_636;
+                goto LABEL_637;
               }
             }
 
-            v811 = _NRCopyLogObjectForNRUUID(*v1075);
-            _NRLogWithArgs(v811, 17, "%s: Invalid write context for nexus priority: %u", v812, v813, v814, v815, v816, v798);
+            v519 = _NRCopyLogObjectForNRUUID(*v628);
+            _NRLogWithArgs(v519, 17, "%s: Invalid write context for nexus priority: %u", v511, v315);
 
-            v18 = innerCopy;
-LABEL_636:
+            v13 = innerCopy;
+LABEL_637:
 
-            v312 = v1076;
-            v378 = v1085;
+            v191 = v629;
+            v251 = v638;
             goto LABEL_350;
           }
 
-          v468 = *(v18 + 112);
-          if (!v468)
+          v322 = *(v13 + 112);
+          if (!v322)
           {
-LABEL_456:
-            v464 = (v18 + 104);
-            v465 = "Medium";
-            v466 = 1;
-            v467 = 0x280D73000;
-            goto LABEL_458;
+LABEL_457:
+            v318 = (v13 + 104);
+            v319 = "Medium";
+            v320 = 1;
+            v321 = 0x280D73000;
+            goto LABEL_459;
           }
 
-          if ((*(*v468 + 43) & 3) == 1 && (*(v18 + 17) & 1) == 0)
+          if ((*(*v322 + 43) & 3) == 1 && (*(v13 + 17) & 1) == 0)
           {
 
-            v1080 = 0;
-            v469 = 0;
-            v462 = 0;
-            v1090 = 0;
-            v1072 = 0;
-            v464 = (v18 + 120);
+            v633 = 0;
+            v323 = 0;
+            v316 = 0;
+            v643 = 0;
+            v625 = 0;
+            v318 = (v13 + 120);
           }
 
           else
           {
-            v464 = 0;
-            v469 = 1;
+            v318 = 0;
+            v323 = 1;
           }
 
-          if (*(v18 + 17) == 1 && (gNRPacketLoggingEnabled & 1) != 0)
+          if (*(v13 + 17) == 1 && (gNRPacketLoggingEnabled & 1) != 0)
           {
-            v943 = v462;
-            v944 = _NRCopyLogObjectForNRUUID(*v1075);
-            v945 = v944;
+            v572 = v316;
+            v573 = _NRCopyLogObjectForNRUUID(*v628);
+            v574 = v573;
             if (sNRCopyLogToStdErr == 1)
             {
 
-              v379 = v1082;
+              v252 = v635;
             }
 
             else
             {
-              v946 = os_log_type_enabled(v944, OS_LOG_TYPE_INFO);
+              v575 = os_log_type_enabled(v573, OS_LOG_TYPE_INFO);
 
-              v18 = innerCopy;
-              v379 = v1082;
-              v462 = v943;
-              if (!v946)
+              v13 = innerCopy;
+              v252 = v635;
+              v316 = v572;
+              if (!v575)
               {
-                goto LABEL_453;
+                goto LABEL_454;
               }
             }
 
-            v947 = _NRCopyLogObjectForNRUUID(*v1075);
-            _NRLogWithArgs(v947, 1, "%s%.30s:%-4d sending packets over medium pipe", v948, v949, v950, v951, v952, "");
+            v576 = _NRCopyLogObjectForNRUUID(*v628);
+            _NRLogWithArgs(v576, 1, "%s%.30s:%-4d sending packets over medium pipe", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1887);
 
-            v462 = v943;
-            v18 = innerCopy;
+            v316 = v572;
+            v13 = innerCopy;
           }
 
-LABEL_453:
-          if (v464)
+LABEL_454:
+          if (v318)
           {
-            if (v469)
+            if (v323)
             {
-              v466 = 0;
-              v465 = "Invalid";
-              v467 = 0x280D73000;
-              goto LABEL_458;
+              v320 = 0;
+              v319 = "Invalid";
+              v321 = 0x280D73000;
+              goto LABEL_459;
             }
 
-            goto LABEL_457;
+            goto LABEL_458;
           }
 
-          goto LABEL_456;
+          goto LABEL_457;
         }
       }
 
-      v804 = _NRCopyLogObjectForNRUUID(*v1075);
-      _NRLogWithArgs(v804, 1, "%s%.30s:%-4d starting NtL fast-path for %u", v805, v806, v807, v808, v809, "");
+      v517 = _NRCopyLogObjectForNRUUID(*v628);
+      _NRLogWithArgs(v517, 1, "%s%.30s:%-4d starting NtL fast-path for %u", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1858, v315);
 
-      v462 = v795;
-      v18 = innerCopy;
-      goto LABEL_436;
+      v316 = v508;
+      v13 = innerCopy;
+      goto LABEL_437;
     }
 
-    v407 = v3;
-    v408 = _NRCopyLogObjectForNRUUID(*v1075);
+    v280 = v3;
+    v281 = _NRCopyLogObjectForNRUUID(*v628);
     if (*(p_inst_meths + 556) == 1)
     {
     }
 
     else
     {
-      v435 = v408;
-      v436 = os_log_type_enabled(v408, OS_LOG_TYPE_DEFAULT);
+      v294 = v281;
+      v295 = os_log_type_enabled(v281, OS_LOG_TYPE_DEFAULT);
 
-      if (!v436)
+      if (!v295)
       {
-        goto LABEL_394;
+        goto LABEL_395;
       }
     }
 
-    v437 = _NRCopyLogObjectForNRUUID(*v1075);
-    v438 = *(v395 + 24);
-    [v1085 intValue];
-    _NRLogWithArgs(v437, 0, "%s%.30s:%-4d received more data than moveOffset (%u > %u), off %d", v439, v440, v441, v442, v443, "");
+    v296 = _NRCopyLogObjectForNRUUID(*v628);
+    _NRLogWithArgs(v296, 0, "%s%.30s:%-4d received more data than moveOffset (%u > %u), off %d", ", "-[NRBluetoothPacketParser sendXPCCommDictionaryInner:]"", 788, *(v268 + 24), v278, [v638 intValue]);
 
-LABEL_394:
-    if (v405 >= 0x10000)
+LABEL_395:
+    if (v278 >= 0x10000)
     {
-      v444 = *(v395 + 24);
-      [v1085 intValue];
-      [(NRBluetoothPacketParser *)innerCopy handleInternalError:off %d""), v445, v446, v447, v448, v449, v450, v444];
-      v3 = v407;
-      goto LABEL_396;
+      v297 = *(v268 + 24);
+      [v638 intValue];
+      [(NRBluetoothPacketParser *)innerCopy handleInternalError:off %d""), v298, v299, v300, v301, v302, v303, v297];
+      v3 = v280;
+      goto LABEL_397;
     }
 
-    v3 = v407;
-    if (v405)
+    v3 = v280;
+    if (v278)
     {
-      memmove(*v395, (*v395 + v405), *(v395 + 24) - v405);
-      *(v395 + 24) -= v405;
+      memmove(*v268, (*v268 + v278), *(v268 + 24) - v278);
+      *(v268 + 24) -= v278;
     }
 
-    bzero(&v1098, 0x5DCuLL);
-    v451 = *(v395 + 24);
-    *(v395 + 24) = 0;
-    v452 = &v1098;
-    if (v451 < 0x5DD || (v452 = malloc_type_calloc(1uLL, v451, 0xA3D89D4uLL)) != 0)
+    bzero(&v651, 0x5DCuLL);
+    v304 = *(v268 + 24);
+    *(v268 + 24) = 0;
+    v305 = &v651;
+    if (v304 < 0x5DD || (v305 = malloc_type_calloc(1uLL, v304, 0xA3D89D4uLL)) != 0)
     {
-      memcpy(v452, *v395, v451);
-      NRBluetoothPacketParserLinkToNexusLoopFastPath(innerCopy, v395, v452, v451, 0, 0);
-      if (v452 != &v1098)
+      memcpy(v305, *v268, v304);
+      NRBluetoothPacketParserLinkToNexusLoopFastPath(innerCopy, v268, v305, v304, 0, 0);
+      if (v305 != &v651)
       {
-        free(v452);
+        free(v305);
       }
 
-      v18 = innerCopy;
-      v378 = v1085;
-      goto LABEL_405;
+      v13 = innerCopy;
+      v251 = v638;
+      goto LABEL_406;
     }
 
-    v1028 = nrCopyLogObj_560();
-    v1029 = v1028;
+    v607 = nrCopyLogObj_560();
+    v608 = v607;
     if (*(p_inst_meths + 556) == 1)
     {
     }
 
     else
     {
-      v1032 = os_log_type_enabled(v1028, OS_LOG_TYPE_ERROR);
+      v611 = os_log_type_enabled(v607, OS_LOG_TYPE_ERROR);
 
-      if (!v1032)
+      if (!v611)
       {
-LABEL_852:
-        v1039 = _os_log_pack_size();
-        MEMORY[0x28223BE20](v1039, v1040);
-        v1041 = *__error();
-        v1042 = _os_log_pack_fill();
-        *v1042 = 136446722;
-        *(v1042 + 4) = "[NRBluetoothPacketParser sendXPCCommDictionaryInner:]";
-        *(v1042 + 12) = 2048;
-        *(v1042 + 14) = 1;
-        *(v1042 + 22) = 2048;
-        *(v1042 + 24) = v451;
-        goto LABEL_447;
+LABEL_853:
+        v613 = _os_log_pack_size();
+        v329 = &v621 - ((MEMORY[0x28223BE20](v613, v614) + 15) & 0xFFFFFFFFFFFFFFF0);
+        v615 = __error();
+        v616 = _os_log_pack_fill(v329, v613, *v615, &dword_25B98C000, "%{public}s strict_calloc(%zu, %zu) failed");
+        *v616 = 136446722;
+        *(v616 + 4) = "[NRBluetoothPacketParser sendXPCCommDictionaryInner:]";
+        *(v616 + 12) = 2048;
+        *(v616 + 14) = 1;
+        *(v616 + 22) = 2048;
+        *(v616 + 24) = v304;
+        goto LABEL_448;
       }
     }
 
-    v1033 = nrCopyLogObj_560();
-    _NRLogWithArgs(v1033, 16, "%s%.30s:%-4d ABORTING: strict_calloc(%zu, %zu) failed", v1034, v1035, v1036, v1037, v1038, "");
+    v612 = nrCopyLogObj_560();
+    _NRLogWithArgs(v612, 16, "%s%.30s:%-4d ABORTING: strict_calloc(%zu, %zu) failed", ", "[NRBluetoothPacketParser sendXPCCommDictionaryInner:]"", 804, 1uLL, v304);
 
-    goto LABEL_852;
+    goto LABEL_853;
   }
 
 LABEL_350:
 
 LABEL_351:
-  v386 = [v3 objectForKeyedSubscript:{@"deactivate-datapath", v1068}];
+  v259 = [v3 objectForKeyedSubscript:{@"deactivate-datapath", v621}];
 
-  if (v386)
+  if (v259)
   {
-    v387 = [v3 objectForKeyedSubscript:@"deactivate-datapath"];
-    v388 = [v387 objectForKeyedSubscript:@"channel-id"];
-    if ([v388 integerValue] == 2)
+    v260 = [v3 objectForKeyedSubscript:@"deactivate-datapath"];
+    v261 = [v260 objectForKeyedSubscript:@"channel-id"];
+    if ([v261 integerValue] == 2)
     {
-      v389 = 2;
+      v262 = 2;
     }
 
-    else if ([v388 integerValue] == 1)
+    else if ([v261 integerValue] == 1)
     {
-      v389 = 1;
+      v262 = 1;
     }
 
-    else if ([v388 integerValue] == 3)
+    else if ([v261 integerValue] == 3)
     {
-      v389 = 3;
+      v262 = 3;
     }
 
     else
     {
-      v389 = 0;
+      v262 = 0;
     }
 
-    v391 = innerCopy;
-    [(NRBluetoothPacketParser *)innerCopy resetContextForPriorityInner:v389 teardownContext:0];
+    v264 = innerCopy;
+    [(NRBluetoothPacketParser *)innerCopy resetContextForPriorityInner:v262 teardownContext:0];
 
-    v18 = v391;
+    v13 = v264;
   }
 
-  v392 = [v3 objectForKeyedSubscript:@"teardown"];
+  v265 = [v3 objectForKeyedSubscript:@"teardown"];
 
-  if (v392)
+  if (v265)
   {
-    v312 = [v3 objectForKeyedSubscript:@"teardown"];
-    if ([v312 BOOLValue])
+    v191 = [v3 objectForKeyedSubscript:@"teardown"];
+    if ([v191 BOOLValue])
     {
-      [(NRBluetoothPacketParser *)v18 teardown];
+      [(NRBluetoothPacketParser *)v13 teardown];
     }
 
     goto LABEL_306;
   }
 
 LABEL_307:
-
-  v360 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateReadyStateIfApplicable
@@ -6378,20 +6759,20 @@ LABEL_307:
 
 - (void)setupNexusChannelForPriority:(void *)priority channelUUID:
 {
-  v61[2] = *MEMORY[0x277D85DE8];
+  v60[2] = *MEMORY[0x277D85DE8];
   priorityCopy = priority;
   if (!os_channel_attr_create())
   {
     v45 = @"os_channel_attr_create() failed";
 LABEL_14:
-    [(NRBluetoothPacketParser *)self handleInternalError:v45, v6, v7, v8, v9, v10, v11, v47];
+    [(NRBluetoothPacketParser *)self handleInternalError:v45, v6, v7, v8, v9, v10, v11, v46];
     goto LABEL_15;
   }
 
   os_channel_attr_set();
-  v61[0] = 0;
-  v61[1] = 0;
-  [priorityCopy getUUIDBytes:v61];
+  v60[0] = 0;
+  v60[1] = 0;
+  [priorityCopy getUUIDBytes:v60];
   extended = os_channel_create_extended();
   if (!extended)
   {
@@ -6409,7 +6790,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v51 = v14;
+  v50 = v14;
   os_channel_ring_id();
   v15 = os_channel_tx_ring();
   if (!v15)
@@ -6437,37 +6818,37 @@ LABEL_14:
     handler[2] = __68__NRBluetoothPacketParser_setupNexusChannelForPriority_channelUUID___block_invoke;
     handler[3] = &unk_27996AF70;
     handler[4] = self;
-    v60 = a2;
+    v59 = a2;
     dispatch_source_set_event_handler(v27, handler);
     dispatch_group_enter(v25);
-    v57[0] = MEMORY[0x277D85DD0];
-    v57[1] = 3221225472;
-    v57[2] = __68__NRBluetoothPacketParser_setupNexusChannelForPriority_channelUUID___block_invoke_2;
-    v57[3] = &unk_27996B180;
+    v56[0] = MEMORY[0x277D85DD0];
+    v56[1] = 3221225472;
+    v56[2] = __68__NRBluetoothPacketParser_setupNexusChannelForPriority_channelUUID___block_invoke_2;
+    v56[3] = &unk_27996B180;
     v28 = v25;
-    v58 = v28;
-    dispatch_source_set_cancel_handler(v27, v57);
+    v57 = v28;
+    dispatch_source_set_cancel_handler(v27, v56);
     dispatch_activate(v27);
     v29 = dispatch_source_create(MEMORY[0x277D85D50], v26, 0, *(self + 64));
     v36 = v29;
     if (v29)
     {
-      v55[0] = MEMORY[0x277D85DD0];
-      v55[1] = 3221225472;
-      v55[2] = __68__NRBluetoothPacketParser_setupNexusChannelForPriority_channelUUID___block_invoke_3;
-      v55[3] = &unk_27996AF70;
-      v55[4] = self;
-      v56 = a2;
+      v54[0] = MEMORY[0x277D85DD0];
+      v54[1] = 3221225472;
+      v54[2] = __68__NRBluetoothPacketParser_setupNexusChannelForPriority_channelUUID___block_invoke_3;
+      v54[3] = &unk_27996AF70;
+      v54[4] = self;
+      v55 = a2;
       v37 = a2;
-      dispatch_source_set_event_handler(v29, v55);
+      dispatch_source_set_event_handler(v29, v54);
       dispatch_group_enter(v28);
-      v53[0] = MEMORY[0x277D85DD0];
-      v53[1] = 3221225472;
-      v53[2] = __68__NRBluetoothPacketParser_setupNexusChannelForPriority_channelUUID___block_invoke_4;
-      v53[3] = &unk_27996B180;
+      v52[0] = MEMORY[0x277D85DD0];
+      v52[1] = 3221225472;
+      v52[2] = __68__NRBluetoothPacketParser_setupNexusChannelForPriority_channelUUID___block_invoke_4;
+      v52[3] = &unk_27996B180;
       v38 = v28;
-      v54 = v38;
-      dispatch_source_set_cancel_handler(v36, v53);
+      v53 = v38;
+      dispatch_source_set_cancel_handler(v36, v52);
       v39 = *(self + 64);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
@@ -6475,16 +6856,16 @@ LABEL_14:
       block[3] = &__block_descriptor_40_e5_v8__0l;
       block[4] = v13;
       dispatch_group_notify(v38, v39, block);
-      v50 = v27;
-      v49 = v36;
-      v48 = v38;
+      v49 = v27;
+      v48 = v36;
+      v47 = v38;
       v40 = v37 - 100;
       v41 = qword_25B9FC478[v40];
       v42 = qword_25B9FC498[v40];
       v43 = self + 8 * v40;
       *(v43 + 216) = v13;
       v44 = self + 16 * v40;
-      *(v44 + 248) = v51;
+      *(v44 + 248) = v50;
       *(v44 + 256) = v16;
       objc_storeStrong((v44 + 312), v27);
       objc_storeStrong((v44 + 320), v36);
@@ -6504,34 +6885,33 @@ LABEL_14:
   }
 
 LABEL_15:
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __68__NRBluetoothPacketParser_setupNexusChannelForPriority_channelUUID___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v425 = *MEMORY[0x277D85DE8];
+  v242 = *MEMORY[0x277D85DE8];
   if (gNRPacketLoggingEnabled == 1)
   {
-    v223 = _NRCopyLogObjectForNRUUID(*(*(a1 + 32) + 48));
+    v143 = _NRCopyLogObjectForNRUUID(*(*(a1 + 32) + 48));
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v225 = v223;
-      v226 = os_log_type_enabled(v223, OS_LOG_TYPE_INFO);
+      v145 = v143;
+      v146 = os_log_type_enabled(v143, OS_LOG_TYPE_INFO);
 
-      if (!v226)
+      if (!v146)
       {
         goto LABEL_2;
       }
     }
 
-    v227 = _NRCopyLogObjectForNRUUID(*(*(v1 + 32) + 48));
+    v147 = _NRCopyLogObjectForNRUUID(*(*(v1 + 32) + 48));
     StringForNRNexusChannelPriority = createStringForNRNexusChannelPriority(*(v1 + 40));
-    _NRLogWithArgs(v227, 1, "%s%.30s:%-4d Nexus input available - %@", v228, v229, v230, v231, v232, "");
+    _NRLogWithArgs(v147, 1, "%s%.30s:%-4d Nexus input available - %@", ", "[NRBluetoothPacketParser setupNexusChannelForPriority:channelUUID:]_block_invoke"", 1504, StringForNRNexusChannelPriority);
   }
 
 LABEL_2:
@@ -6539,437 +6919,454 @@ LABEL_2:
   v2 = *(v1 + 32);
   if (*(v2 + 13) == 4)
   {
-    goto LABEL_208;
+    goto LABEL_210;
   }
 
   v3 = *(v1 + 40);
   dispatch_assert_queue_V2(*(v2 + 64));
   v4 = 0;
+  v5 = 0;
   if (v3 > 101)
   {
     if (v3 == 102)
     {
-      v4 = 0;
       v5 = 0;
-      v411 = NRBluetoothPacketParserSuspendNexusBEInputSource;
-      v7 = 21;
-      v8 = 480;
-      v9 = 344;
-      v10 = 280;
-      v11 = 232;
+      v6 = 0;
+      v228 = NRBluetoothPacketParserSuspendNexusBEInputSource;
+      v8 = 21;
+      v9 = 480;
+      v10 = 344;
+      v11 = 280;
+      v12 = 232;
     }
 
     else
     {
-      v5 = 0;
-      v414 = 0;
-      v415 = 0;
       v6 = 0;
-      v418 = 0;
-      v411 = 0;
+      v231 = 0;
+      v232 = 0;
+      v7 = 0;
+      v235 = 0;
+      v228 = 0;
       if (v3 != 103)
       {
         goto LABEL_13;
       }
 
-      v4 = 0;
       v5 = 0;
-      v411 = NRBluetoothPacketParserSuspendNexusBKInputSource;
-      v7 = 22;
-      v8 = 496;
-      v9 = 360;
-      v10 = 296;
-      v11 = 240;
+      v6 = 0;
+      v228 = NRBluetoothPacketParserSuspendNexusBKInputSource;
+      v8 = 22;
+      v9 = 496;
+      v10 = 360;
+      v11 = 296;
+      v12 = 240;
     }
   }
 
   else if (v3 == 100)
   {
-    v4 = 1;
-    v7 = 19;
-    v8 = 448;
-    v9 = 312;
-    v10 = 248;
-    v11 = 216;
     v5 = 1;
-    v411 = NRBluetoothPacketParserSuspendNexusVOInputSource;
+    v8 = 19;
+    v9 = 448;
+    v10 = 312;
+    v11 = 248;
+    v12 = 216;
+    v6 = 1;
+    v228 = NRBluetoothPacketParserSuspendNexusVOInputSource;
   }
 
   else
   {
-    v5 = 0;
-    v414 = 0;
-    v415 = 0;
     v6 = 0;
-    v418 = 0;
-    v411 = 0;
+    v231 = 0;
+    v232 = 0;
+    v7 = 0;
+    v235 = 0;
+    v228 = 0;
     if (v3 != 101)
     {
       goto LABEL_13;
     }
 
-    v5 = 0;
-    v411 = NRBluetoothPacketParserSuspendNexusVIInputSource;
-    v4 = 1;
-    v7 = 20;
-    v8 = 464;
-    v9 = 328;
-    v10 = 264;
-    v11 = 224;
+    v6 = 0;
+    v228 = NRBluetoothPacketParserSuspendNexusVIInputSource;
+    v5 = 1;
+    v8 = 20;
+    v9 = 464;
+    v10 = 328;
+    v11 = 264;
+    v12 = 224;
   }
 
-  v12 = *(v2 + v11);
-  v418 = *(v2 + v10);
-  v6 = *(v2 + v9);
-  v414 = (v2 + v8);
-  v415 = (v2 + v7);
+  v4 = *(v2 + v12);
+  v235 = *(v2 + v11);
+  v7 = *(v2 + v10);
+  v231 = (v2 + v9);
+  v232 = (v2 + v8);
 LABEL_13:
   if (gNRPacketLoggingEnabled != 1)
   {
     goto LABEL_14;
   }
 
-  v224 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+  v144 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
   if (sNRCopyLogToStdErr == 1)
   {
   }
 
   else
   {
-    v241 = v224;
-    v242 = os_log_type_enabled(v224, OS_LOG_TYPE_INFO);
+    v152 = v4;
+    v153 = v144;
+    v154 = os_log_type_enabled(v144, OS_LOG_TYPE_INFO);
 
-    if (!v242)
+    v4 = v152;
+    if (!v154)
     {
       goto LABEL_14;
     }
   }
 
-  v243 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-  _NRLogWithArgs(v243, 1, "%s%.30s:%-4d starting NtL fast-path for %u", v244, v245, v246, v247, v248, "");
+  v155 = v4;
+  v156 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+  _NRLogWithArgs(v156, 1, "%s%.30s:%-4d starting NtL fast-path for %u", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1858, v3);
 
+  v4 = v155;
 LABEL_14:
-  v417 = *&v5 & ((*(v2 + 15) & 8) >> 3);
-  if (v417 != 1)
+  v13 = *(v2 + 15);
+  v234 = *&v6 & ((v13 & 8) >> 3);
+  if (v234 != 1)
   {
-    if (!v4)
+    if (!v5)
     {
-      goto LABEL_257;
+      goto LABEL_259;
     }
 
-    if ((*(v2 + 15) & 4) != 0)
+    if ((v13 & 4) != 0)
     {
-      v13 = (v2 + 120);
-      goto LABEL_261;
+      v14 = (v2 + 120);
+      goto LABEL_263;
     }
 
-    v201 = *(v2 + 112);
-    if (!v201)
+    v121 = *(v2 + 112);
+    if (!v121)
     {
-LABEL_257:
-      v13 = (v2 + 104);
-      v14 = "Medium";
-      v15 = 1;
-      v16 = *(v2 + 104);
-      if (!v16)
+LABEL_259:
+      v14 = (v2 + 104);
+      v15 = "Medium";
+      v16 = 1;
+      v17 = *(v2 + 104);
+      if (!v17)
       {
-        goto LABEL_258;
+        goto LABEL_260;
       }
 
       goto LABEL_16;
     }
 
-    if ((*(*v201 + 43) & 3) == 1 && (*(v2 + 17) & 1) == 0)
+    if ((*(*v121 + 43) & 3) == 1 && (*(v2 + 17) & 1) == 0)
     {
 
-      v411 = 0;
-      v202 = 0;
-      v6 = 0;
-      v418 = 0;
-      v13 = (v2 + 120);
+      v228 = 0;
+      v122 = 0;
+      v7 = 0;
+      v235 = 0;
+      v4 = 0;
+      v14 = (v2 + 120);
     }
 
     else
     {
-      v13 = 0;
-      v202 = 1;
+      v14 = 0;
+      v122 = 1;
     }
 
     if (*(v2 + 17) == 1 && (gNRPacketLoggingEnabled & 1) != 0)
     {
-      v312 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-      v313 = v312;
+      v185 = v4;
+      v186 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+      v187 = v186;
       if (sNRCopyLogToStdErr == 1)
       {
       }
 
       else
       {
-        v314 = os_log_type_enabled(v312, OS_LOG_TYPE_INFO);
+        v188 = os_log_type_enabled(v186, OS_LOG_TYPE_INFO);
 
-        if (!v314)
+        v4 = v185;
+        if (!v188)
         {
-          goto LABEL_253;
+          goto LABEL_255;
         }
       }
 
-      v315 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-      _NRLogWithArgs(v315, 1, "%s%.30s:%-4d sending packets over medium pipe", v316, v317, v318, v319, v320, "");
+      v189 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+      _NRLogWithArgs(v189, 1, "%s%.30s:%-4d sending packets over medium pipe", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1887);
+
+      v4 = v185;
     }
 
-LABEL_253:
-    if (v13)
+LABEL_255:
+    if (v14)
     {
-      if (v202)
+      if (v122)
       {
-        v15 = 0;
-        v14 = "Invalid";
-        v16 = *v13;
-        if (!*v13)
+        v16 = 0;
+        v15 = "Invalid";
+        v17 = *v14;
+        if (!*v14)
         {
-          goto LABEL_258;
+          goto LABEL_260;
         }
 
         goto LABEL_16;
       }
 
-LABEL_261:
-      v14 = "High";
-      v15 = 2;
-      v16 = *v13;
-      if (!*v13)
+LABEL_263:
+      v15 = "High";
+      v16 = 2;
+      v17 = *v14;
+      if (!*v14)
       {
-        goto LABEL_258;
+        goto LABEL_260;
       }
 
 LABEL_16:
-      v17 = v16[3];
-      if ((*(v17 + 84) & 1) == 0)
+      v222 = v4;
+      v18 = v17[3];
+      if ((*(v18 + 84) & 1) == 0)
       {
-        v18 = *(v17 + 8);
-        v19 = *(v17 + 83);
-        v20 = 584;
-        if (v19 == 3)
+        v19 = *(v18 + 8);
+        v20 = *(v18 + 83);
+        v21 = 584;
+        if (v20 == 3)
         {
-          v20 = 600;
+          v21 = 600;
         }
 
-        v21 = v19 == 2;
-        v22 = 616;
-        if (!v21)
+        v22 = v20 == 2;
+        v23 = 616;
+        if (!v22)
         {
-          v22 = v20;
+          v23 = v21;
         }
 
-        v409 = v22;
+        v226 = v23;
         if (gNRPacketLoggingEnabled != 1)
         {
           goto LABEL_22;
         }
 
-        v249 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+        v157 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
         if (sNRCopyLogToStdErr == 1)
         {
         }
 
         else
         {
-          v254 = v249;
-          v255 = os_log_type_enabled(v249, OS_LOG_TYPE_INFO);
+          v162 = v157;
+          v163 = os_log_type_enabled(v157, OS_LOG_TYPE_INFO);
 
-          if (!v255)
+          if (!v163)
           {
 LABEL_22:
-            v412 = v13;
-            v394 = v15;
-            v395 = v6;
-            v396 = v1;
-            v413 = 0;
-            v23 = 0;
+            v229 = v14;
+            v219 = v16;
+            v218 = v15;
+            v220 = v7;
+            v221 = v1;
+            v230 = 0;
             v24 = 0;
+            v25 = 0;
             next_slot = 0;
-            v26 = 0;
-            v410 = 0;
-            v416 = v17 + 36;
-            v423 = 0u;
-            v424 = 0u;
-            v27 = 9;
-            v421 = 0u;
-            v422 = 0u;
-            v28 = 0x280D73000uLL;
-            v397 = v18;
+            v27 = 0;
+            v227 = 0;
+            v233 = v18 + 36;
+            v240 = 0u;
+            v241 = 0u;
+            v28 = 9;
+            v238 = 0u;
+            v239 = 0u;
+            v29 = 0x280D73000uLL;
+            v224 = v19;
             while (1)
             {
-              if (*(v28 + 3640) == 1)
+              if (*(v29 + 3640) == 1)
               {
-                v117 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                v91 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
                 if (sNRCopyLogToStdErr == 1)
                 {
 
-LABEL_141:
-                  v122 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                  _NRLogWithArgs(v122, 1, "%s%.30s:%-4d %s: starting NtL inner loop", v123, v124, v125, v126, v127, "");
+LABEL_143:
+                  v96 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                  _NRLogWithArgs(v96, 1, "%s%.30s:%-4d %s: starting NtL inner loop", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1949, v218);
 
-                  v28 = 0x280D73000;
+                  v29 = 0x280D73000;
                   goto LABEL_24;
                 }
 
-                v120 = v117;
-                v121 = os_log_type_enabled(v117, OS_LOG_TYPE_INFO);
+                v94 = v91;
+                v95 = os_log_type_enabled(v91, OS_LOG_TYPE_INFO);
 
-                v28 = 0x280D73000;
-                if (v121)
+                v29 = 0x280D73000;
+                if (v95)
                 {
-                  goto LABEL_141;
+                  goto LABEL_143;
                 }
               }
 
 LABEL_24:
-              v29 = v27 | 0x10;
-              if (v417)
+              v30 = v28 | 0x10;
+              if (v234)
               {
                 goto LABEL_34;
               }
 
-              v31 = *(v17 + 28);
-              v30 = *(v17 + 32);
-              if (v31 <= v30)
+              v32 = *(v18 + 28);
+              v31 = *(v18 + 32);
+              if (v32 <= v31)
               {
                 goto LABEL_34;
               }
 
-              v32 = *(v17 + 80);
-              if ((v31 - v30) >= (0x4000 - v32))
+              ESPSequenceNumberFromPacket = next_slot;
+              v33 = *(v18 + 80);
+              v34 = (v32 - v31);
+              v223 = (0x4000 - v33);
+              if (v34 >= (0x4000 - v33))
               {
-                v33 = (0x4000 - v32);
+                v35 = (0x4000 - v33);
               }
 
               else
               {
-                v33 = (v31 - v30);
+                v35 = (v32 - v31);
               }
 
-              memcpy((*v17 + v32), &v397[v30], v33);
-              v34 = *(v17 + 28);
-              v35 = *(v17 + 32) + v33;
-              *(v17 + 32) = v35;
-              if (v34 <= v35)
+              v36 = v224;
+              memcpy((*v18 + v33), &v224[v31], v35);
+              v37 = *(v18 + 28);
+              v38 = *(v18 + 32) + v35;
+              *(v18 + 32) = v38;
+              if (v37 <= v38)
               {
-                v36 = 0;
+                v39 = 0;
               }
 
               else
               {
-                memmove(v397, &v397[v35], v34 - v35);
-                v36 = *(v17 + 28) - *(v17 + 32);
+                memmove(v36, &v36[v38], v37 - v38);
+                v39 = *(v18 + 28) - *(v18 + 32);
               }
 
-              *(v17 + 28) = v36;
-              *(v17 + 32) = 0;
-              *(v17 + 80) += v33;
-              if (*(v28 + 3640) == 1)
+              *(v18 + 28) = v39;
+              *(v18 + 32) = 0;
+              *(v18 + 80) += v35;
+              next_slot = ESPSequenceNumberFromPacket;
+              if (*(v29 + 3640) == 1)
               {
-                v147 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                v107 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
                 if (sNRCopyLogToStdErr == 1)
                 {
 
-LABEL_167:
-                  v177 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                  _NRLogWithArgs(v177, 1, "%s%.30s:%-4d %s: wrote %u (%u/%u) bytes from linkWriteBuffer", v178, v179, v180, v181, v182, "");
+LABEL_169:
+                  v117 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                  _NRLogWithArgs(v117, 1, "%s%.30s:%-4d %s: wrote %u (%u/%u) bytes from linkWriteBuffer", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1968, v218, v35, v223, v34);
 
-                  v28 = 0x280D73000;
+                  v29 = 0x280D73000;
                   goto LABEL_33;
                 }
 
-                v176 = v147;
-                v393 = os_log_type_enabled(v147, OS_LOG_TYPE_INFO);
+                v116 = v107;
+                v217 = os_log_type_enabled(v107, OS_LOG_TYPE_INFO);
 
-                v28 = 0x280D73000;
-                if (v393)
+                v29 = 0x280D73000;
+                if (v217)
                 {
-                  goto LABEL_167;
+                  goto LABEL_169;
                 }
               }
 
 LABEL_33:
-              v29 = v27 | 0x30;
-              v24 += v33;
+              v30 = v28 | 0x30;
+              v25 += v35;
 LABEL_34:
-              if (v418)
+              if (v235)
               {
                 next_slot = os_channel_get_next_slot();
               }
 
               if (!next_slot)
               {
-LABEL_90:
-                v96 = *(v17 + 80);
-                if (*(v17 + 80))
+LABEL_92:
+                v76 = *(v18 + 80);
+                if (*(v18 + 80))
                 {
-                  goto LABEL_93;
+                  goto LABEL_95;
                 }
 
-LABEL_186:
-                v98 = v29 | 0x400;
-                if (*(v28 + 3640) != 1)
+LABEL_188:
+                v78 = v30 | 0x400;
+                if (*(v29 + 3640) != 1)
                 {
-LABEL_187:
-                  v205 = v98 | 0x8000;
-                  if (*(v28 + 3640) != 1)
+LABEL_189:
+                  v125 = v78 | 0x8000;
+                  if (*(v29 + 3640) != 1)
                   {
-                    goto LABEL_188;
+                    goto LABEL_190;
                   }
 
-                  v251 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                  v159 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
                   if (sNRCopyLogToStdErr == 1)
                   {
 
-                    goto LABEL_292;
+                    goto LABEL_294;
                   }
 
-                  v273 = v251;
-                  v274 = os_log_type_enabled(v251, OS_LOG_TYPE_INFO);
+                  v171 = v159;
+                  v172 = os_log_type_enabled(v159, OS_LOG_TYPE_INFO);
 
-                  if (v274)
+                  if (v172)
                   {
-LABEL_292:
-                    v275 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                    _NRLogWithArgs(v275, 1, "%s%.30s:%-4d %s: out of NtL inner loop", v276, v277, v278, v279, v280, "");
+LABEL_294:
+                    v173 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                    _NRLogWithArgs(v173, 1, "%s%.30s:%-4d %s: out of NtL inner loop", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2110, v218);
                   }
 
-LABEL_188:
-                  if (v26)
+LABEL_190:
+                  if (v27)
                   {
                     os_channel_advance_slot();
                     *(v2 + 18) = 1;
-LABEL_191:
-                    if (v413 > 8u || v418 && os_channel_available_slot_count() <= 1)
+LABEL_193:
+                    if (v230 > 8u || v235 && os_channel_available_slot_count() <= 1)
                     {
-                      v205 = v98 | 0x18000;
+                      v125 = v78 | 0x18000;
                       if (gNRPacketLoggingEnabled != 1)
                       {
-                        goto LABEL_195;
+                        goto LABEL_197;
                       }
 
-                      v270 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                      v168 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
                       if (sNRCopyLogToStdErr == 1)
                       {
 
-                        goto LABEL_298;
+                        goto LABEL_300;
                       }
 
-                      v297 = v270;
-                      v298 = os_log_type_enabled(v270, OS_LOG_TYPE_INFO);
+                      v180 = v168;
+                      v181 = os_log_type_enabled(v168, OS_LOG_TYPE_INFO);
 
-                      if (v298)
+                      if (v181)
                       {
-LABEL_298:
-                        v299 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                        v387 = *(v2 + 432) * 0.000001;
-                        _NRLogWithArgs(v299, 1, "%s%.30s:%-4d %s: performing RX sync (%u packets, %u bytes, %u pending, %0.2f msec, canWriteMore %d, memmove %u)", v300, v301, v302, v303, v304, "");
+LABEL_300:
+                        v182 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                        _NRLogWithArgs(v182, 1, "%s%.30s:%-4d %s: performing RX sync (%u packets, %u bytes, %u pending, %0.2f msec, canWriteMore %d, memmove %u)", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2123, v218, v24, v25, v230, *(v2 + 432) * 0.000001, v76 == 0, v227);
                       }
 
-LABEL_195:
+LABEL_197:
                       os_channel_sync();
                       *(v2 + 18) = 0;
                     }
@@ -6977,384 +7374,386 @@ LABEL_195:
 
                   else if (*(v2 + 18))
                   {
-                    goto LABEL_191;
+                    goto LABEL_193;
                   }
 
                   if (gNRPacketLoggingEnabled == 1)
                   {
-                    v252 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                    v160 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
                     if (sNRCopyLogToStdErr == 1)
                     {
                     }
 
                     else
                     {
-                      v281 = v252;
-                      v282 = os_log_type_enabled(v252, OS_LOG_TYPE_INFO);
+                      v174 = v160;
+                      v175 = os_log_type_enabled(v160, OS_LOG_TYPE_INFO);
 
-                      if (!v282)
+                      if (!v175)
                       {
-                        goto LABEL_198;
+                        goto LABEL_200;
                       }
                     }
 
-                    v283 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                    _NRLogWithArgs(v283, 1, "%s%.30s:%-4d %s: out of NtL outer loop", v284, v285, v286, v287, v288, "");
+                    v176 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                    _NRLogWithArgs(v176, 1, "%s%.30s:%-4d %s: out of NtL outer loop", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2134, v218);
                   }
-
-LABEL_198:
-                  if (v96)
-                  {
-LABEL_199:
-                    v206 = v205 | 0x60000;
-                    v1 = v396;
-                    v6 = v395;
-                    if (gNRPacketLoggingEnabled != 1)
-                    {
-                      goto LABEL_200;
-                    }
-
-                    v253 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                    if (sNRCopyLogToStdErr == 1)
-                    {
-
-                      goto LABEL_296;
-                    }
-
-                    v289 = v253;
-                    v290 = os_log_type_enabled(v253, OS_LOG_TYPE_INFO);
-
-                    if (v290)
-                    {
-LABEL_296:
-                      v291 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                      _NRLogWithArgs(v291, 1, "%s%.30s:%-4d %s: done with NtL fast-path", v292, v293, v294, v295, v296, "");
-                    }
 
 LABEL_200:
-                    v203 = *(v17 + 82);
-                    if (v203 >= 0xB)
+                  if (v76)
+                  {
+LABEL_201:
+                    v126 = v125 | 0x60000;
+                    v1 = v221;
+                    v7 = v220;
+                    if (gNRPacketLoggingEnabled != 1)
                     {
-                      v203 -= 11 * ((((117 * v203) >> 8) + (((v203 - ((117 * v203) >> 8)) & 0xFE) >> 1)) >> 3);
+                      goto LABEL_202;
                     }
 
-                    v204 = v203;
-                    *(v416 + 4 * v203) = v206;
-LABEL_203:
-                    if (v204 < 0xA)
+                    v161 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                    if (sNRCopyLogToStdErr == 1)
                     {
-                      v207 = v203 + 1;
+
+                      goto LABEL_298;
+                    }
+
+                    v177 = v161;
+                    v178 = os_log_type_enabled(v161, OS_LOG_TYPE_INFO);
+
+                    if (v178)
+                    {
+LABEL_298:
+                      v179 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                      _NRLogWithArgs(v179, 1, "%s%.30s:%-4d %s: done with NtL fast-path", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2168, v218);
+                    }
+
+LABEL_202:
+                    v123 = *(v18 + 82);
+                    if (v123 >= 0xB)
+                    {
+                      v123 -= 11 * ((((117 * v123) >> 8) + (((v123 - ((117 * v123) >> 8)) & 0xFE) >> 1)) >> 3);
+                    }
+
+                    v124 = v123;
+                    *(v233 + 4 * v123) = v126;
+LABEL_205:
+                    if (v124 < 0xA)
+                    {
+                      v127 = v123 + 1;
                     }
 
                     else
                     {
-                      v207 = v203 - 10;
+                      v127 = v123 - 10;
                     }
 
-                    *(v17 + 82) = v207;
-                    goto LABEL_207;
+                    *(v18 + 82) = v127;
+                    goto LABEL_209;
                   }
 
-                  if (v394 <= 1)
+                  if (v219 <= 1)
                   {
-                    if (v394)
+                    if (v219)
                     {
-                      v209 = *(v2 + 144);
+                      v128 = *(v2 + 144);
                       if ((*(v2 + 15) & 4) == 0)
                       {
-                        goto LABEL_223;
+                        goto LABEL_225;
                       }
                     }
 
                     else
                     {
-                      v209 = *(v2 + 144);
-LABEL_223:
-                      if ((v209 & 8) != 0 && *(v2 + 312))
+                      v128 = *(v2 + 144);
+LABEL_225:
+                      if ((v128 & 8) != 0 && *(v2 + 312))
                       {
-                        *(v2 + 144) = v209 & 0xFFFFFFFFFFFFFFF7;
+                        *(v2 + 144) = v128 & 0xFFFFFFFFFFFFFFF7;
                         if (gNRPacketLoggingEnabled != 1)
                         {
-                          goto LABEL_226;
+                          goto LABEL_228;
                         }
 
-                        v323 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                        v324 = v323;
-                        if (sNRCopyLogToStdErr == 1)
-                        {
-
-                          goto LABEL_321;
-                        }
-
-                        v345 = os_log_type_enabled(v323, OS_LOG_TYPE_INFO);
-
-                        if (v345)
-                        {
-LABEL_321:
-                          v346 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                          _NRLogWithArgs(v346, 1, "%s%.30s:%-4d source-resume: NexusVOInput", v347, v348, v349, v350, v351, "");
-                        }
-
-LABEL_226:
-                        dispatch_resume(*(v2 + 312));
-                        v209 = *(v2 + 144);
-                      }
-
-                      if ((v209 & 0x10) != 0 && *(v2 + 328))
-                      {
-                        *(v2 + 144) = v209 & 0xFFFFFFFFFFFFFFEFLL;
-                        if (gNRPacketLoggingEnabled != 1)
-                        {
-                          goto LABEL_230;
-                        }
-
-                        v325 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                        v326 = v325;
+                        v192 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                        v193 = v192;
                         if (sNRCopyLogToStdErr == 1)
                         {
 
                           goto LABEL_323;
                         }
 
-                        v352 = os_log_type_enabled(v325, OS_LOG_TYPE_INFO);
+                        v204 = os_log_type_enabled(v192, OS_LOG_TYPE_INFO);
 
-                        if (v352)
+                        if (v204)
                         {
 LABEL_323:
-                          v353 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                          _NRLogWithArgs(v353, 1, "%s%.30s:%-4d source-resume: NexusVIInput", v354, v355, v356, v357, v358, "");
+                          v205 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                          _NRLogWithArgs(v205, 1, "%s%.30s:%-4d source-resume: NexusVOInput", ", "NRBluetoothPacketParserResumeNexusVOInputSource"", 489);
                         }
 
-LABEL_230:
+LABEL_228:
+                        dispatch_resume(*(v2 + 312));
+                        v128 = *(v2 + 144);
+                      }
+
+                      if ((v128 & 0x10) != 0 && *(v2 + 328))
+                      {
+                        *(v2 + 144) = v128 & 0xFFFFFFFFFFFFFFEFLL;
+                        if (gNRPacketLoggingEnabled != 1)
+                        {
+                          goto LABEL_232;
+                        }
+
+                        v194 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                        v195 = v194;
+                        if (sNRCopyLogToStdErr == 1)
+                        {
+
+                          goto LABEL_325;
+                        }
+
+                        v206 = os_log_type_enabled(v194, OS_LOG_TYPE_INFO);
+
+                        if (v206)
+                        {
+LABEL_325:
+                          v207 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                          _NRLogWithArgs(v207, 1, "%s%.30s:%-4d source-resume: NexusVIInput", ", "NRBluetoothPacketParserResumeNexusVIInputSource"", 491);
+                        }
+
+LABEL_232:
                         dispatch_resume(*(v2 + 328));
-                        v209 = *(v2 + 144);
+                        v128 = *(v2 + 144);
                       }
                     }
 
-                    if ((v209 & 0x20) != 0 && *(v2 + 344))
+                    if ((v128 & 0x20) != 0 && *(v2 + 344))
                     {
-                      *(v2 + 144) = v209 & 0xFFFFFFFFFFFFFFDFLL;
+                      *(v2 + 144) = v128 & 0xFFFFFFFFFFFFFFDFLL;
                       if (gNRPacketLoggingEnabled != 1)
                       {
-                        goto LABEL_234;
+                        goto LABEL_236;
                       }
 
-                      v321 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                      v322 = v321;
+                      v190 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                      v191 = v190;
                       if (sNRCopyLogToStdErr == 1)
                       {
 
-                        goto LABEL_319;
+                        goto LABEL_321;
                       }
 
-                      v338 = os_log_type_enabled(v321, OS_LOG_TYPE_INFO);
+                      v202 = os_log_type_enabled(v190, OS_LOG_TYPE_INFO);
 
-                      if (v338)
+                      if (v202)
                       {
-LABEL_319:
-                        v339 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                        _NRLogWithArgs(v339, 1, "%s%.30s:%-4d source-resume: NexusBEInput", v340, v341, v342, v343, v344, "");
+LABEL_321:
+                        v203 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                        _NRLogWithArgs(v203, 1, "%s%.30s:%-4d source-resume: NexusBEInput", ", "NRBluetoothPacketParserResumeNexusBEInputSource"", 487);
                       }
 
-LABEL_234:
+LABEL_236:
                       dispatch_resume(*(v2 + 344));
-                      v209 = *(v2 + 144);
+                      v128 = *(v2 + 144);
                     }
 
-                    if ((v209 & 0x40) == 0 || !*(v2 + 360))
+                    if ((v128 & 0x40) == 0 || !*(v2 + 360))
                     {
-                      goto LABEL_199;
+                      goto LABEL_201;
                     }
 
-                    v211 = (v2 + 360);
-                    *(v2 + 144) = v209 & 0xFFFFFFFFFFFFFFBFLL;
+                    v130 = (v2 + 360);
+                    *(v2 + 144) = v128 & 0xFFFFFFFFFFFFFFBFLL;
                     if (gNRPacketLoggingEnabled == 1)
                     {
-                      v214 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                      v215 = v214;
+                      v133 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                      v134 = v133;
                       if (sNRCopyLogToStdErr == 1)
                       {
 
-                        goto LABEL_315;
+                        goto LABEL_317;
                       }
 
-                      v329 = os_log_type_enabled(v214, OS_LOG_TYPE_INFO);
+                      v198 = os_log_type_enabled(v133, OS_LOG_TYPE_INFO);
 
-                      if (v329)
+                      if (v198)
                       {
-LABEL_315:
-                        v330 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                        _NRLogWithArgs(v330, 1, "%s%.30s:%-4d source-resume: NexusBKInput", v331, v332, v333, v334, v335, "");
-                        goto LABEL_330;
+LABEL_317:
+                        v199 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                        _NRLogWithArgs(v199, 1, "%s%.30s:%-4d source-resume: NexusBKInput");
+                        goto LABEL_332;
                       }
                     }
 
-LABEL_243:
-                    dispatch_resume(*v211);
-                    goto LABEL_199;
+LABEL_245:
+                    dispatch_resume(*v130);
+                    goto LABEL_201;
                   }
 
-                  if (v394 == 2)
+                  if (v219 == 2)
                   {
-                    v210 = *(v2 + 144);
-                    if ((v210 & 8) != 0 && *(v2 + 312))
+                    v129 = *(v2 + 144);
+                    if ((v129 & 8) != 0 && *(v2 + 312))
                     {
-                      *(v2 + 144) = v210 & 0xFFFFFFFFFFFFFFF7;
+                      *(v2 + 144) = v129 & 0xFFFFFFFFFFFFFFF7;
                       if (gNRPacketLoggingEnabled != 1)
                       {
-                        goto LABEL_216;
+                        goto LABEL_218;
                       }
 
-                      v327 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                      v328 = v327;
+                      v196 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                      v197 = v196;
                       if (sNRCopyLogToStdErr == 1)
                       {
 
-                        goto LABEL_327;
+                        goto LABEL_329;
                       }
 
-                      v365 = os_log_type_enabled(v327, OS_LOG_TYPE_INFO);
+                      v209 = os_log_type_enabled(v196, OS_LOG_TYPE_INFO);
 
-                      if (v365)
+                      if (v209)
                       {
-LABEL_327:
-                        v366 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                        _NRLogWithArgs(v366, 1, "%s%.30s:%-4d source-resume: NexusVOInput", v367, v368, v369, v370, v371, "");
+LABEL_329:
+                        v210 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                        _NRLogWithArgs(v210, 1, "%s%.30s:%-4d source-resume: NexusVOInput", ", "NRBluetoothPacketParserResumeNexusVOInputSource"", 489);
                       }
 
-LABEL_216:
+LABEL_218:
                       dispatch_resume(*(v2 + 312));
-                      v210 = *(v2 + 144);
+                      v129 = *(v2 + 144);
                     }
 
-                    if ((v210 & 0x10) == 0 || !*(v2 + 328))
+                    if ((v129 & 0x10) == 0 || !*(v2 + 328))
                     {
-                      goto LABEL_199;
+                      goto LABEL_201;
                     }
 
-                    v211 = (v2 + 328);
-                    *(v2 + 144) = v210 & 0xFFFFFFFFFFFFFFEFLL;
+                    v130 = (v2 + 328);
+                    *(v2 + 144) = v129 & 0xFFFFFFFFFFFFFFEFLL;
                     if (gNRPacketLoggingEnabled != 1)
                     {
-                      goto LABEL_243;
+                      goto LABEL_245;
                     }
 
-                    v212 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                    v213 = v212;
+                    v131 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                    v132 = v131;
                     if (sNRCopyLogToStdErr == 1)
                     {
                     }
 
                     else
                     {
-                      v359 = os_log_type_enabled(v212, OS_LOG_TYPE_INFO);
+                      v208 = os_log_type_enabled(v131, OS_LOG_TYPE_INFO);
 
-                      if (!v359)
+                      if (!v208)
                       {
-                        goto LABEL_243;
+                        goto LABEL_245;
                       }
                     }
 
-                    v330 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                    _NRLogWithArgs(v330, 1, "%s%.30s:%-4d source-resume: NexusVIInput", v360, v361, v362, v363, v364, "");
+                    v199 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                    _NRLogWithArgs(v199, 1, "%s%.30s:%-4d source-resume: NexusVIInput");
                   }
 
                   else
                   {
-                    v216 = *(v2 + 144);
-                    if ((v216 & 8) == 0 || !*(v2 + 312))
+                    v135 = *(v2 + 144);
+                    if ((v135 & 8) == 0 || !*(v2 + 312))
                     {
-                      goto LABEL_199;
+                      goto LABEL_201;
                     }
 
-                    v211 = (v2 + 312);
-                    *(v2 + 144) = v216 & 0xFFFFFFFFFFFFFFF7;
+                    v130 = (v2 + 312);
+                    *(v2 + 144) = v135 & 0xFFFFFFFFFFFFFFF7;
                     if (gNRPacketLoggingEnabled != 1)
                     {
-                      goto LABEL_243;
+                      goto LABEL_245;
                     }
 
-                    v336 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                    v337 = v336;
+                    v200 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                    v201 = v200;
                     if (sNRCopyLogToStdErr == 1)
                     {
                     }
 
                     else
                     {
-                      v372 = os_log_type_enabled(v336, OS_LOG_TYPE_INFO);
+                      v211 = os_log_type_enabled(v200, OS_LOG_TYPE_INFO);
 
-                      if (!v372)
+                      if (!v211)
                       {
-                        goto LABEL_243;
+                        goto LABEL_245;
                       }
                     }
 
-                    v330 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                    _NRLogWithArgs(v330, 1, "%s%.30s:%-4d source-resume: NexusVOInput", v373, v374, v375, v376, v377, "");
+                    v199 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                    _NRLogWithArgs(v199, 1, "%s%.30s:%-4d source-resume: NexusVOInput");
                   }
 
-LABEL_330:
+LABEL_332:
 
-                  goto LABEL_243;
+                  goto LABEL_245;
                 }
 
-                v271 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                v272 = v271;
+                v169 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                v170 = v169;
                 if (sNRCopyLogToStdErr == 1)
                 {
 
-                  goto LABEL_300;
+                  goto LABEL_302;
                 }
 
-                v305 = os_log_type_enabled(v271, OS_LOG_TYPE_INFO);
+                v183 = os_log_type_enabled(v169, OS_LOG_TYPE_INFO);
 
-                if (v305)
+                if (v183)
                 {
-LABEL_300:
-                  v306 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                  _NRLogWithArgs(v306, 1, "%s%.30s:%-4d %s: nothing to read from nexus", v307, v308, v309, v310, v311, "");
+LABEL_302:
+                  v184 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                  _NRLogWithArgs(v184, 1, "%s%.30s:%-4d %s: nothing to read from nexus", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2065, v218);
                 }
 
-                v28 = 0x280D73000;
-                goto LABEL_187;
+                v29 = 0x280D73000;
+                goto LABEL_189;
               }
 
-              v37 = next_slot;
+              v40 = next_slot;
               while (1)
               {
-                v38 = 0x4000 - *(v17 + 80);
-                if (v38 < nrMaxTLVLengthForPacket(v422 + *(v2 + 28), (WORD1(v421) - *(v2 + 28))))
+                v41 = 0x4000 - *(v18 + 80);
+                v42 = nrMaxTLVLengthForPacket(v239 + *(v2 + 28), (WORD1(v238) - *(v2 + 28)));
+                if (v41 < v42)
                 {
-                  v29 |= 0x40u;
+                  v30 |= 0x40u;
                   if (gNRPacketLoggingEnabled != 1)
                   {
-LABEL_89:
-                    next_slot = v37;
-                    v28 = 0x280D73000uLL;
-                    goto LABEL_90;
+LABEL_91:
+                    next_slot = v40;
+                    v29 = 0x280D73000uLL;
+                    goto LABEL_92;
                   }
 
-                  v144 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                  v103 = v42;
+                  v104 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
                   if (sNRCopyLogToStdErr == 1)
                   {
                   }
 
                   else
                   {
-                    v155 = v144;
-                    v403 = os_log_type_enabled(v144, OS_LOG_TYPE_INFO);
+                    v110 = v104;
+                    LODWORD(ESPSequenceNumberFromPacket) = os_log_type_enabled(v104, OS_LOG_TYPE_INFO);
 
-                    if (!v403)
+                    if (!ESPSequenceNumberFromPacket)
                     {
-                      goto LABEL_89;
+                      goto LABEL_91;
                     }
                   }
 
-                  v156 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                  _NRLogWithArgs(v156, 1, "%s%.30s:%-4d %s: not enough room %u to fit maxTLVLen %u", v157, v158, v159, v160, v161, "");
+                  v111 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                  _NRLogWithArgs(v111, 1, "%s%.30s:%-4d %s: not enough room %u to fit maxTLVLen %u", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1984, v218, v41, v103);
 
-                  goto LABEL_89;
+                  goto LABEL_91;
                 }
 
                 os_channel_slot_get_packet();
@@ -7371,689 +7770,690 @@ LABEL_89:
 
                   if ((sNRCopyLogToStdErr & 1) != 0 || os_log_type_enabled(nrCopyLogObj_sNRLogObj_564, OS_LOG_TYPE_ERROR))
                   {
-                    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_564, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: dataLen <= 65535", v42, v43, v44, v45, v46, "");
+                    _NRLogWithArgs(nrCopyLogObj_sNRLogObj_564, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: dataLen <= 65535", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1997);
                   }
 
-                  v217 = _os_log_pack_size();
-                  MEMORY[0x28223BE20](v217, v218);
-                  v219 = *__error();
-                  v220 = _os_log_pack_fill();
-                  *v220 = 136446210;
-                  *(v220 + 4) = "NRBluetoothPacketParserNexusToLinkLoop";
-                  v221 = nrCopyLogObj_560();
-                  _NRLogAbortWithPack(v221);
+                  v136 = _os_log_pack_size();
+                  v138 = &v216 - ((MEMORY[0x28223BE20](v136, v137) + 15) & 0xFFFFFFFFFFFFFFF0);
+                  v139 = __error();
+                  v140 = _os_log_pack_fill(v138, v136, *v139, &dword_25B98C000, "%{public}s Assertion Failed: dataLen <= 65535");
+                  *v140 = 136446210;
+                  *(v140 + 4) = "NRBluetoothPacketParserNexusToLinkLoop";
+                  v141 = nrCopyLogObj_560();
+                  _NRLogAbortWithPack(v141, v138);
                 }
 
                 if (*(v2 + 9) == 1)
                 {
-                  v419 = 0;
-                  v420 = 0;
-                  v47 = (*v17 + *(v17 + 80));
-                  v419 = v47;
-                  LODWORD(v420) = v38;
-                  v48 = *(v2 + 28);
+                  v236 = 0;
+                  v237 = 0;
+                  v46 = (*v18 + *(v18 + 80));
+                  v236 = v46;
+                  LODWORD(v237) = v41;
+                  v47 = *(v2 + 28);
                   if (*(v2 + 10) == 1)
                   {
-                    v49 = nrPacketTo6LoWPAN((v422 + v48), (WORD1(v421) - v48), &v419, 1u, v2 + 688, v2 + 704, 0);
+                    v48 = nrPacketTo6LoWPAN((v239 + v47), (WORD1(v238) - v47), &v236, 1u, v2 + 688, v2 + 704, 0);
                   }
 
                   else
                   {
-                    memcpy(v47, (v422 + v48), WORD1(v421) - v48);
-                    v49 = WORD1(v421) - *(v2 + 28);
+                    memcpy(v46, (v239 + v47), WORD1(v238) - v47);
+                    v48 = WORD1(v238) - *(v2 + 28);
                   }
 
-                  v28 = 0x280D73000uLL;
+                  v29 = 0x280D73000uLL;
                   if (gNRPacketLoggingEnabled != 1)
                   {
                     goto LABEL_53;
                   }
 
-                  v56 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                  v55 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
                   if (sNRCopyLogToStdErr == 1)
                   {
 
                     goto LABEL_69;
                   }
 
-                  v57 = v56;
-                  v58 = os_log_type_enabled(v56, OS_LOG_TYPE_INFO);
+                  v56 = v55;
+                  v57 = os_log_type_enabled(v55, OS_LOG_TYPE_INFO);
 
-                  v28 = 0x280D73000;
-                  if (v58)
+                  v29 = 0x280D73000;
+                  if (v57)
                   {
 LABEL_69:
-                    v59 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                    _NRLogWithArgs(v59, 1, "%s%.30s:%-4d %s: wrote %u bytes from nexus (actual: %u)", v60, v61, v62, v63, v64, "");
+                    v58 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                    _NRLogWithArgs(v58, 1, "%s%.30s:%-4d %s: wrote %u bytes from nexus (actual: %u)", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2015, v218, v48, WORD1(v238));
 
-                    goto LABEL_80;
+                    goto LABEL_82;
                   }
 
                   goto LABEL_53;
                 }
 
-                if (!data_length && WORD1(v421))
+                if (!data_length && WORD1(v238))
                 {
-                  v419 = 0;
-                  v420 = 0;
-                  v419 = *v17 + *(v17 + 80);
-                  LODWORD(v420) = v38;
-                  v49 = nrPacketToTLV((v422 + *(v2 + 28)), (WORD1(v421) - *(v2 + 28)), &v419, 1, v2 + 688, v2 + 704);
-                  v28 = 0x280D73000uLL;
+                  v236 = 0;
+                  v237 = 0;
+                  v236 = *v18 + *(v18 + 80);
+                  LODWORD(v237) = v41;
+                  v48 = nrPacketToTLV((v239 + *(v2 + 28)), (WORD1(v238) - *(v2 + 28)), &v236, 1, v2 + 688, v2 + 704);
+                  v29 = 0x280D73000uLL;
                   if (gNRPacketLoggingEnabled == 1)
                   {
-                    v50 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                    v49 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
                     if (sNRCopyLogToStdErr == 1)
                     {
                     }
 
                     else
                     {
-                      v66 = v50;
-                      v67 = os_log_type_enabled(v50, OS_LOG_TYPE_INFO);
+                      v60 = v49;
+                      v61 = os_log_type_enabled(v49, OS_LOG_TYPE_INFO);
 
-                      v28 = 0x280D73000;
-                      if (!v67)
+                      v29 = 0x280D73000;
+                      if (!v61)
                       {
                         goto LABEL_53;
                       }
                     }
 
-                    v68 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                    v69 = v422;
-                    v70 = WORD1(v421);
-                    v398 = v68;
-                    if (isPacketValidIPv6(v422, WORD1(v421)) && isNextHeaderValidESP(v69, v70))
+                    v62 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                    v63 = v239;
+                    v64 = WORD1(v238);
+                    ESPSequenceNumberFromPacket = v62;
+                    if (isPacketValidIPv6(v239, WORD1(v238)) && isNextHeaderValidESP(v63, v64))
                     {
-                      v71 = bswap32(*(v69 + 44));
+                      v65 = bswap32(*(v63 + 44));
                     }
 
-                    v72 = v422;
-                    v73 = WORD1(v421);
-                    if (isPacketValidIPv6(v422, WORD1(v421)) && isNextHeaderValidESP(v72, v73))
+                    else
                     {
-                      v79 = bswap32(*(v72 + 40));
+                      v65 = 0;
                     }
 
-                    _NRLogWithArgs(v398, 1, "%s%.30s:%-4d %s: wrote %u bytes from nexus for ESP seq: %u (spi: %u)", v74, v75, v76, v77, v78, "");
+                    v66 = v239;
+                    v67 = WORD1(v238);
+                    if (isPacketValidIPv6(v239, WORD1(v238)) && isNextHeaderValidESP(v66, v67))
+                    {
+                      v68 = bswap32(*(v66 + 40));
+                    }
 
-LABEL_80:
-                    v28 = 0x280D73000;
+                    else
+                    {
+                      v68 = 0;
+                    }
+
+                    _NRLogWithArgs(ESPSequenceNumberFromPacket, 1, "%s%.30s:%-4d %s: wrote %u bytes from nexus for ESP seq: %u (spi: %u)", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2027, v218, v48, v65, v68);
+
+LABEL_82:
+                    v29 = 0x280D73000;
                   }
 
 LABEL_53:
-                  v29 |= 0x80u;
+                  v30 |= 0x80u;
                   goto LABEL_54;
                 }
 
                 if (data_length)
                 {
-                  v51 = object_address + data_offset;
-                  v419 = 0;
-                  v420 = 0;
-                  v419 = *v17 + *(v17 + 80);
-                  LODWORD(v420) = v38;
-                  v52 = data_length;
-                  v49 = nrPacketToTLV((v51 + *(v2 + 28)), (data_length - *(v2 + 28)), &v419, 1, v2 + 688, v2 + 704);
-                  v28 = 0x280D73000uLL;
+                  v50 = object_address + data_offset;
+                  v236 = 0;
+                  v237 = 0;
+                  v236 = *v18 + *(v18 + 80);
+                  LODWORD(v237) = v41;
+                  v51 = data_length;
+                  v48 = nrPacketToTLV((v50 + *(v2 + 28)), (data_length - *(v2 + 28)), &v236, 1, v2 + 688, v2 + 704);
+                  v29 = 0x280D73000uLL;
                   if (gNRPacketLoggingEnabled != 1)
                   {
 LABEL_50:
-                    v29 |= 0x100u;
+                    v30 |= 0x100u;
                     goto LABEL_54;
                   }
 
-                  v65 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                  v59 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
                   if (sNRCopyLogToStdErr == 1)
                   {
                   }
 
                   else
                   {
-                    v81 = v65;
-                    v399 = os_log_type_enabled(v65, OS_LOG_TYPE_INFO);
+                    v70 = v59;
+                    LODWORD(ESPSequenceNumberFromPacket) = os_log_type_enabled(v59, OS_LOG_TYPE_INFO);
 
-                    v28 = 0x280D73000;
-                    if (!v399)
+                    v29 = 0x280D73000;
+                    if (!ESPSequenceNumberFromPacket)
                     {
                       goto LABEL_50;
                     }
                   }
 
-                  v82 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                  getESPSequenceNumberFromPacket(v51, v52);
-                  getESPSPIFromPacket(v51, v52);
-                  _NRLogWithArgs(v82, 1, "%s%.30s:%-4d %s: wrote %u bytes from nexus for ESP seq: %u (spi: %u)", v83, v84, v85, v86, v87, "");
+                  v71 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                  ESPSequenceNumberFromPacket = getESPSequenceNumberFromPacket(v50, v51);
+                  ESPSPIFromPacket = getESPSPIFromPacket(v50, v51);
+                  _NRLogWithArgs(v71, 1, "%s%.30s:%-4d %s: wrote %u bytes from nexus for ESP seq: %u (spi: %u)", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2037, v218, v48, ESPSequenceNumberFromPacket, ESPSPIFromPacket);
 
-                  v28 = 0x280D73000;
+                  v29 = 0x280D73000;
                   goto LABEL_50;
                 }
 
-                v29 |= 0x200u;
-                v28 = 0x280D73000uLL;
+                v30 |= 0x200u;
+                v29 = 0x280D73000uLL;
                 if (gNRPacketLoggingEnabled != 1)
                 {
-                  v49 = 0;
+                  v48 = 0;
                   goto LABEL_54;
                 }
 
-                v80 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                v69 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
                 if (sNRCopyLogToStdErr == 1)
                 {
 
-LABEL_86:
-                  v90 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                  _NRLogWithArgs(v90, 1, "%s%.30s:%-4d %s: No data to write", v91, v92, v93, v94, v95, "");
+LABEL_88:
+                  v75 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                  _NRLogWithArgs(v75, 1, "%s%.30s:%-4d %s: No data to write", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2039, v218);
 
-                  goto LABEL_87;
+                  goto LABEL_89;
                 }
 
-                v88 = v80;
-                v89 = os_log_type_enabled(v80, OS_LOG_TYPE_INFO);
+                v73 = v69;
+                v74 = os_log_type_enabled(v69, OS_LOG_TYPE_INFO);
 
-                if (v89)
+                if (v74)
                 {
-                  goto LABEL_86;
+                  goto LABEL_88;
                 }
 
-LABEL_87:
-                v49 = 0;
-                v28 = 0x280D73000;
+LABEL_89:
+                v48 = 0;
+                v29 = 0x280D73000;
 LABEL_54:
-                *(v17 + 80) += v49;
-                v53 = (v417 & 1) != 0 ? 0 : os_channel_get_next_slot();
-                ++v23;
-                ++*v414;
-                *v415 = 1;
-                v24 += v49;
-                if (!v53)
+                *(v18 + 80) += v48;
+                v52 = (v234 & 1) != 0 ? 0 : os_channel_get_next_slot();
+                ++v24;
+                ++*v231;
+                *v232 = 1;
+                v25 += v48;
+                if (!v52)
                 {
                   break;
                 }
 
-                v54 = *(v17 + 82);
-                if (v54 >= 0xB)
+                v53 = *(v18 + 82);
+                if (v53 >= 0xB)
                 {
-                  v54 -= 11 * ((((117 * v54) >> 8) + (((v54 - ((117 * v54) >> 8)) & 0xFE) >> 1)) >> 3);
+                  v53 -= 11 * ((((117 * v53) >> 8) + (((v53 - ((117 * v53) >> 8)) & 0xFE) >> 1)) >> 3);
                 }
 
-                *(v416 + 4 * v54) = v29;
-                if (v54 < 0xAu)
+                *(v233 + 4 * v53) = v30;
+                if (v53 < 0xAu)
                 {
-                  v55 = v54 + 1;
+                  v54 = v53 + 1;
                 }
 
                 else
                 {
-                  v55 = v54 - 10;
+                  v54 = v53 - 10;
                 }
 
-                *(v17 + 82) = v55;
-                v26 = v37;
-                v37 = v53;
-                v29 = 0;
+                *(v18 + 82) = v54;
+                v27 = v40;
+                v40 = v52;
+                v30 = 0;
               }
 
               next_slot = 0;
-              v26 = v37;
-              v96 = *(v17 + 80);
-              if (!*(v17 + 80))
+              v27 = v40;
+              v76 = *(v18 + 80);
+              if (!*(v18 + 80))
               {
-                goto LABEL_186;
-              }
-
-LABEL_93:
-              v419 = 0;
-              if (*(v28 + 3640) != 1)
-              {
-                goto LABEL_94;
-              }
-
-              v118 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-              if (sNRCopyLogToStdErr == 1)
-              {
-
-                goto LABEL_145;
-              }
-
-              v129 = v118;
-              v130 = os_log_type_enabled(v118, OS_LOG_TYPE_INFO);
-
-              v28 = 0x280D73000;
-              if (v130)
-              {
-LABEL_145:
-                v131 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                v388 = *(v17 + 80);
-                _NRLogWithArgs(v131, 1, "%s%.30s:%-4d %s: invoking send callback w/ written %u", v132, v133, v134, v135, v136, "");
-
-                v28 = 0x280D73000;
-              }
-
-LABEL_94:
-              v97 = ((*v412)[1])(**v412, *v17, *(v17 + 80), &v419, 0, 0);
-              if (*(v28 + 3640) == 1)
-              {
-                v119 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                if (sNRCopyLogToStdErr == 1)
-                {
-                }
-
-                else
-                {
-                  v137 = v119;
-                  v401 = os_log_type_enabled(v119, OS_LOG_TYPE_INFO);
-
-                  v28 = 0x280D73000;
-                  if (!v401)
-                  {
-                    goto LABEL_95;
-                  }
-                }
-
-                v138 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                v389 = *(v17 + 80);
-                _NRLogWithArgs(v138, 1, "%s%.30s:%-4d %s: canWriteMore: %d bufferHandled=%zu/%u", v139, v140, v141, v142, v143, "");
-
-                v28 = 0x280D73000;
+                goto LABEL_188;
               }
 
 LABEL_95:
-              if (v97)
+              v236 = 0;
+              if (*(v29 + 3640) != 1)
               {
-                v98 = v29 | 0x800;
-                v99 = v419;
-                if (!v419)
-                {
-                  goto LABEL_127;
-                }
+                goto LABEL_96;
+              }
 
-LABEL_121:
-                v113 = *(v28 + 3640);
-                if (v99 < *(v17 + 80))
-                {
-                  if (!*(v28 + 3640))
-                  {
-                    goto LABEL_123;
-                  }
+              v92 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+              if (sNRCopyLogToStdErr == 1)
+              {
 
-                  v145 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                  if (sNRCopyLogToStdErr == 1)
-                  {
+                goto LABEL_147;
+              }
 
-                    goto LABEL_163;
-                  }
+              v98 = v92;
+              v99 = os_log_type_enabled(v92, OS_LOG_TYPE_INFO);
 
-                  v162 = v145;
-                  v404 = os_log_type_enabled(v145, OS_LOG_TYPE_INFO);
+              v29 = 0x280D73000;
+              if (v99)
+              {
+LABEL_147:
+                v100 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                _NRLogWithArgs(v100, 1, "%s%.30s:%-4d %s: invoking send callback w/ written %u", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2075, v218, *(v18 + 80));
 
-                  v28 = 0x280D73000;
-                  if (v404)
-                  {
-LABEL_163:
-                    v163 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                    v390 = *(v17 + 80);
-                    _NRLogWithArgs(v163, 1, "%s%.30s:%-4d %s: memmoving filledIn=%u, bufferHandled=%zu", v164, v165, v166, v167, v168, "");
+                v29 = 0x280D73000;
+              }
 
-                    v28 = 0x280D73000;
-                  }
-
-LABEL_123:
-                  v98 |= 0x2000u;
-                  memmove(*v17, (*v17 + v419), *(v17 + 80) - v419);
-                  v114 = v419;
-                  *(v17 + 80) -= v419;
-                  ++v410;
-LABEL_126:
-                  *(v2 + v409) += v114;
-                  goto LABEL_127;
-                }
-
-                if (!*(v28 + 3640))
-                {
-LABEL_125:
-                  v98 |= 0x4000u;
-                  *(v17 + 80) = 0;
-                  v114 = v419;
-                  goto LABEL_126;
-                }
-
-                v146 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+LABEL_96:
+              v77 = ((*v229)[1])(**v229, *v18, *(v18 + 80), &v236, 0, 0);
+              if (*(v29 + 3640) == 1)
+              {
+                v93 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
                 if (sNRCopyLogToStdErr == 1)
                 {
                 }
 
                 else
                 {
-                  v169 = v146;
-                  v405 = os_log_type_enabled(v146, OS_LOG_TYPE_INFO);
+                  v101 = v93;
+                  LODWORD(ESPSequenceNumberFromPacket) = os_log_type_enabled(v93, OS_LOG_TYPE_INFO);
 
-                  v28 = 0x280D73000;
-                  if (!v405)
+                  v29 = 0x280D73000;
+                  if (!ESPSequenceNumberFromPacket)
                   {
-                    goto LABEL_125;
+                    goto LABEL_97;
                   }
                 }
 
-                v170 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                v391 = *(v17 + 80);
-                _NRLogWithArgs(v170, 1, "%s%.30s:%-4d %s: not memmoving filledIn=%u, bufferHandled=%zu", v171, v172, v173, v174, v175, "");
+                v102 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                _NRLogWithArgs(v102, 1, "%s%.30s:%-4d %s: canWriteMore: %d bufferHandled=%zu/%u", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2078, v218, v77, v236, *(v18 + 80));
 
-                v28 = 0x280D73000;
-                goto LABEL_125;
+                v29 = 0x280D73000;
               }
 
-              if (v411)
+LABEL_97:
+              if (v77)
               {
-                v411(v2);
-              }
-
-              *(v17 + 84) |= 1u;
-              v100 = *(v17 + 83);
-              if (v100 > 1)
-              {
-                if (v100 == 2)
+                v78 = v30 | 0x800;
+                v79 = v236;
+                if (!v236)
                 {
-                  ++*(v2 + 168);
-                  *(v2 + 144) = *(v2 + 144) & 0xFFFFFFFFFFFFFFFDLL | (2 * (*(v17 + 84) & 1));
-                  if (*(v28 + 3640) != 1)
+                  goto LABEL_129;
+                }
+
+LABEL_123:
+                if (v79 < *(v18 + 80))
+                {
+                  if (!*(v29 + 3640))
                   {
-                    goto LABEL_119;
+                    goto LABEL_125;
                   }
 
                   v105 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
                   if (sNRCopyLogToStdErr == 1)
                   {
+
+                    goto LABEL_165;
                   }
 
-                  else
+                  v112 = v105;
+                  LODWORD(ESPSequenceNumberFromPacket) = os_log_type_enabled(v105, OS_LOG_TYPE_INFO);
+
+                  v29 = 0x280D73000;
+                  if (ESPSequenceNumberFromPacket)
                   {
-                    v195 = v105;
-                    v408 = os_log_type_enabled(v105, OS_LOG_TYPE_INFO);
+LABEL_165:
+                    v113 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                    _NRLogWithArgs(v113, 1, "%s%.30s:%-4d %s: memmoving filledIn=%u, bufferHandled=%zu", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2092, v218, *(v18 + 80), v236);
 
-                    v28 = 0x280D73000;
-                    if (!v408)
-                    {
-                      goto LABEL_119;
-                    }
+                    v29 = 0x280D73000;
                   }
 
-                  v107 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                  *(v17 + 84);
-                  _NRLogWithArgs(v107, 1, "%s%.30s:%-4d source-%s: High", v196, v197, v198, v199, v200, "");
+LABEL_125:
+                  v78 |= 0x2000u;
+                  memmove(*v18, (*v18 + v236), *(v18 + 80) - v236);
+                  v88 = v236;
+                  *(v18 + 80) -= v236;
+                  v227 = (v227 + 1);
+LABEL_128:
+                  *(v2 + v226) += v88;
+                  goto LABEL_129;
                 }
 
-                else
+                if (!*(v29 + 3640))
                 {
-                  if (v100 != 3)
-                  {
-                    goto LABEL_119;
-                  }
-
-                  ++*(v2 + 184);
-                  *(v2 + 144) = *(v2 + 144) & 0xFFFFFFFFFFFFFFFBLL | (4 * (*(v17 + 84) & 1));
-                  if (*(v28 + 3640) != 1)
-                  {
-                    goto LABEL_119;
-                  }
-
-                  v103 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                  if (sNRCopyLogToStdErr == 1)
-                  {
-                  }
-
-                  else
-                  {
-                    v189 = v103;
-                    v407 = os_log_type_enabled(v103, OS_LOG_TYPE_INFO);
-
-                    v28 = 0x280D73000;
-                    if (!v407)
-                    {
-                      goto LABEL_119;
-                    }
-                  }
-
-                  v107 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                  *(v17 + 84);
-                  _NRLogWithArgs(v107, 1, "%s%.30s:%-4d source-%s: Isochronous", v190, v191, v192, v193, v194, "");
+LABEL_127:
+                  v78 |= 0x4000u;
+                  *(v18 + 80) = 0;
+                  v88 = v236;
+                  goto LABEL_128;
                 }
 
-LABEL_118:
-
-                v28 = 0x280D73000uLL;
-                goto LABEL_119;
-              }
-
-              if (!*(v17 + 83))
-              {
-                v104 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                v106 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
                 if (sNRCopyLogToStdErr == 1)
                 {
                 }
 
                 else
                 {
-                  v106 = v104;
-                  v400 = os_log_type_enabled(v104, OS_LOG_TYPE_ERROR);
+                  v114 = v106;
+                  LODWORD(ESPSequenceNumberFromPacket) = os_log_type_enabled(v106, OS_LOG_TYPE_INFO);
 
-                  v28 = 0x280D73000;
-                  if (!v400)
+                  v29 = 0x280D73000;
+                  if (!ESPSequenceNumberFromPacket)
                   {
-                    goto LABEL_119;
+                    goto LABEL_127;
                   }
                 }
 
-                v107 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                _NRLogWithArgs(v107, 16, "%s%.30s:%-4d invalid link channel priority", v108, v109, v110, v111, v112, "");
-                goto LABEL_118;
+                v115 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                _NRLogWithArgs(v115, 1, "%s%.30s:%-4d %s: not memmoving filledIn=%u, bufferHandled=%zu", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2099, v218, *(v18 + 80), v236);
+
+                v29 = 0x280D73000;
+                goto LABEL_127;
               }
 
-              if (v100 == 1)
+              if (v228)
               {
-                v101 = *(v2 + 144);
-                ++*(v2 + 152);
-                *(v2 + 144) = v101 & 0xFFFFFFFFFFFFFFFELL | *(v17 + 84) & 1;
-                if (*(v28 + 3640) == 1)
+                v228(v2);
+              }
+
+              *(v18 + 84) |= 1u;
+              v80 = *(v18 + 83);
+              if (v80 > 1)
+              {
+                if (v80 == 2)
                 {
-                  v102 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                  ++*(v2 + 168);
+                  *(v2 + 144) = *(v2 + 144) & 0xFFFFFFFFFFFFFFFDLL | (2 * (*(v18 + 84) & 1));
+                  if (*(v29 + 3640) != 1)
+                  {
+                    goto LABEL_121;
+                  }
+
+                  v85 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                  if (sNRCopyLogToStdErr == 1)
+                  {
+                  }
+
+                  else
+                  {
+                    v120 = v85;
+                    LODWORD(ESPSequenceNumberFromPacket) = os_log_type_enabled(v85, OS_LOG_TYPE_INFO);
+
+                    v29 = 0x280D73000;
+                    if (!ESPSequenceNumberFromPacket)
+                    {
+                      goto LABEL_121;
+                    }
+                  }
+
+                  v87 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                  _NRLogWithArgs(v87, 1, "%s%.30s:%-4d source-%s: High");
+                }
+
+                else
+                {
+                  if (v80 != 3)
+                  {
+                    goto LABEL_121;
+                  }
+
+                  ++*(v2 + 184);
+                  *(v2 + 144) = *(v2 + 144) & 0xFFFFFFFFFFFFFFFBLL | (4 * (*(v18 + 84) & 1));
+                  if (*(v29 + 3640) != 1)
+                  {
+                    goto LABEL_121;
+                  }
+
+                  v83 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                  if (sNRCopyLogToStdErr == 1)
+                  {
+                  }
+
+                  else
+                  {
+                    v119 = v83;
+                    LODWORD(ESPSequenceNumberFromPacket) = os_log_type_enabled(v83, OS_LOG_TYPE_INFO);
+
+                    v29 = 0x280D73000;
+                    if (!ESPSequenceNumberFromPacket)
+                    {
+                      goto LABEL_121;
+                    }
+                  }
+
+                  v87 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                  _NRLogWithArgs(v87, 1, "%s%.30s:%-4d source-%s: Isochronous");
+                }
+
+LABEL_120:
+
+                v29 = 0x280D73000uLL;
+                goto LABEL_121;
+              }
+
+              if (!*(v18 + 83))
+              {
+                v84 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                if (sNRCopyLogToStdErr == 1)
+                {
+                }
+
+                else
+                {
+                  v86 = v84;
+                  LODWORD(ESPSequenceNumberFromPacket) = os_log_type_enabled(v84, OS_LOG_TYPE_ERROR);
+
+                  v29 = 0x280D73000;
+                  if (!ESPSequenceNumberFromPacket)
+                  {
+                    goto LABEL_121;
+                  }
+                }
+
+                v87 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                _NRLogWithArgs(v87, 16, "%s%.30s:%-4d invalid link channel priority");
+                goto LABEL_120;
+              }
+
+              if (v80 == 1)
+              {
+                v81 = *(v2 + 144);
+                ++*(v2 + 152);
+                *(v2 + 144) = v81 & 0xFFFFFFFFFFFFFFFELL | *(v18 + 84) & 1;
+                if (*(v29 + 3640) == 1)
+                {
+                  v82 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
                   if (sNRCopyLogToStdErr == 1)
                   {
 
-                    goto LABEL_169;
+                    goto LABEL_171;
                   }
 
-                  v183 = v102;
-                  v406 = os_log_type_enabled(v102, OS_LOG_TYPE_INFO);
+                  v118 = v82;
+                  LODWORD(ESPSequenceNumberFromPacket) = os_log_type_enabled(v82, OS_LOG_TYPE_INFO);
 
-                  v28 = 0x280D73000;
-                  if (v406)
+                  v29 = 0x280D73000;
+                  if (ESPSequenceNumberFromPacket)
                   {
-LABEL_169:
-                    v107 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                    *(v17 + 84);
-                    _NRLogWithArgs(v107, 1, "%s%.30s:%-4d source-%s: Medium", v184, v185, v186, v187, v188, "");
-                    goto LABEL_118;
+LABEL_171:
+                    v87 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                    _NRLogWithArgs(v87, 1, "%s%.30s:%-4d source-%s: Medium");
+                    goto LABEL_120;
                   }
                 }
               }
 
-LABEL_119:
-              v98 = v29 | 0x1800;
-              if (*(v28 + 3640) != 1)
+LABEL_121:
+              v78 = v30 | 0x1800;
+              if (*(v29 + 3640) != 1)
               {
-                v99 = v419;
-                if (!v419)
+                v79 = v236;
+                if (!v236)
                 {
-                  goto LABEL_127;
+                  goto LABEL_129;
                 }
 
-                goto LABEL_121;
+                goto LABEL_123;
               }
 
-              v128 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+              v97 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
               if (sNRCopyLogToStdErr == 1)
               {
 
-                goto LABEL_157;
+                goto LABEL_159;
               }
 
-              v148 = v128;
-              v402 = os_log_type_enabled(v128, OS_LOG_TYPE_INFO);
+              v108 = v97;
+              LODWORD(ESPSequenceNumberFromPacket) = os_log_type_enabled(v97, OS_LOG_TYPE_INFO);
 
-              if (v402)
+              if (ESPSequenceNumberFromPacket)
               {
-LABEL_157:
-                v149 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-                _NRLogWithArgs(v149, 1, "%s%.30s:%-4d ", v150, v151, v152, v153, v154, "");
+LABEL_159:
+                v109 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+                _NRLogWithArgs(v109, 1, "%s%.30s:%-4d ", ", "NRBluetoothPacketParserNexusToLinkLoop"", 2086);
               }
 
-              v28 = 0x280D73000;
-              v99 = v419;
-              if (v419)
+              v29 = 0x280D73000;
+              v79 = v236;
+              if (v236)
               {
-                goto LABEL_121;
+                goto LABEL_123;
               }
 
-LABEL_127:
-              ++v413;
-              if ((v97 & 1) == 0)
+LABEL_129:
+              ++v230;
+              if ((v77 & 1) == 0)
               {
-                goto LABEL_187;
+                goto LABEL_189;
               }
 
-              v115 = *(v17 + 82);
-              if (v115 >= 0xB)
+              v89 = *(v18 + 82);
+              if (v89 >= 0xB)
               {
-                v115 -= 11 * ((((117 * v115) >> 8) + (((v115 - ((117 * v115) >> 8)) & 0xFE) >> 1)) >> 3);
+                v89 -= 11 * ((((117 * v89) >> 8) + (((v89 - ((117 * v89) >> 8)) & 0xFE) >> 1)) >> 3);
               }
 
-              v27 = 0;
-              *(v416 + 4 * v115) = v98;
-              if (v115 < 0xAu)
+              v28 = 0;
+              *(v233 + 4 * v89) = v78;
+              if (v89 < 0xAu)
               {
-                v116 = v115 + 1;
+                v90 = v89 + 1;
               }
 
               else
               {
-                v116 = v115 - 10;
+                v90 = v89 - 10;
               }
 
-              *(v17 + 82) = v116;
+              *(v18 + 82) = v90;
             }
           }
         }
 
-        v256 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-        _NRLogWithArgs(v256, 1, "%s%.30s:%-4d %s: starting NtL outer loop", v257, v258, v259, v260, v261, "");
+        v164 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+        _NRLogWithArgs(v164, 1, "%s%.30s:%-4d %s: starting NtL outer loop", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1938, v15);
 
         goto LABEL_22;
       }
 
       if (gNRPacketLoggingEnabled != 1)
       {
-LABEL_181:
-        if (v411)
+LABEL_183:
+        if (v228)
         {
-          v411(v2);
+          v228(v2);
         }
 
-        v203 = *(v17 + 82);
-        if (v203 >= 0xB)
+        v123 = *(v18 + 82);
+        if (v123 >= 0xB)
         {
-          v203 -= 11 * ((((117 * v203) >> 8) + (((v203 - ((117 * v203) >> 8)) & 0xFE) >> 1)) >> 3);
+          v123 -= 11 * ((((117 * v123) >> 8) + (((v123 - ((117 * v123) >> 8)) & 0xFE) >> 1)) >> 3);
         }
 
-        v204 = v203;
-        *(v17 + 4 * v203 + 36) = 3;
-        goto LABEL_203;
+        v124 = v123;
+        *(v18 + 4 * v123 + 36) = 3;
+        goto LABEL_205;
       }
 
-      v250 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+      v158 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
       if (sNRCopyLogToStdErr == 1)
       {
       }
 
       else
       {
-        v262 = v250;
-        v263 = os_log_type_enabled(v250, OS_LOG_TYPE_INFO);
+        v165 = v158;
+        v166 = os_log_type_enabled(v158, OS_LOG_TYPE_INFO);
 
-        if (!v263)
+        if (!v166)
         {
-          goto LABEL_181;
+          goto LABEL_183;
         }
       }
 
-      v264 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-      _NRLogWithArgs(v264, 1, "%s%.30s:%-4d %s: ignoring NtL fast-path for %u, as waiting for link output available", v265, v266, v267, v268, v269, "");
+      v167 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+      _NRLogWithArgs(v167, 1, "%s%.30s:%-4d %s: ignoring NtL fast-path for %u, as waiting for link output available", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1903, v15, v3);
 
-      goto LABEL_181;
+      goto LABEL_183;
     }
 
-    goto LABEL_257;
+    goto LABEL_259;
   }
 
-  v13 = (v2 + 136);
-  v14 = "Isochronous";
-  v15 = 3;
-  v16 = *(v2 + 136);
-  if (v16)
+  v14 = (v2 + 136);
+  v15 = "Isochronous";
+  v16 = 3;
+  v17 = *(v2 + 136);
+  if (v17)
   {
     goto LABEL_16;
   }
 
-LABEL_258:
+LABEL_260:
   if (gNRPacketLoggingEnabled != 1)
   {
-    goto LABEL_259;
+    goto LABEL_261;
   }
 
-  v378 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-  v379 = v378;
+  v212 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+  v213 = v212;
   if (sNRCopyLogToStdErr == 1)
   {
   }
 
   else
   {
-    v380 = os_log_type_enabled(v378, OS_LOG_TYPE_INFO);
+    v214 = os_log_type_enabled(v212, OS_LOG_TYPE_INFO);
 
-    if (!v380)
+    if (!v214)
     {
-      goto LABEL_259;
+      goto LABEL_261;
     }
   }
 
-  v381 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-  _NRLogWithArgs(v381, 1, "%s%.30s:%-4d ", v382, v383, v384, v385, v386, "");
+  v215 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+  _NRLogWithArgs(v215, 1, "%s%.30s:%-4d ", ", "NRBluetoothPacketParserNexusToLinkLoop"", 1923);
 
-LABEL_259:
-  v222 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+LABEL_261:
+  v142 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
   if (sNRCopyLogToStdErr == 1)
   {
   }
 
   else
   {
-    v233 = v222;
-    v234 = os_log_type_enabled(v222, OS_LOG_TYPE_FAULT);
+    v149 = v142;
+    v150 = os_log_type_enabled(v142, OS_LOG_TYPE_FAULT);
 
-    if (!v234)
+    if (!v150)
     {
-      goto LABEL_207;
+      goto LABEL_209;
     }
   }
 
-  v235 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
-  _NRLogWithArgs(v235, 17, "%s: Invalid write context for nexus priority: %u", v236, v237, v238, v239, v240, v14);
+  v151 = _NRCopyLogObjectForNRUUID(*(v2 + 48));
+  _NRLogWithArgs(v151, 17, "%s: Invalid write context for nexus priority: %u", v15, v3);
 
-LABEL_207:
+LABEL_209:
   v2 = *(v1 + 32);
-LABEL_208:
+LABEL_210:
   *(v2 + 17) = 0;
-  v208 = *MEMORY[0x277D85DE8];
 }
 
 void __68__NRBluetoothPacketParser_setupNexusChannelForPriority_channelUUID___block_invoke_3(uint64_t a1)
@@ -8063,31 +8463,31 @@ void __68__NRBluetoothPacketParser_setupNexusChannelForPriority_channelUUID___bl
     goto LABEL_2;
   }
 
-  v16 = a1;
-  v17 = _NRCopyLogObjectForNRUUID(*(*(a1 + 32) + 48));
+  v11 = a1;
+  v12 = _NRCopyLogObjectForNRUUID(*(*(a1 + 32) + 48));
   if (sNRCopyLogToStdErr == 1)
   {
 
-    a1 = v16;
+    a1 = v11;
   }
 
   else
   {
-    v18 = v17;
-    v19 = os_log_type_enabled(v17, OS_LOG_TYPE_INFO);
+    v13 = v12;
+    v14 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
 
-    a1 = v16;
-    if (!v19)
+    a1 = v11;
+    if (!v14)
     {
       goto LABEL_2;
     }
   }
 
-  v20 = _NRCopyLogObjectForNRUUID(*(*(a1 + 32) + 48));
-  StringForNRNexusChannelPriority = createStringForNRNexusChannelPriority(*(v16 + 40));
-  _NRLogWithArgs(v20, 1, "%s%.30s:%-4d Nexus output available - %@", v21, v22, v23, v24, v25, "");
+  v15 = _NRCopyLogObjectForNRUUID(*(*(a1 + 32) + 48));
+  StringForNRNexusChannelPriority = createStringForNRNexusChannelPriority(*(v11 + 40));
+  _NRLogWithArgs(v15, 1, "%s%.30s:%-4d Nexus output available - %@", ", "[NRBluetoothPacketParser setupNexusChannelForPriority:channelUUID:]_block_invoke_3"", 1522, StringForNRNexusChannelPriority);
 
-  a1 = v16;
+  a1 = v11;
 LABEL_2:
   v1 = *(a1 + 40) & 0xFE;
   if (v1 == 100)
@@ -8142,48 +8542,48 @@ LABEL_9:
     }
   }
 
-  v27 = _NRCopyLogObjectForNRUUID(*(v3 + 48));
-  _NRLogWithArgs(v27, 17, "Invalid priority %d", v11, v12, v13, v14, v15, v2);
+  v17 = _NRCopyLogObjectForNRUUID(*(v3 + 48));
+  _NRLogWithArgs(v17, 17, "Invalid priority %d", v2);
 }
 
 - (NRBluetoothPacketParser)initWithDeviceIdentifier:(id)identifier queue:(id)queue
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   queueCopy = queue;
-  v38.receiver = self;
-  v38.super_class = NRBluetoothPacketParser;
-  v9 = [(NRBluetoothPacketParser *)&v38 init];
+  v29.receiver = self;
+  v29.super_class = NRBluetoothPacketParser;
+  v9 = [(NRBluetoothPacketParser *)&v29 init];
   if (!v9)
   {
-    v24 = nrCopyLogObj_560();
+    v18 = nrCopyLogObj_560();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v25 = v24;
-      v26 = os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
+      v19 = v18;
+      v20 = os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
 
-      if (!v26)
+      if (!v20)
       {
         goto LABEL_11;
       }
     }
 
-    v27 = nrCopyLogObj_560();
-    _NRLogWithArgs(v27, 16, "%s%.30s:%-4d ABORTING: [super init] failed", v28, v29, v30, v31, v32, "");
+    v21 = nrCopyLogObj_560();
+    _NRLogWithArgs(v21, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRBluetoothPacketParser initWithDeviceIdentifier:queue:]"", 599);
 
 LABEL_11:
-    v33 = _os_log_pack_size();
-    MEMORY[0x28223BE20](v33, v34);
-    v35 = *__error();
-    v36 = _os_log_pack_fill();
-    *v36 = 136446210;
-    *(v36 + 4) = "[NRBluetoothPacketParser initWithDeviceIdentifier:queue:]";
-    v37 = nrCopyLogObj_560();
-    _NRLogAbortWithPack(v37);
+    v22 = _os_log_pack_size();
+    v24 = &v28 - ((MEMORY[0x28223BE20](v22, v23) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v25 = __error();
+    v26 = _os_log_pack_fill(v24, v22, *v25, &dword_25B98C000, "%{public}s [super init] failed");
+    *v26 = 136446210;
+    *(v26 + 4) = "[NRBluetoothPacketParser initWithDeviceIdentifier:queue:]";
+    v27 = nrCopyLogObj_560();
+    _NRLogAbortWithPack(v27, v24);
   }
 
   v10 = v9;
@@ -8203,7 +8603,7 @@ LABEL_11:
 
 LABEL_5:
     v16 = _NRCopyLogObjectForNRUUID(v10->_nrUUID);
-    _NRLogWithArgs(v16, 0, "%s%.30s:%-4d Created (%p)", v17, v18, v19, v20, v21, "");
+    _NRLogWithArgs(v16, 0, "%s%.30s:%-4d Created (%p)", ", "[NRBluetoothPacketParser initWithDeviceIdentifier:queue:]"", 604, v10);
 
     goto LABEL_6;
   }
@@ -8218,48 +8618,47 @@ LABEL_5:
 
 LABEL_6:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (NRBluetoothPacketParser)initWithBluetoothUUID:(id)d queue:(id)queue
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dCopy = d;
   queueCopy = queue;
-  v41.receiver = self;
-  v41.super_class = NRBluetoothPacketParser;
-  v9 = [(NRBluetoothPacketParser *)&v41 init];
+  v32.receiver = self;
+  v32.super_class = NRBluetoothPacketParser;
+  v9 = [(NRBluetoothPacketParser *)&v32 init];
   if (!v9)
   {
-    v27 = nrCopyLogObj_560();
+    v21 = nrCopyLogObj_560();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v28 = v27;
-      v29 = os_log_type_enabled(v27, OS_LOG_TYPE_ERROR);
+      v22 = v21;
+      v23 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
 
-      if (!v29)
+      if (!v23)
       {
         goto LABEL_14;
       }
     }
 
-    v30 = nrCopyLogObj_560();
-    _NRLogWithArgs(v30, 16, "%s%.30s:%-4d ABORTING: [super init] failed", v31, v32, v33, v34, v35, "");
+    v24 = nrCopyLogObj_560();
+    _NRLogWithArgs(v24, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRBluetoothPacketParser initWithBluetoothUUID:queue:]"", 584);
 
 LABEL_14:
-    v36 = _os_log_pack_size();
-    MEMORY[0x28223BE20](v36, v37);
-    v38 = *__error();
-    v39 = _os_log_pack_fill();
-    *v39 = 136446210;
-    *(v39 + 4) = "[NRBluetoothPacketParser initWithBluetoothUUID:queue:]";
-    v40 = nrCopyLogObj_560();
-    _NRLogAbortWithPack(v40);
+    v25 = _os_log_pack_size();
+    v27 = &v31 - ((MEMORY[0x28223BE20](v25, v26) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v28 = __error();
+    v29 = _os_log_pack_fill(v27, v25, *v28, &dword_25B98C000, "%{public}s [super init] failed");
+    *v29 = 136446210;
+    *(v29 + 4) = "[NRBluetoothPacketParser initWithBluetoothUUID:queue:]";
+    v30 = nrCopyLogObj_560();
+    _NRLogAbortWithPack(v30, v27);
   }
 
   v10 = v9;
@@ -8298,7 +8697,7 @@ LABEL_8:
     }
 
     v19 = _NRCopyLogObjectForNRUUID(*(v10 + 48));
-    _NRLogWithArgs(v19, 0, "%s%.30s:%-4d Created (%p)", v20, v21, v22, v23, v24, "");
+    _NRLogWithArgs(v19, 0, "%s%.30s:%-4d Created (%p)", ", "[NRBluetoothPacketParser initWithBluetoothUUID:queue:]"", 593, v10);
 
     goto LABEL_8;
   }
@@ -8306,7 +8705,6 @@ LABEL_8:
   v16 = 0;
 LABEL_9:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

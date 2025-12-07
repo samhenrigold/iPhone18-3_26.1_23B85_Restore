@@ -12,13 +12,12 @@
 
 + (id)dbProperties
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"zoneRowID";
-  v5[1] = @"shareRowID";
-  v6[0] = &unk_2838C82B0;
-  v6[1] = &unk_2838C8310;
-  v2 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v6, v5, 2);
-  v3 = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"zoneRowID";
+  v4[1] = @"shareRowID";
+  v5[0] = &unk_2838C82B0;
+  v5[1] = &unk_2838C8310;
+  v2 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v5, v4, 2);
 
   return v2;
 }

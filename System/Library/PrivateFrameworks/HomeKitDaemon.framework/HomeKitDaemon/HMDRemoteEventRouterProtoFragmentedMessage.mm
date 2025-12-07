@@ -324,19 +324,18 @@ LABEL_8:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_fragmentData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    fragmentNumber = self->_fragmentNumber;
     PBDataWriterWriteUint32Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -355,9 +354,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  totalSize = self->_totalSize;
   PBDataWriterWriteUint64Field();
-  toCopy = v10;
+  toCopy = v6;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -371,15 +369,13 @@ LABEL_6:
   }
 
 LABEL_13:
-  totalFragments = self->_totalFragments;
   PBDataWriterWriteUint64Field();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_7:
-    routerVersion = self->_routerVersion;
     PBDataWriterWriteUint32Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_8:

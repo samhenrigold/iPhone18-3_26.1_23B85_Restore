@@ -120,7 +120,7 @@ uint64_t sub_100000CF8(uint64_t a1, void *a2, uint64_t a3)
 {
   if (a3)
   {
-    NSLog(@"Failed to list datastore because %@", a3);
+    NSLog(@"Failed to list datastore because %@", a2, a3);
 LABEL_3:
     v4 = *(*(a1 + 40) + 16);
 
@@ -129,7 +129,7 @@ LABEL_3:
 
   if (!a2)
   {
-    NSLog(@"No datastore listing available");
+    NSLog(@"No datastore listing available", 0);
     goto LABEL_3;
   }
 
@@ -152,7 +152,7 @@ uint64_t sub_100000E38(uint64_t a1, void *a2, uint64_t a3)
 {
   if (a3)
   {
-    NSLog(@"Failed to list clients because %@", a3);
+    NSLog(@"Failed to list clients because %@", a2, a3);
   }
 
   else
@@ -169,7 +169,7 @@ uint64_t sub_100000EC4(uint64_t a1, void *a2, uint64_t a3)
 {
   if (a3)
   {
-    NSLog(@"Failed to list stateCache because %@", a3);
+    NSLog(@"Failed to list stateCache because %@", a2, a3);
   }
 
   else
@@ -186,7 +186,7 @@ uint64_t sub_100000F50(uint64_t a1, void *a2, uint64_t a3)
 {
   if (a3)
   {
-    NSLog(@"Failed to list configurations because %@", a3);
+    NSLog(@"Failed to list configurations because %@", a2, a3);
   }
 
   else
@@ -203,7 +203,7 @@ uint64_t sub_100000FDC(uint64_t a1, void *a2, uint64_t a3)
 {
   if (a3)
   {
-    NSLog(@"Failed to list defaults because %@", a3);
+    NSLog(@"Failed to list defaults because %@", a2, a3);
   }
 
   else

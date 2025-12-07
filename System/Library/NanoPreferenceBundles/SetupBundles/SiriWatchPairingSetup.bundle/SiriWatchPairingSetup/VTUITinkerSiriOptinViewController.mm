@@ -84,7 +84,7 @@
 {
   v2 = +[BPSBridgeAppContext shared];
   activeDevice = [v2 activeDevice];
-  v4 = VTUISiriScreenStringForDevice();
+  v4 = VTUISiriScreenStringForDevice(activeDevice);
 
   return v4;
 }

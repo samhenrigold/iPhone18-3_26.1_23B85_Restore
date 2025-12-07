@@ -6,7 +6,7 @@
 
 - (BOOL)improveEntry:(id)entry
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   entryCopy = entry;
   v5 = entryCopy;
   if (!entryCopy)
@@ -14,15 +14,15 @@
     geoMapItem2 = GEOFindOrCreateLog();
     if (os_log_type_enabled(geoMapItem2, OS_LOG_TYPE_ERROR))
     {
-      *v20 = 136446978;
-      *&v20[4] = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsFrequentLocationImprover.m";
-      *&v20[12] = 1024;
-      *&v20[14] = 27;
-      *&v20[18] = 2082;
-      *&v20[20] = "[MapsSuggestionsFrequentLocationImprover improveEntry:]";
-      *&v20[28] = 2082;
-      *&v20[30] = "nil == (entry)";
-      _os_log_impl(&dword_1C5126000, geoMapItem2, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a suggestion entry", v20, 0x26u);
+      *v22 = 136446978;
+      *&v22[4] = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsFrequentLocationImprover.m";
+      *&v22[12] = 1024;
+      *&v22[14] = 27;
+      *&v22[18] = 2082;
+      *&v22[20] = "[MapsSuggestionsFrequentLocationImprover improveEntry:]";
+      *&v22[28] = 2082;
+      *&v22[30] = "nil == (entry)";
+      _os_log_impl(&dword_1C5126000, geoMapItem2, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a suggestion entry", v22, 0x26u);
     }
 
     LOBYTE(v13) = 0;
@@ -56,17 +56,17 @@
         v14 = v11;
 
         v12 = MapsSuggestionsLocalizedFrequentLocationNearStreetTitleString(v14);
-        *v20 = MEMORY[0x1E69E9820];
-        *&v20[8] = 3221225472;
-        *&v20[16] = ___MapsSuggestionsBundle_block_invoke_1;
-        *&v20[24] = &__block_descriptor_40_e5_v8__0l;
-        *&v20[32] = "FrequentLocationImprover";
+        *v22 = MEMORY[0x1E69E9820];
+        *&v22[8] = 3221225472;
+        *&v22[16] = ___MapsSuggestionsBundle_block_invoke_1;
+        *&v22[24] = &__block_descriptor_40_e5_v8__0l;
+        *&v22[32] = "FrequentLocationImprover";
         if (_MapsSuggestionsBundle_s_msgBundleToken_1 != -1)
         {
-          dispatch_once(&_MapsSuggestionsBundle_s_msgBundleToken_1, v20);
+          dispatch_once(&_MapsSuggestionsBundle_s_msgBundleToken_1, v22);
         }
 
-        v15 = [_MapsSuggestionsBundle_s_bundleWithMapsSuggestionsIdentifier_1 localizedStringForKey:@"MAPS_SUGG_FREQ_LOC_SUBTITLE" value:@"Significant Location<unlocalized>" table:{0, *v20, *&v20[8], *&v20[24], v21}];
+        v15 = [_MapsSuggestionsBundle_s_bundleWithMapsSuggestionsIdentifier_1 localizedStringForKey:@"MAPS_SUGG_FREQ_LOC_SUBTITLE" value:@"Significant Location<unlocalized>" table:{0, *v22, *&v22[8], *&v22[24], v23}];
         v16 = MapsSuggestionsNonNilString(v15, &stru_1F444C108);
 
         v8 = v14;
@@ -89,17 +89,17 @@
         v13 |= [(MapsSuggestionsBaseImprover *)self improveMyUndecoratedTitle:v12 forEntry:v5];
       }
 
-      if (![v5 containsKey:@"MapsSuggestionsNeedsETATrackingKey"] || (objc_msgSend(v5, "BOOLeanForKey:", @"MapsSuggestionsNeedsETATrackingKey") & 1) == 0)
+      if (![v5 containsKey:@"MapsSuggestionsNeedsETATrackingKey"] || (v17 = objc_msgSend(v5, "BOOLeanForKey:", @"MapsSuggestionsNeedsETATrackingKey"), (v17 & 1) == 0))
       {
         LOBYTE(v13) = 1;
-        [v5 setBoolean:1 forKey:@"MapsSuggestionsNeedsETATrackingKey"];
+        v17 = [v5 setBoolean:1 forKey:@"MapsSuggestionsNeedsETATrackingKey"];
       }
 
-      v17 = MapsSuggestionsLocalizedHideInMapsString();
-      [v5 setString:v17 forKey:@"MapsSuggestionsRemovalBehaviorStringForHide"];
+      v18 = MapsSuggestionsLocalizedHideInMapsString(v17);
+      [v5 setString:v18 forKey:@"MapsSuggestionsRemovalBehaviorStringForHide"];
 
-      v18 = MapsSuggestionsLocalizedForgetMyVisitsString();
-      [v5 setString:v18 forKey:@"MapsSuggestionsRemovalBehaviorStringForForget"];
+      v20 = MapsSuggestionsLocalizedForgetMyVisitsString(v19);
+      [v5 setString:v20 forKey:@"MapsSuggestionsRemovalBehaviorStringForForget"];
 
 LABEL_27:
       goto LABEL_28;

@@ -214,7 +214,7 @@ LABEL_21:
 {
   v33.receiver = self;
   v33.super_class = ADJasperColorInFieldCalibrationInterSessionData;
-  v8 = [(ADInFieldCalibrationInterSessionData *)&v33 init];
+  v8 = [(ADInFieldCalibrationInterSessionData *)&v33 init:a2.n128_f64[0]];
   v9 = v8;
   if (v8 && (([(ADInFieldCalibrationInterSessionData *)v8 setVersion:7], [(ADJasperColorInFieldCalibrationInterSessionData *)v9 initIsf], !v9->super._isf) || (v10 = objc_alloc_init(ADJasperColorInFieldCalibrationTelemetryData), inFieldCalibrationTelemetryData = v9->_inFieldCalibrationTelemetryData, v9->_inFieldCalibrationTelemetryData = v10, inFieldCalibrationTelemetryData, v30 = 0u, v31 = 0u, v30.i32[2] = a2.n128_i32[2], v32 = 0u, v31.i32[2] = transform.n128_i32[2], v30.i64[0] = a2.n128_u64[0], v31.i64[0] = transform.n128_u64[0], v32.i32[2] = colorTransform.n128_i32[2], v32.i64[0] = colorTransform.n128_u64[0], [ADUtils calcRotationAngle:&v30], *v9->_jasperToColorRotationAngles = v12, v27 = 0u, v28 = 0u, v29 = 0u, v13 = vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(a6, v30.f32[0]), a7, v31.f32[0]), a8, v32.f32[0]), v14 = vmlaq_lane_f32(vmlaq_lane_f32(vmulq_lane_f32(a6, *v30.f32, 1), a7, *v31.f32, 1), a8, *v32.f32, 1), v15 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(a6, v30, 2), a7, v31, 2), a8, v32, 2), DWORD2(v27) = v13.i32[2], DWORD2(v28) = v14.i32[2], *&v27 = v13.i64[0], *&v28 = v14.i64[0], DWORD2(v29) = v15.i32[2], *&v29 = v15.i64[0], [ADUtils calcRotationAngle:&v27], isf = v9->super._isf, [(ADJasperColorInFieldCalibrationInterSessionData *)v9 convertExtrinsicsAnglesToDict:?], v17 = objc_claimAutoreleasedReturnValue(), v18 = [(ADInterSessionFilter *)isf fillWithEntry:v17], v17, v18)))
   {

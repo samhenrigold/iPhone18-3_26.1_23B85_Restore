@@ -8,6 +8,7 @@
 - (BOOL)gestureRecognizer:(id)recognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(id)gestureRecognizer;
 - (BOOL)gestureRecognizerShouldBegin:(id)begin;
 - (BOOL)hasContent;
+- (BOOL)keyboardInput:(id)input shouldInsertText:(id)text isMarkedText:(BOOL)markedText;
 - (BOOL)keyboardInputShouldDelete:(id)delete;
 - (BOOL)needsLandscapeHeight;
 - (BOOL)optOutOfGoButton;
@@ -50,6 +51,7 @@
 - (void)keyboardFrameChanged:(id)changed;
 - (void)layoutSubviews;
 - (void)pressesEnded:(id)ended withEvent:(id)event;
+- (void)promoteCompletionIfPossibleAndMoveForward:(BOOL)forward;
 - (void)removeCaretAssertion;
 - (void)removeCompletionAndHighlight;
 - (void)removeCompletionsOrEntitiesAndGoToSuggestions:(BOOL)suggestions;
@@ -74,7 +76,9 @@
 - (void)unmarkText;
 - (void)updateCaretVisibility;
 - (void)updateCaretVisibility:(BOOL)visibility;
+- (void)updateFocusResult:(id)result cardSection:(id)section focusIsOnFirstResult:(BOOL)firstResult;
 - (void)updateRightView;
+- (void)updateTextAlignmentShouldCenter:(BOOL)center animated:(BOOL)animated;
 - (void)updateTextRange:(id)range;
 - (void)updateToken:(id)token;
 - (void)updateWithAppearance:(id)appearance isOnDarkBackground:(BOOL)background;
@@ -471,27 +475,27 @@ LABEL_13:
 
 - (UIView)canvasView
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   subviews = [(SPUITextField *)self subviews];
-  v3 = [subviews countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [subviews countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(subviews);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * i);
+        v7 = *(*(&v13 + 1) + 8 * i);
         v8 = objc_opt_class();
         v9 = NSStringFromClass(v8);
         v10 = [v9 isEqualToString:@"_UITextLayoutCanvasView"];
@@ -503,7 +507,7 @@ LABEL_13:
         }
       }
 
-      v4 = [subviews countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [subviews countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v4)
       {
         continue;
@@ -515,8 +519,6 @@ LABEL_13:
 
   v11 = 0;
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -539,28 +541,28 @@ LABEL_11:
 
 - (NSString)textIncludingTokens
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   tokens = [(UISearchTextField *)self tokens];
-  v5 = [tokens countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [tokens countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(tokens);
         }
 
-        representedObject = [*(*(&v15 + 1) + 8 * i) representedObject];
+        representedObject = [*(*(&v14 + 1) + 8 * i) representedObject];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -569,7 +571,7 @@ LABEL_11:
         }
       }
 
-      v6 = [tokens countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [tokens countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -580,33 +582,31 @@ LABEL_11:
 
   v12 = [objc_opt_class() removeDictationCharacterInString:v3];
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (SPSearchEntity)searchEntity
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   tokens = [(UISearchTextField *)self tokens];
-  representedObject2 = [tokens countByEnumeratingWithState:&v11 objects:v15 count:16];
+  representedObject2 = [tokens countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (representedObject2)
   {
-    v4 = *v12;
+    v4 = *v11;
     while (2)
     {
       for (i = 0; i != representedObject2; i = i + 1)
       {
-        if (*v12 != v4)
+        if (*v11 != v4)
         {
           objc_enumerationMutation(tokens);
         }
 
-        v6 = *(*(&v11 + 1) + 8 * i);
+        v6 = *(*(&v10 + 1) + 8 * i);
         representedObject = [v6 representedObject];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
@@ -618,7 +618,7 @@ LABEL_11:
         }
       }
 
-      representedObject2 = [tokens countByEnumeratingWithState:&v11 objects:v15 count:16];
+      representedObject2 = [tokens countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (representedObject2)
       {
         continue;
@@ -629,8 +629,6 @@ LABEL_11:
   }
 
 LABEL_11:
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return representedObject2;
 }
@@ -790,6 +788,35 @@ void __21__SPUITextField_init__block_invoke(uint64_t a1)
   v23 = CGRectGetHeight(v26) <= 0.0;
 
   [(SPUITextField *)self updateTextAlignmentShouldCenter:v23 animated:1];
+}
+
+- (void)updateTextAlignmentShouldCenter:(BOOL)center animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v7 = MEMORY[0x277D65D88];
+  window = [(SPUITextField *)self window];
+  LOBYTE(v7) = [v7 isSWKeyboardHiddenForWindow:window];
+
+  mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
+  v10 = [mEMORY[0x277D75128] userInterfaceLayoutDirection] != 0;
+
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __58__SPUITextField_updateTextAlignmentShouldCenter_animated___block_invoke;
+  v12[3] = &unk_279D06E18;
+  if (v7 & 1 | !center)
+  {
+    v11 = 2 * v10;
+  }
+
+  else
+  {
+    v11 = 1;
+  }
+
+  v12[4] = self;
+  v12[5] = v11;
+  [MEMORY[0x277D4C898] performAnimatableChanges:v12 animated:animatedCopy];
 }
 
 - (void)textFieldWasTapped
@@ -1166,6 +1193,19 @@ LABEL_18:
   return hasContent ^ 1;
 }
 
+- (BOOL)keyboardInput:(id)input shouldInsertText:(id)text isMarkedText:(BOOL)markedText
+{
+  markedTextCopy = markedText;
+  textCopy = text;
+  inputCopy = input;
+  [(SPUITextField *)self resetDeletion];
+  v11.receiver = self;
+  v11.super_class = SPUITextField;
+  LOBYTE(markedTextCopy) = [(SPUITextField *)&v11 keyboardInput:inputCopy shouldInsertText:textCopy isMarkedText:markedTextCopy];
+
+  return markedTextCopy;
+}
+
 - (void)insertText:(id)text
 {
   textCopy = text;
@@ -1285,34 +1325,22 @@ LABEL_18:
 
 - (id)preferredFocusEnvironments
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   responderForKeyboardInput = [(SPUITextField *)self responderForKeyboardInput];
-  if (!responderForKeyboardInput)
-  {
-    goto LABEL_4;
-  }
-
-  v4 = responderForKeyboardInput;
-  hintingView = [(SPUITextField *)self hintingView];
-  result = [hintingView result];
-
-  if (result)
+  if (responderForKeyboardInput && (v4 = responderForKeyboardInput, -[SPUITextField hintingView](self, "hintingView"), v5 = objc_claimAutoreleasedReturnValue(), [v5 result], v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v4, v6))
   {
     responderForKeyboardInput2 = [(SPUITextField *)self responderForKeyboardInput];
-    v12[0] = responderForKeyboardInput2;
-    v12[1] = self;
-    preferredFocusEnvironments = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+    v11[0] = responderForKeyboardInput2;
+    v11[1] = self;
+    preferredFocusEnvironments = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
   }
 
   else
   {
-LABEL_4:
-    v11.receiver = self;
-    v11.super_class = SPUITextField;
-    preferredFocusEnvironments = [(SPUITextField *)&v11 preferredFocusEnvironments];
+    v10.receiver = self;
+    v10.super_class = SPUITextField;
+    preferredFocusEnvironments = [(SPUITextField *)&v10 preferredFocusEnvironments];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return preferredFocusEnvironments;
 }
@@ -1805,7 +1833,7 @@ LABEL_5:
 - (void)updateWithAppearance:(id)appearance isOnDarkBackground:(BOOL)background
 {
   backgroundCopy = background;
-  v61[2] = *MEMORY[0x277D85DE8];
+  v60[2] = *MEMORY[0x277D85DE8];
   appearanceCopy = appearance;
   primaryColor = [appearanceCopy primaryColor];
   primaryColor = self->_primaryColor;
@@ -1892,14 +1920,14 @@ LABEL_5:
     v27 = leftView;
     if (bottomSearchFieldEnabled)
     {
-      v61[0] = leftView;
+      v60[0] = leftView;
       _clearButton = [(SPUITextField *)self _clearButton];
-      v61[1] = _clearButton;
-      v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
+      v60[1] = _clearButton;
+      v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:2];
 
       _placeholderLabel = [(SPUITextField *)self _placeholderLabel];
-      v60 = _placeholderLabel;
-      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
+      v59 = _placeholderLabel;
+      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
 
       rightView = [(SPUITextField *)self rightView];
 
@@ -1919,14 +1947,14 @@ LABEL_26:
 
     else
     {
-      v59[0] = leftView;
+      v58[0] = leftView;
       _clearButton2 = [(SPUITextField *)self _clearButton];
-      v59[1] = _clearButton2;
-      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
+      v58[1] = _clearButton2;
+      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:2];
 
       _placeholderLabel2 = [(SPUITextField *)self _placeholderLabel];
-      v58 = _placeholderLabel2;
-      v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
+      v57 = _placeholderLabel2;
+      v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
 
       rightView3 = [(SPUITextField *)self rightView];
 
@@ -1947,12 +1975,12 @@ LABEL_26:
   else
   {
     leftView2 = [(SPUITextField *)self leftView];
-    v57[0] = leftView2;
+    v56[0] = leftView2;
     _clearButton3 = [(SPUITextField *)self _clearButton];
-    v57[1] = _clearButton3;
+    v56[1] = _clearButton3;
     _placeholderLabel3 = [(SPUITextField *)self _placeholderLabel];
-    v57[2] = _placeholderLabel3;
-    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:3];
+    v56[2] = _placeholderLabel3;
+    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:3];
 
     rightView4 = [(SPUITextField *)self rightView];
 
@@ -1998,9 +2026,9 @@ LABEL_30:
   {
     v51 = objc_alloc(MEMORY[0x277CCA898]);
     placeholder2 = [(SPUITextField *)self placeholder];
-    v55 = *MEMORY[0x277D740C0];
-    v56 = tertiaryColor3;
-    v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+    v54 = *MEMORY[0x277D740C0];
+    v55 = tertiaryColor3;
+    v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
     placeholder = [v51 initWithString:placeholder2 attributes:v53];
   }
 
@@ -2009,36 +2037,34 @@ LABEL_30:
   {
     [(SPUITextField *)self setShowsBackButton:self->_showsBackButton];
   }
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAppearance:(id)appearance tintColor:(id)color forViews:(id)views
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   appearanceCopy = appearance;
   colorCopy = color;
   viewsCopy = views;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v10 = [viewsCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [viewsCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       v13 = 0;
       do
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(viewsCopy);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * v13);
+        v14 = *(*(&v16 + 1) + 8 * v13);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -2052,13 +2078,11 @@ LABEL_30:
       }
 
       while (v11 != v13);
-      v11 = [viewsCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [viewsCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
@@ -2132,21 +2156,21 @@ LABEL_30:
 
 - (id)keyCommands
 {
-  v14[4] = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = SPUITextField;
-  keyCommands = [(SPUITextField *)&v13 keyCommands];
+  v13[4] = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = SPUITextField;
+  keyCommands = [(SPUITextField *)&v12 keyCommands];
   if (!keyCommands_spotlightKeyCommands)
   {
     v3 = [MEMORY[0x277D75650] keyCommandWithInput:*MEMORY[0x277D76AD8] modifierFlags:0 action:sel_escapeKeyCommand];
     v4 = [MEMORY[0x277D75650] keyCommandWithInput:@"\r" modifierFlags:0 action:sel_enterKeyPressed];
     v5 = [MEMORY[0x277D75650] keyCommandWithInput:&stru_287C49600 modifierFlags:0x80000 action:sel_toggleCommitedSearch];
     v6 = [MEMORY[0x277D75650] keyCommandWithInput:@"\r" modifierFlags:0x80000 action:sel_commitToCommitedSearch];
-    v14[0] = v3;
-    v14[1] = v4;
-    v14[2] = v5;
-    v14[3] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:4];
+    v13[0] = v3;
+    v13[1] = v4;
+    v13[2] = v5;
+    v13[3] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:4];
     v8 = keyCommands_spotlightKeyCommands;
     keyCommands_spotlightKeyCommands = v7;
   }
@@ -2162,8 +2186,6 @@ LABEL_30:
   }
 
   v10 = v9;
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -2264,6 +2286,24 @@ LABEL_6:
   }
 }
 
+- (void)promoteCompletionIfPossibleAndMoveForward:(BOOL)forward
+{
+  forwardCopy = forward;
+  [(SPUITextField *)self removeCaretAssertion];
+  if ([(SPUITextField *)self shouldPromoteCompletion])
+  {
+    [(SPUITextField *)self _promoteCompletionAndMoveForward:forwardCopy];
+  }
+
+  else
+  {
+    [(SPUITextField *)self updateFocusResult:0 cardSection:0 focusIsOnFirstResult:0];
+  }
+
+  delegate = [(SPUITextField *)self delegate];
+  [delegate removeCompletionAndHighlightAsTyped:0];
+}
+
 - (void)_promoteCompletionAndMoveForward:(BOOL)forward
 {
   text = [(UISearchTextField *)self text];
@@ -2315,9 +2355,62 @@ LABEL_6:
   [_fieldEditor setAlpha:v5];
 }
 
+- (void)updateFocusResult:(id)result cardSection:(id)section focusIsOnFirstResult:(BOOL)firstResult
+{
+  firstResultCopy = firstResult;
+  resultCopy = result;
+  sectionCopy = section;
+  if (!firstResultCopy)
+  {
+    restorationStringOnKBMovement = [(SPUITextField *)self restorationStringOnKBMovement];
+
+    if (restorationStringOnKBMovement)
+    {
+      restorationStringOnKBMovement2 = [(SPUITextField *)self restorationStringOnKBMovement];
+      [(UISearchTextField *)self setText:restorationStringOnKBMovement2];
+    }
+  }
+
+  [(SPUITextField *)self setRestorationStringOnKBMovement:0];
+  if (![(SPUITextField *)self isFirstResponder]|| !(resultCopy | sectionCopy))
+  {
+    goto LABEL_12;
+  }
+
+  scribbleInteraction = [(SPUITextField *)self scribbleInteraction];
+  if ([scribbleInteraction isHandlingWriting])
+  {
+
+LABEL_12:
+    hintingView = [(SPUITextField *)self hintingView];
+    [hintingView updateWithResult:0 cardSection:0 focusIsOnFirstResult:firstResultCopy];
+
+    hintingView2 = [MEMORY[0x277D75518] focusSystemForEnvironment:self];
+    [hintingView2 requestFocusUpdateToEnvironment:self];
+    goto LABEL_13;
+  }
+
+  selectedTextRange = [(SPUITextField *)self selectedTextRange];
+  isEmpty = [selectedTextRange isEmpty];
+
+  if ((isEmpty & 1) == 0)
+  {
+    goto LABEL_12;
+  }
+
+  if (![(SPUITextField *)self lastUpdateWasDeletion]|| !firstResultCopy)
+  {
+    hintingView2 = [(SPUITextField *)self hintingView];
+    [hintingView2 updateWithResult:resultCopy cardSection:sectionCopy focusIsOnFirstResult:firstResultCopy];
+LABEL_13:
+  }
+
+  [(SPUITextField *)self updateCaretVisibility];
+}
+
 - (void)resetMicrophoneButton
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   if (_UISolariumEnabled())
   {
     v3 = @"mic";
@@ -2352,12 +2445,10 @@ LABEL_6:
     v10 = primaryColor;
     v11 = [MEMORY[0x277D6F1A0] bestAppearanceForView:self];
     rightView = [(SPUITextField *)self rightView];
-    v15[0] = rightView;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v14[0] = rightView;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
     [(SPUITextField *)self setAppearance:v11 tintColor:v10 forViews:v13];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)completionResultIsPotentiallyPunchout

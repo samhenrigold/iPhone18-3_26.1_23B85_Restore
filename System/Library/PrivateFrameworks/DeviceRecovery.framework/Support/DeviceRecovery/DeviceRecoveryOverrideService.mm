@@ -22,7 +22,7 @@
   queueCopy = queue;
   if (!queueCopy)
   {
-    p_super = sub_1000118BC();
+    p_super = sub_1000118BC(0);
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
     {
       sub_1000186EC();
@@ -32,9 +32,9 @@
     goto LABEL_7;
   }
 
-  v15.receiver = self;
-  v15.super_class = DeviceRecoveryOverrideService;
-  v6 = [(DeviceRecoveryOverrideService *)&v15 init];
+  v16.receiver = self;
+  v16.super_class = DeviceRecoveryOverrideService;
+  v6 = [(DeviceRecoveryOverrideService *)&v16 init];
   v7 = v6;
   if (v6)
   {
@@ -48,23 +48,23 @@
       overrides = v7->overrides;
       v7->overrides = v9;
 
-      p_super = sub_1000118BC();
+      p_super = sub_1000118BC(v11);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = v7->overrides;
+        v13 = v7->overrides;
         *buf = 136446466;
-        v17 = "[DeviceRecoveryOverrideService initWithQueue:]";
-        v18 = 2114;
-        v19 = v12;
+        v18 = "[DeviceRecoveryOverrideService initWithQueue:]";
+        v19 = 2114;
+        v20 = v13;
         _os_log_impl(&_mh_execute_header, p_super, OS_LOG_TYPE_DEFAULT, "%{public}s: Loaded overrides: %{public}@", buf, 0x16u);
       }
     }
 
     else
     {
-      v13 = +[NSMutableDictionary dictionary];
+      v14 = +[NSMutableDictionary dictionary];
       p_super = &v7->overrides->super.super;
-      v7->overrides = v13;
+      v7->overrides = v14;
     }
 
 LABEL_7:
@@ -102,25 +102,25 @@ LABEL_7:
   v6 = connectionCopy;
   if (!connectionCopy)
   {
-    sub_100018D54(buf, &v24);
+    sub_100018D54(buf, &v27);
     v7 = *buf;
-    v17 = v24;
+    v19 = v27;
     goto LABEL_11;
   }
 
   [connectionCopy processIdentifier];
   v7 = sub_10000EDB8();
-  v8 = sub_1000118BC();
+  v8 = sub_1000118BC(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = qos_class_self();
     v10 = sub_10000EED4(v9);
     *buf = 136446722;
     *&buf[4] = "[DeviceRecoveryOverrideService listener:shouldAcceptNewConnection:]";
-    v26 = 2114;
-    v27 = v7;
-    v28 = 2114;
-    v29 = v10;
+    v29 = 2114;
+    v30 = v7;
+    v31 = 2114;
+    v32 = v10;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}s: Got connection from process %{public}@ at qos %{public}@", buf, 0x20u);
   }
 
@@ -130,13 +130,13 @@ LABEL_7:
     v12 = [v6 valueForEntitlement:@"com.apple.DeviceRecovery.Override"];
     if (!v12)
     {
-      v19 = sub_1000118BC();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = sub_1000118BC(0);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         sub_100018B4C();
       }
 
-      v11 = sub_1000118BC();
+      v11 = sub_1000118BC(v22);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_100018BF4(v11);
@@ -149,27 +149,28 @@ LABEL_7:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      sub_100018900();
+      sub_100018900(v11);
       goto LABEL_20;
     }
 
-    if (([v11 BOOLValue]& 1) == 0)
+    bOOLValue = [v11 BOOLValue];
+    if ((bOOLValue & 1) == 0)
     {
-      sub_100018A84();
+      sub_100018A84(bOOLValue);
       goto LABEL_20;
     }
   }
 
-  v13 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___DeviceRecoveryOverrideServiceInterface];
-  [v6 setExportedInterface:v13];
+  v14 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___DeviceRecoveryOverrideServiceInterface];
+  [v6 setExportedInterface:v14];
 
   exportedInterface = [v6 exportedInterface];
 
   if (!exportedInterface)
   {
-    sub_100018C8C();
+    sub_100018C8C(v16);
 LABEL_20:
-    v17 = 0;
+    v19 = 0;
     goto LABEL_10;
   }
 
@@ -177,26 +178,26 @@ LABEL_20:
   [v6 _setQueue:serviceQueue];
 
   [v6 setExportedObject:self];
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_100002B74;
-  v22[3] = &unk_100034AE8;
-  v16 = v7;
-  v23 = v16;
-  [v6 setInterruptionHandler:v22];
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_100002C30;
-  v20[3] = &unk_100034AE8;
-  v21 = v16;
-  [v6 setInvalidationHandler:v20];
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_100002B74;
+  v25[3] = &unk_100034AE8;
+  v18 = v7;
+  v26 = v18;
+  [v6 setInterruptionHandler:v25];
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_100002C30;
+  v23[3] = &unk_100034AE8;
+  v24 = v18;
+  [v6 setInvalidationHandler:v23];
   [v6 resume];
 
-  v17 = 1;
+  v19 = 1;
 LABEL_10:
 
 LABEL_11:
-  return v17;
+  return v19;
 }
 
 - (void)fetchOverride:(id)override callback:(id)callback
@@ -219,7 +220,7 @@ LABEL_11:
   valueCopy = value;
   callbackCopy = callback;
   v11 = sub_10000FC9C(overrideCopy, valueCopy);
-  v12 = sub_1000118BC();
+  v12 = sub_1000118BC(v11);
   v13 = v12;
   if (v11)
   {
@@ -251,7 +252,7 @@ LABEL_11:
 {
   overrideCopy = override;
   callbackCopy = callback;
-  v8 = sub_1000118BC();
+  v8 = sub_1000118BC(callbackCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136446466;
@@ -269,7 +270,7 @@ LABEL_11:
 - (void)removeAllOverrides:(id)overrides
 {
   overridesCopy = overrides;
-  v5 = sub_1000118BC();
+  v5 = sub_1000118BC(overridesCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136446210;

@@ -263,7 +263,7 @@
   handInfo5 = [(AXEventRepresentation *)v5 handInfo];
   [handInfo5 setHandPosition:{v22, v24}];
 
-  v26 = &unk_1EA9B7000;
+  v26 = &qword_1EA9B7000;
   if (IOHIDEventGetAttributeDataLength() >= 1)
   {
     v27 = BKSHIDEventGetDigitizerAttributes();
@@ -274,7 +274,7 @@
       handInfo6 = [(AXEventRepresentation *)v5 handInfo];
       [handInfo6 setSystemGesturePossible:systemGesturesPossible];
 
-      v26 = &unk_1EA9B7000;
+      v26 = &qword_1EA9B7000;
       [(AXEventRepresentation *)v5 setContextId:_ContextIDFromEvent(representation)];
     }
   }
@@ -378,7 +378,7 @@
         [v50 setObject:v51 forKey:v52];
 
         [HIDStreamIdentifierPhasesForTouches setObject:v50 forKey:v45];
-        v26 = &unk_1EA9B7000;
+        v26 = &qword_1EA9B7000;
         [HIDStreamLock unlock];
 
         IOHIDEventGetFloatValue();
@@ -2785,7 +2785,7 @@ float __59__AXEventRepresentation_fakeTouchScaleEventRepresentation___block_invo
   {
     if (eventType == 1)
     {
-      AXDeviceHasHomeButton();
+      AXDeviceHasHomeButton(v5, v6);
       handInfo2 = [(AXEventRepresentation *)self handInfo];
       pathsIncludingMayBeginEvents = [handInfo2 pathsIncludingMayBeginEvents];
       firstObject = [pathsIncludingMayBeginEvents firstObject];
@@ -2793,21 +2793,21 @@ float __59__AXEventRepresentation_fakeTouchScaleEventRepresentation___block_invo
       if (firstObject)
       {
         [firstObject pathLocation];
-        v8 = [(AXEventRepresentation *)self screenEdgeForPoint:?];
+        v10 = [(AXEventRepresentation *)self screenEdgeForPoint:?];
       }
 
       else
       {
-        v8 = 0;
+        v10 = 0;
       }
 
-      [objc_opt_class() setSwipeFromEdge:v8];
+      [objc_opt_class() setSwipeFromEdge:v10];
     }
   }
 
   else if (eventType == 6)
   {
-    AXDeviceHasHomeButton();
+    AXDeviceHasHomeButton(v5, v6);
   }
 
   [(AXEventRepresentation *)self _machTimeForHIDEventRef];
@@ -2817,7 +2817,7 @@ float __59__AXEventRepresentation_fakeTouchScaleEventRepresentation___block_invo
     [handInfo3 handEventMask];
   }
 
-  v41 = (eventType < 0xC) & (0x826u >> eventType);
+  v45 = (eventType < 0xC) & (0x826u >> eventType);
   if ([(AXEventRepresentation *)self isGeneratedEvent])
   {
     handInfo4 = [(AXEventRepresentation *)self handInfo];
@@ -2825,7 +2825,7 @@ float __59__AXEventRepresentation_fakeTouchScaleEventRepresentation___block_invo
   }
 
   swipeFromEdge = [objc_opt_class() swipeFromEdge];
-  _eventMasksForEdgeSwipe(swipeFromEdge);
+  _eventMasksForEdgeSwipe(swipeFromEdge, v14);
   handInfo5 = [(AXEventRepresentation *)self handInfo];
   [handInfo5 handIndex];
   handInfo6 = [(AXEventRepresentation *)self handInfo];
@@ -2850,19 +2850,19 @@ float __59__AXEventRepresentation_fakeTouchScaleEventRepresentation___block_invo
   handInfo9 = [(AXEventRepresentation *)self handInfo];
   pathsIncludingMayBeginEvents2 = [handInfo9 pathsIncludingMayBeginEvents];
 
-  v40 = pathsIncludingMayBeginEvents2;
-  v39 = [pathsIncludingMayBeginEvents2 count];
-  if (v39 >= 1)
+  v44 = pathsIncludingMayBeginEvents2;
+  v43 = [pathsIncludingMayBeginEvents2 count];
+  if (v43 >= 1)
   {
-    v19 = 0;
-    v38 = DigitizerEvent;
+    v22 = 0;
+    v42 = DigitizerEvent;
     do
     {
-      v20 = [v40 objectAtIndex:v19];
-      [v20 pathLocation];
+      v23 = [v44 objectAtIndex:v22];
+      [v23 pathLocation];
       if (![(AXEventRepresentation *)self isGeneratedEvent])
       {
-        [v20 pathEventMask];
+        [v23 pathEventMask];
       }
 
       if ([(AXEventRepresentation *)self isGeneratedEvent])
@@ -2871,81 +2871,81 @@ float __59__AXEventRepresentation_fakeTouchScaleEventRepresentation___block_invo
         [handInfo10 additionalHandEventFlagsForGeneratedEvents];
       }
 
-      v22 = v41;
+      v25 = v45;
       if (![(AXEventRepresentation *)self isGeneratedEvent])
       {
-        pathProximity = [v20 pathProximity];
-        [v20 pathProximity];
-        v22 = (pathProximity >> 1) & 1;
+        pathProximity = [v23 pathProximity];
+        [v23 pathProximity];
+        v25 = (pathProximity >> 1) & 1;
       }
 
       swipeFromEdge2 = [objc_opt_class() swipeFromEdge];
-      _eventMasksForEdgeSwipe(swipeFromEdge2);
-      transducerType = [v20 transducerType];
-      [v20 pathIndex];
-      [v20 pathIdentity];
+      _eventMasksForEdgeSwipe(swipeFromEdge2, v28);
+      transducerType = [v23 transducerType];
+      [v23 pathIndex];
+      [v23 pathIdentity];
       if (transducerType)
       {
-        [v20 pathPressure];
-        [v20 pathTwist];
-        [v20 pathMinorRadius];
-        [v20 pathMajorRadius];
-        [v20 pathQuality];
-        [v20 pathDensity];
-        v37 = 0;
-        v36 = v26;
+        [v23 pathPressure];
+        [v23 pathTwist];
+        [v23 pathMinorRadius];
+        [v23 pathMajorRadius];
+        [v23 pathQuality];
+        [v23 pathDensity];
+        v41 = 0;
+        v40 = v30;
         DigitizerFingerEventWithQuality = IOHIDEventCreateDigitizerFingerEventWithQuality();
       }
 
       else
       {
-        [v20 pathZValue];
-        [v20 pathPressure];
-        [v20 barrelPressure];
-        [v20 pathTwist];
-        [v20 altitude];
-        [v20 azimuth];
-        if (v22)
+        [v23 pathZValue];
+        [v23 pathPressure];
+        [v23 barrelPressure];
+        [v23 pathTwist];
+        [v23 altitude];
+        [v23 azimuth];
+        if (v25)
         {
-          v28 = 0x20000;
+          v32 = 0x20000;
         }
 
         else
         {
-          v28 = 0;
+          v32 = 0;
         }
 
-        LODWORD(v35) = v28;
+        LODWORD(v39) = v32;
         DigitizerFingerEventWithQuality = IOHIDEventCreateDigitizerStylusEventWithPolarOrientation();
-        [v20 pathQuality];
+        [v23 pathQuality];
         IOHIDEventSetFloatValue();
-        [v20 pathDensity];
+        [v23 pathDensity];
         IOHIDEventSetFloatValue();
-        [v20 pathMajorRadius];
+        [v23 pathMajorRadius];
         IOHIDEventSetFloatValue();
-        [v20 pathMinorRadius];
+        [v23 pathMinorRadius];
         IOHIDEventSetFloatValue();
-        [v20 phaseBits];
+        [v23 phaseBits];
         IOHIDEventSetPhase();
       }
 
-      [v20 roll];
+      [v23 roll];
       IOHIDEventSetFloatValue();
-      [v20 willUpdateMask];
+      [v23 willUpdateMask];
       IOHIDEventSetIntegerValue();
-      [v20 didUpdateMask];
+      [v23 didUpdateMask];
       IOHIDEventSetIntegerValue();
-      [v20 orbValue];
+      [v23 orbValue];
       IOHIDEventSetFloatValue();
-      [v20 transducerType];
+      [v23 transducerType];
       IOHIDEventSetIntegerValue();
-      [v20 orbValue];
-      [v20 pathMajorRadiusTolerance];
+      [v23 orbValue];
+      [v23 pathMajorRadiusTolerance];
       IOHIDEventSetFloatValue();
       [(AXEventRepresentation *)self generationCount];
       IOHIDEventSetIntegerValue();
-      DigitizerEvent = v38;
-      if ([v20 shouldSetTouchFlag])
+      DigitizerEvent = v42;
+      if ([v23 shouldSetTouchFlag])
       {
         IOHIDEventGetIntegerValue();
         IOHIDEventSetIntegerValue();
@@ -2958,15 +2958,15 @@ float __59__AXEventRepresentation_fakeTouchScaleEventRepresentation___block_invo
         IOHIDEventAppendEvent();
       }
 
-      [v20 phaseBits];
+      [v23 phaseBits];
       IOHIDEventSetPhase();
       IOHIDEventAppendEvent();
       CFRelease(DigitizerFingerEventWithQuality);
 
-      ++v19;
+      ++v22;
     }
 
-    while (v39 != v19);
+    while (v43 != v22);
   }
 
   hIDAttributeData = [(AXEventRepresentation *)self HIDAttributeData];
@@ -3541,7 +3541,7 @@ LABEL_7:
 
       else
       {
-        _AXLogWithFacility();
+        _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"No data found on ax event");
         v4 = 0;
       }
     }

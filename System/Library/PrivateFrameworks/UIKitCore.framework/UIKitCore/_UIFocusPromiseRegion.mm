@@ -55,7 +55,7 @@
     v9 = v8;
     if (v7 == v8)
     {
-      v11 = 1;
+      isEqual = 1;
     }
 
     else
@@ -72,22 +72,22 @@
 
       if (v10)
       {
-        v11 = 0;
+        isEqual = 0;
       }
 
       else
       {
-        v11 = [v7 isEqual:v8];
+        isEqual = objc_msgSend_isEqual_(v7);
       }
     }
   }
 
   else
   {
-    v11 = 0;
+    isEqual = 0;
   }
 
-  return v11;
+  return isEqual;
 }
 
 - (id)_nextFocusedItemForFocusMovementRequest:(id)request inMap:(id)map withSnapshot:(id)snapshot

@@ -55,13 +55,13 @@
 
 - (void)startAnimation
 {
-  v44[1] = *MEMORY[0x277D85DE8];
+  v43[1] = *MEMORY[0x277D85DE8];
   [(BCSDissolveEffectView *)self bounds];
-  v46 = CGRectInset(v45, 10.0, 10.0);
-  x = v46.origin.x;
-  y = v46.origin.y;
-  width = v46.size.width;
-  height = v46.size.height;
+  v45 = CGRectInset(v44, 10.0, 10.0);
+  x = v45.origin.x;
+  y = v45.origin.y;
+  width = v45.size.width;
+  height = v45.size.height;
   whiteColor = [MEMORY[0x277D75348] whiteColor];
   v8 = [(BCSDissolveEffectView *)self _imageForCellWithColor:whiteColor size:2.0, 2.0];
   cGImage = [v8 CGImage];
@@ -80,8 +80,8 @@
   array = [MEMORY[0x277CBEB18] array];
   emitterCell = [MEMORY[0x277CD9E80] emitterCell];
   [emitterCell setName:@"white"];
-  v44[0] = v15;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:1];
+  v43[0] = v15;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:1];
   [emitterCell setEmitterBehaviors:v17];
 
   LODWORD(v18) = 30.0;
@@ -110,8 +110,8 @@
   [v23 setValue:&unk_2853A1380 forKey:@"locations"];
   emitterCell2 = [MEMORY[0x277CD9E80] emitterCell];
   [emitterCell2 setName:@"black"];
-  v43 = v23;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
+  v42 = v23;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
   [emitterCell2 setEmitterBehaviors:v25];
 
   LODWORD(v26) = 12.0;
@@ -120,18 +120,18 @@
   [emitterCell2 setLifetime:v27];
   [emitterCell2 setContents:cGImage2];
   [emitterCell2 setBeginTime:CACurrentMediaTime()];
-  v47.origin.x = x;
-  v47.origin.y = y;
-  v47.size.width = width;
-  v47.size.height = height;
-  v48 = CGRectInset(v47, 2.0, 2.0);
-  v28 = v48.origin.x;
-  v29 = v48.origin.y;
-  v30 = v48.size.width;
-  v31 = v48.size.height;
+  v46.origin.x = x;
+  v46.origin.y = y;
+  v46.size.width = width;
+  v46.size.height = height;
+  v47 = CGRectInset(v46, 2.0, 2.0);
+  v28 = v47.origin.x;
+  v29 = v47.origin.y;
+  v30 = v47.size.width;
+  v31 = v47.size.height;
   layer2 = [MEMORY[0x277CD9E88] layer];
-  v42 = emitterCell2;
-  v33 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
+  v41 = emitterCell2;
+  v33 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
   [layer2 setEmitterCells:v33];
 
   [layer2 setEmitterMode:@"sequential"];
@@ -154,8 +154,6 @@
 
   layer4 = [(BCSDissolveEffectView *)self layer];
   [layer4 addSublayer:layer];
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopAnimation

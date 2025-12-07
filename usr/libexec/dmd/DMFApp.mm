@@ -1,10 +1,46 @@
 @interface DMFApp
 - (BOOL)_proxyIsValidated:(id)validated;
 - (DMFApp)initWithBundleIdentifier:(id)identifier propertyKeys:(id)keys;
+- (DMFApp)initWithJob:(id)job hasUpdateAvailable:(BOOL)available propertyKeys:(id)keys;
 - (id)initWithApplicationRecord:(id)record hasUpdateAvailable:(BOOL)available propertyKeys:(id)keys;
 @end
 
 @implementation DMFApp
+
+- (DMFApp)initWithJob:(id)job hasUpdateAvailable:(BOOL)available propertyKeys:(id)keys
+{
+  availableCopy = available;
+  jobCopy = job;
+  keysCopy = keys;
+  bundleID = [jobCopy bundleID];
+  v11 = [(DMFApp *)self initWithBundleIdentifier:bundleID propertyKeys:keysCopy];
+
+  if (v11)
+  {
+    if ([keysCopy containsObject:@"type"])
+    {
+      [(DMFApp *)v11 setType:0];
+    }
+
+    if ([keysCopy containsObject:@"storeItemIdentifier"])
+    {
+      v12 = +[NSNumber numberWithLongLong:](NSNumber, "numberWithLongLong:", [jobCopy storeItemID]);
+      [(DMFApp *)v11 setStoreItemIdentifier:v12];
+    }
+
+    if ([keysCopy containsObject:@"isAppStoreVendable"])
+    {
+      [(DMFApp *)v11 setIsAppStoreVendable:1];
+    }
+
+    if ([keysCopy containsObject:@"hasUpdateAvailable"])
+    {
+      [(DMFApp *)v11 setHasUpdateAvailable:availableCopy];
+    }
+  }
+
+  return v11;
+}
 
 - (DMFApp)initWithBundleIdentifier:(id)identifier propertyKeys:(id)keys
 {

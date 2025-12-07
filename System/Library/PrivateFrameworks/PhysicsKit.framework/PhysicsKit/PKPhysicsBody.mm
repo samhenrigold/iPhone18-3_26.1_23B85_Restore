@@ -519,7 +519,7 @@ LABEL_31:
 
 - (PKPhysicsBody)initWithCoder:(id)coder
 {
-  v72[7] = *MEMORY[0x277D85DE8];
+  v74[7] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = coderCopy;
   if (!self)
@@ -542,15 +542,15 @@ LABEL_31:
     {
       case 1:
         [v5 decodeDoubleForKey:@"_radius"];
-        self->_radius = v43;
+        self->_radius = v45;
         self->_p0 = *MEMORY[0x277CBF348];
         if ([v5 containsValueForKey:@"_p0"])
         {
           [v5 decodeCGPointForKey:@"_p0"];
-          x = v44;
-          y = v46;
-          self->_p0.x = v44;
-          self->_p0.y = v46;
+          x = v46;
+          y = v48;
+          self->_p0.x = v46;
+          self->_p0.y = v48;
         }
 
         else
@@ -559,40 +559,40 @@ LABEL_31:
           y = self->_p0.y;
         }
 
-        v52 = [(PKPhysicsBody *)self initWithCircleOfRadius:self->_radius center:x, y];
+        v54 = [(PKPhysicsBody *)self initWithCircleOfRadius:self->_radius center:x, y];
         break;
       case 2:
         [v5 decodeCGSizeForKey:@"_size"];
-        self->_size.width = v57;
-        self->_size.height = v58;
+        self->_size.width = v59;
+        self->_size.height = v60;
         self->_p0 = *MEMORY[0x277CBF348];
         if ([v5 containsValueForKey:@"_p0"])
         {
           [v5 decodeCGPointForKey:@"_p0"];
-          v60 = v59;
           v62 = v61;
-          self->_p0.x = v59;
-          self->_p0.y = v61;
+          v64 = v63;
+          self->_p0.x = v61;
+          self->_p0.y = v63;
         }
 
         else
         {
-          v60 = self->_p0.x;
-          v62 = self->_p0.y;
+          v62 = self->_p0.x;
+          v64 = self->_p0.y;
         }
 
-        v52 = [(PKPhysicsBody *)self initWithRectangleOfSize:self->_size.width center:self->_size.height, v60, v62];
+        v54 = [(PKPhysicsBody *)self initWithRectangleOfSize:self->_size.width center:self->_size.height, v62, v64];
         break;
       case 3:
         v13 = MEMORY[0x277CBEB98];
-        v72[0] = objc_opt_class();
-        v72[1] = objc_opt_class();
-        v72[2] = objc_opt_class();
-        v72[3] = objc_opt_class();
-        v72[4] = objc_opt_class();
-        v72[5] = objc_opt_class();
-        v72[6] = objc_opt_class();
-        v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:7];
+        v74[0] = objc_opt_class();
+        v74[1] = objc_opt_class();
+        v74[2] = objc_opt_class();
+        v74[3] = objc_opt_class();
+        v74[4] = objc_opt_class();
+        v74[5] = objc_opt_class();
+        v74[6] = objc_opt_class();
+        v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:7];
         v15 = [v13 setWithArray:v14];
         v16 = [v5 decodeObjectOfClasses:v15 forKey:@"_path"];
 
@@ -603,7 +603,7 @@ LABEL_31:
     }
 
 LABEL_37:
-    self = v52;
+    self = v54;
     goto LABEL_38;
   }
 
@@ -612,14 +612,14 @@ LABEL_37:
     if (shapeType != 4)
     {
       v8 = MEMORY[0x277CBEB98];
-      v71[0] = objc_opt_class();
-      v71[1] = objc_opt_class();
-      v71[2] = objc_opt_class();
-      v71[3] = objc_opt_class();
-      v71[4] = objc_opt_class();
-      v71[5] = objc_opt_class();
-      v71[6] = objc_opt_class();
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:7];
+      v73[0] = objc_opt_class();
+      v73[1] = objc_opt_class();
+      v73[2] = objc_opt_class();
+      v73[3] = objc_opt_class();
+      v73[4] = objc_opt_class();
+      v73[5] = objc_opt_class();
+      v73[6] = objc_opt_class();
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:7];
       v10 = [v8 setWithArray:v9];
       v11 = [v5 decodeObjectOfClasses:v10 forKey:@"_path"];
 
@@ -630,30 +630,30 @@ LABEL_30:
     }
 
     [v5 decodeCGPointForKey:@"_p0"];
-    self->_p0.x = v48;
-    self->_p0.y = v49;
+    self->_p0.x = v50;
+    self->_p0.y = v51;
     [v5 decodeCGPointForKey:@"_p1"];
-    self->_p1.x = v50;
-    self->_p1.y = v51;
-    v52 = [(PKPhysicsBody *)self initWithEdgeFromPoint:self->_p0.x toPoint:self->_p0.y, v50, v51];
+    self->_p1.x = v52;
+    self->_p1.y = v53;
+    v54 = [(PKPhysicsBody *)self initWithEdgeFromPoint:self->_p0.x toPoint:self->_p0.y, v52, v53];
     goto LABEL_37;
   }
 
   if (shapeType == 6)
   {
-    v53 = MEMORY[0x277CBEB98];
-    v70[0] = objc_opt_class();
-    v70[1] = objc_opt_class();
-    v70[2] = objc_opt_class();
-    v70[3] = objc_opt_class();
-    v70[4] = objc_opt_class();
-    v70[5] = objc_opt_class();
-    v70[6] = objc_opt_class();
-    v54 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:7];
-    v55 = [v53 setWithArray:v54];
-    v56 = [v5 decodeObjectOfClasses:v55 forKey:@"_path"];
+    v55 = MEMORY[0x277CBEB98];
+    v72[0] = objc_opt_class();
+    v72[1] = objc_opt_class();
+    v72[2] = objc_opt_class();
+    v72[3] = objc_opt_class();
+    v72[4] = objc_opt_class();
+    v72[5] = objc_opt_class();
+    v72[6] = objc_opt_class();
+    v56 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:7];
+    v57 = [v55 setWithArray:v56];
+    v58 = [v5 decodeObjectOfClasses:v57 forKey:@"_path"];
 
-    v12 = [(PKPhysicsBody *)self initWithEdgeLoopFromPath:PKCGPathCreateFromArray(v56, 0)];
+    v12 = [(PKPhysicsBody *)self initWithEdgeLoopFromPath:PKCGPathCreateFromArray(v58, 0)];
     goto LABEL_30;
   }
 
@@ -684,9 +684,9 @@ LABEL_27:
         v27 = PKGet_INV_PTM_RATIO();
         v28 = PKGet_INV_PTM_RATIO();
         v29 = v21 * v26;
-        v69.x = v23 * v27;
-        v69.y = v25 * v28;
-        addCircleBody(v17, v29, &v69);
+        v71.x = v23 * v27;
+        v71.y = v25 * v28;
+        addCircleBody(v17, v29, &v71);
       }
 
       if ([decodeObject isEqualToString:@"edge"])
@@ -700,27 +700,27 @@ LABEL_27:
         v37 = v36;
         v38 = PKGet_INV_PTM_RATIO();
         v39 = PKGet_INV_PTM_RATIO();
-        v69.x = v31 * v38;
-        v69.y = v33 * v39;
+        v71.x = v31 * v38;
+        v71.y = v33 * v39;
         LODWORD(v33) = PKGet_INV_PTM_RATIO();
         v40 = PKGet_INV_PTM_RATIO();
-        v68.x = v35 * *&v33;
-        v68.y = v37 * v40;
-        addEdge(v17, &v69, &v68);
+        v70.x = v35 * *&v33;
+        v70.y = v37 * v40;
+        addEdge(v17, &v71, &v70);
       }
 
       if ([decodeObject isEqualToString:@"polygon"])
       {
         decodeObject6 = [v5 decodeObject];
-        PKCGPathCreateFromArray(decodeObject6, 1);
-        PKPathCreateFromCGPathWithOptions();
+        v42 = PKCGPathCreateFromArray(decodeObject6, 1);
+        PKPathCreateFromCGPathWithOptions(v42, 10, 10.0);
       }
 
       if ([decodeObject isEqualToString:@"chain"])
       {
         decodeObject7 = [v5 decodeObject];
-        PKCGPathCreateFromArray(decodeObject7, 1);
-        PKPathCreateFromCGPathWithOptions();
+        v44 = PKCGPathCreateFromArray(decodeObject7, 1);
+        PKPathCreateFromCGPathWithOptions(v44, 10, 10.0);
       }
 
       --v18;
@@ -732,14 +732,14 @@ LABEL_27:
   v17->_shapeType = 7;
   self = v17;
 LABEL_38:
-  v63 = [v5 decodeObjectOfClass:objc_opt_class() forKey:@"_outline"];
-  v64 = v63;
-  if (v63)
+  v65 = [v5 decodeObjectOfClass:objc_opt_class() forKey:@"_outline"];
+  v66 = v65;
+  if (v65)
   {
-    v65 = v63;
-    v66 = v65;
-    [v65 bytes];
-    if ([v65 length] > 0xF)
+    v67 = v65;
+    v68 = v67;
+    [v67 bytes];
+    if ([v67 length] > 0xF)
     {
       operator new();
     }
@@ -1226,17 +1226,17 @@ LABEL_22:
 
 + (id)bodyWithPolygonFromPath:(CGPath *)path
 {
-  if (!CGPathIsEllipse() || (width = v13.size.width, height = v13.size.height, v6 = v13.size.width, v7 = v13.size.height, (COERCE_UNSIGNED_INT(v6 - v7) & 0x60000000) != 0))
+  if (!CGPathIsEllipse() || (width = v14.size.width, height = v14.size.height, v7 = v14.size.width, v8 = v14.size.height, (COERCE_UNSIGNED_INT(v7 - v8) & 0x60000000) != 0))
   {
-    PKPathCreateFromSimplifiedCGPath();
+    PKPathCreateFromSimplifiedCGPath(path);
   }
 
-  x = v13.origin.x;
-  y = v13.origin.y;
+  x = v14.origin.x;
+  y = v14.origin.y;
   MidX = CGRectGetMidX(*(&width - 2));
-  v11 = [self bodyWithCircleOfRadius:(v6 * 0.5) center:{MidX, CGRectGetMidY(v13)}];
+  v12 = [self bodyWithCircleOfRadius:(v7 * 0.5) center:{MidX, CGRectGetMidY(v14)}];
 
-  return v11;
+  return v12;
 }
 
 + (id)bodyWithEdgeChainFromPath:(CGPath *)path
@@ -2364,7 +2364,7 @@ LABEL_7:
       v28[1] = v16;
       if (v16)
       {
-        atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(v16 + 1, 1uLL, memory_order_relaxed);
       }
 
       addEdgeChain(v5, v28);

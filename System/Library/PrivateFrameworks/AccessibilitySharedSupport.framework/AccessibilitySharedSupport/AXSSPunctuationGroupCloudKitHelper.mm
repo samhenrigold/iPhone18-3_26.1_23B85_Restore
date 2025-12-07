@@ -101,32 +101,32 @@
 
 - (void)clearRecordsForPurging:(id)purging
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   purgingCopy = purging;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v4 = [purgingCopy countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v4 = [purgingCopy countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       v7 = 0;
       do
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(purgingCopy);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * v7);
+        v8 = *(*(&v14 + 1) + 8 * v7);
         v9 = AXLogPunctuationStorage();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
-          [(AXSSPunctuationGroupCloudKitHelper *)v19 clearRecordsForPurging:v8, &v20, v9];
+          [(AXSSPunctuationGroupCloudKitHelper *)v18 clearRecordsForPurging:v8, &v19, v9];
         }
 
         v10 = +[AXSSPunctuationManager sharedDatabase];
@@ -139,45 +139,43 @@
       }
 
       while (v5 != v7);
-      v5 = [purgingCopy countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v5 = [purgingCopy countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v5);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)retrieveLocalChangesForCloud:(id)cloud
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   cloudCopy = cloud;
   array = [MEMORY[0x1E695DF70] array];
+  v63 = 0u;
   v64 = 0u;
   v65 = 0u;
   v66 = 0u;
-  v67 = 0u;
   v4 = +[AXSSPunctuationManager sharedDatabase];
   punctuationGroups = [v4 punctuationGroups];
 
   obj = punctuationGroups;
-  v6 = [punctuationGroups countByEnumeratingWithState:&v64 objects:v77 count:16];
+  v6 = [punctuationGroups countByEnumeratingWithState:&v63 objects:v76 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v65;
-    v56 = *v65;
+    v8 = *v64;
+    v55 = *v64;
     do
     {
       v9 = 0;
       do
       {
-        if (*v65 != v8)
+        if (*v64 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v64 + 1) + 8 * v9);
+        v10 = *(*(&v63 + 1) + 8 * v9);
         v11 = AXLogPunctuationStorage();
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
@@ -195,20 +193,20 @@
           ckRecordProcessDate2 = [v10 ckRecordProcessDate];
           [ckRecordProcessDate2 timeIntervalSinceReferenceDate];
           *buf = 67110402;
-          *v70 = inCloud;
-          *&v70[4] = 2112;
-          *&v70[6] = ckChangeTag;
-          *&v70[14] = 2112;
-          *&v70[16] = v10;
-          v71 = 2048;
-          v72 = v30;
-          v73 = 2048;
-          v74 = v33;
-          v75 = 2048;
-          v76 = v35;
+          *v69 = inCloud;
+          *&v69[4] = 2112;
+          *&v69[6] = ckChangeTag;
+          *&v69[14] = 2112;
+          *&v69[16] = v10;
+          v70 = 2048;
+          v71 = v30;
+          v72 = 2048;
+          v73 = v33;
+          v74 = 2048;
+          v75 = v35;
           _os_log_debug_impl(&dword_1C0E8A000, v11, OS_LOG_TYPE_DEBUG, "Is group in icloud? %d, tag: %@: %@, last mod date: %f[%f-%f]", buf, 0x3Au);
 
-          v8 = v56;
+          v8 = v55;
         }
 
         inCloud2 = [v10 inCloud];
@@ -243,7 +241,7 @@ LABEL_17:
           if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            *v70 = ckChangeTag2;
+            *v69 = ckChangeTag2;
             _os_log_debug_impl(&dword_1C0E8A000, v23, OS_LOG_TYPE_DEBUG, "Adding record: %@", buf, 0xCu);
           }
 
@@ -262,7 +260,7 @@ LABEL_20:
         {
         }
 
-        v8 = v56;
+        v8 = v55;
         if (v20 > 60.0)
         {
           goto LABEL_17;
@@ -273,37 +271,37 @@ LABEL_21:
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v64 objects:v77 count:16];
+      v7 = [obj countByEnumeratingWithState:&v63 objects:v76 count:16];
     }
 
     while (v7);
   }
 
   array2 = [MEMORY[0x1E695DF70] array];
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
   v37 = +[AXSSPunctuationManager sharedDatabase];
   v38 = +[AXSSPunctuationGroup description];
   v39 = [v37 cloudRecordsToPurge:v38];
 
   obja = v39;
-  v40 = [v39 countByEnumeratingWithState:&v60 objects:v68 count:16];
+  v40 = [v39 countByEnumeratingWithState:&v59 objects:v67 count:16];
   if (v40)
   {
     v41 = v40;
-    v42 = *v61;
+    v42 = *v60;
     do
     {
       for (i = 0; i != v41; ++i)
       {
-        if (*v61 != v42)
+        if (*v60 != v42)
         {
           objc_enumerationMutation(obja);
         }
 
-        v44 = *(*(&v60 + 1) + 8 * i);
+        v44 = *(*(&v59 + 1) + 8 * i);
         v45 = objc_alloc(MEMORY[0x1E695BA70]);
         uUIDString = [v44 UUIDString];
         recordZone = [(AXSSCloudKitHelper *)self recordZone];
@@ -315,12 +313,12 @@ LABEL_21:
         if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          *v70 = v44;
+          *v69 = v44;
           _os_log_impl(&dword_1C0E8A000, v50, OS_LOG_TYPE_INFO, "Purging group: %@", buf, 0xCu);
         }
       }
 
-      v41 = [obja countByEnumeratingWithState:&v60 objects:v68 count:16];
+      v41 = [obja countByEnumeratingWithState:&v59 objects:v67 count:16];
     }
 
     while (v41);
@@ -330,19 +328,18 @@ LABEL_21:
   if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    *v70 = array;
-    *&v70[8] = 2112;
-    *&v70[10] = array2;
+    *v69 = array;
+    *&v69[8] = 2112;
+    *&v69[10] = array2;
     _os_log_impl(&dword_1C0E8A000, v51, OS_LOG_TYPE_INFO, "Group providing data for local server: %@, del: %@", buf, 0x16u);
   }
 
   cloudCopy[2](cloudCopy, array, array2, &__block_literal_global_8);
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 void __67__AXSSPunctuationGroupCloudKitHelper_retrieveLocalChangesForCloud___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = objc_alloc(MEMORY[0x1E696AFB0]);
   v4 = [v2 recordID];
@@ -355,13 +352,13 @@ void __67__AXSSPunctuationGroupCloudKitHelper_retrieveLocalChangesForCloud___blo
   v9 = AXLogPunctuationStorage();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v14 = 138412802;
-    v15 = v2;
-    v16 = 2112;
-    v17 = v8;
-    v18 = 2112;
-    v19 = v6;
-    _os_log_impl(&dword_1C0E8A000, v9, OS_LOG_TYPE_INFO, "Processing group cloud retreival: %@ %@ %@", &v14, 0x20u);
+    v13 = 138412802;
+    v14 = v2;
+    v15 = 2112;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v6;
+    _os_log_impl(&dword_1C0E8A000, v9, OS_LOG_TYPE_INFO, "Processing group cloud retreival: %@ %@ %@", &v13, 0x20u);
   }
 
   [v8 setInCloud:1];
@@ -375,12 +372,10 @@ void __67__AXSSPunctuationGroupCloudKitHelper_retrieveLocalChangesForCloud___blo
   v12 = AXLogPunctuationStorage();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v14 = 138412290;
-    v15 = v8;
-    _os_log_impl(&dword_1C0E8A000, v12, OS_LOG_TYPE_INFO, "Marked in icloud: %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = v8;
+    _os_log_impl(&dword_1C0E8A000, v12, OS_LOG_TYPE_INFO, "Marked in icloud: %@", &v13, 0xCu);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginWatchingForChanges
@@ -416,7 +411,7 @@ void __67__AXSSPunctuationGroupCloudKitHelper_retrieveLocalChangesForCloud___blo
 
 uint64_t __63__AXSSPunctuationGroupCloudKitHelper_punctuationGroupsChanged___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = +[AXSSPunctuationManager sharedDatabase];
   v3 = [v2 managedObjectContext];
   [v3 performBlockAndWait:&__block_literal_global_21_0];
@@ -425,14 +420,12 @@ uint64_t __63__AXSSPunctuationGroupCloudKitHelper_punctuationGroupsChanged___blo
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 32);
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_1C0E8A000, v4, OS_LOG_TYPE_INFO, "Punctuation groups changed locally, consolidating for cloud push: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_1C0E8A000, v4, OS_LOG_TYPE_INFO, "Punctuation groups changed locally, consolidating for cloud push: %@", &v7, 0xCu);
   }
 
-  result = [*(a1 + 40) processLocalChangesAndPush];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) processLocalChangesAndPush];
 }
 
 void __63__AXSSPunctuationGroupCloudKitHelper_punctuationGroupsChanged___block_invoke_2()
@@ -444,29 +437,29 @@ void __63__AXSSPunctuationGroupCloudKitHelper_punctuationGroupsChanged___block_i
 
 - (void)processServerUpdateChanges:(id)changes moc:(id)moc recordNameToManagedObject:(id)object
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   changesCopy = changes;
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v6 = [changesCopy countByEnumeratingWithState:&v29 objects:v35 count:16];
+  v6 = [changesCopy countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v30;
+    v9 = *v29;
     *&v7 = 138412290;
-    v28 = v7;
+    v27 = v7;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(changesCopy);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * i);
+        v11 = *(*(&v28 + 1) + 8 * i);
         v12 = objc_alloc(MEMORY[0x1E696AFB0]);
         recordID = [v11 recordID];
         recordName = [recordID recordName];
@@ -487,8 +480,8 @@ void __63__AXSSPunctuationGroupCloudKitHelper_punctuationGroupsChanged___block_i
               goto LABEL_14;
             }
 
-            *buf = v28;
-            v34 = v17;
+            *buf = v27;
+            v33 = v17;
             v20 = v19;
             v21 = "Local group is newer than cloud group, ditching cloud group: %@";
             goto LABEL_13;
@@ -518,8 +511,8 @@ void __63__AXSSPunctuationGroupCloudKitHelper_punctuationGroupsChanged___block_i
           goto LABEL_14;
         }
 
-        *buf = v28;
-        v34 = v17;
+        *buf = v27;
+        v33 = v17;
         v20 = v19;
         v21 = "Handling punctuation group: %@";
 LABEL_13:
@@ -527,38 +520,36 @@ LABEL_13:
 LABEL_14:
       }
 
-      v8 = [changesCopy countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v8 = [changesCopy countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v8);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)processRecordDeletionsFromServer:(id)server
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   serverCopy = server;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v4 = [serverCopy countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v4 = [serverCopy countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v18;
+    v6 = *v17;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v18 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(serverCopy);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
+        v8 = *(*(&v16 + 1) + 8 * i);
         v9 = objc_alloc(MEMORY[0x1E696AFB0]);
         recordName = [v8 recordName];
         v11 = [v9 initWithUUIDString:recordName];
@@ -573,20 +564,18 @@ LABEL_14:
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v22 = v8;
-          v23 = 2112;
-          v24 = v13;
+          v21 = v8;
+          v22 = 2112;
+          v23 = v13;
           _os_log_impl(&dword_1C0E8A000, v15, OS_LOG_TYPE_DEFAULT, "Removing group from server push: %@ %@", buf, 0x16u);
         }
       }
 
-      v5 = [serverCopy countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v5 = [serverCopy countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v5);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearRecordsForPurging:(void *)a3 .cold.1(uint8_t *a1, void *a2, void *a3, NSObject *a4)

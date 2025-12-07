@@ -280,10 +280,11 @@
   identifierCopy = identifier;
   kindCopy = kind;
   v11 = [(ATXTimelineRelevancePersonalizedConfig *)self->_personalizedConfig personalizedValueForParameter:keyCopy forWidgetBundleIdentifier:identifierCopy kind:kindCopy];
-  if ([(ATXTimelineAbuseControlConfig *)self shouldUsePersonalizedBudgets]&& v11)
+  shouldUsePersonalizedBudgets = [(ATXTimelineAbuseControlConfig *)self shouldUsePersonalizedBudgets];
+  if (shouldUsePersonalizedBudgets && v11)
   {
-    v12 = __atxlog_handle_default();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = __atxlog_handle_default(shouldUsePersonalizedBudgets);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v20 = 138413058;
       v21 = keyCopy;
@@ -293,7 +294,7 @@
       v25 = kindCopy;
       v26 = 2112;
       v27 = v11;
-      _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_INFO, "Using personalized %@ for widgetBundleId: %@, widgetKind: %@: %@", &v20, 0x2Au);
+      _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_INFO, "Using personalized %@ for widgetBundleId: %@, widgetKind: %@: %@", &v20, 0x2Au);
     }
 
     integerValue = [v11 integerValue];
@@ -301,14 +302,14 @@
 
   else
   {
-    v14 = [(NSDictionary *)self->_config objectForKeyedSubscript:identifierCopy];
-    config = [v14 objectForKeyedSubscript:kindCopy];
-    v16 = config;
+    v15 = [(NSDictionary *)self->_config objectForKeyedSubscript:identifierCopy];
+    config = [v15 objectForKeyedSubscript:kindCopy];
+    v17 = config;
     if (!config)
     {
-      if (v14)
+      if (v15)
       {
-        config = v14;
+        config = v15;
       }
 
       else
@@ -317,11 +318,10 @@
       }
     }
 
-    v17 = [config objectForKeyedSubscript:keyCopy];
-    integerValue = [v17 integerValue];
+    v18 = [config objectForKeyedSubscript:keyCopy];
+    integerValue = [v18 integerValue];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return integerValue;
 }
 

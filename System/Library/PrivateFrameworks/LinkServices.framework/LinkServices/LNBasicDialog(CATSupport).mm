@@ -90,7 +90,7 @@
 
 - (void)getResultWithCompletionHandler:()CATSupport
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (!v5)
   {
@@ -98,43 +98,41 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"LNBasicDialog+CATSupport.m" lineNumber:25 description:{@"Invalid parameter not satisfying: %@", @"completionHandler"}];
   }
 
-  v25 = @"locale";
+  v24 = @"locale";
   localeIdentifier = [self localeIdentifier];
-  v26[0] = localeIdentifier;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+  v25[0] = localeIdentifier;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
 
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2050000000;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2050000000;
   v8 = getCATClass_softClass;
-  v24 = getCATClass_softClass;
+  v23 = getCATClass_softClass;
   if (!getCATClass_softClass)
   {
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __getCATClass_block_invoke;
-    v20[3] = &unk_1E74B26D0;
-    v20[4] = &v21;
-    __getCATClass_block_invoke(v20);
-    v8 = v22[3];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __getCATClass_block_invoke;
+    v19[3] = &unk_1E74B26D0;
+    v19[4] = &v20;
+    __getCATClass_block_invoke(v19);
+    v8 = v21[3];
   }
 
   v9 = v8;
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v20, 8);
   parametersXML = [self parametersXML];
   localeXML = [self localeXML];
   parameters = [self parameters];
   defaultCATOptions = [self defaultCATOptions];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __60__LNBasicDialog_CATSupport__getResultWithCompletionHandler___block_invoke;
-  v18[3] = &unk_1E74B13B0;
-  v19 = v5;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __60__LNBasicDialog_CATSupport__getResultWithCompletionHandler___block_invoke;
+  v17[3] = &unk_1E74B13B0;
+  v18 = v5;
   v14 = v5;
-  LODWORD(v17) = defaultCATOptions;
-  [v8 execute:0 paramsXML:parametersXML localeXML:localeXML parameters:parameters globals:v7 callback:0 options:v17 completion:v18];
-
-  v15 = *MEMORY[0x1E69E9840];
+  LODWORD(v16) = defaultCATOptions;
+  [v8 execute:0 paramsXML:parametersXML localeXML:localeXML parameters:parameters globals:v7 callback:0 options:v16 completion:v17];
 }
 
 @end

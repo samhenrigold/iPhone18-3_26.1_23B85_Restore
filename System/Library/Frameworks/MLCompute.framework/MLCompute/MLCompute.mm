@@ -507,22 +507,23 @@ id ANE_CreateNeuronLayer(void *a1)
   return v2;
 }
 
-id ANE_CreateUnitsWithNeuronLayer(void *a1, void *a2, int a3)
+id ANE_CreateUnitsWithNeuronLayer(void *a1, void *a2, uint64_t a3)
 {
-  v133[1] = *MEMORY[0x277D85DE8];
+  v3 = a3;
+  v132[1] = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = [MEMORY[0x277CBEBF8] mutableCopy];
-  if (a3 <= 8)
+  if (v3 <= 8)
   {
-    if (a3 > 3)
+    if (v3 > 3)
     {
-      switch(a3)
+      switch(v3)
       {
         case 4:
           v9 = [v6 subarrayWithRange:{0, objc_msgSend(v6, "count") - 1}];
-          v83 = ANE_CreateUnitsOfLinear(v5, v9);
-          if (!v83)
+          v82 = ANE_CreateUnitsOfLinear(v5, v9);
+          if (!v82)
           {
             v39 = +[MLCLog framework];
             if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
@@ -533,23 +534,23 @@ id ANE_CreateUnitsWithNeuronLayer(void *a1, void *a2, int a3)
             goto LABEL_30;
           }
 
-          v39 = v83;
-          v84 = [v83 count];
-          v85 = [v6 objectAtIndexedSubscript:v84];
-          v86 = [_MLCANEPlistBuilder createUnitWithLayer:v5 unitParams:v85];
+          v39 = v82;
+          v83 = [v82 count];
+          v84 = [v6 objectAtIndexedSubscript:v83];
+          v85 = [_MLCANEPlistBuilder createUnitWithLayer:v5 unitParams:v84];
 
-          v87 = [v5 label];
-          v88 = [v87 stringByAppendingFormat:@"_%lu", v84];
-          [v86 setObject:v88 forKeyedSubscript:@"Name"];
+          v86 = [v5 label];
+          v87 = [v86 stringByAppendingFormat:@"_%lu", v83];
+          [v85 setObject:v87 forKeyedSubscript:@"Name"];
 
-          v89 = [v39 objectAtIndexedSubscript:[v39 count]- 1];
-          v90 = [v89 objectForKeyedSubscript:@"Name"];
-          v129 = v90;
-          v91 = [MEMORY[0x277CBEA60] arrayWithObjects:&v129 count:1];
-          [v86 setObject:v91 forKeyedSubscript:@"Bottom"];
+          v88 = [v39 objectAtIndexedSubscript:[v39 count]- 1];
+          v89 = [v88 objectForKeyedSubscript:@"Name"];
+          v128 = v89;
+          v90 = [MEMORY[0x277CBEA60] arrayWithObjects:&v128 count:1];
+          [v85 setObject:v90 forKeyedSubscript:@"Bottom"];
 
           [v7 addObjectsFromArray:v39];
-          [v7 addObject:v86];
+          [v7 addObject:v85];
 
           break;
         case 5:
@@ -566,13 +567,13 @@ id ANE_CreateUnitsWithNeuronLayer(void *a1, void *a2, int a3)
               goto LABEL_31;
             }
 
-            v111 = [v6 objectAtIndexedSubscript:0];
-            v9 = [_MLCANEPlistBuilder createUnitWithLayer:v5 unitParams:v111];
+            v110 = [v6 objectAtIndexedSubscript:0];
+            v9 = [_MLCANEPlistBuilder createUnitWithLayer:v5 unitParams:v110];
 
-            v112 = [v5 sourceTensors];
-            v113 = ANE_ValidateNeuronUnit(v112, v9, 1);
+            v111 = [v5 sourceTensors];
+            v112 = ANE_ValidateNeuronUnit(v111, v9, 1);
 
-            if (v113)
+            if (v112)
             {
               goto LABEL_19;
             }
@@ -592,17 +593,17 @@ LABEL_32:
             goto LABEL_33;
           }
 
-          v93 = [v6 objectAtIndexedSubscript:0];
-          v9 = [_MLCANEPlistBuilder createUnitWithLayer:v5 unitParams:v93];
+          v92 = [v6 objectAtIndexedSubscript:0];
+          v9 = [_MLCANEPlistBuilder createUnitWithLayer:v5 unitParams:v92];
 
-          v94 = [v5 label];
-          v95 = [v94 stringByAppendingString:@"_0"];
-          [v9 setObject:v95 forKeyedSubscript:@"Name"];
+          v93 = [v5 label];
+          v94 = [v93 stringByAppendingString:@"_0"];
+          [v9 setObject:v94 forKeyedSubscript:@"Name"];
 
-          v96 = [v5 sourceTensors];
-          LOBYTE(v95) = ANE_ValidateGOCUnit(v96, v9, 1);
+          v95 = [v5 sourceTensors];
+          LOBYTE(v94) = ANE_ValidateGOCUnit(v95, v9, 1);
 
-          if ((v95 & 1) == 0)
+          if ((v94 & 1) == 0)
           {
             v39 = +[MLCLog framework];
             if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
@@ -613,26 +614,26 @@ LABEL_32:
             goto LABEL_29;
           }
 
-          v121 = v7;
-          v97 = [v6 objectAtIndexedSubscript:1];
-          v39 = [_MLCANEPlistBuilder createUnitWithLayer:v5 unitParams:v97];
+          v120 = v7;
+          v96 = [v6 objectAtIndexedSubscript:1];
+          v39 = [_MLCANEPlistBuilder createUnitWithLayer:v5 unitParams:v96];
 
-          v98 = [v5 label];
-          v99 = [v98 stringByAppendingString:@"_1"];
-          [v39 setObject:v99 forKeyedSubscript:@"Name"];
+          v97 = [v5 label];
+          v98 = [v97 stringByAppendingString:@"_1"];
+          [v39 setObject:v98 forKeyedSubscript:@"Name"];
 
-          v100 = [v9 objectForKeyedSubscript:@"Name"];
-          v133[0] = v100;
-          v101 = [MEMORY[0x277CBEA60] arrayWithObjects:v133 count:1];
-          [v39 setObject:v101 forKeyedSubscript:@"Bottom"];
+          v99 = [v9 objectForKeyedSubscript:@"Name"];
+          v132[0] = v99;
+          v100 = [MEMORY[0x277CBEA60] arrayWithObjects:v132 count:1];
+          [v39 setObject:v100 forKeyedSubscript:@"Bottom"];
 
-          v102 = [v5 sourceTensors];
-          LOBYTE(v101) = ANE_ValidateNeuronUnit(v102, v39, 1);
+          v101 = [v5 sourceTensors];
+          LOBYTE(v100) = ANE_ValidateNeuronUnit(v101, v39, 1);
 
-          if ((v101 & 1) == 0)
+          if ((v100 & 1) == 0)
           {
-            v116 = +[MLCLog framework];
-            if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
+            v115 = +[MLCLog framework];
+            if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
             {
               ANE_CreateUnitsWithNeuronLayer_cold_1();
             }
@@ -640,25 +641,25 @@ LABEL_32:
             goto LABEL_88;
           }
 
-          v103 = [v6 objectAtIndexedSubscript:2];
-          v86 = [_MLCANEPlistBuilder createUnitWithLayer:v5 unitParams:v103];
+          v102 = [v6 objectAtIndexedSubscript:2];
+          v85 = [_MLCANEPlistBuilder createUnitWithLayer:v5 unitParams:v102];
 
-          v104 = [v5 label];
-          v105 = [v104 stringByAppendingString:@"_2"];
-          [v86 setObject:v105 forKeyedSubscript:@"Name"];
+          v103 = [v5 label];
+          v104 = [v103 stringByAppendingString:@"_2"];
+          [v85 setObject:v104 forKeyedSubscript:@"Name"];
 
-          v106 = [v39 objectForKeyedSubscript:@"Name"];
-          v132 = v106;
-          v107 = [MEMORY[0x277CBEA60] arrayWithObjects:&v132 count:1];
-          [v86 setObject:v107 forKeyedSubscript:@"Bottom"];
+          v105 = [v39 objectForKeyedSubscript:@"Name"];
+          v131 = v105;
+          v106 = [MEMORY[0x277CBEA60] arrayWithObjects:&v131 count:1];
+          [v85 setObject:v106 forKeyedSubscript:@"Bottom"];
 
-          v108 = [v5 sourceTensors];
-          LOBYTE(v107) = ANE_ValidateGOCUnit(v108, v86, 1);
+          v107 = [v5 sourceTensors];
+          LOBYTE(v106) = ANE_ValidateGOCUnit(v107, v85, 1);
 
-          if ((v107 & 1) == 0)
+          if ((v106 & 1) == 0)
           {
-            v117 = +[MLCLog framework];
-            if (os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
+            v116 = +[MLCLog framework];
+            if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
             {
               ANE_CreateUnitsWithNeuronLayer_cold_1();
             }
@@ -668,7 +669,7 @@ LABEL_32:
 
           [v7 addObject:v9];
           [v7 addObject:v39];
-          [v7 addObject:v86];
+          [v7 addObject:v85];
           break;
         case 6:
           v34 = [v6 objectAtIndexedSubscript:0];
@@ -676,8 +677,8 @@ LABEL_32:
 
           v35 = [v5 sourceTensors];
           v36 = [v35 objectAtIndexedSubscript:0];
-          v127 = v36;
-          v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v127 count:1];
+          v126 = v36;
+          v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v126 count:1];
           v38 = ANE_ValidateElementWiseUnit(v37, v9, 1);
 
           if (v38)
@@ -699,13 +700,13 @@ LABEL_32:
       goto LABEL_20;
     }
 
-    switch(a3)
+    switch(v3)
     {
       case 1:
         goto LABEL_18;
       case 2:
-        v92 = ANE_CreateUnitsOfLinear(v5, v6);
-        if (!v92)
+        v91 = ANE_CreateUnitsOfLinear(v5, v6);
+        if (!v91)
         {
           v9 = +[MLCLog framework];
           if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
@@ -716,8 +717,8 @@ LABEL_32:
           goto LABEL_31;
         }
 
-        v9 = v92;
-        [v7 addObjectsFromArray:v92];
+        v9 = v91;
+        [v7 addObjectsFromArray:v91];
 LABEL_20:
 
 LABEL_21:
@@ -748,8 +749,8 @@ LABEL_19:
     }
 
 LABEL_55:
-    v109 = +[MLCLog framework];
-    if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
+    v108 = +[MLCLog framework];
+    if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
     {
       ANE_CreateUnitsWithNeuronLayer_cold_16();
     }
@@ -757,83 +758,83 @@ LABEL_55:
     goto LABEL_32;
   }
 
-  if (a3 > 17)
+  if (v3 > 17)
   {
-    switch(a3)
+    switch(v3)
     {
       case 18:
         goto LABEL_18;
       case 19:
         if ([v6 count] == 4)
         {
-          v55 = [v6 objectAtIndexedSubscript:0];
-          v56 = [_MLCANEPlistBuilder createUnitWithLayer:v5 unitParams:v55];
+          v54 = [v6 objectAtIndexedSubscript:0];
+          v55 = [_MLCANEPlistBuilder createUnitWithLayer:v5 unitParams:v54];
 
-          v57 = [v5 label];
-          v58 = [v57 stringByAppendingFormat:@"_%lu", objc_msgSend(v7, "count")];
-          [v56 setObject:v58 forKeyedSubscript:@"Name"];
+          v56 = [v5 label];
+          v57 = [v56 stringByAppendingFormat:@"_%lu", objc_msgSend(v7, "count")];
+          [v55 setObject:v57 forKeyedSubscript:@"Name"];
 
-          [v7 addObject:v56];
-          v59 = [v6 objectAtIndexedSubscript:1];
-          v60 = [_MLCANEPlistBuilder createUnitWithLayer:v5 unitParams:v59];
+          [v7 addObject:v55];
+          v58 = [v6 objectAtIndexedSubscript:1];
+          v59 = [_MLCANEPlistBuilder createUnitWithLayer:v5 unitParams:v58];
 
-          v61 = [v5 label];
-          v62 = [v61 stringByAppendingFormat:@"_%lu", objc_msgSend(v7, "count")];
-          [v60 setObject:v62 forKeyedSubscript:@"Name"];
+          v60 = [v5 label];
+          v61 = [v60 stringByAppendingFormat:@"_%lu", objc_msgSend(v7, "count")];
+          [v59 setObject:v61 forKeyedSubscript:@"Name"];
 
-          v63 = [v56 objectForKeyedSubscript:@"Name"];
-          v126 = v63;
-          v64 = [MEMORY[0x277CBEA60] arrayWithObjects:&v126 count:1];
-          [v60 setObject:v64 forKeyedSubscript:@"Bottom"];
+          v62 = [v55 objectForKeyedSubscript:@"Name"];
+          v125 = v62;
+          v63 = [MEMORY[0x277CBEA60] arrayWithObjects:&v125 count:1];
+          [v59 setObject:v63 forKeyedSubscript:@"Bottom"];
 
-          v65 = [v5 sourceTensors];
-          LOBYTE(v64) = ANE_ValidateNeuronUnit(v65, v60, 1);
+          v64 = [v5 sourceTensors];
+          LOBYTE(v63) = ANE_ValidateNeuronUnit(v64, v59, 1);
 
-          if (v64)
+          if (v63)
           {
-            [v7 addObject:v60];
-            v66 = [v6 objectAtIndexedSubscript:2];
-            v67 = [_MLCANEPlistBuilder createUnitWithLayer:v5 unitParams:v66];
+            [v7 addObject:v59];
+            v65 = [v6 objectAtIndexedSubscript:2];
+            v66 = [_MLCANEPlistBuilder createUnitWithLayer:v5 unitParams:v65];
 
-            v68 = [v5 label];
-            v69 = [v7 count];
-            v123 = v7;
-            v70 = v5;
-            v71 = [v68 stringByAppendingFormat:@"_%lu", v69];
-            [v67 setObject:v71 forKeyedSubscript:@"Name"];
+            v67 = [v5 label];
+            v68 = [v7 count];
+            v122 = v7;
+            v69 = v5;
+            v70 = [v67 stringByAppendingFormat:@"_%lu", v68];
+            [v66 setObject:v70 forKeyedSubscript:@"Name"];
 
-            v72 = [v60 objectForKeyedSubscript:@"Name"];
-            v125 = v72;
-            [MEMORY[0x277CBEA60] arrayWithObjects:&v125 count:1];
-            v73 = v120 = v56;
-            [v67 setObject:v73 forKeyedSubscript:@"Bottom"];
+            v71 = [v59 objectForKeyedSubscript:@"Name"];
+            v124 = v71;
+            [MEMORY[0x277CBEA60] arrayWithObjects:&v124 count:1];
+            v72 = v119 = v55;
+            [v66 setObject:v72 forKeyedSubscript:@"Bottom"];
 
-            [v123 addObject:v67];
-            v74 = [v6 objectAtIndexedSubscript:3];
-            v75 = [_MLCANEPlistBuilder createUnitWithLayer:v5 unitParams:v74];
+            [v122 addObject:v66];
+            v73 = [v6 objectAtIndexedSubscript:3];
+            v74 = [_MLCANEPlistBuilder createUnitWithLayer:v5 unitParams:v73];
 
-            v76 = [v5 label];
-            v77 = [v76 stringByAppendingFormat:@"_%lu", objc_msgSend(v123, "count")];
-            [v75 setObject:v77 forKeyedSubscript:@"Name"];
+            v75 = [v5 label];
+            v76 = [v75 stringByAppendingFormat:@"_%lu", objc_msgSend(v122, "count")];
+            [v74 setObject:v76 forKeyedSubscript:@"Name"];
 
-            v78 = [v5 sourceTensors];
-            v79 = [v78 objectAtIndexedSubscript:0];
-            v80 = [v79 label];
-            v124[0] = v80;
-            v81 = [v67 objectForKeyedSubscript:@"Name"];
-            v124[1] = v81;
-            v82 = [MEMORY[0x277CBEA60] arrayWithObjects:v124 count:2];
-            [v75 setObject:v82 forKeyedSubscript:@"Bottom"];
+            v77 = [v5 sourceTensors];
+            v78 = [v77 objectAtIndexedSubscript:0];
+            v79 = [v78 label];
+            v123[0] = v79;
+            v80 = [v66 objectForKeyedSubscript:@"Name"];
+            v123[1] = v80;
+            v81 = [MEMORY[0x277CBEA60] arrayWithObjects:v123 count:2];
+            [v74 setObject:v81 forKeyedSubscript:@"Bottom"];
 
-            v5 = v70;
-            v7 = v123;
-            [v123 addObject:v75];
+            v5 = v69;
+            v7 = v122;
+            [v122 addObject:v74];
 
             goto LABEL_21;
           }
 
-          v114 = +[MLCLog framework];
-          if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
+          v113 = +[MLCLog framework];
+          if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
           {
             ANE_CreateUnitsWithNeuronLayer_cold_1();
           }
@@ -855,59 +856,59 @@ LABEL_55:
     goto LABEL_55;
   }
 
-  if ((a3 - 9) < 2)
+  if ((v3 - 9) < 2)
   {
     goto LABEL_18;
   }
 
-  if (a3 == 11)
+  if (v3 == 11)
   {
-    v42 = [v6 objectAtIndexedSubscript:0];
-    v43 = [_MLCANEPlistBuilder createUnitWithLayer:v5 unitParams:v42];
+    v41 = [v6 objectAtIndexedSubscript:0];
+    v42 = [_MLCANEPlistBuilder createUnitWithLayer:v5 unitParams:v41];
 
-    v44 = [v5 label];
-    v45 = [v44 stringByAppendingFormat:@"_%lu", objc_msgSend(v7, "count")];
-    [v43 setObject:v45 forKeyedSubscript:@"Name"];
+    v43 = [v5 label];
+    v44 = [v43 stringByAppendingFormat:@"_%lu", objc_msgSend(v7, "count")];
+    [v42 setObject:v44 forKeyedSubscript:@"Name"];
 
-    v46 = [v5 sourceTensors];
-    LOBYTE(v45) = ANE_ValidateNeuronUnit(v46, v43, 1);
+    v45 = [v5 sourceTensors];
+    LOBYTE(v44) = ANE_ValidateNeuronUnit(v45, v42, 1);
 
-    if (v45)
+    if (v44)
     {
-      v122 = v43;
-      [v7 addObject:v43];
-      v119 = v6;
-      v118 = [v6 subarrayWithRange:{1, objc_msgSend(v6, "count") - 1}];
-      v47 = ANE_CreateUnitsWithArithmeticOpeartion(24, v5, v118);
-      if ([v47 count])
+      v121 = v42;
+      [v7 addObject:v42];
+      v118 = v6;
+      v117 = [v6 subarrayWithRange:{1, objc_msgSend(v6, "count") - 1}];
+      v46 = ANE_CreateUnitsWithArithmeticOpeartion(24, v5, v117);
+      if ([v46 count])
       {
-        v48 = 0;
+        v47 = 0;
         do
         {
-          v49 = [v47 objectAtIndexedSubscript:v48];
-          v50 = [v5 label];
-          v51 = [v50 stringByAppendingFormat:@"_%lu", objc_msgSend(v7, "count"), v118];
-          [v49 setObject:v51 forKeyedSubscript:@"Name"];
+          v48 = [v46 objectAtIndexedSubscript:v47];
+          v49 = [v5 label];
+          v50 = [v49 stringByAppendingFormat:@"_%lu", objc_msgSend(v7, "count"), v117];
+          [v48 setObject:v50 forKeyedSubscript:@"Name"];
 
-          v52 = [v7 objectAtIndexedSubscript:{objc_msgSend(v7, "count") - 1}];
-          v53 = [v52 objectForKeyedSubscript:@"Name"];
+          v51 = [v7 objectAtIndexedSubscript:{objc_msgSend(v7, "count") - 1}];
+          v52 = [v51 objectForKeyedSubscript:@"Name"];
 
-          v128 = v53;
-          v54 = [MEMORY[0x277CBEA60] arrayWithObjects:&v128 count:1];
-          [v49 setObject:v54 forKeyedSubscript:@"Bottom"];
+          v127 = v52;
+          v53 = [MEMORY[0x277CBEA60] arrayWithObjects:&v127 count:1];
+          [v48 setObject:v53 forKeyedSubscript:@"Bottom"];
 
-          [v7 addObject:v49];
-          ++v48;
+          [v7 addObject:v48];
+          ++v47;
         }
 
-        while (v48 < [v47 count]);
+        while (v47 < [v46 count]);
       }
 
       goto LABEL_41;
     }
 
-    v110 = +[MLCLog framework];
-    if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
+    v109 = +[MLCLog framework];
+    if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
     {
       ANE_CreateUnitsWithNeuronLayer_cold_1();
     }
@@ -915,7 +916,7 @@ LABEL_55:
     goto LABEL_32;
   }
 
-  if (a3 != 16)
+  if (v3 != 16)
   {
     goto LABEL_55;
   }
@@ -931,7 +932,7 @@ LABEL_55:
     goto LABEL_31;
   }
 
-  v121 = v7;
+  v120 = v7;
   v8 = [v6 objectAtIndexedSubscript:0];
   v9 = [_MLCANEPlistBuilder createUnitWithLayer:v5 unitParams:v8];
 
@@ -953,11 +954,11 @@ LABEL_55:
 LABEL_88:
 
     v33 = 0;
-    v7 = v121;
+    v7 = v120;
     goto LABEL_33;
   }
 
-  v119 = v6;
+  v118 = v6;
   v13 = [v6 objectAtIndexedSubscript:1];
   v14 = [_MLCANEPlistBuilder createUnitWithLayer:v5 unitParams:v13];
 
@@ -968,23 +969,23 @@ LABEL_88:
   v17 = [v5 sourceTensors];
   v18 = [v17 objectAtIndexedSubscript:0];
   v19 = [v18 label];
-  v131[0] = v19;
+  v130[0] = v19;
   v20 = [v9 objectForKeyedSubscript:@"Name"];
-  v131[1] = v20;
-  [MEMORY[0x277CBEA60] arrayWithObjects:v131 count:2];
+  v130[1] = v20;
+  [MEMORY[0x277CBEA60] arrayWithObjects:v130 count:2];
   v22 = v21 = v5;
   [v14 setObject:v22 forKeyedSubscript:@"Bottom"];
 
   v23 = [v21 sourceTensors];
   v24 = [v23 objectAtIndexedSubscript:0];
-  v130[0] = v24;
+  v129[0] = v24;
   v25 = v21;
   v26 = v21;
   v27 = v14;
   v28 = [v26 sourceTensors];
   v29 = [v28 objectAtIndexedSubscript:0];
-  v130[1] = v29;
-  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v130 count:2];
+  v129[1] = v29;
+  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v129 count:2];
   LOBYTE(v14) = ANE_ValidateElementWiseUnit(v30, v14, 1);
 
   if (v14)
@@ -994,29 +995,27 @@ LABEL_88:
 
     v5 = v25;
 LABEL_41:
-    v6 = v119;
+    v6 = v118;
     goto LABEL_21;
   }
 
-  v115 = +[MLCLog framework];
+  v114 = +[MLCLog framework];
   v5 = v25;
-  if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
   {
     ANE_CreateUnitsWithNeuronLayer_cold_1();
   }
 
   v33 = 0;
-  v6 = v119;
+  v6 = v118;
 LABEL_33:
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return v33;
 }
 
 id ANE_CreateUnitsOfLinear(void *a1, void *a2)
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = [MEMORY[0x277CBEBF8] mutableCopy];
@@ -1042,8 +1041,8 @@ id ANE_CreateUnitsOfLinear(void *a1, void *a2)
       [v12 setObject:v14 forKeyedSubscript:@"Name"];
 
       v15 = [v7 objectForKeyedSubscript:@"Name"];
-      v33[0] = v15;
-      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+      v32[0] = v15;
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
       [v12 setObject:v16 forKeyedSubscript:@"Bottom"];
 
       v17 = [v3 sourceTensors];
@@ -1059,8 +1058,8 @@ id ANE_CreateUnitsOfLinear(void *a1, void *a2)
         [v19 setObject:v21 forKeyedSubscript:@"Name"];
 
         v22 = [v12 objectForKeyedSubscript:@"Name"];
-        v32 = v22;
-        v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
+        v31 = v22;
+        v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
         [v19 setObject:v23 forKeyedSubscript:@"Bottom"];
 
         v24 = [v3 sourceTensors];
@@ -1142,8 +1141,6 @@ LABEL_23:
   v28 = 0;
 LABEL_24:
 
-  v30 = *MEMORY[0x277D85DE8];
-
   return v28;
 }
 
@@ -1178,22 +1175,25 @@ void OUTLINED_FUNCTION_4(void *a1, uint64_t a2, os_log_t log, const char *a4, ..
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
-void OUTLINED_FUNCTION_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 id GPU_CreateLossLayer(void *a1, void *a2)
@@ -1697,8 +1697,9 @@ LABEL_17:
   return result;
 }
 
-uint64_t CPU_BNNSDataType(int a1)
+uint64_t CPU_BNNSDataType(uint64_t a1)
 {
+  v1 = a1;
   v2 = a1 - 1;
   if (a1 - 1) < 9 && ((0x1EDu >> v2))
   {
@@ -1708,13 +1709,13 @@ uint64_t CPU_BNNSDataType(int a1)
   v4 = +[MLCLog framework];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    CPU_BNNSDataType_cold_1(a1, v4);
+    CPU_BNNSDataType_cold_1(v1, v4);
   }
 
   return 0;
 }
 
-uint64_t CPU_BuildBNNSNDArrayLastMajorDescriptor(uint64_t a1, void *a2, void *a3, void *a4, int a5)
+uint64_t CPU_BuildBNNSNDArrayLastMajorDescriptor(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5)
 {
   v9 = a2;
   v10 = a3;
@@ -1922,7 +1923,7 @@ LABEL_36:
   return v40;
 }
 
-uint64_t CPU_BuildBNNSNDArrayDescriptor(uint64_t a1, void *a2, void *a3, void *a4, int a5, int a6, int a7)
+uint64_t CPU_BuildBNNSNDArrayDescriptor(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5, int a6, int a7)
 {
   v13 = a2;
   v14 = a3;
@@ -2190,7 +2191,7 @@ LABEL_46:
   return v39;
 }
 
-uint64_t CPU_BuildPermuteBNNSNDArrayDescriptor(uint64_t a1, void *a2, void *a3, void *a4, int a5)
+uint64_t CPU_BuildPermuteBNNSNDArrayDescriptor(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5)
 {
   v9 = a2;
   v10 = a3;
@@ -2360,7 +2361,7 @@ LABEL_31:
   return v53;
 }
 
-BOOL CPU_BuildBNNSNDArrayDescriptorRowMajor(uint64_t a1, void *a2, void *a3, void *a4, int a5, uint64_t a6, void *a7)
+BOOL CPU_BuildBNNSNDArrayDescriptorRowMajor(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5, _BYTE *a6, void *a7)
 {
   v13 = a3;
   v14 = a4;
@@ -2465,7 +2466,7 @@ BOOL CPU_BuildBNNSNDArrayDescriptorRowMajor(uint64_t a1, void *a2, void *a3, voi
   return v21 < 8;
 }
 
-BOOL CPU_BuildBNNSNDArrayDescriptorColMajor(uint64_t a1, void *a2, void *a3, void *a4, int a5, uint64_t a6)
+BOOL CPU_BuildBNNSNDArrayDescriptorColMajor(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5, uint64_t a6)
 {
   v11 = a3;
   v12 = a4;
@@ -2584,7 +2585,7 @@ void convertDataLayout(void *a1, void *a2, void *a3, int a4, int a5)
     v15 = +[MLCLog framework];
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      convertDataLayout_cold_4();
+      convertDataLayout_cold_4(v9);
     }
 
     goto LABEL_11;
@@ -2596,7 +2597,7 @@ void convertDataLayout(void *a1, void *a2, void *a3, int a4, int a5)
     v15 = +[MLCLog framework];
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      convertDataLayout_cold_1();
+      convertDataLayout_cold_1(v9);
     }
 
     goto LABEL_11;
@@ -2608,7 +2609,7 @@ void convertDataLayout(void *a1, void *a2, void *a3, int a4, int a5)
     v15 = +[MLCLog framework];
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      convertDataLayout_cold_3();
+      convertDataLayout_cold_3(v9);
     }
 
 LABEL_11:
@@ -2641,7 +2642,7 @@ LABEL_11:
       v9 = v55;
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        convertDataLayout_cold_2();
+        convertDataLayout_cold_2(v55);
       }
 
       goto LABEL_11;
@@ -2765,7 +2766,7 @@ LABEL_11:
 LABEL_12:
 }
 
-void convertNCHWtoTNC(void *a1, unint64_t a2, uint64_t a3, _DWORD *a4)
+void convertNCHWtoTNC(void *a1, char *a2, uint64_t a3, _DWORD *a4)
 {
   v5 = a1;
   v6 = [v5 descriptor];
@@ -2858,7 +2859,7 @@ void convertNCHWtoTNC(void *a1, unint64_t a2, uint64_t a3, _DWORD *a4)
   }
 }
 
-void convertNSEtoTNC(void *a1, unint64_t a2, int *a3, _DWORD *a4)
+void convertNSEtoTNC(void *a1, char *a2, int *a3, int *a4)
 {
   v22 = a1;
   v5 = [v22 descriptor];
@@ -2990,7 +2991,7 @@ void convertTNCtoNC(void *a1, void *a2, uint64_t a3, _DWORD *a4)
 LABEL_9:
 }
 
-void convertTNCtoNCHW(void *a1, void *a2, uint64_t a3, _DWORD *a4, _DWORD *a5, int a6)
+void convertTNCtoNCHW(void *a1, void *a2, char *a3, _DWORD *a4, _DWORD *a5, int a6)
 {
   v45 = a1;
   v11 = a2;
@@ -3104,7 +3105,7 @@ void convertTNCtoNCHW(void *a1, void *a2, uint64_t a3, _DWORD *a4, _DWORD *a5, i
   }
 }
 
-void convertTNCtoNTC(void *a1, void *a2, unint64_t a3, int *a4, _DWORD *a5)
+void convertTNCtoNTC(void *a1, void *a2, char *a3, int *a4, _DWORD *a5)
 {
   v31 = a1;
   v9 = a2;
@@ -3381,10 +3382,11 @@ LABEL_11:
   return a2;
 }
 
-void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 unint64_t *hashCombine(unint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
@@ -3405,10 +3407,11 @@ unint64_t *hashCombine(unint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4,
   return result;
 }
 
-void OUTLINED_FUNCTION_3_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x1Cu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x1Cu);
 }
 
 id ANE_CreateUpsampleLayer(int a1, float a2, double a3)
@@ -3489,7 +3492,7 @@ LABEL_19:
 
 id ANE_CompileUpsampleLayer(void *a1, void *a2, void *a3)
 {
-  v63[1] = *MEMORY[0x277D85DE8];
+  v62[1] = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = a3;
@@ -3508,7 +3511,7 @@ id ANE_CompileUpsampleLayer(void *a1, void *a2, void *a3)
     if (v40)
     {
       v41 = v40;
-      v58 = v13;
+      v57 = v13;
       [v8 addObjectsFromArray:v40];
 
       goto LABEL_24;
@@ -3525,39 +3528,39 @@ id ANE_CompileUpsampleLayer(void *a1, void *a2, void *a3)
 
   else
   {
-    v59 = v5;
+    v58 = v5;
     if (v15 == 3)
     {
-      v57 = v6;
+      v56 = v6;
       context = objc_autoreleasePoolPush();
+      v59 = 0;
       v60 = 0;
-      v61 = 0;
-      v16 = [_MLCANEPlistBuilder createReshapeUnitsWithLayer:v10 reshapeUnits:&v61 reshapeResultTensors:&v60];
-      v17 = v61;
-      v18 = v60;
+      v16 = [_MLCANEPlistBuilder createReshapeUnitsWithLayer:v10 reshapeUnits:&v60 reshapeResultTensors:&v59];
+      v17 = v60;
+      v18 = v59;
       if (v16)
       {
-        v51 = v14;
-        v58 = v13;
+        v50 = v14;
+        v57 = v13;
         v19 = [v10 label];
         v20 = [v19 stringByAppendingFormat:@"_%lu", objc_msgSend(v8, "count")];
         [v17 objectAtIndexedSubscript:0];
-        v21 = v55 = v12;
+        v21 = v54 = v12;
         [v21 setObject:v20 forKeyedSubscript:@"Name"];
 
-        v12 = v55;
+        v12 = v54;
         v22 = [v17 objectAtIndexedSubscript:0];
         [v8 addObject:v22];
 
-        v52 = [v18 objectAtIndexedSubscript:0];
-        v23 = ANE_CreateUpsampleUnits(v52, v10, v55);
+        v51 = [v18 objectAtIndexedSubscript:0];
+        v23 = ANE_CreateUpsampleUnits(v51, v10, v54);
         v24 = v23;
-        v53 = v18;
-        v54 = v17;
+        v52 = v18;
+        v53 = v17;
         if (v23)
         {
-          v49 = v11;
-          v50 = v7;
+          v48 = v11;
+          v49 = v7;
           if ([v23 count])
           {
             v25 = 0;
@@ -3570,8 +3573,8 @@ id ANE_CompileUpsampleLayer(void *a1, void *a2, void *a3)
 
               v29 = [v8 objectAtIndexedSubscript:{objc_msgSend(v8, "count") - 1}];
               v30 = [v29 objectForKeyedSubscript:@"Name"];
-              v63[0] = v30;
-              v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:1];
+              v62[0] = v30;
+              v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:1];
               [v26 setObject:v31 forKeyedSubscript:@"Bottom"];
 
               [v8 addObject:v26];
@@ -3583,23 +3586,23 @@ id ANE_CompileUpsampleLayer(void *a1, void *a2, void *a3)
 
           v32 = [v10 label];
           v33 = [v32 stringByAppendingFormat:@"_%lu", objc_msgSend(v8, "count")];
-          v34 = [v54 objectAtIndexedSubscript:1];
+          v34 = [v53 objectAtIndexedSubscript:1];
           [v34 setObject:v33 forKeyedSubscript:@"Name"];
 
           v35 = [v8 objectAtIndexedSubscript:{objc_msgSend(v8, "count") - 1}];
           v36 = [v35 objectForKeyedSubscript:@"Name"];
-          v62 = v36;
-          v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v62 count:1];
-          v38 = [v54 objectAtIndexedSubscript:1];
+          v61 = v36;
+          v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
+          v38 = [v53 objectAtIndexedSubscript:1];
           [v38 setObject:v37 forKeyedSubscript:@"Bottom"];
 
-          v39 = [v54 objectAtIndexedSubscript:1];
+          v39 = [v53 objectAtIndexedSubscript:1];
           [v8 addObject:v39];
-          v6 = v57;
-          v11 = v49;
-          v7 = v50;
-          v12 = v55;
-          v14 = v51;
+          v6 = v56;
+          v11 = v48;
+          v7 = v49;
+          v12 = v54;
+          v14 = v50;
         }
 
         else
@@ -3610,12 +3613,12 @@ id ANE_CompileUpsampleLayer(void *a1, void *a2, void *a3)
             ANE_CompileUpsampleLayer_cold_3();
           }
 
-          v14 = v51;
-          v6 = v57;
+          v14 = v50;
+          v6 = v56;
         }
 
         objc_autoreleasePoolPop(context);
-        v5 = v59;
+        v5 = v58;
         if (!v24)
         {
           v44 = 0;
@@ -3625,7 +3628,7 @@ id ANE_CompileUpsampleLayer(void *a1, void *a2, void *a3)
 LABEL_24:
         v44 = [v8 copy];
 LABEL_25:
-        v13 = v58;
+        v13 = v57;
         goto LABEL_26;
       }
 
@@ -3637,8 +3640,8 @@ LABEL_25:
 
       objc_autoreleasePoolPop(context);
       v44 = 0;
-      v5 = v59;
-      v6 = v57;
+      v5 = v58;
+      v6 = v56;
     }
 
     else
@@ -3652,13 +3655,11 @@ LABEL_25:
 
       v44 = 0;
       v14 = v42;
-      v5 = v59;
+      v5 = v58;
     }
   }
 
 LABEL_26:
-
-  v47 = *MEMORY[0x277D85DE8];
 
   return v44;
 }
@@ -3870,24 +3871,24 @@ LABEL_42:
 
 uint64_t ANE_CreateUpsampleUnitsWithParams(void *a1, void *a2, void *a3, unint64_t a4, char a5, char a6, void *a7, void *a8)
 {
-  v71[1] = *MEMORY[0x277D85DE8];
-  v61 = a1;
+  v70[1] = *MEMORY[0x277D85DE8];
+  v60 = a1;
   v14 = a2;
   v15 = a3;
-  v67 = 0;
-  v60 = a7;
-  ANE_GetTensor4DShapeWithBatchFirst(v60, &v67);
-  v16 = v67;
+  v66 = 0;
+  v59 = a7;
+  ANE_GetTensor4DShapeWithBatchFirst(v59, &v66);
+  v16 = v66;
   v17 = [v16 objectAtIndexedSubscript:0];
-  v59 = [v17 unsignedIntegerValue];
+  v58 = [v17 unsignedIntegerValue];
 
   v18 = [v16 objectAtIndexedSubscript:1];
-  v65 = [v18 unsignedIntegerValue];
+  v64 = [v18 unsignedIntegerValue];
 
   v19 = [v16 objectAtIndexedSubscript:2];
-  v66 = [v19 unsignedIntegerValue];
+  v65 = [v19 unsignedIntegerValue];
 
-  v55 = v16;
+  v54 = v16;
   v20 = v16;
   v21 = a4;
   v22 = [v20 objectAtIndexedSubscript:3];
@@ -3896,41 +3897,41 @@ uint64_t ANE_CreateUpsampleUnitsWithParams(void *a1, void *a2, void *a3, unint64
   if (!v21)
   {
 LABEL_12:
-    v44 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v59];
-    v68[0] = v44;
-    v45 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v65];
-    v68[1] = v45;
-    v46 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v66];
-    v68[2] = v46;
+    v44 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v58];
+    v67[0] = v44;
+    v45 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v64];
+    v67[1] = v45;
+    v46 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v65];
+    v67[2] = v46;
     v47 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v23];
-    v68[3] = v47;
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:4];
+    v67[3] = v47;
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:4];
 
-    v48 = v60;
-    v49 = [v60 descriptor];
+    v48 = v59;
+    v49 = [v59 descriptor];
     *a8 = +[MLCTensor tensorWithShape:dataType:](MLCTensor, "tensorWithShape:dataType:", v26, [v49 dataType]);
 
     v50 = 1;
     goto LABEL_16;
   }
 
-  v64 = 0;
-  v62 = a6;
-  v63 = a5;
+  v63 = 0;
+  v61 = a6;
+  v62 = a5;
   v24 = 1;
   v25 = v21;
-  v57 = v14;
-  v58 = v15;
-  v56 = v21;
+  v56 = v14;
+  v57 = v15;
+  v55 = v21;
   while (1)
   {
     if (v24 == 1)
     {
-      v26 = [_MLCANEPlistBuilder createUnitWithLayer:v14 unitParams:v61];
-      v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v65];
+      v26 = [_MLCANEPlistBuilder createUnitWithLayer:v14 unitParams:v60];
+      v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v64];
       [v26 setObject:v27 forKeyedSubscript:@"OutputChannels"];
 
-      v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v65];
+      v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v64];
       [v26 setObject:v28 forKeyedSubscript:@"NumGroups"];
     }
 
@@ -3949,8 +3950,8 @@ LABEL_12:
     {
       v32 = [v15 objectAtIndexedSubscript:{objc_msgSend(v15, "count") - 1}];
       v33 = [v32 objectForKeyedSubscript:@"Name"];
-      v71[0] = v33;
-      v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:1];
+      v70[0] = v33;
+      v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:1];
       [v26 setObject:v34 forKeyedSubscript:@"Bottom"];
     }
 
@@ -3960,21 +3961,21 @@ LABEL_12:
     }
 
     v35 = objc_autoreleasePoolPush();
-    v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v59];
-    v70[0] = v36;
-    v37 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v65];
-    v70[1] = v37;
-    v38 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v66];
-    v70[2] = v38;
+    v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v58];
+    v69[0] = v36;
+    v37 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v64];
+    v69[1] = v37;
+    v38 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v65];
+    v69[2] = v38;
     v39 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v23];
-    v70[3] = v39;
-    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:4];
+    v69[3] = v39;
+    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:4];
 
-    v41 = [v60 descriptor];
+    v41 = [v59 descriptor];
     v42 = +[MLCTensor tensorWithShape:dataType:](MLCTensor, "tensorWithShape:dataType:", v40, [v41 dataType]);
 
-    v69 = v42;
-    v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v69 count:1];
+    v68 = v42;
+    v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v68 count:1];
     LOBYTE(v41) = ANE_ValidateConvolutionUnit(v43, v26, 0);
 
     if ((v41 & 1) == 0)
@@ -3983,15 +3984,15 @@ LABEL_12:
     }
 
     objc_autoreleasePoolPop(v35);
-    v14 = v57;
-    v15 = v58;
-    v21 = v56;
+    v14 = v56;
+    v15 = v57;
+    v21 = v55;
 LABEL_11:
     [v15 addObject:v26];
-    v23 <<= v63;
-    v66 <<= v62;
+    v23 <<= v62;
+    v65 <<= v61;
 
-    v64 = v24++ >= v21;
+    v63 = v24++ >= v21;
     if (!--v25)
     {
       goto LABEL_12;
@@ -3999,19 +4000,18 @@ LABEL_11:
   }
 
   v51 = +[MLCLog framework];
-  v14 = v57;
+  v14 = v56;
   if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
   {
     ANE_CreateUpsampleUnitsWithParams_cold_1();
   }
 
   objc_autoreleasePoolPop(v35);
-  v15 = v58;
-  v48 = v60;
-  v50 = v64;
+  v15 = v57;
+  v48 = v59;
+  v50 = v63;
 LABEL_16:
 
-  v52 = *MEMORY[0x277D85DE8];
   return v50 & 1;
 }
 
@@ -4032,37 +4032,38 @@ BOOL activationIsFusableWithMPSGraph(void *a1)
   return v4;
 }
 
-void OUTLINED_FUNCTION_0_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 id ANE_CreateSliceLayer(void *a1, void *a2, void *a3)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   v7 = a3;
-  v8 = [v7 countByEnumeratingWithState:&v38 objects:v42 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v37 objects:v41 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v39;
+    v10 = *v38;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v39 != v10)
+        if (*v38 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        if ([*(*(&v38 + 1) + 8 * i) unsignedIntegerValue] != 1)
+        if ([*(*(&v37 + 1) + 8 * i) unsignedIntegerValue] != 1)
         {
           v13 = +[MLCLog framework];
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
@@ -4076,7 +4077,7 @@ id ANE_CreateSliceLayer(void *a1, void *a2, void *a3)
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v37 objects:v41 count:16];
       if (v9)
       {
         continue;
@@ -4099,9 +4100,9 @@ id ANE_CreateSliceLayer(void *a1, void *a2, void *a3)
       [v13 insertObject:&unk_284BA5840 atIndex:0];
       [v14 insertObject:&unk_284BA5840 atIndex:0];
 LABEL_20:
-      v35 = v5;
-      v36 = v6;
-      v37 = [MEMORY[0x277CBEBF8] mutableCopy];
+      v34 = v5;
+      v35 = v6;
+      v36 = [MEMORY[0x277CBEBF8] mutableCopy];
       if ([v12 count])
       {
         v18 = 0;
@@ -4133,7 +4134,7 @@ LABEL_20:
           [v25 setObject:v30 forKeyedSubscript:@"Size"];
 
           v31 = [v25 copy];
-          [v37 addObject:v31];
+          [v36 addObject:v31];
 
           if (++v18 >= [v12 count])
           {
@@ -4154,7 +4155,7 @@ LABEL_20:
       {
 LABEL_24:
         v17 = [MEMORY[0x277CBEBF8] mutableCopy];
-        v25 = [_MLCANESliceParameters sliceUnitParametersWith:v37];
+        v25 = [_MLCANESliceParameters sliceUnitParametersWith:v36];
         v32 = [MLCANEDeviceOps deviceOpsWithType:33 params:v25];
         if (v32)
         {
@@ -4162,9 +4163,9 @@ LABEL_24:
         }
       }
 
-      v5 = v35;
+      v5 = v34;
 
-      v6 = v36;
+      v6 = v35;
       goto LABEL_33;
     case 2:
       if ([v5 count] != 4)
@@ -4184,62 +4185,61 @@ LABEL_24:
       goto LABEL_20;
   }
 
-  v37 = +[MLCLog framework];
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+  v36 = +[MLCLog framework];
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
   {
-    ANE_CreateSliceLayer_cold_3(v5, v37);
+    ANE_CreateSliceLayer_cold_3(v5, v36);
   }
 
   v17 = MEMORY[0x277CBEBF8];
 LABEL_33:
 
 LABEL_34:
-  v33 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
 id ANE_CompileSliceLayer(void *a1, void *a2, void *a3)
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = a3;
   v8 = [v7 parentLayers];
   v9 = [v8 objectAtIndexedSubscript:0];
 
-  v34 = v5;
-  v32 = [v5 objectAtIndexedSubscript:0];
-  v10 = [v32 params];
+  v33 = v5;
+  v31 = [v5 objectAtIndexedSubscript:0];
+  v10 = [v31 params];
   v11 = [v10 sliceParams];
 
   v12 = [MEMORY[0x277CBEBF8] mutableCopy];
-  v35 = v6;
+  v34 = v6;
   v13 = [v6 objectAtIndexedSubscript:0];
-  v40 = 0;
-  ANE_GetTensor4DShapeWithOnePrepended(v13, &v40);
-  v38 = v40;
-
   v39 = 0;
-  v33 = v7;
-  ANE_GetTensor4DShapeWithOnePrepended(v7, &v39);
+  ANE_GetTensor4DShapeWithOnePrepended(v13, &v39);
   v37 = v39;
+
+  v38 = 0;
+  v32 = v7;
+  ANE_GetTensor4DShapeWithOnePrepended(v7, &v38);
+  v36 = v38;
   if (![v11 count])
   {
-    v36 = 0;
+    v35 = 0;
 LABEL_15:
-    v26 = v36;
+    v26 = v35;
     if (![v12 count])
     {
-      [v12 addObject:v36];
+      [v12 addObject:v35];
     }
 
     v27 = [v12 copy];
-    v28 = v34;
+    v28 = v33;
     goto LABEL_23;
   }
 
-  v36 = 0;
+  v35 = 0;
   v14 = 0;
   while (1)
   {
@@ -4259,8 +4259,8 @@ LABEL_15:
       v19 = [v12 objectAtIndexedSubscript:{objc_msgSend(v12, "count") - 1}];
       v20 = [v19 objectForKeyedSubscript:@"Name"];
 
-      v41[0] = v20;
-      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:1];
+      v40[0] = v20;
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:1];
       [v18 setObject:v21 forKeyedSubscript:@"Bottom"];
     }
 
@@ -4268,17 +4268,17 @@ LABEL_15:
     {
       v22 = v18;
 
-      v36 = v22;
+      v35 = v22;
     }
 
 LABEL_9:
-    v23 = [v38 objectAtIndexedSubscript:v14];
-    v24 = [v37 objectAtIndexedSubscript:v14];
+    v23 = [v37 objectAtIndexedSubscript:v14];
+    v24 = [v36 objectAtIndexedSubscript:v14];
     v25 = [v23 isEqualToNumber:v24];
 
     if ((v25 & 1) == 0)
     {
-      if ((ANE_ValidateInputViewUnit(v35, v18, 1) & 1) == 0)
+      if ((ANE_ValidateInputViewUnit(v34, v18, 1) & 1) == 0)
       {
         v29 = +[MLCLog framework];
         if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
@@ -4310,38 +4310,37 @@ LABEL_9:
   }
 
 LABEL_22:
-  v28 = v34;
+  v28 = v33;
 
   v27 = 0;
-  v26 = v36;
+  v26 = v35;
 LABEL_23:
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
 
-id ANE_CreateComparisonLayer(int a1)
+id ANE_CreateComparisonLayer(uint64_t a1)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v1 = a1;
+  v15[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEBF8];
   v3 = [MEMORY[0x277CBEBF8] mutableCopy];
   v4 = [v2 mutableCopy];
-  v15 = kMLCANENetUnitType[0];
-  v16[0] = @"ElementWise";
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v14 = kMLCANENetUnitType[0];
+  v15[0] = @"ElementWise";
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v6 = [v5 mutableCopy];
 
-  if (a1 > 5)
+  if (v1 > 5)
   {
-    if (a1 <= 8)
+    if (v1 <= 8)
     {
-      if (a1 == 6)
+      if (v1 == 6)
       {
         v7 = @"Mult";
       }
 
-      else if (a1 == 7)
+      else if (v1 == 7)
       {
         v7 = @"Add";
       }
@@ -4354,7 +4353,7 @@ id ANE_CreateComparisonLayer(int a1)
       goto LABEL_24;
     }
 
-    switch(a1)
+    switch(v1)
     {
       case 9:
         v8 = @"Mult";
@@ -4372,21 +4371,21 @@ LABEL_17:
 
     [v6 setObject:v8 forKeyedSubscript:@"Type"];
     [v4 addObject:v6];
-    v14 = [v6 mutableCopy];
+    v13 = [v6 mutableCopy];
 
-    [v14 setObject:@"EqualZero" forKeyedSubscript:@"Type"];
-    v6 = v14;
+    [v13 setObject:@"EqualZero" forKeyedSubscript:@"Type"];
+    v6 = v13;
     goto LABEL_25;
   }
 
-  if (a1 > 2)
+  if (v1 > 2)
   {
-    if (a1 == 3)
+    if (v1 == 3)
     {
       v7 = @"GreaterThan";
     }
 
-    else if (a1 == 4)
+    else if (v1 == 4)
     {
       v7 = @"LessThanEqual";
     }
@@ -4399,7 +4398,7 @@ LABEL_17:
     goto LABEL_24;
   }
 
-  switch(a1)
+  switch(v1)
   {
     case 0:
       v7 = @"Equal";
@@ -4434,14 +4433,12 @@ LABEL_33:
   v11 = MEMORY[0x277CBEBF8];
 LABEL_28:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 id ANE_CompileComparisonLayer(void *a1, void *a2, void *a3)
 {
-  v68[1] = *MEMORY[0x277D85DE8];
+  v67[1] = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = a3;
@@ -4455,8 +4452,8 @@ id ANE_CompileComparisonLayer(void *a1, void *a2, void *a3)
   v13 = MEMORY[0x277CBEBF8];
   v14 = [MEMORY[0x277CBEBF8] mutableCopy];
   v15 = [v9 operation];
-  v65 = 0;
-  v60 = [v13 mutableCopy];
+  v64 = 0;
+  v59 = [v13 mutableCopy];
   if ([v6 count] != 2)
   {
 LABEL_10:
@@ -4478,7 +4475,7 @@ LABEL_10:
         v34 = [_MLCANEPlistBuilder createUnitWithLayer:v9 unitParams:v33];
 
         v14 = v32;
-        if (ANE_ConnectBroadcastUnits(v34, v32, v9, &v65, v60))
+        if (ANE_ConnectBroadcastUnits(v34, v32, v9, &v64, v59))
         {
 LABEL_14:
 
@@ -4511,37 +4508,37 @@ LABEL_25:
       if ([v12 count] == 2)
       {
         [v12 objectAtIndexedSubscript:0];
-        v37 = v54 = v14;
+        v37 = v53 = v14;
         v34 = [_MLCANEPlistBuilder createUnitWithLayer:v9 unitParams:v37];
 
-        v14 = v54;
-        if (ANE_ConnectBroadcastUnits(v34, v54, v9, &v65, v60))
+        v14 = v53;
+        if (ANE_ConnectBroadcastUnits(v34, v53, v9, &v64, v59))
         {
           v38 = [v12 objectAtIndexedSubscript:1];
           v39 = [_MLCANEPlistBuilder createUnitWithLayer:v9 unitParams:v38];
 
           v40 = [v9 label];
-          v41 = [v40 stringByAppendingFormat:@"_%lu", objc_msgSend(v54, "count")];
+          v41 = [v40 stringByAppendingFormat:@"_%lu", objc_msgSend(v53, "count")];
           [v39 setObject:v41 forKeyedSubscript:@"Name"];
 
           v42 = [v34 objectForKeyedSubscript:@"Name"];
-          v68[0] = v42;
-          v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:1];
+          v67[0] = v42;
+          v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:1];
           [v39 setObject:v43 forKeyedSubscript:@"Bottom"];
 
           v44 = [v34 objectForKeyedSubscript:@"OutputType"];
-          v67 = v44;
-          v45 = [MEMORY[0x277CBEA60] arrayWithObjects:&v67 count:1];
+          v66 = v44;
+          v45 = [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
           [v39 setObject:v45 forKeyedSubscript:@"InputType"];
 
-          v66 = v7;
-          v46 = [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
+          v65 = v7;
+          v46 = [MEMORY[0x277CBEA60] arrayWithObjects:&v65 count:1];
           LOBYTE(v45) = ANE_ValidateElementWiseUnit(v46, v39, 1);
 
           if ((v45 & 1) == 0)
           {
-            v53 = +[MLCLog framework];
-            if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+            v52 = +[MLCLog framework];
+            if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
             {
               ANE_CompileComparisonLayer_cold_5();
             }
@@ -4550,8 +4547,8 @@ LABEL_25:
             goto LABEL_33;
           }
 
-          v14 = v54;
-          [v54 addObject:v39];
+          v14 = v53;
+          [v53 addObject:v39];
 
           goto LABEL_14;
         }
@@ -4576,19 +4573,19 @@ LABEL_25:
     {
       if ([v12 count] == 1)
       {
-        v51 = v14;
-        v52 = [v12 objectAtIndexedSubscript:0];
-        v34 = [_MLCANEPlistBuilder createUnitWithLayer:v9 unitParams:v52];
+        v50 = v14;
+        v51 = [v12 objectAtIndexedSubscript:0];
+        v34 = [_MLCANEPlistBuilder createUnitWithLayer:v9 unitParams:v51];
 
         if (ANE_ValidateElementWiseUnit(v6, v34, 1))
         {
-          v14 = v51;
-          [v51 addObject:v34];
+          v14 = v50;
+          [v50 addObject:v34];
           goto LABEL_14;
         }
 
         v47 = +[MLCLog framework];
-        v14 = v51;
+        v14 = v50;
         if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
         {
           ANE_CompileComparisonLayer_cold_5();
@@ -4609,23 +4606,23 @@ LABEL_26:
     goto LABEL_34;
   }
 
-  v55 = v15;
-  v58 = v5;
-  v59 = v12;
-  v56 = v10;
-  v57 = v7;
-  v64 = 0;
-  ANE_GetTensor4DShapeWithOnePrepended(v7, &v64);
-  v16 = v64;
+  v54 = v15;
+  v57 = v5;
+  v58 = v12;
+  v55 = v10;
+  v56 = v7;
+  v63 = 0;
+  ANE_GetTensor4DShapeWithOnePrepended(v7, &v63);
+  v16 = v63;
   if (![v6 count])
   {
 LABEL_9:
 
-    v7 = v57;
-    v5 = v58;
-    v10 = v56;
-    v12 = v59;
-    v15 = v55;
+    v7 = v56;
+    v5 = v57;
+    v10 = v55;
+    v12 = v58;
+    v15 = v54;
     goto LABEL_10;
   }
 
@@ -4635,11 +4632,11 @@ LABEL_9:
   {
     v19 = [v6 objectAtIndexedSubscript:v17];
     v20 = *(v18 + 3432);
+    v61 = 0;
     v62 = 0;
-    v63 = 0;
-    v21 = [v20 createBroadcastUnitWithSourceTensor:v19 targetShape:v16 layer:v9 broadcastUnit:&v63 broadcastResultTensor:&v62];
-    v22 = v63;
-    v23 = v62;
+    v21 = [v20 createBroadcastUnitWithSourceTensor:v19 targetShape:v16 layer:v9 broadcastUnit:&v62 broadcastResultTensor:&v61];
+    v22 = v62;
+    v23 = v61;
     if (v21 == 1)
     {
       goto LABEL_8;
@@ -4652,7 +4649,7 @@ LABEL_9:
 
     if (!v22)
     {
-      v54 = v14;
+      v53 = v14;
       v48 = +[MLCLog framework];
       if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
       {
@@ -4663,10 +4660,10 @@ LABEL_9:
       goto LABEL_32;
     }
 
-    *(&v65 + v17) = 1;
+    *(&v64 + v17) = 1;
     v24 = [v9 label];
     [v24 stringByAppendingFormat:@"_%lu", objc_msgSend(v14, "count")];
-    v61 = v23;
+    v60 = v23;
     v25 = v19;
     v26 = v16;
     v27 = v18;
@@ -4681,10 +4678,10 @@ LABEL_9:
     v18 = v27;
     v16 = v26;
     v19 = v25;
-    v23 = v61;
+    v23 = v60;
 
     [v14 addObject:v22];
-    [v60 addObject:v61];
+    [v59 addObject:v60];
 LABEL_8:
 
     if (++v17 >= [v6 count])
@@ -4693,7 +4690,7 @@ LABEL_8:
     }
   }
 
-  v54 = v14;
+  v53 = v14;
   v48 = +[MLCLog framework];
   if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
   {
@@ -4701,24 +4698,22 @@ LABEL_8:
   }
 
 LABEL_32:
-  v5 = v58;
-  v12 = v59;
+  v5 = v57;
+  v12 = v58;
 
   v35 = 0;
-  v10 = v56;
-  v7 = v57;
+  v10 = v55;
+  v7 = v56;
 LABEL_33:
-  v14 = v54;
+  v14 = v53;
 LABEL_34:
-
-  v49 = *MEMORY[0x277D85DE8];
 
   return v35;
 }
 
 uint64_t ANE_ConnectBroadcastUnits(void *a1, void *a2, void *a3, _BYTE *a4, void *a5)
 {
-  v41[2] = *MEMORY[0x277D85DE8];
+  v40[2] = *MEMORY[0x277D85DE8];
   v9 = a1;
   v10 = a2;
   v11 = a3;
@@ -4747,11 +4742,11 @@ uint64_t ANE_ConnectBroadcastUnits(void *a1, void *a2, void *a3, _BYTE *a4, void
     [v14 setObject:v28 atIndexedSubscript:1];
 
     v29 = [v13 objectAtIndexedSubscript:0];
-    v40[0] = v29;
+    v39[0] = v29;
     v30 = [v12 objectAtIndexedSubscript:0];
-    v40[1] = v30;
+    v39[1] = v30;
     v31 = MEMORY[0x277CBEA60];
-    v32 = v40;
+    v32 = v39;
 LABEL_7:
     v35 = [v31 arrayWithObjects:v32 count:2];
 
@@ -4773,11 +4768,11 @@ LABEL_7:
     [v14 setObject:v34 atIndexedSubscript:1];
 
     v29 = [v12 objectAtIndexedSubscript:0];
-    v41[0] = v29;
+    v40[0] = v29;
     v30 = [v13 objectAtIndexedSubscript:1];
-    v41[1] = v30;
+    v40[1] = v30;
     v31 = MEMORY[0x277CBEA60];
-    v32 = v41;
+    v32 = v40;
     goto LABEL_7;
   }
 
@@ -4804,25 +4799,22 @@ LABEL_10:
     }
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return v36;
 }
 
 id ANE_CreateReshapeLayer()
 {
-  v4[1] = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
   v0 = [MLCANEDeviceOps deviceOpsWithType:18 params:MEMORY[0x277CBEC10]];
-  v4[0] = v0;
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
-
-  v2 = *MEMORY[0x277D85DE8];
+  v3[0] = v0;
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
 
   return v1;
 }
 
 id ANE_CompileReshapeLayer(uint64_t a1, void *a2, void *a3)
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = [v5 parentLayers];
@@ -4901,8 +4893,8 @@ LABEL_12:
   v17 = [_MLCANEPlistBuilder createUnitWithLayer:v7 unitParams:v8];
   if (ANE_ValidateReshapeUnit(v4, v17, 1))
   {
-    v25[0] = v17;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+    v24[0] = v17;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
     goto LABEL_18;
   }
 
@@ -4916,17 +4908,15 @@ LABEL_17:
   v21 = 0;
 LABEL_18:
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
 id GPU_CreateOptimizerDeviceDataForTensor(void *a1, void *a2, void *a3)
 {
-  v51[1] = *MEMORY[0x277D85DE8];
+  v50[1] = *MEMORY[0x277D85DE8];
   v5 = a1;
-  v42 = a2;
-  v47 = a3;
+  v41 = a2;
+  v46 = a3;
   v6 = [MEMORY[0x277CBEBF8] mutableCopy];
   v7 = [v5 deviceList];
   v8 = [v7 count];
@@ -4935,18 +4925,18 @@ id GPU_CreateOptimizerDeviceDataForTensor(void *a1, void *a2, void *a3)
   {
     v9 = 0;
     v10 = 0x277CBE000uLL;
-    v43 = v6;
-    v44 = v5;
+    v42 = v6;
+    v43 = v5;
     while (1)
     {
       v11 = [v5 deviceList];
-      v45 = v9;
+      v44 = v9;
       v12 = [v11 objectAtIndexedSubscript:v9];
 
-      v46 = +[MLCTensorOptimizerDeviceData optimizerDeviceData];
+      v45 = +[MLCTensorOptimizerDeviceData optimizerDeviceData];
       v13 = [MEMORY[0x277CBEBF8] mutableCopy];
-      v14 = v47;
-      if ([v47 count])
+      v14 = v46;
+      if ([v46 count])
       {
         v15 = 0;
         do
@@ -4954,7 +4944,7 @@ id GPU_CreateOptimizerDeviceDataForTensor(void *a1, void *a2, void *a3)
           v16 = *(v10 + 2704);
           v17 = [v14 objectAtIndexedSubscript:v15];
           v18 = [v17 bytes];
-          v19 = [v47 objectAtIndexedSubscript:v15];
+          v19 = [v46 objectAtIndexedSubscript:v15];
           v20 = [v16 dataWithBytesNoCopy:v18 length:objc_msgSend(v19 freeWhenDone:{"length"), 0}];
 
           v21 = [v20 length];
@@ -4963,13 +4953,13 @@ id GPU_CreateOptimizerDeviceDataForTensor(void *a1, void *a2, void *a3)
           v24 = [objc_alloc(MEMORY[0x277CD7250]) initWithBuffer:v22 descriptor:v23];
           [v13 setObject:v24 atIndexedSubscript:v15];
 
-          v14 = v47;
+          v14 = v46;
           v10 = 0x277CBE000;
 
           ++v15;
         }
 
-        while (v15 < [v47 count]);
+        while (v15 < [v46 count]);
       }
 
       if (![v13 count])
@@ -4978,55 +4968,55 @@ id GPU_CreateOptimizerDeviceDataForTensor(void *a1, void *a2, void *a3)
       }
 
       v25 = [v13 objectAtIndexedSubscript:0];
-      v51[0] = v25;
-      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:1];
-      [v46 setMomentumVectors:v26];
+      v50[0] = v25;
+      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:1];
+      [v45 setMomentumVectors:v26];
 
       if ([v13 count] >= 2)
       {
         v27 = [v13 objectAtIndexedSubscript:1];
-        v50 = v27;
-        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
-        [v46 setVelocityVectors:v28];
+        v49 = v27;
+        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
+        [v45 setVelocityVectors:v28];
 
         if ([v13 count] >= 3)
         {
           v29 = [v13 objectAtIndexedSubscript:2];
-          v49 = v29;
-          v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
-          [v46 setCenterWeightVectors:v30];
+          v48 = v29;
+          v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v48 count:1];
+          [v45 setCenterWeightVectors:v30];
         }
       }
 
       v31 = +[MLCGPUDeviceOps deviceOps];
-      v5 = v44;
+      v5 = v43;
       if (v31)
       {
-        v32 = [v44 deviceList];
+        v32 = [v43 deviceList];
         v33 = [v32 count];
 
         if (v33 >= 2)
         {
           v34 = [MLCMultiGPUDeviceOps multiGPUDeviceOpsWithGPUDeviceOps:v31];
 
-          v48 = v42;
-          v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v48 count:1];
-          GPU_AllocateResourceForMultiGPUTraining(v44, v34, v35, v45);
+          v47 = v41;
+          v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
+          GPU_AllocateResourceForMultiGPUTraining(v43, v34, v35, v44);
 
           v31 = v34;
         }
       }
 
-      v6 = v43;
-      [v46 setGpuOps:v31];
-      [v43 addObject:v46];
+      v6 = v42;
+      [v45 setGpuOps:v31];
+      [v42 addObject:v45];
 
-      v9 = v45 + 1;
-      v36 = [v44 deviceList];
+      v9 = v44 + 1;
+      v36 = [v43 deviceList];
       v37 = [v36 count];
 
       v10 = 0x277CBE000;
-      if (v45 + 1 >= v37)
+      if (v44 + 1 >= v37)
       {
         goto LABEL_14;
       }
@@ -5039,8 +5029,8 @@ id GPU_CreateOptimizerDeviceDataForTensor(void *a1, void *a2, void *a3)
     }
 
     v38 = MEMORY[0x277CBEBF8];
-    v6 = v43;
-    v5 = v44;
+    v6 = v42;
+    v5 = v43;
   }
 
   else
@@ -5049,14 +5039,12 @@ LABEL_14:
     v38 = [v6 copy];
   }
 
-  v40 = *MEMORY[0x277D85DE8];
-
   return v38;
 }
 
 id GPU_CreateOptimizerDeviceVectorDataForTensor(void *a1, uint64_t a2, void *a3)
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   v4 = a1;
   v5 = a3;
   v6 = [MEMORY[0x277CBEBF8] mutableCopy];
@@ -5066,12 +5054,12 @@ id GPU_CreateOptimizerDeviceVectorDataForTensor(void *a1, uint64_t a2, void *a3)
   if (v8)
   {
     v9 = 0;
-    v34 = v6;
-    v35 = v4;
+    v33 = v6;
+    v34 = v4;
     while (1)
     {
       v10 = [v4 deviceList];
-      v36 = v9;
+      v35 = v9;
       v11 = [v10 objectAtIndexedSubscript:v9];
 
       v12 = +[MLCTensorOptimizerDeviceData optimizerDeviceData];
@@ -5102,51 +5090,51 @@ id GPU_CreateOptimizerDeviceVectorDataForTensor(void *a1, uint64_t a2, void *a3)
       }
 
       v21 = [v13 objectAtIndexedSubscript:0];
-      v39[0] = v21;
-      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
+      v38[0] = v21;
+      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
       [v12 setMomentumVectors:v22];
 
-      v6 = v34;
+      v6 = v33;
       if ([v13 count] >= 2)
       {
         v23 = [v13 objectAtIndexedSubscript:1];
-        v38 = v23;
-        v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+        v37 = v23;
+        v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
         [v12 setVelocityVectors:v24];
 
         if ([v13 count] >= 3)
         {
           v25 = [v13 objectAtIndexedSubscript:2];
-          v37 = v25;
-          v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
+          v36 = v25;
+          v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
           [v12 setCenterWeightVectors:v26];
         }
       }
 
       v27 = +[MLCGPUDeviceOps deviceOps];
       [v12 setGpuOps:v27];
-      [v34 addObject:v12];
+      [v33 addObject:v12];
 
-      v4 = v35;
-      v9 = v36 + 1;
-      v28 = [v35 deviceList];
+      v4 = v34;
+      v9 = v35 + 1;
+      v28 = [v34 deviceList];
       v29 = [v28 count];
 
-      if (v36 + 1 >= v29)
+      if (v35 + 1 >= v29)
       {
         goto LABEL_11;
       }
     }
 
     v31 = +[MLCLog framework];
-    v6 = v34;
+    v6 = v33;
     if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       GPU_CreateOptimizerDeviceVectorDataForTensor_cold_1(v31);
     }
 
     v30 = MEMORY[0x277CBEBF8];
-    v4 = v35;
+    v4 = v34;
   }
 
   else
@@ -5155,15 +5143,14 @@ LABEL_11:
     v30 = [v6 copy];
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return v30;
 }
 
-id ANE_BuildArithmeticParams(int a1)
+id ANE_BuildArithmeticParams(uint64_t a1)
 {
+  v1 = a1;
   v2 = [MEMORY[0x277CBEBF8] mutableCopy];
-  switch(a1)
+  switch(v1)
   {
     case 0:
       v3 = [MEMORY[0x277CBEC10] mutableCopy];
@@ -5234,7 +5221,7 @@ LABEL_16:
       [v3 setObject:@"Log2" forKeyedSubscript:@"Type"];
       v6 = [v13 mutableCopy];
       [v6 setObject:@"GOC" forKeyedSubscript:kMLCANENetUnitType[0]];
-      v17 = 0.69315;
+      v17 = 1060205080;
       v16 = 0;
       ANE_ConvertFp32ToInt16(&v17, &v16);
       v14 = [MEMORY[0x277CCABB0] numberWithShort:v16];
@@ -5280,7 +5267,7 @@ LABEL_21:
   return v10;
 }
 
-id ANE_CreateArithmeticLayer(int a1)
+id ANE_CreateArithmeticLayer(uint64_t a1)
 {
   v2 = [MEMORY[0x277CBEBF8] mutableCopy];
   v3 = ANE_BuildArithmeticParams(a1);
@@ -5310,9 +5297,10 @@ id ANE_CreateArithmeticLayer(int a1)
   return v6;
 }
 
-id ANE_CreateUnitsWithArithmeticOpeartion(int a1, void *a2, void *a3)
+id ANE_CreateUnitsWithArithmeticOpeartion(uint64_t a1, void *a2, void *a3)
 {
-  v213[2] = *MEMORY[0x277D85DE8];
+  v4 = a1;
+  v212[2] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = MEMORY[0x277CBEBF8];
@@ -5321,21 +5309,21 @@ id ANE_CreateUnitsWithArithmeticOpeartion(int a1, void *a2, void *a3)
   v10 = [v5 resultTensors];
   v11 = [v10 objectAtIndexedSubscript:0];
 
-  v182 = 0;
-  v177 = [v7 mutableCopy];
-  v176 = v9;
+  v181 = 0;
+  v176 = [v7 mutableCopy];
+  v175 = v9;
   if ([v9 count] != 2)
   {
 LABEL_10:
-    if (a1 <= 21)
+    if (v4 <= 21)
     {
-      if (a1 >= 3)
+      if (v4 >= 3)
       {
-        if (a1 == 3)
+        if (v4 == 3)
         {
           if ([v6 count] == 2)
           {
-            v175 = v11;
+            v174 = v11;
             v22 = [v6 objectAtIndexedSubscript:0];
             [_MLCANEPlistBuilder createUnitWithLayer:v5 unitParams:v22];
             v24 = v23 = v9;
@@ -5347,217 +5335,217 @@ LABEL_10:
             v27 = [v6 objectAtIndexedSubscript:1];
             v28 = [_MLCANEPlistBuilder createUnitWithLayer:v5 unitParams:v27];
 
-            v169 = v5;
+            v168 = v5;
             v29 = [v5 label];
             v30 = [v29 stringByAppendingFormat:@"_%lu", objc_msgSend(v8, "count") + 1];
             [v28 setObject:v30 forKeyedSubscript:@"Name"];
 
-            v178 = 0;
+            v177 = 0;
             v31 = [v23 objectAtIndexedSubscript:1];
-            ANE_GetTensorFeatureChannelsWithOnePrepended(v31, &v178);
+            ANE_GetTensorFeatureChannelsWithOnePrepended(v31, &v177);
 
-            v32 = HIBYTE(v182);
-            if (v182 == 1)
+            v32 = HIBYTE(v181);
+            if (v181 == 1)
             {
               v33 = [v8 objectAtIndexedSubscript:0];
               if (v32)
               {
                 [v8 objectAtIndexedSubscript:1];
-                v34 = v172 = v6;
+                v34 = v171 = v6;
                 v35 = [v24 objectForKeyedSubscript:@"InputType"];
                 v36 = [v35 objectAtIndexedSubscript:1];
-                v211 = v36;
-                v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v211 count:1];
+                v210 = v36;
+                v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v210 count:1];
                 [v24 setObject:v37 forKeyedSubscript:@"InputType"];
 
-                v38 = [v176 objectAtIndexedSubscript:1];
+                v38 = [v175 objectAtIndexedSubscript:1];
                 v39 = [v38 label];
-                v210 = v39;
-                v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v210 count:1];
+                v209 = v39;
+                v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v209 count:1];
                 [v24 setObject:v40 forKeyedSubscript:@"Bottom"];
 
-                v41 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v178];
+                v41 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v177];
                 [v24 setObject:v41 forKeyedSubscript:@"OutputChannels"];
 
-                v42 = [v176 objectAtIndexedSubscript:1];
-                v209 = v42;
-                v168 = [MEMORY[0x277CBEA60] arrayWithObjects:&v209 count:1];
+                v42 = [v175 objectAtIndexedSubscript:1];
+                v208 = v42;
+                v167 = [MEMORY[0x277CBEA60] arrayWithObjects:&v208 count:1];
 
                 v43 = [v24 objectForKeyedSubscript:@"OutputType"];
-                v208 = v43;
-                v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v208 count:1];
+                v207 = v43;
+                v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v207 count:1];
                 [v34 setObject:v44 forKeyedSubscript:@"InputType"];
 
                 v45 = [v24 objectForKeyedSubscript:@"Name"];
-                v207 = v45;
-                v46 = [MEMORY[0x277CBEA60] arrayWithObjects:&v207 count:1];
+                v206 = v45;
+                v46 = [MEMORY[0x277CBEA60] arrayWithObjects:&v206 count:1];
                 [v34 setObject:v46 forKeyedSubscript:@"Bottom"];
 
                 v47 = [v33 objectForKeyedSubscript:@"OutputType"];
-                v206[0] = v47;
+                v205[0] = v47;
                 v48 = [v34 objectForKeyedSubscript:@"OutputType"];
-                v206[1] = v48;
-                v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v206 count:2];
+                v205[1] = v48;
+                v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v205 count:2];
                 [v28 setObject:v49 forKeyedSubscript:@"InputType"];
 
                 v50 = [v33 objectForKeyedSubscript:@"Name"];
-                v205[0] = v50;
+                v204[0] = v50;
                 v51 = [v34 objectForKeyedSubscript:@"Name"];
-                v205[1] = v51;
-                v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v205 count:2];
+                v204[1] = v51;
+                v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v204 count:2];
                 [v28 setObject:v52 forKeyedSubscript:@"Bottom"];
 
                 v53 = v33;
-                v54 = v177;
+                v54 = v176;
 
-                v6 = v172;
+                v6 = v171;
               }
 
               else
               {
                 v134 = [v24 objectForKeyedSubscript:@"InputType"];
                 v135 = [v134 objectAtIndexedSubscript:1];
-                v204 = v135;
-                v136 = [MEMORY[0x277CBEA60] arrayWithObjects:&v204 count:1];
+                v203 = v135;
+                v136 = [MEMORY[0x277CBEA60] arrayWithObjects:&v203 count:1];
                 [v24 setObject:v136 forKeyedSubscript:@"InputType"];
 
-                v137 = [v176 objectAtIndexedSubscript:1];
+                v137 = [v175 objectAtIndexedSubscript:1];
                 v138 = [v137 label];
-                v203 = v138;
-                v139 = [MEMORY[0x277CBEA60] arrayWithObjects:&v203 count:1];
+                v202 = v138;
+                v139 = [MEMORY[0x277CBEA60] arrayWithObjects:&v202 count:1];
                 [v24 setObject:v139 forKeyedSubscript:@"Bottom"];
 
-                v140 = [v176 objectAtIndexedSubscript:1];
-                v202 = v140;
-                v168 = [MEMORY[0x277CBEA60] arrayWithObjects:&v202 count:1];
+                v140 = [v175 objectAtIndexedSubscript:1];
+                v201 = v140;
+                v167 = [MEMORY[0x277CBEA60] arrayWithObjects:&v201 count:1];
 
                 v141 = [v33 objectForKeyedSubscript:@"OutputType"];
-                v201[0] = v141;
+                v200[0] = v141;
                 v142 = [v24 objectForKeyedSubscript:@"OutputType"];
-                v201[1] = v142;
-                v143 = [MEMORY[0x277CBEA60] arrayWithObjects:v201 count:2];
+                v200[1] = v142;
+                v143 = [MEMORY[0x277CBEA60] arrayWithObjects:v200 count:2];
                 [v28 setObject:v143 forKeyedSubscript:@"InputType"];
 
                 v144 = v33;
                 v145 = [v33 objectForKeyedSubscript:@"Name"];
-                v200[0] = v145;
+                v199[0] = v145;
                 v146 = [v24 objectForKeyedSubscript:@"Name"];
-                v200[1] = v146;
-                v147 = [MEMORY[0x277CBEA60] arrayWithObjects:v200 count:2];
+                v199[1] = v146;
+                v147 = [MEMORY[0x277CBEA60] arrayWithObjects:v199 count:2];
                 [v28 setObject:v147 forKeyedSubscript:@"Bottom"];
 
-                v148 = [v177 objectAtIndexedSubscript:0];
-                v199[0] = v148;
-                v149 = [v176 objectAtIndexedSubscript:1];
-                v199[1] = v149;
-                v54 = [MEMORY[0x277CBEA60] arrayWithObjects:v199 count:2];
+                v148 = [v176 objectAtIndexedSubscript:0];
+                v198[0] = v148;
+                v149 = [v175 objectAtIndexedSubscript:1];
+                v198[1] = v149;
+                v54 = [MEMORY[0x277CBEA60] arrayWithObjects:v198 count:2];
               }
             }
 
-            else if (HIBYTE(v182))
+            else if (HIBYTE(v181))
             {
               [v8 objectAtIndexedSubscript:0];
-              v110 = v173 = v6;
+              v110 = v172 = v6;
               v111 = [v24 objectForKeyedSubscript:@"InputType"];
               v112 = [v111 objectAtIndexedSubscript:1];
-              v198 = v112;
-              v113 = [MEMORY[0x277CBEA60] arrayWithObjects:&v198 count:1];
+              v197 = v112;
+              v113 = [MEMORY[0x277CBEA60] arrayWithObjects:&v197 count:1];
               [v24 setObject:v113 forKeyedSubscript:@"InputType"];
 
-              v114 = [v176 objectAtIndexedSubscript:1];
+              v114 = [v175 objectAtIndexedSubscript:1];
               v115 = [v114 label];
-              v197 = v115;
-              v116 = [MEMORY[0x277CBEA60] arrayWithObjects:&v197 count:1];
+              v196 = v115;
+              v116 = [MEMORY[0x277CBEA60] arrayWithObjects:&v196 count:1];
               [v24 setObject:v116 forKeyedSubscript:@"Bottom"];
 
-              v117 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v178];
+              v117 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v177];
               [v24 setObject:v117 forKeyedSubscript:@"OutputChannels"];
 
-              v118 = [v176 objectAtIndexedSubscript:1];
-              v196 = v118;
-              v168 = [MEMORY[0x277CBEA60] arrayWithObjects:&v196 count:1];
+              v118 = [v175 objectAtIndexedSubscript:1];
+              v195 = v118;
+              v167 = [MEMORY[0x277CBEA60] arrayWithObjects:&v195 count:1];
 
               v119 = [v24 objectForKeyedSubscript:@"OutputType"];
-              v195 = v119;
-              v120 = [MEMORY[0x277CBEA60] arrayWithObjects:&v195 count:1];
+              v194 = v119;
+              v120 = [MEMORY[0x277CBEA60] arrayWithObjects:&v194 count:1];
               [v110 setObject:v120 forKeyedSubscript:@"InputType"];
 
               v121 = [v24 objectForKeyedSubscript:@"Name"];
-              v194 = v121;
-              v122 = [MEMORY[0x277CBEA60] arrayWithObjects:&v194 count:1];
+              v193 = v121;
+              v122 = [MEMORY[0x277CBEA60] arrayWithObjects:&v193 count:1];
               [v110 setObject:v122 forKeyedSubscript:@"Bottom"];
 
               v123 = [v28 objectForKeyedSubscript:@"InputType"];
               v124 = [v123 objectAtIndexedSubscript:0];
-              v193[0] = v124;
+              v192[0] = v124;
               v125 = [v110 objectForKeyedSubscript:@"OutputType"];
-              v193[1] = v125;
-              v126 = [MEMORY[0x277CBEA60] arrayWithObjects:v193 count:2];
+              v192[1] = v125;
+              v126 = [MEMORY[0x277CBEA60] arrayWithObjects:v192 count:2];
               [v28 setObject:v126 forKeyedSubscript:@"InputType"];
 
-              v127 = [v176 objectAtIndexedSubscript:0];
+              v127 = [v175 objectAtIndexedSubscript:0];
               v128 = [v127 label];
-              v192[0] = v128;
+              v191[0] = v128;
               v129 = [v110 objectForKeyedSubscript:@"Name"];
-              v192[1] = v129;
-              v130 = [MEMORY[0x277CBEA60] arrayWithObjects:v192 count:2];
+              v191[1] = v129;
+              v130 = [MEMORY[0x277CBEA60] arrayWithObjects:v191 count:2];
               [v28 setObject:v130 forKeyedSubscript:@"Bottom"];
 
-              v131 = [v176 objectAtIndexedSubscript:0];
-              v191[0] = v131;
-              v132 = [v177 objectAtIndexedSubscript:0];
-              v191[1] = v132;
-              v54 = [MEMORY[0x277CBEA60] arrayWithObjects:v191 count:2];
+              v131 = [v175 objectAtIndexedSubscript:0];
+              v190[0] = v131;
+              v132 = [v176 objectAtIndexedSubscript:0];
+              v190[1] = v132;
+              v54 = [MEMORY[0x277CBEA60] arrayWithObjects:v190 count:2];
 
-              v6 = v173;
+              v6 = v172;
             }
 
             else
             {
               v150 = [v24 objectForKeyedSubscript:@"InputType"];
               v151 = [v150 objectAtIndexedSubscript:1];
-              v190 = v151;
-              v152 = [MEMORY[0x277CBEA60] arrayWithObjects:&v190 count:1];
+              v189 = v151;
+              v152 = [MEMORY[0x277CBEA60] arrayWithObjects:&v189 count:1];
               [v24 setObject:v152 forKeyedSubscript:@"InputType"];
 
-              v153 = [v176 objectAtIndexedSubscript:1];
+              v153 = [v175 objectAtIndexedSubscript:1];
               v154 = [v153 label];
-              v189 = v154;
-              v155 = [MEMORY[0x277CBEA60] arrayWithObjects:&v189 count:1];
+              v188 = v154;
+              v155 = [MEMORY[0x277CBEA60] arrayWithObjects:&v188 count:1];
               [v24 setObject:v155 forKeyedSubscript:@"Bottom"];
 
-              v156 = [v176 objectAtIndexedSubscript:1];
-              v188 = v156;
-              v168 = [MEMORY[0x277CBEA60] arrayWithObjects:&v188 count:1];
+              v156 = [v175 objectAtIndexedSubscript:1];
+              v187 = v156;
+              v167 = [MEMORY[0x277CBEA60] arrayWithObjects:&v187 count:1];
 
               v157 = [v28 objectForKeyedSubscript:@"InputType"];
               v158 = [v157 objectAtIndexedSubscript:0];
-              v187[0] = v158;
+              v186[0] = v158;
               v159 = [v24 objectForKeyedSubscript:@"OutputType"];
-              v187[1] = v159;
-              v160 = [MEMORY[0x277CBEA60] arrayWithObjects:v187 count:2];
+              v186[1] = v159;
+              v160 = [MEMORY[0x277CBEA60] arrayWithObjects:v186 count:2];
               [v28 setObject:v160 forKeyedSubscript:@"InputType"];
 
-              v161 = [v176 objectAtIndexedSubscript:0];
+              v161 = [v175 objectAtIndexedSubscript:0];
               v162 = [v161 label];
-              v186[0] = v162;
+              v185[0] = v162;
               v163 = [v24 objectForKeyedSubscript:@"Name"];
-              v186[1] = v163;
-              v164 = [MEMORY[0x277CBEA60] arrayWithObjects:v186 count:2];
+              v185[1] = v163;
+              v164 = [MEMORY[0x277CBEA60] arrayWithObjects:v185 count:2];
               [v28 setObject:v164 forKeyedSubscript:@"Bottom"];
 
-              v54 = v176;
+              v54 = v175;
             }
 
-            v5 = v169;
-            if (ANE_ValidateNeuronUnit(v168, v24, 1))
+            v5 = v168;
+            if (ANE_ValidateNeuronUnit(v167, v24, 1))
             {
               [v8 addObject:v24];
               if (ANE_ValidateElementWiseUnit(v54, v28, 1))
               {
                 [v8 addObject:v28];
 
-                v11 = v175;
+                v11 = v174;
                 goto LABEL_54;
               }
 
@@ -5578,8 +5566,8 @@ LABEL_10:
             }
 
             v80 = 0;
-            v11 = v175;
-            v9 = v176;
+            v11 = v174;
+            v9 = v175;
             goto LABEL_93;
           }
 
@@ -5606,8 +5594,8 @@ LABEL_25:
 
         v68 = [v24 objectForKeyedSubscript:@"Bottom"];
         v69 = v5;
-        v70 = HIBYTE(v182);
-        if (v182 == 1)
+        v70 = HIBYTE(v181);
+        if (v181 == 1)
         {
           v71 = v69;
           v72 = [v69 label];
@@ -5624,20 +5612,20 @@ LABEL_25:
             v77 = [v76 objectForKeyedSubscript:@"Name"];
             [v68 setObject:v77 atIndexedSubscript:1];
 
-            v78 = v177;
+            v78 = v176;
           }
 
           else
           {
-            v102 = [v176 objectAtIndexedSubscript:1];
+            v102 = [v175 objectAtIndexedSubscript:1];
             v103 = [v102 label];
             [v68 setObject:v103 atIndexedSubscript:1];
 
-            v104 = [v177 objectAtIndexedSubscript:0];
-            v213[0] = v104;
-            v105 = [v176 objectAtIndexedSubscript:1];
-            v213[1] = v105;
-            v78 = [MEMORY[0x277CBEA60] arrayWithObjects:v213 count:2];
+            v104 = [v176 objectAtIndexedSubscript:0];
+            v212[0] = v104;
+            v105 = [v175 objectAtIndexedSubscript:1];
+            v212[1] = v105;
+            v78 = [MEMORY[0x277CBEA60] arrayWithObjects:v212 count:2];
           }
 
           v5 = v71;
@@ -5646,14 +5634,14 @@ LABEL_25:
         else
         {
           v81 = v69;
-          if (HIBYTE(v182))
+          if (HIBYTE(v181))
           {
             v5 = v69;
             v82 = [v69 label];
             v83 = [v82 stringByAppendingFormat:@"_%lu", objc_msgSend(v8, "count")];
             [v24 setObject:v83 forKeyedSubscript:@"Name"];
 
-            v84 = [v176 objectAtIndexedSubscript:0];
+            v84 = [v175 objectAtIndexedSubscript:0];
             v85 = [v84 label];
             [v68 setObject:v85 atIndexedSubscript:0];
 
@@ -5661,16 +5649,16 @@ LABEL_25:
             v87 = [v86 objectForKeyedSubscript:@"Name"];
             [v68 setObject:v87 atIndexedSubscript:1];
 
-            v88 = [v176 objectAtIndexedSubscript:0];
-            v212[0] = v88;
-            v89 = [v177 objectAtIndexedSubscript:0];
-            v212[1] = v89;
-            v78 = [MEMORY[0x277CBEA60] arrayWithObjects:v212 count:2];
+            v88 = [v175 objectAtIndexedSubscript:0];
+            v211[0] = v88;
+            v89 = [v176 objectAtIndexedSubscript:0];
+            v211[1] = v89;
+            v78 = [MEMORY[0x277CBEA60] arrayWithObjects:v211 count:2];
           }
 
           else
           {
-            v78 = v176;
+            v78 = v175;
             v5 = v81;
           }
         }
@@ -5702,12 +5690,12 @@ LABEL_30:
       goto LABEL_31;
     }
 
-    if ((a1 - 28) < 2)
+    if ((v4 - 28) < 2)
     {
       goto LABEL_25;
     }
 
-    if (a1 == 22)
+    if (v4 == 22)
     {
       if ([v6 count] != 2)
       {
@@ -5740,8 +5728,8 @@ LABEL_30:
         [v60 setObject:v98 forKeyedSubscript:@"Name"];
 
         v99 = [v24 objectForKeyedSubscript:@"Name"];
-        v185 = v99;
-        v100 = [MEMORY[0x277CBEA60] arrayWithObjects:&v185 count:1];
+        v184 = v99;
+        v100 = [MEMORY[0x277CBEA60] arrayWithObjects:&v184 count:1];
         [v60 setObject:v100 forKeyedSubscript:@"Bottom"];
 
         if ((ANE_ValidateNeuronUnit(v93, v60, 1) & 1) == 0)
@@ -5775,7 +5763,7 @@ LABEL_42:
 
     else
     {
-      if (a1 != 24)
+      if (v4 != 24)
       {
 LABEL_34:
         if ([v6 count] == 1)
@@ -5788,7 +5776,7 @@ LABEL_34:
 
           if (v90)
           {
-            if ((ANE_ValidateNeuronUnit(v176, v24, 1) & 1) == 0)
+            if ((ANE_ValidateNeuronUnit(v175, v24, 1) & 1) == 0)
             {
               v60 = +[MLCLog framework];
               if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
@@ -5802,9 +5790,9 @@ LABEL_34:
 
           else
           {
-            v107 = [v176 objectAtIndexedSubscript:0];
-            v183 = v107;
-            v108 = [MEMORY[0x277CBEA60] arrayWithObjects:&v183 count:1];
+            v107 = [v175 objectAtIndexedSubscript:0];
+            v182 = v107;
+            v108 = [MEMORY[0x277CBEA60] arrayWithObjects:&v182 count:1];
             v109 = ANE_ValidateElementWiseUnit(v108, v24, 1);
 
             if ((v109 & 1) == 0)
@@ -5824,7 +5812,7 @@ LABEL_54:
 
           v80 = [v8 copy];
 LABEL_92:
-          v9 = v176;
+          v9 = v175;
           goto LABEL_93;
         }
 
@@ -5868,8 +5856,8 @@ LABEL_92:
         [v60 setObject:v63 forKeyedSubscript:@"Name"];
 
         v64 = [v24 objectForKeyedSubscript:@"Name"];
-        v184 = v64;
-        v65 = [MEMORY[0x277CBEA60] arrayWithObjects:&v184 count:1];
+        v183 = v64;
+        v65 = [MEMORY[0x277CBEA60] arrayWithObjects:&v183 count:1];
         [v60 setObject:v65 forKeyedSubscript:@"Bottom"];
 
         if ((ANE_ValidateGOCUnit(v56, v60, 1) & 1) == 0)
@@ -5899,19 +5887,19 @@ LABEL_91:
     goto LABEL_92;
   }
 
-  v170 = a1;
-  v171 = v6;
-  v174 = v11;
-  v181 = 0;
-  ANE_GetTensor4DShapeWithOnePrepended(v11, &v181);
-  v12 = v181;
+  v169 = v4;
+  v170 = v6;
+  v173 = v11;
+  v180 = 0;
+  ANE_GetTensor4DShapeWithOnePrepended(v11, &v180);
+  v12 = v180;
   if (![v9 count])
   {
 LABEL_9:
 
-    v6 = v171;
-    v11 = v174;
-    a1 = v170;
+    v6 = v170;
+    v11 = v173;
+    v4 = v169;
     goto LABEL_10;
   }
 
@@ -5919,11 +5907,11 @@ LABEL_9:
   while (1)
   {
     v14 = [v9 objectAtIndexedSubscript:v13];
+    v178 = 0;
     v179 = 0;
-    v180 = 0;
-    v15 = [_MLCANEPlistBuilder createBroadcastUnitWithSourceTensor:v14 targetShape:v12 layer:v5 broadcastUnit:&v180 broadcastResultTensor:&v179];
-    v16 = v180;
-    v17 = v179;
+    v15 = [_MLCANEPlistBuilder createBroadcastUnitWithSourceTensor:v14 targetShape:v12 layer:v5 broadcastUnit:&v179 broadcastResultTensor:&v178];
+    v16 = v179;
+    v17 = v178;
     if (v15 == 1)
     {
       goto LABEL_8;
@@ -5946,7 +5934,7 @@ LABEL_9:
       goto LABEL_48;
     }
 
-    *(&v182 + v13) = 1;
+    *(&v181 + v13) = 1;
     v18 = [v5 label];
     [v18 stringByAppendingFormat:@"_%lu", objc_msgSend(v8, "count")];
     v19 = v8;
@@ -5955,10 +5943,10 @@ LABEL_9:
 
     v5 = v20;
     v8 = v19;
-    v9 = v176;
+    v9 = v175;
 
     [v8 addObject:v16];
-    [v177 addObject:v17];
+    [v176 addObject:v17];
 LABEL_8:
 
     if (++v13 >= [v9 count])
@@ -5976,11 +5964,9 @@ LABEL_8:
 LABEL_48:
 
   v80 = 0;
-  v6 = v171;
-  v11 = v174;
+  v6 = v170;
+  v11 = v173;
 LABEL_93:
-
-  v166 = *MEMORY[0x277D85DE8];
 
   return v80;
 }
@@ -6019,7 +6005,7 @@ id ANE_CompileArithmeticLayer(void *a1, uint64_t a2, void *a3)
 
 uint64_t ANE_IsSupportedLayer(void *a1)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if (ANE_IsAneCompiledLayer(v1))
   {
@@ -6036,46 +6022,46 @@ uint64_t ANE_IsSupportedLayer(void *a1)
       goto LABEL_28;
     }
 
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     v5 = [v1 resultTensors];
-    v6 = [v5 countByEnumeratingWithState:&v43 objects:v52 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v42 objects:v51 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v44;
+      v8 = *v43;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v44 != v8)
+          if (*v43 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v43 + 1) + 8 * i);
+          v10 = *(*(&v42 + 1) + 8 * i);
+          v38 = 0u;
           v39 = 0u;
           v40 = 0u;
           v41 = 0u;
-          v42 = 0u;
           v11 = [v10 childLayers];
-          v12 = [v11 countByEnumeratingWithState:&v39 objects:v51 count:16];
+          v12 = [v11 countByEnumeratingWithState:&v38 objects:v50 count:16];
           if (v12)
           {
             v13 = v12;
-            v14 = *v40;
+            v14 = *v39;
             do
             {
               for (j = 0; j != v13; ++j)
               {
-                if (*v40 != v14)
+                if (*v39 != v14)
                 {
                   objc_enumerationMutation(v11);
                 }
 
-                if (!ANE_IsSupportedLayer(*(*(&v39 + 1) + 8 * j)))
+                if (!ANE_IsSupportedLayer(*(*(&v38 + 1) + 8 * j)))
                 {
 
 LABEL_28:
@@ -6084,14 +6070,14 @@ LABEL_28:
                 }
               }
 
-              v13 = [v11 countByEnumeratingWithState:&v39 objects:v51 count:16];
+              v13 = [v11 countByEnumeratingWithState:&v38 objects:v50 count:16];
             }
 
             while (v13);
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v43 objects:v52 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v42 objects:v51 count:16];
       }
 
       while (v7);
@@ -6115,52 +6101,52 @@ LABEL_2:
     goto LABEL_7;
   }
 
-  v18 = [v3 resultTensors];
-  v19 = [v18 objectAtIndexedSubscript:0];
+  v17 = [v3 resultTensors];
+  v18 = [v17 objectAtIndexedSubscript:0];
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
-  v20 = [v19 childLayers];
-  v21 = [v20 countByEnumeratingWithState:&v47 objects:v53 count:16];
-  if (!v21)
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v19 = [v18 childLayers];
+  v20 = [v19 countByEnumeratingWithState:&v46 objects:v52 count:16];
+  if (!v20)
   {
     v2 = 1;
     goto LABEL_55;
   }
 
-  v22 = v21;
-  v23 = *v48;
-  v38 = v19;
+  v21 = v20;
+  v22 = *v47;
+  v37 = v18;
   while (2)
   {
-    for (k = 0; k != v22; ++k)
+    for (k = 0; k != v21; ++k)
     {
-      if (*v48 != v23)
+      if (*v47 != v22)
       {
-        objc_enumerationMutation(v20);
+        objc_enumerationMutation(v19);
       }
 
-      v25 = *(*(&v47 + 1) + 8 * k);
-      if (!ANE_IsAneCompiledLayer(v25))
+      v24 = *(*(&v46 + 1) + 8 * k);
+      if (!ANE_IsAneCompiledLayer(v24))
       {
 LABEL_50:
         v2 = 0;
-        v19 = v38;
+        v18 = v37;
         goto LABEL_55;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v26 = [v25 deviceOps];
-        v27 = [v26 objectAtIndexedSubscript:0];
+        v25 = [v24 deviceOps];
+        v26 = [v25 objectAtIndexedSubscript:0];
 
-        v28 = [v27 units];
-        v29 = ANE_FindUnitWithType(@"Conv", v28);
+        v27 = [v26 units];
+        v28 = ANE_FindUnitWithType(@"Conv", v27);
 
-        if (!v29 || !applyAndCheckPaddingSizes(v3, v29, 1))
+        if (!v28 || !applyAndCheckPaddingSizes(v3, v28, 1))
         {
           goto LABEL_53;
         }
@@ -6174,35 +6160,35 @@ LABEL_50:
         goto LABEL_50;
       }
 
-      v27 = v25;
-      v30 = [v27 descriptor];
-      v31 = [v30 poolingType];
+      v26 = v24;
+      v29 = [v26 descriptor];
+      v30 = [v29 poolingType];
 
-      if (v31 != 1)
+      if (v30 != 1)
       {
-        if (v31 == 2)
+        if (v30 == 2)
         {
-          v32 = [v27 descriptor];
-          v33 = [v32 countIncludesPadding];
+          v31 = [v26 descriptor];
+          v32 = [v31 countIncludesPadding];
 
-          if (v33)
+          if (v32)
           {
             goto LABEL_44;
           }
 
-          v19 = v38;
+          v18 = v37;
         }
 
         else
         {
-          v29 = +[MLCLog framework];
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+          v28 = +[MLCLog framework];
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
           {
-            ANE_IsSupportedLayer_cold_1(v27, v29);
+            ANE_IsSupportedLayer_cold_1(v26, v28);
           }
 
 LABEL_53:
-          v19 = v38;
+          v18 = v37;
         }
 
         v2 = 0;
@@ -6210,29 +6196,29 @@ LABEL_53:
       }
 
 LABEL_44:
-      v34 = [v27 deviceOps];
-      v29 = [v34 objectAtIndexedSubscript:0];
+      v33 = [v26 deviceOps];
+      v28 = [v33 objectAtIndexedSubscript:0];
 
-      v35 = [v29 units];
-      v36 = ANE_FindUnitWithType(@"Pooling", v35);
+      v34 = [v28 units];
+      v35 = ANE_FindUnitWithType(@"Pooling", v34);
 
-      if (!v36)
+      if (!v35)
       {
         goto LABEL_53;
       }
 
-      v37 = applyAndCheckPaddingSizes(v3, v36, 0);
+      v36 = applyAndCheckPaddingSizes(v3, v35, 0);
 
-      if (!v37)
+      if (!v36)
       {
         goto LABEL_50;
       }
     }
 
-    v22 = [v20 countByEnumeratingWithState:&v47 objects:v53 count:16];
+    v21 = [v19 countByEnumeratingWithState:&v46 objects:v52 count:16];
     v2 = 1;
-    v19 = v38;
-    if (v22)
+    v18 = v37;
+    if (v21)
     {
       continue;
     }
@@ -6245,13 +6231,12 @@ LABEL_55:
 LABEL_7:
 LABEL_29:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 void buildANESubgraph(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, unint64_t a7)
 {
-  v132 = *MEMORY[0x277D85DE8];
+  v131 = *MEMORY[0x277D85DE8];
   v13 = a1;
   v14 = a2;
   v15 = a3;
@@ -6260,46 +6245,46 @@ void buildANESubgraph(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6
   v18 = v15;
   v19 = v17;
   v20 = a6;
-  v91 = [MEMORY[0x277CBEBF8] mutableCopy];
+  v90 = [MEMORY[0x277CBEBF8] mutableCopy];
   [v14 addObject:v13];
-  v114 = 0u;
-  v115 = 0u;
-  v112 = 0u;
   v113 = 0u;
-  v87 = v13;
+  v114 = 0u;
+  v111 = 0u;
+  v112 = 0u;
+  v86 = v13;
   v21 = v13;
   v22 = v16;
   v23 = [v21 sourceTensors];
-  v24 = [v23 countByEnumeratingWithState:&v112 objects:v124 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v111 objects:v123 count:16];
   if (v24)
   {
-    v26 = *v113;
+    v26 = *v112;
     *&v25 = 136315394;
-    v73 = v25;
-    v94 = v19;
-    v95 = v23;
-    v86 = v15;
-    v90 = v16;
-    v80 = *v113;
+    v72 = v25;
+    v93 = v19;
+    v94 = v23;
+    v85 = v15;
+    v89 = v16;
+    v79 = *v112;
     do
     {
       v27 = 0;
-      v79 = v24;
+      v78 = v24;
       do
       {
-        if (*v113 != v26)
+        if (*v112 != v26)
         {
           v28 = v27;
           objc_enumerationMutation(v23);
           v27 = v28;
         }
 
-        v83 = v27;
-        v29 = *(*(&v112 + 1) + 8 * v27);
+        v82 = v27;
+        v29 = *(*(&v111 + 1) + 8 * v27);
+        v107 = 0u;
         v108 = 0u;
         v109 = 0u;
         v110 = 0u;
-        v111 = 0u;
         v30 = v29;
         v31 = [MEMORY[0x277CBEBF8] mutableCopy];
         v32 = [v30 parentLayers];
@@ -6310,12 +6295,12 @@ void buildANESubgraph(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6
         {
 LABEL_24:
           v49 = v31;
-          v22 = v90;
+          v22 = v89;
           goto LABEL_32;
         }
 
         v34 = 0;
-        v92 = v30;
+        v91 = v30;
         while (1)
         {
           v35 = [v30 parentLayers];
@@ -6330,14 +6315,14 @@ LABEL_24:
 LABEL_23:
 
           ++v34;
-          v30 = v92;
+          v30 = v91;
           if (v34 == obj)
           {
             goto LABEL_24;
           }
         }
 
-        v84 = v34;
+        v83 = v34;
         if (v36)
         {
           while ([v36 skipLayer])
@@ -6348,17 +6333,17 @@ LABEL_23:
             if (v38 != 1)
             {
               v50 = +[MLCLog framework];
-              v19 = v94;
+              v19 = v93;
               if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
               {
-                *buf = v73;
-                v129 = "getParentLayers";
-                v130 = 2112;
-                v131 = v36;
+                *buf = v72;
+                v128 = "getParentLayers";
+                v129 = 2112;
+                v130 = v36;
                 _os_log_error_impl(&dword_238C1D000, v50, OS_LOG_TYPE_ERROR, "%s: Cannot find parents for a layer = %@", buf, 0x16u);
               }
 
-              v22 = v90;
+              v22 = v89;
               goto LABEL_31;
             }
 
@@ -6374,187 +6359,187 @@ LABEL_23:
             }
           }
 
-          v118 = 0u;
-          v119 = 0u;
-          v116 = 0u;
           v117 = 0u;
+          v118 = 0u;
+          v115 = 0u;
+          v116 = 0u;
           v43 = [v36 sourceTensors];
-          v44 = [v43 countByEnumeratingWithState:&v116 objects:v125 count:16];
+          v44 = [v43 countByEnumeratingWithState:&v115 objects:v124 count:16];
           if (v44)
           {
             v45 = v44;
-            v46 = *v117;
+            v46 = *v116;
             do
             {
               for (i = 0; i != v45; ++i)
               {
-                if (*v117 != v46)
+                if (*v116 != v46)
                 {
                   objc_enumerationMutation(v43);
                 }
 
-                v48 = [*(*(&v116 + 1) + 8 * i) parentLayers];
+                v48 = [*(*(&v115 + 1) + 8 * i) parentLayers];
                 [v31 addObjectsFromArray:v48];
               }
 
-              v45 = [v43 countByEnumeratingWithState:&v116 objects:v125 count:16];
+              v45 = [v43 countByEnumeratingWithState:&v115 objects:v124 count:16];
             }
 
             while (v45);
           }
 
-          v34 = v84;
-          v18 = v86;
-          v19 = v94;
+          v34 = v83;
+          v18 = v85;
+          v19 = v93;
           goto LABEL_23;
         }
 
 LABEL_25:
         v36 = +[MLCLog framework];
-        v22 = v90;
+        v22 = v89;
         if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
         {
-          buildANESubgraph_cold_1(v126, &v127, v36);
+          buildANESubgraph_cold_1(v125, &v126, v36);
         }
 
-        v19 = v94;
+        v19 = v93;
 LABEL_31:
 
         v49 = MEMORY[0x277CBEBF8];
-        v30 = v92;
+        v30 = v91;
 LABEL_32:
 
-        v51 = [v49 countByEnumeratingWithState:&v108 objects:v123 count:16];
-        v23 = v95;
+        v51 = [v49 countByEnumeratingWithState:&v107 objects:v122 count:16];
+        v23 = v94;
         if (v51)
         {
-          v52 = *v109;
-          v78 = *v109;
+          v52 = *v108;
+          v77 = *v108;
           while (2)
           {
             v53 = 0;
-            v77 = v51;
+            v76 = v51;
             do
             {
-              if (*v109 != v52)
+              if (*v108 != v52)
               {
                 objc_enumerationMutation(v49);
               }
 
-              v54 = *(*(&v108 + 1) + 8 * v53);
-              if ([v22 doesLayer:v54 dominatesSubgraph:{v18, v73}] & 1) != 0 || (objc_msgSend(v19, "containsObject:", v54))
+              v54 = *(*(&v107 + 1) + 8 * v53);
+              if ([v22 doesLayer:v54 dominatesSubgraph:{v18, v72}] & 1) != 0 || (objc_msgSend(v19, "containsObject:", v54))
               {
 LABEL_70:
 
                 goto LABEL_71;
               }
 
-              v106 = 0u;
-              v107 = 0u;
-              v104 = 0u;
               v105 = 0u;
+              v106 = 0u;
+              v103 = 0u;
+              v104 = 0u;
               obja = [v54 resultTensors];
-              v81 = [obja countByEnumeratingWithState:&v104 objects:v122 count:16];
-              if (v81)
+              v80 = [obja countByEnumeratingWithState:&v103 objects:v121 count:16];
+              if (v80)
               {
-                v55 = *v105;
-                v85 = v49;
-                v74 = v54;
-                v75 = v53;
-                v76 = *v105;
+                v55 = *v104;
+                v84 = v49;
+                v73 = v54;
+                v74 = v53;
+                v75 = *v104;
                 do
                 {
                   v56 = 0;
                   do
                   {
-                    if (*v105 != v55)
+                    if (*v104 != v55)
                     {
                       v57 = v56;
                       objc_enumerationMutation(obja);
                       v56 = v57;
                     }
 
-                    v82 = v56;
-                    v58 = *(*(&v104 + 1) + 8 * v56);
+                    v81 = v56;
+                    v58 = *(*(&v103 + 1) + 8 * v56);
+                    v99 = 0u;
                     v100 = 0u;
                     v101 = 0u;
                     v102 = 0u;
-                    v103 = 0u;
-                    v93 = [v58 childLayers];
-                    v59 = [v93 countByEnumeratingWithState:&v100 objects:v121 count:16];
+                    v92 = [v58 childLayers];
+                    v59 = [v92 countByEnumeratingWithState:&v99 objects:v120 count:16];
                     if (v59)
                     {
                       v60 = v59;
-                      v61 = *v101;
+                      v61 = *v100;
                       do
                       {
                         for (j = 0; j != v60; ++j)
                         {
-                          if (*v101 != v61)
+                          if (*v100 != v61)
                           {
-                            objc_enumerationMutation(v93);
+                            objc_enumerationMutation(v92);
                           }
 
-                          v63 = *(*(&v100 + 1) + 8 * j);
+                          v63 = *(*(&v99 + 1) + 8 * j);
                           v64 = [v63 key];
                           v65 = [v20 objectForKeyedSubscript:v64];
                           if ([v65 unsignedIntegerValue] >= a7)
                           {
 
-                            v23 = v95;
+                            v23 = v94;
                           }
 
                           else
                           {
                             v66 = [v14 containsObject:v63];
 
-                            v23 = v95;
+                            v23 = v94;
                             if ((v66 & 1) == 0)
                             {
 
-                              v49 = v85;
-                              v18 = v86;
-                              v22 = v90;
-                              v19 = v94;
+                              v49 = v84;
+                              v18 = v85;
+                              v22 = v89;
+                              v19 = v93;
                               goto LABEL_70;
                             }
                           }
 
-                          v19 = v94;
+                          v19 = v93;
                         }
 
-                        v60 = [v93 countByEnumeratingWithState:&v100 objects:v121 count:16];
+                        v60 = [v92 countByEnumeratingWithState:&v99 objects:v120 count:16];
                       }
 
                       while (v60);
                     }
 
-                    v56 = v82 + 1;
-                    v49 = v85;
-                    v18 = v86;
-                    v22 = v90;
-                    v54 = v74;
-                    v53 = v75;
-                    v55 = v76;
+                    v56 = v81 + 1;
+                    v49 = v84;
+                    v18 = v85;
+                    v22 = v89;
+                    v54 = v73;
+                    v53 = v74;
+                    v55 = v75;
                   }
 
-                  while (v82 + 1 != v81);
-                  v67 = [obja countByEnumeratingWithState:&v104 objects:v122 count:16];
-                  v55 = v76;
-                  v81 = v67;
+                  while (v81 + 1 != v80);
+                  v67 = [obja countByEnumeratingWithState:&v103 objects:v121 count:16];
+                  v55 = v75;
+                  v80 = v67;
                 }
 
                 while (v67);
               }
 
-              [v91 addObject:v54];
+              [v90 addObject:v54];
               ++v53;
-              v52 = v78;
+              v52 = v77;
             }
 
-            while (v53 != v77);
-            v51 = [v49 countByEnumeratingWithState:&v108 objects:v123 count:16];
-            v52 = v78;
+            while (v53 != v76);
+            v51 = [v49 countByEnumeratingWithState:&v107 objects:v122 count:16];
+            v52 = v77;
             if (v51)
             {
               continue;
@@ -6564,43 +6549,43 @@ LABEL_70:
           }
         }
 
-        v27 = v83 + 1;
-        v26 = v80;
+        v27 = v82 + 1;
+        v26 = v79;
       }
 
-      while (v83 + 1 != v79);
-      v24 = [v23 countByEnumeratingWithState:&v112 objects:v124 count:16];
-      v26 = v80;
+      while (v82 + 1 != v78);
+      v24 = [v23 countByEnumeratingWithState:&v111 objects:v123 count:16];
+      v26 = v79;
     }
 
     while (v24);
   }
 
-  if ([v91 count])
+  if ([v90 count])
   {
-    v98 = 0u;
-    v99 = 0u;
-    v96 = 0u;
     v97 = 0u;
-    v23 = v91;
-    v68 = [v23 countByEnumeratingWithState:&v96 objects:v120 count:16];
+    v98 = 0u;
+    v95 = 0u;
+    v96 = 0u;
+    v23 = v90;
+    v68 = [v23 countByEnumeratingWithState:&v95 objects:v119 count:16];
     if (v68)
     {
       v69 = v68;
-      v70 = *v97;
+      v70 = *v96;
       do
       {
         for (k = 0; k != v69; ++k)
         {
-          if (*v97 != v70)
+          if (*v96 != v70)
           {
             objc_enumerationMutation(v23);
           }
 
-          buildANESubgraph(*(*(&v96 + 1) + 8 * k), v14, v18, v22, v19, v20, a7);
+          buildANESubgraph(*(*(&v95 + 1) + 8 * k), v14, v18, v22, v19, v20, a7);
         }
 
-        v69 = [v23 countByEnumeratingWithState:&v96 objects:v120 count:16];
+        v69 = [v23 countByEnumeratingWithState:&v95 objects:v119 count:16];
       }
 
       while (v69);
@@ -6608,8 +6593,6 @@ LABEL_70:
 
 LABEL_71:
   }
-
-  v72 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t applyAndCheckPaddingSizes(void *a1, void *a2, int a3)
@@ -6634,7 +6617,7 @@ uint64_t applyAndCheckPaddingSizes(void *a1, void *a2, int a3)
 
 uint64_t canMergeANESubgraphsHelper(void *a1, void *a2, void *a3, void *a4)
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a2;
   v9 = a3;
@@ -6650,31 +6633,31 @@ uint64_t canMergeANESubgraphsHelper(void *a1, void *a2, void *a3, void *a4)
 
   else
   {
-    v47 = v12;
-    v48 = v11;
-    v50 = v7;
-    v51 = v9;
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
+    v46 = v12;
+    v47 = v11;
+    v49 = v7;
+    v50 = v9;
     v63 = 0u;
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
     obj = v7;
-    v15 = [obj countByEnumeratingWithState:&v62 objects:v68 count:16];
+    v15 = [obj countByEnumeratingWithState:&v61 objects:v67 count:16];
     if (v15)
     {
       v16 = v15;
       v17 = 0;
-      v18 = *v63;
+      v18 = *v62;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v63 != v18)
+          if (*v62 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = *(*(&v62 + 1) + 8 * i);
+          v20 = *(*(&v61 + 1) + 8 * i);
           v21 = [v20 key];
           v22 = [v10 objectForKeyedSubscript:v21];
           if (v17 <= [v22 unsignedIntegerValue])
@@ -6685,7 +6668,7 @@ uint64_t canMergeANESubgraphsHelper(void *a1, void *a2, void *a3, void *a4)
           }
         }
 
-        v16 = [obj countByEnumeratingWithState:&v62 objects:v68 count:16];
+        v16 = [obj countByEnumeratingWithState:&v61 objects:v67 count:16];
       }
 
       while (v16);
@@ -6696,28 +6679,28 @@ uint64_t canMergeANESubgraphsHelper(void *a1, void *a2, void *a3, void *a4)
       v17 = 0;
     }
 
-    v60 = 0u;
-    v61 = 0u;
-    v58 = 0u;
     v59 = 0u;
-    v49 = v8;
-    v53 = v8;
-    v25 = [v53 countByEnumeratingWithState:&v58 objects:v67 count:16];
+    v60 = 0u;
+    v57 = 0u;
+    v58 = 0u;
+    v48 = v8;
+    v52 = v8;
+    v25 = [v52 countByEnumeratingWithState:&v57 objects:v66 count:16];
     if (v25)
     {
       v26 = v25;
       v27 = 0;
-      v28 = *v59;
+      v28 = *v58;
       do
       {
         for (j = 0; j != v26; ++j)
         {
-          if (*v59 != v28)
+          if (*v58 != v28)
           {
-            objc_enumerationMutation(v53);
+            objc_enumerationMutation(v52);
           }
 
-          v30 = *(*(&v58 + 1) + 8 * j);
+          v30 = *(*(&v57 + 1) + 8 * j);
           v31 = [v30 key];
           v32 = [v10 objectForKeyedSubscript:v31];
           if (v27 <= [v32 unsignedIntegerValue])
@@ -6728,7 +6711,7 @@ uint64_t canMergeANESubgraphsHelper(void *a1, void *a2, void *a3, void *a4)
           }
         }
 
-        v26 = [v53 countByEnumeratingWithState:&v58 objects:v67 count:16];
+        v26 = [v52 countByEnumeratingWithState:&v57 objects:v66 count:16];
       }
 
       while (v26);
@@ -6749,28 +6732,28 @@ uint64_t canMergeANESubgraphsHelper(void *a1, void *a2, void *a3, void *a4)
       v35 = v17;
     }
 
-    v9 = v51;
-    [v51 getPostDominanceFrontierForSubgraph:obj];
+    v9 = v50;
+    [v50 getPostDominanceFrontierForSubgraph:obj];
+    v53 = 0u;
     v54 = 0u;
     v55 = 0u;
-    v56 = 0u;
-    v36 = v57 = 0u;
-    v37 = [v36 countByEnumeratingWithState:&v54 objects:v66 count:16];
+    v36 = v56 = 0u;
+    v37 = [v36 countByEnumeratingWithState:&v53 objects:v65 count:16];
     if (v37)
     {
       v38 = v37;
-      v39 = *v55;
-      v8 = v49;
+      v39 = *v54;
+      v8 = v48;
       do
       {
         for (k = 0; k != v38; ++k)
         {
-          if (*v55 != v39)
+          if (*v54 != v39)
           {
             objc_enumerationMutation(v36);
           }
 
-          v41 = *(*(&v54 + 1) + 8 * k);
+          v41 = *(*(&v53 + 1) + 8 * k);
           v42 = [v41 key];
           v43 = [v10 objectForKeyedSubscript:v42];
           if ([v43 unsignedIntegerValue] >= v35)
@@ -6779,7 +6762,7 @@ uint64_t canMergeANESubgraphsHelper(void *a1, void *a2, void *a3, void *a4)
 
           else
           {
-            v44 = [v53 containsObject:v41];
+            v44 = [v52 containsObject:v41];
 
             if ((v44 & 1) == 0)
             {
@@ -6789,27 +6772,26 @@ uint64_t canMergeANESubgraphsHelper(void *a1, void *a2, void *a3, void *a4)
           }
         }
 
-        v38 = [v36 countByEnumeratingWithState:&v54 objects:v66 count:16];
+        v38 = [v36 countByEnumeratingWithState:&v53 objects:v65 count:16];
       }
 
       while (v38);
       v14 = 1;
 LABEL_41:
-      v9 = v51;
+      v9 = v50;
     }
 
     else
     {
       v14 = 1;
-      v8 = v49;
+      v8 = v48;
     }
 
-    v7 = v50;
-    v12 = v47;
-    v11 = v48;
+    v7 = v49;
+    v12 = v46;
+    v11 = v47;
   }
 
-  v45 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -6949,16 +6931,16 @@ LABEL_31:
   return v8;
 }
 
-id softLinkClass_ANEIOSurfaceObject()
+id softLinkClass_ANEIOSurfaceObject(uint64_t a1)
 {
   if (softLinkClass_ANEIOSurfaceObject_onceToken != -1)
   {
     softLinkClass_ANEIOSurfaceObject_cold_1();
   }
 
-  v1 = softLinkClass_ANEIOSurfaceObject_softLinkClass_ANEIOSurfaceObject;
+  v2 = softLinkClass_ANEIOSurfaceObject_softLinkClass_ANEIOSurfaceObject;
 
-  return v1;
+  return v2;
 }
 
 void *__AppleNeuralEngineLibrary_block_invoke()
@@ -6968,16 +6950,16 @@ void *__AppleNeuralEngineLibrary_block_invoke()
   return result;
 }
 
-id softLinkClass_ANEDeviceInfo()
+id softLinkClass_ANEDeviceInfo(uint64_t a1)
 {
   if (softLinkClass_ANEDeviceInfo_onceToken != -1)
   {
     softLinkClass_ANEDeviceInfo_cold_1();
   }
 
-  v1 = softLinkClass_ANEDeviceInfo_softLinkClass_ANEDeviceInfo;
+  v2 = softLinkClass_ANEDeviceInfo_softLinkClass_ANEDeviceInfo;
 
-  return v1;
+  return v2;
 }
 
 void *__AppleNeuralEngineLibrary_block_invoke_0()
@@ -6987,17 +6969,18 @@ void *__AppleNeuralEngineLibrary_block_invoke_0()
   return result;
 }
 
-void sub_238C5068C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_238C5068C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_3_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x20u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
 uint64_t OUTLINED_FUNCTION_3_2()
@@ -7026,7 +7009,7 @@ unint64_t *hashCombine_0(unint64_t *result, uint64_t a2, uint64_t a3, uint64_t a
 
 uint64_t ANE_BuildConvolutionParams(void *a1, void *a2, void *a3)
 {
-  v34[3] = *MEMORY[0x277D85DE8];
+  v33[3] = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = a3;
@@ -7082,7 +7065,7 @@ LABEL_8:
       [v5 setObject:&unk_284BA5A08 forKeyedSubscript:@"KernelDepth"];
       if ([v6 convolutionType] == 1)
       {
-        v33 = v13;
+        v32 = v13;
         v18 = [v7 data];
         v19 = v7;
         v20 = [v18 length];
@@ -7102,14 +7085,14 @@ LABEL_8:
           }
 
           v29 = 0;
-          v13 = v33;
+          v13 = v32;
           goto LABEL_22;
         }
 
         v25 = [v19 deviceMemory];
         [v25 setObject:v22 atIndexedSubscript:{objc_msgSend(v19, "deviceIndex")}];
 
-        v13 = v33;
+        v13 = v32;
       }
 
       [v5 setObject:@"Dense" forKeyedSubscript:@"KernelMode"];
@@ -7117,11 +7100,11 @@ LABEL_8:
       [v5 setObject:v26 forKeyedSubscript:@"KernelMutable"];
 
       v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v6, "strideInX")}];
-      v34[0] = v22;
+      v33[0] = v22;
       v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v6, "strideInY")}];
-      v34[1] = v27;
-      v34[2] = &unk_284BA5A08;
-      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:3];
+      v33[1] = v27;
+      v33[2] = &unk_284BA5A08;
+      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:3];
       [v5 setObject:v28 forKeyedSubscript:@"Step"];
 
       v29 = 1;
@@ -7139,7 +7122,6 @@ LABEL_22:
   v29 = 0;
 LABEL_23:
 
-  v31 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
@@ -7234,7 +7216,7 @@ uint64_t ANE_ValidateConvolutionLayer(void *a1, void *a2)
 
 id ANE_CreateUnitsWithConvolutionLayer(void *a1, void *a2, void *a3)
 {
-  v87[1] = *MEMORY[0x277D85DE8];
+  v86[1] = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = a3;
@@ -7251,15 +7233,15 @@ id ANE_CreateUnitsWithConvolutionLayer(void *a1, void *a2, void *a3)
 
   while (v12);
   objc_opt_class();
-  v84 = v9;
+  v83 = v9;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     goto LABEL_12;
   }
 
-  v80 = v7;
-  v82 = v6;
-  v79 = v10;
+  v79 = v7;
+  v81 = v6;
+  v78 = v10;
   v13 = v10;
   v14 = [v13 descriptor];
   v15 = [v13 sourceTensors];
@@ -7268,27 +7250,27 @@ id ANE_CreateUnitsWithConvolutionLayer(void *a1, void *a2, void *a3)
   v17 = [v13 resultTensors];
   v18 = [v17 objectAtIndexedSubscript:0];
 
-  v73 = [v14 paddingPolicy];
+  v72 = [v14 paddingPolicy];
+  v84 = 1;
   v85 = 1;
-  v86 = 1;
-  v78 = v16;
-  ANE_GetTensorWidthAndHeightWithBatchFirst(v16, &v86, &v85);
-  v19 = v86;
-  v76 = v85;
-  v77 = v18;
-  ANE_GetTensorWidthAndHeightWithBatchFirst(v18, &v86, &v85);
-  v20 = v86;
-  v75 = v85;
+  v77 = v16;
+  ANE_GetTensorWidthAndHeightWithBatchFirst(v16, &v85, &v84);
+  v19 = v85;
+  v75 = v84;
+  v76 = v18;
+  ANE_GetTensorWidthAndHeightWithBatchFirst(v18, &v85, &v84);
+  v20 = v85;
+  v74 = v84;
   v21 = [v13 kernelWidth];
-  v74 = [v13 kernelHeight];
+  v73 = [v13 kernelHeight];
   v22 = [v13 dilationRateInX];
-  v72 = [v13 dilationRateInY];
+  v71 = [v13 dilationRateInY];
   v23 = [v13 strideInX];
   v24 = [v13 strideInY];
   v25 = v14;
   if ([v14 convolutionType] != 1)
   {
-    if (v73 == 2)
+    if (v72 == 2)
     {
       v32 = [v14 paddingSizeInY];
       v31 = [v14 paddingSizeInY];
@@ -7300,7 +7282,7 @@ id ANE_CreateUnitsWithConvolutionLayer(void *a1, void *a2, void *a3)
     {
       v35 = v22 * (v21 - 1) - v19 + v23 * (v20 - 1) + 1;
       v36 = v35 & ~(v35 >> 63);
-      v37 = (v72 * (v74 - 1) - v76 + v24 * (v75 - 1) + 1) & ~((v72 * (v74 - 1) - v76 + v24 * (v75 - 1) + 1) >> 63);
+      v37 = (v71 * (v73 - 1) - v75 + v24 * (v74 - 1) + 1) & ~((v71 * (v73 - 1) - v75 + v24 * (v74 - 1) + 1) >> 63);
       v32 = v37 >> 1;
       v31 = v37 - (v37 >> 1);
       v34 = v36 >> 1;
@@ -7315,8 +7297,8 @@ id ANE_CreateUnitsWithConvolutionLayer(void *a1, void *a2, void *a3)
   v28 = v26 + v21;
   if ((v28 < 0) ^ v27 | (v28 == 0))
   {
-    v71 = +[MLCLog framework];
-    if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+    v70 = +[MLCLog framework];
+    if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
     {
       ANE_CreateUnitsWithConvolutionLayer_cold_2();
     }
@@ -7324,9 +7306,9 @@ id ANE_CreateUnitsWithConvolutionLayer(void *a1, void *a2, void *a3)
 
   else
   {
-    v29 = v75 - v24 * v76;
-    v27 = __OFADD__(v29, v74);
-    v30 = v29 + v74;
+    v29 = v74 - v24 * v75;
+    v27 = __OFADD__(v29, v73);
+    v30 = v29 + v73;
     if (!((v30 < 0) ^ v27 | (v30 == 0)))
     {
       v31 = (v30 - v24) / 2;
@@ -7346,26 +7328,26 @@ LABEL_11:
       v41 = [MEMORY[0x277CCABB0] numberWithLong:v33];
       [v11 setObject:v41 atIndexedSubscript:3];
 
-      v7 = v80;
-      v6 = v82;
-      v10 = v79;
-      v9 = v84;
+      v7 = v79;
+      v6 = v81;
+      v10 = v78;
+      v9 = v83;
 LABEL_12:
       v42 = v11;
       goto LABEL_13;
     }
 
-    v71 = +[MLCLog framework];
-    if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+    v70 = +[MLCLog framework];
+    if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
     {
       ANE_CreateUnitsWithConvolutionLayer_cold_1();
     }
   }
 
-  v7 = v80;
-  v6 = v82;
-  v10 = v79;
-  v9 = v84;
+  v7 = v79;
+  v6 = v81;
+  v10 = v78;
+  v9 = v83;
 
   v42 = MEMORY[0x277CBEBF8];
 LABEL_13:
@@ -7388,12 +7370,12 @@ LABEL_13:
     [v6 setObject:&unk_284BA5A20 forKeyedSubscript:@"PadBack"];
     [v6 setObject:@"Zero" forKeyedSubscript:@"PaddingMode"];
     v47 = [_MLCANEPlistBuilder createUnitWithLayer:v10 unitParams:v6];
-    v86 = 1;
+    v85 = 1;
     v48 = [v10 resultTensors];
     v49 = [v48 objectAtIndexedSubscript:0];
-    ANE_GetTensorFeatureChannelsWithBatchFirst(v49, &v86);
+    ANE_GetTensorFeatureChannelsWithBatchFirst(v49, &v85);
 
-    v50 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v86];
+    v50 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v85];
     [v47 setObject:v50 forKeyedSubscript:@"OutputChannels"];
 
     v51 = [v10 descriptor];
@@ -7414,8 +7396,8 @@ LABEL_13:
 
     if (ANE_ValidateConvolutionLayer(v10, v47))
     {
-      v57 = v84;
-      [v84 addObject:v47];
+      v57 = v83;
+      [v83 addObject:v47];
       if (!v7)
       {
 LABEL_24:
@@ -7426,22 +7408,22 @@ LABEL_32:
         goto LABEL_33;
       }
 
-      v83 = v6;
+      v82 = v6;
       v58 = [v10 label];
       v59 = [v58 stringByAppendingFormat:@"%@", @"_0"];
 
       [v47 setObject:v59 forKeyedSubscript:@"Name"];
-      v81 = v7;
+      v80 = v7;
       v60 = [_MLCANEPlistBuilder createUnitWithLayer:v10 unitParams:v7];
-      v61 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v86];
+      v61 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v85];
       [v60 setObject:v61 forKeyedSubscript:@"OutputChannels"];
 
       v62 = [v10 label];
       v63 = [v62 stringByAppendingFormat:@"%@", @"_1"];
 
       [v60 setObject:v63 forKeyedSubscript:@"Name"];
-      v87[0] = v59;
-      v64 = [MEMORY[0x277CBEA60] arrayWithObjects:v87 count:1];
+      v86[0] = v59;
+      v64 = [MEMORY[0x277CBEA60] arrayWithObjects:v86 count:1];
       [v60 setObject:v64 forKeyedSubscript:@"Bottom"];
 
       v65 = [v10 resultTensors];
@@ -7449,11 +7431,11 @@ LABEL_32:
 
       if (v66)
       {
-        v57 = v84;
-        [v84 addObject:v60];
+        v57 = v83;
+        [v83 addObject:v60];
 
-        v7 = v81;
-        v6 = v83;
+        v7 = v80;
+        v6 = v82;
         goto LABEL_24;
       }
 
@@ -7464,8 +7446,8 @@ LABEL_32:
       }
 
       v55 = 0;
-      v7 = v81;
-      v6 = v83;
+      v7 = v80;
+      v6 = v82;
     }
 
     else
@@ -7479,7 +7461,7 @@ LABEL_32:
       v55 = 0;
     }
 
-    v9 = v84;
+    v9 = v83;
     goto LABEL_32;
   }
 
@@ -7492,14 +7474,12 @@ LABEL_32:
   v55 = 0;
 LABEL_33:
 
-  v69 = *MEMORY[0x277D85DE8];
-
   return v55;
 }
 
 id ANE_CompileConvolutionLayer(void *a1, void *a2, void *a3)
 {
-  v93[1] = *MEMORY[0x277D85DE8];
+  v92[1] = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = a3;
@@ -7514,30 +7494,30 @@ id ANE_CompileConvolutionLayer(void *a1, void *a2, void *a3)
   v14 = [v8 params];
   v15 = [MEMORY[0x277CBEBF8] mutableCopy];
   v16 = [v14 convolutionParams];
-  v88 = [v16 mutableCopy];
+  v87 = [v16 mutableCopy];
 
   v17 = [v14 biasParams];
-  v87 = [v17 mutableCopy];
+  v86 = [v17 mutableCopy];
 
   v18 = [v14 neuronParams];
   v19 = v18;
   if (v13 != 4)
   {
-    v85 = v11;
+    v84 = v11;
     if (v13 == 3)
     {
-      v80 = v5;
+      v79 = v5;
       v20 = objc_autoreleasePoolPush();
+      v88 = 0;
       v89 = 0;
-      v90 = 0;
-      v21 = [_MLCANEPlistBuilder createReshapeUnitsWithLayer:v10 reshapeUnits:&v90 reshapeResultTensors:&v89];
-      v22 = v90;
-      v78 = v89;
+      v21 = [_MLCANEPlistBuilder createReshapeUnitsWithLayer:v10 reshapeUnits:&v89 reshapeResultTensors:&v88];
+      v22 = v89;
+      v77 = v88;
       if (v21)
       {
-        v77 = v20;
-        v82 = v14;
-        v83 = v19;
+        v76 = v20;
+        v81 = v14;
+        v82 = v19;
         v23 = [v10 label];
         v24 = [v23 stringByAppendingFormat:@"_%lu", objc_msgSend(v15, "count")];
         v25 = [v22 objectAtIndexedSubscript:0];
@@ -7546,14 +7526,14 @@ id ANE_CompileConvolutionLayer(void *a1, void *a2, void *a3)
         v26 = [v22 objectAtIndexedSubscript:0];
         [v15 addObject:v26];
 
-        v27 = ANE_CreateUnitsWithConvolutionLayer(v10, v88, v87);
+        v27 = ANE_CreateUnitsWithConvolutionLayer(v10, v87, v86);
         v28 = v27;
         if (v27)
         {
-          v73 = v22;
-          v74 = v8;
-          v75 = v7;
-          v76 = v6;
+          v72 = v22;
+          v73 = v8;
+          v74 = v7;
+          v75 = v6;
           v29 = v10;
           if ([v27 count])
           {
@@ -7567,8 +7547,8 @@ id ANE_CompileConvolutionLayer(void *a1, void *a2, void *a3)
 
               v34 = [v15 objectAtIndexedSubscript:{objc_msgSend(v15, "count") - 1}];
               v35 = [v34 objectForKeyedSubscript:@"Name"];
-              v93[0] = v35;
-              v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v93 count:1];
+              v92[0] = v35;
+              v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v92 count:1];
               [v31 setObject:v36 forKeyedSubscript:@"Bottom"];
 
               [v15 addObject:v31];
@@ -7580,22 +7560,22 @@ id ANE_CompileConvolutionLayer(void *a1, void *a2, void *a3)
 
           v37 = [v29 label];
           v38 = [v37 stringByAppendingFormat:@"_%lu", objc_msgSend(v15, "count")];
-          v22 = v73;
-          v39 = [v73 objectAtIndexedSubscript:1];
+          v22 = v72;
+          v39 = [v72 objectAtIndexedSubscript:1];
           [v39 setObject:v38 forKeyedSubscript:@"Name"];
 
           v40 = [v15 objectAtIndexedSubscript:{objc_msgSend(v15, "count") - 1}];
           v41 = [v40 objectForKeyedSubscript:@"Name"];
-          v92 = v41;
-          v42 = [MEMORY[0x277CBEA60] arrayWithObjects:&v92 count:1];
-          v43 = [v73 objectAtIndexedSubscript:1];
+          v91 = v41;
+          v42 = [MEMORY[0x277CBEA60] arrayWithObjects:&v91 count:1];
+          v43 = [v72 objectAtIndexedSubscript:1];
           [v43 setObject:v42 forKeyedSubscript:@"Bottom"];
 
-          v44 = [v73 objectAtIndexedSubscript:1];
+          v44 = [v72 objectAtIndexedSubscript:1];
           [v15 addObject:v44];
-          v7 = v75;
-          v6 = v76;
-          v8 = v74;
+          v7 = v74;
+          v6 = v75;
+          v8 = v73;
           v10 = v29;
         }
 
@@ -7608,11 +7588,11 @@ id ANE_CompileConvolutionLayer(void *a1, void *a2, void *a3)
           }
         }
 
-        v11 = v85;
+        v11 = v84;
 
-        objc_autoreleasePoolPop(v77);
-        v19 = v83;
-        v5 = v80;
+        objc_autoreleasePoolPop(v76);
+        v19 = v82;
+        v5 = v79;
         if (!v28)
         {
           v54 = 0;
@@ -7630,7 +7610,7 @@ id ANE_CompileConvolutionLayer(void *a1, void *a2, void *a3)
 
       objc_autoreleasePoolPop(v20);
       v54 = 0;
-      v5 = v80;
+      v5 = v79;
     }
 
     else
@@ -7656,11 +7636,11 @@ id ANE_CompileConvolutionLayer(void *a1, void *a2, void *a3)
       v10 = v47;
     }
 
-    v11 = v85;
+    v11 = v84;
     goto LABEL_38;
   }
 
-  v45 = ANE_CreateUnitsWithConvolutionLayer(v10, v88, v87);
+  v45 = ANE_CreateUnitsWithConvolutionLayer(v10, v87, v86);
   if (!v45)
   {
     v56 = +[MLCLog framework];
@@ -7674,7 +7654,7 @@ id ANE_CompileConvolutionLayer(void *a1, void *a2, void *a3)
   }
 
   v46 = v45;
-  v82 = v14;
+  v81 = v14;
   [v15 addObjectsFromArray:v45];
 
 LABEL_24:
@@ -7683,33 +7663,33 @@ LABEL_24:
 LABEL_28:
     v54 = [v15 copy];
 LABEL_33:
-    v14 = v82;
+    v14 = v81;
     goto LABEL_38;
   }
 
-  v84 = v19;
-  v86 = v11;
+  v83 = v19;
+  v85 = v11;
   v57 = [v10 fusedLayers];
   v58 = [v57 objectAtIndexedSubscript:0];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
-  v14 = v82;
+  v14 = v81;
   if (isKindOfClass)
   {
-    v81 = v10;
+    v80 = v10;
     v60 = [v10 fusedLayers];
     v61 = [v60 objectAtIndexedSubscript:0];
 
     v62 = [v61 descriptor];
-    v63 = ANE_CreateUnitsWithNeuronLayer(v61, v84, [v62 activationType]);
+    v63 = ANE_CreateUnitsWithNeuronLayer(v61, v83, [v62 activationType]);
 
     if (v63)
     {
-      v79 = [v15 objectAtIndexedSubscript:{objc_msgSend(v15, "count") - 1}];
-      v64 = [v79 objectForKeyedSubscript:@"Name"];
-      v91 = v64;
-      [MEMORY[0x277CBEA60] arrayWithObjects:&v91 count:1];
+      v78 = [v15 objectAtIndexedSubscript:{objc_msgSend(v15, "count") - 1}];
+      v64 = [v78 objectForKeyedSubscript:@"Name"];
+      v90 = v64;
+      [MEMORY[0x277CBEA60] arrayWithObjects:&v90 count:1];
       v66 = v65 = v7;
       [v63 objectAtIndexedSubscript:0];
       v68 = v67 = v8;
@@ -7719,27 +7699,27 @@ LABEL_33:
       v7 = v65;
 
       [v15 addObjectsFromArray:v63];
-      v10 = v81;
-      v19 = v84;
-      v11 = v86;
+      v10 = v80;
+      v19 = v83;
+      v11 = v85;
       goto LABEL_28;
     }
 
     v70 = +[MLCLog framework];
-    v11 = v86;
+    v11 = v85;
     if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
     {
       ANE_CompileConvolutionLayer_cold_5();
     }
 
     v54 = 0;
-    v10 = v81;
+    v10 = v80;
   }
 
   else
   {
     v69 = +[MLCLog framework];
-    v11 = v86;
+    v11 = v85;
     if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
     {
       ANE_CompileConvolutionLayer_cold_4(v10);
@@ -7748,24 +7728,22 @@ LABEL_33:
     v54 = 0;
   }
 
-  v19 = v84;
+  v19 = v83;
 LABEL_38:
-
-  v71 = *MEMORY[0x277D85DE8];
 
   return v54;
 }
 
 id ANE_CreateSelectionLayer()
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEBF8];
   v1 = [MEMORY[0x277CBEBF8] mutableCopy];
-  v12[0] = kMLCANENetUnitType[0];
-  v12[1] = @"Type";
-  v13[0] = @"ElementWise";
-  v13[1] = @"Mult";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v11[0] = kMLCANENetUnitType[0];
+  v11[1] = @"Type";
+  v12[0] = @"ElementWise";
+  v12[1] = @"Mult";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
   v3 = [v2 mutableCopy];
 
   [v1 addObject:v3];
@@ -7788,14 +7766,12 @@ id ANE_CreateSelectionLayer()
 
   v9 = [v6 copy];
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 id ANE_CompileSelectionLayer(void *a1, void *a2, void *a3)
 {
-  v188[1] = *MEMORY[0x277D85DE8];
+  v187[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [a1 objectAtIndexedSubscript:0];
@@ -7814,27 +7790,27 @@ id ANE_CompileSelectionLayer(void *a1, void *a2, void *a3)
     goto LABEL_71;
   }
 
-  v161 = v9;
-  v158 = v8;
+  v160 = v9;
+  v157 = v8;
   v10 = [v6 parentLayers];
   v11 = [v10 objectAtIndexedSubscript:0];
 
   v12 = MEMORY[0x277CBEBF8];
-  v164 = [MEMORY[0x277CBEBF8] mutableCopy];
+  v163 = [MEMORY[0x277CBEBF8] mutableCopy];
   v13 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v5, "count")}];
-  v163 = [v12 mutableCopy];
-  v170 = 0;
-  v159 = v6;
-  ANE_GetTensor4DShapeWithOnePrepended(v6, &v170);
-  v166 = v170;
-  v162 = v5;
-  v165 = v13;
+  v162 = [v12 mutableCopy];
+  v169 = 0;
+  v158 = v6;
+  ANE_GetTensor4DShapeWithOnePrepended(v6, &v169);
+  v165 = v169;
+  v161 = v5;
+  v164 = v13;
   if (![v5 count])
   {
 LABEL_10:
     v16 = [v5 objectAtIndexedSubscript:0];
-    v167 = 1;
-    ANE_GetTensorFeatureChannelsWithOnePrepended(v16, &v167);
+    v166 = 1;
+    ANE_GetTensorFeatureChannelsWithOnePrepended(v16, &v166);
     v23 = [v5 objectAtIndexedSubscript:1];
     v24 = [v5 objectAtIndexedSubscript:2];
     v25 = [v16 descriptor];
@@ -7843,222 +7819,222 @@ LABEL_10:
     v27 = [v23 descriptor];
     v28 = ANE_GetANECIRDataTypeWithMLCDataType([v27 dataType]);
 
-    v157 = v24;
+    v156 = v24;
     v29 = [v24 descriptor];
     v30 = ANE_GetANECIRDataTypeWithMLCDataType([v29 dataType]);
 
-    v153 = v26;
-    v154 = v30;
-    v155 = v28;
+    v152 = v26;
+    v153 = v30;
+    v154 = v28;
     if (!v26 || !v28 || !v30)
     {
       v96 = +[MLCLog framework];
-      v9 = v161;
-      v39 = v164;
-      v156 = v96;
+      v9 = v160;
+      v39 = v163;
+      v155 = v96;
       if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
       {
         ANE_CompileSelectionLayer_cold_8(v96, v97, v98, v99, v100, v101, v102, v103);
       }
 
       v95 = 0;
-      v5 = v162;
-      v8 = v158;
-      v6 = v159;
+      v5 = v161;
+      v8 = v157;
+      v6 = v158;
       goto LABEL_69;
     }
 
-    v151 = v23;
-    v9 = v161;
-    v31 = [v161 objectAtIndexedSubscript:0];
+    v150 = v23;
+    v9 = v160;
+    v31 = [v160 objectAtIndexedSubscript:0];
     v32 = [_MLCANEPlistBuilder createUnitWithLayer:v11 unitParams:v31];
 
-    v33 = [v161 objectAtIndexedSubscript:1];
-    v152 = [_MLCANEPlistBuilder createUnitWithLayer:v11 unitParams:v33];
+    v33 = [v160 objectAtIndexedSubscript:1];
+    v151 = [_MLCANEPlistBuilder createUnitWithLayer:v11 unitParams:v33];
 
-    v34 = [v161 objectAtIndexedSubscript:2];
+    v34 = [v160 objectAtIndexedSubscript:2];
     v35 = [_MLCANEPlistBuilder createUnitWithLayer:v11 unitParams:v34];
 
     v36 = v35;
-    v37 = [v161 objectAtIndexedSubscript:3];
-    v147 = [_MLCANEPlistBuilder createUnitWithLayer:v11 unitParams:v37];
+    v37 = [v160 objectAtIndexedSubscript:3];
+    v146 = [_MLCANEPlistBuilder createUnitWithLayer:v11 unitParams:v37];
 
     v38 = [v11 label];
-    v39 = v164;
-    v40 = [v38 stringByAppendingFormat:@"_%lu", objc_msgSend(v164, "count")];
+    v39 = v163;
+    v40 = [v38 stringByAppendingFormat:@"_%lu", objc_msgSend(v163, "count")];
     [v36 setObject:v40 forKeyedSubscript:@"Name"];
 
     v41 = [v16 label];
-    v188[0] = v41;
-    v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v188 count:1];
+    v187[0] = v41;
+    v42 = [MEMORY[0x277CBEA60] arrayWithObjects:v187 count:1];
     [v36 setObject:v42 forKeyedSubscript:@"Bottom"];
 
-    v43 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v167];
+    v43 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v166];
     [v36 setObject:v43 forKeyedSubscript:@"OutputChannels"];
 
-    v187 = v26;
-    v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v187 count:1];
+    v186 = v26;
+    v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v186 count:1];
     [v36 setObject:v44 forKeyedSubscript:@"InputType"];
 
     [v36 setObject:v26 forKeyedSubscript:@"OutputType"];
-    v186 = v16;
-    v45 = [MEMORY[0x277CBEA60] arrayWithObjects:&v186 count:1];
+    v185 = v16;
+    v45 = [MEMORY[0x277CBEA60] arrayWithObjects:&v185 count:1];
     LOBYTE(v42) = ANE_ValidateElementWiseUnit(v45, v36, 1);
 
-    v156 = v32;
-    v148 = v36;
+    v155 = v32;
+    v147 = v36;
     if ((v42 & 1) == 0)
     {
-      v150 = +[MLCLog framework];
-      v8 = v158;
-      if (os_log_type_enabled(v150, OS_LOG_TYPE_ERROR))
+      v149 = +[MLCLog framework];
+      v8 = v157;
+      if (os_log_type_enabled(v149, OS_LOG_TYPE_ERROR))
       {
         ANE_CompileSelectionLayer_cold_4();
       }
 
       v95 = 0;
-      v5 = v162;
-      v6 = v159;
+      v5 = v161;
+      v6 = v158;
       goto LABEL_68;
     }
 
-    [v164 addObject:v36];
-    v46 = [v164 count];
+    [v163 addObject:v36];
+    v46 = [v163 count];
     v47 = [v11 label];
     v48 = [v47 stringByAppendingFormat:@"_%lu", v46];
     [v32 setObject:v48 forKeyedSubscript:@"Name"];
 
     v49 = [v23 label];
-    v185[0] = v49;
+    v184[0] = v49;
     v50 = [v16 label];
-    v185[1] = v50;
-    [MEMORY[0x277CBEA60] arrayWithObjects:v185 count:2];
+    v184[1] = v50;
+    [MEMORY[0x277CBEA60] arrayWithObjects:v184 count:2];
     v52 = v51 = v26;
     v53 = v11;
     v54 = [v52 mutableCopy];
     [v32 setObject:v54 forKeyedSubscript:@"Bottom"];
 
-    v184[0] = v155;
-    v184[1] = v51;
-    v55 = [MEMORY[0x277CBEA60] arrayWithObjects:v184 count:2];
+    v183[0] = v154;
+    v183[1] = v51;
+    v55 = [MEMORY[0x277CBEA60] arrayWithObjects:v183 count:2];
     v56 = [v55 mutableCopy];
     [v32 setObject:v56 forKeyedSubscript:@"InputType"];
 
     v57 = [v53 label];
-    v149 = v46 + 2;
+    v148 = v46 + 2;
     v58 = [v57 stringByAppendingFormat:@"_%lu", v46 + 1];
-    [v152 setObject:v58 forKeyedSubscript:@"Name"];
+    [v151 setObject:v58 forKeyedSubscript:@"Name"];
 
-    v59 = [v148 objectForKeyedSubscript:@"Name"];
-    v183[0] = v59;
-    v60 = [v157 label];
-    v183[1] = v60;
-    v61 = [MEMORY[0x277CBEA60] arrayWithObjects:v183 count:2];
+    v59 = [v147 objectForKeyedSubscript:@"Name"];
+    v182[0] = v59;
+    v60 = [v156 label];
+    v182[1] = v60;
+    v61 = [MEMORY[0x277CBEA60] arrayWithObjects:v182 count:2];
     v62 = [v61 mutableCopy];
-    [v152 setObject:v62 forKeyedSubscript:@"Bottom"];
+    [v151 setObject:v62 forKeyedSubscript:@"Bottom"];
 
-    v63 = [v148 objectForKeyedSubscript:@"OutputType"];
-    v182[0] = v63;
-    v182[1] = v154;
-    v64 = [MEMORY[0x277CBEA60] arrayWithObjects:v182 count:2];
+    v63 = [v147 objectForKeyedSubscript:@"OutputType"];
+    v181[0] = v63;
+    v181[1] = v153;
+    v64 = [MEMORY[0x277CBEA60] arrayWithObjects:v181 count:2];
     v65 = [v64 mutableCopy];
-    [v152 setObject:v65 forKeyedSubscript:@"InputType"];
+    [v151 setObject:v65 forKeyedSubscript:@"InputType"];
 
-    v144 = v53;
+    v143 = v53;
     v66 = [v53 label];
-    v67 = [v66 stringByAppendingFormat:@"_%lu", v149];
-    [v147 setObject:v67 forKeyedSubscript:@"Name"];
+    v67 = [v66 stringByAppendingFormat:@"_%lu", v148];
+    [v146 setObject:v67 forKeyedSubscript:@"Name"];
 
     v68 = [v32 objectForKeyedSubscript:@"Name"];
-    v181[0] = v68;
-    v69 = [v152 objectForKeyedSubscript:@"Name"];
-    v181[1] = v69;
-    v70 = [MEMORY[0x277CBEA60] arrayWithObjects:v181 count:2];
-    [v147 setObject:v70 forKeyedSubscript:@"Bottom"];
+    v180[0] = v68;
+    v69 = [v151 objectForKeyedSubscript:@"Name"];
+    v180[1] = v69;
+    v70 = [MEMORY[0x277CBEA60] arrayWithObjects:v180 count:2];
+    [v146 setObject:v70 forKeyedSubscript:@"Bottom"];
 
     v71 = [v32 objectForKeyedSubscript:@"OutputType"];
-    v180[0] = v71;
-    v72 = [v152 objectForKeyedSubscript:@"OutputType"];
-    v180[1] = v72;
-    v73 = [MEMORY[0x277CBEA60] arrayWithObjects:v180 count:2];
-    [v147 setObject:v73 forKeyedSubscript:@"InputType"];
+    v179[0] = v71;
+    v72 = [v151 objectForKeyedSubscript:@"OutputType"];
+    v179[1] = v72;
+    v73 = [MEMORY[0x277CBEA60] arrayWithObjects:v179 count:2];
+    [v146 setObject:v73 forKeyedSubscript:@"InputType"];
 
-    v179[0] = v151;
-    v179[1] = v16;
-    v74 = [MEMORY[0x277CBEA60] arrayWithObjects:v179 count:2];
-    v150 = [v74 mutableCopy];
+    v178[0] = v150;
+    v178[1] = v16;
+    v74 = [MEMORY[0x277CBEA60] arrayWithObjects:v178 count:2];
+    v149 = [v74 mutableCopy];
 
-    v178[0] = v16;
-    v178[1] = v157;
-    v75 = [MEMORY[0x277CBEA60] arrayWithObjects:v178 count:2];
-    v145 = [v75 mutableCopy];
+    v177[0] = v16;
+    v177[1] = v156;
+    v75 = [MEMORY[0x277CBEA60] arrayWithObjects:v177 count:2];
+    v144 = [v75 mutableCopy];
 
-    v177[0] = v151;
-    v177[1] = v157;
-    v146 = [MEMORY[0x277CBEA60] arrayWithObjects:v177 count:2];
-    v76 = [v165 objectAtIndexedSubscript:0];
+    v176[0] = v150;
+    v176[1] = v156;
+    v145 = [MEMORY[0x277CBEA60] arrayWithObjects:v176 count:2];
+    v76 = [v164 objectAtIndexedSubscript:0];
     if ([v76 BOOLValue])
     {
-      v77 = [v165 objectAtIndexedSubscript:1];
+      v77 = [v164 objectAtIndexedSubscript:1];
       if ([v77 BOOLValue])
       {
-        v78 = [v165 objectAtIndexedSubscript:2];
+        v78 = [v164 objectAtIndexedSubscript:2];
         v79 = [v78 BOOLValue];
 
         if (v79)
         {
-          v39 = v164;
-          v140 = [v164 objectAtIndexedSubscript:0];
-          v80 = [v164 objectAtIndexedSubscript:1];
-          v81 = [v164 objectAtIndexedSubscript:2];
-          v82 = [v163 objectAtIndexedSubscript:0];
-          v83 = [v163 objectAtIndexedSubscript:1];
-          v84 = [v163 objectAtIndexedSubscript:2];
-          ANE_ConnectBroadcastUnitForSource0(v80, v83, v156, v150);
-          ANE_ConnectBroadcastUnitForMask(v140, v82, v156, v148, v152, v150, v145, v164);
+          v39 = v163;
+          v139 = [v163 objectAtIndexedSubscript:0];
+          v80 = [v163 objectAtIndexedSubscript:1];
+          v81 = [v163 objectAtIndexedSubscript:2];
+          v82 = [v162 objectAtIndexedSubscript:0];
+          v83 = [v162 objectAtIndexedSubscript:1];
+          v84 = [v162 objectAtIndexedSubscript:2];
+          ANE_ConnectBroadcastUnitForSource0(v80, v83, v155, v149);
+          ANE_ConnectBroadcastUnitForMask(v139, v82, v155, v147, v151, v149, v144, v163);
           v85 = v80;
-          ANE_ConnectBroadcastUnitForSource1(v81, v84, v152, v145);
-          v176[0] = v83;
-          v176[1] = v84;
-          v86 = [MEMORY[0x277CBEA60] arrayWithObjects:v176 count:2];
+          ANE_ConnectBroadcastUnitForSource1(v81, v84, v151, v144);
+          v175[0] = v83;
+          v175[1] = v84;
+          v86 = [MEMORY[0x277CBEA60] arrayWithObjects:v175 count:2];
 
-          v146 = v86;
-          v8 = v158;
-          v6 = v159;
-          v87 = v140;
-          v11 = v144;
+          v145 = v86;
+          v8 = v157;
+          v6 = v158;
+          v87 = v139;
+          v11 = v143;
 LABEL_52:
-          v23 = v151;
+          v23 = v150;
           goto LABEL_53;
         }
 
 LABEL_36:
-        v112 = [v165 objectAtIndexedSubscript:0];
-        v39 = v164;
+        v112 = [v164 objectAtIndexedSubscript:0];
+        v39 = v163;
         if ([v112 BOOLValue])
         {
-          v113 = [v165 objectAtIndexedSubscript:1];
+          v113 = [v164 objectAtIndexedSubscript:1];
           v114 = [v113 BOOLValue];
 
-          v6 = v159;
-          v11 = v144;
+          v6 = v158;
+          v11 = v143;
           if (v114)
           {
-            v115 = [v164 objectAtIndexedSubscript:0];
-            v141 = [v164 objectAtIndexedSubscript:1];
-            v116 = [v163 objectAtIndexedSubscript:0];
-            v117 = [v163 objectAtIndexedSubscript:1];
-            ANE_ConnectBroadcastUnitForSource0(v141, v117, v32, v150);
+            v115 = [v163 objectAtIndexedSubscript:0];
+            v140 = [v163 objectAtIndexedSubscript:1];
+            v116 = [v162 objectAtIndexedSubscript:0];
+            v117 = [v162 objectAtIndexedSubscript:1];
+            ANE_ConnectBroadcastUnitForSource0(v140, v117, v32, v149);
             v87 = v115;
-            ANE_ConnectBroadcastUnitForMask(v115, v116, v156, v148, v152, v150, v145, v164);
-            v175[0] = v117;
-            v175[1] = v157;
-            v118 = [MEMORY[0x277CBEA60] arrayWithObjects:v175 count:2];
+            ANE_ConnectBroadcastUnitForMask(v115, v116, v155, v147, v151, v149, v144, v163);
+            v174[0] = v117;
+            v174[1] = v156;
+            v118 = [MEMORY[0x277CBEA60] arrayWithObjects:v174 count:2];
 
-            v85 = v141;
-            v146 = v118;
+            v85 = v140;
+            v145 = v118;
 LABEL_51:
-            v8 = v158;
+            v8 = v157;
             goto LABEL_52;
           }
         }
@@ -8066,33 +8042,33 @@ LABEL_51:
         else
         {
 
-          v6 = v159;
-          v11 = v144;
+          v6 = v158;
+          v11 = v143;
         }
 
-        v119 = [v165 objectAtIndexedSubscript:1];
+        v119 = [v164 objectAtIndexedSubscript:1];
         if ([v119 BOOLValue])
         {
-          v120 = [v165 objectAtIndexedSubscript:2];
+          v120 = [v164 objectAtIndexedSubscript:2];
           v121 = [v120 BOOLValue];
 
-          v23 = v151;
+          v23 = v150;
           if (v121)
           {
-            v87 = [v164 objectAtIndexedSubscript:0];
-            v142 = [v164 objectAtIndexedSubscript:1];
-            v122 = [v163 objectAtIndexedSubscript:0];
-            v123 = [v163 objectAtIndexedSubscript:1];
-            ANE_ConnectBroadcastUnitForSource0(v87, v122, v156, v150);
-            ANE_ConnectBroadcastUnitForSource1(v142, v123, v152, v145);
-            v174[0] = v122;
-            v174[1] = v123;
-            v124 = [MEMORY[0x277CBEA60] arrayWithObjects:v174 count:2];
+            v87 = [v163 objectAtIndexedSubscript:0];
+            v141 = [v163 objectAtIndexedSubscript:1];
+            v122 = [v162 objectAtIndexedSubscript:0];
+            v123 = [v162 objectAtIndexedSubscript:1];
+            ANE_ConnectBroadcastUnitForSource0(v87, v122, v155, v149);
+            ANE_ConnectBroadcastUnitForSource1(v141, v123, v151, v144);
+            v173[0] = v122;
+            v173[1] = v123;
+            v124 = [MEMORY[0x277CBEA60] arrayWithObjects:v173 count:2];
 
-            v85 = v142;
+            v85 = v141;
 LABEL_47:
-            v146 = v124;
-            v8 = v158;
+            v145 = v124;
+            v8 = v157;
             goto LABEL_53;
           }
         }
@@ -8100,28 +8076,28 @@ LABEL_47:
         else
         {
 
-          v23 = v151;
+          v23 = v150;
         }
 
-        v125 = [v165 objectAtIndexedSubscript:0];
+        v125 = [v164 objectAtIndexedSubscript:0];
         if ([v125 BOOLValue])
         {
-          v126 = [v165 objectAtIndexedSubscript:2];
+          v126 = [v164 objectAtIndexedSubscript:2];
           v127 = [v126 BOOLValue];
 
           if (v127)
           {
-            v87 = [v164 objectAtIndexedSubscript:0];
-            v143 = [v164 objectAtIndexedSubscript:1];
-            v160 = [v163 objectAtIndexedSubscript:0];
-            v128 = [v163 objectAtIndexedSubscript:1];
-            ANE_ConnectBroadcastUnitForMask(v87, v160, v156, v148, v152, v150, v145, v164);
-            ANE_ConnectBroadcastUnitForSource1(v143, v128, v152, v145);
-            v173[0] = v23;
-            v173[1] = v128;
-            v124 = [MEMORY[0x277CBEA60] arrayWithObjects:v173 count:2];
+            v87 = [v163 objectAtIndexedSubscript:0];
+            v142 = [v163 objectAtIndexedSubscript:1];
+            v159 = [v162 objectAtIndexedSubscript:0];
+            v128 = [v162 objectAtIndexedSubscript:1];
+            ANE_ConnectBroadcastUnitForMask(v87, v159, v155, v147, v151, v149, v144, v163);
+            ANE_ConnectBroadcastUnitForSource1(v142, v128, v151, v144);
+            v172[0] = v23;
+            v172[1] = v128;
+            v124 = [MEMORY[0x277CBEA60] arrayWithObjects:v172 count:2];
 
-            v85 = v143;
+            v85 = v142;
             goto LABEL_47;
           }
         }
@@ -8130,51 +8106,51 @@ LABEL_47:
         {
         }
 
-        v129 = [v165 objectAtIndexedSubscript:0];
+        v129 = [v164 objectAtIndexedSubscript:0];
         v130 = [v129 BOOLValue];
 
         if (v130)
         {
-          v87 = [v164 objectAtIndexedSubscript:0];
-          v85 = [v163 objectAtIndexedSubscript:0];
-          ANE_ConnectBroadcastUnitForMask(v87, v85, v156, v148, v152, v150, v145, v164);
+          v87 = [v163 objectAtIndexedSubscript:0];
+          v85 = [v162 objectAtIndexedSubscript:0];
+          ANE_ConnectBroadcastUnitForMask(v87, v85, v155, v147, v151, v149, v144, v163);
           goto LABEL_51;
         }
 
-        v132 = [v165 objectAtIndexedSubscript:1];
+        v132 = [v164 objectAtIndexedSubscript:1];
         v133 = [v132 BOOLValue];
 
-        v8 = v158;
+        v8 = v157;
         if (v133)
         {
-          v87 = [v164 objectAtIndexedSubscript:0];
-          v85 = [v163 objectAtIndexedSubscript:0];
-          ANE_ConnectBroadcastUnitForSource0(v87, v85, v156, v150);
-          v172[0] = v85;
-          v172[1] = v157;
-          v134 = [MEMORY[0x277CBEA60] arrayWithObjects:v172 count:2];
+          v87 = [v163 objectAtIndexedSubscript:0];
+          v85 = [v162 objectAtIndexedSubscript:0];
+          ANE_ConnectBroadcastUnitForSource0(v87, v85, v155, v149);
+          v171[0] = v85;
+          v171[1] = v156;
+          v134 = [MEMORY[0x277CBEA60] arrayWithObjects:v171 count:2];
 
-          v146 = v134;
+          v145 = v134;
           goto LABEL_52;
         }
 
-        v137 = [v165 objectAtIndexedSubscript:2];
-        v138 = [v137 BOOLValue];
+        v136 = [v164 objectAtIndexedSubscript:2];
+        v137 = [v136 BOOLValue];
 
-        if (!v138)
+        if (!v137)
         {
-          v5 = v162;
-          v23 = v151;
+          v5 = v161;
+          v23 = v150;
 LABEL_54:
-          if (ANE_ValidateElementWiseUnit(v150, v156, 1))
+          if (ANE_ValidateElementWiseUnit(v149, v155, 1))
           {
-            [v39 addObject:v156];
-            if (ANE_ValidateElementWiseUnit(v145, v152, 1))
+            [v39 addObject:v155];
+            if (ANE_ValidateElementWiseUnit(v144, v151, 1))
             {
-              [v39 addObject:v152];
-              if (ANE_ValidateElementWiseUnit(v146, v147, 1))
+              [v39 addObject:v151];
+              if (ANE_ValidateElementWiseUnit(v145, v146, 1))
               {
-                [v39 addObject:v147];
+                [v39 addObject:v146];
                 v95 = [v39 copy];
 LABEL_67:
 
@@ -8217,18 +8193,18 @@ LABEL_65:
           goto LABEL_66;
         }
 
-        v87 = [v164 objectAtIndexedSubscript:0];
-        v85 = [v163 objectAtIndexedSubscript:0];
-        ANE_ConnectBroadcastUnitForSource1(v87, v85, v152, v145);
-        v23 = v151;
-        v171[0] = v151;
-        v171[1] = v85;
-        v139 = [MEMORY[0x277CBEA60] arrayWithObjects:v171 count:2];
+        v87 = [v163 objectAtIndexedSubscript:0];
+        v85 = [v162 objectAtIndexedSubscript:0];
+        ANE_ConnectBroadcastUnitForSource1(v87, v85, v151, v144);
+        v23 = v150;
+        v170[0] = v150;
+        v170[1] = v85;
+        v138 = [MEMORY[0x277CBEA60] arrayWithObjects:v170 count:2];
 
-        v146 = v139;
+        v145 = v138;
 LABEL_53:
 
-        v5 = v162;
+        v5 = v161;
         goto LABEL_54;
       }
     }
@@ -8241,12 +8217,12 @@ LABEL_53:
   while (1)
   {
     v16 = [v5 objectAtIndexedSubscript:v14];
+    v167 = 0;
     v168 = 0;
-    v169 = 0;
     v17 = v11;
-    v18 = [_MLCANEPlistBuilder createBroadcastUnitWithSourceTensor:v16 targetShape:v166 layer:v11 broadcastUnit:&v169 broadcastResultTensor:&v168];
-    v19 = v169;
-    v20 = v168;
+    v18 = [_MLCANEPlistBuilder createBroadcastUnitWithSourceTensor:v16 targetShape:v165 layer:v11 broadcastUnit:&v168 broadcastResultTensor:&v167];
+    v19 = v168;
+    v20 = v167;
     if (v18 == 2)
     {
       break;
@@ -8260,7 +8236,7 @@ LABEL_53:
         ANE_CompileSelectionLayer_cold_3(v18, v104);
       }
 
-      v9 = v161;
+      v9 = v160;
       v11 = v17;
       goto LABEL_33;
     }
@@ -8280,13 +8256,13 @@ LABEL_9:
   {
     [v13 setObject:MEMORY[0x277CBEC38] atIndexedSubscript:v14];
     v21 = [v17 label];
-    v22 = [v21 stringByAppendingFormat:@"_%lu", objc_msgSend(v164, "count")];
+    v22 = [v21 stringByAppendingFormat:@"_%lu", objc_msgSend(v163, "count")];
     [v19 setObject:v22 forKeyedSubscript:@"Name"];
 
-    v5 = v162;
-    v13 = v165;
-    [v164 addObject:v19];
-    [v163 addObject:v20];
+    v5 = v161;
+    v13 = v164;
+    [v163 addObject:v19];
+    [v162 addObject:v20];
     goto LABEL_9;
   }
 
@@ -8298,16 +8274,15 @@ LABEL_9:
   }
 
   v19 = 0;
-  v9 = v161;
+  v9 = v160;
 LABEL_33:
-  v39 = v164;
+  v39 = v163;
 
   v95 = 0;
-  v8 = v158;
+  v8 = v157;
 LABEL_70:
 
 LABEL_71:
-  v135 = *MEMORY[0x277D85DE8];
 
   return v95;
 }
@@ -8332,25 +8307,25 @@ void ANE_ConnectBroadcastUnitForSource0(void *a1, void *a2, void *a3, void *a4)
 
 void ANE_ConnectBroadcastUnitForMask(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   v15 = a1;
   v16 = a2;
   v17 = a8;
-  v37 = a7;
-  v35 = a6;
+  v36 = a7;
+  v34 = a6;
   v18 = a5;
   v19 = a4;
   v20 = a3;
   v21 = [v15 mutableCopy];
   v22 = v16;
   v23 = [v15 objectForKeyedSubscript:@"Name"];
-  v36 = [v23 stringByAppendingString:@"_copy"];
+  v35 = [v23 stringByAppendingString:@"_copy"];
 
-  [v21 setObject:v36 forKeyedSubscript:@"Name"];
+  [v21 setObject:v35 forKeyedSubscript:@"Name"];
   v24 = [v19 objectForKeyedSubscript:@"Name"];
 
-  v38[0] = v24;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
+  v37[0] = v24;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
   [v21 setObject:v25 forKeyedSubscript:@"Bottom"];
 
   [v17 addObject:v21];
@@ -8362,7 +8337,7 @@ void ANE_ConnectBroadcastUnitForMask(void *a1, void *a2, void *a3, void *a4, voi
   v29 = [v20 objectForKeyedSubscript:@"InputType"];
 
   [v29 setObject:v28 atIndexedSubscript:1];
-  [v35 setObject:v22 atIndexedSubscript:1];
+  [v34 setObject:v22 atIndexedSubscript:1];
 
   v30 = [v21 objectForKeyedSubscript:@"Name"];
   v31 = [v18 objectForKeyedSubscript:@"Bottom"];
@@ -8372,9 +8347,7 @@ void ANE_ConnectBroadcastUnitForMask(void *a1, void *a2, void *a3, void *a4, voi
   v33 = [v18 objectForKeyedSubscript:@"InputType"];
 
   [v33 setObject:v32 atIndexedSubscript:0];
-  [v37 setObject:v22 atIndexedSubscript:0];
-
-  v34 = *MEMORY[0x277D85DE8];
+  [v36 setObject:v22 atIndexedSubscript:0];
 }
 
 void ANE_ConnectBroadcastUnitForSource1(void *a1, void *a2, void *a3, void *a4)
@@ -8413,16 +8386,16 @@ unint64_t *hashCombine_1(unint64_t *result, uint64_t a2, uint64_t a3, uint64_t a
   return result;
 }
 
-id softLinkClass_ANEDeviceInfo_0()
+id softLinkClass_ANEDeviceInfo_0(uint64_t a1)
 {
   if (softLinkClass_ANEDeviceInfo_onceToken_0 != -1)
   {
     softLinkClass_ANEDeviceInfo_cold_1_0();
   }
 
-  v1 = softLinkClass_ANEDeviceInfo_softLinkClass_ANEDeviceInfo_0;
+  v2 = softLinkClass_ANEDeviceInfo_softLinkClass_ANEDeviceInfo_0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t VerifyTensorBeforeRead(void *a1)
@@ -8485,52 +8458,52 @@ LABEL_15:
   return v11;
 }
 
-id softLinkClass_ANERequest()
+id softLinkClass_ANERequest(uint64_t a1)
 {
   if (softLinkClass_ANERequest_onceToken != -1)
   {
     softLinkClass_ANERequest_cold_1();
   }
 
-  v1 = softLinkClass_ANERequest_softLinkClass_ANERequest;
+  v2 = softLinkClass_ANERequest_softLinkClass_ANERequest;
 
-  return v1;
+  return v2;
 }
 
-id softLinkClass_ANEQoSMapper()
+id softLinkClass_ANEQoSMapper(uint64_t a1)
 {
   if (softLinkClass_ANEQoSMapper_onceToken != -1)
   {
     softLinkClass_ANEQoSMapper_cold_1();
   }
 
-  v1 = softLinkClass_ANEQoSMapper_softLinkClass_ANEQoSMapper;
+  v2 = softLinkClass_ANEQoSMapper_softLinkClass_ANEQoSMapper;
 
-  return v1;
+  return v2;
 }
 
-id softLinkClass_ANEInMemoryModelDescriptor()
+id softLinkClass_ANEInMemoryModelDescriptor(uint64_t a1)
 {
   if (softLinkClass_ANEInMemoryModelDescriptor_onceToken != -1)
   {
     softLinkClass_ANEInMemoryModelDescriptor_cold_1();
   }
 
-  v1 = softLinkClass_ANEInMemoryModelDescriptor_softLinkClass_ANEInMemoryModelDescriptor;
+  v2 = softLinkClass_ANEInMemoryModelDescriptor_softLinkClass_ANEInMemoryModelDescriptor;
 
-  return v1;
+  return v2;
 }
 
-id softLinkClass_ANEInMemoryModel()
+id softLinkClass_ANEInMemoryModel(uint64_t a1)
 {
   if (softLinkClass_ANEInMemoryModel_onceToken != -1)
   {
     softLinkClass_ANEInMemoryModel_cold_1();
   }
 
-  v1 = softLinkClass_ANEInMemoryModel_softLinkClass_ANEInMemoryModel;
+  v2 = softLinkClass_ANEInMemoryModel_softLinkClass_ANEInMemoryModel;
 
-  return v1;
+  return v2;
 }
 
 void *__AppleNeuralEngineLibrary_block_invoke_1()
@@ -8630,7 +8603,7 @@ void OUTLINED_FUNCTION_6_1(void *a1, uint64_t a2, uint64_t a3, const char *a4)
   _os_log_error_impl(a1, v4, OS_LOG_TYPE_ERROR, a4, v5, 0xCu);
 }
 
-id createMatrices(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, int a6, void *a7)
+id createMatrices(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5, int a6, void *a7)
 {
   v12 = a5;
   v13 = a7;
@@ -8709,7 +8682,7 @@ void copyNC1TtoNTCMTLBuffer(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64
   objc_autoreleasePoolPop(context);
 }
 
-id createMatricesForTNCBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6)
+id createMatricesForTNCBuffer(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5, void *a6)
 {
   v22 = a4;
   v9 = a5;
@@ -8742,6 +8715,45 @@ id createMatricesForTNCBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4
   }
 
   v20 = [v11 copy];
+
+  return v20;
+}
+
+id createTemporaryMatrixViews(void *a1, void *a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6)
+{
+  v8 = a1;
+  v26 = a2;
+  v9 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:a4];
+  if (a4)
+  {
+    v10 = a4;
+    v11 = 0;
+    v22 = 4 * a4 * a6;
+    do
+    {
+      v12 = [v8 descriptor];
+      v13 = [v12 batchSizePerSequenceStep];
+      v14 = a5;
+      if (v13)
+      {
+        v15 = [v8 descriptor];
+        v16 = [v15 batchSizePerSequenceStep];
+        v17 = [v16 objectAtIndexedSubscript:v11];
+        v14 = [v17 unsignedIntegerValue];
+      }
+
+      v18 = [MEMORY[0x277CD7258] matrixDescriptorWithRows:v14 columns:a6 rowBytes:v22 dataType:268435488];
+      v19 = [MEMORY[0x277CD72B0] temporaryMatrixWithCommandBuffer:v26 matrixDescriptor:v18];
+      [v19 setReadCount:{objc_msgSend(v19, "readCount") + a3}];
+      [v9 addObject:v19];
+
+      ++v11;
+    }
+
+    while (v10 != v11);
+  }
+
+  v20 = [v9 copy];
 
   return v20;
 }

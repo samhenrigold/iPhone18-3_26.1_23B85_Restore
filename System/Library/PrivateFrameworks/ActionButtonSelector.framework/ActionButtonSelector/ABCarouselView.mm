@@ -23,13 +23,13 @@
 
 - (id)initWithItems:(void *)items selectedIndex:
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   v6 = a2;
   if (self)
   {
-    v32.receiver = self;
-    v32.super_class = ABCarouselView;
-    v7 = objc_msgSendSuper2(&v32, sel_initWithFrame_, -25.0, -25.0, 50.0, 50.0);
+    v31.receiver = self;
+    v31.super_class = ABCarouselView;
+    v7 = objc_msgSendSuper2(&v31, sel_initWithFrame_, -25.0, -25.0, 50.0, 50.0);
     self = v7;
     if (v7)
     {
@@ -52,7 +52,7 @@
 
       if (v15)
       {
-        v16 = [self[51] count] + ~self[54];
+        v16 = ([self[51] count] + ~self[54]);
       }
 
       else
@@ -64,14 +64,14 @@
       [self[53] setValue:v17 * v16];
       objc_initWeak(&location, self);
       v18 = MEMORY[0x277D75D18];
-      v33[0] = self[53];
-      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
-      v26 = MEMORY[0x277D85DD0];
-      v27 = 3221225472;
-      v28 = __46__ABCarouselView_initWithItems_selectedIndex___block_invoke;
-      v29 = &unk_278BFFD20;
-      objc_copyWeak(&v30, &location);
-      [v18 _createTransformerWithInputAnimatableProperties:v19 presentationValueChangedCallback:&v26];
+      v32[0] = self[53];
+      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+      v25 = MEMORY[0x277D85DD0];
+      v26 = 3221225472;
+      v27 = __46__ABCarouselView_initWithItems_selectedIndex___block_invoke;
+      v28 = &unk_278BFFD20;
+      objc_copyWeak(&v29, &location);
+      [v18 _createTransformerWithInputAnimatableProperties:v19 presentationValueChangedCallback:&v25];
 
       for (i = 0; i < [self[51] count]; ++i)
       {
@@ -83,12 +83,11 @@
       v23 = self[61];
       self[61] = v22;
 
-      objc_destroyWeak(&v30);
+      objc_destroyWeak(&v29);
       objc_destroyWeak(&location);
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return self;
 }
 
@@ -98,7 +97,7 @@ void __46__ABCarouselView_initWithItems_selectedIndex___block_invoke(uint64_t a1
   [WeakRetained setNeedsLayout];
 }
 
-unint64_t __43__ABCarouselView_reloadWithItems_animated___block_invoke(uint64_t a1)
+char *__43__ABCarouselView_reloadWithItems_animated___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) traitCollection];
   v3 = [v2 layoutDirection];
@@ -377,7 +376,7 @@ unint64_t __43__ABCarouselView_reloadWithItems_animated___block_invoke(uint64_t 
 
 - (void)reloadWithItems:(int)items animated:
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = v7;
   if (self)
@@ -386,27 +385,27 @@ unint64_t __43__ABCarouselView_reloadWithItems_animated___block_invoke(uint64_t 
     if ([v9 hasChanges])
     {
       itemsCopy = items;
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
       v24 = 0u;
-      v21 = v9;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
+      v20 = v9;
       v10 = v9;
-      v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v24;
+        v13 = *v23;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v24 != v13)
+            if (*v23 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v23 + 1) + 8 * i);
+            v15 = *(*(&v22 + 1) + 8 * i);
             changeType = [v15 changeType];
             if (changeType == 1)
             {
@@ -436,18 +435,18 @@ unint64_t __43__ABCarouselView_reloadWithItems_animated___block_invoke(uint64_t 
             }
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
         }
 
         while (v12);
       }
 
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __43__ABCarouselView_reloadWithItems_animated___block_invoke;
-      v22[3] = &unk_278BFFC38;
-      v22[4] = self;
-      v17 = MEMORY[0x23EF01A70](v22);
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __43__ABCarouselView_reloadWithItems_animated___block_invoke;
+      v21[3] = &unk_278BFFC38;
+      v21[4] = self;
+      v17 = MEMORY[0x23EF01A70](v21);
       v18 = v17;
       if (!itemsCopy || *(self + 440) || *(self + 448))
       {
@@ -459,13 +458,11 @@ unint64_t __43__ABCarouselView_reloadWithItems_animated___block_invoke(uint64_t 
         [MEMORY[0x277D75D18] animateWithSpringDuration:0 bounce:v17 initialSpringVelocity:0 delay:0.5 options:0.15 animations:0.0 completion:0.0];
       }
 
-      v9 = v21;
+      v9 = v20;
       objc_storeStrong((self + 408), a2);
       [self setNeedsLayout];
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setZPosition:(double)position forItemAtIndex:

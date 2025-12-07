@@ -21,7 +21,7 @@
 
   else
   {
-    v6 = sharedBluetoothSettingsLogComponent();
+    v6 = sharedBluetoothSettingsLogComponent(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [HPSProductUtils isAppleHeadphone:v6];
@@ -47,7 +47,7 @@
 
   else
   {
-    v11 = sharedBluetoothSettingsLogComponent();
+    v11 = sharedBluetoothSettingsLogComponent(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [HPSProductUtils isBeatsNonWx:v11];

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)supportedAsString:(int)string;
 - (int)StringAsSupported:(id)supported;
 - (int)supported;
 - (unint64_t)hash;
@@ -145,6 +146,21 @@ LABEL_7:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)supportedAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278863648[string];
   }
 
   return v4;

@@ -6,6 +6,7 @@
 - (AVAudioFramePosition)length;
 - (BOOL)isOpen;
 - (BOOL)readIntoBuffer:(AVAudioPCMBuffer *)buffer error:(NSError *)outError;
+- (BOOL)readIntoBuffer:(AVAudioPCMBuffer *)buffer frameCount:(AVAudioFrameCount)frames error:(NSError *)outError;
 - (BOOL)writeFromBuffer:(const AVAudioPCMBuffer *)buffer error:(NSError *)outError;
 - (id)initForReadingFromExtAudioFile:(OpaqueExtAudioFile *)file commonFormat:(unint64_t)format interleaved:(BOOL)interleaved error:(id *)error;
 - (id)initSecondaryReader:(id)reader format:(id)format error:(id *)error;
@@ -85,6 +86,85 @@
 
   os_unfair_lock_unlock(ptr + 18);
   return v6;
+}
+
+- (BOOL)readIntoBuffer:(AVAudioPCMBuffer *)buffer frameCount:(AVAudioFrameCount)frames error:(NSError *)outError
+{
+  v6 = *&frames;
+  v8 = buffer;
+  _AVAE_Check("/Library/Caches/com.apple.xbs/Sources/AVFAudio/Source/AVFAudio/AVAudioEngine/AVAudioFile.mm", 780, "[AVAudioFile readIntoBuffer:frameCount:error:]", "buffer != nil", v8 != 0);
+  _AVAE_Check("/Library/Caches/com.apple.xbs/Sources/AVFAudio/Source/AVFAudio/AVAudioEngine/AVAudioFile.mm", 781, "[AVAudioFile readIntoBuffer:frameCount:error:]", "frames <= buffer.frameCapacity", [(AVAudioPCMBuffer *)v8 frameCapacity]>= v6);
+  v26 = 0;
+  v9 = _AVAE_CheckAndReturnErr(782, "[AVAudioFile readIntoBuffer:frameCount:error:]", "buffer.frameCapacity != 0", [(AVAudioPCMBuffer *)v8 frameCapacity]!= 0, 4294967246, &v26);
+  v10 = v26;
+  v11 = v10;
+  if (!v9)
+  {
+    ptr = self->_impl.__ptr_;
+    os_unfair_lock_lock(ptr + 18);
+    v15 = *(self->_impl.__ptr_ + 1) != 0;
+    v25 = v11;
+    v16 = _AVAE_CheckAndReturnErr(790, "[AVAudioFile readIntoBuffer:frameCount:error:]", "_impl->isOpen()", v15, 4294967253, &v25);
+    v17 = v25;
+
+    if (v16)
+    {
+      if (outError)
+      {
+        v18 = v17;
+        v13 = 0;
+        *outError = v17;
+LABEL_14:
+        os_unfair_lock_unlock(ptr + 18);
+        goto LABEL_15;
+      }
+    }
+
+    else
+    {
+      v19 = AVAudioFileImpl::CheckClientFormatSet(self->_impl.__ptr_);
+      if (_AVAE_CheckNoErr("/Library/Caches/com.apple.xbs/Sources/AVFAudio/Source/AVFAudio/AVAudioEngine/AVAudioFile.mm", 795, "[AVAudioFile readIntoBuffer:frameCount:error:]", "_impl->CheckClientFormatSet()", v19, outError))
+      {
+        ioNumberFrames = v6;
+        [(AVAudioPCMBuffer *)v8 setFrameLength:v6];
+        v20 = ExtAudioFileRead(*(self->_impl.__ptr_ + 1), &ioNumberFrames, [(AVAudioBuffer *)v8 mutableAudioBufferList]);
+        v21 = _AVAE_CheckNoErr("/Library/Caches/com.apple.xbs/Sources/AVFAudio/Source/AVFAudio/AVAudioEngine/AVAudioFile.mm", 800, "[AVAudioFile readIntoBuffer:frameCount:error:]", "ExtAudioFileRead(_impl->_extAudioFile, &ioFrames, buffer.mutableAudioBufferList)", v20, outError);
+        v22 = ioNumberFrames;
+        [(AVAudioPCMBuffer *)v8 setFrameLength:ioNumberFrames];
+        if (v22)
+        {
+          v13 = v21;
+        }
+
+        else
+        {
+          v13 = 0;
+        }
+
+        goto LABEL_14;
+      }
+    }
+
+    v13 = 0;
+    goto LABEL_14;
+  }
+
+  if (outError)
+  {
+    v12 = v10;
+    v13 = 0;
+    *outError = v11;
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  v17 = v11;
+LABEL_15:
+
+  return v13;
 }
 
 - (BOOL)writeFromBuffer:(const AVAudioPCMBuffer *)buffer error:(NSError *)outError
@@ -241,11 +321,11 @@
 
 - (AVAudioFile)initForReading:(NSURL *)fileURL commonFormat:(AVAudioCommonFormat)format interleaved:(BOOL)interleaved error:(NSError *)outError
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v11 = fileURL;
-  v12.receiver = self;
-  v12.super_class = AVAudioFile;
-  if ([(AVAudioFile *)&v12 init])
+  v12 = *MEMORY[0x1E69E9840];
+  v10 = fileURL;
+  v11.receiver = self;
+  v11.super_class = AVAudioFile;
+  if ([(AVAudioFile *)&v11 init])
   {
     operator new();
   }
@@ -256,7 +336,6 @@
     *outError = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

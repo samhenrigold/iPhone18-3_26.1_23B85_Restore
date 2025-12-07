@@ -333,7 +333,7 @@ LABEL_12:
 
 - (BOOL)showDialogForReason:(int64_t)reason podcastTitle:(id)title completion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   titleCopy = title;
   completionCopy = completion;
   aBlock[0] = MEMORY[0x277D85DD0];
@@ -341,7 +341,7 @@ LABEL_12:
   aBlock[2] = __72__MTEpisodeUnavailableUtil_showDialogForReason_podcastTitle_completion___block_invoke;
   aBlock[3] = &unk_279A44790;
   v10 = completionCopy;
-  v24 = v10;
+  v23 = v10;
   reasonCopy = reason;
   v11 = _Block_copy(aBlock);
   if ((reason - 3) >= 8)
@@ -355,17 +355,17 @@ LABEL_12:
 
     if (reason == 2)
     {
-      v19 = +[MTReachability sharedInstance];
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __72__MTEpisodeUnavailableUtil_showDialogForReason_podcastTitle_completion___block_invoke_2;
-      v20[3] = &unk_279A447B8;
-      v21 = v10;
-      v22 = 2;
-      v14 = [v19 showInternetUnreachableDialogWithAcknowledmentBlock:v20];
+      v18 = +[MTReachability sharedInstance];
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __72__MTEpisodeUnavailableUtil_showDialogForReason_podcastTitle_completion___block_invoke_2;
+      v19[3] = &unk_279A447B8;
+      v20 = v10;
+      v21 = 2;
+      v14 = [v18 showInternetUnreachableDialogWithAcknowledmentBlock:v19];
 
       v13 = 0;
-      v12 = v21;
+      v12 = v20;
       goto LABEL_3;
     }
 
@@ -392,7 +392,7 @@ LABEL_4:
     }
 
     *buf = 138412290;
-    v27 = v16;
+    v26 = v16;
     _os_log_impl(&dword_25E9F0000, v15, OS_LOG_TYPE_ERROR, "Episode Unavailable (%@)", buf, 0xCu);
     if (!v13)
     {
@@ -400,7 +400,6 @@ LABEL_4:
   }
 
 LABEL_10:
-  v17 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -428,20 +427,18 @@ uint64_t __72__MTEpisodeUnavailableUtil_showDialogForReason_podcastTitle_complet
 
 - (void)_presentErrorDialogWithTitle:(id)title message:(id)message handler:(id)handler
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   titleCopy = title;
   messageCopy = message;
   v8 = _MTLogCategoryPlayback();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    v10 = 138412546;
-    v11 = titleCopy;
-    v12 = 2112;
-    v13 = messageCopy;
-    _os_log_impl(&dword_25E9F0000, v8, OS_LOG_TYPE_ERROR, "Unable to show Episode Unavailable dialog. Title = [%@], Message = [%@]", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = titleCopy;
+    v11 = 2112;
+    v12 = messageCopy;
+    _os_log_impl(&dword_25E9F0000, v8, OS_LOG_TYPE_ERROR, "Unable to show Episode Unavailable dialog. Title = [%@], Message = [%@]", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

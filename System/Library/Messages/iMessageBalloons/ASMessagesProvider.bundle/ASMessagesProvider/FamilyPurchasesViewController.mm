@@ -51,7 +51,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_2CFF0();
+  sub_2CFF0(selfCopy, v2);
 }
 
 - (int64_t)collectionView:(id)view numberOfItemsInSection:(int64_t)section
@@ -126,7 +126,7 @@
   viewCopy = view;
   cellCopy = cell;
   selfCopy = self;
-  sub_2ED6C(cellCopy);
+  sub_2ED6C(cellCopy, v11);
 
   (*(v9 + 8))(v11, v8);
 }
@@ -158,7 +158,7 @@
   viewCopy = view;
   layoutCopy = layout;
   selfCopy = self;
-  sub_2F7D4(viewCopy);
+  sub_2F7D4(viewCopy, v11);
   v16 = v15;
   v18 = v17;
 
@@ -213,14 +213,14 @@
   viewCopy = view;
   layoutCopy = layout;
   selfCopy = self;
-  sub_30120();
-  v11 = v10;
-  v13 = v12;
+  sub_30120(section);
+  v12 = v11;
+  v14 = v13;
 
-  v14 = v11;
-  v15 = v13;
-  result.height = v15;
-  result.width = v14;
+  v15 = v12;
+  v16 = v14;
+  result.height = v16;
+  result.width = v15;
   return result;
 }
 

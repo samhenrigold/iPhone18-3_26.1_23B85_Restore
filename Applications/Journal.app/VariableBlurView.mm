@@ -7,7 +7,7 @@
 
 + (Class)layerClass
 {
-  sub_1000065A8(0, &qword_100AE31E8);
+  sub_1000065A8(0, &qword_100AE31E8, CABackdropLayer_ptr);
 
   return swift_getObjCClassFromMetadata();
 }

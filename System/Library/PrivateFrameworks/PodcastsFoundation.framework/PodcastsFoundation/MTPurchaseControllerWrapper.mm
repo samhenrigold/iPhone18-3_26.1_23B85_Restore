@@ -33,7 +33,6 @@
 
 - (void)syncMusicSubscriptionInformation
 {
-  v2 = *(*(&self->super.isa + OBJC_IVAR___MTPurchaseControllerWrapper_purchaseController) + *((*MEMORY[0x1E69E7D40] & **(&self->super.isa + OBJC_IVAR___MTPurchaseControllerWrapper_purchaseController)) + 0xB0));
   selfCopy = self;
   sub_1D8D6C624(0, sub_1D906A898, 0);
 }

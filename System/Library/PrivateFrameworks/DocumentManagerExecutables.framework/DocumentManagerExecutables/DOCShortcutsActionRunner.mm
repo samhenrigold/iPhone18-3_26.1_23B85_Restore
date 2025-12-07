@@ -10,7 +10,7 @@
   filesCopy = files;
   if (files)
   {
-    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for WFContextualActionFile);
+    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for WFContextualActionFile, 0x277D79EB0);
     filesCopy = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -23,7 +23,7 @@
 
 - (_TtC26DocumentManagerExecutablesP33_658718EC2EA5D3CB0FC4E9B24EA9403024DOCShortcutsActionRunner)init
 {
-  v2 = (&self->super.isa + OBJC_IVAR____TtC26DocumentManagerExecutablesP33_658718EC2EA5D3CB0FC4E9B24EA9403024DOCShortcutsActionRunner_completionHandler);
+  v2 = (self + OBJC_IVAR____TtC26DocumentManagerExecutablesP33_658718EC2EA5D3CB0FC4E9B24EA9403024DOCShortcutsActionRunner_completionHandler);
   *v2 = DOCGridLayout.specIconWidth.modify;
   v2[1] = 0;
   v4.receiver = self;

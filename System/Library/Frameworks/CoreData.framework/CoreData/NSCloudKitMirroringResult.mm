@@ -16,11 +16,11 @@
 
 - (NSCloudKitMirroringResult)initWithRequest:(id)request storeIdentifier:(id)identifier success:(BOOL)success madeChanges:(BOOL)changes error:(id)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v12 = [(NSCloudKitMirroringResult *)self init];
   if (!v12)
   {
-    goto LABEL_16;
+    return v12;
   }
 
   v12->_request = request;
@@ -35,25 +35,25 @@
     LogStream = _PFLogGetLogStream(17);
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
     {
-      v26 = 138412290;
+      v25 = 138412290;
       errorCopy3 = error;
-      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: initWithRequest passed an error (%@) on a succes condition\n", &v26, 0xCu);
+      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: initWithRequest passed an error (%@) on a succes condition\n", &v25, 0xCu);
     }
 
     v23 = _PFLogGetLogStream(17);
     if (!os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
-      goto LABEL_16;
+      return v12;
     }
 
-    v26 = 138412290;
+    v25 = 138412290;
     errorCopy3 = error;
     v18 = "CoreData: initWithRequest passed an error (%@) on a succes condition";
     v19 = v23;
     v20 = 12;
 LABEL_18:
-    _os_log_fault_impl(&dword_18565F000, v19, OS_LOG_TYPE_FAULT, v18, &v26, v20);
-    goto LABEL_16;
+    _os_log_fault_impl(&dword_18565F000, v19, OS_LOG_TYPE_FAULT, v18, &v25, v20);
+    return v12;
   }
 
   if (!success && !errorCopy)
@@ -61,14 +61,14 @@ LABEL_18:
     v16 = _PFLogGetLogStream(17);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v26) = 0;
-      _os_log_error_impl(&dword_18565F000, v16, OS_LOG_TYPE_ERROR, "CoreData: fault: initWithRequest illegally passed nil instead of an error on a failure condition\n", &v26, 2u);
+      LOWORD(v25) = 0;
+      _os_log_error_impl(&dword_18565F000, v16, OS_LOG_TYPE_ERROR, "CoreData: fault: initWithRequest illegally passed nil instead of an error on a failure condition\n", &v25, 2u);
     }
 
     v17 = _PFLogGetLogStream(17);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
-      LOWORD(v26) = 0;
+      LOWORD(v25) = 0;
       v18 = "CoreData: initWithRequest illegally passed nil instead of an error on a failure condition";
       v19 = v17;
       v20 = 2;
@@ -76,8 +76,6 @@ LABEL_18:
     }
   }
 
-LABEL_16:
-  v24 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

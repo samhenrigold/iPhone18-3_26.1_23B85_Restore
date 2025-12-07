@@ -520,37 +520,34 @@ BOOL __67__PDFPageBackgroundManager__findPageIndexNeedingUpdate_forQuality___blo
       {
         v63 = objc_loadWeakRetained(&selfCopy->_renderingProperties);
         displayBox = [v63 displayBox];
-        [v9 boundsForBox:displayBox];
-        v19 = v18;
-        v21 = v20;
-        v22 = kPDFPageBackgroundQualityFactors[v4];
-        if ((PDFKitDeviceIsN61() & 1) != 0 || PDFKitDeviceIsN56())
+        v18 = [v9 boundsForBox:displayBox];
+        v20 = v19;
+        v22 = v21;
+        v23 = kPDFPageBackgroundQualityFactors[v4];
+        IsN61 = PDFKitDeviceIsN61(v18, v24);
+        if ((IsN61 & 1) != 0 || PDFKitDeviceIsN56(IsN61, v26))
         {
-          v25 = 400.0;
+          v27 = 400.0;
         }
 
         else
         {
-          v25 = 800.0;
+          v27 = 800.0;
         }
 
-        v26 = v25;
-        v27 = v22 * v19;
-        v28 = v22 * v21;
-        if (v22 * v19 > v25 || v28 > v25)
+        v28 = v23 * v20;
+        v29 = v23 * v22;
+        if (v23 * v20 > v27 || v29 > v27)
         {
-          v23.n128_u64[0] = 0;
-          v24.n128_u64[0] = 0;
-          v29 = PDFRectMake(v23, v24, v22 * v19, v28);
+          PDFRectMake();
           v31 = v30;
           v33 = v32;
           v35 = v34;
-          v36.n128_u64[0] = 0;
-          v37.n128_u64[0] = 0;
-          v38 = PDFRectMake(v36, v37, v26, v26);
-          v42 = PDFScaleRectToRect(v29, v31, v33, v35, v38, v39, v40, v41);
-          v27 = v27 * v42;
+          v37 = v36;
+          PDFRectMake();
+          v42 = PDFScaleRectToRect(v31, v33, v35, v37, v38, v39, v40, v41);
           v28 = v28 * v42;
+          v29 = v29 * v42;
         }
 
         MachSeconds = GetMachSeconds();
@@ -564,7 +561,7 @@ BOOL __67__PDFPageBackgroundManager__findPageIndexNeedingUpdate_forQuality___blo
         v69[2] = MEMORY[0x1E695E110];
         v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v69 forKeys:v68 count:3];
 
-        v10 = [v9 imageOfSize:displayBox forBox:v62 withOptions:{ceil(v27), ceil(v28)}];
+        v10 = [v9 imageOfSize:displayBox forBox:v62 withOptions:{ceil(v28), ceil(v29)}];
         if (v10 && !selfCopy->_isCancled)
         {
           if (GetDefaultsWriteLogPerfTimes())

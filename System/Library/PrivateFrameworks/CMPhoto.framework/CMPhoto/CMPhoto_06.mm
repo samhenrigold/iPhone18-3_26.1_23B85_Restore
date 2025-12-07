@@ -247,7 +247,7 @@ uint64_t vega::dicom::RawWriter::write_from<std::__wrap_iter<char *>>(vega::dico
   return v3;
 }
 
-void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<int>,(vega::manipulators::PaddedStringManipulator<int>*)0>(uint64_t a1, uint64_t a2)
+void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<int>,(vega::manipulators::PaddedStringManipulator<int>*)0>(void *result, uint64_t a2)
 {
   v6 = a2 + 8;
   v4 = *(a2 + 8);
@@ -256,14 +256,14 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<int>,(vega:
   if (v7 == 1)
   {
 
-    vega::Json::value_to_json<int>(a1, v4);
+    vega::Json::value_to_json<int>(result, v4);
   }
 
   else if (v7)
   {
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v8 = *a1;
+      v8 = *result;
       v14 = 91;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, &v14, 1);
       v4 = *(a2 + 8);
@@ -276,12 +276,12 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<int>,(vega:
       v10 = 0;
       do
       {
-        vega::Json::value_to_json<int>(a1, &v4[v9]);
+        vega::Json::value_to_json<int>(result, &v4[v9]);
         v4 = *(a2 + 8);
         v11 = (*(a2 + 16) - v4) >> 2;
-        if (v10 < v11 - 1 && *(a1 + 16) == 1)
+        if (v10 < v11 - 1 && *(result + 16) == 1)
         {
-          v12 = *a1;
+          v12 = *result;
           v16 = 44;
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, &v16, 1);
           v4 = *(a2 + 8);
@@ -295,9 +295,9 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<int>,(vega:
       while (v10 < v11);
     }
 
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v13 = *a1;
+      v13 = *result;
       v15 = 93;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, &v15, 1);
     }
@@ -306,7 +306,7 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<int>,(vega:
   else
   {
 
-    vega::operator<<<char [18]>(a1, "null");
+    vega::operator<<<char [18]>(result, "null");
   }
 }
 
@@ -591,8 +591,7 @@ void *std::__shared_ptr_emplace<vega::manipulators::IntegerStringManipulator>::_
 void *std::construct_at[abi:ne200100]<vega::manipulators::IntegerStringManipulator,std::shared_ptr<vega::dicom::RawValue>,vega::manipulators::IntegerStringManipulator*>(void *a1, __int128 *a2)
 {
   v4 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   vega::manipulators::PaddedStringManipulator<int>::PaddedStringManipulator(a1, &v4);
   *a1 = &unk_1F19185D8;
   if (*(&v4 + 1))
@@ -613,7 +612,7 @@ void sub_1A596E5D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *vega::manipulators::PaddedStringManipulator<int>::PaddedStringManipulator(void *a1, vega::dicom::RawValue **a2)
+void *vega::manipulators::PaddedStringManipulator<int>::PaddedStringManipulator(void *a1, void ****a2)
 {
   vega::dicom::RawValue::str(*a2, &__p);
   vega::manipulators::PaddedStringManipulator<int>::PaddedStringManipulator(a1, &__p);
@@ -655,13 +654,13 @@ void sub_1A596E6AC(_Unwind_Exception *a1)
     operator delete(v5);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(v1);
+  CMPhotoGetEncodeAccelerationModeOverride();
   _Unwind_Resume(a1);
 }
 
 void vega::dicom::DataSet::element<vega::dictionary::PlanarConfiguration>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::PlanarConfiguration::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::PlanarConfiguration::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::PlanarConfiguration>,std::allocator<vega::dicom::Element<vega::dictionary::PlanarConfiguration>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -771,33 +770,32 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void *vega::dicom::DataElement::get_manipulator<vega::manipulators::UnsignedShortManipulator>@<X0>(vega::dicom::DataElement *a1@<X0>, void *a2@<X8>)
+void vega::dicom::DataElement::get_manipulator<vega::manipulators::UnsignedShortManipulator>(uint64_t **a1@<X0>, void *a2@<X8>)
 {
   v4 = vega::dicom::DataElement::vr(a1);
   vega::VR::validate_value_manipulator<vega::manipulators::UnsignedShortManipulator>(v4);
   vega::dicom::DataElement::lazy_load(a1);
-  v5 = *(a1 + 30);
+  v5 = a1[30];
   if (!v5)
   {
     operator new();
   }
 
   v6 = *v5;
-  if (!result)
+  if (!v7)
   {
     (*(v6 + 16))(&v9, v5);
     std::allocate_shared[abi:ne200100]<vega::manipulators::UnsignedShortManipulator,std::allocator<vega::manipulators::UnsignedShortManipulator>,std::shared_ptr<vega::dicom::RawValue>,0>();
   }
 
-  v8 = *(a1 + 31);
+  v8 = a1[31];
   if (v8)
   {
-    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v8 + 1, 1uLL, memory_order_relaxed);
   }
 
-  *a2 = result;
+  *a2 = v7;
   a2[1] = v8;
-  return result;
 }
 
 void sub_1A596EC18(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -861,7 +859,7 @@ std::runtime_error *vega::VR::InvalidValueManipulator<vega::manipulators::Unsign
   v9->__r_.__value_.__l.__size_ = 0;
   v9->__r_.__value_.__r.__words[2] = 0;
   v9->__r_.__value_.__r.__words[0] = 0;
-  vega::VR::str(a2, __p);
+  vega::VR::str(__p, a2);
   if ((v17 & 0x80u) == 0)
   {
     v11 = __p;
@@ -984,7 +982,7 @@ void vega::manipulators::UnsignedShortManipulator::~UnsignedShortManipulator(veg
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
@@ -995,7 +993,7 @@ void vega::manipulators::UnsignedShortManipulator::~UnsignedShortManipulator(veg
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
@@ -1003,25 +1001,13 @@ void vega::manipulators::UnsignedShortManipulator::~UnsignedShortManipulator(veg
 BOOL vega::manipulators::UnsignedShortManipulator::is_valid_for (vega::manipulators::UnsignedShortManipulator *this, const vega::VR *a2)
 {
   v3 = a2;
-  if ((atomic_load_explicit(&qword_1ED6FA5C8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA5C8, memory_order_acquire) & 1) == 0)
   {
     vega::manipulators::UnsignedShortManipulator::is_valid_for ();
     v3 = a2;
   }
 
   return vega::Word::operator==(v3, &word_1ED6FA5AA);
-}
-
-uint64_t vega::manipulators::FixedSizeElementManipulator<unsigned short>::~FixedSizeElementManipulator(uint64_t a1)
-{
-  v2 = *(a1 + 8);
-  if (v2)
-  {
-    *(a1 + 16) = v2;
-    operator delete(v2);
-  }
-
-  return CMPhotoGetEncodeAccelerationModeOverride(a1);
 }
 
 void vega::manipulators::FixedSizeElementManipulator<unsigned short>::~FixedSizeElementManipulator(uint64_t a1)
@@ -1033,7 +1019,18 @@ void vega::manipulators::FixedSizeElementManipulator<unsigned short>::~FixedSize
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(a1);
+  CMPhotoGetEncodeAccelerationModeOverride();
+}
+
+{
+  v2 = *(a1 + 8);
+  if (v2)
+  {
+    *(a1 + 16) = v2;
+    operator delete(v2);
+  }
+
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
@@ -1056,7 +1053,7 @@ void std::allocator<unsigned short>::allocate_at_least[abi:ne200100](uint64_t a1
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t vega::dicom::RawWriter::write_from<unsigned short>(vega::dicom::IOState *a1)
+uint64_t vega::dicom::RawWriter::write_from<unsigned short>(vega::dicom::IOState *a1, uint64_t a2)
 {
   if (vega::dicom::IOState::swap(a1))
   {
@@ -1067,7 +1064,7 @@ uint64_t vega::dicom::RawWriter::write_from<unsigned short>(vega::dicom::IOState
   return 2;
 }
 
-void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<unsigned short>,(vega::manipulators::FixedSizeElementManipulator<unsigned short>*)0>(uint64_t a1, uint64_t a2)
+void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<unsigned short>,(vega::manipulators::FixedSizeElementManipulator<unsigned short>*)0>(void *result, uint64_t a2)
 {
   v6 = a2 + 8;
   v4 = *(a2 + 8);
@@ -1076,14 +1073,14 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<unsigne
   if (v7 == 1)
   {
 
-    vega::Json::value_to_json<unsigned short>(a1, v4);
+    vega::Json::value_to_json<unsigned short>(result, v4);
   }
 
   else if (v7)
   {
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v8 = *a1;
+      v8 = *result;
       v14 = 91;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, &v14, 1);
       v4 = *(a2 + 8);
@@ -1096,12 +1093,12 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<unsigne
       v10 = 0;
       do
       {
-        vega::Json::value_to_json<unsigned short>(a1, &v4[v9]);
+        vega::Json::value_to_json<unsigned short>(result, &v4[v9]);
         v4 = *(a2 + 8);
         v11 = (*(a2 + 16) - v4) >> 1;
-        if (v10 < v11 - 1 && *(a1 + 16) == 1)
+        if (v10 < v11 - 1 && *(result + 16) == 1)
         {
-          v12 = *a1;
+          v12 = *result;
           v16 = 44;
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, &v16, 1);
           v4 = *(a2 + 8);
@@ -1115,9 +1112,9 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<unsigne
       while (v10 < v11);
     }
 
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v13 = *a1;
+      v13 = *result;
       v15 = 93;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, &v15, 1);
     }
@@ -1126,7 +1123,7 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<unsigne
   else
   {
 
-    vega::operator<<<char [18]>(a1, "null");
+    vega::operator<<<char [18]>(result, "null");
   }
 }
 
@@ -1373,8 +1370,7 @@ void *std::__shared_ptr_emplace<vega::manipulators::UnsignedShortManipulator>::_
 void *std::construct_at[abi:ne200100]<vega::manipulators::UnsignedShortManipulator,std::shared_ptr<vega::dicom::RawValue>,vega::manipulators::UnsignedShortManipulator*>(void *a1, __int128 *a2)
 {
   v4 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   vega::manipulators::FixedSizeElementManipulator<unsigned short>::FixedSizeElementManipulator(a1, &v4);
   *a1 = &unk_1F19190D8;
   if (*(&v4 + 1))
@@ -1430,7 +1426,7 @@ LABEL_6:
         operator delete(v19);
       }
 
-      CMPhotoGetEncodeAccelerationModeOverride(v14);
+      CMPhotoGetEncodeAccelerationModeOverride();
       _Unwind_Resume(a1);
     }
   }
@@ -1524,7 +1520,7 @@ _WORD *std::__copy_impl::operator()[abi:ne200100]<unsigned short const*,unsigned
 
 void vega::dicom::DataSet::element<vega::dictionary::Modality>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::Modality::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::Modality::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::Modality>,std::allocator<vega::dicom::Element<vega::dictionary::Modality>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -1634,33 +1630,32 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void *vega::dicom::DataElement::get_manipulator<vega::manipulators::CodeStringManipulator>@<X0>(vega::dicom::DataElement *a1@<X0>, void *a2@<X8>)
+void vega::dicom::DataElement::get_manipulator<vega::manipulators::CodeStringManipulator>(uint64_t **a1@<X0>, void *a2@<X8>)
 {
   v4 = vega::dicom::DataElement::vr(a1);
   vega::VR::validate_value_manipulator<vega::manipulators::CodeStringManipulator>(v4);
   vega::dicom::DataElement::lazy_load(a1);
-  v5 = *(a1 + 30);
+  v5 = a1[30];
   if (!v5)
   {
     operator new();
   }
 
   v6 = *v5;
-  if (!result)
+  if (!v7)
   {
     (*(v6 + 16))(&v9, v5);
     std::allocate_shared[abi:ne200100]<vega::manipulators::CodeStringManipulator,std::allocator<vega::manipulators::CodeStringManipulator>,std::shared_ptr<vega::dicom::RawValue>,0>();
   }
 
-  v8 = *(a1 + 31);
+  v8 = a1[31];
   if (v8)
   {
-    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v8 + 1, 1uLL, memory_order_relaxed);
   }
 
-  *a2 = result;
+  *a2 = v7;
   a2[1] = v8;
-  return result;
 }
 
 void sub_1A5970148(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -1724,7 +1719,7 @@ std::runtime_error *vega::VR::InvalidValueManipulator<vega::manipulators::CodeSt
   v9->__r_.__value_.__l.__size_ = 0;
   v9->__r_.__value_.__r.__words[2] = 0;
   v9->__r_.__value_.__r.__words[0] = 0;
-  vega::VR::str(a2, __p);
+  vega::VR::str(__p, a2);
   if ((v17 & 0x80u) == 0)
   {
     v11 = __p;
@@ -1840,22 +1835,22 @@ void std::__shared_ptr_emplace<vega::manipulators::CodeStringManipulator>::~__sh
 
 void vega::manipulators::CodeStringManipulator::~CodeStringManipulator(vega::manipulators::CodeStringManipulator *this)
 {
-  v2 = (this + 8);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v2);
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  v1 = (this + 8);
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v1);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
-  v3 = (this + 8);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v3);
-  EncodeAccelerationModeOverride = CMPhotoGetEncodeAccelerationModeOverride(this);
-  MEMORY[0x1AC552B90](EncodeAccelerationModeOverride, 0xA1C4030951706);
+  v1 = (this + 8);
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v1);
+  CMPhotoGetEncodeAccelerationModeOverride();
+  MEMORY[0x1AC552B90]();
 }
 
 BOOL vega::manipulators::CodeStringManipulator::is_valid_for (vega::manipulators::CodeStringManipulator *this, const vega::VR *a2)
 {
   v3 = a2;
-  if ((atomic_load_explicit(&qword_1ED6FA5D0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA5D0, memory_order_acquire) & 1) == 0)
   {
     vega::manipulators::CodeStringManipulator::is_valid_for ();
     v3 = a2;
@@ -1864,18 +1859,19 @@ BOOL vega::manipulators::CodeStringManipulator::is_valid_for (vega::manipulators
   return vega::Word::operator==(v3, &word_1ED6FA5AC);
 }
 
-uint64_t vega::manipulators::PaddedStringManipulator<std::string>::~PaddedStringManipulator(uint64_t a1)
+void vega::manipulators::PaddedStringManipulator<std::string>::~PaddedStringManipulator(uint64_t a1)
 {
-  v3 = (a1 + 8);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v3);
-  return CMPhotoGetEncodeAccelerationModeOverride(a1);
+  v1 = (a1 + 8);
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v1);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
+uint64_t vega::manipulators::PaddedStringManipulator<std::string>::~PaddedStringManipulator(uint64_t a1)
 {
-  v4 = (a1 + 8);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v4);
-  EncodeAccelerationModeOverride = CMPhotoGetEncodeAccelerationModeOverride(a1);
-  return MEMORY[0x1AC552B90](EncodeAccelerationModeOverride, 0xA1C4030951706);
+  v2 = (a1 + 8);
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v2);
+  CMPhotoGetEncodeAccelerationModeOverride();
+  return MEMORY[0x1AC552B90]();
 }
 
 void std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](void ***a1)
@@ -1961,7 +1957,7 @@ void std::__split_buffer<std::string>::__destruct_at_end[abi:ne200100](uint64_t 
   }
 }
 
-void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<std::string>,(vega::manipulators::PaddedStringManipulator<std::string>*)0>(uint64_t a1, uint64_t a2)
+void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<std::string>,(vega::manipulators::PaddedStringManipulator<std::string>*)0>(void *result, uint64_t a2)
 {
   v6 = a2 + 8;
   v4 = *(a2 + 8);
@@ -1970,14 +1966,14 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<std::string
   if (v7 == 1)
   {
 
-    vega::Json::value_to_json<std::string>(a1, v4);
+    vega::Json::value_to_json<std::string>(result, v4);
   }
 
   else if (v7)
   {
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v8 = *a1;
+      v8 = *result;
       v14 = 91;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, &v14, 1);
       v4 = *(a2 + 8);
@@ -1990,12 +1986,12 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<std::string
       v10 = 0;
       do
       {
-        vega::Json::value_to_json<std::string>(a1, &v4[v9]);
+        vega::Json::value_to_json<std::string>(result, &v4[v9]);
         v4 = *(a2 + 8);
         v11 = 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 16) - v4) >> 3);
-        if (v10 < v11 - 1 && *(a1 + 16) == 1)
+        if (v10 < v11 - 1 && *(result + 16) == 1)
         {
-          v12 = *a1;
+          v12 = *result;
           v16 = 44;
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, &v16, 1);
           v4 = *(a2 + 8);
@@ -2009,9 +2005,9 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<std::string
       while (v10 < v11);
     }
 
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v13 = *a1;
+      v13 = *result;
       v15 = 93;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, &v15, 1);
     }
@@ -2020,11 +2016,11 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<std::string
   else
   {
 
-    vega::operator<<<char [18]>(a1, "null");
+    vega::operator<<<char [18]>(result, "null");
   }
 }
 
-void vega::Json::value_to_json<std::string>(uint64_t a1, uint64_t *a2)
+void vega::Json::value_to_json<std::string>(uint64_t a1, uint64_t **a2)
 {
   vega::to_json<std::string>(a2, __p);
   vega::operator<<<std::string>(a1, __p);
@@ -2278,7 +2274,7 @@ void sub_1A5970ECC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__shared_ptr_emplace<vega::manipulators::CodeStringManipulator>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<vega::dicom::RawValue>,std::allocator<vega::manipulators::CodeStringManipulator>,0>(void *a1, __int128 *a2)
+void ***std::__shared_ptr_emplace<vega::manipulators::CodeStringManipulator>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<vega::dicom::RawValue>,std::allocator<vega::manipulators::CodeStringManipulator>,0>(void ***a1, __int128 *a2)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -2287,11 +2283,10 @@ void *std::__shared_ptr_emplace<vega::manipulators::CodeStringManipulator>::__sh
   return a1;
 }
 
-void *std::construct_at[abi:ne200100]<vega::manipulators::CodeStringManipulator,std::shared_ptr<vega::dicom::RawValue>,vega::manipulators::CodeStringManipulator*>(void *a1, __int128 *a2)
+void ***std::construct_at[abi:ne200100]<vega::manipulators::CodeStringManipulator,std::shared_ptr<vega::dicom::RawValue>,vega::manipulators::CodeStringManipulator*>(void ***a1, __int128 *a2)
 {
   v4 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   vega::manipulators::PaddedStringManipulator<std::string>::PaddedStringManipulator(a1, &v4);
   *a1 = &unk_1F1918140;
   if (*(&v4 + 1))
@@ -2314,7 +2309,7 @@ void sub_1A5971058(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void vega::dicom::DataSet::element<vega::dictionary::InstanceCreationDate>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::InstanceCreationDate::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::InstanceCreationDate::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::InstanceCreationDate>,std::allocator<vega::dicom::Element<vega::dictionary::InstanceCreationDate>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -2424,33 +2419,32 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void *vega::dicom::DataElement::get_manipulator<vega::manipulators::DateManipulator>@<X0>(vega::dicom::DataElement *a1@<X0>, void *a2@<X8>)
+void vega::dicom::DataElement::get_manipulator<vega::manipulators::DateManipulator>(uint64_t **a1@<X0>, void *a2@<X8>)
 {
   v4 = vega::dicom::DataElement::vr(a1);
   vega::VR::validate_value_manipulator<vega::manipulators::DateManipulator>(v4);
   vega::dicom::DataElement::lazy_load(a1);
-  v5 = *(a1 + 30);
+  v5 = a1[30];
   if (!v5)
   {
     operator new();
   }
 
   v6 = *v5;
-  if (!result)
+  if (!v7)
   {
     (*(v6 + 16))(&v9, v5);
     std::allocate_shared[abi:ne200100]<vega::manipulators::DateManipulator,std::allocator<vega::manipulators::DateManipulator>,std::shared_ptr<vega::dicom::RawValue>,0>();
   }
 
-  v8 = *(a1 + 31);
+  v8 = a1[31];
   if (v8)
   {
-    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v8 + 1, 1uLL, memory_order_relaxed);
   }
 
-  *a2 = result;
+  *a2 = v7;
   a2[1] = v8;
-  return result;
 }
 
 void sub_1A59715B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -2514,7 +2508,7 @@ std::runtime_error *vega::VR::InvalidValueManipulator<vega::manipulators::DateMa
   v9->__r_.__value_.__l.__size_ = 0;
   v9->__r_.__value_.__r.__words[2] = 0;
   v9->__r_.__value_.__r.__words[0] = 0;
-  vega::VR::str(a2, __p);
+  vega::VR::str(__p, a2);
   if ((v17 & 0x80u) == 0)
   {
     v11 = __p;
@@ -2630,22 +2624,22 @@ void std::__shared_ptr_emplace<vega::manipulators::DateManipulator>::~__shared_p
 
 void vega::manipulators::DateManipulator::~DateManipulator(vega::manipulators::DateManipulator *this)
 {
-  v2 = (this + 8);
-  std::vector<vega::Date>::__destroy_vector::operator()[abi:ne200100](&v2);
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  v1 = (this + 8);
+  std::vector<vega::Date>::__destroy_vector::operator()[abi:ne200100](&v1);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
-  v3 = (this + 8);
-  std::vector<vega::Date>::__destroy_vector::operator()[abi:ne200100](&v3);
-  EncodeAccelerationModeOverride = CMPhotoGetEncodeAccelerationModeOverride(this);
-  MEMORY[0x1AC552B90](EncodeAccelerationModeOverride, 0xA1C4030951706);
+  v1 = (this + 8);
+  std::vector<vega::Date>::__destroy_vector::operator()[abi:ne200100](&v1);
+  CMPhotoGetEncodeAccelerationModeOverride();
+  MEMORY[0x1AC552B90]();
 }
 
 BOOL vega::manipulators::DateManipulator::is_valid_for (vega::manipulators::DateManipulator *this, const vega::VR *a2)
 {
   v3 = a2;
-  if ((atomic_load_explicit(&qword_1ED6FA5D8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA5D8, memory_order_acquire) & 1) == 0)
   {
     vega::manipulators::DateManipulator::is_valid_for ();
     v3 = a2;
@@ -2654,18 +2648,19 @@ BOOL vega::manipulators::DateManipulator::is_valid_for (vega::manipulators::Date
   return vega::Word::operator==(v3, &word_1ED6FA5AE);
 }
 
-uint64_t vega::manipulators::PaddedStringManipulator<vega::Date>::~PaddedStringManipulator(uint64_t a1)
+void vega::manipulators::PaddedStringManipulator<vega::Date>::~PaddedStringManipulator(uint64_t a1)
 {
-  v3 = (a1 + 8);
-  std::vector<vega::Date>::__destroy_vector::operator()[abi:ne200100](&v3);
-  return CMPhotoGetEncodeAccelerationModeOverride(a1);
+  v1 = (a1 + 8);
+  std::vector<vega::Date>::__destroy_vector::operator()[abi:ne200100](&v1);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
+uint64_t vega::manipulators::PaddedStringManipulator<vega::Date>::~PaddedStringManipulator(uint64_t a1)
 {
-  v4 = (a1 + 8);
-  std::vector<vega::Date>::__destroy_vector::operator()[abi:ne200100](&v4);
-  EncodeAccelerationModeOverride = CMPhotoGetEncodeAccelerationModeOverride(a1);
-  return MEMORY[0x1AC552B90](EncodeAccelerationModeOverride, 0xA1C4030951706);
+  v2 = (a1 + 8);
+  std::vector<vega::Date>::__destroy_vector::operator()[abi:ne200100](&v2);
+  CMPhotoGetEncodeAccelerationModeOverride();
+  return MEMORY[0x1AC552B90]();
 }
 
 void std::vector<vega::Date>::__destroy_vector::operator()[abi:ne200100](void ***a1)
@@ -2680,14 +2675,14 @@ void std::vector<vega::Date>::__destroy_vector::operator()[abi:ne200100](void **
   }
 }
 
-void std::vector<vega::Date>::__base_destruct_at_end[abi:ne200100](uint64_t a1, void *a2)
+void std::vector<vega::Date>::__base_destruct_at_end[abi:ne200100](uint64_t result, void *a2)
 {
-  for (i = *(a1 + 8); i != a2; std::allocator_traits<std::allocator<vega::Date>>::destroy[abi:ne200100]<vega::Date,void,0>(a1, i))
+  for (i = *(result + 8); i != a2; std::allocator_traits<std::allocator<vega::Date>>::destroy[abi:ne200100]<vega::Date,void,0>(result, i))
   {
     i -= 6;
   }
 
-  *(a1 + 8) = a2;
+  *(result + 8) = a2;
 }
 
 void std::allocator_traits<std::allocator<vega::Date>>::destroy[abi:ne200100]<vega::Date,void,0>(uint64_t a1, void *a2)
@@ -2733,7 +2728,7 @@ void vega::Date::~Date(vega::Date *this)
   }
 }
 
-void *std::vector<vega::Date>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<vega::Date>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 4) < a2)
   {
@@ -2748,9 +2743,9 @@ void *std::vector<vega::Date>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-void sub_1A5971D04(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5971D04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<vega::Date>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2925,14 +2920,14 @@ uint64_t std::vector<vega::Date>::__emplace_back_slow_path<vega::Date>(uint64_t 
   return v13;
 }
 
-void sub_1A5972084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1A5972084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<vega::Date>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::Date>,(vega::manipulators::PaddedStringManipulator<vega::Date>*)0>(uint64_t a1, uint64_t a2)
+void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::Date>,(vega::manipulators::PaddedStringManipulator<vega::Date>*)0>(void *result, uint64_t a2)
 {
   v6 = a2 + 8;
   v4 = *(a2 + 8);
@@ -2941,14 +2936,14 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::Date>
   if (v7 == 1)
   {
 
-    vega::Json::value_to_json<vega::Date>(a1, v4);
+    vega::Json::value_to_json<vega::Date>(result, v4);
   }
 
   else if (v7)
   {
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v8 = *a1;
+      v8 = *result;
       v14 = 91;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, &v14, 1);
       v4 = *(a2 + 8);
@@ -2961,12 +2956,12 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::Date>
       v10 = 0;
       do
       {
-        vega::Json::value_to_json<vega::Date>(a1, &v4[v9]);
+        vega::Json::value_to_json<vega::Date>(result, &v4[v9]);
         v4 = *(a2 + 8);
         v11 = 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 16) - v4) >> 4);
-        if (v10 < v11 - 1 && *(a1 + 16) == 1)
+        if (v10 < v11 - 1 && *(result + 16) == 1)
         {
-          v12 = *a1;
+          v12 = *result;
           v16 = 44;
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, &v16, 1);
           v4 = *(a2 + 8);
@@ -2980,9 +2975,9 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::Date>
       while (v10 < v11);
     }
 
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v13 = *a1;
+      v13 = *result;
       v15 = 93;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, &v15, 1);
     }
@@ -2991,7 +2986,7 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::Date>
   else
   {
 
-    vega::operator<<<char [18]>(a1, "null");
+    vega::operator<<<char [18]>(result, "null");
   }
 }
 
@@ -3015,22 +3010,22 @@ void sub_1A5972278(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *vega::Json::from_json<vega::manipulators::PaddedStringManipulator<vega::Date> &,vega::Date>(void *a1)
+void vega::Json::from_json<vega::manipulators::PaddedStringManipulator<vega::Date> &,vega::Date>(void *a1, uint64_t a2)
 {
-  v2 = std::istream::peek();
-  v5 = v2;
-  if (v2 == 34)
+  v3 = std::istream::peek();
+  v5 = v3;
+  if (v3 == 34)
   {
     vega::Json::value_from_json<vega::Date>(a1, &v4);
   }
 
-  if (v2 == 91)
+  if (v3 == 91)
   {
     std::operator>>[abi:ne200100]<char,std::char_traits<char>>(a1, &v5);
     vega::Json::value_from_json<vega::Date>(a1, &v4);
   }
 
-  if (v2 != 110)
+  if (v3 != 110)
   {
     vega::Json::value_from_json<vega::Date>(a1, &v4);
   }
@@ -3038,7 +3033,7 @@ void *vega::Json::from_json<vega::manipulators::PaddedStringManipulator<vega::Da
   std::operator>>[abi:ne200100]<char,std::char_traits<char>>(a1, &v5);
   std::operator>>[abi:ne200100]<char,std::char_traits<char>>(a1, &v5);
   std::operator>>[abi:ne200100]<char,std::char_traits<char>>(a1, &v5);
-  return std::operator>>[abi:ne200100]<char,std::char_traits<char>>(a1, &v5);
+  std::operator>>[abi:ne200100]<char,std::char_traits<char>>(a1, &v5);
 }
 
 void vega::Json::value_from_json<vega::Date>(void *a1@<X0>, vega::DateTime *a2@<X8>)
@@ -3068,11 +3063,10 @@ void *std::__shared_ptr_emplace<vega::manipulators::DateManipulator>::__shared_p
   return a1;
 }
 
-void *std::construct_at[abi:ne200100]<vega::manipulators::DateManipulator,std::shared_ptr<vega::dicom::RawValue>,vega::manipulators::DateManipulator*>(void *a1, __int128 *a2)
+uint64_t *std::construct_at[abi:ne200100]<vega::manipulators::DateManipulator,std::shared_ptr<vega::dicom::RawValue>,vega::manipulators::DateManipulator*>(uint64_t *a1, __int128 *a2)
 {
   v4 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   vega::manipulators::PaddedStringManipulator<vega::Date>::PaddedStringManipulator(a1, &v4);
   *a1 = &unk_1F19181E8;
   if (*(&v4 + 1))
@@ -3093,7 +3087,7 @@ void sub_1A5972740(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *vega::manipulators::PaddedStringManipulator<vega::Date>::PaddedStringManipulator(void *a1, vega::dicom::RawValue **a2)
+uint64_t *vega::manipulators::PaddedStringManipulator<vega::Date>::PaddedStringManipulator(uint64_t *a1, void ****a2)
 {
   vega::dicom::RawValue::str(*a2, &__p);
   vega::manipulators::PaddedStringManipulator<vega::Date>::PaddedStringManipulator(a1, &__p);
@@ -3115,7 +3109,7 @@ void sub_1A59727AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *vega::manipulators::PaddedStringManipulator<vega::Date>::PaddedStringManipulator(void *a1, const std::string *a2)
+uint64_t *vega::manipulators::PaddedStringManipulator<vega::Date>::PaddedStringManipulator(uint64_t *a1, const std::string *a2)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -3127,16 +3121,16 @@ void *vega::manipulators::PaddedStringManipulator<vega::Date>::PaddedStringManip
 
 void sub_1A5972820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
 {
-  v12 = v11;
-  a10 = v12;
+  v11 = v10;
+  a10 = v11;
   std::vector<vega::Date>::__destroy_vector::operator()[abi:ne200100](&a10);
-  CMPhotoGetEncodeAccelerationModeOverride(v10);
+  CMPhotoGetEncodeAccelerationModeOverride();
   _Unwind_Resume(a1);
 }
 
 void vega::dicom::DataSet::element<vega::dictionary::InstanceCreationTime>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::InstanceCreationTime::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::InstanceCreationTime::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::InstanceCreationTime>,std::allocator<vega::dicom::Element<vega::dictionary::InstanceCreationTime>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -3246,33 +3240,32 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void *vega::dicom::DataElement::get_manipulator<vega::manipulators::TimeManipulator>@<X0>(vega::dicom::DataElement *a1@<X0>, void *a2@<X8>)
+void vega::dicom::DataElement::get_manipulator<vega::manipulators::TimeManipulator>(uint64_t **a1@<X0>, void *a2@<X8>)
 {
   v4 = vega::dicom::DataElement::vr(a1);
   vega::VR::validate_value_manipulator<vega::manipulators::TimeManipulator>(v4);
   vega::dicom::DataElement::lazy_load(a1);
-  v5 = *(a1 + 30);
+  v5 = a1[30];
   if (!v5)
   {
     operator new();
   }
 
   v6 = *v5;
-  if (!result)
+  if (!v7)
   {
     (*(v6 + 16))(&v9, v5);
     std::allocate_shared[abi:ne200100]<vega::manipulators::TimeManipulator,std::allocator<vega::manipulators::TimeManipulator>,std::shared_ptr<vega::dicom::RawValue>,0>();
   }
 
-  v8 = *(a1 + 31);
+  v8 = a1[31];
   if (v8)
   {
-    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v8 + 1, 1uLL, memory_order_relaxed);
   }
 
-  *a2 = result;
+  *a2 = v7;
   a2[1] = v8;
-  return result;
 }
 
 void sub_1A5972D88(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -3336,7 +3329,7 @@ std::runtime_error *vega::VR::InvalidValueManipulator<vega::manipulators::TimeMa
   v9->__r_.__value_.__l.__size_ = 0;
   v9->__r_.__value_.__r.__words[2] = 0;
   v9->__r_.__value_.__r.__words[0] = 0;
-  vega::VR::str(a2, __p);
+  vega::VR::str(__p, a2);
   if ((v17 & 0x80u) == 0)
   {
     v11 = __p;
@@ -3452,22 +3445,22 @@ void std::__shared_ptr_emplace<vega::manipulators::TimeManipulator>::~__shared_p
 
 void vega::manipulators::TimeManipulator::~TimeManipulator(vega::manipulators::TimeManipulator *this)
 {
-  v2 = (this + 8);
-  std::vector<vega::Time>::__destroy_vector::operator()[abi:ne200100](&v2);
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  v1 = (this + 8);
+  std::vector<vega::Time>::__destroy_vector::operator()[abi:ne200100](&v1);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
-  v3 = (this + 8);
-  std::vector<vega::Time>::__destroy_vector::operator()[abi:ne200100](&v3);
-  EncodeAccelerationModeOverride = CMPhotoGetEncodeAccelerationModeOverride(this);
-  MEMORY[0x1AC552B90](EncodeAccelerationModeOverride, 0xA1C4030951706);
+  v1 = (this + 8);
+  std::vector<vega::Time>::__destroy_vector::operator()[abi:ne200100](&v1);
+  CMPhotoGetEncodeAccelerationModeOverride();
+  MEMORY[0x1AC552B90]();
 }
 
 BOOL vega::manipulators::TimeManipulator::is_valid_for (vega::manipulators::TimeManipulator *this, const vega::VR *a2)
 {
   v3 = a2;
-  if ((atomic_load_explicit(&qword_1ED6FA5E0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA5E0, memory_order_acquire) & 1) == 0)
   {
     vega::manipulators::TimeManipulator::is_valid_for ();
     v3 = a2;
@@ -3476,18 +3469,19 @@ BOOL vega::manipulators::TimeManipulator::is_valid_for (vega::manipulators::Time
   return vega::Word::operator==(v3, &word_1ED6FA5B0);
 }
 
-uint64_t vega::manipulators::PaddedStringManipulator<vega::Time>::~PaddedStringManipulator(uint64_t a1)
+void vega::manipulators::PaddedStringManipulator<vega::Time>::~PaddedStringManipulator(uint64_t a1)
 {
-  v3 = (a1 + 8);
-  std::vector<vega::Time>::__destroy_vector::operator()[abi:ne200100](&v3);
-  return CMPhotoGetEncodeAccelerationModeOverride(a1);
+  v1 = (a1 + 8);
+  std::vector<vega::Time>::__destroy_vector::operator()[abi:ne200100](&v1);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
+uint64_t vega::manipulators::PaddedStringManipulator<vega::Time>::~PaddedStringManipulator(uint64_t a1)
 {
-  v4 = (a1 + 8);
-  std::vector<vega::Time>::__destroy_vector::operator()[abi:ne200100](&v4);
-  EncodeAccelerationModeOverride = CMPhotoGetEncodeAccelerationModeOverride(a1);
-  return MEMORY[0x1AC552B90](EncodeAccelerationModeOverride, 0xA1C4030951706);
+  v2 = (a1 + 8);
+  std::vector<vega::Time>::__destroy_vector::operator()[abi:ne200100](&v2);
+  CMPhotoGetEncodeAccelerationModeOverride();
+  return MEMORY[0x1AC552B90]();
 }
 
 void std::vector<vega::Time>::__destroy_vector::operator()[abi:ne200100](void ***a1)
@@ -3512,7 +3506,7 @@ void std::vector<vega::Time>::__base_destruct_at_end[abi:ne200100](uint64_t a1, 
   *(a1 + 8) = a2;
 }
 
-void *std::vector<vega::Time>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<vega::Time>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 4) < a2)
   {
@@ -3527,9 +3521,9 @@ void *std::vector<vega::Time>::reserve(void *result, unint64_t a2)
   return result;
 }
 
-void sub_1A5973434(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5973434(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<vega::Time>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3675,14 +3669,14 @@ uint64_t std::vector<vega::Time>::__emplace_back_slow_path<vega::Time>(uint64_t 
   return v13;
 }
 
-void sub_1A5973708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1A5973708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<vega::Time>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::Time>,(vega::manipulators::PaddedStringManipulator<vega::Time>*)0>(uint64_t a1, uint64_t a2)
+void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::Time>,(vega::manipulators::PaddedStringManipulator<vega::Time>*)0>(void *result, uint64_t a2)
 {
   v6 = a2 + 8;
   v4 = *(a2 + 8);
@@ -3691,14 +3685,14 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::Time>
   if (v7 == 1)
   {
 
-    vega::Json::value_to_json<vega::Time>(a1, v4);
+    vega::Json::value_to_json<vega::Time>(result, v4);
   }
 
   else if (v7)
   {
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v8 = *a1;
+      v8 = *result;
       v14 = 91;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, &v14, 1);
       v4 = *(a2 + 8);
@@ -3711,12 +3705,12 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::Time>
       v10 = 0;
       do
       {
-        vega::Json::value_to_json<vega::Time>(a1, &v4[v9]);
+        vega::Json::value_to_json<vega::Time>(result, &v4[v9]);
         v4 = *(a2 + 8);
         v11 = 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 16) - v4) >> 4);
-        if (v10 < v11 - 1 && *(a1 + 16) == 1)
+        if (v10 < v11 - 1 && *(result + 16) == 1)
         {
-          v12 = *a1;
+          v12 = *result;
           v16 = 44;
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, &v16, 1);
           v4 = *(a2 + 8);
@@ -3730,9 +3724,9 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::Time>
       while (v10 < v11);
     }
 
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v13 = *a1;
+      v13 = *result;
       v15 = 93;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, &v15, 1);
     }
@@ -3741,7 +3735,7 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::Time>
   else
   {
 
-    vega::operator<<<char [18]>(a1, "null");
+    vega::operator<<<char [18]>(result, "null");
   }
 }
 
@@ -3765,22 +3759,22 @@ void sub_1A59738FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *vega::Json::from_json<vega::manipulators::PaddedStringManipulator<vega::Time> &,vega::Time>(void *a1)
+void vega::Json::from_json<vega::manipulators::PaddedStringManipulator<vega::Time> &,vega::Time>(void *a1, uint64_t a2)
 {
-  v2 = std::istream::peek();
-  v5 = v2;
-  if (v2 == 34)
+  v3 = std::istream::peek();
+  v5 = v3;
+  if (v3 == 34)
   {
     vega::Json::value_from_json<vega::Time>(a1, &v4);
   }
 
-  if (v2 == 91)
+  if (v3 == 91)
   {
     std::operator>>[abi:ne200100]<char,std::char_traits<char>>(a1, &v5);
     vega::Json::value_from_json<vega::Time>(a1, &v4);
   }
 
-  if (v2 != 110)
+  if (v3 != 110)
   {
     vega::Json::value_from_json<vega::Time>(a1, &v4);
   }
@@ -3788,7 +3782,7 @@ void *vega::Json::from_json<vega::manipulators::PaddedStringManipulator<vega::Ti
   std::operator>>[abi:ne200100]<char,std::char_traits<char>>(a1, &v5);
   std::operator>>[abi:ne200100]<char,std::char_traits<char>>(a1, &v5);
   std::operator>>[abi:ne200100]<char,std::char_traits<char>>(a1, &v5);
-  return std::operator>>[abi:ne200100]<char,std::char_traits<char>>(a1, &v5);
+  std::operator>>[abi:ne200100]<char,std::char_traits<char>>(a1, &v5);
 }
 
 void vega::Json::value_from_json<vega::Time>(void *a1@<X0>, vega::DateTime *a2@<X8>)
@@ -3821,8 +3815,7 @@ void *std::__shared_ptr_emplace<vega::manipulators::TimeManipulator>::__shared_p
 void *std::construct_at[abi:ne200100]<vega::manipulators::TimeManipulator,std::shared_ptr<vega::dicom::RawValue>,vega::manipulators::TimeManipulator*>(void *a1, __int128 *a2)
 {
   v4 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   vega::manipulators::PaddedStringManipulator<vega::Time>::PaddedStringManipulator(a1, &v4);
   *a1 = &unk_1F1918E60;
   if (*(&v4 + 1))
@@ -3843,7 +3836,7 @@ void sub_1A5973DC4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *vega::manipulators::PaddedStringManipulator<vega::Time>::PaddedStringManipulator(void *a1, vega::dicom::RawValue **a2)
+void *vega::manipulators::PaddedStringManipulator<vega::Time>::PaddedStringManipulator(void *a1, void ****a2)
 {
   vega::dicom::RawValue::str(*a2, &__p);
   vega::manipulators::PaddedStringManipulator<vega::Time>::PaddedStringManipulator(a1, &__p);
@@ -3877,16 +3870,16 @@ void *vega::manipulators::PaddedStringManipulator<vega::Time>::PaddedStringManip
 
 void sub_1A5973EA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
 {
-  v12 = v11;
-  a10 = v12;
+  v11 = v10;
+  a10 = v11;
   std::vector<vega::Time>::__destroy_vector::operator()[abi:ne200100](&a10);
-  CMPhotoGetEncodeAccelerationModeOverride(v10);
+  CMPhotoGetEncodeAccelerationModeOverride();
   _Unwind_Resume(a1);
 }
 
 void vega::dicom::DataSet::element<vega::dictionary::InstanceCreatorUID>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::InstanceCreatorUID::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::InstanceCreatorUID::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::InstanceCreatorUID>,std::allocator<vega::dicom::Element<vega::dictionary::InstanceCreatorUID>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -3996,33 +3989,32 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void *vega::dicom::DataElement::get_manipulator<vega::manipulators::UniqueIdentifierManipulator>@<X0>(vega::dicom::DataElement *a1@<X0>, void *a2@<X8>)
+void vega::dicom::DataElement::get_manipulator<vega::manipulators::UniqueIdentifierManipulator>(uint64_t **a1@<X0>, void *a2@<X8>)
 {
   v4 = vega::dicom::DataElement::vr(a1);
   vega::VR::validate_value_manipulator<vega::manipulators::UniqueIdentifierManipulator>(v4);
   vega::dicom::DataElement::lazy_load(a1);
-  v5 = *(a1 + 30);
+  v5 = a1[30];
   if (!v5)
   {
     _ZNSt3__115allocate_sharedB8ne200100IN4vega12manipulators27UniqueIdentifierManipulatorENS_9allocatorIS3_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
   }
 
   v6 = *v5;
-  if (!result)
+  if (!v7)
   {
     (*(v6 + 16))(&v9, v5);
     std::allocate_shared[abi:ne200100]<vega::manipulators::UniqueIdentifierManipulator,std::allocator<vega::manipulators::UniqueIdentifierManipulator>,std::shared_ptr<vega::dicom::RawValue>,0>();
   }
 
-  v8 = *(a1 + 31);
+  v8 = a1[31];
   if (v8)
   {
-    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v8 + 1, 1uLL, memory_order_relaxed);
   }
 
-  *a2 = result;
+  *a2 = v7;
   a2[1] = v8;
-  return result;
 }
 
 void sub_1A59743BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -4074,7 +4066,7 @@ std::runtime_error *vega::VR::InvalidValueManipulator<vega::manipulators::Unique
   v9->__r_.__value_.__l.__size_ = 0;
   v9->__r_.__value_.__r.__words[2] = 0;
   v9->__r_.__value_.__r.__words[0] = 0;
-  vega::VR::str(a2, __p);
+  vega::VR::str(__p, a2);
   if ((v17 & 0x80u) == 0)
   {
     v11 = __p;
@@ -4209,8 +4201,7 @@ void *std::__shared_ptr_emplace<vega::manipulators::UniqueIdentifierManipulator>
 uint64_t std::construct_at[abi:ne200100]<vega::manipulators::UniqueIdentifierManipulator,std::shared_ptr<vega::dicom::RawValue>,vega::manipulators::UniqueIdentifierManipulator*>(uint64_t a1, __int128 *a2)
 {
   v4 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   vega::manipulators::UniqueIdentifierManipulator::UniqueIdentifierManipulator(a1, &v4);
   if (*(&v4 + 1))
   {
@@ -4232,7 +4223,7 @@ void sub_1A59748CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void vega::dicom::DataSet::element<vega::dictionary::PatientName>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::PatientName::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::PatientName::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::PatientName>,std::allocator<vega::dicom::Element<vega::dictionary::PatientName>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -4342,33 +4333,32 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void *vega::dicom::DataElement::get_manipulator<vega::manipulators::PersonNameManipulator>@<X0>(vega::dicom::DataElement *a1@<X0>, void *a2@<X8>)
+void vega::dicom::DataElement::get_manipulator<vega::manipulators::PersonNameManipulator>(uint64_t **a1@<X0>, void *a2@<X8>)
 {
   v4 = vega::dicom::DataElement::vr(a1);
   vega::VR::validate_value_manipulator<vega::manipulators::PersonNameManipulator>(v4);
   vega::dicom::DataElement::lazy_load(a1);
-  v5 = *(a1 + 30);
+  v5 = a1[30];
   if (!v5)
   {
     operator new();
   }
 
   v6 = *v5;
-  if (!result)
+  if (!v7)
   {
     (*(v6 + 16))(&v9, v5);
     std::allocate_shared[abi:ne200100]<vega::manipulators::PersonNameManipulator,std::allocator<vega::manipulators::PersonNameManipulator>,std::shared_ptr<vega::dicom::RawValue>,0>();
   }
 
-  v8 = *(a1 + 31);
+  v8 = a1[31];
   if (v8)
   {
-    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v8 + 1, 1uLL, memory_order_relaxed);
   }
 
-  *a2 = result;
+  *a2 = v7;
   a2[1] = v8;
-  return result;
 }
 
 void sub_1A5974E28(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -4432,7 +4422,7 @@ std::runtime_error *vega::VR::InvalidValueManipulator<vega::manipulators::Person
   v9->__r_.__value_.__l.__size_ = 0;
   v9->__r_.__value_.__r.__words[2] = 0;
   v9->__r_.__value_.__r.__words[0] = 0;
-  vega::VR::str(a2, __p);
+  vega::VR::str(__p, a2);
   if ((v17 & 0x80u) == 0)
   {
     v11 = __p;
@@ -4548,22 +4538,22 @@ void std::__shared_ptr_emplace<vega::manipulators::PersonNameManipulator>::~__sh
 
 void vega::manipulators::PersonNameManipulator::~PersonNameManipulator(vega::manipulators::PersonNameManipulator *this)
 {
-  v2 = (this + 8);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v2);
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  v1 = (this + 8);
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v1);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
-  v3 = (this + 8);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v3);
-  EncodeAccelerationModeOverride = CMPhotoGetEncodeAccelerationModeOverride(this);
-  MEMORY[0x1AC552B90](EncodeAccelerationModeOverride, 0xA1C4030951706);
+  v1 = (this + 8);
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v1);
+  CMPhotoGetEncodeAccelerationModeOverride();
+  MEMORY[0x1AC552B90]();
 }
 
 BOOL vega::manipulators::PersonNameManipulator::is_valid_for (vega::manipulators::PersonNameManipulator *this, const vega::VR *a2)
 {
   v3 = a2;
-  if ((atomic_load_explicit(&qword_1ED6FA5E8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA5E8, memory_order_acquire) & 1) == 0)
   {
     vega::manipulators::PersonNameManipulator::is_valid_for ();
     v3 = a2;
@@ -4572,7 +4562,7 @@ BOOL vega::manipulators::PersonNameManipulator::is_valid_for (vega::manipulators
   return vega::Word::operator==(v3, &word_1ED6FA5B2);
 }
 
-void *std::__shared_ptr_emplace<vega::manipulators::PersonNameManipulator>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<vega::dicom::RawValue>,std::allocator<vega::manipulators::PersonNameManipulator>,0>(void *a1, __int128 *a2)
+void ***std::__shared_ptr_emplace<vega::manipulators::PersonNameManipulator>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<vega::dicom::RawValue>,std::allocator<vega::manipulators::PersonNameManipulator>,0>(void ***a1, __int128 *a2)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -4581,11 +4571,10 @@ void *std::__shared_ptr_emplace<vega::manipulators::PersonNameManipulator>::__sh
   return a1;
 }
 
-void *std::construct_at[abi:ne200100]<vega::manipulators::PersonNameManipulator,std::shared_ptr<vega::dicom::RawValue>,vega::manipulators::PersonNameManipulator*>(void *a1, __int128 *a2)
+void ***std::construct_at[abi:ne200100]<vega::manipulators::PersonNameManipulator,std::shared_ptr<vega::dicom::RawValue>,vega::manipulators::PersonNameManipulator*>(void ***a1, __int128 *a2)
 {
   v4 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   vega::manipulators::PaddedStringManipulator<std::string>::PaddedStringManipulator(a1, &v4);
   *a1 = &unk_1F1918AD0;
   if (*(&v4 + 1))
@@ -4608,7 +4597,7 @@ void sub_1A5975400(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void vega::dicom::DataSet::element<vega::dictionary::PatientID>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::PatientID::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::PatientID::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::PatientID>,std::allocator<vega::dicom::Element<vega::dictionary::PatientID>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -4718,33 +4707,32 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void *vega::dicom::DataElement::get_manipulator<vega::manipulators::LongStringManipulator>@<X0>(vega::dicom::DataElement *a1@<X0>, void *a2@<X8>)
+void vega::dicom::DataElement::get_manipulator<vega::manipulators::LongStringManipulator>(uint64_t **a1@<X0>, void *a2@<X8>)
 {
   v4 = vega::dicom::DataElement::vr(a1);
   vega::VR::validate_value_manipulator<vega::manipulators::LongStringManipulator>(v4);
   vega::dicom::DataElement::lazy_load(a1);
-  v5 = *(a1 + 30);
+  v5 = a1[30];
   if (!v5)
   {
     operator new();
   }
 
   v6 = *v5;
-  if (!result)
+  if (!v7)
   {
     (*(v6 + 16))(&v9, v5);
     std::allocate_shared[abi:ne200100]<vega::manipulators::LongStringManipulator,std::allocator<vega::manipulators::LongStringManipulator>,std::shared_ptr<vega::dicom::RawValue>,0>();
   }
 
-  v8 = *(a1 + 31);
+  v8 = a1[31];
   if (v8)
   {
-    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v8 + 1, 1uLL, memory_order_relaxed);
   }
 
-  *a2 = result;
+  *a2 = v7;
   a2[1] = v8;
-  return result;
 }
 
 void sub_1A597595C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -4796,7 +4784,7 @@ std::runtime_error *vega::VR::InvalidValueManipulator<vega::manipulators::LongSt
   v9->__r_.__value_.__l.__size_ = 0;
   v9->__r_.__value_.__r.__words[2] = 0;
   v9->__r_.__value_.__r.__words[0] = 0;
-  vega::VR::str(a2, __p);
+  vega::VR::str(__p, a2);
   if ((v17 & 0x80u) == 0)
   {
     v11 = __p;
@@ -4912,22 +4900,22 @@ void std::__shared_ptr_emplace<vega::manipulators::LongStringManipulator>::~__sh
 
 void vega::manipulators::LongStringManipulator::~LongStringManipulator(vega::manipulators::LongStringManipulator *this)
 {
-  v2 = (this + 8);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v2);
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  v1 = (this + 8);
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v1);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
-  v3 = (this + 8);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v3);
-  EncodeAccelerationModeOverride = CMPhotoGetEncodeAccelerationModeOverride(this);
-  MEMORY[0x1AC552B90](EncodeAccelerationModeOverride, 0xA1C4030951706);
+  v1 = (this + 8);
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v1);
+  CMPhotoGetEncodeAccelerationModeOverride();
+  MEMORY[0x1AC552B90]();
 }
 
 BOOL vega::manipulators::LongStringManipulator::is_valid_for (vega::manipulators::LongStringManipulator *this, const vega::VR *a2)
 {
   v3 = a2;
-  if ((atomic_load_explicit(&qword_1ED6FA5F0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA5F0, memory_order_acquire) & 1) == 0)
   {
     vega::manipulators::LongStringManipulator::is_valid_for ();
     v3 = a2;
@@ -4936,7 +4924,7 @@ BOOL vega::manipulators::LongStringManipulator::is_valid_for (vega::manipulators
   return vega::Word::operator==(v3, &word_1ED6FA5B4);
 }
 
-void *std::__shared_ptr_emplace<vega::manipulators::LongStringManipulator>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<vega::dicom::RawValue>,std::allocator<vega::manipulators::LongStringManipulator>,0>(void *a1, __int128 *a2)
+void ***std::__shared_ptr_emplace<vega::manipulators::LongStringManipulator>::__shared_ptr_emplace[abi:ne200100]<std::shared_ptr<vega::dicom::RawValue>,std::allocator<vega::manipulators::LongStringManipulator>,0>(void ***a1, __int128 *a2)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -4945,11 +4933,10 @@ void *std::__shared_ptr_emplace<vega::manipulators::LongStringManipulator>::__sh
   return a1;
 }
 
-void *std::construct_at[abi:ne200100]<vega::manipulators::LongStringManipulator,std::shared_ptr<vega::dicom::RawValue>,vega::manipulators::LongStringManipulator*>(void *a1, __int128 *a2)
+void ***std::construct_at[abi:ne200100]<vega::manipulators::LongStringManipulator,std::shared_ptr<vega::dicom::RawValue>,vega::manipulators::LongStringManipulator*>(void ***a1, __int128 *a2)
 {
   v4 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   vega::manipulators::PaddedStringManipulator<std::string>::PaddedStringManipulator(a1, &v4);
   *a1 = &unk_1F1918680;
   if (*(&v4 + 1))
@@ -4972,7 +4959,7 @@ void sub_1A5975EC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void vega::dicom::DataSet::element<vega::dictionary::IssuerOfPatientID>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::IssuerOfPatientID::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::IssuerOfPatientID::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::IssuerOfPatientID>,std::allocator<vega::dicom::Element<vega::dictionary::IssuerOfPatientID>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -5084,7 +5071,7 @@ LABEL_6:
 
 void vega::dicom::DataSet::element<vega::dictionary::TypeOfPatientID>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::TypeOfPatientID::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::TypeOfPatientID::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::TypeOfPatientID>,std::allocator<vega::dicom::Element<vega::dictionary::TypeOfPatientID>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -5196,7 +5183,7 @@ LABEL_6:
 
 void vega::dicom::DataSet::element<vega::dictionary::PixelAspectRatio>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::PixelAspectRatio::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::PixelAspectRatio::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::PixelAspectRatio>,std::allocator<vega::dicom::Element<vega::dictionary::PixelAspectRatio>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -5308,7 +5295,7 @@ LABEL_6:
 
 void vega::dicom::DataSet::element<vega::dictionary::ImageType>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::ImageType::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::ImageType::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::ImageType>,std::allocator<vega::dicom::Element<vega::dictionary::ImageType>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -5420,7 +5407,7 @@ LABEL_6:
 
 void vega::dicom::DataSet::element<vega::dictionary::SpecificCharacterSet>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::SpecificCharacterSet::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::SpecificCharacterSet::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::SpecificCharacterSet>,std::allocator<vega::dicom::Element<vega::dictionary::SpecificCharacterSet>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -5532,7 +5519,7 @@ LABEL_6:
 
 void vega::dicom::DataSet::element<vega::dictionary::Columns>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::Columns::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::Columns::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::Columns>,std::allocator<vega::dicom::Element<vega::dictionary::Columns>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -5644,7 +5631,7 @@ LABEL_6:
 
 void vega::dicom::DataSet::element<vega::dictionary::Rows>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::Rows::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::Rows::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::Rows>,std::allocator<vega::dicom::Element<vega::dictionary::Rows>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -5756,7 +5743,7 @@ LABEL_6:
 
 void vega::dicom::DataSet::element<vega::dictionary::SamplesPerPixel>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::SamplesPerPixel::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::SamplesPerPixel::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::SamplesPerPixel>,std::allocator<vega::dicom::Element<vega::dictionary::SamplesPerPixel>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -5868,7 +5855,7 @@ LABEL_6:
 
 void vega::dicom::DataSet::element<vega::dictionary::PhotometricInterpretation>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::PhotometricInterpretation::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::PhotometricInterpretation::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::PhotometricInterpretation>,std::allocator<vega::dicom::Element<vega::dictionary::PhotometricInterpretation>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -5980,7 +5967,7 @@ LABEL_6:
 
 void vega::dicom::DataSet::element<vega::dictionary::BitsAllocated>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::BitsAllocated::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::BitsAllocated::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::BitsAllocated>,std::allocator<vega::dicom::Element<vega::dictionary::BitsAllocated>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -6092,7 +6079,7 @@ LABEL_6:
 
 void vega::dicom::DataSet::element<vega::dictionary::BitsStored>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::BitsStored::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::BitsStored::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::BitsStored>,std::allocator<vega::dicom::Element<vega::dictionary::BitsStored>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -6204,7 +6191,7 @@ LABEL_6:
 
 void vega::dicom::DataSet::element<vega::dictionary::HighBit>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::HighBit::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::HighBit::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::HighBit>,std::allocator<vega::dicom::Element<vega::dictionary::HighBit>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -6316,7 +6303,7 @@ LABEL_6:
 
 void vega::dicom::DataSet::element<vega::dictionary::PixelRepresentation>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::PixelRepresentation::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::PixelRepresentation::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::PixelRepresentation>,std::allocator<vega::dicom::Element<vega::dictionary::PixelRepresentation>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -6428,7 +6415,7 @@ LABEL_6:
 
 void vega::dicom::DataSet::element<vega::dictionary::ICCProfile>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::ICCProfile::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::ICCProfile::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::ICCProfile>,std::allocator<vega::dicom::Element<vega::dictionary::ICCProfile>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -6538,33 +6525,32 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void *vega::dicom::DataElement::get_manipulator<vega::manipulators::OtherByteManipulator>@<X0>(vega::dicom::DataElement *a1@<X0>, void *a2@<X8>)
+void vega::dicom::DataElement::get_manipulator<vega::manipulators::OtherByteManipulator>(uint64_t **a1@<X0>, void *a2@<X8>)
 {
   v4 = vega::dicom::DataElement::vr(a1);
   vega::VR::validate_value_manipulator<vega::manipulators::OtherByteManipulator>(v4);
   vega::dicom::DataElement::lazy_load(a1);
-  v5 = *(a1 + 30);
+  v5 = a1[30];
   if (!v5)
   {
     operator new();
   }
 
   v6 = *v5;
-  if (!result)
+  if (!v7)
   {
     (*(v6 + 16))(&v9, v5);
     std::allocate_shared[abi:ne200100]<vega::manipulators::OtherByteManipulator,std::allocator<vega::manipulators::OtherByteManipulator>,std::shared_ptr<vega::dicom::RawValue>,0>();
   }
 
-  v8 = *(a1 + 31);
+  v8 = a1[31];
   if (v8)
   {
-    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v8 + 1, 1uLL, memory_order_relaxed);
   }
 
-  *a2 = result;
+  *a2 = v7;
   a2[1] = v8;
-  return result;
 }
 
 void sub_1A59792A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -6616,7 +6602,7 @@ std::runtime_error *vega::VR::InvalidValueManipulator<vega::manipulators::OtherB
   v9->__r_.__value_.__l.__size_ = 0;
   v9->__r_.__value_.__r.__words[2] = 0;
   v9->__r_.__value_.__r.__words[0] = 0;
-  vega::VR::str(a2, __p);
+  vega::VR::str(__p, a2);
   if ((v17 & 0x80u) == 0)
   {
     v11 = __p;
@@ -6739,7 +6725,7 @@ void vega::manipulators::OtherByteManipulator::~OtherByteManipulator(vega::manip
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
@@ -6750,7 +6736,7 @@ void vega::manipulators::OtherByteManipulator::~OtherByteManipulator(vega::manip
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
@@ -6758,25 +6744,13 @@ void vega::manipulators::OtherByteManipulator::~OtherByteManipulator(vega::manip
 BOOL vega::manipulators::OtherByteManipulator::is_valid_for (vega::manipulators::OtherByteManipulator *this, const vega::VR *a2)
 {
   v3 = a2;
-  if ((atomic_load_explicit(&qword_1ED6FA5F8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA5F8, memory_order_acquire) & 1) == 0)
   {
     vega::manipulators::OtherByteManipulator::is_valid_for ();
     v3 = a2;
   }
 
   return vega::Word::operator==(v3, &word_1ED6FA5B6);
-}
-
-uint64_t vega::manipulators::FixedSizeElementManipulator<vega::Byte>::~FixedSizeElementManipulator(uint64_t a1)
-{
-  v2 = *(a1 + 8);
-  if (v2)
-  {
-    *(a1 + 16) = v2;
-    operator delete(v2);
-  }
-
-  return CMPhotoGetEncodeAccelerationModeOverride(a1);
 }
 
 void vega::manipulators::FixedSizeElementManipulator<vega::Byte>::~FixedSizeElementManipulator(uint64_t a1)
@@ -6788,12 +6762,23 @@ void vega::manipulators::FixedSizeElementManipulator<vega::Byte>::~FixedSizeElem
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(a1);
+  CMPhotoGetEncodeAccelerationModeOverride();
+}
+
+{
+  v2 = *(a1 + 8);
+  if (v2)
+  {
+    *(a1 + 16) = v2;
+    operator delete(v2);
+  }
+
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
 
-void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<vega::Byte>,(vega::manipulators::FixedSizeElementManipulator<vega::Byte>*)0>(uint64_t a1, uint64_t a2)
+void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<vega::Byte>,(vega::manipulators::FixedSizeElementManipulator<vega::Byte>*)0>(void *result, uint64_t a2)
 {
   v6 = a2 + 8;
   v4 = *(a2 + 8);
@@ -6801,20 +6786,20 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<vega::B
   if (v5 - v4 == 1)
   {
 
-    vega::Json::value_to_json<vega::Byte>(a1, v4);
+    vega::Json::value_to_json<vega::Byte>(result, v4);
   }
 
   else if (v5 == v4)
   {
 
-    vega::operator<<<char [18]>(a1, "null");
+    vega::operator<<<char [18]>(result, "null");
   }
 
   else
   {
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v7 = *a1;
+      v7 = *result;
       v12 = 91;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, &v12, 1);
       v4 = *(a2 + 8);
@@ -6826,12 +6811,12 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<vega::B
       v8 = 0;
       do
       {
-        vega::Json::value_to_json<vega::Byte>(a1, &v4[v8]);
+        vega::Json::value_to_json<vega::Byte>(result, &v4[v8]);
         v4 = *(a2 + 8);
         v9 = *(a2 + 16);
-        if (v8 < ~v4 + v9 && *(a1 + 16) == 1)
+        if (v8 < ~v4 + v9 && *(result + 16) == 1)
         {
-          v10 = *a1;
+          v10 = *result;
           v14 = 44;
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, &v14, 1);
           v4 = *(a2 + 8);
@@ -6844,9 +6829,9 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<vega::B
       while (v8 < v9 - v4);
     }
 
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v11 = *a1;
+      v11 = *result;
       v13 = 93;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, &v13, 1);
     }
@@ -7082,8 +7067,7 @@ void *std::__shared_ptr_emplace<vega::manipulators::OtherByteManipulator>::__sha
 void *std::construct_at[abi:ne200100]<vega::manipulators::OtherByteManipulator,std::shared_ptr<vega::dicom::RawValue>,vega::manipulators::OtherByteManipulator*>(void *a1, __int128 *a2)
 {
   v4 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   vega::manipulators::FixedSizeElementManipulator<vega::Byte>::FixedSizeElementManipulator(a1, &v4);
   *a1 = &unk_1F19187D0;
   if (*(&v4 + 1))
@@ -7175,7 +7159,7 @@ _BYTE *std::__copy_impl::operator()[abi:ne200100]<vega::Byte const*,vega::Byte c
 
 void vega::dicom::DataSet::element<vega::dictionary::ColorSpace>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::ColorSpace::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::ColorSpace::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::ColorSpace>,std::allocator<vega::dicom::Element<vega::dictionary::ColorSpace>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -7287,7 +7271,7 @@ LABEL_6:
 
 void vega::dicom::DataSet::element<vega::dictionary::SmallestImagePixelValue_SS>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::SmallestImagePixelValue_SS::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::SmallestImagePixelValue_SS::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::SmallestImagePixelValue_SS>,std::allocator<vega::dicom::Element<vega::dictionary::SmallestImagePixelValue_SS>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -7397,33 +7381,32 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void *vega::dicom::DataElement::get_manipulator<vega::manipulators::SignedShortManipulator>@<X0>(vega::dicom::DataElement *a1@<X0>, void *a2@<X8>)
+void vega::dicom::DataElement::get_manipulator<vega::manipulators::SignedShortManipulator>(uint64_t **a1@<X0>, void *a2@<X8>)
 {
   v4 = vega::dicom::DataElement::vr(a1);
   vega::VR::validate_value_manipulator<vega::manipulators::SignedShortManipulator>(v4);
   vega::dicom::DataElement::lazy_load(a1);
-  v5 = *(a1 + 30);
+  v5 = a1[30];
   if (!v5)
   {
     operator new();
   }
 
   v6 = *v5;
-  if (!result)
+  if (!v7)
   {
     (*(v6 + 16))(&v9, v5);
     std::allocate_shared[abi:ne200100]<vega::manipulators::SignedShortManipulator,std::allocator<vega::manipulators::SignedShortManipulator>,std::shared_ptr<vega::dicom::RawValue>,0>();
   }
 
-  v8 = *(a1 + 31);
+  v8 = a1[31];
   if (v8)
   {
-    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v8 + 1, 1uLL, memory_order_relaxed);
   }
 
-  *a2 = result;
+  *a2 = v7;
   a2[1] = v8;
-  return result;
 }
 
 void sub_1A597A808(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -7487,7 +7470,7 @@ std::runtime_error *vega::VR::InvalidValueManipulator<vega::manipulators::Signed
   v9->__r_.__value_.__l.__size_ = 0;
   v9->__r_.__value_.__r.__words[2] = 0;
   v9->__r_.__value_.__r.__words[0] = 0;
-  vega::VR::str(a2, __p);
+  vega::VR::str(__p, a2);
   if ((v17 & 0x80u) == 0)
   {
     v11 = __p;
@@ -7610,7 +7593,7 @@ void vega::manipulators::SignedShortManipulator::~SignedShortManipulator(vega::m
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
@@ -7621,7 +7604,7 @@ void vega::manipulators::SignedShortManipulator::~SignedShortManipulator(vega::m
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
@@ -7629,25 +7612,13 @@ void vega::manipulators::SignedShortManipulator::~SignedShortManipulator(vega::m
 BOOL vega::manipulators::SignedShortManipulator::is_valid_for (vega::manipulators::SignedShortManipulator *this, const vega::VR *a2)
 {
   v3 = a2;
-  if ((atomic_load_explicit(&qword_1ED6FA600, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA600, memory_order_acquire) & 1) == 0)
   {
     vega::manipulators::SignedShortManipulator::is_valid_for ();
     v3 = a2;
   }
 
   return vega::Word::operator==(v3, &word_1ED6FA5B8);
-}
-
-uint64_t vega::manipulators::FixedSizeElementManipulator<short>::~FixedSizeElementManipulator(uint64_t a1)
-{
-  v2 = *(a1 + 8);
-  if (v2)
-  {
-    *(a1 + 16) = v2;
-    operator delete(v2);
-  }
-
-  return CMPhotoGetEncodeAccelerationModeOverride(a1);
 }
 
 void vega::manipulators::FixedSizeElementManipulator<short>::~FixedSizeElementManipulator(uint64_t a1)
@@ -7659,12 +7630,23 @@ void vega::manipulators::FixedSizeElementManipulator<short>::~FixedSizeElementMa
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(a1);
+  CMPhotoGetEncodeAccelerationModeOverride();
+}
+
+{
+  v2 = *(a1 + 8);
+  if (v2)
+  {
+    *(a1 + 16) = v2;
+    operator delete(v2);
+  }
+
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
 
-void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<short>,(vega::manipulators::FixedSizeElementManipulator<short>*)0>(uint64_t a1, uint64_t a2)
+void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<short>,(vega::manipulators::FixedSizeElementManipulator<short>*)0>(void *result, uint64_t a2)
 {
   v6 = a2 + 8;
   v4 = *(a2 + 8);
@@ -7673,14 +7655,14 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<short>,
   if (v7 == 1)
   {
 
-    vega::Json::value_to_json<short>(a1, v4);
+    vega::Json::value_to_json<short>(result, v4);
   }
 
   else if (v7)
   {
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v8 = *a1;
+      v8 = *result;
       v14 = 91;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, &v14, 1);
       v4 = *(a2 + 8);
@@ -7693,12 +7675,12 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<short>,
       v10 = 0;
       do
       {
-        vega::Json::value_to_json<short>(a1, &v4[v9]);
+        vega::Json::value_to_json<short>(result, &v4[v9]);
         v4 = *(a2 + 8);
         v11 = (*(a2 + 16) - v4) >> 1;
-        if (v10 < v11 - 1 && *(a1 + 16) == 1)
+        if (v10 < v11 - 1 && *(result + 16) == 1)
         {
-          v12 = *a1;
+          v12 = *result;
           v16 = 44;
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, &v16, 1);
           v4 = *(a2 + 8);
@@ -7712,9 +7694,9 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<short>,
       while (v10 < v11);
     }
 
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v13 = *a1;
+      v13 = *result;
       v15 = 93;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, &v15, 1);
     }
@@ -7723,7 +7705,7 @@ void vega::Json::to_json<vega::manipulators::FixedSizeElementManipulator<short>,
   else
   {
 
-    vega::operator<<<char [18]>(a1, "null");
+    vega::operator<<<char [18]>(result, "null");
   }
 }
 
@@ -7970,8 +7952,7 @@ void *std::__shared_ptr_emplace<vega::manipulators::SignedShortManipulator>::__s
 void *std::construct_at[abi:ne200100]<vega::manipulators::SignedShortManipulator,std::shared_ptr<vega::dicom::RawValue>,vega::manipulators::SignedShortManipulator*>(void *a1, __int128 *a2)
 {
   v4 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   vega::manipulators::FixedSizeElementManipulator<short>::FixedSizeElementManipulator(a1, &v4);
   *a1 = &unk_1F1918D10;
   if (*(&v4 + 1))
@@ -8027,7 +8008,7 @@ LABEL_6:
         operator delete(v19);
       }
 
-      CMPhotoGetEncodeAccelerationModeOverride(v14);
+      CMPhotoGetEncodeAccelerationModeOverride();
       _Unwind_Resume(a1);
     }
   }
@@ -8043,7 +8024,7 @@ LABEL_6:
 
 void vega::dicom::DataSet::element<vega::dictionary::LargestImagePixelValue_SS>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::LargestImagePixelValue_SS::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::LargestImagePixelValue_SS::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::LargestImagePixelValue_SS>,std::allocator<vega::dicom::Element<vega::dictionary::LargestImagePixelValue_SS>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -8155,7 +8136,7 @@ LABEL_6:
 
 void vega::dicom::DataSet::element<vega::dictionary::SmallestImagePixelValue_US>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::SmallestImagePixelValue_US::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::SmallestImagePixelValue_US::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::SmallestImagePixelValue_US>,std::allocator<vega::dicom::Element<vega::dictionary::SmallestImagePixelValue_US>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -8267,7 +8248,7 @@ LABEL_6:
 
 void vega::dicom::DataSet::element<vega::dictionary::LargestImagePixelValue_US>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::LargestImagePixelValue_US::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::LargestImagePixelValue_US::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::LargestImagePixelValue_US>,std::allocator<vega::dicom::Element<vega::dictionary::LargestImagePixelValue_US>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -8377,7 +8358,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-uint64_t std::vector<std::vector<vega::Byte>>::__init_with_size[abi:ne200100]<std::vector<vega::Byte>*,std::vector<vega::Byte>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::vector<vega::Byte>>::__init_with_size[abi:ne200100]<std::vector<vega::Byte>*,std::vector<vega::Byte>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8387,14 +8368,14 @@ uint64_t std::vector<std::vector<vega::Byte>>::__init_with_size[abi:ne200100]<st
   return result;
 }
 
-void sub_1A597C084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_1A597C084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<std::vector<vega::Byte>>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::vector<vega::Byte>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<vega::Byte>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -8414,7 +8395,7 @@ void std::allocator<std::vector<vega::Byte>>::allocate_at_least[abi:ne200100](ui
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<vega::Byte>>,std::vector<vega::Byte>*,std::vector<vega::Byte>*,std::vector<vega::Byte>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<vega::Byte>>,std::vector<vega::Byte>*,std::vector<vega::Byte>*,std::vector<vega::Byte>*>(uint64_t a1, const void **a2, const void **a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -8531,10 +8512,10 @@ char *std::vector<vega::Byte>::__insert_with_size[abi:ne200100]<std::__wrap_iter
   v7 = __src;
   v10 = *(a1 + 8);
   v9 = *(a1 + 16);
-  if (v9 - v10 < __len)
+  if ((v9 - v10) < __len)
   {
     v11 = *a1;
-    v12 = &v10[__len - *a1];
+    v12 = v10 - *a1 + __len;
     if (v12 < 0)
     {
       std::vector<int>::__throw_length_error[abi:ne200100]();
@@ -8591,10 +8572,10 @@ char *std::vector<vega::Byte>::__insert_with_size[abi:ne200100]<std::__wrap_iter
   }
 
   v15 = v10 - __dst;
-  if (v10 - __dst >= __len)
+  if ((v10 - __dst) >= __len)
   {
     v26 = &__dst[__len];
-    v27 = &v10[-__len];
+    v27 = (v10 - __len);
     v28 = *(a1 + 8);
     if (v10 >= __len)
     {
@@ -8625,16 +8606,16 @@ char *std::vector<vega::Byte>::__insert_with_size[abi:ne200100]<std::__wrap_iter
     memmove(*(a1 + 8), &__src[v15], a4 - &__src[v15]);
   }
 
-  v18 = &v10[v17];
-  *(a1 + 8) = &v10[v17];
+  v18 = (v10 + v17);
+  *(a1 + 8) = v10 + v17;
   if (v15 >= 1)
   {
     v19 = &v5[v6];
-    v20 = &v10[v17];
+    v20 = (v10 + v17);
     if (&v18[-v6] < v10)
     {
-      v21 = a4 - &v7[v6];
-      v22 = a4 - v7;
+      v21 = (a4 - &v7[v6]);
+      v22 = (a4 - v7);
       do
       {
         v5[v22++] = v5[v21++];
@@ -8660,7 +8641,7 @@ LABEL_27:
   return v5;
 }
 
-uint64_t std::vector<std::vector<vega::Byte>>::__init_with_size[abi:ne200100]<std::vector<vega::Byte> const*,std::vector<vega::Byte> const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::vector<vega::Byte>>::__init_with_size[abi:ne200100]<std::vector<vega::Byte> const*,std::vector<vega::Byte> const*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8677,7 +8658,7 @@ void sub_1A597C5BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<vega::Byte>>,std::vector<vega::Byte> const*,std::vector<vega::Byte> const*,std::vector<vega::Byte>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<vega::Byte>>,std::vector<vega::Byte> const*,std::vector<vega::Byte> const*,std::vector<vega::Byte>*>(uint64_t a1, const void **a2, const void **a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -8708,7 +8689,7 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std:
   return v4;
 }
 
-void *std::vector<vega::Byte>::__assign_with_size[abi:ne200100]<std::__wrap_iter<vega::Byte*>,std::__wrap_iter<vega::Byte*>>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<vega::Byte>::__assign_with_size[abi:ne200100]<std::__wrap_iter<vega::Byte*>,std::__wrap_iter<vega::Byte*>>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -8784,7 +8765,7 @@ void *std::vector<vega::Byte>::__assign_with_size[abi:ne200100]<std::__wrap_iter
   return result;
 }
 
-void std::vector<vega::Byte>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<vega::Byte>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -8825,8 +8806,7 @@ __n128 std::__optional_storage_base<std::vector<std::vector<vega::Byte>>,false>:
     result = *a2;
     *a1 = *a2;
     *(a1 + 16) = a2[1].n128_u64[0];
-    a2->n128_u64[0] = 0;
-    a2->n128_u64[1] = 0;
+    *a2 = 0uLL;
     a2[1].n128_u64[0] = 0;
     *(a1 + 24) = 1;
   }
@@ -8848,7 +8828,7 @@ void std::vector<std::vector<vega::Byte>>::__vdeallocate(uint64_t *a1)
 
 void vega::dicom::DataSet::element<vega::dictionary::RescaleSlope>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::RescaleSlope::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::RescaleSlope::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::RescaleSlope>,std::allocator<vega::dicom::Element<vega::dictionary::RescaleSlope>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -8958,33 +8938,32 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void *vega::dicom::DataElement::get_manipulator<vega::manipulators::DecimalStringManipulator>@<X0>(vega::dicom::DataElement *a1@<X0>, void *a2@<X8>)
+void vega::dicom::DataElement::get_manipulator<vega::manipulators::DecimalStringManipulator>(uint64_t **a1@<X0>, void *a2@<X8>)
 {
   v4 = vega::dicom::DataElement::vr(a1);
   vega::VR::validate_value_manipulator<vega::manipulators::DecimalStringManipulator>(v4);
   vega::dicom::DataElement::lazy_load(a1);
-  v5 = *(a1 + 30);
+  v5 = a1[30];
   if (!v5)
   {
     operator new();
   }
 
   v6 = *v5;
-  if (!result)
+  if (!v7)
   {
     (*(v6 + 16))(&v9, v5);
     std::allocate_shared[abi:ne200100]<vega::manipulators::DecimalStringManipulator,std::allocator<vega::manipulators::DecimalStringManipulator>,std::shared_ptr<vega::dicom::RawValue>,0>();
   }
 
-  v8 = *(a1 + 31);
+  v8 = a1[31];
   if (v8)
   {
-    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v8 + 1, 1uLL, memory_order_relaxed);
   }
 
-  *a2 = result;
+  *a2 = v7;
   a2[1] = v8;
-  return result;
 }
 
 void sub_1A597CE34(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -9048,7 +9027,7 @@ std::runtime_error *vega::VR::InvalidValueManipulator<vega::manipulators::Decima
   v9->__r_.__value_.__l.__size_ = 0;
   v9->__r_.__value_.__r.__words[2] = 0;
   v9->__r_.__value_.__r.__words[0] = 0;
-  vega::VR::str(a2, __p);
+  vega::VR::str(__p, a2);
   if ((v17 & 0x80u) == 0)
   {
     v11 = __p;
@@ -9171,7 +9150,7 @@ void vega::manipulators::DecimalStringManipulator::~DecimalStringManipulator(veg
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
@@ -9182,7 +9161,7 @@ void vega::manipulators::DecimalStringManipulator::~DecimalStringManipulator(veg
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
@@ -9190,25 +9169,13 @@ void vega::manipulators::DecimalStringManipulator::~DecimalStringManipulator(veg
 BOOL vega::manipulators::DecimalStringManipulator::is_valid_for (vega::manipulators::DecimalStringManipulator *this, const vega::VR *a2)
 {
   v3 = a2;
-  if ((atomic_load_explicit(&qword_1ED6FA608, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA608, memory_order_acquire) & 1) == 0)
   {
     vega::manipulators::DecimalStringManipulator::is_valid_for ();
     v3 = a2;
   }
 
   return vega::Word::operator==(v3, &word_1ED6FA5BA);
-}
-
-uint64_t vega::manipulators::PaddedStringManipulator<vega::DecimalString>::~PaddedStringManipulator(uint64_t a1)
-{
-  v2 = *(a1 + 8);
-  if (v2)
-  {
-    *(a1 + 16) = v2;
-    operator delete(v2);
-  }
-
-  return CMPhotoGetEncodeAccelerationModeOverride(a1);
 }
 
 void vega::manipulators::PaddedStringManipulator<vega::DecimalString>::~PaddedStringManipulator(uint64_t a1)
@@ -9220,24 +9187,33 @@ void vega::manipulators::PaddedStringManipulator<vega::DecimalString>::~PaddedSt
     operator delete(v2);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(a1);
+  CMPhotoGetEncodeAccelerationModeOverride();
+}
+
+{
+  v2 = *(a1 + 8);
+  if (v2)
+  {
+    *(a1 + 16) = v2;
+    operator delete(v2);
+  }
+
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
 
-void *std::vector<vega::DecimalString>::reserve(void *result, unint64_t a2)
+void std::vector<vega::DecimalString>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      std::allocator<vega::DecimalString>::allocate_at_least[abi:ne200100](result, a2);
+      std::allocator<vega::DecimalString>::allocate_at_least[abi:ne200100](a1, a2);
     }
 
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::allocator<vega::DecimalString>::allocate_at_least[abi:ne200100](uint64_t a1, unint64_t a2)
@@ -9250,7 +9226,7 @@ void std::allocator<vega::DecimalString>::allocate_at_least[abi:ne200100](uint64
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::DecimalString>,(vega::manipulators::PaddedStringManipulator<vega::DecimalString>*)0>(uint64_t a1, uint64_t a2)
+void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::DecimalString>,(vega::manipulators::PaddedStringManipulator<vega::DecimalString>*)0>(void *result, uint64_t a2)
 {
   v6 = a2 + 8;
   v4 = *(a2 + 8);
@@ -9259,14 +9235,14 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::Decim
   if (v7 == 1)
   {
 
-    vega::Json::value_to_json<vega::DecimalString>(a1, v4);
+    vega::Json::value_to_json<vega::DecimalString>(result, v4);
   }
 
   else if (v7)
   {
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v8 = *a1;
+      v8 = *result;
       v14 = 91;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, &v14, 1);
       v4 = *(a2 + 8);
@@ -9279,12 +9255,12 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::Decim
       v10 = 0;
       do
       {
-        vega::Json::value_to_json<vega::DecimalString>(a1, &v4[v9]);
+        vega::Json::value_to_json<vega::DecimalString>(result, &v4[v9]);
         v4 = *(a2 + 8);
         v11 = (*(a2 + 16) - v4) >> 3;
-        if (v10 < v11 - 1 && *(a1 + 16) == 1)
+        if (v10 < v11 - 1 && *(result + 16) == 1)
         {
-          v12 = *a1;
+          v12 = *result;
           v16 = 44;
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, &v16, 1);
           v4 = *(a2 + 8);
@@ -9298,9 +9274,9 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::Decim
       while (v10 < v11);
     }
 
-    if (*(a1 + 16) == 1)
+    if (*(result + 16) == 1)
     {
-      v13 = *a1;
+      v13 = *result;
       v15 = 93;
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, &v15, 1);
     }
@@ -9309,7 +9285,7 @@ void vega::Json::to_json<vega::manipulators::PaddedStringManipulator<vega::Decim
   else
   {
 
-    vega::operator<<<char [18]>(a1, "null");
+    vega::operator<<<char [18]>(result, "null");
   }
 }
 
@@ -9548,8 +9524,7 @@ void *std::__shared_ptr_emplace<vega::manipulators::DecimalStringManipulator>::_
 void *std::construct_at[abi:ne200100]<vega::manipulators::DecimalStringManipulator,std::shared_ptr<vega::dicom::RawValue>,vega::manipulators::DecimalStringManipulator*>(void *a1, __int128 *a2)
 {
   v4 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   vega::manipulators::PaddedStringManipulator<vega::DecimalString>::PaddedStringManipulator(a1, &v4);
   *a1 = &unk_1F1918290;
   if (*(&v4 + 1))
@@ -9570,7 +9545,7 @@ void sub_1A597DAF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *vega::manipulators::PaddedStringManipulator<vega::DecimalString>::PaddedStringManipulator(void *a1, vega::dicom::RawValue **a2)
+void *vega::manipulators::PaddedStringManipulator<vega::DecimalString>::PaddedStringManipulator(void *a1, void ****a2)
 {
   vega::dicom::RawValue::str(*a2, &__p);
   vega::manipulators::PaddedStringManipulator<vega::DecimalString>::PaddedStringManipulator(a1, &__p);
@@ -9612,13 +9587,13 @@ void sub_1A597DBD0(_Unwind_Exception *a1)
     operator delete(v5);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(v1);
+  CMPhotoGetEncodeAccelerationModeOverride();
   _Unwind_Resume(a1);
 }
 
 void vega::dicom::DataSet::element<vega::dictionary::RescaleIntercept>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::RescaleIntercept::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::RescaleIntercept::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::RescaleIntercept>,std::allocator<vega::dicom::Element<vega::dictionary::RescaleIntercept>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -9730,7 +9705,7 @@ LABEL_6:
 
 void vega::dicom::DataSet::element<vega::dictionary::WindowCenter>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::WindowCenter::tag_mask, &v3);
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::WindowCenter::tag_mask);
   if (v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::WindowCenter>,std::allocator<vega::dicom::Element<vega::dictionary::WindowCenter>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
@@ -9838,4 +9813,30 @@ LABEL_6:
 
   __cxa_free_exception(v21);
   goto LABEL_6;
+}
+
+void vega::dicom::DataSet::element<vega::dictionary::WindowWidth>(vega::dicom::DataSet *a1@<X0>, void *a2@<X8>)
+{
+  vega::dicom::DataSet::data_element(&v3, a1, &vega::dictionary::WindowWidth::tag_mask);
+  if (v3)
+  {
+    std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::WindowWidth>,std::allocator<vega::dicom::Element<vega::dictionary::WindowWidth>>,std::shared_ptr<vega::dicom::DataElement> &,0>();
+  }
+
+  *a2 = 0;
+  a2[1] = 0;
+  if (v4)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+  }
+}
+
+void sub_1A597E384(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11)
+{
+  if (a11)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a11);
+  }
+
+  _Unwind_Resume(exception_object);
 }

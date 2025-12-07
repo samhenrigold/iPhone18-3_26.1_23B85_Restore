@@ -34,6 +34,8 @@
 - (void)setIsSemiExpanded:(BOOL)expanded;
 - (void)setLayoutMargins:(UIEdgeInsets)margins;
 - (void)setSeeMoreButtonAlpha:(double)alpha;
+- (void)setSeeMoreButtonHidden:(BOOL)hidden;
+- (void)setUndoSendButtonHidden:(BOOL)hidden;
 - (void)traitCollectionDidChange:(id)change;
 @end
 
@@ -237,6 +239,15 @@ LABEL_11:
   }
 }
 
+- (void)setSeeMoreButtonHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  seeMoreButton = [(MFConversationItemFooterView *)self seeMoreButton];
+  [seeMoreButton setHidden:hiddenCopy];
+
+  [(MFConversationItemFooterView *)self setNeedsLayout];
+}
+
 - (BOOL)isSeeMoreButtonHidden
 {
   seeMoreButton = [(MFConversationItemFooterView *)self seeMoreButton];
@@ -251,6 +262,27 @@ LABEL_11:
   isHidden = [revealActionsButton isHidden];
 
   return isHidden;
+}
+
+- (void)setUndoSendButtonHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  undoSendButton = [(MFConversationItemFooterView *)self undoSendButton];
+  isHidden = [undoSendButton isHidden];
+
+  if (isHidden != hiddenCopy)
+  {
+    undoSendButton2 = [(MFConversationItemFooterView *)self undoSendButton];
+    [undoSendButton2 setHidden:hiddenCopy];
+
+    revealActionsButton = [(MFConversationItemFooterView *)self revealActionsButton];
+    [revealActionsButton setHidden:hiddenCopy ^ 1];
+
+    seeMoreButton = [(MFConversationItemFooterView *)self seeMoreButton];
+    [seeMoreButton setHidden:hiddenCopy ^ 1];
+
+    [(MFConversationItemFooterView *)self setNeedsLayout];
+  }
 }
 
 - (BOOL)isUndoSendButtonHidden
@@ -551,7 +583,7 @@ LABEL_8:
 
 - (void)layoutUndoSendButton
 {
-  v25[5] = *MEMORY[0x277D85DE8];
+  v24[5] = *MEMORY[0x277D85DE8];
   undoSendButton = [(MFConversationItemFooterView *)self undoSendButton];
   if (([undoSendButton isHidden] & 1) == 0)
   {
@@ -569,25 +601,25 @@ LABEL_8:
           v7 = MEMORY[0x277CCAAD0];
           leadingAnchor = [undoSendButton leadingAnchor];
           leadingAnchor2 = [(MFConversationItemFooterView *)self leadingAnchor];
-          v20 = [leadingAnchor constraintEqualToAnchor:?];
-          v25[0] = v20;
+          v19 = [leadingAnchor constraintEqualToAnchor:?];
+          v24[0] = v19;
           centerXAnchor = [undoSendButton centerXAnchor];
           centerXAnchor2 = [(MFConversationItemFooterView *)self centerXAnchor];
-          v18 = [centerXAnchor constraintEqualToAnchor:?];
-          v25[1] = v18;
+          v17 = [centerXAnchor constraintEqualToAnchor:?];
+          v24[1] = v17;
           topAnchor = [undoSendButton topAnchor];
           topAnchor2 = [(MFConversationItemFooterView *)self topAnchor];
           v8 = [topAnchor constraintEqualToAnchor:?];
-          v25[2] = v8;
+          v24[2] = v8;
           centerYAnchor = [undoSendButton centerYAnchor];
           centerYAnchor2 = [(MFConversationItemFooterView *)self centerYAnchor];
           v11 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-          v25[3] = v11;
+          v24[3] = v11;
           trailingAnchor = [undoSendButton trailingAnchor];
           trailingAnchor2 = [(MFConversationItemFooterView *)self trailingAnchor];
           v14 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-          v25[4] = v14;
-          v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:5];
+          v24[4] = v14;
+          v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:5];
           [v7 activateConstraints:v15];
         }
       }
@@ -597,8 +629,6 @@ LABEL_8:
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldHideStickyFooterView

@@ -207,15 +207,15 @@ LABEL_17:
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v15[6] = *MEMORY[0x277D85DE8];
-  v14[0] = @"identifier";
+  v14[6] = *MEMORY[0x277D85DE8];
+  v13[0] = @"identifier";
   identifier = [(ATXWidgetStack *)self identifier];
-  v15[0] = identifier;
-  v14[1] = @"widgets";
+  v14[0] = identifier;
+  v13[1] = @"widgets";
   widgets = [(ATXWidgetStack *)self widgets];
   v5 = [widgets _pas_mappedArrayWithTransform:&__block_literal_global];
-  v15[1] = v5;
-  v14[2] = @"topWidgetIdentifier";
+  v14[1] = v5;
+  v13[2] = @"topWidgetIdentifier";
   topWidgetIdentifier = [(ATXWidgetStack *)self topWidgetIdentifier];
   null = topWidgetIdentifier;
   if (!topWidgetIdentifier)
@@ -223,24 +223,22 @@ LABEL_17:
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v15[2] = null;
-  v14[3] = @"family";
+  v14[2] = null;
+  v13[3] = @"family";
   [(ATXWidgetStack *)self family];
   v8 = NSStringFromWidgetFamily();
-  v15[3] = v8;
-  v14[4] = @"allowsNewWidget";
+  v14[3] = v8;
+  v13[4] = @"allowsNewWidget";
   v9 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXWidgetStack allowsNewWidget](self, "allowsNewWidget")}];
-  v15[4] = v9;
-  v14[5] = @"allowsSmartRotate";
+  v14[4] = v9;
+  v13[5] = @"allowsSmartRotate";
   v10 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXWidgetStack allowsSmartRotate](self, "allowsSmartRotate")}];
-  v15[5] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:6];
+  v14[5] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:6];
 
   if (!topWidgetIdentifier)
   {
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

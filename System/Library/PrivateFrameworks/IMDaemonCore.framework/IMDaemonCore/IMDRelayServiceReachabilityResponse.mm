@@ -43,14 +43,12 @@
 
 - (id)createDictionary
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = @"r";
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = @"r";
   result = [(IMDRelayServiceReachabilityResponse *)self result];
   createDictionary = [result createDictionary];
-  v8[0] = createDictionary;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[0] = createDictionary;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }

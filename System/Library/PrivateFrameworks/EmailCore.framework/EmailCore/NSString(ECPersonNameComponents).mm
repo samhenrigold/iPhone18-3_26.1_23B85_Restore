@@ -290,9 +290,9 @@ LABEL_59:
     +[NSString(ECPersonNameComponents) ec_nameExtensions];
   }
 
-  v1 = ec_nameExtensions_nameExtensions;
+  v2 = ec_nameExtensions_nameExtensions;
 
-  return v1;
+  return v2;
 }
 
 + (id)ec_partialSurnames
@@ -302,9 +302,9 @@ LABEL_59:
     +[NSString(ECPersonNameComponents) ec_partialSurnames];
   }
 
-  v1 = ec_partialSurnames_partialSurnames;
+  v2 = ec_partialSurnames_partialSurnames;
 
-  return v1;
+  return v2;
 }
 
 - (uint64_t)ec_appearsToBeAnInitial

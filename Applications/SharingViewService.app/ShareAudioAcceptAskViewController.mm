@@ -16,13 +16,12 @@
   {
     if (dword_1001BEE38 <= 30 && (dword_1001BEE38 != -1 || _LogCategory_Initialize()))
     {
-      v16 = v3;
-      LogPrintF();
+      LogPrintF(&dword_1001BEE38, "[ShareAudioAcceptAskViewController updateProductID:]", 30, "Update product ID: 0x%04X\n", v3);
     }
 
-    v5 = [NSBundle bundleWithIdentifier:@"com.apple.Sharing", v16];
-    v17 = v5;
-    if ((v3 - 8194) <= 0xD && ((1 << (v3 - 2)) & 0x3001) != 0 || !v3 || v3 == 0x10000 || (v6 = [[SFHeadphoneProduct alloc] initWithProductID:v3], v7 = objc_msgSend(v6, "isAirPods"), v6, v5 = v17, v7))
+    v5 = [NSBundle bundleWithIdentifier:@"com.apple.Sharing"];
+    v16 = v5;
+    if ((v3 - 8194) <= 0xD && ((1 << (v3 - 2)) & 0x3001) != 0 || !v3 || v3 == 0x10000 || (v6 = [[SFHeadphoneProduct alloc] initWithProductID:v3], v7 = objc_msgSend(v6, "isAirPods"), v6, v5 = v16, v7))
     {
       v8 = sub_1001279D0(v5, @"Localizable-ShareAudio", @"SHARE_AUDIO_ACCEPT_INFO_FORMAT_AIRPODS");
     }
@@ -31,12 +30,12 @@
     {
       v13 = [NSString stringWithFormat:@"SHARE_AUDIO_ACCEPT_INFO_FORMAT_PID_%u", v3];
       v14 = [NSString stringWithFormat:@"Localizable-PID_%d", v3];
-      v8 = sub_1001279D0(v17, v14, v13);
+      v8 = sub_1001279D0(v16, v14, v13);
       if (v8 == v13)
       {
 
         v14 = @"Localizable-ShareAudio";
-        v15 = sub_1001279D0(v17, @"Localizable-ShareAudio", v13);
+        v15 = sub_1001279D0(v16, @"Localizable-ShareAudio", v13);
 
         v8 = v15;
       }
@@ -58,7 +57,7 @@
 
   else if (dword_1001BEE38 <= 30 && (dword_1001BEE38 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEE38, "[ShareAudioAcceptAskViewController updateProductID:]", 30, "Update product ID before view ready: 0x%04X\n", v3);
   }
 }
 
@@ -67,7 +66,7 @@
   buttonCopy = button;
   if (dword_1001BEE38 <= 30 && (dword_1001BEE38 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEE38, "[ShareAudioAcceptAskViewController handleCancelButton:]", 30, "Cancel button\n");
   }
 
   [(UIButton *)self->_joinButton setEnabled:0];
@@ -80,7 +79,7 @@
   buttonCopy = button;
   if (dword_1001BEE38 <= 30 && (dword_1001BEE38 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEE38, "[ShareAudioAcceptAskViewController handleJoinButton:]", 30, "Join button\n");
   }
 
   [(UIButton *)self->_joinButton setEnabled:0];
@@ -93,7 +92,7 @@
   disappearCopy = disappear;
   if (dword_1001BEE38 <= 30 && (dword_1001BEE38 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEE38, "[ShareAudioAcceptAskViewController viewDidDisappear:]", 30, "Start ViewDidDisappear\n");
   }
 
   v5.receiver = self;
@@ -106,7 +105,7 @@
   appearCopy = appear;
   if (dword_1001BEE38 <= 30 && (dword_1001BEE38 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEE38, "[ShareAudioAcceptAskViewController viewWillAppear:]", 30, "Ask ViewWillAppear\n");
   }
 
   v14.receiver = self;

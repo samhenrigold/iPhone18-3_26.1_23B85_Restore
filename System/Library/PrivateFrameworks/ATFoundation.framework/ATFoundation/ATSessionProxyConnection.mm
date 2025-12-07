@@ -25,20 +25,18 @@
 
 void __57__ATSessionProxyConnection_session_didFinishSessionTask___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _ATLogCategoryFramework();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v5;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_impl(&dword_22392A000, v4, OS_LOG_TYPE_ERROR, "%{public}@ error %{public}@ notifying didFinishSessionTask", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_impl(&dword_22392A000, v4, OS_LOG_TYPE_ERROR, "%{public}@ error %{public}@ notifying didFinishSessionTask", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)session:(id)session didUpdateSessionTask:(id)task
@@ -58,20 +56,18 @@ void __57__ATSessionProxyConnection_session_didFinishSessionTask___block_invoke(
 
 void __57__ATSessionProxyConnection_session_didUpdateSessionTask___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _ATLogCategoryFramework();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v5;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_impl(&dword_22392A000, v4, OS_LOG_TYPE_ERROR, "%{public}@ error %{public}@ notifying didUpdateSessionTask", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_impl(&dword_22392A000, v4, OS_LOG_TYPE_ERROR, "%{public}@ error %{public}@ notifying didUpdateSessionTask", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)session:(id)session willBeginSessionTask:(id)task
@@ -91,25 +87,23 @@ void __57__ATSessionProxyConnection_session_didUpdateSessionTask___block_invoke(
 
 void __57__ATSessionProxyConnection_session_willBeginSessionTask___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _ATLogCategoryFramework();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = *(a1 + 32);
-    v7 = 138543618;
-    v8 = v5;
-    v9 = 2114;
-    v10 = v3;
-    _os_log_impl(&dword_22392A000, v4, OS_LOG_TYPE_ERROR, "%{public}@ error %{public}@ notifying willBeginSessionTask", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = v5;
+    v8 = 2114;
+    v9 = v3;
+    _os_log_impl(&dword_22392A000, v4, OS_LOG_TYPE_ERROR, "%{public}@ error %{public}@ notifying willBeginSessionTask", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   [(ATSession *)self->_session addObserver:self];
   [(NSXPCConnection *)self->_connection setExportedObject:self];
   v3 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2836FB698];
@@ -119,37 +113,35 @@ void __57__ATSessionProxyConnection_session_willBeginSessionTask___block_invoke(
   [(NSXPCConnection *)self->_connection setRemoteObjectInterface:v4];
 
   [(NSXPCConnection *)self->_connection resume];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   sessionTasks = [(ATSession *)self->_session sessionTasks];
-  v6 = [sessionTasks countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [sessionTasks countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(sessionTasks);
         }
 
-        [(ATSessionProxyConnection *)self session:self->_session didUpdateSessionTask:*(*(&v11 + 1) + 8 * v9++)];
+        [(ATSessionProxyConnection *)self session:self->_session didUpdateSessionTask:*(*(&v10 + 1) + 8 * v9++)];
       }
 
       while (v7 != v9);
-      v7 = [sessionTasks countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [sessionTasks countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (ATSessionProxyConnection)initWithSession:(id)session connection:(id)connection

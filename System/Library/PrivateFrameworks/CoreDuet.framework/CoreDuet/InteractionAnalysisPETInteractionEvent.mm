@@ -69,8 +69,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  timestamp = self->_timestamp;
-  v6 = toCopy;
   PBDataWriterWriteDoubleField();
   if (!self->_eventMechanism)
   {

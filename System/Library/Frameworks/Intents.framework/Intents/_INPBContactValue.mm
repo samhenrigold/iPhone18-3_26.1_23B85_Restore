@@ -3,6 +3,8 @@
 - (_INPBContactValue)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)searchProviderAsString:(int)string;
+- (id)suggestionTypeAsString:(int)string;
 - (int)StringAsSearchProvider:(id)provider;
 - (int)StringAsSuggestionType:(id)type;
 - (unint64_t)hash;
@@ -37,35 +39,35 @@
 
 - (id)dictionaryRepresentation
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSArray *)self->_aliases count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v56 = 0u;
     v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
     v5 = self->_aliases;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v57 objects:v61 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v56 objects:v60 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v58;
+      v8 = *v57;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v58 != v8)
+          if (*v57 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v57 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v56 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v57 objects:v61 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v56 objects:v60 count:16];
       }
 
       while (v7);
@@ -241,8 +243,6 @@
   valueMetadata = [(_INPBContactValue *)self valueMetadata];
   dictionaryRepresentation4 = [valueMetadata dictionaryRepresentation];
   [dictionary setObject:dictionaryRepresentation4 forKeyedSubscript:@"valueMetadata"];
-
-  v55 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -1014,35 +1014,34 @@ LABEL_119:
 
 - (void)writeTo:(id)to
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   toCopy = to;
-  v54 = 0u;
-  v55 = 0u;
-  v56 = 0u;
-  v57 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v5 = self->_aliases;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v54 objects:v58 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v55;
+    v8 = *v33;
     do
     {
       v9 = 0;
       do
       {
-        if (*v55 != v8)
+        if (*v33 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v54 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v54 objects:v58 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v7);
@@ -1060,7 +1059,6 @@ LABEL_119:
 
   if (customIdentifier)
   {
-    customIdentifier = self->_customIdentifier;
     PBDataWriterWriteStringField();
   }
 
@@ -1068,7 +1066,6 @@ LABEL_119:
 
   if (firstName)
   {
-    firstName = self->_firstName;
     PBDataWriterWriteStringField();
   }
 
@@ -1076,7 +1073,6 @@ LABEL_119:
 
   if (fullName)
   {
-    fullName = self->_fullName;
     PBDataWriterWriteStringField();
   }
 
@@ -1084,7 +1080,6 @@ LABEL_119:
 
   if (handle)
   {
-    handle = self->_handle;
     PBDataWriterWriteStringField();
   }
 
@@ -1098,13 +1093,11 @@ LABEL_119:
 
   if ([(_INPBContactValue *)self hasIsContactSuggestion])
   {
-    isContactSuggestion = self->_isContactSuggestion;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBContactValue *)self hasIsMe])
   {
-    isMe = self->_isMe;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1112,7 +1105,6 @@ LABEL_119:
 
   if (lastName)
   {
-    lastName = self->_lastName;
     PBDataWriterWriteStringField();
   }
 
@@ -1120,7 +1112,6 @@ LABEL_119:
 
   if (middleName)
   {
-    middleName = self->_middleName;
     PBDataWriterWriteStringField();
   }
 
@@ -1128,7 +1119,6 @@ LABEL_119:
 
   if (namePrefix)
   {
-    namePrefix = self->_namePrefix;
     PBDataWriterWriteStringField();
   }
 
@@ -1136,7 +1126,6 @@ LABEL_119:
 
   if (nameSuffix)
   {
-    nameSuffix = self->_nameSuffix;
     PBDataWriterWriteStringField();
   }
 
@@ -1144,7 +1133,6 @@ LABEL_119:
 
   if (nickName)
   {
-    nickName = self->_nickName;
     PBDataWriterWriteStringField();
   }
 
@@ -1152,7 +1140,6 @@ LABEL_119:
 
   if (phonemeData)
   {
-    phonemeData = self->_phonemeData;
     PBDataWriterWriteStringField();
   }
 
@@ -1160,7 +1147,6 @@ LABEL_119:
 
   if (phoneticFirstName)
   {
-    phoneticFirstName = self->_phoneticFirstName;
     PBDataWriterWriteStringField();
   }
 
@@ -1168,7 +1154,6 @@ LABEL_119:
 
   if (phoneticLastName)
   {
-    phoneticLastName = self->_phoneticLastName;
     PBDataWriterWriteStringField();
   }
 
@@ -1176,7 +1161,6 @@ LABEL_119:
 
   if (phoneticMiddleName)
   {
-    phoneticMiddleName = self->_phoneticMiddleName;
     PBDataWriterWriteStringField();
   }
 
@@ -1184,7 +1168,6 @@ LABEL_119:
 
   if (phoneticNamePrefix)
   {
-    phoneticNamePrefix = self->_phoneticNamePrefix;
     PBDataWriterWriteStringField();
   }
 
@@ -1192,7 +1175,6 @@ LABEL_119:
 
   if (phoneticNameSuffix)
   {
-    phoneticNameSuffix = self->_phoneticNameSuffix;
     PBDataWriterWriteStringField();
   }
 
@@ -1200,19 +1182,16 @@ LABEL_119:
 
   if (relationship)
   {
-    relationship = self->_relationship;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBContactValue *)self hasSearchProvider])
   {
-    searchProvider = self->_searchProvider;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBContactValue *)self hasSuggestionType])
   {
-    suggestionType = self->_suggestionType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1223,8 +1202,6 @@ LABEL_119:
     valueMetadata2 = [(_INPBContactValue *)self valueMetadata];
     PBDataWriterWriteSubmessage();
   }
-
-  v53 = *MEMORY[0x1E69E9840];
 }
 
 - (int)StringAsSuggestionType:(id)type
@@ -1248,6 +1225,21 @@ LABEL_119:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)suggestionTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727F828[string];
   }
 
   return v4;
@@ -1309,6 +1301,21 @@ LABEL_119:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)searchProviderAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727F808[string];
   }
 
   return v4;

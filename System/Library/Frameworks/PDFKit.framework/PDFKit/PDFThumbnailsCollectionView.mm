@@ -205,33 +205,31 @@ void __45__PDFThumbnailsCollectionView_makeDatasource__block_invoke_3(uint64_t a
 
       if (v17 != image)
       {
-        item = [pathCopy item];
-        _PDFLog(OS_LOG_TYPE_INFO, "PDFThumbnailsCollectionView", "Setting cell image for cell n°%lu", v21, v22, v23, v24, v25, item);
+        _PDFLog(OS_LOG_TYPE_INFO, "PDFThumbnailsCollectionView", "Setting cell image for cell n°%lu", [pathCopy item]);
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
         block[2] = __65__PDFThumbnailsCollectionView_updateImageForCell_indexPath_page___block_invoke_2;
         block[3] = &unk_1E8150FF8;
-        v33 = cellCopy;
-        v34 = v17;
+        v21 = cellCopy;
+        v22 = v17;
         dispatch_async(MEMORY[0x1E69E96A0], block);
       }
     }
 
     else
     {
-      item2 = [pathCopy item];
-      _PDFLog(OS_LOG_TYPE_INFO, "PDFThumbnailsCollectionView", "Image for cell n°%lu is not cached", v27, v28, v29, v30, v31, item2);
+      _PDFLog(OS_LOG_TYPE_INFO, "PDFThumbnailsCollectionView", "Image for cell n°%lu is not cached", [pathCopy item]);
       objc_initWeak(&location, self);
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 3221225472;
-      v35[2] = __65__PDFThumbnailsCollectionView_updateImageForCell_indexPath_page___block_invoke;
-      v35[3] = &unk_1E8150FD0;
-      objc_copyWeak(&v38, &location);
-      v36 = cellCopy;
-      v37 = pageCopy;
-      [(PDFThumbnailsCollectionView *)self loadImageWithPage:v37 displayBox:displayBox thumbnailView:WeakRetained completionHandler:v35];
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __65__PDFThumbnailsCollectionView_updateImageForCell_indexPath_page___block_invoke;
+      v23[3] = &unk_1E8150FD0;
+      objc_copyWeak(&v26, &location);
+      v24 = cellCopy;
+      v25 = pageCopy;
+      [(PDFThumbnailsCollectionView *)self loadImageWithPage:v25 displayBox:displayBox thumbnailView:WeakRetained completionHandler:v23];
 
-      objc_destroyWeak(&v38);
+      objc_destroyWeak(&v26);
       objc_destroyWeak(&location);
     }
   }
@@ -270,8 +268,7 @@ void __65__PDFThumbnailsCollectionView_updateImageForCell_indexPath_page___block
   cellCopy = cell;
   pageCopy = page;
   pathCopy = path;
-  item = [pathCopy item];
-  _PDFLog(OS_LOG_TYPE_DEBUG, "PDFThumbnailsCollectionView", "Configuring cell n°%lu", v12, v13, v14, v15, v16, item);
+  _PDFLog(OS_LOG_TYPE_DEBUG, "PDFThumbnailsCollectionView", "Configuring cell n°%lu", [pathCopy item]);
   WeakRetained = objc_loadWeakRetained(&self->_thumbnailView);
   pDFView = [WeakRetained PDFView];
   document = [pDFView document];
@@ -279,7 +276,7 @@ void __65__PDFThumbnailsCollectionView_updateImageForCell_indexPath_page___block
   [WeakRetained thumbnailSize];
   if (layoutMode)
   {
-    [cellCopy setThumbnailHeight:v20];
+    [cellCopy setThumbnailHeight:v14];
   }
 
   else
@@ -287,70 +284,70 @@ void __65__PDFThumbnailsCollectionView_updateImageForCell_indexPath_page___block
     [cellCopy setThumbnailWidth:?];
   }
 
-  v50 = document;
+  v44 = document;
   renderingProperties = [document renderingProperties];
   displayBox = [renderingProperties displayBox];
 
   [pageCopy boundsForBox:displayBox];
+  v18 = v17;
+  v20 = v19;
+  v22 = v21;
   v24 = v23;
-  v26 = v25;
-  v28 = v27;
-  v30 = v29;
-  memset(&v56, 0, sizeof(v56));
-  v31 = PDFDegToRad([pageCopy rotation]);
-  CGAffineTransformMakeRotation(&v56, v31);
-  v55 = v56;
-  v57.origin.x = v24;
-  v57.origin.y = v26;
-  v57.size.width = v28;
-  v57.size.height = v30;
-  v58 = CGRectApplyAffineTransform(v57, &v55);
-  [cellCopy updateAspectConstraintWithSize:{v58.size.width, v58.size.height}];
+  memset(&v50, 0, sizeof(v50));
+  v25 = PDFDegToRad([pageCopy rotation]);
+  CGAffineTransformMakeRotation(&v50, v25);
+  v49 = v50;
+  v51.origin.x = v18;
+  v51.origin.y = v20;
+  v51.size.width = v22;
+  v51.size.height = v24;
+  v52 = CGRectApplyAffineTransform(v51, &v49);
+  [cellCopy updateAspectConstraintWithSize:{v52.size.width, v52.size.height}];
   [cellCopy setPage:pageCopy];
   [(PDFThumbnailsCollectionView *)self updateImageForCell:cellCopy indexPath:pathCopy page:pageCopy];
-  objc_initWeak(&v55, self);
-  v52[0] = MEMORY[0x1E69E9820];
-  v52[1] = 3221225472;
-  v52[2] = __64__PDFThumbnailsCollectionView_configureCell_withPage_indexPath___block_invoke;
-  v52[3] = &unk_1E8151020;
-  objc_copyWeak(&v54, &v55);
-  v32 = pageCopy;
-  v53 = v32;
+  objc_initWeak(&v49, self);
+  v46[0] = MEMORY[0x1E69E9820];
+  v46[1] = 3221225472;
+  v46[2] = __64__PDFThumbnailsCollectionView_configureCell_withPage_indexPath___block_invoke;
+  v46[3] = &unk_1E8151020;
+  objc_copyWeak(&v48, &v49);
+  v26 = pageCopy;
+  v47 = v26;
   actionsButton = [cellCopy actionsButton];
-  [actionsButton _setMenuProvider:v52];
+  [actionsButton _setMenuProvider:v46];
 
   actionsButton2 = [cellCopy actionsButton];
   [actionsButton2 setShowsMenuAsPrimaryAction:1];
 
-  v35 = [(PDFThumbnailsCollectionView *)self shouldDisplayActionButtonForPage:v32];
+  v29 = [(PDFThumbnailsCollectionView *)self shouldDisplayActionButtonForPage:v26];
   actionsButton3 = [cellCopy actionsButton];
-  [actionsButton3 setHidden:!v35];
+  [actionsButton3 setHidden:!v29];
 
   [cellCopy invalidateIntrinsicContentSize];
-  document2 = [v32 document];
-  v38 = [document2 indexForPage:v32];
+  document2 = [v26 document];
+  v32 = [document2 indexForPage:v26];
 
-  v39 = MEMORY[0x1E696AEC0];
-  v40 = PDFKitLocalizedString(@"Thumbnail for page %ld");
-  v41 = v38 + 1;
-  v42 = [v39 stringWithFormat:v40, v38 + 1];
-  [cellCopy setAccessibilityLabel:v42];
+  v33 = MEMORY[0x1E696AEC0];
+  v34 = PDFKitLocalizedString(@"Thumbnail for page %ld");
+  v35 = v32 + 1;
+  v36 = [v33 stringWithFormat:v34, v32 + 1];
+  [cellCopy setAccessibilityLabel:v36];
 
-  v43 = PDFKitLocalizedString(@"PDF thumbnail");
-  [cellCopy setAccessibilityIdentifier:v43];
+  v37 = PDFKitLocalizedString(@"PDF thumbnail");
+  [cellCopy setAccessibilityIdentifier:v37];
 
-  v44 = MEMORY[0x1E696AEC0];
-  v45 = PDFKitLocalizedString(@"Page actions for page %ld");
-  v46 = [v44 stringWithFormat:v45, v41];
+  v38 = MEMORY[0x1E696AEC0];
+  v39 = PDFKitLocalizedString(@"Page actions for page %ld");
+  v40 = [v38 stringWithFormat:v39, v35];
   actionsButton4 = [cellCopy actionsButton];
-  [actionsButton4 setAccessibilityLabel:v46];
+  [actionsButton4 setAccessibilityLabel:v40];
 
-  v48 = PDFKitLocalizedString(@"Page actions");
+  v42 = PDFKitLocalizedString(@"Page actions");
   actionsButton5 = [cellCopy actionsButton];
-  [actionsButton5 setAccessibilityIdentifier:v48];
+  [actionsButton5 setAccessibilityIdentifier:v42];
 
-  objc_destroyWeak(&v54);
-  objc_destroyWeak(&v55);
+  objc_destroyWeak(&v48);
+  objc_destroyWeak(&v49);
 }
 
 id __64__PDFThumbnailsCollectionView_configureCell_withPage_indexPath___block_invoke(uint64_t a1)
@@ -392,19 +389,19 @@ id __64__PDFThumbnailsCollectionView_configureCell_withPage_indexPath___block_in
     imageCopy2 = image;
     pageCopy = page;
     Height = CGImageGetHeight([imageCopy2 CGImage]);
-    *&v11 = (4 * Height * CGImageGetBytesPerRow([imageCopy2 CGImage]));
-    _PDFLog(OS_LOG_TYPE_INFO, "PDFThumbnailsCollectionView", "Adding new image to the cache with a cost of %f", v12, v13, v14, v15, v16, v11);
+    v11 = (4 * Height * CGImageGetBytesPerRow([imageCopy2 CGImage]));
+    _PDFLog(OS_LOG_TYPE_INFO, "PDFThumbnailsCollectionView", "Adding new image to the cache with a cost of %f", v11);
     cache = self->_cache;
     pageCopy2 = [(PDFThumbnailsCollectionView *)self cacheKeyForPage:pageCopy];
 
-    [(NSCache *)cache setObject:imageCopy2 forKey:pageCopy2 cost:*&v11];
+    [(NSCache *)cache setObject:imageCopy2 forKey:pageCopy2 cost:v11];
   }
 
   else
   {
-    image;
+    imageCopy3 = image;
     pageCopy2 = page;
-    _PDFLog(OS_LOG_TYPE_ERROR, "PDFThumbnailsCollectionView", "Invalid nil parameter(s) to [updateCacheForPage:%p withImage:%p]", v18, v19, v20, v21, v22, pageCopy2);
+    _PDFLog(OS_LOG_TYPE_ERROR, "PDFThumbnailsCollectionView", "Invalid nil parameter(s) to [updateCacheForPage:%p withImage:%p]", pageCopy2, imageCopy3);
   }
 }
 
@@ -1497,25 +1494,25 @@ LABEL_18:
   _Block_object_dispose(v37, 8);
 }
 
-void __46__PDFThumbnailsCollectionView_pasteAfterPage___block_invoke(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void __46__PDFThumbnailsCollectionView_pasteAfterPage___block_invoke(void *a1, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
-    v9 = a1[4];
-    v8 = a1[5];
-    v10 = a1[7];
-    v11 = *(*(v10 + 8) + 24);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __46__PDFThumbnailsCollectionView_pasteAfterPage___block_invoke_2;
-    v12[3] = &unk_1E81511B0;
-    v12[4] = v10;
-    [v9 _insertFileAtURL:a2 type:v8 atIndex:v11 completionHandler:v12];
+    v4 = a1[4];
+    v3 = a1[5];
+    v5 = a1[7];
+    v6 = *(*(v5 + 8) + 24);
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __46__PDFThumbnailsCollectionView_pasteAfterPage___block_invoke_2;
+    v7[3] = &unk_1E81511B0;
+    v7[4] = v5;
+    [v4 _insertFileAtURL:a2 type:v3 atIndex:v6 completionHandler:v7];
   }
 
   else
   {
-    _PDFLog(OS_LOG_TYPE_ERROR, "PDFThumbnailsCollectionView", "Item provider %@ returned a nil URL. Error: %@", a4, a5, a6, a7, a8, a1[6]);
+    _PDFLog(OS_LOG_TYPE_ERROR, "PDFThumbnailsCollectionView", "Item provider %@ returned a nil URL. Error: %@", a1[6], a3);
   }
 }
 
@@ -1817,7 +1814,7 @@ void __91__PDFThumbnailsCollectionView_itemProvider_registerFileRepresentationFo
 
 - (void)writePDFDocumentFromPages:(id)pages completionHandler:(id)handler
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   pagesCopy = pages;
   handlerCopy = handler;
   WeakRetained = objc_loadWeakRetained(&self->_thumbnailView);
@@ -1828,30 +1825,30 @@ void __91__PDFThumbnailsCollectionView_itemProvider_registerFileRepresentationFo
 
   v13 = objc_alloc_init(PDFDocument);
   v14 = objc_autoreleasePoolPush();
-  v56 = 0u;
-  v57 = 0u;
-  v58 = 0u;
-  v59 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   v15 = pagesCopy;
-  v16 = [v15 countByEnumeratingWithState:&v56 objects:v60 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v46 objects:v50 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v57;
+    v18 = *v47;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v57 != v18)
+        if (*v47 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = [*(*(&v56 + 1) + 8 * i) copy];
+        v20 = [*(*(&v46 + 1) + 8 * i) copy];
         [(PDFDocument *)v13 insertPage:v20 atIndex:[(PDFDocument *)v13 pageCount]];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v56 objects:v60 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v46 objects:v50 count:16];
     }
 
     while (v17);
@@ -1865,89 +1862,89 @@ void __91__PDFThumbnailsCollectionView_itemProvider_registerFileRepresentationFo
   v25 = [temporaryDirectory URLByAppendingPathComponent:uUIDString];
 
   path = [v25 path];
-  v55 = 0;
-  [defaultManager removeItemAtPath:path error:&v55];
-  v27 = v55;
+  v45 = 0;
+  [defaultManager removeItemAtPath:path error:&v45];
+  v27 = v45;
 
   if (v27 && [v27 code] != 4)
   {
     path2 = [v25 path];
-    _PDFLog(OS_LOG_TYPE_DEFAULT, "PDFThumbnailsCollectionView", "Failed to remove temporary folder (at path %@) prior to storing temporary PDF document with error: %@", v36, v37, v38, v39, v40, path2);
+    _PDFLog(OS_LOG_TYPE_DEFAULT, "PDFThumbnailsCollectionView", "Failed to remove temporary folder (at path %@) prior to storing temporary PDF document with error: %@", path2, v27);
 
     handlerCopy[2](handlerCopy, 0, v27);
   }
 
   else
   {
-    v53 = v12;
+    v43 = v12;
     path3 = [v25 path];
-    v54 = 0;
-    [defaultManager createDirectoryAtPath:path3 withIntermediateDirectories:1 attributes:0 error:&v54];
-    v29 = v54;
+    v44 = 0;
+    [defaultManager createDirectoryAtPath:path3 withIntermediateDirectories:1 attributes:0 error:&v44];
+    v29 = v44;
 
     if (v29)
     {
-      _PDFLog(OS_LOG_TYPE_DEFAULT, "PDFThumbnailsCollectionView", "Failed to create directory for scanned PDF with error: %@", v30, v31, v32, v33, v34, v29);
+      _PDFLog(OS_LOG_TYPE_DEFAULT, "PDFThumbnailsCollectionView", "Failed to create directory for scanned PDF with error: %@", v29);
       handlerCopy[2](handlerCopy, 0, v29);
     }
 
     else
     {
-      v52 = handlerCopy;
+      v42 = handlerCopy;
       if ([v15 count] == 1)
       {
         firstObject = [v15 firstObject];
-        v42 = firstObject;
-        v50 = MEMORY[0x1E696AEC0];
-        if (v53)
+        v32 = firstObject;
+        v40 = MEMORY[0x1E696AEC0];
+        if (v43)
         {
-          v43 = v53;
+          v33 = v43;
         }
 
         else
         {
-          v43 = @"Exported Page";
+          v33 = @"Exported Page";
         }
 
         label = [firstObject label];
-        v45 = [v50 stringWithFormat:@"%@ n°%@", v43, label];
+        v35 = [v40 stringWithFormat:@"%@ n°%@", v33, label];
       }
 
       else
       {
-        if (v53)
+        if (v43)
         {
-          v46 = v53;
+          v36 = v43;
         }
 
         else
         {
-          v46 = @"Exported Page";
+          v36 = @"Exported Page";
         }
 
-        v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ (%lu)", v46, objc_msgSend(v15, "count")];
+        v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ (%lu)", v36, objc_msgSend(v15, "count")];
       }
 
-      v47 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.pdf", v45];
-      v48 = [v25 URLByAppendingPathComponent:v47];
-      if ([(PDFDocument *)v13 writeToURL:v48])
+      v37 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.pdf", v35];
+      v38 = [v25 URLByAppendingPathComponent:v37];
+      if ([(PDFDocument *)v13 writeToURL:v38])
       {
-        v52[2](v52, v48, 0);
+        v42[2](v42, v38, 0);
       }
 
       else
       {
         [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:512 userInfo:0];
-        v49 = v51 = v45;
-        (v52)[2](v52, 0, v49);
+        v39 = v41 = v35;
+        (v42)[2](v42, 0, v39);
 
-        v45 = v51;
+        v35 = v41;
       }
 
-      handlerCopy = v52;
+      handlerCopy = v42;
     }
 
-    v12 = v53;
+    v12 = v43;
   }
 }
 
@@ -2172,25 +2169,25 @@ LABEL_20:
   }
 }
 
-void __73__PDFThumbnailsCollectionView_collectionView_performDropWithCoordinator___block_invoke(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void __73__PDFThumbnailsCollectionView_collectionView_performDropWithCoordinator___block_invoke(void *a1, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
-    v9 = a1[4];
-    v8 = a1[5];
-    v10 = a1[7];
-    v11 = *(*(v10 + 8) + 24);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __73__PDFThumbnailsCollectionView_collectionView_performDropWithCoordinator___block_invoke_2;
-    v12[3] = &unk_1E81511B0;
-    v12[4] = v10;
-    [v9 _insertFileAtURL:a2 type:v8 atIndex:v11 completionHandler:v12];
+    v4 = a1[4];
+    v3 = a1[5];
+    v5 = a1[7];
+    v6 = *(*(v5 + 8) + 24);
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __73__PDFThumbnailsCollectionView_collectionView_performDropWithCoordinator___block_invoke_2;
+    v7[3] = &unk_1E81511B0;
+    v7[4] = v5;
+    [v4 _insertFileAtURL:a2 type:v3 atIndex:v6 completionHandler:v7];
   }
 
   else
   {
-    _PDFLog(OS_LOG_TYPE_ERROR, "PDFThumbnailsCollectionView", "Item provider %@ returned a nil URL. Error: %@", a4, a5, a6, a7, a8, a1[6]);
+    _PDFLog(OS_LOG_TYPE_ERROR, "PDFThumbnailsCollectionView", "Item provider %@ returned a nil URL. Error: %@", a1[6], a3);
   }
 }
 
@@ -2242,7 +2239,7 @@ void __73__PDFThumbnailsCollectionView_collectionView_performDropWithCoordinator
   lCopy = l;
   handlerCopy = handler;
   v10 = [[PDFDocument alloc] initWithURL:lCopy];
-  v16 = v10;
+  v11 = v10;
   if (v10)
   {
     block[0] = MEMORY[0x1E69E9820];
@@ -2250,15 +2247,15 @@ void __73__PDFThumbnailsCollectionView_collectionView_performDropWithCoordinator
     block[2] = __83__PDFThumbnailsCollectionView__insertPDFDocumentWithURL_atIndex_completionHandler___block_invoke;
     block[3] = &unk_1E81512A0;
     block[4] = self;
-    v18 = v10;
+    v13 = v10;
     indexCopy = index;
-    v19 = handlerCopy;
+    v14 = handlerCopy;
     dispatch_sync(MEMORY[0x1E69E96A0], block);
   }
 
   else
   {
-    _PDFLog(OS_LOG_TYPE_ERROR, "PDFThumbnailsCollectionView", "PDF document could not be created from URL %@", v11, v12, v13, v14, v15, lCopy);
+    _PDFLog(OS_LOG_TYPE_ERROR, "PDFThumbnailsCollectionView", "PDF document could not be created from URL %@", lCopy);
     (*(handlerCopy + 2))(handlerCopy, 0);
   }
 }
@@ -2273,7 +2270,7 @@ uint64_t __83__PDFThumbnailsCollectionView__insertPDFDocumentWithURL_atIndex_com
 
 - (void)_insertImageWithURL:(id)l atIndex:(unint64_t)index completionHandler:(id)handler
 {
-  v35[2] = *MEMORY[0x1E69E9840];
+  v30[2] = *MEMORY[0x1E69E9840];
   lCopy = l;
   handlerCopy = handler;
   WeakRetained = objc_loadWeakRetained(&self->_thumbnailView);
@@ -2293,19 +2290,19 @@ uint64_t __83__PDFThumbnailsCollectionView__insertPDFDocumentWithURL_atIndex_com
       v16 = 0;
     }
 
-    v28 = [document pageAtIndex:v16];
-    [v28 boundsForBox:0];
+    v23 = [document pageAtIndex:v16];
+    [v23 boundsForBox:0];
     v18 = v17;
     CGImageGetSizeAfterOrientation();
     [MEMORY[0x1E696B098] PDFKitValueWithPDFRect:{0.0, 0.0, v18, v18 * v19 / v20}];
-    v21 = v29 = WeakRetained;
-    v34[0] = @"PDFPageImageInitializationOptionMediaBox";
-    v34[1] = @"PDFPageImageInitializationOptionUpscaleIfSmaller";
-    v35[0] = v21;
-    v35[1] = MEMORY[0x1E695E118];
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:2];
+    v21 = v24 = WeakRetained;
+    v29[0] = @"PDFPageImageInitializationOptionMediaBox";
+    v29[1] = @"PDFPageImageInitializationOptionUpscaleIfSmaller";
+    v30[0] = v21;
+    v30[1] = MEMORY[0x1E695E118];
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:2];
 
-    WeakRetained = v29;
+    WeakRetained = v24;
   }
 
   else
@@ -2313,28 +2310,28 @@ uint64_t __83__PDFThumbnailsCollectionView__insertPDFDocumentWithURL_atIndex_com
     v15 = MEMORY[0x1E695E0F8];
   }
 
-  v27 = [[PDFPage alloc] initWithCGImage:ImageAtIndex options:v15];
+  v22 = [[PDFPage alloc] initWithCGImage:ImageAtIndex options:v15];
   if (v13)
   {
     CFRelease(v13);
   }
 
-  if (v27)
+  if (v22)
   {
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __77__PDFThumbnailsCollectionView__insertImageWithURL_atIndex_completionHandler___block_invoke;
     block[3] = &unk_1E81512A0;
     block[4] = self;
-    v31 = v27;
+    v26 = v22;
     indexCopy = index;
-    v32 = handlerCopy;
+    v27 = handlerCopy;
     dispatch_sync(MEMORY[0x1E69E96A0], block);
   }
 
   else
   {
-    _PDFLog(OS_LOG_TYPE_ERROR, "PDFThumbnailsCollectionView", "PDF document could not be created from URL %@", v22, v23, v24, v25, v26, lCopy);
+    _PDFLog(OS_LOG_TYPE_ERROR, "PDFThumbnailsCollectionView", "PDF document could not be created from URL %@", lCopy);
     (*(handlerCopy + 2))(handlerCopy, 0);
   }
 }
@@ -2462,44 +2459,44 @@ void __43__PDFThumbnailsCollectionView_removePages___block_invoke(uint64_t a1, u
     pDFView = [WeakRetained PDFView];
     document = [pDFView document];
 
-    v16 = [indexesCopy count];
-    v17 = pagesCopy;
-    if (v16)
+    v11 = [indexesCopy count];
+    v12 = pagesCopy;
+    if (v11)
     {
-      for (i = 0; i < v21; ++i)
+      for (i = 0; i < v16; ++i)
       {
-        v19 = [v17 objectAtIndexedSubscript:i];
-        v20 = [indexesCopy objectAtIndexedSubscript:i];
-        [document insertPage:v19 atIndex:{objc_msgSend(v20, "unsignedIntegerValue")}];
+        v14 = [v12 objectAtIndexedSubscript:i];
+        v15 = [indexesCopy objectAtIndexedSubscript:i];
+        [document insertPage:v14 atIndex:{objc_msgSend(v15, "unsignedIntegerValue")}];
 
-        v21 = [indexesCopy count];
-        v17 = pagesCopy;
+        v16 = [indexesCopy count];
+        v12 = pagesCopy;
       }
     }
 
-    if ([v17 count] <= 1)
+    if ([v12 count] <= 1)
     {
-      v22 = @"Insert page";
+      v17 = @"Insert page";
     }
 
     else
     {
-      v22 = @"Insert pages";
+      v17 = @"Insert pages";
     }
 
-    v23 = PDFKitLocalizedString(v22);
+    v18 = PDFKitLocalizedString(v17);
     undoManager = [(PDFThumbnailsCollectionView *)self undoManager];
-    v25 = [undoManager prepareWithInvocationTarget:self];
-    [v25 removePages:pagesCopy];
+    v20 = [undoManager prepareWithInvocationTarget:self];
+    [v20 removePages:pagesCopy];
 
     undoManager2 = [(PDFThumbnailsCollectionView *)self undoManager];
-    v27 = PDFKitLocalizedString(v23);
-    [undoManager2 setActionName:v27];
+    v22 = PDFKitLocalizedString(v18);
+    [undoManager2 setActionName:v22];
   }
 
   else
   {
-    _PDFLog(OS_LOG_TYPE_ERROR, "PDFThumbnailsCollectionView", "Number of pages to insert is different from the number of indexes", v8, v9, v10, v11, v12, v28);
+    _PDFLog(OS_LOG_TYPE_ERROR, "PDFThumbnailsCollectionView", "Number of pages to insert is different from the number of indexes");
   }
 }
 

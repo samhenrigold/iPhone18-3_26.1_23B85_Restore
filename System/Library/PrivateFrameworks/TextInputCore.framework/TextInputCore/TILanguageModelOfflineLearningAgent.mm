@@ -10,7 +10,7 @@
 
 - (void)handleRemovalOfLearnedModels
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   currentLearningTask = [(TILanguageModelOfflineLearningAgent *)self currentLearningTask];
 
   if (currentLearningTask)
@@ -25,9 +25,9 @@
       v4 = TIOSLogFacility();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
-        v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Canceling learning due to a Reset Keyboard Dictionary event.", "-[TILanguageModelOfflineLearningAgent handleRemovalOfLearnedModels]"];
+        v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Canceling learning due to a Reset Keyboard Dictionary event.", "-[TILanguageModelOfflineLearningAgent handleRemovalOfLearnedModels]"];
         *buf = 138412290;
-        v9 = v7;
+        v8 = v6;
         _os_log_debug_impl(&dword_22CA55000, v4, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -35,13 +35,11 @@
     currentLearningTask2 = [(TILanguageModelOfflineLearningAgent *)self currentLearningTask];
     [currentLearningTask2 setCancelled:1];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performLearningIfNecessaryWithStrategy:(id)strategy lastAdaptationTime:(double)time
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   strategyCopy = strategy;
   v7 = strategyCopy;
   if (time == 0.0)
@@ -53,12 +51,12 @@
       v9 = +[TIKeyboardAssertionManager sharedAssertionManager];
       [v9 retainBackgroundActivityAssertion];
 
-      v17 = 0;
-      v18 = &v17;
-      v19 = 0x3032000000;
-      v20 = __Block_byref_object_copy__23529;
-      v21 = __Block_byref_object_dispose__23530;
-      v22 = v7;
+      v16 = 0;
+      v17 = &v16;
+      v18 = 0x3032000000;
+      v19 = __Block_byref_object_copy__23529;
+      v20 = __Block_byref_object_dispose__23530;
+      v21 = v7;
       if (TICanLogMessageAtLevel_onceToken != -1)
       {
         dispatch_once(&TICanLogMessageAtLevel_onceToken, &__block_literal_global_24093);
@@ -67,47 +65,42 @@
       v10 = TIOSLogFacility();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        v13 = MEMORY[0x277CCACA8];
-        learningTask2 = [v18[5] learningTask];
+        v12 = MEMORY[0x277CCACA8];
+        learningTask2 = [v17[5] learningTask];
         clientIdentifier = [learningTask2 clientIdentifier];
-        v16 = [v13 stringWithFormat:@"%s Beginning offline learing task for client '%@'", "-[TILanguageModelOfflineLearningAgent performLearningIfNecessaryWithStrategy:lastAdaptationTime:]", clientIdentifier];
+        v15 = [v12 stringWithFormat:@"%s Beginning offline learing task for client '%@'", "-[TILanguageModelOfflineLearningAgent performLearningIfNecessaryWithStrategy:lastAdaptationTime:]", clientIdentifier];
         *buf = 138412290;
-        v24 = v16;
+        v23 = v15;
         _os_log_debug_impl(&dword_22CA55000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
       dispatchQueue = [(TILanguageModelOfflineLearningAgent *)self dispatchQueue];
       TIDispatchAsync();
 
-      _Block_object_dispose(&v17, 8);
+      _Block_object_dispose(&v16, 8);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __97__TILanguageModelOfflineLearningAgent_performLearningIfNecessaryWithStrategy_lastAdaptationTime___block_invoke(uint64_t a1)
 {
   v2 = [*(*(*(a1 + 40) + 8) + 40) learningTask];
-  v7 = *(a1 + 32);
-  v3 = v2;
   TIDispatchSync();
-  v4 = [v3 dataSource];
+  v3 = [v2 dataSource];
 
-  if (v4)
+  if (v3)
   {
       ;
     }
   }
 
-  v6 = *(a1 + 32);
-  v5 = MEMORY[0x277D85CD0];
+  v4 = MEMORY[0x277D85CD0];
   TIDispatchSync();
 }
 
 uint64_t __97__TILanguageModelOfflineLearningAgent_performLearningIfNecessaryWithStrategy_lastAdaptationTime___block_invoke_3(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (TICanLogMessageAtLevel_onceToken != -1)
   {
     dispatch_once(&TICanLogMessageAtLevel_onceToken, &__block_literal_global_24093);
@@ -116,12 +109,12 @@ uint64_t __97__TILanguageModelOfflineLearningAgent_performLearningIfNecessaryWit
   v2 = TIOSLogFacility();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v8 = MEMORY[0x277CCACA8];
-    v9 = [*(*(*(a1 + 40) + 8) + 40) learningTask];
-    v10 = [v9 clientIdentifier];
-    v11 = [v8 stringWithFormat:@"%s Finished offline learing task for client '%@'", "-[TILanguageModelOfflineLearningAgent performLearningIfNecessaryWithStrategy:lastAdaptationTime:]_block_invoke_3", v10];
+    v7 = MEMORY[0x277CCACA8];
+    v8 = [*(*(*(a1 + 40) + 8) + 40) learningTask];
+    v9 = [v8 clientIdentifier];
+    v10 = [v7 stringWithFormat:@"%s Finished offline learing task for client '%@'", "-[TILanguageModelOfflineLearningAgent performLearningIfNecessaryWithStrategy:lastAdaptationTime:]_block_invoke_3", v9];
     *buf = 138412290;
-    v13 = v11;
+    v12 = v10;
     _os_log_debug_impl(&dword_22CA55000, v2, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
@@ -132,14 +125,12 @@ uint64_t __97__TILanguageModelOfflineLearningAgent_performLearningIfNecessaryWit
   v5 = +[TIKeyboardAssertionManager sharedAssertionManager];
   [v5 releaseBackgroundActivityAssertion];
 
-  result = [*(a1 + 32) setCurrentLearningTask:0];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) setCurrentLearningTask:0];
 }
 
 - (BOOL)continueLearningTaskWithStrategy:(id)strategy
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   strategyCopy = strategy;
   v5 = objc_autoreleasePoolPush();
   currentLearningTask = [(TILanguageModelOfflineLearningAgent *)self currentLearningTask];
@@ -158,12 +149,12 @@ uint64_t __97__TILanguageModelOfflineLearningAgent_performLearningIfNecessaryWit
       v9 = TIOSLogFacility();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v26 = MEMORY[0x277CCACA8];
-        v27 = [nextOutgoingMessageBatch count];
+        v25 = MEMORY[0x277CCACA8];
+        v26 = [nextOutgoingMessageBatch count];
         clientIdentifier = [currentLearningTask clientIdentifier];
-        v29 = [v26 stringWithFormat:@"%s Retrieved %lu messages from %@ for %@", "-[TILanguageModelOfflineLearningAgent continueLearningTaskWithStrategy:]", v27, currentLearningTask, clientIdentifier];
+        v28 = [v25 stringWithFormat:@"%s Retrieved %lu messages from %@ for %@", "-[TILanguageModelOfflineLearningAgent continueLearningTaskWithStrategy:]", v26, currentLearningTask, clientIdentifier];
         *buf = 138412290;
-        v39 = v29;
+        v38 = v28;
         _os_log_debug_impl(&dword_22CA55000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -171,26 +162,26 @@ uint64_t __97__TILanguageModelOfflineLearningAgent_performLearningIfNecessaryWit
     v10 = [strategyCopy filterMessages:nextOutgoingMessageBatch];
 
     v11 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
     currentLearningTask3 = v10;
-    v13 = [currentLearningTask3 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v13 = [currentLearningTask3 countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v34;
+      v15 = *v33;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v34 != v15)
+          if (*v33 != v15)
           {
             objc_enumerationMutation(currentLearningTask3);
           }
 
-          recipient = [*(*(&v33 + 1) + 8 * i) recipient];
+          recipient = [*(*(&v32 + 1) + 8 * i) recipient];
           v18 = [recipient copy];
 
           if ([v18 length])
@@ -199,7 +190,7 @@ uint64_t __97__TILanguageModelOfflineLearningAgent_performLearningIfNecessaryWit
           }
         }
 
-        v14 = [currentLearningTask3 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v14 = [currentLearningTask3 countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v14);
@@ -221,11 +212,11 @@ uint64_t __97__TILanguageModelOfflineLearningAgent_performLearningIfNecessaryWit
       v21 = TIOSLogFacility();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
-        v30 = MEMORY[0x277CCACA8];
+        v29 = MEMORY[0x277CCACA8];
         clientIdentifier2 = [currentLearningTask clientIdentifier];
-        v32 = [v30 stringWithFormat:@"%s Finished importing data for %@", "-[TILanguageModelOfflineLearningAgent continueLearningTaskWithStrategy:]", clientIdentifier2];
+        v31 = [v29 stringWithFormat:@"%s Finished importing data for %@", "-[TILanguageModelOfflineLearningAgent continueLearningTaskWithStrategy:]", clientIdentifier2];
         *buf = 138412290;
-        v39 = v32;
+        v38 = v31;
         _os_log_debug_impl(&dword_22CA55000, v21, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -241,7 +232,6 @@ uint64_t __97__TILanguageModelOfflineLearningAgent_performLearningIfNecessaryWit
   }
 
   objc_autoreleasePoolPop(v5);
-  v24 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

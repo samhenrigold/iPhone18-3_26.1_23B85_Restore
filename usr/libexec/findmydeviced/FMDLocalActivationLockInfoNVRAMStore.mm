@@ -120,11 +120,11 @@
   v4 = valueCopy;
   if (!valueCopy)
   {
-    v6 = sub_100002880();
+    v6 = sub_100002880(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "status Key not found in nvram", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "status Key not found in nvram", v9, 2u);
     }
 
     goto LABEL_10;
@@ -132,13 +132,14 @@
 
   if (([valueCopy isEqualToString:@"YES"] & 1) == 0)
   {
-    if ([v4 isEqualToString:@"NO"])
+    v7 = [v4 isEqualToString:@"NO"];
+    if (v7)
     {
       v5 = &__kCFBooleanFalse;
       goto LABEL_11;
     }
 
-    v6 = sub_100002880();
+    v6 = sub_100002880(v7);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1002274C8(v4, v6);

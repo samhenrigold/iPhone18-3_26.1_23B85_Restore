@@ -140,18 +140,18 @@
 
   if (CGSizeZero.width == v5 && height == v7)
   {
-    v51 = sub_10001C784();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+    v52 = sub_10001C784(v9);
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "[Settings] [CARWallpaper] Using default sectionInset due to zero bounds", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "[Settings] [CARWallpaper] Using default sectionInset due to zero bounds", buf, 2u);
     }
 
     [(CARWallpaperPanel *)self sectionInset];
-    v53 = v52;
-    v55 = v54;
-    v57 = v56;
-    v59 = v58;
+    v54 = v53;
+    v56 = v55;
+    v58 = v57;
+    v60 = v59;
   }
 
   else
@@ -160,51 +160,51 @@
     carSession = [panelController carSession];
     configuration = [carSession configuration];
     screens = [configuration screens];
-    v14 = [screens bs_firstObjectPassingTest:&stru_1000DAF20];
+    v15 = [screens bs_firstObjectPassingTest:&stru_1000DAF20];
 
-    currentViewArea = [v14 currentViewArea];
+    currentViewArea = [v15 currentViewArea];
     [currentViewArea safeFrame];
-    v17 = v16;
-    v19 = v18;
+    v18 = v17;
+    v20 = v19;
 
     view2 = [(CARWallpaperPanel *)self view];
     safeAreaLayoutGuide = [view2 safeAreaLayoutGuide];
     [safeAreaLayoutGuide layoutFrame];
-    v23 = v22;
-    v25 = v24;
-    v27 = v26;
-    v29 = v28;
+    v24 = v23;
+    v26 = v25;
+    v28 = v27;
+    v30 = v29;
 
     [(CARWallpaperPanel *)self cachedEffectiveSectionInsetLayoutSize];
-    if (v27 != v31 || v29 != v30 || ([(CARWallpaperPanel *)self cachedEffectiveSectionInset], v33.f64[1] = v32, v35.f64[1] = v34, (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(*&UIEdgeInsetsZero.top, v33), vceqq_f64(*&UIEdgeInsetsZero.bottom, v35)))) & 1) != 0))
+    if (v28 != v32 || v30 != v31 || ([(CARWallpaperPanel *)self cachedEffectiveSectionInset], v34.f64[1] = v33, v36.f64[1] = v35, (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(*&UIEdgeInsetsZero.top, v34), vceqq_f64(*&UIEdgeInsetsZero.bottom, v36)))) & 1) != 0))
     {
-      [(CARWallpaperPanel *)self setCachedEffectiveSectionInsetLayoutSize:v27, v29];
-      v107.origin.x = v23;
-      v107.origin.y = v25;
-      v107.size.width = v27;
-      v107.size.height = v29;
-      Width = CGRectGetWidth(v107);
+      [(CARWallpaperPanel *)self setCachedEffectiveSectionInsetLayoutSize:v28, v30];
+      v108.origin.x = v24;
+      v108.origin.y = v26;
+      v108.size.width = v28;
+      v108.size.height = v30;
+      Width = CGRectGetWidth(v108);
       [(CARWallpaperPanel *)self sectionInset];
-      v38 = Width - v37;
+      v39 = Width - v38;
       [(CARWallpaperPanel *)self sectionInset];
-      v40 = v38 - v39 - [(CARWallpaperPanel *)self numberOfColumns]* 8.0;
-      v41 = v19 / v17;
-      v42 = v41 * (v40 / [(CARWallpaperPanel *)self numberOfColumns]);
+      v41 = v39 - v40 - [(CARWallpaperPanel *)self numberOfColumns]* 8.0;
+      v42 = v20 / v18;
+      v43 = v42 * (v41 / [(CARWallpaperPanel *)self numberOfColumns]);
       numberOfRows = [(CARWallpaperPanel *)self numberOfRows];
-      v44 = [(CARWallpaperPanel *)self numberOfRows]* 8.0 + v42 * numberOfRows + 32.0;
-      v108.origin.x = v23;
-      v108.origin.y = v25;
-      v108.size.width = v27;
-      v108.size.height = v29;
-      v45 = CGRectGetHeight(v108) * 0.98;
-      v46 = [v14 availableInteractionModels] & 2;
-      if (v44 < v45 || v46 == 0)
+      v45 = [(CARWallpaperPanel *)self numberOfRows]* 8.0 + v43 * numberOfRows + 32.0;
+      v109.origin.x = v24;
+      v109.origin.y = v26;
+      v109.size.width = v28;
+      v109.size.height = v30;
+      v46 = CGRectGetHeight(v109) * 0.98;
+      availableInteractionModels = [v15 availableInteractionModels];
+      if (v45 < v46 || (availableInteractionModels & 2) == 0)
       {
-        v48 = sub_10001C784();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+        v49 = sub_10001C784(availableInteractionModels);
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "[Settings] [CARWallpaper] Using default sectionInset (no scroll bar needed)", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "[Settings] [CARWallpaper] Using default sectionInset (no scroll bar needed)", buf, 2u);
         }
 
         [(CARWallpaperPanel *)self sectionInset];
@@ -213,26 +213,26 @@
 
       else
       {
-        v109.origin.x = v23;
-        v109.origin.y = v25;
-        v109.size.width = v27;
-        v109.size.height = v29;
-        v60 = CGRectGetWidth(v109) + -45.0;
+        v110.origin.x = v24;
+        v110.origin.y = v26;
+        v110.size.width = v28;
+        v110.size.height = v30;
+        v61 = CGRectGetWidth(v110) + -45.0;
         [(CARWallpaperPanel *)self sectionInset];
-        v62 = v60 - v61;
+        v63 = v61 - v62;
         [(CARWallpaperPanel *)self sectionInset];
-        v64 = v62 - v63 - [(CARWallpaperPanel *)self numberOfColumns]* 8.0;
-        v65 = v41 * (v64 / [(CARWallpaperPanel *)self numberOfColumns]);
+        v65 = v63 - v64 - [(CARWallpaperPanel *)self numberOfColumns]* 8.0;
+        v66 = v42 * (v65 / [(CARWallpaperPanel *)self numberOfColumns]);
         numberOfRows2 = [(CARWallpaperPanel *)self numberOfRows];
-        v67 = [(CARWallpaperPanel *)self numberOfRows]* 8.0 + v65 * numberOfRows2 + 32.0;
-        v110.origin.x = v23;
-        v110.origin.y = v25;
-        v110.size.width = v27;
-        v110.size.height = v29;
-        v68 = CGRectGetHeight(v110) * 0.98;
+        v68 = [(CARWallpaperPanel *)self numberOfRows]* 8.0 + v66 * numberOfRows2 + 32.0;
+        v111.origin.x = v24;
+        v111.origin.y = v26;
+        v111.size.width = v28;
+        v111.size.height = v30;
+        v69 = CGRectGetHeight(v111) * 0.98;
         [(CARWallpaperPanel *)self sectionInset];
-        v70 = v69;
-        if (v67 >= v68)
+        v71 = v70;
+        if (v68 >= v69)
         {
           panelController2 = [(CARSettingsPanel *)self panelController];
           carSession2 = [panelController2 carSession];
@@ -243,64 +243,63 @@
         }
 
         selfCopy2 = self;
-        v49 = v70;
+        v50 = v71;
       }
 
-      [(CARWallpaperPanel *)selfCopy2 setCachedEffectiveSectionInset:v49];
-      v74 = sub_10001C784();
-      if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+      v75 = sub_10001C784([(CARWallpaperPanel *)selfCopy2 setCachedEffectiveSectionInset:v50]);
+      if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
       {
-        v106.width = v27;
-        v106.height = v29;
-        v75 = NSStringFromCGSize(v106);
+        v107.width = v28;
+        v107.height = v30;
+        v76 = NSStringFromCGSize(v107);
         [(CARWallpaperPanel *)self cachedEffectiveSectionInset];
-        v76 = NSStringFromUIEdgeInsets(v111);
-        [(CARWallpaperPanel *)self sectionInset];
         v77 = NSStringFromUIEdgeInsets(v112);
-        currentViewArea2 = [v14 currentViewArea];
-        v93 = v14;
+        [(CARWallpaperPanel *)self sectionInset];
+        v78 = NSStringFromUIEdgeInsets(v113);
+        currentViewArea2 = [v15 currentViewArea];
+        v94 = v15;
         [currentViewArea2 safeFrame];
-        v78 = NSStringFromCGRect(v113);
+        v79 = NSStringFromCGRect(v114);
         view3 = [(CARWallpaperPanel *)self view];
         safeAreaLayoutGuide2 = [view3 safeAreaLayoutGuide];
         [safeAreaLayoutGuide2 layoutFrame];
-        v80 = NSStringFromCGRect(v114);
+        v81 = NSStringFromCGRect(v115);
         view4 = [(CARWallpaperPanel *)self view];
         [view4 safeAreaInsets];
-        v82 = NSStringFromUIEdgeInsets(v115);
+        v83 = NSStringFromUIEdgeInsets(v116);
         *buf = 138413570;
-        v95 = v75;
-        v96 = 2112;
-        v97 = v76;
-        v98 = 2112;
-        v99 = v77;
-        v100 = 2112;
-        v101 = v78;
-        v102 = 2112;
-        v103 = v80;
-        v104 = 2112;
-        v105 = v82;
-        _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "[Settings] [CARWallpaper] Final effective section insets for layout: %@,                        using cachedEffectiveSectionInset: (%@);                        sectionInset:(%@);                        mainScreen.currentViewArea.safeFrame:(%@)                        self.view.safeAreaLayoutGuide.layoutFrame:(%@)                        self.view.safeAreaInsets(%@)", buf, 0x3Eu);
+        v96 = v76;
+        v97 = 2112;
+        v98 = v77;
+        v99 = 2112;
+        v100 = v78;
+        v101 = 2112;
+        v102 = v79;
+        v103 = 2112;
+        v104 = v81;
+        v105 = 2112;
+        v106 = v83;
+        _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEFAULT, "[Settings] [CARWallpaper] Final effective section insets for layout: %@,                        using cachedEffectiveSectionInset: (%@);                        sectionInset:(%@);                        mainScreen.currentViewArea.safeFrame:(%@)                        self.view.safeAreaLayoutGuide.layoutFrame:(%@)                        self.view.safeAreaInsets(%@)", buf, 0x3Eu);
 
-        v14 = v93;
+        v15 = v94;
       }
     }
 
     [(CARWallpaperPanel *)self cachedEffectiveSectionInset];
-    v53 = v83;
-    v55 = v84;
-    v57 = v85;
-    v59 = v86;
+    v54 = v84;
+    v56 = v85;
+    v58 = v86;
+    v60 = v87;
   }
 
-  v87 = v53;
-  v88 = v55;
-  v89 = v57;
-  v90 = v59;
-  result.right = v90;
-  result.bottom = v89;
-  result.left = v88;
-  result.top = v87;
+  v88 = v54;
+  v89 = v56;
+  v90 = v58;
+  v91 = v60;
+  result.right = v91;
+  result.bottom = v90;
+  result.left = v89;
+  result.top = v88;
   return result;
 }
 

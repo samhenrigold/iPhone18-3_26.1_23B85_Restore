@@ -38,9 +38,7 @@
   probableRotationDirection180DegreesConfidenceNode = self->_probableRotationDirection180DegreesConfidenceNode;
   self->_probableRotationDirection180DegreesConfidenceNode = v7;
 
-  v9 = [[CLSSignalNode alloc] initWithIdentifier:0 name:@"Probable Rotation Direction Confidence" operatingPoint:0.1 highPrecisionOperatingPoint:0.1 highRecallOperatingPoint:0.1];
-  probableRotationDirection270DegreesConfidenceNode = self->_probableRotationDirection270DegreesConfidenceNode;
-  self->_probableRotationDirection270DegreesConfidenceNode = v9;
+  self->_probableRotationDirection270DegreesConfidenceNode = [[CLSSignalNode alloc] initWithIdentifier:0 name:@"Probable Rotation Direction Confidence" operatingPoint:0.1 highPrecisionOperatingPoint:0.1 highRecallOperatingPoint:0.1];
 
   MEMORY[0x2821F96F8]();
 }
@@ -52,9 +50,7 @@
   sharpnessNode = self->_sharpnessNode;
   self->_sharpnessNode = v3;
 
-  v5 = [[CLSSignalNode alloc] initWithIdentifier:0 name:@"Exposure" operatingPoint:0.0 highPrecisionOperatingPoint:0.0 highRecallOperatingPoint:0.0];
-  exposureNode = self->_exposureNode;
-  self->_exposureNode = v5;
+  self->_exposureNode = [[CLSSignalNode alloc] initWithIdentifier:0 name:@"Exposure" operatingPoint:0.0 highPrecisionOperatingPoint:0.0 highRecallOperatingPoint:0.0];
 
   MEMORY[0x2821F96F8]();
 }
@@ -66,19 +62,17 @@
   sharpnessNode = self->_sharpnessNode;
   self->_sharpnessNode = v3;
 
-  v5 = [[CLSSignalNode alloc] initWithIdentifier:0 name:@"Exposure" operatingPoint:0.0 highPrecisionOperatingPoint:0.0 highRecallOperatingPoint:0.0];
-  exposureNode = self->_exposureNode;
-  self->_exposureNode = v5;
+  self->_exposureNode = [[CLSSignalNode alloc] initWithIdentifier:0 name:@"Exposure" operatingPoint:0.0 highPrecisionOperatingPoint:0.0 highRecallOperatingPoint:0.0];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (CLSMediaPreAnalysisModel)initWithSceneAnalysisVersion:(unint64_t)version
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = CLSMediaPreAnalysisModel;
-  v4 = [(CLSMediaPreAnalysisModel *)&v9 init];
+  v13 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = CLSMediaPreAnalysisModel;
+  v4 = [(CLSMediaPreAnalysisModel *)&v8 init];
   v5 = v4;
   if (v4)
   {
@@ -93,12 +87,12 @@
             v6 = objc_opt_class();
             *buf = 67109378;
             versionCopy = version;
-            v12 = 2112;
-            v13 = v6;
+            v11 = 2112;
+            v12 = v6;
             _os_log_impl(&dword_25E5F0000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unsupported version %d in %@", buf, 0x12u);
           }
 
-          v5 = 0;
+          return 0;
         }
 
         else
@@ -119,7 +113,6 @@
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

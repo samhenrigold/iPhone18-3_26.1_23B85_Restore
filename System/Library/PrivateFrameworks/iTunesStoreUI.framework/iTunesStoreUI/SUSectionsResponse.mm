@@ -247,35 +247,39 @@
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
-    if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
 
     if (v11)
     {
-      v12 = objc_opt_class();
+      v13 = objc_opt_class();
       v37 = 138412546;
-      v38 = v12;
+      v38 = v13;
       v39 = 2112;
       v40 = v8;
-      LODWORD(v28) = 22;
-      v27 = &v37;
-      v13 = _os_log_send_and_compose_impl();
-      if (v13)
+      v14 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Wrote section plist cache: %@", &v37, 22);
+      if (v14)
       {
-        v14 = v13;
-        v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v37, v28}];
-        free(v14);
-        v27 = v15;
+        v15 = v14;
+        v16 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+        free(v15);
+        v28 = v16;
         SSFileLog();
       }
     }
@@ -293,38 +297,38 @@
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v17 = [(NSArray *)allSections countByEnumeratingWithState:&v31 objects:v36 count:16];
-  if (v17)
+  v18 = [(NSArray *)allSections countByEnumeratingWithState:&v31 objects:v36 count:16];
+  if (v18)
   {
-    v18 = v17;
-    v19 = *v32;
+    v19 = v18;
+    v20 = *v32;
     do
     {
-      for (i = 0; i != v18; ++i)
+      for (i = 0; i != v19; ++i)
       {
-        if (*v32 != v19)
+        if (*v32 != v20)
         {
           objc_enumerationMutation(allSections);
         }
 
-        v21 = *(*(&v31 + 1) + 8 * i);
-        identifier = [v21 identifier];
+        v22 = *(*(&v31 + 1) + 8 * i);
+        identifier = [v22 identifier];
         if (identifier)
         {
-          v23 = identifier;
-          -[SUSectionsResponse _writeImage:toCachePath:forIdentifier:variant:](self, "_writeImage:toCachePath:forIdentifier:variant:", [v21 image], directory, identifier, 0);
-          -[SUSectionsResponse _writeImage:toCachePath:forIdentifier:variant:](self, "_writeImage:toCachePath:forIdentifier:variant:", [v21 moreListImage], directory, v23, @"-More");
-          -[SUSectionsResponse _writeImage:toCachePath:forIdentifier:variant:](self, "_writeImage:toCachePath:forIdentifier:variant:", [v21 selectedImage], directory, v23, @"-Selected");
-          -[SUSectionsResponse _writeImage:toCachePath:forIdentifier:variant:](self, "_writeImage:toCachePath:forIdentifier:variant:", [v21 selectedMoreListImage], directory, v23, @"-MoreSelected");
-          -[SUSectionsResponse _writeButtonImagesForSection:buttons:cachePath:](self, "_writeButtonImagesForSection:buttons:cachePath:", v21, [v21 leftSectionButtons], directory);
-          -[SUSectionsResponse _writeButtonImagesForSection:buttons:cachePath:](self, "_writeButtonImagesForSection:buttons:cachePath:", v21, [v21 rightSectionButtons], directory);
+          v24 = identifier;
+          -[SUSectionsResponse _writeImage:toCachePath:forIdentifier:variant:](self, "_writeImage:toCachePath:forIdentifier:variant:", [v22 image], directory, identifier, 0);
+          -[SUSectionsResponse _writeImage:toCachePath:forIdentifier:variant:](self, "_writeImage:toCachePath:forIdentifier:variant:", [v22 moreListImage], directory, v24, @"-More");
+          -[SUSectionsResponse _writeImage:toCachePath:forIdentifier:variant:](self, "_writeImage:toCachePath:forIdentifier:variant:", [v22 selectedImage], directory, v24, @"-Selected");
+          -[SUSectionsResponse _writeImage:toCachePath:forIdentifier:variant:](self, "_writeImage:toCachePath:forIdentifier:variant:", [v22 selectedMoreListImage], directory, v24, @"-MoreSelected");
+          -[SUSectionsResponse _writeButtonImagesForSection:buttons:cachePath:](self, "_writeButtonImagesForSection:buttons:cachePath:", v22, [v22 leftSectionButtons], directory);
+          -[SUSectionsResponse _writeButtonImagesForSection:buttons:cachePath:](self, "_writeButtonImagesForSection:buttons:cachePath:", v22, [v22 rightSectionButtons], directory);
         }
       }
 
-      v18 = [(NSArray *)allSections countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v19 = [(NSArray *)allSections countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
-    while (v18);
+    while (v19);
   }
 
   moreListImage = self->_moreListImage;
@@ -495,28 +499,28 @@ LABEL_7:
 
 - (BOOL)_loadArtworkFromCacheDirectory:(id)directory
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v26 = 0u;
+  v36 = *MEMORY[0x1E69E9840];
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
   obj = [(SUSectionsResponse *)self allSections];
-  v5 = [(NSArray *)obj countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v5 = [(NSArray *)obj countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v27;
-    v24 = 1;
+    v7 = *v28;
+    v25 = 1;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v27 != v7)
+        if (*v28 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v26 + 1) + 8 * i);
+        v9 = *(*(&v27 + 1) + 8 * i);
         identifier = [v9 identifier];
         if (identifier)
         {
@@ -550,44 +554,49 @@ LABEL_7:
           shouldLog = [mEMORY[0x1E69D4938] shouldLog];
           if ([mEMORY[0x1E69D4938] shouldLogToDisk])
           {
-            v16 = shouldLog | 2;
+            LODWORD(v16) = shouldLog | 2;
           }
 
           else
           {
-            v16 = shouldLog;
+            LODWORD(v16) = shouldLog;
           }
 
-          if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+          oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+          if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+          {
+            v16 = v16;
+          }
+
+          else
           {
             v16 &= 2u;
           }
 
           if (v16)
           {
-            v17 = objc_opt_class();
-            v30 = 138412546;
-            v31 = v17;
-            v32 = 2112;
-            v33 = v9;
-            LODWORD(v23) = 22;
-            v22 = &v30;
-            v18 = _os_log_send_and_compose_impl();
-            if (v18)
+            v18 = objc_opt_class();
+            v31 = 138412546;
+            v32 = v18;
+            v33 = 2112;
+            v34 = v9;
+            LODWORD(v24) = 22;
+            v19 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: Could not load cached artwork for section: %@", &v31, v24);
+            if (v19)
             {
-              v19 = v18;
-              v20 = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:{4, &v30, v23}];
-              free(v19);
-              v22 = v20;
+              v20 = v19;
+              v21 = [MEMORY[0x1E696AEC0] stringWithCString:v19 encoding:4];
+              free(v20);
+              v23 = v21;
               SSFileLog();
             }
           }
 
-          v24 = 0;
+          v25 = 0;
         }
       }
 
-      v6 = [(NSArray *)obj countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v6 = [(NSArray *)obj countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
     while (v6);
@@ -595,12 +604,12 @@ LABEL_7:
 
   else
   {
-    v24 = 1;
+    v25 = 1;
   }
 
-  self->_moreListImage = [(SUSectionsResponse *)self _newImageForIdentifier:@"more" variant:&stru_1F41B3660 cacheDirectory:directory, v22];
+  self->_moreListImage = [(SUSectionsResponse *)self _newImageForIdentifier:@"more" variant:&stru_1F41B3660 cacheDirectory:directory, v23];
   self->_moreListSelectedImage = [(SUSectionsResponse *)self _newImageForIdentifier:@"more" variant:@"-Selected" cacheDirectory:directory];
-  return v24 & 1;
+  return v25 & 1;
 }
 
 - (void)_loadButtonArtworkForSection:(id)section buttons:(id)buttons cachePath:(id)path
@@ -810,15 +819,21 @@ LABEL_22:
       shouldLog = [mEMORY[0x1E69D4938] shouldLog];
       if ([mEMORY[0x1E69D4938] shouldLogToDisk])
       {
-        v13 = shouldLog | 2;
+        LODWORD(v13) = shouldLog | 2;
       }
 
       else
       {
-        v13 = shouldLog;
+        LODWORD(v13) = shouldLog;
       }
 
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEBUG))
+      oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+      {
+        v13 = v13;
+      }
+
+      else
       {
         v13 &= 2u;
       }
@@ -829,13 +844,12 @@ LABEL_22:
         v18 = objc_opt_class();
         v19 = 2112;
         v20 = v10;
-        LODWORD(v16) = 22;
-        v14 = _os_log_send_and_compose_impl();
-        if (v14)
+        v15 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_1C21AF000, oSLogObject, 2, "%@: Wrote section image cache: %@", &v17, 22);
+        if (v15)
         {
-          v15 = v14;
-          [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:{4, &v17, v16}];
-          free(v15);
+          v16 = v15;
+          [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
+          free(v16);
           SSFileLog();
         }
       }

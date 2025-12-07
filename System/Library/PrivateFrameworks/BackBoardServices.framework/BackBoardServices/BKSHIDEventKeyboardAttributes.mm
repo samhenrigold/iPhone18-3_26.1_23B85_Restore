@@ -13,7 +13,7 @@
   v6.receiver = self;
   v6.super_class = BKSHIDEventKeyboardAttributes;
   [(BKSHIDEventBaseAttributes *)&v6 appendDescriptionToFormatter:formatterCopy];
-  v5 = [formatterCopy appendUnsignedInteger:self->_GSModifierState withName:@"GSModifierState" format:1];
+  v5 = [formatterCopy appendUnsignedInteger:? withName:? format:?];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -54,9 +54,11 @@
 
 uint64_t __47__BKSHIDEventKeyboardAttributes_protobufSchema__block_invoke(uint64_t a1)
 {
-  protobufSchema_schema_656 = [MEMORY[0x1E698E750] buildSchemaForClass:*(a1 + 32) builder:&__block_literal_global_659];
+  v1 = [MEMORY[0x1E698E750] buildSchemaForClass:? builder:?];
+  v2 = protobufSchema_schema_656;
+  protobufSchema_schema_656 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 @end

@@ -182,7 +182,7 @@ LABEL_13:
 {
   allAttachmentsAreImages = self->_allAttachmentsAreImages;
   v4 = MEMORY[0x1E696AEC0];
-  v5 = SLSocialFrameworkBundle();
+  v5 = SLSocialFrameworkBundle(self);
   v6 = v5;
   if (allAttachmentsAreImages)
   {
@@ -205,9 +205,9 @@ LABEL_13:
 
 - (CGSize)intrinsicContentSize
 {
-  v18.receiver = self;
-  v18.super_class = SLSheetPhotoAlbumImageView;
-  [(SLSheetImagePreviewView *)&v18 intrinsicContentSize];
+  v23.receiver = self;
+  v23.super_class = SLSheetPhotoAlbumImageView;
+  [(SLSheetImagePreviewView *)&v23 intrinsicContentSize];
   v5 = v4;
   v7 = v6;
   if ([(SLSheetPhotoAlbumImageView *)self _shouldDisplayImageCountLabel])
@@ -236,22 +236,22 @@ LABEL_13:
 
   v13 = [MEMORY[0x1E696B098] valueWithCGSize:{v5, v8}];
   v14 = [MEMORY[0x1E696AD98] numberWithBool:{-[SLSheetPhotoAlbumImageView _shouldDisplayImageCountLabel](self, "_shouldDisplayImageCountLabel")}];
-  v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSMutableArray count](self->_frameViews, "count")}];
-  _SLLog(v2, 7, @"SLSheetPhotoAlbumImageView intrinsicContentSize returning %@ _shouldDisplayImageCountLabel %@ _frameViews.count %@");
+  v22 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSMutableArray count](self->_frameViews, "count")}];
+  _SLLog(v2, 7, @"SLSheetPhotoAlbumImageView intrinsicContentSize returning %@ _shouldDisplayImageCountLabel %@ _frameViews.count %@", v15, v16, v17, v18, v19, v13);
 
-  v15 = v5;
-  v16 = v8;
-  result.height = v16;
-  result.width = v15;
+  v20 = v5;
+  v21 = v8;
+  result.height = v21;
+  result.width = v20;
   return result;
 }
 
 - (void)traitCollectionDidChange:(id)change
 {
   changeCopy = change;
-  v17.receiver = self;
-  v17.super_class = SLSheetPhotoAlbumImageView;
-  [(SLSheetImagePreviewView *)&v17 traitCollectionDidChange:changeCopy];
+  v22.receiver = self;
+  v22.super_class = SLSheetPhotoAlbumImageView;
+  [(SLSheetImagePreviewView *)&v22 traitCollectionDidChange:changeCopy];
   if ([(NSMutableArray *)self->_frameViews count]>= 2)
   {
     traitCollection = [(SLSheetPhotoAlbumImageView *)self traitCollection];
@@ -262,8 +262,8 @@ LABEL_13:
     {
       v9 = MEMORY[0x1E696AD98];
       traitCollection2 = [(SLSheetPhotoAlbumImageView *)self traitCollection];
-      v16 = [v9 numberWithInteger:{objc_msgSend(traitCollection2, "verticalSizeClass")}];
-      _SLLog(v3, 7, @"SLSheetPhotoAlbumImageView will invalidateIntrinsicContentSize new verticalSizeClass %@");
+      v11 = [v9 numberWithInteger:{objc_msgSend(traitCollection2, "verticalSizeClass")}];
+      _SLLog(v3, 7, @"SLSheetPhotoAlbumImageView will invalidateIntrinsicContentSize new verticalSizeClass %@", v12, v13, v14, v15, v16, v11);
 
       [(SLSheetPhotoAlbumImageView *)self invalidateIntrinsicContentSize];
     }
@@ -272,12 +272,12 @@ LABEL_13:
   traitCollection3 = [(SLSheetPhotoAlbumImageView *)self traitCollection];
   preferredContentSizeCategory = [traitCollection3 preferredContentSizeCategory];
   preferredContentSizeCategory2 = [changeCopy preferredContentSizeCategory];
-  v14 = [preferredContentSizeCategory isEqualToString:preferredContentSizeCategory2];
+  v20 = [preferredContentSizeCategory isEqualToString:preferredContentSizeCategory2];
 
-  if ((v14 & 1) == 0)
+  if ((v20 & 1) == 0)
   {
-    v15 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDD10]];
-    [(UILabel *)self->_imageCountLabel setFont:v15];
+    v21 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDD10]];
+    [(UILabel *)self->_imageCountLabel setFont:v21];
   }
 }
 
@@ -291,21 +291,21 @@ LABEL_13:
 - (void)layoutSubviews
 {
   [(SLSheetPhotoAlbumImageView *)self bounds];
-  v24 = NSStringFromCGRect(v28);
-  _SLLog(v2, 7, @"SLSheetPhotoAlbumImageView bounds %@");
+  v4 = NSStringFromCGRect(v38);
+  _SLLog(v2, 7, @"SLSheetPhotoAlbumImageView bounds %@", v5, v6, v7, v8, v9, v4);
 
-  v27.receiver = self;
-  v27.super_class = SLSheetPhotoAlbumImageView;
-  [(SLSheetImagePreviewView *)&v27 intrinsicContentSize];
+  v37.receiver = self;
+  v37.super_class = SLSheetPhotoAlbumImageView;
+  [(SLSheetImagePreviewView *)&v37 intrinsicContentSize];
   frameViews = self->_frameViews;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __44__SLSheetPhotoAlbumImageView_layoutSubviews__block_invoke;
-  v26[3] = &unk_1E81761E8;
-  v26[5] = v5;
-  v26[6] = v6;
-  v26[4] = self;
-  [(NSMutableArray *)frameViews enumerateObjectsUsingBlock:v26];
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __44__SLSheetPhotoAlbumImageView_layoutSubviews__block_invoke;
+  v36[3] = &unk_1E81761E8;
+  v36[5] = v11;
+  v36[6] = v12;
+  v36[4] = self;
+  [(NSMutableArray *)frameViews enumerateObjectsUsingBlock:v36];
   _shouldDisplayImageCountLabel = [(SLSheetPhotoAlbumImageView *)self _shouldDisplayImageCountLabel];
   imageCountLabel = self->_imageCountLabel;
   if (_shouldDisplayImageCountLabel)
@@ -319,26 +319,26 @@ LABEL_13:
 
     lastObject = [(NSMutableArray *)self->_frameViews lastObject];
     [lastObject frame];
-    v12 = v11;
-    v14 = v13;
-    v16 = v15;
     v18 = v17;
-
-    [(UILabel *)self->_imageCountLabel frame];
     v20 = v19;
     v22 = v21;
-    v29.origin.x = v12;
-    v29.origin.y = v14;
-    v29.size.width = v16;
-    v29.size.height = v18;
-    v23 = CGRectGetMaxY(v29) + 4.0;
-    [(UILabel *)self->_imageCountLabel setFrame:v20, v23, v16, v22];
-    v30.origin.x = v20;
-    v30.origin.y = v23;
-    v30.size.width = v16;
-    v30.size.height = v22;
-    v25 = NSStringFromCGRect(v30);
-    _SLLog(v2, 7, @"SLSheetPhotoAlbumImageView labelFrame %@");
+    v24 = v23;
+
+    [(UILabel *)self->_imageCountLabel frame];
+    v26 = v25;
+    v28 = v27;
+    v39.origin.x = v18;
+    v39.origin.y = v20;
+    v39.size.width = v22;
+    v39.size.height = v24;
+    v29 = CGRectGetMaxY(v39) + 4.0;
+    [(UILabel *)self->_imageCountLabel setFrame:v26, v29, v22, v28];
+    v40.origin.x = v26;
+    v40.origin.y = v29;
+    v40.size.width = v22;
+    v40.size.height = v28;
+    v30 = NSStringFromCGRect(v40);
+    _SLLog(v2, 7, @"SLSheetPhotoAlbumImageView labelFrame %@", v31, v32, v33, v34, v35, v30);
   }
 
   else

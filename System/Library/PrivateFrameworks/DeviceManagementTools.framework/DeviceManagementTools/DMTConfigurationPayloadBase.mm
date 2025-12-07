@@ -55,56 +55,56 @@ LABEL_9:
 
 void __61__DMTConfigurationPayloadBase_payloadSubclassesByPayloadType__block_invoke()
 {
-  v36[5] = *MEMORY[0x277D85DE8];
-  v36[0] = objc_opt_class();
-  v36[1] = objc_opt_class();
-  v36[2] = objc_opt_class();
-  v36[3] = objc_opt_class();
-  v36[4] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:5];
+  v35[5] = *MEMORY[0x277D85DE8];
+  v35[0] = objc_opt_class();
+  v35[1] = objc_opt_class();
+  v35[2] = objc_opt_class();
+  v35[3] = objc_opt_class();
+  v35[4] = objc_opt_class();
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:5];
   v1 = objc_opt_new();
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = v0;
-  v18 = [obj countByEnumeratingWithState:&v24 objects:v35 count:16];
-  if (v18)
+  v17 = [obj countByEnumeratingWithState:&v23 objects:v34 count:16];
+  if (v17)
   {
-    v17 = *v25;
+    v16 = *v24;
     do
     {
       v2 = 0;
       do
       {
-        if (*v25 != v17)
+        if (*v24 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = v2;
-        v3 = *(*(&v24 + 1) + 8 * v2);
+        v18 = v2;
+        v3 = *(*(&v23 + 1) + 8 * v2);
+        v19 = 0u;
         v20 = 0u;
         v21 = 0u;
         v22 = 0u;
-        v23 = 0u;
         v4 = [v3 supportedPayloadTypes];
-        v5 = [v4 countByEnumeratingWithState:&v20 objects:v34 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v19 objects:v33 count:16];
         if (v5)
         {
           v6 = v5;
-          v7 = *v21;
+          v7 = *v20;
           do
           {
             v8 = 0;
             do
             {
-              if (*v21 != v7)
+              if (*v20 != v7)
               {
                 objc_enumerationMutation(v4);
               }
 
-              v9 = *(*(&v20 + 1) + 8 * v8);
+              v9 = *(*(&v19 + 1) + 8 * v8);
               if ([v1 objectForKeyedSubscript:v9])
               {
                 if (_DMTLogGeneral_onceToken_4 != -1)
@@ -118,11 +118,11 @@ void __61__DMTConfigurationPayloadBase_payloadSubclassesByPayloadType__block_inv
                   v11 = v10;
                   v12 = [v1 objectForKeyedSubscript:v9];
                   *buf = 138543874;
-                  v29 = v9;
-                  v30 = 2114;
-                  v31 = v3;
-                  v32 = 2114;
-                  v33 = v12;
+                  v28 = v9;
+                  v29 = 2114;
+                  v30 = v3;
+                  v31 = 2114;
+                  v32 = v12;
                   _os_log_error_impl(&dword_24891B000, v11, OS_LOG_TYPE_ERROR, "Multiple validators found for payload type “%{public}@”! (%{public}@ and %{public}@)", buf, 0x20u);
                 }
               }
@@ -136,27 +136,25 @@ void __61__DMTConfigurationPayloadBase_payloadSubclassesByPayloadType__block_inv
             }
 
             while (v6 != v8);
-            v6 = [v4 countByEnumeratingWithState:&v20 objects:v34 count:16];
+            v6 = [v4 countByEnumeratingWithState:&v19 objects:v33 count:16];
           }
 
           while (v6);
         }
 
-        v2 = v19 + 1;
+        v2 = v18 + 1;
       }
 
-      while (v19 + 1 != v18);
-      v18 = [obj countByEnumeratingWithState:&v24 objects:v35 count:16];
+      while (v18 + 1 != v17);
+      v17 = [obj countByEnumeratingWithState:&v23 objects:v34 count:16];
     }
 
-    while (v18);
+    while (v17);
   }
 
   v13 = [v1 copy];
   v14 = payloadSubclassesByPayloadType_payloadClassesByPayloadType;
   payloadSubclassesByPayloadType_payloadClassesByPayloadType = v13;
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -8,6 +8,7 @@
 - (id)_distanceString;
 - (void)_buttonTapped;
 - (void)_updateDetailLine1;
+- (void)_updateDetailLine2HidingReviews:(BOOL)reviews hidingRating:(BOOL)rating;
 - (void)_updateHorizontalCompressionResistanceForLabels;
 - (void)_updateImage;
 - (void)_updateImageViewVisibility;
@@ -504,6 +505,72 @@
   }
 
   [(MAResultView *)self _mapkit_setNeedsLayout];
+}
+
+- (void)_updateDetailLine2HidingReviews:(BOOL)reviews hidingRating:(BOOL)rating
+{
+  rating = [MKMapItem mapItemWithLocalSearchMapItem:self->_mapItem, rating];
+  if ([rating _hasTransit])
+  {
+    [(MKTransitInfoLabelView *)self->_detailLine2Label setMapItem:rating];
+  }
+
+  else
+  {
+    v7 = +[MAResultView tertiaryColor];
+    v8 = +[MAResultView _minorFont];
+    if (reviews)
+    {
+      v9 = 0;
+    }
+
+    else
+    {
+      placeDataMapItem = self->_placeDataMapItem;
+      mk_theme = [(MAResultView *)self mk_theme];
+      v9 = [MKRatingStringBuilder ratingAndReviewSummaryAttributedStringForMapItem:placeDataMapItem textColor:v7 font:v8 theme:mk_theme];
+    }
+
+    v23 = NSFontAttributeName;
+    v24 = v8;
+    v12 = [NSDictionary dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    v13 = [MKRatingStringBuilder priceLabelStringFromMapItem:self->_placeDataMapItem];
+    v14 = objc_alloc_init(NSMutableAttributedString);
+    if ([v9 length])
+    {
+      [v14 appendAttributedString:v9];
+    }
+
+    if ([v13 length])
+    {
+      v15 = [[NSAttributedString alloc] initWithString:v13];
+      if ([v14 length])
+      {
+        v16 = [[NSAttributedString alloc] initWithString:@" · " attributes:v12];
+        [v14 appendAttributedString:v16];
+      }
+
+      [v14 appendAttributedString:v15];
+    }
+
+    if (![v14 length])
+    {
+      mapItem = [(MAResultView *)self mapItem];
+      isBusinessLocation = [mapItem isBusinessLocation];
+
+      if (isBusinessLocation)
+      {
+        v22 = [NSMutableAttributedString alloc];
+        v19 = +[NSBundle _ma_bundle];
+        v20 = [v19 siriUILocalizedStringForKey:@"No Reviews"];
+
+        v21 = [v22 initWithString:v20];
+        v14 = v21;
+      }
+    }
+
+    [(MKVibrantLabel *)self->_vibrantLabel setAttributedText:v14];
+  }
 }
 
 - (void)_updateDetailLine1

@@ -677,7 +677,7 @@ void __102__NSFileCoordinator_prepareForReadingItemsAtURLs_options_writingItemsA
   return [qword_1ED440128 member:attribute] != 0;
 }
 
-uint64_t __47__NSFileCoordinator__isValidUbiquityAttribute___block_invoke()
+void *__47__NSFileCoordinator__isValidUbiquityAttribute___block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E695DFD8]);
   result = [v0 initWithObjects:{*MEMORY[0x1E695DBD8], *MEMORY[0x1E695DCA8], *MEMORY[0x1E695DCB8], *MEMORY[0x1E695DCD8], *MEMORY[0x1E695DCE0], *MEMORY[0x1E695DC98], *MEMORY[0x1E695DC80], *MEMORY[0x1E695DCF0], *MEMORY[0x1E695DC78], *MEMORY[0x1E695DC70], *MEMORY[0x1E695DCC8], *MEMORY[0x1E695DD00], *MEMORY[0x1E695DCF8], *MEMORY[0x1E695DD10], *MEMORY[0x1E695DD08], *MEMORY[0x1E695DCE8], *MEMORY[0x1E695DCD0], 0}];
@@ -1937,7 +1937,7 @@ void __110__NSFileCoordinator_NSPrivate___coordinateWritingItemAtURL_options_wri
 uint64_t __78__NSFileCoordinator_NSPrivate___coordinateAccessWithIntents_queue_byAccessor___block_invoke_3(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5, uint64_t a6)
 {
   v24 = *MEMORY[0x1E69E9840];
-  [*(a1 + 32) _forgetAccessClaimForID:{objc_msgSend(a2, "claimID")}];
+  [*(a1 + 32) _forgetAccessClaimForID:{objc_msgSend(a2, "claimID", a3, a4, a5)}];
   v8 = [*(a1 + 40) count];
   if (v8)
   {
@@ -2153,7 +2153,7 @@ uint64_t __78__NSFileCoordinator_NSPrivate___coordinateAccessWithIntents_queue_b
 uint64_t __90__NSFileCoordinator_NSPrivate____coordinateReadingItemAtURL_options_purposeID_byAccessor___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v14[9] = *MEMORY[0x1E69E9840];
-  [*(a1 + 32) _forgetAccessClaimForID:{objc_msgSend(a2, "claimID")}];
+  [*(a1 + 32) _forgetAccessClaimForID:{objc_msgSend(a2, "claimID", a3, a4)}];
   if (a3)
   {
     v9 = [NSFileCoordinator _reconstructedURLForURL:a3 resolveFlags:*(a1 + 72)];
@@ -2424,7 +2424,7 @@ uint64_t __90__NSFileCoordinator_NSPrivate____coordinateWritingItemAtURL_options
 uint64_t __115__NSFileCoordinator_NSPrivate____coordinateReadingItemAtURL_options_writingItemAtURL_options_purposeID_byAccessor___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v17[10] = *MEMORY[0x1E69E9840];
-  [*(a1 + 32) _forgetAccessClaimForID:{objc_msgSend(a2, "claimID")}];
+  [*(a1 + 32) _forgetAccessClaimForID:{objc_msgSend(a2, "claimID", a3, a4, a5)}];
   if (!a3)
   {
     v11 = *(a1 + 40);
@@ -3206,7 +3206,7 @@ LABEL_5:
   os_unfair_lock_unlock(&unk_1ED4400F0);
 }
 
-uint64_t __85__NSFileCoordinator_NSFileProviderInternalAdditions___accessPresenterInfoUsingBlock___block_invoke()
+uint64_t __85__NSFileCoordinator_NSFileProviderInternalAdditions___accessPresenterInfoUsingBlock___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = objc_opt_new();
   qword_1ED440188 = result;
@@ -3229,7 +3229,7 @@ uint64_t __85__NSFileCoordinator_NSFileProviderInternalAdditions___accessPresent
   }
 }
 
-uint64_t __109__NSFileCoordinator_NSFileProviderInternalAdditions___addProcessIdentifier_observedUbiquityAttributes_forID___block_invoke(uint64_t a1, void *a2)
+void *__109__NSFileCoordinator_NSFileProviderInternalAdditions___addProcessIdentifier_observedUbiquityAttributes_forID___block_invoke(uint64_t a1, void *a2)
 {
   v4 = [a2 objectForKey:*(a1 + 32)];
   if (!v4)
@@ -3333,7 +3333,7 @@ void *__77__NSFileCoordinator_NSFileProviderPrivateAdditions___processIdentifier
   return v3;
 }
 
-uint64_t __99__NSFileCoordinator_NSFileProviderPrivateAdditions___observedUbiquityAttributesForPresenterWithID___block_invoke(uint64_t a1, void *a2)
+void *__99__NSFileCoordinator_NSFileProviderPrivateAdditions___observedUbiquityAttributesForPresenterWithID___block_invoke(uint64_t a1, void *a2)
 {
   result = [objc_msgSend(a2 objectForKey:{*(a1 + 32)), "objectForKey:", @"ubiquityAttributes"}];
   *(*(*(a1 + 40) + 8) + 40) = result;

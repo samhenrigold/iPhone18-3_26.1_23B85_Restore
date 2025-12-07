@@ -1,20 +1,20 @@
-size_t _CLIHelp_PrintSummary(int a1)
+uint64_t _CLIHelp_PrintSummary(int a1)
 {
   v2 = a1 == 0;
   _CLIHelp_PrintUsageLine(gRootOptions);
   v3 = MEMORY[0x1E69E9858];
   fputc(10, *MEMORY[0x1E69E9858]);
-  result = _CLIHelp_PrintOptions(gRootOptions, "Global options:", (4 * v2), v4, v5, v6, v7, v8);
-  v10 = result;
-  v11 = 0;
+  result = _CLIHelp_PrintOptions(gRootOptions, "Global options:", 4 * v2);
+  v5 = result;
+  v6 = 0;
   for (i = gRootOptions; *i == 3; i += 104)
   {
     if (a1 || (*(i + 49) & 1) == 0)
     {
       result = strlen(*(i + 8));
-      if (v11 <= result)
+      if (v6 <= result)
       {
-        v11 = result;
+        v6 = result;
       }
     }
 
@@ -27,88 +27,88 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v13 = *gRootOptions;
-  v24 = v10;
+  v8 = *gRootOptions;
+  v19 = v5;
   if (*gRootOptions)
   {
-    v14 = (gRootOptions + 104);
-    v15 = *gRootOptions;
-    while (a1 || v15 != 3 || (*(v14 - 55) & 1) == 0)
+    v9 = (gRootOptions + 104);
+    v10 = *gRootOptions;
+    while (a1 || v10 != 3 || (*(v9 - 55) & 1) == 0)
     {
-      v16 = *v14;
-      v14 += 26;
-      v15 = v16;
-      if (!v16)
+      v11 = *v9;
+      v9 += 26;
+      v10 = v11;
+      if (!v11)
       {
         goto LABEL_16;
       }
     }
 
-    v17 = 0;
+    v12 = 0;
   }
 
   else
   {
 LABEL_16:
-    v17 = 1;
+    v12 = 1;
   }
 
-  v18 = 0;
-  v23 = v17;
+  v13 = 0;
+  v18 = v12;
   if (a1)
   {
-    v17 = 1;
+    v12 = 1;
   }
 
-  if (v17)
+  if (v12)
   {
-    v19 = "Commands";
+    v14 = "Commands";
   }
 
   else
   {
-    v19 = "Commonly used commands";
+    v14 = "Commonly used commands";
   }
 
-  v20 = (gRootOptions + 104);
+  v15 = (gRootOptions + 104);
   while (2)
   {
-    if (v13 == 3)
+    if (v8 == 3)
     {
-      if (a1 || (*(v20 - 55) & 1) == 0)
+      if (a1 || (*(v15 - 55) & 1) == 0)
       {
-        if (!v18)
+        if (!v13)
         {
-          fprintf(*v3, "%s:\n", v19);
+          fprintf(*v3, "%s:\n", v14);
         }
 
-        result = fprintf(*v3, "%*s%-*s    %s\n", 4, "", v11, *(v20 - 12), *(v20 - 2));
-        ++v18;
+        result = fprintf(*v3, "%*s%-*s    %s\n", 4, "", v6, *(v15 - 12), *(v15 - 2));
+        ++v13;
       }
 
       goto LABEL_32;
     }
 
-    if (v13)
+    if (v8)
     {
 LABEL_32:
-      v21 = *v20;
-      v20 += 13;
-      v13 = v21;
+      v16 = *v15;
+      v15 += 13;
+      v8 = v16;
       continue;
     }
 
     break;
   }
 
-  if (v24 | v18)
+  if (v19 | v13)
   {
     result = fputc(10, *v3);
   }
 
-  if (v23)
+  if (v18)
   {
-    if (!v18)
+    if (!v13)
     {
       return result;
     }
@@ -117,112 +117,106 @@ LABEL_32:
   }
 
   fprintf(*v3, "See '%s help' for a full list of commands.\n", gProgramName);
-  if (v18)
+  if (v13)
   {
     return fprintf(*v3, "See '%s help <command>' for more info about a command.\n\n", gProgramName);
   }
 
-  v22 = *v3;
+  v17 = *v3;
 
-  return fputc(10, v22);
+  return fputc(10, v17);
 }
 
-uint64_t _CLIHelp_PrintOptionName(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _CLIHelp_PrintOptionName(uint64_t a1, uint64_t (*a2)(void, void, void))
 {
   if (*(a1 + 4))
   {
-    v10 = FPrintF(a2, "-%c", a3, a4, a5, a6, a7, a8, *(a1 + 4));
+    v4 = FPrintF(a2, "-%c", *(a1 + 4));
     if (*(a1 + 8))
     {
-      v10 = FPrintF(a2, ", ", a3, a4, a5, a6, a7, a8, v21) + v10;
+      v4 = FPrintF(a2, ", ") + v4;
     }
   }
 
   else
   {
-    v10 = 0;
+    v4 = 0;
   }
 
   if (*a1 == 4)
   {
-    v11 = 91;
-    if ((*(a1 + 48) & 2) == 0)
-    {
-      v11 = 60;
-    }
-
-    v12 = FPrintF(a2, "%c%s%c", a3, a4, a5, a6, a7, a8, v11);
-    return (v12 + v10);
+    v5 = FPrintF(a2, "%c%s%c");
+    return (v5 + v4);
   }
 
   if (*(a1 + 8))
   {
-    v10 = FPrintF(a2, "--%s", a3, a4, a5, a6, a7, a8, *(a1 + 8)) + v10;
+    v4 = FPrintF(a2, "--%s", *(a1 + 8)) + v4;
   }
 
-  v13 = *(a1 + 48);
-  if ((v13 & 1) == 0)
+  v6 = *(a1 + 48);
+  if ((v6 & 1) == 0)
   {
-    if ((v13 & 8) != 0)
+    if ((v6 & 8) != 0)
     {
-      v14 = 1;
-      if ((v13 & 2) != 0)
+      v7 = 1;
+      if ((v6 & 2) != 0)
       {
-        goto LABEL_14;
+        goto LABEL_12;
       }
     }
 
     else
     {
-      v14 = *(a1 + 40) == 0;
-      if ((v13 & 2) != 0)
+      v7 = *(a1 + 40) == 0;
+      if ((v6 & 2) != 0)
       {
-LABEL_14:
-        v15 = "[<%s>]";
-        v16 = !v14;
-        v17 = "[=<%s>]";
-        if (!v16)
+LABEL_12:
+        v8 = "[<%s>]";
+        v9 = !v7;
+        v10 = "[=<%s>]";
+        if (!v9)
         {
-          v15 = "[%s]";
-          v17 = "[=%s]";
+          v8 = "[%s]";
+          v10 = "[=%s]";
         }
 
         if (*(a1 + 8))
         {
-          v18 = v17;
+          v11 = v10;
         }
 
         else
         {
-          v18 = v15;
+          v11 = v8;
         }
 
-        goto LABEL_23;
+        goto LABEL_21;
       }
     }
 
-    if (v14)
+    if (v7)
     {
-      v18 = " %s";
+      v11 = " %s";
     }
 
     else
     {
-      v18 = " <%s>";
+      v11 = " <%s>";
     }
 
-LABEL_23:
-    v19 = *(a1 + 40);
-    if (!v19)
+LABEL_21:
+    v12 = *(a1 + 40);
+    if (!v12)
     {
-      v19 = "...";
+      v12 = "...";
     }
 
-    v12 = FPrintF(a2, v18, a3, a4, a5, a6, a7, a8, v19);
-    return (v12 + v10);
+    v5 = FPrintF(a2, v11, v12);
+    return (v5 + v4);
   }
 
-  return v10;
+  return v4;
 }
 
 uint64_t _CLIPrintCommandNotFound(uint64_t a1, uint64_t a2)
@@ -239,29 +233,29 @@ uint64_t _CLIPrintCommandNotFound(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t _CLIInteractiveReset(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _CLIInteractiveReset()
 {
-  FPrintF(*MEMORY[0x1E69E9858], "\r", a3, a4, a5, a6, a7, a8, v16);
+  v0 = FPrintF(*MEMORY[0x1E69E9858], "\r");
   if (gCLIInteractivePrompt)
   {
-    softLinkrl_callback_handler_remove[0]();
-    (softLinkrl_callback_handler_install[0])(gCLIInteractivePrompt, _CLIInteractiveHandleLine);
+    softLinkrl_callback_handler_remove(v0);
+    softLinkrl_callback_handler_install(gCLIInteractivePrompt, _CLIInteractiveHandleLine);
   }
 
   else
   {
-    v17 = 0;
-    ASPrintF(&v17, "%s> ", v8, v9, v10, v11, v12, v13, gProgramName);
-    v14 = v17;
-    if (!v17)
+    v10 = 0;
+    v7 = ASPrintF(&v10, "%s> ", v1, v2, v3, v4, v5, v6, gProgramName);
+    v8 = v10;
+    if (!v10)
     {
       gCLIInteractiveMode = 0;
       return 4294960568;
     }
 
-    softLinkrl_callback_handler_remove[0]();
-    (softLinkrl_callback_handler_install[0])(v14, _CLIInteractiveHandleLine);
-    free(v14);
+    softLinkrl_callback_handler_remove(v7);
+    softLinkrl_callback_handler_install(v8, _CLIInteractiveHandleLine);
+    free(v8);
   }
 
   return 0;
@@ -275,7 +269,7 @@ uint64_t inithistory_truncate_file(uint64_t a1, uint64_t a2)
   }
 
   v4 = dlsym(editLibrary_sLib, "history_truncate_file");
-  softLinkhistory_truncate_file[0] = v4;
+  softLinkhistory_truncate_file = v4;
 
   return (v4)(a1, a2);
 }
@@ -295,9 +289,9 @@ uint64_t initwrite_history(uint64_t a1)
   }
 
   v2 = dlsym(editLibrary_sLib, "write_history");
-  softLinkwrite_history[0] = v2;
+  softLinkwrite_history = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 uint64_t initrl_callback_handler_remove()
@@ -308,9 +302,9 @@ uint64_t initrl_callback_handler_remove()
   }
 
   v0 = dlsym(editLibrary_sLib, "rl_callback_handler_remove");
-  softLinkrl_callback_handler_remove[0] = v0;
+  softLinkrl_callback_handler_remove = v0;
 
-  return v0();
+  return (v0)();
 }
 
 void _CLIInteractiveHandleLine(void *a1)
@@ -330,7 +324,7 @@ LABEL_3:
     goto LABEL_4;
   }
 
-  v4 = (softLinkhistory_expand[0])(a1, &__s2);
+  v4 = softLinkhistory_expand(a1, &__s2);
   if (v4 && *__s2)
   {
     fprintf(*MEMORY[0x1E69E9848], "%s\n", __s2);
@@ -369,33 +363,33 @@ LABEL_3:
         }
       }
 
-      else if (*var_history_length[0]() >= 1)
+      else if (*(var_history_length)() >= 1)
       {
         v5 = 0;
         v6 = MEMORY[0x1E69E9848];
         do
         {
-          v7 = var_history_base[0]();
-          v8 = (softLinkhistory_get[0])((*v7 + v5++));
+          v7 = var_history_base();
+          v8 = softLinkhistory_get((*v7 + v5++));
           if (v8)
           {
             fprintf(*v6, "%d: %s\n", v5, *v8);
           }
         }
 
-        while (v5 < *var_history_length[0]());
+        while (v5 < *(var_history_length)());
       }
 
-      if (*var_history_length[0]() <= 0)
+      if (*(var_history_length)() <= 0)
       {
         v12 = __s2;
       }
 
       else
       {
-        v9 = *var_history_base[0]();
-        v10 = var_history_length[0]();
-        v11 = (softLinkhistory_get[0])((v9 + *v10 - 1));
+        v9 = *var_history_base();
+        v10 = (var_history_length)();
+        v11 = softLinkhistory_get((v9 + *v10 - 1));
         v12 = __s2;
         if (v11 && !strcmp(*v11, __s2))
         {
@@ -444,7 +438,7 @@ LABEL_41:
         }
       }
 
-      (softLinkadd_history[0])(v12);
+      softLinkadd_history(v12);
       goto LABEL_41;
     }
 
@@ -548,9 +542,9 @@ uint64_t initadd_history(uint64_t a1)
   }
 
   v2 = dlsym(editLibrary_sLib, "add_history");
-  softLinkadd_history[0] = v2;
+  softLinkadd_history = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 uint64_t inithistory_get(uint64_t a1)
@@ -561,9 +555,9 @@ uint64_t inithistory_get(uint64_t a1)
   }
 
   v2 = dlsym(editLibrary_sLib, "history_get");
-  softLinkhistory_get[0] = v2;
+  softLinkhistory_get = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 void *initValhistory_base()
@@ -575,7 +569,7 @@ void *initValhistory_base()
 
   result = dlsym(editLibrary_sLib, "history_base");
   variableValhistory_base = result;
-  var_history_base[0] = history_baseFunction;
+  var_history_base = history_baseFunction;
   return result;
 }
 
@@ -588,7 +582,7 @@ void *initValhistory_length()
 
   result = dlsym(editLibrary_sLib, "history_length");
   variableValhistory_length = result;
-  var_history_length[0] = history_lengthFunction;
+  var_history_length = history_lengthFunction;
   return result;
 }
 
@@ -600,7 +594,7 @@ uint64_t inithistory_expand(uint64_t a1, uint64_t a2)
   }
 
   v4 = dlsym(editLibrary_sLib, "history_expand");
-  softLinkhistory_expand[0] = v4;
+  softLinkhistory_expand = v4;
 
   return (v4)(a1, a2);
 }
@@ -613,7 +607,7 @@ uint64_t initrl_callback_handler_install(uint64_t a1, uint64_t a2)
   }
 
   v4 = dlsym(editLibrary_sLib, "rl_callback_handler_install");
-  softLinkrl_callback_handler_install[0] = v4;
+  softLinkrl_callback_handler_install = v4;
 
   return (v4)(a1, a2);
 }
@@ -667,7 +661,7 @@ uint64_t _CLIInteractiveHandleSigIntDeferred()
     }
   }
 
-  **var_rl_line_buffer[0]() = 0;
+  **var_rl_line_buffer() = 0;
 
   return _CLIInteractiveReset();
 }
@@ -681,7 +675,7 @@ void *initValrl_line_buffer()
 
   result = dlsym(editLibrary_sLib, "rl_line_buffer");
   variableValrl_line_buffer = result;
-  var_rl_line_buffer[0] = rl_line_bufferFunction;
+  var_rl_line_buffer = rl_line_bufferFunction;
   return result;
 }
 
@@ -693,7 +687,7 @@ uint64_t initrl_callback_read_char()
   }
 
   v0 = dlsym(editLibrary_sLib, "rl_callback_read_char");
-  softLinkrl_callback_read_char[0] = v0;
+  softLinkrl_callback_read_char = v0;
 
   return v0();
 }
@@ -707,7 +701,7 @@ void *initValrl_instream()
 
   result = dlsym(editLibrary_sLib, "rl_instream");
   variableValrl_instream = result;
-  var_rl_instream[0] = rl_instreamFunction;
+  var_rl_instream = rl_instreamFunction;
   return result;
 }
 
@@ -719,9 +713,9 @@ uint64_t initread_history(uint64_t a1)
   }
 
   v2 = dlsym(editLibrary_sLib, "read_history");
-  softLinkread_history[0] = v2;
+  softLinkread_history = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 uint64_t _CLIInteractiveCompleter(uint64_t a1, int a2)
@@ -733,7 +727,7 @@ uint64_t _CLIInteractiveCompleter(uint64_t a1, int a2)
 
   else
   {
-    return (softLinkrl_completion_matches[0])(a1, _CLIInteractiveGenerator);
+    return softLinkrl_completion_matches(a1, _CLIInteractiveGenerator);
   }
 }
 
@@ -785,7 +779,7 @@ uint64_t initrl_completion_matches(uint64_t a1, uint64_t a2)
   }
 
   v4 = dlsym(editLibrary_sLib, "rl_completion_matches");
-  softLinkrl_completion_matches[0] = v4;
+  softLinkrl_completion_matches = v4;
 
   return (v4)(a1, a2);
 }
@@ -799,7 +793,7 @@ void *initValrl_attempted_completion_function()
 
   result = dlsym(editLibrary_sLib, "rl_attempted_completion_function");
   variableValrl_attempted_completion_function = result;
-  var_rl_attempted_completion_function[0] = rl_attempted_completion_functionFunction;
+  var_rl_attempted_completion_function = rl_attempted_completion_functionFunction;
   return result;
 }
 
@@ -812,7 +806,7 @@ void *initValrl_readline_name()
 
   result = dlsym(editLibrary_sLib, "rl_readline_name");
   variableValrl_readline_name = result;
-  var_rl_readline_name[0] = rl_readline_nameFunction;
+  var_rl_readline_name = rl_readline_nameFunction;
   return result;
 }
 
@@ -913,107 +907,106 @@ LABEL_14:
   return fputc(10, v11);
 }
 
-uint64_t _CLIHelp_PrintOptions(int *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _CLIHelp_PrintOptions(int *a1, char *a2, char a3)
 {
-  v8 = *a1;
+  v3 = *a1;
   if (!*a1)
   {
     return 0;
   }
 
-  v9 = a3;
-  v11 = a1;
-  v12 = 0;
-  v13 = 0;
-  v14 = MEMORY[0x1E69E9858];
-  v15 = a1;
+  v6 = a1;
+  v7 = 0;
+  v8 = 0;
+  v9 = MEMORY[0x1E69E9858];
+  v10 = a1;
   do
   {
-    if ((v8 == 4 || (v8 - 6) <= 9) && ((v9 & 2) == 0 || (*(v15 + 48) & 0x40) == 0) && ((v9 & 4) == 0 || (*(v15 + 49) & 1) == 0))
+    if ((v3 == 4 || (v3 - 6) <= 9) && ((a3 & 2) == 0 || (v10[12] & 0x40) == 0) && ((a3 & 4) == 0 || (*(v10 + 49) & 1) == 0))
     {
-      if (a2 && !v12)
+      if (a2 && !v7)
       {
-        fputs(a2, *v14);
-        v12 = 1;
+        fputs(a2, *v9);
+        v7 = 1;
       }
 
-      v16 = _CLIHelp_PrintOptionName(v15, 0, a3, a4, a5, a6, a7, a8);
-      if (v16 > v13)
+      v11 = _CLIHelp_PrintOptionName(v10, 0);
+      if (v11 > v8)
       {
-        v13 = v16;
+        v8 = v11;
       }
     }
 
-    v17 = *(v15 + 104);
-    v15 += 104;
-    v8 = v17;
+    v12 = v10[26];
+    v10 += 26;
+    v3 = v12;
   }
 
-  while (v17);
-  v18 = *v11;
-  if (!*v11)
+  while (v12);
+  v13 = *v6;
+  if (!*v6)
   {
-    v19 = 0;
-    if (v12)
+    v14 = 0;
+    if (v7)
     {
       goto LABEL_52;
     }
 
-    return v19;
+    return v14;
   }
 
-  v19 = 0;
+  v14 = 0;
   do
   {
-    if (((v9 & 2) == 0 || (*(v11 + 48) & 0x40) == 0) && ((v9 & 4) == 0 || (*(v11 + 49) & 1) == 0))
+    if (((a3 & 2) == 0 || (v6[12] & 0x40) == 0) && ((a3 & 4) == 0 || (*(v6 + 49) & 1) == 0))
     {
-      if (v18 == 2)
+      if (v13 == 2)
       {
-        fputc(10, *v14);
-        v20 = *(v11 + 88);
-        if (*v20)
+        fputc(10, *v9);
+        v15 = *(v6 + 11);
+        if (*v15)
         {
-          fprintf(*v14, "%*s%s\n", 4, "", v20);
+          fprintf(*v9, "%*s%s\n", 4, "", v15);
         }
 
         goto LABEL_46;
       }
 
-      if (v18 == 4 || (v18 - 6) <= 9)
+      if (v13 == 4 || (v13 - 6) <= 9)
       {
-        if (!v19)
+        if (!v14)
         {
-          fputc(10, *v14);
+          fputc(10, *v9);
         }
 
-        fprintf(*v14, "%*s", 4, "");
-        v27 = _CLIHelp_PrintOptionName(v11, *v14, v21, v22, v23, v24, v25, v26);
-        if ((*v11 - 13) >= 2)
+        fprintf(*v9, "%*s", 4, "");
+        v16 = _CLIHelp_PrintOptionName(v6, *v9);
+        if ((*v6 - 13) >= 2)
         {
-          if (*v11 == 15)
+          if (*v6 == 15)
           {
-            fprintf(*v14, "%*s    %s: ", v13 - v27, "", *(v11 + 88));
-            if ((v9 & 8) == 0)
+            fprintf(*v9, "%*s    %s: ", v8 - v16, "", *(v6 + 11));
+            if ((a3 & 8) == 0)
             {
-              v41 = *v14;
-              v42 = "Use help <command> to see all values.\n";
-              v43 = 38;
+              v18 = *v9;
+              v19 = "Use help <command> to see all values.\n";
+              v20 = 38;
               goto LABEL_39;
             }
 
-            _CLIPrintNameValueDescriptors(*(v11 + 24), *v14, v35, v36, v37, v38, v39, v40, v53);
-            if ((v9 & 1) == 0)
+            _CLIPrintNameValueDescriptors(*(v6 + 3), *v9);
+            if ((a3 & 1) == 0)
             {
 LABEL_46:
-              v19 = (v19 + 1);
+              v14 = (v14 + 1);
               goto LABEL_47;
             }
           }
 
           else
           {
-            fprintf(*v14, "%*s    %s\n", v13 - v27, "", *(v11 + 88));
-            if ((v9 & 1) == 0)
+            fprintf(*v9, "%*s    %s\n", v8 - v16, "", *(v6 + 11));
+            if ((a3 & 1) == 0)
             {
               goto LABEL_46;
             }
@@ -1022,21 +1015,21 @@ LABEL_46:
 
         else
         {
-          v28 = *v14;
-          if (*(v11 + 88))
+          v17 = *v9;
+          if (*(v6 + 11))
           {
-            fprintf(v28, "%*s    %s: ");
+            fprintf(v17, "%*s    %s: ");
           }
 
           else
           {
-            fprintf(v28, "%*s    ");
+            fprintf(v17, "%*s    ");
           }
 
-          if ((v9 & 8) != 0)
+          if ((a3 & 8) != 0)
           {
-            _CLIPrintFlagDescriptors(*(v11 + 24), *v14, v29, v30, v31, v32, v33, v34, v52);
-            if ((v9 & 1) == 0)
+            _CLIPrintFlagDescriptors(*(v6 + 3), *v9);
+            if ((a3 & 1) == 0)
             {
               goto LABEL_46;
             }
@@ -1044,21 +1037,21 @@ LABEL_46:
 
           else
           {
-            v41 = *v14;
-            v42 = "Use help <command> to see all flags.\n";
-            v43 = 37;
+            v18 = *v9;
+            v19 = "Use help <command> to see all flags.\n";
+            v20 = 37;
 LABEL_39:
-            fwrite(v42, v43, 1uLL, v41);
-            if ((v9 & 1) == 0)
+            fwrite(v19, v20, 1uLL, v18);
+            if ((a3 & 1) == 0)
             {
               goto LABEL_46;
             }
           }
         }
 
-        if (*(v11 + 96))
+        if (*(v6 + 12))
         {
-          FPrintF(*v14, "%*{text}", v44, v45, v46, v47, v48, v49, 2);
+          FPrintF(*v9, "%*{text}", 2, *(v6 + 12), -1);
         }
 
         goto LABEL_46;
@@ -1066,103 +1059,105 @@ LABEL_39:
     }
 
 LABEL_47:
-    v50 = *(v11 + 104);
-    v11 += 104;
-    v18 = v50;
+    v21 = v6[26];
+    v6 += 26;
+    v13 = v21;
   }
 
-  while (v50);
-  if (!v12)
+  while (v21);
+  if (!v7)
   {
-    return v19;
+    return v14;
   }
 
 LABEL_52:
-  fputc(10, *v14);
-  return v19;
+  fputc(10, *v9);
+  return v14;
 }
 
-uint64_t _CLIPrintFlagDescriptors(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t _CLIPrintFlagDescriptors(uint64_t a1, uint64_t (*a2)(void, void, void))
 {
-  for (i = a1; ; i += 1 + v19 + 1)
+  for (i = a1; ; i += 1 + v6 + 1)
   {
-    v12 = strlen((i + 1));
-    if (!v12)
+    v5 = strlen((i + 1));
+    if (!v5)
     {
       break;
     }
 
-    v19 = v12;
+    v6 = v5;
     if (i == a1)
     {
-      v20 = "all, ";
+      v7 = "all, ";
     }
 
     else
     {
-      v20 = ", ";
+      v7 = ", ";
     }
 
-    FPrintF(a2, "%s%s", v13, v14, v15, v16, v17, v18, v20);
+    FPrintF(a2, "%s%s", v7, (i + 1));
   }
 
-  return FPrintF(a2, ".\n", v13, v14, v15, v16, v17, v18, a9);
+  return FPrintF(a2, ".\n");
 }
 
-uint64_t _CLIPrintNameValueDescriptors(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t _CLIPrintNameValueDescriptors(const char **a1, uint64_t (*a2)(void, void, void))
 {
+  v3 = *a1;
   if (*a1)
   {
-    v10 = a1 + 2;
-    v11 = -1;
+    v4 = a1 + 2;
+    v5 = -1;
     do
     {
-      v12 = *v10;
-      v10 += 2;
-      ++v11;
+      v6 = *v4;
+      v4 += 2;
+      ++v5;
+    }
+
+    while (v6);
+    v7 = 0;
+    v8 = a1 + 2;
+    do
+    {
+      v9 = v7 + 1;
+      if (v5 == v7)
+      {
+        v10 = ", or ";
+      }
+
+      else
+      {
+        v10 = ", ";
+      }
+
+      if (v5 < 2)
+      {
+        v10 = " or ";
+      }
+
+      if (v7)
+      {
+        v11 = v10;
+      }
+
+      else
+      {
+        v11 = "";
+      }
+
+      FPrintF(a2, "%s%s", v11, v3);
+      v12 = *v8;
+      v8 += 2;
+      v3 = v12;
+      v7 = v9;
     }
 
     while (v12);
-    v13 = 0;
-    v14 = a1 + 2;
-    do
-    {
-      v15 = v13 + 1;
-      if (v11 == v13)
-      {
-        v16 = ", or ";
-      }
-
-      else
-      {
-        v16 = ", ";
-      }
-
-      if (v11 < 2)
-      {
-        v16 = " or ";
-      }
-
-      if (v13)
-      {
-        v17 = v16;
-      }
-
-      else
-      {
-        v17 = "";
-      }
-
-      FPrintF(a2, "%s%s", a3, a4, a5, a6, a7, a8, v17);
-      v18 = *v14;
-      v14 += 2;
-      v13 = v15;
-    }
-
-    while (v18);
   }
 
-  return FPrintF(a2, ".\n", a3, a4, a5, a6, a7, a8, a9);
+  return FPrintF(a2, ".\n");
 }
 
 uint64_t _CLIOptionError(uint64_t a1, const char *a2, char a3)
@@ -1220,14 +1215,14 @@ uint64_t _CLIGetArg(uint64_t a1, char a2, void *a3)
   return result;
 }
 
-uint64_t CLIFlagsToValueEx(uint64_t a1, char *__s, uint64_t a3, int *a4)
+uint64_t CLIFlagsToValueEx(uint64_t a1, char *__s, const char *a3, int *a4)
 {
   v5 = __s;
-  v53 = 0;
-  v54 = 0;
-  v59 = 0;
+  v34 = 0;
+  v35 = 0;
+  v40 = 0;
   v7 = &__s[strlen(__s)];
-  v56 = a3;
+  v37 = a3;
   while (2)
   {
     v8 = v5;
@@ -1265,17 +1260,17 @@ uint64_t CLIFlagsToValueEx(uint64_t a1, char *__s, uint64_t a3, int *a4)
       v5 = v7;
       if (v8 == v7)
       {
-        v41 = v59;
-        if (!v59)
+        v29 = v40;
+        if (!v40)
         {
-          v41 = a1;
+          v29 = a1;
         }
 
-        result = (v41 | v54) & ~v53;
-        v43 = a4;
+        result = (v29 | v35) & ~v34;
+        v31 = a4;
         if (a4)
         {
-          v44 = 0;
+          v32 = 0;
           goto LABEL_55;
         }
 
@@ -1318,7 +1313,7 @@ LABEL_12:
 
     while (!v12);
     v17 = strnicmpx(v15, v12, "none");
-    v24 = v17 == 0;
+    v18 = v17 == 0;
     if (!v17)
     {
       a1 = 0;
@@ -1326,61 +1321,61 @@ LABEL_12:
 
     if (*a3 > 0x3Fu)
     {
-      a3 = *a3;
+      LODWORD(a3) = *a3;
       goto LABEL_58;
     }
 
-    v57 = a1;
-    v25 = 0;
-    v26 = a3;
+    v38 = a1;
+    v19 = 0;
+    v20 = a3;
     LOBYTE(a3) = *a3;
 LABEL_25:
-    v61 = v24;
-    v27 = (v26 + 1);
-    v62 = strlen(v26 + 1);
-    if (v62)
+    v42 = v18;
+    v21 = v20 + 1;
+    v43 = strlen(v20 + 1);
+    if (v43)
     {
-      v34 = strnicmpx(v15, v12, "all");
-      v24 = v34 == 0;
-      if (!v34)
+      v22 = strnicmpx(v15, v12, "all");
+      v18 = v22 == 0;
+      if (!v22)
       {
-        v25 |= 1 << a3;
+        v19 |= 1 << a3;
         goto LABEL_41;
       }
 
-      v58 = a3;
-      v60 = v25;
-      v35 = &v27[v62];
-      v36 = v27;
+      v39 = a3;
+      v41 = v19;
+      v23 = &v21[v43];
+      v24 = v21;
       while (1)
       {
-        v37 = v36;
-        if (v36 >= v35)
+        v25 = v24;
+        if (v24 >= v23)
         {
 LABEL_32:
-          v38 = &v27[v62];
-          v36 = &v27[v62];
-          if (v37 == v35)
+          v26 = &v21[v43];
+          v24 = &v21[v43];
+          if (v25 == v23)
           {
-            v25 = v60;
-            v24 = 0;
-            if (v61)
+            v19 = v41;
+            v18 = 0;
+            if (v42)
             {
               goto LABEL_43;
             }
 
 LABEL_41:
-            v26 = &v27[v62 + 1];
-            a3 = *v26;
-            if (*v26 > 0x3Fu)
+            v20 = &v21[v43 + 1];
+            LODWORD(a3) = *v20;
+            if (a3 > 0x3F)
             {
 LABEL_58:
-              FPrintF(*MEMORY[0x1E69E9848], "error: Flag bit out-of-range: %u\n", v18, v19, v20, v21, v22, v23, a3);
+              FPrintF(*MEMORY[0x1E69E9848], "error: Flag bit out-of-range: %u\n", a3);
               result = 0;
-              v43 = a4;
+              v31 = a4;
               if (a4)
               {
-                v44 = -6710;
+                v32 = -6710;
                 goto LABEL_55;
               }
 
@@ -1393,57 +1388,57 @@ LABEL_58:
 
         else
         {
-          v38 = v36;
-          v39 = v36;
+          v26 = v24;
+          v27 = v24;
           while (1)
           {
-            v40 = *v39++;
-            if (v40 == 47)
+            v28 = *v27++;
+            if (v28 == 47)
             {
               break;
             }
 
-            v38 = v39;
-            if (v39 == v35)
+            v26 = v27;
+            if (v27 == v23)
             {
               goto LABEL_32;
             }
           }
 
-          v36 = v38 + 1;
+          v24 = v26 + 1;
         }
 
-        if (v38 - v37 == v12 && !memicmp(v37, v15, v12))
+        if (v26 - v25 == v12 && !memicmp(v25, v15, v12))
         {
-          v25 = (1 << v58) | v60;
+          v19 = (1 << v39) | v41;
           goto LABEL_43;
         }
       }
     }
 
-    if (v61)
+    if (v42)
     {
 LABEL_43:
-      a1 = v57;
+      a1 = v38;
       if (v13)
       {
         if (v16)
         {
-          v53 |= v25;
+          v34 |= v19;
         }
 
         else
         {
-          v59 |= v25;
+          v40 |= v19;
         }
 
-        a3 = v56;
+        a3 = v37;
       }
 
       else
       {
-        v54 |= v25;
-        a3 = v56;
+        v35 |= v19;
+        a3 = v37;
       }
 
       continue;
@@ -1452,69 +1447,69 @@ LABEL_43:
     break;
   }
 
-  v45 = MEMORY[0x1E69E9848];
-  FPrintF(*MEMORY[0x1E69E9848], "error: Unknown flag '%.*s'. Valid flags: ", v28, v29, v30, v31, v32, v33, v12);
-  _CLIPrintFlagDescriptors(v56, *v45, v46, v47, v48, v49, v50, v51, v52);
+  v33 = MEMORY[0x1E69E9848];
+  FPrintF(*MEMORY[0x1E69E9848], "error: Unknown flag '%.*s'. Valid flags: ", v12, v15);
+  _CLIPrintFlagDescriptors(v37, *v33);
   result = 0;
-  v43 = a4;
+  v31 = a4;
   if (a4)
   {
-    v44 = -6735;
+    v32 = -6735;
 LABEL_55:
-    *v43 = v44;
+    *v31 = v32;
   }
 
   return result;
 }
 
-uint64_t CLIArgNameValueParse(uint64_t a1, char *a2, int *a3, const char **a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CLIArgNameValueParse(int a1, char *a2, int *a3, const char **a4)
 {
-  v10 = a2;
+  v6 = a2;
   if (!a2)
   {
-    v12 = gArgI;
-    if (gArgI >= gArgC || (++gArgI, (v10 = *(gArgV + 8 * v12)) == 0))
+    v7 = gArgI;
+    if (gArgI >= gArgC || (++gArgI, (v6 = *(gArgV + 8 * v7)) == 0))
     {
-      FPrintF(*MEMORY[0x1E69E9848], "error: No %s specified. Valid values: ", a3, a4, a5, a6, a7, a8, a1);
+      FPrintF(*MEMORY[0x1E69E9848], "error: No %s specified. Valid values: ");
       goto LABEL_12;
     }
   }
 
-  v13 = *a4;
+  v8 = *a4;
   if (!*a4)
   {
 LABEL_8:
-    FPrintF(*MEMORY[0x1E69E9848], "error: Bad %s: '%s'. Valid values: ", a3, a4, a5, a6, a7, a8, a1);
+    FPrintF(*MEMORY[0x1E69E9848], "error: Bad %s: '%s'. Valid values: ");
 LABEL_12:
-    _CLIPrintNameValueDescriptors(a4, *MEMORY[0x1E69E9848], v16, v17, v18, v19, v20, v21, v24);
+    _CLIPrintNameValueDescriptors(a4, *MEMORY[0x1E69E9848]);
     result = 0;
     if (!a3)
     {
       return result;
     }
 
-    v23 = -6705;
+    v12 = -6705;
     goto LABEL_14;
   }
 
-  v14 = a4;
-  while (strcasecmp(v10, v13))
+  v9 = a4;
+  while (strcasecmp(v6, v8))
   {
-    v15 = v14[2];
-    v14 += 2;
-    v13 = v15;
-    if (!v15)
+    v10 = v9[2];
+    v9 += 2;
+    v8 = v10;
+    if (!v10)
     {
       goto LABEL_8;
     }
   }
 
-  result = *(v14 + 2);
+  result = *(v9 + 2);
   if (a3)
   {
-    v23 = 0;
+    v12 = 0;
 LABEL_14:
-    *a3 = v23;
+    *a3 = v12;
   }
 
   return result;
@@ -1622,30 +1617,29 @@ uint64_t _CLIInteractiveOption()
   return 0;
 }
 
-uint64_t CLIInteractiveReadLine(const char *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CLIInteractiveReadLine(const char *a1, uint64_t a2, void *a3, uint64_t a4)
 {
   if (a1)
   {
-    v10 = strdup(a1);
-    if (!v10)
+    v6 = strdup(a1);
+    if (!v6)
     {
       return 4294960568;
     }
 
-    v11 = v10;
-    a1 = gCLIInteractivePrompt;
+    v7 = v6;
     if (gCLIInteractivePrompt)
     {
       free(gCLIInteractivePrompt);
     }
 
-    gCLIInteractivePrompt = v11;
+    gCLIInteractivePrompt = v7;
   }
 
   gCLIInteractiveLineHandler_f = a3;
   gCLIInteractiveLineHandler_ctx = a4;
 
-  return _CLIInteractiveReset(a1, a2, a3, a4, a5, a6, a7, a8);
+  return _CLIInteractiveReset();
 }
 
 uint64_t CLIInteractiveReadLine_b(const char *a1, uint64_t a2, void *a3)
@@ -1656,7 +1650,7 @@ uint64_t CLIInteractiveReadLine_b(const char *a1, uint64_t a2, void *a3)
     v5 = strdup(a1);
     if (!v5)
     {
-      v17 = 4294960568;
+      v9 = 4294960568;
       goto LABEL_7;
     }
 
@@ -1673,96 +1667,111 @@ uint64_t CLIInteractiveReadLine_b(const char *a1, uint64_t a2, void *a3)
   v8 = gCLIInteractiveLineHandler_b;
   gCLIInteractiveLineHandler_b = v7;
 
-  v17 = _CLIInteractiveReset(v9, v10, v11, v12, v13, v14, v15, v16);
+  v9 = _CLIInteractiveReset();
 LABEL_7:
 
-  return v17;
+  return v9;
 }
 
-uint64_t CLIArgToValue(uint64_t a1, unsigned __int8 *a2, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char *a9, uint64_t a10)
+uint64_t CLIArgToValue(int a1, unsigned __int8 *a2, _DWORD *a3, uint64_t a4, int a5, int a6, int a7, int a8, char *a9, uint64_t a10)
 {
   v10 = a2;
-  v44 = 0;
-  v43 = 0;
+  v25 = 0;
+  v24 = 0;
   if (!a2)
   {
     v11 = gArgI;
     if (gArgI >= gArgC || (++gArgI, (v10 = *(gArgV + 8 * v11)) == 0))
     {
-      FPrintF(*MEMORY[0x1E69E9848], "error: no %s specified. Valid values: ", a3, a4, a5, a6, a7, a8, a1);
+      FPrintF(*MEMORY[0x1E69E9848], "error: no %s specified. Valid values: ", a3);
       goto LABEL_31;
     }
   }
 
-  v44 = &a10;
+  v25 = &a10;
   v12 = a9;
   if (!a9)
   {
 LABEL_24:
-    FPrintF(*MEMORY[0x1E69E9848], "error: bad %s: '%s'. Valid values: ", a3, a4, a5, a6, a7, a8, a1);
+    FPrintF(*MEMORY[0x1E69E9848], "error: bad %s: '%s'. Valid values: ", a3, a4);
 LABEL_31:
-    v44 = &a10;
-    v27 = 0;
-    v28 = a9;
+    v25 = &a10;
+    v16 = 0;
+    v17 = a9;
     if (a9)
     {
-      v29 = a9;
+      v18 = a9;
       do
       {
-        if (strcasecmp(v29, "<any-true-ish>") && strcasecmp(v29, "<any-false-ish>") && strcasecmp(v29, "<any-int>"))
+        if (strcasecmp(v18, "<any-true-ish>") && strcasecmp(v18, "<any-false-ish>") && strcasecmp(v18, "<any-int>"))
         {
-          ++v44;
+          ++v25;
         }
 
-        ++v27;
-        v30 = v44++;
-        v29 = *v30;
+        ++v16;
+        v19 = v25++;
+        v18 = *v19;
       }
 
-      while (*v30);
+      while (*v19);
     }
 
-    v44 = &a10;
+    v25 = &a10;
     if (a9)
     {
-      v31 = 0;
+      v20 = 0;
       do
       {
-        if (strcasecmp(v28, "<any-true-ish>") && strcasecmp(v28, "<any-false-ish>") && strcasecmp(v28, "<any-int>"))
+        if (!strcasecmp(v17, "<any-true-ish>"))
         {
-          ++v44;
+          v17 = "true|yes|y|on|1";
         }
 
-        if (v27 - 1 == v31)
+        else if (!strcasecmp(v17, "<any-false-ish>"))
         {
-          v38 = ", or ";
+          v17 = "false|no|n|off|0";
+        }
+
+        else if (!strcasecmp(v17, "<any-int>"))
+        {
+          v17 = "an integer";
         }
 
         else
         {
-          v38 = ", ";
+          ++v25;
         }
 
-        if (v27 < 3)
+        if (v16 - 1 == v20)
         {
-          v38 = " or ";
+          v21 = ", or ";
         }
 
-        if (!v31)
+        else
         {
-          v38 = "";
+          v21 = ", ";
         }
 
-        FPrintF(*MEMORY[0x1E69E9848], "%s%s", v32, v33, v34, v35, v36, v37, v38);
-        v39 = v44++;
-        v28 = *v39;
-        ++v31;
+        if (v16 < 3)
+        {
+          v21 = " or ";
+        }
+
+        if (!v20)
+        {
+          v21 = "";
+        }
+
+        FPrintF(*MEMORY[0x1E69E9848], "%s%s", v21, v17);
+        v22 = v25++;
+        v17 = *v22;
+        ++v20;
       }
 
-      while (*v39);
+      while (*v22);
     }
 
-    FPrintF(*MEMORY[0x1E69E9848], "\n", v20, v21, v22, v23, v24, v25, v40);
+    FPrintF(*MEMORY[0x1E69E9848], "\n");
     result = 0;
     if (a3)
     {
@@ -1776,14 +1785,14 @@ LABEL_31:
   {
     if (!strnicmpx(v10, -1, "true") || !strnicmpx(v10, -1, "yes") || !strnicmpx(v10, -1, "y") || !strnicmpx(v10, -1, "on") || !strnicmpx(v10, -1, "1"))
     {
-      v43 = 1;
+      v24 = 1;
       goto LABEL_27;
     }
 
 LABEL_23:
-    v19 = v44++;
-    v12 = *v19;
-    if (!*v19)
+    v14 = v25++;
+    v12 = *v14;
+    if (!*v14)
     {
       goto LABEL_24;
     }
@@ -1793,7 +1802,7 @@ LABEL_23:
   {
     if (!strcasecmp(v12, "<any-int>"))
     {
-      if (SNScanF(v10, 0xFFFFFFFFFFFFFFFFLL, "%i", v13, v14, v15, v16, v17, &v43) == 1)
+      if (SNScanF(v10, 0xFFFFFFFFFFFFFFFFLL, "%i", &v24) == 1)
       {
         goto LABEL_27;
       }
@@ -1801,8 +1810,8 @@ LABEL_23:
 
     else
     {
-      v18 = v44++;
-      v43 = *v18;
+      v13 = v25++;
+      v24 = *v13;
       if (!strcasecmp(v10, v12))
       {
         goto LABEL_27;
@@ -1817,14 +1826,14 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  v43 = 0;
+  v24 = 0;
 LABEL_27:
   if (a3)
   {
     *a3 = 0;
   }
 
-  return v43;
+  return v24;
 }
 
 void CLIOutputBegin()
@@ -1835,66 +1844,132 @@ void CLIOutputBegin()
   }
 }
 
-uint64_t CLIOutputEnd(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CLIOutputEnd()
 {
   gCLIInteractiveBeginning = 0;
   if (gCLIInteractiveMode)
   {
-    return _CLIInteractiveReset(a1, a2, a3, a4, a5, a6, a7, a8);
+    return _CLIInteractiveReset();
   }
 
-  return a1;
+  return result;
 }
 
-uint64_t CLIProgressClear(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CLIProgressClear()
 {
   if (gCLIProgressMax >= 1)
   {
-    result = FPrintF(*MEMORY[0x1E69E9848], "\r%*s\r", a3, a4, a5, a6, a7, a8, gCLIProgressMax);
+    result = FPrintF(*MEMORY[0x1E69E9848], "\r%*s\r", gCLIProgressMax, "");
     gCLIProgressMax = 0;
   }
 
   return result;
 }
 
-uint64_t CLIProgressUpdate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CLIProgressUpdate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v9 = MEMORY[0x1E69E9848];
-  FPrintF(*MEMORY[0x1E69E9848], "\r", a3, a4, a5, a6, a7, a8, v25);
-  v22 = FPrintF(*v9, "%V", v10, v11, v12, v13, v14, v15, a1);
-  v23 = *v9;
-  if (gCLIProgressMax <= v22)
+  v14 = &a9;
+  v10 = MEMORY[0x1E69E9848];
+  FPrintF(*MEMORY[0x1E69E9848], "\r", a3, a4, a5, a6, a7, a8);
+  v11 = FPrintF(*v10, "%V", a1, &v14);
+  v12 = *v10;
+  if (gCLIProgressMax <= v11)
   {
-    result = FPrintF(v23, "\r", v16, v17, v18, v19, v20, v21, v26);
+    result = FPrintF(v12, "\r");
   }
 
   else
   {
-    result = FPrintF(v23, "%*s\r", v16, v17, v18, v19, v20, v21, (gCLIProgressMax - v22));
+    result = FPrintF(v12, "%*s\r");
   }
 
-  gCLIProgressMax = v22;
+  gCLIProgressMax = v11;
   return result;
 }
 
-void CLIPromptForPIN(int a1, int a2, void *a3)
+void CLIPromptForPIN(int a1, unsigned int a2, void *a3)
 {
-  v11 = a3;
-  v12 = MEMORY[0x1E69E9848];
+  v5 = a3;
+  v6 = MEMORY[0x1E69E9848];
   if ((a1 & 0x10000) != 0)
   {
-    FPrintF(*MEMORY[0x1E69E9848], "### PIN incorrect.\n", v5, v6, v7, v8, v9, v10, v24);
+    FPrintF(*MEMORY[0x1E69E9848], "### PIN incorrect.\n");
   }
 
   if (a2 >= 1)
   {
-    v13 = mach_absolute_time();
+    v7 = mach_absolute_time();
     if (SecondsToUpTicks_sOnce != -1)
     {
       dispatch_once_f(&SecondsToUpTicks_sOnce, &SecondsToUpTicks_sMultiplier, _SecondsToUpTicksInit);
     }
 
-    v14 = v13 + SecondsToUpTicks_sMultiplier * a2;
+    v8 = v7 + SecondsToUpTicks_sMultiplier * a2;
+    if (gCLIPINTimer)
+    {
+      v9 = gCLIPINTimer;
+      dispatch_source_cancel(v9);
+      v10 = gCLIPINTimer;
+      gCLIPINTimer = 0;
+    }
+
+    v11 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, MEMORY[0x1E69E96A0]);
+    v12 = gCLIPINTimer;
+    gCLIPINTimer = v11;
+
+    v13 = gCLIPINTimer;
+    handler[0] = MEMORY[0x1E69E9820];
+    handler[1] = 3221225472;
+    handler[2] = __CLIPromptForPIN_block_invoke;
+    handler[3] = &unk_1E73A2A18;
+    v22 = v8;
+    v21 = v5;
+    dispatch_source_set_event_handler(v13, handler);
+    v14 = gCLIPINTimer;
+    v15 = dispatch_time(0, 1000000000);
+    dispatch_source_set_timer(v14, v15, 0x3B9ACA00uLL, 0x5F5E100uLL);
+    dispatch_resume(gCLIPINTimer);
+  }
+
+  if (gCLIProgressMax >= 1)
+  {
+    FPrintF(*v6, "\r%*s\r", gCLIProgressMax, "");
+    gCLIProgressMax = 0;
+  }
+
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __CLIPromptForPIN_block_invoke_2;
+  v18[3] = &unk_1E73A2A40;
+  v19 = v5;
+  v16 = v5;
+  CLIInteractiveReadLine_b("Enter PIN: ", v17, v18);
+}
+
+void __CLIPromptForPIN_block_invoke(uint64_t a1)
+{
+  v2 = mach_absolute_time();
+  v3 = *(a1 + 40);
+  v4 = v3 >= v2;
+  v5 = v3 - v2;
+  if (v5 != 0 && v4)
+  {
+    v6 = UpTicksToSeconds(v5);
+    if (v6 <= 1)
+    {
+      v14 = 1;
+    }
+
+    else
+    {
+      v14 = v6;
+    }
+
+    CLIProgressUpdate("Throttling for %llu seconds...", v7, v8, v9, v10, v11, v12, v13, v14);
+  }
+
+  else
+  {
     if (gCLIPINTimer)
     {
       v15 = gCLIPINTimer;
@@ -1903,90 +1978,35 @@ void CLIPromptForPIN(int a1, int a2, void *a3)
       gCLIPINTimer = 0;
     }
 
-    v17 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, MEMORY[0x1E69E96A0]);
-    v18 = gCLIPINTimer;
-    gCLIPINTimer = v17;
+    v17 = *(a1 + 32);
 
-    v19 = gCLIPINTimer;
-    handler[0] = MEMORY[0x1E69E9820];
-    handler[1] = 3221225472;
-    handler[2] = __CLIPromptForPIN_block_invoke;
-    handler[3] = &unk_1E73A2A18;
-    v29 = v14;
-    v28 = v11;
-    dispatch_source_set_event_handler(v19, handler);
-    v20 = gCLIPINTimer;
-    v21 = dispatch_time(0, 1000000000);
-    dispatch_source_set_timer(v20, v21, 0x3B9ACA00uLL, 0x5F5E100uLL);
-    dispatch_resume(gCLIPINTimer);
-  }
-
-  if (gCLIProgressMax >= 1)
-  {
-    FPrintF(*v12, "\r%*s\r", v5, v6, v7, v8, v9, v10, gCLIProgressMax);
-    gCLIProgressMax = 0;
-  }
-
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __CLIPromptForPIN_block_invoke_2;
-  v25[3] = &unk_1E73A2A40;
-  v26 = v11;
-  v22 = v11;
-  CLIInteractiveReadLine_b("Enter PIN: ", v23, v25);
-}
-
-uint64_t __CLIPromptForPIN_block_invoke(uint64_t a1)
-{
-  v2 = mach_absolute_time();
-  v3 = *(a1 + 40);
-  v4 = v3 >= v2;
-  v5 = v3 - v2;
-  if (v5 != 0 && v4)
-  {
-    UpTicksToSeconds(v5);
-    return CLIProgressUpdate("Throttling for %llu seconds...", v6, v7, v8, v9, v10, v11, v12);
-  }
-
-  else
-  {
-    if (gCLIPINTimer)
-    {
-      v14 = gCLIPINTimer;
-      dispatch_source_cancel(v14);
-      v15 = gCLIPINTimer;
-      gCLIPINTimer = 0;
-    }
-
-    v16 = *(a1 + 32);
-
-    return CLIPromptForPIN(0, 0xFFFFFFFFLL, v16);
+    CLIPromptForPIN(0, -1, v17);
   }
 }
 
-void __CLIPromptForPIN_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void __CLIPromptForPIN_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!a2 || (a3 & 1) != 0)
   {
-    FPrintF(*MEMORY[0x1E69E9848], "User canceled\n", a3, a4, a5, a6, a7, a8, v13);
+    FPrintF(*MEMORY[0x1E69E9848], "User canceled\n", a3);
     if (gCLIPINTimer)
     {
-      v10 = gCLIPINTimer;
-      dispatch_source_cancel(v10);
-      v11 = gCLIPINTimer;
+      v5 = gCLIPINTimer;
+      dispatch_source_cancel(v5);
+      v6 = gCLIPINTimer;
       gCLIPINTimer = 0;
     }
 
-    v12 = *(*(a1 + 32) + 16);
+    v7 = *(*(a1 + 32) + 16);
 
-    v12();
+    v7();
   }
 
   else
   {
-    v9 = *(a1 + 32);
-    v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:a2];
-    (*(v9 + 16))(v9, v14);
+    v4 = *(a1 + 32);
+    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:a2];
+    (*(v4 + 16))(v4, v8);
   }
 }
 
@@ -2004,9 +2024,9 @@ uint64_t CLIScheduleExit(uint64_t result)
 
 void CUCLIPrefs(void *a1, const char *a2, void *a3)
 {
-  v206 = *MEMORY[0x1E69E9840];
+  v122 = *MEMORY[0x1E69E9840];
   v5 = a1;
-  v182 = a3;
+  v98 = a3;
   SwitchToMobileUser();
   v6 = &constantValkAppleIDValidatedItemsRecordDataCertificateType;
   v7 = gArgI;
@@ -2031,144 +2051,149 @@ void CUCLIPrefs(void *a1, const char *a2, void *a3)
       {
         if (!strcasecmp(v10, "keys"))
         {
-          v150 = MEMORY[0x1E69E9858];
-          v151 = fileno(*MEMORY[0x1E69E9858]);
-          v152 = isatty(v151);
-          v186 = 0u;
-          v187 = 0u;
-          v188 = 0u;
-          v189 = 0u;
-          v153 = v182;
-          v154 = [v153 countByEnumeratingWithState:&v186 objects:v202 count:16];
-          if (v154)
+          v67 = MEMORY[0x1E69E9858];
+          v68 = fileno(*MEMORY[0x1E69E9858]);
+          v69 = isatty(v68);
+          v102 = 0u;
+          v103 = 0u;
+          v104 = 0u;
+          v105 = 0u;
+          v70 = v98;
+          v71 = [v70 countByEnumeratingWithState:&v102 objects:v118 count:16];
+          if (v71)
           {
-            v155 = v154;
-            v180 = v5;
-            v156 = 0;
-            v157 = *v187;
-            if (v152)
+            v72 = v71;
+            v96 = v5;
+            v73 = 0;
+            v74 = *v103;
+            if (v69)
             {
-              v158 = "\x1B[35m";
+              v75 = "\x1B[35m";
             }
 
             else
             {
-              v158 = "";
+              v75 = "";
+            }
+
+            if (v69)
+            {
+              v9 = "\x1B[0m";
             }
 
             do
             {
-              v159 = 0;
-              v160 = v156;
+              v76 = 0;
+              v77 = v73;
               do
               {
-                if (*v187 != v157)
+                if (*v103 != v74)
                 {
-                  objc_enumerationMutation(v153);
+                  objc_enumerationMutation(v70);
                 }
 
-                v156 = *(*(&v186 + 1) + 8 * v159);
+                v73 = *(*(&v102 + 1) + 8 * v76);
 
-                FPrintF(*v150, "%s%@%s\n", v161, v162, v163, v164, v165, v166, v158);
-                ++v159;
-                v160 = v156;
+                FPrintF(*v67, "%s%@%s\n", v75, v73, v9);
+                ++v76;
+                v77 = v73;
               }
 
-              while (v155 != v159);
-              v155 = [v153 countByEnumeratingWithState:&v186 objects:v202 count:16];
+              while (v72 != v76);
+              v72 = [v70 countByEnumeratingWithState:&v102 objects:v118 count:16];
             }
 
-            while (v155);
+            while (v72);
 
-            v5 = v180;
+            v5 = v96;
           }
         }
 
         else
         {
-          FPrintF(*MEMORY[0x1E69E9848], "error: Bad command '%s'. Must be 'read', 'write', 'delete', or 'keys'.\n", v17, v18, v19, v20, v21, v22, v10);
+          FPrintF(*MEMORY[0x1E69E9848], "error: Bad command '%s'. Must be 'read', 'write', 'delete', or 'keys'.\n", v10);
         }
 
-        goto LABEL_120;
+        goto LABEL_125;
       }
 
       if (!gCUCLIFilePath)
       {
         cf = 0;
-LABEL_93:
+LABEL_96:
         if (v7 < v8 && !strcasecmp(*(gArgV + 8 * v7), "*"))
         {
           gArgI = v7 + 1;
           if (cf)
           {
-            v167 = [(__CFString *)cf allKeys];
+            v78 = [(__CFString *)cf allKeys];
           }
 
           else
           {
-            v167 = CFPrefs_CopyKeys(v5, 0);
+            v78 = CFPrefs_CopyKeys(v5, 0);
           }
 
-          v192 = 0u;
-          v193 = 0u;
-          v190 = 0u;
-          v191 = 0u;
-          v168 = v167;
-          v169 = [v168 countByEnumeratingWithState:&v190 objects:v203 count:16];
-          if (v169)
+          v108 = 0u;
+          v109 = 0u;
+          v106 = 0u;
+          v107 = 0u;
+          v79 = v78;
+          v80 = [v79 countByEnumeratingWithState:&v106 objects:v119 count:16];
+          if (v80)
           {
-            v170 = v169;
-            v171 = 0;
-            v172 = v5;
-            v173 = *v191;
-            v181 = v172;
-            if (v172)
+            v81 = v80;
+            v82 = 0;
+            v83 = v5;
+            v84 = *v107;
+            v97 = v83;
+            if (v83)
             {
-              v174 = v172;
+              v85 = v83;
             }
 
             else
             {
-              v174 = *MEMORY[0x1E695E8A8];
+              v85 = *MEMORY[0x1E695E8A8];
             }
 
             do
             {
-              v175 = 0;
-              v176 = v171;
+              v86 = 0;
+              v87 = v82;
               do
               {
-                if (*v191 != v173)
+                if (*v107 != v84)
                 {
-                  objc_enumerationMutation(v168);
+                  objc_enumerationMutation(v79);
                 }
 
-                v171 = *(*(&v190 + 1) + 8 * v175);
+                v82 = *(*(&v106 + 1) + 8 * v86);
 
                 if (cf)
                 {
-                  [(__CFString *)cf removeObjectForKey:v171];
+                  [(__CFString *)cf removeObjectForKey:v82];
                 }
 
                 else
                 {
-                  CFPreferencesSetAppValue(v171, 0, v174);
+                  CFPreferencesSetAppValue(v82, 0, v85);
                 }
 
-                ++v175;
-                v176 = v171;
+                ++v86;
+                v87 = v82;
               }
 
-              while (v170 != v175);
-              v170 = [v168 countByEnumeratingWithState:&v190 objects:v203 count:16];
+              while (v81 != v86);
+              v81 = [v79 countByEnumeratingWithState:&v106 objects:v119 count:16];
             }
 
-            while (v170);
+            while (v81);
 
-            v5 = v181;
+            v5 = v97;
           }
 
-          v147 = v168;
+          v64 = v79;
 
           v7 = gArgI;
           v8 = gArgC;
@@ -2176,33 +2201,33 @@ LABEL_93:
 
         else
         {
-          v147 = 0;
+          v64 = 0;
         }
 
         if (v7 < v8)
         {
           if (v5)
           {
-            v148 = v5;
+            v65 = v5;
           }
 
           else
           {
-            v148 = *MEMORY[0x1E695E8A8];
+            v65 = *MEMORY[0x1E695E8A8];
           }
 
           do
           {
             gArgI = v7 + 1;
-            v149 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(gArgV + 8 * v7)];
+            v66 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(gArgV + 8 * v7)];
             if (cf)
             {
-              [(__CFString *)cf setObject:0 forKeyedSubscript:v149];
+              [(__CFString *)cf setObject:0 forKeyedSubscript:v66];
             }
 
             else
             {
-              CFPreferencesSetAppValue(v149, 0, v148);
+              CFPreferencesSetAppValue(v66, 0, v65);
             }
 
             v7 = gArgI;
@@ -2215,144 +2240,144 @@ LABEL_93:
         {
           CFPreferencesAppSynchronize(v5);
           notify_post(a2);
-          v32 = 0;
-          v35 = 0;
-          v31 = v147;
-          goto LABEL_80;
+          v14 = 0;
+          v17 = 0;
+          v13 = v64;
+          goto LABEL_83;
         }
 
-        v140 = CFPropertyListWriteToFilePath(cf, "binary1", gCUCLIFilePath);
-        v32 = 0;
-        v31 = v147;
-        if (!v140)
+        v63 = CFPropertyListWriteToFilePath(cf, "binary1", gCUCLIFilePath);
+        v14 = 0;
+        v13 = v64;
+        if (!v63)
         {
-          v35 = 0;
-          goto LABEL_80;
+          v17 = 0;
+          goto LABEL_83;
         }
 
-LABEL_106:
-        FPrintF(*MEMORY[0x1E69E9848], "error: %#m\n", v141, v142, v143, v144, v145, v146, v140);
-        goto LABEL_107;
+LABEL_109:
+        FPrintF(*MEMORY[0x1E69E9848], "error: %#m\n", v63);
+        goto LABEL_110;
       }
 
-      v135 = CFPropertyListCreateFromFilePath(gCUCLIFilePath, 1uLL, 0);
-      if (!v135)
+      v58 = CFPropertyListCreateFromFilePath(gCUCLIFilePath, 1uLL, 0);
+      if (!v58)
       {
-LABEL_120:
-        v31 = 0;
-        v32 = 0;
-LABEL_121:
-        v35 = 0;
+LABEL_125:
+        v13 = 0;
+        v14 = 0;
+LABEL_126:
+        v17 = 0;
         cf = 0;
-        goto LABEL_80;
+        goto LABEL_83;
       }
 
-      v136 = v135;
+      v59 = v58;
       objc_opt_class();
-      cf = v136;
+      cf = v59;
       if (objc_opt_isKindOfClass())
       {
         v7 = gArgI;
         v8 = gArgC;
-        goto LABEL_93;
+        goto LABEL_96;
       }
 
 LABEL_16:
-      FPrintF(*MEMORY[0x1E69E9848], "error: Prefs file is not a dictionary\n", v25, v26, v27, v28, v29, v30, v177);
-      v31 = 0;
-      v32 = 0;
-LABEL_107:
-      v35 = 0;
+      FPrintF(*MEMORY[0x1E69E9848], "error: Prefs file is not a dictionary\n");
+      v13 = 0;
+      v14 = 0;
+LABEL_110:
+      v17 = 0;
       gExitCode = 1;
-      goto LABEL_80;
+      goto LABEL_83;
     }
 
     if (v7 >= v8)
     {
-      FPrintF(*MEMORY[0x1E69E9848], "error: No key specified\n", v11, v12, v13, v14, v15, v16, v177);
-      v31 = 0;
-      v32 = 0;
+      FPrintF(*MEMORY[0x1E69E9848], "error: No key specified\n");
+      v13 = 0;
+      v14 = 0;
     }
 
     else
     {
       gArgI = v7 + 1;
-      v32 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(gArgV + 8 * v7)];
-      v44 = gArgI;
+      v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(gArgV + 8 * v7)];
+      v20 = gArgI;
       if (gArgI < gArgC)
       {
         ++gArgI;
-        v45 = *(gArgV + 8 * v44);
+        v21 = *(gArgV + 8 * v20);
         if (!gCUCLIFilePath)
         {
-          v137 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v45];
+          v60 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v21];
           if (v5)
           {
-            v138 = v5;
+            v61 = v5;
           }
 
           else
           {
-            v138 = *MEMORY[0x1E695E8A8];
+            v61 = *MEMORY[0x1E695E8A8];
           }
 
-          CFPreferencesSetAppValue(v32, v137, v138);
+          CFPreferencesSetAppValue(v14, v60, v61);
           CFPreferencesAppSynchronize(v5);
           notify_post(a2);
-          v31 = 0;
-          goto LABEL_121;
+          v13 = 0;
+          goto LABEL_126;
         }
 
-        v46 = CFPropertyListCreateFromFilePath(gCUCLIFilePath, 1uLL, 0);
-        if (v46)
+        v22 = CFPropertyListCreateFromFilePath(gCUCLIFilePath, 1uLL, 0);
+        if (v22)
         {
-          v47 = v46;
+          v23 = v22;
           objc_opt_class();
-          cf = v47;
+          cf = v23;
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            FPrintF(*MEMORY[0x1E69E9848], "error: Prefs file is not a dictionary\n", v48, v49, v50, v51, v52, v53, v177);
-            v31 = 0;
-            goto LABEL_107;
+            FPrintF(*MEMORY[0x1E69E9848], "error: Prefs file is not a dictionary\n");
+            v13 = 0;
+            goto LABEL_110;
           }
         }
 
         else
         {
-          v47 = [MEMORY[0x1E695DF90] dictionary];
+          v23 = [MEMORY[0x1E695DF90] dictionary];
         }
 
-        v139 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v45];
-        [(__CFString *)v47 setObject:v139 forKeyedSubscript:v32];
+        v62 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v21];
+        [(__CFString *)v23 setObject:v62 forKeyedSubscript:v14];
 
-        cf = v47;
-        v140 = CFPropertyListWriteToFilePath(v47, "binary1", gCUCLIFilePath);
-        v31 = 0;
-        if (v140)
+        cf = v23;
+        v63 = CFPropertyListWriteToFilePath(v23, "binary1", gCUCLIFilePath);
+        v13 = 0;
+        if (v63)
         {
-          goto LABEL_106;
+          goto LABEL_109;
         }
 
-        v35 = 0;
-        goto LABEL_80;
+        v17 = 0;
+        goto LABEL_83;
       }
 
-      FPrintF(*MEMORY[0x1E69E9848], "error: No value specified\n", v38, v39, v40, v41, v42, v43, v177);
-      v31 = 0;
+      FPrintF(*MEMORY[0x1E69E9848], "error: No value specified\n");
+      v13 = 0;
     }
 
     cf = 0;
-    goto LABEL_107;
+    goto LABEL_110;
   }
 
   if (gCUCLIFilePath)
   {
-    v23 = CFPropertyListCreateFromFilePath(gCUCLIFilePath, 1uLL, 0);
-    if (v23)
+    v11 = CFPropertyListCreateFromFilePath(gCUCLIFilePath, 1uLL, 0);
+    if (v11)
     {
-      v24 = v23;
+      v12 = v11;
       objc_opt_class();
-      cf = v24;
+      cf = v12;
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         goto LABEL_16;
@@ -2370,253 +2395,263 @@ LABEL_107:
     cf = 0;
   }
 
-  v33 = fileno(*MEMORY[0x1E69E9858]);
-  v34 = isatty(v33);
-  v179 = v5;
+  v15 = fileno(*MEMORY[0x1E69E9858]);
+  v16 = isatty(v15);
+  v95 = v5;
   if (gArgI >= gArgC)
   {
-    v36 = v34;
+    v18 = v16;
     if (cf)
     {
-      v37 = [(__CFString *)cf allKeys];
+      v19 = [(__CFString *)cf allKeys];
     }
 
     else
     {
-      v37 = CFPrefs_CopyKeys(v5, 0);
+      v19 = CFPrefs_CopyKeys(v5, 0);
     }
 
-    v54 = v37;
-    v55 = [v37 sortedArrayUsingSelector:sel_localizedCaseInsensitiveCompare_];
+    v24 = v19;
+    v25 = [v19 sortedArrayUsingSelector:sel_localizedCaseInsensitiveCompare_];
 
-    v200 = 0u;
-    v201 = 0u;
-    v198 = 0u;
-    v199 = 0u;
-    v56 = v55;
-    v57 = [v56 countByEnumeratingWithState:&v198 objects:v205 count:16];
-    if (v57)
+    v116 = 0u;
+    v117 = 0u;
+    v114 = 0u;
+    v115 = 0u;
+    v26 = v25;
+    v27 = [v26 countByEnumeratingWithState:&v114 objects:v121 count:16];
+    if (v27)
     {
-      v58 = v57;
-      v59 = 0;
-      LODWORD(v60) = 0;
-      v61 = *v199;
+      v28 = v27;
+      v29 = 0;
+      LODWORD(v30) = 0;
+      v31 = *v115;
       do
       {
-        v62 = 0;
-        v63 = v59;
+        v32 = 0;
+        v33 = v29;
         do
         {
-          if (*v199 != v61)
+          if (*v115 != v31)
           {
-            objc_enumerationMutation(v56);
+            objc_enumerationMutation(v26);
           }
 
-          v59 = *(*(&v198 + 1) + 8 * v62);
+          v29 = *(*(&v114 + 1) + 8 * v32);
 
-          v64 = [v59 length];
-          if (v60 <= v64)
+          v34 = [v29 length];
+          if (v30 <= v34)
           {
-            v60 = v64;
+            v30 = v34;
           }
 
           else
           {
-            v60 = v60;
+            v30 = v30;
           }
 
-          ++v62;
-          v63 = v59;
+          ++v32;
+          v33 = v29;
         }
 
-        while (v58 != v62);
-        v58 = [v56 countByEnumeratingWithState:&v198 objects:v205 count:16];
+        while (v28 != v32);
+        v28 = [v26 countByEnumeratingWithState:&v114 objects:v121 count:16];
       }
 
-      while (v58);
+      while (v28);
 
       v6 = &constantValkAppleIDValidatedItemsRecordDataCertificateType;
     }
 
     else
     {
-      v60 = 0;
+      v30 = 0;
     }
 
-    v196 = 0u;
-    v197 = 0u;
-    v194 = 0u;
-    v195 = 0u;
-    v31 = v56;
-    v65 = [v31 countByEnumeratingWithState:&v194 objects:v204 count:16];
-    if (v65)
+    v112 = 0u;
+    v113 = 0u;
+    v110 = 0u;
+    v111 = 0u;
+    v13 = v26;
+    v35 = [v13 countByEnumeratingWithState:&v110 objects:v120 count:16];
+    if (v35)
     {
-      v66 = v65;
-      v67 = 0;
-      v35 = 0;
-      v68 = *v195;
-      if (v36)
+      v36 = v35;
+      v37 = 0;
+      v17 = 0;
+      v38 = *v111;
+      if (v18)
+      {
+        v39 = "\x1B[35m";
+      }
+
+      else
+      {
+        v39 = "";
+      }
+
+      if (v18)
       {
         v9 = "\x1B[0m";
       }
 
-      v69 = *MEMORY[0x1E695E8A8];
-      if (v179)
+      v40 = *MEMORY[0x1E695E8A8];
+      if (v95)
       {
-        v69 = v179;
+        v40 = v95;
       }
 
-      applicationID = v69;
-      obj = v31;
+      applicationID = v40;
+      obj = v13;
       do
       {
-        v70 = 0;
-        v71 = v67;
-        v72 = v35;
+        v41 = 0;
+        v42 = v37;
+        v43 = v17;
         do
         {
-          if (*v195 != v68)
+          if (*v111 != v38)
           {
             objc_enumerationMutation(obj);
           }
 
-          v67 = *(*(&v194 + 1) + 8 * v70);
+          v37 = *(*(&v110 + 1) + 8 * v41);
 
           if (cf)
           {
-            v73 = [(__CFString *)cf objectForKeyedSubscript:v67];
+            v44 = [(__CFString *)cf objectForKeyedSubscript:v37];
           }
 
           else
           {
-            v73 = CFPreferencesCopyAppValue(v67, applicationID);
+            v44 = CFPreferencesCopyAppValue(v37, applicationID);
           }
 
-          v35 = v73;
+          v17 = v44;
 
-          v74 = MEMORY[0x1E69E9858];
-          FPrintF(*MEMORY[0x1E69E9858], "%-*@ : %s", v75, v76, v77, v78, v79, v80, v60);
+          v45 = MEMORY[0x1E69E9858];
+          FPrintF(*MEMORY[0x1E69E9858], "%-*@ : %s", v30, v37, v39);
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) != 0 && [v35 length] <= 0x80)
+          if ((objc_opt_isKindOfClass() & 1) != 0 && [v17 length] <= 0x80)
           {
-            v87 = *v74;
-            v88 = [v35 bytes];
-            [v35 length];
-            v178 = v88;
-            v74 = MEMORY[0x1E69E9858];
-            FPrintF(v87, "%.3H", v89, v90, v91, v92, v93, v94, v178);
+            v46 = *v45;
+            v47 = [v17 bytes];
+            v91 = [v17 length];
+            v88 = v47;
+            v45 = MEMORY[0x1E69E9858];
+            FPrintF(v46, "%.3H", v88, v91, 128);
           }
 
           else
           {
-            FPrintF(*v74, "%@", v81, v82, v83, v84, v85, v86, v35);
+            FPrintF(*v45, "%@", v17, v90, v94);
           }
 
-          FPrintF(*v74, "%s\n", v95, v96, v97, v98, v99, v100, v9);
-          ++v70;
-          v71 = v67;
-          v72 = v35;
+          FPrintF(*v45, "%s\n", v9);
+          ++v41;
+          v42 = v37;
+          v43 = v17;
         }
 
-        while (v66 != v70);
-        v31 = obj;
-        v66 = [obj countByEnumeratingWithState:&v194 objects:v204 count:16];
+        while (v36 != v41);
+        v13 = obj;
+        v36 = [obj countByEnumeratingWithState:&v110 objects:v120 count:16];
       }
 
-      while (v66);
+      while (v36);
 
       v6 = &constantValkAppleIDValidatedItemsRecordDataCertificateType;
     }
 
     else
     {
-      v35 = 0;
+      v17 = 0;
     }
 
-    v5 = v179;
-    if (![v31 count])
+    v5 = v95;
+    if (![v13 count])
     {
-      FPrintF(*MEMORY[0x1E69E9848], "No prefs found\n", v101, v102, v103, v104, v105, v106, v177);
+      FPrintF(*MEMORY[0x1E69E9848], "No prefs found\n");
     }
   }
 
   else
   {
-    v31 = 0;
-    v35 = 0;
+    v13 = 0;
+    v17 = 0;
   }
 
-  v107 = *(v6 + 642);
-  if (v107 >= gArgC)
+  v48 = *(v6 + 642);
+  if (v48 >= gArgC)
   {
-    v32 = 0;
+    v14 = 0;
   }
 
   else
   {
     if (v5)
     {
-      v108 = v5;
+      v49 = v5;
     }
 
     else
     {
-      v108 = *MEMORY[0x1E695E8A8];
+      v49 = *MEMORY[0x1E695E8A8];
     }
 
     do
     {
-      v109 = gArgV;
-      *(v6 + 642) = v107 + 1;
-      v110 = *(v109 + 8 * v107);
-      v111 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v110];
+      v50 = gArgV;
+      *(v6 + 642) = v48 + 1;
+      v51 = *(v50 + 8 * v48);
+      v52 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v51];
       if (cf)
       {
-        v112 = [(__CFString *)cf objectForKeyedSubscript:v111];
+        v53 = [(__CFString *)cf objectForKeyedSubscript:v52];
       }
 
       else
       {
-        v112 = CFPreferencesCopyAppValue(v111, v108);
+        v53 = CFPreferencesCopyAppValue(v52, v49);
       }
 
-      v113 = v112;
+      v54 = v53;
 
-      if (v113)
+      if (v54)
       {
-        v35 = v113;
+        v17 = v54;
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) != 0 && [v113 length] <= 0x80)
+        if ((objc_opt_isKindOfClass() & 1) != 0 && [v54 length] <= 0x80)
         {
-          v126 = *MEMORY[0x1E69E9858];
-          v127 = [v113 bytes];
-          [v113 length];
-          v128 = v126;
+          v55 = *MEMORY[0x1E69E9858];
+          v56 = [v54 bytes];
+          v92 = [v54 length];
+          v57 = v55;
           v6 = &constantValkAppleIDValidatedItemsRecordDataCertificateType;
-          FPrintF(v128, "%.3H\n", v129, v130, v131, v132, v133, v134, v127);
+          FPrintF(v57, "%.3H\n", v56, v92, 128);
         }
 
         else
         {
-          FPrintF(*MEMORY[0x1E69E9858], "%@\n", v120, v121, v122, v123, v124, v125, v113);
+          FPrintF(*MEMORY[0x1E69E9858], "%@\n", v54, v89, v93);
         }
       }
 
       else
       {
-        FPrintF(*MEMORY[0x1E69E9848], "error: Key '%s' does not exist.\n", v114, v115, v116, v117, v118, v119, v110);
-        v35 = 0;
+        FPrintF(*MEMORY[0x1E69E9848], "error: Key '%s' does not exist.\n", v51);
+        v17 = 0;
       }
 
-      v107 = *(v6 + 642);
+      v48 = *(v6 + 642);
     }
 
-    while (v107 < gArgC);
-    v32 = 0;
-    v5 = v179;
+    while (v48 < gArgC);
+    v14 = 0;
+    v5 = v95;
   }
 
-LABEL_80:
+LABEL_83:
 }
 
 uint64_t CoreAudioCopyDataSourceName(uint64_t a1, int a2, uint64_t a3)
@@ -2662,10 +2697,10 @@ uint64_t CoreAudioCopyPropertyData(uint64_t a1, int a2, int a3, int a4, uint64_t
   v14 = 100;
   while (1)
   {
-    v15 = (softLinkAudioObjectGetPropertyDataSize[0])(a1, size_4, a6, a5, &size);
-    if (v15)
+    PropertyDataSize = softLinkAudioObjectGetPropertyDataSize(a1, size_4, a6, a5, &size);
+    if (PropertyDataSize)
     {
-      v18 = v15;
+      v18 = PropertyDataSize;
       goto LABEL_14;
     }
 
@@ -2723,7 +2758,7 @@ uint64_t initAudioObjectGetPropertyDataSize(uint64_t a1, uint64_t a2, uint64_t a
   }
 
   v10 = dlsym(CoreAudioLibrary_sLib_611, "AudioObjectGetPropertyDataSize");
-  softLinkAudioObjectGetPropertyDataSize[0] = v10;
+  softLinkAudioObjectGetPropertyDataSize = v10;
 
   return (v10)(a1, a2, a3, a4, a5);
 }
@@ -2836,8 +2871,8 @@ uint64_t CoreAudioRampParameterStart(NSObject **a1, uint64_t a2, uint64_t a3, ui
   v35[1] = v35;
   v35[2] = 0x2000000000;
   v36 = 0;
-  v20 = (softLinkAudioUnitGetParameter_622[0])(a2, a3, a4, a5, &v40);
-  if (!v20)
+  Parameter_622 = softLinkAudioUnitGetParameter_622(a2, a3, a4, a5, &v40);
+  if (!Parameter_622)
   {
     v21 = v38[6];
     if (a7)
@@ -2880,24 +2915,24 @@ uint64_t CoreAudioRampParameterStart(NSObject **a1, uint64_t a2, uint64_t a3, ui
       }
 
       dispatch_resume(v24);
-      v20 = 0;
+      Parameter_622 = 0;
     }
 
     else
     {
-      v20 = 4294960596;
+      Parameter_622 = 4294960596;
     }
   }
 
   _Block_object_dispose(v35, 8);
   _Block_object_dispose(&v37, 8);
-  return v20;
+  return Parameter_622;
 }
 
 void __CoreAudioRampParameterStart_block_invoke(uint64_t a1)
 {
   *(*(*(a1 + 40) + 8) + 24) = *(a1 + 80) + *(*(*(a1 + 40) + 8) + 24);
-  (softLinkAudioUnitSetParameter_624[0])(*(a1 + 56), *(a1 + 84), *(a1 + 88), *(a1 + 92), 0, *(*(*(a1 + 40) + 8) + 24));
+  softLinkAudioUnitSetParameter_624(*(a1 + 56), *(a1 + 84), *(a1 + 88), *(a1 + 92), 0, *(*(*(a1 + 40) + 8) + 24));
   v2 = *(*(a1 + 48) + 8);
   v3 = *(v2 + 24) + 1;
   *(v2 + 24) = v3;
@@ -2907,7 +2942,7 @@ void __CoreAudioRampParameterStart_block_invoke(uint64_t a1)
     v4 = *(a1 + 100);
     if (*(*(*(a1 + 40) + 8) + 24) != v4)
     {
-      (softLinkAudioUnitSetParameter_624[0])(*(a1 + 56), *(a1 + 84), *(a1 + 88), *(a1 + 92), 0, v4);
+      softLinkAudioUnitSetParameter_624(*(a1 + 56), *(a1 + 84), *(a1 + 88), *(a1 + 92), 0, v4);
     }
 
     v5 = *(a1 + 32);
@@ -2933,7 +2968,7 @@ uint64_t initAudioUnitSetParameter_626(uint64_t a1, uint64_t a2, uint64_t a3, ui
   }
 
   v12 = dlsym(AudioToolboxLibrary_sLib_628, "AudioUnitSetParameter");
-  softLinkAudioUnitSetParameter_624[0] = v12;
+  softLinkAudioUnitSetParameter_624 = v12;
   v13.n128_f32[0] = a6;
 
   return (v12)(a1, a2, a3, a4, a5, v13);
@@ -2954,12 +2989,12 @@ uint64_t initAudioUnitGetParameter_634(uint64_t a1, uint64_t a2, uint64_t a3, ui
   }
 
   v10 = dlsym(AudioToolboxLibrary_sLib_628, "AudioUnitGetParameter");
-  softLinkAudioUnitGetParameter_622[0] = v10;
+  softLinkAudioUnitGetParameter_622 = v10;
 
   return (v10)(a1, a2, a3, a4, a5);
 }
 
-uint64_t _AESGCMCoreCryptoDecryptMessageOneShot(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+uint64_t _AESGCMCoreCryptoDecryptMessageOneShot(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 *a11, uint64_t a12)
 {
   result = 4294960591;
   if (a3 == 32 && a5 == 12 && a12 == 16)
@@ -2983,7 +3018,7 @@ uint64_t _AESGCMCoreCryptoEncryptMessageOneShot(uint64_t a1, uint64_t a2, uint64
   return ccgcm_one_shot();
 }
 
-uint64_t _AESGCMCoreCryptoDecryptMessage(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+uint64_t _AESGCMCoreCryptoDecryptMessage(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 *a9, uint64_t a10)
 {
   result = 4294960591;
   if (a3 == 12 && a10 == 16)
@@ -3496,7 +3531,7 @@ Class initAKAccountManager()
 
   result = objc_getClass("AKAccountManager");
   classAKAccountManager = result;
-  getAKAccountManagerClass[0] = AKAccountManagerFunction;
+  getAKAccountManagerClass = AKAccountManagerFunction;
   return result;
 }
 
@@ -3516,7 +3551,7 @@ Class initACAccountStore()
 
   result = objc_getClass("ACAccountStore");
   classACAccountStore = result;
-  getACAccountStoreClass[0] = ACAccountStoreFunction;
+  getACAccountStoreClass = ACAccountStoreFunction;
   return result;
 }
 
@@ -3542,7 +3577,7 @@ uint64_t init_AppleIDAuthenticationCopyCertificateInfo(uint64_t a1, uint64_t a2,
   }
 
   v8 = dlsym(MobileCoreServicesLibrary_sLib_792, "_AppleIDAuthenticationCopyCertificateInfo");
-  softLink_AppleIDAuthenticationCopyCertificateInfo[0] = v8;
+  softLink_AppleIDAuthenticationCopyCertificateInfo = v8;
 
   return (v8)(a1, a2, a3, a4);
 }
@@ -3573,7 +3608,7 @@ uint64_t initValkAppleIDValidatedItemsRecordDataCertificateType()
     result = constantValkAppleIDValidatedItemsRecordDataCertificateType;
   }
 
-  getkAppleIDValidatedItemsRecordDataCertificateType[0] = kAppleIDValidatedItemsRecordDataCertificateTypeFunction;
+  getkAppleIDValidatedItemsRecordDataCertificateType = kAppleIDValidatedItemsRecordDataCertificateTypeFunction;
   return result;
 }
 
@@ -3585,19 +3620,19 @@ uint64_t init_AppleIDCopySecIdentityForAppleIDAccount(uint64_t a1, uint64_t a2, 
   }
 
   v6 = dlsym(MobileCoreServicesLibrary_sLib_792, "_AppleIDCopySecIdentityForAppleIDAccount");
-  softLink_AppleIDCopySecIdentityForAppleIDAccount[0] = v6;
+  softLink_AppleIDCopySecIdentityForAppleIDAccount = v6;
 
   return (v6)(a1, a2, a3);
 }
 
-void sub_191EF4928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_191EF4928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3621,8 +3656,8 @@ void initSFAppleIDParseValidationRecordData(void *a1, void *a2, void *a3)
     dispatch_once(&SharingLibrary_sOnce, &__block_literal_global_832);
   }
 
-  softLinkSFAppleIDParseValidationRecordData[0] = dlsym(SharingLibrary_sLib, "SFAppleIDParseValidationRecordData");
-  (softLinkSFAppleIDParseValidationRecordData[0])(v8, v7, v6);
+  softLinkSFAppleIDParseValidationRecordData = dlsym(SharingLibrary_sLib, "SFAppleIDParseValidationRecordData");
+  softLinkSFAppleIDParseValidationRecordData(v8, v7, v6);
 }
 
 void *__SharingLibrary_block_invoke()
@@ -3639,7 +3674,7 @@ id CUAltDSIDPrimary()
     dispatch_once(&AppleAccountLibrary_sOnce, &__block_literal_global_155);
   }
 
-  v0 = objc_alloc_init(getACAccountStoreClass[0]());
+  v0 = objc_alloc_init(getACAccountStoreClass());
   v1 = [v0 aa_primaryAppleAccount];
   v2 = [v1 aa_altDSID];
 
@@ -3655,7 +3690,7 @@ Class initAVAudioPlayer()
 
   result = objc_getClass("AVAudioPlayer");
   classAVAudioPlayer = result;
-  getAVAudioPlayerClass[0] = AVAudioPlayerFunction;
+  getAVAudioPlayerClass = AVAudioPlayerFunction;
   return result;
 }
 
@@ -3731,7 +3766,7 @@ Class initAVAudioSession()
 
   result = objc_getClass("AVAudioSession");
   classAVAudioSession = result;
-  getAVAudioSessionClass[0] = AVAudioSessionFunction;
+  getAVAudioSessionClass = AVAudioSessionFunction;
   return result;
 }
 
@@ -3835,7 +3870,7 @@ Class initCBPeripheralManager()
 
   result = objc_getClass("CBPeripheralManager");
   classCBPeripheralManager = result;
-  getCBPeripheralManagerClass[0] = CBPeripheralManagerFunction;
+  getCBPeripheralManagerClass = CBPeripheralManagerFunction;
   return result;
 }
 
@@ -3939,7 +3974,7 @@ Class initCBCentralManager()
 
   result = objc_getClass("CBCentralManager");
   classCBCentralManager = result;
-  getCBCentralManagerClass[0] = CBCentralManagerFunction;
+  getCBCentralManagerClass = CBCentralManagerFunction;
   return result;
 }
 
@@ -4323,7 +4358,7 @@ Class initCBCentralManager_1370()
 
   result = objc_getClass("CBCentralManager");
   classCBCentralManager_1371 = result;
-  getCBCentralManagerClass_1352[0] = CBCentralManagerFunction_1373;
+  getCBCentralManagerClass_1352 = CBCentralManagerFunction_1373;
   return result;
 }
 
@@ -4336,7 +4371,7 @@ Class initCBPeripheralManager_1529()
 
   result = objc_getClass("CBPeripheralManager");
   classCBPeripheralManager_1533 = result;
-  getCBPeripheralManagerClass_1525[0] = CBPeripheralManagerFunction_1535;
+  getCBPeripheralManagerClass_1525 = CBPeripheralManagerFunction_1535;
   return result;
 }
 
@@ -4355,9 +4390,9 @@ uint64_t initBTSessionDetachWithQueue(uint64_t a1)
   }
 
   v2 = dlsym(MobileBluetoothLibrary_sLib, "BTSessionDetachWithQueue");
-  softLinkBTSessionDetachWithQueue[0] = v2;
+  softLinkBTSessionDetachWithQueue = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 void *__MobileBluetoothLibrary_block_invoke()
@@ -4367,9 +4402,10 @@ void *__MobileBluetoothLibrary_block_invoke()
   return result;
 }
 
-void _btServiceEventHandler(uint64_t a1, uint64_t a2, int a3, int a4, int a5, void *a6)
+void _btServiceEventHandler(uint64_t a1, char *a2, int a3, uint64_t a4, int a5, void *a6)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v8 = a4;
+  v43 = *MEMORY[0x1E69E9840];
   v12 = objc_autoreleasePoolPush();
   v13 = a6;
   dispatch_assert_queue_V2(*(v13 + 23));
@@ -4386,12 +4422,12 @@ void _btServiceEventHandler(uint64_t a1, uint64_t a2, int a3, int a4, int a5, vo
       if (*v14 != -1)
       {
 LABEL_5:
-        BTServiceSpecificEventToString(a4);
-        v42 = a2;
+        BTServiceSpecificEventToString(v8);
+        v40 = a2;
         v19 = "BTService event type: %#{flags}, %d, %d %s, %#m\n";
         v20 = v14;
 LABEL_6:
-        LogPrintF(v20, "void _btServiceEventHandler(BTDevice _Nonnull, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void * _Nonnull)", 0x1Eu, v19, v15, v16, v17, v18, v42);
+        LogPrintF(v20, "void _btServiceEventHandler(BTDevice _Nonnull, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void * _Nonnull)", 30, v19, v15, v16, v17, v18, v40);
         goto LABEL_32;
       }
 
@@ -4421,8 +4457,8 @@ LABEL_6:
     if (*v22 != -1)
     {
 LABEL_13:
-      BTServiceSpecificEventToString(a4);
-      LogPrintF(v22, "void _btServiceEventHandler(BTDevice _Nonnull, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void * _Nonnull)", 0x1Eu, "BTService connect: %#{flags}, %d %s, %#m\n", v23, v24, v25, v26, a2);
+      BTServiceSpecificEventToString(v8);
+      LogPrintF(v22, "void _btServiceEventHandler(BTDevice _Nonnull, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void * _Nonnull)", 30, "BTService connect: %#{flags}, %d %s, %#m\n", v23, v24, v25, v26, a2);
       goto LABEL_17;
     }
 
@@ -4434,32 +4470,32 @@ LABEL_13:
   }
 
 LABEL_17:
-  if (a4 != 11)
+  if (v8 != 11)
   {
     goto LABEL_32;
   }
 
   __s1[0] = 0;
-  v27 = (softLinkBTDeviceGetAddressString[0])(a1, __s1, 32);
-  if (v27)
+  AddressString = softLinkBTDeviceGetAddressString(a1, __s1, 32);
+  if (AddressString)
   {
-    v32 = (v27 + 310000);
-    if (v27 != -310000)
+    v32 = (AddressString + 310000);
+    if (AddressString != -310000)
     {
-      v40 = *(v13 + 19);
-      if (*v40 <= 90)
+      v39 = *(v13 + 19);
+      if (*v39 <= 90)
       {
-        if (*v40 == -1)
+        if (*v39 == -1)
         {
-          if (!_LogCategory_Initialize(v40, 0x5Au))
+          if (!_LogCategory_Initialize(v39, 0x5Au))
           {
             goto LABEL_32;
           }
 
-          v40 = *(v13 + 19);
+          v39 = *(v13 + 19);
         }
 
-        LogPrintF(v40, "void _btServiceEventHandler(BTDevice _Nonnull, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void * _Nonnull)", 0x5Au, "### BTDeviceGetAddressString failed: %#m\n", v28, v29, v30, v31, v32);
+        LogPrintF(v39, "void _btServiceEventHandler(BTDevice _Nonnull, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void * _Nonnull)", 90, "### BTDeviceGetAddressString failed: %#m\n", v28, v29, v30, v31, v32);
       }
 
       goto LABEL_32;
@@ -4481,7 +4517,7 @@ LABEL_17:
         v20 = *(v13 + 19);
       }
 
-      v42 = __s1;
+      v40 = __s1;
       v19 = "BTService connect, ignoring device: %s vs %s\n";
       goto LABEL_6;
     }
@@ -4491,8 +4527,8 @@ LABEL_17:
 
   if (v21)
   {
-    v34 = NSErrorF_safe(*MEMORY[0x1E696A768], v21, "BTService connect failed", v33, v15, v16, v17, v18, v41);
-    [v13 _reportError:v34];
+    v33 = NSErrorF_safe(*MEMORY[0x1E696A768], v21, "BTService connect failed");
+    [v13 _reportError:v33];
 
     goto LABEL_32;
   }
@@ -4505,35 +4541,35 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v43 = 0;
-  v35 = (softLinkBTDeviceGetConnectedServices[0])(a1, &v43);
-  if (v35)
+  v41 = 0;
+  ConnectedServices = softLinkBTDeviceGetConnectedServices(a1, &v41);
+  if (ConnectedServices)
   {
-    v36 = (v35 + 310000);
-    if (v35 != -310000)
+    v35 = (ConnectedServices + 310000);
+    if (ConnectedServices != -310000)
     {
-      v37 = *(v13 + 19);
-      if (*v37 <= 90)
+      v36 = *(v13 + 19);
+      if (*v36 <= 90)
       {
-        if (*v37 == -1)
+        if (*v36 == -1)
         {
-          if (!_LogCategory_Initialize(v37, 0x5Au))
+          if (!_LogCategory_Initialize(v36, 0x5Au))
           {
             goto LABEL_30;
           }
 
-          v37 = *(v13 + 19);
+          v36 = *(v13 + 19);
         }
 
-        LogPrintF(v37, "void _btServiceEventHandler(BTDevice _Nonnull, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void * _Nonnull)", 0x5Au, "### BTDeviceGetConnectedServices failed: %#m\n", v15, v16, v17, v18, v36);
+        LogPrintF(v36, "void _btServiceEventHandler(BTDevice _Nonnull, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void * _Nonnull)", 90, "### BTDeviceGetConnectedServices failed: %#m\n", v15, v16, v17, v18, v35);
       }
     }
   }
 
 LABEL_30:
-  v38 = v43;
-  v39 = *(v13 + 41);
-  if ((v39 & ~v43) == 0)
+  v37 = v41;
+  v38 = *(v13 + 41);
+  if ((v38 & ~v41) == 0)
   {
     goto LABEL_31;
   }
@@ -4549,11 +4585,11 @@ LABEL_30:
       }
 
       v20 = *(v13 + 19);
-      v39 = *(v13 + 41);
-      v38 = v43;
+      v38 = *(v13 + 41);
+      v37 = v41;
     }
 
-    v42 = (v39 & ~v38);
+    v40 = (v38 & ~v37);
     v19 = "BTService connect waiting for more services: %#{flags}\n";
     goto LABEL_6;
   }
@@ -4795,7 +4831,7 @@ uint64_t initBTDeviceGetConnectedServices(uint64_t a1, uint64_t a2)
   }
 
   v4 = dlsym(MobileBluetoothLibrary_sLib, "BTDeviceGetConnectedServices");
-  softLinkBTDeviceGetConnectedServices[0] = v4;
+  softLinkBTDeviceGetConnectedServices = v4;
 
   return (v4)(a1, a2);
 }
@@ -4808,7 +4844,7 @@ uint64_t initBTDeviceGetAddressString(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v6 = dlsym(MobileBluetoothLibrary_sLib, "BTDeviceGetAddressString");
-  softLinkBTDeviceGetAddressString[0] = v6;
+  softLinkBTDeviceGetAddressString = v6;
 
   return (v6)(a1, a2, a3);
 }
@@ -4821,7 +4857,7 @@ uint64_t initBTServiceRemoveCallbacks(uint64_t a1, uint64_t a2)
   }
 
   v4 = dlsym(MobileBluetoothLibrary_sLib, "BTServiceRemoveCallbacks");
-  softLinkBTServiceRemoveCallbacks[0] = v4;
+  softLinkBTServiceRemoveCallbacks = v4;
 
   return (v4)(a1, a2);
 }
@@ -4834,7 +4870,7 @@ uint64_t initBTDeviceFromAddress(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v6 = dlsym(MobileBluetoothLibrary_sLib, "BTDeviceFromAddress");
-  softLinkBTDeviceFromAddress[0] = v6;
+  softLinkBTDeviceFromAddress = v6;
 
   return (v6)(a1, a2, a3);
 }
@@ -4847,7 +4883,7 @@ uint64_t initBTDeviceFromIdentifier(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v6 = dlsym(MobileBluetoothLibrary_sLib, "BTDeviceFromIdentifier");
-  softLinkBTDeviceFromIdentifier[0] = v6;
+  softLinkBTDeviceFromIdentifier = v6;
 
   return (v6)(a1, a2, a3);
 }
@@ -4860,7 +4896,7 @@ uint64_t initBTDeviceConnectServices(uint64_t a1, uint64_t a2)
   }
 
   v4 = dlsym(MobileBluetoothLibrary_sLib, "BTDeviceConnectServices");
-  softLinkBTDeviceConnectServices[0] = v4;
+  softLinkBTDeviceConnectServices = v4;
 
   return (v4)(a1, a2);
 }
@@ -4873,7 +4909,7 @@ uint64_t initBTDeviceConnectServicesWithParameters(uint64_t a1, uint64_t a2, uin
   }
 
   v8 = dlsym(MobileBluetoothLibrary_sLib, "BTDeviceConnectServicesWithParameters");
-  softLinkBTDeviceConnectServicesWithParameters[0] = v8;
+  softLinkBTDeviceConnectServicesWithParameters = v8;
 
   return (v8)(a1, a2, a3, a4);
 }
@@ -4886,7 +4922,7 @@ uint64_t initBTServiceAddCallbacks(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v6 = dlsym(MobileBluetoothLibrary_sLib, "BTServiceAddCallbacks");
-  softLinkBTServiceAddCallbacks[0] = v6;
+  softLinkBTServiceAddCallbacks = v6;
 
   return (v6)(a1, a2, a3);
 }
@@ -4900,8 +4936,8 @@ uint64_t initBTSessionAttachWithQueue(uint64_t a1, uint64_t a2, uint64_t a3, voi
     dispatch_once(&MobileBluetoothLibrary_sOnce, &__block_literal_global_1743);
   }
 
-  softLinkBTSessionAttachWithQueue[0] = dlsym(MobileBluetoothLibrary_sLib, "BTSessionAttachWithQueue");
-  v9 = (softLinkBTSessionAttachWithQueue[0])(a1, a2, a3, v8);
+  softLinkBTSessionAttachWithQueue = dlsym(MobileBluetoothLibrary_sLib, "BTSessionAttachWithQueue");
+  v9 = softLinkBTSessionAttachWithQueue(a1, a2, a3, v8);
 
   return v9;
 }
@@ -4929,7 +4965,7 @@ void _btSessionEventCallback(uint64_t a1, uint64_t a2, int a3, void *a4)
     CFRelease(v9);
     v27 = *MEMORY[0x1E696A768];
     v35 = NSPrintF("%#m", v28, v29, v30, v31, v32, v33, v34, v17);
-    NSErrorF_safe(v27, 4294960560, "BTSession crashed: %@", v36, v37, v38, v39, v40, v35);
+    NSErrorF_safe(v27, 4294960560, "BTSession crashed: %@", v35);
     goto LABEL_19;
   }
 
@@ -4954,7 +4990,7 @@ void _btSessionEventCallback(uint64_t a1, uint64_t a2, int a3, void *a4)
           v26 = *(v9 + 19);
         }
 
-        LogPrintF(v26, "void _btSessionEventCallback(BTSession _Nonnull, BTSessionEvent, BTResult, void * _Nonnull)", 0x1Eu, "BTSession detached: %#m\n", v22, v23, v24, v25, v17);
+        LogPrintF(v26, "void _btSessionEventCallback(BTSession _Nonnull, BTSessionEvent, BTResult, void * _Nonnull)", 30, "BTSession detached: %#m\n", v22, v23, v24, v25, v17);
       }
 
 LABEL_27:
@@ -4962,35 +4998,35 @@ LABEL_27:
       goto LABEL_28;
     }
 
-    v46 = *MEMORY[0x1E696A768];
+    v41 = *MEMORY[0x1E696A768];
     v35 = NSPrintF("%#m", v19, v20, v21, v22, v23, v24, v25, v17);
-    NSErrorF_safe(v46, 4294960560, "BTSession detached: %@", v47, v48, v49, v50, v51, v35);
-    v52 = LABEL_19:;
-    [v9 _reportError:v52];
+    NSErrorF_safe(v41, 4294960560, "BTSession detached: %@", v35);
+    v42 = LABEL_19:;
+    [v9 _reportError:v42];
 
     goto LABEL_28;
   }
 
   if (a2)
   {
-    v41 = *(v9 + 19);
-    if (*v41 > 40)
+    v36 = *(v9 + 19);
+    if (*v36 > 40)
     {
       goto LABEL_28;
     }
 
-    if (*v41 == -1)
+    if (*v36 == -1)
     {
       if (!_LogCategory_Initialize(*(v9 + 19), 0x28u))
       {
         goto LABEL_28;
       }
 
-      v41 = *(v9 + 19);
+      v36 = *(v9 + 19);
     }
 
-    v53 = NSPrintF("%#m", v10, v11, v12, v13, v14, v15, v16, v17);
-    LogPrintF(v41, "void _btSessionEventCallback(BTSession _Nonnull, BTSessionEvent, BTResult, void * _Nonnull)", 0x28u, "BTSession unknown event %d, result %@", v42, v43, v44, v45, a2);
+    v43 = NSPrintF("%#m", v10, v11, v12, v13, v14, v15, v16, v17);
+    LogPrintF(v36, "void _btSessionEventCallback(BTSession _Nonnull, BTSessionEvent, BTResult, void * _Nonnull)", 40, "BTSession unknown event %d, result %@", v37, v38, v39, v40, a2);
 
     goto LABEL_28;
   }
@@ -5011,7 +5047,7 @@ LABEL_27:
     v18 = *(v9 + 19);
   }
 
-  LogPrintF(v18, "void _btSessionEventCallback(BTSession _Nonnull, BTSessionEvent, BTResult, void * _Nonnull)", 0x1Eu, "BTSession attached: %#m\n", v13, v14, v15, v16, v17);
+  LogPrintF(v18, "void _btSessionEventCallback(BTSession _Nonnull, BTSessionEvent, BTResult, void * _Nonnull)", 30, "BTSession attached: %#m\n", v13, v14, v15, v16, v17);
 LABEL_21:
   *(v9 + 7) = a1;
   *(v9 + 64) = 0;
@@ -5034,7 +5070,7 @@ uint64_t initBTDeviceIsWirelessSplitterSupported(uint64_t a1, uint64_t a2)
   }
 
   v4 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTDeviceIsWirelessSplitterSupported");
-  softLinkBTDeviceIsWirelessSplitterSupported[0] = v4;
+  softLinkBTDeviceIsWirelessSplitterSupported = v4;
 
   return (v4)(a1, a2);
 }
@@ -5054,7 +5090,7 @@ uint64_t initBTDeviceIsTemporaryPaired(uint64_t a1, uint64_t a2)
   }
 
   v4 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTDeviceIsTemporaryPaired");
-  softLinkBTDeviceIsTemporaryPaired[0] = v4;
+  softLinkBTDeviceIsTemporaryPaired = v4;
 
   return (v4)(a1, a2);
 }
@@ -5067,7 +5103,7 @@ uint64_t initBTDeviceGetSupportedServices(uint64_t a1, uint64_t a2)
   }
 
   v4 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTDeviceGetSupportedServices");
-  softLinkBTDeviceGetSupportedServices[0] = v4;
+  softLinkBTDeviceGetSupportedServices = v4;
 
   return (v4)(a1, a2);
 }
@@ -5080,7 +5116,7 @@ uint64_t initBTDeviceGetDeviceId(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
   }
 
   v10 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTDeviceGetDeviceId");
-  softLinkBTDeviceGetDeviceId[0] = v10;
+  softLinkBTDeviceGetDeviceId = v10;
 
   return (v10)(a1, a2, a3, a4, a5);
 }
@@ -5093,7 +5129,7 @@ uint64_t initBTAccessoryManagerGetInEarStatus(uint64_t a1, uint64_t a2, uint64_t
   }
 
   v8 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTAccessoryManagerGetInEarStatus");
-  softLinkBTAccessoryManagerGetInEarStatus[0] = v8;
+  softLinkBTAccessoryManagerGetInEarStatus = v8;
 
   return (v8)(a1, a2, a3, a4);
 }
@@ -5106,7 +5142,7 @@ uint64_t initBTAccessoryManagerGetInEarDetectionEnable(uint64_t a1, uint64_t a2,
   }
 
   v6 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTAccessoryManagerGetInEarDetectionEnable");
-  softLinkBTAccessoryManagerGetInEarDetectionEnable[0] = v6;
+  softLinkBTAccessoryManagerGetInEarDetectionEnable = v6;
 
   return (v6)(a1, a2, a3);
 }
@@ -5119,7 +5155,7 @@ uint64_t initBTDeviceGetName(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v6 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTDeviceGetName");
-  softLinkBTDeviceGetName[0] = v6;
+  softLinkBTDeviceGetName = v6;
 
   return (v6)(a1, a2, a3);
 }
@@ -5132,7 +5168,7 @@ uint64_t initBTDeviceGetMagicPairingStatus(uint64_t a1, uint64_t a2)
   }
 
   v4 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTDeviceGetMagicPairingStatus");
-  softLinkBTDeviceGetMagicPairingStatus[0] = v4;
+  softLinkBTDeviceGetMagicPairingStatus = v4;
 
   return (v4)(a1, a2);
 }
@@ -5145,7 +5181,7 @@ uint64_t initBTAccessoryManagerGetFeatureCapability(uint64_t a1, uint64_t a2, ui
   }
 
   v8 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTAccessoryManagerGetFeatureCapability");
-  softLinkBTAccessoryManagerGetFeatureCapability[0] = v8;
+  softLinkBTAccessoryManagerGetFeatureCapability = v8;
 
   return (v8)(a1, a2, a3, a4);
 }
@@ -5158,7 +5194,7 @@ uint64_t initBTDeviceGetDeviceType(uint64_t a1, uint64_t a2)
   }
 
   v4 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTDeviceGetDeviceType");
-  softLinkBTDeviceGetDeviceType[0] = v4;
+  softLinkBTDeviceGetDeviceType = v4;
 
   return (v4)(a1, a2);
 }
@@ -5171,7 +5207,7 @@ uint64_t initBTAccessoryManagerGetDeviceColor(uint64_t a1, uint64_t a2, uint64_t
   }
 
   v6 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTAccessoryManagerGetDeviceColor");
-  softLinkBTAccessoryManagerGetDeviceColor[0] = v6;
+  softLinkBTAccessoryManagerGetDeviceColor = v6;
 
   return (v6)(a1, a2, a3);
 }
@@ -5184,7 +5220,7 @@ uint64_t initBTDeviceGetConnectedServices_1950(uint64_t a1, uint64_t a2)
   }
 
   v4 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTDeviceGetConnectedServices");
-  softLinkBTDeviceGetConnectedServices_1932[0] = v4;
+  softLinkBTDeviceGetConnectedServices_1932 = v4;
 
   return (v4)(a1, a2);
 }
@@ -5197,7 +5233,7 @@ uint64_t initBTAccessoryManagerGetAccessoryInfo(uint64_t a1, uint64_t a2, uint64
   }
 
   v10 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTAccessoryManagerGetAccessoryInfo");
-  softLinkBTAccessoryManagerGetAccessoryInfo[0] = v10;
+  softLinkBTAccessoryManagerGetAccessoryInfo = v10;
 
   return (v10)(a1, a2, a3, a4, a5);
 }
@@ -5212,7 +5248,7 @@ uint64_t initBTAccessoryManagerReadDeviceVersionInfo(uint64_t a1, uint64_t a2, u
   v18 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTAccessoryManagerReadDeviceVersionInfo");
   softLinkBTAccessoryManagerReadDeviceVersionInfo = v18;
 
-  return v18(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15);
+  return (v18)(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15);
 }
 
 uint64_t initBTAccessoryManagerGetDefault(uint64_t a1, uint64_t a2)
@@ -5223,7 +5259,7 @@ uint64_t initBTAccessoryManagerGetDefault(uint64_t a1, uint64_t a2)
   }
 
   v4 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTAccessoryManagerGetDefault");
-  softLinkBTAccessoryManagerGetDefault[0] = v4;
+  softLinkBTAccessoryManagerGetDefault = v4;
 
   return (v4)(a1, a2);
 }
@@ -5236,7 +5272,7 @@ uint64_t initBTDeviceAddressFromString(uint64_t a1, uint64_t a2)
   }
 
   v4 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTDeviceAddressFromString");
-  softLinkBTDeviceAddressFromString[0] = v4;
+  softLinkBTDeviceAddressFromString = v4;
 
   return (v4)(a1, a2);
 }
@@ -5249,7 +5285,7 @@ uint64_t initBTDeviceGetAddressString_1982(uint64_t a1, uint64_t a2, uint64_t a3
   }
 
   v6 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTDeviceGetAddressString");
-  softLinkBTDeviceGetAddressString_1961[0] = v6;
+  softLinkBTDeviceGetAddressString_1961 = v6;
 
   return (v6)(a1, a2, a3);
 }
@@ -5262,7 +5298,7 @@ uint64_t initBTLocalDeviceGetPairedDevices(uint64_t a1, uint64_t a2, uint64_t a3
   }
 
   v8 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTLocalDeviceGetPairedDevices");
-  softLinkBTLocalDeviceGetPairedDevices[0] = v8;
+  softLinkBTLocalDeviceGetPairedDevices = v8;
 
   return (v8)(a1, a2, a3, a4);
 }
@@ -5275,7 +5311,7 @@ uint64_t initBTLocalDeviceGetConnectedDevices(uint64_t a1, uint64_t a2, uint64_t
   }
 
   v8 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTLocalDeviceGetConnectedDevices");
-  softLinkBTLocalDeviceGetConnectedDevices[0] = v8;
+  softLinkBTLocalDeviceGetConnectedDevices = v8;
 
   return (v8)(a1, a2, a3, a4);
 }
@@ -5288,7 +5324,7 @@ uint64_t initBTDeviceFromAddress_2007(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v6 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTDeviceFromAddress");
-  softLinkBTDeviceFromAddress_2004[0] = v6;
+  softLinkBTDeviceFromAddress_2004 = v6;
 
   return (v6)(a1, a2, a3);
 }
@@ -5301,7 +5337,7 @@ uint64_t initBTDeviceFromIdentifier_2009(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v6 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTDeviceFromIdentifier");
-  softLinkBTDeviceFromIdentifier_2001[0] = v6;
+  softLinkBTDeviceFromIdentifier_2001 = v6;
 
   return (v6)(a1, a2, a3);
 }
@@ -5314,9 +5350,9 @@ uint64_t initBTSessionDetachWithQueue_2036(uint64_t a1)
   }
 
   v2 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTSessionDetachWithQueue");
-  softLinkBTSessionDetachWithQueue_2033[0] = v2;
+  softLinkBTSessionDetachWithQueue_2033 = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 void _btServiceEventHandler_2037(uint64_t a1, uint64_t a2, int a3, uint64_t a4, int a5, void *a6)
@@ -5345,7 +5381,7 @@ void _btServiceEventHandler_2037(uint64_t a1, uint64_t a2, int a3, uint64_t a4, 
       }
 
       BTServiceSpecificEventToString(a4);
-      LogPrintF(v29, "void _btServiceEventHandler(BTDevice _Nonnull, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void * _Nonnull)", 0xAu, "BTService independent event: %#{flags}, %d %s, %#m\n", v30, v31, v32, v33, a2);
+      LogPrintF(v29, "void _btServiceEventHandler(BTDevice _Nonnull, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void * _Nonnull)", 10, "BTService independent event: %#{flags}, %d %s, %#m\n", v30, v31, v32, v33, a2);
     }
 
 LABEL_21:
@@ -5369,7 +5405,7 @@ LABEL_21:
       }
 
       BTServiceSpecificEventToString(a4);
-      LogPrintF(v24, "void _btServiceEventHandler(BTDevice _Nonnull, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void * _Nonnull)", 0xAu, "BTService disconnect: %#{flags}, %d %s, %#m\n", v25, v26, v27, v28, a2);
+      LogPrintF(v24, "void _btServiceEventHandler(BTDevice _Nonnull, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void * _Nonnull)", 10, "BTService disconnect: %#{flags}, %d %s, %#m\n", v25, v26, v27, v28, a2);
     }
 
 LABEL_16:
@@ -5399,7 +5435,7 @@ LABEL_16:
     {
 LABEL_8:
       BTServiceSpecificEventToString(a4);
-      LogPrintF(v19, "void _btServiceEventHandler(BTDevice _Nonnull, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void * _Nonnull)", 0xAu, "BTService connect: %#{flags}, %d %s, %#m\n", v20, v21, v22, v23, a2);
+      LogPrintF(v19, "void _btServiceEventHandler(BTDevice _Nonnull, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void * _Nonnull)", 10, "BTService connect: %#{flags}, %d %s, %#m\n", v20, v21, v22, v23, a2);
       goto LABEL_23;
     }
 
@@ -5424,11 +5460,11 @@ LABEL_23:
     }
 
     v46 = 0;
-    v36 = (softLinkBTDeviceGetConnectedServices_1932[0])(a1, &v46);
-    if (v36)
+    ConnectedServices_1932 = softLinkBTDeviceGetConnectedServices_1932(a1, &v46);
+    if (ConnectedServices_1932)
     {
-      v41 = (v36 + 310000);
-      if (v36 != -310000)
+      v41 = (ConnectedServices_1932 + 310000);
+      if (ConnectedServices_1932 != -310000)
       {
         v42 = v18[28];
         if (*v42 <= 90)
@@ -5436,7 +5472,7 @@ LABEL_23:
           if (*v42 != -1)
           {
 LABEL_34:
-            LogPrintF(v42, "void _btServiceEventHandler(BTDevice _Nonnull, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void * _Nonnull)", 0x5Au, "### BTDeviceGetConnectedServices failed: %#m\n", v37, v38, v39, v40, v41);
+            LogPrintF(v42, "void _btServiceEventHandler(BTDevice _Nonnull, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void * _Nonnull)", 90, "### BTDeviceGetConnectedServices failed: %#m\n", v37, v38, v39, v40, v41);
             goto LABEL_38;
           }
 
@@ -5469,7 +5505,7 @@ LABEL_38:
           v43 = v46;
         }
 
-        LogPrintF(v45, "void _btServiceEventHandler(BTDevice _Nonnull, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void * _Nonnull)", 0x1Eu, "BTService connect waiting for more services: %#{flags}\n", v37, v38, v39, v40, v44 & ~v43);
+        LogPrintF(v45, "void _btServiceEventHandler(BTDevice _Nonnull, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void * _Nonnull)", 30, "BTService connect waiting for more services: %#{flags}\n", v37, v38, v39, v40, v44 & ~v43);
       }
 
       goto LABEL_2;
@@ -5493,7 +5529,7 @@ LABEL_39:
       v35 = v18[28];
     }
 
-    LogPrintF(v35, "void _btServiceEventHandler(BTDevice _Nonnull, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void * _Nonnull)", 0x3Cu, "### BTService connect failed: %#m\n", v14, v15, v16, v17, (a5 + 310000));
+    LogPrintF(v35, "void _btServiceEventHandler(BTDevice _Nonnull, BTServiceID, BTServiceEventType, BTServiceSpecificEvent, BTResult, void * _Nonnull)", 60, "### BTService connect failed: %#m\n", v14, v15, v16, v17, (a5 + 310000));
   }
 
 LABEL_2:
@@ -5509,7 +5545,7 @@ uint64_t initBTServiceRemoveCallbacks_2040(uint64_t a1, uint64_t a2)
   }
 
   v4 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTServiceRemoveCallbacks");
-  softLinkBTServiceRemoveCallbacks_2030[0] = v4;
+  softLinkBTServiceRemoveCallbacks_2030 = v4;
 
   return (v4)(a1, a2);
 }
@@ -5522,9 +5558,9 @@ uint64_t initBTPairingAgentDestroy(uint64_t a1)
   }
 
   v2 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTPairingAgentDestroy");
-  softLinkBTPairingAgentDestroy[0] = v2;
+  softLinkBTPairingAgentDestroy = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 uint64_t initBTPairingAgentStop(uint64_t a1)
@@ -5535,9 +5571,9 @@ uint64_t initBTPairingAgentStop(uint64_t a1)
   }
 
   v2 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTPairingAgentStop");
-  softLinkBTPairingAgentStop[0] = v2;
+  softLinkBTPairingAgentStop = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 uint64_t initBTLocalDeviceRemoveCallbacks(uint64_t a1, uint64_t a2)
@@ -5548,7 +5584,7 @@ uint64_t initBTLocalDeviceRemoveCallbacks(uint64_t a1, uint64_t a2)
   }
 
   v4 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTLocalDeviceRemoveCallbacks");
-  softLinkBTLocalDeviceRemoveCallbacks[0] = v4;
+  softLinkBTLocalDeviceRemoveCallbacks = v4;
 
   return (v4)(a1, a2);
 }
@@ -5574,7 +5610,7 @@ uint64_t initBTAccessoryManagerAddCallbacks(uint64_t a1, uint64_t a2, uint64_t a
   }
 
   v6 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTAccessoryManagerAddCallbacks");
-  softLinkBTAccessoryManagerAddCallbacks[0] = v6;
+  softLinkBTAccessoryManagerAddCallbacks = v6;
 
   return (v6)(a1, a2, a3);
 }
@@ -5637,9 +5673,9 @@ uint64_t initBTPairingAgentStart(uint64_t a1)
   }
 
   v2 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTPairingAgentStart");
-  softLinkBTPairingAgentStart[0] = v2;
+  softLinkBTPairingAgentStart = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 uint64_t initBTPairingAgentCreate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -5650,7 +5686,7 @@ uint64_t initBTPairingAgentCreate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
   }
 
   v8 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTPairingAgentCreate");
-  softLinkBTPairingAgentCreate[0] = v8;
+  softLinkBTPairingAgentCreate = v8;
 
   return (v8)(a1, a2, a3, a4);
 }
@@ -5681,7 +5717,7 @@ void _btPairingAgentStatusCallback(uint64_t a1, uint64_t a2, uint64_t a3, int a4
         {
           v14 = v13[28];
 LABEL_6:
-          LogPrintF(v14, "void _btPairingAgentStatusCallback(BTPairingAgent _Nonnull, BTPairingEvent, BTDevice _Nonnull, BTResult, void * _Nonnull)", 0x1Eu, "BTPairingAgent stopped: %#m\n", v9, v10, v11, v12, (a4 + 310000));
+          LogPrintF(v14, "void _btPairingAgentStatusCallback(BTPairingAgent _Nonnull, BTPairingEvent, BTDevice _Nonnull, BTResult, void * _Nonnull)", 30, "BTPairingAgent stopped: %#m\n", v9, v10, v11, v12, (a4 + 310000));
           goto LABEL_32;
         }
 
@@ -5704,7 +5740,7 @@ LABEL_12:
         v14 = v13[28];
       }
 
-      LogPrintF(v14, "void _btPairingAgentStatusCallback(BTPairingAgent _Nonnull, BTPairingEvent, BTDevice _Nonnull, BTResult, void * _Nonnull)", 0x1Eu, "BTPairingAgent unknown event: %d, %#m\n", v9, v10, v11, v12, a2);
+      LogPrintF(v14, "void _btPairingAgentStatusCallback(BTPairingAgent _Nonnull, BTPairingEvent, BTDevice _Nonnull, BTResult, void * _Nonnull)", 30, "BTPairingAgent unknown event: %d, %#m\n", v9, v10, v11, v12, a2);
       goto LABEL_32;
     }
 
@@ -5713,7 +5749,7 @@ LABEL_12:
       if (v15 != -1)
       {
 LABEL_17:
-        LogPrintF(v14, "void _btPairingAgentStatusCallback(BTPairingAgent _Nonnull, BTPairingEvent, BTDevice _Nonnull, BTResult, void * _Nonnull)", 0x1Eu, "BTPairingAgent started: %#m\n", v9, v10, v11, v12, (a4 + 310000));
+        LogPrintF(v14, "void _btPairingAgentStatusCallback(BTPairingAgent _Nonnull, BTPairingEvent, BTDevice _Nonnull, BTResult, void * _Nonnull)", 30, "BTPairingAgent started: %#m\n", v9, v10, v11, v12, (a4 + 310000));
         goto LABEL_29;
       }
 
@@ -5753,7 +5789,7 @@ LABEL_29:
         v14 = v13[28];
       }
 
-      LogPrintF(v14, "void _btPairingAgentStatusCallback(BTPairingAgent _Nonnull, BTPairingEvent, BTDevice _Nonnull, BTResult, void * _Nonnull)", 0x1Eu, "BTPairingAgent attempt complete: %#m\n", v9, v10, v11, v12, (a4 + 310000));
+      LogPrintF(v14, "void _btPairingAgentStatusCallback(BTPairingAgent _Nonnull, BTPairingEvent, BTDevice _Nonnull, BTResult, void * _Nonnull)", 30, "BTPairingAgent attempt complete: %#m\n", v9, v10, v11, v12, (a4 + 310000));
       goto LABEL_32;
     }
 
@@ -5775,7 +5811,7 @@ LABEL_29:
     v14 = v13[28];
   }
 
-  LogPrintF(v14, "void _btPairingAgentStatusCallback(BTPairingAgent _Nonnull, BTPairingEvent, BTDevice _Nonnull, BTResult, void * _Nonnull)", 0x1Eu, "BTPairingAgent attempt started: %#m\n", v9, v10, v11, v12, (a4 + 310000));
+  LogPrintF(v14, "void _btPairingAgentStatusCallback(BTPairingAgent _Nonnull, BTPairingEvent, BTDevice _Nonnull, BTResult, void * _Nonnull)", 30, "BTPairingAgent attempt started: %#m\n", v9, v10, v11, v12, (a4 + 310000));
 LABEL_32:
 
   objc_autoreleasePoolPop(v8);
@@ -5789,7 +5825,7 @@ uint64_t initBTLocalDeviceAddCallbacks(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v6 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTLocalDeviceAddCallbacks");
-  softLinkBTLocalDeviceAddCallbacks[0] = v6;
+  softLinkBTLocalDeviceAddCallbacks = v6;
 
   return (v6)(a1, a2, a3);
 }
@@ -5816,7 +5852,7 @@ void _btLocalDeviceStatusCallback(uint64_t a1, int a2, uint64_t a3, void *a4)
 
       v14 = "Bluetooth first unlock completed";
 LABEL_9:
-      LogPrintF(v13, "void _btLocalDeviceStatusCallback(BTLocalDevice _Nonnull, BTLocalDeviceEvent, BTResult, void * _Nonnull)", 0x1Eu, v14, v8, v9, v10, v11, v15);
+      LogPrintF(v13, "void _btLocalDeviceStatusCallback(BTLocalDevice _Nonnull, BTLocalDeviceEvent, BTResult, void * _Nonnull)", 30, v14, v8, v9, v10, v11, v15);
     }
   }
 
@@ -5860,7 +5896,7 @@ uint64_t initBTLocalDeviceGetAddressString(uint64_t a1, uint64_t a2, uint64_t a3
   }
 
   v6 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTLocalDeviceGetAddressString");
-  softLinkBTLocalDeviceGetAddressString[0] = v6;
+  softLinkBTLocalDeviceGetAddressString = v6;
 
   return (v6)(a1, a2, a3);
 }
@@ -5873,7 +5909,7 @@ uint64_t initBTLocalDeviceGetDefault(uint64_t a1, uint64_t a2)
   }
 
   v4 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTLocalDeviceGetDefault");
-  softLinkBTLocalDeviceGetDefault[0] = v4;
+  softLinkBTLocalDeviceGetDefault = v4;
 
   return (v4)(a1, a2);
 }
@@ -5886,7 +5922,7 @@ uint64_t initBTServiceAddCallbacks_2066(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v6 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTServiceAddCallbacks");
-  softLinkBTServiceAddCallbacks_2051[0] = v6;
+  softLinkBTServiceAddCallbacks_2051 = v6;
 
   return (v6)(a1, a2, a3);
 }
@@ -5900,8 +5936,8 @@ uint64_t initBTSessionAttachWithQueue_2068(uint64_t a1, uint64_t a2, uint64_t a3
     dispatch_once(&MobileBluetoothLibrary_sOnce_1942, &__block_literal_global_640);
   }
 
-  softLinkBTSessionAttachWithQueue_2048[0] = dlsym(MobileBluetoothLibrary_sLib_1943, "BTSessionAttachWithQueue");
-  v9 = (softLinkBTSessionAttachWithQueue_2048[0])(a1, a2, a3, v8);
+  softLinkBTSessionAttachWithQueue_2048 = dlsym(MobileBluetoothLibrary_sLib_1943, "BTSessionAttachWithQueue");
+  v9 = softLinkBTSessionAttachWithQueue_2048(a1, a2, a3, v8);
 
   return v9;
 }
@@ -5930,7 +5966,7 @@ void _btSessionEventCallback_2069(uint64_t a1, uint64_t a2, int a3, void *a4)
             v14 = v13[28];
           }
 
-          LogPrintF(v14, "void _btSessionEventCallback(BTSession _Nonnull, BTSessionEvent, BTResult, void * _Nonnull)", 0x1Eu, "BTSession detached: %#m\n", v9, v10, v11, v12, (a3 + 310000));
+          LogPrintF(v14, "void _btSessionEventCallback(BTSession _Nonnull, BTSessionEvent, BTResult, void * _Nonnull)", 30, "BTSession detached: %#m\n", v9, v10, v11, v12, (a3 + 310000));
         }
 
 LABEL_25:
@@ -5950,7 +5986,7 @@ LABEL_35:
       if (v15 != -1)
       {
 LABEL_18:
-        LogPrintF(v14, "void _btSessionEventCallback(BTSession _Nonnull, BTSessionEvent, BTResult, void * _Nonnull)", 0x1Eu, "BTSession attached: %#m\n", v9, v10, v11, v12, (a3 + 310000));
+        LogPrintF(v14, "void _btSessionEventCallback(BTSession _Nonnull, BTSessionEvent, BTResult, void * _Nonnull)", 30, "BTSession attached: %#m\n", v9, v10, v11, v12, (a3 + 310000));
         goto LABEL_29;
       }
 
@@ -6004,7 +6040,7 @@ LABEL_33:
       v14 = v13[28];
     }
 
-    LogPrintF(v14, "void _btSessionEventCallback(BTSession _Nonnull, BTSessionEvent, BTResult, void * _Nonnull)", 0x3Cu, "### BTSession terminated (bluetoothd crash)...re-attaching\n", v9, v10, v11, v12, v17);
+    LogPrintF(v14, "void _btSessionEventCallback(BTSession _Nonnull, BTSessionEvent, BTResult, void * _Nonnull)", 60, "### BTSession terminated (bluetoothd crash)...re-attaching\n", v9, v10, v11, v12, v17);
     goto LABEL_33;
   }
 
@@ -6025,7 +6061,7 @@ LABEL_33:
       v14 = v13[28];
     }
 
-    LogPrintF(v14, "void _btSessionEventCallback(BTSession _Nonnull, BTSessionEvent, BTResult, void * _Nonnull)", 0x3Cu, "### BTSession failed: %#m\n", v9, v10, v11, v12, (a3 + 310000));
+    LogPrintF(v14, "void _btSessionEventCallback(BTSession _Nonnull, BTSessionEvent, BTResult, void * _Nonnull)", 60, "### BTSession failed: %#m\n", v9, v10, v11, v12, (a3 + 310000));
     goto LABEL_36;
   }
 
@@ -6045,7 +6081,7 @@ LABEL_12:
     v14 = v13[28];
   }
 
-  LogPrintF(v14, "void _btSessionEventCallback(BTSession _Nonnull, BTSessionEvent, BTResult, void * _Nonnull)", 0x28u, "BTSession unknown event %d, result %#m\n", v9, v10, v11, v12, a2);
+  LogPrintF(v14, "void _btSessionEventCallback(BTSession _Nonnull, BTSessionEvent, BTResult, void * _Nonnull)", 40, "BTSession unknown event %d, result %#m\n", v9, v10, v11, v12, a2);
 LABEL_36:
 
   objc_autoreleasePoolPop(v8);
@@ -6060,7 +6096,7 @@ Class initCBPeripheralManager_2072()
 
   result = objc_getClass("CBPeripheralManager");
   classCBPeripheralManager_2074 = result;
-  getCBPeripheralManagerClass_2045[0] = CBPeripheralManagerFunction_2076;
+  getCBPeripheralManagerClass_2045 = CBPeripheralManagerFunction_2076;
   return result;
 }
 
@@ -6108,7 +6144,7 @@ Class initCBCentralManager_2081()
 
   result = objc_getClass("CBCentralManager");
   classCBCentralManager_2082 = result;
-  getCBCentralManagerClass_2043[0] = CBCentralManagerFunction_2084;
+  getCBCentralManagerClass_2043 = CBCentralManagerFunction_2084;
   return result;
 }
 
@@ -6184,7 +6220,7 @@ Class initCBScalablePipeManager()
 
   result = objc_getClass("CBScalablePipeManager");
   classCBScalablePipeManager = result;
-  getCBScalablePipeManagerClass[0] = CBScalablePipeManagerFunction;
+  getCBScalablePipeManagerClass = CBScalablePipeManagerFunction;
   return result;
 }
 
@@ -6241,7 +6277,7 @@ uint64_t SerialStreamCreate(uint64_t *a1)
   return result;
 }
 
-uint64_t SerialStreamSetConfig(uint64_t a1, uint64_t a2)
+uint64_t SerialStreamSetConfig(uint64_t a1, uint64_t *a2)
 {
   if (!*a2)
   {
@@ -6250,8 +6286,8 @@ uint64_t SerialStreamSetConfig(uint64_t a1, uint64_t a2)
 
   __strlcpy_chk();
   result = 0;
-  *(a1 + 1156) = *(a2 + 8);
-  *(a1 + 1164) = *(a2 + 16);
+  *(a1 + 1156) = a2[1];
+  *(a1 + 1164) = *(a2 + 4);
   return result;
 }
 
@@ -6408,20 +6444,20 @@ uint64_t SerialStreamRead(dispatch_queue_t *a1, uint64_t a2, uint64_t a3, char *
 
   v14 = v13;
   CFRetain(a1);
-  v14[1] = a1;
+  *(v14 + 1) = a1;
   *(v14 + 4) = 0;
-  v14[3] = a2;
-  v14[4] = a3;
-  v15 = (v14 + 9);
+  *(v14 + 3) = a2;
+  *(v14 + 4) = a3;
+  v15 = v14 + 72;
   if (a4)
   {
     v15 = a4;
   }
 
-  v14[5] = 0;
-  v14[6] = v15;
-  v14[7] = a5;
-  v14[8] = a6;
+  *(v14 + 5) = 0;
+  *(v14 + 6) = v15;
+  *(v14 + 7) = a5;
+  *(v14 + 8) = a6;
   dispatch_async_f(a1[2], v14, _SerialStreamRead);
   return 0;
 }
@@ -6456,7 +6492,7 @@ uint64_t _SerialStreamEnsureSetUp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
 
   if (gLogCategory_SerialUtils <= 20 && (gLogCategory_SerialUtils != -1 || _LogCategory_Initialize(&gLogCategory_SerialUtils, 0x14u)))
   {
-    LogPrintF(&gLogCategory_SerialUtils, "OSStatus _SerialStreamEnsureSetUp(SerialStreamRef)", 0x14u, "Opening serial port '%s'\n", a5, a6, a7, a8, a1 + 128);
+    LogPrintF(&gLogCategory_SerialUtils, "OSStatus _SerialStreamEnsureSetUp(SerialStreamRef)", 20, "Opening serial port '%s'\n", a5, a6, a7, a8, a1 + 128);
   }
 
   memset(&v28, 0, sizeof(v28));
@@ -6488,7 +6524,7 @@ uint64_t _SerialStreamEnsureSetUp(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
     {
       v25 = v9;
       v26 = v15;
-      LogPrintF(&gLogCategory_SerialUtils, "OSStatus _SerialStreamEnsureSetUp(SerialStreamRef)", 0x32u, "### Open '%s' error %d of 10: %#m\n", v11, v12, v13, v14, a1 + 128);
+      LogPrintF(&gLogCategory_SerialUtils, "OSStatus _SerialStreamEnsureSetUp(SerialStreamRef)", 50, "### Open '%s' error %d of 10: %#m\n", v11, v12, v13, v14, a1 + 128);
     }
 
     if (v15 != 16)
@@ -6514,7 +6550,7 @@ LABEL_20:
   if (gLogCategory_SerialUtils <= 50 && (gLogCategory_SerialUtils != -1 || _LogCategory_Initialize(&gLogCategory_SerialUtils, 0x32u)))
   {
     v25 = v9;
-    LogPrintF(&gLogCategory_SerialUtils, "OSStatus _SerialStreamEnsureSetUp(SerialStreamRef)", 0x32u, "Opened '%s' after %d attempts\n", v11, v12, v13, v14, a1 + 128);
+    LogPrintF(&gLogCategory_SerialUtils, "OSStatus _SerialStreamEnsureSetUp(SerialStreamRef)", 50, "Opened '%s' after %d attempts\n", v11, v12, v13, v14, a1 + 128);
   }
 
 LABEL_24:
@@ -7211,7 +7247,7 @@ intptr_t _SerialStreamReadSyncCompletion(int a1, uint64_t a2, uint64_t a3, uint6
   return dispatch_semaphore_signal(*a4);
 }
 
-uint64_t SerialStreamWrite(dispatch_queue_t *a1, char a2, char *a3, int a4, uint64_t a5, uint64_t a6)
+uint64_t SerialStreamWrite(dispatch_queue_t *a1, char a2, char *a3, unsigned int a4, uint64_t a5, uint64_t a6)
 {
   v8 = a4;
   v9 = a3;
@@ -7224,7 +7260,7 @@ uint64_t SerialStreamWrite(dispatch_queue_t *a1, char a2, char *a3, int a4, uint
     }
 
 LABEL_14:
-    v11[8] = v8;
+    *(v11 + 8) = v8;
     *(v11 + 5) = v9;
     CFRetain(a1);
     *(v11 + 1) = a1;
@@ -7237,13 +7273,13 @@ LABEL_14:
   if (a4 >= 1)
   {
     v12 = a4;
-    v13 = (a3 + 8);
+    v13 = a3 + 8;
     v14 = 64;
     v15 = a4;
     do
     {
       v16 = *v13;
-      v13 += 2;
+      v13 += 16;
       v14 += v16;
       --v15;
     }
@@ -7278,9 +7314,9 @@ LABEL_14:
     v11 = v22;
     v18 = 0;
 LABEL_13:
-    *(v11 + 2) = v11 + 16;
+    *(v11 + 2) = v11 + 64;
     *(v11 + 3) = v18;
-    v9 = (v11 + 4);
+    v9 = v11 + 16;
     v8 = 1;
     goto LABEL_14;
   }
@@ -7308,7 +7344,7 @@ void _SerialStreamWrite(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_
   }
 }
 
-uint64_t SerialStreamWriteSync(dispatch_queue_t *a1, char *a2, int a3)
+uint64_t SerialStreamWriteSync(dispatch_queue_t *a1, char *a2, unsigned int a3)
 {
   v8 = 0;
   dsema = dispatch_semaphore_create(0);
@@ -7334,11 +7370,11 @@ uint64_t SerialStreamWriteSync(dispatch_queue_t *a1, char *a2, int a3)
   return v8;
 }
 
-void sub_191F1451C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_191F1451C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v10 - 96), 8);
+  _Block_object_dispose((v17 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7377,8 +7413,8 @@ void initAnalyticsSendEvent(void *a1, void *a2)
     dispatch_once(&CoreAnalyticsLibrary_sOnce, &__block_literal_global_2814);
   }
 
-  softLinkAnalyticsSendEvent[0] = dlsym(CoreAnalyticsLibrary_sLib, "AnalyticsSendEvent");
-  (softLinkAnalyticsSendEvent[0])(v5, v4);
+  softLinkAnalyticsSendEvent = dlsym(CoreAnalyticsLibrary_sLib, "AnalyticsSendEvent");
+  softLinkAnalyticsSendEvent(v5, v4);
 }
 
 void *__CoreAnalyticsLibrary_block_invoke()
@@ -7388,10 +7424,10 @@ void *__CoreAnalyticsLibrary_block_invoke()
   return result;
 }
 
-void sub_191F15D48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_191F15D48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  (*(v9 + 16))(v9);
+  va_start(va, a16);
+  (*(v16 + 16))(v16, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7412,7 +7448,7 @@ Class initRPCompanionLinkDevice()
 
   result = objc_getClass("RPCompanionLinkDevice");
   classRPCompanionLinkDevice = result;
-  getRPCompanionLinkDeviceClass[0] = RPCompanionLinkDeviceFunction;
+  getRPCompanionLinkDeviceClass = RPCompanionLinkDeviceFunction;
   return result;
 }
 
@@ -7432,7 +7468,7 @@ Class initRPCompanionLinkClient()
 
   result = objc_getClass("RPCompanionLinkClient");
   classRPCompanionLinkClient = result;
-  getRPCompanionLinkClientClass[0] = RPCompanionLinkClientFunction;
+  getRPCompanionLinkClientClass = RPCompanionLinkClientFunction;
   return result;
 }
 
@@ -7464,44 +7500,44 @@ void __initValRPOptionTimeoutSeconds_block_invoke()
   getRPOptionTimeoutSeconds = RPOptionTimeoutSecondsFunction;
 }
 
-void sub_191F175B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_191F175B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_191F17C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_191F17C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_191F183AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
-  (*(a14 + 16))();
+  (*(a14 + 16))(a14, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose((v14 - 152), 8);
   _Unwind_Resume(a1);
 }
 
 void sub_191F18A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
-  (*(a12 + 16))();
+  (*(a12 + 16))(a12, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose((v12 - 152), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_191F18FBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_191F18FBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_191F19320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_191F19320(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7522,7 +7558,7 @@ Class initHAPSystemKeychainStore()
 
   result = objc_getClass("HAPSystemKeychainStore");
   classHAPSystemKeychainStore = result;
-  getHAPSystemKeychainStoreClass[0] = HAPSystemKeychainStoreFunction;
+  getHAPSystemKeychainStoreClass = HAPSystemKeychainStoreFunction;
   return result;
 }
 
@@ -7542,7 +7578,7 @@ Class initHMHomeManager()
 
   result = objc_getClass("HMHomeManager");
   classHMHomeManager = result;
-  getHMHomeManagerClass[0] = HMHomeManagerFunction;
+  getHMHomeManagerClass = HMHomeManagerFunction;
   return result;
 }
 
@@ -7562,7 +7598,7 @@ Class initHMHomeManagerConfiguration()
 
   result = objc_getClass("HMHomeManagerConfiguration");
   classHMHomeManagerConfiguration = result;
-  getHMHomeManagerConfigurationClass[0] = HMHomeManagerConfigurationFunction;
+  getHMHomeManagerConfigurationClass = HMHomeManagerConfigurationFunction;
   return result;
 }
 
@@ -7575,7 +7611,7 @@ Class initHMClientConnection()
 
   result = objc_getClass("HMClientConnection");
   classHMClientConnection = result;
-  getHMClientConnectionClass[0] = HMClientConnectionFunction;
+  getHMClientConnectionClass = HMClientConnectionFunction;
   return result;
 }
 
@@ -7598,7 +7634,7 @@ uint64_t initValHMHomeManagerPreferencesChangedNotification()
     result = constantValHMHomeManagerPreferencesChangedNotification;
   }
 
-  getHMHomeManagerPreferencesChangedNotification[0] = HMHomeManagerPreferencesChangedNotificationFunction;
+  getHMHomeManagerPreferencesChangedNotification = HMHomeManagerPreferencesChangedNotificationFunction;
   return result;
 }
 
@@ -7632,7 +7668,7 @@ Class initWiFiAwareInternetSharingConfiguration()
 
   result = objc_getClass("WiFiAwareInternetSharingConfiguration");
   classWiFiAwareInternetSharingConfiguration = result;
-  getWiFiAwareInternetSharingConfigurationClass[0] = WiFiAwareInternetSharingConfigurationFunction;
+  getWiFiAwareInternetSharingConfigurationClass = WiFiAwareInternetSharingConfigurationFunction;
   return result;
 }
 
@@ -7652,7 +7688,7 @@ Class initWiFiAwarePairingMetadata()
 
   result = objc_getClass("WiFiAwarePairingMetadata");
   classWiFiAwarePairingMetadata = result;
-  getWiFiAwarePairingMetadataClass[0] = WiFiAwarePairingMetadataFunction;
+  getWiFiAwarePairingMetadataClass = WiFiAwarePairingMetadataFunction;
   return result;
 }
 
@@ -7665,7 +7701,7 @@ Class initWiFiAwareDataSession()
 
   result = objc_getClass("WiFiAwareDataSession");
   classWiFiAwareDataSession = result;
-  getWiFiAwareDataSessionClass[0] = WiFiAwareDataSessionFunction;
+  getWiFiAwareDataSessionClass = WiFiAwareDataSessionFunction;
   return result;
 }
 
@@ -7790,7 +7826,7 @@ Class initWiFiAwarePublishServiceSpecificInfo()
 
   result = objc_getClass("WiFiAwarePublishServiceSpecificInfo");
   classWiFiAwarePublishServiceSpecificInfo = result;
-  getWiFiAwarePublishServiceSpecificInfoClass[0] = WiFiAwarePublishServiceSpecificInfoFunction;
+  getWiFiAwarePublishServiceSpecificInfoClass = WiFiAwarePublishServiceSpecificInfoFunction;
   return result;
 }
 
@@ -7801,10 +7837,10 @@ void *__WiFiPeerToPeerLibrary_block_invoke_4879()
   return result;
 }
 
-void sub_191F30C8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_191F30C8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
-  (*(v17 + 16))(v17);
+  va_start(va, a24);
+  (*(v24 + 16))(v24, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7825,7 +7861,7 @@ Class initWiFiAwarePublisher()
 
   result = objc_getClass("WiFiAwarePublisher");
   classWiFiAwarePublisher = result;
-  getWiFiAwarePublisherClass[0] = WiFiAwarePublisherFunction;
+  getWiFiAwarePublisherClass = WiFiAwarePublisherFunction;
   return result;
 }
 
@@ -7838,7 +7874,7 @@ Class initWiFiAwarePublishDatapathServiceSpecificInfo()
 
   result = objc_getClass("WiFiAwarePublishDatapathServiceSpecificInfo");
   classWiFiAwarePublishDatapathServiceSpecificInfo = result;
-  getWiFiAwarePublishDatapathServiceSpecificInfoClass[0] = WiFiAwarePublishDatapathServiceSpecificInfoFunction;
+  getWiFiAwarePublishDatapathServiceSpecificInfoClass = WiFiAwarePublishDatapathServiceSpecificInfoFunction;
   return result;
 }
 
@@ -7851,7 +7887,7 @@ Class initWiFiAwarePublishDatapathConfiguration()
 
   result = objc_getClass("WiFiAwarePublishDatapathConfiguration");
   classWiFiAwarePublishDatapathConfiguration = result;
-  getWiFiAwarePublishDatapathConfigurationClass[0] = WiFiAwarePublishDatapathConfigurationFunction;
+  getWiFiAwarePublishDatapathConfigurationClass = WiFiAwarePublishDatapathConfigurationFunction;
   return result;
 }
 
@@ -7864,7 +7900,7 @@ Class initWiFiAwarePairingMetadata_4923()
 
   result = objc_getClass("WiFiAwarePairingMetadata");
   classWiFiAwarePairingMetadata_4924 = result;
-  getWiFiAwarePairingMetadataClass_4914[0] = WiFiAwarePairingMetadataFunction_4926;
+  getWiFiAwarePairingMetadataClass_4914 = WiFiAwarePairingMetadataFunction_4926;
   return result;
 }
 
@@ -7877,7 +7913,7 @@ Class initWiFiAwarePublishDatapathSecurityConfiguration()
 
   result = objc_getClass("WiFiAwarePublishDatapathSecurityConfiguration");
   classWiFiAwarePublishDatapathSecurityConfiguration = result;
-  getWiFiAwarePublishDatapathSecurityConfigurationClass[0] = WiFiAwarePublishDatapathSecurityConfigurationFunction;
+  getWiFiAwarePublishDatapathSecurityConfigurationClass = WiFiAwarePublishDatapathSecurityConfigurationFunction;
   return result;
 }
 
@@ -7890,7 +7926,7 @@ Class initWiFiAwarePairingConfiguration()
 
   result = objc_getClass("WiFiAwarePairingConfiguration");
   classWiFiAwarePairingConfiguration = result;
-  getWiFiAwarePairingConfigurationClass[0] = WiFiAwarePairingConfigurationFunction;
+  getWiFiAwarePairingConfigurationClass = WiFiAwarePairingConfigurationFunction;
   return result;
 }
 
@@ -7903,7 +7939,7 @@ Class initWiFiAwareInternetSharingConfiguration_4932()
 
   result = objc_getClass("WiFiAwareInternetSharingConfiguration");
   classWiFiAwareInternetSharingConfiguration_4934 = result;
-  getWiFiAwareInternetSharingConfigurationClass_4908[0] = WiFiAwareInternetSharingConfigurationFunction_4936;
+  getWiFiAwareInternetSharingConfigurationClass_4908 = WiFiAwareInternetSharingConfigurationFunction_4936;
   return result;
 }
 
@@ -7916,7 +7952,7 @@ Class initWiFiAwarePublishConfiguration()
 
   result = objc_getClass("WiFiAwarePublishConfiguration");
   classWiFiAwarePublishConfiguration = result;
-  getWiFiAwarePublishConfigurationClass[0] = WiFiAwarePublishConfigurationFunction;
+  getWiFiAwarePublishConfigurationClass = WiFiAwarePublishConfigurationFunction;
   return result;
 }
 
@@ -7950,7 +7986,7 @@ Class initWiFiMACAddress()
 
   result = objc_getClass("WiFiMACAddress");
   classWiFiMACAddress = result;
-  getWiFiMACAddressClass[0] = WiFiMACAddressFunction;
+  getWiFiMACAddressClass = WiFiMACAddressFunction;
   return result;
 }
 
@@ -7961,10 +7997,10 @@ void *__WiFiPeerToPeerLibrary_block_invoke_5213()
   return result;
 }
 
-void sub_191F34808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_191F34808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
-  (*(v17 + 16))(v17);
+  va_start(va, a24);
+  (*(v24 + 16))(v24, a2, a3, a4, a5, a6, a7, a8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7985,7 +8021,7 @@ Class initWiFiAwareSubscriber()
 
   result = objc_getClass("WiFiAwareSubscriber");
   classWiFiAwareSubscriber = result;
-  getWiFiAwareSubscriberClass[0] = WiFiAwareSubscriberFunction;
+  getWiFiAwareSubscriberClass = WiFiAwareSubscriberFunction;
   return result;
 }
 
@@ -7998,7 +8034,7 @@ Class initWiFiAwareSubscribeConfiguration()
 
   result = objc_getClass("WiFiAwareSubscribeConfiguration");
   classWiFiAwareSubscribeConfiguration = result;
-  getWiFiAwareSubscribeConfigurationClass[0] = WiFiAwareSubscribeConfigurationFunction;
+  getWiFiAwareSubscribeConfigurationClass = WiFiAwareSubscribeConfigurationFunction;
   return result;
 }
 
@@ -8016,16 +8052,16 @@ void sub_191F37254(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_191F3B84C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_191F3B84C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -8038,19 +8074,19 @@ uint64_t __Block_byref_object_copy__5769(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_191F3D76C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_191F3D76C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_191F3E014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_191F3E014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8063,7 +8099,7 @@ Class initHAPSystemKeychainStore_5804()
 
   result = objc_getClass("HAPSystemKeychainStore");
   classHAPSystemKeychainStore_5806 = result;
-  getHAPSystemKeychainStoreClass_5802[0] = HAPSystemKeychainStoreFunction_5808;
+  getHAPSystemKeychainStoreClass_5802 = HAPSystemKeychainStoreFunction_5808;
   return result;
 }
 
@@ -8083,7 +8119,7 @@ Class initRPClient()
 
   result = objc_getClass("RPClient");
   classRPClient = result;
-  getRPClientClass[0] = RPClientFunction;
+  getRPClientClass = RPClientFunction;
   return result;
 }
 
@@ -8092,6 +8128,13 @@ void *__RapportLibrary_block_invoke_5826()
   result = dlopen("/System/Library/PrivateFrameworks/Rapport.framework/Rapport", 2);
   RapportLibrary_sLib_5827 = result;
   return result;
+}
+
+void sub_191F42658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __Block_byref_object_copy__6094(uint64_t result, uint64_t a2)
@@ -8111,7 +8154,7 @@ void _hidePIN(void *a1)
     if (*v5 != -1)
     {
 LABEL_3:
-      LogPrintF(v5, "void _hidePIN(void * _Nonnull)", 0x1Eu, "Hide PIN\n", v1, v2, v3, v4, v7);
+      LogPrintF(v5, "void _hidePIN(void * _Nonnull)", 30, "Hide PIN\n", v1, v2, v3, v4, v7);
       goto LABEL_5;
     }
 
@@ -8130,7 +8173,7 @@ LABEL_5:
   }
 }
 
-uint64_t _showPIN(uint64_t a1, _BYTE *a2, unint64_t a3, void *a4)
+uint64_t _showPIN(uint64_t a1, char *a2, unint64_t a3, void *a4)
 {
   v7 = a4;
   dispatch_assert_queue_V2(*(v7 + 14));
@@ -8173,7 +8216,7 @@ LABEL_18:
               v19 = *(v7 + 3);
             }
 
-            LogPrintF(v19, "OSStatus _showPIN(PairingFlags, char * _Nonnull, size_t, void * _Nonnull)", 0x5Au, "### Unsupported PIN type %u\n", v8, v9, v10, v11, v13);
+            LogPrintF(v19, "OSStatus _showPIN(PairingFlags, char * _Nonnull, size_t, void * _Nonnull)", 90, "### Unsupported PIN type %u\n", v8, v9, v10, v11, v13);
           }
 
 LABEL_51:
@@ -8285,7 +8328,7 @@ LABEL_29:
     v25 = "*";
   }
 
-  LogPrintF(v24, "OSStatus _showPIN(PairingFlags, char * _Nonnull, size_t, void * _Nonnull)", 0x1Eu, "Show PIN '%s'\n", v20, v21, v22, v23, v25);
+  LogPrintF(v24, "OSStatus _showPIN(PairingFlags, char * _Nonnull, size_t, void * _Nonnull)", 30, "Show PIN '%s'\n", v20, v21, v22, v23, v25);
 LABEL_38:
   v26 = *(v7 + 32);
   if (v26)
@@ -8369,7 +8412,7 @@ uint64_t _promptForPIN(uint64_t a1, uint64_t a2, void *a3)
       v13 = *(v5 + 3);
     }
 
-    LogPrintF(v13, "OSStatus _promptForPIN(PairingFlags, int32_t, void * _Nonnull)", 0x1Eu, "Prompt for PIN: %#{flags}, Type %s, %d throttle seconds\n", v8, v9, v10, v11, a1);
+    LogPrintF(v13, "OSStatus _promptForPIN(PairingFlags, int32_t, void * _Nonnull)", 30, "Prompt for PIN: %#{flags}, Type %s, %d throttle seconds\n", v8, v9, v10, v11, a1);
   }
 
 LABEL_11:
@@ -8392,7 +8435,7 @@ Class initPRTrustedContact()
 
   result = objc_getClass("PRTrustedContact");
   classPRTrustedContact = result;
-  getPRTrustedContactClass[0] = PRTrustedContactFunction;
+  getPRTrustedContactClass = PRTrustedContactFunction;
   return result;
 }
 
@@ -8412,7 +8455,7 @@ Class initPRContactAllowlist()
 
   result = objc_getClass("PRContactAllowlist");
   classPRContactAllowlist = result;
-  getPRContactAllowlistClass[0] = PRContactAllowlistFunction;
+  getPRContactAllowlistClass = PRContactAllowlistFunction;
   return result;
 }
 
@@ -8425,7 +8468,7 @@ Class initPRSharingSession()
 
   result = objc_getClass("PRSharingSession");
   classPRSharingSession = result;
-  getPRSharingSessionClass[0] = PRSharingSessionFunction;
+  getPRSharingSessionClass = PRSharingSessionFunction;
   return result;
 }
 

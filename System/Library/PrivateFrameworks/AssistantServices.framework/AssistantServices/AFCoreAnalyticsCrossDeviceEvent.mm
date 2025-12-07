@@ -11,24 +11,22 @@
 
 - (id)_descriptionWithIndent:(unint64_t)indent
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   v4 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v17.receiver = self;
-  v17.super_class = AFCoreAnalyticsCrossDeviceEvent;
-  v5 = [(AFCoreAnalyticsCrossDeviceEvent *)&v17 description];
+  v16.receiver = self;
+  v16.super_class = AFCoreAnalyticsCrossDeviceEvent;
+  v5 = [(AFCoreAnalyticsCrossDeviceEvent *)&v16 description];
   v6 = objc_alloc(MEMORY[0x1E696AEC0]);
   v7 = [(NSString *)self->_nearbyDevicesLoggingID description];
   v8 = [v6 initWithFormat:@"nearbyDevicesLoggingID = %@", v7];
-  v18[0] = v8;
+  v17[0] = v8;
   v9 = objc_alloc(MEMORY[0x1E696AEC0]);
   v10 = [(NSMutableDictionary *)self->_nearbyDevicesPayloads description];
   v11 = [v9 initWithFormat:@"nearbyDevicesPayloads = %@", v10];
-  v18[1] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+  v17[1] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
   v13 = [v12 componentsJoinedByString:{@", "}];
   v14 = [v4 initWithFormat:@"%@ {%@}", v5, v13];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -67,7 +65,7 @@ void __112__AFCoreAnalyticsCrossDeviceEvent_addCoreAnalyticsDeviceTargetedWithCo
   {
     v4 = [v8 proximity];
     v11 = @"primary";
-    if ([v4 isEqualToString:@"primary"])
+    if (objc_msgSend_isEqualToString_(v4))
     {
 
       goto LABEL_7;
@@ -77,11 +75,11 @@ void __112__AFCoreAnalyticsCrossDeviceEvent_addCoreAnalyticsDeviceTargetedWithCo
   }
 
   v12 = [v10 UUIDString];
-  v13 = [v12 isEqualToString:v14];
+  isEqualToString = objc_msgSend_isEqualToString_(v12);
 
   if (v9)
   {
-    if (!v13)
+    if (!isEqualToString)
     {
       goto LABEL_8;
     }
@@ -89,7 +87,7 @@ void __112__AFCoreAnalyticsCrossDeviceEvent_addCoreAnalyticsDeviceTargetedWithCo
     goto LABEL_7;
   }
 
-  if (v13)
+  if (isEqualToString)
   {
 LABEL_7:
     [*(a1 + 40) _setTargetedDeviceContextIdentifier:v14 withAction:*(a1 + 48) payload:v8];
@@ -137,7 +135,7 @@ LABEL_8:
 
 void __73__AFCoreAnalyticsCrossDeviceEvent_addNearbyDeviceContexts_proximityInfo___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 deviceInfo];
   v5 = [v4 assistantIdentifier];
@@ -163,24 +161,22 @@ void __73__AFCoreAnalyticsCrossDeviceEvent_addNearbyDeviceContexts_proximityInfo
   v12 = AFSiriLogContextDaemon;
   if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
   {
-    v17 = v12;
-    v18 = [v3 identifier];
-    v19 = [v18 UUIDString];
-    v20 = 136315650;
-    v21 = "[AFCoreAnalyticsCrossDeviceEvent addNearbyDeviceContexts:proximityInfo:]_block_invoke";
-    v22 = 2112;
-    v23 = v19;
-    v24 = 2112;
-    v25 = v11;
-    _os_log_debug_impl(&dword_1912FE000, v17, OS_LOG_TYPE_DEBUG, "%s payload for %@: %@", &v20, 0x20u);
+    v16 = v12;
+    v17 = [v3 identifier];
+    v18 = [v17 UUIDString];
+    v19 = 136315650;
+    v20 = "[AFCoreAnalyticsCrossDeviceEvent addNearbyDeviceContexts:proximityInfo:]_block_invoke";
+    v21 = 2112;
+    v22 = v18;
+    v23 = 2112;
+    v24 = v11;
+    _os_log_debug_impl(&dword_1912FE000, v16, OS_LOG_TYPE_DEBUG, "%s payload for %@: %@", &v19, 0x20u);
   }
 
   v13 = *(a1 + 48);
   v14 = [v3 identifier];
   v15 = [v14 UUIDString];
   [v13 setObject:v11 forKey:v15];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (AFCoreAnalyticsCrossDeviceEvent)initWithNearbyDevicesLoggingID:(id)d

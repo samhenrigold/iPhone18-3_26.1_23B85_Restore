@@ -11,17 +11,12 @@
 
 - (id)description
 {
-  if (((self + 16) & 7) != 0 || ((self + 56) & 7) != 0 || ((self + 8) & 7) != 0 || ((self + 24) & 7) != 0 || ((self + 32) & 7) != 0 || ((self + 40) & 7) != 0)
+  if (((self + 16) & 7) == 0 && ((self + 56) & 7) == 0 && ((self + 8) & 7) == 0 && ((self + 24) & 7) == 0 && ((self + 32) & 7) == 0 && ((self + 40) & 7) == 0)
   {
-    __break(0x5516u);
+    return [NSString stringWithFormat:@"<MediaLibraryPropertyCache %hhx> itemProperty=%@ collections=%hhx globalCount=%@ itemCount=%@ itemNamesRange=(%lu, %lu)", self, *(self + 2), *(self + 7), *(self + 1), *(self + 3), *(self + 4), *(self + 5)];
   }
 
-  else
-  {
-    v2 = *(self + 4);
-    return [NSString stringWithFormat:@"<MediaLibraryPropertyCache %hhx> itemProperty=%@ collections=%hhx globalCount=%@ itemCount=%@ itemNamesRange=(%lu, %lu)", self, *(self + 2), *(self + 7), *(self + 1), *(self + 3), v2, *(self + 5)];
-  }
-
+  __break(0x5516u);
   return self;
 }
 

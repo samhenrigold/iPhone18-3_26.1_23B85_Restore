@@ -185,128 +185,127 @@ void __31__GTMTLReplayService_raytrace___block_invoke_3(void *a1, void *a2, void
 
 void __34__GTMTLReplayService_shaderdebug___block_invoke(uint64_t a1)
 {
-  v181[7] = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
+  v178[7] = *MEMORY[0x277D85DE8];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v3 = *(a1 + 32);
-    v4 = v3;
-    v181[0] = &unk_2860D6668;
-    v180[0] = @"Type";
-    v180[1] = @"MinPositionX";
-    v5 = MEMORY[0x277CCABB0];
-    if (v3)
+    v2 = *(a1 + 32);
+    v3 = v2;
+    v178[0] = &unk_2860D6668;
+    v177[0] = @"Type";
+    v177[1] = @"MinPositionX";
+    v4 = MEMORY[0x277CCABB0];
+    if (v2)
     {
-      [v3 minThreadPositionInGrid];
-      v6 = v165;
+      objc_msgSend_minThreadPositionInGrid(v2);
+      v5 = v162;
     }
 
     else
     {
-      v6 = 0;
-      v166 = 0;
-      v165 = 0;
-      v167 = 0;
-    }
-
-    v10 = [v5 numberWithUnsignedLongLong:v6];
-    v181[1] = v10;
-    v180[2] = @"MinPositionY";
-    v13 = MEMORY[0x277CCABB0];
-    if (v4)
-    {
-      [v4 minThreadPositionInGrid];
-      v14 = v163;
-    }
-
-    else
-    {
-      v14 = 0;
+      v5 = 0;
       v163 = 0;
       v162 = 0;
       v164 = 0;
     }
 
-    v15 = [v13 numberWithUnsignedLongLong:v14];
-    v181[2] = v15;
-    v180[3] = @"MinPositionZ";
-    v16 = MEMORY[0x277CCABB0];
-    if (v4)
+    v9 = [v4 numberWithUnsignedLongLong:v5];
+    v178[1] = v9;
+    v177[2] = @"MinPositionY";
+    v12 = MEMORY[0x277CCABB0];
+    if (v3)
     {
-      [v4 minThreadPositionInGrid];
-      v17 = v161;
+      objc_msgSend_minThreadPositionInGrid(v3);
+      v13 = v160;
     }
 
     else
     {
-      v17 = 0;
+      v13 = 0;
       v160 = 0;
       v159 = 0;
       v161 = 0;
     }
 
-    v18 = [v16 numberWithUnsignedLongLong:v17];
-    v181[3] = v18;
-    v180[4] = @"MaxPositionX";
-    v19 = MEMORY[0x277CCABB0];
-    if (v4)
+    v14 = [v12 numberWithUnsignedLongLong:v13];
+    v178[2] = v14;
+    v177[3] = @"MinPositionZ";
+    v15 = MEMORY[0x277CCABB0];
+    if (v3)
     {
-      [v4 maxThreadPositionInGrid];
-      v20 = v156;
+      objc_msgSend_minThreadPositionInGrid(v3);
+      v16 = v158;
     }
 
     else
     {
-      v20 = 0;
-      v156 = 0;
+      v16 = 0;
       v157 = 0;
+      v156 = 0;
       v158 = 0;
     }
 
-    v21 = [v19 numberWithUnsignedLongLong:v20];
-    v181[4] = v21;
-    v180[5] = @"MaxPositionY";
-    v22 = MEMORY[0x277CCABB0];
-    if (v4)
+    v17 = [v15 numberWithUnsignedLongLong:v16];
+    v178[3] = v17;
+    v177[4] = @"MaxPositionX";
+    v18 = MEMORY[0x277CCABB0];
+    if (v3)
     {
-      [v4 maxThreadPositionInGrid];
-      v23 = v154;
+      objc_msgSend_maxThreadPositionInGrid(v3);
+      v19 = v153;
     }
 
     else
     {
-      v23 = 0;
+      v19 = 0;
       v153 = 0;
       v154 = 0;
       v155 = 0;
     }
 
-    v24 = [v22 numberWithUnsignedLongLong:v23];
-    v181[5] = v24;
-    v180[6] = @"MaxPositionZ";
-    v25 = MEMORY[0x277CCABB0];
-    if (v4)
+    v20 = [v18 numberWithUnsignedLongLong:v19];
+    v178[4] = v20;
+    v177[5] = @"MaxPositionY";
+    v21 = MEMORY[0x277CCABB0];
+    if (v3)
     {
-      [v4 maxThreadPositionInGrid];
-      v26 = v152;
+      objc_msgSend_maxThreadPositionInGrid(v3);
+      v22 = v151;
     }
 
     else
     {
-      v26 = 0;
+      v22 = 0;
       v150 = 0;
       v151 = 0;
       v152 = 0;
     }
 
-    v27 = [v25 numberWithUnsignedLongLong:v26];
-    v181[6] = v27;
-    v28 = MEMORY[0x277CBEAC0];
-    v29 = v181;
-    v30 = v180;
+    v23 = [v21 numberWithUnsignedLongLong:v22];
+    v178[5] = v23;
+    v177[6] = @"MaxPositionZ";
+    v24 = MEMORY[0x277CCABB0];
+    if (v3)
+    {
+      objc_msgSend_maxThreadPositionInGrid(v3);
+      v25 = v149;
+    }
+
+    else
+    {
+      v25 = 0;
+      v147 = 0;
+      v148 = 0;
+      v149 = 0;
+    }
+
+    v26 = [v24 numberWithUnsignedLongLong:v25];
+    v178[6] = v26;
+    v27 = MEMORY[0x277CBEAC0];
+    v28 = v178;
+    v29 = v177;
 LABEL_46:
-    v47 = [v28 dictionaryWithObjects:v29 forKeys:v30 count:7];
+    v46 = [v27 dictionaryWithObjects:v28 forKeys:v29 count:7];
 LABEL_47:
 
 LABEL_48:
@@ -316,459 +315,456 @@ LABEL_48:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v7 = *(a1 + 32);
-    v4 = v7;
-    v179[0] = &unk_2860D6680;
-    v178[0] = @"Type";
-    v178[1] = @"MinPositionX";
-    v8 = MEMORY[0x277CCABB0];
-    if (v7)
+    v6 = *(a1 + 32);
+    v3 = v6;
+    v176[0] = &unk_2860D6680;
+    v175[0] = @"Type";
+    v175[1] = @"MinPositionX";
+    v7 = MEMORY[0x277CCABB0];
+    if (v6)
     {
-      [v7 minThreadPositionInGrid];
-      v9 = v147;
+      objc_msgSend_minThreadPositionInGrid(v6);
+      v8 = v144;
     }
 
     else
     {
-      v9 = 0;
-      v147 = 0;
-      v148 = 0;
-      v149 = 0;
-    }
-
-    v10 = [v8 numberWithUnsignedLongLong:v9];
-    v179[1] = v10;
-    v178[2] = @"MinPositionY";
-    v37 = MEMORY[0x277CCABB0];
-    if (v4)
-    {
-      [v4 minThreadPositionInGrid];
-      v38 = v145;
-    }
-
-    else
-    {
-      v38 = 0;
+      v8 = 0;
       v144 = 0;
       v145 = 0;
       v146 = 0;
     }
 
-    v15 = [v37 numberWithUnsignedLongLong:v38];
-    v179[2] = v15;
-    v178[3] = @"MinPositionZ";
-    v39 = MEMORY[0x277CCABB0];
-    if (v4)
+    v9 = [v7 numberWithUnsignedLongLong:v8];
+    v176[1] = v9;
+    v175[2] = @"MinPositionY";
+    v36 = MEMORY[0x277CCABB0];
+    if (v3)
     {
-      [v4 minThreadPositionInGrid];
-      v40 = v143;
+      objc_msgSend_minThreadPositionInGrid(v3);
+      v37 = v142;
     }
 
     else
     {
-      v40 = 0;
+      v37 = 0;
       v141 = 0;
       v142 = 0;
       v143 = 0;
     }
 
-    v18 = [v39 numberWithUnsignedLongLong:v40];
-    v179[3] = v18;
-    v178[4] = @"MaxPositionX";
-    v41 = MEMORY[0x277CCABB0];
-    if (v4)
+    v14 = [v36 numberWithUnsignedLongLong:v37];
+    v176[2] = v14;
+    v175[3] = @"MinPositionZ";
+    v38 = MEMORY[0x277CCABB0];
+    if (v3)
     {
-      [v4 maxThreadPositionInGrid];
-      v42 = v138;
+      objc_msgSend_minThreadPositionInGrid(v3);
+      v39 = v140;
     }
 
     else
     {
-      v42 = 0;
+      v39 = 0;
       v138 = 0;
       v139 = 0;
       v140 = 0;
     }
 
-    v21 = [v41 numberWithUnsignedLongLong:v42];
-    v179[4] = v21;
-    v178[5] = @"MaxPositionY";
-    v43 = MEMORY[0x277CCABB0];
-    if (v4)
+    v17 = [v38 numberWithUnsignedLongLong:v39];
+    v176[3] = v17;
+    v175[4] = @"MaxPositionX";
+    v40 = MEMORY[0x277CCABB0];
+    if (v3)
     {
-      [v4 maxThreadPositionInGrid];
-      v44 = v136;
+      objc_msgSend_maxThreadPositionInGrid(v3);
+      v41 = v135;
     }
 
     else
     {
-      v44 = 0;
+      v41 = 0;
       v135 = 0;
       v136 = 0;
       v137 = 0;
     }
 
-    v24 = [v43 numberWithUnsignedLongLong:v44];
-    v179[5] = v24;
-    v178[6] = @"MaxPositionZ";
-    v45 = MEMORY[0x277CCABB0];
-    if (v4)
+    v20 = [v40 numberWithUnsignedLongLong:v41];
+    v176[4] = v20;
+    v175[5] = @"MaxPositionY";
+    v42 = MEMORY[0x277CCABB0];
+    if (v3)
     {
-      [v4 maxThreadPositionInGrid];
-      v46 = v134;
+      objc_msgSend_maxThreadPositionInGrid(v3);
+      v43 = v133;
     }
 
     else
     {
-      v46 = 0;
+      v43 = 0;
       v132 = 0;
       v133 = 0;
       v134 = 0;
     }
 
-    v27 = [v45 numberWithUnsignedLongLong:v46];
-    v179[6] = v27;
-    v28 = MEMORY[0x277CBEAC0];
-    v29 = v179;
-    v30 = v178;
+    v23 = [v42 numberWithUnsignedLongLong:v43];
+    v176[5] = v23;
+    v175[6] = @"MaxPositionZ";
+    v44 = MEMORY[0x277CCABB0];
+    if (v3)
+    {
+      objc_msgSend_maxThreadPositionInGrid(v3);
+      v45 = v131;
+    }
+
+    else
+    {
+      v45 = 0;
+      v129 = 0;
+      v130 = 0;
+      v131 = 0;
+    }
+
+    v26 = [v44 numberWithUnsignedLongLong:v45];
+    v176[6] = v26;
+    v27 = MEMORY[0x277CBEAC0];
+    v28 = v176;
+    v29 = v175;
     goto LABEL_46;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = *(a1 + 32);
-    v177[0] = &unk_2860D6698;
-    v176[0] = @"Type";
-    v176[1] = @"AmplificationID";
-    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v4, "amplificationID")}];
-    v177[1] = v10;
-    v176[2] = @"MinPositionX";
-    v11 = MEMORY[0x277CCABB0];
-    if (v4)
+    v3 = *(a1 + 32);
+    v174[0] = &unk_2860D6698;
+    v173[0] = @"Type";
+    v173[1] = @"AmplificationID";
+    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v3, "amplificationID")}];
+    v174[1] = v9;
+    v173[2] = @"MinPositionX";
+    v10 = MEMORY[0x277CCABB0];
+    if (v3)
     {
-      [v4 minThreadPositionInGrid];
-      v12 = v129;
+      objc_msgSend_minThreadPositionInGrid(v3);
+      v11 = v126;
     }
 
     else
     {
-      v12 = 0;
-      v129 = 0;
-      v130 = 0;
-      v131 = 0;
-    }
-
-    v15 = [v11 numberWithUnsignedLongLong:v12];
-    v177[2] = v15;
-    v176[3] = @"MinPositionY";
-    v75 = MEMORY[0x277CCABB0];
-    if (v4)
-    {
-      [v4 minThreadPositionInGrid];
-      v76 = v127;
-    }
-
-    else
-    {
-      v76 = 0;
+      v11 = 0;
       v126 = 0;
       v127 = 0;
       v128 = 0;
     }
 
-    v18 = [v75 numberWithUnsignedLongLong:v76];
-    v177[3] = v18;
-    v176[4] = @"MinPositionZ";
-    v77 = MEMORY[0x277CCABB0];
-    if (v4)
+    v14 = [v10 numberWithUnsignedLongLong:v11];
+    v174[2] = v14;
+    v173[3] = @"MinPositionY";
+    v72 = MEMORY[0x277CCABB0];
+    if (v3)
     {
-      [v4 minThreadPositionInGrid];
-      v78 = v125;
+      objc_msgSend_minThreadPositionInGrid(v3);
+      v73 = v124;
     }
 
     else
     {
-      v78 = 0;
+      v73 = 0;
       v123 = 0;
       v124 = 0;
       v125 = 0;
     }
 
-    v104 = [v77 numberWithUnsignedLongLong:v78];
-    v177[4] = v104;
-    v176[5] = @"MaxPositionX";
-    v79 = MEMORY[0x277CCABB0];
-    if (v4)
+    v17 = [v72 numberWithUnsignedLongLong:v73];
+    v174[3] = v17;
+    v173[4] = @"MinPositionZ";
+    v74 = MEMORY[0x277CCABB0];
+    if (v3)
     {
-      [v4 maxThreadPositionInGrid];
-      v80 = v120;
+      objc_msgSend_minThreadPositionInGrid(v3);
+      v75 = v122;
     }
 
     else
     {
-      v80 = 0;
+      v75 = 0;
       v120 = 0;
       v121 = 0;
       v122 = 0;
     }
 
-    v103 = [v79 numberWithUnsignedLongLong:v80];
-    v177[5] = v103;
-    v176[6] = @"MaxPositionY";
-    v81 = MEMORY[0x277CCABB0];
-    if (v4)
+    v101 = [v74 numberWithUnsignedLongLong:v75];
+    v174[4] = v101;
+    v173[5] = @"MaxPositionX";
+    v76 = MEMORY[0x277CCABB0];
+    if (v3)
     {
-      [v4 maxThreadPositionInGrid];
-      v82 = v118;
+      objc_msgSend_maxThreadPositionInGrid(v3);
+      v77 = v117;
     }
 
     else
     {
-      v82 = 0;
+      v77 = 0;
       v117 = 0;
       v118 = 0;
       v119 = 0;
     }
 
-    v102 = [v81 numberWithUnsignedLongLong:v82];
-    v177[6] = v102;
-    v176[7] = @"MaxPositionZ";
-    v83 = MEMORY[0x277CCABB0];
-    if (v4)
+    v100 = [v76 numberWithUnsignedLongLong:v77];
+    v174[5] = v100;
+    v173[6] = @"MaxPositionY";
+    v78 = MEMORY[0x277CCABB0];
+    if (v3)
     {
-      [v4 maxThreadPositionInGrid];
-      v84 = v116;
+      objc_msgSend_maxThreadPositionInGrid(v3);
+      v79 = v115;
     }
 
     else
     {
-      v84 = 0;
+      v79 = 0;
       v114 = 0;
       v115 = 0;
       v116 = 0;
     }
 
-    v85 = [v83 numberWithUnsignedLongLong:v84];
-    v177[7] = v85;
-    v176[8] = @"ObjectThreadgroupPosX";
-    v86 = MEMORY[0x277CCABB0];
-    if (v4)
+    v99 = [v78 numberWithUnsignedLongLong:v79];
+    v174[6] = v99;
+    v173[7] = @"MaxPositionZ";
+    v80 = MEMORY[0x277CCABB0];
+    if (v3)
     {
-      [v4 objectThreadgroupPositionInGrid];
-      v87 = v111;
+      objc_msgSend_maxThreadPositionInGrid(v3);
+      v81 = v113;
     }
 
     else
     {
-      v87 = 0;
+      v81 = 0;
       v111 = 0;
       v112 = 0;
       v113 = 0;
     }
 
-    v88 = [v86 numberWithUnsignedLongLong:v87];
-    v177[8] = v88;
-    v176[9] = @"ObjectThreadgroupPosY";
-    v89 = MEMORY[0x277CCABB0];
-    if (v4)
+    v82 = [v80 numberWithUnsignedLongLong:v81];
+    v174[7] = v82;
+    v173[8] = @"ObjectThreadgroupPosX";
+    v83 = MEMORY[0x277CCABB0];
+    if (v3)
     {
-      [v4 objectThreadgroupPositionInGrid];
-      v90 = v109;
+      objc_msgSend_objectThreadgroupPositionInGrid(v3);
+      v84 = v108;
     }
 
     else
     {
-      v90 = 0;
+      v84 = 0;
       v108 = 0;
       v109 = 0;
       v110 = 0;
     }
 
-    v91 = [v89 numberWithUnsignedLongLong:v90];
-    v177[9] = v91;
-    v176[10] = @"ObjectThreadgroupPosZ";
-    v92 = MEMORY[0x277CCABB0];
-    if (v4)
+    v85 = [v83 numberWithUnsignedLongLong:v84];
+    v174[8] = v85;
+    v173[9] = @"ObjectThreadgroupPosY";
+    v86 = MEMORY[0x277CCABB0];
+    if (v3)
     {
-      [v4 objectThreadgroupPositionInGrid];
-      v93 = v107;
+      objc_msgSend_objectThreadgroupPositionInGrid(v3);
+      v87 = v106;
     }
 
     else
     {
-      v93 = 0;
-      v106[1] = 0;
-      v106[2] = 0;
+      v87 = 0;
+      v105 = 0;
+      v106 = 0;
       v107 = 0;
     }
 
-    v94 = [v92 numberWithUnsignedLongLong:v93];
-    v177[10] = v94;
-    v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v177 forKeys:v176 count:11];
+    v88 = [v86 numberWithUnsignedLongLong:v87];
+    v174[9] = v88;
+    v173[10] = @"ObjectThreadgroupPosZ";
+    v89 = MEMORY[0x277CCABB0];
+    if (v3)
+    {
+      objc_msgSend_objectThreadgroupPositionInGrid(v3);
+      v90 = v104;
+    }
+
+    else
+    {
+      v90 = 0;
+      v103[1] = 0;
+      v103[2] = 0;
+      v104 = 0;
+    }
+
+    v91 = [v89 numberWithUnsignedLongLong:v90];
+    v174[10] = v91;
+    v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v174 forKeys:v173 count:11];
 
     goto LABEL_48;
   }
 
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v32 = *(a1 + 32);
+  v31 = *(a1 + 32);
   if (isKindOfClass)
   {
-    v175[0] = &unk_2860D6590;
-    v174[0] = @"Type";
-    v174[1] = @"InstanceID";
-    v33 = MEMORY[0x277CCABB0];
-    v4 = v32;
-    v10 = [v33 numberWithUnsignedInt:{objc_msgSend(v4, "instanceID")}];
-    v175[1] = v10;
-    v174[2] = @"AmplificationID";
-    v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v4, "amplificationID")}];
-    v175[2] = v15;
-    v174[3] = @"VertexIDs";
-    v18 = [v4 vertexIDs];
-    v175[3] = v18;
-    v34 = MEMORY[0x277CBEAC0];
-    v35 = v175;
-    v36 = v174;
+    v172[0] = &unk_2860D6590;
+    v171[0] = @"Type";
+    v171[1] = @"InstanceID";
+    v32 = MEMORY[0x277CCABB0];
+    v3 = v31;
+    v9 = [v32 numberWithUnsignedInt:{objc_msgSend(v3, "instanceID")}];
+    v172[1] = v9;
+    v171[2] = @"AmplificationID";
+    v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v3, "amplificationID")}];
+    v172[2] = v14;
+    v171[3] = @"VertexIDs";
+    v17 = [v3 vertexIDs];
+    v172[3] = v17;
+    v33 = MEMORY[0x277CBEAC0];
+    v34 = v172;
+    v35 = v171;
 LABEL_60:
-    v47 = [v34 dictionaryWithObjects:v35 forKeys:v36 count:4];
+    v46 = [v33 dictionaryWithObjects:v34 forKeys:v35 count:4];
     goto LABEL_48;
   }
 
   objc_opt_class();
-  v72 = objc_opt_isKindOfClass();
-  v73 = *(a1 + 32);
-  if (v72)
+  v69 = objc_opt_isKindOfClass();
+  v70 = *(a1 + 32);
+  if (v69)
   {
-    v173[0] = &unk_2860D66B0;
-    v172[0] = @"Type";
-    v172[1] = @"InstanceID";
-    v74 = MEMORY[0x277CCABB0];
-    v4 = v73;
-    v10 = [v74 numberWithUnsignedInt:{objc_msgSend(v4, "instanceID")}];
-    v173[1] = v10;
-    v172[2] = @"AmplificationID";
-    v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v4, "amplificationID")}];
-    v173[2] = v15;
-    v172[3] = @"PatchIDs";
-    v18 = [v4 patchIDs];
-    v173[3] = v18;
-    v34 = MEMORY[0x277CBEAC0];
-    v35 = v173;
-    v36 = v172;
+    v170[0] = &unk_2860D66B0;
+    v169[0] = @"Type";
+    v169[1] = @"InstanceID";
+    v71 = MEMORY[0x277CCABB0];
+    v3 = v70;
+    v9 = [v71 numberWithUnsignedInt:{objc_msgSend(v3, "instanceID")}];
+    v170[1] = v9;
+    v169[2] = @"AmplificationID";
+    v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v3, "amplificationID")}];
+    v170[2] = v14;
+    v169[3] = @"PatchIDs";
+    v17 = [v3 patchIDs];
+    v170[3] = v17;
+    v33 = MEMORY[0x277CBEAC0];
+    v34 = v170;
+    v35 = v169;
     goto LABEL_60;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v95 = *(a1 + 32);
-    v171[0] = &unk_2860D6578;
-    v170[0] = @"Type";
-    v170[1] = @"MinPositionX";
+    v92 = *(a1 + 32);
+    v168[0] = &unk_2860D6578;
+    v167[0] = @"Type";
+    v167[1] = @"MinPositionX";
+    v93 = MEMORY[0x277CCABB0];
+    v3 = v92;
+    v9 = [v93 numberWithUnsignedLongLong:{objc_msgSend(v3, "minPixelPosition")}];
+    v168[1] = v9;
+    v167[2] = @"MinPositionY";
+    v94 = MEMORY[0x277CCABB0];
+    [v3 minPixelPosition];
+    v14 = [v94 numberWithUnsignedLongLong:v95];
+    v168[2] = v14;
+    v167[3] = @"MaxPositionX";
+    v17 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v3, "maxPixelPosition")}];
+    v168[3] = v17;
+    v167[4] = @"MaxPositionY";
     v96 = MEMORY[0x277CCABB0];
-    v4 = v95;
-    v10 = [v96 numberWithUnsignedLongLong:{objc_msgSend(v4, "minPixelPosition")}];
-    v171[1] = v10;
-    v170[2] = @"MinPositionY";
-    v97 = MEMORY[0x277CCABB0];
-    [v4 minPixelPosition];
-    v15 = [v97 numberWithUnsignedLongLong:v98];
-    v171[2] = v15;
-    v170[3] = @"MaxPositionX";
-    v18 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v4, "maxPixelPosition")}];
-    v171[3] = v18;
-    v170[4] = @"MaxPositionY";
-    v99 = MEMORY[0x277CCABB0];
-    [v4 maxPixelPosition];
-    v21 = [v99 numberWithUnsignedLongLong:v100];
-    v171[4] = v21;
-    v170[5] = @"MinSampleID";
-    v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v4, "minSampleID")}];
-    v171[5] = v24;
-    v170[6] = @"MaxSampleID";
-    v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v4, "maxSampleID")}];
-    v171[6] = v27;
-    v170[7] = @"RenderTargetArrayIndex";
-    v101 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v4, "renderTargetArrayIndex")}];
-    v171[7] = v101;
-    v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v171 forKeys:v170 count:8];
+    [v3 maxPixelPosition];
+    v20 = [v96 numberWithUnsignedLongLong:v97];
+    v168[4] = v20;
+    v167[5] = @"MinSampleID";
+    v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v3, "minSampleID")}];
+    v168[5] = v23;
+    v167[6] = @"MaxSampleID";
+    v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v3, "maxSampleID")}];
+    v168[6] = v26;
+    v167[7] = @"RenderTargetArrayIndex";
+    v98 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v3, "renderTargetArrayIndex")}];
+    v168[7] = v98;
+    v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v168 forKeys:v167 count:8];
 
     goto LABEL_47;
   }
 
-  v47 = 0;
+  v46 = 0;
 LABEL_49:
-  v48 = objc_alloc_init(MEMORY[0x277D0B628]);
-  [v48 setRequestID:{objc_msgSend(*(a1 + 32), "requestID")}];
-  if (v47)
+  v47 = objc_alloc_init(MEMORY[0x277D0B628]);
+  [v47 setRequestID:{objc_msgSend(*(a1 + 32), "requestID")}];
+  if (v46)
   {
-    v49 = MEMORY[0x277CBEB98];
+    v48 = MEMORY[0x277CBEB98];
+    v49 = objc_opt_class();
     v50 = objc_opt_class();
     v51 = objc_opt_class();
     v52 = objc_opt_class();
-    v53 = objc_opt_class();
-    v54 = [v49 setWithObjects:{v50, v51, v52, v53, objc_opt_class(), 0}];
-    v55 = MEMORY[0x277CCAAC8];
-    v56 = [*(a1 + 32) programData];
-    v106[0] = 0;
-    v57 = [v55 unarchivedObjectOfClasses:v54 fromData:v56 error:v106];
-    v58 = v106[0];
-    v59 = [v57 mutableCopy];
+    v53 = [v48 setWithObjects:{v49, v50, v51, v52, objc_opt_class(), 0}];
+    v54 = MEMORY[0x277CCAAC8];
+    v55 = [*(a1 + 32) programData];
+    v103[0] = 0;
+    v56 = [v54 unarchivedObjectOfClasses:v53 fromData:v55 error:v103];
+    v57 = v103[0];
+    v58 = [v56 mutableCopy];
 
-    v60 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(*(a1 + 32), "dispatchUID")}];
-    [v59 setObject:v60 forKeyedSubscript:@"FunctionIndex"];
+    v59 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(*(a1 + 32), "dispatchUID")}];
+    [v58 setObject:v59 forKeyedSubscript:@"FunctionIndex"];
 
-    v61 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(*(a1 + 32), "dispatchUID") >> 32}];
-    [v59 setObject:v61 forKeyedSubscript:@"SubCommandIndex"];
+    v60 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(*(a1 + 32), "dispatchUID") >> 32}];
+    [v58 setObject:v60 forKeyedSubscript:@"SubCommandIndex"];
 
-    [v59 setObject:v47 forKeyedSubscript:@"ROI"];
-    v62 = *(*(a1 + 48) + 8);
-    v63 = [v59 copy];
-    v105[1] = v58;
-    v64 = GTMTLShaderDebugger_generateTrace();
-    v65 = v58;
+    [v58 setObject:v46 forKeyedSubscript:@"ROI"];
+    v61 = [v58 copy];
+    v102[1] = v57;
+    v62 = GTMTLShaderDebugger_generateTrace();
+    v63 = v57;
 
-    if (v64)
+    if (v62)
     {
-      v105[0] = v65;
-      v66 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v64 requiringSecureCoding:1 error:v105];
-      v67 = v105[0];
+      v102[0] = v63;
+      v64 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v62 requiringSecureCoding:1 error:v102];
+      v65 = v102[0];
 
-      [v48 setData:v66];
-      v65 = v67;
+      [v47 setData:v64];
+      v63 = v65;
     }
 
     else
     {
-      [v48 setData:0];
+      [v47 setData:0];
     }
 
-    [v48 setError:v65];
+    [v47 setError:v63];
   }
 
   else
   {
-    [v48 setData:0];
-    v68 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v168 = *MEMORY[0x277CCA450];
-    v169 = @"Invalid request";
-    v65 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v169 forKeys:&v168 count:1];
-    v54 = [v68 initWithDomain:@"GTReplayerRequestDomain" code:300 userInfo:v65];
-    [v48 setError:v54];
+    [v47 setData:0];
+    v66 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v165 = *MEMORY[0x277CCA450];
+    v166 = @"Invalid request";
+    v63 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v166 forKeys:&v165 count:1];
+    v53 = [v66 initWithDomain:@"GTReplayerRequestDomain" code:300 userInfo:v63];
+    [v47 setError:v53];
   }
 
-  v69 = [*(a1 + 32) completionHandler];
-  v70 = v69;
-  if (v69)
+  v67 = [*(a1 + 32) completionHandler];
+  v68 = v67;
+  if (v67)
   {
-    (*(v69 + 16))(v69, v48);
+    (*(v67 + 16))(v67, v47);
   }
 
   [*(a1 + 40) completed];
-
-  v71 = *MEMORY[0x277D85DE8];
 }
 
 - (id)profile:(id)profile
@@ -998,11 +994,11 @@ LABEL_26:
   return 0;
 }
 
-void __30__GTMTLReplayService_profile___block_invoke(uint64_t a1, uint64_t a2)
+void __30__GTMTLReplayService_profile___block_invoke(void *a1, uint64_t a2)
 {
   if ((*(a2 + 24) & 1) == 0)
   {
-    v3 = GTMTLReplayClient_queryShaderInfo(*(*(a1 + 48) + 8), (*(a1 + 48) + 280), *(a1 + 32));
+    v3 = GTMTLReplayClient_queryShaderInfo(*(a1[6] + 8), (a1[6] + 280), a1[4]);
     v4 = [v3 mutableCopy];
     [v4 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"isLegacy"];
     v5 = objc_opt_new();
@@ -1014,131 +1010,128 @@ void __30__GTMTLReplayService_profile___block_invoke(uint64_t a1, uint64_t a2)
     [v5 setData:v8];
 
     [v5 setError:v9];
-    (*(*(a1 + 40) + 16))();
+    (*(a1[5] + 16))();
   }
 }
 
 void __30__GTMTLReplayService_profile___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v43[1] = *MEMORY[0x277D85DE8];
+  v41[1] = *MEMORY[0x277D85DE8];
   if ((*(a2 + 24) & 1) == 0)
   {
     v3 = GTMTLReplayHost_generateDerivedDataPayload(**(*(a1 + 56) + 8), 1);
     [*(a1 + 32) addEntriesFromDictionary:v3];
-    v4 = **(*(a1 + 56) + 8);
-    v5 = GTShaderProfilerStreamDataFromReplayDataSource();
-    [v5 setMetalPluginName:*(*(*(a1 + 48) + 8) + 40)];
-    v6 = [*(*(*(a1 + 56) + 8) + 8) defaultDevice];
-    v7 = [v6 name];
-    [v5 setMetalDeviceName:v7];
+    v4 = GTShaderProfilerStreamDataFromReplayDataSource();
+    [v4 setMetalPluginName:*(*(*(a1 + 48) + 8) + 40)];
+    v5 = [*(*(*(a1 + 56) + 8) + 8) defaultDevice];
+    v6 = [v5 name];
+    [v4 setMetalDeviceName:v6];
 
-    v8 = [*(a1 + 32) objectForKeyedSubscript:@"SupportsFileFormatV2"];
-    [v5 setSupportsFileFormatV2:{objc_msgSend(v8, "BOOLValue")}];
+    v7 = [*(a1 + 32) objectForKeyedSubscript:@"SupportsFileFormatV2"];
+    [v4 setSupportsFileFormatV2:{objc_msgSend(v7, "BOOLValue")}];
 
-    v9 = [*(a1 + 32) objectForKeyedSubscript:@"GPUState"];
+    v8 = [*(a1 + 32) objectForKeyedSubscript:@"GPUState"];
 
-    if (v9)
+    if (v8)
     {
-      v10 = [*(a1 + 32) objectForKeyedSubscript:@"GPUState"];
-      [v5 setProfiledPerformanceState:{objc_msgSend(v10, "intValue")}];
+      v9 = [*(a1 + 32) objectForKeyedSubscript:@"GPUState"];
+      [v4 setProfiledPerformanceState:{objc_msgSend(v9, "intValue")}];
     }
 
     else
     {
-      [v5 setProfiledPerformanceState:2];
+      [v4 setProfiledPerformanceState:2];
     }
 
-    v11 = [*(a1 + 32) objectForKeyedSubscript:@"useOverlap"];
+    v10 = [*(a1 + 32) objectForKeyedSubscript:@"useOverlap"];
 
-    if (v11)
+    if (v10)
     {
-      v12 = [*(a1 + 32) objectForKeyedSubscript:@"useOverlap"];
-      v13 = [v12 BOOLValue];
+      v11 = [*(a1 + 32) objectForKeyedSubscript:@"useOverlap"];
+      v12 = [v11 BOOLValue];
 
-      v14 = v13 ^ 1u;
+      v13 = v12 ^ 1u;
     }
 
     else
     {
-      v14 = 0;
+      v13 = 0;
     }
 
-    [v5 setProfiledExecutionMode:v14];
-    [v5 setProfiledProfilerMode:0];
-    v15 = dispatch_semaphore_create(0);
-    if (!v5)
+    [v4 setProfiledExecutionMode:v13];
+    [v4 setProfiledProfilerMode:0];
+    v14 = dispatch_semaphore_create(0);
+    if (!v4)
     {
       goto LABEL_15;
     }
 
-    v33 = v3;
-    v16 = *(a1 + 56);
-    v17 = *(v16 + 8);
-    v18 = *(a1 + 32);
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __30__GTMTLReplayService_profile___block_invoke_3;
-    v39[3] = &unk_279657808;
-    v19 = v5;
-    v40 = v19;
-    v20 = v15;
-    v41 = v20;
-    GTMTLReplayClient_collectGPUShaderTimelineData(v17, (v16 + 280), v18, v39);
-    dispatch_semaphore_wait(v20, 0xFFFFFFFFFFFFFFFFLL);
-    v21 = *(a1 + 56);
-    v22 = *(v21 + 8);
-    v23 = *(a1 + 32);
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __30__GTMTLReplayService_profile___block_invoke_4;
-    v36[3] = &unk_279657808;
+    v31 = v3;
+    v15 = *(a1 + 56);
+    v16 = *(v15 + 8);
+    v17 = *(a1 + 32);
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __30__GTMTLReplayService_profile___block_invoke_3;
+    v37[3] = &unk_279657808;
+    v18 = v4;
+    v38 = v18;
+    v19 = v14;
+    v39 = v19;
+    GTMTLReplayClient_collectGPUShaderTimelineData(v16, (v15 + 280), v17, v37);
+    dispatch_semaphore_wait(v19, 0xFFFFFFFFFFFFFFFFLL);
+    v20 = *(a1 + 56);
+    v21 = *(v20 + 8);
+    v22 = *(a1 + 32);
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __30__GTMTLReplayService_profile___block_invoke_4;
+    v34[3] = &unk_279657808;
+    v23 = v18;
+    v35 = v23;
     v24 = v19;
-    v37 = v24;
-    v25 = v20;
-    v38 = v25;
-    GTMTLReplayClient_streamShaderProfilingData(v22, (v21 + 280), v23, v36);
-    dispatch_semaphore_wait(v25, 0xFFFFFFFFFFFFFFFFLL);
-    [v24 addPipelinePerformanceStatisticsData:*(*(*(a1 + 56) + 8) + 64)];
-    v35 = 0;
-    v26 = [v24 encode:0 error:&v35];
-    v27 = v35;
-    if (v27)
+    v36 = v24;
+    GTMTLReplayClient_streamShaderProfilingData(v21, (v20 + 280), v22, v34);
+    dispatch_semaphore_wait(v24, 0xFFFFFFFFFFFFFFFFLL);
+    [v23 addPipelinePerformanceStatisticsData:*(*(*(a1 + 56) + 8) + 64)];
+    v33 = 0;
+    v25 = [v23 encode:0 error:&v33];
+    v26 = v33;
+    if (v26)
     {
-      v28 = v27;
-      v29 = objc_opt_new();
-      [v29 setError:v28];
+      v27 = v26;
+      v28 = objc_opt_new();
+      [v28 setError:v27];
       (*(*(a1 + 40) + 16))();
     }
 
     else
     {
-      if (![v24 supportsFileFormatV2])
+      if (![v23 supportsFileFormatV2])
       {
-        v28 = 0;
-        v3 = v33;
+        v27 = 0;
+        v3 = v31;
         goto LABEL_14;
       }
 
-      v29 = objc_opt_new();
-      v42 = @"Profiler Raw URL";
-      v43[0] = v26;
-      v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:&v42 count:1];
-      v34 = 0;
-      v31 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v30 requiringSecureCoding:1 error:&v34];
-      v28 = v34;
-      [v29 setData:v31];
+      v28 = objc_opt_new();
+      v40 = @"Profiler Raw URL";
+      v41[0] = v25;
+      v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:&v40 count:1];
+      v32 = 0;
+      v30 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v29 requiringSecureCoding:1 error:&v32];
+      v27 = v32;
+      [v28 setData:v30];
 
-      [v29 setError:v28];
+      [v28 setError:v27];
       (*(*(a1 + 40) + 16))();
     }
 
-    v3 = v33;
+    v3 = v31;
 
 LABEL_14:
 LABEL_15:
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __30__GTMTLReplayService_profile___block_invoke_5(uint64_t a1, uint64_t a2)
@@ -1208,27 +1201,22 @@ void __30__GTMTLReplayService_profile___block_invoke_7(uint64_t a1, uint64_t a2)
 
 void __30__GTMTLReplayService_profile___block_invoke_9(uint64_t a1, uint64_t a2)
 {
-  v55[1] = *MEMORY[0x277D85DE8];
+  v53[1] = *MEMORY[0x277D85DE8];
   if ((*(a2 + 24) & 1) == 0)
   {
-    v34 = dispatch_queue_create("gputools.apsreply", 0);
+    v32 = dispatch_queue_create("gputools.apsreply", 0);
     v3 = objc_opt_new();
     [v3 setRequestID:*(a1 + 56)];
-    v51 = 0;
-    v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:&unk_2860D5FC0 requiringSecureCoding:1 error:&v51];
-    v5 = v51;
+    v49 = 0;
+    v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:&unk_2860D5FC0 requiringSecureCoding:1 error:&v49];
+    v5 = v49;
     [v3 setData:v4];
 
     [v3 setError:v5];
     (*(*(a1 + 40) + 16))();
 
-    v6 = **(*(a1 + 64) + 8);
-    v7 = GTShaderProfilerStreamDataFromReplayDataSource();
-    v8 = dispatch_semaphore_create(0);
-    v49[0] = 0;
-    v49[1] = v49;
-    v49[2] = 0x2020000000;
-    v50 = 0;
+    v6 = GTShaderProfilerStreamDataFromReplayDataSource();
+    v7 = dispatch_semaphore_create(0);
     v47[0] = 0;
     v47[1] = v47;
     v47[2] = 0x2020000000;
@@ -1237,123 +1225,125 @@ void __30__GTMTLReplayService_profile___block_invoke_9(uint64_t a1, uint64_t a2)
     v45[1] = v45;
     v45[2] = 0x2020000000;
     v46 = 0;
-    v9 = [*(a1 + 32) objectForKeyedSubscript:@"SupportsFileFormatV2"];
-    [v7 setSupportsFileFormatV2:{objc_msgSend(v9, "BOOLValue")}];
+    v43[0] = 0;
+    v43[1] = v43;
+    v43[2] = 0x2020000000;
+    v44 = 0;
+    v8 = [*(a1 + 32) objectForKeyedSubscript:@"SupportsFileFormatV2"];
+    [v6 setSupportsFileFormatV2:{objc_msgSend(v8, "BOOLValue")}];
 
-    v10 = [*(a1 + 32) objectForKeyedSubscript:@"GPUState"];
+    v9 = [*(a1 + 32) objectForKeyedSubscript:@"GPUState"];
 
-    if (v10)
+    if (v9)
     {
-      v11 = [*(a1 + 32) objectForKeyedSubscript:{@"GPUState", v34}];
-      [v7 setProfiledPerformanceState:{objc_msgSend(v11, "intValue")}];
+      v10 = [*(a1 + 32) objectForKeyedSubscript:{@"GPUState", v32}];
+      [v6 setProfiledPerformanceState:{objc_msgSend(v10, "intValue")}];
     }
 
     else
     {
-      [v7 setProfiledPerformanceState:{2, v34}];
+      [v6 setProfiledPerformanceState:{2, v32}];
     }
 
-    v12 = [*(a1 + 32) objectForKeyedSubscript:@"useOverlap"];
+    v11 = [*(a1 + 32) objectForKeyedSubscript:@"useOverlap"];
 
-    if (v12)
+    if (v11)
     {
-      v13 = [*(a1 + 32) objectForKeyedSubscript:@"useOverlap"];
-      v14 = [v13 BOOLValue];
+      v12 = [*(a1 + 32) objectForKeyedSubscript:@"useOverlap"];
+      v13 = [v12 BOOLValue];
 
-      [v7 setProfiledExecutionMode:v14 ^ 1u];
+      [v6 setProfiledExecutionMode:v13 ^ 1u];
     }
 
     else
     {
-      [v7 setProfiledExecutionMode:0];
+      [v6 setProfiledExecutionMode:0];
     }
 
-    v15 = *(a1 + 64);
-    v16 = *(v15 + 8);
-    v17 = *(a1 + 32);
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __30__GTMTLReplayService_profile___block_invoke_10;
-    v39[3] = &unk_279658440;
-    v18 = v8;
-    v40 = v18;
-    v42 = v49;
-    v43 = v47;
-    v44 = v45;
-    v19 = v7;
-    v41 = v19;
-    GTMTLReplayClient_collectAPSData(v16, (v15 + 280), v17, v39);
-    dispatch_semaphore_wait(v18, 0xFFFFFFFFFFFFFFFFLL);
-    [v19 setMetalPluginName:*(*(*(a1 + 48) + 8) + 40)];
-    v20 = [*(*(*(a1 + 64) + 8) + 8) defaultDevice];
-    v21 = [v20 name];
-    [v19 setMetalDeviceName:v21];
+    v14 = *(a1 + 64);
+    v15 = *(v14 + 8);
+    v16 = *(a1 + 32);
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __30__GTMTLReplayService_profile___block_invoke_10;
+    v37[3] = &unk_279658440;
+    v17 = v7;
+    v38 = v17;
+    v40 = v47;
+    v41 = v45;
+    v42 = v43;
+    v18 = v6;
+    v39 = v18;
+    GTMTLReplayClient_collectAPSData(v15, (v14 + 280), v16, v37);
+    dispatch_semaphore_wait(v17, 0xFFFFFFFFFFFFFFFFLL);
+    [v18 setMetalPluginName:*(*(*(a1 + 48) + 8) + 40)];
+    v19 = [*(*(*(a1 + 64) + 8) + 8) defaultDevice];
+    v20 = [v19 name];
+    [v18 setMetalDeviceName:v20];
 
-    [v19 addPipelinePerformanceStatisticsData:*(*(*(a1 + 64) + 8) + 64)];
-    v38 = 0;
-    v22 = [v19 encode:0 error:&v38];
-    v23 = v38;
-    if (v23)
+    [v18 addPipelinePerformanceStatisticsData:*(*(*(a1 + 64) + 8) + 64)];
+    v36 = 0;
+    v21 = [v18 encode:0 error:&v36];
+    v22 = v36;
+    if (v22)
     {
-      v24 = v23;
-      v25 = objc_opt_new();
-      [v25 setError:v24];
+      v23 = v22;
+      v24 = objc_opt_new();
+      [v24 setError:v23];
       (*(*(a1 + 40) + 16))();
     }
 
     else
     {
-      if ([v19 supportsFileFormatV2])
+      if ([v18 supportsFileFormatV2])
       {
-        v25 = objc_opt_new();
-        v54 = @"Profiler Raw URL";
-        v55[0] = v22;
-        v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:&v54 count:1];
-        v37 = 0;
-        v27 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v26 requiringSecureCoding:1 error:&v37];
-        v24 = v37;
-        [v25 setData:v27];
+        v24 = objc_opt_new();
+        v52 = @"Profiler Raw URL";
+        v53[0] = v21;
+        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:&v52 count:1];
+        v35 = 0;
+        v26 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v25 requiringSecureCoding:1 error:&v35];
+        v23 = v35;
+        [v24 setData:v26];
 
-        [v25 setError:v24];
+        [v24 setError:v23];
         (*(*(a1 + 40) + 16))();
       }
 
       else
       {
-        v25 = objc_opt_new();
-        v28 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v22 options:8 error:0];
-        v26 = v28;
-        if (v28)
+        v24 = objc_opt_new();
+        v27 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v21 options:8 error:0];
+        v25 = v27;
+        if (v27)
         {
-          v52 = @"Profiler Raw";
-          v53 = v28;
-          v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+          v50 = @"Profiler Raw";
+          v51 = v27;
+          v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
         }
 
         else
         {
-          v29 = MEMORY[0x277CBEC10];
+          v28 = MEMORY[0x277CBEC10];
         }
 
-        v36 = 0;
-        v30 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v29 requiringSecureCoding:1 error:&v36];
-        v24 = v36;
-        [v25 setData:v30];
+        v34 = 0;
+        v29 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v28 requiringSecureCoding:1 error:&v34];
+        v23 = v34;
+        [v24 setData:v29];
 
-        [v25 setError:v24];
+        [v24 setError:v23];
         (*(*(a1 + 40) + 16))();
-        v31 = *(a1 + 40);
-        v32 = objc_opt_new();
-        (*(v31 + 16))(v31, v32);
+        v30 = *(a1 + 40);
+        v31 = objc_opt_new();
+        (*(v30 + 16))(v30, v31);
       }
     }
 
+    _Block_object_dispose(v43, 8);
     _Block_object_dispose(v45, 8);
     _Block_object_dispose(v47, 8);
-    _Block_object_dispose(v49, 8);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __30__GTMTLReplayService_profile___block_invoke_11(uint64_t a1, uint64_t a2)
@@ -1387,31 +1377,31 @@ void __30__GTMTLReplayService_profile___block_invoke_11(uint64_t a1, uint64_t a2
 
 void __30__GTMTLReplayService_profile___block_invoke_12(uint64_t a1, uint64_t a2)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   if ((*(a2 + 24) & 1) == 0)
   {
     v3 = dispatch_semaphore_create(0);
     v4 = *(a1 + 48);
     v5 = *(v4 + 8);
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __30__GTMTLReplayService_profile___block_invoke_13;
-    v17[3] = &unk_2796578D0;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __30__GTMTLReplayService_profile___block_invoke_13;
+    v16[3] = &unk_2796578D0;
     v6 = *(a1 + 32);
     v7 = *(a1 + 40);
-    v18 = v3;
-    v19 = v7;
+    v17 = v3;
+    v18 = v7;
     v8 = v3;
-    v9 = GTMTLReplayClient_streamBatchFilteredData(v5, (v4 + 280), v6, v17);
-    v20 = @"Batch Filtering Started";
+    v9 = GTMTLReplayClient_streamBatchFilteredData(v5, (v4 + 280), v6, v16);
+    v19 = @"Batch Filtering Started";
     v10 = [MEMORY[0x277CCABB0] numberWithBool:v9];
-    v21[0] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v20[0] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
 
     v12 = objc_opt_new();
-    v16 = 0;
-    v13 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v11 requiringSecureCoding:1 error:&v16];
-    v14 = v16;
+    v15 = 0;
+    v13 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v11 requiringSecureCoding:1 error:&v15];
+    v14 = v15;
     [v12 setData:v13];
 
     [v12 setError:v14];
@@ -1419,8 +1409,6 @@ void __30__GTMTLReplayService_profile___block_invoke_12(uint64_t a1, uint64_t a2
 
     dispatch_semaphore_wait(v8, 0xFFFFFFFFFFFFFFFFLL);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __30__GTMTLReplayService_profile___block_invoke_14(uint64_t a1, uint64_t a2)
@@ -1669,7 +1657,7 @@ intptr_t __30__GTMTLReplayService_profile___block_invoke_4(uint64_t a1, uint64_t
 
 - (id)decode:(id)decode
 {
-  v92[1] = *MEMORY[0x277D85DE8];
+  v90[1] = *MEMORY[0x277D85DE8];
   decodeCopy = decode;
   v5 = [objc_alloc(MEMORY[0x277D0B620]) initWithService:self andTokenId:{objc_msgSend(decodeCopy, "requestID")}];
   v6 = v5;
@@ -1677,17 +1665,17 @@ intptr_t __30__GTMTLReplayService_profile___block_invoke_4(uint64_t a1, uint64_t
   if (var1)
   {
     clientContext = self->_clientContext;
-    v64 = v5;
+    v62 = v5;
     v8 = *var1;
     v9 = objc_opt_new();
-    v69 = objc_opt_new();
+    v67 = objc_opt_new();
+    v76 = 0u;
+    v77 = 0u;
     v78 = 0u;
     v79 = 0u;
-    v80 = 0u;
-    v81 = 0u;
-    v65 = decodeCopy;
+    v63 = decodeCopy;
     requests = [decodeCopy requests];
-    v11 = [requests countByEnumeratingWithState:&v78 objects:v90 count:16];
+    v11 = [requests countByEnumeratingWithState:&v76 objects:v88 count:16];
     if (!v11)
     {
       goto LABEL_29;
@@ -1695,52 +1683,51 @@ intptr_t __30__GTMTLReplayService_profile___block_invoke_4(uint64_t a1, uint64_t
 
     v12 = v11;
     v13 = 0x277CBE000uLL;
-    v71 = requests;
-    v72 = *v79;
-    v14 = *MEMORY[0x277CCA450];
-    v67 = *MEMORY[0x277CCA450];
-    v68 = *MEMORY[0x277CCA050];
-    v66 = v9;
+    v69 = requests;
+    v70 = *v77;
+    v65 = *MEMORY[0x277CCA450];
+    v66 = *MEMORY[0x277CCA050];
+    v64 = v9;
     while (1)
     {
-      v15 = 0;
-      v70 = v12;
+      v14 = 0;
+      v68 = v12;
       do
       {
-        if (*v79 != v72)
+        if (*v77 != v70)
         {
           objc_enumerationMutation(requests);
         }
 
-        v16 = *(*(&v78 + 1) + 8 * v15);
-        v17 = objc_alloc_init(*(v13 + 2872));
+        v15 = *(*(&v76 + 1) + 8 * v14);
+        v16 = objc_alloc_init(*(v13 + 2872));
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v18 = v16;
-          streamRef = [v18 streamRef];
-          dispatchUID = [v18 dispatchUID];
-          dispatchUID2 = [v18 dispatchUID];
+          v17 = v15;
+          streamRef = [v17 streamRef];
+          dispatchUID = [v17 dispatchUID];
+          dispatchUID2 = [v17 dispatchUID];
           Object = GTMTLSMContext_getObject(**(v8 + 40), streamRef, *(v8 + 88) + dispatchUID);
           if (Object && *Object == 57)
           {
             find_entry(*(v8 + 8), &streamRef, 8uLL, 0);
-            v88[0] = @"requestID";
-            v22 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v18, "requestID")}];
-            v89[0] = v22;
-            v88[1] = @"functionIndex";
-            v23 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:dispatchUID2 & 0xFFFFFFFF00000000 | dispatchUID];
-            v89[1] = v23;
-            v88[2] = @"streamref";
-            v12 = v70;
-            v24 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:streamRef];
-            v88[3] = @"type";
-            v89[2] = v24;
-            v89[3] = &unk_2860D6650;
-            v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v89 forKeys:v88 count:4];
-            [v9 addObject:v25];
+            v86[0] = @"requestID";
+            v21 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v17, "requestID")}];
+            v87[0] = v21;
+            v86[1] = @"functionIndex";
+            v22 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:dispatchUID2 & 0xFFFFFFFF00000000 | dispatchUID];
+            v87[1] = v22;
+            v86[2] = @"streamref";
+            v12 = v68;
+            v23 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:streamRef];
+            v86[3] = @"type";
+            v87[2] = v23;
+            v87[3] = &unk_2860D6650;
+            v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v87 forKeys:v86 count:4];
+            [v9 addObject:v24];
 
-            requests = v71;
+            requests = v69;
 LABEL_26:
             v13 = 0x277CBE000;
           }
@@ -1754,128 +1741,128 @@ LABEL_26:
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v18 = objc_opt_new();
-              [v18 setRequestID:{objc_msgSend(v16, "requestID", clientContext)}];
-              v42 = objc_alloc(MEMORY[0x277CCA9B8]);
-              v82 = v67;
-              v83 = @"unknown request";
-              v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
-              v44 = [v42 initWithDomain:v68 code:1 userInfo:v43];
-              [v18 setError:v44];
+              v17 = objc_opt_new();
+              [v17 setRequestID:{objc_msgSend(v15, "requestID", clientContext)}];
+              v41 = objc_alloc(MEMORY[0x277CCA9B8]);
+              v80 = v65;
+              v81 = @"unknown request";
+              v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
+              v43 = [v41 initWithDomain:v66 code:1 userInfo:v42];
+              [v17 setError:v43];
 
-              [v69 addObject:v18];
+              [v67 addObject:v17];
               goto LABEL_27;
             }
 
-            v18 = v16;
-            requestID = [v18 requestID];
-            dispatchUID3 = [v18 dispatchUID];
-            dispatchUID4 = [v18 dispatchUID];
-            streamRef = [v18 streamRef];
-            v39 = GTMTLSMContext_getObject(**(v8 + 40), streamRef, *(v8 + 88) + dispatchUID3);
-            if (v39 && *v39 == 16)
+            v17 = v15;
+            requestID = [v17 requestID];
+            dispatchUID3 = [v17 dispatchUID];
+            dispatchUID4 = [v17 dispatchUID];
+            streamRef = [v17 streamRef];
+            v38 = GTMTLSMContext_getObject(**(v8 + 40), streamRef, *(v8 + 88) + dispatchUID3);
+            if (v38 && *v38 == 16)
             {
               entry = find_entry(*(v8 + 8), &streamRef, 8uLL, 0);
               if (*entry)
               {
-                v41 = *(*entry + 32);
+                v40 = *(*entry + 32);
               }
 
               else
               {
-                v41 = 0;
+                v40 = 0;
               }
 
-              v84[0] = @"requestID";
-              v45 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{requestID, clientContext}];
-              v85[0] = v45;
-              v84[1] = @"functionIndex";
-              v46 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:dispatchUID4 & 0xFFFFFFFF00000000 | dispatchUID3];
-              v85[1] = v46;
-              v84[2] = @"streamref";
-              v47 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:streamRef];
-              v85[2] = v47;
-              v84[3] = @"object";
-              if (v41)
+              v82[0] = @"requestID";
+              v44 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{requestID, clientContext}];
+              v83[0] = v44;
+              v82[1] = @"functionIndex";
+              v45 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:dispatchUID4 & 0xFFFFFFFF00000000 | dispatchUID3];
+              v83[1] = v45;
+              v82[2] = @"streamref";
+              v46 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:streamRef];
+              v83[2] = v46;
+              v82[3] = @"object";
+              if (v40)
               {
-                v48 = atomic_load((v41 + 56));
-                v49 = v41 + (~(v48 >> 2) & 8);
+                v47 = atomic_load((v40 + 56));
+                v48 = v40 + (~(v47 >> 2) & 8);
               }
 
               else
               {
-                v49 = 8;
+                v48 = 8;
               }
 
-              v50 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*v49];
-              v84[4] = @"type";
-              v85[3] = v50;
-              v85[4] = &unk_2860D6668;
-              v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v85 forKeys:v84 count:5];
+              v49 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*v48];
+              v82[4] = @"type";
+              v83[3] = v49;
+              v83[4] = &unk_2860D6668;
+              v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v83 forKeys:v82 count:5];
 
-              [v66 addObject:v51];
-              v9 = v66;
-              requests = v71;
+              [v64 addObject:v50];
+              v9 = v64;
+              requests = v69;
             }
 
             goto LABEL_26;
           }
 
-          v18 = v16;
-          dispatchUID5 = [v18 dispatchUID];
-          dispatchUID6 = [v18 dispatchUID];
-          v28 = [v18 type] - 1;
-          if (v28 <= 7u && ((0xC7u >> v28) & 1) != 0)
+          v17 = v15;
+          dispatchUID5 = [v17 dispatchUID];
+          dispatchUID6 = [v17 dispatchUID];
+          v27 = [v17 type] - 1;
+          if (v27 <= 7u && ((0xC7u >> v27) & 1) != 0)
           {
-            v29 = dispatchUID6 & 0xFFFFFFFF00000000;
-            v30 = qword_24DA90E48[v28];
-            v31 = v30 + [v18 index];
-            v86[0] = @"requestID";
-            v32 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v18, "requestID")}];
-            v87[0] = v32;
-            v86[1] = @"functionIndex";
-            v33 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v29 | dispatchUID5];
-            v87[1] = v33;
-            v86[2] = @"object";
-            v12 = v70;
-            v34 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v31];
-            v86[3] = @"type";
-            v87[2] = v34;
-            v87[3] = &unk_2860D6578;
-            v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v87 forKeys:v86 count:4];
-            [v9 addObject:v35];
+            v28 = dispatchUID6 & 0xFFFFFFFF00000000;
+            v29 = qword_24DA90E48[v27];
+            v30 = v29 + [v17 index];
+            v84[0] = @"requestID";
+            v31 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v17, "requestID")}];
+            v85[0] = v31;
+            v84[1] = @"functionIndex";
+            v32 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v28 | dispatchUID5];
+            v85[1] = v32;
+            v84[2] = @"object";
+            v12 = v68;
+            v33 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v30];
+            v84[3] = @"type";
+            v85[2] = v33;
+            v85[3] = &unk_2860D6578;
+            v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v85 forKeys:v84 count:4];
+            [v9 addObject:v34];
 
-            requests = v71;
+            requests = v69;
             v13 = 0x277CBE000;
           }
         }
 
 LABEL_27:
 
-        ++v15;
+        ++v14;
       }
 
-      while (v12 != v15);
-      v12 = [requests countByEnumeratingWithState:&v78 objects:v90 count:16];
+      while (v12 != v14);
+      v12 = [requests countByEnumeratingWithState:&v76 objects:v88 count:16];
       if (!v12)
       {
 LABEL_29:
 
-        decodeCopy = v65;
-        completionHandler = [v65 completionHandler];
-        v73[0] = MEMORY[0x277D85DD0];
-        v73[1] = 3221225472;
-        v73[2] = __29__GTMTLReplayService_decode___block_invoke;
-        v73[3] = &unk_2796577B8;
-        v74 = v69;
-        v76 = completionHandler;
-        v6 = v64;
-        v53 = v64;
-        v75 = v53;
-        v54 = completionHandler;
-        v55 = v69;
-        FetchResourceObjectBatch(clientContext, v9, v73);
-        v56 = v53;
+        decodeCopy = v63;
+        completionHandler = [v63 completionHandler];
+        v71[0] = MEMORY[0x277D85DD0];
+        v71[1] = 3221225472;
+        v71[2] = __29__GTMTLReplayService_decode___block_invoke;
+        v71[3] = &unk_2796577B8;
+        v72 = v67;
+        v74 = completionHandler;
+        v6 = v62;
+        v52 = v62;
+        v73 = v52;
+        v53 = completionHandler;
+        v54 = v67;
+        FetchResourceObjectBatch(clientContext, v9, v71);
+        v55 = v52;
 
         goto LABEL_31;
       }
@@ -1884,40 +1871,38 @@ LABEL_29:
 
   v9 = objc_opt_new();
   [v9 setRequestID:{objc_msgSend(decodeCopy, "requestID")}];
-  v57 = objc_alloc(MEMORY[0x277CCA9B8]);
-  v91 = *MEMORY[0x277CCA450];
-  v92[0] = @"Decode request happened before replayer data source is loaded";
-  v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v92 forKeys:&v91 count:1];
-  v59 = [v57 initWithDomain:@"com.apple.gputools.MTLReplayer" code:104 userInfo:v58];
-  [v9 setError:v59];
+  v56 = objc_alloc(MEMORY[0x277CCA9B8]);
+  v89 = *MEMORY[0x277CCA450];
+  v90[0] = @"Decode request happened before replayer data source is loaded";
+  v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v90 forKeys:&v89 count:1];
+  v58 = [v56 initWithDomain:@"com.apple.gputools.MTLReplayer" code:104 userInfo:v57];
+  [v9 setError:v58];
 
   completionHandler2 = [decodeCopy completionHandler];
   (completionHandler2)[2](completionHandler2, v9);
 
   [v6 completed];
-  v56 = 0;
+  v55 = 0;
 LABEL_31:
 
-  v61 = *MEMORY[0x277D85DE8];
-
-  return v56;
+  return v55;
 }
 
 void __29__GTMTLReplayService_decode___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   v4 = a2;
-  v53 = a3;
+  v52 = a3;
   v5 = MEMORY[0x277CCAAC8];
   v6 = MEMORY[0x277CBEB98];
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = [v6 setWithObjects:{v7, v8, v9, objc_opt_class(), 0}];
-  v67 = 0;
-  v54 = v4;
-  v11 = [v5 unarchivedObjectOfClasses:v10 fromData:v4 error:&v67];
-  v12 = v67;
+  v66 = 0;
+  v53 = v4;
+  v11 = [v5 unarchivedObjectOfClasses:v10 fromData:v4 error:&v66];
+  v12 = v66;
 
   v13 = MEMORY[0x277CCAAC8];
   v14 = MEMORY[0x277CBEB98];
@@ -1926,57 +1911,57 @@ void __29__GTMTLReplayService_decode___block_invoke(uint64_t a1, void *a2, void 
   v17 = objc_opt_class();
   v18 = objc_opt_class();
   v19 = [v14 setWithObjects:{v15, v16, v17, v18, objc_opt_class(), 0}];
-  v51 = v11;
+  v50 = v11;
   v20 = [v11 objectForKeyedSubscript:@"object"];
-  v66 = v12;
-  v21 = [v13 unarchivedObjectOfClasses:v19 fromData:v20 error:&v66];
-  v50 = v66;
+  v65 = v12;
+  v21 = [v13 unarchivedObjectOfClasses:v19 fromData:v20 error:&v65];
+  v49 = v65;
 
-  v56 = [v21 objectForKeyedSubscript:@"object"];
-  v55 = [v21 objectForKeyedSubscript:@"requestID"];
+  v55 = [v21 objectForKeyedSubscript:@"object"];
+  v54 = [v21 objectForKeyedSubscript:@"requestID"];
   v22 = [v21 objectForKeyedSubscript:@"functionIndex"];
   v23 = [v22 bytes];
   v24 = [v21 objectForKeyedSubscript:@"stream"];
   v25 = [v24 count];
 
-  v65 = 0;
+  v64 = 0;
   v26 = 1280 * v25;
   v27 = GTCoreAlloc(1280 * v25);
   bzero(v27, 1280 * v25);
   concat = MEMORY[0x277D85CC8];
   v29 = MEMORY[0x277D85CC8];
-  v49 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v48 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v60 = 0u;
   v61 = 0u;
   v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
   v30 = [v21 objectForKeyedSubscript:@"stream"];
-  v31 = [v30 countByEnumeratingWithState:&v61 objects:v68 count:16];
+  v31 = [v30 countByEnumeratingWithState:&v60 objects:v67 count:16];
   if (v31)
   {
     v32 = v31;
-    v46 = v26;
-    v47 = v22;
-    v48 = v21;
-    v33 = *v62;
+    v45 = v26;
+    v46 = v22;
+    v47 = v21;
+    v33 = *v61;
     do
     {
       v34 = 0;
       v35 = concat;
       do
       {
-        if (*v62 != v33)
+        if (*v61 != v33)
         {
           objc_enumerationMutation(v30);
         }
 
-        v36 = *(*(&v61 + 1) + 8 * v34);
-        v59[0] = GTMTLTextureDescriptorDefaults;
-        v59[1] = unk_24DA92D40;
-        v59[2] = xmmword_24DA92D50;
-        v60 = 512;
+        v36 = *(*(&v60 + 1) + 8 * v34);
+        v58[0] = GTMTLTextureDescriptorDefaults;
+        v58[1] = unk_24DA92D40;
+        v58[2] = xmmword_24DA92D50;
+        v59 = 512;
         v37 = *v23++;
-        v38 = NewResourceData(v36, v56, v55, 0, v59, v27, &v65, v37, v35);
+        v38 = NewResourceData(v36, v55, v54, 0, v58, v27, &v64, v37, v35);
         concat = dispatch_data_create_concat(v35, v38);
 
         ++v34;
@@ -1984,14 +1969,14 @@ void __29__GTMTLReplayService_decode___block_invoke(uint64_t a1, void *a2, void 
       }
 
       while (v32 != v34);
-      v32 = [v30 countByEnumeratingWithState:&v61 objects:v68 count:16];
+      v32 = [v30 countByEnumeratingWithState:&v60 objects:v67 count:16];
     }
 
     while (v32);
-    v39 = 80 * v65;
-    v22 = v47;
-    v21 = v48;
-    v26 = v46;
+    v39 = 80 * v64;
+    v22 = v46;
+    v21 = v47;
+    v26 = v45;
   }
 
   else
@@ -2006,22 +1991,20 @@ void __29__GTMTLReplayService_decode___block_invoke(uint64_t a1, void *a2, void 
   destructor[4] = v27;
   destructor[5] = v26;
   v40 = dispatch_data_create(v27, v39, 0, destructor);
-  [v49 setObject:v40 forKey:@"info"];
-  [v49 setObject:concat forKey:@"data"];
+  [v48 setObject:v40 forKey:@"info"];
+  [v48 setObject:concat forKey:@"data"];
   v41 = [*(a1 + 32) copy];
-  [v49 setObject:v41 forKey:@"unknown"];
+  [v48 setObject:v41 forKey:@"unknown"];
 
   v42 = objc_opt_new();
-  v57 = 0;
-  v43 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v49 requiringSecureCoding:1 error:&v57];
-  v44 = v57;
+  v56 = 0;
+  v43 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v48 requiringSecureCoding:1 error:&v56];
+  v44 = v56;
   [v42 setData:v43];
 
   [v42 setError:v44];
   (*(*(a1 + 48) + 16))();
   [*(a1 + 40) completed];
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __29__GTMTLReplayService_decode___block_invoke_2(uint64_t a1)
@@ -2033,25 +2016,25 @@ uint64_t __29__GTMTLReplayService_decode___block_invoke_2(uint64_t a1)
 
 - (id)update:(id)update
 {
-  v117[1] = *MEMORY[0x277D85DE8];
+  v115[1] = *MEMORY[0x277D85DE8];
   updateCopy = update;
-  v78 = [objc_alloc(MEMORY[0x277D0B620]) initWithService:self andTokenId:{objc_msgSend(updateCopy, "requestID")}];
+  v76 = [objc_alloc(MEMORY[0x277D0B620]) initWithService:self andTokenId:{objc_msgSend(updateCopy, "requestID")}];
   val = self;
   clientContext = self->_clientContext;
   var1 = clientContext->var1;
   if (var1)
   {
-    v81 = *var1;
+    v79 = *var1;
   }
 
   else
   {
-    v81 = 0;
+    v79 = 0;
   }
 
-  v77 = objc_opt_new();
-  v83 = -[GTReplayerOperationBatch initWithRequestID:]([GTReplayerOperationBatch alloc], "initWithRequestID:", [updateCopy requestID]);
-  v84 = objc_opt_new();
+  v75 = objc_opt_new();
+  v81 = -[GTReplayerOperationBatch initWithRequestID:]([GTReplayerOperationBatch alloc], "initWithRequestID:", [updateCopy requestID]);
+  v82 = objc_opt_new();
   v6 = objc_alloc(MEMORY[0x277CBEB18]);
   requests = [updateCopy requests];
   v8 = [v6 initWithCapacity:{objc_msgSend(requests, "count")}];
@@ -2081,8 +2064,8 @@ uint64_t __29__GTMTLReplayService_decode___block_invoke_2(uint64_t a1)
   if (v16)
   {
     v17 = 0;
-    v79 = *MEMORY[0x277CCA050];
-    v82 = *MEMORY[0x277CCA450];
+    v77 = *MEMORY[0x277CCA050];
+    v80 = *MEMORY[0x277CCA450];
     while (1)
     {
       requests5 = [updateCopy requests];
@@ -2097,23 +2080,23 @@ uint64_t __29__GTMTLReplayService_decode___block_invoke_2(uint64_t a1)
           v31 = v19;
           data = [v31 data];
           uuid = [v31 uuid];
-          [v84 setObject:data forKeyedSubscript:uuid];
+          [v82 setObject:data forKeyedSubscript:uuid];
 
-          if ([v84 count] == 1)
+          if ([v82 count] == 1)
           {
             v34 = [GTReplayerOperation alloc];
-            v102[0] = MEMORY[0x277D85DD0];
-            v102[1] = 3221225472;
-            v102[2] = __29__GTMTLReplayService_update___block_invoke;
-            v102[3] = &unk_279657718;
-            v106 = v81;
-            v103 = v84;
-            v107 = clientContext;
-            v104 = v31;
-            v105 = v8;
-            v108 = v17;
-            v35 = [(GTReplayerOperation *)v34 initWithBatch:v83 withBlock:v102];
-            [(GTReplayerOperationBatch *)v83 addOperation:v35];
+            v100[0] = MEMORY[0x277D85DD0];
+            v100[1] = 3221225472;
+            v100[2] = __29__GTMTLReplayService_update___block_invoke;
+            v100[3] = &unk_279657718;
+            v104 = v79;
+            v101 = v82;
+            v105 = clientContext;
+            v102 = v31;
+            v103 = v8;
+            v106 = v17;
+            v35 = [(GTReplayerOperation *)v34 initWithBatch:v81 withBlock:v100];
+            [(GTReplayerOperationBatch *)v81 addOperation:v35];
           }
         }
 
@@ -2122,39 +2105,39 @@ uint64_t __29__GTMTLReplayService_decode___block_invoke_2(uint64_t a1)
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            if (v81)
+            if (v79)
             {
               objc_initWeak(&location, val);
               v36 = [GTReplayerOperation alloc];
-              v96[0] = MEMORY[0x277D85DD0];
-              v96[1] = 3221225472;
-              v96[2] = __29__GTMTLReplayService_update___block_invoke_2;
-              v96[3] = &unk_279657740;
-              objc_copyWeak(v99, &location);
-              v97 = v19;
-              v99[1] = v81;
-              v99[2] = clientContext;
-              v98 = v8;
-              v100 = v17;
-              v37 = [(GTReplayerOperation *)v36 initWithBatch:v83 withBlock:v96];
-              [(GTReplayerOperationBatch *)v83 addOperation:v37];
+              v94[0] = MEMORY[0x277D85DD0];
+              v94[1] = 3221225472;
+              v94[2] = __29__GTMTLReplayService_update___block_invoke_2;
+              v94[3] = &unk_279657740;
+              objc_copyWeak(v97, &location);
+              v95 = v19;
+              v97[1] = v79;
+              v97[2] = clientContext;
+              v96 = v8;
+              v98 = v17;
+              v37 = [(GTReplayerOperation *)v36 initWithBatch:v81 withBlock:v94];
+              [(GTReplayerOperationBatch *)v81 addOperation:v37];
 
-              objc_destroyWeak(v99);
+              objc_destroyWeak(v97);
               objc_destroyWeak(&location);
             }
 
             else
             {
-              v60 = objc_opt_new();
-              [v60 setRequestID:{objc_msgSend(v19, "requestID")}];
-              v61 = objc_alloc(MEMORY[0x277CCA9B8]);
-              v112 = v82;
-              v113 = @"Update request happened before replayer data source is loaded";
-              v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v113 forKeys:&v112 count:1];
-              v63 = [v61 initWithDomain:@"com.apple.gputools.MTLReplayer" code:104 userInfo:v62];
-              [v60 setError:v63];
+              v59 = objc_opt_new();
+              [v59 setRequestID:{objc_msgSend(v19, "requestID")}];
+              v60 = objc_alloc(MEMORY[0x277CCA9B8]);
+              v110 = v80;
+              v111 = @"Update request happened before replayer data source is loaded";
+              v61 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v111 forKeys:&v110 count:1];
+              v62 = [v60 initWithDomain:@"com.apple.gputools.MTLReplayer" code:104 userInfo:v61];
+              [v59 setError:v62];
 
-              [v8 setObject:v60 atIndexedSubscript:v17];
+              [v8 setObject:v59 atIndexedSubscript:v17];
             }
           }
 
@@ -2168,19 +2151,19 @@ uint64_t __29__GTMTLReplayService_decode___block_invoke_2(uint64_t a1)
               [v41 requestID];
               v43 = val->_gputrace != 0;
               v44 = [GTReplayerOperation alloc];
-              v90[0] = MEMORY[0x277D85DD0];
-              v90[1] = 3221225472;
-              v90[2] = __29__GTMTLReplayService_update___block_invoke_3;
-              v90[3] = &unk_279657768;
-              v95 = v43;
-              v91 = configuration;
-              v92 = v41;
-              v93 = v8;
-              v94 = v17;
+              v88[0] = MEMORY[0x277D85DD0];
+              v88[1] = 3221225472;
+              v88[2] = __29__GTMTLReplayService_update___block_invoke_3;
+              v88[3] = &unk_279657768;
+              v93 = v43;
+              v89 = configuration;
+              v90 = v41;
+              v91 = v8;
+              v92 = v17;
               v45 = v41;
               v46 = configuration;
-              v47 = [(GTReplayerOperation *)v44 initWithBatch:v83 withBlock:v90];
-              [(GTReplayerOperationBatch *)v83 addOperation:v47];
+              v47 = [(GTReplayerOperation *)v44 initWithBatch:v81 withBlock:v88];
+              [(GTReplayerOperationBatch *)v81 addOperation:v47];
             }
 
             else
@@ -2194,35 +2177,33 @@ uint64_t __29__GTMTLReplayService_decode___block_invoke_2(uint64_t a1)
                 terminateConnection = val->_terminateConnection;
                 val->_terminateConnection = connection;
 
+                [v52 path];
                 if (v53)
-                {
-                  path = [v52 path];
+                  v67 = {;
                   terminatePath = val->_terminatePath;
-                  val->_terminatePath = path;
+                  val->_terminatePath = v67;
                 }
 
                 else
-                {
-                  v56 = val->_terminatePath;
-                  terminatePath = [v52 path];
-                  v58 = MessagePathMerge();
-                  v59 = val->_terminatePath;
-                  val->_terminatePath = v58;
+                  terminatePath = {;
+                  v57 = MessagePathMerge();
+                  v58 = val->_terminatePath;
+                  val->_terminatePath = v57;
                 }
               }
 
               else
               {
-                v64 = objc_opt_new();
-                [v64 setRequestID:{objc_msgSend(v19, "requestID")}];
-                v65 = objc_alloc(MEMORY[0x277CCA9B8]);
-                v110 = v82;
-                v111 = @"unknown request";
-                v66 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v111 forKeys:&v110 count:1];
-                v67 = [v65 initWithDomain:v79 code:1 userInfo:v66];
-                [v64 setError:v67];
+                v63 = objc_opt_new();
+                [v63 setRequestID:{objc_msgSend(v19, "requestID")}];
+                v64 = objc_alloc(MEMORY[0x277CCA9B8]);
+                v108 = v80;
+                v109 = @"unknown request";
+                v65 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v109 forKeys:&v108 count:1];
+                v66 = [v64 initWithDomain:v77 code:1 userInfo:v65];
+                [v63 setError:v66];
 
-                [v8 setObject:v64 atIndexedSubscript:v17];
+                [v8 setObject:v63 atIndexedSubscript:v17];
               }
             }
           }
@@ -2251,16 +2232,16 @@ uint64_t __29__GTMTLReplayService_decode___block_invoke_2(uint64_t a1)
       if (!v27)
       {
         v48 = objc_alloc(MEMORY[0x277CCA9B8]);
-        v114 = v82;
-        v115 = @"ASV viewer session does not exist";
-        v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v115 forKeys:&v114 count:1];
-        v40 = [v48 initWithDomain:v79 code:1 userInfo:v39];
+        v112 = v80;
+        v113 = @"ASV viewer session does not exist";
+        v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v113 forKeys:&v112 count:1];
+        v40 = [v48 initWithDomain:v77 code:1 userInfo:v39];
         goto LABEL_24;
       }
 
-      v109 = 0;
-      v28 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:MEMORY[0x277CBEC38] requiringSecureCoding:1 error:&v109];
-      v29 = v109;
+      v107 = 0;
+      v28 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:MEMORY[0x277CBEC38] requiringSecureCoding:1 error:&v107];
+      v29 = v107;
       [v21 setData:v28];
 
       [v21 setError:v29];
@@ -2280,9 +2261,9 @@ LABEL_25:
     }
 
     v38 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v116 = v82;
-    v117[0] = @"Update request happened before replayer data source is loaded";
-    v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v117 forKeys:&v116 count:1];
+    v114 = v80;
+    v115[0] = @"Update request happened before replayer data source is loaded";
+    v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v115 forKeys:&v114 count:1];
     v40 = [v38 initWithDomain:@"com.apple.gputools.MTLReplayer" code:104 userInfo:v39];
 LABEL_24:
     v49 = v40;
@@ -2293,39 +2274,38 @@ LABEL_24:
   }
 
 LABEL_34:
-  v69 = [GTReplayerOperation alloc];
-  v86[0] = MEMORY[0x277D85DD0];
-  v86[1] = 3221225472;
-  v86[2] = __29__GTMTLReplayService_update___block_invoke_4;
-  v86[3] = &unk_279657790;
-  v87 = v8;
-  v88 = updateCopy;
-  v70 = v78;
-  v89 = v70;
-  v71 = updateCopy;
-  v72 = v8;
-  v73 = [(GTReplayerOperation *)v69 initWithBatch:v83 withBlock:v86];
-  [(GTReplayerOperationBatch *)v83 addOperation:v73];
-  [(GTReplayerOperationBatch *)v83 finish:clientContext->var7.var0];
-  v74 = v70;
+  v68 = [GTReplayerOperation alloc];
+  v84[0] = MEMORY[0x277D85DD0];
+  v84[1] = 3221225472;
+  v84[2] = __29__GTMTLReplayService_update___block_invoke_4;
+  v84[3] = &unk_279657790;
+  v85 = v8;
+  v86 = updateCopy;
+  v69 = v76;
+  v87 = v69;
+  v70 = updateCopy;
+  v71 = v8;
+  v72 = [(GTReplayerOperation *)v68 initWithBatch:v81 withBlock:v84];
+  [(GTReplayerOperationBatch *)v81 addOperation:v72];
+  [(GTReplayerOperationBatch *)v81 finish:clientContext->var7.var0];
+  v73 = v69;
 
-  v75 = *MEMORY[0x277D85DE8];
-  return v70;
+  return v69;
 }
 
-void __29__GTMTLReplayService_update___block_invoke_4(id *a1)
+void __29__GTMTLReplayService_update___block_invoke_4(id *a1, uint64_t a2)
 {
-  v2 = objc_opt_new();
-  v3 = MEMORY[0x277CCAAB0];
-  v4 = [a1[4] copy];
-  v8 = 0;
-  v5 = [v3 archivedDataWithRootObject:v4 requiringSecureCoding:1 error:&v8];
-  v6 = v8;
-  [v2 setData:v5];
+  v3 = objc_opt_new();
+  v4 = MEMORY[0x277CCAAB0];
+  v5 = [a1[4] copy];
+  v9 = 0;
+  v6 = [v4 archivedDataWithRootObject:v5 requiringSecureCoding:1 error:&v9];
+  v7 = v9;
+  [v3 setData:v6];
 
-  [v2 setError:v6];
-  v7 = [a1[5] completionHandler];
-  (v7)[2](v7, v2);
+  [v3 setError:v7];
+  v8 = [a1[5] completionHandler];
+  (v8)[2](v8, v3);
 
   [a1[6] completed];
 }
@@ -2388,92 +2368,92 @@ void __29__GTMTLReplayService_update___block_invoke(uint64_t a1, uint64_t a2)
 
 void __29__GTMTLReplayService_update___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v254[16] = *MEMORY[0x277D85DE8];
+  v253[16] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (!WeakRetained || (*(a2 + 24) & 1) != 0)
   {
     goto LABEL_31;
   }
 
-  v179 = WeakRetained;
+  v178 = WeakRetained;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v182 = a1;
+  v181 = a1;
   v6 = *(a1 + 32);
   v7 = [v6 streamRef];
   [v6 dispatchUID];
   [v6 dispatchUID];
-  v186 = v6;
+  v185 = v6;
   v8 = [v6 shaderURL];
 
   if (v8)
   {
-    v9 = [v186 shaderURL];
+    v9 = [v185 shaderURL];
     v10 = [v9 startAccessingSecurityScopedResource];
 
     if (v10)
     {
-      v11 = **(v179 + 1);
-      v12 = [v186 shaderURL];
+      v11 = **(v178 + 1);
+      v12 = [v185 shaderURL];
       apr_pool_cleanup_register(v11, v12, CleanupSandboxExtensionURL_884, apr_pool_cleanup_null);
     }
 
-    v13 = [v186 shaderURL];
-    v14 = *(*(*(v182 + 64) + 8) + 160);
+    v13 = [v185 shaderURL];
+    v14 = *(*(*(v181 + 64) + 8) + 160);
     v15 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v7];
     [v14 setObject:v13 forKeyedSubscript:v15];
 
-    v245 = @"streamref";
-    v16 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v186, "streamRef")}];
-    v246 = v16;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v246 forKeys:&v245 count:1];
+    v244 = @"streamref";
+    v16 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v185, "streamRef")}];
+    v245 = v16;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v245 forKeys:&v244 count:1];
 
-    v18 = [v186 shaderURL];
+    v18 = [v185 shaderURL];
   }
 
   else
   {
-    v19 = [v186 shaderIR];
+    v19 = [v185 shaderIR];
 
     if (v19)
     {
-      v243[0] = @"streamref";
-      v20 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v186, "streamRef")}];
-      v244[0] = v20;
-      v243[1] = @"IR";
-      v21 = [v186 shaderIR];
-      v244[1] = v21;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v244 forKeys:v243 count:2];
+      v242[0] = @"streamref";
+      v20 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v185, "streamRef")}];
+      v243[0] = v20;
+      v242[1] = @"IR";
+      v21 = [v185 shaderIR];
+      v243[1] = v21;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v243 forKeys:v242 count:2];
     }
 
     else
     {
-      v17 = [v186 shaderSource];
+      v17 = [v185 shaderSource];
 
       if (v17)
       {
-        v241[0] = @"streamref";
-        v22 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v186, "streamRef")}];
-        v242[0] = v22;
-        v241[1] = @"source";
-        v23 = [v186 shaderSource];
-        v242[1] = v23;
-        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v242 forKeys:v241 count:2];
+        v240[0] = @"streamref";
+        v22 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v185, "streamRef")}];
+        v241[0] = v22;
+        v240[1] = @"source";
+        v23 = [v185 shaderSource];
+        v241[1] = v23;
+        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v241 forKeys:v240 count:2];
       }
     }
 
     v18 = 0;
   }
 
-  v185 = objc_opt_new();
-  [v185 setRequestID:{objc_msgSend(*(v182 + 32), "requestID")}];
-  v24 = *(*(v182 + 64) + 8);
+  v184 = objc_opt_new();
+  [v184 setRequestID:{objc_msgSend(*(v181 + 32), "requestID")}];
+  v24 = *(*(v181 + 64) + 8);
   v25 = v17;
-  v184 = v5;
-  v180 = v25;
-  v181 = v18;
-  if (v181)
+  v183 = v5;
+  v179 = v25;
+  v180 = v18;
+  if (v180)
   {
-    v26 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfURL:v181 options:0 error:0];
+    v26 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfURL:v180 options:0 error:0];
     v27 = [v25 mutableCopy];
     v28 = v27;
     if (v26)
@@ -2490,12 +2470,12 @@ void __29__GTMTLReplayService_update___block_invoke_2(uint64_t a1, uint64_t a2)
     v25 = [v28 copy];
   }
 
-  v197 = 0;
-  v202[0] = 0;
+  v196 = 0;
+  v201[0] = 0;
+  v205 = 0u;
   v206 = 0u;
-  v207 = 0u;
-  v208 = 0;
-  v183 = v25;
+  v207 = 0;
+  v182 = v25;
   GTMTLReplayController_rewind(v24);
   v30 = v24[1];
   obj = v30;
@@ -2503,11 +2483,11 @@ void __29__GTMTLReplayService_update___block_invoke_2(uint64_t a1, uint64_t a2)
   v32 = *(*v24 + 5);
   v33 = *(*v24 + 11);
   v34 = *(*v24 + 12);
-  v35 = [v183 objectForKeyedSubscript:@"streamref"];
+  v35 = [v182 objectForKeyedSubscript:@"streamref"];
   v36 = [v35 unsignedLongLongValue];
 
-  v254[0] = v36;
-  entry = find_entry(*v32, v254, 8uLL, 0);
+  v253[0] = v36;
+  entry = find_entry(*v32, v253, 8uLL, 0);
   if (!*entry || (v38 = *(*entry + 32)) == 0)
   {
 LABEL_21:
@@ -2525,52 +2505,52 @@ LABEL_21:
     }
   }
 
-  v201 = v32;
-  objc_storeStrong(v202, v30);
-  v51 = *(v31 + 8);
-  v203 = v51;
-  *v204 = v33;
-  v205 = v34 + v33;
-  v202[1] = v24;
-  v52 = *v38;
-  if (v52 != 43)
+  v200 = v32;
+  objc_storeStrong(v201, v30);
+  v50 = *(v31 + 8);
+  v202 = v50;
+  *v203 = v33;
+  v204 = v34 + v33;
+  v201[1] = v24;
+  v51 = *v38;
+  if (v51 != 43)
   {
-    if (v52 == 62)
+    if (v51 == 62)
     {
-      v176 = v183;
-      v191 = v38[1];
-      v53 = obj;
+      v175 = v182;
+      v190 = v38[1];
+      v52 = obj;
       if (v38[2] >= v33)
       {
-        v54 = objc_alloc(MEMORY[0x277CBEB58]);
-        v55 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v191];
-        v56 = [v54 initWithObjects:{v55, 0}];
-        v57 = v208;
-        v208 = v56;
+        v53 = objc_alloc(MEMORY[0x277CBEB58]);
+        v54 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v190];
+        v55 = [v53 initWithObjects:{v54, 0}];
+        v56 = v207;
+        v207 = v55;
 
-        v53 = v202[0];
+        v52 = v201[0];
       }
 
-      v174 = [v53 defaultDevice];
-      v178 = [v176 objectForKeyedSubscript:@"source"];
-      if (v178)
+      v173 = [v52 defaultDevice];
+      v177 = [v175 objectForKeyedSubscript:@"source"];
+      if (v177)
       {
-        v58 = v38[15];
-        if (v58)
+        v57 = v38[15];
+        if (v57)
         {
-          v59 = [v202[0] dynamicLibraries];
-          v60 = MakeMTLCompileOptions(v58, v59);
+          v58 = [v201[0] dynamicLibraries];
+          v59 = MakeMTLCompileOptions(v57, v58);
         }
 
         else
         {
-          v60 = objc_alloc_init(MEMORY[0x277CD6D10]);
+          v59 = objc_alloc_init(MEMORY[0x277CD6D10]);
         }
 
-        [v60 setDebuggingEnabled:1];
-        v177 = [v174 newLibraryWithSource:v178 options:v60 error:&v197];
+        [v59 setDebuggingEnabled:1];
+        v176 = [v173 newLibraryWithSource:v177 options:v59 error:&v196];
 
-        if (v177)
+        if (v176)
         {
           goto LABEL_50;
         }
@@ -2578,168 +2558,168 @@ LABEL_21:
 
       else
       {
-        v75 = [v176 objectForKeyedSubscript:@"IR"];
-        v177 = GTCreateMTLLibrary(v24, v38, v75, &v197);
+        v74 = [v175 objectForKeyedSubscript:@"IR"];
+        v176 = GTCreateMTLLibrary(v24, v38, v74, &v196);
 
-        if (v177)
+        if (v176)
         {
 LABEL_50:
-          v175 = objc_alloc_init(MEMORY[0x277CBEB38]);
-          v76 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v191];
-          [v175 setObject:v177 forKeyedSubscript:v76];
+          v174 = objc_alloc_init(MEMORY[0x277CBEB38]);
+          v75 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v190];
+          [v174 setObject:v176 forKeyedSubscript:v75];
 
-          v77 = [v175 copy];
-          v78 = v206;
-          *&v206 = v77;
+          v76 = [v174 copy];
+          v77 = v205;
+          *&v205 = v76;
 
-          v189 = objc_alloc_init(MEMORY[0x277CBEB38]);
-          v79 = [v24[1] functionMap];
-          [v189 addEntriesFromDictionary:v79];
+          v188 = objc_alloc_init(MEMORY[0x277CBEB38]);
+          v78 = [v24[1] functionMap];
+          [v188 addEntriesFromDictionary:v78];
 
-          [v189 addEntriesFromDictionary:v175];
+          [v188 addEntriesFromDictionary:v174];
           newpool[0] = 0;
-          apr_pool_create_ex(newpool, 0, 0, v80);
+          apr_pool_create_ex(newpool, 0, 0, v79);
           p = newpool[0];
-          v81 = apr_array_make(newpool[0], 128, 8);
-          v187 = objc_alloc_init(MEMORY[0x277CBEB38]);
-          v82 = v201;
-          v83 = *v204;
-          GTMTLSMContext_getObjects(v201[30], *v204, v81);
-          nelts = v81->nelts;
+          v80 = apr_array_make(newpool[0], 128, 8);
+          v186 = objc_alloc_init(MEMORY[0x277CBEB38]);
+          v81 = v200;
+          v82 = *v203;
+          GTMTLSMContext_getObjects(v200[30], *v203, v80);
+          nelts = v80->nelts;
           if (nelts >= 1)
           {
             for (i = 0; i < nelts; ++i)
             {
-              v86 = *&v81->elts[8 * i];
-              if (v86[5] == v191)
+              v85 = *&v80->elts[8 * i];
+              if (v85[5] == v190)
               {
-                v87 = [v189 copy];
-                v88 = GTCreateMTLFunction(v24, v86, v87, &v197);
+                v86 = [v188 copy];
+                v87 = GTCreateMTLFunction(v24, v85, v86, &v196);
 
-                if (!v88)
+                if (!v87)
                 {
 LABEL_69:
-                  v108 = 0;
+                  v107 = 0;
                   goto LABEL_82;
                 }
 
-                v89 = v86[1];
-                v90 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v89];
-                [v189 setObject:v88 forKeyedSubscript:v90];
+                v88 = v85[1];
+                v89 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v88];
+                [v188 setObject:v87 forKeyedSubscript:v89];
 
-                v91 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v89];
-                [v187 setObject:v88 forKeyedSubscript:v91];
+                v90 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v88];
+                [v186 setObject:v87 forKeyedSubscript:v90];
 
-                nelts = v81->nelts;
+                nelts = v80->nelts;
               }
             }
           }
 
-          v92 = [v187 copy];
-          v93 = *(&v207 + 1);
-          *(&v207 + 1) = v92;
+          v91 = [v186 copy];
+          v92 = *(&v206 + 1);
+          *(&v206 + 1) = v91;
 
-          v81->nelts = 0;
-          v187 = objc_alloc_init(MEMORY[0x277CBEB38]);
-          GTMTLSMContext_getObjects(v82[15], v83, v81);
-          v94 = v81->nelts;
-          if (v94 >= 1)
+          v80->nelts = 0;
+          v186 = objc_alloc_init(MEMORY[0x277CBEB38]);
+          GTMTLSMContext_getObjects(v81[15], v82, v80);
+          v93 = v80->nelts;
+          if (v93 >= 1)
           {
-            for (j = 0; j < v94; ++j)
+            for (j = 0; j < v93; ++j)
             {
-              v96 = *&v81->elts[8 * j];
-              if (*(v96 + 56) == v191)
+              v95 = *&v80->elts[8 * j];
+              if (*(v95 + 56) == v190)
               {
-                v97 = MEMORY[0x277CCABB0];
-                v98 = v189;
-                v99 = [v97 numberWithUnsignedLongLong:v191];
-                v100 = [v98 objectForKeyedSubscript:v99];
+                v96 = MEMORY[0x277CCABB0];
+                v97 = v188;
+                v98 = [v96 numberWithUnsignedLongLong:v190];
+                v99 = [v97 objectForKeyedSubscript:v98];
 
-                if (!v100)
+                if (!v99)
                 {
                   GTUpdateShaderMakeError(1u, @"Internal error: Failed to find runtime library for dylib", 0, 0);
-                  v197 = v108 = 0;
+                  v196 = v107 = 0;
                   goto LABEL_82;
                 }
 
-                v101 = [v24[1] defaultDevice];
-                v254[0] = 0;
-                v102 = [v101 newDynamicLibrary:v100 error:v254];
-                v103 = v254[0];
-                if (v102)
+                v100 = [v24[1] defaultDevice];
+                v253[0] = 0;
+                v101 = [v100 newDynamicLibrary:v99 error:v253];
+                v102 = v253[0];
+                if (v101)
                 {
-                  v104 = v102;
+                  v103 = v101;
                 }
 
                 else
                 {
-                  v197 = GTUpdateShaderMakeError(4u, @"Failed to instantiate dynamic library", 0, v103);
+                  v196 = GTUpdateShaderMakeError(4u, @"Failed to instantiate dynamic library", 0, v102);
                 }
 
-                if (!v102)
+                if (!v101)
                 {
                   goto LABEL_69;
                 }
 
-                v105 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(v96 + 8)];
-                [v187 setObject:v102 forKeyedSubscript:v105];
+                v104 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(v95 + 8)];
+                [v186 setObject:v101 forKeyedSubscript:v104];
 
-                v94 = v81->nelts;
+                v93 = v80->nelts;
               }
             }
           }
 
-          v106 = [v187 copy];
-          v107 = *(&v206 + 1);
-          *(&v206 + 1) = v106;
+          v105 = [v186 copy];
+          v106 = *(&v205 + 1);
+          *(&v205 + 1) = v105;
 
-          if (v178)
+          if (v177)
           {
             apr_pool_destroy(p);
             goto LABEL_68;
           }
 
-          v187 = objc_alloc_init(MEMORY[0x277CBEB38]);
-          v109 = v38[15];
-          if (v109)
+          v186 = objc_alloc_init(MEMORY[0x277CBEB38]);
+          v108 = v38[15];
+          if (v108)
           {
-            v110 = *(v109 + 32);
-            if (v110)
+            v109 = *(v108 + 32);
+            if (v109)
             {
-              v111 = *(v109 + 40);
-              if (v111 >= 1)
+              v110 = *(v108 + 40);
+              if (v110 >= 1)
               {
-                v112 = v111 & 0x7FFFFFFF;
-                v113 = v202[0];
+                v111 = v110 & 0x7FFFFFFF;
+                v112 = v201[0];
                 do
                 {
-                  v114 = *v110++;
-                  v115 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v114];
-                  v116 = [v113 dynamicLibraries];
-                  v117 = [v116 objectForKeyedSubscript:v115];
+                  v113 = *v109++;
+                  v114 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v113];
+                  v115 = [v112 dynamicLibraries];
+                  v116 = [v115 objectForKeyedSubscript:v114];
 
-                  if (v117)
+                  if (v116)
                   {
-                    [v187 setObject:v117 forKeyedSubscript:v115];
+                    [v186 setObject:v116 forKeyedSubscript:v114];
                   }
 
-                  --v112;
+                  --v111;
                 }
 
-                while (v112);
+                while (v111);
               }
             }
           }
 
-          v118 = [v187 copy];
-          v119 = v207;
-          *&v207 = v118;
+          v117 = [v186 copy];
+          v118 = v206;
+          *&v206 = v117;
 
-          v108 = 1;
+          v107 = 1;
 LABEL_82:
 
           apr_pool_destroy(p);
-          if (v108)
+          if (v107)
           {
             goto LABEL_83;
           }
@@ -2751,25 +2731,25 @@ LABEL_82:
       goto LABEL_23;
     }
 
-    v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"Internal error: Unknown object type (%llu:%u)", v36, v52];
+    v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"Internal error: Unknown object type (%llu:%u)", v36, v51];
     v40 = GTUpdateShaderMakeError(1u, v39, 0, 0);
 LABEL_22:
-    v197 = v40;
+    v196 = v40;
 
     goto LABEL_23;
   }
 
-  v192 = v51;
-  v61 = v183;
+  v191 = v50;
+  v60 = v182;
   if (v38[2] >= v33)
   {
-    v71 = MEMORY[0x277CCACA8];
-    v72 = _GTMTLSMFunctionDisplayLabel(v38, v192);
-    v73 = [v71 stringWithFormat:@"Ensure the modified function '%@' isn't created during the capture", v72];
+    v70 = MEMORY[0x277CCACA8];
+    v71 = _GTMTLSMFunctionDisplayLabel(v38, v191);
+    v72 = [v70 stringWithFormat:@"Ensure the modified function '%@' isn't created during the capture", v71];
 
-    v74 = GTUpdateShaderMakeError(5u, @"Unable to update shader function", v73, 0);
+    v73 = GTUpdateShaderMakeError(5u, @"Unable to update shader function", v72, 0);
 LABEL_71:
-    v197 = v74;
+    v196 = v73;
 
     goto LABEL_23;
   }
@@ -2777,301 +2757,301 @@ LABEL_71:
   Function = GTMTLSMContext_lastFunction(*v32, v38[5], v33);
   if (!Function)
   {
-    v73 = [MEMORY[0x277CCACA8] stringWithFormat:@"Internal error: Unable to find library (%llu)", v38[5]];
-    v74 = GTUpdateShaderMakeError(1u, v73, 0, 0);
+    v72 = [MEMORY[0x277CCACA8] stringWithFormat:@"Internal error: Unable to find library (%llu)", v38[5]];
+    v73 = GTUpdateShaderMakeError(1u, v72, 0, 0);
     goto LABEL_71;
   }
 
-  v63 = Function;
-  v174 = [v61 objectForKeyedSubscript:@"IR"];
-  v178 = GTCreateMTLLibrary(v24, v63, v174, &v197);
-  if (v178)
+  v62 = Function;
+  v173 = [v60 objectForKeyedSubscript:@"IR"];
+  v177 = GTCreateMTLLibrary(v24, v62, v173, &v196);
+  if (v177)
   {
-    v64 = [v24[1] functionMap];
-    v177 = [v64 mutableCopy];
+    v63 = [v24[1] functionMap];
+    v176 = [v63 mutableCopy];
 
-    v65 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v38[5]];
-    [v177 setObject:v178 forKeyedSubscript:v65];
+    v64 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v38[5]];
+    [v176 setObject:v177 forKeyedSubscript:v64];
 
-    v66 = [v177 copy];
-    v175 = GTCreateMTLFunction(v24, v38, v66, &v197);
+    v65 = [v176 copy];
+    v174 = GTCreateMTLFunction(v24, v38, v65, &v196);
 
-    if (v175)
+    if (v174)
     {
-      v67 = v38[1];
-      v189 = objc_alloc_init(MEMORY[0x277CBEB38]);
-      v68 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v67];
-      [v189 setObject:v175 forKeyedSubscript:v68];
+      v66 = v38[1];
+      v188 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v67 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v66];
+      [v188 setObject:v174 forKeyedSubscript:v67];
 
-      v69 = [v189 copy];
-      v70 = *(&v207 + 1);
-      *(&v207 + 1) = v69;
+      v68 = [v188 copy];
+      v69 = *(&v206 + 1);
+      *(&v206 + 1) = v68;
 
 LABEL_68:
 LABEL_83:
-      v199 = 0u;
-      v200 = 0u;
       v198 = 0u;
-      if (GTUpdateShaderPipelines(&v201, &v198, &v197))
+      v199 = 0u;
+      v197 = 0u;
+      if (GTUpdateShaderPipelines(&v200, &v197, &v196))
       {
-        v120 = v24[1];
-        v121 = *(&v207 + 1);
+        v119 = v24[1];
+        v120 = *(&v206 + 1);
+        v236 = 0u;
         v237 = 0u;
         v238 = 0u;
         v239 = 0u;
-        v240 = 0u;
-        obja = v121;
-        v122 = [v121 countByEnumeratingWithState:&v237 objects:v254 count:16];
-        if (v122)
+        obja = v120;
+        v121 = [v120 countByEnumeratingWithState:&v236 objects:v253 count:16];
+        if (v121)
         {
-          v123 = *v238;
-          v124 = v208;
+          v122 = *v237;
+          v123 = v207;
           do
           {
-            for (k = 0; k != v122; ++k)
+            for (k = 0; k != v121; ++k)
             {
-              if (*v238 != v123)
+              if (*v237 != v122)
               {
                 objc_enumerationMutation(obja);
               }
 
-              v126 = *(*(&v237 + 1) + 8 * k);
-              v127 = [v124 containsObject:v126];
-              v128 = [obja objectForKeyedSubscript:v126];
-              if (v127)
+              v125 = *(*(&v236 + 1) + 8 * k);
+              v126 = [v123 containsObject:v125];
+              v127 = [obja objectForKeyedSubscript:v125];
+              if (v126)
               {
-                [v24[22] setObject:v128 forKeyedSubscript:v126];
+                [v24[22] setObject:v127 forKeyedSubscript:v125];
               }
 
               else
               {
-                [v120 setFunction:v128 forKey:{objc_msgSend(v126, "unsignedLongLongValue")}];
+                [v119 setFunction:v127 forKey:{objc_msgSend(v125, "unsignedLongLongValue")}];
               }
             }
 
-            v122 = [obja countByEnumeratingWithState:&v237 objects:v254 count:16];
+            v121 = [obja countByEnumeratingWithState:&v236 objects:v253 count:16];
           }
 
-          while (v122);
+          while (v121);
         }
 
-        v129 = v206;
+        v128 = v205;
+        v232 = 0u;
         v233 = 0u;
         v234 = 0u;
         v235 = 0u;
-        v236 = 0u;
-        v193 = v129;
-        v130 = [v129 countByEnumeratingWithState:&v233 objects:newpool count:16];
-        if (v130)
+        v192 = v128;
+        v129 = [v128 countByEnumeratingWithState:&v232 objects:newpool count:16];
+        if (v129)
         {
-          v131 = *v234;
-          v132 = v208;
+          v130 = *v233;
+          v131 = v207;
           do
           {
-            for (m = 0; m != v130; ++m)
+            for (m = 0; m != v129; ++m)
             {
-              if (*v234 != v131)
+              if (*v233 != v130)
               {
-                objc_enumerationMutation(v193);
+                objc_enumerationMutation(v192);
               }
 
-              v134 = *(*(&v233 + 1) + 8 * m);
-              v135 = [v132 containsObject:v134];
-              v136 = [v193 objectForKeyedSubscript:v134];
-              if (v135)
+              v133 = *(*(&v232 + 1) + 8 * m);
+              v134 = [v131 containsObject:v133];
+              v135 = [v192 objectForKeyedSubscript:v133];
+              if (v134)
               {
-                [v24[22] setObject:v136 forKeyedSubscript:v134];
+                [v24[22] setObject:v135 forKeyedSubscript:v133];
               }
 
               else
               {
-                [v120 setLibrary:v136 forKey:{objc_msgSend(v134, "unsignedLongLongValue")}];
+                [v119 setLibrary:v135 forKey:{objc_msgSend(v133, "unsignedLongLongValue")}];
               }
             }
 
-            v130 = [v193 countByEnumeratingWithState:&v233 objects:newpool count:16];
+            v129 = [v192 countByEnumeratingWithState:&v232 objects:newpool count:16];
           }
 
-          while (v130);
+          while (v129);
         }
 
-        v137 = *(&v206 + 1);
+        v136 = *(&v205 + 1);
+        v228 = 0u;
         v229 = 0u;
         v230 = 0u;
         v231 = 0u;
-        v232 = 0u;
-        v190 = v137;
-        v138 = [v137 countByEnumeratingWithState:&v229 objects:v252 count:16];
-        if (v138)
+        v189 = v136;
+        v137 = [v136 countByEnumeratingWithState:&v228 objects:v251 count:16];
+        if (v137)
         {
-          v139 = *v230;
+          v138 = *v229;
           do
           {
-            for (n = 0; n != v138; ++n)
+            for (n = 0; n != v137; ++n)
             {
-              if (*v230 != v139)
+              if (*v229 != v138)
               {
-                objc_enumerationMutation(v190);
+                objc_enumerationMutation(v189);
               }
 
-              v141 = *(*(&v229 + 1) + 8 * n);
-              v142 = [v190 objectForKeyedSubscript:v141];
-              [v120 setDynamicLibrary:v142 forKey:{objc_msgSend(v141, "unsignedLongLongValue")}];
+              v140 = *(*(&v228 + 1) + 8 * n);
+              v141 = [v189 objectForKeyedSubscript:v140];
+              [v119 setDynamicLibrary:v141 forKey:{objc_msgSend(v140, "unsignedLongLongValue")}];
             }
 
-            v138 = [v190 countByEnumeratingWithState:&v229 objects:v252 count:16];
+            v137 = [v189 countByEnumeratingWithState:&v228 objects:v251 count:16];
           }
 
-          while (v138);
+          while (v137);
         }
 
-        v143 = v198;
+        v142 = v197;
+        v224 = 0u;
         v225 = 0u;
         v226 = 0u;
         v227 = 0u;
-        v228 = 0u;
-        v188 = v143;
-        v144 = [v188 countByEnumeratingWithState:&v225 objects:v251 count:16];
-        if (v144)
+        v187 = v142;
+        v143 = [v187 countByEnumeratingWithState:&v224 objects:v250 count:16];
+        if (v143)
         {
-          v145 = *v226;
+          v144 = *v225;
           do
           {
-            for (ii = 0; ii != v144; ++ii)
+            for (ii = 0; ii != v143; ++ii)
             {
-              if (*v226 != v145)
+              if (*v225 != v144)
               {
-                objc_enumerationMutation(v188);
+                objc_enumerationMutation(v187);
               }
 
-              v147 = *(*(&v225 + 1) + 8 * ii);
-              v148 = [v188 objectForKeyedSubscript:v147];
-              [v120 setRenderPipelineState:v148 forKey:{objc_msgSend(v147, "unsignedLongLongValue")}];
+              v146 = *(*(&v224 + 1) + 8 * ii);
+              v147 = [v187 objectForKeyedSubscript:v146];
+              [v119 setRenderPipelineState:v147 forKey:{objc_msgSend(v146, "unsignedLongLongValue")}];
             }
 
-            v144 = [v188 countByEnumeratingWithState:&v225 objects:v251 count:16];
+            v143 = [v187 countByEnumeratingWithState:&v224 objects:v250 count:16];
           }
 
-          while (v144);
+          while (v143);
         }
 
-        v149 = *(&v198 + 1);
+        v148 = *(&v197 + 1);
+        v220 = 0u;
         v221 = 0u;
         v222 = 0u;
         v223 = 0u;
-        v224 = 0u;
-        v150 = [v149 countByEnumeratingWithState:&v221 objects:v250 count:16];
-        if (v150)
+        v149 = [v148 countByEnumeratingWithState:&v220 objects:v249 count:16];
+        if (v149)
         {
-          v151 = *v222;
+          v150 = *v221;
           do
           {
-            for (jj = 0; jj != v150; ++jj)
+            for (jj = 0; jj != v149; ++jj)
             {
-              if (*v222 != v151)
+              if (*v221 != v150)
               {
-                objc_enumerationMutation(v149);
+                objc_enumerationMutation(v148);
               }
 
-              v153 = *(*(&v221 + 1) + 8 * jj);
-              v154 = [v149 objectForKeyedSubscript:v153];
-              [v120 setComputePipelineState:v154 forKey:{objc_msgSend(v153, "unsignedLongLongValue")}];
+              v152 = *(*(&v220 + 1) + 8 * jj);
+              v153 = [v148 objectForKeyedSubscript:v152];
+              [v119 setComputePipelineState:v153 forKey:{objc_msgSend(v152, "unsignedLongLongValue")}];
             }
 
-            v150 = [v149 countByEnumeratingWithState:&v221 objects:v250 count:16];
+            v149 = [v148 countByEnumeratingWithState:&v220 objects:v249 count:16];
           }
 
-          while (v150);
+          while (v149);
         }
 
-        v155 = v199;
+        v154 = v198;
+        v216 = 0u;
         v217 = 0u;
         v218 = 0u;
         v219 = 0u;
-        v220 = 0u;
-        v156 = [v155 countByEnumeratingWithState:&v217 objects:v249 count:16];
-        if (v156)
+        v155 = [v154 countByEnumeratingWithState:&v216 objects:v248 count:16];
+        if (v155)
         {
-          v157 = *v218;
+          v156 = *v217;
           do
           {
-            for (kk = 0; kk != v156; ++kk)
+            for (kk = 0; kk != v155; ++kk)
             {
-              if (*v218 != v157)
+              if (*v217 != v156)
               {
-                objc_enumerationMutation(v155);
+                objc_enumerationMutation(v154);
               }
 
-              v159 = *(*(&v217 + 1) + 8 * kk);
-              v160 = [v155 objectForKeyedSubscript:v159];
-              [v120 setFunctionHandle:v160 forKey:{objc_msgSend(v159, "unsignedLongLongValue")}];
+              v158 = *(*(&v216 + 1) + 8 * kk);
+              v159 = [v154 objectForKeyedSubscript:v158];
+              [v119 setFunctionHandle:v159 forKey:{objc_msgSend(v158, "unsignedLongLongValue")}];
             }
 
-            v156 = [v155 countByEnumeratingWithState:&v217 objects:v249 count:16];
+            v155 = [v154 countByEnumeratingWithState:&v216 objects:v248 count:16];
           }
 
-          while (v156);
+          while (v155);
         }
 
-        v161 = *(&v199 + 1);
+        v160 = *(&v198 + 1);
+        v212 = 0u;
         v213 = 0u;
         v214 = 0u;
         v215 = 0u;
-        v216 = 0u;
-        v162 = [v161 countByEnumeratingWithState:&v213 objects:v248 count:16];
-        if (v162)
+        v161 = [v160 countByEnumeratingWithState:&v212 objects:v247 count:16];
+        if (v161)
         {
-          v163 = *v214;
+          v162 = *v213;
           do
           {
-            for (mm = 0; mm != v162; ++mm)
+            for (mm = 0; mm != v161; ++mm)
             {
-              if (*v214 != v163)
+              if (*v213 != v162)
               {
-                objc_enumerationMutation(v161);
+                objc_enumerationMutation(v160);
               }
 
-              v165 = *(*(&v213 + 1) + 8 * mm);
-              v166 = [v161 objectForKeyedSubscript:v165];
-              [v120 setVisibleFunctionTable:v166 forKey:{objc_msgSend(v165, "unsignedLongLongValue")}];
+              v164 = *(*(&v212 + 1) + 8 * mm);
+              v165 = [v160 objectForKeyedSubscript:v164];
+              [v119 setVisibleFunctionTable:v165 forKey:{objc_msgSend(v164, "unsignedLongLongValue")}];
             }
 
-            v162 = [v161 countByEnumeratingWithState:&v213 objects:v248 count:16];
+            v161 = [v160 countByEnumeratingWithState:&v212 objects:v247 count:16];
           }
 
-          while (v162);
+          while (v161);
         }
 
-        v167 = v200;
+        v166 = v199;
+        v208 = 0u;
         v209 = 0u;
         v210 = 0u;
         v211 = 0u;
-        v212 = 0u;
-        v168 = [v167 countByEnumeratingWithState:&v209 objects:v247 count:16];
-        if (v168)
+        v167 = [v166 countByEnumeratingWithState:&v208 objects:v246 count:16];
+        if (v167)
         {
-          v169 = *v210;
+          v168 = *v209;
           do
           {
-            for (nn = 0; nn != v168; ++nn)
+            for (nn = 0; nn != v167; ++nn)
             {
-              if (*v210 != v169)
+              if (*v209 != v168)
               {
-                objc_enumerationMutation(v167);
+                objc_enumerationMutation(v166);
               }
 
-              v171 = *(*(&v209 + 1) + 8 * nn);
-              v172 = [v167 objectForKeyedSubscript:v171];
-              [v120 setIntersectionFunctionTable:v172 forKey:{objc_msgSend(v171, "unsignedLongLongValue")}];
+              v170 = *(*(&v208 + 1) + 8 * nn);
+              v171 = [v166 objectForKeyedSubscript:v170];
+              [v119 setIntersectionFunctionTable:v171 forKey:{objc_msgSend(v170, "unsignedLongLongValue")}];
             }
 
-            v168 = [v167 countByEnumeratingWithState:&v209 objects:v247 count:16];
+            v167 = [v166 countByEnumeratingWithState:&v208 objects:v246 count:16];
           }
 
-          while (v168);
+          while (v167);
         }
 
-        v41 = *(&v200 + 1);
+        v41 = *(&v199 + 1);
       }
 
       else
@@ -3079,7 +3059,7 @@ LABEL_83:
         v41 = 0;
       }
 
-      __destructor_8_s0_s8_s16_s24_s32_s40(&v198);
+      __destructor_8_s0_s8_s16_s24_s32_s40(&v197);
       goto LABEL_24;
     }
   }
@@ -3091,46 +3071,44 @@ LABEL_83:
 LABEL_23:
   v41 = 0;
 LABEL_24:
-  __destructor_8_s8_S_s56_s64_s72_s80_s88(&v201);
+  __destructor_8_s8_S_s56_s64_s72_s80_s88(&v200);
 
-  v42 = v197;
+  v42 = v196;
   v43 = v42;
   if (v41)
   {
-    [v184 setObject:v41 forKeyedSubscript:@"updatedPipelines"];
+    [v183 setObject:v41 forKeyedSubscript:@"updatedPipelines"];
   }
 
   else
   {
     v44 = [v42 localizedDescription];
-    [v184 setObject:v44 forKeyedSubscript:@"propagate"];
+    [v183 setObject:v44 forKeyedSubscript:@"propagate"];
 
-    [v184 setObject:v43 forKeyedSubscript:@"error"];
+    [v183 setObject:v43 forKeyedSubscript:@"error"];
   }
 
   if (v41)
   {
     v45 = MEMORY[0x277CCAAB0];
-    v46 = [v184 objectForKeyedSubscript:@"updatedPipelines"];
+    v46 = [v183 objectForKeyedSubscript:@"updatedPipelines"];
     v47 = [v46 copy];
-    v196 = 0;
-    v48 = [v45 archivedDataWithRootObject:v47 requiringSecureCoding:1 error:&v196];
-    v49 = v196;
-    [v185 setData:v48];
+    v195 = 0;
+    v48 = [v45 archivedDataWithRootObject:v47 requiringSecureCoding:1 error:&v195];
+    v49 = v195;
+    [v184 setData:v48];
   }
 
   else
   {
-    v49 = [v184 objectForKeyedSubscript:@"error"];
+    v49 = [v183 objectForKeyedSubscript:@"error"];
   }
 
-  [v185 setError:v49];
+  [v184 setError:v49];
 
-  [*(v182 + 40) setObject:v185 atIndexedSubscript:*(v182 + 72)];
-  WeakRetained = v179;
+  [*(v181 + 40) setObject:v184 atIndexedSubscript:*(v181 + 72)];
+  WeakRetained = v178;
 LABEL_31:
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 void __29__GTMTLReplayService_update___block_invoke_3(uint64_t a1, uint64_t a2)
@@ -3351,9 +3329,9 @@ void __59__GTMTLReplayService_fetchIntoOperation_completionHandler___block_invok
 
 - (id)fetchInto:(id)into
 {
-  v53[1] = *MEMORY[0x277D85DE8];
+  v52[1] = *MEMORY[0x277D85DE8];
   intoCopy = into;
-  v35 = [objc_alloc(MEMORY[0x277D0B620]) initWithService:self andTokenId:{objc_msgSend(intoCopy, "requestID")}];
+  v34 = [objc_alloc(MEMORY[0x277D0B620]) initWithService:self andTokenId:{objc_msgSend(intoCopy, "requestID")}];
   selfCopy = self;
   var1 = self->_clientContext->var1;
   if (var1 && *var1)
@@ -3377,27 +3355,27 @@ void __59__GTMTLReplayService_fetchIntoOperation_completionHandler___block_invok
       }
     }
 
-    v48[0] = 0;
-    v48[1] = v48;
-    v48[2] = 0x2020000000;
+    v47[0] = 0;
+    v47[1] = v47;
+    v47[2] = 0x2020000000;
     requests4 = [intoCopy requests];
     v15 = [requests4 count];
 
-    v49 = v15;
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __32__GTMTLReplayService_fetchInto___block_invoke;
-    v43[3] = &unk_2796576A8;
-    v47 = v48;
+    v48 = v15;
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __32__GTMTLReplayService_fetchInto___block_invoke;
+    v42[3] = &unk_2796576A8;
+    v46 = v47;
     v16 = intoCopy;
-    v44 = v16;
+    v43 = v16;
     v17 = v7;
-    v45 = v17;
-    v46 = v35;
-    v18 = MEMORY[0x253033CF0](v43);
-    v37 = objc_opt_new();
+    v44 = v17;
+    v45 = v34;
+    v18 = MEMORY[0x253033CF0](v42);
+    v36 = objc_opt_new();
     v19 = 0;
-    v36 = *MEMORY[0x277CCA050];
+    v35 = *MEMORY[0x277CCA050];
     v20 = *MEMORY[0x277CCA450];
     while (1)
     {
@@ -3417,32 +3395,32 @@ void __59__GTMTLReplayService_fetchIntoOperation_completionHandler___block_invok
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v40[0] = MEMORY[0x277D85DD0];
-        v40[1] = 3221225472;
-        v40[2] = __32__GTMTLReplayService_fetchInto___block_invoke_2;
-        v40[3] = &unk_2796576D0;
-        v41 = v25;
-        v42 = v18;
-        [(GTMTLReplayService *)selfCopy fetchIntoOperation:v24 completionHandler:v40];
+        v39[0] = MEMORY[0x277D85DD0];
+        v39[1] = 3221225472;
+        v39[2] = __32__GTMTLReplayService_fetchInto___block_invoke_2;
+        v39[3] = &unk_2796576D0;
+        v40 = v25;
+        v41 = v18;
+        [(GTMTLReplayService *)selfCopy fetchIntoOperation:v24 completionHandler:v39];
       }
 
       else
       {
         v26 = objc_alloc(MEMORY[0x277CCA9B8]);
-        v50 = v20;
-        v51 = @"unknown request";
-        v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
-        v28 = [v26 initWithDomain:v36 code:1 userInfo:v27];
+        v49 = v20;
+        v50 = @"unknown request";
+        v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+        v28 = [v26 initWithDomain:v35 code:1 userInfo:v27];
         [v25 setError:v28];
 
-        [v37 addObject:v25];
+        [v36 addObject:v25];
         v18[2](v18);
       }
 
       ++v19;
     }
 
-    _Block_object_dispose(v48, 8);
+    _Block_object_dispose(v47, 8);
   }
 
   else
@@ -3450,39 +3428,38 @@ void __59__GTMTLReplayService_fetchIntoOperation_completionHandler___block_invok
     v17 = objc_opt_new();
     [v17 setRequestID:{objc_msgSend(intoCopy, "requestID")}];
     v29 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v52 = *MEMORY[0x277CCA450];
-    v53[0] = @"FetchInto request happened before replayer data source is loaded";
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:&v52 count:1];
+    v51 = *MEMORY[0x277CCA450];
+    v52[0] = @"FetchInto request happened before replayer data source is loaded";
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:&v51 count:1];
     v31 = [v29 initWithDomain:@"com.apple.gputools.MTLReplayer" code:104 userInfo:v30];
     [v17 setError:v31];
 
     completionHandler = [intoCopy completionHandler];
     (completionHandler)[2](completionHandler, v17);
 
-    [v35 completed];
+    [v34 completed];
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-void __32__GTMTLReplayService_fetchInto___block_invoke(uint64_t a1)
+void __32__GTMTLReplayService_fetchInto___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (!--*(*(*(a1 + 56) + 8) + 24))
   {
-    v9[5] = v1;
-    v9[6] = v2;
-    v4 = objc_opt_new();
-    [v4 setRequestID:{objc_msgSend(*(a1 + 32), "requestID")}];
-    v5 = *(a1 + 40);
-    v9[0] = 0;
-    v6 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v5 requiringSecureCoding:1 error:v9];
-    v7 = v9[0];
-    [v4 setData:v6];
+    v10[5] = v2;
+    v10[6] = v3;
+    v5 = objc_opt_new();
+    [v5 setRequestID:{objc_msgSend(*(a1 + 32), "requestID")}];
+    v6 = *(a1 + 40);
+    v10[0] = 0;
+    v7 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v6 requiringSecureCoding:1 error:v10];
+    v8 = v10[0];
+    [v5 setData:v7];
 
-    [v4 setError:v7];
-    v8 = [*(a1 + 32) completionHandler];
-    (v8)[2](v8, v4);
+    [v5 setError:v8];
+    v9 = [*(a1 + 32) completionHandler];
+    (v9)[2](v9, v5);
 
     [*(a1 + 48) completed];
   }
@@ -3505,7 +3482,7 @@ void __32__GTMTLReplayService_fetchInto___block_invoke_2(uint64_t a1, uint64_t a
 
 - (id)fetch:(id)fetch
 {
-  v277[1] = *MEMORY[0x277D85DE8];
+  v275[1] = *MEMORY[0x277D85DE8];
   fetchCopy = fetch;
   v5 = [objc_alloc(MEMORY[0x277D0B620]) initWithService:self andTokenId:{objc_msgSend(fetchCopy, "requestID")}];
   v6 = v5;
@@ -3516,160 +3493,159 @@ void __32__GTMTLReplayService_fetchInto___block_invoke_2(uint64_t a1, uint64_t a
     if (*var1)
     {
       clientContext = self->_clientContext;
-      v202 = v5;
+      v200 = v5;
       v9 = objc_alloc(MEMORY[0x277CBEB38]);
       requests = [fetchCopy requests];
-      v211 = [v9 initWithCapacity:{objc_msgSend(requests, "count")}];
+      v209 = [v9 initWithCapacity:{objc_msgSend(requests, "count")}];
 
       v11 = objc_opt_new();
-      v203 = objc_opt_new();
+      v201 = objc_opt_new();
+      v243 = 0u;
+      v244 = 0u;
       v245 = 0u;
       v246 = 0u;
-      v247 = 0u;
-      v248 = 0u;
       obj = [fetchCopy requests];
-      v218 = [obj countByEnumeratingWithState:&v245 objects:v275 count:16];
-      if (!v218)
+      v216 = [obj countByEnumeratingWithState:&v243 objects:v273 count:16];
+      if (!v216)
       {
         goto LABEL_121;
       }
 
-      v217 = *v246;
-      v12 = *MEMORY[0x277CCA450];
-      v199 = *MEMORY[0x277CCA450];
-      v200 = *MEMORY[0x277CCA050];
-      v204 = fetchCopy;
-      v212 = v11;
-      v210 = v8;
+      v215 = *v244;
+      v197 = *MEMORY[0x277CCA450];
+      v198 = *MEMORY[0x277CCA050];
+      v202 = fetchCopy;
+      v210 = v11;
+      v208 = v8;
       while (1)
       {
-        v13 = 0;
+        v12 = 0;
         do
         {
-          if (*v246 != v217)
+          if (*v244 != v215)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v245 + 1) + 8 * v13);
+          v13 = *(*(&v243 + 1) + 8 * v12);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v15 = v14;
-            requestID = [v15 requestID];
-            streamRef = [v15 streamRef];
-            dispatchUID = [v15 dispatchUID];
-            dispatchUID2 = [v15 dispatchUID];
-            Object = GTMTLSMContext_getObject(**(v8 + 40), [v15 streamRef], *(v8 + 88) + dispatchUID);
+            v14 = v13;
+            requestID = [v14 requestID];
+            streamRef = [v14 streamRef];
+            dispatchUID = [v14 dispatchUID];
+            dispatchUID2 = [v14 dispatchUID];
+            Object = GTMTLSMContext_getObject(**(v8 + 40), [v14 streamRef], *(v8 + 88) + dispatchUID);
             if (Object)
             {
-              v20 = Object;
+              v19 = Object;
               if (*Object == 80)
               {
                 entry = find_entry(*(v8 + 8), &streamRef, 8uLL, 0);
                 if (*entry)
                 {
-                  v22 = *(*entry + 32);
+                  v21 = *(*entry + 32);
                 }
 
                 else
                 {
-                  v22 = 0;
+                  v21 = 0;
                 }
 
-                v228 = 0uLL;
-                *&v229 = 0;
-                if (v15)
+                v226 = 0uLL;
+                *&v227 = 0;
+                if (v14)
                 {
-                  [v15 size];
+                  objc_msgSend_size(v14);
                 }
 
-                v273[0] = @"requestID";
-                v209 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID];
-                v274[0] = v209;
-                v273[1] = @"functionIndex";
-                v208 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:dispatchUID2 & 0xFFFFFFFF00000000 | dispatchUID];
-                v274[1] = v208;
-                v273[2] = @"streamref";
-                v207 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:streamRef];
-                v274[2] = v207;
-                v273[3] = @"object";
-                if (v22)
+                v271[0] = @"requestID";
+                v207 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID];
+                v272[0] = v207;
+                v271[1] = @"functionIndex";
+                v206 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:dispatchUID2 & 0xFFFFFFFF00000000 | dispatchUID];
+                v272[1] = v206;
+                v271[2] = @"streamref";
+                v205 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:streamRef];
+                v272[2] = v205;
+                v271[3] = @"object";
+                if (v21)
                 {
-                  v52 = atomic_load((v22 + 56));
-                  v53 = v22 + (~(v52 >> 2) & 8);
+                  v51 = atomic_load((v21 + 56));
+                  v52 = v21 + (~(v51 >> 2) & 8);
                 }
 
                 else
                 {
-                  v53 = 8;
+                  v52 = 8;
                 }
 
-                v215 = v13;
-                v206 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*v53];
-                v274[3] = v206;
-                v274[4] = &unk_2860D6590;
-                v273[4] = @"type";
-                v273[5] = @"DependencyGraphRequestedTextureLevel";
-                v205 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v15, "level")}];
-                v274[5] = v205;
-                v273[6] = @"DependencyGraphRequestedTextureSlice";
-                v54 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v15, "slice")}];
-                v274[6] = v54;
-                v273[7] = @"DependencyGraphRequestedTextureDepthPlane";
-                v55 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v15, "depth")}];
-                v274[7] = v55;
-                v273[8] = @"DependencyGraphRequestedTextureAttachmentIndex";
-                v56 = MEMORY[0x277CCABB0];
-                plane = [v15 plane];
-                v58 = plane;
-                v59 = v20[14];
-                if (v59)
+                v213 = v12;
+                v204 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*v52];
+                v272[3] = v204;
+                v272[4] = &unk_2860D6590;
+                v271[4] = @"type";
+                v271[5] = @"DependencyGraphRequestedTextureLevel";
+                v203 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v14, "level")}];
+                v272[5] = v203;
+                v271[6] = @"DependencyGraphRequestedTextureSlice";
+                v53 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:objc_msgSend_slice(v14)];
+                v272[6] = v53;
+                v271[7] = @"DependencyGraphRequestedTextureDepthPlane";
+                v54 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v14, "depth")}];
+                v272[7] = v54;
+                v271[8] = @"DependencyGraphRequestedTextureAttachmentIndex";
+                v55 = MEMORY[0x277CCABB0];
+                plane = [v14 plane];
+                v57 = plane;
+                v58 = v19[14];
+                if (v58)
                 {
-                  v60 = (v59 + 34);
+                  v59 = (v58 + 34);
                 }
 
                 else
                 {
-                  v60 = (v20 + 20);
+                  v59 = (v19 + 20);
                 }
 
-                v61 = *v60;
-                if (v61 == 260 || v61 == 255)
+                v60 = *v59;
+                if (v60 == 260 || v60 == 255)
                 {
                   if (plane)
                   {
-                    v58 = 9;
+                    v57 = 9;
                   }
 
                   else
                   {
-                    v58 = 8;
+                    v57 = 8;
                   }
                 }
 
-                v62 = [v56 numberWithInt:v58];
-                v274[8] = v62;
-                v273[9] = @"resolveMultisampleTexture";
-                v63 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v15, "resolveMultisampleTexture")}];
-                v274[9] = v63;
-                v273[10] = @"resolution";
-                v271[0] = @"width";
-                v64 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v228];
-                v272[0] = v64;
-                v271[1] = @"height";
-                v65 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(&v228 + 1)];
-                v271[2] = @"format";
-                v272[1] = v65;
-                v272[2] = &unk_2860D65A8;
-                v66 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v272 forKeys:v271 count:3];
-                v274[10] = v66;
-                v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v274 forKeys:v273 count:11];
+                v61 = [v55 numberWithInt:v57];
+                v272[8] = v61;
+                v271[9] = @"resolveMultisampleTexture";
+                v62 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v14, "resolveMultisampleTexture")}];
+                v272[9] = v62;
+                v271[10] = @"resolution";
+                v269[0] = @"width";
+                v63 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v226];
+                v270[0] = v63;
+                v269[1] = @"height";
+                v64 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(&v226 + 1)];
+                v269[2] = @"format";
+                v270[1] = v64;
+                v270[2] = &unk_2860D65A8;
+                v65 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v270 forKeys:v269 count:3];
+                v272[10] = v65;
+                v66 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v272 forKeys:v271 count:11];
 
-                v11 = v212;
-                [v212 addObject:v67];
-                v68 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID];
-                [v211 setObject:v67 forKeyedSubscript:v68];
+                v11 = v210;
+                [v210 addObject:v66];
+                v67 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID];
+                [v209 setObject:v66 forKeyedSubscript:v67];
 
                 goto LABEL_62;
               }
@@ -3681,71 +3657,71 @@ void __32__GTMTLReplayService_fetchInto___block_invoke_2(uint64_t a1, uint64_t a
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v15 = v14;
-              requestID2 = [v15 requestID];
-              *&v228 = [v15 streamRef];
-              dispatchUID3 = [v15 dispatchUID];
-              dispatchUID4 = [v15 dispatchUID];
-              v26 = GTMTLSMContext_getObject(**(v8 + 40), [v15 streamRef], *(v8 + 88) + dispatchUID3);
-              if (v26 && *v26 == 22)
+              v14 = v13;
+              requestID2 = [v14 requestID];
+              *&v226 = [v14 streamRef];
+              dispatchUID3 = [v14 dispatchUID];
+              dispatchUID4 = [v14 dispatchUID];
+              v25 = GTMTLSMContext_getObject(**(v8 + 40), [v14 streamRef], *(v8 + 88) + dispatchUID3);
+              if (v25 && *v25 == 22)
               {
-                v27 = find_entry(*(v8 + 8), &v228, 8uLL, 0);
-                if (*v27)
+                v26 = find_entry(*(v8 + 8), &v226, 8uLL, 0);
+                if (*v26)
                 {
-                  v28 = *(*v27 + 32);
+                  v27 = *(*v26 + 32);
                 }
 
                 else
                 {
-                  v28 = 0;
+                  v27 = 0;
                 }
 
-                v74 = dispatchUID4 & 0xFFFFFFFF00000000;
-                v269[0] = @"requestID";
-                v75 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID2];
-                v270[0] = v75;
-                v269[1] = @"functionIndex";
-                v76 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v74 | dispatchUID3];
-                v270[1] = v76;
-                v269[2] = @"streamref";
-                v77 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v228];
-                v270[2] = v77;
-                v269[3] = @"object";
-                v215 = v13;
-                if (v28)
+                v73 = dispatchUID4 & 0xFFFFFFFF00000000;
+                v267[0] = @"requestID";
+                v74 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID2];
+                v268[0] = v74;
+                v267[1] = @"functionIndex";
+                v75 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v73 | dispatchUID3];
+                v268[1] = v75;
+                v267[2] = @"streamref";
+                v76 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v226];
+                v268[2] = v76;
+                v267[3] = @"object";
+                v213 = v12;
+                if (v27)
                 {
-                  v78 = atomic_load((v28 + 56));
-                  v79 = v28 + (~(v78 >> 2) & 8);
+                  v77 = atomic_load((v27 + 56));
+                  v78 = v27 + (~(v77 >> 2) & 8);
                 }
 
                 else
                 {
-                  v79 = 8;
+                  v78 = 8;
                 }
 
-                v80 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*v79];
-                v270[3] = v80;
-                v270[4] = &unk_2860D6578;
-                v269[4] = @"type";
-                v269[5] = @"range.location";
-                v81 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v15, "range")}];
-                v270[5] = v81;
-                v269[6] = @"range.length";
-                v82 = MEMORY[0x277CCABB0];
-                [v15 range];
-                v84 = [v82 numberWithUnsignedLongLong:v83];
-                v270[6] = v84;
-                v85 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v270 forKeys:v269 count:7];
+                v79 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*v78];
+                v268[3] = v79;
+                v268[4] = &unk_2860D6578;
+                v267[4] = @"type";
+                v267[5] = @"range.location";
+                v80 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v14, "range")}];
+                v268[5] = v80;
+                v267[6] = @"range.length";
+                v81 = MEMORY[0x277CCABB0];
+                [v14 range];
+                v83 = [v81 numberWithUnsignedLongLong:v82];
+                v268[6] = v83;
+                v84 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v268 forKeys:v267 count:7];
 
-                [v212 addObject:v85];
-                v86 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID2];
-                [v211 setObject:v85 forKeyedSubscript:v86];
+                [v210 addObject:v84];
+                v85 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID2];
+                [v209 setObject:v84 forKeyedSubscript:v85];
 
-                v11 = v212;
+                v11 = v210;
 LABEL_62:
-                fetchCopy = v204;
-                v8 = v210;
-                v13 = v215;
+                fetchCopy = v202;
+                v8 = v208;
+                v12 = v213;
               }
             }
 
@@ -3754,59 +3730,57 @@ LABEL_62:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v15 = v14;
-                requestID3 = [v15 requestID];
-                streamRef = [v15 streamRef];
-                dispatchUID5 = [v15 dispatchUID];
-                dispatchUID6 = [v15 dispatchUID];
-                v32 = *(v8 + 88);
-                v33 = *(v8 + 40);
-                *&v228 = streamRef;
-                v34 = find_entry(*v33, &v228, 8uLL, 0);
-                if (*v34)
+                v14 = v13;
+                requestID3 = [v14 requestID];
+                streamRef = [v14 streamRef];
+                dispatchUID5 = [v14 dispatchUID];
+                dispatchUID6 = [v14 dispatchUID];
+                v31 = *(v8 + 88);
+                v32 = *(v8 + 40);
+                *&v226 = streamRef;
+                v33 = find_entry(*v32, &v226, 8uLL, 0);
+                if (*v33)
                 {
-                  v35 = *(*v34 + 32);
-                  if (v35)
+                  v34 = *(*v33 + 32);
+                  if (v34)
                   {
-                    v36 = 0;
-                    v37 = dispatchUID6 & 0xFFFFFFFF00000000;
-                    v38 = v32 + dispatchUID5;
+                    v35 = 0;
+                    v36 = dispatchUID6 & 0xFFFFFFFF00000000;
+                    v37 = v31 + dispatchUID5;
                     do
                     {
-                      if (v35[2] > v38 || (v39 = v35, v35[3] <= v38))
+                      if (v34[2] > v37 || (v38 = v34, v34[3] <= v37))
                       {
-                        if (v36)
+                        if (v35)
                         {
                           goto LABEL_28;
                         }
 
-                        v39 = 0;
+                        v38 = 0;
                       }
 
-                      v35 = v35[4];
-                      v36 = v39;
+                      v34 = v34[4];
+                      v35 = v38;
                     }
 
-                    while (v35);
-                    if (!v39)
+                    while (v34);
+                    if (!v38)
                     {
                       goto LABEL_80;
                     }
 
 LABEL_28:
-                    v40 = find_entry(*(v8 + 8), &streamRef, 8uLL, 0);
-                    if (*v40)
+                    v39 = find_entry(*(v8 + 8), &streamRef, 8uLL, 0);
+                    if (*v39)
                     {
-                      v41 = *(*v40 + 32);
+                      v40 = *(*v39 + 32);
                     }
 
                     else
                     {
-                      v41 = 0;
+                      v40 = 0;
                     }
 
-                    v243 = 0u;
-                    v244 = 0u;
                     v241 = 0u;
                     v242 = 0u;
                     v239 = 0u;
@@ -3821,52 +3795,54 @@ LABEL_28:
                     v232 = 0u;
                     v229 = 0u;
                     v230 = 0u;
+                    v227 = 0u;
                     v228 = 0u;
-                    if (v15)
+                    v226 = 0u;
+                    if (v14)
                     {
-                      [v15 slice];
+                      objc_msgSend_slice(v14);
                     }
 
-                    v267[0] = @"requestID";
-                    v108 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID3];
-                    v268[0] = v108;
-                    v267[1] = @"functionIndex";
-                    v109 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v37 | dispatchUID5];
-                    v268[1] = v109;
-                    v267[2] = @"streamref";
-                    v110 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:streamRef];
-                    v268[2] = v110;
-                    v267[3] = @"object";
-                    if (v41)
+                    v265[0] = @"requestID";
+                    v107 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID3];
+                    v266[0] = v107;
+                    v265[1] = @"functionIndex";
+                    v108 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v36 | dispatchUID5];
+                    v266[1] = v108;
+                    v265[2] = @"streamref";
+                    v109 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:streamRef];
+                    v266[2] = v109;
+                    v265[3] = @"object";
+                    if (v40)
                     {
-                      v111 = atomic_load((v41 + 56));
-                      v112 = v41 + (~(v111 >> 2) & 8);
+                      v110 = atomic_load((v40 + 56));
+                      v111 = v40 + (~(v110 >> 2) & 8);
                     }
 
                     else
                     {
-                      v112 = 8;
+                      v111 = 8;
                     }
 
-                    v113 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*v112];
-                    v268[3] = v113;
-                    v268[4] = &unk_2860D65C0;
-                    v267[4] = @"type";
-                    v267[5] = @"tensorSlice";
-                    v114 = [MEMORY[0x277CBEA90] dataWithBytes:&v228 length:272];
-                    v268[5] = v114;
-                    v115 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v268 forKeys:v267 count:6];
+                    v112 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*v111];
+                    v266[3] = v112;
+                    v266[4] = &unk_2860D65C0;
+                    v265[4] = @"type";
+                    v265[5] = @"tensorSlice";
+                    v113 = [MEMORY[0x277CBEA90] dataWithBytes:&v226 length:272];
+                    v266[5] = v113;
+                    v114 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v266 forKeys:v265 count:6];
 
-                    [v212 addObject:v115];
-                    v116 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID3];
-                    [v211 setObject:v115 forKeyedSubscript:v116];
+                    [v210 addObject:v114];
+                    v115 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID3];
+                    [v209 setObject:v114 forKeyedSubscript:v115];
 
-                    v8 = v210;
+                    v8 = v208;
                   }
                 }
 
 LABEL_80:
-                v11 = v212;
+                v11 = v210;
               }
 
               else
@@ -3874,270 +3850,270 @@ LABEL_80:
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v15 = v14;
-                  requestID4 = [v15 requestID];
-                  *&v228 = [v15 pipelineRef];
-                  dispatchUID7 = [v15 dispatchUID];
-                  dispatchUID8 = [v15 dispatchUID];
-                  if (!GTMTLSMContext_getObject(**(v8 + 40), v228, *(v8 + 88) + dispatchUID7))
+                  v14 = v13;
+                  requestID4 = [v14 requestID];
+                  *&v226 = [v14 pipelineRef];
+                  dispatchUID7 = [v14 dispatchUID];
+                  dispatchUID8 = [v14 dispatchUID];
+                  if (!GTMTLSMContext_getObject(**(v8 + 40), v226, *(v8 + 88) + dispatchUID7))
                   {
                     goto LABEL_90;
                   }
 
-                  v45 = find_entry(*(v8 + 8), &v228, 8uLL, 0);
-                  if (*v45)
+                  v44 = find_entry(*(v8 + 8), &v226, 8uLL, 0);
+                  if (*v44)
                   {
-                    v46 = *(*v45 + 32);
+                    v45 = *(*v44 + 32);
                   }
 
                   else
                   {
-                    v46 = 0;
+                    v45 = 0;
                   }
 
-                  v99 = dispatchUID8 & 0xFFFFFFFF00000000;
-                  v265[0] = @"requestID";
-                  v100 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID4];
-                  v266[0] = v100;
-                  v265[1] = @"functionIndex";
-                  v101 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v99 | dispatchUID7];
-                  v266[1] = v101;
-                  v265[2] = @"streamref";
-                  v102 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v228];
-                  v266[2] = v102;
-                  v265[3] = @"object";
-                  if (v46)
+                  v98 = dispatchUID8 & 0xFFFFFFFF00000000;
+                  v263[0] = @"requestID";
+                  v99 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID4];
+                  v264[0] = v99;
+                  v263[1] = @"functionIndex";
+                  v100 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v98 | dispatchUID7];
+                  v264[1] = v100;
+                  v263[2] = @"streamref";
+                  v101 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v226];
+                  v264[2] = v101;
+                  v263[3] = @"object";
+                  if (v45)
                   {
-                    v103 = atomic_load((v46 + 56));
-                    v104 = v46 + (~(v103 >> 2) & 8);
+                    v102 = atomic_load((v45 + 56));
+                    v103 = v45 + (~(v102 >> 2) & 8);
                   }
 
                   else
                   {
-                    v104 = 8;
+                    v103 = 8;
                   }
 
-                  v105 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*v104];
-                  v265[4] = @"type";
-                  v266[3] = v105;
-                  v266[4] = &unk_2860D65D8;
-                  v106 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v266 forKeys:v265 count:5];
+                  v104 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*v103];
+                  v263[4] = @"type";
+                  v264[3] = v104;
+                  v264[4] = &unk_2860D65D8;
+                  v105 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v264 forKeys:v263 count:5];
 
-                  [v11 addObject:v106];
-                  v107 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID4];
-                  [v211 setObject:v106 forKeyedSubscript:v107];
+                  [v11 addObject:v105];
+                  v106 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID4];
+                  [v209 setObject:v105 forKeyedSubscript:v106];
 
 LABEL_89:
-                  v8 = v210;
+                  v8 = v208;
                   goto LABEL_90;
                 }
 
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v15 = v14;
-                  requestID5 = [v15 requestID];
-                  *&v228 = [v15 pipelineRef];
-                  dispatchUID9 = [v15 dispatchUID];
-                  dispatchUID10 = [v15 dispatchUID];
-                  if (!GTMTLSMContext_getObject(**(v8 + 40), v228, *(v8 + 88) + dispatchUID9))
+                  v14 = v13;
+                  requestID5 = [v14 requestID];
+                  *&v226 = [v14 pipelineRef];
+                  dispatchUID9 = [v14 dispatchUID];
+                  dispatchUID10 = [v14 dispatchUID];
+                  if (!GTMTLSMContext_getObject(**(v8 + 40), v226, *(v8 + 88) + dispatchUID9))
                   {
                     goto LABEL_90;
                   }
 
-                  v50 = find_entry(*(v8 + 8), &v228, 8uLL, 0);
-                  if (*v50)
+                  v49 = find_entry(*(v8 + 8), &v226, 8uLL, 0);
+                  if (*v49)
                   {
-                    v51 = *(*v50 + 32);
+                    v50 = *(*v49 + 32);
                   }
 
                   else
                   {
-                    v51 = 0;
+                    v50 = 0;
                   }
 
-                  v121 = dispatchUID10 & 0xFFFFFFFF00000000;
-                  v263[0] = @"requestID";
-                  v213 = requestID5;
-                  v122 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID5];
-                  v264[0] = v122;
-                  v263[1] = @"functionIndex";
-                  v123 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v121 | dispatchUID9];
-                  v264[1] = v123;
-                  v263[2] = @"streamref";
-                  v124 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v228];
-                  v264[2] = v124;
-                  v263[3] = @"object";
-                  v125 = v11;
-                  if (v51)
+                  v120 = dispatchUID10 & 0xFFFFFFFF00000000;
+                  v261[0] = @"requestID";
+                  v211 = requestID5;
+                  v121 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID5];
+                  v262[0] = v121;
+                  v261[1] = @"functionIndex";
+                  v122 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v120 | dispatchUID9];
+                  v262[1] = v122;
+                  v261[2] = @"streamref";
+                  v123 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v226];
+                  v262[2] = v123;
+                  v261[3] = @"object";
+                  v124 = v11;
+                  if (v50)
                   {
-                    v126 = atomic_load((v51 + 56));
-                    v127 = v51 + (~(v126 >> 2) & 8);
+                    v125 = atomic_load((v50 + 56));
+                    v126 = v50 + (~(v125 >> 2) & 8);
                   }
 
                   else
                   {
-                    v127 = 8;
+                    v126 = 8;
                   }
 
-                  v128 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*v127];
-                  v264[3] = v128;
-                  v264[4] = &unk_2860D65F0;
-                  v263[4] = @"type";
-                  v263[5] = @"mlModule";
-                  mlModuleKey = [v15 mlModuleKey];
-                  v264[5] = mlModuleKey;
-                  v263[6] = @"mlResource";
-                  mlResourceKey = [v15 mlResourceKey];
-                  v264[6] = mlResourceKey;
-                  v131 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v264 forKeys:v263 count:7];
+                  v127 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*v126];
+                  v262[3] = v127;
+                  v262[4] = &unk_2860D65F0;
+                  v261[4] = @"type";
+                  v261[5] = @"mlModule";
+                  mlModuleKey = [v14 mlModuleKey];
+                  v262[5] = mlModuleKey;
+                  v261[6] = @"mlResource";
+                  mlResourceKey = [v14 mlResourceKey];
+                  v262[6] = mlResourceKey;
+                  v130 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v262 forKeys:v261 count:7];
 
-                  [v125 addObject:v131];
-                  v132 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v213];
-                  [v211 setObject:v131 forKeyedSubscript:v132];
+                  [v124 addObject:v130];
+                  v131 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v211];
+                  [v209 setObject:v130 forKeyedSubscript:v131];
 
-                  v11 = v125;
-                  fetchCopy = v204;
+                  v11 = v124;
+                  fetchCopy = v202;
                   goto LABEL_89;
                 }
 
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v15 = v14;
-                  requestID6 = [v15 requestID];
-                  *&v228 = [v15 pipelineRef];
-                  dispatchUID11 = [v15 dispatchUID];
-                  dispatchUID12 = [v15 dispatchUID];
-                  if (!GTMTLSMContext_getObject(**(v8 + 40), v228, *(v8 + 88) + dispatchUID11))
+                  v14 = v13;
+                  requestID6 = [v14 requestID];
+                  *&v226 = [v14 pipelineRef];
+                  dispatchUID11 = [v14 dispatchUID];
+                  dispatchUID12 = [v14 dispatchUID];
+                  if (!GTMTLSMContext_getObject(**(v8 + 40), v226, *(v8 + 88) + dispatchUID11))
                   {
                     goto LABEL_90;
                   }
 
-                  v72 = find_entry(*(v8 + 8), &v228, 8uLL, 0);
-                  if (*v72)
+                  v71 = find_entry(*(v8 + 8), &v226, 8uLL, 0);
+                  if (*v71)
                   {
-                    v73 = *(*v72 + 32);
+                    v72 = *(*v71 + 32);
                   }
 
                   else
                   {
-                    v73 = 0;
+                    v72 = 0;
                   }
 
-                  v142 = dispatchUID12 & 0xFFFFFFFF00000000;
-                  v261[0] = @"requestID";
-                  v143 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID6];
-                  v262[0] = v143;
-                  v261[1] = @"functionIndex";
-                  v144 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v142 | dispatchUID11];
-                  v262[1] = v144;
-                  v261[2] = @"streamref";
-                  v145 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v228];
-                  v262[2] = v145;
-                  v261[3] = @"object";
-                  if (v73)
+                  v141 = dispatchUID12 & 0xFFFFFFFF00000000;
+                  v259[0] = @"requestID";
+                  v142 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID6];
+                  v260[0] = v142;
+                  v259[1] = @"functionIndex";
+                  v143 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v141 | dispatchUID11];
+                  v260[1] = v143;
+                  v259[2] = @"streamref";
+                  v144 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v226];
+                  v260[2] = v144;
+                  v259[3] = @"object";
+                  if (v72)
                   {
-                    v146 = atomic_load((v73 + 56));
-                    v147 = v73 + (~(v146 >> 2) & 8);
+                    v145 = atomic_load((v72 + 56));
+                    v146 = v72 + (~(v145 >> 2) & 8);
                   }
 
                   else
                   {
-                    v147 = 8;
+                    v146 = 8;
                   }
 
-                  v148 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*v147];
-                  v262[3] = v148;
-                  v262[4] = &unk_2860D6608;
-                  v261[4] = @"type";
-                  v261[5] = @"mlIntermediateOps";
-                  intermediateOps = [v15 intermediateOps];
-                  v262[5] = intermediateOps;
-                  v150 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v262 forKeys:v261 count:6];
+                  v147 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*v146];
+                  v260[3] = v147;
+                  v260[4] = &unk_2860D6608;
+                  v259[4] = @"type";
+                  v259[5] = @"mlIntermediateOps";
+                  intermediateOps = [v14 intermediateOps];
+                  v260[5] = intermediateOps;
+                  v149 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v260 forKeys:v259 count:6];
 
-                  [v11 addObject:v150];
-                  v151 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID6];
-                  [v211 setObject:v150 forKeyedSubscript:v151];
+                  [v11 addObject:v149];
+                  v150 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID6];
+                  [v209 setObject:v149 forKeyedSubscript:v150];
 
 LABEL_99:
-                  v8 = v210;
+                  v8 = v208;
 LABEL_100:
-                  fetchCopy = v204;
+                  fetchCopy = v202;
                   goto LABEL_90;
                 }
 
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v87 = v14;
-                  requestID7 = [v87 requestID];
-                  dispatchUID13 = [v87 dispatchUID];
-                  dispatchUID14 = [v87 dispatchUID];
-                  if ([v87 solid])
+                  v86 = v13;
+                  requestID7 = [v86 requestID];
+                  dispatchUID13 = [v86 dispatchUID];
+                  dispatchUID14 = [v86 dispatchUID];
+                  if ([v86 solid])
                   {
-                    v91 = -3;
+                    v90 = -3;
                   }
 
                   else
                   {
-                    v91 = -1;
+                    v90 = -1;
                   }
 
-                  v259[0] = @"requestID";
-                  v92 = v13;
-                  v93 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID7];
-                  v260[0] = v93;
-                  v259[1] = @"functionIndex";
-                  v117 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:dispatchUID14 & 0xFFFFFFFF00000000 | dispatchUID13];
-                  v260[1] = v117;
-                  v259[2] = @"object";
-                  v95 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v91];
-                  v260[2] = v95;
-                  v260[3] = &unk_2860D6590;
-                  v259[3] = @"type";
-                  v259[4] = @"resolution";
-                  v260[4] = &unk_2860D5F48;
-                  v96 = MEMORY[0x277CBEAC0];
-                  v97 = v260;
-                  v98 = v259;
+                  v257[0] = @"requestID";
+                  v91 = v12;
+                  v92 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID7];
+                  v258[0] = v92;
+                  v257[1] = @"functionIndex";
+                  v116 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:dispatchUID14 & 0xFFFFFFFF00000000 | dispatchUID13];
+                  v258[1] = v116;
+                  v257[2] = @"object";
+                  v94 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v90];
+                  v258[2] = v94;
+                  v258[3] = &unk_2860D6590;
+                  v257[3] = @"type";
+                  v257[4] = @"resolution";
+                  v258[4] = &unk_2860D5F48;
+                  v95 = MEMORY[0x277CBEAC0];
+                  v96 = v258;
+                  v97 = v257;
                   goto LABEL_83;
                 }
 
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v87 = v14;
-                  requestID7 = [v87 requestID];
-                  dispatchUID15 = [v87 dispatchUID];
-                  dispatchUID16 = [v87 dispatchUID];
-                  v119 = [v87 index] - 513;
-                  v257[0] = @"requestID";
-                  v92 = v13;
-                  v93 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID7];
-                  v258[0] = v93;
-                  v257[1] = @"functionIndex";
-                  v117 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:dispatchUID16 & 0xFFFFFFFF00000000 | dispatchUID15];
-                  v258[1] = v117;
-                  v257[2] = @"object";
-                  v95 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v119];
-                  v258[2] = v95;
-                  v258[3] = &unk_2860D6590;
-                  v257[3] = @"type";
-                  v257[4] = @"resolution";
-                  v258[4] = &unk_2860D5F70;
-                  v96 = MEMORY[0x277CBEAC0];
-                  v97 = v258;
-                  v98 = v257;
+                  v86 = v13;
+                  requestID7 = [v86 requestID];
+                  dispatchUID15 = [v86 dispatchUID];
+                  dispatchUID16 = [v86 dispatchUID];
+                  v118 = [v86 index] - 513;
+                  v255[0] = @"requestID";
+                  v91 = v12;
+                  v92 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID7];
+                  v256[0] = v92;
+                  v255[1] = @"functionIndex";
+                  v116 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:dispatchUID16 & 0xFFFFFFFF00000000 | dispatchUID15];
+                  v256[1] = v116;
+                  v255[2] = @"object";
+                  v94 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v118];
+                  v256[2] = v94;
+                  v256[3] = &unk_2860D6590;
+                  v255[3] = @"type";
+                  v255[4] = @"resolution";
+                  v256[4] = &unk_2860D5F70;
+                  v95 = MEMORY[0x277CBEAC0];
+                  v96 = v256;
+                  v97 = v255;
 LABEL_83:
-                  v15 = [v96 dictionaryWithObjects:v97 forKeys:v98 count:5];
+                  v14 = [v95 dictionaryWithObjects:v96 forKeys:v97 count:5];
 
-                  v8 = v210;
-                  [v11 addObject:v15];
-                  v13 = v92;
-                  fetchCopy = v204;
-                  v120 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID7];
-                  [v211 setObject:v15 forKeyedSubscript:v120];
+                  v8 = v208;
+                  [v11 addObject:v14];
+                  v12 = v91;
+                  fetchCopy = v202;
+                  v119 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID7];
+                  [v209 setObject:v14 forKeyedSubscript:v119];
 
                   goto LABEL_90;
                 }
@@ -4145,28 +4121,28 @@ LABEL_83:
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v133 = v14;
-                  requestID8 = [v133 requestID];
-                  dispatchUID17 = [v133 dispatchUID];
-                  dispatchUID18 = [v133 dispatchUID];
-                  v137 = [v133 index] - 1025;
-                  v255[0] = @"requestID";
-                  v138 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID8];
-                  v256[0] = v138;
-                  v255[1] = @"functionIndex";
-                  v135 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:dispatchUID18 & 0xFFFFFFFF00000000 | dispatchUID17];
-                  v256[1] = v135;
-                  v255[2] = @"object";
-                  v140 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v137];
-                  v255[3] = @"type";
-                  v256[2] = v140;
-                  v256[3] = &unk_2860D6638;
-                  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v256 forKeys:v255 count:4];
+                  v132 = v13;
+                  requestID8 = [v132 requestID];
+                  dispatchUID17 = [v132 dispatchUID];
+                  dispatchUID18 = [v132 dispatchUID];
+                  v136 = [v132 index] - 1025;
+                  v253[0] = @"requestID";
+                  v137 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID8];
+                  v254[0] = v137;
+                  v253[1] = @"functionIndex";
+                  v134 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:dispatchUID18 & 0xFFFFFFFF00000000 | dispatchUID17];
+                  v254[1] = v134;
+                  v253[2] = @"object";
+                  v139 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v136];
+                  v253[3] = @"type";
+                  v254[2] = v139;
+                  v254[3] = &unk_2860D6638;
+                  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v254 forKeys:v253 count:4];
 
-                  v8 = v210;
-                  [v11 addObject:v15];
-                  v141 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID8];
-                  [v211 setObject:v15 forKeyedSubscript:v141];
+                  v8 = v208;
+                  [v11 addObject:v14];
+                  v140 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID8];
+                  [v209 setObject:v14 forKeyedSubscript:v140];
 
                   goto LABEL_100;
                 }
@@ -4174,59 +4150,59 @@ LABEL_83:
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v15 = v14;
-                  requestID9 = [v15 requestID];
-                  dispatchUID19 = [v15 dispatchUID];
-                  dispatchUID20 = [v15 dispatchUID];
-                  objectShaderThreadgroupBoundsPresent = [v15 objectShaderThreadgroupBoundsPresent];
-                  v156 = MEMORY[0x277CBEB38];
-                  v253[0] = @"requestID";
-                  v214 = requestID9;
-                  v157 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID9];
-                  v254[0] = v157;
-                  v253[1] = @"functionIndex";
-                  v153 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:dispatchUID20 & 0xFFFFFFFF00000000 | dispatchUID19];
-                  v254[1] = v153;
-                  v253[2] = @"object";
-                  v159 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:-1026];
-                  v253[3] = @"type";
-                  v254[2] = v159;
-                  v254[3] = &unk_2860D6578;
-                  [MEMORY[0x277CBEAC0] dictionaryWithObjects:v254 forKeys:v253 count:4];
-                  v161 = v160 = v11;
-                  v162 = [v156 dictionaryWithDictionary:v161];
+                  v14 = v13;
+                  requestID9 = [v14 requestID];
+                  dispatchUID19 = [v14 dispatchUID];
+                  dispatchUID20 = [v14 dispatchUID];
+                  objectShaderThreadgroupBoundsPresent = [v14 objectShaderThreadgroupBoundsPresent];
+                  v155 = MEMORY[0x277CBEB38];
+                  v251[0] = @"requestID";
+                  v212 = requestID9;
+                  v156 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID9];
+                  v252[0] = v156;
+                  v251[1] = @"functionIndex";
+                  v152 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:dispatchUID20 & 0xFFFFFFFF00000000 | dispatchUID19];
+                  v252[1] = v152;
+                  v251[2] = @"object";
+                  v158 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:-1026];
+                  v251[3] = @"type";
+                  v252[2] = v158;
+                  v252[3] = &unk_2860D6578;
+                  [MEMORY[0x277CBEAC0] dictionaryWithObjects:v252 forKeys:v251 count:4];
+                  v160 = v159 = v11;
+                  v161 = [v155 dictionaryWithDictionary:v160];
 
-                  v11 = v160;
+                  v11 = v159;
                   if (objectShaderThreadgroupBoundsPresent)
                   {
-                    v228 = 0uLL;
-                    *&v229 = 0;
-                    if (v15)
+                    v226 = 0uLL;
+                    *&v227 = 0;
+                    if (v14)
                     {
-                      [v15 objectShaderThreadgroupBeginBounds];
+                      objc_msgSend_objectShaderThreadgroupBeginBounds(v14);
                       streamRef = 0;
-                      v226 = 0;
-                      v227 = 0;
-                      [v15 objectShaderThreadgroupEndBounds];
+                      v224 = 0;
+                      v225 = 0;
+                      objc_msgSend_objectShaderThreadgroupEndBounds(v14);
                     }
 
                     else
                     {
                       streamRef = 0;
-                      v226 = 0;
-                      v227 = 0;
+                      v224 = 0;
+                      v225 = 0;
                     }
 
                     data = [MEMORY[0x277CBEB28] data];
-                    [data appendBytes:&v228 length:12];
+                    [data appendBytes:&v226 length:12];
                     [data appendBytes:&streamRef length:12];
-                    v174 = [data copy];
-                    [v162 setObject:v174 forKeyedSubscript:@"objectThreadgroupRange"];
+                    v173 = [data copy];
+                    [v161 setObject:v173 forKeyedSubscript:@"objectThreadgroupRange"];
                   }
 
-                  [v160 addObject:v162];
-                  v175 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v214];
-                  [v211 setObject:v162 forKeyedSubscript:v175];
+                  [v159 addObject:v161];
+                  v174 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v212];
+                  [v209 setObject:v161 forKeyedSubscript:v174];
 
                   goto LABEL_99;
                 }
@@ -4234,79 +4210,79 @@ LABEL_83:
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
-                  v15 = objc_opt_new();
-                  [v15 setRequestID:{objc_msgSend(v14, "requestID")}];
-                  v170 = objc_alloc(MEMORY[0x277CCA9B8]);
-                  v249 = v199;
-                  v250 = @"unknown request";
-                  v171 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v250 forKeys:&v249 count:1];
-                  v172 = [v170 initWithDomain:v200 code:1 userInfo:v171];
-                  [v15 setError:v172];
+                  v14 = objc_opt_new();
+                  [v14 setRequestID:{objc_msgSend(v13, "requestID")}];
+                  v169 = objc_alloc(MEMORY[0x277CCA9B8]);
+                  v247 = v197;
+                  v248 = @"unknown request";
+                  v170 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v248 forKeys:&v247 count:1];
+                  v171 = [v169 initWithDomain:v198 code:1 userInfo:v170];
+                  [v14 setError:v171];
 
-                  [v203 addObject:v15];
+                  [v201 addObject:v14];
                   goto LABEL_100;
                 }
 
-                v15 = v14;
-                requestID10 = [v15 requestID];
-                *&v228 = [v15 streamRef];
-                dispatchUID21 = [v15 dispatchUID];
-                dispatchUID22 = [v15 dispatchUID];
-                v166 = GTMTLSMContext_getObject(**(v8 + 40), [v15 streamRef], *(v8 + 88) + dispatchUID21);
-                fetchCopy = v204;
-                if (v166)
+                v14 = v13;
+                requestID10 = [v14 requestID];
+                *&v226 = [v14 streamRef];
+                dispatchUID21 = [v14 dispatchUID];
+                dispatchUID22 = [v14 dispatchUID];
+                v165 = GTMTLSMContext_getObject(**(v8 + 40), [v14 streamRef], *(v8 + 88) + dispatchUID21);
+                fetchCopy = v202;
+                if (v165)
                 {
-                  v167 = v166;
-                  if (*v166 == 71 || *v166 == 29)
+                  v166 = v165;
+                  if (*v165 == 71 || *v165 == 29)
                   {
-                    v168 = find_entry(*(v8 + 8), &v228, 8uLL, 0);
-                    if (*v168)
+                    v167 = find_entry(*(v8 + 8), &v226, 8uLL, 0);
+                    if (*v167)
                     {
-                      v169 = *(*v168 + 32);
+                      v168 = *(*v167 + 32);
                     }
 
                     else
                     {
-                      v169 = 0;
+                      v168 = 0;
                     }
 
-                    v176 = dispatchUID22 & 0xFFFFFFFF00000000;
-                    v251[0] = @"requestID";
-                    v177 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID10];
-                    v252[0] = v177;
-                    v251[1] = @"functionIndex";
-                    v164 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v176 | dispatchUID21];
-                    v252[1] = v164;
-                    v251[2] = @"streamref";
-                    v179 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v228];
-                    v252[2] = v179;
-                    v251[3] = @"object";
-                    if (v169)
+                    v175 = dispatchUID22 & 0xFFFFFFFF00000000;
+                    v249[0] = @"requestID";
+                    v176 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID10];
+                    v250[0] = v176;
+                    v249[1] = @"functionIndex";
+                    v163 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v175 | dispatchUID21];
+                    v250[1] = v163;
+                    v249[2] = @"streamref";
+                    v178 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v226];
+                    v250[2] = v178;
+                    v249[3] = @"object";
+                    if (v168)
                     {
-                      v180 = atomic_load((v169 + 56));
-                      v181 = v169 + (~(v180 >> 2) & 8);
+                      v179 = atomic_load((v168 + 56));
+                      v180 = v168 + (~(v179 >> 2) & 8);
                     }
 
                     else
                     {
-                      v181 = 8;
+                      v180 = 8;
                     }
 
-                    v182 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*v181];
-                    v252[3] = v182;
-                    v252[4] = &unk_2860D65A8;
-                    v251[4] = @"type";
-                    v251[5] = @"context";
-                    v183 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*v167];
-                    v252[5] = v183;
-                    v184 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v252 forKeys:v251 count:6];
+                    v181 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*v180];
+                    v250[3] = v181;
+                    v250[4] = &unk_2860D65A8;
+                    v249[4] = @"type";
+                    v249[5] = @"context";
+                    v182 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*v166];
+                    v250[5] = v182;
+                    v183 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v250 forKeys:v249 count:6];
 
-                    [v212 addObject:v184];
-                    v185 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID10];
-                    [v211 setObject:v184 forKeyedSubscript:v185];
+                    [v210 addObject:v183];
+                    v184 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID10];
+                    [v209 setObject:v183 forKeyedSubscript:v184];
 
-                    v8 = v210;
-                    v11 = v212;
+                    v8 = v208;
+                    v11 = v210;
                     goto LABEL_100;
                   }
                 }
@@ -4316,33 +4292,33 @@ LABEL_83:
 
 LABEL_90:
 
-          ++v13;
+          ++v12;
         }
 
-        while (v13 != v218);
-        v186 = [obj countByEnumeratingWithState:&v245 objects:v275 count:16];
-        v218 = v186;
-        if (!v186)
+        while (v12 != v216);
+        v185 = [obj countByEnumeratingWithState:&v243 objects:v273 count:16];
+        v216 = v185;
+        if (!v185)
         {
 LABEL_121:
 
           completionHandler = [fetchCopy completionHandler];
-          v219[0] = MEMORY[0x277D85DD0];
-          v219[1] = 3221225472;
-          v219[2] = __28__GTMTLReplayService_fetch___block_invoke;
-          v219[3] = &unk_279657680;
-          v220 = fetchCopy;
-          v224 = completionHandler;
-          v6 = v202;
-          v188 = v202;
-          v221 = v188;
-          v222 = v211;
-          v223 = v203;
-          v189 = v203;
-          v190 = v211;
-          v191 = completionHandler;
-          FetchResourceObjectBatch(clientContext, v11, v219);
-          v192 = v188;
+          v217[0] = MEMORY[0x277D85DD0];
+          v217[1] = 3221225472;
+          v217[2] = __28__GTMTLReplayService_fetch___block_invoke;
+          v217[3] = &unk_279657680;
+          v218 = fetchCopy;
+          v222 = completionHandler;
+          v6 = v200;
+          v187 = v200;
+          v219 = v187;
+          v220 = v209;
+          v221 = v201;
+          v188 = v201;
+          v189 = v209;
+          v190 = completionHandler;
+          FetchResourceObjectBatch(clientContext, v11, v217);
+          v191 = v187;
 
           goto LABEL_123;
         }
@@ -4352,45 +4328,43 @@ LABEL_121:
 
   v11 = objc_opt_new();
   [v11 setRequestID:{objc_msgSend(fetchCopy, "requestID")}];
-  v193 = objc_alloc(MEMORY[0x277CCA9B8]);
-  v276 = *MEMORY[0x277CCA450];
-  v277[0] = @"Fetch request happened before replayer data source is loaded";
-  v194 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v277 forKeys:&v276 count:1];
-  v195 = [v193 initWithDomain:@"com.apple.gputools.MTLReplayer" code:104 userInfo:v194];
-  [v11 setError:v195];
+  v192 = objc_alloc(MEMORY[0x277CCA9B8]);
+  v274 = *MEMORY[0x277CCA450];
+  v275[0] = @"Fetch request happened before replayer data source is loaded";
+  v193 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v275 forKeys:&v274 count:1];
+  v194 = [v192 initWithDomain:@"com.apple.gputools.MTLReplayer" code:104 userInfo:v193];
+  [v11 setError:v194];
 
   completionHandler2 = [fetchCopy completionHandler];
   (completionHandler2)[2](completionHandler2, v11);
 
   [v6 completed];
-  v192 = 0;
+  v191 = 0;
 LABEL_123:
 
-  v197 = *MEMORY[0x277D85DE8];
-
-  return v192;
+  return v191;
 }
 
 void __28__GTMTLReplayService_fetch___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (v5)
   {
-    v62 = a1;
-    v58 = v6;
+    v61 = a1;
+    v57 = v6;
     v8 = MEMORY[0x277CCAAC8];
     v9 = MEMORY[0x277CBEB98];
     v10 = objc_opt_class();
     v11 = objc_opt_class();
     v12 = objc_opt_class();
     v13 = [v9 setWithObjects:{v10, v11, v12, objc_opt_class(), 0}];
-    v73 = 0;
-    v59 = v5;
-    v14 = [v8 unarchivedObjectOfClasses:v13 fromData:v5 error:&v73];
-    v15 = v73;
+    v72 = 0;
+    v58 = v5;
+    v14 = [v8 unarchivedObjectOfClasses:v13 fromData:v5 error:&v72];
+    v15 = v72;
 
     v16 = MEMORY[0x277CCAAC8];
     v17 = MEMORY[0x277CBEB98];
@@ -4399,57 +4373,57 @@ void __28__GTMTLReplayService_fetch___block_invoke(uint64_t a1, void *a2, void *
     v20 = objc_opt_class();
     v21 = objc_opt_class();
     v22 = [v17 setWithObjects:{v18, v19, v20, v21, objc_opt_class(), 0}];
-    v57 = v14;
+    v56 = v14;
     v23 = [v14 objectForKeyedSubscript:@"object"];
-    v72 = v15;
-    v24 = [v16 unarchivedObjectOfClasses:v22 fromData:v23 error:&v72];
-    v56 = v72;
+    v71 = v15;
+    v24 = [v16 unarchivedObjectOfClasses:v22 fromData:v23 error:&v71];
+    v55 = v71;
 
-    v61 = [v24 objectForKeyedSubscript:@"object"];
-    v60 = [v24 objectForKeyedSubscript:@"requestID"];
+    v60 = [v24 objectForKeyedSubscript:@"object"];
+    v59 = [v24 objectForKeyedSubscript:@"requestID"];
     v25 = [v24 objectForKeyedSubscript:@"functionIndex"];
     v26 = [v25 bytes];
     v27 = [v24 objectForKeyedSubscript:@"stream"];
     v28 = [v27 count];
 
-    v71 = 0;
+    v70 = 0;
     v29 = 1280 * v28;
     v30 = GTCoreAlloc(1280 * v28);
     bzero(v30, 1280 * v28);
     concat = MEMORY[0x277D85CC8];
     v32 = MEMORY[0x277D85CC8];
     v33 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v66 = 0u;
     v67 = 0u;
     v68 = 0u;
     v69 = 0u;
-    v70 = 0u;
     v34 = [v24 objectForKeyedSubscript:@"stream"];
-    v35 = [v34 countByEnumeratingWithState:&v67 objects:v74 count:16];
+    v35 = [v34 countByEnumeratingWithState:&v66 objects:v73 count:16];
     if (v35)
     {
       v36 = v35;
-      v53 = v29;
-      v54 = v33;
-      v55 = v24;
-      v37 = *v68;
+      v52 = v29;
+      v53 = v33;
+      v54 = v24;
+      v37 = *v67;
       do
       {
         v38 = 0;
         v39 = concat;
         do
         {
-          if (*v68 != v37)
+          if (*v67 != v37)
           {
             objc_enumerationMutation(v34);
           }
 
-          v40 = *(*(&v67 + 1) + 8 * v38);
-          v65[0] = GTMTLTextureDescriptorDefaults;
-          v65[1] = unk_24DA92D40;
-          v65[2] = xmmword_24DA92D50;
-          v66 = 512;
+          v40 = *(*(&v66 + 1) + 8 * v38);
+          v64[0] = GTMTLTextureDescriptorDefaults;
+          v64[1] = unk_24DA92D40;
+          v64[2] = xmmword_24DA92D50;
+          v65 = 512;
           v41 = *v26++;
-          v42 = NewResourceData(v40, v61, v60, *(v62 + 48), v65, v30, &v71, v41, v39);
+          v42 = NewResourceData(v40, v60, v59, *(v61 + 48), v64, v30, &v70, v41, v39);
           concat = dispatch_data_create_concat(v39, v42);
 
           ++v38;
@@ -4457,14 +4431,14 @@ void __28__GTMTLReplayService_fetch___block_invoke(uint64_t a1, void *a2, void *
         }
 
         while (v36 != v38);
-        v36 = [v34 countByEnumeratingWithState:&v67 objects:v74 count:16];
+        v36 = [v34 countByEnumeratingWithState:&v66 objects:v73 count:16];
       }
 
       while (v36);
-      v43 = 80 * v71;
-      v24 = v55;
-      v29 = v53;
-      v33 = v54;
+      v43 = 80 * v70;
+      v24 = v54;
+      v29 = v52;
+      v33 = v53;
     }
 
     else
@@ -4481,24 +4455,24 @@ void __28__GTMTLReplayService_fetch___block_invoke(uint64_t a1, void *a2, void *
     v45 = dispatch_data_create(v30, v43, 0, destructor);
     [v33 setObject:v45 forKey:@"info"];
     [v33 setObject:concat forKey:@"data"];
-    v46 = [*(v62 + 56) copy];
+    v46 = [*(v61 + 56) copy];
     [v33 setObject:v46 forKey:@"unknown"];
 
     v47 = objc_opt_new();
-    [v47 setRequestID:{objc_msgSend(*(v62 + 32), "requestID")}];
+    [v47 setRequestID:{objc_msgSend(*(v61 + 32), "requestID")}];
     v48 = MEMORY[0x277CCAAB0];
     v49 = [v33 copy];
-    v63 = 0;
-    v50 = [v48 archivedDataWithRootObject:v49 requiringSecureCoding:1 error:&v63];
-    v51 = v63;
+    v62 = 0;
+    v50 = [v48 archivedDataWithRootObject:v49 requiringSecureCoding:1 error:&v62];
+    v51 = v62;
     [v47 setData:v50];
 
     [v47 setError:v51];
-    (*(*(v62 + 64) + 16))();
-    [*(v62 + 40) completed];
+    (*(*(v61 + 64) + 16))();
+    [*(v61 + 40) completed];
 
-    v7 = v58;
-    v5 = v59;
+    v7 = v57;
+    v5 = v58;
   }
 
   else
@@ -4510,8 +4484,6 @@ void __28__GTMTLReplayService_fetch___block_invoke(uint64_t a1, void *a2, void *
     (*(*(a1 + 64) + 16))();
     [*(a1 + 40) completed];
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __28__GTMTLReplayService_fetch___block_invoke_2(uint64_t a1)
@@ -4523,9 +4495,9 @@ uint64_t __28__GTMTLReplayService_fetch___block_invoke_2(uint64_t a1)
 
 - (id)query:(id)query
 {
-  v138[4] = *MEMORY[0x277D85DE8];
+  v136[4] = *MEMORY[0x277D85DE8];
   queryCopy = query;
-  v88 = [objc_alloc(MEMORY[0x277D0B620]) initWithService:self andTokenId:{objc_msgSend(queryCopy, "requestID")}];
+  v86 = [objc_alloc(MEMORY[0x277D0B620]) initWithService:self andTokenId:{objc_msgSend(queryCopy, "requestID")}];
   selfCopy = self;
   clientContext = self->_clientContext;
   requestID = [queryCopy requestID];
@@ -4560,37 +4532,36 @@ uint64_t __28__GTMTLReplayService_fetch___block_invoke_2(uint64_t a1)
   if (v16)
   {
     v17 = 0;
-    v18 = *MEMORY[0x277CCA050];
-    v84 = *MEMORY[0x277CCA050];
-    v85 = *MEMORY[0x277CCA450];
+    v82 = *MEMORY[0x277CCA050];
+    v83 = *MEMORY[0x277CCA450];
     do
     {
       requests5 = [queryCopy requests];
-      v20 = [requests5 objectAtIndexedSubscript:v17];
+      v19 = [requests5 objectAtIndexedSubscript:v17];
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v21 = v20;
-        [v21 dispatchUID];
-        [v21 dispatchUID];
-        streamRef = [v21 streamRef];
-        requestID2 = [v21 requestID];
+        v20 = v19;
+        [v20 dispatchUID];
+        [v20 dispatchUID];
+        streamRef = [v20 streamRef];
+        requestID2 = [v20 requestID];
 
-        v24 = [GTReplayerOperation alloc];
-        v121[0] = MEMORY[0x277D85DD0];
-        v121[1] = 3221225472;
-        v121[2] = __28__GTMTLReplayService_query___block_invoke;
-        v121[3] = &unk_279657570;
-        v121[5] = clientContext;
-        v121[6] = streamRef;
-        v121[7] = requestID2;
-        v121[4] = v8;
-        v122 = v17;
-        v25 = [(GTReplayerOperation *)v24 initWithBatch:v5 withBlock:v121];
-        [(GTReplayerOperationBatch *)v5 addOperation:v25];
+        v23 = [GTReplayerOperation alloc];
+        v119[0] = MEMORY[0x277D85DD0];
+        v119[1] = 3221225472;
+        v119[2] = __28__GTMTLReplayService_query___block_invoke;
+        v119[3] = &unk_279657570;
+        v119[5] = clientContext;
+        v119[6] = streamRef;
+        v119[7] = requestID2;
+        v119[4] = v8;
+        v120 = v17;
+        v24 = [(GTReplayerOperation *)v23 initWithBatch:v5 withBlock:v119];
+        [(GTReplayerOperationBatch *)v5 addOperation:v24];
 
-        v26 = v121;
+        v25 = v119;
       }
 
       else
@@ -4598,26 +4569,26 @@ uint64_t __28__GTMTLReplayService_fetch___block_invoke_2(uint64_t a1)
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v27 = v20;
-          dispatchUID = [v27 dispatchUID];
-          v29 = [v27 dispatchUID] >> 32;
-          requestID3 = [v27 requestID];
+          v26 = v19;
+          dispatchUID = [v26 dispatchUID];
+          v28 = [v26 dispatchUID] >> 32;
+          requestID3 = [v26 requestID];
 
-          v31 = [GTReplayerOperation alloc];
-          v117[0] = MEMORY[0x277D85DD0];
-          v117[1] = 3221225472;
-          v117[2] = __28__GTMTLReplayService_query___block_invoke_2;
-          v117[3] = &unk_279657570;
-          v117[5] = requestID3;
-          v117[6] = clientContext;
-          v118 = dispatchUID;
-          v119 = v29;
-          v117[4] = v8;
-          v120 = v17;
-          v32 = [(GTReplayerOperation *)v31 initWithBatch:v5 withBlock:v117];
-          [(GTReplayerOperationBatch *)v5 addOperation:v32];
+          v30 = [GTReplayerOperation alloc];
+          v115[0] = MEMORY[0x277D85DD0];
+          v115[1] = 3221225472;
+          v115[2] = __28__GTMTLReplayService_query___block_invoke_2;
+          v115[3] = &unk_279657570;
+          v115[5] = requestID3;
+          v115[6] = clientContext;
+          v116 = dispatchUID;
+          v117 = v28;
+          v115[4] = v8;
+          v118 = v17;
+          v31 = [(GTReplayerOperation *)v30 initWithBatch:v5 withBlock:v115];
+          [(GTReplayerOperationBatch *)v5 addOperation:v31];
 
-          v26 = v117;
+          v25 = v115;
         }
 
         else
@@ -4625,19 +4596,19 @@ uint64_t __28__GTMTLReplayService_fetch___block_invoke_2(uint64_t a1)
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            requestID4 = [v20 requestID];
-            v34 = [GTReplayerOperation alloc];
-            v115[0] = MEMORY[0x277D85DD0];
-            v115[1] = 3221225472;
-            v115[2] = __28__GTMTLReplayService_query___block_invoke_3;
-            v115[3] = &unk_279657598;
-            v115[5] = requestID4;
-            v115[4] = v8;
-            v116 = v17;
-            v35 = [(GTReplayerOperation *)v34 initWithBatch:v5 withBlock:v115];
-            [(GTReplayerOperationBatch *)v5 addOperation:v35];
+            requestID4 = [v19 requestID];
+            v33 = [GTReplayerOperation alloc];
+            v113[0] = MEMORY[0x277D85DD0];
+            v113[1] = 3221225472;
+            v113[2] = __28__GTMTLReplayService_query___block_invoke_3;
+            v113[3] = &unk_279657598;
+            v113[5] = requestID4;
+            v113[4] = v8;
+            v114 = v17;
+            v34 = [(GTReplayerOperation *)v33 initWithBatch:v5 withBlock:v113];
+            [(GTReplayerOperationBatch *)v5 addOperation:v34];
 
-            v26 = v115;
+            v25 = v113;
           }
 
           else
@@ -4645,20 +4616,20 @@ uint64_t __28__GTMTLReplayService_fetch___block_invoke_2(uint64_t a1)
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              requestID5 = [v20 requestID];
-              v37 = [GTReplayerOperation alloc];
-              v113[0] = MEMORY[0x277D85DD0];
-              v113[1] = 3221225472;
-              v113[2] = __28__GTMTLReplayService_query___block_invoke_4;
-              v113[3] = &unk_2796575C0;
-              v113[5] = clientContext;
-              v113[6] = requestID5;
-              v113[4] = v8;
-              v114 = v17;
-              v38 = [(GTReplayerOperation *)v37 initWithBatch:v5 withBlock:v113];
-              [(GTReplayerOperationBatch *)v5 addOperation:v38];
+              requestID5 = [v19 requestID];
+              v36 = [GTReplayerOperation alloc];
+              v111[0] = MEMORY[0x277D85DD0];
+              v111[1] = 3221225472;
+              v111[2] = __28__GTMTLReplayService_query___block_invoke_4;
+              v111[3] = &unk_2796575C0;
+              v111[5] = clientContext;
+              v111[6] = requestID5;
+              v111[4] = v8;
+              v112 = v17;
+              v37 = [(GTReplayerOperation *)v36 initWithBatch:v5 withBlock:v111];
+              [(GTReplayerOperationBatch *)v5 addOperation:v37];
 
-              v26 = v113;
+              v25 = v111;
             }
 
             else
@@ -4666,20 +4637,20 @@ uint64_t __28__GTMTLReplayService_fetch___block_invoke_2(uint64_t a1)
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                requestID6 = [v20 requestID];
-                v40 = [GTReplayerOperation alloc];
-                v111[0] = MEMORY[0x277D85DD0];
-                v111[1] = 3221225472;
-                v111[2] = __28__GTMTLReplayService_query___block_invoke_5;
-                v111[3] = &unk_2796575C0;
-                v111[5] = clientContext;
-                v111[6] = requestID6;
-                v111[4] = v8;
-                v112 = v17;
-                v41 = [(GTReplayerOperation *)v40 initWithBatch:v5 withBlock:v111];
-                [(GTReplayerOperationBatch *)v5 addOperation:v41];
+                requestID6 = [v19 requestID];
+                v39 = [GTReplayerOperation alloc];
+                v109[0] = MEMORY[0x277D85DD0];
+                v109[1] = 3221225472;
+                v109[2] = __28__GTMTLReplayService_query___block_invoke_5;
+                v109[3] = &unk_2796575C0;
+                v109[5] = clientContext;
+                v109[6] = requestID6;
+                v109[4] = v8;
+                v110 = v17;
+                v40 = [(GTReplayerOperation *)v39 initWithBatch:v5 withBlock:v109];
+                [(GTReplayerOperationBatch *)v5 addOperation:v40];
 
-                v26 = v111;
+                v25 = v109;
               }
 
               else
@@ -4687,81 +4658,81 @@ uint64_t __28__GTMTLReplayService_fetch___block_invoke_2(uint64_t a1)
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v45 = v20;
-                  requestID7 = [v45 requestID];
-                  dispatchUID2 = [v45 dispatchUID];
-                  v137[0] = @"requestID";
-                  v47 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID7];
-                  v138[0] = v47;
-                  v137[1] = @"functionIndex";
-                  v48 = MEMORY[0x277CCABB0];
-                  dispatchUID3 = [v45 dispatchUID];
+                  v44 = v19;
+                  requestID7 = [v44 requestID];
+                  dispatchUID2 = [v44 dispatchUID];
+                  v135[0] = @"requestID";
+                  v46 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:requestID7];
+                  v136[0] = v46;
+                  v135[1] = @"functionIndex";
+                  v47 = MEMORY[0x277CCABB0];
+                  dispatchUID3 = [v44 dispatchUID];
 
-                  v50 = [v48 numberWithUnsignedLongLong:dispatchUID3];
-                  v138[1] = v50;
-                  v138[2] = &unk_2860D6560;
-                  v137[2] = @"object";
-                  v137[3] = @"type";
-                  v138[3] = &unk_2860D6578;
-                  v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v138 forKeys:v137 count:4];
+                  v49 = [v47 numberWithUnsignedLongLong:dispatchUID3];
+                  v136[1] = v49;
+                  v136[2] = &unk_2860D6560;
+                  v135[2] = @"object";
+                  v135[3] = @"type";
+                  v136[3] = &unk_2860D6578;
+                  v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v136 forKeys:v135 count:4];
 
                   dispatch_group_enter(group);
-                  v104[0] = MEMORY[0x277D85DD0];
-                  v104[1] = 3221225472;
-                  v104[2] = __28__GTMTLReplayService_query___block_invoke_93;
-                  v104[3] = &unk_2796575E8;
-                  v105 = v51;
-                  v108 = requestID7;
-                  v109 = dispatchUID2;
-                  v106 = v8;
-                  v110 = v17;
-                  v107 = group;
-                  v52 = v51;
-                  v83 = v104;
-                  v81 = os_signpost_id_make_with_pointer(g_signpostLog, v52);
-                  v53 = objc_alloc_init(MEMORY[0x277CCABD0]);
-                  objc_initWeak(&location, v53);
+                  v102[0] = MEMORY[0x277D85DD0];
+                  v102[1] = 3221225472;
+                  v102[2] = __28__GTMTLReplayService_query___block_invoke_93;
+                  v102[3] = &unk_2796575E8;
+                  v103 = v50;
+                  v106 = requestID7;
+                  v107 = dispatchUID2;
+                  v104 = v8;
+                  v108 = v17;
+                  v105 = group;
+                  v51 = v50;
+                  v81 = v102;
+                  v79 = os_signpost_id_make_with_pointer(g_signpostLog, v51);
+                  v52 = objc_alloc_init(MEMORY[0x277CCABD0]);
+                  objc_initWeak(&location, v52);
+                  v53 = MEMORY[0x277D85CD0];
                   v54 = MEMORY[0x277D85CD0];
-                  v55 = MEMORY[0x277D85CD0];
-                  v56 = MEMORY[0x277D85DD0];
+                  v55 = MEMORY[0x277D85DD0];
                   block[0] = MEMORY[0x277D85DD0];
                   block[1] = 3221225472;
                   block[2] = __FetchResourceObject_block_invoke;
                   block[3] = &unk_279658AD8;
-                  v133 = clientContext;
+                  v131 = clientContext;
+                  v56 = v52;
+                  v130 = v56;
+                  dispatch_async(v53, block);
+                  v126[0] = v55;
+                  v126[1] = 3221225472;
+                  v126[2] = __FetchResourceObject_block_invoke_2;
+                  v126[3] = &unk_279658508;
                   v57 = v53;
-                  v132 = v57;
-                  dispatch_async(v54, block);
-                  v128[0] = v56;
-                  v128[1] = 3221225472;
-                  v128[2] = __FetchResourceObject_block_invoke_2;
-                  v128[3] = &unk_279658508;
-                  v58 = v54;
-                  v129 = v54;
-                  v130[1] = clientContext;
-                  objc_copyWeak(v130, &location);
-                  [v57 setCompletionBlock:v128];
-                  objc_destroyWeak(v130);
+                  v127 = v53;
+                  v128[1] = clientContext;
+                  objc_copyWeak(v128, &location);
+                  [v56 setCompletionBlock:v126];
+                  objc_destroyWeak(v128);
 
-                  v59 = MEMORY[0x277CCA8C8];
-                  v123[0] = MEMORY[0x277D85DD0];
-                  v123[1] = 3221225472;
-                  v123[2] = __FetchResourceObject_block_invoke_4;
-                  v123[3] = &unk_279658530;
-                  objc_copyWeak(v126, &location);
-                  v126[1] = clientContext;
-                  v42 = v52;
-                  v124 = v42;
-                  v60 = v83;
-                  v125 = v60;
-                  v126[2] = v81;
-                  v127 = 0;
-                  v61 = [v59 blockOperationWithBlock:v123];
-                  [clientContext->var7.var0 addOperation:v61];
-                  [v57 addDependency:v61];
-                  [clientContext->var7.var1 addOperation:v57];
+                  v58 = MEMORY[0x277CCA8C8];
+                  v121[0] = MEMORY[0x277D85DD0];
+                  v121[1] = 3221225472;
+                  v121[2] = __FetchResourceObject_block_invoke_4;
+                  v121[3] = &unk_279658530;
+                  objc_copyWeak(v124, &location);
+                  v124[1] = clientContext;
+                  v41 = v51;
+                  v122 = v41;
+                  v59 = v81;
+                  v123 = v59;
+                  v124[2] = v79;
+                  v125 = 0;
+                  v60 = [v58 blockOperationWithBlock:v121];
+                  [clientContext->var7.var0 addOperation:v60];
+                  [v56 addDependency:v60];
+                  [clientContext->var7.var1 addOperation:v56];
 
-                  objc_destroyWeak(v126);
+                  objc_destroyWeak(v124);
                   objc_destroyWeak(&location);
 
                   goto LABEL_17;
@@ -4773,91 +4744,90 @@ uint64_t __28__GTMTLReplayService_fetch___block_invoke_2(uint64_t a1)
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    requestID8 = [v20 requestID];
-                    v66 = selfCopy->_gputrace;
-                    v67 = [GTReplayerOperation alloc];
-                    v97[0] = MEMORY[0x277D85DD0];
-                    v97[1] = 3221225472;
-                    v97[2] = __28__GTMTLReplayService_query___block_invoke_4_112;
-                    v97[3] = &unk_279657610;
-                    v98 = v66;
-                    v100 = requestID8;
-                    v99 = v8;
-                    v101 = v17;
-                    v42 = v66;
-                    v68 = [(GTReplayerOperation *)v67 initWithBatch:v5 withBlock:v97];
-                    [(GTReplayerOperationBatch *)v5 addOperation:v68];
+                    requestID8 = [v19 requestID];
+                    v65 = selfCopy->_gputrace;
+                    v66 = [GTReplayerOperation alloc];
+                    v95[0] = MEMORY[0x277D85DD0];
+                    v95[1] = 3221225472;
+                    v95[2] = __28__GTMTLReplayService_query___block_invoke_4_112;
+                    v95[3] = &unk_279657610;
+                    v96 = v65;
+                    v98 = requestID8;
+                    v97 = v8;
+                    v99 = v17;
+                    v41 = v65;
+                    v67 = [(GTReplayerOperation *)v66 initWithBatch:v5 withBlock:v95];
+                    [(GTReplayerOperationBatch *)v5 addOperation:v67];
                   }
 
                   else
                   {
-                    v42 = objc_opt_new();
-                    -[NSURL setRequestID:](v42, "setRequestID:", [v20 requestID]);
-                    v69 = objc_alloc(MEMORY[0x277CCA9B8]);
-                    v135 = v85;
-                    v136 = @"unknown request";
-                    v70 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v136 forKeys:&v135 count:1];
-                    v71 = [v69 initWithDomain:v84 code:1 userInfo:v70];
-                    [(NSURL *)v42 setError:v71];
+                    v41 = objc_opt_new();
+                    -[NSURL setRequestID:](v41, "setRequestID:", [v19 requestID]);
+                    v68 = objc_alloc(MEMORY[0x277CCA9B8]);
+                    v133 = v83;
+                    v134 = @"unknown request";
+                    v69 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v134 forKeys:&v133 count:1];
+                    v70 = [v68 initWithDomain:v82 code:1 userInfo:v69];
+                    [(NSURL *)v41 setError:v70];
 
-                    [v8 setObject:v42 atIndexedSubscript:v17];
+                    [v8 setObject:v41 atIndexedSubscript:v17];
                   }
 
                   goto LABEL_17;
                 }
 
-                requestID9 = [v20 requestID];
-                v63 = [GTReplayerOperation alloc];
-                v102[0] = MEMORY[0x277D85DD0];
-                v102[1] = 3221225472;
-                v102[2] = __28__GTMTLReplayService_query___block_invoke_3_109;
-                v102[3] = &unk_279657598;
-                v102[5] = requestID9;
-                v102[4] = v8;
-                v103 = v17;
-                v64 = [(GTReplayerOperation *)v63 initWithBatch:v5 withBlock:v102];
-                [(GTReplayerOperationBatch *)v5 addOperation:v64];
+                requestID9 = [v19 requestID];
+                v62 = [GTReplayerOperation alloc];
+                v100[0] = MEMORY[0x277D85DD0];
+                v100[1] = 3221225472;
+                v100[2] = __28__GTMTLReplayService_query___block_invoke_3_109;
+                v100[3] = &unk_279657598;
+                v100[5] = requestID9;
+                v100[4] = v8;
+                v101 = v17;
+                v63 = [(GTReplayerOperation *)v62 initWithBatch:v5 withBlock:v100];
+                [(GTReplayerOperationBatch *)v5 addOperation:v63];
 
-                v26 = v102;
+                v25 = v100;
               }
             }
           }
         }
       }
 
-      v42 = v26[4];
+      v41 = v25[4];
 LABEL_17:
 
       requests6 = [queryCopy requests];
-      v44 = [requests6 count];
+      v43 = [requests6 count];
 
       ++v17;
     }
 
-    while (v44 > v17);
+    while (v43 > v17);
   }
 
-  v72 = [GTReplayerOperation alloc];
-  v91[0] = MEMORY[0x277D85DD0];
-  v91[1] = 3221225472;
-  v91[2] = __28__GTMTLReplayService_query___block_invoke_5_117;
-  v91[3] = &unk_279657638;
-  v92 = group;
-  v93 = v8;
-  v96 = requestID;
-  v94 = queryCopy;
-  v73 = v88;
-  v95 = v73;
-  v74 = queryCopy;
-  v75 = v8;
-  v76 = group;
-  v77 = [(GTReplayerOperation *)v72 initWithBatch:v5 withBlock:v91];
-  [(GTReplayerOperationBatch *)v5 addOperation:v77];
+  v71 = [GTReplayerOperation alloc];
+  v89[0] = MEMORY[0x277D85DD0];
+  v89[1] = 3221225472;
+  v89[2] = __28__GTMTLReplayService_query___block_invoke_5_117;
+  v89[3] = &unk_279657638;
+  v90 = group;
+  v91 = v8;
+  v94 = requestID;
+  v92 = queryCopy;
+  v72 = v86;
+  v93 = v72;
+  v73 = queryCopy;
+  v74 = v8;
+  v75 = group;
+  v76 = [(GTReplayerOperation *)v71 initWithBatch:v5 withBlock:v89];
+  [(GTReplayerOperationBatch *)v5 addOperation:v76];
   [(GTReplayerOperationBatch *)v5 finish:clientContext->var7.var0];
-  v78 = v73;
+  v77 = v72;
 
-  v79 = *MEMORY[0x277D85DE8];
-  return v73;
+  return v72;
 }
 
 void __28__GTMTLReplayService_query___block_invoke_5_117(uint64_t a1)
@@ -4880,24 +4850,24 @@ void __28__GTMTLReplayService_query___block_invoke_5_117(uint64_t a1)
 
 void __28__GTMTLReplayService_query___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   if ((*(a2 + 24) & 1) == 0)
   {
     v3 = *(*(a1 + 40) + 8);
     if (v3)
     {
       v4 = *(a1 + 48);
-      v13 = 0;
-      v5 = GTMTLReplayClient_queryRasterMap(v3, v4, &v13);
-      v6 = v13;
+      v12 = 0;
+      v5 = GTMTLReplayClient_queryRasterMap(v3, v4, &v12);
+      v6 = v12;
     }
 
     else
     {
       v7 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v14 = *MEMORY[0x277CCA450];
-      v15[0] = @"Query request happened before replayer data source is loaded";
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+      v13 = *MEMORY[0x277CCA450];
+      v14[0] = @"Query request happened before replayer data source is loaded";
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
       v6 = [v7 initWithDomain:@"com.apple.gputools.MTLReplayer" code:104 userInfo:v8];
 
       v5 = 0;
@@ -4912,22 +4882,20 @@ void __28__GTMTLReplayService_query___block_invoke(uint64_t a1, uint64_t a2)
 
     else
     {
-      v12 = 0;
-      v10 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v5 requiringSecureCoding:1 error:&v12];
-      v6 = v12;
+      v11 = 0;
+      v10 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v5 requiringSecureCoding:1 error:&v11];
+      v6 = v11;
       [v9 setData:v10];
     }
 
     [v9 setError:v6];
     [*(a1 + 32) setObject:v9 atIndexedSubscript:*(a1 + 64)];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __28__GTMTLReplayService_query___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v28[2] = *MEMORY[0x277D85DE8];
+  v27[2] = *MEMORY[0x277D85DE8];
   if ((*(a2 + 24) & 1) == 0)
   {
     v3 = objc_alloc_init(MEMORY[0x277D0B628]);
@@ -4937,7 +4905,7 @@ void __28__GTMTLReplayService_query___block_invoke_2(uint64_t a1, uint64_t a2)
     {
       v5 = *(a1 + 60);
       v6 = *(a1 + 56);
-      v24 = MEMORY[0x277CBEBF8];
+      v23 = MEMORY[0x277CBEBF8];
       v7 = *(*v4 + 128);
       if (*(v7 + 12) <= v6)
       {
@@ -4948,32 +4916,32 @@ void __28__GTMTLReplayService_query___block_invoke_2(uint64_t a1, uint64_t a2)
       else
       {
         v8 = (*(v7 + 24) + (v6 << 6));
-        GTMTLReplayController_debugSubCommandResume(v4, *v8 - *(*v4 + 88) + 1, v5 + 1);
-        v9 = GTMTLReplayClient_generateFunctionResourceUsageInfoV2_impl(v4, v8, v5, &v24);
-        v10 = v24;
+        GTMTLReplayController_debugSubCommandResume(v4, (*v8 - *(*v4 + 88) + 1), v5 + 1);
+        v9 = GTMTLReplayClient_generateFunctionResourceUsageInfoV2_impl(v4, v8, v5, &v23);
+        v10 = v23;
         if (v9)
         {
-          v23 = 0;
-          v11 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v10 requiringSecureCoding:1 error:&v23];
-          v12 = v23;
+          v22 = 0;
+          v11 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v10 requiringSecureCoding:1 error:&v22];
+          v12 = v22;
           [v3 setData:v11];
 
           [v3 setError:v12];
 LABEL_9:
           [*(a1 + 32) setObject:v3 atIndexedSubscript:*(a1 + 64)];
 
-          goto LABEL_10;
+          return;
         }
       }
 
       v17 = objc_alloc(MEMORY[0x277CCA9B8]);
       v18 = *MEMORY[0x277CCA050];
       v19 = *MEMORY[0x277CCA498];
-      v27[0] = *MEMORY[0x277CCA450];
-      v27[1] = v19;
-      v28[0] = @"resource usage error";
-      v28[1] = @"query again?";
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
+      v26[0] = *MEMORY[0x277CCA450];
+      v26[1] = v19;
+      v27[0] = @"resource usage error";
+      v27[1] = @"query again?";
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
       v21 = [v17 initWithDomain:v18 code:1 userInfo:v20];
       [v3 setError:v21];
 
@@ -4982,9 +4950,9 @@ LABEL_9:
     }
 
     v13 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v25 = *MEMORY[0x277CCA450];
-    v26 = @"Query request happened before replayer data source is loaded";
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+    v24 = *MEMORY[0x277CCA450];
+    v25 = @"Query request happened before replayer data source is loaded";
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
     v15 = [v13 initWithDomain:@"com.apple.gputools.MTLReplayer" code:104 userInfo:v14];
     [v3 setError:v15];
 
@@ -4992,9 +4960,6 @@ LABEL_9:
     v10 = 0;
     goto LABEL_9;
   }
-
-LABEL_10:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __28__GTMTLReplayService_query___block_invoke_3(uint64_t a1, uint64_t a2)
@@ -5014,7 +4979,7 @@ void __28__GTMTLReplayService_query___block_invoke_3(uint64_t a1, uint64_t a2)
 
 void __28__GTMTLReplayService_query___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   if ((*(a2 + 24) & 1) == 0)
   {
     v3 = *(*(a1 + 40) + 8);
@@ -5029,9 +4994,9 @@ void __28__GTMTLReplayService_query___block_invoke_4(uint64_t a1, uint64_t a2)
     else
     {
       v7 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v13 = *MEMORY[0x277CCA450];
-      v14[0] = @"Query request happened before replayer data source is loaded";
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v12 = *MEMORY[0x277CCA450];
+      v13[0] = @"Query request happened before replayer data source is loaded";
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
       v6 = [v7 initWithDomain:@"com.apple.gputools.MTLReplayer" code:104 userInfo:v8];
 
       v5 = 0;
@@ -5046,25 +5011,23 @@ void __28__GTMTLReplayService_query___block_invoke_4(uint64_t a1, uint64_t a2)
 
     else
     {
-      v12 = 0;
-      v10 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v5 requiringSecureCoding:1 error:&v12];
-      v6 = v12;
+      v11 = 0;
+      v10 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v5 requiringSecureCoding:1 error:&v11];
+      v6 = v11;
       [v9 setData:v10];
     }
 
     [v9 setError:v6];
     [*(a1 + 32) setObject:v9 atIndexedSubscript:*(a1 + 56)];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __28__GTMTLReplayService_query___block_invoke_5(uint64_t a1, uint64_t a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (*(a2 + 24))
   {
-    goto LABEL_24;
+    return;
   }
 
   v3 = *(*(a1 + 40) + 8);
@@ -5086,15 +5049,15 @@ LABEL_19:
       }
 
       v11 = [v6 currentPerformanceState];
-      v24[0] = @"enabled";
+      v23[0] = @"enabled";
       v12 = [MEMORY[0x277CCABB0] numberWithBool:v11 != 0];
-      v25 = v12;
-      v26 = MEMORY[0x277CBEC38];
-      v24[1] = @"supported";
-      v24[2] = @"PerformanceStateAssertion";
+      v24 = v12;
+      v25 = MEMORY[0x277CBEC38];
+      v23[1] = @"supported";
+      v23[2] = @"PerformanceStateAssertion";
       v13 = [MEMORY[0x277CCABB0] numberWithInteger:v11];
-      v27 = v13;
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:v24 count:3];
+      v26 = v13;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:v23 count:3];
 
 LABEL_18:
       goto LABEL_19;
@@ -5112,13 +5075,13 @@ LABEL_18:
     }
 
     v12 = ExpectedState(v3);
-    v27 = 0;
-    LOBYTE(v26) = 0;
-    v25 = 0;
+    v26 = 0;
+    LOBYTE(v25) = 0;
+    v24 = 0;
     v14 = [*(v3 + 8) defaultDevice];
-    GTAGXPerfStateControl::InitWithDevice(&v25, v14);
+    GTAGXPerfStateControl::InitWithDevice(&v24, v14);
 
-    v15 = GTAGXPerfStateControl::ConsistentGPUPerfStateLevel(&v25, v12);
+    v15 = GTAGXPerfStateControl::ConsistentGPUPerfStateLevel(&v24, v12);
     if (GTDeviceCapabilities_isAGX3())
     {
       v16 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:v15];
@@ -5144,14 +5107,14 @@ LABEL_18:
     v10 = v17;
 
 LABEL_17:
-    GTAGXPerfStateControl::~GTAGXPerfStateControl(&v25);
+    GTAGXPerfStateControl::~GTAGXPerfStateControl(&v24);
     goto LABEL_18;
   }
 
   v7 = objc_alloc(MEMORY[0x277CCA9B8]);
-  v22 = *MEMORY[0x277CCA450];
-  v23 = @"Query request happened before replayer data source is loaded";
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+  v21 = *MEMORY[0x277CCA450];
+  v22 = @"Query request happened before replayer data source is loaded";
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
   v9 = [v7 initWithDomain:@"com.apple.gputools.MTLReplayer" code:104 userInfo:v8];
 
   v10 = 0;
@@ -5165,37 +5128,34 @@ LABEL_20:
 
   else
   {
-    v21 = 0;
-    v19 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v10 requiringSecureCoding:1 error:&v21];
-    v9 = v21;
+    v20 = 0;
+    v19 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v10 requiringSecureCoding:1 error:&v20];
+    v9 = v20;
     [v18 setData:v19];
   }
 
   [v18 setError:v9];
   [*(a1 + 32) setObject:v18 atIndexedSubscript:*(a1 + 56)];
-
-LABEL_24:
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __28__GTMTLReplayService_query___block_invoke_93(uint64_t a1, void *a2, void *a3)
 {
-  v28[1] = *MEMORY[0x277D85DE8];
-  v24 = 0;
+  v27[1] = *MEMORY[0x277D85DE8];
+  v23 = 0;
   memset(buffer, 0, sizeof(buffer));
-  v27 = @"MTLBuffer-0xfffffffffffffabd-Fetch";
+  v26 = @"MTLBuffer-0xfffffffffffffabd-Fetch";
   v5 = MEMORY[0x277CCABB0];
   v6 = *(a1 + 56);
   v7 = a3;
   v8 = a2;
   v9 = [v5 numberWithUnsignedLongLong:v6];
-  v28[0] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+  v27[0] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
   v11 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(a1 + 56)];
-  v25 = v11;
-  v26 = *(a1 + 32);
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-  v13 = NewResourceData(v8, v7, v10, v12, 0, buffer, &v24, *(a1 + 64), MEMORY[0x277D85CC8]);
+  v24 = v11;
+  v25 = *(a1 + 32);
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+  v13 = NewResourceData(v8, v7, v10, v12, 0, buffer, &v23, *(a1 + 64), MEMORY[0x277D85CC8]);
 
   v14 = dispatch_data_create(buffer, 0x50uLL, 0, &__block_literal_global_99);
   v15 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -5205,16 +5165,14 @@ void __28__GTMTLReplayService_query___block_invoke_93(uint64_t a1, void *a2, voi
   [v16 setRequestID:*(a1 + 56)];
   v17 = MEMORY[0x277CCAAB0];
   v18 = [v15 copy];
-  v22 = 0;
-  v19 = [v17 archivedDataWithRootObject:v18 requiringSecureCoding:1 error:&v22];
-  v20 = v22;
+  v21 = 0;
+  v19 = [v17 archivedDataWithRootObject:v18 requiringSecureCoding:1 error:&v21];
+  v20 = v21;
   [v16 setData:v19];
 
   [v16 setError:v20];
   [*(a1 + 40) setObject:v16 atIndexedSubscript:*(a1 + 72)];
   dispatch_group_leave(*(a1 + 48));
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __28__GTMTLReplayService_query___block_invoke_3_109(uint64_t a1, uint64_t a2)
@@ -5287,10 +5245,9 @@ void __28__GTMTLReplayService_query___block_invoke_4_112(uint64_t a1, uint64_t a
   v7 = connection;
   if (connection == self->_terminateConnection)
   {
-    terminatePath = self->_terminatePath;
-    v9 = MessagePathEndsWith();
+    v8 = MessagePathEndsWith();
 
-    if (v9)
+    if (v8)
     {
       [(GTMTLReplayService *)self terminateProcess];
     }
@@ -5344,12 +5301,12 @@ void __28__GTMTLReplayService_query___block_invoke_4_112(uint64_t a1, uint64_t a
 void __33__GTMTLReplayService_load_error___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v153 = *MEMORY[0x277D85DE8];
+  v152 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 48);
   v3 = *(a1 + 32);
   v4 = GTTransportArchiveDirectory();
   v5 = v3;
-  v122 = v4;
+  v121 = v4;
   v6 = &__block_literal_global_957;
   if (!v5)
   {
@@ -5371,17 +5328,17 @@ void __33__GTMTLReplayService_load_error___block_invoke(uint64_t a1)
   }
 
   v9 = [v5 path];
-  v121 = v122;
+  v120 = v121;
   v10 = &__block_literal_global_957;
   DataSource = GTMTLReplayController_makeDataSource([v9 UTF8String], *v2);
   LOBYTE(v8) = DataSource != 0;
   if (DataSource)
   {
     v12 = DataSource;
-    v116 = DataSource != 0;
-    v117 = v9;
-    v119 = v5;
-    v120 = v1;
+    v115 = DataSource != 0;
+    v116 = v9;
+    v118 = v5;
+    v119 = v1;
     v13 = GTMTLReplayClient_preferDevice(DataSource);
     v14 = *v2;
     v15 = MEMORY[0x277CCAC38];
@@ -5409,7 +5366,7 @@ void __33__GTMTLReplayService_load_error___block_invoke(uint64_t a1)
     *(v21 + 3) = [v22 versionCombined];
     *(v21 + 2) = [v22 driverVersion];
 
-    v115 = v16;
+    v114 = v16;
     if (*v21 != 16777235)
     {
       goto LABEL_49;
@@ -5482,32 +5439,32 @@ LABEL_49:
 LABEL_50:
         *(v21 + 3) = v23;
 
-        v118 = v2;
-        v128 = v12;
+        v117 = v2;
+        v127 = v12;
         if (*(v12 + 6))
         {
           v29 = objc_alloc_init(GTCaptureArchiveOverrideKey);
+          v137 = 0u;
           v138 = 0u;
           v139 = 0u;
           v140 = 0u;
-          v141 = 0u;
           obj = [*(v12 + 6) filenameOverrides];
-          v132 = [obj countByEnumeratingWithState:&v138 objects:v142 count:16];
-          if (v132)
+          v131 = [obj countByEnumeratingWithState:&v137 objects:v141 count:16];
+          if (v131)
           {
-            v129 = *v139;
-            v124 = v29;
-            v126 = v21;
+            v128 = *v138;
+            v123 = v29;
+            v125 = v21;
             do
             {
-              for (i = 0; i != v132; ++i)
+              for (i = 0; i != v131; ++i)
               {
-                if (*v139 != v129)
+                if (*v138 != v128)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v31 = *(*(&v138 + 1) + 8 * i);
+                v31 = *(*(&v137 + 1) + 8 * i);
                 v32 = [*(v12 + 6) filenameOverrides];
                 v33 = [v32 objectForKeyedSubscript:v31];
 
@@ -5517,20 +5474,9 @@ LABEL_50:
                 [(GTCaptureArchiveOverrideKey *)v29 setRiaGeneration:v35];
 
                 v36 = [v33 objectForKeyedSubscript:v29];
-                v135 = v34;
-                if (v36)
+                v134 = v34;
+                if (v36 || (-[GTCaptureArchiveOverrideKey setPlatform:](v29, "setPlatform:", 0), [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(v21 + 3)], v37 = objc_claimAutoreleasedReturnValue(), -[GTCaptureArchiveOverrideKey setRiaGeneration:](v29, "setRiaGeneration:", v37), v37, objc_msgSend(v33, "objectForKeyedSubscript:", v29), (v36 = objc_claimAutoreleasedReturnValue()) != 0) || (-[GTCaptureArchiveOverrideKey setPlatform:](v29, "setPlatform:", v34), -[GTCaptureArchiveOverrideKey setRiaGeneration:](v29, "setRiaGeneration:", 0), objc_msgSend(v33, "objectForKeyedSubscript:", v29), (v36 = objc_claimAutoreleasedReturnValue()) != 0))
                 {
-                  goto LABEL_59;
-                }
-
-                [(GTCaptureArchiveOverrideKey *)v29 setPlatform:0];
-                v37 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(v21 + 3)];
-                [(GTCaptureArchiveOverrideKey *)v29 setRiaGeneration:v37];
-
-                v36 = [v33 objectForKeyedSubscript:v29];
-                if (v36 || (-[GTCaptureArchiveOverrideKey setPlatform:](v29, "setPlatform:", v34), -[GTCaptureArchiveOverrideKey setRiaGeneration:](v29, "setRiaGeneration:", 0), [v33 objectForKeyedSubscript:v29], (v36 = objc_claimAutoreleasedReturnValue()) != 0))
-                {
-LABEL_59:
                   v38 = v36;
                   v39 = *v12;
                   v40 = [v36 originalFilename];
@@ -5546,9 +5492,9 @@ LABEL_59:
                   v48 = v47;
                   if (v47)
                   {
-                    memset(&v152, 0, sizeof(v152));
+                    memset(&v151, 0, sizeof(v151));
                     v49 = fileno(v47);
-                    if (!fstat(v49, &v152))
+                    if (!fstat(v49, &v151))
                     {
                       v50 = apr_pstrdup(*(v39 + 8), v41);
                       v51 = apr_pstrdup(*(v39 + 8), v43);
@@ -5562,7 +5508,7 @@ LABEL_59:
 
                       *v52 = v51;
                       *(v52 + 6) = 2;
-                      *(v52 + 2) = (LODWORD(v152.st_size) + *MEMORY[0x277D85FA0] - 1) & -*MEMORY[0x277D85FA0];
+                      *(v52 + 2) = (LODWORD(v151.st_size) + *MEMORY[0x277D85FA0] - 1) & -*MEMORY[0x277D85FA0];
                       apr_hash_set(*(v39 + 136), v50, -1, v52);
                     }
                   }
@@ -5571,21 +5517,21 @@ LABEL_59:
                   apr_pool_destroy(v45);
                   pthread_mutex_unlock((v39 + 16));
 
-                  v21 = v126;
-                  v12 = v128;
-                  v29 = v124;
-                  v34 = v135;
+                  v21 = v125;
+                  v12 = v127;
+                  v29 = v123;
+                  v34 = v134;
                 }
               }
 
-              v132 = [obj countByEnumeratingWithState:&v138 objects:v142 count:16];
+              v131 = [obj countByEnumeratingWithState:&v137 objects:v141 count:16];
             }
 
-            while (v132);
+            while (v131);
           }
         }
 
-        v53 = v115;
+        v53 = v114;
         v54 = objc_alloc_init(MEMORY[0x277CBEB18]);
         for (j = 0; j != 19; ++j)
         {
@@ -5599,7 +5545,7 @@ LABEL_59:
 
         newpool[0] = @"argumentBuffersSupport";
         v58 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v53, "argumentBuffersSupport")}];
-        *&v152.st_dev = v58;
+        *&v151.st_dev = v58;
         newpool[1] = @"supportsTLS";
         v59 = MEMORY[0x277CCABB0];
         if (objc_opt_respondsToSelector())
@@ -5613,8 +5559,8 @@ LABEL_59:
         }
 
         v61 = [v59 numberWithInt:v60];
-        v152.st_ino = v61;
-        *&v148 = @"supportsGlobalVariableRelocation";
+        v151.st_ino = v61;
+        *&v147 = @"supportsGlobalVariableRelocation";
         v62 = MEMORY[0x277CCABB0];
         if (objc_opt_respondsToSelector())
         {
@@ -5627,8 +5573,8 @@ LABEL_59:
         }
 
         v64 = [v62 numberWithInt:v63];
-        *&v152.st_uid = v64;
-        *(&v148 + 1) = @"supportsGlobalVariableRelocationCompute";
+        *&v151.st_uid = v64;
+        *(&v147 + 1) = @"supportsGlobalVariableRelocationCompute";
         v65 = MEMORY[0x277CCABB0];
         if (objc_opt_respondsToSelector())
         {
@@ -5640,11 +5586,11 @@ LABEL_59:
           v66 = 0;
         }
 
-        v130 = [v65 numberWithInt:v66];
-        *&v152.st_rdev = v130;
-        *&v149 = @"supportsGlobalVariableRelocationRender";
+        v129 = [v65 numberWithInt:v66];
+        *&v151.st_rdev = v129;
+        *&v148 = @"supportsGlobalVariableRelocationRender";
         v67 = MEMORY[0x277CCABB0];
-        v136 = v58;
+        v135 = v58;
         if (objc_opt_respondsToSelector())
         {
           v68 = [v53 supportsGlobalVariableRelocationRender];
@@ -5656,10 +5602,10 @@ LABEL_59:
         }
 
         v69 = [v67 numberWithInt:v68];
-        v152.st_atimespec.tv_sec = v69;
-        *(&v149 + 1) = @"supportsDynamicLibraries";
+        v151.st_atimespec.tv_sec = v69;
+        *(&v148 + 1) = @"supportsDynamicLibraries";
         v70 = MEMORY[0x277CCABB0];
-        v133 = v64;
+        v132 = v64;
         if (objc_opt_respondsToSelector())
         {
           v71 = [v53 supportsDynamicLibraries];
@@ -5671,8 +5617,8 @@ LABEL_59:
         }
 
         v72 = [v70 numberWithInt:v71];
-        v152.st_atimespec.tv_nsec = v72;
-        *&v150 = @"supportsRenderDynamicLibraries";
+        v151.st_atimespec.tv_nsec = v72;
+        *&v149 = @"supportsRenderDynamicLibraries";
         v73 = MEMORY[0x277CCABB0];
         if (objc_opt_respondsToSelector())
         {
@@ -5685,8 +5631,8 @@ LABEL_59:
         }
 
         v75 = [v73 numberWithInt:v74];
-        v152.st_mtimespec.tv_sec = v75;
-        *(&v150 + 1) = @"supportsFunctionPointers";
+        v151.st_mtimespec.tv_sec = v75;
+        *(&v149 + 1) = @"supportsFunctionPointers";
         v76 = MEMORY[0x277CCABB0];
         if (objc_opt_respondsToSelector())
         {
@@ -5699,8 +5645,8 @@ LABEL_59:
         }
 
         v78 = [v76 numberWithInt:v77];
-        v152.st_mtimespec.tv_nsec = v78;
-        v151 = @"supportsFunctionPointersFromRender";
+        v151.st_mtimespec.tv_nsec = v78;
+        v150 = @"supportsFunctionPointersFromRender";
         v79 = MEMORY[0x277CCABB0];
         if (objc_opt_respondsToSelector())
         {
@@ -5713,32 +5659,32 @@ LABEL_59:
         }
 
         v81 = [v79 numberWithInt:v80];
-        v152.st_ctimespec.tv_sec = v81;
-        v82 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v152 forKeys:newpool count:9];
+        v151.st_ctimespec.tv_sec = v81;
+        v82 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v151 forKeys:newpool count:9];
 
-        v145[0] = @"shaderDebuggerSupport";
-        v145[1] = @"deviceVendorName";
-        v146[0] = &unk_2860D6548;
+        v144[0] = @"shaderDebuggerSupport";
+        v144[1] = @"deviceVendorName";
+        v145[0] = &unk_2860D6548;
         v83 = [v53 vendorName];
-        v146[1] = v83;
-        v84 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v146 forKeys:v145 count:2];
+        v145[1] = v83;
+        v84 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v145 forKeys:v144 count:2];
 
         v85 = [v53 argumentBuffersSupport] != 0;
         LODWORD(v83) = objc_opt_respondsToSelector();
         v86 = [v53 supportsFamily:1006];
-        v143[0] = @"SupportedFamilies";
-        v143[1] = @"FeatureSupport";
-        v144[0] = v54;
-        v144[1] = v82;
-        v144[2] = v84;
-        v143[2] = @"DebugSupport";
-        v143[3] = @"ResourceAccessTrackingSupport";
+        v142[0] = @"SupportedFamilies";
+        v142[1] = @"FeatureSupport";
+        v143[0] = v54;
+        v143[1] = v82;
+        v143[2] = v84;
+        v142[2] = @"DebugSupport";
+        v142[3] = @"ResourceAccessTrackingSupport";
         v87 = [MEMORY[0x277CCABB0] numberWithBool:v85 & v86 & v83];
-        v144[3] = v87;
-        v134 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v144 forKeys:v143 count:4];
+        v143[3] = v87;
+        v133 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v143 forKeys:v142 count:4];
 
         v88 = objc_alloc_init(MEMORY[0x277CBEB38]);
-        v89 = *(*(v128 + 5) + 112);
+        v89 = *(*(v127 + 5) + 112);
         v90 = *(v89 + 12);
         if (v90 >= 1)
         {
@@ -5756,34 +5702,34 @@ LABEL_59:
           }
         }
 
-        v137 = v53;
-        v95 = v121;
+        v136 = v53;
+        v95 = v120;
         v96 = v88;
-        v131 = v95;
+        v130 = v95;
         v97 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:v95];
         v98 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v96, "count")}];
         v99 = [MEMORY[0x277CCAA00] defaultManager];
-        v144[0] = *MEMORY[0x277CBE8E8];
-        v100 = [MEMORY[0x277CBEA60] arrayWithObjects:v144 count:1];
-        v125 = v99;
-        v127 = v97;
+        v143[0] = *MEMORY[0x277CBE8E8];
+        v100 = [MEMORY[0x277CBEA60] arrayWithObjects:v143 count:1];
+        v124 = v99;
+        v126 = v97;
         v101 = [v99 enumeratorAtURL:v97 includingPropertiesForKeys:v100 options:0 errorHandler:0];
 
-        v149 = 0u;
-        v150 = 0u;
-        *newpool = 0u;
         v148 = 0u;
+        v149 = 0u;
+        *newpool = 0u;
+        v147 = 0u;
         v102 = v101;
-        v103 = [v102 countByEnumeratingWithState:newpool objects:&v152 count:16];
+        v103 = [v102 countByEnumeratingWithState:newpool objects:&v151 count:16];
         if (v103)
         {
           v104 = v103;
-          v105 = *v148;
+          v105 = *v147;
           do
           {
             for (m = 0; m != v104; ++m)
             {
-              if (*v148 != v105)
+              if (*v147 != v105)
               {
                 objc_enumerationMutation(v102);
               }
@@ -5805,32 +5751,32 @@ LABEL_59:
               }
             }
 
-            v104 = [v102 countByEnumeratingWithState:newpool objects:&v152 count:16];
+            v104 = [v102 countByEnumeratingWithState:newpool objects:&v151 count:16];
           }
 
           while (v104);
         }
 
-        UpdateDebugFileCache(0, v98, v96, v131);
-        v113 = [[GTMTLReplayObjectMap alloc] initWithDevice:v137];
-        GTMTLReplaySupport_init(v137);
-        GTMTLReplayController_initializeArgumentBufferSupport(v128, v137, v113);
-        GTMTLReplayController_populateUnusedResources(v128, v113);
-        *(v118 + 8) = GTMTLReplayController_makeController(v128, *v118, v137, v113, v96, v98);
-        GTMTLReplayWireframeRenderer_initWithDevice(v118 + 96, v137);
-        *&v152.st_dev = MEMORY[0x277D85DD0];
-        v152.st_ino = 3221225472;
-        *&v152.st_uid = __BeginDebugArchivePath_block_invoke;
-        *&v152.st_rdev = &__block_descriptor_40_e5_v8__0l;
-        v152.st_atimespec.tv_sec = v118;
-        v8 = [MEMORY[0x277CCA8C8] blockOperationWithBlock:&v152];
+        UpdateDebugFileCache(0, v98, v96, v130);
+        v113 = [[GTMTLReplayObjectMap alloc] initWithDevice:v136];
+        GTMTLReplaySupport_init(v136);
+        GTMTLReplayController_initializeArgumentBufferSupport(v127, v136, v113);
+        GTMTLReplayController_populateUnusedResources(v127, v113);
+        *(v117 + 8) = GTMTLReplayController_makeController(v127, *v117, v136, v113, v96, v98);
+        GTMTLReplayWireframeRenderer_initWithDevice(v117 + 96, v136);
+        *&v151.st_dev = MEMORY[0x277D85DD0];
+        v151.st_ino = 3221225472;
+        *&v151.st_uid = __BeginDebugArchivePath_block_invoke;
+        *&v151.st_rdev = &__block_descriptor_40_e5_v8__0l;
+        v151.st_atimespec.tv_sec = v117;
+        v8 = [MEMORY[0x277CCA8C8] blockOperationWithBlock:&v151];
         [v8 setQueuePriority:-8];
-        [*(v118 + 280) addOperation:v8];
+        [*(v117 + 280) addOperation:v8];
 
-        v5 = v119;
-        v1 = v120;
-        v9 = v117;
-        LOBYTE(v8) = v116;
+        v5 = v118;
+        v1 = v119;
+        v9 = v116;
+        LOBYTE(v8) = v115;
         goto LABEL_113;
       }
     }
@@ -5918,7 +5864,6 @@ LABEL_113:
 
 LABEL_114:
   *(*(*(v1 + 40) + 8) + 24) = v8;
-  v114 = *MEMORY[0x277D85DE8];
 }
 
 - (GTMTLReplayService)initWithContext:(GTMTLReplayClient *)context

@@ -38,75 +38,71 @@
 - (id)URLForItemWithPersistentIdentifier:(id)identifier
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC4BE310, qword_1CF9FCBE0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v17 - v7;
+  v7 = &v16 - v6;
   identifierCopy = identifier;
   selfCopy = self;
-  sub_1CF2FD4F4(identifierCopy, v8);
+  sub_1CF2FD4F4(identifierCopy, v7);
 
-  v11 = sub_1CF9E5A58();
-  v12 = *(v11 - 8);
-  v13 = (*(v12 + 48))(v8, 1, v11);
-  v14 = 0;
-  if (v13 != 1)
+  v10 = sub_1CF9E5A58();
+  v11 = *(v10 - 8);
+  v12 = (*(v11 + 48))(v7, 1, v10);
+  v13 = 0;
+  if (v12 != 1)
   {
-    v15 = sub_1CF9E5928();
-    (*(v12 + 8))(v8, v11);
-    v14 = v15;
+    v14 = sub_1CF9E5928();
+    (*(v11 + 8))(v7, v10);
+    v13 = v14;
   }
 
-  return v14;
+  return v13;
 }
 
 - (id)persistentIdentifierForItemAtURL:(id)l
 {
   v4 = sub_1CF9E5A58();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CF9E59D8();
   selfCopy = self;
-  v10 = sub_1CF2FDD8C(v8);
+  v9 = sub_1CF2FDD8C(v7);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 
-  return v10;
+  return v9;
 }
 
 - (void)stopProvidingItemAtURL:(id)l
 {
   v3 = sub_1CF9E5A58();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v7 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CF9E59D8();
-  (*(v4 + 8))(v7, v3);
+  (*(v4 + 8))(v6, v3);
 }
 
 - (void)itemChangedAtURL:(id)l
 {
   v3 = sub_1CF9E5A58();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = aBlock - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = aBlock - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CF9E59D8();
   defaultManager = [objc_opt_self() defaultManager];
-  v9 = *MEMORY[0x1E6967298];
+  v8 = *MEMORY[0x1E6967298];
   aBlock[4] = nullsub_1;
   aBlock[5] = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 1107296256;
   aBlock[2] = sub_1CF00A468;
   aBlock[3] = &block_descriptor_373;
-  v10 = _Block_copy(aBlock);
-  [defaultManager signalEnumeratorForContainerItemIdentifier:v9 completionHandler:v10];
-  _Block_release(v10);
+  v9 = _Block_copy(aBlock);
+  [defaultManager signalEnumeratorForContainerItemIdentifier:v8 completionHandler:v9];
+  _Block_release(v9);
 
-  (*(v4 + 8))(v7, v3);
+  (*(v4 + 8))(v6, v3);
 }
 
 - (id)fetchContentsForItemWithIdentifier:(id)identifier version:(id)version completionHandler:(id)handler
@@ -138,19 +134,18 @@
 {
   v8 = sub_1CF9E5A58();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x1EEE9AC00](v8);
-  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = _Block_copy(handler);
+  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(handler);
   sub_1CF9E59D8();
-  _Block_copy(v13);
+  _Block_copy(v12);
   identifierCopy = identifier;
   selfCopy = self;
-  sub_1CF3174C8(v12, identifierCopy, selfCopy, v13);
-  _Block_release(v13);
-  _Block_release(v13);
+  sub_1CF3174C8(v11, identifierCopy, selfCopy, v12);
+  _Block_release(v12);
+  _Block_release(v12);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)createDirectoryWithName:(id)name inParentItemIdentifier:(id)identifier completionHandler:(id)handler
@@ -164,6 +159,8 @@
   sub_1CF317C3C(v8, v10, identifierCopy, selfCopy, v7);
   _Block_release(v7);
   _Block_release(v7);
+
+  v10, v13, v14, v15, v16, v17, v18, v19;
 }
 
 - (void)renameItemWithIdentifier:(id)identifier toName:(id)name completionHandler:(id)handler
@@ -177,6 +174,8 @@
   sub_1CF3182B4(identifierCopy, v8, v10, selfCopy, v7);
   _Block_release(v7);
   _Block_release(v7);
+
+  v10, v13, v14, v15, v16, v17, v18, v19;
 }
 
 - (void)reparentItemWithIdentifier:(id)identifier toParentItemWithIdentifier:(id)withIdentifier newName:(id)name completionHandler:(id)handler
@@ -200,23 +199,24 @@
   sub_1CF3185E8(identifierCopy, withIdentifierCopy, v11, name, selfCopy, v10);
   _Block_release(v10);
   _Block_release(v10);
+
+  name, v16, v17, v18, v19, v20, v21, v22;
 }
 
 - (void)_trashItemAtURLWithoutCoordination:(id)coordination completionHandler:(id)handler
 {
   v6 = sub_1CF9E5A58();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = _Block_copy(handler);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = _Block_copy(handler);
   sub_1CF9E59D8();
-  v12 = swift_allocObject();
-  *(v12 + 16) = v11;
+  v11 = swift_allocObject();
+  *(v11 + 16) = v10;
   selfCopy = self;
-  sub_1CF319E34(v10, 0, selfCopy, sub_1CF326F78, v12, sub_1CF2FFD5C);
+  sub_1CF319E34(v9, 0, selfCopy, sub_1CF326F78, v11, sub_1CF2FFD5C);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)untrashItemWithIdentifier:(id)identifier toParentItemIdentifier:(id)itemIdentifier completionHandler:(id)handler
@@ -234,31 +234,30 @@
 - (void)setLastUsedDate:(id)date forItemIdentifier:(id)identifier completionHandler:(id)handler
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC4BEDC0, &unk_1CF9FEEA0);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x1EEE9AC00](v9 - 8);
-  v12 = &v18 - v11;
-  v13 = _Block_copy(handler);
+  v11 = &v17 - v10;
+  v12 = _Block_copy(handler);
   if (date)
   {
     sub_1CF9E5CB8();
-    v14 = sub_1CF9E5CF8();
-    (*(*(v14 - 8) + 56))(v12, 0, 1, v14);
+    v13 = sub_1CF9E5CF8();
+    (*(*(v13 - 8) + 56))(v11, 0, 1, v13);
   }
 
   else
   {
-    v15 = sub_1CF9E5CF8();
-    (*(*(v15 - 8) + 56))(v12, 1, 1, v15);
+    v14 = sub_1CF9E5CF8();
+    (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
   }
 
-  _Block_copy(v13);
+  _Block_copy(v12);
   identifierCopy = identifier;
   selfCopy = self;
-  sub_1CF31AA24(v12, identifierCopy, selfCopy, v13);
-  _Block_release(v13);
-  _Block_release(v13);
+  sub_1CF31AA24(v11, identifierCopy, selfCopy, v12);
+  _Block_release(v12);
+  _Block_release(v12);
 
-  sub_1CEFCCC44(v12, &unk_1EC4BEDC0, &unk_1CF9FEEA0);
+  sub_1CEFCCC44(v11, &unk_1EC4BEDC0, &unk_1CF9FEEA0);
 }
 
 - (void)setTagData:(id)data forItemIdentifier:(id)identifier completionHandler:(id)handler
@@ -312,6 +311,7 @@
 
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4BF648, &unk_1CFA01DF0);
     v11 = sub_1CF9E6D28();
+    v6, v12, v13, v14, v15, v16, v17, v18;
 
     return v11;
   }
@@ -328,18 +328,17 @@
 {
   v6 = sub_1CF9E5CF8();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = _Block_copy(handler);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = _Block_copy(handler);
   sub_1CF9E5CB8();
-  _Block_copy(v11);
+  _Block_copy(v10);
   selfCopy = self;
-  sub_1CF31B5E0(v10, selfCopy, v11);
-  _Block_release(v11);
-  _Block_release(v11);
+  sub_1CF31B5E0(v9, selfCopy, v10);
+  _Block_release(v10);
+  _Block_release(v10);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (id)_defaultApplicationContainerForBundleIdentifier:(id)identifier completionHandler:(id)handler
@@ -352,6 +351,8 @@
   v10 = sub_1CF31C1B0(v6, v8, selfCopy, v5);
   _Block_release(v5);
   _Block_release(v5);
+
+  v8, v11, v12, v13, v14, v15, v16, v17;
 
   return v10;
 }
@@ -370,32 +371,31 @@
 - (void)changeItem:(id)item baseVersion:(id)version changedFields:(unint64_t)fields contents:(id)contents options:(unint64_t)options completionHandler:(id)handler
 {
   v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC4BE310, qword_1CF9FCBE0);
-  v15 = *(*(v14 - 8) + 64);
   MEMORY[0x1EEE9AC00](v14 - 8);
-  v17 = &v24 - v16;
-  v18 = _Block_copy(handler);
+  v16 = &v23 - v15;
+  v17 = _Block_copy(handler);
   if (contents)
   {
     sub_1CF9E59D8();
-    v19 = sub_1CF9E5A58();
-    (*(*(v19 - 8) + 56))(v17, 0, 1, v19);
+    v18 = sub_1CF9E5A58();
+    (*(*(v18 - 8) + 56))(v16, 0, 1, v18);
   }
 
   else
   {
-    v20 = sub_1CF9E5A58();
-    (*(*(v20 - 8) + 56))(v17, 1, 1, v20);
+    v19 = sub_1CF9E5A58();
+    (*(*(v19 - 8) + 56))(v16, 1, 1, v19);
   }
 
-  v21 = swift_allocObject();
-  *(v21 + 16) = v18;
+  v20 = swift_allocObject();
+  *(v20 + 16) = v17;
   swift_unknownObjectRetain();
   versionCopy = version;
   selfCopy = self;
-  sub_1CF324DE0(item, versionCopy, fields, v17, sub_1CF32615C, v21);
+  sub_1CF324DE0(item, versionCopy, fields, v16, sub_1CF32615C, v20);
   swift_unknownObjectRelease();
 
-  sub_1CEFCCC44(v17, &unk_1EC4BE310, qword_1CF9FCBE0);
+  sub_1CEFCCC44(v16, &unk_1EC4BE310, qword_1CF9FCBE0);
 }
 
 - (void)waitForStabilizationWithCompletionHandler:(id)handler
@@ -414,16 +414,19 @@
   v9 = _Block_copy(completionHandler);
   type metadata accessor for NSFileProviderItemIdentifier(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC4BF510, &unk_1CFA01DA0);
-  sub_1CEFD5B1C(&qword_1EDEAB550, type metadata accessor for NSFileProviderItemIdentifier);
+  sub_1CEFD5B1C(&qword_1EDEAB550, type metadata accessor for NSFileProviderItemIdentifier, &unk_1CF9F76A8);
   v10 = sub_1CF9E6638();
   v11 = swift_allocObject();
   *(v11 + 16) = v8;
   v12 = swift_allocObject();
   *(v12 + 16) = v9;
   selfCopy = self;
-  v14 = sub_1CF32548C(v10, sub_1CF326154, v11, sub_1CF067718, v12);
+  sub_1CF32548C(v10, sub_1CF326154, v11, sub_1CF067718, v12);
+  v15 = v14;
 
-  return v14;
+  v10, v16, v17, v18, v19, v20, v21, v22;
+
+  return v15;
 }
 
 - (id)fetchThumbnailsForDictionary:(id)dictionary requestedSize:(CGSize)size perThumbnailCompletionHandlerWithMetadata:(id)metadata completionHandler:(id)handler
@@ -432,7 +435,7 @@
   v9 = _Block_copy(handler);
   type metadata accessor for NSFileProviderItemIdentifier(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC4BF510, &unk_1CFA01DA0);
-  sub_1CEFD5B1C(&qword_1EDEAB550, type metadata accessor for NSFileProviderItemIdentifier);
+  sub_1CEFD5B1C(&qword_1EDEAB550, type metadata accessor for NSFileProviderItemIdentifier, &unk_1CF9F76A8);
   v10 = sub_1CF9E6638();
   v11 = swift_allocObject();
   *(v11 + 16) = v8;
@@ -443,9 +446,12 @@
   *(v13 + 24) = v11;
   selfCopy = self;
 
-  v15 = sub_1CF32548C(v10, sub_1CF326120, v13, sub_1CF067718, v12);
+  sub_1CF32548C(v10, sub_1CF326120, v13, sub_1CF067718, v12);
+  v16 = v15;
 
-  return v15;
+  v10, v17, v18, v19, v20, v21, v22, v23;
+
+  return v16;
 }
 
 - (id)fetchThumbnailsForDictionary:(id)dictionary requestedSize:(CGSize)size perThumbnailCompletionHandlerDataURLWithMetadata:(id)metadata completionHandler:(id)handler
@@ -454,7 +460,7 @@
   v9 = _Block_copy(handler);
   type metadata accessor for NSFileProviderItemIdentifier(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC4BF510, &unk_1CFA01DA0);
-  sub_1CEFD5B1C(&qword_1EDEAB550, type metadata accessor for NSFileProviderItemIdentifier);
+  sub_1CEFD5B1C(&qword_1EDEAB550, type metadata accessor for NSFileProviderItemIdentifier, &unk_1CF9F76A8);
   v10 = sub_1CF9E6638();
   v11 = swift_allocObject();
   *(v11 + 16) = v8;
@@ -465,9 +471,12 @@
   *(v13 + 24) = v11;
   selfCopy = self;
 
-  v15 = sub_1CF32548C(v10, sub_1CF326108, v13, sub_1CF067710, v12);
+  sub_1CF32548C(v10, sub_1CF326108, v13, sub_1CF067710, v12);
+  v16 = v15;
 
-  return v15;
+  v10, v17, v18, v19, v20, v21, v22, v23;
+
+  return v16;
 }
 
 @end

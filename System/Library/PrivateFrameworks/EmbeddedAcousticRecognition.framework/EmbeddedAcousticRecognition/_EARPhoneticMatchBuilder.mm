@@ -35,7 +35,7 @@
   v9 = [(_EARPhoneticMatchBuilder *)&v26 init];
   if (v9)
   {
-    [_EARQuasarTokenizer tokenizerWithModelRoot:rootCopy];
+    objc_msgSend_tokenizerWithModelRoot_(_EARQuasarTokenizer);
     std::shared_ptr<quasar::TextTokenizer>::operator=[abi:ne200100]<quasar::TextTokenizer,std::default_delete<quasar::TextTokenizer>,0>(&v9->_tokenizer.__ptr_, buf);
     v10 = *buf;
     *buf = 0;
@@ -67,7 +67,7 @@
           }
 
           v16 = *(*(&v27 + 1) + 8 * i);
-          [v16 dataFeed];
+          objc_msgSend_dataFeed(v16);
           quasar::DataFeed::DataFeed(buf, v31);
           if (v32)
           {
@@ -112,7 +112,7 @@
 
     if (fileCopy)
     {
-      [fileCopy ear_toString];
+      objc_msgSend_ear_toString(fileCopy);
     }
 
     else
@@ -141,7 +141,7 @@
   v11 = [(_EARPhoneticMatchBuilder *)&v15 init];
   if (v11)
   {
-    [_EARQuasarTokenizer tokenizerWithModelRoot:rootCopy];
+    objc_msgSend_tokenizerWithModelRoot_(_EARQuasarTokenizer);
     std::shared_ptr<quasar::TextTokenizer>::operator=[abi:ne200100]<quasar::TextTokenizer,std::default_delete<quasar::TextTokenizer>,0>(&v11->_tokenizer.__ptr_, buf);
     v12 = *buf;
     *buf = 0;
@@ -152,7 +152,7 @@
 
     if (fileCopy)
     {
-      [fileCopy ear_toString];
+      objc_msgSend_ear_toString(fileCopy);
       if (!feedsFileCopy)
       {
         goto LABEL_8;
@@ -171,7 +171,7 @@ LABEL_8:
       }
     }
 
-    [feedsFileCopy ear_toString];
+    objc_msgSend_ear_toString(feedsFileCopy);
     goto LABEL_8;
   }
 
@@ -207,7 +207,7 @@ LABEL_8:
   ptr = self->_pmBuilder.__ptr_;
   if (pathCopy)
   {
-    [pathCopy ear_toString];
+    objc_msgSend_ear_toString(pathCopy);
   }
 
   else
@@ -225,7 +225,7 @@ LABEL_8:
   ptr = self->_pmBuilder.__ptr_;
   if (pathCopy)
   {
-    [pathCopy ear_toString];
+    objc_msgSend_ear_toString(pathCopy);
   }
 
   else
@@ -245,10 +245,10 @@ LABEL_8:
   v9 = pathCopy;
   if (textCopy)
   {
-    quasar::PMBuilder::getOsyms(self->_pmBuilder.__ptr_, quasariseCopy, __p);
+    quasar::PMBuilder::getOsyms(__p, self->_pmBuilder.__ptr_, quasariseCopy);
     if (v9)
     {
-      [v9 ear_toString];
+      objc_msgSend_ear_toString(v9);
     }
 
     else
@@ -271,7 +271,7 @@ LABEL_8:
   {
     if (pathCopy)
     {
-      [pathCopy ear_toString];
+      objc_msgSend_ear_toString(pathCopy);
     }
 
     else
@@ -281,14 +281,14 @@ LABEL_8:
       v12 = 0;
     }
 
-    std::ofstream::basic_ofstream(&v13);
+    std::ofstream::basic_ofstream(&v13, __p, 16);
     if (SHIBYTE(v12) < 0)
     {
       operator delete(__p[0]);
     }
 
-    quasar::PMBuilder::getOsyms(self->_pmBuilder.__ptr_, quasariseCopy, __p);
-    quasar::PMBuilder::writeSymsQuasarMap(__p);
+    quasar::PMBuilder::getOsyms(__p, self->_pmBuilder.__ptr_, quasariseCopy);
+    quasar::PMBuilder::writeSymsQuasarMap(__p, &v13);
     fst::SymbolTable::~SymbolTable(__p);
     v13 = *MEMORY[0x1E69E54D0];
     *(&v13 + *(v13 - 3)) = *(MEMORY[0x1E69E54D0] + 24);
@@ -311,7 +311,7 @@ LABEL_8:
     MultiChainMultiAudioBuffer = quasar::SpeechRequestData::getMultiChainMultiAudioBuffer(ptr);
     if (pathCopy)
     {
-      [pathCopy ear_toString];
+      objc_msgSend_ear_toString(pathCopy);
     }
 
     else
@@ -329,7 +329,7 @@ LABEL_8:
     v9 = quasar::SpeechRequestData::getMultiChainMultiAudioBuffer(ptr);
     if (pathCopy)
     {
-      [pathCopy ear_toString];
+      objc_msgSend_ear_toString(pathCopy);
     }
 
     else
@@ -373,7 +373,7 @@ LABEL_8:
       v16 = v15;
       if (v15)
       {
-        [v15 ear_toString];
+        objc_msgSend_ear_toString(v15);
       }
 
       else
@@ -407,7 +407,7 @@ LABEL_8:
   TagSequence = quasar::CommandTagging::getTagSequence(self->_pmBuilder.__ptr_);
   if (pathCopy)
   {
-    [pathCopy ear_toString];
+    objc_msgSend_ear_toString(pathCopy);
   }
 
   else
@@ -449,7 +449,7 @@ LABEL_8:
       v16 = v15;
       if (v15)
       {
-        [v15 ear_toString];
+        objc_msgSend_ear_toString(v15);
       }
 
       else
@@ -478,20 +478,27 @@ LABEL_8:
 
 - (BOOL)writeMetadataToPath:(id)path
 {
+  __p[3] = *MEMORY[0x1E69E9840];
   pathCopy = path;
+  ptr = self->_pmBuilder.__ptr_;
   if (pathCopy)
   {
-    [pathCopy ear_toString];
+    objc_msgSend_ear_toString(pathCopy);
   }
 
-  quasar::PMBuilder::writeMetadata();
+  else
+  {
+    memset(__p, 0, 24);
+  }
+
+  quasar::PMBuilder::writeMetadata(ptr, __p);
 }
 
 + (BOOL)writePlaceholderFstToPath:(id)path
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v5[5] = *MEMORY[0x1E69E9840];
   pathCopy = path;
-  fst::VectorFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::VectorFst();
+  fst::VectorFst<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,fst::VectorState<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>,std::allocator<fst::ArcTpl<fst::TropicalWeightTpl<float>,int>>>>::VectorFst(v5);
 }
 
 + (BOOL)writePlaceholderSymbolsToPath:(id)path

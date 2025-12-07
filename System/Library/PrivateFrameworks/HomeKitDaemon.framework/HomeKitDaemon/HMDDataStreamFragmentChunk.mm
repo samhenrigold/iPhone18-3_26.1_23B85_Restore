@@ -101,68 +101,64 @@
 
 - (id)attributeDescriptions
 {
-  v23[5] = *MEMORY[0x277D85DE8];
+  v22[5] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   v4 = MEMORY[0x277CCABB0];
   data = [(HMDDataStreamFragmentChunk *)self data];
-  v21 = [v4 numberWithUnsignedInteger:{objc_msgSend(data, "length")}];
-  v5 = [v3 initWithName:@"Data Length" value:v21];
-  v23[0] = v5;
+  v20 = [v4 numberWithUnsignedInteger:{objc_msgSend(data, "length")}];
+  v5 = [v3 initWithName:@"Data Length" value:v20];
+  v22[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   sequenceNumber = [(HMDDataStreamFragmentChunk *)self sequenceNumber];
   v8 = [v6 initWithName:@"Sequence Number" value:sequenceNumber];
-  v23[1] = v8;
+  v22[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   fragmentSequenceNumber = [(HMDDataStreamFragmentChunk *)self fragmentSequenceNumber];
   v11 = [v9 initWithName:@"Fragment Sequence Number" value:fragmentSequenceNumber];
-  v23[2] = v11;
+  v22[2] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   type = [(HMDDataStreamFragmentChunk *)self type];
   v14 = [v12 initWithName:@"Type" value:type];
-  v23[3] = v14;
+  v22[3] = v14;
   v15 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDDataStreamFragmentChunk *)self isLast];
   v16 = HMFBooleanToString();
   v17 = [v15 initWithName:@"Is Last" value:v16];
-  v23[4] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:5];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v22[4] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:5];
 
   return v18;
 }
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = @"metadata";
-  v12[0] = @"dataChunkSequenceNumber";
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = @"metadata";
+  v11[0] = @"dataChunkSequenceNumber";
   sequenceNumber = [(HMDDataStreamFragmentChunk *)self sequenceNumber];
-  v13[0] = sequenceNumber;
-  v12[1] = @"dataSequenceNumber";
+  v12[0] = sequenceNumber;
+  v11[1] = @"dataSequenceNumber";
   fragmentSequenceNumber = [(HMDDataStreamFragmentChunk *)self fragmentSequenceNumber];
-  v13[1] = fragmentSequenceNumber;
-  v12[2] = @"dataType";
+  v12[1] = fragmentSequenceNumber;
+  v11[2] = @"dataType";
   type = [(HMDDataStreamFragmentChunk *)self type];
-  v13[2] = type;
-  v12[3] = @"isLastDataChunk";
+  v12[2] = type;
+  v11[3] = @"isLastDataChunk";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDDataStreamFragmentChunk isLast](self, "isLast")}];
-  v13[3] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
-  v14[1] = @"data";
-  v15[0] = v7;
+  v12[3] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:4];
+  v13[1] = @"data";
+  v14[0] = v7;
   data = [(HMDDataStreamFragmentChunk *)self data];
-  v15[1] = data;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v14[1] = data;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v9;
 }
 
 - (HMDDataStreamFragmentChunk)initWithDictionaryRepresentation:(id)representation
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   v5 = [representationCopy hmf_dataForKey:@"data"];
   if (v5)
@@ -195,13 +191,13 @@
               v30 = HMFGetOSLogHandle();
               if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
               {
-                v33 = HMFGetLogIdentifier();
+                v32 = HMFGetLogIdentifier();
                 *buf = 138543874;
-                v37 = v33;
-                v38 = 2112;
-                v39 = @"isLastDataChunk";
-                v40 = 2112;
-                v41 = representationCopy;
+                v36 = v32;
+                v37 = 2112;
+                v38 = @"isLastDataChunk";
+                v39 = 2112;
+                v40 = representationCopy;
                 _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@Could not determine isLast (key=%@) from stream data dictionary: %@", buf, 0x20u);
               }
 
@@ -220,11 +216,11 @@
               HMFGetLogIdentifier();
               v29 = contexta = v27;
               *buf = 138543874;
-              v37 = v29;
-              v38 = 2112;
-              v39 = @"dataType";
-              v40 = 2112;
-              v41 = representationCopy;
+              v36 = v29;
+              v37 = 2112;
+              v38 = @"dataType";
+              v39 = 2112;
+              v40 = representationCopy;
               _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Could not determine type (key=%@) from stream data dictionary: %@", buf, 0x20u);
 
               v27 = contexta;
@@ -244,11 +240,11 @@
           {
             v26 = HMFGetLogIdentifier();
             *buf = 138543874;
-            v37 = v26;
-            v38 = 2112;
-            v39 = @"dataSequenceNumber";
-            v40 = 2112;
-            v41 = representationCopy;
+            v36 = v26;
+            v37 = 2112;
+            v38 = @"dataSequenceNumber";
+            v39 = 2112;
+            v40 = representationCopy;
             _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Could not determine fragment sequence number (key=%@) from stream data dictionary: %@", buf, 0x20u);
           }
 
@@ -266,11 +262,11 @@
         {
           v23 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v37 = v23;
-          v38 = 2112;
-          v39 = @"dataChunkSequenceNumber";
-          v40 = 2112;
-          v41 = representationCopy;
+          v36 = v23;
+          v37 = 2112;
+          v38 = @"dataChunkSequenceNumber";
+          v39 = 2112;
+          v40 = representationCopy;
           _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Could not determine sequence number (key=%@) from stream data dictionary: %@", buf, 0x20u);
         }
 
@@ -288,11 +284,11 @@
       {
         v20 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v37 = v20;
-        v38 = 2112;
-        v39 = @"metadata";
-        v40 = 2112;
-        v41 = representationCopy;
+        v36 = v20;
+        v37 = 2112;
+        v38 = @"metadata";
+        v39 = 2112;
+        v40 = representationCopy;
         _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Could not determine metadata (key=%@) from stream data dictionary: %@", buf, 0x20u);
       }
 
@@ -310,11 +306,11 @@
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v37 = v17;
-      v38 = 2112;
-      v39 = @"data";
-      v40 = 2112;
-      v41 = representationCopy;
+      v36 = v17;
+      v37 = 2112;
+      v38 = @"data";
+      v39 = 2112;
+      v40 = representationCopy;
       _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Could not determine data (key=%@) from stream data dictionary: %@", buf, 0x20u);
     }
 
@@ -322,7 +318,6 @@
     v14 = 0;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -368,15 +363,15 @@ LABEL_11:
   if (v18)
   {
     objc_storeStrong(&v18->_data, data);
-    v20 = [numberCopy copy];
+    v20 = objc_msgSend_copy(numberCopy);
     sequenceNumber = v19->_sequenceNumber;
     v19->_sequenceNumber = v20;
 
-    v22 = [sequenceNumberCopy copy];
+    v22 = objc_msgSend_copy(sequenceNumberCopy);
     fragmentSequenceNumber = v19->_fragmentSequenceNumber;
     v19->_fragmentSequenceNumber = v22;
 
-    v24 = [v17 copy];
+    v24 = objc_msgSend_copy(v17);
     type = v19->_type;
     v19->_type = v24;
 

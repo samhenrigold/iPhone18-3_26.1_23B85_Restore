@@ -67,7 +67,7 @@
       v11 = 2048;
       v12 = v7;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "notify_post(%@) failed: %lu", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "notify_post(%@) failed: %lu", notificationCopy, v7);
     }
 
     if ((v5 & 1) == 0)
@@ -132,7 +132,7 @@
       *buf = 134217984;
       v12 = v7;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "notify_get_state failed: %lu", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "notify_get_state failed: %lu", v7);
     }
 
     if ((v5 & 1) == 0)
@@ -164,7 +164,7 @@
       v13 = 2048;
       v14 = v9;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "notify_set_state(%llu) failed: %lu", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "notify_set_state(%llu) failed: %lu", state, v9);
     }
 
     if ((v7 & 1) == 0)
@@ -183,7 +183,7 @@
     *buf = 138412290;
     v7 = notificationCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Posting notification: %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"I ", "Posting notification: %@", notificationCopy);
   }
 
   [(MBNotificationCenter *)self _postNotification:notificationCopy];
@@ -207,7 +207,7 @@
     v10 = 2048;
     stateCopy = state;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Setting notification state: %@ %llu", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"I ", "Setting notification state: %@ %llu", notificationCopy, state);
   }
 
   [(MBNotificationCenter *)self _setState:state forToken:[(MBNotificationCenter *)self _tokenForName:notificationCopy]];
@@ -227,7 +227,7 @@
       v11 = 2048;
       changedCopy = changed;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Posting notification for state change: %@ %llu", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"I ", "Posting notification for state change: %@ %llu", notificationCopy, changed);
     }
 
     [(MBNotificationCenter *)self _setState:changed forToken:v7];

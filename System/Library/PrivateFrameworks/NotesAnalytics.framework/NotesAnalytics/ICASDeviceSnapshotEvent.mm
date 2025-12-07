@@ -15,16 +15,14 @@
 
 - (NSDictionary)eventProperties
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"deviceSnapshotData";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"deviceSnapshotData";
   v2 = [objc_alloc(MEMORY[0x277CEAF08]) initWithDataType:objc_opt_class() requirement:0];
-  v7[1] = @"eventData";
-  v8[0] = v2;
+  v6[1] = @"eventData";
+  v7[0] = v2;
   v3 = [objc_alloc(MEMORY[0x277CEAF08]) initWithDataType:objc_opt_class() requirement:0];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }

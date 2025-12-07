@@ -13,21 +13,20 @@
 
 - (void)dynamicLearningCacheTimerFired:(id)fired
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315138;
-    v5 = "[TILanguageModelMaintainer dynamicLearningCacheTimerFired:]";
-    _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s  Clearing dynamic learning caches", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[TILanguageModelMaintainer dynamicLearningCacheTimerFired:]";
+    _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s  Clearing dynamic learning caches", &v3, 0xCu);
   }
 
   +[TILanguageModelLoaderManager clearDynamicLearningCaches];
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performMaintenanceIfNecessary
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if ([(TILanguageModelMaintainer *)self isMaintenanceDue])
   {
     if (TICanLogMessageAtLevel_onceToken != -1)
@@ -40,9 +39,9 @@
       v3 = TIOSLogFacility();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
       {
-        v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Perform language model maintenance", "-[TILanguageModelMaintainer performMaintenanceIfNecessary]"];
+        v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Perform language model maintenance", "-[TILanguageModelMaintainer performMaintenanceIfNecessary]"];
         *buf = 138412290;
-        v13 = v11;
+        v12 = v10;
         _os_log_debug_impl(&dword_22CA55000, v3, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -56,7 +55,7 @@
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v13 = "[TILanguageModelMaintainer performMaintenanceIfNecessary]";
+        v12 = "[TILanguageModelMaintainer performMaintenanceIfNecessary]";
         _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s  Performing transient lexicon maintenance (reloading named entities)", buf, 0xCu);
       }
 
@@ -76,8 +75,6 @@
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter postNotificationName:@"TILanguageModelPerformBackgroundMaintenanceNotification" object:0];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isMaintenanceDue
@@ -119,43 +116,36 @@
 
 - (void)keyboardActivityDidTransition:(id)transition
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   toState = [transition toState];
-  if (toState == 3)
+  switch(toState)
   {
-    v7 = *MEMORY[0x277D85DE8];
+    case 3:
 
-    [(TILanguageModelMaintainer *)self performMaintenanceIfNecessary];
-  }
-
-  else
-  {
-    if (toState == 2)
-    {
+      [(TILanguageModelMaintainer *)self performMaintenanceIfNecessary];
+      break;
+    case 2:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 136315138;
-        v9 = "[TILanguageModelMaintainer keyboardActivityDidTransition:]";
-        _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s  Setting dynamic learning cache timer", &v8, 0xCu);
+        v6 = 136315138;
+        v7 = "[TILanguageModelMaintainer keyboardActivityDidTransition:]";
+        _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s  Setting dynamic learning cache timer", &v6, 0xCu);
       }
 
       [(TILanguageModelMaintainer *)self touchDynamicLearningCacheTimer];
-    }
-
-    else if (toState == 1)
-    {
+      break;
+    case 1:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 136315138;
-        v9 = "[TILanguageModelMaintainer keyboardActivityDidTransition:]";
-        _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s  Invalidating dynamic learning cache timer", &v8, 0xCu);
+        v6 = 136315138;
+        v7 = "[TILanguageModelMaintainer keyboardActivityDidTransition:]";
+        _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s  Invalidating dynamic learning cache timer", &v6, 0xCu);
       }
 
       dynamicLearningCacheTimer = [(TILanguageModelMaintainer *)self dynamicLearningCacheTimer];
       [dynamicLearningCacheTimer invalidate];
-    }
 
-    v6 = *MEMORY[0x277D85DE8];
+      break;
   }
 }
 

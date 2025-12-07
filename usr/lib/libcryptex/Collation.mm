@@ -91,7 +91,7 @@ LABEL_10:
 
 void __25__Collation_initForUser___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   v3 = a2;
   v4 = MEMORY[0x29C28F4F0]();
   if (v4 == MEMORY[0x29EDCAA00])
@@ -99,9 +99,9 @@ void __25__Collation_initForUser___block_invoke(uint64_t a1, void *a2)
     v5 = [*(a1 + 32) log];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_impl(&dword_2986C0000, v5, OS_LOG_TYPE_DEFAULT, "Received message %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_impl(&dword_2986C0000, v5, OS_LOG_TYPE_DEFAULT, "Received message %@", &v6, 0xCu);
     }
   }
 
@@ -123,23 +123,20 @@ void __25__Collation_initForUser___block_invoke(uint64_t a1, void *a2)
       __25__Collation_initForUser___block_invoke_cold_1();
     }
   }
-
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 - (__CFDictionary)package
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   ccore = [(Collation *)self ccore];
   packToXPC = [ccore packToXPC];
   v4 = _CFXPCCreateCFObjectFromXPCObject();
 
   if (!v4)
   {
-    [(Collation *)&v7 package];
+    [(Collation *)&v6 package];
   }
 
-  v5 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
@@ -162,22 +159,6 @@ void __25__Collation_initForUser___block_invoke(uint64_t a1, void *a2)
   return v9;
 }
 
-- (void)initForUser:.cold.1()
-{
-  v6 = *MEMORY[0x29EDCA608];
-  OUTLINED_FUNCTION_0_4();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x29EDCA608];
-}
-
-void __25__Collation_initForUser___block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x29EDCA608];
-  OUTLINED_FUNCTION_0_4();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x29EDCA608];
-}
-
 - (void)package
 {
   *self = 0;
@@ -186,9 +167,20 @@ void __25__Collation_initForUser___block_invoke_cold_2()
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR);
-  _os_log_send_and_compose_impl();
-  v3 = *self;
+  v4 = MEMORY[0x29EDCA988];
+  if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  v6 = 134217984;
+  v7 = 0;
+  _os_log_send_and_compose_impl(v5, self, a2, 80, &dword_2986C0000, v4, 16, "assertion failure: dict != ((void *)0) -> %llu", &v6);
   _os_crash_msg();
   __break(1u);
 }

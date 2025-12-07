@@ -10,12 +10,10 @@
 
 - (NSString)key
 {
-  v2 = *(self + OBJC_IVAR___NMTPodcastsArtworkToken_key);
-  v3 = *(self + OBJC_IVAR___NMTPodcastsArtworkToken_key + 8);
 
-  v4 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
+  v2 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
 
-  return v4;
+  return v2;
 }
 
 - (CGColor)backgroundColor

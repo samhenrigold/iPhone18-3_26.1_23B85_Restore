@@ -15,7 +15,7 @@
 
 - (NEIKEv2AddressIdentifier)initWithAddress:(id)address
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   addressCopy = address;
   v6 = addressCopy;
   if (!addressCopy)
@@ -23,9 +23,9 @@
     v12 = ne_log_obj();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      v18 = 136315138;
-      v19 = "[NEIKEv2AddressIdentifier initWithAddress:]";
-      _os_log_fault_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_FAULT, "%s called with null address", &v18, 0xCu);
+      v17 = 136315138;
+      v18 = "[NEIKEv2AddressIdentifier initWithAddress:]";
+      _os_log_fault_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_FAULT, "%s called with null address", &v17, 0xCu);
     }
 
     goto LABEL_11;
@@ -45,9 +45,9 @@
     v12 = ne_log_obj();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v18 = 67109120;
-      LODWORD(v19) = [v6 addressFamily];
-      _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, "Unknown address family %u", &v18, 8u);
+      v17 = 67109120;
+      LODWORD(v18) = [v6 addressFamily];
+      _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, "Unknown address family %u", &v17, 8u);
     }
 
 LABEL_11:
@@ -73,7 +73,6 @@ LABEL_6:
   selfCopy = self;
 LABEL_12:
 
-  v16 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

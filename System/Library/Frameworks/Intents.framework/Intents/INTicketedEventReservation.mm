@@ -11,13 +11,13 @@
 
 - (id)_dictionaryRepresentation
 {
-  v14[2] = *MEMORY[0x1E69E9840];
-  v12.receiver = self;
-  v12.super_class = INTicketedEventReservation;
-  _dictionaryRepresentation = [(INReservation *)&v12 _dictionaryRepresentation];
+  v13[2] = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = INTicketedEventReservation;
+  _dictionaryRepresentation = [(INReservation *)&v11 _dictionaryRepresentation];
   v4 = [_dictionaryRepresentation mutableCopy];
 
-  v13[0] = @"event";
+  v12[0] = @"event";
   event = self->_event;
   null = event;
   if (!event)
@@ -25,8 +25,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v13[1] = @"reservedSeat";
-  v14[0] = null;
+  v12[1] = @"reservedSeat";
+  v13[0] = null;
   reservedSeat = self->_reservedSeat;
   null2 = reservedSeat;
   if (!reservedSeat)
@@ -34,8 +34,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[1] = null2;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[1] = null2;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
   [v4 addEntriesFromDictionary:v9];
 
   if (reservedSeat)
@@ -56,7 +56,6 @@
   }
 
 LABEL_7:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

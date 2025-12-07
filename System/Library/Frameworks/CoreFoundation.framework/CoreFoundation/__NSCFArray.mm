@@ -30,21 +30,14 @@
 
 - (Class)classForCoder
 {
-  IsMutable = _CFArrayIsMutable(self);
-  v3 = off_1E6A55850;
-  if (!IsMutable)
-  {
-    v3 = off_1E6A55790;
-  }
-
-  v4 = *v3;
+  _CFArrayIsMutable(self);
 
   return objc_opt_self();
 }
 
 - (id)description
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (__cf_tsanReadFunction)
   {
     __cf_tsanReadFunction(self, v2, __CFTSANTagMutableArray);
@@ -53,60 +46,54 @@
   copyDescription = __CFArrayGetCallBacks(self)->copyDescription;
   if (copyDescription == CFCopyDescription || copyDescription == 0)
   {
-    v10.receiver = self;
-    v10.super_class = __NSCFArray;
-    result = [(NSArray *)&v10 description];
-    v7 = *MEMORY[0x1E69E9840];
+    v8.receiver = self;
+    v8.super_class = __NSCFArray;
+    return [(NSArray *)&v8 description];
   }
 
   else
   {
-    v8 = CFCopyDescription(self);
-    v9 = *MEMORY[0x1E69E9840];
+    v7 = CFCopyDescription(self);
 
-    return v8;
+    return v7;
   }
-
-  return result;
 }
 
 - (id)objectAtIndex:(unint64_t)index
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (__cf_tsanReadFunction)
   {
     __cf_tsanReadFunction(self, v3, __CFTSANTagMutableArray);
   }
 
-  v10 = 0;
-  result = _CFArrayCheckAndGetValueAtIndex(self, index, &v10);
-  if (v10)
+  v9 = 0;
+  result = _CFArrayCheckAndGetValueAtIndex(self, index, &v9);
+  if (v9)
   {
     Count = _CFNonObjCArrayGetCount(self);
     _NSArrayRaiseBoundException(self, a2, index, Count);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (id)objectAtIndexedSubscript:(unint64_t)subscript
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (__cf_tsanReadFunction)
   {
     __cf_tsanReadFunction(self, v3, __CFTSANTagMutableArray);
   }
 
-  v10 = 0;
-  result = _CFArrayCheckAndGetValueAtIndex(self, subscript, &v10);
-  if (v10)
+  v9 = 0;
+  result = _CFArrayCheckAndGetValueAtIndex(self, subscript, &v9);
+  if (v9)
   {
     Count = _CFNonObjCArrayGetCount(self);
     _NSArrayRaiseBoundException(self, a2, subscript, Count);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -180,8 +167,8 @@
 
 - (void)insertObject:(id)object atIndex:(unint64_t)index
 {
-  v10[1] = *MEMORY[0x1E69E9840];
-  v10[0] = object;
+  v9[1] = *MEMORY[0x1E69E9840];
+  v9[0] = object;
   if (!_CFArrayIsMutable(self))
   {
     [__NSCFArray insertObject:a2 atIndex:?];
@@ -210,8 +197,7 @@ LABEL_4:
     [(__NSCFArray *)self insertObject:a2 atIndex:index];
   }
 
-  _CFArrayReplaceValues(self, index, 0, v10, 1);
-  v9 = *MEMORY[0x1E69E9840];
+  _CFArrayReplaceValues(self, index, 0, v9, 1);
 }
 
 - (void)replaceObjectAtIndex:(unint64_t)index withObject:(id)object

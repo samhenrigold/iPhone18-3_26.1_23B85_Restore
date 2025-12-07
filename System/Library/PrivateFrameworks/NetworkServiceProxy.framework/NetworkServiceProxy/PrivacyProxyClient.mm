@@ -32,7 +32,11 @@
 + (void)reportWiFiNetworkStatus:(BOOL)status networkName:(id)name queue:(id)queue completionHandler:(id)handler;
 + (void)setAppStatus:(unint64_t)status bundleIdentifier:(id)identifier queue:(id)queue completionHandler:(id)handler;
 + (void)setAppStatus:(unint64_t)status path:(id)path queue:(id)queue completionHandler:(id)handler;
++ (void)setEnabled:(BOOL)enabled queue:(id)queue completionHandler:(id)handler;
++ (void)setForceFallback:(BOOL)fallback queue:(id)queue completionHandler:(id)handler;
 + (void)setFreeUserTierUntilTomorrow:(id)tomorrow completionHandler:(id)handler;
++ (void)setGeohashSharingPreference:(BOOL)preference queue:(id)queue completionHandler:(id)handler;
++ (void)setPrivateAccessTokensEnabled:(BOOL)enabled queue:(id)queue completionHandler:(id)handler;
 + (void)setTrafficState:(unint64_t)state proxyTraffic:(unint64_t)traffic queue:(id)queue completionHandler:(id)handler;
 + (void)setUserTier:(unint64_t)tier queue:(id)queue completionHandler:(id)handler;
 @end
@@ -41,7 +45,7 @@
 
 + (BOOL)currentProcessShouldUseOpaqueProxying
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (qword_1ED4BF600 != -1)
   {
     dispatch_once(&qword_1ED4BF600, &__block_literal_global_13);
@@ -49,7 +53,7 @@
 
   if (!qword_1ED4BF5F8)
   {
-    goto LABEL_14;
+    return 0;
   }
 
   os_unfair_lock_lock(&_MergedGlobals_26);
@@ -64,9 +68,9 @@
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v13 = "networkserviceproxy-reverse-proxy";
-        v14 = 1024;
-        v15 = v3;
+        v12 = "networkserviceproxy-reverse-proxy";
+        v13 = 1024;
+        v14 = v3;
         _os_log_error_impl(&dword_1AE7E2000, v4, OS_LOG_TYPE_ERROR, "Failed to register for %s notifications: %u", buf, 0x12u);
       }
     }
@@ -75,7 +79,7 @@
   os_unfair_lock_unlock(&_MergedGlobals_26);
   if (currentProcessShouldUseOpaqueProxying_reverseProxyToken < 0)
   {
-    goto LABEL_14;
+    return 0;
   }
 
   state64 = 0;
@@ -87,11 +91,11 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v13 = "networkserviceproxy-reverse-proxy";
-      v14 = 1024;
-      v15 = currentProcessShouldUseOpaqueProxying_reverseProxyToken;
-      v16 = 1024;
-      v17 = v6;
+      v12 = "networkserviceproxy-reverse-proxy";
+      v13 = 1024;
+      v14 = currentProcessShouldUseOpaqueProxying_reverseProxyToken;
+      v15 = 1024;
+      v16 = v6;
       _os_log_error_impl(&dword_1AE7E2000, v7, OS_LOG_TYPE_ERROR, "Failed to get the state of notification %s, token %d: %u", buf, 0x18u);
     }
 
@@ -99,27 +103,22 @@
     notify_cancel(currentProcessShouldUseOpaqueProxying_reverseProxyToken);
     currentProcessShouldUseOpaqueProxying_reverseProxyToken = -1;
     os_unfair_lock_unlock(&_MergedGlobals_26);
-    goto LABEL_14;
+    return 0;
   }
 
   if ((qword_1ED4BF5F8 & state64) == 0)
   {
-LABEL_14:
-    result = 0;
-    goto LABEL_15;
+    return 0;
   }
 
-  v10 = nplog_obj();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v9 = nplog_obj();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1AE7E2000, v10, OS_LOG_TYPE_INFO, "Should use opaque proxying (from notify status)", buf, 2u);
+    _os_log_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_INFO, "Should use opaque proxying (from notify status)", buf, 2u);
   }
 
-  result = 1;
-LABEL_15:
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 uint64_t __59__PrivacyProxyClient_currentProcessShouldUseOpaqueProxying__block_invoke()
@@ -160,6 +159,23 @@ uint64_t __41__PrivacyProxyClient_getServerConnection__block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
++ (void)setEnabled:(BOOL)enabled queue:(id)queue completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  queueCopy = queue;
+  handlerCopy = handler;
+  v9 = +[PrivacyProxyClient getServerConnection];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __57__PrivacyProxyClient_setEnabled_queue_completionHandler___block_invoke;
+  v12[3] = &unk_1E7A30A40;
+  v13 = queueCopy;
+  v14 = handlerCopy;
+  v10 = handlerCopy;
+  v11 = queueCopy;
+  [v9 setPrivacyProxyStatus:enabledCopy completionHandler:v12];
+}
+
 void __57__PrivacyProxyClient_setEnabled_queue_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -182,7 +198,7 @@ void __57__PrivacyProxyClient_setEnabled_queue_completionHandler___block_invoke(
 
 + (void)getStatus:(id)status completionHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   statusCopy = status;
   handlerCopy = handler;
   v7 = handlerCopy;
@@ -195,10 +211,10 @@ void __57__PrivacyProxyClient_setEnabled_queue_completionHandler___block_invoke(
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getStatus:completionHandler:]";
-    v11 = "%s called with null queue";
+    v15 = "+[PrivacyProxyClient getStatus:completionHandler:]";
+    v10 = "%s called with null queue";
 LABEL_9:
-    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v11, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v10, buf, 0xCu);
     goto LABEL_4;
   }
 
@@ -211,24 +227,22 @@ LABEL_9:
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getStatus:completionHandler:]";
-    v11 = "%s called with null completionHandler";
+    v15 = "+[PrivacyProxyClient getStatus:completionHandler:]";
+    v10 = "%s called with null completionHandler";
     goto LABEL_9;
   }
 
   v8 = +[PrivacyProxyClient getServerConnection];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __50__PrivacyProxyClient_getStatus_completionHandler___block_invoke;
-  v12[3] = &unk_1E7A30A90;
-  v13 = statusCopy;
-  v14 = v7;
-  [v8 getPrivacyProxyStatusWithCompletionHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __50__PrivacyProxyClient_getStatus_completionHandler___block_invoke;
+  v11[3] = &unk_1E7A30A90;
+  v12 = statusCopy;
+  v13 = v7;
+  [v8 getPrivacyProxyStatusWithCompletionHandler:v11];
 
-  v9 = v13;
+  v9 = v12;
 LABEL_4:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __50__PrivacyProxyClient_getStatus_completionHandler___block_invoke(uint64_t a1, char a2, void *a3)
@@ -249,7 +263,7 @@ void __50__PrivacyProxyClient_getStatus_completionHandler___block_invoke(uint64_
 
 + (void)getServiceStatus:(id)status completionHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   statusCopy = status;
   handlerCopy = handler;
   v7 = handlerCopy;
@@ -262,10 +276,10 @@ void __50__PrivacyProxyClient_getStatus_completionHandler___block_invoke(uint64_
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getServiceStatus:completionHandler:]";
-    v11 = "%s called with null queue";
+    v15 = "+[PrivacyProxyClient getServiceStatus:completionHandler:]";
+    v10 = "%s called with null queue";
 LABEL_9:
-    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v11, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v10, buf, 0xCu);
     goto LABEL_4;
   }
 
@@ -278,24 +292,22 @@ LABEL_9:
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getServiceStatus:completionHandler:]";
-    v11 = "%s called with null completionHandler";
+    v15 = "+[PrivacyProxyClient getServiceStatus:completionHandler:]";
+    v10 = "%s called with null completionHandler";
     goto LABEL_9;
   }
 
   v8 = +[PrivacyProxyClient getServerConnection];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __57__PrivacyProxyClient_getServiceStatus_completionHandler___block_invoke;
-  v12[3] = &unk_1E7A30AE0;
-  v13 = statusCopy;
-  v14 = v7;
-  [v8 getPrivacyProxyServiceStatusWithCompletionHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __57__PrivacyProxyClient_getServiceStatus_completionHandler___block_invoke;
+  v11[3] = &unk_1E7A30AE0;
+  v12 = statusCopy;
+  v13 = v7;
+  [v8 getPrivacyProxyServiceStatusWithCompletionHandler:v11];
 
-  v9 = v13;
+  v9 = v12;
 LABEL_4:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __57__PrivacyProxyClient_getServiceStatus_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -318,7 +330,7 @@ void __57__PrivacyProxyClient_getServiceStatus_completionHandler___block_invoke(
 
 + (void)getServiceStatusTimeline:(id)timeline completionHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   timelineCopy = timeline;
   handlerCopy = handler;
   v7 = handlerCopy;
@@ -331,10 +343,10 @@ void __57__PrivacyProxyClient_getServiceStatus_completionHandler___block_invoke(
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getServiceStatusTimeline:completionHandler:]";
-    v11 = "%s called with null queue";
+    v15 = "+[PrivacyProxyClient getServiceStatusTimeline:completionHandler:]";
+    v10 = "%s called with null queue";
 LABEL_9:
-    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v11, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v10, buf, 0xCu);
     goto LABEL_4;
   }
 
@@ -347,24 +359,22 @@ LABEL_9:
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getServiceStatusTimeline:completionHandler:]";
-    v11 = "%s called with null completionHandler";
+    v15 = "+[PrivacyProxyClient getServiceStatusTimeline:completionHandler:]";
+    v10 = "%s called with null completionHandler";
     goto LABEL_9;
   }
 
   v8 = +[PrivacyProxyClient getServerConnection];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __65__PrivacyProxyClient_getServiceStatusTimeline_completionHandler___block_invoke;
-  v12[3] = &unk_1E7A30B08;
-  v13 = timelineCopy;
-  v14 = v7;
-  [v8 getPrivacyProxyServiceStatusTimelineWithCompletionHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __65__PrivacyProxyClient_getServiceStatusTimeline_completionHandler___block_invoke;
+  v11[3] = &unk_1E7A30B08;
+  v12 = timelineCopy;
+  v13 = v7;
+  [v8 getPrivacyProxyServiceStatusTimelineWithCompletionHandler:v11];
 
-  v9 = v13;
+  v9 = v12;
 LABEL_4:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __65__PrivacyProxyClient_getServiceStatusTimeline_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -388,7 +398,7 @@ void __65__PrivacyProxyClient_getServiceStatusTimeline_completionHandler___block
 + (void)reportWiFiNetworkStatus:(BOOL)status networkName:(id)name queue:(id)queue completionHandler:(id)handler
 {
   statusCopy = status;
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   queueCopy = queue;
   handlerCopy = handler;
@@ -402,10 +412,10 @@ void __65__PrivacyProxyClient_getServiceStatusTimeline_completionHandler___block
     }
 
     *buf = 136315138;
-    v21 = "+[PrivacyProxyClient reportWiFiNetworkStatus:networkName:queue:completionHandler:]";
-    v16 = "%s called with null networkName";
+    v20 = "+[PrivacyProxyClient reportWiFiNetworkStatus:networkName:queue:completionHandler:]";
+    v15 = "%s called with null networkName";
 LABEL_12:
-    _os_log_fault_impl(&dword_1AE7E2000, &v13->super, OS_LOG_TYPE_FAULT, v16, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, &v13->super, OS_LOG_TYPE_FAULT, v15, buf, 0xCu);
     goto LABEL_5;
   }
 
@@ -418,8 +428,8 @@ LABEL_12:
     }
 
     *buf = 136315138;
-    v21 = "+[PrivacyProxyClient reportWiFiNetworkStatus:networkName:queue:completionHandler:]";
-    v16 = "%s called with null queue";
+    v20 = "+[PrivacyProxyClient reportWiFiNetworkStatus:networkName:queue:completionHandler:]";
+    v15 = "%s called with null queue";
     goto LABEL_12;
   }
 
@@ -432,23 +442,22 @@ LABEL_12:
     }
 
     *buf = 136315138;
-    v21 = "+[PrivacyProxyClient reportWiFiNetworkStatus:networkName:queue:completionHandler:]";
-    v16 = "%s called with null completionHandler";
+    v20 = "+[PrivacyProxyClient reportWiFiNetworkStatus:networkName:queue:completionHandler:]";
+    v15 = "%s called with null completionHandler";
     goto LABEL_12;
   }
 
   v13 = [[PrivacyProxyNetworkStatus alloc] initWithStatus:statusCopy type:1 name:nameCopy];
   v14 = +[PrivacyProxyClient getServerConnection];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __82__PrivacyProxyClient_reportWiFiNetworkStatus_networkName_queue_completionHandler___block_invoke;
-  v17[3] = &unk_1E7A30A40;
-  v18 = queueCopy;
-  v19 = v12;
-  [v14 reportPrivacyProxyNetworkStatus:v13 completionHandler:v17];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __82__PrivacyProxyClient_reportWiFiNetworkStatus_networkName_queue_completionHandler___block_invoke;
+  v16[3] = &unk_1E7A30A40;
+  v17 = queueCopy;
+  v18 = v12;
+  [v14 reportPrivacyProxyNetworkStatus:v13 completionHandler:v16];
 
 LABEL_5:
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __82__PrivacyProxyClient_reportWiFiNetworkStatus_networkName_queue_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -469,7 +478,7 @@ void __82__PrivacyProxyClient_reportWiFiNetworkStatus_networkName_queue_completi
 + (void)reportCellularNetworkStatus:(BOOL)status networkName:(id)name queue:(id)queue completionHandler:(id)handler
 {
   statusCopy = status;
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   queueCopy = queue;
   handlerCopy = handler;
@@ -483,10 +492,10 @@ void __82__PrivacyProxyClient_reportWiFiNetworkStatus_networkName_queue_completi
     }
 
     *buf = 136315138;
-    v21 = "+[PrivacyProxyClient reportCellularNetworkStatus:networkName:queue:completionHandler:]";
-    v16 = "%s called with null networkName";
+    v20 = "+[PrivacyProxyClient reportCellularNetworkStatus:networkName:queue:completionHandler:]";
+    v15 = "%s called with null networkName";
 LABEL_12:
-    _os_log_fault_impl(&dword_1AE7E2000, &v13->super, OS_LOG_TYPE_FAULT, v16, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, &v13->super, OS_LOG_TYPE_FAULT, v15, buf, 0xCu);
     goto LABEL_5;
   }
 
@@ -499,8 +508,8 @@ LABEL_12:
     }
 
     *buf = 136315138;
-    v21 = "+[PrivacyProxyClient reportCellularNetworkStatus:networkName:queue:completionHandler:]";
-    v16 = "%s called with null queue";
+    v20 = "+[PrivacyProxyClient reportCellularNetworkStatus:networkName:queue:completionHandler:]";
+    v15 = "%s called with null queue";
     goto LABEL_12;
   }
 
@@ -513,23 +522,22 @@ LABEL_12:
     }
 
     *buf = 136315138;
-    v21 = "+[PrivacyProxyClient reportCellularNetworkStatus:networkName:queue:completionHandler:]";
-    v16 = "%s called with null completionHandler";
+    v20 = "+[PrivacyProxyClient reportCellularNetworkStatus:networkName:queue:completionHandler:]";
+    v15 = "%s called with null completionHandler";
     goto LABEL_12;
   }
 
   v13 = [[PrivacyProxyNetworkStatus alloc] initWithStatus:statusCopy type:2 name:nameCopy];
   v14 = +[PrivacyProxyClient getServerConnection];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __86__PrivacyProxyClient_reportCellularNetworkStatus_networkName_queue_completionHandler___block_invoke;
-  v17[3] = &unk_1E7A30A40;
-  v18 = queueCopy;
-  v19 = v12;
-  [v14 reportPrivacyProxyNetworkStatus:v13 completionHandler:v17];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __86__PrivacyProxyClient_reportCellularNetworkStatus_networkName_queue_completionHandler___block_invoke;
+  v16[3] = &unk_1E7A30A40;
+  v17 = queueCopy;
+  v18 = v12;
+  [v14 reportPrivacyProxyNetworkStatus:v13 completionHandler:v16];
 
 LABEL_5:
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __86__PrivacyProxyClient_reportCellularNetworkStatus_networkName_queue_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -621,7 +629,7 @@ void __69__PrivacyProxyClient_setFreeUserTierUntilTomorrow_completionHandler___b
 
 + (void)getUserTier:(id)tier completionHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   tierCopy = tier;
   handlerCopy = handler;
   v7 = handlerCopy;
@@ -634,10 +642,10 @@ void __69__PrivacyProxyClient_setFreeUserTierUntilTomorrow_completionHandler___b
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getUserTier:completionHandler:]";
-    v11 = "%s called with null queue";
+    v15 = "+[PrivacyProxyClient getUserTier:completionHandler:]";
+    v10 = "%s called with null queue";
 LABEL_9:
-    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v11, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v10, buf, 0xCu);
     goto LABEL_4;
   }
 
@@ -650,24 +658,22 @@ LABEL_9:
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getUserTier:completionHandler:]";
-    v11 = "%s called with null completionHandler";
+    v15 = "+[PrivacyProxyClient getUserTier:completionHandler:]";
+    v10 = "%s called with null completionHandler";
     goto LABEL_9;
   }
 
   v8 = +[PrivacyProxyClient getServerConnection];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __52__PrivacyProxyClient_getUserTier_completionHandler___block_invoke;
-  v12[3] = &unk_1E7A30B58;
-  v13 = tierCopy;
-  v14 = v7;
-  [v8 getPrivacyProxyUserTierWithCompletionHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __52__PrivacyProxyClient_getUserTier_completionHandler___block_invoke;
+  v11[3] = &unk_1E7A30B58;
+  v12 = tierCopy;
+  v13 = v7;
+  [v8 getPrivacyProxyUserTierWithCompletionHandler:v11];
 
-  v9 = v13;
+  v9 = v12;
 LABEL_4:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __52__PrivacyProxyClient_getUserTier_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -687,7 +693,7 @@ void __52__PrivacyProxyClient_getUserTier_completionHandler___block_invoke(uint6
 
 + (void)getUserTierExtended:(id)extended completionHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   extendedCopy = extended;
   handlerCopy = handler;
   v7 = handlerCopy;
@@ -700,10 +706,10 @@ void __52__PrivacyProxyClient_getUserTier_completionHandler___block_invoke(uint6
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getUserTierExtended:completionHandler:]";
-    v11 = "%s called with null queue";
+    v15 = "+[PrivacyProxyClient getUserTierExtended:completionHandler:]";
+    v10 = "%s called with null queue";
 LABEL_9:
-    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v11, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v10, buf, 0xCu);
     goto LABEL_4;
   }
 
@@ -716,24 +722,22 @@ LABEL_9:
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getUserTierExtended:completionHandler:]";
-    v11 = "%s called with null completionHandler";
+    v15 = "+[PrivacyProxyClient getUserTierExtended:completionHandler:]";
+    v10 = "%s called with null completionHandler";
     goto LABEL_9;
   }
 
   v8 = +[PrivacyProxyClient getServerConnection];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __60__PrivacyProxyClient_getUserTierExtended_completionHandler___block_invoke;
-  v12[3] = &unk_1E7A30B58;
-  v13 = extendedCopy;
-  v14 = v7;
-  [v8 getPrivacyProxyUserTierWithCompletionHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __60__PrivacyProxyClient_getUserTierExtended_completionHandler___block_invoke;
+  v11[3] = &unk_1E7A30B58;
+  v12 = extendedCopy;
+  v13 = v7;
+  [v8 getPrivacyProxyUserTierWithCompletionHandler:v11];
 
-  v9 = v13;
+  v9 = v12;
 LABEL_4:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __60__PrivacyProxyClient_getUserTierExtended_completionHandler___block_invoke(uint64_t a1, uint64_t a2, char a3, void *a4)
@@ -790,7 +794,7 @@ void __75__PrivacyProxyClient_setTrafficState_proxyTraffic_queue_completionHandl
 
 + (void)getTrafficState:(id)state completionandler:(id)completionandler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   completionandlerCopy = completionandler;
   v7 = completionandlerCopy;
@@ -803,10 +807,10 @@ void __75__PrivacyProxyClient_setTrafficState_proxyTraffic_queue_completionHandl
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getTrafficState:completionandler:]";
-    v11 = "%s called with null queue";
+    v15 = "+[PrivacyProxyClient getTrafficState:completionandler:]";
+    v10 = "%s called with null queue";
 LABEL_9:
-    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v11, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v10, buf, 0xCu);
     goto LABEL_4;
   }
 
@@ -819,24 +823,22 @@ LABEL_9:
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getTrafficState:completionandler:]";
-    v11 = "%s called with null completionHandler";
+    v15 = "+[PrivacyProxyClient getTrafficState:completionandler:]";
+    v10 = "%s called with null completionHandler";
     goto LABEL_9;
   }
 
   v8 = +[PrivacyProxyClient getServerConnection];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __55__PrivacyProxyClient_getTrafficState_completionandler___block_invoke;
-  v12[3] = &unk_1E7A30BA8;
-  v13 = stateCopy;
-  v14 = v7;
-  [v8 getPrivacyProxyTrafficStateWithCompletionHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __55__PrivacyProxyClient_getTrafficState_completionandler___block_invoke;
+  v11[3] = &unk_1E7A30BA8;
+  v12 = stateCopy;
+  v13 = v7;
+  [v8 getPrivacyProxyTrafficStateWithCompletionHandler:v11];
 
-  v9 = v13;
+  v9 = v12;
 LABEL_4:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __55__PrivacyProxyClient_getTrafficState_completionandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -852,6 +854,23 @@ void __55__PrivacyProxyClient_getTrafficState_completionandler___block_invoke(ui
   v9 = v5;
   v7 = v5;
   dispatch_async(v6, block);
+}
+
++ (void)setGeohashSharingPreference:(BOOL)preference queue:(id)queue completionHandler:(id)handler
+{
+  preferenceCopy = preference;
+  queueCopy = queue;
+  handlerCopy = handler;
+  v9 = +[PrivacyProxyClient getServerConnection];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __74__PrivacyProxyClient_setGeohashSharingPreference_queue_completionHandler___block_invoke;
+  v12[3] = &unk_1E7A30A40;
+  v13 = queueCopy;
+  v14 = handlerCopy;
+  v10 = handlerCopy;
+  v11 = queueCopy;
+  [v9 setGeohashSharingPreference:preferenceCopy completionHandler:v12];
 }
 
 void __74__PrivacyProxyClient_setGeohashSharingPreference_queue_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -876,7 +895,7 @@ void __74__PrivacyProxyClient_setGeohashSharingPreference_queue_completionHandle
 
 + (void)getGeohashSharingPreference:(id)preference completionHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   preferenceCopy = preference;
   handlerCopy = handler;
   v7 = handlerCopy;
@@ -889,10 +908,10 @@ void __74__PrivacyProxyClient_setGeohashSharingPreference_queue_completionHandle
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getGeohashSharingPreference:completionHandler:]";
-    v11 = "%s called with null queue";
+    v15 = "+[PrivacyProxyClient getGeohashSharingPreference:completionHandler:]";
+    v10 = "%s called with null queue";
 LABEL_9:
-    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v11, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v10, buf, 0xCu);
     goto LABEL_4;
   }
 
@@ -905,24 +924,22 @@ LABEL_9:
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getGeohashSharingPreference:completionHandler:]";
-    v11 = "%s called with null completionHandler";
+    v15 = "+[PrivacyProxyClient getGeohashSharingPreference:completionHandler:]";
+    v10 = "%s called with null completionHandler";
     goto LABEL_9;
   }
 
   v8 = +[PrivacyProxyClient getServerConnection];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __68__PrivacyProxyClient_getGeohashSharingPreference_completionHandler___block_invoke;
-  v12[3] = &unk_1E7A30A90;
-  v13 = preferenceCopy;
-  v14 = v7;
-  [v8 getGeohashSharingPreferenceWithCompletionHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __68__PrivacyProxyClient_getGeohashSharingPreference_completionHandler___block_invoke;
+  v11[3] = &unk_1E7A30A90;
+  v12 = preferenceCopy;
+  v13 = v7;
+  [v8 getGeohashSharingPreferenceWithCompletionHandler:v11];
 
-  v9 = v13;
+  v9 = v12;
 LABEL_4:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __68__PrivacyProxyClient_getGeohashSharingPreference_completionHandler___block_invoke(uint64_t a1, char a2, void *a3)
@@ -948,7 +965,7 @@ void __68__PrivacyProxyClient_getGeohashSharingPreference_completionHandler___bl
 
 + (void)getPrivacyProxyAccountType:(id)type completionHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   handlerCopy = handler;
   v7 = handlerCopy;
@@ -961,10 +978,10 @@ void __68__PrivacyProxyClient_getGeohashSharingPreference_completionHandler___bl
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getPrivacyProxyAccountType:completionHandler:]";
-    v11 = "%s called with null queue";
+    v15 = "+[PrivacyProxyClient getPrivacyProxyAccountType:completionHandler:]";
+    v10 = "%s called with null queue";
 LABEL_9:
-    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v11, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v10, buf, 0xCu);
     goto LABEL_4;
   }
 
@@ -977,24 +994,22 @@ LABEL_9:
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getPrivacyProxyAccountType:completionHandler:]";
-    v11 = "%s called with null completionHandler";
+    v15 = "+[PrivacyProxyClient getPrivacyProxyAccountType:completionHandler:]";
+    v10 = "%s called with null completionHandler";
     goto LABEL_9;
   }
 
   v8 = +[PrivacyProxyClient getServerConnection];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __67__PrivacyProxyClient_getPrivacyProxyAccountType_completionHandler___block_invoke;
-  v12[3] = &unk_1E7A30BD0;
-  v13 = typeCopy;
-  v14 = v7;
-  [v8 getPrivacyProxyAccountTypeWithCompletionHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __67__PrivacyProxyClient_getPrivacyProxyAccountType_completionHandler___block_invoke;
+  v11[3] = &unk_1E7A30BD0;
+  v12 = typeCopy;
+  v13 = v7;
+  [v8 getPrivacyProxyAccountTypeWithCompletionHandler:v11];
 
-  v9 = v13;
+  v9 = v12;
 LABEL_4:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __67__PrivacyProxyClient_getPrivacyProxyAccountType_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -1020,7 +1035,7 @@ void __67__PrivacyProxyClient_getPrivacyProxyAccountType_completionHandler___blo
 
 + (void)getPrivacyProxyAccountTypeExtended:(id)extended completionHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   extendedCopy = extended;
   handlerCopy = handler;
   v7 = handlerCopy;
@@ -1033,10 +1048,10 @@ void __67__PrivacyProxyClient_getPrivacyProxyAccountType_completionHandler___blo
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getPrivacyProxyAccountTypeExtended:completionHandler:]";
-    v11 = "%s called with null queue";
+    v15 = "+[PrivacyProxyClient getPrivacyProxyAccountTypeExtended:completionHandler:]";
+    v10 = "%s called with null queue";
 LABEL_9:
-    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v11, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v10, buf, 0xCu);
     goto LABEL_4;
   }
 
@@ -1049,24 +1064,22 @@ LABEL_9:
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getPrivacyProxyAccountTypeExtended:completionHandler:]";
-    v11 = "%s called with null completionHandler";
+    v15 = "+[PrivacyProxyClient getPrivacyProxyAccountTypeExtended:completionHandler:]";
+    v10 = "%s called with null completionHandler";
     goto LABEL_9;
   }
 
   v8 = +[PrivacyProxyClient getServerConnection];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __75__PrivacyProxyClient_getPrivacyProxyAccountTypeExtended_completionHandler___block_invoke;
-  v12[3] = &unk_1E7A30BD0;
-  v13 = extendedCopy;
-  v14 = v7;
-  [v8 getPrivacyProxyAccountTypeWithCompletionHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __75__PrivacyProxyClient_getPrivacyProxyAccountTypeExtended_completionHandler___block_invoke;
+  v11[3] = &unk_1E7A30BD0;
+  v12 = extendedCopy;
+  v13 = v7;
+  [v8 getPrivacyProxyAccountTypeWithCompletionHandler:v11];
 
-  v9 = v13;
+  v9 = v12;
 LABEL_4:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __75__PrivacyProxyClient_getPrivacyProxyAccountTypeExtended_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -1093,7 +1106,7 @@ void __75__PrivacyProxyClient_getPrivacyProxyAccountTypeExtended_completionHandl
 
 + (void)getEffectiveUserTier:(id)tier completionHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   tierCopy = tier;
   handlerCopy = handler;
   v7 = handlerCopy;
@@ -1106,10 +1119,10 @@ void __75__PrivacyProxyClient_getPrivacyProxyAccountTypeExtended_completionHandl
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getEffectiveUserTier:completionHandler:]";
-    v11 = "%s called with null queue";
+    v15 = "+[PrivacyProxyClient getEffectiveUserTier:completionHandler:]";
+    v10 = "%s called with null queue";
 LABEL_9:
-    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v11, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v10, buf, 0xCu);
     goto LABEL_4;
   }
 
@@ -1122,24 +1135,22 @@ LABEL_9:
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getEffectiveUserTier:completionHandler:]";
-    v11 = "%s called with null completionHandler";
+    v15 = "+[PrivacyProxyClient getEffectiveUserTier:completionHandler:]";
+    v10 = "%s called with null completionHandler";
     goto LABEL_9;
   }
 
   v8 = +[PrivacyProxyClient getServerConnection];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __61__PrivacyProxyClient_getEffectiveUserTier_completionHandler___block_invoke;
-  v12[3] = &unk_1E7A30BA8;
-  v13 = tierCopy;
-  v14 = v7;
-  [v8 getPrivacyProxyEffectiveUserTierWithCompletionHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __61__PrivacyProxyClient_getEffectiveUserTier_completionHandler___block_invoke;
+  v11[3] = &unk_1E7A30BA8;
+  v12 = tierCopy;
+  v13 = v7;
+  [v8 getPrivacyProxyEffectiveUserTierWithCompletionHandler:v11];
 
-  v9 = v13;
+  v9 = v12;
 LABEL_4:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __61__PrivacyProxyClient_getEffectiveUserTier_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -1155,6 +1166,56 @@ void __61__PrivacyProxyClient_getEffectiveUserTier_completionHandler___block_inv
   v9 = v5;
   v7 = v5;
   dispatch_async(v6, block);
+}
+
++ (void)setPrivateAccessTokensEnabled:(BOOL)enabled queue:(id)queue completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  v18 = *MEMORY[0x1E69E9840];
+  queueCopy = queue;
+  handlerCopy = handler;
+  v9 = handlerCopy;
+  if (!queueCopy)
+  {
+    v11 = nplog_obj();
+    if (!os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    {
+      goto LABEL_4;
+    }
+
+    *buf = 136315138;
+    v17 = "+[PrivacyProxyClient setPrivateAccessTokensEnabled:queue:completionHandler:]";
+    v12 = "%s called with null queue";
+LABEL_9:
+    _os_log_fault_impl(&dword_1AE7E2000, v11, OS_LOG_TYPE_FAULT, v12, buf, 0xCu);
+    goto LABEL_4;
+  }
+
+  if (!handlerCopy)
+  {
+    v11 = nplog_obj();
+    if (!os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    {
+      goto LABEL_4;
+    }
+
+    *buf = 136315138;
+    v17 = "+[PrivacyProxyClient setPrivateAccessTokensEnabled:queue:completionHandler:]";
+    v12 = "%s called with null completionHandler";
+    goto LABEL_9;
+  }
+
+  v10 = +[PrivacyProxyClient getServerConnection];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __76__PrivacyProxyClient_setPrivateAccessTokensEnabled_queue_completionHandler___block_invoke;
+  v13[3] = &unk_1E7A30A40;
+  v14 = queueCopy;
+  v15 = v9;
+  [v10 setPrivateAccessTokensEnabled:enabledCopy completionHandler:v13];
+
+  v11 = v14;
+LABEL_4:
 }
 
 void __76__PrivacyProxyClient_setPrivateAccessTokensEnabled_queue_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1179,7 +1240,7 @@ void __76__PrivacyProxyClient_setPrivateAccessTokensEnabled_queue_completionHand
 
 + (void)getPrivateAccessTokensEnabled:(id)enabled completionHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   enabledCopy = enabled;
   handlerCopy = handler;
   v7 = handlerCopy;
@@ -1192,10 +1253,10 @@ void __76__PrivacyProxyClient_setPrivateAccessTokensEnabled_queue_completionHand
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getPrivateAccessTokensEnabled:completionHandler:]";
-    v11 = "%s called with null queue";
+    v15 = "+[PrivacyProxyClient getPrivateAccessTokensEnabled:completionHandler:]";
+    v10 = "%s called with null queue";
 LABEL_9:
-    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v11, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v10, buf, 0xCu);
     goto LABEL_4;
   }
 
@@ -1208,24 +1269,22 @@ LABEL_9:
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getPrivateAccessTokensEnabled:completionHandler:]";
-    v11 = "%s called with null completionHandler";
+    v15 = "+[PrivacyProxyClient getPrivateAccessTokensEnabled:completionHandler:]";
+    v10 = "%s called with null completionHandler";
     goto LABEL_9;
   }
 
   v8 = +[PrivacyProxyClient getServerConnection];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __70__PrivacyProxyClient_getPrivateAccessTokensEnabled_completionHandler___block_invoke;
-  v12[3] = &unk_1E7A30A90;
-  v13 = enabledCopy;
-  v14 = v7;
-  [v8 getPrivateAccessTokensEnabledWithCompletionHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __70__PrivacyProxyClient_getPrivateAccessTokensEnabled_completionHandler___block_invoke;
+  v11[3] = &unk_1E7A30A90;
+  v12 = enabledCopy;
+  v13 = v7;
+  [v8 getPrivateAccessTokensEnabledWithCompletionHandler:v11];
 
-  v9 = v13;
+  v9 = v12;
 LABEL_4:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __70__PrivacyProxyClient_getPrivateAccessTokensEnabled_completionHandler___block_invoke(uint64_t a1, char a2, void *a3)
@@ -1251,7 +1310,7 @@ void __70__PrivacyProxyClient_getPrivateAccessTokensEnabled_completionHandler___
 
 + (void)setAppStatus:(unint64_t)status bundleIdentifier:(id)identifier queue:(id)queue completionHandler:(id)handler
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   queueCopy = queue;
   handlerCopy = handler;
@@ -1265,10 +1324,10 @@ void __70__PrivacyProxyClient_getPrivateAccessTokensEnabled_completionHandler___
     }
 
     *buf = 136315138;
-    v21 = "+[PrivacyProxyClient setAppStatus:bundleIdentifier:queue:completionHandler:]";
-    v16 = "%s called with null bundleIdentifier";
+    v20 = "+[PrivacyProxyClient setAppStatus:bundleIdentifier:queue:completionHandler:]";
+    v15 = "%s called with null bundleIdentifier";
 LABEL_12:
-    _os_log_fault_impl(&dword_1AE7E2000, v14, OS_LOG_TYPE_FAULT, v16, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v14, OS_LOG_TYPE_FAULT, v15, buf, 0xCu);
     goto LABEL_5;
   }
 
@@ -1281,8 +1340,8 @@ LABEL_12:
     }
 
     *buf = 136315138;
-    v21 = "+[PrivacyProxyClient setAppStatus:bundleIdentifier:queue:completionHandler:]";
-    v16 = "%s called with null queue";
+    v20 = "+[PrivacyProxyClient setAppStatus:bundleIdentifier:queue:completionHandler:]";
+    v15 = "%s called with null queue";
     goto LABEL_12;
   }
 
@@ -1295,24 +1354,22 @@ LABEL_12:
     }
 
     *buf = 136315138;
-    v21 = "+[PrivacyProxyClient setAppStatus:bundleIdentifier:queue:completionHandler:]";
-    v16 = "%s called with null completionHandler";
+    v20 = "+[PrivacyProxyClient setAppStatus:bundleIdentifier:queue:completionHandler:]";
+    v15 = "%s called with null completionHandler";
     goto LABEL_12;
   }
 
   v13 = +[PrivacyProxyClient getServerConnection];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __76__PrivacyProxyClient_setAppStatus_bundleIdentifier_queue_completionHandler___block_invoke;
-  v17[3] = &unk_1E7A30A40;
-  v18 = queueCopy;
-  v19 = v12;
-  [v13 setPrivacyProxyAppStatus:status bundleIdentifier:identifierCopy path:0 completionHandler:v17];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __76__PrivacyProxyClient_setAppStatus_bundleIdentifier_queue_completionHandler___block_invoke;
+  v16[3] = &unk_1E7A30A40;
+  v17 = queueCopy;
+  v18 = v12;
+  [v13 setPrivacyProxyAppStatus:status bundleIdentifier:identifierCopy path:0 completionHandler:v16];
 
-  v14 = v18;
+  v14 = v17;
 LABEL_5:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __76__PrivacyProxyClient_setAppStatus_bundleIdentifier_queue_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1332,7 +1389,7 @@ void __76__PrivacyProxyClient_setAppStatus_bundleIdentifier_queue_completionHand
 
 + (void)setAppStatus:(unint64_t)status path:(id)path queue:(id)queue completionHandler:(id)handler
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   queueCopy = queue;
   handlerCopy = handler;
@@ -1346,10 +1403,10 @@ void __76__PrivacyProxyClient_setAppStatus_bundleIdentifier_queue_completionHand
     }
 
     *buf = 136315138;
-    v21 = "+[PrivacyProxyClient setAppStatus:path:queue:completionHandler:]";
-    v16 = "%s called with null path";
+    v20 = "+[PrivacyProxyClient setAppStatus:path:queue:completionHandler:]";
+    v15 = "%s called with null path";
 LABEL_12:
-    _os_log_fault_impl(&dword_1AE7E2000, v14, OS_LOG_TYPE_FAULT, v16, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v14, OS_LOG_TYPE_FAULT, v15, buf, 0xCu);
     goto LABEL_5;
   }
 
@@ -1362,8 +1419,8 @@ LABEL_12:
     }
 
     *buf = 136315138;
-    v21 = "+[PrivacyProxyClient setAppStatus:path:queue:completionHandler:]";
-    v16 = "%s called with null queue";
+    v20 = "+[PrivacyProxyClient setAppStatus:path:queue:completionHandler:]";
+    v15 = "%s called with null queue";
     goto LABEL_12;
   }
 
@@ -1376,24 +1433,22 @@ LABEL_12:
     }
 
     *buf = 136315138;
-    v21 = "+[PrivacyProxyClient setAppStatus:path:queue:completionHandler:]";
-    v16 = "%s called with null completionHandler";
+    v20 = "+[PrivacyProxyClient setAppStatus:path:queue:completionHandler:]";
+    v15 = "%s called with null completionHandler";
     goto LABEL_12;
   }
 
   v13 = +[PrivacyProxyClient getServerConnection];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __64__PrivacyProxyClient_setAppStatus_path_queue_completionHandler___block_invoke;
-  v17[3] = &unk_1E7A30A40;
-  v18 = queueCopy;
-  v19 = v12;
-  [v13 setPrivacyProxyAppStatus:status bundleIdentifier:0 path:pathCopy completionHandler:v17];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __64__PrivacyProxyClient_setAppStatus_path_queue_completionHandler___block_invoke;
+  v16[3] = &unk_1E7A30A40;
+  v17 = queueCopy;
+  v18 = v12;
+  [v13 setPrivacyProxyAppStatus:status bundleIdentifier:0 path:pathCopy completionHandler:v16];
 
-  v14 = v18;
+  v14 = v17;
 LABEL_5:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __64__PrivacyProxyClient_setAppStatus_path_queue_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1413,7 +1468,7 @@ void __64__PrivacyProxyClient_setAppStatus_path_queue_completionHandler___block_
 
 + (void)getAppStatuses:(id)statuses completionHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   statusesCopy = statuses;
   handlerCopy = handler;
   v7 = handlerCopy;
@@ -1426,10 +1481,10 @@ void __64__PrivacyProxyClient_setAppStatus_path_queue_completionHandler___block_
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getAppStatuses:completionHandler:]";
-    v11 = "%s called with null queue";
+    v15 = "+[PrivacyProxyClient getAppStatuses:completionHandler:]";
+    v10 = "%s called with null queue";
 LABEL_9:
-    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v11, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v10, buf, 0xCu);
     goto LABEL_4;
   }
 
@@ -1442,24 +1497,22 @@ LABEL_9:
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getAppStatuses:completionHandler:]";
-    v11 = "%s called with null completionHandler";
+    v15 = "+[PrivacyProxyClient getAppStatuses:completionHandler:]";
+    v10 = "%s called with null completionHandler";
     goto LABEL_9;
   }
 
   v8 = +[PrivacyProxyClient getServerConnection];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __55__PrivacyProxyClient_getAppStatuses_completionHandler___block_invoke;
-  v12[3] = &unk_1E7A30C48;
-  v13 = statusesCopy;
-  v14 = v7;
-  [v8 getPrivacyProxyAppStatusesWithCompletionHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __55__PrivacyProxyClient_getAppStatuses_completionHandler___block_invoke;
+  v11[3] = &unk_1E7A30C48;
+  v12 = statusesCopy;
+  v13 = v7;
+  [v8 getPrivacyProxyAppStatusesWithCompletionHandler:v11];
 
-  v9 = v13;
+  v9 = v12;
 LABEL_4:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __55__PrivacyProxyClient_getAppStatuses_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1485,7 +1538,7 @@ void __55__PrivacyProxyClient_getAppStatuses_completionHandler___block_invoke(ui
 
 + (void)overrideIngressProxy:(id)proxy fallbackProxy:(id)fallbackProxy key:(id)key queue:(id)queue completionHandler:(id)handler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   proxyCopy = proxy;
   fallbackProxyCopy = fallbackProxy;
   keyCopy = key;
@@ -1501,10 +1554,10 @@ void __55__PrivacyProxyClient_getAppStatuses_completionHandler___block_invoke(ui
     }
 
     *buf = 136315138;
-    v25 = "+[PrivacyProxyClient overrideIngressProxy:fallbackProxy:key:queue:completionHandler:]";
-    v20 = "%s called with null queue";
+    v24 = "+[PrivacyProxyClient overrideIngressProxy:fallbackProxy:key:queue:completionHandler:]";
+    v19 = "%s called with null queue";
 LABEL_9:
-    _os_log_fault_impl(&dword_1AE7E2000, v18, OS_LOG_TYPE_FAULT, v20, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v18, OS_LOG_TYPE_FAULT, v19, buf, 0xCu);
     goto LABEL_4;
   }
 
@@ -1517,24 +1570,22 @@ LABEL_9:
     }
 
     *buf = 136315138;
-    v25 = "+[PrivacyProxyClient overrideIngressProxy:fallbackProxy:key:queue:completionHandler:]";
-    v20 = "%s called with null completionHandler";
+    v24 = "+[PrivacyProxyClient overrideIngressProxy:fallbackProxy:key:queue:completionHandler:]";
+    v19 = "%s called with null completionHandler";
     goto LABEL_9;
   }
 
   v17 = +[PrivacyProxyClient getServerConnection];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __85__PrivacyProxyClient_overrideIngressProxy_fallbackProxy_key_queue_completionHandler___block_invoke;
-  v21[3] = &unk_1E7A30A40;
-  v22 = queueCopy;
-  v23 = v16;
-  [v17 overrideIngressProxy:proxyCopy fallbackProxy:fallbackProxyCopy key:keyCopy completionHandler:v21];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __85__PrivacyProxyClient_overrideIngressProxy_fallbackProxy_key_queue_completionHandler___block_invoke;
+  v20[3] = &unk_1E7A30A40;
+  v21 = queueCopy;
+  v22 = v16;
+  [v17 overrideIngressProxy:proxyCopy fallbackProxy:fallbackProxyCopy key:keyCopy completionHandler:v20];
 
-  v18 = v22;
+  v18 = v21;
 LABEL_4:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __85__PrivacyProxyClient_overrideIngressProxy_fallbackProxy_key_queue_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1554,7 +1605,7 @@ void __85__PrivacyProxyClient_overrideIngressProxy_fallbackProxy_key_queue_compl
 
 + (void)getOverriddeIngressProxy:(id)proxy completionHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   proxyCopy = proxy;
   handlerCopy = handler;
   v7 = handlerCopy;
@@ -1567,10 +1618,10 @@ void __85__PrivacyProxyClient_overrideIngressProxy_fallbackProxy_key_queue_compl
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getOverriddeIngressProxy:completionHandler:]";
-    v11 = "%s called with null queue";
+    v15 = "+[PrivacyProxyClient getOverriddeIngressProxy:completionHandler:]";
+    v10 = "%s called with null queue";
 LABEL_9:
-    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v11, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v10, buf, 0xCu);
     goto LABEL_4;
   }
 
@@ -1583,24 +1634,22 @@ LABEL_9:
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getOverriddeIngressProxy:completionHandler:]";
-    v11 = "%s called with null completionHandler";
+    v15 = "+[PrivacyProxyClient getOverriddeIngressProxy:completionHandler:]";
+    v10 = "%s called with null completionHandler";
     goto LABEL_9;
   }
 
   v8 = +[PrivacyProxyClient getServerConnection];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __65__PrivacyProxyClient_getOverriddeIngressProxy_completionHandler___block_invoke;
-  v12[3] = &unk_1E7A30C98;
-  v13 = proxyCopy;
-  v14 = v7;
-  [v8 getOverrideIngressProxyWithCompletionHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __65__PrivacyProxyClient_getOverriddeIngressProxy_completionHandler___block_invoke;
+  v11[3] = &unk_1E7A30C98;
+  v12 = proxyCopy;
+  v13 = v7;
+  [v8 getOverrideIngressProxyWithCompletionHandler:v11];
 
-  v9 = v13;
+  v9 = v12;
 LABEL_4:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __65__PrivacyProxyClient_getOverriddeIngressProxy_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
@@ -1629,7 +1678,7 @@ void __65__PrivacyProxyClient_getOverriddeIngressProxy_completionHandler___block
 
 + (void)overridePreferredProxy:(id)proxy queue:(id)queue completionHandler:(id)handler
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   proxyCopy = proxy;
   queueCopy = queue;
   handlerCopy = handler;
@@ -1643,10 +1692,10 @@ void __65__PrivacyProxyClient_getOverriddeIngressProxy_completionHandler___block
     }
 
     *buf = 136315138;
-    v19 = "+[PrivacyProxyClient overridePreferredProxy:queue:completionHandler:]";
-    v14 = "%s called with null queue";
+    v18 = "+[PrivacyProxyClient overridePreferredProxy:queue:completionHandler:]";
+    v13 = "%s called with null queue";
 LABEL_9:
-    _os_log_fault_impl(&dword_1AE7E2000, v12, OS_LOG_TYPE_FAULT, v14, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v12, OS_LOG_TYPE_FAULT, v13, buf, 0xCu);
     goto LABEL_4;
   }
 
@@ -1659,24 +1708,22 @@ LABEL_9:
     }
 
     *buf = 136315138;
-    v19 = "+[PrivacyProxyClient overridePreferredProxy:queue:completionHandler:]";
-    v14 = "%s called with null completionHandler";
+    v18 = "+[PrivacyProxyClient overridePreferredProxy:queue:completionHandler:]";
+    v13 = "%s called with null completionHandler";
     goto LABEL_9;
   }
 
   v11 = +[PrivacyProxyClient getServerConnection];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __69__PrivacyProxyClient_overridePreferredProxy_queue_completionHandler___block_invoke;
-  v15[3] = &unk_1E7A30A40;
-  v16 = queueCopy;
-  v17 = v10;
-  [v11 overridePreferredProxy:proxyCopy completionHandler:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __69__PrivacyProxyClient_overridePreferredProxy_queue_completionHandler___block_invoke;
+  v14[3] = &unk_1E7A30A40;
+  v15 = queueCopy;
+  v16 = v10;
+  [v11 overridePreferredProxy:proxyCopy completionHandler:v14];
 
-  v12 = v16;
+  v12 = v15;
 LABEL_4:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __69__PrivacyProxyClient_overridePreferredProxy_queue_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1696,7 +1743,7 @@ void __69__PrivacyProxyClient_overridePreferredProxy_queue_completionHandler___b
 
 + (void)getPreferredProxy:(id)proxy completionHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   proxyCopy = proxy;
   handlerCopy = handler;
   v7 = handlerCopy;
@@ -1709,10 +1756,10 @@ void __69__PrivacyProxyClient_overridePreferredProxy_queue_completionHandler___b
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getPreferredProxy:completionHandler:]";
-    v11 = "%s called with null queue";
+    v15 = "+[PrivacyProxyClient getPreferredProxy:completionHandler:]";
+    v10 = "%s called with null queue";
 LABEL_9:
-    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v11, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v10, buf, 0xCu);
     goto LABEL_4;
   }
 
@@ -1725,24 +1772,22 @@ LABEL_9:
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getPreferredProxy:completionHandler:]";
-    v11 = "%s called with null completionHandler";
+    v15 = "+[PrivacyProxyClient getPreferredProxy:completionHandler:]";
+    v10 = "%s called with null completionHandler";
     goto LABEL_9;
   }
 
   v8 = +[PrivacyProxyClient getServerConnection];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __58__PrivacyProxyClient_getPreferredProxy_completionHandler___block_invoke;
-  v12[3] = &unk_1E7A30CC0;
-  v13 = proxyCopy;
-  v14 = v7;
-  [v8 getPreferredProxyWithCompletionHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __58__PrivacyProxyClient_getPreferredProxy_completionHandler___block_invoke;
+  v11[3] = &unk_1E7A30CC0;
+  v12 = proxyCopy;
+  v13 = v7;
+  [v8 getPreferredProxyWithCompletionHandler:v11];
 
-  v9 = v13;
+  v9 = v12;
 LABEL_4:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __58__PrivacyProxyClient_getPreferredProxy_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1765,7 +1810,7 @@ void __58__PrivacyProxyClient_getPreferredProxy_completionHandler___block_invoke
 
 + (void)overridePreferredResolver:(id)resolver queue:(id)queue completionHandler:(id)handler
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   resolverCopy = resolver;
   queueCopy = queue;
   handlerCopy = handler;
@@ -1779,10 +1824,10 @@ void __58__PrivacyProxyClient_getPreferredProxy_completionHandler___block_invoke
     }
 
     *buf = 136315138;
-    v19 = "+[PrivacyProxyClient overridePreferredResolver:queue:completionHandler:]";
-    v14 = "%s called with null queue";
+    v18 = "+[PrivacyProxyClient overridePreferredResolver:queue:completionHandler:]";
+    v13 = "%s called with null queue";
 LABEL_9:
-    _os_log_fault_impl(&dword_1AE7E2000, v12, OS_LOG_TYPE_FAULT, v14, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v12, OS_LOG_TYPE_FAULT, v13, buf, 0xCu);
     goto LABEL_4;
   }
 
@@ -1795,24 +1840,22 @@ LABEL_9:
     }
 
     *buf = 136315138;
-    v19 = "+[PrivacyProxyClient overridePreferredResolver:queue:completionHandler:]";
-    v14 = "%s called with null completionHandler";
+    v18 = "+[PrivacyProxyClient overridePreferredResolver:queue:completionHandler:]";
+    v13 = "%s called with null completionHandler";
     goto LABEL_9;
   }
 
   v11 = +[PrivacyProxyClient getServerConnection];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __72__PrivacyProxyClient_overridePreferredResolver_queue_completionHandler___block_invoke;
-  v15[3] = &unk_1E7A30A40;
-  v16 = queueCopy;
-  v17 = v10;
-  [v11 overridePreferredResolver:resolverCopy completionHandler:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __72__PrivacyProxyClient_overridePreferredResolver_queue_completionHandler___block_invoke;
+  v14[3] = &unk_1E7A30A40;
+  v15 = queueCopy;
+  v16 = v10;
+  [v11 overridePreferredResolver:resolverCopy completionHandler:v14];
 
-  v12 = v16;
+  v12 = v15;
 LABEL_4:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __72__PrivacyProxyClient_overridePreferredResolver_queue_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1832,7 +1875,7 @@ void __72__PrivacyProxyClient_overridePreferredResolver_queue_completionHandler_
 
 + (void)getPreferredResolver:(id)resolver completionHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   resolverCopy = resolver;
   handlerCopy = handler;
   v7 = handlerCopy;
@@ -1845,10 +1888,10 @@ void __72__PrivacyProxyClient_overridePreferredResolver_queue_completionHandler_
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getPreferredResolver:completionHandler:]";
-    v11 = "%s called with null queue";
+    v15 = "+[PrivacyProxyClient getPreferredResolver:completionHandler:]";
+    v10 = "%s called with null queue";
 LABEL_9:
-    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v11, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v10, buf, 0xCu);
     goto LABEL_4;
   }
 
@@ -1861,24 +1904,22 @@ LABEL_9:
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getPreferredResolver:completionHandler:]";
-    v11 = "%s called with null completionHandler";
+    v15 = "+[PrivacyProxyClient getPreferredResolver:completionHandler:]";
+    v10 = "%s called with null completionHandler";
     goto LABEL_9;
   }
 
   v8 = +[PrivacyProxyClient getServerConnection];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __61__PrivacyProxyClient_getPreferredResolver_completionHandler___block_invoke;
-  v12[3] = &unk_1E7A30CC0;
-  v13 = resolverCopy;
-  v14 = v7;
-  [v8 getPreferredResolverWithCompletionHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __61__PrivacyProxyClient_getPreferredResolver_completionHandler___block_invoke;
+  v11[3] = &unk_1E7A30CC0;
+  v12 = resolverCopy;
+  v13 = v7;
+  [v8 getPreferredResolverWithCompletionHandler:v11];
 
-  v9 = v13;
+  v9 = v12;
 LABEL_4:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __61__PrivacyProxyClient_getPreferredResolver_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1899,6 +1940,56 @@ void __61__PrivacyProxyClient_getPreferredResolver_completionHandler___block_inv
   dispatch_async(v7, block);
 }
 
++ (void)setForceFallback:(BOOL)fallback queue:(id)queue completionHandler:(id)handler
+{
+  fallbackCopy = fallback;
+  v18 = *MEMORY[0x1E69E9840];
+  queueCopy = queue;
+  handlerCopy = handler;
+  v9 = handlerCopy;
+  if (!queueCopy)
+  {
+    v11 = nplog_obj();
+    if (!os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    {
+      goto LABEL_4;
+    }
+
+    *buf = 136315138;
+    v17 = "+[PrivacyProxyClient setForceFallback:queue:completionHandler:]";
+    v12 = "%s called with null queue";
+LABEL_9:
+    _os_log_fault_impl(&dword_1AE7E2000, v11, OS_LOG_TYPE_FAULT, v12, buf, 0xCu);
+    goto LABEL_4;
+  }
+
+  if (!handlerCopy)
+  {
+    v11 = nplog_obj();
+    if (!os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    {
+      goto LABEL_4;
+    }
+
+    *buf = 136315138;
+    v17 = "+[PrivacyProxyClient setForceFallback:queue:completionHandler:]";
+    v12 = "%s called with null completionHandler";
+    goto LABEL_9;
+  }
+
+  v10 = +[PrivacyProxyClient getServerConnection];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __63__PrivacyProxyClient_setForceFallback_queue_completionHandler___block_invoke;
+  v13[3] = &unk_1E7A30A40;
+  v14 = queueCopy;
+  v15 = v9;
+  [v10 setForceFallback:fallbackCopy completionHandler:v13];
+
+  v11 = v14;
+LABEL_4:
+}
+
 void __63__PrivacyProxyClient_setForceFallback_queue_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -1916,7 +2007,7 @@ void __63__PrivacyProxyClient_setForceFallback_queue_completionHandler___block_i
 
 + (void)getForceFallback:(id)fallback completionHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   fallbackCopy = fallback;
   handlerCopy = handler;
   v7 = handlerCopy;
@@ -1929,10 +2020,10 @@ void __63__PrivacyProxyClient_setForceFallback_queue_completionHandler___block_i
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getForceFallback:completionHandler:]";
-    v11 = "%s called with null queue";
+    v15 = "+[PrivacyProxyClient getForceFallback:completionHandler:]";
+    v10 = "%s called with null queue";
 LABEL_9:
-    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v11, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v10, buf, 0xCu);
     goto LABEL_4;
   }
 
@@ -1945,24 +2036,22 @@ LABEL_9:
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient getForceFallback:completionHandler:]";
-    v11 = "%s called with null completionHandler";
+    v15 = "+[PrivacyProxyClient getForceFallback:completionHandler:]";
+    v10 = "%s called with null completionHandler";
     goto LABEL_9;
   }
 
   v8 = +[PrivacyProxyClient getServerConnection];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __57__PrivacyProxyClient_getForceFallback_completionHandler___block_invoke;
-  v12[3] = &unk_1E7A30A90;
-  v13 = fallbackCopy;
-  v14 = v7;
-  [v8 getForceFallbackWithCompletionHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __57__PrivacyProxyClient_getForceFallback_completionHandler___block_invoke;
+  v11[3] = &unk_1E7A30A90;
+  v12 = fallbackCopy;
+  v13 = v7;
+  [v8 getForceFallbackWithCompletionHandler:v11];
 
-  v9 = v13;
+  v9 = v12;
 LABEL_4:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __57__PrivacyProxyClient_getForceFallback_completionHandler___block_invoke(uint64_t a1, char a2, void *a3)
@@ -1983,7 +2072,7 @@ void __57__PrivacyProxyClient_getForceFallback_completionHandler___block_invoke(
 
 + (void)getProxiedContentMapEnabledForIdentifier:(id)identifier queue:(id)queue completionHandler:(id)handler
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   queueCopy = queue;
   handlerCopy = handler;
@@ -1997,10 +2086,10 @@ void __57__PrivacyProxyClient_getForceFallback_completionHandler___block_invoke(
     }
 
     *buf = 136315138;
-    v20 = "+[PrivacyProxyClient getProxiedContentMapEnabledForIdentifier:queue:completionHandler:]";
-    v14 = "%s called with null identifier";
+    v19 = "+[PrivacyProxyClient getProxiedContentMapEnabledForIdentifier:queue:completionHandler:]";
+    v13 = "%s called with null identifier";
 LABEL_12:
-    _os_log_fault_impl(&dword_1AE7E2000, v12, OS_LOG_TYPE_FAULT, v14, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v12, OS_LOG_TYPE_FAULT, v13, buf, 0xCu);
     goto LABEL_5;
   }
 
@@ -2013,8 +2102,8 @@ LABEL_12:
     }
 
     *buf = 136315138;
-    v20 = "+[PrivacyProxyClient getProxiedContentMapEnabledForIdentifier:queue:completionHandler:]";
-    v14 = "%s called with null queue";
+    v19 = "+[PrivacyProxyClient getProxiedContentMapEnabledForIdentifier:queue:completionHandler:]";
+    v13 = "%s called with null queue";
     goto LABEL_12;
   }
 
@@ -2027,25 +2116,23 @@ LABEL_12:
     }
 
     *buf = 136315138;
-    v20 = "+[PrivacyProxyClient getProxiedContentMapEnabledForIdentifier:queue:completionHandler:]";
-    v14 = "%s called with null completionHandler";
+    v19 = "+[PrivacyProxyClient getProxiedContentMapEnabledForIdentifier:queue:completionHandler:]";
+    v13 = "%s called with null completionHandler";
     goto LABEL_12;
   }
 
   v11 = +[PrivacyProxyClient getServerConnection];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __87__PrivacyProxyClient_getProxiedContentMapEnabledForIdentifier_queue_completionHandler___block_invoke;
-  v15[3] = &unk_1E7A30D10;
-  v16 = queueCopy;
-  v17 = identifierCopy;
-  v18 = v10;
-  [v11 getPrivacyProxyInfoWithCompletionHandler:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __87__PrivacyProxyClient_getProxiedContentMapEnabledForIdentifier_queue_completionHandler___block_invoke;
+  v14[3] = &unk_1E7A30D10;
+  v15 = queueCopy;
+  v16 = identifierCopy;
+  v17 = v10;
+  [v11 getPrivacyProxyInfoWithCompletionHandler:v14];
 
-  v12 = v16;
+  v12 = v15;
 LABEL_5:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __87__PrivacyProxyClient_getProxiedContentMapEnabledForIdentifier_queue_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2072,15 +2159,14 @@ uint64_t __87__PrivacyProxyClient_getProxiedContentMapEnabledForIdentifier_queue
   v2 = [*(a1 + 32) enabledProxiedContentMaps];
   [v2 containsObject:*(a1 + 40)];
 
-  v3 = *(a1 + 48);
-  v4 = *(*(a1 + 56) + 16);
+  v3 = *(*(a1 + 56) + 16);
 
-  return v4();
+  return v3();
 }
 
 + (void)configurationFetch:(id)fetch completionHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   fetchCopy = fetch;
   handlerCopy = handler;
   v7 = handlerCopy;
@@ -2093,10 +2179,10 @@ uint64_t __87__PrivacyProxyClient_getProxiedContentMapEnabledForIdentifier_queue
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient configurationFetch:completionHandler:]";
-    v11 = "%s called with null queue";
+    v15 = "+[PrivacyProxyClient configurationFetch:completionHandler:]";
+    v10 = "%s called with null queue";
 LABEL_9:
-    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v11, buf, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, v9, OS_LOG_TYPE_FAULT, v10, buf, 0xCu);
     goto LABEL_4;
   }
 
@@ -2109,24 +2195,22 @@ LABEL_9:
     }
 
     *buf = 136315138;
-    v16 = "+[PrivacyProxyClient configurationFetch:completionHandler:]";
-    v11 = "%s called with null completionHandler";
+    v15 = "+[PrivacyProxyClient configurationFetch:completionHandler:]";
+    v10 = "%s called with null completionHandler";
     goto LABEL_9;
   }
 
   v8 = +[PrivacyProxyClient getServerConnection];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __59__PrivacyProxyClient_configurationFetch_completionHandler___block_invoke;
-  v12[3] = &unk_1E7A30D60;
-  v13 = fetchCopy;
-  v14 = v7;
-  [v8 fetchNewConfigurationWithCompletionHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __59__PrivacyProxyClient_configurationFetch_completionHandler___block_invoke;
+  v11[3] = &unk_1E7A30D60;
+  v12 = fetchCopy;
+  v13 = v7;
+  [v8 fetchNewConfigurationWithCompletionHandler:v11];
 
-  v9 = v13;
+  v9 = v12;
 LABEL_4:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __59__PrivacyProxyClient_configurationFetch_completionHandler___block_invoke(uint64_t a1, char a2)

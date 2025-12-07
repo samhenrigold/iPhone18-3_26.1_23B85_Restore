@@ -178,9 +178,9 @@ void sub_100004DDC(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100005C6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_100005C6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -260,9 +260,9 @@ LABEL_18:
   }
 }
 
-void sub_100006E94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_100006E94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -279,19 +279,18 @@ void sub_100006EE8(uint64_t a1)
   v2 = atomic_load((*(*(a1 + 48) + 8) + 24));
   if (v2 == 1)
   {
-    v3 = *(a1 + 40);
     if ((*(*(a1 + 40) + 16))())
     {
-      v4 = *(*(a1 + 56) + 8);
-      v5 = *(v4 + 40);
-      *(v4 + 40) = 0;
+      v3 = *(*(a1 + 56) + 8);
+      v4 = *(v3 + 40);
+      *(v3 + 40) = 0;
 
       dispatch_semaphore_signal(*(a1 + 32));
-      v6 = TRILogCategory_Archiving();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v5 = TRILogCategory_Archiving();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v15) = 0;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Deferring during AFSC stream write.", &v15, 2u);
+        LOWORD(v13) = 0;
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Deferring during AFSC stream write.", &v13, 2u);
       }
 
       atomic_store(2u, (*(*(a1 + 48) + 8) + 24));
@@ -299,23 +298,22 @@ void sub_100006EE8(uint64_t a1)
 
     else
     {
-      v10 = *(a1 + 64);
       [*(*(*(a1 + 56) + 8) + 40) bytes];
       [*(*(*(a1 + 56) + 8) + 40) length];
-      v11 = ParallelCompressionAFSCStreamWrite();
-      v12 = *(*(a1 + 56) + 8);
-      v13 = *(v12 + 40);
-      *(v12 + 40) = 0;
+      v9 = ParallelCompressionAFSCStreamWrite();
+      v10 = *(*(a1 + 56) + 8);
+      v11 = *(v10 + 40);
+      *(v10 + 40) = 0;
 
       dispatch_semaphore_signal(*(a1 + 32));
-      if (v11 < 0)
+      if (v9 < 0)
       {
-        v14 = TRILogCategory_Archiving();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v12 = TRILogCategory_Archiving();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          v15 = 134217984;
-          v16 = v11;
-          _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "AFSC stream failed to write with error (%zu)", &v15, 0xCu);
+          v13 = 134217984;
+          v14 = v9;
+          _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "AFSC stream failed to write with error (%zu)", &v13, 0xCu);
         }
 
         atomic_store(0, (*(*(a1 + 48) + 8) + 24));
@@ -325,19 +323,19 @@ void sub_100006EE8(uint64_t a1)
 
   else
   {
-    v7 = *(*(a1 + 56) + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = 0;
+    v6 = *(*(a1 + 56) + 8);
+    v7 = *(v6 + 40);
+    *(v6 + 40) = 0;
 
-    v9 = *(a1 + 32);
+    v8 = *(a1 + 32);
 
-    dispatch_semaphore_signal(v9);
+    dispatch_semaphore_signal(v8);
   }
 }
 
-void sub_1000073D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1000073D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -525,21 +523,21 @@ double sub_1000082A4(double result)
   return result;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> sub_1000082C8(double a1)
+double sub_1000082C8(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/Espresso.framework/Espresso", 0);
   atomic_store(1u, &dword_100014ED0);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> sub_10000836C(double a1)
+double sub_10000836C(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/GenerativeModels.framework/GenerativeModels", 0);
   atomic_store(1u, &dword_100014ED4);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> sub_100008410(double a1)
+double sub_100008410(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/GeoServices.framework/GeoServices", 0);
   atomic_store(1u, &unk_100014ED8);

@@ -4,6 +4,7 @@
 - (AAMessagingServiceDelegate)custodianDelegate;
 - (AAMessagingServiceDelegate)inheritanceDelegate;
 - (id)_optionsDictionaryWithResponseIdentifier:(id)identifier fireAndForget:(BOOL)forget requiredCapabilities:(id)capabilities lackingCapabilities:(id)lackingCapabilities sendFromHandleUri:(id)uri;
+- (id)sendMessage:(id)message destinations:(id)destinations sendFromHandleUri:(id)uri responseIdentifier:(id)identifier fireAndForget:(BOOL)forget requiredCapabilities:(id)capabilities lackingCapabilities:(id)lackingCapabilities error:(id *)self0;
 - (void)_addMessageToPendingCustodianMessages:(id)messages;
 - (void)_addMessageToPendingInheritanceMessages:(id)messages;
 - (void)_getCurrentRemoteDevices:(id)devices completion:(id)completion;
@@ -12,6 +13,7 @@
 - (void)doDestinations:(id)destinations haveIneligibleDeviceForCapability:(id)capability completion:(id)completion;
 - (void)fetchCapability:(id)capability destinations:(id)destinations completion:(id)completion;
 - (void)partitionByCapability:(id)capability completion:(id)completion;
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error context:(id)context;
 - (void)service:(id)service account:(id)account incomingData:(id)data fromID:(id)d context:(id)context;
 - (void)service:(id)service activeAccountsChanged:(id)changed;
 - (void)service:(id)service devicesChanged:(id)changed;
@@ -73,46 +75,43 @@ uint64_t __35__AAMessagingService_sharedService__block_invoke()
     v5->_incomingMessageQueue = v15;
 
     v5->_lock._os_unfair_lock_opaque = 0;
-    v17 = _AALogSystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = _AALogSystem(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v22 = nameCopy;
-      _os_log_impl(&dword_1B6F6A000, v17, OS_LOG_TYPE_DEFAULT, "Created AAMessagingService: %@", buf, 0xCu);
+      _os_log_impl(&dword_1B6F6A000, v18, OS_LOG_TYPE_DEFAULT, "Created AAMessagingService: %@", buf, 0xCu);
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (void)partitionByCapability:(id)capability completion:(id)completion
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v7 = MEMORY[0x1E695DF90];
   capabilityCopy = capability;
   v9 = objc_alloc_init(v7);
-  v17[0] = capabilityCopy;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __55__AAMessagingService_partitionByCapability_completion___block_invoke;
-  v14[3] = &unk_1E7C9D9A0;
-  v15 = v9;
-  v16 = completionCopy;
+  v16[0] = capabilityCopy;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __55__AAMessagingService_partitionByCapability_completion___block_invoke;
+  v13[3] = &unk_1E7C9D9A0;
+  v14 = v9;
+  v15 = completionCopy;
   v11 = completionCopy;
   v12 = v9;
-  [(AAMessagingService *)self _getCurrentRemoteDevices:v10 completion:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(AAMessagingService *)self _getCurrentRemoteDevices:v10 completion:v13];
 }
 
 void __55__AAMessagingService_partitionByCapability_completion___block_invoke(uint64_t a1, int a2, void *a3, void *a4)
 {
   v7 = a3;
   v8 = a4;
-  v9 = _AALogSystem();
+  v9 = _AALogSystem(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     __55__AAMessagingService_partitionByCapability_completion___block_invoke_cold_1(v7, v8, v9);
@@ -433,6 +432,103 @@ void __58__AAMessagingService__getCurrentRemoteDevices_completion___block_invoke
   return v26;
 }
 
+- (id)sendMessage:(id)message destinations:(id)destinations sendFromHandleUri:(id)uri responseIdentifier:(id)identifier fireAndForget:(BOOL)forget requiredCapabilities:(id)capabilities lackingCapabilities:(id)lackingCapabilities error:(id *)self0
+{
+  forgetCopy = forget;
+  v51 = *MEMORY[0x1E69E9840];
+  messageCopy = message;
+  identifierCopy = identifier;
+  v18 = MEMORY[0x1E695DFA8];
+  lackingCapabilitiesCopy = lackingCapabilities;
+  capabilitiesCopy = capabilities;
+  uriCopy = uri;
+  destinationsCopy = destinations;
+  v23 = objc_alloc_init(v18);
+  v24 = [(AAMessagingService *)self _optionsDictionaryWithResponseIdentifier:identifierCopy fireAndForget:forgetCopy requiredCapabilities:capabilitiesCopy lackingCapabilities:lackingCapabilitiesCopy sendFromHandleUri:uriCopy];
+
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v41[2] = __145__AAMessagingService_sendMessage_destinations_sendFromHandleUri_responseIdentifier_fireAndForget_requiredCapabilities_lackingCapabilities_error___block_invoke;
+  v41[3] = &unk_1E7C9DA60;
+  v25 = v23;
+  v42 = v25;
+  [destinationsCopy enumerateObjectsUsingBlock:v41];
+
+  v26 = @"message";
+  if (forgetCopy)
+  {
+    v26 = @"fire-and-forget message";
+  }
+
+  v27 = v26;
+  v28 = _AALogSystem(v27);
+  v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
+  if (identifierCopy)
+  {
+    if (!v29)
+    {
+      goto LABEL_9;
+    }
+
+    *buf = 138413058;
+    v44 = v27;
+    v45 = 2112;
+    v46 = messageCopy;
+    v47 = 2112;
+    v48 = v25;
+    v49 = 2112;
+    v50 = identifierCopy;
+    v30 = "Sending %@: %@ to %@ in response to %@";
+    v31 = v28;
+    v32 = 42;
+  }
+
+  else
+  {
+    if (!v29)
+    {
+      goto LABEL_9;
+    }
+
+    *buf = 138412802;
+    v44 = v27;
+    v45 = 2112;
+    v46 = messageCopy;
+    v47 = 2112;
+    v48 = v25;
+    v30 = "Sending %@: %@ to %@";
+    v31 = v28;
+    v32 = 32;
+  }
+
+  _os_log_impl(&dword_1B6F6A000, v31, OS_LOG_TYPE_DEFAULT, v30, buf, v32);
+LABEL_9:
+
+  service = self->_service;
+  v40 = 0;
+  v34 = [(IDSService *)service sendData:messageCopy toDestinations:v25 priority:300 options:v24 identifier:&v40 error:error];
+  v35 = v40;
+  v36 = _AALogSystem(v35);
+  v37 = os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG);
+  if (v34)
+  {
+    if (v37)
+    {
+      [AAMessagingService sendMessage:destinations:sendFromHandleUri:responseIdentifier:fireAndForget:requiredCapabilities:lackingCapabilities:error:];
+    }
+  }
+
+  else if (v37)
+  {
+    [AAMessagingService sendMessage:destinations:sendFromHandleUri:responseIdentifier:fireAndForget:requiredCapabilities:lackingCapabilities:error:];
+  }
+
+  [MEMORY[0x1E696AFB0] UUID];
+  v38 = [objc_claimAutoreleasedReturnValue() initWithUUIDString:v35];
+
+  return v38;
+}
+
 void __145__AAMessagingService_sendMessage_destinations_sendFromHandleUri_responseIdentifier_fireAndForget_requiredCapabilities_lackingCapabilities_error___block_invoke(uint64_t a1, void *a2)
 {
   v6 = a2;
@@ -448,7 +544,7 @@ void __145__AAMessagingService_sendMessage_destinations_sendFromHandleUri_respon
 
 - (void)setCustodianDelegate:(id)delegate
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   os_unfair_lock_lock(&self->_lock);
   WeakRetained = objc_loadWeakRetained(&self->_custodianDelegate);
@@ -459,12 +555,12 @@ void __145__AAMessagingService_sendMessage_destinations_sendFromHandleUri_respon
     [currentHandler handleFailureInMethod:a2 object:self file:@"AAMessagingService.m" lineNumber:247 description:@"Custodian delegate already set!"];
   }
 
-  v8 = _AALogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _AALogSystem(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = delegateCopy;
-    _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "Setting custodian delegate %@", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = delegateCopy;
+    _os_log_impl(&dword_1B6F6A000, v9, OS_LOG_TYPE_DEFAULT, "Setting custodian delegate %@", &v12, 0xCu);
   }
 
   if (delegateCopy)
@@ -475,21 +571,19 @@ void __145__AAMessagingService_sendMessage_destinations_sendFromHandleUri_respon
 
   else
   {
-    v9 = _AALogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = _AALogSystem(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [AAMessagingService setCustodianDelegate:];
     }
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setInheritanceDelegate:(id)delegate
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   os_unfair_lock_lock(&self->_lock);
   WeakRetained = objc_loadWeakRetained(&self->_inheritanceDelegate);
@@ -500,12 +594,12 @@ void __145__AAMessagingService_sendMessage_destinations_sendFromHandleUri_respon
     [currentHandler handleFailureInMethod:a2 object:self file:@"AAMessagingService.m" lineNumber:263 description:@"Inheritance delegate already set!"];
   }
 
-  v8 = _AALogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _AALogSystem(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = delegateCopy;
-    _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "Setting inheritance delegate %@", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = delegateCopy;
+    _os_log_impl(&dword_1B6F6A000, v9, OS_LOG_TYPE_DEFAULT, "Setting inheritance delegate %@", &v12, 0xCu);
   }
 
   if (delegateCopy)
@@ -516,16 +610,14 @@ void __145__AAMessagingService_sendMessage_destinations_sendFromHandleUri_respon
 
   else
   {
-    v9 = _AALogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = _AALogSystem(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [AAMessagingService setInheritanceDelegate:];
     }
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addMessageToPendingInheritanceMessages:(id)messages
@@ -578,7 +670,7 @@ void __145__AAMessagingService_sendMessage_destinations_sendFromHandleUri_respon
 
 - (void)_processPendingIDSMessagesOfType:(int64_t)type
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (type == 1)
   {
     v5 = 80;
@@ -592,7 +684,7 @@ void __145__AAMessagingService_sendMessage_destinations_sendFromHandleUri_respon
   v6 = *(&self->super.isa + v5);
   v7 = [*(&self->super.isa + v5) copy];
   v8 = [v7 count];
-  v9 = _AALogSystem();
+  v9 = _AALogSystem(v8);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
   if (v8)
   {
@@ -603,57 +695,57 @@ void __145__AAMessagingService_sendMessage_destinations_sendFromHandleUri_respon
       _os_log_impl(&dword_1B6F6A000, v9, OS_LOG_TYPE_DEFAULT, "Processing pending messages of type %ld", buf, 0xCu);
     }
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v11 = v7;
-    v12 = [v11 countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v26;
+      v14 = *v25;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v26 != v14)
+          if (*v25 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          [(AAMessagingService *)self _processMessage:*(*(&v25 + 1) + 8 * i)];
+          [(AAMessagingService *)self _processMessage:*(*(&v24 + 1) + 8 * i)];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v24 objects:v29 count:16];
       }
 
       while (v13);
     }
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v9 = v11;
-    v16 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
+    v16 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v22;
+      v18 = *v21;
       do
       {
         for (j = 0; j != v17; ++j)
         {
-          if (*v22 != v18)
+          if (*v21 != v18)
           {
             objc_enumerationMutation(v9);
           }
 
-          [v6 removeObject:{*(*(&v21 + 1) + 8 * j), v21}];
+          [v6 removeObject:{*(*(&v20 + 1) + 8 * j), v20}];
         }
 
-        v17 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v17 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
       }
 
       while (v17);
@@ -666,8 +758,6 @@ void __145__AAMessagingService_sendMessage_destinations_sendFromHandleUri_respon
     typeCopy2 = type;
     _os_log_impl(&dword_1B6F6A000, v9, OS_LOG_TYPE_DEFAULT, "No messages of type %ld for the delegate to process.", buf, 0xCu);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_processMessage:(id)message
@@ -712,7 +802,7 @@ void __38__AAMessagingService__processMessage___block_invoke(uint64_t a1)
 
   else
   {
-    v4 = _AALogSystem();
+    v4 = _AALogSystem(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __38__AAMessagingService__processMessage___block_invoke_cold_1();
@@ -722,7 +812,7 @@ void __38__AAMessagingService__processMessage___block_invoke(uint64_t a1)
 
 - (void)service:(id)service account:(id)account incomingData:(id)data fromID:(id)d context:(id)context
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   dCopy = d;
   contextCopy = context;
@@ -731,55 +821,31 @@ void __38__AAMessagingService__processMessage___block_invoke(uint64_t a1)
   v15 = [(AAMessagingDestination *)v13 initWithHandle:toID];
   destinationURI = [(AAMessagingDestination *)v15 destinationURI];
 
-  v17 = _AALogSystem();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v18 = _AALogSystem(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     fromID = [contextCopy fromID];
-    v28 = 138413058;
-    v29 = dataCopy;
-    v30 = 2112;
-    v31 = dCopy;
+    v30 = 138413058;
+    v31 = dataCopy;
     v32 = 2112;
-    v33 = destinationURI;
+    v33 = dCopy;
     v34 = 2112;
-    v35 = fromID;
-    _os_log_debug_impl(&dword_1B6F6A000, v17, OS_LOG_TYPE_DEBUG, "🎒AAMessagingService: received data %@ from %@, sentToHandleUri: %@ and context %@. Calling delegates", &v28, 0x2Au);
+    v35 = destinationURI;
+    v36 = 2112;
+    v37 = fromID;
+    _os_log_debug_impl(&dword_1B6F6A000, v18, OS_LOG_TYPE_DEBUG, "🎒AAMessagingService: received data %@ from %@, sentToHandleUri: %@ and context %@. Calling delegates", &v30, 0x2Au);
   }
 
-  v18 = [[AAPendingIDSMessage alloc] initInheritanceMessageFrom:dCopy data:dataCopy sentToHandleUri:destinationURI];
-  v19 = [[AAPendingIDSMessage alloc] initCustodianMessageFrom:dCopy data:dataCopy sentToHandleUri:destinationURI];
+  v19 = [[AAPendingIDSMessage alloc] initInheritanceMessageFrom:dCopy data:dataCopy sentToHandleUri:destinationURI];
+  v20 = [[AAPendingIDSMessage alloc] initCustodianMessageFrom:dCopy data:dataCopy sentToHandleUri:destinationURI];
   os_unfair_lock_lock(&self->_lock);
   WeakRetained = objc_loadWeakRetained(&self->_inheritanceDelegate);
 
-  v21 = _AALogSystem();
-  v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG);
+  v23 = _AALogSystem(v22);
+  v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG);
   if (WeakRetained)
   {
-    if (v22)
-    {
-      [AAMessagingService service:account:incomingData:fromID:context:];
-    }
-
-    [(AAMessagingService *)self _processMessage:v18];
-  }
-
-  else
-  {
-    if (v22)
-    {
-      [AAMessagingService service:account:incomingData:fromID:context:];
-    }
-
-    [(AAMessagingService *)self _addMessageToPendingInheritanceMessages:v18];
-  }
-
-  v23 = objc_loadWeakRetained(&self->_custodianDelegate);
-
-  v24 = _AALogSystem();
-  v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG);
-  if (v23)
-  {
-    if (v25)
+    if (v24)
     {
       [AAMessagingService service:account:incomingData:fromID:context:];
     }
@@ -789,47 +855,88 @@ void __38__AAMessagingService__processMessage___block_invoke(uint64_t a1)
 
   else
   {
-    if (v25)
+    if (v24)
     {
       [AAMessagingService service:account:incomingData:fromID:context:];
     }
 
-    [(AAMessagingService *)self _addMessageToPendingCustodianMessages:v19];
+    [(AAMessagingService *)self _addMessageToPendingInheritanceMessages:v19];
+  }
+
+  v25 = objc_loadWeakRetained(&self->_custodianDelegate);
+
+  v27 = _AALogSystem(v26);
+  v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG);
+  if (v25)
+  {
+    if (v28)
+    {
+      [AAMessagingService service:account:incomingData:fromID:context:];
+    }
+
+    [(AAMessagingService *)self _processMessage:v20];
+  }
+
+  else
+  {
+    if (v28)
+    {
+      [AAMessagingService service:account:incomingData:fromID:context:];
+    }
+
+    [(AAMessagingService *)self _addMessageToPendingCustodianMessages:v20];
   }
 
   os_unfair_lock_unlock(&self->_lock);
+}
 
-  v26 = *MEMORY[0x1E69E9840];
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error context:(id)context
+{
+  successCopy = success;
+  v24 = *MEMORY[0x1E69E9840];
+  identifierCopy = identifier;
+  errorCopy = error;
+  contextCopy = context;
+  v14 = _AALogSystem(contextCopy);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = [MEMORY[0x1E696AD98] numberWithBool:successCopy];
+    v16 = 138413058;
+    v17 = identifierCopy;
+    v18 = 2112;
+    v19 = v15;
+    v20 = 2112;
+    v21 = errorCopy;
+    v22 = 2112;
+    v23 = contextCopy;
+    _os_log_impl(&dword_1B6F6A000, v14, OS_LOG_TYPE_DEFAULT, "Did send message %@ success %@ error %@ context %@", &v16, 0x2Au);
+  }
 }
 
 - (void)service:(id)service activeAccountsChanged:(id)changed
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
-  v5 = _AALogSystem();
+  v5 = _AALogSystem(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = changedCopy;
-    _os_log_impl(&dword_1B6F6A000, v5, OS_LOG_TYPE_DEFAULT, "activeAccountsChanged: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = changedCopy;
+    _os_log_impl(&dword_1B6F6A000, v5, OS_LOG_TYPE_DEFAULT, "activeAccountsChanged: %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)service:(id)service devicesChanged:(id)changed
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
-  v5 = _AALogSystem();
+  v5 = _AALogSystem(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = changedCopy;
-    _os_log_impl(&dword_1B6F6A000, v5, OS_LOG_TYPE_DEFAULT, "devicesChanged: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = changedCopy;
+    _os_log_impl(&dword_1B6F6A000, v5, OS_LOG_TYPE_DEFAULT, "devicesChanged: %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (AAMessagingServiceDelegate)inheritanceDelegate
@@ -848,30 +955,11 @@ void __38__AAMessagingService__processMessage___block_invoke(uint64_t a1)
 
 void __55__AAMessagingService_partitionByCapability_completion___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_0_0(&dword_1B6F6A000, a2, a3, "Results of _getCurrentRemoteDevices: %@, error: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (void)sendMessage:(uint64_t)a1 destinations:(uint64_t *)a2 sendFromHandleUri:responseIdentifier:fireAndForget:requiredCapabilities:lackingCapabilities:error:.cold.1(uint64_t a1, uint64_t *a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
-  OUTLINED_FUNCTION_3_2();
-  OUTLINED_FUNCTION_0_0(&dword_1B6F6A000, v3, v4, "Failed to send with uuid %@ error %@");
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)sendMessage:(uint64_t)a1 destinations:(uint64_t *)a2 sendFromHandleUri:responseIdentifier:fireAndForget:requiredCapabilities:lackingCapabilities:error:.cold.2(uint64_t a1, uint64_t *a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
-  OUTLINED_FUNCTION_3_2();
-  OUTLINED_FUNCTION_0_0(&dword_1B6F6A000, v3, v4, "Request to send message with uuid %@ error %@");
-  v5 = *MEMORY[0x1E69E9840];
+  *v3 = 138412546;
+  *&v3[4] = a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_0_0(&dword_1B6F6A000, a2, a3, "Results of _getCurrentRemoteDevices: %@, error: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 @end

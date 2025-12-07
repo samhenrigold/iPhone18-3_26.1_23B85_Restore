@@ -36,13 +36,10 @@ void __108__NSAttributedString_REMCRMergeableStringDocument_Hashtags__rem_enumer
 
 void __108__NSAttributedString_REMCRMergeableStringDocument_Hashtags__rem_enumerateHashtagInRange_options_usingBlock___block_invoke_cold_1(int a1, NSRange range)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = NSStringFromRange(range);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

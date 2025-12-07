@@ -956,12 +956,12 @@
         v25 = *(*(&v98 + 1) + 8 * i);
         displayItemIdentifier = [v25 displayItemIdentifier];
         v27 = +[_UIStatusBarIndicatorQuietModeItem emphasizedQuietModeIdentifier];
-        if ([displayItemIdentifier isEqual:v27])
+        if (objc_msgSend_isEqual_(displayItemIdentifier))
         {
           identifier = [v25 identifier];
-          v29 = [identifier isEqualToString:0x1EFB9A510];
+          isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-          if ((v29 & 1) == 0)
+          if ((isEqualToString & 1) == 0)
           {
             objc_initWeak(&location, val);
             v94[0] = MEMORY[0x1E69E9820];
@@ -1146,16 +1146,16 @@ LABEL_39:
   regionCopy = region;
   itemsCopy = items;
   identifier = [regionCopy identifier];
-  if ([identifier isEqual:0x1EFB3CE50])
+  if (objc_msgSend_isEqual_(identifier))
   {
   }
 
   else
   {
     identifier2 = [regionCopy identifier];
-    v9 = [identifier2 isEqual:0x1EFB3CE30];
+    isEqual = objc_msgSend_isEqual_(identifier2);
 
-    if (!v9)
+    if (!isEqual)
     {
       goto LABEL_14;
     }

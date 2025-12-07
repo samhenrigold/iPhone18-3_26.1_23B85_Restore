@@ -12,7 +12,7 @@
   [defaultCenter removeObserver_];
 
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for OverlayActiveCallPageViewModel();
+  v6.super_class = type metadata accessor for OverlayActiveCallPageViewModel(0);
   [(OverlayActiveCallPageViewModel *)&v6 dealloc];
 }
 

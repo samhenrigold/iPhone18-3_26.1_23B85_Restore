@@ -47,11 +47,11 @@
 
 - (MRTransactionPacket)initWithPackets:(id)packets
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   packetsCopy = packets;
-  v31.receiver = self;
-  v31.super_class = MRTransactionPacket;
-  v5 = [(MRTransactionPacket *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = MRTransactionPacket;
+  v5 = [(MRTransactionPacket *)&v30 init];
   if (v5)
   {
     firstObject = [packetsCopy firstObject];
@@ -75,30 +75,30 @@
     data = v5->_data;
     v5->_data = v13;
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v15 = packetsCopy;
-    v16 = [v15 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v26 objects:v31 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v28;
+      v18 = *v27;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v28 != v18)
+          if (*v27 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v27 + 1) + 8 * i);
+          v20 = *(*(&v26 + 1) + 8 * i);
           identifier2 = [v20 identifier];
-          v22 = [identifier2 isEqualToString:v5->_identifier];
+          isEqualToString = objc_msgSend_isEqualToString_(identifier2);
 
-          if ((v22 & 1) == 0)
+          if ((isEqualToString & 1) == 0)
           {
             [MRTransactionPacket initWithPackets:];
           }
@@ -108,7 +108,7 @@
           [(NSMutableData *)v23 appendData:data];
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
       while (v17);
@@ -120,7 +120,6 @@
     }
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

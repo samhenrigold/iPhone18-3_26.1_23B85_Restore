@@ -24,17 +24,17 @@
 
 - (WFBluetoothTrigger)initWithCoder:(id)coder
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v17.receiver = self;
-  v17.super_class = WFBluetoothTrigger;
-  v5 = [(WFTrigger *)&v17 initWithCoder:coderCopy];
+  v16.receiver = self;
+  v16.super_class = WFBluetoothTrigger;
+  v5 = [(WFTrigger *)&v16 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
-    v18[0] = objc_opt_class();
-    v18[1] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+    v17[0] = objc_opt_class();
+    v17[1] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"selectedDevices"];
     selectedDevices = v5->_selectedDevices;
@@ -63,7 +63,6 @@
     v14 = v5;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

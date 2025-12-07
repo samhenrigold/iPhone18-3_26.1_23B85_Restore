@@ -7,18 +7,15 @@
 
 - (NSArray)extensionPointIdentifiers
 {
-  v2 = *(self + OBJC_IVAR____EXAppExtensionBrowserConfiguration_extensionPointIdentifiers);
 
-  v3 = sub_1D2A00498();
+  v2 = sub_1D2A00498();
 
-  return v3;
+  return v2;
 }
 
 - (void)setExtensionPointIdentifiers:(id)identifiers
 {
-  v4 = sub_1D2A004A8();
-  v5 = *(self + OBJC_IVAR____EXAppExtensionBrowserConfiguration_extensionPointIdentifiers);
-  *(self + OBJC_IVAR____EXAppExtensionBrowserConfiguration_extensionPointIdentifiers) = v4;
+  *(self + OBJC_IVAR____EXAppExtensionBrowserConfiguration_extensionPointIdentifiers) = sub_1D2A004A8();
 }
 
 @end

@@ -8,19 +8,19 @@
 {
   typeCopy = type;
   optionsCopy = options;
-  if (typeCopy && !objc_msgSend_caseInsensitiveCompare_(typeCopy, v6, v8, v9, v10, v11, *MEMORY[0x277D80818]))
+  if (typeCopy && !objc_msgSend_caseInsensitiveCompare_(typeCopy, v6, v11, v12, v13, v14, *MEMORY[0x277D80818], v7, v8, v9))
   {
-    v12 = objc_opt_class();
+    v15 = objc_opt_class();
   }
 
   else
   {
-    v12 = 0;
+    v15 = 0;
   }
 
-  v13 = v12;
+  v16 = v15;
 
-  return v12;
+  return v15;
 }
 
 @end

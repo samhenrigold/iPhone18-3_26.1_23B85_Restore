@@ -44,9 +44,9 @@
 - (ABBufferQuery)initWithAddressBook:(void *)book predicate:(id)predicate requestedProperties:(__CFSet *)properties includeLinkedContacts:(BOOL)contacts sortOrder:(unsigned int)order managedConfiguration:(id)configuration identifierAuditStyle:(int64_t)style authorizationContext:(id)self0
 {
   contactsCopy = contacts;
-  v47.receiver = self;
-  v47.super_class = ABBufferQuery;
-  v16 = [(ABBufferQuery *)&v47 init];
+  v48.receiver = self;
+  v48.super_class = ABBufferQuery;
+  v16 = [(ABBufferQuery *)&v48 init];
   if (v16)
   {
     if (book && (CPRecordStoreGetDatabase(), CPSqliteDatabaseConnectionForWriting()))
@@ -61,10 +61,10 @@
         CFSetAddValue(MutableCopy, kABPersonLinkProperty);
       }
 
-      v45[0] = 0;
-      v45[1] = v45;
-      v45[2] = 0x2020000000;
-      v46 = 1;
+      v46[0] = 0;
+      v46[1] = v46;
+      v46[2] = 0x2020000000;
+      v47 = 1;
       v16->_sortOrder = order;
       CFRetain(book);
       v16->_addressBook = book;
@@ -81,10 +81,10 @@
       }
 
       [(ABBufferQuery *)v16 _initSetupPropertySet:v18 includeLinkedContacts:contactsCopy hasLimitedAccess:v21];
-      v38 = v20;
+      v39 = v20;
       v16->_scopedStoreIdentifiers = [(ABBufferQuery *)v16 scopedStoresForManagedConfiguration:configuration];
       PersonRecordDescriptorForPrefetchQueries = ABCAddressBookGetPersonRecordDescriptorForPrefetchQueries(book);
-      v44 = 0;
+      v45 = 0;
       v23 = *(PersonRecordDescriptorForPrefetchQueries + 72);
       if (v23)
       {
@@ -124,7 +124,7 @@ LABEL_26:
       }
 
       ColumnListWithAliasAndExtraColumns = CPRecordStoreCreateColumnListWithAliasAndExtraColumns();
-      v16->_propertyIndices = v44;
+      v16->_propertyIndices = v45;
       -[ABBufferQuery prependWithClauseToQueryString:whereClause:](v16, "prependWithClauseToQueryString:whereClause:", ColumnListWithAliasAndExtraColumns, [predicate query]);
       [(ABBufferQuery *)v16 appendCustomPropertySelectsToQueryString:ColumnListWithAliasAndExtraColumns];
       [(ABBufferQuery *)v16 appendFromClauseToQueryString:ColumnListWithAliasAndExtraColumns];
@@ -136,72 +136,72 @@ LABEL_26:
       [(ABBufferQuery *)v16 appendWhereClauseToQueryString:ColumnListWithAliasAndExtraColumns hasLimitedAccess:v21];
       [(ABBufferQuery *)v16 appendOrderByClauseToQueryString:ColumnListWithAliasAndExtraColumns];
       v31 = CPSqliteConnectionStatementForSQL();
-      v32 = v31;
+      v33 = v31;
       if (v31)
       {
         if (*(v31 + 8))
         {
           ABRegulatoryLogReadContactsData(book);
-          v16->_statement = v32;
-          v33 = objc_opt_new();
+          v16->_statement = v33;
+          v34 = objc_opt_new();
+          v44[0] = MEMORY[0x1E69E9820];
+          v44[1] = 3221225472;
+          v44[2] = __162__ABBufferQuery_initWithAddressBook_predicate_requestedProperties_includeLinkedContacts_sortOrder_managedConfiguration_identifierAuditStyle_authorizationContext___block_invoke;
+          v44[3] = &unk_1E7CCD470;
+          v44[4] = v46;
+          v44[5] = v33;
+          [v34 setIntBinder:v44];
           v43[0] = MEMORY[0x1E69E9820];
           v43[1] = 3221225472;
-          v43[2] = __162__ABBufferQuery_initWithAddressBook_predicate_requestedProperties_includeLinkedContacts_sortOrder_managedConfiguration_identifierAuditStyle_authorizationContext___block_invoke;
-          v43[3] = &unk_1E7CCD470;
-          v43[4] = v45;
-          v43[5] = v32;
-          [v33 setIntBinder:v43];
+          v43[2] = __162__ABBufferQuery_initWithAddressBook_predicate_requestedProperties_includeLinkedContacts_sortOrder_managedConfiguration_identifierAuditStyle_authorizationContext___block_invoke_2;
+          v43[3] = &unk_1E7CCCE20;
+          v43[4] = v46;
+          v43[5] = v33;
+          [v34 setStringBinder:v43];
           v42[0] = MEMORY[0x1E69E9820];
           v42[1] = 3221225472;
-          v42[2] = __162__ABBufferQuery_initWithAddressBook_predicate_requestedProperties_includeLinkedContacts_sortOrder_managedConfiguration_identifierAuditStyle_authorizationContext___block_invoke_2;
-          v42[3] = &unk_1E7CCCE20;
-          v42[4] = v45;
-          v42[5] = v32;
-          [v33 setStringBinder:v42];
+          v42[2] = __162__ABBufferQuery_initWithAddressBook_predicate_requestedProperties_includeLinkedContacts_sortOrder_managedConfiguration_identifierAuditStyle_authorizationContext___block_invoke_3;
+          v42[3] = &unk_1E7CCD498;
+          v42[4] = v46;
+          v42[5] = v33;
+          [v34 setBlobBinder:v42];
           v41[0] = MEMORY[0x1E69E9820];
           v41[1] = 3221225472;
-          v41[2] = __162__ABBufferQuery_initWithAddressBook_predicate_requestedProperties_includeLinkedContacts_sortOrder_managedConfiguration_identifierAuditStyle_authorizationContext___block_invoke_3;
-          v41[3] = &unk_1E7CCD498;
-          v41[4] = v45;
-          v41[5] = v32;
-          [v33 setBlobBinder:v41];
-          v40[0] = MEMORY[0x1E69E9820];
-          v40[1] = 3221225472;
-          v40[2] = __162__ABBufferQuery_initWithAddressBook_predicate_requestedProperties_includeLinkedContacts_sortOrder_managedConfiguration_identifierAuditStyle_authorizationContext___block_invoke_4;
-          v40[3] = &unk_1E7CCD4C0;
-          v40[4] = v45;
-          v40[5] = v32;
-          [v33 setPointerBinder:v40];
+          v41[2] = __162__ABBufferQuery_initWithAddressBook_predicate_requestedProperties_includeLinkedContacts_sortOrder_managedConfiguration_identifierAuditStyle_authorizationContext___block_invoke_4;
+          v41[3] = &unk_1E7CCD4C0;
+          v41[4] = v46;
+          v41[5] = v33;
+          [v34 setPointerBinder:v41];
           if ([predicate bindBlock])
           {
             bindBlock = [predicate bindBlock];
-            (*(bindBlock + 16))(bindBlock, v33);
+            (*(bindBlock + 16))(bindBlock, v34);
           }
 
-          [(ABBufferQuery *)v16 bindWithClause:v33];
+          [(ABBufferQuery *)v16 bindWithClause:v34];
           requestedMultivalueIdentifiers = v16->_requestedMultivalueIdentifiers;
-          v39[0] = MEMORY[0x1E69E9820];
-          v39[1] = 3221225472;
-          v39[2] = __162__ABBufferQuery_initWithAddressBook_predicate_requestedProperties_includeLinkedContacts_sortOrder_managedConfiguration_identifierAuditStyle_authorizationContext___block_invoke_5;
-          v39[3] = &unk_1E7CCD260;
-          v39[4] = v33;
-          [(NSIndexSet *)requestedMultivalueIdentifiers enumerateIndexesUsingBlock:v39];
-          [(ABBufferQuery *)v16 bindWhereClause:v33 limitedAccessBundleIdentifier:v38];
+          v40[0] = MEMORY[0x1E69E9820];
+          v40[1] = 3221225472;
+          v40[2] = __162__ABBufferQuery_initWithAddressBook_predicate_requestedProperties_includeLinkedContacts_sortOrder_managedConfiguration_identifierAuditStyle_authorizationContext___block_invoke_5;
+          v40[3] = &unk_1E7CCD260;
+          v40[4] = v34;
+          [(NSIndexSet *)requestedMultivalueIdentifiers enumerateIndexesUsingBlock:v40];
+          [(ABBufferQuery *)v16 bindWhereClause:v34 limitedAccessBundleIdentifier:v39];
         }
       }
 
       else
       {
-        v36 = ABOSLogGeneral();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        v37 = ABOSLogGeneral(0, v32);
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
-          [ABBufferQuery initWithAddressBook:v36 predicate:? requestedProperties:? includeLinkedContacts:? sortOrder:? managedConfiguration:? identifierAuditStyle:? authorizationContext:?];
+          [ABBufferQuery initWithAddressBook:v37 predicate:? requestedProperties:? includeLinkedContacts:? sortOrder:? managedConfiguration:? identifierAuditStyle:? authorizationContext:?];
         }
       }
 
       CFRelease(ColumnListWithAliasAndExtraColumns);
       CFRelease(v18);
-      _Block_object_dispose(v45, 8);
+      _Block_object_dispose(v46, 8);
     }
 
     else
@@ -526,19 +526,19 @@ uint64_t __32__ABBufferQuery_bindWithClause___block_invoke(uint64_t a1)
 
 - (id)limitedAccessBundleIdentifierForAuthorizationContext:(id)context
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (!+[ABLimitedAccess isLimitedAccessFF_Enabled](ABLimitedAccess, "isLimitedAccessFF_Enabled") || ![context isLimitedAccessGranted])
   {
     return 0;
   }
 
   clientBundleIdentifier = [context clientBundleIdentifier];
-  v5 = ABOSLogGeneral();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = ABOSLogGeneral(clientBundleIdentifier, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = clientBundleIdentifier;
-    _os_log_impl(&dword_1B7EFB000, v5, OS_LOG_TYPE_DEFAULT, "ABBufferQuery limited access for bundleIdentifier: %{public}@", &v7, 0xCu);
+    v8 = 138543362;
+    v9 = clientBundleIdentifier;
+    _os_log_impl(&dword_1B7EFB000, v6, OS_LOG_TYPE_DEFAULT, "ABBufferQuery limited access for bundleIdentifier: %{public}@", &v8, 0xCu);
   }
 
   return clientBundleIdentifier;

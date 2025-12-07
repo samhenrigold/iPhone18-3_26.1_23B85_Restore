@@ -1,6 +1,7 @@
 @interface MusicSearchBarAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)setShowsScopeBar:(BOOL)bar animated:(BOOL)animated;
 - (void)textFieldDidBeginEditing:(id)editing;
 @end
 
@@ -24,6 +25,14 @@
   v5 = [subviews axFilterObjectsUsingBlock:&__block_literal_global_4];
 
   [v3 setAccessibilityElements:v5];
+}
+
+- (void)setShowsScopeBar:(BOOL)bar animated:(BOOL)animated
+{
+  v5.receiver = self;
+  v5.super_class = MusicSearchBarAccessibility;
+  [(MusicSearchBarAccessibility *)&v5 setShowsScopeBar:bar animated:animated];
+  [(MusicSearchBarAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 - (void)textFieldDidBeginEditing:(id)editing

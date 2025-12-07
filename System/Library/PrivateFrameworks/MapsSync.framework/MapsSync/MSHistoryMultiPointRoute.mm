@@ -135,9 +135,9 @@ LABEL_3:
 - (NSNumber)requiredCharge
 {
   selfCopy = self;
-  v3 = sub_1B62F653C();
+  v4 = sub_1B62F653C(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setRequiredCharge:(id)charge
@@ -156,9 +156,9 @@ LABEL_3:
 - (GEOStorageRouteRequestStorage)routeRequestStorage
 {
   selfCopy = self;
-  v3 = sub_1B62F6E60();
+  v4 = sub_1B62F6E60(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setRouteRequestStorage:(id)storage
@@ -175,22 +175,22 @@ LABEL_3:
 - (NSData)sharedETAData
 {
   selfCopy = self;
-  v3 = sub_1B62F79F8();
-  v5 = v4;
+  v4 = sub_1B62F79F8(selfCopy, v3);
+  v6 = v5;
 
-  if (v5 >> 60 == 15)
+  if (v6 >> 60 == 15)
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v7 = sub_1B63BE904();
-    sub_1B6284F64(v3, v5);
-    v6 = v7;
+    v8 = sub_1B63BE904();
+    sub_1B6284F64(v4, v6);
+    v7 = v8;
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)setSharedETAData:(id)data
@@ -223,20 +223,20 @@ LABEL_3:
 - (NSString)vehicleIdentifier
 {
   selfCopy = self;
-  sub_1B62F8538();
-  v4 = v3;
+  sub_1B62F8538(selfCopy, v3);
+  v5 = v4;
 
-  if (v4)
+  if (v5)
   {
-    v5 = sub_1B63BEBC4();
+    v6 = sub_1B63BEBC4();
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)setVehicleIdentifier:(id)identifier

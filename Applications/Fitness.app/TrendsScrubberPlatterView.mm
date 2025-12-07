@@ -21,7 +21,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_10060AB60();
+  sub_10060AB60(selfCopy);
 }
 
 @end

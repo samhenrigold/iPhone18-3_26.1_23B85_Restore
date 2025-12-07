@@ -1368,21 +1368,21 @@
   mEMORY[0x1E69A8070] = [MEMORY[0x1E69A8070] sharedFeatureFlags];
   isTranscriptSharingEnabled = [mEMORY[0x1E69A8070] isTranscriptSharingEnabled];
 
-  if (isTranscriptSharingEnabled && (-[CKCoreChatController conversation](self, "conversation"), v5 = objc_claimAutoreleasedReturnValue(), [v5 chat], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "isStewieSharingChat"), v6, v5, (v7 & 1) != 0))
+  if (isTranscriptSharingEnabled && (-[CKCoreChatController conversation](self, "conversation"), v7 = objc_claimAutoreleasedReturnValue(), [v7 chat], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "isStewieSharingChat"), v8, v7, (v9 & 1) != 0))
   {
-    LOBYTE(v8) = 0;
+    LOBYTE(v10) = 0;
   }
 
   else
   {
-    v8 = CKInputAccessoryViewControllerEnabled();
-    if (v8)
+    v10 = CKInputAccessoryViewControllerEnabled(v5, v6);
+    if (v10)
     {
-      LOBYTE(v8) = ![(CKCoreChatController *)self isShowingLockoutView];
+      LOBYTE(v10) = ![(CKCoreChatController *)self isShowingLockoutView];
     }
   }
 
-  return v8;
+  return v10;
 }
 
 - (double)_maxEntryViewHeight
@@ -2031,43 +2031,45 @@ LABEL_6:
 
 - (void)_updateAccountRegistrationFailureNotification
 {
-  if (CKIsAppleIDNotUpdated())
+  v3 = CKIsAppleIDNotUpdated(self);
+  if (v3)
   {
-    v3 = 0;
-    v4 = 3;
+    v4 = 0;
+    v5 = 3;
   }
 
   else
   {
-    v5 = CKIsWaitingForCloud();
-    v3 = v5 ^ 1;
-    if (v5)
+    v6 = CKIsWaitingForCloud(v3);
+    v4 = v6 ^ 1;
+    if (v6)
     {
-      v4 = 2;
+      v5 = 2;
     }
 
     else
     {
-      v4 = 0;
+      v5 = 0;
     }
   }
 
-  if ([(CKChatController *)self notificationBannerType]!= v4 && ([(CKChatController *)self notificationBannerType]& 0xFFFFFFFFFFFFFFFELL) == 2)
+  if ([(CKChatController *)self notificationBannerType]!= v5 && ([(CKChatController *)self notificationBannerType]& 0xFFFFFFFFFFFFFFFELL) == 2)
   {
     [(CKChatController *)self _updateNotificationBannerOfType:[(CKChatController *)self notificationBannerType] show:0];
   }
 
-  v6 = (v3 & 1) == 0 && [(CKChatController *)self _chatShowsAccountRegistrationFailureBanner];
+  v7 = (v4 & 1) == 0 && [(CKChatController *)self _chatShowsAccountRegistrationFailureBanner];
 
-  [(CKChatController *)self _updateNotificationBannerOfType:v4 show:v6];
+  [(CKChatController *)self _updateNotificationBannerOfType:v5 show:v7];
 }
 
 - (void)_updateLogoutBannerNotification
 {
-  if (CKIsRunningInMessages() && !CKIsRunningUITests() && !CKIsRunningForDevelopmentOnSimulator())
+  v3 = CKIsRunningInMessages();
+  if (v3 && !CKIsRunningUITests(v3, v4) && !CKIsRunningForDevelopmentOnSimulator())
   {
-    v8 = +[CKUIBehavior sharedBehaviors];
-    if ([v8 isRunningInStoreDemoMode])
+    v10 = +[CKUIBehavior sharedBehaviors];
+    if ([v10 isRunningInStoreDemoMode])
     {
     }
 
@@ -2085,16 +2087,16 @@ LABEL_6:
           if (CKIsUnexpectedlyLoggedOut() && [(CKChatController *)self _chatShowsAccountRegistrationFailureBanner])
           {
             selfCopy2 = self;
-            v7 = 1;
+            v9 = 1;
           }
 
           else
           {
             selfCopy2 = self;
-            v7 = 0;
+            v9 = 0;
           }
 
-          [(CKChatController *)selfCopy2 _updateNotificationBannerOfType:1 show:v7];
+          [(CKChatController *)selfCopy2 _updateNotificationBannerOfType:1 show:v9];
         }
       }
     }
@@ -2679,51 +2681,51 @@ LABEL_61:
 
 - (void)_configureMacFaceTimeButtonMenu
 {
-  v53[1] = *MEMORY[0x1E69E9840];
-  objc_initWeak(&location, self);
-  v3 = MEMORY[0x1E69DC628];
-  v4 = CKFrameworkBundle();
-  v5 = [v4 localizedStringForKey:@"FACETIME_AUDIO" value:&stru_1F04268F8 table:@"ChatKit"];
-  v6 = +[CKUIBehavior sharedBehaviors];
-  navBarAudioImage = [v6 navBarAudioImage];
+  v57[1] = *MEMORY[0x1E69E9840];
+  inited = objc_initWeak(&location, self);
+  v4 = MEMORY[0x1E69DC628];
+  v5 = CKFrameworkBundle(inited);
+  v6 = [v5 localizedStringForKey:@"FACETIME_AUDIO" value:&stru_1F04268F8 table:@"ChatKit"];
+  v7 = +[CKUIBehavior sharedBehaviors];
+  navBarAudioImage = [v7 navBarAudioImage];
+  v50[0] = MEMORY[0x1E69E9820];
+  v50[1] = 3221225472;
+  v50[2] = __63__CKChatController_MacToolbar___configureMacFaceTimeButtonMenu__block_invoke;
+  v50[3] = &unk_1E72EBCD8;
+  objc_copyWeak(&v51, &location);
+  v42 = [v4 actionWithTitle:v6 image:navBarAudioImage identifier:0 handler:v50];
+
+  v9 = MEMORY[0x1E69DC628];
+  v11 = CKFrameworkBundle(v10);
+  v12 = [v11 localizedStringForKey:@"FACETIME_VIDEO" value:&stru_1F04268F8 table:@"ChatKit"];
+  v13 = +[CKUIBehavior sharedBehaviors];
+  navBarVideoImage = [v13 navBarVideoImage];
+  v48[0] = MEMORY[0x1E69E9820];
+  v48[1] = 3221225472;
+  v48[2] = __63__CKChatController_MacToolbar___configureMacFaceTimeButtonMenu__block_invoke_2;
+  v48[3] = &unk_1E72EBCD8;
+  objc_copyWeak(&v49, &location);
+  v43 = [v9 actionWithTitle:v12 image:navBarVideoImage identifier:0 handler:v48];
+
+  v15 = MEMORY[0x1E69DC628];
+  v17 = CKFrameworkBundle(v16);
+  v18 = [v17 localizedStringForKey:@"INVITE_TO_SHARE_MY_SCREEN" value:&stru_1F04268F8 table:@"ChatKit"];
   v46[0] = MEMORY[0x1E69E9820];
   v46[1] = 3221225472;
-  v46[2] = __63__CKChatController_MacToolbar___configureMacFaceTimeButtonMenu__block_invoke;
+  v46[2] = __63__CKChatController_MacToolbar___configureMacFaceTimeButtonMenu__block_invoke_3;
   v46[3] = &unk_1E72EBCD8;
   objc_copyWeak(&v47, &location);
-  v38 = [v3 actionWithTitle:v5 image:navBarAudioImage identifier:0 handler:v46];
+  v40 = [v15 actionWithTitle:v18 image:0 identifier:0 handler:v46];
 
-  v8 = MEMORY[0x1E69DC628];
-  v9 = CKFrameworkBundle();
-  v10 = [v9 localizedStringForKey:@"FACETIME_VIDEO" value:&stru_1F04268F8 table:@"ChatKit"];
-  v11 = +[CKUIBehavior sharedBehaviors];
-  navBarVideoImage = [v11 navBarVideoImage];
+  v19 = MEMORY[0x1E69DC628];
+  v21 = CKFrameworkBundle(v20);
+  v22 = [v21 localizedStringForKey:@"ASK_TO_SHARE_THEIR_SCREEN" value:&stru_1F04268F8 table:@"ChatKit"];
   v44[0] = MEMORY[0x1E69E9820];
   v44[1] = 3221225472;
-  v44[2] = __63__CKChatController_MacToolbar___configureMacFaceTimeButtonMenu__block_invoke_2;
+  v44[2] = __63__CKChatController_MacToolbar___configureMacFaceTimeButtonMenu__block_invoke_4;
   v44[3] = &unk_1E72EBCD8;
   objc_copyWeak(&v45, &location);
-  v39 = [v8 actionWithTitle:v10 image:navBarVideoImage identifier:0 handler:v44];
-
-  v13 = MEMORY[0x1E69DC628];
-  v14 = CKFrameworkBundle();
-  v15 = [v14 localizedStringForKey:@"INVITE_TO_SHARE_MY_SCREEN" value:&stru_1F04268F8 table:@"ChatKit"];
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = __63__CKChatController_MacToolbar___configureMacFaceTimeButtonMenu__block_invoke_3;
-  v42[3] = &unk_1E72EBCD8;
-  objc_copyWeak(&v43, &location);
-  v36 = [v13 actionWithTitle:v15 image:0 identifier:0 handler:v42];
-
-  v16 = MEMORY[0x1E69DC628];
-  v17 = CKFrameworkBundle();
-  v18 = [v17 localizedStringForKey:@"ASK_TO_SHARE_THEIR_SCREEN" value:&stru_1F04268F8 table:@"ChatKit"];
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v40[2] = __63__CKChatController_MacToolbar___configureMacFaceTimeButtonMenu__block_invoke_4;
-  v40[3] = &unk_1E72EBCD8;
-  objc_copyWeak(&v41, &location);
-  v19 = [v16 actionWithTitle:v18 image:0 identifier:0 handler:v40];
+  v23 = [v19 actionWithTitle:v22 image:0 identifier:0 handler:v44];
 
   if (IMDeviceIsGreenTea())
   {
@@ -2732,61 +2734,61 @@ LABEL_61:
 
     if (isGroupConversation)
     {
-      v22 = MEMORY[0x1E695E0F0];
+      v26 = MEMORY[0x1E695E0F0];
     }
 
     else
     {
-      v53[0] = v39;
-      v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:1];
+      v57[0] = v43;
+      v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:1];
     }
   }
 
   else
   {
-    v23 = MEMORY[0x1E69DCC60];
-    v52[0] = v38;
-    v52[1] = v39;
-    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:2];
-    v25 = [v23 menuWithTitle:&stru_1F04268F8 image:0 identifier:0 options:1 children:v24];
+    v27 = MEMORY[0x1E69DCC60];
+    v56[0] = v42;
+    v56[1] = v43;
+    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:2];
+    v29 = [v27 menuWithTitle:&stru_1F04268F8 image:0 identifier:0 options:1 children:v28];
 
-    v26 = MEMORY[0x1E69DCC60];
-    v51[0] = v36;
-    v51[1] = v19;
-    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:2];
-    v28 = [v26 menuWithTitle:&stru_1F04268F8 image:0 identifier:0 options:1 children:v27];
+    v30 = MEMORY[0x1E69DCC60];
+    v55[0] = v40;
+    v55[1] = v23;
+    v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:2];
+    v32 = [v30 menuWithTitle:&stru_1F04268F8 image:0 identifier:0 options:1 children:v31];
 
     detailsContactsManager = [(CKChatController *)self detailsContactsManager];
     conversation2 = [(CKCoreChatController *)self conversation];
     recipient = [conversation2 recipient];
-    v32 = [detailsContactsManager showScreenSharingButtonForEntity:recipient];
+    v36 = [detailsContactsManager showScreenSharingButtonForEntity:recipient];
 
-    if (v32)
+    if (v36)
     {
-      v50[0] = v25;
-      v50[1] = v28;
-      v33 = v50;
-      v34 = 2;
+      v54[0] = v29;
+      v54[1] = v32;
+      v37 = v54;
+      v38 = 2;
     }
 
     else
     {
-      v49 = v25;
-      v33 = &v49;
-      v34 = 1;
+      v53 = v29;
+      v37 = &v53;
+      v38 = 1;
     }
 
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:{v34, v36}];
+    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:{v38, v40}];
   }
 
-  v35 = [MEMORY[0x1E69DCC60] menuWithChildren:{v22, v36}];
-  [(CKChatController *)self setMacFaceTimeButtonMenu:v35];
-
-  objc_destroyWeak(&v41);
-  objc_destroyWeak(&v43);
+  v39 = [MEMORY[0x1E69DCC60] menuWithChildren:{v26, v40}];
+  [(CKChatController *)self setMacFaceTimeButtonMenu:v39];
 
   objc_destroyWeak(&v45);
   objc_destroyWeak(&v47);
+
+  objc_destroyWeak(&v49);
+  objc_destroyWeak(&v51);
   objc_destroyWeak(&location);
 }
 
@@ -3804,7 +3806,7 @@ LABEL_13:
           [v28 dragBalloonTailCropWidth];
           v30 = v29;
 
-          if (!v10 || ([v10 balloonDescriptor], !v161))
+          if (!v10 || (objc_msgSend_balloonDescriptor(v10), !v161))
           {
             v21 = v21 + v30;
           }
@@ -4544,20 +4546,20 @@ LABEL_115:
   [(CKChatController *)self restoreInputAfterPreviewPresentation];
 }
 
-void __133__CKChatController_ClickyOrbConformance__transcriptCollectionViewController_willEndContextMenuInteractionWithConfiguration_animator___block_invoke(uint64_t a1)
+void __133__CKChatController_ClickyOrbConformance__transcriptCollectionViewController_willEndContextMenuInteractionWithConfiguration_animator___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = [*(a1 + 32) pickerContainerAccessoryView];
-      v16 = 136315394;
-      v17 = "[CKChatController(ClickyOrbConformance) transcriptCollectionViewController:willEndContextMenuInteractionWithConfiguration:animator:]_block_invoke";
-      v18 = 2112;
-      v19 = v3;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "%s completion called, clearing TapbackContainerAccessoryView: %@", &v16, 0x16u);
+      v4 = [*(a1 + 32) pickerContainerAccessoryView];
+      v17 = 136315394;
+      v18 = "[CKChatController(ClickyOrbConformance) transcriptCollectionViewController:willEndContextMenuInteractionWithConfiguration:animator:]_block_invoke";
+      v19 = 2112;
+      v20 = v4;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "%s completion called, clearing TapbackContainerAccessoryView: %@", &v17, 0x16u);
     }
   }
 
@@ -4566,14 +4568,14 @@ void __133__CKChatController_ClickyOrbConformance__transcriptCollectionViewContr
   [*(a1 + 32) setDismissingContextMenu:1];
   if ([*(a1 + 32) acknowledgmentToSend])
   {
-    v4 = [*(a1 + 32) chat];
-    [v4 sendMessageAcknowledgment:objc_msgSend(*(a1 + 32) forChatItem:{"acknowledgmentToSend"), *(a1 + 40)}];
+    v5 = [*(a1 + 32) chat];
+    [v5 sendMessageAcknowledgment:objc_msgSend(*(a1 + 32) forChatItem:{"acknowledgmentToSend"), *(a1 + 40)}];
 
     [*(a1 + 32) setAcknowledgmentToSend:0];
   }
 
-  v5 = [*(a1 + 32) chat];
-  [v5 endHoldingChatItemsUpdatesForReason:*MEMORY[0x1E69A5788]];
+  v6 = [*(a1 + 32) chat];
+  [v6 endHoldingChatItemsUpdatesForReason:*MEMORY[0x1E69A5788]];
   if ((*(a1 + 72) & 1) == 0)
   {
     [*(a1 + 32) endHoldingScrollGeometryUpdatesForReason:@"ContextMenu"];
@@ -4582,8 +4584,8 @@ void __133__CKChatController_ClickyOrbConformance__transcriptCollectionViewContr
   if ([*(a1 + 32) wasKeyboardShowingWithApp])
   {
     [*(a1 + 32) setWasKeyboardShowingWithApp:0];
-    v6 = [*(a1 + 32) presentedViewController];
-    if (v6)
+    v7 = [*(a1 + 32) presentedViewController];
+    if (v7)
     {
     }
 
@@ -4593,47 +4595,47 @@ void __133__CKChatController_ClickyOrbConformance__transcriptCollectionViewContr
       [*(a1 + 32) becomeFirstResponder];
     }
 
-    v7 = [*(a1 + 48) collectionView];
-    [v7 endHoldingContentOffsetUpdatesForReason:@"ChatControllerClickyOrb"];
+    v8 = [*(a1 + 48) collectionView];
+    [v8 endHoldingContentOffsetUpdatesForReason:@"ChatControllerClickyOrb"];
   }
 
   if ([*(a1 + 32) wantsInlineOverlay])
   {
     if (CKIsRunningInMacCatalyst())
     {
-      v8 = [*(a1 + 32) collectionViewController];
-      v9 = [v8 selectedChatItems];
-      v10 = [v9 firstObject];
-
-      v11 = v10;
-      if (!v10)
-      {
-        v11 = *(a1 + 40);
-      }
+      v9 = [*(a1 + 32) collectionViewController];
+      v10 = [v9 selectedChatItems];
+      v11 = [v10 firstObject];
 
       v12 = v11;
+      if (!v11)
+      {
+        v12 = *(a1 + 40);
+      }
+
+      v13 = v12;
     }
 
     else
     {
-      v12 = *(a1 + 40);
+      v13 = *(a1 + 40);
     }
 
-    [*(a1 + 32) showInlineReplyControllerForChatItem:v12 presentKeyboard:1];
+    [*(a1 + 32) showInlineReplyControllerForChatItem:v13 presentKeyboard:1];
     [*(a1 + 32) setWantsInlineOverlay:0];
   }
 
   else
   {
-    v13 = [*(a1 + 32) wantsStickerDetails];
-    v14 = *(a1 + 32);
-    if (v13)
+    v14 = [*(a1 + 32) wantsStickerDetails];
+    v15 = *(a1 + 32);
+    if (v14)
     {
-      [v14 setWantsStickerDetails:0];
+      [v15 setWantsStickerDetails:0];
       [*(a1 + 32) presentStickerDetailControllerWithIndexPath:*(a1 + 56)];
     }
 
-    else if ([v14 wantsEmojiDetails])
+    else if ([v15 wantsEmojiDetails])
     {
       [*(a1 + 32) setWantsEmojiDetails:0];
       [*(a1 + 32) presentEmojiDetailsControllerWithIndexPath:*(a1 + 56)];
@@ -4643,9 +4645,9 @@ void __133__CKChatController_ClickyOrbConformance__transcriptCollectionViewContr
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v15 = *(a1 + 64);
-    [v15 setCanUseOpaqueMask:1];
-    [v15 prepareForDisplayIfNeeded];
+    v16 = *(a1 + 64);
+    [v16 setCanUseOpaqueMask:1];
+    [v16 prepareForDisplayIfNeeded];
   }
 
   [*(a1 + 32) setDismissingContextMenu:0];
@@ -4843,7 +4845,7 @@ LABEL_6:
 
 - (id)_menuForChatItem:(id)item withParentChatItem:(id)chatItem menuAppearance:(int64_t)appearance
 {
-  v69[1] = *MEMORY[0x1E69E9840];
+  v70[1] = *MEMORY[0x1E69E9840];
   itemCopy = item;
   chatItemCopy = chatItem;
   v10 = +[CKUIBehavior sharedBehaviors];
@@ -4886,10 +4888,10 @@ LABEL_6:
     else
     {
       collectionViewController = [(CKCoreChatController *)self collectionViewController];
-      v64 = [collectionViewController balloonViewForChatItem:chatItemCopy];
+      v65 = [collectionViewController balloonViewForChatItem:chatItemCopy];
 
-      v16 = [(CKChatController *)self _addPollDetailsActionForChatItem:itemCopy parentChatItem:chatItemCopy sourceView:v64];
-      v63 = v16;
+      v16 = [(CKChatController *)self _addPollDetailsActionForChatItem:itemCopy parentChatItem:chatItemCopy sourceView:v65];
+      v64 = v16;
       v17 = v16;
       if (v16)
       {
@@ -4899,8 +4901,8 @@ LABEL_6:
         }
 
         v18 = MEMORY[0x1E69DCC60];
-        v69[0] = v17;
-        v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v69 count:1];
+        v70[0] = v17;
+        v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v70 count:1];
         v20 = [v18 menuWithTitle:&stru_1F04268F8 image:0 identifier:0 options:1 children:v19];
 
         v21 = v20;
@@ -4911,7 +4913,7 @@ LABEL_6:
         v21 = 0;
       }
 
-      v59 = v21;
+      v60 = v21;
       __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v16, v21, array);
       if (!isReadOnly)
       {
@@ -4928,10 +4930,10 @@ LABEL_6:
       {
         [(CKChatController *)self _exportActionForChatItem:itemCopy shouldUseTopMostChatItemIfAggregateChatItem:1];
       }
-      v62 = ;
+      v63 = ;
+      __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v63, v63, array);
+      v62 = [(CKChatController *)self _saveStickerActionForChatItem:itemCopy sourceView:v65];
       __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v62, v62, array);
-      v61 = [(CKChatController *)self _saveStickerActionForChatItem:itemCopy sourceView:v64];
-      __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v61, v61, array);
       conversation = [(CKCoreChatController *)self conversation];
       v24 = objc_opt_new();
       chat = [(CKCoreChatController *)self chat];
@@ -4939,34 +4941,34 @@ LABEL_6:
 
       if (((v26 | isReadOnly) & 1) != 0 && [itemCopy canEditMessageText] && !(isReadOnly | ((objc_msgSend(conversation, "supportsMessageEditing") & 1) == 0)))
       {
-        objc_initWeak(&location, self);
-        v58 = MEMORY[0x1E69DC628];
-        v27 = CKFrameworkBundle();
-        v28 = [v27 localizedStringForKey:@"EDIT_ORB_MENU" value:&stru_1F04268F8 table:@"ChatKit"];
-        v29 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"pencil"];
-        v65[0] = MEMORY[0x1E69E9820];
-        v65[1] = 3221225472;
-        v65[2] = __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke_2;
-        v65[3] = &unk_1E72EBF48;
-        objc_copyWeak(&v67, &location);
-        v66 = itemCopy;
-        v30 = [v58 actionWithTitle:v28 image:v29 identifier:0 handler:v65];
+        inited = objc_initWeak(&location, self);
+        v59 = MEMORY[0x1E69DC628];
+        v28 = CKFrameworkBundle(inited);
+        v29 = [v28 localizedStringForKey:@"EDIT_ORB_MENU" value:&stru_1F04268F8 table:@"ChatKit"];
+        v30 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"pencil"];
+        v66[0] = MEMORY[0x1E69E9820];
+        v66[1] = 3221225472;
+        v66[2] = __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke_2;
+        v66[3] = &unk_1E72EBF48;
+        objc_copyWeak(&v68, &location);
+        v67 = itemCopy;
+        v31 = [v59 actionWithTitle:v29 image:v30 identifier:0 handler:v66];
 
-        [v24 addObject:v30];
-        objc_destroyWeak(&v67);
+        [v24 addObject:v31];
+        objc_destroyWeak(&v68);
         objc_destroyWeak(&location);
       }
 
       if ([itemCopy canRetract] && !(isReadOnly | ((objc_msgSend(conversation, "supportsMessageEditing") & 1) == 0)))
       {
-        v31 = [(CKChatController *)self _retractionActionForChatItem:itemCopy];
-        [v24 addObject:v31];
+        v32 = [(CKChatController *)self _retractionActionForChatItem:itemCopy];
+        [v24 addObject:v32];
       }
 
       if ([v24 count])
       {
-        v32 = [MEMORY[0x1E69DCC60] menuWithTitle:&stru_1F04268F8 image:0 identifier:0 options:1 children:v24];
-        __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v32, v32, array);
+        v33 = [MEMORY[0x1E69DCC60] menuWithTitle:&stru_1F04268F8 image:0 identifier:0 options:1 children:v24];
+        __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v33, v33, array);
       }
 
       if (CKIsRunningInMacCatalyst())
@@ -4978,18 +4980,18 @@ LABEL_6:
       {
         [(CKChatController *)self _forwardAndCopyActionsForChatItem:itemCopy];
       }
-      v33 = ;
-      __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v33, v33, array);
+      v34 = ;
+      __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v34, v34, array);
       if ([MEMORY[0x1E69A8020] supportsSharedWithYou])
       {
-        v34 = [(CKChatController *)self _highlightActionForChatItem:itemCopy];
-        __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v34, v34, array);
+        v35 = [(CKChatController *)self _highlightActionForChatItem:itemCopy];
+        __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v35, v35, array);
       }
 
       if ([CKTranslatorUtilities shouldShowTranslateMenuOption:itemCopy])
       {
-        v35 = [CKTranslationMenu translateOrbActionForChatItem:itemCopy forController:self];
-        __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v35, v35, array);
+        v36 = [CKTranslationMenu translateOrbActionForChatItem:itemCopy forController:self];
+        __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v36, v36, array);
       }
 
       mEMORY[0x1E69A8070] = [MEMORY[0x1E69A8070] sharedFeatureFlags];
@@ -4997,8 +4999,8 @@ LABEL_6:
 
       if (isTextSelectionEnabled && !CKIsRunningInMacCatalyst())
       {
-        v38 = [(CKChatController *)self textSelectionActionWithChatItem:itemCopy];
-        __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v38, v38, array);
+        v39 = [(CKChatController *)self textSelectionActionWithChatItem:itemCopy];
+        __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v39, v39, array);
       }
 
       if (CKIsRunningInMacCatalyst())
@@ -5008,8 +5010,8 @@ LABEL_6:
 
         if ((isStewieSharingChat & 1) == 0 && [itemCopy canDelete])
         {
-          v41 = [(CKChatController *)self _deleteMenuForChatItem:itemCopy];
-          __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v41, v41, array);
+          v42 = [(CKChatController *)self _deleteMenuForChatItem:itemCopy];
+          __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v42, v42, array);
         }
 
         _showTimestampsAction = [(CKChatController *)self _showTimestampsAction];
@@ -5018,50 +5020,50 @@ LABEL_6:
 
       if (!isReadOnly)
       {
-        v43 = [(CKChatController *)self _downgradeMessageActionForChatItem:itemCopy];
-        __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v43, v43, array);
+        v44 = [(CKChatController *)self _downgradeMessageActionForChatItem:itemCopy];
+        __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v44, v44, array);
       }
 
-      v44 = [(CKChatController *)self _emojiDetailsActionForChatItem:chatItemCopy];
-      __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v44, v44, array);
-
-      v45 = [(CKChatController *)self _stickerDetailsActionForChatItem:chatItemCopy];
+      v45 = [(CKChatController *)self _emojiDetailsActionForChatItem:chatItemCopy];
       __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v45, v45, array);
 
-      v46 = [(CKChatController *)self _mediaAttributionActionForChatItem:itemCopy];
+      v46 = [(CKChatController *)self _stickerDetailsActionForChatItem:chatItemCopy];
       __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v46, v46, array);
+
+      v47 = [(CKChatController *)self _mediaAttributionActionForChatItem:itemCopy];
+      __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v47, v47, array);
 
       mEMORY[0x1E69A8070]2 = [MEMORY[0x1E69A8070] sharedFeatureFlags];
       isTranscriptBackgroundsEnabled = [mEMORY[0x1E69A8070]2 isTranscriptBackgroundsEnabled];
 
       if (isTranscriptBackgroundsEnabled)
       {
-        v49 = [(CKChatController *)self setBackgroundActionForChatItem:itemCopy];
-        __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v49, v49, array);
+        v50 = [(CKChatController *)self setBackgroundActionForChatItem:itemCopy];
+        __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v50, v50, array);
       }
 
-      v50 = [(CKChatController *)self _moreActionForChatItem:itemCopy];
-      __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v50, v50, array);
+      v51 = [(CKChatController *)self _moreActionForChatItem:itemCopy];
+      __93__CKChatController_ClickyOrbConformance___menuForChatItem_withParentChatItem_menuAppearance___block_invoke(v51, v51, array);
 
       standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
-      v52 = [standardUserDefaults BOOLForKey:@"CKInternalInstallShouldHideDebugMenu"];
+      v53 = [standardUserDefaults BOOLForKey:@"CKInternalInstallShouldHideDebugMenu"];
 
       mEMORY[0x1E69A60F0] = [MEMORY[0x1E69A60F0] sharedInstance];
       isInternalInstall = [mEMORY[0x1E69A60F0] isInternalInstall];
 
-      if (!(v52 & 1 | ((isInternalInstall & 1) == 0)))
+      if (!(v53 & 1 | ((isInternalInstall & 1) == 0)))
       {
-        v55 = [(CKChatController *)self _internalMenuForChatItem:itemCopy];
-        [array addObject:v55];
+        v56 = [(CKChatController *)self _internalMenuForChatItem:itemCopy];
+        [array addObject:v56];
       }
 
-      v56 = [array count];
-      if (v56)
+      v57 = [array count];
+      if (v57)
       {
-        v56 = [MEMORY[0x1E69DCC60] menuWithTitle:&stru_1F04268F8 children:array];
+        v57 = [MEMORY[0x1E69DCC60] menuWithTitle:&stru_1F04268F8 children:array];
       }
 
-      v12 = v56;
+      v12 = v57;
     }
   }
 
@@ -5208,7 +5210,7 @@ LABEL_22:
 
 BOOL __84__CKChatController_ClickyOrbConformance___shouldConfigureChatItemMenuForCommSafety___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  result = [CKCommSafetyHelper shouldDisableTranscriptCapabilitiesForFileTransfer:a2];
+  result = [CKCommSafetyHelper shouldDisableTranscriptCapabilitiesForFileTransfer:a2, a4];
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (*(*(*(a1 + 32) + 8) + 24) == 1)
   {
@@ -5224,42 +5226,43 @@ BOOL __84__CKChatController_ClickyOrbConformance___shouldConfigureChatItemMenuFo
   if ([itemCopy syndicationBehavior] == 1 && (-[CKCoreChatController chat](self, "chat"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "isBusinessChat"), v5, (v6 & 1) == 0))
   {
     isHighlighted = [itemCopy isHighlighted];
-    v9 = CKFrameworkBundle();
-    v10 = v9;
-    if (isHighlighted)
+    v9 = isHighlighted;
+    v10 = CKFrameworkBundle(isHighlighted);
+    v11 = v10;
+    if (v9)
     {
-      v11 = @"REMOVE_PIN_ACTION";
+      v12 = @"REMOVE_PIN_ACTION";
     }
 
     else
     {
-      v11 = @"ADD_PIN_ACTION";
+      v12 = @"ADD_PIN_ACTION";
     }
 
-    v12 = [v9 localizedStringForKey:v11 value:&stru_1F04268F8 table:@"ChatKit"];
+    v13 = [v10 localizedStringForKey:v12 value:&stru_1F04268F8 table:@"ChatKit"];
 
     if ([itemCopy isHighlighted])
     {
-      v13 = @"pin.slash";
+      v14 = @"pin.slash";
     }
 
     else
     {
-      v13 = @"pin";
+      v14 = @"pin";
     }
 
-    v14 = [MEMORY[0x1E69DCAB8] systemImageNamed:v13];
+    v15 = [MEMORY[0x1E69DCAB8] systemImageNamed:v14];
     objc_initWeak(&location, self);
-    v15 = MEMORY[0x1E69DC628];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __70__CKChatController_ClickyOrbConformance___highlightActionForChatItem___block_invoke;
-    v17[3] = &unk_1E72EBFC0;
-    v18 = itemCopy;
-    objc_copyWeak(&v20, &location);
+    v16 = MEMORY[0x1E69DC628];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __70__CKChatController_ClickyOrbConformance___highlightActionForChatItem___block_invoke;
+    v18[3] = &unk_1E72EBFC0;
+    v19 = itemCopy;
+    objc_copyWeak(&v21, &location);
     selfCopy = self;
-    v7 = [v15 actionWithTitle:v12 image:v14 identifier:0 handler:v17];
-    objc_destroyWeak(&v20);
+    v7 = [v16 actionWithTitle:v13 image:v15 identifier:0 handler:v18];
+    objc_destroyWeak(&v21);
 
     objc_destroyWeak(&location);
   }
@@ -5335,53 +5338,53 @@ void __70__CKChatController_ClickyOrbConformance___highlightActionForChatItem___
 {
   nameCopy = name;
   dCopy = d;
-  if ([nameCopy length] && objc_msgSend(dCopy, "length"))
+  if ([nameCopy length] && (v8 = objc_msgSend(dCopy, "length")) != 0)
   {
-    v8 = MEMORY[0x1E696AEC0];
-    v9 = CKFrameworkBundle();
-    v10 = [v9 localizedStringForKey:@"SHARED_WITH_YOU_AUTO_DONATION_ALERT" value:&stru_1F04268F8 table:@"ChatKit"];
-    nameCopy = [v8 stringWithFormat:v10, nameCopy, nameCopy];
+    v9 = MEMORY[0x1E696AEC0];
+    v10 = CKFrameworkBundle(v8);
+    v11 = [v10 localizedStringForKey:@"SHARED_WITH_YOU_AUTO_DONATION_ALERT" value:&stru_1F04268F8 table:@"ChatKit"];
+    nameCopy = [v9 stringWithFormat:v11, nameCopy, nameCopy];
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection == 1)
     {
-      v14 = @"\u200F";
+      v15 = @"\u200F";
     }
 
     else
     {
-      v14 = @"\u200E";
+      v15 = @"\u200E";
     }
 
-    v15 = [(__CFString *)v14 stringByAppendingString:nameCopy];
+    v16 = [(__CFString *)v15 stringByAppendingString:nameCopy];
 
-    v16 = [CKAlertController alertControllerWithTitle:v15 message:0 preferredStyle:0];
-    v17 = CKFrameworkBundle();
-    v18 = [v17 localizedStringForKey:@"SHARED_WITH_YOU_OK_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __84__CKChatController_ClickyOrbConformance___showAutoDonationAlertForAppName_bundleID___block_invoke;
-    v23[3] = &unk_1E72EBFE8;
-    v24 = dCopy;
-    v19 = [CKAlertAction actionWithTitle:v18 style:0 handler:v23];
-    [v16 addAction:v19];
+    v17 = [CKAlertController alertControllerWithTitle:v16 message:0 preferredStyle:0];
+    v18 = CKFrameworkBundle(v17);
+    v19 = [v18 localizedStringForKey:@"SHARED_WITH_YOU_OK_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __84__CKChatController_ClickyOrbConformance___showAutoDonationAlertForAppName_bundleID___block_invoke;
+    v25[3] = &unk_1E72EBFE8;
+    v26 = dCopy;
+    v20 = [CKAlertAction actionWithTitle:v19 style:0 handler:v25];
+    [v17 addAction:v20];
 
-    v20 = CKFrameworkBundle();
-    v21 = [v20 localizedStringForKey:@"SHARED_WITH_YOU_CANCEL_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-    v22 = [CKAlertAction actionWithTitle:v21 style:1 handler:0];
-    [v16 addAction:v22];
+    v22 = CKFrameworkBundle(v21);
+    v23 = [v22 localizedStringForKey:@"SHARED_WITH_YOU_CANCEL_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v24 = [CKAlertAction actionWithTitle:v23 style:1 handler:0];
+    [v17 addAction:v24];
 
-    [(CKChatController *)self presentViewController:v16 animated:1 completion:0];
+    [(CKChatController *)self presentViewController:v17 animated:1 completion:0];
   }
 
   else
   {
-    v15 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [(CKChatController(ClickyOrbConformance) *)nameCopy _showAutoDonationAlertForAppName:dCopy bundleID:v15];
+      [(CKChatController(ClickyOrbConformance) *)nameCopy _showAutoDonationAlertForAppName:dCopy bundleID:v16];
     }
   }
 }
@@ -5451,44 +5454,45 @@ void __70__CKChatController_ClickyOrbConformance___highlightActionForChatItem___
   if ([(CKCoreChatController *)self wantsReplyButton])
   {
     objc_initWeak(&location, self);
-    if (CKIsRunningInMacCatalyst())
+    v5 = CKIsRunningInMacCatalyst();
+    if (v5)
     {
-      v5 = CKFrameworkBundle();
-      [v5 localizedStringForKey:@"INLINE_REPLY_MENU" value:&stru_1F04268F8 table:@"ChatKit"];
+      v6 = CKFrameworkBundle(v5);
+      [v6 localizedStringForKey:@"INLINE_REPLY_MENU" value:&stru_1F04268F8 table:@"ChatKit"];
     }
 
     else
     {
-      v5 = CKFrameworkBundle();
-      [v5 localizedStringForKey:@"INLINE_REPLY_ORB_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+      v6 = CKFrameworkBundle(v5);
+      [v6 localizedStringForKey:@"INLINE_REPLY_ORB_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
     }
-    v7 = ;
+    v8 = ;
 
-    v8 = MEMORY[0x1E69DC628];
-    v9 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"arrowshape.turn.up.backward"];
-    v11 = MEMORY[0x1E69E9820];
-    v12 = 3221225472;
-    v13 = __72__CKChatController_ClickyOrbConformance___inlineReplyActionForChatItem___block_invoke;
-    v14 = &unk_1E72EBCD8;
-    objc_copyWeak(&v15, &location);
-    v6 = [v8 actionWithTitle:v7 image:v9 identifier:0 handler:&v11];
+    v9 = MEMORY[0x1E69DC628];
+    v10 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"arrowshape.turn.up.backward"];
+    v12 = MEMORY[0x1E69E9820];
+    v13 = 3221225472;
+    v14 = __72__CKChatController_ClickyOrbConformance___inlineReplyActionForChatItem___block_invoke;
+    v15 = &unk_1E72EBCD8;
+    objc_copyWeak(&v16, &location);
+    v7 = [v9 actionWithTitle:v8 image:v10 identifier:0 handler:&v12];
 
     if (([itemCopy canInlineReply] & 1) == 0)
     {
-      [v6 setAttributes:1];
+      [v7 setAttributes:1];
     }
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v16);
 
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 void __72__CKChatController_ClickyOrbConformance___inlineReplyActionForChatItem___block_invoke(uint64_t a1)
@@ -5519,33 +5523,34 @@ void __72__CKChatController_ClickyOrbConformance___inlineReplyActionForChatItem_
 {
   itemCopy = item;
   viewCopy = view;
-  if ([(CKChatController *)self _shouldShowSaveStickerActionForChatItem:itemCopy])
+  v8 = [(CKChatController *)self _shouldShowSaveStickerActionForChatItem:itemCopy];
+  if (v8)
   {
-    v8 = CKFrameworkBundle();
-    v9 = [v8 localizedStringForKey:@"SAVE_TO_STICKERS" value:&stru_1F04268F8 table:@"ChatKit"];
+    v9 = CKFrameworkBundle(v8);
+    v10 = [v9 localizedStringForKey:@"SAVE_TO_STICKERS" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v10 = [MEMORY[0x1E69DCAB8] _systemImageNamed:@"square.and.arrow.down"];
+    v11 = [MEMORY[0x1E69DCAB8] _systemImageNamed:@"square.and.arrow.down"];
     objc_initWeak(&location, self);
-    v11 = MEMORY[0x1E69DC628];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __83__CKChatController_ClickyOrbConformance___saveStickerActionForChatItem_sourceView___block_invoke;
-    v14[3] = &unk_1E72EBFC0;
-    v15 = viewCopy;
-    objc_copyWeak(&v17, &location);
-    v16 = itemCopy;
-    v12 = [v11 actionWithTitle:v9 image:v10 identifier:0 handler:v14];
+    v12 = MEMORY[0x1E69DC628];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __83__CKChatController_ClickyOrbConformance___saveStickerActionForChatItem_sourceView___block_invoke;
+    v15[3] = &unk_1E72EBFC0;
+    v16 = viewCopy;
+    objc_copyWeak(&v18, &location);
+    v17 = itemCopy;
+    v13 = [v12 actionWithTitle:v10 image:v11 identifier:0 handler:v15];
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 void __83__CKChatController_ClickyOrbConformance___saveStickerActionForChatItem_sourceView___block_invoke(uint64_t a1)
@@ -5600,41 +5605,42 @@ LABEL_10:
   if (!isReadOnly)
   {
     objc_initWeak(&location, self);
-    if (CKIsRunningInMacCatalyst())
+    v16 = CKIsRunningInMacCatalyst();
+    if (v16)
     {
-      v16 = CKFrameworkBundle();
-      [v16 localizedStringForKey:@"ATTACH_STICKER_ELLIPSIS" value:&stru_1F04268F8 table:@"ChatKit"];
+      v17 = CKFrameworkBundle(v16);
+      [v17 localizedStringForKey:@"ATTACH_STICKER_ELLIPSIS" value:&stru_1F04268F8 table:@"ChatKit"];
     }
 
     else
     {
-      v16 = CKFrameworkBundle();
-      [v16 localizedStringForKey:@"ATTACH_STICKER" value:&stru_1F04268F8 table:@"ChatKit"];
+      v17 = CKFrameworkBundle(v16);
+      [v17 localizedStringForKey:@"ATTACH_STICKER" value:&stru_1F04268F8 table:@"ChatKit"];
     }
-    v19 = ;
+    v20 = ;
 
-    v20 = MEMORY[0x1E69DC628];
-    v21 = [MEMORY[0x1E69DCAB8] _systemImageNamed:@"sticker.badge.plus"];
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __97__CKChatController_ClickyOrbConformance___addStickerActionForChatItem_parentChatItem_sourceView___block_invoke;
-    v22[3] = &unk_1E72EC010;
-    objc_copyWeak(&v26, &location);
-    v23 = itemCopy;
-    v24 = chatItemCopy;
-    v25 = viewCopy;
-    v17 = [v20 actionWithTitle:v19 image:v21 identifier:0 handler:v22];
+    v21 = MEMORY[0x1E69DC628];
+    v22 = [MEMORY[0x1E69DCAB8] _systemImageNamed:@"sticker.badge.plus"];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __97__CKChatController_ClickyOrbConformance___addStickerActionForChatItem_parentChatItem_sourceView___block_invoke;
+    v23[3] = &unk_1E72EC010;
+    objc_copyWeak(&v27, &location);
+    v24 = itemCopy;
+    v25 = chatItemCopy;
+    v26 = viewCopy;
+    v18 = [v21 actionWithTitle:v20 image:v22 identifier:0 handler:v23];
 
-    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(&location);
     goto LABEL_12;
   }
 
 LABEL_11:
-  v17 = 0;
+  v18 = 0;
 LABEL_12:
 
-  return v17;
+  return v18;
 }
 
 void __97__CKChatController_ClickyOrbConformance___addStickerActionForChatItem_parentChatItem_sourceView___block_invoke(uint64_t a1)
@@ -5692,31 +5698,31 @@ void __97__CKChatController_ClickyOrbConformance___addStickerActionForChatItem_p
 
   if (isPollsEnabled && [(CKChatController *)self _shouldShowPollDetailsActionForChatItem:itemCopy])
   {
-    objc_initWeak(&location, self);
-    v13 = CKFrameworkBundle();
-    v14 = [v13 localizedStringForKey:@"POLL_DETAILS" value:&stru_1F04268F8 table:@"ChatKit"];
+    inited = objc_initWeak(&location, self);
+    v14 = CKFrameworkBundle(inited);
+    v15 = [v14 localizedStringForKey:@"POLL_DETAILS" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v15 = MEMORY[0x1E69DC628];
-    v16 = [MEMORY[0x1E69DCAB8] _systemImageNamed:@"info.circle"];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __101__CKChatController_ClickyOrbConformance___addPollDetailsActionForChatItem_parentChatItem_sourceView___block_invoke;
-    v19[3] = &unk_1E72EC038;
-    objc_copyWeak(&v22, &location);
-    v20 = itemCopy;
-    v21 = viewCopy;
-    v17 = [v15 actionWithTitle:v14 image:v16 identifier:0 handler:v19];
+    v16 = MEMORY[0x1E69DC628];
+    v17 = [MEMORY[0x1E69DCAB8] _systemImageNamed:@"info.circle"];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __101__CKChatController_ClickyOrbConformance___addPollDetailsActionForChatItem_parentChatItem_sourceView___block_invoke;
+    v20[3] = &unk_1E72EC038;
+    objc_copyWeak(&v23, &location);
+    v21 = itemCopy;
+    v22 = viewCopy;
+    v18 = [v16 actionWithTitle:v15 image:v17 identifier:0 handler:v20];
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v17 = 0;
+    v18 = 0;
   }
 
-  return v17;
+  return v18;
 }
 
 void __101__CKChatController_ClickyOrbConformance___addPollDetailsActionForChatItem_parentChatItem_sourceView___block_invoke(uint64_t a1)
@@ -5729,54 +5735,55 @@ void __101__CKChatController_ClickyOrbConformance___addPollDetailsActionForChatI
 {
   itemCopy = item;
   objc_initWeak(&location, self);
-  if ([itemCopy scheduleType] == 2 && objc_msgSend(itemCopy, "scheduleState") == 2)
+  scheduleType = [itemCopy scheduleType];
+  if (scheduleType == 2 && (scheduleType = [itemCopy scheduleState], scheduleType == 2))
   {
-    v5 = CKFrameworkBundle();
-    v6 = [v5 localizedStringForKey:@"DELETE_SCHEDULED_ACTION" value:&stru_1F04268F8 table:@"ChatKit"];
+    v6 = CKFrameworkBundle(2);
+    v7 = [v6 localizedStringForKey:@"DELETE_SCHEDULED_ACTION" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v7 = +[CKUIBehavior sharedBehaviors];
-    contextMenuCancelScheduledMessageIcon = [v7 contextMenuCancelScheduledMessageIcon];
+    v8 = +[CKUIBehavior sharedBehaviors];
+    contextMenuCancelScheduledMessageIcon = [v8 contextMenuCancelScheduledMessageIcon];
 
-    v9 = MEMORY[0x1E69DC628];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __71__CKChatController_ClickyOrbConformance___retractionActionForChatItem___block_invoke;
-    v20[3] = &unk_1E72EBF48;
-    v10 = &v22;
-    objc_copyWeak(&v22, &location);
-    v21 = itemCopy;
-    v11 = [v9 actionWithTitle:v6 image:contextMenuCancelScheduledMessageIcon identifier:0 handler:v20];
-    v12 = &v21;
+    v10 = MEMORY[0x1E69DC628];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __71__CKChatController_ClickyOrbConformance___retractionActionForChatItem___block_invoke;
+    v21[3] = &unk_1E72EBF48;
+    v11 = &v23;
+    objc_copyWeak(&v23, &location);
+    v22 = itemCopy;
+    v12 = [v10 actionWithTitle:v7 image:contextMenuCancelScheduledMessageIcon identifier:0 handler:v21];
+    v13 = &v22;
     if (!CKIsRunningInMacCatalyst())
     {
-      [v11 setAttributes:2];
+      [v12 setAttributes:2];
     }
   }
 
   else
   {
-    v13 = CKFrameworkBundle();
-    v6 = [v13 localizedStringForKey:@"UNDO_SEND_ACTION" value:&stru_1F04268F8 table:@"ChatKit"];
+    v14 = CKFrameworkBundle(scheduleType);
+    v7 = [v14 localizedStringForKey:@"UNDO_SEND_ACTION" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v14 = +[CKUIBehavior sharedBehaviors];
-    contextMenuCancelScheduledMessageIcon = [v14 contextMenuUndoSendIcon];
+    v15 = +[CKUIBehavior sharedBehaviors];
+    contextMenuCancelScheduledMessageIcon = [v15 contextMenuUndoSendIcon];
 
-    v15 = MEMORY[0x1E69DC628];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __71__CKChatController_ClickyOrbConformance___retractionActionForChatItem___block_invoke_2;
-    v17[3] = &unk_1E72EBF48;
-    v10 = &v19;
-    objc_copyWeak(&v19, &location);
-    v18 = itemCopy;
-    v11 = [v15 actionWithTitle:v6 image:contextMenuCancelScheduledMessageIcon identifier:0 handler:v17];
-    v12 = &v18;
+    v16 = MEMORY[0x1E69DC628];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __71__CKChatController_ClickyOrbConformance___retractionActionForChatItem___block_invoke_2;
+    v18[3] = &unk_1E72EBF48;
+    v11 = &v20;
+    objc_copyWeak(&v20, &location);
+    v19 = itemCopy;
+    v12 = [v16 actionWithTitle:v7 image:contextMenuCancelScheduledMessageIcon identifier:0 handler:v18];
+    v13 = &v19;
   }
 
-  objc_destroyWeak(v10);
+  objc_destroyWeak(v11);
   objc_destroyWeak(&location);
 
-  return v11;
+  return v12;
 }
 
 void __71__CKChatController_ClickyOrbConformance___retractionActionForChatItem___block_invoke(uint64_t a1)
@@ -5917,31 +5924,31 @@ void __71__CKChatController_ClickyOrbConformance___retractionActionForChatItem__
 {
   itemCopy = item;
   objc_initWeak(&location, self);
-  if (CKIsRunningInMacCatalyst() && !-[CKCoreChatController isInline](self, "isInline") && [itemCopy canForward])
+  if (CKIsRunningInMacCatalyst() && !-[CKCoreChatController isInline](self, "isInline") && (v5 = [itemCopy canForward], v5))
   {
-    v5 = MEMORY[0x1E69DC628];
-    v6 = CKFrameworkBundle();
-    v7 = [v6 localizedStringForKey:@"FORWARD_ELLIPSIS" value:&stru_1F04268F8 table:@"ChatKit"];
-    v8 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"arrowshape.turn.up.forward"];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __68__CKChatController_ClickyOrbConformance___forwardActionForChatItem___block_invoke;
-    v11[3] = &unk_1E72EBF48;
-    objc_copyWeak(&v13, &location);
-    v12 = itemCopy;
-    v9 = [v5 actionWithTitle:v7 image:v8 identifier:0 handler:v11];
+    v6 = MEMORY[0x1E69DC628];
+    v7 = CKFrameworkBundle(v5);
+    v8 = [v7 localizedStringForKey:@"FORWARD_ELLIPSIS" value:&stru_1F04268F8 table:@"ChatKit"];
+    v9 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"arrowshape.turn.up.forward"];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __68__CKChatController_ClickyOrbConformance___forwardActionForChatItem___block_invoke;
+    v12[3] = &unk_1E72EBF48;
+    objc_copyWeak(&v14, &location);
+    v13 = itemCopy;
+    v10 = [v6 actionWithTitle:v8 image:v9 identifier:0 handler:v12];
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v14);
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
   objc_destroyWeak(&location);
 
-  return v9;
+  return v10;
 }
 
 void __68__CKChatController_ClickyOrbConformance___forwardActionForChatItem___block_invoke(uint64_t a1)
@@ -6001,24 +6008,26 @@ void __68__CKChatController_ClickyOrbConformance___forwardActionForChatItem___bl
 - (id)_copyActionForChatItem:(id)item shouldUseTopMostChatItemIfAggregateChatItem:(BOOL)chatItem
 {
   chatItemCopy = chatItem;
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   if ([itemCopy canCopy])
   {
-    v7 = itemCopy;
+    isKindOfClass = itemCopy;
+    v8 = isKindOfClass;
     if (chatItemCopy)
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v8 = [(CKChatController *)self currentTopChatItemForAggregateChatItem:v7];
+        v9 = [(CKChatController *)self currentTopChatItemForAggregateChatItem:v8];
 
-        v7 = v8;
+        v8 = v9;
       }
     }
 
-    v9 = CKFrameworkBundle();
-    v10 = [v9 localizedStringForKey:@"COPY" value:&stru_1F04268F8 table:@"ChatKit"];
+    v10 = CKFrameworkBundle(isKindOfClass);
+    v11 = [v10 localizedStringForKey:@"COPY" value:&stru_1F04268F8 table:@"ChatKit"];
 
     if (!chatItemCopy)
     {
@@ -6026,81 +6035,81 @@ void __68__CKChatController_ClickyOrbConformance___forwardActionForChatItem___bl
       if (objc_opt_isKindOfClass())
       {
         selfCopy = self;
-        v27 = v10;
-        v30 = 0u;
+        v28 = v11;
         v31 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v25 = v7;
-        mediaObjects = [v25 mediaObjects];
-        v12 = [mediaObjects countByEnumeratingWithState:&v30 objects:v34 count:16];
-        if (v12)
+        v34 = 0u;
+        v26 = v8;
+        mediaObjects = [v26 mediaObjects];
+        v13 = [mediaObjects countByEnumeratingWithState:&v31 objects:v35 count:16];
+        if (v13)
         {
-          v13 = v12;
-          v14 = 0;
+          v14 = v13;
           v15 = 0;
           v16 = 0;
-          v17 = *v31;
+          v17 = 0;
+          v18 = *v32;
           do
           {
-            for (i = 0; i != v13; ++i)
+            for (i = 0; i != v14; ++i)
             {
-              if (*v31 != v17)
+              if (*v32 != v18)
               {
                 objc_enumerationMutation(mediaObjects);
               }
 
-              v19 = *(*(&v30 + 1) + 8 * i);
-              if ([v19 mediaType] == 2)
+              v20 = *(*(&v31 + 1) + 8 * i);
+              if ([v20 mediaType] == 2)
+              {
+                ++v16;
+              }
+
+              else if ([v20 mediaType] == 3)
               {
                 ++v15;
               }
 
-              else if ([v19 mediaType] == 3)
-              {
-                ++v14;
-              }
-
               else
               {
-                ++v16;
+                ++v17;
               }
             }
 
-            v13 = [mediaObjects countByEnumeratingWithState:&v30 objects:v34 count:16];
+            v14 = [mediaObjects countByEnumeratingWithState:&v31 objects:v35 count:16];
           }
 
-          while (v13);
+          while (v14);
         }
 
         else
         {
-          v14 = 0;
           v15 = 0;
           v16 = 0;
+          v17 = 0;
         }
 
-        v10 = [(CKChatController *)selfCopy _localizedTitleStringForAggregateAction:0 numberOfPhotos:v14 numberOfVideos:v15 numberOfOther:v16];
+        v11 = [(CKChatController *)selfCopy _localizedTitleStringForAggregateAction:0 numberOfPhotos:v15 numberOfVideos:v16 numberOfOther:v17];
       }
     }
 
-    v21 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"doc.on.doc"];
-    v22 = MEMORY[0x1E69DC628];
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __109__CKChatController_ClickyOrbConformance___copyActionForChatItem_shouldUseTopMostChatItemIfAggregateChatItem___block_invoke;
-    v28[3] = &unk_1E72EC060;
-    v29 = v7;
-    v23 = v7;
-    v20 = [v22 actionWithTitle:v10 image:v21 identifier:0 handler:v28];
+    v22 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"doc.on.doc"];
+    v23 = MEMORY[0x1E69DC628];
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __109__CKChatController_ClickyOrbConformance___copyActionForChatItem_shouldUseTopMostChatItemIfAggregateChatItem___block_invoke;
+    v29[3] = &unk_1E72EC060;
+    v30 = v8;
+    v24 = v8;
+    v21 = [v23 actionWithTitle:v11 image:v22 identifier:0 handler:v29];
   }
 
   else
   {
-    v20 = 0;
+    v21 = 0;
   }
 
-  return v20;
+  return v21;
 }
 
 void __109__CKChatController_ClickyOrbConformance___copyActionForChatItem_shouldUseTopMostChatItemIfAggregateChatItem___block_invoke(uint64_t a1)
@@ -6155,116 +6164,118 @@ void __109__CKChatController_ClickyOrbConformance___copyActionForChatItem_should
 - (id)_deleteActionForChatItem:(id)item shouldUseTopMostChatItemIfAggregateChatItem:(BOOL)chatItem
 {
   chatItemCopy = chatItem;
-  v35 = *MEMORY[0x1E69E9840];
-  itemCopy = item;
-  v6 = itemCopy;
+  v36 = *MEMORY[0x1E69E9840];
+  isKindOfClass = item;
+  v6 = isKindOfClass;
+  v7 = isKindOfClass;
   if (chatItemCopy)
   {
     objc_opt_class();
-    v6 = itemCopy;
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    v7 = v6;
+    if (isKindOfClass)
     {
-      v6 = [(CKChatController *)self currentTopChatItemForAggregateChatItem:itemCopy];
+      v7 = [(CKChatController *)self currentTopChatItemForAggregateChatItem:v6];
     }
   }
 
-  if (v6)
+  if (v7)
   {
-    v7 = CKFrameworkBundle();
-    v25 = [v7 localizedStringForKey:@"DELETE_ELLIPSIS" value:&stru_1F04268F8 table:@"ChatKit"];
+    v8 = CKFrameworkBundle(isKindOfClass);
+    v26 = [v8 localizedStringForKey:@"DELETE_ELLIPSIS" value:&stru_1F04268F8 table:@"ChatKit"];
 
     if (!chatItemCopy)
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v30 = 0u;
         v31 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v23 = v6;
-        mediaObjects = [v23 mediaObjects];
-        v9 = 0;
+        v34 = 0u;
+        v24 = v7;
+        mediaObjects = [v24 mediaObjects];
         v10 = 0;
         v11 = 0;
-        v12 = [mediaObjects countByEnumeratingWithState:&v30 objects:v34 count:16];
-        if (v12)
+        v12 = 0;
+        v13 = [mediaObjects countByEnumeratingWithState:&v31 objects:v35 count:16];
+        if (v13)
         {
-          v13 = *v31;
+          v14 = *v32;
           do
           {
-            for (i = 0; i != v12; ++i)
+            for (i = 0; i != v13; ++i)
             {
-              if (*v31 != v13)
+              if (*v32 != v14)
               {
                 objc_enumerationMutation(mediaObjects);
               }
 
-              v15 = *(*(&v30 + 1) + 8 * i);
-              if ([v15 mediaType] == 2)
+              v16 = *(*(&v31 + 1) + 8 * i);
+              if ([v16 mediaType] == 2)
+              {
+                ++v11;
+              }
+
+              else if ([v16 mediaType] == 3)
               {
                 ++v10;
               }
 
-              else if ([v15 mediaType] == 3)
-              {
-                ++v9;
-              }
-
               else
               {
-                ++v11;
+                ++v12;
               }
             }
 
-            v12 = [mediaObjects countByEnumeratingWithState:&v30 objects:v34 count:16];
+            v13 = [mediaObjects countByEnumeratingWithState:&v31 objects:v35 count:16];
           }
 
-          while (v12);
+          while (v13);
         }
 
-        v16 = [(CKChatController *)self _localizedTitleStringForAggregateAction:1 numberOfPhotos:v9 numberOfVideos:v10 numberOfOther:v11];
+        v17 = [(CKChatController *)self _localizedTitleStringForAggregateAction:1 numberOfPhotos:v10 numberOfVideos:v11 numberOfOther:v12];
 
-        v25 = v16;
+        v26 = v17;
       }
     }
 
-    v17 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"trash"];
+    v18 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"trash"];
     objc_initWeak(&location, self);
-    v18 = MEMORY[0x1E69DC628];
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __111__CKChatController_ClickyOrbConformance___deleteActionForChatItem_shouldUseTopMostChatItemIfAggregateChatItem___block_invoke;
-    v26[3] = &unk_1E72EBF48;
-    objc_copyWeak(&v28, &location);
-    v27 = v6;
-    v19 = [v18 actionWithTitle:v25 image:v17 identifier:0 handler:v26];
-    [v19 setAttributes:2];
+    v19 = MEMORY[0x1E69DC628];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __111__CKChatController_ClickyOrbConformance___deleteActionForChatItem_shouldUseTopMostChatItemIfAggregateChatItem___block_invoke;
+    v27[3] = &unk_1E72EBF48;
+    objc_copyWeak(&v29, &location);
+    v28 = v7;
+    v20 = [v19 actionWithTitle:v26 image:v18 identifier:0 handler:v27];
+    [v20 setAttributes:2];
 
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v29);
     objc_destroyWeak(&location);
 
-    v20 = v25;
+    v21 = v26;
   }
 
   else
   {
-    v21 = IMLogHandleForCategory();
-    v20 = v21;
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = IMLogHandleForCategory();
+    v21 = v22;
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [CKChatController(ClickyOrbConformance) _deleteActionForChatItem:shouldUseTopMostChatItemIfAggregateChatItem:];
-      v19 = 0;
-      v20 = v21;
+      v20 = 0;
+      v21 = v22;
     }
 
     else
     {
-      v19 = 0;
+      v20 = 0;
     }
   }
 
-  return v19;
+  return v20;
 }
 
 void __111__CKChatController_ClickyOrbConformance___deleteActionForChatItem_shouldUseTopMostChatItemIfAggregateChatItem___block_invoke(uint64_t a1)
@@ -6322,9 +6333,9 @@ void __111__CKChatController_ClickyOrbConformance___deleteActionForChatItem_shou
 - (id)_exportActionForChatItem:(id)item shouldUseTopMostChatItemIfAggregateChatItem:(BOOL)chatItem
 {
   chatItemCopy = chatItem;
-  v54 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   itemCopy = item;
-  v40 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"square.and.arrow.down"];
+  v43 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"square.and.arrow.down"];
   if (![itemCopy canExport])
   {
     v9 = 0;
@@ -6342,7 +6353,7 @@ void __111__CKChatController_ClickyOrbConformance___deleteActionForChatItem_shou
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v53 = v5;
+        v56 = v5;
         _os_log_impl(&dword_19020E000, v7, OS_LOG_TYPE_INFO, "Request to export top-most chat item for chatItem: %@", buf, 0xCu);
       }
     }
@@ -6353,7 +6364,7 @@ void __111__CKChatController_ClickyOrbConformance___deleteActionForChatItem_shou
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v53 = v6;
+        v56 = v6;
         _os_log_impl(&dword_19020E000, v8, OS_LOG_TYPE_INFO, "Request to export top-most chat item for chatItemToExport: %@", buf, 0xCu);
       }
     }
@@ -6382,8 +6393,8 @@ void __111__CKChatController_ClickyOrbConformance___deleteActionForChatItem_shou
       v12 = mediaObject;
       if (mediaObject)
       {
-        v51 = mediaObject;
-        mediaObjects = [MEMORY[0x1E695DEC8] arrayWithObjects:&v51 count:1];
+        v54 = mediaObject;
+        mediaObjects = [MEMORY[0x1E695DEC8] arrayWithObjects:&v54 count:1];
         momentShareURL = CKMomentShareURLForMediaObjects(mediaObjects);
       }
 
@@ -6414,59 +6425,61 @@ void __111__CKChatController_ClickyOrbConformance___deleteActionForChatItem_shou
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    if (CKIsRunningInMacCatalyst())
+    v18 = CKIsRunningInMacCatalyst();
+    if (v18)
     {
-      v48 = 0u;
+      v51 = 0u;
+      v52 = 0u;
       v49 = 0u;
-      v46 = 0u;
-      v47 = 0u;
-      v17 = mediaObjects;
-      v18 = [v17 countByEnumeratingWithState:&v46 objects:v50 count:16];
-      if (v18)
+      v50 = 0u;
+      v19 = mediaObjects;
+      v20 = [v19 countByEnumeratingWithState:&v49 objects:v53 count:16];
+      if (v20)
       {
-        v19 = 0;
-        v20 = 0;
         v21 = 0;
-        v22 = *v47;
+        v22 = 0;
+        v23 = 0;
+        v24 = *v50;
         do
         {
-          for (i = 0; i != v18; ++i)
+          for (i = 0; i != v20; ++i)
           {
-            if (*v47 != v22)
+            if (*v50 != v24)
             {
-              objc_enumerationMutation(v17);
+              objc_enumerationMutation(v19);
             }
 
-            v24 = *(*(&v46 + 1) + 8 * i);
-            if ([v24 mediaType] == 2)
+            v26 = *(*(&v49 + 1) + 8 * i);
+            if ([v26 mediaType] == 2)
             {
-              ++v20;
+              ++v22;
             }
 
-            else if ([v24 mediaType] == 3)
+            else if ([v26 mediaType] == 3)
             {
-              ++v19;
+              ++v21;
             }
 
             else
             {
-              ++v21;
+              ++v23;
             }
           }
 
-          v18 = [v17 countByEnumeratingWithState:&v46 objects:v50 count:16];
+          v20 = [v19 countByEnumeratingWithState:&v49 objects:v53 count:16];
         }
 
-        while (v18);
+        while (v20);
 
-        if (v21)
+        if (v23)
         {
-          v16 = CKFrameworkBundle();
-          v25 = [v16 localizedStringForKey:@"SAVE_TO_DOWNLOADS" value:&stru_1F04268F8 table:@"ChatKit"];
+          v17 = CKFrameworkBundle(v27);
+          v28 = [v17 localizedStringForKey:@"SAVE_TO_DOWNLOADS" value:&stru_1F04268F8 table:@"ChatKit"];
 LABEL_47:
-          v15 = v25;
+          v16 = v28;
           goto LABEL_48;
         }
       }
@@ -6474,82 +6487,82 @@ LABEL_47:
       else
       {
 
-        v20 = 0;
-        v19 = 0;
+        v22 = 0;
+        v21 = 0;
       }
 
       if (!chatItemCopy)
       {
-        if (v20)
+        if (v22)
         {
-          v31 = 1;
+          v34 = 1;
         }
 
         else
         {
-          v31 = v19 == 0;
+          v34 = v21 == 0;
         }
 
-        if (v19 == 0 && v20 != 0)
+        if (v21 == 0 && v22 != 0)
         {
-          v32 = @"_VIDEOS";
+          v35 = @"_VIDEOS";
         }
 
         else
         {
-          v32 = @"_ITEMS";
+          v35 = @"_ITEMS";
         }
 
-        if (v31)
+        if (v34)
         {
-          v33 = v32;
+          v36 = v35;
         }
 
         else
         {
-          v33 = @"_PHOTOS";
+          v36 = @"_PHOTOS";
         }
 
-        v16 = [@"ADD_ALL_TO_PHOTOS_LIBRARY" stringByAppendingFormat:v33];
-        v34 = CKFrameworkBundle();
-        v15 = [v34 localizedStringForKey:v16 value:&stru_1F04268F8 table:@"ChatKit"];
+        v17 = [@"ADD_ALL_TO_PHOTOS_LIBRARY" stringByAppendingFormat:v36];
+        v37 = CKFrameworkBundle(v17);
+        v16 = [v37 localizedStringForKey:v17 value:&stru_1F04268F8 table:@"ChatKit"];
 
-        v35 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"square.and.arrow.down.on.square"];
+        v38 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"square.and.arrow.down.on.square"];
 
-        v40 = v35;
+        v43 = v38;
         goto LABEL_48;
       }
 
-      v16 = CKFrameworkBundle();
-      v25 = [v16 localizedStringForKey:@"ADD_TO_PHOTOS_LIBRARY" value:&stru_1F04268F8 table:@"ChatKit"];
+      v17 = CKFrameworkBundle(v27);
+      v28 = [v17 localizedStringForKey:@"ADD_TO_PHOTOS_LIBRARY" value:&stru_1F04268F8 table:@"ChatKit"];
       goto LABEL_47;
     }
 
-    v16 = CKFrameworkBundle();
-    v25 = [v16 localizedStringForKey:@"BALLOON_EXPORT_CALLOUT" value:&stru_1F04268F8 table:@"ChatKit"];
+    v17 = CKFrameworkBundle(v18);
+    v28 = [v17 localizedStringForKey:@"BALLOON_EXPORT_CALLOUT" value:&stru_1F04268F8 table:@"ChatKit"];
     goto LABEL_47;
   }
 
-  v14 = CKFrameworkBundle();
-  v15 = [v14 localizedStringForKey:@"AUDIO_MESSAGE_SAVE" value:&stru_1F04268F8 table:@"ChatKit"];
+  v15 = CKFrameworkBundle(isKindOfClass);
+  v16 = [v15 localizedStringForKey:@"AUDIO_MESSAGE_SAVE" value:&stru_1F04268F8 table:@"ChatKit"];
 
   [MEMORY[0x1E69DCAB8] systemImageNamed:@"waveform.badge.plus"];
-  v40 = v16 = v40;
+  v43 = v17 = v43;
 LABEL_48:
 
-  v26 = MEMORY[0x1E69DC628];
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = 3221225472;
-  v41[2] = __111__CKChatController_ClickyOrbConformance___exportActionForChatItem_shouldUseTopMostChatItemIfAggregateChatItem___block_invoke;
-  v41[3] = &unk_1E72EC0B0;
-  v42 = v6;
-  v43 = mediaObjects;
-  v44 = momentShareURL;
+  v29 = MEMORY[0x1E69DC628];
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __111__CKChatController_ClickyOrbConformance___exportActionForChatItem_shouldUseTopMostChatItemIfAggregateChatItem___block_invoke;
+  v44[3] = &unk_1E72EC0B0;
+  v45 = v6;
+  v46 = mediaObjects;
+  v47 = momentShareURL;
   selfCopy = self;
-  v27 = momentShareURL;
-  v28 = mediaObjects;
-  v29 = v6;
-  v9 = [v26 actionWithTitle:v15 image:v40 identifier:0 handler:v41];
+  v30 = momentShareURL;
+  v31 = mediaObjects;
+  v32 = v6;
+  v9 = [v29 actionWithTitle:v16 image:v43 identifier:0 handler:v44];
 
 LABEL_49:
 
@@ -6723,7 +6736,7 @@ LABEL_11:
 
 void __77__CKChatController_ClickyOrbConformance___downgradeMessageActionForChatItem___block_invoke(id *a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (IMOSLoggingEnabled())
   {
@@ -6734,35 +6747,34 @@ void __77__CKChatController_ClickyOrbConformance___downgradeMessageActionForChat
       v5 = [a1[4] guid];
       v6 = a1[5];
       *buf = 138412546;
-      v19 = v5;
-      v20 = 2112;
-      v21 = v6;
+      v24 = v5;
+      v25 = 2112;
+      v26 = v6;
       _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_INFO, "Manually downgrading message with GUID {%@} -- conversation:%@", buf, 0x16u);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
   {
-    v13 = [a1[4] guid];
-    v14 = a1[5];
-    _CKLogExternal();
+    v7 = [a1[4] guid];
+    _CKLogExternal(0x1Du, @"Manually downgrading message with GUID {%@} -- conversation:%@", v8, v9, v10, v11, v12, v13, v7);
   }
 
-  v7 = a1 + 5;
-  v8 = [a1[5] chat];
-  [v8 downgradeMessage:a1[4] manualDowngrade:1];
+  v14 = a1 + 5;
+  v15 = [a1[5] chat];
+  [v15 downgradeMessage:a1[4] manualDowngrade:1];
 
-  v9 = [a1[4] __ck_downgradedMessage];
+  v16 = [a1[4] __ck_downgradedMessage];
   WeakRetained = objc_loadWeakRetained(a1 + 6);
-  v11 = [WeakRetained collectionViewController];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __77__CKChatController_ClickyOrbConformance___downgradeMessageActionForChatItem___block_invoke_421;
-  v15[3] = &unk_1E72EB8D0;
-  v16 = *v7;
-  v17 = v9;
-  v12 = v9;
-  [v11 updateTranscript:v15 animated:0 completion:0];
+  v18 = [WeakRetained collectionViewController];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __77__CKChatController_ClickyOrbConformance___downgradeMessageActionForChatItem___block_invoke_421;
+  v20[3] = &unk_1E72EB8D0;
+  v21 = *v14;
+  v22 = v16;
+  v19 = v16;
+  [v18 updateTranscript:v20 animated:0 completion:0];
 }
 
 void __77__CKChatController_ClickyOrbConformance___downgradeMessageActionForChatItem___block_invoke_421(uint64_t a1)
@@ -6783,44 +6795,45 @@ void __77__CKChatController_ClickyOrbConformance___downgradeMessageActionForChat
   {
     v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
     visibleAssociatedMessageChatItems2 = [itemCopy visibleAssociatedMessageChatItems];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __75__CKChatController_ClickyOrbConformance___stickerDetailsActionForChatItem___block_invoke;
-    v17[3] = &unk_1E72EC100;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __75__CKChatController_ClickyOrbConformance___stickerDetailsActionForChatItem___block_invoke;
+    v18[3] = &unk_1E72EC100;
     v8 = v6;
-    v18 = v8;
-    [visibleAssociatedMessageChatItems2 enumerateObjectsUsingBlock:v17];
+    v19 = v8;
+    [visibleAssociatedMessageChatItems2 enumerateObjectsUsingBlock:v18];
 
-    if ([v8 count])
+    v9 = [v8 count];
+    if (v9)
     {
-      v9 = MEMORY[0x1E69DC628];
-      v10 = CKFrameworkBundle();
-      v11 = [v10 localizedStringForKey:@"BALLOON_STICKER_CALLOUT" value:&stru_1F04268F8 table:@"ChatKit"];
-      v12 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"info.circle"];
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __75__CKChatController_ClickyOrbConformance___stickerDetailsActionForChatItem___block_invoke_2;
-      v15[3] = &unk_1E72EBCD8;
-      objc_copyWeak(&v16, &location);
-      v13 = [v9 actionWithTitle:v11 image:v12 identifier:0 handler:v15];
+      v10 = MEMORY[0x1E69DC628];
+      v11 = CKFrameworkBundle(v9);
+      v12 = [v11 localizedStringForKey:@"BALLOON_STICKER_CALLOUT" value:&stru_1F04268F8 table:@"ChatKit"];
+      v13 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"info.circle"];
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __75__CKChatController_ClickyOrbConformance___stickerDetailsActionForChatItem___block_invoke_2;
+      v16[3] = &unk_1E72EBCD8;
+      objc_copyWeak(&v17, &location);
+      v14 = [v10 actionWithTitle:v12 image:v13 identifier:0 handler:v16];
 
-      objc_destroyWeak(&v16);
+      objc_destroyWeak(&v17);
     }
 
     else
     {
-      v13 = 0;
+      v14 = 0;
     }
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
   objc_destroyWeak(&location);
 
-  return v13;
+  return v14;
 }
 
 void __75__CKChatController_ClickyOrbConformance___stickerDetailsActionForChatItem___block_invoke(uint64_t a1, void *a2)
@@ -6847,36 +6860,37 @@ void __75__CKChatController_ClickyOrbConformance___stickerDetailsActionForChatIt
   {
     v5 = itemCopy;
     emojiImageMediaObjectsInMessagePartText = [v5 emojiImageMediaObjectsInMessagePartText];
-    if ([emojiImageMediaObjectsInMessagePartText count])
+    v7 = [emojiImageMediaObjectsInMessagePartText count];
+    if (v7)
     {
-      v7 = CKFrameworkBundle();
-      v8 = [v7 localizedStringForKey:@"EMOJI_DETAILS_CONTEXT_MENU_ACTION_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+      v8 = CKFrameworkBundle(v7);
+      v9 = [v8 localizedStringForKey:@"EMOJI_DETAILS_CONTEXT_MENU_ACTION_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-      v9 = [MEMORY[0x1E69DCAB8] _systemImageNamed:@"info.circle"];
+      v10 = [MEMORY[0x1E69DCAB8] _systemImageNamed:@"info.circle"];
       objc_initWeak(&location, self);
-      v10 = MEMORY[0x1E69DC628];
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __73__CKChatController_ClickyOrbConformance___emojiDetailsActionForChatItem___block_invoke;
-      v13[3] = &unk_1E72EBCD8;
-      objc_copyWeak(&v14, &location);
-      v11 = [v10 actionWithTitle:v8 image:v9 identifier:0 handler:v13];
-      objc_destroyWeak(&v14);
+      v11 = MEMORY[0x1E69DC628];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __73__CKChatController_ClickyOrbConformance___emojiDetailsActionForChatItem___block_invoke;
+      v14[3] = &unk_1E72EBCD8;
+      objc_copyWeak(&v15, &location);
+      v12 = [v11 actionWithTitle:v9 image:v10 identifier:0 handler:v14];
+      objc_destroyWeak(&v15);
       objc_destroyWeak(&location);
     }
 
     else
     {
-      v11 = 0;
+      v12 = 0;
     }
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 void __73__CKChatController_ClickyOrbConformance___emojiDetailsActionForChatItem___block_invoke(uint64_t a1)
@@ -6926,39 +6940,39 @@ void __73__CKChatController_ClickyOrbConformance___emojiDetailsActionForChatItem
         __ck_localizedAppNameForTranscriptAttribution = [attributionInfo __ck_localizedAppNameForTranscriptAttribution];
         if (__ck_localizedAppNameForTranscriptAttribution)
         {
-          objc_initWeak(buf, self);
-          v14 = MEMORY[0x1E69DC628];
-          v15 = MEMORY[0x1E696AEC0];
-          v16 = CKFrameworkBundle();
-          v17 = [v16 localizedStringForKey:@"MEDIA_ATTRIBUTION_TITLE_FORMAT" value:&stru_1F04268F8 table:@"ChatKit"];
-          v18 = [v15 stringWithFormat:v17, __ck_localizedAppNameForTranscriptAttribution];
+          inited = objc_initWeak(buf, self);
+          v15 = MEMORY[0x1E69DC628];
+          v16 = MEMORY[0x1E696AEC0];
+          v17 = CKFrameworkBundle(inited);
+          v18 = [v17 localizedStringForKey:@"MEDIA_ATTRIBUTION_TITLE_FORMAT" value:&stru_1F04268F8 table:@"ChatKit"];
+          v19 = [v16 stringWithFormat:v18, __ck_localizedAppNameForTranscriptAttribution];
 
           mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
           userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
           if (userInterfaceLayoutDirection == 1)
           {
-            v21 = @"\u200F";
+            v22 = @"\u200F";
           }
 
           else
           {
-            v21 = @"\u200E";
+            v22 = @"\u200E";
           }
 
-          v22 = [(__CFString *)v21 stringByAppendingString:v18];
+          v23 = [(__CFString *)v22 stringByAppendingString:v19];
 
-          v23 = [MEMORY[0x1E69DCAB8] _systemImageNamed:@"appstore.capsule"];
-          v26[0] = MEMORY[0x1E69E9820];
-          v26[1] = 3221225472;
-          v26[2] = __77__CKChatController_ClickyOrbConformance___mediaAttributionActionForChatItem___block_invoke;
-          v26[3] = &unk_1E72EC0D8;
-          v27 = attributionInfo;
-          v28 = mediaObject;
-          objc_copyWeak(&v29, buf);
-          v10 = [v14 actionWithTitle:v22 image:v23 identifier:0 handler:v26];
+          v24 = [MEMORY[0x1E69DCAB8] _systemImageNamed:@"appstore.capsule"];
+          v27[0] = MEMORY[0x1E69E9820];
+          v27[1] = 3221225472;
+          v27[2] = __77__CKChatController_ClickyOrbConformance___mediaAttributionActionForChatItem___block_invoke;
+          v27[3] = &unk_1E72EC0D8;
+          v28 = attributionInfo;
+          v29 = mediaObject;
+          objc_copyWeak(&v30, buf);
+          v10 = [v15 actionWithTitle:v23 image:v24 identifier:0 handler:v27];
 
-          objc_destroyWeak(&v29);
+          objc_destroyWeak(&v30);
           objc_destroyWeak(buf);
         }
 
@@ -6966,11 +6980,11 @@ void __73__CKChatController_ClickyOrbConformance___emojiDetailsActionForChatItem
         {
           if (IMOSLoggingEnabled())
           {
-            v24 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+            v25 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
             {
               LOWORD(buf[0]) = 0;
-              _os_log_impl(&dword_19020E000, v24, OS_LOG_TYPE_INFO, "Not showing media attribution action: title is nil", buf, 2u);
+              _os_log_impl(&dword_19020E000, v25, OS_LOG_TYPE_INFO, "Not showing media attribution action: title is nil", buf, 2u);
             }
           }
 
@@ -7072,28 +7086,29 @@ LABEL_10:
 
   if ((isInline & 1) == 0)
   {
-    v12 = CKFrameworkBundle();
-    self = [v12 localizedStringForKey:@"BALLOON_MORE_CALLOUT" value:&stru_1F04268F8 table:@"ChatKit"];
+    v13 = CKFrameworkBundle(v12);
+    self = [v13 localizedStringForKey:@"BALLOON_MORE_CALLOUT" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    conversation = [MEMORY[0x1E69DCAB8] systemImageNamed:@"ellipsis.circle"];
+    v14 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"ellipsis.circle"];
+    conversation = v14;
     if (safetyCopy)
     {
-      v13 = CKFrameworkBundle();
-      v14 = [v13 localizedStringForKey:@"DELETE_ELLIPSIS" value:&stru_1F04268F8 table:@"ChatKit"];
+      v15 = CKFrameworkBundle(v14);
+      v16 = [v15 localizedStringForKey:@"DELETE_ELLIPSIS" value:&stru_1F04268F8 table:@"ChatKit"];
 
-      self = v14;
+      self = v16;
     }
 
-    v15 = MEMORY[0x1E69DC628];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __88__CKChatController_ClickyOrbConformance___moreActionForChatItem_configureForCommSafety___block_invoke;
-    v17[3] = &unk_1E72EBF48;
-    objc_copyWeak(&v19, &location);
-    v18 = itemCopy;
-    v9 = [v15 actionWithTitle:self image:conversation identifier:0 handler:v17];
+    v17 = MEMORY[0x1E69DC628];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __88__CKChatController_ClickyOrbConformance___moreActionForChatItem_configureForCommSafety___block_invoke;
+    v19[3] = &unk_1E72EBF48;
+    objc_copyWeak(&v21, &location);
+    v20 = itemCopy;
+    v9 = [v17 actionWithTitle:self image:conversation identifier:0 handler:v19];
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v21);
     goto LABEL_10;
   }
 
@@ -7264,7 +7279,7 @@ void __90__CKChatController_ClickyOrbConformance___votingViewForChatItem_contain
   v12 = videos + photos + other;
   v13 = [(__CFString *)v11 stringByAppendingFormat:v8];
   v14 = MEMORY[0x1E696AEC0];
-  v15 = CKFrameworkBundle();
+  v15 = CKFrameworkBundle(v13);
   v16 = [v15 localizedStringForKey:v13 value:&stru_1F04268F8 table:@"ChatKit"];
   v17 = [v14 localizedStringWithFormat:v16, v12];
 
@@ -7713,7 +7728,7 @@ LABEL_18:
   if (v4 && (v5 = v4, (objc_opt_respondsToSelector() & 1) != 0))
   {
 
-    return [v5 targetPreviewTransform];
+    return objc_msgSend_targetPreviewTransform(v5);
   }
 
   else
@@ -7768,7 +7783,7 @@ LABEL_18:
     v23 = v22;
     if (itemCopy)
     {
-      [itemCopy _suggestedTransform];
+      objc_msgSend__suggestedTransform(itemCopy);
     }
 
     else
@@ -7948,12 +7963,12 @@ LABEL_3:
     v18 = v17;
     v20 = v19;
     memset(&buf, 0, sizeof(buf));
-    [(CKChatController *)self stickerPreviewTransform];
+    objc_msgSend_stickerPreviewTransform(self);
     CGAffineTransformInvert(&buf, &v32);
     memset(&v32, 0, sizeof(v32));
     if (itemCopy)
     {
-      [itemCopy _suggestedTransform];
+      objc_msgSend__suggestedTransform(itemCopy);
     }
 
     else
@@ -8076,7 +8091,7 @@ LABEL_3:
   v82 = 0u;
   if (itemCopy)
   {
-    [itemCopy _suggestedTransform];
+    objc_msgSend__suggestedTransform(itemCopy);
   }
 
   v76[0] = 0;
@@ -8603,7 +8618,7 @@ void __96__CKChatController_CKChatController_Stickers___sendStickerForDragItem_p
   }
 
   memset(&buf, 0, sizeof(buf));
-  [(CKChatController *)self stickerPreviewTransform];
+  objc_msgSend_stickerPreviewTransform(self);
   CGAffineTransformInvert(&buf, &v30);
   t1 = buf;
   memset(&v30, 0, sizeof(v30));
@@ -10235,13 +10250,14 @@ LABEL_5:
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterRemoveObserver(DarwinNotifyCenter, self, @"CKDraftManagerSavedDraft", 0);
-  if (!CKIsRunningInMessagesViewService() && !CKIsRunningInMessagesNotificationExtension())
+  v16 = CKIsRunningInMessagesViewService();
+  if (!v16 && !CKIsRunningInMessagesNotificationExtension(v16))
   {
-    v16 = +[CKBalloonPluginManager sharedInstance];
-    [v16 invalidateAllActivePlugins];
-
     v17 = +[CKBalloonPluginManager sharedInstance];
-    [v17 forceKillRemoteExtensionsWithDelay:1];
+    [v17 invalidateAllActivePlugins];
+
+    v18 = +[CKBalloonPluginManager sharedInstance];
+    [v18 forceKillRemoteExtensionsWithDelay:1];
   }
 
   [(CKChatController *)self clearTranslationCache];
@@ -10639,7 +10655,7 @@ LABEL_5:
 - (void)_transferFileTooLarge:(id)large
 {
   largeCopy = large;
-  v5 = CKFrameworkBundle();
+  v5 = CKFrameworkBundle(largeCopy);
   v6 = [v5 localizedStringForKey:@"FILE_TOO_LARGE_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
   userInfo = [largeCopy userInfo];
@@ -10649,48 +10665,48 @@ LABEL_5:
 
   if (lastPathComponent)
   {
-    v10 = MEMORY[0x1E696AEC0];
-    v11 = CKFrameworkBundle();
-    v12 = [v11 localizedStringForKey:@"FILE_TOO_LARGE_DESC" value:&stru_1F04268F8 table:@"ChatKit"];
-    v13 = [v10 stringWithFormat:v12, lastPathComponent];
+    v11 = MEMORY[0x1E696AEC0];
+    v12 = CKFrameworkBundle(v10);
+    v13 = [v12 localizedStringForKey:@"FILE_TOO_LARGE_DESC" value:&stru_1F04268F8 table:@"ChatKit"];
+    v14 = [v11 stringWithFormat:v13, lastPathComponent];
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection == 1)
     {
-      v16 = @"\u200F";
+      v17 = @"\u200F";
     }
 
     else
     {
-      v16 = @"\u200E";
+      v17 = @"\u200E";
     }
 
-    v17 = [(__CFString *)v16 stringByAppendingString:v13];
+    v18 = [(__CFString *)v17 stringByAppendingString:v14];
   }
 
   else
   {
-    v13 = CKFrameworkBundle();
-    v17 = [v13 localizedStringForKey:@"FILE_TOO_LARGE_NO_NAME_DESC" value:&stru_1F04268F8 table:@"ChatKit"];
+    v14 = CKFrameworkBundle(v10);
+    v18 = [v14 localizedStringForKey:@"FILE_TOO_LARGE_NO_NAME_DESC" value:&stru_1F04268F8 table:@"ChatKit"];
   }
 
-  v18 = v17;
+  v19 = v18;
 
-  v19 = [CKAlertController alertControllerWithTitle:v6 message:v18 preferredStyle:1];
-  v20 = CKFrameworkBundle();
-  v21 = [v20 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
-  v22 = [CKAlertAction actionWithTitle:v21 style:1 handler:0];
+  v20 = [CKAlertController alertControllerWithTitle:v6 message:v19 preferredStyle:1];
+  v21 = CKFrameworkBundle(v20);
+  v22 = [v21 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
+  v23 = [CKAlertAction actionWithTitle:v22 style:1 handler:0];
 
-  [v19 addAction:v22];
+  [v20 addAction:v23];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __42__CKChatController__transferFileTooLarge___block_invoke;
   block[3] = &unk_1E72EB8D0;
-  v25 = v19;
+  v26 = v20;
   selfCopy = self;
-  v23 = v19;
+  v24 = v20;
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
@@ -11432,18 +11448,18 @@ void __31__CKChatController_viewDidLoad__block_invoke(uint64_t a1, void *a2)
 - (void)_updateNotificationBannerOfType:(int64_t)type show:(BOOL)show
 {
   showCopy = show;
-  v58 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
     v8 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = [MEMORY[0x1E696AD98] numberWithInteger:type];
-      v55[0] = 67109378;
-      v55[1] = showCopy;
-      v56 = 2112;
-      v57 = v9;
-      _os_log_impl(&dword_19020E000, v8, OS_LOG_TYPE_INFO, "Update banner notification show:%d type:%@", v55, 0x12u);
+      v57[0] = 67109378;
+      v57[1] = showCopy;
+      v58 = 2112;
+      v59 = v9;
+      _os_log_impl(&dword_19020E000, v8, OS_LOG_TYPE_INFO, "Update banner notification show:%d type:%@", v57, 0x12u);
     }
   }
 
@@ -11460,9 +11476,9 @@ LABEL_17:
       notificationBannerView = [(CKChatController *)self notificationBannerView];
       if (notificationBannerView)
       {
-        v12 = [(CKChatController *)self notificationBannerType]== type;
+        v14 = [(CKChatController *)self notificationBannerType]== type;
 
-        if (!v12)
+        if (!v14)
         {
           notificationBannerView2 = [(CKChatController *)self notificationBannerView];
           [notificationBannerView2 removeFromSuperview];
@@ -11473,9 +11489,9 @@ LABEL_17:
 
       [(CKChatController *)self setNotificationBannerType:type];
       notificationBannerView3 = [(CKChatController *)self notificationBannerView];
-      v15 = notificationBannerView3 == 0;
+      v17 = notificationBannerView3 == 0;
 
-      if (!v15)
+      if (!v17)
       {
 LABEL_35:
         view = [(CKChatController *)self view];
@@ -11484,49 +11500,49 @@ LABEL_35:
 
         view2 = [(CKChatController *)self view];
         [view2 bounds];
-        v25 = v24;
         v27 = v26;
+        v29 = v28;
 
         view3 = [(CKChatController *)self view];
         [view3 safeAreaInsets];
-        v30 = v29;
+        v32 = v31;
         view4 = [(CKChatController *)self view];
         [view4 safeAreaInsets];
-        v33 = v32;
+        v35 = v34;
 
         view5 = [(CKChatController *)self view];
         [view5 safeAreaInsets];
-        v36 = v35;
+        v38 = v37;
         view6 = [(CKChatController *)self view];
         [view6 safeAreaInsets];
-        v39 = v38;
+        v41 = v40;
 
         notificationBannerView5 = [(CKChatController *)self notificationBannerView];
-        [notificationBannerView5 sizeThatFits:{v25 - (v30 + v33), v27 - (v36 + v39)}];
-        v42 = v41;
+        [notificationBannerView5 sizeThatFits:{v27 - (v32 + v35), v29 - (v38 + v41)}];
         v44 = v43;
+        v46 = v45;
 
         scrollView = [(CKCoreChatController *)self scrollView];
         [scrollView contentInset];
-        v47 = v46;
+        v49 = v48;
 
         mEMORY[0x1E69A8070] = [MEMORY[0x1E69A8070] sharedFeatureFlags];
         LODWORD(scrollView) = [mEMORY[0x1E69A8070] isModernSplitViewControllerEnabled];
 
-        v49 = v47 - v44;
+        v51 = v49 - v46;
         if (scrollView)
         {
           view7 = [(CKChatController *)self view];
           [view7 safeAreaInsets];
-          v52 = v51;
+          v54 = v53;
           notificationBannerView6 = [(CKChatController *)self notificationBannerView];
-          [notificationBannerView6 setFrame:{v52, v49, v42, v44}];
+          [notificationBannerView6 setFrame:{v54, v51, v44, v46}];
         }
 
         else
         {
           notificationBannerView7 = [(CKChatController *)self notificationBannerView];
-          [notificationBannerView7 setFrame:{0.0, v49, v42, v44}];
+          [notificationBannerView7 setFrame:{0.0, v51, v44, v46}];
         }
 
         return;
@@ -11571,9 +11587,9 @@ LABEL_32:
       }
 
       notificationBannerView8 = [(CKChatController *)self notificationBannerView];
-      v18 = notificationBannerView8 == 0;
+      v20 = notificationBannerView8 == 0;
 
-      if (v18)
+      if (v20)
       {
         return;
       }
@@ -11599,9 +11615,19 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  if ([(CKChatController *)self notificationBannerType]<= type && (type != 1 || (CKIsAppleIDNotUpdated() & 1) == 0 && (CKIsWaitingForCloud() & 1) == 0 && (IMGetUserIgnoreFailureWaitingForCloudIntent() & 1) == 0 && (IMGetUserIgnoreFailureUpdateAppleIDIntent() & 1) == 0))
+  notificationBannerType = [(CKChatController *)self notificationBannerType];
+  if (notificationBannerType <= type)
   {
-    goto LABEL_17;
+    if (type != 1)
+    {
+      goto LABEL_17;
+    }
+
+    v11 = CKIsAppleIDNotUpdated(notificationBannerType);
+    if ((v11 & 1) == 0 && (CKIsWaitingForCloud(v11) & 1) == 0 && (IMGetUserIgnoreFailureWaitingForCloudIntent() & 1) == 0 && (IMGetUserIgnoreFailureUpdateAppleIDIntent() & 1) == 0)
+    {
+      goto LABEL_17;
+    }
   }
 }
 
@@ -12301,15 +12327,15 @@ LABEL_20:
 
 - (void)viewDidAppearDeferredSetup
 {
-  v67 = *MEMORY[0x1E69E9840];
-  v64.receiver = self;
-  v64.super_class = CKChatController;
-  [(CKCoreChatController *)&v64 viewDidAppearDeferredSetup];
+  v68 = *MEMORY[0x1E69E9840];
+  v65.receiver = self;
+  v65.super_class = CKChatController;
+  [(CKCoreChatController *)&v65 viewDidAppearDeferredSetup];
   currentDevice = [MEMORY[0x1E69DC938] currentDevice];
   if (![currentDevice userInterfaceIdiom])
   {
-    v33 = +[CKUIBehavior sharedBehaviors];
-    entryViewFollowsKeyboardLayoutGuide = [v33 entryViewFollowsKeyboardLayoutGuide];
+    v34 = +[CKUIBehavior sharedBehaviors];
+    entryViewFollowsKeyboardLayoutGuide = [v34 entryViewFollowsKeyboardLayoutGuide];
 
     if (entryViewFollowsKeyboardLayoutGuide)
     {
@@ -12323,12 +12349,12 @@ LABEL_20:
 
     view2 = [(CKChatController *)self view];
     [currentDevice visibleFrameInView:view2];
-    v40 = v39;
-    v42 = v41;
-    v44 = v43;
-    v46 = v45;
+    v41 = v40;
+    v43 = v42;
+    v45 = v44;
+    v47 = v46;
 
-    LOBYTE(view2) = [(CKScrollViewController *)self manuallyUpdateKeyboardScreenFrameWithFrameIfNeeded:0 animationDuration:v40 animationCurve:v42, v44, v46, 0.3];
+    LOBYTE(view2) = [(CKScrollViewController *)self manuallyUpdateKeyboardScreenFrameWithFrameIfNeeded:0 animationDuration:v41 animationCurve:v43, v45, v47, 0.3];
     if (![(CKScrollViewController *)self isHoldingScrollGeometryUpdates]&& (view2 & 1) != 0)
     {
       collectionViewController = [(CKCoreChatController *)self collectionViewController];
@@ -12338,10 +12364,10 @@ LABEL_20:
 
 LABEL_3:
   conversation = [(CKCoreChatController *)self conversation];
-  if (conversation && (CKIsRunningInMacCatalyst() || _CKUIEnhancedMainMenuEnabled()))
+  if (conversation && ((v5 = CKIsRunningInMacCatalyst(), v5) || _CKUIEnhancedMainMenuEnabled(v5)))
   {
-    v5 = [[CKDetailsContactsManager alloc] initWithConversation:conversation delegate:self];
-    [(CKChatController *)self setDetailsContactsManager:v5];
+    v6 = [[CKDetailsContactsManager alloc] initWithConversation:conversation delegate:self];
+    [(CKChatController *)self setDetailsContactsManager:v6];
   }
 
   else
@@ -12354,14 +12380,14 @@ LABEL_3:
 
   if (IMOSLoggingEnabled())
   {
-    v7 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       chat2 = [(CKCoreChatController *)self chat];
       guid = [chat2 guid];
       *buf = 138412290;
-      v66 = guid;
-      _os_log_impl(&dword_19020E000, v7, OS_LOG_TYPE_INFO, "Reset load attempt count for chat GUID %@", buf, 0xCu);
+      v67 = guid;
+      _os_log_impl(&dword_19020E000, v8, OS_LOG_TYPE_INFO, "Reset load attempt count for chat GUID %@", buf, 0xCu);
     }
   }
 
@@ -12375,14 +12401,14 @@ LABEL_3:
 
     if (IMOSLoggingEnabled())
     {
-      v13 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v14 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         chat5 = [(CKCoreChatController *)self chat];
         guid2 = [chat5 guid];
         *buf = 138412290;
-        v66 = guid2;
-        _os_log_impl(&dword_19020E000, v13, OS_LOG_TYPE_INFO, "Clearing scrutiny mode for chat GUID %@", buf, 0xCu);
+        v67 = guid2;
+        _os_log_impl(&dword_19020E000, v14, OS_LOG_TYPE_INFO, "Clearing scrutiny mode for chat GUID %@", buf, 0xCu);
       }
     }
   }
@@ -12394,43 +12420,43 @@ LABEL_3:
   aBlock[2] = __46__CKChatController_viewDidAppearDeferredSetup__block_invoke;
   aBlock[3] = &unk_1E72EBA18;
   aBlock[4] = self;
-  v16 = _Block_copy(aBlock);
-  v17 = dispatch_time(0, 200000000);
+  v17 = _Block_copy(aBlock);
+  v18 = dispatch_time(0, 200000000);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __46__CKChatController_viewDidAppearDeferredSetup__block_invoke_2;
   block[3] = &unk_1E72ED520;
-  objc_copyWeak(&v62, buf);
-  v18 = v16;
-  v61 = v18;
-  v19 = conversation;
-  v60 = v19;
-  dispatch_after(v17, MEMORY[0x1E69E96A0], block);
-  v20 = +[CKPreviewDispatchCache genmojiPreviewCache];
-  [v20 resume];
-
-  v21 = +[CKPreviewDispatchCache transcriptPreviewCache];
+  objc_copyWeak(&v63, buf);
+  v19 = v17;
+  v62 = v19;
+  v20 = conversation;
+  v61 = v20;
+  dispatch_after(v18, MEMORY[0x1E69E96A0], block);
+  v21 = +[CKPreviewDispatchCache genmojiPreviewCache];
   [v21 resume];
 
-  nicknameBanner = [(CKChatController *)self nicknameBanner];
-  LODWORD(v21) = nicknameBanner == 0;
+  v22 = +[CKPreviewDispatchCache transcriptPreviewCache];
+  [v22 resume];
 
-  if (v21)
+  nicknameBanner = [(CKChatController *)self nicknameBanner];
+  LODWORD(v22) = nicknameBanner == 0;
+
+  if (v22)
   {
     [(CKChatController *)self _showOrHideNicknameBannerIfNeeded];
   }
 
   groupPhotoUpdateBanner = [(CKChatController *)self groupPhotoUpdateBanner];
-  v24 = groupPhotoUpdateBanner == 0;
+  v25 = groupPhotoUpdateBanner == 0;
 
-  if (v24)
+  if (v25)
   {
     [(CKChatController *)self showGroupBannerUpdateIfNeeded];
   }
 
   [(CKChatController *)self checkSuggestionsForBanner];
-  v25 = [MEMORY[0x193AF5EC0](@"AFContextManager" @"AssistantServices")];
-  [v25 addContextProvider:self];
+  v26 = [MEMORY[0x193AF5EC0](@"AFContextManager" @"AssistantServices")];
+  [v26 addContextProvider:self];
 
   [(CKChatController *)self _kickPhotoKit];
   delegate = [(CKCoreChatController *)self delegate];
@@ -12448,7 +12474,7 @@ LABEL_3:
   [(CKChatController *)self _retryGroupPhotoUploadIfNecessary];
   [(CKChatController *)self _retryTranscriptBackgroundUploadIfNecessary];
   transcriptNavigationBarController = [(CKChatController *)self transcriptNavigationBarController];
-  [transcriptNavigationBarController configureFindMySessionCoordinatorIfNeededForConversation:v19];
+  [transcriptNavigationBarController configureFindMySessionCoordinatorIfNeededForConversation:v20];
 
   [(CKChatController *)self updateNumberOfUnknownChatsOpenedIfNeeded];
   tipManager = [(CKChatController *)self tipManager];
@@ -12456,18 +12482,18 @@ LABEL_3:
 
   if ([(CKChatController *)self shouldShowBanners])
   {
+    v59[0] = MEMORY[0x1E69E9820];
+    v59[1] = 3221225472;
+    v59[2] = __46__CKChatController_viewDidAppearDeferredSetup__block_invoke_3;
+    v59[3] = &unk_1E72ED548;
+    v59[4] = self;
+    [(CKChatController *)self showCheckInTips:v59];
     v58[0] = MEMORY[0x1E69E9820];
     v58[1] = 3221225472;
-    v58[2] = __46__CKChatController_viewDidAppearDeferredSetup__block_invoke_3;
-    v58[3] = &unk_1E72ED548;
+    v58[2] = __46__CKChatController_viewDidAppearDeferredSetup__block_invoke_4;
+    v58[3] = &unk_1E72ED570;
     v58[4] = self;
-    [(CKChatController *)self showCheckInTips:v58];
-    v57[0] = MEMORY[0x1E69E9820];
-    v57[1] = 3221225472;
-    v57[2] = __46__CKChatController_viewDidAppearDeferredSetup__block_invoke_4;
-    v57[3] = &unk_1E72ED570;
-    v57[4] = self;
-    [(CKChatController *)self showTranslationTips:v57];
+    [(CKChatController *)self showTranslationTips:v58];
     tipManager2 = [(CKChatController *)self tipManager];
     [tipManager2 setMessageRequestsDelegate:self];
 
@@ -12475,31 +12501,31 @@ LABEL_3:
     [tipManager3 presentMessageRequestsTipIfNeeded];
   }
 
-  v55[0] = MEMORY[0x1E69E9820];
-  v55[1] = 3221225472;
-  v55[2] = __46__CKChatController_viewDidAppearDeferredSetup__block_invoke_5;
-  v55[3] = &unk_1E72EC460;
-  objc_copyWeak(&v56, buf);
-  v32 = _Block_copy(v55);
+  v56[0] = MEMORY[0x1E69E9820];
+  v56[1] = 3221225472;
+  v56[2] = __46__CKChatController_viewDidAppearDeferredSetup__block_invoke_5;
+  v56[3] = &unk_1E72EC460;
+  objc_copyWeak(&v57, buf);
+  v33 = _Block_copy(v56);
   if ([(CKChatController *)self canShowBusinessOnboarding])
   {
     if (+[CKBusinessOnboardingController shouldShowBusinessOnboarding])
     {
-      v32[2](v32);
+      v33[2](v33);
     }
 
     else
     {
-      v50 = MEMORY[0x1E69E9820];
-      v51 = 3221225472;
-      v52 = __46__CKChatController_viewDidAppearDeferredSetup__block_invoke_2_741;
-      v53 = &unk_1E72ED1F0;
-      v54 = v32;
-      [CKBusinessOnboardingController checkForBusinessAlertsIDSIssues:&v50];
+      v51 = MEMORY[0x1E69E9820];
+      v52 = 3221225472;
+      v53 = __46__CKChatController_viewDidAppearDeferredSetup__block_invoke_2_741;
+      v54 = &unk_1E72ED1F0;
+      v55 = v33;
+      [CKBusinessOnboardingController checkForBusinessAlertsIDSIssues:&v51];
     }
   }
 
-  [(CKChatController *)self _autoAcceptNicknameIfNeeded:v50];
+  [(CKChatController *)self _autoAcceptNicknameIfNeeded:v51];
   catchUpButtonManager = [(CKChatController *)self catchUpButtonManager];
   [catchUpButtonManager animateInResumingFromBackground:0];
 
@@ -12509,8 +12535,8 @@ LABEL_3:
     [defaultCenter postNotificationName:@"PPTDidExtendedShowConversationEvent" object:0 userInfo:0];
   }
 
-  objc_destroyWeak(&v56);
-  objc_destroyWeak(&v62);
+  objc_destroyWeak(&v57);
+  objc_destroyWeak(&v63);
 
   objc_destroyWeak(buf);
 }
@@ -13982,24 +14008,25 @@ LABEL_13:
 
 - (void)sendComposition:(id)composition animations:(id)animations
 {
-  v74[1] = *MEMORY[0x1E69E9840];
+  v79[1] = *MEMORY[0x1E69E9840];
   compositionCopy = composition;
   animationsCopy = animations;
-  if (IMOSLoggingEnabled())
+  v7 = IMOSLoggingEnabled();
+  if (v7)
   {
-    v7 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_19020E000, v7, OS_LOG_TYPE_INFO, "Sending composition from chat controller.", buf, 2u);
+      _os_log_impl(&dword_19020E000, v8, OS_LOG_TYPE_INFO, "Sending composition from chat controller.", buf, 2u);
     }
   }
 
-  v8 = _chatControllerTelemetryLogHandle();
-  if (os_signpost_enabled(v8))
+  v9 = _chatControllerTelemetryLogHandle(v7);
+  if (os_signpost_enabled(v9))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_19020E000, v8, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SendingMessage", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_19020E000, v9, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SendingMessage", " enableTelemetry=YES ", buf, 2u);
   }
 
   mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
@@ -14020,16 +14047,16 @@ LABEL_13:
     [conversation resetCaches];
     if ([(CKComposition *)compositionCopy hasContent])
     {
-      v67 = [(CKChatController *)self nextMediaObjectToTrimInComposition:compositionCopy];
-      if (v67)
+      v72 = [(CKChatController *)self nextMediaObjectToTrimInComposition:compositionCopy];
+      if (v72)
       {
         shelfPluginPayload = [(CKComposition *)compositionCopy shelfPluginPayload];
         pluginBundleID = [shelfPluginPayload pluginBundleID];
-        v15 = [pluginBundleID isEqualToString:*MEMORY[0x1E69A6A00]];
+        v16 = [pluginBundleID isEqualToString:*MEMORY[0x1E69A6A00]];
 
         pluginBundleID2 = [shelfPluginPayload pluginBundleID];
-        v17 = IMBalloonExtensionIDWithSuffix();
-        if ([pluginBundleID2 isEqualToString:v17] && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+        v18 = IMBalloonExtensionIDWithSuffix();
+        if ([pluginBundleID2 isEqualToString:v18] && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
           shouldSendAsMediaObject = [shelfPluginPayload shouldSendAsMediaObject];
         }
@@ -14039,107 +14066,108 @@ LABEL_13:
           shouldSendAsMediaObject = 0;
         }
 
-        if ((v15 | shouldSendAsMediaObject))
+        if ((v16 | shouldSendAsMediaObject))
         {
           shelfPluginPayload2 = [(CKComposition *)compositionCopy shelfPluginPayload];
           __ck_photoCompositionString = [shelfPluginPayload2 __ck_photoCompositionString];
 
           text = [(CKComposition *)compositionCopy text];
-          v23 = [text mutableCopy];
+          v24 = [text mutableCopy];
 
-          if ([v23 length])
+          if ([v24 length])
           {
-            [v23 insertAttributedString:__ck_photoCompositionString atIndex:0];
+            [v24 insertAttributedString:__ck_photoCompositionString atIndex:0];
           }
 
           else
           {
-            v41 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithAttributedString:__ck_photoCompositionString];
-            v42 = [v41 mutableCopy];
+            v42 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithAttributedString:__ck_photoCompositionString];
+            v43 = [v42 mutableCopy];
 
-            v23 = v42;
+            v24 = v43;
           }
 
-          v43 = [CKComposition alloc];
+          v44 = [CKComposition alloc];
           subject = [(CKComposition *)compositionCopy subject];
-          v40 = [(CKComposition *)v43 initWithText:v23 subject:subject shelfPluginPayload:0];
+          v41 = [(CKComposition *)v44 initWithText:v24 subject:subject shelfPluginPayload:0];
 
           entryView = [(CKChatController *)self entryView];
-          [entryView setComposition:v40];
+          [entryView setComposition:v41];
 
-          v46 = [(CKChatController *)self nextMediaObjectToTrimInComposition:v40];
+          v47 = [(CKChatController *)self nextMediaObjectToTrimInComposition:v41];
 
-          v67 = v46;
+          v72 = v47;
         }
 
         else
         {
-          v40 = compositionCopy;
+          v41 = compositionCopy;
         }
 
-        mediaObjects = [(CKComposition *)v40 mediaObjects];
-        if ([mediaObjects count] == 1)
+        mediaObjects = [(CKComposition *)v41 mediaObjects];
+        v48 = [mediaObjects count];
+        if (v48 == 1)
         {
-          v47 = [mediaObjects objectAtIndex:0];
-          v48 = [v47 mediaType] == 2;
+          v49 = [mediaObjects objectAtIndex:0];
+          v50 = [v49 mediaType] == 2;
 
-          v49 = CKFrameworkBundle();
-          v50 = v49;
-          if (v48)
+          v52 = CKFrameworkBundle(v51);
+          v53 = v52;
+          if (v50)
           {
-            v64 = [v49 localizedStringForKey:@"TRIM_ONE_VIDEO_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-            v51 = @"TRIM_ONE_VIDEO_MESSAGE";
+            v69 = [v52 localizedStringForKey:@"TRIM_ONE_VIDEO_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+            v54 = @"TRIM_ONE_VIDEO_MESSAGE";
           }
 
           else
           {
-            v64 = [v49 localizedStringForKey:@"TRIM_ONE_ATTACHMENT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-            v51 = @"TRIM_ONE_ATTACHMENT_MESSAGE";
+            v69 = [v52 localizedStringForKey:@"TRIM_ONE_ATTACHMENT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+            v54 = @"TRIM_ONE_ATTACHMENT_MESSAGE";
           }
         }
 
         else
         {
-          v50 = CKFrameworkBundle();
-          v64 = [v50 localizedStringForKey:@"TRIM_MANY_ATTACHMENTS_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-          v51 = @"TRIM_MANY_ATTACHMENTS_MESSAGE";
+          v53 = CKFrameworkBundle(v48);
+          v69 = [v53 localizedStringForKey:@"TRIM_MANY_ATTACHMENTS_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+          v54 = @"TRIM_MANY_ATTACHMENTS_MESSAGE";
         }
 
-        v52 = CKFrameworkBundle();
-        v53 = [v52 localizedStringForKey:v51 value:&stru_1F04268F8 table:@"ChatKit"];
+        v56 = CKFrameworkBundle(v55);
+        v57 = [v56 localizedStringForKey:v54 value:&stru_1F04268F8 table:@"ChatKit"];
 
-        v54 = [CKAlertController alertControllerWithTitle:v64 message:v53 preferredStyle:1];
-        v55 = CKFrameworkBundle();
-        v56 = [v55 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
-        v70[0] = MEMORY[0x1E69E9820];
-        v70[1] = 3221225472;
-        v70[2] = __47__CKChatController_sendComposition_animations___block_invoke_830;
-        v70[3] = &unk_1E72EC710;
-        v70[4] = self;
-        compositionCopy = v40;
-        v71 = compositionCopy;
-        v57 = [CKAlertAction actionWithTitle:v56 style:0 handler:v70];
-        [v54 addAction:v57];
+        v58 = [CKAlertController alertControllerWithTitle:v69 message:v57 preferredStyle:1];
+        v59 = CKFrameworkBundle(v58);
+        v60 = [v59 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
+        v75[0] = MEMORY[0x1E69E9820];
+        v75[1] = 3221225472;
+        v75[2] = __47__CKChatController_sendComposition_animations___block_invoke_830;
+        v75[3] = &unk_1E72EC710;
+        v75[4] = self;
+        compositionCopy = v41;
+        v76 = compositionCopy;
+        v61 = [CKAlertAction actionWithTitle:v60 style:0 handler:v75];
+        [v58 addAction:v61];
 
-        v58 = CKFrameworkBundle();
-        v59 = [v58 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
-        v60 = [CKAlertAction actionWithTitle:v59 style:1 handler:0];
-        [v54 addAction:v60];
+        v63 = CKFrameworkBundle(v62);
+        v64 = [v63 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
+        v65 = [CKAlertAction actionWithTitle:v64 style:1 handler:0];
+        [v58 addAction:v65];
 
-        [v54 presentFromViewController:self animated:1 completion:0];
-        if (os_signpost_enabled(v8))
+        [v58 presentFromViewController:self animated:1 completion:0];
+        if (os_signpost_enabled(v9))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_19020E000, v8, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SendingMessage", "Send message failed: Bad attachment", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_19020E000, v9, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SendingMessage", "Send message failed: Bad attachment", buf, 2u);
         }
 
         if (IMOSLoggingEnabled())
         {
-          v61 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
+          v66 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_19020E000, v61, OS_LOG_TYPE_INFO, "Bad attachment, not sending message", buf, 2u);
+            _os_log_impl(&dword_19020E000, v66, OS_LOG_TYPE_INFO, "Bad attachment, not sending message", buf, 2u);
           }
         }
 
@@ -14148,9 +14176,9 @@ LABEL_13:
 
       _isRunningPPT = [(CKChatController *)self _isRunningPPT];
       recipients = [conversation recipients];
-      v26 = [conversation canSendToRecipients:recipients alertIfUnable:1];
+      v27 = [conversation canSendToRecipients:recipients alertIfUnable:1];
 
-      if ((v26 | _isRunningPPT))
+      if ((v27 | _isRunningPPT))
       {
         activeKeyboard = [MEMORY[0x1E69DCBB8] activeKeyboard];
         [activeKeyboard removeAutocorrectPrompt];
@@ -14163,7 +14191,7 @@ LABEL_13:
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
 
-        if ((isKindOfClass & 1) == 0 || (-[CKComposition shelfPluginPayload](compositionCopy, "shelfPluginPayload"), v31 = objc_claimAutoreleasedReturnValue(), v32 = [v31 useDirectSend], v31, (v32 & 1) == 0))
+        if ((isKindOfClass & 1) == 0 || (-[CKComposition shelfPluginPayload](compositionCopy, "shelfPluginPayload"), v32 = objc_claimAutoreleasedReturnValue(), v33 = [v32 useDirectSend], v32, (v33 & 1) == 0))
         {
           [conversation setUnsentComposition:0];
         }
@@ -14178,33 +14206,33 @@ LABEL_13:
           {
             conversation2 = [(CKCoreChatController *)self conversation];
             chat = [conversation2 chat];
-            v73 = *MEMORY[0x1E69A5860];
-            v74[0] = proofreadingInfo;
-            v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v74 forKeys:&v73 count:1];
-            [chat setProofreadingInfo:v37];
+            v78 = *MEMORY[0x1E69A5860];
+            v79[0] = proofreadingInfo;
+            v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v79 forKeys:&v78 count:1];
+            [chat setProofreadingInfo:v38];
           }
         }
 
-        v38 = [(CKChatController *)self shouldUseThrowAnimationForComposition:compositionCopy];
+        v39 = [(CKChatController *)self shouldUseThrowAnimationForComposition:compositionCopy];
         if (animationsCopy)
         {
-          v39 = isSendingMessage;
+          v40 = isSendingMessage;
         }
 
         else
         {
-          v39 = 1;
+          v40 = 1;
         }
 
-        if (!v38 || (v39 & 1) != 0)
+        if (!v39 || (v40 & 1) != 0)
         {
           if (IMOSLoggingEnabled())
           {
-            v62 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
+            v67 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_19020E000, v62, OS_LOG_TYPE_INFO, "Sending message without a throw animation.", buf, 2u);
+              _os_log_impl(&dword_19020E000, v67, OS_LOG_TYPE_INFO, "Sending message without a throw animation.", buf, 2u);
             }
           }
 
@@ -14219,27 +14247,27 @@ LABEL_13:
         [(CKChatController *)self _clearCompositionAndPendingConversation];
         if (IMOSLoggingEnabled())
         {
-          v63 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
+          v68 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_19020E000, v63, OS_LOG_TYPE_INFO, "Sending message complete.", buf, 2u);
+            _os_log_impl(&dword_19020E000, v68, OS_LOG_TYPE_INFO, "Sending message complete.", buf, 2u);
           }
         }
 
-        if (os_signpost_enabled(v8))
+        if (os_signpost_enabled(v9))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_19020E000, v8, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SendingMessage", " enableTelemetry=YES ", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_19020E000, v9, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SendingMessage", " enableTelemetry=YES ", buf, 2u);
         }
 
         goto LABEL_62;
       }
 
-      if (os_signpost_enabled(v8))
+      if (os_signpost_enabled(v9))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_19020E000, v8, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SendingMessage", "Send message failed: Cannot send", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_19020E000, v9, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SendingMessage", "Send message failed: Cannot send", buf, 2u);
       }
 
       if (!IMOSLoggingEnabled())
@@ -14247,21 +14275,21 @@ LABEL_13:
         goto LABEL_62;
       }
 
-      v19 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      v20 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19020E000, v19, OS_LOG_TYPE_INFO, "Cannot send message to recipients. Not sending message", buf, 2u);
+        _os_log_impl(&dword_19020E000, v20, OS_LOG_TYPE_INFO, "Cannot send message to recipients. Not sending message", buf, 2u);
       }
     }
 
     else
     {
       [(CKChatController *)self messageEntryViewDidChange:0 isTextChange:1 isShelfChange:0 isTranslationChange:0];
-      if (os_signpost_enabled(v8))
+      if (os_signpost_enabled(v9))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_19020E000, v8, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SendingMessage", "Send message failed: Empty message content", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_19020E000, v9, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SendingMessage", "Send message failed: Empty message content", buf, 2u);
       }
 
       if (!IMOSLoggingEnabled())
@@ -14269,11 +14297,11 @@ LABEL_13:
         goto LABEL_62;
       }
 
-      v19 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      v20 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19020E000, v19, OS_LOG_TYPE_INFO, "Composition has no content. Not sending message", buf, 2u);
+        _os_log_impl(&dword_19020E000, v20, OS_LOG_TYPE_INFO, "Composition has no content. Not sending message", buf, 2u);
       }
     }
 
@@ -14283,11 +14311,11 @@ LABEL_62:
 
   if (IMOSLoggingEnabled())
   {
-    v12 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_19020E000, v12, OS_LOG_TYPE_INFO, "Cannot send message. Showing send alert instead.", buf, 2u);
+      _os_log_impl(&dword_19020E000, v13, OS_LOG_TYPE_INFO, "Cannot send message. Showing send alert instead.", buf, 2u);
     }
   }
 
@@ -14307,26 +14335,26 @@ void __47__CKChatController_sendComposition_animations___block_invoke()
 {
   compositionCopy = composition;
   conversation = [(CKCoreChatController *)self conversation];
-  v20 = 0;
-  v6 = [conversation canSendComposition:compositionCopy error:&v20];
+  v22 = 0;
+  v6 = [conversation canSendComposition:compositionCopy error:&v22];
 
-  v7 = v20;
-  if ((v6 & 1) != 0 || [(CKChatController *)self _isRunningPPT])
+  v7 = v22;
+  if (v6 & 1) != 0 || (v8 = [(CKChatController *)self _isRunningPPT], (v8))
   {
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
     if (v7)
     {
-      v9 = CKFrameworkBundle();
-      v10 = [v9 localizedStringForKey:@"CANNOT_SEND_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+      v10 = CKFrameworkBundle(v8);
+      v11 = [v10 localizedStringForKey:@"CANNOT_SEND_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-      v11 = CKFrameworkBundle();
-      v12 = [v11 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
+      v13 = CKFrameworkBundle(v12);
+      v14 = [v13 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
 
-      v13 = CKCreateAlertControllerWithError(v7, v10, 0, v12, 0);
+      v15 = CKCreateAlertControllerWithError(v7, v11, 0, v14, 0);
       effectPickerViewController = [(CKChatController *)self effectPickerViewController];
       if (effectPickerViewController)
       {
@@ -14338,22 +14366,22 @@ void __47__CKChatController_sendComposition_animations___block_invoke()
         selfCopy = self;
       }
 
-      v16 = selfCopy;
+      v18 = selfCopy;
 
-      [v13 presentFromViewController:v16 animated:1 completion:0];
+      [v15 presentFromViewController:v18 animated:1 completion:0];
     }
 
-    v17 = _chatControllerTelemetryLogHandle();
-    if (os_signpost_enabled(v17))
+    v19 = _chatControllerTelemetryLogHandle(v8);
+    if (os_signpost_enabled(v19))
     {
-      *v19 = 0;
-      _os_signpost_emit_with_name_impl(&dword_19020E000, v17, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SendingMessage", "Send message failed: Cannot send", v19, 2u);
+      *v21 = 0;
+      _os_signpost_emit_with_name_impl(&dword_19020E000, v19, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SendingMessage", "Send message failed: Cannot send", v21, 2u);
     }
 
-    v8 = 1;
+    v9 = 1;
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)_clearCompositionAndPendingConversation
@@ -15358,35 +15386,35 @@ void __55__CKChatController__fetchRecipientCapabilitiesDeferred__block_invoke(ui
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __55__CKChatController__fetchRecipientCapabilitiesDeferred__block_invoke_2(uint64_t a1)
+void __55__CKChatController__fetchRecipientCapabilitiesDeferred__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 32);
+      v4 = *(a1 + 32);
       if (*(a1 + 48))
       {
-        v4 = @"YES";
+        v5 = @"YES";
       }
 
       else
       {
-        v4 = @"NO";
+        v5 = @"NO";
       }
 
-      v6 = 138412546;
-      v7 = v4;
-      v8 = 2112;
-      v9 = v3;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Got HEIF response on capabilities: %@ %@", &v6, 0x16u);
+      v7 = 138412546;
+      v8 = v5;
+      v9 = 2112;
+      v10 = v4;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Got HEIF response on capabilities: %@ %@", &v7, 0x16u);
     }
   }
 
-  v5 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x1E69A5060]];
-  [*(a1 + 40) setRecipientsAreHEIFCapable:{objc_msgSend(v5, "BOOLValue")}];
+  v6 = [*(a1 + 32) objectForKeyedSubscript:*MEMORY[0x1E69A5060]];
+  [*(a1 + 40) setRecipientsAreHEIFCapable:{objc_msgSend(v6, "BOOLValue")}];
 }
 
 - (BOOL)_mediaObjectHasTrimMetadata:(id)metadata
@@ -15526,7 +15554,7 @@ LABEL_15:
       goto LABEL_16;
     }
 
-    [(__CFString *)trimmingCopy duration];
+    objc_msgSend_duration(trimmingCopy);
     v9 = v8;
     conversation = [(CKCoreChatController *)self conversation];
     [conversation maxTrimDurationForMedia:trimmingCopy];
@@ -16012,7 +16040,7 @@ uint64_t __91__CKChatController_trimController_didFinishTrimmingMediaObject_with
         v27 = +[CKScrollViewAnimationProperties systemDefaultScrollAnimation];
         [collectionViewController enforceTranscriptScrollIntentWithAnimationProperties:v27];
         propertyAnimator = [v27 propertyAnimator];
-        [propertyAnimator duration];
+        objc_msgSend_duration(propertyAnimator);
         v30 = dispatch_time(0, (v29 * 1000000000.0));
         block[0] = MEMORY[0x1E69E9820];
         block[1] = 3221225472;
@@ -17888,25 +17916,25 @@ LABEL_19:
 
 - (void)stageSelectedSuggestedReply:(id)reply
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   suggestion = [replyCopy suggestion];
   displayText = [suggestion displayText];
 
-  v7 = CKFrameworkBundle();
-  v8 = [v7 localizedStringForKey:@"SELECTED_OPTION" value:&stru_1F04268F8 table:@"ChatKit"];
+  v8 = CKFrameworkBundle(v7);
+  v9 = [v8 localizedStringForKey:@"SELECTED_OPTION" value:&stru_1F04268F8 table:@"ChatKit"];
 
-  v15 = @"suggestedReplyBody";
+  v16 = @"suggestedReplyBody";
   suggestedReplyBody = [replyCopy suggestedReplyBody];
 
-  v16[0] = suggestedReplyBody;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-  v11 = [_TtC7ChatKit25CKSuggestedActionsHandler pluginPayloadForShelfCardWithTitle:displayText summary:v8 userInfo:v10];
+  v17[0] = suggestedReplyBody;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v12 = [_TtC7ChatKit25CKSuggestedActionsHandler pluginPayloadForShelfCardWithTitle:displayText summary:v9 userInfo:v11];
 
-  v12 = [[CKComposition alloc] initWithText:0 subject:0 shelfPluginPayload:v11];
+  v13 = [[CKComposition alloc] initWithText:0 subject:0 shelfPluginPayload:v12];
   composition = [(CKChatController *)self composition];
-  v14 = [composition compositionByAppendingComposition:v12];
-  [(CKChatController *)self setComposition:v14];
+  v15 = [composition compositionByAppendingComposition:v13];
+  [(CKChatController *)self setComposition:v15];
 }
 
 - (void)_showCatchUpButtonIfNeededResumingFromBackground:(BOOL)background
@@ -18286,14 +18314,14 @@ void __68__CKChatController__hideCatchUpButtonIfNeededAndRemoveOnCompletion___bl
               }
 
               v31 = *(*(&v59 + 1) + 8 * i);
-              indexPath = [v31 indexPath];
-              [v25 addObject:indexPath];
+              v32 = objc_msgSend_indexPath(v31);
+              [v25 addObject:v32];
 
               indexPathForFirstUnreadMessage2 = [(CKChatController *)self indexPathForFirstUnreadMessage];
-              indexPath2 = [v31 indexPath];
-              LOBYTE(indexPath) = [indexPathForFirstUnreadMessage2 isEqual:indexPath2];
+              v34 = objc_msgSend_indexPath(v31);
+              LOBYTE(v32) = [indexPathForFirstUnreadMessage2 isEqual:v34];
 
-              v27 |= indexPath;
+              v27 |= v32;
             }
 
             v28 = [v26 countByEnumeratingWithState:&v59 objects:v65 count:16];
@@ -18494,14 +18522,15 @@ LABEL_3:
 
 - (void)_markAsReadIfNecessary
 {
-  v4.receiver = self;
-  v4.super_class = CKChatController;
-  [(CKCoreChatController *)&v4 _markAsReadIfNecessary];
+  v6.receiver = self;
+  v6.super_class = CKChatController;
+  [(CKCoreChatController *)&v6 _markAsReadIfNecessary];
   if ([(CKChatController *)self isSafeToMarkAsRead])
   {
-    if (![(CKChatController *)self _shouldShowReadReceiptAlert])
+    _shouldShowReadReceiptAlert = [(CKChatController *)self _shouldShowReadReceiptAlert];
+    if ((_shouldShowReadReceiptAlert & 1) == 0)
     {
-      if (CKIsRunningUnitTests())
+      if (CKIsRunningUnitTests(_shouldShowReadReceiptAlert, v4))
       {
         [(CKChatController *)self _askToTurnOnSMSRelayIfNeeded];
       }
@@ -18767,8 +18796,8 @@ LABEL_11:
 {
   if ([(CKChatController *)self _shouldShowReadReceiptAlert])
   {
-    CKSetReadReceiptSettingsConfirmed(1);
-    if (CKIsRunningUnitTests())
+    ReceiptSettingsConfirmed = CKSetReadReceiptSettingsConfirmed(1);
+    if (CKIsRunningUnitTests(ReceiptSettingsConfirmed, v4))
     {
 
       [(CKChatController *)self _confirmReadReceiptSettings];
@@ -18785,9 +18814,9 @@ LABEL_11:
 
 - (void)_confirmReadReceiptSettings
 {
-  v3 = CKFrameworkBundle();
+  v3 = CKFrameworkBundle(self);
   v4 = [v3 localizedStringForKey:@"READ_RECEIPTS_SETTINGS_CONFIRM_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-  v5 = CKFrameworkBundle();
+  v5 = CKFrameworkBundle(v4);
   v6 = [v5 localizedStringForKey:@"READ_RECEIPTS_SETTINGS_CONFIRM_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
   v7 = [CKAlertController alertControllerWithTitle:v4 message:v6 preferredStyle:1];
 
@@ -18797,27 +18826,27 @@ LABEL_11:
   aBlock[3] = &unk_1E72EBA18;
   aBlock[4] = self;
   v8 = _Block_copy(aBlock);
-  v9 = CKFrameworkBundle();
+  v9 = CKFrameworkBundle(v8);
   v10 = [v9 localizedStringForKey:@"NOT_NOW" value:&stru_1F04268F8 table:@"ChatKit"];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __47__CKChatController__confirmReadReceiptSettings__block_invoke_2;
-  v19[3] = &unk_1E72EC218;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __47__CKChatController__confirmReadReceiptSettings__block_invoke_2;
+  v20[3] = &unk_1E72EC218;
   v11 = v8;
-  v20 = v11;
-  v12 = [CKAlertAction actionWithTitle:v10 style:1 handler:v19];
+  v21 = v11;
+  v12 = [CKAlertAction actionWithTitle:v10 style:1 handler:v20];
   [v7 addAction:v12];
 
-  v13 = CKFrameworkBundle();
-  v14 = [v13 localizedStringForKey:@"ALLOW" value:&stru_1F04268F8 table:@"ChatKit"];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __47__CKChatController__confirmReadReceiptSettings__block_invoke_3;
-  v17[3] = &unk_1E72EC218;
-  v18 = v11;
-  v15 = v11;
-  v16 = [CKAlertAction actionWithTitle:v14 style:0 handler:v17];
-  [v7 addAction:v16];
+  v14 = CKFrameworkBundle(v13);
+  v15 = [v14 localizedStringForKey:@"ALLOW" value:&stru_1F04268F8 table:@"ChatKit"];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __47__CKChatController__confirmReadReceiptSettings__block_invoke_3;
+  v18[3] = &unk_1E72EC218;
+  v19 = v11;
+  v16 = v11;
+  v17 = [CKAlertAction actionWithTitle:v15 style:0 handler:v18];
+  [v7 addAction:v17];
 
   [v7 presentFromViewController:self animated:1 completion:0];
 }
@@ -18870,66 +18899,67 @@ uint64_t __47__CKChatController__confirmReadReceiptSettings__block_invoke_3(uint
         v9 = +[CKUIBehavior sharedBehaviors];
         canPresentOverKeyboard = [v9 canPresentOverKeyboard];
 
-        if (CKIsRunningInMacCatalyst())
+        v10 = CKIsRunningInMacCatalyst();
+        if (v10)
         {
-          v10 = CKFrameworkBundle();
-          v11 = [v10 localizedStringForKey:@"SMS_RELAY_ALERT_TITLE_MAC" value:&stru_1F04268F8 table:@"ChatKit"];
+          v11 = CKFrameworkBundle(v10);
+          v12 = [v11 localizedStringForKey:@"SMS_RELAY_ALERT_TITLE_MAC" value:&stru_1F04268F8 table:@"ChatKit"];
         }
 
         else
         {
-          v12 = MEMORY[0x1E696AEC0];
-          v13 = CKFrameworkBundle();
-          v14 = [v13 localizedStringForKey:@"SMS_RELAY_ALERT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+          v13 = MEMORY[0x1E696AEC0];
+          v14 = CKFrameworkBundle(v10);
+          v15 = [v14 localizedStringForKey:@"SMS_RELAY_ALERT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
           currentDevice = [MEMORY[0x1E69DC938] currentDevice];
           localizedModel = [currentDevice localizedModel];
-          v10 = [v12 stringWithFormat:v14, localizedModel];
+          v11 = [v13 stringWithFormat:v15, localizedModel];
 
           mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
           userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
           if (userInterfaceLayoutDirection == 1)
           {
-            v19 = @"\u200F";
+            v20 = @"\u200F";
           }
 
           else
           {
-            v19 = @"\u200E";
+            v20 = @"\u200E";
           }
 
-          v11 = [(__CFString *)v19 stringByAppendingString:v10];
+          v12 = [(__CFString *)v20 stringByAppendingString:v11];
         }
 
-        v20 = v11;
+        v21 = v12;
 
-        v21 = CKFrameworkBundle();
-        v22 = [v21 localizedStringForKey:@"SMS_RELAY_ALERT_BODY" value:&stru_1F04268F8 table:@"ChatKit"];
+        v23 = CKFrameworkBundle(v22);
+        v24 = [v23 localizedStringForKey:@"SMS_RELAY_ALERT_BODY" value:&stru_1F04268F8 table:@"ChatKit"];
 
-        v30 = v22;
-        v23 = [CKAlertController alertControllerWithTitle:v20 message:v22 preferredStyle:1];
-        v24 = CKFrameworkBundle();
-        v25 = [v24 localizedStringForKey:@"SMS_RELAY_NOT_NOW" value:&stru_1F04268F8 table:@"ChatKit"];
-        v36[0] = MEMORY[0x1E69E9820];
-        v36[1] = 3221225472;
-        v36[2] = __48__CKChatController__askToTurnOnSMSRelayIfNeeded__block_invoke;
-        v36[3] = &unk_1E72ED728;
-        v37 = canPresentOverKeyboard;
-        v36[4] = self;
-        v26 = [CKAlertAction actionWithTitle:v25 style:0 handler:v36];
-        [v23 addAction:v26];
+        v33 = v24;
+        v25 = [CKAlertController alertControllerWithTitle:v21 message:v24 preferredStyle:1];
+        v26 = CKFrameworkBundle(v25);
+        v27 = [v26 localizedStringForKey:@"SMS_RELAY_NOT_NOW" value:&stru_1F04268F8 table:@"ChatKit"];
+        v39[0] = MEMORY[0x1E69E9820];
+        v39[1] = 3221225472;
+        v39[2] = __48__CKChatController__askToTurnOnSMSRelayIfNeeded__block_invoke;
+        v39[3] = &unk_1E72ED728;
+        v40 = canPresentOverKeyboard;
+        v39[4] = self;
+        v28 = [CKAlertAction actionWithTitle:v27 style:0 handler:v39];
+        [v25 addAction:v28];
 
-        v27 = CKFrameworkBundle();
-        v28 = [v27 localizedStringForKey:@"SMS_RELAY_TURN_ON" value:&stru_1F04268F8 table:@"ChatKit"];
-        v32[0] = MEMORY[0x1E69E9820];
-        v32[1] = 3221225472;
-        v32[2] = __48__CKChatController__askToTurnOnSMSRelayIfNeeded__block_invoke_2;
-        v32[3] = &unk_1E72ED750;
-        v35 = canPresentOverKeyboard;
-        v33 = v4;
+        v30 = CKFrameworkBundle(v29);
+        v31 = [v30 localizedStringForKey:@"SMS_RELAY_TURN_ON" value:&stru_1F04268F8 table:@"ChatKit"];
+        v35[0] = MEMORY[0x1E69E9820];
+        v35[1] = 3221225472;
+        v35[2] = __48__CKChatController__askToTurnOnSMSRelayIfNeeded__block_invoke_2;
+        v35[3] = &unk_1E72ED750;
+        v38 = canPresentOverKeyboard;
+        v36 = v4;
         selfCopy = self;
-        v29 = [CKAlertAction actionWithTitle:v28 style:0 handler:v32];
-        [v23 addAction:v29];
+        v32 = [CKAlertAction actionWithTitle:v31 style:0 handler:v35];
+        [v25 addAction:v32];
 
         if ((canPresentOverKeyboard & 1) == 0)
         {
@@ -18937,23 +18967,23 @@ uint64_t __47__CKChatController__confirmReadReceiptSettings__block_invoke_3(uint
           [(CKChatController *)self becomeFirstResponder];
         }
 
-        [v23 presentFromViewController:self animated:1 completion:0];
+        [v25 presentFromViewController:self animated:1 completion:0];
       }
     }
   }
 }
 
-uint64_t __48__CKChatController__askToTurnOnSMSRelayIfNeeded__block_invoke(uint64_t result)
+id *__48__CKChatController__askToTurnOnSMSRelayIfNeeded__block_invoke(id *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
-    return [*(result + 32) becomeFirstResponder];
+    return [result[4] becomeFirstResponder];
   }
 
   return result;
 }
 
-uint64_t __48__CKChatController__askToTurnOnSMSRelayIfNeeded__block_invoke_2(uint64_t a1)
+void *__48__CKChatController__askToTurnOnSMSRelayIfNeeded__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) enrollSelfDeviceInSMSRelay];
   if ((*(a1 + 48) & 1) == 0)
@@ -19566,25 +19596,25 @@ LABEL_7:
       goto LABEL_14;
     }
 
-    v15 = MEMORY[0x1E696AEC0];
-    v16 = CKFrameworkBundle();
-    v17 = [v16 localizedStringForKey:@"MAYBE_JUNK" value:&stru_1F04268F8 table:@"ChatKit"];
-    chat3 = [v15 stringWithFormat:v17, titleCopy];
+    v16 = MEMORY[0x1E696AEC0];
+    v17 = CKFrameworkBundle(v15);
+    v18 = [v17 localizedStringForKey:@"MAYBE_JUNK" value:&stru_1F04268F8 table:@"ChatKit"];
+    chat3 = [v16 stringWithFormat:v18, titleCopy];
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection == 1)
     {
-      v20 = @"\u200F";
+      v21 = @"\u200F";
     }
 
     else
     {
-      v20 = @"\u200E";
+      v21 = @"\u200E";
     }
 
-    [(__CFString *)v20 stringByAppendingString:chat3];
+    [(__CFString *)v21 stringByAppendingString:chat3];
     titleCopy = conversation4 = titleCopy;
   }
 
@@ -19656,7 +19686,7 @@ LABEL_14:
 
 - (id)currentNavigationBarBasedOnSizeClass
 {
-  if (CKIsRunningInMessagesTranscriptExtension() || (-[CKChatController traitCollection](self, "traitCollection"), v3 = objc_claimAutoreleasedReturnValue(), v4 = [v3 horizontalSizeClass], v3, v4 != 1))
+  if (CKIsRunningInMessagesTranscriptExtension(self) || (-[CKChatController traitCollection](self, "traitCollection"), v3 = objc_claimAutoreleasedReturnValue(), v4 = [v3 horizontalSizeClass], v3, v4 != 1))
   {
     navigationController = [(CKChatController *)self navigationController];
     navigationBar = [navigationController navigationBar];
@@ -19761,7 +19791,7 @@ LABEL_14:
       isDetailsNavigationControllerDetached = [delegate3 isDetailsNavigationControllerDetached];
 
       delegate4 = [(CKCoreChatController *)self delegate];
-      v11 = delegate4;
+      v12 = delegate4;
       if (isDetailsNavigationControllerDetached)
       {
         [delegate4 dismissAndReopenDetailsNavigationController];
@@ -19776,7 +19806,7 @@ LABEL_14:
     }
   }
 
-  else if (!CKIsRunningInMessagesTranscriptExtension())
+  else if (!CKIsRunningInMessagesTranscriptExtension(v6))
   {
     return;
   }
@@ -20399,7 +20429,7 @@ LABEL_23:
 
 - (void)_transferRestoredNotification:(id)notification
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   object = [notificationCopy object];
   collectionViewController = [(CKCoreChatController *)self collectionViewController];
@@ -20415,21 +20445,19 @@ LABEL_23:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412546;
-        v13 = object;
-        v14 = 2048;
-        v15 = v8;
+        v17 = object;
+        v18 = 2048;
+        v19 = v8;
         _os_log_impl(&dword_19020E000, v9, OS_LOG_TYPE_DEBUG, "Transfer %@ restored. Reload indexes %lu.", buf, 0x16u);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      v10 = object;
-      v11 = v8;
-      _CKLog();
+      _CKLog(0x2Eu, @"Transfer %@ restored. Reload indexes %lu.", v10, v11, v12, v13, v14, v15, object);
     }
 
-    [(CKChatController *)self updateQLPreviewControllerIfVisible:v10];
+    [(CKChatController *)self updateQLPreviewControllerIfVisible];
   }
 }
 
@@ -21850,60 +21878,61 @@ LABEL_71:
 
 - (void)addOrRemoveEntryViewIfNeeded
 {
-  v56 = *MEMORY[0x1E69E9840];
-  v53 = +[CKUIBehavior sharedBehaviors];
-  if (([v53 isEntryViewInputAccessory] & 1) == 0)
+  v58 = *MEMORY[0x1E69E9840];
+  v55 = +[CKUIBehavior sharedBehaviors];
+  isEntryViewInputAccessory = [v55 isEntryViewInputAccessory];
+  if ((isEntryViewInputAccessory & 1) == 0)
   {
-    v3 = CKIsRunningUITests();
+    v5 = CKIsRunningUITests(isEntryViewInputAccessory, v4);
 
-    if (v3)
+    if (v5)
     {
       return;
     }
 
     if (IMOSLoggingEnabled())
     {
-      v4 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v6 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_INFO, "entryView: addOrRemoveEntryViewIfNeeded", buf, 2u);
+        _os_log_impl(&dword_19020E000, v6, OS_LOG_TYPE_INFO, "entryView: addOrRemoveEntryViewIfNeeded", buf, 2u);
       }
     }
 
     view = [(CKChatController *)self view];
     entryViewContainerView = [(CKChatController *)self entryViewContainerView];
     currentDevice = [MEMORY[0x1E69DC938] currentDevice];
-    v8 = [currentDevice userInterfaceIdiom] == 1;
+    v10 = [currentDevice userInterfaceIdiom] == 1;
 
     isInHardwareKeyboardMode = [MEMORY[0x1E69DCBB8] isInHardwareKeyboardMode];
     shouldShowEntryView = [(CKChatController *)self shouldShowEntryView];
     if (IMOSLoggingEnabled())
     {
-      v11 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v13 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v12 = @"NO";
+        v14 = @"NO";
         if (shouldShowEntryView)
         {
-          v12 = @"YES";
+          v14 = @"YES";
         }
 
         *buf = 138412290;
-        v55 = v12;
-        _os_log_impl(&dword_19020E000, v11, OS_LOG_TYPE_INFO, "entryView: shouldRemoveEntryView: %@", buf, 0xCu);
+        v57 = v14;
+        _os_log_impl(&dword_19020E000, v13, OS_LOG_TYPE_INFO, "entryView: shouldRemoveEntryView: %@", buf, 0xCu);
       }
     }
 
-    v13 = isInHardwareKeyboardMode & v8;
+    v15 = isInHardwareKeyboardMode & v10;
     if (!shouldShowEntryView)
     {
       if (entryViewContainerView)
       {
         superview = [entryViewContainerView superview];
-        v19 = superview == view;
+        v21 = superview == view;
 
-        if (v19)
+        if (v21)
         {
           entryViewContainerView2 = [(CKChatController *)self entryViewContainerView];
           [entryViewContainerView2 removeFromSuperview];
@@ -21913,11 +21942,11 @@ LABEL_71:
 
           if (IMOSLoggingEnabled())
           {
-            v22 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+            v24 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_19020E000, v22, OS_LOG_TYPE_INFO, "entryView: Removed from super view", buf, 2u);
+              _os_log_impl(&dword_19020E000, v24, OS_LOG_TYPE_INFO, "entryView: Removed from super view", buf, 2u);
             }
           }
         }
@@ -21933,7 +21962,7 @@ LABEL_34:
         isInPencilMode = [entryView2 isInPencilMode];
 
         keyboardCandidateBarBackgroundView = self->_keyboardCandidateBarBackgroundView;
-        if ((shouldShowEntryView & (v13 | isInPencilMode)) == 1)
+        if ((shouldShowEntryView & (v15 | isInPencilMode)) == 1)
         {
           if (keyboardCandidateBarBackgroundView || !entryViewContainerView)
           {
@@ -21942,55 +21971,55 @@ LABEL_34:
 
           if (IMOSLoggingEnabled())
           {
-            v28 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+            v30 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_19020E000, v28, OS_LOG_TYPE_INFO, "Adding the keyboardCandidateBarBackgroundView", buf, 2u);
+              _os_log_impl(&dword_19020E000, v30, OS_LOG_TYPE_INFO, "Adding the keyboardCandidateBarBackgroundView", buf, 2u);
             }
           }
 
-          v29 = +[CKUIBehavior sharedBehaviors];
-          entryViewBackgroundClass = [v29 entryViewBackgroundClass];
+          v31 = +[CKUIBehavior sharedBehaviors];
+          entryViewBackgroundClass = [v31 entryViewBackgroundClass];
 
-          v31 = objc_alloc_init(entryViewBackgroundClass);
+          v33 = objc_alloc_init(entryViewBackgroundClass);
           delegate = [(CKCoreChatController *)self delegate];
-          v33 = objc_opt_respondsToSelector();
+          v35 = objc_opt_respondsToSelector();
 
-          if (v33)
+          if (v35)
           {
             delegate2 = [(CKCoreChatController *)self delegate];
-            v35 = [delegate2 navigationBarBackdropLayerGroupNameForChatController:self];
+            v37 = [delegate2 navigationBarBackdropLayerGroupNameForChatController:self];
 
-            [v31 setBackdropGroupName:v35];
+            [v33 setBackdropGroupName:v37];
           }
 
           entryView3 = [(CKChatController *)self entryView];
           entryViewTraitCollection = [entryView3 entryViewTraitCollection];
-          [v31 setEntryViewTraitCollection:entryViewTraitCollection];
+          [v33 setEntryViewTraitCollection:entryViewTraitCollection];
 
-          [entryViewContainerView addSubview:v31];
-          [v31 setTranslatesAutoresizingMaskIntoConstraints:0];
+          [entryViewContainerView addSubview:v33];
+          [v33 setTranslatesAutoresizingMaskIntoConstraints:0];
           bottomAnchor = [entryViewContainerView bottomAnchor];
-          bottomAnchor2 = [v31 bottomAnchor];
-          v40 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-          [v40 setActive:1];
+          bottomAnchor2 = [v33 bottomAnchor];
+          v42 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+          [v42 setActive:1];
 
           leadingAnchor = [entryViewContainerView leadingAnchor];
-          leadingAnchor2 = [v31 leadingAnchor];
-          v43 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-          [v43 setActive:1];
+          leadingAnchor2 = [v33 leadingAnchor];
+          v45 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+          [v45 setActive:1];
 
           trailingAnchor = [entryViewContainerView trailingAnchor];
-          trailingAnchor2 = [v31 trailingAnchor];
-          v46 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-          [v46 setActive:1];
+          trailingAnchor2 = [v33 trailingAnchor];
+          v48 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+          [v48 setActive:1];
 
           keyboardLayoutGuide = [entryViewContainerView keyboardLayoutGuide];
           topAnchor = [keyboardLayoutGuide topAnchor];
-          topAnchor2 = [v31 topAnchor];
-          v50 = [topAnchor constraintEqualToAnchor:topAnchor2];
-          [v50 setActive:1];
+          topAnchor2 = [v33 topAnchor];
+          v52 = [topAnchor constraintEqualToAnchor:topAnchor2];
+          [v52 setActive:1];
 
           goto LABEL_51;
         }
@@ -21999,19 +22028,19 @@ LABEL_34:
         {
           if (IMOSLoggingEnabled())
           {
-            v51 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+            v53 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_19020E000, v51, OS_LOG_TYPE_INFO, "Removing the keyboardCandidateBarBackgroundView", buf, 2u);
+              _os_log_impl(&dword_19020E000, v53, OS_LOG_TYPE_INFO, "Removing the keyboardCandidateBarBackgroundView", buf, 2u);
             }
           }
 
           [(CKMessageEntryBackgroundViewProtocol *)self->_keyboardCandidateBarBackgroundView removeFromSuperview];
-          v31 = 0;
+          v33 = 0;
 LABEL_51:
-          v52 = self->_keyboardCandidateBarBackgroundView;
-          self->_keyboardCandidateBarBackgroundView = v31;
+          v54 = self->_keyboardCandidateBarBackgroundView;
+          self->_keyboardCandidateBarBackgroundView = v33;
         }
       }
 
@@ -22020,7 +22049,7 @@ LABEL_52:
       return;
     }
 
-    if (!entryViewContainerView || ([view subviews], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "containsObject:", entryViewContainerView), v14, (v15 & 1) != 0))
+    if (!entryViewContainerView || ([view subviews], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "containsObject:", entryViewContainerView), v16, (v17 & 1) != 0))
     {
 LABEL_27:
       [view bringSubviewToFront:entryViewContainerView];
@@ -22029,25 +22058,25 @@ LABEL_27:
 
     [view addSubview:entryViewContainerView];
     [(CKChatController *)self setUpEntryViewLayoutConstraintsIfNecessary];
-    v16 = +[CKUIBehavior sharedBehaviors];
-    if (([v16 isEntryViewFirstResponderOnViewAppearance] & 1) != 0 || self->_entryViewShouldBecomeTargetFirstResponderForPendingDraft)
+    v18 = +[CKUIBehavior sharedBehaviors];
+    if (([v18 isEntryViewFirstResponderOnViewAppearance] & 1) != 0 || self->_entryViewShouldBecomeTargetFirstResponderForPendingDraft)
     {
     }
 
     else
     {
 
-      if ((v13 & 1) == 0)
+      if ((v15 & 1) == 0)
       {
 LABEL_23:
         [(CKChatController *)self becomeFirstResponder];
         if (IMOSLoggingEnabled())
         {
-          v17 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+          v19 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_19020E000, v17, OS_LOG_TYPE_INFO, "entryView: added to view", buf, 2u);
+            _os_log_impl(&dword_19020E000, v19, OS_LOG_TYPE_INFO, "entryView: added to view", buf, 2u);
           }
         }
 
@@ -25901,11 +25930,11 @@ void __77__CKChatController_selectedBalloonIntersectingRect_chatItemForRepositio
   [v16 performWithoutAnimation:v18];
 }
 
-uint64_t __91__CKChatController_chatInputDidUpdateInputViewShowingBrowser_entryFieldCollapsed_animated___block_invoke(uint64_t result)
+id *__91__CKChatController_chatInputDidUpdateInputViewShowingBrowser_entryFieldCollapsed_animated___block_invoke(id *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
-    return [*(result + 32) restoreKeyboardInputMode];
+    return [result[4] restoreKeyboardInputMode];
   }
 
   return result;
@@ -26142,7 +26171,7 @@ uint64_t __91__CKChatController_chatInputDidUpdateInputViewShowingBrowser_entryF
 - (void)chatInputControllerDidSelectFunCamera:(id)camera
 {
   cameraCopy = camera;
-  if (CKIsRunningInMessagesTranscriptExtension())
+  if (CKIsRunningInMessagesTranscriptExtension(cameraCopy))
   {
     [(CKChatController *)self openURLInExtensionContextForMode:@"photos"];
   }
@@ -26502,7 +26531,7 @@ void __80__CKChatController__associatedStickerChatItemInInsertedIndexes_matching
   v9 = layer;
   if (layer)
   {
-    [layer transform];
+    objc_msgSend_transform(layer);
   }
 
   else
@@ -26970,7 +26999,7 @@ void __145__CKChatController__sendAutomaticallyPlacedSticker_stickerReactionSess
   v37 = v36;
   if (v36)
   {
-    [v36 transform];
+    objc_msgSend_transform(v36);
   }
 
   else
@@ -27002,9 +27031,9 @@ void __145__CKChatController__sendAutomaticallyPlacedSticker_stickerReactionSess
   v44 = [MEMORY[0x1E6979308] animation];
   [v41 beginTime];
   v46 = v45;
-  [v41 duration];
+  objc_msgSend_duration(v41);
   v48 = v47;
-  [v42 duration];
+  objc_msgSend_duration(v42);
   if (v46 + v48 >= v49)
   {
     v49 = v46 + v48;
@@ -27023,7 +27052,7 @@ void __145__CKChatController__sendAutomaticallyPlacedSticker_stickerReactionSess
   [v44 setRemovedOnCompletion:0];
   [MEMORY[0x1E6979518] begin];
   v51 = MEMORY[0x1E6979518];
-  [v44 duration];
+  objc_msgSend_duration(v44);
   [v51 setAnimationDuration:?];
   v52 = MEMORY[0x1E6979518];
   v58[0] = MEMORY[0x1E69E9820];
@@ -27263,7 +27292,7 @@ LABEL_6:
   v44 = *MEMORY[0x1E69E9840];
   compositionCopy = composition;
   completionCopy = completion;
-  v5 = CKFrameworkBundle();
+  v5 = CKFrameworkBundle(completionCopy);
   v6 = [v5 localizedStringForKey:@"SEND_WITH_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
   v26 = [CKAlertController alertControllerWithTitle:v6 message:0 preferredStyle:0];
 
@@ -27318,7 +27347,7 @@ LABEL_6:
           label = [v17 label];
           if (!label)
           {
-            v19 = CKFrameworkBundle();
+            v19 = CKFrameworkBundle(0);
             label = [v19 localizedStringForKey:@"CURRENT_LINE" value:&stru_1F04268F8 table:@"ChatKit"];
           }
 
@@ -27371,7 +27400,7 @@ void __74__CKChatController_createAlertControllerForAccountComposition_completio
 
 - (void)presentActionMenuForAccountSelection:(id)selection completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   selectionCopy = selection;
   completionCopy = completion;
   v8 = [(CKChatController *)self createAlertControllerForAccountComposition:selectionCopy completion:completionCopy];
@@ -27396,18 +27425,18 @@ void __74__CKChatController_createAlertControllerForAccountComposition_completio
       actions = [v8 actions];
       v14 = actions;
       v15 = @"NO";
-      *v25 = 138412802;
+      *v26 = 138412802;
       if (v11)
       {
         v15 = @"YES";
       }
 
-      *&v25[4] = v15;
-      v26 = 2112;
-      v27 = sendingService;
-      v28 = 2112;
-      v29 = actions;
-      _os_log_impl(&dword_19020E000, v12, OS_LOG_TYPE_INFO, "AccountSelection shouldShow %@ service %@ actions %@", v25, 0x20u);
+      *&v26[4] = v15;
+      v27 = 2112;
+      v28 = sendingService;
+      v29 = 2112;
+      v30 = actions;
+      _os_log_impl(&dword_19020E000, v12, OS_LOG_TYPE_INFO, "AccountSelection shouldShow %@ service %@ actions %@", v26, 0x20u);
     }
   }
 
@@ -27416,10 +27445,10 @@ void __74__CKChatController_createAlertControllerForAccountComposition_completio
 
   if ((v17 & v11) != 0)
   {
-    v18 = CKFrameworkBundle();
-    v19 = [v18 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
-    v20 = [CKAlertAction actionWithTitle:v19 style:1 handler:0];
-    [v8 addAction:v20];
+    v19 = CKFrameworkBundle(v18);
+    v20 = [v19 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
+    v21 = [CKAlertAction actionWithTitle:v20 style:1 handler:0];
+    [v8 addAction:v21];
 
     effectPickerViewController = [(CKChatController *)self effectPickerViewController];
     if (effectPickerViewController)
@@ -27432,20 +27461,20 @@ void __74__CKChatController_createAlertControllerForAccountComposition_completio
       selfCopy = self;
     }
 
-    v24 = selfCopy;
+    v25 = selfCopy;
 
-    [v8 presentFromViewController:v24 animated:1 completion:0];
+    [v8 presentFromViewController:v25 animated:1 completion:0];
   }
 
   else
   {
     if (IMOSLoggingEnabled())
     {
-      v23 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      v24 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
-        *v25 = 0;
-        _os_log_impl(&dword_19020E000, v23, OS_LOG_TYPE_INFO, "Not showing account selection alert. Validate and send composition instead.", v25, 2u);
+        *v26 = 0;
+        _os_log_impl(&dword_19020E000, v24, OS_LOG_TYPE_INFO, "Not showing account selection alert. Validate and send composition instead.", v26, 2u);
       }
     }
 
@@ -27723,7 +27752,7 @@ void __44__CKChatController_disableSendButtonSpinner__block_invoke(uint64_t a1)
   return v4;
 }
 
-void *__56__CKChatController__sharingAccessTypeFromOptionsGroups___block_invoke()
+uint64_t (*__56__CKChatController__sharingAccessTypeFromOptionsGroups___block_invoke())(void)
 {
   result = MEMORY[0x193AF5ED0]("CKSharingAccessTypeFromOptionsGroups", @"CloudKit");
   _sharingAccessTypeFromOptionsGroups___CKSharingAccessTypeFromOptionsGroups = result;
@@ -27751,7 +27780,7 @@ void *__56__CKChatController__sharingAccessTypeFromOptionsGroups___block_invoke(
   return v4;
 }
 
-void *__60__CKChatController__sharingPermissionTypeFromOptionsGroups___block_invoke()
+uint64_t (*__60__CKChatController__sharingPermissionTypeFromOptionsGroups___block_invoke())(void)
 {
   result = MEMORY[0x193AF5ED0]("CKSharingPermissionTypeFromOptionsGroups", @"CloudKit");
   _sharingPermissionTypeFromOptionsGroups___CKSharingPermissionTypeFromOptionsGroups = result;
@@ -27779,7 +27808,7 @@ void *__60__CKChatController__sharingPermissionTypeFromOptionsGroups___block_inv
   return v4;
 }
 
-void *__65__CKChatController__sharingAllowOthersToInviteFromOptionsGroups___block_invoke()
+uint64_t (*__65__CKChatController__sharingAllowOthersToInviteFromOptionsGroups___block_invoke())(void)
 {
   result = MEMORY[0x193AF5ED0]("CKSharingAllowOthersToInviteFromOptionsGroups", @"CloudKit");
   _sharingAllowOthersToInviteFromOptionsGroups___CKSharingAllowOthersToInviteFromOptionsGroups = result;
@@ -27910,7 +27939,7 @@ void __62__CKChatController_sendCompositionForFileProvider_completion___block_in
 LABEL_14:
 }
 
-uint64_t __62__CKChatController_sendCompositionForFileProvider_completion___block_invoke_1258(uint64_t a1, uint64_t a2)
+uint64_t (**__62__CKChatController_sendCompositionForFileProvider_completion___block_invoke_1258(uint64_t a1, uint64_t a2))(void *, void)
 {
   if (a2 == 1)
   {
@@ -27920,44 +27949,44 @@ uint64_t __62__CKChatController_sendCompositionForFileProvider_completion___bloc
   result = *(a1 + 48);
   if (result)
   {
-    return (*(result + 16))(result, 0);
+    return result[2](result, 0);
   }
 
   return result;
 }
 
-void __62__CKChatController_sendCompositionForFileProvider_completion___block_invoke_2(uint64_t a1)
+void __62__CKChatController_sendCompositionForFileProvider_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 32);
+      v4 = *(a1 + 32);
       *buf = 138412290;
-      v16 = v3;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Querying for current user's status on share %@", buf, 0xCu);
+      v17 = v4;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Querying for current user's status on share %@", buf, 0xCu);
     }
   }
 
-  v4 = *(a1 + 72);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __62__CKChatController_sendCompositionForFileProvider_completion___block_invoke_1259;
-  v11[3] = &unk_1E72EDB08;
-  v5 = *(a1 + 32);
-  *&v6 = v5;
-  *(&v6 + 1) = *(a1 + 40);
-  v10 = v6;
-  v7 = *(a1 + 48);
-  v8 = *(a1 + 56);
-  *&v9 = v7;
-  *(&v9 + 1) = v8;
-  v12 = v10;
-  v13 = v9;
-  v14 = *(a1 + 64);
-  [v4 sharingStatusForShare:v5 completionHandler:v11];
+  v5 = *(a1 + 72);
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __62__CKChatController_sendCompositionForFileProvider_completion___block_invoke_1259;
+  v12[3] = &unk_1E72EDB08;
+  v6 = *(a1 + 32);
+  *&v7 = v6;
+  *(&v7 + 1) = *(a1 + 40);
+  v11 = v7;
+  v8 = *(a1 + 48);
+  v9 = *(a1 + 56);
+  *&v10 = v8;
+  *(&v10 + 1) = v9;
+  v13 = v11;
+  v14 = v10;
+  v15 = *(a1 + 64);
+  [v5 sharingStatusForShare:v6 completionHandler:v12];
 }
 
 void __62__CKChatController_sendCompositionForFileProvider_completion___block_invoke_1259(uint64_t a1, unint64_t a2, void *a3)
@@ -28061,7 +28090,7 @@ void __62__CKChatController_sendCompositionForFileProvider_completion___block_in
   }
 }
 
-uint64_t __62__CKChatController_sendCompositionForFileProvider_completion___block_invoke_1260(uint64_t a1, uint64_t a2)
+uint64_t (**__62__CKChatController_sendCompositionForFileProvider_completion___block_invoke_1260(uint64_t a1, uint64_t a2))(void *, void)
 {
   if (a2 == 1)
   {
@@ -28071,13 +28100,13 @@ uint64_t __62__CKChatController_sendCompositionForFileProvider_completion___bloc
   result = *(a1 + 48);
   if (result)
   {
-    return (*(result + 16))(result, 0);
+    return result[2](result, 0);
   }
 
   return result;
 }
 
-uint64_t __62__CKChatController_sendCompositionForFileProvider_completion___block_invoke_1262(uint64_t a1, uint64_t a2)
+uint64_t (**__62__CKChatController_sendCompositionForFileProvider_completion___block_invoke_1262(uint64_t a1, uint64_t a2))(void *, void)
 {
   if (a2 == 1)
   {
@@ -28087,7 +28116,7 @@ uint64_t __62__CKChatController_sendCompositionForFileProvider_completion___bloc
   result = *(a1 + 48);
   if (result)
   {
-    return (*(result + 16))(result, 0);
+    return result[2](result, 0);
   }
 
   return result;
@@ -28483,7 +28512,7 @@ void __73__CKChatController__sendCompositionForFileProviderCloudDrive_completion
       }
     }
 
-    v14 = (a1 + 5);
+    v14 = a1 + 5;
     v13 = a1[5];
     v15 = a1 + 6;
     v16 = a1[6];
@@ -28720,7 +28749,7 @@ void __76__CKChatController__startSharingForURLForFileProviderCloudDrive_complet
   }
 }
 
-uint64_t __76__CKChatController__startSharingForURLForFileProviderCloudDrive_completion___block_invoke_1298(uint64_t a1, uint64_t a2)
+uint64_t (**__76__CKChatController__startSharingForURLForFileProviderCloudDrive_completion___block_invoke_1298(uint64_t a1, uint64_t a2))(void *, void)
 {
   if (a2 == 1)
   {
@@ -28730,7 +28759,7 @@ uint64_t __76__CKChatController__startSharingForURLForFileProviderCloudDrive_com
   result = *(a1 + 48);
   if (result)
   {
-    return (*(result + 16))(result, 0);
+    return result[2](result, 0);
   }
 
   return result;
@@ -28888,17 +28917,17 @@ uint64_t __76__CKChatController__startSharingForURLForFileProviderCloudDrive_com
   }
 }
 
-void __89__CKChatController__updateAndSendCompositionForFileProvider_share_sharingURL_completion___block_invoke(uint64_t a1)
+void __89__CKChatController__updateAndSendCompositionForFileProvider_share_sharingURL_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (*(*(*(a1 + 96) + 8) + 24) == 1)
   {
     if (IMOSLoggingEnabled())
     {
-      v2 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+      v3 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Not calling addParticipants because it's a public share.", buf, 2u);
+        _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Not calling addParticipants because it's a public share.", buf, 2u);
       }
     }
 
@@ -28907,23 +28936,23 @@ void __89__CKChatController__updateAndSendCompositionForFileProvider_share_shari
 
   else if (objc_opt_respondsToSelector())
   {
-    v3 = *(a1 + 56);
-    v4 = *(a1 + 64);
-    v5 = *(a1 + 72);
-    v6 = *(a1 + 80);
-    v7 = *(a1 + 104);
-    v8 = *(a1 + 112);
-    v9 = *(a1 + 120);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __89__CKChatController__updateAndSendCompositionForFileProvider_share_sharingURL_completion___block_invoke_1306;
-    v11[3] = &unk_1E72EDCE8;
-    v10 = *(a1 + 40);
-    v11[4] = *(a1 + 32);
-    v12 = v10;
-    v14 = *(a1 + 88);
-    v13 = *(a1 + 48);
-    [v7 addParticipantsToShare:v3 containerSetupInfo:v4 emailAddresses:v5 phoneNumbers:v6 permissionType:v8 allowOthersToInvite:v9 completionHandler:v11];
+    v4 = *(a1 + 56);
+    v5 = *(a1 + 64);
+    v6 = *(a1 + 72);
+    v7 = *(a1 + 80);
+    v8 = *(a1 + 104);
+    v9 = *(a1 + 112);
+    v10 = *(a1 + 120);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __89__CKChatController__updateAndSendCompositionForFileProvider_share_sharingURL_completion___block_invoke_1306;
+    v12[3] = &unk_1E72EDCE8;
+    v11 = *(a1 + 40);
+    v12[4] = *(a1 + 32);
+    v13 = v11;
+    v15 = *(a1 + 88);
+    v14 = *(a1 + 48);
+    [v8 addParticipantsToShare:v4 containerSetupInfo:v5 emailAddresses:v6 phoneNumbers:v7 permissionType:v9 allowOthersToInvite:v10 completionHandler:v12];
   }
 }
 
@@ -28987,7 +29016,7 @@ void __89__CKChatController__updateAndSendCompositionForFileProvider_share_shari
   }
 }
 
-uint64_t __89__CKChatController__updateAndSendCompositionForFileProvider_share_sharingURL_completion___block_invoke_1307(uint64_t a1, uint64_t a2)
+uint64_t (**__89__CKChatController__updateAndSendCompositionForFileProvider_share_sharingURL_completion___block_invoke_1307(uint64_t a1, uint64_t a2))(void *, void)
 {
   if (a2 == 1)
   {
@@ -28997,7 +29026,7 @@ uint64_t __89__CKChatController__updateAndSendCompositionForFileProvider_share_s
   result = *(a1 + 64);
   if (result)
   {
-    return (*(result + 16))(result, 0);
+    return result[2](result, 0);
   }
 
   return result;
@@ -29593,7 +29622,7 @@ void __67__CKChatController__sendCompositionForNewCloudKitShare_completion___blo
   }
 }
 
-uint64_t __67__CKChatController__sendCompositionForNewCloudKitShare_completion___block_invoke_1321(uint64_t a1, uint64_t a2)
+uint64_t (**__67__CKChatController__sendCompositionForNewCloudKitShare_completion___block_invoke_1321(uint64_t a1, uint64_t a2))(void *, void)
 {
   if (a2)
   {
@@ -29603,21 +29632,21 @@ uint64_t __67__CKChatController__sendCompositionForNewCloudKitShare_completion__
   result = *(a1 + 48);
   if (result)
   {
-    return (*(result + 16))(result, 0);
+    return result[2](result, 0);
   }
 
   return result;
 }
 
-uint64_t __67__CKChatController__sendCompositionForNewCloudKitShare_completion___block_invoke_2(uint64_t a1)
+uint64_t __67__CKChatController__sendCompositionForNewCloudKitShare_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "CloudSharing API returned without error. Calling send composition.", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "CloudSharing API returned without error. Calling send composition.", v5, 2u);
     }
   }
 
@@ -29812,7 +29841,7 @@ void __95__CKChatController__updateAndSendCompositionForExistingCloudKitShare_sh
   }
 }
 
-uint64_t __95__CKChatController__updateAndSendCompositionForExistingCloudKitShare_share_attempt_completion___block_invoke_1329(uint64_t a1, uint64_t a2)
+uint64_t (**__95__CKChatController__updateAndSendCompositionForExistingCloudKitShare_share_attempt_completion___block_invoke_1329(uint64_t a1, uint64_t a2))(void *, void)
 {
   if (a2 == 1)
   {
@@ -29830,7 +29859,7 @@ uint64_t __95__CKChatController__updateAndSendCompositionForExistingCloudKitShar
     result = *(a1 + 64);
     if (result)
     {
-      return (*(result + 16))(result, 0);
+      return result[2](result, 0);
     }
   }
 
@@ -30153,7 +30182,7 @@ void __70__CKChatController_sendCompositionForPendingCollaboration_completion___
   [*(a1 + 48) disableSendButtonSpinner];
 }
 
-uint64_t __70__CKChatController_sendCompositionForPendingCollaboration_completion___block_invoke_1331(uint64_t a1, uint64_t a2)
+uint64_t (**__70__CKChatController_sendCompositionForPendingCollaboration_completion___block_invoke_1331(uint64_t a1, uint64_t a2))(void *, void)
 {
   if (a2 == 1)
   {
@@ -30163,24 +30192,24 @@ uint64_t __70__CKChatController_sendCompositionForPendingCollaboration_completio
   result = *(a1 + 48);
   if (result)
   {
-    return (*(result + 16))(result, 0);
+    return result[2](result, 0);
   }
 
   return result;
 }
 
-uint64_t __70__CKChatController_sendCompositionForPendingCollaboration_completion___block_invoke_2(uint64_t a1)
+uint64_t __70__CKChatController_sendCompositionForPendingCollaboration_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 32);
+      v4 = *(a1 + 32);
       *buf = 138412290;
-      v9 = v3;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Sending the final composition for pending conversation for share URL: %@", buf, 0xCu);
+      v10 = v4;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Sending the final composition for pending conversation for share URL: %@", buf, 0xCu);
     }
   }
 
@@ -30194,14 +30223,14 @@ uint64_t __70__CKChatController_sendCompositionForPendingCollaboration_completio
 
   else
   {
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __70__CKChatController_sendCompositionForPendingCollaboration_completion___block_invoke_1332;
-    v6[3] = &unk_1E72EB8D0;
-    v4 = *(a1 + 48);
-    v6[4] = *(a1 + 40);
-    v7 = v4;
-    dispatch_sync(MEMORY[0x1E69E96A0], v6);
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __70__CKChatController_sendCompositionForPendingCollaboration_completion___block_invoke_1332;
+    v7[3] = &unk_1E72EB8D0;
+    v5 = *(a1 + 48);
+    v7[4] = *(a1 + 40);
+    v8 = v5;
+    dispatch_sync(MEMORY[0x1E69E96A0], v7);
   }
 
   result = *(a1 + 56);
@@ -30229,7 +30258,7 @@ uint64_t __70__CKChatController_sendCompositionForPendingCollaboration_completio
   return result;
 }
 
-uint64_t __70__CKChatController_sendCompositionForPendingCollaboration_completion___block_invoke_1335(uint64_t a1, uint64_t a2)
+uint64_t (**__70__CKChatController_sendCompositionForPendingCollaboration_completion___block_invoke_1335(uint64_t a1, uint64_t a2))(void *, void)
 {
   if (a2 == 1)
   {
@@ -30239,13 +30268,13 @@ uint64_t __70__CKChatController_sendCompositionForPendingCollaboration_completio
   result = *(a1 + 48);
   if (result)
   {
-    return (*(result + 16))(result, 0);
+    return result[2](result, 0);
   }
 
   return result;
 }
 
-uint64_t __70__CKChatController_sendCompositionForPendingCollaboration_completion___block_invoke_1337(uint64_t a1, uint64_t a2)
+uint64_t (**__70__CKChatController_sendCompositionForPendingCollaboration_completion___block_invoke_1337(uint64_t a1, uint64_t a2))(void *, void)
 {
   if (a2 == 1)
   {
@@ -30255,7 +30284,7 @@ uint64_t __70__CKChatController_sendCompositionForPendingCollaboration_completio
   result = *(a1 + 48);
   if (result)
   {
-    return (*(result + 16))(result, 0);
+    return result[2](result, 0);
   }
 
   return result;
@@ -30500,39 +30529,39 @@ uint64_t __81__CKChatController_sendCompositionForCollaboration_collaborationTyp
   defaultManager = [v5 defaultManager];
   v8 = [payloadCopy url];
 
-  v22 = 0;
-  v9 = [defaultManager itemForURL:v8 error:&v22];
-  v10 = v22;
+  v25 = 0;
+  v9 = [defaultManager itemForURL:v8 error:&v25];
+  v10 = v25;
 
-  v11 = v9 == 0;
+  v12 = v9 == 0;
   if (!v9)
   {
     if (v10)
     {
-      v12 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [CKChatController _presentCollabInvalidFileProviderLocationAlertIfNecessaryForPayload:collaborationType:];
       }
     }
 
-    v13 = CKFrameworkBundle();
-    v14 = [v13 localizedStringForKey:@"ALERT_TITLE_COLLAB_INVALID_FILE_PROVIDER_LOCATION" value:&stru_1F04268F8 table:@"ChatKit"];
+    v14 = CKFrameworkBundle(v11);
+    v15 = [v14 localizedStringForKey:@"ALERT_TITLE_COLLAB_INVALID_FILE_PROVIDER_LOCATION" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v15 = CKFrameworkBundle();
-    v16 = [v15 localizedStringForKey:@"ALERT_MESSAGE_COLLAB_INVALID_FILE_PROVIDER_LOCATION" value:&stru_1F04268F8 table:@"ChatKit"];
+    v17 = CKFrameworkBundle(v16);
+    v18 = [v17 localizedStringForKey:@"ALERT_MESSAGE_COLLAB_INVALID_FILE_PROVIDER_LOCATION" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v17 = CKFrameworkBundle();
-    v18 = [v17 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
+    v20 = CKFrameworkBundle(v19);
+    v21 = [v20 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v19 = [CKAlertController alertControllerWithTitle:v14 message:v16 preferredStyle:CKIsRunningInMacCatalyst() != 0];
-    v20 = [CKAlertAction actionWithTitle:v18 style:0 handler:&__block_literal_global_1346];
-    [v19 addAction:v20];
+    v22 = [CKAlertController alertControllerWithTitle:v15 message:v18 preferredStyle:CKIsRunningInMacCatalyst() != 0];
+    v23 = [CKAlertAction actionWithTitle:v21 style:0 handler:&__block_literal_global_1346];
+    [v22 addAction:v23];
 
-    [v19 presentFromViewController:self animated:1 completion:0];
+    [v22 presentFromViewController:self animated:1 completion:0];
   }
 
-  return v11;
+  return v12;
 }
 
 - (void)_presentCollabAddToMessagesGroupAlertIfNecessary:(id)necessary collaborationType:(int64_t)type sendBlock:(id)block completionHandler:(id)handler
@@ -30609,49 +30638,49 @@ void __115__CKChatController__presentCollabAddToMessagesGroupAlertIfNecessary_co
 
 - (void)_presentCollabAddToMessagesGroupAlert:(id)alert sendBlock:(id)block completionHandler:(id)handler
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   alertCopy = alert;
   blockCopy = block;
   handlerCopy = handler;
-  v49 = alertCopy;
+  v53 = alertCopy;
   if (alertCopy)
   {
     selfCopy = self;
-    v51 = [(CKChatController *)self _groupConversationContainingSharedURL:alertCopy];
-    if (v51)
+    v55 = [(CKChatController *)self _groupConversationContainingSharedURL:alertCopy];
+    if (v55)
     {
       if (IMOSLoggingEnabled())
       {
         v9 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
-          chat = [v51 chat];
+          chat = [v55 chat];
           chatIdentifier = [chat chatIdentifier];
           *buf = 138412290;
-          v67 = chatIdentifier;
+          v71 = chatIdentifier;
           _os_log_impl(&dword_19020E000, v9, OS_LOG_TYPE_INFO, "Presenting Group Collaboration alert for chat identifier: %@", buf, 0xCu);
         }
       }
 
-      v63 = 0u;
-      v64 = 0u;
-      v61 = 0u;
-      v62 = 0u;
-      obj = [v51 recipients];
-      v12 = [obj countByEnumeratingWithState:&v61 objects:v65 count:16];
+      v67 = 0u;
+      v68 = 0u;
+      v65 = 0u;
+      v66 = 0u;
+      obj = [v55 recipients];
+      v12 = [obj countByEnumeratingWithState:&v65 objects:v69 count:16];
       if (v12)
       {
-        v13 = *v62;
+        v13 = *v66;
         while (2)
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v62 != v13)
+            if (*v66 != v13)
             {
               objc_enumerationMutation(obj);
             }
 
-            defaultIMHandle = [*(*(&v61 + 1) + 8 * i) defaultIMHandle];
+            defaultIMHandle = [*(*(&v65 + 1) + 8 * i) defaultIMHandle];
             v16 = [defaultIMHandle ID];
             conversation = [(CKCoreChatController *)selfCopy conversation];
             recipient = [conversation recipient];
@@ -30663,11 +30692,11 @@ void __115__CKChatController__presentCollabAddToMessagesGroupAlertIfNecessary_co
             {
               if (IMOSLoggingEnabled())
               {
-                v48 = OSLogHandleForIMFoundationCategory();
-                if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+                v52 = OSLogHandleForIMFoundationCategory();
+                if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_19020E000, v48, OS_LOG_TYPE_INFO, "Recipient is already part of group conversation, sending separately", buf, 2u);
+                  _os_log_impl(&dword_19020E000, v52, OS_LOG_TYPE_INFO, "Recipient is already part of group conversation, sending separately", buf, 2u);
                 }
               }
 
@@ -30675,7 +30704,7 @@ void __115__CKChatController__presentCollabAddToMessagesGroupAlertIfNecessary_co
             }
           }
 
-          v12 = [obj countByEnumeratingWithState:&v61 objects:v65 count:16];
+          v12 = [obj countByEnumeratingWithState:&v65 objects:v69 count:16];
           if (v12)
           {
             continue;
@@ -30689,76 +30718,77 @@ void __115__CKChatController__presentCollabAddToMessagesGroupAlertIfNecessary_co
       recipient2 = [conversation2 recipient];
       name = [recipient2 name];
 
-      displayName = [v51 displayName];
+      displayName = [v55 displayName];
       if (!displayName)
       {
-        displayName = [v51 name];
+        displayName = [v55 name];
       }
 
-      v26 = CKIsRunningInMacCatalyst() == 0;
-      v27 = MEMORY[0x1E696AEC0];
-      v28 = CKFrameworkBundle();
-      v29 = v28;
-      if (v26)
+      v26 = CKIsRunningInMacCatalyst();
+      v27 = v26 == 0;
+      v28 = MEMORY[0x1E696AEC0];
+      v29 = CKFrameworkBundle(v26);
+      v30 = v29;
+      if (v27)
       {
-        v30 = @"ALERT_TITLE_ADD_TO_EXISTING_GROUP_CONVERSATION_IOS";
+        v31 = @"ALERT_TITLE_ADD_TO_EXISTING_GROUP_CONVERSATION_IOS";
       }
 
       else
       {
-        v30 = @"ALERT_TITLE_ADD_TO_EXISTING_GROUP_CONVERSATION_MAC";
+        v31 = @"ALERT_TITLE_ADD_TO_EXISTING_GROUP_CONVERSATION_MAC";
       }
 
-      v31 = [v28 localizedStringForKey:v30 value:&stru_1F04268F8 table:@"ChatKit"];
-      v32 = [v27 stringWithFormat:v31, name, displayName, v49];
+      v32 = [v29 localizedStringForKey:v31 value:&stru_1F04268F8 table:@"ChatKit"];
+      v33 = [v28 stringWithFormat:v32, name, displayName, v53];
 
       mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
-      v34 = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection] == 1;
+      v35 = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection] == 1;
 
-      if (v34)
+      if (v35)
       {
-        v35 = @"\u200F";
+        v36 = @"\u200F";
       }
 
       else
       {
-        v35 = @"\u200E";
+        v36 = @"\u200E";
       }
 
-      obja = [(__CFString *)v35 stringByAppendingString:v32];
+      obja = [(__CFString *)v36 stringByAppendingString:v33];
 
-      v36 = CKFrameworkBundle();
-      v37 = [v36 localizedStringForKey:@"ALERT_ACTION_ADD_TO_GROUP" value:&stru_1F04268F8 table:@"ChatKit"];
+      v38 = CKFrameworkBundle(v37);
+      v39 = [v38 localizedStringForKey:@"ALERT_ACTION_ADD_TO_GROUP" value:&stru_1F04268F8 table:@"ChatKit"];
 
-      v38 = CKFrameworkBundle();
-      v39 = [v38 localizedStringForKey:@"ALERT_ACTION_SHARE_WITH_PARTICIPANT_ONLY" value:&stru_1F04268F8 table:@"ChatKit"];
+      v41 = CKFrameworkBundle(v40);
+      v42 = [v41 localizedStringForKey:@"ALERT_ACTION_SHARE_WITH_PARTICIPANT_ONLY" value:&stru_1F04268F8 table:@"ChatKit"];
 
-      v40 = [CKAlertController alertControllerWithTitle:obja message:0 preferredStyle:CKIsRunningInMacCatalyst() != 0];
-      v58[0] = MEMORY[0x1E69E9820];
-      v58[1] = 3221225472;
-      v58[2] = __86__CKChatController__presentCollabAddToMessagesGroupAlert_sendBlock_completionHandler___block_invoke;
-      v58[3] = &unk_1E72EDEF0;
-      v58[4] = selfCopy;
-      v59 = v51;
-      v41 = blockCopy;
-      v60 = v41;
-      v42 = [CKAlertAction actionWithTitle:v37 style:0 handler:v58];
-      [v40 addAction:v42];
+      v43 = [CKAlertController alertControllerWithTitle:obja message:0 preferredStyle:CKIsRunningInMacCatalyst() != 0];
+      v62[0] = MEMORY[0x1E69E9820];
+      v62[1] = 3221225472;
+      v62[2] = __86__CKChatController__presentCollabAddToMessagesGroupAlert_sendBlock_completionHandler___block_invoke;
+      v62[3] = &unk_1E72EDEF0;
+      v62[4] = selfCopy;
+      v63 = v55;
+      v44 = blockCopy;
+      v64 = v44;
+      v45 = [CKAlertAction actionWithTitle:v39 style:0 handler:v62];
+      [v43 addAction:v45];
 
-      v56[0] = MEMORY[0x1E69E9820];
-      v56[1] = 3221225472;
-      v56[2] = __86__CKChatController__presentCollabAddToMessagesGroupAlert_sendBlock_completionHandler___block_invoke_1363;
-      v56[3] = &unk_1E72EC218;
-      v57 = v41;
-      v43 = [CKAlertAction actionWithTitle:v39 style:0 handler:v56];
-      [v40 addAction:v43];
+      v60[0] = MEMORY[0x1E69E9820];
+      v60[1] = 3221225472;
+      v60[2] = __86__CKChatController__presentCollabAddToMessagesGroupAlert_sendBlock_completionHandler___block_invoke_1363;
+      v60[3] = &unk_1E72EC218;
+      v61 = v44;
+      v46 = [CKAlertAction actionWithTitle:v42 style:0 handler:v60];
+      [v43 addAction:v46];
 
-      v44 = CKFrameworkBundle();
-      v45 = [v44 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
-      v46 = [CKAlertAction actionWithTitle:v45 style:1 handler:&__block_literal_global_1366];
-      [v40 addAction:v46];
+      v48 = CKFrameworkBundle(v47);
+      v49 = [v48 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
+      v50 = [CKAlertAction actionWithTitle:v49 style:1 handler:&__block_literal_global_1366];
+      [v43 addAction:v50];
 
-      [v40 presentFromViewController:selfCopy animated:1 completion:0];
+      [v43 presentFromViewController:selfCopy animated:1 completion:0];
       handlerCopy[2](handlerCopy, 1);
     }
 
@@ -30773,11 +30803,11 @@ LABEL_34:
   {
     if (IMOSLoggingEnabled())
     {
-      v47 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+      v51 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19020E000, v47, OS_LOG_TYPE_INFO, "Can't find a group conversation, URL is nil", buf, 2u);
+        _os_log_impl(&dword_19020E000, v51, OS_LOG_TYPE_INFO, "Can't find a group conversation, URL is nil", buf, 2u);
       }
     }
 
@@ -31203,31 +31233,31 @@ void __59__CKChatController__validateAndSendComposition_completion___block_invok
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __59__CKChatController__validateAndSendComposition_completion___block_invoke_2(uint64_t a1)
+void __59__CKChatController__validateAndSendComposition_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 32);
-      v4 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 80)];
-      v5 = *(a1 + 40);
+      v4 = *(a1 + 32);
+      v5 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 80)];
+      v6 = *(a1 + 40);
       *buf = 138412802;
-      v38 = v3;
-      v39 = 2112;
-      v40 = v4;
-      v41 = 2112;
-      v42 = v5;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Received payload validation for payload %@. shouldSend %@. localizedInvalidationDescription %@", buf, 0x20u);
+      v39 = v4;
+      v40 = 2112;
+      v41 = v5;
+      v42 = 2112;
+      v43 = v6;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Received payload validation for payload %@. shouldSend %@. localizedInvalidationDescription %@", buf, 0x20u);
     }
   }
 
   [*(a1 + 48) disableSendButtonSpinner];
-  v6 = [*(a1 + 48) entryView];
-  v7 = [v6 contentView];
-  [v7 setClearPluginButtonEnabled:1];
+  v7 = [*(a1 + 48) entryView];
+  v8 = [v7 contentView];
+  [v8 setClearPluginButtonEnabled:1];
 
   if (*(a1 + 80) == 1)
   {
@@ -31235,77 +31265,77 @@ void __59__CKChatController__validateAndSendComposition_completion___block_invok
     aBlock[1] = 3221225472;
     aBlock[2] = __59__CKChatController__validateAndSendComposition_completion___block_invoke_1370;
     aBlock[3] = &unk_1E72EDE00;
-    v33 = *(a1 + 32);
-    v8 = *(a1 + 56);
-    v9 = *(a1 + 48);
-    v34 = v8;
+    v34 = *(a1 + 32);
+    v9 = *(a1 + 56);
+    v10 = *(a1 + 48);
     v35 = v9;
-    v36 = *(a1 + 72);
-    v10 = _Block_copy(aBlock);
-    v11 = [*(a1 + 32) pluginBundleID];
-    v12 = IMBalloonExtensionIDWithSuffix();
-    v13 = [v11 isEqualToString:v12];
+    v36 = v10;
+    v37 = *(a1 + 72);
+    v11 = _Block_copy(aBlock);
+    v12 = [*(a1 + 32) pluginBundleID];
+    v13 = IMBalloonExtensionIDWithSuffix();
+    v14 = [v12 isEqualToString:v13];
 
     if (IMOSLoggingEnabled())
     {
-      v14 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v15 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        v15 = *(a1 + 32);
-        v16 = _Block_copy(v10);
-        v17 = MEMORY[0x1E696AD98];
-        v18 = +[CKPluginExtensionStateObserver sharedInstance];
-        v19 = [v17 numberWithBool:{objc_msgSend(v18, "passKitUIPresented")}];
-        v20 = [MEMORY[0x1E696AD98] numberWithBool:v13];
+        v16 = *(a1 + 32);
+        v17 = _Block_copy(v11);
+        v18 = MEMORY[0x1E696AD98];
+        v19 = +[CKPluginExtensionStateObserver sharedInstance];
+        v20 = [v18 numberWithBool:{objc_msgSend(v19, "passKitUIPresented")}];
+        v21 = [MEMORY[0x1E696AD98] numberWithBool:v14];
         *buf = 138413058;
-        v38 = v15;
-        v39 = 2112;
-        v40 = v16;
-        v41 = 2112;
-        v42 = v19;
-        v43 = 2112;
-        v44 = v20;
-        _os_log_impl(&dword_19020E000, v14, OS_LOG_TYPE_INFO, "Preparing for send after payload validation. payload %@. sendBlock %@. passKitUIPresented %@. isSurf:%@", buf, 0x2Au);
+        v39 = v16;
+        v40 = 2112;
+        v41 = v17;
+        v42 = 2112;
+        v43 = v20;
+        v44 = 2112;
+        v45 = v21;
+        _os_log_impl(&dword_19020E000, v15, OS_LOG_TYPE_INFO, "Preparing for send after payload validation. payload %@. sendBlock %@. passKitUIPresented %@. isSurf:%@", buf, 0x2Au);
       }
     }
 
-    v21 = +[CKPluginExtensionStateObserver sharedInstance];
-    v22 = [v21 passKitUIPresented];
+    v22 = +[CKPluginExtensionStateObserver sharedInstance];
+    v23 = [v22 passKitUIPresented];
 
-    if (v22 & v13)
+    if (v23 & v14)
     {
       if (IMOSLoggingEnabled())
       {
-        v23 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+        v24 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_19020E000, v23, OS_LOG_TYPE_INFO, "setting deferred send animation block", buf, 2u);
+          _os_log_impl(&dword_19020E000, v24, OS_LOG_TYPE_INFO, "setting deferred send animation block", buf, 2u);
         }
       }
 
-      [*(a1 + 48) setDeferredSendAnimationBlock:v10];
+      [*(a1 + 48) setDeferredSendAnimationBlock:v11];
     }
 
     else
     {
-      v10[2](v10);
+      v11[2](v11);
     }
   }
 
   else
   {
-    v24 = *(a1 + 40) == 0;
-    v25 = IMOSLoggingEnabled();
-    if (v24)
+    v25 = *(a1 + 40) == 0;
+    v26 = IMOSLoggingEnabled();
+    if (v25)
     {
-      if (v25)
+      if (v26)
       {
-        v30 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+        v31 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_19020E000, v30, OS_LOG_TYPE_INFO, "We should not send this message, restoring the entry view.", buf, 2u);
+          _os_log_impl(&dword_19020E000, v31, OS_LOG_TYPE_INFO, "We should not send this message, restoring the entry view.", buf, 2u);
         }
       }
 
@@ -31319,21 +31349,21 @@ void __59__CKChatController__validateAndSendComposition_completion___block_invok
 
     else
     {
-      if (v25)
+      if (v26)
       {
-        v26 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+        v27 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
         {
-          v27 = [*(a1 + 64) pluginBundleID];
-          v28 = *(a1 + 64);
-          v29 = *(a1 + 40);
+          v28 = [*(a1 + 64) pluginBundleID];
+          v29 = *(a1 + 64);
+          v30 = *(a1 + 40);
           *buf = 138412802;
-          v38 = v27;
-          v39 = 2112;
-          v40 = v28;
-          v41 = 2112;
-          v42 = v29;
-          _os_log_impl(&dword_19020E000, v26, OS_LOG_TYPE_INFO, "Payload validation from plugin %@ for payload (%@) failed. reason %@", buf, 0x20u);
+          v39 = v28;
+          v40 = 2112;
+          v41 = v29;
+          v42 = 2112;
+          v43 = v30;
+          _os_log_impl(&dword_19020E000, v27, OS_LOG_TYPE_INFO, "Payload validation from plugin %@ for payload (%@) failed. reason %@", buf, 0x20u);
         }
       }
 
@@ -31385,7 +31415,7 @@ void __59__CKChatController__validateAndSendComposition_completion___block_invok
 {
   v4 = [MEMORY[0x1E69DC650] alertControllerWithTitle:0 message:description preferredStyle:1];
   v5 = MEMORY[0x1E69DC648];
-  v6 = CKFrameworkBundle();
+  v6 = CKFrameworkBundle(v4);
   v7 = [v6 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
   v9[0] = MEMORY[0x1E69E9820];
   v9[1] = 3221225472;
@@ -31445,7 +31475,7 @@ void __59__CKChatController__validateAndSendComposition_completion___block_invok
   [(CKCoreChatController *)self checkForSensitiveContentAndSendComposition:allowedCopy willPresentInterventionHandler:v7 sendHandler:v6];
 }
 
-uint64_t __45__CKChatController_sendCompositionIfAllowed___block_invoke(uint64_t a1)
+void *__45__CKChatController_sendCompositionIfAllowed___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) effectPickerIsPresented];
   if (result)
@@ -31931,8 +31961,8 @@ LABEL_15:
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_19020E000, v5, OS_LOG_TYPE_INFO, "Learned messageEntryViewDidBeginEditingNotAlreadyActive, updating scrollIntent.", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_19020E000, v5, OS_LOG_TYPE_INFO, "Learned messageEntryViewDidBeginEditingNotAlreadyActive, updating scrollIntent.", v12, 2u);
     }
   }
 
@@ -31942,11 +31972,11 @@ LABEL_15:
   [collectionViewController updateScrollIntentWithTrigger:v7 activeKeyboardAppearanceAnimationProperties:activeKeyboardAppearanceAnimationProperties];
 
   inlineReplyController = [(CKChatController *)self inlineReplyController];
-  if (inlineReplyController || [(CKChatController *)self entryViewWasActiveOnContextMenuPresentation])
+  if (inlineReplyController || (v10 = [(CKChatController *)self entryViewWasActiveOnContextMenuPresentation], (v10 & 1) != 0))
   {
   }
 
-  else if (!CKIsRunningInMessagesTranscriptExtension())
+  else if (!CKIsRunningInMessagesTranscriptExtension(v10))
   {
     [(CKChatController *)self setupScrollingForKeyboardInteraction];
   }
@@ -33642,11 +33672,11 @@ void __35__CKChatController__saveDraftState__block_invoke(uint64_t a1, void *a2)
   }
 }
 
-uint64_t __40__CKChatController_setEditing_animated___block_invoke(uint64_t result)
+id *__40__CKChatController_setEditing_animated___block_invoke(id *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
-    return [*(result + 32) _updateEntryViewFrameIfNeeded:0];
+    return [result[4] _updateEntryViewFrameIfNeeded:0];
   }
 
   return result;
@@ -33691,29 +33721,29 @@ void __40__CKChatController_setEditing_animated___block_invoke_2(uint64_t a1)
 
     if (messageCount2 != 1)
     {
-      v18 = 0;
+      v19 = 0;
       goto LABEL_8;
     }
 
-    v14 = @"REPORT_SPAM_SMS_BUTTON_TITLE_SINGULAR";
+    v15 = @"REPORT_SPAM_SMS_BUTTON_TITLE_SINGULAR";
   }
 
   else
   {
-    v14 = @"REPORT_SPAM_SMS_BUTTON_TITLE_MULTIPLE";
+    v15 = @"REPORT_SPAM_SMS_BUTTON_TITLE_MULTIPLE";
   }
 
-  v17 = CKFrameworkBundle();
-  v18 = [v17 localizedStringForKey:v14 value:&stru_1F04268F8 table:@"ChatKit"];
+  v18 = CKFrameworkBundle(v14);
+  v19 = [v18 localizedStringForKey:v15 value:&stru_1F04268F8 table:@"ChatKit"];
 
 LABEL_8:
-  if ([v18 length])
+  if ([v19 length])
   {
-    v19 = [objc_alloc(MEMORY[0x1E69DC708]) initWithTitle:v18 style:0 target:self action:sel__reportSelectedMessages_];
-    [v19 setTag:2];
-    v20 = [objc_alloc(MEMORY[0x1E69DC708]) initWithBarButtonSystemItem:5 target:0 action:0];
+    v20 = [objc_alloc(MEMORY[0x1E69DC708]) initWithTitle:v19 style:0 target:self action:sel__reportSelectedMessages_];
+    [v20 setTag:2];
+    v21 = [objc_alloc(MEMORY[0x1E69DC708]) initWithBarButtonSystemItem:5 target:0 action:0];
+    [v3 addObject:v21];
     [v3 addObject:v20];
-    [v3 addObject:v19];
   }
 
 LABEL_11:
@@ -33965,13 +33995,14 @@ LABEL_11:
 
 - (void)_editCancelButtonPressed
 {
-  if ([(CKChatController *)self isEditing])
+  isEditing = [(CKChatController *)self isEditing];
+  if (isEditing)
   {
 
     [(CKChatController *)self setEditing:0 animated:1];
   }
 
-  else if (CKIsRunningInMessagesTranscriptExtension())
+  else if (CKIsRunningInMessagesTranscriptExtension(isEditing))
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -34361,64 +34392,70 @@ void __49__CKChatController_recoverableDeleteConversation__block_invoke(uint64_t
   array = [MEMORY[0x1E695DF70] array];
   objc_initWeak(location, self);
   v6 = &off_190DCE000;
-  if (-[CKCoreChatController wantsReplyButton](self, "wantsReplyButton") && [itemCopy canInlineReply])
+  if ([(CKCoreChatController *)self wantsReplyButton])
   {
-    v7 = MEMORY[0x1E69DCB08];
-    v8 = CKFrameworkBundle();
-    v9 = [v8 localizedStringForKey:@"INLINE_REPLY_ORB_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-    v107[0] = MEMORY[0x1E69E9820];
-    v107[1] = 3221225472;
-    v107[2] = __49__CKChatController__interfaceActionsForChatItem___block_invoke;
-    v107[3] = &unk_1E72EDFE0;
-    objc_copyWeak(&v108, location);
-    v10 = [v7 actionWithTitle:v9 type:0 handler:v107];
+    canInlineReply = [itemCopy canInlineReply];
+    if (canInlineReply)
+    {
+      v8 = MEMORY[0x1E69DCB08];
+      v9 = CKFrameworkBundle(canInlineReply);
+      v10 = [v9 localizedStringForKey:@"INLINE_REPLY_ORB_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+      v116[0] = MEMORY[0x1E69E9820];
+      v116[1] = 3221225472;
+      v116[2] = __49__CKChatController__interfaceActionsForChatItem___block_invoke;
+      v116[3] = &unk_1E72EDFE0;
+      objc_copyWeak(&v117, location);
+      v11 = [v8 actionWithTitle:v10 type:0 handler:v116];
 
-    [v10 setEnabled:{objc_msgSend(itemCopy, "canInlineReply")}];
-    [array addObject:v10];
+      [v11 setEnabled:{objc_msgSend(itemCopy, "canInlineReply")}];
+      [array addObject:v11];
 
-    objc_destroyWeak(&v108);
+      objc_destroyWeak(&v117);
+    }
   }
 
   if ([itemCopy canRetract])
   {
-    if ([itemCopy scheduleType] == 2)
+    scheduleType = [itemCopy scheduleType];
+    if (scheduleType == 2)
     {
-      v11 = CKFrameworkBundle();
-      [v11 localizedStringForKey:@"DELETE_SCHEDULED_ACTION" value:&stru_1F04268F8 table:@"ChatKit"];
+      v13 = CKFrameworkBundle(2);
+      [v13 localizedStringForKey:@"DELETE_SCHEDULED_ACTION" value:&stru_1F04268F8 table:@"ChatKit"];
     }
 
     else
     {
-      v11 = CKFrameworkBundle();
-      [v11 localizedStringForKey:@"UNDO_SEND_ACTION" value:&stru_1F04268F8 table:@"ChatKit"];
+      v13 = CKFrameworkBundle(scheduleType);
+      [v13 localizedStringForKey:@"UNDO_SEND_ACTION" value:&stru_1F04268F8 table:@"ChatKit"];
     }
-    v12 = ;
+    v14 = ;
 
-    v13 = MEMORY[0x1E69DCB08];
-    v104[0] = MEMORY[0x1E69E9820];
-    v104[1] = 3221225472;
-    v104[2] = __49__CKChatController__interfaceActionsForChatItem___block_invoke_2;
-    v104[3] = &unk_1E72EE008;
-    objc_copyWeak(&v106, location);
-    v105 = itemCopy;
-    v14 = [v13 actionWithTitle:v12 type:0 handler:v104];
-    [array addObject:v14];
+    v15 = MEMORY[0x1E69DCB08];
+    v113[0] = MEMORY[0x1E69E9820];
+    v113[1] = 3221225472;
+    v113[2] = __49__CKChatController__interfaceActionsForChatItem___block_invoke_2;
+    v113[3] = &unk_1E72EE008;
+    objc_copyWeak(&v115, location);
+    v114 = itemCopy;
+    v16 = [v15 actionWithTitle:v14 type:0 handler:v113];
+    [array addObject:v16];
 
-    objc_destroyWeak(&v106);
+    objc_destroyWeak(&v115);
   }
 
-  if ([itemCopy canCopy])
+  canCopy = [itemCopy canCopy];
+  if (canCopy)
   {
-    v15 = MEMORY[0x1E69DCB08];
-    v16 = CKFrameworkBundle();
-    v17 = [v16 localizedStringForKey:@"COPY" value:&stru_1F04268F8 table:@"ChatKit"];
-    v102[0] = MEMORY[0x1E69E9820];
-    v102[1] = 3221225472;
-    v102[2] = __49__CKChatController__interfaceActionsForChatItem___block_invoke_3;
-    v102[3] = &unk_1E72EE030;
-    v103 = itemCopy;
-    v18 = [v15 actionWithTitle:v17 type:0 handler:v102];
-    [array addObject:v18];
+    v18 = MEMORY[0x1E69DCB08];
+    v19 = CKFrameworkBundle(canCopy);
+    v20 = [v19 localizedStringForKey:@"COPY" value:&stru_1F04268F8 table:@"ChatKit"];
+    v111[0] = MEMORY[0x1E69E9820];
+    v111[1] = 3221225472;
+    v111[2] = __49__CKChatController__interfaceActionsForChatItem___block_invoke_3;
+    v111[3] = &unk_1E72EE030;
+    v112 = itemCopy;
+    v21 = [v18 actionWithTitle:v20 type:0 handler:v111];
+    [array addObject:v21];
   }
 
   if ([itemCopy syndicationBehavior] == 1)
@@ -34428,61 +34465,64 @@ void __49__CKChatController_recoverableDeleteConversation__block_invoke(uint64_t
 
     if ((isBusinessChat & 1) == 0)
     {
-      if ([itemCopy isHighlighted])
+      isHighlighted = [itemCopy isHighlighted];
+      if (isHighlighted)
       {
-        v21 = CKFrameworkBundle();
-        [v21 localizedStringForKey:@"REMOVE_PIN_ACTION" value:&stru_1F04268F8 table:@"ChatKit"];
+        v25 = CKFrameworkBundle(isHighlighted);
+        [v25 localizedStringForKey:@"REMOVE_PIN_ACTION" value:&stru_1F04268F8 table:@"ChatKit"];
       }
 
       else
       {
-        v21 = CKFrameworkBundle();
-        [v21 localizedStringForKey:@"ADD_PIN_ACTION" value:&stru_1F04268F8 table:@"ChatKit"];
+        v25 = CKFrameworkBundle(isHighlighted);
+        [v25 localizedStringForKey:@"ADD_PIN_ACTION" value:&stru_1F04268F8 table:@"ChatKit"];
       }
-      v22 = ;
+      v26 = ;
 
-      v23 = MEMORY[0x1E69DCB08];
-      v99[0] = MEMORY[0x1E69E9820];
-      v99[1] = 3221225472;
-      v99[2] = __49__CKChatController__interfaceActionsForChatItem___block_invoke_4;
-      v99[3] = &unk_1E72EE058;
-      v100 = itemCopy;
-      objc_copyWeak(&v101, location);
-      v24 = [v23 actionWithTitle:v22 type:0 handler:v99];
-      [array addObject:v24];
+      v27 = MEMORY[0x1E69DCB08];
+      v108[0] = MEMORY[0x1E69E9820];
+      v108[1] = 3221225472;
+      v108[2] = __49__CKChatController__interfaceActionsForChatItem___block_invoke_4;
+      v108[3] = &unk_1E72EE058;
+      v109 = itemCopy;
+      objc_copyWeak(&v110, location);
+      v28 = [v27 actionWithTitle:v26 type:0 handler:v108];
+      [array addObject:v28];
 
-      objc_destroyWeak(&v101);
+      objc_destroyWeak(&v110);
     }
   }
 
   if ([CKTranslatorUtilities shouldShowTranslateMenuOption:itemCopy])
   {
-    v25 = [CKTranslationMenu translateActionForChatItem:itemCopy forController:self];
-    [array addObject:v25];
+    v29 = [CKTranslationMenu translateActionForChatItem:itemCopy forController:self];
+    [array addObject:v29];
   }
 
-  if ([itemCopy canExport])
+  canExport = [itemCopy canExport];
+  if (canExport)
   {
-    v26 = CKFrameworkBundle();
-    v27 = [v26 localizedStringForKey:@"BALLOON_EXPORT_CALLOUT" value:&stru_1F04268F8 table:@"ChatKit"];
+    v31 = CKFrameworkBundle(canExport);
+    v32 = [v31 localizedStringForKey:@"BALLOON_EXPORT_CALLOUT" value:&stru_1F04268F8 table:@"ChatKit"];
 
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v28 = CKFrameworkBundle();
-      v29 = [v28 localizedStringForKey:@"AUDIO_MESSAGE_SAVE" value:&stru_1F04268F8 table:@"ChatKit"];
+      v34 = CKFrameworkBundle(isKindOfClass);
+      v35 = [v34 localizedStringForKey:@"AUDIO_MESSAGE_SAVE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-      v27 = v29;
+      v32 = v35;
     }
 
-    v30 = MEMORY[0x1E69DCB08];
-    v97[0] = MEMORY[0x1E69E9820];
-    v97[1] = 3221225472;
-    v97[2] = __49__CKChatController__interfaceActionsForChatItem___block_invoke_5;
-    v97[3] = &unk_1E72EE030;
-    v98 = itemCopy;
-    v31 = [v30 actionWithTitle:v27 type:0 handler:v97];
-    [array addObject:v31];
+    v36 = MEMORY[0x1E69DCB08];
+    v106[0] = MEMORY[0x1E69E9820];
+    v106[1] = 3221225472;
+    v106[2] = __49__CKChatController__interfaceActionsForChatItem___block_invoke_5;
+    v106[3] = &unk_1E72EE030;
+    v107 = itemCopy;
+    v37 = [v36 actionWithTitle:v32 type:0 handler:v106];
+    [array addObject:v37];
   }
 
   if ([itemCopy canSendAsTextMessage])
@@ -34490,9 +34530,9 @@ void __49__CKChatController_recoverableDeleteConversation__block_invoke(uint64_t
     iMChatItem = [itemCopy IMChatItem];
     iMChatItem2 = [itemCopy IMChatItem];
     objc_opt_class();
-    isKindOfClass = objc_opt_isKindOfClass();
+    v40 = objc_opt_isKindOfClass();
 
-    if ((isKindOfClass & 1) == 0)
+    if ((v40 & 1) == 0)
     {
 LABEL_34:
 
@@ -34513,18 +34553,18 @@ LABEL_34:
           goto LABEL_33;
         }
 
-        v39 = objc_loadWeakRetained(location);
-        collectionViewController = [v39 collectionViewController];
+        v45 = objc_loadWeakRetained(location);
+        collectionViewController = [v45 collectionViewController];
         chatItems = [collectionViewController chatItems];
 
         guid = [message guid];
-        v42 = [chatItems __ck_indexesOfPartsOfMessageWithGUID:guid];
-        v43 = [chatItems objectsAtIndexes:v42];
+        v48 = [chatItems __ck_indexesOfPartsOfMessageWithGUID:guid];
+        v49 = [chatItems objectsAtIndexes:v48];
 
         textInputContextIdentifier = [(CKCoreChatController *)self textInputContextIdentifier];
-        v45 = [CKComposition compositionForMessageParts:v43 preserveSubject:1 contextIdentifier:textInputContextIdentifier];
+        v51 = [CKComposition compositionForMessageParts:v49 preserveSubject:1 contextIdentifier:textInputContextIdentifier];
 
-        LOBYTE(textInputContextIdentifier) = [conversation canSendComposition:v45 error:0];
+        LOBYTE(textInputContextIdentifier) = [conversation canSendComposition:v51 error:0];
         v6 = &off_190DCE000;
         if ((textInputContextIdentifier & 1) == 0)
         {
@@ -34532,19 +34572,19 @@ LABEL_34:
         }
 
         error = [conversation fallbackSendString];
-        v46 = MEMORY[0x1E69DCB08];
-        v92[0] = MEMORY[0x1E69E9820];
-        v92[1] = 3221225472;
-        v92[2] = __49__CKChatController__interfaceActionsForChatItem___block_invoke_1488;
-        v92[3] = &unk_1E72EE080;
-        v93 = message;
-        v94 = conversation;
-        objc_copyWeak(&v96, location);
+        v52 = MEMORY[0x1E69DCB08];
+        v101[0] = MEMORY[0x1E69E9820];
+        v101[1] = 3221225472;
+        v101[2] = __49__CKChatController__interfaceActionsForChatItem___block_invoke_1488;
+        v101[3] = &unk_1E72EE080;
+        v102 = message;
+        v103 = conversation;
+        objc_copyWeak(&v105, location);
         selfCopy = self;
-        v47 = [v46 actionWithTitle:error type:0 handler:v92];
-        [array addObject:v47];
+        v53 = [v52 actionWithTitle:error type:0 handler:v101];
+        [array addObject:v53];
 
-        objc_destroyWeak(&v96);
+        objc_destroyWeak(&v105);
         v6 = &off_190DCE000;
       }
     }
@@ -34559,30 +34599,31 @@ LABEL_35:
 
   if (visibleAssociatedMessageChatItems)
   {
-    v49 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v55 = objc_alloc_init(MEMORY[0x1E695DF70]);
     visibleAssociatedMessageChatItems2 = [itemCopy visibleAssociatedMessageChatItems];
-    v90[0] = MEMORY[0x1E69E9820];
-    v51 = *(v6 + 189);
-    v90[1] = v51;
-    v90[2] = __49__CKChatController__interfaceActionsForChatItem___block_invoke_2_1494;
-    v90[3] = &unk_1E72EC100;
-    v52 = v49;
-    v91 = v52;
-    [visibleAssociatedMessageChatItems2 enumerateObjectsUsingBlock:v90];
+    v99[0] = MEMORY[0x1E69E9820];
+    v57 = *(v6 + 189);
+    v99[1] = v57;
+    v99[2] = __49__CKChatController__interfaceActionsForChatItem___block_invoke_2_1494;
+    v99[3] = &unk_1E72EC100;
+    v58 = v55;
+    v100 = v58;
+    [visibleAssociatedMessageChatItems2 enumerateObjectsUsingBlock:v99];
 
-    if ([v52 count])
+    v59 = [v58 count];
+    if (v59)
     {
-      v53 = MEMORY[0x1E69DCB08];
-      v54 = CKFrameworkBundle();
-      v55 = [v54 localizedStringForKey:@"BALLOON_STICKER_CALLOUT" value:&stru_1F04268F8 table:@"ChatKit"];
-      v88[0] = MEMORY[0x1E69E9820];
-      v88[1] = v51;
-      v88[2] = __49__CKChatController__interfaceActionsForChatItem___block_invoke_3_1498;
-      v88[3] = &unk_1E72EE0A8;
-      v88[4] = self;
-      v89 = v52;
-      v56 = [v53 actionWithTitle:v55 type:0 handler:v88];
-      [array addObject:v56];
+      v60 = MEMORY[0x1E69DCB08];
+      v61 = CKFrameworkBundle(v59);
+      v62 = [v61 localizedStringForKey:@"BALLOON_STICKER_CALLOUT" value:&stru_1F04268F8 table:@"ChatKit"];
+      v97[0] = MEMORY[0x1E69E9820];
+      v97[1] = v57;
+      v97[2] = __49__CKChatController__interfaceActionsForChatItem___block_invoke_3_1498;
+      v97[3] = &unk_1E72EE0A8;
+      v97[4] = self;
+      v98 = v58;
+      v63 = [v60 actionWithTitle:v62 type:0 handler:v97];
+      [array addObject:v63];
     }
   }
 
@@ -34596,51 +34637,52 @@ LABEL_35:
     if (attributionInfo)
     {
       __ck_localizedAppNameForTranscriptAttribution = [attributionInfo __ck_localizedAppNameForTranscriptAttribution];
+      v68 = __ck_localizedAppNameForTranscriptAttribution;
       if (__ck_localizedAppNameForTranscriptAttribution)
       {
         selfCopy2 = self;
-        v61 = array;
-        v62 = v6;
-        v63 = MEMORY[0x1E69DCB08];
-        v64 = MEMORY[0x1E696AEC0];
-        v65 = CKFrameworkBundle();
-        v66 = [v65 localizedStringForKey:@"MEDIA_ATTRIBUTION_TITLE_FORMAT" value:&stru_1F04268F8 table:@"ChatKit"];
-        v67 = [v64 stringWithFormat:v66, __ck_localizedAppNameForTranscriptAttribution];
+        v69 = array;
+        v70 = v6;
+        v71 = MEMORY[0x1E69DCB08];
+        v72 = MEMORY[0x1E696AEC0];
+        v73 = CKFrameworkBundle(__ck_localizedAppNameForTranscriptAttribution);
+        v74 = [v73 localizedStringForKey:@"MEDIA_ATTRIBUTION_TITLE_FORMAT" value:&stru_1F04268F8 table:@"ChatKit"];
+        v75 = [v72 stringWithFormat:v74, v68];
 
         mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
         userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
         if (userInterfaceLayoutDirection == 1)
         {
-          v70 = @"\u200F";
+          v78 = @"\u200F";
         }
 
         else
         {
-          v70 = @"\u200E";
+          v78 = @"\u200E";
         }
 
-        v71 = [(__CFString *)v70 stringByAppendingString:v67];
+        v79 = [(__CFString *)v78 stringByAppendingString:v75];
 
-        v85[0] = MEMORY[0x1E69E9820];
-        v85[1] = *(v62 + 189);
-        v85[2] = __49__CKChatController__interfaceActionsForChatItem___block_invoke_4_1502;
-        v85[3] = &unk_1E72EE058;
-        v86 = attributionInfo;
-        objc_copyWeak(&v87, location);
-        v72 = [v63 actionWithTitle:v71 type:0 handler:v85];
-        [v61 addObject:v72];
+        v94[0] = MEMORY[0x1E69E9820];
+        v94[1] = *(v70 + 189);
+        v94[2] = __49__CKChatController__interfaceActionsForChatItem___block_invoke_4_1502;
+        v94[3] = &unk_1E72EE058;
+        v95 = attributionInfo;
+        objc_copyWeak(&v96, location);
+        v80 = [v71 actionWithTitle:v79 type:0 handler:v94];
+        [v69 addObject:v80];
 
-        objc_destroyWeak(&v87);
-        v6 = v62;
-        array = v61;
+        objc_destroyWeak(&v96);
+        v6 = v70;
+        array = v69;
         self = selfCopy2;
       }
     }
   }
 
-  v73 = objc_loadWeakRetained(location);
-  conversation2 = [v73 conversation];
+  v81 = objc_loadWeakRetained(location);
+  conversation2 = [v81 conversation];
   if ([conversation2 isPending])
   {
   }
@@ -34651,17 +34693,17 @@ LABEL_35:
 
     if (!isInline)
     {
-      v76 = MEMORY[0x1E69DCB08];
-      v77 = CKFrameworkBundle();
-      v78 = [v77 localizedStringForKey:@"BALLOON_MORE_CALLOUT" value:&stru_1F04268F8 table:@"ChatKit"];
-      v83[0] = MEMORY[0x1E69E9820];
-      v83[1] = *(v6 + 189);
-      v83[2] = __49__CKChatController__interfaceActionsForChatItem___block_invoke_6_1507;
-      v83[3] = &unk_1E72EE0A8;
-      v83[4] = self;
-      v84 = itemCopy;
-      v79 = [v76 actionWithTitle:v78 type:0 handler:v83];
-      [array addObject:v79];
+      v85 = MEMORY[0x1E69DCB08];
+      v86 = CKFrameworkBundle(v84);
+      v87 = [v86 localizedStringForKey:@"BALLOON_MORE_CALLOUT" value:&stru_1F04268F8 table:@"ChatKit"];
+      v92[0] = MEMORY[0x1E69E9820];
+      v92[1] = *(v6 + 189);
+      v92[2] = __49__CKChatController__interfaceActionsForChatItem___block_invoke_6_1507;
+      v92[3] = &unk_1E72EE0A8;
+      v92[4] = self;
+      v93 = itemCopy;
+      v88 = [v85 actionWithTitle:v87 type:0 handler:v92];
+      [array addObject:v88];
     }
   }
 
@@ -34728,7 +34770,7 @@ void __49__CKChatController__interfaceActionsForChatItem___block_invoke_5(uint64
   {
     v6 = [v4 sender];
     v7 = MEMORY[0x1E696AEC0];
-    v8 = CKFrameworkBundle();
+    v8 = CKFrameworkBundle(v6);
     v9 = [v8 localizedStringForKey:@"AUDIO_MESSAGE_VOICE_MEMO_LABEL" value:&stru_1F04268F8 table:@"ChatKit"];
     if ([v6 hasName])
     {
@@ -34816,7 +34858,7 @@ LABEL_9:
 
 void __49__CKChatController__interfaceActionsForChatItem___block_invoke_1488(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (IMOSLoggingEnabled())
   {
@@ -34827,35 +34869,34 @@ void __49__CKChatController__interfaceActionsForChatItem___block_invoke_1488(uin
       v7 = [*(a1 + 32) guid];
       v8 = *(a1 + 40);
       *buf = 138412546;
-      v20 = v7;
-      v21 = 2112;
-      v22 = v8;
+      v25 = v7;
+      v26 = 2112;
+      v27 = v8;
       _os_log_impl(&dword_19020E000, v6, OS_LOG_TYPE_INFO, "Manually downgrading message with GUID {%@} -- conversation:%@", buf, 0x16u);
     }
   }
 
   if (os_log_shim_legacy_logging_enabled() && _CKShouldLogExternal())
   {
-    v14 = [*(a1 + 32) guid];
-    v15 = *(a1 + 40);
-    _CKLogExternal();
+    v9 = [*(a1 + 32) guid];
+    _CKLogExternal(0x1Du, @"Manually downgrading message with GUID {%@} -- conversation:%@", v10, v11, v12, v13, v14, v15, v9);
   }
 
-  v9 = [*(a1 + 40) chat];
-  [v9 downgradeMessage:*(a1 + 32) manualDowngrade:1];
+  v16 = [*(a1 + 40) chat];
+  [v16 downgradeMessage:*(a1 + 32) manualDowngrade:1];
 
-  v10 = [*(a1 + 32) __ck_downgradedMessage];
+  v17 = [*(a1 + 32) __ck_downgradedMessage];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v12 = [WeakRetained collectionViewController];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __49__CKChatController__interfaceActionsForChatItem___block_invoke_1492;
-  v16[3] = &unk_1E72EB880;
-  v16[4] = *(a1 + 48);
-  v17 = v10;
-  v18 = *(a1 + 40);
-  v13 = v10;
-  [v12 updateTranscript:v16 animated:0 completion:0];
+  v19 = [WeakRetained collectionViewController];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __49__CKChatController__interfaceActionsForChatItem___block_invoke_1492;
+  v21[3] = &unk_1E72EB880;
+  v21[4] = *(a1 + 48);
+  v22 = v17;
+  v23 = *(a1 + 40);
+  v20 = v17;
+  [v19 updateTranscript:v21 animated:0 completion:0];
 
   *a3 = 1;
 }
@@ -34918,7 +34959,7 @@ void __49__CKChatController__interfaceActionsForChatItem___block_invoke_5_1503(u
   [WeakRetained _presentBrowserOrAppStoreForAdamID:v6 url:v4 identifier:v2];
 }
 
-uint64_t __49__CKChatController__interfaceActionsForChatItem___block_invoke_6_1507(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__49__CKChatController__interfaceActionsForChatItem___block_invoke_6_1507(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) actionMoreIsTappedForChatItem:*(a1 + 40)];
   *a3 = 1;
@@ -35436,18 +35477,18 @@ void __68__CKChatController_showSMSReportSpamExtensionControllerForMessages___bl
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __68__CKChatController_showSMSReportSpamExtensionControllerForMessages___block_invoke_2(uint64_t a1)
+uint64_t __68__CKChatController_showSMSReportSpamExtensionControllerForMessages___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 32);
-      v5 = 138412290;
-      v6 = v3;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Going to display spam extension for message classification request: %@", &v5, 0xCu);
+      v4 = *(a1 + 32);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Going to display spam extension for message classification request: %@", &v6, 0xCu);
     }
   }
 
@@ -36106,12 +36147,12 @@ void __64__CKChatController_fullScreenBalloonViewControllerDidDisappear___block_
   }
 }
 
-uint64_t __82__CKChatController_fullScreenBalloonViewController_replyButtonPressedForChatItem___block_invoke(uint64_t result)
+void *__82__CKChatController_fullScreenBalloonViewController_replyButtonPressedForChatItem___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if (v1)
   {
-    return [*(result + 40) showInlineReplyControllerForChatItem:v1 presentKeyboard:1];
+    return [*(result + 5) showInlineReplyControllerForChatItem:v1 presentKeyboard:1];
   }
 
   return result;
@@ -36945,7 +36986,7 @@ LABEL_5:
 
       else
       {
-        v8 = CKFrameworkBundle();
+        v8 = CKFrameworkBundle(0);
         nameThatIsNotHandle2 = [v8 localizedStringForKey:@"NEW_SENDER_BANNER_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
       }
 
@@ -38479,25 +38520,25 @@ void __46__CKChatController__fetchCollaborationNotices__block_invoke(uint64_t a1
   dispatch_async(MEMORY[0x1E69E96A0], v6);
 }
 
-uint64_t __46__CKChatController__fetchCollaborationNotices__block_invoke_2(uint64_t a1)
+uint64_t __46__CKChatController__fetchCollaborationNotices__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 32);
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Received CollaborationNotices: %@", &v7, 0xCu);
+      v4 = *(a1 + 32);
+      v8 = 138412290;
+      v9 = v4;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Received CollaborationNotices: %@", &v8, 0xCu);
     }
   }
 
-  v5 = *(a1 + 40);
-  v4 = (a1 + 40);
-  [v5 _processCollaborationNoticesForBanner:*(v4 - 1)];
-  return [*v4 _updateSuggestionsBanners];
+  v6 = *(a1 + 40);
+  v5 = (a1 + 40);
+  [v6 _processCollaborationNoticesForBanner:*(v5 - 1)];
+  return [*v5 _updateSuggestionsBanners];
 }
 
 - (void)_processCollaborationNoticesForBanner:(id)banner
@@ -38914,39 +38955,39 @@ void __39__CKChatController_addToCollaboration___block_invoke_2(id *a1, void *a2
   objc_destroyWeak(&v10);
 }
 
-void __39__CKChatController_addToCollaboration___block_invoke_3(uint64_t a1)
+void __39__CKChatController_addToCollaboration___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 32);
-      v15 = 138412290;
-      v16 = v3;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Sending the final composition for sharingURL: %@", &v15, 0xCu);
+      v4 = *(a1 + 32);
+      v16 = 138412290;
+      v17 = v4;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Sending the final composition for sharingURL: %@", &v16, 0xCu);
     }
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 64));
-  v5 = *(a1 + 40);
-  v6 = [v5 messageGUID];
-  v7 = [WeakRetained updateDataSourceForPluginPayload:v5 forGUID:v6 withCollaborationMetadata:*(a1 + 48) shareURL:*(a1 + 32)];
+  v6 = *(a1 + 40);
+  v7 = [v6 messageGUID];
+  v8 = [WeakRetained updateDataSourceForPluginPayload:v6 forGUID:v7 withCollaborationMetadata:*(a1 + 48) shareURL:*(a1 + 32)];
 
-  v8 = [v7 datasource];
-  [v8 setPayloadInShelf:1];
+  v9 = [v8 datasource];
+  [v9 setPayloadInShelf:1];
 
-  v9 = [v7 datasource];
-  [v9 payloadWillEnterShelf];
+  v10 = [v8 datasource];
+  [v10 payloadWillEnterShelf];
 
-  v10 = [CKComposition alloc];
-  v11 = [*(a1 + 56) text];
-  v12 = [*(a1 + 56) subject];
-  v13 = [(CKComposition *)v10 initWithText:v11 subject:v12 shelfPluginPayload:v7];
+  v11 = [CKComposition alloc];
+  v12 = [*(a1 + 56) text];
+  v13 = [*(a1 + 56) subject];
+  v14 = [(CKComposition *)v11 initWithText:v12 subject:v13 shelfPluginPayload:v8];
 
-  v14 = objc_loadWeakRetained((a1 + 64));
-  [v14 sendCompositionIfAllowed:v13];
+  v15 = objc_loadWeakRetained((a1 + 64));
+  [v15 sendCompositionIfAllowed:v14];
 }
 
 void __39__CKChatController_addToCollaboration___block_invoke_1581(uint64_t a1)
@@ -39200,27 +39241,26 @@ void __55__CKChatController_transcriptSharingBannerWillDismiss___block_invoke(ui
 - (void)transcriptStopSharingButtonTapped:(id)tapped
 {
   tappedCopy = tapped;
-  v5 = CKFrameworkBundle();
+  v5 = CKFrameworkBundle(tappedCopy);
   v6 = [v5 localizedStringForKey:@"TS_ALERT_TITLE_STOP_SHARING" value:&stru_1F04268F8 table:@"TranscriptSharing-SYDROB_FEATURES"];
   v7 = [CKAlertController alertControllerWithTitle:v6 message:0 preferredStyle:1];
 
-  v8 = CKFrameworkBundle();
-  v9 = [v8 localizedStringForKey:@"TS_STOP_SHARING_ACTION_ALERT" value:&stru_1F04268F8 table:@"TranscriptSharing-SYDROB_FEATURES"];
-  v15 = MEMORY[0x1E69E9820];
-  v16 = 3221225472;
-  v17 = __54__CKChatController_transcriptStopSharingButtonTapped___block_invoke;
-  v18 = &unk_1E72EC710;
+  v9 = CKFrameworkBundle(v8);
+  v10 = [v9 localizedStringForKey:@"TS_STOP_SHARING_ACTION_ALERT" value:&stru_1F04268F8 table:@"TranscriptSharing-SYDROB_FEATURES"];
+  v16 = MEMORY[0x1E69E9820];
+  v17 = 3221225472;
+  v18 = __54__CKChatController_transcriptStopSharingButtonTapped___block_invoke;
+  v19 = &unk_1E72EC710;
   selfCopy = self;
-  v20 = tappedCopy;
-  v10 = tappedCopy;
-  v11 = [CKAlertAction actionWithTitle:v9 style:2 handler:&v15];
+  v21 = tappedCopy;
+  v11 = tappedCopy;
+  v12 = [CKAlertAction actionWithTitle:v10 style:2 handler:&v16];
 
-  [v7 addAction:{v11, v15, v16, v17, v18, selfCopy}];
-  v12 = CKFrameworkBundle();
-  v13 = [v12 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
-  v14 = [CKAlertAction actionWithTitle:v13 style:1 handler:0];
+  v13 = CKFrameworkBundle([v7 addAction:{v12, v16, v17, v18, v19, selfCopy}]);
+  v14 = [v13 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
+  v15 = [CKAlertAction actionWithTitle:v14 style:1 handler:0];
 
-  [v7 addAction:v14];
+  [v7 addAction:v15];
   [v7 presentFromViewController:self animated:1 completion:0];
 }
 
@@ -40014,15 +40054,15 @@ void __91__CKChatController_textPasteConfigurationSupporting_combineItemAttribut
   [v2 setComposition:*(*(*(a1 + 32) + 8) + 40)];
 }
 
-uint64_t __91__CKChatController_textPasteConfigurationSupporting_combineItemAttributedStrings_forRange___block_invoke_4(uint64_t a1)
+uint64_t __91__CKChatController_textPasteConfigurationSupporting_combineItemAttributedStrings_forRange___block_invoke_4(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Do not replace composition, return.", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Do not replace composition, return.", v5, 2u);
     }
   }
 
@@ -40484,7 +40524,7 @@ LABEL_45:
     v20 = v19;
     v22 = v21;
     v23 = objc_alloc(MEMORY[0x1E69DC9A8]);
-    [(CKChatController *)self stickerPreviewTransform];
+    objc_msgSend_stickerPreviewTransform(self);
     v24 = [v23 initWithContainer:superview2 center:v85 transform:{v20, v22}];
     placeholderViewFactory = [objc_alloc(MEMORY[0x1E69DD068]) initWithView:localObject2 parameters:v13 target:v24];
     v26 = [[v16 alloc] initWithIsDropAnimation:0];
@@ -40614,7 +40654,7 @@ LABEL_47:
       v26 = associatedItemView2;
       if (associatedItemView2)
       {
-        [associatedItemView2 transform];
+        objc_msgSend_transform(associatedItemView2);
       }
 
       else
@@ -41001,7 +41041,7 @@ id __55__CKChatController__dragItemsFromChatItem_balloonView___block_invoke_2(ui
     v6 = IMLogHandleForCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [CKChatController dragPreviewParametersForBalloonView:];
+      [CKChatController dragPreviewParametersForBalloonView:viewCopy];
     }
   }
 
@@ -42286,7 +42326,7 @@ uint64_t __62__CKChatController_showAcknowledgmentsAssociatedWithChatItem___bloc
   [view2 safeAreaInsets];
   [(CKTranscriptOverlayTransitionContext *)v8 setTranscriptSafeAreaInsets:?];
 
-  if (CKIsRunningInMessagesTranscriptExtension())
+  if (CKIsRunningInMessagesTranscriptExtension(v21))
   {
     [(CKTranscriptOverlayTransitionContext *)v8 setWantsUnanimatedPresentation:1];
   }
@@ -42786,7 +42826,7 @@ void __72__CKChatController_scrollTranscriptToAlignWithMessageEditingBalloonView
       v18 = IMLogHandleForCategory();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        [CKChatController messageEditingViewController:contentInsetsForChatItemGuid:];
+        [CKChatController messageEditingViewController:v13 contentInsetsForChatItemGuid:?];
       }
     }
 
@@ -42891,7 +42931,7 @@ LABEL_12:
       goto LABEL_5;
     }
 
-    [v8 balloonDescriptor];
+    objc_msgSend_balloonDescriptor(v8, 0, 0);
     if (BYTE2(v15) <= 5u)
     {
       if (((1 << SBYTE2(v15)) & 0x15) == 0)
@@ -43369,15 +43409,15 @@ void __55__CKChatController_appendCompositionFromItemProviders___block_invoke_3(
   [WeakRetained setComposition:*(*(*(a1 + 32) + 8) + 40)];
 }
 
-void __55__CKChatController_appendCompositionFromItemProviders___block_invoke_4()
+void __55__CKChatController_appendCompositionFromItemProviders___block_invoke_4(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v0 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+    v2 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      *v1 = 0;
-      _os_log_impl(&dword_19020E000, v0, OS_LOG_TYPE_INFO, "Do not replace composition. Return early.", v1, 2u);
+      *v3 = 0;
+      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Do not replace composition. Return early.", v3, 2u);
     }
   }
 }
@@ -43569,40 +43609,40 @@ void __77__CKChatController_controller_didCompleteClassificationRequest_withResp
   [v2 dismissViewControllerAnimated:1 completion:v5];
 }
 
-uint64_t __77__CKChatController_controller_didCompleteClassificationRequest_withResponse___block_invoke_2(uint64_t a1)
+uint64_t __77__CKChatController_controller_didCompleteClassificationRequest_withResponse___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v3 = IMOSLoggingEnabled();
-  if (v2)
+  v3 = *(a1 + 32);
+  v4 = IMOSLoggingEnabled();
+  if (v3)
   {
-    if (v3)
+    if (v4)
     {
-      v4 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v5 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_INFO, "Classification request complete, deleting and reporting junk.", buf, 2u);
+        _os_log_impl(&dword_19020E000, v5, OS_LOG_TYPE_INFO, "Classification request complete, deleting and reporting junk.", buf, 2u);
       }
     }
 
-    v5 = [*(a1 + 40) delegate];
-    v6 = *(a1 + 40);
-    v7 = [v6 conversation];
-    [v5 chatController:v6 didReportSpamForConversation:v7];
+    v6 = [*(a1 + 40) delegate];
+    v7 = *(a1 + 40);
+    v8 = [v7 conversation];
+    [v6 chatController:v7 didReportSpamForConversation:v8];
   }
 
   else
   {
-    if (!v3)
+    if (!v4)
     {
       return [*(a1 + 40) becomeFirstResponder];
     }
 
-    v5 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_19020E000, v5, OS_LOG_TYPE_INFO, "Classification request was cancelled, not going to delete or report junk.", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_19020E000, v6, OS_LOG_TYPE_INFO, "Classification request was cancelled, not going to delete or report junk.", v10, 2u);
     }
   }
 
@@ -43724,7 +43764,7 @@ uint64_t __77__CKChatController_controller_didCompleteClassificationRequest_with
   }
 }
 
-uint64_t __111__CKChatController__dismissFullScreenBubbleViewControllerAnimated_withSendAnimation_dismissAppCard_completion___block_invoke(uint64_t a1)
+void *__111__CKChatController__dismissFullScreenBubbleViewControllerAnimated_withSendAnimation_dismissAppCard_completion___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
   if (v2)
@@ -44575,7 +44615,7 @@ void __56__CKChatController_Debug___presentAlertForDebugSummary___block_invoke(u
 
 - (id)_internalMenuForChatItem:(id)item
 {
-  v61[1] = *MEMORY[0x1E69E9840];
+  v64[1] = *MEMORY[0x1E69E9840];
   itemCopy = item;
   selfCopy = self;
   objc_initWeak(&location, self);
@@ -44586,93 +44626,93 @@ void __56__CKChatController_Debug___presentAlertForDebugSummary___block_invoke(u
   messageGUID = [v8 messageGUID];
 
   v10 = MEMORY[0x1E69DC628];
-  v11 = CKFrameworkBundle();
-  v12 = [v11 localizedStringForKey:@"Message Details" value:&stru_1F04268F8 table:@"ChatKit"];
-  v13 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"info.circle"];
+  v12 = CKFrameworkBundle(v11);
+  v13 = [v12 localizedStringForKey:@"Message Details" value:&stru_1F04268F8 table:@"ChatKit"];
+  v14 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"info.circle"];
+  v60[0] = MEMORY[0x1E69E9820];
+  v60[1] = 3221225472;
+  v60[2] = __52__CKChatController_Debug___internalMenuForChatItem___block_invoke;
+  v60[3] = &unk_1E72EBF48;
+  objc_copyWeak(&v62, &location);
+  v15 = itemCopy;
+  v61 = v15;
+  v48 = [v10 actionWithTitle:v13 image:v14 identifier:0 handler:v60];
+
+  v16 = MEMORY[0x1E69DC628];
+  v17 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"info.circle"];
   v57[0] = MEMORY[0x1E69E9820];
   v57[1] = 3221225472;
-  v57[2] = __52__CKChatController_Debug___internalMenuForChatItem___block_invoke;
+  v57[2] = __52__CKChatController_Debug___internalMenuForChatItem___block_invoke_2;
   v57[3] = &unk_1E72EBF48;
   objc_copyWeak(&v59, &location);
-  v14 = itemCopy;
-  v58 = v14;
-  v45 = [v10 actionWithTitle:v12 image:v13 identifier:0 handler:v57];
+  v18 = v15;
+  v58 = v18;
+  v49 = [v16 actionWithTitle:@"Chat Item Details" image:v17 identifier:0 handler:v57];
 
-  v15 = MEMORY[0x1E69DC628];
-  v16 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"info.circle"];
-  v54[0] = MEMORY[0x1E69E9820];
-  v54[1] = 3221225472;
-  v54[2] = __52__CKChatController_Debug___internalMenuForChatItem___block_invoke_2;
-  v54[3] = &unk_1E72EBF48;
-  objc_copyWeak(&v56, &location);
-  v17 = v14;
-  v55 = v17;
-  v46 = [v15 actionWithTitle:@"Chat Item Details" image:v16 identifier:0 handler:v54];
+  v19 = MEMORY[0x1E69DC628];
+  v21 = CKFrameworkBundle(v20);
+  v22 = [v21 localizedStringForKey:@"Copy GUID" value:&stru_1F04268F8 table:@"ChatKit"];
+  v23 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"tag"];
+  v55[0] = MEMORY[0x1E69E9820];
+  v55[1] = 3221225472;
+  v55[2] = __52__CKChatController_Debug___internalMenuForChatItem___block_invoke_268;
+  v55[3] = &unk_1E72EC060;
+  v24 = messageGUID;
+  v56 = v24;
+  v25 = [v19 actionWithTitle:v22 image:v23 identifier:0 handler:v55];
 
-  v18 = MEMORY[0x1E69DC628];
-  v19 = CKFrameworkBundle();
-  v20 = [v19 localizedStringForKey:@"Copy GUID" value:&stru_1F04268F8 table:@"ChatKit"];
-  v21 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"tag"];
-  v52[0] = MEMORY[0x1E69E9820];
-  v52[1] = 3221225472;
-  v52[2] = __52__CKChatController_Debug___internalMenuForChatItem___block_invoke_268;
-  v52[3] = &unk_1E72EC060;
-  v22 = messageGUID;
-  v53 = v22;
-  v23 = [v18 actionWithTitle:v20 image:v21 identifier:0 handler:v52];
+  v26 = MEMORY[0x1E69DC628];
+  v28 = CKFrameworkBundle(v27);
+  v29 = [v28 localizedStringForKey:@"Copy Link" value:&stru_1F04268F8 table:@"ChatKit"];
+  v30 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"link"];
+  v53[0] = MEMORY[0x1E69E9820];
+  v53[1] = 3221225472;
+  v53[2] = __52__CKChatController_Debug___internalMenuForChatItem___block_invoke_2_275;
+  v53[3] = &unk_1E72EC060;
+  v31 = v24;
+  v54 = v31;
+  v32 = [v26 actionWithTitle:v29 image:v30 identifier:0 handler:v53];
 
-  v24 = MEMORY[0x1E69DC628];
-  v25 = CKFrameworkBundle();
-  v26 = [v25 localizedStringForKey:@"Copy Link" value:&stru_1F04268F8 table:@"ChatKit"];
-  v27 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"link"];
+  v33 = MEMORY[0x1E69DC628];
+  v34 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"ant"];
   v50[0] = MEMORY[0x1E69E9820];
   v50[1] = 3221225472;
-  v50[2] = __52__CKChatController_Debug___internalMenuForChatItem___block_invoke_2_275;
-  v50[3] = &unk_1E72EC060;
-  v28 = v22;
-  v51 = v28;
-  v29 = [v24 actionWithTitle:v26 image:v27 identifier:0 handler:v50];
+  v50[2] = __52__CKChatController_Debug___internalMenuForChatItem___block_invoke_3;
+  v50[3] = &unk_1E72EFBD8;
+  v35 = v18;
+  v51 = v35;
+  v52 = selfCopy;
+  v36 = [v33 actionWithTitle:@"Tap-to-Radar" image:v34 identifier:0 handler:v50];
 
-  v30 = MEMORY[0x1E69DC628];
-  v31 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"ant"];
-  v47[0] = MEMORY[0x1E69E9820];
-  v47[1] = 3221225472;
-  v47[2] = __52__CKChatController_Debug___internalMenuForChatItem___block_invoke_3;
-  v47[3] = &unk_1E72EFBD8;
-  v32 = v17;
-  v48 = v32;
-  v49 = selfCopy;
-  v33 = [v30 actionWithTitle:@"Tap-to-Radar" image:v31 identifier:0 handler:v47];
-
-  v34 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  message = [v32 message];
+  v37 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  message = [v35 message];
   LOBYTE(itemCopy) = message == 0;
 
   if ((itemCopy & 1) == 0)
   {
-    [v34 addObject:v33];
-    [v34 addObject:v45];
+    [v37 addObject:v36];
+    [v37 addObject:v48];
   }
 
-  [v34 addObject:v46];
-  [v34 addObject:v23];
-  [v34 addObject:v29];
-  v36 = MEMORY[0x1E69DCC60];
-  v37 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"apple.logo"];
-  v38 = [v34 copy];
-  v39 = [v36 menuWithTitle:@"Internal" image:v37 identifier:0 options:0 children:v38];
+  [v37 addObject:v49];
+  [v37 addObject:v25];
+  [v37 addObject:v32];
+  v39 = MEMORY[0x1E69DCC60];
+  v40 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"apple.logo"];
+  v41 = [v37 copy];
+  v42 = [v39 menuWithTitle:@"Internal" image:v40 identifier:0 options:0 children:v41];
 
-  v40 = MEMORY[0x1E69DCC60];
-  v61[0] = v39;
-  v41 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:1];
-  v42 = [v40 menuWithTitle:&stru_1F04268F8 image:0 identifier:0 options:1 children:v41];
+  v43 = MEMORY[0x1E69DCC60];
+  v64[0] = v42;
+  v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v64 count:1];
+  v45 = [v43 menuWithTitle:&stru_1F04268F8 image:0 identifier:0 options:1 children:v44];
 
-  objc_destroyWeak(&v56);
   objc_destroyWeak(&v59);
+  objc_destroyWeak(&v62);
 
   objc_destroyWeak(&location);
 
-  return v42;
+  return v45;
 }
 
 void __52__CKChatController_Debug___internalMenuForChatItem___block_invoke(uint64_t a1)
@@ -44934,7 +44974,8 @@ void __96__CKChatController_ImpactEffectPicker__effectPickerViewController_effec
 - (void)validateCommand:(id)command
 {
   commandCopy = command;
-  if (!CKIsRunningInMacCatalyst() && (_CKUIEnhancedMainMenuEnabled() & 1) == 0)
+  v5 = CKIsRunningInMacCatalyst();
+  if (!v5 && (_CKUIEnhancedMainMenuEnabled(v5) & 1) == 0)
   {
     if ([commandCopy action] == sel_keyCommandApplyTextStyle_)
     {
@@ -44947,9 +44988,9 @@ void __96__CKChatController_ImpactEffectPicker__effectPickerViewController_effec
     {
       if ([commandCopy action] != sel_keyCommandApplyTextEffect_)
       {
-        v105.receiver = self;
-        v105.super_class = CKChatController;
-        [(CKChatController *)&v105 validateCommand:commandCopy];
+        v114.receiver = self;
+        v114.super_class = CKChatController;
+        [(CKChatController *)&v114 validateCommand:commandCopy];
         goto LABEL_84;
       }
 
@@ -44959,34 +45000,34 @@ void __96__CKChatController_ImpactEffectPicker__effectPickerViewController_effec
     }
 
 LABEL_53:
-    v33 = canApplyTextStyleFromKeyCommand;
+    v35 = canApplyTextStyleFromKeyCommand;
 
     attributes = [commandCopy attributes];
-    if (v33)
+    if (v35)
     {
 LABEL_54:
-      v21 = attributes & 0xFFFFFFFFFFFFFFFELL;
+      v23 = attributes & 0xFFFFFFFFFFFFFFFELL;
 LABEL_82:
-      v20 = commandCopy;
+      v22 = commandCopy;
       goto LABEL_83;
     }
 
     goto LABEL_81;
   }
 
-  v104.receiver = self;
-  v104.super_class = CKChatController;
-  [(CKChatController *)&v104 validateCommand:commandCopy];
+  v113.receiver = self;
+  v113.super_class = CKChatController;
+  [(CKChatController *)&v113 validateCommand:commandCopy];
   if ([commandCopy action] == sel_keyCommandDeleteConversation_)
   {
     conversation = [(CKCoreChatController *)self conversation];
 
     if (!conversation)
     {
-      v20 = commandCopy;
-      v21 = 1;
+      v22 = commandCopy;
+      v23 = 1;
 LABEL_83:
-      [v20 setAttributes:v21];
+      [v22 setAttributes:v23];
       goto LABEL_84;
     }
   }
@@ -45013,21 +45054,20 @@ LABEL_40:
     if (objc_opt_isKindOfClass())
     {
 LABEL_41:
-      [commandCopy setAttributes:{objc_msgSend(commandCopy, "attributes") & 0xFFFFFFFFFFFFFFFELL}];
-      v22 = CKFrameworkBundle();
-      contentView2 = v22;
-      v23 = @"HIDE_REPLIES";
+      v24 = CKFrameworkBundle([commandCopy setAttributes:{objc_msgSend(commandCopy, "attributes") & 0xFFFFFFFFFFFFFFFELL}]);
+      contentView2 = v24;
+      v25 = @"HIDE_REPLIES";
 LABEL_42:
-      v24 = [v22 localizedStringForKey:v23 value:&stru_1F04268F8 table:@"ChatKit"];
-      [commandCopy setTitle:v24];
+      v26 = [v24 localizedStringForKey:v25 value:&stru_1F04268F8 table:@"ChatKit"];
+      [commandCopy setTitle:v26];
 
       goto LABEL_43;
     }
 
     selectedChatItems = [(CKChatController *)self selectedChatItems];
-    v17 = [selectedChatItems count];
+    v19 = [selectedChatItems count];
 
-    if (v17 <= 1)
+    if (v19 <= 1)
     {
       conversation2 = [(CKCoreChatController *)self conversation];
       chat = [conversation2 chat];
@@ -45041,16 +45081,15 @@ LABEL_42:
 
         if (!isShowingOscarChat)
         {
-          [commandCopy setAttributes:{objc_msgSend(commandCopy, "attributes") & 0xFFFFFFFFFFFFFFFELL}];
-          contentView2 = CKFrameworkBundle();
-          if (v17 == 1)
+          contentView2 = CKFrameworkBundle([commandCopy setAttributes:{objc_msgSend(commandCopy, "attributes") & 0xFFFFFFFFFFFFFFFELL}]);
+          if (v19 == 1)
           {
-            v23 = @"REPLY_TO_MESSAGE";
+            v25 = @"REPLY_TO_MESSAGE";
           }
 
           else
           {
-            v23 = @"REPLY_TO_LAST_MESSAGE";
+            v25 = @"REPLY_TO_LAST_MESSAGE";
           }
 
           goto LABEL_105;
@@ -45060,7 +45099,7 @@ LABEL_42:
 
     attributes = [commandCopy attributes];
 LABEL_81:
-    v21 = attributes | 1;
+    v23 = attributes | 1;
     goto LABEL_82;
   }
 
@@ -45072,37 +45111,37 @@ LABEL_81:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v98 = 0;
-        v99 = &v98;
-        v100 = 0x3032000000;
-        v101 = __Block_byref_object_copy__21;
-        v102 = __Block_byref_object_dispose__21;
-        v103 = 0;
+        v107 = 0;
+        v108 = &v107;
+        v109 = 0x3032000000;
+        v110 = __Block_byref_object_copy__21;
+        v111 = __Block_byref_object_dispose__21;
+        v112 = 0;
         collectionViewController = [(CKCoreChatController *)self collectionViewController];
         chatItems = [collectionViewController chatItems];
-        v97[0] = MEMORY[0x1E69E9820];
-        v97[1] = 3221225472;
-        v97[2] = __45__CKChatController_MenuBar__validateCommand___block_invoke;
-        v97[3] = &unk_1E72EEC48;
-        v97[4] = &v98;
-        [chatItems enumerateObjectsWithOptions:2 usingBlock:v97];
+        v106[0] = MEMORY[0x1E69E9820];
+        v106[1] = 3221225472;
+        v106[2] = __45__CKChatController_MenuBar__validateCommand___block_invoke;
+        v106[3] = &unk_1E72EEC48;
+        v106[4] = &v107;
+        [chatItems enumerateObjectsWithOptions:2 usingBlock:v106];
 
-        v37 = CKFrameworkBundle();
-        v38 = [v37 localizedStringForKey:@"REPLY_TO_REPLY" value:&stru_1F04268F8 table:@"ChatKit"];
-        [commandCopy setTitle:v38];
+        v40 = CKFrameworkBundle(v39);
+        v41 = [v40 localizedStringForKey:@"REPLY_TO_REPLY" value:&stru_1F04268F8 table:@"ChatKit"];
+        [commandCopy setTitle:v41];
 
-        if (v99[5] && ![(CKChatController *)self isShowingOscarChat])
+        if (v108[5] && ![(CKChatController *)self isShowingOscarChat])
         {
-          v39 = [commandCopy attributes] & 0xFFFFFFFFFFFFFFFELL;
+          v42 = [commandCopy attributes] & 0xFFFFFFFFFFFFFFFELL;
         }
 
         else
         {
-          v39 = [commandCopy attributes] | 1;
+          v42 = [commandCopy attributes] | 1;
         }
 
-        [commandCopy setAttributes:v39];
-        _Block_object_dispose(&v98, 8);
+        [commandCopy setAttributes:v42];
+        _Block_object_dispose(&v107, 8);
 
         goto LABEL_84;
       }
@@ -45116,7 +45155,7 @@ LABEL_81:
   if ([commandCopy action] == sel_keyCommandTapback_)
   {
     inlineReplyController2 = [(CKChatController *)self inlineReplyController];
-    v26 = inlineReplyController2;
+    v28 = inlineReplyController2;
     if (inlineReplyController2)
     {
       selfCopy = inlineReplyController2;
@@ -45131,48 +45170,48 @@ LABEL_81:
 
     if ([(CKChatController *)chat2 isFullScreenBalloonViewOnScreen])
     {
-      [commandCopy setAttributes:{objc_msgSend(commandCopy, "attributes") & 0xFFFFFFFFFFFFFFFELL}];
-      v29 = CKFrameworkBundle();
-      firstObject = v29;
-      v31 = @"HIDE_TAPBACKS";
+      v31 = CKFrameworkBundle([commandCopy setAttributes:{objc_msgSend(commandCopy, "attributes") & 0xFFFFFFFFFFFFFFFELL}]);
+      firstObject = v31;
+      v33 = @"HIDE_TAPBACKS";
     }
 
     else
     {
       selectedChatItems2 = [(CKChatController *)self selectedChatItems];
-      v41 = [selectedChatItems2 count];
+      v44 = [selectedChatItems2 count];
 
-      if (v41 > 1 || [(CKChatController *)self isShowingOscarChat])
+      if (v44 > 1 || [(CKChatController *)self isShowingOscarChat])
       {
         goto LABEL_62;
       }
 
-      [commandCopy setAttributes:{objc_msgSend(commandCopy, "attributes") & 0xFFFFFFFFFFFFFFFELL}];
-      if (v41 == 1)
+      v53 = [commandCopy setAttributes:{objc_msgSend(commandCopy, "attributes") & 0xFFFFFFFFFFFFFFFELL}];
+      if (v44 == 1)
       {
         selectedChatItems3 = [(CKChatController *)self selectedChatItems];
         firstObject = [selectedChatItems3 firstObject];
 
-        if ([firstObject itemIsReplyContextPreview])
+        itemIsReplyContextPreview = [firstObject itemIsReplyContextPreview];
+        if (itemIsReplyContextPreview)
         {
-          [commandCopy setAttributes:{objc_msgSend(commandCopy, "attributes") | 1}];
+          itemIsReplyContextPreview = [commandCopy setAttributes:{objc_msgSend(commandCopy, "attributes") | 1}];
         }
 
-        v32 = CKFrameworkBundle();
-        v50 = [v32 localizedStringForKey:@"TAPBACK_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
-        [commandCopy setTitle:v50];
+        v34 = CKFrameworkBundle(itemIsReplyContextPreview);
+        v56 = [v34 localizedStringForKey:@"TAPBACK_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+        [commandCopy setTitle:v56];
 
         goto LABEL_51;
       }
 
-      v29 = CKFrameworkBundle();
-      firstObject = v29;
-      v31 = @"TAPBACK_LAST_MESSAGE";
+      v31 = CKFrameworkBundle(v53);
+      firstObject = v31;
+      v33 = @"TAPBACK_LAST_MESSAGE";
     }
 
 LABEL_50:
-    v32 = [v29 localizedStringForKey:v31 value:&stru_1F04268F8 table:@"ChatKit"];
-    [commandCopy setTitle:v32];
+    v34 = [v31 localizedStringForKey:v33 value:&stru_1F04268F8 table:@"ChatKit"];
+    [commandCopy setTitle:v34];
 LABEL_51:
 
 LABEL_68:
@@ -45192,7 +45231,7 @@ LABEL_68:
 
     if (!chat2 || [(CKChatController *)chat2 isBusinessChat])
     {
-      v43 = commandCopy;
+      v46 = commandCopy;
       isBusinessChat = 1;
       goto LABEL_67;
     }
@@ -45212,9 +45251,9 @@ LABEL_68:
       goto LABEL_68;
     }
 
-    v29 = CKFrameworkBundle();
-    firstObject = v29;
-    v31 = @"ADD_TO_CONTACTS…";
+    v31 = CKFrameworkBundle(v60);
+    firstObject = v31;
+    v33 = @"ADD_TO_CONTACTS…";
     goto LABEL_50;
   }
 
@@ -45223,7 +45262,7 @@ LABEL_68:
     conversation4 = [(CKCoreChatController *)self conversation];
     allowsShowingDetailsView = [conversation4 allowsShowingDetailsView];
 
-    v21 = allowsShowingDetailsView ^ 1u;
+    v23 = allowsShowingDetailsView ^ 1u;
     goto LABEL_82;
   }
 
@@ -45232,19 +45271,19 @@ LABEL_68:
     conversation5 = [(CKCoreChatController *)self conversation];
     hasUnreadMessages = [conversation5 hasUnreadMessages];
 
-    contentView2 = CKFrameworkBundle();
+    contentView2 = CKFrameworkBundle(v52);
     if (hasUnreadMessages)
     {
-      v23 = @"MARK_AS_READ";
+      v25 = @"MARK_AS_READ";
     }
 
     else
     {
-      v23 = @"MARK_AS_UNREAD";
+      v25 = @"MARK_AS_UNREAD";
     }
 
 LABEL_105:
-    v22 = contentView2;
+    v24 = contentView2;
     goto LABEL_42;
   }
 
@@ -45255,16 +45294,16 @@ LABEL_105:
     if (conversation6)
     {
       [commandCopy setState:{objc_msgSend(conversation6, "isMuted")}];
-      v56 = [commandCopy attributes] & 0xFFFFFFFFFFFFFFFELL;
+      v63 = [commandCopy attributes] & 0xFFFFFFFFFFFFFFFELL;
     }
 
     else
     {
       [commandCopy setState:0];
-      v56 = [commandCopy attributes] | 1;
+      v63 = [commandCopy attributes] | 1;
     }
 
-    [commandCopy setAttributes:v56];
+    [commandCopy setAttributes:v63];
     goto LABEL_43;
   }
 
@@ -45281,16 +45320,16 @@ LABEL_105:
       if (isLoginIMHandle)
       {
         [commandCopy setAttributes:attributes2 | 1];
-        v61 = 0;
+        v68 = 0;
       }
 
       else
       {
         [commandCopy setAttributes:attributes2 & 0xFFFFFFFFFFFFFFFELL];
-        v61 = [(CKChatController *)self handleIsBlocked:_recipientHandle2];
+        v68 = [(CKChatController *)self handleIsBlocked:_recipientHandle2];
       }
 
-      [commandCopy setState:v61];
+      [commandCopy setState:v68];
     }
 
     else
@@ -45309,11 +45348,11 @@ LABEL_105:
     email = [_recipientHandle3 email];
     if (email)
     {
-      v64 = email;
+      v71 = email;
       recipients = [(CKChatController *)chat2 recipients];
-      v66 = [recipients count];
+      v73 = [recipients count];
 
-      if (v66 == 1)
+      if (v73 == 1)
       {
         goto LABEL_109;
       }
@@ -45346,7 +45385,7 @@ LABEL_105:
     }
 
     detailsContactsManager = [(CKChatController *)self detailsContactsManager];
-    v69 = [detailsContactsManager showScreenSharingButtonForEntity:chat2];
+    v76 = [detailsContactsManager showScreenSharingButtonForEntity:chat2];
     goto LABEL_108;
   }
 
@@ -45373,11 +45412,12 @@ LABEL_105:
       goto LABEL_63;
     }
 
-    if ([commandCopy action] == sel_faceTimeAudioFromBuddyMenu_)
+    action = [commandCopy action];
+    if (action == sel_faceTimeAudioFromBuddyMenu_)
     {
-      v83 = CKFrameworkBundle();
-      v84 = [v83 localizedStringForKey:@"GROUP_FACETIME_AUDIO" value:&stru_1F04268F8 table:@"ChatKit"];
-      [commandCopy setTitle:v84];
+      v92 = CKFrameworkBundle(action);
+      v93 = [v92 localizedStringForKey:@"GROUP_FACETIME_AUDIO" value:&stru_1F04268F8 table:@"ChatKit"];
+      [commandCopy setTitle:v93];
 
       if (!chat2 || ([(CKChatController *)chat2 isBusinessChat]& 1) != 0)
       {
@@ -45385,19 +45425,20 @@ LABEL_105:
       }
 
       detailsContactsManager = [(CKCoreChatController *)self conversation];
-      v69 = [CKFaceTimeUtilities isFaceTimeAudioAvailable:detailsContactsManager];
+      v76 = [CKFaceTimeUtilities isFaceTimeAudioAvailable:detailsContactsManager];
     }
 
     else
     {
-      if ([commandCopy action] != sel_faceTimeVideoFromBuddyMenu_)
+      action2 = [commandCopy action];
+      if (action2 != sel_faceTimeVideoFromBuddyMenu_)
       {
         goto LABEL_68;
       }
 
-      v75 = CKFrameworkBundle();
-      v76 = [v75 localizedStringForKey:@"GROUP_FACETIME_VIDEO" value:&stru_1F04268F8 table:@"ChatKit"];
-      [commandCopy setTitle:v76];
+      v84 = CKFrameworkBundle(action2);
+      v85 = [v84 localizedStringForKey:@"GROUP_FACETIME_VIDEO" value:&stru_1F04268F8 table:@"ChatKit"];
+      [commandCopy setTitle:v85];
 
       if (!chat2 || ([(CKChatController *)chat2 isBusinessChat]& 1) != 0)
       {
@@ -45405,13 +45446,13 @@ LABEL_105:
       }
 
       detailsContactsManager = [(CKCoreChatController *)self conversation];
-      v69 = [CKFaceTimeUtilities isFaceTimeVideoAvailable:detailsContactsManager];
+      v76 = [CKFaceTimeUtilities isFaceTimeVideoAvailable:detailsContactsManager];
     }
 
 LABEL_108:
-    v70 = v69;
+    v77 = v76;
 
-    if (v70)
+    if (v77)
     {
 LABEL_109:
       isBusinessChat = [commandCopy attributes] & 0xFFFFFFFFFFFFFFFELL;
@@ -45421,9 +45462,9 @@ LABEL_109:
 LABEL_62:
     isBusinessChat = [commandCopy attributes] | 1;
 LABEL_63:
-    v43 = commandCopy;
+    v46 = commandCopy;
 LABEL_67:
-    [v43 setAttributes:isBusinessChat];
+    [v46 setAttributes:isBusinessChat];
     goto LABEL_68;
   }
 
@@ -45443,9 +45484,9 @@ LABEL_67:
       propertyList2 = [commandCopy propertyList];
       integerValue = [propertyList2 integerValue];
 
-      v82 = integerValue == [contentView2 activeTextEffectTypeInSelectedRange];
+      v91 = integerValue == [contentView2 activeTextEffectTypeInSelectedRange];
 LABEL_138:
-      [commandCopy setState:v82];
+      [commandCopy setState:v91];
       goto LABEL_43;
     }
 
@@ -45460,9 +45501,9 @@ LABEL_138:
     [commandCopy setState:0];
     propertyList3 = [commandCopy propertyList];
     objc_opt_class();
-    v87 = objc_opt_isKindOfClass();
+    v96 = objc_opt_isKindOfClass();
 
-    if (v87)
+    if (v96)
     {
       propertyList4 = [commandCopy propertyList];
       integerValue2 = [propertyList4 integerValue];
@@ -45470,19 +45511,19 @@ LABEL_138:
       canApplyTextStyleFromKeyCommand2 = [contentView2 canApplyTextStyleFromKeyCommand];
       if (integerValue2 == 2 && canApplyTextStyleFromKeyCommand2)
       {
-        v91 = +[CKUIBehavior sharedBehaviors];
-        balloonTextFont = [v91 balloonTextFont];
+        v100 = +[CKUIBehavior sharedBehaviors];
+        balloonTextFont = [v100 balloonTextFont];
 
         selectedText = [contentView2 selectedText];
-        v94 = [balloonTextFont ck_canToggleItalicTraitInText:selectedText];
+        v103 = [balloonTextFont ck_canToggleItalicTraitInText:selectedText];
 
-        if ((v94 & 1) == 0)
+        if ((v103 & 1) == 0)
         {
 LABEL_132:
-          v95 = [commandCopy attributes] | 1;
+          v104 = [commandCopy attributes] | 1;
 LABEL_137:
-          [commandCopy setAttributes:v95];
-          v82 = ([contentView2 activeTextStylesInSelectedRange] & integerValue2) != 0;
+          [commandCopy setAttributes:v104];
+          v91 = ([contentView2 activeTextStylesInSelectedRange] & integerValue2) != 0;
           goto LABEL_138;
         }
       }
@@ -45492,7 +45533,7 @@ LABEL_137:
         goto LABEL_132;
       }
 
-      v95 = [commandCopy attributes] & 0xFFFFFFFFFFFFFFFELL;
+      v104 = [commandCopy attributes] & 0xFFFFFFFFFFFFFFFELL;
       goto LABEL_137;
     }
 
@@ -45517,20 +45558,21 @@ LABEL_43:
   {
     contentView2 = [(CKCoreChatController *)self collectionViewController];
     isShowingTranscriptTimestamps = [contentView2 isShowingTranscriptTimestamps];
-    v8 = CKFrameworkBundle();
-    v9 = v8;
-    if (isShowingTranscriptTimestamps)
+    v9 = isShowingTranscriptTimestamps;
+    v10 = CKFrameworkBundle(isShowingTranscriptTimestamps);
+    v11 = v10;
+    if (v9)
     {
-      v10 = @"HIDE_TRANSCRIPT_TIMESTAMPS";
+      v12 = @"HIDE_TRANSCRIPT_TIMESTAMPS";
     }
 
     else
     {
-      v10 = @"SHOW_TRANSCRIPT_TIMESTAMPS";
+      v12 = @"SHOW_TRANSCRIPT_TIMESTAMPS";
     }
 
-    v11 = [v8 localizedStringForKey:v10 value:&stru_1F04268F8 table:@"ChatKit"];
-    [commandCopy setTitle:v11];
+    v13 = [v10 localizedStringForKey:v12 value:&stru_1F04268F8 table:@"ChatKit"];
+    [commandCopy setTitle:v13];
 
     goto LABEL_43;
   }
@@ -45611,7 +45653,7 @@ void __45__CKChatController_MenuBar__validateCommand___block_invoke(uint64_t a1,
 {
   handleCopy = handle;
   v4 = MEMORY[0x1E696AEC0];
-  v5 = CKFrameworkBundle();
+  v5 = CKFrameworkBundle(handleCopy);
   v6 = [v5 localizedStringForKey:@"BLOCK_PERSON_ALERT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
   name = [handleCopy name];
   v8 = [v4 stringWithFormat:v6, name];
@@ -45632,44 +45674,44 @@ void __45__CKChatController_MenuBar__validateCommand___block_invoke(uint64_t a1,
   v12 = [(__CFString *)v11 stringByAppendingString:v8];
 
   v13 = MEMORY[0x1E696AEC0];
-  v14 = CKFrameworkBundle();
-  v15 = [v14 localizedStringForKey:@"BLOCK_PERSON_ALERT_TEXT" value:&stru_1F04268F8 table:@"ChatKit"];
+  v15 = CKFrameworkBundle(v14);
+  v16 = [v15 localizedStringForKey:@"BLOCK_PERSON_ALERT_TEXT" value:&stru_1F04268F8 table:@"ChatKit"];
   nameAndID = [handleCopy nameAndID];
-  v17 = [v13 stringWithFormat:v15, nameAndID];
+  v18 = [v13 stringWithFormat:v16, nameAndID];
 
   mEMORY[0x1E69DC668]2 = [MEMORY[0x1E69DC668] sharedApplication];
   userInterfaceLayoutDirection2 = [mEMORY[0x1E69DC668]2 userInterfaceLayoutDirection];
 
   if (userInterfaceLayoutDirection2 == 1)
   {
-    v20 = @"\u200F";
+    v21 = @"\u200F";
   }
 
   else
   {
-    v20 = @"\u200E";
+    v21 = @"\u200E";
   }
 
-  v21 = [(__CFString *)v20 stringByAppendingString:v17];
+  v22 = [(__CFString *)v21 stringByAppendingString:v18];
 
-  v22 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v12 message:v21 preferredStyle:1];
-  v23 = CKFrameworkBundle();
-  v24 = [v23 localizedStringForKey:@"BLOCK" value:&stru_1F04268F8 table:@"ChatKit"];
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __63__CKChatController_MenuBar__presentBlockPersonAlertWithHandle___block_invoke;
-  v31[3] = &unk_1E72EBFE8;
-  v32 = handleCopy;
-  v25 = handleCopy;
-  v26 = [CKAlertAction actionWithTitle:v24 style:0 handler:v31];
-  [v22 addAction:v26];
+  v23 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v12 message:v22 preferredStyle:1];
+  v24 = CKFrameworkBundle(v23);
+  v25 = [v24 localizedStringForKey:@"BLOCK" value:&stru_1F04268F8 table:@"ChatKit"];
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __63__CKChatController_MenuBar__presentBlockPersonAlertWithHandle___block_invoke;
+  v33[3] = &unk_1E72EBFE8;
+  v34 = handleCopy;
+  v26 = handleCopy;
+  v27 = [CKAlertAction actionWithTitle:v25 style:0 handler:v33];
+  [v23 addAction:v27];
 
-  v27 = CKFrameworkBundle();
-  v28 = [v27 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
-  v29 = [CKAlertAction actionWithTitle:v28 style:1 handler:0];
-  [v22 addAction:v29];
+  v29 = CKFrameworkBundle(v28);
+  v30 = [v29 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
+  v31 = [CKAlertAction actionWithTitle:v30 style:1 handler:0];
+  [v23 addAction:v31];
 
-  [(CKChatController *)self presentViewController:v22 animated:1 completion:0];
+  [(CKChatController *)self presentViewController:v23 animated:1 completion:0];
 }
 
 void __63__CKChatController_MenuBar__presentBlockPersonAlertWithHandle___block_invoke(uint64_t a1)
@@ -45714,8 +45756,9 @@ void __63__CKChatController_MenuBar__presentBlockPersonAlertWithHandle___block_i
   }
 }
 
-void __52__CKChatController_MenuBar__sendEmailFromBuddyMenu___block_invoke(uint64_t a1, int a2)
+void __52__CKChatController_MenuBar__sendEmailFromBuddyMenu___block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v11 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
@@ -45724,7 +45767,7 @@ void __52__CKChatController_MenuBar__sendEmailFromBuddyMenu___block_invoke(uint6
     {
       v5 = @"NO";
       v6 = *(a1 + 32);
-      if (a2)
+      if (v2)
       {
         v5 = @"YES";
       }
@@ -45931,8 +45974,9 @@ LABEL_6:
   }
 }
 
-void __51__CKChatController_MenuBar__performRelayPhoneCall___block_invoke(uint64_t a1, int a2)
+void __51__CKChatController_MenuBar__performRelayPhoneCall___block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v11 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
@@ -45941,7 +45985,7 @@ void __51__CKChatController_MenuBar__performRelayPhoneCall___block_invoke(uint64
     {
       v5 = @"NO";
       v6 = *(a1 + 32);
-      if (a2)
+      if (v2)
       {
         v5 = @"YES";
       }
@@ -46674,62 +46718,63 @@ void __47__CKChatController_MenuBar__keyCommandTapback___block_invoke(uint64_t a
     if (!messageEditingViewController)
     {
       hasSelectedChatItemsIncludingAssociatedTapback = [(CKChatController *)self hasSelectedChatItemsIncludingAssociatedTapback];
-      v12 = CKFrameworkBundle();
-      v13 = v12;
-      if (hasSelectedChatItemsIncludingAssociatedTapback)
+      v13 = hasSelectedChatItemsIncludingAssociatedTapback;
+      v14 = CKFrameworkBundle(hasSelectedChatItemsIncludingAssociatedTapback);
+      v15 = v14;
+      if (v13)
       {
-        v14 = [v12 localizedStringForKey:@"EDIT_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
-        [commandCopy setTitle:v14];
+        v16 = [v14 localizedStringForKey:@"EDIT_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+        [commandCopy setTitle:v16];
 
         [(CKChatController *)self selectedMessagePartItem];
       }
 
       else
       {
-        v15 = [v12 localizedStringForKey:@"EDIT_LAST_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
-        [commandCopy setTitle:v15];
+        v17 = [v14 localizedStringForKey:@"EDIT_LAST_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+        [commandCopy setTitle:v17];
 
         [(CKChatController *)self lastOutgoingMessagePartItem];
       }
-      v16 = ;
-      if (v16 && ([currentChatController conversation], v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "chat"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "supportsCapabilities:", 1), v18, v17, (v19 & 1) != 0))
+      v18 = ;
+      if (v18 && ([currentChatController conversation], v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "chat"), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "supportsCapabilities:", 1), v20, v19, (v21 & 1) != 0))
       {
-        canEditMessageText = [v16 canEditMessageText];
+        canEditMessageText = [v18 canEditMessageText];
         attributes = [commandCopy attributes];
         if (canEditMessageText)
         {
-          v22 = attributes & 0xFFFFFFFFFFFFFFFELL;
+          v24 = attributes & 0xFFFFFFFFFFFFFFFELL;
         }
 
         else
         {
-          v22 = attributes | 1;
+          v24 = attributes | 1;
         }
       }
 
       else
       {
-        v22 = [commandCopy attributes] | 1;
+        v24 = [commandCopy attributes] | 1;
       }
 
-      [commandCopy setAttributes:v22];
+      [commandCopy setAttributes:v24];
 
       goto LABEL_6;
     }
 
-    v8 = CKFrameworkBundle();
-    v9 = [v8 localizedStringForKey:@"CANCEL_EDIT" value:&stru_1F04268F8 table:@"ChatKit"];
-    [commandCopy setTitle:v9];
+    v9 = CKFrameworkBundle(v8);
+    v10 = [v9 localizedStringForKey:@"CANCEL_EDIT" value:&stru_1F04268F8 table:@"ChatKit"];
+    [commandCopy setTitle:v10];
 
-    v10 = [commandCopy attributes] & 0xFFFFFFFFFFFFFFFELL;
+    v11 = [commandCopy attributes] & 0xFFFFFFFFFFFFFFFELL;
   }
 
   else
   {
-    v10 = [commandCopy attributes] | 1;
+    v11 = [commandCopy attributes] | 1;
   }
 
-  [commandCopy setAttributes:v10];
+  [commandCopy setAttributes:v11];
 LABEL_6:
 }
 
@@ -47135,21 +47180,21 @@ void __67__CKChatController_MenuBar__documentPicker_didPickDocumentsAtURLs___blo
   guid = [chat guid];
 
   v6 = [CKAlertController alertControllerWithTitle:@"Purge attachments for this chat?" message:@"This will delete attachment files on disk but you can re-download them. Be sure to imtool kim after running this." preferredStyle:1];
-  v7 = CKFrameworkBundle();
+  v7 = CKFrameworkBundle(v6);
   v8 = [v7 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __53__CKChatController_MenuBar__purgeAttachmentsForChat___block_invoke;
-  v14[3] = &unk_1E72EBFE8;
-  v15 = guid;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __53__CKChatController_MenuBar__purgeAttachmentsForChat___block_invoke;
+  v15[3] = &unk_1E72EBFE8;
+  v16 = guid;
   v9 = guid;
-  v10 = [CKAlertAction actionWithTitle:v8 style:0 handler:v14];
+  v10 = [CKAlertAction actionWithTitle:v8 style:0 handler:v15];
   [v6 addAction:v10];
 
-  v11 = CKFrameworkBundle();
-  v12 = [v11 localizedStringForKey:@"Cancel" value:&stru_1F04268F8 table:@"ChatKit"];
-  v13 = [CKAlertAction actionWithTitle:v12 style:0 handler:0];
-  [v6 addAction:v13];
+  v12 = CKFrameworkBundle(v11);
+  v13 = [v12 localizedStringForKey:@"Cancel" value:&stru_1F04268F8 table:@"ChatKit"];
+  v14 = [CKAlertAction actionWithTitle:v13 style:0 handler:0];
+  [v6 addAction:v14];
 
   [v6 presentFromViewController:self animated:1 completion:0];
 }
@@ -47177,35 +47222,35 @@ void __53__CKChatController_MenuBar__purgeAttachmentsForChat___block_invoke(uint
 
 - (void)showMessageHistoryViewController
 {
-  v13 = objc_alloc_init(CKMessageHistoryViewController);
-  [(CKMessageHistoryViewController *)v13 setMessageHistoryDelegate:self];
+  v14 = objc_alloc_init(CKMessageHistoryViewController);
+  [(CKMessageHistoryViewController *)v14 setMessageHistoryDelegate:self];
   conversation = [(CKCoreChatController *)self conversation];
-  [(CKMessageHistoryViewController *)v13 setMessageHistoryDataSource:conversation];
+  [(CKMessageHistoryViewController *)v14 setMessageHistoryDataSource:conversation];
   currentDevice = [MEMORY[0x1E69DC938] currentDevice];
   userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
   if (userInterfaceIdiom == 1)
   {
-    [(CKMessageHistoryViewController *)v13 setModalPresentationStyle:7];
+    [(CKMessageHistoryViewController *)v14 setModalPresentationStyle:7];
     navigationController = [(CKChatController *)self navigationController];
     navigationBar = [navigationController navigationBar];
 
-    presentationController = [(CKMessageHistoryViewController *)v13 presentationController];
+    presentationController = [(CKMessageHistoryViewController *)v14 presentationController];
     [presentationController setSourceView:navigationBar];
 
-    [(CKChatController *)self presentViewController:v13 animated:1 completion:0];
+    [(CKChatController *)self presentViewController:v14 animated:1 completion:0];
   }
 
   else
   {
     navigationBar = [MEMORY[0x1E69DC650] alertControllerWithTitle:0 message:0 preferredStyle:0];
-    [navigationBar _setSeparatedHeaderContentViewController:v13];
-    v9 = MEMORY[0x1E69DC648];
-    v10 = CKFrameworkBundle();
-    v11 = [v10 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
-    v12 = [v9 actionWithTitle:v11 style:1 handler:0];
+    v9 = [navigationBar _setSeparatedHeaderContentViewController:v14];
+    v10 = MEMORY[0x1E69DC648];
+    v11 = CKFrameworkBundle(v9);
+    v12 = [v11 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
+    v13 = [v10 actionWithTitle:v12 style:1 handler:0];
 
-    [navigationBar addAction:v12];
+    [navigationBar addAction:v13];
     [(CKChatController *)self presentViewController:navigationBar animated:1 completion:0];
   }
 }
@@ -47508,7 +47553,7 @@ void __82__CKChatController_SendAnimation__sendAnimationManagerWillStartAnimatio
   [v1 setAlpha:0.0];
 }
 
-uint64_t __82__CKChatController_SendAnimation__sendAnimationManagerWillStartAnimation_context___block_invoke_4(uint64_t a1)
+void *__82__CKChatController_SendAnimation__sendAnimationManagerWillStartAnimation_context___block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) setContentOffset:{*(a1 + 40), *(a1 + 48)}];
   if (*(a1 + 56) == 1)
@@ -47521,7 +47566,7 @@ uint64_t __82__CKChatController_SendAnimation__sendAnimationManagerWillStartAnim
   return result;
 }
 
-uint64_t __82__CKChatController_SendAnimation__sendAnimationManagerWillStartAnimation_context___block_invoke_5(uint64_t a1)
+void *__82__CKChatController_SendAnimation__sendAnimationManagerWillStartAnimation_context___block_invoke_5(uint64_t a1)
 {
   result = [*(a1 + 32) setContentOffset:{*(a1 + 40), *(a1 + 48)}];
   if (*(a1 + 56) == 1)
@@ -48879,7 +48924,7 @@ LABEL_19:
   return height;
 }
 
-void __241__CKChatController_SendAnimation___makeThrowBalloonsForSendAnimationWithType_inContainerView_forSendingMessages_shouldUseQuickReplySourceRect_quickReplySourceRect_quickReplySnapshotView_audioMessageSourceRect_audioRecordingPillViewSnapshot___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __241__CKChatController_SendAnimation___makeThrowBalloonsForSendAnimationWithType_inContainerView_forSendingMessages_shouldUseQuickReplySourceRect_quickReplySourceRect_quickReplySnapshotView_audioMessageSourceRect_audioRecordingPillViewSnapshot___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = *(a1 + 32);
   v6 = a2;
@@ -49093,17 +49138,17 @@ LABEL_16:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v12 = 0x7FFFFFFFFFFFFFFFLL;
-      v11 = 0;
-      v7 = [(CKChatController *)self previewItemsForMediaObject:currentPreviewItem currentItemIndex:&v12 containsRestoring:&v11];
+      v13 = 0x7FFFFFFFFFFFFFFFLL;
+      v12 = 0;
+      v7 = [(CKChatController *)self previewItemsForMediaObject:currentPreviewItem currentItemIndex:&v13 containsRestoring:&v12];
       dataSource = [v5 dataSource];
       [dataSource setPreviewItems:v7];
 
-      if (v11 == 1)
+      if (v12 == 1)
       {
-        v9 = CKFrameworkBundle();
-        v10 = [v9 localizedStringForKey:@"RESTORING" value:&stru_1F04268F8 table:@"ChatKit"];
-        [v5 setLoadingTextForMissingFiles:v10];
+        v10 = CKFrameworkBundle(v9);
+        v11 = [v10 localizedStringForKey:@"RESTORING" value:&stru_1F04268F8 table:@"ChatKit"];
+        [v5 setLoadingTextForMissingFiles:v11];
       }
 
       else
@@ -49112,7 +49157,7 @@ LABEL_16:
       }
 
       [v5 reloadData];
-      [v5 setCurrentPreviewItemIndex:v12];
+      [v5 setCurrentPreviewItemIndex:v13];
       [v5 refreshCurrentPreviewItem];
     }
 
@@ -49147,7 +49192,7 @@ LABEL_12:
 
 - (BOOL)_displayPreviewItemForMediaObject:(id)object
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   v5 = +[CKUIBehavior sharedBehaviors];
   isSizeConstrained = [v5 isSizeConstrained];
@@ -49159,9 +49204,9 @@ LABEL_12:
 
   else
   {
-    v27 = 0x7FFFFFFFFFFFFFFFLL;
-    v26 = 0;
-    v8 = [(CKChatController *)self previewItemsForMediaObject:objectCopy currentItemIndex:&v27 containsRestoring:&v26];
+    v28 = 0x7FFFFFFFFFFFFFFFLL;
+    v27 = 0;
+    v8 = [(CKChatController *)self previewItemsForMediaObject:objectCopy currentItemIndex:&v28 containsRestoring:&v27];
     v9 = [v8 count];
     v7 = v9 != 0;
     if (v9)
@@ -49187,16 +49232,16 @@ LABEL_12:
       [previewController2 setDataSource:qlPreviewDataSource2];
 
       [previewController2 reloadData];
-      [previewController2 setCurrentPreviewItemIndex:v27];
+      [previewController2 setCurrentPreviewItemIndex:v28];
       [previewController2 refreshCurrentPreviewItem];
       if (!CKIsRunningInMacCatalyst())
       {
-        [previewController2 setModalPresentationStyle:0];
-        if (v26 == 1)
+        v17 = [previewController2 setModalPresentationStyle:0];
+        if (v27 == 1)
         {
-          v17 = CKFrameworkBundle();
-          v18 = [v17 localizedStringForKey:@"RESTORING" value:&stru_1F04268F8 table:@"ChatKit"];
-          [previewController2 setLoadingTextForMissingFiles:v18];
+          v18 = CKFrameworkBundle(v17);
+          v19 = [v18 localizedStringForKey:@"RESTORING" value:&stru_1F04268F8 table:@"ChatKit"];
+          [previewController2 setLoadingTextForMissingFiles:v19];
         }
       }
 
@@ -49204,9 +49249,9 @@ LABEL_12:
       contentView = [entryView contentView];
       -[CKChatController setEntryViewWasActiveOnPreview:](self, "setEntryViewWasActiveOnPreview:", [contentView isActive]);
 
-      v25.receiver = self;
-      v25.super_class = CKChatController;
-      [(CKChatController *)&v25 becomeFirstResponder];
+      v26.receiver = self;
+      v26.super_class = CKChatController;
+      [(CKChatController *)&v26 becomeFirstResponder];
       if (CKIsRunningInMacCatalyst())
       {
         [previewController2 presentPreview];
@@ -49216,12 +49261,12 @@ LABEL_12:
       {
         if (IMOSLoggingEnabled())
         {
-          v21 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+          v22 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
           {
             *buf = 134217984;
-            v29 = objectCopy;
-            _os_log_impl(&dword_19020E000, v21, OS_LOG_TYPE_INFO, "will display preview for media object: %p", buf, 0xCu);
+            v30 = objectCopy;
+            _os_log_impl(&dword_19020E000, v22, OS_LOG_TYPE_INFO, "will display preview for media object: %p", buf, 0xCu);
           }
         }
 
@@ -49515,30 +49560,30 @@ void __64__CKChatController_QuickLook__addPassesViewControllerDidFinish___block_
 
 - (void)_showWalletOrderImportViewForMediaObject:(id)object
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   getFKOrderImportPreviewControllerProviderClass();
   v5 = objc_opt_class();
   if ((objc_opt_respondsToSelector() & 1) != 0 && [v5 canProvidePreviewControllerForMessages])
   {
-    v43 = 0;
-    v44 = &v43;
-    v45 = 0x2050000000;
+    v45 = 0;
+    v46 = &v45;
+    v47 = 0x2050000000;
     v6 = getFKOrderMessagesPreviewMetadataClass_softClass;
-    v46 = getFKOrderMessagesPreviewMetadataClass_softClass;
+    v48 = getFKOrderMessagesPreviewMetadataClass_softClass;
     if (!getFKOrderMessagesPreviewMetadataClass_softClass)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getFKOrderMessagesPreviewMetadataClass_block_invoke;
-      v48 = &unk_1E72EB968;
-      v49 = &v43;
+      v50 = &unk_1E72EB968;
+      v51 = &v45;
       __getFKOrderMessagesPreviewMetadataClass_block_invoke(buf);
-      v6 = v44[3];
+      v6 = v46[3];
     }
 
     v7 = v6;
-    _Block_object_dispose(&v43, 8);
+    _Block_object_dispose(&v45, 8);
     v8 = objc_opt_class();
     if ((objc_opt_respondsToSelector() & 1) != 0 && ([objectCopy fileURL], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "walletDeepLinkForExistingOrderAtURL:", v9), v10 = objc_claimAutoreleasedReturnValue(), v9, v10))
     {
@@ -49562,14 +49607,14 @@ void __64__CKChatController_QuickLook__addPassesViewControllerDidFinish___block_
     {
       FKOrderImportPreviewControllerProviderClass = getFKOrderImportPreviewControllerProviderClass();
       fileURL = [objectCopy fileURL];
-      v41 = 0;
-      v42[0] = MEMORY[0x1E69E9820];
-      v42[1] = 3221225472;
-      v42[2] = __72__CKChatController_QuickLook___showWalletOrderImportViewForMediaObject___block_invoke;
-      v42[3] = &unk_1E72F3178;
-      v42[4] = self;
-      v16 = [FKOrderImportPreviewControllerProviderClass makeViewControllerWithOrderURL:fileURL completion:v42 error:&v41];
-      v10 = v41;
+      v43 = 0;
+      v44[0] = MEMORY[0x1E69E9820];
+      v44[1] = 3221225472;
+      v44[2] = __72__CKChatController_QuickLook___showWalletOrderImportViewForMediaObject___block_invoke;
+      v44[3] = &unk_1E72F3178;
+      v44[4] = self;
+      v16 = [FKOrderImportPreviewControllerProviderClass makeViewControllerWithOrderURL:fileURL completion:v44 error:&v43];
+      v10 = v43;
 
       if (v10)
       {
@@ -49587,45 +49632,46 @@ void __64__CKChatController_QuickLook__addPassesViewControllerDidFinish___block_
           }
         }
 
-        if ([v10 code] == 1)
+        code = [v10 code];
+        if (code == 1)
         {
-          v19 = MEMORY[0x193AF5ED0]("PKCreateAlertControllerForWalletUninstalled", @"PassKitUI");
-          _showWalletOrderImportViewForMediaObject__makeWalletUninstalledAlert = v19;
-          if (v19)
+          v20 = MEMORY[0x193AF5ED0]("PKCreateAlertControllerForWalletUninstalled", @"PassKitUI");
+          _showWalletOrderImportViewForMediaObject__makeWalletUninstalledAlert = v20;
+          if (v20)
           {
-            v20 = v19(0);
+            v21 = v20(0);
             navigationController = [(CKChatController *)self navigationController];
-            [navigationController presentViewController:v20 animated:1 completion:0];
+            [navigationController presentViewController:v21 animated:1 completion:0];
           }
 
           else if (IMOSLoggingEnabled())
           {
-            v38 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+            v40 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_19020E000, v38, OS_LOG_TYPE_INFO, "Unable to show Wallet Uninstalled alert because weak-link of PKCreateAlertControllerForWalletUninstalled() failed.", buf, 2u);
+              _os_log_impl(&dword_19020E000, v40, OS_LOG_TYPE_INFO, "Unable to show Wallet Uninstalled alert because weak-link of PKCreateAlertControllerForWalletUninstalled() failed.", buf, 2u);
             }
           }
         }
 
         else
         {
-          v27 = MEMORY[0x1E69DC650];
-          v28 = CKFrameworkBundle();
-          v29 = [v28 localizedStringForKey:@"WALLET_ORDER_INVALID_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-          v30 = CKFrameworkBundle();
-          v31 = [v30 localizedStringForKey:@"WALLET_ORDER_INVALID_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
-          v32 = [v27 alertControllerWithTitle:v29 message:v31 preferredStyle:1];
+          v28 = MEMORY[0x1E69DC650];
+          v29 = CKFrameworkBundle(code);
+          v30 = [v29 localizedStringForKey:@"WALLET_ORDER_INVALID_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+          v31 = CKFrameworkBundle(v30);
+          v32 = [v31 localizedStringForKey:@"WALLET_ORDER_INVALID_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
+          v33 = [v28 alertControllerWithTitle:v30 message:v32 preferredStyle:1];
 
-          v33 = MEMORY[0x1E69DC648];
-          v34 = CKFrameworkBundle();
-          v35 = [v34 localizedStringForKey:@"DISMISS" value:&stru_1F04268F8 table:@"ChatKit"];
-          v36 = [v33 actionWithTitle:v35 style:0 handler:0];
-          [v32 addAction:v36];
+          v34 = MEMORY[0x1E69DC648];
+          v36 = CKFrameworkBundle(v35);
+          v37 = [v36 localizedStringForKey:@"DISMISS" value:&stru_1F04268F8 table:@"ChatKit"];
+          v38 = [v34 actionWithTitle:v37 style:0 handler:0];
+          [v33 addAction:v38];
 
           navigationController2 = [(CKChatController *)self navigationController];
-          [navigationController2 presentViewController:v32 animated:1 completion:0];
+          [navigationController2 presentViewController:v33 animated:1 completion:0];
         }
       }
 
@@ -49642,14 +49688,14 @@ void __64__CKChatController_QuickLook__addPassesViewControllerDidFinish___block_
         delegate = [(CKCoreChatController *)self delegate];
         [delegate updateSupportedInterfaceOrientations:2];
 
-        v26 = dispatch_time(0, 100000000);
-        v39[0] = MEMORY[0x1E69E9820];
-        v39[1] = 3221225472;
-        v39[2] = __72__CKChatController_QuickLook___showWalletOrderImportViewForMediaObject___block_invoke_324;
-        v39[3] = &unk_1E72EB8D0;
-        v39[4] = self;
-        v40 = v16;
-        dispatch_after(v26, MEMORY[0x1E69E96A0], v39);
+        v27 = dispatch_time(0, 100000000);
+        v41[0] = MEMORY[0x1E69E9820];
+        v41[1] = 3221225472;
+        v41[2] = __72__CKChatController_QuickLook___showWalletOrderImportViewForMediaObject___block_invoke_324;
+        v41[3] = &unk_1E72EB8D0;
+        v41[4] = self;
+        v42 = v16;
+        dispatch_after(v27, MEMORY[0x1E69E96A0], v41);
       }
     }
   }
@@ -50864,47 +50910,50 @@ LABEL_20:
     chatItems2 = [collectionViewController2 chatItems];
     v14 = [chatItems2 objectAtIndex:v11];
 
-    if ([v14 canCopy])
+    canCopy = [v14 canCopy];
+    if (canCopy)
     {
-      v15 = MEMORY[0x1E69DCE00];
-      v16 = CKFrameworkBundle();
-      v17 = [v16 localizedStringForKey:@"COPY" value:&stru_1F04268F8 table:@"ChatKit"];
-      v36[0] = MEMORY[0x1E69E9820];
-      v36[1] = 3221225472;
-      v36[2] = __66__CKChatController_QuickLook__previewActionsForPreviewController___block_invoke;
-      v36[3] = &unk_1E72F31A0;
-      v37 = v8;
-      v18 = [v15 actionWithTitle:v17 style:0 handler:v36];
-      [array addObject:v18];
+      v16 = MEMORY[0x1E69DCE00];
+      v17 = CKFrameworkBundle(canCopy);
+      v18 = [v17 localizedStringForKey:@"COPY" value:&stru_1F04268F8 table:@"ChatKit"];
+      v39[0] = MEMORY[0x1E69E9820];
+      v39[1] = 3221225472;
+      v39[2] = __66__CKChatController_QuickLook__previewActionsForPreviewController___block_invoke;
+      v39[3] = &unk_1E72F31A0;
+      v40 = v8;
+      v19 = [v16 actionWithTitle:v18 style:0 handler:v39];
+      [array addObject:v19];
     }
 
-    if ([v14 canExport])
+    canExport = [v14 canExport];
+    if (canExport)
     {
-      v19 = MEMORY[0x1E69DCE00];
-      v20 = CKFrameworkBundle();
-      v21 = [v20 localizedStringForKey:@"BALLOON_EXPORT_CALLOUT" value:&stru_1F04268F8 table:@"ChatKit"];
-      v34[0] = MEMORY[0x1E69E9820];
-      v34[1] = 3221225472;
-      v34[2] = __66__CKChatController_QuickLook__previewActionsForPreviewController___block_invoke_2;
-      v34[3] = &unk_1E72F31A0;
-      v35 = v8;
-      v22 = [v19 actionWithTitle:v21 style:0 handler:v34];
-      [array addObject:v22];
+      v21 = MEMORY[0x1E69DCE00];
+      v22 = CKFrameworkBundle(canExport);
+      v23 = [v22 localizedStringForKey:@"BALLOON_EXPORT_CALLOUT" value:&stru_1F04268F8 table:@"ChatKit"];
+      v37[0] = MEMORY[0x1E69E9820];
+      v37[1] = 3221225472;
+      v37[2] = __66__CKChatController_QuickLook__previewActionsForPreviewController___block_invoke_2;
+      v37[3] = &unk_1E72F31A0;
+      v38 = v8;
+      v24 = [v21 actionWithTitle:v23 style:0 handler:v37];
+      [array addObject:v24];
     }
 
-    if ([v14 canForward])
+    canForward = [v14 canForward];
+    if (canForward)
     {
-      v23 = MEMORY[0x1E69DCE00];
-      v24 = CKFrameworkBundle();
-      v25 = [v24 localizedStringForKey:@"FORWARD" value:&stru_1F04268F8 table:@"ChatKit"];
-      v28 = MEMORY[0x1E69E9820];
-      v29 = 3221225472;
-      v30 = __66__CKChatController_QuickLook__previewActionsForPreviewController___block_invoke_515;
-      v31 = &unk_1E72F31C8;
+      v26 = MEMORY[0x1E69DCE00];
+      v27 = CKFrameworkBundle(canForward);
+      v28 = [v27 localizedStringForKey:@"FORWARD" value:&stru_1F04268F8 table:@"ChatKit"];
+      v31 = MEMORY[0x1E69E9820];
+      v32 = 3221225472;
+      v33 = __66__CKChatController_QuickLook__previewActionsForPreviewController___block_invoke_515;
+      v34 = &unk_1E72F31C8;
       selfCopy = self;
-      v33 = v14;
-      v26 = [v23 actionWithTitle:v25 style:0 handler:&v28];
-      [array addObject:{v26, v28, v29, v30, v31, selfCopy}];
+      v36 = v14;
+      v29 = [v26 actionWithTitle:v28 style:0 handler:&v31];
+      [array addObject:{v29, v31, v32, v33, v34, selfCopy}];
     }
   }
 
@@ -51477,7 +51526,7 @@ void __64__CKChatController_Collaboration__presentCollaborationPopoverUI__block_
 
 void __64__CKChatController_Collaboration__presentCollaborationPopoverUI__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v8 = [MEMORY[0x1E697B720] shareOptionsWithOptionsGroups:a5];
+  v8 = [MEMORY[0x1E697B720] shareOptionsWithOptionsGroups:{a5, a4}];
   v6 = [*(a1 + 32) composition];
   v7 = [v6 compositionWithCollaborationShareOptions:v8];
   [*(a1 + 32) setComposition:v7];
@@ -51532,7 +51581,7 @@ void __64__CKChatController_Collaboration__presentCollaborationPopoverUI__block_
     TUOpenURL();
   }
 
-  v198 = completionCopy;
+  v223 = completionCopy;
   selfCopy = self;
   if (!v14)
   {
@@ -51551,23 +51600,23 @@ void __64__CKChatController_Collaboration__presentCollaborationPopoverUI__block_
     initiatorHandle = [collaborationMetadata initiatorHandle];
 
     code = [v14 code];
-    v195 = initiatorHandle;
+    v220 = initiatorHandle;
     if (code > 109)
     {
       if (code == 110)
       {
-        v122 = CKFrameworkBundle();
-        v115 = shelfPluginPayload;
-        v27 = [v122 localizedStringForKey:@"COLLABORATION_ERROR_PRIVATE_MANATEE_UNAVAILABLE_ALERT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+        v139 = CKFrameworkBundle(110);
+        v127 = shelfPluginPayload;
+        v27 = [v139 localizedStringForKey:@"COLLABORATION_ERROR_PRIVATE_MANATEE_UNAVAILABLE_ALERT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-        v116 = CKFrameworkBundle();
-        mEMORY[0x1E69A8288] = v116;
-        v117 = @"COLLABORATION_ERROR_PRIVATE_MANATEE_UNAVAILABLE_ALERT_MESSAGE";
+        v129 = CKFrameworkBundle(v140);
+        mEMORY[0x1E69A8288] = v129;
+        v130 = @"COLLABORATION_ERROR_PRIVATE_MANATEE_UNAVAILABLE_ALERT_MESSAGE";
 LABEL_74:
-        shelfPluginPayload = v115;
-        v37 = [v116 localizedStringForKey:v117 value:&stru_1F04268F8 table:@"ChatKit"];
-        v34 = 1;
-        v36 = 1;
+        shelfPluginPayload = v127;
+        v38 = [v129 localizedStringForKey:v130 value:&stru_1F04268F8 table:@"ChatKit"];
+        v35 = 1;
+        v37 = 1;
         goto LABEL_106;
       }
 
@@ -51575,51 +51624,52 @@ LABEL_74:
       {
 LABEL_31:
         mEMORY[0x1E69A8288] = [MEMORY[0x1E69A8288] sharedManager];
-        v65 = [mEMORY[0x1E69A8288] appNameFromSharingURL:lCopy];
-        if (v65)
+        v69 = [mEMORY[0x1E69A8288] appNameFromSharingURL:lCopy];
+        v70 = v69;
+        if (v69)
         {
-          v66 = MEMORY[0x1E696AEC0];
-          CKFrameworkBundle();
-          v67 = v190 = shelfPluginPayload;
-          [v67 localizedStringForKey:@"COLLABORATION_ERROR_COULD_NOT_START_COLLABORATION_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
-          v186 = v65;
-          v69 = v68 = v14;
+          v71 = MEMORY[0x1E696AEC0];
+          CKFrameworkBundle(v69);
+          v72 = v215 = shelfPluginPayload;
+          [v72 localizedStringForKey:@"COLLABORATION_ERROR_COULD_NOT_START_COLLABORATION_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+          v211 = v70;
+          v74 = v73 = v14;
           mEMORY[0x1E69A8288]2 = [MEMORY[0x1E69A8288] sharedManager];
-          v71 = [mEMORY[0x1E69A8288]2 appNameFromSharingURL:lCopy];
-          v72 = [v66 stringWithFormat:v69, v71];
+          v76 = [mEMORY[0x1E69A8288]2 appNameFromSharingURL:lCopy];
+          v77 = [v71 stringWithFormat:v74, v76];
 
-          v14 = v68;
-          v65 = v186;
+          v14 = v73;
+          v70 = v211;
 
-          shelfPluginPayload = v190;
+          shelfPluginPayload = v215;
           mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
           userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
           if (userInterfaceLayoutDirection == 1)
           {
-            v75 = @"\u200F";
+            v80 = @"\u200F";
           }
 
           else
           {
-            v75 = @"\u200E";
+            v80 = @"\u200E";
           }
 
-          v76 = [(__CFString *)v75 stringByAppendingString:v72];
+          v81 = [(__CFString *)v80 stringByAppendingString:v77];
         }
 
         else
         {
-          v72 = CKFrameworkBundle();
-          v76 = [v72 localizedStringForKey:@"COLLABORATION_ERROR_UNKNOWN_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+          v77 = CKFrameworkBundle(0);
+          v81 = [v77 localizedStringForKey:@"COLLABORATION_ERROR_UNKNOWN_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
         }
 
-        v37 = v76;
+        v38 = v81;
 
-        v34 = 0;
+        v35 = 0;
         v27 = 0;
 LABEL_65:
-        v36 = 3;
+        v37 = 3;
         goto LABEL_106;
       }
 
@@ -51627,82 +51677,83 @@ LABEL_65:
       {
 LABEL_75:
         mEMORY[0x1E69A8288] = [MEMORY[0x1E69A8288] sharedManager];
-        v123 = [mEMORY[0x1E69A8288] appNameFromSharingURL:lCopy];
-        if (v123)
+        v141 = [mEMORY[0x1E69A8288] appNameFromSharingURL:lCopy];
+        v142 = v141;
+        if (v141)
         {
-          v124 = MEMORY[0x1E696AEC0];
-          CKFrameworkBundle();
-          v125 = v192 = shelfPluginPayload;
-          [v125 localizedStringForKey:@"COLLABORATION_ERROR_COULD_NOT_START_COLLABORATION_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
-          v188 = v123;
-          v127 = v126 = v14;
+          v143 = MEMORY[0x1E696AEC0];
+          CKFrameworkBundle(v141);
+          v144 = v217 = shelfPluginPayload;
+          [v144 localizedStringForKey:@"COLLABORATION_ERROR_COULD_NOT_START_COLLABORATION_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+          v213 = v142;
+          v146 = v145 = v14;
           mEMORY[0x1E69A8288]3 = [MEMORY[0x1E69A8288] sharedManager];
-          v129 = [mEMORY[0x1E69A8288]3 appNameFromSharingURL:lCopy];
-          v129 = [v124 stringWithFormat:v127, v129];
+          v148 = [mEMORY[0x1E69A8288]3 appNameFromSharingURL:lCopy];
+          v148 = [v143 stringWithFormat:v146, v148];
 
-          v14 = v126;
-          v123 = v188;
+          v14 = v145;
+          v142 = v213;
 
-          shelfPluginPayload = v192;
+          shelfPluginPayload = v217;
           mEMORY[0x1E69DC668]2 = [MEMORY[0x1E69DC668] sharedApplication];
           userInterfaceLayoutDirection2 = [mEMORY[0x1E69DC668]2 userInterfaceLayoutDirection];
 
           if (userInterfaceLayoutDirection2 == 1)
           {
-            v133 = @"\u200F";
+            v152 = @"\u200F";
           }
 
           else
           {
-            v133 = @"\u200E";
+            v152 = @"\u200E";
           }
 
-          v134 = [(__CFString *)v133 stringByAppendingString:v129];
+          v153 = [(__CFString *)v152 stringByAppendingString:v148];
         }
 
         else
         {
-          v129 = CKFrameworkBundle();
-          v134 = [v129 localizedStringForKey:@"COLLABORATION_ERROR_UNKNOWN_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+          v148 = CKFrameworkBundle(0);
+          v153 = [v148 localizedStringForKey:@"COLLABORATION_ERROR_UNKNOWN_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
         }
 
-        v37 = v134;
+        v38 = v153;
 
-        v34 = 0;
-        v36 = 0;
+        v35 = 0;
+        v37 = 0;
         v27 = 0;
         goto LABEL_106;
       }
 
 LABEL_28:
-      v55 = CKFrameworkBundle();
-      v56 = shelfPluginPayload;
-      v27 = [v55 localizedStringForKey:@"COLLABORATION_ERROR_NOT_ENOUGH_SPACE_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+      v58 = CKFrameworkBundle(code);
+      v59 = shelfPluginPayload;
+      v27 = [v58 localizedStringForKey:@"COLLABORATION_ERROR_NOT_ENOUGH_SPACE_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-      v57 = MEMORY[0x1E696AEC0];
-      CKFrameworkBundle();
-      v59 = v58 = v14;
-      v60 = [v59 localizedStringForKey:@"COLLABORATION_ERROR_NOT_ENOUGH_SPACE_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
-      v61 = [MEMORY[0x1E696AAF0] stringFromByteCount:objc_msgSend(v13 countStyle:{"mediaObjectsFileSize"), 3}];
-      mEMORY[0x1E69A8288] = [v57 stringWithFormat:v60, v61];
+      v60 = MEMORY[0x1E696AEC0];
+      CKFrameworkBundle(v61);
+      v63 = v62 = v14;
+      v64 = [v63 localizedStringForKey:@"COLLABORATION_ERROR_NOT_ENOUGH_SPACE_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+      v65 = [MEMORY[0x1E696AAF0] stringFromByteCount:objc_msgSend(v13 countStyle:{"mediaObjectsFileSize"), 3}];
+      mEMORY[0x1E69A8288] = [v60 stringWithFormat:v64, v65];
 
-      shelfPluginPayload = v56;
-      v14 = v58;
+      shelfPluginPayload = v59;
+      v14 = v62;
       mEMORY[0x1E69DC668]3 = [MEMORY[0x1E69DC668] sharedApplication];
       userInterfaceLayoutDirection3 = [mEMORY[0x1E69DC668]3 userInterfaceLayoutDirection];
 
       if (userInterfaceLayoutDirection3 == 1)
       {
-        v64 = @"\u200F";
+        v68 = @"\u200F";
       }
 
       else
       {
-        v64 = @"\u200E";
+        v68 = @"\u200E";
       }
 
 LABEL_58:
-      v97 = [(__CFString *)v64 stringByAppendingString:mEMORY[0x1E69A8288]];
+      v107 = [(__CFString *)v68 stringByAppendingString:mEMORY[0x1E69A8288]];
     }
 
     else
@@ -51711,217 +51762,218 @@ LABEL_58:
       {
         case 3:
         case 4:
-          v25 = CKFrameworkBundle();
+          v25 = CKFrameworkBundle(code);
           v26 = shelfPluginPayload;
           v27 = [v25 localizedStringForKey:@"COLLABORATION_ERROR_NO_INTERNET_CONNECTION_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-          v28 = CKFrameworkBundle();
-          mEMORY[0x1E69A8288] = v28;
-          v30 = @"COLLABORATION_ERROR_NO_INTERNET_CONNECTION_MESSAGE";
+          v29 = CKFrameworkBundle(v28);
+          mEMORY[0x1E69A8288] = v29;
+          v31 = @"COLLABORATION_ERROR_NO_INTERNET_CONNECTION_MESSAGE";
           goto LABEL_70;
         case 6:
-          v118 = CKFrameworkBundle();
+          v131 = CKFrameworkBundle(code);
           v26 = shelfPluginPayload;
-          v27 = [v118 localizedStringForKey:@"COLLABORATION_ERROR_ICLOUD_UNAVAILABLE_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+          v27 = [v131 localizedStringForKey:@"COLLABORATION_ERROR_ICLOUD_UNAVAILABLE_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-          v28 = CKFrameworkBundle();
-          mEMORY[0x1E69A8288] = v28;
-          v30 = @"COLLABORATION_ERROR_TRY_AGAIN_LATER";
+          v29 = CKFrameworkBundle(v132);
+          mEMORY[0x1E69A8288] = v29;
+          v31 = @"COLLABORATION_ERROR_TRY_AGAIN_LATER";
           goto LABEL_70;
         case 7:
         case 23:
         case 34:
           goto LABEL_31;
         case 9:
-          v114 = CKFrameworkBundle();
-          v115 = shelfPluginPayload;
-          v27 = [v114 localizedStringForKey:@"COLLABORATION_ERROR_NOT_AUTHENTICATED_ALERT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+          v126 = CKFrameworkBundle(code);
+          v127 = shelfPluginPayload;
+          v27 = [v126 localizedStringForKey:@"COLLABORATION_ERROR_NOT_AUTHENTICATED_ALERT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-          v116 = CKFrameworkBundle();
-          mEMORY[0x1E69A8288] = v116;
-          v117 = @"COLLABORATION_ERROR_NOT_AUTHENTICATED_ALERT_MESSAGE";
+          v129 = CKFrameworkBundle(v128);
+          mEMORY[0x1E69A8288] = v129;
+          v130 = @"COLLABORATION_ERROR_NOT_AUTHENTICATED_ALERT_MESSAGE";
           goto LABEL_74;
         case 18:
           mEMORY[0x1E69A8288]4 = [MEMORY[0x1E69A8288] sharedManager];
-          v99 = [mEMORY[0x1E69A8288]4 appNameFromSharingURL:lCopy];
-          if (v99)
+          v109 = [mEMORY[0x1E69A8288]4 appNameFromSharingURL:lCopy];
+          v110 = v109;
+          if (v109)
           {
-            v100 = MEMORY[0x1E696AEC0];
-            CKFrameworkBundle();
-            v101 = v187 = mEMORY[0x1E69A8288]4;
-            [v101 localizedStringForKey:@"COLLABORATION_ERROR_INCOMPATIBLE_VERSION_ALERT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-            v191 = shelfPluginPayload;
-            v103 = v102 = v14;
+            v111 = MEMORY[0x1E696AEC0];
+            CKFrameworkBundle(v109);
+            v112 = v212 = mEMORY[0x1E69A8288]4;
+            [v112 localizedStringForKey:@"COLLABORATION_ERROR_INCOMPATIBLE_VERSION_ALERT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+            v216 = shelfPluginPayload;
+            v114 = v113 = v14;
             mEMORY[0x1E69A8288]5 = [MEMORY[0x1E69A8288] sharedManager];
             [mEMORY[0x1E69A8288]5 appNameFromSharingURL:lCopy];
-            v106 = v105 = v99;
-            v106 = [v100 stringWithFormat:v103, v106];
+            v117 = v116 = v110;
+            v117 = [v111 stringWithFormat:v114, v117];
 
-            v99 = v105;
-            v14 = v102;
-            shelfPluginPayload = v191;
+            v110 = v116;
+            v14 = v113;
+            shelfPluginPayload = v216;
 
             mEMORY[0x1E69DC668]4 = [MEMORY[0x1E69DC668] sharedApplication];
             userInterfaceLayoutDirection4 = [mEMORY[0x1E69DC668]4 userInterfaceLayoutDirection];
 
-            v110 = userInterfaceLayoutDirection4 == 1;
-            mEMORY[0x1E69A8288]4 = v187;
-            if (v110)
+            v121 = userInterfaceLayoutDirection4 == 1;
+            mEMORY[0x1E69A8288]4 = v212;
+            if (v121)
             {
-              v111 = @"\u200F";
+              v122 = @"\u200F";
             }
 
             else
             {
-              v111 = @"\u200E";
+              v122 = @"\u200E";
             }
 
-            v112 = [(__CFString *)v111 stringByAppendingString:v106];
+            v123 = [(__CFString *)v122 stringByAppendingString:v117];
           }
 
           else
           {
-            v106 = CKFrameworkBundle();
-            v112 = [v106 localizedStringForKey:@"COLLABORATION_ERROR_UNKNOWN_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+            v117 = CKFrameworkBundle(0);
+            v123 = [v117 localizedStringForKey:@"COLLABORATION_ERROR_UNKNOWN_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
           }
 
-          v27 = v112;
+          v27 = v123;
 
-          mEMORY[0x1E69A8288] = CKFrameworkBundle();
-          v37 = [mEMORY[0x1E69A8288] localizedStringForKey:@"COLLABORATION_ERROR_INCOMPATIBLE_VERSION_ALERT_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
-          v36 = 2;
-          v34 = 1;
+          mEMORY[0x1E69A8288] = CKFrameworkBundle(v186);
+          v38 = [mEMORY[0x1E69A8288] localizedStringForKey:@"COLLABORATION_ERROR_INCOMPATIBLE_VERSION_ALERT_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+          v37 = 2;
+          v35 = 1;
           goto LABEL_106;
         case 25:
           goto LABEL_28;
         case 27:
-          v119 = CKFrameworkBundle();
+          v133 = CKFrameworkBundle(code);
           v26 = shelfPluginPayload;
-          v27 = [v119 localizedStringForKey:@"COLLABORATION_ERROR_LIMIT_EXCEEDED_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+          v27 = [v133 localizedStringForKey:@"COLLABORATION_ERROR_LIMIT_EXCEEDED_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-          v28 = CKFrameworkBundle();
-          mEMORY[0x1E69A8288] = v28;
-          v30 = @"COLLABORATION_ERROR_LIMIT_EXCEEDED_MESSAGE";
+          v29 = CKFrameworkBundle(v134);
+          mEMORY[0x1E69A8288] = v29;
+          v31 = @"COLLABORATION_ERROR_LIMIT_EXCEEDED_MESSAGE";
           goto LABEL_70;
         case 29:
-          v120 = CKFrameworkBundle();
+          v135 = CKFrameworkBundle(code);
           v26 = shelfPluginPayload;
-          v27 = [v120 localizedStringForKey:@"COLLABORATION_ERROR_TOO_MANY_PARTICIPANTS_ALERT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+          v27 = [v135 localizedStringForKey:@"COLLABORATION_ERROR_TOO_MANY_PARTICIPANTS_ALERT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-          v28 = CKFrameworkBundle();
-          mEMORY[0x1E69A8288] = v28;
-          v30 = @"COLLABORATION_ERROR_TOO_MANY_PARTICIPANTS_ALERT_MESSAGE";
+          v29 = CKFrameworkBundle(v136);
+          mEMORY[0x1E69A8288] = v29;
+          v31 = @"COLLABORATION_ERROR_TOO_MANY_PARTICIPANTS_ALERT_MESSAGE";
 LABEL_70:
           shelfPluginPayload = v26;
-          v97 = [v28 localizedStringForKey:v30 value:&stru_1F04268F8 table:@"ChatKit"];
+          v107 = [v29 localizedStringForKey:v31 value:&stru_1F04268F8 table:@"ChatKit"];
           break;
         case 32:
-          v84 = MEMORY[0x1E696AEC0];
-          v85 = CKFrameworkBundle();
-          v86 = [v85 localizedStringForKey:@"COLLABORATION_ERROR_RESTRICTION_ENABLED_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-          [v84 stringWithFormat:v86, initiatorHandle];
-          v88 = v87 = v14;
+          v93 = MEMORY[0x1E696AEC0];
+          v94 = CKFrameworkBundle(code);
+          v95 = [v94 localizedStringForKey:@"COLLABORATION_ERROR_RESTRICTION_ENABLED_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+          [v93 stringWithFormat:v95, initiatorHandle];
+          v97 = v96 = v14;
 
           mEMORY[0x1E69DC668]5 = [MEMORY[0x1E69DC668] sharedApplication];
           userInterfaceLayoutDirection5 = [mEMORY[0x1E69DC668]5 userInterfaceLayoutDirection];
 
           if (userInterfaceLayoutDirection5 == 1)
           {
-            v91 = @"\u200F";
+            v100 = @"\u200F";
           }
 
           else
           {
-            v91 = @"\u200E";
+            v100 = @"\u200E";
           }
 
-          v27 = [(__CFString *)v91 stringByAppendingString:v88];
+          v27 = [(__CFString *)v100 stringByAppendingString:v97];
 
-          v92 = MEMORY[0x1E696AEC0];
-          v93 = CKFrameworkBundle();
-          v94 = [v93 localizedStringForKey:@"COLLABORATION_ERROR_RESTRICTION_ENABLED_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
-          mEMORY[0x1E69A8288] = [v92 stringWithFormat:v94, initiatorHandle];
+          v101 = MEMORY[0x1E696AEC0];
+          v103 = CKFrameworkBundle(v102);
+          v104 = [v103 localizedStringForKey:@"COLLABORATION_ERROR_RESTRICTION_ENABLED_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+          mEMORY[0x1E69A8288] = [v101 stringWithFormat:v104, initiatorHandle];
 
-          v14 = v87;
+          v14 = v96;
           mEMORY[0x1E69DC668]6 = [MEMORY[0x1E69DC668] sharedApplication];
           userInterfaceLayoutDirection6 = [mEMORY[0x1E69DC668]6 userInterfaceLayoutDirection];
 
           if (userInterfaceLayoutDirection6 == 1)
           {
-            v64 = @"\u200F";
+            v68 = @"\u200F";
           }
 
           else
           {
-            v64 = @"\u200E";
+            v68 = @"\u200E";
           }
 
           goto LABEL_58;
         case 33:
-          v113 = CKFrameworkBundle();
-          v27 = [v113 localizedStringForKey:@"COLLABORATION_ERROR_PARTICIPANT_MAY_NEED_VERIFICATION_ALERT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+          v124 = CKFrameworkBundle(code);
+          v27 = [v124 localizedStringForKey:@"COLLABORATION_ERROR_PARTICIPANT_MAY_NEED_VERIFICATION_ALERT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-          mEMORY[0x1E69A8288] = CKFrameworkBundle();
-          v37 = [mEMORY[0x1E69A8288] localizedStringForKey:@"COLLABORATION_ERROR_PARTICIPANT_MAY_NEED_VERIFICATION_ALERT_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
-          v34 = 0;
+          mEMORY[0x1E69A8288] = CKFrameworkBundle(v125);
+          v38 = [mEMORY[0x1E69A8288] localizedStringForKey:@"COLLABORATION_ERROR_PARTICIPANT_MAY_NEED_VERIFICATION_ALERT_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+          v35 = 0;
           goto LABEL_65;
         case 36:
-          v121 = CKFrameworkBundle();
-          v115 = shelfPluginPayload;
-          v27 = [v121 localizedStringForKey:@"COLLABORATION_ERROR_ACCOUNT_TEMPORARILY_UNAVAILABLE_ALERT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+          v137 = CKFrameworkBundle(code);
+          v127 = shelfPluginPayload;
+          v27 = [v137 localizedStringForKey:@"COLLABORATION_ERROR_ACCOUNT_TEMPORARILY_UNAVAILABLE_ALERT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-          v116 = CKFrameworkBundle();
-          mEMORY[0x1E69A8288] = v116;
-          v117 = @"COLLABORATION_ERROR_ACCOUNT_TEMPORARILY_UNAVAILABLE_ALERT_MESSAGE";
+          v129 = CKFrameworkBundle(v138);
+          mEMORY[0x1E69A8288] = v129;
+          v130 = @"COLLABORATION_ERROR_ACCOUNT_TEMPORARILY_UNAVAILABLE_ALERT_MESSAGE";
           goto LABEL_74;
         default:
           goto LABEL_75;
       }
     }
 
-    v37 = v97;
-    v34 = 0;
-    v36 = 0;
+    v38 = v107;
+    v35 = 0;
+    v37 = 0;
 LABEL_106:
 
-    v35 = 0;
+    v36 = 0;
     goto LABEL_107;
   }
 
   domain2 = [v14 domain];
-  v32 = [domain2 isEqualToString:@"CKCollaborationErrorDomain"];
+  v33 = [domain2 isEqualToString:@"CKCollaborationErrorDomain"];
 
-  if (!v32)
+  if (!v33)
   {
     domain3 = [v14 domain];
-    v43 = [domain3 isEqualToString:@"CKCollaborationStatusErrorDomain"];
+    v45 = [domain3 isEqualToString:@"CKCollaborationStatusErrorDomain"];
 
-    if (v43)
+    if (v45)
     {
       code2 = [v14 code];
       v27 = 0;
-      v45 = @"COLLABORATION_ERROR_FOLDER_UNMODIFIABLE_SUBITEM_MESSAGE";
-      v46 = @"COLLABORATION_ERROR_FOLDER_UNMODIFIABLE_SUBITEM_TITLE";
-      v36 = 4;
+      v47 = @"COLLABORATION_ERROR_FOLDER_UNMODIFIABLE_SUBITEM_MESSAGE";
+      v48 = @"COLLABORATION_ERROR_FOLDER_UNMODIFIABLE_SUBITEM_TITLE";
+      v37 = 4;
       if (code2 <= 2)
       {
         if (!code2)
         {
-          v47 = CKFrameworkBundle();
-          v48 = v47;
-          v49 = @"COLLABORATION_ERROR_ITEM_CANNOT_BE_SHARED_TITLE";
+          v49 = CKFrameworkBundle(0);
+          v50 = v49;
+          v51 = @"COLLABORATION_ERROR_ITEM_CANNOT_BE_SHARED_TITLE";
           goto LABEL_90;
         }
 
         if (code2 != 1)
         {
-          v36 = 0;
-          v34 = 0;
+          v37 = 0;
+          v35 = 0;
           if (code2 == 2)
           {
-            v47 = CKFrameworkBundle();
-            v48 = v47;
-            v49 = @"COLLABORATION_ERROR_ITEM_IS_ALREADY_SHARED_BY_ANOTHER_TITLE";
+            v49 = CKFrameworkBundle(2);
+            v50 = v49;
+            v51 = @"COLLABORATION_ERROR_ITEM_IS_ALREADY_SHARED_BY_ANOTHER_TITLE";
             goto LABEL_90;
           }
 
@@ -51935,8 +51987,8 @@ LABEL_106:
         {
           if (code2 == 3)
           {
-            v153 = IMLogHandleForCategory();
-            if (os_log_type_enabled(v153, OS_LOG_TYPE_ERROR))
+            v174 = IMLogHandleForCategory();
+            if (os_log_type_enabled(v174, OS_LOG_TYPE_ERROR))
             {
               [CKChatController(Collaboration) _actuallyPresentCollaborationFailureAlertForComposition:sharingURL:error:completion:];
             }
@@ -51945,85 +51997,86 @@ LABEL_106:
             goto LABEL_94;
           }
 
-          v47 = CKFrameworkBundle();
-          v48 = v47;
-          v49 = @"COLLABORATION_ERROR_ITEM_IS_ALREADY_SHARED_BY_ME_TITLE";
+          v49 = CKFrameworkBundle(4);
+          v50 = v49;
+          v51 = @"COLLABORATION_ERROR_ITEM_IS_ALREADY_SHARED_BY_ME_TITLE";
 LABEL_90:
-          v27 = [v47 localizedStringForKey:v49 value:&stru_1F04268F8 table:@"ChatKit"];
+          v27 = [v49 localizedStringForKey:v51 value:&stru_1F04268F8 table:@"ChatKit"];
 
 LABEL_94:
-          v36 = 0;
-          v34 = 0;
+          v37 = 0;
+          v35 = 0;
           goto LABEL_95;
         }
 
         if (code2 != 5)
         {
-          v36 = 0;
-          v34 = 0;
+          v37 = 0;
+          v35 = 0;
           if (code2 == 6)
           {
-            v45 = @"COLLABORATION_ERROR_FOLDER_HAS_SHARED_SUBITEM_MESSAGE";
-            v36 = 5;
-            v46 = @"COLLABORATION_ERROR_FOLDER_HAS_SHARED_SUBITEM_TITLE";
+            v47 = @"COLLABORATION_ERROR_FOLDER_HAS_SHARED_SUBITEM_MESSAGE";
+            v37 = 5;
+            v48 = @"COLLABORATION_ERROR_FOLDER_HAS_SHARED_SUBITEM_TITLE";
             goto LABEL_50;
           }
 
 LABEL_95:
           mEMORY[0x1E69A8288]6 = [MEMORY[0x1E69A8288] sharedManager];
-          v193 = [mEMORY[0x1E69A8288]6 appNameFromSharingURL:lCopy];
-          if (v193)
+          v175 = [mEMORY[0x1E69A8288]6 appNameFromSharingURL:lCopy];
+          v218 = v175;
+          if (v175)
           {
-            v154 = MEMORY[0x1E696AEC0];
-            v189 = CKFrameworkBundle();
-            v155 = [v189 localizedStringForKey:@"COLLABORATION_ERROR_COULD_NOT_START_COLLABORATION_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+            v176 = MEMORY[0x1E696AEC0];
+            v214 = CKFrameworkBundle(v175);
+            v177 = [v214 localizedStringForKey:@"COLLABORATION_ERROR_COULD_NOT_START_COLLABORATION_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
             mEMORY[0x1E69A8288]7 = [MEMORY[0x1E69A8288] sharedManager];
             [mEMORY[0x1E69A8288]7 appNameFromSharingURL:lCopy];
-            v158 = v157 = v14;
-            v158 = [v154 stringWithFormat:v155, v158];
+            v180 = v179 = v14;
+            v180 = [v176 stringWithFormat:v177, v180];
 
-            v14 = v157;
+            v14 = v179;
             mEMORY[0x1E69DC668]7 = [MEMORY[0x1E69DC668] sharedApplication];
             userInterfaceLayoutDirection7 = [mEMORY[0x1E69DC668]7 userInterfaceLayoutDirection];
 
             if (userInterfaceLayoutDirection7 == 1)
             {
-              v162 = @"\u200F";
+              v184 = @"\u200F";
             }
 
             else
             {
-              v162 = @"\u200E";
+              v184 = @"\u200E";
             }
 
-            v163 = [(__CFString *)v162 stringByAppendingString:v158];
+            v185 = [(__CFString *)v184 stringByAppendingString:v180];
           }
 
           else
           {
-            v158 = CKFrameworkBundle();
-            v163 = [v158 localizedStringForKey:@"COLLABORATION_ERROR_UNKNOWN_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+            v180 = CKFrameworkBundle(0);
+            v185 = [v180 localizedStringForKey:@"COLLABORATION_ERROR_UNKNOWN_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
           }
 
-          v37 = v163;
+          v38 = v185;
           self = selfCopy;
 
-          v35 = 0;
+          v36 = 0;
           goto LABEL_108;
         }
       }
 
 LABEL_50:
-      v82 = CKFrameworkBundle();
-      v27 = [v82 localizedStringForKey:v46 value:&stru_1F04268F8 table:@"ChatKit"];
+      v90 = CKFrameworkBundle(code2);
+      v27 = [v90 localizedStringForKey:v48 value:&stru_1F04268F8 table:@"ChatKit"];
 
-      v83 = CKFrameworkBundle();
-      v37 = [v83 localizedStringForKey:v45 value:&stru_1F04268F8 table:@"ChatKit"];
+      v92 = CKFrameworkBundle(v91);
+      v38 = [v92 localizedStringForKey:v47 value:&stru_1F04268F8 table:@"ChatKit"];
 
-      v34 = 2;
-      if (v37)
+      v35 = 2;
+      if (v38)
       {
-        v35 = 0;
+        v36 = 0;
 LABEL_107:
         self = selfCopy;
         goto LABEL_108;
@@ -52032,24 +52085,24 @@ LABEL_107:
       goto LABEL_95;
     }
 
-    v54 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+    v57 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
     {
       [CKChatController(Collaboration) _actuallyPresentCollaborationFailureAlertForComposition:sharingURL:error:completion:];
     }
 
 LABEL_24:
-    v35 = 0;
-    v34 = 0;
     v36 = 0;
+    v35 = 0;
     v37 = 0;
+    v38 = 0;
     v27 = 0;
     goto LABEL_108;
   }
 
   code3 = [v14 code];
-  v34 = 0;
   v35 = 0;
+  v36 = 0;
   if (code3 > 2)
   {
     if (code3 == 3)
@@ -52064,127 +52117,127 @@ LABEL_24:
         recipient = [conversation2 recipient];
         abbreviatedDisplayName = [recipient abbreviatedDisplayName];
 
-        v138 = MEMORY[0x1E696AEC0];
-        v139 = CKFrameworkBundle();
-        [v139 localizedStringForKey:@"COLLABORATION_ERROR_SINGLE_RECIPIENT_CANNOT_JOIN_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-        v141 = v140 = v14;
-        v137 = [v138 stringWithFormat:v141, abbreviatedDisplayName];
+        v157 = MEMORY[0x1E696AEC0];
+        v159 = CKFrameworkBundle(v158);
+        [v159 localizedStringForKey:@"COLLABORATION_ERROR_SINGLE_RECIPIENT_CANNOT_JOIN_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+        v161 = v160 = v14;
+        v156 = [v157 stringWithFormat:v161, abbreviatedDisplayName];
 
         mEMORY[0x1E69DC668]8 = [MEMORY[0x1E69DC668] sharedApplication];
         userInterfaceLayoutDirection8 = [mEMORY[0x1E69DC668]8 userInterfaceLayoutDirection];
 
         if (userInterfaceLayoutDirection8 == 1)
         {
-          v145 = @"\u200F";
+          v165 = @"\u200F";
         }
 
         else
         {
-          v145 = @"\u200E";
+          v165 = @"\u200E";
         }
 
-        v27 = [(__CFString *)v145 stringByAppendingString:v137];
+        v27 = [(__CFString *)v165 stringByAppendingString:v156];
 
-        v146 = MEMORY[0x1E696AEC0];
-        v147 = CKFrameworkBundle();
-        v148 = [v147 localizedStringForKey:@"COLLABORATION_ERROR_SINGLE_RECIPIENT_CANNOT_JOIN_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
-        v1372 = [v146 stringWithFormat:v148, abbreviatedDisplayName];
+        v166 = MEMORY[0x1E696AEC0];
+        v168 = CKFrameworkBundle(v167);
+        v169 = [v168 localizedStringForKey:@"COLLABORATION_ERROR_SINGLE_RECIPIENT_CANNOT_JOIN_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+        v1562 = [v166 stringWithFormat:v169, abbreviatedDisplayName];
 
-        v14 = v140;
+        v14 = v160;
         mEMORY[0x1E69DC668]9 = [MEMORY[0x1E69DC668] sharedApplication];
         userInterfaceLayoutDirection9 = [mEMORY[0x1E69DC668]9 userInterfaceLayoutDirection];
 
         if (userInterfaceLayoutDirection9 == 1)
         {
-          v152 = @"\u200F";
+          v173 = @"\u200F";
         }
 
         else
         {
-          v152 = @"\u200E";
+          v173 = @"\u200E";
         }
 
-        v37 = [(__CFString *)v152 stringByAppendingString:v1372];
+        v38 = [(__CFString *)v173 stringByAppendingString:v1562];
 
         self = selfCopy;
         goto LABEL_87;
       }
 
-      v81 = CKFrameworkBundle();
-      v27 = [v81 localizedStringForKey:@"COLLABORATION_ERROR_ALL_RECIPIENTS_CANNOT_JOIN_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+      v88 = CKFrameworkBundle(v87);
+      v27 = [v88 localizedStringForKey:@"COLLABORATION_ERROR_ALL_RECIPIENTS_CANNOT_JOIN_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-      v51 = CKFrameworkBundle();
-      v52 = v51;
-      v53 = @"COLLABORATION_ERROR_ALL_RECIPIENTS_CANNOT_JOIN_MESSAGE";
+      v54 = CKFrameworkBundle(v89);
+      v55 = v54;
+      v56 = @"COLLABORATION_ERROR_ALL_RECIPIENTS_CANNOT_JOIN_MESSAGE";
     }
 
     else
     {
-      v36 = 0;
       v37 = 0;
+      v38 = 0;
       v27 = 0;
       if (code3 != 4)
       {
         goto LABEL_108;
       }
 
-      v50 = CKFrameworkBundle();
-      v27 = [v50 localizedStringForKey:@"COLLABORATION_ERROR_SOME_RECIPIENTS_CANNOT_JOIN_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+      v52 = CKFrameworkBundle(4);
+      v27 = [v52 localizedStringForKey:@"COLLABORATION_ERROR_SOME_RECIPIENTS_CANNOT_JOIN_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-      v51 = CKFrameworkBundle();
-      v52 = v51;
-      v53 = @"COLLABORATION_ERROR_SOME_RECIPIENTS_CANNOT_JOIN_MESSAGE";
+      v54 = CKFrameworkBundle(v53);
+      v55 = v54;
+      v56 = @"COLLABORATION_ERROR_SOME_RECIPIENTS_CANNOT_JOIN_MESSAGE";
     }
 
-    v37 = [v51 localizedStringForKey:v53 value:&stru_1F04268F8 table:@"ChatKit"];
+    v38 = [v54 localizedStringForKey:v56 value:&stru_1F04268F8 table:@"ChatKit"];
 
     self = selfCopy;
 LABEL_87:
-    v34 = 0;
-    v36 = 0;
-    v35 = 1;
+    v35 = 0;
+    v37 = 0;
+    v36 = 1;
     goto LABEL_108;
   }
 
   if (code3 == 1)
   {
-    v77 = CKFrameworkBundle();
-    v27 = [v77 localizedStringForKey:@"COLLABORATION_ERROR_URL_INACCESSABLE_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v82 = CKFrameworkBundle(1);
+    v27 = [v82 localizedStringForKey:@"COLLABORATION_ERROR_URL_INACCESSABLE_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v39 = CKFrameworkBundle();
-    v40 = v39;
-    v41 = @"COLLABORATION_ERROR_URL_INACCESSABLE_MESSAGE";
+    v41 = CKFrameworkBundle(v83);
+    v42 = v41;
+    v43 = @"COLLABORATION_ERROR_URL_INACCESSABLE_MESSAGE";
     goto LABEL_41;
   }
 
-  v36 = 0;
   v37 = 0;
+  v38 = 0;
   v27 = 0;
   if (code3 == 2)
   {
-    v38 = CKFrameworkBundle();
-    v27 = [v38 localizedStringForKey:@"COLLABORATION_ERROR_MISSING_FILE_FOR_URL_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v39 = CKFrameworkBundle(2);
+    v27 = [v39 localizedStringForKey:@"COLLABORATION_ERROR_MISSING_FILE_FOR_URL_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v39 = CKFrameworkBundle();
-    v40 = v39;
-    v41 = @"COLLABORATION_ERROR_MISSING_FILE_FOR_URL_MESSAGE";
+    v41 = CKFrameworkBundle(v40);
+    v42 = v41;
+    v43 = @"COLLABORATION_ERROR_MISSING_FILE_FOR_URL_MESSAGE";
 LABEL_41:
-    v37 = [v39 localizedStringForKey:v41 value:&stru_1F04268F8 table:@"ChatKit"];
+    v38 = [v41 localizedStringForKey:v43 value:&stru_1F04268F8 table:@"ChatKit"];
 
     self = selfCopy;
-    v35 = 0;
-    v34 = 0;
     v36 = 0;
+    v35 = 0;
+    v37 = 0;
   }
 
 LABEL_108:
   collaborationFailureCount = [(CKChatController *)self collaborationFailureCount];
-  [(CKChatController *)self setCollaborationFailureCount:collaborationFailureCount + 1];
-  if ((v35 & 1) != 0 || collaborationFailureCount < 3)
+  v188 = [(CKChatController *)self setCollaborationFailureCount:collaborationFailureCount + 1];
+  if ((v36 & 1) != 0 || collaborationFailureCount < 3)
   {
     if (v27)
     {
-      if (v37)
+      if (v38)
       {
         goto LABEL_123;
       }
@@ -52192,99 +52245,101 @@ LABEL_108:
 
     else
     {
-      v183 = CKFrameworkBundle();
-      v27 = [v183 localizedStringForKey:@"COLLABORATION_ERROR_OCCURRED_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+      v208 = CKFrameworkBundle(v188);
+      v27 = [v208 localizedStringForKey:@"COLLABORATION_ERROR_OCCURRED_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-      if (v37)
+      if (v38)
       {
         goto LABEL_123;
       }
     }
 
-    v197 = v14;
-    mEMORY[0x1E69A8288]8 = CKFrameworkBundle();
-    v182 = [mEMORY[0x1E69A8288]8 localizedStringForKey:@"COLLABORATION_ERROR_UNKNOWN_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v222 = v14;
+    mEMORY[0x1E69A8288]8 = CKFrameworkBundle(v188);
+    v207 = [mEMORY[0x1E69A8288]8 localizedStringForKey:@"COLLABORATION_ERROR_UNKNOWN_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
   }
 
   else
   {
-    v197 = v14;
-    v165 = CKFrameworkBundle();
-    v166 = [v165 localizedStringForKey:@"COLLABORATION_ERROR_OCCURRED_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v222 = v14;
+    v189 = CKFrameworkBundle(v188);
+    v190 = [v189 localizedStringForKey:@"COLLABORATION_ERROR_OCCURRED_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
     mEMORY[0x1E69A8288]8 = [MEMORY[0x1E69A8288] sharedManager];
-    v168 = [mEMORY[0x1E69A8288]8 appNameFromSharingURL:lCopy];
-    if (v168)
+    v192 = [mEMORY[0x1E69A8288]8 appNameFromSharingURL:lCopy];
+    v193 = v192;
+    if (v192)
     {
-      v169 = MEMORY[0x1E696AEC0];
-      v170 = CKFrameworkBundle();
-      v171 = [v170 localizedStringForKey:@"COLLABORATION_ERROR_COULD_NOT_START_COLLABORATION_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+      v194 = MEMORY[0x1E696AEC0];
+      v195 = CKFrameworkBundle(v192);
+      v196 = [v195 localizedStringForKey:@"COLLABORATION_ERROR_COULD_NOT_START_COLLABORATION_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
       mEMORY[0x1E69A8288]9 = [MEMORY[0x1E69A8288] sharedManager];
       [mEMORY[0x1E69A8288]9 appNameFromSharingURL:lCopy];
-      v194 = v37;
-      v173 = v166;
-      v174 = lCopy;
-      v176 = v175 = v13;
-      v176 = [v169 stringWithFormat:v171, v176];
+      v219 = v38;
+      v198 = v190;
+      v199 = lCopy;
+      v201 = v200 = v13;
+      v201 = [v194 stringWithFormat:v196, v201];
 
       mEMORY[0x1E69DC668]10 = [MEMORY[0x1E69DC668] sharedApplication];
       userInterfaceLayoutDirection10 = [mEMORY[0x1E69DC668]10 userInterfaceLayoutDirection];
 
-      v110 = userInterfaceLayoutDirection10 == 1;
-      v13 = v175;
-      lCopy = v174;
-      v166 = v173;
-      v180 = v194;
-      if (v110)
+      v121 = userInterfaceLayoutDirection10 == 1;
+      v13 = v200;
+      lCopy = v199;
+      v190 = v198;
+      v205 = v219;
+      if (v121)
       {
-        v181 = @"\u200F";
+        v206 = @"\u200F";
       }
 
       else
       {
-        v181 = @"\u200E";
+        v206 = @"\u200E";
       }
 
-      v182 = [(__CFString *)v181 stringByAppendingString:v176];
+      v207 = [(__CFString *)v206 stringByAppendingString:v201];
     }
 
     else
     {
-      v180 = CKFrameworkBundle();
-      v182 = [v180 localizedStringForKey:@"COLLABORATION_ERROR_UNKNOWN_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
-      v176 = v37;
+      v205 = CKFrameworkBundle(0);
+      v207 = [v205 localizedStringForKey:@"COLLABORATION_ERROR_UNKNOWN_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+      v201 = v38;
     }
 
-    v34 = 0;
-    v36 = 0;
-    v27 = v166;
+    v35 = 0;
+    v37 = 0;
+    v27 = v190;
   }
 
-  v37 = v182;
-  v14 = v197;
+  v38 = v207;
+  v14 = v222;
   self = selfCopy;
 LABEL_123:
-  v184 = IMLogHandleForCategory();
-  if (os_log_type_enabled(v184, OS_LOG_TYPE_ERROR))
+  v209 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v209, OS_LOG_TYPE_ERROR))
   {
     [CKChatController(Collaboration) _actuallyPresentCollaborationFailureAlertForComposition:sharingURL:error:completion:];
   }
 
-  v185 = [CKAlertController alertControllerWithTitle:v27 message:v37 preferredStyle:1];
-  [v185 setWantsWindowedPresentation:0];
-  [(CKChatController *)self _addDefaultButtonToSharingErrorAlertController:v185 sharingURL:lCopy defaultButtonAction:v36 completion:v198];
-  [(CKChatController *)self _addOtherButtonToSharingErrorAlertController:v185 otherButtonAction:v34 completion:v198];
+  v210 = [CKAlertController alertControllerWithTitle:v27 message:v38 preferredStyle:1];
+  [v210 setWantsWindowedPresentation:0];
+  [(CKChatController *)self _addDefaultButtonToSharingErrorAlertController:v210 sharingURL:lCopy defaultButtonAction:v37 completion:v223];
+  [(CKChatController *)self _addOtherButtonToSharingErrorAlertController:v210 otherButtonAction:v35 completion:v223];
 
-  [v185 presentFromViewController:self animated:1 completion:0];
+  [v210 presentFromViewController:self animated:1 completion:0];
 }
 
 - (void)_addOtherButtonToSharingErrorAlertController:(id)controller otherButtonAction:(int64_t)action completion:(id)completion
 {
   controllerCopy = controller;
   completionCopy = completion;
+  v10 = completionCopy;
   if (action == 1)
   {
-    v10 = @"NOT_NOW";
+    v11 = @"NOT_NOW";
   }
 
   else
@@ -52294,22 +52349,22 @@ LABEL_123:
       goto LABEL_7;
     }
 
-    v10 = @"CANCEL";
+    v11 = @"CANCEL";
   }
 
-  v11 = CKFrameworkBundle();
-  v12 = [v11 localizedStringForKey:v10 value:&stru_1F04268F8 table:@"ChatKit"];
+  v12 = CKFrameworkBundle(completionCopy);
+  v13 = [v12 localizedStringForKey:v11 value:&stru_1F04268F8 table:@"ChatKit"];
 
-  if (v12)
+  if (v13)
   {
-    v14 = MEMORY[0x1E69E9820];
-    v15 = 3221225472;
-    v16 = __109__CKChatController_Collaboration___addOtherButtonToSharingErrorAlertController_otherButtonAction_completion___block_invoke;
-    v17 = &unk_1E72F35A0;
+    v15 = MEMORY[0x1E69E9820];
+    v16 = 3221225472;
+    v17 = __109__CKChatController_Collaboration___addOtherButtonToSharingErrorAlertController_otherButtonAction_completion___block_invoke;
+    v18 = &unk_1E72F35A0;
     selfCopy = self;
-    v19 = completionCopy;
-    v13 = [CKAlertAction actionWithTitle:v12 style:1 handler:&v14];
-    [controllerCopy addAction:{v13, v14, v15, v16, v17, selfCopy}];
+    v20 = v10;
+    v14 = [CKAlertAction actionWithTitle:v13 style:1 handler:&v15];
+    [controllerCopy addAction:{v14, v15, v16, v17, v18, selfCopy}];
   }
 
 LABEL_7:
@@ -52348,30 +52403,31 @@ uint64_t __109__CKChatController_Collaboration___addOtherButtonToSharingErrorAle
   controllerCopy = controller;
   lCopy = l;
   completionCopy = completion;
+  v13 = completionCopy;
   if (action > 5)
   {
-    v15 = 0;
+    v16 = 0;
   }
 
   else
   {
-    v13 = off_1E72F3ED8[action];
-    v14 = CKFrameworkBundle();
-    v15 = [v14 localizedStringForKey:v13 value:&stru_1F04268F8 table:@"ChatKit"];
+    v14 = off_1E72F3ED8[action];
+    v15 = CKFrameworkBundle(completionCopy);
+    v16 = [v15 localizedStringForKey:v14 value:&stru_1F04268F8 table:@"ChatKit"];
   }
 
-  v19 = MEMORY[0x1E69E9820];
-  v20 = 3221225472;
-  v21 = __124__CKChatController_Collaboration___addDefaultButtonToSharingErrorAlertController_sharingURL_defaultButtonAction_completion___block_invoke;
-  v22 = &unk_1E72F3D00;
-  v23 = lCopy;
+  v20 = MEMORY[0x1E69E9820];
+  v21 = 3221225472;
+  v22 = __124__CKChatController_Collaboration___addDefaultButtonToSharingErrorAlertController_sharingURL_defaultButtonAction_completion___block_invoke;
+  v23 = &unk_1E72F3D00;
+  v24 = lCopy;
   selfCopy = self;
-  v25 = completionCopy;
+  v26 = v13;
   actionCopy = action;
-  v16 = completionCopy;
-  v17 = lCopy;
-  v18 = [CKAlertAction actionWithTitle:v15 style:0 handler:&v19];
-  [controllerCopy addAction:{v18, v19, v20, v21, v22}];
+  v17 = v13;
+  v18 = lCopy;
+  v19 = [CKAlertAction actionWithTitle:v16 style:0 handler:&v20];
+  [controllerCopy addAction:{v19, v20, v21, v22, v23}];
 }
 
 void __124__CKChatController_Collaboration___addDefaultButtonToSharingErrorAlertController_sharingURL_defaultButtonAction_completion___block_invoke(uint64_t a1, void *a2)
@@ -52446,7 +52502,7 @@ void __124__CKChatController_Collaboration___addDefaultButtonToSharingErrorAlert
         v9 = IMLogHandleForCategory();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
-          __124__CKChatController_Collaboration___addDefaultButtonToSharingErrorAlertController_sharingURL_defaultButtonAction_completion___block_invoke_cold_3(a1 + 32, v9, v15, v16, v17, v18, v19, v20);
+          __124__CKChatController_Collaboration___addDefaultButtonToSharingErrorAlertController_sharingURL_defaultButtonAction_completion___block_invoke_cold_3((a1 + 32), v9, v15, v16, v17, v18, v19, v20);
         }
       }
     }
@@ -53847,7 +53903,7 @@ LABEL_11:
 - (void)createCollaborationFailureAlertForNotice:(id)notice
 {
   noticeCopy = notice;
-  v5 = CKFrameworkBundle();
+  v5 = CKFrameworkBundle(noticeCopy);
   v6 = [v5 localizedStringForKey:@"FAILED_COLLABORATION_UPDATE_ALERT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
   if (!noticeCopy)
@@ -53866,10 +53922,10 @@ LABEL_11:
   metadata2 = [notice2 metadata];
   bundleIdentifier = [metadata2 bundleIdentifier];
 
-  v58 = 0;
-  v13 = [MEMORY[0x1E6963620] bundleRecordWithBundleIdentifier:bundleIdentifier allowPlaceholder:0 error:&v58];
+  v60 = 0;
+  v13 = [MEMORY[0x1E6963620] bundleRecordWithBundleIdentifier:bundleIdentifier allowPlaceholder:0 error:&v60];
   v14 = v13;
-  if (!v58)
+  if (!v60)
   {
     v17 = v6;
     localizedName = [v13 localizedName];
@@ -53879,7 +53935,7 @@ LABEL_11:
 
     if (type == 8)
     {
-      v21 = @"FAILED_COLLABORATION_ADD_UPDATE_ALERT_MESSAGE";
+      v22 = @"FAILED_COLLABORATION_ADD_UPDATE_ALERT_MESSAGE";
     }
 
     else
@@ -53896,28 +53952,28 @@ LABEL_14:
         goto LABEL_15;
       }
 
-      v21 = @"FAILED_COLLABORATION_REMOVE_UPDATE_ALERT_MESSAGE";
+      v22 = @"FAILED_COLLABORATION_REMOVE_UPDATE_ALERT_MESSAGE";
     }
 
-    v25 = MEMORY[0x1E696AEC0];
-    v26 = CKFrameworkBundle();
-    v27 = [v26 localizedStringForKey:v21 value:&stru_1F04268F8 table:@"ChatKit"];
-    v28 = [v25 stringWithFormat:v27, contentTitle, localizedName];
+    v26 = MEMORY[0x1E696AEC0];
+    v27 = CKFrameworkBundle(v21);
+    v28 = [v27 localizedStringForKey:v22 value:&stru_1F04268F8 table:@"ChatKit"];
+    v29 = [v26 stringWithFormat:v28, contentTitle, localizedName];
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection == 1)
     {
-      v31 = @"\u200F";
+      v32 = @"\u200F";
     }
 
     else
     {
-      v31 = @"\u200E";
+      v32 = @"\u200E";
     }
 
-    v16 = [(__CFString *)v31 stringByAppendingString:v28];
+    v16 = [(__CFString *)v32 stringByAppendingString:v29];
 
     goto LABEL_14;
   }
@@ -53927,63 +53983,64 @@ LABEL_14:
 LABEL_15:
 
 LABEL_16:
-  v32 = [CKAlertController alertControllerWithTitle:v6 message:v16 preferredStyle:1];
-  v33 = 0x1E72E4000;
+  v33 = [CKAlertController alertControllerWithTitle:v6 message:v16 preferredStyle:1];
+  v34 = [localizedName length];
+  v35 = 0x1E72E4000;
   selfCopy = self;
-  if ([localizedName length])
+  if (v34)
   {
-    v35 = MEMORY[0x1E696AEC0];
-    v36 = CKFrameworkBundle();
-    [v36 localizedStringForKey:@"FAILED_COLLABORATION_OPEN_IN_APP" value:&stru_1F04268F8 table:@"ChatKit"];
-    v37 = v32;
-    v38 = selfCopy;
-    v39 = v16;
-    v40 = noticeCopy;
-    v41 = bundleIdentifier;
-    v43 = v42 = v6;
-    v44 = [v35 stringWithFormat:v43, localizedName];
+    v37 = MEMORY[0x1E696AEC0];
+    v38 = CKFrameworkBundle(v34);
+    [v38 localizedStringForKey:@"FAILED_COLLABORATION_OPEN_IN_APP" value:&stru_1F04268F8 table:@"ChatKit"];
+    v39 = v33;
+    v40 = selfCopy;
+    v41 = v16;
+    v42 = noticeCopy;
+    v43 = bundleIdentifier;
+    v45 = v44 = v6;
+    v46 = [v37 stringWithFormat:v45, localizedName];
 
-    v6 = v42;
-    bundleIdentifier = v41;
-    noticeCopy = v40;
-    v16 = v39;
-    selfCopy = v38;
-    v32 = v37;
+    v6 = v44;
+    bundleIdentifier = v43;
+    noticeCopy = v42;
+    v16 = v41;
+    selfCopy = v40;
+    v33 = v39;
 
     mEMORY[0x1E69DC668]2 = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection2 = [mEMORY[0x1E69DC668]2 userInterfaceLayoutDirection];
 
-    v47 = userInterfaceLayoutDirection2 == 1;
-    v33 = 0x1E72E4000uLL;
-    if (v47)
+    v49 = userInterfaceLayoutDirection2 == 1;
+    v35 = 0x1E72E4000uLL;
+    if (v49)
     {
-      v48 = @"\u200F";
+      v50 = @"\u200F";
     }
 
     else
     {
-      v48 = @"\u200E";
+      v50 = @"\u200E";
     }
 
-    v49 = [(__CFString *)v48 stringByAppendingString:v44];
+    v51 = [(__CFString *)v50 stringByAppendingString:v46];
 
-    v55[0] = MEMORY[0x1E69E9820];
-    v55[1] = 3221225472;
-    v55[2] = __81__CKChatController_GroupCollaboration__createCollaborationFailureAlertForNotice___block_invoke;
-    v55[3] = &unk_1E72EC710;
-    v56 = bundleIdentifier;
-    v57 = selfCopy;
-    v50 = [CKAlertAction actionWithTitle:v49 style:0 handler:v55];
-    [v32 addAction:v50];
+    v57[0] = MEMORY[0x1E69E9820];
+    v57[1] = 3221225472;
+    v57[2] = __81__CKChatController_GroupCollaboration__createCollaborationFailureAlertForNotice___block_invoke;
+    v57[3] = &unk_1E72EC710;
+    v58 = bundleIdentifier;
+    v59 = selfCopy;
+    v52 = [CKAlertAction actionWithTitle:v51 style:0 handler:v57];
+    [v33 addAction:v52];
   }
 
-  v51 = *(v33 + 1824);
-  v52 = CKFrameworkBundle();
-  v53 = [v52 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
-  v54 = [v51 actionWithTitle:v53 style:0 handler:&__block_literal_global_323_0];
-  [v32 addAction:v54];
+  v53 = *(v35 + 1824);
+  v54 = CKFrameworkBundle(v34);
+  v55 = [v54 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
+  v56 = [v53 actionWithTitle:v55 style:0 handler:&__block_literal_global_323_0];
+  [v33 addAction:v56];
 
-  [v32 presentFromViewController:selfCopy animated:1 completion:0];
+  [v33 presentFromViewController:selfCopy animated:1 completion:0];
 }
 
 void __81__CKChatController_GroupCollaboration__createCollaborationFailureAlertForNotice___block_invoke(uint64_t a1)
@@ -54005,67 +54062,68 @@ void __81__CKChatController_GroupCollaboration__createCollaborationFailureAlertF
 {
   fallbackCopy = fallback;
   lCopy = l;
-  v6 = CKFrameworkBundle();
-  v27 = [v6 localizedStringForKey:@"FAILED_COLLABORATION_METADATA_ALERT_MESSAGE_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+  v6 = CKFrameworkBundle(lCopy);
+  v29 = [v6 localizedStringForKey:@"FAILED_COLLABORATION_METADATA_ALERT_MESSAGE_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
   mEMORY[0x1E69A8288] = [MEMORY[0x1E69A8288] sharedManager];
   v8 = [mEMORY[0x1E69A8288] appNameFromSharingURL:lCopy];
+  v9 = v8;
   if (v8)
   {
-    v9 = MEMORY[0x1E696AEC0];
-    v10 = CKFrameworkBundle();
-    v11 = [v10 localizedStringForKey:@"FAILED_COLLABORATION_METADATA_ALERT_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v10 = MEMORY[0x1E696AEC0];
+    v11 = CKFrameworkBundle(v8);
+    v12 = [v11 localizedStringForKey:@"FAILED_COLLABORATION_METADATA_ALERT_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
     mEMORY[0x1E69A8288]2 = [MEMORY[0x1E69A8288] sharedManager];
-    v13 = [mEMORY[0x1E69A8288]2 appNameFromSharingURL:lCopy];
-    v14 = [v9 stringWithFormat:v11, v13];
+    v14 = [mEMORY[0x1E69A8288]2 appNameFromSharingURL:lCopy];
+    v15 = [v10 stringWithFormat:v12, v14];
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection == 1)
     {
-      v17 = @"\u200F";
+      v18 = @"\u200F";
     }
 
     else
     {
-      v17 = @"\u200E";
+      v18 = @"\u200E";
     }
 
-    v18 = [(__CFString *)v17 stringByAppendingString:v14];
+    v19 = [(__CFString *)v18 stringByAppendingString:v15];
   }
 
   else
   {
-    v14 = CKFrameworkBundle();
-    v18 = [v14 localizedStringForKey:@"COLLABORATION_ERROR_UNKNOWN_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v15 = CKFrameworkBundle(0);
+    v19 = [v15 localizedStringForKey:@"COLLABORATION_ERROR_UNKNOWN_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
   }
 
-  v19 = v18;
+  v20 = v19;
 
   if (fallbackCopy)
   {
-    v20 = CKFrameworkBundle();
-    v21 = [v20 localizedStringForKey:@"FAILED_COLLABORATION_FALLBACK_SENDASCOPY" value:&stru_1F04268F8 table:@"ChatKit"];
+    v22 = CKFrameworkBundle(v21);
+    v23 = [v22 localizedStringForKey:@"FAILED_COLLABORATION_FALLBACK_SENDASCOPY" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v22 = [v19 stringByAppendingString:v21];
+    v24 = [v20 stringByAppendingString:v23];
 
-    v19 = v22;
+    v20 = v24;
   }
 
-  v23 = CKFrameworkBundle();
-  v24 = [v23 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
+  v25 = CKFrameworkBundle(v21);
+  v26 = [v25 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
 
-  v25 = [CKAlertController alertControllerWithTitle:v27 message:v19 preferredStyle:1];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __109__CKChatController_GroupCollaboration__createCollaborationFailureAlertForFailedMetadataLoadWithFallback_URL___block_invoke;
-  v29[3] = &unk_1E72EBFE8;
-  v29[4] = self;
-  v26 = [CKAlertAction actionWithTitle:v24 style:0 handler:v29];
-  [v25 addAction:v26];
+  v27 = [CKAlertController alertControllerWithTitle:v29 message:v20 preferredStyle:1];
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __109__CKChatController_GroupCollaboration__createCollaborationFailureAlertForFailedMetadataLoadWithFallback_URL___block_invoke;
+  v31[3] = &unk_1E72EBFE8;
+  v31[4] = self;
+  v28 = [CKAlertAction actionWithTitle:v26 style:0 handler:v31];
+  [v27 addAction:v28];
 
-  [v25 presentFromViewController:self animated:1 completion:0];
+  [v27 presentFromViewController:self animated:1 completion:0];
 }
 
 void __109__CKChatController_GroupCollaboration__createCollaborationFailureAlertForFailedMetadataLoadWithFallback_URL___block_invoke(uint64_t a1)
@@ -54081,33 +54139,33 @@ void __109__CKChatController_GroupCollaboration__createCollaborationFailureAlert
 {
   blockCopy = block;
   cancelBlockCopy = cancelBlock;
-  v7 = CKFrameworkBundle();
+  v7 = CKFrameworkBundle(cancelBlockCopy);
   v8 = [v7 localizedStringForKey:@"SHELF_REPLACE_ITEM_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-  v9 = CKFrameworkBundle();
+  v9 = CKFrameworkBundle(v8);
   v10 = [v9 localizedStringForKey:@"SHELF_REPLACE_ITEM" value:&stru_1F04268F8 table:@"ChatKit"];
   v11 = [CKAlertController alertControllerWithTitle:v8 message:v10 preferredStyle:1];
 
-  v12 = CKFrameworkBundle();
-  v13 = [v12 localizedStringForKey:@"SHELF_REPLACE_ITEM_OK_ACTION_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+  v13 = CKFrameworkBundle(v12);
+  v14 = [v13 localizedStringForKey:@"SHELF_REPLACE_ITEM_OK_ACTION_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __104__CKChatController_GroupCollaboration__presentReplaceCompositionAlertWithConfirmationBlock_cancelBlock___block_invoke;
+  v25[3] = &unk_1E72EC218;
+  v26 = blockCopy;
+  v15 = blockCopy;
+  v16 = [CKAlertAction actionWithTitle:v14 style:0 handler:v25];
+  [v11 addAction:v16];
+
+  v18 = CKFrameworkBundle(v17);
+  v19 = [v18 localizedStringForKey:@"SHELF_REPLACE_ITEM_CANCEL_ACTION_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
   v23[0] = MEMORY[0x1E69E9820];
   v23[1] = 3221225472;
-  v23[2] = __104__CKChatController_GroupCollaboration__presentReplaceCompositionAlertWithConfirmationBlock_cancelBlock___block_invoke;
+  v23[2] = __104__CKChatController_GroupCollaboration__presentReplaceCompositionAlertWithConfirmationBlock_cancelBlock___block_invoke_2;
   v23[3] = &unk_1E72EC218;
-  v24 = blockCopy;
-  v14 = blockCopy;
-  v15 = [CKAlertAction actionWithTitle:v13 style:0 handler:v23];
-  [v11 addAction:v15];
-
-  v16 = CKFrameworkBundle();
-  v17 = [v16 localizedStringForKey:@"SHELF_REPLACE_ITEM_CANCEL_ACTION_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __104__CKChatController_GroupCollaboration__presentReplaceCompositionAlertWithConfirmationBlock_cancelBlock___block_invoke_2;
-  v21[3] = &unk_1E72EC218;
-  v22 = cancelBlockCopy;
-  v18 = cancelBlockCopy;
-  v19 = [CKAlertAction actionWithTitle:v17 style:0 handler:v21];
-  [v11 addAction:v19];
+  v24 = cancelBlockCopy;
+  v20 = cancelBlockCopy;
+  v21 = [CKAlertAction actionWithTitle:v19 style:0 handler:v23];
+  [v11 addAction:v21];
 
   [v11 presentFromViewController:self animated:1 completion:0];
 }
@@ -55260,7 +55318,7 @@ uint64_t __84__CKChatController_PhotosSupport__presentedPreviewControllerDidSele
     [(CKChatController *)self setQlPreviewDataSource:v14];
     if (referenceCopy)
     {
-      [referenceCopy indexPath];
+      objc_msgSend_indexPath(referenceCopy);
       v16 = v28;
     }
 
@@ -55305,7 +55363,7 @@ uint64_t __84__CKChatController_PhotosSupport__presentedPreviewControllerDidSele
     v17 = IMLogHandleForCategory();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [CKChatController(PhotosSupport) _previewViewControllerForAssetReference:dataSource:previewDelegate:previewMode:];
+      [CKChatController(PhotosSupport) _previewViewControllerForAssetReference:sourceCopy dataSource:? previewDelegate:? previewMode:?];
     }
 
     v18 = 0;
@@ -55612,7 +55670,7 @@ LABEL_8:
     {
       if (snapshotCopy)
       {
-        [snapshotCopy cursorIndexPath];
+        objc_msgSend_cursorIndexPath(snapshotCopy);
       }
 
       else
@@ -55632,7 +55690,7 @@ LABEL_8:
       {
         if (snapshotCopy)
         {
-          [snapshotCopy cursorIndexPath];
+          objc_msgSend_cursorIndexPath(snapshotCopy);
         }
 
         else
@@ -55653,7 +55711,7 @@ LABEL_8:
       v11 = IMLogHandleForCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [CKChatController(PhotosSupport) _assetReferenceForDisplayedGridChatItem:selectionSnapshot:];
+        [CKChatController(PhotosSupport) _assetReferenceForDisplayedGridChatItem:currentDataSource selectionSnapshot:?];
       }
     }
 
@@ -56312,7 +56370,7 @@ LABEL_11:
 - (id)createNewContactActionWithNicknameUpdate:(id)update
 {
   updateCopy = update;
-  v5 = CKFrameworkBundle();
+  v5 = CKFrameworkBundle(updateCopy);
   v6 = [v5 localizedStringForKey:@"CREATE_NEW_CONTACT" value:&stru_1F04268F8 table:@"ChatKit"];
 
   v7 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"person.crop.circle"];
@@ -56342,7 +56400,7 @@ void __71__CKChatController_Contacts__createNewContactActionWithNicknameUpdate__
 - (id)addToExistingContactActionWithNicknameUpdate:(id)update
 {
   updateCopy = update;
-  v5 = CKFrameworkBundle();
+  v5 = CKFrameworkBundle(updateCopy);
   v6 = [v5 localizedStringForKey:@"ADD_TO_EXISTING_CONTACT" value:&stru_1F04268F8 table:@"ChatKit"];
 
   v7 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"person.crop.circle.badge.plus"];
@@ -56378,71 +56436,71 @@ void __75__CKChatController_Contacts__addToExistingContactActionWithNicknameUpda
   updateCopy = update;
   blockCopy = block;
   viewCopy = view;
-  v10 = CKFrameworkBundle();
-  v50 = [v10 localizedStringForKey:@"UPDATE_PHOTO_AND_NAME_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+  v10 = CKFrameworkBundle(viewCopy);
+  v54 = [v10 localizedStringForKey:@"UPDATE_PHOTO_AND_NAME_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-  v11 = [CKAlertController alertControllerWithTitle:v50 message:0 preferredStyle:0];
+  v11 = [CKAlertController alertControllerWithTitle:v54 message:0 preferredStyle:0];
   nickname = [updateCopy nickname];
   v13 = [(CKChatController *)self contactForNickname:nickname];
 
-  v14 = CKFrameworkBundle();
-  v15 = [v14 localizedStringForKey:@"NAME_AND_PHOTO" value:&stru_1F04268F8 table:@"ChatKit"];
+  v15 = CKFrameworkBundle(v14);
+  v16 = [v15 localizedStringForKey:@"NAME_AND_PHOTO" value:&stru_1F04268F8 table:@"ChatKit"];
+  v65[0] = MEMORY[0x1E69E9820];
+  v65[1] = 3221225472;
+  v65[2] = __91__CKChatController_Contacts__showUpdatePromptForNicknameUpdate_sourceView_completionBlock___block_invoke;
+  v65[3] = &unk_1E72EDA18;
+  v65[4] = self;
+  v17 = v13;
+  v66 = v17;
+  v18 = updateCopy;
+  v67 = v18;
+  v19 = blockCopy;
+  v68 = v19;
+  v20 = [CKAlertAction actionWithTitle:v16 style:0 handler:v65];
+  [v11 addAction:v20];
+
+  v22 = CKFrameworkBundle(v21);
+  v23 = [v22 localizedStringForKey:@"PHOTO_ONLY" value:&stru_1F04268F8 table:@"ChatKit"];
   v61[0] = MEMORY[0x1E69E9820];
   v61[1] = 3221225472;
-  v61[2] = __91__CKChatController_Contacts__showUpdatePromptForNicknameUpdate_sourceView_completionBlock___block_invoke;
+  v61[2] = __91__CKChatController_Contacts__showUpdatePromptForNicknameUpdate_sourceView_completionBlock___block_invoke_2;
   v61[3] = &unk_1E72EDA18;
   v61[4] = self;
-  v16 = v13;
-  v62 = v16;
-  v17 = updateCopy;
-  v63 = v17;
-  v18 = blockCopy;
-  v64 = v18;
-  v19 = [CKAlertAction actionWithTitle:v15 style:0 handler:v61];
-  [v11 addAction:v19];
+  v24 = v17;
+  v62 = v24;
+  v25 = v18;
+  v63 = v25;
+  v26 = v19;
+  v64 = v26;
+  v27 = [CKAlertAction actionWithTitle:v23 style:0 handler:v61];
+  [v11 addAction:v27];
 
-  v20 = CKFrameworkBundle();
-  v21 = [v20 localizedStringForKey:@"PHOTO_ONLY" value:&stru_1F04268F8 table:@"ChatKit"];
+  v29 = CKFrameworkBundle(v28);
+  v30 = [v29 localizedStringForKey:@"NAME_ONLY" value:&stru_1F04268F8 table:@"ChatKit"];
   v57[0] = MEMORY[0x1E69E9820];
   v57[1] = 3221225472;
-  v57[2] = __91__CKChatController_Contacts__showUpdatePromptForNicknameUpdate_sourceView_completionBlock___block_invoke_2;
+  v57[2] = __91__CKChatController_Contacts__showUpdatePromptForNicknameUpdate_sourceView_completionBlock___block_invoke_3;
   v57[3] = &unk_1E72EDA18;
   v57[4] = self;
-  v22 = v16;
-  v58 = v22;
-  v23 = v17;
-  v59 = v23;
-  v24 = v18;
-  v60 = v24;
-  v25 = [CKAlertAction actionWithTitle:v21 style:0 handler:v57];
-  [v11 addAction:v25];
+  v58 = v24;
+  v59 = v25;
+  v31 = v26;
+  v60 = v31;
+  v32 = v25;
+  v33 = v24;
+  v34 = [CKAlertAction actionWithTitle:v30 style:0 handler:v57];
+  [v11 addAction:v34];
 
-  v26 = CKFrameworkBundle();
-  v27 = [v26 localizedStringForKey:@"NAME_ONLY" value:&stru_1F04268F8 table:@"ChatKit"];
-  v53[0] = MEMORY[0x1E69E9820];
-  v53[1] = 3221225472;
-  v53[2] = __91__CKChatController_Contacts__showUpdatePromptForNicknameUpdate_sourceView_completionBlock___block_invoke_3;
-  v53[3] = &unk_1E72EDA18;
-  v53[4] = self;
-  v54 = v22;
-  v55 = v23;
-  v28 = v24;
-  v56 = v28;
-  v29 = v23;
-  v30 = v22;
-  v31 = [CKAlertAction actionWithTitle:v27 style:0 handler:v53];
-  [v11 addAction:v31];
-
-  v32 = CKFrameworkBundle();
-  v33 = [v32 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
-  v51[0] = MEMORY[0x1E69E9820];
-  v51[1] = 3221225472;
-  v51[2] = __91__CKChatController_Contacts__showUpdatePromptForNicknameUpdate_sourceView_completionBlock___block_invoke_4;
-  v51[3] = &unk_1E72EC218;
-  v52 = v28;
-  v34 = v28;
-  v35 = [CKAlertAction actionWithTitle:v33 style:1 handler:v51];
-  [v11 addAction:v35];
+  v36 = CKFrameworkBundle(v35);
+  v37 = [v36 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
+  v55[0] = MEMORY[0x1E69E9820];
+  v55[1] = 3221225472;
+  v55[2] = __91__CKChatController_Contacts__showUpdatePromptForNicknameUpdate_sourceView_completionBlock___block_invoke_4;
+  v55[3] = &unk_1E72EC218;
+  v56 = v31;
+  v38 = v31;
+  v39 = [CKAlertAction actionWithTitle:v37 style:1 handler:v55];
+  [v11 addAction:v39];
 
   popoverPresentationController = [v11 popoverPresentationController];
   view = [(CKChatController *)self view];
@@ -56451,13 +56509,13 @@ void __75__CKChatController_Contacts__addToExistingContactActionWithNicknameUpda
   popoverPresentationController2 = [v11 popoverPresentationController];
   view2 = [(CKChatController *)self view];
   [viewCopy frame];
-  v41 = v40;
-  v43 = v42;
   v45 = v44;
   v47 = v46;
+  v49 = v48;
+  v51 = v50;
   superview = [viewCopy superview];
 
-  [view2 convertRect:superview fromView:{v41, v43, v45, v47}];
+  [view2 convertRect:superview fromView:{v45, v47, v49, v51}];
   [popoverPresentationController2 setSourceRect:?];
 
   [v11 presentFromViewController:self animated:1 completion:0];
@@ -56553,7 +56611,7 @@ uint64_t __91__CKChatController_Contacts__showUpdatePromptForNicknameUpdate_sour
   contactCopy = contact;
   updateCopy = update;
   blockCopy = block;
-  v11 = CKFrameworkBundle();
+  v11 = CKFrameworkBundle(blockCopy);
   v12 = [v11 localizedStringForKey:@"NAME_AND_PHOTO" value:&stru_1F04268F8 table:@"ChatKit"];
 
   objc_initWeak(&location, self);
@@ -56592,7 +56650,7 @@ uint64_t __91__CKChatController_Contacts__nameAndPhotoForContact_andNicknameUpda
   contactCopy = contact;
   updateCopy = update;
   blockCopy = block;
-  v11 = CKFrameworkBundle();
+  v11 = CKFrameworkBundle(blockCopy);
   v12 = [v11 localizedStringForKey:@"NAME_ONLY" value:&stru_1F04268F8 table:@"ChatKit"];
 
   objc_initWeak(&location, self);
@@ -56631,7 +56689,7 @@ uint64_t __87__CKChatController_Contacts__nameOnlyForContact_andNicknameUpdate_w
   contactCopy = contact;
   updateCopy = update;
   blockCopy = block;
-  v11 = CKFrameworkBundle();
+  v11 = CKFrameworkBundle(blockCopy);
   v12 = [v11 localizedStringForKey:@"PHOTO_ONLY" value:&stru_1F04268F8 table:@"ChatKit"];
 
   objc_initWeak(&location, self);
@@ -57178,20 +57236,20 @@ void __69__CKChatController_Location___stageCurrentLocationInEntryViewForURL___b
 
 - (id)currentLocationDeniedAlert
 {
-  v2 = CKFrameworkBundle();
+  v2 = CKFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"TURN_ON_LOCATION_SERVICES_TO_SEND_LOCATION" value:&stru_1F04268F8 table:@"ChatKit"];
   v4 = [CKAlertController alertControllerWithTitle:v3 message:0 preferredStyle:1];
 
-  v5 = CKFrameworkBundle();
-  v6 = [v5 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
-  v7 = [CKAlertAction actionWithTitle:v6 style:1 handler:0];
-  [v4 addAction:v7];
+  v6 = CKFrameworkBundle(v5);
+  v7 = [v6 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
+  v8 = [CKAlertAction actionWithTitle:v7 style:1 handler:0];
+  [v4 addAction:v8];
 
-  v8 = CKFrameworkBundle();
-  v9 = [v8 localizedStringForKey:@"SETTINGS" value:&stru_1F04268F8 table:@"ChatKit"];
-  v10 = [CKAlertAction actionWithTitle:v9 style:0 handler:&__block_literal_global_257_0];
+  v10 = CKFrameworkBundle(v9);
+  v11 = [v10 localizedStringForKey:@"SETTINGS" value:&stru_1F04268F8 table:@"ChatKit"];
+  v12 = [CKAlertAction actionWithTitle:v11 style:0 handler:&__block_literal_global_257_0];
 
-  [v4 addAction:v10];
+  [v4 addAction:v12];
 
   return v4;
 }
@@ -57522,7 +57580,7 @@ void __56__CKChatController_Location__currentLocationDeniedAlert__block_invoke()
   selfCopy = self;
   sub_19089EE74(itemCopy);
 
-  sub_1902188FC(0, &unk_1EAD45090);
+  sub_1902188FC(0, &unk_1EAD45090, 0x1E69DCC78);
   v6 = sub_190D57160();
 
   return v6;
@@ -57578,11 +57636,11 @@ LABEL_8:
   itemCopy = item;
   selfCopy = self;
   sub_19089F36C(itemCopy, v10, v13, v11, v14, v12, v15);
-  sub_19022123C(v12);
-  sub_19022123C(v11);
-  sub_19022123C(v10);
+  sub_19022123C(v12, v15);
+  sub_19022123C(v11, v14);
+  sub_19022123C(v10, v13);
 
-  sub_1902188FC(0, &unk_1EAD45090);
+  sub_1902188FC(0, &unk_1EAD45090, 0x1E69DCC78);
   v18 = sub_190D57160();
 
   return v18;
@@ -57610,7 +57668,7 @@ LABEL_8:
   contextualChatItemsForTapbackPicker = [(CKCoreChatController *)selfCopy contextualChatItemsForTapbackPicker];
   if (!contextualChatItemsForTapbackPicker)
   {
-    sub_1902188FC(0, &qword_1EAD450F0);
+    sub_1902188FC(0, &qword_1EAD450F0, off_1E72E4A90);
     sub_190D57180();
     contextualChatItemsForTapbackPicker = sub_190D57160();
   }
@@ -57748,7 +57806,7 @@ LABEL_8:
 
 - (void)clearTranslationCache
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0, &qword_190DD7B00);
   MEMORY[0x1EEE9AC00](v2 - 8);
   v4 = &v9 - v3;
   v5 = sub_190D572E0();
@@ -57764,7 +57822,7 @@ LABEL_8:
 
 - (void)showTranslationTips:(id)tips
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0, &qword_190DD7B00);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(tips);
@@ -57789,7 +57847,7 @@ LABEL_8:
 
 - (void)startDownloadingTranslationAssetsForLanguageCodes:(NSArray *)codes completion:(id)completion
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0, &qword_190DD7B00);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
@@ -57816,7 +57874,7 @@ LABEL_8:
 
 - (void)startDownloadFor:(NSArray *)for completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0, &qword_190DD7B00);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -57843,7 +57901,7 @@ LABEL_8:
 
 - (void)enableAutomaticTranslationForLanguageCode:(id)code userTranslationCode:(id)translationCode affectedMessageGUIDs:(id)ds
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0, &qword_190DD7B00);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v21 - v8;
   v10 = sub_190D56F10();
@@ -57888,7 +57946,7 @@ LABEL_8:
 
 - (void)translateConversationForChatItem:(id)item
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0, &qword_190DD7B00);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v15 - v6;
   v8 = sub_190D572E0();
@@ -57909,7 +57967,7 @@ LABEL_8:
 
 - (void)presentTranslationLanguagePickerWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD5BAF0, &qword_190DD7B00);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -58055,7 +58113,7 @@ LABEL_8:
   collectionViewController = [(CKCoreChatController *)selfCopy collectionViewController];
   chatItems = [(CKCoreTranscriptControllerProtocol *)collectionViewController chatItems];
 
-  sub_1902188FC(0, &qword_1EAD450F0);
+  sub_1902188FC(0, &qword_1EAD450F0, off_1E72E4A90);
   sub_190D57180();
 
   v5 = sub_190D57160();
@@ -58446,14 +58504,14 @@ void __115__CKChatController__presentCollabAddToMessagesGroupAlertIfNecessary_co
 {
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_8(&dword_19020E000, v2, v3, "returned from %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_8(&dword_19020E000, v2, v3, "returned from %@", v4, v5, v6, v7);
 }
 
 - (void)textPasteConfigurationSupporting:(const char *)a1 performPasteOfAttributedString:toRange:.cold.1(const char *a1)
 {
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_8(&dword_19020E000, v2, v3, "performed paste in %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_8(&dword_19020E000, v2, v3, "performed paste in %@", v4, v5, v6, v7);
 }
 
 - (void)dragInteraction:previewForLiftingItem:session:.cold.3()
@@ -58470,19 +58528,19 @@ void __115__CKChatController__presentCollabAddToMessagesGroupAlertIfNecessary_co
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-- (void)dragPreviewParametersForBalloonView:.cold.1()
+- (void)dragPreviewParametersForBalloonView:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = [objc_opt_class() description];
+  v1 = [objc_opt_class() description];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)dropInteraction:(void *)a1 performDrop:.cold.2(void *a1)
 {
   [a1 count];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_8(&dword_19020E000, v1, v2, "Perform drop with %ld itemProviders", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8(&dword_19020E000, v1, v2, "Perform drop with %ld itemProviders", v3, v4, v5, v6);
 }
 
 - (void)dropInteraction:previewForDroppingItem:withDefault:.cold.2()
@@ -58499,13 +58557,13 @@ void __115__CKChatController__presentCollabAddToMessagesGroupAlertIfNecessary_co
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)messageEditingViewController:contentInsetsForChatItemGuid:.cold.1()
+- (void)messageEditingViewController:(uint64_t)a1 contentInsetsForChatItemGuid:.cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 - (void)messageEditingViewController:contentInsetsForChatItemGuid:.cold.2()
@@ -58536,6 +58594,13 @@ void __44__CKChatController_MenuBar__keyCommandPage___block_invoke_cold_1(id *a1
   v4 = 138412290;
   v5 = v3;
   _os_log_error_impl(&dword_19020E000, a2, OS_LOG_TYPE_ERROR, "Unexpected input key for paging key command %@", &v4, 0xCu);
+}
+
+void __124__CKChatController_Collaboration___addDefaultButtonToSharingErrorAlertController_sharingURL_defaultButtonAction_completion___block_invoke_cold_3(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_1_0(&dword_19020E000, a2, a3, "Failed to find app store url for sharing url: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __127__CKChatController_GroupCollaboration___addParticipantToShare_withHandle_toCollaboration_containerSetupInfo_completionHandler___block_invoke_cold_1()
@@ -58571,6 +58636,22 @@ void __102__CKChatController_GroupCollaboration___removeParticipant_fromShareURL
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+void __99__CKChatController_GroupCollaboration___collaborationMetadataForURL_forChatGUID_completionHandler___block_invoke_cold_1()
+{
+  OUTLINED_FUNCTION_6_1(*MEMORY[0x1E69E9840]);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_1_0(&dword_19020E000, v1, v2, "Did not get any attributions from URL: %@", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+void __99__CKChatController_GroupCollaboration___collaborationMetadataForURL_forChatGUID_completionHandler___block_invoke_cold_2()
+{
+  OUTLINED_FUNCTION_6_1(*MEMORY[0x1E69E9840]);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_1_0(&dword_19020E000, v1, v2, "Did not find an attribution for URL: %@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 void __74__CKChatController_GroupCollaboration___isShareBearURL_completionHandler___block_invoke_cold_1()

@@ -1,13 +1,20 @@
-id sa_default_log()
+void sub_23AA4E9B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
+{
+  va_start(va, a33);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+id sa_default_log(uint64_t a1)
 {
   if (sa_default_log_onceToken != -1)
   {
     sa_default_log_cold_1();
   }
 
-  v1 = sa_default_log___logger;
+  v2 = sa_default_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
@@ -63,10 +70,11 @@ void sub_23AA51F60(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
 void sub_23AA559E4(_Unwind_Exception *a1)
@@ -77,16 +85,18 @@ void sub_23AA559E4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_7(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_7(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x20u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x20u);
 }
 
-void OUTLINED_FUNCTION_4_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_4_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_23AA56A08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25)
@@ -98,7 +108,7 @@ void sub_23AA56A08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -112,13 +122,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -411,22 +421,23 @@ uint64_t __sa_default_log_block_invoke()
 
 void authorizationPromptResponseHandler(const void *a1, char a2)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v4 = +[SAAuthorizationInFlight sharedInstance];
-  if ([v4 isInFlight])
+  v5 = [v4 isInFlight];
+  if (v5)
   {
     if ((a2 & 3) - 2 < 2)
     {
-      v5 = sa_default_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = sa_default_log(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        authorizationPromptResponseHandler_cold_2(v5, v6, v7, v8, v9, v10, v11, v12);
+        authorizationPromptResponseHandler_cold_2(v6, v7, v8, v9, v10, v11, v12, v13);
       }
 
-      v13 = [v4 completionHandler];
-      v14 = [v4 preflightAuthorizationStatus];
-      v15 = [SAError errorWithCode:4];
-      (v13)[2](v13, v14, v15);
+      v14 = [v4 completionHandler];
+      v15 = [v4 preflightAuthorizationStatus];
+      v16 = [SAError errorWithCode:4];
+      (v14)[2](v14, v15, v16);
 
       [v4 reset];
       goto LABEL_39;
@@ -434,46 +445,47 @@ void authorizationPromptResponseHandler(const void *a1, char a2)
 
     if ((a2 & 3) != 0)
     {
-      v35 = sa_default_log();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+      v38 = sa_default_log(v5);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
-        v36 = [v4 toBundleId];
-        v46 = 136315394;
-        v47 = "void authorizationPromptResponseHandler(CFUserNotificationRef, CFOptionFlags)";
-        v48 = 2112;
-        v49 = v36;
-        _os_log_impl(&dword_23AA4D000, v35, OS_LOG_TYPE_DEFAULT, "%s - Authorization not granted, denying permissions to app, bundleId: %@", &v46, 0x16u);
+        v39 = [v4 toBundleId];
+        v50 = 136315394;
+        v51 = "void authorizationPromptResponseHandler(CFUserNotificationRef, CFOptionFlags)";
+        v52 = 2112;
+        v53 = v39;
+        _os_log_impl(&dword_23AA4D000, v38, OS_LOG_TYPE_DEFAULT, "%s - Authorization not granted, denying permissions to app, bundleId: %@", &v50, 0x16u);
       }
 
-      v37 = [v4 completionHandler];
-      v37[2](v37, 1, 0);
+      v40 = [v4 completionHandler];
+      v40[2](v40, 1, 0);
 
       [v4 reset];
       goto LABEL_33;
     }
 
-    v24 = [v4 fromApp];
-    v25 = [v24 bundleId];
+    v25 = [v4 fromApp];
+    v26 = [v25 bundleId];
 
-    if (!v25)
+    if (!v26)
     {
       goto LABEL_14;
     }
 
-    v26 = sa_default_log();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v28 = sa_default_log(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v46 = 136315394;
-      v47 = "void authorizationPromptResponseHandler(CFUserNotificationRef, CFOptionFlags)";
-      v48 = 2112;
-      v49 = v25;
-      _os_log_impl(&dword_23AA4D000, v26, OS_LOG_TYPE_DEFAULT, "%s - Authorization granted, revoking permissions from previous app, bundleId: %@", &v46, 0x16u);
+      v50 = 136315394;
+      v51 = "void authorizationPromptResponseHandler(CFUserNotificationRef, CFOptionFlags)";
+      v52 = 2112;
+      v53 = v26;
+      _os_log_impl(&dword_23AA4D000, v28, OS_LOG_TYPE_DEFAULT, "%s - Authorization granted, revoking permissions from previous app, bundleId: %@", &v50, 0x16u);
     }
 
-    if (![SAAuthorization setAccess:0 forBundleId:v25])
+    v27 = [SAAuthorization setAccess:0 forBundleId:v26];
+    if ((v27 & 1) == 0)
     {
-      v40 = sa_default_log();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+      v44 = sa_default_log(v27);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
         authorizationPromptResponseHandler_cold_3();
       }
@@ -482,61 +494,61 @@ void authorizationPromptResponseHandler(const void *a1, char a2)
     else
     {
 LABEL_14:
-      v27 = sa_default_log();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v29 = sa_default_log(v27);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
-        v28 = [v4 toBundleId];
-        v46 = 136315394;
-        v47 = "void authorizationPromptResponseHandler(CFUserNotificationRef, CFOptionFlags)";
-        v48 = 2112;
-        v49 = v28;
-        _os_log_impl(&dword_23AA4D000, v27, OS_LOG_TYPE_DEFAULT, "%s - Authorization granted, granting permissions to app, bundleId: %@", &v46, 0x16u);
+        v30 = [v4 toBundleId];
+        v50 = 136315394;
+        v51 = "void authorizationPromptResponseHandler(CFUserNotificationRef, CFOptionFlags)";
+        v52 = 2112;
+        v53 = v30;
+        _os_log_impl(&dword_23AA4D000, v29, OS_LOG_TYPE_DEFAULT, "%s - Authorization granted, granting permissions to app, bundleId: %@", &v50, 0x16u);
       }
 
-      v29 = [v4 toBundleId];
-      v30 = [SAAuthorization setAccess:1 forBundleId:v29];
+      v31 = [v4 toBundleId];
+      v32 = [SAAuthorization setAccess:1 forBundleId:v31];
 
-      v31 = sa_default_log();
-      v32 = v31;
-      if (v30)
+      v34 = sa_default_log(v33);
+      v35 = v34;
+      if (v32)
       {
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
-          v33 = [v4 toBundleId];
-          v46 = 136315394;
-          v47 = "void authorizationPromptResponseHandler(CFUserNotificationRef, CFOptionFlags)";
-          v48 = 2112;
-          v49 = v33;
-          _os_log_impl(&dword_23AA4D000, v32, OS_LOG_TYPE_DEFAULT, "%s - Successfully granted permissions to app, bundleId: %@", &v46, 0x16u);
+          v36 = [v4 toBundleId];
+          v50 = 136315394;
+          v51 = "void authorizationPromptResponseHandler(CFUserNotificationRef, CFOptionFlags)";
+          v52 = 2112;
+          v53 = v36;
+          _os_log_impl(&dword_23AA4D000, v35, OS_LOG_TYPE_DEFAULT, "%s - Successfully granted permissions to app, bundleId: %@", &v50, 0x16u);
         }
 
-        v34 = [v4 completionHandler];
-        v34[2](v34, 2, 0);
+        v37 = [v4 completionHandler];
+        v37[2](v37, 2, 0);
 
         [v4 reset];
         goto LABEL_32;
       }
 
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         authorizationPromptResponseHandler_cold_4(v4);
       }
 
-      if (!v25)
+      if (!v26)
       {
         goto LABEL_32;
       }
 
-      v38 = [v4 toBundleId];
-      v39 = [SAAuthorization setAccess:1 forBundleId:v38];
+      v41 = [v4 toBundleId];
+      v42 = [SAAuthorization setAccess:1 forBundleId:v41];
 
-      if (v39)
+      if (v42)
       {
         goto LABEL_32;
       }
 
-      v40 = sa_default_log();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
+      v44 = sa_default_log(v43);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
       {
         authorizationPromptResponseHandler_cold_5();
       }
@@ -544,18 +556,19 @@ LABEL_14:
 
 LABEL_32:
 LABEL_33:
-    if ([v4 isInFlight])
+    v45 = [v4 isInFlight];
+    if (v45)
     {
-      v41 = sa_default_log();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      v46 = sa_default_log(v45);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
         authorizationPromptResponseHandler_cold_6(v4);
       }
 
-      v42 = [v4 completionHandler];
-      v43 = [v4 preflightAuthorizationStatus];
-      v44 = [SAError errorWithCode:4];
-      (v42)[2](v42, v43, v44);
+      v47 = [v4 completionHandler];
+      v48 = [v4 preflightAuthorizationStatus];
+      v49 = [SAError errorWithCode:4];
+      (v47)[2](v47, v48, v49);
 
       [v4 reset];
     }
@@ -568,20 +581,20 @@ LABEL_33:
     goto LABEL_39;
   }
 
-  v16 = sa_default_log();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v17 = sa_default_log(v5);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    authorizationPromptResponseHandler_cold_1(v16, v17, v18, v19, v20, v21, v22, v23);
+    authorizationPromptResponseHandler_cold_1(v17, v18, v19, v20, v21, v22, v23, v24);
   }
 
 LABEL_39:
-  v45 = *MEMORY[0x277D85DE8];
 }
 
-void OUTLINED_FUNCTION_2_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 uint64_t localMGGetBoolAnswer(uint64_t a1)
@@ -611,123 +624,113 @@ uint64_t localMGGetBoolAnswer(uint64_t a1)
   return v2(a1);
 }
 
-void sub_23AA5BAAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23AA5BAAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void *__getMGGetBoolAnswerSymbolLoc_block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
+  v13 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2020000000;
   v2 = libMobileGestaltLibraryCore_frameworkLibrary;
-  v11 = libMobileGestaltLibraryCore_frameworkLibrary;
+  v10 = libMobileGestaltLibraryCore_frameworkLibrary;
   if (!libMobileGestaltLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __libMobileGestaltLibraryCore_block_invoke;
-    v5[4] = &unk_278B68128;
-    v6 = &v8;
-    v7 = v5;
-    v12 = xmmword_278B68108;
-    v13 = 0;
-    v9[3] = _sl_dlopen();
-    libMobileGestaltLibraryCore_frameworkLibrary = *(v6[1] + 24);
-    v2 = v9[3];
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __libMobileGestaltLibraryCore_block_invoke;
+    v4[4] = &unk_278B68128;
+    v5 = &v7;
+    v6 = v4;
+    v11 = xmmword_278B68108;
+    v12 = 0;
+    v8[3] = _sl_dlopen();
+    libMobileGestaltLibraryCore_frameworkLibrary = *(v5[1] + 24);
+    v2 = v8[3];
   }
 
-  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v7, 8);
   if (!v2)
   {
-    __getMGGetBoolAnswerSymbolLoc_block_invoke_cold_1(v5);
+    __getMGGetBoolAnswerSymbolLoc_block_invoke_cold_1(v4);
   }
 
-  if (v5[0])
+  if (v4[0])
   {
-    free(v5[0]);
+    free(v4[0]);
   }
 
   result = dlsym(v2, "MGGetBoolAnswer");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getMGGetBoolAnswerSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_23AA5BC5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23AA5BC5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __libMobileGestaltLibraryCore_block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 40);
   result = _sl_dlopen();
   *(*(*(a1 + 32) + 8) + 24) = result;
   libMobileGestaltLibraryCore_frameworkLibrary = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void authorizationPromptResponseHandler_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4_0(&dword_23AA4D000, a1, a3, "%s - Authorization not in flight, this shouldn't be called.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "void authorizationPromptResponseHandler(CFUserNotificationRef, CFOptionFlags)";
+  OUTLINED_FUNCTION_4_0(&dword_23AA4D000, a1, a3, "%s - Authorization not in flight, this shouldn't be called.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void authorizationPromptResponseHandler_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4_0(&dword_23AA4D000, a1, a3, "%s - No button was pressed and the notification timed out.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "void authorizationPromptResponseHandler(CFUserNotificationRef, CFOptionFlags)";
+  OUTLINED_FUNCTION_4_0(&dword_23AA4D000, a1, a3, "%s - No button was pressed and the notification timed out.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void authorizationPromptResponseHandler_cold_3()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_23AA4D000, v0, OS_LOG_TYPE_ERROR, "%s - Failed to revoke permissions from previous app, bundleId: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23AA4D000, v0, OS_LOG_TYPE_ERROR, "%s - Failed to revoke permissions from previous app, bundleId: %@", v1, 0x16u);
 }
 
 void authorizationPromptResponseHandler_cold_4(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 toBundleId];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_2(&dword_23AA4D000, v2, v3, "%s - Failed to grant permissions to app, bundleId: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_23AA4D000, v2, v3, "%s - Failed to grant permissions to app, bundleId: %@", v4, v5, v6, v7, v8);
 }
 
 void authorizationPromptResponseHandler_cold_5()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_fault_impl(&dword_23AA4D000, v0, OS_LOG_TYPE_FAULT, "%s - Failed to reinstate permissions to app, no app is authorized, bundleId: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_23AA4D000, v0, OS_LOG_TYPE_FAULT, "%s - Failed to reinstate permissions to app, no app is authorized, bundleId: %@", v1, 0x16u);
 }
 
 void authorizationPromptResponseHandler_cold_6(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 toBundleId];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_2(&dword_23AA4D000, v2, v3, "%s - Failed to successfully apply permissions to app, bundleId: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_2(&dword_23AA4D000, v2, v3, "%s - Failed to successfully apply permissions to app, bundleId: %@", v4, v5, v6, v7, v8);
 }
 
 void localMGGetBoolAnswer_cold_1()

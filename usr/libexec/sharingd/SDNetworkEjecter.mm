@@ -54,53 +54,46 @@
       }
     }
 
-    node = self->_node;
     SFNodeSetMountPoint();
-    v8 = self->_node;
     SFNodeRemoveKind();
-    v9 = self->_node;
     SFNodeSetConnectionState();
   }
 
-  v13 = objc_opt_new();
-  [v13 setObject:self->_node forKeyedSubscript:kSFOperationNodeKey];
-  [v13 setObject:self->_flags forKeyedSubscript:kSFOperationFlagsKey];
-  [v13 setObject:self->_protocol forKeyedSubscript:kSFOperationProtocolKey];
+  v10 = objc_opt_new();
+  [v10 setObject:self->_node forKeyedSubscript:kSFOperationNodeKey];
+  [v10 setObject:self->_flags forKeyedSubscript:kSFOperationFlagsKey];
+  [v10 setObject:self->_protocol forKeyedSubscript:kSFOperationProtocolKey];
   if (eject)
   {
-    v10 = [NSError errorWithDomain:@"SFNodeError" code:eject userInfo:0];
-    [v13 setObject:v10 forKeyedSubscript:kSFOperationErrorKey];
+    v7 = [NSError errorWithDomain:@"SFNodeError" code:eject userInfo:0];
+    [v10 setObject:v7 forKeyedSubscript:kSFOperationErrorKey];
 
-    v11 = 10;
+    v8 = 10;
   }
 
   else
   {
-    v11 = 9;
+    v8 = 9;
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  [WeakRetained networkEjecter:self event:v11 withResults:v13];
+  [WeakRetained networkEjecter:self event:v8 withResults:v10];
 }
 
 - (void)eject
 {
-  node = self->_node;
   if (SFNodeIsMounted())
   {
     longValue = [(NSNumber *)self->_flags longValue];
-    v5 = self->_node;
-    IsSharePoint = SFNodeIsSharePoint();
-    v7 = self->_node;
-    if (IsSharePoint)
+    if (SFNodeIsSharePoint())
     {
-      v8 = SFNodeCopyMountPoint();
-      v9 = v8;
-      if (v8)
+      v4 = SFNodeCopyMountPoint();
+      v5 = v4;
+      if (v4)
       {
-        v15 = v8;
-        v10 = [NSArray arrayWithObjects:&v15 count:1];
-        [(SDNetworkEjecter *)self ejectMountPoints:v10 useAssistant:(longValue >> 1) & 1];
+        v10 = v4;
+        v6 = [NSArray arrayWithObjects:&v10 count:1];
+        [(SDNetworkEjecter *)self ejectMountPoints:v6 useAssistant:(longValue >> 1) & 1];
       }
 
       else
@@ -111,20 +104,19 @@
 
     else if (SFNodeIsServer())
     {
-      v11 = +[SDStatusMonitor sharedMonitor];
-      v12 = self->_node;
-      v13 = SFNodeCopyRealName();
+      v7 = +[SDStatusMonitor sharedMonitor];
+      v8 = SFNodeCopyRealName();
       if ([(NSString *)self->_protocol isEqual:kSFNodeProtocolODisk])
       {
-        [v11 odiskMountPointsForServer:v13];
+        [v7 odiskMountPointsForServer:v8];
       }
 
       else
       {
-        [v11 mountPointsForServer:v13];
+        [v7 mountPointsForServer:v8];
       }
-      v14 = ;
-      [(SDNetworkEjecter *)self ejectMountPoints:v14 useAssistant:(longValue >> 1) & 1];
+      v9 = ;
+      [(SDNetworkEjecter *)self ejectMountPoints:v9 useAssistant:(longValue >> 1) & 1];
     }
   }
 
@@ -139,10 +131,9 @@
 {
   if (!self->_protocol)
   {
-    node = self->_node;
-    v4 = sub_1001F1110();
+    v3 = sub_1001F1110(self->_node);
     protocol = self->_protocol;
-    self->_protocol = v4;
+    self->_protocol = v3;
 
     if (!self->_protocol)
     {

@@ -93,74 +93,72 @@ id __47__PGPOIFeatureExtractor_initWithVersion_error___block_invoke(uint64_t a1,
 
 + (id)_labelsForVersion:(int64_t)version
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = [self _rawLabelsForVersion:?];
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [self _labelProcessingForVersion:version label:{*(*(&v15 + 1) + 8 * i), v15}];
+        v12 = [self _labelProcessingForVersion:version label:{*(*(&v14 + 1) + 8 * i), v14}];
         [v6 addObject:v12];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (id)_rawLabelsForVersion:(int64_t)version
 {
-  v23[16] = *MEMORY[0x277D85DE8];
+  v22[16] = *MEMORY[0x277D85DE8];
   if ((version - 1) < 2)
   {
     v3 = *MEMORY[0x277D27540];
-    v23[0] = *MEMORY[0x277D27558];
-    v23[1] = v3;
+    v22[0] = *MEMORY[0x277D27558];
+    v22[1] = v3;
     v4 = *MEMORY[0x277D27570];
-    v23[2] = *MEMORY[0x277D27560];
-    v23[3] = v4;
+    v22[2] = *MEMORY[0x277D27560];
+    v22[3] = v4;
     v5 = *MEMORY[0x277D27538];
-    v23[4] = *MEMORY[0x277D27508];
-    v23[5] = v5;
+    v22[4] = *MEMORY[0x277D27508];
+    v22[5] = v5;
     v6 = *MEMORY[0x277D27500];
-    v23[6] = *MEMORY[0x277D27518];
-    v23[7] = v6;
+    v22[6] = *MEMORY[0x277D27518];
+    v22[7] = v6;
     v7 = *MEMORY[0x277D27550];
-    v23[8] = *MEMORY[0x277D27548];
-    v23[9] = v7;
+    v22[8] = *MEMORY[0x277D27548];
+    v22[9] = v7;
     v8 = *MEMORY[0x277D274F8];
-    v23[10] = *MEMORY[0x277D27568];
-    v23[11] = v8;
+    v22[10] = *MEMORY[0x277D27568];
+    v22[11] = v8;
     v9 = *MEMORY[0x277D27528];
-    v23[12] = *MEMORY[0x277D27510];
-    v23[13] = v9;
+    v22[12] = *MEMORY[0x277D27510];
+    v22[13] = v9;
     v10 = *MEMORY[0x277D27530];
-    v23[14] = *MEMORY[0x277D27520];
-    v23[15] = v10;
+    v22[14] = *MEMORY[0x277D27520];
+    v22[15] = v10;
     v11 = MEMORY[0x277CBEA60];
-    v12 = v23;
+    v12 = v22;
     v13 = 16;
 LABEL_5:
     v19 = [v11 arrayWithObjects:v12 count:v13];
@@ -170,31 +168,30 @@ LABEL_5:
   if (version == 3)
   {
     v14 = *MEMORY[0x277D27540];
-    v22[0] = *MEMORY[0x277D27558];
-    v22[1] = v14;
+    v21[0] = *MEMORY[0x277D27558];
+    v21[1] = v14;
     v15 = *MEMORY[0x277D27508];
-    v22[2] = *MEMORY[0x277D27570];
-    v22[3] = v15;
+    v21[2] = *MEMORY[0x277D27570];
+    v21[3] = v15;
     v16 = *MEMORY[0x277D27518];
-    v22[4] = *MEMORY[0x277D27538];
-    v22[5] = v16;
+    v21[4] = *MEMORY[0x277D27538];
+    v21[5] = v16;
     v17 = *MEMORY[0x277D27548];
-    v22[6] = *MEMORY[0x277D27500];
-    v22[7] = v17;
+    v21[6] = *MEMORY[0x277D27500];
+    v21[7] = v17;
     v18 = *MEMORY[0x277D274F8];
-    v22[8] = *MEMORY[0x277D27568];
-    v22[9] = v18;
-    v22[10] = *MEMORY[0x277D27528];
-    v22[11] = @"None";
+    v21[8] = *MEMORY[0x277D27568];
+    v21[9] = v18;
+    v21[10] = *MEMORY[0x277D27528];
+    v21[11] = @"None";
     v11 = MEMORY[0x277CBEA60];
-    v12 = v22;
+    v12 = v21;
     v13 = 12;
     goto LABEL_5;
   }
 
   v19 = MEMORY[0x277CBEBF8];
 LABEL_7:
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

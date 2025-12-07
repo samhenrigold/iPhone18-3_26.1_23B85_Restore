@@ -52,7 +52,7 @@
 
 - (id)_buildServiceOwnerMapping
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   accountStore = self->_accountStore;
   if (accountStore)
   {
@@ -66,22 +66,20 @@
 
   v4 = defaultStore;
   _loadServiceOwnerBundlesIfNeeded = [objc_opt_class() _loadServiceOwnerBundlesIfNeeded];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __53__AIDAServiceOwnersManager__buildServiceOwnerMapping__block_invoke;
-  v11[3] = &unk_1E86834E0;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __53__AIDAServiceOwnersManager__buildServiceOwnerMapping__block_invoke;
+  v10[3] = &unk_1E86834E0;
   v6 = v4;
-  v12 = v6;
-  v7 = [_loadServiceOwnerBundlesIfNeeded aaf_map:v11];
-  v8 = _AIDALogSystem();
+  v11 = v6;
+  v7 = [_loadServiceOwnerBundlesIfNeeded aaf_map:v10];
+  v8 = _AIDALogSystem(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = v7;
+    v13 = v7;
     _os_log_impl(&dword_1DEB1B000, v8, OS_LOG_TYPE_DEFAULT, "Finished building service owner mapping: %@", buf, 0xCu);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -112,37 +110,35 @@ uint64_t __60__AIDAServiceOwnersManager__loadServiceOwnerBundlesIfNeeded__block_
 
 + (id)_loadServiceOwnerBundles
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   serviceOwnerBundles = [objc_opt_class() serviceOwnerBundles];
-  v4 = _AIDALogSystem();
+  v4 = _AIDALogSystem(serviceOwnerBundles);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = serviceOwnerBundles;
+    v19 = serviceOwnerBundles;
     _os_log_impl(&dword_1DEB1B000, v4, OS_LOG_TYPE_DEFAULT, "Building AIDA service owner bundle mapping for bundles: %@", buf, 0xCu);
   }
 
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
   _rejectionlistedBundleIDs = [self _rejectionlistedBundleIDs];
-  v13 = MEMORY[0x1E69E9820];
-  v14 = 3221225472;
-  v15 = __52__AIDAServiceOwnersManager__loadServiceOwnerBundles__block_invoke;
-  v16 = &unk_1E8683528;
-  v17 = _rejectionlistedBundleIDs;
+  v12 = MEMORY[0x1E69E9820];
+  v13 = 3221225472;
+  v14 = __52__AIDAServiceOwnersManager__loadServiceOwnerBundles__block_invoke;
+  v15 = &unk_1E8683528;
+  v16 = _rejectionlistedBundleIDs;
   v7 = v5;
-  v18 = v7;
+  v17 = v7;
   v8 = _rejectionlistedBundleIDs;
-  [serviceOwnerBundles enumerateObjectsUsingBlock:&v13];
-  v9 = _AIDALogSystem();
+  v9 = _AIDALogSystem([serviceOwnerBundles enumerateObjectsUsingBlock:&v12]);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = v7;
+    v19 = v7;
     _os_log_impl(&dword_1DEB1B000, v9, OS_LOG_TYPE_DEFAULT, "Completed building AIDA service owner mapping with result: %@", buf, 0xCu);
   }
 
   v10 = [v7 copy];
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -175,97 +171,98 @@ uint64_t __47__AIDAServiceOwnersManager_serviceOwnerBundles__block_invoke()
 
 void __52__AIDAServiceOwnersManager__loadServiceOwnerBundles__block_invoke(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = [v3 bundleIdentifier];
   v6 = [v4 containsObject:v5];
 
-  v7 = _AIDALogSystem();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  v8 = _AIDALogSystem(v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {
-    if (v8)
+    if (v9)
     {
       *buf = 138412290;
-      v28 = v3;
-      _os_log_impl(&dword_1DEB1B000, v7, OS_LOG_TYPE_DEFAULT, "Skipping rejectionlisted AIDA bundle: %@", buf, 0xCu);
+      v29 = v3;
+      _os_log_impl(&dword_1DEB1B000, v8, OS_LOG_TYPE_DEFAULT, "Skipping rejectionlisted AIDA bundle: %@", buf, 0xCu);
     }
   }
 
   else
   {
-    if (v8)
-    {
-      *buf = 138412290;
-      v28 = v3;
-      _os_log_impl(&dword_1DEB1B000, v7, OS_LOG_TYPE_DEFAULT, "Loading AIDA service owner bundle: %@", buf, 0xCu);
-    }
-
-    v25 = 0;
-    v9 = [v3 loadAndReturnError:&v25];
-    v7 = v25;
-    v10 = _AIDALogSystem();
-    v11 = v10;
     if (v9)
     {
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      *buf = 138412290;
+      v29 = v3;
+      _os_log_impl(&dword_1DEB1B000, v8, OS_LOG_TYPE_DEFAULT, "Loading AIDA service owner bundle: %@", buf, 0xCu);
+    }
+
+    v26 = 0;
+    v10 = [v3 loadAndReturnError:&v26];
+    v8 = v26;
+    v11 = _AIDALogSystem(v8);
+    v12 = v11;
+    if (v10)
+    {
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v28 = v3;
-        _os_log_impl(&dword_1DEB1B000, v11, OS_LOG_TYPE_DEFAULT, "Loaded bundle: %@", buf, 0xCu);
+        v29 = v3;
+        _os_log_impl(&dword_1DEB1B000, v12, OS_LOG_TYPE_DEFAULT, "Loaded bundle: %@", buf, 0xCu);
       }
 
-      v12 = [v3 principalClass];
-      if ([v12 conformsToProtocol:&unk_1F59D2108])
+      v13 = [v3 principalClass];
+      v14 = [v13 conformsToProtocol:&unk_1F59D2108];
+      if (v14)
       {
-        v11 = [v12 supportedServices];
-        v13 = [v11 count];
-        v14 = _AIDALogSystem();
-        v15 = v14;
-        if (v13)
+        v12 = [v13 supportedServices];
+        v15 = [v12 count];
+        v16 = _AIDALogSystem(v15);
+        v17 = v16;
+        if (v15)
         {
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412802;
-            v28 = v3;
-            v29 = 2112;
-            v30 = v12;
-            v31 = 2112;
-            v32 = v11;
-            _os_log_impl(&dword_1DEB1B000, v15, OS_LOG_TYPE_DEFAULT, "Loaded AIDA service owner bundle (%@) with principal class (%@) for services: %@", buf, 0x20u);
+            v29 = v3;
+            v30 = 2112;
+            v31 = v13;
+            v32 = 2112;
+            v33 = v12;
+            _os_log_impl(&dword_1DEB1B000, v17, OS_LOG_TYPE_DEFAULT, "Loaded AIDA service owner bundle (%@) with principal class (%@) for services: %@", buf, 0x20u);
           }
 
-          v23 = 0u;
           v24 = 0u;
-          v21 = 0u;
+          v25 = 0u;
           v22 = 0u;
-          v15 = v11;
-          v16 = [v15 countByEnumeratingWithState:&v21 objects:v26 count:16];
-          if (v16)
+          v23 = 0u;
+          v17 = v12;
+          v18 = [v17 countByEnumeratingWithState:&v22 objects:v27 count:16];
+          if (v18)
           {
-            v17 = v16;
-            v18 = *v22;
+            v19 = v18;
+            v20 = *v23;
             do
             {
-              for (i = 0; i != v17; ++i)
+              for (i = 0; i != v19; ++i)
               {
-                if (*v22 != v18)
+                if (*v23 != v20)
                 {
-                  objc_enumerationMutation(v15);
+                  objc_enumerationMutation(v17);
                 }
 
-                [*(a1 + 40) setObject:v3 forKeyedSubscript:{*(*(&v21 + 1) + 8 * i), v21}];
+                [*(a1 + 40) setObject:v3 forKeyedSubscript:{*(*(&v22 + 1) + 8 * i), v22}];
               }
 
-              v17 = [v15 countByEnumeratingWithState:&v21 objects:v26 count:16];
+              v19 = [v17 countByEnumeratingWithState:&v22 objects:v27 count:16];
             }
 
-            while (v17);
+            while (v19);
           }
         }
 
-        else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        else if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           __52__AIDAServiceOwnersManager__loadServiceOwnerBundles__block_invoke_cold_3();
         }
@@ -273,39 +270,38 @@ void __52__AIDAServiceOwnersManager__loadServiceOwnerBundles__block_invoke(uint6
 
       else
       {
-        v11 = _AIDALogSystem();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v12 = _AIDALogSystem(v14);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           __53__AIDAServiceOwnersManager__buildServiceOwnerMapping__block_invoke_cold_2();
         }
       }
     }
 
-    else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __52__AIDAServiceOwnersManager__loadServiceOwnerBundles__block_invoke_cold_1();
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 NSObject *__53__AIDAServiceOwnersManager__buildServiceOwnerMapping__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a3;
-  v5 = _AIDALogSystem();
+  v5 = _AIDALogSystem(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = v4;
-    _os_log_impl(&dword_1DEB1B000, v5, OS_LOG_TYPE_DEFAULT, "Building service owner for bundle: %@", &v13, 0xCu);
+    v14 = 138412290;
+    v15 = v4;
+    _os_log_impl(&dword_1DEB1B000, v5, OS_LOG_TYPE_DEFAULT, "Building service owner for bundle: %@", &v14, 0xCu);
   }
 
-  if (([v4 isLoaded]& 1) == 0)
+  v6 = [v4 isLoaded];
+  if ((v6 & 1) == 0)
   {
-    v7 = _AIDALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v9 = _AIDALogSystem(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       __53__AIDAServiceOwnersManager__buildServiceOwnerMapping__block_invoke_cold_1();
     }
@@ -313,51 +309,50 @@ NSObject *__53__AIDAServiceOwnersManager__buildServiceOwnerMapping__block_invoke
     goto LABEL_13;
   }
 
-  v6 = [v4 principalClass];
-  if (([v6 conformsToProtocol:&unk_1F59D2108] & 1) == 0)
+  v7 = [v4 principalClass];
+  v8 = [v7 conformsToProtocol:&unk_1F59D2108];
+  if ((v8 & 1) == 0)
   {
-    v7 = _AIDALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = _AIDALogSystem(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __53__AIDAServiceOwnersManager__buildServiceOwnerMapping__block_invoke_cold_2();
     }
 
 LABEL_13:
-    v10 = 0;
+    v12 = 0;
     goto LABEL_14;
   }
 
-  v7 = [[v6 alloc] initWithAccountStore:*(a1 + 32)];
-  v8 = _AIDALogSystem();
-  v9 = v8;
-  if (v7)
+  v9 = [[v7 alloc] initWithAccountStore:*(a1 + 32)];
+  v10 = _AIDALogSystem(v9);
+  v11 = v10;
+  if (v9)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = v7;
-      _os_log_impl(&dword_1DEB1B000, v9, OS_LOG_TYPE_DEFAULT, "Allocated and initialized service owner: %@", &v13, 0xCu);
+      v14 = 138412290;
+      v15 = v9;
+      _os_log_impl(&dword_1DEB1B000, v11, OS_LOG_TYPE_DEFAULT, "Allocated and initialized service owner: %@", &v14, 0xCu);
     }
 
-    v7 = v7;
-    v10 = v7;
+    v9 = v9;
+    v12 = v9;
   }
 
   else
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __53__AIDAServiceOwnersManager__buildServiceOwnerMapping__block_invoke_cold_3();
     }
 
-    v10 = 0;
+    v12 = 0;
   }
 
 LABEL_14:
 
-  v11 = *MEMORY[0x1E69E9840];
-
-  return v10;
+  return v12;
 }
 
 - (AIDAServiceOwnersManager)init
@@ -388,40 +383,36 @@ LABEL_14:
 
 + (void)configureProcessSpecificServiceOwnerRejectionlist:(id)rejectionlist
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   rejectionlistCopy = rejectionlist;
-  v4 = _AIDALogSystem();
+  v4 = _AIDALogSystem(rejectionlistCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = rejectionlistCopy;
-    _os_log_impl(&dword_1DEB1B000, v4, OS_LOG_TYPE_DEFAULT, "Configuring process-specific rejectionlist: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = rejectionlistCopy;
+    _os_log_impl(&dword_1DEB1B000, v4, OS_LOG_TYPE_DEFAULT, "Configuring process-specific rejectionlist: %@", &v7, 0xCu);
   }
 
   v5 = [rejectionlistCopy copy];
   v6 = _AIDAServiceOwnersManagerRejectionlist;
   _AIDAServiceOwnersManagerRejectionlist = v5;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (void)configureProcessSpecificSupplementalServiceTypes:(id)types
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   typesCopy = types;
-  v4 = _AIDALogSystem();
+  v4 = _AIDALogSystem(typesCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = typesCopy;
-    _os_log_impl(&dword_1DEB1B000, v4, OS_LOG_TYPE_DEFAULT, "Configuring process-specific supplemental services: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = typesCopy;
+    _os_log_impl(&dword_1DEB1B000, v4, OS_LOG_TYPE_DEFAULT, "Configuring process-specific supplemental services: %@", &v7, 0xCu);
   }
 
   v5 = [typesCopy copy];
   v6 = _AIDAServiceOwnersManagerSupplementalServiceTypes;
   _AIDAServiceOwnersManagerSupplementalServiceTypes = v5;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_supplementalServiceTypes
@@ -444,14 +435,15 @@ LABEL_14:
     [v6 unionSet:_supplementalServiceTypes];
   }
 
-  if ([v6 containsObject:@"com.apple.AppleID.Service.Cloud"])
+  v8 = [v6 containsObject:@"com.apple.AppleID.Service.Cloud"];
+  if (v8)
   {
     [v6 removeObject:@"com.apple.AppleID.Service.Cloud"];
-    [v6 insertObject:@"com.apple.AppleID.Service.Cloud" atIndex:0];
+    v8 = [v6 insertObject:@"com.apple.AppleID.Service.Cloud" atIndex:0];
   }
 
-  v8 = _AIDALogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _AIDALogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     +[AIDAServiceOwnersManager supportedServices];
   }
@@ -506,7 +498,7 @@ LABEL_14:
 
 - (void)signInService:(id)service withContext:(id)context completion:(id)completion
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   contextCopy = context;
   completionCopy = completion;
@@ -516,78 +508,76 @@ LABEL_14:
   if (v12)
   {
     mEMORY[0x1E698DC80] = [MEMORY[0x1E698DC80] sharedInstance];
-    v14 = MEMORY[0x1E6985DB0];
+    v15 = MEMORY[0x1E6985DB0];
     authenticationResults = [contextCopy authenticationResults];
-    v34 = [v14 aida_analyticsStartEventForAIDAServiceType:serviceCopy accountManager:mEMORY[0x1E698DC80] authenticationResults:authenticationResults];
+    v37 = [v15 aida_analyticsStartEventForAIDAServiceType:serviceCopy accountManager:mEMORY[0x1E698DC80] authenticationResults:authenticationResults];
 
-    v16 = +[AIDAAnalyticsReporterRTC sharedTelemetryReporter];
-    [v16 sendEvent:v34];
+    v17 = +[AIDAAnalyticsReporterRTC sharedTelemetryReporter];
+    [v17 sendEvent:v37];
 
-    v17 = MEMORY[0x1E6985DB0];
+    v18 = MEMORY[0x1E6985DB0];
     authenticationResults2 = [contextCopy authenticationResults];
-    v33 = [v17 aida_analyticsDurationEventForAIDAServiceType:serviceCopy accountManager:mEMORY[0x1E698DC80] authenticationResults:authenticationResults2];
+    v36 = [v18 aida_analyticsDurationEventForAIDAServiceType:serviceCopy accountManager:mEMORY[0x1E698DC80] authenticationResults:authenticationResults2];
 
     state.opaque[0] = 0;
     state.opaque[1] = 0;
-    v32 = _os_activity_create(&dword_1DEB1B000, "AIDA/signInService", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-    os_activity_scope_enter(v32, &state);
-    v19 = _AIDASignpostLogSystem();
-    v20 = _AIDASignpostCreate(v19);
-    v22 = v21;
-
-    v23 = _AIDASignpostLogSystem();
+    v35 = _os_activity_create(&dword_1DEB1B000, "AIDA/signInService", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+    os_activity_scope_enter(v35, &state);
+    v21 = _AIDASignpostLogSystem(v20);
+    v22 = _AIDASignpostCreate(v21);
     v24 = v23;
-    if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+
+    v26 = _AIDASignpostLogSystem(v25);
+    v27 = v26;
+    if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
     {
       *buf = 138543362;
-      v46 = serviceCopy;
-      _os_signpost_emit_with_name_impl(&dword_1DEB1B000, v24, OS_SIGNPOST_INTERVAL_BEGIN, v20, "SignInService", " ServiceType=%{public,signpost.telemetry:string1,name=ServiceType}@  enableTelemetry=YES ", buf, 0xCu);
+      v49 = serviceCopy;
+      _os_signpost_emit_with_name_impl(&dword_1DEB1B000, v27, OS_SIGNPOST_INTERVAL_BEGIN, v22, "SignInService", " ServiceType=%{public,signpost.telemetry:string1,name=ServiceType}@  enableTelemetry=YES ", buf, 0xCu);
     }
 
-    v25 = _AIDASignpostLogSystem();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v29 = _AIDASignpostLogSystem(v28);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
-      v46 = v20;
-      v47 = 2114;
-      v48 = serviceCopy;
-      _os_log_impl(&dword_1DEB1B000, v25, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: SignInService  ServiceType=%{public,signpost.telemetry:string1,name=ServiceType}@  enableTelemetry=YES ", buf, 0x16u);
+      v49 = v22;
+      v50 = 2114;
+      v51 = serviceCopy;
+      _os_log_impl(&dword_1DEB1B000, v29, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: SignInService  ServiceType=%{public,signpost.telemetry:string1,name=ServiceType}@  enableTelemetry=YES ", buf, 0x16u);
     }
 
-    v26 = [contextCopy copy];
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __65__AIDAServiceOwnersManager_signInService_withContext_completion___block_invoke;
-    v35[3] = &unk_1E8683550;
-    v27 = v33;
-    v36 = v27;
+    v30 = [contextCopy copy];
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = __65__AIDAServiceOwnersManager_signInService_withContext_completion___block_invoke;
+    v38[3] = &unk_1E8683550;
+    v31 = v36;
+    v39 = v31;
     selfCopy = self;
-    v42 = v20;
-    v43 = v22;
-    v38 = serviceCopy;
-    v28 = v26;
-    v39 = v28;
-    v41 = completionCopy;
-    v29 = mEMORY[0x1E698DC80];
-    v40 = v29;
-    [v12 signInService:v38 withContext:v28 completion:v35];
+    v45 = v22;
+    v46 = v24;
+    v41 = serviceCopy;
+    v32 = v30;
+    v42 = v32;
+    v44 = completionCopy;
+    v33 = mEMORY[0x1E698DC80];
+    v43 = v33;
+    [v12 signInService:v41 withContext:v32 completion:v38];
 
     os_activity_scope_leave(&state);
   }
 
   else
   {
-    v30 = _AIDALogSystem();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v34 = _AIDALogSystem(v13);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       [AIDAServiceOwnersManager signInService:withContext:completion:];
     }
 
-    v29 = [MEMORY[0x1E696ABC0] aida_errorWithCode:-1001];
-    (*(completionCopy + 2))(completionCopy, 0, v29);
+    v33 = [MEMORY[0x1E696ABC0] aida_errorWithCode:-1001];
+    (*(completionCopy + 2))(completionCopy, 0, v33);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __65__AIDAServiceOwnersManager_signInService_withContext_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -652,42 +642,43 @@ void __65__AIDAServiceOwnersManager_signInService_withContext_completion___block
 {
   contextCopy = context;
   completionCopy = completion;
-  v10 = _AIDALogSystem();
+  v10 = _AIDALogSystem(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [AIDAServiceOwnersManager signInToAllServicesInBackground:contextCopy usingContext:? completion:?];
   }
 
-  v11 = _AIDALogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = _AIDALogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [AIDAServiceOwnersManager signInToAllServicesInBackground:contextCopy usingContext:? completion:?];
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __84__AIDAServiceOwnersManager_signInToAllServicesInBackground_usingContext_completion___block_invoke;
-  v14[3] = &unk_1E86835F0;
-  v15 = contextCopy;
-  v16 = completionCopy;
-  v14[4] = self;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __84__AIDAServiceOwnersManager_signInToAllServicesInBackground_usingContext_completion___block_invoke;
+  v15[3] = &unk_1E86835F0;
+  v16 = contextCopy;
+  v17 = completionCopy;
+  v15[4] = self;
   backgroundCopy = background;
-  v12 = contextCopy;
-  v13 = completionCopy;
-  [(AIDAServiceOwnersManager *)self signInService:@"com.apple.AppleID.Service.Cloud" withContext:v12 completion:v14];
+  v13 = contextCopy;
+  v14 = completionCopy;
+  [(AIDAServiceOwnersManager *)self signInService:@"com.apple.AppleID.Service.Cloud" withContext:v13 completion:v15];
 }
 
 void __84__AIDAServiceOwnersManager_signInToAllServicesInBackground_usingContext_completion___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v47 = *MEMORY[0x1E69E9840];
-  v23 = a3;
-  if (v23)
+  v5 = a3;
+  v23 = v5;
+  if (v5)
   {
-    v5 = _AIDALogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _AIDALogSystem(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1DEB1B000, v5, OS_LOG_TYPE_DEFAULT, "Failed global signin with authentication results for cloud service.", buf, 2u);
+      _os_log_impl(&dword_1DEB1B000, v6, OS_LOG_TYPE_DEFAULT, "Failed global signin with authentication results for cloud service.", buf, 2u);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -697,151 +688,143 @@ void __84__AIDAServiceOwnersManager_signInToAllServicesInBackground_usingContext
   {
     v21 = a2;
     v22 = a1;
-    v7 = *(a1 + 32);
-    v6 = (a1 + 32);
-    v8 = [v6[1] authenticationResults];
-    v9 = [v8 objectForKeyedSubscript:@"AKAltDSID"];
-    v10 = [v7 _postCloudSupportedServicesForAltDSID:v9];
+    v8 = *(a1 + 32);
+    v7 = (a1 + 32);
+    v9 = [v7[1] authenticationResults];
+    v10 = [v9 objectForKeyedSubscript:@"AKAltDSID"];
+    v11 = [v8 _postCloudSupportedServicesForAltDSID:v10];
 
-    v25 = [v6[1] mutableCopy];
+    v25 = [v7[1] mutableCopy];
     [v25 setOperationUIPermissions:0];
-    v11 = dispatch_group_create();
+    v12 = dispatch_group_create();
     *buf = 0;
     v41 = buf;
     v42 = 0x3032000000;
     v43 = __Block_byref_object_copy_;
     v44 = __Block_byref_object_dispose_;
-    v45 = *v6;
+    v45 = *v7;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    obj = v10;
-    v12 = [obj countByEnumeratingWithState:&v36 objects:v46 count:16];
-    if (v12)
+    obj = v11;
+    v13 = [obj countByEnumeratingWithState:&v36 objects:v46 count:16];
+    if (v13)
     {
-      v13 = *v37;
+      v14 = *v37;
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v37 != v13)
+          if (*v37 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v36 + 1) + 8 * i);
-          dispatch_group_enter(v11);
-          v16 = dispatch_get_global_queue(33, 0);
+          v16 = *(*(&v36 + 1) + 8 * i);
+          dispatch_group_enter(v12);
+          v17 = dispatch_get_global_queue(33, 0);
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
           block[2] = __84__AIDAServiceOwnersManager_signInToAllServicesInBackground_usingContext_completion___block_invoke_101;
           block[3] = &unk_1E86835A0;
-          block[4] = v15;
+          block[4] = v16;
           v35 = buf;
           v33 = v25;
-          v34 = v11;
-          dispatch_async(v16, block);
+          v34 = v12;
+          dispatch_async(v17, block);
         }
 
-        v12 = [obj countByEnumeratingWithState:&v36 objects:v46 count:16];
+        v13 = [obj countByEnumeratingWithState:&v36 objects:v46 count:16];
       }
 
-      while (v12);
+      while (v13);
     }
 
-    v17 = *(v22 + 56);
-    if (v17 == 1)
+    v18 = *(v22 + 56);
+    if (v18 == 1)
     {
       (*(*(v22 + 48) + 16))();
-      LOBYTE(v17) = *(v22 + 56);
+      LOBYTE(v18) = *(v22 + 56);
     }
 
-    v18 = dispatch_get_global_queue(33, 0);
+    v19 = dispatch_get_global_queue(33, 0);
     v26[0] = MEMORY[0x1E69E9820];
     v26[1] = 3221225472;
     v26[2] = __84__AIDAServiceOwnersManager_signInToAllServicesInBackground_usingContext_completion___block_invoke_106;
     v26[3] = &unk_1E86835C8;
-    v30 = v17;
-    v19 = *(v22 + 48);
+    v30 = v18;
+    v20 = *(v22 + 48);
     v31 = v21;
     v27 = 0;
-    v28 = v19;
+    v28 = v20;
     v29 = buf;
-    dispatch_group_notify(v11, v18, v26);
+    dispatch_group_notify(v12, v19, v26);
 
     _Block_object_dispose(buf, 8);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __84__AIDAServiceOwnersManager_signInToAllServicesInBackground_usingContext_completion___block_invoke_101(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = _AIDALogSystem();
+  v11 = *MEMORY[0x1E69E9840];
+  v2 = _AIDALogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v11 = v3;
+    v10 = v3;
     _os_log_impl(&dword_1DEB1B000, v2, OS_LOG_TYPE_DEFAULT, "Logging into service %{public}@", buf, 0xCu);
   }
 
   v4 = *(*(*(a1 + 56) + 8) + 40);
   v5 = *(a1 + 32);
   v6 = *(a1 + 40);
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __84__AIDAServiceOwnersManager_signInToAllServicesInBackground_usingContext_completion___block_invoke_102;
-  v8[3] = &unk_1E8683578;
-  v8[4] = v5;
-  v9 = *(a1 + 48);
-  [v4 signInService:v5 withContext:v6 completion:v8];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __84__AIDAServiceOwnersManager_signInToAllServicesInBackground_usingContext_completion___block_invoke_102;
+  v7[3] = &unk_1E8683578;
+  v7[4] = v5;
+  v8 = *(a1 + 48);
+  [v4 signInService:v5 withContext:v6 completion:v7];
 }
 
 void __84__AIDAServiceOwnersManager_signInToAllServicesInBackground_usingContext_completion___block_invoke_102(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _AIDALogSystem();
+  v6 = _AIDALogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
     v8 = @"NO";
-    v10 = 138412802;
+    v9 = 138412802;
     if (a2)
     {
       v8 = @"YES";
     }
 
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v5;
-    _os_log_impl(&dword_1DEB1B000, v6, OS_LOG_TYPE_DEFAULT, "Log in to service %@ completed with result: %@, error: %@", &v10, 0x20u);
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v5;
+    _os_log_impl(&dword_1DEB1B000, v6, OS_LOG_TYPE_DEFAULT, "Log in to service %@ completed with result: %@, error: %@", &v9, 0x20u);
   }
 
   dispatch_group_leave(*(a1 + 40));
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __84__AIDAServiceOwnersManager_signInToAllServicesInBackground_usingContext_completion___block_invoke_106(uint64_t a1)
 {
   if ((*(a1 + 56) & 1) == 0)
   {
-    v2 = *(a1 + 57);
-    v4 = *(a1 + 32);
-    v3 = *(a1 + 40);
     (*(*(a1 + 40) + 16))();
   }
 
-  v5 = *(*(a1 + 48) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = 0;
+  v2 = *(*(a1 + 48) + 8);
+  v3 = *(v2 + 40);
+  *(v2 + 40) = 0;
 }
 
 - (void)signInToServices:(id)services usingContext:(id)context completion:(id)completion
@@ -885,12 +868,12 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v17 = _AIDALogSystem();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = _AIDALogSystem(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     v33 = v15;
-    _os_log_impl(&dword_1DEB1B000, v17, OS_LOG_TYPE_DEFAULT, "signInToServices - Logging into service %{public}@", buf, 0xCu);
+    _os_log_impl(&dword_1DEB1B000, v18, OS_LOG_TYPE_DEFAULT, "signInToServices - Logging into service %{public}@", buf, 0xCu);
   }
 
   v20[0] = MEMORY[0x1E69E9820];
@@ -898,48 +881,46 @@ LABEL_7:
   v20[2] = __69__AIDAServiceOwnersManager_signInToServices_usingContext_completion___block_invoke_111;
   v20[3] = &unk_1E86836B8;
   v25 = v30;
-  v18 = v15;
-  v21 = v18;
+  v19 = v15;
+  v21 = v19;
   v23 = v12;
   v24 = v13;
   v22 = v14;
-  [(AIDAServiceOwnersManager *)self signInService:v18 withContext:v11 completion:v20];
+  [(AIDAServiceOwnersManager *)self signInService:v19 withContext:v11 completion:v20];
 
 LABEL_8:
   _Block_object_dispose(v30, 8);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __69__AIDAServiceOwnersManager_signInToServices_usingContext_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v30[0] = 0;
-  v30[1] = v30;
-  v30[2] = 0x2020000000;
-  v31 = 1;
+  v29[0] = 0;
+  v29[1] = v29;
+  v29[2] = 0x2020000000;
+  v30 = 1;
   v4 = dispatch_group_create();
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = v3;
-  v5 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v5 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v5)
   {
-    v6 = *v27;
+    v6 = *v26;
     do
     {
       v7 = 0;
       do
       {
-        if (*v27 != v6)
+        if (*v26 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v26 + 1) + 8 * v7);
+        v8 = *(*(&v25 + 1) + 8 * v7);
         dispatch_group_enter(v4);
         v9 = dispatch_get_global_queue(33, 0);
         block[0] = MEMORY[0x1E69E9820];
@@ -950,65 +931,62 @@ void __69__AIDAServiceOwnersManager_signInToServices_usingContext_completion___b
         v11 = *(a1 + 40);
         block[4] = v8;
         block[5] = v10;
-        v22 = v11;
+        v21 = v11;
         v12 = *(a1 + 56);
-        v24 = v30;
-        v25 = v12;
-        v23 = v4;
+        v23 = v29;
+        v24 = v12;
+        v22 = v4;
         dispatch_async(v9, block);
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v5 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
     }
 
     while (v5);
   }
 
   v13 = dispatch_get_global_queue(33, 0);
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __69__AIDAServiceOwnersManager_signInToServices_usingContext_completion___block_invoke_2_109;
-  v18[3] = &unk_1E8683668;
-  v20 = v30;
-  v16 = *(a1 + 48);
-  v14 = v16;
-  v19 = v16;
-  dispatch_group_notify(v4, v13, v18);
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __69__AIDAServiceOwnersManager_signInToServices_usingContext_completion___block_invoke_2_109;
+  v17[3] = &unk_1E8683668;
+  v19 = v29;
+  v15 = *(a1 + 48);
+  v14 = v15;
+  v18 = v15;
+  dispatch_group_notify(v4, v13, v17);
 
-  _Block_object_dispose(v30, 8);
-  v15 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v29, 8);
 }
 
 void __69__AIDAServiceOwnersManager_signInToServices_usingContext_completion___block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v2 = _AIDALogSystem();
+  v14 = *MEMORY[0x1E69E9840];
+  v2 = _AIDALogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v14 = v3;
+    v13 = v3;
     _os_log_impl(&dword_1DEB1B000, v2, OS_LOG_TYPE_DEFAULT, "signInToServices - Logging into service %{public}@", buf, 0xCu);
   }
 
   v5 = *(a1 + 32);
   v4 = *(a1 + 40);
   v6 = *(a1 + 48);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __69__AIDAServiceOwnersManager_signInToServices_usingContext_completion___block_invoke_107;
-  v10[3] = &unk_1E8683618;
-  v12 = *(a1 + 72);
-  v10[4] = v5;
-  v9 = *(a1 + 56);
-  v7 = v9;
-  v11 = v9;
-  [v4 signInService:v5 withContext:v6 completion:v10];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __69__AIDAServiceOwnersManager_signInToServices_usingContext_completion___block_invoke_107;
+  v9[3] = &unk_1E8683618;
+  v11 = *(a1 + 72);
+  v9[4] = v5;
+  v8 = *(a1 + 56);
+  v7 = v8;
+  v10 = v8;
+  [v4 signInService:v5 withContext:v6 completion:v9];
 }
 
 void __69__AIDAServiceOwnersManager_signInToServices_usingContext_completion___block_invoke_107(void *a1, uint64_t a2, void *a3)
@@ -1029,9 +1007,9 @@ void __69__AIDAServiceOwnersManager_signInToServices_usingContext_completion___b
 
 void __69__AIDAServiceOwnersManager_signInToServices_usingContext_completion___block_invoke_2_109(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1[5] + 8) + 40) copy];
-  v3 = _AIDALogSystem();
+  v3 = _AIDALogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     if (*(*(a1[6] + 8) + 24))
@@ -1044,114 +1022,105 @@ void __69__AIDAServiceOwnersManager_signInToServices_usingContext_completion___b
       v4 = @"NO";
     }
 
-    v7 = 138412546;
-    v8 = v4;
-    v9 = 2112;
-    v10 = v2;
-    _os_log_impl(&dword_1DEB1B000, v3, OS_LOG_TYPE_DEFAULT, "signInToServices completed with success %@ and results: %@", &v7, 0x16u);
+    v5 = 138412546;
+    v6 = v4;
+    v7 = 2112;
+    v8 = v2;
+    _os_log_impl(&dword_1DEB1B000, v3, OS_LOG_TYPE_DEFAULT, "signInToServices completed with success %@ and results: %@", &v5, 0x16u);
   }
 
-  v5 = *(*(a1[6] + 8) + 24);
   (*(a1[4] + 16))();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __69__AIDAServiceOwnersManager_signInToServices_usingContext_completion___block_invoke_111(void *a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = [[AIDAServiceOperationResult alloc] initWithSuccess:a2 error:v5 type:a1[4]];
 
   [*(*(a1[8] + 8) + 40) setObject:v6 forKeyedSubscript:a1[4]];
   if (a2)
   {
-    v7 = a1[5];
     v8 = *(a1[7] + 16);
-    v9 = *MEMORY[0x1E69E9840];
 
     v8();
   }
 
   else
   {
-    v10 = _AIDALogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = _AIDALogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(*(a1[8] + 8) + 40);
-      v15 = 138412290;
-      v16 = v11;
-      _os_log_impl(&dword_1DEB1B000, v10, OS_LOG_TYPE_DEFAULT, "signInToServices failed sign in for primary account with results: %@", &v15, 0xCu);
+      v10 = *(*(a1[8] + 8) + 40);
+      v13 = 138412290;
+      v14 = v10;
+      _os_log_impl(&dword_1DEB1B000, v9, OS_LOG_TYPE_DEFAULT, "signInToServices failed sign in for primary account with results: %@", &v13, 0xCu);
     }
 
-    v12 = a1[6];
-    v13 = [*(*(a1[8] + 8) + 40) copy];
-    (*(v12 + 16))(v12, 0, v13);
-
-    v14 = *MEMORY[0x1E69E9840];
+    v11 = a1[6];
+    v12 = [*(*(a1[8] + 8) + 40) copy];
+    (*(v11 + 16))(v11, 0, v12);
   }
 }
 
 - (void)signOutService:(id)service withContext:(id)context completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   contextCopy = context;
   completionCopy = completion;
-  v11 = _AIDASignpostLogSystem();
+  v11 = _AIDASignpostLogSystem(completionCopy);
   v12 = _AIDASignpostCreate(v11);
   v14 = v13;
 
-  v15 = _AIDASignpostLogSystem();
-  v16 = v15;
-  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  v16 = _AIDASignpostLogSystem(v15);
+  v17 = v16;
+  if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
   {
     *buf = 138543362;
     *&buf[4] = serviceCopy;
-    _os_signpost_emit_with_name_impl(&dword_1DEB1B000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v12, "SignOutService", " ServiceType=%{public,signpost.telemetry:string1,name=ServiceType}@  enableTelemetry=YES ", buf, 0xCu);
+    _os_signpost_emit_with_name_impl(&dword_1DEB1B000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v12, "SignOutService", " ServiceType=%{public,signpost.telemetry:string1,name=ServiceType}@  enableTelemetry=YES ", buf, 0xCu);
   }
 
-  v17 = _AIDASignpostLogSystem();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v19 = _AIDASignpostLogSystem(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
     *&buf[4] = v12;
     *&buf[12] = 2114;
     *&buf[14] = serviceCopy;
-    _os_log_impl(&dword_1DEB1B000, v17, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: SignOutService  ServiceType=%{public,signpost.telemetry:string1,name=ServiceType}@  enableTelemetry=YES ", buf, 0x16u);
+    _os_log_impl(&dword_1DEB1B000, v19, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: SignOutService  ServiceType=%{public,signpost.telemetry:string1,name=ServiceType}@  enableTelemetry=YES ", buf, 0x16u);
   }
 
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __66__AIDAServiceOwnersManager_signOutService_withContext_completion___block_invoke;
-  v25[3] = &unk_1E86836E0;
-  v27 = v12;
-  v28 = v14;
-  v18 = completionCopy;
-  v26 = v18;
-  v19 = MEMORY[0x1E12C4D20](v25);
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __66__AIDAServiceOwnersManager_signOutService_withContext_completion___block_invoke;
+  v26[3] = &unk_1E86836E0;
+  v28 = v12;
+  v29 = v14;
+  v20 = completionCopy;
+  v27 = v20;
+  v21 = MEMORY[0x1E12C4D20](v26);
   serviceOwners = [(AIDAServiceOwnersManager *)self serviceOwners];
-  v21 = [serviceOwners objectForKeyedSubscript:serviceCopy];
+  v23 = [serviceOwners objectForKeyedSubscript:serviceCopy];
 
-  if (v21)
+  if (v23)
   {
-    v22 = _os_activity_create(&dword_1DEB1B000, "AIDA/signOutService", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+    v24 = _os_activity_create(&dword_1DEB1B000, "AIDA/signOutService", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
     *buf = 0;
     *&buf[8] = 0;
-    os_activity_scope_enter(v22, buf);
-    v23 = [contextCopy copy];
-    [v21 signOutService:serviceCopy withContext:v23 completion:v19];
+    os_activity_scope_enter(v24, buf);
+    v25 = [contextCopy copy];
+    [v23 signOutService:serviceCopy withContext:v25 completion:v21];
 
     os_activity_scope_leave(buf);
   }
 
   else
   {
-    v22 = [MEMORY[0x1E696ABC0] aida_errorWithCode:-1001];
-    (v19)[2](v19, 0, v22);
+    v24 = [MEMORY[0x1E696ABC0] aida_errorWithCode:-1001];
+    (v21)[2](v21, 0, v24);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __66__AIDAServiceOwnersManager_signOutService_withContext_completion___block_invoke(void *a1, int a2, void *a3)
@@ -1159,7 +1128,7 @@ void __66__AIDAServiceOwnersManager_signOutService_withContext_completion___bloc
   v22 = *MEMORY[0x1E69E9840];
   v5 = a3;
   Nanoseconds = _AIDASignpostGetNanoseconds(a1[5], a1[6]);
-  v7 = _AIDASignpostLogSystem();
+  v7 = _AIDASignpostLogSystem(Nanoseconds);
   v8 = v7;
   v9 = a1[5];
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -1171,25 +1140,24 @@ void __66__AIDAServiceOwnersManager_signOutService_withContext_completion___bloc
     _os_signpost_emit_with_name_impl(&dword_1DEB1B000, v8, OS_SIGNPOST_INTERVAL_END, v9, "SignOutService", " Success=%{public,signpost.telemetry:number1,name=Success}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v15, 0xEu);
   }
 
-  v10 = _AIDASignpostLogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = _AIDASignpostLogSystem(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = Nanoseconds / 1000000000.0;
-    v12 = a1[5];
-    v13 = [v5 code];
+    v12 = Nanoseconds / 1000000000.0;
+    v13 = a1[5];
+    v14 = [v5 code];
     v15 = 134218752;
-    *v16 = v12;
+    *v16 = v13;
     *&v16[8] = 2048;
-    v17 = v11;
+    v17 = v12;
     v18 = 1026;
     v19 = a2;
     v20 = 1026;
-    v21 = v13;
-    _os_log_impl(&dword_1DEB1B000, v10, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs:SignOutService  Success=%{public,signpost.telemetry:number1,name=Success}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v15, 0x22u);
+    v21 = v14;
+    _os_log_impl(&dword_1DEB1B000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs:SignOutService  Success=%{public,signpost.telemetry:number1,name=Success}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v15, 0x22u);
   }
 
   (*(a1[4] + 16))();
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)signOutOfAllServicesUsingContext:(id)context completion:(id)completion
@@ -1265,12 +1233,12 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v17 = _AIDALogSystem();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = _AIDALogSystem(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     v33 = v15;
-    _os_log_impl(&dword_1DEB1B000, v17, OS_LOG_TYPE_DEFAULT, "signOutOfServices - Logging out of primary service %{public}@", buf, 0xCu);
+    _os_log_impl(&dword_1DEB1B000, v18, OS_LOG_TYPE_DEFAULT, "signOutOfServices - Logging out of primary service %{public}@", buf, 0xCu);
   }
 
   v20[0] = MEMORY[0x1E69E9820];
@@ -1278,48 +1246,46 @@ LABEL_7:
   v20[2] = __70__AIDAServiceOwnersManager_signOutOfServices_usingContext_completion___block_invoke_115;
   v20[3] = &unk_1E86836B8;
   v25 = v30;
-  v18 = v15;
-  v21 = v18;
+  v19 = v15;
+  v21 = v19;
   v23 = v12;
   v24 = v13;
   v22 = v14;
-  [(AIDAServiceOwnersManager *)self signOutService:v18 withContext:v11 completion:v20];
+  [(AIDAServiceOwnersManager *)self signOutService:v19 withContext:v11 completion:v20];
 
 LABEL_8:
   _Block_object_dispose(v30, 8);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __70__AIDAServiceOwnersManager_signOutOfServices_usingContext_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v30[0] = 0;
-  v30[1] = v30;
-  v30[2] = 0x2020000000;
-  v31 = 1;
+  v29[0] = 0;
+  v29[1] = v29;
+  v29[2] = 0x2020000000;
+  v30 = 1;
   v4 = dispatch_group_create();
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = v3;
-  v5 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v5 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v5)
   {
-    v6 = *v27;
+    v6 = *v26;
     do
     {
       v7 = 0;
       do
       {
-        if (*v27 != v6)
+        if (*v26 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v26 + 1) + 8 * v7);
+        v8 = *(*(&v25 + 1) + 8 * v7);
         dispatch_group_enter(v4);
         v9 = dispatch_get_global_queue(33, 0);
         block[0] = MEMORY[0x1E69E9820];
@@ -1330,65 +1296,62 @@ void __70__AIDAServiceOwnersManager_signOutOfServices_usingContext_completion___
         v11 = *(a1 + 40);
         block[4] = v8;
         block[5] = v10;
-        v22 = v11;
+        v21 = v11;
         v12 = *(a1 + 56);
-        v24 = v30;
-        v25 = v12;
-        v23 = v4;
+        v23 = v29;
+        v24 = v12;
+        v22 = v4;
         dispatch_async(v9, block);
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v5 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
     }
 
     while (v5);
   }
 
   v13 = dispatch_get_global_queue(33, 0);
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __70__AIDAServiceOwnersManager_signOutOfServices_usingContext_completion___block_invoke_2_114;
-  v18[3] = &unk_1E8683668;
-  v20 = v30;
-  v16 = *(a1 + 48);
-  v14 = v16;
-  v19 = v16;
-  dispatch_group_notify(v4, v13, v18);
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __70__AIDAServiceOwnersManager_signOutOfServices_usingContext_completion___block_invoke_2_114;
+  v17[3] = &unk_1E8683668;
+  v19 = v29;
+  v15 = *(a1 + 48);
+  v14 = v15;
+  v18 = v15;
+  dispatch_group_notify(v4, v13, v17);
 
-  _Block_object_dispose(v30, 8);
-  v15 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v29, 8);
 }
 
 void __70__AIDAServiceOwnersManager_signOutOfServices_usingContext_completion___block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v2 = _AIDALogSystem();
+  v14 = *MEMORY[0x1E69E9840];
+  v2 = _AIDALogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v14 = v3;
+    v13 = v3;
     _os_log_impl(&dword_1DEB1B000, v2, OS_LOG_TYPE_DEFAULT, "signOutOfServices - Logging out of service %{public}@", buf, 0xCu);
   }
 
   v5 = *(a1 + 32);
   v4 = *(a1 + 40);
   v6 = *(a1 + 48);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __70__AIDAServiceOwnersManager_signOutOfServices_usingContext_completion___block_invoke_113;
-  v10[3] = &unk_1E8683618;
-  v12 = *(a1 + 72);
-  v10[4] = v5;
-  v9 = *(a1 + 56);
-  v7 = v9;
-  v11 = v9;
-  [v4 signOutService:v5 withContext:v6 completion:v10];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __70__AIDAServiceOwnersManager_signOutOfServices_usingContext_completion___block_invoke_113;
+  v9[3] = &unk_1E8683618;
+  v11 = *(a1 + 72);
+  v9[4] = v5;
+  v8 = *(a1 + 56);
+  v7 = v8;
+  v10 = v8;
+  [v4 signOutService:v5 withContext:v6 completion:v9];
 }
 
 void __70__AIDAServiceOwnersManager_signOutOfServices_usingContext_completion___block_invoke_113(void *a1, uint64_t a2, void *a3)
@@ -1409,9 +1372,9 @@ void __70__AIDAServiceOwnersManager_signOutOfServices_usingContext_completion___
 
 void __70__AIDAServiceOwnersManager_signOutOfServices_usingContext_completion___block_invoke_2_114(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1[5] + 8) + 40) copy];
-  v3 = _AIDALogSystem();
+  v3 = _AIDALogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     if (*(*(a1[6] + 8) + 24))
@@ -1424,51 +1387,44 @@ void __70__AIDAServiceOwnersManager_signOutOfServices_usingContext_completion___
       v4 = @"NO";
     }
 
-    v7 = 138412546;
-    v8 = v4;
-    v9 = 2112;
-    v10 = v2;
-    _os_log_impl(&dword_1DEB1B000, v3, OS_LOG_TYPE_DEFAULT, "signOutOfServices completed with success %@ and results: %@", &v7, 0x16u);
+    v5 = 138412546;
+    v6 = v4;
+    v7 = 2112;
+    v8 = v2;
+    _os_log_impl(&dword_1DEB1B000, v3, OS_LOG_TYPE_DEFAULT, "signOutOfServices completed with success %@ and results: %@", &v5, 0x16u);
   }
 
-  v5 = *(*(a1[6] + 8) + 24);
   (*(a1[4] + 16))();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __70__AIDAServiceOwnersManager_signOutOfServices_usingContext_completion___block_invoke_115(void *a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = [[AIDAServiceOperationResult alloc] initWithSuccess:a2 error:v5 type:a1[4]];
 
   [*(*(a1[8] + 8) + 40) setObject:v6 forKeyedSubscript:a1[4]];
   if (a2)
   {
-    v7 = a1[5];
     v8 = *(a1[7] + 16);
-    v9 = *MEMORY[0x1E69E9840];
 
     v8();
   }
 
   else
   {
-    v10 = _AIDALogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = _AIDALogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(*(a1[8] + 8) + 40);
-      v15 = 138412290;
-      v16 = v11;
-      _os_log_impl(&dword_1DEB1B000, v10, OS_LOG_TYPE_DEFAULT, "signOutOfServices failed sign out for primary account with results: %@", &v15, 0xCu);
+      v10 = *(*(a1[8] + 8) + 40);
+      v13 = 138412290;
+      v14 = v10;
+      _os_log_impl(&dword_1DEB1B000, v9, OS_LOG_TYPE_DEFAULT, "signOutOfServices failed sign out for primary account with results: %@", &v13, 0xCu);
     }
 
-    v12 = a1[6];
-    v13 = [*(*(a1[8] + 8) + 40) copy];
-    (*(v12 + 16))(v12, 0, v13);
-
-    v14 = *MEMORY[0x1E69E9840];
+    v11 = a1[6];
+    v12 = [*(*(a1[8] + 8) + 40) copy];
+    (*(v11 + 16))(v11, 0, v12);
   }
 }
 
@@ -1484,12 +1440,12 @@ void __70__AIDAServiceOwnersManager_signOutOfServices_usingContext_completion___
   return v3;
 }
 
-void __52__AIDAServiceOwnersManager__sharedTelemetryReporter__block_invoke()
+void __52__AIDAServiceOwnersManager__sharedTelemetryReporter__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = objc_opt_new();
-  v0 = [MEMORY[0x1E6985DB8] analyticsReporterWithTransport:v2];
-  v1 = _sharedTelemetryReporter_reporter;
-  _sharedTelemetryReporter_reporter = v0;
+  v5 = objc_opt_new();
+  v3 = [MEMORY[0x1E6985DB8] analyticsReporterWithTransport:v5];
+  v4 = _sharedTelemetryReporter_reporter;
+  _sharedTelemetryReporter_reporter = v3;
 }
 
 - (void)_completeSignInSignpost:(id)signpost forService:(id)service context:(id)context success:(BOOL)success error:(id)error
@@ -1497,12 +1453,12 @@ void __52__AIDAServiceOwnersManager__sharedTelemetryReporter__block_invoke()
   successCopy = success;
   var1 = signpost.var1;
   var0 = signpost.var0;
-  v42 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   contextCopy = context;
   errorCopy = error;
-  v31 = [serviceCopy stringByReplacingOccurrencesOfString:@"." withString:@"_"];
-  v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s_%@", "SignInService", v31];
+  v32 = [serviceCopy stringByReplacingOccurrencesOfString:@"." withString:@"_"];
+  v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s_%@", "SignInService", v32];
   v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_errorCode", v14];
   v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_errorDomain", v14];
   if (errorCopy)
@@ -1527,152 +1483,125 @@ void __52__AIDAServiceOwnersManager__sharedTelemetryReporter__block_invoke()
   [_telemetryTimeSeries2 setObject:domain forKeyedSubscript:v16];
 
   Nanoseconds = _AIDASignpostGetNanoseconds(var0, var1);
-  v22 = _AIDASignpostLogSystem();
-  v23 = v22;
-  if (var0 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+  v22 = Nanoseconds;
+  v23 = _AIDASignpostLogSystem(Nanoseconds);
+  v24 = v23;
+  if (var0 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
   {
     *buf = 138543874;
-    v34 = serviceCopy;
-    v35 = 1026;
-    *v36 = successCopy;
-    *&v36[4] = 1026;
-    *&v36[6] = [errorCopy code];
-    _os_signpost_emit_with_name_impl(&dword_1DEB1B000, v23, OS_SIGNPOST_INTERVAL_END, var0, "SignInService", " ServiceType=%{public,signpost.telemetry:string2,name=ServiceType}@  Success=%{public,signpost.telemetry:number1,name=Success}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", buf, 0x18u);
+    v35 = serviceCopy;
+    v36 = 1026;
+    *v37 = successCopy;
+    *&v37[4] = 1026;
+    *&v37[6] = [errorCopy code];
+    _os_signpost_emit_with_name_impl(&dword_1DEB1B000, v24, OS_SIGNPOST_INTERVAL_END, var0, "SignInService", " ServiceType=%{public,signpost.telemetry:string2,name=ServiceType}@  Success=%{public,signpost.telemetry:number1,name=Success}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", buf, 0x18u);
   }
 
-  v24 = Nanoseconds / 1000000000.0;
+  v25 = v22 / 1000000000.0;
 
-  v25 = _AIDASignpostLogSystem();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  v27 = _AIDASignpostLogSystem(v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
     code = [errorCopy code];
     *buf = 134219010;
-    v34 = var0;
-    v35 = 2048;
-    *v36 = v24;
-    *&v36[8] = 2114;
-    v37 = serviceCopy;
-    v38 = 1026;
-    v39 = successCopy;
-    v40 = 1026;
-    v41 = code;
-    _os_log_impl(&dword_1DEB1B000, v25, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs:SignInService  ServiceType=%{public,signpost.telemetry:string2,name=ServiceType}@  Success=%{public,signpost.telemetry:number1,name=Success}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", buf, 0x2Cu);
+    v35 = var0;
+    v36 = 2048;
+    *v37 = v25;
+    *&v37[8] = 2114;
+    v38 = serviceCopy;
+    v39 = 1026;
+    v40 = successCopy;
+    v41 = 1026;
+    v42 = code;
+    _os_log_impl(&dword_1DEB1B000, v27, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs:SignInService  ServiceType=%{public,signpost.telemetry:string2,name=ServiceType}@  Success=%{public,signpost.telemetry:number1,name=Success}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", buf, 0x2Cu);
   }
 
   _telemetryTimeSeries3 = [contextCopy _telemetryTimeSeries];
-  v28 = [MEMORY[0x1E696AD98] numberWithDouble:v24];
-  [_telemetryTimeSeries3 setObject:v28 forKeyedSubscript:v14];
+  v30 = [MEMORY[0x1E696AD98] numberWithDouble:v25];
+  [_telemetryTimeSeries3 setObject:v30 forKeyedSubscript:v14];
 
   [(AIDAServiceOwnersManager *)self _publishSignInTelemetryEventForContext:contextCopy];
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_publishSignInTelemetryEventForContext:(id)context
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   _telemetryTimeSeries = [contextCopy _telemetryTimeSeries];
   v5 = [_telemetryTimeSeries copy];
 
-  v6 = _AIDALogSystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _AIDALogSystem(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412546;
-    v12 = contextCopy;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_impl(&dword_1DEB1B000, v6, OS_LOG_TYPE_DEFAULT, "Publishing AIDA sign in telemetry event for context (%@) with time series: %@", &v11, 0x16u);
+    v12 = 138412546;
+    v13 = contextCopy;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_impl(&dword_1DEB1B000, v7, OS_LOG_TYPE_DEFAULT, "Publishing AIDA sign in telemetry event for context (%@) with time series: %@", &v12, 0x16u);
   }
 
-  v7 = [MEMORY[0x1E6985DB0] analyticsEventWithName:@"com.apple.com.apple.appleidauthentication.sign-in-service" eventCategory:0 initData:v5];
-  v8 = +[AIDAServiceOwnersManager _sharedTelemetryReporter];
-  [v8 sendEvent:v7];
+  v8 = [MEMORY[0x1E6985DB0] analyticsEventWithName:@"com.apple.com.apple.appleidauthentication.sign-in-service" eventCategory:0 initData:v5];
+  v9 = +[AIDAServiceOwnersManager _sharedTelemetryReporter];
+  [v9 sendEvent:v8];
 
-  v9 = _AIDALogSystem();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v11 = _AIDALogSystem(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = contextCopy;
-    _os_log_impl(&dword_1DEB1B000, v9, OS_LOG_TYPE_DEFAULT, "Published AIDA sign in telemetry event for context (%@)", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = contextCopy;
+    _os_log_impl(&dword_1DEB1B000, v11, OS_LOG_TYPE_DEFAULT, "Published AIDA sign in telemetry event for context (%@)", &v12, 0xCu);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __53__AIDAServiceOwnersManager__buildServiceOwnerMapping__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
-  _os_log_fault_impl(&dword_1DEB1B000, v0, OS_LOG_TYPE_FAULT, "Bundle already expected to be loaded: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-void __53__AIDAServiceOwnersManager__buildServiceOwnerMapping__block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1DEB1B000, v0, v1, "Non-conformant principal class for bundle: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __53__AIDAServiceOwnersManager__buildServiceOwnerMapping__block_invoke_cold_3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1DEB1B000, v0, v1, "Failed to allocate service owner for bundle: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1DEB1B000, v0, OS_LOG_TYPE_FAULT, "Bundle already expected to be loaded: %@", v1, 0xCu);
 }
 
 void __52__AIDAServiceOwnersManager__loadServiceOwnerBundles__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_1DEB1B000, v1, OS_LOG_TYPE_ERROR, "Failed to load bundle (%{public}@), error: %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __52__AIDAServiceOwnersManager__loadServiceOwnerBundles__block_invoke_cold_3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1DEB1B000, v0, v1, "Missing supported services for bundle: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_1DEB1B000, v1, OS_LOG_TYPE_ERROR, "Failed to load bundle (%{public}@), error: %@", v2, 0x16u);
 }
 
 + (void)supportedServices
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_1DEB1B000, v0, OS_LOG_TYPE_DEBUG, "AIDA returning supported services: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-- (void)signInService:withContext:completion:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1DEB1B000, v0, v1, "Sign in service attempted with an unsupported service type: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1DEB1B000, v0, OS_LOG_TYPE_DEBUG, "AIDA returning supported services: %@", v1, 0xCu);
 }
 
 - (void)signInToAllServicesInBackground:(void *)a1 usingContext:completion:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = [a1 cdpUiProvider];
-  OUTLINED_FUNCTION_2(&dword_1DEB1B000, v2, v3, "CDP provider set on context: %@", v4, v5, v6, v7, 2u);
+  v7 = [a1 cdpUiProvider];
+  v8 = @"YES";
+  if (!v7)
+  {
+    v8 = 0;
+  }
 
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v9) = 138412290;
+  HIDWORD(v9) = v8;
+  OUTLINED_FUNCTION_2(&dword_1DEB1B000, v1, v2, "CDP provider set on context: %@", v3, v4, v5, v6, v9, HIDWORD(v8));
 }
 
 - (void)signInToAllServicesInBackground:(void *)a1 usingContext:completion:.cold.2(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = [a1 aaSignInFlowControllerDelegate];
-  OUTLINED_FUNCTION_2(&dword_1DEB1B000, v2, v3, "AAFlowControllerDelegate set on context: %@", v4, v5, v6, v7, 2u);
+  v7 = [a1 aaSignInFlowControllerDelegate];
+  v8 = @"YES";
+  if (!v7)
+  {
+    v8 = 0;
+  }
 
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v9) = 138412290;
+  HIDWORD(v9) = v8;
+  OUTLINED_FUNCTION_2(&dword_1DEB1B000, v1, v2, "AAFlowControllerDelegate set on context: %@", v3, v4, v5, v6, v9, HIDWORD(v8));
 }
 
 @end

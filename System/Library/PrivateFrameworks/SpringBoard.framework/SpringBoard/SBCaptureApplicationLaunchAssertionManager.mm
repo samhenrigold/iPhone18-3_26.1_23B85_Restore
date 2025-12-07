@@ -134,7 +134,7 @@ void __113__SBCaptureApplicationLaunchAssertionManager_acquireCaptureApplication
   if (WeakRetained)
   {
     v5 = [v3 bundleIdentifier];
-    v6 = SBLogCaptureApplication();
+    v6 = SBLogCaptureApplication(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 138412290;
@@ -154,7 +154,7 @@ void __113__SBCaptureApplicationLaunchAssertionManager_acquireCaptureApplication
 {
   v15 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v5 = SBLogCaptureApplication();
+  v5 = SBLogCaptureApplication(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -186,7 +186,7 @@ void __86__SBCaptureApplicationLaunchAssertionManager__startAssertionTimerForBun
   v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = SBLogCaptureApplication();
+  v5 = SBLogCaptureApplication(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [v3 identifier];
@@ -205,7 +205,7 @@ void __86__SBCaptureApplicationLaunchAssertionManager__startAssertionTimerForBun
 
   else
   {
-    v10 = SBLogCaptureApplication();
+    v10 = SBLogCaptureApplication(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __86__SBCaptureApplicationLaunchAssertionManager__startAssertionTimerForBundleIdentifier___block_invoke_cold_1(v7, v10);
@@ -226,7 +226,7 @@ void __86__SBCaptureApplicationLaunchAssertionManager__startAssertionTimerForBun
 
   else
   {
-    v7 = SBLogCaptureApplication();
+    v7 = SBLogCaptureApplication(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(SBCaptureApplicationLaunchAssertionManager *)identifierCopy _clearAssertionTimerForBundleIdentifier:v7];
@@ -325,7 +325,7 @@ void __61__SBCaptureApplicationLaunchAssertionManager_removeObserver___block_inv
     v4 = observerCopy;
     if (v5)
     {
-      v6 = [(NSHashTable *)self->_observers containsObject:observerCopy];
+      v6 = objc_msgSend_containsObject_(self->_observers, observerCopy, observerCopy);
       v4 = observerCopy;
       if (v6)
       {

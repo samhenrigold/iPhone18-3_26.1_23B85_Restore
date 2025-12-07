@@ -6,7 +6,7 @@
 
 - (id)getFeatureMatrixWithUnknownLoiLabel:(id)label
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   labelCopy = label;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v6 = [(NSMutableArray *)self->_ordinalLoiLabels count];
@@ -30,8 +30,8 @@
           v11 = v15;
         }
 
-        v40[0] = v11;
-        v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:1];
+        v39[0] = v11;
+        v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:1];
         v17 = [v16 mutableCopy];
 
         v18 = [(NSMutableArray *)self->_dayOfWeekSinArray objectAtIndexedSubscript:v10];
@@ -64,21 +64,19 @@
       v25 = [(NSMutableArray *)self->_dayOfWeekCosArray count];
       v26 = [(NSMutableArray *)self->_timeOfDaySinArray count];
       v27 = [(NSMutableArray *)self->_timeOfDayCosArray count];
-      v30 = 134219008;
-      v31 = v23;
-      v32 = 2048;
-      v33 = v24;
-      v34 = 2048;
-      v35 = v25;
-      v36 = 2048;
-      v37 = v26;
-      v38 = 2048;
-      v39 = v27;
-      _os_log_impl(&dword_1CEE74000, v22, OS_LOG_TYPE_DEFAULT, "Error: feature matrix columns have non-homgenous lengths, onehot: %lu, dayofweeksin: %lu, dayofweekcos: %lu, todsin: %lu, todcos: %lu", &v30, 0x34u);
+      v29 = 134219008;
+      v30 = v23;
+      v31 = 2048;
+      v32 = v24;
+      v33 = 2048;
+      v34 = v25;
+      v35 = 2048;
+      v36 = v26;
+      v37 = 2048;
+      v38 = v27;
+      _os_log_impl(&dword_1CEE74000, v22, OS_LOG_TYPE_DEFAULT, "Error: feature matrix columns have non-homgenous lengths, onehot: %lu, dayofweeksin: %lu, dayofweekcos: %lu, todsin: %lu, todcos: %lu", &v29, 0x34u);
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

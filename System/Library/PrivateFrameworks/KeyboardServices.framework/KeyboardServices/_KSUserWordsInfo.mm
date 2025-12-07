@@ -14,11 +14,10 @@
 
 + (id)keyNamesExcludingData
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"DynSize";
-  v5[1] = @"DynDate";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"DynSize";
+  v4[1] = @"DynDate";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }
@@ -157,47 +156,47 @@ LABEL_22:
 
 - (_KSUserWordsInfo)initWithFiles:(id)files
 {
-  v56[2] = *MEMORY[0x277D85DE8];
+  v55[2] = *MEMORY[0x277D85DE8];
   filesCopy = files;
-  v48.receiver = self;
-  v48.super_class = _KSUserWordsInfo;
-  v6 = [(_KSUserWordsInfo *)&v48 init];
+  v47.receiver = self;
+  v47.super_class = _KSUserWordsInfo;
+  v6 = [(_KSUserWordsInfo *)&v47 init];
   v7 = v6;
   if (!v6)
   {
     goto LABEL_14;
   }
 
-  v47 = filesCopy;
+  v46 = filesCopy;
   objc_storeStrong(&v6->_file, files);
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v9 = FindEntry(v7->_file, @"AutocorrectionRejections.db");
   v10 = v9;
   if (v9)
   {
-    v55[0] = @"size";
+    v54[0] = @"size";
     v11 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{objc_msgSend(v9, "size")}];
-    v56[0] = v11;
-    v55[1] = @"date";
+    v55[0] = v11;
+    v54[1] = @"date";
     lastModified = [v10 lastModified];
-    v56[1] = lastModified;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:2];
+    v55[1] = lastModified;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:2];
     v14 = _KSGetSetting(ksDefaultSortNegativeLearning, &unk_28679DA18);
     [dictionary setObject:v13 forKey:v14];
   }
 
-  v45 = v10;
+  v44 = v10;
   v15 = FindEntry(v7->_file, @"VulgarWordUsage.db");
   v16 = v15;
   if (v15)
   {
-    v53[0] = @"size";
+    v52[0] = @"size";
     v17 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{objc_msgSend(v15, "size", v10)}];
-    v53[1] = @"date";
-    v54[0] = v17;
+    v52[1] = @"date";
+    v53[0] = v17;
     lastModified2 = [v16 lastModified];
-    v54[1] = lastModified2;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:2];
+    v53[1] = lastModified2;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:2];
     v20 = _KSGetSetting(ksDefaultSortVulgarWordUsageDatabase, &unk_28679DA18);
     [dictionary setObject:v19 forKey:v20];
   }
@@ -206,13 +205,13 @@ LABEL_22:
   v22 = v21;
   if (v21)
   {
-    v51[0] = @"size";
+    v50[0] = @"size";
     v23 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{objc_msgSend(v21, "size")}];
-    v51[1] = @"date";
-    v52[0] = v23;
+    v50[1] = @"date";
+    v51[0] = v23;
     lastModified3 = [v22 lastModified];
-    v52[1] = lastModified3;
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:2];
+    v51[1] = lastModified3;
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:2];
     v26 = _KSGetSetting(ksDefaultSortDynamicData, &unk_28679DA30);
     [dictionary setObject:v25 forKey:v26];
   }
@@ -222,13 +221,13 @@ LABEL_22:
   v29 = v28;
   if (v28)
   {
-    v49[0] = @"size";
+    v48[0] = @"size";
     v30 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{objc_msgSend(v28, "size")}];
-    v49[1] = @"date";
-    v50[0] = v30;
+    v48[1] = @"date";
+    v49[0] = v30;
     lastModified4 = [v29 lastModified];
-    v50[1] = lastModified4;
-    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:2];
+    v49[1] = lastModified4;
+    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:2];
     v33 = _KSGetSetting(ksDefaultSortLanguageModel, &unk_28679DA48);
     [dictionary setObject:v32 forKey:v33];
   }
@@ -247,7 +246,7 @@ LABEL_22:
     v37 = 0;
   }
 
-  filesCopy = v47;
+  filesCopy = v46;
   v38 = [v37 objectForKey:@"date"];
   modifiedDate = v7->_modifiedDate;
   v7->_modifiedDate = v38;
@@ -267,7 +266,6 @@ LABEL_14:
     v42 = v7;
   }
 
-  v43 = *MEMORY[0x277D85DE8];
   return v42;
 }
 
@@ -374,15 +372,14 @@ LABEL_10:
 
 + (void)filesForLanguage:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 136315650;
-  v5 = "+[_KSUserWordsInfo filesForLanguage:]";
-  v6 = 2112;
-  v7 = a1;
-  v8 = 2112;
-  v9 = a2;
-  _os_log_error_impl(&dword_2557E2000, log, OS_LOG_TYPE_ERROR, "%s  Failed to get files for language '%@': %@", &v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 136315650;
+  v4 = "+[_KSUserWordsInfo filesForLanguage:]";
+  v5 = 2112;
+  v6 = a1;
+  v7 = 2112;
+  v8 = a2;
+  _os_log_error_impl(&dword_2557E2000, log, OS_LOG_TYPE_ERROR, "%s  Failed to get files for language '%@': %@", &v3, 0x20u);
 }
 
 @end

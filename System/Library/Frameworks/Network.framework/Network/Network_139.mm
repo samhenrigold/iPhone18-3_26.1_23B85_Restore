@@ -177,7 +177,7 @@ void nw_connection_group_cancel_connections_locked(NWConcrete_nw_connection_grou
   v8 = __nwlog_obj();
   *buf = 136446210;
   *&buf[4] = "nw_connection_group_cancel_connections_locked";
-  v9 = _os_log_send_and_compose_impl();
+  v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null group", buf, 12);
 
   v20[0] = 16;
   v19 = 0;
@@ -335,7 +335,7 @@ os_log_type_t *nw_connection_group_copy_peel_off_connection(void *a1)
     v16 = __nwlog_obj();
     *aBlock = 136446210;
     *&aBlock[4] = "nw_connection_group_copy_peel_off_connection";
-    v17 = _os_log_send_and_compose_impl();
+    v17 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v16, 16, "%{public}s called with null group", aBlock, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     LOBYTE(v43) = 0;
@@ -431,7 +431,7 @@ LABEL_85:
   }
 
   v42 = nw_group_descriptor_copy_member(v1[8]);
-  v3 = _nw_parameters_copy(v2[7]);
+  v3 = _nw_parameters_copy();
   v4 = v2;
   v5 = v42;
   v6 = v3;
@@ -441,7 +441,7 @@ LABEL_85:
     v22 = __nwlog_obj();
     *aBlock = 136446210;
     *&aBlock[4] = "nw_connection_group_copy_connection_for_endpoint_and_parameters";
-    v23 = _os_log_send_and_compose_impl();
+    v23 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v22, 16, "%{public}s called with null remote_endpoint", aBlock, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     LOBYTE(v43) = 0;
@@ -556,7 +556,7 @@ LABEL_85:
   v26 = __nwlog_obj();
   *aBlock = 136446210;
   *&aBlock[4] = "nw_connection_group_copy_connection_for_endpoint_and_parameters";
-  v23 = _os_log_send_and_compose_impl();
+  v23 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v26, 16, "%{public}s called with null parameters", aBlock, 12);
 
   type[0] = OS_LOG_TYPE_ERROR;
   LOBYTE(v43) = 0;
@@ -808,7 +808,7 @@ uint64_t ___ZL63nw_connection_group_copy_connection_for_endpoint_and_parametersP
     v15 = __nwlog_obj();
     *buf = 136446210;
     v35 = "nw_connection_group_copy_connection_for_endpoint_and_parameters_block_invoke";
-    v16 = _os_log_send_and_compose_impl();
+    v16 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v15, 16, "%{public}s called with null connection_parameters", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v32 = 0;
@@ -885,7 +885,7 @@ uint64_t ___ZL63nw_connection_group_copy_connection_for_endpoint_and_parametersP
     v21 = __nwlog_obj();
     *buf = 136446210;
     v35 = "nw_connection_group_copy_connection_for_endpoint_and_parameters_block_invoke";
-    v16 = _os_log_send_and_compose_impl();
+    v16 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v21, 16, "%{public}s called with null connection_remote_endpoint", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v32 = 0;
@@ -1039,7 +1039,7 @@ nw_connection_group_t nw_connection_group_create(nw_group_descriptor_t group_des
     v12 = __nwlog_obj();
     *buf = 136446210;
     v24 = "nw_connection_group_create";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s called with null parameters", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v21 = 0;
@@ -1109,7 +1109,7 @@ LABEL_36:
     v8 = __nwlog_obj();
     *buf = 136446210;
     v24 = "nw_connection_group_create";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null group_descriptor", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v21 = 0;
@@ -1186,7 +1186,7 @@ LABEL_4:
   return v6;
 }
 
-void **nw_connection_group_create_with_parameters(void *a1)
+unsigned __int16 *nw_connection_group_create_with_parameters(void *a1)
 {
   v19 = *MEMORY[0x1E69E9840];
   v1 = a1;
@@ -1201,7 +1201,7 @@ void **nw_connection_group_create_with_parameters(void *a1)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_connection_group_create_with_parameters";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null parameters", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -1273,7 +1273,7 @@ LABEL_3:
   return v3;
 }
 
-void **nw_connection_group_create_with_connection(void *a1, void *a2)
+unsigned __int16 *nw_connection_group_create_with_connection(void *a1, void *a2)
 {
   v27 = *MEMORY[0x1E69E9840];
   v3 = a1;
@@ -1290,7 +1290,7 @@ void **nw_connection_group_create_with_connection(void *a1, void *a2)
     v12 = __nwlog_obj();
     *buf = 136446210;
     v24 = "nw_connection_group_create_with_connection";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s called with null connection", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v21 = 0;
@@ -1360,7 +1360,7 @@ LABEL_36:
     v8 = __nwlog_obj();
     *buf = 136446210;
     v24 = "nw_connection_group_create_with_connection";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null group_descriptor", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v21 = 0;
@@ -1448,7 +1448,7 @@ void nw_connection_group_set_queue(nw_connection_group_t group, dispatch_queue_t
     v10 = __nwlog_obj();
     *v35 = 136446210;
     *&v35[4] = "nw_connection_group_set_queue";
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s called with null group", v35, 12);
 
     buf[0] = 16;
     v28 = 0;
@@ -1570,7 +1570,7 @@ LABEL_44:
   v14 = __nwlog_obj();
   *v35 = 136446210;
   *&v35[4] = "nw_connection_group_set_queue";
-  v11 = _os_log_send_and_compose_impl();
+  v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s called with null queue", v35, 12);
 
   buf[0] = 16;
   v28 = 0;
@@ -1673,7 +1673,7 @@ void nw_connection_group_set_has_completed_any_connection_handler(void *a1, void
     v10 = __nwlog_obj();
     *v35 = 136446210;
     *&v35[4] = "nw_connection_group_set_has_completed_any_connection_handler";
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s called with null group", v35, 12);
 
     buf[0] = 16;
     v28 = 0;
@@ -1795,7 +1795,7 @@ LABEL_44:
   v14 = __nwlog_obj();
   *v35 = 136446210;
   *&v35[4] = "nw_connection_group_set_has_completed_any_connection_handler";
-  v11 = _os_log_send_and_compose_impl();
+  v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s called with null has_completed_any_connection_handler", v35, 12);
 
   buf[0] = 16;
   v28 = 0;
@@ -1900,7 +1900,7 @@ void nw_connection_group_set_membership_changed_handler(void *a1, void *a2)
     v10 = __nwlog_obj();
     *v35 = 136446210;
     *&v35[4] = "nw_connection_group_set_membership_changed_handler";
-    v11 = _os_log_send_and_compose_impl();
+    v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s called with null group", v35, 12);
 
     buf[0] = 16;
     v28 = 0;
@@ -2022,7 +2022,7 @@ LABEL_44:
   v14 = __nwlog_obj();
   *v35 = 136446210;
   *&v35[4] = "nw_connection_group_set_membership_changed_handler";
-  v11 = _os_log_send_and_compose_impl();
+  v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s called with null membership_change_handler", v35, 12);
 
   buf[0] = 16;
   v28 = 0;
@@ -2168,7 +2168,7 @@ void nw_connection_group_set_state_changed_handler(nw_connection_group_t group, 
   v9 = __nwlog_obj();
   *v28 = 136446210;
   *&v28[4] = "nw_connection_group_set_state_changed_handler";
-  v10 = _os_log_send_and_compose_impl();
+  v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s called with null group", v28, 12);
 
   buf[0] = 16;
   v21 = 0;
@@ -2290,7 +2290,7 @@ uint64_t nw_connection_group_get_connection_limit(void *a1)
   v6 = __nwlog_obj();
   *buf = 136446210;
   *&buf[4] = "nw_connection_group_get_connection_limit";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s called with null group", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v17 = 0;
@@ -2362,9 +2362,9 @@ LABEL_3:
   return v4;
 }
 
-void sub_1823CA980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, ...)
+void sub_1823CA980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -2410,7 +2410,7 @@ void nw_connection_group_set_connection_limit(void *a1, int a2)
   v7 = __nwlog_obj();
   *buf = 136446210;
   v21 = "nw_connection_group_set_connection_limit";
-  v8 = _os_log_send_and_compose_impl();
+  v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s called with null group", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v18 = 0;
@@ -2548,7 +2548,7 @@ uint64_t nw_connection_group_get_new_connection_limit(void *a1)
   v6 = __nwlog_obj();
   *buf = 136446210;
   *&buf[4] = "nw_connection_group_get_new_connection_limit";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s called with null group", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v17 = 0;
@@ -2620,9 +2620,9 @@ LABEL_3:
   return v4;
 }
 
-void sub_1823CB20C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, ...)
+void sub_1823CB20C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -2652,7 +2652,7 @@ void nw_connection_group_set_new_connection_limit(void *a1, int a2)
   v6 = __nwlog_obj();
   *buf = 136446210;
   v20 = "nw_connection_group_set_new_connection_limit";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s called with null group", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v17 = 0;
@@ -2755,7 +2755,7 @@ void __nw_connection_group_set_new_connection_limit_block_invoke(uint64_t a1)
   v6 = __nwlog_obj();
   *buf = 136446210;
   v17 = "nw_connection_group_set_new_connection_limit_block_invoke";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s called with null group->listener", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v14 = 0;
@@ -2879,7 +2879,7 @@ void nw_connection_group_set_new_connection_handler(nw_connection_group_t group,
   v11 = __nwlog_obj();
   *buf = 136446210;
   v25 = "nw_connection_group_set_new_connection_handler";
-  v12 = _os_log_send_and_compose_impl();
+  v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s called with null group", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v22 = 0;
@@ -3081,7 +3081,7 @@ LABEL_16:
   v18 = __nwlog_obj();
   *buf = 136446210;
   v38 = "nw_connection_group_set_receive_handler";
-  v19 = _os_log_send_and_compose_impl();
+  v19 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v18, 16, "%{public}s called with null group", buf, 12);
 
   type[0] = OS_LOG_TYPE_ERROR;
   v36 = 0;
@@ -3150,9 +3150,9 @@ LABEL_35:
 LABEL_18:
 }
 
-void sub_1823CC2BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, uint64_t a14, ...)
+void sub_1823CC2BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, void *a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -3190,7 +3190,7 @@ void nw_connection_group_reply(nw_connection_group_t group, nw_content_context_t
     v44 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_connection_group_reply";
-    v45 = _os_log_send_and_compose_impl();
+    v45 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v44, 16, "%{public}s called with null group", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     LOBYTE(v87[0]) = 0;
@@ -3270,7 +3270,7 @@ LABEL_131:
     v48 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_connection_group_reply";
-    v45 = _os_log_send_and_compose_impl();
+    v45 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v48, 16, "%{public}s called with null inbound_message", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     LOBYTE(v87[0]) = 0;
@@ -3340,7 +3340,7 @@ LABEL_131:
     v50 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_connection_group_reply";
-    v45 = _os_log_send_and_compose_impl();
+    v45 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v50, 16, "%{public}s called with null outbound_message", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     LOBYTE(v87[0]) = 0;
@@ -3755,7 +3755,7 @@ void __nw_connection_group_reply_block_invoke(uint64_t a1)
     v17 = __nwlog_obj();
     *v35 = 136446210;
     *&v35[4] = "nw_connection_group_has_connection_locked";
-    v18 = _os_log_send_and_compose_impl();
+    v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v17, 16, "%{public}s called with null group", v35, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v31 = 0;
@@ -3837,7 +3837,7 @@ LABEL_52:
     v21 = __nwlog_obj();
     *v35 = 136446210;
     *&v35[4] = "nw_connection_group_has_connection_locked";
-    v18 = _os_log_send_and_compose_impl();
+    v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v21, 16, "%{public}s called with null connection", v35, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v31 = 0;
@@ -3992,9 +3992,9 @@ LABEL_11:
 LABEL_18:
 }
 
-void sub_1823CDCD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, ...)
+void sub_1823CDCD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -4092,7 +4092,7 @@ nw_endpoint_t nw_connection_group_copy_remote_endpoint_for_message(nw_connection
     v43 = __nwlog_obj();
     *buf = 136446210;
     v56 = "nw_connection_group_copy_remote_endpoint_for_message";
-    v22 = _os_log_send_and_compose_impl();
+    v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v43, 16, "%{public}s called with null group", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v53 = 0;
@@ -4162,7 +4162,7 @@ nw_endpoint_t nw_connection_group_copy_remote_endpoint_for_message(nw_connection
     v45 = __nwlog_obj();
     *buf = 136446210;
     v56 = "nw_connection_group_copy_remote_endpoint_for_message";
-    v22 = _os_log_send_and_compose_impl();
+    v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v45, 16, "%{public}s called with null context", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v53 = 0;
@@ -4244,7 +4244,7 @@ LABEL_17:
     v21 = gLogObj;
     *buf = 136446210;
     v56 = "nw_connection_group_copy_remote_endpoint_for_message";
-    v22 = _os_log_send_and_compose_impl();
+    v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v21, 16, "%{public}s Group descriptor is not set", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v53 = 0;
@@ -4367,7 +4367,7 @@ LABEL_12:
           v56 = "nw_connection_group_copy_remote_endpoint_for_message";
           v57 = 2080;
           v58 = v20;
-          v22 = _os_log_send_and_compose_impl();
+          v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v18, 16, "%{public}s Unsupported group descriptor type: %s", buf, 22);
 
           type = OS_LOG_TYPE_ERROR;
           v53 = 0;
@@ -4538,7 +4538,7 @@ void nw_connection_group_send_message(nw_connection_group_t group, dispatch_data
     v21 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_connection_group_send_message";
-    v22 = _os_log_send_and_compose_impl();
+    v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v21, 16, "%{public}s called with null group", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v44 = 0;
@@ -4652,7 +4652,7 @@ LABEL_39:
   v25 = __nwlog_obj();
   *buf = 136446210;
   *&buf[4] = "nw_connection_group_send_message";
-  v22 = _os_log_send_and_compose_impl();
+  v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v25, 16, "%{public}s called with null completion", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v44 = 0;
@@ -4725,9 +4725,9 @@ LABEL_33:
 LABEL_6:
 }
 
-void sub_1823CF028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, void *a13, void *a14, void *a15, uint64_t a16, uint64_t a17, ...)
+void sub_1823CF028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, void *a13, void *a14, void *a15, uint64_t a16, uint64_t a17, void *a18, void *a19, void *a20, void *a21, void *a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -4735,19 +4735,28 @@ void sub_1823CF028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ___ZL42nw_connection_group_send_message_on_socketP30NWConcrete_nw_connection_groupPU27objcproto16OS_nw_fd_wrapper8NSObjectPU32objcproto21OS_nw_content_contextS1_S5_PU27objcproto16OS_dispatch_dataS1__block_invoke_154(uint64_t a1)
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   address = *(a1 + 80);
   if (!address)
   {
-    v49 = __nwlog_obj();
-    os_log_type_enabled(v49, OS_LOG_TYPE_ERROR);
+    v51 = __nwlog_obj();
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+    {
+      v52 = 3;
+    }
+
+    else
+    {
+      v52 = 2;
+    }
+
     *applier = 136446210;
     *&applier[4] = "nw_connection_group_send_message_on_socket_block_invoke";
-    v4 = _os_log_send_and_compose_impl();
+    v4 = _os_log_send_and_compose_impl(v52, 0, 0, 0, &dword_181A37000, v51, 16, "%{public}s strict_calloc called with size 0", applier, 12);
 
     if (__nwlog_should_abort(v4))
     {
-      goto LABEL_79;
+      goto LABEL_85;
     }
 
     free(v4);
@@ -4759,14 +4768,25 @@ void ___ZL42nw_connection_group_send_message_on_socketP30NWConcrete_nw_connectio
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
     networkd_settings_init();
     v8 = gLogObj;
-    os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
     *applier = 136446722;
     *&applier[4] = "nw_connection_group_send_message_on_socket_block_invoke";
+    if (v9)
+    {
+      v10 = 3;
+    }
+
+    else
+    {
+      v10 = 2;
+    }
+
     *&applier[12] = 2048;
     *&applier[14] = 1;
     *&applier[22] = 2048;
     *&applier[24] = address;
-    address = _os_log_send_and_compose_impl();
+    LODWORD(v58) = 32;
+    address = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s strict_calloc(%zu, %zu) failed", applier, v58);
 
     if (!__nwlog_should_abort(address))
     {
@@ -4775,39 +4795,39 @@ void ___ZL42nw_connection_group_send_message_on_socketP30NWConcrete_nw_connectio
       v5 = *(a1 + 32);
       v6 = *(a1 + 80);
       *type = 0;
-      v60 = type;
+      v64 = type;
+      v65 = 0x2000000000;
+      v66 = 0;
+      v59 = 0;
+      v60 = &v59;
       v61 = 0x2000000000;
       v62 = 0;
-      v55 = 0;
-      v56 = &v55;
-      v57 = 0x2000000000;
-      v58 = 0;
       if (v5)
       {
         goto LABEL_4;
       }
 
-      goto LABEL_7;
+      goto LABEL_10;
     }
 
-LABEL_79:
+LABEL_85:
     __break(1u);
-LABEL_80:
+LABEL_86:
     dispatch_once(&__nwlog_connection_group_log::onceToken, &__block_literal_global_32);
-    goto LABEL_76;
+    goto LABEL_82;
   }
 
   v1 = (a1 + 32);
   v5 = *(a1 + 32);
   v6 = *(a1 + 80);
   *type = 0;
-  v60 = type;
+  v64 = type;
+  v65 = 0x2000000000;
+  v66 = 0;
+  v59 = 0;
+  v60 = &v59;
   v61 = 0x2000000000;
-  v62 = 0;
-  v55 = 0;
-  v56 = &v55;
-  v57 = 0x2000000000;
-  v58 = v4;
+  v62 = v4;
   if (v5)
   {
 LABEL_4:
@@ -4815,24 +4835,24 @@ LABEL_4:
     *&applier[8] = 0x40000000;
     *&applier[16] = __nw_dispatch_data_copyout_block_invoke;
     *&applier[24] = &unk_1E6A34348;
-    *&applier[40] = &v55;
+    *&applier[40] = &v59;
     *&applier[48] = v6;
     *&applier[32] = type;
     dispatch_data_apply(v5, applier);
-    v7 = *(v60 + 3);
-    goto LABEL_8;
+    v7 = *(v64 + 3);
+    goto LABEL_11;
   }
 
-LABEL_7:
+LABEL_10:
   v7 = 0;
-LABEL_8:
-  _Block_object_dispose(&v55, 8);
+LABEL_11:
+  _Block_object_dispose(&v59, 8);
   _Block_object_dispose(type, 8);
   if (v7 != *(a1 + 80))
   {
     if (nw_parameters_get_logging_disabled(*(*(a1 + 40) + 56)))
     {
-      goto LABEL_53;
+      goto LABEL_56;
     }
 
     if (__nwlog_connection_group_log::onceToken != -1)
@@ -4840,24 +4860,24 @@ LABEL_8:
       dispatch_once(&__nwlog_connection_group_log::onceToken, &__block_literal_global_32);
     }
 
-    v13 = gconnection_groupLogObj;
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = gconnection_groupLogObj;
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v14 = *(a1 + 32);
-      v15 = *(*(a1 + 40) + 176);
-      v16 = *(a1 + 80);
+      v16 = *(a1 + 32);
+      v17 = *(*(a1 + 40) + 176);
+      v18 = *(a1 + 80);
       *applier = 136446978;
       *&applier[4] = "nw_connection_group_send_message_on_socket_block_invoke";
       *&applier[12] = 1024;
-      *&applier[14] = v15;
+      *&applier[14] = v17;
       *&applier[18] = 2048;
-      *&applier[20] = v16;
+      *&applier[20] = v18;
       *&applier[28] = 2112;
-      *&applier[30] = v14;
-      _os_log_impl(&dword_181A37000, v13, OS_LOG_TYPE_ERROR, "%{public}s [G%u] Failed to copy %zu bytes of content from %@", applier, 0x26u);
+      *&applier[30] = v16;
+      _os_log_impl(&dword_181A37000, v15, OS_LOG_TYPE_ERROR, "%{public}s [G%u] Failed to copy %zu bytes of content from %@", applier, 0x26u);
     }
 
-    goto LABEL_21;
+    goto LABEL_24;
   }
 
   address = nw_endpoint_get_address(*(a1 + 48));
@@ -4866,7 +4886,7 @@ LABEL_8:
   {
     if (logging_disabled)
     {
-      goto LABEL_53;
+      goto LABEL_56;
     }
 
     if (__nwlog_connection_group_log::onceToken != -1)
@@ -4874,151 +4894,152 @@ LABEL_8:
       dispatch_once(&__nwlog_connection_group_log::onceToken, &__block_literal_global_32);
     }
 
-    v13 = gconnection_groupLogObj;
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = gconnection_groupLogObj;
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v17 = *(a1 + 48);
-      v18 = *(*(a1 + 40) + 176);
+      v19 = *(a1 + 48);
+      v20 = *(*(a1 + 40) + 176);
       *applier = 136446722;
       *&applier[4] = "nw_connection_group_send_message_on_socket_block_invoke";
       *&applier[12] = 1024;
-      *&applier[14] = v18;
+      *&applier[14] = v20;
       *&applier[18] = 2112;
-      *&applier[20] = v17;
-      _os_log_impl(&dword_181A37000, v13, OS_LOG_TYPE_ERROR, "%{public}s [G%u] Failed to access address from %@", applier, 0x1Cu);
+      *&applier[20] = v19;
+      _os_log_impl(&dword_181A37000, v15, OS_LOG_TYPE_ERROR, "%{public}s [G%u] Failed to access address from %@", applier, 0x1Cu);
     }
 
-LABEL_21:
+LABEL_24:
 
-    goto LABEL_53;
+    goto LABEL_56;
   }
 
   if (logging_disabled || gLogDatapath != 1)
   {
-    goto LABEL_12;
+    goto LABEL_15;
   }
 
   if (__nwlog_connection_group_log::onceToken != -1)
   {
-    goto LABEL_80;
+    goto LABEL_86;
   }
 
-LABEL_76:
-  v50 = gconnection_groupLogObj;
-  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+LABEL_82:
+  v53 = gconnection_groupLogObj;
+  if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
   {
-    v51 = *(a1 + 48);
-    v52 = *(*(a1 + 40) + 176);
-    v53 = *(a1 + 80);
-    v54 = *(*(*(a1 + 72) + 8) + 24);
+    v54 = *(a1 + 48);
+    v55 = *(*(a1 + 40) + 176);
+    v56 = *(a1 + 80);
+    v57 = *(*(*(a1 + 72) + 8) + 24);
     *applier = 136447490;
     *&applier[4] = "nw_connection_group_send_message_on_socket_block_invoke";
     *&applier[12] = 1024;
-    *&applier[14] = v52;
+    *&applier[14] = v55;
     *&applier[18] = 1024;
-    *&applier[20] = v54;
+    *&applier[20] = v57;
     *&applier[24] = 2048;
     *&applier[26] = v4;
     *&applier[34] = 2048;
-    *&applier[36] = v53;
+    *&applier[36] = v56;
     *&applier[44] = 2112;
-    *&applier[46] = v51;
-    _os_log_impl(&dword_181A37000, v50, OS_LOG_TYPE_DEBUG, "%{public}s [G%u] calling sendto(%d, %p, %zu, 0, %@)", applier, 0x36u);
+    *&applier[46] = v54;
+    _os_log_impl(&dword_181A37000, v53, OS_LOG_TYPE_DEBUG, "%{public}s [G%u] calling sendto(%d, %p, %zu, 0, %@)", applier, 0x36u);
   }
 
-LABEL_12:
-  v10 = sendto(*(*(*(a1 + 72) + 8) + 24), v4, *(a1 + 80), 0, address, address->sa_len);
-  v11 = v10;
-  if (v10 < 0)
+LABEL_15:
+  v12 = sendto(*(*(*(a1 + 72) + 8) + 24), v4, *(a1 + 80), 0, address, address->sa_len);
+  v13 = v12;
+  if (v12 < 0)
   {
-    v19 = **(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
+    v21 = **(_ReadStatusReg(ARM64_SYSREG(3, 3, 13, 0, 3)) + 8);
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
     networkd_settings_init();
-    v20 = gLogObj;
-    v21 = *v1;
+    v22 = gLogObj;
+    v23 = *v1;
     *applier = 136446722;
     *&applier[4] = "nw_connection_group_send_message_on_socket_block_invoke";
     *&applier[12] = 2112;
-    *&applier[14] = v21;
+    *&applier[14] = v23;
     *&applier[22] = 1024;
-    *&applier[24] = v19;
-    v22 = _os_log_send_and_compose_impl();
+    *&applier[24] = v21;
+    LODWORD(v58) = 28;
+    v24 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v22, 16, "%{public}s sendto failed for %@ %{darwin.errno}d", applier, v58);
 
     type[0] = OS_LOG_TYPE_ERROR;
-    LOBYTE(v55) = 0;
-    if (__nwlog_fault(v22, type, &v55))
+    LOBYTE(v59) = 0;
+    if (__nwlog_fault(v24, type, &v59))
     {
       if (type[0] == OS_LOG_TYPE_FAULT)
       {
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
         networkd_settings_init();
-        v23 = gLogObj;
-        v24 = type[0];
-        if (os_log_type_enabled(v23, type[0]))
+        v25 = gLogObj;
+        v26 = type[0];
+        if (os_log_type_enabled(v25, type[0]))
         {
-          v25 = *v1;
+          v27 = *v1;
           *applier = 136446722;
           *&applier[4] = "nw_connection_group_send_message_on_socket_block_invoke";
           *&applier[12] = 2112;
-          *&applier[14] = v25;
+          *&applier[14] = v27;
           *&applier[22] = 1024;
-          *&applier[24] = v19;
-          _os_log_impl(&dword_181A37000, v23, v24, "%{public}s sendto failed for %@ %{darwin.errno}d", applier, 0x1Cu);
+          *&applier[24] = v21;
+          _os_log_impl(&dword_181A37000, v25, v26, "%{public}s sendto failed for %@ %{darwin.errno}d", applier, 0x1Cu);
         }
       }
 
-      else if (v55 == 1)
+      else if (v59 == 1)
       {
         backtrace_string = __nw_create_backtrace_string();
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
         networkd_settings_init();
-        v23 = gLogObj;
-        v30 = type[0];
-        v31 = os_log_type_enabled(v23, type[0]);
+        v25 = gLogObj;
+        v32 = type[0];
+        v33 = os_log_type_enabled(v25, type[0]);
         if (backtrace_string)
         {
-          if (v31)
+          if (v33)
           {
-            v32 = *v1;
+            v34 = *v1;
             *applier = 136446978;
             *&applier[4] = "nw_connection_group_send_message_on_socket_block_invoke";
             *&applier[12] = 2112;
-            *&applier[14] = v32;
+            *&applier[14] = v34;
             *&applier[22] = 1024;
-            *&applier[24] = v19;
+            *&applier[24] = v21;
             *&applier[28] = 2082;
             *&applier[30] = backtrace_string;
-            _os_log_impl(&dword_181A37000, v23, v30, "%{public}s sendto failed for %@ %{darwin.errno}d, dumping backtrace:%{public}s", applier, 0x26u);
+            _os_log_impl(&dword_181A37000, v25, v32, "%{public}s sendto failed for %@ %{darwin.errno}d, dumping backtrace:%{public}s", applier, 0x26u);
           }
 
           free(backtrace_string);
-          if (!v22)
+          if (!v24)
           {
-LABEL_53:
-            v12 = 0;
+LABEL_56:
+            v14 = 0;
             if (!v4)
             {
-              goto LABEL_55;
+              goto LABEL_58;
             }
 
-            goto LABEL_54;
+            goto LABEL_57;
           }
 
-LABEL_52:
-          free(v22);
-          goto LABEL_53;
+LABEL_55:
+          free(v24);
+          goto LABEL_56;
         }
 
-        if (v31)
+        if (v33)
         {
-          v35 = *v1;
+          v37 = *v1;
           *applier = 136446722;
           *&applier[4] = "nw_connection_group_send_message_on_socket_block_invoke";
           *&applier[12] = 2112;
-          *&applier[14] = v35;
+          *&applier[14] = v37;
           *&applier[22] = 1024;
-          *&applier[24] = v19;
-          _os_log_impl(&dword_181A37000, v23, v30, "%{public}s sendto failed for %@ %{darwin.errno}d, no backtrace", applier, 0x1Cu);
+          *&applier[24] = v21;
+          _os_log_impl(&dword_181A37000, v25, v32, "%{public}s sendto failed for %@ %{darwin.errno}d, no backtrace", applier, 0x1Cu);
         }
       }
 
@@ -5026,31 +5047,31 @@ LABEL_52:
       {
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
         networkd_settings_init();
-        v23 = gLogObj;
-        v33 = type[0];
-        if (os_log_type_enabled(v23, type[0]))
+        v25 = gLogObj;
+        v35 = type[0];
+        if (os_log_type_enabled(v25, type[0]))
         {
-          v34 = *v1;
+          v36 = *v1;
           *applier = 136446722;
           *&applier[4] = "nw_connection_group_send_message_on_socket_block_invoke";
           *&applier[12] = 2112;
-          *&applier[14] = v34;
+          *&applier[14] = v36;
           *&applier[22] = 1024;
-          *&applier[24] = v19;
-          _os_log_impl(&dword_181A37000, v23, v33, "%{public}s sendto failed for %@ %{darwin.errno}d, backtrace limit exceeded", applier, 0x1Cu);
+          *&applier[24] = v21;
+          _os_log_impl(&dword_181A37000, v25, v35, "%{public}s sendto failed for %@ %{darwin.errno}d, backtrace limit exceeded", applier, 0x1Cu);
         }
       }
     }
 
-    if (!v22)
+    if (!v24)
     {
-      goto LABEL_53;
+      goto LABEL_56;
     }
 
-    goto LABEL_52;
+    goto LABEL_55;
   }
 
-  if (v10 != *(a1 + 80))
+  if (v12 != *(a1 + 80))
   {
     if (!nw_parameters_get_logging_disabled(*(*(a1 + 40) + 56)))
     {
@@ -5059,38 +5080,38 @@ LABEL_52:
         dispatch_once(&__nwlog_connection_group_log::onceToken, &__block_literal_global_32);
       }
 
-      v26 = gconnection_groupLogObj;
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v28 = gconnection_groupLogObj;
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        v27 = *(*(a1 + 40) + 176);
-        v28 = *(a1 + 80);
+        v29 = *(*(a1 + 40) + 176);
+        v30 = *(a1 + 80);
         *applier = 136446978;
         *&applier[4] = "nw_connection_group_send_message_on_socket_block_invoke";
         *&applier[12] = 1024;
-        *&applier[14] = v27;
+        *&applier[14] = v29;
         *&applier[18] = 2048;
-        *&applier[20] = v11;
+        *&applier[20] = v13;
         *&applier[28] = 2048;
-        *&applier[30] = v28;
-        _os_log_impl(&dword_181A37000, v26, OS_LOG_TYPE_ERROR, "%{public}s [G%u] Failed to send entire packet, sent %zd bytes of %zu", applier, 0x26u);
+        *&applier[30] = v30;
+        _os_log_impl(&dword_181A37000, v28, OS_LOG_TYPE_ERROR, "%{public}s [G%u] Failed to send entire packet, sent %zd bytes of %zu", applier, 0x26u);
       }
     }
 
-    goto LABEL_53;
+    goto LABEL_56;
   }
 
-  v12 = 1;
+  v14 = 1;
   if (v4)
   {
-LABEL_54:
+LABEL_57:
     free(v4);
   }
 
-LABEL_55:
-  v36 = nw_parameters_get_logging_disabled(*(*(a1 + 40) + 56));
-  if (v12)
+LABEL_58:
+  v38 = nw_parameters_get_logging_disabled(*(*(a1 + 40) + 56));
+  if (v14)
   {
-    if (v36)
+    if (v38)
     {
       return;
     }
@@ -5100,14 +5121,14 @@ LABEL_55:
       dispatch_once(&__nwlog_connection_group_log::onceToken, &__block_literal_global_32);
     }
 
-    v37 = gconnection_groupLogObj;
-    if (!os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+    v39 = gconnection_groupLogObj;
+    if (!os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_71;
+      goto LABEL_74;
     }
 
-    v38 = *(*(a1 + 40) + 176);
-    v39 = *(a1 + 56);
+    v40 = *(*(a1 + 40) + 176);
+    v41 = *(a1 + 56);
     identifier = nw_content_context_get_identifier(*(a1 + 64));
     size = *(a1 + 32);
     if (size)
@@ -5118,20 +5139,20 @@ LABEL_55:
     *applier = 136447234;
     *&applier[4] = "nw_connection_group_send_message_on_socket_block_invoke";
     *&applier[12] = 1024;
-    *&applier[14] = v38;
+    *&applier[14] = v40;
     *&applier[18] = 2048;
-    *&applier[20] = v39;
+    *&applier[20] = v41;
     *&applier[28] = 2080;
     *&applier[30] = identifier;
     *&applier[38] = 2048;
     *&applier[40] = size;
-    v42 = "%{public}s [G%u] sent reply to context %p: (context: %s, content: %zu bytes)";
-    v43 = v37;
-    v44 = OS_LOG_TYPE_DEBUG;
-    goto LABEL_70;
+    v44 = "%{public}s [G%u] sent reply to context %p: (context: %s, content: %zu bytes)";
+    v45 = v39;
+    v46 = OS_LOG_TYPE_DEBUG;
+    goto LABEL_73;
   }
 
-  if (v36)
+  if (v38)
   {
     return;
   }
@@ -5141,56 +5162,56 @@ LABEL_55:
     dispatch_once(&__nwlog_connection_group_log::onceToken, &__block_literal_global_32);
   }
 
-  v37 = gconnection_groupLogObj;
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+  v39 = gconnection_groupLogObj;
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
   {
-    v45 = *(*(a1 + 40) + 176);
-    v46 = *(a1 + 56);
-    v47 = nw_content_context_get_identifier(*(a1 + 64));
-    v48 = *(a1 + 32);
-    if (v48)
+    v47 = *(*(a1 + 40) + 176);
+    v48 = *(a1 + 56);
+    v49 = nw_content_context_get_identifier(*(a1 + 64));
+    v50 = *(a1 + 32);
+    if (v50)
     {
-      v48 = dispatch_data_get_size(v48);
+      v50 = dispatch_data_get_size(v50);
     }
 
     *applier = 136447234;
     *&applier[4] = "nw_connection_group_send_message_on_socket_block_invoke";
     *&applier[12] = 1024;
-    *&applier[14] = v45;
+    *&applier[14] = v47;
     *&applier[18] = 2048;
-    *&applier[20] = v46;
+    *&applier[20] = v48;
     *&applier[28] = 2080;
-    *&applier[30] = v47;
+    *&applier[30] = v49;
     *&applier[38] = 2048;
-    *&applier[40] = v48;
-    v42 = "%{public}s [G%u] context %p failed to send reply (context: %s, content: %zu bytes)";
-    v43 = v37;
-    v44 = OS_LOG_TYPE_ERROR;
-LABEL_70:
-    _os_log_impl(&dword_181A37000, v43, v44, v42, applier, 0x30u);
+    *&applier[40] = v50;
+    v44 = "%{public}s [G%u] context %p failed to send reply (context: %s, content: %zu bytes)";
+    v45 = v39;
+    v46 = OS_LOG_TYPE_ERROR;
+LABEL_73:
+    _os_log_impl(&dword_181A37000, v45, v46, v44, applier, 0x30u);
   }
 
-LABEL_71:
+LABEL_74:
 }
 
-void __nw_connection_group_send_message_block_invoke(uint64_t a1)
+void __nw_connection_group_send_message_block_invoke(void *a1)
 {
   *&v41[13] = *MEMORY[0x1E69E9840];
-  if (nw_connection_group_get_type(*(a1 + 32)) != 1)
+  if (nw_connection_group_get_type(a1[4]) != 1)
   {
     return;
   }
 
-  v2 = *(a1 + 32);
+  v2 = a1[4];
   if (!*(v2 + 104) || (*(v2 + 198) & 0x20) != 0)
   {
     return;
   }
 
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 48);
-  v6 = *(a1 + 56);
-  v5 = *(a1 + 64);
+  v3 = a1[5];
+  v4 = a1[6];
+  v6 = a1[7];
+  v5 = a1[8];
   v35 = v2;
   v7 = v3;
   v8 = v4;
@@ -5202,7 +5223,7 @@ void __nw_connection_group_send_message_block_invoke(uint64_t a1)
     v19 = __nwlog_obj();
     *buf = 136446210;
     v39 = "nw_connection_group_create_request";
-    v20 = _os_log_send_and_compose_impl();
+    v20 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v19, 16, "%{public}s called with null context", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v36 = 0;
@@ -5279,7 +5300,7 @@ LABEL_53:
     v23 = __nwlog_obj();
     *buf = 136446210;
     v39 = "nw_connection_group_create_request";
-    v20 = _os_log_send_and_compose_impl();
+    v20 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v23, 16, "%{public}s called with null completion", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v36 = 0;
@@ -5359,7 +5380,7 @@ LABEL_40:
   v12->completion = v13;
 
 LABEL_7:
-  if (!nw_parameters_get_logging_disabled(*(*(a1 + 32) + 56)) && gLogDatapath == 1)
+  if (!nw_parameters_get_logging_disabled(*(a1[4] + 56)) && gLogDatapath == 1)
   {
     if (__nwlog_connection_group_log::onceToken != -1)
     {
@@ -5369,7 +5390,7 @@ LABEL_7:
     v25 = gconnection_groupLogObj;
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
-      v26 = *(*(a1 + 32) + 176);
+      v26 = *(a1[4] + 176);
       *buf = 136446722;
       v39 = "nw_connection_group_send_message_block_invoke";
       v40 = 1024;
@@ -5380,15 +5401,15 @@ LABEL_7:
     }
   }
 
-  v15 = *(*(a1 + 32) + 120);
+  v15 = *(a1[4] + 120);
   if (!v15)
   {
     v16 = _nw_array_create();
-    v17 = *(a1 + 32);
+    v17 = a1[4];
     v18 = *(v17 + 120);
     *(v17 + 120) = v16;
 
-    v15 = *(*(a1 + 32) + 120);
+    v15 = *(a1[4] + 120);
   }
 
   if (v15)
@@ -5399,7 +5420,7 @@ LABEL_7:
     }
   }
 
-  *(*(*(a1 + 72) + 8) + 24) = 1;
+  *(*(a1[9] + 8) + 24) = 1;
 }
 
 void nw_connection_group_send_message_internal(void *a1, void *a2, void *a3, void *a4, void *a5)
@@ -5441,7 +5462,7 @@ LABEL_160:
     *&buf[4] = "nw_connection_group_send_message_internal";
     *&buf[12] = 1024;
     *&buf[14] = v62;
-    v63 = _os_log_send_and_compose_impl();
+    v63 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v61, 16, "%{public}s [G%u] context must not be NULL", buf, 18);
 
     v149[0] = 16;
     v147[0] = 0;
@@ -5583,7 +5604,7 @@ LABEL_157:
     v38 = gLogObj;
     *buf = 136446210;
     *&buf[4] = "nw_connection_group_send_message_internal";
-    v39 = _os_log_send_and_compose_impl();
+    v39 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v38, 16, "%{public}s Cannot find endpoints for sending", buf, 12);
 
     v149[0] = 16;
     v147[0] = 0;
@@ -5667,7 +5688,7 @@ LABEL_5:
     v10 = v10;
     v110 = _nw_endpoint_copy(v10);
 
-    parameters = _nw_parameters_copy(v12[7]);
+    parameters = _nw_parameters_copy();
     v13 = v12;
     isa = v13[8].isa;
     host_with_numeric_port = v13;
@@ -5698,7 +5719,7 @@ LABEL_9:
       v70 = __nwlog_obj();
       *buf = 136446210;
       *&buf[4] = "nw_connection_group_copy_connection_for_endpoint_and_parameters";
-      v71 = _os_log_send_and_compose_impl();
+      v71 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v70, 16, "%{public}s called with null remote_endpoint", buf, 12);
 
       v149[0] = 16;
       v147[0] = 0;
@@ -5912,7 +5933,7 @@ LABEL_57:
       *&v149[32] = __Block_byref_object_dispose__9202;
       v150 = 0;
       v105 = v31;
-      v32 = _nw_parameters_copy(v31);
+      v32 = _nw_parameters_copy();
       nw_parameters_set_reuse_local_address(v32, 1);
       if (!nw_parameters_get_logging_disabled(v12[7]) && gLogDatapath == 1)
       {
@@ -6055,7 +6076,7 @@ LABEL_47:
     v74 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_connection_group_copy_connection_for_endpoint_and_parameters";
-    v71 = _os_log_send_and_compose_impl();
+    v71 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v74, 16, "%{public}s called with null parameters", buf, 12);
 
     v149[0] = 16;
     v147[0] = 0;
@@ -6135,7 +6156,7 @@ LABEL_173:
   v97 = __nwlog_obj();
   *buf = 136446210;
   *&buf[4] = "nw_connection_group_send_message_internal";
-  v39 = _os_log_send_and_compose_impl();
+  v39 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v97, 16, "%{public}s called with null endpoint", buf, 12);
 
   v149[0] = 16;
   v147[0] = 0;
@@ -6259,7 +6280,7 @@ uint64_t nw_connection_group_get_port(void *a1)
   v6 = __nwlog_obj();
   *buf = 136446210;
   *&buf[4] = "nw_connection_group_get_port";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s called with null group", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v17 = 0;
@@ -6331,9 +6352,9 @@ LABEL_3:
   return v4;
 }
 
-void sub_1823D212C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, ...)
+void sub_1823D212C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -6423,7 +6444,7 @@ void ___ZL41nw_connection_group_send_message_internalP30NWConcrete_nw_connection
   v10 = __nwlog_obj();
   *buf = 136446210;
   v36 = "nw_connection_group_send_message_internal_block_invoke";
-  v11 = _os_log_send_and_compose_impl();
+  v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s called with null client_queue", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v24 = 0;
@@ -6494,7 +6515,7 @@ LABEL_5:
   _Block_object_dispose(&v29, 8);
 }
 
-void sub_1823D273C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, id a32)
+void sub_1823D273C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, id a32)
 {
   _Block_object_dispose(&a27, 8);
 
@@ -6647,7 +6668,7 @@ uint64_t nw_connection_group_get_type(void *a1)
     v6 = __nwlog_obj();
     *buf = 136446210;
     v18 = "nw_connection_group_get_type";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s called with null group", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v15 = 0;
@@ -6716,7 +6737,7 @@ LABEL_20:
     goto LABEL_22;
   }
 
-  v3 = *(v1 + 8);
+  v3 = v1[8];
   if (!v3)
   {
 LABEL_22:
@@ -6820,9 +6841,9 @@ id nw_connection_group_copy_connection_for_message(void *a1, void *a2)
   return v9;
 }
 
-void sub_1823D3188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1823D3188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -6869,7 +6890,7 @@ void ___ZL47nw_connection_group_copy_connection_for_messageP30NWConcrete_nw_conn
     v12 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_connection_group_has_connection_locked";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v12, 16, "%{public}s called with null connection", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v25 = 0;
@@ -6939,7 +6960,7 @@ LABEL_39:
     v8 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_connection_group_has_connection_locked";
-    v9 = _os_log_send_and_compose_impl();
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null group", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     v25 = 0;
@@ -7016,7 +7037,7 @@ LABEL_7:
   *(*(*(a1 + 48) + 8) + 24) = v7 & 1;
 }
 
-void sub_1823D3748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, id a23)
+void sub_1823D3748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, id a23)
 {
   _Block_object_dispose(&a14, 8);
 
@@ -7071,7 +7092,7 @@ nw_protocol_metadata_t nw_connection_group_copy_protocol_metadata(nw_connection_
     v13 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_connection_group_copy_protocol_metadata";
-    v10 = _os_log_send_and_compose_impl();
+    v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v13, 16, "%{public}s called with null definition", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v26 = 0;
@@ -7141,7 +7162,7 @@ LABEL_38:
     v9 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_connection_group_copy_protocol_metadata";
-    v10 = _os_log_send_and_compose_impl();
+    v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s called with null group", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v26 = 0;
@@ -7218,7 +7239,7 @@ LABEL_4:
   return v7;
 }
 
-void sub_1823D3D60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, void *a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
+void sub_1823D3D60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
 {
   _Block_object_dispose(&a21, 8);
 
@@ -7267,7 +7288,7 @@ nw_connection_t nw_connection_group_extract_connection(nw_connection_group_t gro
     v58 = __nwlog_obj();
     *aBlock = 136446210;
     *&aBlock[4] = "nw_connection_group_extract_connection";
-    v59 = _os_log_send_and_compose_impl();
+    v59 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v58, 16, "%{public}s called with null group", aBlock, 12);
 
     iterate_block[0] = 16;
     LOBYTE(v122) = 0;
@@ -7381,7 +7402,7 @@ LABEL_151:
     v10 = v11;
   }
 
-  v12 = _nw_parameters_copy(v5[7].isa);
+  v12 = _nw_parameters_copy();
   v13 = v5;
   v14 = v10;
   v15 = v12;
@@ -7391,7 +7412,7 @@ LABEL_151:
     v64 = __nwlog_obj();
     *aBlock = 136446210;
     *&aBlock[4] = "nw_connection_group_copy_connection_for_endpoint_and_parameters";
-    v65 = _os_log_send_and_compose_impl();
+    v65 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v64, 16, "%{public}s called with null remote_endpoint", aBlock, 12);
 
     iterate_block[0] = 16;
     LOBYTE(v122) = 0;
@@ -7548,7 +7569,7 @@ LABEL_57:
     v126 = __Block_byref_object_dispose__9202;
     v127 = 0;
     v101 = v23;
-    v24 = _nw_parameters_copy(v23);
+    v24 = _nw_parameters_copy();
     v104 = v24;
     nw_parameters_set_reuse_local_address(v24, 1);
     if (!nw_parameters_get_logging_disabled(v5[7].isa) && gLogDatapath == 1)
@@ -7591,8 +7612,8 @@ LABEL_57:
     if (v25)
     {
       v98 = v25;
-      v97 = _nw_parameters_copy_default_protocol_stack(v25);
-      v28 = _nw_protocol_options_copy_definition(v27);
+      v97 = _nw_parameters_copy_default_protocol_stack();
+      v28 = _nw_protocol_options_copy_definition();
       *v142 = 0;
       *&v142[8] = v142;
       *&v142[16] = 0x2020000000;
@@ -7772,7 +7793,7 @@ LABEL_49:
     v88 = __nwlog_obj();
     *v142 = 136446210;
     *&v142[4] = "nw_connection_group_modify_parameters";
-    v89 = _os_log_send_and_compose_impl();
+    v89 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v88, 16, "%{public}s called with null parameters", v142, 12);
 
     buf[0] = 16;
     v128 = 0;
@@ -7846,7 +7867,7 @@ LABEL_172:
   v68 = __nwlog_obj();
   *aBlock = 136446210;
   *&aBlock[4] = "nw_connection_group_copy_connection_for_endpoint_and_parameters";
-  v65 = _os_log_send_and_compose_impl();
+  v65 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v68, 16, "%{public}s called with null parameters", aBlock, 12);
 
   iterate_block[0] = 16;
   LOBYTE(v122) = 0;
@@ -8052,7 +8073,7 @@ nw_connection_t nw_connection_group_extract_connection_for_message(nw_connection
     v21 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_connection_group_extract_connection_for_message";
-    v22 = _os_log_send_and_compose_impl();
+    v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v21, 16, "%{public}s called with null group", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     LOBYTE(v46) = 0;
@@ -8134,7 +8155,7 @@ LABEL_69:
     v25 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_connection_group_extract_connection_for_message";
-    v22 = _os_log_send_and_compose_impl();
+    v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v25, 16, "%{public}s called with null context", buf, 12);
 
     type[0] = OS_LOG_TYPE_ERROR;
     LOBYTE(v46) = 0;
@@ -8373,7 +8394,7 @@ void __nw_connection_group_extract_connection_for_message_block_invoke(uint64_t 
     v24 = __nwlog_obj();
     *v59 = 136446210;
     *&v59[4] = "nw_connection_group_has_connection_locked";
-    v25 = _os_log_send_and_compose_impl();
+    v25 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v24, 16, "%{public}s called with null group", v59, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v54 = 0;
@@ -8455,7 +8476,7 @@ LABEL_84:
     v28 = __nwlog_obj();
     *v59 = 136446210;
     *&v59[4] = "nw_connection_group_has_connection_locked";
-    v25 = _os_log_send_and_compose_impl();
+    v25 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v28, 16, "%{public}s called with null connection", v59, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v54 = 0;
@@ -8612,7 +8633,7 @@ LABEL_84:
         v40 = __nwlog_obj();
         *buf = 136446210;
         *&buf[4] = "nw_connection_group_remove_connection_locked";
-        v37 = _os_log_send_and_compose_impl();
+        v37 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v40, 16, "%{public}s called with null connection", buf, 12);
 
         v59[0] = 16;
         type = OS_LOG_TYPE_DEFAULT;
@@ -8695,7 +8716,7 @@ LABEL_101:
       v36 = __nwlog_obj();
       *buf = 136446210;
       *&buf[4] = "nw_connection_group_remove_connection_locked";
-      v37 = _os_log_send_and_compose_impl();
+      v37 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v36, 16, "%{public}s called with null group", buf, 12);
 
       v59[0] = 16;
       type = OS_LOG_TYPE_DEFAULT;
@@ -8808,7 +8829,7 @@ BOOL nw_connection_group_reinsert_extracted_connection(nw_connection_group_t gro
     v11 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_connection_group_reinsert_extracted_connection";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s called with null group", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v30 = 0;
@@ -8888,7 +8909,7 @@ LABEL_53:
     v15 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_connection_group_reinsert_extracted_connection";
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v15, 16, "%{public}s called with null connection", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v30 = 0;
@@ -9039,14 +9060,13 @@ LABEL_14:
 
 void __nw_connection_group_reinsert_extracted_connection_block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  v17 = 0;
+  v17 = *MEMORY[0x1E69E9840];
+  v16 = 0uLL;
   nw_connection_get_group_uuid(*(a1 + 32), &v16);
   v2 = *(a1 + 40);
-  if (*(v2 + 128) != v16 || *(v2 + 136) != v17)
+  if (*(v2 + 128) != v16)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v3 = *(v2 + 112);
@@ -9063,22 +9083,22 @@ void __nw_connection_group_reinsert_extracted_connection_block_invoke(uint64_t a
 
   if (v5)
   {
-LABEL_18:
+LABEL_17:
     nw_connection_reset_client(v4);
     nw_connection_group_add_connection_locked(*(a1 + 40), *(a1 + 32));
     nw_connection_start(*(a1 + 32));
     v9 = 1;
-    goto LABEL_16;
+    goto LABEL_15;
   }
 
   if ((_nw_array_contains_object(v3, v4) & 1) == 0)
   {
     v4 = *(a1 + 32);
-    goto LABEL_18;
+    goto LABEL_17;
   }
 
   v2 = *(a1 + 40);
-LABEL_9:
+LABEL_8:
   if (!nw_parameters_get_logging_disabled(*(v2 + 56)))
   {
     if (__nwlog_connection_group_log::onceToken != -1)
@@ -9102,7 +9122,7 @@ LABEL_9:
   }
 
   v9 = 0;
-LABEL_16:
+LABEL_15:
   *(*(*(a1 + 48) + 8) + 24) = v9;
 }
 
@@ -9117,7 +9137,7 @@ uint64_t nw_connection_group_add_member(void *a1, void *a2)
     v13 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_connection_group_add_member";
-    v14 = _os_log_send_and_compose_impl();
+    v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v13, 16, "%{public}s called with null group", buf, 12);
 
     v33 = OS_LOG_TYPE_ERROR;
     v32 = 0;
@@ -9199,7 +9219,7 @@ LABEL_49:
     v17 = __nwlog_obj();
     *buf = 136446210;
     *&buf[4] = "nw_connection_group_add_member";
-    v14 = _os_log_send_and_compose_impl();
+    v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v17, 16, "%{public}s called with null endpoint", buf, 12);
 
     v33 = OS_LOG_TYPE_ERROR;
     v32 = 0;
@@ -9340,10 +9360,10 @@ void sub_1823D7D98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void __nw_connection_group_add_member_block_invoke(uint64_t a1, const unsigned __int8 *a2)
+void __nw_connection_group_add_member_block_invoke(void *a1, const unsigned __int8 *a2)
 {
   v20 = *MEMORY[0x1E69E9840];
-  if (!nw_parameters_get_logging_disabled(*(*(a1 + 32) + 56)))
+  if (!nw_parameters_get_logging_disabled(*(a1[4] + 56)))
   {
     if (__nwlog_connection_group_log::onceToken != -1)
     {
@@ -9353,8 +9373,8 @@ void __nw_connection_group_add_member_block_invoke(uint64_t a1, const unsigned _
     v4 = gconnection_groupLogObj;
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v5 = *(a1 + 40);
-      v6 = *(*(a1 + 32) + 176);
+      v5 = a1[5];
+      v6 = *(a1[4] + 176);
       v10 = 136447234;
       v11 = "nw_connection_group_add_member_block_invoke";
       v12 = 1024;
@@ -9373,14 +9393,14 @@ void __nw_connection_group_add_member_block_invoke(uint64_t a1, const unsigned _
   v8 = v7;
   if (v7)
   {
-    v9 = *(a1 + 40);
+    v9 = a1[5];
     if (v9)
     {
       _nw_array_append(v7, v9);
     }
   }
 
-  *(*(*(a1 + 56) + 8) + 24) = nw_path_group_member_action(*(a1 + 48), a2, 133, v8);
+  *(*(a1[7] + 8) + 24) = nw_path_group_member_action(a1[6], a2, 133, v8);
 }
 
 void nw_connection_group_remove_member(void *a1, void *a2)
@@ -9394,7 +9414,7 @@ void nw_connection_group_remove_member(void *a1, void *a2)
     v9 = __nwlog_obj();
     *buf = 136446210;
     v30 = "nw_connection_group_remove_member";
-    v10 = _os_log_send_and_compose_impl();
+    v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s called with null group", buf, 12);
 
     v28 = OS_LOG_TYPE_ERROR;
     v27 = 0;
@@ -9505,7 +9525,7 @@ LABEL_41:
   v13 = __nwlog_obj();
   *buf = 136446210;
   v30 = "nw_connection_group_remove_member";
-  v10 = _os_log_send_and_compose_impl();
+  v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v13, 16, "%{public}s called with null endpoint", buf, 12);
 
   v28 = OS_LOG_TYPE_ERROR;
   v27 = 0;

@@ -363,8 +363,7 @@ void __116__SBSystemShellExtendedDisplayControllerPolicy_connectToDisplayControl
   v8 = [v7 MirroringMode];
 
   v9 = [v8 source];
-  [v9 sendEvent:v4];
-  v10 = SBLogBiome();
+  v10 = SBLogBiome([v9 sendEvent:v4]);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = *(a1 + 32);
@@ -584,9 +583,9 @@ void __112__SBSystemShellExtendedDisplayControllerPolicy_displayController_scene
   }
 }
 
-uint64_t __140__SBSystemShellExtendedDisplayControllerPolicy_displayController_didBeginTransaction_sceneManager_displayConfiguration_deactivationReasons___block_invoke(uint64_t result, void *a2)
+void *__140__SBSystemShellExtendedDisplayControllerPolicy_displayController_didBeginTransaction_sceneManager_displayConfiguration_deactivationReasons___block_invoke(void *result, void *a2)
 {
-  if (*(*(result + 32) + 120) != a2)
+  if (*(result[4] + 120) != a2)
   {
     return [a2 invalidate];
   }
@@ -808,7 +807,7 @@ void __86__SBSystemShellExtendedDisplayControllerPolicy_descriptionBuilderWithMu
 {
   v8 = [*(*(a1 + 32) + 120) uiSettings];
   v2 = *(a1 + 40);
-  [v8 frame];
+  objc_msgSend_frame(v8);
   v3 = [v2 appendRect:@"frame" withName:?];
   v4 = [*(a1 + 40) appendBool:objc_msgSend(v8 withName:{"isForeground"), @"isForeground"}];
   v5 = *(a1 + 40);

@@ -93,7 +93,7 @@
 
     v9 = v7;
 
-    v8 = v9 && (hardwareIdentifier = self->_hardwareIdentifier, v11 = v9->_hardwareIdentifier, BSEqualObjects()) && self->_interfaceOrientation == v9->_interfaceOrientation && CGRectEqualToRect(self->_bounds, v9->_bounds) && self->_pointScale == v9->_pointScale && self->_isMainDisplay == v9->_isMainDisplay;
+    v8 = v9 && BSEqualObjects() && self->_interfaceOrientation == v9->_interfaceOrientation && CGRectEqualToRect(self->_bounds, v9->_bounds) && self->_pointScale == v9->_pointScale && self->_isMainDisplay == v9->_isMainDisplay;
   }
 
   return v8;
@@ -129,12 +129,8 @@
   coderCopy = coder;
   [coderCopy encodeObject:hardwareIdentifier forKey:@"_hardwareIdentifier"];
   [coderCopy encodeInteger:self->_interfaceOrientation forKey:@"_interfaceOrientation"];
-  x = self->_bounds.origin.x;
-  y = self->_bounds.origin.y;
-  width = self->_bounds.size.width;
-  height = self->_bounds.size.height;
-  v9 = BSValueWithRect();
-  [coderCopy encodeObject:v9 forKey:@"_bounds"];
+  v5 = BSValueWithRect();
+  [coderCopy encodeObject:v5 forKey:@"_bounds"];
 
   [coderCopy encodeDouble:@"_pointScale" forKey:self->_pointScale];
   [coderCopy encodeBool:self->_isMainDisplay forKey:@"_isMainDisplay"];

@@ -35,7 +35,7 @@
 
 void __49__FedStatsPluginBiomeStreamPruner_sharedInstance__block_invoke()
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v0 = SecTaskCreateFromSelf(0);
   error = 0;
   v1 = SecTaskCopyValueForEntitlement(v0, @"com.apple.private.biome.read-write", &error);
@@ -69,105 +69,103 @@ void __49__FedStatsPluginBiomeStreamPruner_sharedInstance__block_invoke()
           v7 = v6;
           if (v6)
           {
-            v33 = v5;
-            v34 = v4;
-            v42 = v1;
+            v30 = v5;
+            v31 = v4;
+            v39 = v1;
             v8 = [v6 mutableCopy];
+            v44 = 0u;
+            v45 = 0u;
+            v46 = 0u;
             v47 = 0u;
-            v48 = 0u;
-            v49 = 0u;
-            v50 = 0u;
-            v32 = v7;
+            v29 = v7;
             v9 = v7;
-            v10 = [v9 countByEnumeratingWithState:&v47 objects:v63 count:16];
+            v10 = [v9 countByEnumeratingWithState:&v44 objects:v60 count:16];
             if (!v10)
             {
               goto LABEL_46;
             }
 
             v11 = v10;
-            v12 = *v48;
-            v13 = 0x277CBE000uLL;
-            v36 = v9;
-            v37 = v8;
-            v35 = *v48;
+            v12 = *v45;
+            v33 = v9;
+            v34 = v8;
+            v32 = *v45;
             while (1)
             {
-              v14 = 0;
-              v38 = v11;
+              v13 = 0;
+              v35 = v11;
               do
               {
-                if (*v48 != v12)
+                if (*v45 != v12)
                 {
                   objc_enumerationMutation(v9);
                 }
 
-                v15 = *(*(&v47 + 1) + 8 * v14);
-                v16 = +[FedStatsPluginLog logger];
-                if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+                v14 = *(*(&v44 + 1) + 8 * v13);
+                v15 = +[FedStatsPluginLog logger];
+                if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412290;
-                  v53 = v15;
-                  _os_log_debug_impl(&dword_24AB24000, v16, OS_LOG_TYPE_DEBUG, "Processing Biome stream association for namespace %@", buf, 0xCu);
+                  v50 = v14;
+                  _os_log_debug_impl(&dword_24AB24000, v15, OS_LOG_TYPE_DEBUG, "Processing Biome stream association for namespace %@", buf, 0xCu);
                 }
 
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v40 = v15;
-                  v41 = v14;
-                  v17 = [v9 objectForKey:v15];
-                  v18 = *(v13 + 2656);
+                  v37 = v14;
+                  v38 = v13;
+                  v16 = [v9 objectForKey:v14];
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v19 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSObject count](v17, "count")}];
+                    v17 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSObject count](v16, "count")}];
+                    v40 = 0u;
+                    v41 = 0u;
+                    v42 = 0u;
                     v43 = 0u;
-                    v44 = 0u;
-                    v45 = 0u;
-                    v46 = 0u;
-                    v39 = v17;
-                    v20 = v17;
-                    v21 = [v20 countByEnumeratingWithState:&v43 objects:v58 count:16];
-                    if (!v21)
+                    v36 = v16;
+                    v18 = v16;
+                    v19 = [v18 countByEnumeratingWithState:&v40 objects:v55 count:16];
+                    if (!v19)
                     {
                       goto LABEL_38;
                     }
 
-                    v22 = v21;
-                    v23 = *v44;
+                    v20 = v19;
+                    v21 = *v41;
                     while (1)
                     {
-                      for (i = 0; i != v22; ++i)
+                      for (i = 0; i != v20; ++i)
                       {
-                        if (*v44 != v23)
+                        if (*v41 != v21)
                         {
-                          objc_enumerationMutation(v20);
+                          objc_enumerationMutation(v18);
                         }
 
-                        v25 = *(*(&v43 + 1) + 8 * i);
+                        v23 = *(*(&v40 + 1) + 8 * i);
                         objc_opt_class();
                         if ((objc_opt_isKindOfClass() & 1) == 0)
                         {
-                          v28 = +[FedStatsPluginLog logger];
-                          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+                          v26 = +[FedStatsPluginLog logger];
+                          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
                           {
-                            __49__FedStatsPluginBiomeStreamPruner_sharedInstance__block_invoke_cold_3(v56, &v57, v28);
+                            __49__FedStatsPluginBiomeStreamPruner_sharedInstance__block_invoke_cold_3(v53, &v54, v26);
                           }
 
                           goto LABEL_35;
                         }
 
-                        v26 = [v42 containsObject:v25];
-                        v27 = +[FedStatsPluginLog logger];
-                        v28 = v27;
-                        if ((v26 & 1) == 0)
+                        v24 = [v39 containsObject:v23];
+                        v25 = +[FedStatsPluginLog logger];
+                        v26 = v25;
+                        if ((v24 & 1) == 0)
                         {
-                          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+                          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
                           {
                             *buf = 138412290;
-                            v53 = v25;
-                            _os_log_error_impl(&dword_24AB24000, v28, OS_LOG_TYPE_ERROR, "The stream %@ is not entitled to be written", buf, 0xCu);
+                            v50 = v23;
+                            _os_log_error_impl(&dword_24AB24000, v26, OS_LOG_TYPE_ERROR, "The stream %@ is not entitled to be written", buf, 0xCu);
                           }
 
 LABEL_35:
@@ -175,72 +173,71 @@ LABEL_35:
                           continue;
                         }
 
-                        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+                        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
                         {
                           *buf = 138412546;
-                          v53 = v25;
-                          v54 = 2112;
-                          v55 = @"com.apple.private.biome.read-write";
-                          _os_log_debug_impl(&dword_24AB24000, v28, OS_LOG_TYPE_DEBUG, "Found the stream %@ in %@ entitlement", buf, 0x16u);
+                          v50 = v23;
+                          v51 = 2112;
+                          v52 = @"com.apple.private.biome.read-write";
+                          _os_log_debug_impl(&dword_24AB24000, v26, OS_LOG_TYPE_DEBUG, "Found the stream %@ in %@ entitlement", buf, 0x16u);
                         }
 
-                        [v19 addObject:v25];
+                        [v17 addObject:v23];
                       }
 
-                      v22 = [v20 countByEnumeratingWithState:&v43 objects:v58 count:16];
-                      if (!v22)
+                      v20 = [v18 countByEnumeratingWithState:&v40 objects:v55 count:16];
+                      if (!v20)
                       {
 LABEL_38:
 
-                        v8 = v37;
-                        [v37 setObject:v19 forKey:v40];
-                        v12 = v35;
-                        v9 = v36;
-                        v11 = v38;
-                        v17 = v39;
-                        v13 = 0x277CBE000;
+                        v8 = v34;
+                        [v34 setObject:v17 forKey:v37];
+                        v12 = v32;
+                        v9 = v33;
+                        v11 = v35;
+                        v16 = v36;
                         goto LABEL_43;
                       }
                     }
                   }
 
-                  v19 = +[FedStatsPluginLog logger];
-                  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+                  v17 = +[FedStatsPluginLog logger];
+                  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
                   {
-                    __49__FedStatsPluginBiomeStreamPruner_sharedInstance__block_invoke_cold_3(v59, &v60, v19);
+                    __49__FedStatsPluginBiomeStreamPruner_sharedInstance__block_invoke_cold_3(v56, &v57, v17);
                   }
 
 LABEL_43:
 
-                  v14 = v41;
+                  v13 = v38;
                 }
 
                 else
                 {
-                  v17 = +[FedStatsPluginLog logger];
-                  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+                  v16 = +[FedStatsPluginLog logger];
+                  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
                   {
-                    __49__FedStatsPluginBiomeStreamPruner_sharedInstance__block_invoke_cold_3(v61, &v62, v17);
+                    __49__FedStatsPluginBiomeStreamPruner_sharedInstance__block_invoke_cold_3(v58, &v59, v16);
                   }
                 }
 
-                ++v14;
+                ++v13;
               }
 
-              while (v14 != v11);
-              v11 = [v9 countByEnumeratingWithState:&v47 objects:v63 count:16];
+              while (v13 != v11);
+              v11 = [v9 countByEnumeratingWithState:&v44 objects:v60 count:16];
               if (!v11)
               {
 LABEL_46:
 
-                v29 = [[FedStatsPluginBiomeStreamPruner alloc] initWithBiomeStreamAssociation:v8];
-                v30 = sharedInstance_sharedInstance;
-                sharedInstance_sharedInstance = v29;
+                v27 = [[FedStatsPluginBiomeStreamPruner alloc] initWithBiomeStreamAssociation:v8];
+                v28 = sharedInstance_sharedInstance;
+                sharedInstance_sharedInstance = v27;
 
-                v1 = v42;
-                v5 = v33;
-                v4 = v34;
-                v7 = v32;
+                v1 = v39;
+                v5 = v30;
+                v4 = v31;
+                v7 = v29;
                 goto LABEL_55;
               }
             }
@@ -287,8 +284,6 @@ LABEL_55:
   CFRelease(error);
   CFRelease(v0);
 LABEL_59:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 + (void)pruneBiomeStream:(id)stream forNamespace:(id)namespace eventsPassingTest:(id)test
@@ -385,12 +380,11 @@ uint64_t __83__FedStatsPluginBiomeStreamPruner_pruneBiomeStream_forNamespace_eve
 
 void __49__FedStatsPluginBiomeStreamPruner_sharedInstance__block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_24AB24000, a2, OS_LOG_TYPE_ERROR, "Cannot read entitlement for the current process: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_24AB24000, a2, OS_LOG_TYPE_ERROR, "Cannot read entitlement for the current process: %@", &v3, 0xCu);
 }
 
 void __49__FedStatsPluginBiomeStreamPruner_sharedInstance__block_invoke_cold_3(uint8_t *a1, void *a2, NSObject *a3)
@@ -402,41 +396,35 @@ void __49__FedStatsPluginBiomeStreamPruner_sharedInstance__block_invoke_cold_3(u
 
 + (void)pruneBiomeStream:(uint64_t)a1 forNamespace:eventsPassingTest:.cold.1(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = a1;
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = a1;
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_4(&dword_24AB24000, v1, v2, "The stream '%@' is not prunable for %@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_24AB24000, v1, v2, "The stream '%@' is not prunable for %@", v3, DWORD2(v3));
 }
 
 + (void)pruneBiomeStream:(uint64_t)a1 forNamespace:eventsPassingTest:.cold.2(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 134218242;
-  *(&v4 + 4) = *(*a1 + 24);
+  LODWORD(v3) = 134218242;
+  *(&v3 + 4) = *(*a1 + 24);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_4(&dword_24AB24000, v1, v2, "Pruned %lu events from %@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_24AB24000, v1, v2, "Pruned %lu events from %@", v3, DWORD2(v3));
 }
 
 + (void)pruneBiomeStream:(uint64_t)a1 forNamespace:eventsPassingTest:.cold.3(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = a1;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = a1;
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_24AB24000, v1, OS_LOG_TYPE_ERROR, "Cannot find the stream %@. Error: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24AB24000, v1, OS_LOG_TYPE_ERROR, "Cannot find the stream %@. Error: %@", &v2, 0x16u);
 }
 
 + (void)pruneBiomeStream:(uint64_t)a1 forNamespace:(NSObject *)a2 eventsPassingTest:.cold.4(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_24AB24000, a2, OS_LOG_TYPE_DEBUG, "No streams are available to prune for namespace %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_24AB24000, a2, OS_LOG_TYPE_DEBUG, "No streams are available to prune for namespace %@", &v2, 0xCu);
 }
 
 @end

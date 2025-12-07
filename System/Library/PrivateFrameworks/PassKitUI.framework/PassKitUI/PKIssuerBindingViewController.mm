@@ -94,9 +94,9 @@ LABEL_11:
 
 - (void)viewDidLoad
 {
-  v14.receiver = self;
-  v14.super_class = PKIssuerBindingViewController;
-  [(PKExplanationViewController *)&v14 viewDidLoad];
+  v15.receiver = self;
+  v15.super_class = PKIssuerBindingViewController;
+  [(PKExplanationViewController *)&v15 viewDidLoad];
   [(PKExplanationViewController *)self setShowDoneButton:0];
   [(PKExplanationViewController *)self setShowCancelButton:1];
   explanationView = [(PKExplanationViewController *)self explanationView];
@@ -106,8 +106,8 @@ LABEL_11:
   v4 = PKLocalizedString(&cfstr_Wallet_1.isa);
   [explanationView setTitleText:v4];
 
-  v5 = PKUIGetWalletAppIconWithSize(76.0, 76.0);
-  [explanationView setImage:v5];
+  v6 = PKUIGetWalletAppIconWithSize(v5, 76.0, 76.0);
+  [explanationView setImage:v6];
   IsAvailable = PKPearlIsAvailable();
   accountName = self->_accountName;
   if (!IsAvailable)
@@ -115,32 +115,32 @@ LABEL_11:
     if (accountName)
     {
       issuerName = self->_issuerName;
-      v13 = self->_accountName;
-      v8 = @"ISSUER_DATA_GENERATION_BODY_TEXT_TOUCH_ID";
+      v14 = self->_accountName;
+      v9 = @"ISSUER_DATA_GENERATION_BODY_TEXT_TOUCH_ID";
       goto LABEL_6;
     }
 
-    v12 = self->_issuerName;
-    v9 = @"ISSUER_DATA_GENERATION_BODY_TEXT_TOUCH_ID_MISSING_ACCOUNT";
+    v13 = self->_issuerName;
+    v10 = @"ISSUER_DATA_GENERATION_BODY_TEXT_TOUCH_ID_MISSING_ACCOUNT";
 LABEL_9:
-    PKLocalizedPaymentString(&v9->isa, &stru_1F3BD5BF0.isa, v12);
+    PKLocalizedPaymentString(&v10->isa, &stru_1F3BD5BF0.isa, v13);
     goto LABEL_10;
   }
 
   if (!accountName)
   {
-    v12 = self->_issuerName;
-    v9 = @"ISSUER_DATA_GENERATION_BODY_TEXT_FACE_ID_MISSING_ACCOUNT";
+    v13 = self->_issuerName;
+    v10 = @"ISSUER_DATA_GENERATION_BODY_TEXT_FACE_ID_MISSING_ACCOUNT";
     goto LABEL_9;
   }
 
   issuerName = self->_issuerName;
-  v13 = self->_accountName;
-  v8 = @"ISSUER_DATA_GENERATION_BODY_TEXT_FACE_ID";
+  v14 = self->_accountName;
+  v9 = @"ISSUER_DATA_GENERATION_BODY_TEXT_FACE_ID";
 LABEL_6:
-  PKLocalizedPaymentString(&v8->isa, &stru_1F3BD6370.isa, issuerName, v13);
-  v10 = LABEL_10:;
-  [explanationView setBodyText:v10];
+  PKLocalizedPaymentString(&v9->isa, &stru_1F3BD6370.isa, issuerName, v14);
+  v11 = LABEL_10:;
+  [explanationView setBodyText:v11];
 }
 
 - (void)viewDidDisappear:(BOOL)disappear

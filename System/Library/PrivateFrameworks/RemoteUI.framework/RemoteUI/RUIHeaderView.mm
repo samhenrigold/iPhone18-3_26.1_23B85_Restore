@@ -600,7 +600,8 @@
     v6 = self->_navTitleLabel;
     self->_navTitleLabel = v5;
 
-    v7 = RemoteUINavHeaderFont([(UILabel *)self->_navTitleLabel setTranslatesAutoresizingMaskIntoConstraints:0]);
+    [(UILabel *)self->_navTitleLabel setTranslatesAutoresizingMaskIntoConstraints:0];
+    v7 = RemoteUINavHeaderFont();
     [(UILabel *)self->_navTitleLabel setFont:v7];
 
     v8 = RemoteUINavHeaderTextColor();
@@ -637,7 +638,8 @@
     v6 = self->_navSubHeaderLabel;
     self->_navSubHeaderLabel = v5;
 
-    v7 = RemoteUINavHeaderFont([(UILabel *)self->_navSubHeaderLabel setTranslatesAutoresizingMaskIntoConstraints:0]);
+    [(UILabel *)self->_navSubHeaderLabel setTranslatesAutoresizingMaskIntoConstraints:0];
+    v7 = RemoteUINavHeaderFont();
     [(UILabel *)self->_navSubHeaderLabel setFont:v7];
 
     v8 = RemoteUINavSubHeaderTextColor();

@@ -1,3 +1,326 @@
+BOOL ColorSensorPlugIn::processFDRCalibrationHmCAT2(ColorSensorPlugIn *this, const __CFData **a2, const __CFData **a3)
+{
+  Length = CFDataGetLength(*a2);
+  inited = qword_20128;
+  if (!qword_20128)
+  {
+    inited = _COREBRIGHTNESS_LOG_DEFAULT;
+    if (!_COREBRIGHTNESS_LOG_DEFAULT)
+    {
+      inited = init_default_corebrightness_log();
+    }
+  }
+
+  if (os_log_type_enabled(inited, OS_LOG_TYPE_DEFAULT))
+  {
+    buf[0] = 134217984;
+    *&buf[1] = Length;
+    _os_log_impl(&dword_0, inited, OS_LOG_TYPE_DEFAULT, "FDR calibration data length = %ld\n", buf, 0xCu);
+  }
+
+  if (Length == 9962)
+  {
+    BytePtr = CFDataGetBytePtr(*a2);
+    v9 = qword_20128;
+    if (!qword_20128)
+    {
+      v9 = _COREBRIGHTNESS_LOG_DEFAULT;
+      if (!_COREBRIGHTNESS_LOG_DEFAULT)
+      {
+        v9 = init_default_corebrightness_log();
+      }
+    }
+
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = BytePtr[4];
+      v11 = BytePtr[5];
+      buf[0] = 67109376;
+      buf[1] = v10;
+      LOWORD(buf[2]) = 1024;
+      *(&buf[2] + 2) = v11;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "HmCA version = v%d.%d\n", buf, 0xEu);
+    }
+
+    v12 = qword_20128;
+    if (!qword_20128)
+    {
+      v12 = _COREBRIGHTNESS_LOG_DEFAULT;
+      if (!_COREBRIGHTNESS_LOG_DEFAULT)
+      {
+        v12 = init_default_corebrightness_log();
+      }
+    }
+
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = BytePtr[28];
+      buf[0] = 67109120;
+      buf[1] = v13;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Device_id = 0x%x\n", buf, 8u);
+    }
+
+    *__str = *(BytePtr + 2);
+    v74 = 0;
+    v14 = strtoul(__str, 0, 16);
+    v15 = qword_20128;
+    if (!qword_20128)
+    {
+      v15 = _COREBRIGHTNESS_LOG_DEFAULT;
+      if (!_COREBRIGHTNESS_LOG_DEFAULT)
+      {
+        v15 = init_default_corebrightness_log();
+      }
+    }
+
+    v46 = a3;
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      buf[0] = 67109120;
+      buf[1] = v14;
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "Chip_id is 0x%08X", buf, 8u);
+    }
+
+    v16 = *(this + 61);
+    if (v16 != v14)
+    {
+      v17 = bswap32(v14);
+      if (v17 != v16)
+      {
+        v18 = qword_20128;
+        if (!qword_20128)
+        {
+          v18 = _COREBRIGHTNESS_LOG_DEFAULT;
+          if (!_COREBRIGHTNESS_LOG_DEFAULT)
+          {
+            v18 = init_default_corebrightness_log();
+          }
+        }
+
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        {
+          v45 = *(this + 61);
+          buf[0] = 67109632;
+          buf[1] = v45;
+          LOWORD(buf[2]) = 1024;
+          *(&buf[2] + 2) = v14;
+          HIWORD(buf[3]) = 1024;
+          buf[4] = v17;
+          _os_log_error_impl(&dword_0, v18, OS_LOG_TYPE_ERROR, "Chip ID doesn't match - (device chip ID 0x%08X != calibration chip ID 0x%08X and chip_id_reversed 0x%08X)", buf, 0x14u);
+        }
+      }
+    }
+
+    memset(&buf[1] + 1, 0, 32);
+    memset(&buf[9] + 1, 0, 156);
+    *(this + 12) = 1067869798;
+    LOBYTE(buf[0]) = 1;
+    BYTE1(buf[2]) = 1;
+    *(buf + 1) = 2;
+    HIWORD(buf[2]) = 193;
+    v19 = BytePtr[80];
+    *(this + 15) = v19;
+    *(this + 16) = v19;
+    v20 = *(BytePtr + 41);
+    LOWORD(buf[3]) = v20;
+    if (BytePtr[5] + 10 * BytePtr[4] <= 0x10)
+    {
+      v24 = BytePtr[81];
+      v25 = 6;
+      v22 = 150;
+    }
+
+    else
+    {
+      v21 = *(BytePtr + 142);
+      v22 = *(BytePtr + 142);
+      if (MGGetProductType() == 376943508 && BytePtr[4] == 1 && BytePtr[5] == 7)
+      {
+        v23 = qword_20128;
+        if (!qword_20128)
+        {
+          v23 = _COREBRIGHTNESS_LOG_DEFAULT;
+          if (!_COREBRIGHTNESS_LOG_DEFAULT)
+          {
+            v23 = init_default_corebrightness_log();
+          }
+        }
+
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        {
+          sub_1501C(v20, v21, v23);
+        }
+
+        LOWORD(buf[3]) = 19660;
+        v22 = 250;
+      }
+
+      v24 = BytePtr[81];
+      v25 = BytePtr[282] - v24 + 9;
+      v19 = BytePtr[80];
+    }
+
+    HIWORD(buf[3]) = v22;
+    buf[4] = 6488164;
+    strcpy(&buf[5], ">");
+    *(this + 20) = 1000 * v22;
+    *(this + 9) = 0x186A0000182B8;
+    *(&buf[5] + 2) = 16843009 * v25;
+    BYTE2(buf[6]) = v19;
+    HIBYTE(buf[6]) = v24;
+    v27 = qword_20128;
+    if (!qword_20128)
+    {
+      v27 = _COREBRIGHTNESS_LOG_DEFAULT;
+      if (!_COREBRIGHTNESS_LOG_DEFAULT)
+      {
+        v27 = init_default_corebrightness_log();
+      }
+    }
+
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    {
+      *v54 = 136315650;
+      v55 = "processFDRCalibrationHmCAT2";
+      v56 = 1024;
+      v57 = v19;
+      v58 = 1024;
+      LODWORD(v59) = v24;
+      _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "%s: nChannels = %d, nGains = %d", v54, 0x18u);
+    }
+
+    v28 = qword_20128;
+    if (!qword_20128)
+    {
+      v28 = _COREBRIGHTNESS_LOG_DEFAULT;
+      if (!_COREBRIGHTNESS_LOG_DEFAULT)
+      {
+        v28 = init_default_corebrightness_log();
+      }
+    }
+
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    {
+      *v54 = 136315650;
+      v55 = "processFDRCalibrationHmCAT2";
+      v56 = 1024;
+      v57 = v25;
+      v58 = 1024;
+      LODWORD(v59) = v22;
+      _os_log_impl(&dword_0, v28, OS_LOG_TYPE_DEFAULT, "%s: gain = %d, iTime = %d", v54, 0x18u);
+    }
+
+    if (v19)
+    {
+      v29 = 0;
+      v53 = BytePtr + 216;
+      v51 = BytePtr + 192;
+      v52 = BytePtr + 204;
+      v49 = BytePtr + 234;
+      v50 = BytePtr + 222;
+      v48 = BytePtr + 258;
+      v30 = BytePtr + 84;
+      v47 = v24;
+      v31 = v19;
+      v32 = &buf[20] + 3;
+      do
+      {
+        v33 = v24;
+        v34 = v53[v29];
+        v35 = &buf[17] + 25 * v29;
+        *v35 = v53[v29];
+        v36 = *&v52[2 * v29];
+        *(v35 + 1) = *&v52[2 * v29];
+        *(v35 + 3) = *&v51[2 * v29];
+        *(v35 + 5) = *&v50[2 * v29];
+        v37 = *&v49[4 * v29] * 4.6566e-10;
+        *&buf[v29 + 7] = v37;
+        v38 = *&v48[4 * v29] * 0.000061035;
+        *&buf[v29 + 12] = v38;
+        v39 = qword_20128;
+        if (!qword_20128)
+        {
+          v39 = _COREBRIGHTNESS_LOG_DEFAULT;
+          if (!_COREBRIGHTNESS_LOG_DEFAULT)
+          {
+            v39 = init_default_corebrightness_log();
+          }
+        }
+
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+        {
+          *v54 = 136317186;
+          v55 = "processFDRCalibrationHmCAT2";
+          v56 = 1024;
+          v57 = v29;
+          v58 = 2048;
+          v59 = v37;
+          v60 = 1024;
+          v61 = v29;
+          v62 = 2048;
+          v63 = v38;
+          v64 = 1024;
+          v65 = v29;
+          v66 = 1024;
+          v67 = v36;
+          v68 = 1024;
+          v69 = v29;
+          v70 = 1024;
+          v71 = v34;
+          _os_log_impl(&dword_0, v39, OS_LOG_TYPE_DEFAULT, "%s: luxCoeff[%d]=%f, cctCoeff[%d]=%f, offsetCounts[%d]=%d/255 darkCounts[%d] = %d", v54, 0x44u);
+        }
+
+        *(v35 + 7) = 0x8000800080008000;
+        v40 = v47;
+        v41 = v30;
+        v42 = v32;
+        v24 = v33;
+        if (v33)
+        {
+          do
+          {
+            v43 = *v41;
+            v41 += 2;
+            *v42++ = v43;
+            --v40;
+          }
+
+          while (v40);
+        }
+
+        ++v29;
+        v32 += 25;
+        v30 += 18;
+      }
+
+      while (v29 < v31);
+    }
+
+    Length = 9962;
+    *v46 = CFDataCreate(kCFAllocatorDefault, buf, 193);
+  }
+
+  else
+  {
+    v26 = qword_20128;
+    if (!qword_20128)
+    {
+      v26 = _COREBRIGHTNESS_LOG_DEFAULT;
+      if (!_COREBRIGHTNESS_LOG_DEFAULT)
+      {
+        v26 = init_default_corebrightness_log();
+      }
+    }
+
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    {
+      sub_14FAC();
+    }
+  }
+
+  return Length == 9962;
+}
+
 BOOL ColorSensorPlugIn::processFDRCalibrationVD6287_HmClv3(ColorSensorPlugIn *this, const __CFData **a2, const __CFData **a3)
 {
   if (CFDataGetLength(*a2) != 10348)
@@ -23,7 +346,7 @@ BOOL ColorSensorPlugIn::processFDRCalibrationVD6287_HmClv3(ColorSensorPlugIn *th
   }
 
   BytePtr = CFDataGetBytePtr(*a2);
-  v7 = (BytePtr + 10);
+  v7 = BytePtr + 10;
   if (BytePtr[10] != 2)
   {
     v41 = qword_20128;
@@ -42,7 +365,7 @@ BOOL ColorSensorPlugIn::processFDRCalibrationVD6287_HmClv3(ColorSensorPlugIn *th
       return result;
     }
 
-    sub_1513C(v7);
+    sub_1513C();
     return 0;
   }
 
@@ -273,8 +596,8 @@ BOOL ColorSensorPlugIn::processFDRSpectrumHmCAT2(uint64_t a1, CFDataRef *a2, uin
 
   if (os_log_type_enabled(inited, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v11) = 0;
-    _os_log_impl(&dword_0, inited, OS_LOG_TYPE_DEFAULT, "Process FDR calibration spectrum", &v11, 2u);
+    LOWORD(v9) = 0;
+    _os_log_impl(&dword_0, inited, OS_LOG_TYPE_DEFAULT, "Process FDR calibration spectrum", &v9, 2u);
   }
 
   Length = CFDataGetLength(*a2);
@@ -282,21 +605,20 @@ BOOL ColorSensorPlugIn::processFDRSpectrumHmCAT2(uint64_t a1, CFDataRef *a2, uin
   {
     CFDataGetBytePtr(*a2);
     *(a1 + 68) = 401;
-    v8 = *(a3 + 20);
     operator new[]();
   }
 
-  v9 = qword_20128;
+  v7 = qword_20128;
   if (!qword_20128)
   {
-    v9 = _COREBRIGHTNESS_LOG_DEFAULT;
+    v7 = _COREBRIGHTNESS_LOG_DEFAULT;
     if (!_COREBRIGHTNESS_LOG_DEFAULT)
     {
-      v9 = init_default_corebrightness_log();
+      v7 = init_default_corebrightness_log();
     }
   }
 
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     sub_15228();
   }
@@ -318,8 +640,8 @@ BOOL ColorSensorPlugIn::processFDRSpectrumVD6287_HmClv3(uint64_t a1, CFDataRef *
 
   if (os_log_type_enabled(inited, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v11) = 0;
-    _os_log_impl(&dword_0, inited, OS_LOG_TYPE_DEFAULT, "Process FDR calibration spectrum", &v11, 2u);
+    LOWORD(v9) = 0;
+    _os_log_impl(&dword_0, inited, OS_LOG_TYPE_DEFAULT, "Process FDR calibration spectrum", &v9, 2u);
   }
 
   Length = CFDataGetLength(*a2);
@@ -327,21 +649,20 @@ BOOL ColorSensorPlugIn::processFDRSpectrumVD6287_HmClv3(uint64_t a1, CFDataRef *
   {
     CFDataGetBytePtr(*a2);
     *(a1 + 68) = 401;
-    v8 = *(a3 + 20);
     operator new[]();
   }
 
-  v9 = qword_20128;
+  v7 = qword_20128;
   if (!qword_20128)
   {
-    v9 = _COREBRIGHTNESS_LOG_DEFAULT;
+    v7 = _COREBRIGHTNESS_LOG_DEFAULT;
     if (!_COREBRIGHTNESS_LOG_DEFAULT)
     {
-      v9 = init_default_corebrightness_log();
+      v7 = init_default_corebrightness_log();
     }
   }
 
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     sub_15298();
   }
@@ -384,7 +705,7 @@ uint64_t sub_11E6C(uint64_t a1, const __CFData **a2, uint64_t a3)
 {
   v8 = 0;
   memset(v7, 0, sizeof(v7));
-  v4 = sub_12D38(*a2, v7);
+  v4 = sub_12D38(*a2, v7, a3);
   if (v4)
   {
     *(a3 + 28) = 0;
@@ -412,7 +733,7 @@ uint64_t sub_11E6C(uint64_t a1, const __CFData **a2, uint64_t a3)
   return v4;
 }
 
-void ColorSensorPlugIn::calculateSTD(ColorSensorPlugIn *this, float *a2, float *a3, int a4, int a5)
+void ColorSensorPlugIn::calculateSTD(ColorSensorPlugIn *this, float *a2, float *a3, unsigned int a4, unsigned int a5)
 {
   if (a2 && a3 && a4 && a5 >= 1)
   {
@@ -535,24 +856,24 @@ uint64_t sub_1228C(uint64_t a1, uint64_t *a2)
   return std::iostream::~basic_iostream();
 }
 
-void *sub_123DC(void *result)
+void *sub_123DC(void *a1)
 {
-  if (result[5])
+  if (a1[5])
   {
     operator delete[]();
   }
 
-  if (result[6])
+  if (a1[6])
   {
     operator delete[]();
   }
 
-  if (result[7])
+  if (a1[7])
   {
     operator delete[]();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t sub_12440(uint64_t a1, int a2)
@@ -654,16 +975,16 @@ void *sub_12604(void *a1, uint64_t a2, uint64_t a3)
   if (v13 == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, &std::ctype<char>::id);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -891,7 +1212,7 @@ BOOL sub_12AAC(uint64_t a1, uint64_t a2)
   return v2 == 4;
 }
 
-uint64_t sub_12D38(const __CFData *a1, uint64_t a2)
+uint64_t sub_12D38(const __CFData *a1, uint64_t a2, uint64_t a3)
 {
   BytePtr = CFDataGetBytePtr(a1);
   if (!BytePtr)
@@ -899,16 +1220,16 @@ uint64_t sub_12D38(const __CFData *a1, uint64_t a2)
     return 0;
   }
 
-  v5 = BytePtr;
-  if (!sub_1090C(a1) || !sub_12AAC(v5, a2))
+  v7 = BytePtr;
+  if (!sub_1090C(a1) || !sub_12AAC(v7, a2))
   {
     return 0;
   }
 
-  return sub_12DC0(v5, a2);
+  return sub_12DC0(v7, a2, a3);
 }
 
-uint64_t sub_12DC0(uint64_t a1, uint64_t a2)
+uint64_t sub_12DC0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a2 + 10) != 145 || *(a2 + 1) != 2)
   {
@@ -932,18 +1253,18 @@ uint64_t LDBMCreateSmallDB(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64
   {
     if (sqlite3_exec(ppDb, "PRAGMA journal_mode=WAL", 0, 0, 0))
     {
-      v12 = 4;
+      v11 = 4;
 LABEL_20:
       sqlite3_close(ppDb);
-      return v12;
+      return v11;
     }
 
     sqlite3_exec(ppDb, "DROP TABLE Info", 0, 0, 0);
     sqlite3_exec(ppDb, "DROP TABLE RR", 0, 0, 0);
     if (a6 == 4)
     {
-      v13 = ppDb;
-      v14 = "CREATE TABLE RR (R Single, G Single, B Single, C Single)";
+      v12 = ppDb;
+      v13 = "CREATE TABLE RR (R Single, G Single, B Single, C Single)";
     }
 
     else
@@ -951,112 +1272,96 @@ LABEL_20:
       if (a6 != 5)
       {
 LABEL_10:
-        v12 = 3;
+        v11 = 3;
         goto LABEL_20;
       }
 
-      v13 = ppDb;
-      v14 = "CREATE TABLE RR (CH0 Single, CH1 Single, CH2 Single, CH3 Single, CH4 Single)";
+      v12 = ppDb;
+      v13 = "CREATE TABLE RR (CH0 Single, CH1 Single, CH2 Single, CH3 Single, CH4 Single)";
     }
 
-    if (sqlite3_exec(v13, v14, 0, 0, 0))
+    if (sqlite3_exec(v12, v13, 0, 0, 0))
     {
       goto LABEL_10;
     }
 
-    LODWORD(v15) = *(a1 + 4);
-    if (v15 >= 1)
+    if (*(a1 + 4) >= 1)
     {
-      v16 = 0;
+      v14 = 0;
       do
       {
-        v17 = *(a3 + 4 * v16);
         if (a6 == 4)
         {
-          v28 = *(a3 + 4 * (v16 + 2 * v15));
-          v30 = *(a3 + 4 * (v16 + 3 * v15));
-          v26 = *(a3 + 4 * (v16 + v15));
           __sprintf_chk(sql, 0, 0x400uLL, "INSERT INTO RR VALUES (%f, %f, %f, %f)");
         }
 
         else
         {
-          v31 = *(a3 + 4 * (v16 + 3 * v15));
-          v32 = *(a3 + 4 * (v16 + 4 * v15));
-          v27 = *(a3 + 4 * (v16 + v15));
-          v29 = *(a3 + 4 * (v16 + 2 * v15));
           __sprintf_chk(sql, 0, 0x400uLL, "INSERT INTO RR VALUES (%f, %f, %f, %f, %f)");
         }
 
-        v18 = sqlite3_exec(ppDb, sql, 0, 0, 0);
-        if (v18)
+        v15 = sqlite3_exec(ppDb, sql, 0, 0, 0);
+        if (v15)
         {
           goto LABEL_19;
         }
-
-        ++v16;
-        v15 = *(a1 + 4);
       }
 
-      while (v16 < v15);
+      while (++v14 < *(a1 + 4));
     }
 
     sqlite3_exec(ppDb, "DROP TABLE XX", 0, 0, 0);
-    v18 = sqlite3_exec(ppDb, "CREATE TABLE XX (X Single, Y Single, Z Single)", 0, 0, 0);
-    if (v18)
+    v15 = sqlite3_exec(ppDb, "CREATE TABLE XX (X Single, Y Single, Z Single)", 0, 0, 0);
+    if (v15)
     {
 LABEL_19:
-      v12 = v18;
+      v11 = v15;
       goto LABEL_20;
     }
 
-    LODWORD(v20) = *(a1 + 4);
-    if (v20 >= 1)
+    LODWORD(v17) = *(a1 + 4);
+    if (v17 >= 1)
     {
-      v21 = 0;
+      v18 = 0;
       do
       {
-        __sprintf_chk(sql, 0, 0x400uLL, "INSERT INTO XX VALUES (%f, %f, %f)", *(a2 + 4 * v21), *(a2 + 4 * (v21 + v20)), *(a2 + 4 * (v21 + 2 * v20)));
-        v18 = sqlite3_exec(ppDb, sql, 0, 0, 0);
-        if (v18)
+        __sprintf_chk(sql, 0, 0x400uLL, "INSERT INTO XX VALUES (%f, %f, %f)", *(a2 + 4 * v18), *(a2 + 4 * (v18 + v17)), *(a2 + 4 * (v18 + 2 * v17)));
+        v15 = sqlite3_exec(ppDb, sql, 0, 0, 0);
+        if (v15)
         {
           goto LABEL_19;
         }
 
-        ++v21;
-        v20 = *(a1 + 4);
+        ++v18;
+        v17 = *(a1 + 4);
       }
 
-      while (v21 < v20);
+      while (v18 < v17);
     }
 
     if (a7)
     {
-      v18 = sqlite3_exec(ppDb, "CREATE TABLE Info (version Single, smallversion Single, sources Long, orientation Long, algo Long, chipID Unsigned Integer)", 0, 0, 0);
-      if (v18)
+      v15 = sqlite3_exec(ppDb, "CREATE TABLE Info (version Single, smallversion Single, sources Long, orientation Long, algo Long, chipID Unsigned Integer)", 0, 0, 0);
+      if (v15)
       {
         goto LABEL_19;
       }
 
-      v22 = *a1;
-      v23 = *(a1 + 4);
       __sprintf_chk(sql, 0, 0x400uLL, "INSERT INTO Info VALUES (%f, %f, %d, %d, %d, %d)");
     }
 
     else
     {
-      v18 = sqlite3_exec(ppDb, "CREATE TABLE Info (version Single, smallversion Single, sources Long, orientation Long, algo Long)", 0, 0, 0);
-      if (v18)
+      v15 = sqlite3_exec(ppDb, "CREATE TABLE Info (version Single, smallversion Single, sources Long, orientation Long, algo Long)", 0, 0, 0);
+      if (v15)
       {
         goto LABEL_19;
       }
 
-      v24 = *a1;
-      v25 = *(a1 + 4);
       __sprintf_chk(sql, 0, 0x400uLL, "INSERT INTO Info VALUES (%f, %f, %d, %d, %d)");
     }
 
-    v18 = sqlite3_exec(ppDb, sql, 0, 0, 0);
+    v15 = sqlite3_exec(ppDb, sql, 0, 0, 0);
     goto LABEL_19;
   }
 
@@ -1194,7 +1499,7 @@ uint64_t LDBMParseSmallDB(int a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_13808(uint64_t a1, int a2, const char **a3, const char **a4)
+uint64_t sub_13808(uint64_t a1, unsigned int a2, const char **a3, const char **a4)
 {
   if (a2 >= 1)
   {
@@ -1338,7 +1643,7 @@ LABEL_40:
   return 0;
 }
 
-uint64_t sub_139FC(uint64_t a1, int a2, const char **a3, const char **a4)
+uint64_t sub_139FC(uint64_t a1, unsigned int a2, const char **a3, const char **a4)
 {
   if (a2 >= 1)
   {
@@ -1394,9 +1699,9 @@ uint64_t sub_139FC(uint64_t a1, int a2, const char **a3, const char **a4)
   return 0;
 }
 
-uint64_t sub_13B6C(uint64_t a1, int a2, const char **a3, const char **a4)
+uint64_t sub_13B6C(uint64_t a1, unsigned int a2, const char **a3, const char **a4)
 {
-  v8 = (a2 - 4);
+  v8 = a2 - 4;
   v9 = malloc_type_malloc(4 * v8, 0x100004052888210uLL);
   if (!v9)
   {
@@ -1513,35 +1818,6 @@ LABEL_28:
   return v22;
 }
 
-double sub_13D98@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  result = *a1;
-  v4 = *(a1 + 4);
-  return result;
-}
-
-void sub_13ED0(unsigned __int8 *a1)
-{
-  v6 = *a1;
-  sub_809C();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-}
-
-void sub_13FC8(unsigned __int8 *a1)
-{
-  v6 = *a1;
-  sub_809C();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-}
-
-void sub_14080(unsigned __int8 *a1)
-{
-  v6 = *a1;
-  sub_809C();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-}
-
 void sub_14174(uint64_t a1, uint64_t a2, os_log_t log)
 {
   v3 = 134218240;
@@ -1598,12 +1874,11 @@ void sub_1440C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_14448(unsigned __int8 *a1)
+void sub_14448()
 {
-  v1 = *a1;
   sub_12EE4();
   sub_809C();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_144BC()
@@ -1620,14 +1895,13 @@ void sub_144F8()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_14568(const __CFData *a1, unsigned __int16 *a2, NSObject *a3)
+void sub_14568(const __CFData *a1, uint64_t a2, NSObject *a3)
 {
   CFDataGetLength(a1);
-  v5 = *a2;
   sub_12EC0();
-  v8 = 1024;
-  v9 = v6;
-  _os_log_error_impl(&dword_0, a3, OS_LOG_TYPE_ERROR, "Insufficient calibration data size. Actual: %ld, Expected: %hu\n", v7, 0x12u);
+  v6 = 1024;
+  v7 = v4;
+  _os_log_error_impl(&dword_0, a3, OS_LOG_TYPE_ERROR, "Insufficient calibration data size. Actual: %ld, Expected: %hu\n", v5, 0x12u);
 }
 
 void sub_14608(const __CFData *a1, NSObject *a2)
@@ -1646,12 +1920,11 @@ void sub_146A0()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_146DC(unsigned int *a1)
+void sub_146DC()
 {
-  v1 = *a1;
   sub_12EE4();
   sub_809C();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_14750()
@@ -1675,44 +1948,39 @@ void sub_14840()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1487C(_DWORD *a1)
+void sub_1487C()
 {
-  *a1;
   sub_12ECC();
   sub_12EB4();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_14908(uint64_t *a1)
+void sub_14908()
 {
-  v1 = *a1;
   sub_12ECC();
   sub_12EB4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1497C(uint64_t *a1)
+void sub_1497C()
 {
-  v1 = *a1;
   sub_12ECC();
   sub_12EB4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_149F0(uint64_t *a1)
+void sub_149F0()
 {
-  v1 = *a1;
   sub_12ECC();
   sub_12EB4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_14A64(_DWORD *a1)
+void sub_14A64()
 {
-  *a1;
   sub_12ECC();
   sub_12EB4();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_14AF0()
@@ -1722,20 +1990,18 @@ void sub_14AF0()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_14B2C(uint64_t a1)
+void sub_14B2C()
 {
-  v1 = *(a1 + 12);
   sub_12EE4();
   sub_12EB4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_14BA0(_BYTE *a1)
+void sub_14BA0()
 {
-  *a1;
   sub_12ECC();
   sub_12EB4();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_14C2C()
@@ -1752,12 +2018,11 @@ void sub_14C68()
   _os_log_fault_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_14CA4(unsigned int *a1)
+void sub_14CA4()
 {
-  v1 = *a1;
   sub_12EE4();
   sub_12EF0();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_14D18()
@@ -1844,12 +2109,11 @@ void sub_150BC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_1513C(unsigned __int8 *a1)
+void sub_1513C()
 {
-  v1 = *a1;
   sub_12EE4();
   sub_809C();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_151B0()

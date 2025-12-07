@@ -88,7 +88,7 @@
 
 - (void)executeWithContext:(id)context delegate:(id)delegate qualityOfService:(int64_t)service
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   delegateCopy = delegate;
   v8 = FCPushNotificationsLog;
@@ -98,9 +98,9 @@
     topicIDs = [(FCRefreshNotificationsForTopicsCommand *)self topicIDs];
     topicGroupingID = [(FCRefreshNotificationsForTopicsCommand *)self topicGroupingID];
     *buf = 138543618;
-    v29 = topicIDs;
-    v30 = 2114;
-    v31 = topicGroupingID;
+    v28 = topicIDs;
+    v29 = 2114;
+    v30 = topicGroupingID;
     _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "refreshNotificationsCommand: executing command topicIDs: %{public}@ groupingID: %{public}@", buf, 0x16u);
   }
 
@@ -111,25 +111,23 @@
   userID = [(FCRefreshNotificationsForTopicsCommand *)self userID];
   deviceToken = [(FCRefreshNotificationsForTopicsCommand *)self deviceToken];
   storefrontID = [(FCRefreshNotificationsForTopicsCommand *)self storefrontID];
-  v24 = contextCopy;
+  v23 = contextCopy;
   deviceDigestMode = [(FCRefreshNotificationsForTopicsCommand *)self deviceDigestMode];
   v19 = dispatch_get_global_queue(-2, 0);
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __87__FCRefreshNotificationsForTopicsCommand_executeWithContext_delegate_qualityOfService___block_invoke;
-  v26[3] = &unk_1E7C38080;
-  v26[4] = self;
-  v27 = delegateCopy;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __87__FCRefreshNotificationsForTopicsCommand_executeWithContext_delegate_qualityOfService___block_invoke;
+  v25[3] = &unk_1E7C38080;
+  v25[4] = self;
+  v26 = delegateCopy;
   v20 = delegateCopy;
-  LODWORD(v22) = deviceDigestMode;
-  [notificationsEndpointConnection refreshNotificationsForTopicIDs:topicIDs2 withTopicGroupingID:topicGroupingID2 fromChannelID:channelID userID:userID deviceToken:deviceToken storefrontID:storefrontID deviceDigestMode:v22 callbackQueue:v19 completion:v26];
-
-  v21 = *MEMORY[0x1E69E9840];
+  LODWORD(v21) = deviceDigestMode;
+  [notificationsEndpointConnection refreshNotificationsForTopicIDs:topicIDs2 withTopicGroupingID:topicGroupingID2 fromChannelID:channelID userID:userID deviceToken:deviceToken storefrontID:storefrontID deviceDigestMode:v21 callbackQueue:v19 completion:v25];
 }
 
 void __87__FCRefreshNotificationsForTopicsCommand_executeWithContext_delegate_qualityOfService___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = FCPushNotificationsLog;
   if (a2)
@@ -139,9 +137,9 @@ void __87__FCRefreshNotificationsForTopicsCommand_executeWithContext_delegate_qu
       v7 = *(a1 + 32);
       v8 = v6;
       v9 = [v7 topicGroupingID];
-      v15 = 138543362;
-      v16 = v9;
-      _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEFAULT, "refreshNotificationsCommand: succeeded refreshing topics for groupID: %{public}@", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v9;
+      _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEFAULT, "refreshNotificationsCommand: succeeded refreshing topics for groupID: %{public}@", &v14, 0xCu);
     }
 
     v11 = *(a1 + 32);
@@ -153,9 +151,9 @@ void __87__FCRefreshNotificationsForTopicsCommand_executeWithContext_delegate_qu
   {
     if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138543362;
-      v16 = v5;
-      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "refreshNotificationsCommand: failed to refresh notifications with error: %{public}@", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v5;
+      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "refreshNotificationsCommand: failed to refresh notifications with error: %{public}@", &v14, 0xCu);
     }
 
     if ([v5 fc_isNetworkUnavailableError])
@@ -183,8 +181,6 @@ void __87__FCRefreshNotificationsForTopicsCommand_executeWithContext_delegate_qu
   }
 
   [v10 command:v11 didFinishWithStatus:v12];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -103,31 +103,38 @@
 
 - (NSString)state
 {
+  v22 = 0;
   v3 = objc_opt_class();
-  v11 = NSStringFromClass(v3);
-  NSAppendPrintF();
-  v4 = 0;
+  v4 = NSStringFromClass(v3);
+  NSAppendPrintF(&v22, "%@\n", v4);
+  v5 = v22;
 
-  NSAppendPrintF();
-  v5 = v4;
+  v21 = v5;
+  NSAppendPrintF(&v21, "-------------\n");
+  v6 = v21;
 
+  v20 = v6;
   productionConnection = [(WCDPushKitManager *)self productionConnection];
-  NSAppendPrintF();
-  v6 = v5;
+  NSAppendPrintF(&v20, "APS Production Connection: %@\n", productionConnection);
+  v8 = v20;
 
+  v19 = v8;
   developmentConnection = [(WCDPushKitManager *)self developmentConnection];
-  NSAppendPrintF();
-  v7 = v6;
+  NSAppendPrintF(&v19, "APS Development Connection: %@\n", developmentConnection);
+  v10 = v19;
 
+  v18 = v10;
   bundleIDToClient = [(WCDPushKitManager *)self bundleIDToClient];
-  NSAppendPrintF();
-  v8 = v7;
+  NSAppendPrintF(&v18, "Bundle ID To Client: %@\n", bundleIDToClient);
+  v12 = v18;
 
+  v17 = v12;
   clientsDeniedComplicationRegister = [(WCDPushKitManager *)self clientsDeniedComplicationRegister];
-  NSAppendPrintF();
-  v9 = v8;
+  NSAppendPrintF(&v17, "Clients Denied Complication Register: %@\n", clientsDeniedComplicationRegister);
+  v14 = v17;
+  v15 = v17;
 
-  return v8;
+  return v14;
 }
 
 - (void)setUpInitialState

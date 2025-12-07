@@ -119,11 +119,10 @@ void __42__SpeakThisServicesUI__kbFrameWillChange___block_invoke(uint64_t a1, vo
 
 void __42__SpeakThisServicesUI__kbFrameWillChange___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_29BADF000, a2, OS_LOG_TYPE_ERROR, "Error updating keyboard frame: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_29BADF000, a2, OS_LOG_TYPE_ERROR, "Error updating keyboard frame: %@", &v2, 0xCu);
 }
 
 @end

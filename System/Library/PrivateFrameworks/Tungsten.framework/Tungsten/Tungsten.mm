@@ -260,9 +260,9 @@ LABEL_30:
   return v34;
 }
 
-void sub_21AD3B5C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_21AD3B5C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -562,12 +562,13 @@ LABEL_67:
   return v17;
 }
 
-id _createMetal2DTextureWithPixelFormat(uint64_t a1, void *a2, int a3, double a4, double a5)
+id _createMetal2DTextureWithPixelFormat(uint64_t a1, void *a2, uint64_t a3, double a4, double a5)
 {
+  v5 = a3;
   v22 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = [v9 device];
-  v11 = _createMetal2DTextureDescriptorWithPixelFormat(a1, a3, a4, a5);
+  v11 = _createMetal2DTextureDescriptorWithPixelFormat(a1, v5, a4, a5);
 
   v12 = [v9 newTextureWithDescriptor:v11];
   if (!v12)
@@ -650,16 +651,16 @@ void __PXGPlaceholderImageWithColor_block_invoke(uint64_t a1, CGContext *a2, CGF
   CGColorRelease(v13);
 }
 
-void sub_21AD3E9D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21AD3E9D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21AD3EAB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21AD3EAB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -680,8 +681,8 @@ void *_PXGArrayInsertRange(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, 
 
 void sub_21AD41CEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  _Block_object_dispose(&a67, 8);
-  _Block_object_dispose((v67 - 240), 8);
+  _Block_object_dispose(&a65, 8);
+  _Block_object_dispose((v65 - 240), 8);
   _Unwind_Resume(a1);
 }
 
@@ -699,7 +700,7 @@ uint64_t PXGAXInfoKindForMediaKind(unsigned int a1)
   return qword_21AE2D9F8[a1];
 }
 
-uint64_t PXGItemsGeometryItemClosestToItemVerticalGridDefaultImplementation(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t PXGItemsGeometryItemClosestToItemVerticalGridDefaultImplementation(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a1 == 0x7FFFFFFFFFFFFFFFLL)
   {
@@ -732,7 +733,7 @@ uint64_t PXGItemsGeometryItemClosestToItemVerticalGridDefaultImplementation(uint
 
   if (a2 > 3)
   {
-    if ((a2 - 4) >= 2)
+    if (a2 - 4 >= 2)
     {
       if (a2 != 6)
       {
@@ -774,13 +775,13 @@ LABEL_17:
   {
     switch(a2)
     {
-      case 1:
+      case 1uLL:
         v5 = a1 - a3;
         break;
-      case 2:
+      case 2uLL:
         v5 = a3 + a1;
         break;
-      case 3:
+      case 3uLL:
         goto LABEL_16;
       default:
         return 0x7FFFFFFFFFFFFFFFLL;
@@ -838,14 +839,15 @@ void __PXGTungstenGetLog_block_invoke()
   PXGTungstenGetLog_log = v0;
 }
 
-void sub_21AD49EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_21AD49EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
+  va_start(va, a34);
   _Block_object_dispose(&a31, 8);
-  _Block_object_dispose(&a35, 8);
-  _Block_object_dispose((v35 - 224), 8);
-  _Block_object_dispose((v35 - 192), 8);
-  _Block_object_dispose((v35 - 160), 8);
-  _Block_object_dispose((v35 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v34 - 224), 8);
+  _Block_object_dispose((v34 - 192), 8);
+  _Block_object_dispose((v34 - 160), 8);
+  _Block_object_dispose((v34 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -927,40 +929,40 @@ void sub_21AD4B7C0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_21AD4BE68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21AD4BE68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,unsigned int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,unsigned int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(float *a1, int a2, _DWORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = *(a1 + 1);
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -968,72 +970,72 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,PXGRequestDetails>,std::__unordered_map_hasher<int,std::__hash_value_type<int,PXGRequestDetails>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,PXGRequestDetails>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,PXGRequestDetails>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,PXGRequestDetails>,std::__unordered_map_hasher<int,std::__hash_value_type<int,PXGRequestDetails>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,PXGRequestDetails>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,PXGRequestDetails>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(float *a1, int a2, int **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = *(a1 + 1);
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -1041,44 +1043,44 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
 CGImageRef PXGCGImageForImageNamedInBundle(void *a1, void *a2, int a3, void *a4, void *a5, _BYTE *a6)
@@ -1178,7 +1180,7 @@ uint64_t _DecorationTypeForIndex(uint64_t result)
 
 double __PXGSpriteTextureInfoOrientationFromCGOrientation_block_invoke()
 {
-  PXGSpriteTextureInfoOrientationFromCGOrientation_transforms = xmmword_21AE2D320;
+  PXGSpriteTextureInfoOrientationFromCGOrientation_transforms[0] = xmmword_21AE2D320;
   unk_27CD3C3C0 = xmmword_21AE2D320;
   xmmword_27CD3C3D0 = xmmword_21AE2D470;
   unk_27CD3C3E0 = xmmword_21AE2D480;
@@ -1193,85 +1195,85 @@ double __PXGSpriteTextureInfoOrientationFromCGOrientation_block_invoke()
 
 void PXGDrawAttributedString(void *a1, uint64_t a2, void *a3, uint64_t a4, CGContext *a5, double a6, double a7, double a8, double a9, double a10, double a11, double a12, double a13, CGFloat a14, CGFloat a15, CGFloat a16, CGFloat a17, CGFloat a18)
 {
-  v54 = a1;
-  v25 = a3;
+  v53 = a1;
+  v24 = a3;
   UIGraphicsPushContext(a5);
   if (PXGShouldDisplayTextTextureBoundaries())
   {
     CGContextSetRGBFillColor(a5, 1.0, 0.5, 1.0, 0.5);
-    v59.origin.x = a14;
-    v59.origin.y = a15;
-    v59.size.width = a16;
-    v59.size.height = a17;
-    CGContextFillRect(a5, v59);
+    v58.origin.x = a14;
+    v58.origin.y = a15;
+    v58.size.width = a16;
+    v58.size.height = a17;
+    CGContextFillRect(a5, v58);
   }
 
   CGContextTranslateCTM(a5, 0.0, a17);
   CGContextScaleCTM(a5, 1.0, -1.0);
   CGContextScaleCTM(a5, a18, a18);
   PXSizeScale();
-  v27 = v26;
-  v29 = v28;
-  if ([v54 length] && (objc_msgSend(v54, "attributesAtIndex:effectiveRange:", 0, 0), v30 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v30, "objectForKeyedSubscript:", *MEMORY[0x277D3CFF0]), v31 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend(v31, "isEqual:", MEMORY[0x277CBEC38]), v31, v30, v32))
+  v26 = v25;
+  v28 = v27;
+  if ([v53 length] && (objc_msgSend(v53, "attributesAtIndex:effectiveRange:", 0, 0), v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v29, "objectForKeyedSubscript:", *MEMORY[0x277D3CFF0]), v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v30, "isEqual:", MEMORY[0x277CBEC38]), v30, v29, v31))
   {
-    v33 = MEMORY[0x277D3CDF8];
-    v34 = v54;
-    v35 = [[v33 alloc] initWithSize:1 layoutOrientation:{v29, v27}];
-    v36 = objc_alloc_init(MEMORY[0x277D742A8]);
-    [v36 setTextContainer:v35];
-    v37 = objc_alloc_init(MEMORY[0x277D74280]);
-    [v37 setAttributedString:v34];
+    v32 = MEMORY[0x277D3CDF8];
+    v33 = v53;
+    v34 = [[v32 alloc] initWithSize:1 layoutOrientation:{v28, v26}];
+    v35 = objc_alloc_init(MEMORY[0x277D742A8]);
+    [v35 setTextContainer:v34];
+    v36 = objc_alloc_init(MEMORY[0x277D74280]);
+    [v36 setAttributedString:v33];
 
-    [v36 replaceTextContentManager:v37];
-    v38 = [v36 documentRange];
-    [v36 ensureLayoutForRange:v38];
+    [v35 replaceTextContentManager:v36];
+    v37 = [v35 documentRange];
+    [v35 ensureLayoutForRange:v37];
 
-    CGContextTranslateCTM(a5, v27, 0.0);
+    CGContextTranslateCTM(a5, v26, 0.0);
     CGContextRotateCTM(a5, 1.57079633);
-    v55[0] = MEMORY[0x277D85DD0];
-    v55[1] = 3221225472;
-    v55[2] = ___PXGDrawVerticalAttributedString_block_invoke;
-    v55[3] = &__block_descriptor_72_e30_B16__0__NSTextLayoutFragment_8l;
-    *&v55[4] = a8;
-    *&v55[5] = a9;
-    *&v55[6] = a10;
-    *&v55[7] = a11;
-    v55[8] = a5;
-    v39 = [v36 enumerateTextLayoutFragmentsFromLocation:0 options:0 usingBlock:v55];
+    v54[0] = MEMORY[0x277D85DD0];
+    v54[1] = 3221225472;
+    v54[2] = ___PXGDrawVerticalAttributedString_block_invoke;
+    v54[3] = &__block_descriptor_72_e30_B16__0__NSTextLayoutFragment_8l;
+    *&v54[4] = a8;
+    *&v54[5] = a9;
+    *&v54[6] = a10;
+    *&v54[7] = a11;
+    v54[8] = a5;
+    v38 = [v35 enumerateTextLayoutFragmentsFromLocation:0 options:0 usingBlock:v54];
   }
 
   else
   {
     PXEdgeInsetsInsetRect();
-    v43 = v42;
-    v45 = v44;
+    v42 = v41;
+    v44 = v43;
+    v45 = v39;
     v46 = v40;
-    v47 = v41;
     if (a4 != 2 && a6 == *MEMORY[0x277CBF3A8] && a7 == *(MEMORY[0x277CBF3A8] + 8))
     {
-      [v54 boundingRectWithSize:a2 options:v25 context:{v40, v41}];
-      a7 = v49;
+      [v53 boundingRectWithSize:a2 options:v24 context:{v39, v40}];
+      a7 = v48;
     }
 
     if (a4 == 1)
     {
-      v58.origin.x = v43;
-      v58.origin.y = v45;
-      v58.size.width = v46;
-      v58.size.height = v47;
-      v45 = CGRectGetMaxY(v58) - a7;
+      v57.origin.x = v42;
+      v57.origin.y = v44;
+      v57.size.width = v45;
+      v57.size.height = v46;
+      v44 = CGRectGetMaxY(v57) - a7;
     }
 
     else if (!a4)
     {
-      v57.origin.x = v43;
-      v57.origin.y = v45;
-      v57.size.width = v46;
-      v57.size.height = v47;
-      v45 = CGRectGetMidY(v57) + a7 * -0.5;
+      v56.origin.x = v42;
+      v56.origin.y = v44;
+      v56.size.width = v45;
+      v56.size.height = v46;
+      v44 = CGRectGetMidY(v56) + a7 * -0.5;
     }
 
-    [v54 drawWithRect:a2 options:v25 context:{v43, v45, v46, v47, *&a8, *&a9, *&a10, *&a11}];
+    [v53 drawWithRect:a2 options:v24 context:{v42, v44, v45, v46, *&a8, *&a9, *&a10, *&a11}];
   }
 
   UIGraphicsPopContext();
@@ -1416,10 +1418,17 @@ uint64_t *std::__hash_table<std::__hash_value_type<int,unsigned int>,std::__unor
   return result;
 }
 
-double PXGCreateTextureInfo@<D0>(int a1@<W0>, uint64_t a2@<X8>, float64_t a3@<D0>, double a4@<D1>, double a5@<D2>, double a6@<D3>, double a7@<D4>, double a8, double a9, double a10, double a11, float32x4_t a12, int a13, int a14)
+void sub_21AD4F074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  v15 = a6;
-  v16 = a5;
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+double PXGCreateTextureInfo@<D0>(int a1@<W0>, uint64_t a2@<X8>, float64_t a3@<D0>, double a4@<D1>, __n128 a5@<Q2>, __n128 a6@<Q3>, double a7@<D4>, double a8, double a9, double a10, double a11, float32x4_t a12, int a13, int a14)
+{
+  v15 = a6.n128_f64[0];
+  v16 = a5.n128_f64[0];
   v17 = a4;
   v18.f64[0] = a3;
   v20 = a14;
@@ -1434,7 +1443,7 @@ double PXGCreateTextureInfo@<D0>(int a1@<W0>, uint64_t a2@<X8>, float64_t a3@<D0
       {
         if (a1 == 12)
         {
-          a8 = a5 - a10;
+          a8 = a5.n128_f64[0] - a10;
         }
 
         else if (a1 != 13)
@@ -1442,13 +1451,13 @@ double PXGCreateTextureInfo@<D0>(int a1@<W0>, uint64_t a2@<X8>, float64_t a3@<D0
           goto LABEL_26;
         }
 
-        v23 = a6 - a11;
+        v23 = a6.n128_f64[0] - a11;
         v15 = a11;
         v16 = a10;
         goto LABEL_34;
       }
 
-      a8 = a5 - a10;
+      a8 = a5.n128_f64[0] - a10;
     }
 
     else
@@ -2253,48 +2262,41 @@ LABEL_20:
   return 43;
 }
 
-void sub_21AD5254C(uint64_t a1@<X8>)
+void sub_21AD5254C(uint64_t a2@<X8>)
 {
   sub_21AD52580();
-  *a1 = v2;
-  *(a1 + 8) = v3 & 1;
+  *a2 = v3;
+  *(a2 + 8) = v4 & 1;
 }
 
-void sub_21AD52A04(uint64_t a1, unint64_t *a2)
+void sub_21AD52A04(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
   }
 }
 
-uint64_t sub_21AD52A50@<X0>(uint64_t *a1@<X8>)
-{
-  result = nullsub_1(*v1);
-  *a1 = result;
-  return result;
-}
-
 uint64_t sub_21AD52A90()
 {
-  sub_21AE19C14();
-  MEMORY[0x28223BE20]();
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD39D68);
-  __swift_allocate_value_buffer(v0, qword_27CD39D28);
-  __swift_project_value_buffer(v0, qword_27CD39D28);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD39E88);
+  v0 = sub_21AE19C14();
+  MEMORY[0x28223BE20](v0);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD39D68, &qword_21AE2C9C0);
+  __swift_allocate_value_buffer(v1, qword_27CD39D28);
+  __swift_project_value_buffer(v1, qword_27CD39D28);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD39E88, &qword_21AE2D2F8);
   *(swift_allocObject() + 16) = xmmword_21AE2C940;
   sub_21AE19C04();
-  sub_21AD5D69C(&qword_27CD39D40, 255, MEMORY[0x277D3CC90]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD39E90);
+  sub_21AD5D69C(&qword_27CD39D40, 255, MEMORY[0x277D3CC90], MEMORY[0x277D3CC98]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD39E90, &qword_21AE2D300);
   sub_21AD5D6E4();
   sub_21AE19CA4();
   type metadata accessor for TungstenSettings();
-  sub_21AD5D69C(&qword_27CD39D18, v1, type metadata accessor for TungstenSettings);
+  sub_21AD5D69C(&qword_27CD39D18, v2, type metadata accessor for TungstenSettings, &protocol conformance descriptor for TungstenSettings);
   return sub_21AE19BE4();
 }
 
@@ -2336,7 +2338,7 @@ uint64_t static TungstenSettings.config.getter@<X0>(uint64_t a1@<X8>)
     swift_once();
   }
 
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD39D68);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD39D68, &qword_21AE2C9C0);
   v3 = __swift_project_value_buffer(v2, qword_27CD39D28);
   v4 = *(*(v2 - 8) + 16);
 
@@ -2353,7 +2355,7 @@ uint64_t __swift_project_value_buffer(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -4454,11 +4456,11 @@ unint64_t sub_21AD59140(char a1)
   return result;
 }
 
-uint64_t sub_21AD597D4()
+uint64_t sub_21AD597D4(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_21AE19D44();
-  MEMORY[0x21CEE2580](v1);
+  MEMORY[0x21CEE2580](v2);
   return sub_21AE19D64();
 }
 
@@ -4493,415 +4495,415 @@ uint64_t sub_21AD598CC(uint64_t a1)
 uint64_t TungstenSettings.encode(to:)(void *a1)
 {
   v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD39D70);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD39D70, &qword_21AE2C9C8);
   OUTLINED_FUNCTION_13();
   v7 = v6;
-  MEMORY[0x28223BE20]();
-  v9 = v18 - v8;
+  MEMORY[0x28223BE20](v8);
+  v10 = v19 - v9;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   sub_21AD5CBD8();
   sub_21AE19D84();
   OUTLINED_FUNCTION_4();
   swift_beginAccess();
-  v92 = 0;
+  v93 = 0;
   OUTLINED_FUNCTION_0();
   sub_21AE19CF4();
   if (!v2)
   {
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v91 = 1;
+    v92 = 1;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v90 = 2;
+    v91 = 2;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v89 = 3;
+    v90 = 3;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v88 = 4;
+    v89 = 4;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v87 = 5;
+    v88 = 5;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v86 = 6;
+    v87 = 6;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v85 = 7;
+    v86 = 7;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v84 = 8;
+    v85 = 8;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v83 = 9;
+    v84 = 9;
     OUTLINED_FUNCTION_6();
     sub_21AE19D04();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v82 = 10;
+    v83 = 10;
     OUTLINED_FUNCTION_6();
     sub_21AE19D04();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v81 = 11;
+    v82 = 11;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v80 = 12;
+    v81 = 12;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v79 = 13;
+    v80 = 13;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v78 = 14;
+    v79 = 14;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v77 = 15;
+    v78 = 15;
     OUTLINED_FUNCTION_0();
     sub_21AE19D14();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v76 = 16;
+    v77 = 16;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v75 = 17;
+    v76 = 17;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v74 = 18;
+    v75 = 18;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v73 = 19;
+    v74 = 19;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v72 = 20;
+    v73 = 20;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v71 = 21;
+    v72 = 21;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v70 = 22;
+    v71 = 22;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v69 = 23;
+    v70 = 23;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v68 = 24;
+    v69 = 24;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v67 = 25;
+    v68 = 25;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v66 = 26;
+    v67 = 26;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v65 = 27;
+    v66 = 27;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v64 = 28;
+    v65 = 28;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v63 = 29;
+    v64 = 29;
     OUTLINED_FUNCTION_0();
     sub_21AE19D14();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v62 = 30;
+    v63 = 30;
     OUTLINED_FUNCTION_6();
     sub_21AE19D04();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v61 = v3[12];
-    LOBYTE(v60) = 31;
+    v62 = v3[12];
+    LOBYTE(v61) = 31;
     type metadata accessor for PXGTextLegibilityDimmingType(0);
     OUTLINED_FUNCTION_12();
-    sub_21AD5D69C(v10, 255, v11);
+    sub_21AD5D69C(v11, 255, v12, &protocol conformance descriptor for PXGTextLegibilityDimmingType);
     OUTLINED_FUNCTION_6();
     sub_21AE19D24();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v60 = v3[13];
-    v59 = 32;
+    v61 = v3[13];
+    v60 = 32;
     sub_21AD5CC2C();
     OUTLINED_FUNCTION_6();
     sub_21AE19D24();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v59 = 33;
+    v60 = 33;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v58 = 34;
+    v59 = 34;
     OUTLINED_FUNCTION_6();
     sub_21AE19D04();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v57 = 35;
+    v58 = 35;
     OUTLINED_FUNCTION_6();
     sub_21AE19D04();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v56 = 36;
+    v57 = 36;
     OUTLINED_FUNCTION_6();
     sub_21AE19D04();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v55 = v3[18];
-    LOBYTE(v54) = 37;
+    v56 = v3[18];
+    LOBYTE(v55) = 37;
     type metadata accessor for PXScrollViewSpeedometerRegime(0);
-    v14 = v13;
+    v15 = v14;
     OUTLINED_FUNCTION_10();
-    v17 = sub_21AD5D69C(v15, 255, v16);
-    v93 = v14;
-    v18[1] = v17;
+    v18 = sub_21AD5D69C(v16, 255, v17, &protocol conformance descriptor for PXScrollViewSpeedometerRegime);
+    v94 = v15;
+    v19[1] = v18;
     OUTLINED_FUNCTION_6();
     sub_21AE19D24();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v54 = v3[19];
-    LOBYTE(v53) = 38;
+    v55 = v3[19];
+    LOBYTE(v54) = 38;
     OUTLINED_FUNCTION_6();
     sub_21AE19D24();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v53 = v3[20];
-    v52 = 39;
+    v54 = v3[20];
+    v53 = 39;
     OUTLINED_FUNCTION_6();
     sub_21AE19D24();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v52 = 40;
+    v53 = 40;
     OUTLINED_FUNCTION_0();
     sub_21AE19D14();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v51 = 41;
+    v52 = 41;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v50 = v3[23];
-    LOBYTE(v49) = 42;
+    v51 = v3[23];
+    LOBYTE(v50) = 42;
     OUTLINED_FUNCTION_6();
     sub_21AE19D24();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v49 = v3[24];
-    LOBYTE(v48) = 43;
+    v50 = v3[24];
+    LOBYTE(v49) = 43;
     OUTLINED_FUNCTION_6();
     sub_21AE19D24();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v48 = v3[25];
-    v47 = 44;
+    v49 = v3[25];
+    v48 = 44;
     OUTLINED_FUNCTION_6();
     sub_21AE19D24();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v47 = 45;
+    v48 = 45;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v46 = 46;
+    v47 = 46;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v45 = 47;
+    v46 = 47;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v44 = 48;
+    v45 = 48;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v43 = 49;
+    v44 = 49;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v42 = 50;
+    v43 = 50;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    LOBYTE(v41) = 51;
+    LOBYTE(v42) = 51;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
-    v41 = v3[27];
-    v40 = 52;
+    v42 = v3[27];
+    v41 = 52;
     sub_21AD5CC80();
     OUTLINED_FUNCTION_0();
     sub_21AE19D24();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v40 = 53;
+    v41 = 53;
     OUTLINED_FUNCTION_0();
     sub_21AE19D14();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v39 = 54;
+    v40 = 54;
     OUTLINED_FUNCTION_6();
     sub_21AE19D04();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v38 = 55;
+    v39 = 55;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v37 = 56;
+    v38 = 56;
     OUTLINED_FUNCTION_6();
     sub_21AE19D04();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v36 = 57;
+    v37 = 57;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v35 = 58;
+    v36 = 58;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v34 = 59;
+    v35 = 59;
     OUTLINED_FUNCTION_6();
     sub_21AE19D04();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v33 = 60;
+    v34 = 60;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v32 = 61;
+    v33 = 61;
     OUTLINED_FUNCTION_0();
     sub_21AE19D14();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v31 = 62;
+    v32 = 62;
     OUTLINED_FUNCTION_6();
     sub_21AE19D04();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v30 = 63;
+    v31 = 63;
     OUTLINED_FUNCTION_0();
     sub_21AE19D14();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v29 = 64;
+    v30 = 64;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v28 = 65;
+    v29 = 65;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v27 = 66;
+    v28 = 66;
     OUTLINED_FUNCTION_6();
     sub_21AE19D04();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v26 = 67;
+    v27 = 67;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v25 = 68;
+    v26 = 68;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v24 = 69;
+    v25 = 69;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v23 = v3[41];
-    LOBYTE(v22) = 70;
+    v24 = v3[41];
+    LOBYTE(v23) = 70;
     OUTLINED_FUNCTION_6();
     sub_21AE19D24();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v22 = v3[42];
-    LOBYTE(v21) = 71;
+    v23 = v3[42];
+    LOBYTE(v22) = 71;
     OUTLINED_FUNCTION_6();
     sub_21AE19D24();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v21 = v3[43];
-    v20 = 72;
+    v22 = v3[43];
+    v21 = 72;
     OUTLINED_FUNCTION_6();
     sub_21AE19D24();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v20 = 73;
+    v21 = 73;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
     OUTLINED_FUNCTION_4();
     swift_beginAccess();
-    v19 = 74;
+    v20 = 74;
     OUTLINED_FUNCTION_0();
     sub_21AE19CF4();
   }
 
-  return (*(v7 + 8))(v9, v5);
+  return (*(v7 + 8))(v10, v5);
 }
 
 uint64_t TungstenSettings.__allocating_init(from:)(void *a1)
@@ -4914,11 +4916,11 @@ uint64_t TungstenSettings.__allocating_init(from:)(void *a1)
 uint64_t TungstenSettings.init(from:)(void *a1)
 {
   v2 = v1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD39DA0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD39DA0, &qword_21AE2C9D0);
   OUTLINED_FUNCTION_13();
   v126 = v5;
   v127 = v4;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v4);
   v131 = &v95 - v6;
   v129 = v2;
   *(v2 + 32) = xmmword_21AE2C950;
@@ -5007,57 +5009,57 @@ uint64_t TungstenSettings.init(from:)(void *a1)
     v98 = (v7 + 248);
     v99 = (v7 + 296);
     v10 = v129;
-    v205 = 0;
+    v204[24] = 0;
     sub_21AE19CB4();
     OUTLINED_FUNCTION_14();
     v11 = v125;
     OUTLINED_FUNCTION_3();
     swift_beginAccess();
     *v11 = v8 & 1;
-    v204 = 1;
-    OUTLINED_FUNCTION_16();
+    v204[0] = 1;
+    OUTLINED_FUNCTION_16(v204);
     OUTLINED_FUNCTION_14();
     OUTLINED_FUNCTION_3();
     swift_beginAccess();
     OUTLINED_FUNCTION_7();
-    v203 = 2;
-    OUTLINED_FUNCTION_16();
+    v203[0] = 2;
+    OUTLINED_FUNCTION_16(v203);
     OUTLINED_FUNCTION_14();
     OUTLINED_FUNCTION_3();
     swift_beginAccess();
     OUTLINED_FUNCTION_7();
-    v202 = 3;
-    OUTLINED_FUNCTION_16();
+    v202[0] = 3;
+    OUTLINED_FUNCTION_16(v202);
     OUTLINED_FUNCTION_14();
     OUTLINED_FUNCTION_3();
     swift_beginAccess();
     OUTLINED_FUNCTION_7();
-    v201 = 4;
-    OUTLINED_FUNCTION_16();
+    v201[0] = 4;
+    OUTLINED_FUNCTION_16(v201);
     OUTLINED_FUNCTION_14();
     OUTLINED_FUNCTION_3();
     swift_beginAccess();
     OUTLINED_FUNCTION_7();
-    v200 = 5;
-    OUTLINED_FUNCTION_16();
+    v200[0] = 5;
+    OUTLINED_FUNCTION_16(v200);
     OUTLINED_FUNCTION_14();
     OUTLINED_FUNCTION_3();
     swift_beginAccess();
     OUTLINED_FUNCTION_7();
-    v199 = 6;
-    OUTLINED_FUNCTION_16();
+    v199[0] = 6;
+    OUTLINED_FUNCTION_16(v199);
     OUTLINED_FUNCTION_14();
     OUTLINED_FUNCTION_3();
     swift_beginAccess();
     OUTLINED_FUNCTION_7();
-    v198 = 7;
-    OUTLINED_FUNCTION_16();
+    v198[0] = 7;
+    OUTLINED_FUNCTION_16(v198);
     OUTLINED_FUNCTION_14();
     OUTLINED_FUNCTION_3();
     swift_beginAccess();
     OUTLINED_FUNCTION_7();
-    v197 = 8;
-    v13 = OUTLINED_FUNCTION_16();
+    v197[0] = 8;
+    v13 = OUTLINED_FUNCTION_16(v197);
     v14 = v124;
     OUTLINED_FUNCTION_3();
     swift_beginAccess();
@@ -5221,7 +5223,7 @@ uint64_t TungstenSettings.init(from:)(void *a1)
     type metadata accessor for PXGTextLegibilityDimmingType(0);
     v174 = 31;
     OUTLINED_FUNCTION_12();
-    sub_21AD5D69C(v31, 255, v32);
+    sub_21AD5D69C(v31, 255, v32, &protocol conformance descriptor for PXGTextLegibilityDimmingType);
     sub_21AE19CE4();
     v33 = v173;
     v34 = v105;
@@ -5267,9 +5269,9 @@ uint64_t TungstenSettings.init(from:)(void *a1)
     swift_beginAccess();
     *v45 = v44;
     type metadata accessor for PXScrollViewSpeedometerRegime(0);
-    v168 = 37;
+    v168[0] = 37;
     OUTLINED_FUNCTION_10();
-    sub_21AD5D69C(v46, 255, v47);
+    sub_21AD5D69C(v46, 255, v47, &protocol conformance descriptor for PXScrollViewSpeedometerRegime);
     OUTLINED_FUNCTION_9();
     v48 = v167;
     v49 = v111;
@@ -5561,7 +5563,7 @@ uint64_t sub_21AD5BFE0@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 
 uint64_t sub_21AD5C030(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_21AD5D69C(&qword_27CD39E78, 255, type metadata accessor for PXGTextLegibilityDimmingType);
+  v4 = sub_21AD5D69C(&qword_27CD39E78, 255, type metadata accessor for PXGTextLegibilityDimmingType, &unk_21AE2C87C);
   v5 = MEMORY[0x277D3CCB0];
 
   return MEMORY[0x28219CF78](a1, a2, v4, v5);
@@ -5569,36 +5571,36 @@ uint64_t sub_21AD5C030(uint64_t a1, uint64_t a2)
 
 uint64_t sub_21AD5C110(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = sub_21AD5D69C(&qword_27CD39E80, 255, type metadata accessor for PXGTextLegibilityDimmingType);
+  v6 = sub_21AD5D69C(&qword_27CD39E80, 255, type metadata accessor for PXGTextLegibilityDimmingType, &unk_21AE2C850);
 
   return MEMORY[0x28219CF48](a1, a2, a3, v6);
 }
 
 uint64_t sub_21AD5C2B0(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_21AD5D69C(&qword_27CD39E68, 255, type metadata accessor for PXScrollViewSpeedometerRegime);
+  v4 = sub_21AD5D69C(&qword_27CD39E68, 255, type metadata accessor for PXScrollViewSpeedometerRegime, &unk_21AE2C900);
   v5 = MEMORY[0x277D3CCA0];
 
   return MEMORY[0x28219CF78](a1, a2, v4, v5);
 }
 
-uint64_t sub_21AD5C390(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t *a5, void (*a6)(uint64_t), uint64_t a7, uint64_t a8)
+uint64_t sub_21AD5C390(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t *a5, uint64_t (*a6)(uint64_t), uint64_t a7, uint64_t a8)
 {
-  v22 = a8;
-  v19 = a3;
-  v20 = a4;
-  v18 = a2;
-  v10 = sub_21AE19C24();
+  v24 = a8;
+  v21 = a3;
+  v22 = a4;
+  v20 = a2;
+  v11 = sub_21AE19C24();
   OUTLINED_FUNCTION_13();
-  v12 = v11;
-  MEMORY[0x28223BE20]();
-  v14 = &v17 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_21AD5D69C(a5, 255, a6);
-  v15 = v21;
+  v13 = v12;
+  MEMORY[0x28223BE20](v14);
+  v16 = &v19 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_21AD5D69C(a5, 255, a6, a7);
+  v17 = v23;
   result = sub_21AE19C34();
-  if (v15)
+  if (v17)
   {
-    return (*(v12 + 32))(v18, v14, v10);
+    return (*(v13 + 32))(v20, v16, v11);
   }
 
   return result;
@@ -5606,7 +5608,7 @@ uint64_t sub_21AD5C390(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint
 
 uint64_t sub_21AD5C4AC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = sub_21AD5D69C(&qword_27CD39E70, 255, type metadata accessor for PXScrollViewSpeedometerRegime);
+  v6 = sub_21AD5D69C(&qword_27CD39E70, 255, type metadata accessor for PXScrollViewSpeedometerRegime, &unk_21AE2C8D4);
 
   return MEMORY[0x28219CF48](a1, a2, a3, v6);
 }
@@ -5619,18 +5621,18 @@ uint64_t sub_21AD5C658(uint64_t a1, uint64_t a2)
   return MEMORY[0x28219CF78](a1, a2, v4, v5);
 }
 
-uint64_t sub_21AD5C6B4(uint64_t a1, uint64_t a2)
+uint64_t sub_21AD5C6B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v9 = a2;
-  v3 = sub_21AE19C24();
-  v4 = *(v3 - 8);
-  MEMORY[0x28223BE20]();
-  v6 = &v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = a2;
+  v5 = sub_21AE19C24();
+  v6 = *(v5 - 8);
+  MEMORY[0x28223BE20](v5);
+  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_21AD5D4DC();
   result = sub_21AE19C34();
-  if (v2)
+  if (v4)
   {
-    return (*(v4 + 32))(v9, v6, v3);
+    return (*(v6 + 32))(v11, v8, v5);
   }
 
   return result;
@@ -5777,9 +5779,9 @@ unint64_t sub_21AD5CC80()
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -5821,12 +5823,12 @@ uint64_t sub_21AD5CDC8@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_21AD5CE18()
+uint64_t sub_21AD5CE18(uint64_t a1)
 {
   type metadata accessor for TungstenSettings();
-  sub_21AD5D69C(&qword_27CD39D18, v0, type metadata accessor for TungstenSettings);
+  sub_21AD5D69C(&qword_27CD39D18, v1, type metadata accessor for TungstenSettings, &protocol conformance descriptor for TungstenSettings);
   sub_21AE19BC4();
-  return v2;
+  return v3;
 }
 
 PXTungstenSettings __swiftcall PXTungstenSettings.init()()
@@ -6114,7 +6116,7 @@ uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
   return a2;
 }
 
-uint64_t sub_21AD5D69C(unint64_t *a1, uint64_t a2, void (*a3)(uint64_t))
+uint64_t sub_21AD5D69C(unint64_t *a1, uint64_t a2, uint64_t (*a3)(uint64_t), uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -6132,7 +6134,7 @@ unint64_t sub_21AD5D6E4()
   result = qword_27CD39D00;
   if (!qword_27CD39D00)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27CD39E90);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27CD39E90, &qword_21AE2D300);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_27CD39D00);
   }
@@ -6140,7 +6142,7 @@ unint64_t sub_21AD5D6E4()
   return result;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -6152,49 +6154,49 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1)
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_2()
+void *OUTLINED_FUNCTION_2()
 {
 
   return sub_21AE19CE4();
 }
 
-uint64_t OUTLINED_FUNCTION_5()
+uint64_t OUTLINED_FUNCTION_5(uint64_t a1)
 {
 
   return swift_beginAccess();
 }
 
-uint64_t OUTLINED_FUNCTION_9()
+void *OUTLINED_FUNCTION_9()
 {
 
   return sub_21AE19CE4();
 }
 
-uint64_t OUTLINED_FUNCTION_16()
+uint64_t OUTLINED_FUNCTION_16(uint64_t a1)
 {
 
   return sub_21AE19CB4();
 }
 
-void sub_21AD5E308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21AD5E308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21AD5F6E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_21AD5F6E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21AD5F9F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_21AD5F9F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v10 - 96), 8);
+  _Block_object_dispose((v17 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6243,7 +6245,7 @@ void sub_21AD623CC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t PXGItemsGeometryItemClosestToItemHorizontalGridDefaultImplementation(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t PXGItemsGeometryItemClosestToItemHorizontalGridDefaultImplementation(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a1 == 0x7FFFFFFFFFFFFFFFLL)
   {
@@ -6524,9 +6526,9 @@ void PXGDampedSpringGroupParametersPrepareForTime(float *a1, float a2)
   a1[3] = v11;
 }
 
-void sub_21AD6B724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_21AD6B724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6609,30 +6611,30 @@ id PXGAnimationSpriteInfoDescription(void *a1)
   return v22;
 }
 
-uint64_t __PXGAnimationSpriteInfoDescription_block_invoke(uint64_t result, unsigned __int8 a2)
+id *__PXGAnimationSpriteInfoDescription_block_invoke(id *result, unsigned __int8 a2)
 {
   if ((*(result + 346) & a2) != 0)
   {
-    return [*(result + 32) addObject:?];
+    return [result[4] addObject:?];
   }
 
   return result;
 }
 
-void sub_21AD72A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_21AD72A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-float factorize(int a1, int a2, _WORD *a3, float a4)
+float factorize(uint64_t a1, int a2, _WORD *a3, float a4)
 {
   v18[1] = *MEMORY[0x277D85DE8];
   if (a4 <= 0.0)
@@ -6677,8 +6679,8 @@ float factorize(int a1, int a2, _WORD *a3, float a4)
   {
     v9 = (a1 - 1);
     v10 = 2 * (a1 - 1);
-    MEMORY[0x28223BE20]();
-    v12 = v18 - v11;
+    MEMORY[0x28223BE20](a1);
+    v12 = (v18 - v11);
     v8 = 0.0;
     v13 = 3.4028e38;
     do
@@ -6702,75 +6704,75 @@ float factorize(int a1, int a2, _WORD *a3, float a4)
 
 double PXGResizeRect(unsigned int a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11, double a12)
 {
-  v18 = a1 & 7;
-  if (v18 > 3)
+  v12 = a1 & 7;
+  if (v12 > 3)
   {
-    if (v18 == 5)
+    if (v12 == 5)
     {
-      v19 = a10 - a6 + (a12 - a8) * 0.5;
+      v13 = a10 - a6 + (a12 - a8) * 0.5;
     }
 
     else
     {
-      if (v18 != 4)
+      if (v12 != 4)
       {
         goto LABEL_16;
       }
 
-      v19 = a10 - a6;
+      v13 = a10 - a6;
     }
   }
 
   else
   {
-    if (v18 != 1)
+    if (v12 != 1)
     {
-      if (v18 == 2)
+      if (v12 == 2)
       {
-        v19 = a10 - a6;
+        v13 = a10 - a6;
         a4 = a4 + a12 - a8;
         goto LABEL_10;
       }
 
 LABEL_16:
-      v23 = [MEMORY[0x277CCA890] currentHandler];
-      v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void _PXGLinearResize(CGFloat *, CGFloat *, CGFloat, CGFloat, CGFloat, CGFloat, BOOL, BOOL, BOOL)"}];
-      v25 = a1 & 1;
-      v26 = (a1 >> 1) & 1;
-      v27 = (a1 >> 2) & 1;
+      v17 = [MEMORY[0x277CCA890] currentHandler];
+      v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void _PXGLinearResize(CGFloat *, CGFloat *, CGFloat, CGFloat, CGFloat, CGFloat, BOOL, BOOL, BOOL)"}];
+      v19 = a1 & 1;
+      v20 = (a1 >> 1) & 1;
+      v21 = (a1 >> 2) & 1;
       goto LABEL_18;
     }
 
-    v19 = a10 + a12 - a6 - a8;
+    v13 = a10 + a12 - a6 - a8;
   }
 
 LABEL_10:
-  v20 = ((a1 & 0x38) - 8) >> 3;
-  if (v20 <= 2)
+  v14 = ((a1 & 0x38) - 8) >> 3;
+  if (v14 <= 2)
   {
-    if (v20 <= 1)
+    if (v14 <= 1)
     {
-      return a2 + v19;
+      return a2 + v13;
     }
 
     goto LABEL_17;
   }
 
-  if (v20 != 4 && v20 != 3)
+  if (v14 != 4 && v14 != 3)
   {
 LABEL_17:
-    v23 = [MEMORY[0x277CCA890] currentHandler];
-    v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void _PXGLinearResize(CGFloat *, CGFloat *, CGFloat, CGFloat, CGFloat, CGFloat, BOOL, BOOL, BOOL)"}];
-    v25 = (a1 >> 3) & 1;
-    v26 = (a1 >> 4) & 1;
-    v27 = (a1 >> 5) & 1;
+    v17 = [MEMORY[0x277CCA890] currentHandler];
+    v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void _PXGLinearResize(CGFloat *, CGFloat *, CGFloat, CGFloat, CGFloat, CGFloat, BOOL, BOOL, BOOL)"}];
+    v19 = (a1 >> 3) & 1;
+    v20 = (a1 >> 4) & 1;
+    v21 = (a1 >> 5) & 1;
 LABEL_18:
-    [v23 handleFailureInFunction:v24 file:@"PXGGeometry.m" lineNumber:26 description:{@"resizing options (%i %i %i) not implemented yet", v25, v26, v27}];
+    [v17 handleFailureInFunction:v18 file:@"PXGGeometry.m" lineNumber:26 description:{@"resizing options (%i %i %i) not implemented yet", v19, v20, v21}];
 
     abort();
   }
 
-  return a2 + v19;
+  return a2 + v13;
 }
 
 uint64_t PXGDeviceIsKnownToHaveExtendedColorDisplay()
@@ -7641,64 +7643,64 @@ uint64_t PXGCGImageHasExtendedRange(CGImage *a1)
   return v3;
 }
 
-CGImageRef PXGMetalCompatibleImageByRedrawingCGImage(CGImageRef image, double a2, double a3)
+CGImageRef PXGMetalCompatibleImageByRedrawingCGImage(CGImageRef image, uint64_t a2, uint64_t a3, double a4, double a5)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (!image)
   {
-    v18 = [MEMORY[0x277CCA890] currentHandler];
-    v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"CGImageRef  _Nullable PXGMetalCompatibleImageByRedrawingCGImage(CGImageRef _Nonnull, CGSize, PXGColorSpaceName, BOOL)"}];
-    [v18 handleFailureInFunction:v19 file:@"PXGTextureUtilities.m" lineNumber:585 description:{@"Invalid parameter not satisfying: %@", @"imageRef != nil"}];
+    v20 = [MEMORY[0x277CCA890] currentHandler];
+    v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"CGImageRef  _Nullable PXGMetalCompatibleImageByRedrawingCGImage(CGImageRef _Nonnull, CGSize, PXGColorSpaceName, BOOL)"}];
+    [v20 handleFailureInFunction:v21 file:@"PXGTextureUtilities.m" lineNumber:585 description:{@"Invalid parameter not satisfying: %@", @"imageRef != nil"}];
   }
 
   Width = CGImageGetWidth(image);
   Height = CGImageGetHeight(image);
-  if (a2 <= Width || a3 <= Height)
+  if (a4 <= Width || a5 <= Height)
   {
     PXSizeMin();
     AspectRatio = PXSizeGetAspectRatio();
     Width = MEMORY[0x21CEE3950](AspectRatio);
-    Height = v10;
+    Height = v12;
   }
 
   CGImageGetAlphaInfo(image);
-  v11 = PXCreateContext();
-  v23.origin.x = 0.0;
-  v23.origin.y = 0.0;
-  v23.size.width = Width;
-  v23.size.height = Height;
-  CGContextClearRect(v11, v23);
-  v24.origin.x = 0.0;
-  v24.origin.y = 0.0;
-  v24.size.width = Width;
-  v24.size.height = Height;
-  CGContextDrawImage(v11, v24, image);
-  v12 = +[PXTungstenSettings sharedInstance];
-  v13 = [v12 colorCopiedImages];
+  v13 = PXCreateContext();
+  v25.origin.x = 0.0;
+  v25.origin.y = 0.0;
+  v25.size.width = Width;
+  v25.size.height = Height;
+  CGContextClearRect(v13, v25);
+  v26.origin.x = 0.0;
+  v26.origin.y = 0.0;
+  v26.size.width = Width;
+  v26.size.height = Height;
+  CGContextDrawImage(v13, v26, image);
+  v14 = +[PXTungstenSettings sharedInstance];
+  v15 = [v14 colorCopiedImages];
 
-  if (v13)
+  if (v15)
   {
     *components = xmmword_21AE2D8E8;
-    v21 = unk_21AE2D8F8;
-    v14 = PXGetColorSpace();
-    v15 = CGColorCreate(v14, components);
-    CGContextSetFillColorWithColor(v11, v15);
-    v25.origin.x = 0.0;
-    v25.origin.y = 0.0;
-    v25.size.width = Width;
-    v25.size.height = Height;
-    CGContextFillRect(v11, v25);
-    CGColorRelease(v15);
+    v23 = unk_21AE2D8F8;
+    v16 = PXGetColorSpace();
+    v17 = CGColorCreate(v16, components);
+    CGContextSetFillColorWithColor(v13, v17);
+    v27.origin.x = 0.0;
+    v27.origin.y = 0.0;
+    v27.size.width = Width;
+    v27.size.height = Height;
+    CGContextFillRect(v13, v27);
+    CGColorRelease(v17);
   }
 
-  v16 = CGBitmapContextCreateImage(v11);
-  CGContextRelease(v11);
-  if (v16)
+  v18 = CGBitmapContextCreateImage(v13);
+  CGContextRelease(v13);
+  if (v18)
   {
-    CFAutorelease(v16);
+    CFAutorelease(v18);
   }
 
-  return v16;
+  return v18;
 }
 
 uint64_t __Block_byref_object_copy__3120(uint64_t result, uint64_t a2)
@@ -7708,7 +7710,7 @@ uint64_t __Block_byref_object_copy__3120(uint64_t result, uint64_t a2)
   return result;
 }
 
-void __PXGCreateMetalTextureFromBytesInCGImage_block_invoke(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void __PXGCreateMetalTextureFromBytesInCGImage_block_invoke(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, char *a6)
 {
   v12 = objc_autoreleasePoolPush();
   v13 = *(a1 + 56);
@@ -7736,7 +7738,7 @@ void __PXGCreateMetalTextureFromBytesInCGImage_block_invoke(uint64_t a1, unint64
 
     v49 = [v17 watermark];
     v50 = v18;
-    v48 = *(a5 + a6 - 16);
+    v48 = *&a6[a5 - 16];
     if (v49 != v48 || v18 != *(&v48 + 1))
     {
       v40 = [MEMORY[0x277CCA890] currentHandler];
@@ -8984,6 +8986,13 @@ LABEL_19:
   return v11 * v12;
 }
 
+void sub_21AD7A6E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t _SelectionStyleUsesBadge(uint64_t a1)
 {
   if ((a1 + 1) >= 7)
@@ -9006,66 +9015,66 @@ void sub_21AD7DC18(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_21AD7DDD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21AD7DDD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  objc_destroyWeak((v7 + 40));
+  va_start(va, a13);
+  objc_destroyWeak((v13 + 40));
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id _PXGRotatedImageWithTransform(void *a1)
+id _PXGRotatedImageWithTransform(void *a1, _OWORD *a2)
 {
-  v1 = a1;
-  v16 = 0;
+  v2 = a1;
+  v17 = 0;
   RotationAngleAndFlipsFromCGAffineTransform = FigGetRotationAngleAndFlipsFromCGAffineTransform();
-  [v1 extent];
-  v4 = v3;
-  v6 = v5;
-  memset(&v15, 0, sizeof(v15));
-  CGAffineTransformMakeTranslation(&v15, v3 * -0.5, v5 * -0.5);
+  [v2 extent];
+  v5 = v4;
+  v7 = v6;
+  memset(&v16, 0, sizeof(v16));
+  CGAffineTransformMakeTranslation(&v16, v4 * -0.5, v6 * -0.5);
   CGAffineTransformMakeRotation(&t2, -RotationAngleAndFlipsFromCGAffineTransform * 3.14159265 / 180.0);
-  v12 = v15;
-  CGAffineTransformConcat(&v14, &v12, &t2);
-  v15 = v14;
-  v7 = -1.0;
-  if (v16)
+  v13 = v16;
+  CGAffineTransformConcat(&v15, &v13, &t2);
+  v16 = v15;
+  v8 = -1.0;
+  if (v17)
   {
-    v8 = -1.0;
+    v9 = -1.0;
   }
 
   else
+  {
+    v9 = 1.0;
+  }
+
+  if (!HIBYTE(v17))
   {
     v8 = 1.0;
   }
 
-  if (!HIBYTE(v16))
-  {
-    v7 = 1.0;
-  }
-
-  CGAffineTransformMakeScale(&t2, v8, v7);
-  v12 = v15;
-  CGAffineTransformConcat(&v14, &v12, &t2);
-  v15 = v14;
+  CGAffineTransformMakeScale(&t2, v9, v8);
+  v13 = v16;
+  CGAffineTransformConcat(&v15, &v13, &t2);
+  v16 = v15;
   if (RotationAngleAndFlipsFromCGAffineTransform == 270 || RotationAngleAndFlipsFromCGAffineTransform == 90)
   {
-    v9 = v4;
+    v10 = v5;
   }
 
   else
   {
-    v9 = v6;
-    v6 = v4;
+    v10 = v7;
+    v7 = v5;
   }
 
-  CGAffineTransformMakeTranslation(&t2, v6 * 0.5, v9 * 0.5);
-  v12 = v15;
-  CGAffineTransformConcat(&v14, &v12, &t2);
-  v15 = v14;
-  v10 = [v1 imageByApplyingTransform:&v14];
+  CGAffineTransformMakeTranslation(&t2, v7 * 0.5, v10 * 0.5);
+  v13 = v16;
+  CGAffineTransformConcat(&v15, &v13, &t2);
+  v16 = v15;
+  v11 = [v2 imageByApplyingTransform:&v15];
 
-  return v10;
+  return v11;
 }
 
 void sub_21AD834E4(_Unwind_Exception *a1)
@@ -9096,8 +9105,8 @@ void sub_21AD843B8(_Unwind_Exception *a1)
 void sub_21AD85FB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id *location, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62, uint64_t a63)
 {
   objc_destroyWeak(location);
-  objc_destroyWeak(&a68);
-  objc_destroyWeak((v68 - 208));
+  objc_destroyWeak(&a65);
+  objc_destroyWeak((v65 - 208));
   _Unwind_Resume(a1);
 }
 
@@ -9166,9 +9175,9 @@ float64_t PXGCameraForVisibleRect(float64x2_t a1, float64_t a2, float64x2_t a3, 
   return a1.f64[0];
 }
 
-void sub_21AD8A4E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21AD8A4E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9180,20 +9189,20 @@ uint64_t __Block_byref_object_copy__4290(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_21AD8BA80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_21AD8BA80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21AD8C3E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, char a59, uint64_t a60, uint64_t a61, uint64_t a62, char a63)
+void sub_21AD8C3E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a36, 8);
   _Block_object_dispose(&a59, 8);
   _Block_object_dispose(&a63, 8);
-  _Block_object_dispose(&a67, 8);
-  _Block_object_dispose((v67 - 216), 8);
+  _Block_object_dispose(&a65, 8);
+  _Block_object_dispose((v65 - 216), 8);
   _Unwind_Resume(a1);
 }
 
@@ -9217,12 +9226,13 @@ __CFString *PXGAnchorTypeDescription(unint64_t a1)
   }
 }
 
-void sub_21AD93520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_21AD93520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 160), 8);
-  _Block_object_dispose((v29 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v28 - 160), 8);
+  _Block_object_dispose((v28 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -9233,25 +9243,32 @@ uint64_t __Block_byref_object_copy__5627(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_21AD9414C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21AD93DEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
-  va_start(va, a9);
+  va_start(va, a27);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21AD958E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21AD9414C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a7);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 64), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21AD96554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21AD958E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a9);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v13 - 64), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_21AD96554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9275,9 +9292,9 @@ __CFString *PXGAnchorPriorityDescription(uint64_t a1)
   }
 }
 
-void sub_21AD97A08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_21AD97A08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9372,8 +9389,9 @@ id PXDebugHierarchyObjectsInGroupForView(void *a1, void *a2, void *a3, int a4)
   return v13;
 }
 
-id CALayerContentsGravityFromPXGContentsGravity(unsigned int a1)
+id CALayerContentsGravityFromPXGContentsGravity(uint64_t a1)
 {
+  v1 = a1;
   v7 = *MEMORY[0x277D85DE8];
   if (a1 >= 0xE)
   {
@@ -9381,7 +9399,7 @@ id CALayerContentsGravityFromPXGContentsGravity(unsigned int a1)
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       v6[0] = 67109120;
-      v6[1] = a1;
+      v6[1] = v1;
       _os_log_error_impl(&dword_21AD38000, v3, OS_LOG_TYPE_ERROR, "invalid PXGContentsGravity value %i", v6, 8u);
     }
 
@@ -9398,9 +9416,9 @@ id CALayerContentsGravityFromPXGContentsGravity(unsigned int a1)
   return v4;
 }
 
-void sub_21AD9A02C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_21AD9A02C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9420,24 +9438,24 @@ void sub_21AD9AF74(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_21AD9D8F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_21AD9D8F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 96), 8);
+  _Block_object_dispose((v20 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21AD9E0DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_21AD9E0DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21AD9F0BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_21AD9F0BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9449,10 +9467,10 @@ uint64_t __Block_byref_object_copy__6827(uint64_t result, uint64_t a2)
   return result;
 }
 
-BOOL _textureMatchesSize(void *a1, void *a2, uint64_t a3)
+BOOL _textureMatchesSize(void *a1, void **a2, uint64_t a3)
 {
   v5 = a1;
-  v6 = [v5 width] == *a2 && objc_msgSend(v5, "height") == a2[1] && objc_msgSend(v5, "depth") == a2[2] && objc_msgSend(v5, "pixelFormat") == a3;
+  v6 = __PAIR128__([v5 height], objc_msgSend(v5, "width")) == *a2 && objc_msgSend(v5, "depth") == a2[2] && objc_msgSend(v5, "pixelFormat") == a3;
 
   return v6;
 }
@@ -9464,11 +9482,11 @@ uint64_t __Block_byref_object_copy__6903(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_21ADA0D20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_21ADA0D20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -9585,30 +9603,30 @@ void __PXGDeepestPreferredFocusEnvironmentsForLayout_block_invoke(uint64_t a1, u
   }
 }
 
-void sub_21ADAB7DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21ADAB7DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21ADAB8F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21ADAB8F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21ADABD78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_21ADABD78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21ADAD1AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21ADAD1AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   __destructor_8_s16_s24_s32(va);
   _Unwind_Resume(a1);
 }
@@ -9626,10 +9644,10 @@ void sub_21ADAD628(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_21ADAE1BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, char a63)
+void sub_21ADAE1BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a63, 8);
-  _Block_object_dispose(&a67, 8);
+  _Block_object_dispose(&a65, 8);
   _Block_object_dispose(&STACK[0x2B0], 8);
   _Unwind_Resume(a1);
 }
@@ -9640,26 +9658,5 @@ void sub_21ADAF30C(_Unwind_Exception *a1)
   _Block_object_dispose(&STACK[0x4E0], 8);
   _Block_object_dispose(&STACK[0x500], 8);
   _Block_object_dispose(&STACK[0x520], 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__8755(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_21ADAF6A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_21ADB15CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
-{
-  _Block_object_dispose(&a39, 8);
-  _Block_object_dispose(&a45, 8);
   _Unwind_Resume(a1);
 }

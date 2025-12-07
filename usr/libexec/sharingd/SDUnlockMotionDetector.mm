@@ -6,6 +6,7 @@
 - (void)checkActivityState;
 - (void)checkStepState;
 - (void)handleActivityDetected:(id)detected;
+- (void)handleMotionDetected:(BOOL)detected;
 - (void)handleNewAccelerometerData;
 - (void)handlePastActivities:(id)activities withStartDate:(id)date;
 - (void)handlePastActivitiesForPairedUnlock:(id)unlock;
@@ -778,6 +779,75 @@ LABEL_22:
   }
 
   [(SDUnlockMotionDetector *)self handleMotionDetected:intValue >= v12];
+}
+
+- (void)handleMotionDetected:(BOOL)detected
+{
+  detectedCopy = detected;
+  logType = [(SDUnlockMotionDetector *)self logType];
+  if (os_log_type_enabled(logType, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = @"NO";
+    if (detectedCopy)
+    {
+      v6 = @"YES";
+    }
+
+    *buf = 138412290;
+    v13 = v6;
+    _os_log_impl(&_mh_execute_header, logType, OS_LOG_TYPE_DEFAULT, "Detected motion %@", buf, 0xCu);
+  }
+
+  if ([(SDUnlockMotionDetector *)self type]!= 1 || detectedCopy)
+  {
+    goto LABEL_17;
+  }
+
+  logType2 = [(SDUnlockMotionDetector *)self logType];
+  if (os_log_type_enabled(logType2, OS_LOG_TYPE_DEFAULT))
+  {
+    if ([(SDUnlockMotionDetector *)self checkedStepData])
+    {
+      v8 = @"YES";
+    }
+
+    else
+    {
+      v8 = @"NO";
+    }
+
+    if ([(SDUnlockMotionDetector *)self checkedActivityData])
+    {
+      v9 = @"YES";
+    }
+
+    else
+    {
+      v9 = @"NO";
+    }
+
+    *buf = 138412546;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v9;
+    _os_log_impl(&_mh_execute_header, logType2, OS_LOG_TYPE_DEFAULT, "Checked step data: %@, checked activity data: %@", buf, 0x16u);
+  }
+
+  if ([(SDUnlockMotionDetector *)self checkedActivityData])
+  {
+    if ([(SDUnlockMotionDetector *)self checkedStepData])
+    {
+LABEL_17:
+      [(SDUnlockMotionDetector *)self setMotionDetected:detectedCopy];
+      handlerQueue = self->_handlerQueue;
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_1000A9260;
+      block[3] = &unk_1008CDEA0;
+      block[4] = self;
+      dispatch_async(handlerQueue, block);
+    }
+  }
 }
 
 - (void)restartMotionTimer

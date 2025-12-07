@@ -7,104 +7,104 @@
 
 - (_NTKUserOverrideSession)initWithEditedAsset:(id)asset
 {
-  v157 = *MEMORY[0x277D85DE8];
+  v124 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
-  v155.receiver = self;
-  v155.super_class = _NTKUserOverrideSession;
-  v8 = [(_NTKUserOverrideSession *)&v155 init];
-  if (!v8)
+  v122.receiver = self;
+  v122.super_class = _NTKUserOverrideSession;
+  v7 = [(_NTKUserOverrideSession *)&v122 init];
+  if (!v7)
   {
     goto LABEL_33;
   }
 
-  v9 = objc_msgSend_phAsset(assetCopy, v5, v6, v7);
-  v13 = objc_msgSend_ntk_getFullSizePHAssetData(v9, v10, v11, v12);
+  v8 = objc_msgSend_phAsset(assetCopy, v5, v6);
+  v11 = objc_msgSend_ntk_getFullSizePHAssetData(v8, v9, v10);
 
-  if (!v13)
+  if (!v11)
   {
     goto LABEL_37;
   }
 
-  v14 = sub_23BF2AF68(v13);
-  if (!objc_msgSend_addOriginalAssetAndMaskData(assetCopy, v15, v16, v17))
+  v12 = sub_23BF2AF68(v11);
+  if (!objc_msgSend_addOriginalAssetAndMaskData(assetCopy, v13, v14))
   {
     goto LABEL_37;
   }
 
-  v18 = NTKCGImagePropertyOrientationToUIImageOrientation();
-  v19 = MEMORY[0x277D2BFA8];
-  v23 = objc_msgSend_subsampleFactor(assetCopy, v20, v21, v22);
-  v25 = objc_msgSend__subsampledImageWithData_orientation_subsampleFactor_(v19, v24, v13, v18, v23);
-  photoImage = v8->_photoImage;
-  v8->_photoImage = v25;
+  v15 = NTKCGImagePropertyOrientationToUIImageOrientation();
+  v16 = MEMORY[0x277D2BFA8];
+  v19 = objc_msgSend_subsampleFactor(assetCopy, v17, v18);
+  v21 = objc_msgSend__subsampledImageWithData_orientation_subsampleFactor_(v16, v20, v11, v15, v19);
+  photoImage = v7->_photoImage;
+  v7->_photoImage = v21;
 
-  v30 = objc_msgSend_fullSizeMaskData(assetCopy, v27, v28, v29);
+  v25 = objc_msgSend_fullSizeMaskData(assetCopy, v23, v24);
 
-  if (v30 && (objc_msgSend_fullSizeMaskData(assetCopy, v31, v32, v33), v34 = objc_claimAutoreleasedReturnValue(), v35 = sub_23BF2B03C(v34), v34, v35))
+  if (v25 && (objc_msgSend_fullSizeMaskData(assetCopy, v26, v27), v28 = objc_claimAutoreleasedReturnValue(), v29 = sub_23BF2B03C(v28), v28, v29))
   {
-    v36 = objc_alloc(MEMORY[0x277D3B3D0]);
-    v37 = 1;
-    v39 = objc_msgSend_initWithMaskImage_orientation_(v36, v38, v35, 1);
-    v40 = [_NTKParmesanPreviewValidatorImplementation alloc];
-    v43 = objc_msgSend_initWithPFLCValidator_(v40, v41, v39, v42);
-    previewValidator = v8->_previewValidator;
-    v8->_previewValidator = v43;
+    v30 = objc_alloc(MEMORY[0x277D3B3D0]);
+    v31 = 1;
+    v33 = objc_msgSend_initWithMaskImage_orientation_(v30, v32, v29, 1);
+    v34 = [_NTKParmesanPreviewValidatorImplementation alloc];
+    v36 = objc_msgSend_initWithPFLCValidator_(v34, v35, v33);
+    previewValidator = v7->_previewValidator;
+    v7->_previewValidator = v36;
 
-    v48 = objc_msgSend_CGImage(v8->_photoImage, v45, v46, v47);
-    v49 = sub_23BF2AD4C(v48, v14, v35);
-    v51 = objc_msgSend_imageWithCGImage_scale_orientation_(MEMORY[0x277D755B8], v50, v49, 0, 1.0);
-    photoImageMasked = v8->_photoImageMasked;
-    v8->_photoImageMasked = v51;
+    v40 = objc_msgSend_CGImage(v7->_photoImage, v38, v39);
+    v41 = sub_23BF2AD4C(v40, v12, v29, 1);
+    v43 = objc_msgSend_imageWithCGImage_scale_orientation_(MEMORY[0x277D755B8], v42, v41, 0, 1.0);
+    photoImageMasked = v7->_photoImageMasked;
+    v7->_photoImageMasked = v43;
 
-    CGImageRelease(v49);
-    CGImageRelease(v35);
+    CGImageRelease(v41);
+    CGImageRelease(v29);
   }
 
   else
   {
-    v37 = 0;
+    v31 = 0;
   }
 
-  v53 = objc_msgSend_userOverrides(assetCopy, v31, v32, v33);
-  v57 = objc_msgSend_count(v53, v54, v55, v56);
+  v45 = objc_msgSend_userOverrides(assetCopy, v26, v27);
+  v48 = objc_msgSend_count(v45, v46, v47);
 
-  if (v57)
+  if (v48)
   {
-    LOBYTE(v61) = 1;
+    LOBYTE(v51) = 1;
   }
 
   else
   {
-    v153 = 0u;
-    v154 = 0u;
-    v151 = 0u;
-    v152 = 0u;
-    v62 = objc_msgSend_asset(assetCopy, v58, v59, v60, 0);
-    v66 = objc_msgSend_layouts(v62, v63, v64, v65);
-    v70 = objc_msgSend_allValues(v66, v67, v68, v69);
+    v120 = 0u;
+    v121 = 0u;
+    v118 = 0u;
+    v119 = 0u;
+    v52 = objc_msgSend_asset(assetCopy, v49, v50, 0);
+    v55 = objc_msgSend_layouts(v52, v53, v54);
+    v58 = objc_msgSend_allValues(v55, v56, v57);
 
-    v61 = objc_msgSend_countByEnumeratingWithState_objects_count_(v70, v71, &v151, v156, 16);
-    if (v61)
+    v51 = objc_msgSend_countByEnumeratingWithState_objects_count_(v58, v59, &v118, v123, 16);
+    if (v51)
     {
-      v75 = *v152;
+      v62 = *v119;
       while (2)
       {
-        for (i = 0; i != v61; ++i)
+        for (i = 0; i != v51; ++i)
         {
-          if (*v152 != v75)
+          if (*v119 != v62)
           {
-            objc_enumerationMutation(v70);
+            objc_enumerationMutation(v58);
           }
 
-          if (objc_msgSend_userEdited(*(*(&v151 + 1) + 8 * i), v72, v73, v74))
+          if (objc_msgSend_userEdited(*(*(&v118 + 1) + 8 * i), v60, v61))
           {
-            LOBYTE(v61) = 1;
+            LOBYTE(v51) = 1;
             goto LABEL_20;
           }
         }
 
-        v61 = objc_msgSend_countByEnumeratingWithState_objects_count_(v70, v72, &v151, v156, 16);
-        if (v61)
+        v51 = objc_msgSend_countByEnumeratingWithState_objects_count_(v58, v60, &v118, v123, 16);
+        if (v51)
         {
           continue;
         }
@@ -116,70 +116,70 @@
 LABEL_20:
   }
 
-  v8->_canRevert = v61;
-  v77 = objc_msgSend_userOverrides(assetCopy, v58, v59, v60);
-  v81 = objc_msgSend_count(v77, v78, v79, v80);
+  v7->_canRevert = v51;
+  v64 = objc_msgSend_userOverrides(assetCopy, v49, v50);
+  v67 = objc_msgSend_count(v64, v65, v66);
 
-  if (!v81)
+  if (!v67)
   {
-    v102 = objc_msgSend_asset(assetCopy, v82, v83, v84);
-    v101 = objc_msgSend_preferredLayout(v102, v103, v104, v105);
+    v83 = objc_msgSend_asset(assetCopy, v68, v69);
+    v82 = objc_msgSend_preferredLayout(v83, v84, v85);
 
-    if (v101 || (objc_msgSend_originalAsset(assetCopy, v106, v107, v108), v109 = objc_claimAutoreleasedReturnValue(), objc_msgSend_preferredLayout(v109, v110, v111, v112), v101 = objc_claimAutoreleasedReturnValue(), v109, v101))
+    if (v82 || (objc_msgSend_originalAsset(assetCopy, v86, v87), v88 = objc_claimAutoreleasedReturnValue(), objc_msgSend_preferredLayout(v88, v89, v90), v82 = objc_claimAutoreleasedReturnValue(), v88, v82))
     {
-      v116 = objc_alloc_init(NTKParmesanLayoutUserOverride);
-      p_currentOverride = &v8->_currentOverride;
-      currentOverride = v8->_currentOverride;
-      v8->_currentOverride = v116;
+      v93 = objc_alloc_init(NTKParmesanLayoutUserOverride);
+      p_currentOverride = &v7->_currentOverride;
+      currentOverride = v7->_currentOverride;
+      v7->_currentOverride = v93;
 
-      v122 = objc_msgSend_originalCrop(v101, v119, v120, v121);
-      objc_msgSend_cgRect(v122, v123, v124, v125);
-      objc_msgSend_setCrop_(v8->_currentOverride, v126, v127, v128);
+      v98 = objc_msgSend_originalCrop(v82, v96, v97);
+      objc_msgSend_cgRect(v98, v99, v100);
+      objc_msgSend_setCrop_(v7->_currentOverride, v101, v102);
 
-      v132 = objc_msgSend_timeLayout(v101, v129, v130, v131);
-      objc_msgSend_setTimeLayout_(v8->_currentOverride, v133, v132, v134);
+      v105 = objc_msgSend_timeLayout(v82, v103, v104);
+      objc_msgSend_setTimeLayout_(v7->_currentOverride, v106, v105);
 
-      v140 = objc_msgSend_mask(v101, v135, v136, v137);
-      if (v140)
+      v110 = objc_msgSend_mask(v82, v107, v108);
+      if (v110)
       {
-        objc_msgSend_setUseDepthEffect_(*p_currentOverride, v138, v37, v139);
+        objc_msgSend_setUseDepthEffect_(*p_currentOverride, v109, v31);
       }
 
       else
       {
-        objc_msgSend_setUseDepthEffect_(*p_currentOverride, v138, 0, v139);
+        objc_msgSend_setUseDepthEffect_(*p_currentOverride, v109, 0);
       }
 
-      v144 = objc_msgSend_logObject(NTKParmesanFaceBundle, v141, v142, v143);
-      if (os_log_type_enabled(v144, OS_LOG_TYPE_DEBUG))
+      v113 = objc_msgSend_logObject(NTKParmesanFaceBundle, v111, v112);
+      if (os_log_type_enabled(v113, OS_LOG_TYPE_DEBUG))
       {
-        sub_23BFF7650(assetCopy, &v8->_currentOverride, v144, v145);
+        sub_23BFF7650(assetCopy, &v7->_currentOverride, v113);
       }
 
       goto LABEL_32;
     }
 
-    v147 = objc_msgSend_logObject(NTKParmesanFaceBundle, v113, v114, v115);
-    if (os_log_type_enabled(v147, OS_LOG_TYPE_ERROR))
+    v115 = objc_msgSend_logObject(NTKParmesanFaceBundle, v91, v92);
+    if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
     {
-      sub_23BFF771C(assetCopy, v147, v148, v149);
+      sub_23BFF771C(assetCopy, v115, v116);
     }
 
 LABEL_37:
-    v146 = 0;
+    v114 = 0;
     goto LABEL_38;
   }
 
-  v85 = objc_msgSend_userOverrides(assetCopy, v82, v83, v84);
-  v86 = MEMORY[0x277CCABB0];
-  EditedUserOverride = objc_msgSend_lastEditedUserOverride(assetCopy, v87, v88, v89);
-  v93 = objc_msgSend_numberWithInteger_(v86, v91, EditedUserOverride, v92);
-  v96 = objc_msgSend_objectForKeyedSubscript_(v85, v94, v93, v95);
-  v97 = v8->_currentOverride;
-  v8->_currentOverride = v96;
+  v70 = objc_msgSend_userOverrides(assetCopy, v68, v69);
+  v71 = MEMORY[0x277CCABB0];
+  EditedUserOverride = objc_msgSend_lastEditedUserOverride(assetCopy, v72, v73);
+  v76 = objc_msgSend_numberWithInteger_(v71, v75, EditedUserOverride);
+  v78 = objc_msgSend_objectForKeyedSubscript_(v70, v77, v76);
+  v79 = v7->_currentOverride;
+  v7->_currentOverride = v78;
 
-  v101 = objc_msgSend_logObject(NTKParmesanFaceBundle, v98, v99, v100);
-  if (os_log_type_enabled(v101, OS_LOG_TYPE_DEBUG))
+  v82 = objc_msgSend_logObject(NTKParmesanFaceBundle, v80, v81);
+  if (os_log_type_enabled(v82, OS_LOG_TYPE_DEBUG))
   {
     sub_23BFF75D4();
   }
@@ -187,45 +187,45 @@ LABEL_37:
 LABEL_32:
 
 LABEL_33:
-  v146 = v8;
+  v114 = v7;
 LABEL_38:
 
-  return v146;
+  return v114;
 }
 
 - (id)previewModelForDevice:(id)device subsampleFactor:(double)factor
 {
-  v7 = objc_msgSend_currentOverride(self, a2, device, v4);
-  objc_msgSend_crop(v7, v8, v9, v10);
+  v6 = objc_msgSend_currentOverride(self, a2, device);
+  objc_msgSend_crop(v6, v7, v8);
+  v10 = v9;
   v12 = v11;
   v14 = v13;
   v16 = v15;
-  v18 = v17;
-  CGAffineTransformMakeScale(&v64, 1.0 / factor, 1.0 / factor);
-  v66.origin.x = v12;
-  v66.origin.y = v14;
-  v66.size.width = v16;
-  v66.size.height = v18;
-  v67 = CGRectApplyAffineTransform(v66, &v64);
-  x = v67.origin.x;
-  y = v67.origin.y;
-  width = v67.size.width;
-  height = v67.size.height;
+  CGAffineTransformMakeScale(&v53, 1.0 / factor, 1.0 / factor);
+  v55.origin.x = v10;
+  v55.origin.y = v12;
+  v55.size.width = v14;
+  v55.size.height = v16;
+  v56 = CGRectApplyAffineTransform(v55, &v53);
+  x = v56.origin.x;
+  y = v56.origin.y;
+  width = v56.size.width;
+  height = v56.size.height;
 
-  v23 = [NTKParmesanCropPreviewModel alloc];
-  v27 = objc_msgSend_photoImage(self, v24, v25, v26);
-  v31 = objc_msgSend_photoImageMasked(self, v28, v29, v30);
-  v35 = objc_msgSend_previewValidator(self, v32, v33, v34);
-  v36 = [NTKParmesanCrop alloc];
-  v40 = objc_msgSend_initWithRect_(v36, v37, v38, v39, x, y, width, height);
-  v44 = objc_msgSend_currentOverride(self, v41, v42, v43);
-  v48 = objc_msgSend_timeLayout(v44, v45, v46, v47);
-  v52 = objc_msgSend_currentOverride(self, v49, v50, v51);
-  v56 = objc_msgSend_useDepthEffect(v52, v53, v54, v55);
-  canRevert = objc_msgSend_canRevert(self, v57, v58, v59);
-  v61 = objc_msgSend_initWithPhoto_maskedPhoto_previewValidator_crop_timeLayout_useDepthEffect_revertable_(v23, v60, v27, v31, v35, v40, v48, v56, canRevert);
+  v21 = [NTKParmesanCropPreviewModel alloc];
+  v24 = objc_msgSend_photoImage(self, v22, v23);
+  v27 = objc_msgSend_photoImageMasked(self, v25, v26);
+  v30 = objc_msgSend_previewValidator(self, v28, v29);
+  v31 = [NTKParmesanCrop alloc];
+  v34 = objc_msgSend_initWithRect_(v31, v32, v33, x, y, width, height);
+  v37 = objc_msgSend_currentOverride(self, v35, v36);
+  v40 = objc_msgSend_timeLayout(v37, v38, v39);
+  v43 = objc_msgSend_currentOverride(self, v41, v42);
+  v46 = objc_msgSend_useDepthEffect(v43, v44, v45);
+  canRevert = objc_msgSend_canRevert(self, v47, v48);
+  v50 = objc_msgSend_initWithPhoto_maskedPhoto_previewValidator_crop_timeLayout_useDepthEffect_revertable_(v21, v49, v24, v27, v30, v34, v40, v46, canRevert);
 
-  return v61;
+  return v50;
 }
 
 @end

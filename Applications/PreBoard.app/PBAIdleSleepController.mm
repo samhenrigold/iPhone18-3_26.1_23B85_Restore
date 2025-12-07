@@ -8,6 +8,7 @@
 - (void)_undimDisplayForce;
 - (void)dimDisplay;
 - (void)resetIdleTimerAndUndim:(BOOL)undim;
+- (void)setPreventIdleSleep:(BOOL)sleep forReason:(id)reason;
 - (void)systemSleepMonitor:(id)monitor prepareForSleepWithCompletion:(id)completion;
 - (void)systemSleepMonitor:(id)monitor sleepRequestedWithResult:(id)result;
 - (void)systemSleepMonitorDidWakeFromSleep:(id)sleep;
@@ -87,36 +88,37 @@
   v3 = +[NSNotificationCenter defaultCenter];
   [v3 postNotificationName:@"PBAScreenWillUnblankNotification" object:0];
 
-  v4 = sub_10000A054();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_10000A054(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Undimming display", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Undimming display", buf, 2u);
   }
 
-  v5 = [[BLSBacklightChangeRequest alloc] initWithRequestedActivityState:1 explanation:@"PreBoard Force Undim" timestamp:mach_continuous_time() sourceEvent:0 sourceEventMetadata:0];
-  v6 = +[BLSBacklight sharedBacklight];
-  v7 = [v6 performChangeRequest:v5];
+  v6 = [[BLSBacklightChangeRequest alloc] initWithRequestedActivityState:1 explanation:@"PreBoard Force Undim" timestamp:mach_continuous_time() sourceEvent:0 sourceEventMetadata:0];
+  v7 = +[BLSBacklight sharedBacklight];
+  v8 = [v7 performChangeRequest:v6];
 
   BKSHIDServicesSetBacklightFactorWithFadeDuration();
   [(PBAIdleSleepController *)self setDisplayDim:0];
   attentionAwarenessClient = self->_attentionAwarenessClient;
-  v19 = 0;
-  v9 = [(AWAttentionAwarenessClient *)attentionAwarenessClient resumeWithError:&v19];
-  v10 = v19;
-  if ((v9 & 1) == 0)
+  v21 = 0;
+  v10 = [(AWAttentionAwarenessClient *)attentionAwarenessClient resumeWithError:&v21];
+  v11 = v21;
+  v12 = v11;
+  if ((v10 & 1) == 0)
   {
-    v11 = sub_10000A054();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = sub_10000A054(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_10000D200(v10, v11, v12, v13, v14, v15, v16, v17);
+      sub_10000D200(v12, v13, v14, v15, v16, v17, v18, v19);
     }
   }
 
   [(PBAIdleSleepController *)self _preventIdleSleep];
   [(PBAIdleSleepController *)self _setHIDUILockedState:0];
-  v18 = +[NSNotificationCenter defaultCenter];
-  [v18 postNotificationName:@"PBAScreenDidUnblankNotification" object:0];
+  v20 = +[NSNotificationCenter defaultCenter];
+  [v20 postNotificationName:@"PBAScreenDidUnblankNotification" object:0];
 }
 
 - (void)undimDisplay
@@ -134,36 +136,37 @@
     v3 = +[NSNotificationCenter defaultCenter];
     [v3 postNotificationName:@"PBAScreenWillBlankNotification" object:0];
 
-    v4 = sub_10000A054();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_10000A054(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Dimming display", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Dimming display", buf, 2u);
     }
 
-    v5 = [[BLSBacklightChangeRequest alloc] initWithRequestedActivityState:0 explanation:@"PreBoard Dim Display" timestamp:mach_continuous_time() sourceEvent:0 sourceEventMetadata:0];
-    v6 = +[BLSBacklight sharedBacklight];
-    v7 = [v6 performChangeRequest:v5];
+    v6 = [[BLSBacklightChangeRequest alloc] initWithRequestedActivityState:0 explanation:@"PreBoard Dim Display" timestamp:mach_continuous_time() sourceEvent:0 sourceEventMetadata:0];
+    v7 = +[BLSBacklight sharedBacklight];
+    v8 = [v7 performChangeRequest:v6];
 
     [(PBAIdleSleepController *)self setDisplayDim:1];
     attentionAwarenessClient = self->_attentionAwarenessClient;
-    v20 = 0;
-    v9 = [(AWAttentionAwarenessClient *)attentionAwarenessClient suspendWithError:&v20];
-    v10 = v20;
-    if ((v9 & 1) == 0)
+    v22 = 0;
+    v10 = [(AWAttentionAwarenessClient *)attentionAwarenessClient suspendWithError:&v22];
+    v11 = v22;
+    v13 = v11;
+    if ((v10 & 1) == 0)
     {
-      v12 = sub_10000A054();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = sub_10000A054(v11);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        sub_10000D26C(v10, v12, v13, v14, v15, v16, v17, v18);
+        sub_10000D26C(v13, v14, v15, v16, v17, v18, v19, v20);
       }
     }
 
-    LODWORD(v11) = 1.0;
-    [(PBAIdleSleepController *)self _preventIdleSleepForNumberOfSeconds:v11];
+    LODWORD(v12) = 1.0;
+    [(PBAIdleSleepController *)self _preventIdleSleepForNumberOfSeconds:v12];
     [(PBAIdleSleepController *)self _setHIDUILockedState:1];
-    v19 = +[NSNotificationCenter defaultCenter];
-    [v19 postNotificationName:@"PBAScreenDidBlankNotification" object:0];
+    v21 = +[NSNotificationCenter defaultCenter];
+    [v21 postNotificationName:@"PBAScreenDidBlankNotification" object:0];
   }
 }
 
@@ -192,6 +195,14 @@
   }
 }
 
+- (void)setPreventIdleSleep:(BOOL)sleep forReason:(id)reason
+{
+  sleepCopy = sleep;
+  reasonCopy = reason;
+  v6 = +[FBSystemService sharedInstance];
+  [v6 setSystemIdleSleepDisabled:sleepCopy forReason:reasonCopy];
+}
+
 - (void)resetIdleTimerAndUndim:(BOOL)undim
 {
   if (undim)
@@ -200,15 +211,16 @@
   }
 
   attentionAwarenessClient = self->_attentionAwarenessClient;
-  v14 = 0;
-  v5 = [(AWAttentionAwarenessClient *)attentionAwarenessClient resetAttentionLostTimeoutWithError:&v14];
-  v6 = v14;
+  v15 = 0;
+  v5 = [(AWAttentionAwarenessClient *)attentionAwarenessClient resetAttentionLostTimeoutWithError:&v15];
+  v6 = v15;
+  v7 = v6;
   if ((v5 & 1) == 0)
   {
-    v7 = sub_10000A054();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_10000A054(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_10000D2D8(v6, v7, v8, v9, v10, v11, v12, v13);
+      sub_10000D2D8(v7, v8, v9, v10, v11, v12, v13, v14);
     }
   }
 }
@@ -216,7 +228,7 @@
 - (void)systemSleepMonitor:(id)monitor sleepRequestedWithResult:(id)result
 {
   resultCopy = result;
-  v5 = sub_10000A054();
+  v5 = sub_10000A054(resultCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *v7 = 0;
@@ -229,7 +241,7 @@
 - (void)systemSleepMonitor:(id)monitor prepareForSleepWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_10000A054();
+  v5 = sub_10000A054(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *v6 = 0;
@@ -241,7 +253,7 @@
 
 - (void)systemSleepMonitorSleepRequestAborted:(id)aborted
 {
-  v3 = sub_10000A054();
+  v3 = sub_10000A054(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -251,7 +263,7 @@
 
 - (void)systemSleepMonitorWillWakeFromSleep:(id)sleep
 {
-  v3 = sub_10000A054();
+  v3 = sub_10000A054(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -261,7 +273,7 @@
 
 - (void)systemSleepMonitorDidWakeFromSleep:(id)sleep
 {
-  v3 = sub_10000A054();
+  v3 = sub_10000A054(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;

@@ -28,26 +28,25 @@
 {
   ObjectType = swift_getObjectType();
   sub_258AFD58C(0, &qword_280DF8930, MEMORY[0x277D85720], MEMORY[0x277D83D88]);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v15 - v6;
-  v8 = sub_258B02D44();
-  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
-  v9 = *(&self->super.super.super.isa + OBJC_IVAR____TtC14MentalHealthUI14ShapeContainer_renderer);
+  v6 = &v14 - v5;
+  v7 = sub_258B02D44();
+  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
+  v8 = *(&self->super.super.super.isa + OBJC_IVAR____TtC14MentalHealthUI14ShapeContainer_renderer);
   sub_258B02D24();
-  v10 = v9;
+  v9 = v8;
   selfCopy = self;
-  v12 = sub_258B02D14();
-  v13 = swift_allocObject();
-  v14 = MEMORY[0x277D85700];
-  v13[2] = v12;
-  v13[3] = v14;
-  v13[4] = v9;
-  sub_258A8F398(0, 0, v7, &unk_258B35800, v13);
+  v11 = sub_258B02D14();
+  v12 = swift_allocObject();
+  v13 = MEMORY[0x277D85700];
+  v12[2] = v11;
+  v12[3] = v13;
+  v12[4] = v8;
+  sub_258A8F398(0, 0, v6, &unk_258B35800, v12);
 
-  v15.receiver = selfCopy;
-  v15.super_class = ObjectType;
-  [(ShapeContainer *)&v15 dealloc];
+  v14.receiver = selfCopy;
+  v14.super_class = ObjectType;
+  [(ShapeContainer *)&v14 dealloc];
 }
 
 - (_TtC14MentalHealthUI14ShapeContainer)initWithFrame:(CGRect)frame

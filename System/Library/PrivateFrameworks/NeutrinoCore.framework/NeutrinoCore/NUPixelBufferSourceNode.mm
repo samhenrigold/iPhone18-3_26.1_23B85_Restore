@@ -19,17 +19,17 @@
     v11 = v10;
     if (v10)
     {
-      [v10 nu_pixelRect];
+      objc_msgSend_nu_pixelRect(v10);
       Width = v18;
       Height = v19;
     }
 
     else
     {
-      [(NUVideoFrameSourceNode *)self originalExtent];
+      objc_msgSend_originalExtent(self);
       if (v16 && v17)
       {
-        [(NUVideoFrameSourceNode *)self originalExtent];
+        objc_msgSend_originalExtent(self);
         Width = v14;
         Height = v15;
       }

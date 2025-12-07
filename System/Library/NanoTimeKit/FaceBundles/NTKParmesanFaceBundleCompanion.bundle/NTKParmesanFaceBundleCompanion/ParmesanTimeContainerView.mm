@@ -22,7 +22,7 @@
 
 - (void)setOverrideDate:(id)date duration:(double)duration
 {
-  v6 = sub_23BF4A264(&qword_27E1E0B80);
+  v6 = sub_23BF4A264(&qword_27E1E0B80, &qword_23C002400);
   MEMORY[0x28223BE20](v6 - 8);
   v8 = &v12 - v7;
   if (date)

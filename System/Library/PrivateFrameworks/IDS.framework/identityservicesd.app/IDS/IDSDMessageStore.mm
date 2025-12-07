@@ -3225,13 +3225,13 @@ LABEL_32:
   blockCopy = block;
   if (blockCopy)
   {
-    v6 = blockCopy;
-    v7 = [blockCopy copy];
+    v7 = blockCopy;
+    v8 = [blockCopy copy];
 
-    v11 = v7;
-    v8 = v7;
-    v9 = [(IDSDMessageStore *)self database:_NSConcreteStackBlock];
-    sub_1006B7380(&v10, v9);
+    v12 = v8;
+    v9 = v8;
+    v10 = [(IDSDMessageStore *)self database:_NSConcreteStackBlock];
+    sub_1006B7380(&v11, v10, delay);
   }
 }
 

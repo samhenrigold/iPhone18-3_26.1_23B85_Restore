@@ -19,20 +19,19 @@
 - (void)observerDidObserveDatabaseChange:(id)change
 {
   v4 = sub_10004DED0(&unk_10015D490, &qword_100112150);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v12 - v6;
+  v6 = &v11 - v5;
   selfCopy = self;
   static TaskPriority.userInitiated.getter();
-  v9 = type metadata accessor for TaskPriority();
-  (*(*(v9 - 8) + 56))(v7, 0, 1, v9);
-  v10 = swift_allocObject();
+  v8 = type metadata accessor for TaskPriority();
+  (*(*(v8 - 8) + 56))(v6, 0, 1, v8);
+  v9 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  v11 = swift_allocObject();
-  v11[2] = 0;
-  v11[3] = 0;
-  v11[4] = v10;
-  sub_100094AF4(0, 0, v7, &unk_100114378, v11);
+  v10 = swift_allocObject();
+  v10[2] = 0;
+  v10[3] = 0;
+  v10[4] = v9;
+  sub_100094AF4(0, 0, v6, &unk_100114378, v10);
 }
 
 @end

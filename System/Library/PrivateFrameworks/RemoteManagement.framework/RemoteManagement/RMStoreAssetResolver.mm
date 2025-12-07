@@ -3,6 +3,7 @@
 + (BOOL)_clearKeychainAsset:(id)asset personaID:(id)d error:(id *)error;
 + (BOOL)removedAsset:(id)asset personaID:(id)d isKeychain:(BOOL)keychain error:(id *)error;
 + (id)newStoreAssetResolver:(id)resolver;
++ (void)resolveAsset:(id)asset storeIdentifier:(id)identifier unresolvedAsset:(id)unresolvedAsset personaID:(id)d isDDM:(BOOL)m enrollmentType:(int64_t)type completionHandler:(id)handler;
 + (void)unassignAssets:(id)assets personaID:(id)d completionHandler:(id)handler;
 - (BOOL)_storeAssetData:(id)data asset:(id)asset assetKey:(id)key enrollmentType:(int64_t)type error:(id *)error;
 - (BOOL)_validateAsset:(id)asset reference:(id)reference url:(id)url statusCode:(id)code headers:(id)headers data:(id)data downloadURL:(id)l error:(id *)self0;
@@ -24,11 +25,70 @@
 - (void)_cacheDataAsset:(id)asset storeIdentifier:(id)identifier resolvedAsset:(id)resolvedAsset;
 - (void)_cacheFileAsset:(id)asset storeIdentifier:(id)identifier resolvedAsset:(id)resolvedAsset;
 - (void)_processResponseWithAsset:(id)asset reference:(id)reference unresolvedAsset:(id)unresolvedAsset url:(id)url response:(id)response error:(id)error completionHandler:(id)handler;
+- (void)_resolveAsDataAsset:(id)asset storeIdentifier:(id)identifier unresolvedAsset:(id)unresolvedAsset reference:(id)reference url:(id)url useDDM:(BOOL)m useCache:(BOOL)cache completionHandler:(id)self0;
 - (void)_resolveAsFileAsset:(id)asset storeIdentifier:(id)identifier unresolvedAsset:(id)unresolvedAsset reference:(id)reference url:(id)url useDDM:(BOOL)m useCache:(BOOL)cache completionHandler:(id)self0;
+- (void)_resolveAsset:(id)asset storeIdentifier:(id)identifier unresolvedAsset:(id)unresolvedAsset isDDM:(BOOL)m useCache:(BOOL)cache completionHandler:(id)handler;
+- (void)_resolveAsset:(id)asset storeIdentifier:(id)identifier unresolvedAsset:(id)unresolvedAsset reference:(id)reference url:(id)url useDDM:(BOOL)m useCache:(BOOL)cache completionHandler:(id)self0;
 - (void)_resolveKeychainAsset:(id)asset storeIdentifier:(id)identifier unresolvedAsset:(id)unresolvedAsset isDDM:(BOOL)m enrollmentType:(int64_t)type completionHandler:(id)handler;
 @end
 
 @implementation RMStoreAssetResolver
+
++ (void)resolveAsset:(id)asset storeIdentifier:(id)identifier unresolvedAsset:(id)unresolvedAsset personaID:(id)d isDDM:(BOOL)m enrollmentType:(int64_t)type completionHandler:(id)handler
+{
+  mCopy = m;
+  unresolvedAssetCopy = unresolvedAsset;
+  handlerCopy = handler;
+  dCopy = d;
+  identifierCopy = identifier;
+  assetCopy = asset;
+  v18 = +[RMManagedKeychainController newManagedKeychainControllerForScope:personaID:](RMManagedKeychainController, "newManagedKeychainControllerForScope:personaID:", +[RMStoreHelper storeScope], dCopy);
+
+  v19 = [RMStoreAssetResolver newStoreAssetResolver:v18];
+  [v18 lockBeforeModifyingKeychain];
+  objc_opt_class();
+  LOBYTE(dCopy) = objc_opt_isKindOfClass();
+  v20 = +[RMLog storeAssetResolver];
+  v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
+  if (dCopy)
+  {
+    if (v21)
+    {
+      sub_100072388();
+    }
+
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_10006E430;
+    v29[3] = &unk_1000D2B88;
+    v22 = &v30;
+    v30 = v18;
+    v31 = handlerCopy;
+    v23 = handlerCopy;
+    [v19 _resolveKeychainAsset:assetCopy storeIdentifier:identifierCopy unresolvedAsset:unresolvedAssetCopy isDDM:mCopy enrollmentType:type completionHandler:v29];
+
+    assetCopy = v31;
+  }
+
+  else
+  {
+    if (v21)
+    {
+      sub_10007234C();
+    }
+
+    [v18 unlockAfterModifyingKeychain];
+    useCache = [unresolvedAssetCopy useCache];
+    v27[0] = _NSConcreteStackBlock;
+    v27[1] = 3221225472;
+    v27[2] = sub_10006E4B0;
+    v27[3] = &unk_1000D2BB0;
+    v22 = &v28;
+    v28 = handlerCopy;
+    v25 = handlerCopy;
+    [v19 _resolveAsset:assetCopy storeIdentifier:identifierCopy unresolvedAsset:unresolvedAssetCopy isDDM:mCopy useCache:useCache completionHandler:v27];
+  }
+}
 
 + (void)unassignAssets:(id)assets personaID:(id)d completionHandler:(id)handler
 {
@@ -108,6 +168,173 @@
   }
 
   return v7;
+}
+
+- (void)_resolveAsset:(id)asset storeIdentifier:(id)identifier unresolvedAsset:(id)unresolvedAsset isDDM:(BOOL)m useCache:(BOOL)cache completionHandler:(id)handler
+{
+  mCopy = m;
+  assetCopy = asset;
+  identifierCopy = identifier;
+  unresolvedAssetCopy = unresolvedAsset;
+  handlerCopy = handler;
+  v18 = [(RMStoreAssetResolver *)self _getAssetReferenceFromAsset:assetCopy];
+  if (v18)
+  {
+    queryParameters = [unresolvedAssetCopy queryParameters];
+    v20 = [(RMStoreAssetResolver *)self _dataURLForAsset:assetCopy reference:v18 queryParameters:queryParameters];
+
+    if (([RMStoreUtility isValidURL:v20]& 1) != 0)
+    {
+      cacheCopy = cache;
+      v21 = [(RMStoreAssetResolver *)self _getAssetAuthenticationFromAsset:assetCopy];
+      v22 = v21;
+      v23 = mCopy;
+      if (v21)
+      {
+        [v21 payloadType];
+        v32 = unresolvedAssetCopy;
+        v25 = v24 = identifierCopy;
+        v23 = [v25 isEqualToString:@"MDM"];
+
+        identifierCopy = v24;
+        unresolvedAssetCopy = v32;
+      }
+
+      if (!v23 || mCopy)
+      {
+        LOBYTE(v31) = cacheCopy;
+        [(RMStoreAssetResolver *)self _resolveAsset:assetCopy storeIdentifier:identifierCopy unresolvedAsset:unresolvedAssetCopy reference:v18 url:v20 useDDM:v23 useCache:v31 completionHandler:handlerCopy];
+      }
+
+      else
+      {
+        v26 = identifierCopy;
+        v27 = [RMErrorUtilities createAssetInvalidError:@"Cannot use MDM as source of asset data"];
+        v28 = +[RMLog storeAssetResolver];
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        {
+          sub_10007242C();
+        }
+
+        handlerCopy[2](handlerCopy, 0, v27);
+        identifierCopy = v26;
+      }
+    }
+
+    else
+    {
+      v22 = [RMErrorUtilities createAssetInvalidURLError:v20];
+      v30 = +[RMLog storeAssetResolver];
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      {
+        sub_1000723C4();
+      }
+
+      handlerCopy[2](handlerCopy, 0, v22);
+    }
+  }
+
+  else
+  {
+    v20 = [RMErrorUtilities createAssetInvalidError:@"Asset has no Reference"];
+    v29 = +[RMLog storeAssetResolver];
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    {
+      sub_10007246C();
+    }
+
+    handlerCopy[2](handlerCopy, 0, v20);
+  }
+}
+
+- (void)_resolveAsset:(id)asset storeIdentifier:(id)identifier unresolvedAsset:(id)unresolvedAsset reference:(id)reference url:(id)url useDDM:(BOOL)m useCache:(BOOL)cache completionHandler:(id)self0
+{
+  mCopy = m;
+  assetCopy = asset;
+  identifierCopy = identifier;
+  unresolvedAssetCopy = unresolvedAsset;
+  referenceCopy = reference;
+  urlCopy = url;
+  handlerCopy = handler;
+  if ([unresolvedAssetCopy resolveAs])
+  {
+    if ([unresolvedAssetCopy resolveAs] == 1)
+    {
+      LOBYTE(v24) = cache;
+      [(RMStoreAssetResolver *)self _resolveAsFileAsset:assetCopy storeIdentifier:identifierCopy unresolvedAsset:unresolvedAssetCopy reference:referenceCopy url:urlCopy useDDM:mCopy useCache:v24 completionHandler:handlerCopy];
+    }
+
+    else
+    {
+      v22 = +[RMLog storeAssetResolver];
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      {
+        sub_1000724D4(unresolvedAssetCopy);
+      }
+
+      v23 = +[RMErrorUtilities createInternalError];
+      handlerCopy[2](handlerCopy, 0, v23);
+    }
+  }
+
+  else
+  {
+    LOBYTE(v24) = cache;
+    [(RMStoreAssetResolver *)self _resolveAsDataAsset:assetCopy storeIdentifier:identifierCopy unresolvedAsset:unresolvedAssetCopy reference:referenceCopy url:urlCopy useDDM:mCopy useCache:v24 completionHandler:handlerCopy];
+  }
+}
+
+- (void)_resolveAsDataAsset:(id)asset storeIdentifier:(id)identifier unresolvedAsset:(id)unresolvedAsset reference:(id)reference url:(id)url useDDM:(BOOL)m useCache:(BOOL)cache completionHandler:(id)self0
+{
+  mCopy = m;
+  assetCopy = asset;
+  identifierCopy = identifier;
+  unresolvedAssetCopy = unresolvedAsset;
+  referenceCopy = reference;
+  urlCopy = url;
+  handlerCopy = handler;
+  if (cache && ([(RMStoreAssetResolver *)self _cachedDataAsset:assetCopy storeIdentifier:identifierCopy unresolvedAsset:unresolvedAssetCopy reference:referenceCopy url:urlCopy useDDM:mCopy], (v22 = objc_claimAutoreleasedReturnValue()) != 0))
+  {
+    v23 = v22;
+    handlerCopy[2](handlerCopy, v22, 0);
+  }
+
+  else
+  {
+    v28 = mCopy;
+    v29 = identifierCopy;
+    v24 = assetCopy;
+    v23 = objc_opt_new();
+    payloadContentType = [referenceCopy payloadContentType];
+    if (payloadContentType)
+    {
+      v38 = @"Accept";
+      payloadContentType2 = [referenceCopy payloadContentType];
+      v39 = payloadContentType2;
+      v27 = [NSDictionary dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+    }
+
+    else
+    {
+      v27 = &__NSDictionary0__struct;
+    }
+
+    v30[0] = _NSConcreteStackBlock;
+    v30[1] = 3221225472;
+    v30[2] = sub_10006EEA0;
+    v30[3] = &unk_1000D2C00;
+    v30[4] = self;
+    assetCopy = v24;
+    v31 = v24;
+    v32 = referenceCopy;
+    v33 = unresolvedAssetCopy;
+    v34 = urlCopy;
+    cacheCopy = cache;
+    identifierCopy = v29;
+    v35 = v29;
+    v36 = handlerCopy;
+    [v23 fetchResponseDataAtURL:v34 useDDM:v28 additionalHeaders:v27 completionHandler:v30];
+  }
 }
 
 - (void)_resolveAsFileAsset:(id)asset storeIdentifier:(id)identifier unresolvedAsset:(id)unresolvedAsset reference:(id)reference url:(id)url useDDM:(BOOL)m useCache:(BOOL)cache completionHandler:(id)self0

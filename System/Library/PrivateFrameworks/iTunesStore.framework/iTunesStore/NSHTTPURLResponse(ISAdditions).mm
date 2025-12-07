@@ -1,11 +1,11 @@
 @interface NSHTTPURLResponse(ISAdditions)
 - (double)expirationInterval;
 - (double)itunes_expirationInterval;
-- (uint64_t)_dateFromExpires;
 - (uint64_t)_getCacheControlMaxAge:()ISAdditions;
-- (uint64_t)_iTunesStore_valueForHTTPHeader:()ISAdditions;
 - (uint64_t)itunes_expirationDate;
 - (unint64_t)itunes_maxExpectedContentLength;
+- (void)_dateFromExpires;
+- (void)_iTunesStore_valueForHTTPHeader:()ISAdditions;
 @end
 
 @implementation NSHTTPURLResponse(ISAdditions)
@@ -47,7 +47,7 @@ LABEL_9:
   return v11 & 1;
 }
 
-- (uint64_t)_dateFromExpires
+- (void)_dateFromExpires
 {
   result = [self _iTunesStore_valueForHTTPHeader:@"Expires"];
   if (result)
@@ -116,7 +116,7 @@ LABEL_9:
   return result;
 }
 
-- (uint64_t)_iTunesStore_valueForHTTPHeader:()ISAdditions
+- (void)_iTunesStore_valueForHTTPHeader:()ISAdditions
 {
   allHeaderFields = [self allHeaderFields];
   result = [allHeaderFields objectForKey:a3];

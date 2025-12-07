@@ -216,7 +216,7 @@
 - (id)_dayZeroUpdate
 {
   v49 = *MEMORY[0x1E69E9840];
-  v3 = __atxlog_handle_home_screen();
+  v3 = __atxlog_handle_home_screen(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -315,7 +315,7 @@
 - (id)onboardingStacks
 {
   v25 = *MEMORY[0x1E69E9840];
-  v3 = __atxlog_handle_home_screen();
+  v3 = __atxlog_handle_home_screen(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     isDayZeroExperience = [(ATXDefaultHomeScreenItemProducer *)self isDayZeroExperience];
@@ -349,7 +349,7 @@
 - (id)ambientOnboardingStacks
 {
   v25 = *MEMORY[0x1E69E9840];
-  v3 = __atxlog_handle_home_screen();
+  v3 = __atxlog_handle_home_screen(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     isDayZeroExperience = [(ATXDefaultHomeScreenItemProducer *)self isDayZeroExperience];
@@ -384,7 +384,7 @@
 {
   v29 = *MEMORY[0x1E69E9840];
   requestCopy = request;
-  v5 = __atxlog_handle_home_screen();
+  v5 = __atxlog_handle_home_screen(requestCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     isDayZeroExperience = [(ATXDefaultHomeScreenItemProducer *)self isDayZeroExperience];
@@ -435,12 +435,12 @@
 
 - (id)_personalizedUpdate
 {
-  v48 = *MEMORY[0x1E69E9840];
-  v3 = __atxlog_handle_home_screen();
+  v49 = *MEMORY[0x1E69E9840];
+  v3 = __atxlog_handle_home_screen(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v47 = "[ATXDefaultHomeScreenItemProducer _personalizedUpdate]";
+    v48 = "[ATXDefaultHomeScreenItemProducer _personalizedUpdate]";
     _os_log_impl(&dword_1BF549000, v3, OS_LOG_TYPE_DEFAULT, "%s: updating personalized defaults", buf, 0xCu);
   }
 
@@ -455,27 +455,27 @@
 
   if (widgetClient == 2)
   {
-    v7 = __atxlog_handle_carPlay_widgets();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = __atxlog_handle_carPlay_widgets(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       limit = [(ATXWidgetGalleryRequest *)self->_galleryRequest limit];
       *buf = 138412290;
-      v47 = limit;
-      _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "Number of widgets requested for CarPlay widget add sheet: %@", buf, 0xCu);
+      v48 = limit;
+      _os_log_impl(&dword_1BF549000, v8, OS_LOG_TYPE_DEFAULT, "Number of widgets requested for CarPlay widget add sheet: %@", buf, 0xCu);
     }
 
     _personalizedStack = [(ATXDefaultHomeScreenItemProducer *)self _personalizedGalleryWidgetsForSize:0];
-    v10 = [ATXDefaultHomeScreenItemUpdate alloc];
-    v11 = objc_opt_new();
+    v11 = [ATXDefaultHomeScreenItemUpdate alloc];
     v12 = objc_opt_new();
-    LOBYTE(v40) = 0;
-    _dayZeroUpdate = [(ATXDefaultHomeScreenItemUpdate *)v10 initWithStack:v11 todayStack:v12 onboardingStacks:MEMORY[0x1E695E0F0] smallWidgets:_personalizedStack mediumWidgets:MEMORY[0x1E695E0F0] largeWidgets:MEMORY[0x1E695E0F0] extraLargeWidgets:MEMORY[0x1E695E0F0] shouldSuggestStackInGallery:v40];
+    v13 = objc_opt_new();
+    LOBYTE(v41) = 0;
+    _dayZeroUpdate = [(ATXDefaultHomeScreenItemUpdate *)v11 initWithStack:v12 todayStack:v13 onboardingStacks:MEMORY[0x1E695E0F0] smallWidgets:_personalizedStack mediumWidgets:MEMORY[0x1E695E0F0] largeWidgets:MEMORY[0x1E695E0F0] extraLargeWidgets:MEMORY[0x1E695E0F0] shouldSuggestStackInGallery:v41];
 
     goto LABEL_25;
   }
 
-  v14 = self->_galleryRequest;
-  if (!v14)
+  v15 = self->_galleryRequest;
+  if (!v15)
   {
 LABEL_11:
     _personalizedStack = [(ATXDefaultHomeScreenItemProducer *)self _personalizedStack];
@@ -487,11 +487,11 @@ LABEL_12:
       if ([mediumDefaultStack count] > 1)
       {
         largeDefaultStack = [_personalizedStack largeDefaultStack];
-        v21 = [largeDefaultStack count];
+        v22 = [largeDefaultStack count];
 
-        if (v21 >= 2)
+        if (v22 >= 2)
         {
-          v17 = 0;
+          v18 = 0;
           goto LABEL_19;
         }
 
@@ -504,7 +504,7 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  clientIdentity2 = [(ATXWidgetGalleryRequest *)v14 clientIdentity];
+  clientIdentity2 = [(ATXWidgetGalleryRequest *)v15 clientIdentity];
   widgetClient2 = [clientIdentity2 widgetClient];
 
   _personalizedStack = [(ATXDefaultHomeScreenItemProducer *)self _personalizedStack];
@@ -513,56 +513,56 @@ LABEL_16:
     goto LABEL_12;
   }
 
-  v17 = 1;
+  v18 = 1;
 LABEL_19:
   _personalizedTodayStack = [(ATXDefaultHomeScreenItemProducer *)self _personalizedTodayStack];
-  v23 = [(ATXDefaultHomeScreenItemProducer *)self personalizedOnboardingStacksWithRankingAlgorithm:3];
-  stack1 = [v23 stack1];
-  v45[0] = stack1;
-  stack2 = [v23 stack2];
-  v45[1] = stack2;
-  v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:2];
+  v24 = [(ATXDefaultHomeScreenItemProducer *)self personalizedOnboardingStacksWithRankingAlgorithm:3];
+  stack1 = [v24 stack1];
+  v46[0] = stack1;
+  stack2 = [v24 stack2];
+  v46[1] = stack2;
+  v45 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:2];
 
-  v26 = [(ATXDefaultHomeScreenItemProducer *)self _personalizedGalleryWidgetsForSize:0];
-  v27 = [(ATXDefaultHomeScreenItemProducer *)self _personalizedGalleryWidgetsForSize:1];
-  v28 = [(ATXDefaultHomeScreenItemProducer *)self _personalizedGalleryWidgetsForSize:2];
+  v27 = [(ATXDefaultHomeScreenItemProducer *)self _personalizedGalleryWidgetsForSize:0];
+  v28 = [(ATXDefaultHomeScreenItemProducer *)self _personalizedGalleryWidgetsForSize:1];
+  v29 = [(ATXDefaultHomeScreenItemProducer *)self _personalizedGalleryWidgetsForSize:2];
   if (self->_isiPad)
   {
-    v29 = [(ATXDefaultHomeScreenItemProducer *)self _personalizedGalleryWidgetsForSize:4];
+    v30 = [(ATXDefaultHomeScreenItemProducer *)self _personalizedGalleryWidgetsForSize:4];
   }
 
   else
   {
-    v29 = objc_opt_new();
+    v30 = objc_opt_new();
   }
 
-  v30 = v29;
-  if (v17)
+  v31 = v30;
+  if (v18)
   {
     [(ATXDefaultHomeScreenItemProducer *)self _dayZeroUpdate];
-    v31 = v43 = _personalizedTodayStack;
-    smallWidgets = [v31 smallWidgets];
-    v42 = [ATXDefaultHomeScreenItemProducerUtilities mergedDescriptorsFrom:smallWidgets withAdditional:v26];
+    v32 = v44 = _personalizedTodayStack;
+    smallWidgets = [v32 smallWidgets];
+    v43 = [ATXDefaultHomeScreenItemProducerUtilities mergedDescriptorsFrom:smallWidgets withAdditional:v27];
 
-    mediumWidgets = [v31 mediumWidgets];
-    v41 = [ATXDefaultHomeScreenItemProducerUtilities mergedDescriptorsFrom:mediumWidgets withAdditional:v27];
+    mediumWidgets = [v32 mediumWidgets];
+    v42 = [ATXDefaultHomeScreenItemProducerUtilities mergedDescriptorsFrom:mediumWidgets withAdditional:v28];
 
-    largeWidgets = [v31 largeWidgets];
-    v35 = [ATXDefaultHomeScreenItemProducerUtilities mergedDescriptorsFrom:largeWidgets withAdditional:v28];
+    largeWidgets = [v32 largeWidgets];
+    v36 = [ATXDefaultHomeScreenItemProducerUtilities mergedDescriptorsFrom:largeWidgets withAdditional:v29];
 
-    extraLargeWidgets = [v31 extraLargeWidgets];
-    v37 = [ATXDefaultHomeScreenItemProducerUtilities mergedDescriptorsFrom:extraLargeWidgets withAdditional:v30];
+    extraLargeWidgets = [v32 extraLargeWidgets];
+    v38 = [ATXDefaultHomeScreenItemProducerUtilities mergedDescriptorsFrom:extraLargeWidgets withAdditional:v31];
 
-    v26 = v42;
-    _personalizedTodayStack = v43;
-    v27 = v41;
-    v28 = v35;
-    v30 = v37;
+    v27 = v43;
+    _personalizedTodayStack = v44;
+    v28 = v42;
+    v29 = v36;
+    v31 = v38;
   }
 
-  v38 = [ATXDefaultHomeScreenItemUpdate alloc];
-  LOBYTE(v40) = ![(ATXDefaultHomeScreenItemProducer *)self _isStackConfiguredOnHomeScreen];
-  _dayZeroUpdate = [(ATXDefaultHomeScreenItemUpdate *)v38 initWithStack:_personalizedStack todayStack:_personalizedTodayStack onboardingStacks:v44 smallWidgets:v26 mediumWidgets:v27 largeWidgets:v28 extraLargeWidgets:v30 shouldSuggestStackInGallery:v40];
+  v39 = [ATXDefaultHomeScreenItemUpdate alloc];
+  LOBYTE(v41) = ![(ATXDefaultHomeScreenItemProducer *)self _isStackConfiguredOnHomeScreen];
+  _dayZeroUpdate = [(ATXDefaultHomeScreenItemUpdate *)v39 initWithStack:_personalizedStack todayStack:_personalizedTodayStack onboardingStacks:v45 smallWidgets:v27 mediumWidgets:v28 largeWidgets:v29 extraLargeWidgets:v31 shouldSuggestStackInGallery:v41];
 
 LABEL_25:
 
@@ -695,7 +695,7 @@ LABEL_25:
               }
             }
 
-            v19 = -[ATXDefaultHomeScreenItemProducer _rankTypeGivenWidgetIsNewlyInstalled:isAlreadyAdded:](selfCopy, "_rankTypeGivenWidgetIsNewlyInstalled:isAlreadyAdded:", -[ATXDefaultHomeScreenItemProducer _isNewlyInstalledWidget:](selfCopy, "_isNewlyInstalledWidget:", v6), [widgetsOnHomeScreen containsObject:v11]);
+            v19 = [(ATXDefaultHomeScreenItemProducer *)selfCopy _rankTypeGivenWidgetIsNewlyInstalled:[(ATXDefaultHomeScreenItemProducer *)selfCopy _isNewlyInstalledWidget:v6] isAlreadyAdded:objc_msgSend_containsObject_(widgetsOnHomeScreen)];
             [v6 extensionIdentity];
             v21 = v20 = selfCopy;
             containerBundleIdentifier = [v21 containerBundleIdentifier];
@@ -813,22 +813,22 @@ uint64_t __56__ATXDefaultHomeScreenItemProducer__stackableCandidates__block_invo
   {
     if (size == 2)
     {
-      v7 = 2;
+      v8 = 2;
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
 
     if (size == 1)
     {
-      v8 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v8 = v7;
+      v9 = v8;
     }
 
     goto LABEL_12;
@@ -838,32 +838,32 @@ uint64_t __56__ATXDefaultHomeScreenItemProducer__stackableCandidates__block_invo
   {
     if (size == 4)
     {
-      v8 = 3;
+      v9 = 3;
     }
 
     else
     {
-      v8 = 0;
+      v9 = 0;
     }
 
 LABEL_12:
-    v9 = [[ATXDefaultHomeScreenItemRanker alloc] initWithCachedWidgetPersonalityToAppScore:self->_cachedWidgetPersonalityToAppScore spotlightAppLaunchHistogram:self->_spotlightAppLaunchHistogram appLaunchCounts:self->_appLaunchCounts];
+    v10 = [[ATXDefaultHomeScreenItemRanker alloc] initWithCachedWidgetPersonalityToAppScore:self->_cachedWidgetPersonalityToAppScore spotlightAppLaunchHistogram:self->_spotlightAppLaunchHistogram appLaunchCounts:self->_appLaunchCounts];
     limit = [(ATXWidgetGalleryRequest *)self->_galleryRequest limit];
-    v11 = [(ATXDefaultHomeScreenItemRanker *)v9 widgetsBySortingAndFilteringWidgetsUsingPersonalizedGalleryAlgorithm:v6 rankerPlistType:v8 regularlyUsedThreshold:limit limit:7.0];
+    v12 = [(ATXDefaultHomeScreenItemRanker *)v10 widgetsBySortingAndFilteringWidgetsUsingPersonalizedGalleryAlgorithm:v6 rankerPlistType:v9 regularlyUsedThreshold:limit limit:7.0];
 
     goto LABEL_13;
   }
 
-  v13 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+  v14 = __atxlog_handle_home_screen(v7);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
   {
-    [ATXDefaultHomeScreenItemProducer _personalizedGalleryWidgetsForSize:v13];
+    [ATXDefaultHomeScreenItemProducer _personalizedGalleryWidgetsForSize:v14];
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_13:
 
-  return v11;
+  return v12;
 }
 
 - (id)_appPredictionsWidgetDescriptor
@@ -887,12 +887,12 @@ LABEL_13:
       }
     }
 
-    v10 = +[ATXDefaultHomeScreenItemProducerUtilities widgetDescriptorFromChronoDescriptor:appBundleId:rankType:](ATXDefaultHomeScreenItemProducerUtilities, "widgetDescriptorFromChronoDescriptor:appBundleId:rankType:", appPredictionsWidgetDescriptor, 0, -[ATXDefaultHomeScreenItemProducer _rankTypeGivenWidgetIsNewlyInstalled:isAlreadyAdded:](self, "_rankTypeGivenWidgetIsNewlyInstalled:isAlreadyAdded:", 0, [widgetsOnHomeScreen containsObject:v4]));
+    v10 = [ATXDefaultHomeScreenItemProducerUtilities widgetDescriptorFromChronoDescriptor:appPredictionsWidgetDescriptor appBundleId:0 rankType:[(ATXDefaultHomeScreenItemProducer *)self _rankTypeGivenWidgetIsNewlyInstalled:0 isAlreadyAdded:objc_msgSend_containsObject_(widgetsOnHomeScreen)]];
   }
 
   else
   {
-    v11 = __atxlog_handle_home_screen();
+    v11 = __atxlog_handle_home_screen(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(ATXDefaultHomeScreenItemProducer *)v11 _appPredictionsWidgetDescriptor];

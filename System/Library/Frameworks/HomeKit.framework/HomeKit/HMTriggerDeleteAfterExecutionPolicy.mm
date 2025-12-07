@@ -50,12 +50,11 @@
 
 uint64_t __65__HMTriggerDeleteAfterExecutionPolicy_deleteAfterExecutionPolicy__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = [objc_alloc(objc_opt_class()) _init];
-  v3 = deleteAfterExecutionPolicy_policyInstance;
-  deleteAfterExecutionPolicy_policyInstance = v2;
+  v1 = [objc_alloc(objc_opt_class()) _init];
+  v2 = deleteAfterExecutionPolicy_policyInstance;
+  deleteAfterExecutionPolicy_policyInstance = v1;
 
-  return MEMORY[0x1EEE66BB8](v2, v3);
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 @end

@@ -68,9 +68,9 @@ LABEL_15:
 {
   responseCopy = response;
   dataCopy = data;
-  v37.receiver = self;
-  v37.super_class = LakituResponse;
-  v9 = [(LakituResponse *)&v37 init];
+  v39.receiver = self;
+  v39.super_class = LakituResponse;
+  v9 = [(LakituResponse *)&v39 init];
   if (v9)
   {
     objc_opt_class();
@@ -109,7 +109,7 @@ LABEL_15:
 
             [v18 setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss Z"];
             v20 = [v18 dateFromString:v16];
-            if (v20 || (v34 = [v16 longLongValue], v34 >= 1) && (+[NSDate dateWithTimeIntervalSinceNow:](NSDate, "dateWithTimeIntervalSinceNow:", v34), (v20 = objc_claimAutoreleasedReturnValue()) != 0))
+            if (v20 || (v36 = [v16 longLongValue], v36 >= 1) && (+[NSDate dateWithTimeIntervalSinceNow:](NSDate, "dateWithTimeIntervalSinceNow:", v36), (v20 = objc_claimAutoreleasedReturnValue()) != 0))
             {
               v21 = v20;
               v22 = CloudServicesLog();
@@ -129,10 +129,10 @@ LABEL_15:
       }
     }
 
-    v36 = 0;
-    v25 = [(LakituResponse *)v9 _parsePlistFromData:dataCopy error:&v36];
-    v26 = v36;
-    v27 = v36;
+    v38 = 0;
+    v25 = [(LakituResponse *)v9 _parsePlistFromData:dataCopy error:&v38];
+    v26 = v38;
+    v27 = v38;
     responseDictionary = v9->_responseDictionary;
     v9->_responseDictionary = v25;
 
@@ -148,18 +148,18 @@ LABEL_15:
           sub_1000498BC(v9, v30, v31);
         }
 
-        if (sub_1000029CC())
+        if (sub_1000029CC(v32, v33))
         {
-          v32 = +[CloudServicesAnalytics logger];
-          v33 = v32;
+          v34 = +[CloudServicesAnalytics logger];
+          v35 = v34;
           if (v27)
           {
-            [v32 logUnrecoverableError:v27 forEvent:CloudServicesAnalyticsLakituResponse withAttributes:0];
+            [v34 logUnrecoverableError:v27 forEvent:CloudServicesAnalyticsLakituResponse withAttributes:0];
           }
 
           else
           {
-            [v32 logSuccessForEvent:CloudServicesAnalyticsLakituResponse];
+            [v34 logSuccessForEvent:CloudServicesAnalyticsLakituResponse];
           }
         }
 

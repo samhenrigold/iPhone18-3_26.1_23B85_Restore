@@ -1462,7 +1462,7 @@ LABEL_44:
     v18 = viewForContentConfiguration;
     if (objc_opt_respondsToSelector())
     {
-      v19 = [v18 supportsConfiguration:v17];
+      isEqualToString = [v18 supportsConfiguration:v17];
     }
 
     else
@@ -1512,12 +1512,12 @@ LABEL_44:
         v26 = 0;
       }
 
-      v19 = [v23 isEqualToString:v26];
+      isEqualToString = objc_msgSend_isEqualToString_(v23);
       a2 = v35;
     }
 
     *&self->_headerFooterFlags |= 0x8000u;
-    if (!v19)
+    if (!isEqualToString)
     {
       if (!iCopy)
       {

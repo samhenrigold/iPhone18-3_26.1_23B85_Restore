@@ -47,18 +47,19 @@
     self->_parserEnabled = enabled;
     if (![(TrackpadHIDEventProcessor *)self parserEnabled])
     {
-      if ([(TrackpadHIDEventProcessor *)self previousButtonState])
+      previousButtonState = [(TrackpadHIDEventProcessor *)self previousButtonState];
+      if (previousButtonState)
       {
-        v5 = MTLoggingPlugin();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+        v7 = MTLoggingPlugin(previousButtonState, v6);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
         {
-          v6 = 136315650;
-          v7 = "[Debug] ";
-          v8 = 2080;
-          v9 = "";
+          v8 = 136315650;
+          v9 = "[Debug] ";
           v10 = 2080;
-          v11 = "[TrackpadHIDEventProcessor setParserEnabled:]";
-          _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Trackpad has been disabled with button down. Dispatching button up event", &v6, 0x20u);
+          v11 = "";
+          v12 = 2080;
+          v13 = "[TrackpadHIDEventProcessor setParserEnabled:]";
+          _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Trackpad has been disabled with button down. Dispatching button up event", &v8, 0x20u);
         }
 
         [(TrackpadHIDEventProcessor *)self _dispatchPointerButtonUpEvent];
@@ -72,18 +73,18 @@
   if ([(TrackpadHIDEventProcessor *)self hostClickControl]!= control)
   {
     self->_hostClickControl = control;
-    if ([(TrackpadHIDEventProcessor *)self hostClickControl]&& [(TrackpadHIDEventProcessor *)self deviceButtonState])
+    if ([(TrackpadHIDEventProcessor *)self hostClickControl]&& (v5 = [(TrackpadHIDEventProcessor *)self deviceButtonState], v5))
     {
-      v5 = MTLoggingPlugin();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = MTLoggingPlugin(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v6 = 136315650;
-        v7 = "[Error] ";
-        v8 = 2080;
-        v9 = "";
+        v8 = 136315650;
+        v9 = "[Error] ";
         v10 = 2080;
-        v11 = "[TrackpadHIDEventProcessor setHostClickControl:]";
-        _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Host click control was enabled during a FW click", &v6, 0x20u);
+        v11 = "";
+        v12 = 2080;
+        v13 = "[TrackpadHIDEventProcessor setHostClickControl:]";
+        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Host click control was enabled during a FW click", &v8, 0x20u);
       }
 
       [(TrackpadHIDEventProcessor *)self _dispatchPointerButtonUpEvent];
@@ -145,21 +146,21 @@
 - (void)dispatch:(id)dispatch
 {
   dispatchCopy = dispatch;
-  v5 = MTLoggingPlugin();
-  if (os_signpost_enabled(v5))
+  v6 = MTLoggingPlugin(dispatchCopy, v5);
+  if (os_signpost_enabled(v6))
   {
     signpost_begin_time = self->_signpost_begin_time;
     *buf = 134349314;
-    v9 = signpost_begin_time;
-    v10 = 2080;
+    v10 = signpost_begin_time;
+    v11 = 2080;
     ClassName = object_getClassName(dispatchCopy);
-    _os_signpost_emit_with_name_impl(&dword_0, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TrackpadHIDEventProcessor", "%{public, signpost.description:begin_time}llu event=%s", buf, 0x16u);
+    _os_signpost_emit_with_name_impl(&dword_0, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TrackpadHIDEventProcessor", "%{public, signpost.description:begin_time}llu event=%s", buf, 0x16u);
   }
 
   [(HSTHIDEventStatistics *)self->_hidStats handleHIDEvents:dispatchCopy];
-  v7.receiver = self;
-  v7.super_class = TrackpadHIDEventProcessor;
-  [(HSStage *)&v7 handleConsume:dispatchCopy];
+  v8.receiver = self;
+  v8.super_class = TrackpadHIDEventProcessor;
+  [(HSStage *)&v8 handleConsume:dispatchCopy];
   self->_signpost_begin_time = mach_continuous_time();
 }
 
@@ -374,59 +375,63 @@
 
   else
   {
-    gestureScrollingEnabled = 1;
+    gestureScrollingEnabled = &dword_0 + 1;
   }
 
   self->_gestureScrollsEnabled = gestureScrollingEnabled;
-  v8 = MTLoggingPlugin();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = MTLoggingPlugin(gestureScrollingEnabled, v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136316162;
-    v15 = "[Debug] ";
-    v16 = 2080;
-    v17 = "";
-    v18 = 2080;
-    v19 = "[TrackpadHIDEventProcessor handlePointerSettings:]";
-    v20 = 1024;
+    v18 = "[Debug] ";
+    v19 = 2080;
+    v20 = "";
+    v21 = 2080;
+    v22 = "[TrackpadHIDEventProcessor handlePointerSettings:]";
+    v23 = 1024;
     scrollMomentumEnabled = [(TrackpadHIDEventProcessor *)self scrollMomentumEnabled];
-    v22 = 1024;
+    v25 = 1024;
     gestureScrollsEnabled = [(TrackpadHIDEventProcessor *)self gestureScrollsEnabled];
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Momentum [enabled:%u] Scroll [enabled:%u]", buf, 0x2Cu);
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Momentum [enabled:%u] Scroll [enabled:%u]", buf, 0x2Cu);
   }
 
   enable = [v5 enable];
-  v10 = enable;
+  v11 = enable;
   if (self->_parserEnabled == enable)
   {
-    v11 = 1;
+    v12 = 1;
   }
 
   else
   {
-    v11 = enable;
+    v12 = enable;
   }
 
-  if ((v11 & 1) == 0 && [(TrackpadHIDEventProcessor *)self previousButtonState])
+  if ((v12 & 1) == 0)
   {
-    v12 = MTLoggingPlugin();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    previousButtonState = [(TrackpadHIDEventProcessor *)self previousButtonState];
+    if (previousButtonState)
     {
-      *buf = 136315650;
-      v15 = "[Debug] ";
-      v16 = 2080;
-      v17 = "";
-      v18 = 2080;
-      v19 = "[TrackpadHIDEventProcessor handlePointerSettings:]";
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Trackpad has been disabled with button down. Dispatching button up event", buf, 0x20u);
-    }
+      v15 = MTLoggingPlugin(previousButtonState, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 136315650;
+        v18 = "[Debug] ";
+        v19 = 2080;
+        v20 = "";
+        v21 = 2080;
+        v22 = "[TrackpadHIDEventProcessor handlePointerSettings:]";
+        _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Trackpad has been disabled with button down. Dispatching button up event", buf, 0x20u);
+      }
 
-    [(TrackpadHIDEventProcessor *)self _dispatchPointerButtonUpEvent];
+      [(TrackpadHIDEventProcessor *)self _dispatchPointerButtonUpEvent];
+    }
   }
 
-  [(TrackpadHIDEventProcessor *)self setParserEnabled:v10];
-  v13.receiver = self;
-  v13.super_class = TrackpadHIDEventProcessor;
-  [(HSStage *)&v13 handleConsume:settingsCopy];
+  [(TrackpadHIDEventProcessor *)self setParserEnabled:v11];
+  v16.receiver = self;
+  v16.super_class = TrackpadHIDEventProcessor;
+  [(HSStage *)&v16 handleConsume:settingsCopy];
 }
 
 - (void)handleContactFrame:(id)frame
@@ -626,30 +631,30 @@
 {
   v4 = *&state;
   sourceCopy = source;
-  v7 = MTLoggingPlugin();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = MTLoggingPlugin(sourceCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     deviceID = self->_deviceID;
     *buf = 136316418;
-    v15 = "";
-    v16 = 2080;
-    v17 = "";
-    v18 = 2080;
-    v19 = "[TrackpadHIDEventProcessor logButtonState:fromSource:]";
-    v20 = 2048;
-    v21 = deviceID;
-    v22 = 1024;
-    v23 = v4;
-    v24 = 2114;
-    v25 = sourceCopy;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s [0x%llX] Button event(mask=%d) was dispatched from %{public}@", buf, 0x3Au);
+    v16 = "";
+    v17 = 2080;
+    v18 = "";
+    v19 = 2080;
+    v20 = "[TrackpadHIDEventProcessor logButtonState:fromSource:]";
+    v21 = 2048;
+    v22 = deviceID;
+    v23 = 1024;
+    v24 = v4;
+    v25 = 2114;
+    v26 = sourceCopy;
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "[HID] [MT] %s%s%s [0x%llX] Button event(mask=%d) was dispatched from %{public}@", buf, 0x3Au);
   }
 
   buttonHistory = self->_buttonHistory;
   sourceCopy = [NSNumber numberWithUnsignedInt:v4, @"Source", @"ButtonState", sourceCopy];
-  v13[1] = sourceCopy;
-  v11 = [NSDictionary dictionaryWithObjects:v13 forKeys:&v12 count:2];
-  [(HSTCircularBuffer *)buttonHistory appendItem:v11];
+  v14[1] = sourceCopy;
+  v12 = [NSDictionary dictionaryWithObjects:v14 forKeys:&v13 count:2];
+  [(HSTCircularBuffer *)buttonHistory appendItem:v12];
 }
 
 - (NSDictionary)debugDictionary

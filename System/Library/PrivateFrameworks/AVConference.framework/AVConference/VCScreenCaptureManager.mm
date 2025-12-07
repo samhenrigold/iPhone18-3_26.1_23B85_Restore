@@ -758,7 +758,7 @@ LABEL_11:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Picker already exists", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Picker already exists", v2, v3, v4, v5);
 }
 
 - (void)invalidatePicker
@@ -1644,7 +1644,7 @@ LABEL_12:
     }
   }
 
-  v16 = [(VCScreenCaptureManager *)self stopScreenShare:pickerClientScreenShare, *v34, *&v34[16]];
+  v16 = [(VCScreenCaptureManager *)self stopScreenShare:pickerClientScreenShare, *v34, *&v34[8]];
   if (v16)
   {
     v17 = [delegate code] != 32000;
@@ -1819,7 +1819,7 @@ void __VCScreenCaptureManager_ScreenShareDidClearScreen_block_invoke_cold_1()
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v1, v2, " [%s] %s:%d Failed to create VCScreenShare object", v3, v4, v5, v6, v7);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v1, v2, " [%s] %s:%d Failed to create VCScreenShare object", v3, v4, v5, v6);
     }
   }
 
@@ -1835,7 +1835,7 @@ void __VCScreenCaptureManager_ScreenShareDidClearScreen_block_invoke_cold_1()
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to get capture source id", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to get capture source id", v2, v3, v4, v5);
     }
   }
 
@@ -1875,7 +1875,7 @@ void __50__VCScreenCaptureManager_registerBlocksForService__block_invoke_cold_1(
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create VCScreenShare object", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create VCScreenShare object", v2, v3, v4, v5);
     }
   }
 
@@ -1891,7 +1891,7 @@ void __50__VCScreenCaptureManager_registerBlocksForService__block_invoke_cold_2(
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to get client pid", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to get client pid", v2, v3, v4, v5);
     }
   }
 
@@ -1902,7 +1902,7 @@ void __50__VCScreenCaptureManager_registerBlocksForService__block_invoke_75_cold
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Did not find corresponding screen share while terminating", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Did not find corresponding screen share while terminating", v2, v3, v4, v5);
 }
 
 void __50__VCScreenCaptureManager_registerBlocksForService__block_invoke_77_cold_1()
@@ -1977,7 +1977,7 @@ void __50__VCScreenCaptureManager_registerBlocksForService__block_invoke_2_cold_
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d could not create picker", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d could not create picker", v2, v3, v4, v5);
 }
 
 - (void)errorForAttributesError:.cold.1()

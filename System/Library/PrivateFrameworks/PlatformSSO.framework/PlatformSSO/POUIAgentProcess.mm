@@ -15,7 +15,7 @@
   processCopy = process;
   v8 = [connectionCopy valueForEntitlement:@"com.apple.private.platformsso.settings"];
   v9 = v8;
-  if (v8 && ([v8 BOOLValue] & 1) != 0)
+  if (v8 && (v8 = [v8 BOOLValue], (v8 & 1) != 0))
   {
     v19.receiver = self;
     v19.super_class = POUIAgentProcess;
@@ -42,7 +42,7 @@
 
   else
   {
-    v17 = PO_LOG_POAgentProcess_0();
+    v17 = PO_LOG_POAgentProcess_0(v8);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [POUIAgentProcess initWithXPCConnection:v17 authenticationProcess:?];
@@ -56,24 +56,22 @@
 
 - (void)connectionInvalidated
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = PO_LOG_POAgentProcess_0();
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = PO_LOG_POAgentProcess_0(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "[POUIAgentProcess connectionInvalidated]";
-    v7 = 2112;
+    v4 = 136315394;
+    v5 = "[POUIAgentProcess connectionInvalidated]";
+    v6 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_25E831000, v3, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v5, 0x16u);
+    _os_log_impl(&dword_25E831000, v3, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceStatusWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = PO_LOG_POAgentProcess_0();
+  v5 = PO_LOG_POAgentProcess_0(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [POUIAgentProcess deviceStatusWithCompletion:];
@@ -133,9 +131,9 @@
 
   v21 = MEMORY[0x277CC1E90];
   registeredBundleIdentifier = [(PODeviceRegistrationStatus *)v6 registeredBundleIdentifier];
-  v39 = 0;
-  v23 = [v21 bundleRecordWithBundleIdentifier:registeredBundleIdentifier allowPlaceholder:1 error:&v39];
-  v24 = v39;
+  v40 = 0;
+  v23 = [v21 bundleRecordWithBundleIdentifier:registeredBundleIdentifier allowPlaceholder:1 error:&v40];
+  v24 = v40;
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -239,11 +237,11 @@ LABEL_38:
 
   if (v37)
   {
-    [(PODeviceRegistrationStatus *)v6 setActionButtonEnabled:0];
+    v38 = [(PODeviceRegistrationStatus *)v6 setActionButtonEnabled:0];
   }
 
-  v38 = PO_LOG_POAgentProcess_0();
-  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+  v39 = PO_LOG_POAgentProcess_0(v38);
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
   {
     [POUIAgentProcess deviceStatusWithCompletion:];
   }
@@ -255,7 +253,7 @@ LABEL_43:
 id __47__POUIAgentProcess_deviceStatusWithCompletion___block_invoke()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1004 description:@"Device configuration not found when retrieving device UI status."];
-  v1 = PO_LOG_POAgentProcess_0();
+  v1 = PO_LOG_POAgentProcess_0(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -267,7 +265,7 @@ id __47__POUIAgentProcess_deviceStatusWithCompletion___block_invoke()
 id __47__POUIAgentProcess_deviceStatusWithCompletion___block_invoke_13()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1004 description:@"No validated Platform SSO Profiles found when retrieving device UI status."];
-  v1 = PO_LOG_POAgentProcess_0();
+  v1 = PO_LOG_POAgentProcess_0(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -279,7 +277,7 @@ id __47__POUIAgentProcess_deviceStatusWithCompletion___block_invoke_13()
 - (void)startDeviceAction:(int64_t)action completion:(id)completion
 {
   completionCopy = completion;
-  v7 = PO_LOG_POAgentProcess_0();
+  v7 = PO_LOG_POAgentProcess_0(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [POUIAgentProcess startDeviceAction:action completion:?];
@@ -329,7 +327,7 @@ LABEL_6:
 {
   userCopy = user;
   completionCopy = completion;
-  v8 = PO_LOG_POAgentProcess_0();
+  v8 = PO_LOG_POAgentProcess_0(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [POUIAgentProcess statusForUser:completion:];
@@ -439,7 +437,7 @@ LABEL_29:
 LABEL_33:
       currentRefreshToken = [configurationManager currentRefreshToken];
 
-      v49 = currentUserConfiguration;
+      v50 = currentUserConfiguration;
       if (currentRefreshToken)
       {
         tokenExpiration = [configurationManager tokenExpiration];
@@ -485,12 +483,12 @@ LABEL_33:
       if (v47)
       {
         [(POUserRegistrationStatus *)v9 setActionButtonEnabled:0];
-        [(POUserRegistrationStatus *)v9 setActionButtonAction:0];
+        v48 = [(POUserRegistrationStatus *)v9 setActionButtonAction:0];
       }
 
-      v48 = PO_LOG_POAgentProcess_0();
+      v49 = PO_LOG_POAgentProcess_0(v48);
       currentDeviceConfiguration = v40;
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
       {
         [POUIAgentProcess statusForUser:completion:];
       }
@@ -548,7 +546,7 @@ LABEL_46:
 id __45__POUIAgentProcess_statusForUser_completion___block_invoke()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1004 description:@"Device configuration not found when retrieving user UI status."];
-  v1 = PO_LOG_POAgentProcess_0();
+  v1 = PO_LOG_POAgentProcess_0(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -560,7 +558,7 @@ id __45__POUIAgentProcess_statusForUser_completion___block_invoke()
 id __45__POUIAgentProcess_statusForUser_completion___block_invoke_28()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1004 description:@"User configuration not found when retrieving user UI status."];
-  v1 = PO_LOG_POAgentProcess_0();
+  v1 = PO_LOG_POAgentProcess_0(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -573,7 +571,7 @@ id __45__POUIAgentProcess_statusForUser_completion___block_invoke_28()
 {
   nameCopy = name;
   completionCopy = completion;
-  v10 = PO_LOG_POAgentProcess_0();
+  v10 = PO_LOG_POAgentProcess_0(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [POUIAgentProcess startAction:action forUserName:? completion:?];
@@ -631,58 +629,46 @@ LABEL_8:
 
 - (void)deviceStatusWithCompletion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceStatusWithCompletion:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startDeviceAction:(uint64_t)a1 completion:.cold.1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [POConstantUtil stringForDeviceAction:a1];
+  v8 = 136315650;
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_5_3(&dword_25E831000, v2, v3, "%s action=%{public}@ on %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5_3(&dword_25E831000, v2, v3, "%s action=%{public}@ on %@", v4, v5, v6, v7, v8);
 }
 
 - (void)statusForUser:completion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)statusForUser:completion:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startAction:(uint64_t)a1 forUserName:completion:.cold.1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [POConstantUtil stringForUserAction:a1];
+  v8 = 136315650;
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_5_3(&dword_25E831000, v2, v3, "%s action=%{public}@ on %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5_3(&dword_25E831000, v2, v3, "%s action=%{public}@ on %@", v4, v5, v6, v7, v8);
 }
 
 @end

@@ -32,13 +32,13 @@
 
 - (id)specifiersWithSpecifier:(id)specifier
 {
-  v4 = PHDefaultLog();
+  v4 = PHDefaultLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     currentControllerSpecifierIdentifier = [(HoldAssistSettingsBundleController *)self currentControllerSpecifierIdentifier];
-    v14 = 138412290;
-    v15 = currentControllerSpecifierIdentifier;
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Loading settings page for app %@", &v14, 0xCu);
+    v15 = 138412290;
+    v16 = currentControllerSpecifierIdentifier;
+    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Loading settings page for app %@", &v15, 0xCu);
   }
 
   v6 = +[NSMutableArray array];
@@ -46,35 +46,36 @@
 
   if (!activeSpecifier)
   {
-    if (TUHoldAssistActivatable())
+    v8 = TUHoldAssistActivatable();
+    if (v8)
     {
-      v8 = [PSSpecifier groupSpecifierWithID:@"HOLD_ASSIST" name:&stru_42E8];
-      v9 = +[HoldAssistSettingsBundleController explanationText];
-      [v8 setProperty:v9 forKey:PSFooterTextGroupKey];
+      v9 = [PSSpecifier groupSpecifierWithID:@"HOLD_ASSIST" name:&stru_42E8];
+      v10 = +[HoldAssistSettingsBundleController explanationText];
+      [v9 setProperty:v10 forKey:PSFooterTextGroupKey];
       createHoldAssistSpecifier = [(HoldAssistSettingsBundleController *)self createHoldAssistSpecifier];
-      v11 = createHoldAssistSpecifier;
-      if (v8 && createHoldAssistSpecifier)
+      v12 = createHoldAssistSpecifier;
+      if (v9 && createHoldAssistSpecifier)
       {
-        [v6 addObject:v8];
-        [v6 addObject:v11];
-        [(HoldAssistSettingsBundleController *)self setActiveSpecifier:v8];
+        [v6 addObject:v9];
+        [v6 addObject:v12];
+        [(HoldAssistSettingsBundleController *)self setActiveSpecifier:v9];
       }
     }
 
     else
     {
-      v8 = PHDefaultLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = PHDefaultLog(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v14) = 0;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Hold Assist is not available for current locale - not creating specifier", &v14, 2u);
+        LOWORD(v15) = 0;
+        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Hold Assist is not available for current locale - not creating specifier", &v15, 2u);
       }
     }
   }
 
-  v12 = [v6 copy];
+  v13 = [v6 copy];
 
-  return v12;
+  return v13;
 }
 
 - (id)createHoldAssistSpecifier
@@ -139,7 +140,7 @@ LABEL_7:
 - (void)setHoldAssistDetectionEnabled:(id)enabled specifier:(id)specifier
 {
   enabledCopy = enabled;
-  v6 = PHDefaultLog();
+  v6 = PHDefaultLog(enabledCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     currentControllerSpecifierIdentifier = [(HoldAssistSettingsBundleController *)self currentControllerSpecifierIdentifier];

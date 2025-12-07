@@ -20,25 +20,25 @@
 - (void)viewDidAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_10019B6A0(appear);
+  sub_10019B6A0(appear, selfCopy);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
   selfCopy = self;
-  sub_10019B91C(disappear);
+  sub_10019B91C(disappear, selfCopy);
 }
 
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_10019BF34();
+  sub_10019BF34(selfCopy);
 }
 
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_10019C064();
+  sub_10019C064(selfCopy);
 }
 
 - (void)scrollViewDidScroll:(id)scroll

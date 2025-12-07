@@ -28,17 +28,18 @@
 - (_KSTextReplacementManager)textReplacementManager
 {
   v14 = *MEMORY[0x277D85DE8];
-  if ([(_KSTextReplacementServer *)self isSetupAssistantRunning])
+  isSetupAssistantRunning = [(_KSTextReplacementServer *)self isSetupAssistantRunning];
+  if (isSetupAssistantRunning)
   {
-    v3 = KSCategory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = KSCategory(isSetupAssistantRunning);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v12 = 136315138;
       v13 = "[_KSTextReplacementServer textReplacementManager]";
-      _os_log_impl(&dword_2557E2000, v3, OS_LOG_TYPE_INFO, "%s  >>> Setup Assistance is running, not loading text replacements", &v12, 0xCu);
+      _os_log_impl(&dword_2557E2000, v4, OS_LOG_TYPE_INFO, "%s  >>> Setup Assistance is running, not loading text replacements", &v12, 0xCu);
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
   else
@@ -47,21 +48,19 @@
     textReplacementManager = self->_textReplacementManager;
     if (!textReplacementManager)
     {
-      v6 = [_KSTextReplacementManager alloc];
+      v7 = [_KSTextReplacementManager alloc];
       directoryPath = [(_KSTextReplacementServer *)self directoryPath];
-      v8 = [(_KSTextReplacementManager *)v6 initWithDirectoryPath:directoryPath];
-      v9 = self->_textReplacementManager;
-      self->_textReplacementManager = v8;
+      v9 = [(_KSTextReplacementManager *)v7 initWithDirectoryPath:directoryPath];
+      v10 = self->_textReplacementManager;
+      self->_textReplacementManager = v9;
 
       textReplacementManager = self->_textReplacementManager;
     }
 
-    v4 = textReplacementManager;
+    v5 = textReplacementManager;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
-  return v4;
+  return v5;
 }
 
 + (id)textReplacementServer
@@ -175,34 +174,30 @@
 {
   v8 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_workQueue);
-  v3 = KSCategory();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v4 = KSCategory(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v6 = 136315138;
     v7 = "[_KSTextReplacementServer _performCleanup]";
-    _os_log_impl(&dword_2557E2000, v3, OS_LOG_TYPE_INFO, "%s  Cleaning up all resources", &v6, 0xCu);
+    _os_log_impl(&dword_2557E2000, v4, OS_LOG_TYPE_INFO, "%s  Cleaning up all resources", &v6, 0xCu);
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:@"_KSTRShouldCleanupResources" object:0];
 
   [(_KSTextReplacementServer *)self setTextReplacementManager:0];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
 {
-  v6 = *MEMORY[0x277D85DE8];
-  [(NSXPCListener *)self->_listener resume];
-  v2 = KSCategory();
+  v5 = *MEMORY[0x277D85DE8];
+  v2 = KSCategory([(NSXPCListener *)self->_listener resume]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v4 = 136315138;
-    v5 = "[_KSTextReplacementServer start]";
-    _os_log_impl(&dword_2557E2000, v2, OS_LOG_TYPE_INFO, "%s  TextReplacementServer accepting request now", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[_KSTextReplacementServer start]";
+    _os_log_impl(&dword_2557E2000, v2, OS_LOG_TYPE_INFO, "%s  TextReplacementServer accepting request now", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)shutdown
@@ -381,7 +376,7 @@
 
 - (void)registerForPushNotifications
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEE9F0];
   v4 = objc_alloc(MEMORY[0x277CEEA10]);
   v5 = dispatch_get_global_queue(0, 0);
@@ -404,12 +399,11 @@
 
   v13 = [@"com.apple.icloud-container." stringByAppendingString:bundleIdentifier];
   v14 = self->_pushConnection;
-  v17[0] = v13;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v16[0] = v13;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
   [(APSConnection *)v14 setEnabledTopics:v15];
 
   NSLog(&cfstr_WaitingForPush.isa, v13);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didReceiveIncomingMessage:(id)message
@@ -425,17 +419,16 @@
 
 - (void)buddySetupDidFinish
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = KSCategory();
+  v5 = *MEMORY[0x277D85DE8];
+  v2 = KSCategory(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v4 = 136315138;
-    v5 = "[_KSTextReplacementServer buddySetupDidFinish]";
-    _os_log_impl(&dword_2557E2000, v2, OS_LOG_TYPE_INFO, "%s  >>> buddysetup did finish", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[_KSTextReplacementServer buddySetupDidFinish]";
+    _os_log_impl(&dword_2557E2000, v2, OS_LOG_TYPE_INFO, "%s  >>> buddysetup did finish", &v3, 0xCu);
   }
 
   CFPreferencesAppSynchronize(@"com.apple.keyboard");
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

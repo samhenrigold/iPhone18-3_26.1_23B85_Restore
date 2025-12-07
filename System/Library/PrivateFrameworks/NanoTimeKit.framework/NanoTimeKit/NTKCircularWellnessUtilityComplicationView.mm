@@ -79,21 +79,21 @@
 
 - (void)_updateRingColors
 {
-  v11[3] = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
   colorScheme = [(NTKUtilityComplicationView *)self colorScheme];
   containsOverrideFaceColor = [colorScheme containsOverrideFaceColor];
 
   ringsView = self->_ringsView;
   if (containsOverrideFaceColor)
   {
-    v6 = NTKMoveNonGradientTextColor();
-    v11[0] = v6;
-    v7 = NTKExerciseNonGradientTextColor();
-    v11[1] = v7;
-    v8 = NTKStandNonGradientTextColor();
-    v11[2] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3];
-    [(NTKRingsAndDotsView *)ringsView setRingColors:v9];
+    v7 = NTKMoveNonGradientTextColor(v5);
+    v12[0] = v7;
+    v8 = NTKExerciseNonGradientTextColor(v7);
+    v12[1] = v8;
+    v9 = NTKStandNonGradientTextColor(v8);
+    v12[2] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
+    [(NTKRingsAndDotsView *)ringsView setRingColors:v10];
   }
 
   else

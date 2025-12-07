@@ -13,8 +13,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v11[2] = *MEMORY[0x1E69E9840];
-  v10[0] = @"entity";
+  v10[2] = *MEMORY[0x1E69E9840];
+  v9[0] = @"entity";
   entity = self->_entity;
   null = entity;
   if (!entity)
@@ -22,8 +22,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v10[1] = @"taskResponses";
-  v11[0] = null;
+  v9[1] = @"taskResponses";
+  v10[0] = null;
   taskResponses = self->_taskResponses;
   null2 = taskResponses;
   if (!taskResponses)
@@ -31,8 +31,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = null2;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = null2;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   if (taskResponses)
   {
     if (entity)
@@ -51,7 +51,6 @@
   }
 
 LABEL_7:
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -94,18 +93,17 @@ LABEL_7:
 
 - (INHomeEntityResponse)initWithCoder:(id)coder
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"entity"];
   v6 = MEMORY[0x1E695DFD8];
-  v13[0] = objc_opt_class();
-  v13[1] = objc_opt_class();
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
+  v12[0] = objc_opt_class();
+  v12[1] = objc_opt_class();
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
   v8 = [v6 setWithArray:v7];
   v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"taskResponses"];
 
   v10 = [(INHomeEntityResponse *)self initWithEntity:v5 taskResponses:v9];
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

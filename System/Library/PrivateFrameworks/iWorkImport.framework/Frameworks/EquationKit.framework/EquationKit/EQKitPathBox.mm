@@ -66,17 +66,16 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v5 = objc_opt_class();
-  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
-  v12 = objc_msgSend_cgPath(self, v9, v10, v11);
-  objc_msgSend_height(self, v13, v14, v15);
-  objc_msgSend_paddingLeft(self, v16, v17, v18);
-  objc_msgSend_paddingRight(self, v19, v20, v21);
-  v25 = objc_msgSend_color(self, v22, v23, v24);
-  objc_msgSend_drawingMode(self, v26, v27, v28);
-  objc_msgSend_lineWidth(self, v29, v30, v31);
+  v4 = [objc_opt_class() allocWithZone:zone];
+  [(EQKitPathBox *)self cgPath];
+  [(EQKitPathBox *)self height];
+  [(EQKitPathBox *)self paddingLeft];
+  [(EQKitPathBox *)self paddingRight];
+  [(EQKitPathBox *)self color];
+  [(EQKitPathBox *)self drawingMode];
+  [(EQKitPathBox *)self lineWidth];
 
-  return MEMORY[0x2821F9670](v8, sel_initWithCGPath_height_paddingLeft_paddingRight_cgColor_drawingMode_lineWidth_, v12, v25);
+  return MEMORY[0x2821F9670](v4, sel_initWithCGPath_height_paddingLeft_paddingRight_cgColor_drawingMode_lineWidth_);
 }
 
 - (BOOL)isEqual:(id)equal
@@ -88,53 +87,50 @@
   {
     if (!v4)
     {
-      v6 = objc_opt_class();
-      LODWORD(self) = objc_msgSend_isMemberOfClass_(equal, v7, v6, v8);
+      LODWORD(self) = [equal isMemberOfClass:objc_opt_class()];
       if (self)
       {
-        objc_msgSend_height(selfCopy, v9, v10, v11);
+        [(EQKitPathBox *)selfCopy height];
+        v7 = v6;
+        [equal height];
+        if (v7 != v8)
+        {
+          goto LABEL_16;
+        }
+
+        [(EQKitPathBox *)selfCopy paddingLeft];
+        v10 = v9;
+        [equal paddingLeft];
+        if (v10 != v11)
+        {
+          goto LABEL_16;
+        }
+
+        [(EQKitPathBox *)selfCopy paddingRight];
         v13 = v12;
-        objc_msgSend_height(equal, v14, v15, v16);
-        if (v13 != v20)
+        [equal paddingRight];
+        if (v13 != v14)
         {
           goto LABEL_16;
         }
 
-        objc_msgSend_paddingLeft(selfCopy, v17, v18, v19);
-        v22 = v21;
-        objc_msgSend_paddingLeft(equal, v23, v24, v25);
-        if (v22 != v29)
-        {
-          goto LABEL_16;
-        }
-
-        objc_msgSend_paddingRight(selfCopy, v26, v27, v28);
-        v31 = v30;
-        objc_msgSend_paddingRight(equal, v32, v33, v34);
-        if (v31 != v38)
-        {
-          goto LABEL_16;
-        }
-
-        v39 = objc_msgSend_color(selfCopy, v35, v36, v37);
-        v43 = objc_msgSend_color(equal, v40, v41, v42);
-        LODWORD(self) = CGColorEqualToColor(v39, v43);
+        LODWORD(self) = CGColorEqualToColor(-[EQKitPathBox color](selfCopy, "color"), [equal color]);
         if (!self)
         {
           return self;
         }
 
-        v47 = objc_msgSend_drawingMode(selfCopy, v44, v45, v46);
-        if (v47 != objc_msgSend_drawingMode(equal, v48, v49, v50) || (objc_msgSend_lineWidth(selfCopy, v51, v52, v53), v55 = v54, objc_msgSend_lineWidth(equal, v56, v57, v58), v55 != v62))
+        drawingMode = [(EQKitPathBox *)selfCopy drawingMode];
+        if (drawingMode != [equal drawingMode] || (-[EQKitPathBox lineWidth](selfCopy, "lineWidth"), v17 = v16, objc_msgSend(equal, "lineWidth"), v17 != v18))
         {
 LABEL_16:
           LOBYTE(self) = 0;
           return self;
         }
 
-        v63 = objc_msgSend_cgPath(selfCopy, v59, v60, v61);
-        self = objc_msgSend_cgPath(equal, v64, v65, v66);
-        if (v63 == self)
+        cgPath = [(EQKitPathBox *)selfCopy cgPath];
+        self = [equal cgPath];
+        if (cgPath == self)
         {
           LOBYTE(self) = 1;
         }
@@ -143,10 +139,10 @@ LABEL_16:
         {
           selfCopy2 = self;
           LOBYTE(self) = 0;
-          if (v63 && selfCopy2)
+          if (cgPath && selfCopy2)
           {
 
-            LOBYTE(self) = CGPathEqualToPath(v63, selfCopy2);
+            LOBYTE(self) = CGPathEqualToPath(cgPath, selfCopy2);
           }
         }
       }
@@ -167,7 +163,7 @@ LABEL_16:
 {
   if (!self->mDimensionsValid)
   {
-    objc_msgSend_p_cacheDimensions(self, a2, v2, v3);
+    [(EQKitPathBox *)self p_cacheDimensions];
     self->mDimensionsValid = 1;
   }
 
@@ -178,7 +174,7 @@ LABEL_16:
 {
   if (!self->mDimensionsValid)
   {
-    objc_msgSend_p_cacheDimensions(self, a2, v2, v3);
+    [(EQKitPathBox *)self p_cacheDimensions];
     self->mDimensionsValid = 1;
   }
 
@@ -197,7 +193,7 @@ LABEL_16:
 
   else
   {
-    objc_msgSend_p_cacheErasableBounds(self, a2, v2, v3);
+    [(EQKitPathBox *)self p_cacheErasableBounds];
     self->mErasableBounds.origin.x = x;
     self->mErasableBounds.origin.y = y;
     self->mErasableBounds.size.width = width;
@@ -250,12 +246,12 @@ LABEL_16:
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  objc_msgSend_height(self, v5, v6, v7);
-  v9 = v8;
-  objc_msgSend_depth(self, v10, v11, v12);
-  v14 = v13;
-  objc_msgSend_width(self, v15, v16, v17);
-  return objc_msgSend_stringWithFormat_(v3, v18, @"<%@ %p>: height=%f depth=%f width=%f", v19, v4, self, v9, v14, v20);
+  [(EQKitPathBox *)self height];
+  v6 = v5;
+  [(EQKitPathBox *)self depth];
+  v8 = v7;
+  [(EQKitPathBox *)self width];
+  return [v3 stringWithFormat:@"<%@ %p>: height=%f depth=%f width=%f", v4, self, v6, v8, v9];
 }
 
 - (void)p_cacheDimensions
@@ -272,18 +268,18 @@ LABEL_16:
     height = PathBoundingBox.size.height;
     if (!CGRectIsEmpty(PathBoundingBox))
     {
-      v14.origin.x = x;
-      v14.origin.y = y;
-      v14.size.width = width;
-      v14.size.height = height;
-      v8 = CGRectGetHeight(v14);
-      objc_msgSend_height(self, v9, v10, v11);
-      self->mDepth = v8 - v12;
-      v15.origin.x = x;
-      v15.origin.y = y;
-      v15.size.width = width;
-      v15.size.height = height;
-      self->mWidth = CGRectGetWidth(v15) + self->mPaddingLeft + self->mPaddingRight;
+      v11.origin.x = x;
+      v11.origin.y = y;
+      v11.size.width = width;
+      v11.size.height = height;
+      v8 = CGRectGetHeight(v11);
+      [(EQKitPathBox *)self height];
+      self->mDepth = v8 - v9;
+      v12.origin.x = x;
+      v12.origin.y = y;
+      v12.size.width = width;
+      v12.size.height = height;
+      self->mWidth = CGRectGetWidth(v12) + self->mPaddingLeft + self->mPaddingRight;
     }
   }
 }
@@ -304,22 +300,22 @@ LABEL_16:
     height = PathBoundingBox.size.height;
     if (!CGRectIsEmpty(PathBoundingBox))
     {
-      objc_msgSend_height(self, v12, v13, v14);
-      v3 = y - v15;
+      [(EQKitPathBox *)self height];
+      v3 = y - v12;
       v4 = x + self->mPaddingLeft;
       v5 = width;
       v6 = height;
     }
   }
 
-  v16 = v4;
-  v17 = v3;
-  v18 = v5;
-  v19 = v6;
-  result.size.height = v19;
-  result.size.width = v18;
-  result.origin.y = v17;
-  result.origin.x = v16;
+  v13 = v4;
+  v14 = v3;
+  v15 = v5;
+  v16 = v6;
+  result.size.height = v16;
+  result.size.width = v15;
+  result.origin.y = v14;
+  result.origin.x = v13;
   return result;
 }
 

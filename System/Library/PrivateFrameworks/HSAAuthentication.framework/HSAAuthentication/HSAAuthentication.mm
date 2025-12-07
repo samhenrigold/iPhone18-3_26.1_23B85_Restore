@@ -1,6 +1,6 @@
 void HSAAuthenticationRegisterIncomingAuthenticationTokenBlockWithIdentifier(void *a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -56,16 +56,16 @@ void HSAAuthenticationRegisterIncomingAuthenticationTokenBlockWithIdentifier(voi
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = sub_250997E80;
-        v24 = &unk_2796A4888;
-        v25 = &unk_2862DF5C0;
+        v23 = &unk_2796A4888;
+        v24 = &unk_2862DF5C0;
         xpc_connection_set_event_handler(qword_27F3E0C18, buf);
         xpc_connection_resume(qword_27F3E0C18);
         v17 = OSLogHandleForIDSCategory();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          v21 = 134217984;
-          v22 = qword_27F3E0C18;
-          _os_log_impl(&dword_250996000, v17, OS_LOG_TYPE_DEFAULT, "HSAClient - Creating server connection %p", &v21, 0xCu);
+          v20 = 134217984;
+          v21 = qword_27F3E0C18;
+          _os_log_impl(&dword_250996000, v17, OS_LOG_TYPE_DEFAULT, "HSAClient - Creating server connection %p", &v20, 0xCu);
         }
       }
 
@@ -95,8 +95,6 @@ void HSAAuthenticationRegisterIncomingAuthenticationTokenBlockWithIdentifier(voi
 
     [qword_2814227D0 unlock];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void sub_250997130()
@@ -116,7 +114,7 @@ void sub_250997130()
 
 void sub_2509971D0()
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (_IMWillLog())
   {
     v0 = OSLogHandleForIDSCategory();
@@ -126,38 +124,38 @@ void sub_2509971D0()
       _os_log_impl(&dword_250996000, v0, OS_LOG_TYPE_DEFAULT, "HSAClient *** Current filters ***", buf, 2u);
     }
 
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v1 = [qword_27F3E0C10 allKeys];
-    v2 = [v1 countByEnumeratingWithState:&v10 objects:v18 count:16];
+    v2 = [v1 countByEnumeratingWithState:&v9 objects:v17 count:16];
     if (v2)
     {
-      v3 = *v11;
+      v3 = *v10;
       do
       {
         for (i = 0; i != v2; ++i)
         {
-          if (*v11 != v3)
+          if (*v10 != v3)
           {
             objc_enumerationMutation(v1);
           }
 
-          v5 = *(*(&v10 + 1) + 8 * i);
+          v5 = *(*(&v9 + 1) + 8 * i);
           v6 = OSLogHandleForIDSCategory();
           if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
           {
             v7 = [qword_27F3E0C10 objectForKey:v5];
             *buf = 138412546;
-            v15 = v5;
-            v16 = 2048;
-            v17 = v7;
+            v14 = v5;
+            v15 = 2048;
+            v16 = v7;
             _os_log_impl(&dword_250996000, v6, OS_LOG_TYPE_DEFAULT, "HSAClient * %@ -> %p", buf, 0x16u);
           }
         }
 
-        v2 = [v1 countByEnumeratingWithState:&v10 objects:v18 count:16];
+        v2 = [v1 countByEnumeratingWithState:&v9 objects:v17 count:16];
       }
 
       while (v2);
@@ -170,19 +168,17 @@ void sub_2509971D0()
       _os_log_impl(&dword_250996000, v8, OS_LOG_TYPE_DEFAULT, "HSAClient ***********************", buf, 2u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t HSAAuthenticationUnregisterIncomingAuthenticationTokenBlockWithIdentifier(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = a1;
-    _os_log_impl(&dword_250996000, v2, OS_LOG_TYPE_DEFAULT, "HSACallFilter - Unregistering filter block with identifier %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = a1;
+    _os_log_impl(&dword_250996000, v2, OS_LOG_TYPE_DEFAULT, "HSACallFilter - Unregistering filter block with identifier %@", &v9, 0xCu);
   }
 
   sub_250997130();
@@ -192,8 +188,8 @@ uint64_t HSAAuthenticationUnregisterIncomingAuthenticationTokenBlockWithIdentifi
     v7 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_250996000, v7, OS_LOG_TYPE_DEFAULT, "HSAClient - No block id - we're done", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_250996000, v7, OS_LOG_TYPE_DEFAULT, "HSAClient - No block id - we're done", &v9, 2u);
     }
 
     goto LABEL_19;
@@ -204,8 +200,8 @@ uint64_t HSAAuthenticationUnregisterIncomingAuthenticationTokenBlockWithIdentifi
     v7 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_250996000, v7, OS_LOG_TYPE_DEFAULT, "HSAClient - No filter blocks registered - we're done", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_250996000, v7, OS_LOG_TYPE_DEFAULT, "HSAClient - No filter blocks registered - we're done", &v9, 2u);
     }
 
     goto LABEL_19;
@@ -219,13 +215,13 @@ uint64_t HSAAuthenticationUnregisterIncomingAuthenticationTokenBlockWithIdentifi
     v7 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_250996000, v7, OS_LOG_TYPE_DEFAULT, "HSAClient - We're not keeping track of this filter - we're done", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_250996000, v7, OS_LOG_TYPE_DEFAULT, "HSAClient - We're not keeping track of this filter - we're done", &v9, 2u);
     }
 
 LABEL_19:
 
-    goto LABEL_20;
+    return [qword_2814227D0 unlock];
   }
 
   [qword_27F3E0C10 removeObjectForKey:a1];
@@ -238,8 +234,8 @@ LABEL_19:
     v6 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_250996000, v6, OS_LOG_TYPE_DEFAULT, "HSAClient - No more filter blocks registered", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_250996000, v6, OS_LOG_TYPE_DEFAULT, "HSAClient - No more filter blocks registered", &v9, 2u);
     }
 
     if (qword_27F3E0C18)
@@ -248,10 +244,7 @@ LABEL_19:
     }
   }
 
-LABEL_20:
-  result = [qword_2814227D0 unlock];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [qword_2814227D0 unlock];
 }
 
 uint64_t sub_250997720()
@@ -276,30 +269,30 @@ void sub_25099775C()
 
 void sub_2509977F4(uint64_t a1, void *a2, void *a3)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   if (MEMORY[0x253065D40]() == MEMORY[0x277D86480])
   {
     if (v5 == MEMORY[0x277D863F8])
     {
-      v23 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v22 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        *v42 = xpc_connection_get_pid(v4);
-        _os_log_impl(&dword_250996000, v23, OS_LOG_TYPE_DEFAULT, "HSAClient - peer(%d) received XPC_ERROR_CONNECTION_INVALID", buf, 8u);
+        *v41 = xpc_connection_get_pid(v4);
+        _os_log_impl(&dword_250996000, v22, OS_LOG_TYPE_DEFAULT, "HSAClient - peer(%d) received XPC_ERROR_CONNECTION_INVALID", buf, 8u);
       }
 
       xpc_connection_cancel(v4);
-      v24 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v23 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_250996000, v24, OS_LOG_TYPE_DEFAULT, "Cleaning up connection", buf, 2u);
+        _os_log_impl(&dword_250996000, v23, OS_LOG_TYPE_DEFAULT, "Cleaning up connection", buf, 2u);
       }
 
-      v25 = qword_27F3E0C18;
+      v24 = qword_27F3E0C18;
       qword_27F3E0C18 = 0;
     }
 
@@ -311,7 +304,7 @@ void sub_2509977F4(uint64_t a1, void *a2, void *a3)
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          *v42 = xpc_connection_get_pid(v4);
+          *v41 = xpc_connection_get_pid(v4);
           _os_log_impl(&dword_250996000, v20, OS_LOG_TYPE_DEFAULT, "HSAClient - peer(%d) received XPC_ERROR_CONNECTION_INTERRUPTED", buf, 8u);
         }
       }
@@ -327,7 +320,7 @@ void sub_2509977F4(uint64_t a1, void *a2, void *a3)
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          *v42 = xpc_connection_get_pid(v4);
+          *v41 = xpc_connection_get_pid(v4);
           _os_log_impl(&dword_250996000, v20, OS_LOG_TYPE_DEFAULT, "HSAClient - peer(%d) received XPC_ERROR_TERMINATION_IMMINENT", buf, 8u);
         }
       }
@@ -344,17 +337,17 @@ LABEL_2:
     {
       pid = xpc_connection_get_pid(v4);
       *buf = 67109379;
-      *v42 = pid;
-      *&v42[4] = 2085;
-      *&v42[6] = v7;
+      *v41 = pid;
+      *&v41[4] = 2085;
+      *&v41[6] = v7;
       _os_log_impl(&dword_250996000, v8, OS_LOG_TYPE_DEFAULT, "HSAClient - received message from peer(%d): %{sensitive}s", buf, 0x12u);
     }
 
     free(v7);
   }
 
-  v26 = v4;
-  v27 = v6;
+  v25 = v4;
+  v26 = v6;
   v10 = IMGetXPCStringFromDictionary();
   v11 = IMGetXPCStringFromDictionary();
   v12 = IMGetXPCStringFromDictionary();
@@ -365,54 +358,54 @@ LABEL_2:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138740739;
-      *v42 = v13;
-      *&v42[8] = 2112;
-      *&v42[10] = v10;
-      v43 = 2112;
-      v44 = v11;
-      v45 = 2117;
-      v46 = v12;
+      *v41 = v13;
+      *&v41[8] = 2112;
+      *&v41[10] = v10;
+      v42 = 2112;
+      v43 = v11;
+      v44 = 2117;
+      v45 = v12;
       _os_log_impl(&dword_250996000, v14, OS_LOG_TYPE_DEFAULT, "HSAClient - Incoming message with auth token: %{sensitive}@    from: %@  service: %@  body: %{sensitive}@", buf, 0x2Au);
     }
 
     [qword_2814227D0 lock];
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     obj = [qword_27F3E0C10 allValues];
-    v15 = [obj countByEnumeratingWithState:&v29 objects:buf count:16];
+    v15 = [obj countByEnumeratingWithState:&v28 objects:buf count:16];
     if (v15)
     {
-      v16 = *v30;
+      v16 = *v29;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v30 != v16)
+          if (*v29 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v29 + 1) + 8 * i);
+          v18 = *(*(&v28 + 1) + 8 * i);
           v19 = OSLogHandleForIDSCategory();
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
-            *v33 = 138740739;
-            v34 = v13;
-            v35 = 2112;
-            v36 = v10;
-            v37 = 2112;
-            v38 = v11;
-            v39 = 2117;
-            v40 = v12;
-            _os_log_impl(&dword_250996000, v19, OS_LOG_TYPE_DEFAULT, "HSAClient - Calling back about auth token: %{sensitive}@    from: %@  service: %@  body: %{sensitive}@", v33, 0x2Au);
+            *v32 = 138740739;
+            v33 = v13;
+            v34 = 2112;
+            v35 = v10;
+            v36 = 2112;
+            v37 = v11;
+            v38 = 2117;
+            v39 = v12;
+            _os_log_impl(&dword_250996000, v19, OS_LOG_TYPE_DEFAULT, "HSAClient - Calling back about auth token: %{sensitive}@    from: %@  service: %@  body: %{sensitive}@", v32, 0x2Au);
           }
 
           (*(v18 + 16))(v18, v10, v11, v12, v13);
         }
 
-        v15 = [obj countByEnumeratingWithState:&v29 objects:buf count:16];
+        v15 = [obj countByEnumeratingWithState:&v28 objects:buf count:16];
       }
 
       while (v15);
@@ -427,18 +420,16 @@ LABEL_2:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138740739;
-      *v42 = v13;
-      *&v42[8] = 2112;
-      *&v42[10] = v10;
-      v43 = 2112;
-      v44 = v11;
-      v45 = 2117;
-      v46 = v12;
+      *v41 = v13;
+      *&v41[8] = 2112;
+      *&v41[10] = v10;
+      v42 = 2112;
+      v43 = v11;
+      v44 = 2117;
+      v45 = v12;
       _os_log_impl(&dword_250996000, v21, OS_LOG_TYPE_DEFAULT, "HSAClient - Dropping message with empty auth token: %{sensitive}@    from: %@  service: %@  body: %{sensitive}@", buf, 0x2Au);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void sub_250997DF0(_Unwind_Exception *a1, int a2)
@@ -496,13 +487,13 @@ uint64_t sub_250998220(uint64_t a1)
 
 void sub_2509982B4(uint64_t a1, void *a2, void *a3)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v36 = v6;
   v37 = v6;
-  v38 = v6;
   xpc_connection_get_audit_token();
   if (IMDAuditTokenTaskHasEntitlement())
   {
@@ -512,7 +503,7 @@ void sub_2509982B4(uint64_t a1, void *a2, void *a3)
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      *v40 = xpc_connection_get_pid(v7);
+      *v39 = xpc_connection_get_pid(v7);
       _os_log_impl(&dword_250996000, v9, OS_LOG_TYPE_DEFAULT, "HSA - Receiving message from peer (%d)", buf, 8u);
     }
 
@@ -526,11 +517,11 @@ void sub_2509982B4(uint64_t a1, void *a2, void *a3)
         {
           pid = xpc_connection_get_pid(v7);
           *buf = 67109120;
-          *v40 = pid;
+          *v39 = pid;
           _os_log_impl(&dword_250996000, v22, OS_LOG_TYPE_DEFAULT, "HSA - peer(%d) received XPC_ERROR_CONNECTION_INVALID", buf, 8u);
         }
 
-        v24 = [HSAAuthenticationServer sharedInstance:v37];
+        v24 = [HSAAuthenticationServer sharedInstance:v36];
         [v24 _cleanupClient:v7];
 
         xpc_connection_cancel(v7);
@@ -544,11 +535,11 @@ void sub_2509982B4(uint64_t a1, void *a2, void *a3)
         {
           v32 = xpc_connection_get_pid(v7);
           *buf = 67109120;
-          *v40 = v32;
+          *v39 = v32;
           _os_log_impl(&dword_250996000, v31, OS_LOG_TYPE_DEFAULT, "HSA - peer(%d) received XPC_ERROR_CONNECTION_INTERRUPTED", buf, 8u);
         }
 
-        v33 = [HSAAuthenticationServer sharedInstance:v37];
+        v33 = [HSAAuthenticationServer sharedInstance:v36];
         [v33 _cleanupClient:v7];
 
         goto LABEL_37;
@@ -561,7 +552,7 @@ void sub_2509982B4(uint64_t a1, void *a2, void *a3)
         {
           v21 = xpc_connection_get_pid(v7);
           *buf = 67109120;
-          *v40 = v21;
+          *v39 = v21;
           _os_log_impl(&dword_250996000, v11, OS_LOG_TYPE_DEFAULT, "HSA - peer(%d) received XPC_ERROR_TERMINATION_IMMINENT", buf, 8u);
         }
 
@@ -580,9 +571,9 @@ void sub_2509982B4(uint64_t a1, void *a2, void *a3)
         {
           v14 = xpc_connection_get_pid(v7);
           *buf = 67109378;
-          *v40 = v14;
-          *&v40[4] = 2080;
-          *&v40[6] = v12;
+          *v39 = v14;
+          *&v39[4] = 2080;
+          *&v39[6] = v12;
           _os_log_impl(&dword_250996000, v13, OS_LOG_TYPE_DEFAULT, "HSA - Received message from peer(%d): %s", buf, 0x12u);
         }
 
@@ -596,11 +587,11 @@ void sub_2509982B4(uint64_t a1, void *a2, void *a3)
         {
           v16 = xpc_connection_get_pid(v7);
           *buf = 67109120;
-          *v40 = v16;
+          *v39 = v16;
           _os_log_impl(&dword_250996000, v15, OS_LOG_TYPE_DEFAULT, "HSA - Received setup-request from (%d)", buf, 8u);
         }
 
-        v17 = [HSAAuthenticationServer sharedInstance:v37];
+        v17 = [HSAAuthenticationServer sharedInstance:v36];
         [v17 _configureWithClient:v7];
       }
 
@@ -611,14 +602,14 @@ void sub_2509982B4(uint64_t a1, void *a2, void *a3)
         {
           v26 = xpc_connection_get_pid(v7);
           *buf = 67109120;
-          *v40 = v26;
+          *v39 = v26;
           _os_log_impl(&dword_250996000, v25, OS_LOG_TYPE_DEFAULT, "HSA - Received incoming message from (%d)", buf, 8u);
         }
 
         v27 = IMGetXPCStringFromDictionary();
         v28 = IMGetXPCStringFromDictionary();
         v29 = IMGetXPCStringFromDictionary();
-        v30 = [HSAAuthenticationServer sharedInstance:v37];
+        v30 = [HSAAuthenticationServer sharedInstance:v36];
         [v30 parseIncomingMessageFromNumber:v27 forService:v28 messageBody:v29];
       }
 
@@ -629,7 +620,7 @@ void sub_2509982B4(uint64_t a1, void *a2, void *a3)
         {
           v35 = xpc_connection_get_pid(v7);
           *buf = 67109120;
-          *v40 = v35;
+          *v39 = v35;
           _os_log_impl(&dword_250996000, v34, OS_LOG_TYPE_DEFAULT, "HSA - Unhandled message from peer (%d)", buf, 8u);
         }
       }
@@ -648,18 +639,16 @@ LABEL_37:
   {
     v20 = IMProcessNameForPid();
     *buf = 138412802;
-    *v40 = @"com.apple.private.hsa-authentication-processing";
-    *&v40[8] = 2112;
-    *&v40[10] = v20;
-    v41 = 1024;
-    v42 = v18;
+    *v39 = @"com.apple.private.hsa-authentication-processing";
+    *&v39[8] = 2112;
+    *&v39[10] = v20;
+    v40 = 1024;
+    v41 = v18;
     _os_log_impl(&dword_250996000, v19, OS_LOG_TYPE_DEFAULT, "Denying xpc connection, task does not have entitlement: %@  (%@:%d)", buf, 0x1Cu);
   }
 
   xpc_connection_cancel(v4);
 LABEL_38:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2509988D4(_Unwind_Exception *a1, int a2)
@@ -702,16 +691,16 @@ uint64_t sub_250999938()
 
 void HSAAuthenticationProcessIncomingMessage(void *a1, uint64_t a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v6 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412803;
-    v14 = a1;
-    v15 = 2112;
-    v16 = a2;
-    v17 = 2117;
-    v18 = a3;
+    v13 = a1;
+    v14 = 2112;
+    v15 = a2;
+    v16 = 2117;
+    v17 = a3;
     _os_log_impl(&dword_250996000, v6, OS_LOG_TYPE_DEFAULT, "HSAProvider - HSAAuthenticationProcessIncomingMessage: number %@,   service %@,  body: %{sensitive}@", buf, 0x20u);
   }
 
@@ -741,7 +730,7 @@ void HSAAuthenticationProcessIncomingMessage(void *a1, uint64_t a2, uint64_t a3)
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138739971;
-        v14 = v9;
+        v13 = v9;
         _os_log_impl(&dword_250996000, v10, OS_LOG_TYPE_DEFAULT, "HSAProvider - Sending request message %{sensitive}@", buf, 0xCu);
       }
 
@@ -763,8 +752,6 @@ void HSAAuthenticationProcessIncomingMessage(void *a1, uint64_t a2, uint64_t a3)
       _os_log_impl(&dword_250996000, v11, OS_LOG_TYPE_DEFAULT, "HSAProvider - No Connection !!", buf, 2u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void sub_250999C74()

@@ -14,7 +14,7 @@
 
 - (_SFPBTableAlignmentSchema)initWithFacade:(id)facade
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBTableAlignmentSchema *)self init];
   if (v5)
@@ -30,33 +30,33 @@
       v7 = 0;
     }
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     tableColumnAlignment2 = [facadeCopy tableColumnAlignment];
-    v9 = [tableColumnAlignment2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v9 = [tableColumnAlignment2 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v22;
+      v11 = *v21;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v22 != v11)
+          if (*v21 != v11)
           {
             objc_enumerationMutation(tableColumnAlignment2);
           }
 
-          v13 = [[_SFPBTableColumnAlignment alloc] initWithFacade:*(*(&v21 + 1) + 8 * i)];
+          v13 = [[_SFPBTableColumnAlignment alloc] initWithFacade:*(*(&v20 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [tableColumnAlignment2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v10 = [tableColumnAlignment2 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v10);
@@ -76,49 +76,48 @@
     v18 = v5;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBTableAlignmentSchema)initWithDictionary:(id)dictionary
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v24.receiver = self;
-  v24.super_class = _SFPBTableAlignmentSchema;
-  v5 = [(_SFPBTableAlignmentSchema *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = _SFPBTableAlignmentSchema;
+  v5 = [(_SFPBTableAlignmentSchema *)&v23 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"tableColumnAlignment"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       v7 = v6;
-      v8 = [v7 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v21;
+        v10 = *v20;
         do
         {
           v11 = 0;
           do
           {
-            if (*v21 != v10)
+            if (*v20 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v20 + 1) + 8 * v11);
+            v12 = *(*(&v19 + 1) + 8 * v11);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
               v13 = [_SFPBTableColumnAlignment alloc];
-              v14 = [(_SFPBTableColumnAlignment *)v13 initWithDictionary:v12, v20];
+              v14 = [(_SFPBTableColumnAlignment *)v13 initWithDictionary:v12, v19];
               [(_SFPBTableAlignmentSchema *)v5 addTableColumnAlignment:v14];
             }
 
@@ -126,14 +125,14 @@
           }
 
           while (v9 != v11);
-          v9 = [v7 countByEnumeratingWithState:&v20 objects:v25 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
         }
 
         while (v9);
       }
     }
 
-    v15 = [dictionaryCopy objectForKeyedSubscript:{@"metadata", v20}];
+    v15 = [dictionaryCopy objectForKeyedSubscript:{@"metadata", v19}];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -144,7 +143,6 @@
     v17 = v5;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -184,7 +182,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_metadata)
   {
@@ -205,26 +203,26 @@
   if ([(NSArray *)self->_tableColumnAlignments count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v8 = self->_tableColumnAlignments;
-    v9 = [(NSArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v9 = [(NSArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          dictionaryRepresentation2 = [*(*(&v17 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v16 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation2)
           {
             [array addObject:dictionaryRepresentation2];
@@ -237,7 +235,7 @@
           }
         }
 
-        v10 = [(NSArray *)v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v10 = [(NSArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v10);
@@ -245,8 +243,6 @@
 
     [dictionary setObject:array forKeyedSubscript:@"tableColumnAlignment"];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -322,35 +318,34 @@ LABEL_13:
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
   tableColumnAlignments = [(_SFPBTableAlignmentSchema *)self tableColumnAlignments];
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v6 = [tableColumnAlignments countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [tableColumnAlignments countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(tableColumnAlignments);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [tableColumnAlignments countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [tableColumnAlignments countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -361,8 +356,6 @@ LABEL_13:
   {
     PBDataWriterWriteSubmessage();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addTableColumnAlignment:(id)alignment
@@ -385,9 +378,7 @@ LABEL_13:
 
 - (void)setTableColumnAlignment:(id)alignment
 {
-  v4 = [alignment copy];
-  tableColumnAlignments = self->_tableColumnAlignments;
-  self->_tableColumnAlignments = v4;
+  self->_tableColumnAlignments = [alignment copy];
 
   MEMORY[0x1EEE66BB8]();
 }

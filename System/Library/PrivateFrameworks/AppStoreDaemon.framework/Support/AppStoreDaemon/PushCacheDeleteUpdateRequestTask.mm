@@ -39,7 +39,7 @@
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "[%@]: Purgeable update request for client: %@", &v10, 0x16u);
   }
 
-  v9 = sub_10029869C();
+  v9 = sub_10029869C(CacheDeleteCoordinator);
   sub_100299E54(v9);
   if (self)
   {

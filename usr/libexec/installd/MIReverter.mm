@@ -14,6 +14,7 @@
 - (id)_validateBundle:(id)bundle error:(id *)error;
 - (id)initForAppIdentity:(id)identity options:(id)options forClient:(id)client;
 - (void)_fireCallbackWithStatus:(id)status;
+- (void)_fireCallbackWithStatus:(id)status percentComplete:(unsigned int)complete;
 - (void)dealloc;
 @end
 
@@ -91,12 +92,20 @@
   {
     identity = [(MIReverter *)self identity];
     bundleID = [identity bundleID];
-    sub_100054780();
+    sub_100054780(bundleID);
   }
 
   v12.receiver = self;
   v12.super_class = MIReverter;
   [(MIReverter *)&v12 dealloc];
+}
+
+- (void)_fireCallbackWithStatus:(id)status percentComplete:(unsigned int)complete
+{
+  v4 = *&complete;
+  statusCopy = status;
+  client = [(MIReverter *)self client];
+  [client sendProgressWithStatus:statusCopy percentComplete:v4];
 }
 
 - (void)_fireCallbackWithStatus:(id)status
@@ -1156,12 +1165,12 @@ LABEL_16:
 
 - (BOOL)performRevertWithError:(id *)error
 {
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x3032000000;
-  v43 = sub_10000C2C8;
-  v44 = sub_10000C2D8;
-  v45 = 0;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = sub_10000C2C8;
+  v45 = sub_10000C2D8;
+  v46 = 0;
   identity = [(MIReverter *)self identity];
   bundleID = [identity bundleID];
   [(MIReverter *)self _fireCallbackWithStatus:@"CreatingStagingDirectory" percentComplete:5];
@@ -1170,58 +1179,30 @@ LABEL_16:
   [(MIReverter *)self _fireCallbackWithStatus:@"TakingInstallLock"];
   sub_100054630(bundleID);
   [(MIReverter *)self setIsLocked:1];
-  v7 = v41;
-  v39 = v41[5];
-  v8 = [identity resolvePersonaWithError:&v39];
-  objc_storeStrong(v7 + 5, v39);
+  v7 = v42;
+  v40 = v42[5];
+  v8 = [identity resolvePersonaWithError:&v40];
+  objc_storeStrong(v7 + 5, v40);
   if ((v8 & 1) == 0)
   {
     v16 = 0;
     goto LABEL_13;
   }
 
-  v9 = v41;
-  v38 = v41[5];
-  LODWORD(v10) = [(MIReverter *)self _performPreflightWithError:&v38];
-  objc_storeStrong(v9 + 5, v38);
-  if (!v10)
+  v9 = v42;
+  v39 = v42[5];
+  LODWORD(v10) = [(MIReverter *)self _performPreflightWithError:&v39];
+  objc_storeStrong(v9 + 5, v39);
+  if (!v10 || (v11 = v42, v38 = v42[5], LODWORD(v10) = [(MIReverter *)self _performVerificationWithError:&v38], objc_storeStrong(v11 + 5, v38), !v10) || (v12 = v42, obj = v42[5], LODWORD(v10) = [(MIReverter *)self _performInstallationWithError:&obj], objc_storeStrong(v12 + 5, obj), !v10) || (v13 = v42, v36 = v42[5], LODWORD(v10) = [(MIReverter *)self _postFlightInstallationWithError:&v36], objc_storeStrong(v13 + 5, v36), !v10) || (v14 = v42, v35 = v42[5], LODWORD(v10) = [(MIReverter *)self _finalizeInstallationWithError:&v35], objc_storeStrong(v14 + 5, v35), !v10))
   {
-    goto LABEL_14;
-  }
-
-  v11 = v41;
-  v37 = v41[5];
-  LODWORD(v10) = [(MIReverter *)self _performVerificationWithError:&v37];
-  objc_storeStrong(v11 + 5, v37);
-  if (!v10)
-  {
-    goto LABEL_14;
-  }
-
-  v12 = v41;
-  obj = v41[5];
-  LODWORD(v10) = [(MIReverter *)self _performInstallationWithError:&obj];
-  objc_storeStrong(v12 + 5, obj);
-  if (!v10)
-  {
-    goto LABEL_14;
-  }
-
-  v13 = v41;
-  v35 = v41[5];
-  LODWORD(v10) = [(MIReverter *)self _postFlightInstallationWithError:&v35];
-  objc_storeStrong(v13 + 5, v35);
-  if (!v10 || (v14 = v41, v34 = v41[5], LODWORD(v10) = [(MIReverter *)self _finalizeInstallationWithError:&v34], objc_storeStrong(v14 + 5, v34), !v10))
-  {
-LABEL_14:
     v16 = 0;
     goto LABEL_15;
   }
 
-  v15 = v41;
-  v33 = v41[5];
-  v16 = [(MIReverter *)self _launchServicesBundleRecordsWithError:&v33];
-  objc_storeStrong(v15 + 5, v33);
+  v15 = v42;
+  v34 = v42[5];
+  v16 = [(MIReverter *)self _launchServicesBundleRecordsWithError:&v34];
+  objc_storeStrong(v15 + 5, v34);
   if (!v16)
   {
 LABEL_13:
@@ -1230,47 +1211,48 @@ LABEL_13:
   }
 
   objc_storeStrong(&self->_receipt, v16);
-  if ([(MIReverter *)self isLocked])
+  isLocked = [(MIReverter *)self isLocked];
+  if (isLocked)
   {
     sub_100054780(bundleID);
-    [(MIReverter *)self setIsLocked:0];
+    isLocked = [(MIReverter *)self setIsLocked:0];
   }
 
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = sub_10000C2C8;
-  v31 = sub_10000C2D8;
-  v32 = 0;
-  v10 = sub_10000998C();
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = sub_10000C2C8;
+  v32 = sub_10000C2D8;
+  v33 = 0;
+  v10 = sub_10000998C(isLocked);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10000C2E0;
   block[3] = &unk_100090CD8;
-  v25 = &v27;
+  v26 = &v28;
   v16 = v16;
-  v23 = v16;
-  v24 = identity;
-  v26 = &v40;
+  v24 = v16;
+  v25 = identity;
+  v27 = &v41;
   dispatch_sync(v10, block);
 
-  v17 = v28[5];
-  LOBYTE(v10) = v17 != 0;
-  if (v17)
+  v18 = v29[5];
+  LOBYTE(v10) = v18 != 0;
+  if (v18)
   {
-    objc_storeStrong(&self->_recordPromise, v17);
+    objc_storeStrong(&self->_recordPromise, v18);
   }
 
   else if (!qword_1000A9720 || *(qword_1000A9720 + 44) >= 3)
   {
-    v20 = bundleID;
-    v21 = v41[5];
+    v21 = bundleID;
+    v22 = v42[5];
     MOLogWrite();
   }
 
-  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v28, 8);
 LABEL_15:
-  if ([(MIReverter *)self isLocked:v20])
+  if ([(MIReverter *)self isLocked:v21])
   {
     sub_100054780(bundleID);
     [(MIReverter *)self setIsLocked:0];
@@ -1278,20 +1260,20 @@ LABEL_15:
 
   if (error)
   {
-    v18 = v10;
+    v19 = v10;
   }
 
   else
   {
-    v18 = 1;
+    v19 = 1;
   }
 
-  if ((v18 & 1) == 0)
+  if ((v19 & 1) == 0)
   {
-    *error = v41[5];
+    *error = v42[5];
   }
 
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v41, 8);
   return v10;
 }
 

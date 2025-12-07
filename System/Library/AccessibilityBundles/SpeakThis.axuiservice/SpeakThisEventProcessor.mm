@@ -1,5 +1,6 @@
 @interface SpeakThisEventProcessor
 - (BOOL)_handleEvent:(id)event;
+- (SpeakThisEventProcessor)initWithHIDTapIdentifier:(id)identifier HIDEventTapPriority:(int)priority systemEventTapIdentifier:(id)tapIdentifier systemEventTapPriority:(int)tapPriority;
 - (SpeakThisEventProcessorDelegate)delegate;
 - (id)contextForDisplayID:(unint64_t)d;
 - (unsigned)contextIdForActiveDisplay;
@@ -9,6 +10,44 @@
 @end
 
 @implementation SpeakThisEventProcessor
+
+- (SpeakThisEventProcessor)initWithHIDTapIdentifier:(id)identifier HIDEventTapPriority:(int)priority systemEventTapIdentifier:(id)tapIdentifier systemEventTapPriority:(int)tapPriority
+{
+  v6 = *&tapPriority;
+  v8 = *&priority;
+  identifierCopy = identifier;
+  tapIdentifierCopy = tapIdentifier;
+  v22.receiver = self;
+  v22.super_class = SpeakThisEventProcessor;
+  v12 = [(SpeakThisEventProcessor *)&v22 initWithHIDTapIdentifier:identifierCopy HIDEventTapPriority:v8 systemEventTapIdentifier:tapIdentifierCopy systemEventTapPriority:v6];
+  v13 = v12;
+  if (v12)
+  {
+    [(SpeakThisEventProcessor *)v12 setHIDEventFilterMask:3];
+    v14 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INTERACTIVE, 0);
+    v15 = dispatch_queue_create("SpeakThisHIDDispatchQueue", v14);
+    hidDispatchQueue = v13->_hidDispatchQueue;
+    v13->_hidDispatchQueue = v15;
+
+    v20[0] = 0;
+    v20[1] = v20;
+    v20[2] = 0x3032000000;
+    v20[3] = sub_1765C;
+    v20[4] = sub_1766C;
+    v17 = v13;
+    v21 = v17;
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_17674;
+    v19[3] = &unk_310A0;
+    v19[4] = v20;
+    [(SpeakThisEventProcessor *)v17 setHIDEventHandler:v19];
+    v17->_activeDisplayId = -1;
+    _Block_object_dispose(v20, 8);
+  }
+
+  return v13;
+}
 
 - (void)dealloc
 {

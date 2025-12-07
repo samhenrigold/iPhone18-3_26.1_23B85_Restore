@@ -112,98 +112,98 @@
 
   if (v9)
   {
-    [(TrackpadActuatorStage *)self handlePointerSettings:v8];
+    v10 = [(TrackpadActuatorStage *)self handlePointerSettings:v8];
   }
 
   else
   {
-    v10 = v8;
+    v12 = v8;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v11 = v10;
+      v13 = v12;
     }
 
     else
     {
-      v11 = 0;
+      v13 = 0;
     }
 
-    if (v11)
+    if (v13)
     {
-      [(TrackpadActuatorStage *)self _handleHSTNotificationEvent:v10];
+      v10 = [(TrackpadActuatorStage *)self _handleHSTNotificationEvent:v12];
     }
 
     else
     {
-      v12 = v10;
+      v14 = v12;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v13 = v12;
+        v15 = v14;
       }
 
       else
       {
-        v13 = 0;
+        v15 = 0;
       }
 
-      if (v13)
+      if (v15)
       {
-        [(TrackpadActuatorStage *)self handleGetPropertyEvent:v12];
+        v10 = [(TrackpadActuatorStage *)self handleGetPropertyEvent:v14];
       }
 
       else
       {
-        v14 = v12;
+        v16 = v14;
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v15 = v14;
+          v17 = v16;
         }
 
         else
         {
-          v15 = 0;
+          v17 = 0;
         }
 
-        if (v15)
+        if (v17)
         {
-          [(TrackpadActuatorStage *)self _handleSetPropertyEvent:v14];
+          v10 = [(TrackpadActuatorStage *)self _handleSetPropertyEvent:v16];
         }
 
         else
         {
-          v16 = HSUtil::DynamicCast<HSTCancelEvent>(v14);
+          v18 = HSUtil::DynamicCast<HSTCancelEvent>(v16);
 
-          if (v16)
+          if (v18)
           {
-            [(TrackpadActuatorStage *)self _handleCancelEvent:v14];
+            v10 = [(TrackpadActuatorStage *)self _handleCancelEvent:v16];
           }
 
           else
           {
-            v17 = HSUtil::DynamicCast<HSTGetDebugStateEvent>(v14);
+            v19 = HSUtil::DynamicCast<HSTGetDebugStateEvent>(v16);
 
-            if (v17)
+            if (v19)
             {
-              [(TrackpadActuatorStage *)self _handleGetDebugEvent:v14];
+              v10 = [(TrackpadActuatorStage *)self _handleGetDebugEvent:v16];
             }
 
             else
             {
-              v18 = HSUtil::DynamicCast<HSTHostStateEvent>(v14);
+              v20 = HSUtil::DynamicCast<HSTHostStateEvent>(v16);
 
-              if (v18)
+              if (v20)
               {
-                [(TrackpadActuatorStage *)self _handleHostStateEvent:v14];
+                v10 = [(TrackpadActuatorStage *)self _handleHostStateEvent:v16];
               }
 
               else
               {
-                v21.receiver = self;
-                v21.super_class = TrackpadActuatorStage;
-                [(HSStage *)&v21 handleConsume:v14];
+                v23.receiver = self;
+                v23.super_class = TrackpadActuatorStage;
+                v10 = [(HSStage *)&v23 handleConsume:v16];
               }
             }
           }
@@ -212,15 +212,15 @@
     }
   }
 
-  v19 = MTLoggingPlugin();
-  if (os_signpost_enabled(v19))
+  v21 = MTLoggingPlugin(v10, v11);
+  if (os_signpost_enabled(v21))
   {
     ClassName = object_getClassName(v8);
     *buf = 134349314;
-    v23 = v5;
-    v24 = 2080;
-    v25 = ClassName;
-    _os_signpost_emit_with_name_impl(&dword_0, v19, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TrackpadActuatorStage", "%{public, signpost.description:begin_time}llu event=%s", buf, 0x16u);
+    v25 = v5;
+    v26 = 2080;
+    v27 = ClassName;
+    _os_signpost_emit_with_name_impl(&dword_0, v21, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TrackpadActuatorStage", "%{public, signpost.description:begin_time}llu event=%s", buf, 0x16u);
   }
 }
 
@@ -253,66 +253,66 @@
   eventCopy = event;
   if (!self->_actuationsEnabled)
   {
-    MTDeviceGetDeviceID();
-    v21 = MTLoggingPlugin();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    DeviceID = MTDeviceGetDeviceID();
+    v25 = MTLoggingPlugin(DeviceID, v28);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      *v24 = 0;
-      _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "Actuations disabled - Dropping actuation event (deviceID 0x%llX)", buf, 0xCu);
+      *v30 = 0;
+      _os_log_impl(&dword_0, v25, OS_LOG_TYPE_DEFAULT, "Actuations disabled - Dropping actuation event (deviceID 0x%llX)", buf, 0xCu);
     }
 
     goto LABEL_10;
   }
 
-  MTDeviceGetDeviceID();
-  v5 = MTLoggingPlugin();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v5 = MTDeviceGetDeviceID();
+  v7 = MTLoggingPlugin(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = eventCopy[2];
+    v8 = eventCopy[2];
     *buf = 67109376;
-    *v24 = v6;
-    *&v24[4] = 2048;
-    *&v24[6] = 0;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Actuation(id=%d) was requested (deviceID 0x%llX)", buf, 0x12u);
+    *v30 = v8;
+    *&v30[4] = 2048;
+    *&v30[6] = 0;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Actuation(id=%d) was requested (deviceID 0x%llX)", buf, 0x12u);
   }
 
   actuationRequestHistory = self->_actuationRequestHistory;
-  v25[0] = @"WaveformId";
-  v8 = [NSNumber numberWithInt:eventCopy[2]];
-  v25[1] = @"Strength";
-  v26[0] = v8;
-  v9 = [NSNumber numberWithInt:eventCopy[3]];
-  v26[1] = v9;
-  v10 = [NSDictionary dictionaryWithObjects:v26 forKeys:v25 count:2];
-  [(HSTCircularBuffer *)actuationRequestHistory appendItem:v10];
+  v31[0] = @"WaveformId";
+  v10 = [NSNumber numberWithInt:eventCopy[2]];
+  v31[1] = @"Strength";
+  v32[0] = v10;
+  v11 = [NSNumber numberWithInt:eventCopy[3]];
+  v32[1] = v11;
+  v12 = [NSDictionary dictionaryWithObjects:v32 forKeys:v31 count:2];
+  [(HSTCircularBuffer *)actuationRequestHistory appendItem:v12];
 
   kdebug_trace();
   actuationManager = [(TrackpadActuatorStage *)self actuationManager];
-  v12 = eventCopy[2];
-  v13 = eventCopy[4];
-  v14 = eventCopy[5];
+  v14 = eventCopy[2];
+  v15 = eventCopy[4];
+  v16 = eventCopy[5];
   actDevice = self->_actDevice;
   actuatorLimits = [(TrackpadActuatorStage *)self actuatorLimits];
   actuationOptions = [(TrackpadActuatorStage *)self actuationOptions];
-  LODWORD(v18) = v13;
-  LODWORD(v19) = v14;
-  v20 = [actuationManager actuateForID:v12 strength:actDevice timeDilation:actuatorLimits device:actuationOptions actuatorLimits:v18 options:v19];
+  LODWORD(v20) = v15;
+  LODWORD(v21) = v16;
+  v22 = [actuationManager actuateForID:v14 strength:actDevice timeDilation:actuatorLimits device:actuationOptions actuatorLimits:v20 options:v21];
 
-  if (v20)
+  if (v22)
   {
-    MTDeviceGetDeviceID();
-    v21 = MTLoggingPlugin();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v23 = MTDeviceGetDeviceID();
+    v25 = MTLoggingPlugin(v23, v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      v22 = eventCopy[2];
+      v26 = eventCopy[2];
       *buf = 67109632;
-      *v24 = v22;
-      *&v24[4] = 1024;
-      *&v24[6] = v20;
-      *&v24[10] = 2048;
-      *&v24[12] = 0;
-      _os_log_impl(&dword_0, v21, OS_LOG_TYPE_ERROR, "Actuation(id=%d) failed to play with error 0x%08X (deviceID 0x%llX)", buf, 0x18u);
+      *v30 = v26;
+      *&v30[4] = 1024;
+      *&v30[6] = v22;
+      *&v30[10] = 2048;
+      *&v30[12] = 0;
+      _os_log_impl(&dword_0, v25, OS_LOG_TYPE_ERROR, "Actuation(id=%d) failed to play with error 0x%08X (deviceID 0x%llX)", buf, 0x18u);
     }
 
 LABEL_10:
@@ -599,20 +599,20 @@ LABEL_11:
 
   else
   {
-    v9 = 0;
-    MTDeviceGetDeviceID();
-    v7 = MTLoggingPlugin();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v11 = 0;
+    DeviceID = MTDeviceGetDeviceID();
+    v9 = MTLoggingPlugin(DeviceID, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v11 = v9;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_ERROR, "Received nil host state event (deviceID 0x%llX)", buf, 0xCu);
+      v13 = v11;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "Received nil host state event (deviceID 0x%llX)", buf, 0xCu);
     }
   }
 
-  v8.receiver = self;
-  v8.super_class = TrackpadActuatorStage;
-  [(HSStage *)&v8 handleConsume:v5];
+  v10.receiver = self;
+  v10.super_class = TrackpadActuatorStage;
+  [(HSStage *)&v10 handleConsume:v5];
 }
 
 - (BOOL)supportsActuationLimits
@@ -637,50 +637,50 @@ LABEL_11:
 {
   if (self->_displayState == 1)
   {
-    MTDeviceGetDeviceID();
-    v3 = MTLoggingPlugin();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    DeviceID = MTDeviceGetDeviceID();
+    v5 = MTLoggingPlugin(DeviceID, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      *v9 = 0;
-      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Handing off host click control (deviceID 0x%llX)", buf, 0xCu);
+      *v15 = 0;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Handing off host click control (deviceID 0x%llX)", buf, 0xCu);
     }
 
-    v4 = MTActuatorHandoffHostClickControl();
-    if (!v4)
+    v6 = MTActuatorHandoffHostClickControl();
+    if (!v6)
     {
       return;
     }
 
 LABEL_9:
-    MTDeviceGetDeviceID();
-    v6 = MTLoggingPlugin();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v10 = MTDeviceGetDeviceID();
+    v12 = MTLoggingPlugin(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       displayState = self->_displayState;
       *buf = 16777984;
-      LOBYTE(v9[0]) = displayState;
-      *(v9 + 1) = 1024;
-      *(v9 + 3) = v4;
-      *(&v9[1] + 3) = 2048;
-      *(&v9[2] + 1) = 0;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "Failed to update host click control displayState=%hhu status=0x%08X (deviceID 0x%llX)", buf, 0x15u);
+      LOBYTE(v15[0]) = displayState;
+      *(v15 + 1) = 1024;
+      *(v15 + 3) = v6;
+      *(&v15[1] + 3) = 2048;
+      *(&v15[2] + 1) = 0;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_ERROR, "Failed to update host click control displayState=%hhu status=0x%08X (deviceID 0x%llX)", buf, 0x15u);
     }
 
     return;
   }
 
-  MTDeviceGetDeviceID();
-  v5 = MTLoggingPlugin();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v7 = MTDeviceGetDeviceID();
+  v9 = MTLoggingPlugin(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    *v9 = 0;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Reclaiming host click control (deviceID 0x%llX)", buf, 0xCu);
+    *v15 = 0;
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Reclaiming host click control (deviceID 0x%llX)", buf, 0xCu);
   }
 
-  v4 = MTActuatorReclaimHostClickControl();
-  if (v4)
+  v6 = MTActuatorReclaimHostClickControl();
+  if (v6)
   {
     goto LABEL_9;
   }
@@ -692,18 +692,19 @@ LABEL_9:
   Service = MTActuatorGetService();
   IORegistryEntryGetRegistryEntryID(Service, &self->_actuatorEntryID);
   v4 = MTActuatorOpen();
+  v6 = v4;
   if (v4)
   {
-    v5 = MTLoggingPlugin();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = MTLoggingPlugin(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(TrackpadActuatorStage *)v4 _openActuatorDevice];
+      [(TrackpadActuatorStage *)v6 _openActuatorDevice];
     }
   }
 
   self->_actuationsEnabled = MTActuatorGetSystemActuationsEnabled();
   [(TrackpadActuatorStage *)self _updateHostClickControl];
-  return v4;
+  return v6;
 }
 
 - (unsigned)getActuationOptions:(int)options quietClick:(BOOL)click
@@ -735,15 +736,15 @@ LABEL_9:
   if ([(TrackpadActuatorStage *)self supportsActuationLimits])
   {
     Report = MTActuatorGetReport();
-    MTDeviceGetDeviceID();
-    v5 = MTLoggingPlugin();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    DeviceID = MTDeviceGetDeviceID();
+    v7 = MTLoggingPlugin(DeviceID, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109376;
-      v8 = Report;
-      v9 = 2048;
-      v10 = 0;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "Failed to fetch device published actuation limits with error 0x%08X (deviceID 0x%llX)", buf, 0x12u);
+      v10 = Report;
+      v11 = 2048;
+      v12 = 0;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_ERROR, "Failed to fetch device published actuation limits with error 0x%08X (deviceID 0x%llX)", buf, 0x12u);
     }
   }
 
@@ -755,22 +756,23 @@ LABEL_9:
   v5 = IOIteratorNext(matching);
   if (v5)
   {
-    v6 = v5;
-    v7 = 0;
+    v7 = v5;
+    v8 = 0;
     do
     {
-      *v11 = 0;
-      if (!IORegistryEntryGetRegistryEntryID(v6, v11))
+      *v14 = 0;
+      if (!IORegistryEntryGetRegistryEntryID(v7, v14))
       {
-        v7 |= *v11 == self->_actuatorEntryID;
+        v8 |= *v14 == self->_actuatorEntryID;
       }
 
-      IOObjectRelease(v6);
-      v6 = IOIteratorNext(matching);
+      IOObjectRelease(v7);
+      v5 = IOIteratorNext(matching);
+      v7 = v5;
     }
 
-    while (v6);
-    if (v7)
+    while (v5);
+    if (v8)
     {
       goto LABEL_15;
     }
@@ -779,10 +781,10 @@ LABEL_9:
   if (!self->_mtDevice)
   {
 LABEL_15:
-    v8 = MTLoggingPlugin();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v11 = MTLoggingPlugin(v5, v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      [(TrackpadActuatorStage *)self handleActMatching:v8];
+      [(TrackpadActuatorStage *)self handleActMatching:v11];
     }
   }
 
@@ -796,26 +798,26 @@ LABEL_15:
       self->_actDevice = 0;
     }
 
-    [(TrackpadActuatorStage *)self _openActuatorDevice];
-    v8 = MTLoggingPlugin();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    _openActuatorDevice = [(TrackpadActuatorStage *)self _openActuatorDevice];
+    v11 = MTLoggingPlugin(_openActuatorDevice, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       actuatorEntryID = self->_actuatorEntryID;
       if (self->_actuationsEnabled)
       {
-        v10 = "YES";
+        v13 = "YES";
       }
 
       else
       {
-        v10 = "NO";
+        v13 = "NO";
       }
 
-      *v11 = 134218242;
-      *&v11[4] = actuatorEntryID;
-      v12 = 2080;
-      v13 = v10;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Actuator matched - 0x%08llx, actuations enabled : %s", v11, 0x16u);
+      *v14 = 134218242;
+      *&v14[4] = actuatorEntryID;
+      v15 = 2080;
+      v16 = v13;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Actuator matched - 0x%08llx, actuations enabled : %s", v14, 0x16u);
     }
   }
 }
@@ -842,12 +844,13 @@ LABEL_15:
           CFDictionarySetValue(v8, @"Multitouch Actuator ID", v6);
           CFDictionarySetValue(Mutable, @"IOPropertyMatch", v9);
           CFRetain(Mutable);
-          if (IOServiceAddMatchingNotification(self->_actuatorMatchedNotifierPortRef, "IOServiceFirstMatch", Mutable, actMatchedCallback, self, &self->_actuatorMatchedIterator))
+          v10 = IOServiceAddMatchingNotification(self->_actuatorMatchedNotifierPortRef, "IOServiceFirstMatch", Mutable, actMatchedCallback, self, &self->_actuatorMatchedIterator);
+          if (v10)
           {
-            v10 = MTLoggingPlugin();
-            if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+            v12 = MTLoggingPlugin(v10, v11);
+            if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
             {
-              [TrackpadActuatorStage setQueue:v10];
+              [TrackpadActuatorStage setQueue:v12];
             }
           }
 

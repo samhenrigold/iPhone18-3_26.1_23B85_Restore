@@ -27,15 +27,15 @@
   v11 = [(HMDNetworkMismatchDetectorResult *)&v19 init];
   if (v11)
   {
-    v12 = [fiCopy copy];
+    v12 = objc_msgSend_copy(fiCopy);
     accessoriesNotOnWiFi = v11->_accessoriesNotOnWiFi;
     v11->_accessoriesNotOnWiFi = v12;
 
-    v14 = [residentCopy copy];
+    v14 = objc_msgSend_copy(residentCopy);
     accessoriesNotOnWiFiAndNotConnectingToPrimaryResident = v11->_accessoriesNotOnWiFiAndNotConnectingToPrimaryResident;
     v11->_accessoriesNotOnWiFiAndNotConnectingToPrimaryResident = v14;
 
-    v16 = [diagnosticCopy copy];
+    v16 = objc_msgSend_copy(diagnosticCopy);
     accessoriesReportingDiagnostic = v11->_accessoriesReportingDiagnostic;
     v11->_accessoriesReportingDiagnostic = v16;
   }

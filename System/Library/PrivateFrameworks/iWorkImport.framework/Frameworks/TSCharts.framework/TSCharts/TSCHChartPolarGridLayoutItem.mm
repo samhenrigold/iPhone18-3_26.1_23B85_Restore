@@ -42,7 +42,7 @@
 
 - (id)renderersWithRep:(id)rep
 {
-  sub_2764A0458(&qword_280A46378);
+  sub_2764A0458(&qword_280A46378, &qword_2764FC500);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_2764FC4F0;
   v6 = objc_allocWithZone(TSCHChartPolarGridRenderer);
@@ -51,7 +51,7 @@
   *(v5 + 32) = [v6 initWithChartRep:rep layoutItem:selfCopy];
   swift_unknownObjectRelease();
 
-  sub_2764A12F8(0, &qword_280A46380);
+  sub_2764A12F8(0, &qword_280A46380, off_27A6B5B90);
   v8 = sub_2764B1218();
 
   return v8;

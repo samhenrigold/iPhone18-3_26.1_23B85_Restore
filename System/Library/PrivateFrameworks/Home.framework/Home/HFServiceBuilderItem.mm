@@ -27,8 +27,8 @@
 - (HFServiceBuilderItem)initWithServiceBuilder:(id)builder
 {
   builderCopy = builder;
-  home = [builderCopy home];
-  hf_characteristicValueManager = [home hf_characteristicValueManager];
+  v5 = objc_msgSend_home(builderCopy);
+  hf_characteristicValueManager = [v5 hf_characteristicValueManager];
   v7 = [(HFServiceBuilderItem *)self initWithServiceBuilder:builderCopy valueSource:hf_characteristicValueManager];
 
   return v7;
@@ -43,8 +43,8 @@
   v9 = [(HFServiceBuilderItem *)&v14 init];
   if (v9)
   {
-    service = [builderCopy service];
-    v11 = [HFServiceItem serviceItemForService:service valueSource:sourceCopy];
+    v10 = objc_msgSend_service(builderCopy);
+    v11 = [HFServiceItem serviceItemForService:v10 valueSource:sourceCopy];
     serviceItem = v9->_serviceItem;
     v9->_serviceItem = v11;
 
@@ -162,9 +162,9 @@ id __52__HFServiceBuilderItem__subclass_updateWithOptions___block_invoke(uint64_
 - (HMHome)home
 {
   serviceItem = [(HFServiceBuilderItem *)self serviceItem];
-  home = [serviceItem home];
+  v3 = objc_msgSend_home(serviceItem);
 
-  return home;
+  return v3;
 }
 
 - (id)namingComponentForHomeKitObject

@@ -43,6 +43,7 @@
 - (void)onAODRoutineForDisplayMode:(int64_t)mode transitionParameters:(id *)parameters;
 - (void)onSuppresedAODRoutine;
 - (void)prepareForEnterToAODRoutine;
+- (void)reevaluatePThresholdsForLux:(float)lux;
 - (void)releaseDisplayModeCompletionTimer;
 - (void)scheduleDisplayModeCompletionTimerIn:(float)in forDisplayMode:(int64_t)mode;
 - (void)sendNotificationForKey:(id)key andValue:(id)value;
@@ -123,8 +124,7 @@
     {
 LABEL_25:
       MEMORY[0x1E69E5920](selfCopy);
-      v27 = 0;
-      goto LABEL_26;
+      return 0;
     }
 
     selfCopy->_brtCtl = controlCopy;
@@ -223,10 +223,7 @@ LABEL_25:
     }
   }
 
-  v27 = selfCopy;
-LABEL_26:
-  *MEMORY[0x1E69E9840];
-  return v27;
+  return selfCopy;
 }
 
 - (void)dealloc
@@ -302,8 +299,6 @@ LABEL_26:
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)copyPropertyForKey:(id)key
@@ -432,8 +427,6 @@ LABEL_26:
     v14 = selfCopy;
     dispatch_async(v6, &v9);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setProperty:(id)property forKey:(id)key
@@ -807,9 +800,7 @@ LABEL_26:
   v48 = v48 || v4;
   v5 = +[CBAODState sharedInstance];
   v6 = [(CBAODState *)v5 setProperty:propertyCopy forKey:keyCopy];
-  v48 = v48 || v6;
-  *MEMORY[0x1E69E9840];
-  return v48;
+  return v48 || v6;
 }
 
 - (void)start
@@ -868,18 +859,17 @@ LABEL_26:
   }
 
   MEMORY[0x1E69E5920](v7);
-  *MEMORY[0x1E69E9840];
 }
 
-uint64_t __20__CBAODModule_start__block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+void *__20__CBAODModule_start__block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
   v5 = result;
   v9 = *MEMORY[0x1E69E9840];
   if (a2 && a3)
   {
-    if (*(*(result + 32) + 16))
+    if (*(result[4] + 16))
     {
-      v4 = *(*(result + 32) + 16);
+      v4 = *(result[4] + 16);
     }
 
     else
@@ -903,22 +893,21 @@ uint64_t __20__CBAODModule_start__block_invoke(uint64_t result, uint64_t a2, uin
       _os_log_debug_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_DEBUG, "Notification block key=%@, value=%@\n", v8, 0x16u);
     }
 
-    result = [*(v5 + 32) sendNotificationForKey:a2 andValue:a3];
+    return [v5[4] sendNotificationForKey:a2 andValue:a3];
   }
 
-  *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t __20__CBAODModule_start__block_invoke_76(uint64_t result, uint64_t a2, uint64_t a3)
+void *__20__CBAODModule_start__block_invoke_76(void *result, uint64_t a2, uint64_t a3)
 {
   v5 = result;
   v9 = *MEMORY[0x1E69E9840];
   if (a2 && a3)
   {
-    if (*(*(result + 32) + 16))
+    if (*(result[4] + 16))
     {
-      v4 = *(*(result + 32) + 16);
+      v4 = *(result[4] + 16);
     }
 
     else
@@ -942,10 +931,9 @@ uint64_t __20__CBAODModule_start__block_invoke_76(uint64_t result, uint64_t a2, 
       _os_log_debug_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_DEBUG, "Notification block key=%@, value=%@\n", v8, 0x16u);
     }
 
-    result = [*(v5 + 32) sendNotificationForKey:a2 andValue:a3];
+    return [v5[4] sendNotificationForKey:a2 andValue:a3];
   }
 
-  *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -975,7 +963,7 @@ uint64_t __20__CBAODModule_start__block_invoke_76(uint64_t result, uint64_t a2, 
   return v5;
 }
 
-uint64_t __41__CBAODModule_copyModulesPropertyForKey___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__41__CBAODModule_copyModulesPropertyForKey___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   if ([a2 conformsToProtocol:&unk_1F59CBED8])
   {
@@ -1021,7 +1009,7 @@ uint64_t __41__CBAODModule_copyModulesPropertyForKey___block_invoke(uint64_t a1,
   return v5 & 1;
 }
 
-uint64_t __41__CBAODModule_setModulesProperty_forKey___block_invoke(void *a1, void *a2)
+void *__41__CBAODModule_setModulesProperty_forKey___block_invoke(void *a1, void *a2)
 {
   if ([a2 conformsToProtocol:&unk_1F59CBED8] & 1) != 0 || (result = objc_msgSend(a2, "conformsToProtocol:", &unk_1F59CFD60), (result))
   {
@@ -1063,14 +1051,15 @@ uint64_t __41__CBAODModule_setModulesProperty_forKey___block_invoke(void *a1, vo
 
   [(NSMutableArray *)self->_modules addObject:module];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && self->_transitionController)
+  if (objc_opt_isKindOfClass())
   {
-    v5 = [module copyPropertyForKey:@"IndicatorModule"];
-    [(CBAODTransitionController *)self->_transitionController setIndicator:v5];
-    MEMORY[0x1E69E5920](v5);
+    if (self->_transitionController)
+    {
+      v5 = [module copyPropertyForKey:@"IndicatorModule"];
+      [(CBAODTransitionController *)self->_transitionController setIndicator:v5];
+      MEMORY[0x1E69E5920](v5);
+    }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)handleFlipBookStatePropertyHandler:(id)handler
@@ -1237,8 +1226,7 @@ uint64_t __41__CBAODModule_setModulesProperty_forKey___block_invoke(void *a1, vo
     }
   }
 
-  *MEMORY[0x1E69E9840];
-  return v14 & 1;
+  return v14;
 }
 
 - (BOOL)handleDisplayNitsOverridePropertyHandler:(id)handler
@@ -1277,7 +1265,7 @@ uint64_t __41__CBAODModule_setModulesProperty_forKey___block_invoke(void *a1, vo
     transitionController = self->_transitionController;
     [handler floatValue];
     [(CBAODTransitionController *)transitionController setNitsOverride:?];
-    v12 = [(CBAODModule *)self performUpdate:0.0];
+    return [(CBAODModule *)self performUpdate:0.0];
   }
 
   else
@@ -1301,12 +1289,11 @@ uint64_t __41__CBAODModule_setModulesProperty_forKey___block_invoke(void *a1, vo
         }
 
         LODWORD(v3) = v9;
-        v12 = [(CBAODModule *)self performUpdate:v3];
+        return [(CBAODModule *)self performUpdate:v3];
       }
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -1379,19 +1366,18 @@ uint64_t __41__CBAODModule_setModulesProperty_forKey___block_invoke(void *a1, vo
     self->_aabSensorOverrideFilter = [[CBSensorOverrideFilter alloc] initWithData:handler];
   }
 
-  *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (void)handleSystemDidWakeFromSleepPropertyHandler:(id)handler
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v37[2] = a2;
-  v37[1] = handler;
+  v38[2] = a2;
+  v38[1] = handler;
   strcpy(__s2, "aop_threshold_als");
-  v37[0] = 128;
-  if (!sysctlbyname("kern.wakereason", __s1, v37, 0, 0))
+  v38[0] = 128;
+  if (!sysctlbyname("kern.wakereason", __s1, v38, 0, 0))
   {
     if (selfCopy->super._logHandle)
     {
@@ -1413,49 +1399,49 @@ uint64_t __41__CBAODModule_setModulesProperty_forKey___block_invoke(void *a1, vo
       logHandle = inited;
     }
 
-    v35 = logHandle;
+    v36 = logHandle;
     type = OS_LOG_TYPE_DEFAULT;
     if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
     {
-      log = v35;
-      *v20 = type;
-      buf = v40;
-      __os_log_helper_16_2_1_8_32(v40, __s1);
-      _os_log_impl(&dword_1DE8E5000, v35, type, "AP Wake. Reason: %s", v40, 0xCu);
+      log = v36;
+      *v21 = type;
+      buf = v41;
+      __os_log_helper_16_2_1_8_32(v41, __s1);
+      _os_log_impl(&dword_1DE8E5000, v36, type, "AP Wake. Reason: %s", v41, 0xCu);
     }
 
     if (strstr(__s1, __s2))
     {
       if (selfCopy->super._logHandle)
       {
-        v18 = selfCopy->super._logHandle;
+        v19 = selfCopy->super._logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v17 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v18 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v17 = init_default_corebrightness_log();
+          v18 = init_default_corebrightness_log();
         }
 
-        v18 = v17;
+        v19 = v18;
       }
 
-      oslog = v18;
-      v32 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      oslog = v19;
+      v33 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = oslog;
-        *v15 = v32;
+        v15 = oslog;
+        *v16 = v33;
         currentALSEvent = selfCopy->_currentALSEvent;
         if (currentALSEvent)
         {
-          [(CBALSEvent *)currentALSEvent vendorData];
+          objc_msgSend_vendorData(currentALSEvent, v14);
         }
 
         else
@@ -1463,50 +1449,50 @@ uint64_t __41__CBAODModule_setModulesProperty_forKey___block_invoke(void *a1, vo
           memset(__b, 0, sizeof(__b));
         }
 
-        v13 = v39;
-        __os_log_helper_16_0_1_8_0(v39, COERCE__INT64(*&__b[20]));
-        _os_log_impl(&dword_1DE8E5000, v14, v15[0], "Wake reason aop_threshold_als: lux value = %f", v39, 0xCu);
+        v13 = v40;
+        __os_log_helper_16_0_1_8_0(v40, COERCE__INT64(*&__b[20]));
+        _os_log_impl(&dword_1DE8E5000, v15, v16[0], "Wake reason aop_threshold_als: lux value = %f", v40, 0xCu);
       }
 
-      v30 = [(CBAODModule *)selfCopy copyModulesPropertyForKey:@"CBAmbientLightTelemetry"];
-      v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:__s1];
+      v31 = [(CBAODModule *)selfCopy copyModulesPropertyForKey:@"CBAmbientLightTelemetry"];
+      v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:__s1];
       v11 = objc_alloc(MEMORY[0x1E696AD98]);
       v12 = selfCopy->_currentALSEvent;
       if (v12)
       {
-        [(CBALSEvent *)v12 vendorData];
+        objc_msgSend_vendorData(v12, v14);
       }
 
       else
       {
-        memset(v27, 0, sizeof(v27));
+        memset(v28, 0, sizeof(v28));
       }
 
-      LODWORD(v3) = *&v27[20];
-      v28 = [v11 initWithFloat:v3];
+      LODWORD(v3) = *&v28[20];
+      v29 = [v11 initWithFloat:v3];
       v7 = 0x1E696A000uLL;
       v6 = objc_alloc(MEMORY[0x1E696AD98]);
       v8 = &OBJC_IVAR___CBAODState__thresholdsAPDeltaPBrightenBuckets;
       [(CBAODThresholdModule *)selfCopy->_thresholdModule dimLuxThreshold];
-      v26 = [v6 initWithFloat:?];
+      v27 = [v6 initWithFloat:?];
       v9 = objc_alloc(*(v7 + 3480));
       [*(&selfCopy->super.super.isa + v8[58]) brightenLuxThreshold];
-      v25 = [v9 initWithFloat:?];
+      v26 = [v9 initWithFloat:?];
       v4 = objc_alloc(MEMORY[0x1E695DF90]);
       v10 = &v5;
-      v24 = [v4 initWithObjectsAndKeys:{v29, @"WakeReason", v28, @"Lux", v26, @"DimThreshold", v25, @"BrightenThreshold", 0}];
-      if (v30)
+      v25 = [v4 initWithObjectsAndKeys:{v30, @"WakeReason", v29, @"Lux", v27, @"DimThreshold", v26, @"BrightenThreshold", 0}];
+      if (v31)
       {
-        [v24 setObject:v30 forKey:@"ALSSamplesBeforeWake"];
+        [v25 setObject:v31 forKey:@"ALSSamplesBeforeWake"];
       }
 
-      [(CBAODModule *)selfCopy sendNotificationForKey:@"AODWakeFromALSThreshold" andValue:v24];
+      [(CBAODModule *)selfCopy sendNotificationForKey:@"AODWakeFromALSThreshold" andValue:v25];
+      MEMORY[0x1E69E5920](v31);
       MEMORY[0x1E69E5920](v30);
       MEMORY[0x1E69E5920](v29);
-      MEMORY[0x1E69E5920](v28);
+      MEMORY[0x1E69E5920](v27);
       MEMORY[0x1E69E5920](v26);
       MEMORY[0x1E69E5920](v25);
-      MEMORY[0x1E69E5920](v24);
     }
   }
 
@@ -1514,8 +1500,6 @@ uint64_t __41__CBAODModule_setModulesProperty_forKey___block_invoke(void *a1, vo
   {
     [(CBAODModule *)selfCopy copyAndHandleEvent];
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __41__CBAODModule_performUpdate_forceUpdate___block_invoke(uint64_t a1)
@@ -1644,17 +1628,17 @@ uint64_t __53__CBAODModule_performUpdateWithTransitionParameters___block_invoke(
   return v16 & 1;
 }
 
-void __91__CBAODModule_performUpdateWithTransitionParameters_rampDoneCallback_rampCanceledCallback___block_invoke(uint64_t a1)
+double __91__CBAODModule_performUpdateWithTransitionParameters_rampDoneCallback_rampCanceledCallback___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
+  v29 = a1;
   v28 = a1;
-  v27 = a1;
   if ([+[CBAODState AODState]== 1 && (*(*(a1 + 32) + 136) & 1) == 0 || (*(a1 + 56) & 1) != 0 sharedInstance]
   {
-    v26 = [*(a1 + 32) copyModulesInfo:0];
+    v27 = [*(a1 + 32) copyModulesInfo:0];
     if (*(*(a1 + 32) + 16))
     {
-      v15 = *(*(a1 + 32) + 16);
+      v16 = *(*(a1 + 32) + 16);
     }
 
     else
@@ -1669,59 +1653,59 @@ void __91__CBAODModule_performUpdateWithTransitionParameters_rampDoneCallback_ra
         inited = init_default_corebrightness_log();
       }
 
-      v15 = inited;
+      v16 = inited;
     }
 
-    v25 = v15;
-    v24 = OS_LOG_TYPE_DEBUG;
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v26 = v16;
+    v25 = OS_LOG_TYPE_DEBUG;
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      __os_log_helper_16_2_1_8_64(v30, v26);
-      _os_log_debug_impl(&dword_1DE8E5000, v25, v24, "CB features update for Collected modules info \n %@", v30, 0xCu);
+      __os_log_helper_16_2_1_8_64(v31, v27);
+      _os_log_debug_impl(&dword_1DE8E5000, v26, v25, "CB features update for Collected modules info \n %@", v31, 0xCu);
     }
 
-    v11 = *(*(a1 + 32) + 48);
-    v12 = *(a1 + 40);
-    v13 = *(a1 + 48);
+    v12 = *(*(a1 + 32) + 48);
+    v13 = *(a1 + 40);
+    v14 = *(a1 + 48);
     memcpy(__dst, (a1 + 56), 0x34uLL);
-    v23 = [v11 startTransition:v26 transitionParameters:__dst rampDoneCallback:v12 rampCanceledCallback:v13];
-    if (v23)
+    v24 = [v12 startTransition:v27 transitionParameters:__dst rampDoneCallback:v13 rampCanceledCallback:v14];
+    if (v24)
     {
       if (*(*(a1 + 32) + 16))
       {
-        v6 = *(*(a1 + 32) + 16);
+        v7 = *(*(a1 + 32) + 16);
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v5 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v6 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v5 = init_default_corebrightness_log();
+          v6 = init_default_corebrightness_log();
         }
 
-        v6 = v5;
+        v7 = v6;
       }
 
-      v19 = v6;
-      v18 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v20 = v7;
+      v19 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v3 = v19;
-        v4 = v18;
-        __os_log_helper_16_0_0(v17);
-        _os_log_impl(&dword_1DE8E5000, v3, v4, "This change doesn't trigger transition.", v17, 2u);
+        v4 = v20;
+        v5 = v19;
+        __os_log_helper_16_0_0(v18);
+        _os_log_impl(&dword_1DE8E5000, v4, v5, "This change doesn't trigger transition.", v18, 2u);
       }
     }
 
     else
     {
       [*(*(a1 + 32) + 48) remainingTransitionLength];
-      if (v1 <= 0.0)
+      if (v2 <= 0.0)
       {
         if (*(a1 + 40))
         {
@@ -1733,44 +1717,44 @@ void __91__CBAODModule_performUpdateWithTransitionParameters_rampDoneCallback_ra
       {
         if (*(*(a1 + 32) + 16))
         {
-          v10 = *(*(a1 + 32) + 16);
+          v11 = *(*(a1 + 32) + 16);
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v9 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v10 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v9 = init_default_corebrightness_log();
+            v10 = init_default_corebrightness_log();
           }
 
-          v10 = v9;
+          v11 = v10;
         }
 
-        v21 = v10;
-        v20 = OS_LOG_TYPE_DEFAULT;
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v22 = v11;
+        v21 = OS_LOG_TYPE_DEFAULT;
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           [*(*(a1 + 32) + 48) remainingTransitionLength];
-          __os_log_helper_16_0_1_8_0(v29, COERCE__INT64(v2));
-          _os_log_impl(&dword_1DE8E5000, v21, v20, "Detected unfinished transition -> force to ramp to the target in remaining time = %f.", v29, 0xCu);
+          __os_log_helper_16_0_1_8_0(v30, COERCE__INT64(v3));
+          _os_log_impl(&dword_1DE8E5000, v22, v21, "Detected unfinished transition -> force to ramp to the target in remaining time = %f.", v30, 0xCu);
         }
 
-        v7 = *(*(a1 + 32) + 48);
-        v8 = v26;
-        [v7 remainingTransitionLength];
-        [v7 startTransition:v8 length:1 forceUpdate:*(a1 + 40) rampDoneCallback:*(a1 + 48) rampCanceledCallback:?];
+        v8 = *(*(a1 + 32) + 48);
+        v9 = v27;
+        [v8 remainingTransitionLength];
+        [v8 startTransition:v9 length:1 forceUpdate:*(a1 + 40) rampDoneCallback:*(a1 + 48) rampCanceledCallback:?];
       }
     }
 
-    MEMORY[0x1E69E5920](v26);
+    *&result = MEMORY[0x1E69E5920](v27).n128_u64[0];
   }
 
-  *MEMORY[0x1E69E9840];
+  return result;
 }
 
 - (BOOL)handleDisplayModeUpdate:(id)update
@@ -2061,7 +2045,6 @@ LABEL_45:
 LABEL_68:
   objc_autoreleasePoolPop(context);
   selfCopy->_currentDisplayMode = updateCopy;
-  *MEMORY[0x1E69E9840];
   return v56 & 1;
 }
 
@@ -2193,7 +2176,6 @@ uint64_t __56__CBAODModule_handleDisplayModeUpdate_transitionLength___block_invo
 
   [(CBAODModule *)selfCopy setModulesProperty:&unk_1F59C8E08 forKey:@"ForceModuleUpdate", v6];
   objc_autoreleasePoolPop(context);
-  *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -2330,7 +2312,6 @@ uint64_t __56__CBAODModule_handleDisplayModeUpdate_transitionLength___block_invo
   }
 
   objc_autoreleasePoolPop(context);
-  *MEMORY[0x1E69E9840];
   return v27 & 1;
 }
 
@@ -2513,7 +2494,6 @@ uint64_t __56__CBAODModule_handleDisplayModeUpdate_transitionLength___block_invo
   [(CBAODTransitionController *)selfCopy->_transitionController setInitialState:v23];
   MEMORY[0x1E69E5920](v23);
   objc_autoreleasePoolPop(v21);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)enteringAODRoutineForDisplayMode:(int64_t)mode transitionParameters:(id *)parameters
@@ -2695,7 +2675,6 @@ uint64_t __56__CBAODModule_handleDisplayModeUpdate_transitionLength___block_invo
 
   MEMORY[0x1E69E5920](v49);
   objc_autoreleasePoolPop(context);
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __69__CBAODModule_enteringAODRoutineForDisplayMode_transitionParameters___block_invoke(void *a1)
@@ -3002,7 +2981,6 @@ uint64_t __69__CBAODModule_enteringAODRoutineForDisplayMode_transitionParameters
 
   MEMORY[0x1E69E5920](v37);
   objc_autoreleasePoolPop(context);
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __68__CBAODModule_enteringSuppressedAODRoutineWithTransitionParameters___block_invoke(uint64_t a1)
@@ -3352,7 +3330,6 @@ uint64_t __68__CBAODModule_enteringSuppressedAODRoutineWithTransitionParameters_
 
   MEMORY[0x1E69E5920](v50);
   objc_autoreleasePoolPop(context);
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __68__CBAODModule_exitingAODRoutineForDisplayMode_transitionParameters___block_invoke(void *a1)
@@ -3588,8 +3565,6 @@ uint64_t __68__CBAODModule_exitingAODRoutineForDisplayMode_transitionParameters_
     [(CBAODModule *)selfCopy setProperty:&unk_1F59C8E80 forKey:@"FlipBookState"];
     [(CBAODModule *)selfCopy setProperty:&unk_1F59C8E98 forKey:v3];
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)copyModulesInfo:(BOOL)info
@@ -3722,11 +3697,9 @@ double __31__CBAODModule_copyModulesInfo___block_invoke(uint64_t a1, uint64_t a2
     v14 = contextCopy;
     [(NSMutableArray *)modules enumerateObjectsUsingBlock:&v9];
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
-uint64_t __66__CBAODModule_updateModulesAODState_transitionParameters_context___block_invoke(uint64_t a1, void *a2)
+void *__66__CBAODModule_updateModulesAODState_transitionParameters_context___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 conformsToProtocol:&unk_1F59CC0D0];
   if (result)
@@ -3741,8 +3714,8 @@ uint64_t __66__CBAODModule_updateModulesAODState_transitionParameters_context___
 
 - (BOOL)addHIDServiceClient:(__IOHIDServiceClient *)client
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v9 = 0;
+  v12 = *MEMORY[0x1E69E9840];
+  v8 = 0;
   if (([(__IOHIDServiceClient *)client conformsToUsagePage:65280 usage:4]& 1) != 0)
   {
     if (self->super._logHandle)
@@ -3767,8 +3740,8 @@ uint64_t __66__CBAODModule_updateModulesAODState_transitionParameters_context___
 
     if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
     {
-      __os_log_helper_16_2_1_8_64(v12, client);
-      _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "Received ALS service - save it! %@", v12, 0xCu);
+      __os_log_helper_16_2_1_8_64(v11, client);
+      _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "Received ALS service - save it! %@", v11, 0xCu);
     }
 
     if (([(NSMutableArray *)self->_alsServiceClients containsObject:client]& 1) == 0)
@@ -3776,24 +3749,22 @@ uint64_t __66__CBAODModule_updateModulesAODState_transitionParameters_context___
       [(NSMutableArray *)self->_alsServiceClients addObject:client];
       if ([+[CBAODState isDCPBasedAODSupported] sharedInstance]
       {
-        v5 = MEMORY[0x1E695E4C0];
+        v4 = MEMORY[0x1E695E4C0];
         [(CBAODModule *)self setALSServiceProperty:*MEMORY[0x1E695E4C0] forKey:@"CBAODSendSamplesToDCP"];
-        [(CBAODModule *)self setALSServiceProperty:*v5 forKey:@"AODALSMode"];
+        [(CBAODModule *)self setALSServiceProperty:*v4 forKey:@"AODALSMode"];
       }
     }
 
-    v9 = 1;
+    v8 = 1;
   }
 
-  v4 = (v9 & 1 | [(CBAODThresholdModule *)self->_thresholdModule addHIDServiceClient:client]) != 0;
-  *MEMORY[0x1E69E9840];
-  return v4;
+  return (v8 & 1 | [(CBAODThresholdModule *)self->_thresholdModule addHIDServiceClient:client]) != 0;
 }
 
 - (BOOL)removeHIDServiceClient:(__IOHIDServiceClient *)client
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v8 = 0;
+  v11 = *MEMORY[0x1E69E9840];
+  v7 = 0;
   if (([(NSMutableArray *)self->_alsServiceClients containsObject:client]& 1) != 0)
   {
     if (self->super._logHandle)
@@ -3818,17 +3789,15 @@ uint64_t __66__CBAODModule_updateModulesAODState_transitionParameters_context___
 
     if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
     {
-      __os_log_helper_16_2_1_8_64(v11, client);
-      _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "Remove ALS service! %@", v11, 0xCu);
+      __os_log_helper_16_2_1_8_64(v10, client);
+      _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "Remove ALS service! %@", v10, 0xCu);
     }
 
     [(NSMutableArray *)self->_alsServiceClients removeObject:client];
-    v8 = 1;
+    v7 = 1;
   }
 
-  v4 = (v8 & 1 | [(CBAODThresholdModule *)self->_thresholdModule removeHIDServiceClient:client]) != 0;
-  *MEMORY[0x1E69E9840];
-  return v4;
+  return (v7 & 1 | [(CBAODThresholdModule *)self->_thresholdModule removeHIDServiceClient:client]) != 0;
 }
 
 - (BOOL)handleHIDEvent:(__IOHIDEvent *)event from:(__IOHIDServiceClient *)from transitionLength:(float)length forceUpdate:(BOOL)update
@@ -3939,11 +3908,10 @@ uint64_t __66__CBAODModule_updateModulesAODState_transitionParameters_context___
       [(CBAODModule *)selfCopy performUpdateWithTransitionParameters:__dst];
     }
 
-    v13 = 1;
+    return 1;
   }
 
-  *MEMORY[0x1E69E9840];
-  return v13 & 1;
+  return v13;
 }
 
 - (BOOL)copyAndHandleEventWithTransitionLength:(float)length forceUpdate:(BOOL)update
@@ -4151,11 +4119,9 @@ void __58__CBAODModule_copyAndHandleEventWithTransitionParameters___block_invoke
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
-uint64_t __58__CBAODModule_copyAndHandleEventWithTransitionParameters___block_invoke_302(uint64_t a1, void *a2)
+void *__58__CBAODModule_copyAndHandleEventWithTransitionParameters___block_invoke_302(uint64_t a1, void *a2)
 {
   result = [a2 conformsToProtocol:&unk_1F59CC038];
   if (result)
@@ -4174,7 +4140,7 @@ uint64_t __58__CBAODModule_copyAndHandleEventWithTransitionParameters___block_in
   if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     [v7 floatValue];
-    v8 = v4;
+    return v4;
   }
 
   else
@@ -4187,7 +4153,6 @@ uint64_t __58__CBAODModule_copyAndHandleEventWithTransitionParameters___block_in
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -4202,7 +4167,7 @@ uint64_t __58__CBAODModule_copyAndHandleEventWithTransitionParameters___block_in
     if (v9 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
       [v9 floatValue];
-      v11 = v5;
+      return v5;
     }
 
     else
@@ -4226,32 +4191,31 @@ uint64_t __58__CBAODModule_copyAndHandleEventWithTransitionParameters___block_in
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (int64_t)getIntegerValueFrom:(id)from key:(id)key
 {
   v11 = *MEMORY[0x1E69E9840];
-  integerValue = 0;
+  v7 = 0;
   v6 = [from objectForKey:key];
-  if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  if (v6)
   {
-    integerValue = [v6 integerValue];
-  }
-
-  else
-  {
-    oslog = self->super._logHandle;
-    if (os_log_type_enabled(oslog, OS_LOG_TYPE_FAULT))
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
     {
-      __os_log_helper_16_2_1_8_64(v10, key);
-      _os_log_fault_impl(&dword_1DE8E5000, oslog, OS_LOG_TYPE_FAULT, "getIntValueFrom error - invalid value for %@", v10, 0xCu);
+      return [v6 integerValue];
     }
   }
 
-  *MEMORY[0x1E69E9840];
-  return integerValue;
+  oslog = self->super._logHandle;
+  if (os_log_type_enabled(oslog, OS_LOG_TYPE_FAULT))
+  {
+    __os_log_helper_16_2_1_8_64(v10, key);
+    _os_log_fault_impl(&dword_1DE8E5000, oslog, OS_LOG_TYPE_FAULT, "getIntValueFrom error - invalid value for %@", v10, 0xCu);
+  }
+
+  return v7;
 }
 
 - (BOOL)setALSServiceProperty:(void *)property forKey:(__CFString *)key
@@ -4323,7 +4287,6 @@ uint64_t __58__CBAODModule_copyAndHandleEventWithTransitionParameters___block_in
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -4454,7 +4417,6 @@ uint64_t __58__CBAODModule_copyAndHandleEventWithTransitionParameters___block_in
 
   MEMORY[0x1E69E5920](v17);
   objc_autoreleasePoolPop(context);
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)copyArrayFromPrefsForKey:(id)key
@@ -4504,7 +4466,6 @@ uint64_t __58__CBAODModule_copyAndHandleEventWithTransitionParameters___block_in
     _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "%s: %@ = %@ \n", v11, 0x20u);
   }
 
-  *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -4573,7 +4534,6 @@ uint64_t __58__CBAODModule_copyAndHandleEventWithTransitionParameters___block_in
   }
 
   dispatch_activate(selfCopy->_displayModeCompletionTimer);
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __67__CBAODModule_scheduleDisplayModeCompletionTimerIn_forDisplayMode___block_invoke(uint64_t a1)
@@ -4605,9 +4565,14 @@ uint64_t __67__CBAODModule_scheduleDisplayModeCompletionTimerIn_forDisplayMode__
     _os_log_impl(&dword_1DE8E5000, v3, OS_LOG_TYPE_DEFAULT, "Call %@ mode completion after %f seconds.", v5, 0x16u);
   }
 
-  result = [*(a1 + 32) didCompleteTransitionToDisplayMode:*(a1 + 40)];
-  *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) didCompleteTransitionToDisplayMode:*(a1 + 40)];
+}
+
+- (void)reevaluatePThresholdsForLux:(float)lux
+{
+  v3 = [(CBAODThresholdModule *)self->_thresholdModule copyPdeltaThresholdsForLux:*&lux];
+  [(CBAODModule *)self setModulesProperty:v3 forKey:@"ALSInternalSettings"];
+  MEMORY[0x1E69E5920](v3);
 }
 
 @end

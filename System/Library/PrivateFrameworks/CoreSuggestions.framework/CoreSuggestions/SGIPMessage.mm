@@ -264,7 +264,7 @@ LABEL_28:
 
 + (id)messageWithIPMessage:(id)message
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   v4 = objc_opt_new();
   identifier = [messageCopy identifier];
@@ -273,30 +273,30 @@ LABEL_28:
 
   sender = [messageCopy sender];
   v8 = [SGIPPerson personWithIPPerson:sender];
-  v36 = v4;
+  v35 = v4;
   [v4 setSender:v8];
 
   v9 = objc_opt_new();
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   recipients = [messageCopy recipients];
-  v11 = [recipients countByEnumeratingWithState:&v41 objects:v46 count:16];
+  v11 = [recipients countByEnumeratingWithState:&v40 objects:v45 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v42;
+    v13 = *v41;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v42 != v13)
+        if (*v41 != v13)
         {
           objc_enumerationMutation(recipients);
         }
 
-        v15 = *(*(&v41 + 1) + 8 * i);
+        v15 = *(*(&v40 + 1) + 8 * i);
         v16 = objc_autoreleasePoolPush();
         v17 = [SGIPPerson personWithIPPerson:v15];
         [v9 addObject:v17];
@@ -304,45 +304,45 @@ LABEL_28:
         objc_autoreleasePoolPop(v16);
       }
 
-      v12 = [recipients countByEnumeratingWithState:&v41 objects:v46 count:16];
+      v12 = [recipients countByEnumeratingWithState:&v40 objects:v45 count:16];
     }
 
     while (v12);
   }
 
-  [v36 setRecipients:v9];
+  [v35 setRecipients:v9];
   subject = [messageCopy subject];
   v19 = [subject copy];
-  [v36 setSubject:v19];
+  [v35 setSubject:v19];
 
   dateSent = [messageCopy dateSent];
   v21 = [dateSent copy];
-  [v36 setDateSent:v21];
+  [v35 setDateSent:v21];
 
-  [v36 setIsSent:{objc_msgSend(messageCopy, "isSent")}];
-  [v36 setIsGroupConversation:{objc_msgSend(messageCopy, "isGroupConversation")}];
-  [v36 setIsSenderSignificant:{objc_msgSend(messageCopy, "isSenderSignificant")}];
+  [v35 setIsSent:{objc_msgSend(messageCopy, "isSent")}];
+  [v35 setIsGroupConversation:{objc_msgSend(messageCopy, "isGroupConversation")}];
+  [v35 setIsSenderSignificant:{objc_msgSend(messageCopy, "isSenderSignificant")}];
   v22 = objc_opt_new();
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   messageUnits = [messageCopy messageUnits];
-  v24 = [messageUnits countByEnumeratingWithState:&v37 objects:v45 count:16];
+  v24 = [messageUnits countByEnumeratingWithState:&v36 objects:v44 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v38;
+    v26 = *v37;
     do
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v38 != v26)
+        if (*v37 != v26)
         {
           objc_enumerationMutation(messageUnits);
         }
 
-        v28 = *(*(&v37 + 1) + 8 * j);
+        v28 = *(*(&v36 + 1) + 8 * j);
         v29 = objc_autoreleasePoolPush();
         text = [v28 text];
 
@@ -355,20 +355,18 @@ LABEL_28:
         objc_autoreleasePoolPop(v29);
       }
 
-      v25 = [messageUnits countByEnumeratingWithState:&v37 objects:v45 count:16];
+      v25 = [messageUnits countByEnumeratingWithState:&v36 objects:v44 count:16];
     }
 
     while (v25);
   }
 
-  [v36 setMessageUnits:v22];
+  [v35 setMessageUnits:v22];
   type = [messageCopy type];
   v33 = [type copy];
-  [v36 setType:v33];
+  [v35 setType:v33];
 
-  v34 = *MEMORY[0x1E69E9840];
-
-  return v36;
+  return v35;
 }
 
 @end

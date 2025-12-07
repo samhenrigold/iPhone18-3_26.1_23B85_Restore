@@ -3,13 +3,6 @@
 - (_GCDevicePhysicalInputJoystickElementParameters)init;
 - (double)directionPressedThreshold;
 - (id)copyWithZone:(_NSZone *)zone;
-- (id)downSources;
-- (id)leftSources;
-- (id)rightSources;
-- (id)upSources;
-- (id)xSources;
-- (id)xySources;
-- (id)ySources;
 - (uint64_t)eventPressValueField;
 - (uint64_t)eventTouchValueField;
 - (uint64_t)eventXValueField;
@@ -23,6 +16,9 @@
 - (uint64_t)setEventXValueField:(uint64_t)result;
 - (uint64_t)setEventYValueField:(uint64_t)result;
 - (uint64_t)touch;
+- (void)downSources;
+- (void)leftSources;
+- (void)rightSources;
 - (void)setDownSources:(uint64_t)sources;
 - (void)setLeftSources:(uint64_t)sources;
 - (void)setPress:(uint64_t)press;
@@ -32,6 +28,10 @@
 - (void)setXSources:(uint64_t)sources;
 - (void)setXySources:(uint64_t)sources;
 - (void)setYSources:(uint64_t)sources;
+- (void)upSources;
+- (void)xSources;
+- (void)xySources;
+- (void)ySources;
 @end
 
 @implementation _GCDevicePhysicalInputJoystickElementParameters
@@ -82,18 +82,7 @@
   equalCopy = equal;
   v16.receiver = self;
   v16.super_class = _GCDevicePhysicalInputJoystickElementParameters;
-  if (![(_GCDevicePhysicalInputElementParameters *)&v16 isEqual:equalCopy])
-  {
-    goto LABEL_26;
-  }
-
-  xySources = self->_xySources;
-  if (xySources != equalCopy[6] && ![(NSSet *)xySources isEqual:?])
-  {
-    goto LABEL_26;
-  }
-
-  if (((xSources = self->_xSources, xSources == equalCopy[7]) || [(NSSet *)xSources isEqual:?]) && ((ySources = self->_ySources, ySources == equalCopy[8]) || [(NSSet *)ySources isEqual:?]) && ((upSources = self->_upSources, upSources == equalCopy[9]) || [(NSSet *)upSources isEqual:?]) && ((leftSources = self->_leftSources, leftSources == equalCopy[10]) || [(NSSet *)leftSources isEqual:?]) && ((downSources = self->_downSources, downSources == equalCopy[11]) || [(NSSet *)downSources isEqual:?]) && ((rightSources = self->_rightSources, rightSources == equalCopy[12]) || [(NSSet *)rightSources isEqual:?]) && self->_analog == *(equalCopy + 40) && self->_directionPressedThreshold == *(equalCopy + 11) && self->_eventXValueField == equalCopy[15] && self->_eventYValueField == equalCopy[16] && self->_eventPressValueField == equalCopy[17] && self->_eventTouchValueField == equalCopy[18] && ((press = self->_press, press == equalCopy[13]) || [(_GCDevicePhysicalInputPressInputParameters *)press isEqual:?]))
+  if ([(_GCDevicePhysicalInputElementParameters *)&v16 isEqual:equalCopy]&& ((xySources = self->_xySources, xySources == equalCopy[6]) || [(NSSet *)xySources isEqual:?]) && ((xSources = self->_xSources, xSources == equalCopy[7]) || [(NSSet *)xSources isEqual:?]) && ((ySources = self->_ySources, ySources == equalCopy[8]) || [(NSSet *)ySources isEqual:?]) && ((upSources = self->_upSources, upSources == equalCopy[9]) || [(NSSet *)upSources isEqual:?]) && ((leftSources = self->_leftSources, leftSources == equalCopy[10]) || [(NSSet *)leftSources isEqual:?]) && ((downSources = self->_downSources, downSources == equalCopy[11]) || [(NSSet *)downSources isEqual:?]) && ((rightSources = self->_rightSources, rightSources == equalCopy[12]) || [(NSSet *)rightSources isEqual:?]) && self->_analog == *(equalCopy + 40) && self->_directionPressedThreshold == *(equalCopy + 11) && self->_eventXValueField == equalCopy[15] && self->_eventYValueField == equalCopy[16] && self->_eventPressValueField == equalCopy[17] && self->_eventTouchValueField == equalCopy[18] && ((press = self->_press, press == equalCopy[13]) || [(_GCDevicePhysicalInputPressInputParameters *)press isEqual:?]))
   {
     touch = self->_touch;
     if (touch == equalCopy[14])
@@ -109,7 +98,6 @@
 
   else
   {
-LABEL_26:
     v14 = 0;
   }
 
@@ -182,7 +170,7 @@ LABEL_26:
   return result;
 }
 
-- (id)xySources
+- (void)xySources
 {
   selfCopy = self;
   if (self)
@@ -213,7 +201,7 @@ LABEL_26:
   return selfCopy;
 }
 
-- (id)xSources
+- (void)xSources
 {
   selfCopy = self;
   if (self)
@@ -244,7 +232,7 @@ LABEL_26:
   return selfCopy;
 }
 
-- (id)ySources
+- (void)ySources
 {
   selfCopy = self;
   if (self)
@@ -275,7 +263,7 @@ LABEL_26:
   return selfCopy;
 }
 
-- (id)upSources
+- (void)upSources
 {
   selfCopy = self;
   if (self)
@@ -306,7 +294,7 @@ LABEL_26:
   return selfCopy;
 }
 
-- (id)downSources
+- (void)downSources
 {
   selfCopy = self;
   if (self)
@@ -337,7 +325,7 @@ LABEL_26:
   return selfCopy;
 }
 
-- (id)leftSources
+- (void)leftSources
 {
   selfCopy = self;
   if (self)
@@ -368,7 +356,7 @@ LABEL_26:
   return selfCopy;
 }
 
-- (id)rightSources
+- (void)rightSources
 {
   selfCopy = self;
   if (self)

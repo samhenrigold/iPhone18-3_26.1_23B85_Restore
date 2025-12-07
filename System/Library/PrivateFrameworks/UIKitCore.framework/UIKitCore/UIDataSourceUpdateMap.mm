@@ -7,18 +7,18 @@ uint64_t __67___UIDataSourceUpdateMap_updateMapByRevertingUpdateWithIdentifier__
 {
   if (a2)
   {
-    v3 = *(a2 + 88);
+    v2 = *(a2 + 88);
   }
 
   else
   {
-    v3 = 0;
+    v2 = 0;
   }
 
-  v4 = v3;
-  v5 = [v4 isEqual:*(a1 + 32)];
+  v3 = v2;
+  isEqual = objc_msgSend_isEqual_(v3);
 
-  return v5;
+  return isEqual;
 }
 
 uint64_t __54___UIDataSourceUpdateMap__oldGlobalItemMapDescription__block_invoke(uint64_t a1, uint64_t a2)
@@ -51,7 +51,7 @@ void __51___UIDataSourceUpdateMap__findUpdateForIdentifier___block_invoke(uint64
   v11 = v7;
   if (v7)
   {
-    v8 = *(v7 + 11);
+    v8 = v7[11];
   }
 
   else
@@ -60,9 +60,9 @@ void __51___UIDataSourceUpdateMap__findUpdateForIdentifier___block_invoke(uint64
   }
 
   v9 = v8;
-  v10 = [v9 isEqual:*(a1 + 32)];
+  isEqual = objc_msgSend_isEqual_(v9);
 
-  if (v10)
+  if (isEqual)
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
     *a4 = 1;
@@ -89,9 +89,9 @@ uint64_t __45___UIDataSourceUpdateMap_submapBeforeUpdate___block_invoke(uint64_t
   }
 
   v6 = v5;
-  v7 = [v4 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v4);
 
-  return v7;
+  return isEqual;
 }
 
 uint64_t __44___UIDataSourceUpdateMap_submapAfterUpdate___block_invoke(uint64_t a1, uint64_t a2)
@@ -114,9 +114,9 @@ uint64_t __44___UIDataSourceUpdateMap_submapAfterUpdate___block_invoke(uint64_t 
   }
 
   v6 = v5;
-  v7 = [v4 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v4);
 
-  return v7;
+  return isEqual;
 }
 
 @end

@@ -155,7 +155,7 @@ LABEL_25:
       }
 
       v14 = *(*(&v21 + 1) + 8 * i);
-      if ((v11 & 1) == 0 || ([*(*(&v21 + 1) + 8 * i) doubleValue], v16 = v15, objc_msgSend(v10, "doubleValue"), v16 < v17))
+      if ((v11 & 1) == 0 || (objc_msgSend_doubleValue(*(*(&v21 + 1) + 8 * i)), v16 = v15, objc_msgSend_doubleValue(v10), v16 < v17))
       {
         v18 = v14;
 
@@ -176,7 +176,7 @@ LABEL_25:
   }
 
   v19 = [NSDate alloc];
-  [v10 doubleValue];
+  objc_msgSend_doubleValue(v10);
   v20 = [v19 initWithTimeIntervalSince1970:?];
 LABEL_26:
   v5 = v20;
@@ -269,7 +269,7 @@ LABEL_9:
           if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
             v12 = [(NSMutableDictionary *)self->_usersToHeartbeatDatesMap objectForKey:v10];
-            [v12 doubleValue];
+            objc_msgSend_doubleValue(v12);
             v13 = [NSDate dateWithTimeIntervalSince1970:?];
             *buf = v18;
             v24 = v10;
@@ -322,7 +322,7 @@ LABEL_9:
     v3 = [IDSServerBag sharedInstanceForBagType:0];
     v4 = [v3 objectForKey:@"vc-temporary-get-dependent-interval"];
 
-    [v4 doubleValue];
+    objc_msgSend_doubleValue(v4);
     v6 = v5;
 
     v7 = +[IMRGLog deviceHeartbeat];

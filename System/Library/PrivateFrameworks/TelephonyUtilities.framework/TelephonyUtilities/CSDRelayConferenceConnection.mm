@@ -6,6 +6,8 @@
 - (id)description;
 - (int)deviceRole;
 - (void)invokeDidPrepareIfNecessary:(id)necessary;
+- (void)invokeDidStartIfNecessary:(BOOL)necessary error:(id)error;
+- (void)invokeDidStopIfNecessary:(BOOL)necessary error:(id)error;
 @end
 
 @implementation CSDRelayConferenceConnection
@@ -65,6 +67,35 @@
     didPrepareHandler2 = [(CSDRelayConferenceConnection *)self didPrepareHandler];
     [(CSDRelayConferenceConnection *)self setDidPrepareHandler:0];
     (didPrepareHandler2)[2](didPrepareHandler2, necessaryCopy);
+  }
+}
+
+- (void)invokeDidStartIfNecessary:(BOOL)necessary error:(id)error
+{
+  necessaryCopy = necessary;
+  errorCopy = error;
+  didStartHandler = [(CSDRelayConferenceConnection *)self didStartHandler];
+
+  if (didStartHandler)
+  {
+    [(CSDRelayConferenceConnection *)self setReceivedSuccessfulDidStart:necessaryCopy];
+    didStartHandler2 = [(CSDRelayConferenceConnection *)self didStartHandler];
+    [(CSDRelayConferenceConnection *)self setDidStartHandler:0];
+    (didStartHandler2)[2](didStartHandler2, necessaryCopy, errorCopy);
+  }
+}
+
+- (void)invokeDidStopIfNecessary:(BOOL)necessary error:(id)error
+{
+  necessaryCopy = necessary;
+  errorCopy = error;
+  didStopHandler = [(CSDRelayConferenceConnection *)self didStopHandler];
+
+  if (didStopHandler)
+  {
+    didStopHandler2 = [(CSDRelayConferenceConnection *)self didStopHandler];
+    [(CSDRelayConferenceConnection *)self setDidStopHandler:0];
+    (didStopHandler2)[2](didStopHandler2, necessaryCopy, errorCopy);
   }
 }
 
@@ -135,27 +166,9 @@
   else
   {
     call = [(CSDRelayConferenceConnection *)self call];
-    if (!call)
+    if (call && (v5 = call, -[CSDRelayConferenceConnection call](self, "call"), v6 = objc_claimAutoreleasedReturnValue(), [v6 smartHoldingSession], v7 = objc_claimAutoreleasedReturnValue(), v7, v6, v5, v7) && (-[CSDRelayConferenceConnection call](self, "call"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "smartHoldingSession"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "state"), v9, v8, v10 <= 3))
     {
-      return 1;
-    }
-
-    v5 = call;
-    call2 = [(CSDRelayConferenceConnection *)self call];
-    smartHoldingSession = [call2 smartHoldingSession];
-
-    if (!smartHoldingSession)
-    {
-      return 1;
-    }
-
-    call3 = [(CSDRelayConferenceConnection *)self call];
-    smartHoldingSession2 = [call3 smartHoldingSession];
-    state = [smartHoldingSession2 state];
-
-    if (state <= 3)
-    {
-      return dword_10057A290[state];
+      return dword_10057A290[v10];
     }
 
     else

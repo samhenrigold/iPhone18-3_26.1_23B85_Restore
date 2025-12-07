@@ -43,45 +43,44 @@
 
 - (uint64_t)triForceRemoveItemAtPath:()TRIServer error:
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = a3;
-  v13 = 0;
-  v7 = [self triRemoveCachedANEBinariesForModelsFromPath:v6 error:&v13];
-  v8 = v13;
+  v12 = 0;
+  v7 = [self triRemoveCachedANEBinariesForModelsFromPath:v6 error:&v12];
+  v8 = v12;
   if ((v7 & 1) == 0)
   {
     v9 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v15 = v8;
+      v14 = v8;
       _os_log_error_impl(&dword_26F567000, v9, OS_LOG_TYPE_ERROR, "Failed to purge ANE cache during GC: %{public}@", buf, 0xCu);
     }
   }
 
   v10 = [self triRemoveItemAtPath:v6 error:a4];
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 + (id)triPostOrderDescendantDirectoryPathsAtPath:()TRIServer
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = objc_autoreleasePoolPush();
   v5 = [MEMORY[0x277CBEBC0] fileURLWithPath:v3 isDirectory:1];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v7 = *MEMORY[0x277CBE868];
-  v32[0] = *MEMORY[0x277CBE868];
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+  v31[0] = *MEMORY[0x277CBE868];
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
   v9 = [defaultManager enumeratorAtURL:v5 includingPropertiesForKeys:v8 options:8 errorHandler:0];
 
   v10 = objc_opt_new();
   if (v10)
   {
-    v24 = v4;
-    v25 = v3;
+    v23 = v4;
+    v24 = v3;
     v11 = objc_autoreleasePoolPush();
     nextObject = [v9 nextObject];
     if (nextObject)
@@ -89,11 +88,11 @@
       nextObject2 = nextObject;
       while (1)
       {
+        v25 = 0;
         v26 = 0;
-        v27 = 0;
-        v14 = [nextObject2 getResourceValue:&v27 forKey:v7 error:{&v26, v24, v25}];
-        v15 = v27;
-        v16 = v26;
+        v14 = [nextObject2 getResourceValue:&v26 forKey:v7 error:{&v25, v23, v24}];
+        v15 = v26;
+        v16 = v25;
         if ((v14 & 1) == 0)
         {
           break;
@@ -133,9 +132,9 @@
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v29 = nextObject2;
-        v30 = 2114;
-        v31 = v16;
+        v28 = nextObject2;
+        v29 = 2114;
+        v30 = v16;
         _os_log_error_impl(&dword_26F567000, v21, OS_LOG_TYPE_ERROR, "Failed to determine if url %@ is a directory: %{public}@", buf, 0x16u);
       }
 
@@ -151,8 +150,8 @@ LABEL_14:
       v20 = v10;
     }
 
-    v4 = v24;
-    v3 = v25;
+    v4 = v23;
+    v3 = v24;
   }
 
   else
@@ -161,7 +160,6 @@ LABEL_14:
   }
 
   objc_autoreleasePoolPop(v4);
-  v22 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -396,7 +394,7 @@ LABEL_19:
 
 + (uint64_t)triRenameOrFaultWithSourcePath:()TRIServer destPath:
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a4;
   fileSystemRepresentation = [v5 fileSystemRepresentation];
@@ -411,22 +409,22 @@ LABEL_19:
       v13 = strerror(*v12);
       v14 = *__error();
       *buf = 138544130;
-      v24 = v5;
-      v25 = 2114;
-      v26 = v6;
-      v27 = 2080;
-      v28 = v13;
-      v29 = 1024;
-      v30 = v14;
+      v23 = v5;
+      v24 = 2114;
+      v25 = v6;
+      v26 = 2080;
+      v27 = v13;
+      v28 = 1024;
+      v29 = v14;
       _os_log_impl(&dword_26F567000, v11, OS_LOG_TYPE_INFO, "Failed to rename %{public}@ --> %{public}@: %s (%d), attempting moveItemAtPath", buf, 0x26u);
     }
 
     if (v5)
     {
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v22 = 0;
-      v16 = [defaultManager moveItemAtPath:v5 toPath:v6 error:&v22];
-      v17 = v22;
+      v21 = 0;
+      v16 = [defaultManager moveItemAtPath:v5 toPath:v6 error:&v21];
+      v17 = v21;
 
       if (v16)
       {
@@ -440,11 +438,11 @@ LABEL_14:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
       {
         *buf = 138543874;
-        v24 = v5;
-        v25 = 2114;
-        v26 = v6;
-        v27 = 2112;
-        v28 = v17;
+        v23 = v5;
+        v24 = 2114;
+        v25 = v6;
+        v26 = 2112;
+        v27 = v17;
         _os_log_fault_impl(&dword_26F567000, v19, OS_LOG_TYPE_FAULT, "Failed to move item: %{public}@ --> %{public}@: %@", buf, 0x20u);
       }
     }
@@ -455,9 +453,9 @@ LABEL_14:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v24 = 0;
-        v25 = 2114;
-        v26 = v6;
+        v23 = 0;
+        v24 = 2114;
+        v25 = v6;
         _os_log_error_impl(&dword_26F567000, v19, OS_LOG_TYPE_ERROR, "Skipping moveItemAtPath request for %{public}@ --> %{public}@, source path does not exist", buf, 0x16u);
       }
 
@@ -471,19 +469,18 @@ LABEL_14:
   v18 = 1;
 LABEL_15:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 + (uint64_t)triForceRenameWithSourcePath:()TRIServer destPath:
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v15 = 0;
-  v9 = [defaultManager triForceRemoveItemAtPath:v7 error:&v15];
-  v10 = v15;
+  v14 = 0;
+  v9 = [defaultManager triForceRemoveItemAtPath:v7 error:&v14];
+  v10 = v14;
 
   if (v9)
   {
@@ -496,25 +493,24 @@ LABEL_15:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v17 = v7;
-      v18 = 2114;
-      v19 = v10;
+      v16 = v7;
+      v17 = 2114;
+      v18 = v10;
       _os_log_error_impl(&dword_26F567000, v12, OS_LOG_TYPE_ERROR, "Failed to remove item at destination %{public}@: %{public}@", buf, 0x16u);
     }
 
     v11 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 + (NSObject)triTargetPathForSymlink:()TRIServer
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a3;
-  bzero(v23, 0x400uLL);
-  v4 = readlink([v3 fileSystemRepresentation], v23, 0x400uLL);
+  bzero(v22, 0x400uLL);
+  v4 = readlink([v3 fileSystemRepresentation], v22, 0x400uLL);
   if ((v4 & 0x8000000000000000) != 0)
   {
     v5 = TRILogCategory_ClientFramework();
@@ -523,12 +519,12 @@ LABEL_15:
       v9 = __error();
       v10 = strerror(*v9);
       v11 = *__error();
-      v17 = 138543874;
-      v18 = v3;
-      v19 = 2080;
-      v20 = v10;
-      v21 = 1024;
-      v22 = v11;
+      v16 = 138543874;
+      v17 = v3;
+      v18 = 2080;
+      v19 = v10;
+      v20 = 1024;
+      v21 = v11;
       v6 = "Failed to resolve symlink %{public}@: %s (%d)";
       v7 = v5;
       v8 = 28;
@@ -538,8 +534,8 @@ LABEL_15:
 
   else if (v4 < 0x400)
   {
-    v23[v4] = 0;
-    v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v23];
+    v22[v4] = 0;
+    v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v22];
     if (v12)
     {
       v5 = v12;
@@ -550,9 +546,9 @@ LABEL_15:
     v14 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138543362;
-      v18 = v3;
-      _os_log_error_impl(&dword_26F567000, v14, OS_LOG_TYPE_ERROR, "Target of symlink %{public}@ contains non-UTF-8 content.", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v3;
+      _os_log_error_impl(&dword_26F567000, v14, OS_LOG_TYPE_ERROR, "Target of symlink %{public}@ contains non-UTF-8 content.", &v16, 0xCu);
     }
 
     v5 = 0;
@@ -563,37 +559,35 @@ LABEL_15:
     v5 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138543362;
-      v18 = v3;
+      v16 = 138543362;
+      v17 = v3;
       v6 = "Target of symlink %{public}@ exceeds maximum length.";
       v7 = v5;
       v8 = 12;
 LABEL_7:
-      _os_log_error_impl(&dword_26F567000, v7, OS_LOG_TYPE_ERROR, v6, &v17, v8);
+      _os_log_error_impl(&dword_26F567000, v7, OS_LOG_TYPE_ERROR, v6, &v16, v8);
     }
   }
 
   v13 = 0;
 LABEL_14:
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 + (uint64_t)triCompressedSizeForFileAtPath:()TRIServer shouldFault:
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a3;
   MEMORY[0x274394030]();
-  v17 = 0;
-  v15 = 0;
-  v16 = -1;
+  v16 = 0;
+  v14 = 0;
+  v15 = -1;
   [v5 fileSystemRepresentation];
   v6 = ParallelCompressionAFSCGetMetadata();
-  v14 = 0;
-  MEMORY[0x274394040](&v14, 0, 0);
-  v7 = v14;
+  v13 = 0;
+  MEMORY[0x274394040](&v13, 0, 0);
+  v7 = v13;
   if (v6)
   {
     v8 = *a4;
@@ -611,9 +605,9 @@ LABEL_14:
     {
 LABEL_11:
       *buf = 138543618;
-      v19 = v5;
-      v20 = 2114;
-      v21 = v7;
+      v18 = v5;
+      v19 = 2114;
+      v20 = v7;
       _os_log_error_impl(&dword_26F567000, v9, OS_LOG_TYPE_ERROR, "Unable to query compressed size for %{public}@: %{public}@", buf, 0x16u);
     }
 
@@ -621,71 +615,70 @@ LABEL_11:
     goto LABEL_9;
   }
 
-  if (v16 == -1)
+  if (v15 == -1)
   {
 LABEL_9:
     v11 = -1;
     goto LABEL_10;
   }
 
-  v11 = v15;
+  v11 = v14;
 LABEL_10:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 + (TRIDiskUsage)triDiskUsageForDirectory:()TRIServer
 {
-  v71 = *MEMORY[0x277D85DE8];
-  v45 = a3;
+  v70 = *MEMORY[0x277D85DE8];
+  v44 = a3;
   context = objc_autoreleasePoolPush();
-  v61[0] = 0;
+  v60[0] = 0;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v4 = [defaultManager fileExistsAtPath:v45 isDirectory:v61];
+  v4 = [defaultManager fileExistsAtPath:v44 isDirectory:v60];
 
   if (v4)
   {
-    if (v61[0])
+    if (v60[0])
     {
-      v33 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:v45 isDirectory:1];
+      v32 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:v44 isDirectory:1];
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v67 = 0x3032000000;
-      v68 = __Block_byref_object_copy__58;
-      v69 = __Block_byref_object_dispose__58;
-      v70 = 0;
-      v43 = *MEMORY[0x277CBE838];
+      v66 = 0x3032000000;
+      v67 = __Block_byref_object_copy__58;
+      v68 = __Block_byref_object_dispose__58;
+      v69 = 0;
+      v42 = *MEMORY[0x277CBE838];
       v5 = *MEMORY[0x277CBE838];
-      v44 = *MEMORY[0x277CBE868];
-      v65[0] = *MEMORY[0x277CBE868];
-      v65[1] = v5;
+      v43 = *MEMORY[0x277CBE868];
+      v64[0] = *MEMORY[0x277CBE868];
+      v64[1] = v5;
       v6 = *MEMORY[0x277CBE8A8];
-      v65[2] = *MEMORY[0x277CBE908];
-      v65[3] = v6;
-      v42 = v6;
-      v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:4];
+      v64[2] = *MEMORY[0x277CBE908];
+      v64[3] = v6;
+      v41 = v6;
+      v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:4];
       defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-      v60[0] = MEMORY[0x277D85DD0];
-      v60[1] = 3221225472;
-      v60[2] = __53__NSFileManager_TRIServer__triDiskUsageForDirectory___block_invoke;
-      v60[3] = &unk_279DE2410;
-      v60[4] = &buf;
-      v49 = [defaultManager2 enumeratorAtURL:v33 includingPropertiesForKeys:v34 options:24 errorHandler:v60];
+      v59[0] = MEMORY[0x277D85DD0];
+      v59[1] = 3221225472;
+      v59[2] = __53__NSFileManager_TRIServer__triDiskUsageForDirectory___block_invoke;
+      v59[3] = &unk_279DE2410;
+      v59[4] = &buf;
+      v48 = [defaultManager2 enumeratorAtURL:v32 includingPropertiesForKeys:v33 options:24 errorHandler:v59];
 
-      if (v49)
+      if (v48)
       {
         log = objc_opt_new();
+        v45 = 0;
         v46 = 0;
         v47 = 0;
-        v48 = 0;
-        v61[0] = 1;
-        v41 = *MEMORY[0x277CBE8C8];
-        v40 = *MEMORY[0x277CBE808];
+        v60[0] = 1;
+        v40 = *MEMORY[0x277CBE8C8];
+        v39 = *MEMORY[0x277CBE808];
         while (1)
         {
           v8 = objc_autoreleasePoolPush();
-          nextObject = [v49 nextObject];
+          nextObject = [v48 nextObject];
           v10 = nextObject;
           if (nextObject)
           {
@@ -697,47 +690,47 @@ LABEL_24:
           objc_autoreleasePoolPop(v8);
           if (!v10)
           {
-            v29 = [[TRIDiskUsage alloc] initWithNaiveSum:v48 deduplicatedSum:v47 compressedSum:v46];
+            v29 = [[TRIDiskUsage alloc] initWithNaiveSum:v47 deduplicatedSum:v46 compressedSum:v45];
             goto LABEL_33;
           }
         }
 
-        v58 = 0;
-        v59 = 0;
-        [nextObject getResourceValue:&v59 forKey:v44 error:&v58];
-        v11 = v59;
-        v12 = v58;
-        v56 = 0;
         v57 = 0;
-        [v10 getResourceValue:&v57 forKey:v43 error:&v56];
-        v13 = v57;
-        v14 = v56;
-
-        v54 = 0;
+        v58 = 0;
+        [nextObject getResourceValue:&v58 forKey:v43 error:&v57];
+        v11 = v58;
+        v12 = v57;
         v55 = 0;
-        [v10 getResourceValue:&v55 forKey:v42 error:&v54];
-        v15 = v55;
-        v16 = v54;
+        v56 = 0;
+        [v10 getResourceValue:&v56 forKey:v42 error:&v55];
+        v13 = v56;
+        v14 = v55;
 
-        v52 = 0;
         v53 = 0;
-        [v10 getResourceValue:&v53 forKey:v41 error:&v52];
-        v17 = v53;
-        v18 = v52;
+        v54 = 0;
+        [v10 getResourceValue:&v54 forKey:v41 error:&v53];
+        v15 = v54;
+        v16 = v53;
 
-        v50 = 0;
         v51 = 0;
-        [v10 getResourceValue:&v51 forKey:v40 error:&v50];
-        v19 = v51;
-        v20 = v50;
+        v52 = 0;
+        [v10 getResourceValue:&v52 forKey:v40 error:&v51];
+        v17 = v52;
+        v18 = v51;
+
+        v49 = 0;
+        v50 = 0;
+        [v10 getResourceValue:&v50 forKey:v39 error:&v49];
+        v19 = v50;
+        v20 = v49;
 
         if ([v11 BOOLValue])
         {
-          v48 += [v13 unsignedLongValue];
           v47 += [v13 unsignedLongValue];
-          v21 = [v13 unsignedLongValue] + v46;
+          v46 += [v13 unsignedLongValue];
+          v21 = [v13 unsignedLongValue] + v45;
 LABEL_8:
-          v46 = v21;
+          v45 = v21;
 LABEL_23:
 
           goto LABEL_24;
@@ -760,7 +753,7 @@ LABEL_23:
           {
             v22 = 0;
 LABEL_17:
-            v48 += [v13 unsignedLongValue];
+            v47 += [v13 unsignedLongValue];
             if (!v22)
             {
               goto LABEL_23;
@@ -774,16 +767,16 @@ LABEL_17:
               [currentHandler2 handleFailureInMethod:a2 object:self file:@"NSFileManager+Server.m" lineNumber:376 description:{@"Expression was unexpectedly nil/false: %@", @"relURL.relativePath"}];
             }
 
-            v24 = [v45 stringByAppendingPathComponent:relativePath];
+            v24 = [v44 stringByAppendingPathComponent:relativePath];
 
-            unsignedLongValue2 = [self triCompressedSizeForFileAtPath:v24 shouldFault:v61];
+            unsignedLongValue2 = [self triCompressedSizeForFileAtPath:v24 shouldFault:v60];
             if (unsignedLongValue2 == -1)
             {
               unsignedLongValue2 = [v13 unsignedLongValue];
             }
 
-            v47 += unsignedLongValue;
-            v21 = unsignedLongValue2 + v46;
+            v46 += unsignedLongValue;
+            v21 = unsignedLongValue2 + v45;
             goto LABEL_8;
           }
 
@@ -797,12 +790,12 @@ LABEL_17:
       log = TRILogCategory_Server();
       if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
       {
-        v32 = *(*(&buf + 1) + 40);
-        *v61 = 138543618;
-        v62 = v45;
-        v63 = 2114;
-        v64 = v32;
-        _os_log_error_impl(&dword_26F567000, log, OS_LOG_TYPE_ERROR, "Failed to create enumerator at path: %{public}@ w/ error: %{public}@", v61, 0x16u);
+        v31 = *(*(&buf + 1) + 40);
+        *v60 = 138543618;
+        v61 = v44;
+        v62 = 2114;
+        v63 = v31;
+        _os_log_error_impl(&dword_26F567000, log, OS_LOG_TYPE_ERROR, "Failed to create enumerator at path: %{public}@ w/ error: %{public}@", v60, 0x16u);
       }
 
       v29 = 0;
@@ -817,7 +810,7 @@ LABEL_33:
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         LODWORD(buf) = 138543362;
-        *(&buf + 4) = v45;
+        *(&buf + 4) = v44;
         _os_log_error_impl(&dword_26F567000, v28, OS_LOG_TYPE_ERROR, "Can't compute disk usage for %{public}@: not a directory", &buf, 0xCu);
       }
 
@@ -831,8 +824,6 @@ LABEL_33:
   }
 
   objc_autoreleasePoolPop(context);
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v29;
 }

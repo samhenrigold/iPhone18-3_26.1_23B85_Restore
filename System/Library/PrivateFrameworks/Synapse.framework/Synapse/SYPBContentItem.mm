@@ -86,7 +86,7 @@
     [SYPBContentItem writeTo:];
   }
 
-  v7 = toCopy;
+  v6 = toCopy;
   PBDataWriterWriteDataField();
   if (self->_displayTitle)
   {
@@ -98,36 +98,35 @@
     PBDataWriterWriteStringField();
   }
 
-  v5 = v7;
+  v5 = v6;
   if (self->_sourceLastKnownName)
   {
     PBDataWriterWriteStringField();
-    v5 = v7;
+    v5 = v6;
   }
 
   if (self->_itemURL)
   {
     PBDataWriterWriteStringField();
-    v5 = v7;
+    v5 = v6;
   }
 
   if (self->_userActivityData)
   {
     PBDataWriterWriteDataField();
-    v5 = v7;
+    v5 = v6;
   }
 
   if (self->_linkPreviewMetadata)
   {
     PBDataWriterWriteDataField();
-    v5 = v7;
+    v5 = v6;
   }
 
   if (*&self->_has)
   {
-    previewLoadLevel = self->_previewLoadLevel;
     PBDataWriterWriteInt64Field();
-    v5 = v7;
+    v5 = v6;
   }
 }
 

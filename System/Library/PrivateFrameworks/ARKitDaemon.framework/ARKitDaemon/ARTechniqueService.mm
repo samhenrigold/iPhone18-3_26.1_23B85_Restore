@@ -98,35 +98,34 @@
 {
   v18 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  if ([(ARDaemonService *)self isActive])
+  isActive = [(ARDaemonService *)self isActive];
+  if (isActive)
   {
-    v5 = [(ARTechnique *)self->_technique processData:dataCopy];
+    v6 = [(ARTechnique *)self->_technique processData:dataCopy];
   }
 
   else
   {
-    v6 = _ARLogDaemon_0();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _ARLogDaemon_0(isActive);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
       v12 = 138543874;
-      v13 = v8;
+      v13 = v9;
       v14 = 2048;
       selfCopy = self;
       v16 = 2112;
       v17 = dataCopy;
-      _os_log_impl(&dword_23D391000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Service not active; skipping processing of data: %@", &v12, 0x20u);
+      _os_log_impl(&dword_23D391000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Service not active; skipping processing of data: %@", &v12, 0x20u);
     }
 
-    v5 = dataCopy;
+    v6 = dataCopy;
   }
 
-  v9 = v5;
+  v10 = v6;
 
-  v10 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v10;
 }
 
 - (void)processData:(id)data reply:(id)reply
@@ -140,31 +139,30 @@
 {
   v17 = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  if ([(ARDaemonService *)self isActive])
+  isActive = [(ARDaemonService *)self isActive];
+  if (isActive)
   {
     [(ARTechnique *)self->_technique requestResultDataAtTimestamp:contextCopy context:timestamp];
   }
 
   else
   {
-    v7 = _ARLogDaemon_0();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _ARLogDaemon_0(isActive);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
       v11 = 138543874;
-      v12 = v9;
+      v12 = v10;
       v13 = 2048;
       selfCopy = self;
       v15 = 2048;
       timestampCopy = timestamp;
-      _os_log_impl(&dword_23D391000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Service not active; skipping request for result data at timestamp: %f", &v11, 0x20u);
+      _os_log_impl(&dword_23D391000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Service not active; skipping request for result data at timestamp: %f", &v11, 0x20u);
     }
 
     [(ARRemoteTechniqueClient *)self->_clientProxy techniqueDidOutputResultData:MEMORY[0x277CBEBF8] timestamp:contextCopy context:timestamp];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requiredSensorDataTypesWithReply:(id)reply

@@ -18,14 +18,12 @@
 
 + (id)columns
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"interaction_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_17287];
   v3 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"entities_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_35];
-  v7[0] = v2;
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
@@ -105,28 +103,28 @@ LABEL_12:
 
 - (id)jsonDictionary
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   interaction = [(BMSiriMessageHistory *)self interaction];
   jsonDictionary = [interaction jsonDictionary];
 
   _entitiesJSONArray = [(BMSiriMessageHistory *)self _entitiesJSONArray];
-  v11[0] = @"interaction";
+  v10[0] = @"interaction";
   null = jsonDictionary;
   if (!jsonDictionary)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = @"entities";
-  v12[0] = null;
+  v10[1] = @"entities";
+  v11[0] = null;
   null2 = _entitiesJSONArray;
   if (!_entitiesJSONArray)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[1] = null2;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = null2;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   if (_entitiesJSONArray)
   {
     if (jsonDictionary)
@@ -145,52 +143,49 @@ LABEL_12:
   }
 
 LABEL_7:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (id)_entitiesJSONArray
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   entities = [(BMSiriMessageHistory *)self entities];
-  v5 = [entities countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [entities countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(entities);
         }
 
-        jsonDictionary = [*(*(&v12 + 1) + 8 * i) jsonDictionary];
+        jsonDictionary = [*(*(&v11 + 1) + 8 * i) jsonDictionary];
         [v3 addObject:jsonDictionary];
       }
 
-      v6 = [entities countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [entities countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BMSiriMessageHistory)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v57[1] = *MEMORY[0x1E69E9840];
+  v56[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"interaction"];
   if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -202,10 +197,10 @@ LABEL_7:
       {
         v24 = objc_alloc(MEMORY[0x1E696ABC0]);
         v25 = *MEMORY[0x1E698F240];
-        v56 = *MEMORY[0x1E696A578];
-        v57[0] = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"interaction"];
-        v8 = v57[0];
-        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:&v56 count:1];
+        v55 = *MEMORY[0x1E696A578];
+        v56[0] = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"interaction"];
+        v8 = v56[0];
+        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:&v55 count:1];
         v26 = [v24 initWithDomain:v25 code:2 userInfo:v9];
         selfCopy2 = 0;
         *error = v26;
@@ -217,9 +212,9 @@ LABEL_7:
     }
 
     v9 = v7;
-    v48 = 0;
-    v8 = [[BMSiriRemembersInteraction alloc] initWithJSONDictionary:v9 error:&v48];
-    v23 = v48;
+    v47 = 0;
+    v8 = [[BMSiriRemembersInteraction alloc] initWithJSONDictionary:v9 error:&v47];
+    v23 = v47;
     if (v23)
     {
       if (error)
@@ -246,21 +241,21 @@ LABEL_7:
   {
     if (!v9 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v40 = v8;
-      v41 = v7;
-      v42 = dictionaryCopy;
+      v39 = v8;
+      v40 = v7;
+      v41 = dictionaryCopy;
       goto LABEL_9;
     }
 
     if (error)
     {
-      v35 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v36 = *MEMORY[0x1E698F240];
-      v54 = *MEMORY[0x1E696A578];
+      v34 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v35 = *MEMORY[0x1E698F240];
+      v53 = *MEMORY[0x1E696A578];
       v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"entities"];
-      v55 = v12;
-      v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
-      *error = [v35 initWithDomain:v36 code:2 userInfo:v37];
+      v54 = v12;
+      v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+      *error = [v34 initWithDomain:v35 code:2 userInfo:v36];
 
       selfCopy2 = 0;
       goto LABEL_36;
@@ -271,51 +266,51 @@ LABEL_41:
     goto LABEL_37;
   }
 
-  v40 = v8;
-  v41 = v7;
-  v42 = dictionaryCopy;
+  v39 = v8;
+  v40 = v7;
+  v41 = dictionaryCopy;
 
   v9 = 0;
 LABEL_9:
   v12 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v9, "count")}];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   v9 = v9;
-  v13 = [v9 countByEnumeratingWithState:&v44 objects:v53 count:16];
+  v13 = [v9 countByEnumeratingWithState:&v43 objects:v52 count:16];
   if (!v13)
   {
     goto LABEL_19;
   }
 
   v14 = v13;
-  v15 = *v45;
+  v15 = *v44;
   selfCopy = self;
   while (2)
   {
     for (i = 0; i != v14; ++i)
     {
-      if (*v45 != v15)
+      if (*v44 != v15)
       {
         objc_enumerationMutation(v9);
       }
 
-      v17 = *(*(&v44 + 1) + 8 * i);
+      v17 = *(*(&v43 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
         self = selfCopy;
-        v7 = v41;
-        dictionaryCopy = v42;
+        v7 = v40;
+        dictionaryCopy = v41;
         if (errorCopy)
         {
           v27 = objc_alloc(MEMORY[0x1E696ABC0]);
           v28 = *MEMORY[0x1E698F240];
-          v51 = *MEMORY[0x1E696A578];
+          v50 = *MEMORY[0x1E696A578];
           v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"entities"];
-          v52 = v18;
-          v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+          v51 = v18;
+          v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
           *errorCopy = [v27 initWithDomain:v28 code:2 userInfo:v29];
 LABEL_34:
         }
@@ -323,7 +318,7 @@ LABEL_34:
 LABEL_35:
 
         selfCopy2 = 0;
-        v8 = v40;
+        v8 = v39;
         goto LABEL_36;
       }
 
@@ -331,16 +326,16 @@ LABEL_35:
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         self = selfCopy;
-        v7 = v41;
-        dictionaryCopy = v42;
+        v7 = v40;
+        dictionaryCopy = v41;
         if (errorCopy)
         {
           v30 = objc_alloc(MEMORY[0x1E696ABC0]);
           v31 = *MEMORY[0x1E698F240];
-          v49 = *MEMORY[0x1E696A578];
+          v48 = *MEMORY[0x1E696A578];
           v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"entities"];
-          v50 = v18;
-          v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+          v49 = v18;
+          v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
           *errorCopy = [v30 initWithDomain:v31 code:2 userInfo:v29];
           goto LABEL_34;
         }
@@ -350,9 +345,9 @@ LABEL_35:
 
       v18 = v17;
       v19 = [BMSiriRemembersEntities alloc];
-      v43 = 0;
-      v20 = [(BMSiriRemembersEntities *)v19 initWithJSONDictionary:v18 error:&v43];
-      v21 = v43;
+      v42 = 0;
+      v20 = [(BMSiriRemembersEntities *)v19 initWithJSONDictionary:v18 error:&v42];
+      v21 = v42;
       if (v21)
       {
         v29 = v21;
@@ -363,15 +358,15 @@ LABEL_35:
         }
 
         self = selfCopy;
-        v7 = v41;
-        dictionaryCopy = v42;
+        v7 = v40;
+        dictionaryCopy = v41;
         goto LABEL_34;
       }
 
       [v12 addObject:v20];
     }
 
-    v14 = [v9 countByEnumeratingWithState:&v44 objects:v53 count:16];
+    v14 = [v9 countByEnumeratingWithState:&v43 objects:v52 count:16];
     self = selfCopy;
     if (v14)
     {
@@ -383,17 +378,16 @@ LABEL_35:
 
 LABEL_19:
 
-  v8 = v40;
-  self = [(BMSiriMessageHistory *)self initWithInteraction:v40 entities:v12];
+  v8 = v39;
+  self = [(BMSiriMessageHistory *)self initWithInteraction:v39 entities:v12];
   selfCopy2 = self;
-  v7 = v41;
-  dictionaryCopy = v42;
+  v7 = v40;
+  dictionaryCopy = v41;
 LABEL_36:
 
 LABEL_37:
 LABEL_38:
 
-  v33 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 
@@ -408,52 +402,50 @@ LABEL_38:
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_interaction)
   {
-    v16 = 0;
+    v15 = 0;
     PBDataWriterPlaceMark();
     [(BMSiriRemembersInteraction *)self->_interaction writeTo:toCopy];
     PBDataWriterRecallMark();
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = self->_entities;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v17 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
-        v16 = 0;
+        v10 = *(*(&v11 + 1) + 8 * v9);
+        v15 = 0;
         PBDataWriterPlaceMark();
-        [v10 writeTo:{toCopy, v12}];
+        [v10 writeTo:{toCopy, v11}];
         PBDataWriterRecallMark();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v17 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initByReadFrom:(id)from
@@ -616,35 +608,33 @@ LABEL_29:
 
 + (id)protoFields
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"interaction" number:1 type:14 subMessageClass:objc_opt_class()];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"entities" number:2 type:14 subMessageClass:objc_opt_class()];
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
-id __31__BMSiriMessageHistory_columns__block_invoke_2(uint64_t a1, void *a2)
+id __31__BMSiriMessageHistory_columns__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _entitiesJSONArray];
-  v4 = BMConvertObjectToJSONString();
-
-  return v4;
-}
-
-id __31__BMSiriMessageHistory_columns__block_invoke(uint64_t a1, void *a2)
-{
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 interaction];
-  v4 = [v3 jsonDictionary];
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _entitiesJSONArray];
   v5 = BMConvertObjectToJSONString();
 
   return v5;
+}
+
+id __31__BMSiriMessageHistory_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+{
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 interaction];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
+
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

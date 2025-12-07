@@ -11,6 +11,7 @@
 - (double)vibrationRecorderRippleRingLineWidth;
 - (id)_bundle;
 - (id)_cachedImageWithName:(id)name forPropertyWithSelector:(SEL)selector;
+- (id)_cachedResizableImageForPropertyWithSelector:(SEL)selector capInsets:(UIEdgeInsets)insets size:(CGSize)size imageRenderingMode:(int64_t)mode withDrawingActions:(id)actions;
 - (id)_cachedStyleObjectForPropertyWithSelector:(SEL)selector;
 - (void)_didReceiveMemoryWarning:(id)warning;
 - (void)_setCachedStyleObject:(id)object forPropertyWithSelector:(SEL)selector;
@@ -133,6 +134,49 @@
   }
 
   return v7;
+}
+
+- (id)_cachedResizableImageForPropertyWithSelector:(SEL)selector capInsets:(UIEdgeInsets)insets size:(CGSize)size imageRenderingMode:(int64_t)mode withDrawingActions:(id)actions
+{
+  height = size.height;
+  width = size.width;
+  v24 = *&insets.bottom;
+  v25 = *&insets.right;
+  v22 = *&insets.top;
+  v23 = *&insets.left;
+  actionsCopy = actions;
+  v13 = [(TKStyleProvider *)self _cachedStyleObjectForPropertyWithSelector:selector];
+  if (!v13)
+  {
+    v14 = [objc_alloc(MEMORY[0x277D75560]) initWithSize:{width, height}];
+    v15 = [v14 imageWithActions:actionsCopy];
+    v16 = v15;
+    if (mode)
+    {
+      v17 = [v15 imageWithRenderingMode:mode];
+
+      v16 = v17;
+    }
+
+    *&v18.f64[0] = v24;
+    *&v18.f64[1] = v25;
+    *&v19.f64[0] = v22;
+    *&v19.f64[1] = v23;
+    if (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(v19, *MEMORY[0x277D768C8]), vceqq_f64(v18, *(MEMORY[0x277D768C8] + 16))))))
+    {
+      v20 = v16;
+    }
+
+    else
+    {
+      v20 = [v16 resizableImageWithCapInsets:?];
+    }
+
+    v13 = v20;
+    [(TKStyleProvider *)self _setCachedStyleObject:v20 forPropertyWithSelector:selector, v22, v23, v24, v25];
+  }
+
+  return v13;
 }
 
 - (void)_didReceiveMemoryWarning:(id)warning

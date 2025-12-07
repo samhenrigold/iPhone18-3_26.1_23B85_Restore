@@ -8,7 +8,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_100047E1C();
+  sub_100047E1C(selfCopy);
 }
 
 - (_TtC7Measure13SketchSurface)initWithFrame:(CGRect)frame

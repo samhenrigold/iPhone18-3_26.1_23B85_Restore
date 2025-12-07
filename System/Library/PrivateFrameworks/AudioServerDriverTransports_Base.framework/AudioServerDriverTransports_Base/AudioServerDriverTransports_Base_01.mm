@@ -1,9 +1,11 @@
-uint64_t asdtPowerTransitionsInOrder(int a1, int a2)
+uint64_t asdtPowerTransitionsInOrder(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
+  v3 = a1;
   v4 = asdtPowerTransitionUpwards(a1);
-  v5 = asdtPowerTransitionIndex(a1);
-  v6 = asdtPowerTransitionUpwards(a2);
-  v7 = asdtPowerTransitionIndex(a2);
+  v5 = asdtPowerTransitionIndex(v3);
+  v6 = asdtPowerTransitionUpwards(v2);
+  v7 = asdtPowerTransitionIndex(v2);
   if (v5)
   {
     v8 = v7 == 0;
@@ -243,12 +245,12 @@ void sub_241679658(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2416797E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_2416797E8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = ASDTUserActivityNotifier;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -325,19 +327,19 @@ id ASDT::Acoustic::Data<ASDT::Acoustic::SpeakerThieleSmallV2,(unsigned short)2>:
     v13 = v5;
     do
     {
-      v8 = ASDT::Acoustic::SpeakerThieleSmallV2::asDictionary(v7);
-      if (!v8)
+      v9 = ASDT::Acoustic::SpeakerThieleSmallV2::asDictionary(v7);
+      if (!v9)
       {
-        v9 = ASDTBaseLogType();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v10 = ASDTBaseLogType(0, v8);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           *buf = v13;
           v15 = v6;
-          _os_log_error_impl(&dword_241659000, v9, OS_LOG_TYPE_ERROR, "Failed to create SpeakerThieleSmall data entry at index %hhu!", buf, 8u);
+          _os_log_error_impl(&dword_241659000, v10, OS_LOG_TYPE_ERROR, "Failed to create SpeakerThieleSmall data entry at index %hhu!", buf, 8u);
         }
       }
 
-      [v4 addObject:{v8, v13}];
+      [v4 addObject:{v9, v13}];
 
       ++v6;
       v7 = (v7 + 22);
@@ -346,11 +348,9 @@ id ASDT::Acoustic::Data<ASDT::Acoustic::SpeakerThieleSmallV2,(unsigned short)2>:
     while (v3 != v6);
   }
 
-  v10 = [v4 copy];
+  v11 = [v4 copy];
 
-  v11 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v11;
 }
 
 void sub_24167A778(_Unwind_Exception *a1, int a2)
@@ -363,103 +363,12 @@ void sub_24167A778(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-uint64_t ASDT::Acoustic::Base::valid(ASDT::Acoustic::Base *this, unint64_t a2, unint64_t a3, int a4)
+uint64_t ASDT::Acoustic::Base::valid(ASDT::Acoustic::Base *this, unint64_t a2, unint64_t a3, uint64_t a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (a3 + 6 > a2 || (v7 = this + 2, v6 = *(this + 2), v6 < a3))
   {
-    v8 = ASDTBaseLogType();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      ASDT::Acoustic::Base::valid(this);
-    }
-
-    goto LABEL_5;
-  }
-
-  if (*this != a4)
-  {
-    v8 = ASDTBaseLogType();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      ASDT::Acoustic::Base::valid(this);
-    }
-
-    goto LABEL_5;
-  }
-
-  v11 = *(this + 3);
-  if (v6 != a2 && v11 != 0)
-  {
-    v15 = (a2 - 6) / a3;
-    v16 = (a2 - 6) % a3;
-    if (v15 != v11 || v16 != 0)
-    {
-      v8 = ASDTBaseLogType();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-      {
-        v18 = *(this + 3);
-        v26 = 67109632;
-        v27 = v18;
-        v28 = 2048;
-        v29 = v15;
-        v30 = 2048;
-        v31 = v16;
-        v19 = "Unexpected number of entries: Found 0x%hhx, expected: 0x%zx, remainder: 0x%zx";
-LABEL_28:
-        _os_log_error_impl(&dword_241659000, v8, OS_LOG_TYPE_ERROR, v19, &v26, 0x1Cu);
-        goto LABEL_5;
-      }
-
-      goto LABEL_5;
-    }
-
-    v14 = *(this + 3);
-    if (v6 != a3)
-    {
-      v8 = ASDTBaseLogType();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-      {
-        ASDT::Acoustic::Base::valid(this + 2);
-      }
-
-      goto LABEL_5;
-    }
-
-LABEL_30:
-    v21 = v14 * a3 + 4;
-    if (v14 * a3 == 0xFC)
-    {
-      v22 = 0;
-    }
-
-    else
-    {
-      v22 = 0;
-      v23 = (this + v21);
-      v24 = this;
-      do
-      {
-        v25 = *v24;
-        v24 = (v24 + 1);
-        v22 += v25;
-      }
-
-      while (v24 < v23);
-    }
-
-    if (!*(this + 3))
-    {
-      v11 = (v6 - 6) / a3;
-    }
-
-    if (*(this + (v11 * a3 + 4)) == -v22)
-    {
-      result = 1;
-      goto LABEL_6;
-    }
-
-    v8 = ASDTBaseLogType();
+    v8 = ASDTBaseLogType(this, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       ASDT::Acoustic::Base::valid();
@@ -468,42 +377,129 @@ LABEL_30:
     goto LABEL_5;
   }
 
-  v13 = (v6 - 6) % a3;
-  if (v6 == a2 && !v13)
+  if (*this != a4)
   {
+    v8 = ASDTBaseLogType(this, a2);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      ASDT::Acoustic::Base::valid();
+    }
+
+    goto LABEL_5;
+  }
+
+  v10 = *(this + 3);
+  if (v6 == a2 || v10 == 0)
+  {
+    v12 = (v6 - 6) % a3;
+    if (v6 != a2 || v12)
+    {
+      v8 = ASDTBaseLogType(this, a2);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        v19 = *v7;
+        v25 = 67109632;
+        v26 = v19;
+        v27 = 2048;
+        v28 = a2;
+        v29 = 2048;
+        v30 = v12;
+        v18 = "Unexpected size: Found 0x%hhx, expected: 0x%zx, remainder: 0x%zx";
+        goto LABEL_27;
+      }
+
+LABEL_5:
+
+      return 0;
+    }
+
     if (*(this + 3))
     {
-      v14 = *(this + 3);
+      v13 = *(this + 3);
     }
 
     else
     {
-      v14 = (v6 - 6) / a3;
+      v13 = (v6 - 6) / a3;
+    }
+  }
+
+  else
+  {
+    v14 = (a2 - 6) / a3;
+    v15 = (a2 - 6) % a3;
+    if (v14 != v10 || v15 != 0)
+    {
+      v8 = ASDTBaseLogType(this, a2);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        v17 = *(this + 3);
+        v25 = 67109632;
+        v26 = v17;
+        v27 = 2048;
+        v28 = v14;
+        v29 = 2048;
+        v30 = v15;
+        v18 = "Unexpected number of entries: Found 0x%hhx, expected: 0x%zx, remainder: 0x%zx";
+LABEL_27:
+        _os_log_error_impl(&dword_241659000, v8, OS_LOG_TYPE_ERROR, v18, &v25, 0x1Cu);
+        goto LABEL_5;
+      }
+
+      goto LABEL_5;
     }
 
-    goto LABEL_30;
+    v13 = *(this + 3);
+    if (v6 != a3)
+    {
+      v8 = ASDTBaseLogType(this, a2);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        ASDT::Acoustic::Base::valid();
+      }
+
+      goto LABEL_5;
+    }
   }
 
-  v8 = ASDTBaseLogType();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v20 = v13 * a3 + 4;
+  if (v13 * a3 == 0xFC)
   {
-    v20 = *v7;
-    v26 = 67109632;
-    v27 = v20;
-    v28 = 2048;
-    v29 = a2;
-    v30 = 2048;
-    v31 = v13;
-    v19 = "Unexpected size: Found 0x%hhx, expected: 0x%zx, remainder: 0x%zx";
-    goto LABEL_28;
+    v21 = 0;
   }
 
-LABEL_5:
+  else
+  {
+    v21 = 0;
+    v22 = (this + v20);
+    v23 = this;
+    do
+    {
+      v24 = *v23;
+      v23 = (v23 + 1);
+      v21 += v24;
+    }
 
-  result = 0;
-LABEL_6:
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+    while (v23 < v22);
+  }
+
+  if (!*(this + 3))
+  {
+    v10 = (v6 - 6) / a3;
+  }
+
+  if (*(this + (v10 * a3 + 4)) != -v21)
+  {
+    v8 = ASDTBaseLogType(this, a2);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      ASDT::Acoustic::Base::valid();
+    }
+
+    goto LABEL_5;
+  }
+
+  return 1;
 }
 
 void sub_24167AA54(_Unwind_Exception *a1, int a2)
@@ -550,19 +546,19 @@ id ASDT::Acoustic::Data<ASDT::Acoustic::TrimGainV2,(unsigned short)2>::entries(u
     v13 = v5;
     do
     {
-      v8 = ASDT::Acoustic::TrimGainV2::asDictionary(v7);
-      if (!v8)
+      v9 = ASDT::Acoustic::TrimGainV2::asDictionary(v7);
+      if (!v9)
       {
-        v9 = ASDTBaseLogType();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v10 = ASDTBaseLogType(0, v8);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           *buf = v13;
           v15 = v6;
-          _os_log_error_impl(&dword_241659000, v9, OS_LOG_TYPE_ERROR, "Failed to create SpeakerThieleSmall data entry at index %hhu!", buf, 8u);
+          _os_log_error_impl(&dword_241659000, v10, OS_LOG_TYPE_ERROR, "Failed to create SpeakerThieleSmall data entry at index %hhu!", buf, 8u);
         }
       }
 
-      [v4 addObject:{v8, v13}];
+      [v4 addObject:{v9, v13}];
 
       ++v6;
       v7 = (v7 + 6);
@@ -571,11 +567,9 @@ id ASDT::Acoustic::Data<ASDT::Acoustic::TrimGainV2,(unsigned short)2>::entries(u
     while (v3 != v6);
   }
 
-  v10 = [v4 copy];
+  v11 = [v4 copy];
 
-  v11 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v11;
 }
 
 void sub_24167AF60(_Unwind_Exception *a1, int a2)
@@ -624,20 +618,19 @@ ASDT::Exclaves::Sensor *ASDT::Exclaves::Sensor::Sensor(ASDT::Exclaves::Sensor *t
   }
 
   v6 = v5;
-  v7 = (this + 16);
   if (v5 >= 0x17)
   {
     operator new();
   }
 
   *(this + 39) = v5;
-  v8 = this + 16;
+  v7 = this + 16;
   if (v5)
   {
-    memmove(v8, v4, v5);
+    memmove(v7, v4, v5);
   }
 
-  v8[v6] = 0;
+  v7[v6] = 0;
   *(this + 7) = 850045863;
   *(this + 5) = 0;
   *(this + 12) = 0;
@@ -645,16 +638,16 @@ ASDT::Exclaves::Sensor *ASDT::Exclaves::Sensor::Sensor(ASDT::Exclaves::Sensor *t
   *(this + 5) = 0u;
   *(this + 6) = 0u;
   *(this + 14) = 0;
-  v9 = *(this + 39);
-  if (v9 < 0)
+  v8 = *(this + 39);
+  if (v8 < 0)
   {
-    v9 = *(this + 3);
-    if (!v9)
+    v8 = *(this + 3);
+    if (!v8)
     {
       return this;
     }
 
-    v10 = *v7;
+    v9 = *(this + 2);
   }
 
   else
@@ -664,34 +657,34 @@ ASDT::Exclaves::Sensor *ASDT::Exclaves::Sensor::Sensor(ASDT::Exclaves::Sensor *t
       return this;
     }
 
-    v10 = this + 16;
+    v9 = this + 16;
   }
 
-  v11 = v10 - 1;
+  v10 = v9 - 1;
   do
   {
-    if (!v9)
+    if (!v8)
     {
-      v13 = 0;
+      v12 = 0;
       goto LABEL_22;
     }
 
-    v12 = v11[v9--];
+    v11 = v10[v8--];
   }
 
-  while (v12 != 46);
-  if (v9 == -2)
+  while (v11 != 46);
+  if (v8 == -2)
   {
-    v13 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v13 = v9 + 1;
+    v12 = v8 + 1;
   }
 
 LABEL_22:
-  std::string::basic_string(&__p, (this + 16), v13, 0xFFFFFFFFFFFFFFFFLL, &v22);
+  std::string::basic_string(&__p, (this + 16), v12, 0xFFFFFFFFFFFFFFFFLL, &v26);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
@@ -703,25 +696,22 @@ LABEL_22:
   }
 
   *__dst = 0;
-  strlcpy(__dst, p_p, 9uLL);
-  v21 = 0;
+  v14 = strlcpy(__dst, p_p, 9uLL);
+  v25 = 0;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   *(this + 5) = *__dst;
-  if (asdt_exclaves_available())
+  v16 = asdt_exclaves_available(v14, v15);
+  if (v16)
   {
-    if (*(this + 39) < 0)
+    v18 = exclaves_sensor_create();
+    if (v18 || !*v3)
     {
-      v15 = *v7;
-    }
-
-    if (exclaves_sensor_create() || !*v3)
-    {
-      v16 = ASDTBaseLogType();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v20 = ASDTBaseLogType(v18, v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         ASDT::Exclaves::Sensor::Sensor();
       }
@@ -732,10 +722,10 @@ LABEL_22:
 
   else
   {
-    v17 = ASDTBaseLogType();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v21 = ASDTBaseLogType(v16, v17);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      ASDT::Exclaves::Sensor::Sensor(v17);
+      ASDT::Exclaves::Sensor::Sensor(v21);
     }
   }
 
@@ -784,41 +774,42 @@ uint64_t ASDT::Exclaves::Sensor::Start(uint64_t a1, _DWORD *a2)
     v4 = *(a1 + 48);
     if (v4 < 1)
     {
-      Status = exclaves_sensor_start();
-      if (Status)
+      v6 = exclaves_sensor_start();
+      Status = v6;
+      if (v6)
       {
         *a2 = 0;
-        v6 = ASDTBaseLogType();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v8 = ASDTBaseLogType(v6, v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          v7 = (a1 + 16);
+          v9 = (a1 + 16);
           if (*(a1 + 39) < 0)
           {
-            v7 = *v7;
+            v9 = *v9;
           }
 
           *buf = 136315650;
-          v13 = v7;
+          v13 = v9;
           v14 = 1024;
           v15 = 1;
           v16 = 1024;
           v17 = Status;
-          _os_log_error_impl(&dword_241659000, v6, OS_LOG_TYPE_ERROR, "Sensor::Start: Failed: name: %s, status: %u, ret: %x", buf, 0x18u);
+          _os_log_error_impl(&dword_241659000, v8, OS_LOG_TYPE_ERROR, "Sensor::Start: Failed: name: %s, status: %u, ret: %x", buf, 0x18u);
         }
       }
 
       else
       {
         *(a1 + 48) = 1;
+        v10 = (a1 + 16);
         if (*(a1 + 39) < 0)
         {
-          v8 = *(a1 + 16);
+          v10 = *v10;
         }
 
-        Status = ASDT::Exclaves::Sensor::ConvertStatus(1, a2);
+        Status = ASDT::Exclaves::Sensor::ConvertStatus(1, a2, v10);
       }
 
-      v9 = *(a1 + 40);
       kdebug_trace();
     }
 
@@ -836,20 +827,18 @@ uint64_t ASDT::Exclaves::Sensor::Start(uint64_t a1, _DWORD *a2)
   }
 
   std::mutex::unlock((a1 + 56));
-  v10 = *MEMORY[0x277D85DE8];
   return Status;
 }
 
 uint64_t ASDT::Exclaves::Sensor::DoGetStatus(uint64_t a1, _DWORD *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 8);
-  v5 = exclaves_sensor_status();
-  if (v5)
+  v17 = *MEMORY[0x277D85DE8];
+  v4 = exclaves_sensor_status();
+  if (v4)
   {
-    v6 = v5;
+    v6 = v4;
     *a2 = 0;
-    v7 = ASDTBaseLogType();
+    v7 = ASDTBaseLogType(v4, v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = (a1 + 16);
@@ -859,43 +848,42 @@ uint64_t ASDT::Exclaves::Sensor::DoGetStatus(uint64_t a1, _DWORD *a2)
       }
 
       *buf = 136315650;
-      v14 = v8;
+      v12 = v8;
+      v13 = 1024;
+      v14 = 1;
       v15 = 1024;
-      v16 = 1;
-      v17 = 1024;
-      v18 = v6;
+      v16 = v6;
       _os_log_error_impl(&dword_241659000, v7, OS_LOG_TYPE_ERROR, "Sensor::GetStatus: Failed: name: %s, status: %u, ret: %x", buf, 0x18u);
     }
   }
 
   else
   {
+    v9 = (a1 + 16);
     if (*(a1 + 39) < 0)
     {
-      v9 = *(a1 + 16);
+      v9 = *v9;
     }
 
-    v6 = ASDT::Exclaves::Sensor::ConvertStatus(1, a2);
+    v6 = ASDT::Exclaves::Sensor::ConvertStatus(1, a2, v9);
   }
 
-  v10 = *(a1 + 40);
   kdebug_trace();
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
-uint64_t ASDT::Exclaves::Sensor::ConvertStatus(int a1, _DWORD *a2)
+uint64_t ASDT::Exclaves::Sensor::ConvertStatus(uint64_t a1, _DWORD *a2, uint64_t a3)
 {
-  v3 = a1;
+  v4 = a1;
   if ((a1 - 1) >= 4)
   {
-    v5 = ASDTBaseLogType();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = ASDTBaseLogType(a1, a2);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       ASDT::Exclaves::Sensor::ConvertStatus();
     }
 
-    v3 = 0;
+    v4 = 0;
     result = 18;
   }
 
@@ -904,7 +892,7 @@ uint64_t ASDT::Exclaves::Sensor::ConvertStatus(int a1, _DWORD *a2)
     result = 0;
   }
 
-  *a2 = v3;
+  *a2 = v4;
   return result;
 }
 
@@ -917,41 +905,42 @@ uint64_t ASDT::Exclaves::Sensor::Stop(uint64_t a1, _DWORD *a2)
     v4 = *(a1 + 48);
     if (v4 == 1)
     {
-      Status = exclaves_sensor_stop();
-      if (Status)
+      v5 = exclaves_sensor_stop();
+      Status = v5;
+      if (v5)
       {
         *a2 = 0;
-        v6 = ASDTBaseLogType();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v8 = ASDTBaseLogType(v5, v6);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          v7 = (a1 + 16);
+          v9 = (a1 + 16);
           if (*(a1 + 39) < 0)
           {
-            v7 = *v7;
+            v9 = *v9;
           }
 
           *buf = 136315650;
-          v13 = v7;
+          v13 = v9;
           v14 = 1024;
           v15 = 1;
           v16 = 1024;
           v17 = Status;
-          _os_log_error_impl(&dword_241659000, v6, OS_LOG_TYPE_ERROR, "Sensor::Stop: Failed: name: %s, status: %u, ret: %x", buf, 0x18u);
+          _os_log_error_impl(&dword_241659000, v8, OS_LOG_TYPE_ERROR, "Sensor::Stop: Failed: name: %s, status: %u, ret: %x", buf, 0x18u);
         }
       }
 
       else
       {
         *(a1 + 48) = 0;
+        v10 = (a1 + 16);
         if (*(a1 + 39) < 0)
         {
-          v8 = *(a1 + 16);
+          v10 = *v10;
         }
 
-        Status = ASDT::Exclaves::Sensor::ConvertStatus(1, a2);
+        Status = ASDT::Exclaves::Sensor::ConvertStatus(1, a2, v10);
       }
 
-      v9 = *(a1 + 40);
       kdebug_trace();
     }
 
@@ -973,7 +962,6 @@ uint64_t ASDT::Exclaves::Sensor::Stop(uint64_t a1, _DWORD *a2)
   }
 
   std::mutex::unlock((a1 + 56));
-  v10 = *MEMORY[0x277D85DE8];
   return Status;
 }
 
@@ -1038,25 +1026,27 @@ __n128 ASDT::IOAudio2::Helpers::AudioStreamBasicDescriptionFromIOAudio2(uint64_t
   return result;
 }
 
-uint64_t ASDTTime::ASDTTime(uint64_t a1, __int128 a2, __int16 a3)
+uint64_t ASDTTime::ASDTTime(uint64_t a1, __int128 a2, uint64_t a3)
 {
+  v3 = a3;
   v4 = WORD4(a2);
   v5 = a2;
   *&a2 = a2 >> 48;
   *(a1 + 8) = v5;
   *(a1 + 16) = v4;
-  *(a1 + 18) = a3;
+  *(a1 + 18) = v3;
   *(a1 + 20) = 0;
   return a1;
 }
 
 {
+  v3 = a3;
   v4 = WORD4(a2);
   v5 = a2;
   *&a2 = a2 >> 48;
   *(a1 + 8) = v5;
   *(a1 + 16) = v4;
-  *(a1 + 18) = a3;
+  *(a1 + 18) = v3;
   *(a1 + 20) = 0;
   return a1;
 }
@@ -1078,7 +1068,7 @@ void ASDTTime::ASDTTime(uint64_t a1, ASDTTime *this, __int16 a3, unsigned __int1
   *(a1 + 20) = 0;
 }
 
-uint64_t anonymous namespace::NsecToHost(_anonymous_namespace_ *this, void *a2, uint64_t *a3, unsigned __int16 *a4)
+uint64_t anonymous namespace::NsecToHost(uint64_t this, void *a2, uint64_t *a3, unsigned __int16 *a4)
 {
   {
   }
@@ -1091,92 +1081,92 @@ uint64_t anonymous namespace::NsecToHost(_anonymous_namespace_ *this, void *a2, 
   return result;
 }
 
-uint64_t ASDTTime::operator+=(_anonymous_namespace_ **a1, uint64_t *a2, uint64_t a3, unsigned __int16 *a4)
+uint64_t ASDTTime::operator+=(uint64_t *a1, uint64_t *a2, uint64_t a3, unsigned __int16 *a4)
 {
   v5 = *a2;
   v6 = a1 + 1;
-  v7 = (*a1 + v5);
+  v7 = *a1 + v5;
   *a1 = v7;
 }
 
-uint64_t ASDTTime::addTicks(ASDTTime *this, __int128 a2)
+uint64_t ASDTTime::addTicks(ASDTTime *this, __int128 a2, uint64_t a3)
 {
-  v3 = *(a2 + 8) >> 48;
+  v4 = *(a2 + 8) >> 48;
   hostTicks = this->hostTicks;
   hostFrac = this->hostFrac;
-  v6 = hostTicks >> 48;
-  v7 = *(a2 + 16) | (*(a2 + 8) << 16);
-  v8 = __CFADD__(v7, hostFrac);
-  v9 = v7 + hostFrac;
-  if (v8)
+  v7 = hostTicks >> 48;
+  v8 = *(a2 + 16) | (*(a2 + 8) << 16);
+  v9 = __CFADD__(v8, hostFrac);
+  v10 = v8 + hostFrac;
+  if (v9)
   {
-    ++v3;
+    ++v4;
   }
 
-  *&a2 = (__PAIR128__(v3, v9) + __PAIR128__(v6, hostTicks << 16)) >> 64;
-  this->hostTicks = (__PAIR128__(v3, v9) + __PAIR128__(v6, hostTicks << 16)) >> 16;
-  this->hostFrac = v9;
+  *&a2 = (__PAIR128__(v4, v10) + __PAIR128__(v7, hostTicks << 16)) >> 64;
+  this->hostTicks = (__PAIR128__(v4, v10) + __PAIR128__(v7, hostTicks << 16)) >> 16;
+  this->hostFrac = v10;
   this->nsec = result;
   return result;
 }
 
-uint64_t anonymous namespace::NsecFromLargeHost(_anonymous_namespace_ *this, __int128 a2)
+uint64_t anonymous namespace::NsecFromLargeHost(unint64_t this, __int128 a2, uint64_t a3)
 {
   {
   }
 
-  v2 = __divti3();
-  if (__CFADD__(v2, (v3 >> 63) >> 48))
+  v3 = __divti3();
+  if (__CFADD__(v3, (v4 >> 63) >> 48))
   {
-    v4 = v3 + 1;
+    v5 = v4 + 1;
   }
 
   else
   {
-    v4 = v3;
+    v5 = v4;
   }
 
-  *(&v6 + 1) = v4;
-  *&v6 = v2 + ((v3 >> 63) >> 48);
-  return v6 >> 16;
+  *(&v7 + 1) = v5;
+  *&v7 = v3 + ((v4 >> 63) >> 48);
+  return v7 >> 16;
 }
 
-uint64_t ASDTTime::operator-=(_anonymous_namespace_ **a1, uint64_t *a2, uint64_t a3, unsigned __int16 *a4)
+uint64_t ASDTTime::operator-=(uint64_t *a1, uint64_t *a2, uint64_t a3, unsigned __int16 *a4)
 {
   v5 = *a2;
   v6 = a1 + 1;
-  v7 = (*a1 - v5);
+  v7 = *a1 - v5;
   *a1 = v7;
 }
 
-uint64_t ASDTTime::subTicks(ASDTTime *this, __int128 a2)
+uint64_t ASDTTime::subTicks(ASDTTime *this, __int128 a2, uint64_t a3)
 {
-  v3 = this->hostFrac - __PAIR128__(*(a2 + 8) >> 48, *(a2 + 16) | (*(a2 + 8) << 16));
-  *&a2 = (v3 + this->hostTicks * 0x10000) >> 64;
-  v4 = (v3 + (this->hostTicks << 16));
-  this->hostTicks = __PAIR128__(a2, v4) >> 16;
-  this->hostFrac = v3;
+  v4 = this->hostFrac - __PAIR128__(*(a2 + 8) >> 48, *(a2 + 16) | (*(a2 + 8) << 16));
+  *&a2 = (v4 + this->hostTicks * 0x10000) >> 64;
+  v5 = v4 + (this->hostTicks << 16);
+  this->hostTicks = __PAIR128__(a2, v5) >> 16;
+  this->hostFrac = v4;
   this->nsec = result;
   return result;
 }
 
-uint64_t ASDTTime::operator*=(void *a1, uint64_t *a2, uint64_t a3, unsigned __int16 *a4)
+uint64_t ASDTTime::operator*=(uint64_t *a1, uint64_t *a2, uint64_t a3, unsigned __int16 *a4)
 {
   v5 = *a2;
   v6 = a1 + 1;
-  v7 = (*a1 * v5);
+  v7 = *a1 * v5;
   *a1 = v7;
 }
 
-uint64_t ASDTTime::mulTicks(ASDTTime *this, __int128 a2)
+uint64_t ASDTTime::mulTicks(ASDTTime *this, __int128 a2, uint64_t a3)
 {
-  v3 = this->hostFrac | (this->hostTicks << 16);
-  v4 = (((this->hostTicks * 0x10000) | this->hostFrac) * a2) >> 64;
-  v6 = ((this->hostTicks * 0x10000) | this->hostFrac) * a2;
-  v5 = (v3 * a2);
-  this->hostTicks = v6 >> 16;
-  this->hostFrac = v3 * a2;
-  *&a2 = v4;
+  v4 = this->hostFrac | (this->hostTicks << 16);
+  v5 = (((this->hostTicks * 0x10000) | this->hostFrac) * a2) >> 64;
+  v7 = ((this->hostTicks * 0x10000) | this->hostFrac) * a2;
+  v6 = v4 * a2;
+  this->hostTicks = v7 >> 16;
+  this->hostFrac = v4 * a2;
+  *&a2 = v5;
   this->nsec = result;
   return result;
 }
@@ -1189,11 +1179,10 @@ uint64_t ASDTTime::operator/=(uint64_t *a1, uint64_t *a2, uint64_t a3, unsigned 
   *a1 = v7;
 }
 
-uint64_t ASDTTime::divTicks(ASDTTime *this)
+uint64_t ASDTTime::divTicks(ASDTTime *this, uint64_t a2)
 {
-  v2 = this->hostFrac | (this->hostTicks << 16);
   v3 = __divti3();
-  *(&v4 + 1) = v6;
+  *(&v4 + 1) = v7;
   *&v4 = v3;
   this->hostTicks = v4 >> 16;
   this->hostFrac = v3;
@@ -1201,27 +1190,27 @@ uint64_t ASDTTime::divTicks(ASDTTime *this)
   return result;
 }
 
-uint64_t ASDTTime::machAbsoluteTime@<X0>(ASDTTime *this@<X0>, void *a2@<X8>)
+uint64_t *ASDTTime::machAbsoluteTime@<X0>(uint64_t *__return_ptr a1@<X8>)
 {
-  v3 = mach_absolute_time();
-  *&v5 = v3 >> 48;
-  *a2 = result;
-  a2[1] = v3;
-  a2[2] = 0x10000;
+  v2 = mach_absolute_time();
+  *&v5 = v2 >> 48;
+  *a1 = result;
+  a1[1] = v2;
+  a1[2] = 0x10000;
   return result;
 }
 
-uint64_t ASDTTime::future@<X0>(ASDTTime *this@<X0>, uint64_t a2@<X8>)
+uint64_t ASDTTime::future@<X0>(ASDTTime *this@<X0>, uint64_t *a2@<X8>)
 {
-  v7 = this;
+  v8 = this;
   v3 = mach_absolute_time();
-  *&v8 = v3 >> 48;
-  *(a2 + 8) = v3;
-  *(a2 + 16) = 0x10000;
-  return ASDTTime::operator+=<unsigned long long>(a2, &v7, v4, v5);
+  *&v9 = v3 >> 48;
+  a2[1] = v3;
+  a2[2] = 0x10000;
+  return ASDTTime::operator+=<unsigned long long>(a2, &v8, v5, v6);
 }
 
-uint64_t ASDTTime::futureUSecs@<X0>(ASDTTime *this@<X0>, uint64_t a2@<X8>)
+uint64_t ASDTTime::futureUSecs@<X0>(ASDTTime *this@<X0>, uint64_t *a2@<X8>)
 {
   return ASDTTime::future((this * 1000.0), a2);
 }
@@ -1231,14 +1220,10 @@ uint64_t ASDTTime::futureUSecs@<X0>(ASDTTime *this@<X0>, uint64_t a2@<X8>)
 }
 
 {
-  return ASDTTime::future((1000 * this), a2);
-}
-
-{
   return ASDTTime::future((1000 * (this & ~(this >> 31))), a2);
 }
 
-uint64_t ASDTTime::futureUSecs@<X0>(ASDTTime *this@<X0>, double a2@<D0>, uint64_t a3@<X8>)
+uint64_t ASDTTime::futureUSecs@<X0>(ASDTTime *this@<X0>, double a2@<D0>, uint64_t *a3@<X8>)
 {
   if (a2 < 0.0)
   {
@@ -1248,7 +1233,7 @@ uint64_t ASDTTime::futureUSecs@<X0>(ASDTTime *this@<X0>, double a2@<D0>, uint64_
   return ASDTTime::future((a2 * 1000.0), a3);
 }
 
-uint64_t ASDTTime::futureSecs@<X0>(ASDTTime *this@<X0>, uint64_t a2@<X8>)
+uint64_t ASDTTime::futureSecs@<X0>(ASDTTime *this@<X0>, uint64_t *a2@<X8>)
 {
   return ASDTTime::future((1000000000 * this), a2);
 }
@@ -1261,24 +1246,20 @@ uint64_t ASDTTime::futureSecs@<X0>(ASDTTime *this@<X0>, uint64_t a2@<X8>)
   return ASDTTime::future((1000000000 * this), a2);
 }
 
-{
-  return ASDTTime::future((1000000000 * (this & ~(this >> 31))), a2);
-}
-
-uint64_t ASDTTime::futureSecs@<X0>(ASDTTime *this@<X0>, double a2@<D0>, uint64_t a3@<X8>)
+uint64_t *ASDTTime::futureSecs@<X0>(uint64_t *__return_ptr a1@<X8>, double a2@<D0>)
 {
   if (a2 < 0.0)
   {
     a2 = 0.0;
   }
 
-  return ASDTTime::future((a2 * 1000000000.0), a3);
+  return ASDTTime::future((a2 * 1000000000.0), a1);
 }
 
-uint64_t ASDTTime::operator+=<unsigned long long>(_anonymous_namespace_ **a1, _anonymous_namespace_ **a2, uint64_t a3, unsigned __int16 *a4)
+uint64_t ASDTTime::operator+=<unsigned long long>(void *a1, uint64_t *a2, uint64_t a3, unsigned __int16 *a4)
 {
   v8 = *a2;
-  v6 = (v8 + *a1);
+  v6 = *a1 + v8;
   *a1 = v6;
 }
 
@@ -1381,7 +1362,7 @@ uint64_t ASDT::VolumeCurve::SetTransferFunction(uint64_t this, unsigned int a2)
   return this;
 }
 
-void ASDT::VolumeCurve::AddRange(ASDT::VolumeCurve *this, int a2, int a3, float a4, float a5)
+void ASDT::VolumeCurve::AddRange(ASDT::VolumeCurve *this, uint64_t a2, int a3, float a4, float a5)
 {
   v7 = *(this + 1);
   v5 = this + 8;
@@ -1450,16 +1431,15 @@ void ASDT::VolumeCurve::AddRange(ASDT::VolumeCurve *this, int a2, int a3, float 
   if ((v10 & 1) == 0)
   {
 LABEL_25:
-    v16[0] = a2;
-    v16[1] = a3;
-    *&v16[2] = a4;
-    *&v16[3] = a5;
-    std::__tree<std::__value_type<ASDT::RawPoint,ASDT::DBPoint>,std::__map_value_compare<ASDT::RawPoint,std::__value_type<ASDT::RawPoint,ASDT::DBPoint>,std::less<ASDT::RawPoint>,true>,std::allocator<std::__value_type<ASDT::RawPoint,ASDT::DBPoint>>>::__emplace_unique_key_args<ASDT::RawPoint,std::pair<ASDT::RawPoint const,ASDT::DBPoint>>(v5, v16);
+    v16 = __PAIR64__(a3, a2);
+    v17 = a4;
+    v18 = a5;
+    std::__tree<std::__value_type<ASDT::RawPoint,ASDT::DBPoint>,std::__map_value_compare<ASDT::RawPoint,std::__value_type<ASDT::RawPoint,ASDT::DBPoint>,std::less<ASDT::RawPoint>,true>,std::allocator<std::__value_type<ASDT::RawPoint,ASDT::DBPoint>>>::__emplace_unique_key_args<ASDT::RawPoint,std::pair<ASDT::RawPoint const,ASDT::DBPoint>>(v5, &v16, &v16);
   }
 
   else
   {
-    v15 = ASDTBaseLogType();
+    v15 = ASDTBaseLogType(v5, a2);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       ASDT::VolumeCurve::AddRange(v15);
@@ -1476,7 +1456,7 @@ void ASDT::VolumeCurve::ResetRange(ASDT::VolumeCurve *this)
   *(v1 - 1) = v1;
 }
 
-BOOL ASDT::VolumeCurve::CheckForContinuity(ASDT::VolumeCurve *this)
+uint64_t ASDT::VolumeCurve::CheckForContinuity(ASDT::VolumeCurve *this)
 {
   v1 = *(this + 1);
   v2 = this + 16;
@@ -1528,7 +1508,7 @@ BOOL ASDT::VolumeCurve::CheckForContinuity(ASDT::VolumeCurve *this)
     v1 = v7;
   }
 
-  while (result);
+  while ((result & 1) != 0);
   return result;
 }
 
@@ -1897,41 +1877,41 @@ void **std::__advance[abi:ne200100]<std::__map_const_iterator<std::__tree_const_
   return result;
 }
 
-uint64_t *std::__tree<std::__value_type<ASDT::RawPoint,ASDT::DBPoint>,std::__map_value_compare<ASDT::RawPoint,std::__value_type<ASDT::RawPoint,ASDT::DBPoint>,std::less<ASDT::RawPoint>,true>,std::allocator<std::__value_type<ASDT::RawPoint,ASDT::DBPoint>>>::__emplace_unique_key_args<ASDT::RawPoint,std::pair<ASDT::RawPoint const,ASDT::DBPoint>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<ASDT::RawPoint,ASDT::DBPoint>,std::__map_value_compare<ASDT::RawPoint,std::__value_type<ASDT::RawPoint,ASDT::DBPoint>,std::less<ASDT::RawPoint>,true>,std::allocator<std::__value_type<ASDT::RawPoint,ASDT::DBPoint>>>::__emplace_unique_key_args<ASDT::RawPoint,std::pair<ASDT::RawPoint const,ASDT::DBPoint>>(uint64_t a1, int *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 28);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -1949,7 +1929,7 @@ void std::__tree<std::__value_type<ASDT::RawPoint,ASDT::DBPoint>,std::__map_valu
   }
 }
 
-uint64_t asdt_exclaves_available()
+uint64_t asdt_exclaves_available(uint64_t a1, uint64_t a2)
 {
   if (asdt_exclaves_available_onceToken != -1)
   {
@@ -2042,7 +2022,7 @@ void ASDTIOSerivceWillTerminateHandler(void *a1, io_object_t a2)
           }
         }
 
-        applesauce::iokit::details::io_services_iterator::operator++(&iterator, &v24);
+        applesauce::iokit::details::io_services_iterator::operator++(&v24, &iterator);
         if (v25)
         {
           IOObjectRelease(v25);
@@ -2163,7 +2143,7 @@ void ASDTIOServiceMatchingHandler(void *a1, io_object_t a2)
           }
         }
 
-        applesauce::iokit::details::io_services_iterator::operator++(&iterator, &v24);
+        applesauce::iokit::details::io_services_iterator::operator++(&v24, &iterator);
         if (v25)
         {
           IOObjectRelease(v25);
@@ -2219,10 +2199,10 @@ void sub_24167EFF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_24167F14C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_24167F14C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = ASDTIOServiceMatcher;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -2235,10 +2215,10 @@ void applesauce::iokit::io_object_holder::~io_object_holder(io_object_t *this)
   }
 }
 
-uint64_t applesauce::iokit::details::io_services_iterator::operator++@<X0>(io_object_t *a1@<X0>, applesauce::iokit::details::io_services_iterator *a2@<X8>)
+uint64_t *applesauce::iokit::details::io_services_iterator::operator++@<X0>(applesauce::iokit::details::io_services_iterator *__return_ptr a1@<X8>, io_object_t *a2@<X0>)
 {
-  applesauce::iokit::details::io_services_iterator::io_services_iterator(a2, a1);
-  if (!a1[1])
+  applesauce::iokit::details::io_services_iterator::io_services_iterator(a1, a2);
+  if (!a2[1])
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::logic_error::logic_error(exception, "io_services_iterator exceeding size");
@@ -2246,9 +2226,9 @@ uint64_t applesauce::iokit::details::io_services_iterator::operator++@<X0>(io_ob
     __cxa_throw(exception, off_278CE6058, MEMORY[0x277D825F8]);
   }
 
-  v3 = IOIteratorNext(*a1);
-  result = a1[1];
-  a1[1] = v3;
+  v3 = IOIteratorNext(*a2);
+  result = a2[1];
+  a2[1] = v3;
   if (result)
   {
     return IOObjectRelease(result);
@@ -2340,31 +2320,32 @@ void sub_241680DF0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_241681C3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_241681C3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241681D60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_241681D60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2416820C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2416820C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_6(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_3_3(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -2461,18 +2442,18 @@ uint64_t ASDT::IOConnect::Object::Retain(ASDT::IOConnect::Object *this)
     goto LABEL_4;
   }
 
-  v6 = -15;
-  v7 = MEMORY[0x277D85F48];
+  v5 = -15;
+  v6 = MEMORY[0x277D85F48];
   while (1)
   {
-    v8 = IOServiceOpen(*(this + 19), *v7, *(this + 21), this + 20);
-    v9 = v8;
-    if (!v6 || v8 != -536870201)
+    v7 = IOServiceOpen(*(this + 19), *v6, *(this + 21), this + 20);
+    v9 = v7;
+    if (!v5 || v7 != -536870201)
     {
       break;
     }
 
-    v10 = ASDTBaseLogType();
+    v10 = ASDTBaseLogType(v7, v8);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = *(this + 21);
@@ -2491,11 +2472,11 @@ uint64_t ASDT::IOConnect::Object::Retain(ASDT::IOConnect::Object *this)
       _os_log_impl(&dword_241659000, v10, OS_LOG_TYPE_DEFAULT, "IOConnect::Retain: IOServiceOpen(%u) failed: %x (%c%c%c%c): Retrying...", buf, 0x26u);
     }
 
-    ++v6;
+    ++v5;
     usleep(0x3D090u);
   }
 
-  if (!v8)
+  if (!v7)
   {
     v3 = *v2;
     if (!v3)
@@ -2508,7 +2489,7 @@ LABEL_4:
     goto LABEL_6;
   }
 
-  v12 = ASDTBaseLogType();
+  v12 = ASDTBaseLogType(v7, v8);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     ASDT::IOConnect::Object::Retain(this + 21, v9, v12);
@@ -2518,42 +2499,41 @@ LABEL_4:
   *v2 = 0;
 LABEL_6:
   std::mutex::unlock((this + 8));
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 void ASDT::IOConnect::Object::Release(ASDT::IOConnect::Object *this)
 {
   std::mutex::lock((this + 8));
-  v2 = *(this + 18);
-  if (v2)
+  v4 = *(this + 18);
+  if (v4)
   {
-    v3 = v2 - 1;
-    *(this + 18) = v3;
-    if (!v3)
+    v5 = v4 - 1;
+    *(this + 18) = v5;
+    if (!v5)
     {
-      v5 = (this + 80);
-      v4 = *(this + 20);
-      if (v4)
+      v7 = (this + 80);
+      v6 = *(this + 20);
+      if (v6)
       {
 LABEL_8:
-        IOServiceClose(v4);
-        *v5 = 0;
+        IOServiceClose(v6);
+        *v7 = 0;
       }
     }
   }
 
   else
   {
-    v6 = ASDTBaseLogType();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = ASDTBaseLogType(v2, v3);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      ASDT::IOConnect::Object::Release(this + 18, v6);
+      ASDT::IOConnect::Object::Release(this + 18, v8);
     }
 
-    v5 = (this + 80);
-    v4 = *(this + 20);
-    if (v4)
+    v7 = (this + 80);
+    v6 = *(this + 20);
+    if (v6)
     {
       goto LABEL_8;
     }
@@ -2595,15 +2575,15 @@ uint64_t ASDT::IOConnect::Object::Get(ASDT::IOConnect::Object *this)
   return v2;
 }
 
-uint64_t ASDT::IOConnect::IOConnect(uint64_t this, int a2)
+ASDT::IOConnect *ASDT::IOConnect::IOConnect(ASDT::IOConnect *this, int a2, int a3)
 {
-  *(this + 8) = 0;
-  *(this + 16) = 0;
-  *(this + 24) = 850045863;
+  *(this + 1) = 0;
+  *(this + 2) = 0;
+  *(this + 3) = 850045863;
   *this = &unk_28534DB88;
-  *(this + 32) = 0u;
-  *(this + 48) = 0u;
-  *(this + 64) = 0u;
+  *(this + 2) = 0u;
+  *(this + 3) = 0u;
+  *(this + 4) = 0u;
   *(this + 73) = 0u;
   if (a2)
   {
@@ -3098,7 +3078,7 @@ void sub_24168B9DC(_Unwind_Exception *a1)
 
 std::string *ASDT::Exclaves::AudioBuffer::AudioBuffer(std::string *this, const char *a2, std::string::size_type a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   this->__r_.__value_.__r.__words[0] = &unk_28534DC18;
   this->__r_.__value_.__l.__size_ = a3;
   LODWORD(this->__r_.__value_.__r.__words[2]) = 0;
@@ -3120,125 +3100,121 @@ std::string *ASDT::Exclaves::AudioBuffer::AudioBuffer(std::string *this, const c
   }
 
   v9 = v8;
-  v10 = &this[1];
   if (v8 >= 0x17)
   {
     operator new();
   }
 
   *(&this[1].__r_.__value_.__s + 23) = v8;
-  v11 = this + 1;
+  v10 = this + 1;
   if (v8)
   {
-    memmove(v11, v7, v8);
+    memmove(v10, v7, v8);
   }
 
-  v11->__r_.__value_.__s.__data_[v9] = 0;
+  v10->__r_.__value_.__s.__data_[v9] = 0;
   this[2].__r_.__value_.__r.__words[0] = 0;
   size = SHIBYTE(this[1].__r_.__value_.__r.__words[2]);
   if ((size & 0x8000000000000000) != 0)
   {
     if (!a3)
     {
-      goto LABEL_42;
+      return this;
     }
 
     size = this[1].__r_.__value_.__l.__size_;
     if (!size)
     {
-      goto LABEL_42;
+      return this;
     }
 
-    v13 = v10->__words[0];
+    data = this[1].__r_.__value_.__l.__data_;
   }
 
   else
   {
     if (!a3 || !*(&this[1].__r_.__value_.__s + 23))
     {
-      goto LABEL_42;
+      return this;
     }
 
-    v13 = this + 1;
+    data = this + 1;
   }
 
-  v14 = &v13[-1].__r_.__value_.__r.__words[2] + 7;
+  v13 = &data[-1].__r_.__value_.__r.__words[2] + 7;
   do
   {
     if (!size)
     {
-      v16 = 0;
+      v15 = 0;
       goto LABEL_24;
     }
 
-    v15 = v14[size--];
+    v14 = v13[size--];
   }
 
-  while (v15 != 46);
+  while (v14 != 46);
   if (size == -2)
   {
-    v16 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v16 = size + 1;
+    v15 = size + 1;
   }
 
 LABEL_24:
-  std::string::basic_string(&v29, this + 1, v16, 0xFFFFFFFFFFFFFFFFLL, &v28);
-  if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  std::string::basic_string(&v32, this + 1, v15, 0xFFFFFFFFFFFFFFFFLL, &v31);
+  if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v17 = &v29;
+    v16 = &v32;
   }
 
   else
   {
-    v17 = v29.__r_.__value_.__r.__words[0];
+    v16 = v32.__r_.__value_.__r.__words[0];
   }
 
   *__dst = 0;
-  strlcpy(__dst, v17, 9uLL);
-  v27 = 0;
-  if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+  v17 = strlcpy(__dst, v16, 9uLL);
+  v30 = 0;
+  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v29.__r_.__value_.__l.__data_);
+    operator delete(v32.__r_.__value_.__l.__data_);
   }
 
   this[2].__r_.__value_.__r.__words[0] = *__dst;
-  v18 = a3 / *MEMORY[0x277D85FA0] * *MEMORY[0x277D85FA0];
-  if (v18 >= a3)
+  v19 = a3 / *MEMORY[0x277D85FA0] * *MEMORY[0x277D85FA0];
+  if (v19 >= a3)
   {
-    v19 = a3;
+    v20 = a3;
   }
 
   else
   {
-    v19 = *MEMORY[0x277D85FA0] + v18;
+    v20 = *MEMORY[0x277D85FA0] + v19;
   }
 
-  if (asdt_exclaves_available())
+  v21 = asdt_exclaves_available(v17, v18);
+  if (v21)
   {
-    if (SHIBYTE(this[1].__r_.__value_.__r.__words[2]) < 0)
+    v23 = exclaves_audio_buffer_create();
+    v25 = v23;
+    if (v23 || !*v6)
     {
-      v20 = v10->__words[0];
-    }
-
-    v21 = exclaves_audio_buffer_create();
-    if (v21 || !*v6)
-    {
-      v22 = ASDTBaseLogType();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v26 = ASDTBaseLogType(v23, v24);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        LODWORD(v29.__r_.__value_.__l.__data_) = 136315906;
-        *(v29.__r_.__value_.__r.__words + 4) = a2;
-        WORD2(v29.__r_.__value_.__r.__words[1]) = 2048;
-        *(&v29.__r_.__value_.__r.__words[1] + 6) = v19;
-        HIWORD(v29.__r_.__value_.__r.__words[2]) = 2048;
-        v30 = a3;
-        v31 = 1024;
-        v32 = v21;
-        _os_log_error_impl(&dword_241659000, v22, OS_LOG_TYPE_ERROR, "AudioBuffer: Failed to create with name: %s, size: %llu (%llu): %x", &v29, 0x26u);
+        LODWORD(v32.__r_.__value_.__l.__data_) = 136315906;
+        *(v32.__r_.__value_.__r.__words + 4) = a2;
+        WORD2(v32.__r_.__value_.__r.__words[1]) = 2048;
+        *(&v32.__r_.__value_.__r.__words[1] + 6) = v20;
+        HIWORD(v32.__r_.__value_.__r.__words[2]) = 2048;
+        v33 = a3;
+        v34 = 1024;
+        v35 = v25;
+        _os_log_error_impl(&dword_241659000, v26, OS_LOG_TYPE_ERROR, "AudioBuffer: Failed to create with name: %s, size: %llu (%llu): %x", &v32, 0x26u);
       }
 
       *v6 = 0;
@@ -3247,15 +3223,13 @@ LABEL_24:
 
   else
   {
-    v23 = ASDTBaseLogType();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v27 = ASDTBaseLogType(v21, v22);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      ASDT::Exclaves::AudioBuffer::AudioBuffer(v23);
+      ASDT::Exclaves::AudioBuffer::AudioBuffer(v27);
     }
   }
 
-LABEL_42:
-  v24 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -3282,16 +3256,15 @@ void ASDT::Exclaves::AudioBuffer::~AudioBuffer(ASDT::Exclaves::AudioBuffer *this
 
 uint64_t ASDT::Exclaves::AudioBuffer::Read(uint64_t a1, uint64_t *a2, unint64_t a3, _DWORD *a4)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (!a2 && a3)
   {
-    goto LABEL_3;
+    return 4;
   }
 
   if (!*(a1 + 16))
   {
-    v6 = 29;
-    goto LABEL_13;
+    return 29;
   }
 
   v8 = a2[1];
@@ -3307,70 +3280,65 @@ uint64_t ASDT::Exclaves::AudioBuffer::Read(uint64_t a1, uint64_t *a2, unint64_t 
   {
     if (v9 + v7 != a2[3])
     {
-LABEL_3:
-      v6 = 4;
-      goto LABEL_13;
+      return 4;
     }
 
     v10 = a2[4];
     v11 = a2[5];
   }
 
-  v12 = *(a1 + 48);
   kdebug_trace();
-  v13 = *(a1 + 16);
-  v6 = exclaves_audio_buffer_copyout_with_status();
-  if (v6)
+  v12 = exclaves_audio_buffer_copyout_with_status();
+  v6 = v12;
+  if (v12)
   {
-    v14 = ASDTBaseLogType();
+    v14 = ASDTBaseLogType(v12, v13);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v17 = (a1 + 24);
+      v16 = (a1 + 24);
       if (*(a1 + 47) < 0)
       {
-        v17 = *v17;
+        v16 = *v16;
       }
 
       *buf = 136316674;
-      v19 = v17;
-      v20 = 2048;
-      v21 = v9;
-      v22 = 2048;
-      v23 = v7;
-      v24 = 2048;
-      v25 = v8;
-      v26 = 2048;
-      v27 = v11;
-      v28 = 2048;
-      v29 = v10;
-      v30 = 1024;
-      v31 = v6;
+      v18 = v16;
+      v19 = 2048;
+      v20 = v9;
+      v21 = 2048;
+      v22 = v7;
+      v23 = 2048;
+      v24 = v8;
+      v25 = 2048;
+      v26 = v11;
+      v27 = 2048;
+      v28 = v10;
+      v29 = 1024;
+      v30 = v6;
       _os_log_error_impl(&dword_241659000, v14, OS_LOG_TYPE_ERROR, "AudioBuffer::Read: Failed to copyout: name: %s, addr: %p, length1: %llu, offset1: %llu, length2: %llu, offset2: %llu, ret: %x", buf, 0x44u);
     }
   }
 
-  ASDT::Exclaves::Sensor::ConvertStatus(2, a4);
+  ASDT::Exclaves::Sensor::ConvertStatus(2, a4, "com.apple.sensors.mic");
   kdebug_trace();
-LABEL_13:
-  v15 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t ASDT::Exclaves::AudioBuffer::Read(uint64_t a1, uint64_t a2, int a3, unsigned int a4, unsigned int a5, unint64_t a6, _DWORD *a7)
 {
-  v13[6] = *MEMORY[0x277D85DE8];
+  v12[6] = *MEMORY[0x277D85DE8];
   v7 = a4 * a3;
   v8 = a5 * a4 - a6 % a5 * a4;
   v9 = v8 >= v7;
-  v13[0] = a2;
-  v13[1] = a6 % a5 * a4;
+  v12[0] = a2;
+  v12[1] = a6 % a5 * a4;
   if (v8 >= v7)
   {
     v8 = a4 * a3;
   }
 
-  v13[2] = v8;
-  v13[3] = a2 + v8;
+  v12[2] = v8;
+  v12[3] = a2 + v8;
   if (v9)
   {
     v10 = 1;
@@ -3381,11 +3349,9 @@ uint64_t ASDT::Exclaves::AudioBuffer::Read(uint64_t a1, uint64_t a2, int a3, uns
     v10 = 2;
   }
 
-  v13[4] = 0;
-  v13[5] = v7 - v8;
-  result = ASDT::Exclaves::AudioBuffer::Read(a1, v13, v10, a7);
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  v12[4] = 0;
+  v12[5] = v7 - v8;
+  return ASDT::Exclaves::AudioBuffer::Read(a1, v12, v10, a7);
 }
 
 uint64_t ASDT::Exclaves::AudioBuffer::Read(uint64_t a1, uint64_t a2, int a3, int a4, _DWORD *a5)
@@ -3398,7 +3364,7 @@ uint64_t ASDT::Exclaves::AudioBuffer::Read(uint64_t a1, uint64_t a2, int a3, int
 
 std::string *ASDT::Exclaves::InboundBuffer::InboundBuffer(std::string *this, const char *a2, std::string::size_type a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   this->__r_.__value_.__r.__words[0] = &unk_28534DC48;
   this->__r_.__value_.__l.__size_ = a3;
   LODWORD(this->__r_.__value_.__r.__words[2]) = 0;
@@ -3420,125 +3386,121 @@ std::string *ASDT::Exclaves::InboundBuffer::InboundBuffer(std::string *this, con
   }
 
   v9 = v8;
-  v10 = &this[1];
   if (v8 >= 0x17)
   {
     operator new();
   }
 
   *(&this[1].__r_.__value_.__s + 23) = v8;
-  v11 = this + 1;
+  v10 = this + 1;
   if (v8)
   {
-    memmove(v11, v7, v8);
+    memmove(v10, v7, v8);
   }
 
-  v11->__r_.__value_.__s.__data_[v9] = 0;
+  v10->__r_.__value_.__s.__data_[v9] = 0;
   this[2].__r_.__value_.__r.__words[0] = 0;
   size = SHIBYTE(this[1].__r_.__value_.__r.__words[2]);
   if ((size & 0x8000000000000000) != 0)
   {
     if (!a3)
     {
-      goto LABEL_42;
+      return this;
     }
 
     size = this[1].__r_.__value_.__l.__size_;
     if (!size)
     {
-      goto LABEL_42;
+      return this;
     }
 
-    v13 = v10->__words[0];
+    data = this[1].__r_.__value_.__l.__data_;
   }
 
   else
   {
     if (!a3 || !*(&this[1].__r_.__value_.__s + 23))
     {
-      goto LABEL_42;
+      return this;
     }
 
-    v13 = this + 1;
+    data = this + 1;
   }
 
-  v14 = &v13[-1].__r_.__value_.__r.__words[2] + 7;
+  v13 = &data[-1].__r_.__value_.__r.__words[2] + 7;
   do
   {
     if (!size)
     {
-      v16 = 0;
+      v15 = 0;
       goto LABEL_24;
     }
 
-    v15 = v14[size--];
+    v14 = v13[size--];
   }
 
-  while (v15 != 46);
+  while (v14 != 46);
   if (size == -2)
   {
-    v16 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v16 = size + 1;
+    v15 = size + 1;
   }
 
 LABEL_24:
-  std::string::basic_string(&v29, this + 1, v16, 0xFFFFFFFFFFFFFFFFLL, &v28);
-  if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  std::string::basic_string(&v32, this + 1, v15, 0xFFFFFFFFFFFFFFFFLL, &v31);
+  if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v17 = &v29;
+    v16 = &v32;
   }
 
   else
   {
-    v17 = v29.__r_.__value_.__r.__words[0];
+    v16 = v32.__r_.__value_.__r.__words[0];
   }
 
   *__dst = 0;
-  strlcpy(__dst, v17, 9uLL);
-  v27 = 0;
-  if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+  v17 = strlcpy(__dst, v16, 9uLL);
+  v30 = 0;
+  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v29.__r_.__value_.__l.__data_);
+    operator delete(v32.__r_.__value_.__l.__data_);
   }
 
   this[2].__r_.__value_.__r.__words[0] = *__dst;
-  v18 = a3 / *MEMORY[0x277D85FA0] * *MEMORY[0x277D85FA0];
-  if (v18 >= a3)
+  v19 = a3 / *MEMORY[0x277D85FA0] * *MEMORY[0x277D85FA0];
+  if (v19 >= a3)
   {
-    v19 = a3;
+    v20 = a3;
   }
 
   else
   {
-    v19 = *MEMORY[0x277D85FA0] + v18;
+    v20 = *MEMORY[0x277D85FA0] + v19;
   }
 
-  if (asdt_exclaves_available())
+  v21 = asdt_exclaves_available(v17, v18);
+  if (v21)
   {
-    if (SHIBYTE(this[1].__r_.__value_.__r.__words[2]) < 0)
+    v23 = exclaves_inbound_buffer_create();
+    v25 = v23;
+    if (v23 || !*v6)
     {
-      v20 = v10->__words[0];
-    }
-
-    v21 = exclaves_inbound_buffer_create();
-    if (v21 || !*v6)
-    {
-      v22 = ASDTBaseLogType();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v26 = ASDTBaseLogType(v23, v24);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        LODWORD(v29.__r_.__value_.__l.__data_) = 136315906;
-        *(v29.__r_.__value_.__r.__words + 4) = a2;
-        WORD2(v29.__r_.__value_.__r.__words[1]) = 2048;
-        *(&v29.__r_.__value_.__r.__words[1] + 6) = v19;
-        HIWORD(v29.__r_.__value_.__r.__words[2]) = 2048;
-        v30 = a3;
-        v31 = 1024;
-        v32 = v21;
-        _os_log_error_impl(&dword_241659000, v22, OS_LOG_TYPE_ERROR, "InboundBuffer: Failed to create with name: %s, size: %llu (%llu): %x", &v29, 0x26u);
+        LODWORD(v32.__r_.__value_.__l.__data_) = 136315906;
+        *(v32.__r_.__value_.__r.__words + 4) = a2;
+        WORD2(v32.__r_.__value_.__r.__words[1]) = 2048;
+        *(&v32.__r_.__value_.__r.__words[1] + 6) = v20;
+        HIWORD(v32.__r_.__value_.__r.__words[2]) = 2048;
+        v33 = a3;
+        v34 = 1024;
+        v35 = v25;
+        _os_log_error_impl(&dword_241659000, v26, OS_LOG_TYPE_ERROR, "InboundBuffer: Failed to create with name: %s, size: %llu (%llu): %x", &v32, 0x26u);
       }
 
       *v6 = 0;
@@ -3547,15 +3509,13 @@ LABEL_24:
 
   else
   {
-    v23 = ASDTBaseLogType();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v27 = ASDTBaseLogType(v21, v22);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      ASDT::Exclaves::InboundBuffer::InboundBuffer(v23);
+      ASDT::Exclaves::InboundBuffer::InboundBuffer(v27);
     }
   }
 
-LABEL_42:
-  v24 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -3582,16 +3542,15 @@ void ASDT::Exclaves::InboundBuffer::~InboundBuffer(ASDT::Exclaves::InboundBuffer
 
 uint64_t ASDT::Exclaves::InboundBuffer::Write(uint64_t a1, uint64_t *a2, unint64_t a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (!a2 && a3)
   {
-    goto LABEL_3;
+    return 4;
   }
 
   if (!*(a1 + 16))
   {
-    v4 = 29;
-    goto LABEL_13;
+    return 29;
   }
 
   v6 = a2[1];
@@ -3607,69 +3566,64 @@ uint64_t ASDT::Exclaves::InboundBuffer::Write(uint64_t a1, uint64_t *a2, unint64
   {
     if (v7 + v5 != a2[3])
     {
-LABEL_3:
-      v4 = 4;
-      goto LABEL_13;
+      return 4;
     }
 
     v8 = a2[4];
     v9 = a2[5];
   }
 
-  v10 = *(a1 + 48);
   kdebug_trace();
-  v11 = *(a1 + 16);
-  v4 = exclaves_inbound_buffer_copyin();
-  if (v4)
+  v10 = exclaves_inbound_buffer_copyin();
+  v4 = v10;
+  if (v10)
   {
-    v12 = ASDTBaseLogType();
+    v12 = ASDTBaseLogType(v10, v11);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v15 = (a1 + 24);
+      v14 = (a1 + 24);
       if (*(a1 + 47) < 0)
       {
-        v15 = *v15;
+        v14 = *v14;
       }
 
-      v16 = 136316674;
-      v17 = v15;
-      v18 = 2048;
-      v19 = v7;
-      v20 = 2048;
-      v21 = v5;
-      v22 = 2048;
-      v23 = v6;
-      v24 = 2048;
-      v25 = v9;
-      v26 = 2048;
-      v27 = v8;
-      v28 = 1024;
-      v29 = v4;
-      _os_log_error_impl(&dword_241659000, v12, OS_LOG_TYPE_ERROR, "InboundBuffer::Write: Failed to copyin: name: %s, addr: %p, length1: %llu, offset1: %llu, length2: %llu, offset2: %llu, ret: %x", &v16, 0x44u);
+      v15 = 136316674;
+      v16 = v14;
+      v17 = 2048;
+      v18 = v7;
+      v19 = 2048;
+      v20 = v5;
+      v21 = 2048;
+      v22 = v6;
+      v23 = 2048;
+      v24 = v9;
+      v25 = 2048;
+      v26 = v8;
+      v27 = 1024;
+      v28 = v4;
+      _os_log_error_impl(&dword_241659000, v12, OS_LOG_TYPE_ERROR, "InboundBuffer::Write: Failed to copyin: name: %s, addr: %p, length1: %llu, offset1: %llu, length2: %llu, offset2: %llu, ret: %x", &v15, 0x44u);
     }
   }
 
   kdebug_trace();
-LABEL_13:
-  v13 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 uint64_t ASDT::Exclaves::InboundBuffer::Write(ASDT::Exclaves::InboundBuffer *this, const unsigned __int8 *a2, int a3, unsigned int a4, unsigned int a5, unint64_t a6)
 {
-  v12[6] = *MEMORY[0x277D85DE8];
+  v11[6] = *MEMORY[0x277D85DE8];
   v6 = a4 * a3;
   v7 = a5 * a4 - a6 % a5 * a4;
   v8 = v7 >= v6;
-  v12[0] = a2;
-  v12[1] = a6 % a5 * a4;
+  v11[0] = a2;
+  v11[1] = a6 % a5 * a4;
   if (v7 >= v6)
   {
     v7 = a4 * a3;
   }
 
-  v12[2] = v7;
-  v12[3] = &a2[v7];
+  v11[2] = v7;
+  v11[3] = &a2[v7];
   if (v8)
   {
     v9 = 1;
@@ -3680,11 +3634,9 @@ uint64_t ASDT::Exclaves::InboundBuffer::Write(ASDT::Exclaves::InboundBuffer *thi
     v9 = 2;
   }
 
-  v12[4] = 0;
-  v12[5] = v6 - v7;
-  result = ASDT::Exclaves::InboundBuffer::Write(this, v12, v9);
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  v11[4] = 0;
+  v11[5] = v6 - v7;
+  return ASDT::Exclaves::InboundBuffer::Write(this, v11, v9);
 }
 
 uint64_t ASDT::Exclaves::InboundBuffer::Write(ASDT::Exclaves::InboundBuffer *this, const unsigned __int8 *a2, int a3, int a4)
@@ -3695,10 +3647,10 @@ uint64_t ASDT::Exclaves::InboundBuffer::Write(ASDT::Exclaves::InboundBuffer *thi
   return ASDT::Exclaves::InboundBuffer::Write(this, v5, 1uLL);
 }
 
-void sub_241690B6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_241690B6C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = ASDTCondition;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -3732,68 +3684,33 @@ void sub_24169316C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void anonymous namespace::GetEntryForPath()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ASDT::IORegistry::GetObjectForKey(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 136315650;
-  v5 = "GetObjectForKey";
-  v6 = 2048;
-  v7 = a1;
-  v8 = 2048;
-  v9 = a2;
-  _os_log_error_impl(&dword_241659000, log, OS_LOG_TYPE_ERROR, "%s: Invalid argumnents: %p %p\n", &v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 136315650;
+  v4 = "GetObjectForKey";
+  v5 = 2048;
+  v6 = a1;
+  v7 = 2048;
+  v8 = a2;
+  _os_log_error_impl(&dword_241659000, log, OS_LOG_TYPE_ERROR, "%s: Invalid argumnents: %p %p\n", &v3, 0x20u);
 }
 
-void ASDT::IORegistry::GetObjectForKey()
+void ASDT::IOUserClient::CacheProperties()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ASDT::IORegistry::GetUInt32tForKey()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ASDT::IOUserClient::GetIOObjectRefCount()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x14u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ASDT::IOUserClient::CacheProperties(uint64_t a1)
-{
-  OUTLINED_FUNCTION_0_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void ASDT::IOUserClient::DictionarySetValueForKey()
@@ -3823,94 +3740,59 @@ void ASDT::IOUserClient::SetProperty()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void ASDT::IOUserClient::ReplaceProperty(uint64_t a1)
+void ASDT::IOUserClient::ReplaceProperty()
 {
-  OUTLINED_FUNCTION_0_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void ASDT::IOUserClient::SetInterestNotificationEnabled(uint64_t a1)
+void ASDT::IOUserClient::SetInterestNotificationEnabled()
 {
-  OUTLINED_FUNCTION_0_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 {
-  OUTLINED_FUNCTION_0_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-void ASDT::IOUserClient::SetInterestNotificationEnabled(char *a1, uint64_t *a2)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  if (*a1 < 0)
-  {
-    v2 = *a2;
-  }
-
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void ASDT::IOUserClient::InterestNotificationCallback(uint64_t a1)
 {
-  OUTLINED_FUNCTION_0_1(a1, *MEMORY[0x277D85DE8]);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_0_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void ASDT::Ramper::Ramper(unsigned int *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void ASDT::IOUserClient::InterestNotificationCallback()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v8 = *a1;
-  OUTLINED_FUNCTION_0_4(&dword_241659000, a2, a3, "ASDTRamper: Missing format flags: %x", a5, a6, a7, a8, 0);
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_1(*MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_0_0();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+void ASDT::Ramper::Ramper(_DWORD *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = *a1;
+  OUTLINED_FUNCTION_0_4(&dword_241659000, a2, a3, "ASDTRamper: Missing format flags: %x", a5, a6, a7, a8, v8);
 }
 
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v8 = *a1;
-  OUTLINED_FUNCTION_0_4(&dword_241659000, a2, a3, "ASDTRamper: Bad format flags: %x", a5, a6, a7, a8, 0);
-  v9 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = *a1;
+  OUTLINED_FUNCTION_0_4(&dword_241659000, a2, a3, "ASDTRamper: Bad format flags: %x", a5, a6, a7, a8, v8);
 }
 
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v8 = *a1;
-  OUTLINED_FUNCTION_0_4(&dword_241659000, a2, a3, "ASDTRamper: Format must be 32-bit: %u", a5, a6, a7, a8, 0);
-  v9 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = *a1;
+  OUTLINED_FUNCTION_0_4(&dword_241659000, a2, a3, "ASDTRamper: Format must be 32-bit: %u", a5, a6, a7, a8, v8);
 }
 
 uint64_t ASDT::Ramper::Ramper(uint64_t *a1, uint64_t *a2)
@@ -3935,7 +3817,7 @@ uint64_t ASDT::Ramper::Ramper(uint64_t *a1, uint64_t *a2)
 
 void ASDT::IOMemoryMap::Release(unsigned int a1, NSObject *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = HIBYTE(a1);
   if ((a1 - 0x20000000) >> 24 >= 0x5F)
   {
@@ -3954,14 +3836,14 @@ void ASDT::IOMemoryMap::Release(unsigned int a1, NSObject *a2)
     v4 = 32;
   }
 
-  v7[0] = 67110144;
-  v7[1] = a1;
-  v8 = 1024;
-  v9 = v2;
-  v10 = 1024;
-  v11 = v3;
-  v12 = 1024;
-  v13 = v4;
+  v6[0] = 67110144;
+  v6[1] = a1;
+  v7 = 1024;
+  v8 = v2;
+  v9 = 1024;
+  v10 = v3;
+  v11 = 1024;
+  v12 = v4;
   if (a1 - 32 >= 0x5F)
   {
     v5 = 32;
@@ -3972,10 +3854,9 @@ void ASDT::IOMemoryMap::Release(unsigned int a1, NSObject *a2)
     v5 = a1;
   }
 
-  v14 = 1024;
-  v15 = v5;
-  _os_log_error_impl(&dword_241659000, a2, OS_LOG_TYPE_ERROR, "IOMemoryMap: UnmapMemory() failed: %x (%c%c%c%c)", v7, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
+  v13 = 1024;
+  v14 = v5;
+  _os_log_error_impl(&dword_241659000, a2, OS_LOG_TYPE_ERROR, "IOMemoryMap: UnmapMemory() failed: %x (%c%c%c%c)", v6, 0x20u);
 }
 
 void ASDT::MachPort::CreatePort()
@@ -3986,7 +3867,6 @@ void ASDT::MachPort::CreatePort()
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
@@ -3996,7 +3876,6 @@ void ASDT::MachPort::CreatePort()
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
@@ -4006,7 +3885,6 @@ void ASDT::MachPort::CreatePort()
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
@@ -4016,7 +3894,6 @@ void ASDT::MachPort::CreatePort()
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ASDT::MachPort::CheckInPort()
@@ -4027,7 +3904,6 @@ void ASDT::MachPort::CheckInPort()
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
@@ -4037,7 +3913,6 @@ void ASDT::MachPort::CheckInPort()
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ASDT::MachPort::RetainPort()
@@ -4048,7 +3923,6 @@ void ASDT::MachPort::RetainPort()
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ASDT::MachPort::DestroyPort()
@@ -4065,34 +3939,27 @@ void ASDT::MachPort::DestroyPort()
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ASDT::MachPort::ReceiveMessage(mach_error_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   mach_error_string(a1);
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_6(&dword_241659000, v1, v2, "MachPort::ReceiveMessage: mach_msg() returned error 0x%X: '%s'", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_241659000, v1, v2, "MachPort::ReceiveMessage: mach_msg() returned error 0x%X: '%s'", v3, v4, v5, v6);
 }
 
 void ASDT::MachPort::SendMessage(mach_error_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   mach_error_string(a1);
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_6(&dword_241659000, v1, v2, "MachPort::SendMessage: mach_msg() returned error 0x%X: '%s'", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_241659000, v1, v2, "MachPort::SendMessage: mach_msg() returned error 0x%X: '%s'", v3, v4, v5, v6);
 }
 
 void ASDT::MachPort::SendMessageWithReply(mach_error_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   mach_error_string(a1);
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_6(&dword_241659000, v1, v2, "MachPort::SendMessageWithReply: mach_msg() returned error 0x%X: '%s'", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_241659000, v1, v2, "MachPort::SendMessageWithReply: mach_msg() returned error 0x%X: '%s'", v3, v4, v5, v6);
 }
 
 void ASDT::MachPort::SetNotificationQueue()
@@ -4115,60 +3982,30 @@ void ASDT::MachPort::SetNotificationHandler()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void ASDT::Acoustic::Base::valid(unsigned __int16 *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xEu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void ASDT::Acoustic::Base::valid(unsigned __int8 *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void ASDT::Acoustic::Base::valid()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void ASDT::Acoustic::Base::valid(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 2);
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void ASDT::Exclaves::Sensor::Sensor()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_1_5(&dword_241659000, v0, v1, "Sensor: Failed to create with name: %s: %x", v3, v4);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
-void ASDT::Exclaves::Sensor::ConvertStatus()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_11();
-  OUTLINED_FUNCTION_1_5(&dword_241659000, v0, v1, "Sensor::ConvertStatus: Unsupported status: name: %s, status: %u", v3, v4);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void ASDT::IOConnect::Object::Retain(int *a1, unsigned int a2, os_log_t log)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = *a1;
   v4 = HIBYTE(a2);
   if ((a2 - 0x20000000) >> 24 >= 0x5F)
@@ -4182,21 +4019,21 @@ void ASDT::IOConnect::Object::Retain(int *a1, unsigned int a2, os_log_t log)
     v5 = 32;
   }
 
-  v9[0] = 67110400;
-  v9[1] = v3;
+  v8[0] = 67110400;
+  v8[1] = v3;
   v6 = BYTE1(a2);
   if (BYTE1(a2) - 32 >= 0x5F)
   {
     v6 = 32;
   }
 
-  v10 = 1024;
-  v11 = a2;
-  v12 = 1024;
-  v13 = v4;
-  v14 = 1024;
-  v15 = v5;
-  v16 = 1024;
+  v9 = 1024;
+  v10 = a2;
+  v11 = 1024;
+  v12 = v4;
+  v13 = 1024;
+  v14 = v5;
+  v15 = 1024;
   if (a2 - 32 >= 0x5F)
   {
     v7 = 32;
@@ -4207,21 +4044,19 @@ void ASDT::IOConnect::Object::Retain(int *a1, unsigned int a2, os_log_t log)
     v7 = a2;
   }
 
-  v17 = v6;
-  v18 = 1024;
-  v19 = v7;
-  _os_log_error_impl(&dword_241659000, log, OS_LOG_TYPE_ERROR, "IOConnect::Retain: IOServiceOpen(%u) failed: %x (%c%c%c%c)", v9, 0x26u);
-  v8 = *MEMORY[0x277D85DE8];
+  v16 = v6;
+  v17 = 1024;
+  v18 = v7;
+  _os_log_error_impl(&dword_241659000, log, OS_LOG_TYPE_ERROR, "IOConnect::Retain: IOServiceOpen(%u) failed: %x (%c%c%c%c)", v8, 0x26u);
 }
 
 void ASDT::IOConnect::Object::Release(int *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_error_impl(&dword_241659000, a2, OS_LOG_TYPE_ERROR, "IOConnect::Object::Release: called with refCount of %u", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_error_impl(&dword_241659000, a2, OS_LOG_TYPE_ERROR, "IOConnect::Object::Release: called with refCount of %u", v3, 8u);
 }
 
 void operator delete[]()

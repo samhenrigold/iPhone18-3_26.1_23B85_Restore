@@ -50,7 +50,7 @@
   v10 = v6;
   v11 = *&root->tx;
   v12 = 0u;
-  [self counterTransformForTransformInRoot:&v9];
+  objc_msgSend_counterTransformForTransformInRoot_(self, a2, &v9);
   v9 = v12;
   v10 = v13;
   v11 = v14;
@@ -121,7 +121,7 @@
         [v7 withTemporaryLayoutPerform:v30];
         if (v7)
         {
-          [v7 transformInRoot];
+          objc_msgSend_transformInRoot(v7);
         }
 
         else
@@ -133,7 +133,7 @@
         v11 = geometry2;
         if (geometry2)
         {
-          [geometry2 transform];
+          objc_msgSend_transform(geometry2);
         }
 
         else
@@ -146,7 +146,7 @@
         memset(&v29, 0, sizeof(v29));
         if (v12)
         {
-          [v12 transform];
+          objc_msgSend_transform(v12);
         }
 
         else
@@ -162,7 +162,7 @@
         memset(&t1, 0, sizeof(t1));
         if (geometry)
         {
-          [geometry fullTransform];
+          objc_msgSend_fullTransform(geometry);
         }
 
         else
@@ -227,7 +227,7 @@
   v10 = geometry;
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -282,12 +282,12 @@
       sub_10130EFC0(v6);
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Must provide a group info or nil as parent of a counter rotate info!", v7, v8, v9, v10, v11, v12, v13, "[CRLCounterRotateInfo setParentInfo:]");
-    v14 = [NSString stringWithUTF8String:"[CRLCounterRotateInfo setParentInfo:]"];
-    v15 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLCounterRotateInfo.m"];
-    [CRLAssertionHandler handleFailureInFunction:v14 file:v15 lineNumber:108 isFatal:1 description:"Must provide a group info or nil as parent of a counter rotate info!"];
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Must provide a group info or nil as parent of a counter rotate info!", "[CRLCounterRotateInfo setParentInfo:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLCounterRotateInfo.m", 108);
+    v7 = [NSString stringWithUTF8String:"[CRLCounterRotateInfo setParentInfo:]"];
+    v8 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/BoardItems/CRLCounterRotateInfo.m"];
+    [CRLAssertionHandler handleFailureInFunction:v7 file:v8 lineNumber:108 isFatal:1 description:"Must provide a group info or nil as parent of a counter rotate info!"];
 
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v16, v17);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v9, v10);
     abort();
   }
 

@@ -600,25 +600,25 @@ LABEL_9:
 LABEL_10:
 }
 
-void __171__MFMessageComposeViewController__insertCKSMSComposeFileDataForItemProvider_collaborationShareOptions_collaborationMetadata_sendAsCopyURL_isCollaboration_outReturnResult___block_invoke(uint64_t a1)
+void __171__MFMessageComposeViewController__insertCKSMSComposeFileDataForItemProvider_collaborationShareOptions_collaborationMetadata_sendAsCopyURL_isCollaboration_outReturnResult___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __171__MFMessageComposeViewController__insertCKSMSComposeFileDataForItemProvider_collaborationShareOptions_collaborationMetadata_sendAsCopyURL_isCollaboration_outReturnResult___block_invoke_2;
-  v10[3] = &unk_1E8070060;
-  v9 = *(a1 + 40);
-  v4 = *(&v9 + 1);
-  v5 = *(a1 + 56);
-  v6 = *(a1 + 64);
-  *&v7 = v5;
-  *(&v7 + 1) = v6;
-  v11 = v9;
-  v12 = v7;
-  v14 = *(a1 + 80);
-  v13 = *(a1 + 72);
-  v8 = [v2 loadObjectOfClass:v3 completionHandler:v10];
+  v3 = *(a1 + 32);
+  v4 = objc_opt_class();
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __171__MFMessageComposeViewController__insertCKSMSComposeFileDataForItemProvider_collaborationShareOptions_collaborationMetadata_sendAsCopyURL_isCollaboration_outReturnResult___block_invoke_2;
+  v11[3] = &unk_1E8070060;
+  v10 = *(a1 + 40);
+  v5 = *(&v10 + 1);
+  v6 = *(a1 + 56);
+  v7 = *(a1 + 64);
+  *&v8 = v6;
+  *(&v8 + 1) = v7;
+  v12 = v10;
+  v13 = v8;
+  v15 = *(a1 + 80);
+  v14 = *(a1 + 72);
+  v9 = [v3 loadObjectOfClass:v4 completionHandler:v11];
 }
 
 void __171__MFMessageComposeViewController__insertCKSMSComposeFileDataForItemProvider_collaborationShareOptions_collaborationMetadata_sendAsCopyURL_isCollaboration_outReturnResult___block_invoke_2(uint64_t a1, void *a2)

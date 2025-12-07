@@ -12,10 +12,9 @@
   selfCopy = self;
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
-  v7 = *&selfCopy->callback[OBJC_IVAR____TtCC10Calculator30CalculatorHistoryRecordManagerP33_4DA60216990E372C1AC9732F1D785D1D15NSCacheObserver_callback];
-  (*(&selfCopy->super.isa + OBJC_IVAR____TtCC10Calculator30CalculatorHistoryRecordManagerP33_4DA60216990E372C1AC9732F1D785D1D15NSCacheObserver_callback))(cacheCopy, v8);
+  (*(&selfCopy->super.isa + OBJC_IVAR____TtCC10Calculator30CalculatorHistoryRecordManagerP33_4DA60216990E372C1AC9732F1D785D1D15NSCacheObserver_callback))(cacheCopy, v7);
 
-  sub_100003F80(v8);
+  sub_100003F80(v7);
 }
 
 - (_TtCC10Calculator30CalculatorHistoryRecordManagerP33_4DA60216990E372C1AC9732F1D785D1D15NSCacheObserver)init

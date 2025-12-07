@@ -3,6 +3,7 @@
 - (double)markEventEnd:(id)end;
 - (double)markEventSplit:(id)split;
 - (id)description;
+- (id)elapsedTimeAsString:(int)string;
 - (unint64_t)elapsedTimeAsNumber:(int)number;
 - (unint64_t)elapsedTimeInNanoseconds;
 - (void)markEventStart:(id)start;
@@ -33,9 +34,9 @@
 
 - (void)start
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_4(&dword_1B990D000, a2, a3, "Will not start stopwatch.  It is already running.  Stopwatch: [%@].", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_4(&dword_1B990D000, a2, a3, "Will not start stopwatch.  It is already running.  Stopwatch: [%@].", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (unint64_t)elapsedTimeInNanoseconds
@@ -130,9 +131,9 @@ void __40__CalStopwatch_elapsedTimeInNanoseconds__block_invoke()
 
 - (void)stop
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_4(&dword_1B990D000, a2, a3, "Will not stop stopwatch.  It is not running. Stopwatch: [%@].", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_4(&dword_1B990D000, a2, a3, "Will not stop stopwatch.  It is not running. Stopwatch: [%@].", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)reset
@@ -162,6 +163,26 @@ void __40__CalStopwatch_elapsedTimeInNanoseconds__block_invoke()
   return elapsedTimeInNanoseconds / v5;
 }
 
+- (id)elapsedTimeAsString:(int)string
+{
+  v4 = [(CalStopwatch *)self elapsedTimeAsNumber:*&string];
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  if (selfCopy->_hasValidElapsedTime)
+  {
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%llu", v4];
+  }
+
+  else
+  {
+    v6 = @"Unknown";
+  }
+
+  objc_sync_exit(selfCopy);
+
+  return v6;
+}
+
 - (void)markEventStart:(id)start
 {
   startCopy = start;
@@ -175,7 +196,7 @@ void __40__CalStopwatch_elapsedTimeInNanoseconds__block_invoke()
   if ([(CalStopwatch *)self usesSignalFlags])
   {
     v13 = +[CalFoundationLogSubsystem eventTimer];
-    CalPerfLogStart(v13);
+    CalPerfLogStart(v13, @"EventTimer", startCopy);
   }
 
   v14 = [MEMORY[0x1E695DF70] arrayWithObject:date];
@@ -184,7 +205,7 @@ void __40__CalStopwatch_elapsedTimeInNanoseconds__block_invoke()
 
 - (double)markEventSplit:(id)split
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   splitCopy = split;
   date = [MEMORY[0x1E695DF00] date];
   v6 = [(NSMutableDictionary *)self->_events objectForKeyedSubscript:splitCopy];
@@ -208,11 +229,11 @@ void __40__CalStopwatch_elapsedTimeInNanoseconds__block_invoke()
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v19 = splitCopy;
-    v20 = 2048;
-    v21 = v9;
-    v22 = 2048;
-    v23 = v10;
+    v18 = splitCopy;
+    v19 = 2048;
+    v20 = v9;
+    v21 = 2048;
+    v22 = v10;
     _os_log_debug_impl(&dword_1B990D000, v13, OS_LOG_TYPE_DEBUG, "Event %@ has taken %f seconds so far (%f seconds since last split)", buf, 0x20u);
   }
 
@@ -220,18 +241,17 @@ void __40__CalStopwatch_elapsedTimeInNanoseconds__block_invoke()
   {
     v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ Split %li", splitCopy, objc_msgSend(v6, "count") + 1];
     v15 = +[CalFoundationLogSubsystem eventTimer];
-    CalPerfLogPoint(v15);
+    CalPerfLogPoint(v15, @"EventTimer", v14);
   }
 
   [v6 addObject:date];
 
-  v16 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (double)markEventEnd:(id)end
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   endCopy = end;
   date = [MEMORY[0x1E695DF00] date];
   v6 = [(NSMutableDictionary *)self->_events objectForKeyedSubscript:endCopy];
@@ -254,50 +274,47 @@ void __40__CalStopwatch_elapsedTimeInNanoseconds__block_invoke()
   v13 = +[CalFoundationLogSubsystem eventTimer];
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v17 = 138412802;
-    v18 = endCopy;
-    v19 = 2048;
-    v20 = v9;
-    v21 = 2048;
-    v22 = v10;
-    _os_log_debug_impl(&dword_1B990D000, v13, OS_LOG_TYPE_DEBUG, "Event %@ took a total of %f seconds (%f seconds since last split)", &v17, 0x20u);
+    v16 = 138412802;
+    v17 = endCopy;
+    v18 = 2048;
+    v19 = v9;
+    v20 = 2048;
+    v21 = v10;
+    _os_log_debug_impl(&dword_1B990D000, v13, OS_LOG_TYPE_DEBUG, "Event %@ took a total of %f seconds (%f seconds since last split)", &v16, 0x20u);
   }
 
   if ([(CalStopwatch *)self usesSignalFlags])
   {
     v14 = +[CalFoundationLogSubsystem eventTimer];
-    CalPerfLogEnd(v14);
+    CalPerfLogEnd(v14, @"EventTimer", endCopy);
   }
 
   [(NSMutableDictionary *)self->_events removeObjectForKey:endCopy];
 
-  v15 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 void __40__CalStopwatch_elapsedTimeInNanoseconds__block_invoke_cold_1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_1B990D000, a2, OS_LOG_TYPE_ERROR, "Could not acquire Mach timebase information.  Stopwatches will not work.  Error: [%d]", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_1B990D000, a2, OS_LOG_TYPE_ERROR, "Could not acquire Mach timebase information.  Stopwatches will not work.  Error: [%d]", v2, 8u);
 }
 
 void __40__CalStopwatch_elapsedTimeInNanoseconds__block_invoke_cold_2(os_log_t log)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 67109120;
-  v2[1] = elapsedTimeInNanoseconds_ratio;
-  _os_log_debug_impl(&dword_1B990D000, log, OS_LOG_TYPE_DEBUG, "Mach timebase information ratio: [%u]", v2, 8u);
-  v1 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 67109120;
+  v1[1] = elapsedTimeInNanoseconds_ratio;
+  _os_log_debug_impl(&dword_1B990D000, log, OS_LOG_TYPE_DEBUG, "Mach timebase information ratio: [%u]", v1, 8u);
 }
 
 - (void)markEventStart:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_4(&dword_1B990D000, a2, a3, "Started event %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_4(&dword_1B990D000, a2, a3, "Started event %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

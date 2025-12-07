@@ -135,38 +135,39 @@ void __32__CXCallObserverXPCClient__init__block_invoke(uint64_t a1)
   dispatch_assert_queue_barrier(concurrentQueue);
 
   clientsShouldConnect = [(CXCallObserverXPCClient *)self clientsShouldConnect];
-  v5 = CXDefaultLog();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-  if (clientsShouldConnect)
+  v5 = clientsShouldConnect;
+  v6 = CXDefaultLog(clientsShouldConnect);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  if (v5)
   {
-    if (v6)
+    if (v7)
     {
       *buf = 0;
-      _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "Requesting calls from host", buf, 2u);
+      _os_log_impl(&dword_1B47F3000, v6, OS_LOG_TYPE_DEFAULT, "Requesting calls from host", buf, 2u);
     }
 
-    v5 = [(CXCallObserverXPCClient *)self _remoteObjectProxyWithErrorHandler:&__block_literal_global_9_0 isSynchronous:1];
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __40__CXCallObserverXPCClient__requestCalls__block_invoke_10;
-    v7[3] = &unk_1E7C070F0;
-    v7[4] = self;
-    [v5 requestCalls:v7];
+    v6 = [(CXCallObserverXPCClient *)self _remoteObjectProxyWithErrorHandler:&__block_literal_global_9_0 isSynchronous:1];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __40__CXCallObserverXPCClient__requestCalls__block_invoke_10;
+    v8[3] = &unk_1E7C070F0;
+    v8[4] = self;
+    [v6 requestCalls:v8];
   }
 
-  else if (v6)
+  else if (v7)
   {
     *buf = 0;
-    _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "Call host has no calls", buf, 2u);
+    _os_log_impl(&dword_1B47F3000, v6, OS_LOG_TYPE_DEFAULT, "Call host has no calls", buf, 2u);
   }
 }
 
 - (BOOL)clientsShouldConnect
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (self->_clientsShouldConnect)
   {
-    clientsShouldConnect = 1;
+    return 1;
   }
 
   else
@@ -176,26 +177,25 @@ void __32__CXCallObserverXPCClient__init__block_invoke(uint64_t a1)
     if (state)
     {
       v5 = state;
-      v6 = CXDefaultLog();
+      v6 = CXDefaultLog(state);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v11 = v5;
+        v10 = v5;
         _os_log_impl(&dword_1B47F3000, v6, OS_LOG_TYPE_DEFAULT, "[WARN] Bad status received attempting to get host call state: %d", buf, 8u);
       }
 
-      clientsShouldConnect = self->_clientsShouldConnect;
+      return self->_clientsShouldConnect;
     }
 
     else
     {
-      clientsShouldConnect = state64 != 0;
+      v2 = state64 != 0;
       self->_clientsShouldConnect = state64 != 0;
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-  return clientsShouldConnect;
+  return v2;
 }
 
 - (NSDictionary)callUUIDToCallMap
@@ -261,25 +261,24 @@ void __32__CXCallObserverXPCClient__init__block_invoke_2(uint64_t a1)
   }
 }
 
-uint64_t __32__CXCallObserverXPCClient__init__block_invoke_3(uint64_t result)
+void *__32__CXCallObserverXPCClient__init__block_invoke_3(void *result)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  if (!*(*(result + 32) + 40))
+  v5 = *MEMORY[0x1E69E9840];
+  if (!*(result[4] + 40))
   {
     v1 = result;
-    v2 = CXDefaultLog();
+    v2 = CXDefaultLog(result);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 136315138;
-      v5 = "com.apple.callkit.callcontroller.shouldconnect";
-      _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Handling %s by setting up XPC connection", &v4, 0xCu);
+      v3 = 136315138;
+      v4 = "com.apple.callkit.callcontroller.shouldconnect";
+      _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Handling %s by setting up XPC connection", &v3, 0xCu);
     }
 
-    [*(v1 + 32) setClientsShouldConnect:1];
-    result = [*(v1 + 32) _requestCalls];
+    [v1[4] setClientsShouldConnect:1];
+    return [v1[4] _requestCalls];
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -329,7 +328,7 @@ uint64_t __32__CXCallObserverXPCClient__init__block_invoke_3(uint64_t result)
 void __57__CXCallObserverXPCClient_requestTransaction_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CXDefaultLog();
+  v4 = CXDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __62__CXVoicemailObserverXPCClient_requestTransaction_completion___block_invoke_cold_1(v3, v4);
@@ -340,18 +339,17 @@ void __57__CXCallObserverXPCClient_requestTransaction_completion___block_invoke(
 
 void __57__CXCallObserverXPCClient_requestTransaction_completion___block_invoke_7(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = CXDefaultLog();
+  v4 = CXDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Received reply from transaction request with error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Received reply from transaction request with error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_markAllCallsAsEnded
@@ -360,13 +358,13 @@ void __57__CXCallObserverXPCClient_requestTransaction_completion___block_invoke_
   concurrentQueue = [(CXCallObserverXPCClient *)self concurrentQueue];
   dispatch_assert_queue_barrier(concurrentQueue);
 
-  v4 = CXDefaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = CXDefaultLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     callUUIDToCallMap = [(CXCallObserverXPCClient *)self callUUIDToCallMap];
     *buf = 138412290;
     v20 = callUUIDToCallMap;
-    _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "self.callUUIDToCallMap: %@", buf, 0xCu);
+    _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "self.callUUIDToCallMap: %@", buf, 0xCu);
   }
 
   v16 = 0u;
@@ -376,32 +374,30 @@ void __57__CXCallObserverXPCClient_requestTransaction_completion___block_invoke_
   callUUIDToCallMap2 = [(CXCallObserverXPCClient *)self callUUIDToCallMap];
   allValues = [callUUIDToCallMap2 allValues];
 
-  v8 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v8)
+  v9 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v9)
   {
-    v9 = v8;
-    v10 = *v15;
+    v10 = v9;
+    v11 = *v15;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v10; ++i)
       {
-        if (*v15 != v10)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * i);
-        [v12 setHasEnded:1];
-        [(CXCallObserverXPCClient *)self _removeCall:v12];
+        v13 = *(*(&v14 + 1) + 8 * i);
+        [v13 setHasEnded:1];
+        [(CXCallObserverXPCClient *)self _removeCall:v13];
       }
 
-      v9 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
-    while (v9);
+    while (v10);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addOrUpdateCall:(id)call
@@ -415,14 +411,15 @@ void __57__CXCallObserverXPCClient_requestTransaction_completion___block_invoke_
   uUID = [callCopy UUID];
   v8 = [callUUIDToCallMap objectForKeyedSubscript:uUID];
 
-  if (([v8 isEqualToCall:callCopy] & 1) == 0)
+  v9 = [v8 isEqualToCall:callCopy];
+  if ((v9 & 1) == 0)
   {
-    v9 = CXDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = CXDefaultLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v24 = callCopy;
-      _os_log_impl(&dword_1B47F3000, v9, OS_LOG_TYPE_DEFAULT, "call: %@", buf, 0xCu);
+      _os_log_impl(&dword_1B47F3000, v10, OS_LOG_TYPE_DEFAULT, "call: %@", buf, 0xCu);
     }
 
     mutableCallUUIDToCallMap = [(CXCallObserverXPCClient *)self mutableCallUUIDToCallMap];
@@ -434,33 +431,31 @@ void __57__CXCallObserverXPCClient_requestTransaction_completion___block_invoke_
     v18 = 0u;
     v19 = 0u;
     delegates = [(CXCallObserverXPCClient *)self delegates];
-    v13 = [delegates countByEnumeratingWithState:&v18 objects:v22 count:16];
-    if (v13)
+    v14 = [delegates countByEnumeratingWithState:&v18 objects:v22 count:16];
+    if (v14)
     {
-      v14 = v13;
-      v15 = *v19;
+      v15 = v14;
+      v16 = *v19;
       do
       {
-        v16 = 0;
+        v17 = 0;
         do
         {
-          if (*v19 != v15)
+          if (*v19 != v16)
           {
             objc_enumerationMutation(delegates);
           }
 
-          [*(*(&v18 + 1) + 8 * v16++) dataSource:self callChanged:callCopy];
+          [*(*(&v18 + 1) + 8 * v17++) dataSource:self callChanged:callCopy];
         }
 
-        while (v14 != v16);
-        v14 = [delegates countByEnumeratingWithState:&v18 objects:v22 count:16];
+        while (v15 != v17);
+        v15 = [delegates countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
-      while (v14);
+      while (v15);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeCall:(id)call
@@ -476,12 +471,12 @@ void __57__CXCallObserverXPCClient_requestTransaction_completion___block_invoke_
 
   if (v8)
   {
-    v9 = CXDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = CXDefaultLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v24 = callCopy;
-      _os_log_impl(&dword_1B47F3000, v9, OS_LOG_TYPE_DEFAULT, "call: %@", buf, 0xCu);
+      _os_log_impl(&dword_1B47F3000, v10, OS_LOG_TYPE_DEFAULT, "call: %@", buf, 0xCu);
     }
 
     mutableCallUUIDToCallMap = [(CXCallObserverXPCClient *)self mutableCallUUIDToCallMap];
@@ -493,39 +488,37 @@ void __57__CXCallObserverXPCClient_requestTransaction_completion___block_invoke_
     v18 = 0u;
     v19 = 0u;
     delegates = [(CXCallObserverXPCClient *)self delegates];
-    v13 = [delegates countByEnumeratingWithState:&v18 objects:v22 count:16];
-    if (v13)
+    v14 = [delegates countByEnumeratingWithState:&v18 objects:v22 count:16];
+    if (v14)
     {
-      v14 = v13;
-      v15 = *v19;
+      v15 = v14;
+      v16 = *v19;
       do
       {
-        v16 = 0;
+        v17 = 0;
         do
         {
-          if (*v19 != v15)
+          if (*v19 != v16)
           {
             objc_enumerationMutation(delegates);
           }
 
-          [*(*(&v18 + 1) + 8 * v16++) dataSource:self callChanged:callCopy];
+          [*(*(&v18 + 1) + 8 * v17++) dataSource:self callChanged:callCopy];
         }
 
-        while (v14 != v16);
-        v14 = [delegates countByEnumeratingWithState:&v18 objects:v22 count:16];
+        while (v15 != v17);
+        v15 = [delegates countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
-      while (v14);
+      while (v15);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __40__CXCallObserverXPCClient__requestCalls__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CXDefaultLog();
+  v3 = CXDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __40__CXCallObserverXPCClient__requestCalls__block_invoke_cold_1(v2, v3);
@@ -534,47 +527,45 @@ void __40__CXCallObserverXPCClient__requestCalls__block_invoke(uint64_t a1, void
 
 void __40__CXCallObserverXPCClient__requestCalls__block_invoke_10(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = CXDefaultLog();
+  v4 = CXDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = v3;
+    v16 = v3;
     _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Received requested calls from host: %@", buf, 0xCu);
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(a1 + 32) _addOrUpdateCall:{*(*(&v11 + 1) + 8 * v9++), v11}];
+        [*(a1 + 32) _addOrUpdateCall:{*(*(&v10 + 1) + 8 * v9++), v10}];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (NSXPCConnection)connection
@@ -623,26 +614,25 @@ void __37__CXCallObserverXPCClient_connection__block_invoke(uint64_t a1)
 {
   v8 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = CXDefaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = CXDefaultLog(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v7 = WeakRetained;
-      _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Connection interrupted for call observer %@", buf, 0xCu);
+      v7 = v2;
+      _os_log_impl(&dword_1B47F3000, v3, OS_LOG_TYPE_DEFAULT, "Connection interrupted for call observer %@", buf, 0xCu);
     }
 
-    v3 = [WeakRetained concurrentQueue];
+    v4 = [v2 concurrentQueue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __37__CXCallObserverXPCClient_connection__block_invoke_14;
     block[3] = &unk_1E7C06CA8;
-    block[4] = WeakRetained;
-    dispatch_barrier_async(v3, block);
+    block[4] = v2;
+    dispatch_barrier_async(v4, block);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __37__CXCallObserverXPCClient_connection__block_invoke_14(uint64_t a1)
@@ -659,26 +649,25 @@ void __37__CXCallObserverXPCClient_connection__block_invoke_2(uint64_t a1)
 {
   v8 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = CXDefaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = CXDefaultLog(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v7 = WeakRetained;
-      _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Connection invalidated for call observer %@", buf, 0xCu);
+      v7 = v2;
+      _os_log_impl(&dword_1B47F3000, v3, OS_LOG_TYPE_DEFAULT, "Connection invalidated for call observer %@", buf, 0xCu);
     }
 
-    v3 = [WeakRetained concurrentQueue];
+    v4 = [v2 concurrentQueue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __37__CXCallObserverXPCClient_connection__block_invoke_15;
     block[3] = &unk_1E7C06CA8;
-    block[4] = WeakRetained;
-    dispatch_barrier_async(v3, block);
+    block[4] = v2;
+    dispatch_barrier_async(v4, block);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __37__CXCallObserverXPCClient_connection__block_invoke_15(uint64_t a1)
@@ -750,11 +739,10 @@ uint64_t __37__CXCallObserverXPCClient_connection__block_invoke_15(uint64_t a1)
 
 void __40__CXCallObserverXPCClient__requestCalls__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Error requesting calls from host: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Error requesting calls from host: %@", &v2, 0xCu);
 }
 
 @end

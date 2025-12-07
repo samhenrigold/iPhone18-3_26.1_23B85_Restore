@@ -16,7 +16,7 @@
 
 - (void)_handleMemoryPressureWithFlags:(unint64_t)flags
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v5 = objc_autoreleasePoolPush();
   memoryPressureFlags = self->_memoryPressureFlags;
   if (memoryPressureFlags <= 3)
@@ -107,9 +107,9 @@
     }
 
     *buf = 136315394;
-    v44 = "[AFMemoryPressureObserver _handleMemoryPressureWithFlags:]";
-    v45 = 2112;
-    v46 = v12;
+    v43 = "[AFMemoryPressureObserver _handleMemoryPressureWithFlags:]";
+    v44 = 2112;
+    v45 = v12;
     v14 = v10;
     v15 = "%s Memory pressure condition stayed at %@.";
     v16 = v14;
@@ -144,11 +144,11 @@
     }
 
     *buf = 136315650;
-    v44 = "[AFMemoryPressureObserver _handleMemoryPressureWithFlags:]";
-    v45 = 2112;
-    v46 = v13;
-    v47 = 2112;
-    v48 = v18;
+    v43 = "[AFMemoryPressureObserver _handleMemoryPressureWithFlags:]";
+    v44 = 2112;
+    v45 = v13;
+    v46 = 2112;
+    v47 = v18;
     v14 = v10;
     v15 = "%s Memory pressure condition changed from %@ to %@.";
     v16 = v14;
@@ -164,9 +164,9 @@ LABEL_40:
     v20 = v19;
     v21 = AFMemoryInfoGetCurrent();
     *buf = 136315394;
-    v44 = "[AFMemoryPressureObserver _handleMemoryPressureWithFlags:]";
-    v45 = 2112;
-    v46 = v21;
+    v43 = "[AFMemoryPressureObserver _handleMemoryPressureWithFlags:]";
+    v44 = 2112;
+    v45 = v21;
     _os_log_impl(&dword_1912FE000, v20, OS_LOG_TYPE_INFO, "%s Current memory info is %@.", buf, 0x16u);
   }
 
@@ -174,16 +174,16 @@ LABEL_40:
   {
     processInfo = [MEMORY[0x1E696AE30] processInfo];
     processName = [processInfo processName];
-    v24 = [processName isEqualToString:@"assistantd"];
+    isEqualToString = objc_msgSend_isEqualToString_(processName);
 
-    if (v24)
+    if (isEqualToString)
     {
       v25 = +[AFAnalytics sharedAnalytics];
-      v41[0] = @"processName";
+      v40[0] = @"processName";
       processInfo2 = [MEMORY[0x1E696AE30] processInfo];
       processName2 = [processInfo2 processName];
-      v41[1] = @"memoryPressureChange";
-      v42[0] = processName2;
+      v40[1] = @"memoryPressureChange";
+      v41[0] = processName2;
       if (flagsCopy - 1 > 4)
       {
         v28 = @"unknown";
@@ -194,34 +194,34 @@ LABEL_40:
         v28 = off_1E7344C78[flagsCopy - 1];
       }
 
-      v42[1] = v28;
-      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:2];
+      v41[1] = v28;
+      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:2];
       [v25 logEventWithType:451 context:v29];
     }
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v30 = self->_listeners;
-    v31 = [(NSHashTable *)v30 countByEnumeratingWithState:&v36 objects:v40 count:16];
+    v31 = [(NSHashTable *)v30 countByEnumeratingWithState:&v35 objects:v39 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v37;
+      v33 = *v36;
       do
       {
         for (i = 0; i != v32; ++i)
         {
-          if (*v37 != v33)
+          if (*v36 != v33)
           {
             objc_enumerationMutation(v30);
           }
 
-          [*(*(&v36 + 1) + 8 * i) memoryPressureObserver:self didChangeFromCondition:v7 toCondition:{flagsCopy, v36}];
+          [*(*(&v35 + 1) + 8 * i) memoryPressureObserver:self didChangeFromCondition:v7 toCondition:{flagsCopy, v35}];
         }
 
-        v32 = [(NSHashTable *)v30 countByEnumeratingWithState:&v36 objects:v40 count:16];
+        v32 = [(NSHashTable *)v30 countByEnumeratingWithState:&v35 objects:v39 count:16];
       }
 
       while (v32);
@@ -229,12 +229,11 @@ LABEL_40:
   }
 
   objc_autoreleasePoolPop(v5);
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_stopObservingMemoryPressure
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   memoryPressureSource = self->_memoryPressureSource;
   if (memoryPressureSource)
   {
@@ -248,19 +247,17 @@ LABEL_40:
   {
     v6 = v5;
     v7 = AFMemoryInfoGetCurrent();
-    v9 = 136315394;
-    v10 = "[AFMemoryPressureObserver _stopObservingMemoryPressure]";
-    v11 = 2112;
-    v12 = v7;
-    _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s Current memory info is %@.", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[AFMemoryPressureObserver _stopObservingMemoryPressure]";
+    v10 = 2112;
+    v11 = v7;
+    _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s Current memory info is %@.", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startObservingMemoryPressureWithOptions:(unint64_t)options
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (!self->_memoryPressureSource)
   {
     v4 = dispatch_source_create(MEMORY[0x1E69E96E8], 0, options & 0x30 | (options >> 1) & 7, self->_queue);
@@ -273,10 +270,10 @@ LABEL_40:
     handler[1] = 3221225472;
     handler[2] = __69__AFMemoryPressureObserver__startObservingMemoryPressureWithOptions___block_invoke;
     handler[3] = &unk_1E7348A80;
-    objc_copyWeak(&v12, location);
+    objc_copyWeak(&v11, location);
     dispatch_source_set_event_handler(v6, handler);
     dispatch_resume(self->_memoryPressureSource);
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v11);
     objc_destroyWeak(location);
   }
 
@@ -287,12 +284,10 @@ LABEL_40:
     v9 = AFMemoryInfoGetCurrent();
     *location = 136315394;
     *&location[4] = "[AFMemoryPressureObserver _startObservingMemoryPressureWithOptions:]";
-    v14 = 2112;
-    v15 = v9;
+    v13 = 2112;
+    v14 = v9;
     _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s Current memory info is %@.", location, 0x16u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __69__AFMemoryPressureObserver__startObservingMemoryPressureWithOptions___block_invoke(uint64_t a1)

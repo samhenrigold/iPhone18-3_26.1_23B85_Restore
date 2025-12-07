@@ -1,4 +1,5 @@
 @interface DSArchivePath
++ (id)archivePathWithSource:(id)source prefix:(id)prefix root:(BOOL)root;
 - (DSArchivePath)initWithSource:(id)source prefix:(id)prefix root:(BOOL)root;
 @end
 
@@ -20,6 +21,16 @@
   }
 
   return v12;
+}
+
++ (id)archivePathWithSource:(id)source prefix:(id)prefix root:(BOOL)root
+{
+  rootCopy = root;
+  prefixCopy = prefix;
+  sourceCopy = source;
+  v9 = [[DSArchivePath alloc] initWithSource:sourceCopy prefix:prefixCopy root:rootCopy];
+
+  return v9;
 }
 
 @end

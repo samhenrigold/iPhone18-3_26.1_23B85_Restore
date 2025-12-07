@@ -18,27 +18,28 @@
   selfCopy = self;
   v8 = v6(v4, v5);
   v10 = v9;
-  v11 = type metadata accessor for _UICustomContentView();
-  v12 = objc_allocWithZone(v11);
-  v13 = &v12[OBJC_IVAR____TtC5UIKitP33_032FEC8E4679353098E3539CFE2B632720_UICustomContentView_wrappedContentView];
-  *v13 = v8;
-  *(v13 + 1) = v10;
-  v17.receiver = v12;
-  v17.super_class = v11;
-  v14 = v8;
-  v15 = [(_UICustomContentConfiguration *)&v17 initWithFrame:0.0, 0.0, 0.0, 0.0];
+  type metadata accessor for _UICustomContentView();
+  v12 = v11;
+  v13 = objc_allocWithZone(v11);
+  v14 = &v13[OBJC_IVAR____TtC5UIKitP33_032FEC8E4679353098E3539CFE2B632720_UICustomContentView_wrappedContentView];
+  *v14 = v8;
+  *(v14 + 1) = v10;
+  v18.receiver = v13;
+  v18.super_class = v12;
+  v15 = v8;
+  v16 = [(_UICustomContentConfiguration *)&v18 initWithFrame:0.0, 0.0, 0.0, 0.0];
 
-  return v15;
+  return v16;
 }
 
 - (id)updatedConfigurationForState:(id)state
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  v5 = sub_188C7CFE4();
+  v6 = sub_188C7CFE4(state);
   swift_unknownObjectRelease();
 
-  return v5;
+  return v6;
 }
 
 - (id)_wrappedConfigurationIdentifier
@@ -54,7 +55,7 @@
 - (NSString)description
 {
   sub_188A53994(self + OBJC_IVAR____TtC5UIKit29_UICustomContentConfiguration_wrappedConfiguration, v4);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9374D8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA9374D8, &qword_18A652A80);
   sub_18A4A72F8();
   v2 = sub_18A4A7258();
 

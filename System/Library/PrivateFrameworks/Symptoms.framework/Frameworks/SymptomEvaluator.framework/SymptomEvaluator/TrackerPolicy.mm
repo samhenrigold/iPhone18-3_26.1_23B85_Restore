@@ -156,7 +156,7 @@ LABEL_6:
 
 void __35__TrackerPolicy_configureInstance___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ([v5 isEqualToString:@"SO_TC_BK_SYS"])
@@ -262,22 +262,22 @@ LABEL_21:
         {
           if ([v5 isEqualToString:@"DEFAULT_DISPOSITION"])
           {
-            v14 = *(a1 + 32);
-            v15 = *(v14 + 272);
-            *(v14 + 272) = v9;
-            v16 = v9;
+            v13 = *(a1 + 32);
+            v14 = *(v13 + 272);
+            *(v13 + 272) = v9;
+            v15 = v9;
 
             goto LABEL_29;
           }
 
-          v17 = configurationLogHandle;
+          v16 = configurationLogHandle;
           if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_DEFAULT))
           {
-            v19 = 138412546;
-            v20 = v5;
-            v21 = 2112;
-            v22 = v6;
-            _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "Skip key %@ action %@", &v19, 0x16u);
+            v18 = 138412546;
+            v19 = v5;
+            v20 = 2112;
+            v21 = v6;
+            _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "Skip key %@ action %@", &v18, 0x16u);
           }
 
           goto LABEL_28;
@@ -301,17 +301,15 @@ LABEL_28:
     goto LABEL_29;
   }
 
-  v18 = configurationLogHandle;
+  v17 = configurationLogHandle;
   if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v19 = 138412290;
-    v20 = v5;
-    _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEBUG, "Option %@ ignored", &v19, 0xCu);
+    v18 = 138412290;
+    v19 = v5;
+    _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEBUG, "Option %@ ignored", &v18, 0xCu);
   }
 
 LABEL_29:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (id)preferredInstance:(id)instance

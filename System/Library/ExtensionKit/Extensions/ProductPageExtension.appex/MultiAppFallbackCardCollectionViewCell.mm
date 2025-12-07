@@ -28,11 +28,11 @@
 
 - (NSArray)accessibilityElements
 {
-  sub_10000A5D4(&unk_1009434B0);
+  sub_10000A5D4(&unk_1009434B0, &unk_100785550);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_100783DD0;
   v4 = *(&self->super.super.super.super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension38MultiAppFallbackCardCollectionViewCell_infoLayerLabelsView);
-  *(v3 + 56) = type metadata accessor for TodayCardLabelsView();
+  *(v3 + 56) = type metadata accessor for TodayCardLabelsView(0);
   *(v3 + 32) = v4;
   v5 = v4;
   v6.super.isa = sub_1007701AC().super.isa;

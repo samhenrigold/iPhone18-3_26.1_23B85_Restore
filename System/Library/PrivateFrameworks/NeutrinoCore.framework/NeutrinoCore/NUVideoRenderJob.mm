@@ -163,7 +163,7 @@
       v7 = [NUImageGeometry alloc];
       if (outputGeometry)
       {
-        [outputGeometry extent];
+        objc_msgSend_extent(outputGeometry);
       }
 
       else

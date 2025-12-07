@@ -30,14 +30,14 @@
 
 - (id)_nextTimerDate
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   date = [MEMORY[0x277CBEAA8] date];
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
   v5 = [currentCalendar components:252 fromDate:date];
 
   second = [v5 second];
-  duration = [(HMDDurationEvent *)self duration];
-  [v5 setSecond:{objc_msgSend(duration, "unsignedIntegerValue") + second}];
+  v7 = objc_msgSend_duration(self);
+  [v5 setSecond:{objc_msgSend(v7, "unsignedIntegerValue") + second}];
 
   currentCalendar2 = [MEMORY[0x277CBEA80] currentCalendar];
   v9 = [currentCalendar2 dateFromComponents:v5];
@@ -48,22 +48,21 @@
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     v13 = HMFGetLogIdentifier();
-    v16 = 138543618;
-    v17 = v13;
-    v18 = 2112;
-    v19 = v9;
-    _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Next Fire Date : [%@]", &v16, 0x16u);
+    v15 = 138543618;
+    v16 = v13;
+    v17 = 2112;
+    v18 = v9;
+    _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Next Fire Date : [%@]", &v15, 0x16u);
   }
 
   objc_autoreleasePoolPop(v10);
-  v14 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (void)_transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -73,9 +72,9 @@
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = HMFGetLogIdentifier();
-    v28 = 138543362;
-    v29 = v14;
-    _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Handling transaction updated", &v28, 0xCu);
+    v27 = 138543362;
+    v28 = v14;
+    _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Handling transaction updated", &v27, 0xCu);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -95,18 +94,18 @@
 
   if (v17)
   {
-    duration = [v17 duration];
-    if (duration)
+    v18 = objc_msgSend_duration(v17);
+    if (v18)
     {
-      v19 = duration;
-      duration2 = [(HMDDurationEvent *)selfCopy duration];
-      if (duration2)
+      v19 = v18;
+      v20 = objc_msgSend_duration(selfCopy);
+      if (v20)
       {
-        v21 = duration2;
-        duration3 = [(HMDDurationEvent *)selfCopy duration];
-        [duration3 doubleValue];
-        duration4 = [v17 duration];
-        [duration4 doubleValue];
+        v21 = v20;
+        v22 = objc_msgSend_duration(selfCopy);
+        [v22 doubleValue];
+        v23 = objc_msgSend_duration(v17);
+        [v23 doubleValue];
         v24 = HMDurationsApproximatelyEqual();
 
         if (v24)
@@ -119,8 +118,8 @@
       {
       }
 
-      duration5 = [v17 duration];
-      [(HMDDurationEvent *)selfCopy setDuration:duration5];
+      v25 = objc_msgSend_duration(v17);
+      [(HMDDurationEvent *)selfCopy setDuration:v25];
 
       eventTrigger = [(HMDEvent *)selfCopy eventTrigger];
       [eventTrigger markChangedForMessage:messageCopy];
@@ -129,8 +128,6 @@
 LABEL_13:
     [messageCopy respondWithSuccess];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (id)modelObjectWithChangeType:(unint64_t)type
@@ -144,8 +141,8 @@ LABEL_13:
   v10 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDEvent isEndEvent](self, "isEndEvent")}];
   [(HMDDurationEventModel *)v9 setEndEvent:v10];
 
-  duration = [(HMDDurationEvent *)self duration];
-  [(HMDDurationEventModel *)v9 setDuration:duration];
+  v11 = objc_msgSend_duration(self);
+  [(HMDDurationEventModel *)v9 setDuration:v11];
 
   return v9;
 }
@@ -156,7 +153,7 @@ LABEL_13:
   v6.super_class = HMDDurationEvent;
   coderCopy = coder;
   [(HMDTimeEvent *)&v6 encodeWithCoder:coderCopy];
-  v5 = [(HMDDurationEvent *)self duration:v6.receiver];
+  v5 = objc_msgSend_duration(self, v6.receiver, v6.super_class);
   [coderCopy encodeObject:v5 forKey:*MEMORY[0x277CD2280]];
 }
 
@@ -237,25 +234,22 @@ LABEL_13:
 
 void __41__HMDDurationEvent__handleUpdateRequest___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (a2)
   {
-    v3 = *MEMORY[0x277D85DE8];
-    v4 = *(a1 + 32);
+    v3 = *(a1 + 32);
 
-    [v4 respondWithError:a2];
+    [v3 respondWithError:a2];
   }
 
   else
   {
-    v8 = *MEMORY[0x277CD2280];
-    v5 = [*(a1 + 40) duration];
-    v9[0] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
-    [v2 respondWithPayload:v6];
-
-    v7 = *MEMORY[0x277D85DE8];
+    v6 = *MEMORY[0x277CD2280];
+    v4 = objc_msgSend_duration(*(a1 + 40));
+    v7[0] = v4;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+    [v2 respondWithPayload:v5];
   }
 }
 
@@ -278,10 +272,10 @@ void __41__HMDDurationEvent__handleUpdateRequest___block_invoke(uint64_t a1, uin
   createPayload = [(HMDEvent *)&v9 createPayload];
   v5 = [v3 dictionaryWithDictionary:createPayload];
 
-  duration = [(HMDDurationEvent *)self duration];
-  [v5 setObject:duration forKeyedSubscript:*MEMORY[0x277CD2280]];
+  v6 = objc_msgSend_duration(self);
+  [v5 setObject:v6 forKeyedSubscript:*MEMORY[0x277CD2280]];
 
-  v7 = [v5 copy];
+  v7 = objc_msgSend_copy(v5);
 
   return v7;
 }
@@ -292,8 +286,8 @@ void __41__HMDDurationEvent__handleUpdateRequest___block_invoke(uint64_t a1, uin
   v8.receiver = self;
   v8.super_class = HMDDurationEvent;
   v4 = [(HMDEvent *)&v8 description];
-  duration = [(HMDDurationEvent *)self duration];
-  v6 = [v3 stringWithFormat:@"[Duration-Event: %@, %@s]", v4, duration];
+  v5 = objc_msgSend_duration(self);
+  v6 = [v3 stringWithFormat:@"[Duration-Event: %@, %@s]", v4, v5];
 
   return v6;
 }
@@ -306,9 +300,9 @@ void __41__HMDDurationEvent__handleUpdateRequest___block_invoke(uint64_t a1, uin
   v7 = [(HMDTimeEvent *)&v11 initWithModel:modelCopy home:home];
   if (v7)
   {
-    duration = [modelCopy duration];
+    v8 = objc_msgSend_duration(modelCopy);
     duration = v7->_duration;
-    v7->_duration = duration;
+    v7->_duration = v8;
 
     v7->_lock._os_unfair_lock_opaque = 0;
   }
@@ -330,12 +324,11 @@ void __41__HMDDurationEvent__handleUpdateRequest___block_invoke(uint64_t a1, uin
 
 uint64_t __31__HMDDurationEvent_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_182219;
-  logCategory__hmf_once_v1_182219 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_182219;
+  logCategory__hmf_once_v1_182219 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

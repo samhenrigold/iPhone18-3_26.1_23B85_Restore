@@ -12,8 +12,10 @@
 - (void)showErrorTimeout:(id)timeout;
 - (void)timeout:(id)timeout;
 - (void)updateErrorState;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation MSDViewServiceRootViewController
@@ -21,17 +23,17 @@
 - (MSDViewServiceRootViewController)initWithScene:(id)scene
 {
   sceneCopy = scene;
-  v5 = sub_1000015E4();
+  v5 = sub_1000015E4(sceneCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v16 = "[MSDViewServiceRootViewController initWithScene:]";
+    v17 = "[MSDViewServiceRootViewController initWithScene:]";
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s called", buf, 0xCu);
   }
 
-  v14.receiver = self;
-  v14.super_class = MSDViewServiceRootViewController;
-  v6 = [(MSDViewServiceRootViewController *)&v14 initWithNibName:0 bundle:0];
+  v15.receiver = self;
+  v15.super_class = MSDViewServiceRootViewController;
+  v6 = [(MSDViewServiceRootViewController *)&v15 initWithNibName:0 bundle:0];
   if (v6)
   {
     v7 = +[NSBundle mainBundle];
@@ -39,13 +41,13 @@
     displayString = v6->_displayString;
     v6->_displayString = v8;
 
-    v10 = sub_1000015E4();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_1000015E4(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = v6->_displayString;
+      v12 = v6->_displayString;
       *buf = 138412290;
-      v16 = v11;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Display string: %@", buf, 0xCu);
+      v17 = v12;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Display string: %@", buf, 0xCu);
     }
 
     [(MSDViewServiceRootViewController *)v6 setObserverAdded:0];
@@ -60,11 +62,11 @@
 
 - (void)loadView
 {
-  v3 = sub_1000015E4();
+  v3 = sub_1000015E4(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v223 = "[MSDViewServiceRootViewController loadView]";
+    v224 = "[MSDViewServiceRootViewController loadView]";
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s called", buf, 0xCu);
   }
 
@@ -88,17 +90,17 @@
   [v16 setFrame:?];
 
   [v16 setAutoresizingMask:18];
-  v219 = v15;
-  v217 = [UIVibrancyEffect effectForBlurEffect:v15];
-  v18 = [[UIVisualEffectView alloc] initWithEffect:v217];
+  v220 = v15;
+  v218 = [UIVibrancyEffect effectForBlurEffect:v15];
+  v18 = [[UIVisualEffectView alloc] initWithEffect:v218];
   [v13 bounds];
   [v18 setFrame:?];
   contentView = [v16 contentView];
-  v216 = v18;
+  v217 = v18;
   [contentView addSubview:v18];
 
   view2 = [(MSDViewServiceRootViewController *)self view];
-  v218 = v16;
+  v219 = v16;
   [view2 insertSubview:v16 atIndex:0];
 
   configurationContext = [(MSDViewServiceRootViewController *)self configurationContext];
@@ -109,43 +111,33 @@
   v25 = [v23 localizedStringForKey:v24 value:&stru_10000C608 table:0];
   [(MSDViewServiceRootViewController *)self setDisplayString:v25];
 
-  v215 = userInfo;
-  v214 = [userInfo objectForKeyedSubscript:@"CancelButton"];
-  bOOLValue = [v214 BOOLValue];
+  v216 = userInfo;
+  v215 = [userInfo objectForKeyedSubscript:@"CancelButton"];
+  bOOLValue = [v215 BOOLValue];
   v27 = +[MSDViewServiceModel sharedInstance];
   [v27 setShowCancelButton:bOOLValue];
 
-  v28 = sub_1000015E4();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v29 = sub_1000015E4(v28);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     displayString = [(MSDViewServiceRootViewController *)self displayString];
     *buf = 138543362;
-    v223 = displayString;
-    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "StoreDemoViewService DisplayString = %{public}@", buf, 0xCu);
+    v224 = displayString;
+    _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "StoreDemoViewService DisplayString = %{public}@", buf, 0xCu);
   }
 
-  v30 = objc_alloc_init(UILabel);
-  [(MSDViewServiceRootViewController *)self setMainLabel:v30];
+  v31 = objc_alloc_init(UILabel);
+  [(MSDViewServiceRootViewController *)self setMainLabel:v31];
 
-  v31 = objc_alloc_init(NSMutableParagraphStyle);
-  v32 = +[UIDevice currentDevice];
-  userInterfaceIdiom = [v32 userInterfaceIdiom];
+  v32 = objc_alloc_init(NSMutableParagraphStyle);
+  v33 = +[UIDevice currentDevice];
+  userInterfaceIdiom = [v33 userInterfaceIdiom];
 
-  v34 = 25.0;
+  v35 = 25.0;
   if (userInterfaceIdiom == 1)
   {
-    v34 = 40.0;
     v35 = 40.0;
-  }
-
-  else
-  {
-    v35 = 30.0;
-  }
-
-  if (userInterfaceIdiom == 1)
-  {
-    v36 = 50.0;
+    v36 = 40.0;
   }
 
   else
@@ -155,21 +147,31 @@
 
   if (userInterfaceIdiom == 1)
   {
-    v37 = 15.0;
+    v37 = 50.0;
   }
 
   else
   {
-    v37 = 5.0;
+    v37 = 30.0;
   }
 
-  v38 = [UIFont fontWithName:@"HelveticaNeue-Thin" size:v34];
-  mainLabel = [(MSDViewServiceRootViewController *)self mainLabel];
-  [mainLabel setFont:v38];
+  if (userInterfaceIdiom == 1)
+  {
+    v38 = 15.0;
+  }
 
-  [v31 setMinimumLineHeight:v35];
-  [v31 setMaximumLineHeight:v36];
-  [v31 setLineSpacing:v37];
+  else
+  {
+    v38 = 5.0;
+  }
+
+  v39 = [UIFont fontWithName:@"HelveticaNeue-Thin" size:v35];
+  mainLabel = [(MSDViewServiceRootViewController *)self mainLabel];
+  [mainLabel setFont:v39];
+
+  [v32 setMinimumLineHeight:v36];
+  [v32 setMaximumLineHeight:v37];
+  [v32 setLineSpacing:v38];
 
   mainLabel2 = [(MSDViewServiceRootViewController *)self mainLabel];
   [mainLabel2 setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -180,23 +182,23 @@
   mainLabel4 = [(MSDViewServiceRootViewController *)self mainLabel];
   [mainLabel4 setAdjustsFontSizeToFitWidth:1];
 
-  v43 = +[UIColor clearColor];
+  v44 = +[UIColor clearColor];
   mainLabel5 = [(MSDViewServiceRootViewController *)self mainLabel];
-  [mainLabel5 setBackgroundColor:v43];
+  [mainLabel5 setBackgroundColor:v44];
 
-  v45 = +[UIColor whiteColor];
+  v46 = +[UIColor whiteColor];
   mainLabel6 = [(MSDViewServiceRootViewController *)self mainLabel];
-  [mainLabel6 setTextColor:v45];
+  [mainLabel6 setTextColor:v46];
 
-  [v31 setAlignment:1];
-  v220 = NSParagraphStyleAttributeName;
-  v221 = v31;
-  v212 = [NSDictionary dictionaryWithObjects:&v221 forKeys:&v220 count:1];
-  v47 = [NSAttributedString alloc];
+  [v32 setAlignment:1];
+  v221 = NSParagraphStyleAttributeName;
+  v222 = v32;
+  v213 = [NSDictionary dictionaryWithObjects:&v222 forKeys:&v221 count:1];
+  v48 = [NSAttributedString alloc];
   displayString2 = [(MSDViewServiceRootViewController *)self displayString];
-  v49 = [v47 initWithString:displayString2 attributes:v212];
+  v50 = [v48 initWithString:displayString2 attributes:v213];
   mainLabel7 = [(MSDViewServiceRootViewController *)self mainLabel];
-  [mainLabel7 setAttributedText:v49];
+  [mainLabel7 setAttributedText:v50];
 
   mainLabel8 = [(MSDViewServiceRootViewController *)self mainLabel];
   [mainLabel8 sizeToFit];
@@ -205,8 +207,8 @@
   mainLabel9 = [(MSDViewServiceRootViewController *)self mainLabel];
   [view3 addSubview:mainLabel9];
 
-  v54 = objc_alloc_init(UIButton);
-  [(MSDViewServiceRootViewController *)self setCancelButton:v54];
+  v55 = objc_alloc_init(UIButton);
+  [(MSDViewServiceRootViewController *)self setCancelButton:v55];
 
   cancelButton = [(MSDViewServiceRootViewController *)self cancelButton];
   [cancelButton setHidden:1];
@@ -215,9 +217,9 @@
   [cancelButton2 setTranslatesAutoresizingMaskIntoConstraints:0];
 
   cancelButton3 = [(MSDViewServiceRootViewController *)self cancelButton];
-  v58 = +[NSBundle mainBundle];
-  v59 = [v58 localizedStringForKey:@"STOP_INSTALL" value:&stru_10000C608 table:0];
-  [cancelButton3 setTitle:v59 forState:0];
+  v59 = +[NSBundle mainBundle];
+  v60 = [v59 localizedStringForKey:@"STOP_INSTALL" value:&stru_10000C608 table:0];
+  [cancelButton3 setTitle:v60 forState:0];
 
   cancelButton4 = [(MSDViewServiceRootViewController *)self cancelButton];
   [cancelButton4 sizeToFit];
@@ -229,16 +231,16 @@
   cancelButton6 = [(MSDViewServiceRootViewController *)self cancelButton];
   [view4 addSubview:cancelButton6];
 
-  v64 = objc_alloc_init(UILabel);
-  [(MSDViewServiceRootViewController *)self setStatusLabel:v64];
+  v65 = objc_alloc_init(UILabel);
+  [(MSDViewServiceRootViewController *)self setStatusLabel:v65];
 
   statusLabel = [(MSDViewServiceRootViewController *)self statusLabel];
   [statusLabel setTranslatesAutoresizingMaskIntoConstraints:0];
 
-  v66 = +[NSBundle mainBundle];
-  v67 = [v66 localizedStringForKey:@"ITEM_FAILED" value:&stru_10000C608 table:0];
+  v67 = +[NSBundle mainBundle];
+  v68 = [v67 localizedStringForKey:@"ITEM_FAILED" value:&stru_10000C608 table:0];
   statusLabel2 = [(MSDViewServiceRootViewController *)self statusLabel];
-  [statusLabel2 setText:v67];
+  [statusLabel2 setText:v68];
 
   statusLabel3 = [(MSDViewServiceRootViewController *)self statusLabel];
   [statusLabel3 setLineBreakMode:0];
@@ -247,12 +249,12 @@
   [statusLabel4 setNumberOfLines:0];
 
   statusLabel5 = [(MSDViewServiceRootViewController *)self statusLabel];
-  v72 = +[UIColor whiteColor];
-  [statusLabel5 setTextColor:v72];
+  v73 = +[UIColor whiteColor];
+  [statusLabel5 setTextColor:v73];
 
   statusLabel6 = [(MSDViewServiceRootViewController *)self statusLabel];
-  v74 = [UIFont systemFontOfSize:14.0];
-  [statusLabel6 setFont:v74];
+  v75 = [UIFont systemFontOfSize:14.0];
+  [statusLabel6 setFont:v75];
 
   statusLabel7 = [(MSDViewServiceRootViewController *)self statusLabel];
   [statusLabel7 setTextAlignment:2];
@@ -264,8 +266,8 @@
   statusLabel9 = [(MSDViewServiceRootViewController *)self statusLabel];
   [view5 addSubview:statusLabel9];
 
-  v79 = objc_alloc_init(UITextView);
-  [(MSDViewServiceRootViewController *)self setErrorView:v79];
+  v80 = objc_alloc_init(UITextView);
+  [(MSDViewServiceRootViewController *)self setErrorView:v80];
 
   errorView = [(MSDViewServiceRootViewController *)self errorView];
   [errorView setHidden:1];
@@ -277,16 +279,16 @@
   [errorView3 setTranslatesAutoresizingMaskIntoConstraints:0];
 
   errorView4 = [(MSDViewServiceRootViewController *)self errorView];
-  v84 = +[UIColor whiteColor];
-  [errorView4 setTextColor:v84];
+  v85 = +[UIColor whiteColor];
+  [errorView4 setTextColor:v85];
 
   errorView5 = [(MSDViewServiceRootViewController *)self errorView];
-  v86 = [UIFont systemFontOfSize:14.0];
-  [errorView5 setFont:v86];
+  v87 = [UIFont systemFontOfSize:14.0];
+  [errorView5 setFont:v87];
 
-  v87 = +[UIColor clearColor];
+  v88 = +[UIColor clearColor];
   errorView6 = [(MSDViewServiceRootViewController *)self errorView];
-  [errorView6 setBackgroundColor:v87];
+  [errorView6 setBackgroundColor:v88];
 
   errorView7 = [(MSDViewServiceRootViewController *)self errorView];
   [errorView7 setTextAlignment:0];
@@ -295,8 +297,8 @@
   errorView8 = [(MSDViewServiceRootViewController *)self errorView];
   [view6 addSubview:errorView8];
 
-  v92 = [[UIProgressView alloc] initWithProgressViewStyle:0];
-  [(MSDViewServiceRootViewController *)self setProgressBar:v92];
+  v93 = [[UIProgressView alloc] initWithProgressViewStyle:0];
+  [(MSDViewServiceRootViewController *)self setProgressBar:v93];
 
   progressBar = [(MSDViewServiceRootViewController *)self progressBar];
   [progressBar setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -304,13 +306,13 @@
   progressBar2 = [(MSDViewServiceRootViewController *)self progressBar];
   [progressBar2 setHidden:1];
 
-  v95 = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
+  v96 = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
   progressBar3 = [(MSDViewServiceRootViewController *)self progressBar];
-  [progressBar3 setTrackTintColor:v95];
+  [progressBar3 setTrackTintColor:v96];
 
-  v97 = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5];
+  v98 = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.5];
   progressBar4 = [(MSDViewServiceRootViewController *)self progressBar];
-  [progressBar4 setTintColor:v97];
+  [progressBar4 setTintColor:v98];
 
   view7 = [(MSDViewServiceRootViewController *)self view];
   progressBar5 = [(MSDViewServiceRootViewController *)self progressBar];
@@ -319,51 +321,51 @@
   view8 = [(MSDViewServiceRootViewController *)self view];
   mainLabel10 = [(MSDViewServiceRootViewController *)self mainLabel];
   view9 = [(MSDViewServiceRootViewController *)self view];
-  v104 = [NSLayoutConstraint constraintWithItem:mainLabel10 attribute:9 relatedBy:0 toItem:view9 attribute:9 multiplier:1.0 constant:0.0];
-  [view8 addConstraint:v104];
+  v105 = [NSLayoutConstraint constraintWithItem:mainLabel10 attribute:9 relatedBy:0 toItem:view9 attribute:9 multiplier:1.0 constant:0.0];
+  [view8 addConstraint:v105];
 
   view10 = [(MSDViewServiceRootViewController *)self view];
   mainLabel11 = [(MSDViewServiceRootViewController *)self mainLabel];
   view11 = [(MSDViewServiceRootViewController *)self view];
-  v108 = [NSLayoutConstraint constraintWithItem:mainLabel11 attribute:10 relatedBy:0 toItem:view11 attribute:10 multiplier:1.0 constant:0.0];
-  [view10 addConstraint:v108];
+  v109 = [NSLayoutConstraint constraintWithItem:mainLabel11 attribute:10 relatedBy:0 toItem:view11 attribute:10 multiplier:1.0 constant:0.0];
+  [view10 addConstraint:v109];
 
-  v109 = +[UIDevice currentDevice];
-  userInterfaceIdiom2 = [v109 userInterfaceIdiom];
+  v110 = +[UIDevice currentDevice];
+  userInterfaceIdiom2 = [v110 userInterfaceIdiom];
 
   if (userInterfaceIdiom2 == 1)
   {
-    v111 = 50.0;
+    v112 = 50.0;
   }
 
   else
   {
-    v111 = 10.0;
+    v112 = 10.0;
   }
 
   view12 = [(MSDViewServiceRootViewController *)self view];
   mainLabel12 = [(MSDViewServiceRootViewController *)self mainLabel];
   view13 = [(MSDViewServiceRootViewController *)self view];
-  v115 = [NSLayoutConstraint constraintWithItem:mainLabel12 attribute:5 relatedBy:0 toItem:view13 attribute:5 multiplier:1.0 constant:v111];
-  [view12 addConstraint:v115];
+  v116 = [NSLayoutConstraint constraintWithItem:mainLabel12 attribute:5 relatedBy:0 toItem:view13 attribute:5 multiplier:1.0 constant:v112];
+  [view12 addConstraint:v116];
 
   view14 = [(MSDViewServiceRootViewController *)self view];
   mainLabel13 = [(MSDViewServiceRootViewController *)self mainLabel];
   view15 = [(MSDViewServiceRootViewController *)self view];
-  v119 = [NSLayoutConstraint constraintWithItem:mainLabel13 attribute:5 relatedBy:0 toItem:view15 attribute:5 multiplier:1.0 constant:v111];
-  [view14 addConstraint:v119];
+  v120 = [NSLayoutConstraint constraintWithItem:mainLabel13 attribute:5 relatedBy:0 toItem:view15 attribute:5 multiplier:1.0 constant:v112];
+  [view14 addConstraint:v120];
 
   view16 = [(MSDViewServiceRootViewController *)self view];
   cancelButton7 = [(MSDViewServiceRootViewController *)self cancelButton];
   view17 = [(MSDViewServiceRootViewController *)self view];
-  v123 = [NSLayoutConstraint constraintWithItem:cancelButton7 attribute:9 relatedBy:0 toItem:view17 attribute:9 multiplier:1.0 constant:0.0];
-  [view16 addConstraint:v123];
+  v124 = [NSLayoutConstraint constraintWithItem:cancelButton7 attribute:9 relatedBy:0 toItem:view17 attribute:9 multiplier:1.0 constant:0.0];
+  [view16 addConstraint:v124];
 
   view18 = [(MSDViewServiceRootViewController *)self view];
   cancelButton8 = [(MSDViewServiceRootViewController *)self cancelButton];
   view19 = [(MSDViewServiceRootViewController *)self view];
-  v127 = [NSLayoutConstraint constraintWithItem:cancelButton8 attribute:10 relatedBy:0 toItem:view19 attribute:10 multiplier:1.7 constant:0.0];
-  [view18 addConstraint:v127];
+  v128 = [NSLayoutConstraint constraintWithItem:cancelButton8 attribute:10 relatedBy:0 toItem:view19 attribute:10 multiplier:1.7 constant:0.0];
+  [view18 addConstraint:v128];
 
   view20 = [(MSDViewServiceRootViewController *)self view];
   errorView9 = [(MSDViewServiceRootViewController *)self errorView];
@@ -371,8 +373,8 @@
   view21 = [(MSDViewServiceRootViewController *)self view];
   safeAreaLayoutGuide = [view21 safeAreaLayoutGuide];
   centerXAnchor2 = [safeAreaLayoutGuide centerXAnchor];
-  v134 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  [view20 addConstraint:v134];
+  v135 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  [view20 addConstraint:v135];
 
   view22 = [(MSDViewServiceRootViewController *)self view];
   errorView10 = [(MSDViewServiceRootViewController *)self errorView];
@@ -380,8 +382,8 @@
   view23 = [(MSDViewServiceRootViewController *)self view];
   safeAreaLayoutGuide2 = [view23 safeAreaLayoutGuide];
   centerYAnchor2 = [safeAreaLayoutGuide2 centerYAnchor];
-  v141 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  [view22 addConstraint:v141];
+  v142 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+  [view22 addConstraint:v142];
 
   view24 = [(MSDViewServiceRootViewController *)self view];
   errorView11 = [(MSDViewServiceRootViewController *)self errorView];
@@ -389,8 +391,8 @@
   view25 = [(MSDViewServiceRootViewController *)self view];
   safeAreaLayoutGuide3 = [view25 safeAreaLayoutGuide];
   leadingAnchor2 = [safeAreaLayoutGuide3 leadingAnchor];
-  v148 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:20.0];
-  [view24 addConstraint:v148];
+  v149 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:20.0];
+  [view24 addConstraint:v149];
 
   view26 = [(MSDViewServiceRootViewController *)self view];
   errorView12 = [(MSDViewServiceRootViewController *)self errorView];
@@ -398,8 +400,8 @@
   view27 = [(MSDViewServiceRootViewController *)self view];
   safeAreaLayoutGuide4 = [view27 safeAreaLayoutGuide];
   trailingAnchor2 = [safeAreaLayoutGuide4 trailingAnchor];
-  v155 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-20.0];
-  [view26 addConstraint:v155];
+  v156 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-20.0];
+  [view26 addConstraint:v156];
 
   view28 = [(MSDViewServiceRootViewController *)self view];
   errorView13 = [(MSDViewServiceRootViewController *)self errorView];
@@ -407,8 +409,8 @@
   view29 = [(MSDViewServiceRootViewController *)self view];
   safeAreaLayoutGuide5 = [view29 safeAreaLayoutGuide];
   topAnchor2 = [safeAreaLayoutGuide5 topAnchor];
-  v162 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:20.0];
-  [view28 addConstraint:v162];
+  v163 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:20.0];
+  [view28 addConstraint:v163];
 
   view30 = [(MSDViewServiceRootViewController *)self view];
   errorView14 = [(MSDViewServiceRootViewController *)self errorView];
@@ -416,8 +418,8 @@
   view31 = [(MSDViewServiceRootViewController *)self view];
   safeAreaLayoutGuide6 = [view31 safeAreaLayoutGuide];
   bottomAnchor2 = [safeAreaLayoutGuide6 bottomAnchor];
-  v169 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-20.0];
-  [view30 addConstraint:v169];
+  v170 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-20.0];
+  [view30 addConstraint:v170];
 
   view32 = [(MSDViewServiceRootViewController *)self view];
   statusLabel10 = [(MSDViewServiceRootViewController *)self statusLabel];
@@ -425,8 +427,8 @@
   view33 = [(MSDViewServiceRootViewController *)self view];
   safeAreaLayoutGuide7 = [view33 safeAreaLayoutGuide];
   trailingAnchor4 = [safeAreaLayoutGuide7 trailingAnchor];
-  v176 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:-20.0];
-  [view32 addConstraint:v176];
+  v177 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:-20.0];
+  [view32 addConstraint:v177];
 
   view34 = [(MSDViewServiceRootViewController *)self view];
   statusLabel11 = [(MSDViewServiceRootViewController *)self statusLabel];
@@ -434,8 +436,8 @@
   view35 = [(MSDViewServiceRootViewController *)self view];
   safeAreaLayoutGuide8 = [view35 safeAreaLayoutGuide];
   leadingAnchor4 = [safeAreaLayoutGuide8 leadingAnchor];
-  v183 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:20.0];
-  [view34 addConstraint:v183];
+  v184 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:20.0];
+  [view34 addConstraint:v184];
 
   view36 = [(MSDViewServiceRootViewController *)self view];
   statusLabel12 = [(MSDViewServiceRootViewController *)self statusLabel];
@@ -443,8 +445,8 @@
   view37 = [(MSDViewServiceRootViewController *)self view];
   safeAreaLayoutGuide9 = [view37 safeAreaLayoutGuide];
   bottomAnchor4 = [safeAreaLayoutGuide9 bottomAnchor];
-  v190 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4 constant:-20.0];
-  [view36 addConstraint:v190];
+  v191 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4 constant:-20.0];
+  [view36 addConstraint:v191];
 
   view38 = [(MSDViewServiceRootViewController *)self view];
   progressBar6 = [(MSDViewServiceRootViewController *)self progressBar];
@@ -452,8 +454,8 @@
   view39 = [(MSDViewServiceRootViewController *)self view];
   safeAreaLayoutGuide10 = [view39 safeAreaLayoutGuide];
   centerXAnchor4 = [safeAreaLayoutGuide10 centerXAnchor];
-  v197 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
-  [view38 addConstraint:v197];
+  v198 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
+  [view38 addConstraint:v198];
 
   view40 = [(MSDViewServiceRootViewController *)self view];
   progressBar7 = [(MSDViewServiceRootViewController *)self progressBar];
@@ -461,8 +463,8 @@
   view41 = [(MSDViewServiceRootViewController *)self view];
   safeAreaLayoutGuide11 = [view41 safeAreaLayoutGuide];
   widthAnchor2 = [safeAreaLayoutGuide11 widthAnchor];
-  v204 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
-  [view40 addConstraint:v204];
+  v205 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
+  [view40 addConstraint:v205];
 
   view42 = [(MSDViewServiceRootViewController *)self view];
   progressBar8 = [(MSDViewServiceRootViewController *)self progressBar];
@@ -470,76 +472,95 @@
   view43 = [(MSDViewServiceRootViewController *)self view];
   safeAreaLayoutGuide12 = [view43 safeAreaLayoutGuide];
   bottomAnchor6 = [safeAreaLayoutGuide12 bottomAnchor];
-  v211 = [bottomAnchor5 constraintEqualToAnchor:bottomAnchor6];
-  [view42 addConstraint:v211];
+  v212 = [bottomAnchor5 constraintEqualToAnchor:bottomAnchor6];
+  [view42 addConstraint:v212];
 
   [(MSDViewServiceRootViewController *)self updateErrorState];
 }
 
 - (void)viewDidLoad
 {
-  v28.receiver = self;
-  v28.super_class = MSDViewServiceRootViewController;
-  [(MSDViewServiceRootViewController *)&v28 viewDidLoad];
-  v3 = sub_1000015E4();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v29.receiver = self;
+  v29.super_class = MSDViewServiceRootViewController;
+  viewDidLoad = [(MSDViewServiceRootViewController *)&v29 viewDidLoad];
+  v4 = sub_1000015E4(viewDidLoad);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v30 = "[MSDViewServiceRootViewController viewDidLoad]";
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s called", buf, 0xCu);
+    v31 = "[MSDViewServiceRootViewController viewDidLoad]";
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%s called", buf, 0xCu);
   }
 
-  v4 = objc_alloc_init(UIView);
+  v5 = objc_alloc_init(UIView);
   view = [(MSDViewServiceRootViewController *)self view];
   [view size];
-  v7 = v6 * 0.5;
+  v8 = v7 * 0.5;
   view2 = [(MSDViewServiceRootViewController *)self view];
   [view2 size];
-  v10 = v9 * 0.5;
+  v11 = v10 * 0.5;
   view3 = [(MSDViewServiceRootViewController *)self view];
   [view3 size];
-  v13 = v12 * 0.5;
+  v14 = v13 * 0.5;
 
-  [v4 setFrame:{v7, 0.0, v10, v13}];
+  [v5 setFrame:{v8, 0.0, v11, v14}];
   view4 = [(MSDViewServiceRootViewController *)self view];
-  [view4 addSubview:v4];
+  [view4 addSubview:v5];
 
-  v15 = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:"respondToGesture:"];
-  [v15 setDelegate:self];
-  [v15 setMinimumPressDuration:5.0];
-  [v15 setNumberOfTouchesRequired:3];
-  [v4 addGestureRecognizer:v15];
+  v16 = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:"respondToGesture:"];
+  [v16 setDelegate:self];
+  [v16 setMinimumPressDuration:5.0];
+  [v16 setNumberOfTouchesRequired:3];
+  [v5 addGestureRecognizer:v16];
   if (os_variant_has_internal_content())
   {
-    v16 = objc_alloc_init(UIView);
+    v17 = objc_alloc_init(UIView);
 
     view5 = [(MSDViewServiceRootViewController *)self view];
     [view5 size];
-    v19 = v18 * 0.5;
+    v20 = v19 * 0.5;
     view6 = [(MSDViewServiceRootViewController *)self view];
     [view6 size];
-    v22 = v21 * 0.5;
+    v23 = v22 * 0.5;
     view7 = [(MSDViewServiceRootViewController *)self view];
     [view7 size];
-    v25 = v24 * 0.5;
+    v26 = v25 * 0.5;
 
-    [v16 setFrame:{0.0, v19, v22, v25}];
+    [v17 setFrame:{0.0, v20, v23, v26}];
     view8 = [(MSDViewServiceRootViewController *)self view];
-    [view8 addSubview:v16];
+    [view8 addSubview:v17];
 
-    v27 = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:"respondToShowErrorGesture:"];
-    [v27 setDelegate:self];
-    [v27 setMinimumPressDuration:5.0];
-    [v27 setNumberOfTouchesRequired:3];
-    [v16 addGestureRecognizer:v27];
-    v15 = v27;
-    v4 = v16;
+    v28 = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:"respondToShowErrorGesture:"];
+    [v28 setDelegate:self];
+    [v28 setMinimumPressDuration:5.0];
+    [v28 setNumberOfTouchesRequired:3];
+    [v17 addGestureRecognizer:v28];
+    v16 = v28;
+    v5 = v17;
   }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  if (![(MSDViewServiceRootViewController *)self observerAdded])
+  {
+    v4 = +[MSDViewServiceModel sharedInstance];
+    [v4 addObserver:self forKeyPath:@"errorMessage" options:3 context:0];
+    [v4 addObserver:self forKeyPath:@"errorToReport" options:3 context:0];
+    [v4 addObserver:self forKeyPath:@"progress" options:3 context:0];
+    [v4 addObserver:self forKeyPath:@"disableIdleTimer" options:3 context:0];
+    [(MSDViewServiceRootViewController *)self setObserverAdded:1];
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v3 = +[MSDKManagedDevice sharedInstance];
+  [v3 checkInBlockingUI];
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
-  v4 = sub_1000015E4();
+  v4 = sub_1000015E4(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -720,58 +741,66 @@ LABEL_7:
     block[1] = 3221225472;
     block[2] = sub_10000479C;
     block[3] = &unk_10000C488;
-    objc_copyWeak(&v21, &location);
+    objc_copyWeak(&v23, &location);
     dispatch_async(&_dispatch_main_q, block);
-    objc_destroyWeak(&v21);
-  }
-
-  else if ([pathCopy isEqualToString:@"errorMessage"])
-  {
-    v12 = sub_1000015E4();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138543362;
-      v24 = changeCopy;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Received an error message change: %{public}@", buf, 0xCu);
-    }
-
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_100004898;
-    v18[3] = &unk_10000C488;
-    objc_copyWeak(&v19, &location);
-    dispatch_async(&_dispatch_main_q, v18);
-    objc_destroyWeak(&v19);
-  }
-
-  else if ([pathCopy isEqualToString:@"progress"])
-  {
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_1000048D8;
-    v16[3] = &unk_10000C488;
-    objc_copyWeak(&v17, &location);
-    dispatch_async(&_dispatch_main_q, v16);
-    objc_destroyWeak(&v17);
-  }
-
-  else if ([pathCopy isEqualToString:@"disableIdleTimer"])
-  {
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_1000049A4;
-    v14[3] = &unk_10000C488;
-    objc_copyWeak(&v15, &location);
-    dispatch_async(&_dispatch_main_q, v14);
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v23);
   }
 
   else
   {
-    v13 = sub_1000015E4();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = [pathCopy isEqualToString:@"errorMessage"];
+    if (v12)
     {
-      sub_100005A78(v13);
+      v13 = sub_1000015E4(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138543362;
+        v26 = changeCopy;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Received an error message change: %{public}@", buf, 0xCu);
+      }
+
+      v20[0] = _NSConcreteStackBlock;
+      v20[1] = 3221225472;
+      v20[2] = sub_100004898;
+      v20[3] = &unk_10000C488;
+      objc_copyWeak(&v21, &location);
+      dispatch_async(&_dispatch_main_q, v20);
+      objc_destroyWeak(&v21);
+    }
+
+    else if ([pathCopy isEqualToString:@"progress"])
+    {
+      v18[0] = _NSConcreteStackBlock;
+      v18[1] = 3221225472;
+      v18[2] = sub_1000048D8;
+      v18[3] = &unk_10000C488;
+      objc_copyWeak(&v19, &location);
+      dispatch_async(&_dispatch_main_q, v18);
+      objc_destroyWeak(&v19);
+    }
+
+    else
+    {
+      v14 = [pathCopy isEqualToString:@"disableIdleTimer"];
+      if (v14)
+      {
+        v16[0] = _NSConcreteStackBlock;
+        v16[1] = 3221225472;
+        v16[2] = sub_1000049A4;
+        v16[3] = &unk_10000C488;
+        objc_copyWeak(&v17, &location);
+        dispatch_async(&_dispatch_main_q, v16);
+        objc_destroyWeak(&v17);
+      }
+
+      else
+      {
+        v15 = sub_1000015E4(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        {
+          sub_100005A78(v15);
+        }
+      }
     }
   }
 

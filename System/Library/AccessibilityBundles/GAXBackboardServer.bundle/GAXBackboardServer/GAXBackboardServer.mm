@@ -163,10 +163,11 @@ LABEL_12:
   _AXSSetTripleClickOptions();
 }
 
-void sub_4358(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_4358(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 id GAXFallbackValueForProfileKey(void *a1, uint64_t a2, int a3)
@@ -710,26 +711,26 @@ void sub_66AC(uint64_t a1, void *a2, void *a3)
   (*(*(a1 + 32) + 16))();
 }
 
-id sub_81C4(uint64_t a1)
+id sub_81C4(uint64_t a1, uint64_t a2)
 {
-  v2 = GAXLogIntegrity();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = GAXLogIntegrity();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(a1 + 32) eventName];
+    v4 = [*(a1 + 32) eventName];
     *buf = 138543362;
-    v9 = v3;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Proceeding with verification of event <%{public}@>", buf, 0xCu);
+    v10 = v4;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Proceeding with verification of event <%{public}@>", buf, 0xCu);
   }
 
   [*(a1 + 32) setDelay:0.0];
-  v5 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_82E4;
-  v7[3] = &unk_4D028;
-  v7[4] = v4;
-  return [v4 _verifyWithEventObject:v5 completion:v7];
+  v6 = *(a1 + 32);
+  v5 = *(a1 + 40);
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_82E4;
+  v8[3] = &unk_4D028;
+  v8[4] = v5;
+  return [v5 _verifyWithEventObject:v6 completion:v8];
 }
 
 uint64_t sub_87B8(uint64_t a1, uint64_t a2)
@@ -769,9 +770,9 @@ void sub_8BDC(uint64_t a1, uint64_t a2)
   _Block_object_dispose(v10, 8);
 }
 
-void sub_8CE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_8CE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -783,8 +784,7 @@ void sub_8D00(uint64_t a1, int a2)
     *(*(*(a1 + 40) + 8) + 24) = 27;
   }
 
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
+  v2 = *(a1 + 32);
   AXPerformBlockAsynchronouslyOnMainThread();
 }
 
@@ -810,12 +810,7 @@ uint64_t sub_8DBC(uint64_t a1, void *a2)
         if ((*(a1 + 84) & 1) == 0)
         {
           v9 = [*(a1 + 32) delegate];
-          v10 = [v9 relaunchAttemptsForSessionAppWithIdentifier:*(a1 + 40) forIntegrityVerifier:*(a1 + 32)];
-
-          if (v10 <= 3)
-          {
-            *(a1 + 56);
-          }
+          [v9 relaunchAttemptsForSessionAppWithIdentifier:*(a1 + 40) forIntegrityVerifier:*(a1 + 32)];
         }
       }
 
@@ -826,14 +821,14 @@ uint64_t sub_8DBC(uint64_t a1, void *a2)
     }
   }
 
-  v11 = *(*(a1 + 48) + 16);
+  v10 = *(*(a1 + 48) + 16);
 
-  return v11();
+  return v10();
 }
 
-void sub_925C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_925C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -847,24 +842,23 @@ void sub_927C(uint64_t a1, int a2)
     {
       v4 = [*(a1 + 32) displayStringForOutcome:*(a1 + 56)];
       *buf = 138543362;
-      v10 = v4;
+      v8 = v4;
       _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Had error outcome %{public}@ but session app is being installed, so substituting in the session app being installed outcome", buf, 0xCu);
     }
 
     [*(a1 + 32) _didFinishVerifyingCurrentEventWithOutcome:27 error:0];
   }
 
-  v7 = *(a1 + 32);
-  v8 = *(a1 + 56);
   v6 = *(a1 + 40);
   v5 = v6;
   AXPerformBlockOnMainThreadAfterDelay();
 }
 
-void sub_98AC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_98AC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_9A8C(id a1)
@@ -873,16 +867,16 @@ void sub_9A8C(id a1)
   [v1 didEnableSystemAppAccess];
 }
 
-id GAXAllowedRemoteUIProcesses()
+id GAXAllowedRemoteUIProcesses(uint64_t a1)
 {
   if (qword_595D8 != -1)
   {
     sub_2A458();
   }
 
-  v1 = qword_595D0;
+  v2 = qword_595D0;
 
-  return v1;
+  return v2;
 }
 
 void sub_9B18(id a1)
@@ -920,11 +914,11 @@ id GAXURLSchemeIsPhoneRelated(void *a1)
   return v2;
 }
 
-id GAXLocalizedStringForTimeDuration(double a1)
+id GAXLocalizedStringForTimeDuration(double a1, uint64_t a2, uint64_t a3)
 {
-  v2 = objc_opt_new();
-  [v2 setZeroFormattingBehavior:1];
-  [v2 setUnitsStyle:3];
+  v4 = objc_opt_new();
+  [v4 setZeroFormattingBehavior:1];
+  [v4 setUnitsStyle:3];
   if (a1 >= 60.0)
   {
     if (a1 % 60 > 30)
@@ -932,18 +926,18 @@ id GAXLocalizedStringForTimeDuration(double a1)
       a1 = a1 + 60.0;
     }
 
-    v3 = 96;
+    v5 = 96;
   }
 
   else
   {
-    v3 = 128;
+    v5 = 128;
   }
 
-  [v2 setAllowedUnits:v3];
-  v4 = [v2 stringFromTimeInterval:a1];
+  [v4 setAllowedUnits:v5];
+  v6 = [v4 stringFromTimeInterval:a1];
 
-  return v4;
+  return v6;
 }
 
 void sub_AC20(id a1)
@@ -970,16 +964,18 @@ void sub_BDC8(uint64_t a1, void *a2, void *a3)
   [v7 setObject:v5 forKey:v9];
 }
 
-void sub_BEF8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_BEF8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_BF18(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_BF18(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_CC70(uint64_t a1, void *a2, void *a3)
@@ -1072,9 +1068,9 @@ void sub_DE18(id *a1, void *a2, void *a3)
   }
 }
 
-void sub_E650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_E650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1213,7 +1209,6 @@ void sub_111C4(uint64_t a1)
   {
     if (v2[9] || (_AXAssert(), v2 = *(a1 + 32), v2[9]))
     {
-      v3 = *(a1 + 40);
 
       [v2 _postLockButtonPressWithDown:? up:?];
     }
@@ -1221,8 +1216,8 @@ void sub_111C4(uint64_t a1)
 
   else
   {
-    v4 = [v2 delegate];
-    [v4 eventProcessor:*(a1 + 32) showAlertWithType:1];
+    v3 = [v2 delegate];
+    [v3 eventProcessor:*(a1 + 32) showAlertWithType:1];
   }
 }
 
@@ -1345,10 +1340,7 @@ uint64_t sub_12C48(uint64_t result, uint64_t a2)
 
 uint64_t sub_12C60(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 256) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 256) copy];
 
   return _objc_release_x1();
 }
@@ -1377,22 +1369,20 @@ id sub_12E6C(uint64_t a1, uint64_t a2)
       _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Still waiting to connect to SB. Will try again in .5", buf, 2u);
     }
 
-    v11 = *(a1 + 32);
-    v12 = *(a1 + 48);
-    return AXPerformBlockOnMainThreadAfterDelay();
+    goto LABEL_11;
   }
 
   if (([*(a1 + 40) gaxServerIsReady] & 1) == 0)
   {
-    v7 = GAXLogCommon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = GAXLogCommon();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Still waiting for GAX SpringBoard Server to load. Will try again in .1", buf, 2u);
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Still waiting for GAX SpringBoard Server to load. Will try again in .1", buf, 2u);
     }
 
-    v9 = *(a1 + 32);
-    v10 = *(a1 + 48);
+LABEL_11:
+
     return AXPerformBlockOnMainThreadAfterDelay();
   }
 
@@ -1456,9 +1446,9 @@ void sub_13210(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_132FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_132FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1619,9 +1609,9 @@ void sub_14094(uint64_t a1)
   *(*(*(a1 + 40) + 8) + 56) = *(*(*(a1 + 40) + 8) + 56) & 0xFFF7FFFF | v14;
 }
 
-void sub_14814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_14814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1633,9 +1623,9 @@ uint64_t sub_14834(uint64_t result)
   return result;
 }
 
-void sub_14E28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_14E28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1708,9 +1698,9 @@ void sub_1549C(uint64_t a1)
     v4 = [v2 sessionAppBundleIdentifiers];
     v5 = [v2 effectiveAppBundleIdentifier];
     *buf = 138412546;
-    v19 = v4;
-    v20 = 2112;
-    v21 = v5;
+    v18 = v4;
+    v19 = 2112;
+    v20 = v5;
     _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Session apps are %@. Effective app is %@.", buf, 0x16u);
   }
 
@@ -1795,7 +1785,6 @@ LABEL_20:
     }
 
     [v2 terminateEffectiveApp];
-    v17 = *(a1 + 32);
     AXPerformBlockAsynchronouslyOnMainThread();
   }
 
@@ -2007,36 +1996,35 @@ void sub_17490(uint64_t a1)
   _Block_object_dispose(&v24, 8);
 }
 
-void sub_17810(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_17810(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_178D8(uint64_t a1)
+uint64_t sub_178D8(uint64_t a1, uint64_t a2)
 {
-  v2 = GAXLogIntegrity();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = GAXLogIntegrity();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Start ignoring all touches via override for verifying integrity - for 5 minutes max", buf, 2u);
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Start ignoring all touches via override for verifying integrity - for 5 minutes max", buf, 2u);
   }
 
   *(*(a1 + 32) + 40) |= 0x200u;
-  v4 = *(a1 + 32);
   return AXPerformBlockOnMainThreadAfterDelay();
 }
 
-void sub_179B0(uint64_t a1)
+void sub_179B0(uint64_t a1, uint64_t a2)
 {
   if ((*(*(a1 + 32) + 41) & 2) != 0)
   {
-    v2 = GAXLogIntegrity();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = GAXLogIntegrity();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v3 = 0;
-      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Stop ignoring all touches via override for verifying integrity - exceeded 5 minutes", v3, 2u);
+      *v4 = 0;
+      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Stop ignoring all touches via override for verifying integrity - exceeded 5 minutes", v4, 2u);
     }
 
     *(*(a1 + 32) + 40) &= ~0x200u;
@@ -2060,27 +2048,26 @@ void sub_17D24(uint64_t a1)
 
 id sub_18500(uint64_t a1, int a2, int a3)
 {
-  v3 = *(a1 + 32);
   if (*(a1 + 40) == 3)
   {
-    v4 = 0;
+    v3 = 0;
   }
 
   else
   {
-    v4 = a2 & a3 ^ 1u;
+    v3 = a2 & a3 ^ 1u;
   }
 
-  return [*(a1 + 32) _transitionToMode:0 requireUserUnlock:v4];
+  return [*(a1 + 32) _transitionToMode:0 requireUserUnlock:v3];
 }
 
-void sub_18524(uint64_t a1)
+void sub_18524(uint64_t a1, uint64_t a2)
 {
-  v2 = GAXLogIntegrity();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = GAXLogIntegrity();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Stop ignoring all touches via override for verifying integrity", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Stop ignoring all touches via override for verifying integrity", v4, 2u);
   }
 
   *(*(a1 + 32) + 40) &= ~0x200u;
@@ -2146,9 +2133,9 @@ uint64_t sub_18EA8(uint64_t a1)
   return (*(*(a1 + 48) + 16))();
 }
 
-void sub_19364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_19364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2336,39 +2323,38 @@ void sub_1BA70(uint64_t a1, uint64_t a2)
   [*(a1 + 32) _updateMode:*(a1 + 48)];
   [*(a1 + 32) _updateDisablingSystemGesturesForMode:*(a1 + 48)];
   [*(a1 + 32) _disableSOSGesture:*(a1 + 48) != 0];
-  memset(&v23[40], 0, 28);
+  memset(&v22[40], 0, 28);
   v12 = *(a1 + 32);
   if (v12)
   {
-    [v12 gaxState];
+    objc_msgSend_gaxState(v12);
   }
 
   v13 = +[AXSpringBoardServer server];
   v14 = *(a1 + 48);
-  *v23 = *&v23[40];
-  *&v23[12] = *&v23[52];
-  [v13 gaxDidChangeMode:v14 shouldAcquireLockScreenAssertion:a2 gaxState:v23];
+  *v22 = *&v22[40];
+  *&v22[12] = *&v22[52];
+  [v13 gaxDidChangeMode:v14 shouldAcquireLockScreenAssertion:a2 gaxState:v22];
 
-  v24[0] = @"gax backboard state";
-  *v23 = *&v23[40];
-  *&v23[12] = *&v23[52];
-  v15 = serializeGAXBackboardState(v23);
-  v25[0] = v15;
-  v24[1] = @"time restriction did expire";
+  v23[0] = @"gax backboard state";
+  *v22 = *&v22[40];
+  *&v22[12] = *&v22[52];
+  v15 = serializeGAXBackboardState(v22);
+  v24[0] = v15;
+  v23[1] = @"time restriction did expire";
   v16 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [*(a1 + 32) _hasTimeRestrictionExpired]);
-  v25[1] = v16;
-  v24[2] = @"time restriction duration";
+  v24[1] = v16;
+  v23[2] = @"time restriction duration";
   v17 = [*(a1 + 32) profileManager];
   v18 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v17 appTimeoutDuration]);
-  v25[2] = v18;
-  v19 = [NSDictionary dictionaryWithObjects:v25 forKeys:v24 count:3];
+  v24[2] = v18;
+  v19 = [NSDictionary dictionaryWithObjects:v24 forKeys:v23 count:3];
 
   v20 = [*(a1 + 32) userInterfaceClient];
   [v20 sendAsynchronousMessage:v19 withIdentifier:1 targetAccessQueue:0 completion:0];
 
   if ((*(a1 + 52) & 1) == 0)
   {
-    v22 = *(a1 + 32);
     AXPerformBlockOnMainThreadAfterDelay();
   }
 
@@ -2518,7 +2504,7 @@ void sub_1C058(uint64_t a1, uint64_t a2)
   v17 = *(a1 + 48);
   if (v17)
   {
-    [v17 gaxState];
+    objc_msgSend_gaxState(v17);
   }
 
   *v34 = *buf;
@@ -2737,9 +2723,9 @@ void sub_1CC00(uint64_t a1, void *a2)
   }
 }
 
-void sub_1D03C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1D03C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2809,10 +2795,11 @@ void sub_1D254(uint64_t a1)
   }
 }
 
-void sub_1D7F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_1D7F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
   _Block_object_dispose(&a16, 8);
-  _Block_object_dispose(&a26, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2971,9 +2958,9 @@ LABEL_31:
 LABEL_33:
 }
 
-void sub_1E050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1E050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3089,8 +3076,6 @@ void sub_1F590(uint64_t a1, int a2, char a3)
 
 void sub_1F6F4(uint64_t a1)
 {
-  v2 = *(a1 + 48);
-  v3 = *(a1 + 49);
   (*(*(a1 + 32) + 16))();
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained setCheckingASAMValidity:0];
@@ -3121,7 +3106,7 @@ LABEL_3:
       {
         v34 = *(a1 + 32);
         *buf = 138543362;
-        v81 = v34;
+        v80 = v34;
         _os_log_impl(&dword_0, v33, OS_LOG_TYPE_INFO, "unmanaged self-locking to %{public}@ (internal style)", buf, 0xCu);
       }
 
@@ -3141,15 +3126,15 @@ LABEL_3:
       v40 = *(a1 + 40);
       v41 = [v40 profileManager];
       v42 = [v41 isUserMode];
-      v62[0] = _NSConcreteStackBlock;
-      v62[1] = 3221225472;
-      v62[2] = sub_207C4;
-      v62[3] = &unk_4DBA0;
+      v61[0] = _NSConcreteStackBlock;
+      v61[1] = 3221225472;
+      v61[2] = sub_207C4;
+      v61[3] = &unk_4DBA0;
       v43 = *(a1 + 80);
-      v62[4] = *(a1 + 40);
-      v64 = v43;
-      v63 = *(a1 + 64);
-      [v40 _transitionToMode:2 requireUserUnlock:v42 assumeUserInterfaceConnectionSevered:0 completion:v62];
+      v61[4] = *(a1 + 40);
+      v63 = v43;
+      v62 = *(a1 + 64);
+      [v40 _transitionToMode:2 requireUserUnlock:v42 assumeUserInterfaceConnectionSevered:0 completion:v61];
     }
 
     else if (v3 == 1)
@@ -3159,7 +3144,7 @@ LABEL_3:
       {
         v23 = *(a1 + 32);
         *buf = 138543362;
-        v81 = v23;
+        v80 = v23;
         _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "unmanaged self-locking to %{public}@ (AAC style)", buf, 0xCu);
       }
 
@@ -3167,36 +3152,35 @@ LABEL_3:
       v25 = [v24 appManager];
       v26 = [v25 effectiveAppBundleIdentifier];
       v27 = *(a1 + 146);
-      v65[0] = _NSConcreteStackBlock;
-      v65[1] = 3221225472;
-      v65[2] = sub_200A8;
-      v65[3] = &unk_4DB78;
-      v72 = v27;
-      v69 = *(a1 + 96);
-      v58 = *(a1 + 40);
+      v64[0] = _NSConcreteStackBlock;
+      v64[1] = 3221225472;
+      v64[2] = sub_200A8;
+      v64[3] = &unk_4DB78;
+      v71 = v27;
+      v68 = *(a1 + 96);
+      v57 = *(a1 + 40);
       v28 = *(a1 + 48);
-      v73 = *(a1 + 144);
+      v72 = *(a1 + 144);
       v29 = *(a1 + 32);
       v30 = *(a1 + 56);
       *&v31 = v29;
       *(&v31 + 1) = v30;
-      *&v32 = v58;
+      *&v32 = v57;
       *(&v32 + 1) = v28;
-      v66 = v32;
-      v67 = v31;
-      objc_copyWeak(&v71, (a1 + 104));
-      v70 = *(a1 + 80);
-      v68 = *(a1 + 64);
-      [v24 userConfirmUnmanagedASAMForAppWithBundleID:v26 requireConfirmation:v27 & 1 completion:v65];
+      v65 = v32;
+      v66 = v31;
+      objc_copyWeak(&v70, (a1 + 104));
+      v69 = *(a1 + 80);
+      v67 = *(a1 + 64);
+      [v24 userConfirmUnmanagedASAMForAppWithBundleID:v26 requireConfirmation:v27 & 1 completion:v64];
 
-      objc_destroyWeak(&v71);
+      objc_destroyWeak(&v70);
     }
 
     else
     {
       if (v3)
       {
-        v56 = *(*(*(a1 + 80) + 8) + 24);
         _AXAssert();
         (*(*(a1 + 64) + 16))(*(a1 + 64));
         goto LABEL_3;
@@ -3207,7 +3191,7 @@ LABEL_3:
       {
         v5 = *(a1 + 32);
         *buf = 138543362;
-        v81 = v5;
+        v80 = v5;
         _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "vanilla self-locking to %{public}@", buf, 0xCu);
       }
 
@@ -3222,19 +3206,19 @@ LABEL_3:
       v8 = *(a1 + 40);
       v9 = [v8 profileManager];
       v10 = [v9 isUserMode];
-      v74[0] = _NSConcreteStackBlock;
-      v74[1] = 3221225472;
-      v74[2] = sub_2002C;
-      v74[3] = &unk_4DB00;
-      v77 = *(a1 + 88);
-      v57 = *(a1 + 32);
-      v11 = v57.i64[0];
-      v75 = vextq_s8(v57, v57, 8uLL);
+      v73[0] = _NSConcreteStackBlock;
+      v73[1] = 3221225472;
+      v73[2] = sub_2002C;
+      v73[3] = &unk_4DB00;
+      v76 = *(a1 + 88);
+      v56 = *(a1 + 32);
+      v11 = v56.i64[0];
+      v74 = vextq_s8(v56, v56, 8uLL);
       v12 = *(a1 + 128);
-      v78 = *(a1 + 112);
-      v79 = v12;
-      v76 = *(a1 + 64);
-      [v8 _transitionToMode:2 requireUserUnlock:v10 assumeUserInterfaceConnectionSevered:0 completion:v74];
+      v77 = *(a1 + 112);
+      v78 = v12;
+      v75 = *(a1 + 64);
+      [v8 _transitionToMode:2 requireUserUnlock:v10 assumeUserInterfaceConnectionSevered:0 completion:v73];
     }
   }
 
@@ -3254,15 +3238,15 @@ LABEL_3:
     v15 = *(a1 + 40);
     v16 = [v15 profileManager];
     v17 = [v16 isUserMode];
-    v59[0] = _NSConcreteStackBlock;
-    v59[1] = 3221225472;
-    v59[2] = sub_2081C;
-    v59[3] = &unk_4DBC8;
+    v58[0] = _NSConcreteStackBlock;
+    v58[1] = 3221225472;
+    v58[2] = sub_2081C;
+    v58[3] = &unk_4DBC8;
     v18 = *(a1 + 64);
-    v61 = v14;
-    v59[4] = *(a1 + 40);
-    v60 = v18;
-    [v15 _transitionToMode:0 requireUserUnlock:v17 assumeUserInterfaceConnectionSevered:0 completion:v59];
+    v60 = v14;
+    v58[4] = *(a1 + 40);
+    v59 = v18;
+    [v15 _transitionToMode:0 requireUserUnlock:v17 assumeUserInterfaceConnectionSevered:0 completion:v58];
 
     [*(a1 + 40) _removeUnmanagedSelfLockRestrictions];
     v19 = +[GAXSettings sharedInstance];
@@ -3292,17 +3276,17 @@ LABEL_26:
       v51 = [NSNumber numberWithUnsignedInt:*(*(*(a1 + 72) + 8) + 24)];
       v52 = [*(a1 + 40) _errorMessageForAvailability:*(*(*(a1 + 96) + 8) + 24)];
       *buf = 138544642;
-      v81 = v47;
-      v82 = 2048;
-      v83 = v48;
-      v84 = 2048;
-      v85 = v49;
-      v86 = 2114;
-      v87 = v50;
-      v88 = 2114;
-      v89 = v51;
-      v90 = 2114;
-      v91 = v52;
+      v80 = v47;
+      v81 = 2048;
+      v82 = v48;
+      v83 = 2048;
+      v84 = v49;
+      v85 = 2114;
+      v86 = v50;
+      v87 = 2114;
+      v88 = v51;
+      v89 = 2114;
+      v90 = v52;
       _os_log_impl(&dword_0, v45, OS_LOG_TYPE_DEFAULT, "App:(%{public}@) asked to self-lock into gax. desired style: %ld effective style: %ld result:%{public}@ error:%{public}@ availability:%{public}@", buf, 0x3Eu);
     }
   }
@@ -3313,11 +3297,11 @@ LABEL_26:
     v54 = [NSNumber numberWithBool:v2];
     v55 = [NSNumber numberWithUnsignedInt:*(*(*(a1 + 72) + 8) + 24)];
     *buf = 138543874;
-    v81 = v53;
-    v82 = 2114;
-    v83 = v54;
-    v84 = 2114;
-    v85 = v55;
+    v80 = v53;
+    v81 = 2114;
+    v82 = v54;
+    v83 = 2114;
+    v84 = v55;
     _os_log_impl(&dword_0, v45, OS_LOG_TYPE_DEFAULT, "App:(%{public}@) asked to remove self-lock. result:%{public}@ error:%{public}@", buf, 0x20u);
   }
 }
@@ -3631,9 +3615,9 @@ void sub_21FE4(uint64_t a1)
   [v1 sendAsynchronousMessage:0 withIdentifier:40 targetAccessQueue:0 completion:0];
 }
 
-void sub_22204(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22204(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3788,60 +3772,60 @@ void sub_231C0(uint64_t a1)
   }
 }
 
-void sub_232F4(uint64_t a1)
+void sub_232F4(uint64_t a1, uint64_t a2)
 {
-  v2 = GAXLogIntegrity();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = GAXLogIntegrity();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_2B9F4();
   }
 
-  v4 = *(a1 + 32);
-  v3 = (a1 + 32);
-  v5 = [v4 integrityVerifier];
-  v6 = [v5 isVerifyingIntegrity];
+  v5 = *(a1 + 32);
+  v4 = (a1 + 32);
+  v6 = [v5 integrityVerifier];
+  v7 = [v6 isVerifyingIntegrity];
 
-  if (v6)
+  if (v7)
   {
-    v7 = GAXLogIntegrity();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = GAXLogIntegrity();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      sub_2BA28(v3);
+      sub_2BA28(v4);
     }
   }
 
   else
   {
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x2020000000;
-    v16 = 0;
-    v8 = *v3;
-    v9 = *(*v3 + 1);
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x2020000000;
+    v17 = 0;
+    v9 = *v4;
+    v10 = *(*v4 + 1);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_234BC;
     block[3] = &unk_4D4B0;
-    block[4] = v8;
-    block[5] = &v13;
-    dispatch_sync(v9, block);
-    if (*(v14 + 6) > 1u)
+    block[4] = v9;
+    block[5] = &v14;
+    dispatch_sync(v10, block);
+    if (*(v15 + 6) > 1u)
     {
-      v10 = [*v3 integrityVerifier];
-      [v10 verifyIntegrityWithEvent:15];
+      v11 = [*v4 integrityVerifier];
+      [v11 verifyIntegrityWithEvent:15];
     }
 
     else
     {
-      v11[0] = _NSConcreteStackBlock;
-      v11[1] = 3221225472;
-      v11[2] = sub_234D0;
-      v11[3] = &unk_4C958;
-      v11[4] = *v3;
-      dispatch_async(&_dispatch_main_q, v11);
+      v12[0] = _NSConcreteStackBlock;
+      v12[1] = 3221225472;
+      v12[2] = sub_234D0;
+      v12[3] = &unk_4C958;
+      v12[4] = *v4;
+      dispatch_async(&_dispatch_main_q, v12);
     }
 
-    _Block_object_dispose(&v13, 8);
+    _Block_object_dispose(&v14, 8);
   }
 }
 
@@ -3880,7 +3864,7 @@ id sub_24868(uint64_t a1)
   result = *(a1 + 32);
   if (result)
   {
-    result = [result gaxState];
+    result = objc_msgSend_gaxState(result);
     if (v4)
     {
       return [*(a1 + 32) _handleUpdateGAXClientState];
@@ -3899,16 +3883,18 @@ void sub_248D8(uint64_t a1, uint64_t a2)
   (*(*(a1 + 40) + 16))();
 }
 
-void sub_24DF4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_24DF4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 2u);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 2u);
 }
 
-void sub_24E2C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_24E2C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_24F84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -3951,12 +3937,10 @@ void sub_25080(uint64_t a1)
 
 void sub_25384(uint64_t a1)
 {
-  v2 = +[AXSpringBoardServer server];
-  v3 = [v2 focusedApps];
+  v1 = +[AXSpringBoardServer server];
+  v2 = [v1 focusedApps];
 
-  v6 = *(a1 + 40);
-  v5 = *(a1 + 32);
-  v4 = v3;
+  v3 = v2;
   AXPerformBlockAsynchronouslyOnMainThread();
 }
 
@@ -4329,11 +4313,11 @@ uint64_t sub_267F8(uint64_t a1)
     if (AppBooleanValue)
     {
 LABEL_7:
-      v11 = _NSConcreteStackBlock;
-      v12 = 3221225472;
-      v13 = sub_269AC;
-      v14 = &unk_4C958;
-      v15 = *(a1 + 32);
+      v10 = _NSConcreteStackBlock;
+      v11 = 3221225472;
+      v12 = sub_269AC;
+      v13 = &unk_4C958;
+      v14 = *(a1 + 32);
       return AXPerformBlockAsynchronouslyOnMainThread();
     }
   }
@@ -4359,7 +4343,6 @@ LABEL_7:
     _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "buddy did not appear to exit cleanly. will monitor for new instance", buf, 2u);
   }
 
-  v9 = *(a1 + 32);
   return AXPerformBlockOnMainThreadAfterDelay();
 }
 
@@ -4369,13 +4352,13 @@ void sub_269AC(uint64_t a1)
   [v2 purpleBuddyDidTerminateWithAppManager:*(a1 + 32)];
 }
 
-id sub_26A08(uint64_t a1)
+id sub_26A08(uint64_t a1, uint64_t a2)
 {
-  v2 = GAXLogIntegrity();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = GAXLogIntegrity();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Did get nod that purpleBuddy terminated. Verifying Guided Access now", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Did get nod that purpleBuddy terminated. Verifying Guided Access now", v5, 2u);
   }
 
   (*(*(a1 + 48) + 16))();
@@ -4458,7 +4441,7 @@ void sub_2A53C(void *a1)
 {
   v1 = [a1 settingsStorage];
   sub_BEEC();
-  sub_BEF8(&dword_0, v2, v3, "Cannot write out GAX state. Its not valid json: %{public}@", v4, v5, v6, v7, v8);
+  sub_BEF8(&dword_0, v2, v3, "Cannot write out GAX state. Its not valid json: %{public}@", v4, v5, v6, v7);
 }
 
 void sub_2A690()
@@ -4466,7 +4449,7 @@ void sub_2A690()
   v0 = __error();
   strerror(*v0);
   sub_BEEC();
-  sub_BEF8(&dword_0, v1, v2, "failed to F_FULLSYNC GAX state directory: %{public}s", v3, v4, v5, v6, v7);
+  sub_BEF8(&dword_0, v1, v2, "failed to F_FULLSYNC GAX state directory: %{public}s", v3, v4, v5, v6);
 }
 
 void sub_2A710()
@@ -4474,7 +4457,7 @@ void sub_2A710()
   v0 = __error();
   strerror(*v0);
   sub_BEEC();
-  sub_BEF8(&dword_0, v1, v2, "Failed to open GAX state directory: %{public}s", v3, v4, v5, v6, v7);
+  sub_BEF8(&dword_0, v1, v2, "Failed to open GAX state directory: %{public}s", v3, v4, v5, v6);
 }
 
 void sub_2A790()
@@ -4482,7 +4465,7 @@ void sub_2A790()
   v0 = __error();
   strerror(*v0);
   sub_BEEC();
-  sub_BEF8(&dword_0, v1, v2, "Failed to open GAX State file. errno: %{public}s", v3, v4, v5, v6, v7);
+  sub_BEF8(&dword_0, v1, v2, "Failed to open GAX State file. errno: %{public}s", v3, v4, v5, v6);
 }
 
 void sub_2A88C(void *a1, uint64_t a2, NSObject *a3)
@@ -4495,19 +4478,33 @@ void sub_2A88C(void *a1, uint64_t a2, NSObject *a3)
   _os_log_debug_impl(&dword_0, a3, OS_LOG_TYPE_DEBUG, "Updated persisted appID. %{public}@ --> %{public}@", v7, 0x16u);
 }
 
+void sub_2A948(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_BF18(&dword_0, a2, a3, "No retrieve selector was found for profileKey: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_2A9B4(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_BF18(&dword_0, a2, a3, "No profile key was found for retrieve selector: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_2AAD4(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_BF18(&dword_0, a2, a3, "Could not find a Guided Access key to match the supplied managed config key: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_2AB84(uint64_t a1, NSObject *a2)
 {
   v2 = *(a1 + 32);
   v3 = 138543362;
   v4 = v2;
   _os_log_debug_impl(&dword_0, a2, OS_LOG_TYPE_DEBUG, "%{public}@", &v3, 0xCu);
-}
-
-void sub_2AD10(uint64_t a1)
-{
-  *(*a1 + 24);
-  sub_24DE8();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void sub_2AE54()
@@ -4563,11 +4560,10 @@ void sub_2B13C()
 
 void sub_2B178(uint64_t a1)
 {
-  v1 = *(a1 + 40);
   [*(a1 + 32) appLaunchGeneration];
   sub_24E20();
   sub_24E10();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
 void sub_2B208(uint64_t a1, uint64_t a2)
@@ -4615,7 +4611,7 @@ void sub_2B524(id *a1)
 {
   v1 = [*a1 ignoredTouchRegions];
   sub_BEEC();
-  sub_24E2C(&dword_0, v2, v3, "setting ignored touch regions in screen coordinates:\n%@", v4, v5, v6, v7, v8);
+  sub_24E2C(&dword_0, v2, v3, "setting ignored touch regions in screen coordinates:\n%@", v4, v5, v6, v7);
 }
 
 void sub_2B5E0()
@@ -4657,8 +4653,9 @@ void sub_2B814(uint8_t *buf, _BYTE *a2, os_log_t log)
 void sub_2BA28(id *a1)
 {
   v1 = [*a1 integrityVerifier];
-  [v1 isVerifyingIntegrity];
-  sub_24E2C(&dword_0, v2, v3, "Got substantial transition note, but already verifying integrity:%ld, so bailing", v4, v5, v6, v7, 0);
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = [v1 isVerifyingIntegrity];
+  sub_24E2C(&dword_0, v2, v3, "Got substantial transition note, but already verifying integrity:%ld, so bailing", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_2BAC0()
@@ -4694,7 +4691,7 @@ void sub_2BD90(void *a1)
 {
   v1 = [a1 bundleIdentifier];
   sub_BEEC();
-  sub_BEF8(&dword_0, v2, v3, "GAX: Killing process: %{public}@", v4, v5, v6, v7, v8);
+  sub_BEF8(&dword_0, v2, v3, "GAX: Killing process: %{public}@", v4, v5, v6, v7);
 }
 
 void sub_2BE14()
@@ -4719,7 +4716,7 @@ void sub_2BF60()
 {
   v0 = +[NSThread callStackSymbols];
   sub_BEEC();
-  sub_BEF8(&dword_0, v1, v2, "%{public}@", v3, v4, v5, v6, v7);
+  sub_BEF8(&dword_0, v1, v2, "%{public}@", v3, v4, v5, v6);
 }
 
 void sub_2BFF0()
@@ -4733,5 +4730,5 @@ void sub_2C060()
 {
   v0 = +[NSThread callStackSymbols];
   sub_BEEC();
-  sub_BEF8(&dword_0, v1, v2, "%{public}@", v3, v4, v5, v6, v7);
+  sub_BEF8(&dword_0, v1, v2, "%{public}@", v3, v4, v5, v6);
 }

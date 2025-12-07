@@ -102,13 +102,12 @@
 
 + (void)hd_hearingSevenDayLimitIntervalWithStartDate:()HealthHearingDaemon earliestStartDate:boundedInterval:.cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_fault_impl(&dword_251764000, log, OS_LOG_TYPE_FAULT, "earliestStartDate (%@) is more than 169 hours past startDate (%@)", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_fault_impl(&dword_251764000, log, OS_LOG_TYPE_FAULT, "earliestStartDate (%@) is more than 169 hours past startDate (%@)", &v3, 0x16u);
 }
 
 + (void)hd_hearingSevenDayLimitIntervalWithEndDate:()HealthHearingDaemon .cold.1()

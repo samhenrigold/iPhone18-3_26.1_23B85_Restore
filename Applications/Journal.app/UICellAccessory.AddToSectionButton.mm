@@ -12,7 +12,7 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v8 = sub_1000F24EC(&qword_100AE4250);
+  v8 = sub_1000F24EC(&qword_100AE4250, &unk_100941870);
   __chkstk_darwin(v8 - 8);
   v10 = &v15 - v9;
   v11 = _s18AddToSectionButtonCMa();

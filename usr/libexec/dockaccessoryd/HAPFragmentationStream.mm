@@ -1,13 +1,109 @@
 @interface HAPFragmentationStream
++ (id)fragmentationPacketsForData:(id)data maxLength:(unint64_t)length transactionIdentifier:(unsigned __int16)identifier;
+- (BOOL)__isTransactionCompleteWithTransactionIdentifier:(unsigned __int16)identifier;
 - (HAPFragmentationStream)init;
 - (HAPFragmentationStreamDelegate)delegate;
+- (id)__filteredPacketsWithTransactionIdentifier:(unsigned __int16)identifier;
 - (id)__transactionDataWithTransactionIdentifier:(unsigned __int16)identifier;
 - (void)__addFragmentationPacket:(id)packet;
+- (void)__removeAllPendingPacketsWithTransactionIdentifier:(unsigned __int16)identifier;
 - (void)close;
 - (void)receivedFragmentedPacket:(id)packet;
 @end
 
 @implementation HAPFragmentationStream
+
++ (id)fragmentationPacketsForData:(id)data maxLength:(unint64_t)length transactionIdentifier:(unsigned __int16)identifier
+{
+  identifierCopy = identifier;
+  dataCopy = data;
+  v8 = [dataCopy length];
+  if (length)
+  {
+    v9 = v8;
+    if (v8)
+    {
+      if (HIDWORD(v8))
+      {
+        v10 = sub_10007FAA0(0);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        {
+          v11 = sub_10007FAFC(0);
+          v23 = 138543874;
+          v24 = v11;
+          v25 = 1024;
+          *v26 = -1;
+          *&v26[4] = 2048;
+          *&v26[6] = v9;
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}@[HAPFragmentationInputStream] Data cannot be larger than %u, is %tu", &v23, 0x1Cu);
+        }
+
+        goto LABEL_18;
+      }
+
+      v13 = length - 12;
+      v10 = [NSMutableArray arrayWithCapacity:(length + v8 - 13) / (length - 12)];
+      v14 = 0;
+      v15 = 0;
+      while (1)
+      {
+        v16 = v9 - v14 >= v13 ? v13 : v9 - v14;
+        v17 = [HAPFragmentationPacket alloc];
+        v18 = [dataCopy subdataWithRange:{v14, v16}];
+        v19 = [(HAPFragmentationPacket *)v17 initWithData:v18 transactionIdentifier:identifierCopy length:v9 offset:v15];
+
+        if (!v19)
+        {
+          break;
+        }
+
+        [v10 addObject:v19];
+
+        v14 = (v15 + v13);
+        v15 = v14;
+        if (v14 >= v9)
+        {
+          v10 = v10;
+          v20 = v10;
+          goto LABEL_19;
+        }
+      }
+
+      v12 = sub_10007FAA0(0);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      {
+        v21 = sub_10007FAFC(0);
+        v23 = 138543618;
+        v24 = v21;
+        v25 = 1024;
+        *v26 = v15;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%{public}@[HAPFragmentationInputStream] Failed to create packet for remaining data at offset %u", &v23, 0x12u);
+      }
+
+      goto LABEL_17;
+    }
+  }
+
+  v10 = sub_10007FAA0(0);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  {
+    v12 = sub_10007FAFC(0);
+    v23 = 138543874;
+    v24 = v12;
+    v25 = 2048;
+    *v26 = [dataCopy length];
+    *&v26[8] = 2048;
+    *&v26[10] = length;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%{public}@[HAPFragmentationInputStream] Cannot create fragmented packet with length '%tu', max length '%tu'", &v23, 0x20u);
+LABEL_17:
+  }
+
+LABEL_18:
+  v20 = 0;
+LABEL_19:
+
+  return v20;
+}
 
 - (HAPFragmentationStream)init
 {
@@ -89,7 +185,7 @@
           offset = [v13 offset];
           if ([v7 length]!= offset)
           {
-            v17 = sub_10007FAA0();
+            v17 = sub_10007FAA0(0);
             if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
               v18 = sub_10007FAFC(0);
@@ -128,7 +224,7 @@
       goto LABEL_21;
     }
 
-    v8 = sub_10007FAA0();
+    v8 = sub_10007FAA0(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v21 = sub_10007FAFC(0);
@@ -145,7 +241,7 @@
     goto LABEL_19;
   }
 
-  v7 = sub_10007FAA0();
+  v7 = sub_10007FAA0(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     v8 = sub_10007FAFC(0);
@@ -161,6 +257,82 @@ LABEL_19:
 LABEL_21:
 
   return v16;
+}
+
+- (BOOL)__isTransactionCompleteWithTransactionIdentifier:(unsigned __int16)identifier
+{
+  v3 = [(HAPFragmentationStream *)self __filteredPacketsWithTransactionIdentifier:identifier];
+  if ([v3 count])
+  {
+    v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v4 = v3;
+    v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    if (v5)
+    {
+      v6 = v5;
+      v7 = 0;
+      v8 = *v17;
+      while (2)
+      {
+        for (i = 0; i != v6; i = i + 1)
+        {
+          if (*v17 != v8)
+          {
+            objc_enumerationMutation(v4);
+          }
+
+          v10 = *(*(&v16 + 1) + 8 * i);
+          if ([v10 offset] != v7)
+          {
+
+            goto LABEL_12;
+          }
+
+          data = [v10 data];
+          v7 += [data length];
+        }
+
+        v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        if (v6)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+
+    firstObject = [v4 firstObject];
+    v14 = [firstObject length];
+
+    v12 = v7 == v14;
+  }
+
+  else
+  {
+LABEL_12:
+    v12 = 0;
+  }
+
+  return v12;
+}
+
+- (id)__filteredPacketsWithTransactionIdentifier:(unsigned __int16)identifier
+{
+  identifierCopy = identifier;
+  pendingPackets = [(HAPFragmentationStream *)self pendingPackets];
+  identifierCopy = [NSPredicate predicateWithFormat:@"transactionIdentifier == %u", identifierCopy];
+  v6 = [pendingPackets filteredOrderedSetUsingPredicate:identifierCopy];
+
+  return v6;
 }
 
 - (void)__addFragmentationPacket:(id)packet
@@ -184,6 +356,15 @@ LABEL_21:
   [v7 insertObject:v6 atIndex:v15[3]];
 
   _Block_object_dispose(&v14, 8);
+}
+
+- (void)__removeAllPendingPacketsWithTransactionIdentifier:(unsigned __int16)identifier
+{
+  identifierCopy = identifier;
+  pendingPackets = [(HAPFragmentationStream *)self pendingPackets];
+  v5 = [(HAPFragmentationStream *)self __filteredPacketsWithTransactionIdentifier:identifierCopy];
+  array = [v5 array];
+  [pendingPackets removeObjectsInArray:array];
 }
 
 - (HAPFragmentationStreamDelegate)delegate

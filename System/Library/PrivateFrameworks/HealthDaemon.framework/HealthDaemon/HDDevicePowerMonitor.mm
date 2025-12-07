@@ -69,7 +69,7 @@
 
 void __28__HDDevicePowerMonitor_init__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = v3;
@@ -81,9 +81,9 @@ void __28__HDDevicePowerMonitor_init__block_invoke(uint64_t a1, void *a2)
     if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v11 = WeakRetained;
-      v12 = 2114;
-      v13 = v4;
+      v10 = WeakRetained;
+      v11 = 2114;
+      v12 = v4;
       _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Discovered a power source: %{public}@.", buf, 0x16u);
     }
 
@@ -95,13 +95,11 @@ void __28__HDDevicePowerMonitor_init__block_invoke(uint64_t a1, void *a2)
       -[HDDevicePowerMonitor _queue_updatePrimaryPowerSourceState:](WeakRetained, [v4 powerState]);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __28__HDDevicePowerMonitor_init__block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = v3;
@@ -113,19 +111,17 @@ void __28__HDDevicePowerMonitor_init__block_invoke_2(uint64_t a1, void *a2)
     if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v9 = WeakRetained;
-      v10 = 2114;
-      v11 = v4;
+      v8 = WeakRetained;
+      v9 = 2114;
+      v10 = v4;
       _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Lost a power source: %{public}@.", buf, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __28__HDDevicePowerMonitor_init__block_invoke_3(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = v3;
@@ -137,9 +133,9 @@ void __28__HDDevicePowerMonitor_init__block_invoke_3(uint64_t a1, void *a2)
     if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v11 = WeakRetained;
-      v12 = 2114;
-      v13 = v4;
+      v10 = WeakRetained;
+      v11 = 2114;
+      v12 = v4;
       _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Power source updated: %{public}@.", buf, 0x16u);
     }
 
@@ -151,13 +147,11 @@ void __28__HDDevicePowerMonitor_init__block_invoke_3(uint64_t a1, void *a2)
       -[HDDevicePowerMonitor _queue_updatePrimaryPowerSourceState:](WeakRetained, [v4 powerState]);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __28__HDDevicePowerMonitor_init__block_invoke_4(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC2B0];
@@ -167,23 +161,21 @@ void __28__HDDevicePowerMonitor_init__block_invoke_4(uint64_t a1, void *a2)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v6 = *(a1 + 32);
-      v9 = 138543618;
-      v10 = v6;
-      v11 = 2114;
-      v12 = v3;
-      _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to activate power source monitor: %{public}@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v6;
+      v10 = 2114;
+      v11 = v3;
+      _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "%{public}@: Failed to activate power source monitor: %{public}@", &v8, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Activated power source monitoring.", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Activated power source monitoring.", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

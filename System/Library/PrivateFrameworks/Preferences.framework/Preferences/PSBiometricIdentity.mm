@@ -128,7 +128,7 @@
   return v20;
 }
 
-unint64_t __39__PSBiometricIdentity_nextIdentityName__block_invoke_2(uint64_t a1, unint64_t a2, unint64_t a3, _BYTE *a4)
+char *__39__PSBiometricIdentity_nextIdentityName__block_invoke_2(uint64_t a1, char *a2, char *a3, _BYTE *a4)
 {
   result = [*(a1 + 32) count];
   if (result >= a2 && result - a2 < a3)

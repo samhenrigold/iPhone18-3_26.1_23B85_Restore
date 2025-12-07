@@ -17,37 +17,34 @@
 
 - (NSSet)appLimits
 {
-  v2 = *(self + OBJC_IVAR____TtC14ScreenTimeCore12UserSettings_appLimits);
-  type metadata accessor for AppLimit();
-  sub_1B83B1154(&qword_1EBA848B0, 255, type metadata accessor for AppLimit);
+  type metadata accessor for AppLimit(0);
+  sub_1B83B1154(&qword_1EBA848B0, 255, type metadata accessor for AppLimit, MEMORY[0x1E69E81B8]);
 
-  v3 = sub_1B83DDE5C();
+  v2 = sub_1B83DDE5C();
 
-  return v3;
+  return v2;
 }
 
 - (NSString)pin
 {
   if (*(self + OBJC_IVAR____TtC14ScreenTimeCore12UserSettings_pin + 8))
   {
-    v2 = *(self + OBJC_IVAR____TtC14ScreenTimeCore12UserSettings_pin);
-    v3 = *(self + OBJC_IVAR____TtC14ScreenTimeCore12UserSettings_pin + 8);
 
-    v4 = sub_1B83DDCBC();
+    v2 = sub_1B83DDCBC();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (_TtC14ScreenTimeCore12UserSettings)initWithAlwaysAllowed:(id)allowed appLimits:(id)limits appLimitsEnabled:(BOOL)enabled downtime:(id)downtime pin:(id)pin
 {
-  type metadata accessor for AppLimit();
-  sub_1B83B1154(&qword_1EBA848B0, 255, type metadata accessor for AppLimit);
+  type metadata accessor for AppLimit(0);
+  sub_1B83B1154(&qword_1EBA848B0, 255, type metadata accessor for AppLimit, MEMORY[0x1E69E81B8]);
   v12 = sub_1B83DDE7C();
   if (pin)
   {
@@ -130,9 +127,9 @@
 - (int64_t)hash
 {
   selfCopy = self;
-  v3 = sub_1B83AFFA4();
+  v4 = sub_1B83AFFA4(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)isEqual:(id)equal

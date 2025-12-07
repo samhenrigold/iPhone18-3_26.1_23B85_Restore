@@ -272,21 +272,22 @@ LABEL_8:
 
 _BYTE *__22__SBUIController_init__block_invoke_147(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _isConnectedToWirelessCharging];
-  v3 = SBLogCharging();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v3 = v2;
+  v4 = SBLogCharging(v2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 288);
-    LODWORD(v4) = (*(v4 + 96) >> 4) & 1;
-    v7[0] = 67109632;
-    v7[1] = v5;
-    v8 = 1024;
-    v9 = v4;
-    v10 = 1024;
-    v11 = v2;
-    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "isChimeDisabled: %{BOOL}u, isOnAC: %{BOOL}u, isConnectedToWirelessCharging: %{BOOL}u", v7, 0x14u);
+    v5 = *(a1 + 32);
+    v6 = *(v5 + 288);
+    LODWORD(v5) = (*(v5 + 96) >> 4) & 1;
+    v8[0] = 67109632;
+    v8[1] = v6;
+    v9 = 1024;
+    v10 = v5;
+    v11 = 1024;
+    v12 = v3;
+    _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "isChimeDisabled: %{BOOL}u, isOnAC: %{BOOL}u, isConnectedToWirelessCharging: %{BOOL}u", v8, 0x14u);
   }
 
   result = *(a1 + 32);
@@ -295,7 +296,7 @@ _BYTE *__22__SBUIController_init__block_invoke_147(uint64_t a1)
     return [result playChargingChimeIfAppropriate];
   }
 
-  if (v2)
+  if (v3)
   {
     return [result _resetWirelessChargingState];
   }
@@ -305,16 +306,16 @@ _BYTE *__22__SBUIController_init__block_invoke_147(uint64_t a1)
 
 void __22__SBUIController_init__block_invoke_150(uint64_t a1)
 {
-  *&v10[5] = *MEMORY[0x277D85DE8];
-  v2 = SBLogCharging();
+  *&v11[5] = *MEMORY[0x277D85DE8];
+  v2 = SBLogCharging(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(*(a1 + 32) + 97);
-    v9 = 67109376;
-    v10[0] = (v3 >> 3) & 1;
-    LOWORD(v10[1]) = 1024;
-    *(&v10[1] + 2) = (v3 >> 2) & 1;
-    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "kUarpFirmwareUpdateAppliedNotification is received when _isConnectedToWirelessInternalChargingAccessory: %{BOOL}u, _isConnectedToWirelessInternalCharger: %{BOOL}u", &v9, 0xEu);
+    v10 = 67109376;
+    v11[0] = (v3 >> 3) & 1;
+    LOWORD(v11[1]) = 1024;
+    *(&v11[1] + 2) = (v3 >> 2) & 1;
+    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "kUarpFirmwareUpdateAppliedNotification is received when _isConnectedToWirelessInternalChargingAccessory: %{BOOL}u, _isConnectedToWirelessInternalCharger: %{BOOL}u", &v10, 0xEu);
   }
 
   if ((*(*(a1 + 32) + 97) & 0xC) != 0)
@@ -322,17 +323,17 @@ void __22__SBUIController_init__block_invoke_150(uint64_t a1)
     v4 = [MEMORY[0x277D02C20] rootSettings];
     v5 = [v4 chargingSettings];
 
-    [v5 wirelessChargingFirmwareUpdateDebounceDurationInSeconds];
-    v7 = v6;
-    v8 = SBLogCharging();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v6 = [v5 wirelessChargingFirmwareUpdateDebounceDurationInSeconds];
+    v8 = v7;
+    v9 = SBLogCharging(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134217984;
-      *v10 = v7;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Disabling chime and screen wake for %f seconds", &v9, 0xCu);
+      v10 = 134217984;
+      *v11 = v8;
+      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Disabling chime and screen wake for %f seconds", &v10, 0xCu);
     }
 
-    [*(a1 + 32) _disableWirelessChargingChimeAndScreenWakeForDuration:v7];
+    [*(a1 + 32) _disableWirelessChargingChimeAndScreenWakeForDuration:v8];
   }
 }
 
@@ -524,7 +525,7 @@ LABEL_7:
   locationCopy = location;
   settingsCopy = settings;
   actionsCopy = actions;
-  v17 = SBLogUIController();
+  v17 = SBLogUIController(actionsCopy);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
@@ -1162,7 +1163,7 @@ LABEL_59:
 
 - (void)updateBatteryState:(id)state
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   v5 = *(self + 96);
   v6 = *(self + 97);
@@ -1236,18 +1237,18 @@ LABEL_59:
     *(self + 96) = *(self + 96) & 0xFD | v19;
   }
 
-  v78 = 0;
-  v79 = &v78;
-  v80 = 0x2020000000;
   v81 = 0;
-  v77[0] = MEMORY[0x277D85DD0];
-  v77[1] = 3221225472;
-  v77[2] = __37__SBUIController_updateBatteryState___block_invoke;
-  v77[3] = &unk_2783A9718;
-  v77[4] = &v78;
+  v82 = &v81;
+  v83 = 0x2020000000;
+  v84 = 0;
+  v80[0] = MEMORY[0x277D85DD0];
+  v80[1] = 3221225472;
+  v80[2] = __37__SBUIController_updateBatteryState___block_invoke;
+  v80[3] = &unk_2783A9718;
+  v80[4] = &v81;
   if (updateBatteryState__onceToken != -1)
   {
-    dispatch_once(&updateBatteryState__onceToken, v77);
+    dispatch_once(&updateBatteryState__onceToken, v80);
   }
 
   v20 = [stateCopy objectForKey:@"ExternalConnected"];
@@ -1357,34 +1358,34 @@ LABEL_59:
     v41 = +[SBBacklightController sharedInstance];
     screenIsOn = [v41 screenIsOn];
 
-    v43 = SBLogCharging();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+    v44 = SBLogCharging(v43);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
     {
-      v44 = (*(self + 96) >> 4) & 1;
-      v45 = (*(self + 97) >> 1) & 1;
+      v45 = (*(self + 96) >> 4) & 1;
+      v46 = (*(self + 97) >> 1) & 1;
       *buf = 67110144;
-      v83 = v44;
-      v84 = 1024;
-      v85 = (v5 & 0x10) >> 4;
-      v86 = 1024;
-      v87 = _isConnectedToWirelessCharging;
-      v88 = 1024;
-      v89 = v45;
-      v90 = 1024;
-      v91 = screenIsOn;
-      _os_log_impl(&dword_21ED4E000, v43, OS_LOG_TYPE_DEFAULT, "AC status changed (isOnAC: %{BOOL}u, wasOnAC: %{BOOL}u, isConnectedToWirelessCharging: %{BOOL}u, wasConnectedToWirelessCharging: %{BOOL}u, isScreenOn: %{BOOL}u) ䷼", buf, 0x20u);
+      v86 = v45;
+      v87 = 1024;
+      v88 = (v5 & 0x10) >> 4;
+      v89 = 1024;
+      v90 = _isConnectedToWirelessCharging;
+      v91 = 1024;
+      v92 = v46;
+      v93 = 1024;
+      v94 = screenIsOn;
+      _os_log_impl(&dword_21ED4E000, v44, OS_LOG_TYPE_DEFAULT, "AC status changed (isOnAC: %{BOOL}u, wasOnAC: %{BOOL}u, isConnectedToWirelessCharging: %{BOOL}u, wasConnectedToWirelessCharging: %{BOOL}u, isScreenOn: %{BOOL}u) ䷼", buf, 0x20u);
     }
 
-    v46 = *(self + 97);
-    if (((v46 & 2) == 0 || _isConnectedToWirelessCharging) | screenIsOn & 1)
+    v48 = *(self + 97);
+    if (((v48 & 2) == 0 || _isConnectedToWirelessCharging) | screenIsOn & 1)
     {
-      if (((!_isConnectedToWirelessCharging | ((v46 & 2) >> 1)) & 1) == 0)
+      if (((!_isConnectedToWirelessCharging | ((v48 & 2) >> 1)) & 1) == 0)
       {
-        v47 = SBLogCharging();
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+        v49 = SBLogCharging(v47);
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_21ED4E000, v47, OS_LOG_TYPE_DEFAULT, "Connected to wireless charging accessory", buf, 2u);
+          _os_log_impl(&dword_21ED4E000, v49, OS_LOG_TYPE_DEFAULT, "Connected to wireless charging accessory", buf, 2u);
         }
 
         [(SBFMotionAlarmController *)self->_motionAlarmController unregisterMotionAlarm];
@@ -1394,11 +1395,11 @@ LABEL_59:
 
     else
     {
-      v48 = SBLogCharging();
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+      v50 = SBLogCharging(v47);
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21ED4E000, v48, OS_LOG_TYPE_DEFAULT, "Wireless charging disconnection detected when screen was off", buf, 2u);
+        _os_log_impl(&dword_21ED4E000, v50, OS_LOG_TYPE_DEFAULT, "Wireless charging disconnection detected when screen was off", buf, 2u);
       }
 
       rootSettings = [MEMORY[0x277D02C20] rootSettings];
@@ -1410,15 +1411,15 @@ LABEL_59:
 
     if (_isConnectedToWirelessCharging)
     {
-      v51 = 2;
+      v53 = 2;
     }
 
     else
     {
-      v51 = 0;
+      v53 = 0;
     }
 
-    *(self + 97) = *(self + 97) & 0xFD | v51;
+    *(self + 97) = *(self + 97) & 0xFD | v53;
     defaultCenter3 = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter3 postNotificationName:@"SBUIACStatusChangedNotification" object:0 userInfo:stateCopy];
 
@@ -1431,54 +1432,54 @@ LABEL_59:
     v37 = *(self + 96);
   }
 
-  v53 = [stateCopy objectForKey:@"AtCriticalLevel"];
-  v54 = self + 96;
-  if ([v53 BOOLValue])
+  v55 = [stateCopy objectForKey:@"AtCriticalLevel"];
+  v56 = self + 96;
+  if ([v55 BOOLValue])
   {
-    v55 = 8;
+    v57 = 8;
   }
 
   else
   {
-    v55 = 0;
+    v57 = 0;
   }
 
-  *v54 = *(self + 96) & 0xF7 | v55;
+  *v56 = *(self + 96) & 0xF7 | v57;
 
-  v56 = (*v54 >> 3) & 1;
-  if (v56 != ((v37 >> 3) & 1))
+  v59 = (*v56 >> 3) & 1;
+  if (v59 != ((v37 >> 3) & 1))
   {
-    if (v56)
+    if (v59)
     {
-      v58 = SBLogCharging();
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+      v61 = SBLogCharging(v58);
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
       {
-        [(SBUIController *)v58 updateBatteryState:v59, v60, v61, v62, v63, v64, v65];
+        [(SBUIController *)v61 updateBatteryState:v62, v63, v64, v65, v66, v67, v68];
       }
 
       batteryCapacityAsPercentage = [(SBUIController *)self batteryCapacityAsPercentage];
-      v76[0] = MEMORY[0x277D85DD0];
-      v76[1] = 3221225472;
-      v76[2] = __37__SBUIController_updateBatteryState___block_invoke_230;
-      v76[3] = &unk_2783A8C18;
-      v76[4] = self;
-      [SBBatteryLogger saveLowBatteryLogWithCapacity:batteryCapacityAsPercentage voltage:intValue2 completion:v76];
+      v79[0] = MEMORY[0x277D85DD0];
+      v79[1] = 3221225472;
+      v79[2] = __37__SBUIController_updateBatteryState___block_invoke_230;
+      v79[3] = &unk_2783A8C18;
+      v79[4] = self;
+      [SBBatteryLogger saveLowBatteryLogWithCapacity:batteryCapacityAsPercentage voltage:intValue2 completion:v79];
     }
 
     else
     {
-      v57 = SBLogCharging();
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+      v60 = SBLogCharging(v58);
+      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21ED4E000, v57, OS_LOG_TYPE_DEFAULT, "Battery is no longer at critical level", buf, 2u);
+        _os_log_impl(&dword_21ED4E000, v60, OS_LOG_TYPE_DEFAULT, "Battery is no longer at critical level", buf, 2u);
       }
     }
   }
 
-  v67 = [stateCopy objectForKey:@"CapacityEstimated"];
-  v68 = v67;
-  if ((*(self + 96) & 8) == 0 && (!v67 || ([v67 BOOLValue] & 1) == 0))
+  v70 = [stateCopy objectForKey:@"CapacityEstimated"];
+  v71 = v70;
+  if ((*(self + 96) & 8) == 0 && (!v70 || ([v70 BOOLValue] & 1) == 0))
   {
     [SBLowPowerAlertItem setBatteryLevel:[(SBUIController *)self batteryCapacityAsPercentage]];
   }
@@ -1493,7 +1494,7 @@ LABEL_59:
       block[1] = 3221225472;
       block[2] = __37__SBUIController_updateBatteryState___block_invoke_238;
       block[3] = &__block_descriptor_33_e5_v8__0l;
-      v75 = batteryCapacityAsPercentage2 > 89;
+      v78 = batteryCapacityAsPercentage2 > 89;
       dispatch_async(updateBatteryState__notificationQueue, block);
     }
   }
@@ -1525,23 +1526,23 @@ LABEL_96:
 
   _SBWorkspaceResetBatteryUsageTimes();
 LABEL_97:
-  v70 = (*(self + 96) & 0x12) != 0;
-  if (updateBatteryState___prevIsPluggedIn != v70 || *(v79 + 24) == 1)
+  v73 = (*(self + 96) & 0x12) != 0;
+  if (updateBatteryState___prevIsPluggedIn != v73 || *(v82 + 24) == 1)
   {
     kdebug_trace();
-    updateBatteryState___prevIsPluggedIn = v70;
+    updateBatteryState___prevIsPluggedIn = v73;
     if (updateBatteryState__pluggedInToken != -1)
     {
-      v72[0] = MEMORY[0x277D85DD0];
-      v72[1] = 3221225472;
-      v72[2] = __37__SBUIController_updateBatteryState___block_invoke_2_240;
-      v72[3] = &__block_descriptor_33_e5_v8__0l;
-      v73 = v70;
-      dispatch_async(updateBatteryState__notificationQueue, v72);
+      v75[0] = MEMORY[0x277D85DD0];
+      v75[1] = 3221225472;
+      v75[2] = __37__SBUIController_updateBatteryState___block_invoke_2_240;
+      v75[3] = &__block_descriptor_33_e5_v8__0l;
+      v76 = v73;
+      dispatch_async(updateBatteryState__notificationQueue, v75);
     }
   }
 
-  _Block_object_dispose(&v78, 8);
+  _Block_object_dispose(&v81, 8);
 }
 
 uint64_t __37__SBUIController_updateBatteryState___block_invoke(uint64_t a1)
@@ -1561,7 +1562,7 @@ void __37__SBUIController_updateBatteryState___block_invoke_2(uint64_t a1)
   v1 = *(*(a1 + 32) + 96);
   if ((v1 & 8) != 0)
   {
-    v2 = SBLogUIController();
+    v2 = SBLogUIController(a1);
     v3 = os_log_type_enabled(v2, OS_LOG_TYPE_ERROR);
     if ((v1 & 0x10) != 0)
     {
@@ -1743,7 +1744,7 @@ void __55__SBUIController_suppressChimeForConnectedPowerSources__block_invoke(ui
 
 - (void)playChargingChimeIfAppropriate
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   restartManager = [SBApp restartManager];
   startupTransition = [restartManager startupTransition];
   context = [startupTransition context];
@@ -1768,46 +1769,48 @@ void __55__SBUIController_suppressChimeForConnectedPowerSources__block_invoke(ui
   }
 
   _powerSourceWantsToPlayChime = [(SBUIController *)self _powerSourceWantsToPlayChime];
-  v9 = [(SBUIController *)self chargingChimeEnabled]& v7 & _powerSourceWantsToPlayChime;
-  v10 = SBLogCharging();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  chargingChimeEnabled = [(SBUIController *)self chargingChimeEnabled];
+  v10 = chargingChimeEnabled & v7 & _powerSourceWantsToPlayChime;
+  v11 = SBLogCharging(chargingChimeEnabled);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v15[0] = 67109632;
-    v15[1] = v9;
-    v16 = 1024;
-    chargingChimeEnabled = [(SBUIController *)self chargingChimeEnabled];
+    v17[0] = 67109632;
+    v17[1] = v10;
     v18 = 1024;
-    v19 = _powerSourceWantsToPlayChime;
-    _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Should chime: %{BOOL}u, charging enabled: %{BOOL}u, _powerSourceWantsToPlayChime: %{BOOL}u", v15, 0x14u);
+    chargingChimeEnabled2 = [(SBUIController *)self chargingChimeEnabled];
+    v20 = 1024;
+    v21 = _powerSourceWantsToPlayChime;
+    _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Should chime: %{BOOL}u, charging enabled: %{BOOL}u, _powerSourceWantsToPlayChime: %{BOOL}u", v17, 0x14u);
   }
 
   [(SBUIController *)self chargingChimeEnabled];
   kdebug_trace();
-  if (v9)
+  if (v10)
   {
-    v11 = [MEMORY[0x277D679C8] soundWithFeedbackEventType:1003];
+    v12 = [MEMORY[0x277D679C8] soundWithFeedbackEventType:1003];
+    v13 = v12;
     if ((*(self + 97) & 0xC) != 0)
     {
-      v12 = SBLogAccessory();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = SBLogAccessory(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v15[0]) = 0;
-        _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Play chime for internal charging accessory", v15, 2u);
+        LOWORD(v17[0]) = 0;
+        _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Play chime for internal charging accessory", v17, 2u);
       }
 
-      v13 = [MEMORY[0x277D679C8] soundWithFeedbackEventType:1020];
+      v15 = [MEMORY[0x277D679C8] soundWithFeedbackEventType:1020];
 
-      v11 = v13;
+      v13 = v15;
     }
 
-    v14 = +[SBSoundController sharedInstance];
-    [v14 playSoundWithDefaultEnvironment:v11];
+    v16 = +[SBSoundController sharedInstance];
+    [v16 playSoundWithDefaultEnvironment:v13];
   }
 }
 
 - (void)didDetectDeviceMotion
 {
-  v3 = SBLogCharging();
+  v3 = SBLogCharging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1832,29 +1835,29 @@ void __55__SBUIController_suppressChimeForConnectedPowerSources__block_invoke(ui
 
 - (void)_setDebounceWirelessChargingTimerWithDuration:(double)duration
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   debounceWirelessChargingTimer = self->_debounceWirelessChargingTimer;
   if (!debounceWirelessChargingTimer)
   {
     goto LABEL_7;
   }
 
-  [(SWWakingTimer *)debounceWirelessChargingTimer timeRemaining];
-  if (v6 < duration)
+  timeRemaining = [(SWWakingTimer *)debounceWirelessChargingTimer timeRemaining];
+  if (v7 < duration)
   {
-    v7 = v6;
-    v8 = SBLogCharging();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v8 = v7;
+    v9 = SBLogCharging(timeRemaining);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      durationCopy2 = v7;
-      v20 = 2048;
+      durationCopy2 = v8;
+      v22 = 2048;
       durationCopy = duration;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Overriding debounce wireless charging timer because current time remaining (%f seconds) is less than requested fire interval (%f seconds)", buf, 0x16u);
+      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Overriding debounce wireless charging timer because current time remaining (%f seconds) is less than requested fire interval (%f seconds)", buf, 0x16u);
     }
 
     [(SWWakingTimer *)self->_debounceWirelessChargingTimer invalidate];
-    v9 = self->_debounceWirelessChargingTimer;
+    v10 = self->_debounceWirelessChargingTimer;
     self->_debounceWirelessChargingTimer = 0;
   }
 
@@ -1862,28 +1865,28 @@ void __55__SBUIController_suppressChimeForConnectedPowerSources__block_invoke(ui
   {
 LABEL_7:
     objc_initWeak(&location, self);
-    v10 = [objc_alloc(MEMORY[0x277D6C0A8]) initWithIdentifier:@"SBUIController-DebounceWirelessCharging"];
-    v11 = self->_debounceWirelessChargingTimer;
-    self->_debounceWirelessChargingTimer = v10;
-
+    v11 = [objc_alloc(MEMORY[0x277D6C0A8]) initWithIdentifier:@"SBUIController-DebounceWirelessCharging"];
     v12 = self->_debounceWirelessChargingTimer;
-    v13 = MEMORY[0x277D85CD0];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __64__SBUIController__setDebounceWirelessChargingTimerWithDuration___block_invoke;
-    v15[3] = &unk_2783A97B0;
-    objc_copyWeak(&v16, &location);
-    [(SWWakingTimer *)v12 scheduleWithFireInterval:MEMORY[0x277D85CD0] leewayInterval:v15 queue:duration handler:1.0];
+    self->_debounceWirelessChargingTimer = v11;
 
-    v14 = SBLogCharging();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v13 = self->_debounceWirelessChargingTimer;
+    v14 = MEMORY[0x277D85CD0];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __64__SBUIController__setDebounceWirelessChargingTimerWithDuration___block_invoke;
+    v17[3] = &unk_2783A97B0;
+    objc_copyWeak(&v18, &location);
+    [(SWWakingTimer *)v13 scheduleWithFireInterval:MEMORY[0x277D85CD0] leewayInterval:v17 queue:duration handler:1.0];
+
+    v16 = SBLogCharging(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
       durationCopy2 = duration;
-      _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "Debounce wireless charging timer scheduled for %f seconds", buf, 0xCu);
+      _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "Debounce wireless charging timer scheduled for %f seconds", buf, 0xCu);
     }
 
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
   }
 }
@@ -1896,7 +1899,7 @@ void __64__SBUIController__setDebounceWirelessChargingTimerWithDuration___block_
 
 - (void)_debounceWirelessChargingTimerFired
 {
-  v3 = SBLogCharging();
+  v3 = SBLogCharging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1908,7 +1911,7 @@ void __64__SBUIController__setDebounceWirelessChargingTimerWithDuration___block_
 
 - (void)_resetWirelessChargingState
 {
-  v3 = SBLogCharging();
+  v3 = SBLogCharging(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1930,7 +1933,7 @@ void __64__SBUIController__setDebounceWirelessChargingTimerWithDuration___block_
 {
   if (self->_debounceWirelessChargingTimer)
   {
-    v3 = SBLogCharging();
+    v3 = SBLogCharging(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -1960,28 +1963,29 @@ void __64__SBUIController__setDebounceWirelessChargingTimerWithDuration___block_
 
 void __83__SBUIController__playAccessoryChimeIfAppropriateForAccessory_attaching_withDelay___block_invoke(uint64_t a1)
 {
-  if ([*(a1 + 32) _isAppropriateToReactToAccessoryEvent])
+  v2 = [*(a1 + 32) _isAppropriateToReactToAccessoryEvent];
+  if (v2)
   {
-    v2 = SBLogAccessory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = SBLogAccessory(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "Play chime for internal accessory", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "Play chime for internal accessory", v7, 2u);
     }
 
     if (*(a1 + 48) & 1 | ([*(a1 + 40) type] != 8))
     {
-      v3 = 1019;
+      v4 = 1019;
     }
 
     else
     {
-      v3 = 1021;
+      v4 = 1021;
     }
 
-    v4 = [MEMORY[0x277D679C8] soundWithFeedbackEventType:v3];
-    v5 = +[SBSoundController sharedInstance];
-    [v5 playSoundWithDefaultEnvironment:v4];
+    v5 = [MEMORY[0x277D679C8] soundWithFeedbackEventType:v4];
+    v6 = +[SBSoundController sharedInstance];
+    [v6 playSoundWithDefaultEnvironment:v5];
   }
 }
 
@@ -2051,7 +2055,7 @@ LABEL_6:
   }
 }
 
-uint64_t __48__SBUIController_setPointerInteractionsEnabled___block_invoke(uint64_t result, void *a2)
+void *__48__SBUIController_setPointerInteractionsEnabled___block_invoke(void *result, void *a2)
 {
   if (a2)
   {
@@ -2059,7 +2063,7 @@ uint64_t __48__SBUIController_setPointerInteractionsEnabled___block_invoke(uint6
     v2[1] = 3221225472;
     v2[2] = __48__SBUIController_setPointerInteractionsEnabled___block_invoke_2;
     v2[3] = &unk_2783A9800;
-    v2[4] = *(result + 32);
+    v2[4] = result[4];
     return [a2 enumerateDisplayedIconViewsUsingBlock:v2];
   }
 
@@ -2089,43 +2093,44 @@ void __48__SBUIController_setPointerInteractionsEnabled___block_invoke_3(uint64_
 - (void)possiblyWakeForPowerStatusChangeWithUnlockSource:(int)source
 {
   v3 = *&source;
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (([SBApp caseIsEnabledAndLatched] & 1) == 0)
   {
     v4 = +[SBLockScreenManager sharedInstanceIfExists];
-    if ([v4 isUILocked])
+    isUILocked = [v4 isUILocked];
+    if (isUILocked)
     {
-      v5 = SBLogCharging();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = SBLogCharging(isUILocked);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = NSStringFromUnlockSource();
+        v7 = NSStringFromUnlockSource();
         *buf = 138412290;
-        v18 = v6;
-        _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Unlock UI for source: %@", buf, 0xCu);
+        v19 = v7;
+        _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Unlock UI for source: %@", buf, 0xCu);
       }
 
-      v15[0] = @"SBUIUnlockOptionsTurnOnScreenFirstKey";
-      v7 = [MEMORY[0x277CCABB0] numberWithBool:1];
-      v16[0] = v7;
-      v15[1] = @"SBUIUnlockOptionsStartFadeInAnimation";
+      v16[0] = @"SBUIUnlockOptionsTurnOnScreenFirstKey";
       v8 = [MEMORY[0x277CCABB0] numberWithBool:1];
-      v16[1] = v8;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
-      [v4 unlockUIFromSource:v3 withOptions:v9];
+      v17[0] = v8;
+      v16[1] = @"SBUIUnlockOptionsStartFadeInAnimation";
+      v9 = [MEMORY[0x277CCABB0] numberWithBool:1];
+      v17[1] = v9;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+      [v4 unlockUIFromSource:v3 withOptions:v10];
     }
 
     else
     {
-      v7 = +[SBIdleTimerGlobalCoordinator sharedInstanceIfExists];
-      v10 = MEMORY[0x277CCACA8];
-      v11 = NSStringFromUnlockSource();
-      v12 = [v10 stringWithFormat:@"SBUIPossiblyWake:%@", v11];
-      [v7 resetIdleTimerForReason:v12];
+      v8 = +[SBIdleTimerGlobalCoordinator sharedInstanceIfExists];
+      v11 = MEMORY[0x277CCACA8];
+      v12 = NSStringFromUnlockSource();
+      v13 = [v11 stringWithFormat:@"SBUIPossiblyWake:%@", v12];
+      [v8 resetIdleTimerForReason:v13];
     }
 
-    v13 = +[SBScreenLongevityController sharedInstanceIfExists];
-    v14 = NSStringFromUnlockSource();
-    [v13 resetTimerForReason:v14];
+    v14 = +[SBScreenLongevityController sharedInstanceIfExists];
+    v15 = NSStringFromUnlockSource();
+    [v14 resetTimerForReason:v15];
   }
 }
 
@@ -2379,7 +2384,7 @@ void __65__SBUIController_fetchFormattedChargeTimeEstimateWithCompletion___block
   v12 = 0;
   v3 = [v2 estimateForTarget:0 withError:&v12];
   v4 = v12;
-  v5 = SBLogCharging();
+  v5 = SBLogCharging(v4);
   v6 = v5;
   if (v4)
   {
@@ -2604,36 +2609,37 @@ void __56__SBUIController__activateApplicationFromAccessibility___block_invoke_2
 
 void __44__SBUIController_windowedAccessoryDismissed__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v10 = 0u;
+  v18 = *MEMORY[0x277D85DE8];
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
   v2 = [*(*(a1 + 32) + 328) allValues];
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v12;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
-        if ([v7 isWindowed])
+        v7 = *(*(&v11 + 1) + 8 * i);
+        v8 = [v7 isWindowed];
+        if (v8)
         {
-          v8 = SBLogAccessory();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+          v9 = SBLogAccessory(v8);
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
-            v9 = [v7 description];
+            v10 = [v7 description];
             *buf = 138412290;
-            v15 = v9;
-            _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Windowed accessory dismissed: %@", buf, 0xCu);
+            v16 = v10;
+            _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Windowed accessory dismissed: %@", buf, 0xCu);
           }
 
           [*(a1 + 32) _dismissAccessory:v7 playChime:0];
@@ -2641,7 +2647,7 @@ void __44__SBUIController_windowedAccessoryDismissed__block_invoke(uint64_t a1)
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v17 count:16];
       if (v4)
       {
         continue;
@@ -2674,7 +2680,7 @@ void __44__SBUIController_windowedAccessoryPresented__block_invoke(uint64_t a1)
 - (void)_dismissAccessory:(id)accessory playChime:(BOOL)chime
 {
   chimeCopy = chime;
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   if (accessoryCopy)
   {
@@ -2689,15 +2695,16 @@ void __44__SBUIController_windowedAccessoryPresented__block_invoke(uint64_t a1)
     [v7 showWindowedAccessoryWindow:0 forWindowScene:windowScene];
   }
 
-  if ([accessoryCopy shouldShowAnimation])
+  shouldShowAnimation = [accessoryCopy shouldShowAnimation];
+  if (shouldShowAnimation)
   {
-    v9 = SBLogAccessory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = SBLogAccessory(shouldShowAnimation);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [accessoryCopy description];
-      v12 = 138412290;
-      v13 = v10;
-      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "About to dismiss animation for accessory: %@ ", &v12, 0xCu);
+      v11 = [accessoryCopy description];
+      v13 = 138412290;
+      v14 = v11;
+      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "About to dismiss animation for accessory: %@ ", &v13, 0xCu);
     }
 
     if (chimeCopy)
@@ -2740,13 +2747,14 @@ void __44__SBUIController_windowedAccessoryPresented__block_invoke(uint64_t a1)
   shouldShowAnimation = [accessoryCopy shouldShowAnimation];
   type = [accessoryCopy type];
 
-  if ([(SBUIController *)self _blocksAnimationForAccessoryType:type])
+  v7 = [(SBUIController *)self _blocksAnimationForAccessoryType:type];
+  if (v7)
   {
-    v7 = SBLogAccessory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = SBLogAccessory(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Wallet animation is not allowed because Clear Case is attached.", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Wallet animation is not allowed because Clear Case is attached.", v10, 2u);
     }
 
     return 0;
@@ -2759,7 +2767,7 @@ void __44__SBUIController_windowedAccessoryPresented__block_invoke(uint64_t a1)
 {
   if (!self->_accessoryAttachmentAnimationBlockingTimer)
   {
-    v5 = SBLogAccessory();
+    v5 = SBLogAccessory(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
@@ -2795,7 +2803,7 @@ void __76__SBUIController__setAccessoryAttachmentAnimationBlockingTimerWithDurat
 
 - (void)_animationBlockingTimerFired
 {
-  v3 = SBLogAccessory();
+  v3 = SBLogAccessory(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -2828,25 +2836,26 @@ void __76__SBUIController__setAccessoryAttachmentAnimationBlockingTimerWithDurat
 
 void __124__SBUIController_accessoryConnectionInfoProvider_accessoryEndpointAttached_transportType_protocol_properties_forConnection___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277D02C28]) initWithDictionary:*(a1 + 32) endpointUUID:*(a1 + 40)];
-  if ([v2 isSupported])
+  v3 = [v2 isSupported];
+  if (v3)
   {
     [*(a1 + 48) _accessoryEndpointAttached:v2];
   }
 
   else
   {
-    v3 = SBLogAccessory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = SBLogAccessory(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = [v2 description];
-      v5 = *(a1 + 40);
-      v6 = 138412546;
-      v7 = v4;
-      v8 = 2112;
-      v9 = v5;
-      _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "Suppressing unsupported accessory: %@, endpointUUID: %@", &v6, 0x16u);
+      v5 = [v2 description];
+      v6 = *(a1 + 40);
+      v7 = 138412546;
+      v8 = v5;
+      v9 = 2112;
+      v10 = v6;
+      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Suppressing unsupported accessory: %@, endpointUUID: %@", &v7, 0x16u);
     }
 
     if (([*(a1 + 48) _isAppropriateToReactToAccessoryEvent] & 1) == 0)
@@ -2864,8 +2873,7 @@ void __124__SBUIController_accessoryConnectionInfoProvider_accessoryEndpointAtta
   if (attachedCopy)
   {
     endpointUUID = [attachedCopy endpointUUID];
-    [(SBUIController *)self storeAttachedAccessory:v5];
-    v7 = SBLogAccessory();
+    v7 = SBLogAccessory([(SBUIController *)self storeAttachedAccessory:v5]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = [v5 description];
@@ -2927,7 +2935,7 @@ void __45__SBUIController__accessoryEndpointAttached___block_invoke(uint64_t a1,
 
     if (v6)
     {
-      v7 = SBLogAccessory();
+      v7 = SBLogAccessory(v4);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v8 = *(a1 + 40);
@@ -2940,7 +2948,7 @@ void __45__SBUIController__accessoryEndpointAttached___block_invoke(uint64_t a1,
     }
   }
 
-  v9 = SBLogAccessory();
+  v9 = SBLogAccessory(v4);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = [*(a1 + 48) description];
@@ -3065,7 +3073,7 @@ void __90__SBUIController_accessoryConnectionInfoProvider_accessoryEndpointDetac
 
 - (BOOL)_treatsAccessoryAsSupported:(id)supported
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   supportedCopy = supported;
   isSupported = [supportedCopy isSupported];
   endpointUUID = [supportedCopy endpointUUID];
@@ -3076,16 +3084,16 @@ void __90__SBUIController_accessoryConnectionInfoProvider_accessoryEndpointDetac
 
     if (v7 && ((isSupported ^ 1) & 1) == 0)
     {
-      v9 = SBLogAccessory();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = SBLogAccessory(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = [supportedCopy description];
+        v11 = [supportedCopy description];
         endpointUUID2 = [supportedCopy endpointUUID];
-        v13 = 138412546;
-        v14 = v10;
-        v15 = 2112;
-        v16 = endpointUUID2;
-        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Suppressing late-arriving accessory: %@, endpointUUID: %@", &v13, 0x16u);
+        v14 = 138412546;
+        v15 = v11;
+        v16 = 2112;
+        v17 = endpointUUID2;
+        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Suppressing late-arriving accessory: %@, endpointUUID: %@", &v14, 0x16u);
       }
 
       v8 = 0;
@@ -3105,7 +3113,7 @@ void __90__SBUIController_accessoryConnectionInfoProvider_accessoryEndpointDetac
   v14 = *MEMORY[0x277D85DE8];
   detachedCopy = detached;
   endpointUUID = [detachedCopy endpointUUID];
-  v6 = SBLogAccessory();
+  v6 = SBLogAccessory(endpointUUID);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [detachedCopy description];
@@ -3585,36 +3593,36 @@ LABEL_30:
     BSRectWithSize();
   }
 
-  v104 = v33;
-  v105 = v34;
-  v106 = v35;
-  v107 = v36;
-  v111.origin.x = *MEMORY[0x277CBF3A0];
-  v111.origin.y = *(MEMORY[0x277CBF3A0] + 8);
+  v110 = v33;
+  v111 = v34;
+  v112 = v35;
+  v113 = v36;
+  v117.origin.x = *MEMORY[0x277CBF3A0];
+  v117.origin.y = *(MEMORY[0x277CBF3A0] + 8);
   v37 = *(MEMORY[0x277CBF3A0] + 16);
   v38 = *(MEMORY[0x277CBF3A0] + 24);
-  v110.origin.x = x;
-  v110.origin.y = y;
-  v110.size.width = width;
-  v110.size.height = height;
-  v92 = v111.origin.y;
-  v93 = *MEMORY[0x277CBF3A0];
-  v111.size.width = v37;
-  v111.size.height = v38;
-  v39 = CGRectEqualToRect(v110, v111);
+  v116.origin.x = x;
+  v116.origin.y = y;
+  v116.size.width = width;
+  v116.size.height = height;
+  v98 = v117.origin.y;
+  v99 = *MEMORY[0x277CBF3A0];
+  v117.size.width = v37;
+  v117.size.height = v38;
+  v39 = CGRectEqualToRect(v116, v117);
   v40 = v39;
   if (!v39)
   {
-    v106 = width;
-    v107 = height;
-    v104 = x;
-    v105 = y;
+    v112 = width;
+    v113 = height;
+    v110 = x;
+    v111 = y;
   }
 
   if (snapshotCopy)
   {
     imageCopy = image;
-    v96 = configurationCopy;
+    v102 = configurationCopy;
     v41 = !v39;
     interfaceOrientation = [snapshotCopy interfaceOrientation];
     if (v40)
@@ -3637,9 +3645,9 @@ LABEL_30:
       v44 = orientationCopy;
     }
 
-    v102 = v44;
-    v100 = [self _effectiveStatusBarSettingsForSnapshot:snapshotCopy sceneHandle:handleCopy];
-    v101 = [handleCopy statusBarEffectiveStyleRequestWithStyle:{_SBStatusBarStyleFromLegacyStyle(objc_msgSend(v100, "style"))}];
+    v108 = v44;
+    v106 = [self _effectiveStatusBarSettingsForSnapshot:snapshotCopy sceneHandle:handleCopy];
+    v107 = [handleCopy statusBarEffectiveStyleRequestWithStyle:{_SBStatusBarStyleFromLegacyStyle(objc_msgSend(v106, "style"))}];
     BSRectWithSize();
     v46 = v45;
     v48 = v47;
@@ -3648,29 +3656,29 @@ LABEL_30:
     [snapshotCopy contentFrame];
     v54 = v53;
     v56 = v55;
-    v98 = v58;
-    v99 = v57;
-    v95 = descriptorCopy;
+    v104 = v58;
+    v105 = v57;
+    v101 = descriptorCopy;
     if (isClassic && ![application includesStatusBarInClassicJailForInterfaceOrientation:orientation])
     {
       orientationCopy3 = orientation;
       isHidden = 0;
-      v97 = 1;
+      v103 = 1;
     }
 
     else
     {
       orientationCopy3 = orientation;
-      isHidden = [v100 isHidden];
-      v97 = 0;
+      isHidden = [v106 isHidden];
+      v103 = 0;
     }
 
-    [self statusBarFrameForSnapshotFrame:v102 orientation:v101 statusBarStyleRequest:isHidden hidden:{v46, v48, v50, v52}];
+    [self statusBarFrameForSnapshotFrame:v108 orientation:v107 statusBarStyleRequest:isHidden hidden:{v46, v48, v50, v52}];
     v64 = v63;
     v66 = v65;
     v68 = v67;
     v70 = v69;
-    v108 = SBUICUnitScaleFactor;
+    v114 = SBUICUnitScaleFactor;
     name = [snapshotCopy name];
     v72 = [name isEqualToString:@"SBSuspendSnapshot"];
 
@@ -3681,12 +3689,12 @@ LABEL_30:
         LOBYTE(isClassic) = 0;
         v73 = 0;
         appCopy = v40 && app;
-        v54 = v104;
-        v56 = v105;
-        v98 = v107;
-        v99 = v106;
-        v66 = v92;
-        v64 = v93;
+        v54 = v110;
+        v56 = v111;
+        v104 = v113;
+        v105 = v112;
+        v66 = v98;
+        v64 = v99;
         v68 = v37;
         v70 = v38;
       }
@@ -3701,19 +3709,21 @@ LABEL_30:
 
     else
     {
-      if (v97)
+      if (v103)
       {
         v74 = orientationCopy3;
       }
 
       else
       {
-        v74 = v102;
+        v74 = v108;
       }
 
       v75 = orientationCopy3;
       if (isClassic)
       {
+        v76 = v56;
+        v77 = v54;
         if ([application classicAppZoomedInOrRequiresHiDPI])
         {
           LOBYTE(isClassic) = [application classicAppZoomedIn];
@@ -3724,17 +3734,17 @@ LABEL_30:
           LOBYTE(isClassic) = 0;
         }
 
-        [application snapshotFrameForClassicInsideBounds:v74 forOrientation:&v108 scaleFactor:1 inReferenceSpace:{v104, v105, v106, v107}];
-        SBUICScaledRectWithOffset();
-        v77 = v76;
-        v79 = v78;
-        v98 = v81;
-        v99 = v80;
-        SBUICScaledRectWithOffset();
-        v64 = v82;
-        v66 = v83;
-        v68 = v84;
-        v70 = v85;
+        v78 = [application snapshotFrameForClassicInsideBounds:v74 forOrientation:&v114 scaleFactor:1 inReferenceSpace:{v110, v111, v112, v113}];
+        v80 = v79;
+        v82 = v81;
+        v83 = SBUICScaledRectWithOffset(v78, v77, v76, v105, v104, *&v114, *(&v114 + 1), v79, v81);
+        v85 = v84;
+        v104 = v87;
+        v105 = v86;
+        v64 = SBUICScaledRectWithOffset(v88, v64, v66, v68, v70, *&v114, *(&v114 + 1), v80, v82);
+        v66 = v89;
+        v68 = v90;
+        v70 = v91;
         if (SBFEffectiveHomeButtonType() == 2 && ![application classicAppNonFullScreenWithHomeAffordance])
         {
           v73 = 0;
@@ -3745,8 +3755,8 @@ LABEL_30:
           v73 = [application classicAppPhoneAppRunningOnPad] ^ 1;
         }
 
-        v54 = v77;
-        v56 = v79;
+        v54 = v83;
+        v56 = v85;
       }
 
       else
@@ -3755,31 +3765,31 @@ LABEL_30:
       }
     }
 
-    isDoubleHeight = [v101 isDoubleHeight];
+    isDoubleHeight = [v107 isDoubleHeight];
     info = [application info];
     preventsLaunchInterfaceSplitting = [info preventsLaunchInterfaceSplitting];
 
-    BYTE4(v91) = appCopy;
-    BYTE3(v91) = v73;
-    BYTE2(v91) = imageCopy;
-    BYTE1(v91) = isClassic;
-    LOBYTE(v91) = preventsLaunchInterfaceSplitting;
-    v107 = -[SBFullscreenZoomView initWithContainingBounds:contentFrame:statusBarFrame:snapshot:snapshotOrientation:interfaceOrientation:doubleHeightStatusBar:allowStatusBarToOverlap:useLargerCornerRadii:preventSplit:needsZoomFilter:asyncDecodeImage:forJail:hasOrientationMismatchForClassicApp:]([SBFullscreenZoomView alloc], "initWithContainingBounds:contentFrame:statusBarFrame:snapshot:snapshotOrientation:interfaceOrientation:doubleHeightStatusBar:allowStatusBarToOverlap:useLargerCornerRadii:preventSplit:needsZoomFilter:asyncDecodeImage:forJail:hasOrientationMismatchForClassicApp:", snapshotCopy, v102, v75, isDoubleHeight, v97 ^ 1u, [application classicAppWithRoundedCorners], v104, v105, v106, v107, v54, v56, v99, v98, v64, *&v66, *&v68, *&v70, v91);
-    layer = [(SBFullscreenZoomView *)v107 layer];
+    BYTE4(v97) = appCopy;
+    BYTE3(v97) = v73;
+    BYTE2(v97) = imageCopy;
+    BYTE1(v97) = isClassic;
+    LOBYTE(v97) = preventsLaunchInterfaceSplitting;
+    v113 = -[SBFullscreenZoomView initWithContainingBounds:contentFrame:statusBarFrame:snapshot:snapshotOrientation:interfaceOrientation:doubleHeightStatusBar:allowStatusBarToOverlap:useLargerCornerRadii:preventSplit:needsZoomFilter:asyncDecodeImage:forJail:hasOrientationMismatchForClassicApp:]([SBFullscreenZoomView alloc], "initWithContainingBounds:contentFrame:statusBarFrame:snapshot:snapshotOrientation:interfaceOrientation:doubleHeightStatusBar:allowStatusBarToOverlap:useLargerCornerRadii:preventSplit:needsZoomFilter:asyncDecodeImage:forJail:hasOrientationMismatchForClassicApp:", snapshotCopy, v108, v75, isDoubleHeight, v103 ^ 1u, [application classicAppWithRoundedCorners], v110, v111, v112, v113, v54, v56, v105, v104, *&v64, *&v66, *&v68, *&v70, v97);
+    layer = [(SBFullscreenZoomView *)v113 layer];
     [layer setAllowsGroupOpacity:0];
 
-    descriptorCopy = v95;
-    configurationCopy = v96;
+    descriptorCopy = v101;
+    configurationCopy = v102;
   }
 
   else
   {
-    v107 = [[SBZoomView alloc] _initWithFrame:v104, v105, v106, v107];
+    v113 = [[SBZoomView alloc] _initWithFrame:v110, v111, v112, v113];
     blackColor = [MEMORY[0x277D75348] blackColor];
-    [(SBFullscreenZoomView *)v107 setBackgroundColor:blackColor];
+    [(SBFullscreenZoomView *)v113 setBackgroundColor:blackColor];
   }
 
-  return v107;
+  return v113;
 }
 
 + (id)_effectiveStatusBarSettingsForSnapshot:(id)snapshot sceneHandle:(id)handle

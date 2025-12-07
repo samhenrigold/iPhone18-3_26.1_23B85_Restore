@@ -46,7 +46,7 @@
 {
   memset(v16, 0, sizeof(v16));
   v15 = 0u;
-  [(PXStoryMockMovieHighlight *)self timeRange];
+  objc_msgSend_timeRange(self, duration);
   memset(&v14, 0, sizeof(v14));
   CMTimeMakeWithSeconds(&v14, a4, 600);
   memset(&v13, 0, sizeof(v13));

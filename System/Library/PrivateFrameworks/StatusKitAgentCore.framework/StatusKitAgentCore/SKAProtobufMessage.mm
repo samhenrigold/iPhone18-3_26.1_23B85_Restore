@@ -70,10 +70,10 @@ LABEL_9:
 
 - (void)handleResponseDictionary:(id)dictionary
 {
-  v41 = *MEMORY[0x277D85DE8];
-  v36.receiver = self;
-  v36.super_class = SKAProtobufMessage;
-  [(FTProtobufMessage *)&v36 handleResponseDictionary:dictionary];
+  v40 = *MEMORY[0x277D85DE8];
+  v35.receiver = self;
+  v35.super_class = SKAProtobufMessage;
+  [(FTProtobufMessage *)&v35 handleResponseDictionary:dictionary];
   if (![(FTProtobufMessage *)self responseValue])
   {
     v5 = [SharedChannelActivityResponse alloc];
@@ -99,11 +99,11 @@ LABEL_9:
           totalResponseMessages = [pollingResponse totalResponseMessages];
           v30 = self->_uuid;
           *buf = 67109634;
-          *v38 = v28;
-          *&v38[4] = 1024;
-          *&v38[6] = totalResponseMessages;
-          v39 = 2112;
-          v40 = v30;
+          *v37 = v28;
+          *&v37[4] = 1024;
+          *&v37[6] = totalResponseMessages;
+          v38 = 2112;
+          v39 = v30;
           v17 = "Received polling message %u/%u for request %@";
           goto LABEL_14;
         }
@@ -122,7 +122,7 @@ LABEL_9:
         {
           v23 = self->_uuid;
           *buf = 138412290;
-          *v38 = v23;
+          *v37 = v23;
           _os_log_impl(&dword_220099000, v22, OS_LOG_TYPE_DEFAULT, "Received deactivation message for request: %@", buf, 0xCu);
         }
 
@@ -142,11 +142,11 @@ LABEL_9:
           totalResponseMessages2 = [pollingResponse totalResponseMessages];
           v16 = self->_uuid;
           *buf = 67109634;
-          *v38 = v14;
-          *&v38[4] = 1024;
-          *&v38[6] = totalResponseMessages2;
-          v39 = 2112;
-          v40 = v16;
+          *v37 = v14;
+          *&v37[4] = 1024;
+          *&v37[6] = totalResponseMessages2;
+          v38 = 2112;
+          v39 = v16;
           v17 = "Received activation message %u/%u for request %@";
 LABEL_14:
           _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, v17, buf, 0x18u);
@@ -182,8 +182,6 @@ LABEL_18:
   }
 
 LABEL_19:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logger
@@ -207,20 +205,18 @@ uint64_t __28__SKAProtobufMessage_logger__block_invoke()
 
 - (void)handleResponseDictionary:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109120;
-  v4[1] = [a1 responseValue];
-  _os_log_error_impl(&dword_220099000, a2, OS_LOG_TYPE_ERROR, "Response failed with code: %d", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = [a1 responseValue];
+  _os_log_error_impl(&dword_220099000, a2, OS_LOG_TYPE_ERROR, "Response failed with code: %d", v3, 8u);
 }
 
 - (void)handleResponseDictionary:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_220099000, a2, OS_LOG_TYPE_ERROR, "Unexpected message: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_220099000, a2, OS_LOG_TYPE_ERROR, "Unexpected message: %@", &v2, 0xCu);
 }
 
 @end

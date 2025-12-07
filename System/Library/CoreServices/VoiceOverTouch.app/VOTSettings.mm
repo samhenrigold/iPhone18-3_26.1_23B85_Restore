@@ -24,12 +24,12 @@
 
 - (AXCVoiceSelection)_systemVoiceSelection
 {
-  v3 = sub_100117630(&qword_1001FE890);
+  v3 = sub_100117630(&qword_1001FE890, &qword_10017E8E0);
   __chkstk_darwin(v3 - 8);
   v5 = &v13 - v4;
   v6 = OBJC_IVAR____TtC3vot11VOTSettings__systemVoiceSelection;
   swift_beginAccess();
-  sub_10012346C(self + v6, v5, &qword_1001FE890);
+  sub_10012346C(self + v6, v5, &qword_1001FE890, &qword_10017E8E0);
   v7 = type metadata accessor for VoiceSelection();
   v8 = *(v7 - 8);
   v9 = (*(v8 + 48))(v5, 1, v7);
@@ -46,7 +46,7 @@
 
 - (void)set_systemVoiceSelection:(id)selection
 {
-  v5 = sub_100117630(&qword_1001FE890);
+  v5 = sub_100117630(&qword_1001FE890, &qword_10017E8E0);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   if (selection)
@@ -68,24 +68,24 @@
 
   v13 = OBJC_IVAR____TtC3vot11VOTSettings__systemVoiceSelection;
   swift_beginAccess();
-  sub_10012392C(v7, self + v13, &qword_1001FE890);
+  sub_10012392C(v7, self + v13, &qword_1001FE890, &qword_10017E8E0);
   swift_endAccess();
 }
 
 - (AXCVoiceSelection)systemVoiceSelection
 {
-  v3 = sub_100117630(&qword_1001FE890);
+  v3 = sub_100117630(&qword_1001FE890, &qword_10017E8E0);
   __chkstk_darwin(v3 - 8);
   v5 = v14 - v4;
   swift_getKeyPath();
   v14[1] = self;
-  sub_1001240EC(&qword_1001FE858, type metadata accessor for VOTSettings);
+  sub_1001240EC(&qword_1001FE858, type metadata accessor for VOTSettings, &unk_10017E7D8);
   selfCopy = self;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   v7 = OBJC_IVAR____TtC3vot11VOTSettings__systemVoiceSelection;
   swift_beginAccess();
-  sub_10012346C(selfCopy + v7, v5, &qword_1001FE890);
+  sub_10012346C(selfCopy + v7, v5, &qword_1001FE890, &qword_10017E8E0);
 
   v8 = type metadata accessor for VoiceSelection();
   v9 = *(v8 - 8);
@@ -103,7 +103,7 @@
 
 - (void)setSystemVoiceSelection:(id)selection
 {
-  v5 = sub_100117630(&qword_1001FE890);
+  v5 = sub_100117630(&qword_1001FE890, &qword_10017E8E0);
   __chkstk_darwin(v5 - 8);
   v7 = &v13 - v6;
   if (selection)
@@ -139,12 +139,12 @@
 
 - (AXVoiceOverActivity)_currentActivity
 {
-  v3 = sub_100117630(&qword_1001FE8C0);
+  v3 = sub_100117630(&qword_1001FE8C0, &qword_10017E928);
   __chkstk_darwin(v3 - 8);
   v5 = &v13 - v4;
   v6 = OBJC_IVAR____TtC3vot11VOTSettings__currentActivity;
   swift_beginAccess();
-  sub_10012346C(self + v6, v5, &qword_1001FE8C0);
+  sub_10012346C(self + v6, v5, &qword_1001FE8C0, &qword_10017E928);
   v7 = type metadata accessor for AXSettings.VoiceOver.Activity();
   v8 = *(v7 - 8);
   v9 = (*(v8 + 48))(v5, 1, v7);
@@ -161,7 +161,7 @@
 
 - (void)set_currentActivity:(id)activity
 {
-  v5 = sub_100117630(&qword_1001FE8C0);
+  v5 = sub_100117630(&qword_1001FE8C0, &qword_10017E928);
   v6 = __chkstk_darwin(v5 - 8);
   v8 = &v17[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
   __chkstk_darwin(v6);
@@ -185,30 +185,30 @@
 
   v16 = OBJC_IVAR____TtC3vot11VOTSettings__currentActivity;
   swift_beginAccess();
-  sub_10012346C(self + v16, v8, &qword_1001FE8C0);
+  sub_10012346C(self + v16, v8, &qword_1001FE8C0, &qword_10017E928);
   swift_beginAccess();
-  sub_100124008(v10, self + v16, &qword_1001FE8C0);
+  sub_100124008(v10, self + v16, &qword_1001FE8C0, &qword_10017E928);
   swift_endAccess();
   sub_100118BC0(v8);
 
-  sub_10012408C(v8, &qword_1001FE8C0);
-  sub_10012408C(v10, &qword_1001FE8C0);
+  sub_10012408C(v8, &qword_1001FE8C0, &qword_10017E928);
+  sub_10012408C(v10, &qword_1001FE8C0, &qword_10017E928);
 }
 
 - (AXVoiceOverActivity)currentActivity
 {
-  v3 = sub_100117630(&qword_1001FE8C0);
+  v3 = sub_100117630(&qword_1001FE8C0, &qword_10017E928);
   __chkstk_darwin(v3 - 8);
   v5 = v14 - v4;
   swift_getKeyPath();
   v14[1] = self;
-  sub_1001240EC(&qword_1001FE858, type metadata accessor for VOTSettings);
+  sub_1001240EC(&qword_1001FE858, type metadata accessor for VOTSettings, &unk_10017E7D8);
   selfCopy = self;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   v7 = OBJC_IVAR____TtC3vot11VOTSettings__currentActivity;
   swift_beginAccess();
-  sub_10012346C(selfCopy + v7, v5, &qword_1001FE8C0);
+  sub_10012346C(selfCopy + v7, v5, &qword_1001FE8C0, &qword_10017E928);
 
   v8 = type metadata accessor for AXSettings.VoiceOver.Activity();
   v9 = *(v8 - 8);
@@ -226,7 +226,7 @@
 
 - (void)setCurrentActivity:(id)activity
 {
-  v5 = sub_100117630(&qword_1001FE8C0);
+  v5 = sub_100117630(&qword_1001FE8C0, &qword_10017E928);
   __chkstk_darwin(v5 - 8);
   v7 = &v13 - v6;
   if (activity)
@@ -266,7 +266,7 @@
 
 - (void)setSelectedLanguageIdentifier:(id)identifier
 {
-  v5 = sub_100117630(&qword_1001FE850);
+  v5 = sub_100117630(&qword_1001FE850, &qword_10017E800);
   __chkstk_darwin(v5 - 8);
   v7 = &v12 - v6;
   if (identifier)
@@ -291,7 +291,7 @@
 
 - (void)rotorRateWithCompletionHandler:(id)handler
 {
-  v5 = sub_100117630(&qword_1001FE868);
+  v5 = sub_100117630(&qword_1001FE868, &qword_10017E888);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -316,7 +316,7 @@
 
 - (void)setRotorRate:(float)rate completionHandler:(id)handler
 {
-  v7 = sub_100117630(&qword_1001FE868);
+  v7 = sub_100117630(&qword_1001FE868, &qword_10017E888);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -342,7 +342,7 @@
 
 - (void)voiceSelectionForAction:(id)action languageCode:(id)code completionHandler:(id)handler
 {
-  v8 = sub_100117630(&qword_1001FE868);
+  v8 = sub_100117630(&qword_1001FE868, &qword_10017E888);
   __chkstk_darwin(v8 - 8);
   v10 = &v22 - v9;
   v11 = _Block_copy(handler);
@@ -351,7 +351,7 @@
   v15 = swift_allocObject();
   *(v15 + 16) = v11;
   v16 = *(self + OBJC_IVAR____TtC3vot11VOTSettings_executor);
-  v17 = sub_1001240EC(&qword_1001FE870, &type metadata accessor for TTSExecutor);
+  v17 = sub_1001240EC(&qword_1001FE870, &type metadata accessor for TTSExecutor, &_s12TextToSpeech11TTSExecutorCSchAAMc);
   v18 = type metadata accessor for TaskPriority();
   (*(*(v18 - 8) + 56))(v10, 1, 1, v18);
   v19 = swift_allocObject();
@@ -369,10 +369,10 @@
 
 - (void)voiceSelectionWithLanguageCode:(id)code withActivity:(id)activity completionHandler:(id)handler
 {
-  v8 = sub_100117630(&qword_1001FE868);
+  v8 = sub_100117630(&qword_1001FE868, &qword_10017E888);
   __chkstk_darwin(v8 - 8);
   v10 = &v34 - v9;
-  v11 = sub_100117630(&qword_1001FE8C0);
+  v11 = sub_100117630(&qword_1001FE8C0, &qword_10017E928);
   v37 = *(v11 - 8);
   v12 = *(v37 + 64);
   v13 = __chkstk_darwin(v11 - 8);
@@ -403,10 +403,10 @@
   v25 = swift_allocObject();
   *(v25 + 16) = v17;
   v26 = *(self + OBJC_IVAR____TtC3vot11VOTSettings_executor);
-  v34 = sub_1001240EC(&qword_1001FE870, &type metadata accessor for TTSExecutor);
+  v34 = sub_1001240EC(&qword_1001FE870, &type metadata accessor for TTSExecutor, &_s12TextToSpeech11TTSExecutorCSchAAMc);
   v27 = type metadata accessor for TaskPriority();
   (*(*(v27 - 8) + 56))(v10, 1, 1, v27);
-  sub_10012346C(v16, v14, &qword_1001FE8C0);
+  sub_10012346C(v16, v14, &qword_1001FE8C0, &qword_10017E928);
   v28 = v10;
   v29 = (*(v37 + 80) + 56) & ~*(v37 + 80);
   v30 = swift_allocObject();
@@ -417,12 +417,12 @@
   v30[4] = self;
   v30[5] = v32;
   v30[6] = v31;
-  sub_10012452C(v14, v30 + v29, &qword_1001FE8C0);
+  sub_10012452C(v14, v30 + v29, &qword_1001FE8C0, &qword_10017E928);
   selfCopy3 = self;
 
   sub_1001246AC(0, 0, v26, v34, v28, &unk_10017EA18, v30);
 
-  sub_10012408C(v16, &qword_1001FE8C0);
+  sub_10012408C(v16, &qword_1001FE8C0, &qword_10017E928);
 }
 
 - (void)initialize
@@ -454,7 +454,7 @@
 
 - (void)voiceHasSuperCompactCounterpart:(NSString *)counterpart completionHandler:(id)handler
 {
-  v7 = sub_100117630(&qword_1001FE868);
+  v7 = sub_100117630(&qword_1001FE868, &qword_10017E888);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);

@@ -2,6 +2,7 @@
 - (DYMTLTextureRenderer)initWithDevice:(id)device;
 - (id).cxx_construct;
 - (unint64_t)_renderPassPixelFormatFromDescriptor:(id)descriptor;
+- (void)renderTexture:(id)texture withEncoder:(id)encoder enableBlending:(BOOL)blending layerIndex:(unsigned int)index;
 - (void)setBlendColorRed:(float)red green:(float)green blue:(float)blue alpha:(float)alpha;
 @end
 
@@ -124,6 +125,124 @@ LABEL_14:
 LABEL_9:
 
   return v39;
+}
+
+- (void)renderTexture:(id)texture withEncoder:(id)encoder enableBlending:(BOOL)blending layerIndex:(unsigned int)index
+{
+  blendingCopy = blending;
+  textureCopy = texture;
+  encoderCopy = encoder;
+  if (!textureCopy)
+  {
+    goto LABEL_21;
+  }
+
+  if (!encoderCopy)
+  {
+    goto LABEL_21;
+  }
+
+  descriptor = [encoderCopy descriptor];
+  v12 = [(DYMTLTextureRenderer *)self _renderPassPixelFormatFromDescriptor:descriptor];
+
+  if (!v12)
+  {
+    goto LABEL_21;
+  }
+
+  v13 = self->_renderPipelineDescriptor;
+  colorAttachments = [(MTLRenderPipelineDescriptor *)v13 colorAttachments];
+  v15 = [colorAttachments objectAtIndexedSubscript:0];
+  [v15 setBlendingEnabled:blendingCopy];
+
+  colorAttachments2 = [(MTLRenderPipelineDescriptor *)v13 colorAttachments];
+  v17 = [colorAttachments2 objectAtIndexedSubscript:0];
+  [v17 setRgbBlendOperation:0];
+
+  colorAttachments3 = [(MTLRenderPipelineDescriptor *)v13 colorAttachments];
+  v19 = [colorAttachments3 objectAtIndexedSubscript:0];
+  [v19 setSourceRGBBlendFactor:4];
+
+  colorAttachments4 = [(MTLRenderPipelineDescriptor *)v13 colorAttachments];
+  v21 = [colorAttachments4 objectAtIndexedSubscript:0];
+  [v21 setDestinationRGBBlendFactor:5];
+
+  colorAttachments5 = [(MTLRenderPipelineDescriptor *)v13 colorAttachments];
+  v23 = [colorAttachments5 objectAtIndexedSubscript:0];
+  [v23 setAlphaBlendOperation:0];
+
+  colorAttachments6 = [(MTLRenderPipelineDescriptor *)v13 colorAttachments];
+  v25 = [colorAttachments6 objectAtIndexedSubscript:0];
+  [v25 setSourceAlphaBlendFactor:4];
+
+  colorAttachments7 = [(MTLRenderPipelineDescriptor *)v13 colorAttachments];
+  v27 = [colorAttachments7 objectAtIndexedSubscript:0];
+  [v27 setDestinationAlphaBlendFactor:5];
+
+  textureType = [textureCopy textureType];
+  if (textureType == 2)
+  {
+    v29 = 32;
+    if (blendingCopy)
+    {
+      v29 = 40;
+    }
+  }
+
+  else
+  {
+    if (textureType != 3)
+    {
+      goto LABEL_13;
+    }
+
+    if (!blendingCopy)
+    {
+      v30 = 0;
+      goto LABEL_12;
+    }
+
+    v29 = 48;
+  }
+
+  v30 = *(&self->super.isa + v29);
+LABEL_12:
+  [(MTLRenderPipelineDescriptor *)v13 setFragmentFunction:v30];
+LABEL_13:
+  fragmentFunction = [(MTLRenderPipelineDescriptor *)v13 fragmentFunction];
+  if (fragmentFunction)
+  {
+    vertexFunction = [(MTLRenderPipelineDescriptor *)v13 vertexFunction];
+
+    if (vertexFunction)
+    {
+      colorAttachments8 = [(MTLRenderPipelineDescriptor *)v13 colorAttachments];
+      v34 = [colorAttachments8 objectAtIndexedSubscript:0];
+      [v34 setPixelFormat:v12];
+
+      v35 = [(MTLDevice *)self->_device newRenderPipelineStateWithDescriptor:v13 error:0];
+      if (v35)
+      {
+        v36 = [(MTLDevice *)self->_device newDepthStencilStateWithDescriptor:self->_depthStencilDescriptor];
+        if (v36)
+        {
+          self->_uniformData.layerIndex = index;
+          [encoderCopy setCullMode:0];
+          [encoderCopy setTriangleFillMode:0];
+          [encoderCopy setDepthStencilState:v36];
+          [encoderCopy setRenderPipelineState:v35];
+          [encoderCopy setVertexBuffer:self->_positionBuffer offset:0 atIndex:0];
+          [encoderCopy setVertexBuffer:self->_texCoordBuffer offset:0 atIndex:1];
+          [encoderCopy setFragmentTexture:textureCopy atIndex:0];
+          [encoderCopy setFragmentSamplerState:self->_samplerState atIndex:0];
+          [encoderCopy setFragmentBytes:&self->_uniformData length:32 atIndex:0];
+          [encoderCopy drawPrimitives:4 vertexStart:0 vertexCount:4 instanceCount:1];
+        }
+      }
+    }
+  }
+
+LABEL_21:
 }
 
 - (unint64_t)_renderPassPixelFormatFromDescriptor:(id)descriptor

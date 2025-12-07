@@ -326,7 +326,7 @@ LABEL_13:
   if (self->_allowedSectionPersistentIDToSectionQueryResultsIndexMap.__tree_.__size_)
   {
     v5 = self->_allowedSectionPersistentIDs.__begin_[index];
-    v10[0] = v5;
+    v10 = v5;
     for (i = self->_allowedSectionPersistentIDToSectionQueryResultsIndexMap.__tree_.__end_node_.__left_; i; i = *i)
     {
       v7 = i[4];
@@ -345,8 +345,8 @@ LABEL_13:
     [currentHandler handleFailureInMethod:a2 object:self file:@"MPModelLibraryModelSectionedCollectionDataSource.mm" lineNumber:263 description:@"_allowedSectionPersistentIDToSectionQueryResultsIndexMap must contain an entry for every value in _allowedSectionIdentifiers"];
 
 LABEL_8:
-    v10[10] = v10;
-    return std::__tree<std::__value_type<long long,unsigned long>,std::__map_value_compare<long long,std::__value_type<long long,unsigned long>,std::less<long long>,true>,std::allocator<std::__value_type<long long,unsigned long>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(&self->_allowedSectionPersistentIDToSectionQueryResultsIndexMap, v5)[5];
+    v11 = &v10;
+    return std::__tree<std::__value_type<long long,unsigned long>,std::__map_value_compare<long long,std::__value_type<long long,unsigned long>,std::less<long long>,true>,std::allocator<std::__value_type<long long,unsigned long>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(&self->_allowedSectionPersistentIDToSectionQueryResultsIndexMap, v5, &v11)[5];
   }
 
   return index;
@@ -360,7 +360,7 @@ LABEL_8:
   {
     v26 = mlcore::EntityQueryResult::persistentIDAtIndex(self->_sectionEntityQueryResult.__ptr_);
     v31 = &v26;
-    std::__tree<std::__value_type<long long,unsigned long>,std::__map_value_compare<long long,std::__value_type<long long,unsigned long>,std::less<long long>,true>,std::allocator<std::__value_type<long long,unsigned long>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(&self->_allowedSectionPersistentIDToSectionQueryResultsIndexMap, v26)[5] = v3++;
+    std::__tree<std::__value_type<long long,unsigned long>,std::__map_value_compare<long long,std::__value_type<long long,unsigned long>,std::less<long long>,true>,std::allocator<std::__value_type<long long,unsigned long>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(&self->_allowedSectionPersistentIDToSectionQueryResultsIndexMap, v26, &v31)[5] = v3++;
   }
 
   allowedEntityIdentifiers = [(MPMediaLibraryEntityTranslationContext *)self->_sectionTranslationContext allowedEntityIdentifiers];
@@ -715,7 +715,7 @@ LABEL_15:
     if (v16)
     {
       [pathCopy item];
-      mlcore::EntityQueryResult::entityAtIndex(v16);
+      mlcore::EntityQueryResult::entityAtIndex(&v23, v16);
       +[MPMediaLibrary logDatabaseAccess];
       if (v23)
       {
@@ -723,7 +723,7 @@ LABEL_15:
         v18 = +[MPMediaLibraryEntityTranslator translatorForMPModelClass:](MPMediaLibraryEntityTranslator, "translatorForMPModelClass:", [itemKind2 modelClass]);
 
         itemProperties = [(MPModelRequest *)self->_request itemProperties];
-        v20 = (*(*v23 + 48))();
+        v20 = (*(*v23 + 48))(v23);
         v12 = [v18 objectForPropertySet:itemProperties entityClass:v20 propertyCache:mlcore::Entity::propertyCache(v23) context:self->_itemTranslationContext];
       }
 
@@ -938,7 +938,7 @@ LABEL_12:
     [currentHandler handleFailureInMethod:a2 object:self file:@"MPModelLibraryModelSectionedCollectionDataSource.mm" lineNumber:59 description:{@"Adjusted section index out of bounds: %ld (sectionIndex = %ld / sectionEntityCount = %ld)", v6, index, v7}];
   }
 
-  mlcore::EntityQueryResult::entityAtIndex(self->_sectionEntityQueryResult.__ptr_);
+  mlcore::EntityQueryResult::entityAtIndex(&v15, self->_sectionEntityQueryResult.__ptr_);
   +[MPMediaLibrary logDatabaseAccess];
   if (v15)
   {
@@ -946,7 +946,7 @@ LABEL_12:
     v9 = +[MPMediaLibraryEntityTranslator translatorForMPModelClass:](MPMediaLibraryEntityTranslator, "translatorForMPModelClass:", [sectionKind modelClass]);
 
     sectionProperties = [(MPModelRequest *)self->_request sectionProperties];
-    v11 = (*(*v15 + 48))();
+    v11 = (*(*v15 + 48))(v15);
     v12 = [v9 objectForPropertySet:sectionProperties entityClass:v11 propertyCache:mlcore::Entity::propertyCache(v15) context:self->_sectionTranslationContext];
   }
 

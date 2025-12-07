@@ -39,7 +39,7 @@
   return _MergedGlobals_57;
 }
 
-uint64_t __68__STUIStatusBarBluetoothItem_alwaysShowRegulatoryBluetoothIndicator__block_invoke()
+uint64_t __68__STUIStatusBarBluetoothItem_alwaysShowRegulatoryBluetoothIndicator__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = MGGetBoolAnswer();
   _MergedGlobals_57 = result;

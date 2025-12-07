@@ -182,8 +182,7 @@
       {
         self->_touchState = 0;
         ++self->_lastInitialHideToken;
-        [(SBAttentionAwarenessClient *)self->_idleTouchAwarenessClient resetAttentionLostTimeout];
-        v6 = SBLogHomeAffordance();
+        v6 = SBLogHomeAffordance([(SBAttentionAwarenessClient *)self->_idleTouchAwarenessClient resetAttentionLostTimeout]);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
         {
           v8 = 134217984;
@@ -314,7 +313,7 @@ LABEL_7:
 
 - (void)_updateIdleTouchAwarenessClient
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   _autohideEffectivelyEnabled = [(SBHomeGrabberView *)self _autohideEffectivelyEnabled];
   isEnabled = [(SBAttentionAwarenessClient *)self->_idleTouchAwarenessClient isEnabled];
   if (_autohideEffectivelyEnabled)
@@ -325,17 +324,17 @@ LABEL_7:
     }
 
     [(SBAttentionAwarenessClient *)self->_idleTouchAwarenessClient resetAttentionLostTimeout];
-    [(SBAttentionAwarenessClient *)self->_idleTouchAwarenessClient setEnabled:1];
+    v5 = [(SBAttentionAwarenessClient *)self->_idleTouchAwarenessClient setEnabled:1];
     ++self->_lastInitialHideToken;
-    v5 = SBLogHomeAffordance();
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = SBLogHomeAffordance(v5);
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       goto LABEL_13;
     }
 
-    v8 = 134217984;
+    v10 = 134217984;
     selfCopy3 = self;
-    v6 = "grabber=%p started observing touch idleness";
+    v7 = "grabber=%p started observing touch idleness";
     goto LABEL_12;
   }
 
@@ -344,32 +343,32 @@ LABEL_7:
     return;
   }
 
-  [(SBAttentionAwarenessClient *)self->_idleTouchAwarenessClient setEnabled:0];
+  v8 = [(SBAttentionAwarenessClient *)self->_idleTouchAwarenessClient setEnabled:0];
   if (self->_touchState != 1)
   {
-    v5 = SBLogHomeAffordance();
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = SBLogHomeAffordance(v8);
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
 LABEL_13:
 
       return;
     }
 
-    v8 = 134217984;
+    v10 = 134217984;
     selfCopy3 = self;
-    v6 = "grabber=%p stopped observing touch idleness";
+    v7 = "grabber=%p stopped observing touch idleness";
 LABEL_12:
-    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_INFO, v6, &v8, 0xCu);
+    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_INFO, v7, &v10, 0xCu);
     goto LABEL_13;
   }
 
   self->_touchState = 0;
-  v7 = SBLogHomeAffordance();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v9 = SBLogHomeAffordance(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v8 = 134217984;
+    v10 = 134217984;
     selfCopy3 = self;
-    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_INFO, "grabber=%p stopped observing touch idleness - stopped asserting hidden", &v8, 0xCu);
+    _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_INFO, "grabber=%p stopped observing touch idleness - stopped asserting hidden", &v10, 0xCu);
   }
 
   [(SBHomeGrabberView *)self updateStyle];
@@ -537,9 +536,9 @@ LABEL_12:
     [SBHomeGrabberView initWithFrame:settings:shouldEnableGestures:];
   }
 
-  v39.receiver = self;
-  v39.super_class = SBHomeGrabberView;
-  height = [(SBHomeGrabberView *)&v39 initWithFrame:x, y, width, height];
+  v40.receiver = self;
+  v40.super_class = SBHomeGrabberView;
+  height = [(SBHomeGrabberView *)&v40 initWithFrame:x, y, width, height];
   v14 = height;
   if (height)
   {
@@ -600,11 +599,12 @@ LABEL_12:
     [(SBHomeGrabberView *)v14 settings:v14->_settings changedValueForKeyPath:0];
     mousePointerManager = [SBApp mousePointerManager];
     [mousePointerManager addObserver:v14];
-    v14->_isSystemPointerInteractionEnabled = [mousePointerManager isHardwarePointingDeviceAttached];
-    v37 = SBLogHomeAffordance();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+    isHardwarePointingDeviceAttached = [mousePointerManager isHardwarePointingDeviceAttached];
+    v14->_isSystemPointerInteractionEnabled = isHardwarePointingDeviceAttached;
+    v38 = SBLogHomeAffordance(isHardwarePointingDeviceAttached);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
     {
-      [SBHomeGrabberView initWithFrame:v14 settings:&v14->_pillView shouldEnableGestures:v37];
+      [SBHomeGrabberView initWithFrame:v14 settings:&v14->_pillView shouldEnableGestures:v38];
     }
   }
 
@@ -636,8 +636,7 @@ LABEL_12:
 
   if ([(SBAttentionAwarenessClient *)self->_idleTouchAwarenessClient isEnabled])
   {
-    [(SBAttentionAwarenessClient *)self->_idleTouchAwarenessClient setEnabled:0];
-    v4 = SBLogHomeAffordance();
+    v4 = SBLogHomeAffordance([(SBAttentionAwarenessClient *)self->_idleTouchAwarenessClient setEnabled:0]);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
@@ -740,7 +739,7 @@ LABEL_12:
 
 - (void)turnOffAutoHideWithDelay:(double)delay
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (([MEMORY[0x277CCACC8] isMainThread] & 1) == 0)
   {
     [SBHomeGrabberView turnOffAutoHideWithDelay:];
@@ -748,53 +747,56 @@ LABEL_12:
 
   if (([objc_opt_class() wantsAutoHideAlwaysEnabled] & 1) == 0 && -[SBHomeGrabberView _autohideEffectivelyEnabled](self, "_autohideEffectivelyEnabled"))
   {
-    if (self->_touchState && BSFloatGreaterThanFloat())
+    if (self->_touchState)
     {
-      self->_touchState = 2;
-      v5 = SBLogHomeAffordance();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v5 = BSFloatGreaterThanFloat();
+      if (v5)
       {
-        *buf = 134218240;
-        selfCopy = self;
-        v11 = 2048;
-        delayCopy = delay;
-        _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_INFO, "grabber=%p touch idleness disabled - preparing to stop asserting hidden after %fs", buf, 0x16u);
-      }
+        self->_touchState = 2;
+        v6 = SBLogHomeAffordance(v5);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+        {
+          *buf = 134218240;
+          selfCopy = self;
+          v12 = 2048;
+          delayCopy = delay;
+          _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_INFO, "grabber=%p touch idleness disabled - preparing to stop asserting hidden after %fs", buf, 0x16u);
+        }
 
-      [(SBHomeGrabberView *)self updateStyle];
-      v6 = self->_lastActivatingToken + 1;
-      self->_lastActivatingToken = v6;
-      v7 = dispatch_time(0, (delay * 1000000000.0));
-      block[0] = MEMORY[0x277D85DD0];
-      block[1] = 3221225472;
-      block[2] = __46__SBHomeGrabberView_turnOffAutoHideWithDelay___block_invoke;
-      block[3] = &unk_2783A8C40;
-      block[4] = self;
-      block[5] = v6;
-      *&block[6] = delay;
-      dispatch_after(v7, MEMORY[0x277D85CD0], block);
+        [(SBHomeGrabberView *)self updateStyle];
+        v7 = self->_lastActivatingToken + 1;
+        self->_lastActivatingToken = v7;
+        v8 = dispatch_time(0, (delay * 1000000000.0));
+        block[0] = MEMORY[0x277D85DD0];
+        block[1] = 3221225472;
+        block[2] = __46__SBHomeGrabberView_turnOffAutoHideWithDelay___block_invoke;
+        block[3] = &unk_2783A8C40;
+        block[4] = self;
+        block[5] = v7;
+        *&block[6] = delay;
+        dispatch_after(v8, MEMORY[0x277D85CD0], block);
+      }
     }
 
     [(SBHomeGrabberView *)self setAutoHides:0];
   }
 }
 
-uint64_t __46__SBHomeGrabberView_turnOffAutoHideWithDelay___block_invoke(uint64_t result)
+void *__46__SBHomeGrabberView_turnOffAutoHideWithDelay___block_invoke(void *result)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v1 = *(result + 32);
+  v1 = result[4];
   if (*(v1 + 488) == 2)
   {
     v2 = result;
-    if (*(result + 40) == *(v1 + 496))
+    if (result[5] == *(v1 + 496))
     {
       *(v1 + 488) = 0;
-      [*(*(result + 32) + 480) resetAttentionLostTimeout];
-      v3 = SBLogHomeAffordance();
+      v3 = SBLogHomeAffordance([*(result[4] + 480) resetAttentionLostTimeout]);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        v4 = *(v2 + 32);
-        v5 = *(v2 + 48);
+        v4 = v2[4];
+        v5 = v2[6];
         v6 = 134218240;
         v7 = v4;
         v8 = 2048;
@@ -802,7 +804,7 @@ uint64_t __46__SBHomeGrabberView_turnOffAutoHideWithDelay___block_invoke(uint64_
         _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_INFO, "grabber=%p touch idleness disabled - stopped asserting hidden after %fs", &v6, 0x16u);
       }
 
-      return [*(v2 + 32) updateStyle];
+      return [v2[4] updateStyle];
     }
   }
 
@@ -841,7 +843,7 @@ uint64_t __46__SBHomeGrabberView_turnOffAutoHideWithDelay___block_invoke(uint64_
 
 - (void)resetAutoHideWithInitialDelay:(double)delay
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (([MEMORY[0x277CCACC8] isMainThread] & 1) == 0)
   {
     [SBHomeGrabberView resetAutoHideWithInitialDelay:];
@@ -851,31 +853,32 @@ uint64_t __46__SBHomeGrabberView_turnOffAutoHideWithDelay___block_invoke(uint64_
   if (BSFloatGreaterThanFloat())
   {
     [(SBFHomeGrabberSettings *)self->_settings autoHideTime];
-    if (BSFloatLessThanFloat())
+    v5 = BSFloatLessThanFloat();
+    if (v5)
     {
-      v5 = self->_lastInitialHideToken + 1;
-      self->_lastInitialHideToken = v5;
-      v6 = SBLogHomeAffordance();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v6 = self->_lastInitialHideToken + 1;
+      self->_lastInitialHideToken = v6;
+      v7 = SBLogHomeAffordance(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134218496;
         selfCopy = self;
-        v11 = 2048;
-        v12 = v5;
-        v13 = 2048;
+        v12 = 2048;
+        v13 = v6;
+        v14 = 2048;
         delayCopy = delay;
-        _os_log_debug_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEBUG, "grabber=%p touch idleness - preparing to start asserting hidden for initial delay with token=%lu after %fs", buf, 0x20u);
+        _os_log_debug_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEBUG, "grabber=%p touch idleness - preparing to start asserting hidden for initial delay with token=%lu after %fs", buf, 0x20u);
       }
 
-      v7 = dispatch_time(0, (delay * 1000000000.0));
+      v8 = dispatch_time(0, (delay * 1000000000.0));
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __51__SBHomeGrabberView_resetAutoHideWithInitialDelay___block_invoke;
       block[3] = &unk_2783A8C40;
       block[4] = self;
-      block[5] = v5;
+      block[5] = v6;
       *&block[6] = delay;
-      dispatch_after(v7, MEMORY[0x277D85CD0], block);
+      dispatch_after(v8, MEMORY[0x277D85CD0], block);
     }
   }
 }
@@ -887,7 +890,7 @@ void __51__SBHomeGrabberView_resetAutoHideWithInitialDelay___block_invoke(void *
   v2 = a1[4];
   if (*(v2 + 488) == 1 || a1[5] != *(v2 + 504))
   {
-    v8 = SBLogHomeAffordance();
+    v8 = SBLogHomeAffordance(a1);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       __51__SBHomeGrabberView_resetAutoHideWithInitialDelay___block_invoke_cold_1();
@@ -897,7 +900,7 @@ void __51__SBHomeGrabberView_resetAutoHideWithInitialDelay___block_invoke(void *
   else
   {
     *(v2 + 488) = 1;
-    v4 = SBLogHomeAffordance();
+    v4 = SBLogHomeAffordance(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v5 = a1[4];
@@ -1114,7 +1117,7 @@ LABEL_3:
   if ((v11 == 0) == (v18 != 0))
   {
     v19 = v18;
-    v20 = SBLogHomeAffordance();
+    v20 = SBLogHomeAffordance(v18);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       v21 = @"stopped";
@@ -1140,7 +1143,7 @@ LABEL_3:
   homeAffordanceView = self->_homeAffordanceView;
   if (homeAffordanceView)
   {
-    [(SBFHomeAffordanceView *)homeAffordanceView frame];
+    objc_msgSend_frame(homeAffordanceView, a2);
   }
 
   else
@@ -1265,7 +1268,7 @@ LABEL_3:
     v10 = v9;
     if (style < 2 || additive)
     {
-      v13 = SBLogHomeAffordance();
+      v13 = SBLogHomeAffordance(v9);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         v14 = NSStringFromMTLumaDodgePillStyle();
@@ -1295,8 +1298,7 @@ LABEL_3:
 
     else
     {
-      [v9 setAllowsAdditiveAnimations:1];
-      v11 = SBLogHomeAffordance();
+      v11 = SBLogHomeAffordance([v9 setAllowsAdditiveAnimations:1]);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         v12 = NSStringFromMTLumaDodgePillStyle();
@@ -1326,28 +1328,29 @@ LABEL_3:
   }
 }
 
-void __76__SBHomeGrabberView__animateToStyle_disallowAdditive_withAnimationSettings___block_invoke_2()
+void __76__SBHomeGrabberView__animateToStyle_disallowAdditive_withAnimationSettings___block_invoke_2(uint64_t a1)
 {
-  v0 = SBLogHomeAffordance();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v2 = SBLogHomeAffordance(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __76__SBHomeGrabberView__animateToStyle_disallowAdditive_withAnimationSettings___block_invoke_2_cold_1();
+    __76__SBHomeGrabberView__animateToStyle_disallowAdditive_withAnimationSettings___block_invoke_2_cold_1(a1);
   }
 }
 
-void __76__SBHomeGrabberView__animateToStyle_disallowAdditive_withAnimationSettings___block_invoke_2_50()
+void __76__SBHomeGrabberView__animateToStyle_disallowAdditive_withAnimationSettings___block_invoke_2_50(uint64_t a1)
 {
-  v0 = SBLogHomeAffordance();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v2 = SBLogHomeAffordance(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __76__SBHomeGrabberView__animateToStyle_disallowAdditive_withAnimationSettings___block_invoke_2_50_cold_1();
+    __76__SBHomeGrabberView__animateToStyle_disallowAdditive_withAnimationSettings___block_invoke_2_50_cold_1(a1);
   }
 }
 
 - (void)_updatePresence:(int64_t)presence style:(int64_t)style withAnimationSettings:(id)settings
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
+  v10 = settingsCopy;
   presence = self->_presence;
   if ((presence != 0) == (presence != 0))
   {
@@ -1356,29 +1359,29 @@ void __76__SBHomeGrabberView__animateToStyle_disallowAdditive_withAnimationSetti
       if (presence != presence)
       {
         self->_presence = presence;
-        v11 = SBLogHomeAffordance();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+        v12 = SBLogHomeAffordance(settingsCopy);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
-          v12 = NSStringFromSBHomeGrabberViewPresence(presence);
+          v13 = NSStringFromSBHomeGrabberViewPresence(presence);
           *buf = 134218242;
           selfCopy2 = self;
-          v35 = 2114;
-          v36 = v12;
-          _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_INFO, "grabber=%p presence change to %{public}@", buf, 0x16u);
+          v36 = 2114;
+          v37 = v13;
+          _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_INFO, "grabber=%p presence change to %{public}@", buf, 0x16u);
         }
 
-        v13 = self->_presence;
-        if (v13 == 1)
+        v14 = self->_presence;
+        if (v14 == 1)
         {
-          v26[0] = MEMORY[0x277D85DD0];
-          v26[1] = 3221225472;
-          v26[2] = __65__SBHomeGrabberView__updatePresence_style_withAnimationSettings___block_invoke_57;
-          v26[3] = &unk_2783A8C18;
-          v26[4] = self;
-          [MEMORY[0x277D75D18] performWithoutAnimation:v26];
+          v27[0] = MEMORY[0x277D85DD0];
+          v27[1] = 3221225472;
+          v27[2] = __65__SBHomeGrabberView__updatePresence_style_withAnimationSettings___block_invoke_57;
+          v27[3] = &unk_2783A8C18;
+          v27[4] = self;
+          [MEMORY[0x277D75D18] performWithoutAnimation:v27];
         }
 
-        else if (v13 == 2 && ![(NSMutableSet *)self->_outstandingVisibilityTransitionTokens count]&& [(SBFHomeGrabberSettings *)self->_settings removeViewOnHide])
+        else if (v14 == 2 && ![(NSMutableSet *)self->_outstandingVisibilityTransitionTokens count]&& [(SBFHomeGrabberSettings *)self->_settings removeViewOnHide])
         {
           [(MTLumaDodgePillView *)self->_pillView setBackgroundLumninanceObserver:0];
           pillView = self->_pillView;
@@ -1405,7 +1408,7 @@ void __76__SBHomeGrabberView__animateToStyle_disallowAdditive_withAnimationSetti
       if (self->_style != style)
       {
         self->_style = style;
-        [(SBHomeGrabberView *)self _animateToStyle:style disallowAdditive:0 withAnimationSettings:settingsCopy];
+        [(SBHomeGrabberView *)self _animateToStyle:style disallowAdditive:0 withAnimationSettings:v10];
       }
     }
   }
@@ -1418,34 +1421,34 @@ void __76__SBHomeGrabberView__animateToStyle_disallowAdditive_withAnimationSetti
     {
       if ([(NSMutableSet *)self->_outstandingVisibilityTransitionTokens count])
       {
-        [(SBHomeGrabberView *)self _animateToStyle:self->_style disallowAdditive:1 withAnimationSettings:settingsCopy];
+        [(SBHomeGrabberView *)self _animateToStyle:self->_style disallowAdditive:1 withAnimationSettings:v10];
       }
 
       else
       {
-        v32[0] = MEMORY[0x277D85DD0];
-        v32[1] = 3221225472;
-        v32[2] = __65__SBHomeGrabberView__updatePresence_style_withAnimationSettings___block_invoke;
-        v32[3] = &unk_2783A8C18;
-        v32[4] = self;
-        [MEMORY[0x277D75D18] performWithoutAnimation:v32];
+        v33[0] = MEMORY[0x277D85DD0];
+        v33[1] = 3221225472;
+        v33[2] = __65__SBHomeGrabberView__updatePresence_style_withAnimationSettings___block_invoke;
+        v33[3] = &unk_2783A8C18;
+        v33[4] = self;
+        [MEMORY[0x277D75D18] performWithoutAnimation:v33];
       }
     }
 
-    v16 = MEMORY[0x277CCABB0];
+    v17 = MEMORY[0x277CCABB0];
     ++self->_lastVisibilityTransitionToken;
-    v17 = [v16 numberWithUnsignedInteger:?];
+    v18 = [v17 numberWithUnsignedInteger:?];
     outstandingVisibilityTransitionTokens = self->_outstandingVisibilityTransitionTokens;
     if (outstandingVisibilityTransitionTokens)
     {
-      [(NSMutableSet *)outstandingVisibilityTransitionTokens addObject:v17];
+      [(NSMutableSet *)outstandingVisibilityTransitionTokens addObject:v18];
     }
 
     else
     {
-      v19 = [MEMORY[0x277CBEB58] setWithObject:v17];
-      v20 = self->_outstandingVisibilityTransitionTokens;
-      self->_outstandingVisibilityTransitionTokens = v19;
+      v20 = [MEMORY[0x277CBEB58] setWithObject:v18];
+      v21 = self->_outstandingVisibilityTransitionTokens;
+      self->_outstandingVisibilityTransitionTokens = v20;
     }
 
     if ([objc_opt_class() wantsAutoHideAlwaysEnabled] && -[SBHomeGrabberView _hasOutstandingAnimations](self, "_hasOutstandingAnimations") && -[SBAttentionAwarenessClient isEnabled](self->_idleTouchAwarenessClient, "isEnabled"))
@@ -1453,37 +1456,36 @@ void __76__SBHomeGrabberView__animateToStyle_disallowAdditive_withAnimationSetti
       [(SBAttentionAwarenessClient *)self->_idleTouchAwarenessClient setEnabled:0];
     }
 
-    v21 = [MEMORY[0x277CF0D38] factoryWithSettings:settingsCopy];
-    [v21 setAllowsAdditiveAnimations:1];
-    v22 = SBLogHomeAffordance();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    v22 = [MEMORY[0x277CF0D38] factoryWithSettings:v10];
+    v23 = SBLogHomeAffordance([v22 setAllowsAdditiveAnimations:1]);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
-      v23 = NSStringFromSBHomeGrabberViewPresence(presence);
+      v24 = NSStringFromSBHomeGrabberViewPresence(presence);
       *buf = 134218498;
       selfCopy2 = self;
-      v35 = 2114;
-      v36 = v23;
-      v37 = 2114;
-      v38 = settingsCopy;
-      _os_log_impl(&dword_21ED4E000, v22, OS_LOG_TYPE_INFO, "grabber=%p additive presence change to %{public}@ with %{public}@", buf, 0x20u);
+      v36 = 2114;
+      v37 = v24;
+      v38 = 2114;
+      v39 = v10;
+      _os_log_impl(&dword_21ED4E000, v23, OS_LOG_TYPE_INFO, "grabber=%p additive presence change to %{public}@ with %{public}@", buf, 0x20u);
     }
 
-    v24 = MEMORY[0x277CF0D38];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __65__SBHomeGrabberView__updatePresence_style_withAnimationSettings___block_invoke_53;
-    v30[3] = &unk_2783A9F58;
-    v30[4] = self;
-    v31 = presence != 0;
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __65__SBHomeGrabberView__updatePresence_style_withAnimationSettings___block_invoke_2;
-    v27[3] = &unk_2783B6948;
-    v28 = v17;
+    v25 = MEMORY[0x277CF0D38];
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __65__SBHomeGrabberView__updatePresence_style_withAnimationSettings___block_invoke_53;
+    v31[3] = &unk_2783A9F58;
+    v31[4] = self;
+    v32 = presence != 0;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __65__SBHomeGrabberView__updatePresence_style_withAnimationSettings___block_invoke_2;
+    v28[3] = &unk_2783B6948;
+    v29 = v18;
     presenceCopy = presence;
-    v27[4] = self;
-    v25 = v17;
-    [v24 animateWithFactory:v21 options:4 actions:v30 completion:v27];
+    v28[4] = self;
+    v26 = v18;
+    [v25 animateWithFactory:v22 options:4 actions:v31 completion:v28];
     [(SBHomeGrabberView *)self _notifyObserversOfDidUpdateHidden];
   }
 }
@@ -1533,8 +1535,7 @@ void __65__SBHomeGrabberView__updatePresence_style_withAnimationSettings___block
     [*(*v2 + 53) setAlpha:0.0];
     [*(*v2 + 53) addContentView:*(*v2 + 54)];
     [*v2 addSubview:*(*v2 + 53)];
-    [*v2 layoutSubviews];
-    v12 = SBLogHomeAffordance();
+    v12 = SBLogHomeAffordance([*v2 layoutSubviews]);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       __65__SBHomeGrabberView__updatePresence_style_withAnimationSettings___block_invoke_cold_1();
@@ -1555,7 +1556,7 @@ uint64_t __65__SBHomeGrabberView__updatePresence_style_withAnimationSettings___b
 
 void __65__SBHomeGrabberView__updatePresence_style_withAnimationSettings___block_invoke_2(uint64_t a1)
 {
-  v2 = SBLogHomeAffordance();
+  v2 = SBLogHomeAffordance(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __65__SBHomeGrabberView__updatePresence_style_withAnimationSettings___block_invoke_2_cold_1(a1);
@@ -1632,8 +1633,7 @@ void __65__SBHomeGrabberView__updatePresence_style_withAnimationSettings___block
     [*(*v2 + 53) setAlpha:0.0];
     [*(*v2 + 53) addContentView:*(*v2 + 54)];
     [*v2 addSubview:*(*v2 + 53)];
-    [*v2 layoutSubviews];
-    v10 = SBLogHomeAffordance();
+    v10 = SBLogHomeAffordance([*v2 layoutSubviews]);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       __65__SBHomeGrabberView__updatePresence_style_withAnimationSettings___block_invoke_cold_1();
@@ -1767,21 +1767,22 @@ void __65__SBHomeGrabberView__updatePresence_style_withAnimationSettings___block
 
 - (void)client:(id)client attentionLostTimeoutDidExpire:(double)expire forConfigurationGeneration:(unint64_t)generation withAssociatedObject:(id)object
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (([MEMORY[0x277CCACC8] isMainThread] & 1) == 0)
   {
     [SBHomeGrabberView client:attentionLostTimeoutDidExpire:forConfigurationGeneration:withAssociatedObject:];
   }
 
-  if ([(SBAttentionAwarenessClient *)self->_idleTouchAwarenessClient isEnabled]&& self->_touchState != 1)
+  isEnabled = [(SBAttentionAwarenessClient *)self->_idleTouchAwarenessClient isEnabled];
+  if (isEnabled && self->_touchState != 1)
   {
     self->_touchState = 1;
-    v7 = SBLogHomeAffordance();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = SBLogHomeAffordance(isEnabled);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = 134217984;
+      v9 = 134217984;
       selfCopy = self;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_INFO, "grabber=%p touch idleness changed - started asserting hidden", &v8, 0xCu);
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_INFO, "grabber=%p touch idleness changed - started asserting hidden", &v9, 0xCu);
     }
 
     [(SBHomeGrabberView *)self updateStyle];
@@ -1805,11 +1806,12 @@ void __65__SBHomeGrabberView__updatePresence_style_withAnimationSettings___block
   }
 
   luma = self->_luma;
-  self->_luma = [changeCopy backgroundLuminance];
-  v6 = SBLogHomeAffordance();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  backgroundLuminance = [changeCopy backgroundLuminance];
+  self->_luma = backgroundLuminance;
+  v7 = SBLogHomeAffordance(backgroundLuminance);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    [SBHomeGrabberView lumaDodgePillDidDetectBackgroundLuminanceChange:];
+    [(SBHomeGrabberView *)self lumaDodgePillDidDetectBackgroundLuminanceChange:?];
   }
 
   if (luma)
@@ -2284,7 +2286,7 @@ void __68__SBHomeGrabberView_homeAffordanceInteractionDidRecognizeSingleTap___bl
 
   else
   {
-    v6 = SBLogHomeAffordance();
+    v6 = SBLogHomeAffordance(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [SBHomeGrabberView homeAffordanceInteractionDidRecognizeSingleClick:?];
@@ -2295,52 +2297,51 @@ void __68__SBHomeGrabberView_homeAffordanceInteractionDidRecognizeSingleTap___bl
 - (void)homeAffordanceInteraction:(id)interaction didRecognizeTouchThatShouldUnhideViewImmediately:(BOOL)immediately
 {
   immediatelyCopy = immediately;
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   ++self->_lastInitialHideToken;
   if ([(SBAttentionAwarenessClient *)self->_idleTouchAwarenessClient isEnabled])
   {
     [(SBFHomeGrabberSettings *)self->_settings delayForUnhideOnTouch];
     v7 = v6;
-    if ((BSFloatLessThanOrEqualToFloat() & 1) == 0 && (![(NSMutableSet *)self->_outstandingVisibilityTransitionTokens count]? (v8 = !immediatelyCopy) : (v8 = 0), v8))
+    if ((BSFloatLessThanOrEqualToFloat() & 1) == 0 && ((v8 = [(NSMutableSet *)self->_outstandingVisibilityTransitionTokens count]) == 0 ? (v9 = !immediatelyCopy) : (v9 = 0), v9))
     {
       if (self->_touchState == 1)
       {
         self->_touchState = 2;
-        v10 = SBLogHomeAffordance();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+        v11 = SBLogHomeAffordance(v8);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           *buf = 134218240;
           selfCopy2 = self;
-          v16 = 2048;
-          v17 = v7;
-          _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_INFO, "grabber=%p touch idleness changed - preparing to stop asserting hidden after %fs", buf, 0x16u);
+          v17 = 2048;
+          v18 = v7;
+          _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_INFO, "grabber=%p touch idleness changed - preparing to stop asserting hidden after %fs", buf, 0x16u);
         }
 
         [(SBHomeGrabberView *)self updateStyle];
-        v11 = self->_lastActivatingToken + 1;
-        self->_lastActivatingToken = v11;
-        v12 = dispatch_time(0, (v7 * 1000000000.0));
+        v12 = self->_lastActivatingToken + 1;
+        self->_lastActivatingToken = v12;
+        v13 = dispatch_time(0, (v7 * 1000000000.0));
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __96__SBHomeGrabberView_homeAffordanceInteraction_didRecognizeTouchThatShouldUnhideViewImmediately___block_invoke;
         block[3] = &unk_2783A8C40;
         block[4] = self;
-        block[5] = v11;
+        block[5] = v12;
         *&block[6] = v7;
-        dispatch_after(v12, MEMORY[0x277D85CD0], block);
+        dispatch_after(v13, MEMORY[0x277D85CD0], block);
       }
     }
 
     else if (self->_touchState)
     {
       self->_touchState = 0;
-      [(SBAttentionAwarenessClient *)self->_idleTouchAwarenessClient resetAttentionLostTimeout];
-      v9 = SBLogHomeAffordance();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v10 = SBLogHomeAffordance([(SBAttentionAwarenessClient *)self->_idleTouchAwarenessClient resetAttentionLostTimeout]);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
         selfCopy2 = self;
-        _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_INFO, "grabber=%p touch idleness changed - stopped asserting hidden immediately", buf, 0xCu);
+        _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_INFO, "grabber=%p touch idleness changed - stopped asserting hidden immediately", buf, 0xCu);
       }
 
       [(SBHomeGrabberView *)self updateStyle];
@@ -2348,22 +2349,21 @@ void __68__SBHomeGrabberView_homeAffordanceInteractionDidRecognizeSingleTap___bl
   }
 }
 
-uint64_t __96__SBHomeGrabberView_homeAffordanceInteraction_didRecognizeTouchThatShouldUnhideViewImmediately___block_invoke(uint64_t result)
+void *__96__SBHomeGrabberView_homeAffordanceInteraction_didRecognizeTouchThatShouldUnhideViewImmediately___block_invoke(void *result)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v1 = *(result + 32);
+  v1 = result[4];
   if (*(v1 + 488) == 2)
   {
     v2 = result;
-    if (*(result + 40) == *(v1 + 496))
+    if (result[5] == *(v1 + 496))
     {
       *(v1 + 488) = 0;
-      [*(*(result + 32) + 480) resetAttentionLostTimeout];
-      v3 = SBLogHomeAffordance();
+      v3 = SBLogHomeAffordance([*(result[4] + 480) resetAttentionLostTimeout]);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        v4 = *(v2 + 32);
-        v5 = *(v2 + 48);
+        v4 = v2[4];
+        v5 = v2[6];
         v6 = 134218240;
         v7 = v4;
         v8 = 2048;
@@ -2371,7 +2371,7 @@ uint64_t __96__SBHomeGrabberView_homeAffordanceInteraction_didRecognizeTouchThat
         _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_INFO, "grabber=%p touch idleness changed - stopped asserting hidden after %fs", &v6, 0x16u);
       }
 
-      return [*(v2 + 32) updateStyle];
+      return [v2[4] updateStyle];
     }
   }
 
@@ -2484,18 +2484,18 @@ uint64_t __96__SBHomeGrabberView_homeAffordanceInteraction_didRecognizeTouchThat
   [v4 handleFailureInMethod:a1 object:a2 file:@"SBHomeGrabberView.m" lineNumber:422 description:{@"Invalid parameter not satisfying: %@", @"reason"}];
 }
 
-void __76__SBHomeGrabberView__animateToStyle_disallowAdditive_withAnimationSettings___block_invoke_2_cold_1()
+void __76__SBHomeGrabberView__animateToStyle_disallowAdditive_withAnimationSettings___block_invoke_2_cold_1(uint64_t a1)
 {
-  v0 = NSStringFromMTLumaDodgePillStyle();
+  v1 = NSStringFromMTLumaDodgePillStyle();
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_12(&dword_21ED4E000, v1, v2, "grabber=%p additive style change to %{public}@ finished", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_12(&dword_21ED4E000, v2, v3, "grabber=%p additive style change to %{public}@ finished", v4, v5, v6, v7);
 }
 
-void __76__SBHomeGrabberView__animateToStyle_disallowAdditive_withAnimationSettings___block_invoke_2_50_cold_1()
+void __76__SBHomeGrabberView__animateToStyle_disallowAdditive_withAnimationSettings___block_invoke_2_50_cold_1(uint64_t a1)
 {
-  v0 = NSStringFromMTLumaDodgePillStyle();
+  v1 = NSStringFromMTLumaDodgePillStyle();
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_12(&dword_21ED4E000, v1, v2, "grabber=%p style change to %{public}@ finished", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_12(&dword_21ED4E000, v2, v3, "grabber=%p style change to %{public}@ finished", v4, v5, v6, v7);
 }
 
 - (void)_updatePresence:(unint64_t *)a1 style:(uint64_t)a2 withAnimationSettings:(uint64_t)a3 .cold.1(unint64_t *a1, uint64_t a2, uint64_t a3)
@@ -2509,7 +2509,7 @@ void __65__SBHomeGrabberView__updatePresence_style_withAnimationSettings___block
 {
   v1 = NSStringFromSBHomeGrabberViewPresence(*(a1 + 48));
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_12(&dword_21ED4E000, v2, v3, "grabber=%p additive presence change to %{public}@ finished", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_12(&dword_21ED4E000, v2, v3, "grabber=%p additive presence change to %{public}@ finished", v4, v5, v6, v7);
 }
 
 - (void)client:attentionLostTimeoutDidExpire:forConfigurationGeneration:withAssociatedObject:.cold.1()
@@ -2533,16 +2533,24 @@ void __65__SBHomeGrabberView__updatePresence_style_withAnimationSettings___block
   [OUTLINED_FUNCTION_2_0(v0 v1];
 }
 
-- (void)lumaDodgePillDidDetectBackgroundLuminanceChange:.cold.2()
+- (void)lumaDodgePillDidDetectBackgroundLuminanceChange:(uint64_t)a1 .cold.2(uint64_t a1, void *a2)
 {
-  v6 = NSStringFromMTLumaDodgePillBackgroundLuminance();
-  OUTLINED_FUNCTION_12(&dword_21ED4E000, v0, v1, "grabber=%p luma changed to %{public}@", v2, v3, v4, v5, 2u);
+  v3 = NSStringFromMTLumaDodgePillBackgroundLuminance();
+  *v10 = 134218242;
+  *&v10[4] = a1;
+  *&v10[12] = 2114;
+  *&v10[14] = v3;
+  OUTLINED_FUNCTION_12(&dword_21ED4E000, v4, v5, "grabber=%p luma changed to %{public}@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 - (void)homeAffordanceInteractionDidRecognizeSingleClick:(void *)a1 .cold.1(void *a1)
 {
-  v7 = [a1 window];
-  OUTLINED_FUNCTION_12(&dword_21ED4E000, v1, v2, "grabber=%@ in window %@ registered a pointer click, but doesn't have a pointer click delegate.", v3, v4, v5, v6, 2u);
+  v2 = [a1 window];
+  *v9 = 138412546;
+  *&v9[4] = a1;
+  *&v9[12] = 2112;
+  *&v9[14] = v2;
+  OUTLINED_FUNCTION_12(&dword_21ED4E000, v3, v4, "grabber=%@ in window %@ registered a pointer click, but doesn't have a pointer click delegate.", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16]);
 }
 
 @end

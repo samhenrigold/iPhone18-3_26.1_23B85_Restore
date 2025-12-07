@@ -292,10 +292,10 @@
 
 - (id)runAction
 {
-  v49 = *MEMORY[0x1E69E9840];
-  v42.receiver = self;
-  v42.super_class = AMSUIWebAuthenticateAction;
-  runAction = [(AMSUIWebAction *)&v42 runAction];
+  v48 = *MEMORY[0x1E69E9840];
+  v41.receiver = self;
+  v41.super_class = AMSUIWebAuthenticateAction;
+  runAction = [(AMSUIWebAction *)&v41 runAction];
   isAuthenticatingCloud = [(AMSUIWebAuthenticateAction *)self isAuthenticatingCloud];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
   mEMORY[0x1E698C968]2 = mEMORY[0x1E698C968];
@@ -315,11 +315,11 @@
       account = [request account];
       v12 = AMSHashIfNeeded();
       *buf = 138543874;
-      v44 = v8;
-      v45 = 2114;
-      v46 = v9;
-      v47 = 2114;
-      v48 = v12;
+      v43 = v8;
+      v44 = 2114;
+      v45 = v9;
+      v46 = 2114;
+      v47 = v12;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Running cloud authenticate action for account: %{public}@", buf, 0x20u);
     }
 
@@ -329,12 +329,12 @@
     request2 = [(AMSUIWebAuthenticateAction *)self request];
     v17 = [actionDelegate action:self pauseTimeouts:pauseTimeouts handleAuthenticateCloudRequest:request2];
 
-    v37 = MEMORY[0x1E69E9820];
-    v38 = 3221225472;
-    v39 = __39__AMSUIWebAuthenticateAction_runAction__block_invoke;
-    v40 = &unk_1E7F25AB0;
+    v36 = MEMORY[0x1E69E9820];
+    v37 = 3221225472;
+    v38 = __39__AMSUIWebAuthenticateAction_runAction__block_invoke;
+    v39 = &unk_1E7F25AB0;
     selfCopy = self;
-    v18 = &v37;
+    v18 = &v36;
   }
 
   else
@@ -353,11 +353,11 @@
       account2 = [request3 account];
       v24 = AMSHashIfNeeded();
       *buf = 138543874;
-      v44 = v20;
-      v45 = 2114;
-      v46 = v21;
-      v47 = 2114;
-      v48 = v24;
+      v43 = v20;
+      v44 = 2114;
+      v45 = v21;
+      v46 = 2114;
+      v47 = v24;
       _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Running authenticate action for account: %{public}@", buf, 0x20u);
     }
 
@@ -367,17 +367,15 @@
     request4 = [(AMSUIWebAuthenticateAction *)self request];
     v17 = [actionDelegate2 action:self pauseTimeouts:pauseTimeouts2 handleAuthenticateRequest:request4];
 
-    v32 = MEMORY[0x1E69E9820];
-    v33 = 3221225472;
-    v34 = __39__AMSUIWebAuthenticateAction_runAction__block_invoke_60;
-    v35 = &unk_1E7F25AD8;
+    v31 = MEMORY[0x1E69E9820];
+    v32 = 3221225472;
+    v33 = __39__AMSUIWebAuthenticateAction_runAction__block_invoke_60;
+    v34 = &unk_1E7F25AD8;
     selfCopy2 = self;
-    v18 = &v32;
+    v18 = &v31;
   }
 
-  v29 = [v17 thenWithBlock:{v18, v32, v33, v34, v35, selfCopy2, v37, v38, v39, v40, selfCopy}];
-
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = [v17 thenWithBlock:{v18, v31, v32, v33, v34, selfCopy2, v36, v37, v38, v39, selfCopy}];
 
   return v29;
 }
@@ -430,7 +428,7 @@ id __39__AMSUIWebAuthenticateAction_runAction__block_invoke_60(uint64_t a1, void
 
 - (id)_responseForAccount:(id)account
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   accountCopy = account;
   ams_DSID = [accountCopy ams_DSID];
   v6 = ams_DSID;
@@ -442,18 +440,16 @@ id __39__AMSUIWebAuthenticateAction_runAction__block_invoke_60(uint64_t a1, void
 
   v8 = v7;
 
-  v15[0] = @"dsid";
+  v14[0] = @"dsid";
   stringValue = [v8 stringValue];
 
-  v15[1] = @"account";
-  v16[0] = stringValue;
+  v14[1] = @"account";
+  v15[0] = stringValue;
   context = [(AMSUIWebAction *)self context];
   v11 = [context JSAccountFromAccount:accountCopy store:0];
 
-  v16[1] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v15[1] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
 
   return v12;
 }

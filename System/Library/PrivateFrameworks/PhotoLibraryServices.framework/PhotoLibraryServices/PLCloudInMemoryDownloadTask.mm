@@ -66,7 +66,7 @@
   os_unfair_lock_lock(&self->_lock);
   v8 = [(NSMapTable *)self->_taskIDsToCompletionHandlers objectForKey:dCopy];
   [(NSMapTable *)self->_taskIDsToCompletionHandlers removeObjectForKey:dCopy];
-  v5 = [(NSMapTable *)self->_taskIDsToCompletionHandlers count];
+  v5 = objc_msgSend_count(self->_taskIDsToCompletionHandlers);
   self->_completed = v5 == 0;
   v6 = self->_transferTask;
   os_unfair_lock_unlock(&self->_lock);

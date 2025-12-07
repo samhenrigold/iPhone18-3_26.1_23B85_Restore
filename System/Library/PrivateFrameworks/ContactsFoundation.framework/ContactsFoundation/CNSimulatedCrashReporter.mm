@@ -60,31 +60,30 @@
 
 uint64_t __34__CNSimulatedCrashReporter_os_log__block_invoke()
 {
-  os_log_cn_once_object_3 = os_log_create("com.apple.contacts", "crash-reporter");
+  v0 = os_log_create("com.apple.contacts", "crash-reporter");
+  v1 = os_log_cn_once_object_3;
+  os_log_cn_once_object_3 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (void)simulateCrashWithCode:(NSObject *)a3 description:.cold.2(void *a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v6 = 136315394;
-  v7 = [a1 UTF8String];
-  v8 = 2048;
-  v9 = a2;
-  _os_log_fault_impl(&dword_1859F0000, a3, OS_LOG_TYPE_FAULT, "[CRASH] %s (code 0x%llx)", &v6, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
+  v5 = 136315394;
+  v6 = [a1 UTF8String];
+  v7 = 2048;
+  v8 = a2;
+  _os_log_fault_impl(&dword_1859F0000, a3, OS_LOG_TYPE_FAULT, "[CRASH] %s (code 0x%llx)", &v5, 0x16u);
 }
 
 + (void)simulateCrashWithCode:(NSObject *)a1 description:.cold.3(NSObject *a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AF00] callStackSymbols];
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_fault_impl(&dword_1859F0000, a1, OS_LOG_TYPE_FAULT, "[CRASH] Backtrace: %@", &v4, 0xCu);
-
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_fault_impl(&dword_1859F0000, a1, OS_LOG_TYPE_FAULT, "[CRASH] Backtrace: %@", &v3, 0xCu);
 }
 
 @end

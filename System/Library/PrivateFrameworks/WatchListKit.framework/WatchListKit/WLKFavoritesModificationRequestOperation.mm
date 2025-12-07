@@ -7,7 +7,7 @@
 
 - (WLKFavoritesModificationRequestOperation)initWithAction:(unint64_t)action entityId:(id)id caller:(id)caller
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   idCopy = id;
   callerCopy = caller;
   if (idCopy)
@@ -31,15 +31,15 @@
       v11 = @"favorites/add";
     }
 
-    v20[0] = @"entityId";
-    v20[1] = @"entityType";
-    v21[0] = idCopy;
-    v21[1] = @"team";
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+    v19[0] = @"entityId";
+    v19[1] = @"entityType";
+    v20[0] = idCopy;
+    v20[1] = @"team";
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
     v14 = [WLKURLRequestProperties requestPropertiesWithEndpoint:v11 queryParameters:v13 httpMethod:@"POST" caller:callerCopy];
-    v19.receiver = self;
-    v19.super_class = WLKFavoritesModificationRequestOperation;
-    v15 = [(WLKUTSNetworkRequestOperation *)&v19 initWithRequestProperties:v14];
+    v18.receiver = self;
+    v18.super_class = WLKFavoritesModificationRequestOperation;
+    v15 = [(WLKUTSNetworkRequestOperation *)&v18 initWithRequestProperties:v14];
     v16 = v15;
     if (v15)
     {
@@ -58,13 +58,12 @@
     selfCopy = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (void)processResponse
 {
-  if (WLKIsTVApp())
+  if (WLKIsTVApp(self, a2))
   {
     v2 = dispatch_get_global_queue(21, 0);
     dispatch_async(v2, &__block_literal_global_51);

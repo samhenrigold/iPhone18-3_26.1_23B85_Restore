@@ -10,7 +10,7 @@
 
 + (id)executeCompanionLoginForAccessory:(id)accessory account:(id)account
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   accountCopy = account;
   v9 = accountCopy;
@@ -42,40 +42,38 @@ LABEL_3:
 
   v12 = [appleMusicAccountStore accountTypeWithAccountTypeIdentifier:*MEMORY[0x277CB8C58]];
   v13 = [appleMusicAccountStore accountsWithAccountType:v12];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __75__HFAppleMusicAccountOperations_executeCompanionLoginForAccessory_account___block_invoke;
-  v29[3] = &unk_277E01230;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __75__HFAppleMusicAccountOperations_executeCompanionLoginForAccessory_account___block_invoke;
+  v28[3] = &unk_277E01230;
   v14 = v9;
-  v30 = v14;
-  v15 = [v13 na_firstObjectPassingTest:v29];
+  v29 = v14;
+  v15 = [v13 na_firstObjectPassingTest:v28];
 
   v16 = MEMORY[0x277D2C900];
   if (v15)
   {
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __75__HFAppleMusicAccountOperations_executeCompanionLoginForAccessory_account___block_invoke_2;
-    v25[3] = &unk_277DFAC08;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __75__HFAppleMusicAccountOperations_executeCompanionLoginForAccessory_account___block_invoke_2;
+    v24[3] = &unk_277DFAC08;
     selfCopy = self;
-    v26 = accessoryCopy;
-    v27 = v15;
-    v17 = [v16 lazyFutureWithBlock:v25];
+    v25 = accessoryCopy;
+    v26 = v15;
+    v17 = [v16 lazyFutureWithBlock:v24];
 
-    v18 = v26;
+    v18 = v25;
   }
 
   else
   {
     v19 = MEMORY[0x277CCA9B8];
-    v31 = @"accessory";
-    v32[0] = accessoryCopy;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+    v30 = @"accessory";
+    v31[0] = accessoryCopy;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
     v20 = [v19 hf_errorWithCode:10 operation:@"AppleMusicProxyLogin" options:v18];
     v17 = [v16 futureWithError:v20];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -199,16 +197,16 @@ void __71__HFAppleMusicAccountOperations_executeProxyLoginForAccessory_context__
 
 void __71__HFAppleMusicAccountOperations_executeProxyLoginForAccessory_context___block_invoke_24(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = HFLogForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v19 = v5;
-    v20 = 2112;
-    v21 = v6;
+    v18 = v5;
+    v19 = 2112;
+    v20 = v6;
     _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "AKAppleIDAuthenticationController returned with results %@ - error = %@", buf, 0x16u);
   }
 
@@ -216,64 +214,59 @@ void __71__HFAppleMusicAccountOperations_executeProxyLoginForAccessory_context__
   block[1] = 3221225472;
   block[2] = __71__HFAppleMusicAccountOperations_executeProxyLoginForAccessory_context___block_invoke_25;
   block[3] = &unk_277E01280;
-  v14 = *(a1 + 32);
-  v15 = v5;
-  v16 = v6;
-  v12 = *(a1 + 40);
-  v8 = v12;
-  v17 = v12;
+  v13 = *(a1 + 32);
+  v14 = v5;
+  v15 = v6;
+  v11 = *(a1 + 40);
+  v8 = v11;
+  v16 = v11;
   v9 = v6;
   v10 = v5;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __71__HFAppleMusicAccountOperations_executeProxyLoginForAccessory_context___block_invoke_25(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v10 = v3;
+    v9 = v3;
     _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Now completing Login for Accessory %@ ", buf, 0xCu);
   }
 
   v4 = [*(a1 + 64) _completeLoginForAccessory:*(a1 + 32) results:*(a1 + 40) error:*(a1 + 48)];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __71__HFAppleMusicAccountOperations_executeProxyLoginForAccessory_context___block_invoke_26;
-  v7[3] = &unk_277DF70B0;
-  v8 = *(a1 + 56);
-  v5 = [v4 addCompletionBlock:v7];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __71__HFAppleMusicAccountOperations_executeProxyLoginForAccessory_context___block_invoke_26;
+  v6[3] = &unk_277DF70B0;
+  v7 = *(a1 + 56);
+  v5 = [v4 addCompletionBlock:v6];
 }
 
 void __71__HFAppleMusicAccountOperations_executeProxyLoginForAccessory_context___block_invoke_26(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = HFLogForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "_completeLoginForAccessory returned with result [%@] Error - [%@] ", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "_completeLoginForAccessory returned with result [%@] Error - [%@] ", &v8, 0x16u);
   }
 
   [*(a1 + 32) finishWithResult:v5 error:v6];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logoutAccessories:(id)accessories
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   accessoriesCopy = accessories;
   if (![accessoriesCopy count])
   {
@@ -282,26 +275,26 @@ void __71__HFAppleMusicAccountOperations_executeProxyLoginForAccessory_context__
   }
 
   v6 = objc_opt_new();
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   v7 = accessoriesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v41 objects:v50 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v40 objects:v49 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v42;
+    v10 = *v41;
 LABEL_5:
     v11 = 0;
     while (1)
     {
-      if (*v42 != v10)
+      if (*v41 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = *(*(&v41 + 1) + 8 * v11);
+      v12 = *(*(&v40 + 1) + 8 * v11);
       remoteLoginHandler = [v12 remoteLoginHandler];
       v14 = remoteLoginHandler;
       if (!remoteLoginHandler)
@@ -313,11 +306,11 @@ LABEL_5:
       {
         v24 = MEMORY[0x277D2C900];
         v29 = MEMORY[0x277CCA9B8];
-        v46[0] = @"accessories";
-        v46[1] = @"failedAccessory";
-        v47[0] = v7;
-        v47[1] = v12;
-        v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
+        v45[0] = @"accessories";
+        v45[1] = @"failedAccessory";
+        v46[0] = v7;
+        v46[1] = v12;
+        v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:2];
         v27 = v29;
         v28 = 12;
         goto LABEL_22;
@@ -325,7 +318,7 @@ LABEL_5:
 
       if (v9 == ++v11)
       {
-        v9 = [v7 countByEnumeratingWithState:&v41 objects:v50 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v40 objects:v49 count:16];
         if (v9)
         {
           goto LABEL_5;
@@ -337,11 +330,11 @@ LABEL_5:
 
     v24 = MEMORY[0x277D2C900];
     v25 = MEMORY[0x277CCA9B8];
-    v48[0] = @"accessories";
-    v48[1] = @"failedAccessory";
-    v49[0] = v7;
-    v49[1] = v12;
-    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:2];
+    v47[0] = @"accessories";
+    v47[1] = @"failedAccessory";
+    v48[0] = v7;
+    v48[1] = v12;
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:2];
     v27 = v25;
     v28 = 11;
 LABEL_22:
@@ -353,38 +346,38 @@ LABEL_22:
 
 LABEL_12:
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   obj = v7;
-  v15 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
+  v15 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v38;
+    v17 = *v37;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v38 != v17)
+        if (*v37 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        remoteLoginHandler2 = [*(*(&v37 + 1) + 8 * i) remoteLoginHandler];
+        remoteLoginHandler2 = [*(*(&v36 + 1) + 8 * i) remoteLoginHandler];
         v20 = MEMORY[0x277D2C900];
-        v35[0] = MEMORY[0x277D85DD0];
-        v35[1] = 3221225472;
-        v35[2] = __51__HFAppleMusicAccountOperations_logoutAccessories___block_invoke;
-        v35[3] = &unk_277DF29A0;
-        v36 = remoteLoginHandler2;
+        v34[0] = MEMORY[0x277D85DD0];
+        v34[1] = 3221225472;
+        v34[2] = __51__HFAppleMusicAccountOperations_logoutAccessories___block_invoke;
+        v34[3] = &unk_277DF29A0;
+        v35 = remoteLoginHandler2;
         v21 = remoteLoginHandler2;
-        v22 = [v20 lazyFutureWithBlock:v35];
+        v22 = [v20 lazyFutureWithBlock:v34];
         [v6 addObject:v22];
       }
 
-      v16 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
+      v16 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
     }
 
     while (v16);
@@ -392,8 +385,6 @@ LABEL_12:
 
   v23 = [MEMORY[0x277D2C900] chainFutures:v6];
 LABEL_23:
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -441,7 +432,7 @@ uint64_t __51__HFAppleMusicAccountOperations_logoutAccessories___block_invoke_3(
 
 + (id)_completeLoginForAccessory:(id)accessory results:(id)results error:(id)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   resultsCopy = results;
   errorCopy = error;
@@ -451,7 +442,7 @@ uint64_t __51__HFAppleMusicAccountOperations_logoutAccessories___block_invoke_3(
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v21 = errorCopy;
+      v20 = errorCopy;
       _os_log_error_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_ERROR, "Returning from _completeLoginForAccessory due to error  = [%@]", buf, 0xCu);
     }
 
@@ -469,16 +460,15 @@ LABEL_5:
     goto LABEL_8;
   }
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __74__HFAppleMusicAccountOperations__completeLoginForAccessory_results_error___block_invoke;
-  v17[3] = &unk_277DF4150;
-  v18 = accessoryCopy;
-  v19 = resultsCopy;
-  v12 = [v14 futureWithErrorOnlyHandlerAdapterBlock:v17];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __74__HFAppleMusicAccountOperations__completeLoginForAccessory_results_error___block_invoke;
+  v16[3] = &unk_277DF4150;
+  v17 = accessoryCopy;
+  v18 = resultsCopy;
+  v12 = [v14 futureWithErrorOnlyHandlerAdapterBlock:v16];
 
 LABEL_8:
-  v15 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -499,7 +489,7 @@ void __74__HFAppleMusicAccountOperations__completeLoginForAccessory_results_erro
 
 + (id)_validateRemoteLoginHandlerForAccessory:(id)accessory
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   remoteLoginHandler = [accessoryCopy remoteLoginHandler];
   v5 = remoteLoginHandler;
@@ -514,9 +504,9 @@ void __74__HFAppleMusicAccountOperations__completeLoginForAccessory_results_erro
     }
 
     v13 = MEMORY[0x277CCA9B8];
-    v17 = @"accessory";
-    v18 = accessoryCopy;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v16 = @"accessory";
+    v17 = accessoryCopy;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
     v11 = v13;
     v12 = 12;
   }
@@ -525,9 +515,9 @@ void __74__HFAppleMusicAccountOperations__completeLoginForAccessory_results_erro
   {
     v7 = MEMORY[0x277D2C900];
     v9 = MEMORY[0x277CCA9B8];
-    v19 = @"accessory";
-    v20[0] = accessoryCopy;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v18 = @"accessory";
+    v19[0] = accessoryCopy;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     v11 = v9;
     v12 = 11;
   }
@@ -536,7 +526,6 @@ void __74__HFAppleMusicAccountOperations__completeLoginForAccessory_results_erro
   v8 = [v7 futureWithError:v14];
 
 LABEL_7:
-  v15 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

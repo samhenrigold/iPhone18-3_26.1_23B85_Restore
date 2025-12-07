@@ -10,6 +10,8 @@
 - (NSData)serializedRepresentation;
 - (NSString)description;
 - (id)cachedSelf;
+- (id)initAsEphemeralID:(BOOL)d;
+- (id)initAsEphemeralID:(BOOL)d representedObjectID:(id)iD;
 - (void)_commonInitAsEphemeralID:(BOOL)d representedObjectID:(id)iD;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -143,7 +145,6 @@ void __17__EMObjectID_log__block_invoke(uint64_t a1)
 
 + (id)objectIDFromSerializedRepresentation:(id)representation
 {
-  v11 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v5 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:representationCopy error:0];
   v6 = [v5 decodeObjectOfClass:objc_opt_class() forKey:@"kClassKey"];
@@ -168,9 +169,31 @@ void __17__EMObjectID_log__block_invoke(uint64_t a1)
     v7 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v7;
+}
+
+- (id)initAsEphemeralID:(BOOL)d
+{
+  dCopy = d;
+  v7.receiver = self;
+  v7.super_class = EMObjectID;
+  v4 = [(EMObjectID *)&v7 init];
+  if (v4)
+  {
+    if (dCopy)
+    {
+      uUID = [MEMORY[0x1E696AFB0] UUID];
+    }
+
+    else
+    {
+      uUID = 0;
+    }
+
+    [(EMObjectID *)v4 _commonInitAsEphemeralID:dCopy representedObjectID:uUID];
+  }
+
+  return v4;
 }
 
 - (EMObjectID)initWithRepresentedObjectID:(id)d
@@ -186,6 +209,22 @@ void __17__EMObjectID_log__block_invoke(uint64_t a1)
   }
 
   return v6;
+}
+
+- (id)initAsEphemeralID:(BOOL)d representedObjectID:(id)iD
+{
+  dCopy = d;
+  iDCopy = iD;
+  v10.receiver = self;
+  v10.super_class = EMObjectID;
+  v7 = [(EMObjectID *)&v10 init];
+  v8 = v7;
+  if (v7)
+  {
+    [(EMObjectID *)v7 _commonInitAsEphemeralID:dCopy representedObjectID:iDCopy];
+  }
+
+  return v8;
 }
 
 - (void)_commonInitAsEphemeralID:(BOOL)d representedObjectID:(id)iD
@@ -293,11 +332,10 @@ void __17__EMObjectID_log__block_invoke(uint64_t a1)
 
 + (void)objectIDFromSerializedRepresentation:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C6655000, a2, OS_LOG_TYPE_ERROR, "objectIDFromSerializedRepresentation called with non ObjectID type %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C6655000, a2, OS_LOG_TYPE_ERROR, "objectIDFromSerializedRepresentation called with non ObjectID type %@", &v2, 0xCu);
 }
 
 @end

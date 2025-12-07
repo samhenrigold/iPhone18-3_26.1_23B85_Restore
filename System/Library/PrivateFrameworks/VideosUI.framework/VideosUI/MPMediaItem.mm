@@ -43,7 +43,7 @@ id __36__MPMediaItem_VideosUI__vui_credits__block_invoke(uint64_t a1, void *a2)
   return v3;
 }
 
-uint64_t __60__MPMediaItem_VideosUI__vui_isLocalCheckingSidebandLibrary___block_invoke(uint64_t a1)
+void *__60__MPMediaItem_VideosUI__vui_isLocalCheckingSidebandLibrary___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) downloadState];
   *(*(*(a1 + 40) + 8) + 24) = result == 2;

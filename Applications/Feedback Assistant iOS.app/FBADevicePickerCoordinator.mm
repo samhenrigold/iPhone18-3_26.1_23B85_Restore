@@ -20,7 +20,7 @@
 - (_TtC18Feedback_Assistant26FBADevicePickerCoordinator)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for FBADevicePickerCoordinator();
+  v3.super_class = type metadata accessor for FBADevicePickerCoordinator(self, a2);
   return [(FBADevicePickerCoordinator *)&v3 init];
 }
 

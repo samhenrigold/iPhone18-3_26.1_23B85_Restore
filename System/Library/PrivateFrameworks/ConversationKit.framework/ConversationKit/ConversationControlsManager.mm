@@ -419,7 +419,7 @@
 
 - (void)handleIsScreeningChanged:(id)changed
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12NotificationVSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12NotificationVSgMd, &_s10Foundation12NotificationVSgMR);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v11 - v6;
   if (changed)
@@ -439,13 +439,13 @@
   selfCopy = self;
   ConversationControlsManager.handleIsScreeningChanged(_:)();
 
-  outlined destroy of CallControlsService?(v7, &_s10Foundation12NotificationVSgMd);
+  outlined destroy of CallControlsService?(v7, &_s10Foundation12NotificationVSgMd, &_s10Foundation12NotificationVSgMR);
 }
 
 - (void)accessibilityDidAddPendingParticipant:(id)participant
 {
-  v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  TPNumberPadCharacter.rawValue.getter(v3);
+  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  TPNumberPadCharacter.rawValue.getter();
 }
 
 - (BOOL)gameControllerDidRequestActivation

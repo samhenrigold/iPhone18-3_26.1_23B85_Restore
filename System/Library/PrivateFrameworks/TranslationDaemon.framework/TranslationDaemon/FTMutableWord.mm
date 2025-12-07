@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (int)frequency;
 - (void)pronunciations:(id)pronunciations;
+- (void)setFrequency:(int)frequency;
 - (void)setOrthography:(id)orthography;
 - (void)setPronunciations:(id)pronunciations;
 - (void)setTag:(id)tag;
@@ -62,6 +63,12 @@
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setFrequency:(int)frequency
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&frequency];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (void)setTag:(id)tag

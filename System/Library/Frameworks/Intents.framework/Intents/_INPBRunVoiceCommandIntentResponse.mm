@@ -3,6 +3,8 @@
 - (_INPBRunVoiceCommandIntentResponse)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)intentCategoryAsString:(int)string;
+- (id)toggleStateAsString:(int)string;
 - (int)StringAsIntentCategory:(id)category;
 - (int)StringAsToggleState:(id)state;
 - (unint64_t)hash;
@@ -28,7 +30,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_appBundleId)
   {
@@ -99,30 +101,30 @@
   if ([(NSArray *)self->_steps count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
     v20 = self->_steps;
-    v21 = [(NSArray *)v20 countByEnumeratingWithState:&v38 objects:v42 count:16];
+    v21 = [(NSArray *)v20 countByEnumeratingWithState:&v37 objects:v41 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v39;
+      v23 = *v38;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v39 != v23)
+          if (*v38 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          dictionaryRepresentation2 = [*(*(&v38 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v37 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation2];
         }
 
-        v22 = [(NSArray *)v20 countByEnumeratingWithState:&v38 objects:v42 count:16];
+        v22 = [(NSArray *)v20 countByEnumeratingWithState:&v37 objects:v41 count:16];
       }
 
       while (v22);
@@ -173,8 +175,6 @@
     v35 = [verb copy];
     [dictionary setObject:v35 forKeyedSubscript:@"verb"];
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -694,37 +694,32 @@ LABEL_72:
 
 - (void)writeTo:(id)to
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   toCopy = to;
   appBundleId = [(_INPBRunVoiceCommandIntentResponse *)self appBundleId];
 
   if (appBundleId)
   {
-    appBundleId = self->_appBundleId;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBRunVoiceCommandIntentResponse *)self hasContinueRunning])
   {
-    continueRunning = self->_continueRunning;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBRunVoiceCommandIntentResponse *)self hasCustomResponsesDisabled])
   {
-    customResponsesDisabled = self->_customResponsesDisabled;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBRunVoiceCommandIntentResponse *)self hasIntentCategory])
   {
-    intentCategory = self->_intentCategory;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBRunVoiceCommandIntentResponse *)self hasInterstitialDisabled])
   {
-    interstitialDisabled = self->_interstitialDisabled;
     PBDataWriterWriteBOOLField();
   }
 
@@ -732,7 +727,6 @@ LABEL_72:
 
   if (localizedAppName)
   {
-    localizedAppName = self->_localizedAppName;
     PBDataWriterWriteStringField();
   }
 
@@ -746,7 +740,6 @@ LABEL_72:
 
   if ([(_INPBRunVoiceCommandIntentResponse *)self hasPrefersExecutionOnCompanion])
   {
-    prefersExecutionOnCompanion = self->_prefersExecutionOnCompanion;
     PBDataWriterWriteBOOLField();
   }
 
@@ -754,45 +747,42 @@ LABEL_72:
 
   if (responseTemplate)
   {
-    responseTemplate = self->_responseTemplate;
     PBDataWriterWriteStringField();
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v18 = self->_steps;
-  v19 = [(NSArray *)v18 countByEnumeratingWithState:&v34 objects:v38 count:16];
-  if (v19)
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v10 = self->_steps;
+  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  if (v11)
   {
-    v20 = v19;
-    v21 = *v35;
+    v12 = v11;
+    v13 = *v22;
     do
     {
-      v22 = 0;
+      v14 = 0;
       do
       {
-        if (*v35 != v21)
+        if (*v22 != v13)
         {
-          objc_enumerationMutation(v18);
+          objc_enumerationMutation(v10);
         }
 
-        v23 = *(*(&v34 + 1) + 8 * v22);
         PBDataWriterWriteSubmessage();
-        ++v22;
+        ++v14;
       }
 
-      while (v20 != v22);
-      v20 = [(NSArray *)v18 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      while (v12 != v14);
+      v12 = [(NSArray *)v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
-    while (v20);
+    while (v12);
   }
 
   if ([(_INPBRunVoiceCommandIntentResponse *)self hasToggleState])
   {
-    toggleState = self->_toggleState;
     PBDataWriterWriteInt32Field();
   }
 
@@ -816,7 +806,6 @@ LABEL_72:
 
   if (underlyingIntentTitle)
   {
-    underlyingIntentTitle = self->_underlyingIntentTitle;
     PBDataWriterWriteStringField();
   }
 
@@ -824,11 +813,8 @@ LABEL_72:
 
   if (verb)
   {
-    verb = self->_verb;
     PBDataWriterWriteStringField();
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setVerb:(id)verb
@@ -864,6 +850,26 @@ LABEL_72:
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)toggleStateAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"ON";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"OFF";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;
@@ -1083,6 +1089,22 @@ LABEL_72:
   }
 
   return v4;
+}
+
+- (id)intentCategoryAsString:(int)string
+{
+  v4 = string - 1;
+  if (string - 1) < 0x15 && ((0x1FFDFFu >> v4))
+  {
+    v5 = off_1E7283110[v4];
+  }
+
+  else
+  {
+    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v5;
 }
 
 - (void)setHasIntentCategory:(BOOL)category

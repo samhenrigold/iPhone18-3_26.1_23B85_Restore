@@ -1217,7 +1217,7 @@ LABEL_304:
   return result;
 }
 
-unint64_t CreateBackwardReferencesNH41(unint64_t result, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int *a8, unint64_t *a9, uint64_t a10, void *a11, void *a12)
+unint64_t CreateBackwardReferencesNH41(unint64_t result, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, int *a8, unint64_t *a9, uint64_t a10, void *a11, void *a12)
 {
   v14 = a2;
   v15 = a10;
@@ -3685,7 +3685,7 @@ LABEL_309:
   return result;
 }
 
-unint64_t CreateBackwardReferencesNH54(unint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int *a7, unint64_t *a8, uint64_t a9, void *a10, void *a11)
+unint64_t CreateBackwardReferencesNH54(unint64_t result, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int *a7, unint64_t *a8, uint64_t a9, void *a10, void *a11)
 {
   v11 = a2;
   v125 = *MEMORY[0x1E69E9840];
@@ -3848,7 +3848,7 @@ LABEL_45:
                   break;
                 }
 
-                ++v42;
+                v42 = (v42 + 1);
                 v41 = (v41 + 1);
                 if (!--v43)
                 {
@@ -3873,7 +3873,7 @@ LABEL_45:
                 goto LABEL_51;
               }
 
-              v42 += 8;
+              ++v42;
               ++v41;
               v40 -= 8;
               v43 = v20 + v40;
@@ -4401,7 +4401,7 @@ LABEL_187:
   return result;
 }
 
-void *CreateBackwardReferencesNH35(void *result, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int *a7, unint64_t *a8, _DWORD *a9, void *a10, void *a11)
+void *CreateBackwardReferencesNH35(void *result, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int *a7, unint64_t *a8, char *a9, void *a10, void *a11)
 {
   v175[1] = *MEMORY[0x1E69E9840];
   v11 = *a8;
@@ -4438,7 +4438,7 @@ void *CreateBackwardReferencesNH35(void *result, unint64_t a2, uint64_t a3, uint
     v161 = v14;
     while (1)
     {
-      v17 = v12 - a2;
+      v17 = &v12[-a2];
       if (a2 >= v167)
       {
         v18 = v167;
@@ -4466,13 +4466,13 @@ void *CreateBackwardReferencesNH35(void *result, unint64_t a2, uint64_t a3, uint
 
       if (v17 < 8)
       {
-        v26 = v12 - a2;
+        v26 = &v12[-a2];
         v25 = (a3 + (a2 & a4));
         v24 = (a3 + (a4 & (a2 - v21)));
         if (v17)
         {
 LABEL_20:
-          v27 = (v24 + v26);
+          v27 = &v26[v24];
           while (*v24 == *v25)
           {
             v25 = (v25 + 1);
@@ -4502,7 +4502,7 @@ LABEL_20:
           ++v25;
           ++v24;
           v23 -= 8;
-          v26 = v17 + v23;
+          v26 = (v17 + v23);
         }
 
         while (v17 + v23 > 7);
@@ -4542,13 +4542,13 @@ LABEL_29:
         {
           if (v17 < 8)
           {
-            v40 = v12 - a2;
+            v40 = &v12[-a2];
             v39 = (a3 + (a2 & a4));
             v38 = (a3 + (v32 & a4));
             if (v17)
             {
 LABEL_45:
-              v41 = (v38 + v40);
+              v41 = &v40[v38];
               while (*v38 == *v39)
               {
                 v39 = (v39 + 1);
@@ -4578,7 +4578,7 @@ LABEL_45:
               ++v39;
               ++v38;
               v37 -= 8;
-              v40 = v17 + v37;
+              v40 = (v17 + v37);
             }
 
             while (v17 + v37 > 7);
@@ -5132,10 +5132,10 @@ LABEL_204:
       LOWORD(v132) = 0;
       LODWORD(v135) = 0;
       *v164 = v170;
-      v164[1] = v71;
+      *(v164 + 1) = v71;
 LABEL_216:
       *(v131 + 7) = v132;
-      v131[2] = v135;
+      *(v131 + 2) = v135;
       if (v170 > 5)
       {
         if (v170 > 0x81)
@@ -5247,7 +5247,7 @@ LABEL_216:
       }
 
       v15 = v161 + 2 * v71 + v72;
-      v164 = v131 + 4;
+      v164 = v131 + 16;
       if (v154 >= v155)
       {
         v11 = 0;
@@ -5313,7 +5313,7 @@ LABEL_208:
         }
 
         *v164 = v170;
-        v164[1] = v71;
+        *(v164 + 1) = v71;
         v133 = *(a5 + 60);
         v134 = v133 + 16;
         if (v133 + 16 <= v132)
@@ -5352,12 +5352,12 @@ LABEL_208:
   v164 = a9;
   v126 = a2;
 LABEL_267:
-  *a8 = v11 + v12 - v126;
+  *a8 = &v12[v11 - v126];
   *a10 += (v164 - a9) >> 4;
   return result;
 }
 
-unint64_t CreateBackwardReferencesNH55(unint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int *a7, unint64_t *a8, uint64_t a9, void *a10, void *a11)
+unint64_t CreateBackwardReferencesNH55(unint64_t result, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int *a7, unint64_t *a8, uint64_t a9, void *a10, void *a11)
 {
   v11 = a2;
   v175 = *MEMORY[0x1E69E9840];
@@ -7927,7 +7927,7 @@ LABEL_30:
   }
 }
 
-uint64_t BrotliHistogramCombineLiteral(uint64_t a1, char *a2, uint64_t a3, unsigned int *a4, _DWORD *a5, unsigned int *a6, unint64_t a7, uint64_t a8, unint64_t a9, unint64_t a10)
+uint64_t BrotliHistogramCombineLiteral(uint64_t a1, char *a2, uint64_t a3, unsigned int *a4, _DWORD *a5, unsigned int *a6, unint64_t a7, uint64_t a8, uint64_t a9, unint64_t a10)
 {
   v58 = 0;
   if (!a7)
@@ -8047,7 +8047,7 @@ LABEL_27:
               goto LABEL_43;
             }
 
-            v39 = *(v37 + 1);
+            v39 = v37[1];
             v40 = v39 == v24 || v38 == v24;
             if (v40 || v39 == v25)
             {
@@ -8055,7 +8055,7 @@ LABEL_27:
             }
 
             v42 = *(a6 + 2);
-            v43 = v37[2];
+            v43 = *(v37 + 2);
             if (v42 == v43)
             {
               if (a6[1] - *a6 <= v39 - v38)
@@ -8088,7 +8088,7 @@ LABEL_41:
             *v47 = v44;
             ++v36;
 LABEL_43:
-            v37 += 3;
+            v37 += 6;
             if (!--v35)
             {
               goto LABEL_46;
@@ -8306,7 +8306,7 @@ uint64_t BrotliHistogramReindexLiteral(uint64_t a1, uint64_t a2, unsigned int *a
   return v4;
 }
 
-uint64_t BrotliClusterHistogramsLiteral(uint64_t a1, char *a2, unint64_t a3, unint64_t a4, uint64_t a5, uint64_t *a6, unsigned int *a7)
+uint64_t BrotliClusterHistogramsLiteral(uint64_t a1, char *a2, unint64_t a3, uint64_t a4, void *a5, uint64_t *a6, unsigned int *a7)
 {
   v12 = 4 * a3;
   if (a3)
@@ -8568,7 +8568,7 @@ LABEL_30:
   }
 }
 
-uint64_t BrotliHistogramCombineCommand(uint64_t a1, char *a2, uint64_t a3, unsigned int *a4, _DWORD *a5, unsigned int *a6, unint64_t a7, uint64_t a8, unint64_t a9, unint64_t a10)
+uint64_t BrotliHistogramCombineCommand(uint64_t a1, char *a2, uint64_t a3, unsigned int *a4, _DWORD *a5, unsigned int *a6, unint64_t a7, uint64_t a8, uint64_t a9, unint64_t a10)
 {
   v58 = 0;
   if (!a7)
@@ -8688,7 +8688,7 @@ LABEL_27:
               goto LABEL_43;
             }
 
-            v39 = *(v37 + 1);
+            v39 = v37[1];
             v40 = v39 == v24 || v38 == v24;
             if (v40 || v39 == v25)
             {
@@ -8696,7 +8696,7 @@ LABEL_27:
             }
 
             v42 = *(a6 + 2);
-            v43 = v37[2];
+            v43 = *(v37 + 2);
             if (v42 == v43)
             {
               if (a6[1] - *a6 <= v39 - v38)
@@ -8729,7 +8729,7 @@ LABEL_41:
             *v47 = v44;
             ++v36;
 LABEL_43:
-            v37 += 3;
+            v37 += 6;
             if (!--v35)
             {
               goto LABEL_46;
@@ -8891,7 +8891,7 @@ LABEL_30:
   }
 }
 
-uint64_t BrotliHistogramCombineDistance(uint64_t a1, char *a2, uint64_t a3, unsigned int *a4, _DWORD *a5, unsigned int *a6, unint64_t a7, uint64_t a8, unint64_t a9, unint64_t a10)
+uint64_t BrotliHistogramCombineDistance(uint64_t a1, char *a2, uint64_t a3, unsigned int *a4, _DWORD *a5, unsigned int *a6, unint64_t a7, uint64_t a8, uint64_t a9, unint64_t a10)
 {
   v58 = 0;
   if (!a7)
@@ -9011,7 +9011,7 @@ LABEL_27:
               goto LABEL_43;
             }
 
-            v39 = *(v37 + 1);
+            v39 = v37[1];
             v40 = v39 == v24 || v38 == v24;
             if (v40 || v39 == v25)
             {
@@ -9019,7 +9019,7 @@ LABEL_27:
             }
 
             v42 = *(a6 + 2);
-            v43 = v37[2];
+            v43 = *(v37 + 2);
             if (v42 == v43)
             {
               if (a6[1] - *a6 <= v39 - v38)
@@ -9052,7 +9052,7 @@ LABEL_41:
             *v47 = v44;
             ++v36;
 LABEL_43:
-            v37 += 3;
+            v37 += 6;
             if (!--v35)
             {
               goto LABEL_46;
@@ -9270,7 +9270,7 @@ uint64_t BrotliHistogramReindexDistance(uint64_t a1, uint64_t a2, unsigned int *
   return v4;
 }
 
-uint64_t BrotliClusterHistogramsDistance(uint64_t a1, char *a2, unint64_t a3, unint64_t a4, uint64_t a5, uint64_t *a6, unsigned int *a7)
+uint64_t BrotliClusterHistogramsDistance(uint64_t a1, char *a2, unint64_t a3, uint64_t a4, void *a5, uint64_t *a6, unsigned int *a7)
 {
   v12 = 4 * a3;
   if (a3)
@@ -9481,7 +9481,7 @@ uint64_t kBucketItemComparator_block_invoke(uint64_t a1, void *a2, void *a3)
   return v7;
 }
 
-id NullableValueForKeyPathArray(void *a1, void *a2, unint64_t a3)
+NSObject *NullableValueForKeyPathArray(void *a1, void *a2, unint64_t a3)
 {
   v38 = *MEMORY[0x1E69E9840];
   v5 = a1;
@@ -9529,7 +9529,7 @@ LABEL_16:
   v9 = [v8 rangeOfString:@"["];
   if (v9 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v21 = JEMetricsOSLog();
+    v21 = JEMetricsOSLog(0x7FFFFFFFFFFFFFFFLL);
     v29 = v21;
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {

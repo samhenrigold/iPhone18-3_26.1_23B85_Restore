@@ -480,7 +480,7 @@ LABEL_14:
 
 void __47__OAXFill_Private__pathGradientFillTypeEnumMap__block_invoke()
 {
-  if ((atomic_load_explicit(&_ZGVZZ47__OAXFill_Private__pathGradientFillTypeEnumMap_EUb_E31pathGradientFillTypeEnumStructs, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_ZGVZZ47__OAXFill_Private__pathGradientFillTypeEnumMap_EUb_E31pathGradientFillTypeEnumStructs, memory_order_acquire) & 1) == 0)
   {
     __47__OAXFill_Private__pathGradientFillTypeEnumMap__block_invoke_cold_1();
   }
@@ -492,11 +492,11 @@ void __47__OAXFill_Private__pathGradientFillTypeEnumMap__block_invoke()
 
 void __47__OAXFill_Private__pathGradientFillTypeEnumMap__block_invoke_cold_1()
 {
-  if (__cxa_guard_acquire(&_ZGVZZ47__OAXFill_Private__pathGradientFillTypeEnumMap_EUb_E31pathGradientFillTypeEnumStructs))
+  if (__cxa_guard_acquire(_ZGVZZ47__OAXFill_Private__pathGradientFillTypeEnumMap_EUb_E31pathGradientFillTypeEnumStructs))
   {
     __cxa_atexit(__cxx_global_array_dtor_76, 0, &dword_25D297000);
 
-    __cxa_guard_release(&_ZGVZZ47__OAXFill_Private__pathGradientFillTypeEnumMap_EUb_E31pathGradientFillTypeEnumStructs);
+    __cxa_guard_release(_ZGVZZ47__OAXFill_Private__pathGradientFillTypeEnumMap_EUb_E31pathGradientFillTypeEnumStructs);
   }
 }
 

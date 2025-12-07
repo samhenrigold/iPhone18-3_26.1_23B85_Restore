@@ -111,7 +111,7 @@ LABEL_8:
   return v3;
 }
 
-uint64_t __31__AVCBasebandAudioTap_delegate__block_invoke(uint64_t a1)
+void *__31__AVCBasebandAudioTap_delegate__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dispatchedDelegate];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -488,7 +488,7 @@ LABEL_31:
   }
 
 LABEL_7:
-  [*(a1 + 40) setDidSucceed:{v3, *v23, *&v23[16], v24, v25, v26}];
+  [*(a1 + 40) setDidSucceed:{v3, *v23, *&v23[8], v24, v25, v26}];
   [*(a1 + 40) setTapToken:{objc_msgSend(*(*(a1 + 32) + 24), "sessionToken")}];
   [*(a1 + 40) setUplinkToken:{objc_msgSend(*(*(a1 + 32) + 24), "streamTokenForCellularTapType:", 0)}];
   return [*(a1 + 40) setDownlinkToken:{objc_msgSend(*(*(a1 + 32) + 24), "streamTokenForCellularTapType:", 1)}];
@@ -761,7 +761,7 @@ uint64_t __50__AVCBasebandAudioTap_unregisterFromTapWithError___block_invoke(voi
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to super init", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to super init", v2, v3, v4, v5);
     }
   }
 }

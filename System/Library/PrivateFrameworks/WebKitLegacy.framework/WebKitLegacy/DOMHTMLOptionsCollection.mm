@@ -62,16 +62,18 @@
 
 - (void)setLength:(unsigned int)length
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v8);
-  WebCore::HTMLOptionsCollection::setLength(self->super._internal);
-  if (v7 == 1)
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v9);
+  WebCore::HTMLOptionsCollection::setLength(&v6, self->super._internal);
+  if (v8 == 1)
   {
-    v8[80] = v5;
-    v9 = v6;
+    v9[80] = v6;
+    v5 = v7;
+    v7 = 0;
+    v10 = v5;
     raiseDOMErrorException();
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v8, v4);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v9, v4);
 }
 
 - (DOMNode)namedItem:(NSString *)name

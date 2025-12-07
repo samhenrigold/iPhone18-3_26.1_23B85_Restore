@@ -29,12 +29,12 @@
 
 - (BOOL)setNamespaces:(id)namespaces
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCAAB0];
   allObjects = [namespaces allObjects];
-  v11 = 0;
-  v6 = [v4 archivedDataWithRootObject:allObjects requiringSecureCoding:0 error:&v11];
-  v7 = v11;
+  v10 = 0;
+  v6 = [v4 archivedDataWithRootObject:allObjects requiringSecureCoding:0 error:&v10];
+  v7 = v10;
 
   if (v6)
   {
@@ -47,18 +47,17 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = v7;
+      v12 = v7;
       _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "Couldn't generate data for globally available namespace with error:%@", buf, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6 != 0;
 }
 
 - (id)namespaces
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [(TRIKVStore *)self->_kvStore blobForKey:@"globally_available_namespaces" usingTransaction:0];
   if ([v2 length])
   {
@@ -68,9 +67,9 @@
     v6 = objc_opt_class();
     v7 = [v5 initWithObjects:{v6, objc_opt_class(), 0}];
     objc_autoreleasePoolPop(v4);
-    v16 = 0;
-    v8 = [v3 unarchivedObjectOfClasses:v7 fromData:v2 error:&v16];
-    v9 = v16;
+    v15 = 0;
+    v8 = [v3 unarchivedObjectOfClasses:v7 fromData:v2 error:&v15];
+    v9 = v15;
 
     if (v8)
     {
@@ -83,7 +82,7 @@
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v18 = v9;
+        v17 = v9;
         _os_log_error_impl(&dword_26F567000, v13, OS_LOG_TYPE_ERROR, "Unable to unarchive globally available namespaces with error: %@", buf, 0xCu);
       }
 
@@ -104,8 +103,6 @@
 
     v12 = [MEMORY[0x277CBEB98] set];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

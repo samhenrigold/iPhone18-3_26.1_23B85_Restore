@@ -15,10 +15,9 @@
 
 + (void)initialize
 {
-  v2 = objc_opt_class();
-  if (v2)
+  if (objc_opt_class())
   {
-    nullsub_2(v2);
+    nullsub_2();
 
     sub_41C34();
   }

@@ -11,7 +11,7 @@
   *(v6 + 16) = v5;
   requestCopy = request;
 
-  EventLoggingXpcSubscriptionClient.request(_:withReply:)(requestCopy, sub_275B2DAB0, v6);
+  EventLoggingXpcSubscriptionClient.request(_:withReply:)(requestCopy, sub_275B2DAB0, v6, v8);
 }
 
 @end

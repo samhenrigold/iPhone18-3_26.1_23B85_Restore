@@ -11,13 +11,13 @@
 {
   datasetCopy = dataset;
   blockCopy = block;
-  v204 = 0;
-  v205 = &v204;
-  v206 = 0x2020000000;
-  v207 = 0;
+  v208 = 0;
+  v209 = &v208;
+  v210 = 0x2020000000;
+  v211 = 0;
   v7 = MEMORY[0x1E696AE38];
-  v200 = datasetCopy;
-  v8 = [datasetCopy count];
+  v204 = datasetCopy;
+  v8 = objc_msgSend_count(datasetCopy);
   if (v8 - self->_k + 2 <= 1)
   {
     v9 = 1;
@@ -28,57 +28,57 @@
     v9 = v8 - self->_k + 2;
   }
 
-  v189 = [v7 progressWithTotalUnitCount:v9];
-  totalUnitCount = [v189 totalUnitCount];
+  v193 = [v7 progressWithTotalUnitCount:v9];
+  totalUnitCount = [v193 totalUnitCount];
   distanceBlock = [(PLDataClustering *)self distanceBlock];
   if (blockCopy && self->_reportsProgressInDistancesMatrixCalculation)
   {
     v11 = 1.0 / totalUnitCount;
-    v12 = v202;
-    v202[0] = MEMORY[0x1E69E9820];
-    v202[1] = 3221225472;
-    v202[2] = __61__PLHierarchicalClustering_performWithDataset_progressBlock___block_invoke;
-    v202[3] = &unk_1E7573D00;
-    v181 = v203;
+    v12 = v206;
+    v206[0] = MEMORY[0x1E69E9820];
+    v206[1] = 3221225472;
+    v206[2] = __61__PLHierarchicalClustering_performWithDataset_progressBlock___block_invoke;
+    v206[3] = &unk_1E7573D00;
+    v185 = v207;
     v13 = blockCopy;
-    *&v203[2] = v11;
-    v203[0] = v13;
-    v203[1] = &v204;
-    v183 = 1;
+    *&v207[2] = v11;
+    v207[0] = v13;
+    v207[1] = &v208;
+    v187 = 1;
   }
 
   else
   {
-    v183 = 0;
+    v187 = 0;
     v12 = 0;
   }
 
   v14 = _Block_copy(v12);
   selfCopy = self;
   usesSortedDataRelativeDistanceCache = self->_usesSortedDataRelativeDistanceCache;
-  v182 = v14;
+  v186 = v14;
   if (!self->_usesSortedDataRelativeDistanceCache)
   {
-    v16 = [(PLDataClustering *)self createDistancesMatrixForDataset:v200 progressBlock:v14];
-    if ((v205[3] & 1) == 0)
+    v16 = [(PLDataClustering *)self createDistancesMatrixForDataset:v204 progressBlock:v14];
+    if ((v209[3] & 1) == 0)
     {
       goto LABEL_16;
     }
 
-    [(PLDataClustering *)self freeDistancesMatrix:v16 forDataset:v200];
+    [(PLDataClustering *)self freeDistancesMatrix:v16 forDataset:v204];
 LABEL_14:
     v17 = MEMORY[0x1E695E0F0];
     goto LABEL_338;
   }
 
-  if (v205[3])
+  if (v209[3])
   {
     goto LABEL_14;
   }
 
   if (self->_usesSortedDataRelativeDistanceCache)
   {
-    v15 = [(PLHierarchicalClustering *)self _createRelativeDistanceCacheForDataset:v200];
+    v15 = [(PLHierarchicalClustering *)self _createRelativeDistanceCacheForDataset:v204];
     v16 = 0;
     goto LABEL_17;
   }
@@ -87,75 +87,79 @@ LABEL_14:
 LABEL_16:
   v15 = 0;
 LABEL_17:
-  v18 = malloc_type_calloc(8uLL, [v200 count], 0x28A69A72uLL);
-  v19 = [v200 count];
-  for (i = 0; i < [v200 count]; ++i)
+  v18 = objc_msgSend_count(v204);
+  v19 = malloc_type_calloc(8uLL, v18, 0x28A69A72uLL);
+  v20 = objc_msgSend_count(v204);
+  for (i = 0; i < objc_msgSend_count(v204); ++i)
   {
-    v21 = malloc_type_calloc(8uLL, 1uLL, 0xF4F853D3uLL);
-    v18[i] = v21;
-    *v21 = i;
+    v22 = malloc_type_calloc(8uLL, 1uLL, 0xF4F853D3uLL);
+    v19[i] = v22;
+    *v22 = i;
   }
 
-  v22 = malloc_type_calloc(8uLL, [v200 count], 0x4440960EuLL);
-  for (j = 0; j < [v200 count]; ++j)
+  v23 = objc_msgSend_count(v204);
+  v24 = malloc_type_calloc(8uLL, v23, 0x4440960EuLL);
+  for (j = 0; j < objc_msgSend_count(v204); ++j)
   {
-    v22[j] = 1;
+    v24[j] = 1;
   }
 
-  v190 = malloc_type_calloc(8uLL, [v200 count], 0x8972D4FFuLL);
-  for (k = 0; k < [v200 count]; ++k)
+  v26 = objc_msgSend_count(v204);
+  v194 = malloc_type_calloc(8uLL, v26, 0x8972D4FFuLL);
+  for (k = 0; k < objc_msgSend_count(v204); ++k)
   {
-    v190[k] = k;
+    v194[k] = k;
   }
 
-  v25 = malloc_type_calloc(1uLL, [v200 count], 0xAD614587uLL);
-  v186 = [objc_alloc(MEMORY[0x1E695DF70]) initWithArray:v200];
-  [v189 setCompletedUnitCount:{objc_msgSend(v189, "completedUnitCount") + 1}];
+  v28 = objc_msgSend_count(v204);
+  v29 = malloc_type_calloc(1uLL, v28, 0xAD614587uLL);
+  v190 = [objc_alloc(MEMORY[0x1E695DF70]) initWithArray:v204];
+  [v193 setCompletedUnitCount:{objc_msgSend(v193, "completedUnitCount") + 1}];
   if (blockCopy)
   {
-    [v189 fractionCompleted];
-    (*(blockCopy + 2))(blockCopy, v205 + 3);
+    [v193 fractionCompleted];
+    (*(blockCopy + 2))(blockCopy, v209 + 3);
   }
 
-  if (v205[3])
+  if (v209[3])
   {
-    if (v19)
+    if (v20)
     {
-      v26 = v18;
+      v30 = v19;
       do
       {
-        if (*v26)
+        if (*v30)
         {
-          free(*v26);
+          free(*v30);
         }
 
-        ++v26;
-        --v19;
+        ++v30;
+        --v20;
       }
 
-      while (v19);
+      while (v20);
     }
 
-    else if (!v18)
+    else if (!v19)
     {
       goto LABEL_252;
     }
 
-    free(v18);
+    free(v19);
 LABEL_252:
-    if (v22)
+    if (v24)
     {
-      free(v22);
+      free(v24);
     }
 
-    if (v190)
+    if (v194)
     {
-      free(v190);
+      free(v194);
     }
 
-    if (v25)
+    if (v29)
     {
-      free(v25);
+      free(v29);
     }
 
     if (!usesSortedDataRelativeDistanceCache)
@@ -166,18 +170,18 @@ LABEL_252:
     goto LABEL_283;
   }
 
-  v27 = v19 - 1;
-  v193 = v25;
+  v31 = v20 - 1;
+  v197 = v29;
   while (1)
   {
-    v184 = v27;
-    v28 = selfCopy;
-    v201 = v19;
-    v29 = v19 > selfCopy->_k;
-    v197 = v22;
-    v198 = v18;
-    v30 = v25;
-    if (!v29)
+    v188 = v31;
+    v32 = selfCopy;
+    v205 = v20;
+    v33 = v20 > selfCopy->_k;
+    v201 = v24;
+    v202 = v19;
+    v34 = v29;
+    if (!v33)
     {
       goto LABEL_286;
     }
@@ -192,157 +196,157 @@ LABEL_252:
     {
       if (usesSortedDataRelativeDistanceCache)
       {
-        v67 = 0;
-        v106 = 0;
-        v64 = 0;
-        v107 = 3.40282347e38;
-        v108 = v184;
-        v109 = v201;
+        v71 = 0;
+        v110 = 0;
+        v68 = 0;
+        v111 = 3.40282347e38;
+        v112 = v188;
+        v113 = v205;
         do
         {
-          v110 = v106++;
-          if (v106 < v109)
+          v114 = v110++;
+          if (v110 < v113)
           {
-            v111 = v108;
-            v112 = v106;
+            v115 = v112;
+            v116 = v110;
             do
             {
-              v113 = v15[v190[v110]] - v15[v190[v112]];
-              if (v113 < 0.0)
+              v117 = v15[v194[v114]] - v15[v194[v116]];
+              if (v117 < 0.0)
               {
-                v113 = -v113;
+                v117 = -v117;
               }
 
-              if (v113 < v107)
+              if (v117 < v111)
               {
-                v64 = v112;
-                v67 = v110;
-                v107 = v113;
+                v68 = v116;
+                v71 = v114;
+                v111 = v117;
               }
 
-              ++v112;
-              --v111;
+              ++v116;
+              --v115;
             }
 
-            while (v111);
+            while (v115);
           }
 
-          --v108;
-          v109 = v201;
+          --v112;
+          v113 = v205;
         }
 
-        while (v106 != v201);
+        while (v110 != v205);
       }
 
       else
       {
-        v67 = 0;
-        v64 = 0;
-        v114 = 0;
-        v107 = 3.40282347e38;
-        v115 = v201;
+        v71 = 0;
+        v68 = 0;
+        v118 = 0;
+        v111 = 3.40282347e38;
+        v119 = v205;
         do
         {
-          v116 = v114++;
-          if (v114 < v115)
+          v120 = v118++;
+          if (v118 < v119)
           {
-            v118 = v27;
-            v119 = v114;
+            v122 = v31;
+            v123 = v118;
             do
             {
-              v117 = v16[v190[v116]];
-              if (v117[v190[v119]] < v107)
+              v121 = v16[v194[v120]];
+              if (v121[v194[v123]] < v111)
               {
-                v64 = v119;
-                v67 = v116;
-                v107 = v117[v190[v119]];
+                v68 = v123;
+                v71 = v120;
+                v111 = v121[v194[v123]];
               }
 
-              ++v119;
-              --v118;
+              ++v123;
+              --v122;
             }
 
-            while (v118);
+            while (v122);
           }
 
-          --v27;
-          v115 = v201;
+          --v31;
+          v119 = v205;
         }
 
-        while (v114 != v201);
+        while (v118 != v205);
       }
 
-      v120 = v18[v67];
-      if (v120 && (v121 = v18[v64]) != 0)
+      v124 = v19[v71];
+      if (v124 && (v125 = v19[v68]) != 0)
       {
-        v122 = v64;
-        v123 = v67;
-        v124 = v197[v67];
-        v125 = v122;
-        v126 = v197[v122];
-        if (v126 + v124)
+        v126 = v68;
+        v127 = v71;
+        v128 = v201[v71];
+        v129 = v126;
+        v130 = v201[v126];
+        if (v130 + v128)
         {
-          v127 = malloc_type_calloc(8uLL, v126 + v124, 0x2CC347CAuLL);
-          memcpy(v127, v120, 8 * v124);
-          memcpy(&v127[8 * v124], v121, 8 * v126);
+          v131 = malloc_type_calloc(8uLL, v130 + v128, 0x2CC347CAuLL);
+          memcpy(v131, v124, 8 * v128);
+          memcpy(&v131[8 * v128], v125, 8 * v130);
         }
 
         else
         {
-          v127 = 0;
+          v131 = 0;
         }
 
-        v18 = v198;
-        v67 = v123;
-        v64 = v125;
+        v19 = v202;
+        v71 = v127;
+        v68 = v129;
       }
 
       else
       {
-        v127 = 0;
+        v131 = 0;
       }
 
-      v22 = v197;
-      v107 = [(PLHierarchicalClustering *)selfCopy _clustroidIndexForClusters:v127 numberOfObjects:v197[v64] + v197[v67] distances:v16 relativeDistanceCache:v15, v107];
-      if (v107 == 0x7FFFFFFF)
+      v24 = v201;
+      v111 = [(PLHierarchicalClustering *)selfCopy _clustroidIndexForClusters:v131 numberOfObjects:v201[v68] + v201[v71] distances:v16 relativeDistanceCache:v15, v111];
+      if (v111 == 0x7FFFFFFF)
       {
-        v28 = selfCopy;
-        if (v127)
+        v32 = selfCopy;
+        if (v131)
         {
-          free(v127);
+          free(v131);
         }
 
         goto LABEL_286;
       }
 
-      v190[v67] = v107;
-      if (v201 < 2)
+      v194[v71] = v111;
+      if (v205 < 2)
       {
-        v130 = 0;
-        v133 = v190;
+        v134 = 0;
+        v137 = v194;
       }
 
       else
       {
-        v129 = malloc_type_calloc(8uLL, v201 - 1, 0x80AA52DDuLL);
-        v130 = v129;
-        v131 = 0;
-        v132 = 0;
+        v133 = malloc_type_calloc(8uLL, v205 - 1, 0x80AA52DDuLL);
+        v134 = v133;
+        v135 = 0;
+        v136 = 0;
         do
         {
-          if (v64 != v131)
+          if (v68 != v135)
           {
-            v129[v132++] = v190[v131];
+            v133[v136++] = v194[v135];
           }
 
-          ++v131;
+          ++v135;
         }
 
-        while (v201 != v131);
-        v133 = v190;
-        if (!v190)
+        while (v205 != v135);
+        v137 = v194;
+        if (!v194)
         {
-          if (v127)
+          if (v131)
           {
             goto LABEL_202;
           }
@@ -351,15 +355,15 @@ LABEL_252:
         }
       }
 
-      free(v133);
-      if (v127)
+      free(v137);
+      if (v131)
       {
 LABEL_202:
-        free(v127);
+        free(v131);
       }
 
 LABEL_203:
-      v190 = v130;
+      v194 = v134;
       goto LABEL_204;
     }
 
@@ -368,81 +372,81 @@ LABEL_203:
       if (linkage == 5)
       {
         clusterKeyElementBlock = [(PLDataClustering *)selfCopy clusterKeyElementBlock];
-        v51 = 0;
-        v52 = 0;
-        v53 = 0;
-        v54 = clusterKeyElementBlock + 2;
-        v55 = 3.40282347e38;
-        v56 = v184;
+        v55 = 0;
+        v56 = 0;
+        v57 = 0;
+        v58 = clusterKeyElementBlock + 2;
+        v59 = 3.40282347e38;
+        v60 = v188;
         do
         {
-          if (!v18[v53])
+          if (!v19[v57])
           {
             __assert_rtn("[PLHierarchicalClustering performWithDataset:progressBlock:]", "PLHierarchicalClustering.m", 190, "clustersIndices[i] != NULL");
           }
 
-          v57 = v53;
-          v58 = v53 + 1;
-          v191 = v53 + 1;
-          v192 = v56;
-          if (v53 + 1 < v201)
+          v61 = v57;
+          v62 = v57 + 1;
+          v195 = v57 + 1;
+          v196 = v60;
+          if (v57 + 1 < v205)
           {
-            v59 = v56;
-            v194 = v53;
+            v63 = v60;
+            v198 = v57;
             do
             {
-              if (v198[v58])
+              if (v202[v62])
               {
                 if (usesSortedDataRelativeDistanceCache)
                 {
-                  v60 = 3.40282347e38;
+                  v64 = 3.40282347e38;
                 }
 
                 else
                 {
-                  v195 = v51;
-                  v196 = v52;
-                  v61 = v54;
-                  v62 = (clusterKeyElementBlock)[2](clusterKeyElementBlock, v198, v57, v197[v57], v200);
-                  v63 = v61;
-                  v60 = v16[v62][(clusterKeyElementBlock)[2](clusterKeyElementBlock, v198, v58, v197[v58], v200)];
-                  v30 = v193;
-                  v57 = v194;
-                  v51 = v195;
-                  v52 = v196;
-                  v54 = v63;
+                  v199 = v55;
+                  v200 = v56;
+                  v65 = v58;
+                  v66 = (clusterKeyElementBlock)[2](clusterKeyElementBlock, v202, v61, v201[v61], v204);
+                  v67 = v65;
+                  v64 = v16[v66][(clusterKeyElementBlock)[2](clusterKeyElementBlock, v202, v62, v201[v62], v204)];
+                  v34 = v197;
+                  v61 = v198;
+                  v55 = v199;
+                  v56 = v200;
+                  v58 = v67;
                 }
 
-                if (v60 < v55)
+                if (v64 < v59)
                 {
-                  v52 = v58;
-                  v51 = v57;
-                  v55 = v60;
+                  v56 = v62;
+                  v55 = v61;
+                  v59 = v64;
                 }
               }
 
-              ++v58;
-              --v59;
+              ++v62;
+              --v63;
             }
 
-            while (v59);
+            while (v63);
           }
 
-          v53 = v191;
-          v56 = v192 - 1;
-          v18 = v198;
+          v57 = v195;
+          v60 = v196 - 1;
+          v19 = v202;
         }
 
-        while (v191 != v201);
-        v64 = v52;
-        v65 = v51;
-        v28 = selfCopy;
+        while (v195 != v205);
+        v68 = v56;
+        v69 = v55;
+        v32 = selfCopy;
         threshold = selfCopy->_threshold;
 
-        v22 = v197;
-        if (v55 <= threshold)
+        v24 = v201;
+        if (v59 <= threshold)
         {
-          v67 = v65;
+          v71 = v69;
           goto LABEL_204;
         }
 
@@ -453,157 +457,157 @@ LABEL_350:
       __assert_rtn("[PLHierarchicalClustering performWithDataset:progressBlock:]", "PLHierarchicalClustering.m", 474, "idx1 != idx2");
     }
 
-    v84 = 0;
-    v85 = 0;
-    v86 = 0;
-    v87 = 3.40282347e38;
-    while (v84 < [v200 count])
+    v88 = 0;
+    v89 = 0;
+    v90 = 0;
+    v91 = 3.40282347e38;
+    while (v88 < objc_msgSend_count(v204))
     {
-      if (!v18[v84])
+      if (!v19[v88])
       {
         __assert_rtn("[PLHierarchicalClustering performWithDataset:progressBlock:]", "PLHierarchicalClustering.m", 222, "clustersIndices[i] != NULL");
       }
 
-      for (m = v84 + 1; m < [v200 count]; ++m)
+      for (m = v88 + 1; m < objc_msgSend_count(v204); ++m)
       {
-        if (v18[m] && !v30[v84] && !v30[m])
+        if (v19[m] && !v34[v88] && !v34[m])
         {
-          v89 = usesSortedDataRelativeDistanceCache ? 3.40282347e38 : v16[v84][m];
-          if (v89 < v87)
+          v93 = usesSortedDataRelativeDistanceCache ? 3.40282347e38 : v16[v88][m];
+          if (v93 < v91)
           {
-            v85 = m;
-            v86 = v84;
-            v87 = v89;
+            v89 = m;
+            v90 = v88;
+            v91 = v93;
           }
         }
       }
 
-      ++v84;
+      ++v88;
     }
 
-    v28 = selfCopy;
-    if (v87 > selfCopy->_threshold)
+    v32 = selfCopy;
+    if (v91 > selfCopy->_threshold)
     {
       goto LABEL_286;
     }
 
-    v67 = v86;
-    v64 = v85;
+    v71 = v90;
+    v68 = v89;
 LABEL_204:
-    if (v67 == v64)
+    if (v71 == v68)
     {
       goto LABEL_350;
     }
 
-    v134 = v18[v67];
-    if (!v134)
+    v138 = v19[v71];
+    if (!v138)
     {
-      v141 = 0;
+      v145 = 0;
       goto LABEL_214;
     }
 
-    v135 = v18[v64];
-    if (!v135)
+    v139 = v19[v68];
+    if (!v139)
     {
-      v141 = 0;
-      v22 = v197;
+      v145 = 0;
+      v24 = v201;
 LABEL_213:
-      free(v134);
+      free(v138);
       goto LABEL_214;
     }
 
-    v136 = v64;
-    v137 = v67;
-    v138 = v197[v67];
-    v139 = v136;
-    v140 = v197[v136];
-    if (!(v140 + v138))
+    v140 = v68;
+    v141 = v71;
+    v142 = v201[v71];
+    v143 = v140;
+    v144 = v201[v140];
+    if (!(v144 + v142))
     {
-      v141 = 0;
-      v22 = v197;
-      v18 = v198;
-      v67 = v137;
-      v64 = v136;
+      v145 = 0;
+      v24 = v201;
+      v19 = v202;
+      v71 = v141;
+      v68 = v140;
       goto LABEL_213;
     }
 
-    v141 = malloc_type_calloc(8uLL, v140 + v138, 0x2CC347CAuLL);
-    memcpy(v141, v134, 8 * v138);
-    memcpy(&v141[8 * v138], v135, 8 * v140);
-    v22 = v197;
-    v18 = v198;
-    v67 = v137;
-    v134 = v198[v137];
-    v64 = v139;
-    if (v134)
+    v145 = malloc_type_calloc(8uLL, v144 + v142, 0x2CC347CAuLL);
+    memcpy(v145, v138, 8 * v142);
+    memcpy(&v145[8 * v142], v139, 8 * v144);
+    v24 = v201;
+    v19 = v202;
+    v71 = v141;
+    v138 = v202[v141];
+    v68 = v143;
+    if (v138)
     {
       goto LABEL_213;
     }
 
 LABEL_214:
-    v18[v67] = v141;
-    v22[v67] += v22[v64];
+    v19[v71] = v145;
+    v24[v71] += v24[v68];
     if (selfCopy->_linkage == 4)
     {
-      v30[v64] = 1;
+      v34[v68] = 1;
       clusterConsolidationBlock = [(PLDataClustering *)selfCopy clusterConsolidationBlock];
-      v143 = (clusterConsolidationBlock)[2](clusterConsolidationBlock, v18, v67, v22[v67], v200);
-      [v186 setObject:v143 atIndexedSubscript:v67];
-      for (n = 0; n < [v200 count]; ++n)
+      v147 = (clusterConsolidationBlock)[2](clusterConsolidationBlock, v19, v71, v24[v71], v204);
+      [v190 setObject:v147 atIndexedSubscript:v71];
+      for (n = 0; n < objc_msgSend_count(v204); ++n)
       {
-        if (v67 != n && !(v30[n] | usesSortedDataRelativeDistanceCache))
+        if (v71 != n && !(v34[n] | usesSortedDataRelativeDistanceCache))
         {
-          v145 = [v186 objectAtIndexedSubscript:n];
-          v146 = (distanceBlock)[2](distanceBlock, v143, v145);
-          v16[v67][n] = v146;
-          v16[n][v67] = v146;
+          v149 = [v190 objectAtIndexedSubscript:n];
+          v150 = (distanceBlock)[2](distanceBlock, v147, v149);
+          v16[v71][n] = v150;
+          v16[n][v71] = v150;
         }
       }
 
       goto LABEL_241;
     }
 
-    v147 = v18[v64];
-    if (v147)
+    v151 = v19[v68];
+    if (v151)
     {
-      free(v147);
+      free(v151);
     }
 
-    if (v201 < 2)
+    if (v205 < 2)
     {
-      v149 = 0;
+      v153 = 0;
 LABEL_232:
-      free(v18);
+      free(v19);
       goto LABEL_233;
     }
 
-    v148 = malloc_type_calloc(8uLL, v201 - 1, 0x1E3F0657uLL);
-    v149 = v148;
-    v150 = 0;
-    v151 = 0;
-    v22 = v197;
-    v18 = v198;
+    v152 = malloc_type_calloc(8uLL, v205 - 1, 0x1E3F0657uLL);
+    v153 = v152;
+    v154 = 0;
+    v155 = 0;
+    v24 = v201;
+    v19 = v202;
     do
     {
-      if (v64 != v150)
+      if (v68 != v154)
       {
-        v148[v151++] = v198[v150];
+        v152[v155++] = v202[v154];
       }
 
-      ++v150;
+      ++v154;
     }
 
-    while (v201 != v150);
-    if (v198)
+    while (v205 != v154);
+    if (v202)
     {
       goto LABEL_232;
     }
 
 LABEL_233:
-    if (v201 < 2)
+    if (v205 < 2)
     {
-      v153 = 0;
-      if (!v22)
+      v157 = 0;
+      if (!v24)
       {
         goto LABEL_240;
       }
@@ -611,70 +615,70 @@ LABEL_233:
 
     else
     {
-      v152 = malloc_type_calloc(8uLL, v201 - 1, 0x80AA52DDuLL);
-      v153 = v152;
-      v154 = 0;
-      v155 = 0;
-      v22 = v197;
+      v156 = malloc_type_calloc(8uLL, v205 - 1, 0x80AA52DDuLL);
+      v157 = v156;
+      v158 = 0;
+      v159 = 0;
+      v24 = v201;
       do
       {
-        if (v64 != v154)
+        if (v68 != v158)
         {
-          v152[v155++] = v197[v154];
+          v156[v159++] = v201[v158];
         }
 
-        ++v154;
+        ++v158;
       }
 
-      while (v201 != v154);
-      if (!v197)
+      while (v205 != v158);
+      if (!v201)
       {
         goto LABEL_240;
       }
     }
 
-    free(v22);
+    free(v24);
 LABEL_240:
-    v197 = v153;
-    v198 = v149;
+    v201 = v157;
+    v202 = v153;
 LABEL_241:
-    [v189 setCompletedUnitCount:{objc_msgSend(v189, "completedUnitCount") + 1}];
+    [v193 setCompletedUnitCount:{objc_msgSend(v193, "completedUnitCount") + 1}];
     if (blockCopy)
     {
-      [v189 fractionCompleted];
-      (*(blockCopy + 2))(blockCopy, v205 + 3);
+      [v193 fractionCompleted];
+      (*(blockCopy + 2))(blockCopy, v209 + 3);
     }
 
-    v25 = v30;
-    v19 = v201 - 1;
-    v27 = v184 - 1;
-    v22 = v197;
-    v18 = v198;
-    if (*(v205 + 24) == 1)
+    v29 = v34;
+    v20 = v205 - 1;
+    v31 = v188 - 1;
+    v24 = v201;
+    v19 = v202;
+    if (*(v209 + 24) == 1)
     {
       if (selfCopy->_linkage == 4)
       {
-        v156 = [v200 count];
-        if (v156)
+        v160 = objc_msgSend_count(v204);
+        if (v160)
         {
-          v157 = v198;
+          v161 = v202;
           do
           {
-            if (*v157)
+            if (*v161)
             {
-              free(*v157);
+              free(*v161);
             }
 
-            ++v157;
-            --v156;
+            ++v161;
+            --v160;
           }
 
-          while (v156);
+          while (v160);
           goto LABEL_274;
         }
 
 LABEL_273:
-        if (v198)
+        if (v202)
         {
           goto LABEL_274;
         }
@@ -682,48 +686,48 @@ LABEL_273:
 
       else
       {
-        if (v201 == 1)
+        if (v205 == 1)
         {
           goto LABEL_273;
         }
 
-        v158 = v198;
-        v159 = v184;
+        v162 = v202;
+        v163 = v188;
         do
         {
-          if (*v158)
+          if (*v162)
           {
-            free(*v158);
+            free(*v162);
           }
 
-          ++v158;
-          --v159;
+          ++v162;
+          --v163;
         }
 
-        while (v159);
+        while (v163);
 LABEL_274:
-        free(v198);
+        free(v202);
       }
 
-      if (v197)
+      if (v201)
       {
-        free(v197);
+        free(v201);
       }
 
-      if (v190)
+      if (v194)
       {
-        free(v190);
+        free(v194);
       }
 
-      if (v25)
+      if (v29)
       {
-        free(v25);
+        free(v29);
       }
 
       if (!usesSortedDataRelativeDistanceCache)
       {
 LABEL_282:
-        [(PLDataClustering *)selfCopy freeDistancesMatrix:v16 forDataset:v200];
+        [(PLDataClustering *)selfCopy freeDistancesMatrix:v16 forDataset:v204];
       }
 
 LABEL_283:
@@ -742,122 +746,122 @@ LABEL_283:
       }
 
       linkage = 0;
-      v32 = 0;
-      v33 = 0;
-      v34 = 3.40282347e38;
+      v36 = 0;
+      v37 = 0;
+      v38 = 3.40282347e38;
       while (1)
       {
-        v35 = v18[v33];
-        if (!v35)
+        v39 = v19[v37];
+        if (!v39)
         {
           __assert_rtn("[PLHierarchicalClustering performWithDataset:progressBlock:]", "PLHierarchicalClustering.m", 366, "clustersIndices[i] != NULL");
         }
 
-        v36 = v33++;
-        if (v33 < v201)
+        v40 = v37++;
+        if (v37 < v205)
         {
           break;
         }
 
 LABEL_72:
-        if (v33 == v201)
+        if (v37 == v205)
         {
           goto LABEL_165;
         }
       }
 
-      v37 = v33;
+      v41 = v37;
       while (2)
       {
-        if (v18[v37])
+        if (v19[v41])
         {
-          v38 = v22[v36];
+          v42 = v24[v40];
           if (usesSortedDataRelativeDistanceCache)
           {
-            if (v38)
+            if (v42)
             {
-              v39 = 0;
-              v40 = 3.40282347e38;
+              v43 = 0;
+              v44 = 3.40282347e38;
               do
               {
-                if (v22[v37])
+                if (v24[v41])
                 {
-                  v41 = v18[v37];
-                  v42 = v22[v37];
+                  v45 = v19[v41];
+                  v46 = v24[v41];
                   do
                   {
-                    v43 = *v41++;
-                    v44 = v15[v35[v39]] - v15[v43];
-                    if (v44 < 0.0)
+                    v47 = *v45++;
+                    v48 = v15[v39[v43]] - v15[v47];
+                    if (v48 < 0.0)
                     {
-                      v44 = -v44;
+                      v48 = -v48;
                     }
 
-                    if (v44 < v40)
+                    if (v48 < v44)
                     {
-                      v40 = v44;
+                      v44 = v48;
                     }
 
-                    --v42;
+                    --v46;
                   }
 
-                  while (v42);
+                  while (v46);
                 }
 
-                ++v39;
+                ++v43;
               }
 
-              while (v39 != v38);
+              while (v43 != v42);
               goto LABEL_69;
             }
 
 LABEL_68:
-            v40 = 3.40282347e38;
+            v44 = 3.40282347e38;
             goto LABEL_69;
           }
 
-          if (!v38)
+          if (!v42)
           {
             goto LABEL_68;
           }
 
-          v45 = 0;
-          v40 = 3.40282347e38;
+          v49 = 0;
+          v44 = 3.40282347e38;
           do
           {
-            if (v22[v37])
+            if (v24[v41])
             {
-              v46 = v18[v37];
-              v47 = v22[v37];
+              v50 = v19[v41];
+              v51 = v24[v41];
               do
               {
-                v48 = *v46++;
-                v49 = v16[v35[v45]][v48];
-                if (v49 < v40)
+                v52 = *v50++;
+                v53 = v16[v39[v49]][v52];
+                if (v53 < v44)
                 {
-                  v40 = v49;
+                  v44 = v53;
                 }
 
-                --v47;
+                --v51;
               }
 
-              while (v47);
+              while (v51);
             }
 
-            ++v45;
+            ++v49;
           }
 
-          while (v45 != v38);
+          while (v49 != v42);
 LABEL_69:
-          if (v40 < v34)
+          if (v44 < v38)
           {
-            v32 = v37;
-            linkage = v36;
-            v34 = v40;
+            v36 = v41;
+            linkage = v40;
+            v38 = v44;
           }
         }
 
-        if (++v37 == v201)
+        if (++v41 == v205)
         {
           goto LABEL_72;
         }
@@ -867,114 +871,114 @@ LABEL_69:
     }
 
     linkage = 0;
-    v32 = 0;
-    v68 = 0;
-    v34 = 3.40282347e38;
+    v36 = 0;
+    v72 = 0;
+    v38 = 3.40282347e38;
     while (1)
     {
-      v69 = v18[v68];
-      if (!v69)
+      v73 = v19[v72];
+      if (!v73)
       {
         __assert_rtn("[PLHierarchicalClustering performWithDataset:progressBlock:]", "PLHierarchicalClustering.m", 317, "clustersIndices[i] != NULL");
       }
 
-      v70 = v68++;
-      if (v68 < v201)
+      v74 = v72++;
+      if (v72 < v205)
       {
         break;
       }
 
 LABEL_117:
-      if (v68 == v201)
+      if (v72 == v205)
       {
         goto LABEL_165;
       }
     }
 
-    v71 = v68;
+    v75 = v72;
     while (2)
     {
-      if (v18[v71])
+      if (v19[v75])
       {
-        v72 = v22[v70];
+        v76 = v24[v74];
         if (usesSortedDataRelativeDistanceCache)
         {
-          if (v72)
+          if (v76)
           {
-            v73 = 0;
-            v74 = 0.0;
+            v77 = 0;
+            v78 = 0.0;
             do
             {
-              if (v22[v71])
+              if (v24[v75])
               {
-                v75 = v18[v71];
-                v76 = v22[v71];
+                v79 = v19[v75];
+                v80 = v24[v75];
                 do
                 {
-                  v77 = *v75++;
-                  v78 = v15[v69[v73]] - v15[v77];
-                  if (v78 < 0.0)
+                  v81 = *v79++;
+                  v82 = v15[v73[v77]] - v15[v81];
+                  if (v82 < 0.0)
                   {
-                    v78 = -v78;
+                    v82 = -v82;
                   }
 
-                  v74 = v74 + v78;
-                  --v76;
+                  v78 = v78 + v82;
+                  --v80;
                 }
 
-                while (v76);
+                while (v80);
               }
 
-              ++v73;
+              ++v77;
             }
 
-            while (v73 != v72);
+            while (v77 != v76);
             goto LABEL_114;
           }
 
 LABEL_113:
-          v74 = 0.0;
+          v78 = 0.0;
           goto LABEL_114;
         }
 
-        if (!v72)
+        if (!v76)
         {
           goto LABEL_113;
         }
 
-        v79 = 0;
-        v74 = 0.0;
+        v83 = 0;
+        v78 = 0.0;
         do
         {
-          if (v22[v71])
+          if (v24[v75])
           {
-            v80 = v18[v71];
-            v81 = v22[v71];
+            v84 = v19[v75];
+            v85 = v24[v75];
             do
             {
-              v82 = *v80++;
-              v74 = v74 + v16[v69[v79]][v82];
-              --v81;
+              v86 = *v84++;
+              v78 = v78 + v16[v73[v83]][v86];
+              --v85;
             }
 
-            while (v81);
+            while (v85);
           }
 
-          ++v79;
+          ++v83;
         }
 
-        while (v79 != v72);
+        while (v83 != v76);
 LABEL_114:
-        v83 = v74 / (v22[v71] * v72);
-        if (v83 < v34)
+        v87 = v78 / (v24[v75] * v76);
+        if (v87 < v38)
         {
-          v32 = v71;
-          linkage = v70;
-          v34 = v83;
+          v36 = v75;
+          linkage = v74;
+          v38 = v87;
         }
       }
 
-      if (++v71 == v201)
+      if (++v75 == v205)
       {
         goto LABEL_117;
       }
@@ -983,117 +987,117 @@ LABEL_114:
     }
   }
 
-  v34 = 3.40282347e38;
-  v32 = 0;
-  v90 = 0;
+  v38 = 3.40282347e38;
+  v36 = 0;
+  v94 = 0;
   while (2)
   {
-    v91 = v18[v90];
-    if (!v91)
+    v95 = v19[v94];
+    if (!v95)
     {
       __assert_rtn("[PLHierarchicalClustering performWithDataset:progressBlock:]", "PLHierarchicalClustering.m", 255, "clustersIndices[i] != NULL");
     }
 
-    v92 = v90++;
-    if (v90 < v201)
+    v96 = v94++;
+    if (v94 < v205)
     {
-      v93 = v90;
-      while (!v18[v93])
+      v97 = v94;
+      while (!v19[v97])
       {
 LABEL_163:
-        if (++v93 == v201)
+        if (++v97 == v205)
         {
           goto LABEL_164;
         }
       }
 
-      v94 = v22[v92];
+      v98 = v24[v96];
       if (usesSortedDataRelativeDistanceCache)
       {
-        if (v94)
+        if (v98)
         {
-          v95 = 0;
-          v96 = 0.0;
+          v99 = 0;
+          v100 = 0.0;
           do
           {
-            if (v22[v93])
+            if (v24[v97])
             {
-              v97 = v18[v93];
-              v98 = v22[v93];
+              v101 = v19[v97];
+              v102 = v24[v97];
               do
               {
-                v99 = *v97++;
-                v100 = v15[v91[v95]] - v15[v99];
-                if (v100 < 0.0)
+                v103 = *v101++;
+                v104 = v15[v95[v99]] - v15[v103];
+                if (v104 < 0.0)
                 {
-                  v100 = -v100;
+                  v104 = -v104;
                 }
 
-                if (v100 > v96)
+                if (v104 > v100)
                 {
-                  v96 = v100;
+                  v100 = v104;
                 }
 
-                --v98;
+                --v102;
               }
 
-              while (v98);
+              while (v102);
             }
 
-            ++v95;
+            ++v99;
           }
 
-          while (v95 != v94);
+          while (v99 != v98);
           goto LABEL_161;
         }
       }
 
-      else if (v94)
+      else if (v98)
       {
-        v101 = 0;
-        v96 = 0.0;
+        v105 = 0;
+        v100 = 0.0;
         do
         {
-          if (v22[v93])
+          if (v24[v97])
           {
-            v102 = v18[v93];
-            v103 = v22[v93];
+            v106 = v19[v97];
+            v107 = v24[v97];
             do
             {
-              v104 = *v102++;
-              v105 = v16[v91[v101]][v104];
-              if (v105 > v96)
+              v108 = *v106++;
+              v109 = v16[v95[v105]][v108];
+              if (v109 > v100)
               {
-                v96 = v105;
+                v100 = v109;
               }
 
-              --v103;
+              --v107;
             }
 
-            while (v103);
+            while (v107);
           }
 
-          ++v101;
+          ++v105;
         }
 
-        while (v101 != v94);
+        while (v105 != v98);
         goto LABEL_161;
       }
 
-      v96 = 0.0;
+      v100 = 0.0;
 LABEL_161:
-      if (v96 < v34)
+      if (v100 < v38)
       {
-        v32 = v93;
-        linkage = v92;
-        v34 = v96;
+        v36 = v97;
+        linkage = v96;
+        v38 = v100;
       }
 
       goto LABEL_163;
     }
 
 LABEL_164:
-    if (v90 != v201)
+    if (v94 != v205)
     {
       continue;
     }
@@ -1102,141 +1106,141 @@ LABEL_164:
   }
 
 LABEL_165:
-  v28 = selfCopy;
-  if (v34 <= selfCopy->_threshold)
+  v32 = selfCopy;
+  if (v38 <= selfCopy->_threshold)
   {
-    v67 = linkage;
-    v64 = v32;
+    v71 = linkage;
+    v68 = v36;
     goto LABEL_204;
   }
 
 LABEL_286:
-  v160 = v30;
-  if (v28->_linkage == 4)
+  v164 = v34;
+  if (v32->_linkage == 4)
   {
-    v161 = [v200 count];
-    v17 = [MEMORY[0x1E695DF70] arrayWithCapacity:v161];
-    if (v161)
+    v165 = objc_msgSend_count(v204);
+    v17 = [MEMORY[0x1E695DF70] arrayWithCapacity:v165];
+    if (v165)
     {
-      for (ii = 0; ii != v161; ++ii)
+      for (ii = 0; ii != v165; ++ii)
       {
-        if (!v193[ii])
+        if (!v197[ii])
         {
-          v163 = v18[ii];
-          if (!v163)
+          v167 = v19[ii];
+          if (!v167)
           {
             __assert_rtn("[PLHierarchicalClustering performWithDataset:progressBlock:]", "PLHierarchicalClustering.m", 551, "clustersIndicesIndex != NULL");
           }
 
-          v164 = [MEMORY[0x1E695DF70] arrayWithCapacity:v197[ii]];
-          if (v197[ii])
+          v168 = [MEMORY[0x1E695DF70] arrayWithCapacity:v201[ii]];
+          if (v201[ii])
           {
-            v165 = 0;
+            v169 = 0;
             do
             {
-              v166 = [v200 objectAtIndexedSubscript:v163[v165]];
-              [v164 addObject:v166];
+              v170 = [v204 objectAtIndexedSubscript:v167[v169]];
+              [v168 addObject:v170];
 
-              ++v165;
+              ++v169;
             }
 
-            while (v165 < v197[ii]);
+            while (v169 < v201[ii]);
           }
 
-          v167 = [PLDataCluster clusterWithObjects:v164];
-          [v17 addObject:v167];
+          v171 = [PLDataCluster clusterWithObjects:v168];
+          [v17 addObject:v171];
 
-          v18 = v198;
+          v19 = v202;
         }
       }
 
-      v22 = v197;
+      v24 = v201;
       goto LABEL_304;
     }
 
-    v22 = v197;
+    v24 = v201;
   }
 
   else
   {
-    v17 = [MEMORY[0x1E695DF70] arrayWithCapacity:v201];
-    if (v201)
+    v17 = [MEMORY[0x1E695DF70] arrayWithCapacity:v205];
+    if (v205)
     {
-      for (jj = 0; jj != v201; ++jj)
+      for (jj = 0; jj != v205; ++jj)
       {
-        v169 = v18[jj];
-        if (!v169)
+        v173 = v19[jj];
+        if (!v173)
         {
           __assert_rtn("[PLHierarchicalClustering performWithDataset:progressBlock:]", "PLHierarchicalClustering.m", 568, "clustersIndicesIndex != NULL");
         }
 
-        v170 = [MEMORY[0x1E695DF70] arrayWithCapacity:v22[jj]];
-        if (v22[jj])
+        v174 = [MEMORY[0x1E695DF70] arrayWithCapacity:v24[jj]];
+        if (v24[jj])
         {
-          v171 = 0;
+          v175 = 0;
           do
           {
-            v172 = [v200 objectAtIndexedSubscript:v169[v171]];
-            [v170 addObject:v172];
+            v176 = [v204 objectAtIndexedSubscript:v173[v175]];
+            [v174 addObject:v176];
 
-            ++v171;
+            ++v175;
           }
 
-          while (v171 < v197[jj]);
+          while (v175 < v201[jj]);
         }
 
-        v173 = [PLDataCluster clusterWithObjects:v170];
-        [v17 addObject:v173];
+        v177 = [PLDataCluster clusterWithObjects:v174];
+        [v17 addObject:v177];
 
-        v22 = v197;
-        v18 = v198;
+        v24 = v201;
+        v19 = v202;
       }
 
 LABEL_304:
-      v160 = v193;
+      v164 = v197;
     }
   }
 
   if (selfCopy->_linkage == 3)
   {
-    for (kk = 0; kk < [v17 count]; ++kk)
+    for (kk = 0; kk < objc_msgSend_count(v17); ++kk)
     {
-      v175 = [v17 objectAtIndexedSubscript:kk];
-      v176 = [v200 objectAtIndexedSubscript:v190[kk]];
-      [v175 setClustroid:v176];
+      v179 = [v17 objectAtIndexedSubscript:kk];
+      v180 = [v204 objectAtIndexedSubscript:v194[kk]];
+      [v179 setClustroid:v180];
     }
   }
 
-  [v189 setCompletedUnitCount:{objc_msgSend(v189, "totalUnitCount")}];
+  [v193 setCompletedUnitCount:{objc_msgSend(v193, "totalUnitCount")}];
   if (blockCopy)
   {
-    [v189 fractionCompleted];
-    (*(blockCopy + 2))(blockCopy, v205 + 3);
+    [v193 fractionCompleted];
+    (*(blockCopy + 2))(blockCopy, v209 + 3);
   }
 
   if (selfCopy->_linkage == 4)
   {
-    v177 = [v200 count];
-    if (v177)
+    v181 = objc_msgSend_count(v204);
+    if (v181)
     {
-      v178 = v18;
+      v182 = v19;
       do
       {
-        if (*v178)
+        if (*v182)
         {
-          free(*v178);
+          free(*v182);
         }
 
-        ++v178;
-        --v177;
+        ++v182;
+        --v181;
       }
 
-      while (v177);
+      while (v181);
       goto LABEL_326;
     }
 
 LABEL_325:
-    if (v18)
+    if (v19)
     {
       goto LABEL_326;
     }
@@ -1244,46 +1248,46 @@ LABEL_325:
 
   else
   {
-    if (!v201)
+    if (!v205)
     {
       goto LABEL_325;
     }
 
-    v179 = v18;
+    v183 = v19;
     do
     {
-      if (*v179)
+      if (*v183)
       {
-        free(*v179);
+        free(*v183);
       }
 
-      ++v179;
-      --v201;
+      ++v183;
+      --v205;
     }
 
-    while (v201);
+    while (v205);
 LABEL_326:
-    free(v18);
+    free(v19);
   }
 
-  if (v22)
+  if (v24)
   {
-    free(v22);
+    free(v24);
   }
 
-  if (v190)
+  if (v194)
   {
-    free(v190);
+    free(v194);
   }
 
-  if (v160)
+  if (v164)
   {
-    free(v160);
+    free(v164);
   }
 
   if (!usesSortedDataRelativeDistanceCache)
   {
-    [(PLDataClustering *)selfCopy freeDistancesMatrix:v16 forDataset:v200];
+    [(PLDataClustering *)selfCopy freeDistancesMatrix:v16 forDataset:v204];
   }
 
 LABEL_335:
@@ -1293,11 +1297,11 @@ LABEL_335:
   }
 
 LABEL_338:
-  if (v183)
+  if (v187)
   {
   }
 
-  _Block_object_dispose(&v204, 8);
+  _Block_object_dispose(&v208, 8);
 
   return v17;
 }
@@ -1312,7 +1316,7 @@ uint64_t __61__PLHierarchicalClustering_performWithDataset_progressBlock___block
 - (double)_createRelativeDistanceCacheForDataset:(id)dataset
 {
   datasetCopy = dataset;
-  v5 = [datasetCopy count];
+  v5 = objc_msgSend_count(datasetCopy);
   v6 = malloc_type_calloc(v5, 8uLL, 0x100004000313F17uLL);
   *v6 = 0.0;
   if (v5 >= 2)

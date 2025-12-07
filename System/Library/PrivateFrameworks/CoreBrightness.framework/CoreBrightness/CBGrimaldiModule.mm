@@ -144,8 +144,6 @@
   {
     [(CBGrimaldiModule *)selfCopy stop];
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setGrimaldiLux
@@ -247,8 +245,6 @@
       _os_log_error_impl(&dword_1DE8E5000, v3, OS_LOG_TYPE_ERROR, "eventSource::requestEventOn returned %d", v24, 8u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)copyGainChanged
@@ -316,15 +312,15 @@ void __34__CBGrimaldiModule_setGrimaldiLux__block_invoke(uint64_t a1, uint64_t a
 
 - (CBGrimaldiModule)initWithQueue:(id)queue andEventSource:(id)source andSamplingStrategy:(id)strategy
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v65 = a2;
+  v60 = a2;
   queueCopy = queue;
   sourceCopy = source;
   strategyCopy = strategy;
-  v61.receiver = self;
-  v61.super_class = CBGrimaldiModule;
-  selfCopy = [(CBModule *)&v61 initWithQueue:queue];
+  v56.receiver = self;
+  v56.super_class = CBGrimaldiModule;
+  selfCopy = [(CBModule *)&v56 initWithQueue:queue];
   if (selfCopy)
   {
     v5 = os_log_create(CBGrimaldiModuleName, "default");
@@ -341,15 +337,14 @@ void __34__CBGrimaldiModule_setGrimaldiLux__block_invoke(uint64_t a1, uint64_t a
         inited = init_default_corebrightness_log();
       }
 
-      v60 = inited;
-      v59 = 16;
+      v55 = inited;
+      v54 = 16;
       if (os_log_type_enabled(inited, OS_LOG_TYPE_ERROR))
       {
-        log = v60;
-        *type = v59;
-        buf = v58;
-        __os_log_helper_16_0_0(v58);
-        _os_log_error_impl(&dword_1DE8E5000, log, type[0], "failed to create log handle", v58, 2u);
+        log = v55;
+        *type = v54;
+        __os_log_helper_16_0_0(v53);
+        _os_log_error_impl(&dword_1DE8E5000, log, type[0], "failed to create log handle", v53, 2u);
       }
 
       goto LABEL_50;
@@ -359,8 +354,7 @@ void __34__CBGrimaldiModule_setGrimaldiLux__block_invoke(uint64_t a1, uint64_t a
     {
 LABEL_50:
       MEMORY[0x1E69E5920](selfCopy);
-      v67 = 0;
-      goto LABEL_51;
+      return 0;
     }
 
     v6 = dispatch_queue_create(CBGrimaldiModuleName, 0);
@@ -376,26 +370,25 @@ LABEL_50:
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v35 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v31 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v35 = init_default_corebrightness_log();
+          v31 = init_default_corebrightness_log();
         }
 
-        logHandle = v35;
+        logHandle = v31;
       }
 
-      v57 = logHandle;
-      v56 = 16;
+      v52 = logHandle;
+      v51 = 16;
       if (os_log_type_enabled(logHandle, OS_LOG_TYPE_ERROR))
       {
-        v32 = v57;
-        *v33 = v56;
-        v34 = v55;
-        __os_log_helper_16_0_0(v55);
-        _os_log_error_impl(&dword_1DE8E5000, v32, v33[0], "Failed to create dispatch queue", v55, 2u);
+        v29 = v52;
+        *v30 = v51;
+        __os_log_helper_16_0_0(v50);
+        _os_log_error_impl(&dword_1DE8E5000, v29, v30[0], "Failed to create dispatch queue", v50, 2u);
       }
 
       goto LABEL_50;
@@ -406,33 +399,32 @@ LABEL_50:
     {
       if (selfCopy->super._logHandle)
       {
-        v31 = selfCopy->super._logHandle;
+        v28 = selfCopy->super._logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v30 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v27 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v30 = init_default_corebrightness_log();
+          v27 = init_default_corebrightness_log();
         }
 
-        v31 = v30;
+        v28 = v27;
       }
 
-      v54 = v31;
-      v53 = 0;
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v49 = v28;
+      v48 = 0;
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = v54;
-        *v28 = v53;
-        v29 = v52;
-        __os_log_helper_16_0_0(v52);
-        _os_log_impl(&dword_1DE8E5000, v27, v28[0], "Event Source is nil", v52, 2u);
+        v25 = v49;
+        *v26 = v48;
+        __os_log_helper_16_0_0(v47);
+        _os_log_impl(&dword_1DE8E5000, v25, v26[0], "Event Source is nil", v47, 2u);
       }
 
       goto LABEL_50;
@@ -444,33 +436,32 @@ LABEL_50:
     {
       if (selfCopy->super._logHandle)
       {
-        v26 = selfCopy->super._logHandle;
+        v24 = selfCopy->super._logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v25 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v23 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v25 = init_default_corebrightness_log();
+          v23 = init_default_corebrightness_log();
         }
 
-        v26 = v25;
+        v24 = v23;
       }
 
-      v51 = v26;
-      v50 = 0;
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v46 = v24;
+      v45 = 0;
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = v51;
-        *v23 = v50;
-        v24 = v49;
-        __os_log_helper_16_0_0(v49);
-        _os_log_impl(&dword_1DE8E5000, v22, v23[0], "Sampling Strategy is nil", v49, 2u);
+        v21 = v46;
+        *v22 = v45;
+        __os_log_helper_16_0_0(v44);
+        _os_log_impl(&dword_1DE8E5000, v21, v22[0], "Sampling Strategy is nil", v44, 2u);
       }
 
       goto LABEL_50;
@@ -480,44 +471,44 @@ LABEL_50:
     selfCopy->_samplingStrategy = v8;
     if (selfCopy->super._logHandle)
     {
-      v21 = selfCopy->super._logHandle;
+      v20 = selfCopy->super._logHandle;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v20 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v19 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v20 = init_default_corebrightness_log();
+        v19 = init_default_corebrightness_log();
       }
 
-      v21 = v20;
+      v20 = v19;
     }
 
-    v48 = v21;
-    v47 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v43 = v20;
+    v42 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = v48;
-      *v18 = v47;
+      v16 = v43;
+      *v17 = v42;
       samplingStrategy = selfCopy->_samplingStrategy;
       eventSource = selfCopy->_eventSource;
-      v19 = v68;
-      __os_log_helper_16_2_2_8_64_8_64(v68, samplingStrategy, eventSource);
-      _os_log_impl(&dword_1DE8E5000, v48, v47, "Grimaldi init: %@, %@", v68, 0x16u);
+      v18 = v63;
+      __os_log_helper_16_2_2_8_64_8_64(v63, samplingStrategy, eventSource);
+      _os_log_impl(&dword_1DE8E5000, v43, v42, "Grimaldi init: %@, %@", v63, 0x16u);
     }
 
     workQueue = selfCopy->_workQueue;
     block = MEMORY[0x1E69E9820];
-    v42 = -1073741824;
-    v43 = 0;
-    v44 = __69__CBGrimaldiModule_initWithQueue_andEventSource_andSamplingStrategy___block_invoke;
-    v45 = &unk_1E867B480;
-    v46 = selfCopy;
+    v37 = -1073741824;
+    v38 = 0;
+    v39 = __69__CBGrimaldiModule_initWithQueue_andEventSource_andSamplingStrategy___block_invoke;
+    v40 = &unk_1E867B480;
+    v41 = selfCopy;
     dispatch_async(workQueue, &block);
     selfCopy->_samplingTime = -1;
     selfCopy->_provideLux = 1;
@@ -532,11 +523,7 @@ LABEL_50:
     selfCopy->_validKeys = v14;
   }
 
-  v67 = selfCopy;
-LABEL_51:
-  v16 = v67;
-  *MEMORY[0x1E69E9840];
-  return v67;
+  return selfCopy;
 }
 
 void __69__CBGrimaldiModule_initWithQueue_andEventSource_andSamplingStrategy___block_invoke(uint64_t a1)
@@ -590,8 +577,6 @@ void __69__CBGrimaldiModule_initWithQueue_andEventSource_andSamplingStrategy___b
     __os_log_helper_16_0_2_8_0_8_0(v4, *(*(a1 + 32) + 80), *(a1 + 40));
     _os_log_impl(&dword_1DE8E5000, v2, OS_LOG_TYPE_DEFAULT, "Grimaldi init: correction factor = %f (found %f)", v4, 0x16u);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -738,7 +723,7 @@ void __69__CBGrimaldiModule_initWithQueue_andEventSource_andSamplingStrategy___b
       _os_log_debug_impl(&dword_1DE8E5000, v7, OS_LOG_TYPE_DEBUG, "copyPropertyForKey returning value: %@", v14, 0xCu);
     }
 
-    v10 = [(NSMutableDictionary *)self->_currentRLuxOutputDict copy];
+    return [(NSMutableDictionary *)self->_currentRLuxOutputDict copy];
   }
 
   else if (([key isEqualToString:@"RLuxOverride"] & 1) != 0 && self->_overriding)
@@ -762,7 +747,6 @@ void __69__CBGrimaldiModule_initWithQueue_andEventSource_andSamplingStrategy___b
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -980,7 +964,6 @@ void __69__CBGrimaldiModule_initWithQueue_andEventSource_andSamplingStrategy___b
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -1019,8 +1002,17 @@ void __69__CBGrimaldiModule_initWithQueue_andEventSource_andSamplingStrategy___b
 
       else
       {
-        v4 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
-        logHandle = v4;
+        if (_COREBRIGHTNESS_LOG_DEFAULT)
+        {
+          inited = _COREBRIGHTNESS_LOG_DEFAULT;
+        }
+
+        else
+        {
+          inited = init_default_corebrightness_log();
+        }
+
+        logHandle = inited;
       }
 
       if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
@@ -1035,8 +1027,6 @@ void __69__CBGrimaldiModule_initWithQueue_andEventSource_andSamplingStrategy___b
   {
     (*(self->super._notificationBlock + 2))();
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)grimaldiLuxReceived:(ApplePhotonDetectorServicesLuxInfo *)received
@@ -1084,7 +1074,7 @@ void __69__CBGrimaldiModule_initWithQueue_andEventSource_andSamplingStrategy___b
     [(CBGrimaldiModule *)selfCopy sendNotificationForKey:@"RLuxOutput" withValue:v47];
     MEMORY[0x1E69E5920](v47);
     objc_autoreleasePoolPop(context);
-    goto LABEL_61;
+    return;
   }
 
   if (selfCopy->_overriding)
@@ -1122,7 +1112,7 @@ void __69__CBGrimaldiModule_initWithQueue_andEventSource_andSamplingStrategy___b
       _os_log_debug_impl(&dword_1DE8E5000, v46, v45, "[Overriding] Rear Lux Dictionary: lux = %f, gain = %f, numSamples= %d, absoluteTime = %ld, StrobeCoex = %d, JasperCoex = %d, GainChanged = %d", v54, 0x38u);
     }
 
-    goto LABEL_61;
+    return;
   }
 
   if (receivedCopy->var5)
@@ -1244,7 +1234,7 @@ void __69__CBGrimaldiModule_initWithQueue_andEventSource_andSamplingStrategy___b
     selfCopy->_currentNumSamples = [(CBGrimaldiSamplingStrategy *)selfCopy->_samplingStrategy getNextNumberOfSamplesFromNewLux:selfCopy->_lastLux withLastLux:v10];
 LABEL_60:
     objc_autoreleasePoolPop(v21);
-    goto LABEL_61;
+    return;
   }
 
   if (selfCopy->super._logHandle)
@@ -1276,9 +1266,6 @@ LABEL_60:
     __os_log_helper_16_0_0(v42);
     _os_log_fault_impl(&dword_1DE8E5000, v22, v23, "APDS framework didn't provide the requested sample", v42, 2u);
   }
-
-LABEL_61:
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)CBAPDSGetCoex
@@ -1483,8 +1470,6 @@ LABEL_61:
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)copyParam:(id)param

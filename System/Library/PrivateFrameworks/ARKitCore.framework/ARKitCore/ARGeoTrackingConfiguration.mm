@@ -37,7 +37,7 @@
   v3 = checkAvailabilityQueue;
   if (!checkAvailabilityQueue)
   {
-    v4 = ARCreateFixedPriorityDispatchQueueWithQOS("com.apple.arkit.geoTrackingConfiguration.checkAvailabilityQueue");
+    v4 = ARCreateFixedPriorityDispatchQueueWithQOS("com.apple.arkit.geoTrackingConfiguration.checkAvailabilityQueue", 21, 0);
     v5 = checkAvailabilityQueue;
     checkAvailabilityQueue = v4;
 
@@ -57,7 +57,7 @@
   v3 = locationManagerQueue;
   if (!locationManagerQueue)
   {
-    v4 = ARCreateFixedPriorityDispatchQueueWithQOS("com.apple.arkit.geoTrackingConfiguration.locationManagerQueue");
+    v4 = ARCreateFixedPriorityDispatchQueueWithQOS("com.apple.arkit.geoTrackingConfiguration.locationManagerQueue", 21, 0);
     v5 = locationManagerQueue;
     locationManagerQueue = v4;
 
@@ -124,10 +124,11 @@ uint64_t __55__ARGeoTrackingConfiguration_verifyLocationPermissions__block_invok
 
 + (BOOL)_verifyLocationPermissionsWithLocationManager:(id)manager handler:(id)handler
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   handlerCopy = handler;
-  if ([MEMORY[0x1E695FBE8] locationServicesEnabled])
+  locationServicesEnabled = [MEMORY[0x1E695FBE8] locationServicesEnabled];
+  if (locationServicesEnabled)
   {
     authorizationStatus = [managerCopy authorizationStatus];
     if (!authorizationStatus)
@@ -138,64 +139,65 @@ uint64_t __55__ARGeoTrackingConfiguration_verifyLocationPermissions__block_invok
 
     if ((authorizationStatus - 5) > 0xFFFFFFFD)
     {
-      if (![managerCopy accuracyAuthorization])
+      accuracyAuthorization = [managerCopy accuracyAuthorization];
+      if (!accuracyAuthorization)
       {
-        v15 = 1;
+        v17 = 1;
         goto LABEL_14;
       }
 
-      v9 = _ARLogGeneral_13();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = _ARLogGeneral_13(accuracyAuthorization);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v14 = objc_opt_class();
-        v11 = NSStringFromClass(v14);
-        v17 = 138543618;
-        v18 = v11;
-        v19 = 2048;
+        v16 = objc_opt_class();
+        v12 = NSStringFromClass(v16);
+        v19 = 138543618;
+        v20 = v12;
+        v21 = 2048;
         selfCopy3 = self;
-        v12 = "%{public}@ <%p>: Precise location must be authorized for app to use geo tracking.";
+        v13 = "%{public}@ <%p>: Precise location must be authorized for app to use geo tracking.";
         goto LABEL_12;
       }
     }
 
     else
     {
-      v9 = _ARLogGeneral_13();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = _ARLogGeneral_13(authorizationStatus);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v10 = objc_opt_class();
-        v11 = NSStringFromClass(v10);
-        v17 = 138543618;
-        v18 = v11;
-        v19 = 2048;
+        v11 = objc_opt_class();
+        v12 = NSStringFromClass(v11);
+        v19 = 138543618;
+        v20 = v12;
+        v21 = 2048;
         selfCopy3 = self;
-        v12 = "%{public}@ <%p>: Location services must be authorized for app to use geo tracking.";
+        v13 = "%{public}@ <%p>: Location services must be authorized for app to use geo tracking.";
 LABEL_12:
-        _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_ERROR, v12, &v17, 0x16u);
+        _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_ERROR, v13, &v19, 0x16u);
       }
     }
   }
 
   else
   {
-    v9 = _ARLogGeneral_13();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _ARLogGeneral_13(locationServicesEnabled);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v13 = objc_opt_class();
-      v11 = NSStringFromClass(v13);
-      v17 = 138543618;
-      v18 = v11;
-      v19 = 2048;
+      v14 = objc_opt_class();
+      v12 = NSStringFromClass(v14);
+      v19 = 138543618;
+      v20 = v12;
+      v21 = 2048;
       selfCopy3 = self;
-      v12 = "%{public}@ <%p>: Location services must be enabled on device to use geo tracking.";
+      v13 = "%{public}@ <%p>: Location services must be enabled on device to use geo tracking.";
       goto LABEL_12;
     }
   }
 
-  v15 = 0;
+  v17 = 0;
 LABEL_14:
 
-  return v15;
+  return v17;
 }
 
 + (BOOL)isSupportedWithOptions:(unint64_t)options
@@ -213,61 +215,62 @@ LABEL_14:
 
 + (void)checkAvailabilityWithOptions:(unint64_t)options completionHandler:(id)handler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  v7 = _ARLogGeneral_13();
+  v7 = _ARLogGeneral_13(handlerCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = objc_opt_class();
     v9 = NSStringFromClass(v8);
     *buf = 138543618;
-    v23 = v9;
-    v24 = 2048;
+    v24 = v9;
+    v25 = 2048;
     selfCopy2 = self;
     _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Checking geo tracking availability at current device location", buf, 0x16u);
   }
 
-  if ([self isSupportedWithOptions:options])
+  v10 = [self isSupportedWithOptions:options];
+  if (v10)
   {
-    v10 = +[ARGeoTrackingConfiguration checkAvailabilityQueue];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __77__ARGeoTrackingConfiguration_checkAvailabilityWithOptions_completionHandler___block_invoke_2;
-    v18[3] = &unk_1E817D0F8;
-    v11 = v19;
-    v19[0] = handlerCopy;
-    v19[1] = self;
-    v19[2] = options;
-    v12 = handlerCopy;
-    v13 = v18;
+    v11 = +[ARGeoTrackingConfiguration checkAvailabilityQueue];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __77__ARGeoTrackingConfiguration_checkAvailabilityWithOptions_completionHandler___block_invoke_2;
+    v19[3] = &unk_1E817D0F8;
+    v12 = v20;
+    v20[0] = handlerCopy;
+    v20[1] = self;
+    v20[2] = options;
+    v13 = handlerCopy;
+    v14 = v19;
   }
 
   else
   {
-    v14 = _ARLogGeneral_13();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _ARLogGeneral_13(v10);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
+      v16 = objc_opt_class();
+      v17 = NSStringFromClass(v16);
       *buf = 138543618;
-      v23 = v16;
-      v24 = 2048;
+      v24 = v17;
+      v25 = 2048;
       selfCopy2 = self;
-      _os_log_impl(&dword_1C241C000, v14, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Geo tracking is not supported on this device", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v15, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Geo tracking is not supported on this device", buf, 0x16u);
     }
 
-    v10 = +[ARGeoTrackingConfiguration checkAvailabilityQueue];
+    v11 = +[ARGeoTrackingConfiguration checkAvailabilityQueue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __77__ARGeoTrackingConfiguration_checkAvailabilityWithOptions_completionHandler___block_invoke;
     block[3] = &unk_1E817CC30;
-    v11 = &v21;
-    v21 = handlerCopy;
-    v17 = handlerCopy;
-    v13 = block;
+    v12 = &v22;
+    v22 = handlerCopy;
+    v18 = handlerCopy;
+    v14 = block;
   }
 
-  dispatch_async(v10, v13);
+  dispatch_async(v11, v14);
 }
 
 void __77__ARGeoTrackingConfiguration_checkAvailabilityWithOptions_completionHandler___block_invoke(uint64_t a1)
@@ -380,7 +383,7 @@ uint64_t __77__ARGeoTrackingConfiguration_checkAvailabilityWithOptions_completio
 
 void __77__ARGeoTrackingConfiguration_checkAvailabilityWithOptions_completionHandler___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   dispatch_semaphore_signal(*(a1 + 32));
@@ -393,9 +396,9 @@ void __77__ARGeoTrackingConfiguration_checkAvailabilityWithOptions_completionHan
   {
     if (v5)
     {
-      v13 = *(a1 + 64);
+      v14 = *(a1 + 64);
       [v5 coordinate];
-      [v13 checkAvailabilityAtCoordinate:*(a1 + 72) withOptions:*(a1 + 40) completionHandler:?];
+      [v14 checkAvailabilityAtCoordinate:*(a1 + 72) withOptions:*(a1 + 40) completionHandler:?];
       goto LABEL_16;
     }
 
@@ -404,69 +407,69 @@ void __77__ARGeoTrackingConfiguration_checkAvailabilityWithOptions_completionHan
       __77__ARGeoTrackingConfiguration_checkAvailabilityWithOptions_completionHandler___block_invoke_4_cold_1();
     }
 
-    v14 = ARShouldUseLogTypeError_internalOSVersion_25;
-    v15 = _ARLogGeneral_13();
-    v16 = v15;
-    if (v14 == 1)
+    v15 = ARShouldUseLogTypeError_internalOSVersion_25;
+    v16 = _ARLogGeneral_13(v9);
+    v17 = v16;
+    if (v15 == 1)
     {
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v17 = objc_opt_class();
-        v18 = NSStringFromClass(v17);
-        v19 = *(a1 + 64);
+        v18 = objc_opt_class();
+        v19 = NSStringFromClass(v18);
+        v20 = *(a1 + 64);
         *buf = 138543874;
-        v29 = v18;
-        v30 = 2048;
-        v31 = v19;
-        v32 = 2112;
-        v33 = v6;
-        v20 = "%{public}@ <%p>: Could not get location fix for geo tracking availability check: %@";
-        v21 = v16;
-        v22 = OS_LOG_TYPE_ERROR;
+        v30 = v19;
+        v31 = 2048;
+        v32 = v20;
+        v33 = 2112;
+        v34 = v6;
+        v21 = "%{public}@ <%p>: Could not get location fix for geo tracking availability check: %@";
+        v22 = v17;
+        v23 = OS_LOG_TYPE_ERROR;
 LABEL_14:
-        _os_log_impl(&dword_1C241C000, v21, v22, v20, buf, 0x20u);
+        _os_log_impl(&dword_1C241C000, v22, v23, v21, buf, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v23 = objc_opt_class();
-      v18 = NSStringFromClass(v23);
-      v24 = *(a1 + 64);
+      v24 = objc_opt_class();
+      v19 = NSStringFromClass(v24);
+      v25 = *(a1 + 64);
       *buf = 138543874;
-      v29 = v18;
-      v30 = 2048;
-      v31 = v24;
-      v32 = 2112;
-      v33 = v6;
-      v20 = "Error: %{public}@ <%p>: Could not get location fix for geo tracking availability check: %@";
-      v21 = v16;
-      v22 = OS_LOG_TYPE_INFO;
+      v30 = v19;
+      v31 = 2048;
+      v32 = v25;
+      v33 = 2112;
+      v34 = v6;
+      v21 = "Error: %{public}@ <%p>: Could not get location fix for geo tracking availability check: %@";
+      v22 = v17;
+      v23 = OS_LOG_TYPE_INFO;
       goto LABEL_14;
     }
 
-    v25 = +[ARGeoTrackingConfiguration checkAvailabilityQueue];
+    v26 = +[ARGeoTrackingConfiguration checkAvailabilityQueue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __77__ARGeoTrackingConfiguration_checkAvailabilityWithOptions_completionHandler___block_invoke_10;
     block[3] = &unk_1E817CC30;
-    v27 = *(a1 + 40);
-    dispatch_async(v25, block);
+    v28 = *(a1 + 40);
+    dispatch_async(v26, block);
 
     goto LABEL_16;
   }
 
-  v9 = _ARLogGeneral_13();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = _ARLogGeneral_13(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
-    v12 = *(a1 + 64);
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
+    v13 = *(a1 + 64);
     *buf = 138543618;
-    v29 = v11;
-    v30 = 2048;
-    v31 = v12;
-    _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Availability check has already timed out.", buf, 0x16u);
+    v30 = v12;
+    v31 = 2048;
+    v32 = v13;
+    _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Availability check has already timed out.", buf, 0x16u);
   }
 
 LABEL_16:
@@ -498,59 +501,60 @@ void __77__ARGeoTrackingConfiguration_checkAvailabilityWithOptions_completionHan
 {
   latitude = coordinate.latitude;
   longitude = coordinate.longitude;
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  if ([self isSupportedWithOptions:options])
+  v8 = [self isSupportedWithOptions:options];
+  if (v8)
   {
-    v8 = objc_opt_new();
-    *&v9 = latitude;
-    *(&v9 + 1) = longitude;
-    *buf = v9;
+    v9 = objc_opt_new();
+    *&v10 = latitude;
+    *(&v10 + 1) = longitude;
+    *buf = v10;
     *&buf[16] = 0u;
-    ARLLAToECEF(v25);
-    v16 = v25[1];
-    v17 = v25[0];
-    v10 = +[ARGeoTrackingConfiguration checkAvailabilityQueue];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __90__ARGeoTrackingConfiguration_checkAvailabilityAtCoordinate_withOptions_completionHandler___block_invoke_2;
-    v20[3] = &unk_1E817D120;
-    v23 = latitude;
-    v24 = longitude;
-    v21 = handlerCopy;
+    ARLLAToECEF(v26);
+    v17 = v26[1];
+    v18 = v26[0];
+    v11 = +[ARGeoTrackingConfiguration checkAvailabilityQueue];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __90__ARGeoTrackingConfiguration_checkAvailabilityAtCoordinate_withOptions_completionHandler___block_invoke_2;
+    v21[3] = &unk_1E817D120;
+    v24 = latitude;
+    v25 = longitude;
+    v22 = handlerCopy;
     selfCopy = self;
-    *buf = v17;
-    *&buf[16] = v16;
-    v29 = 0;
+    *buf = v18;
+    *&buf[16] = v17;
     v30 = 0;
-    v11 = handlerCopy;
-    [v8 determineAvailabilityAtLocation:buf callbackQueue:v10 callback:v20];
+    v31 = 0;
+    v12 = handlerCopy;
+    [v9 determineAvailabilityAtLocation:buf callbackQueue:v11 callback:v21];
   }
 
   else
   {
-    v12 = _ARLogGeneral_13();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = _ARLogGeneral_13(v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
       *buf = 138543618;
-      *&buf[4] = v14;
+      *&buf[4] = v15;
       *&buf[12] = 2048;
       *&buf[14] = self;
-      _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Geo tracking is not supported on this device", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Geo tracking is not supported on this device", buf, 0x16u);
     }
 
-    v15 = +[ARGeoTrackingConfiguration checkAvailabilityQueue];
+    v16 = +[ARGeoTrackingConfiguration checkAvailabilityQueue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __90__ARGeoTrackingConfiguration_checkAvailabilityAtCoordinate_withOptions_completionHandler___block_invoke;
     block[3] = &unk_1E817CC30;
-    v27 = handlerCopy;
-    v8 = handlerCopy;
-    dispatch_async(v15, block);
+    v28 = handlerCopy;
+    v9 = handlerCopy;
+    dispatch_async(v16, block);
 
-    v11 = v27;
+    v12 = v28;
   }
 }
 
@@ -563,83 +567,84 @@ void __90__ARGeoTrackingConfiguration_checkAvailabilityAtCoordinate_withOptions_
 
 void __90__ARGeoTrackingConfiguration_checkAvailabilityAtCoordinate_withOptions_completionHandler___block_invoke_2(void *a1, char a2, void *a3)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = _ARLogGeneral_13();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = _ARLogGeneral_13(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
-      v9 = a1[5];
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      v10 = a1[5];
       *buf = 138543618;
-      v30 = v8;
-      v31 = 2048;
-      v32 = v9;
-      _os_log_impl(&dword_1C241C000, v6, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Geo tracking availability check succeeded", buf, 0x16u);
+      v31 = v9;
+      v32 = 2048;
+      v33 = v10;
+      _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Geo tracking availability check succeeded", buf, 0x16u);
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v11 = _ARLogGeneral_13();
-    v12 = v11;
-    if (v5)
+    v12 = _ARLogGeneral_13(v5);
+    v13 = v12;
+    if (v6)
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
-        v15 = a1[5];
-        v16 = a1[6];
-        v17 = a1[7];
-        v18 = [v5 localizedDescription];
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
+        v16 = a1[5];
+        v17 = a1[6];
+        v18 = a1[7];
+        v19 = [v6 localizedDescription];
         *buf = 138544387;
-        v30 = v14;
-        v31 = 2048;
-        v32 = v15;
-        v33 = 2049;
-        v34 = v16;
-        v35 = 2049;
-        v36 = v17;
-        v37 = 2112;
-        v38 = v18;
-        _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Geo tracking availability error at %{private}f, %{private}f: %@", buf, 0x34u);
+        v31 = v15;
+        v32 = 2048;
+        v33 = v16;
+        v34 = 2049;
+        v35 = v17;
+        v36 = 2049;
+        v37 = v18;
+        v38 = 2112;
+        v39 = v19;
+        _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Geo tracking availability error at %{private}f, %{private}f: %@", buf, 0x34u);
       }
 
-      v19 = [MEMORY[0x1E696AAE8] mainBundle];
-      v20 = [v19 localizedStringForKey:@"Failed to complete geo tracking availability check." value:&stru_1F4208A80 table:0];
+      v20 = [MEMORY[0x1E696AAE8] mainBundle];
+      v21 = [v20 localizedStringForKey:@"Failed to complete geo tracking availability check." value:&stru_1F4208A80 table:0];
 
-      v27 = *MEMORY[0x1E696A588];
-      v28 = v20;
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-      v10 = ARErrorWithCodeAndUserInfo(501, v21);
+      v28 = *MEMORY[0x1E696A588];
+      v29 = v21;
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+      v11 = ARErrorWithCodeAndUserInfo(501, v22);
     }
 
     else
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v22 = objc_opt_class();
-        v23 = NSStringFromClass(v22);
-        v24 = a1[5];
-        v25 = a1[6];
-        v26 = a1[7];
+        v23 = objc_opt_class();
+        v24 = NSStringFromClass(v23);
+        v25 = a1[5];
+        v26 = a1[6];
+        v27 = a1[7];
         *buf = 138544131;
-        v30 = v23;
-        v31 = 2048;
-        v32 = v24;
-        v33 = 2049;
-        v34 = v25;
-        v35 = 2049;
-        v36 = v26;
-        _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Geo tracking is not available at coordinate: %{private}f, %{private}f", buf, 0x2Au);
+        v31 = v24;
+        v32 = 2048;
+        v33 = v25;
+        v34 = 2049;
+        v35 = v26;
+        v36 = 2049;
+        v37 = v27;
+        _os_log_impl(&dword_1C241C000, v13, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Geo tracking is not available at coordinate: %{private}f, %{private}f", buf, 0x2Au);
       }
 
-      v10 = ARErrorWithCodeAndUserInfo(201, 0);
+      v11 = ARErrorWithCodeAndUserInfo(201, 0);
     }
   }
 
@@ -788,8 +793,7 @@ void __90__ARGeoTrackingConfiguration_checkAvailabilityAtCoordinate_withOptions_
     v6 = ARVisionDataParametersForWorldTrackingOptions(_trackingOptions);
     if (v6)
     {
-      [imageSensorSettings setVisionDataOutputParameters:v6];
-      v7 = _ARLogGeneral_13();
+      v7 = _ARLogGeneral_13([imageSensorSettings setVisionDataOutputParameters:v6]);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         v8 = objc_opt_class();
@@ -810,7 +814,7 @@ LABEL_7:
 
     else
     {
-      v7 = _ARLogGeneral_13();
+      v7 = _ARLogGeneral_13(0);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         v13 = objc_opt_class();
@@ -858,8 +862,7 @@ LABEL_7:
       v9 = ARVisionDataParametersForWorldTrackingOptions(_trackingOptions);
       if (v9)
       {
-        [(ARImageSensorSettings *)v5 setVisionDataOutputParameters:v9];
-        v10 = _ARLogGeneral_13();
+        v10 = _ARLogGeneral_13([(ARImageSensorSettings *)v5 setVisionDataOutputParameters:v9]);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           v11 = objc_opt_class();
@@ -880,7 +883,7 @@ LABEL_11:
 
       else
       {
-        v10 = _ARLogGeneral_13();
+        v10 = _ARLogGeneral_13(0);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           v16 = objc_opt_class();
@@ -910,48 +913,55 @@ LABEL_14:
 
 - (BOOL)shouldUseUltraWide
 {
-  if (ARDeviceSupportsUltraWideCamera() && ARUserDefaultsMulticamModeEnabled())
+  v3 = ARDeviceSupportsUltraWideCamera(self, a2);
+  if (v3)
   {
-    supportedVideoFormatsForUltraWide = [objc_opt_class() supportedVideoFormatsForUltraWide];
-    if ([supportedVideoFormatsForUltraWide count] && self->_shouldUseUltraWideIfAvailable)
+    v3 = ARUserDefaultsMulticamModeEnabled(v3, v4);
+    if (v3)
     {
-      backdropCameraOverride = [objc_opt_class() backdropCameraOverride];
-
-      if (!backdropCameraOverride)
+      supportedVideoFormatsForUltraWide = [objc_opt_class() supportedVideoFormatsForUltraWide];
+      if ([supportedVideoFormatsForUltraWide count] && self->_shouldUseUltraWideIfAvailable)
       {
-        v5 = 1;
-        if (ARDeviceSupportsMulticamMode())
+        backdropCameraOverride = [objc_opt_class() backdropCameraOverride];
+
+        if (!backdropCameraOverride)
         {
-          return v5;
+          v7 = 1;
+          v3 = ARDeviceSupportsMulticamMode();
+          if (v3)
+          {
+            return v7;
+          }
+
+          goto LABEL_10;
         }
-
-        goto LABEL_10;
       }
-    }
 
-    else
-    {
+      else
+      {
+      }
     }
   }
 
-  v5 = 0;
+  v7 = 0;
 LABEL_10:
-  if (ARLinkedOnOrAfterYukon())
+  v8 = ARLinkedOnOrAfterYukon(v3, v4);
+  if (v8)
   {
-    LOBYTE(v5) = 0;
+    LOBYTE(v7) = 0;
   }
 
   else
   {
-    return v5 & ARDeviceSupportsJasper();
+    return v7 & ARDeviceSupportsJasper(v8, v9);
   }
 
-  return v5;
+  return v7;
 }
 
 - (BOOL)shouldUseJasper
 {
-  v3 = ARDeviceSupportsJasper();
+  v3 = ARDeviceSupportsJasper(self, a2);
   if (v3)
   {
 
@@ -1008,7 +1018,7 @@ LABEL_9:
 - (void)setWorldAlignment:(ARWorldAlignment)worldAlignment
 {
   v14 = *MEMORY[0x1E69E9840];
-  v4 = _ARLogGeneral_13();
+  v4 = _ARLogGeneral_13(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = objc_opt_class();
@@ -1063,7 +1073,7 @@ LABEL_9:
 
 - (void)createTechniques:(id)techniques
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   techniquesCopy = techniques;
   frameSemantics = [(ARConfiguration *)self frameSemantics];
   if (![(ARGeoTrackingConfiguration *)self useLidarIfAvailable]&& (frameSemantics & 0x18) != 0)
@@ -1080,8 +1090,8 @@ LABEL_9:
       v8 = objc_opt_class();
       v9 = NSStringFromClass(v8);
       *buf = 138543618;
-      v52 = v9;
-      v53 = 2048;
+      v53 = v9;
+      v54 = 2048;
       selfCopy2 = self;
       _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_FAULT, "%{public}@ <%p>: Disabling Lidar (useLidarIfAvailable=false) and SceneDepth is not compatible (ARFrameSemanticSceneDepth | ARFrameSemanticSmoothedSceneDepth)", buf, 0x16u);
     }
@@ -1109,122 +1119,123 @@ LABEL_9:
   if ([_trackingOptions planeDetection])
   {
     v15 = [ARKitUserDefaults BOOLForKey:@"com.apple.arkit.worldTracking.accuratePlaneExtentCheck"];
-    v16 = _ARLogGeneral_13();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v16 = v15;
+    v17 = _ARLogGeneral_13(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
-      v19 = @"disabled";
+      v18 = objc_opt_class();
+      v19 = NSStringFromClass(v18);
+      v20 = @"disabled";
       *buf = 138543874;
-      v52 = v18;
-      if (v15)
+      v53 = v19;
+      if (v16)
       {
-        v19 = @"enabled";
+        v20 = @"enabled";
       }
 
-      v53 = 2048;
+      v54 = 2048;
       selfCopy2 = self;
-      v55 = 2114;
-      v56 = v19;
-      _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Ray-cast accurate extent check: %{public}@", buf, 0x20u);
+      v56 = 2114;
+      v57 = v20;
+      _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Ray-cast accurate extent check: %{public}@", buf, 0x20u);
     }
 
-    if (v15)
+    if (v16)
     {
       [_trackingOptions setPlaneDetection:{objc_msgSend(_trackingOptions, "planeDetection") | 0x200}];
     }
   }
 
-  v20 = [[ARWorldTrackingTechnique alloc] initWithOptions:_trackingOptions];
-  if (v20)
+  v21 = [[ARWorldTrackingTechnique alloc] initWithOptions:_trackingOptions];
+  if (v21)
   {
     array = [MEMORY[0x1E695DF70] array];
-    [array addObject:v20];
-    options = [(ARWorldTrackingTechnique *)v20 options];
+    [array addObject:v21];
+    options = [(ARWorldTrackingTechnique *)v21 options];
     planeDetection = [options planeDetection];
 
     if (planeDetection)
     {
-      v24 = [[ARPlaneEstimationTechnique alloc] initWithTrackingTechnique:v20];
-      [techniquesCopy addObject:v24];
+      v25 = [[ARPlaneEstimationTechnique alloc] initWithTrackingTechnique:v21];
+      [techniquesCopy addObject:v25];
     }
 
     if ([(ARGeoTrackingConfiguration *)self environmentTexturing])
     {
-      v25 = [[AREnvironmentTexturingTechnique alloc] initWithOptions:[(ARGeoTrackingConfiguration *)self environmentTexturing] wantsHDREnvironmentTextures:self->_wantsHDREnvironmentTextures];
-      [techniquesCopy addObject:v25];
+      v26 = [[AREnvironmentTexturingTechnique alloc] initWithOptions:[(ARGeoTrackingConfiguration *)self environmentTexturing] wantsHDREnvironmentTextures:self->_wantsHDREnvironmentTextures];
+      [techniquesCopy addObject:v26];
     }
 
-    v26 = [[ARParentTechnique alloc] initWithParallelTechniques:array];
-    [techniquesCopy insertObject:v26 atIndex:0];
-    v50.receiver = self;
-    v50.super_class = ARGeoTrackingConfiguration;
-    [(ARConfiguration *)&v50 createTechniques:techniquesCopy];
+    v27 = [[ARParentTechnique alloc] initWithParallelTechniques:array];
+    [techniquesCopy insertObject:v27 atIndex:0];
+    v51.receiver = self;
+    v51.super_class = ARGeoTrackingConfiguration;
+    [(ARConfiguration *)&v51 createTechniques:techniquesCopy];
     if ([_trackingOptions planeDetection] && -[ARGeoTrackingConfiguration isMLModelEnabled](self, "isMLModelEnabled"))
     {
       shouldUseJasper = [(ARGeoTrackingConfiguration *)self shouldUseJasper];
       maxUltrawideImageForwardingFrameRate = [(ARConfiguration *)self maxUltrawideImageForwardingFrameRate];
       if (shouldUseJasper)
       {
-        ARAddJasperTechniquesToParent(v26, techniquesCopy, 1, 0, maxUltrawideImageForwardingFrameRate);
+        ARAddJasperTechniquesToParent(v27, techniquesCopy, 1, 0, maxUltrawideImageForwardingFrameRate);
       }
 
       else
       {
-        ARAddNonJasperSemanticsToParent(v26, techniquesCopy, maxUltrawideImageForwardingFrameRate, 1);
+        ARAddNonJasperSemanticsToParent(v27, techniquesCopy, maxUltrawideImageForwardingFrameRate, 1);
       }
     }
 
-    v49 = v14;
-    v29 = [techniquesCopy indexOfObjectPassingTest:{&__block_literal_global_53, array}];
-    v30 = [ARWorldAlignmentTechnique alloc];
+    v50 = v14;
+    v30 = [techniquesCopy indexOfObjectPassingTest:{&__block_literal_global_53, array}];
+    v31 = [ARWorldAlignmentTechnique alloc];
     videoFormat = [(ARConfiguration *)self videoFormat];
-    v32 = -[ARWorldAlignmentTechnique initWithAlignment:cameraPosition:](v30, "initWithAlignment:cameraPosition:", 16, [videoFormat captureDevicePosition]);
+    v33 = -[ARWorldAlignmentTechnique initWithAlignment:cameraPosition:](v31, "initWithAlignment:cameraPosition:", 16, [videoFormat captureDevicePosition]);
 
-    [techniquesCopy removeObjectAtIndex:v29];
-    v33 = [techniquesCopy indexOfObject:v26];
-    [techniquesCopy insertObject:v32 atIndex:v33 + 1];
-    v34 = objc_opt_new();
+    [techniquesCopy removeObjectAtIndex:v30];
+    v34 = [techniquesCopy indexOfObject:v27];
+    [techniquesCopy insertObject:v33 atIndex:v34 + 1];
+    v35 = objc_opt_new();
     [(ARGeoTrackingConfiguration *)self visualLocalizationCallInterval];
-    [v34 setVisualLocalizationCallInterval:?];
-    [v34 setPosteriorVisualLocalizationCallInterval:self->_posteriorVisualLocalizationCallInterval];
-    [v34 setVisualLocalizationUpdatesRequested:{-[ARGeoTrackingConfiguration visualLocalizationUpdatesRequested](self, "visualLocalizationUpdatesRequested")}];
-    [v34 setSupportEnablementOptions:{-[ARGeoTrackingConfiguration supportEnablementOptions](self, "supportEnablementOptions")}];
-    [techniquesCopy insertObject:v34 atIndex:v33 + 1];
+    [v35 setVisualLocalizationCallInterval:?];
+    [v35 setPosteriorVisualLocalizationCallInterval:self->_posteriorVisualLocalizationCallInterval];
+    [v35 setVisualLocalizationUpdatesRequested:{-[ARGeoTrackingConfiguration visualLocalizationUpdatesRequested](self, "visualLocalizationUpdatesRequested")}];
+    [v35 setSupportEnablementOptions:{-[ARGeoTrackingConfiguration supportEnablementOptions](self, "supportEnablementOptions")}];
+    [techniquesCopy insertObject:v35 atIndex:v34 + 1];
     detectionImages = [(ARGeoTrackingConfiguration *)self detectionImages];
-    v36 = [detectionImages count];
+    v37 = [detectionImages count];
 
-    if (v36)
+    if (v37)
     {
-      v37 = [ARImageDetectionTechnique alloc];
+      v38 = [ARImageDetectionTechnique alloc];
       detectionImages2 = [(ARGeoTrackingConfiguration *)self detectionImages];
       allObjects = [detectionImages2 allObjects];
-      v40 = [(ARImageDetectionTechnique *)v37 initWithReferenceImages:allObjects maximumNumberOfTrackedImages:[(ARGeoTrackingConfiguration *)self maximumNumberOfTrackedImages]];
+      v41 = [(ARImageDetectionTechnique *)v38 initWithReferenceImages:allObjects maximumNumberOfTrackedImages:[(ARGeoTrackingConfiguration *)self maximumNumberOfTrackedImages]];
 
-      [(ARImageDetectionTechnique *)v40 setEnableAutomaticImageScaleEstimation:[(ARGeoTrackingConfiguration *)self automaticImageScaleEstimationEnabled]];
-      [techniquesCopy addObject:v40];
+      [(ARImageDetectionTechnique *)v41 setEnableAutomaticImageScaleEstimation:[(ARGeoTrackingConfiguration *)self automaticImageScaleEstimationEnabled]];
+      [techniquesCopy addObject:v41];
     }
 
     detectionObjects = [(ARGeoTrackingConfiguration *)self detectionObjects];
-    v42 = [detectionObjects count];
+    v43 = [detectionObjects count];
 
-    if (v42)
+    if (v43)
     {
-      v43 = [ARObjectDetectionTechnique alloc];
+      v44 = [ARObjectDetectionTechnique alloc];
       detectionObjects2 = [(ARGeoTrackingConfiguration *)self detectionObjects];
       allObjects2 = [detectionObjects2 allObjects];
-      v46 = [(ARObjectDetectionTechnique *)v43 initWithDetectionObjects:allObjects2];
+      v47 = [(ARObjectDetectionTechnique *)v44 initWithDetectionObjects:allObjects2];
 
-      [techniquesCopy addObject:v46];
+      [techniquesCopy addObject:v47];
     }
 
     if ([(ARGeoTrackingConfiguration *)self appClipCodeTrackingEnabled])
     {
-      v47 = [[ARAppClipCodeTechnique alloc] initWithIgnoreURLLimitation:[(ARGeoTrackingConfiguration *)self ignoreAppClipCodeURLLimitation]];
-      [techniquesCopy addObject:v47];
+      v48 = [[ARAppClipCodeTechnique alloc] initWithIgnoreURLLimitation:[(ARGeoTrackingConfiguration *)self ignoreAppClipCodeURLLimitation]];
+      [techniquesCopy addObject:v48];
     }
 
-    v14 = v49;
+    v14 = v50;
   }
 }
 
@@ -1281,14 +1292,31 @@ uint64_t __47__ARGeoTrackingConfiguration_createTechniques___block_invoke(uint64
 
 + (BOOL)supportsFrameSemantics:(unint64_t)semantics
 {
-  if (semantics & 7) == 0 && (ARDeviceSupportsJasper() & 1) != 0 || (semantics & 0x1C) == 0 && (ARAppleNeuralEngine() & 1) != 0 || (semantics & 4) == 0 && ARAppleNeuralEngine() && (ARDeviceSupportsJasper())
+  if (semantics & 7) == 0 && (ARDeviceSupportsJasper(self, a2))
   {
     return 1;
   }
 
-  v6.receiver = self;
-  v6.super_class = &OBJC_METACLASS___ARGeoTrackingConfiguration;
-  return objc_msgSendSuper2(&v6, sel_supportsFrameSemantics_, semantics);
+  if (semantics & 0x1C) == 0 && (ARAppleNeuralEngine())
+  {
+    return 1;
+  }
+
+  if ((semantics & 4) == 0)
+  {
+    v5 = ARAppleNeuralEngine();
+    if (v5)
+    {
+      if (ARDeviceSupportsJasper(v5, v6))
+      {
+        return 1;
+      }
+    }
+  }
+
+  v8.receiver = self;
+  v8.super_class = &OBJC_METACLASS___ARGeoTrackingConfiguration;
+  return objc_msgSendSuper2(&v8, sel_supportsFrameSemantics_, semantics);
 }
 
 - (BOOL)isEqual:(id)equal

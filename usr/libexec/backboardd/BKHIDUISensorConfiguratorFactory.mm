@@ -37,34 +37,20 @@
   v3 = +[BSPlatform sharedInstance];
   deviceClass = [v3 deviceClass];
 
-  if (deviceClass)
+  if (deviceClass || ([self _proximityServiceWrapper], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(self, "_digitizerServiceWrapper"), v7 = objc_claimAutoreleasedReturnValue(), _digitizerServiceWrapper = objc_alloc_init(BKHIDUIServiceConfiguringAggregator), v13[0] = v7, v13[1] = v6, +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", v13, 2), v8 = objc_claimAutoreleasedReturnValue(), -[BKHIDUIServiceConfiguringAggregator setServiceConfigurings:](_digitizerServiceWrapper, "setServiceConfigurings:", v8), v8, v7, v6, !_digitizerServiceWrapper))
   {
-    goto LABEL_2;
-  }
-
-  _proximityServiceWrapper = [self _proximityServiceWrapper];
-  _digitizerServiceWrapper = [self _digitizerServiceWrapper];
-  _digitizerServiceWrapper2 = objc_alloc_init(BKHIDUIServiceConfiguringAggregator);
-  v13[0] = _digitizerServiceWrapper;
-  v13[1] = _proximityServiceWrapper;
-  v8 = [NSArray arrayWithObjects:v13 count:2];
-  [(BKHIDUIServiceConfiguringAggregator *)_digitizerServiceWrapper2 setServiceConfigurings:v8];
-
-  if (!_digitizerServiceWrapper2)
-  {
-LABEL_2:
-    _digitizerServiceWrapper2 = [self _digitizerServiceWrapper];
+    _digitizerServiceWrapper = [self _digitizerServiceWrapper];
   }
 
   v9 = BKLogUISensor();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138543362;
-    v12 = _digitizerServiceWrapper2;
+    v12 = _digitizerServiceWrapper;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "UI sensor configuration: %{public}@", &v11, 0xCu);
   }
 
-  return _digitizerServiceWrapper2;
+  return _digitizerServiceWrapper;
 }
 
 @end

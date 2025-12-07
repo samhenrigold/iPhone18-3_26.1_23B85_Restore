@@ -221,7 +221,7 @@
   {
     if (self)
     {
-      [(NSDecimalNumber *)self decimalValue];
+      objc_msgSend_decimalValue(self);
     }
 
     else
@@ -271,7 +271,7 @@
   LODWORD(v8) = 0;
   if (self)
   {
-    [(NSDecimalNumber *)self decimalValue:v6];
+    objc_msgSend_decimalValue(self, a2, v6, v7, v8, v9);
   }
 
   v4._rawValue = &v6;
@@ -309,19 +309,18 @@
   objc_opt_self();
   if (objc_opt_isKindOfClass())
   {
-    v9[0] = 0;
-    v9[1] = 0;
+    v9 = 0uLL;
     v10 = 0;
     if (self)
     {
-      [(NSDecimalNumber *)self decimalValue];
+      objc_msgSend_decimalValue(self);
     }
 
     v7[0] = 0;
     v7[1] = 0;
     v8 = 0;
-    [(NSNumber *)decimalNumber decimalValue];
-    return _NSDecimalCompare(v9, v7);
+    objc_msgSend_decimalValue(decimalNumber);
+    return _NSDecimalCompare(&v9, v7);
   }
 
   else
@@ -372,23 +371,21 @@
   v19 = 0;
   scale = [behavior scale];
   roundingMode = [behavior roundingMode];
-  v16[0] = 0;
-  v16[1] = 0;
+  v16 = 0uLL;
   v17 = 0;
   if (self)
   {
-    [(NSDecimalNumber *)self decimalValue];
+    objc_msgSend_decimalValue(self);
   }
 
-  v14[0] = 0;
-  v14[1] = 0;
+  v14 = 0uLL;
   v15 = 0;
   if (decimalNumber)
   {
-    [(NSDecimalNumber *)decimalNumber decimalValue];
+    objc_msgSend_decimalValue(decimalNumber);
   }
 
-  v10 = _NSDecimalAdd(&v18, v16, v14, roundingMode);
+  v10 = _NSDecimalAdd(&v18, &v16, &v14, roundingMode);
   v12 = v18;
   v13 = v19;
   return _checkErrorAndRound(v10, a2, self, decimalNumber, scale, roundingMode, &v12, behavior);
@@ -410,30 +407,30 @@
 
 - (NSDecimalNumber)decimalNumberBySubtracting:(NSDecimalNumber *)decimalNumber withBehavior:(id)behavior
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v18 = 0uLL;
-  v19 = 0;
+  v22 = *MEMORY[0x1E69E9840];
+  v20 = 0uLL;
+  v21 = 0;
   scale = [behavior scale];
   roundingMode = [behavior roundingMode];
-  v16[0] = 0;
-  v16[1] = 0;
   v17 = 0;
+  v18 = 0;
+  v19 = 0;
   if (self)
   {
-    [(NSDecimalNumber *)self decimalValue];
+    objc_msgSend_decimalValue(self);
   }
 
-  v14[0] = 0;
-  v14[1] = 0;
+  v14 = 0;
   v15 = 0;
+  v16 = 0;
   if (decimalNumber)
   {
-    [(NSDecimalNumber *)decimalNumber decimalValue];
+    objc_msgSend_decimalValue(decimalNumber);
   }
 
-  v10 = _NSDecimalSubtract(&v18, v16, v14, roundingMode);
-  v12 = v18;
-  v13 = v19;
+  v10 = _NSDecimalSubtract();
+  v12 = v20;
+  v13 = v21;
   return _checkErrorAndRound(v10, a2, self, decimalNumber, scale, roundingMode, &v12, behavior);
 }
 
@@ -446,30 +443,30 @@
 
 - (NSDecimalNumber)decimalNumberByMultiplyingBy:(NSDecimalNumber *)decimalNumber withBehavior:(id)behavior
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v18 = 0uLL;
-  v19 = 0;
+  v22 = *MEMORY[0x1E69E9840];
+  v20 = 0uLL;
+  v21 = 0;
   scale = [behavior scale];
   roundingMode = [behavior roundingMode];
-  v16[0] = 0;
-  v16[1] = 0;
   v17 = 0;
+  v18 = 0;
+  v19 = 0;
   if (self)
   {
-    [(NSDecimalNumber *)self decimalValue];
+    objc_msgSend_decimalValue(self);
   }
 
-  v14[0] = 0;
-  v14[1] = 0;
+  v14 = 0;
   v15 = 0;
+  v16 = 0;
   if (decimalNumber)
   {
-    [(NSDecimalNumber *)decimalNumber decimalValue];
+    objc_msgSend_decimalValue(decimalNumber);
   }
 
-  v10 = _NSDecimalMultiply(&v18, v16, v14, roundingMode);
-  v12 = v18;
-  v13 = v19;
+  v10 = _NSDecimalMultiply();
+  v12 = v20;
+  v13 = v21;
   return _checkErrorAndRound(v10, a2, self, decimalNumber, scale, roundingMode, &v12, behavior);
 }
 
@@ -482,30 +479,30 @@
 
 - (NSDecimalNumber)decimalNumberByDividingBy:(NSDecimalNumber *)decimalNumber withBehavior:(id)behavior
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v18 = 0uLL;
-  v19 = 0;
+  v22 = *MEMORY[0x1E69E9840];
+  v20 = 0uLL;
+  v21 = 0;
   scale = [behavior scale];
   roundingMode = [behavior roundingMode];
-  v16[0] = 0;
-  v16[1] = 0;
   v17 = 0;
+  v18 = 0;
+  v19 = 0;
   if (self)
   {
-    [(NSDecimalNumber *)self decimalValue];
+    objc_msgSend_decimalValue(self);
   }
 
-  v14[0] = 0;
-  v14[1] = 0;
+  v14 = 0;
   v15 = 0;
+  v16 = 0;
   if (decimalNumber)
   {
-    [(NSDecimalNumber *)decimalNumber decimalValue];
+    objc_msgSend_decimalValue(decimalNumber);
   }
 
-  v10 = _NSDecimalDivide(&v18, v16, v14, roundingMode);
-  v12 = v18;
-  v13 = v19;
+  v10 = _NSDecimalDivide();
+  v12 = v20;
+  v13 = v21;
   return _checkErrorAndRound(v10, a2, self, decimalNumber, scale, roundingMode, &v12, behavior);
 }
 
@@ -523,18 +520,18 @@
   v17 = 0;
   scale = [behavior scale];
   roundingMode = [behavior roundingMode];
-  v14[0] = 0;
-  v14[1] = 0;
+  v13 = 0;
+  v14 = 0;
   v15 = 0;
   if (self)
   {
-    [(NSDecimalNumber *)self decimalValue];
+    objc_msgSend_decimalValue(self);
   }
 
-  v10 = _NSDecimalPower(&v16, v14, power, roundingMode);
-  v12 = v16;
-  v13 = v17;
-  return _checkErrorAndRound(v10, a2, self, 0, scale, roundingMode, &v12, behavior);
+  v9 = _NSDecimalPower();
+  v11 = v16;
+  v12 = v17;
+  return _checkErrorAndRound(v9, a2, self, 0, scale, roundingMode, &v11, behavior);
 }
 
 - (NSDecimalNumber)decimalNumberByMultiplyingByPowerOf10:(__int16)power
@@ -547,7 +544,6 @@
 
 - (NSDecimalNumber)decimalNumberByMultiplyingByPowerOf10:(__int16)power withBehavior:(id)behavior
 {
-  v5 = power;
   v18 = *MEMORY[0x1E69E9840];
   v16 = 0uLL;
   v17 = 0;
@@ -558,10 +554,10 @@
   v15 = 0;
   if (self)
   {
-    [(NSDecimalNumber *)self decimalValue];
+    objc_msgSend_decimalValue(self);
   }
 
-  v10 = _NSDecimalMultiplyByPowerOf10(&v16, v14, v5, roundingMode);
+  v10 = _NSDecimalMultiplyByPowerOf10(&v16, v14, power);
   v12 = v16;
   v13 = v17;
   return _checkErrorAndRound(v10, a2, self, 0, scale, roundingMode, &v12, behavior);
@@ -588,7 +584,7 @@
     v13 = 0;
     if (self)
     {
-      [(NSDecimalNumber *)self decimalValue];
+      objc_msgSend_decimalValue(self);
     }
 
     _NSDecimalRound(&v14, v12, v8, [behavior roundingMode]);
@@ -618,7 +614,7 @@
     goto LABEL_5;
   }
 
-  [(NSDecimalNumber *)self decimalValue];
+  objc_msgSend_decimalValue(self, a2);
   v4 = (LODWORD(v10[0]) >> 8) & 0xF;
   if (v4 <= 7)
   {

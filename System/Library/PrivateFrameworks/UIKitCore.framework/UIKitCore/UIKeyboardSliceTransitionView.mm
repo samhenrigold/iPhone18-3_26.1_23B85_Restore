@@ -1678,7 +1678,7 @@ LABEL_17:
   }
 
   sliceSetID = [(UIKeyboardSliceSet *)self->super._sliceSet sliceSetID];
-  if ([v14 isEqualToString:sliceSetID] && self->_defaultKeyplaneImage)
+  if (objc_msgSend_isEqualToString_(v14) && self->_defaultKeyplaneImage)
   {
     splitKeyplaneImage = self->_splitKeyplaneImage;
 

@@ -6,8 +6,10 @@
 - (void)_handleApproverRequest:(id)request withCompletionHandler:(id)handler;
 - (void)_handleRequesterRequest:(id)request withCompletionHandler:(id)handler;
 - (void)_handleUnknownRequestIdentifier:(id)identifier withCompletionHandler:(id)handler;
+- (void)_presentNotificationWithRequest:(id)request silently:(BOOL)silently;
 - (void)_replaceNotificationWithRequest:(id)request;
 - (void)dismissNotificationWithIdentifier:(id)identifier;
+- (void)presentNotificationWithRequest:(id)request silently:(BOOL)silently;
 - (void)start;
 - (void)userNotificationCenter:(id)center didReceiveNotificationResponse:(id)response withCompletionHandler:(id)handler;
 @end
@@ -122,6 +124,66 @@ LABEL_11:
       v13 = objc_opt_class();
       v10 = v13;
       _os_log_impl(&_mh_execute_header, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: Could not dismiss notification without request identifier", buf, 0xCu);
+    }
+  }
+}
+
+- (void)presentNotificationWithRequest:(id)request silently:(BOOL)silently
+{
+  silentlyCopy = silently;
+  requestCopy = request;
+  requestIdentifier = [requestCopy requestIdentifier];
+
+  v8 = +[APLogConfig sharedDaemonConfig];
+  v9 = v8;
+  if (requestIdentifier)
+  {
+    if (!v8)
+    {
+      v9 = +[APLogConfig sharedConfig];
+    }
+
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = objc_opt_class();
+      v12 = v11;
+      requestIdentifier2 = [requestCopy requestIdentifier];
+      v18 = 138543618;
+      v19 = v11;
+      v20 = 2114;
+      v21 = requestIdentifier2;
+      _os_log_impl(&_mh_execute_header, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: Presenting local notification. Identifier: %{public}@", &v18, 0x16u);
+    }
+
+    requestIdentifier3 = [requestCopy requestIdentifier];
+    v15 = [(LocalNotificationHandler *)self retrieveRequestWithIdentifier:requestIdentifier3];
+
+    if (v15)
+    {
+      [(LocalNotificationHandler *)self _replaceNotificationWithRequest:requestCopy];
+    }
+
+    else
+    {
+      [(LocalNotificationHandler *)self _presentNotificationWithRequest:requestCopy silently:silentlyCopy];
+    }
+  }
+
+  else
+  {
+    if (!v8)
+    {
+      v9 = +[APLogConfig sharedConfig];
+    }
+
+    oSLogObject2 = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+    {
+      v18 = 138543362;
+      v19 = objc_opt_class();
+      v17 = v19;
+      _os_log_impl(&_mh_execute_header, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: Could not present notification without request identifier", &v18, 0xCu);
     }
   }
 }
@@ -348,6 +410,40 @@ LABEL_19:
 
   [(LocalNotificationHandler *)self dismissNotificationWithIdentifier:identifierCopy];
   handlerCopy[2](handlerCopy);
+}
+
+- (void)_presentNotificationWithRequest:(id)request silently:(BOOL)silently
+{
+  silentlyCopy = silently;
+  requestCopy = request;
+  v7 = [(LocalNotificationHandler *)self _notificationContentWithRequest:requestCopy silently:silentlyCopy];
+  if (silentlyCopy)
+  {
+    v8 = 6;
+  }
+
+  else
+  {
+    v8 = 15;
+  }
+
+  requestIdentifier = [requestCopy requestIdentifier];
+  v10 = [UNNotificationRequest requestWithIdentifier:requestIdentifier content:v7 trigger:0 destinations:v8];
+
+  objc_initWeak(&location, self);
+  notificationCenter = [(LocalNotificationHandler *)self notificationCenter];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_100016FB0;
+  v13[3] = &unk_100055468;
+  objc_copyWeak(&v15, &location);
+  v12 = requestCopy;
+  v14 = v12;
+  v16 = silentlyCopy;
+  [notificationCenter addNotificationRequest:v10 withCompletionHandler:v13];
+
+  objc_destroyWeak(&v15);
+  objc_destroyWeak(&location);
 }
 
 - (void)_replaceNotificationWithRequest:(id)request

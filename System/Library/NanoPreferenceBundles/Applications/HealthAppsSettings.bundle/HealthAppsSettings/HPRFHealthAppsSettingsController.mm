@@ -13,16 +13,18 @@
 - (void)dealloc;
 - (void)setPreferenceValue:(id)value specifier:(id)specifier;
 - (void)showFitnessJrPrompt:(id)prompt;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HPRFHealthAppsSettingsController
 
 - (HPRFHealthAppsSettingsController)init
 {
-  v19.receiver = self;
-  v19.super_class = HPRFHealthAppsSettingsController;
-  v2 = [(HPRFHealthAppsSettingsController *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = HPRFHealthAppsSettingsController;
+  v2 = [(HPRFHealthAppsSettingsController *)&v18 init];
   v3 = v2;
   if (v2)
   {
@@ -36,19 +38,18 @@
     device = v3->_device;
     v3->_device = firstObject;
 
-    v10 = v3->_device;
-    v11 = FIUIHealthStoreForDevice();
+    v10 = FIUIHealthStoreForDevice();
     healthStore = v3->_healthStore;
-    v3->_healthStore = v11;
+    v3->_healthStore = v10;
 
-    v13 = [[FIUIUnitManager alloc] initWithHealthStore:v3->_healthStore];
-    v14 = [[FIUIFormattingManager alloc] initWithUnitManager:v13];
+    v12 = [[FIUIUnitManager alloc] initWithHealthStore:v3->_healthStore];
+    v13 = [[FIUIFormattingManager alloc] initWithUnitManager:v12];
     formattingManager = v3->_formattingManager;
-    v3->_formattingManager = v14;
+    v3->_formattingManager = v13;
 
-    v16 = [[_HKWheelchairUseCharacteristicCache alloc] initWithHealthStore:v3->_healthStore];
+    v15 = [[_HKWheelchairUseCharacteristicCache alloc] initWithHealthStore:v3->_healthStore];
     wheelchairUseCharacteristicCache = v3->_wheelchairUseCharacteristicCache;
-    v3->_wheelchairUseCharacteristicCache = v16;
+    v3->_wheelchairUseCharacteristicCache = v15;
 
     [(_HKWheelchairUseCharacteristicCache *)v3->_wheelchairUseCharacteristicCache addObserver:v3];
     v3->_isActivitySetup = 0;
@@ -67,6 +68,45 @@
   [(HPRFHealthAppsSettingsController *)&v4 viewDidLoad];
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterAddObserver(DarwinNotifyCenter, self, nanoLifestylePreferencesDidChange, @"NanoLifestylePreferencesChangedNotification", 0, 0);
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = HPRFHealthAppsSettingsController;
+  [(HPRFHealthAppsSettingsController *)&v12 viewWillAppear:appear];
+  v3 = [NSBundle bundleForClass:objc_opt_class()];
+  v4 = [_NSLocalizedStringResource alloc];
+  v5 = +[NSLocale currentLocale];
+  bundleURL = [v3 bundleURL];
+  v7 = [v4 initWithKey:@"PANE_TITLE" table:@"HealthAppsSettings" locale:v5 bundleURL:bundleURL];
+
+  bundleIdentifier = [v3 bundleIdentifier];
+  bundleIdentifier2 = [v3 bundleIdentifier];
+  v10 = [NSString stringWithFormat:@"bridge:root=%@", bundleIdentifier2];
+  v11 = [NSURL URLWithString:v10];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForApplicationSettingWithIconSpecifierIdentifier:bundleIdentifier title:v7 localizedNavigationComponents:&__NSArray0__struct deepLink:v11];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = HPRFHealthAppsSettingsController;
+  [(HPRFHealthAppsSettingsController *)&v8 viewDidAppear:appear];
+  if (!self->_device)
+  {
+    v4 = +[_HKBehavior sharedBehavior];
+    isAppleInternalInstall = [v4 isAppleInternalInstall];
+
+    if (isAppleInternalInstall)
+    {
+      v6 = [UIAlertController alertControllerWithTitle:@"Unexpected state!" message:@"Didn't get an active watch preferredStyle:this is unexpected and will lead to unexpected results. Please file a radar.", 1];
+      v7 = [UIAlertAction actionWithTitle:@"OK" style:0 handler:0];
+      [v6 addAction:v7];
+
+      [(HPRFHealthAppsSettingsController *)self presentViewController:v6 animated:1 completion:0];
+    }
+  }
 }
 
 - (void)dealloc
@@ -266,28 +306,26 @@
 {
   if (self->_healthStore)
   {
+    v6 = 0;
+    v7 = &v6;
+    v8 = 0x2020000000;
+    v9 = 0;
     v3 = dispatch_semaphore_create(0);
-    v8 = 0;
-    v9 = &v8;
-    v10 = 0x2020000000;
-    v11 = 0;
-    healthStore = self->_healthStore;
-    v5 = v3;
     FIUIUserHasExistingMoveGoal();
-    v6 = dispatch_time(0, 10000000000);
-    if (dispatch_semaphore_wait(v5, v6))
+    v4 = dispatch_time(0, 10000000000);
+    if (dispatch_semaphore_wait(v3, v4))
     {
       _HKInitializeLogging();
-      v7 = HKLogActivity;
+      v5 = HKLogActivity;
       if (os_log_type_enabled(HKLogActivity, OS_LOG_TYPE_ERROR))
       {
-        sub_4488(v7);
+        sub_4488(v5);
       }
     }
 
-    self->_isActivitySetup = *(v9 + 24);
+    self->_isActivitySetup = *(v7 + 24);
 
-    _Block_object_dispose(&v8, 8);
+    _Block_object_dispose(&v6, 8);
   }
 }
 
@@ -359,7 +397,7 @@
   [v11 biologicalSex];
   [v11 weight];
   if (v5)
-    v31 = {;
+    v29 = {;
     leanBodyMass = [v11 leanBodyMass];
     height = [v11 height];
     [v11 dateOfBirth];
@@ -371,45 +409,43 @@
     v10 = v15;
     valueCopy = v14;
 
-    formattingManager = self->_formattingManager;
-    v18 = FIUIActivityLevelsForBMR();
-    v19 = 1;
+    v17 = FIUIActivityLevelsForBMR();
+    v18 = 1;
   }
 
   else
-    v20 = {;
-    v21 = [HKUnit gramUnitWithMetricPrefix:9];
-    [v20 doubleValueForUnit:v21];
+    v19 = {;
+    v20 = [HKUnit gramUnitWithMetricPrefix:9];
+    [v19 doubleValueForUnit:v20];
 
     height2 = [v11 height];
-    v23 = [HKUnit meterUnitWithMetricPrefix:7];
-    [height2 doubleValueForUnit:v23];
+    v22 = [HKUnit meterUnitWithMetricPrefix:7];
+    [height2 doubleValueForUnit:v22];
 
     dateOfBirth = [v11 dateOfBirth];
     FIAgeInYearsForDateOfBirth();
 
     [v11 wheelchairUse];
     FICMotionConditionForWheelchairUse();
-    v25 = self->_formattingManager;
-    v18 = FIUIActivityLevelsForFitnessJr();
-    v19 = 2;
+    v17 = FIUIActivityLevelsForFitnessJr();
+    v18 = 2;
   }
 
-  v26 = FIActivityMoveModeChangeSampleForDateComponents();
+  v24 = FIActivityMoveModeChangeSampleForDateComponents();
   healthStore = self->_healthStore;
-  v32[0] = _NSConcreteStackBlock;
-  v32[1] = 3221225472;
-  v32[2] = sub_3970;
-  v32[3] = &unk_8510;
-  v35 = v8;
-  v36 = v19;
-  v32[4] = self;
-  v33 = valueCopy;
+  v30[0] = _NSConcreteStackBlock;
+  v30[1] = 3221225472;
+  v30[2] = sub_3970;
+  v30[3] = &unk_8510;
+  v33 = v8;
   v34 = v18;
-  v28 = v8;
-  v29 = v18;
-  v30 = valueCopy;
-  [(HKHealthStore *)healthStore saveObject:v26 withCompletion:v32];
+  v30[4] = self;
+  v31 = valueCopy;
+  v32 = v17;
+  v26 = v8;
+  v27 = v17;
+  v28 = valueCopy;
+  [(HKHealthStore *)healthStore saveObject:v24 withCompletion:v30];
 }
 
 - (void)_triggerNanoSync

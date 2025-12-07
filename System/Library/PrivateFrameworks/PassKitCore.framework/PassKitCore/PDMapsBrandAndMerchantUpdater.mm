@@ -27,9 +27,9 @@
 - (PDMapsBrandAndMerchantUpdater)initWithDataSource:(id)source
 {
   sourceCopy = source;
-  v15.receiver = self;
-  v15.super_class = PDMapsBrandAndMerchantUpdater;
-  v6 = [(PDMapsBrandAndMerchantUpdater *)&v15 init];
+  v16.receiver = self;
+  v16.super_class = PDMapsBrandAndMerchantUpdater;
+  v6 = [(PDMapsBrandAndMerchantUpdater *)&v16 init];
   if (v6)
   {
     v7 = objc_alloc_init(NSMutableArray);
@@ -42,17 +42,17 @@
     mapService = v6->_mapService;
     v6->_mapService = v9;
 
-    v11 = PDDefaultQueue();
+    v12 = PDDefaultQueue(v11);
     PDScheduledActivityClientRegister();
 
-    v12 = +[NSDate date];
-    v13 = [PDScheduledActivityCriteria maintenanceActivityCriteriaWithStartDate:v12];
+    v13 = +[NSDate date];
+    v14 = [PDScheduledActivityCriteria maintenanceActivityCriteriaWithStartDate:v13];
 
-    [v13 setRequireMainsPower:1];
-    [v13 setRequireScreenSleep:1];
-    [v13 setRequireNetworkConnectivity:1];
-    [v13 setRepeating:1];
-    [v13 setRepeatInterval:86400.0];
+    [v14 setRequireMainsPower:1];
+    [v14 setRequireScreenSleep:1];
+    [v14 setRequireNetworkConnectivity:1];
+    [v14 setRepeating:1];
+    [v14 setRepeatInterval:86400.0];
     PDScheduledActivityRegister();
   }
 

@@ -20,7 +20,7 @@
   v7 = self + OBJC_IVAR____TtC16MusicApplication19MovieHorizontalCell_duration;
   *v7 = 0;
   v7[8] = 1;
-  *(self + OBJC_IVAR____TtC16MusicApplication19MovieHorizontalCell_contentRatingAndWhatever) = &_swiftEmptyArrayStorage;
+  *(self + OBJC_IVAR____TtC16MusicApplication19MovieHorizontalCell_contentRatingAndWhatever) = _swiftEmptyArrayStorage;
   v8 = (self + OBJC_IVAR____TtC16MusicApplication19MovieHorizontalCell_detailTextComponents);
   *v8 = sub_2ED38();
   v8[1] = v9;
@@ -53,56 +53,56 @@
 
 - (NSDate)releaseDate
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_E01230);
-  __chkstk_darwin(v3 - 8);
-  v5 = &v13 - v4;
-  v6 = OBJC_IVAR____TtC16MusicApplication19MovieHorizontalCell_releaseDate;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_E01230, "|,\r");
+  __chkstk_darwin();
+  v4 = &v12 - v3;
+  v5 = OBJC_IVAR____TtC16MusicApplication19MovieHorizontalCell_releaseDate;
   swift_beginAccess();
-  sub_2EC64(self + v6, v5);
-  v7 = sub_AB3430();
-  v8 = *(v7 - 8);
-  v9 = (*(v8 + 48))(v5, 1, v7);
-  v10 = 0;
-  if (v9 != 1)
+  sub_2EC64(self + v5, v4);
+  v6 = sub_AB3430();
+  v7 = *(v6 - 8);
+  v8 = (*(v7 + 48))(v4, 1, v6);
+  v9 = 0;
+  if (v8 != 1)
   {
     isa = sub_AB3370().super.isa;
-    (*(v8 + 8))(v5, v7);
-    v10 = isa;
+    (*(v7 + 8))(v4, v6);
+    v9 = isa;
   }
 
-  return v10;
+  return v9;
 }
 
 - (void)setReleaseDate:(id)date
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_E01230);
-  v6 = __chkstk_darwin(v5 - 8);
-  v8 = &v15[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v6);
-  v10 = &v15[-v9];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_E01230, "|,\r");
+  __chkstk_darwin();
+  v6 = &v13[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin();
+  v8 = &v13[-v7];
   if (date)
   {
     sub_AB33F0();
-    v11 = sub_AB3430();
-    (*(*(v11 - 8) + 56))(v10, 0, 1, v11);
+    v9 = sub_AB3430();
+    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
   }
 
   else
   {
-    v12 = sub_AB3430();
-    (*(*(v12 - 8) + 56))(v10, 1, 1, v12);
+    v10 = sub_AB3430();
+    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
   }
 
-  v13 = OBJC_IVAR____TtC16MusicApplication19MovieHorizontalCell_releaseDate;
+  v11 = OBJC_IVAR____TtC16MusicApplication19MovieHorizontalCell_releaseDate;
   swift_beginAccess();
-  sub_2EC64(self + v13, v8);
+  sub_2EC64(self + v11, v6);
   swift_beginAccess();
   selfCopy = self;
-  sub_2F0A8(v10, self + v13);
+  sub_2F0A8(v8, self + v11);
   swift_endAccess();
-  sub_2E13C(v8);
-  sub_12E1C(v8, &unk_E01230);
-  sub_12E1C(v10, &unk_E01230);
+  sub_2E13C(v6);
+  sub_12E1C(v6, &unk_E01230, "|,\r");
+  sub_12E1C(v8, &unk_E01230, "|,\r");
 }
 
 + (UIEdgeInsets)visualContentInsets

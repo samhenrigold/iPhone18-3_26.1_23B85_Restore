@@ -376,7 +376,7 @@ LABEL_13:
 
 - (void)handleXPCNotificationEvent:(id)event
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v5 = +[_CDLogging interactionChannel];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -385,14 +385,14 @@ LABEL_13:
     _os_log_impl(&dword_191750000, v5, OS_LOG_TYPE_DEFAULT, "Handling notification event", buf, 2u);
   }
 
-  v14 = 0;
-  v15 = 0;
   v13 = 0;
-  v6 = [_CDXPCCodecs parseNotificationEvent:eventCopy registrationIdentifier:&v15 info:&v14 error:&v13];
+  v14 = 0;
+  v12 = 0;
+  v6 = [_CDXPCCodecs parseNotificationEvent:eventCopy registrationIdentifier:&v14 info:&v13 error:&v12];
 
-  v7 = v15;
-  v8 = v14;
-  v9 = v13;
+  v7 = v14;
+  v8 = v13;
+  v9 = v12;
   v10 = +[_CDLogging interactionChannel];
   v11 = v10;
   if (!v6)
@@ -408,9 +408,9 @@ LABEL_13:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412547;
-    v17 = v7;
-    v18 = 2113;
-    v19 = v8;
+    v16 = v7;
+    v17 = 2113;
+    v18 = v8;
     _os_log_impl(&dword_191750000, v11, OS_LOG_TYPE_DEFAULT, "Received XPC notification event for registration %@: %{private}@", buf, 0x16u);
   }
 
@@ -431,19 +431,17 @@ LABEL_12:
   }
 
 LABEL_13:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)publishRecordedXPCEvent:(id)event
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v5 = +[_CDLogging interactionChannel];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138739971;
-    v31 = eventCopy;
+    v29 = eventCopy;
     _os_log_impl(&dword_191750000, v5, OS_LOG_TYPE_INFO, "Publishing recorded XPC event with interactions %{sensitive}@", buf, 0xCu);
   }
 
@@ -452,7 +450,7 @@ LABEL_13:
   {
     interactionRecordedEventPublisher = self->_interactionRecordedEventPublisher;
     *buf = 138412290;
-    v31 = interactionRecordedEventPublisher;
+    v29 = interactionRecordedEventPublisher;
     _os_log_impl(&dword_191750000, v6, OS_LOG_TYPE_INFO, "_interactionRecordedEventPublisher %@", buf, 0xCu);
   }
 
@@ -468,12 +466,12 @@ LABEL_13:
       v8 = MEMORY[0x1E695E0F0];
     }
 
-    v28 = @"_CDInteractionsKey";
-    v29 = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-    v26 = 0;
-    v10 = [_CDXPCCodecs notificationEventWithRegistrationIdentifier:@"_CDInteractionStoreRecordedInteractionsNotification" info:v9 error:&v26];
-    v11 = v26;
+    v26 = @"_CDInteractionsKey";
+    v27 = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v24 = 0;
+    v10 = [_CDXPCCodecs notificationEventWithRegistrationIdentifier:@"_CDInteractionStoreRecordedInteractionsNotification" info:v9 error:&v24];
+    v11 = v24;
 
     v12 = self->_interactionStoreRecordedEventSubscribersByToken;
     objc_sync_enter(v12);
@@ -482,55 +480,52 @@ LABEL_13:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v31 = allValues;
+      v29 = allValues;
       _os_log_impl(&dword_191750000, v14, OS_LOG_TYPE_INFO, "All subscribers %@", buf, 0xCu);
     }
 
-    v20 = eventCopy;
-    v24 = 0u;
-    v25 = 0u;
+    v19 = eventCopy;
     v22 = 0u;
     v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v15 = allValues;
-    v16 = [(_CDXPCEventPublisher *)v15 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v16 = [(_CDXPCEventPublisher *)v15 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v16)
     {
-      v17 = *v23;
+      v17 = *v21;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v23 != v17)
+          if (*v21 != v17)
           {
             objc_enumerationMutation(v15);
           }
 
-          v21 = *(*(&v22 + 1) + 8 * i);
           [_CDXPCEventPublisher sendEvent:"sendEvent:toSubscriber:handler:" toSubscriber:v10 handler:?];
         }
 
-        v16 = [(_CDXPCEventPublisher *)v15 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v16 = [(_CDXPCEventPublisher *)v15 countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
       while (v16);
     }
 
-    eventCopy = v20;
+    eventCopy = v19;
     objc_sync_exit(v12);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)publishDeletedXPCEvent:(id)event
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   v5 = +[_CDLogging interactionChannel];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138739971;
-    v31 = eventCopy;
+    v29 = eventCopy;
     _os_log_impl(&dword_191750000, v5, OS_LOG_TYPE_INFO, "Publishing deleted XPC event with interactions %{sensitive}@", buf, 0xCu);
   }
 
@@ -539,7 +534,7 @@ LABEL_13:
   {
     interactionDeletedEventPublisher = self->_interactionDeletedEventPublisher;
     *buf = 138412290;
-    v31 = interactionDeletedEventPublisher;
+    v29 = interactionDeletedEventPublisher;
     _os_log_impl(&dword_191750000, v6, OS_LOG_TYPE_INFO, "_interactionDeletedEventPublisher %@", buf, 0xCu);
   }
 
@@ -555,12 +550,12 @@ LABEL_13:
       v8 = MEMORY[0x1E695E0F0];
     }
 
-    v28 = @"_CDInteractionsKey";
-    v29 = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-    v26 = 0;
-    v10 = [_CDXPCCodecs notificationEventWithRegistrationIdentifier:@"_CDInteractionStoreDeletedInteractionsNotification" info:v9 error:&v26];
-    v11 = v26;
+    v26 = @"_CDInteractionsKey";
+    v27 = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v24 = 0;
+    v10 = [_CDXPCCodecs notificationEventWithRegistrationIdentifier:@"_CDInteractionStoreDeletedInteractionsNotification" info:v9 error:&v24];
+    v11 = v24;
 
     v12 = self->_interactionStoreDeletedEventSubscribersByToken;
     objc_sync_enter(v12);
@@ -569,70 +564,49 @@ LABEL_13:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v31 = allValues;
+      v29 = allValues;
       _os_log_impl(&dword_191750000, v14, OS_LOG_TYPE_INFO, "All subscribers %@", buf, 0xCu);
     }
 
-    v20 = eventCopy;
-    v24 = 0u;
-    v25 = 0u;
+    v19 = eventCopy;
     v22 = 0u;
     v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v15 = allValues;
-    v16 = [(_CDXPCEventPublisher *)v15 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v16 = [(_CDXPCEventPublisher *)v15 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v16)
     {
-      v17 = *v23;
+      v17 = *v21;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v23 != v17)
+          if (*v21 != v17)
           {
             objc_enumerationMutation(v15);
           }
 
-          v21 = *(*(&v22 + 1) + 8 * i);
           [_CDXPCEventPublisher sendEvent:"sendEvent:toSubscriber:handler:" toSubscriber:v10 handler:?];
         }
 
-        v16 = [(_CDXPCEventPublisher *)v15 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v16 = [(_CDXPCEventPublisher *)v15 countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
       while (v16);
     }
 
-    eventCopy = v20;
+    eventCopy = v19;
     objc_sync_exit(v12);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
-}
-
-- (void)addSubscriber:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)removeSubscriberWithToken:streamName:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleXPCNotificationEvent:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = a1;
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = a1;
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_6_0(&dword_191750000, v1, v2, "Failed to parse notification event for registration %@: %@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_0(&dword_191750000, v1, v2, "Failed to parse notification event for registration %@: %@", v3, DWORD2(v3));
 }
 
 @end

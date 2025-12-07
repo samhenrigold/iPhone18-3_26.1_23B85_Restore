@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)fadeTypeAsString:(int)string;
 - (int)StringAsFadeType:(id)type;
 - (int)fadeType;
 - (unint64_t)hash;
@@ -26,20 +27,43 @@
   }
 }
 
-- (int)StringAsFadeType:(id)type
+- (id)fadeTypeAsString:(int)string
 {
-  typeCopy = type;
-  if ([typeCopy isEqualToString:@"FadeOut"])
+  if (string)
   {
-    v4 = 0;
+    if (string == 1)
+    {
+      v4 = @"FadeIn";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
   }
 
   else
   {
-    v4 = [typeCopy isEqualToString:@"FadeIn"];
+    v4 = @"FadeOut";
   }
 
   return v4;
+}
+
+- (int)StringAsFadeType:(id)type
+{
+  typeCopy = type;
+  if (objc_msgSend_isEqualToString_(typeCopy))
+  {
+    isEqualToString = 0;
+  }
+
+  else
+  {
+    isEqualToString = objc_msgSend_isEqualToString_(typeCopy);
+  }
+
+  return isEqualToString;
 }
 
 - (id)description
@@ -94,18 +118,17 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_playerPath)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    fadeType = self->_fadeType;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 

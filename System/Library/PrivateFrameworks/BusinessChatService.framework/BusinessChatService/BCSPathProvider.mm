@@ -24,9 +24,11 @@
 
 uint64_t __33__BCSPathProvider_sharedInstance__block_invoke()
 {
-  qword_280BCF5A0 = objc_alloc_init(BCSPathProvider);
+  v0 = objc_alloc_init(BCSPathProvider);
+  v1 = qword_280BCF5A0;
+  qword_280BCF5A0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (NSURL)tempURL
@@ -69,12 +71,12 @@ uint64_t __33__BCSPathProvider_sharedInstance__block_invoke()
 
 - (id)_setupStorageWithSearchPathDirectory:(unint64_t)directory applyFileProtectionType:(id)type verificationToken:(BOOL *)token
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   fileManager = [(BCSPathProvider *)self fileManager];
-  v16 = 0;
-  v10 = [fileManager URLForDirectory:directory inDomain:1 appropriateForURL:0 create:0 error:&v16];
-  v11 = v16;
+  v15 = 0;
+  v10 = [fileManager URLForDirectory:directory inDomain:1 appropriateForURL:0 create:0 error:&v15];
+  v11 = v15;
 
   if (v10)
   {
@@ -89,7 +91,7 @@ uint64_t __33__BCSPathProvider_sharedInstance__block_invoke()
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v18 = v11;
+        v17 = v11;
         _os_log_error_impl(&dword_242072000, v13, OS_LOG_TYPE_ERROR, "Unable to determine directory from NSFileManager: %@", buf, 0xCu);
       }
     }
@@ -97,14 +99,12 @@ uint64_t __33__BCSPathProvider_sharedInstance__block_invoke()
     v12 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (id)_setupStorageWithBaseFileURL:(id)l applyFileProtectionType:(id)type verificationToken:(BOOL *)token
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   lCopy = l;
   typeCopy = type;
   if (lCopy)
@@ -126,14 +126,14 @@ uint64_t __33__BCSPathProvider_sharedInstance__block_invoke()
         {
           path2 = [v12 path];
           *buf = 138412290;
-          v33 = path2;
+          v32 = path2;
           _os_log_debug_impl(&dword_242072000, v16, OS_LOG_TYPE_DEBUG, "Creating directory here: %@", buf, 0xCu);
         }
 
         fileManager2 = [(BCSPathProvider *)self fileManager];
-        v31 = 0;
-        v18 = [fileManager2 createDirectoryAtURL:v12 withIntermediateDirectories:1 attributes:0 error:&v31];
-        v19 = v31;
+        v30 = 0;
+        v18 = [fileManager2 createDirectoryAtURL:v12 withIntermediateDirectories:1 attributes:0 error:&v30];
+        v19 = v30;
 
         if ((v18 & 1) == 0)
         {
@@ -142,9 +142,9 @@ uint64_t __33__BCSPathProvider_sharedInstance__block_invoke()
           {
             path3 = [v12 path];
             *buf = 138543618;
-            v33 = path3;
-            v34 = 2112;
-            v35 = v19;
+            v32 = path3;
+            v33 = 2112;
+            v34 = v19;
             _os_log_error_impl(&dword_242072000, v20, OS_LOG_TYPE_ERROR, "Error creating directory: %{public}@ - %@}", buf, 0x16u);
           }
 
@@ -155,9 +155,9 @@ uint64_t __33__BCSPathProvider_sharedInstance__block_invoke()
       if (typeCopy && v12 && (!token || !*token))
       {
         v21 = *MEMORY[0x277CBE7F8];
-        v30 = 0;
-        v22 = [v12 setResourceValue:typeCopy forKey:v21 error:&v30];
-        v23 = v30;
+        v29 = 0;
+        v22 = [v12 setResourceValue:typeCopy forKey:v21 error:&v29];
+        v23 = v29;
         v24 = ABSLogCommon();
         v25 = v24;
         if (!v22 || v23)
@@ -165,7 +165,7 @@ uint64_t __33__BCSPathProvider_sharedInstance__block_invoke()
           if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v33 = v23;
+            v32 = v23;
             _os_log_error_impl(&dword_242072000, v25, OS_LOG_TYPE_ERROR, "Failed to set the file protection level to class C on the caches directory, error: %@", buf, 0xCu);
           }
         }
@@ -191,8 +191,6 @@ uint64_t __33__BCSPathProvider_sharedInstance__block_invoke()
   {
     v12 = 0;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

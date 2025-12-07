@@ -43,13 +43,13 @@
   selfCopy = self;
   if (width < 2 || height <= 1)
   {
-    [FigCaptureImageMotionDetector initWithWidth:height:maximumSearchRange:frameRingSize:];
+    [FigCaptureImageMotionDetector initWithWidth:a2 height:? maximumSearchRange:? frameRingSize:?];
     goto LABEL_12;
   }
 
   if (range < 0)
   {
-    [FigCaptureImageMotionDetector initWithWidth:height:maximumSearchRange:frameRingSize:];
+    [FigCaptureImageMotionDetector initWithWidth:a2 height:? maximumSearchRange:? frameRingSize:?];
     goto LABEL_12;
   }
 
@@ -93,7 +93,7 @@ LABEL_6:
 {
   if (self->_imgProj.count)
   {
-    [FigCaptureImageMotionDetector setRoi:actualROI:];
+    [(FigCaptureImageMotionDetector *)roi.origin setRoi:roi.size actualROI:*&roi.size.height];
     return -12782;
   }
 
@@ -198,12 +198,13 @@ LABEL_14:
 - (int)setCentralROIAndGetRect:(CGRect *)rect
 {
   v3 = [(FigCaptureImageMotionDetector *)self setRoi:rect actualROI:pixelSumComputeCompatibleROI(self->_width, vcvts_n_f32_s32(self->_width, 2uLL))];
+  v4 = v3;
   if (v3)
   {
-    [FigCaptureImageMotionDetector setCentralROIAndGetRect:];
+    [FigCaptureImageMotionDetector setCentralROIAndGetRect:v3];
   }
 
-  return v3;
+  return v4;
 }
 
 - (void)resetProcessingState
@@ -297,7 +298,7 @@ LABEL_14:
 LABEL_19:
       fig_log_get_emitter();
       OUTLINED_FUNCTION_1_11();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
       return 4294954510;
     }
 
@@ -312,119 +313,188 @@ LABEL_19:
   bufferCopy = buffer;
   if (!self)
   {
-    v39 = 0;
+    v40 = 0;
     goto LABEL_24;
   }
 
-  v43 = *(self + 52);
-  if (!a2 || (Width = CVPixelBufferGetWidth(a2), Height = CVPixelBufferGetHeight(a2), *(self + 8) != Width) || *(self + 12) != Height)
+  HIDWORD(v62) = *(self + 52);
+  if (!a2)
   {
     OUTLINED_FUNCTION_9_1();
     OUTLINED_FUNCTION_4_78();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v56, v60, v61, v62, v63, pixelBuffer, v66, v67);
+    v44 = OUTLINED_FUNCTION_9_1();
+    v47 = 279;
+    goto LABEL_30;
+  }
+
+  Width = CVPixelBufferGetWidth(a2);
+  Height = CVPixelBufferGetHeight(a2);
+  if (*(self + 8) != Width)
+  {
     OUTLINED_FUNCTION_9_1();
-    v39 = FigSignalErrorAtGM();
-    if (v39)
+    OUTLINED_FUNCTION_4_78();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v56, v60, v61, v62, v63, pixelBuffer, v66, v67);
+    v44 = OUTLINED_FUNCTION_9_1();
+    v47 = 283;
+    goto LABEL_30;
+  }
+
+  if (*(self + 12) != Height)
+  {
+    OUTLINED_FUNCTION_9_1();
+    OUTLINED_FUNCTION_4_78();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v56, v60, v61, v62, v63, pixelBuffer, v66, v67);
+    v44 = OUTLINED_FUNCTION_9_1();
+    v47 = 284;
+LABEL_30:
+    v40 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v44, 0xFFFFCE14, "(Fig)", v47, v3, v45, v46, v57);
+    if (v40)
     {
-LABEL_34:
-      *(self + 52) = v43;
-      *(self + 209) = 0;
-      goto LABEL_24;
+      goto LABEL_40;
     }
 
     goto LABEL_23;
   }
 
-  if (pixelSumForROI(a2, *(self + 16), *(self + 24), *(self + 112), *(self + 120), *(self + 128), *(self + 136)))
+  if (!pixelSumForROI(a2, *(self + 16), *(self + 24), *(self + 112), *(self + 120), *(self + 128), *(self + 136)))
   {
-    v8 = *(self + 24);
-    if (v8 && (v9 = *(self + 16)) != 0 && (v10 = *(self + 88), v10 > 0) && (v11 = *(self + 96), v11 > 0))
+    goto LABEL_20;
+  }
+
+  v10 = *(self + 24);
+  if (v10)
+  {
+    v4 = *(self + 16);
+    if (v4)
     {
-      v13 = *(self + 112);
-      v12 = *(self + 120);
-      v14 = CVPixelBufferLockBaseAddress(a2, 1uLL);
-      if (v14)
+      v11 = *(self + 88);
+      if (v11 <= 0)
       {
-        v39 = v14;
-        fig_log_get_emitter();
-        OUTLINED_FUNCTION_7_62();
-        OUTLINED_FUNCTION_1_8();
-        FigDebugAssert3();
+        OUTLINED_FUNCTION_9_1();
+        OUTLINED_FUNCTION_2_101();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v56, v60, v61, v62, v63, pixelBuffer, v66, v67);
+        v48 = OUTLINED_FUNCTION_9_1();
+        v51 = 544;
       }
 
       else
       {
-        v15 = OUTLINED_FUNCTION_2_2();
-        WidthOfPlane = CVPixelBufferGetWidthOfPlane(v15, v16);
-        v18 = OUTLINED_FUNCTION_2_2();
-        HeightOfPlane = CVPixelBufferGetHeightOfPlane(v18, v19);
-        if (v11 + v13 > WidthOfPlane || v10 + v12 > HeightOfPlane)
+        v12 = *(self + 96);
+        if (v12 > 0)
         {
-          OUTLINED_FUNCTION_11_44();
-          OUTLINED_FUNCTION_7_62();
-          OUTLINED_FUNCTION_10_46();
-          FigDebugAssert3();
-          OUTLINED_FUNCTION_11_44();
-          v39 = FigSignalErrorAtGM();
-        }
-
-        else
-        {
-          v21 = OUTLINED_FUNCTION_2_2();
-          BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(v21, v22);
-          pixelBuffer = a2;
-          v24 = OUTLINED_FUNCTION_2_2();
-          v26 = bufferCopy;
-          BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(v24, v25);
-          bzero(v8, 4 * v11);
-          bzero(v9, 4 * v10);
-          v28 = 0;
-          v29 = v11 & 0x7FFFFFFC;
-          v30 = &BaseAddressOfPlane[v13 + BytesPerRowOfPlane * v12];
-          bufferCopy = v26;
-          v31 = v30 + 3;
-          do
+          v14 = *(self + 112);
+          v13 = *(self + 120);
+          v15 = CVPixelBufferLockBaseAddress(a2, 1uLL);
+          if (v15)
           {
-            if (v29)
-            {
-              v32 = 0;
-              v33 = v8 + 2;
-              do
-              {
-                v34 = *(v9 + v28) + v31[v32 - 3];
-                *(v9 + v28) = v34;
-                v35 = v34 + v31[v32 - 2];
-                *(v9 + v28) = v35;
-                v36 = v35 + v31[v32 - 1];
-                *(v9 + v28) = v36;
-                *(v9 + v28) = v36 + v31[v32];
-                v37 = *(v33 - 1);
-                *(v33 - 2) += v31[v32 - 3];
-                *(v33 - 1) = v37 + v31[v32 - 2];
-                v38 = v33[1];
-                *v33 += v31[v32 - 1];
-                v33[1] = v38 + v31[v32];
-                v32 += 4;
-                v33 += 4;
-              }
-
-              while (v32 < v29);
-            }
-
-            ++v28;
-            v31 += BytesPerRowOfPlane;
+            v40 = v15;
+            fig_log_get_emitter();
+            OUTLINED_FUNCTION_7_62();
+            OUTLINED_FUNCTION_1_8();
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v40, v60, v61, v62, v63, pixelBuffer, v66, v67);
+            goto LABEL_39;
           }
 
-          while (v28 != v10);
-          v39 = 0;
-          a2 = pixelBuffer;
+          v16 = OUTLINED_FUNCTION_2_2();
+          WidthOfPlane = CVPixelBufferGetWidthOfPlane(v16, v17);
+          v19 = OUTLINED_FUNCTION_2_2();
+          HeightOfPlane = CVPixelBufferGetHeightOfPlane(v19, v20);
+          if (v12 + v14 > WidthOfPlane)
+          {
+            OUTLINED_FUNCTION_11_44();
+            OUTLINED_FUNCTION_7_62();
+            OUTLINED_FUNCTION_10_46();
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v56, v60, v61, v62, v63, pixelBuffer, v66, v67);
+            v52 = OUTLINED_FUNCTION_11_44();
+            v55 = 553;
+          }
+
+          else
+          {
+            if (v11 + v13 <= HeightOfPlane)
+            {
+              v22 = OUTLINED_FUNCTION_2_2();
+              BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(v22, v23);
+              pixelBuffera = a2;
+              v25 = OUTLINED_FUNCTION_2_2();
+              v27 = bufferCopy;
+              BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(v25, v26);
+              bzero(v10, 4 * v12);
+              bzero(v4, 4 * v11);
+              v29 = 0;
+              v30 = v12 & 0x7FFFFFFC;
+              v31 = &BaseAddressOfPlane[v14 + BytesPerRowOfPlane * v13];
+              bufferCopy = v27;
+              v32 = v31 + 3;
+              do
+              {
+                if (v30)
+                {
+                  v33 = 0;
+                  v34 = v10 + 2;
+                  do
+                  {
+                    v35 = *(v4 + v29) + v32[v33 - 3];
+                    *(v4 + v29) = v35;
+                    v36 = v35 + v32[v33 - 2];
+                    *(v4 + v29) = v36;
+                    v37 = v36 + v32[v33 - 1];
+                    *(v4 + v29) = v37;
+                    *(v4 + v29) = v37 + v32[v33];
+                    v38 = *(v34 - 1);
+                    *(v34 - 2) += v32[v33 - 3];
+                    *(v34 - 1) = v38 + v32[v33 - 2];
+                    v39 = v34[1];
+                    *v34 += v32[v33 - 1];
+                    v34[1] = v39 + v32[v33];
+                    v33 += 4;
+                    v34 += 4;
+                  }
+
+                  while (v33 < v30);
+                }
+
+                ++v29;
+                v32 += BytesPerRowOfPlane;
+              }
+
+              while (v29 != v11);
+              v40 = 0;
+              a2 = pixelBuffera;
+LABEL_19:
+              CVPixelBufferUnlockBaseAddress(a2, 1uLL);
+              if (!v40)
+              {
+                goto LABEL_20;
+              }
+
+LABEL_39:
+              fig_log_get_emitter();
+              OUTLINED_FUNCTION_7_62();
+              OUTLINED_FUNCTION_1_8();
+              LODWORD(v56) = v40;
+              FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v56);
+              goto LABEL_40;
+            }
+
+            OUTLINED_FUNCTION_11_44();
+            OUTLINED_FUNCTION_7_62();
+            OUTLINED_FUNCTION_10_46();
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v56, v60, v61, v62, v63, pixelBuffer, v66, v67);
+            v52 = OUTLINED_FUNCTION_11_44();
+            v55 = 554;
+          }
+
+          v40 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v52, 0xFFFFCE14, "(Fig)", v55, v14, v53, v54, v59);
+          goto LABEL_19;
         }
 
-        CVPixelBufferUnlockBaseAddress(a2, 1uLL);
-        if (!v39)
-        {
-          goto LABEL_20;
-        }
+        OUTLINED_FUNCTION_9_1();
+        OUTLINED_FUNCTION_2_101();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v56, v60, v61, v62, v63, pixelBuffer, v66, v67);
+        v48 = OUTLINED_FUNCTION_9_1();
+        v51 = 545;
       }
     }
 
@@ -432,51 +502,60 @@ LABEL_34:
     {
       OUTLINED_FUNCTION_9_1();
       OUTLINED_FUNCTION_2_101();
-      FigDebugAssert3();
-      OUTLINED_FUNCTION_9_1();
-      v39 = FigSignalErrorAtGM();
-      if (!v39)
-      {
-        goto LABEL_20;
-      }
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v56, v60, v61, v62, v63, pixelBuffer, v66, v67);
+      v48 = OUTLINED_FUNCTION_9_1();
+      v51 = 543;
     }
+  }
 
-    fig_log_get_emitter();
-    OUTLINED_FUNCTION_7_62();
-    OUTLINED_FUNCTION_1_8();
-    goto LABEL_33;
+  else
+  {
+    OUTLINED_FUNCTION_9_1();
+    OUTLINED_FUNCTION_2_101();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v56, v60, v61, v62, v63, pixelBuffer, v66, v67);
+    v48 = OUTLINED_FUNCTION_9_1();
+    v51 = 542;
+  }
+
+  v40 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v48, 0xFFFFCE14, "(Fig)", v51, v4, v49, v50, v58);
+  if (v40)
+  {
+    goto LABEL_39;
   }
 
 LABEL_20:
   vDSP_vflt32D(*(self + 16), 1, *(*(self + 32) + 8 * *(self + 48)), 1, *(self + 88));
   vDSP_vflt32D(*(self + 24), 1, *(*(self + 40) + 8 * *(self + 48)), 1, *(self + 96));
-  v40 = *(self + 52);
-  if (v40 < *(self + 56))
+  v41 = *(self + 52);
+  if (v41 < *(self + 56))
   {
-    *(self + 52) = ++v40;
+    *(self + 52) = ++v41;
   }
 
-  if (v40 >= 2)
+  if (v41 >= 2)
   {
     _computeStatistics = [(FigCaptureImageMotionDetector *)self _computeStatistics];
     if (_computeStatistics)
     {
-      v39 = _computeStatistics;
+      v40 = _computeStatistics;
       fig_log_get_emitter();
       OUTLINED_FUNCTION_7_62();
       OUTLINED_FUNCTION_1_8();
-LABEL_33:
-      FigDebugAssert3();
-      goto LABEL_34;
+      LODWORD(v56) = v40;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v56);
+LABEL_40:
+      *(self + 52) = HIDWORD(v62);
+      *(self + 209) = 0;
+      goto LABEL_24;
     }
   }
 
 LABEL_23:
-  v39 = 0;
+  v40 = 0;
   *(self + 48) = (*(self + 48) + 1) % *(self + 56);
 LABEL_24:
 
-  return v39;
+  return v40;
 }
 
 - (uint64_t)_computeStatistics
@@ -486,113 +565,126 @@ LABEL_24:
     return result;
   }
 
-  v1 = result;
-  v2 = *(result + 52);
-  if (v2 <= 1)
+  v2 = result;
+  v3 = *(result + 52);
+  if (v3 <= 1)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_8();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v56, v57, v58, v59, v61, v62, v64);
     result = 4294954514;
-    goto LABEL_38;
+    goto LABEL_40;
   }
 
-  v3 = 0;
-  v4 = *(result + 48);
-  v5 = (v4 + 1) % v2;
-  v7 = *(result + 32);
-  v6 = *(result + 40);
-  v8 = *(v6 + 8 * v5);
-  v46 = v5;
-  v53 = *(v7 + 8 * v5);
-  v9 = *(v6 + 8 * v4);
-  v47 = *(result + 48);
-  v52 = *(v7 + 8 * v4);
-  v50 = result + 160;
-  v51 = result + 152;
-  v10 = 1;
-  v11 = *(result + 96);
-  v49 = *(result + 88);
-  v12 = *(result + 148);
-  v13 = *(result + 80);
-  v48 = result;
+  v4 = 0;
+  v5 = *(result + 48);
+  v6 = (v5 + 1) % v3;
+  v8 = *(result + 32);
+  v7 = *(result + 40);
+  v9 = *(v7 + 8 * v6);
+  HIDWORD(v58) = v6;
+  v69 = *(v8 + 8 * v6);
+  v10 = *(v7 + 8 * v5);
+  v60 = *(result + 48);
+  v68 = *(v8 + 8 * v5);
+  v66 = result + 160;
+  v67 = result + 152;
+  v11 = 1;
+  v12 = *(result + 96);
+  v65 = *(result + 88);
+  v13 = *(result + 148);
+  v14 = *(result + 80);
+  v63 = result;
   while (1)
   {
-    if (!v9 || !v8 || (v14 = *(v1 + 72)) == 0 || !v13)
+    if (!v10 || !v9 || (v15 = *(v2 + 72)) == 0 || !v14)
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_3_88();
-      FigDebugAssert3();
-      v45 = 4294954516;
-      goto LABEL_37;
+      LODWORD(v52) = 0;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v52);
+      v51 = 4294954516;
+      goto LABEL_39;
     }
 
-    v15 = v10;
-    if ((v12 & 0x80000000) == 0)
+    v16 = v11;
+    if ((v13 & 0x80000000) == 0)
     {
       break;
     }
 
     v17 = 0;
-LABEL_31:
-    v10 = 0;
-    v29 = *(v13 + 8 * v17);
-    *(v51 + 4 * v3) = v29;
-    *(v50 + 4 * v3) = v17 - v12;
-    v11 = v49;
-    v9 = v52;
-    v8 = v53;
-    v3 = 1;
-    if ((v15 & 1) == 0)
+LABEL_33:
+    v11 = 0;
+    v36 = *(v14 + 8 * v17);
+    *(v67 + 4 * v4) = v36;
+    *(v66 + 4 * v4) = v17 - v13;
+    v12 = v65;
+    v10 = v68;
+    v9 = v69;
+    v4 = 1;
+    if ((v16 & 1) == 0)
     {
-      v30 = *(v1 + 144);
-      v31 = *(v1 + 152) < v30 || *(v1 + 156) < v30;
+      v37 = *(v2 + 144);
+      v38 = *(v2 + 152) < v37 || *(v2 + 156) < v37;
       result = 0;
-      v32 = *(v1 + 128);
-      *(v1 + 176) = *(v1 + 112);
-      *(v1 + 192) = v32;
-      v33 = *(v1 + 8);
-      v34.i64[0] = v33;
-      v34.i64[1] = SHIDWORD(v33);
-      v35 = vcvtq_f64_s64(v34);
+      v39 = *(v2 + 128);
+      *(v2 + 176) = *(v2 + 112);
+      *(v2 + 192) = v39;
+      v40 = *(v2 + 8);
+      v41.i64[0] = v40;
+      v41.i64[1] = SHIDWORD(v40);
+      v42 = vcvtq_f64_s64(v41);
       __asm { FMOV            V1.2D, #-1.0 }
 
-      v40 = *(v1 + 192);
-      v41 = vdivq_f64(*(v1 + 176), vaddq_f64(v35, _Q1));
-      *(v1 + 208) = v31;
-      v42 = *(v1 + 52);
-      *(v1 + 176) = v41;
-      *(v1 + 192) = vdivq_f64(v40, v35);
-      *(v1 + 168) = v42;
-      *(v1 + 172) = (v47 - v46 + v42) % v42;
-      goto LABEL_38;
+      v47 = *(v2 + 192);
+      v48 = vdivq_f64(*(v2 + 176), vaddq_f64(v42, _Q1));
+      *(v2 + 208) = v38;
+      v49 = *(v2 + 52);
+      *(v2 + 176) = v48;
+      *(v2 + 192) = vdivq_f64(v47, v42);
+      *(v2 + 168) = v49;
+      *(v2 + 172) = (v60 - HIDWORD(v58) + v49) % v49;
+      goto LABEL_40;
     }
   }
 
-  v54 = v10;
-  v55 = v3;
-  v16 = 0;
+  v70 = v11;
+  v71 = v4;
+  v1 = 0;
   v17 = 0;
-  v18 = *(v1 + 64);
-  v19 = (v9 + 8 * v12 - 8 * v12);
+  v18 = *(v2 + 64);
+  v19 = (v10 + 8 * v13 - 8 * v13);
   v20 = -100.0;
-  v21 = v11 - 2 * v12;
-  v22 = (v8 + 8 * v12);
-  v23 = (2 * v12) | 1;
-  v24 = -v12;
+  v21 = v12 - 2 * v13;
+  v22 = (v9 + 8 * v13);
+  v23 = (2 * v13) | 1;
+  v24 = -v13;
   while (1)
   {
-    if (v24 + v16 < v24 || v21 <= 0)
+    if (&v1[v24] < v24)
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_6_71();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v52, v56, v57, v58, v60, v61, v63, v64);
+      emitter = fig_log_get_emitter();
+      v30 = 741;
+      goto LABEL_28;
+    }
+
+    if (v21 <= 0)
+    {
       fig_log_get_emitter();
-      v27 = FigSignalErrorAtGM();
+      OUTLINED_FUNCTION_6_71();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v52, v56, v57, v58, v60, v61, v63, v64);
+      emitter = fig_log_get_emitter();
+      v30 = 744;
+LABEL_28:
+      v31 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFFCE14, "(Fig)", v30, v57, v28, v29, v53);
       v25 = 0.0;
-      if (v27)
+      if (v31)
       {
-        goto LABEL_36;
+        goto LABEL_38;
       }
 
       goto LABEL_22;
@@ -600,16 +692,16 @@ LABEL_31:
 
     if (v18)
     {
-      v59 = 0.0;
+      v75 = 0.0;
       __Mean[0] = 0.0;
-      v57 = 0.0;
+      v73 = 0.0;
       __StandardDeviation = 0.0;
       vDSP_normalizeD(v19, 1, v18, 1, __Mean, &__StandardDeviation, v21);
-      vDSP_normalizeD(v22, 1, v14, 1, &v59, &v57, v21);
+      vDSP_normalizeD(v22, 1, v15, 1, &v75, &v73, v21);
       __C = 0.0;
-      if (__StandardDeviation < 0.0000999999975 || v57 < 0.0000999999975)
+      if (__StandardDeviation < 0.0000999999975 || v73 < 0.0000999999975)
       {
-        if (v57 < 0.0000999999975 && __StandardDeviation < 0.0000999999975)
+        if (v73 < 0.0000999999975 && __StandardDeviation < 0.0000999999975)
         {
           v25 = 1.0;
         }
@@ -622,7 +714,7 @@ LABEL_31:
 
       else
       {
-        vDSP_convD(v18, 1, v14, 1, &__C, 1, 1uLL, v21);
+        vDSP_convD(v18, 1, v15, 1, &__C, 1, 1uLL, v21);
         v25 = __C / v21;
       }
 
@@ -631,53 +723,56 @@ LABEL_31:
 
     fig_log_get_emitter();
     OUTLINED_FUNCTION_6_71();
-    FigDebugAssert3();
-    fig_log_get_emitter();
-    v28 = FigSignalErrorAtGM();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v52, v56, v57, v58, v60, v61, v63, v64);
+    v32 = fig_log_get_emitter();
+    v35 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v32, 0xFFFFCE14, "(Fig)", 0x265, v57, v33, v34, v54);
     v25 = 0.0;
-    if (v28)
+    if (v35)
     {
       break;
     }
 
 LABEL_22:
-    *(v13 + 8 * v16) = v25;
+    *(v14 + 8 * v1) = v25;
     if (v25 > v20)
     {
       v20 = v25;
-      v17 = v16;
+      v17 = v1;
     }
 
-    ++v16;
+    ++v1;
     ++v19;
-    if (v23 == v16)
+    if (v23 == v1)
     {
-      v1 = v48;
-      v13 = *(v48 + 80);
-      v12 = *(v48 + 148);
-      v3 = v55;
-      v15 = v54;
-      goto LABEL_31;
+      v2 = v63;
+      v14 = *(v63 + 80);
+      v13 = *(v63 + 148);
+      v4 = v71;
+      v16 = v70;
+      goto LABEL_33;
     }
   }
 
-  v43 = v28;
+  v1 = v35;
   fig_log_get_emitter();
-  FigDebugAssert3();
-  v27 = v43;
-LABEL_36:
-  v44 = v27;
+  LODWORD(v52) = v1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v52, v57, v57, v58, v60, v61, v63, v64);
+  v31 = v1;
+LABEL_38:
+  v50 = v31;
   fig_log_get_emitter();
   OUTLINED_FUNCTION_3_88();
-  v45 = v44;
-  FigDebugAssert3();
-  v1 = v48;
-LABEL_37:
+  v51 = v50;
+  LODWORD(v52) = v50;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v52, v56, v57, v58, v60, v61, v63, v64);
+  v2 = v63;
+LABEL_39:
   fig_log_get_emitter();
-  FigDebugAssert3();
-  result = v45;
-LABEL_38:
-  *(v1 + 209) = result == 0;
+  LODWORD(v55) = v51;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v55, v1, v57, v58, v60, v61, v63, v64);
+  result = v51;
+LABEL_40:
+  *(v2 + 209) = result == 0;
   return result;
 }
 
@@ -768,69 +863,6 @@ LABEL_38:
       free(v13);
     }
   }
-}
-
-- (uint64_t)initWithWidth:height:maximumSearchRange:frameRingSize:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithWidth:height:maximumSearchRange:frameRingSize:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithWidth:height:maximumSearchRange:frameRingSize:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithWidth:height:maximumSearchRange:frameRingSize:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)setRoi:actualROI:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)setRoi:actualROI:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)setRoi:actualROI:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)setRoi:actualROI:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)setCentralROIAndGetRect:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
 }
 
 @end

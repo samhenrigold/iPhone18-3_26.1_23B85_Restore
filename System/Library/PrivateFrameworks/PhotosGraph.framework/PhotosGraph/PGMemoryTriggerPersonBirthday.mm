@@ -7,7 +7,7 @@
 
 - (id)resultsTriggeredWithContext:(id)context inGraph:(id)graph progressReporter:(id)reporter
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   graphCopy = graph;
   reporterCopy = reporter;
@@ -16,9 +16,9 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
-      v34 = 33;
-      v35 = 2080;
-      v36 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerPersonBirthday.m";
+      v33 = 33;
+      v34 = 2080;
+      v35 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerPersonBirthday.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
 
@@ -42,21 +42,21 @@
 
       if ([v18 sourcesCount])
       {
-        v29 = v17;
-        v28 = [(PGGraphNodeCollection *)PGGraphOverTheYearsNodeCollection nodesInGraph:graphCopy];
-        featureNodeCollection = [v28 featureNodeCollection];
+        v28 = v17;
+        v27 = [(PGGraphNodeCollection *)PGGraphOverTheYearsNodeCollection nodesInGraph:graphCopy];
+        featureNodeCollection = [v27 featureNodeCollection];
         memoryNodes = [featureNodeCollection memoryNodes];
 
         v21 = objc_alloc_init(MEMORY[0x277D22BD0]);
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __86__PGMemoryTriggerPersonBirthday_resultsTriggeredWithContext_inGraph_progressReporter___block_invoke;
-        v30[3] = &unk_278884B88;
-        v27 = memoryNodes;
-        v31 = v27;
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __86__PGMemoryTriggerPersonBirthday_resultsTriggeredWithContext_inGraph_progressReporter___block_invoke;
+        v29[3] = &unk_278884B88;
+        v26 = memoryNodes;
+        v30 = v26;
         v22 = v21;
-        v32 = v22;
-        [v18 enumerateTargetsBySourceWithBlock:v30];
+        v31 = v22;
+        [v18 enumerateTargetsBySourceWithBlock:v29];
         if ([v22 count])
         {
           v23 = [objc_opt_class() singleDayValidityIntervalWithContext:contextCopy];
@@ -66,9 +66,9 @@
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
             {
               *buf = 67109378;
-              v34 = 71;
-              v35 = 2080;
-              v36 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerPersonBirthday.m";
+              v33 = 71;
+              v34 = 2080;
+              v35 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerPersonBirthday.m";
               _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
             }
 
@@ -86,16 +86,16 @@
           if ([reporterCopy isCancelledWithProgress:1.0] && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            v34 = 65;
-            v35 = 2080;
-            v36 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerPersonBirthday.m";
+            v33 = 65;
+            v34 = 2080;
+            v35 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerPersonBirthday.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
           v10 = MEMORY[0x277CBEBF8];
         }
 
-        v17 = v29;
+        v17 = v28;
       }
 
       else
@@ -103,9 +103,9 @@
         if ([reporterCopy isCancelledWithProgress:1.0] && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          v34 = 46;
-          v35 = 2080;
-          v36 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerPersonBirthday.m";
+          v33 = 46;
+          v34 = 2080;
+          v35 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerPersonBirthday.m";
           _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
         }
 
@@ -118,9 +118,9 @@
       if ([reporterCopy isCancelledWithProgress:1.0] && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v34 = 39;
-        v35 = 2080;
-        v36 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerPersonBirthday.m";
+        v33 = 39;
+        v34 = 2080;
+        v35 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Memories/MemoryTriggers/PGMemoryTriggerPersonBirthday.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -128,8 +128,6 @@
       v18 = v16;
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

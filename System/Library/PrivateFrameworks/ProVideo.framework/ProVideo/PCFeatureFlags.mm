@@ -99,7 +99,7 @@
   return sharedInstance_sPCFeatureFlagsSharedInstance;
 }
 
-uint64_t __32__PCFeatureFlags_sharedInstance__block_invoke()
+PCFeatureFlags *__32__PCFeatureFlags_sharedInstance__block_invoke()
 {
   result = objc_opt_new();
   sharedInstance_sPCFeatureFlagsSharedInstance = result;

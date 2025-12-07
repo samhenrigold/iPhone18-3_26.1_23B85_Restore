@@ -15,6 +15,7 @@
 - (void)_roundRobinTimerHandler;
 - (void)_startRoundRobinTimer;
 - (void)_stopRoundRobinTimer;
+- (void)_updateAdvertisementAfterActivationForType:(int)type;
 - (void)payloadDidChange;
 @end
 
@@ -668,6 +669,24 @@ LABEL_28:
 
   v6 = +[NIServerSpatialInteractionPayloadAggregator sharedInstance];
   [v6 commitChange];
+}
+
+- (void)_updateAdvertisementAfterActivationForType:(int)type
+{
+  v3 = *&type;
+  dispatch_assert_queue_V2(self->_selfQueue);
+  v12 = 0;
+  v13 = 0;
+  v5 = [(_FindingAdvertiser *)self _peerIndexReferenceForAdvertisementType:v3 outPeers:&v13 outAdvertisements:&v12];
+  v6 = v13;
+  v7 = v12;
+  v8 = *v5;
+  if (v8 < [v6 count])
+  {
+    v9 = [v6 objectAtIndexedSubscript:*v5];
+    v10 = [v7 objectAtIndexedSubscript:*v5];
+    v11 = [(_FindingAdvertiser *)self _configureAdvertiserForType:v3 toPeer:v9 withAdvertisement:v10];
+  }
 }
 
 - (void)_startRoundRobinTimer

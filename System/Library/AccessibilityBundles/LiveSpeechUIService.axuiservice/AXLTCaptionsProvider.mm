@@ -30,7 +30,7 @@
 
 - (void)mediaPlayingDidChange:(id)change
 {
-  v5 = sub_2E50(&qword_FA558);
+  v5 = sub_2E50(&qword_FA558, &qword_C06D8);
   __chkstk_darwin(v5 - 8);
   v7 = &v11 - v6;
   if (change)
@@ -49,13 +49,13 @@
   selfCopy = self;
   sub_55890(v7);
 
-  sub_C5E8(v7, &qword_FA558);
+  sub_C5E8(v7, &qword_FA558, &qword_C06D8);
 }
 
 - (void)addPlaceholder
 {
   selfCopy = self;
-  sub_58980();
+  sub_58980(selfCopy);
 }
 
 - (void)screenLockStateChanged:(BOOL)changed

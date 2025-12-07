@@ -14,11 +14,11 @@
 
 - (id)_dictionaryRepresentation
 {
-  v10[2] = *MEMORY[0x1E69E9840];
-  v9[0] = @"deviceIdiom";
+  v9[2] = *MEMORY[0x1E69E9840];
+  v8[0] = @"deviceIdiom";
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:self->_deviceIdiom];
-  v9[1] = @"isHomePodInUltimateMode";
-  v10[0] = v3;
+  v8[1] = @"isHomePodInUltimateMode";
+  v9[0] = v3;
   isHomePodInUltimateMode = self->_isHomePodInUltimateMode;
   null = isHomePodInUltimateMode;
   if (!isHomePodInUltimateMode)
@@ -26,13 +26,11 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v10[1] = null;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v9[1] = null;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
   if (!isHomePodInUltimateMode)
   {
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

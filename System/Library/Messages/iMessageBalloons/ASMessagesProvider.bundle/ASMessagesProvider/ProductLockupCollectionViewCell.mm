@@ -30,11 +30,12 @@
   v3 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider31ProductLockupCollectionViewCell_developerTapHandler);
   if (v3)
   {
+    v4 = *&self->bottomSafeAreaDistance[OBJC_IVAR____TtC18ASMessagesProvider31ProductLockupCollectionViewCell_developerTapHandler];
     selfCopy = self;
-    v5 = sub_F714(v3);
-    v3(v5);
+    v6 = sub_F714(v3, v4);
+    v3(v6);
 
-    sub_F704(v3);
+    sub_F704(v3, v4);
   }
 }
 

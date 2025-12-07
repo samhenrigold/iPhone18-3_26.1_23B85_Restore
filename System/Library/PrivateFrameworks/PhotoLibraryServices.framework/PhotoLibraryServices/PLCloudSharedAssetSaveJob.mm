@@ -45,7 +45,7 @@
   assetCopy = asset;
   albumCopy = album;
   assets = [albumCopy assets];
-  v8 = [assets count];
+  v8 = objc_msgSend_count(assets);
 
   sortingComparator = [albumCopy sortingComparator];
   if (sortingComparator)
@@ -81,177 +81,177 @@
   [(PLCloudSharedAssetSaveJob *)self _performSaveTransactionAndWaitOnLibrary:v6 transaction:v10 completion:v7];
 }
 
-void __89__PLCloudSharedAssetSaveJob_executeDaemonOperationReplaceRecentlyUploadedOriginalJobType__block_invoke(uint64_t a1)
+void __89__PLCloudSharedAssetSaveJob_executeDaemonOperationReplaceRecentlyUploadedOriginalJobType__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v2 = PLPhotoSharingGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v28 = *MEMORY[0x1E69E9840];
+  v3 = PLPhotoSharingGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(a1 + 32) currentCloudAssetGUID];
-    v4 = v3;
-    v5 = @"NO";
+    v4 = [*(a1 + 32) currentCloudAssetGUID];
+    v5 = v4;
+    v6 = @"NO";
     if (*(a1 + 48))
     {
-      v5 = @"YES (streamed-video-replacement)";
+      v6 = @"YES (streamed-video-replacement)";
     }
 
     *buf = 138412546;
-    v24 = v3;
-    v25 = 2112;
-    v26 = v5;
-    _os_log_impl(&dword_19BF1F000, v2, OS_LOG_TYPE_DEFAULT, "executeDaemonOperationReplaceRecentlyUploadedOriginalJobType %@ isVideo %@", buf, 0x16u);
+    v25 = v4;
+    v26 = 2112;
+    v27 = v6;
+    _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEFAULT, "executeDaemonOperationReplaceRecentlyUploadedOriginalJobType %@ isVideo %@", buf, 0x16u);
   }
 
-  v6 = [*(a1 + 32) currentCloudAssetGUID];
-  v22 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
-  v8 = [PLManagedAsset cloudSharedAssetsWithGUIDs:v7 inLibrary:*(a1 + 40)];
-  v9 = [v8 lastObject];
+  v7 = [*(a1 + 32) currentCloudAssetGUID];
+  v23 = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
+  v9 = [PLManagedAsset cloudSharedAssetsWithGUIDs:v8 inLibrary:*(a1 + 40)];
+  v10 = [v9 lastObject];
 
-  v10 = [v9 uniformTypeIdentifier];
+  v11 = [v10 uniformTypeIdentifier];
   if (*(a1 + 48))
   {
-    [PLPhotoSharingHelper temporaryVideoPosterFramePathForCollectionGUID:v6];
+    [PLPhotoSharingHelper temporaryVideoPosterFramePathForCollectionGUID:v7];
   }
 
   else
   {
-    [PLPhotoSharingHelper temporaryDerivativePathForCollectionGUID:v6 uti:v10];
+    [PLPhotoSharingHelper temporaryDerivativePathForCollectionGUID:v7 uti:v11];
   }
-  v11 = ;
-  v12 = [MEMORY[0x1E696AC08] defaultManager];
-  v13 = [v12 fileExistsAtPath:v11];
+  v12 = ;
+  v13 = [MEMORY[0x1E696AC08] defaultManager];
+  v14 = [v13 fileExistsAtPath:v12];
 
-  v14 = PLPhotoSharingGetLog();
-  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
-  if (v13)
+  v15 = PLPhotoSharingGetLog();
+  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+  if (v14)
   {
-    if (v15)
+    if (v16)
     {
-      v16 = [*(a1 + 32) cloudAlbumGUID];
+      v17 = [*(a1 + 32) cloudAlbumGUID];
       *buf = 138412546;
-      v24 = v11;
-      v25 = 2112;
-      v26 = v16;
-      _os_log_impl(&dword_19BF1F000, v14, OS_LOG_TYPE_DEFAULT, "Found temporary derivative at path %@, will use it to replace original asset in shared album %@", buf, 0x16u);
+      v25 = v12;
+      v26 = 2112;
+      v27 = v17;
+      _os_log_impl(&dword_19BF1F000, v15, OS_LOG_TYPE_DEFAULT, "Found temporary derivative at path %@, will use it to replace original asset in shared album %@", buf, 0x16u);
     }
 
     *(*(a1 + 32) + 80) = 1;
     if (*(a1 + 48))
     {
-      v17 = 7;
+      v18 = 7;
     }
 
     else
     {
-      v17 = 4;
+      v18 = 4;
     }
 
-    v18 = PLPhotoSharingGetLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = PLPhotoSharingGetLog();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v24) = v17;
-      _os_log_impl(&dword_19BF1F000, v18, OS_LOG_TYPE_DEFAULT, "executeDaemonOperationReplaceRecentlyUploadedOriginalJobType will call _processSaveAssetWithPlaceholderKind %i", buf, 8u);
+      LODWORD(v25) = v18;
+      _os_log_impl(&dword_19BF1F000, v19, OS_LOG_TYPE_DEFAULT, "executeDaemonOperationReplaceRecentlyUploadedOriginalJobType will call _processSaveAssetWithPlaceholderKind %i", buf, 8u);
     }
 
-    [*(a1 + 32) _processSaveAssetWithPlaceholderKind:v17 inLibrary:*(a1 + 40) withAssetDataFilePath:v11];
+    [*(a1 + 32) _processSaveAssetWithPlaceholderKind:v18 inLibrary:*(a1 + 40) withAssetDataFilePath:v12];
   }
 
   else
   {
-    if (v15)
+    if (v16)
     {
       *buf = 138412290;
-      v24 = v11;
-      _os_log_impl(&dword_19BF1F000, v14, OS_LOG_TYPE_DEFAULT, "did not find recently uploaded derivative at path %@ to replace original", buf, 0xCu);
+      v25 = v12;
+      _os_log_impl(&dword_19BF1F000, v15, OS_LOG_TYPE_DEFAULT, "did not find recently uploaded derivative at path %@ to replace original", buf, 0xCu);
     }
 
-    if (*(a1 + 48) == 1 && [v9 isVideo] && objc_msgSend(v9, "isCloudSharedAsset") && objc_msgSend(v9, "cloudSharedPlaceholderKind") != 7)
+    if (*(a1 + 48) == 1 && [v10 isVideo] && objc_msgSend(v10, "isCloudSharedAsset") && objc_msgSend(v10, "cloudSharedPlaceholderKind") != 7)
     {
-      v20 = PLPhotoSharingGetLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v21 = PLPhotoSharingGetLog();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = [*(a1 + 32) currentCloudAssetGUID];
+        v22 = [*(a1 + 32) currentCloudAssetGUID];
         *buf = 138412290;
-        v24 = v21;
-        _os_log_impl(&dword_19BF1F000, v20, OS_LOG_TYPE_DEFAULT, "(streamed-video-replacement) re-requesting download of video asset %@", buf, 0xCu);
+        v25 = v22;
+        _os_log_impl(&dword_19BF1F000, v21, OS_LOG_TYPE_DEFAULT, "(streamed-video-replacement) re-requesting download of video asset %@", buf, 0xCu);
       }
 
-      [PLPhotoSharingHelper downloadAsset:v9 cloudPlaceholderKind:3 shouldPrioritize:0 shouldExtendTimer:0];
+      [PLPhotoSharingHelper downloadAsset:v10 cloudPlaceholderKind:3 shouldPrioritize:0 shouldExtendTimer:0];
     }
 
     else
     {
-      v19 = PLPhotoSharingGetLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v20 = PLPhotoSharingGetLog();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v24 = v9;
-        _os_log_impl(&dword_19BF1F000, v19, OS_LOG_TYPE_DEFAULT, "(streamed-video-replacement) expected to find an original video asset but instead found %@", buf, 0xCu);
+        v25 = v10;
+        _os_log_impl(&dword_19BF1F000, v20, OS_LOG_TYPE_DEFAULT, "(streamed-video-replacement) expected to find an original video asset but instead found %@", buf, 0xCu);
       }
     }
   }
 }
 
-void __89__PLCloudSharedAssetSaveJob_executeDaemonOperationReplaceRecentlyUploadedOriginalJobType__block_invoke_395(uint64_t a1)
+void __89__PLCloudSharedAssetSaveJob_executeDaemonOperationReplaceRecentlyUploadedOriginalJobType__block_invoke_395(uint64_t a1, uint64_t a2)
 {
-  v2 = PLPhotoSharingGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PLPhotoSharingGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v19 = 0;
-    _os_log_impl(&dword_19BF1F000, v2, OS_LOG_TYPE_DEFAULT, "executeDaemonOperationReplaceRecentlyUploadedOriginalJobType did call _processSaveAssetWithPlaceholderKind", v19, 2u);
+    *v20 = 0;
+    _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEFAULT, "executeDaemonOperationReplaceRecentlyUploadedOriginalJobType did call _processSaveAssetWithPlaceholderKind", v20, 2u);
   }
 
-  v3 = [*(a1 + 32) currentCloudAssetGUID];
-  v4 = [PLPhotoSharingHelper temporaryThumbnailPathForCollectionGUID:v3];
+  v4 = [*(a1 + 32) currentCloudAssetGUID];
+  v5 = [PLPhotoSharingHelper temporaryThumbnailPathForCollectionGUID:v4];
 
-  if (v4)
+  if (v5)
   {
-    v5 = [MEMORY[0x1E696AC08] defaultManager];
-    [v5 removeItemAtPath:v4 error:0];
+    v6 = [MEMORY[0x1E696AC08] defaultManager];
+    [v6 removeItemAtPath:v5 error:0];
   }
 
   if (*(a1 + 40) & 1) != 0 || (*(a1 + 41))
   {
     if (*(a1 + 41) & 1 | ((*(a1 + 40) & 1) == 0))
     {
-      v6 = @"MOV";
+      v7 = @"MOV";
     }
 
     else
     {
-      v6 = @"MP4";
+      v7 = @"MP4";
     }
 
-    v7 = v6;
-    v8 = [*(a1 + 32) currentCloudAssetGUID];
-    v9 = [PLPhotoSharingHelper temporarySmallVideoDerivativePathForCollectionGUID:v8];
-    v10 = [v9 stringByAppendingPathExtension:v7];
+    v8 = v7;
+    v9 = [*(a1 + 32) currentCloudAssetGUID];
+    v10 = [PLPhotoSharingHelper temporarySmallVideoDerivativePathForCollectionGUID:v9];
+    v11 = [v10 stringByAppendingPathExtension:v8];
 
-    if (v10)
+    if (v11)
     {
-      v11 = [MEMORY[0x1E696AC08] defaultManager];
-      [v11 removeItemAtPath:v10 error:0];
+      v12 = [MEMORY[0x1E696AC08] defaultManager];
+      [v12 removeItemAtPath:v11 error:0];
     }
 
-    v12 = [*(a1 + 32) currentCloudAssetGUID];
-    v13 = [PLPhotoSharingHelper temporaryLargeVideoDerivativePathForCollectionGUID:v12];
-    v14 = [v13 stringByAppendingPathExtension:v7];
+    v13 = [*(a1 + 32) currentCloudAssetGUID];
+    v14 = [PLPhotoSharingHelper temporaryLargeVideoDerivativePathForCollectionGUID:v13];
+    v15 = [v14 stringByAppendingPathExtension:v8];
 
-    if (v14)
+    if (v15)
     {
-      v15 = [MEMORY[0x1E696AC08] defaultManager];
-      [v15 removeItemAtPath:v14 error:0];
+      v16 = [MEMORY[0x1E696AC08] defaultManager];
+      [v16 removeItemAtPath:v15 error:0];
     }
 
-    v16 = [*(a1 + 32) currentCloudAssetGUID];
-    v17 = [PLPhotoSharingHelper temporaryVideoPathForCollectionGUID:v16];
+    v17 = [*(a1 + 32) currentCloudAssetGUID];
+    v18 = [PLPhotoSharingHelper temporaryVideoPathForCollectionGUID:v17];
 
-    if (v17)
+    if (v18)
     {
-      v18 = [MEMORY[0x1E696AC08] defaultManager];
-      [v18 removeItemAtPath:v17 error:0];
+      v19 = [MEMORY[0x1E696AC08] defaultManager];
+      [v19 removeItemAtPath:v18 error:0];
     }
   }
 }
@@ -831,7 +831,7 @@ LABEL_26:
         v23 = [v14 collectionShare];
         v24 = [v23 scopeIdentifier];
 
-        if ([v54 count] >= v2)
+        if (objc_msgSend_count(v54) >= v2)
         {
           if ([v14 isVideo])
           {
@@ -847,7 +847,7 @@ LABEL_26:
           v26 = PLPhotoSharingGetLog();
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
-            v27 = [v54 count];
+            v27 = objc_msgSend_count(v54);
             v28 = *(a1 + 48);
             *buf = 134218242;
             v62 = v27;
@@ -861,7 +861,7 @@ LABEL_26:
         }
 
         v3 = v12;
-        if ([v12 count] >= v2)
+        if (objc_msgSend_count(v12) >= v2)
         {
           if ([v14 isVideo])
           {
@@ -877,7 +877,7 @@ LABEL_26:
           v30 = PLPhotoSharingGetLog();
           if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
-            v31 = [v12 count];
+            v31 = objc_msgSend_count(v12);
             v32 = *(a1 + 48);
             *buf = 134218242;
             v62 = v31;
@@ -944,12 +944,12 @@ LABEL_51:
   v8 = v45;
   v7 = v46;
   v34 = v49;
-  if ([v54 count])
+  if (objc_msgSend_count(v54))
   {
     v39 = PLPhotoSharingGetLog();
     if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
-      v40 = [v54 count];
+      v40 = objc_msgSend_count(v54);
       v41 = *(a1 + 48);
       *buf = 134218242;
       v62 = v40;
@@ -961,12 +961,12 @@ LABEL_51:
     [v52 retrieveAssetsFromAssetCollectionsWithGUIDs:v54 assetTypeFlags:2 personID:*(a1 + 48)];
   }
 
-  if ([v3 count])
+  if (objc_msgSend_count(v3))
   {
     v42 = PLPhotoSharingGetLog();
     if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
-      v43 = [v3 count];
+      v43 = objc_msgSend_count(v3);
       v44 = *(a1 + 48);
       *buf = 134218242;
       v62 = v43;
@@ -1031,7 +1031,7 @@ void __89__PLCloudSharedAssetSaveJob_executeDaemonOperationSaveAssetMetadataForC
   v3 = [v2 valueForKey:@"GUID"];
 
   v4 = [PLManagedAsset cloudSharedAssetsWithGUIDs:v3 inLibrary:*(a1 + 40)];
-  v5 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v4, "count")}];
+  v5 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:objc_msgSend_count(v4)];
   v68 = 0u;
   v69 = 0u;
   v70 = 0u;
@@ -1241,27 +1241,27 @@ void __89__PLCloudSharedAssetSaveJob_executeDaemonOperationSaveAssetMetadataForC
   }
 }
 
-void __89__PLCloudSharedAssetSaveJob_executeDaemonOperationSaveAssetMetadataForCollectionsJobType__block_invoke_352(uint64_t a1)
+void __89__PLCloudSharedAssetSaveJob_executeDaemonOperationSaveAssetMetadataForCollectionsJobType__block_invoke_352(uint64_t a1, const char *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if ([*(a1 + 32) count])
+  v11 = *MEMORY[0x1E69E9840];
+  if (objc_msgSend_count(*(a1 + 32), a2))
   {
-    v2 = +[PLNotificationManager sharedManager];
-    v3 = *(*(*(a1 + 48) + 8) + 40);
-    v4 = *(a1 + 32);
-    v5 = [*(a1 + 40) mstreamdInfoDictionary];
-    [v2 noteDidReceiveAssets:v4 forCollectionShare:v3 mstreamdInfo:v5];
+    v3 = +[PLNotificationManager sharedManager];
+    v4 = *(*(*(a1 + 48) + 8) + 40);
+    v5 = *(a1 + 32);
+    v6 = [*(a1 + 40) mstreamdInfoDictionary];
+    [v3 noteDidReceiveAssets:v5 forCollectionShare:v4 mstreamdInfo:v6];
 
     [*(*(*(a1 + 48) + 8) + 40) recomputeCachedValues];
   }
 
-  v6 = PLPhotoSharingGetLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = PLPhotoSharingGetLog();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = [*(a1 + 40) assetCollectionInfos];
-    v8 = 134217984;
-    v9 = [v7 count];
-    _os_log_impl(&dword_19BF1F000, v6, OS_LOG_TYPE_DEFAULT, "executeDaemonOperationSaveAssetMetadataForCollectionsJobType did process metadata for %lu collections", &v8, 0xCu);
+    v8 = [*(a1 + 40) assetCollectionInfos];
+    v9 = 134217984;
+    v10 = objc_msgSend_count(v8);
+    _os_log_impl(&dword_19BF1F000, v7, OS_LOG_TYPE_DEFAULT, "executeDaemonOperationSaveAssetMetadataForCollectionsJobType did process metadata for %lu collections", &v9, 0xCu);
   }
 }
 
@@ -1647,7 +1647,7 @@ LABEL_30:
     v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v144 count:1];
     cloudAlbumGUID3 = [PLManagedAsset cloudSharedAssetsWithGUIDs:v13 inLibrary:libraryCopy];
 
-    if ([cloudAlbumGUID3 count] >= 2)
+    if (objc_msgSend_count(cloudAlbumGUID3) >= 2)
     {
       v15 = PLPhotoSharingGetLog();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
@@ -2152,30 +2152,30 @@ LABEL_98:
       v15 = v14;
       v37 = v13;
       v16 = [PLCloudSharedComment cloudSharedCommentsWithGUIDs:v14 inLibrary:libraryCopy];
-      v17 = [v15 count];
-      if (v17 != [v16 count])
+      v17 = objc_msgSend_count(v15);
+      if (v17 != objc_msgSend_count(v16))
       {
         v18 = PLPhotoSharingGetLog();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          v19 = [v15 count];
+          v19 = objc_msgSend_count(v15);
           cloudAssetGUID2 = [assetCopy cloudAssetGUID];
           *buf = 134218498;
           v48 = v19;
           v49 = 2112;
           v50 = cloudAssetGUID2;
           v51 = 2048;
-          v52 = [v16 count];
+          v52 = objc_msgSend_count(v16);
           _os_log_impl(&dword_19BF1F000, v18, OS_LOG_TYPE_DEFAULT, "WARNING: Expected %lu inflight comments for asset %@ but only found %lu", buf, 0x20u);
         }
       }
 
-      if ([v16 count])
+      if (objc_msgSend_count(v16))
       {
         v21 = PLPhotoSharingGetLog();
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = [v16 count];
+          v22 = objc_msgSend_count(v16);
           cloudAssetGUID3 = [assetCopy cloudAssetGUID];
           *buf = 134218242;
           v48 = v22;
@@ -2619,29 +2619,29 @@ LABEL_9:
   }
 }
 
-void __67__PLCloudSharedAssetSaveJob_executeDaemonOperationSaveAssetJobType__block_invoke(uint64_t a1)
+void __67__PLCloudSharedAssetSaveJob_executeDaemonOperationSaveAssetJobType__block_invoke(uint64_t a1, uint64_t a2)
+{
+  v3 = PLPhotoSharingGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    *v8 = 0;
+    _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEFAULT, "executeDaemonOperationSaveAssetJobType will call _processSaveAssetWithPlaceholderKind", v8, 2u);
+  }
+
+  v4 = *(a1 + 32);
+  v5 = [v4 placeHolderKindFromAssetMetadataType:*(a1 + 48)];
+  v6 = *(a1 + 40);
+  v7 = [*(a1 + 32) currentFilePath];
+  [v4 _processSaveAssetWithPlaceholderKind:v5 inLibrary:v6 withAssetDataFilePath:v7];
+}
+
+void __67__PLCloudSharedAssetSaveJob_executeDaemonOperationSaveAssetJobType__block_invoke_284(uint64_t a1, uint64_t a2)
 {
   v2 = PLPhotoSharingGetLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_19BF1F000, v2, OS_LOG_TYPE_DEFAULT, "executeDaemonOperationSaveAssetJobType will call _processSaveAssetWithPlaceholderKind", v7, 2u);
-  }
-
-  v3 = *(a1 + 32);
-  v4 = [v3 placeHolderKindFromAssetMetadataType:*(a1 + 48)];
-  v5 = *(a1 + 40);
-  v6 = [*(a1 + 32) currentFilePath];
-  [v3 _processSaveAssetWithPlaceholderKind:v4 inLibrary:v5 withAssetDataFilePath:v6];
-}
-
-void __67__PLCloudSharedAssetSaveJob_executeDaemonOperationSaveAssetJobType__block_invoke_284()
-{
-  v0 = PLPhotoSharingGetLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
-  {
-    *v1 = 0;
-    _os_log_impl(&dword_19BF1F000, v0, OS_LOG_TYPE_DEFAULT, "executeDaemonOperationSaveAssetJobType did call saveJobAssetWithDispatchGroup", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_19BF1F000, v2, OS_LOG_TYPE_DEFAULT, "executeDaemonOperationSaveAssetJobType did call saveJobAssetWithDispatchGroup", v3, 2u);
   }
 }
 
@@ -2906,7 +2906,7 @@ void __42__PLCloudSharedAssetSaveJob_runDaemonSide__block_invoke(uint64_t a1)
   [(PLCloudSharedAssetSaveJob *)self setCloudAlbumGUID:gUID];
 
   [(PLCloudSharedAssetSaveJob *)self setCloudPersonID:dCopy];
-  v15 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(collectionsCopy, "count")}];
+  v15 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(collectionsCopy)];
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
@@ -2940,7 +2940,7 @@ void __42__PLCloudSharedAssetSaveJob_runDaemonSide__block_invoke(uint64_t a1)
     while (v18);
   }
 
-  if ([v15 count])
+  if (objc_msgSend_count(v15))
   {
     [(PLCloudSharedAssetSaveJob *)self setAssetCollectionInfos:v15];
   }
@@ -3463,7 +3463,7 @@ void __83__PLCloudSharedAssetSaveJob_pathForInFlightAssetCollectionWithGUID_medi
       v8 = &unk_1F0FC0780;
     }
 
-    [_lightweightReimportPhotoCloudSharingAlbumInfoForAlbumWithCloudGUID_cloudPersonID__cacheAlbumInfo setObject:v8 forKey:v7 cost:{objc_msgSend(v8, "count")}];
+    [_lightweightReimportPhotoCloudSharingAlbumInfoForAlbumWithCloudGUID_cloudPersonID__cacheAlbumInfo setObject:v8 forKey:v7 cost:objc_msgSend_count(v8)];
   }
 
   return v8;
@@ -3554,7 +3554,7 @@ LABEL_8:
   dsCopy = ds;
   albumCopy = album;
   infoCopy = info;
-  if ([dsCopy count])
+  if (objc_msgSend_count(dsCopy))
   {
     newCloudSharedAssetSaveJobFromAProcessThatIsNotAssetsd = [self newCloudSharedAssetSaveJobFromAProcessThatIsNotAssetsd];
     [newCloudSharedAssetSaveJobFromAProcessThatIsNotAssetsd setJobType:2];
@@ -3679,7 +3679,7 @@ LABEL_12:
   }
 
 LABEL_3:
-  v18 = [collectionsCopy count];
+  v18 = objc_msgSend_count(collectionsCopy);
   if (dCopy && albumCopy && v18)
   {
     v19 = [[PLCloudSharedAssetSaveJob alloc] initWithAssetsdClient:0];
@@ -3720,7 +3720,7 @@ LABEL_3:
     [currentHandler handleFailureInMethod:a2 object:self file:@"PLCloudSharedAssetSaveJob.m" lineNumber:423 description:{@"Invalid parameter not satisfying: %@", @"!PLIsAssetsd()"}];
   }
 
-  v15 = [collectionsCopy count];
+  v15 = objc_msgSend_count(collectionsCopy);
   if (dCopy && albumCopy && v15)
   {
     newCloudSharedAssetSaveJobFromAProcessThatIsNotAssetsd = [self newCloudSharedAssetSaveJobFromAProcessThatIsNotAssetsd];

@@ -1,8 +1,16 @@
 @interface __IOGCDevice
+- (__IOGCDevice)initWithPort:(unsigned int)port error:(id *)error;
 - (void)dealloc;
 @end
 
 @implementation __IOGCDevice
+
+- (__IOGCDevice)initWithPort:(unsigned int)port error:(id *)error
+{
+  v5.receiver = self;
+  v5.super_class = __IOGCDevice;
+  return [(GCIOService *)&v5 initWithPort:*&port error:error];
+}
 
 - (void)dealloc
 {

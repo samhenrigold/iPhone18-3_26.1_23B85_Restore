@@ -1,3 +1,2242 @@
+uint64_t sub_1005AF738()
+{
+  sub_10000607C((v0 + 32));
+
+  return swift_deallocClassInstance();
+}
+
+uint64_t sub_1005AF7A4(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
+{
+  v20 = a7;
+  v21 = a8;
+  v16 = sub_1000103CC(&v19);
+  (*(*(a7 - 8) + 32))(v16, a3, a7);
+  v17 = swift_allocObject();
+  *(v17 + 16) = a1;
+  *(v17 + 24) = a2;
+  sub_100054B6C(&v19, v17 + 32);
+  *(v17 + 72) = a4;
+  *(v17 + 80) = a5;
+  *(v17 + 88) = a9;
+  return v17;
+}
+
+void sub_1005AF878(uint64_t a1, char a2)
+{
+  v3 = *(type metadata accessor for RDPublicTemplate(0) - 8);
+  v19 = (*(v3 + 80) + 24) & ~*(v3 + 80);
+  v4 = v19 + *(v3 + 64);
+  v5 = *(type metadata accessor for Date() - 8);
+  v6 = *(v5 + 80);
+  v7 = (v4 + v6 + 1) & ~v6;
+  v8 = *(v5 + 64) + 7;
+  v9 = (v8 + v7) & 0xFFFFFFFFFFFFFFF8;
+  v10 = *(type metadata accessor for UUID() - 8);
+  v11 = (v9 + *(v10 + 80) + 8) & ~*(v10 + 80);
+  v12 = (*(v10 + 64) + v6 + v11) & ~v6;
+  v13 = (v8 + v12) & 0xFFFFFFFFFFFFFFF8;
+  v14 = (v13 + 15) & 0xFFFFFFFFFFFFFFF8;
+  v15 = (v14 + 15) & 0xFFFFFFFFFFFFFFF8;
+  v16 = (v15 + 15) & 0xFFFFFFFFFFFFFFF8;
+  v17 = *(sub_1000F5104(&unk_100938850, qword_100795AE0) - 8);
+  v18 = (*(v17 + 80) + v16 + 16) & ~*(v17 + 80);
+  sub_1005AD244(a1, a2 & 1, *(v2 + 16), v2 + v19, *(v2 + v4), v2 + v7, *(v2 + v9), v2 + v11, v2 + v12, *(v2 + v13), *(v2 + v14), *(v2 + v15), *(v2 + v16), *(v2 + v16 + 8), v2 + v18, *(v2 + v18 + *(v17 + 64)), *(v2 + ((v18 + *(v17 + 64)) & 0xFFFFFFFFFFFFFFF8) + 8));
+}
+
+id sub_1005AFAE0()
+{
+  v1 = *(type metadata accessor for RDPublicTemplate(0) - 8);
+  v18 = (*(v1 + 80) + 40) & ~*(v1 + 80);
+  v2 = v18 + *(v1 + 64);
+  v3 = *(type metadata accessor for Date() - 8);
+  v4 = *(v3 + 80);
+  v5 = (v2 + v4 + 1) & ~v4;
+  v6 = *(v3 + 64) + 7;
+  v7 = (v6 + v5) & 0xFFFFFFFFFFFFFFF8;
+  v8 = *(type metadata accessor for UUID() - 8);
+  v9 = (v7 + *(v8 + 80) + 8) & ~*(v8 + 80);
+  v10 = (*(v8 + 64) + v4 + v9) & ~v4;
+  v11 = (v6 + v10) & 0xFFFFFFFFFFFFFFF8;
+  v12 = (v11 + 15) & 0xFFFFFFFFFFFFFFF8;
+  v13 = (v12 + 15) & 0xFFFFFFFFFFFFFFF8;
+  v14 = (v13 + 15) & 0xFFFFFFFFFFFFFFF8;
+  v15 = *(sub_1000F5104(&unk_100938850, qword_100795AE0) - 8);
+  v16 = (*(v15 + 80) + v14 + 16) & ~*(v15 + 80);
+  return sub_1005AD998(*(v0 + 16), *(v0 + 24), *(v0 + 32), (v0 + v18), *(v0 + v2), v0 + v5, *(v0 + v7), (v0 + v9), (v0 + v10), *(v0 + v11), *(v0 + v12), *(v0 + v13), *(v0 + v14), *(v0 + v14 + 8), v0 + v16, *(v0 + ((*(v15 + 64) + v16 + 7) & 0xFFFFFFFFFFFFFFF8)));
+}
+
+id sub_1005AFD38(void *a1)
+{
+  v2 = v1;
+  v108 = 0;
+  v4 = [v2 existingObjectWithID:a1 error:&v108];
+  v5 = v108;
+  if (!v4)
+  {
+    v6 = v5;
+    _convertNSErrorToError(_:)();
+
+    swift_willThrow();
+    v7 = [a1 persistentStore];
+    if (v7)
+    {
+      v8 = v7;
+      v9 = [v7 identifier];
+
+      if (v9)
+      {
+        v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v12 = v11;
+        v13 = [v2 persistentStoreCoordinator];
+        if (v13)
+        {
+          v21 = v13;
+          v22 = [v13 persistentStoreForIdentifier:v9];
+
+          if (!v22)
+          {
+            if (qword_100936618 != -1)
+            {
+              swift_once();
+            }
+
+            v51 = type metadata accessor for Logger();
+            sub_100006654(v51, qword_10094DA50);
+            v52 = v2;
+
+            v53 = a1;
+            swift_errorRetain();
+            v54 = Logger.logObject.getter();
+            v55 = static os_log_type_t.error.getter();
+
+            v12, v56, v57, v58, v59, v60, v61, v62;
+
+            if (os_log_type_enabled(v54, v55))
+            {
+              v106 = v55;
+              log = v54;
+              v70 = swift_slowAlloc();
+              v71 = swift_slowAlloc();
+              v108 = swift_slowAlloc();
+              *v70 = 138413314;
+              *(v70 + 4) = v52;
+              *v71 = v52;
+              *(v70 + 12) = 2080;
+              v72 = [v52 persistentStoreCoordinator];
+              if (v72)
+              {
+                v73 = v72;
+                v74 = [v72 description];
+
+                v75 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+                v77 = v76;
+              }
+
+              else
+              {
+                v77 = 0xE300000000000000;
+                v75 = 7104878;
+              }
+
+              v78 = sub_10000668C(v75, v77, &v108);
+              v77, v79, v80, v81, v82, v83, v84, v85;
+              *(v70 + 14) = v78;
+              *(v70 + 22) = 2080;
+              v86 = sub_10000668C(v10, v12, &v108);
+              v12, v87, v88, v89, v90, v91, v92, v93;
+              *(v70 + 24) = v86;
+              *(v70 + 32) = 2112;
+              *(v70 + 34) = v53;
+              v71[1] = v53;
+              *(v70 + 42) = 2080;
+              swift_getErrorValue();
+              v94 = v53;
+              v95 = Error.localizedDescription.getter();
+              v97 = v96;
+              v98 = sub_10000668C(v95, v96, &v108);
+              v97, v99, v100, v101, v102, v103, v104, v105;
+              *(v70 + 44) = v98;
+              _os_log_impl(&_mh_execute_header, log, v106, "The objectID's store does not exist in the PSC of MOC. This is an account store just got removed? {moc: %@, psc: %s, storeID: %s, objectID: %@, error: %s}", v70, 0x34u);
+              sub_1000F5104(&unk_100938E70, &unk_100797230);
+              swift_arrayDestroy();
+
+              swift_arrayDestroy();
+
+              goto LABEL_13;
+            }
+
+            v12, v63, v64, v65, v66, v67, v68, v69;
+
+LABEL_15:
+
+            return 0;
+          }
+
+          v12, v23, v24, v25, v26, v27, v28, v29;
+
+          v9 = v22;
+        }
+
+        else
+        {
+          v12, v14, v15, v16, v17, v18, v19, v20;
+        }
+      }
+    }
+
+    if (qword_100936618 != -1)
+    {
+      swift_once();
+    }
+
+    v30 = type metadata accessor for Logger();
+    sub_100006654(v30, qword_10094DA50);
+    v31 = v2;
+    v32 = a1;
+    swift_errorRetain();
+    v21 = Logger.logObject.getter();
+    v33 = static os_log_type_t.fault.getter();
+
+    if (os_log_type_enabled(v21, v33))
+    {
+      v34 = swift_slowAlloc();
+      v35 = swift_slowAlloc();
+      v36 = swift_slowAlloc();
+      v108 = v36;
+      *v34 = 138412802;
+      *(v34 + 4) = v31;
+      *(v34 + 12) = 2112;
+      *(v34 + 14) = v32;
+      *v35 = v31;
+      v35[1] = v32;
+      *(v34 + 22) = 2080;
+      swift_getErrorValue();
+      v37 = v31;
+      v38 = v32;
+      v39 = Error.localizedDescription.getter();
+      v41 = v40;
+      v42 = sub_10000668C(v39, v40, &v108);
+      v41, v43, v44, v45, v46, v47, v48, v49;
+      *(v34 + 24) = v42;
+      _os_log_impl(&_mh_execute_header, v21, v33, "Failed to fetch object with ID {moc: %@, objectID: %@, error: %s}", v34, 0x20u);
+      sub_1000F5104(&unk_100938E70, &unk_100797230);
+      swift_arrayDestroy();
+
+      sub_10000607C(v36);
+
+LABEL_13:
+
+      return 0;
+    }
+
+    goto LABEL_15;
+  }
+
+  return v4;
+}
+
+uint64_t sub_1005B0358()
+{
+  v0 = type metadata accessor for Logger();
+  sub_1000EECAC(v0, qword_10094DA50);
+  v1 = sub_100006654(v0, qword_10094DA50);
+  if (qword_1009364D8 != -1)
+  {
+    swift_once();
+  }
+
+  v2 = sub_100006654(v0, qword_1009751D0);
+  v3 = *(*(v0 - 8) + 16);
+
+  return v3(v1, v2, v0);
+}
+
+void *sub_1005B0420(unint64_t a1)
+{
+  v9 = _swiftEmptyDictionarySingleton;
+  if (a1 >> 62)
+  {
+    goto LABEL_13;
+  }
+
+  for (i = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = _CocoaArrayWrapper.endIndex.getter())
+  {
+    for (j = 0; ; ++j)
+    {
+      if ((a1 & 0xC000000000000001) != 0)
+      {
+        v4 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+      }
+
+      else
+      {
+        if (j >= *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        {
+          goto LABEL_12;
+        }
+
+        v4 = *(a1 + 8 * j + 32);
+      }
+
+      v5 = v4;
+      v6 = j + 1;
+      if (__OFADD__(j, 1))
+      {
+        break;
+      }
+
+      v8 = v4;
+      sub_1005B0544(&v9, &v8);
+
+      if (v6 == i)
+      {
+        return v9;
+      }
+    }
+
+    __break(1u);
+LABEL_12:
+    __break(1u);
+LABEL_13:
+    ;
+  }
+
+  return _swiftEmptyDictionarySingleton;
+}
+
+void sub_1005B0544(void *a1, id *a2)
+{
+  v4 = *a2;
+  v5 = [*a2 entityName];
+  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v8 = v7;
+
+  v16 = sub_1005B0850();
+  if (*v16->clientIdentity)
+  {
+    v17 = sub_100005F4C(v6, v8);
+    v19 = v18;
+    v8, v18, v20, v21, v22, v23, v24, v25;
+    if (v19)
+    {
+      v33 = (*&v16->clientIdentity[40] + 16 * v17);
+      v35 = *v33;
+      v34 = v33[1];
+
+      v16, v36, v37, v38, v39, v40, v41, v42;
+      v43 = v4;
+      isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+      v45 = *a1;
+      v66 = *a1;
+      v53 = sub_100005F4C(v35, v34);
+      v54 = v45[2];
+      v55 = (v46 & 1) == 0;
+      v56 = v54 + v55;
+      if (__OFADD__(v54, v55))
+      {
+        __break(1u);
+      }
+
+      else
+      {
+        v2 = v46;
+        if (v45[3] < v56)
+        {
+          sub_1003724C0(v56, isUniquelyReferenced_nonNull_native);
+          v45 = v66;
+          v57 = sub_100005F4C(v35, v34);
+          if ((v2 & 1) != (v46 & 1))
+          {
+            KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+            __break(1u);
+            return;
+          }
+
+          v53 = v57;
+          *a1 = v66;
+          if ((v2 & 1) == 0)
+          {
+            goto LABEL_19;
+          }
+
+LABEL_16:
+          v34, v46, v47, v48, v49, v50, v51, v52;
+LABEL_20:
+          v65 = (v45[7] + 8 * v53);
+          specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
+          if (*((*v65 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*v65 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+          {
+            specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
+          }
+
+          specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
+          return;
+        }
+
+        if (isUniquelyReferenced_nonNull_native)
+        {
+          *a1 = v45;
+          if (v46)
+          {
+            goto LABEL_16;
+          }
+
+LABEL_19:
+          sub_1002CB9B4(v53, v35, v34, &_swiftEmptyArrayStorage, v45);
+          goto LABEL_20;
+        }
+      }
+
+      sub_100377A3C();
+      v45 = v66;
+      *a1 = v66;
+      if (v2)
+      {
+        goto LABEL_16;
+      }
+
+      goto LABEL_19;
+    }
+  }
+
+  else
+  {
+    v8, v9, v10, v11, v12, v13, v14, v15;
+  }
+
+  v16, v26, v27, v28, v29, v30, v31, v32;
+  if (qword_100936618 != -1)
+  {
+    swift_once();
+  }
+
+  v58 = type metadata accessor for Logger();
+  sub_100006654(v58, qword_10094DA50);
+  v59 = v4;
+  v60 = Logger.logObject.getter();
+  v61 = static os_log_type_t.error.getter();
+
+  if (os_log_type_enabled(v60, v61))
+  {
+    v62 = swift_slowAlloc();
+    v63 = swift_slowAlloc();
+    *v62 = 138412290;
+    *(v62 + 4) = v59;
+    *v63 = v59;
+    v64 = v59;
+    _os_log_impl(&_mh_execute_header, v60, v61, "Unknown root entity name for managed object ID {moid: %@}", v62, 0xCu);
+    sub_100039860(v63);
+  }
+}
+
+void *sub_1005B0850()
+{
+  v0 = sub_1000F5104(&qword_10094DAD8, &unk_1007B36F0);
+  v1 = *(v0 - 8);
+  __chkstk_darwin(v0, v2);
+  v4 = &v29 - v3;
+  if (qword_100936620 != -1)
+  {
+    goto LABEL_12;
+  }
+
+  while (1)
+  {
+    v5 = qword_10094DA68;
+    v6 = swift_allocObject();
+    *(v6 + 16) = 0;
+    v7 = v1 + 104;
+    v8 = *(v1 + 104);
+    v34 = enum case for REMCache.ExecutionMode.synchronously<A, B>(_:);
+    v8(v4);
+    v9 = swift_allocObject();
+    *(v9 + 16) = v6;
+    *(v9 + 24) = v5;
+
+    dispatch thunk of REMCache.performReadOnly(_:operations:)();
+
+    v11 = *(v1 + 8);
+    v1 += 8;
+    v10 = v11;
+    v11(v4, v0);
+    swift_beginAccess();
+    v12 = *(v6 + 16);
+
+    if (v12)
+    {
+      return v12;
+    }
+
+    v32 = v4;
+    v33 = v7;
+    v13 = v34;
+    v30 = v10;
+    v31 = v8;
+    v14 = [objc_opt_self() subclassesOfREMCDObjectRepresentingRootCoreDataEntities];
+    sub_1000F5104(&qword_100947250, &unk_1007AC8E0);
+    v15 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+
+    v12 = _swiftEmptyDictionarySingleton;
+    v36 = _swiftEmptyDictionarySingleton;
+    v23 = *(v15 + 16);
+    if (!v23)
+    {
+      v26 = v13;
+      v25 = v0;
+      v4 = v32;
+LABEL_9:
+      v15, v16, v17, v18, v19, v20, v21, v22;
+      v31(v4, v26, v25);
+      v27 = swift_allocObject();
+      *(v27 + 16) = v12;
+      *(v27 + 24) = v5;
+
+      dispatch thunk of REMCache.performReadAndWrite(_:operations:)();
+
+      v30(v4, v25);
+      return v12;
+    }
+
+    v29 = v0;
+    v24 = 0;
+    v4 = v32;
+    v0 = v33;
+    while (v24 < *(v15 + 16))
+    {
+      v35 = *(v15 + 32 + 8 * v24);
+      sub_1005B0E2C(&v36, &v35);
+      if (v23 == ++v24)
+      {
+        v12 = v36;
+        v25 = v29;
+        v26 = v34;
+        goto LABEL_9;
+      }
+    }
+
+    __break(1u);
+LABEL_12:
+    swift_once();
+  }
+}
+
+uint64_t sub_1005B0C78(uint64_t a1, uint64_t a2)
+{
+  v11 = sub_1005B0850();
+  if (*v11->clientIdentity && (v12 = sub_100005F4C(a1, a2), (v4 & 1) != 0))
+  {
+    v13 = *(*&v11->clientIdentity[40] + 16 * v12);
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  v11, v4, v5, v6, v7, v8, v9, v10;
+  return v13;
+}
+
+uint64_t type metadata accessor for RDRootEntityNameByEntityNameCache(uint64_t a1)
+{
+  result = qword_10094DA88;
+  if (!qword_10094DA88)
+  {
+    return swift_getSingletonMetadata();
+  }
+
+  return result;
+}
+
+uint64_t sub_1005B0E2C(uint64_t *a1, void *a2)
+{
+  ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
+  if (([ObjCClassFromMetadata respondsToSelector:"cdEntityName"] & 1) == 0)
+  {
+    goto LABEL_35;
+  }
+
+  v90 = ObjCClassFromMetadata;
+  v3 = [ObjCClassFromMetadata cdEntityName];
+  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = v5;
+
+  v7 = v90;
+  if ([v90 respondsToSelector:"cdEntityName"])
+  {
+    v8 = [v90 cdEntityName];
+    v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v11 = v10;
+
+    v7 = v90;
+    v12 = v11;
+    v13 = v9;
+  }
+
+  else
+  {
+    v13 = 0;
+    v12 = 0;
+  }
+
+  v14 = a1;
+  sub_10031D9C4(v13, v12, v4, v6);
+  v15 = [v7 entity];
+  v16 = sub_1005B1224(v15);
+
+  v17 = 0;
+  v86 = v16 + 7;
+  v91 = v16;
+  v18 = 1 << *(v16 + 32);
+  v19 = -1;
+  if (v18 < 64)
+  {
+    v19 = ~(-1 << v18);
+  }
+
+  v20 = v19 & v16[7];
+  v21 = (v18 + 63) >> 6;
+  while (v20)
+  {
+LABEL_15:
+    v33 = __clz(__rbit64(v20));
+    v20 &= v20 - 1;
+    v34 = (v91[6] + ((v17 << 10) | (16 * v33)));
+    v35 = *v34;
+    v36 = v34[1];
+    if ([v7 respondsToSelector:"cdEntityName"])
+    {
+
+      v37 = [v7 cdEntityName];
+      v88 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v89 = v38;
+
+      isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+      v40 = *v14;
+      v92 = *v14;
+      v41 = v35;
+      v49 = sub_100005F4C(v35, v36);
+      v50 = *(v40 + 16);
+      v51 = (v42 & 1) == 0;
+      v52 = v50 + v51;
+      if (__OFADD__(v50, v51))
+      {
+        goto LABEL_33;
+      }
+
+      v53 = v42;
+      if (*(v40 + 24) >= v52)
+      {
+        if (isUniquelyReferenced_nonNull_native)
+        {
+          v7 = v90;
+          if (v42)
+          {
+            goto LABEL_8;
+          }
+        }
+
+        else
+        {
+          sub_100373664();
+          v7 = v90;
+          if (v53)
+          {
+            goto LABEL_8;
+          }
+        }
+      }
+
+      else
+      {
+        sub_10036A8F0(v52, isUniquelyReferenced_nonNull_native);
+        v54 = sub_100005F4C(v41, v36);
+        if ((v53 & 1) != (v42 & 1))
+        {
+          goto LABEL_36;
+        }
+
+        v49 = v54;
+        v7 = v90;
+        if (v53)
+        {
+LABEL_8:
+          v36, v42, v43, v44, v45, v46, v47, v48;
+          v22 = v92;
+          v23 = (v92[7] + 16 * v49);
+          v24 = v23[1];
+          *v23 = v88;
+          v23[1] = v89;
+          v24, v25, v26, v27, v28, v29, v30, v31;
+          goto LABEL_9;
+        }
+      }
+
+      v22 = v92;
+      v92[(v49 >> 6) + 8] |= 1 << v49;
+      v80 = (v92[6] + 16 * v49);
+      *v80 = v41;
+      v80[1] = v36;
+      v81 = (v92[7] + 16 * v49);
+      *v81 = v88;
+      v81[1] = v89;
+      v82 = v92[2];
+      v83 = __OFADD__(v82, 1);
+      v84 = v82 + 1;
+      if (v83)
+      {
+        goto LABEL_34;
+      }
+
+      v92[2] = v84;
+LABEL_9:
+      v14 = a1;
+      *a1 = v22;
+    }
+
+    else
+    {
+
+      v55 = sub_100005F4C(v35, v36);
+      v57 = v56;
+      v36, v56, v58, v59, v60, v61, v62, v63;
+      if (v57)
+      {
+        v64 = swift_isUniquelyReferenced_nonNull_native();
+        v72 = *v14;
+        v93 = *v14;
+        if (!v64)
+        {
+          sub_100373664();
+          v72 = v93;
+        }
+
+        *(*(v72 + 48) + 16 * v55 + 8), v65, v66, v67, v68, v69, v70, v71;
+        *(*(v72 + 56) + 16 * v55 + 8), v73, v74, v75, v76, v77, v78, v79;
+        sub_1003328B8(v55, v72);
+        *v14 = v72;
+        v7 = v90;
+      }
+    }
+  }
+
+  while (1)
+  {
+    v32 = v17 + 1;
+    if (__OFADD__(v17, 1))
+    {
+      break;
+    }
+
+    if (v32 >= v21)
+    {
+    }
+
+    v20 = v86[v32];
+    ++v17;
+    if (v20)
+    {
+      v17 = v32;
+      goto LABEL_15;
+    }
+  }
+
+  __break(1u);
+LABEL_33:
+  __break(1u);
+LABEL_34:
+  __break(1u);
+LABEL_35:
+  __break(1u);
+LABEL_36:
+  result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+  __break(1u);
+  return result;
+}
+
+void *sub_1005B1224(void *a1)
+{
+  v1 = [a1 subentities];
+  sub_1000060C8(0, &unk_100947240, NSEntityDescription_ptr);
+  v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+
+  v31 = _swiftEmptySetSingleton;
+  if (v2 >> 62)
+  {
+    goto LABEL_15;
+  }
+
+  for (i = *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = _CocoaArrayWrapper.endIndex.getter())
+  {
+    v11 = 0;
+    while (1)
+    {
+      if ((v2 & 0xC000000000000001) != 0)
+      {
+        v13 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+      }
+
+      else
+      {
+        if (v11 >= *((v2 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        {
+          goto LABEL_14;
+        }
+
+        v13 = *(v2 + 8 * v11 + 32);
+      }
+
+      v14 = v13;
+      v15 = v11 + 1;
+      if (__OFADD__(v11, 1))
+      {
+        break;
+      }
+
+      v16 = [v13 name];
+      if (v16)
+      {
+        v17 = v16;
+        v18 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v20 = v19;
+
+        sub_100378434(v30, v18, v20);
+        v30[1], v21, v22, v23, v24, v25, v26, v27;
+      }
+
+      v12 = sub_1005B1224(v14);
+      sub_1003564A8(v12);
+
+      ++v11;
+      if (v15 == i)
+      {
+        v28 = v31;
+        goto LABEL_17;
+      }
+    }
+
+    __break(1u);
+LABEL_14:
+    __break(1u);
+LABEL_15:
+    ;
+  }
+
+  v28 = _swiftEmptySetSingleton;
+LABEL_17:
+  v2, v3, v4, v5, v6, v7, v8, v9;
+  return v28;
+}
+
+uint64_t sub_1005B13C8()
+{
+  v0 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
+  v33 = *(v0 - 8);
+  v34 = v0;
+  __chkstk_darwin(v0, v1);
+  v32 = v31 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for OS_dispatch_queue.Attributes();
+  __chkstk_darwin(v3, v4);
+  v31[3] = v31 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for DispatchQoS();
+  __chkstk_darwin(v6 - 8, v7);
+  v8 = type metadata accessor for DispatchQoS.QoSClass();
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8, v10);
+  v12 = v31 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1000060C8(0, &qword_10093E6E0, OS_dispatch_queue_ptr);
+  v13 = type metadata accessor for RDRootEntityNameByEntityNameCache(0);
+  v35 = v13;
+  sub_1000F5104(&qword_10094DAE0, &qword_1007B3700);
+  v14 = String.init<A>(reflecting:)();
+  v31[1] = v15;
+  v31[2] = v14;
+  (*(v9 + 104))(v12, enum case for DispatchQoS.QoSClass.default(_:), v8);
+  static OS_dispatch_queue.global(qos:)();
+  (*(v9 + 8))(v12, v8);
+  static DispatchQoS.unspecified.getter();
+  v35 = &_swiftEmptyArrayStorage;
+  sub_100008D58();
+  sub_1000F5104(&unk_10093FEE0, &qword_100791B00);
+  sub_100007FA0();
+  dispatch thunk of SetAlgebra.init<A>(_:)();
+  (*(v33 + 104))(v32, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v34);
+  OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
+  v16 = swift_allocObject();
+  v17 = qword_10094DA70;
+  v35 = v13;
+  String.init<A>(reflecting:)();
+  v19 = v18;
+  v20 = objc_allocWithZone(NSString);
+  v21 = String._bridgeToObjectiveC()();
+  v19, v22, v23, v24, v25, v26, v27, v28;
+  v29 = [v20 initWithString:v21];
+
+  *(v16 + v17) = v29;
+  result = REMCache.init(cacheQueue:countLimit:)();
+  qword_10094DA68 = result;
+  return result;
+}
+
+uint64_t sub_1005B1768(uint64_t a1, uint64_t a2)
+{
+  v2 = swift_allocObject();
+  v3 = qword_10094DA70;
+  sub_1000F5104(&qword_10094DAE0, &qword_1007B3700);
+  String.init<A>(reflecting:)();
+  v5 = v4;
+  v6 = objc_allocWithZone(NSString);
+  v7 = String._bridgeToObjectiveC()();
+  v5, v8, v9, v10, v11, v12, v13, v14;
+  v15 = [v6 initWithString:v7];
+
+  *(v2 + v3) = v15;
+  return REMCache.init(cacheQueue:countLimit:)();
+}
+
+void sub_1005B1850(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = REMCacheContext.object(forKey:)();
+  if (v4)
+  {
+    v5 = v4;
+    static Dictionary._conditionallyBridgeFromObjectiveC(_:result:)();
+  }
+
+  swift_beginAccess();
+  v6 = *(a2 + 16);
+  *(a2 + 16) = 0;
+  v6, v7, v8, v9, v10, v11, v12, v13;
+}
+
+void sub_1005B18E4(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (a2)
+  {
+    v3.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+  }
+
+  else
+  {
+    v3.super.isa = 0;
+  }
+
+  isa = v3.super.isa;
+  REMCacheContext.setObject(_:forKey:)();
+}
+
+uint64_t sub_1005B1970()
+{
+
+  return swift_deallocClassInstance();
+}
+
+uint64_t sub_1005B19D8()
+{
+  v0 = type metadata accessor for Logger();
+  sub_1000EECAC(v0, qword_10094DAE8);
+  v1 = sub_100006654(v0, qword_10094DAE8);
+  if (qword_1009364D8 != -1)
+  {
+    swift_once();
+  }
+
+  v2 = sub_100006654(v0, qword_1009751D0);
+  v3 = *(*(v0 - 8) + 16);
+
+  return v3(v1, v2, v0);
+}
+
+void sub_1005B1AA0(_TtC7remindd19RDXPCStorePerformer *a1@<X1>, uint64_t a2@<X2>, _TtC7remindd19RDXPCStorePerformer *a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X8>)
+{
+  v510 = a3;
+  v485 = a2;
+  v511 = a1;
+  v457 = a5;
+  v460 = type metadata accessor for REMRemindersListDataView.ListSectionsModel();
+  __chkstk_darwin(v460, v6);
+  v458 = &v449 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v463 = type metadata accessor for REMRemindersListDataView.SectionsModel();
+  v459 = *(v463 - 8);
+  __chkstk_darwin(v463, v8);
+  v462 = &v449 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v10, v11);
+  v479 = &v449 - v12;
+  v469 = type metadata accessor for REMRemindersListDataView.CountByCompleted();
+  v468 = *(v469 - 8);
+  __chkstk_darwin(v469, v13);
+  v455 = &v449 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v466 = sub_1000F5104(&qword_10093AE38, &unk_100798450);
+  __chkstk_darwin(v466, v15);
+  v467 = &v449 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v17, v18);
+  v482 = &v449 - v19;
+  v20 = sub_1000F5104(&qword_10094B8E0, &unk_1007AABD0);
+  __chkstk_darwin(v20 - 8, v21);
+  v453 = &v449 - v22;
+  v477 = type metadata accessor for REMRemindersListDataView.RemindersPrefetch();
+  v476 = *(v477 - 8);
+  __chkstk_darwin(v477, v23);
+  v475 = &v449 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v25, v26);
+  v480 = &v449 - v27;
+  v483 = type metadata accessor for REMRemindersListDataView.Diff();
+  v470 = *(v483 - 8);
+  __chkstk_darwin(v483, v28);
+  v461 = &v449 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v30, v31);
+  v473 = &v449 - v32;
+  __chkstk_darwin(v33, v34);
+  v456 = &v449 - v35;
+  __chkstk_darwin(v36, v37);
+  v486 = &v449 - v38;
+  v39 = sub_1000F5104(&qword_100938A70, &qword_1007ACC60);
+  __chkstk_darwin(v39 - 8, v40);
+  v471 = &v449 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v42, v43);
+  v465 = &v449 - v44;
+  __chkstk_darwin(v45, v46);
+  v484 = &v449 - v47;
+  __chkstk_darwin(v48, v49);
+  v488 = &v449 - v50;
+  v491 = _s9UtilitiesO12SortingStyleOMa(0);
+  __chkstk_darwin(v491, v51);
+  v494 = (&v449 - ((v52 + 15) & 0xFFFFFFFFFFFFFFF0));
+  __chkstk_darwin(v53, v54);
+  v499 = (&v449 - v55);
+  v500 = _s10PredicatesOMa(0);
+  __chkstk_darwin(v500, v56);
+  v472 = &v449 - ((v57 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v58, v59);
+  v493 = (&v449 - v60);
+  v61 = type metadata accessor for REMRemindersListDataView.SortingStyle();
+  v497 = *(v61 - 8);
+  v498 = v61;
+  __chkstk_darwin(v61, v62);
+  v492 = &v449 - ((v63 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v64, v65);
+  v503 = (&v449 - v66);
+  Subtasks = type metadata accessor for REMRemindersListDataView.FetchSubtasks();
+  v495 = *(Subtasks - 8);
+  v496 = Subtasks;
+  __chkstk_darwin(Subtasks, v68);
+  v508 = (&v449 - ((v69 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v506 = type metadata accessor for REMRemindersListDataView.ShowCompleted();
+  v504 = *(v506 - 8);
+  __chkstk_darwin(v506, v70);
+  v454 = &v449 - ((v71 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v72, v73);
+  v478 = &v449 - v74;
+  __chkstk_darwin(v75, v76);
+  v481 = &v449 - v77;
+  __chkstk_darwin(v78, v79);
+  v507 = &v449 - v80;
+  Configuration = type metadata accessor for REMRemindersListDataView.FetchConfiguration();
+  storeController = *(Configuration - 8);
+  __chkstk_darwin(Configuration, v81);
+  v474 = &v449 - ((v82 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v83, v84);
+  v464 = &v449 - v85;
+  __chkstk_darwin(v86, v87);
+  v490 = &v449 - v88;
+  __chkstk_darwin(v89, v90);
+  v92 = &v449 - v91;
+  __chkstk_darwin(v93, v94);
+  v96 = &v449 - v95;
+  v502 = a4;
+  v97 = REMRemindersListDataView.ListSectionsInvocation.Parameters.list.getter();
+  v98 = [v97 objectID];
+
+  v99 = REMObjectID.codable.getter();
+  type metadata accessor for REMListStableSortingDataView.Invocation();
+  v100 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
+  sub_1000F5104(&unk_100939D60, &unk_1007959E0);
+  inited = swift_initStackObject();
+  v489 = xmmword_1007953F0;
+  *(inited + 16) = xmmword_1007953F0;
+  *(inited + 32) = v99;
+  v102 = v99;
+  sub_1003915C4(inited);
+  v104 = v103;
+  swift_setDeallocating();
+  v105 = v510;
+  swift_arrayDestroy();
+  v106 = v509;
+  sub_10026EC90(v511, v105, v104);
+  if (v106)
+  {
+
+    v104, v108, v109, v110, v111, v112, v113, v114;
+    return;
+  }
+
+  v115 = v107;
+  v451 = v96;
+  v452 = v92;
+  v509 = 0;
+  v116 = v503;
+
+  v104, v117, v118, v119, v120, v121, v122, v123;
+  v124 = sub_10035363C(v102, v115);
+  v115, v125, v126, v127, v128, v129, v130, v131;
+  if (!v124)
+  {
+    [objc_opt_self() noSuchObjectErrorWithObjectID:v102];
+    swift_willThrow();
+
+    return;
+  }
+
+  v132 = [v124 accountID];
+  v133 = [(RDXPCStorePerformer *)v511 persistentStoreOfAccountWithAccountID:v132];
+
+  v450 = v124;
+  if (v133)
+  {
+    v134 = swift_allocObject();
+    *(v134 + 16) = v489;
+    *&v489 = v134;
+    *(v134 + 32) = v133;
+  }
+
+  else
+  {
+    *&v489 = 0;
+  }
+
+  v135 = Configuration;
+  v136 = storeController;
+  v137 = v116;
+  v138 = REMRemindersListDataView.ListSectionsInvocation.Parameters.list.getter();
+  v139 = v451;
+  REMRemindersListDataView.ListSectionsInvocation.Parameters.configuration.getter();
+  REMRemindersListDataView.FetchConfiguration.showCompleted.getter();
+  v140 = *v136->storeController;
+  storeController = v136->storeController;
+  v140(v139, v135);
+  v141 = v452;
+  REMRemindersListDataView.ListSectionsInvocation.Parameters.configuration.getter();
+  REMRemindersListDataView.FetchConfiguration.fetchSubtasks.getter();
+  v140(v141, v135);
+  v142 = v490;
+  REMRemindersListDataView.ListSectionsInvocation.Parameters.configuration.getter();
+  REMRemindersListDataView.FetchConfiguration.sortingStyle.getter();
+  v490 = v140;
+  v140(v142, v135);
+  v143 = *(sub_1000F5104(&unk_100942AF0, qword_1007A7520) + 48);
+  v503 = v138;
+  v144 = [(RDXPCStorePerformer *)v138 objectID];
+  v145 = v493;
+  *v493 = v144;
+  v146 = (v504 + 16);
+  v147 = v507;
+  v452 = *(v504 + 16);
+  (v452)(v145 + v143, v507, v506);
+  swift_storeEnumTagMultiPayload();
+  v148 = sub_100043AA8();
+  sub_1001A4F3C(v145, _s10PredicatesOMa);
+  v149 = v497;
+  v150 = v498;
+  v151 = v492;
+  (*(v497 + 16))(v492, v137, v498);
+  v152 = v494;
+  swift_storeEnumTagMultiPayload();
+  v153 = v499;
+  sub_1005368D8(v151, v152, v499);
+  v154 = v137;
+  v155 = v511;
+  v156 = v509;
+  v157 = v489;
+  v158 = sub_100536D54(v511, v148, v153, v147, v508, &_swiftEmptyArrayStorage, v489);
+  if (v156)
+  {
+
+    v157, v159, v160, v161, v162, v163, v164, v165;
+    sub_1001A4F3C(v153, _s9UtilitiesO12SortingStyleOMa);
+    (*(v149 + 8))(v154, v150);
+    (*(v495 + 8))(v508, v496);
+    (*(v504 + 8))(v507, v506);
+    return;
+  }
+
+  v493 = v146;
+  v494 = v158;
+
+  sub_1001A4F3C(v153, _s9UtilitiesO12SortingStyleOMa);
+  (*(v149 + 8))(v154, v150);
+  (*(v495 + 8))(v508, v496);
+  v166 = *(v504 + 8);
+  v166(v507, v506);
+  v167 = REMRemindersListDataView.ListSectionsInvocation.Parameters.list.getter();
+  v168 = [v167 objectID];
+
+  v169 = sub_1001BE2C0(v155, v168);
+  v170 = sub_100270978(v169);
+  v171 = sub_1001BD57C(v170, v494);
+  v170, v172, v173, v174, v175, v176, v177, v178;
+  v179 = v487;
+  sub_1005B3A94(v511, v488);
+  v180 = [v179 fetchResultTokenToDiffAgainst];
+  sub_100534D44(v180, v486);
+  v509 = 0;
+  v507 = v166;
+  v508 = v171;
+
+  v181 = v464;
+  REMRemindersListDataView.ListSectionsInvocation.Parameters.configuration.getter();
+  v182 = v480;
+  REMRemindersListDataView.FetchConfiguration.remindersPrefetch.getter();
+  (v490)(v181, Configuration);
+  v183 = v476;
+  v184 = v475;
+  v185 = v477;
+  (*(v476 + 16))(v475, v182, v477);
+  v186 = (*(v183 + 88))(v184, v185);
+  if (v186 == enum case for REMRemindersListDataView.RemindersPrefetch.initial(_:))
+  {
+    (*(v183 + 96))(v184, v185);
+    v194 = *v184;
+    v195 = Array<A>.reminders.getter();
+    v196 = v194;
+    v185 = v477;
+    v197 = v489;
+    v503 = sub_10053DB98(v196, v195, v511, v510, v489);
+    v195, v198, v199, v200, v201, v202, v203, v204;
+    v197, v205, v206, v207, v208, v209, v210, v211;
+    v499 = &_swiftEmptyArrayStorage;
+    v212 = v506;
+    v213 = v472;
+LABEL_16:
+    v253 = v474;
+    goto LABEL_17;
+  }
+
+  v212 = v506;
+  v214 = v510;
+  v213 = v472;
+  v215 = v474;
+  if (v186 == enum case for REMRemindersListDataView.RemindersPrefetch.updatedInserted(_:))
+  {
+    v183 = v476;
+    v216 = v510;
+    v217 = v475;
+    (*(v476 + 96))(v475, v185);
+    v218 = *v217;
+    v219 = v489;
+    v503 = sub_10053E698(v218, v486, v511, v216, v489);
+    v219, v220, v221, v222, v223, v224, v225, v226;
+    v499 = &_swiftEmptyArrayStorage;
+    goto LABEL_16;
+  }
+
+  if (v186 == enum case for REMRemindersListDataView.RemindersPrefetch.initialAndDateRange(_:))
+  {
+    v183 = v476;
+    v227 = v475;
+    (*(v476 + 96))(v475, v185);
+    v228 = *v227;
+    v229 = sub_1000F5104(&qword_100938A78, &qword_1007AABE0);
+    v230 = v453;
+    sub_100031B58(v227 + *(v229 + 48), v453, &qword_10094B8E0, &unk_1007AABD0);
+    v231 = Array<A>.reminders.getter();
+    v232 = v228;
+    v233 = v511;
+    v234 = v214;
+    v235 = v214;
+    v236 = v489;
+    v503 = sub_10053DB98(v232, v231, v511, v234, v489);
+    v237 = v233;
+    v185 = v477;
+    v499 = sub_10053EBE4(v230, v231, v237, v235, v236);
+    v231, v238, v239, v240, v241, v242, v243, v244;
+    v236, v245, v246, v247, v248, v249, v250, v251;
+    v252 = v230;
+    v213 = v472;
+    sub_1000050A4(v252, &qword_10094B8E0, &unk_1007AABD0);
+    goto LABEL_16;
+  }
+
+  if (v186 != enum case for REMRemindersListDataView.RemindersPrefetch.none(_:))
+  {
+LABEL_51:
+    _diagnoseUnexpectedEnumCase<A>(type:)();
+    __break(1u);
+    goto LABEL_52;
+  }
+
+  v489, v187, v188, v189, v190, v191, v192, v193;
+  v499 = &_swiftEmptyArrayStorage;
+  v503 = &_swiftEmptyArrayStorage;
+  v183 = v476;
+  v253 = v215;
+LABEL_17:
+  v254 = v212;
+  (*(v183 + 8))(v480, v185);
+  v255 = REMRemindersListDataView.ListSectionsInvocation.Parameters.list.getter();
+  v256 = [v255 objectID];
+
+  *v213 = v256;
+  swift_storeEnumTagMultiPayload();
+  v510 = sub_100043AA8();
+  sub_1001A4F3C(v213, _s10PredicatesOMa);
+  REMRemindersListDataView.ListSectionsInvocation.Parameters.configuration.getter();
+  v257 = v481;
+  REMRemindersListDataView.FetchConfiguration.showCompleted.getter();
+  (v490)(v253, Configuration);
+  v258 = v482;
+  sub_100010364(v488, v482, &qword_100938A70, &qword_1007ACC60);
+  v259 = v466;
+  (v452)(v258 + *(v466 + 48), v257, v254);
+  *(v258 + *(v259 + 64)) = v494;
+  v260 = v467;
+  sub_100010364(v258, v467, &qword_10093AE38, &unk_100798450);
+  v261 = *(v259 + 48);
+  storeController = *(v260 + *(v259 + 64));
+  v262 = v484;
+  sub_100031B58(v260, v484, &qword_100938A70, &qword_1007ACC60);
+  v263 = v260 + v261;
+  v264 = v262;
+  v265 = v478;
+  (*(v504 + 32))(v478, v263, v254);
+  v266 = v465;
+  sub_100010364(v264, v465, &qword_100938A70, &qword_1007ACC60);
+  v267 = v468;
+  v268 = v469;
+  v269 = (*(v468 + 48))(v266, 1, v469);
+
+  if (v269 != 1)
+  {
+    storeController, v270, v271, v272, v273, v274, v275, v276;
+    v169, v303, v304, v305, v306, v307, v308, v309;
+    v310 = v266;
+    v311 = v455;
+    (*(v267 + 32))(v455, v310, v268);
+    v312 = v506;
+    v313 = v267;
+    v314 = REMRemindersListDataView.CountByCompleted.incomplete.getter();
+    v315 = REMRemindersListDataView.CountByCompleted.completed.getter();
+
+    (*(v313 + 8))(v311, v268);
+    v316 = v265;
+    v317 = v507;
+    (v507)(v316, v312);
+    sub_1000050A4(v484, &qword_100938A70, &qword_1007ACC60);
+    sub_1000050A4(v482, &qword_10093AE38, &unk_100798450);
+    (v317)(v481, v312);
+    v297 = v483;
+    v300 = v470;
+    if (!__OFADD__(v314, v315))
+    {
+LABEL_21:
+      v298 = v486;
+      v299 = v488;
+LABEL_22:
+      v301 = v473;
+      v302 = v456;
+      v287 = v471;
+      goto LABEL_23;
+    }
+
+    __break(1u);
+    goto LABEL_51;
+  }
+
+  v277 = v484;
+  v278 = v510;
+  sub_1000050A4(v266, &qword_100938A70, &qword_1007ACC60);
+  v286 = storeController;
+  v287 = v471;
+  v288 = v507;
+  if (*storeController->clientIdentity)
+  {
+    storeController, v279, v280, v281, v282, v283, v284, v285;
+    v169, v289, v290, v291, v292, v293, v294, v295;
+
+    v296 = v506;
+    (v288)(v478, v506);
+    sub_1000050A4(v277, &qword_100938A70, &qword_1007ACC60);
+    sub_1000050A4(v482, &qword_10093AE38, &unk_100798450);
+    (v288)(v481, v296);
+    v297 = v483;
+    v298 = v486;
+    v299 = v488;
+    v300 = v470;
+    v301 = v473;
+    v302 = v456;
+LABEL_23:
+    sub_100010364(v299, v287, &qword_100938A70, &qword_1007ACC60);
+    REMRemindersListDataView.SectionsModel.init(sections:remindersCount:hasIncompleteOrCompletedReminders:prefetchedReminders:prefetchedDueReminders:)();
+    if (qword_100936628 != -1)
+    {
+      swift_once();
+    }
+
+    v318 = type metadata accessor for Logger();
+    sub_100006654(v318, qword_10094DAE8);
+    v319 = *(v300 + 16);
+    (v319)(v302, v298, v297);
+    v510 = (v300 + 16);
+    v508 = v319;
+    (v319)(v301, v298, v297);
+    v320 = v494;
+
+    v321 = Logger.logObject.getter();
+    v322 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v321, v322))
+    {
+      v323 = swift_slowAlloc();
+      *v323 = 134218496;
+      v324 = *v320->clientIdentity;
+      v320, v325, v326, v327, v328, v329, v330, v331;
+      *(v323 + 4) = v324;
+      v320, v332, v333, v334, v335, v336, v337, v338;
+      *(v323 + 12) = 2048;
+      v339 = REMRemindersListDataView.Diff.updatedReminderObjectIDs.getter();
+      if ((v339 & 0xC000000000000001) != 0)
+      {
+        v347 = v339;
+        v348 = __CocoaSet.count.getter();
+        v339 = v347;
+        v301 = v473;
+      }
+
+      else
+      {
+        v348 = *(v339 + 16);
+      }
+
+      v352 = v461;
+      v339, v340, v341, v342, v343, v344, v345, v346;
+      v372 = *(v300 + 8);
+      v507 = ((v300 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000);
+      v511 = v372;
+      (v372)(v302, v297);
+      *(v323 + 14) = v348;
+      *(v323 + 22) = 2048;
+      v373 = REMRemindersListDataView.Diff.insertedReminderObjectIDs.getter();
+      if ((v373 & 0xC000000000000001) != 0)
+      {
+        v381 = v373;
+        v382 = __CocoaSet.count.getter();
+        v373 = v381;
+        v297 = v483;
+      }
+
+      else
+      {
+        v382 = *(v373 + 16);
+      }
+
+      v351 = v462;
+      v373, v374, v375, v376, v377, v378, v379, v380;
+      (v511)(v301, v297);
+      *(v323 + 24) = v382;
+      _os_log_impl(&_mh_execute_header, v321, v322, "reminders %ld updated %ld inserted %ld", v323, 0x20u);
+
+      v353 = v463;
+      v350 = v297;
+    }
+
+    else
+    {
+      v349 = *(v300 + 8);
+      v507 = ((v300 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000);
+      (v349)(v301, v297);
+      v511 = v349;
+      (v349)(v302, v297);
+
+      swift_bridgeObjectRelease_n();
+      v350 = v297;
+      v351 = v462;
+      v352 = v461;
+      v353 = v463;
+    }
+
+    v383 = v459;
+    v384 = v351;
+    v385 = v479;
+    (*(v459 + 16))(v384, v479, v353);
+    v386 = v450;
+    REMRemindersListDataView.ListSectionsModel.init(sectionsModel:list:)();
+    v387 = v352;
+    v388 = v486;
+    (v508)(v387, v486, v350);
+    sub_1005B3D58(&qword_10094DB28, &type metadata accessor for REMRemindersListDataView.ListSectionsModel, &protocol conformance descriptor for REMRemindersListDataView.ListSectionsModel);
+    sub_1005B3D58(&qword_10094DB30, &type metadata accessor for REMRemindersListDataView.ListSectionsModel, &protocol conformance descriptor for REMRemindersListDataView.ListSectionsModel);
+    REMRemindersListDataView.DefaultInvocationResult.init(model:diff:)();
+
+    (*(v383 + 8))(v385, v353);
+    (v511)(v388, v483);
+    v389 = v488;
+    goto LABEL_37;
+  }
+
+  v354 = v454;
+  v355 = v506;
+  (v452)(v454, v478, v506);
+  v356 = (*(v504 + 88))(v354, v355);
+  if (v356 == enum case for REMRemindersListDataView.ShowCompleted.after(_:))
+  {
+    v286, v357, v358, v359, v360, v361, v362, v363;
+    v169, v364, v365, v366, v367, v368, v369, v370;
+    (v288)(v354, v506);
+    v297 = v483;
+    v300 = v470;
+    p_attr = (&stru_100923FF8 + 8);
+LABEL_45:
+    sub_100345DB0();
+    v404 = [objc_allocWithZone(NSFetchRequest) p_attr[424]];
+    v405 = [swift_getObjCClassFromMetadata() entity];
+    [v404 setEntity:v405];
+
+    [v404 setAffectedStores:0];
+    [v404 setPredicate:v278];
+    [v404 setFetchLimit:1];
+    [v404 setAffectedStores:0];
+    v406 = v509;
+    NSManagedObjectContext.count<A>(for:)();
+    v509 = v406;
+    v407 = v482;
+    if (v406)
+    {
+
+      v494, v408, v409, v410, v411, v412, v413, v414;
+      v508, v415, v416, v417, v418, v419, v420, v421;
+      v503, v422, v423, v424, v425, v426, v427, v428;
+      v499, v429, v430, v431, v432, v433, v434, v435;
+
+      v437 = v506;
+      v436 = v507;
+      (v507)(v478, v506);
+      sub_1000050A4(v484, &qword_100938A70, &qword_1007ACC60);
+      sub_1000050A4(v407, &qword_10093AE38, &unk_100798450);
+      (v436)(v481, v437);
+      (*(v300 + 8))(v486, v297);
+      v389 = v488;
+LABEL_37:
+      sub_1000050A4(v389, &qword_100938A70, &qword_1007ACC60);
+      return;
+    }
+
+    v439 = v506;
+    v438 = v507;
+    (v507)(v478, v506);
+    sub_1000050A4(v484, &qword_100938A70, &qword_1007ACC60);
+    sub_1000050A4(v407, &qword_10093AE38, &unk_100798450);
+    (v438)(v481, v439);
+    goto LABEL_21;
+  }
+
+  p_attr = &stru_100923FF8.attr;
+  if (v356 == enum case for REMRemindersListDataView.ShowCompleted.allowlist(_:))
+  {
+    v286, v357, v358, v359, v360, v361, v362, v363;
+    v169, v390, v391, v392, v393, v394, v395, v396;
+    (v288)(v354, v506);
+LABEL_44:
+    v297 = v483;
+    v300 = v470;
+    goto LABEL_45;
+  }
+
+  if (v356 == enum case for REMRemindersListDataView.ShowCompleted.off(_:))
+  {
+    v286, v357, v358, v359, v360, v361, v362, v363;
+    v169, v397, v398, v399, v400, v401, v402, v403;
+    goto LABEL_44;
+  }
+
+  if (v356 == enum case for REMRemindersListDataView.ShowCompleted.on(_:))
+  {
+    v286, v357, v358, v359, v360, v361, v362, v363;
+    v169, v440, v441, v442, v443, v444, v445, v446;
+
+    v447 = v506;
+    v448 = v507;
+    (v507)(v478, v506);
+    sub_1000050A4(v484, &qword_100938A70, &qword_1007ACC60);
+    sub_1000050A4(v482, &qword_10093AE38, &unk_100798450);
+    (v448)(v481, v447);
+    v297 = v483;
+    v298 = v486;
+    v299 = v488;
+    v300 = v470;
+    goto LABEL_22;
+  }
+
+LABEL_52:
+  _diagnoseUnexpectedEnumCase<A>(type:)();
+  __break(1u);
+}
+
+void sub_1005B3A94(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v20 = a1;
+  v4 = _s10PredicatesOMa(0);
+  __chkstk_darwin(v4, v5);
+  v7 = (&v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  Configuration = type metadata accessor for REMRemindersListDataView.FetchConfiguration();
+  v9 = *(Configuration - 8);
+  __chkstk_darwin(Configuration, v10);
+  v12 = &v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  REMRemindersListDataView.ListSectionsInvocation.Parameters.configuration.getter();
+  v13 = REMRemindersListDataView.FetchConfiguration.countCompleted.getter();
+  (*(v9 + 8))(v12, Configuration);
+  if (v13)
+  {
+    v14 = REMRemindersListDataView.ListSectionsInvocation.Parameters.list.getter();
+    v15 = [v14 objectID];
+
+    *v7 = v15;
+    swift_storeEnumTagMultiPayload();
+    v16 = sub_100043AA8();
+    sub_1001A4F3C(v7, _s10PredicatesOMa);
+    sub_10053464C(v20, v16);
+    if (!v2)
+    {
+      v17 = type metadata accessor for REMRemindersListDataView.CountByCompleted();
+      (*(*(v17 - 8) + 56))(a2, 0, 1, v17);
+    }
+  }
+
+  else
+  {
+    v18 = type metadata accessor for REMRemindersListDataView.CountByCompleted();
+    (*(*(v18 - 8) + 56))(a2, 1, 1, v18);
+  }
+}
+
+uint64_t sub_1005B3D00(uint64_t a1)
+{
+  result = sub_1005B3D58(&qword_10094DB20, &type metadata accessor for REMRemindersListDataView.ListSectionsInvocation, &protocol conformance descriptor for REMRemindersListDataView.ListSectionsInvocation);
+  *(a1 + 8) = result;
+  return result;
+}
+
+uint64_t sub_1005B3D58(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    a2(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t sub_1005B3DA0(void *a1)
+{
+  v3 = swift_allocObject();
+  *(v3 + 16) = a1;
+  *(v3 + 24) = v1;
+  sub_1000F5104(&qword_1009399A8, &qword_1007969E8);
+  swift_allocObject();
+  v4 = a1;
+  return Future.init(_:)();
+}
+
+uint64_t sub_1005B3E28()
+{
+  v1 = swift_allocObject();
+  *(v1 + 16) = 0;
+  v2 = swift_allocObject();
+  *(v2 + 16) = v1;
+  *(v2 + 24) = v0;
+  sub_1000F5104(&qword_1009399A8, &qword_1007969E8);
+  swift_allocObject();
+
+  v3 = Future.init(_:)();
+  swift_beginAccess();
+  v4 = *(v1 + 16);
+
+  return v3;
+}
+
+uint64_t sub_1005B3F08()
+{
+  v0 = type metadata accessor for Logger();
+  sub_1000EECAC(v0, qword_10094DB38);
+  v1 = sub_100006654(v0, qword_10094DB38);
+  if (qword_100936450 != -1)
+  {
+    swift_once();
+  }
+
+  v2 = sub_100006654(v0, qword_100975038);
+  v3 = *(*(v0 - 8) + 16);
+
+  return v3(v1, v2, v0);
+}
+
+void sub_1005B3FD0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v7 = type metadata accessor for DispatchQoS.QoSClass();
+  v8 = *(v7 - 8);
+  __chkstk_darwin(v7, v9);
+  v11 = aBlock - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = swift_allocObject();
+  *(v12 + 16) = a1;
+  *(v12 + 24) = a2;
+  ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
+  sub_100007F54();
+  (*(v8 + 104))(v11, enum case for DispatchQoS.QoSClass.utility(_:), v7);
+
+  v14 = static OS_dispatch_queue.global(qos:)();
+  (*(v8 + 8))(v11, v7);
+  v15 = swift_allocObject();
+  *(v15 + 16) = sub_1005B490C;
+  *(v15 + 24) = v12;
+  aBlock[4] = sub_1005B48F4;
+  aBlock[5] = v15;
+  aBlock[0] = _NSConcreteStackBlock;
+  aBlock[1] = 1107296256;
+  aBlock[2] = sub_100019200;
+  aBlock[3] = &unk_1008F92D0;
+  v16 = _Block_copy(aBlock);
+
+  [ObjCClassFromMetadata waitForSyncEngineSystemAvailabilityBlockingQueue:a3 completionQueue:v14 completionBlock:v16];
+  _Block_release(v16);
+}
+
+uint64_t sub_1005B41DC(uint64_t (*a1)(void))
+{
+  if (qword_100936630 != -1)
+  {
+    swift_once();
+  }
+
+  v2 = type metadata accessor for Logger();
+  sub_100006654(v2, qword_10094DB38);
+  v3 = Logger.logObject.getter();
+  v4 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v3, v4))
+  {
+    v5 = swift_slowAlloc();
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v3, v4, "DADSystemAvailabilityChecker(Swift extension) systemAvailableFuture fulfilled", v5, 2u);
+  }
+
+  return a1(0);
+}
+
+void sub_1005B42D4(void (*a1)(void ***), uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v35 = a3;
+  v6 = type metadata accessor for DispatchWorkItemFlags();
+  v34 = *(v6 - 8);
+  __chkstk_darwin(v6, v7);
+  v9 = &v31 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for DispatchQoS();
+  v32 = *(v10 - 8);
+  v33 = v10;
+  __chkstk_darwin(v10, v11);
+  v13 = &v31 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = type metadata accessor for DispatchQoS.QoSClass();
+  v15 = *(v14 - 8);
+  __chkstk_darwin(v14, v16);
+  v18 = &v31 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = swift_allocObject();
+  *(v19 + 16) = a1;
+  *(v19 + 24) = a2;
+  ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
+
+  if ([ObjCClassFromMetadata hasPassedBuddy])
+  {
+
+    LOBYTE(aBlock) = 0;
+    a1(&aBlock);
+  }
+
+  else
+  {
+    sub_100007F54();
+    (*(v15 + 104))(v18, enum case for DispatchQoS.QoSClass.utility(_:), v14);
+    v21 = static OS_dispatch_queue.global(qos:)();
+    (*(v15 + 8))(v18, v14);
+    v22 = [objc_allocWithZone(DADBuddyStateObserver) initWithQueue:v21];
+    v23 = swift_allocObject();
+    v23[2] = v22;
+    v23[3] = sub_1005B4784;
+    v23[4] = v19;
+    v41 = sub_1005B4894;
+    v42 = v23;
+    aBlock = _NSConcreteStackBlock;
+    v38 = 1107296256;
+    v39 = sub_100019200;
+    v40 = &unk_1008F91E0;
+    v24 = _Block_copy(&aBlock);
+    v25 = v22;
+
+    [v25 setBuddyDidFinishHandler:v24];
+    _Block_release(v24);
+    v26 = swift_allocObject();
+    *(v26 + 16) = v25;
+    v41 = sub_1005B48A0;
+    v42 = v26;
+    aBlock = _NSConcreteStackBlock;
+    v38 = 1107296256;
+    v39 = sub_100019200;
+    v40 = &unk_1008F9230;
+    v27 = _Block_copy(&aBlock);
+    v28 = v25;
+    static DispatchQoS.unspecified.getter();
+    v36 = &_swiftEmptyArrayStorage;
+    sub_10000AB38();
+    sub_1000F5104(&unk_100939E50, &unk_100791AD0);
+    sub_10000AB90();
+    dispatch thunk of SetAlgebra.init<A>(_:)();
+    OS_dispatch_queue.async(group:qos:flags:execute:)();
+    _Block_release(v27);
+
+    (*(v34 + 8))(v9, v6);
+    (*(v32 + 8))(v13, v33);
+
+    v29 = v35;
+    swift_beginAccess();
+    v30 = *(v29 + 16);
+    *(v29 + 16) = v28;
+  }
+}
+
+uint64_t sub_1005B4788(void *a1, uint64_t (*a2)(void))
+{
+  if (qword_100936630 != -1)
+  {
+    swift_once();
+  }
+
+  v4 = type metadata accessor for Logger();
+  sub_100006654(v4, qword_10094DB38);
+  v5 = Logger.logObject.getter();
+  v6 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v5, v6))
+  {
+    v7 = swift_slowAlloc();
+    *v7 = 0;
+    _os_log_impl(&_mh_execute_header, v5, v6, "DADBuddyStateObserver(Swift extension) hasPassedBuddyFuture fulfilled", v7, 2u);
+  }
+
+  [a1 stop];
+  return a2(0);
+}
+
+uint64_t sub_1005B48B8(char a1)
+{
+  v2 = *(v1 + 16);
+  v4 = a1 & 1;
+  return v2(&v4);
+}
+
+uint64_t sub_1005B4910()
+{
+  v0 = type metadata accessor for Logger();
+  sub_1000EECAC(v0, qword_10094DB50);
+  v1 = sub_100006654(v0, qword_10094DB50);
+  if (qword_100936450 != -1)
+  {
+    swift_once();
+  }
+
+  v2 = sub_100006654(v0, qword_100975038);
+  v3 = *(*(v0 - 8) + 16);
+
+  return v3(v1, v2, v0);
+}
+
+uint64_t RDSynchronizedKeyValueStore.lastDismissedDate.getter@<X0>(uint64_t a1@<X8>)
+{
+  v3 = sub_1000F5104(&unk_100938850, qword_100795AE0);
+  __chkstk_darwin(v3 - 8, v4);
+  v6 = &v34[-v5 - 8];
+  v7 = *(v1 + 16);
+  v8 = String._bridgeToObjectiveC()();
+  v9 = [v7 objectForKey:v8];
+
+  if (v9)
+  {
+    _bridgeAnyObjectToAny(_:)();
+    swift_unknownObjectRelease();
+    sub_100005EF0(v37, v36);
+    v10 = type metadata accessor for Date();
+    if (swift_dynamicCast())
+    {
+      sub_10000607C(v37);
+      v11 = *(v10 - 8);
+      v12 = *(v11 + 56);
+      v12(v6, 0, 1, v10);
+      (*(v11 + 32))(a1, v6, v10);
+      return (v12)(a1, 0, 1, v10);
+    }
+
+    else
+    {
+      v16 = *(*(v10 - 8) + 56);
+      v16(v6, 1, 1, v10);
+      sub_1001AAD5C(v6);
+      if (qword_100936638 != -1)
+      {
+        swift_once();
+      }
+
+      v17 = type metadata accessor for Logger();
+      sub_100006654(v17, qword_10094DB50);
+      sub_100005EF0(v37, v36);
+      v18 = Logger.logObject.getter();
+      v19 = static os_log_type_t.error.getter();
+      if (os_log_type_enabled(v18, v19))
+      {
+        v20 = swift_slowAlloc();
+        v21 = swift_slowAlloc();
+        v35 = v21;
+        *v20 = 136315138;
+        sub_100005EF0(v36, v34);
+        v22 = String.init<A>(describing:)();
+        v24 = v23;
+        sub_10000607C(v36);
+        v25 = sub_10000668C(v22, v24, &v35);
+        v24, v26, v27, v28, v29, v30, v31, v32;
+        *(v20 + 4) = v25;
+        sub_10000607C(v21);
+      }
+
+      else
+      {
+
+        sub_10000607C(v36);
+      }
+
+      sub_10000607C(v37);
+      return (v16)(a1, 1, 1, v10);
+    }
+  }
+
+  else
+  {
+    v14 = type metadata accessor for Date();
+    v15 = *(*(v14 - 8) + 56);
+
+    return v15(a1, 1, 1, v14);
+  }
+}
+
+uint64_t RDSynchronizedKeyValueStore.lastDismissedDate.setter(uint64_t a1)
+{
+  v3 = sub_1000F5104(&unk_100938850, qword_100795AE0);
+  __chkstk_darwin(v3 - 8, v4);
+  v6 = &v13 - v5;
+  v7 = *(v1 + 16);
+  sub_10012F78C(a1, &v13 - v5);
+  v8 = type metadata accessor for Date();
+  v9 = *(v8 - 8);
+  isa = 0;
+  if ((*(v9 + 48))(v6, 1, v8) != 1)
+  {
+    isa = Date._bridgeToObjectiveC()().super.isa;
+    (*(v9 + 8))(v6, v8);
+  }
+
+  v11 = String._bridgeToObjectiveC()();
+  [v7 setObject:isa forKey:v11];
+  swift_unknownObjectRelease();
+
+  return sub_1001AAD5C(a1);
+}
+
+void (*RDSynchronizedKeyValueStore.lastDismissedDate.modify(void *a1))(uint64_t a1, char a2)
+{
+  *a1 = v1;
+  v3 = *(*(sub_1000F5104(&unk_100938850, qword_100795AE0) - 8) + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    a1[1] = swift_coroFrameAlloc();
+    v4 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    a1[1] = malloc(v3);
+    v4 = malloc(v3);
+  }
+
+  a1[2] = v4;
+  RDSynchronizedKeyValueStore.lastDismissedDate.getter(v4);
+  return sub_1005B4FF0;
+}
+
+void sub_1005B4FF0(uint64_t a1, char a2)
+{
+  v2 = *(a1 + 8);
+  v3 = *(a1 + 16);
+  if (a2)
+  {
+    sub_10012F78C(v3, v2);
+    RDSynchronizedKeyValueStore.lastDismissedDate.setter(v2);
+    sub_1001AAD5C(v3);
+  }
+
+  else
+  {
+    RDSynchronizedKeyValueStore.lastDismissedDate.setter(v3);
+  }
+
+  free(v3);
+
+  free(v2);
+}
+
+uint64_t RDSynchronizedKeyValueStore.lastDismissedDateDidChangeExternally()()
+{
+  v0 = sub_1000F5104(&qword_10094DB68, &qword_1007B3738);
+  v1 = *(v0 - 8);
+  __chkstk_darwin(v0, v2);
+  v4 = v7 - v3;
+  v7[1] = RDSynchronizedKeyValueStore.storeDidChangeExternally(label:)(0xD00000000000002ELL, 0x80000001007B3720);
+  sub_1000F5104(&qword_10094DB70, &qword_1007B3770);
+  sub_10000CB48(&qword_10094DB78, &qword_10094DB70, &qword_1007B3770, &protocol conformance descriptor for AnyPublisher<A, B>);
+  Publisher.filter(_:)();
+
+  sub_10000CB48(&qword_10094DB80, &qword_10094DB68, &qword_1007B3738, &protocol conformance descriptor for Publishers.Filter<A>);
+  v5 = Publisher.eraseToAnyPublisher()();
+  (*(v1 + 8))(v4, v0);
+  return v5;
+}
+
+BOOL sub_1005B5224(unsigned __int8 *a1)
+{
+  v1 = a1[8];
+  if (v1 >= 2)
+  {
+    return v1 == 3;
+  }
+
+  v2 = (*a1 + 40);
+  v3 = *(*a1 + 16) + 1;
+  do
+  {
+    v4 = --v3 != 0;
+    if (!v3)
+    {
+      break;
+    }
+
+    if (*(v2 - 1) == 0xD000000000000023 && 0x80000001007FD6B0 == *v2)
+    {
+      break;
+    }
+
+    v2 += 2;
+  }
+
+  while ((_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0);
+  return v4;
+}
+
+void (*sub_1005B5318(void **a1))(uint64_t a1, char a2)
+{
+  v3 = *(*(sub_1000F5104(&unk_100938850, qword_100795AE0) - 8) + 64);
+  if (&_swift_coroFrameAlloc)
+  {
+    *a1 = swift_coroFrameAlloc();
+    v4 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    *a1 = malloc(v3);
+    v4 = malloc(v3);
+  }
+
+  v5 = *v1;
+  a1[1] = v4;
+  a1[2] = v5;
+  RDSynchronizedKeyValueStore.lastDismissedDate.getter(v4);
+  return sub_1005B53D4;
+}
+
+void sub_1005B53D4(uint64_t a1, char a2)
+{
+  v2 = *(a1 + 8);
+  v3 = *a1;
+  if (a2)
+  {
+    sub_10012F78C(v2, v3);
+    RDSynchronizedKeyValueStore.lastDismissedDate.setter(v3);
+    sub_1001AAD5C(v2);
+  }
+
+  else
+  {
+    RDSynchronizedKeyValueStore.lastDismissedDate.setter(v2);
+  }
+
+  free(v2);
+
+  free(v3);
+}
+
+uint64_t sub_1005B5444()
+{
+  v0 = sub_1000F5104(&qword_10094DB68, &qword_1007B3738);
+  v1 = *(v0 - 8);
+  __chkstk_darwin(v0, v2);
+  v4 = v7 - v3;
+  v7[1] = RDSynchronizedKeyValueStore.storeDidChangeExternally(label:)(0xD00000000000002ELL, 0x80000001007B3720);
+  sub_1000F5104(&qword_10094DB70, &qword_1007B3770);
+  sub_10000CB48(&qword_10094DB78, &qword_10094DB70, &qword_1007B3770, &protocol conformance descriptor for AnyPublisher<A, B>);
+  Publisher.filter(_:)();
+
+  sub_10000CB48(&qword_10094DB80, &qword_10094DB68, &qword_1007B3738, &protocol conformance descriptor for Publishers.Filter<A>);
+  v5 = Publisher.eraseToAnyPublisher()();
+  (*(v1 + 8))(v4, v0);
+  return v5;
+}
+
+uint64_t sub_1005B560C()
+{
+  ObjectType = swift_getObjectType();
+  v2 = *(v0 + OBJC_IVAR____TtC7remindd20RDDisplayDateUpdater_significantTimeNotificationStream);
+  v3 = swift_allocObject();
+  Strong = swift_unknownObjectWeakLoadStrong();
+  swift_unknownObjectWeakInit();
+
+  v5 = swift_allocObject();
+  *(v5 + 16) = v3;
+  *(v5 + 24) = ObjectType;
+  v6 = *(v2 + 16);
+  v7 = *(v2 + 24);
+  *(v2 + 16) = sub_1005B6BC8;
+  *(v2 + 24) = v5;
+
+  sub_1000FDA80(v6, v7);
+}
+
+void sub_1005B56DC(id *a1@<X0>, uint64_t *a2@<X8>)
+{
+  v3 = [*a1 displayDateTimeZone];
+  if (v3)
+  {
+    v4 = v3;
+    v5 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v7 = v6;
+  }
+
+  else
+  {
+    v5 = 0;
+    v7 = 0;
+  }
+
+  *a2 = v5;
+  a2[1] = v7;
+}
+
+void sub_1005B5744(uint64_t a1, void **a2)
+{
+  v2 = *a2;
+  if (*(a1 + 8))
+  {
+    v3 = String._bridgeToObjectiveC()();
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  v4 = v3;
+  [v2 setDisplayDateTimeZone:?];
+}
+
+uint64_t sub_1005B57B4()
+{
+  v0 = type metadata accessor for Logger();
+  sub_1000EECAC(v0, qword_10094DB88);
+  v1 = sub_100006654(v0, qword_10094DB88);
+  if (qword_100936410 != -1)
+  {
+    swift_once();
+  }
+
+  v2 = sub_100006654(v0, qword_100974F78);
+  v3 = *(*(v0 - 8) + 16);
+
+  return v3(v1, v2, v0);
+}
+
+void sub_1005B587C(uint64_t a1)
+{
+  swift_beginAccess();
+  Strong = swift_unknownObjectWeakLoadStrong();
+  if (Strong)
+  {
+    v2 = Strong;
+    if (qword_100936640 != -1)
+    {
+      swift_once();
+    }
+
+    v3 = type metadata accessor for Logger();
+    sub_100006654(v3, qword_10094DB88);
+    v4 = Logger.logObject.getter();
+    v5 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v4, v5))
+    {
+      v6 = swift_slowAlloc();
+      *v6 = 0;
+      _os_log_impl(&_mh_execute_header, v4, v5, "Updating display dates in all stores due to significant time change…", v6, 2u);
+    }
+
+    v7 = [v2 persistentStoreCoordinator];
+    v8 = [v7 persistentStores];
+
+    sub_1000060C8(0, &qword_10093F430, NSPersistentStore_ptr);
+    v9 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+
+    if (v9 >> 62)
+    {
+      v10 = _CocoaArrayWrapper.endIndex.getter();
+      if (v10)
+      {
+        goto LABEL_8;
+      }
+    }
+
+    else
+    {
+      v10 = *((v9 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      if (v10)
+      {
+LABEL_8:
+        if (v10 < 1)
+        {
+          __break(1u);
+          return;
+        }
+
+        for (i = 0; i != v10; ++i)
+        {
+          if ((v9 & 0xC000000000000001) != 0)
+          {
+            v12 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+          }
+
+          else
+          {
+            v12 = *(v9 + 8 * i + 32);
+          }
+
+          v13 = v12;
+          sub_1005B5A88(v12);
+        }
+      }
+    }
+
+    v9, v14, v15, v16, v17, v18, v19, v20;
+  }
+}
+
 uint64_t sub_1005B5A88(void *a1)
 {
   if (qword_100936640 != -1)
@@ -103,14 +2342,12 @@ void sub_1005B6230(void *a1, void *a2)
 {
   v4 = type metadata accessor for Date();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4);
-  v8 = &v67 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4, v6);
+  v8 = &v131 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = type metadata accessor for TimeZone();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = &v67 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9, v11);
+  v13 = &v131 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   static TimeZone.current.getter();
   Date.init()();
   v14 = TimeZone.secondsFromGMT(for:)();
@@ -119,84 +2356,84 @@ void sub_1005B6230(void *a1, void *a2)
   sub_1000F5104(&qword_10093B980, qword_10079A3D0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_100791340;
-  swift_getKeyPath();
-  v16 = sub_1003F71EC();
-
-  *(inited + 32) = v16;
   KeyPath = swift_getKeyPath();
-  v18 = sub_1003EFA90(KeyPath, v14);
+  v17 = sub_1003F71EC(KeyPath);
 
-  *(inited + 40) = v18;
-  v19 = sub_10000C2B0(inited);
+  *(inited + 32) = v17;
+  v18 = swift_getKeyPath();
+  v19 = sub_1003EFA90(v18, v14);
+
+  *(inited + 40) = v19;
+  v20 = sub_10000C2B0();
   sub_1000060C8(0, &qword_100939EE0, off_1008D41D0);
-  v20 = [objc_allocWithZone(NSFetchRequest) init];
-  v21 = [swift_getObjCClassFromMetadata() entity];
-  [v20 setEntity:v21];
+  v21 = [objc_allocWithZone(NSFetchRequest) init];
+  v22 = [swift_getObjCClassFromMetadata() entity];
+  [v21 setEntity:v22];
 
-  [v20 setAffectedStores:0];
-  [v20 setPredicate:v19];
+  [v21 setAffectedStores:0];
+  [v21 setPredicate:v20];
   sub_1000F5104(&unk_100939D60, &unk_1007959E0);
-  v22 = swift_allocObject();
-  *(v22 + 16) = xmmword_1007953F0;
-  *(v22 + 32) = a1;
+  v23 = swift_allocObject();
+  *(v23 + 16) = xmmword_1007953F0;
+  *(v23 + 32) = a1;
   sub_1000060C8(0, &qword_10093F430, NSPersistentStore_ptr);
-  v23 = a1;
-  v24 = a2;
+  v24 = a1;
+  v25 = a2;
   isa = Array._bridgeToObjectiveC()().super.isa;
+  v23, v27, v28, v29, v30, v31, v32, v33;
+  [v21 setAffectedStores:isa];
 
-  [v20 setAffectedStores:isa];
-
-  [v20 setFetchBatchSize:64];
-  v76 = v20;
-  v26 = v75;
-  v27 = NSManagedObjectContext.fetch<A>(_:)();
-  v29 = v26;
-  if (v26)
+  [v21 setFetchBatchSize:64];
+  v140 = v21;
+  v34 = v139;
+  v35 = NSManagedObjectContext.fetch<A>(_:)();
+  v37 = v34;
+  if (v34)
   {
     goto LABEL_2;
   }
 
-  v30 = v27;
-  v68 = v27 >> 62;
-  if (v27 >> 62)
+  v38 = v35;
+  v132 = v35 >> 62;
+  if (v35 >> 62)
   {
 LABEL_51:
-    v31 = _CocoaArrayWrapper.endIndex.getter();
-    if (v31)
+    v39 = _CocoaArrayWrapper.endIndex.getter();
+    if (v39)
     {
 LABEL_6:
-      v67 = v19;
-      v19 = 0;
-      v32 = v30 & 0xC000000000000001;
-      v33 = v30 & 0xFFFFFFFFFFFFFF8;
-      *&v28 = 134218240;
-      v71 = v28;
-      v69 = v24;
-      v70 = v29;
-      v74 = v30;
-      v75 = v30 & 0xFFFFFFFFFFFFFF8;
-      v72 = v31;
-      v73 = v30 & 0xC000000000000001;
+      v131 = v20;
+      v20 = 0;
+      v40 = v38 & 0xC000000000000001;
+      v41 = v38 & 0xFFFFFFFFFFFFFF8;
+      *&v36 = 134218240;
+      v135 = v36;
+      v133 = v25;
+      v134 = v37;
+      v138 = v38;
+      v139 = v38 & 0xFFFFFFFFFFFFFF8;
+      v136 = v39;
+      v137 = v38 & 0xC000000000000001;
       do
       {
-        if (v32)
+        if (v40)
         {
-          v34 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+          v42 = specialized _ArrayBuffer._getElementSlowPath(_:)();
         }
 
         else
         {
-          if (v19 >= *(v33 + 16))
+          if (v20 >= *(v41 + 16))
           {
             goto LABEL_50;
           }
 
-          v34 = *(v30 + 8 * v19 + 32);
+          v42 = *(v38 + 8 * v20 + 32);
         }
 
-        v35 = v34;
-        v36 = v19 + 1;
-        if (__OFADD__(v19, 1))
+        v43 = v42;
+        v44 = v20 + 1;
+        if (__OFADD__(v20, 1))
         {
           __break(1u);
 LABEL_50:
@@ -204,115 +2441,117 @@ LABEL_50:
           goto LABEL_51;
         }
 
-        [v34 updateDisplayDate];
-        if (v36 & 0x3F) == 0 && ([v24 hasChanges])
+        [v42 updateDisplayDate];
+        if (v44 & 0x3F) == 0 && ([v25 hasChanges])
         {
           if (qword_100936640 != -1)
           {
             swift_once();
           }
 
-          v37 = type metadata accessor for Logger();
-          sub_100006654(v37, qword_10094DB88);
-          v38 = v24;
-          v39 = Logger.logObject.getter();
-          v40 = static os_log_type_t.default.getter();
-          if (os_log_type_enabled(v39, v40))
+          v45 = type metadata accessor for Logger();
+          sub_100006654(v45, qword_10094DB88);
+          v46 = v25;
+          v47 = Logger.logObject.getter();
+          v48 = static os_log_type_t.default.getter();
+          if (os_log_type_enabled(v47, v48))
           {
-            v41 = swift_slowAlloc();
-            *v41 = v71;
-            v42 = [v38 updatedObjects];
+            v49 = swift_slowAlloc();
+            *v49 = v135;
+            v50 = [v46 updatedObjects];
             sub_1000060C8(0, &qword_1009388B0, NSManagedObject_ptr);
             sub_1003DB488();
-            v43 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
+            v51 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
-            if ((v43 & 0xC000000000000001) != 0)
+            if ((v51 & 0xC000000000000001) != 0)
             {
-              v44 = __CocoaSet.count.getter();
+              v59 = __CocoaSet.count.getter();
             }
 
             else
             {
-              v44 = *(v43 + 16);
+              v59 = *(v51 + 16);
             }
 
-            *(v41 + 4) = v44;
+            v51, v52, v53, v54, v55, v56, v57, v58;
+            *(v49 + 4) = v59;
 
-            *(v41 + 12) = 2048;
-            *(v41 + 14) = v36;
-            _os_log_impl(&_mh_execute_header, v39, v40, "UpdateDisplayDates: Saving batch {updatedObjectsCount: %ld, totalUpdatedCount: %ld}", v41, 0x16u);
+            *(v49 + 12) = 2048;
+            *(v49 + 14) = v44;
+            _os_log_impl(&_mh_execute_header, v47, v48, "UpdateDisplayDates: Saving batch {updatedObjectsCount: %ld, totalUpdatedCount: %ld}", v49, 0x16u);
 
-            v24 = v69;
-            v29 = v70;
+            v25 = v133;
+            v37 = v134;
           }
 
           else
           {
 
-            v39 = v38;
+            v47 = v46;
           }
 
-          v77 = 0;
-          v45 = [v38 save:&v77];
-          v32 = v73;
-          if (!v45)
+          v141 = 0;
+          v60 = [v46 save:&v141];
+          v40 = v137;
+          if (!v60)
           {
-            v63 = v77;
-
+            v92 = v141;
+            v138, v93, v94, v95, v96, v97, v98, v99;
             _convertNSErrorToError(_:)();
 
             swift_willThrow();
-            v19 = v76;
-            v76 = v35;
+            v20 = v140;
+            v140 = v43;
             goto LABEL_2;
           }
 
-          v46 = v77;
-          v30 = v74;
-          v33 = v75;
-          v31 = v72;
+          v61 = v141;
+          v38 = v138;
+          v41 = v139;
+          v39 = v136;
         }
 
-        ++v19;
+        ++v20;
       }
 
-      while (v36 != v31);
-      if (![v24 hasChanges])
+      while (v44 != v39);
+      if (![v25 hasChanges])
       {
         if (qword_100936640 != -1)
         {
           swift_once();
         }
 
-        v56 = type metadata accessor for Logger();
-        sub_100006654(v56, qword_10094DB88);
+        v78 = type metadata accessor for Logger();
+        sub_100006654(v78, qword_10094DB88);
 
-        v57 = Logger.logObject.getter();
-        v58 = static os_log_type_t.info.getter();
-        v59 = os_log_type_enabled(v57, v58);
-        v60 = v67;
-        if (!v59)
+        v79 = Logger.logObject.getter();
+        v80 = static os_log_type_t.info.getter();
+        v81 = os_log_type_enabled(v79, v80);
+        v82 = v131;
+        if (!v81)
         {
 
           swift_bridgeObjectRelease_n();
           return;
         }
 
-        v61 = swift_slowAlloc();
-        *v61 = 134217984;
-        if (v68)
+        v90 = swift_slowAlloc();
+        *v90 = 134217984;
+        if (v132)
         {
-          v62 = _CocoaArrayWrapper.endIndex.getter();
+          v91 = _CocoaArrayWrapper.endIndex.getter();
         }
 
         else
         {
-          v62 = *(v33 + 16);
+          v91 = *(v41 + 16);
         }
 
-        *(v61 + 4) = v62;
-
-        _os_log_impl(&_mh_execute_header, v57, v58, "Not saving since there are no changes {totalUpdatedCount: %ld}", v61, 0xCu);
+        v38, v83, v84, v85, v86, v87, v88, v89;
+        *(v90 + 4) = v91;
+        v38, v100, v101, v102, v103, v104, v105, v106;
+        _os_log_impl(&_mh_execute_header, v79, v80, "Not saving since there are no changes {totalUpdatedCount: %ld}", v90, 0xCu);
 
         goto LABEL_3;
       }
@@ -322,49 +2561,51 @@ LABEL_50:
         swift_once();
       }
 
-      v47 = type metadata accessor for Logger();
-      sub_100006654(v47, qword_10094DB88);
-      v48 = v24;
+      v62 = type metadata accessor for Logger();
+      sub_100006654(v62, qword_10094DB88);
+      v63 = v25;
 
-      v49 = Logger.logObject.getter();
-      v50 = static os_log_type_t.default.getter();
-      v51 = os_log_type_enabled(v49, v50);
-      v19 = v67;
-      if (v51)
+      v64 = Logger.logObject.getter();
+      v65 = static os_log_type_t.default.getter();
+      v66 = os_log_type_enabled(v64, v65);
+      v20 = v131;
+      if (v66)
       {
-        v52 = swift_slowAlloc();
-        *v52 = v71;
-        v53 = [v48 updatedObjects];
+        v67 = swift_slowAlloc();
+        *v67 = v135;
+        v68 = [v63 updatedObjects];
         sub_1000060C8(0, &qword_1009388B0, NSManagedObject_ptr);
         sub_1003DB488();
-        v54 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
+        v69 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
-        if ((v54 & 0xC000000000000001) != 0)
+        if ((v69 & 0xC000000000000001) != 0)
         {
-          v55 = __CocoaSet.count.getter();
+          v77 = __CocoaSet.count.getter();
         }
 
         else
         {
-          v55 = *(v54 + 16);
+          v77 = *(v69 + 16);
         }
 
-        *(v52 + 4) = v55;
+        v69, v70, v71, v72, v73, v74, v75, v76;
+        *(v67 + 4) = v77;
 
-        *(v52 + 12) = 2048;
-        if (v68)
+        *(v67 + 12) = 2048;
+        if (v132)
         {
-          v64 = _CocoaArrayWrapper.endIndex.getter();
+          v114 = _CocoaArrayWrapper.endIndex.getter();
         }
 
         else
         {
-          v64 = *(v75 + 16);
+          v114 = *(v139 + 16);
         }
 
-        *(v52 + 14) = v64;
-
-        _os_log_impl(&_mh_execute_header, v49, v50, "UpdateDisplayDates: Saving last objects {updatedObjectsCount: %ld, totalUpdatedCount: %ld}", v52, 0x16u);
+        v38, v107, v108, v109, v110, v111, v112, v113;
+        *(v67 + 14) = v114;
+        v38, v115, v116, v117, v118, v119, v120, v121;
+        _os_log_impl(&_mh_execute_header, v64, v65, "UpdateDisplayDates: Saving last objects {updatedObjectsCount: %ld, totalUpdatedCount: %ld}", v67, 0x16u);
       }
 
       else
@@ -373,15 +2614,15 @@ LABEL_50:
         swift_bridgeObjectRelease_n();
       }
 
-      v77 = 0;
-      if ([v48 save:{&v77, v67}])
+      v141 = 0;
+      if ([v63 save:{&v141, v131}])
       {
-        v65 = v77;
+        v122 = v141;
       }
 
       else
       {
-        v66 = v77;
+        v123 = v141;
         _convertNSErrorToError(_:)();
 
         swift_willThrow();
@@ -396,482 +2637,458 @@ LABEL_3:
 
   else
   {
-    v31 = *((v27 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (v31)
+    v39 = *((v35 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v39)
     {
       goto LABEL_6;
     }
   }
+
+  v38, v124, v125, v126, v127, v128, v129, v130;
 }
 
-void sub_1005B6BC8()
+void sub_1005B6BD0(void *a1, void *a2, void *a3, uint64_t a4, uint64_t a5)
 {
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  sub_1005B587C();
-}
-
-void *sub_1005B6BD0(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v81 = a4;
-  *&v82 = a5;
-  v94 = a3;
-  v83 = a2;
+  v113 = a4;
+  *&v114 = a5;
+  v126 = a3;
+  v115 = a2;
   v7 = type metadata accessor for REMCustomSmartListFilterDescriptor.Operation();
-  v79 = *(v7 - 8);
-  v80 = v7;
-  v8 = *(v79 + 64);
-  __chkstk_darwin(v7);
-  v78 = &v72 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  *&v76 = type metadata accessor for UUID();
-  v75 = *(v76 - 8);
-  v10 = *(v75 + 64);
-  __chkstk_darwin(v76);
-  v74 = &v72 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v111 = *(v7 - 8);
+  v112 = v7;
+  __chkstk_darwin(v7, v8);
+  v110 = &v104 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  *&v108 = type metadata accessor for UUID();
+  v107 = *(v108 - 8);
+  __chkstk_darwin(v108, v10);
+  v106 = &v104 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = type metadata accessor for REMRemindersListDataView.SortingStyle();
   v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  __chkstk_darwin(v12);
-  v16 = &v72 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v85 = _s9UtilitiesO12SortingStyleOMa();
-  v17 = *(*(v85 - 8) + 64);
-  v18 = __chkstk_darwin(v85);
-  v20 = &v72 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = __chkstk_darwin(v18);
-  v84 = (&v72 - v22);
-  __chkstk_darwin(v21);
-  v86 = &v72 - v23;
-  v24 = _s10PredicatesOMa(0);
-  v25 = *(*(v24 - 8) + 64);
-  __chkstk_darwin(v24);
-  v27 = &v72 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v28 = a1;
-  v29 = [a1 customContext];
-  if (!v29)
+  __chkstk_darwin(v12, v14);
+  v16 = &v104 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v117 = _s9UtilitiesO12SortingStyleOMa(0);
+  __chkstk_darwin(v117, v17);
+  v19 = &v104 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v20, v21);
+  v116 = (&v104 - v22);
+  __chkstk_darwin(v23, v24);
+  v118 = &v104 - v25;
+  v26 = _s10PredicatesOMa(0);
+  *&v28 = __chkstk_darwin(v26, v27).n128_u64[0];
+  v30 = &v104 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v31 = a1;
+  v32 = [a1 customContext];
+  if (v32)
   {
-    return _swiftEmptyArrayStorage;
-  }
+    v33 = v32;
+    v109 = v5;
+    v34 = REMSmartListCustomContext.filter.getter();
 
-  v30 = v29;
-  v77 = v5;
-  v31 = REMSmartListCustomContext.filter.getter();
-
-  if (!v31)
-  {
-    return _swiftEmptyArrayStorage;
-  }
-
-  v32 = *(sub_1000F5104(&qword_100938A98, &qword_1007A7570) + 64);
-  *v27 = v31;
-  v73 = v31;
-  v33 = v28;
-  *(v27 + 1) = [v28 accountID];
-  v34 = type metadata accessor for REMRemindersListDataView.ShowCompleted();
-  (*(*(v34 - 8) + 16))(&v27[v32], v94, v34);
-  swift_storeEnumTagMultiPayload();
-  v35 = sub_100043AA8();
-  sub_1001A4F3C(v27, _s10PredicatesOMa);
-  (*(v13 + 16))(v16, v82, v12);
-  v36 = enum case for REMRemindersListDataView.SortingDirection.ascending(_:);
-  v37 = type metadata accessor for REMRemindersListDataView.SortingDirection();
-  v38 = v84;
-  (*(*(v37 - 8) + 104))(v84, v36, v37);
-  swift_storeEnumTagMultiPayload();
-  v39 = v86;
-  sub_1005368D8(v16, v38, v86);
-  sub_1001A4ED8(v39, v20);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  sub_1001A4F3C(v20, _s9UtilitiesO12SortingStyleOMa);
-  v41 = v83;
-  if (EnumCaseMultiPayload == 5)
-  {
-    v42 = [v33 objectID];
-    v43 = [v42 uuid];
-
-    v44 = v74;
-    static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-
-    v45 = UUID.uuidString.getter();
-    v46 = v33;
-    v48 = v47;
-    (*(v75 + 8))(v44, v76);
-    v49 = [v46 accountID];
-    v93 = 0;
-    v91 = 0u;
-    v92 = 0u;
-    v50 = swift_allocObject();
-    *(v50 + 16) = 2;
-    *(v50 + 24) = v45;
-    *(v50 + 32) = v48;
-    *(v50 + 40) = v49;
-    *(v50 + 48) = v41;
-    *(v50 + 56) = &v91;
-    v51 = swift_allocObject();
-    *(v51 + 16) = sub_10026A4B4;
-    *(v51 + 24) = v50;
-    v89 = sub_1000529DC;
-    v90 = v51;
-    aBlock[0] = _NSConcreteStackBlock;
-    aBlock[1] = 1107296256;
-    aBlock[2] = sub_10000F160;
-    v88 = &unk_1008F9448;
-    v52 = _Block_copy(aBlock);
-    v53 = v49;
-    v54 = v41;
-
-    [v54 performBlockAndWait:v52];
-
-    _Block_release(v52);
-    LOBYTE(v53) = swift_isEscapingClosureAtFileLocation();
-
-    if (v53)
+    if (v34)
     {
-      __break(1u);
-      goto LABEL_19;
-    }
+      v35 = *(sub_1000F5104(&qword_100938A98, &qword_1007A7570) + 64);
+      *v30 = v34;
+      v105 = v34;
+      v36 = v31;
+      *(v30 + 1) = [v31 accountID];
+      v37 = type metadata accessor for REMRemindersListDataView.ShowCompleted();
+      (*(*(v37 - 8) + 16))(&v30[v35], v126, v37);
+      swift_storeEnumTagMultiPayload();
+      v38 = sub_100043AA8();
+      sub_1001A4F3C(v30, _s10PredicatesOMa);
+      (*(v13 + 16))(v16, v114, v12);
+      v39 = enum case for REMRemindersListDataView.SortingDirection.ascending(_:);
+      v40 = type metadata accessor for REMRemindersListDataView.SortingDirection();
+      v41 = v116;
+      (*(*(v40 - 8) + 104))(v116, v39, v40);
+      swift_storeEnumTagMultiPayload();
+      v42 = v118;
+      sub_1005368D8(v16, v41, v118);
+      sub_1001A4ED8(v42, v19, v43);
+      EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+      sub_1001A4F3C(v19, _s9UtilitiesO12SortingStyleOMa);
+      v45 = v115;
+      if (EnumCaseMultiPayload == 5)
+      {
+        v46 = [v36 objectID];
+        v47 = [v46 uuid];
 
-    v55 = v93;
-    v82 = v91;
-    v76 = v92;
+        v48 = v106;
+        static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-    v56 = [v46 accountID];
-    v39 = v86;
-    sub_1001A4F3C(v86, _s9UtilitiesO12SortingStyleOMa);
-    v57 = v84;
-    v58 = v76;
-    *v84 = v82;
-    *(v57 + 16) = v58;
-    *(v57 + 32) = v55;
-    *(v57 + 40) = v56;
-    swift_storeEnumTagMultiPayload();
-    sub_1001B1DA0(v57, v39);
-    v33 = v46;
-  }
+        v49 = UUID.uuidString.getter();
+        v50 = v36;
+        v52 = v51;
+        (*(v107 + 8))(v48, v108);
+        v53 = [v50 accountID];
+        v125 = 0;
+        v123 = 0u;
+        v124 = 0u;
+        v54 = swift_allocObject();
+        *(v54 + 16) = 2;
+        *(v54 + 24) = v49;
+        *(v54 + 32) = v52;
+        *(v54 + 40) = v53;
+        *(v54 + 48) = v45;
+        *(v54 + 56) = &v123;
+        v55 = swift_allocObject();
+        *(v55 + 16) = sub_10026A4B4;
+        *(v55 + 24) = v54;
+        v121 = sub_1000529DC;
+        v122 = v55;
+        aBlock[0] = _NSConcreteStackBlock;
+        aBlock[1] = 1107296256;
+        aBlock[2] = sub_10000F160;
+        v120 = &unk_1008F9448;
+        v56 = _Block_copy(aBlock);
+        v57 = v53;
+        v58 = v45;
 
-  v59 = [v33 accountID];
-  v60 = [v41 persistentStoreOfAccountWithAccountID:v59];
+        [v58 performBlockAndWait:v56];
 
-  if (v60)
-  {
-    sub_1000F5104(&unk_100939D60, &unk_1007959E0);
-    v61 = swift_allocObject();
-    *(v61 + 16) = xmmword_1007953F0;
-    *(v61 + 32) = v60;
-  }
+        _Block_release(v56);
+        LOBYTE(v57) = swift_isEscapingClosureAtFileLocation();
 
-  else
-  {
-    v61 = 0;
-  }
+        if (v57)
+        {
+          __break(1u);
+LABEL_17:
+          _diagnoseUnexpectedEnumCase<A>(type:)();
+          __break(1u);
+          return;
+        }
 
-  v63 = v73;
-  v64 = v78;
-  REMCustomSmartListFilterDescriptor.operation.getter();
-  v65 = (*(v79 + 88))(v64, v80);
-  if (v65 == enum case for REMCustomSmartListFilterDescriptor.Operation.and(_:))
-  {
-    v66 = static Set<>.typesSupportedByCustomSmartList.getter();
-    v67 = static Set<>.typesIndescribableByNSPredicate.getter();
-    sub_1001A2030(v67, v66);
+        v59 = v125;
+        v114 = v123;
+        v108 = v124;
 
-    goto LABEL_15;
-  }
+        v60 = [v50 accountID];
+        v42 = v118;
+        sub_1001A4F3C(v118, _s9UtilitiesO12SortingStyleOMa);
+        v61 = v116;
+        v62 = v108;
+        *v116 = v114;
+        *(v61 + 16) = v62;
+        *(v61 + 32) = v59;
+        *(v61 + 40) = v60;
+        swift_storeEnumTagMultiPayload();
+        sub_1001B1DA0(v61, v42, v63);
+        v36 = v50;
+      }
 
-  if (v65 != enum case for REMCustomSmartListFilterDescriptor.Operation.or(_:))
-  {
-LABEL_19:
-    result = _diagnoseUnexpectedEnumCase<A>(type:)();
-    __break(1u);
-    return result;
-  }
+      v64 = [v36 accountID];
+      v65 = [v45 persistentStoreOfAccountWithAccountID:v64];
 
-  static Set<>.typesSupportedByCustomSmartList.getter();
+      if (v65)
+      {
+        sub_1000F5104(&unk_100939D60, &unk_1007959E0);
+        v66 = swift_allocObject();
+        *(v66 + 16) = xmmword_1007953F0;
+        *(v66 + 32) = v65;
+      }
+
+      else
+      {
+        v66 = 0;
+      }
+
+      v67 = v105;
+      v68 = v110;
+      REMCustomSmartListFilterDescriptor.operation.getter();
+      v69 = (*(v111 + 88))(v68, v112);
+      if (v69 == enum case for REMCustomSmartListFilterDescriptor.Operation.and(_:))
+      {
+        v70 = static Set<>.typesSupportedByCustomSmartList.getter();
+        v71 = static Set<>.typesIndescribableByNSPredicate.getter();
+        v73 = sub_1001A2030(v71, v70, v72);
+        v71, v74, v75, v76, v77, v78, v79, v80;
 LABEL_15:
-  v88 = &type metadata for ReminderIDsWithMatchingHashtagsProvider;
-  v89 = sub_10012DEEC();
-  aBlock[0] = v41;
-  v68 = v41;
-  v69 = REMCustomSmartListFilterDescriptor.postFetchPredicates(for:reminderIDsWithMatchingHashtagsProvider:)();
+        v120 = &type metadata for ReminderIDsWithMatchingHashtagsProvider;
+        v121 = sub_10012DEEC();
+        aBlock[0] = v45;
+        v81 = v45;
+        v82 = REMCustomSmartListFilterDescriptor.postFetchPredicates(for:reminderIDsWithMatchingHashtagsProvider:)();
 
-  sub_10000607C(aBlock);
-  v70 = v77;
-  v71 = sub_100536D54(v68, v35, v39, v94, v81, v69, v61);
-  sub_1001A4F3C(v39, _s9UtilitiesO12SortingStyleOMa);
+        v73, v83, v84, v85, v86, v87, v88, v89;
+        sub_10000607C(aBlock);
+        sub_100536D54(v81, v38, v42, v126, v113, v82, v66);
+        sub_1001A4F3C(v42, _s9UtilitiesO12SortingStyleOMa);
+        v82, v90, v91, v92, v93, v94, v95, v96;
 
-  if (!v70)
-  {
-    return v71;
+        v66, v97, v98, v99, v100, v101, v102, v103;
+        return;
+      }
+
+      if (v69 == enum case for REMCustomSmartListFilterDescriptor.Operation.or(_:))
+      {
+        v73 = static Set<>.typesSupportedByCustomSmartList.getter();
+        goto LABEL_15;
+      }
+
+      goto LABEL_17;
+    }
   }
-
-  return result;
 }
 
-uint64_t sub_1005B74B8(void *a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
+uint64_t sub_1005B74B8(void *a1, void *a2, char *a3, uint64_t a4, void *a5)
 {
-  v159 = a4;
-  v155 = a5;
-  v156 = a3;
-  v152 = a2;
-  v143 = a1;
-  v132 = type metadata accessor for REMRemindersListDataView.SortingStyle();
-  v135 = *(v132 - 8);
-  v5 = *(v135 + 64);
-  __chkstk_darwin(v132);
-  v131 = &v130 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v234 = a4;
+  v230 = a5;
+  v231 = a3;
+  v227 = a2;
+  v218 = a1;
+  v207 = type metadata accessor for REMRemindersListDataView.SortingStyle();
+  v210 = *(v207 - 8);
+  __chkstk_darwin(v207, v5);
+  v206 = &v205 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   Subtasks = type metadata accessor for REMRemindersListDataView.FetchSubtasks();
-  v146 = *(Subtasks - 8);
-  v147 = Subtasks;
-  v8 = *(v146 + 64);
-  __chkstk_darwin(Subtasks);
-  v145 = &v130 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v138 = _s10PredicatesOMa(0);
-  v10 = *(*(v138 - 8) + 64);
-  v11 = __chkstk_darwin(v138);
-  v130 = (&v130 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
-  __chkstk_darwin(v11);
-  v136 = (&v130 - v13);
-  v144 = type metadata accessor for REMCustomSmartListFilterDescriptor.Operation();
-  v148 = *(v144 - 8);
-  v14 = *(v148 + 64);
-  v15 = __chkstk_darwin(v144);
-  v134 = &v130 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v15);
-  v142 = &v130 - v17;
-  v18 = type metadata accessor for REMRemindersListDataView.CountByCompleted();
-  v157 = *(v18 - 8);
-  v158 = v18;
-  v19 = *(v157 + 64);
-  v20 = __chkstk_darwin(v18);
-  v133 = &v130 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v20);
-  v153 = &v130 - v22;
-  v165 = type metadata accessor for REMRemindersListDataView.ShowCompleted();
-  v23 = *(v165 - 8);
-  v24 = *(v23 + 64);
-  v25 = __chkstk_darwin(v165);
-  v137 = &v130 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v27 = __chkstk_darwin(v25);
-  v151 = &v130 - v28;
-  __chkstk_darwin(v27);
-  v161 = &v130 - v29;
-  v30 = sub_1000F5104(&qword_100938A70, &qword_1007ACC60);
-  v31 = *(*(v30 - 8) + 64);
-  v32 = __chkstk_darwin(v30 - 8);
-  v141 = &v130 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v34 = __chkstk_darwin(v32);
-  v36 = &v130 - v35;
-  __chkstk_darwin(v34);
-  v38 = &v130 - v37;
-  v39 = sub_1000F5104(&qword_10093AE38, &unk_100798450);
-  v40 = v39 - 8;
-  v41 = *(*(v39 - 8) + 64);
-  v42 = __chkstk_darwin(v39);
-  v44 = &v130 - ((v43 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v42);
-  v46 = &v130 - v45;
-  sub_100010364(v156, &v130 - v45, &qword_100938A70, &qword_1007ACC60);
-  v47 = &v46[*(v40 + 56)];
-  v149 = *(v23 + 16);
-  v150 = v23 + 16;
-  v149(v47, v159, v165);
-  *&v46[*(v40 + 72)] = v155;
-  sub_100010364(v46, v44, &qword_10093AE38, &unk_100798450);
-  v48 = *(v40 + 56);
-  v154 = *&v44[*(v40 + 72)];
-  sub_100031B58(v44, v38, &qword_100938A70, &qword_1007ACC60);
-  v159 = v23;
-  v49 = v161;
-  (*(v23 + 32))();
-  v156 = v38;
-  sub_100010364(v38, v36, &qword_100938A70, &qword_1007ACC60);
-  v50 = v157;
-  v51 = v158;
-  v140 = *(v157 + 48);
-  v139 = v157 + 48;
-  v52 = v140(v36, 1);
+  v221 = *(Subtasks - 8);
+  v222 = Subtasks;
+  __chkstk_darwin(Subtasks, v8);
+  v220 = &v205 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v213 = _s10PredicatesOMa(0);
+  __chkstk_darwin(v213, v10);
+  v205 = (&v205 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
+  __chkstk_darwin(v12, v13);
+  v211 = (&v205 - v14);
+  v219 = type metadata accessor for REMCustomSmartListFilterDescriptor.Operation();
+  v223 = *(v219 - 8);
+  __chkstk_darwin(v219, v15);
+  v209 = &v205 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v17, v18);
+  v217 = &v205 - v19;
+  v20 = type metadata accessor for REMRemindersListDataView.CountByCompleted();
+  v232 = *(v20 - 8);
+  v233 = v20;
+  __chkstk_darwin(v20, v21);
+  v208 = &v205 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v23, v24);
+  v228 = &v205 - v25;
+  v240 = type metadata accessor for REMRemindersListDataView.ShowCompleted();
+  v26 = *(v240 - 8);
+  __chkstk_darwin(v240, v27);
+  v212 = &v205 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v29, v30);
+  v226 = &v205 - v31;
+  __chkstk_darwin(v32, v33);
+  v236 = &v205 - v34;
+  v35 = sub_1000F5104(&qword_100938A70, &qword_1007ACC60);
+  __chkstk_darwin(v35 - 8, v36);
+  v216 = &v205 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v38, v39);
+  v41 = &v205 - v40;
+  __chkstk_darwin(v42, v43);
+  v45 = &v205 - v44;
+  v46 = sub_1000F5104(&qword_10093AE38, &unk_100798450);
+  v47 = v46 - 8;
+  __chkstk_darwin(v46, v48);
+  v50 = &v205 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v51, v52);
+  v54 = &v205 - v53;
+  sub_100010364(v231, &v205 - v53, &qword_100938A70, &qword_1007ACC60);
+  v55 = &v54[*(v47 + 56)];
+  v224 = *(v26 + 16);
+  v225 = v26 + 16;
+  v224(v55, v234, v240);
+  *&v54[*(v47 + 72)] = v230;
+  sub_100010364(v54, v50, &qword_10093AE38, &unk_100798450);
+  v229 = *&v50[*(v47 + 72)];
+  sub_100031B58(v50, v45, &qword_100938A70, &qword_1007ACC60);
+  v234 = v26;
+  v56 = v236;
+  (*(v26 + 32))();
+  v231 = v45;
+  sub_100010364(v45, v41, &qword_100938A70, &qword_1007ACC60);
+  v57 = v232;
+  v58 = v233;
+  v215 = *(v232 + 48);
+  v214 = v232 + 48;
+  v59 = v215(v41, 1);
 
-  if (v52 != 1)
+  if (v59 != 1)
   {
-
-    v54 = v50;
-    v55 = *(v50 + 32);
-    v56 = v153;
-    v57 = v51;
-    v55(v153, v36, v51);
-    v58 = REMRemindersListDataView.CountByCompleted.incomplete.getter();
-    v59 = REMRemindersListDataView.CountByCompleted.completed.getter();
-    (*(v54 + 8))(v56, v57);
-    (*(v159 + 8))(v49, v165);
-    sub_1000050A4(v156, &qword_100938A70, &qword_1007ACC60);
-    sub_1000050A4(v46, &qword_10093AE38, &unk_100798450);
-    v60 = v58 + v59;
-    if (!__OFADD__(v58, v59))
+    v229, v60, v61, v62, v63, v64, v65, v66;
+    v75 = v57;
+    v76 = *(v57 + 32);
+    v77 = v228;
+    v78 = v58;
+    v76(v228, v41, v58);
+    v79 = REMRemindersListDataView.CountByCompleted.incomplete.getter();
+    v80 = REMRemindersListDataView.CountByCompleted.completed.getter();
+    (*(v75 + 8))(v77, v78);
+    (*(v234 + 8))(v56, v240);
+    sub_1000050A4(v231, &qword_100938A70, &qword_1007ACC60);
+    sub_1000050A4(v54, &qword_10093AE38, &unk_100798450);
+    v81 = v79 + v80;
+    if (!__OFADD__(v79, v80))
     {
 LABEL_5:
-      v61 = v60 <= 0;
+      v82 = v81 <= 0;
       goto LABEL_6;
     }
 
     goto LABEL_52;
   }
 
-  sub_1000050A4(v36, &qword_100938A70, &qword_1007ACC60);
-  if (*(v154 + 16))
+  sub_1000050A4(v41, &qword_100938A70, &qword_1007ACC60);
+  if (*v229->clientIdentity)
   {
-
-    (*(v159 + 8))(v161, v165);
-    sub_1000050A4(v156, &qword_100938A70, &qword_1007ACC60);
-    sub_1000050A4(v46, &qword_10093AE38, &unk_100798450);
-    v53 = 1;
-    return v53 & 1;
+    v229, v67, v68, v69, v70, v71, v72, v73;
+    (*(v234 + 8))(v236, v240);
+    sub_1000050A4(v231, &qword_100938A70, &qword_1007ACC60);
+    sub_1000050A4(v54, &qword_10093AE38, &unk_100798450);
+    v74 = 1;
+    return v74 & 1;
   }
 
-  v63 = v151;
-  v64 = v161;
-  v65 = v165;
-  v149(v151, v161, v165);
-  v66 = v159;
-  v67 = (*(v159 + 88))(v63, v65);
-  if (v67 == enum case for REMRemindersListDataView.ShowCompleted.after(_:) || v67 == enum case for REMRemindersListDataView.ShowCompleted.allowlist(_:))
+  v84 = v229;
+  v85 = v226;
+  v86 = v236;
+  v87 = v240;
+  v224(v226, v236, v240);
+  v88 = v234;
+  v89 = (*(v234 + 88))(v85, v87);
+  if (v89 == enum case for REMRemindersListDataView.ShowCompleted.after(_:) || v89 == enum case for REMRemindersListDataView.ShowCompleted.allowlist(_:))
   {
-
-    (*(v66 + 8))(v63, v65);
+    v84, v90, v91, v92, v93, v94, v95, v96;
+    (*(v88 + 8))(v85, v87);
 LABEL_13:
-    v68 = [v152 customContext];
-    if (!v68 || (v69 = v68, v70 = REMSmartListCustomContext.filter.getter(), v69, !v70))
+    v97 = [v227 customContext];
+    if (!v97 || (v98 = v97, v99 = REMSmartListCustomContext.filter.getter(), v98, !v99))
     {
-      (*(v66 + 8))(v64, v65);
-      sub_1000050A4(v156, &qword_100938A70, &qword_1007ACC60);
-      v78 = &qword_10093AE38;
-      v79 = &unk_100798450;
-      v80 = v46;
+      (*(v88 + 8))(v86, v87);
+      sub_1000050A4(v231, &qword_100938A70, &qword_1007ACC60);
+      v116 = &qword_10093AE38;
+      v117 = &unk_100798450;
+      v118 = v54;
 LABEL_18:
-      sub_1000050A4(v80, v78, v79);
-      v53 = 0;
-      return v53 & 1;
+      sub_1000050A4(v118, v116, v117);
+      v74 = 0;
+      return v74 & 1;
     }
 
-    v71 = v142;
+    v100 = v217;
     REMCustomSmartListFilterDescriptor.operation.getter();
-    v72 = v148 + 88;
-    v73 = *(v148 + 88);
-    v74 = v73(v71, v144);
-    v155 = v70;
-    v148 = v72;
-    LODWORD(v154) = enum case for REMCustomSmartListFilterDescriptor.Operation.and(_:);
-    if (v74 == enum case for REMCustomSmartListFilterDescriptor.Operation.and(_:))
+    v101 = v223 + 88;
+    v102 = *(v223 + 88);
+    v103 = v102(v100, v219);
+    v230 = v99;
+    v223 = v101;
+    LODWORD(v229) = enum case for REMCustomSmartListFilterDescriptor.Operation.and(_:);
+    if (v103 == enum case for REMCustomSmartListFilterDescriptor.Operation.and(_:))
     {
-      v75 = static Set<>.typesSupportedByCustomSmartList.getter();
-      v76 = static Set<>.typesIndescribableByNSPredicate.getter();
-      sub_1001A2030(v76, v75);
-
-      v77 = v145;
+      v104 = static Set<>.typesSupportedByCustomSmartList.getter();
+      v105 = static Set<>.typesIndescribableByNSPredicate.getter();
+      v107 = sub_1001A2030(v105, v104, v106);
+      v105, v108, v109, v110, v111, v112, v113, v114;
+      v115 = v220;
     }
 
     else
     {
-      v77 = v145;
-      if (v74 != enum case for REMCustomSmartListFilterDescriptor.Operation.or(_:))
+      v115 = v220;
+      if (v103 != enum case for REMCustomSmartListFilterDescriptor.Operation.or(_:))
       {
         goto LABEL_53;
       }
 
-      static Set<>.typesSupportedByCustomSmartList.getter();
+      v107 = static Set<>.typesSupportedByCustomSmartList.getter();
     }
 
-    v163 = &type metadata for ReminderIDsWithMatchingHashtagsProvider;
-    v81 = sub_10012DEEC();
-    v164 = v81;
-    v162 = v143;
-    v82 = v143;
-    v83 = v155;
-    v84 = REMCustomSmartListFilterDescriptor.postFetchPredicates(for:reminderIDsWithMatchingHashtagsProvider:)();
+    v238 = &type metadata for ReminderIDsWithMatchingHashtagsProvider;
+    v119 = sub_10012DEEC();
+    v239 = v119;
+    v237 = v218;
+    v120 = v218;
+    v121 = v230;
+    v122 = REMCustomSmartListFilterDescriptor.postFetchPredicates(for:reminderIDsWithMatchingHashtagsProvider:)();
 
-    sub_10000607C(&v162);
-    v85 = *(v84 + 16);
-
-    if (!v85)
+    v107, v123, v124, v125, v126, v127, v128, v129;
+    sub_10000607C(&v237);
+    v130 = *(v122 + 16);
+    v122, v131, v132, v133, v134, v135, v136, v137;
+    if (!v130)
     {
-      v98 = *(sub_1000F5104(&qword_100938A98, &qword_1007A7570) + 64);
-      v99 = v136;
-      *v136 = v83;
-      v100 = v83;
-      *(v99 + 8) = [v152 accountID];
-      v101 = v159;
-      v102 = v165;
-      (*(v159 + 104))(v99 + v98, enum case for REMRemindersListDataView.ShowCompleted.on(_:), v165);
+      v159 = *(sub_1000F5104(&qword_100938A98, &qword_1007A7570) + 64);
+      v160 = v211;
+      *v211 = v121;
+      v161 = v121;
+      *(v160 + 8) = [v227 accountID];
+      v162 = v234;
+      v163 = v240;
+      (*(v234 + 104))(v160 + v159, enum case for REMRemindersListDataView.ShowCompleted.on(_:), v240);
       swift_storeEnumTagMultiPayload();
-      v103 = sub_100043AA8();
-      sub_1001A4F3C(v99, _s10PredicatesOMa);
+      v164 = sub_100043AA8();
+      sub_1001A4F3C(v160, _s10PredicatesOMa);
       sub_100345DB0();
-      v104 = [objc_allocWithZone(NSFetchRequest) init];
-      v105 = [swift_getObjCClassFromMetadata() entity];
-      [v104 setEntity:v105];
+      v165 = [objc_allocWithZone(NSFetchRequest) init];
+      v166 = [swift_getObjCClassFromMetadata() entity];
+      [v165 setEntity:v166];
 
-      [v104 setAffectedStores:0];
-      [v104 setPredicate:v103];
-      [v104 setFetchLimit:1];
-      [v104 setAffectedStores:0];
-      v106 = v160;
-      v107 = NSManagedObjectContext.count<A>(for:)();
-      v160 = v106;
-      if (v106)
+      [v165 setAffectedStores:0];
+      [v165 setPredicate:v164];
+      [v165 setFetchLimit:1];
+      [v165 setAffectedStores:0];
+      v167 = v235;
+      v168 = NSManagedObjectContext.count<A>(for:)();
+      v235 = v167;
+      if (v167)
       {
 
-        (*(v101 + 8))(v161, v102);
+        (*(v162 + 8))(v236, v163);
 LABEL_40:
-        sub_1000050A4(v156, &qword_100938A70, &qword_1007ACC60);
-        sub_1000050A4(v46, &qword_10093AE38, &unk_100798450);
-        return v53 & 1;
+        sub_1000050A4(v231, &qword_100938A70, &qword_1007ACC60);
+        sub_1000050A4(v54, &qword_10093AE38, &unk_100798450);
+        return v74 & 1;
       }
 
-      v111 = v107;
+      v172 = v168;
 
-      (*(v101 + 8))(v161, v102);
-      sub_1000050A4(v156, &qword_100938A70, &qword_1007ACC60);
-      sub_1000050A4(v46, &qword_10093AE38, &unk_100798450);
-      v61 = v111 <= 0;
+      (*(v162 + 8))(v236, v163);
+      sub_1000050A4(v231, &qword_100938A70, &qword_1007ACC60);
+      sub_1000050A4(v54, &qword_10093AE38, &unk_100798450);
+      v82 = v172 <= 0;
 LABEL_6:
-      v53 = !v61;
-      return v53 & 1;
+      v74 = !v82;
+      return v74 & 1;
     }
 
-    v86 = v82;
-    (*(v146 + 104))(v77, enum case for REMRemindersListDataView.FetchSubtasks.off(_:), v147);
-    v87 = [v152 customContext];
-    if (!v87)
+    v138 = v120;
+    (*(v221 + 104))(v115, enum case for REMRemindersListDataView.FetchSubtasks.off(_:), v222);
+    v139 = [v227 customContext];
+    if (!v139)
     {
-      v108 = 1;
-      v109 = v165;
-      v110 = v158;
-      v90 = v141;
+      v169 = 1;
+      v170 = v240;
+      v171 = v233;
+      v142 = v216;
 LABEL_47:
-      (*(v146 + 8))(v77, v147);
-      v126 = v157;
-      (*(v157 + 56))(v90, v108, 1, v110);
-      if ((v140)(v90, 1, v110) == 1)
+      (*(v221 + 8))(v115, v222);
+      v201 = v232;
+      (*(v232 + 56))(v142, v169, 1, v171);
+      if ((v215)(v142, 1, v171) == 1)
       {
 
-        (*(v159 + 8))(v161, v109);
-        sub_1000050A4(v156, &qword_100938A70, &qword_1007ACC60);
-        sub_1000050A4(v46, &qword_10093AE38, &unk_100798450);
-        v80 = v90;
-        v78 = &qword_100938A70;
-        v79 = &qword_1007ACC60;
+        (*(v234 + 8))(v236, v170);
+        sub_1000050A4(v231, &qword_100938A70, &qword_1007ACC60);
+        sub_1000050A4(v54, &qword_10093AE38, &unk_100798450);
+        v118 = v142;
+        v116 = &qword_100938A70;
+        v117 = &qword_1007ACC60;
         goto LABEL_18;
       }
 
-      v127 = v133;
-      (*(v126 + 32))(v133, v90, v110);
-      v128 = REMRemindersListDataView.CountByCompleted.incomplete.getter();
-      v129 = REMRemindersListDataView.CountByCompleted.completed.getter();
+      v202 = v208;
+      (*(v201 + 32))(v208, v142, v171);
+      v203 = REMRemindersListDataView.CountByCompleted.incomplete.getter();
+      v204 = REMRemindersListDataView.CountByCompleted.completed.getter();
 
-      (*(v126 + 8))(v127, v110);
-      (*(v159 + 8))(v161, v109);
-      sub_1000050A4(v156, &qword_100938A70, &qword_1007ACC60);
-      sub_1000050A4(v46, &qword_10093AE38, &unk_100798450);
-      v60 = v128 + v129;
-      if (!__OFADD__(v128, v129))
+      (*(v201 + 8))(v202, v171);
+      (*(v234 + 8))(v236, v170);
+      sub_1000050A4(v231, &qword_100938A70, &qword_1007ACC60);
+      sub_1000050A4(v54, &qword_10093AE38, &unk_100798450);
+      v81 = v203 + v204;
+      if (!__OFADD__(v203, v204))
       {
         goto LABEL_5;
       }
@@ -882,109 +3099,110 @@ LABEL_52:
       goto LABEL_53;
     }
 
-    v88 = v87;
-    v89 = REMSmartListCustomContext.filter.getter();
+    v140 = v139;
+    v141 = REMSmartListCustomContext.filter.getter();
 
-    v90 = v141;
-    if (!v89)
+    v142 = v216;
+    if (!v141)
     {
-      v108 = 1;
-      v109 = v165;
+      v169 = 1;
+      v170 = v240;
 LABEL_46:
-      v110 = v158;
+      v171 = v233;
       goto LABEL_47;
     }
 
-    v91 = v134;
+    v143 = v209;
     REMCustomSmartListFilterDescriptor.operation.getter();
-    v92 = v73(v91, v144);
-    if (v92 == v154)
+    v144 = v102(v143, v219);
+    if (v144 == v229)
     {
-      v93 = static Set<>.typesSupportedByCustomSmartList.getter();
-      v94 = static Set<>.typesIndescribableByNSPredicate.getter();
-      sub_1001A2030(v94, v93);
-
-      v95 = v159;
-      v96 = v135;
-      v97 = v137;
+      v145 = static Set<>.typesSupportedByCustomSmartList.getter();
+      v146 = static Set<>.typesIndescribableByNSPredicate.getter();
+      v148 = sub_1001A2030(v146, v145, v147);
+      v146, v149, v150, v151, v152, v153, v154, v155;
+      v156 = v234;
+      v157 = v210;
+      v158 = v212;
 LABEL_37:
-      v163 = &type metadata for ReminderIDsWithMatchingHashtagsProvider;
-      v164 = v81;
-      v162 = v86;
-      v112 = v86;
-      v113 = REMCustomSmartListFilterDescriptor.postFetchPredicates(for:reminderIDsWithMatchingHashtagsProvider:)();
+      v238 = &type metadata for ReminderIDsWithMatchingHashtagsProvider;
+      v239 = v119;
+      v237 = v138;
+      v173 = v138;
+      v174 = REMCustomSmartListFilterDescriptor.postFetchPredicates(for:reminderIDsWithMatchingHashtagsProvider:)();
 
-      sub_10000607C(&v162);
-      v114 = *(v113 + 16);
-
-      if (v114)
+      v148, v175, v176, v177, v178, v179, v180, v181;
+      sub_10000607C(&v237);
+      v182 = *(v174 + 16);
+      v174, v183, v184, v185, v186, v187, v188, v189;
+      if (v182)
       {
-        v115 = v165;
-        (*(v95 + 104))(v97, enum case for REMRemindersListDataView.ShowCompleted.on(_:), v165);
-        v116 = v97;
-        v117 = v131;
-        v118 = v132;
-        (*(v96 + 104))(v131, enum case for REMRemindersListDataView.SortingStyle.default(_:), v132);
-        v119 = v112;
-        v77 = v145;
-        v120 = v160;
-        sub_1005B6BD0(v152, v119, v116, v145, v117);
-        v160 = v120;
-        if (v120)
+        v190 = v240;
+        (*(v156 + 104))(v158, enum case for REMRemindersListDataView.ShowCompleted.on(_:), v240);
+        v191 = v158;
+        v192 = v206;
+        v193 = v207;
+        (*(v157 + 104))(v206, enum case for REMRemindersListDataView.SortingStyle.default(_:), v207);
+        v194 = v173;
+        v115 = v220;
+        v195 = v235;
+        sub_1005B6BD0(v227, v194, v191, v220, v192);
+        v235 = v195;
+        if (v195)
         {
 
-          (*(v96 + 8))(v117, v118);
-          v121 = *(v95 + 8);
-          v121(v137, v115);
-          (*(v146 + 8))(v77, v147);
-          v121(v161, v115);
+          (*(v157 + 8))(v192, v193);
+          v196 = *(v156 + 8);
+          v196(v212, v190);
+          (*(v221 + 8))(v115, v222);
+          v196(v236, v190);
           goto LABEL_40;
         }
 
-        (*(v96 + 8))(v117, v118);
-        (*(v95 + 8))(v137, v115);
-        v90 = v141;
+        (*(v157 + 8))(v192, v193);
+        (*(v156 + 8))(v212, v190);
+        v142 = v216;
         REMRemindersListDataView.CountByCompleted.init(reminders:)();
-        v109 = v115;
+        v170 = v190;
       }
 
       else
       {
-        v122 = *(sub_1000F5104(&qword_100938A98, &qword_1007A7570) + 64);
-        v123 = v130;
-        *v130 = v89;
-        v124 = v89;
-        *(v123 + 8) = [v152 accountID];
-        v109 = v165;
-        (*(v95 + 104))(v123 + v122, enum case for REMRemindersListDataView.ShowCompleted.on(_:), v165);
+        v197 = *(sub_1000F5104(&qword_100938A98, &qword_1007A7570) + 64);
+        v198 = v205;
+        *v205 = v141;
+        v199 = v141;
+        *(v198 + 8) = [v227 accountID];
+        v170 = v240;
+        (*(v156 + 104))(v198 + v197, enum case for REMRemindersListDataView.ShowCompleted.on(_:), v240);
         swift_storeEnumTagMultiPayload();
-        v89 = sub_100043AA8();
-        sub_1001A4F3C(v123, _s10PredicatesOMa);
-        v90 = v141;
-        v125 = v160;
-        sub_10053464C(v112, v89);
-        v160 = v125;
-        if (v125)
+        v141 = sub_100043AA8();
+        sub_1001A4F3C(v198, _s10PredicatesOMa);
+        v142 = v216;
+        v200 = v235;
+        sub_10053464C(v173, v141);
+        v235 = v200;
+        if (v200)
         {
 
-          (*(v146 + 8))(v145, v147);
-          (*(v95 + 8))(v161, v109);
+          (*(v221 + 8))(v220, v222);
+          (*(v156 + 8))(v236, v170);
           goto LABEL_40;
         }
 
-        v77 = v145;
+        v115 = v220;
       }
 
-      v108 = 0;
+      v169 = 0;
       goto LABEL_46;
     }
 
-    v95 = v159;
-    v97 = v137;
-    if (v92 == enum case for REMCustomSmartListFilterDescriptor.Operation.or(_:))
+    v156 = v234;
+    v158 = v212;
+    if (v144 == enum case for REMCustomSmartListFilterDescriptor.Operation.or(_:))
     {
-      static Set<>.typesSupportedByCustomSmartList.getter();
-      v96 = v135;
+      v148 = static Set<>.typesSupportedByCustomSmartList.getter();
+      v157 = v210;
       goto LABEL_37;
     }
 
@@ -994,20 +3212,20 @@ LABEL_53:
     goto LABEL_54;
   }
 
-  if (v67 == enum case for REMRemindersListDataView.ShowCompleted.off(_:))
+  if (v89 == enum case for REMRemindersListDataView.ShowCompleted.off(_:))
   {
-
+    v84, v90, v91, v92, v93, v94, v95, v96;
     goto LABEL_13;
   }
 
-  if (v67 == enum case for REMRemindersListDataView.ShowCompleted.on(_:))
+  if (v89 == enum case for REMRemindersListDataView.ShowCompleted.on(_:))
   {
-
-    (*(v66 + 8))(v64, v65);
-    sub_1000050A4(v156, &qword_100938A70, &qword_1007ACC60);
-    sub_1000050A4(v46, &qword_10093AE38, &unk_100798450);
-    v53 = 0;
-    return v53 & 1;
+    v84, v90, v91, v92, v93, v94, v95, v96;
+    (*(v88 + 8))(v86, v87);
+    sub_1000050A4(v231, &qword_100938A70, &qword_1007ACC60);
+    sub_1000050A4(v54, &qword_10093AE38, &unk_100798450);
+    v74 = 0;
+    return v74 & 1;
   }
 
 LABEL_54:
@@ -1016,322 +3234,318 @@ LABEL_54:
   return result;
 }
 
-void sub_1005B86C8(void (*a1)(char *, uint64_t, uint64_t)@<X1>, uint64_t a2@<X2>, void *a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X8>)
+void sub_1005B86C8(_TtC7remindd19RDXPCStorePerformer *a1@<X1>, uint64_t a2@<X2>, void *a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X8>)
 {
-  v224 = a2;
-  v208 = a5;
-  v200 = type metadata accessor for UUID();
-  v199 = *(v200 - 8);
-  v9 = *(v199 + 64);
-  __chkstk_darwin(v200);
-  v198 = &v183 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v335 = a2;
+  v319 = a5;
+  v311 = type metadata accessor for UUID();
+  v310 = *(v311 - 8);
+  __chkstk_darwin(v311, v9);
+  v309 = &v294 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = sub_1000F5104(&qword_100938A68, &unk_10079DDF0);
-  v12 = *(*(v11 - 8) + 64);
-  __chkstk_darwin(v11 - 8);
-  v207 = &v183 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v14);
-  v215 = &v183 - v15;
-  v206 = type metadata accessor for REMRemindersListDataView.FlatModel();
-  v205 = *(v206 - 8);
-  v16 = *(v205 + 64);
-  __chkstk_darwin(v206);
-  v204 = &v183 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v18);
-  v214 = &v183 - v19;
-  v20 = sub_1000F5104(&qword_10094B8E0, &unk_1007AABD0);
-  v21 = *(*(v20 - 8) + 64);
-  __chkstk_darwin(v20 - 8);
-  v195 = &v183 - v22;
-  v218 = type metadata accessor for REMRemindersListDataView.RemindersPrefetch();
-  v217 = *(v218 - 8);
-  v23 = *(v217 + 64);
-  __chkstk_darwin(v218);
-  v219 = &v183 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v25);
-  v221 = &v183 - v26;
-  v220 = type metadata accessor for REMRemindersListDataView.Diff();
-  v216 = *(v220 - 8);
-  v27 = *(v216 + 64);
-  __chkstk_darwin(v220);
-  v203 = &v183 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v29);
-  v213 = &v183 - v30;
-  __chkstk_darwin(v31);
-  v212 = &v183 - v32;
-  __chkstk_darwin(v33);
-  v226 = &v183 - v34;
-  v196 = _s10PredicatesOMa(0);
-  v35 = *(*(v196 - 8) + 64);
-  __chkstk_darwin(v196);
-  v197 = (&v183 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v211 = type metadata accessor for REMCustomSmartListFilterDescriptor.Operation();
-  v210 = *(v211 - 8);
-  v37 = *(v210 + 64);
-  __chkstk_darwin(v211);
-  v209 = &v183 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v39 = sub_1000F5104(&qword_100938A70, &qword_1007ACC60);
-  v40 = *(*(v39 - 8) + 64);
-  __chkstk_darwin(v39 - 8);
-  v202 = &v183 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v42);
-  v222 = &v183 - v43;
-  __chkstk_darwin(v44);
-  v225 = &v183 - v45;
-  v46 = type metadata accessor for REMRemindersListDataView.SortingStyle();
-  v232 = *(v46 - 1);
-  v233 = v46;
-  v47 = *(v232 + 64);
-  __chkstk_darwin(v46);
-  v201 = &v183 - ((v48 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v49);
-  v230 = (&v183 - v50);
+  __chkstk_darwin(v11 - 8, v12);
+  v318 = &v294 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v14, v15);
+  v326 = &v294 - v16;
+  v317 = type metadata accessor for REMRemindersListDataView.FlatModel();
+  v316 = *(v317 - 8);
+  __chkstk_darwin(v317, v17);
+  v315 = &v294 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v19, v20);
+  v325 = &v294 - v21;
+  v22 = sub_1000F5104(&qword_10094B8E0, &unk_1007AABD0);
+  __chkstk_darwin(v22 - 8, v23);
+  v306 = &v294 - v24;
+  v329 = type metadata accessor for REMRemindersListDataView.RemindersPrefetch();
+  v328 = *(v329 - 8);
+  __chkstk_darwin(v329, v25);
+  v330 = &v294 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v27, v28);
+  v332 = &v294 - v29;
+  v331 = type metadata accessor for REMRemindersListDataView.Diff();
+  v327 = *(v331 - 8);
+  __chkstk_darwin(v331, v30);
+  v314 = &v294 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v32, v33);
+  v324 = &v294 - v34;
+  __chkstk_darwin(v35, v36);
+  v323 = &v294 - v37;
+  __chkstk_darwin(v38, v39);
+  v337 = &v294 - v40;
+  v307 = _s10PredicatesOMa(0);
+  __chkstk_darwin(v307, v41);
+  v308 = (&v294 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v322 = type metadata accessor for REMCustomSmartListFilterDescriptor.Operation();
+  v321 = *(v322 - 8);
+  __chkstk_darwin(v322, v43);
+  v320 = &v294 - ((v44 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v45 = sub_1000F5104(&qword_100938A70, &qword_1007ACC60);
+  __chkstk_darwin(v45 - 8, v46);
+  v313 = &v294 - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v48, v49);
+  v333 = &v294 - v50;
+  __chkstk_darwin(v51, v52);
+  v336 = &v294 - v53;
+  v54 = type metadata accessor for REMRemindersListDataView.SortingStyle();
+  v343 = *(v54 - 1);
+  v344 = v54;
+  __chkstk_darwin(v54, v55);
+  v312 = &v294 - ((v56 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v57, v58);
+  v341 = (&v294 - v59);
   Subtasks = type metadata accessor for REMRemindersListDataView.FetchSubtasks();
-  v238 = *(Subtasks - 8);
-  v51 = *(v238 + 8);
-  __chkstk_darwin(Subtasks);
-  v227 = &v183 - ((v52 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v53);
-  v229 = (&v183 - v54);
-  v55 = type metadata accessor for REMRemindersListDataView.ShowCompleted();
-  v234 = *(v55 - 8);
-  v56 = *(v234 + 64);
-  __chkstk_darwin(v55);
-  v58 = &v183 - ((v57 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v59);
-  v61 = &v183 - v60;
-  __chkstk_darwin(v62);
-  v64 = &v183 - v63;
-  __chkstk_darwin(v65);
-  v67 = &v183 - v66;
-  __chkstk_darwin(v68);
-  v228 = &v183 - v69;
-  v231 = a4;
-  v70 = REMRemindersListDataView.CustomSmartListInvocation.Parameters.smartList.getter();
-  v236 = a1;
-  sub_1005BA098(a1, a3, v70);
+  v349 = *(Subtasks - 8);
+  __chkstk_darwin(Subtasks, v60);
+  v338 = &v294 - ((v61 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v62, v63);
+  v340 = (&v294 - v64);
+  v65 = type metadata accessor for REMRemindersListDataView.ShowCompleted();
+  v345 = *(v65 - 8);
+  __chkstk_darwin(v65, v66);
+  v68 = &v294 - ((v67 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v69, v70);
+  v72 = &v294 - v71;
+  __chkstk_darwin(v73, v74);
+  v76 = &v294 - v75;
+  __chkstk_darwin(v77, v78);
+  v80 = &v294 - v79;
+  __chkstk_darwin(v81, v82);
+  v339 = &v294 - v83;
+  v342 = a4;
+  v84 = REMRemindersListDataView.CustomSmartListInvocation.Parameters.smartList.getter();
+  v347 = a1;
+  sub_1005BA098(a1, a3, v84);
   if (v5)
   {
 
     return;
   }
 
-  v72 = v71;
-  v191 = v67;
-  v192 = v64;
-  v188 = v61;
-  v189 = v58;
-  v193 = v55;
-  v190 = a3;
+  v86 = v85;
+  v302 = v80;
+  v303 = v76;
+  v299 = v72;
+  v300 = v68;
+  v304 = v65;
+  v301 = a3;
 
-  v73 = v72;
-  v74 = v228;
+  v87 = v86;
+  v88 = v339;
   REMRemindersListDataView.CustomSmartListInvocation.Parameters.showCompleted.getter();
-  v75 = v229;
+  v89 = v340;
   REMRemindersListDataView.CustomSmartListInvocation.Parameters.fetchSubtasks.getter();
-  v76 = v230;
+  v90 = v341;
   REMRemindersListDataView.CustomSmartListInvocation.Parameters.sortingStyle.getter();
-  v77 = sub_1005B6BD0(v73, v236, v74, v75, v76);
-  v194 = 0;
-  v186 = v77;
-  v187 = v73;
-  v184 = *(v232 + 8);
-  v184(v76, v233);
-  v78 = *(v238 + 1);
-  v238 += 8;
-  v230 = v78;
-  v78(v75, Subtasks);
-  v79 = v234;
-  v80 = v234 + 8;
-  v81 = *(v234 + 8);
-  v82 = v193;
-  v81(v74, v193);
-  v83 = REMRemindersListDataView.CustomSmartListInvocation.Parameters.countCompleted.getter();
-  v229 = v81;
-  v185 = v80;
-  if (v83 & 1) != 0 && (v84 = v191, REMRemindersListDataView.CustomSmartListInvocation.Parameters.showCompleted.getter(), v85 = v192, (*(v79 + 104))(v192, enum case for REMRemindersListDataView.ShowCompleted.on(_:), v82), v86 = static REMRemindersListDataView.ShowCompleted.== infix(_:_:)(), v81(v85, v82), v81(v84, v82), (v86))
+  sub_1005B6BD0(v87, v347, v88, v89, v90);
+  v305 = 0;
+  v297 = v91;
+  v298 = v87;
+  v295 = *(v343 + 8);
+  v295(v90, v344);
+  v92 = *(v349 + 1);
+  v349 += 8;
+  v341 = v92;
+  v92(v89, Subtasks);
+  v93 = v345;
+  v94 = v345 + 8;
+  v95 = *(v345 + 8);
+  v96 = v304;
+  v95(v88, v304);
+  v97 = REMRemindersListDataView.CustomSmartListInvocation.Parameters.countCompleted.getter();
+  v340 = v95;
+  v296 = v94;
+  if (v97 & 1) != 0 && (v98 = v302, REMRemindersListDataView.CustomSmartListInvocation.Parameters.showCompleted.getter(), v99 = v303, (*(v93 + 104))(v303, enum case for REMRemindersListDataView.ShowCompleted.on(_:), v96), v100 = static REMRemindersListDataView.ShowCompleted.== infix(_:_:)(), v95(v99, v96), v95(v98, v96), (v100))
   {
 
-    v87 = v225;
+    v101 = v336;
     REMRemindersListDataView.CountByCompleted.init(reminders:)();
-    v88 = type metadata accessor for REMRemindersListDataView.CountByCompleted();
-    (*(*(v88 - 8) + 56))(v87, 0, 1, v88);
-    v89 = v226;
+    v102 = type metadata accessor for REMRemindersListDataView.CountByCompleted();
+    (*(*(v102 - 8) + 56))(v101, 0, 1, v102);
+    v103 = v337;
   }
 
   else
   {
-    v90 = REMRemindersListDataView.CustomSmartListInvocation.Parameters.countCompleted.getter();
+    v104 = REMRemindersListDataView.CustomSmartListInvocation.Parameters.countCompleted.getter();
     REMRemindersListDataView.CustomSmartListInvocation.Parameters.fetchSubtasks.getter();
-    if (v90)
+    if (v104)
     {
-      v91 = [v187 customContext];
-      v87 = v225;
-      if (v91 && (v92 = v91, v93 = REMSmartListCustomContext.filter.getter(), v92, v93))
+      v105 = [v298 customContext];
+      v101 = v336;
+      if (v105 && (v106 = v105, v107 = REMSmartListCustomContext.filter.getter(), v106, v107))
       {
-        v94 = v209;
+        v108 = v320;
         REMCustomSmartListFilterDescriptor.operation.getter();
-        v95 = (*(v210 + 88))(v94, v211);
-        if (v95 == enum case for REMCustomSmartListFilterDescriptor.Operation.and(_:))
+        v109 = (*(v321 + 88))(v108, v322);
+        if (v109 == enum case for REMCustomSmartListFilterDescriptor.Operation.and(_:))
         {
-          v96 = static Set<>.typesSupportedByCustomSmartList.getter();
-          v97 = static Set<>.typesIndescribableByNSPredicate.getter();
-          sub_1001A2030(v97, v96);
+          v110 = static Set<>.typesSupportedByCustomSmartList.getter();
+          v111 = static Set<>.typesIndescribableByNSPredicate.getter();
+          v113 = sub_1001A2030(v111, v110, v112);
+          v111, v114, v115, v116, v117, v118, v119, v120;
         }
 
         else
         {
-          if (v95 != enum case for REMCustomSmartListFilterDescriptor.Operation.or(_:))
+          if (v109 != enum case for REMCustomSmartListFilterDescriptor.Operation.or(_:))
           {
             _diagnoseUnexpectedEnumCase<A>(type:)();
             __break(1u);
             goto LABEL_56;
           }
 
-          static Set<>.typesSupportedByCustomSmartList.getter();
+          v113 = static Set<>.typesSupportedByCustomSmartList.getter();
         }
 
-        v120 = Subtasks;
-        v237[3] = &type metadata for ReminderIDsWithMatchingHashtagsProvider;
-        v237[4] = sub_10012DEEC();
-        v237[0] = v236;
-        v121 = v236;
-        v122 = REMCustomSmartListFilterDescriptor.postFetchPredicates(for:reminderIDsWithMatchingHashtagsProvider:)();
+        v152 = Subtasks;
+        v348[3] = &type metadata for ReminderIDsWithMatchingHashtagsProvider;
+        v348[4] = sub_10012DEEC();
+        v348[0] = v347;
+        v153 = v347;
+        v154 = REMCustomSmartListFilterDescriptor.postFetchPredicates(for:reminderIDsWithMatchingHashtagsProvider:)();
 
-        sub_10000607C(v237);
-        v123 = *(v122 + 16);
-
-        if (v123)
+        v113, v155, v156, v157, v158, v159, v160, v161;
+        sub_10000607C(v348);
+        v162 = *(v154 + 16);
+        v154, v163, v164, v165, v166, v167, v168, v169;
+        if (v162)
         {
-          v124 = v188;
-          v125 = v193;
-          (*(v234 + 104))(v188, enum case for REMRemindersListDataView.ShowCompleted.on(_:), v193);
-          v126 = v233;
-          v127 = v201;
-          (*(v232 + 104))(v201, enum case for REMRemindersListDataView.SortingStyle.default(_:), v233);
-          v128 = v187;
-          v129 = v121;
-          v130 = v227;
-          v131 = v194;
-          sub_1005B6BD0(v187, v129, v124, v227, v127);
-          v194 = v131;
-          if (v131)
+          v170 = v299;
+          v171 = v304;
+          (*(v345 + 104))(v299, enum case for REMRemindersListDataView.ShowCompleted.on(_:), v304);
+          v172 = v344;
+          v173 = v312;
+          (*(v343 + 104))(v312, enum case for REMRemindersListDataView.SortingStyle.default(_:), v344);
+          v174 = v298;
+          v175 = v153;
+          v176 = v338;
+          v177 = v305;
+          sub_1005B6BD0(v298, v175, v170, v338, v173);
+          v305 = v177;
+          if (v177)
           {
+            v297, v178, v179, v180, v181, v182, v183, v184;
 
-            v184(v127, v126);
-            v229(v124, v125);
-            v230(v130, Subtasks);
+            v295(v173, v172);
+            v340(v170, v171);
+            v341(v176, Subtasks);
             return;
           }
 
-          v184(v127, v126);
-          v229(v124, v125);
+          v295(v173, v172);
+          v340(v170, v171);
           REMRemindersListDataView.CountByCompleted.init(reminders:)();
         }
 
         else
         {
-          v132 = *(sub_1000F5104(&qword_100938A98, &qword_1007A7570) + 64);
-          v133 = v197;
-          *v197 = v93;
-          v233 = v93;
-          v134 = v187;
-          *(v133 + 8) = [v187 accountID];
-          (*(v234 + 104))(v133 + v132, enum case for REMRemindersListDataView.ShowCompleted.on(_:), v193);
+          v185 = *(sub_1000F5104(&qword_100938A98, &qword_1007A7570) + 64);
+          v186 = v308;
+          *v308 = v107;
+          v344 = v107;
+          v187 = v298;
+          *(v186 + 8) = [v298 accountID];
+          (*(v345 + 104))(v186 + v185, enum case for REMRemindersListDataView.ShowCompleted.on(_:), v304);
           swift_storeEnumTagMultiPayload();
-          v93 = sub_100043AA8();
-          sub_1001A4F3C(v133, _s10PredicatesOMa);
-          v135 = v194;
-          sub_10053464C(v121, v93);
-          if (v135)
+          v107 = sub_100043AA8();
+          sub_1001A4F3C(v186, _s10PredicatesOMa);
+          v188 = v305;
+          sub_10053464C(v153, v107);
+          if (v188)
           {
 
-            v230(v227, v120);
+            v297, v189, v190, v191, v192, v193, v194, v195;
+            v341(v338, v152);
             return;
           }
 
-          v194 = 0;
+          v305 = 0;
         }
 
-        v98 = 0;
+        v121 = 0;
       }
 
       else
       {
-        v98 = 1;
+        v121 = 1;
       }
 
-      v89 = v226;
+      v103 = v337;
     }
 
     else
     {
-      v98 = 1;
-      v87 = v225;
-      v89 = v226;
+      v121 = 1;
+      v101 = v336;
+      v103 = v337;
     }
 
-    v230(v227, Subtasks);
-    v99 = type metadata accessor for REMRemindersListDataView.CountByCompleted();
-    v100 = v222;
-    (*(*(v99 - 8) + 56))(v222, v98, 1, v99);
-    sub_100031B58(v100, v87, &qword_100938A70, &qword_1007ACC60);
+    v341(v338, Subtasks);
+    v122 = type metadata accessor for REMRemindersListDataView.CountByCompleted();
+    v123 = v333;
+    (*(*(v122 - 8) + 56))(v333, v121, 1, v122);
+    sub_100031B58(v123, v101, &qword_100938A70, &qword_1007ACC60);
   }
 
-  v101 = [v223 fetchResultTokenToDiffAgainst];
-  v102 = v194;
-  sub_100534D44(v101, v89);
-  if (v102)
+  v124 = [v334 fetchResultTokenToDiffAgainst];
+  v125 = v305;
+  sub_100534D44(v124, v103);
+  if (v125)
   {
-    v103 = v187;
+    v126 = v298;
 
-    sub_1000050A4(v87, &qword_100938A70, &qword_1007ACC60);
+    v297, v127, v128, v129, v130, v131, v132, v133;
+    sub_1000050A4(v101, &qword_100938A70, &qword_1007ACC60);
     return;
   }
 
-  v104 = v221;
+  v134 = v332;
   REMRemindersListDataView.CustomSmartListInvocation.Parameters.remindersPrefetch.getter();
-  v105 = v217;
-  v106 = v219;
-  v107 = v218;
-  (*(v217 + 16))(v219, v104, v218);
-  v108 = (*(v105 + 88))(v106, v107);
-  v194 = 0;
-  if (v108 != enum case for REMRemindersListDataView.RemindersPrefetch.initial(_:))
+  v135 = v328;
+  v136 = v330;
+  v137 = v329;
+  (*(v328 + 16))(v330, v134, v329);
+  v138 = (*(v135 + 88))(v136, v137);
+  v305 = 0;
+  if (v138 != enum case for REMRemindersListDataView.RemindersPrefetch.initial(_:))
   {
-    v111 = v236;
-    v112 = v190;
-    if (v108 == enum case for REMRemindersListDataView.RemindersPrefetch.updatedInserted(_:))
+    v141 = v347;
+    v144 = v301;
+    if (v138 == enum case for REMRemindersListDataView.RemindersPrefetch.updatedInserted(_:))
     {
-      v113 = v219;
-      (*(v105 + 96))(v219, v107);
-      sub_10053E698(*v113, v226, v111, v112, 0);
-      v110 = v186;
+      v145 = v330;
+      (*(v135 + 96))(v330, v137);
+      v142 = sub_10053E698(*v145, v337, v141, v144, 0);
+      v143 = &_swiftEmptyArrayStorage;
+      v140 = v297;
       goto LABEL_32;
     }
 
-    if (v108 == enum case for REMRemindersListDataView.RemindersPrefetch.initialAndDateRange(_:))
+    if (v138 == enum case for REMRemindersListDataView.RemindersPrefetch.initialAndDateRange(_:))
     {
-      v114 = v219;
-      (*(v105 + 96))(v219, v107);
-      v115 = *v114;
-      v116 = sub_1000F5104(&qword_100938A78, &qword_1007AABE0);
-      v117 = v195;
-      sub_100031B58(v114 + *(v116 + 48), v195, &qword_10094B8E0, &unk_1007AABD0);
-      v118 = v115;
-      v110 = v186;
-      sub_10053DB98(v118, v186, v111, v112, 0);
-      sub_10053EBE4(v117, v110, v111, v112, 0);
-      v119 = v117;
-      v107 = v218;
-      sub_1000050A4(v119, &qword_10094B8E0, &unk_1007AABD0);
+      v146 = v330;
+      (*(v135 + 96))(v330, v137);
+      v147 = *v146;
+      v148 = sub_1000F5104(&qword_100938A78, &qword_1007AABE0);
+      v149 = v306;
+      sub_100031B58(v146 + *(v148 + 48), v306, &qword_10094B8E0, &unk_1007AABD0);
+      v150 = v147;
+      v140 = v297;
+      v142 = sub_10053DB98(v150, v297, v141, v144, 0);
+      v143 = sub_10053EBE4(v149, v140, v141, v144, 0);
+      v151 = v149;
+      v137 = v329;
+      sub_1000050A4(v151, &qword_10094B8E0, &unk_1007AABD0);
       goto LABEL_32;
     }
 
-    if (v108 == enum case for REMRemindersListDataView.RemindersPrefetch.none(_:))
+    if (v138 == enum case for REMRemindersListDataView.RemindersPrefetch.none(_:))
     {
-      v111 = v236;
-      v110 = v186;
-      v105 = v217;
+      v143 = &_swiftEmptyArrayStorage;
+      v142 = &_swiftEmptyArrayStorage;
+      v141 = v347;
+      v140 = v297;
+      v135 = v328;
       goto LABEL_32;
     }
 
@@ -1341,170 +3555,179 @@ LABEL_56:
     return;
   }
 
-  (*(v105 + 96))(v106, v107);
-  v109 = *v106;
-  v110 = v186;
-  v111 = v236;
-  sub_10053DB98(v109, v186, v236, v190, 0);
+  (*(v135 + 96))(v136, v137);
+  v139 = *v136;
+  v140 = v297;
+  v141 = v347;
+  v142 = sub_10053DB98(v139, v297, v347, v301, 0);
+  v143 = &_swiftEmptyArrayStorage;
 LABEL_32:
-  (*(v105 + 8))(v221, v107);
-  v136 = v189;
+  (*(v135 + 8))(v332, v137);
+  v196 = v300;
   REMRemindersListDataView.CustomSmartListInvocation.Parameters.showCompleted.getter();
-  v137 = v111;
-  v138 = v187;
-  v139 = v194;
-  sub_1005B74B8(v137, v187, v87, v136, v110);
-  v194 = v139;
-  if (v139)
+  v197 = v141;
+  v198 = v298;
+  v199 = v305;
+  sub_1005B74B8(v197, v298, v101, v196, v140);
+  v305 = v199;
+  if (v199)
   {
+    v140, v200, v201, v202, v203, v204, v205, v206;
+    v142, v207, v208, v209, v210, v211, v212, v213;
+    v143, v214, v215, v216, v217, v218, v219, v220;
 
-    v229(v136, v193);
-    (*(v216 + 8))(v226, v220);
-    v140 = v87;
+    v340(v196, v304);
+    (*(v327 + 8))(v337, v331);
+    v221 = v101;
   }
 
   else
   {
-    v229(v136, v193);
-    sub_100010364(v87, v202, &qword_100938A70, &qword_1007ACC60);
+    v340(v196, v304);
+    sub_100010364(v101, v313, &qword_100938A70, &qword_1007ACC60);
 
     REMRemindersListDataView.FlatModel.init(reminders:remindersCount:hasIncompleteOrCompletedReminders:prefetchedReminders:prefetchedDueReminders:)();
-    v141 = [v138 objectID];
+    v222 = [v198 objectID];
 
-    v142 = [v138 accountID];
+    v223 = [v198 accountID];
     ManualOrdering = REMRemindersListDataView.CustomSmartListInvocation.Parameters.shouldFetchManualOrderingID.getter();
-    v144 = v216;
+    v225 = v327;
     if (ManualOrdering)
     {
-      v145 = [v141 uuid];
-      v146 = v198;
+      v226 = [v222 uuid];
+      v227 = v309;
       static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-      v147 = UUID.uuidString.getter();
-      v149 = v148;
-      (*(v199 + 8))(v146, v200);
-      sub_10053F868(2, v147, v149, v142, v236);
-      v151 = v215;
-      v152 = v213;
-      if (!v150)
+      v228 = UUID.uuidString.getter();
+      v230 = v229;
+      (*(v310 + 8))(v227, v311);
+      sub_10053F868(2, v228, v230, v223, v347);
+      v232 = v326;
+      v233 = v324;
+      if (!v231)
       {
-        v150 = [objc_opt_self() newObjectID];
+        v231 = [objc_opt_self() newObjectID];
       }
 
-      v153 = v150;
+      v234 = v231;
       REMObjectID.codable.getter();
       REMManualOrdering.ManualOrderingID.init(objectID:listType:listID:)();
 
-      v154 = 0;
+      v235 = 0;
     }
 
     else
     {
-      v154 = 1;
-      v151 = v215;
-      v152 = v213;
+      v235 = 1;
+      v232 = v326;
+      v233 = v324;
     }
 
-    v155 = type metadata accessor for REMManualOrdering.ManualOrderingID();
-    (*(*(v155 - 8) + 56))(v151, v154, 1, v155);
+    v236 = type metadata accessor for REMManualOrdering.ManualOrderingID();
+    (*(*(v236 - 8) + 56))(v232, v235, 1, v236);
     if (qword_100936648 != -1)
     {
       swift_once();
     }
 
-    v156 = type metadata accessor for Logger();
-    sub_100006654(v156, qword_10094DBD8);
-    v157 = *(v144 + 16);
-    v158 = v212;
-    v159 = v226;
-    v160 = v220;
-    v157(v212, v226, v220);
-    v236 = v157;
-    v157(v152, v159, v160);
-    v161 = v152;
-    v162 = v186;
+    v237 = type metadata accessor for Logger();
+    sub_100006654(v237, qword_10094DBD8);
+    v238 = *(v225 + 16);
+    v239 = v323;
+    v240 = v337;
+    v241 = v331;
+    (v238)(v323, v337, v331);
+    v347 = v238;
+    (v238)(v233, v240, v241);
+    v242 = v233;
+    v243 = v297;
 
-    v163 = Logger.logObject.getter();
-    v164 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v163, v164))
+    v244 = Logger.logObject.getter();
+    v245 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v244, v245))
     {
-      v165 = swift_slowAlloc();
-      *v165 = 134218496;
-      v166 = *(v162 + 16);
-
-      *(v165 + 4) = v166;
-
-      *(v165 + 12) = 2048;
-      v167 = REMRemindersListDataView.Diff.updatedReminderObjectIDs.getter();
-      if ((v167 & 0xC000000000000001) != 0)
+      v246 = swift_slowAlloc();
+      *v246 = 134218496;
+      v247 = *v243->clientIdentity;
+      v243, v248, v249, v250, v251, v252, v253, v254;
+      *(v246 + 4) = v247;
+      v243, v255, v256, v257, v258, v259, v260, v261;
+      *(v246 + 12) = 2048;
+      v262 = REMRemindersListDataView.Diff.updatedReminderObjectIDs.getter();
+      if ((v262 & 0xC000000000000001) != 0)
       {
-        v168 = __CocoaSet.count.getter();
-        v158 = v212;
+        v270 = v262;
+        v271 = __CocoaSet.count.getter();
+        v262 = v270;
+        v239 = v323;
       }
 
       else
       {
-        v168 = *(v167 + 16);
+        v271 = *(v262 + 16);
       }
 
-      v171 = v203;
-
-      v172 = *(v144 + 8);
-      Subtasks = (v144 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-      v238 = v172;
-      (v172)(v158, v220);
-      *(v165 + 14) = v168;
-      *(v165 + 22) = 2048;
-      v173 = v213;
-      v174 = REMRemindersListDataView.Diff.insertedReminderObjectIDs.getter();
-      if ((v174 & 0xC000000000000001) != 0)
+      v274 = v314;
+      v262, v263, v264, v265, v266, v267, v268, v269;
+      v275 = *(v225 + 8);
+      Subtasks = (v225 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+      v349 = v275;
+      (v275)(v239, v331);
+      *(v246 + 14) = v271;
+      *(v246 + 22) = 2048;
+      v276 = v324;
+      v277 = REMRemindersListDataView.Diff.insertedReminderObjectIDs.getter();
+      if ((v277 & 0xC000000000000001) != 0)
       {
-        v175 = __CocoaSet.count.getter();
-        v173 = v213;
+        v285 = v277;
+        v286 = __CocoaSet.count.getter();
+        v277 = v285;
+        v276 = v324;
       }
 
       else
       {
-        v175 = *(v174 + 16);
+        v286 = *(v277 + 16);
       }
 
-      v176 = v220;
-      (v238)(v173, v220);
-      *(v165 + 24) = v175;
-      v170 = v176;
-      _os_log_impl(&_mh_execute_header, v163, v164, "reminders %ld updated %ld inserted %ld", v165, 0x20u);
+      v277, v278, v279, v280, v281, v282, v283, v284;
+      v287 = v331;
+      (v349)(v276, v331);
+      *(v246 + 24) = v286;
+      v273 = v287;
+      _os_log_impl(&_mh_execute_header, v244, v245, "reminders %ld updated %ld inserted %ld", v246, 0x20u);
     }
 
     else
     {
-      v169 = *(v144 + 8);
-      Subtasks = (v144 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-      v169(v161, v160);
-      v238 = v169;
-      v169(v158, v160);
+      v272 = *(v225 + 8);
+      Subtasks = (v225 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+      v272(v242, v241);
+      v349 = v272;
+      v272(v239, v241);
 
       swift_bridgeObjectRelease_n();
-      v170 = v160;
-      v171 = v203;
+      v273 = v241;
+      v274 = v314;
     }
 
-    v177 = v207;
-    v178 = v205;
-    v179 = v214;
-    v180 = v206;
-    (*(v205 + 16))(v204, v214, v206);
-    v181 = v226;
-    v236(v171, v226, v170);
-    v182 = v215;
-    sub_100010364(v215, v177, &qword_100938A68, &unk_10079DDF0);
+    v288 = v318;
+    v289 = v316;
+    v290 = v325;
+    v291 = v317;
+    (*(v316 + 16))(v315, v325, v317);
+    v292 = v337;
+    (v347)(v274, v337, v273);
+    v293 = v326;
+    sub_100010364(v326, v288, &qword_100938A68, &unk_10079DDF0);
     REMRemindersListDataView.CustomSmartListInvocation.Result.init(model:diff:smartList:manualOrderingID:)();
-    sub_1000050A4(v182, &qword_100938A68, &unk_10079DDF0);
-    (*(v178 + 8))(v179, v180);
-    (v238)(v181, v170);
-    v140 = v225;
+    sub_1000050A4(v293, &qword_100938A68, &unk_10079DDF0);
+    (*(v289 + 8))(v290, v291);
+    (v349)(v292, v273);
+    v221 = v336;
   }
 
-  sub_1000050A4(v140, &qword_100938A70, &qword_1007ACC60);
+  sub_1000050A4(v221, &qword_100938A70, &qword_1007ACC60);
 }
 
 uint64_t sub_1005B9F38()
@@ -1523,14 +3746,14 @@ uint64_t sub_1005B9F38()
   return v3(v1, v2, v0);
 }
 
-unint64_t sub_1005BA018(uint64_t a1)
+unint64_t sub_1005BA018(uint64_t a1, __n128 a2)
 {
-  result = sub_1005BA040();
+  result = sub_1005BA040(a2);
   *(a1 + 8) = result;
   return result;
 }
 
-unint64_t sub_1005BA040()
+unint64_t sub_1005BA040(__n128 a1)
 {
   result = qword_10094DC10;
   if (!qword_10094DC10)
@@ -1552,7 +3775,7 @@ void sub_1005BA098(void *a1, void *a2, id a3)
     swift_once();
   }
 
-  v9 = sub_100717244(v7, v8, a1, qword_1009752F0);
+  v10 = sub_100717244(v7, v8, a1, qword_1009752F0, v9);
 
   if (v3)
   {
@@ -1560,13 +3783,13 @@ void sub_1005BA098(void *a1, void *a2, id a3)
   }
 
   sub_1000F5104(&unk_100939D60, &unk_1007959E0);
-  v10 = swift_allocObject();
-  *(v10 + 16) = xmmword_1007953F0;
-  *(v10 + 32) = v9;
-  v11 = v9;
-  v12 = sub_1000303FC(v10, a2);
-
-  if (v12 >> 62)
+  v11 = swift_allocObject();
+  *(v11 + 16) = xmmword_1007953F0;
+  *(v11 + 32) = v10;
+  v12 = v10;
+  v13 = sub_1000303FC(v11, a2);
+  v11, v14, v15, v16, v17, v18, v19, v20;
+  if (v13 >> 62)
   {
     if (_CocoaArrayWrapper.endIndex.getter())
     {
@@ -1575,27 +3798,29 @@ void sub_1005BA098(void *a1, void *a2, id a3)
 
 LABEL_11:
 
-    v14 = a3;
+    v13, v29, v30, v31, v32, v33, v34, v35;
+    v36 = a3;
     return;
   }
 
-  if (!*((v12 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  if (!*((v13 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
     goto LABEL_11;
   }
 
 LABEL_6:
-  if ((v12 & 0xC000000000000001) != 0)
+  if ((v13 & 0xC000000000000001) != 0)
   {
     specialized _ArrayBuffer._getElementSlowPath(_:)();
     goto LABEL_9;
   }
 
-  if (*((v12 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  if (*((v13 & 0xFFFFFFFFFFFFFF8) + 0x10))
   {
-    v13 = *(v12 + 32);
+    v21 = *&v13->clientIdentity[16];
 LABEL_9:
 
+    v13, v22, v23, v24, v25, v26, v27, v28;
     return;
   }
 
@@ -1626,711 +3851,730 @@ uint64_t sub_1005BA324()
   return result;
 }
 
-uint64_t sub_1005BA370(uint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t sub_1005BA370(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = type metadata accessor for CharacterSet();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6);
-  v132 = &v127 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v10);
-  v134 = &v127 - v11;
-  __chkstk_darwin(v12);
-  v14 = &v127 - v13;
-  v143 = sub_10038E004(_swiftEmptyArrayStorage);
-  v149 = a1;
-  v150 = a2;
-  v154 = 10;
-  v155 = 0xE100000000000000;
-  v15 = sub_10013BCF4();
-  v16 = StringProtocol.components<A>(separatedBy:)();
-  v137 = *(v16 + 16);
-  if (!v137)
+  __chkstk_darwin(v6, v8);
+  v312 = &v307 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v10, v11);
+  v314 = &v307 - v12;
+  __chkstk_darwin(v13, v14);
+  v16 = &v307 - v15;
+  v323 = sub_10038E004(&_swiftEmptyArrayStorage);
+  v329 = a1;
+  v330 = a2;
+  v334 = 10;
+  v335 = 0xE100000000000000;
+  v17 = sub_10013BCF4();
+  v18 = StringProtocol.components<A>(separatedBy:)();
+  v317 = *(v18 + 16);
+  if (!v317)
   {
-    goto LABEL_125;
+    goto LABEL_127;
   }
 
-  v18 = 0;
-  v19 = 0;
-  v20 = 0;
-  v135 = v16 + 32;
-  v148 = (v7 + 8);
-  v136 = &v152 + 1;
-  v133 = a3 + 32;
-  v129 = 0x80000001007FD7A0;
-  v140 = a3;
-  v21 = &type metadata for String;
-  *&v17 = 136380675;
-  v128 = v17;
-  *&v17 = 136446210;
-  v127 = v17;
-  v141 = v6;
-  v147 = v15;
-  v131 = v16;
+  v27 = 0;
+  v28 = 0;
+  v29 = 0;
+  v315 = v18 + 32;
+  v328 = (v7 + 8);
+  v316 = &v332 + 1;
+  v313 = a3 + 32;
+  v309 = 0x80000001007FD7A0;
+  v320 = a3;
+  v30 = &type metadata for String;
+  *&v26 = 136380675;
+  v308 = v26;
+  *&v26 = 136446210;
+  v307 = v26;
+  v321 = v6;
+  v327 = v17;
+  v311 = v18;
   while (1)
   {
-    if (v20 >= *(v16 + 16))
+    if (v29 >= *(v18 + 16))
     {
-      goto LABEL_127;
+      goto LABEL_129;
     }
 
-    v22 = (v135 + 16 * v20);
-    v24 = *v22;
-    v23 = v22[1];
-    v25 = HIBYTE(v23) & 0xF;
-    if ((v23 & 0x2000000000000000) == 0)
+    v38 = (v315 + 16 * v29);
+    v40 = *v38;
+    v39 = v38[1];
+    v41 = HIBYTE(v39) & 0xF;
+    if ((v39 & 0x2000000000000000) == 0)
     {
-      v25 = v24 & 0xFFFFFFFFFFFFLL;
+      v41 = v40 & 0xFFFFFFFFFFFFLL;
     }
 
-    if (!v25)
+    if (!v41)
     {
       goto LABEL_5;
     }
 
-    v154 = v24;
-    v155 = v23;
-    v152 = 0x88E2BFA3EF8F88E2;
-    v153 = 0xA90000000000008FLL;
+    v334 = v40;
+    v335 = v39;
+    v332 = 0x88E2BFA3EF8F88E2;
+    v333 = 0xA90000000000008FLL;
 
-    v26 = StringProtocol.components<A>(separatedBy:)();
-    if (*(v26 + 2) < 2uLL)
+    v42 = StringProtocol.components<A>(separatedBy:)();
+    if (*(v42 + 16) < 2uLL)
     {
-      v138 = v26;
-
-      v154 = v24;
-      v155 = v23;
-      v27 = v134;
+      v318 = v42;
+      v28, v43, v44, v45, v46, v47, v48, v49;
+      v334 = v40;
+      v335 = v39;
+      v50 = v314;
       static CharacterSet.punctuationCharacters.getter();
-      v28 = v132;
+      v51 = v312;
       static CharacterSet.whitespacesAndNewlines.getter();
       CharacterSet.union(_:)();
-      v29 = *v148;
-      (*v148)(v28, v6);
-      v29(v27, v6);
-      v18 = StringProtocol.trimmingCharacters(in:)();
-      v19 = v30;
-      v29(v14, v6);
-
-      v154 = 0;
-      v155 = 0xE000000000000000;
+      v52 = *v328;
+      (*v328)(v51, v6);
+      v52(v50, v6);
+      v27 = StringProtocol.trimmingCharacters(in:)();
+      v28 = v53;
+      v52(v16, v6);
+      v39, v54, v55, v56, v57, v58, v59, v60;
+      v334 = 0;
+      v335 = 0xE000000000000000;
 
       _StringGuts.grow(_:)(45);
+      v335, v61, v62, v63, v64, v65, v66, v67;
+      v334 = 0xD00000000000002BLL;
+      v335 = v309;
+      v68._countAndFlagsBits = v27;
+      v68._object = v28;
+      String.append(_:)(v68);
+      v28, v69, v70, v71, v72, v73, v74, v75;
+      v77 = v334;
+      v76 = v335;
+      v78 = [objc_opt_self() daemonUserDefaults];
+      LODWORD(v52) = [v78 isAutoCategorizationLoggingEnabled];
 
-      v154 = 0xD00000000000002BLL;
-      v155 = v129;
-      v31._countAndFlagsBits = v18;
-      v31._object = v19;
-      String.append(_:)(v31);
-
-      v33 = v154;
-      v32 = v155;
-      v34 = [objc_opt_self() daemonUserDefaults];
-      LODWORD(v29) = [v34 isAutoCategorizationLoggingEnabled];
-
-      if (v29)
+      if (v52)
       {
         if (qword_100936158 != -1)
         {
           swift_once();
         }
 
-        v35 = type metadata accessor for Logger();
-        sub_100006654(v35, qword_100947448);
+        v86 = type metadata accessor for Logger();
+        sub_100006654(v86, qword_100947448);
 
-        v36 = Logger.logObject.getter();
-        v37 = static os_log_type_t.default.getter();
-
-        if (os_log_type_enabled(v36, v37))
+        v87 = Logger.logObject.getter();
+        v88 = static os_log_type_t.default.getter();
+        v76, v89, v90, v91, v92, v93, v94, v95;
+        if (os_log_type_enabled(v87, v88))
         {
-          v38 = swift_slowAlloc();
-          v39 = swift_slowAlloc();
-          v154 = v39;
-          *v38 = v128;
-          *(v38 + 4) = sub_10000668C(v33, v32, &v154);
-          _os_log_impl(&_mh_execute_header, v36, v37, "%{private}s", v38, 0xCu);
-          sub_10000607C(v39);
+          v103 = swift_slowAlloc();
+          v104 = swift_slowAlloc();
+          v334 = v104;
+          *v103 = v308;
+          *(v103 + 4) = sub_10000668C(v77, v76, &v334);
+          _os_log_impl(&_mh_execute_header, v87, v88, "%{private}s", v103, 0xCu);
+          sub_10000607C(v104);
         }
+
+        v318, v96, v97, v98, v99, v100, v101, v102;
+        v76, v31, v32, v33, v34, v35, v36, v37;
       }
 
       else
       {
+        v318, v79, v80, v81, v82, v83, v84, v85;
+        v76, v124, v125, v126, v127, v128, v129, v130;
       }
 
-      v6 = v141;
-      v16 = v131;
-      v21 = &type metadata for String;
+      v6 = v321;
+      v18 = v311;
+      v30 = &type metadata for String;
       goto LABEL_5;
     }
 
-    v40 = *(v26 + 4);
-    v41 = *(v26 + 5);
-    v42 = v26;
+    v105 = *(v42 + 32);
+    v106 = *(v42 + 40);
+    v107 = v42;
 
-    v43 = *(v42 + 2);
-    if (!v43)
+    v39, v108, v109, v110, v111, v112, v113, v114;
+    v115 = *(v107 + 16);
+    if (!v115)
     {
-      goto LABEL_134;
+      goto LABEL_136;
     }
 
-    v145 = v18;
-    v44 = v21;
+    v325 = v27;
+    v116 = v30;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v46 = v42;
-    v130 = v20;
-    if (isUniquelyReferenced_nonNull_native && (v43 - 1) <= *(v42 + 3) >> 1)
+    v122 = v107;
+    v310 = v29;
+    if (isUniquelyReferenced_nonNull_native && (v115 - 1) <= *(v107 + 24) >> 1)
     {
-      v47 = v19;
+      v123 = v28;
     }
 
     else
     {
-      v47 = v19;
-      v46 = sub_100365788(isUniquelyReferenced_nonNull_native, v43, 1, v42);
+      v123 = v28;
+      v122 = sub_100365788(isUniquelyReferenced_nonNull_native, v115, 1, v107, v118, v119, v120, v121);
     }
 
-    v48 = v46;
-    sub_100034610((v46 + 32));
-    v49 = *(v48 + 2);
-    memmove(v48 + 32, v48 + 48, 16 * v49 - 16);
-    v138 = v48;
-    *(v48 + 2) = v49 - 1;
-    v152 = v40;
-    v153 = v41;
-    v50 = v134;
+    v131 = v122;
+    sub_100034610(&v122->clientIdentity[16]);
+    v132 = *v131->clientIdentity;
+    memmove(&v131->clientIdentity[16], &v131->clientIdentity[32], 16 * v132 - 16);
+    v318 = v131;
+    *v131->clientIdentity = v132 - 1;
+    v332 = v105;
+    v333 = v106;
+    v133 = v314;
     static CharacterSet.punctuationCharacters.getter();
-    v51 = v132;
+    v134 = v312;
     static CharacterSet.whitespacesAndNewlines.getter();
     CharacterSet.union(_:)();
-    v52 = *v148;
-    v53 = v51;
-    v54 = v141;
-    (*v148)(v53, v141);
-    v52(v50, v54);
-    v55 = StringProtocol.trimmingCharacters(in:)();
-    v57 = v56;
-    v146 = v52;
-    v52(v14, v54);
-
-    v154 = v55;
-    v155 = v57;
-    v58 = HIBYTE(v57) & 0xF;
-    v139 = v55;
-    v142 = v57;
-    if ((v57 & 0x2000000000000000) == 0)
+    v135 = *v328;
+    v136 = v134;
+    v137 = v321;
+    (*v328)(v136, v321);
+    v135(v133, v137);
+    v138 = StringProtocol.trimmingCharacters(in:)();
+    v140 = v139;
+    v326 = v135;
+    v135(v16, v137);
+    v106, v141, v142, v143, v144, v145, v146, v147;
+    v334 = v138;
+    v335 = v140;
+    v155 = (v140 >> 56) & 0xF;
+    v319 = v138;
+    v322 = v140;
+    if ((v140 & 0x2000000000000000) == 0)
     {
-      v58 = v55 & 0xFFFFFFFFFFFFLL;
+      v155 = v138 & 0xFFFFFFFFFFFFLL;
     }
 
-    if (v58)
+    if (v155)
     {
-      goto LABEL_27;
+      v156 = v123;
+LABEL_28:
+      v6 = v321;
+      v156, v148, v149, v150, v151, v152, v153, v154;
+      goto LABEL_29;
     }
 
-    if (v47)
+    if (v123)
     {
       swift_beginAccess();
-      v154 = v145;
-      v155 = v47;
-      v142 = v47;
-      v139 = v145;
-LABEL_27:
-      v6 = v141;
-
+      v334 = v325;
+      v335 = v123;
+      v156 = v322;
+      v322 = v123;
+      v319 = v325;
       goto LABEL_28;
     }
 
-    v6 = v141;
-LABEL_28:
-    v21 = v44;
+    v6 = v321;
+LABEL_29:
+    v30 = v116;
     if (qword_100936658 != -1)
     {
       swift_once();
     }
 
-    v59 = qword_10094DC30;
-    v60 = v142;
+    v157 = qword_10094DC30;
+    v158 = v322;
 
-    LOBYTE(v59) = sub_100240BDC(v139, v60, v59);
-
-    if (v59)
+    LOBYTE(v157) = sub_100240BDC(v319, v158, v157);
+    v158, v159, v160, v161, v162, v163, v164, v165;
+    if (v157)
     {
       if (qword_100936650 != -1)
       {
         swift_once();
       }
 
-      v61 = type metadata accessor for Logger();
-      sub_100006654(v61, qword_10094DC18);
-      v62 = Logger.logObject.getter();
-      v63 = static os_log_type_t.default.getter();
-      if (os_log_type_enabled(v62, v63))
+      v166 = type metadata accessor for Logger();
+      sub_100006654(v166, qword_10094DC18);
+      v167 = Logger.logObject.getter();
+      v168 = static os_log_type_t.default.getter();
+      if (os_log_type_enabled(v167, v168))
       {
-        v64 = swift_slowAlloc();
-        v65 = swift_slowAlloc();
-        v152 = v65;
-        *v64 = v127;
-        v66 = v142;
+        v176 = swift_slowAlloc();
+        v177 = swift_slowAlloc();
+        v332 = v177;
+        *v176 = v307;
+        v178 = v322;
 
-        v67 = sub_10000668C(v139, v66, &v152);
+        v179 = sub_10000668C(v319, v178, &v332);
+        v178, v180, v181, v182, v183, v184, v185, v186;
+        *(v176 + 4) = v179;
+        _os_log_impl(&_mh_execute_header, v167, v168, "RDAutoCategorizer exclude category: %{public}s", v176, 0xCu);
+        sub_10000607C(v177);
 
-        *(v64 + 4) = v67;
-        _os_log_impl(&_mh_execute_header, v62, v63, "RDAutoCategorizer exclude category: %{public}s", v64, 0xCu);
-        sub_10000607C(v65);
+        v318, v187, v188, v189, v190, v191, v192, v193;
+        v201 = v178;
       }
 
-      goto LABEL_122;
+      else
+      {
+        v318, v169, v170, v171, v172, v173, v174, v175;
+        v201 = v322;
+      }
+
+      v201, v194, v195, v196, v197, v198, v199, v200;
+
+      goto LABEL_124;
     }
 
-    if (!*(v138 + 2))
+    if (!*v318->clientIdentity)
     {
-      goto LABEL_135;
+      goto LABEL_137;
     }
 
-    v68 = *(v138 + 5);
-    v152 = *(v138 + 4);
-    v153 = v68;
+    v202 = *&v318->clientIdentity[24];
+    v332 = *&v318->clientIdentity[16];
+    v333 = v202;
 
     static CharacterSet.decimalDigits.getter();
-    v69 = v134;
+    v203 = v314;
     CharacterSet.inverted.getter();
-    v70 = v146;
-    v146(v14, v6);
-    v71 = StringProtocol.components(separatedBy:)();
-    v70(v69, v6);
-    v72 = v71;
-
-    v145 = *(v71 + 16);
-    if (v145)
+    v204 = v326;
+    v326(v16, v6);
+    v205 = StringProtocol.components(separatedBy:)();
+    v204(v203, v6);
+    v206 = v205;
+    v202, v207, v208, v209, v210, v211, v212, v213;
+    v325 = *(v205 + 16);
+    if (v325)
     {
       break;
     }
 
-LABEL_120:
-
-LABEL_122:
-    v18 = 0;
-    v19 = 0;
-    v16 = v131;
-    v20 = v130;
+LABEL_121:
+    v206, v214, v215, v216, v217, v218, v219, v220;
+    v318, v292, v293, v294, v295, v296, v297, v298;
+    v322, v299, v300, v301, v302, v303, v304, v305;
+LABEL_124:
+    v27 = 0;
+    v28 = 0;
+    v18 = v311;
+    v29 = v310;
 LABEL_5:
-    if (++v20 == v137)
+    if (++v29 == v317)
     {
-
-LABEL_125:
-
-      return v143;
+      v18, v19, v20, v21, v22, v23, v24, v25;
+      v18 = v28;
+LABEL_127:
+      v18, v19, v20, v21, v22, v23, v24, v25;
+      return v323;
     }
   }
 
-  v73 = 0;
-  v144 = v71 + 32;
-  while (v73 < *(v72 + 16))
+  v221 = 0;
+  v324 = v205 + 32;
+  while (v221 < *(v206 + 16))
   {
-    v74 = *(v144 + 16 * v73 + 8);
-    v152 = *(v144 + 16 * v73);
-    v153 = v74;
+    v222 = *(v324 + 16 * v221 + 8);
+    v332 = *(v324 + 16 * v221);
+    v333 = v222;
 
     static CharacterSet.whitespaces.getter();
-    v75 = StringProtocol.trimmingCharacters(in:)();
-    v77 = v76;
-    v146(v14, v6);
-
-    v78 = HIBYTE(v77) & 0xF;
-    v79 = v75 & 0xFFFFFFFFFFFFLL;
-    if ((v77 & 0x2000000000000000) != 0)
+    v223 = StringProtocol.trimmingCharacters(in:)();
+    v225 = v224;
+    v326(v16, v6);
+    v222, v226, v227, v228, v229, v230, v231, v232;
+    v239 = HIBYTE(v225) & 0xF;
+    v240 = v223 & 0xFFFFFFFFFFFFLL;
+    if ((v225 & 0x2000000000000000) != 0)
     {
-      v80 = HIBYTE(v77) & 0xF;
+      v241 = HIBYTE(v225) & 0xF;
     }
 
     else
     {
-      v80 = v75 & 0xFFFFFFFFFFFFLL;
+      v241 = v223 & 0xFFFFFFFFFFFFLL;
     }
 
-    if (!v80)
+    if (!v241)
     {
-
-      goto LABEL_38;
+      v225, v240, v233, v234, v235, v236, v237, v238;
+      goto LABEL_39;
     }
 
-    if ((v77 & 0x1000000000000000) != 0)
+    if ((v225 & 0x1000000000000000) != 0)
     {
-      v151 = 0;
-      v83 = sub_1002F62B8(v75, v77, 10);
-      v101 = v125;
-      goto LABEL_102;
+      v331 = 0;
+      sub_1002F62B8(v223, v225, 10);
+      v244 = v291;
+      v262 = v240;
+      goto LABEL_103;
     }
 
-    if ((v77 & 0x2000000000000000) != 0)
+    if ((v225 & 0x2000000000000000) != 0)
     {
-      v152 = v75;
-      v153 = v77 & 0xFFFFFFFFFFFFFFLL;
-      if (v75 == 43)
+      v332 = v223;
+      v333 = v225 & 0xFFFFFFFFFFFFFFLL;
+      if (v223 == 43)
       {
-        if (!v78)
-        {
-          goto LABEL_129;
-        }
-
-        if (--v78)
-        {
-          v83 = 0;
-          v93 = v136;
-          while (1)
-          {
-            v94 = *v93 - 48;
-            if (v94 > 9)
-            {
-              break;
-            }
-
-            v95 = 10 * v83;
-            if ((v83 * 10) >> 64 != (10 * v83) >> 63)
-            {
-              break;
-            }
-
-            v83 = v95 + v94;
-            if (__OFADD__(v95, v94))
-            {
-              break;
-            }
-
-            ++v93;
-            if (!--v78)
-            {
-              goto LABEL_101;
-            }
-          }
-        }
-      }
-
-      else if (v75 == 45)
-      {
-        if (!v78)
+        if (!v239)
         {
           goto LABEL_131;
         }
 
-        if (--v78)
+        if (--v239)
         {
-          v83 = 0;
-          v87 = v136;
+          v244 = 0;
+          v254 = v316;
           while (1)
           {
-            v88 = *v87 - 48;
-            if (v88 > 9)
+            v255 = *v254 - 48;
+            if (v255 > 9)
             {
               break;
             }
 
-            v89 = 10 * v83;
-            if ((v83 * 10) >> 64 != (10 * v83) >> 63)
+            v256 = 10 * v244;
+            if ((v244 * 10) >> 64 != (10 * v244) >> 63)
             {
               break;
             }
 
-            v83 = v89 - v88;
-            if (__OFSUB__(v89, v88))
+            v244 = v256 + v255;
+            if (__OFADD__(v256, v255))
             {
               break;
             }
 
-            ++v87;
-            if (!--v78)
+            ++v254;
+            if (!--v239)
             {
-              goto LABEL_101;
+              goto LABEL_102;
             }
           }
         }
       }
 
-      else if (v78)
+      else if (v223 == 45)
       {
-        v83 = 0;
-        v98 = &v152;
+        if (!v239)
+        {
+          goto LABEL_133;
+        }
+
+        if (--v239)
+        {
+          v244 = 0;
+          v248 = v316;
+          while (1)
+          {
+            v249 = *v248 - 48;
+            if (v249 > 9)
+            {
+              break;
+            }
+
+            v250 = 10 * v244;
+            if ((v244 * 10) >> 64 != (10 * v244) >> 63)
+            {
+              break;
+            }
+
+            v244 = v250 - v249;
+            if (__OFSUB__(v250, v249))
+            {
+              break;
+            }
+
+            ++v248;
+            if (!--v239)
+            {
+              goto LABEL_102;
+            }
+          }
+        }
+      }
+
+      else if (v239)
+      {
+        v244 = 0;
+        v259 = &v332;
         while (1)
         {
-          v99 = *v98 - 48;
-          if (v99 > 9)
+          v260 = *v259 - 48;
+          if (v260 > 9)
           {
             break;
           }
 
-          v100 = 10 * v83;
-          if ((v83 * 10) >> 64 != (10 * v83) >> 63)
+          v261 = 10 * v244;
+          if ((v244 * 10) >> 64 != (10 * v244) >> 63)
           {
             break;
           }
 
-          v83 = v100 + v99;
-          if (__OFADD__(v100, v99))
+          v244 = v261 + v260;
+          if (__OFADD__(v261, v260))
           {
             break;
           }
 
-          v98 = (v98 + 1);
-          if (!--v78)
+          v259 = (v259 + 1);
+          if (!--v239)
           {
-            goto LABEL_101;
+            goto LABEL_102;
           }
         }
       }
 
-      goto LABEL_100;
+      goto LABEL_101;
     }
 
-    if ((v75 & 0x1000000000000000) != 0)
+    if ((v223 & 0x1000000000000000) != 0)
     {
-      v81 = ((v77 & 0xFFFFFFFFFFFFFFFLL) + 32);
+      v242 = ((v225 & 0xFFFFFFFFFFFFFFFLL) + 32);
     }
 
     else
     {
-      v81 = _StringObject.sharedUTF8.getter();
+      v242 = _StringObject.sharedUTF8.getter();
     }
 
-    v82 = *v81;
-    if (v82 == 43)
+    v243 = *v242;
+    if (v243 == 43)
     {
-      if (v79 < 1)
-      {
-        goto LABEL_130;
-      }
-
-      v78 = v79 - 1;
-      if (v79 == 1)
-      {
-        goto LABEL_100;
-      }
-
-      v83 = 0;
-      if (v81)
-      {
-        v90 = v81 + 1;
-        while (1)
-        {
-          v91 = *v90 - 48;
-          if (v91 > 9)
-          {
-            goto LABEL_100;
-          }
-
-          v92 = 10 * v83;
-          if ((v83 * 10) >> 64 != (10 * v83) >> 63)
-          {
-            goto LABEL_100;
-          }
-
-          v83 = v92 + v91;
-          if (__OFADD__(v92, v91))
-          {
-            goto LABEL_100;
-          }
-
-          ++v90;
-          if (!--v78)
-          {
-            goto LABEL_101;
-          }
-        }
-      }
-    }
-
-    else if (v82 == 45)
-    {
-      if (v79 < 1)
+      if (v240 < 1)
       {
         goto LABEL_132;
       }
 
-      v78 = v79 - 1;
-      if (v79 == 1)
+      v239 = v240 - 1;
+      if (v240 == 1)
       {
-        goto LABEL_100;
+        goto LABEL_101;
       }
 
-      v83 = 0;
-      if (v81)
+      v244 = 0;
+      if (v242)
       {
-        v84 = v81 + 1;
+        v251 = v242 + 1;
         while (1)
         {
-          v85 = *v84 - 48;
-          if (v85 > 9)
-          {
-            break;
-          }
-
-          v86 = 10 * v83;
-          if ((v83 * 10) >> 64 != (10 * v83) >> 63)
-          {
-            break;
-          }
-
-          v83 = v86 - v85;
-          if (__OFSUB__(v86, v85))
-          {
-            break;
-          }
-
-          ++v84;
-          if (!--v78)
+          v252 = *v251 - 48;
+          if (v252 > 9)
           {
             goto LABEL_101;
           }
+
+          v253 = 10 * v244;
+          if ((v244 * 10) >> 64 != (10 * v244) >> 63)
+          {
+            goto LABEL_101;
+          }
+
+          v244 = v253 + v252;
+          if (__OFADD__(v253, v252))
+          {
+            goto LABEL_101;
+          }
+
+          ++v251;
+          if (!--v239)
+          {
+            goto LABEL_102;
+          }
+        }
+      }
+    }
+
+    else if (v243 == 45)
+    {
+      if (v240 < 1)
+      {
+        goto LABEL_134;
+      }
+
+      v239 = v240 - 1;
+      if (v240 == 1)
+      {
+        goto LABEL_101;
+      }
+
+      v244 = 0;
+      if (v242)
+      {
+        v245 = v242 + 1;
+        while (1)
+        {
+          v246 = *v245 - 48;
+          if (v246 > 9)
+          {
+            break;
+          }
+
+          v247 = 10 * v244;
+          if ((v244 * 10) >> 64 != (10 * v244) >> 63)
+          {
+            break;
+          }
+
+          v244 = v247 - v246;
+          if (__OFSUB__(v247, v246))
+          {
+            break;
+          }
+
+          ++v245;
+          if (!--v239)
+          {
+            goto LABEL_102;
+          }
         }
 
-LABEL_100:
-        v83 = 0;
-        LOBYTE(v78) = 1;
-        goto LABEL_101;
+LABEL_101:
+        v244 = 0;
+        LOBYTE(v239) = 1;
+        goto LABEL_102;
       }
     }
 
     else
     {
-      if (!v79)
+      if (!v240)
       {
-        goto LABEL_100;
+        goto LABEL_101;
       }
 
-      v83 = 0;
-      if (v81)
+      v244 = 0;
+      if (v242)
       {
         do
         {
-          v96 = *v81 - 48;
-          if (v96 > 9)
+          v257 = *v242 - 48;
+          if (v257 > 9)
           {
-            goto LABEL_100;
+            goto LABEL_101;
           }
 
-          v97 = 10 * v83;
-          if ((v83 * 10) >> 64 != (10 * v83) >> 63)
+          v258 = 10 * v244;
+          if ((v244 * 10) >> 64 != (10 * v244) >> 63)
           {
-            goto LABEL_100;
+            goto LABEL_101;
           }
 
-          v83 = v97 + v96;
-          if (__OFADD__(v97, v96))
+          v244 = v258 + v257;
+          if (__OFADD__(v258, v257))
           {
-            goto LABEL_100;
+            goto LABEL_101;
           }
 
-          ++v81;
+          ++v242;
         }
 
-        while (--v79);
+        while (--v240);
       }
     }
 
-    LOBYTE(v78) = 0;
-LABEL_101:
-    v151 = v78;
-    v101 = v78;
+    LOBYTE(v239) = 0;
 LABEL_102:
-
-    if ((v101 & 1) != 0 || v83 < 0 || v83 >= *(v140 + 16))
+    v331 = v239;
+    v262 = v239;
+LABEL_103:
+    v225, v240, v233, v234, v235, v236, v237, v238;
+    if ((v262 & 1) != 0 || v244 < 0 || v244 >= *(v320 + 16))
     {
-      goto LABEL_38;
+      goto LABEL_39;
     }
 
-    v102 = (v133 + 16 * v83);
-    v104 = *v102;
-    v103 = v102[1];
+    v263 = (v313 + 16 * v244);
+    v265 = *v263;
+    v264 = v263[1];
 
-    v105 = v143;
-    v106 = swift_isUniquelyReferenced_nonNull_native();
-    v152 = v105;
-    v108 = sub_100005F4C(v104, v103);
-    v109 = *(v105 + 16);
-    v110 = (v107 & 1) == 0;
-    v111 = v109 + v110;
-    if (__OFADD__(v109, v110))
+    v266 = v323;
+    v267 = swift_isUniquelyReferenced_nonNull_native();
+    v332 = v266;
+    v268 = sub_100005F4C(v265, v264);
+    v269 = *(v266 + 16);
+    v270 = (v214 & 1) == 0;
+    v271 = v269 + v270;
+    if (__OFADD__(v269, v270))
     {
-      goto LABEL_128;
+      goto LABEL_130;
     }
 
-    v112 = v107;
-    if (*(v143 + 24) >= v111)
+    v272 = v214;
+    if (*(v323 + 24) >= v271)
     {
-      if (v106)
+      if (v267)
       {
-        if ((v107 & 1) == 0)
+        if ((v214 & 1) == 0)
         {
-          goto LABEL_109;
+          goto LABEL_110;
         }
       }
 
       else
       {
         sub_100373664();
-        if ((v112 & 1) == 0)
+        if ((v272 & 1) == 0)
         {
-          goto LABEL_109;
+          goto LABEL_110;
         }
       }
     }
 
     else
     {
-      sub_10036A8F0(v111, v106);
-      v113 = sub_100005F4C(v104, v103);
-      if ((v112 & 1) != (v114 & 1))
+      sub_10036A8F0(v271, v267);
+      v273 = sub_100005F4C(v265, v264);
+      if ((v272 & 1) != (v214 & 1))
       {
-        goto LABEL_136;
+        goto LABEL_138;
       }
 
-      v108 = v113;
-      if ((v112 & 1) == 0)
+      v268 = v273;
+      if ((v272 & 1) == 0)
       {
-LABEL_109:
-        v115 = v152;
-        v152[(v108 >> 6) + 8] |= 1 << v108;
-        v116 = (v115[6] + 16 * v108);
-        *v116 = v104;
-        v116[1] = v103;
-        v117 = (v115[7] + 16 * v108);
-        v118 = v142;
-        *v117 = v139;
-        v117[1] = v118;
-        v143 = v115;
-        v119 = v115[2];
-        v120 = __OFADD__(v119, 1);
-        v121 = v119 + 1;
-        if (v120)
+LABEL_110:
+        v274 = v332;
+        v332[(v268 >> 6) + 8] |= 1 << v268;
+        v275 = (v274[6] + 16 * v268);
+        *v275 = v265;
+        v275[1] = v264;
+        v276 = (v274[7] + 16 * v268);
+        v277 = v322;
+        *v276 = v319;
+        v276[1] = v277;
+        v323 = v274;
+        v278 = v274[2];
+        v279 = __OFADD__(v278, 1);
+        v280 = v278 + 1;
+        if (v279)
         {
-          goto LABEL_133;
+          goto LABEL_135;
         }
 
-        *(v143 + 16) = v121;
-        goto LABEL_114;
+        *(v323 + 16) = v280;
+        goto LABEL_115;
       }
     }
 
-    v143 = v152;
-    v122 = (v152[7] + 16 * v108);
-    v123 = v122[1];
-    v124 = v142;
-    *v122 = v139;
-    v122[1] = v124;
-
-LABEL_114:
-    v6 = v141;
-    v21 = &type metadata for String;
-LABEL_38:
-    if (++v73 == v145)
+    v264, v214, v215, v216, v217, v218, v219, v220;
+    v323 = v332;
+    v281 = (v332[7] + 16 * v268);
+    v282 = v281[1];
+    v283 = v322;
+    *v281 = v319;
+    v281[1] = v283;
+    v282, v284, v285, v286, v287, v288, v289, v290;
+LABEL_115:
+    v6 = v321;
+    v30 = &type metadata for String;
+LABEL_39:
+    if (++v221 == v325)
     {
-      goto LABEL_120;
+      goto LABEL_121;
     }
   }
 
-  __break(1u);
-LABEL_127:
-  __break(1u);
-LABEL_128:
   __break(1u);
 LABEL_129:
   __break(1u);
@@ -2347,6 +4591,10 @@ LABEL_134:
 LABEL_135:
   __break(1u);
 LABEL_136:
+  __break(1u);
+LABEL_137:
+  __break(1u);
+LABEL_138:
   result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
   __break(1u);
   return result;
@@ -2394,30 +4642,32 @@ id static REMCDSavedAttachment.newCloudObject(for:account:managedObjectContext:)
   if (!v9)
   {
     static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v11 = v10;
     v9 = String._bridgeToObjectiveC()();
+    v11, v12, v13, v14, v15, v16, v17, v18;
   }
 
-  v10 = [swift_getObjCClassFromMetadata() newObjectWithCKRecordName:v9 context:a3 account:a2];
+  v19 = [swift_getObjCClassFromMetadata() newObjectWithCKRecordName:v9 context:a3 account:a2];
 
-  if (v10)
+  if (v19)
   {
-    v11 = [a2 ckIdentifier];
-    if (v11)
+    v20 = [a2 ckIdentifier];
+    if (v20)
     {
-      v12 = v11;
-      v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v15 = v14;
+      v21 = v20;
+      v22 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v24 = v23;
 
-      v16 = v10;
-      [v16 setAccount:a2];
-      v17._countAndFlagsBits = v13;
-      v17._object = v15;
-      REMCDSavedAttachment.mergeData(from:accountID:)(a1, v17);
+      v25 = v19;
+      [v25 setAccount:a2];
+      v26._countAndFlagsBits = v22;
+      v26._object = v24;
+      REMCDSavedAttachment.mergeData(from:accountID:)(a1, v26);
+      v24, v27, v28, v29, v30, v31, v32, v33;
+      [v25 setCkServerRecord:a1];
+      [v25 setInCloud:1];
 
-      [v16 setCkServerRecord:a1];
-      [v16 setInCloud:1];
-
-      [v16 updateParentReferenceIfNecessary];
+      [v25 updateParentReferenceIfNecessary];
     }
 
     else
@@ -2427,44 +4677,45 @@ id static REMCDSavedAttachment.newCloudObject(for:account:managedObjectContext:)
         swift_once();
       }
 
-      v18 = type metadata accessor for Logger();
-      sub_100006654(v18, qword_10094DC40);
-      v19 = a2;
-      v20 = Logger.logObject.getter();
-      v21 = static os_log_type_t.fault.getter();
+      v34 = type metadata accessor for Logger();
+      sub_100006654(v34, qword_10094DC40);
+      v35 = a2;
+      v36 = Logger.logObject.getter();
+      v37 = static os_log_type_t.fault.getter();
 
-      if (os_log_type_enabled(v20, v21))
+      if (os_log_type_enabled(v36, v37))
       {
-        v22 = swift_slowAlloc();
-        v34 = swift_slowAlloc();
-        v35 = v4;
-        *v22 = 136446466;
+        v38 = swift_slowAlloc();
+        v65 = swift_slowAlloc();
+        v66 = v4;
+        *v38 = 136446466;
         swift_getMetatypeMetadata();
-        v23 = String.init<A>(describing:)();
-        v25 = sub_10000668C(v23, v24, &v34);
-
-        *(v22 + 4) = v25;
-        *(v22 + 12) = 2082;
-        v26 = [v19 remObjectID];
-        if (v26)
+        v39 = String.init<A>(describing:)();
+        v41 = v40;
+        v42 = sub_10000668C(v39, v40, &v65);
+        v41, v43, v44, v45, v46, v47, v48, v49;
+        *(v38 + 4) = v42;
+        *(v38 + 12) = 2082;
+        v50 = [v35 remObjectID];
+        if (v50)
         {
-          v27 = v26;
-          v28 = [v26 description];
+          v51 = v50;
+          v52 = [v50 description];
 
-          v29 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-          v31 = v30;
+          v53 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+          v55 = v54;
         }
 
         else
         {
-          v31 = 0xE300000000000000;
-          v29 = 7104878;
+          v55 = 0xE300000000000000;
+          v53 = 7104878;
         }
 
-        v32 = sub_10000668C(v29, v31, &v34);
-
-        *(v22 + 14) = v32;
-        _os_log_impl(&_mh_execute_header, v20, v21, "newCloudObject: %{public}s with account: %{public}s having nil ckIdentifier", v22, 0x16u);
+        v56 = sub_10000668C(v53, v55, &v65);
+        v55, v57, v58, v59, v60, v61, v62, v63;
+        *(v38 + 14) = v56;
+        _os_log_impl(&_mh_execute_header, v36, v37, "newCloudObject: %{public}s with account: %{public}s having nil ckIdentifier", v38, 0x16u);
         swift_arrayDestroy();
       }
 
@@ -2472,7 +4723,7 @@ id static REMCDSavedAttachment.newCloudObject(for:account:managedObjectContext:)
     }
   }
 
-  return v10;
+  return v19;
 }
 
 Swift::Void __swiftcall REMCDSavedAttachment.mergeData(from:accountID:)(CKRecord from, Swift::String accountID)
@@ -2481,57 +4732,59 @@ Swift::Void __swiftcall REMCDSavedAttachment.mergeData(from:accountID:)(CKRecord
   ObjectType = swift_getObjectType();
   v6 = type metadata accessor for URL();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6);
-  v47 = &v46 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v10);
-  v12 = &v46 - v11;
-  v13 = sub_1000F5104(&unk_100938850, qword_100795AE0);
-  v14 = *(*(v13 - 8) + 64);
-  __chkstk_darwin(v13 - 8);
-  v16 = &v46 - v15;
-  v17 = String._bridgeToObjectiveC()();
-  v54.receiver = v2;
-  v54.super_class = ObjectType;
-  objc_msgSendSuper2(&v54, "mergeDataFromRecord:accountID:", from.super.isa, v17);
+  __chkstk_darwin(v6, v8);
+  v96 = &v95 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v10, v11);
+  v13 = &v95 - v12;
+  v14 = sub_1000F5104(&unk_100938850, qword_100795AE0);
+  __chkstk_darwin(v14 - 8, v15);
+  v17 = &v95 - v16;
+  v18 = String._bridgeToObjectiveC()();
+  v103.receiver = v2;
+  v103.super_class = ObjectType;
+  objc_msgSendSuper2(&v103, "mergeDataFromRecord:accountID:", from.super.isa, v18);
 
-  v18 = [(objc_class *)from.super.isa recordID];
-  v19 = [v18 recordName];
-
-  if (!v19)
-  {
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v19 = String._bridgeToObjectiveC()();
-  }
-
-  v48 = v12;
-  v49 = v7;
-  v50 = v6;
-  v20 = [v3 ckIdentifierFromRecordName:v19];
+  v19 = [(objc_class *)from.super.isa recordID];
+  v20 = [v19 recordName];
 
   if (!v20)
   {
     static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v22 = v21;
     v20 = String._bridgeToObjectiveC()();
+    v22, v23, v24, v25, v26, v27, v28, v29;
   }
 
-  [v3 setCkIdentifier:v20];
+  v97 = v13;
+  v98 = v7;
+  v99 = v6;
+  v30 = [v3 ckIdentifierFromRecordName:v20];
 
-  v21 = 0;
-  v51 = "LinkUpdateRequestDate";
-  v22 = &type metadata for String;
+  if (!v30)
+  {
+    static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v32 = v31;
+    v30 = String._bridgeToObjectiveC()();
+    v32, v33, v34, v35, v36, v37, v38, v39;
+  }
+
+  [v3 setCkIdentifier:v30];
+
+  v40 = 0;
+  v100 = "LinkUpdateRequestDate";
+  v41 = &type metadata for String;
   do
   {
-    v23 = *(&off_1008E4030 + v21 + 32);
-    if (v23 > 4)
+    v42 = *(&off_1008E4030 + v40 + 32);
+    if (v42 > 4)
     {
-      if (v23 == 5)
+      if (v42 == 5)
       {
         if (CKRecord.subscript.getter())
         {
           objc_opt_self();
-          v29 = swift_dynamicCastObjCClass();
-          if (!v29)
+          v56 = swift_dynamicCastObjCClass();
+          if (!v56)
           {
             swift_unknownObjectRelease();
           }
@@ -2539,147 +4792,153 @@ Swift::Void __swiftcall REMCDSavedAttachment.mergeData(from:accountID:)(CKRecord
 
         else
         {
-          v29 = 0;
+          v56 = 0;
         }
 
-        v30 = sub_100128EF4(v29);
+        v65 = sub_100128EF4(v56);
 
-        if (v30)
+        if (v65)
         {
           type metadata accessor for REMCDSavedReminder();
-          v31 = swift_dynamicCastClass();
-          if (!v31)
+          v66 = swift_dynamicCastClass();
+          if (!v66)
           {
           }
         }
 
         else
         {
-          v31 = 0;
+          v66 = 0;
         }
 
-        [v3 setReminder:v31];
+        [v3 setReminder:v66];
       }
 
       else
       {
-        if (v23 == 6)
+        if (v42 == 6)
         {
           sub_10018E134();
           CKRecordKeyValueSetting.subscript.getter();
-          if (*(&v53 + 1))
+          v47 = *(&v102 + 1);
+          if (*(&v102 + 1))
           {
-            v28 = String._bridgeToObjectiveC()();
+            v48 = String._bridgeToObjectiveC()();
+            v47, v49, v50, v51, v52, v53, v54, v55;
           }
 
           else
           {
-            v28 = 0;
+            v48 = 0;
           }
 
-          [v3 setAttachmentTypeRawValue:v28];
+          [v3 setAttachmentTypeRawValue:v48];
         }
 
         else
         {
           sub_10018E134();
           CKRecordKeyValueSetting.subscript.getter();
-          if (*(&v53 + 1))
+          v57 = *(&v102 + 1);
+          if (*(&v102 + 1))
           {
-            v28 = String._bridgeToObjectiveC()();
+            v48 = String._bridgeToObjectiveC()();
+            v57, v58, v59, v60, v61, v62, v63, v64;
           }
 
           else
           {
-            v28 = 0;
+            v48 = 0;
           }
 
-          [v3 setUti:v28];
+          [v3 setUti:v48];
         }
       }
     }
 
-    else if (v23 >= 2 && v23 - 3 >= 2)
+    else if (v42 >= 2 && v42 - 3 >= 2)
     {
-      v24 = v22;
+      v43 = v41;
       sub_10018E134();
-      v25 = type metadata accessor for Date();
+      v44 = type metadata accessor for Date();
       CKRecordKeyValueSetting.subscript.getter();
-      v26 = *(v25 - 8);
+      v45 = *(v44 - 8);
       isa = 0;
-      if ((*(v26 + 48))(v16, 1, v25) != 1)
+      if ((*(v45 + 48))(v17, 1, v44) != 1)
       {
         isa = Date._bridgeToObjectiveC()().super.isa;
-        (*(v26 + 8))(v16, v25);
+        (*(v45 + 8))(v17, v44);
       }
 
       [v3 setLastModifiedDate:isa];
 
-      v22 = v24;
+      v41 = v43;
     }
 
-    ++v21;
+    ++v40;
   }
 
-  while (v21 != 8);
-  sub_1004DD52C(from.super.isa, 0x617461646174654DLL, 1, &v53);
-  v32 = *(&v53 + 1);
-  if (*(&v53 + 1) >> 60 == 15)
+  while (v40 != 8);
+  sub_1004DD52C(from.super.isa, 0x617461646174654DLL, 1, &v102);
+  v67 = *(&v102 + 1);
+  if (*(&v102 + 1) >> 60 == 15)
   {
-    v33 = 0;
+    v68 = 0;
   }
 
   else
   {
-    v34 = v53;
-    v33 = Data._bridgeToObjectiveC()().super.isa;
-    sub_100031A14(v34, v32);
+    v69 = v102;
+    v68 = Data._bridgeToObjectiveC()().super.isa;
+    sub_100031A14(v69, v67);
   }
 
-  v35 = v50;
-  [v3 setMetadata:v33];
+  v70 = v99;
+  [v3 setMetadata:v68];
 
-  v36 = [(objc_class *)from.super.isa encryptedValues];
-  v37 = String._bridgeToObjectiveC()();
-  v38 = [v36 objectForKeyedSubscript:v37];
+  v71 = [(objc_class *)from.super.isa encryptedValues];
+  v72 = String._bridgeToObjectiveC()();
+  v73 = [v71 objectForKeyedSubscript:v72];
   swift_unknownObjectRelease();
 
-  if (v38)
+  if (v73)
   {
-    v52 = v38;
+    v101 = v73;
     sub_1000F5104(&qword_100938860, &unk_1007A4830);
     if (swift_dynamicCast())
     {
-      v39 = v53;
+      v74 = v102;
       if (CKRecord.subscript.getter())
       {
         objc_opt_self();
-        v40 = swift_dynamicCastObjCClass();
-        if (!v40)
+        v82 = swift_dynamicCastObjCClass();
+        if (!v82)
         {
 LABEL_44:
-
+          *(&v74 + 1), v83, v84, v85, v86, v87, v88, v89;
           swift_unknownObjectRelease();
           return;
         }
 
-        v41 = [v40 fileURL];
-        if (v41)
+        v90 = [v82 fileURL];
+        if (v90)
         {
-          v42 = v47;
-          v43 = v41;
+          v91 = v96;
+          v92 = v90;
           static URL._unconditionallyBridgeFromObjectiveC(_:)();
 
-          v45 = v48;
-          v44 = v49;
-          (*(v49 + 32))(v48, v42, v35);
-          sub_1006D8A50(v45, v39, *(&v39 + 1), 0);
-          (*(v44 + 8))(v45, v35);
+          v94 = v97;
+          v93 = v98;
+          (*(v98 + 32))(v97, v91, v70);
+          sub_1006D8A50(v94, v74, *(&v74 + 1), 0);
+          (*(v93 + 8))(v94, v70);
           goto LABEL_44;
         }
 
         swift_unknownObjectRelease();
       }
+
+      *(&v74 + 1), v75, v76, v77, v78, v79, v80, v81;
     }
   }
 }
@@ -2698,109 +4957,106 @@ CKRecord_optional __swiftcall REMCDSavedAttachment.newlyCreatedRecord()()
   v1 = v0;
   ObjectType = swift_getObjectType();
   v3 = sub_1000F5104(&unk_100938850, qword_100795AE0);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = &v114 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
-  v9 = &v114 - v8;
-  v10 = sub_1000F5104(&unk_1009441F0, &qword_100795760);
-  v11 = *(*(v10 - 8) + 64);
-  __chkstk_darwin(v10 - 8);
-  v13 = &v114 - v12;
-  v14 = type metadata accessor for URL();
-  v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
-  *&v17 = __chkstk_darwin(v14).n128_u64[0];
-  v119 = &v114 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v132.receiver = v1;
-  v132.super_class = ObjectType;
-  v128 = objc_msgSendSuper2(&v132, "newlyCreatedRecord", v17);
-  if (!v128)
+  __chkstk_darwin(v3 - 8, v4);
+  v6 = &v144 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v7, v8);
+  v10 = &v144 - v9;
+  v11 = sub_1000F5104(&unk_1009441F0, &qword_100795760);
+  __chkstk_darwin(v11 - 8, v12);
+  v14 = &v144 - v13;
+  v15 = type metadata accessor for URL();
+  v16 = *(v15 - 8);
+  *&v18 = __chkstk_darwin(v15, v17).n128_u64[0];
+  v149 = &v144 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v162.receiver = v1;
+  v162.super_class = ObjectType;
+  v158 = objc_msgSendSuper2(&v162, "newlyCreatedRecord", v18);
+  if (!v158)
   {
-    v128 = 0;
+    v158 = 0;
     goto LABEL_80;
   }
 
-  v21 = 0;
-  v127 = 0;
-  v125 = "LinkUpdateRequestDate";
-  v121 = (v15 + 48);
-  v122 = v14;
-  v117 = (v15 + 32);
-  v116 = (v15 + 8);
-  *&v20 = 136446466;
-  v118 = v20;
-  *&v20 = 136446210;
-  v120 = v20;
-  v123 = v9;
-  v124 = v6;
-  v126 = v13;
+  v22 = 0;
+  v157 = 0;
+  v155 = "LinkUpdateRequestDate";
+  v151 = (v16 + 48);
+  v152 = v15;
+  v147 = (v16 + 32);
+  v146 = (v16 + 8);
+  *&v21 = 136446466;
+  v148 = v21;
+  *&v21 = 136446210;
+  v150 = v21;
+  v153 = v10;
+  v154 = v6;
+  v156 = v14;
   do
   {
-    v23 = *(&off_1008E4030 + v21 + 32);
-    if (v23 <= 2)
+    v24 = *(&off_1008E4030 + v22 + 32);
+    if (v24 <= 2)
     {
-      if (*(&off_1008E4030 + v21 + 32))
+      if (*(&off_1008E4030 + v22 + 32))
       {
-        if (v23 != 1)
+        if (v24 != 1)
         {
-          v60 = [v1 lastModifiedDate];
-          if (v60)
+          v61 = [v1 lastModifiedDate];
+          if (v61)
           {
-            v61 = v60;
+            v62 = v61;
             static Date._unconditionallyBridgeFromObjectiveC(_:)();
 
-            v62 = 0;
+            v63 = 0;
           }
 
           else
           {
-            v62 = 1;
+            v63 = 1;
           }
 
-          v68 = type metadata accessor for Date();
-          v69 = *(v68 - 8);
-          (*(v69 + 56))(v6, v62, 1, v68);
-          sub_10012F7FC(v6, v9);
-          if ((*(v69 + 48))(v9, 1, v68) == 1)
+          v69 = type metadata accessor for Date();
+          v70 = *(v69 - 8);
+          (*(v70 + 56))(v6, v63, 1, v69);
+          sub_10012F7FC(v6, v10);
+          if ((*(v70 + 48))(v10, 1, v69) == 1)
           {
-            sub_1000050A4(v9, &unk_100938850, qword_100795AE0);
-            v129 = 0u;
-            v130 = 0u;
-            v131 = 0;
+            sub_1000050A4(v10, &unk_100938850, qword_100795AE0);
+            v159 = 0u;
+            v160 = 0u;
+            v161 = 0;
           }
 
           else
           {
-            *(&v130 + 1) = v68;
-            v131 = &protocol witness table for Date;
-            v22 = sub_1000103CC(&v129);
-            (*(v69 + 32))(v22, v9, v68);
+            *(&v160 + 1) = v69;
+            v161 = &protocol witness table for Date;
+            v23 = sub_1000103CC(&v159);
+            (*(v70 + 32))(v23, v10, v69);
           }
 
           goto LABEL_4;
         }
 
-        v37 = [v128 encryptedValues];
-        v38 = [v1 fileName];
-        if (v38)
+        v38 = [v158 encryptedValues];
+        v39 = [v1 fileName];
+        if (v39)
         {
-          v39 = v38;
-          v40 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-          v42 = v41;
+          v40 = v39;
+          v41 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+          v43 = v42;
 
-          *(&v130 + 1) = &type metadata for String;
-          v131 = &protocol witness table for String;
-          *&v129 = v40;
-          *(&v129 + 1) = v42;
-          v13 = v126;
+          *(&v160 + 1) = &type metadata for String;
+          v161 = &protocol witness table for String;
+          *&v159 = v41;
+          *(&v159 + 1) = v43;
+          v14 = v156;
         }
 
         else
         {
-          v131 = 0;
-          v129 = 0u;
-          v130 = 0u;
+          v161 = 0;
+          v159 = 0u;
+          v160 = 0u;
         }
 
         swift_getObjectType();
@@ -2810,133 +5066,134 @@ CKRecord_optional __swiftcall REMCDSavedAttachment.newlyCreatedRecord()()
 
       else
       {
-        v48 = v127;
-        sub_1006D923C(v13);
-        if (v48)
+        v49 = v157;
+        sub_1006D923C(v14);
+        if (v49)
         {
           if (qword_100936660 != -1)
           {
             swift_once();
           }
 
-          v127 = 0;
-          v49 = type metadata accessor for Logger();
-          sub_100006654(v49, qword_10094DC40);
-          v50 = v1;
+          v157 = 0;
+          v50 = type metadata accessor for Logger();
+          sub_100006654(v50, qword_10094DC40);
+          v51 = v1;
           swift_errorRetain();
-          v51 = Logger.logObject.getter();
-          v52 = static os_log_type_t.error.getter();
+          v52 = Logger.logObject.getter();
+          v53 = static os_log_type_t.error.getter();
 
-          if (os_log_type_enabled(v51, v52))
+          if (os_log_type_enabled(v52, v53))
           {
-            v53 = swift_slowAlloc();
-            *&v129 = swift_slowAlloc();
-            *v53 = v118;
-            v54 = [v50 remObjectID];
-            if (v54)
+            v54 = swift_slowAlloc();
+            *&v159 = swift_slowAlloc();
+            *v54 = v148;
+            v55 = [v51 remObjectID];
+            if (v55)
             {
-              v55 = v54;
-              v56 = [v54 description];
+              v56 = v55;
+              v57 = [v55 description];
 
-              v57 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-              v59 = v58;
+              v58 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+              v60 = v59;
             }
 
             else
             {
-              v59 = 0xE300000000000000;
-              v57 = 7104878;
+              v60 = 0xE300000000000000;
+              v58 = 7104878;
             }
 
-            v87 = sub_10000668C(v57, v59, &v129);
-
-            *(v53 + 4) = v87;
-            *(v53 + 12) = 2082;
+            v88 = sub_10000668C(v58, v60, &v159);
+            v60, v89, v90, v91, v92, v93, v94, v95;
+            *(v54 + 4) = v88;
+            *(v54 + 12) = 2082;
             swift_getErrorValue();
-            v88 = Error.rem_errorDescription.getter();
-            v90 = sub_10000668C(v88, v89, &v129);
-
-            *(v53 + 14) = v90;
-            _os_log_impl(&_mh_execute_header, v51, v52, "REMCDSavedAttachment+CloudKit: newlyCreatedRecord() Failed to compute file URL {savedAttachment: %{public}s, error: %{public}s}", v53, 0x16u);
+            v96 = Error.rem_errorDescription.getter();
+            v98 = v97;
+            v99 = sub_10000668C(v96, v97, &v159);
+            v98, v100, v101, v102, v103, v104, v105, v106;
+            *(v54 + 14) = v99;
+            _os_log_impl(&_mh_execute_header, v52, v53, "REMCDSavedAttachment+CloudKit: newlyCreatedRecord() Failed to compute file URL {savedAttachment: %{public}s, error: %{public}s}", v54, 0x16u);
             swift_arrayDestroy();
 
-            v9 = v123;
-            v6 = v124;
-            v13 = v126;
+            v10 = v153;
+            v6 = v154;
+            v14 = v156;
           }
 
           else
           {
 
-            v9 = v123;
-            v6 = v124;
+            v10 = v153;
+            v6 = v154;
           }
         }
 
         else
         {
-          v67 = v122;
-          if ((*v121)(v13, 1, v122) == 1)
+          v68 = v152;
+          if ((*v151)(v14, 1, v152) == 1)
           {
-            sub_1000050A4(v13, &unk_1009441F0, &qword_100795760);
+            sub_1000050A4(v14, &unk_1009441F0, &qword_100795760);
           }
 
           else
           {
-            v82 = v119;
-            (*v117)(v119, v13, v67);
-            v83 = objc_allocWithZone(CKAsset);
-            URL._bridgeToObjectiveC()(v84);
-            v86 = v85;
-            [v83 initWithFileURL:v85];
+            v83 = v149;
+            (*v147)(v149, v14, v68);
+            v84 = objc_allocWithZone(CKAsset);
+            URL._bridgeToObjectiveC()(v85);
+            v87 = v86;
+            [v84 initWithFileURL:v86];
 
             CKRecord.subscript.setter();
-            (*v116)(v82, v67);
+            (*v146)(v83, v68);
           }
 
-          v127 = 0;
+          v157 = 0;
         }
       }
     }
 
     else
     {
-      if (*(&off_1008E4030 + v21 + 32) > 5u)
+      if (*(&off_1008E4030 + v22 + 32) > 5u)
       {
-        if (v23 == 6)
+        if (v24 == 6)
         {
-          v43 = [v1 attachmentTypeRawValue];
-          if (v43)
+          v44 = [v1 attachmentTypeRawValue];
+          if (v44)
           {
             goto LABEL_21;
           }
 
-          v131 = 0;
-          v129 = 0u;
-          v130 = 0u;
+          v161 = 0;
+          v159 = 0u;
+          v160 = 0u;
         }
 
         else
         {
-          v43 = [v1 uti];
-          if (v43)
+          v44 = [v1 uti];
+          if (v44)
           {
 LABEL_21:
-            v44 = v43;
-            v45 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-            v47 = v46;
+            v45 = v44;
+            v46 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+            v48 = v47;
 
-            *(&v130 + 1) = &type metadata for String;
-            v131 = &protocol witness table for String;
-            *&v129 = v45;
-            *(&v129 + 1) = v47;
+            *(&v160 + 1) = &type metadata for String;
+            v161 = &protocol witness table for String;
+            *&v159 = v46;
+            *(&v159 + 1) = v48;
           }
 
           else
           {
-            v131 = 0;
-            v129 = 0u;
-            v130 = 0u;
+            v161 = 0;
+            v159 = 0u;
+            v160 = 0u;
           }
         }
 
@@ -2946,7 +5203,7 @@ LABEL_4:
         goto LABEL_5;
       }
 
-      if (v23 - 3 >= 2)
+      if (v24 - 3 >= 2)
       {
         if ([v1 markedForDeletion])
         {
@@ -2955,47 +5212,47 @@ LABEL_4:
             swift_once();
           }
 
-          v24 = type metadata accessor for Logger();
-          sub_100006654(v24, qword_10094DC40);
-          v25 = v1;
-          v26 = Logger.logObject.getter();
-          v27 = static os_log_type_t.info.getter();
+          v25 = type metadata accessor for Logger();
+          sub_100006654(v25, qword_10094DC40);
+          v26 = v1;
+          v27 = Logger.logObject.getter();
+          v28 = static os_log_type_t.info.getter();
 
-          if (os_log_type_enabled(v26, v27))
+          if (os_log_type_enabled(v27, v28))
           {
-            v28 = swift_slowAlloc();
             v29 = swift_slowAlloc();
-            *&v129 = v29;
-            *v28 = v120;
-            v30 = [v25 remObjectID];
-            if (v30)
+            v30 = swift_slowAlloc();
+            *&v159 = v30;
+            *v29 = v150;
+            v31 = [v26 remObjectID];
+            if (v31)
             {
-              v31 = v30;
-              v32 = [v30 description];
-              v115 = v1;
-              v33 = v32;
+              v32 = v31;
+              v33 = [v31 description];
+              v145 = v1;
+              v34 = v33;
 
-              v34 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-              v36 = v35;
+              v35 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+              v37 = v36;
 
-              v1 = v115;
+              v1 = v145;
             }
 
             else
             {
-              v36 = 0xE300000000000000;
-              v34 = 7104878;
+              v37 = 0xE300000000000000;
+              v35 = 7104878;
             }
 
-            v91 = sub_10000668C(v34, v36, &v129);
+            v107 = sub_10000668C(v35, v37, &v159);
+            v37, v108, v109, v110, v111, v112, v113, v114;
+            *(v29 + 4) = v107;
+            _os_log_impl(&_mh_execute_header, v27, v28, "REMCDSavedAttachment+CloudKit: newlyCreatedRecord() (key=.savedReminder) unsetting savedReminder CK reference as the saved attachment is markedForDeletion {savedAttachment: %{public}s}", v29, 0xCu);
+            sub_10000607C(v30);
 
-            *(v28 + 4) = v91;
-            _os_log_impl(&_mh_execute_header, v26, v27, "REMCDSavedAttachment+CloudKit: newlyCreatedRecord() (key=.savedReminder) unsetting savedReminder CK reference as the saved attachment is markedForDeletion {savedAttachment: %{public}s}", v28, 0xCu);
-            sub_10000607C(v29);
-
-            v9 = v123;
-            v6 = v124;
-            v13 = v126;
+            v10 = v153;
+            v6 = v154;
+            v14 = v156;
           }
 
           else
@@ -3007,12 +5264,12 @@ LABEL_4:
 
         else
         {
-          v63 = [v1 reminder];
-          if (v63)
+          v64 = [v1 reminder];
+          if (v64)
           {
-            v64 = v63;
-            v65 = [v63 recordID];
-            v66 = [v1 cloudKitReferenceWithRecordIDAndValidateAction:v65];
+            v65 = v64;
+            v66 = [v64 recordID];
+            v67 = [v1 cloudKitReferenceWithRecordIDAndValidateAction:v66];
 
             CKRecord.subscript.setter();
           }
@@ -3024,43 +5281,43 @@ LABEL_4:
               swift_once();
             }
 
-            v70 = type metadata accessor for Logger();
-            sub_100006654(v70, qword_10094DC40);
-            v71 = v1;
-            v72 = Logger.logObject.getter();
-            v73 = static os_log_type_t.fault.getter();
+            v71 = type metadata accessor for Logger();
+            sub_100006654(v71, qword_10094DC40);
+            v72 = v1;
+            v73 = Logger.logObject.getter();
+            v74 = static os_log_type_t.fault.getter();
 
-            if (os_log_type_enabled(v72, v73))
+            if (os_log_type_enabled(v73, v74))
             {
-              v74 = swift_slowAlloc();
               v75 = swift_slowAlloc();
-              *&v129 = v75;
-              *v74 = v120;
-              v76 = [v71 remObjectID];
-              if (v76)
+              v76 = swift_slowAlloc();
+              *&v159 = v76;
+              *v75 = v150;
+              v77 = [v72 remObjectID];
+              if (v77)
               {
-                v77 = v76;
-                v78 = [v76 description];
+                v78 = v77;
+                v79 = [v77 description];
 
-                v79 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-                v81 = v80;
+                v80 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+                v82 = v81;
               }
 
               else
               {
-                v81 = 0xE300000000000000;
-                v79 = 7104878;
+                v82 = 0xE300000000000000;
+                v80 = 7104878;
               }
 
-              v92 = sub_10000668C(v79, v81, &v129);
+              v115 = sub_10000668C(v80, v82, &v159);
+              v82, v116, v117, v118, v119, v120, v121, v122;
+              *(v75 + 4) = v115;
+              _os_log_impl(&_mh_execute_header, v73, v74, "REMCDSavedAttachment+CloudKit: Unexpectedly got cdSavedAttachment.reminder == nil in newlyCreatedRecord() (key=.savedReminder) {savedAttachment: %{public}s}", v75, 0xCu);
+              sub_10000607C(v76);
 
-              *(v74 + 4) = v92;
-              _os_log_impl(&_mh_execute_header, v72, v73, "REMCDSavedAttachment+CloudKit: Unexpectedly got cdSavedAttachment.reminder == nil in newlyCreatedRecord() (key=.savedReminder) {savedAttachment: %{public}s}", v74, 0xCu);
-              sub_10000607C(v75);
-
-              v9 = v123;
-              v6 = v124;
-              v13 = v126;
+              v10 = v153;
+              v6 = v154;
+              v14 = v156;
             }
 
             else
@@ -3072,35 +5329,35 @@ LABEL_4:
     }
 
 LABEL_5:
-    ++v21;
+    ++v22;
   }
 
-  while (v21 != 8);
-  v93 = [v1 metadata];
-  if (!v93)
+  while (v22 != 8);
+  v123 = [v1 metadata];
+  if (!v123)
   {
-    v95 = 0;
-    v97 = 0xF000000000000000;
+    v125 = 0;
+    v127 = 0xF000000000000000;
     goto LABEL_76;
   }
 
-  v94 = v93;
-  v95 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-  v97 = v96;
+  v124 = v123;
+  v125 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+  v127 = v126;
 
-  v99 = v97 >> 62;
-  if ((v97 >> 62) > 1)
+  v129 = v127 >> 62;
+  if ((v127 >> 62) > 1)
   {
-    if (v99 != 2)
+    if (v129 != 2)
     {
-      v100 = 0;
+      v130 = 0;
       goto LABEL_73;
     }
 
-    v102 = *(v95 + 16);
-    v101 = *(v95 + 24);
-    v100 = v101 - v102;
-    if (!__OFSUB__(v101, v102))
+    v132 = *(v125 + 16);
+    v131 = *(v125 + 24);
+    v130 = v131 - v132;
+    if (!__OFSUB__(v131, v132))
     {
       goto LABEL_73;
     }
@@ -3109,12 +5366,12 @@ LABEL_5:
     goto LABEL_70;
   }
 
-  if (v99)
+  if (v129)
   {
 LABEL_70:
-    if (!__OFSUB__(HIDWORD(v95), v95))
+    if (!__OFSUB__(HIDWORD(v125), v125))
     {
-      v100 = HIDWORD(v95) - v95;
+      v130 = HIDWORD(v125) - v125;
       goto LABEL_73;
     }
 
@@ -3122,58 +5379,58 @@ LABEL_70:
     goto LABEL_82;
   }
 
-  v100 = BYTE6(v97);
+  v130 = BYTE6(v127);
 LABEL_73:
-  v103 = [objc_opt_self() sharedConfiguration];
-  v104 = [v103 maxInlineAssetSizeBytes];
+  v133 = [objc_opt_self() sharedConfiguration];
+  v134 = [v133 maxInlineAssetSizeBytes];
 
-  if (v100 >= 1 && v104 < v100)
+  if (v130 >= 1 && v134 < v130)
   {
-    v105 = objc_opt_self();
+    v135 = objc_opt_self();
     isa = Data._bridgeToObjectiveC()().super.isa;
-    v107 = [v105 assetForData:isa];
+    v137 = [v135 assetForData:isa];
 
     CKRecord.subscript.setter();
     CKRecord.subscript.setter();
-    sub_10001BBA0(v95, v97);
+    sub_10001BBA0(v125, v127);
     goto LABEL_80;
   }
 
 LABEL_76:
-  v108 = v128;
+  v138 = v158;
   CKRecord.subscript.setter();
-  v109 = [v108 encryptedValues];
-  if (v97 >> 60 == 15)
+  v139 = [v138 encryptedValues];
+  if (v127 >> 60 == 15)
   {
-    v110 = 0;
-    v111 = 0;
-    v112 = 0;
-    v113 = 0;
-    *&v130 = 0;
+    v140 = 0;
+    v141 = 0;
+    v142 = 0;
+    v143 = 0;
+    *&v160 = 0;
   }
 
   else
   {
-    v113 = &protocol witness table for Data;
-    v112 = &type metadata for Data;
-    v110 = v95;
-    v111 = v97;
+    v143 = &protocol witness table for Data;
+    v142 = &type metadata for Data;
+    v140 = v125;
+    v141 = v127;
   }
 
-  *&v129 = v110;
-  *(&v129 + 1) = v111;
-  *(&v130 + 1) = v112;
-  v131 = v113;
+  *&v159 = v140;
+  *(&v159 + 1) = v141;
+  *(&v160 + 1) = v142;
+  v161 = v143;
   swift_getObjectType();
-  sub_1001CB4B8(v95, v97);
+  sub_1001CB4B8(v125, v127);
   CKRecordKeyValueSetting.subscript.setter();
-  sub_100031A14(v95, v97);
+  sub_100031A14(v125, v127);
   swift_unknownObjectRelease();
 LABEL_80:
-  v98 = v128;
+  v128 = v158;
 LABEL_82:
-  result.value.super.isa = v98;
-  result.is_nil = v19;
+  result.value.super.isa = v128;
+  result.is_nil = v20;
   return result;
 }
 
@@ -3194,14 +5451,15 @@ Swift::Void __swiftcall REMCDSavedAttachment.cleanUpAfterLocalObjectMerge()()
   {
     v4 = swift_slowAlloc();
     v5 = swift_slowAlloc();
-    v10 = v5;
+    v18 = v5;
     *v4 = 136315138;
     swift_getObjectType();
     sub_1000F5104(&qword_100946A48, &qword_1007A9358);
     v6 = String.init<A>(describing:)();
-    v8 = sub_10000668C(v6, v7, &v10);
-
-    *(v4 + 4) = v8;
+    v8 = v7;
+    v9 = sub_10000668C(v6, v7, &v18);
+    v8, v10, v11, v12, v13, v14, v15, v16;
+    *(v4 + 4) = v9;
     _os_log_impl(&_mh_execute_header, oslog, v3, "MERGE.LOCAL: Perhaps you should not try to call cleanUpAfterLocalObjectMerge() for %s.", v4, 0xCu);
     sub_10000607C(v5);
   }
@@ -3231,10 +5489,10 @@ Swift::Void __swiftcall REMCDSavedAttachment.fixBrokenReferences()()
     goto LABEL_14;
   }
 
-  v45 = v3;
+  v73 = v3;
   v7 = 7104878;
   v8 = swift_slowAlloc();
-  v47 = swift_slowAlloc();
+  v75 = swift_slowAlloc();
   *v8 = 136446466;
   v9 = [v4 remObjectID];
   if (v9)
@@ -3254,106 +5512,106 @@ Swift::Void __swiftcall REMCDSavedAttachment.fixBrokenReferences()()
     v12 = 7104878;
   }
 
-  v15 = sub_10000668C(v12, v14, &v47);
-
+  v15 = sub_10000668C(v12, v14, &v75);
+  v14, v16, v17, v18, v19, v20, v21, v22;
   *(v8 + 4) = v15;
   *(v8 + 12) = 2082;
-  v16 = [v4 reminder];
-  if (!v16)
+  v23 = [v4 reminder];
+  if (!v23)
   {
     goto LABEL_12;
   }
 
-  v17 = v16;
-  v18 = [v16 remObjectID];
-  if (!v18)
+  v24 = v23;
+  v25 = [v23 remObjectID];
+  if (!v25)
   {
 
 LABEL_12:
-    v22 = 0xE300000000000000;
+    v29 = 0xE300000000000000;
     goto LABEL_13;
   }
 
-  v19 = v18;
-  v20 = [v18 description];
+  v26 = v25;
+  v27 = [v25 description];
 
   v7 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v22 = v21;
+  v29 = v28;
 
 LABEL_13:
-  v23 = sub_10000668C(v7, v22, &v47);
-
-  *(v8 + 14) = v23;
+  v30 = sub_10000668C(v7, v29, &v75);
+  v29, v31, v32, v33, v34, v35, v36, v37;
+  *(v8 + 14) = v30;
   _os_log_impl(&_mh_execute_header, v5, v6, "Fixing broken references for saved attachment {savedAttachmentID: %{public}s, savedReminderID: %{public}s}", v8, 0x16u);
   swift_arrayDestroy();
 
 LABEL_14:
-  v24 = [v4 reminder];
-  if (v24)
+  v38 = [v4 reminder];
+  if (v38)
   {
-    v46 = v24;
-    if ([v24 markedForDeletion] && (objc_msgSend(v4, "markedForDeletion") & 1) == 0)
+    v74 = v38;
+    if ([v38 markedForDeletion] && (objc_msgSend(v4, "markedForDeletion") & 1) == 0)
     {
-      v25 = v4;
-      v26 = v46;
-      v27 = Logger.logObject.getter();
-      v28 = static os_log_type_t.error.getter();
+      v39 = v4;
+      v40 = v74;
+      v41 = Logger.logObject.getter();
+      v42 = static os_log_type_t.error.getter();
 
-      if (os_log_type_enabled(v27, v28))
+      if (os_log_type_enabled(v41, v42))
       {
-        v29 = swift_slowAlloc();
-        v47 = swift_slowAlloc();
-        *v29 = 136446466;
-        v30 = &selRef_persistentStoreForIdentifier_;
-        v31 = [v25 remObjectID];
-        if (v31)
+        v43 = swift_slowAlloc();
+        v75 = swift_slowAlloc();
+        *v43 = 136446466;
+        v44 = &selRef_persistentStoreForIdentifier_;
+        v45 = [v39 remObjectID];
+        if (v45)
         {
-          v32 = v31;
-          v33 = [v31 description];
+          v46 = v45;
+          v47 = [v45 description];
 
-          v34 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-          v36 = v35;
+          v48 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+          v50 = v49;
 
-          v30 = &selRef_persistentStoreForIdentifier_;
+          v44 = &selRef_persistentStoreForIdentifier_;
         }
 
         else
         {
-          v36 = 0xE300000000000000;
-          v34 = 7104878;
+          v50 = 0xE300000000000000;
+          v48 = 7104878;
         }
 
-        v37 = sub_10000668C(v34, v36, &v47);
-
-        *(v29 + 4) = v37;
-        *(v29 + 12) = 2082;
-        v38 = [v26 v30[106]];
-        if (v38)
+        v51 = sub_10000668C(v48, v50, &v75);
+        v50, v52, v53, v54, v55, v56, v57, v58;
+        *(v43 + 4) = v51;
+        *(v43 + 12) = 2082;
+        v59 = [v40 v44[106]];
+        if (v59)
         {
-          v39 = v38;
-          v40 = [v38 description];
+          v60 = v59;
+          v61 = [v59 description];
 
-          v41 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-          v43 = v42;
+          v62 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+          v64 = v63;
         }
 
         else
         {
-          v43 = 0xE300000000000000;
-          v41 = 7104878;
+          v64 = 0xE300000000000000;
+          v62 = 7104878;
         }
 
-        v44 = sub_10000668C(v41, v43, &v47);
-
-        *(v29 + 14) = v44;
-        _os_log_impl(&_mh_execute_header, v27, v28, "Saved reminder is marked for deletion but saved attachment is not {savedAttachmentID: %{public}s, savedReminderID: %{public}s}", v29, 0x16u);
+        v65 = sub_10000668C(v62, v64, &v75);
+        v64, v66, v67, v68, v69, v70, v71, v72;
+        *(v43 + 14) = v65;
+        _os_log_impl(&_mh_execute_header, v41, v42, "Saved reminder is marked for deletion but saved attachment is not {savedAttachmentID: %{public}s, savedReminderID: %{public}s}", v43, 0x16u);
         swift_arrayDestroy();
       }
 
-      [v25 markForDeletion];
+      [v39 markForDeletion];
     }
 
-    [v46 forcePushToCloud];
+    [v74 forcePushToCloud];
   }
 }
 
@@ -3374,14 +5632,15 @@ uint64_t _s7remindd20REMCDSavedAttachmentC26existingLocalObjectToMerge4withSo11R
   {
     v5 = swift_slowAlloc();
     v6 = swift_slowAlloc();
-    v11 = v6;
+    v19 = v6;
     *v5 = 136315138;
     swift_getObjectType();
     sub_1000F5104(&qword_100946A48, &qword_1007A9358);
     v7 = String.init<A>(describing:)();
-    v9 = sub_10000668C(v7, v8, &v11);
-
-    *(v5 + 4) = v9;
+    v9 = v8;
+    v10 = sub_10000668C(v7, v8, &v19);
+    v9, v11, v12, v13, v14, v15, v16, v17;
+    *(v5 + 4) = v10;
     _os_log_impl(&_mh_execute_header, v3, v4, "MERGE.LOCAL: Perhaps you should not try to call existingLocalObjectToMerge() for %s.", v5, 0xCu);
     sub_10000607C(v6);
   }
@@ -3406,14 +5665,15 @@ uint64_t _s7remindd20REMCDSavedAttachmentC5merge15withLocalObjectSbSo11REMCDObje
   {
     v5 = swift_slowAlloc();
     v6 = swift_slowAlloc();
-    v11 = v6;
+    v19 = v6;
     *v5 = 136315138;
     swift_getObjectType();
     sub_1000F5104(&qword_100946A48, &qword_1007A9358);
     v7 = String.init<A>(describing:)();
-    v9 = sub_10000668C(v7, v8, &v11);
-
-    *(v5 + 4) = v9;
+    v9 = v8;
+    v10 = sub_10000668C(v7, v8, &v19);
+    v9, v11, v12, v13, v14, v15, v16, v17;
+    *(v5 + 4) = v10;
     _os_log_impl(&_mh_execute_header, v3, v4, "MERGE.LOCAL: Perhaps you should not try to call merge(withLocalObject:) for %s.", v5, 0xCu);
     sub_10000607C(v6);
   }
@@ -3424,10 +5684,9 @@ uint64_t _s7remindd20REMCDSavedAttachmentC5merge15withLocalObjectSbSo11REMCDObje
 uint64_t sub_1005BDBEC(void *a1, unsigned __int8 a2)
 {
   v4 = sub_1000F5104(&unk_100939D90, "8\n\r");
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v38 - v6;
-  v39 = _swiftEmptyArrayStorage;
+  __chkstk_darwin(v4 - 8, v5);
+  v7 = &v33 - v6;
+  v34 = &_swiftEmptyArrayStorage;
   v8 = a2 >> 5;
   if (v8 > 1)
   {
@@ -3448,9 +5707,8 @@ uint64_t sub_1005BDBEC(void *a1, unsigned __int8 a2)
         *(inited + 40) = v13;
         sub_100025060(inited);
         specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-        if (v39[2] >= v39[3] >> 1)
+        if (*v34->clientIdentity >= *&v34->clientIdentity[8] >> 1)
         {
-          v36 = v39[2];
           specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
         }
 
@@ -3479,9 +5737,8 @@ uint64_t sub_1005BDBEC(void *a1, unsigned __int8 a2)
         *(v20 + 40) = v24;
         sub_100025060(v20);
         specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-        if (v39[2] >= v39[3] >> 1)
+        if (*v34->clientIdentity >= *&v34->clientIdentity[8] >> 1)
         {
-          v37 = v39[2];
           specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
         }
 
@@ -3510,9 +5767,8 @@ LABEL_14:
     sub_10039231C(v28, v7);
 
     specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-    if (v39[2] >= v39[3] >> 1)
+    if (*v34->clientIdentity >= *&v34->clientIdentity[8] >> 1)
     {
-      v35 = v39[2];
       specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
     }
 
@@ -3532,9 +5788,8 @@ LABEL_14:
 LABEL_17:
 
   specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-  if (v39[2] >= v39[3] >> 1)
+  if (*v34->clientIdentity >= *&v34->clientIdentity[8] >> 1)
   {
-    v34 = v39[2];
     specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
   }
 
@@ -3542,21 +5797,19 @@ LABEL_17:
   sub_10001035C(0);
 LABEL_20:
   specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-  if (v39[2] >= v39[3] >> 1)
+  if (*v34->clientIdentity >= *&v34->clientIdentity[8] >> 1)
   {
-    v33 = v39[2];
     specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
   }
 
   specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-  return sub_10000C2B0(v39);
+  return sub_10000C2B0();
 }
 
 void sub_1005BE168(uint64_t a1, void **a2)
 {
   v4 = sub_1000F5104(&unk_100939D90, "8\n\r");
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
+  __chkstk_darwin(v4 - 8, v5);
   v7 = &v12 - v6;
   sub_100010364(a1, &v12 - v6, &unk_100939D90, "8\n\r");
   v8 = *a2;
@@ -3592,21 +5845,20 @@ void sub_1005BE2A4(id *a1@<X0>, uint64_t *a2@<X8>)
   a2[1] = v7;
 }
 
-void sub_1005BE30C(uint64_t *a1, void **a2)
+void sub_1005BE30C(uint64_t a1, void **a2)
 {
   v2 = *a2;
-  if (a1[1])
+  if (*(a1 + 8))
   {
-    v3 = *a1;
-    v4 = String._bridgeToObjectiveC()();
+    v3 = String._bridgeToObjectiveC()();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  v5 = v4;
+  v4 = v3;
   [v2 setAttachmentTypeRawValue:?];
 }
 
@@ -3626,8 +5878,7 @@ uint64_t sub_1005BE37C()
 void sub_1005BE3F4(uint64_t a1, void **a2)
 {
   v4 = sub_1000F5104(&unk_100938850, qword_100795AE0);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
+  __chkstk_darwin(v4 - 8, v5);
   v7 = &v12 - v6;
   sub_100010364(a1, &v12 - v6, &unk_100938850, qword_100795AE0);
   v8 = *a2;
@@ -3643,72 +5894,72 @@ void sub_1005BE3F4(uint64_t a1, void **a2)
   [v8 setLastModifiedDate:isa];
 }
 
-void *sub_1005BE53C()
+_TtC7remindd19RDXPCStorePerformer *sub_1005BE53C()
 {
   sub_100026EF4(0, 5, 0);
-  result = _swiftEmptyArrayStorage;
-  v2 = _swiftEmptyArrayStorage[2];
-  v1 = _swiftEmptyArrayStorage[3];
+  result = &_swiftEmptyArrayStorage;
+  v2 = *_swiftEmptyArrayStorage.clientIdentity;
+  v1 = *&_swiftEmptyArrayStorage.clientIdentity[8];
   v3 = v2 + 1;
   if (v2 >= v1 >> 1)
   {
     sub_100026EF4((v1 > 1), v2 + 1, 1);
-    result = _swiftEmptyArrayStorage;
+    result = &_swiftEmptyArrayStorage;
   }
 
-  _swiftEmptyArrayStorage[2] = v3;
-  v4 = &_swiftEmptyArrayStorage[2 * v2];
-  v4[4] = 0xD000000000000016;
-  v4[5] = 0x80000001007B38D0;
-  v5 = _swiftEmptyArrayStorage[3];
+  *_swiftEmptyArrayStorage.clientIdentity = v3;
+  v4 = &_swiftEmptyArrayStorage + 16 * v2;
+  *(v4 + 4) = 0xD000000000000016;
+  *(v4 + 5) = 0x80000001007B38D0;
+  v5 = *&_swiftEmptyArrayStorage.clientIdentity[8];
   v6 = v2 + 2;
   if (v3 >= v5 >> 1)
   {
     sub_100026EF4((v5 > 1), v6, 1);
-    result = _swiftEmptyArrayStorage;
+    result = &_swiftEmptyArrayStorage;
   }
 
-  _swiftEmptyArrayStorage[2] = v6;
-  v7 = &_swiftEmptyArrayStorage[2 * v3];
-  v7[4] = 0x656D614E656C6966;
-  v7[5] = 0xE800000000000000;
-  v9 = _swiftEmptyArrayStorage[2];
-  v8 = _swiftEmptyArrayStorage[3];
+  *_swiftEmptyArrayStorage.clientIdentity = v6;
+  v7 = &_swiftEmptyArrayStorage + 16 * v3;
+  *(v7 + 4) = 0x656D614E656C6966;
+  *(v7 + 5) = 0xE800000000000000;
+  v9 = *_swiftEmptyArrayStorage.clientIdentity;
+  v8 = *&_swiftEmptyArrayStorage.clientIdentity[8];
   v10 = v9 + 1;
   if (v9 >= v8 >> 1)
   {
     sub_100026EF4((v8 > 1), v9 + 1, 1);
-    result = _swiftEmptyArrayStorage;
+    result = &_swiftEmptyArrayStorage;
   }
 
-  _swiftEmptyArrayStorage[2] = v10;
-  v11 = &_swiftEmptyArrayStorage[2 * v9];
-  v11[4] = 0x696669746E656469;
-  v11[5] = 0xEA00000000007265;
-  v12 = _swiftEmptyArrayStorage[3];
+  *_swiftEmptyArrayStorage.clientIdentity = v10;
+  v11 = &_swiftEmptyArrayStorage + 16 * v9;
+  *(v11 + 4) = 0x696669746E656469;
+  *(v11 + 5) = 0xEA00000000007265;
+  v12 = *&_swiftEmptyArrayStorage.clientIdentity[8];
   v13 = v9 + 2;
   if (v10 >= v12 >> 1)
   {
     sub_100026EF4((v12 > 1), v13, 1);
-    result = _swiftEmptyArrayStorage;
+    result = &_swiftEmptyArrayStorage;
   }
 
-  _swiftEmptyArrayStorage[2] = v13;
-  v14 = &_swiftEmptyArrayStorage[2 * v10];
-  v14[4] = 0x617461646174656DLL;
-  v14[5] = 0xE800000000000000;
-  v16 = _swiftEmptyArrayStorage[2];
-  v15 = _swiftEmptyArrayStorage[3];
+  *_swiftEmptyArrayStorage.clientIdentity = v13;
+  v14 = &_swiftEmptyArrayStorage + 16 * v10;
+  *(v14 + 4) = 0x617461646174656DLL;
+  *(v14 + 5) = 0xE800000000000000;
+  v16 = *_swiftEmptyArrayStorage.clientIdentity;
+  v15 = *&_swiftEmptyArrayStorage.clientIdentity[8];
   if (v16 >= v15 >> 1)
   {
     sub_100026EF4((v15 > 1), v16 + 1, 1);
-    result = _swiftEmptyArrayStorage;
+    result = &_swiftEmptyArrayStorage;
   }
 
-  _swiftEmptyArrayStorage[2] = v16 + 1;
-  v17 = &_swiftEmptyArrayStorage[2 * v16];
-  v17[4] = 6911093;
-  v17[5] = 0xE300000000000000;
+  *_swiftEmptyArrayStorage.clientIdentity = v16 + 1;
+  v17 = &_swiftEmptyArrayStorage + 16 * v16;
+  *(v17 + 4) = 6911093;
+  *(v17 + 5) = 0xE300000000000000;
   return result;
 }
 
@@ -3728,44 +5979,41 @@ uint64_t sub_1005BE9A0()
   return v3(v1, v2, v0);
 }
 
-uint64_t sub_1005BEA68(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+void sub_1005BEA68(uint64_t a1, _TtC7remindd19RDXPCStorePerformer *a2, uint64_t a3, uint64_t a4)
 {
   v7 = sub_1000F5104(&unk_100938850, qword_100795AE0);
-  v8 = *(*(v7 - 8) + 64);
-  __chkstk_darwin(v7 - 8);
-  v10 = v19 - v9;
+  __chkstk_darwin(v7 - 8, v8);
+  v10 = v25 - v9;
   v11 = type metadata accessor for REMRemindersListBatchDeleteInvocation.ListType();
   v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  __chkstk_darwin(v11);
-  v15 = v19 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v11, v13);
+  v15 = v25 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   REMRemindersListBatchDeleteInvocation.DeleteInvocation.Parameters.list.getter();
   REMRemindersListBatchDeleteInvocation.DeleteInvocation.Parameters.completedBeforeDate.getter();
   v16 = sub_1005BEC40(a2, v10);
   if (v4)
   {
     sub_1000050A4(v10, &unk_100938850, qword_100795AE0);
-    return (*(v12 + 8))(v15, v11);
+    (*(v12 + 8))(v15, v11);
   }
 
   else
   {
-    v18 = v16;
+    v17 = v16;
     sub_1000050A4(v10, &unk_100938850, qword_100795AE0);
     (*(v12 + 8))(v15, v11);
-    sub_1005C2B64(v18, a4);
-
-    return REMRemindersListBatchDeleteInvocation.DeleteInvocation.Result.init(deletedReminderIDs:accounts:)();
+    sub_1005C2B64(v17, a4);
+    v17, v18, v19, v20, v21, v22, v23, v24;
+    REMRemindersListBatchDeleteInvocation.DeleteInvocation.Result.init(deletedReminderIDs:accounts:)();
   }
 }
 
-uint64_t sub_1005BEC40(void *a1, uint64_t a2)
+void *sub_1005BEC40(_TtC7remindd19RDXPCStorePerformer *a1, uint64_t a2)
 {
   v3 = v2;
   v6 = _s10PredicatesOMa(0);
-  v7 = *(*(v6 - 8) + 64);
-  __chkstk_darwin(v6 - 8);
-  v9 = v47 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6 - 8, v7);
+  v9 = &v113 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1005C1778(v9, a1, a2);
   if (v2)
   {
@@ -3773,7 +6021,7 @@ uint64_t sub_1005BEC40(void *a1, uint64_t a2)
   }
 
   v11 = v10;
-  v48 = 0;
+  v117 = 0;
   v12 = sub_1000060C8(0, &qword_100939EE0, off_1008D41D0);
   if (qword_100936080 != -1)
   {
@@ -3782,10 +6030,10 @@ uint64_t sub_1005BEC40(void *a1, uint64_t a2)
 
   while (1)
   {
-    v47[2] = qword_100974E30;
+    v115 = qword_100974E30;
     v13 = sub_100043AA8();
     v14 = [objc_allocWithZone(NSFetchRequest) init];
-    v47[3] = v12;
+    v116 = v12;
     v15 = [swift_getObjCClassFromMetadata() entity];
     [v14 setEntity:v15];
 
@@ -3794,22 +6042,22 @@ uint64_t sub_1005BEC40(void *a1, uint64_t a2)
 
     [v14 setFetchLimit:0];
     [v14 setFetchOffset:0];
-    v57 = v11;
+    v126 = v11;
     sub_1000F5104(&qword_100949370, &unk_100797770);
     sub_10000CB90(&qword_100939850, &qword_100949370, &unk_100797770);
     Predicate = Sequence<>.postFetchPredicateTypes.getter();
     v17 = Predicate;
-    v18 = _swiftEmptyArrayStorage;
-    v60 = _swiftEmptyArrayStorage;
+    v18 = &_swiftEmptyArrayStorage;
+    v129 = &_swiftEmptyArrayStorage;
     v19 = *(v11 + 16);
-    v51 = v9;
-    v52 = v14;
-    v49 = v11;
-    v50 = a1;
+    v120 = v9;
+    v121 = v14;
+    v118 = v11;
+    v119 = a1;
     if (!v19)
     {
-      v28 = _swiftEmptyArrayStorage;
-      if (!_swiftEmptyArrayStorage[2])
+      v35 = &_swiftEmptyArrayStorage;
+      if (!*_swiftEmptyArrayStorage.clientIdentity)
       {
         goto LABEL_28;
       }
@@ -3819,17 +6067,17 @@ uint64_t sub_1005BEC40(void *a1, uint64_t a2)
 
     v20 = sub_100235F88(Predicate);
     v21 = sub_100277CC0(v20);
+    v20, v22, v23, v24, v25, v26, v27, v28;
+    v113 = v17;
 
-    v47[0] = v17;
-
-    v12 = *(v21 + 16);
+    v12 = *v21->clientIdentity;
     if (!v12)
     {
       goto LABEL_25;
     }
 
 LABEL_7:
-    v59 = _swiftEmptyArrayStorage;
+    v128 = &_swiftEmptyArrayStorage;
     sub_100026EF4(0, v12 & ~(v12 >> 63), 0);
     if (v12 < 0)
     {
@@ -3837,9 +6085,9 @@ LABEL_7:
     }
 
     v9 = 0;
-    v22 = v59;
-    v53 = v12;
-    v54 = v21 & 0xC000000000000001;
+    v29 = v128;
+    v122 = v12;
+    v123 = v21 & 0xC000000000000001;
     while (1)
     {
       v11 = v9 + 1;
@@ -3848,49 +6096,49 @@ LABEL_7:
         break;
       }
 
-      if (v54)
+      if (v123)
       {
         v18 = specialized _ArrayBuffer._getElementSlowPath(_:)();
       }
 
       else
       {
-        if (v9 >= *(v21 + 16))
+        if (v9 >= *v21->clientIdentity)
         {
           goto LABEL_22;
         }
 
-        v18 = *(v21 + 8 * v9 + 32);
+        v18 = *&v21->clientIdentity[8 * v9 + 16];
       }
 
-      v23 = dispatch thunk of AnyKeyPath._kvcKeyPathString.getter();
-      if (!v24)
+      v30 = dispatch thunk of AnyKeyPath._kvcKeyPathString.getter();
+      if (!v31)
       {
         goto LABEL_53;
       }
 
-      v12 = v23;
-      a1 = v24;
+      v12 = v30;
+      a1 = v31;
 
-      v59 = v22;
-      v26 = v22[2];
-      v25 = v22[3];
-      if (v26 >= v25 >> 1)
+      v128 = v29;
+      v33 = *v29->clientIdentity;
+      v32 = *&v29->clientIdentity[8];
+      if (v33 >= v32 >> 1)
       {
-        sub_100026EF4((v25 > 1), v26 + 1, 1);
-        v22 = v59;
+        sub_100026EF4((v32 > 1), v33 + 1, 1);
+        v29 = v128;
       }
 
-      v22[2] = v26 + 1;
-      v27 = &v22[2 * v26];
-      v27[4] = v12;
-      v27[5] = a1;
+      *v29->clientIdentity = v33 + 1;
+      v34 = v29 + 16 * v33;
+      *(v34 + 4) = v12;
+      *(v34 + 5) = a1;
       ++v9;
-      if (v11 == v53)
+      if (v11 == v122)
       {
 
-        v9 = v51;
-        v11 = v49;
+        v9 = v120;
+        v11 = v118;
         goto LABEL_26;
       }
     }
@@ -3910,63 +6158,69 @@ LABEL_23:
 
 LABEL_25:
 
-  v22 = _swiftEmptyArrayStorage;
+  v29 = &_swiftEmptyArrayStorage;
 LABEL_26:
-  sub_100271EA8(v22);
-  v28 = v60;
-  v14 = v52;
-  v18 = _swiftEmptyArrayStorage;
-  v17 = v47[0];
-  if (v60[2])
+  sub_100271EA8(v29);
+  v35 = v129;
+  v14 = v121;
+  v18 = &_swiftEmptyArrayStorage;
+  v17 = v113;
+  if (*v129->clientIdentity)
   {
 LABEL_27:
     sub_1000F5104(&unk_10093B300, &unk_100797780);
     Array<A>.removeDuplicates()();
-    v28 = v60;
-    sub_10003450C(v60);
+    v35 = v129;
+    v36 = sub_10003450C(v129);
     isa = Array._bridgeToObjectiveC()().super.isa;
-
+    v36, v38, v39, v40, v41, v42, v43, v44;
     [v14 setPropertiesToFetch:isa];
   }
 
 LABEL_28:
-  v47[1] = v28;
-  v55 = sub_1003EBAD0();
+  v114 = v35;
+  v124 = sub_1003EBAD0();
   sub_100271EA8(&off_1008DD4D8);
-  v30 = sub_100235FA0(v17);
-
-  v31 = sub_100277CC0(v30);
-
-  if ((v31 & 0x8000000000000000) != 0 || (v31 & 0x4000000000000000) != 0)
+  v45 = sub_100235FA0(v17);
+  v17, v46, v47, v48, v49, v50, v51, v52;
+  v53 = sub_100277CC0(v45);
+  v45, v54, v55, v56, v57, v58, v59, v60;
+  if ((v53 & 0x8000000000000000) != 0 || (v53 & 0x4000000000000000) != 0)
   {
     goto LABEL_45;
   }
 
-  v32 = *(v31 + 16);
-  if (!v32)
+  v68 = *v53->clientIdentity;
+  if (!v68)
   {
 LABEL_46:
+    v114, v61, v62, v63, v64, v65, v66, v67;
 
-    v33 = _swiftEmptyArrayStorage;
+    v69 = &_swiftEmptyArrayStorage;
 LABEL_47:
-    sub_100271EA8(v33);
+    sub_100271EA8(v69);
     sub_1000F5104(&unk_10093B300, &unk_100797780);
     Array<A>.removeDuplicates()();
-    v41 = Array._bridgeToObjectiveC()().super.isa;
-
-    v42 = v52;
-    [v52 setRelationshipKeyPathsForPrefetching:v41];
+    v84 = v124;
+    v85 = Array._bridgeToObjectiveC()().super.isa;
+    v84, v86, v87, v88, v89, v90, v91, v92;
+    v93 = v121;
+    [v121 setRelationshipKeyPathsForPrefetching:v85];
 
     sub_1000060C8(0, &qword_10093C980, NSSortDescriptor_ptr);
     v3 = Array._bridgeToObjectiveC()().super.isa;
-    [v42 setSortDescriptors:v3];
+    [v93 setSortDescriptors:v3];
 
-    v43 = v48;
-    v44 = NSManagedObjectContext.fetch<A>(_:)();
-    if (!v43)
+    v94 = v117;
+    v95 = NSManagedObjectContext.fetch<A>(_:)();
+    if (!v94)
     {
-      v3 = sub_100155C54(v11, _swiftEmptySetSingleton, v44);
+      v104 = v95;
+      v3 = sub_100155C54(v11, _swiftEmptySetSingleton, v95);
+      v104, v105, v106, v107, v108, v109, v110, v111;
     }
+
+    v11, v96, v97, v98, v99, v100, v101, v102;
 
     sub_1004258C8(v9, _s10PredicatesOMa);
     return v3;
@@ -3974,17 +6228,17 @@ LABEL_47:
 
   while (1)
   {
-    v59 = v18;
-    sub_100026EF4(0, v32 & ~(v32 >> 63), 0);
-    if (v32 < 0)
+    v128 = v18;
+    sub_100026EF4(0, v68 & ~(v68 >> 63), 0);
+    if (v68 < 0)
     {
       break;
     }
 
     v9 = 0;
-    v33 = v59;
-    v53 = v32;
-    v54 = v31 & 0xC000000000000001;
+    v69 = v128;
+    v122 = v68;
+    v123 = v53 & 0xC000000000000001;
     while (1)
     {
       v11 = v9 + 1;
@@ -3993,50 +6247,51 @@ LABEL_47:
         break;
       }
 
-      if (v54)
+      if (v123)
       {
         v18 = specialized _ArrayBuffer._getElementSlowPath(_:)();
       }
 
       else
       {
-        if (v9 >= *(v31 + 16))
+        if (v9 >= *v53->clientIdentity)
         {
           goto LABEL_44;
         }
 
-        v18 = *(v31 + 8 * v9 + 32);
+        v18 = *&v53->clientIdentity[8 * v9 + 16];
       }
 
-      v34 = dispatch thunk of AnyKeyPath._kvcKeyPathString.getter();
-      if (!v35)
+      v70 = dispatch thunk of AnyKeyPath._kvcKeyPathString.getter();
+      if (!v71)
       {
         goto LABEL_53;
       }
 
-      v36 = v34;
-      v37 = v35;
+      v72 = v70;
+      v73 = v71;
 
-      v59 = v33;
-      v39 = v33[2];
-      v38 = v33[3];
-      v18 = (v39 + 1);
-      if (v39 >= v38 >> 1)
+      v128 = v69;
+      v82 = *v69->clientIdentity;
+      v81 = *&v69->clientIdentity[8];
+      v18 = (v82 + 1);
+      if (v82 >= v81 >> 1)
       {
-        sub_100026EF4((v38 > 1), v39 + 1, 1);
-        v33 = v59;
+        sub_100026EF4((v81 > 1), v82 + 1, 1);
+        v69 = v128;
       }
 
-      v33[2] = v18;
-      v40 = &v33[2 * v39];
-      v40[4] = v36;
-      v40[5] = v37;
+      *v69->clientIdentity = v18;
+      v83 = v69 + 16 * v82;
+      *(v83 + 4) = v72;
+      *(v83 + 5) = v73;
       ++v9;
-      if (v11 == v53)
+      if (v11 == v122)
       {
+        v114, v74, v75, v76, v77, v78, v79, v80;
 
-        v9 = v51;
-        v11 = v49;
+        v9 = v120;
+        v11 = v118;
         goto LABEL_47;
       }
     }
@@ -4045,8 +6300,8 @@ LABEL_47:
 LABEL_44:
     __break(1u);
 LABEL_45:
-    v32 = _CocoaArrayWrapper.endIndex.getter();
-    if (!v32)
+    v68 = _CocoaArrayWrapper.endIndex.getter();
+    if (!v68)
     {
       goto LABEL_46;
     }
@@ -4056,13 +6311,13 @@ LABEL_45:
 LABEL_52:
   __break(1u);
 LABEL_53:
-  v57 = 0;
-  v58 = 0xE000000000000000;
+  v126 = 0;
+  v127 = 0xE000000000000000;
   _StringGuts.grow(_:)(46);
-  v46._object = 0x80000001007EC120;
-  v46._countAndFlagsBits = 0xD00000000000002CLL;
-  String.append(_:)(v46);
-  v56 = v18;
+  v112._object = 0x80000001007EC120;
+  v112._countAndFlagsBits = 0xD00000000000002CLL;
+  String.append(_:)(v112);
+  v125 = v18;
   sub_1000F5104(&unk_100939F10, &qword_100797F30);
   _print_unlocked<A, B>(_:_:)();
   result = _assertionFailure(_:_:file:line:flags:)();
@@ -4072,50 +6327,50 @@ LABEL_53:
 
 uint64_t sub_1005BF3E4(uint64_t a1)
 {
-  result = sub_1005C04F0(&qword_10094DC90, &type metadata accessor for REMRemindersListBatchDeleteInvocation.CountInvocation);
+  result = sub_1005C04F0(&qword_10094DC90, &type metadata accessor for REMRemindersListBatchDeleteInvocation.CountInvocation, &protocol conformance descriptor for REMRemindersListBatchDeleteInvocation.CountInvocation);
   *(a1 + 8) = result;
   return result;
 }
 
-uint64_t sub_1005BF43C@<X0>(void *a1@<X1>, uint64_t a2@<X3>, uint64_t a3@<X8>)
+void sub_1005BF43C(_TtC7remindd19RDXPCStorePerformer *a1@<X1>, _TtC7remindd19RDXPCStorePerformer *a2@<X3>, uint64_t a3@<X8>)
 {
-  v36 = a2;
+  v77 = a2;
   v6 = sub_1000F5104(&unk_100938850, qword_100795AE0);
-  v7 = *(*(v6 - 8) + 64);
-  __chkstk_darwin(v6 - 8);
-  v9 = &v33 - v8;
+  __chkstk_darwin(v6 - 8, v7);
+  v9 = &v74 - v8;
   v10 = type metadata accessor for REMRemindersListBatchDeleteInvocation.ListType();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  __chkstk_darwin(v10);
-  v14 = &v33 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v10, v12);
+  v14 = &v74 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   REMRemindersListBatchDeleteInvocation.DeleteInvocation.Parameters.list.getter();
   REMRemindersListBatchDeleteInvocation.DeleteInvocation.Parameters.completedBeforeDate.getter();
   v15 = sub_1005BEC40(a1, v9);
   if (v3)
   {
     sub_1000050A4(v9, &unk_100938850, qword_100795AE0);
-    return (*(v11 + 8))(v14, v10);
+    (*(v11 + 8))(v14, v10);
+    return;
   }
 
-  v17 = v15;
-  v35 = a3;
+  v16 = v15;
+  v76 = a3;
   sub_1000050A4(v9, &unk_100938850, qword_100795AE0);
   (*(v11 + 8))(v14, v10);
-  v18 = sub_1005C2B64(v17, v36);
-  v36 = v19;
+  sub_1005C2B64(v16, v77);
+  v18 = v17;
+  v77 = v19;
   type metadata accessor for ReminderIDsMergeableOrderingHelper();
   inited = swift_initStackObject();
   *(inited + 16) = _swiftEmptyDictionarySingleton;
-  *(inited + 24) = _swiftEmptyArrayStorage;
-  v34 = inited;
-  sub_1005C3014(v17, v18, inited, v21);
-  v22 = [objc_allocWithZone(NSMutableDictionary) init];
-  v33 = a1;
-  if (v17 >> 62)
+  *(inited + 24) = &_swiftEmptyArrayStorage;
+  v75 = inited;
+  sub_1005C3014(v16, v18, inited, v21);
+  v29 = [objc_allocWithZone(NSMutableDictionary) init];
+  v74 = a1;
+  if (v16 >> 62)
   {
-    v23 = _CocoaArrayWrapper.endIndex.getter();
-    if (v23)
+    v30 = _CocoaArrayWrapper.endIndex.getter();
+    if (v30)
     {
       goto LABEL_5;
     }
@@ -4123,61 +6378,63 @@ uint64_t sub_1005BF43C@<X0>(void *a1@<X1>, uint64_t a2@<X3>, uint64_t a3@<X8>)
 
   else
   {
-    v23 = *((v17 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (v23)
+    v30 = *((v16 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v30)
     {
 LABEL_5:
-      if (v23 < 1)
+      if (v30 < 1)
       {
         __break(1u);
       }
 
-      for (i = 0; i != v23; ++i)
+      for (i = 0; i != v30; ++i)
       {
-        if ((v17 & 0xC000000000000001) != 0)
+        if ((v16 & 0xC000000000000001) != 0)
         {
-          v25 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+          v32 = specialized _ArrayBuffer._getElementSlowPath(_:)();
         }
 
         else
         {
-          v25 = *(v17 + 8 * i + 32);
+          v32 = *(v16 + 8 * i + 32);
         }
 
-        v26 = v25;
-        [v25 updateDeletedFlagAccordingToOrphanState:{v22, v33}];
+        v33 = v32;
+        [v32 updateDeletedFlagAccordingToOrphanState:{v29, v74}];
       }
     }
   }
 
+  v16, v22, v23, v24, v25, v26, v27, v28;
   sub_100393DD8(v18);
-  v27 = v34;
-  sub_1005BF7F8(v28);
-
+  v35 = v34;
+  v36 = v75;
+  sub_1005BF7F8(v34);
+  v35, v37, v38, v39, v40, v41, v42, v43;
   sub_1005BFAC0();
-  v37 = 0;
-  if ([v33 save:&v37])
+  v78 = 0;
+  if (([(RDXPCStorePerformer *)v74 save:&v78]& 1) != 0)
   {
-    v29 = v37;
+    v44 = v78;
     REMRemindersListBatchDeleteInvocation.DeleteInvocation.Result.init(deletedReminderIDs:accounts:)();
   }
 
   else
   {
-    v30 = v37;
-
+    v45 = v78;
+    v77, v46, v47, v48, v49, v50, v51, v52;
+    v18, v53, v54, v55, v56, v57, v58, v59;
     _convertNSErrorToError(_:)();
 
     swift_willThrow();
   }
 
   swift_setDeallocating();
-  v31 = *(v27 + 16);
-
-  v32 = *(v27 + 24);
+  *(v36 + 16), v60, v61, v62, v63, v64, v65, v66;
+  *(v36 + 24), v67, v68, v69, v70, v71, v72, v73;
 }
 
-uint64_t sub_1005BF7F8(uint64_t a1)
+void sub_1005BF7F8(uint64_t a1)
 {
   swift_beginAccess();
   v3 = *(v1 + 16);
@@ -4192,19 +6449,15 @@ uint64_t sub_1005BF7F8(uint64_t a1)
   v7 = v6 & *(v3 + 64);
   v8 = (v5 + 63) >> 6;
   v9 = a1 & 0xC000000000000001;
-  v10 = *(v1 + 16);
 
-  v12 = 0;
-  v31 = a1 & 0xC000000000000001;
+  v10 = 0;
+  v34 = a1 & 0xC000000000000001;
   while (v7)
   {
 LABEL_12:
-    v15 = *(v3 + 56);
-    v16 = (v12 << 9) | (8 * __clz(__rbit64(v7)));
-    v17 = *(v15 + v16);
+    v13 = *(*(v3 + 56) + ((v10 << 9) | (8 * __clz(__rbit64(v7)))));
     if (v9)
     {
-      v18 = *(v15 + v16);
 
       if (!__CocoaSet.count.getter())
       {
@@ -4214,59 +6467,59 @@ LABEL_12:
 
     else
     {
-      v19 = *(a1 + 16);
-      v20 = *(v15 + v16);
+      v14 = *(a1 + 16);
 
-      if (!v19)
+      if (!v14)
       {
         goto LABEL_6;
       }
     }
 
-    v21 = sub_1005C27D8();
-    if (v21)
+    v15 = sub_1005C27D8();
+    if (v15)
     {
-      v22 = v21;
-      v30 = [v21 count];
+      v16 = v15;
+      v33 = [v15 count];
       sub_100395080(a1);
+      v18 = v17;
       isa = Set._bridgeToObjectiveC()().super.isa;
-
-      [v22 minusSet:isa];
+      v18, v20, v21, v22, v23, v24, v25, v26;
+      [v16 minusSet:isa];
 
       if (qword_100936670 != -1)
       {
         swift_once();
       }
 
-      v24 = type metadata accessor for Logger();
-      sub_100006654(v24, qword_10094DC58);
-      v25 = v22;
-      v13 = Logger.logObject.getter();
-      v26 = static os_log_type_t.debug.getter();
-      if (os_log_type_enabled(v13, v26))
+      v27 = type metadata accessor for Logger();
+      sub_100006654(v27, qword_10094DC58);
+      v28 = v16;
+      v11 = Logger.logObject.getter();
+      v29 = static os_log_type_t.debug.getter();
+      if (os_log_type_enabled(v11, v29))
       {
-        v29 = v3;
-        v27 = a1;
-        v28 = swift_slowAlloc();
-        *v28 = 134218240;
-        *(v28 + 4) = v30;
-        *(v28 + 12) = 2048;
-        *(v28 + 14) = [v25 count];
+        v32 = v3;
+        v30 = a1;
+        v31 = swift_slowAlloc();
+        *v31 = 134218240;
+        *(v31 + 4) = v33;
+        *(v31 + 12) = 2048;
+        *(v31 + 14) = [v28 count];
 
-        _os_log_impl(&_mh_execute_header, v13, v26, "ReminderIDsMergeableOrderingHelper orderedSet count: %ld -> %ld", v28, 0x16u);
-        a1 = v27;
-        v3 = v29;
+        _os_log_impl(&_mh_execute_header, v11, v29, "ReminderIDsMergeableOrderingHelper orderedSet count: %ld -> %ld", v31, 0x16u);
+        a1 = v30;
+        v3 = v32;
       }
 
       else
       {
 
-        v13 = v25;
+        v11 = v28;
       }
 
-      v9 = v31;
+      v9 = v34;
 
-      *(v17 + 16) = 1;
+      *(v13 + 16) = 1;
     }
 
 LABEL_6:
@@ -4275,141 +6528,137 @@ LABEL_6:
 
   while (1)
   {
-    v14 = v12 + 1;
-    if (__OFADD__(v12, 1))
+    v12 = v10 + 1;
+    if (__OFADD__(v10, 1))
     {
       break;
     }
 
-    if (v14 >= v8)
+    if (v12 >= v8)
     {
+
+      return;
     }
 
-    v7 = *(v4 + 8 * v14);
-    ++v12;
+    v7 = *(v4 + 8 * v12);
+    ++v10;
     if (v7)
     {
-      v12 = v14;
+      v10 = v12;
       goto LABEL_12;
     }
   }
 
   __break(1u);
-  return result;
 }
 
-uint64_t sub_1005BFAC0()
+void sub_1005BFAC0()
 {
   v2 = v1;
-  v31 = type metadata accessor for UUID();
-  v3 = *(v31 - 8);
-  v4 = v3[8];
-  __chkstk_darwin(v31);
-  v28 = &v25 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v8 = &v25 - v7;
-  result = swift_beginAccess();
-  v29 = v0;
+  v45 = type metadata accessor for UUID();
+  v3 = *(v45 - 8);
+  __chkstk_darwin(v45, v4);
+  v42 = &v39 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6, v7);
+  v9 = &v39 - v8;
+  swift_beginAccess();
+  v43 = v0;
   v10 = *(v0 + 24);
   if (v10 >> 62)
   {
     goto LABEL_23;
   }
 
-  v11 = *((v10 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  if (v11)
+  for (i = *((v10 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = _CocoaArrayWrapper.endIndex.getter())
   {
-    do
+    v44 = v10 & 0xC000000000000001;
+    v39 = v10 & 0xFFFFFFFFFFFFFF8;
+    v40 = v2;
+    v12 = (v3 + 32);
+    v41 = (v3 + 8);
+
+    for (j = 0; ; ++j)
     {
-      v30 = v10 & 0xC000000000000001;
-      v25 = v10 & 0xFFFFFFFFFFFFFF8;
-      v26 = v2;
-      v12 = (v3 + 4);
-      v27 = (v3 + 1);
-
-      for (i = 0; ; ++i)
+      if (v44)
       {
-        if (v30)
-        {
-          v14 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-        }
-
-        else
-        {
-          if (i >= *(v25 + 16))
-          {
-            goto LABEL_22;
-          }
-
-          v14 = *(v10 + 8 * i + 32);
-        }
-
-        v3 = v14;
-        v2 = i + 1;
-        if (__OFADD__(i, 1))
-        {
-          break;
-        }
-
-        v15 = [v14 identifier];
-        if (v15)
-        {
-          v16 = v11;
-          v17 = v28;
-          v18 = v15;
-          static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-
-          (*v12)(v8, v17, v31);
-          v19 = v29;
-          swift_beginAccess();
-          v20 = *(v19 + 16);
-          if (*(v20 + 16) && (v21 = sub_100363F20(v8), (v22 & 1) != 0))
-          {
-            v23 = *(*(v20 + 56) + 8 * v21);
-            swift_endAccess();
-
-            v24 = v26;
-            sub_1005C3B30(v3, v23);
-            v26 = v24;
-            if (v24)
-            {
-              (*v27)(v8, v31);
-            }
-
-            (*v27)(v8, v31);
-          }
-
-          else
-          {
-            swift_endAccess();
-
-            (*v27)(v8, v31);
-          }
-
-          v11 = v16;
-        }
-
-        else
-        {
-        }
-
-        if (v2 == v11)
-        {
-        }
+        v21 = specialized _ArrayBuffer._getElementSlowPath(_:)();
       }
 
-      __break(1u);
-LABEL_22:
-      __break(1u);
-LABEL_23:
-      result = _CocoaArrayWrapper.endIndex.getter();
-      v11 = result;
+      else
+      {
+        if (j >= *(v39 + 16))
+        {
+          goto LABEL_22;
+        }
+
+        v21 = *&v10->clientIdentity[8 * j + 16];
+      }
+
+      v3 = v21;
+      v2 = j + 1;
+      if (__OFADD__(j, 1))
+      {
+        break;
+      }
+
+      v22 = [v21 identifier];
+      if (v22)
+      {
+        v23 = i;
+        v24 = v42;
+        v25 = v22;
+        static UUID._unconditionallyBridgeFromObjectiveC(_:)();
+
+        (*v12)(v9, v24, v45);
+        v26 = v43;
+        swift_beginAccess();
+        v27 = *(v26 + 16);
+        if (*(v27 + 16) && (v28 = sub_100363F20(v9), (v29 & 1) != 0))
+        {
+          v30 = *(*(v27 + 56) + 8 * v28);
+          swift_endAccess();
+
+          v31 = v40;
+          sub_1005C3B30(v3, v30);
+          v40 = v31;
+          if (v31)
+          {
+            (*v41)(v9, v45);
+            v10, v32, v33, v34, v35, v36, v37, v38;
+
+            return;
+          }
+
+          (*v41)(v9, v45);
+        }
+
+        else
+        {
+          swift_endAccess();
+
+          (*v41)(v9, v45);
+        }
+
+        i = v23;
+      }
+
+      else
+      {
+      }
+
+      if (v2 == i)
+      {
+        v10, v14, v15, v16, v17, v18, v19, v20;
+        return;
+      }
     }
 
-    while (result);
+    __break(1u);
+LABEL_22:
+    __break(1u);
+LABEL_23:
+    ;
   }
-
-  return result;
 }
 
 id sub_1005BFDC4(void *a1)
@@ -4417,20 +6666,19 @@ id sub_1005BFDC4(void *a1)
   v2 = v1;
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4);
-  v8 = &v26 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  *&v10 = __chkstk_darwin(v9).n128_u64[0];
-  v12 = &v26 - v11;
+  __chkstk_darwin(v4, v6);
+  v8 = &v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  *&v11 = __chkstk_darwin(v9, v10).n128_u64[0];
+  v13 = &v25 - v12;
   result = [a1 identifier];
   if (result)
   {
-    v14 = result;
+    v15 = result;
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-    (*(v5 + 32))(v12, v8, v4);
+    (*(v5 + 32))(v13, v8, v4);
     swift_beginAccess();
-    if (*(*(v2 + 16) + 16) && (sub_100363F20(v12), (v15 & 1) != 0))
+    if (*(*(v2 + 16) + 16) && (sub_100363F20(v13), (v16 & 1) != 0))
     {
       swift_endAccess();
     }
@@ -4438,41 +6686,39 @@ id sub_1005BFDC4(void *a1)
     else
     {
       swift_endAccess();
-      v16 = [a1 reminderIDsMergeableOrdering];
-      if (v16)
+      v17 = [a1 reminderIDsMergeableOrdering];
+      if (v17)
       {
-        v17 = v16;
-        v18 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-        v20 = v19;
+        v18 = v17;
+        v19 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+        v21 = v20;
       }
 
       else
       {
-        v18 = 0;
-        v20 = 0xF000000000000000;
+        v19 = 0;
+        v21 = 0xF000000000000000;
       }
 
       type metadata accessor for ReminderIDsMergeableOrdering();
-      v21 = swift_allocObject();
-      *(v21 + 16) = 0;
-      *(v21 + 32) = v20;
-      *(v21 + 40) = 1;
-      *(v21 + 24) = v18;
+      v22 = swift_allocObject();
+      *(v22 + 16) = 0;
+      *(v22 + 32) = v21;
+      *(v22 + 40) = 1;
+      *(v22 + 24) = v19;
       swift_beginAccess();
 
-      v22 = *(v2 + 16);
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      v26 = *(v2 + 16);
+      v25 = *(v2 + 16);
       *(v2 + 16) = 0x8000000000000000;
-      sub_1002C7B28(v21, v12, isUniquelyReferenced_nonNull_native);
-      *(v2 + 16) = v26;
+      sub_1002C7B28(v22, v13, isUniquelyReferenced_nonNull_native);
+      *(v2 + 16) = v25;
       swift_endAccess();
       swift_beginAccess();
       v24 = a1;
       specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
       if (*((*(v2 + 24) & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*(v2 + 24) & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
-        v25 = *((*(v2 + 24) & 0xFFFFFFFFFFFFFF8) + 0x10);
         specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
       }
 
@@ -4480,7 +6726,7 @@ id sub_1005BFDC4(void *a1)
       swift_endAccess();
     }
 
-    return (*(v5 + 8))(v12, v4);
+    return (*(v5 + 8))(v13, v4);
   }
 
   return result;
@@ -4490,36 +6736,35 @@ uint64_t sub_1005C007C(void *a1)
 {
   v3 = type metadata accessor for UUID();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  __chkstk_darwin(v3);
-  v7 = &v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  *&v9 = __chkstk_darwin(v8).n128_u64[0];
-  v11 = &v19 - v10;
-  v12 = [a1 identifier];
-  if (!v12)
+  __chkstk_darwin(v3, v5);
+  v7 = &v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  *&v10 = __chkstk_darwin(v8, v9).n128_u64[0];
+  v12 = &v20 - v11;
+  v13 = [a1 identifier];
+  if (!v13)
   {
     return 0;
   }
 
-  v13 = v12;
+  v14 = v13;
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-  (*(v4 + 32))(v11, v7, v3);
+  (*(v4 + 32))(v12, v7, v3);
   swift_beginAccess();
-  v14 = *(v1 + 16);
-  if (*(v14 + 16) && (v15 = sub_100363F20(v11), (v16 & 1) != 0))
+  v15 = *(v1 + 16);
+  if (*(v15 + 16) && (v16 = sub_100363F20(v12), (v17 & 1) != 0))
   {
-    v17 = *(*(v14 + 56) + 8 * v15);
+    v18 = *(*(v15 + 56) + 8 * v16);
   }
 
   else
   {
-    v17 = 0;
+    v18 = 0;
   }
 
   swift_endAccess();
-  (*(v4 + 8))(v11, v3);
-  return v17;
+  (*(v4 + 8))(v12, v3);
+  return v18;
 }
 
 void sub_1005C0208(unint64_t a1, uint64_t a2)
@@ -4527,8 +6772,7 @@ void sub_1005C0208(unint64_t a1, uint64_t a2)
   v3 = v2;
   v6 = type metadata accessor for IndexSet();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6);
+  __chkstk_darwin(v6, v8);
   v10 = &v23 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (a1 >> 62)
   {
@@ -4617,12 +6861,12 @@ void sub_1005C0208(unint64_t a1, uint64_t a2)
 
 uint64_t sub_1005C0498(uint64_t a1)
 {
-  result = sub_1005C04F0(&qword_10094DCB8, &type metadata accessor for REMRemindersListBatchDeleteInvocation.DeleteInvocation);
+  result = sub_1005C04F0(&qword_10094DCB8, &type metadata accessor for REMRemindersListBatchDeleteInvocation.DeleteInvocation, &protocol conformance descriptor for REMRemindersListBatchDeleteInvocation.DeleteInvocation);
   *(a1 + 8) = result;
   return result;
 }
 
-uint64_t sub_1005C04F0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1005C04F0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -4635,242 +6879,240 @@ uint64_t sub_1005C04F0(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-void sub_1005C0538(unsigned int (**a1)(uint64_t, uint64_t, id)@<X1>, uint64_t a2@<X4>, uint64_t a3@<X8>)
+void sub_1005C0538(_TtC7remindd19RDXPCStorePerformer *a1@<X1>, uint64_t a2@<X4>, uint64_t a3@<X8>)
 {
-  *&v145 = a2;
-  v134 = a3;
+  *&v277 = a2;
+  v266 = a3;
   v4 = type metadata accessor for Date();
   v5 = *(v4 - 8);
-  v6 = v5[8];
-  __chkstk_darwin(v4);
-  v137 = v127 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v8);
-  v132 = v127 - v9;
-  __chkstk_darwin(v10);
-  v139 = v127 - v11;
-  v12 = sub_1000F5104(&unk_100938850, qword_100795AE0);
-  v13 = *(*(v12 - 8) + 64);
-  __chkstk_darwin(v12 - 8);
-  v140 = (v127 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
-  __chkstk_darwin(v15);
-  v138 = v127 - v16;
-  __chkstk_darwin(v17);
-  v133 = v127 - v18;
-  __chkstk_darwin(v19);
-  v21 = (v127 - v20);
-  __chkstk_darwin(v22);
-  v24 = v127 - v23;
-  __chkstk_darwin(v25);
-  v27 = v127 - v26;
-  v28 = _s10PredicatesOMa(0);
-  v29 = *(*(v28 - 8) + 64);
-  v30 = __chkstk_darwin(v28 - 8);
-  v32 = (v127 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v141 = v5;
-  v35 = v5[7];
-  v34 = v5 + 7;
-  v33 = v35;
-  v35(v27, 1, 1, v4, v30);
-  v36 = v146;
-  sub_1005C1778(v32, a1, v27);
-  if (v36)
+  __chkstk_darwin(v4, v6);
+  v269 = &v257 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v8, v9);
+  v264 = &v257 - v10;
+  __chkstk_darwin(v11, v12);
+  v271 = &v257 - v13;
+  v14 = sub_1000F5104(&unk_100938850, qword_100795AE0);
+  __chkstk_darwin(v14 - 8, v15);
+  v272 = (&v257 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0));
+  __chkstk_darwin(v17, v18);
+  v270 = &v257 - v19;
+  __chkstk_darwin(v20, v21);
+  v265 = &v257 - v22;
+  __chkstk_darwin(v23, v24);
+  v26 = (&v257 - v25);
+  __chkstk_darwin(v27, v28);
+  v30 = &v257 - v29;
+  __chkstk_darwin(v31, v32);
+  v34 = &v257 - v33;
+  v35 = _s10PredicatesOMa(0);
+  v37 = __chkstk_darwin(v35 - 8, v36);
+  v39 = (&v257 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v273 = v5;
+  v42 = v5[7];
+  v41 = v5 + 7;
+  v40 = v42;
+  v42(v34, 1, 1, v4, v37);
+  v43 = v278;
+  sub_1005C1778(v39, a1, v34);
+  if (v43)
   {
-    sub_1000050A4(v27, &unk_100938850, qword_100795AE0);
+    sub_1000050A4(v34, &unk_100938850, qword_100795AE0);
     return;
   }
 
-  v144 = v21;
-  *&v145 = v34;
-  v146 = v33;
-  v136 = a1;
-  v128 = v24;
-  v142 = v4;
-  v131 = 0;
-  v38 = v37;
-  sub_1000050A4(v27, &unk_100938850, qword_100795AE0);
-  if (!v38[2])
+  v276 = v26;
+  *&v277 = v41;
+  v278 = v40;
+  v268 = a1;
+  v260 = v30;
+  v274 = v4;
+  v263 = 0;
+  v45 = v44;
+  sub_1000050A4(v34, &unk_100938850, qword_100795AE0);
+  if (!*(v45 + 16))
   {
-
-    v61 = sub_1000060C8(0, &qword_100939F40, NSExpression_ptr);
+    v45, v46, v47, v48, v49, v50, v51, v52;
+    v75 = sub_1000060C8(0, &qword_100939F40, NSExpression_ptr);
     swift_getKeyPath();
-    v62 = NSExpression.init<A, B>(forKeyPath:)();
+    v76 = NSExpression.init<A, B>(forKeyPath:)();
     sub_1000F5104(&unk_100938E80, &unk_1007959D0);
-    v63 = swift_allocObject();
-    v145 = xmmword_100791300;
-    *(v63 + 16) = xmmword_100791300;
-    *(v63 + 56) = v61;
-    *(v63 + 32) = v62;
-    v146 = v62;
-    v64 = String._bridgeToObjectiveC()();
+    v77 = swift_allocObject();
+    v277 = xmmword_100791300;
+    *(v77 + 16) = xmmword_100791300;
+    *(v77 + 56) = v75;
+    *(v77 + 32) = v76;
+    v278 = v76;
+    v78 = String._bridgeToObjectiveC()();
     isa = Array._bridgeToObjectiveC()().super.isa;
+    v77, v80, v81, v82, v83, v84, v85, v86;
+    v87 = [objc_opt_self() expressionForFunction:v78 arguments:isa];
 
-    v66 = [objc_opt_self() expressionForFunction:v64 arguments:isa];
+    v88 = [objc_allocWithZone(NSExpressionDescription) init];
+    v275 = 0x80000001007FD910;
+    v89 = String._bridgeToObjectiveC()();
+    [v88 setName:v89];
 
-    v67 = [objc_allocWithZone(NSExpressionDescription) init];
-    v143 = 0x80000001007FD910;
-    v68 = String._bridgeToObjectiveC()();
-    [v67 setName:v68];
-
-    [v67 setExpression:v66];
-    [v67 setExpressionResultType:900];
-    v69 = v32;
-    v70 = sub_100043AA8();
-    v71 = [objc_allocWithZone(NSFetchRequest) init];
+    [v88 setExpression:v87];
+    [v88 setExpressionResultType:900];
+    v90 = v39;
+    v91 = sub_100043AA8();
+    v92 = [objc_allocWithZone(NSFetchRequest) init];
     sub_1000060C8(0, &qword_100939EE0, off_1008D41D0);
-    v72 = [swift_getObjCClassFromMetadata() entity];
-    [v71 setEntity:v72];
+    v93 = [swift_getObjCClassFromMetadata() entity];
+    [v92 setEntity:v93];
 
-    [v71 setAffectedStores:0];
-    [v71 setPredicate:v70];
-    [v71 setResultType:2];
+    [v92 setAffectedStores:0];
+    [v92 setPredicate:v91];
+    [v92 setResultType:2];
 
-    v73 = swift_allocObject();
-    *(v73 + 16) = v145;
-    *(v73 + 56) = sub_1000060C8(0, &qword_100939F48, NSExpressionDescription_ptr);
-    *(v73 + 32) = v67;
-    v74 = v67;
-    v75 = Array._bridgeToObjectiveC()().super.isa;
-
-    [v71 setPropertiesToFetch:v75];
+    v94 = swift_allocObject();
+    *(v94 + 16) = v277;
+    *(v94 + 56) = sub_1000060C8(0, &qword_100939F48, NSExpressionDescription_ptr);
+    *(v94 + 32) = v88;
+    v95 = v88;
+    v96 = Array._bridgeToObjectiveC()().super.isa;
+    v94, v97, v98, v99, v100, v101, v102, v103;
+    [v92 setPropertiesToFetch:v96];
 
     sub_1000060C8(0, &qword_100939F50, NSDictionary_ptr);
-    v76 = v131;
-    v77 = NSManagedObjectContext.fetch<A>(_:)();
-    if (v76)
+    v104 = v263;
+    v105 = NSManagedObjectContext.fetch<A>(_:)();
+    if (v104)
     {
-      sub_1004258C8(v69, _s10PredicatesOMa);
+      sub_1004258C8(v90, _s10PredicatesOMa);
     }
 
     else
     {
-      v89 = v77;
-      *&v145 = v66;
-      v129 = v69;
-      v149 = sub_1000F5104(&qword_10094DE48, &qword_1007B3C18);
-      *&v148 = v89;
+      v138 = v105;
+      *&v277 = v87;
+      v261 = v90;
+      v281 = sub_1000F5104(&qword_10094DE48, &qword_1007B3C18);
+      *&v280 = v138;
       sub_1000F5104(&qword_10094DE50, &unk_1007B3C20);
       throwingCast<A>(_:as:failureMessage:)();
-      v90 = sub_10000607C(&v148);
-      v141 = v127;
-      *&v148 = v151;
-      __chkstk_darwin(v90);
+      v139 = sub_10000607C(&v280);
+      v273 = &v257;
+      v140 = v283;
+      *&v280 = v283;
+      __chkstk_darwin(v139, v141);
       sub_10000CB90(&qword_10094DE58, &qword_10094DE50, &unk_1007B3C20);
-      v91 = v128;
+      v142 = v260;
       Sequence.firstMap<A>(_:)();
-
-      sub_10012F78C(v91, v144);
+      v140, v143, v144, v145, v146, v147, v148, v149;
+      sub_10012F78C(v142, v276);
       REMRemindersListBatchDeleteInvocation.OldestCompletionDateInvocation.Result.init(oldestCompletionDate:)();
 
-      sub_1000050A4(v91, &unk_100938850, qword_100795AE0);
-      sub_1004258C8(v129, _s10PredicatesOMa);
+      sub_1000050A4(v142, &unk_100938850, qword_100795AE0);
+      sub_1004258C8(v261, _s10PredicatesOMa);
     }
 
     return;
   }
 
-  v129 = v32;
-  v39 = v38;
-  v40 = sub_100043AA8();
-  v41 = sub_1000060C8(0, &qword_100939EE0, off_1008D41D0);
-  v42 = [objc_allocWithZone(NSFetchRequest) init];
-  v127[2] = v41;
-  v43 = [swift_getObjCClassFromMetadata() entity];
-  [v42 setEntity:v43];
+  v261 = v39;
+  v53 = v45;
+  v54 = sub_100043AA8();
+  v55 = sub_1000060C8(0, &qword_100939EE0, off_1008D41D0);
+  v56 = [objc_allocWithZone(NSFetchRequest) init];
+  v259 = v55;
+  v57 = [swift_getObjCClassFromMetadata() entity];
+  [v56 setEntity:v57];
 
-  [v42 setAffectedStores:0];
-  v130 = v42;
-  [v42 setPredicate:v40];
+  [v56 setAffectedStores:0];
+  v262 = v56;
+  [v56 setPredicate:v54];
 
-  v135 = v39;
-  *&v148 = v39;
+  v267 = v53;
+  *&v280 = v53;
   sub_1000F5104(&qword_100949370, &unk_100797770);
   sub_10000CB90(&qword_100939850, &qword_100949370, &unk_100797770);
   Predicate = Sequence<>.postFetchPredicateTypes.getter();
-  v151 = sub_100235F88(Predicate);
+  v283 = sub_100235F88(Predicate);
   KeyPath = swift_getKeyPath();
-  sub_100378ACC(&v148, KeyPath);
+  sub_100378ACC(&v280, KeyPath);
 
-  v127[1] = v151;
-  v46 = sub_100277CC0(v151);
-  v47 = v46;
-  if ((v46 & 0x8000000000000000) != 0 || (v46 & 0x4000000000000000) != 0)
+  v258 = v283;
+  v60 = sub_100277CC0(v283);
+  v61 = v60;
+  if ((v60 & 0x8000000000000000) != 0 || (v60 & 0x4000000000000000) != 0)
   {
     goto LABEL_43;
   }
 
-  for (i = *(v46 + 16); ; i = _CocoaArrayWrapper.endIndex.getter())
+  for (i = *v60->clientIdentity; ; i = _CocoaArrayWrapper.endIndex.getter())
   {
-    v49 = v142;
-    v50 = v146;
+    v63 = v274;
+    v64 = v278;
     if (!i)
     {
       break;
     }
 
-    v144 = Predicate;
-    v150 = _swiftEmptyArrayStorage;
+    v276 = Predicate;
+    v282 = &_swiftEmptyArrayStorage;
     sub_100010D04(0, i & ~(i >> 63), 0);
     if (i < 0)
     {
       goto LABEL_69;
     }
 
-    v51 = 0;
-    v52 = v150;
-    Predicate = v47 & 0xC000000000000001;
+    v65 = 0;
+    v66 = v282;
+    Predicate = v61 & 0xC000000000000001;
     while (1)
     {
-      v53 = v51 + 1;
-      if (__OFADD__(v51, 1))
+      v67 = v65 + 1;
+      if (__OFADD__(v65, 1))
       {
         break;
       }
 
       if (Predicate)
       {
-        v54 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        v68 = specialized _ArrayBuffer._getElementSlowPath(_:)();
       }
 
       else
       {
-        if (v51 >= *(v47 + 16))
+        if (v65 >= *v61->clientIdentity)
         {
           goto LABEL_41;
         }
 
-        v54 = *(v47 + 8 * v51 + 32);
+        v68 = *&v61->clientIdentity[8 * v65 + 16];
       }
 
-      v55 = dispatch thunk of AnyKeyPath._kvcKeyPathString.getter();
-      if (!v56)
+      v69 = dispatch thunk of AnyKeyPath._kvcKeyPathString.getter();
+      if (!v70)
       {
         goto LABEL_85;
       }
 
-      v57 = v55;
-      v58 = v56;
-      v149 = &type metadata for String;
+      v71 = v69;
+      v72 = v70;
+      v281 = &type metadata for String;
 
-      *&v148 = v57;
-      *(&v148 + 1) = v58;
-      v150 = v52;
-      v60 = v52[2];
-      v59 = v52[3];
-      if (v60 >= v59 >> 1)
+      *&v280 = v71;
+      *(&v280 + 1) = v72;
+      v282 = v66;
+      v74 = *v66->clientIdentity;
+      v73 = *&v66->clientIdentity[8];
+      if (v74 >= v73 >> 1)
       {
-        sub_100010D04((v59 > 1), v60 + 1, 1);
-        v52 = v150;
+        sub_100010D04((v73 > 1), v74 + 1, 1);
+        v66 = v282;
       }
 
-      v52[2] = v60 + 1;
-      sub_100005EE0(&v148, &v52[4 * v60 + 4]);
-      ++v51;
-      v50 = v146;
-      if (v53 == i)
+      *v66->clientIdentity = v74 + 1;
+      sub_100005EE0(&v280, &v66->clientIdentity[32 * v74 + 16]);
+      ++v65;
+      v64 = v278;
+      if (v67 == i)
       {
 
-        v49 = v142;
-        Predicate = v144;
+        v63 = v274;
+        Predicate = v276;
         goto LABEL_23;
       }
     }
@@ -4886,141 +7128,148 @@ LABEL_43:
     ;
   }
 
+  v66 = &_swiftEmptyArrayStorage;
 LABEL_23:
-  v78 = Array._bridgeToObjectiveC()().super.isa;
+  v106 = Array._bridgeToObjectiveC()().super.isa;
+  v66, v107, v108, v109, v110, v111, v112, v113;
+  i = v262;
+  [v262 setPropertiesToFetch:v106];
 
-  i = v130;
-  [v130 setPropertiesToFetch:v78];
-
-  v79 = sub_100235FA0(Predicate);
-
-  v80 = sub_100277CC0(v79);
-
-  if ((v80 & 0x8000000000000000) != 0 || (v80 & 0x4000000000000000) != 0)
+  v114 = sub_100235FA0(Predicate);
+  Predicate, v115, v116, v117, v118, v119, v120, v121;
+  v122 = sub_100277CC0(v114);
+  v114, v123, v124, v125, v126, v127, v128, v129;
+  if ((v122 & 0x8000000000000000) != 0 || (v122 & 0x4000000000000000) != 0)
   {
     Predicate = _CocoaArrayWrapper.endIndex.getter();
     if (Predicate)
     {
 LABEL_26:
-      v150 = _swiftEmptyArrayStorage;
+      v282 = &_swiftEmptyArrayStorage;
       sub_100026EF4(0, Predicate & ~(Predicate >> 63), 0);
       if (Predicate < 0)
       {
         goto LABEL_70;
       }
 
-      v81 = 0;
-      v47 = v150;
-      v143 = Predicate;
-      v144 = (v80 & 0xC000000000000001);
+      v130 = 0;
+      v61 = v282;
+      v275 = Predicate;
+      v276 = (v122 & 0xC000000000000001);
       do
       {
-        v82 = v81 + 1;
-        if (__OFADD__(v81, 1))
+        v131 = v130 + 1;
+        if (__OFADD__(v130, 1))
         {
           goto LABEL_40;
         }
 
-        if (v144)
+        if (v276)
         {
-          v54 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+          v68 = specialized _ArrayBuffer._getElementSlowPath(_:)();
         }
 
         else
         {
-          if (v81 >= *(v80 + 16))
+          if (v130 >= *v122->clientIdentity)
           {
             goto LABEL_42;
           }
 
-          v54 = *(v80 + 8 * v81 + 32);
+          v68 = *&v122->clientIdentity[8 * v130 + 16];
         }
 
-        v83 = dispatch thunk of AnyKeyPath._kvcKeyPathString.getter();
-        if (!v84)
+        v132 = dispatch thunk of AnyKeyPath._kvcKeyPathString.getter();
+        if (!v133)
         {
           goto LABEL_85;
         }
 
-        v85 = v83;
-        Predicate = v84;
+        v134 = v132;
+        Predicate = v133;
 
-        v150 = v47;
-        v87 = *(v47 + 16);
-        v86 = *(v47 + 24);
-        if (v87 >= v86 >> 1)
+        v282 = v61;
+        v136 = *v61->clientIdentity;
+        v135 = *&v61->clientIdentity[8];
+        if (v136 >= v135 >> 1)
         {
-          sub_100026EF4((v86 > 1), v87 + 1, 1);
-          v47 = v150;
+          sub_100026EF4((v135 > 1), v136 + 1, 1);
+          v61 = v282;
         }
 
-        *(v47 + 16) = v87 + 1;
-        v88 = (v47 + 16 * v87);
-        v88[4] = v85;
-        v88[5] = Predicate;
-        ++v81;
-        v50 = v146;
+        *v61->clientIdentity = v136 + 1;
+        v137 = v61 + 16 * v136;
+        *(v137 + 4) = v134;
+        *(v137 + 5) = Predicate;
+        ++v130;
+        v64 = v278;
       }
 
-      while (v82 != v143);
+      while (v131 != v275);
 
-      v49 = v142;
-      i = v130;
+      v63 = v274;
+      i = v262;
       goto LABEL_46;
     }
   }
 
   else
   {
-    Predicate = *(v80 + 16);
+    Predicate = *v122->clientIdentity;
     if (Predicate)
     {
       goto LABEL_26;
     }
   }
 
+  v61 = &_swiftEmptyArrayStorage;
 LABEL_46:
-  v92 = Array._bridgeToObjectiveC()().super.isa;
+  v150 = Array._bridgeToObjectiveC()().super.isa;
+  v61, v151, v152, v153, v154, v155, v156, v157;
+  [i setRelationshipKeyPathsForPrefetching:v150];
 
-  [i setRelationshipKeyPathsForPrefetching:v92];
-
-  v93 = v131;
-  v94 = NSManagedObjectContext.fetch<A>(_:)();
-  if (v93)
+  v158 = v263;
+  v159 = NSManagedObjectContext.fetch<A>(_:)();
+  if (v158)
   {
-    sub_1004258C8(v129, _s10PredicatesOMa);
+    sub_1004258C8(v261, _s10PredicatesOMa);
+    v258, v160, v161, v162, v163, v164, v165, v166;
 
+    v267, v167, v168, v169, v170, v171, v172, v173;
     return;
   }
 
-  v131 = 0;
-  i = sub_100155C54(v135, _swiftEmptySetSingleton, v94);
-
+  v263 = 0;
+  v174 = v159;
+  v175 = v267;
+  i = sub_100155C54(v267, _swiftEmptySetSingleton, v159);
+  v174, v176, v177, v178, v179, v180, v181, v182;
+  v175, v183, v184, v185, v186, v187, v188, v189;
   if (i >> 62)
   {
     goto LABEL_71;
   }
 
-  v95 = *((i & 0xFFFFFFFFFFFFFF8) + 0x10);
-  v96 = v141;
-  if (v95)
+  v197 = *((i & 0xFFFFFFFFFFFFFF8) + 0x10);
+  v198 = v273;
+  if (v197)
   {
 LABEL_50:
-    v97 = 0;
-    v143 = i & 0xFFFFFFFFFFFFFF8;
-    v144 = (i & 0xC000000000000001);
-    v136 = (v96 + 6);
-    v98 = _swiftEmptyArrayStorage;
-    v135 = (v96 + 4);
+    v199 = 0;
+    v275 = i & 0xFFFFFFFFFFFFFF8;
+    v276 = (i & 0xC000000000000001);
+    v268 = (v198 + 6);
+    v200 = &_swiftEmptyArrayStorage;
+    v267 = (v198 + 4);
     while (1)
     {
-      if (v144)
+      if (v276)
       {
-        v99 = i;
-        v49 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-        v50 = v140;
-        v100 = v97 + 1;
-        if (__OFADD__(v97, 1))
+        v201 = i;
+        v63 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        v64 = v272;
+        v202 = v199 + 1;
+        if (__OFADD__(v199, 1))
         {
           goto LABEL_67;
         }
@@ -5028,16 +7277,16 @@ LABEL_50:
 
       else
       {
-        v50 = v140;
-        if (v97 >= *(v143 + 16))
+        v64 = v272;
+        if (v199 >= *(v275 + 16))
         {
           goto LABEL_68;
         }
 
-        v99 = i;
-        v49 = *(i + 8 * v97 + 32);
-        v100 = v97 + 1;
-        if (__OFADD__(v97, 1))
+        v201 = i;
+        v63 = *(i + 8 * v199 + 32);
+        v202 = v199 + 1;
+        if (__OFADD__(v199, 1))
         {
 LABEL_67:
           __break(1u);
@@ -5048,9 +7297,9 @@ LABEL_69:
 LABEL_70:
           __break(1u);
 LABEL_71:
-          v95 = _CocoaArrayWrapper.endIndex.getter();
-          v96 = v141;
-          if (!v95)
+          v197 = _CocoaArrayWrapper.endIndex.getter();
+          v198 = v273;
+          if (!v197)
           {
             break;
           }
@@ -5059,131 +7308,133 @@ LABEL_71:
         }
       }
 
-      v101 = v95;
-      v102 = [v49 completionDate];
-      v103 = v50;
-      if (v102)
+      v203 = v197;
+      v204 = [v63 completionDate];
+      v205 = v64;
+      if (v204)
       {
-        v104 = v102;
+        v206 = v204;
         static Date._unconditionallyBridgeFromObjectiveC(_:)();
 
-        v105 = 0;
+        v207 = 0;
       }
 
       else
       {
-        v105 = 1;
+        v207 = 1;
       }
 
-      v106 = v105;
-      v49 = v142;
-      v50 = v146;
-      (v146)(v103, v106, 1, v142);
-      v107 = v103;
-      v108 = v138;
-      sub_10012F7FC(v107, v138);
-      if ((*v136)(v108, 1, v49) == 1)
+      v208 = v207;
+      v63 = v274;
+      v64 = v278;
+      (v278)(v205, v208, 1, v274);
+      v209 = v205;
+      v210 = v270;
+      sub_10012F7FC(v209, v270);
+      if ((v268->super.isa)(v210, 1, v63) == 1)
       {
-        sub_1000050A4(v108, &unk_100938850, qword_100795AE0);
-        v95 = v101;
+        sub_1000050A4(v210, &unk_100938850, qword_100795AE0);
+        v197 = v203;
       }
 
       else
       {
-        v109 = *v135;
-        (*v135)(v139, v108, v49);
+        v211 = v267->super.isa;
+        (v267->super.isa)(v271, v210, v63);
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v98 = sub_100365C9C(0, v98[2] + 1, 1, v98);
+          v200 = sub_100365C9C(0, *v200->clientIdentity + 1, 1, v200);
         }
 
-        v95 = v101;
-        v111 = v98[2];
-        v110 = v98[3];
-        if (v111 >= v110 >> 1)
+        v197 = v203;
+        v213 = *v200->clientIdentity;
+        v212 = *&v200->clientIdentity[8];
+        if (v213 >= v212 >> 1)
         {
-          v98 = sub_100365C9C(v110 > 1, v111 + 1, 1, v98);
+          v200 = sub_100365C9C((v212 > 1), v213 + 1, 1, v200);
         }
 
-        v98[2] = v111 + 1;
-        v112 = v98 + ((*(v141 + 80) + 32) & ~*(v141 + 80)) + v141[9] * v111;
-        v49 = v142;
-        v109(v112, v139, v142);
-        v50 = v146;
+        *v200->clientIdentity = v213 + 1;
+        v214 = v200 + ((*(v273 + 80) + 32) & ~*(v273 + 80)) + v273[9] * v213;
+        v63 = v274;
+        (v211)(v214, v271, v274);
+        v64 = v278;
       }
 
-      ++v97;
-      i = v99;
-      if (v100 == v95)
+      ++v199;
+      i = v201;
+      if (v202 == v197)
       {
         goto LABEL_73;
       }
     }
   }
 
-  v98 = _swiftEmptyArrayStorage;
+  v200 = &_swiftEmptyArrayStorage;
 LABEL_73:
-
-  v113 = v98[2];
-  if (!v113)
+  i, v190, v191, v192, v193, v194, v195, v196;
+  v222 = *v200->clientIdentity;
+  if (!v222)
   {
-
-    v118 = v133;
-    v50(v133, 1, 1, v49);
+    v258, v215, v216, v217, v218, v219, v220, v221;
+    v200, v242, v243, v244, v245, v246, v247, v248;
+    v241 = v265;
+    v64(v265, 1, 1, v63);
     goto LABEL_77;
   }
 
-  v114 = v141[2];
-  v115 = v132;
-  v143 = v98 + ((*(v141 + 80) + 32) & ~*(v141 + 80));
-  v144 = v114;
-  (v114)(v132);
-  v116 = v137;
-  if (v113 == 1)
+  v223 = v273[2];
+  v224 = v264;
+  v275 = v200 + ((*(v273 + 80) + 32) & ~*(v273 + 80));
+  v276 = v223;
+  (v223)(v264);
+  v232 = v269;
+  if (v222 == 1)
   {
 LABEL_75:
-
-    v117 = v142;
-    v118 = v133;
-    (v141[4])(v133, v115, v142);
-    (v146)(v118, 0, 1, v117);
+    v258, v225, v226, v227, v228, v229, v230, v231;
+    v200, v233, v234, v235, v236, v237, v238, v239;
+    v240 = v274;
+    v241 = v265;
+    (v273[4])(v265, v224, v274);
+    (v278)(v241, 0, 1, v240);
 LABEL_77:
-    sub_10012F78C(v118, v128);
+    sub_10012F78C(v241, v260);
     REMRemindersListBatchDeleteInvocation.OldestCompletionDateInvocation.Result.init(oldestCompletionDate:)();
 
-    sub_1000050A4(v118, &unk_100938850, qword_100795AE0);
-    sub_1004258C8(v129, _s10PredicatesOMa);
+    sub_1000050A4(v241, &unk_100938850, qword_100795AE0);
+    sub_1004258C8(v261, _s10PredicatesOMa);
     return;
   }
 
-  v54 = v142;
-  v140 = (v141 + 1);
-  v119 = (v141 + 4);
-  v120 = 1;
-  while (v120 < v98[2])
+  v68 = v274;
+  v272 = (v273 + 1);
+  v249 = (v273 + 4);
+  v250 = 1;
+  while (v250 < *v200->clientIdentity)
   {
-    v121 = v113;
-    v122 = v115;
-    v123 = v141;
-    v144(v116, v143 + v141[9] * v120, v54);
-    v124 = static Date.< infix(_:_:)();
-    v125 = v123[1];
-    if (v124)
+    v251 = v222;
+    v252 = v224;
+    v253 = v273;
+    v276(v232, v275 + v273[9] * v250, v68);
+    v254 = static Date.< infix(_:_:)();
+    v255 = v253[1];
+    if (v254)
     {
-      v125(v122, v54);
-      (*v119)(v122, v116, v54);
+      v255(v252, v68);
+      (*v249)(v252, v232, v68);
     }
 
     else
     {
-      v125(v116, v54);
+      v255(v232, v68);
     }
 
-    v115 = v122;
-    ++v120;
-    v113 = v121;
-    v116 = v137;
-    if (v121 == v120)
+    v224 = v252;
+    ++v250;
+    v222 = v251;
+    v232 = v269;
+    if (v251 == v250)
     {
       goto LABEL_75;
     }
@@ -5191,37 +7442,34 @@ LABEL_77:
 
   __break(1u);
 LABEL_85:
-  *&v148 = 0;
-  *(&v148 + 1) = 0xE000000000000000;
+  *&v280 = 0;
+  *(&v280 + 1) = 0xE000000000000000;
   _StringGuts.grow(_:)(46);
-  v126._countAndFlagsBits = 0xD00000000000002CLL;
-  v126._object = 0x80000001007EC120;
-  String.append(_:)(v126);
-  v147 = v54;
+  v256._countAndFlagsBits = 0xD00000000000002CLL;
+  v256._object = 0x80000001007EC120;
+  String.append(_:)(v256);
+  v279 = v68;
   sub_1000F5104(&unk_100939F10, &qword_100797F30);
   _print_unlocked<A, B>(_:_:)();
   _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
 }
 
-void sub_1005C1778(uint64_t *a1, void *a2, uint64_t a3)
+void sub_1005C1778(uint64_t *a1, _TtC7remindd19RDXPCStorePerformer *a2, uint64_t a3)
 {
-  v82 = a2;
+  v133 = a2;
   v6 = type metadata accessor for REMCustomSmartListFilterDescriptor.Operation();
-  v80 = *(v6 - 1);
-  v81 = v6;
-  v7 = v80[8];
-  __chkstk_darwin(v6);
-  v9 = &v77 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = _s10PredicatesOMa_1();
-  v11 = *(*(v10 - 1) + 64);
-  __chkstk_darwin(v10);
-  v13 = &v77 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v131 = *(v6 - 1);
+  v132 = v6;
+  __chkstk_darwin(v6, v7);
+  v9 = &v128 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = _s10PredicatesOMa_1(0);
+  __chkstk_darwin(v10, v11);
+  v13 = &v128 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   v14 = type metadata accessor for REMRemindersListBatchDeleteInvocation.ListType();
   v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
-  v17 = __chkstk_darwin(v14);
-  v19 = (&v77 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v17 = __chkstk_darwin(v14, v16);
+  v19 = (&v128 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0));
   (*(v15 + 16))(v19, v3, v14, v17);
   v20 = (*(v15 + 88))(v19, v14);
   if (v20 == enum case for REMRemindersListBatchDeleteInvocation.ListType.list(_:))
@@ -5241,8 +7489,8 @@ LABEL_3:
     return;
   }
 
-  v78 = a1;
-  v79 = a3;
+  v129 = a1;
+  v130 = a3;
   if (v20 == enum case for REMRemindersListBatchDeleteInvocation.ListType.customSmartList(_:))
   {
     (*(v15 + 96))(v19, v14);
@@ -5250,79 +7498,80 @@ LABEL_3:
     v25 = REMSmartListTypeCustom;
     v26 = qword_1009367E0;
     v10 = *v19;
-    v27 = v79;
+    v28 = v130;
     if (v26 != -1)
     {
 LABEL_65:
       swift_once();
     }
 
-    v28 = v83;
-    v29 = sub_100717244(v25, v24, v82, qword_1009752F0);
+    v29 = v134;
+    v30 = sub_100717244(v25, v24, v133, qword_1009752F0, v27);
 
-    if (v28)
+    if (v29)
     {
 
       return;
     }
 
-    v42 = [v29 parentAccount];
-    if (v42)
+    v57 = [v30 parentAccount];
+    if (v57)
     {
-      v43 = v42;
-      v44 = [v42 remObjectID];
+      v58 = v57;
+      v59 = [v57 remObjectID];
 
-      if (v44)
+      if (v59)
       {
-        v45 = [v29 filterData];
-        if (v45)
+        v60 = [v30 filterData];
+        if (v60)
         {
-          v46 = v45;
+          v61 = v60;
           static Data._unconditionallyBridgeFromObjectiveC(_:)();
 
           type metadata accessor for REMCustomSmartListFilterDescriptor();
-          [v29 minimumSupportedVersion];
-          v47 = REMCustomSmartListFilterDescriptor.__allocating_init(data:minimumSupportedVersion:)();
+          [v30 minimumSupportedVersion];
+          v62 = REMCustomSmartListFilterDescriptor.__allocating_init(data:minimumSupportedVersion:)();
         }
 
         else
         {
           type metadata accessor for REMCustomSmartListFilterDescriptor();
-          v47 = REMCustomSmartListFilterDescriptor.__allocating_init()();
+          v62 = REMCustomSmartListFilterDescriptor.__allocating_init()();
         }
 
-        v57 = v47;
-        v58 = *(sub_1000F5104(&qword_100946010, &qword_1007A71C0) + 64);
-        v59 = v78;
-        *v78 = v57;
-        v59[1] = v44;
-        sub_10012F78C(v27, v59 + v58);
+        v79 = v62;
+        v80 = *(sub_1000F5104(&qword_100946010, &qword_1007A71C0) + 64);
+        v81 = v129;
+        *v129 = v79;
+        v81[1] = v59;
+        sub_10012F78C(v28, v81 + v80);
         _s10PredicatesOMa(0);
         swift_storeEnumTagMultiPayload();
-        v60 = v57;
-        v61 = v44;
+        v82 = v79;
+        v83 = v59;
         REMCustomSmartListFilterDescriptor.operation.getter();
-        v62 = (v80[11])(v9, v81);
-        if (v62 == enum case for REMCustomSmartListFilterDescriptor.Operation.and(_:))
+        v84 = (v131)[11](v9, v132);
+        if (v84 == enum case for REMCustomSmartListFilterDescriptor.Operation.and(_:))
         {
-          v63 = static Set<>.typesSupportedByCustomSmartList.getter();
-          v64 = static Set<>.typesIndescribableByNSPredicate.getter();
-          sub_1001A2030(v64, v63);
-
+          v85 = static Set<>.typesSupportedByCustomSmartList.getter();
+          v86 = static Set<>.typesIndescribableByNSPredicate.getter();
+          v88 = sub_1001A2030(v86, v85, v87);
+          v86, v89, v90, v91, v92, v93, v94, v95;
 LABEL_29:
-          v85 = &type metadata for ReminderIDsWithMatchingHashtagsProvider;
-          v86 = sub_10012DEEC();
-          v84[0] = v82;
-          v65 = v82;
+          v136 = &type metadata for ReminderIDsWithMatchingHashtagsProvider;
+          v137 = sub_10012DEEC();
+          v135[0] = v133;
+          v96 = v133;
           REMCustomSmartListFilterDescriptor.postFetchPredicates(for:reminderIDsWithMatchingHashtagsProvider:)();
 
-          sub_10000607C(v84);
+          v88, v97, v98, v99, v100, v101, v102, v103;
+          sub_10000607C(v135);
           return;
         }
 
-        if (v62 == enum case for REMCustomSmartListFilterDescriptor.Operation.or(_:))
+        if (v84 == enum case for REMCustomSmartListFilterDescriptor.Operation.or(_:))
         {
-          static Set<>.typesSupportedByCustomSmartList.getter();
+          v88 = static Set<>.typesSupportedByCustomSmartList.getter();
           goto LABEL_29;
         }
 
@@ -5330,9 +7579,9 @@ LABEL_29:
       }
     }
 
-    v53 = objc_opt_self();
-    v54 = String._bridgeToObjectiveC()();
-    [v53 internalErrorWithDebugDescription:v54];
+    v75 = objc_opt_self();
+    v76 = String._bridgeToObjectiveC()();
+    [v75 internalErrorWithDebugDescription:v76];
 
     swift_willThrow();
 LABEL_21:
@@ -5340,17 +7589,17 @@ LABEL_21:
     return;
   }
 
-  v30 = v79;
+  v31 = v130;
   if (v20 == enum case for REMRemindersListBatchDeleteInvocation.ListType.reminders(_:))
   {
     (*(v15 + 96))(v19, v14);
-    v31 = *v19;
-    v32 = *(sub_1000F5104(&qword_100946008, &qword_1007A71B8) + 48);
-    v33 = sub_100277EBC(v31);
-
-    v34 = v78;
-    *v78 = v33;
-    sub_10012F78C(v30, v34 + v32);
+    v32 = *v19;
+    v33 = *(sub_1000F5104(&qword_100946008, &qword_1007A71B8) + 48);
+    v34 = sub_100277EBC(v32);
+    v32, v35, v36, v37, v38, v39, v40, v41;
+    v42 = v129;
+    *v129 = v34;
+    sub_10012F78C(v31, v42 + v33);
     _s10PredicatesOMa(0);
     goto LABEL_3;
   }
@@ -5358,71 +7607,72 @@ LABEL_21:
   if (v20 == enum case for REMRemindersListBatchDeleteInvocation.ListType.group(_:))
   {
     (*(v15 + 96))(v19, v14);
-    v35 = *v19;
+    v43 = *v19;
     *v13 = *v19;
     v13[8] = 0;
     swift_storeEnumTagMultiPayload();
-    v36 = v35;
-    v37 = sub_10001F6F4();
+    v44 = v43;
+    v45 = sub_10001F6F4();
     sub_1004258C8(v13, _s10PredicatesOMa_1);
     sub_1000060C8(0, &unk_100938880, off_1008D41A8);
-    v29 = [objc_allocWithZone(NSFetchRequest) init];
-    v38 = [swift_getObjCClassFromMetadata() entity];
-    [v29 setEntity:v38];
+    v30 = [objc_allocWithZone(NSFetchRequest) init];
+    v46 = [swift_getObjCClassFromMetadata() entity];
+    [v30 setEntity:v46];
 
-    [v29 setAffectedStores:0];
-    [v29 setPredicate:v37];
+    [v30 setAffectedStores:0];
+    [v30 setPredicate:v45];
     sub_1000F5104(&unk_100938E80, &unk_1007959D0);
     v25 = swift_allocObject();
-    *(v25 + 1) = xmmword_100791300;
-    *(v25 + 7) = &type metadata for String;
-    *(v25 + 4) = 0x696669746E656469;
-    *(v25 + 5) = 0xEA00000000007265;
+    *v25->clientIdentity = xmmword_100791300;
+    *&v25->clientIdentity[40] = &type metadata for String;
+    *&v25->clientIdentity[16] = 0x696669746E656469;
+    *&v25->clientIdentity[24] = 0xEA00000000007265;
     isa = Array._bridgeToObjectiveC()().super.isa;
+    v25, v48, v49, v50, v51, v52, v53, v54;
+    [v30 setPropertiesToFetch:isa];
 
-    [v29 setPropertiesToFetch:isa];
-
-    v40 = v83;
-    v41 = NSManagedObjectContext.fetch<A>(_:)();
-    if (!v40)
+    v55 = v134;
+    v56 = NSManagedObjectContext.fetch<A>(_:)();
+    if (!v55)
     {
-      v55 = v41;
-      v85 = sub_1000F5104(&qword_10093F6F0, qword_10079A300);
-      v84[0] = v55;
+      v77 = v56;
+      v136 = sub_1000F5104(&qword_10093F6F0, qword_10079A300);
+      v135[0] = v77;
       sub_1000F5104(&qword_10094AEF0, &qword_1007B3C30);
       throwingCast<A>(_:as:failureMessage:)();
-      v81 = v36;
-      v83 = 0;
-      sub_10000607C(v84);
-      v66 = v87;
-      v84[0] = _swiftEmptyArrayStorage;
-      v80 = v37;
-      v9 = (v87 & 0xFFFFFFFFFFFFFF8);
-      if (v87 >> 62)
+      v132 = v44;
+      v134 = 0;
+      sub_10000607C(v135);
+      v104 = v138;
+      v135[0] = &_swiftEmptyArrayStorage;
+      v131 = v45;
+      v9 = (v138 & 0xFFFFFFFFFFFFFF8);
+      if (v138 >> 62)
       {
-        v67 = _CocoaArrayWrapper.endIndex.getter();
+        v105 = _CocoaArrayWrapper.endIndex.getter();
       }
 
       else
       {
-        v67 = *((v87 & 0xFFFFFFFFFFFFFF8) + 0x10);
+        v105 = *((v138 & 0xFFFFFFFFFFFFFF8) + 0x10);
       }
 
       v24 = 0;
-      v27 = (v66 & 0xC000000000000001);
-      v82 = _swiftEmptyArrayStorage;
+      v28 = (v104 & 0xC000000000000001);
+      v133 = &_swiftEmptyArrayStorage;
       while (1)
       {
-        if (v67 == v24)
+        if (v105 == v24)
         {
 
+          v104, v118, v119, v120, v121, v122, v123, v124;
           goto LABEL_60;
         }
 
-        if (v27)
+        if (v28)
         {
           v10 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-          v68 = (v24 + 1);
+          v106 = (v24 + 1);
           if (__OFADD__(v24, 1))
           {
             goto LABEL_61;
@@ -5431,14 +7681,14 @@ LABEL_21:
 
         else
         {
-          if (v24 >= *((v66 & 0xFFFFFFFFFFFFFF8) + 0x10))
+          if (v24 >= *((v104 & 0xFFFFFFFFFFFFFF8) + 0x10))
           {
             goto LABEL_63;
           }
 
-          v10 = *(v66 + 8 * v24 + 32);
+          v10 = *&v104->clientIdentity[8 * v24 + 16];
           swift_unknownObjectRetain();
-          v68 = (v24 + 1);
+          v106 = (v24 + 1);
           if (__OFADD__(v24, 1))
           {
 LABEL_61:
@@ -5453,15 +7703,15 @@ LABEL_61:
         if (v25)
         {
           specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-          if (*((v84[0] & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v84[0] & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+          if (*((v135[0] & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v135[0] & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
           {
-            v10 = *((v84[0] & 0xFFFFFFFFFFFFFF8) + 0x10);
+            v10 = *((v135[0] & 0xFFFFFFFFFFFFFF8) + 0x10);
             specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
           }
 
           specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-          v82 = v84[0];
-          v24 = v68;
+          v133 = v135[0];
+          v24 = v106;
         }
       }
     }
@@ -5480,59 +7730,59 @@ LABEL_69:
   }
 
   swift_storeEnumTagMultiPayload();
-  v48 = sub_10001F6F4();
+  v63 = sub_10001F6F4();
   sub_1004258C8(v13, _s10PredicatesOMa_1);
   sub_1000060C8(0, &unk_100938880, off_1008D41A8);
-  v27 = [objc_allocWithZone(NSFetchRequest) init];
-  v49 = [swift_getObjCClassFromMetadata() entity];
-  [v27 setEntity:v49];
+  v28 = [objc_allocWithZone(NSFetchRequest) init];
+  v64 = [swift_getObjCClassFromMetadata() entity];
+  [v28 setEntity:v64];
 
-  [v27 setAffectedStores:0];
-  [v27 setPredicate:v48];
+  [v28 setAffectedStores:0];
+  [v28 setPredicate:v63];
   sub_1000F5104(&unk_100938E80, &unk_1007959D0);
   v25 = swift_allocObject();
-  *(v25 + 1) = xmmword_100791300;
-  *(v25 + 7) = &type metadata for String;
-  *(v25 + 4) = 0x696669746E656469;
-  *(v25 + 5) = 0xEA00000000007265;
-  v50 = Array._bridgeToObjectiveC()().super.isa;
+  *v25->clientIdentity = xmmword_100791300;
+  *&v25->clientIdentity[40] = &type metadata for String;
+  *&v25->clientIdentity[16] = 0x696669746E656469;
+  *&v25->clientIdentity[24] = 0xEA00000000007265;
+  v65 = Array._bridgeToObjectiveC()().super.isa;
+  v25, v66, v67, v68, v69, v70, v71, v72;
+  [v28 setPropertiesToFetch:v65];
 
-  [v27 setPropertiesToFetch:v50];
-
-  v51 = v83;
-  v52 = NSManagedObjectContext.fetch<A>(_:)();
-  if (!v51)
+  v73 = v134;
+  v74 = NSManagedObjectContext.fetch<A>(_:)();
+  if (!v73)
   {
-    v56 = v52;
-    v85 = sub_1000F5104(&qword_10093F6F0, qword_10079A300);
-    v84[0] = v56;
+    v78 = v74;
+    v136 = sub_1000F5104(&qword_10093F6F0, qword_10079A300);
+    v135[0] = v78;
     sub_1000F5104(&qword_10094AEF0, &qword_1007B3C30);
     throwingCast<A>(_:as:failureMessage:)();
-    v83 = 0;
-    sub_10000607C(v84);
-    v69 = v87;
-    v84[0] = _swiftEmptyArrayStorage;
-    v81 = v48;
-    v9 = (v87 & 0xFFFFFFFFFFFFFF8);
-    if (v87 >> 62)
+    v134 = 0;
+    sub_10000607C(v135);
+    v114 = v138;
+    v135[0] = &_swiftEmptyArrayStorage;
+    v132 = v63;
+    v9 = (v138 & 0xFFFFFFFFFFFFFF8);
+    if (v138 >> 62)
     {
-      v70 = _CocoaArrayWrapper.endIndex.getter();
+      v115 = _CocoaArrayWrapper.endIndex.getter();
     }
 
     else
     {
-      v70 = *((v87 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      v115 = *((v138 & 0xFFFFFFFFFFFFFF8) + 0x10);
     }
 
     v24 = 0;
-    v10 = (v69 & 0xC000000000000001);
-    v82 = _swiftEmptyArrayStorage;
-    while (v70 != v24)
+    v10 = (v114 & 0xC000000000000001);
+    v133 = &_swiftEmptyArrayStorage;
+    while (v115 != v24)
     {
       if (v10)
       {
-        v71 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-        v72 = (v24 + 1);
+        v116 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        v117 = (v24 + 1);
         if (__OFADD__(v24, 1))
         {
           goto LABEL_62;
@@ -5541,14 +7791,14 @@ LABEL_69:
 
       else
       {
-        if (v24 >= *((v69 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        if (v24 >= *((v114 & 0xFFFFFFFFFFFFFF8) + 0x10))
         {
           goto LABEL_64;
         }
 
-        v71 = *(v69 + 8 * v24 + 32);
+        v116 = *&v114->clientIdentity[8 * v24 + 16];
         swift_unknownObjectRetain();
-        v72 = (v24 + 1);
+        v117 = (v24 + 1);
         if (__OFADD__(v24, 1))
         {
 LABEL_62:
@@ -5561,30 +7811,31 @@ LABEL_64:
         }
       }
 
-      v25 = [v71 remObjectID];
+      v25 = [v116 remObjectID];
       swift_unknownObjectRelease();
       ++v24;
       if (v25)
       {
         specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-        if (*((v84[0] & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v84[0] & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+        if (*((v135[0] & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v135[0] & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
         {
-          v73 = *((v84[0] & 0xFFFFFFFFFFFFFF8) + 0x10);
           specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
         }
 
         specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-        v82 = v84[0];
-        v24 = v72;
+        v133 = v135[0];
+        v24 = v117;
       }
     }
 
+    v114, v107, v108, v109, v110, v111, v112, v113;
+
 LABEL_60:
-    v74 = *(sub_1000F5104(&qword_100946018, qword_1007A71C8) + 48);
-    v76 = v78;
-    v75 = v79;
-    *v78 = v82;
-    sub_10012F78C(v75, v76 + v74);
+    v125 = *(sub_1000F5104(&qword_100946018, qword_1007A71C8) + 48);
+    v127 = v129;
+    v126 = v130;
+    *v129 = v133;
+    sub_10012F78C(v126, v127 + v125);
     _s10PredicatesOMa(0);
     goto LABEL_3;
   }
@@ -5612,28 +7863,28 @@ uint64_t sub_1005C24CC@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2
 
 uint64_t sub_1005C2624(uint64_t a1)
 {
-  result = sub_1005C04F0(&qword_10094DCE0, &type metadata accessor for REMRemindersListBatchDeleteInvocation.OldestCompletionDateInvocation);
+  result = sub_1005C04F0(&qword_10094DCE0, &type metadata accessor for REMRemindersListBatchDeleteInvocation.OldestCompletionDateInvocation, &protocol conformance descriptor for REMRemindersListBatchDeleteInvocation.OldestCompletionDateInvocation);
   *(a1 + 8) = result;
   return result;
 }
 
-void sub_1005C267C()
+void sub_1005C267C(__n128 a1)
 {
-  v0 = sub_1005C27D8();
-  if (v0)
+  v1 = sub_1005C27D8();
+  if (v1)
   {
-    v1 = v0;
-    v5 = 0;
-    v2 = [objc_opt_self() reminderIDUUIDStringsJSONDataFromReminderIDsMergeableOrdering:v0 error:&v5];
-    v3 = v5;
-    if (v2)
+    v2 = v1;
+    v6 = 0;
+    v3 = [objc_opt_self() reminderIDUUIDStringsJSONDataFromReminderIDsMergeableOrdering:v1 error:&v6];
+    v4 = v6;
+    if (v3)
     {
       static Data._unconditionallyBridgeFromObjectiveC(_:)();
     }
 
     else
     {
-      v4 = v3;
+      v5 = v4;
       _convertNSErrorToError(_:)();
 
       swift_willThrow();
@@ -5641,11 +7892,10 @@ void sub_1005C267C()
   }
 }
 
-uint64_t sub_1005C2774()
+uint64_t sub_1005C2774(uint64_t a1, const char *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8)
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 24);
+  *(v8 + 16), a2, a3, a4, a5, a6, a7, a8;
+  *(v8 + 24), v9, v10, v11, v12, v13, v14, v15;
 
   return swift_deallocClassInstance();
 }
@@ -5679,12 +7929,12 @@ id sub_1005C2838(uint64_t a1)
   v4 = objc_opt_self();
   sub_100029344(v3, v1);
   isa = Data._bridgeToObjectiveC()().super.isa;
-  v18 = 0;
-  v6 = [v4 reminderIDsMergeableOrderingFromReminderIDUUIDStringsJSONData:isa error:&v18];
+  v26 = 0;
+  v6 = [v4 reminderIDsMergeableOrderingFromReminderIDUUIDStringsJSONData:isa error:&v26];
 
   if (!v6)
   {
-    v9 = v18;
+    v9 = v26;
     _convertNSErrorToError(_:)();
 
     swift_willThrow();
@@ -5703,13 +7953,14 @@ id sub_1005C2838(uint64_t a1)
     {
       v13 = swift_slowAlloc();
       v14 = swift_slowAlloc();
-      v18 = v14;
+      v26 = v14;
       *v13 = 136315138;
       swift_getErrorValue();
       v15 = Error.rem_errorDescription.getter();
-      v17 = sub_10000668C(v15, v16, &v18);
-
-      *(v13 + 4) = v17;
+      v17 = v16;
+      v18 = sub_10000668C(v15, v16, &v26);
+      v17, v19, v20, v21, v22, v23, v24, v25;
+      *(v13 + 4) = v18;
       _os_log_impl(&_mh_execute_header, v11, v12, "Failed to decode reminderIDsMergeableOrdering {error: %s}", v13, 0xCu);
       sub_10000607C(v14);
 
@@ -5724,7 +7975,7 @@ id sub_1005C2838(uint64_t a1)
     return 0;
   }
 
-  v7 = v18;
+  v7 = v26;
   v8 = [v6 mutableCopy];
   sub_100031A14(v3, v1);
 
@@ -5746,15 +7997,15 @@ void sub_1005C2B38(id a1)
   }
 }
 
-uint64_t sub_1005C2B64(unint64_t a1, uint64_t a2)
+void sub_1005C2B64(unint64_t a1, uint64_t a2)
 {
-  v42 = a2;
+  v63 = a2;
   v2 = a1;
-  v51 = _swiftEmptySetSingleton;
-  isUniquelyReferenced_nonNull_native = (a1 >> 62);
+  v72 = _swiftEmptySetSingleton;
+  isUniquelyReferenced_nonNull_native = a1 >> 62;
   if (a1 >> 62)
   {
-LABEL_54:
+LABEL_55:
     v4 = _CocoaArrayWrapper.endIndex.getter();
   }
 
@@ -5782,13 +8033,13 @@ LABEL_54:
 LABEL_5:
       v5 = 0;
       v6 = v2 & 0xC000000000000001;
-      v48 = v2 & 0xFFFFFFFFFFFFFF8;
-      v46 = v2 & 0xC000000000000001;
-      v47 = _swiftEmptyDictionarySingleton;
+      v69 = v2 & 0xFFFFFFFFFFFFFF8;
+      v67 = v2 & 0xC000000000000001;
+      v68 = _swiftEmptyDictionarySingleton;
       v7 = &selRef_persistentStoreForIdentifier_;
-      v44 = v2;
-      v45 = isUniquelyReferenced_nonNull_native;
-      do
+      v65 = v2;
+      v66 = isUniquelyReferenced_nonNull_native;
+      while (1)
       {
         if (v6)
         {
@@ -5797,20 +8048,18 @@ LABEL_5:
 
         else
         {
-          if (v5 >= *(v48 + 16))
+          if (v5 >= *(v69 + 16))
           {
-            goto LABEL_50;
+            goto LABEL_51;
           }
 
           v8 = *(v2 + 8 * v5 + 32);
         }
 
         v9 = v8;
-        v10 = (v5 + 1);
+        v10 = v5 + 1;
         if (__OFADD__(v5, 1))
         {
-          __break(1u);
-LABEL_50:
           __break(1u);
 LABEL_51:
           __break(1u);
@@ -5818,7 +8067,9 @@ LABEL_52:
           __break(1u);
 LABEL_53:
           __break(1u);
-          goto LABEL_54;
+LABEL_54:
+          __break(1u);
+          goto LABEL_55;
         }
 
         v11 = [v8 v7[106]];
@@ -5826,7 +8077,7 @@ LABEL_53:
         {
           v12 = v11;
           v13 = REMObjectID.codable.getter();
-          sub_100379240(&v50, v13);
+          sub_100379240(&v71, v13);
 
           v14 = [v9 list];
           if (v14)
@@ -5836,45 +8087,45 @@ LABEL_53:
 
             if (v16)
             {
-              v49 = [v16 remObjectID];
-              if (!v49)
+              v70 = [v16 remObjectID];
+              if (!v70)
               {
 
                 goto LABEL_44;
               }
 
-              v17 = v47;
-              if ((v47 & 0xC000000000000001) != 0)
+              v17 = v68;
+              if ((v68 & 0xC000000000000001) != 0)
               {
-                if (v47 >= 0)
+                if (v68 >= 0)
                 {
-                  v17 = (v47 & 0xFFFFFFFFFFFFFF8);
+                  v17 = (v68 & 0xFFFFFFFFFFFFFF8);
                 }
 
-                v18 = v49;
+                v18 = v70;
                 isUniquelyReferenced_nonNull_native = __CocoaDictionary.lookup(_:)();
 
-                v6 = v46;
-                if (!isUniquelyReferenced_nonNull_native || (sub_1000060C8(0, &qword_1009399F0, off_1008D4120), swift_dynamicCast(), (isUniquelyReferenced_nonNull_native = v50) == 0))
+                v6 = v67;
+                if (!isUniquelyReferenced_nonNull_native || (sub_1000060C8(0, &qword_1009399F0, off_1008D4120), swift_dynamicCast(), (isUniquelyReferenced_nonNull_native = v71) == 0))
                 {
                   v19 = v16;
                   v20 = __CocoaDictionary.count.getter();
                   if (__OFADD__(v20, 1))
                   {
-                    goto LABEL_52;
+                    goto LABEL_53;
                   }
 
                   v17 = sub_10021C924(v17, v20 + 1);
 LABEL_33:
                   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-                  v50 = v17;
-                  v27 = sub_10002B924(v49);
+                  v71 = v17;
+                  v27 = sub_10002B924(v70);
                   v28 = v17[2];
                   v29 = (v26 & 1) == 0;
                   v30 = v28 + v29;
                   if (__OFADD__(v28, v29))
                   {
-                    goto LABEL_51;
+                    goto LABEL_52;
                   }
 
                   v2 = v26;
@@ -5889,32 +8140,32 @@ LABEL_33:
                   else
                   {
                     sub_10036BAEC(v30, isUniquelyReferenced_nonNull_native);
-                    v31 = sub_10002B924(v49);
+                    v31 = sub_10002B924(v70);
                     if ((v2 & 1) != (v32 & 1))
                     {
                       sub_1000060C8(0, &qword_1009391E0, REMObjectID_ptr);
-                      result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+                      KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
                       __break(1u);
-                      return result;
+                      return;
                     }
 
                     v27 = v31;
                   }
 
-                  isUniquelyReferenced_nonNull_native = v45;
-                  v33 = v50;
-                  v47 = v50;
+                  isUniquelyReferenced_nonNull_native = v66;
+                  v33 = v71;
+                  v68 = v71;
                   if (v2)
                   {
-                    v34 = *(v50 + 7);
+                    v34 = *(v71 + 7);
                     v35 = *(v34 + 8 * v27);
                     *(v34 + 8 * v27) = v16;
                   }
 
                   else
                   {
-                    *(v50 + (v27 >> 6) + 8) |= 1 << v27;
-                    *(v33[6] + 8 * v27) = v49;
+                    *(v71 + (v27 >> 6) + 8) |= 1 << v27;
+                    *(v33[6] + 8 * v27) = v70;
                     *(v33[7] + 8 * v27) = v16;
 
                     v36 = v33[2];
@@ -5922,14 +8173,14 @@ LABEL_33:
                     v38 = v36 + 1;
                     if (v37)
                     {
-                      goto LABEL_53;
+                      goto LABEL_54;
                     }
 
                     v33[2] = v38;
                   }
 
-                  v2 = v44;
-                  v6 = v46;
+                  v2 = v65;
+                  v6 = v67;
 LABEL_44:
                   v7 = &selRef_persistentStoreForIdentifier_;
                   goto LABEL_7;
@@ -5938,7 +8189,7 @@ LABEL_44:
 
               else
               {
-                if (!*(v47 + 16) || (v21 = sub_10002B924(v49), (v22 & 1) == 0) || (v23 = *(*(v47 + 56) + 8 * v21), v24 = v23, !v23))
+                if (!*(v68 + 16) || (v21 = sub_10002B924(v70), (v22 & 1) == 0) || (v23 = *(*(v68 + 56) + 8 * v21), v24 = v23, !v23))
                 {
                   v25 = v16;
                   goto LABEL_33;
@@ -5947,7 +8198,7 @@ LABEL_44:
                 isUniquelyReferenced_nonNull_native = v24;
               }
 
-              isUniquelyReferenced_nonNull_native = v45;
+              isUniquelyReferenced_nonNull_native = v66;
               goto LABEL_44;
             }
 
@@ -5961,104 +8212,112 @@ LABEL_44:
 
 LABEL_7:
         ++v5;
+        if (v10 == isUniquelyReferenced_nonNull_native)
+        {
+          goto LABEL_47;
+        }
       }
-
-      while (v10 != isUniquelyReferenced_nonNull_native);
     }
   }
 
+  v68 = _swiftEmptyDictionarySingleton;
+LABEL_47:
+
   v40 = sub_100277D70(v39);
-
-  sub_100019514(v40, v42);
-
-  if (v43)
+  v68, v41, v42, v43, v44, v45, v46, v47;
+  sub_100019514(v40, v63);
+  if (v64)
   {
+    v55 = v72;
+    v68, v48, v49, v50, v51, v52, v53, v54;
+
+    v55, v56, v57, v58, v59, v60, v61, v62;
   }
 
   else
   {
-    return v51;
+    v68, v48, v49, v50, v51, v52, v53, v54;
   }
 }
 
-void sub_1005C3014(unint64_t a1, uint64_t a2, uint64_t a3, __n128 a4)
+void sub_1005C3014(unint64_t a1, uint64_t a2, unint64_t a3, __n128 a4)
 {
   v5 = a1;
   if (a1 >> 62)
   {
-    goto LABEL_78;
+    goto LABEL_79;
   }
 
   for (i = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = _CocoaArrayWrapper.endIndex.getter())
   {
     v7 = 0;
     v8 = v5 & 0xC000000000000001;
-    v84 = v5 + 32;
-    v85 = v5 & 0xFFFFFFFFFFFFFF8;
-    v98 = a2 + 56;
+    v126 = v5 + 32;
+    v127 = v5 & 0xFFFFFFFFFFFFFF8;
+    v140 = a2 + 56;
     a4.n128_u64[0] = 136315394;
-    v79 = a4;
-    v86 = i;
-    v87 = v5;
-    v88 = a3;
-    v89 = v5 & 0xC000000000000001;
+    v121 = a4;
+    v128 = i;
+    v129 = v5;
+    v130 = a3;
+    v131 = v5 & 0xC000000000000001;
     while (1)
     {
       if (v8)
       {
-        v9 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        v10 = specialized _ArrayBuffer._getElementSlowPath(_:)();
       }
 
       else
       {
-        if (v7 >= *(v85 + 16))
+        if (v7 >= *(v127 + 16))
         {
-          goto LABEL_77;
+          goto LABEL_78;
         }
 
-        v9 = *(v84 + 8 * v7);
+        v10 = *(v126 + 8 * v7);
       }
 
-      v10 = v9;
+      v11 = v10;
       if (__OFADD__(v7++, 1))
       {
         break;
       }
 
-      v12 = [v9 list];
-      v13 = v12;
-      if (v12)
+      v13 = [v10 list];
+      v14 = v13;
+      if (v13)
       {
-        v14 = v12;
-        sub_1005BFDC4(v14);
-        [v10 setList:0];
-        v15 = [v10 createResolutionTokenMapIfNecessary];
-        v16 = String._bridgeToObjectiveC()();
-        [v15 updateForKey:v16];
+        v15 = v13;
+        sub_1005BFDC4(v15);
+        [v11 setList:0];
+        v16 = [v11 createResolutionTokenMapIfNecessary];
+        v17 = String._bridgeToObjectiveC()();
+        [v16 updateForKey:v17];
       }
 
-      v17 = [v10 parentReminder];
-      if (v17)
+      v18 = [v11 parentReminder];
+      if (v18)
       {
 
-        [v10 setParentReminder:0];
-        v18 = [v10 createResolutionTokenMapIfNecessary];
-        v19 = String._bridgeToObjectiveC()();
-        [v18 updateForKey:v19];
+        [v11 setParentReminder:0];
+        v19 = [v11 createResolutionTokenMapIfNecessary];
+        v20 = String._bridgeToObjectiveC()();
+        [v19 updateForKey:v20];
       }
 
-      v20 = [v10 children];
-      if (!v20)
+      v21 = [v11 children];
+      if (!v21)
       {
-        goto LABEL_5;
+        goto LABEL_6;
       }
 
-      v21 = v20;
+      v22 = v21;
       sub_1000060C8(0, &qword_100939EE0, off_1008D41D0);
       sub_1002F1430();
-      v22 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
+      v23 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
-      if ((v22 & 0xC000000000000001) != 0)
+      if ((v23 & 0xC000000000000001) != 0)
       {
         if (!__CocoaSet.count.getter())
         {
@@ -6066,60 +8325,62 @@ void sub_1005C3014(unint64_t a1, uint64_t a2, uint64_t a3, __n128 a4)
         }
       }
 
-      else if (!*(v22 + 16))
+      else if (!*(v23 + 16))
       {
 LABEL_4:
-
+        v9 = v23;
 LABEL_5:
-
+        v9, v24, v25, v26, v27, v28, v29, v30;
 LABEL_6:
-        goto LABEL_7;
+
+LABEL_7:
+        goto LABEL_8;
       }
 
-      v23 = [v10 remObjectID];
-      v101 = _swiftEmptyArrayStorage;
-      v90 = v10;
-      v91 = v7;
-      if ((v22 & 0xC000000000000001) != 0)
+      v31 = [v11 remObjectID];
+      v143 = &_swiftEmptyArrayStorage;
+      v132 = v11;
+      v133 = v7;
+      if ((v23 & 0xC000000000000001) != 0)
       {
         __CocoaSet.makeIterator()();
         Set.Iterator.init(_cocoa:)();
-        v22 = v102;
-        v24 = v103;
-        v25 = v104;
-        v5 = v105;
-        v26 = v106;
+        v23 = v144;
+        v32 = v145;
+        v33 = v146;
+        v5 = v147;
+        v34 = v148;
       }
 
       else
       {
         v5 = 0;
-        v27 = -1 << *(v22 + 32);
-        v24 = v22 + 56;
-        v25 = ~v27;
-        v28 = -v27;
-        if (v28 < 64)
+        v35 = -1 << *(v23 + 32);
+        v32 = v23 + 56;
+        v33 = ~v35;
+        v36 = -v35;
+        if (v36 < 64)
         {
-          v29 = ~(-1 << v28);
+          v37 = ~(-1 << v36);
         }
 
         else
         {
-          v29 = -1;
+          v37 = -1;
         }
 
-        v26 = v29 & *(v22 + 56);
+        v34 = v37 & *(v23 + 56);
       }
 
-      v92 = v23;
-      v30 = (v25 + 64) >> 6;
-      v93 = _swiftEmptyArrayStorage;
-      v95 = v22;
-      v96 = v13;
-      a3 = v26;
+      v134 = v31;
+      v38 = (v33 + 64) >> 6;
+      v135 = &_swiftEmptyArrayStorage;
+      v137 = v23;
+      v138 = v14;
+      a3 = v34;
       while (1)
       {
-        if (v22 < 0)
+        if (v23 < 0)
         {
           if (!__CocoaSet.Iterator.next()())
           {
@@ -6127,296 +8388,300 @@ LABEL_6:
           }
 
           swift_dynamicCast();
-          v35 = v100[0];
-          if (!v100[0])
+          v43 = v142[0];
+          if (!v142[0])
           {
             break;
           }
 
-          goto LABEL_41;
+          goto LABEL_42;
         }
 
-        v33 = v5;
-        v34 = a3;
+        v41 = v5;
+        v42 = a3;
         if (!a3)
         {
           while (1)
           {
-            v5 = v33 + 1;
-            if (__OFADD__(v33, 1))
+            v5 = v41 + 1;
+            if (__OFADD__(v41, 1))
             {
               break;
             }
 
-            if (v5 >= v30)
+            if (v5 >= v38)
             {
-              goto LABEL_59;
+              goto LABEL_60;
             }
 
-            v34 = *(v24 + 8 * v5);
-            ++v33;
-            if (v34)
+            v42 = *(v32 + 8 * v5);
+            ++v41;
+            if (v42)
             {
-              goto LABEL_37;
+              goto LABEL_38;
             }
           }
 
           __break(1u);
-          goto LABEL_76;
+          goto LABEL_77;
         }
 
-LABEL_37:
-        a3 = (v34 - 1) & v34;
-        v35 = *(*(v22 + 48) + ((v5 << 9) | (8 * __clz(__rbit64(v34)))));
-        if (!v35)
+LABEL_38:
+        a3 = (v42 - 1) & v42;
+        v43 = *(*(v23 + 48) + ((v5 << 9) | (8 * __clz(__rbit64(v42)))));
+        if (!v43)
         {
           break;
         }
 
-LABEL_41:
-        v36 = [v35 remObjectID];
-        if (v36)
+LABEL_42:
+        v44 = [v43 remObjectID];
+        if (v44)
         {
-          v37 = v36;
-          v97 = a3;
-          v38 = REMObjectID.codable.getter();
+          v45 = v44;
+          v139 = a3;
+          v46 = REMObjectID.codable.getter();
 
           if ((a2 & 0xC000000000000001) != 0)
           {
-            v31 = v38;
-            v32 = __CocoaSet.contains(_:)();
+            v39 = v46;
+            v40 = __CocoaSet.contains(_:)();
 
-            if (v32)
+            if (v40)
             {
-              goto LABEL_30;
+              goto LABEL_31;
             }
           }
 
           else if (*(a2 + 16))
           {
             type metadata accessor for REMObjectID_Codable();
-            v39 = NSObject._rawHashValue(seed:)(*(a2 + 40));
-            v40 = -1 << *(a2 + 32);
-            v41 = v39 & ~v40;
-            if ((*(v98 + ((v41 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v41))
+            v47 = NSObject._rawHashValue(seed:)(*(a2 + 40));
+            v48 = -1 << *(a2 + 32);
+            v49 = v47 & ~v48;
+            if ((*(v140 + ((v49 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v49))
             {
-              v42 = ~v40;
+              v50 = ~v48;
               while (1)
               {
-                v43 = *(*(a2 + 48) + 8 * v41);
-                v44 = static NSObject.== infix(_:_:)();
+                v51 = *(*(a2 + 48) + 8 * v49);
+                v52 = static NSObject.== infix(_:_:)();
 
-                if (v44)
+                if (v52)
                 {
                   break;
                 }
 
-                v41 = (v41 + 1) & v42;
-                if (((*(v98 + ((v41 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v41) & 1) == 0)
+                v49 = (v49 + 1) & v50;
+                if (((*(v140 + ((v49 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v49) & 1) == 0)
                 {
-                  goto LABEL_48;
+                  goto LABEL_49;
                 }
               }
 
-LABEL_30:
+LABEL_31:
 
-              v22 = v95;
-              v13 = v96;
-              a3 = v97;
-              goto LABEL_31;
+              v23 = v137;
+              v14 = v138;
+              a3 = v139;
+              goto LABEL_32;
             }
           }
 
-LABEL_48:
+LABEL_49:
           if (qword_100936670 != -1)
           {
             swift_once();
           }
 
-          v45 = type metadata accessor for Logger();
-          sub_100006654(v45, qword_10094DC58);
-          v46 = v38;
-          v47 = v92;
-          v48 = Logger.logObject.getter();
-          v49 = static os_log_type_t.default.getter();
+          v53 = type metadata accessor for Logger();
+          sub_100006654(v53, qword_10094DC58);
+          v54 = v46;
+          v55 = v134;
+          v56 = Logger.logObject.getter();
+          v57 = static os_log_type_t.default.getter();
 
-          if (os_log_type_enabled(v48, v49))
+          if (os_log_type_enabled(v56, v57))
           {
-            v82 = v49;
-            log = v48;
-            v50 = v46;
-            v51 = swift_slowAlloc();
-            v80 = swift_slowAlloc();
-            v81 = swift_slowAlloc();
-            v100[0] = v81;
-            *v51 = 138412546;
-            *(v51 + 4) = v50;
-            *v80 = v50;
-            *(v51 + 12) = 2080;
-            v94 = v50;
-            v52 = v50;
-            if (v92)
+            v124 = v57;
+            log = v56;
+            v58 = v54;
+            v59 = swift_slowAlloc();
+            v122 = swift_slowAlloc();
+            v123 = swift_slowAlloc();
+            v142[0] = v123;
+            *v59 = 138412546;
+            *(v59 + 4) = v58;
+            *v122 = v58;
+            *(v59 + 12) = 2080;
+            v136 = v58;
+            v60 = v58;
+            if (v134)
             {
-              v53 = [v47 description];
-              v54 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-              v56 = v55;
+              v61 = [v55 description];
+              v62 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+              v64 = v63;
             }
 
             else
             {
-              v56 = 0xE300000000000000;
-              v54 = 7104878;
+              v64 = 0xE300000000000000;
+              v62 = 7104878;
             }
 
-            v22 = v95;
-            a3 = v97;
-            v57 = sub_10000668C(v54, v56, v100);
+            v23 = v137;
+            a3 = v139;
+            v65 = sub_10000668C(v62, v64, v142);
+            v64, v66, v67, v68, v69, v70, v71, v72;
+            *(v59 + 14) = v65;
+            _os_log_impl(&_mh_execute_header, log, v124, "Found subtasks not to be deleted; make them top level instead. {subtaskID: %@, parentID: %s}", v59, 0x16u);
+            sub_1000050A4(v122, &unk_100938E70, &unk_100797230);
 
-            *(v51 + 14) = v57;
-            _os_log_impl(&_mh_execute_header, log, v82, "Found subtasks not to be deleted; make them top level instead. {subtaskID: %@, parentID: %s}", v51, 0x16u);
-            sub_1000050A4(v80, &unk_100938E70, &unk_100797230);
+            sub_10000607C(v123);
 
-            sub_10000607C(v81);
-
-            v46 = v94;
+            v54 = v136;
           }
 
           else
           {
 
-            v22 = v95;
-            a3 = v97;
+            v23 = v137;
+            a3 = v139;
           }
 
-          [v35 setParentReminder:0];
-          v58 = [v35 createResolutionTokenMapIfNecessary];
-          v59 = String._bridgeToObjectiveC()();
-          [v58 updateForKey:v59];
+          [v43 setParentReminder:0];
+          v73 = [v43 createResolutionTokenMapIfNecessary];
+          v74 = String._bridgeToObjectiveC()();
+          [v73 updateForKey:v74];
 
-          [v35 updateChangeCount];
+          [v43 updateChangeCount];
           swift_beginAccess();
-          v60 = v46;
+          v75 = v54;
           specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-          v13 = v96;
-          if (*((v101 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v101 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+          v14 = v138;
+          if (*((v143 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v143 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
           {
-            v61 = *((v101 & 0xFFFFFFFFFFFFFF8) + 0x10);
             specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-            a3 = v97;
+            a3 = v139;
           }
 
           specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-          v93 = v101;
+          v135 = v143;
           swift_endAccess();
         }
 
         else
         {
-LABEL_31:
+LABEL_32:
         }
       }
 
-LABEL_59:
-      sub_10002CF84();
-      if (v93 >> 62)
+LABEL_60:
+      sub_10002CF84(v23);
+      if (v135 >> 62)
       {
-        v62 = _CocoaArrayWrapper.endIndex.getter();
+        v76 = _CocoaArrayWrapper.endIndex.getter();
       }
 
       else
       {
-        v62 = *((v93 & 0xFFFFFFFFFFFFFF8) + 0x10);
+        v76 = *((v135 & 0xFFFFFFFFFFFFFF8) + 0x10);
       }
 
-      v5 = v87;
-      a3 = v88;
-      i = v86;
-      v10 = v90;
-      v7 = v91;
-      v8 = v89;
-      if (!v62)
+      v5 = v129;
+      a3 = v130;
+      i = v128;
+      v11 = v132;
+      v7 = v133;
+      v8 = v131;
+      if (!v76)
       {
+        v135, v24, v25, v26, v27, v28, v29, v30;
 
-        goto LABEL_6;
+        goto LABEL_7;
       }
 
-      if (!v92)
+      if (!v134)
       {
-        goto LABEL_4;
+        v9 = v135;
+        goto LABEL_5;
       }
 
-      if (v13)
+      if (v14)
       {
-        if (sub_1005C007C(v13))
+        if (sub_1005C007C(v14))
         {
           if (qword_100936670 != -1)
           {
             swift_once();
           }
 
-          v63 = type metadata accessor for Logger();
-          sub_100006654(v63, qword_10094DC58);
-          v64 = v92;
-          v65 = Logger.logObject.getter();
-          v66 = static os_log_type_t.debug.getter();
+          v84 = type metadata accessor for Logger();
+          sub_100006654(v84, qword_10094DC58);
+          v85 = v134;
+          v86 = Logger.logObject.getter();
+          v87 = static os_log_type_t.debug.getter();
 
-          if (os_log_type_enabled(v65, v66))
+          if (os_log_type_enabled(v86, v87))
           {
-            v67 = swift_slowAlloc();
-            v100[0] = swift_slowAlloc();
-            *v67 = v79.n128_u32[0];
+            v88 = swift_slowAlloc();
+            v142[0] = swift_slowAlloc();
+            *v88 = v121.n128_u32[0];
             sub_1000060C8(0, &qword_1009391E0, REMObjectID_ptr);
 
-            v68 = Array.description.getter();
-            v70 = v69;
+            v89 = Array.description.getter();
+            v91 = v90;
+            v135, v90, v92, v93, v94, v95, v96, v97;
+            v98 = sub_10000668C(v89, v91, v142);
+            v91, v99, v100, v101, v102, v103, v104, v105;
+            *(v88 + 4) = v98;
+            *(v88 + 12) = 2080;
+            v106 = [v85 description];
+            v107 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+            v109 = v108;
 
-            v71 = sub_10000668C(v68, v70, v100);
-
-            *(v67 + 4) = v71;
-            *(v67 + 12) = 2080;
-            v72 = [v64 description];
-            v73 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-            v75 = v74;
-
-            v76 = v73;
-            v8 = v89;
-            v77 = sub_10000668C(v76, v75, v100);
-            v7 = v91;
-
-            *(v67 + 14) = v77;
-            v13 = v96;
-            _os_log_impl(&_mh_execute_header, v65, v66, "Moving subtask IDs to reflect top level ordering. {subtaskIDs: %s, parentID: %s}", v67, 0x16u);
+            v110 = v107;
+            v8 = v131;
+            v111 = sub_10000668C(v110, v109, v142);
+            v112 = v109;
+            v7 = v133;
+            v112, v113, v114, v115, v116, v117, v118, v119;
+            *(v88 + 14) = v111;
+            v14 = v138;
+            _os_log_impl(&_mh_execute_header, v86, v87, "Moving subtask IDs to reflect top level ordering. {subtaskIDs: %s, parentID: %s}", v88, 0x16u);
             swift_arrayDestroy();
 
-            v10 = v90;
+            v11 = v132;
           }
 
-          sub_1005C0208(v78, v64);
+          sub_1005C0208(v120, v85);
 
           swift_bridgeObjectRelease_n();
         }
 
         else
         {
+          v135, v77, v78, v79, v80, v81, v82, v83;
         }
       }
 
       else
       {
+        v135, v24, v25, v26, v27, v28, v29, v30;
       }
 
-LABEL_7:
+LABEL_8:
       if (v7 == i)
       {
         return;
       }
     }
 
-LABEL_76:
-    __break(1u);
 LABEL_77:
     __break(1u);
 LABEL_78:
+    __break(1u);
+LABEL_79:
     ;
   }
 }
@@ -6438,9 +8703,9 @@ void sub_1005C3B30(void *a1, uint64_t a2)
 
   if (os_log_type_enabled(v8, v9))
   {
-    v31 = v9;
+    v53 = v9;
     v10 = swift_slowAlloc();
-    v32 = swift_slowAlloc();
+    v54 = swift_slowAlloc();
     *v10 = 136315650;
     v11 = [v7 remObjectID];
     if (v11)
@@ -6458,58 +8723,58 @@ void sub_1005C3B30(void *a1, uint64_t a2)
       v14 = 7104878;
     }
 
-    v17 = sub_10000668C(v14, v16, &v32);
-
-    *(v10 + 4) = v17;
+    v18 = sub_10000668C(v14, v16, &v54);
+    v16, v19, v20, v21, v22, v23, v24, v25;
+    *(v10 + 4) = v18;
     *(v10 + 12) = 2080;
     if (*(a2 + 16))
     {
-      v18 = 1702195828;
+      v26 = 1702195828;
     }
 
     else
     {
-      v18 = 0x65736C6166;
+      v26 = 0x65736C6166;
     }
 
     if (*(a2 + 16))
     {
-      v19 = 0xE400000000000000;
+      v27 = 0xE400000000000000;
     }
 
     else
     {
-      v19 = 0xE500000000000000;
+      v27 = 0xE500000000000000;
     }
 
-    v20 = sub_10000668C(v18, v19, &v32);
-
-    *(v10 + 14) = v20;
+    v28 = sub_10000668C(v26, v27, &v54);
+    v27, v29, v30, v31, v32, v33, v34, v35;
+    *(v10 + 14) = v28;
     *(v10 + 22) = 2080;
     if (*(a2 + 17))
     {
-      v21 = 1702195828;
+      v36 = 1702195828;
     }
 
     else
     {
-      v21 = 0x65736C6166;
+      v36 = 0x65736C6166;
     }
 
     if (*(a2 + 17))
     {
-      v22 = 0xE400000000000000;
+      v37 = 0xE400000000000000;
     }
 
     else
     {
-      v22 = 0xE500000000000000;
+      v37 = 0xE500000000000000;
     }
 
-    v23 = sub_10000668C(v21, v22, &v32);
-
-    *(v10 + 24) = v23;
-    _os_log_impl(&_mh_execute_header, v8, v31, "REMRemindersListBatchDeleteInvocation: updating REMCDList ordering {listID: %s, orderingChanged: %s, needsSortReminders: %s}", v10, 0x20u);
+    v38 = sub_10000668C(v36, v37, &v54);
+    v37, v39, v40, v41, v42, v43, v44, v45;
+    *(v10 + 24) = v38;
+    _os_log_impl(&_mh_execute_header, v8, v53, "REMRemindersListBatchDeleteInvocation: updating REMCDList ordering {listID: %s, orderingChanged: %s, needsSortReminders: %s}", v10, 0x20u);
     swift_arrayDestroy();
 
     v3 = v2;
@@ -6521,25 +8786,25 @@ void sub_1005C3B30(void *a1, uint64_t a2)
 
   if (*(a2 + 16) == 1)
   {
-    sub_1005C267C();
+    sub_1005C267C(v17);
     if (v3)
     {
       return;
     }
 
-    if (v25 >> 60 != 15)
+    if (v47 >> 60 != 15)
     {
-      v26 = v24;
-      v27 = v25;
+      v48 = v46;
+      v49 = v47;
       isa = Data._bridgeToObjectiveC()().super.isa;
       [v7 setReminderIDsMergeableOrdering:isa];
 
-      v29 = [v7 createResolutionTokenMapIfNecessary];
-      v30 = String._bridgeToObjectiveC()();
-      [v29 updateForKey:v30];
+      v51 = [v7 createResolutionTokenMapIfNecessary];
+      v52 = String._bridgeToObjectiveC()();
+      [v51 updateForKey:v52];
 
       [v7 updateChangeCount];
-      sub_100031A14(v26, v27);
+      sub_100031A14(v48, v49);
     }
   }
 
@@ -6579,45 +8844,42 @@ id sub_1005C3F88()
 {
   v0 = type metadata accessor for REMRemindersListDataView.ShowCompleted();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  __chkstk_darwin(v0);
-  v4 = &v20 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = _s9UtilitiesO12SortingStyleOMa();
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5);
-  v8 = &v20 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v0, v2);
+  v4 = &v27 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = _s9UtilitiesO12SortingStyleOMa(0);
+  __chkstk_darwin(v5, v6);
+  v8 = &v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = _s10PredicatesOMa(0);
-  v10 = *(*(v9 - 8) + 64);
-  __chkstk_darwin(v9);
-  v12 = &v20 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9, v9);
+  v11 = &v27 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_storeEnumTagMultiPayload();
-  v13 = sub_100043AA8();
-  sub_1001A4F3C(v12, _s10PredicatesOMa);
+  v12 = sub_100043AA8();
+  sub_1001A4F3C(v11, _s10PredicatesOMa);
   sub_1000060C8(0, &qword_100939EE0, off_1008D41D0);
-  v14 = [objc_allocWithZone(NSFetchRequest) init];
-  v15 = [swift_getObjCClassFromMetadata() entity];
-  [v14 setEntity:v15];
+  v13 = [objc_allocWithZone(NSFetchRequest) init];
+  v14 = [swift_getObjCClassFromMetadata() entity];
+  [v13 setEntity:v14];
 
-  [v14 setAffectedStores:0];
-  [v14 setPredicate:v13];
+  [v13 setAffectedStores:0];
+  [v13 setPredicate:v12];
 
-  v16 = enum case for REMRemindersListDataView.SortingDirection.ascending(_:);
-  v17 = type metadata accessor for REMRemindersListDataView.SortingDirection();
-  (*(*(v17 - 8) + 104))(v8, v16, v17);
+  v15 = enum case for REMRemindersListDataView.SortingDirection.ascending(_:);
+  v16 = type metadata accessor for REMRemindersListDataView.SortingDirection();
+  (*(*(v16 - 8) + 104))(v8, v15, v16);
   swift_storeEnumTagMultiPayload();
   (*(v1 + 104))(v4, enum case for REMRemindersListDataView.ShowCompleted.off(_:), v0);
-  sub_10053CE0C(v8, v4, 0);
+  v17 = sub_10053CE0C(v8, v4, 0);
   (*(v1 + 8))(v4, v0);
   sub_1001A4F3C(v8, _s9UtilitiesO12SortingStyleOMa);
   sub_1000060C8(0, &qword_10093C980, NSSortDescriptor_ptr);
   isa = Array._bridgeToObjectiveC()().super.isa;
+  v17, v19, v20, v21, v22, v23, v24, v25;
+  [v13 setSortDescriptors:isa];
 
-  [v14 setSortDescriptors:isa];
-
-  return v14;
+  return v13;
 }
 
-void sub_1005C42B0(uint64_t a1)
+void sub_1005C42B0(_TtC7remindd19RDXPCStorePerformer *a1)
 {
   v3 = sub_1005C3F88();
   sub_1000060C8(0, &qword_100939EE0, off_1008D41D0);
@@ -6626,9 +8888,11 @@ void sub_1005C42B0(uint64_t a1)
 
   if (!v1)
   {
-    v6 = [objc_opt_self() defaultFetchOptions];
-    sub_1003EBF14(v4, v6, a1);
+    v11 = [objc_opt_self() defaultFetchOptions];
+    sub_1003EBF14(v4, v11, a1, v6, v7, v8, v9, v10);
+    v13 = v12;
 
+    v13, v14, v15, v16, v17, v18, v19, v20;
     type metadata accessor for REMReminderStorageCDIngestor();
     swift_initStackObject();
     if (qword_100936678 != -1)
@@ -6638,32 +8902,34 @@ void sub_1005C42B0(uint64_t a1)
 
     while (1)
     {
-      v7 = type metadata accessor for Logger();
-      v8 = sub_100006654(v7, qword_10094DE60);
-      __chkstk_darwin(v8);
+      v21 = type metadata accessor for Logger();
+      v22 = sub_100006654(v21, qword_10094DE60);
+      __chkstk_darwin(v22, v23);
       sub_1000F5104(&qword_10093CAC0, &unk_10079E1E0);
       sub_1000060C8(0, &unk_10093F670, REMReminderStorage_ptr);
       sub_10055B9E4();
-      v9 = Sequence.map<A>(skippingError:_:)();
+      v24 = Sequence.map<A>(skippingError:_:)();
       if (v5)
       {
 
-        v10 = _swiftEmptyArrayStorage;
+        v4, v32, v33, v34, v35, v36, v37, v38;
+        v46 = &_swiftEmptyArrayStorage;
       }
 
       else
       {
-        v10 = v9;
+        v46 = v24;
+        v4, v25, v26, v27, v28, v29, v30, v31;
       }
 
-      if (v10 >> 62)
+      if (v46 >> 62)
       {
-        v11 = _CocoaArrayWrapper.endIndex.getter();
-        if (!v11)
+        v4 = _CocoaArrayWrapper.endIndex.getter();
+        if (!v4)
         {
 LABEL_25:
-
-          v18 = objc_allocWithZone(type metadata accessor for REMComplicationDataView.FetchModelInvocation.Result());
+          v46, v39, v40, v41, v42, v43, v44, v45;
+          v52 = objc_allocWithZone(type metadata accessor for REMComplicationDataView.FetchModelInvocation.Result());
           REMComplicationDataView.FetchModelInvocation.Result.init(accountStorages:listStorages:reminderStorages:)();
           return;
         }
@@ -6671,45 +8937,44 @@ LABEL_25:
 
       else
       {
-        v11 = *((v10 & 0xFFFFFFFFFFFFFF8) + 0x10);
-        if (!v11)
+        v4 = *((v46 & 0xFFFFFFFFFFFFFF8) + 0x10);
+        if (!v4)
         {
           goto LABEL_25;
         }
       }
 
-      v12 = 0;
-      v5 = v10 & 0xFFFFFFFFFFFFFF8;
+      v47 = 0;
+      v5 = v46 & 0xFFFFFFFFFFFFFF8;
       while (1)
       {
-        if ((v10 & 0xC000000000000001) != 0)
+        if ((v46 & 0xC000000000000001) != 0)
         {
-          v13 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+          v48 = specialized _ArrayBuffer._getElementSlowPath(_:)();
         }
 
         else
         {
-          if (v12 >= *((v10 & 0xFFFFFFFFFFFFFF8) + 0x10))
+          if (v47 >= *((v46 & 0xFFFFFFFFFFFFFF8) + 0x10))
           {
             goto LABEL_22;
           }
 
-          v13 = *(v10 + 8 * v12 + 32);
+          v48 = *(v46 + 8 * v47 + 32);
         }
 
-        v14 = v13;
-        v15 = v12 + 1;
-        if (__OFADD__(v12, 1))
+        v49 = v48;
+        v50 = (v47 + 1);
+        if (__OFADD__(v47, 1))
         {
           break;
         }
 
-        v16 = [v13 displayDate];
-        if (v16)
+        v51 = [v48 displayDate];
+        if (v51)
         {
 
           specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-          v17 = _swiftEmptyArrayStorage[2];
           specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
           specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
           specialized ContiguousArray._endMutation()();
@@ -6719,8 +8984,8 @@ LABEL_25:
         {
         }
 
-        ++v12;
-        if (v15 == v11)
+        ++v47;
+        if (v50 == v4)
         {
           goto LABEL_25;
         }
@@ -6735,121 +9000,120 @@ LABEL_23:
   }
 }
 
-uint64_t sub_1005C4608(uint64_t a1, void (*a2)(uint64_t *__return_ptr, char *), uint64_t a3)
+void *sub_1005C4608(uint64_t a1, void (*a2)(uint64_t *__return_ptr, char *), uint64_t a3)
 {
   v4 = v3;
-  v45 = a2;
-  v46 = a3;
-  v49 = type metadata accessor for REMRemindersListDataView.ReminderLite();
-  v6 = *(v49 - 8);
-  v7 = *(v6 + 64);
-  __chkstk_darwin(v49);
-  v44 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v9);
-  v48 = &v37 - v10;
-  v11 = _swiftEmptyDictionarySingleton;
-  v51 = _swiftEmptyDictionarySingleton;
-  v43 = *(a1 + 16);
-  if (v43)
+  v53 = a2;
+  v54 = a3;
+  v57 = type metadata accessor for REMRemindersListDataView.ReminderLite();
+  v6 = *(v57 - 8);
+  __chkstk_darwin(v57, v7);
+  v52 = &v45 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9, v10);
+  v56 = &v45 - v18;
+  v19 = _swiftEmptyDictionarySingleton;
+  v59 = _swiftEmptyDictionarySingleton;
+  v51 = *(a1 + 16);
+  if (v51)
   {
-    v12 = 0;
-    v42 = v6 + 16;
-    v47 = (v6 + 32);
-    v37 = xmmword_100791300;
-    v40 = v6;
-    v41 = a1;
-    while (v12 < *(a1 + 16))
+    v20 = 0;
+    v50 = v6 + 16;
+    v55 = (v6 + 32);
+    v45 = xmmword_100791300;
+    v48 = v6;
+    v49 = a1;
+    while (v20 < *(a1 + 16))
     {
-      v14 = (*(v6 + 80) + 32) & ~*(v6 + 80);
-      v15 = *(v6 + 72);
-      v16 = v48;
-      (*(v6 + 16))(v48, a1 + v14 + v15 * v12, v49);
-      v45(&v50, v16);
+      v22 = (*(v6 + 80) + 32) & ~*(v6 + 80);
+      v23 = *(v6 + 72);
+      v24 = v56;
+      (*(v6 + 16))(v56, a1 + v22 + v23 * v20, v57);
+      v53(&v58, v24);
       if (v4)
       {
-        (*(v6 + 8))(v48, v49);
+        (*(v6 + 8))(v56, v57);
 
         goto LABEL_19;
       }
 
-      v17 = v50;
-      v19 = sub_100364118(v50);
-      v20 = v11[2];
-      v21 = (v18 & 1) == 0;
-      v22 = v20 + v21;
-      if (__OFADD__(v20, v21))
+      v25 = v58;
+      v27 = sub_100364118(v58);
+      v28 = v19[2];
+      v29 = (v26 & 1) == 0;
+      v30 = v28 + v29;
+      if (__OFADD__(v28, v29))
       {
         goto LABEL_21;
       }
 
-      v23 = v18;
-      if (v11[3] < v22)
+      v31 = v26;
+      if (v19[3] < v30)
       {
-        sub_10036AF70(v22, 1);
-        v11 = v51;
-        v24 = sub_100364118(v17);
-        if ((v23 & 1) != (v25 & 1))
+        sub_10036AF70(v30, 1);
+        v19 = v59;
+        v32 = sub_100364118(v25);
+        if ((v31 & 1) != (v33 & 1))
         {
           goto LABEL_23;
         }
 
-        v19 = v24;
+        v27 = v32;
       }
 
-      if (v23)
+      if (v31)
       {
-        v39 = 0;
-        v26 = v11[7];
-        v27 = *v47;
-        (*v47)(v44, v48, v49);
-        v28 = *(v26 + 8 * v19);
+        v47 = 0;
+        v34 = v19[7];
+        v35 = *v55;
+        (*v55)(v52, v56, v57);
+        v36 = *(v34 + 8 * v27);
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        *(v26 + 8 * v19) = v28;
-        v38 = v27;
+        *(v34 + 8 * v27) = v36;
+        v46 = v35;
         if ((isUniquelyReferenced_nonNull_native & 1) == 0)
         {
-          v28 = sub_100365A24(0, *(v28 + 2) + 1, 1, v28);
-          *(v26 + 8 * v19) = v28;
+          v36 = sub_100365A24(0, *v36->clientIdentity + 1, 1, v36);
+          *(v34 + 8 * v27) = v36;
         }
 
-        v31 = *(v28 + 2);
-        v30 = *(v28 + 3);
-        if (v31 >= v30 >> 1)
+        v39 = *v36->clientIdentity;
+        v38 = *&v36->clientIdentity[8];
+        if (v39 >= v38 >> 1)
         {
-          v28 = sub_100365A24(v30 > 1, v31 + 1, 1, v28);
-          *(v26 + 8 * v19) = v28;
+          v36 = sub_100365A24((v38 > 1), v39 + 1, 1, v36);
+          *(v34 + 8 * v27) = v36;
         }
 
-        v13 = v38;
-        v4 = v39;
-        *(v28 + 2) = v31 + 1;
-        v13(&v28[v14 + v31 * v15], v44, v49);
+        v21 = v46;
+        v4 = v47;
+        *v36->clientIdentity = v39 + 1;
+        v21(v36 + v22 + v39 * v23, v52, v57);
       }
 
       else
       {
         sub_1000F5104(&unk_1009430D0, &qword_10079D4F0);
-        v32 = swift_allocObject();
-        *(v32 + 16) = v37;
-        (*v47)((v32 + v14), v48, v49);
-        v11[(v19 >> 6) + 8] |= 1 << v19;
-        *(v11[6] + v19) = v17;
-        *(v11[7] + 8 * v19) = v32;
-        v33 = v11[2];
-        v34 = __OFADD__(v33, 1);
-        v35 = v33 + 1;
-        if (v34)
+        v40 = swift_allocObject();
+        *(v40 + 16) = v45;
+        (*v55)((v40 + v22), v56, v57);
+        v19[(v27 >> 6) + 8] |= 1 << v27;
+        *(v19[6] + v27) = v25;
+        *(v19[7] + 8 * v27) = v40;
+        v41 = v19[2];
+        v42 = __OFADD__(v41, 1);
+        v43 = v41 + 1;
+        if (v42)
         {
           goto LABEL_22;
         }
 
-        v11[2] = v35;
+        v19[2] = v43;
       }
 
-      ++v12;
-      v6 = v40;
-      a1 = v41;
-      if (v43 == v12)
+      ++v20;
+      v6 = v48;
+      a1 = v49;
+      if (v51 == v20)
       {
         goto LABEL_19;
       }
@@ -6868,17 +9132,17 @@ LABEL_23:
   else
   {
 LABEL_19:
-
-    return v11;
+    a1, v11, v12, v13, v14, v15, v16, v17;
+    return v19;
   }
 
   return result;
 }
 
-uint64_t sub_1005C49A4(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, void (*a5)(Swift::UInt *__return_ptr, id *))
+void *sub_1005C49A4(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, void (*a5)(Swift::UInt *__return_ptr, id *))
 {
   v6 = _swiftEmptyDictionarySingleton;
-  v35 = _swiftEmptyDictionarySingleton;
+  v34 = _swiftEmptyDictionarySingleton;
   v7 = a4 >> 1;
   v8 = (a4 >> 1) - a3;
   if (a4 >> 1 == a3)
@@ -6899,9 +9163,9 @@ LABEL_2:
     v10 = (a2 + 8 * a3);
     while (v9)
     {
-      v34 = *v10;
-      v12 = v34;
-      a5(&v32, &v34);
+      v33 = *v10;
+      v12 = v33;
+      a5(&v31, &v33);
       if (v5)
       {
 
@@ -6910,10 +9174,10 @@ LABEL_2:
         return v6;
       }
 
-      v31 = v8;
-      v13 = v32;
-      v14 = v33;
-      v15 = sub_1003642E4(v32, v33);
+      v30 = v8;
+      v13 = v31;
+      v14 = v32;
+      v15 = sub_1003642E4(v31, v32);
       v17 = v6[2];
       v18 = (v16 & 1) == 0;
       v19 = __OFADD__(v17, v18);
@@ -6927,7 +9191,7 @@ LABEL_2:
       if (v6[3] < v20)
       {
         sub_10036BDCC(v20, 1);
-        v6 = v35;
+        v6 = v34;
         v15 = sub_1003642E4(v13, v14);
         if ((v21 & 1) != (v22 & 1))
         {
@@ -6941,7 +9205,6 @@ LABEL_2:
         specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
         if (*((*v11 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*v11 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
         {
-          v28 = *((*v11 & 0xFFFFFFFFFFFFFF8) + 0x10);
           specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
         }
 
@@ -6973,8 +9236,8 @@ LABEL_2:
 
       --v9;
       ++v10;
-      v8 = v31 - 1;
-      if (v31 == 1)
+      v8 = v30 - 1;
+      if (v30 == 1)
       {
         goto LABEL_2;
       }
@@ -6993,10 +9256,10 @@ LABEL_23:
   return result;
 }
 
-uint64_t sub_1005C4BEC(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, void (*a5)(uint64_t *__return_ptr, id *))
+void *sub_1005C4BEC(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, void (*a5)(uint64_t *__return_ptr, id *))
 {
   v6 = _swiftEmptyDictionarySingleton;
-  v31 = _swiftEmptyDictionarySingleton;
+  v30 = _swiftEmptyDictionarySingleton;
   v7 = a4 >> 1;
   v8 = (a4 >> 1) - a3;
   if (a4 >> 1 == a3)
@@ -7017,9 +9280,9 @@ LABEL_2:
     v10 = (a2 + 8 * a3);
     while (v9)
     {
-      v30 = *v10;
-      v12 = v30;
-      a5(&v29, &v30);
+      v29 = *v10;
+      v12 = v29;
+      a5(&v28, &v29);
       if (v5)
       {
 
@@ -7028,8 +9291,8 @@ LABEL_2:
         return v6;
       }
 
-      v13 = v29;
-      v14 = sub_100364364(v29);
+      v13 = v28;
+      v14 = sub_100364364(v28);
       v16 = v6[2];
       v17 = (v15 & 1) == 0;
       v18 = __OFADD__(v16, v17);
@@ -7043,7 +9306,7 @@ LABEL_2:
       if (v6[3] < v19)
       {
         sub_10036C06C(v19, 1);
-        v6 = v31;
+        v6 = v30;
         v14 = sub_100364364(v13);
         if ((v20 & 1) != (v21 & 1))
         {
@@ -7057,7 +9320,6 @@ LABEL_2:
         specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
         if (*((*v11 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*v11 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
         {
-          v26 = *((*v11 & 0xFFFFFFFFFFFFFF8) + 0x10);
           specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
         }
 
@@ -7106,7 +9368,7 @@ LABEL_23:
   return result;
 }
 
-Swift::Int sub_1005C4E20(void **a1)
+void sub_1005C4E20(_TtC7remindd19RDXPCStorePerformer **a1)
 {
   v2 = *a1;
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
@@ -7114,282 +9376,274 @@ Swift::Int sub_1005C4E20(void **a1)
     v2 = sub_100436450(v2);
   }
 
-  v3 = v2[2];
-  v18[0] = (v2 + 4);
-  v18[1] = v3;
-  result = _minimumMergeRunLength(_:)(v3);
-  if (result >= v3)
+  v3 = *v2->clientIdentity;
+  v29[0] = &v2->clientIdentity[16];
+  v29[1] = v3;
+  v4 = _minimumMergeRunLength(_:)(v3);
+  if (v4 >= v3)
   {
     if (v3 >= 2)
     {
-      v8 = -1;
-      v9 = 1;
-      v10 = v2 + 4;
+      v12 = -1;
+      v13 = 1;
+      v14 = &v2->clientIdentity[16];
       do
       {
-        v11 = v2[2 * v9 + 4];
-        v12 = v8;
-        v13 = v10;
+        v15 = *&v2->clientIdentity[16 * v13 + 16];
+        v16 = v12;
+        v17 = v14;
         do
         {
-          if (v11 >= *v13)
+          if (v15 >= *v17)
           {
             break;
           }
 
-          v14 = v13[3];
-          *(v13 + 1) = *v13;
-          *v13 = v11;
-          v13[1] = v14;
-          v13 -= 2;
+          v18 = *(v17 + 3);
+          *(v17 + 1) = *v17;
+          *v17 = v15;
+          *(v17 + 1) = v18;
+          v17 -= 16;
         }
 
-        while (!__CFADD__(v12++, 1));
-        ++v9;
-        v10 += 2;
-        --v8;
+        while (!__CFADD__(v16++, 1));
+        ++v13;
+        v14 += 16;
+        --v12;
       }
 
-      while (v9 != v3);
+      while (v13 != v3);
     }
   }
 
   else
   {
-    v5 = result;
-    v6 = v3 >> 1;
+    v9 = v4;
+    v10 = (v3 >> 1);
     if (v3 >= 2)
     {
       sub_1000F5104(&qword_10093ED90, &unk_10079D510);
-      v7 = static Array._allocateBufferUninitialized(minimumCapacity:)();
-      v7[2] = v6;
+      v11 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+      *v11->clientIdentity = v10;
     }
 
     else
     {
-      v7 = _swiftEmptyArrayStorage;
+      v11 = &_swiftEmptyArrayStorage;
     }
 
-    v16[0] = v7 + 4;
-    v16[1] = v6;
-    sub_1005C7678(v16, v17, v18, v5);
-    v7[2] = 0;
+    v27[0] = &v11->clientIdentity[16];
+    v27[1] = v10;
+    sub_1005C7678(v27, v28, v29, v9, v5, v6, v7, v8);
+    *v11->clientIdentity = 0;
+    v11, v20, v21, v22, v23, v24, v25, v26;
   }
 
   *a1 = v2;
-  return result;
 }
 
-void sub_1005C4F74(unint64_t a1@<X1>, void *a2@<X2>, void *a3@<X3>, void *a4@<X4>, uint64_t a5@<X8>)
+void sub_1005C4F74(_TtC7remindd19RDXPCStorePerformer *a1@<X1>, _TtC7remindd19RDXPCStorePerformer *a2@<X2>, void *a3@<X3>, _TtC7remindd19RDXPCStorePerformer *a4@<X4>, uint64_t a5@<X8>)
 {
-  v225 = a4;
-  v219 = a3;
-  v214 = a2;
-  v206 = a5;
-  v207 = type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel();
-  v221 = *(v207 - 8);
-  v6 = *(v221 + 64);
-  __chkstk_darwin(v207);
-  v230 = &v186[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v8);
-  v205 = &v186[-v9];
-  v10 = sub_1000F5104(&qword_10094B8E0, &unk_1007AABD0);
-  v11 = *(*(v10 - 8) + 64);
-  __chkstk_darwin(v10 - 8);
-  v203 = &v186[-v12];
-  v229 = type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel.Day();
-  v217 = *(v229 - 8);
-  v13 = *(v217 + 64);
-  __chkstk_darwin(v229);
-  v227 = &v186[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v15);
-  v228 = &v186[-v16];
-  __chkstk_darwin(v17);
-  v209 = &v186[-v18];
-  v224 = type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket();
-  v216 = *(v224 - 8);
-  v19 = *(v216 + 64);
-  __chkstk_darwin(v224);
-  v204 = &v186[-((v20 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v21);
-  v215 = &v186[-v22];
-  __chkstk_darwin(v23);
-  v218 = &v186[-v24];
-  __chkstk_darwin(v25);
-  v223 = &v186[-v26];
-  v27 = type metadata accessor for REMRemindersListDataView.RemindersPrefetch();
-  v212 = *(v27 - 8);
-  v213 = v27;
-  v28 = *(v212 + 64);
-  __chkstk_darwin(v27);
-  v210 = &v186[-((v29 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v30);
-  v211 = &v186[-v31];
+  v314 = a4;
+  v308 = a3;
+  v303 = a2;
+  v295 = a5;
+  v296 = type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel();
+  v310 = *(v296 - 8);
+  __chkstk_darwin(v296, v6);
+  v319 = &v275[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin(v8, v9);
+  v294 = &v275[-v10];
+  v11 = sub_1000F5104(&qword_10094B8E0, &unk_1007AABD0);
+  __chkstk_darwin(v11 - 8, v12);
+  v292 = &v275[-v13];
+  v318 = type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel.Day();
+  v306 = *(v318 - 8);
+  __chkstk_darwin(v318, v14);
+  v316 = &v275[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin(v16, v17);
+  v317 = &v275[-v18];
+  __chkstk_darwin(v19, v20);
+  v298 = &v275[-v21];
+  v313 = type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket();
+  v305 = *(v313 - 8);
+  __chkstk_darwin(v313, v22);
+  v293 = &v275[-((v23 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin(v24, v25);
+  v304 = &v275[-v26];
+  __chkstk_darwin(v27, v28);
+  v307 = &v275[-v29];
+  __chkstk_darwin(v30, v31);
+  v312 = &v275[-v32];
+  v33 = type metadata accessor for REMRemindersListDataView.RemindersPrefetch();
+  v301 = *(v33 - 8);
+  v302 = v33;
+  __chkstk_darwin(v33, v34);
+  v299 = &v275[-((v35 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin(v36, v37);
+  v300 = &v275[-v38];
   Configuration = type metadata accessor for REMRemindersListDataView.FetchConfiguration();
-  v208 = *(Configuration - 8);
-  v33 = *(v208 + 64);
-  __chkstk_darwin(Configuration);
-  v35 = &v186[-((v34 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v36 = type metadata accessor for REMRemindersListDataView.Diff();
-  v220 = *(v36 - 8);
-  v37 = *(v220 + 64);
-  __chkstk_darwin(v36);
-  v39 = &v186[-((v38 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v40);
-  v42 = &v186[-v41];
-  v43 = sub_1000F5104(&qword_100938A70, &qword_1007ACC60);
-  v44 = *(*(v43 - 8) + 64);
-  __chkstk_darwin(v43 - 8);
-  v46 = &v186[-((v45 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v47);
-  v49 = &v186[-v48];
-  v50 = a1;
-  v51 = v226;
-  v52 = sub_1005C9018(a1, v225);
-  if (v51)
+  v297 = *(Configuration - 8);
+  __chkstk_darwin(Configuration, v40);
+  v42 = &v275[-((v41 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v43 = type metadata accessor for REMRemindersListDataView.Diff();
+  v309 = *(v43 - 8);
+  __chkstk_darwin(v43, v44);
+  v46 = &v275[-((v45 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin(v47, v48);
+  v50 = &v275[-v49];
+  v51 = sub_1000F5104(&qword_100938A70, &qword_1007ACC60);
+  __chkstk_darwin(v51 - 8, v52);
+  v54 = &v275[-((v53 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin(v55, v56);
+  v58 = &v275[-v57];
+  v59 = a1;
+  v60 = v315;
+  v61 = sub_1005C9018(a1, v314);
+  if (v60)
   {
     return;
   }
 
-  v201 = v46;
-  v202 = v39;
-  v199 = v42;
-  v198 = v36;
-  v53 = v52;
-  v54 = v222;
-  sub_1005C669C(v50, v52, v49);
-  v200 = v53;
-  v55 = [v54 fetchResultTokenToDiffAgainst];
-  sub_100534D44(v55, v199);
-  v196 = 0;
-  v194 = v49;
-  v193 = v50;
+  v290 = v54;
+  v291 = v46;
+  v288 = v50;
+  v287 = v43;
+  v62 = v61;
+  v63 = v311;
+  sub_1005C669C(v59, v61, v58);
+  v289 = v62;
+  v64 = [(RDXPCStorePerformer *)v63 fetchResultTokenToDiffAgainst];
+  sub_100534D44(v64, v288);
+  v285 = 0;
+  v283 = v58;
+  v282 = v59;
 
   REMRemindersListDataView.ScheduledByDateBucketsInvocation.Parameters.configuration.getter();
-  v56 = v211;
+  v65 = v300;
   REMRemindersListDataView.FetchConfiguration.remindersPrefetch.getter();
-  (*(v208 + 8))(v35, Configuration);
-  v57 = v212;
-  v58 = v210;
-  v59 = v56;
-  v60 = v213;
-  (*(v212 + 16))(v210, v59, v213);
-  v61 = (*(v57 + 88))(v58, v60);
-  if (v61 != enum case for REMRemindersListDataView.RemindersPrefetch.initial(_:))
+  (*(v297 + 8))(v42, Configuration);
+  v66 = v301;
+  v67 = v299;
+  v68 = v65;
+  v69 = v302;
+  (*(v301 + 16))(v299, v68, v302);
+  v70 = (*(v66 + 88))(v67, v69);
+  if (v70 != enum case for REMRemindersListDataView.RemindersPrefetch.initial(_:))
   {
 LABEL_47:
-    v63 = v220;
-    v64 = v221;
-    v65 = v230;
-    v118 = v219;
-    v67 = v202;
-    v68 = v201;
-    v119 = v216;
-    if (v61 == enum case for REMRemindersListDataView.RemindersPrefetch.updatedInserted(_:))
+    v79 = v309;
+    v80 = v310;
+    v81 = v319;
+    v163 = v308;
+    v83 = v291;
+    v84 = v290;
+    v164 = v305;
+    if (v70 == enum case for REMRemindersListDataView.RemindersPrefetch.updatedInserted(_:))
     {
-      v121 = v212;
-      v120 = v213;
-      v122 = v210;
-      (*(v212 + 96))(v210, v213);
-      sub_10053E698(*v122, v199, v193, v118, 0);
-      (*(v121 + 8))(v211, v120);
+      v166 = v301;
+      v165 = v302;
+      v167 = v299;
+      (*(v301 + 96))(v299, v302);
+      sub_10053E698(*v167, v288, v282, v163, 0);
+      (*(v166 + 8))(v300, v165);
       goto LABEL_98;
     }
 
-    if (v61 != enum case for REMRemindersListDataView.RemindersPrefetch.initialAndDateRange(_:))
+    if (v70 != enum case for REMRemindersListDataView.RemindersPrefetch.initialAndDateRange(_:))
     {
-      if (v61 != enum case for REMRemindersListDataView.RemindersPrefetch.none(_:))
+      if (v70 != enum case for REMRemindersListDataView.RemindersPrefetch.none(_:))
       {
         goto LABEL_122;
       }
 
-      (*(v212 + 8))(v211, v213);
+      (*(v301 + 8))(v300, v302);
       goto LABEL_98;
     }
 
-    v123 = v210;
-    (*(v212 + 96))(v210, v213);
-    v188 = *v123;
-    v124 = sub_1000F5104(&qword_100938A78, &qword_1007AABE0);
-    sub_100226AD8(v123 + *(v124 + 48), v203);
-    v125 = v200;
-    v218 = *(v200 + 16);
-    if (!v218)
+    v168 = v299;
+    (*(v301 + 96))(v299, v302);
+    v277 = *v168;
+    v169 = sub_1000F5104(&qword_100938A78, &qword_1007AABE0);
+    sub_100226AD8(v168 + *(v169 + 48), v292);
+    v170 = v289;
+    v307 = *v289->clientIdentity;
+    if (!v307)
     {
-      v225 = _swiftEmptyArrayStorage;
+      v314 = &_swiftEmptyArrayStorage;
 LABEL_103:
-      v182 = v225;
-      v183 = v193;
-      sub_10053DB98(v188, v225, v193, v118, 0);
-      v184 = v203;
-      v185 = v183;
-      v63 = v220;
-      sub_10053EBE4(v203, v182, v185, v118, 0);
-
-      sub_1000050A4(v184, &qword_10094B8E0, &unk_1007AABD0);
-      (*(v212 + 8))(v211, v213);
-      v64 = v221;
+      v264 = v314;
+      v265 = v282;
+      sub_10053DB98(v277, v314, v282, v163, 0);
+      v266 = v292;
+      v267 = v265;
+      v79 = v309;
+      sub_10053EBE4(v292, v264, v267, v163, 0);
+      v264, v268, v269, v270, v271, v272, v273, v274;
+      sub_1000050A4(v266, &qword_10094B8E0, &unk_1007AABD0);
+      (*(v301 + 8))(v300, v302);
+      v80 = v310;
       goto LABEL_98;
     }
 
-    v126 = 0;
-    v214 = (v119 + 16);
-    v210 = (v119 + 88);
-    LODWORD(v208) = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.pastDue(_:);
-    v192 = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.nextFiveDays(_:);
-    v191 = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.day(_:);
-    LODWORD(v190) = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.month(_:);
-    v187 = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.year(_:);
-    v197 = (v119 + 96);
-    v189 = (v217 + 32);
-    v228 = (v217 + 8);
-    v195 = (v119 + 8);
-    v225 = _swiftEmptyArrayStorage;
-    v226 = v217 + 16;
-    v127 = v204;
+    v171 = 0;
+    v303 = (v164 + 16);
+    v299 = (v164 + 88);
+    LODWORD(v297) = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.pastDue(_:);
+    v281 = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.nextFiveDays(_:);
+    v280 = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.day(_:);
+    LODWORD(v279) = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.month(_:);
+    v276 = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.year(_:);
+    v286 = (v164 + 96);
+    v278 = (v306 + 32);
+    v317 = (v306 + 8);
+    v284 = (v164 + 8);
+    v314 = &_swiftEmptyArrayStorage;
+    v315 = v306 + 16;
+    v172 = v293;
     while (1)
     {
-      if (v126 >= *(v125 + 16))
+      if (v171 >= *v170->clientIdentity)
       {
         goto LABEL_117;
       }
 
-      v128 = v125 + ((*(v119 + 80) + 32) & ~*(v119 + 80));
-      v129 = *(v119 + 72);
-      v223 = v126;
-      v130 = *(v119 + 16);
-      v131 = v215;
-      v132 = v224;
-      v130(v215, v128 + v129 * v126, v224);
-      v130(v127, v131, v132);
-      v133 = (*(v119 + 88))(v127, v132);
-      if (v133 == v208)
+      v173 = v170 + ((*(v164 + 80) + 32) & ~*(v164 + 80));
+      v174 = *(v164 + 72);
+      v312 = v171;
+      v175 = *(v164 + 16);
+      v176 = v304;
+      v177 = v313;
+      v175(v304, &v173[v174 * v171], v313);
+      v175(v172, v176, v177);
+      v178 = (*(v164 + 88))(v172, v177);
+      if (v178 == v297)
       {
         break;
       }
 
-      if (v133 == v192)
+      if (v178 == v281)
       {
-        (*v197)(v127, v132);
+        (*v286)(v172, v177);
         goto LABEL_59;
       }
 
-      v158 = v229;
-      v159 = v209;
-      if (v133 != v191)
+      v221 = v318;
+      v222 = v298;
+      if (v178 != v280)
       {
-        if (v133 == v190)
+        if (v178 == v279)
         {
-          v132 = v224;
-          (*v197)(v127, v224);
+          v177 = v313;
+          (*v286)(v172, v313);
 LABEL_59:
-          v134 = *(v127 + *(sub_1000F5104(&qword_10094DEB8, &qword_1007B3C78) + 48));
-          v135 = type metadata accessor for Date();
-          (*(*(v135 - 8) + 8))(v127, v135);
+          v186 = *(v172 + *(sub_1000F5104(&qword_10094DEB8, &qword_1007B3C78) + 48));
+          v187 = type metadata accessor for Date();
+          (*(*(v187 - 8) + 8))(v172, v187);
 LABEL_60:
-          v136 = v217;
-          v137 = *(v134 + 2);
-          if (v137)
+          v188 = v306;
+          v189 = *(v186 + 16);
+          if (v189)
           {
             goto LABEL_61;
           }
@@ -7397,283 +9651,281 @@ LABEL_60:
 
         else
         {
-          v136 = v217;
-          v132 = v224;
-          if (v133 != v187)
+          v188 = v306;
+          v177 = v313;
+          if (v178 != v276)
           {
             goto LABEL_46;
           }
 
-          (*v197)(v127, v224);
-          v134 = *(v127 + *(sub_1000F5104(&qword_10094DEB8, &qword_1007B3C78) + 48));
-          v162 = type metadata accessor for Date();
-          (*(*(v162 - 8) + 8))(v127, v162);
-          v137 = *(v134 + 2);
-          if (v137)
+          (*v286)(v172, v313);
+          v186 = *(v172 + *(sub_1000F5104(&qword_10094DEB8, &qword_1007B3C78) + 48));
+          v225 = type metadata accessor for Date();
+          (*(*(v225 - 8) + 8))(v172, v225);
+          v189 = *(v186 + 16);
+          if (v189)
           {
 LABEL_61:
-            v138 = *(v136 + 80);
-            v222 = v134;
-            v139 = &v134[(v138 + 32) & ~v138];
-            v140 = *(v136 + 72);
-            v141 = *(v136 + 16);
-            v142 = _swiftEmptyArrayStorage;
-            v143 = v227;
+            v190 = *(v188 + 80);
+            v311 = v186;
+            v191 = v186 + ((v190 + 32) & ~v190);
+            v192 = *(v188 + 72);
+            v193 = *(v188 + 16);
+            v194 = &_swiftEmptyArrayStorage;
+            v195 = v316;
             do
             {
-              v144 = v229;
-              v145 = v143;
-              v141();
-              v146 = REMRemindersListDataView.ScheduledDateBucketsModel.Day.reminders.getter();
-              (*v228)(v145, v144);
-              v147 = *(v146 + 16);
-              v148 = v142[2];
-              v149 = v148 + v147;
-              if (__OFADD__(v148, v147))
+              v196 = v318;
+              v197 = v195;
+              v193();
+              v198 = REMRemindersListDataView.ScheduledDateBucketsModel.Day.reminders.getter();
+              (*v317)(v197, v196);
+              v199 = *(v198 + 16);
+              v200 = *v194->clientIdentity;
+              v201 = v200 + v199;
+              if (__OFADD__(v200, v199))
               {
                 goto LABEL_108;
               }
 
               isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-              if (!isUniquelyReferenced_nonNull_native || v149 > v142[3] >> 1)
+              if (!isUniquelyReferenced_nonNull_native || v201 > *&v194->clientIdentity[8] >> 1)
               {
-                if (v148 <= v149)
+                if (v200 <= v201)
                 {
-                  v151 = v148 + v147;
+                  v210 = v200 + v199;
                 }
 
                 else
                 {
-                  v151 = v148;
+                  v210 = v200;
                 }
 
-                v142 = sub_100365A24(isUniquelyReferenced_nonNull_native, v151, 1, v142);
+                v194 = sub_100365A24(isUniquelyReferenced_nonNull_native, v210, 1, v194);
               }
 
-              v65 = v230;
-              if (*(v146 + 16))
+              v81 = v319;
+              if (*(v198 + 16))
               {
-                v152 = (v142[3] >> 1) - v142[2];
-                v153 = *(type metadata accessor for REMRemindersListDataView.ReminderLite() - 8);
-                if (v152 < v147)
+                v211 = (*&v194->clientIdentity[8] >> 1) - *v194->clientIdentity;
+                type metadata accessor for REMRemindersListDataView.ReminderLite();
+                if (v211 < v199)
                 {
                   goto LABEL_110;
                 }
 
-                v154 = (*(v153 + 80) + 32) & ~*(v153 + 80);
-                v155 = *(v153 + 72);
                 swift_arrayInitWithCopy();
-
-                v65 = v230;
-                v143 = v227;
-                if (v147)
+                v198, v212, v213, v214, v215, v216, v217, v218;
+                v81 = v319;
+                v195 = v316;
+                if (v199)
                 {
-                  v156 = v142[2];
-                  v99 = __OFADD__(v156, v147);
-                  v157 = v156 + v147;
-                  if (v99)
+                  v219 = *v194->clientIdentity;
+                  v133 = __OFADD__(v219, v199);
+                  v220 = v219 + v199;
+                  if (v133)
                   {
                     goto LABEL_111;
                   }
 
-                  v142[2] = v157;
+                  *v194->clientIdentity = v220;
                 }
               }
 
               else
               {
-
-                v143 = v227;
-                if (v147)
+                v198, v203, v204, v205, v206, v207, v208, v209;
+                v195 = v316;
+                if (v199)
                 {
                   goto LABEL_109;
                 }
               }
 
-              v139 += v140;
-              --v137;
+              v191 += v192;
+              --v189;
             }
 
-            while (v137);
-
-            v68 = v201;
-            v132 = v224;
-            v119 = v216;
-            v127 = v204;
+            while (v189);
+            v311, v71, v72, v73, v74, v75, v76, v77;
+            v84 = v290;
+            v177 = v313;
+            v164 = v305;
+            v172 = v293;
             goto LABEL_84;
           }
         }
 
-        v142 = _swiftEmptyArrayStorage;
+        v186, v179, v180, v181, v182, v183, v184, v185;
+        v194 = &_swiftEmptyArrayStorage;
         goto LABEL_84;
       }
 
-      v160 = v224;
-      (*v197)(v127, v224);
-      (*v189)(v159, v127, v158);
-      v142 = REMRemindersListDataView.ScheduledDateBucketsModel.Day.reminders.getter();
-      v161 = v159;
-      v132 = v160;
-      (*v228)(v161, v158);
+      v223 = v313;
+      (*v286)(v172, v313);
+      (*v278)(v222, v172, v221);
+      v194 = REMRemindersListDataView.ScheduledDateBucketsModel.Day.reminders.getter();
+      v224 = v222;
+      v177 = v223;
+      (*v317)(v224, v221);
 LABEL_84:
-      (*v195)(v215, v132);
-      v163 = v142[2];
-      v164 = v225[2];
-      v165 = v164 + v163;
-      if (__OFADD__(v164, v163))
+      (*v284)(v304, v177);
+      v226 = *v194->clientIdentity;
+      v227 = *v314->clientIdentity;
+      v228 = v227 + v226;
+      if (__OFADD__(v227, v226))
       {
         goto LABEL_118;
       }
 
-      v166 = swift_isUniquelyReferenced_nonNull_native();
-      v167 = v225;
-      if (!v166 || v165 > v225[3] >> 1)
+      v229 = swift_isUniquelyReferenced_nonNull_native();
+      v237 = v314;
+      if (!v229 || v228 > *&v314->clientIdentity[8] >> 1)
       {
-        if (v164 <= v165)
+        if (v227 <= v228)
         {
-          v168 = v164 + v163;
+          v238 = v227 + v226;
         }
 
         else
         {
-          v168 = v164;
+          v238 = v227;
         }
 
-        v167 = sub_100365A24(v166, v168, 1, v225);
+        v237 = sub_100365A24(v229, v238, 1, v314);
       }
 
-      v118 = v219;
-      v169 = v142[2];
-      v225 = v167;
-      if (v169)
+      v163 = v308;
+      v239 = *v194->clientIdentity;
+      v314 = v237;
+      if (v239)
       {
-        v170 = (v167[3] >> 1) - v167[2];
-        v171 = *(type metadata accessor for REMRemindersListDataView.ReminderLite() - 8);
-        if (v170 < v163)
+        v240 = (*&v237->clientIdentity[8] >> 1) - *v237->clientIdentity;
+        type metadata accessor for REMRemindersListDataView.ReminderLite();
+        if (v240 < v226)
         {
           goto LABEL_120;
         }
 
-        v172 = (*(v171 + 80) + 32) & ~*(v171 + 80);
-        v173 = *(v171 + 72);
         swift_arrayInitWithCopy();
-
-        v118 = v219;
-        v67 = v202;
-        v125 = v200;
-        if (v163)
+        v194, v241, v242, v243, v244, v245, v246, v247;
+        v163 = v308;
+        v83 = v291;
+        v170 = v289;
+        if (v226)
         {
-          v174 = v225[2];
-          v99 = __OFADD__(v174, v163);
-          v175 = v174 + v163;
-          if (v99)
+          v248 = *v314->clientIdentity;
+          v133 = __OFADD__(v248, v226);
+          v249 = v248 + v226;
+          if (v133)
           {
             goto LABEL_121;
           }
 
-          v225[2] = v175;
+          *v314->clientIdentity = v249;
         }
       }
 
       else
       {
-
-        v67 = v202;
-        v125 = v200;
-        if (v163)
+        v194, v230, v231, v232, v233, v234, v235, v236;
+        v83 = v291;
+        v170 = v289;
+        if (v226)
         {
           goto LABEL_119;
         }
       }
 
-      v126 = (v223 + 1);
-      if (v223 + 1 == v218)
+      v171 = (v312 + 1);
+      if (v312 + 1 == v307)
       {
         goto LABEL_103;
       }
     }
 
-    (*v197)(v127, v132);
-    v134 = *v127;
+    (*v286)(v172, v177);
+    v186 = *v172;
     goto LABEL_60;
   }
 
-  (*(v57 + 96))(v58, v60);
-  v189 = *v58;
-  v62 = v200;
-  v63 = v220;
-  v64 = v221;
-  v65 = v230;
-  v66 = v219;
-  v67 = v202;
-  v68 = v201;
-  v69 = v216;
-  v214 = *(v200 + 16);
-  if (!v214)
+  (*(v66 + 96))(v67, v69);
+  v278 = *v67;
+  v78 = v289;
+  v79 = v309;
+  v80 = v310;
+  v81 = v319;
+  v82 = v308;
+  v83 = v291;
+  v84 = v290;
+  v85 = v305;
+  v303 = *v289->clientIdentity;
+  if (!v303)
   {
-    v225 = _swiftEmptyArrayStorage;
+    v314 = &_swiftEmptyArrayStorage;
 LABEL_97:
-    sub_10053DB98(v189, v225, v193, v66, 0);
-
-    (*(v212 + 8))(v211, v213);
+    v250 = v314;
+    sub_10053DB98(v278, v314, v282, v82, 0);
+    v250, v251, v252, v253, v254, v255, v256, v257;
+    (*(v301 + 8))(v300, v302);
 LABEL_98:
-    sub_100010364(v194, v68, &qword_100938A70, &qword_1007ACC60);
-    v176 = v205;
+    sub_100010364(v283, v84, &qword_100938A70, &qword_1007ACC60);
+    v258 = v294;
     REMRemindersListDataView.ScheduledDateBucketsModel.init(buckets:remindersCount:prefetchedReminders:prefetchedDueReminders:)();
-    v177 = v65;
-    v178 = v207;
-    (*(v64 + 16))(v177, v176, v207);
-    v179 = v67;
-    v180 = v199;
-    v181 = v198;
-    (*(v63 + 16))(v179, v199, v198);
-    sub_1005CC954(&qword_10094DEC0, &type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel);
-    sub_1005CC954(&qword_10094DEC8, &type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel);
+    v259 = v81;
+    v260 = v296;
+    (*(v80 + 16))(v259, v258, v296);
+    v261 = v83;
+    v262 = v288;
+    v263 = v287;
+    (*(v79 + 16))(v261, v288, v287);
+    sub_1005CC954(&qword_10094DEC0, &type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel, &protocol conformance descriptor for REMRemindersListDataView.ScheduledDateBucketsModel);
+    sub_1005CC954(&qword_10094DEC8, &type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel, &protocol conformance descriptor for REMRemindersListDataView.ScheduledDateBucketsModel);
     REMRemindersListDataView.DefaultInvocationResult.init(model:diff:)();
-    (*(v64 + 8))(v176, v178);
-    (*(v63 + 8))(v180, v181);
-    sub_1000050A4(v194, &qword_100938A70, &qword_1007ACC60);
+    (*(v80 + 8))(v258, v260);
+    (*(v79 + 8))(v262, v263);
+    sub_1000050A4(v283, &qword_100938A70, &qword_1007ACC60);
     return;
   }
 
-  v70 = 0;
-  v210 = (v216 + 16);
-  v208 = v216 + 88;
-  LODWORD(v204) = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.pastDue(_:);
-  LODWORD(v195) = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.nextFiveDays(_:);
-  v192 = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.day(_:);
-  v191 = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.month(_:);
-  LODWORD(v188) = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.year(_:);
-  v203 = (v216 + 96);
-  v190 = (v217 + 32);
-  v227 = (v217 + 8);
-  v197 = (v216 + 8);
-  v225 = _swiftEmptyArrayStorage;
-  v226 = v217 + 16;
-  v71 = v228;
+  v86 = 0;
+  v299 = (v305 + 16);
+  v297 = v305 + 88;
+  LODWORD(v293) = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.pastDue(_:);
+  LODWORD(v284) = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.nextFiveDays(_:);
+  v281 = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.day(_:);
+  v280 = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.month(_:);
+  LODWORD(v277) = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.year(_:);
+  v292 = (v305 + 96);
+  v279 = (v306 + 32);
+  v316 = (v306 + 8);
+  v286 = (v305 + 8);
+  v314 = &_swiftEmptyArrayStorage;
+  v315 = v306 + 16;
+  v87 = v317;
   while (1)
   {
-    if (v70 >= *(v62 + 16))
+    if (v86 >= *v78->clientIdentity)
     {
       goto LABEL_112;
     }
 
-    v73 = v62 + ((*(v69 + 80) + 32) & ~*(v69 + 80));
-    v74 = *(v69 + 72);
-    v222 = v70;
-    v75 = *(v69 + 16);
-    v77 = v223;
-    v76 = v224;
-    v75(v223, v73 + v74 * v70, v224);
-    v78 = v218;
-    v75(v218, v77, v76);
-    v79 = (*(v69 + 88))(v78, v76);
-    if (v79 == v204)
+    v89 = v78 + ((*(v85 + 80) + 32) & ~*(v85 + 80));
+    v90 = *(v85 + 72);
+    v311 = v86;
+    v91 = *(v85 + 16);
+    v93 = v312;
+    v92 = v313;
+    v91(v312, &v89[v90 * v86], v313);
+    v94 = v307;
+    v91(v307, v93, v92);
+    v95 = (*(v85 + 88))(v94, v92);
+    if (v95 == v293)
     {
-      (*v203)(v78, v76);
-      v80 = *v78;
-      v81 = *(*v78 + 16);
-      if (v81)
+      (*v292)(v94, v92);
+      v103 = *v94;
+      v104 = *(*v94 + 16);
+      if (v104)
       {
         break;
       }
@@ -7681,150 +9933,148 @@ LABEL_98:
       goto LABEL_29;
     }
 
-    if (v79 != v195)
+    if (v95 != v284)
     {
-      if (v79 == v192)
+      if (v95 == v281)
       {
-        (*v203)(v78, v76);
-        v102 = v209;
-        v103 = v229;
-        (*v190)(v209, v78, v229);
-        v86 = REMRemindersListDataView.ScheduledDateBucketsModel.Day.reminders.getter();
-        v104 = v102;
-        v76 = v224;
-        (*v227)(v104, v103);
+        (*v292)(v94, v92);
+        v136 = v298;
+        v137 = v318;
+        (*v279)(v298, v94, v318);
+        v109 = REMRemindersListDataView.ScheduledDateBucketsModel.Day.reminders.getter();
+        v138 = v136;
+        v92 = v313;
+        (*v316)(v138, v137);
         goto LABEL_32;
       }
 
-      if (v79 != v191 && v79 != v188)
+      if (v95 != v280 && v95 != v277)
       {
 LABEL_46:
-        v61 = _diagnoseUnexpectedEnumCase<A>(type:)();
+        v70 = _diagnoseUnexpectedEnumCase<A>(type:)();
         __break(1u);
         goto LABEL_47;
       }
     }
 
-    (*v203)(v78, v76);
-    v80 = *&v78[*(sub_1000F5104(&qword_10094DEB8, &qword_1007B3C78) + 48)];
-    v101 = type metadata accessor for Date();
-    (*(*(v101 - 8) + 8))(v78, v101);
-    v81 = *(v80 + 16);
-    if (v81)
+    (*v292)(v94, v92);
+    v103 = *&v94[*(sub_1000F5104(&qword_10094DEB8, &qword_1007B3C78) + 48)];
+    v135 = type metadata accessor for Date();
+    (*(*(v135 - 8) + 8))(v94, v135);
+    v104 = *(v103 + 16);
+    if (v104)
     {
       break;
     }
 
 LABEL_29:
-
-    v86 = _swiftEmptyArrayStorage;
+    v103, v96, v97, v98, v99, v100, v101, v102;
+    v109 = &_swiftEmptyArrayStorage;
 LABEL_32:
-    (*v197)(v77, v76);
-    v105 = v86[2];
-    v106 = v225;
-    v107 = v225[2];
-    v108 = v107 + v105;
-    if (__OFADD__(v107, v105))
+    (*v286)(v93, v92);
+    v139 = *v109->clientIdentity;
+    v140 = v314;
+    v141 = *v314->clientIdentity;
+    v142 = v141 + v139;
+    if (__OFADD__(v141, v139))
     {
       goto LABEL_113;
     }
 
-    v109 = swift_isUniquelyReferenced_nonNull_native();
-    if (!v109 || v108 > v106[3] >> 1)
+    v143 = swift_isUniquelyReferenced_nonNull_native();
+    if (!v143 || v142 > *&v140->clientIdentity[8] >> 1)
     {
-      if (v107 <= v108)
+      if (v141 <= v142)
       {
-        v110 = v107 + v105;
+        v151 = v141 + v139;
       }
 
       else
       {
-        v110 = v107;
+        v151 = v141;
       }
 
-      v106 = sub_100365A24(v109, v110, 1, v106);
+      v140 = sub_100365A24(v143, v151, 1, v140);
     }
 
-    v67 = v202;
-    v111 = v86[2];
-    v225 = v106;
-    if (v111)
+    v83 = v291;
+    v152 = *v109->clientIdentity;
+    v314 = v140;
+    if (v152)
     {
-      v112 = (v106[3] >> 1) - v106[2];
-      v113 = *(type metadata accessor for REMRemindersListDataView.ReminderLite() - 8);
-      if (v112 < v105)
+      v153 = (*&v140->clientIdentity[8] >> 1) - *v140->clientIdentity;
+      type metadata accessor for REMRemindersListDataView.ReminderLite();
+      if (v153 < v139)
       {
         goto LABEL_115;
       }
 
-      v114 = (*(v113 + 80) + 32) & ~*(v113 + 80);
-      v115 = *(v113 + 72);
       swift_arrayInitWithCopy();
-
-      v64 = v221;
-      v72 = v222;
-      v67 = v202;
-      v68 = v201;
-      v62 = v200;
-      if (v105)
+      v109, v154, v155, v156, v157, v158, v159, v160;
+      v80 = v310;
+      v88 = v311;
+      v83 = v291;
+      v84 = v290;
+      v78 = v289;
+      if (v139)
       {
-        v116 = v225[2];
-        v99 = __OFADD__(v116, v105);
-        v117 = v116 + v105;
-        if (v99)
+        v161 = *v314->clientIdentity;
+        v133 = __OFADD__(v161, v139);
+        v162 = v161 + v139;
+        if (v133)
         {
           goto LABEL_116;
         }
 
-        v225[2] = v117;
+        *v314->clientIdentity = v162;
       }
     }
 
     else
     {
-
-      v64 = v221;
-      v72 = v222;
-      v68 = v201;
-      v62 = v200;
-      if (v105)
+      v109, v144, v145, v146, v147, v148, v149, v150;
+      v80 = v310;
+      v88 = v311;
+      v84 = v290;
+      v78 = v289;
+      if (v139)
       {
         goto LABEL_114;
       }
     }
 
-    v70 = (v72 + 1);
-    v63 = v220;
-    if (v70 == v214)
+    v86 = (&v88->super.isa + 1);
+    v79 = v309;
+    if (v86 == v303)
     {
       goto LABEL_97;
     }
   }
 
-  v82 = *(v217 + 80);
-  v215 = v80;
-  v83 = v80 + ((v82 + 32) & ~v82);
-  v84 = *(v217 + 72);
-  v85 = *(v217 + 16);
-  v86 = _swiftEmptyArrayStorage;
+  v105 = *(v306 + 80);
+  v304 = v103;
+  v106 = v103 + ((v105 + 32) & ~v105);
+  v107 = *(v306 + 72);
+  v108 = *(v306 + 16);
+  v109 = &_swiftEmptyArrayStorage;
   while (1)
   {
-    v87 = v229;
-    v85(v71, v83, v229);
-    v88 = REMRemindersListDataView.ScheduledDateBucketsModel.Day.reminders.getter();
-    (*v227)(v71, v87);
-    v89 = *(v88 + 16);
-    v90 = v86[2];
-    v91 = v90 + v89;
-    if (__OFADD__(v90, v89))
+    v110 = v318;
+    v108(v87, v106, v318);
+    v111 = REMRemindersListDataView.ScheduledDateBucketsModel.Day.reminders.getter();
+    (*v316)(v87, v110);
+    v112 = *(v111 + 16);
+    v113 = *v109->clientIdentity;
+    v114 = v113 + v112;
+    if (__OFADD__(v113, v112))
     {
       break;
     }
 
-    v92 = swift_isUniquelyReferenced_nonNull_native();
-    if (v92 && v91 <= v86[3] >> 1)
+    v115 = swift_isUniquelyReferenced_nonNull_native();
+    if (v115 && v114 <= *&v109->clientIdentity[8] >> 1)
     {
-      if (*(v88 + 16))
+      if (*(v111 + 16))
       {
         goto LABEL_22;
       }
@@ -7832,66 +10082,65 @@ LABEL_32:
 
     else
     {
-      if (v90 <= v91)
+      if (v113 <= v114)
       {
-        v93 = v90 + v89;
+        v123 = v113 + v112;
       }
 
       else
       {
-        v93 = v90;
+        v123 = v113;
       }
 
-      v86 = sub_100365A24(v92, v93, 1, v86);
-      if (*(v88 + 16))
+      v109 = sub_100365A24(v115, v123, 1, v109);
+      if (*(v111 + 16))
       {
 LABEL_22:
-        v94 = (v86[3] >> 1) - v86[2];
-        v95 = *(type metadata accessor for REMRemindersListDataView.ReminderLite() - 8);
-        if (v94 < v89)
+        v124 = (*&v109->clientIdentity[8] >> 1) - *v109->clientIdentity;
+        type metadata accessor for REMRemindersListDataView.ReminderLite();
+        if (v124 < v112)
         {
           goto LABEL_106;
         }
 
-        v96 = (*(v95 + 80) + 32) & ~*(v95 + 80);
-        v97 = *(v95 + 72);
         swift_arrayInitWithCopy();
-
-        v65 = v230;
-        v71 = v228;
-        if (v89)
+        v111, v125, v126, v127, v128, v129, v130, v131;
+        v81 = v319;
+        v87 = v317;
+        if (v112)
         {
-          v98 = v86[2];
-          v99 = __OFADD__(v98, v89);
-          v100 = v98 + v89;
-          if (v99)
+          v132 = *v109->clientIdentity;
+          v133 = __OFADD__(v132, v112);
+          v134 = v132 + v112;
+          if (v133)
           {
             goto LABEL_107;
           }
 
-          v86[2] = v100;
+          *v109->clientIdentity = v134;
         }
 
         goto LABEL_12;
       }
     }
 
-    v65 = v230;
-    v71 = v228;
-    if (v89)
+    v111, v116, v117, v118, v119, v120, v121, v122;
+    v81 = v319;
+    v87 = v317;
+    if (v112)
     {
       goto LABEL_105;
     }
 
 LABEL_12:
-    v83 += v84;
-    if (!--v81)
+    v106 += v107;
+    if (!--v104)
     {
-
-      v66 = v219;
-      v77 = v223;
-      v76 = v224;
-      v69 = v216;
+      v304, v71, v72, v73, v74, v75, v76, v77;
+      v82 = v308;
+      v93 = v312;
+      v92 = v313;
+      v85 = v305;
       goto LABEL_32;
     }
   }
@@ -7932,3145 +10181,7 @@ LABEL_120:
 LABEL_121:
   __break(1u);
 LABEL_122:
-
+  v289, v71, v72, v73, v74, v75, v76, v77;
   _diagnoseUnexpectedEnumCase<A>(type:)();
   __break(1u);
-}
-
-void sub_1005C669C(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
-{
-  v108 = a2;
-  v78 = a1;
-  v79 = a3;
-  v3 = type metadata accessor for REMRemindersListDataView.ReminderLite();
-  v97 = *(v3 - 8);
-  v4 = *(v97 + 64);
-  __chkstk_darwin(v3);
-  v94 = &v70[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v6);
-  v8 = &v70[-v7];
-  v9 = type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel.Day();
-  v104 = *(v9 - 8);
-  v10 = *(v104 + 64);
-  __chkstk_darwin(v9);
-  v12 = &v70[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v13);
-  v96 = &v70[-v14];
-  v77 = _s10PredicatesOMa(0);
-  v15 = *(*(v77 - 8) + 64);
-  __chkstk_darwin(v77);
-  v76 = &v70[-((v16 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v93 = type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket();
-  v17 = *(v93 - 8);
-  v18 = *(v17 + 64);
-  __chkstk_darwin(v93);
-  v91 = &v70[-((v19 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v20);
-  v95 = &v70[-v21];
-  Configuration = type metadata accessor for REMRemindersListDataView.FetchConfiguration();
-  v23 = *(Configuration - 8);
-  v24 = *(v23 + 64);
-  __chkstk_darwin(Configuration);
-  v26 = &v70[-((v25 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  REMRemindersListDataView.ScheduledByDateBucketsInvocation.Parameters.configuration.getter();
-  v27 = REMRemindersListDataView.FetchConfiguration.countCompleted.getter();
-  (*(v23 + 8))(v26, Configuration);
-  if ((v27 & 1) == 0)
-  {
-LABEL_41:
-    v62 = 1;
-    v63 = v79;
-    goto LABEL_42;
-  }
-
-  v83 = *(v108 + 16);
-  if (!v83)
-  {
-LABEL_43:
-    v65 = v76;
-    swift_storeEnumTagMultiPayload();
-    v66 = sub_100043AA8();
-    sub_1000513B4(v65);
-    sub_1000060C8(0, &qword_100939EE0, off_1008D41D0);
-    v67 = [objc_allocWithZone(NSFetchRequest) init];
-    v68 = [swift_getObjCClassFromMetadata() entity];
-    [v67 setEntity:v68];
-
-    [v67 setAffectedStores:0];
-    [v67 setPredicate:v66];
-    v69 = v81;
-    NSManagedObjectContext.count<A>(for:)();
-    if (v69)
-    {
-
-      return;
-    }
-
-    v63 = v79;
-    REMRemindersListDataView.CountByCompleted.init(completed:incomplete:)();
-
-    v62 = 0;
-LABEL_42:
-    v64 = type metadata accessor for REMRemindersListDataView.CountByCompleted();
-    (*(*(v64 - 8) + 56))(v63, v62, 1, v64);
-    return;
-  }
-
-  v74 = v12;
-  v28 = 0;
-  v29 = 0;
-  v31 = *(v17 + 16);
-  v30 = v17 + 16;
-  v89 = v31;
-  v88 = v108 + ((*(v30 + 64) + 32) & ~*(v30 + 64));
-  v87 = *(v30 + 56);
-  v86 = (v30 + 72);
-  v85 = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.pastDue(_:);
-  v80 = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.nextFiveDays(_:);
-  v75 = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.day(_:);
-  v73 = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.month(_:);
-  v84 = (v30 + 80);
-  v72 = (v104 + 32);
-  v108 = v97 + 16;
-  v71 = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.year(_:);
-  v32 = (v97 + 8);
-  v100 = (v104 + 8);
-  v90 = v30;
-  v82 = (v30 - 8);
-  v98 = v9;
-  v99 = v104 + 16;
-  v33 = v96;
-  while (1)
-  {
-    v92 = v29;
-    v34 = v93;
-    v35 = v89;
-    v89(v95, v88 + v87 * v29, v93);
-    v36 = v91;
-    v35(v91, v95, v34);
-    v37 = (*v86)(v36, v34);
-    if (v37 != v85)
-    {
-      break;
-    }
-
-    (*v84)(v36, v34);
-    v38 = *v36;
-    v39 = v98;
-LABEL_18:
-    v103 = *(v38 + 16);
-    if (v103)
-    {
-      v52 = 0;
-      v53 = *(v104 + 80);
-      v101 = v38;
-      v102 = v38 + ((v53 + 32) & ~v53);
-      while (v52 < *(v38 + 16))
-      {
-        v54 = *(v104 + 72);
-        v107 = v52;
-        (*(v104 + 16))(v33, v102 + v54 * v52, v39);
-        v55 = REMRemindersListDataView.ScheduledDateBucketsModel.Day.reminders.getter();
-        v56 = *(v55 + 16);
-        if (v56)
-        {
-          v105 = v55;
-          v106 = v28;
-          v57 = 0;
-          v58 = v55 + ((*(v97 + 80) + 32) & ~*(v97 + 80));
-          v59 = *(v97 + 72);
-          v60 = *(v97 + 16);
-          v60(v8, v58, v3);
-          while (1)
-          {
-            v61 = REMRemindersListDataView.ReminderLite.isCompleted.getter();
-            (*v32)(v8, v3);
-            if ((v61 & 1) == 0)
-            {
-              v49 = __OFADD__(v57++, 1);
-              if (v49)
-              {
-                __break(1u);
-                goto LABEL_43;
-              }
-            }
-
-            v58 += v59;
-            if (!--v56)
-            {
-              break;
-            }
-
-            v60(v8, v58, v3);
-          }
-
-          v39 = v98;
-          v28 = v106;
-          v33 = v96;
-        }
-
-        else
-        {
-
-          v57 = 0;
-        }
-
-        (*v100)(v33, v39);
-        v49 = __OFADD__(v28, v57);
-        v28 += v57;
-        if (v49)
-        {
-          goto LABEL_47;
-        }
-
-        v52 = v107 + 1;
-        v38 = v101;
-        if (v107 + 1 == v103)
-        {
-          goto LABEL_33;
-        }
-      }
-
-      __break(1u);
-LABEL_47:
-      __break(1u);
-      goto LABEL_48;
-    }
-
-LABEL_33:
-
-    (*v82)(v95, v93);
-LABEL_34:
-    v29 = v92 + 1;
-    if (v92 + 1 == v83)
-    {
-      goto LABEL_43;
-    }
-  }
-
-  v39 = v98;
-  if (v37 == v80)
-  {
-LABEL_17:
-    v50 = v91;
-    (*v84)(v91, v93);
-    v38 = *(v50 + *(sub_1000F5104(&qword_10094DEB8, &qword_1007B3C78) + 48));
-    v51 = type metadata accessor for Date();
-    (*(*(v51 - 8) + 8))(v50, v51);
-    goto LABEL_18;
-  }
-
-  if (v37 != v75)
-  {
-    if (v37 != v73 && v37 != v71)
-    {
-      goto LABEL_49;
-    }
-
-    goto LABEL_17;
-  }
-
-  v106 = v28;
-  v40 = v91;
-  (*v84)(v91, v93);
-  (*v72)(v74, v40, v39);
-  v41 = REMRemindersListDataView.ScheduledDateBucketsModel.Day.reminders.getter();
-  v42 = *(v41 + 16);
-  if (!v42)
-  {
-
-    v43 = 0;
-LABEL_38:
-    (*v100)(v74, v39);
-    (*v82)(v95, v93);
-    v49 = __OFADD__(v106, v43);
-    v28 = v106 + v43;
-    if (v49)
-    {
-      __break(1u);
-      goto LABEL_41;
-    }
-
-    goto LABEL_34;
-  }
-
-  v43 = 0;
-  v44 = *(v97 + 80);
-  v105 = v41;
-  v45 = v41 + ((v44 + 32) & ~v44);
-  v107 = *(v97 + 72);
-  v46 = *(v97 + 16);
-  while (1)
-  {
-    v47 = v94;
-    v46(v94, v45, v3);
-    v48 = REMRemindersListDataView.ReminderLite.isCompleted.getter();
-    (*v32)(v47, v3);
-    if ((v48 & 1) == 0)
-    {
-      v49 = __OFADD__(v43++, 1);
-      if (v49)
-      {
-        break;
-      }
-    }
-
-    v45 += v107;
-    if (!--v42)
-    {
-
-      v39 = v98;
-      v33 = v96;
-      goto LABEL_38;
-    }
-  }
-
-LABEL_48:
-  __break(1u);
-LABEL_49:
-  _diagnoseUnexpectedEnumCase<A>(type:)();
-  __break(1u);
-}
-
-uint64_t sub_1005C70DC()
-{
-  v0 = _s9UtilitiesO12SortingStyleOMa();
-  sub_1000EECAC(v0, qword_10094DE78);
-  v1 = sub_100006654(v0, qword_10094DE78);
-  v2 = enum case for REMRemindersListDataView.SortingDirection.ascending(_:);
-  v3 = type metadata accessor for REMRemindersListDataView.SortingDirection();
-  (*(*(v3 - 8) + 104))(v1, v2, v3);
-
-  return swift_storeEnumTagMultiPayload();
-}
-
-uint64_t sub_1005C7190@<X0>(id *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
-{
-  v27 = a3;
-  v28 = a2;
-  v29 = a4;
-  v5 = type metadata accessor for Calendar.Component();
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  __chkstk_darwin(v5);
-  v9 = &v26 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for Date();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  __chkstk_darwin(v10);
-  v14 = &v26 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v15);
-  v17 = &v26 - v16;
-  *&v19 = __chkstk_darwin(v18).n128_u64[0];
-  v21 = &v26 - v20;
-  v22 = [*a1 displayDateDate];
-  if (v22)
-  {
-    v23 = v22;
-    static Date._unconditionallyBridgeFromObjectiveC(_:)();
-
-    (*(v11 + 32))(v21, v17, v10);
-    (*(v6 + 104))(v9, enum case for Calendar.Component.year(_:), v5);
-    v24 = Calendar.component(_:from:)();
-    (*(v6 + 8))(v9, v5);
-    result = (*(v11 + 8))(v21, v10);
-  }
-
-  else
-  {
-    (*(v6 + 104))(v9, enum case for Calendar.Component.year(_:), v5);
-    (*(v11 + 16))(v14, v27, v10);
-    v24 = Calendar.component(_:from:)();
-    (*(v11 + 8))(v14, v10);
-    result = (*(v6 + 8))(v9, v5);
-  }
-
-  *v29 = v24;
-  return result;
-}
-
-uint64_t sub_1005C7468(id *a1)
-{
-  v2 = type metadata accessor for Date();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  __chkstk_darwin(v2);
-  v6 = v16 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  *&v8 = __chkstk_darwin(v7).n128_u64[0];
-  v10 = v16 - v9;
-  v11 = [*a1 displayDateDate];
-  if (v11)
-  {
-    v12 = v11;
-    static Date._unconditionallyBridgeFromObjectiveC(_:)();
-
-    (*(v3 + 32))(v10, v6, v2);
-    sub_1005CC954(&qword_1009464D0, &type metadata accessor for Date);
-    v13 = dispatch thunk of static Comparable.< infix(_:_:)();
-    (*(v3 + 8))(v10, v2);
-    v14 = v13 ^ 1;
-  }
-
-  else
-  {
-    v14 = 0;
-  }
-
-  return v14 & 1;
-}
-
-uint64_t sub_1005C7620(uint64_t a1)
-{
-  result = sub_1005CC954(&qword_10094DEB0, &type metadata accessor for REMRemindersListDataView.ScheduledByDateBucketsInvocation);
-  *(a1 + 8) = result;
-  return result;
-}
-
-uint64_t sub_1005C7678(uint64_t result, uint64_t a2, uint64_t *a3, uint64_t a4)
-{
-  v90 = result;
-  v6 = a3[1];
-  if (v6 < 1)
-  {
-    v8 = _swiftEmptyArrayStorage;
-LABEL_88:
-    v5 = *v90;
-    if (!*v90)
-    {
-      goto LABEL_128;
-    }
-
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if ((result & 1) == 0)
-    {
-LABEL_122:
-      result = sub_1004361F4(v8);
-      v8 = result;
-    }
-
-    v82 = v8 + 2;
-    v83 = v8[2];
-    if (v83 >= 2)
-    {
-      while (*a3)
-      {
-        v84 = &v8[2 * v83];
-        v85 = *v84;
-        v86 = &v82[2 * v83];
-        v87 = v86[1];
-        sub_1005C7C00((*a3 + 16 * *v84), (*a3 + 16 * *v86), (*a3 + 16 * v87), v5);
-        if (v4)
-        {
-        }
-
-        if (v87 < v85)
-        {
-          goto LABEL_114;
-        }
-
-        if (v83 - 2 >= *v82)
-        {
-          goto LABEL_115;
-        }
-
-        *v84 = v85;
-        v84[1] = v87;
-        v88 = *v82 - v83;
-        if (*v82 < v83)
-        {
-          goto LABEL_116;
-        }
-
-        v83 = *v82 - 1;
-        result = memmove(v86, v86 + 2, 16 * v88);
-        *v82 = v83;
-        if (v83 <= 1)
-        {
-        }
-      }
-
-      goto LABEL_126;
-    }
-  }
-
-  v7 = 0;
-  v8 = _swiftEmptyArrayStorage;
-  v89 = a4;
-  while (1)
-  {
-    v9 = v7++;
-    if (v7 < v6)
-    {
-      v10 = *(*a3 + 16 * v7);
-      v11 = 16 * v9;
-      v12 = (*a3 + 16 * v9);
-      v15 = *v12;
-      v14 = v12 + 4;
-      v13 = v15;
-      v16 = v9 + 2;
-      v17 = v10;
-      while (v6 != v16)
-      {
-        v18 = *v14;
-        v14 += 2;
-        v19 = (v10 < v13) ^ (v18 >= v17);
-        ++v16;
-        v17 = v18;
-        if ((v19 & 1) == 0)
-        {
-          v7 = v16 - 1;
-          if (v10 >= v13)
-          {
-            goto LABEL_20;
-          }
-
-          goto LABEL_11;
-        }
-      }
-
-      v7 = v6;
-      if (v10 >= v13)
-      {
-        goto LABEL_20;
-      }
-
-LABEL_11:
-      if (v7 < v9)
-      {
-        goto LABEL_119;
-      }
-
-      if (v9 < v7)
-      {
-        v20 = 0;
-        v21 = 16 * v7;
-        v22 = v9;
-        do
-        {
-          if (v22 != v7 + v20 - 1)
-          {
-            v27 = *a3;
-            if (!*a3)
-            {
-              goto LABEL_125;
-            }
-
-            v23 = (v27 + v11);
-            v24 = v27 + v21;
-            v25 = *v23;
-            v26 = v23[1];
-            *v23 = *(v24 - 16);
-            *(v24 - 16) = v25;
-            *(v24 - 8) = v26;
-          }
-
-          ++v22;
-          --v20;
-          v21 -= 16;
-          v11 += 16;
-        }
-
-        while (v22 < v7 + v20);
-        v6 = a3[1];
-      }
-    }
-
-LABEL_20:
-    if (v7 < v6)
-    {
-      if (__OFSUB__(v7, v9))
-      {
-        goto LABEL_118;
-      }
-
-      if (v7 - v9 < a4)
-      {
-        if (__OFADD__(v9, a4))
-        {
-          goto LABEL_120;
-        }
-
-        if (v9 + a4 < v6)
-        {
-          v6 = v9 + a4;
-        }
-
-        if (v6 < v9)
-        {
-LABEL_121:
-          __break(1u);
-          goto LABEL_122;
-        }
-
-        if (v7 != v6)
-        {
-          break;
-        }
-      }
-    }
-
-LABEL_37:
-    if (v7 < v9)
-    {
-      goto LABEL_117;
-    }
-
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if ((result & 1) == 0)
-    {
-      result = sub_1003658B8(0, v8[2] + 1, 1, v8);
-      v8 = result;
-    }
-
-    v5 = v8[2];
-    v36 = v8[3];
-    v37 = v5 + 1;
-    if (v5 >= v36 >> 1)
-    {
-      result = sub_1003658B8((v36 > 1), v5 + 1, 1, v8);
-      v8 = result;
-    }
-
-    v8[2] = v37;
-    v38 = v8 + 4;
-    v39 = &v8[2 * v5 + 4];
-    *v39 = v9;
-    v39[1] = v7;
-    v91 = *v90;
-    if (!*v90)
-    {
-      goto LABEL_127;
-    }
-
-    if (v5)
-    {
-      while (1)
-      {
-        v5 = v37 - 1;
-        if (v37 >= 4)
-        {
-          break;
-        }
-
-        if (v37 == 3)
-        {
-          v40 = v8[4];
-          v41 = v8[5];
-          v50 = __OFSUB__(v41, v40);
-          v42 = v41 - v40;
-          v43 = v50;
-LABEL_57:
-          if (v43)
-          {
-            goto LABEL_104;
-          }
-
-          v56 = &v8[2 * v37];
-          v58 = *v56;
-          v57 = v56[1];
-          v59 = __OFSUB__(v57, v58);
-          v60 = v57 - v58;
-          v61 = v59;
-          if (v59)
-          {
-            goto LABEL_106;
-          }
-
-          v62 = &v38[2 * v5];
-          v64 = *v62;
-          v63 = v62[1];
-          v50 = __OFSUB__(v63, v64);
-          v65 = v63 - v64;
-          if (v50)
-          {
-            goto LABEL_109;
-          }
-
-          if (__OFADD__(v60, v65))
-          {
-            goto LABEL_111;
-          }
-
-          if (v60 + v65 >= v42)
-          {
-            if (v42 < v65)
-            {
-              v5 = v37 - 2;
-            }
-
-            goto LABEL_79;
-          }
-
-          goto LABEL_72;
-        }
-
-        if (v37 < 2)
-        {
-          goto LABEL_112;
-        }
-
-        v66 = &v8[2 * v37];
-        v68 = *v66;
-        v67 = v66[1];
-        v50 = __OFSUB__(v67, v68);
-        v60 = v67 - v68;
-        v61 = v50;
-LABEL_72:
-        if (v61)
-        {
-          goto LABEL_108;
-        }
-
-        v69 = &v38[2 * v5];
-        v71 = *v69;
-        v70 = v69[1];
-        v50 = __OFSUB__(v70, v71);
-        v72 = v70 - v71;
-        if (v50)
-        {
-          goto LABEL_110;
-        }
-
-        if (v72 < v60)
-        {
-          goto LABEL_3;
-        }
-
-LABEL_79:
-        if (v5 - 1 >= v37)
-        {
-          __break(1u);
-LABEL_99:
-          __break(1u);
-LABEL_100:
-          __break(1u);
-LABEL_101:
-          __break(1u);
-LABEL_102:
-          __break(1u);
-LABEL_103:
-          __break(1u);
-LABEL_104:
-          __break(1u);
-LABEL_105:
-          __break(1u);
-LABEL_106:
-          __break(1u);
-LABEL_107:
-          __break(1u);
-LABEL_108:
-          __break(1u);
-LABEL_109:
-          __break(1u);
-LABEL_110:
-          __break(1u);
-LABEL_111:
-          __break(1u);
-LABEL_112:
-          __break(1u);
-LABEL_113:
-          __break(1u);
-LABEL_114:
-          __break(1u);
-LABEL_115:
-          __break(1u);
-LABEL_116:
-          __break(1u);
-LABEL_117:
-          __break(1u);
-LABEL_118:
-          __break(1u);
-LABEL_119:
-          __break(1u);
-LABEL_120:
-          __break(1u);
-          goto LABEL_121;
-        }
-
-        if (!*a3)
-        {
-          goto LABEL_124;
-        }
-
-        v77 = &v38[2 * v5 - 2];
-        v78 = *v77;
-        v79 = &v38[2 * v5];
-        v80 = v79[1];
-        sub_1005C7C00((*a3 + 16 * *v77), (*a3 + 16 * *v79), (*a3 + 16 * v80), v91);
-        if (v4)
-        {
-        }
-
-        if (v80 < v78)
-        {
-          goto LABEL_99;
-        }
-
-        if (v5 > v8[2])
-        {
-          goto LABEL_100;
-        }
-
-        *v77 = v78;
-        v77[1] = v80;
-        v81 = v8[2];
-        if (v5 >= v81)
-        {
-          goto LABEL_101;
-        }
-
-        v37 = v81 - 1;
-        result = memmove(&v38[2 * v5], v79 + 2, 16 * (v81 - 1 - v5));
-        v8[2] = v81 - 1;
-        if (v81 <= 2)
-        {
-          goto LABEL_3;
-        }
-      }
-
-      v44 = &v38[2 * v37];
-      v45 = *(v44 - 8);
-      v46 = *(v44 - 7);
-      v50 = __OFSUB__(v46, v45);
-      v47 = v46 - v45;
-      if (v50)
-      {
-        goto LABEL_102;
-      }
-
-      v49 = *(v44 - 6);
-      v48 = *(v44 - 5);
-      v50 = __OFSUB__(v48, v49);
-      v42 = v48 - v49;
-      v43 = v50;
-      if (v50)
-      {
-        goto LABEL_103;
-      }
-
-      v51 = &v8[2 * v37];
-      v53 = *v51;
-      v52 = v51[1];
-      v50 = __OFSUB__(v52, v53);
-      v54 = v52 - v53;
-      if (v50)
-      {
-        goto LABEL_105;
-      }
-
-      v50 = __OFADD__(v42, v54);
-      v55 = v42 + v54;
-      if (v50)
-      {
-        goto LABEL_107;
-      }
-
-      if (v55 >= v47)
-      {
-        v73 = &v38[2 * v5];
-        v75 = *v73;
-        v74 = v73[1];
-        v50 = __OFSUB__(v74, v75);
-        v76 = v74 - v75;
-        if (v50)
-        {
-          goto LABEL_113;
-        }
-
-        if (v42 < v76)
-        {
-          v5 = v37 - 2;
-        }
-
-        goto LABEL_79;
-      }
-
-      goto LABEL_57;
-    }
-
-LABEL_3:
-    v6 = a3[1];
-    a4 = v89;
-    if (v7 >= v6)
-    {
-      goto LABEL_88;
-    }
-  }
-
-  v28 = *a3;
-  v29 = *a3 + 16 * v7 - 16;
-  v30 = v9 - v7;
-LABEL_30:
-  v31 = *(v28 + 16 * v7);
-  v32 = v30;
-  v33 = v29;
-  while (1)
-  {
-    if (v31 >= *v33)
-    {
-LABEL_29:
-      ++v7;
-      v29 += 16;
-      --v30;
-      if (v7 != v6)
-      {
-        goto LABEL_30;
-      }
-
-      v7 = v6;
-      goto LABEL_37;
-    }
-
-    if (!v28)
-    {
-      break;
-    }
-
-    v34 = *(v33 + 24);
-    *(v33 + 16) = *v33;
-    *v33 = v31;
-    *(v33 + 8) = v34;
-    v33 -= 16;
-    if (__CFADD__(v32++, 1))
-    {
-      goto LABEL_29;
-    }
-  }
-
-  __break(1u);
-LABEL_124:
-  __break(1u);
-LABEL_125:
-  __break(1u);
-LABEL_126:
-  __break(1u);
-LABEL_127:
-  __break(1u);
-LABEL_128:
-  __break(1u);
-  return result;
-}
-
-uint64_t sub_1005C7C00(char *__dst, char *__src, char *a3, char *a4)
-{
-  v4 = a4;
-  v5 = a3;
-  v6 = __src;
-  v7 = __dst;
-  v8 = __src - __dst;
-  v9 = __src - __dst + 15;
-  if (__src - __dst >= 0)
-  {
-    v9 = __src - __dst;
-  }
-
-  v10 = v9 >> 4;
-  v11 = a3 - __src;
-  v12 = a3 - __src + 15;
-  if (a3 - __src >= 0)
-  {
-    v12 = a3 - __src;
-  }
-
-  v13 = v12 >> 4;
-  if (v10 < v12 >> 4)
-  {
-    if (a4 != __dst || &__dst[16 * v10] <= a4)
-    {
-      memmove(a4, __dst, 16 * v10);
-    }
-
-    v14 = &v4[16 * v10];
-    if (v8 < 16)
-    {
-LABEL_10:
-      v6 = v7;
-      goto LABEL_35;
-    }
-
-    while (1)
-    {
-      if (v6 >= v5)
-      {
-        goto LABEL_10;
-      }
-
-      if (*v6 < *v4)
-      {
-        break;
-      }
-
-      v15 = v4;
-      v16 = v7 == v4;
-      v4 += 16;
-      if (!v16)
-      {
-        goto LABEL_12;
-      }
-
-LABEL_13:
-      v7 += 16;
-      if (v4 >= v14)
-      {
-        goto LABEL_10;
-      }
-    }
-
-    v15 = v6;
-    v16 = v7 == v6;
-    v6 += 16;
-    if (v16)
-    {
-      goto LABEL_13;
-    }
-
-LABEL_12:
-    *v7 = *v15;
-    goto LABEL_13;
-  }
-
-  if (a4 != __src || &__src[16 * v13] <= a4)
-  {
-    memmove(a4, __src, 16 * v13);
-  }
-
-  v14 = &v4[16 * v13];
-  if (v11 >= 16 && v6 > v7)
-  {
-LABEL_24:
-    v17 = v6 - 16;
-    v5 -= 16;
-    v18 = v14;
-    do
-    {
-      v19 = v5 + 16;
-      v20 = *(v18 - 2);
-      v18 -= 16;
-      if (v20 < *v17)
-      {
-        if (v19 != v6)
-        {
-          *v5 = *v17;
-        }
-
-        if (v14 <= v4 || (v6 -= 16, v17 <= v7))
-        {
-          v6 = v17;
-          goto LABEL_35;
-        }
-
-        goto LABEL_24;
-      }
-
-      if (v19 != v14)
-      {
-        *v5 = *v18;
-      }
-
-      v5 -= 16;
-      v14 = v18;
-    }
-
-    while (v18 > v4);
-    v14 = v18;
-  }
-
-LABEL_35:
-  v21 = v14 - v4 + (v14 - v4 < 0 ? 0xFuLL : 0);
-  if (v6 != v4 || v6 >= &v4[v21 & 0xFFFFFFFFFFFFFFF0])
-  {
-    memmove(v6, v4, 16 * (v21 >> 4));
-  }
-
-  return 1;
-}
-
-void sub_1005C7E04(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5)
-{
-  v9[2] = a5;
-  sub_100260DE4(sub_1005CC99C, v9, a2, a3, a4);
-  if (v8)
-  {
-    goto LABEL_6;
-  }
-
-  if (v7 > a3)
-  {
-    if ((a4 >> 1) < a3)
-    {
-      __break(1u);
-    }
-
-    else if ((a4 >> 1) >= v7)
-    {
-      if ((v7 & 0x8000000000000000) == 0)
-      {
-LABEL_6:
-        swift_unknownObjectRetain();
-        return;
-      }
-
-      goto LABEL_10;
-    }
-
-    __break(1u);
-LABEL_10:
-    __break(1u);
-  }
-}
-
-uint64_t sub_1005C7ED8(uint64_t *a1, uint64_t a2, uint64_t a3, unsigned int (**a4)(uint64_t, uint64_t, void), uint64_t a5, uint64_t a6)
-{
-  v157 = a6;
-  v169 = a4;
-  v135 = a2;
-  v129 = type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel.Day();
-  v8 = *(v129 - 8);
-  v9 = *(v8 + 64);
-  __chkstk_darwin(v129);
-  v124 = &v123 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v11);
-  v126 = &v123 - v12;
-  v13 = sub_1000F5104(&qword_100940628, &unk_1007A6A20);
-  v14 = *(*(v13 - 8) + 64);
-  __chkstk_darwin(v13 - 8);
-  v147 = &v123 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v16);
-  v141 = &v123 - v17;
-  v166 = type metadata accessor for REMRemindersListDataView.ReminderLite();
-  v18 = *(v166 - 8);
-  v19 = *(v18 + 64);
-  __chkstk_darwin(v166);
-  v150 = &v123 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v21);
-  v140 = &v123 - v22;
-  v23 = type metadata accessor for Date();
-  v24 = *(v23 - 8);
-  v25 = *(v24 + 64);
-  __chkstk_darwin(v23);
-  v133 = &v123 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v27);
-  v127 = &v123 - v28;
-  __chkstk_darwin(v29);
-  v146 = &v123 - v30;
-  __chkstk_darwin(v31);
-  v156 = &v123 - v32;
-  __chkstk_darwin(v33);
-  v158 = &v123 - v34;
-  v35 = sub_1000F5104(&unk_100938850, qword_100795AE0);
-  v36 = *(*(v35 - 8) + 64);
-  __chkstk_darwin(v35 - 8);
-  v130 = &v123 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v38);
-  v155 = &v123 - v39;
-  __chkstk_darwin(v40);
-  v42 = &v123 - v41;
-  __chkstk_darwin(v43);
-  v45 = &v123 - v44;
-  v46 = type metadata accessor for Calendar();
-  v136 = *(v46 - 8);
-  v47 = *(v136 + 64);
-  __chkstk_darwin(v46);
-  v149 = &v123 - ((v48 + 15) & 0xFFFFFFFFFFFFFFF0);
-  static Calendar.current.getter();
-  v49 = *(v24 + 56);
-  v159 = v45;
-  v142 = v23;
-  v145 = v24 + 56;
-  v144 = v49;
-  v49(v45, 1, 1, v23);
-  v50 = v169 >> 1;
-  swift_unknownObjectRetain();
-  v167 = v50;
-  v148 = v18;
-  v128 = v8;
-  if (v50 == a3)
-  {
-    v137 = _swiftEmptyArrayStorage;
-    v51 = a3;
-    v52 = v142;
-LABEL_48:
-    swift_unknownObjectRelease();
-    v55 = (v167 - v51);
-    if (v167 <= v51)
-    {
-      sub_1000050A4(v159, &unk_100938850, qword_100795AE0);
-      (*(v136 + 8))(v149, v46);
-      return v137;
-    }
-
-    v165 = v51;
-    v100 = v159;
-    v101 = v130;
-    sub_100010364(v159, v130, &unk_100938850, qword_100795AE0);
-    if ((*(v24 + 48))(v101, 1, v52) == 1)
-    {
-      sub_1000050A4(v100, &unk_100938850, qword_100795AE0);
-      (*(v136 + 8))(v149, v46);
-      sub_1000050A4(v101, &unk_100938850, qword_100795AE0);
-      return v137;
-    }
-
-    (*(v24 + 32))(v133, v101, v52);
-    v102 = v165;
-    if (v165 < a3)
-    {
-LABEL_76:
-      __break(1u);
-    }
-
-    else
-    {
-      v132 = v46;
-      v131 = v24;
-      v103 = (v18 + 48);
-      v104 = (v18 + 32);
-      v134 = a1;
-      swift_unknownObjectRetain();
-      v105 = _swiftEmptyArrayStorage;
-      v106 = (v135 + 8 * v102);
-      v107 = v147;
-      do
-      {
-        v108 = *v106;
-        v109 = [v108 objectID];
-        v110 = v109;
-        v111 = v157;
-        if (*(v157 + 16))
-        {
-          v112 = sub_100363FF4(v109);
-          if (v113)
-          {
-            v114 = *(*(v111 + 56) + 8 * v112);
-          }
-
-          else
-          {
-            v114 = 0;
-          }
-
-          v107 = v147;
-        }
-
-        else
-        {
-          v114 = 0;
-        }
-
-        sub_1005384A4(v108, v114, 0, v107);
-        v115 = v166;
-        if ((*v103)(v107, 1, v166) == 1)
-        {
-          sub_1000050A4(v107, &qword_100940628, &unk_1007A6A20);
-        }
-
-        else
-        {
-          v116 = *v104;
-          (*v104)(v150, v107, v115);
-          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-          {
-            v105 = sub_100365A24(0, *(v105 + 2) + 1, 1, v105);
-          }
-
-          v118 = *(v105 + 2);
-          v117 = *(v105 + 3);
-          if (v118 >= v117 >> 1)
-          {
-            v105 = sub_100365A24(v117 > 1, v118 + 1, 1, v105);
-          }
-
-          *(v105 + 2) = v118 + 1;
-          v116(&v105[((*(v148 + 80) + 32) & ~*(v148 + 80)) + *(v148 + 72) * v118], v150, v166);
-        }
-
-        ++v106;
-        --v55;
-      }
-
-      while (v55);
-      v24 = v131;
-      (*(v131 + 16))(v127, v133, v142);
-      v55 = v124;
-      REMRemindersListDataView.ScheduledDateBucketsModel.Day.init(date:reminders:)();
-      a1 = v137;
-      if (swift_isUniquelyReferenced_nonNull_native())
-      {
-        goto LABEL_70;
-      }
-    }
-
-    a1 = sub_100365C28(0, a1[2] + 1, 1, a1);
-LABEL_70:
-    v119 = v132;
-    v120 = v159;
-    v122 = a1[2];
-    v121 = a1[3];
-    if (v122 >= v121 >> 1)
-    {
-      a1 = sub_100365C28(v121 > 1, v122 + 1, 1, a1);
-    }
-
-    swift_unknownObjectRelease();
-    (*(v24 + 8))(v133, v142);
-    sub_1000050A4(v120, &unk_100938850, qword_100795AE0);
-    (*(v136 + 8))(v149, v119);
-    a1[2] = v122 + 1;
-    (*(v128 + 32))(a1 + ((*(v128 + 80) + 32) & ~*(v128 + 80)) + *(v128 + 72) * v122, v55, v129);
-    return a1;
-  }
-
-  v53 = 0;
-  v161 = (v24 + 32);
-  v169 = v24 + 48;
-  v143 = (v24 + 16);
-  v151 = (v24 + 8);
-  v139 = (v18 + 48);
-  v138 = (v18 + 32);
-  v123 = v8 + 32;
-  v137 = _swiftEmptyArrayStorage;
-  v54 = a3;
-  v51 = a3;
-  v52 = v142;
-  v134 = a1;
-  v131 = v24;
-  v132 = v46;
-  v154 = a3;
-  v152 = v42;
-  while (2)
-  {
-    v24 = 0;
-    v163 = v167 - v54;
-    v164 = v135 + 8 * v54;
-    v125 = v51;
-    v55 = (a3 + v53 - v51);
-    v56 = v158;
-    v57 = &unk_100938850;
-    a1 = qword_100795AE0;
-    v58 = v54;
-    v153 = v54;
-    v165 = v53;
-    while (1)
-    {
-      if (v58 < a3 || v58 + v24 >= v167)
-      {
-        __break(1u);
-LABEL_75:
-        __break(1u);
-        goto LABEL_76;
-      }
-
-      if (__OFADD__(v53 + v24, 1))
-      {
-        goto LABEL_75;
-      }
-
-      v162 = v53 + v24 + 1;
-      v59 = *(v164 + 8 * v24);
-      v60 = [v59 displayDateDate];
-      if (v60)
-      {
-        break;
-      }
-
-LABEL_6:
-      ++v24;
-      ++v55;
-      v53 = v165;
-      if (v163 == v24)
-      {
-        v51 = v125;
-        a1 = v134;
-        v24 = v131;
-        v18 = v148;
-        v46 = v132;
-        goto LABEL_48;
-      }
-    }
-
-    v168 = v59;
-    v61 = v56;
-    v62 = v156;
-    v63 = v60;
-    static Date._unconditionallyBridgeFromObjectiveC(_:)();
-
-    v160 = *v161;
-    v160(v61, v62, v52);
-    v64 = v159;
-    v65 = v52;
-    v66 = a1;
-    v67 = v57;
-    v68 = v152;
-    sub_100010364(v159, v152, v67, v66);
-    v69 = *v169;
-    if ((*v169)(v68, 1, v65) == 1)
-    {
-      sub_1000050A4(v64, v67, v66);
-      sub_1000050A4(v68, v67, v66);
-      (*v143)(v64, v61, v65);
-      v144(v64, 0, 1, v65);
-    }
-
-    else
-    {
-      sub_1000050A4(v68, v67, v66);
-    }
-
-    v57 = v67;
-    v70 = v155;
-    sub_100010364(v64, v155, v67, v66);
-    a1 = v66;
-    if (v69(v70, 1, v65) == 1)
-    {
-      v56 = v158;
-      (*v151)(v158, v65);
-
-      sub_1000050A4(v70, v57, v66);
-      v58 = v153;
-      a3 = v154;
-      v52 = v65;
-      goto LABEL_6;
-    }
-
-    v71 = v146;
-    v160(v146, v70, v65);
-    v72 = v158;
-    result = Calendar.isDate(_:inSameDayAs:)();
-    v52 = v65;
-    if (result)
-    {
-
-      v74 = *v151;
-      (*v151)(v71, v65);
-      v74(v72, v65);
-      v56 = v72;
-      v58 = v153;
-      a3 = v154;
-      goto LABEL_6;
-    }
-
-    v75 = v154 + v165 + v24;
-    if (__OFADD__(v154, v165 + v24))
-    {
-      __break(1u);
-      goto LABEL_79;
-    }
-
-    v76 = v125;
-    if (v75 < v125)
-    {
-LABEL_79:
-      __break(1u);
-      goto LABEL_80;
-    }
-
-    if (v167 < v125)
-    {
-LABEL_80:
-      __break(1u);
-      goto LABEL_81;
-    }
-
-    if (v125 < v154)
-    {
-LABEL_81:
-      __break(1u);
-      goto LABEL_82;
-    }
-
-    if (v167 < v75)
-    {
-LABEL_82:
-      __break(1u);
-      break;
-    }
-
-    if ((v75 & 0x8000000000000000) == 0)
-    {
-      swift_unknownObjectRetain();
-      v77 = _swiftEmptyArrayStorage;
-      v165 = v75;
-      if (v76 != v75)
-      {
-        v87 = (v135 + 8 * v76);
-        do
-        {
-          v88 = *v87;
-          v89 = [v88 objectID];
-          v90 = v89;
-          v91 = v157;
-          if (*(v157 + 16))
-          {
-            v92 = sub_100363FF4(v89);
-            if (v93)
-            {
-              v94 = *(*(v91 + 56) + 8 * v92);
-            }
-
-            else
-            {
-              v94 = 0;
-            }
-
-            v52 = v142;
-          }
-
-          else
-          {
-            v94 = 0;
-          }
-
-          v95 = v141;
-          sub_1005384A4(v88, v94, 0, v141);
-          v96 = v166;
-          if ((*v139)(v95, 1, v166) == 1)
-          {
-            sub_1000050A4(v95, &qword_100940628, &unk_1007A6A20);
-          }
-
-          else
-          {
-            v97 = *v138;
-            (*v138)(v140, v95, v96);
-            if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-            {
-              v77 = sub_100365A24(0, *(v77 + 2) + 1, 1, v77);
-            }
-
-            v99 = *(v77 + 2);
-            v98 = *(v77 + 3);
-            if (v99 >= v98 >> 1)
-            {
-              v77 = sub_100365A24(v98 > 1, v99 + 1, 1, v77);
-            }
-
-            *(v77 + 2) = v99 + 1;
-            v97(&v77[((*(v148 + 80) + 32) & ~*(v148 + 80)) + *(v148 + 72) * v99], v140, v166);
-          }
-
-          ++v87;
-          --v55;
-        }
-
-        while (v55);
-      }
-
-      (*v143)(v127, v146, v52);
-      REMRemindersListDataView.ScheduledDateBucketsModel.Day.init(date:reminders:)();
-      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-      {
-        v137 = sub_100365C28(0, v137[2] + 1, 1, v137);
-      }
-
-      v78 = v153;
-      v80 = v137[2];
-      v79 = v137[3];
-      if (v80 >= v79 >> 1)
-      {
-        v137 = sub_100365C28(v79 > 1, v80 + 1, 1, v137);
-      }
-
-      v81 = v78 + v24 + 1;
-      v82 = ~v78 + v167;
-      v83 = v134;
-      swift_unknownObjectRelease();
-
-      (*v151)(v146, v52);
-      v84 = v159;
-      sub_1000050A4(v159, &unk_100938850, a1);
-      v85 = v137;
-      v137[2] = v80 + 1;
-      (*(v128 + 32))(v85 + ((*(v128 + 80) + 32) & ~*(v128 + 80)) + *(v128 + 72) * v80, v126, v129);
-      v160(v84, v158, v52);
-      v144(v84, 0, 1, v52);
-      v54 = v81;
-      v53 = v162;
-      v86 = v82 == v24;
-      a1 = v83;
-      v24 = v131;
-      v18 = v148;
-      v46 = v132;
-      a3 = v154;
-      v51 = v165;
-      if (v86)
-      {
-        goto LABEL_48;
-      }
-
-      continue;
-    }
-
-    break;
-  }
-
-  __break(1u);
-  return result;
-}
-
-size_t sub_1005C9018(unint64_t a1, uint64_t a2)
-{
-  v442 = a1;
-  v404 = type metadata accessor for Calendar.SearchDirection();
-  v380 = *(v404 - 8);
-  v3 = *(v380 + 64);
-  __chkstk_darwin(v404);
-  v403 = &v366 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v402 = type metadata accessor for Calendar.RepeatedTimePolicy();
-  v379 = *(v402 - 8);
-  v5 = *(v379 + 64);
-  __chkstk_darwin(v402);
-  v401 = &v366 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v400 = type metadata accessor for Calendar.MatchingPolicy();
-  v378 = *(v400 - 8);
-  v7 = *(v378 + 64);
-  __chkstk_darwin(v400);
-  v399 = &v366 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_1000F5104(&qword_10093F970, &unk_1007A7670);
-  v10 = *(*(v9 - 8) + 64);
-  __chkstk_darwin(v9 - 8);
-  v407 = &v366 - v11;
-  v12 = sub_1000F5104(&qword_100946078, &qword_1007ACC30);
-  v13 = *(*(v12 - 8) + 64);
-  __chkstk_darwin(v12 - 8);
-  v406 = &v366 - v14;
-  v405 = type metadata accessor for DateComponents();
-  v377 = *(v405 - 8);
-  v15 = *(v377 + 64);
-  __chkstk_darwin(v405);
-  v382 = &v366 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v17);
-  v398 = &v366 - v18;
-  v390 = type metadata accessor for Calendar.Component();
-  v376 = *(v390 - 8);
-  v19 = *(v376 + 64);
-  __chkstk_darwin(v390);
-  v389 = &v366 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = sub_1000F5104(&unk_100938850, qword_100795AE0);
-  v22 = *(*(v21 - 8) + 64);
-  __chkstk_darwin(v21 - 8);
-  v381 = &v366 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v24);
-  v397 = &v366 - v25;
-  __chkstk_darwin(v26);
-  v374 = (&v366 - v27);
-  v28 = sub_1000F5104(&qword_100940628, &unk_1007A6A20);
-  v29 = *(*(v28 - 8) + 64);
-  __chkstk_darwin(v28 - 8);
-  v450 = (&v366 - v30);
-  v452 = type metadata accessor for REMRemindersListDataView.ReminderLite();
-  v446 = *(v452 - 1);
-  v31 = *(v446 + 64);
-  __chkstk_darwin(v452);
-  v449 = &v366 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v440 = type metadata accessor for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket();
-  v425 = *(v440 - 8);
-  v33 = *(v425 + 64);
-  __chkstk_darwin(v440);
-  v391 = &v366 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v35);
-  v414 = &v366 - v36;
-  __chkstk_darwin(v37);
-  v371 = (&v366 - v38);
-  __chkstk_darwin(v39);
-  v431 = (&v366 - v40);
-  __chkstk_darwin(v41);
-  v396 = (&v366 - v42);
-  v417 = type metadata accessor for REMRemindersListDataView.ScheduledByDateBucketsStyle();
-  v416 = *(v417 - 1);
-  v43 = *(v416 + 64);
-  __chkstk_darwin(v417);
-  v412 = &v366 - ((v44 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v438 = type metadata accessor for Date();
-  v392 = *(v438 - 8);
-  v45 = v392[8];
-  __chkstk_darwin(v438);
-  v393 = &v366 - ((v46 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v47);
-  v420 = &v366 - v48;
-  __chkstk_darwin(v49);
-  v375 = &v366 - v50;
-  __chkstk_darwin(v51);
-  v430 = &v366 - v52;
-  __chkstk_darwin(v53);
-  v419 = &v366 - v54;
-  __chkstk_darwin(v55);
-  v444 = &v366 - v56;
-  v409 = type metadata accessor for Calendar();
-  v386 = *(v409 - 8);
-  v57 = *(v386 + 64);
-  __chkstk_darwin(v409);
-  v432 = &v366 - ((v58 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v426 = type metadata accessor for REMRemindersListDataView.ShowCompleted();
-  v427 = *(v426 - 8);
-  v59 = *(v427 + 64);
-  __chkstk_darwin(v426);
-  v385 = &v366 - ((v60 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v61);
-  v395 = &v366 - v62;
-  __chkstk_darwin(v63);
-  v373 = (&v366 - v64);
-  __chkstk_darwin(v65);
-  v428 = (&v366 - v66);
-  __chkstk_darwin(v67);
-  v411 = &v366 - v68;
-  __chkstk_darwin(v69);
-  v424 = &v366 - v70;
-  __chkstk_darwin(v71);
-  v441 = (&v366 - v72);
-  v436 = _s10PredicatesOMa(0);
-  v73 = *(*(v436 - 8) + 64);
-  __chkstk_darwin(v436);
-  v433 = &v366 - ((v74 + 15) & 0xFFFFFFFFFFFFFFF0);
-  Subtasks = type metadata accessor for REMRemindersListDataView.FetchSubtasks();
-  v451 = *(Subtasks - 1);
-  v75 = *(v451 + 64);
-  __chkstk_darwin(Subtasks);
-  v423 = &v366 - ((v76 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v77);
-  v429 = &v366 - v78;
-  __chkstk_darwin(v79);
-  v447 = &v366 - v80;
-  __chkstk_darwin(v81);
-  v445 = &v366 - v82;
-  v83 = type metadata accessor for REMRemindersListDataView.SortingStyle();
-  v84 = *(v83 - 8);
-  v85 = v84[8];
-  __chkstk_darwin(v83);
-  v87 = &v366 - ((v86 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v88);
-  v90 = &v366 - v89;
-  Configuration = type metadata accessor for REMRemindersListDataView.FetchConfiguration();
-  v92 = *(Configuration - 8);
-  v93 = *(v92 + 64);
-  __chkstk_darwin(Configuration);
-  v384 = &v366 - ((v94 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v95);
-  v394 = &v366 - v96;
-  __chkstk_darwin(v97);
-  v372 = (&v366 - v98);
-  __chkstk_darwin(v99);
-  v415 = &v366 - v100;
-  __chkstk_darwin(v101);
-  v410 = &v366 - v102;
-  __chkstk_darwin(v103);
-  v422 = (&v366 - v104);
-  __chkstk_darwin(v105);
-  v421 = &v366 - v106;
-  __chkstk_darwin(v107);
-  v109 = &v366 - v108;
-  v437 = a2;
-  REMRemindersListDataView.ScheduledByDateBucketsInvocation.Parameters.configuration.getter();
-  REMRemindersListDataView.FetchConfiguration.sortingStyle.getter();
-  v110 = *(v92 + 8);
-  v439 = Configuration;
-  v434 = v110;
-  v435 = v92 + 8;
-  v110(v109, Configuration);
-  v111 = v84[13];
-  v111(v87, enum case for REMRemindersListDataView.SortingStyle.default(_:), v83);
-  LOBYTE(a2) = static REMRemindersListDataView.SortingStyle.== infix(_:_:)();
-  v112 = v84[1];
-  v112(v87, v83);
-  v112(v90, v83);
-  if ((a2 & 1) == 0)
-  {
-    REMRemindersListDataView.ScheduledByDateBucketsInvocation.Parameters.configuration.getter();
-    REMRemindersListDataView.FetchConfiguration.sortingStyle.getter();
-    v434(v109, v439);
-    v113 = enum case for REMRemindersListDataView.SortingDirection.ascending(_:);
-    v114 = type metadata accessor for REMRemindersListDataView.SortingDirection();
-    (*(*(v114 - 8) + 104))(v87, v113, v114);
-    v111(v87, enum case for REMRemindersListDataView.SortingStyle.displayDate(_:), v83);
-    LOBYTE(v113) = static REMRemindersListDataView.SortingStyle.== infix(_:_:)();
-    v112(v87, v83);
-    v112(v90, v83);
-    if ((v113 & 1) == 0)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  REMRemindersListDataView.ScheduledByDateBucketsInvocation.Parameters.configuration.getter();
-  v87 = v445;
-  REMRemindersListDataView.FetchConfiguration.fetchSubtasks.getter();
-  v115 = v434;
-  v434(v109, v439);
-  v116 = v451;
-  v117 = *(v451 + 104);
-  v118 = v447;
-  LODWORD(v413) = enum case for REMRemindersListDataView.FetchSubtasks.on(_:);
-  v119 = Subtasks;
-  v117(v447);
-  sub_1005CC954(&qword_100940630, &type metadata accessor for REMRemindersListDataView.FetchSubtasks);
-  v120 = dispatch thunk of static Equatable.== infix(_:_:)();
-  v121 = *(v116 + 8);
-  v121(v118, v119);
-  v445 = v116 + 8;
-  v121(v87, v119);
-  v122 = v121;
-  v123 = v439;
-  if (v120)
-  {
-LABEL_11:
-    v144 = objc_opt_self();
-    v145 = String._bridgeToObjectiveC()();
-    [v144 internalErrorWithDebugDescription:v145];
-
-    swift_willThrow();
-    return v87;
-  }
-
-  REMRemindersListDataView.ScheduledByDateBucketsInvocation.Parameters.configuration.getter();
-  v124 = v433;
-  REMRemindersListDataView.FetchConfiguration.showCompleted.getter();
-  v115(v109, v123);
-  swift_storeEnumTagMultiPayload();
-  v383 = sub_100043AA8();
-  sub_1000513B4(v124);
-  if (qword_1009363F8 != -1)
-  {
-    goto LABEL_238;
-  }
-
-LABEL_5:
-  v436 = v122;
-  v125 = qword_100974F68;
-  v126 = qword_100936400;
-
-  v127 = v438;
-  if (v126 != -1)
-  {
-    swift_once();
-  }
-
-  v453 = v125;
-
-  sub_100271A80(v128);
-  v129 = sub_1000060C8(0, &qword_100939EE0, off_1008D41D0);
-  v130 = [objc_allocWithZone(NSFetchRequest) init];
-  v131 = [swift_getObjCClassFromMetadata() entity];
-  [v130 setEntity:v131];
-
-  [v130 setAffectedStores:0];
-  [v130 setPredicate:v383];
-  v453 = _swiftEmptySetSingleton;
-
-  sub_100050AD0(v132);
-
-  v133 = v443;
-  sub_1003FE014(v453);
-  v122 = v133;
-
-  isa = Array._bridgeToObjectiveC()().super.isa;
-
-  [v130 setPropertiesToFetch:isa];
-
-  if (qword_100936680 != -1)
-  {
-    swift_once();
-  }
-
-  v135 = _s9UtilitiesO12SortingStyleOMa();
-  v136 = sub_100006654(v135, qword_10094DE78);
-  v137 = v427;
-  v138 = v441;
-  v139 = v426;
-  (*(v427 + 104))(v441, enum case for REMRemindersListDataView.ShowCompleted.off(_:), v426);
-  sub_10053CE0C(v136, v138, 0);
-  v141 = *(v137 + 8);
-  v87 = v137 + 8;
-  v140 = v141;
-  (v141)(v138, v139);
-  sub_1000060C8(0, &qword_10093C980, NSSortDescriptor_ptr);
-  v142 = Array._bridgeToObjectiveC()().super.isa;
-
-  [v130 setSortDescriptors:v142];
-
-  v143 = NSManagedObjectContext.fetch<A>(_:)();
-  v443 = v133;
-  if (v133)
-  {
-
-    return v87;
-  }
-
-  v447 = v143;
-  v418 = v140;
-  v408 = v129;
-  v367 = v130;
-  v427 = v87;
-  v147 = v421;
-  REMRemindersListDataView.ScheduledByDateBucketsInvocation.Parameters.configuration.getter();
-  v148 = v429;
-  REMRemindersListDataView.FetchConfiguration.fetchSubtasks.getter();
-  v149 = v147;
-  v150 = v439;
-  v151 = v434;
-  v434(v149, v439);
-  v152 = v422;
-  REMRemindersListDataView.ScheduledByDateBucketsInvocation.Parameters.configuration.getter();
-  v153 = v424;
-  REMRemindersListDataView.FetchConfiguration.showCompleted.getter();
-  v151(v152, v150);
-  v154 = v451;
-  v155 = v423;
-  v156 = Subtasks;
-  (*(v451 + 16))(v423, v148, Subtasks);
-  v157 = (*(v154 + 88))(v155, v156);
-  if (v157 == enum case for REMRemindersListDataView.FetchSubtasks.off(_:) || v157 == v413)
-  {
-    v451 = sub_10038E654(_swiftEmptyArrayStorage);
-    v158 = v444;
-    v159 = v418;
-  }
-
-  else
-  {
-    v158 = v444;
-    v159 = v418;
-    if (v157 != enum case for REMRemindersListDataView.FetchSubtasks.count(_:))
-    {
-      goto LABEL_261;
-    }
-
-    v87 = v447;
-    v160 = v443;
-    sub_100539C70(v447, v153, v442, 0);
-    v162 = v367;
-    v443 = v160;
-    if (v160)
-    {
-
-      (v159)(v153, v426);
-      (v436)(v429, Subtasks);
-      return v87;
-    }
-
-    v451 = v161;
-  }
-
-  (v159)(v153, v426);
-  (v436)(v429, Subtasks);
-  static Calendar.current.getter();
-  v87 = v419;
-  REMRemindersListDataView.ScheduledByDateBucketsInvocation.Parameters.today.getter();
-  Calendar.startOfDay(for:)();
-  v163 = v392[1];
-  v369 = v392 + 1;
-  v368 = v163;
-  v163(v87, v127);
-  v164 = v447;
-  v433 = (v447 >> 62);
-  if (v447 >> 62)
-  {
-    goto LABEL_245;
-  }
-
-  v436 = *((v447 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  v165 = v443;
-LABEL_22:
-  v413 = v164 & 0xC000000000000001;
-  if ((v164 & 0xC000000000000001) != 0)
-  {
-
-    if (v436)
-    {
-      v166 = 0;
-      v167 = v436;
-      do
-      {
-        v168 = v166 + 1;
-        _ArrayBuffer._typeCheckSlowPath(_:)(v166);
-        v166 = v168;
-      }
-
-      while (v167 != v168);
-    }
-
-    if (!v433)
-    {
-      goto LABEL_27;
-    }
-  }
-
-  else
-  {
-
-    if (!v433)
-    {
-LABEL_27:
-      v169 = 0;
-      v442 = v447 & 0xFFFFFFFFFFFFFF8;
-      v159 = ((v447 & 0xFFFFFFFFFFFFFF8) + 32);
-      v170 = ((2 * v436) | 1);
-      goto LABEL_30;
-    }
-  }
-
-  v442 = _CocoaArrayWrapper.subscript.getter();
-  v159 = v171;
-  v169 = v172;
-  v170 = v173;
-LABEL_30:
-  v174 = v412;
-  REMRemindersListDataView.ScheduledByDateBucketsInvocation.Parameters.style.getter();
-  v175 = (*(v416 + 88))(v174, v417);
-  LODWORD(v423) = enum case for REMRemindersListDataView.ScheduledByDateBucketsStyle.regular(_:);
-  LODWORD(v424) = v175;
-  if (v175 != enum case for REMRemindersListDataView.ScheduledByDateBucketsStyle.regular(_:) && v175 != enum case for REMRemindersListDataView.ScheduledByDateBucketsStyle.compact(_:))
-  {
-    goto LABEL_260;
-  }
-
-  sub_1005C7E04(v442, v159, v169, v170, v158);
-  if (v177)
-  {
-    v181 = v177;
-    if (v179 != v180 >> 1)
-    {
-      Subtasks = (v180 >> 1);
-      v238 = v410;
-      v239 = v178;
-      v240 = v179;
-      v87 = v180;
-      REMRemindersListDataView.ScheduledByDateBucketsInvocation.Parameters.configuration.getter();
-      v241 = v411;
-      REMRemindersListDataView.FetchConfiguration.showCompleted.getter();
-      v434(v238, v439);
-      v242 = sub_1005C7ED8(v181, v239, v240, v87, v241, v451);
-      if (v165)
-      {
-        swift_unknownObjectRelease();
-        swift_unknownObjectRelease();
-
-        (v418)(v241, v426);
-        v368(v444, v438);
-        goto LABEL_195;
-      }
-
-      v256 = v242;
-      (v418)(v241, v426);
-      v257 = v396;
-      *v396 = v256;
-      (*(v425 + 104))(v257, enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.pastDue(_:), v440);
-      v258 = sub_100365C50(0, 1, 1, _swiftEmptyArrayStorage);
-      v260 = v258[2];
-      v259 = v258[3];
-      v261 = v258;
-      if (v260 >= v259 >> 1)
-      {
-        v261 = sub_100365C50(v259 > 1, v260 + 1, 1, v258);
-      }
-
-      *(v261 + 16) = v260 + 1;
-      (*(v425 + 32))(v261 + ((*(v425 + 80) + 32) & ~*(v425 + 80)) + *(v425 + 72) * v260, v257, v440);
-      v262 = Subtasks;
-      if (v436 < Subtasks)
-      {
-        __break(1u);
-LABEL_251:
-        __break(1u);
-LABEL_252:
-        __break(1u);
-LABEL_253:
-        __break(1u);
-LABEL_254:
-        __break(1u);
-LABEL_255:
-        __break(1u);
-LABEL_256:
-        __break(1u);
-LABEL_257:
-        __break(1u);
-LABEL_258:
-        __break(1u);
-LABEL_259:
-        __break(1u);
-LABEL_260:
-        _diagnoseUnexpectedEnumCase<A>(type:)();
-        __break(1u);
-LABEL_261:
-        _diagnoseUnexpectedEnumCase<A>(type:)();
-        __break(1u);
-LABEL_262:
-
-        __break(1u);
-        goto LABEL_263;
-      }
-
-      if (v433)
-      {
-        v263 = _CocoaArrayWrapper.endIndex.getter();
-      }
-
-      else
-      {
-        v263 = *((v447 & 0xFFFFFFFFFFFFFF8) + 0x10);
-      }
-
-      if (v263 < v262)
-      {
-        goto LABEL_251;
-      }
-
-      if (!v413 || v262 == v436)
-      {
-        v267 = v447;
-      }
-
-      else
-      {
-        if (v262 >= v436)
-        {
-          goto LABEL_254;
-        }
-
-        v267 = v447;
-
-        v268 = Subtasks;
-        v269 = v436;
-        do
-        {
-          v270 = v268 + 1;
-          _ArrayBuffer._typeCheckSlowPath(_:)(v268);
-          v268 = v270;
-        }
-
-        while (v269 != v270);
-      }
-
-      v443 = 0;
-      if (v433)
-      {
-
-        v271 = _CocoaArrayWrapper.subscript.getter();
-        v159 = v272;
-        v169 = v273;
-        v445 = v274;
-        swift_unknownObjectRelease();
-        swift_unknownObjectRelease();
-        v442 = v271;
-      }
-
-      else
-      {
-        swift_unknownObjectRelease();
-        swift_unknownObjectRelease();
-        v159 = ((v267 & 0xFFFFFFFFFFFFFF8) + 32);
-        v445 = (2 * v436) | 1;
-        v442 = v267 & 0xFFFFFFFFFFFFFF8;
-        v169 = Subtasks;
-      }
-
-      v87 = v261;
-      v127 = v438;
-      goto LABEL_40;
-    }
-
-    v445 = v170;
-    v443 = v165;
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v445 = v170;
-    v443 = v165;
-  }
-
-  v87 = _swiftEmptyArrayStorage;
-LABEL_40:
-  v182 = v430;
-  v183 = 2;
-  if (v424 == v423)
-  {
-    v183 = 7;
-  }
-
-  v410 = v183;
-  v122 = v447;
-  v184 = (v446 + 48);
-  Subtasks = (v446 + 32);
-  if (v447 < 0)
-  {
-    v185 = v447;
-  }
-
-  else
-  {
-    v185 = v447 & 0xFFFFFFFFFFFFFF8;
-  }
-
-  v411 = v185;
-  v412 = (v447 & 0xFFFFFFFFFFFFFF8);
-  v388 = (v447 & 0xFFFFFFFFFFFFFF8) + 32;
-  v186 = 1;
-  v387 = ((2 * v436) | 1);
-  v422 = (v392 + 2);
-  LODWORD(v396) = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.day(_:);
-  v417 = (v425 + 104);
-  v416 = v425 + 32;
-  v421 = (v392 + 5);
-  v187 = v444;
-  do
-  {
-    v429 = v186;
-    v189 = Calendar.beginningOfNextDay(_:)();
-    __chkstk_darwin(v189);
-    v364 = v182;
-    v190 = v443;
-    sub_100260DE4(sub_1005CC918, &v362, v159, v169, v445);
-    v443 = v190;
-    v441 = v87;
-    if (v192)
-    {
-      v193 = v159;
-      v194 = v445;
-      goto LABEL_55;
-    }
-
-    if (v169 < v191)
-    {
-      if ((v445 >> 1) < v169)
-      {
-        goto LABEL_235;
-      }
-
-      if ((v445 >> 1) < v191)
-      {
-        goto LABEL_236;
-      }
-
-      if (v191 < 0)
-      {
-        goto LABEL_237;
-      }
-
-      v193 = v159;
-      v194 = 2 * v191;
-LABEL_55:
-      swift_unknownObjectRetain();
-      v195 = v415;
-      REMRemindersListDataView.ScheduledByDateBucketsInvocation.Parameters.configuration.getter();
-      REMRemindersListDataView.FetchConfiguration.showCompleted.getter();
-      v434(v195, v439);
-      v196 = (v194 >> 1);
-      v197 = _swiftEmptyArrayStorage;
-      v445 = v196;
-      v159 = (v196 - v169);
-      if (v196 != v169)
-      {
-        v200 = v445;
-        if (v169 > v445)
-        {
-          v200 = v169;
-        }
-
-        v201 = v200 - v169;
-        v202 = &v193[v169];
-        while (v201)
-        {
-          v203 = *v202;
-          v204 = [v203 objectID];
-          v205 = v204;
-          v206 = v451;
-          if (*(v451 + 16))
-          {
-            v207 = sub_100363FF4(v204);
-            if (v208)
-            {
-              v209 = *(*(v206 + 56) + 8 * v207);
-            }
-
-            else
-            {
-              v209 = 0;
-            }
-
-            v122 = v447;
-          }
-
-          else
-          {
-            v209 = 0;
-          }
-
-          v210 = v450;
-          sub_1005384A4(v203, v209, 0, v450);
-          v211 = v452;
-          if ((*v184)(v210, 1, v452) == 1)
-          {
-            sub_1000050A4(v210, &qword_100940628, &unk_1007A6A20);
-          }
-
-          else
-          {
-            v212 = *Subtasks;
-            (*Subtasks)(v449, v210, v211);
-            if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-            {
-              v197 = sub_100365A24(0, *(v197 + 2) + 1, 1, v197);
-            }
-
-            v214 = *(v197 + 2);
-            v213 = *(v197 + 3);
-            if (v214 >= v213 >> 1)
-            {
-              v197 = sub_100365A24(v213 > 1, v214 + 1, 1, v197);
-            }
-
-            *(v197 + 2) = v214 + 1;
-            v212(&v197[((*(v446 + 80) + 32) & ~*(v446 + 80)) + *(v446 + 72) * v214], v449, v452);
-          }
-
-          --v201;
-          ++v202;
-          v159 = (v159 - 1);
-          if (!v159)
-          {
-            goto LABEL_56;
-          }
-        }
-
-        __break(1u);
-LABEL_111:
-        v255 = _swiftEmptyArrayStorage;
-        v87 = v438;
-        goto LABEL_145;
-      }
-
-LABEL_56:
-      (v418)(v428, v426);
-      v198 = v445;
-      if (v436 < v445)
-      {
-        __break(1u);
-LABEL_231:
-        __break(1u);
-LABEL_232:
-        __break(1u);
-LABEL_233:
-        __break(1u);
-LABEL_234:
-        __break(1u);
-LABEL_235:
-        __break(1u);
-LABEL_236:
-        __break(1u);
-LABEL_237:
-        __break(1u);
-LABEL_238:
-        swift_once();
-        goto LABEL_5;
-      }
-
-      if (v433)
-      {
-        v199 = _CocoaArrayWrapper.endIndex.getter();
-      }
-
-      else
-      {
-        v199 = *(v412 + 2);
-      }
-
-      v127 = v438;
-      v187 = v444;
-      if (v199 < v198)
-      {
-        goto LABEL_231;
-      }
-
-      if (!v413 || v198 == v436)
-      {
-
-        if (!v433)
-        {
-LABEL_85:
-          swift_unknownObjectRelease_n();
-          v442 = v412;
-          v159 = v388;
-          v169 = v445;
-          v445 = v387;
-LABEL_88:
-          v182 = v430;
-          goto LABEL_90;
-        }
-      }
-
-      else
-      {
-        if (v198 >= v436)
-        {
-          goto LABEL_232;
-        }
-
-        v215 = v198;
-        v216 = v436;
-        do
-        {
-          v217 = v215 + 1;
-          _ArrayBuffer._typeCheckSlowPath(_:)(v215);
-          v215 = v217;
-        }
-
-        while (v216 != v217);
-        if (!v433)
-        {
-          goto LABEL_85;
-        }
-      }
-
-      v218 = _CocoaArrayWrapper.subscript.getter();
-      v159 = v219;
-      v169 = v220;
-      v445 = v221;
-      swift_unknownObjectRelease_n();
-      v442 = v218;
-      goto LABEL_88;
-    }
-
-    v197 = _swiftEmptyArrayStorage;
-LABEL_90:
-    if (v424 == v423)
-    {
-    }
-
-    else
-    {
-      v222 = *(v197 + 2);
-
-      if (!v222)
-      {
-
-        v87 = v441;
-        goto LABEL_47;
-      }
-    }
-
-    (*v422)(v419, v187);
-    v223 = v431;
-    REMRemindersListDataView.ScheduledDateBucketsModel.Day.init(date:reminders:)();
-    (*v417)(v223, v396, v440);
-    v87 = v441;
-    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-    {
-      v87 = sub_100365C50(0, *(v87 + 16) + 1, 1, v87);
-    }
-
-    v225 = *(v87 + 16);
-    v224 = *(v87 + 24);
-    if (v225 >= v224 >> 1)
-    {
-      v87 = sub_100365C50(v224 > 1, v225 + 1, 1, v87);
-    }
-
-    *(v87 + 16) = v225 + 1;
-    (*(v425 + 32))(v87 + ((*(v425 + 80) + 32) & ~*(v425 + 80)) + *(v425 + 72) * v225, v431, v440);
-    v187 = v444;
-    v182 = v430;
-LABEL_47:
-    v188 = *v421;
-    (*v421)(v187, v182, v127);
-    v186 = (v429 + 1);
-  }
-
-  while (v429 != v410);
-  v370 = v188;
-  if (v424 == v423)
-  {
-    v127 = v443;
-    v226 = v380;
-    v227 = v379;
-    v228 = v378;
-    v229 = v377;
-    goto LABEL_152;
-  }
-
-  v450 = v169;
-  v441 = v87;
-  v230 = v376;
-  v231 = v389;
-  v232 = v390;
-  (*(v376 + 104))(v389, enum case for Calendar.Component.day(_:), v390);
-  v233 = v374;
-  v234 = v444;
-  Calendar.date(byAdding:value:to:wrappingComponents:)();
-  (*(v230 + 8))(v231, v232);
-  v235 = v392;
-  v236 = v392[6];
-  v237 = v236(v233, 1, v127);
-  if (v237 == 1)
-  {
-    v122 = v375;
-    (*v422)(v375, v234, v127);
-    if (v236(v233, 1, v127) != 1)
-    {
-      sub_1000050A4(v233, &unk_100938850, qword_100795AE0);
-    }
-  }
-
-  else
-  {
-    v122 = v375;
-    (v235[4])(v375, v233, v127);
-  }
-
-  sub_1005C7E04(v442, v159, v450, v445, v122);
-  v247 = v373;
-  if (!v243)
-  {
-    goto LABEL_111;
-  }
-
-  v248 = v243;
-  v249 = v244;
-  v250 = v245;
-  v87 = v246;
-  v251 = v372;
-  REMRemindersListDataView.ScheduledByDateBucketsInvocation.Parameters.configuration.getter();
-  REMRemindersListDataView.FetchConfiguration.showCompleted.getter();
-  v434(v251, v439);
-  v252 = v443;
-  v253 = sub_1005C7ED8(v248, v249, v250, v87, v247, v451);
-  if (v252)
-  {
-    swift_unknownObjectRelease();
-
-    swift_unknownObjectRelease();
-
-    (v418)(v247, v426);
-    v254 = v122;
-    goto LABEL_194;
-  }
-
-  v255 = v253;
-  (v418)(v247, v426);
-  v264 = v436;
-  v450 = (v87 >> 1);
-  v265 = v436 < (v87 >> 1);
-  v87 = v438;
-  if (v265)
-  {
-    goto LABEL_252;
-  }
-
-  if (v433)
-  {
-    v266 = _CocoaArrayWrapper.endIndex.getter();
-  }
-
-  else
-  {
-    v266 = *(v412 + 2);
-  }
-
-  if (v266 < v450)
-  {
-    goto LABEL_253;
-  }
-
-  v443 = 0;
-  if (!v413 || v450 == v264)
-  {
-  }
-
-  else
-  {
-    if (v450 >= v264)
-    {
-      goto LABEL_255;
-    }
-
-    v275 = v450;
-    do
-    {
-      v276 = (v275 + 1);
-      _ArrayBuffer._typeCheckSlowPath(_:)(v275);
-      v275 = v276;
-    }
-
-    while (v264 != v276);
-  }
-
-  if (v433)
-  {
-
-    v277 = _CocoaArrayWrapper.subscript.getter();
-    v159 = v278;
-    v450 = v279;
-    v445 = v280;
-    swift_unknownObjectRelease();
-    swift_unknownObjectRelease();
-    v442 = v277;
-  }
-
-  else
-  {
-    swift_unknownObjectRelease();
-    swift_unknownObjectRelease();
-    v442 = v412;
-    v159 = v388;
-    v445 = v387;
-  }
-
-LABEL_145:
-  v127 = v371;
-  v281 = v255[2];
-
-  v158 = v444;
-  if (v281)
-  {
-    v282 = *(sub_1000F5104(&qword_10094DEB8, &qword_1007B3C78) + 48);
-    (*v422)(v127, v158, v87);
-    *&v127[v282] = v255;
-    (*v417)(v127, enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.nextFiveDays(_:), v440);
-    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-    {
-      goto LABEL_249;
-    }
-
-    goto LABEL_147;
-  }
-
-  while (2)
-  {
-    v370(v158, v122, v87);
-    v226 = v380;
-    v227 = v379;
-    v228 = v378;
-    v229 = v377;
-    v87 = v441;
-    v169 = v450;
-    v127 = v443;
-LABEL_152:
-    v446 = *(v386 + 56);
-    Subtasks = (v386 + 56);
-    LODWORD(v396) = enum case for Calendar.MatchingPolicy.nextTime(_:);
-    v380 = v228 + 104;
-    LODWORD(v379) = enum case for Calendar.RepeatedTimePolicy.first(_:);
-    v378 = v227 + 104;
-    LODWORD(v377) = enum case for Calendar.SearchDirection.forward(_:);
-    v375 = (v226 + 104);
-    v374 = (v226 + 8);
-    v373 = (v227 + 8);
-    v372 = (v228 + 8);
-    v431 = (v229 + 8);
-    v430 = (v392 + 6);
-    v371 = (v392 + 4);
-    LODWORD(v392) = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.month(_:);
-    v287 = 1;
-LABEL_155:
-    v449 = v287;
-    v450 = v169;
-    v452 = v159;
-    v441 = v87;
-    v443 = v127;
-    (v446)(v406, 1, 1, v409);
-    v288 = type metadata accessor for TimeZone();
-    v289 = *(v288 - 8);
-    v290 = *(v289 + 56);
-    v429 = v288;
-    v428 = v290;
-    v419 = (v289 + 56);
-    (v290)(v407, 1, 1);
-    LOBYTE(v365) = 1;
-    v364 = 0;
-    v363 = 1;
-    v362 = 0;
-    v291 = v398;
-    DateComponents.init(calendar:timeZone:era:year:month:day:hour:minute:second:nanosecond:weekday:weekdayOrdinal:quarter:weekOfMonth:weekOfYear:yearForWeekOfYear:)();
-    v292 = v399;
-    v293 = v400;
-    (*v380)(v399, v396, v400);
-    v294 = v401;
-    v295 = v402;
-    (*v378)(v401, v379, v402);
-    v296 = v403;
-    v297 = v404;
-    (*v375)(v403, v377, v404);
-    v298 = v397;
-    Calendar.nextDate(after:matching:matchingPolicy:repeatedTimePolicy:direction:)();
-    (*v374)(v296, v297);
-    v299 = v298;
-    (*v373)(v294, v295);
-    v300 = v438;
-    (*v372)(v292, v293);
-    v415 = *v431;
-    (v415)(v291, v405);
-    v301 = *v430;
-    v302 = (*v430)(v298, 1, v300);
-    v410 = v301;
-    if (v302 == 1)
-    {
-      v303 = v420;
-      (*v422)(v420, v444, v300);
-      v304 = (v301)(v298, 1, v300);
-      v158 = v439;
-      v159 = v434;
-      v87 = v435;
-      v305 = v443;
-      v169 = v450;
-      if (v304 != 1)
-      {
-        v304 = sub_1000050A4(v299, &unk_100938850, qword_100795AE0);
-      }
-    }
-
-    else
-    {
-      v303 = v420;
-      v304 = (*v371)(v420, v298, v300);
-      v158 = v439;
-      v159 = v434;
-      v87 = v435;
-      v305 = v443;
-      v169 = v450;
-    }
-
-    __chkstk_darwin(v304);
-    v364 = v303;
-    sub_100260DE4(sub_1005CC99C, &v362, v452, v169, v445);
-    v127 = v305;
-    if (v307)
-    {
-      v308 = v395;
-      goto LABEL_166;
-    }
-
-    v122 = v447;
-    if (v169 >= v306)
-    {
-      v313 = _swiftEmptyArrayStorage;
-      v87 = v441;
-      v159 = v452;
-      goto LABEL_182;
-    }
-
-    v308 = v395;
-    if ((v445 >> 1) < v169)
-    {
-      goto LABEL_240;
-    }
-
-    if ((v445 >> 1) < v306)
-    {
-      goto LABEL_241;
-    }
-
-    if (v306 < 0)
-    {
-      goto LABEL_242;
-    }
-
-    v445 = v445 & 1 | (2 * v306);
-LABEL_166:
-    v309 = v442;
-    swift_unknownObjectRetain();
-    v310 = v394;
-    REMRemindersListDataView.ScheduledByDateBucketsInvocation.Parameters.configuration.getter();
-    REMRemindersListDataView.FetchConfiguration.showCompleted.getter();
-    (v159)(v310, v158);
-    v311 = v445;
-    v312 = sub_1005C7ED8(v309, v452, v450, v445, v308, v451);
-    if (!v305)
-    {
-      v313 = v312;
-      (v418)(v308, v426);
-      v169 = v311 >> 1;
-      v158 = v436;
-      v87 = v441;
-      v122 = v447;
-      if (v436 < v169)
-      {
-        goto LABEL_233;
-      }
-
-      if (v433)
-      {
-        v314 = _CocoaArrayWrapper.endIndex.getter();
-      }
-
-      else
-      {
-        v314 = *(v412 + 2);
-      }
-
-      if (v314 < v169)
-      {
-        goto LABEL_234;
-      }
-
-      if (!v413 || v169 == v158)
-      {
-
-        if (!v433)
-        {
-          goto LABEL_178;
-        }
-      }
-
-      else
-      {
-        if (v169 >= v158)
-        {
-          __break(1u);
-LABEL_240:
-          __break(1u);
-LABEL_241:
-          __break(1u);
-LABEL_242:
-          __break(1u);
-LABEL_243:
-          __break(1u);
-LABEL_244:
-          __break(1u);
-LABEL_245:
-          v436 = _CocoaArrayWrapper.endIndex.getter();
-          if (v436 < 0)
-          {
-            goto LABEL_258;
-          }
-
-          if (_CocoaArrayWrapper.endIndex.getter() < 0)
-          {
-            goto LABEL_259;
-          }
-
-          if (_CocoaArrayWrapper.endIndex.getter() < v436)
-          {
-            __break(1u);
-LABEL_249:
-            v441 = sub_100365C50(0, v441[2] + 1, 1, v441);
-LABEL_147:
-            v284 = v441[2];
-            v283 = v441[3];
-            if (v284 >= v283 >> 1)
-            {
-              v441 = sub_100365C50(v283 > 1, v284 + 1, 1, v441);
-            }
-
-            v285 = v440;
-            v286 = v441;
-            v441[2] = v284 + 1;
-            (*(v425 + 32))(v286 + ((*(v425 + 80) + 32) & ~*(v425 + 80)) + *(v425 + 72) * v284, v127, v285);
-            continue;
-          }
-
-LABEL_263:
-          v127 = v438;
-          v165 = v443;
-          v158 = v444;
-          v164 = v447;
-          goto LABEL_22;
-        }
-
-        v315 = v169;
-        do
-        {
-          v316 = (v315 + 1);
-          _ArrayBuffer._typeCheckSlowPath(_:)(v315);
-          v315 = v316;
-        }
-
-        while (v158 != v316);
-        if (!v433)
-        {
-LABEL_178:
-          swift_unknownObjectRelease_n();
-          v442 = v412;
-          v159 = v388;
-          v445 = v387;
-          goto LABEL_182;
-        }
-      }
-
-      v317 = _CocoaArrayWrapper.subscript.getter();
-      v159 = v318;
-      v169 = v319;
-      v445 = v320;
-      swift_unknownObjectRelease_n();
-      v442 = v317;
-LABEL_182:
-      if (v424 == v423)
-      {
-
-        goto LABEL_185;
-      }
-
-      v321 = v313[2];
-
-      if (v321)
-      {
-LABEL_185:
-        v322 = *(sub_1000F5104(&qword_10094DEB8, &qword_1007B3C78) + 48);
-        v323 = v414;
-        (*v422)(v414, v444, v438);
-        *&v323[v322] = v313;
-        (*v417)(v323, v392, v440);
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v87 = sub_100365C50(0, *(v87 + 16) + 1, 1, v87);
-        }
-
-        v325 = *(v87 + 16);
-        v324 = *(v87 + 24);
-        if (v325 >= v324 >> 1)
-        {
-          v87 = sub_100365C50(v324 > 1, v325 + 1, 1, v87);
-        }
-
-        *(v87 + 16) = v325 + 1;
-        (*(v425 + 32))(v87 + ((*(v425 + 80) + 32) & ~*(v425 + 80)) + *(v425 + 72) * v325, v414, v440);
-      }
-
-      else
-      {
-      }
-
-      v370(v444, v420, v438);
-      v287 = (v449 + 1);
-      if (v449 != 12)
-      {
-        goto LABEL_155;
-      }
-
-      v327 = v445;
-      if (v169 == v445 >> 1)
-      {
-        swift_unknownObjectRelease();
-
-        v127 = v438;
-        v328 = v432;
-        v329 = v444;
-LABEL_228:
-
-        v368(v329, v127);
-        (*(v386 + 8))(v328, v409);
-        return v87;
-      }
-
-      v441 = v87;
-      __chkstk_darwin(v326);
-      v364 = v432;
-      v365 = v444;
-      v333 = swift_unknownObjectRetain();
-      v334 = sub_1005C4BEC(v333, v159, v169, v327, sub_1005CC938);
-      v453 = sub_100277DC4(v334);
-      sub_1005C4E20(&v453);
-      v127 = v438;
-      v122 = v305;
-      if (v305)
-      {
-        goto LABEL_262;
-      }
-
-      v158 = v453;
-      v452 = v453[2];
-      if (!v452)
-      {
-LABEL_227:
-        swift_unknownObjectRelease();
-
-        v328 = v432;
-        v329 = v444;
-        v87 = v441;
-        goto LABEL_228;
-      }
-
-      v87 = 0;
-      v450 = v453 + 4;
-      LODWORD(v449) = enum case for Calendar.Component.year(_:);
-      v447 = v376 + 104;
-      v445 = v376 + 8;
-      LODWORD(v433) = enum case for REMRemindersListDataView.ScheduledDateBucketsModel.Bucket.year(_:);
-      v436 = v453;
-      while (2)
-      {
-        v443 = v122;
-        if (v87 >= v158[2])
-        {
-          goto LABEL_243;
-        }
-
-        v335 = &v450[2 * v87];
-        v159 = *v335;
-        v336 = v335[1];
-        v337 = v389;
-        v122 = v390;
-        (*v447)(v389, v449, v390);
-
-        v338 = v444;
-        v339 = Calendar.component(_:from:)();
-        (*v445)(v337, v122);
-        if (v159 == v339)
-        {
-          (*v422)(v393, v338, v127);
-          goto LABEL_206;
-        }
-
-        (v446)(v406, 1, 1, v409);
-        v428(v407, 1, 1, v429);
-        LOBYTE(v365) = 1;
-        v364 = 0;
-        v363 = 1;
-        v362 = 0;
-        v122 = v382;
-        DateComponents.init(calendar:timeZone:era:year:month:day:hour:minute:second:nanosecond:weekday:weekdayOrdinal:quarter:weekOfMonth:weekOfYear:yearForWeekOfYear:)();
-        v340 = v381;
-        Calendar.date(from:)();
-        (v415)(v122, v405);
-        if ((v410)(v340, 1, v127) == 1)
-        {
-
-          sub_1000050A4(v340, &unk_100938850, qword_100795AE0);
-          v122 = v443;
-          v158 = v436;
-        }
-
-        else
-        {
-          (*v371)(v393, v340, v127);
-LABEL_206:
-          v158 = v426;
-          v127 = (v336 >> 62);
-          if (v336 >> 62)
-          {
-            v361 = _CocoaArrayWrapper.endIndex.getter();
-            if (v361 < 0)
-            {
-              goto LABEL_256;
-            }
-
-            v341 = v361;
-            if (_CocoaArrayWrapper.endIndex.getter() < 0)
-            {
-              goto LABEL_257;
-            }
-
-            if (_CocoaArrayWrapper.endIndex.getter() < v341)
-            {
-              goto LABEL_244;
-            }
-
-            v158 = v426;
-          }
-
-          else
-          {
-            v341 = *((v336 & 0xFFFFFFFFFFFFFF8) + 0x10);
-          }
-
-          if ((v336 & 0xC000000000000001) != 0)
-          {
-
-            if (v341)
-            {
-              v342 = 0;
-              do
-              {
-                v343 = v342 + 1;
-                _ArrayBuffer._typeCheckSlowPath(_:)(v342);
-                v342 = v343;
-              }
-
-              while (v341 != v343);
-            }
-          }
-
-          else
-          {
-          }
-
-          if (v127)
-          {
-            v159 = _CocoaArrayWrapper.subscript.getter();
-            v345 = v347;
-            v344 = v348;
-            v346 = v349;
-          }
-
-          else
-          {
-            v344 = 0;
-            v159 = (v336 & 0xFFFFFFFFFFFFFF8);
-            v345 = (v336 & 0xFFFFFFFFFFFFFF8) + 32;
-            v346 = ((2 * v341) | 1);
-          }
-
-          v350 = v384;
-          REMRemindersListDataView.ScheduledByDateBucketsInvocation.Parameters.configuration.getter();
-          v351 = v385;
-          REMRemindersListDataView.FetchConfiguration.showCompleted.getter();
-          v434(v350, v439);
-          v352 = v443;
-          v353 = sub_1005C7ED8(v159, v345, v344, v346, v351, v451);
-          if (v352)
-          {
-            swift_unknownObjectRelease();
-
-            swift_unknownObjectRelease();
-
-            (v418)(v351, v158);
-            v330 = &v425;
-            goto LABEL_193;
-          }
-
-          v354 = v353;
-          v122 = 0;
-          (v418)(v351, v158);
-          swift_unknownObjectRelease();
-          v355 = *(sub_1000F5104(&qword_10094DEB8, &qword_1007B3C78) + 48);
-          v356 = v391;
-          v127 = v438;
-          (*v422)(v391, v393, v438);
-          *&v356[v355] = v354;
-          (*v417)(v356, v433, v440);
-          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-          {
-            v441 = sub_100365C50(0, v441[2] + 1, 1, v441);
-          }
-
-          v158 = v436;
-          v358 = v441[2];
-          v357 = v441[3];
-          if (v358 >= v357 >> 1)
-          {
-            v441 = sub_100365C50(v357 > 1, v358 + 1, 1, v441);
-          }
-
-          v368(v393, v127);
-          v359 = v440;
-          v360 = v441;
-          v441[2] = v358 + 1;
-          (*(v425 + 32))(v360 + ((*(v425 + 80) + 32) & ~*(v425 + 80)) + *(v425 + 72) * v358, v391, v359);
-        }
-
-        if (++v87 == v452)
-        {
-          goto LABEL_227;
-        }
-
-        continue;
-      }
-    }
-
-    break;
-  }
-
-  swift_unknownObjectRelease_n();
-
-  (v418)(v308, v426);
-  v330 = &v452;
-LABEL_193:
-  v254 = *(v330 - 32);
-LABEL_194:
-  v331 = v438;
-  v332 = v368;
-  v368(v254, v438);
-
-  v332(v444, v331);
-LABEL_195:
-  (*(v386 + 8))(v432, v409);
-  return v87;
 }

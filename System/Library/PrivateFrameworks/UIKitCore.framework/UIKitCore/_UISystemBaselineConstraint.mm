@@ -36,7 +36,7 @@
     }
 
     symbolicConstant = [(_UISystemBaselineConstraint *)v6 symbolicConstant];
-    if (([symbolicConstant isEqualToString:*MEMORY[0x1E6997768]] & 1) != 0 || (objc_msgSend(symbolicConstant, "isEqualToString:", *MEMORY[0x1E6997760]) & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(symbolicConstant) & 1) != 0 || (objc_msgSend_isEqualToString_(symbolicConstant) & 1) == 0)
     {
       [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
     }

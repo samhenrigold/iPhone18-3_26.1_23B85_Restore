@@ -25,47 +25,47 @@
 
 + (id)deepCopyObject:(id)object toZone:(_NSZone *)zone strategy:(id)strategy
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   strategyCopy = strategy;
   objectCopy = object;
   v10 = objc_autoreleasePoolPush();
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v35 = strategyCopy;
-    v37 = v10;
+    v34 = strategyCopy;
+    v36 = v10;
     v11 = objectCopy;
     v12 = [self newMutableArrayInZone:zone capacity:{objc_msgSend(v11, "count")}];
+    v49 = 0u;
     v50 = 0u;
     v51 = 0u;
     v52 = 0u;
-    v53 = 0u;
     v13 = v11;
-    v14 = [v13 countByEnumeratingWithState:&v50 objects:v55 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v49 objects:v54 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v51;
+      v16 = *v50;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v51 != v16)
+          if (*v50 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = [self deepCopyObject:*(*(&v50 + 1) + 8 * i) toZone:zone strategy:*&strategy];
+          v18 = [self deepCopyObject:*(*(&v49 + 1) + 8 * i) toZone:zone strategy:*&strategy];
           [v12 addObject:v18];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v50 objects:v55 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v49 objects:v54 count:16];
       }
 
       while (v15);
     }
 
-    if (v35)
+    if (v34)
     {
       v19 = v12;
     }
@@ -76,7 +76,7 @@
     }
 
     v24 = v19;
-    v10 = v37;
+    v10 = v36;
 LABEL_16:
 
     goto LABEL_52;
@@ -87,18 +87,18 @@ LABEL_16:
   {
     v20 = objectCopy;
     v21 = [self newMutableDictionaryInZone:zone capacity:{objc_msgSend(v20, "count")}];
-    v43[0] = MEMORY[0x1E69E9820];
-    v43[1] = 3221225472;
-    v43[2] = __50___PASZoneSupport_deepCopyObject_toZone_strategy___block_invoke;
-    v43[3] = &unk_1E77F1BB8;
+    v42[0] = MEMORY[0x1E69E9820];
+    v42[1] = 3221225472;
+    v42[2] = __50___PASZoneSupport_deepCopyObject_toZone_strategy___block_invoke;
+    v42[3] = &unk_1E77F1BB8;
     selfCopy = self;
     zoneCopy = zone;
-    v47 = strategyCopy;
-    v49 = *(&strategy + 3);
-    v48 = *&strategy >> 8;
+    v46 = strategyCopy;
+    v48 = *(&strategy + 3);
+    v47 = *&strategy >> 8;
     v22 = v21;
-    v44 = v22;
-    [v20 enumerateKeysAndObjectsUsingBlock:v43];
+    v43 = v22;
+    [v20 enumerateKeysAndObjectsUsingBlock:v42];
 
     if ((strategyCopy & 2) != 0)
     {
@@ -118,41 +118,41 @@ LABEL_16:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v36 = strategyCopy;
-    v38 = v10;
+    v35 = strategyCopy;
+    v37 = v10;
     v25 = objectCopy;
     v12 = [self newMutableSetInZone:zone capacity:{objc_msgSend(v25, "count")}];
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
     v13 = v25;
-    v26 = [v13 countByEnumeratingWithState:&v39 objects:v54 count:16];
+    v26 = [v13 countByEnumeratingWithState:&v38 objects:v53 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v40;
+      v28 = *v39;
       do
       {
         for (j = 0; j != v27; ++j)
         {
-          if (*v40 != v28)
+          if (*v39 != v28)
           {
             objc_enumerationMutation(v13);
           }
 
-          v30 = [self deepCopyObject:*(*(&v39 + 1) + 8 * j) toZone:zone strategy:*&strategy];
+          v30 = [self deepCopyObject:*(*(&v38 + 1) + 8 * j) toZone:zone strategy:*&strategy];
           [v12 addObject:v30];
         }
 
-        v27 = [v13 countByEnumeratingWithState:&v39 objects:v54 count:16];
+        v27 = [v13 countByEnumeratingWithState:&v38 objects:v53 count:16];
       }
 
       while (v27);
     }
 
-    v10 = v38;
-    if ((v36 & 4) != 0)
+    v10 = v37;
+    if ((v35 & 4) != 0)
     {
       v31 = v12;
     }
@@ -243,8 +243,6 @@ LABEL_16:
 LABEL_52:
   objc_autoreleasePoolPop(v10);
 
-  v33 = *MEMORY[0x1E69E9840];
-
   return v24;
 }
 
@@ -294,23 +292,23 @@ LABEL_52:
 
 + (id)copyNumber:(id)number toZone:(_NSZone *)zone
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   numberCopy = number;
   if (zone && MEMORY[0x1AC5662F0]() != zone && malloc_size(numberCopy))
   {
     ByteSize = CFNumberGetByteSize(numberCopy);
     v9 = ByteSize + 7;
     memptr = 0;
-    v23 = 0;
+    v22 = 0;
     if ((ByteSize + 7) > 0x400)
     {
-      v16 = CFNumberGetByteSize(numberCopy);
-      v17 = malloc_type_posix_memalign(&memptr, 8uLL, v16, 0xE69E64A3uLL);
-      LOBYTE(v23) = 0;
-      if (v17)
+      v15 = CFNumberGetByteSize(numberCopy);
+      v16 = malloc_type_posix_memalign(&memptr, 8uLL, v15, 0xE69E64A3uLL);
+      LOBYTE(v22) = 0;
+      if (v16)
       {
-        v20 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA18] reason:@"malloc failed" userInfo:0];
-        objc_exception_throw(v20);
+        v19 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA18] reason:@"malloc failed" userInfo:0];
+        objc_exception_throw(v19);
       }
 
       v10 = memptr;
@@ -319,7 +317,7 @@ LABEL_52:
     else
     {
       MEMORY[0x1EEE9AC00](ByteSize);
-      v10 = &v21 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v10 = &v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
       bzero(v10, v9);
     }
 
@@ -349,7 +347,6 @@ LABEL_52:
     v13 = [(__CFNumber *)numberCopy copy];
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

@@ -69,7 +69,7 @@
 
 - (UIImage)image
 {
-  sub_100014C84(0, &qword_10190AB90);
+  sub_100014C84(0, &qword_10190AB90, UIImage_ptr);
   static MapsDesignConstants.Image.Guides.favorites.getter();
   v2 = static UIImage.mapsDesignImage(_:)();
 
@@ -88,7 +88,7 @@
 
 - (NSURL)fullSharingURL
 {
-  v3 = sub_1000CE6B8(&unk_101909B00);
+  v3 = sub_1000CE6B8(&unk_101909B00, &unk_1011E4C10);
   __chkstk_darwin(v3 - 8);
   v5 = &v19 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v6);
@@ -237,7 +237,7 @@
 {
   swift_beginAccess();
 
-  sub_1000CE6B8(&qword_1019083F0);
+  sub_1000CE6B8(&qword_1019083F0, &qword_1011E2EC0);
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v2.super.isa;
@@ -245,7 +245,7 @@
 
 - (void)setStoreSubscriptionTypes:(id)types
 {
-  sub_1000CE6B8(&qword_1019083F0);
+  sub_1000CE6B8(&qword_1019083F0, &qword_1011E2EC0);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = OBJC_IVAR____TtC4Maps25FavoriteCollectionHandler_storeSubscriptionTypes;
   swift_beginAccess();

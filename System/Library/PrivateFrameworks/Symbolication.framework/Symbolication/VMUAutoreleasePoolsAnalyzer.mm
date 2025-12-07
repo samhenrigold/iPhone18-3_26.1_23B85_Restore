@@ -4,8 +4,12 @@
 - ($F98408A3EE049A81EB8D46654FFD7652)options;
 - (VMUAutoreleasePoolsAnalyzer)initWithGraph:(id)graph regionIdentifier:(id)identifier debugTimer:(id)timer;
 - (id)analysisSummaryWithError:(id *)error;
+- (id)memoryTreeHeldByAutoreleasedNode:(id *)node node:(unsigned int)a4;
+- (unsigned)findHottestEmptyAutoreleasePoolPage:(unsigned int)page;
+- (unsigned)reattachAutoreleasePoolsChainFromHottestToColdest:(unsigned int)coldest;
 - (void)dealloc;
 - (void)iterateAutoreleasePoolsInThreadsGroupingByType:(BOOL)type showVirtualSize:(BOOL)size extraReleasesCount:(unsigned int *)count withBlock:(id)block;
+- (void)iterateThroughPoolsPerThread:(unsigned int)thread withBlock:(id)block;
 - (void)populateAutoreleasePoolsDetails;
 @end
 
@@ -27,26 +31,158 @@
   return v9;
 }
 
-uint64_t __67__VMUAutoreleasePoolsAnalyzer_findHottestEmptyAutoreleasePoolPage___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _BYTE *a6)
+- (unsigned)findHottestEmptyAutoreleasePoolPage:(unsigned int)page
+{
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2020000000;
+  v10 = -1;
+  graph = self->super._graph;
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __67__VMUAutoreleasePoolsAnalyzer_findHottestEmptyAutoreleasePoolPage___block_invoke;
+  v6[3] = &unk_1E827A6A0;
+  v6[4] = self;
+  v6[5] = &v7;
+  [(VMUObjectGraph *)graph enumerateReferencesOfNode:*&page withBlock:v6];
+  v4 = *(v8 + 6);
+  _Block_object_dispose(&v7, 8);
+  return v4;
+}
+
+void *__67__VMUAutoreleasePoolsAnalyzer_findHottestEmptyAutoreleasePoolPage___block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _BYTE *a6)
 {
   v8 = result;
-  v9 = *(result + 32);
+  v9 = result[4];
   if (*(a5 + 8) == *(v9 + 84))
   {
     v10 = a4;
     result = [*(v9 + 8) nodeIsAutoreleasePoolContentPage:a4];
     if (result)
     {
-      *(*(*(v8 + 40) + 8) + 24) = v10;
+      *(*(v8[5] + 8) + 24) = v10;
     }
   }
 
-  if (*(a5 + 8) >= *(*(v8 + 32) + 84))
+  if (*(a5 + 8) >= *(v8[4] + 84))
   {
     *a6 = 1;
   }
 
   return result;
+}
+
+- (id)memoryTreeHeldByAutoreleasedNode:(id *)node node:(unsigned int)a4
+{
+  v4 = *&a4;
+  v20 = [[VMUCallTreeRoot alloc] initWithSymbolicator:0 sampler:0 options:0, 0];
+  v43[0] = 0;
+  v43[1] = v43;
+  v43[2] = 0x2020000000;
+  v44 = 128;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
+  v42 = malloc_type_malloc(0x200uLL, 0x100004052888210uLL);
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2020000000;
+  v38 = 0;
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __69__VMUAutoreleasePoolsAnalyzer_memoryTreeHeldByAutoreleasedNode_node___block_invoke;
+  aBlock[3] = &unk_1E827A8C0;
+  aBlock[6] = v43;
+  aBlock[7] = &v39;
+  aBlock[4] = self;
+  aBlock[5] = &v35;
+  v19 = _Block_copy(aBlock);
+  v19[2](v19, v4);
+  v31 = 0;
+  v32 = 0;
+  v33 = 0;
+  graph = self->super._graph;
+  if (graph)
+  {
+    objc_msgSend_nodeDetails_(graph);
+  }
+
+  v8 = [(VMULeakDetector *)self->_detector nodeDescription:v4];
+  if (self->_options.groupByType)
+  {
+    [(VMUCallTreeRoot *)v20 addChildWithName:v8 address:0 count:1 numBytes:v32 & 0xFFFFFFFFFFFFFFFLL toNode:v20];
+  }
+
+  else
+  {
+    [(VMUCallTreeRoot *)v20 addUniqueChildWithName:v8 address:0 count:1 numBytes:v32 & 0xFFFFFFFFFFFFFFFLL toNode:v20];
+  }
+  v9 = ;
+  node[v4] = v9;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 0;
+  if (*(v36 + 6))
+  {
+    v18 = v8;
+    v10 = 0;
+    do
+    {
+      v11 = *(v40[3] + 4 * v10);
+      v12 = node[v11];
+
+      v13 = self->super._graph;
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = __69__VMUAutoreleasePoolsAnalyzer_memoryTreeHeldByAutoreleasedNode_node___block_invoke_2;
+      v21[3] = &unk_1E827A8E8;
+      v21[4] = self;
+      v24 = v19;
+      nodeCopy = node;
+      v9 = v12;
+      v22 = v9;
+      v14 = v20;
+      v23 = v14;
+      v25 = &v27;
+      [(VMUObjectGraph *)v13 enumerateReferencesOfNode:v11 withBlock:v21];
+
+      ++v10;
+    }
+
+    while (v10 != *(v36 + 6));
+    if (v28[3])
+    {
+      [(VMUCallTreeRoot *)v14 addChildCountsIntoNode];
+      v8 = v18;
+      v15 = [(VMUCallTreeNode *)v14 stringFromCallTreeWithOptions:56];
+    }
+
+    else
+    {
+      v15 = 0;
+      v8 = v18;
+    }
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  v16 = v40[3];
+  if (v16)
+  {
+    free(v16);
+  }
+
+  _Block_object_dispose(&v27, 8);
+
+  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(v43, 8);
+
+  return v15;
 }
 
 void *__69__VMUAutoreleasePoolsAnalyzer_memoryTreeHeldByAutoreleasedNode_node___block_invoke(void *result, unsigned int a2)
@@ -146,6 +282,70 @@ void __69__VMUAutoreleasePoolsAnalyzer_memoryTreeHeldByAutoreleasedNode_node___b
   objc_autoreleasePoolPop(v8);
 }
 
+- (unsigned)reattachAutoreleasePoolsChainFromHottestToColdest:(unsigned int)coldest
+{
+  v3 = *&coldest;
+  p_offsets = &self->_offsets;
+  *&self->_offsets.parentPageOffset = [(VMUProcessObjectGraph *)self->super._graph autoreleasePoolOffsets];
+  p_offsets->firstEntryOffset = v6;
+  v7 = [(NSMutableSet *)self->_unreferencedAutoreleasePoolNodes count];
+  self->_autoreleasePoolChain = malloc_type_malloc(4 * v7, 0x100004052888210uLL);
+  v8 = [(VMUAutoreleasePoolsAnalyzer *)self findHottestEmptyAutoreleasePoolPage:v3];
+  if (v8 == -1)
+  {
+    v3 = v3;
+  }
+
+  else
+  {
+    v3 = v8;
+  }
+
+  if (v3 == -1)
+  {
+    LODWORD(v9) = 0;
+  }
+
+  else
+  {
+    v9 = 0;
+    v15 = v7;
+    v10 = v7;
+    while (v10 != v9)
+    {
+      self->_autoreleasePoolChain[v9] = v3;
+      unreferencedAutoreleasePoolNodes = self->_unreferencedAutoreleasePoolNodes;
+      v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v3];
+      [(NSMutableSet *)unreferencedAutoreleasePoolNodes removeObject:v12];
+
+      v17 = 0;
+      v18 = &v17;
+      v19 = 0x2020000000;
+      v20 = -1;
+      graph = self->super._graph;
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __81__VMUAutoreleasePoolsAnalyzer_reattachAutoreleasePoolsChainFromHottestToColdest___block_invoke;
+      v16[3] = &unk_1E827A6A0;
+      v16[4] = self;
+      v16[5] = &v17;
+      [(VMUObjectGraph *)graph enumerateReferencesOfNode:v3 withBlock:v16];
+      ++v9;
+      v3 = *(v18 + 6);
+      _Block_object_dispose(&v17, 8);
+      if (v3 == -1)
+      {
+        return v9;
+      }
+    }
+
+    LODWORD(v9) = v15;
+    printf("INCORRECT CHAIN OF @autoreleasepool content BLOCKS -- TRUNCATING THE CHAIN (autoreleasePoolChainCount %u, autoreleasePoolChainMax %u\n", v15, v15);
+  }
+
+  return v9;
+}
+
 uint64_t __81__VMUAutoreleasePoolsAnalyzer_reattachAutoreleasePoolsChainFromHottestToColdest___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, int a4, uint64_t a5, _BYTE *a6)
 {
   v6 = *(a5 + 8);
@@ -163,142 +363,205 @@ uint64_t __81__VMUAutoreleasePoolsAnalyzer_reattachAutoreleasePoolsChainFromHott
   return result;
 }
 
-void __70__VMUAutoreleasePoolsAnalyzer_iterateThroughPoolsPerThread_withBlock___block_invoke(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+- (void)iterateThroughPoolsPerThread:(unsigned int)thread withBlock:(id)block
 {
-  v9 = a1[4];
-  v10 = *(v9 + 8);
-  if (v10)
+  v4 = *&thread;
+  blockCopy = block;
+  if (!self->_detector)
   {
-    [v10 nodeDetails:a3];
-    v9 = a1[4];
+    v7 = [VMULeakDetector alloc];
+    graph = self->super._graph;
+    scanner = [(VMUProcessObjectGraph *)graph scanner];
+    stackLogReader = [(VMUProcessObjectGraph *)self->super._graph stackLogReader];
+    v11 = [(VMULeakDetector *)v7 initWithVMUTask:0 graph:graph scanner:scanner stackLogReader:stackLogReader];
+    detector = self->_detector;
+    self->_detector = v11;
   }
 
-  if (*(a5 + 8) >= *(v9 + 88))
+  v13 = [(VMUAutoreleasePoolsAnalyzer *)self reattachAutoreleasePoolsChainFromHottestToColdest:v4];
+  v14 = malloc_type_calloc([(VMUDirectedGraph *)self->super._graph nodeNamespaceSize], 8uLL, 0x80040B8603338uLL);
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
+  if (!v13)
   {
-    v11 = *(a5 + 32);
-    if ((*(v11 + 8) & 0xFFFFFFFFFFFFFFFLL) == 0)
-    {
-      v12 = [*(v11 + 16) className];
-      v13 = [v12 isEqualToString:kVMUAutoreleasePoolBoundaryClassName];
+    goto LABEL_7;
+  }
 
-      if (v13)
+  v15 = 4 * v13 - 4;
+  do
+  {
+    v16 = *(self->_autoreleasePoolChain + v15);
+    v17 = [(VMULeakDetector *)self->_detector nodeDescription:v16];
+    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"    %s\n", objc_msgSend(v17, "UTF8String")];
+    blockCopy[2](blockCopy, v18);
+
+    v19 = self->super._graph;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __70__VMUAutoreleasePoolsAnalyzer_iterateThroughPoolsPerThread_withBlock___block_invoke;
+    v20[3] = &unk_1E827A910;
+    v20[4] = self;
+    v21 = blockCopy;
+    v22 = &v24;
+    v23 = v14;
+    [(VMUObjectGraph *)v19 enumerateReferencesOfNode:v16 withBlock:v20];
+
+    v15 -= 4;
+  }
+
+  while (v15 != -4);
+  if (!*(v25 + 6))
+  {
+LABEL_7:
+    blockCopy[2](blockCopy, @"        Empty\n");
+  }
+
+  if (v14)
+  {
+    free(v14);
+  }
+
+  _Block_object_dispose(&v24, 8);
+}
+
+void __70__VMUAutoreleasePoolsAnalyzer_iterateThroughPoolsPerThread_withBlock___block_invoke(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v8 = a1[4];
+  v9 = *(v8 + 8);
+  if (v9)
+  {
+    objc_msgSend_nodeDetails_(v9, a2, a3);
+    v8 = a1[4];
+  }
+
+  if (*(a5 + 8) >= *(v8 + 88))
+  {
+    v10 = *(a5 + 32);
+    if ((*(v10 + 8) & 0xFFFFFFFFFFFFFFFLL) == 0)
+    {
+      v11 = [*(v10 + 16) className];
+      v12 = [v11 isEqualToString:kVMUAutoreleasePoolBoundaryClassName];
+
+      if (v12)
       {
         (*(a1[5] + 16))();
         return;
       }
     }
 
-    v14 = objc_autoreleasePoolPush();
-    v15 = *(a1[4] + 8);
-    if (v15)
+    v13 = objc_autoreleasePoolPush();
+    v14 = *(a1[4] + 8);
+    if (v14)
     {
-      [v15 nodeDetails:a3];
-      v16 = v52;
-      v15 = *(a1[4] + 8);
+      objc_msgSend_nodeDetails_(v14);
+      v15 = v51;
+      v14 = *(a1[4] + 8);
     }
 
     else
     {
-      v16 = 0;
+      v15 = 0;
     }
 
-    v17 = v16;
-    v18 = *(a5 + 8);
-    v19 = [v15 srcAddressToExtraAutoreleaseCountDict];
-    v20 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v17 + v18];
-    v21 = [v19 objectForKeyedSubscript:v20];
+    v16 = v15;
+    v17 = *(a5 + 8);
+    v18 = [v14 srcAddressToExtraAutoreleaseCountDict];
+    v19 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v16 + v17];
+    v20 = [v18 objectForKeyedSubscript:v19];
 
-    if (v21)
+    if (v20)
     {
-      v22 = [v21 unsignedIntValue];
-      v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"   COALESCED AUTORELEASES: %u", v22];
-      **(a1[4] + 104) = v22 + **(a1[4] + 104) - 1;
+      v21 = [v20 unsignedIntValue];
+      v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"   COALESCED AUTORELEASES: %u", v21];
+      **(a1[4] + 104) = v21 + **(a1[4] + 104) - 1;
     }
 
     else
     {
-      v23 = &stru_1F461F9C8;
+      v22 = &stru_1F461F9C8;
     }
 
-    v24 = *(a1[4] + 64);
-    v25 = @"     ** %u:  ";
-    v26 = a4 >> 3;
-    if (*v24 > a4 && ((*(v24 + v26 + 4) >> (a4 & 7)) & 1) != 0)
+    v23 = *(a1[4] + 64);
+    v24 = @"     ** %u:  ";
+    v25 = a4 >> 3;
+    if (*v23 > a4 && ((*(v23 + v25 + 4) >> (a4 & 7)) & 1) != 0)
     {
-      v25 = @"        %u:  ";
+      v24 = @"        %u:  ";
     }
 
-    v27 = [MEMORY[0x1E696AEC0] stringWithFormat:v25, *(*(a1[6] + 8) + 24)];
+    v26 = [MEMORY[0x1E696AEC0] stringWithFormat:v24, *(*(a1[6] + 8) + 24)];
     (*(a1[5] + 16))();
-    v28 = [v27 length];
+    v27 = [v26 length];
     ++*(*(a1[6] + 8) + 24);
-    v29 = a1[4];
-    v30 = *(v29 + 64);
-    if (*v30 <= a4 || ((*(v30 + v26 + 4) >> (a4 & 7)) & 1) == 0)
+    v28 = a1[4];
+    v29 = *(v28 + 64);
+    if (*v29 <= a4 || ((*(v29 + v25 + 4) >> (a4 & 7)) & 1) == 0)
     {
-      v31 = [v29 memoryTreeHeldByAutoreleasedNode:a1[7] node:a4];
-      if (v31)
+      v30 = [v28 memoryTreeHeldByAutoreleasedNode:a1[7] node:a4];
+      if (v30)
       {
-        v32 = v31;
-        v33 = [v31 componentsSeparatedByString:@"\n"];
-        v34 = [v33 count];
-        v35 = v34 - 1;
-        if (v34 != 1)
+        v31 = v30;
+        v32 = [v30 componentsSeparatedByString:@"\n"];
+        v33 = [v32 count];
+        v34 = v33 - 1;
+        if (v33 != 1)
         {
-          v48 = v32;
-          v49 = v27;
-          v50 = v21;
-          v51 = v14;
-          v36 = 0;
-          v37 = 1;
-          v38 = v28;
-          v39 = 0x1E696A000uLL;
+          v47 = v31;
+          v48 = v26;
+          v49 = v20;
+          v50 = v13;
+          v35 = 0;
+          v36 = 1;
+          v37 = v27;
+          v38 = 0x1E696A000uLL;
           do
           {
-            if (v37 != 1)
+            if (v36 != 1)
             {
-              v40 = a1[5];
-              v41 = [*(v39 + 3776) stringWithFormat:@"%*s", v38, ""];
-              (*(v40 + 16))(v40, v41);
+              v39 = a1[5];
+              v40 = [*(v38 + 3776) stringWithFormat:@"%*s", v37, ""];
+              (*(v39 + 16))(v39, v40);
             }
 
-            v42 = a1[5];
-            v43 = *(v39 + 3776);
-            v44 = [v33 objectAtIndexedSubscript:v36];
-            v45 = [v43 stringWithFormat:@"%s%s\n", objc_msgSend(v44, "UTF8String"), -[__CFString UTF8String](v23, "UTF8String")];
-            (*(v42 + 16))(v42, v45);
+            v41 = a1[5];
+            v42 = *(v38 + 3776);
+            v43 = [v32 objectAtIndexedSubscript:v35];
+            v44 = [v42 stringWithFormat:@"%s%s\n", objc_msgSend(v43, "UTF8String"), -[__CFString UTF8String](v22, "UTF8String")];
+            (*(v41 + 16))(v41, v44);
 
-            if (v37 == 1)
+            if (v36 == 1)
             {
 
-              v23 = &stru_1F461F9C8;
+              v22 = &stru_1F461F9C8;
             }
 
-            v36 = v37;
-            v46 = v35 > v37++;
-            v39 = 0x1E696A000;
+            v35 = v36;
+            v45 = v34 > v36++;
+            v38 = 0x1E696A000;
           }
 
-          while (v46);
-          v21 = v50;
-          v14 = v51;
-          v32 = v48;
-          v27 = v49;
+          while (v45);
+          v20 = v49;
+          v13 = v50;
+          v31 = v47;
+          v26 = v48;
         }
 
         goto LABEL_29;
       }
 
-      v29 = a1[4];
+      v28 = a1[4];
     }
 
-    v32 = [*(v29 + 40) nodeDescription:a4];
-    v47 = a1[5];
-    v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s%s\n", objc_msgSend(v32, "UTF8String"), -[__CFString UTF8String](v23, "UTF8String")];
-    (*(v47 + 16))(v47, v33);
+    v31 = [*(v28 + 40) nodeDescription:a4];
+    v46 = a1[5];
+    v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s%s\n", objc_msgSend(v31, "UTF8String"), -[__CFString UTF8String](v22, "UTF8String")];
+    (*(v46 + 16))(v46, v32);
 LABEL_29:
 
-    objc_autoreleasePoolPop(v14);
+    objc_autoreleasePoolPop(v13);
   }
 }
 
@@ -329,7 +592,7 @@ LABEL_29:
 
 - (void)iterateAutoreleasePoolsInThreadsGroupingByType:(BOOL)type showVirtualSize:(BOOL)size extraReleasesCount:(unsigned int *)count withBlock:(id)block
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   self->_options.groupByType = type;
   self->_options.referenceTreeShowRegionVirtualSize = size;
@@ -380,32 +643,32 @@ LABEL_29:
     if ([(NSMutableSet *)self->_unreferencedAutoreleasePoolNodes count])
     {
       blockCopy[2](blockCopy, @"Autorelease pool pages not associated with a thread\n");
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
       v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       obj = self->_unreferencedAutoreleasePoolNodes;
-      v18 = [(NSMutableSet *)obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v18 = [(NSMutableSet *)obj countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v28;
+        v20 = *v27;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v28 != v20)
+            if (*v27 != v20)
             {
               objc_enumerationMutation(obj);
             }
 
             v22 = MEMORY[0x1E696AEC0];
-            v23 = -[VMUProcessObjectGraph nodeDescription:](self->super._graph, "nodeDescription:", [*(*(&v27 + 1) + 8 * i) unsignedIntValue]);
+            v23 = -[VMUProcessObjectGraph nodeDescription:](self->super._graph, "nodeDescription:", [*(*(&v26 + 1) + 8 * i) unsignedIntValue]);
             v24 = [v22 stringWithFormat:@"    %s\n", objc_msgSend(v23, "UTF8String")];
             blockCopy[2](blockCopy, v24);
           }
 
-          v19 = [(NSMutableSet *)obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+          v19 = [(NSMutableSet *)obj countByEnumeratingWithState:&v26 objects:v30 count:16];
         }
 
         while (v19);
@@ -419,8 +682,6 @@ LABEL_29:
   {
     blockCopy[2](blockCopy, @"Error occured while printing autoreleasePools per thread.\n");
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)populateAutoreleasePoolsDetails
@@ -535,7 +796,7 @@ LABEL_29:
   _Block_object_dispose(v38, 8);
 }
 
-void *__62__VMUAutoreleasePoolsAnalyzer_populateAutoreleasePoolsDetails__block_invoke(void *result, uint64_t a2)
+void *__62__VMUAutoreleasePoolsAnalyzer_populateAutoreleasePoolsDetails__block_invoke(void *result, const char *a2)
 {
   v4 = result[5];
   if (*v4 > a2 && ((*(v4 + (a2 >> 3) + 4) >> (a2 & 7)) & 1) != 0)
@@ -548,7 +809,7 @@ void *__62__VMUAutoreleasePoolsAnalyzer_populateAutoreleasePoolsDetails__block_i
     result = *(v6 + 8);
     if (result)
     {
-      result = [result nodeDetails:a2];
+      result = objc_msgSend_nodeDetails_(result, a2, a2);
       v6 = v5[4];
       v7 = v9 & 0xFFFFFFFFFFFFFFFLL;
     }
@@ -741,7 +1002,7 @@ void *__62__VMUAutoreleasePoolsAnalyzer_populateAutoreleasePoolsDetails__block_i
   return result;
 }
 
-uint64_t __62__VMUAutoreleasePoolsAnalyzer_populateAutoreleasePoolsDetails__block_invoke_5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _BYTE *a6)
+void *__62__VMUAutoreleasePoolsAnalyzer_populateAutoreleasePoolsDetails__block_invoke_5(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, _BYTE *a6)
 {
   v7 = a4;
   v13 = 0uLL;
@@ -749,13 +1010,13 @@ uint64_t __62__VMUAutoreleasePoolsAnalyzer_populateAutoreleasePoolsDetails__bloc
   v9 = *(*(a1 + 32) + 8);
   if (v9)
   {
-    [v9 nodeDetails:a4];
+    objc_msgSend_nodeDetails_(v9, a2, a4, a4, a5);
     v9 = *(*(a1 + 32) + 8);
   }
 
   v11 = v13;
   v12 = v14;
-  result = [v9 nodeDetailIsAutoreleasePoolContentPage:&v11];
+  result = [v9 nodeDetailIsAutoreleasePoolContentPage:{&v11, a4, a5}];
   if (result)
   {
     **(*(a1 + 32) + 48) = v7;
@@ -766,7 +1027,7 @@ uint64_t __62__VMUAutoreleasePoolsAnalyzer_populateAutoreleasePoolsDetails__bloc
   return result;
 }
 
-void __62__VMUAutoreleasePoolsAnalyzer_populateAutoreleasePoolsDetails__block_invoke_6(uint64_t a1, int a2, int a3, void *key, uint64_t a5)
+void __62__VMUAutoreleasePoolsAnalyzer_populateAutoreleasePoolsDetails__block_invoke_6(uint64_t a1, int a2, uint64_t a3, void *key, uint64_t a5)
 {
   v5 = *(a1 + 32);
   if (*(a5 + 8) >= *(v5 + 88))

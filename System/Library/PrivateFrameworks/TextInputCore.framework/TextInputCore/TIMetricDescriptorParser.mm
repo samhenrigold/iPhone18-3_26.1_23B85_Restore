@@ -1,6 +1,7 @@
 @interface TIMetricDescriptorParser
 - (TIMetricDescriptorParser)init;
 - (id)descriptionFromDependencyChain:(id)chain andDependencyName:(id)name;
+- (id)parseBucketThresholdsFromConfig:(id)config isFeatureUsageDescriptor:(BOOL)descriptor errors:(id)errors;
 - (id)parseBucketValuesFromConfig:(id)config forBucketThresholds:(id)thresholds isFeatureUsageDescriptor:(BOOL)descriptor errors:(id)errors;
 - (id)parseCalculationDefaultValueFromConfig:(id)config forExpression:(id)expression andPrecondition:(id)precondition errors:(id)errors;
 - (id)parseCalculationDependenciesFromConfig:(id)config forExpression:(id)expression errors:(id)errors;
@@ -18,34 +19,34 @@
 
 - (id)descriptionFromDependencyChain:(id)chain andDependencyName:(id)name
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   chainCopy = chain;
   nameCopy = name;
   v7 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v8 = chainCopy;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        metricName = [*(*(&v17 + 1) + 8 * i) metricName];
+        metricName = [*(*(&v16 + 1) + 8 * i) metricName];
         [v7 addObject:metricName];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
@@ -56,17 +57,15 @@
     [v7 addObject:nameCopy];
   }
 
-  [v7 removeObjectAtIndex:{0, v17}];
+  [v7 removeObjectAtIndex:{0, v16}];
   v14 = [v7 componentsJoinedByString:@" -> "];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (void)findInvalidDependencyChain:(id)chain forMetricDescriptor:(id)descriptor fromMetricDescriptors:(id)descriptors andInvalidMetricNames:(id)names invalidMetricDescriptors:(id)metricDescriptors errors:(id)errors
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   chainCopy = chain;
   descriptorCopy = descriptor;
   descriptorsCopy = descriptors;
@@ -75,7 +74,7 @@
   errorsCopy = errors;
   v19 = [chainCopy mutableCopy];
   [v19 addObject:descriptorCopy];
-  v40 = metricDescriptorsCopy;
+  v39 = metricDescriptorsCopy;
   if ([chainCopy containsObject:descriptorCopy])
   {
     v20 = [(TIMetricDescriptorParser *)self descriptionFromDependencyChain:v19 andDependencyName:0];
@@ -92,74 +91,72 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v43 = errorsCopy;
-      v44 = v19;
+      v42 = errorsCopy;
+      v43 = v19;
       selfCopy = self;
-      v38 = descriptorCopy;
-      v39 = chainCopy;
-      v47 = 0u;
-      v48 = 0u;
-      v45 = 0u;
+      v37 = descriptorCopy;
+      v38 = chainCopy;
       v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
       calculationDependencies = [descriptorCopy calculationDependencies];
-      v25 = [calculationDependencies countByEnumeratingWithState:&v45 objects:v49 count:16];
+      v25 = [calculationDependencies countByEnumeratingWithState:&v44 objects:v48 count:16];
       v27 = metricDescriptorsCopy;
       v26 = namesCopy;
       if (v25)
       {
         v28 = v25;
-        v29 = *v46;
+        v29 = *v45;
         do
         {
           for (i = 0; i != v28; ++i)
           {
-            if (*v46 != v29)
+            if (*v45 != v29)
             {
               objc_enumerationMutation(calculationDependencies);
             }
 
-            v31 = *(*(&v45 + 1) + 8 * i);
+            v31 = *(*(&v44 + 1) + 8 * i);
             v32 = [descriptorsCopy objectForKey:v31];
             if (v32)
             {
-              [(TIMetricDescriptorParser *)selfCopy findInvalidDependencyChain:v44 forMetricDescriptor:v32 fromMetricDescriptors:descriptorsCopy andInvalidMetricNames:v26 invalidMetricDescriptors:v27 errors:v43];
+              [(TIMetricDescriptorParser *)selfCopy findInvalidDependencyChain:v43 forMetricDescriptor:v32 fromMetricDescriptors:descriptorsCopy andInvalidMetricNames:v26 invalidMetricDescriptors:v27 errors:v42];
             }
 
             else if ([v26 containsObject:v31])
             {
-              v33 = [(TIMetricDescriptorParser *)selfCopy descriptionFromDependencyChain:v44 andDependencyName:v31];
+              v33 = [(TIMetricDescriptorParser *)selfCopy descriptionFromDependencyChain:v43 andDependencyName:v31];
               v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid dependency: %@", v33];
               v35 = [(TIDescriptorParser *)selfCopy errorWithMessage:v34];
-              [v43 addObject:v35];
+              [v42 addObject:v35];
 
-              v27 = v40;
-              v36 = [v44 objectAtIndexedSubscript:0];
-              [v40 addObject:v36];
+              v27 = v39;
+              v36 = [v43 objectAtIndexedSubscript:0];
+              [v39 addObject:v36];
 
               v26 = namesCopy;
             }
           }
 
-          v28 = [calculationDependencies countByEnumeratingWithState:&v45 objects:v49 count:16];
+          v28 = [calculationDependencies countByEnumeratingWithState:&v44 objects:v48 count:16];
         }
 
         while (v28);
       }
 
-      descriptorCopy = v38;
-      chainCopy = v39;
-      errorsCopy = v43;
-      v19 = v44;
+      descriptorCopy = v37;
+      chainCopy = v38;
+      errorsCopy = v42;
+      v19 = v43;
     }
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (id)parseBucketValuesFromConfig:(id)config forBucketThresholds:(id)thresholds isFeatureUsageDescriptor:(BOOL)descriptor errors:(id)errors
 {
   descriptorCopy = descriptor;
-  v44 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   configCopy = config;
   thresholdsCopy = thresholds;
   errorsCopy = errors;
@@ -168,117 +165,194 @@
   v15 = v14;
   if (!v14)
   {
-    goto LABEL_28;
+    goto LABEL_27;
   }
 
   if (descriptorCopy)
   {
-    [MEMORY[0x277CCACA8] stringWithFormat:@"Key '%@' cannot be specified for feature usage descriptors.", @"bucketValues", v36];
-    v26 = LABEL_26:;
+    [MEMORY[0x277CCACA8] stringWithFormat:@"Key '%@' cannot be specified for feature usage descriptors.", @"bucketValues", v33];
+    v24 = LABEL_25:;
     selfCopy2 = self;
-    v28 = v26;
-    v29 = thresholdsCopy;
-    goto LABEL_27;
+    v26 = v24;
+    v27 = thresholdsCopy;
+    goto LABEL_26;
   }
 
   if (!thresholdsCopy)
   {
-    v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"Key '%@' cannot be specified without key '%@'.", @"bucketValues", @"bucketThresholds"];
+    v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"Key '%@' cannot be specified without key '%@'.", @"bucketValues", @"bucketThresholds"];
     selfCopy2 = self;
-    v28 = v26;
-    v29 = 0;
-LABEL_27:
-    v30 = [(TIDescriptorParser *)selfCopy2 errorWithMessage:v28 andValue:v29];
-    [v13 addObject:v30];
+    v26 = v24;
+    v27 = 0;
+LABEL_26:
+    v28 = [(TIDescriptorParser *)selfCopy2 errorWithMessage:v26 andValue:v27];
+    [v13 addObject:v28];
 
-    goto LABEL_28;
+    goto LABEL_27;
   }
 
   v16 = [v14 count];
   if (v16 != [thresholdsCopy count] + 1)
   {
     [MEMORY[0x277CCACA8] stringWithFormat:@"Key '%@' must contain one more value than key '%@'.", @"bucketValues", @"bucketThresholds"];
-    goto LABEL_26;
+    goto LABEL_25;
   }
 
-  v37 = configCopy;
-  v41 = 0u;
-  v42 = 0u;
+  v34 = configCopy;
+  v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   obj = v15;
-  v17 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v17 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v17)
   {
     v18 = v17;
     v19 = 0;
-    v20 = *v40;
+    v20 = *v37;
     do
     {
       v21 = 0;
       do
       {
-        if (*v40 != v20)
+        if (*v37 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v39 + 1) + 8 * v21);
-        if ([MEMORY[0x277D6F320] isString:v22] && objc_msgSend(v22, "length") && (!v19 || v19 == objc_opt_class()))
+        v22 = *(*(&v36 + 1) + 8 * v21);
+        if ((![MEMORY[0x277D6F320] isString:v22] || !objc_msgSend(v22, "length") || v19 && v19 != objc_opt_class()) && (!objc_msgSend(MEMORY[0x277D6F320], "isNumber:", v22) || v19 && v19 != objc_opt_class()))
         {
-          v23 = 0x277CCACA8;
+          v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"Key '%@' must contain values of the same data type.", @"bucketValues"];
+          v32 = [(TIDescriptorParser *)self errorWithMessage:v31 andValue:thresholdsCopy];
+          [v13 addObject:v32];
+
+          goto LABEL_34;
         }
 
-        else
-        {
-          if (![MEMORY[0x277D6F320] isNumber:v22] || v19 && v19 != objc_opt_class())
-          {
-            v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"Key '%@' must contain values of the same data type.", @"bucketValues"];
-            v35 = [(TIDescriptorParser *)self errorWithMessage:v34 andValue:thresholdsCopy];
-            [v13 addObject:v35];
-
-            goto LABEL_35;
-          }
-
-          v23 = 0x277CCABB0;
-        }
-
-        v24 = *v23;
         v19 = objc_opt_class();
         ++v21;
       }
 
       while (v18 != v21);
-      v25 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
-      v18 = v25;
+      v23 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v18 = v23;
     }
 
-    while (v25);
+    while (v23);
   }
 
-LABEL_35:
+LABEL_34:
 
-  configCopy = v37;
-LABEL_28:
+  configCopy = v34;
+LABEL_27:
   if ([v13 count])
   {
     [errorsCopy addObjectsFromArray:v13];
-    v31 = 0;
+    v29 = 0;
   }
 
   else
   {
-    v31 = v15;
+    v29 = v15;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
+  return v29;
+}
 
-  return v31;
+- (id)parseBucketThresholdsFromConfig:(id)config isFeatureUsageDescriptor:(BOOL)descriptor errors:(id)errors
+{
+  descriptorCopy = descriptor;
+  v31 = *MEMORY[0x277D85DE8];
+  configCopy = config;
+  errorsCopy = errors;
+  v10 = objc_opt_new();
+  v11 = [(TIDescriptorParser *)self parseArrayForKey:@"bucketThresholds" fromConfig:configCopy required:descriptorCopy errors:v10];
+  v12 = v11;
+  if (!v11)
+  {
+    goto LABEL_19;
+  }
+
+  if (![v11 count])
+  {
+    [MEMORY[0x277CCACA8] stringWithFormat:@"Key '%@' must contain at least one value.", @"bucketThresholds", v25];
+    v21 = LABEL_18:;
+    v22 = [(TIDescriptorParser *)self errorWithMessage:v21 andValue:v12];
+    [v10 addObject:v22];
+
+    goto LABEL_19;
+  }
+
+  if (descriptorCopy)
+  {
+    v13 = [v12 count];
+    if (v13 != *MEMORY[0x277D6FDA8])
+    {
+      [MEMORY[0x277CCACA8] stringWithFormat:@"Key '%@' must contain %lu values for feature usage descriptors.", @"bucketThresholds", *MEMORY[0x277D6FDA8]];
+      goto LABEL_18;
+    }
+  }
+
+  v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v14 = v12;
+  v15 = [v14 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  if (v15)
+  {
+    v16 = v15;
+    v17 = *v27;
+    while (2)
+    {
+      for (i = 0; i != v16; ++i)
+      {
+        if (*v27 != v17)
+        {
+          objc_enumerationMutation(v14);
+        }
+
+        if (([MEMORY[0x277D6F320] isNumber:*(*(&v26 + 1) + 8 * i)] & 1) == 0)
+        {
+          v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"Key '%@' values must all be numbers.", @"bucketThresholds"];
+          v20 = [(TIDescriptorParser *)self errorWithMessage:v19 andValue:v14];
+          [v10 addObject:v20];
+
+          goto LABEL_16;
+        }
+      }
+
+      v16 = [v14 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      if (v16)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+LABEL_16:
+
+LABEL_19:
+  if ([v10 count])
+  {
+    [errorsCopy addObjectsFromArray:v10];
+    v23 = 0;
+  }
+
+  else
+  {
+    v23 = v12;
+  }
+
+  return v23;
 }
 
 - (id)parseCalculationDependenciesFromConfig:(id)config forExpression:(id)expression errors:(id)errors
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   configCopy = config;
   errorsCopy = errors;
   v10 = objc_opt_new();
@@ -301,44 +375,44 @@ LABEL_28:
 
   if (![v11 count])
   {
-    [MEMORY[0x277CCACA8] stringWithFormat:@"Key '%@' must contain at least one value.", @"calculationDependencies", v26];
+    [MEMORY[0x277CCACA8] stringWithFormat:@"Key '%@' must contain at least one value.", @"calculationDependencies", v25];
     goto LABEL_17;
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v13 = v12;
-  v14 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v29;
-    v27 = errorsCopy;
+    v16 = *v28;
+    v26 = errorsCopy;
     while (2)
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v29 != v16)
+        if (*v28 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v28 + 1) + 8 * i);
+        v18 = *(*(&v27 + 1) + 8 * i);
         if (![MEMORY[0x277D6F320] isString:v18] || !objc_msgSend(v18, "length"))
         {
           v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"Key '%@' values must all be strings.", @"calculationDependencies"];
           v20 = [(TIDescriptorParser *)self errorWithMessage:v19 andValue:v13];
           [v10 addObject:v20];
 
-          errorsCopy = v27;
+          errorsCopy = v26;
           goto LABEL_18;
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
-      errorsCopy = v27;
+      v15 = [v13 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      errorsCopy = v26;
       if (v15)
       {
         continue;
@@ -359,8 +433,6 @@ LABEL_18:
   {
     v23 = v12;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -577,7 +649,7 @@ LABEL_10:
   errorsCopy = errors;
   v11 = objc_opt_new();
   v12 = [(TIDescriptorParser *)self parseStringForKey:@"metricType" fromConfig:configCopy required:1 errors:v11];
-  if ([v12 isEqualToString:@"numericValue"])
+  if (objc_msgSend_isEqualToString_(v12))
   {
     v13 = [(TIMetricDescriptorParser *)self parseNumericValueDescriptorWithName:nameCopy fromConfig:configCopy errors:v11];
 LABEL_9:
@@ -585,19 +657,19 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  if ([v12 isEqualToString:@"featureUsage"])
+  if (objc_msgSend_isEqualToString_(v12))
   {
     v13 = [(TIMetricDescriptorParser *)self parseFeatureUsageDescriptorWithName:nameCopy fromConfig:configCopy errors:v11];
     goto LABEL_9;
   }
 
-  if ([v12 isEqualToString:@"contextValue"])
+  if (objc_msgSend_isEqualToString_(v12))
   {
     v13 = [(TIMetricDescriptorParser *)self parseContextValueDescriptorWithName:nameCopy fromConfig:configCopy errors:v11];
     goto LABEL_9;
   }
 
-  if ([v12 isEqualToString:@"settingValue"])
+  if (objc_msgSend_isEqualToString_(v12))
   {
     v13 = [(TIMetricDescriptorParser *)self parseSettingValueDescriptorWithName:nameCopy fromConfig:configCopy errors:v11];
     goto LABEL_9;
@@ -624,32 +696,32 @@ LABEL_10:
 
 - (void)parseMetricDescriptors:(id)descriptors andInvalidMetricNames:(id)names fromConfig:(id)config errors:(id)errors
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   descriptorsCopy = descriptors;
   namesCopy = names;
   configCopy = config;
   errorsCopy = errors;
   v12 = objc_opt_new();
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   obj = [configCopy allKeys];
-  v13 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
+  v13 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v53;
+    v15 = *v52;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v53 != v15)
+        if (*v52 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v52 + 1) + 8 * i);
+        v17 = *(*(&v51 + 1) + 8 * i);
         context = [(TIDescriptorParser *)self context];
         [context setObject:v17 forKey:@"metric"];
 
@@ -666,35 +738,35 @@ LABEL_10:
         }
       }
 
-      v14 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
+      v14 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
     }
 
     while (v14);
   }
 
-  v40 = configCopy;
+  v39 = configCopy;
 
   v22 = objc_opt_new();
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
   obja = [descriptorsCopy allValues];
-  v23 = [obja countByEnumeratingWithState:&v48 objects:v57 count:16];
+  v23 = [obja countByEnumeratingWithState:&v47 objects:v56 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v49;
+    v25 = *v48;
     do
     {
       for (j = 0; j != v24; ++j)
       {
-        if (*v49 != v25)
+        if (*v48 != v25)
         {
           objc_enumerationMutation(obja);
         }
 
-        v27 = *(*(&v48 + 1) + 8 * j);
+        v27 = *(*(&v47 + 1) + 8 * j);
         v28 = [(TIDescriptorParser *)self context:errorsCopy];
         metricName = [v27 metricName];
         [v28 setObject:metricName forKey:@"metric"];
@@ -702,32 +774,32 @@ LABEL_10:
         [(TIMetricDescriptorParser *)self findInvalidDependencyChain:MEMORY[0x277CBEBF8] forMetricDescriptor:v27 fromMetricDescriptors:descriptorsCopy andInvalidMetricNames:namesCopy invalidMetricDescriptors:v22 errors:v12];
       }
 
-      v24 = [obja countByEnumeratingWithState:&v48 objects:v57 count:16];
+      v24 = [obja countByEnumeratingWithState:&v47 objects:v56 count:16];
     }
 
     while (v24);
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v30 = v22;
-  v31 = [v30 countByEnumeratingWithState:&v44 objects:v56 count:16];
+  v31 = [v30 countByEnumeratingWithState:&v43 objects:v55 count:16];
   if (v31)
   {
     v32 = v31;
-    v33 = *v45;
+    v33 = *v44;
     do
     {
       for (k = 0; k != v32; ++k)
       {
-        if (*v45 != v33)
+        if (*v44 != v33)
         {
           objc_enumerationMutation(v30);
         }
 
-        v35 = *(*(&v44 + 1) + 8 * k);
+        v35 = *(*(&v43 + 1) + 8 * k);
         metricName2 = [v35 metricName];
         [descriptorsCopy removeObjectForKey:metricName2];
 
@@ -735,14 +807,13 @@ LABEL_10:
         [namesCopy addObject:metricName3];
       }
 
-      v32 = [v30 countByEnumeratingWithState:&v44 objects:v56 count:16];
+      v32 = [v30 countByEnumeratingWithState:&v43 objects:v55 count:16];
     }
 
     while (v32);
   }
 
   [errorsCopy addObjectsFromArray:v12];
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (TIMetricDescriptorParser)init

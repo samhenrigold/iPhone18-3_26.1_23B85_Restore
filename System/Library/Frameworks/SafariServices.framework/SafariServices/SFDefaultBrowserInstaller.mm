@@ -186,34 +186,35 @@ void __44__SFDefaultBrowserInstaller_installAppStore__block_invoke_3(uint64_t a1
 void __44__SFDefaultBrowserInstaller_installAppStore__block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if (v5)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXBrowserChoiceScreen(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __44__SFDefaultBrowserInstaller_installAppStore__block_invoke_4_cold_1(v6, v5);
+      __44__SFDefaultBrowserInstaller_installAppStore__block_invoke_4_cold_1(v8, v7);
     }
   }
 
   else
   {
-    v7 = [a2 firstObject];
-    v8 = [v7 isInstalled];
+    v9 = [a2 firstObject];
+    v10 = [v9 isInstalled];
 
-    if (v8)
+    if (v10)
     {
       os_unfair_lock_lock((*(a1 + 32) + 72));
       [*(*(a1 + 32) + 56) invalidate];
-      v9 = *(a1 + 32);
-      v10 = *(v9 + 56);
-      *(v9 + 56) = 0;
+      v11 = *(a1 + 32);
+      v12 = *(v11 + 56);
+      *(v11 + 56) = 0;
 
       os_unfair_lock_unlock((*(a1 + 32) + 72));
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __44__SFDefaultBrowserInstaller_installAppStore__block_invoke_14;
       block[3] = &unk_1E848F810;
-      v12 = *(a1 + 40);
+      v14 = *(a1 + 40);
       dispatch_async(MEMORY[0x1E69E96A0], block);
     }
   }

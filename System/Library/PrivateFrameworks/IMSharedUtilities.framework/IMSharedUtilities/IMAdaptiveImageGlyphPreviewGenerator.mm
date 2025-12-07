@@ -6,7 +6,7 @@
 
 + (id)generateAndPersistPreviewFromSourceURL:(id)l senderContext:(id)context balloonBundleID:(id)d withPreviewConstraints:(IMPreviewConstraints *)constraints outSize:(CGSize *)size error:(id *)error
 {
-  v42[2] = *MEMORY[0x1E69E9840];
+  v43[2] = *MEMORY[0x1E69E9840];
   lCopy = l;
   contextCopy = context;
   dCopy = d;
@@ -14,86 +14,86 @@
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v15, &state);
-  v37 = dCopy;
+  v38 = dCopy;
   if (lCopy && size && error)
   {
-    v16 = MEMORY[0x1E695DFF8];
-    v17 = IMSafeTemporaryDirectory();
-    path = [v17 path];
-    v42[0] = path;
-    v42[1] = @"AdaptiveImageGlyphPreview";
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:2];
-    v20 = [v16 fileURLWithPathComponents:v19];
+    v17 = MEMORY[0x1E695DFF8];
+    v18 = IMSafeTemporaryDirectory(v16);
+    path = [v18 path];
+    v43[0] = path;
+    v43[1] = @"AdaptiveImageGlyphPreview";
+    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:2];
+    v21 = [v17 fileURLWithPathComponents:v20];
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    [defaultManager createDirectoryAtURL:v20 withIntermediateDirectories:1 attributes:0 error:0];
+    [defaultManager createDirectoryAtURL:v21 withIntermediateDirectories:1 attributes:0 error:0];
 
     stringGUID = [MEMORY[0x1E696AEC0] stringGUID];
-    v23 = [v20 URLByAppendingPathComponent:stringGUID isDirectory:0];
-    v24 = [v23 URLByAppendingPathExtension:@"heic"];
+    v24 = [v21 URLByAppendingPathComponent:stringGUID isDirectory:0];
+    v25 = [v24 URLByAppendingPathExtension:@"heic"];
 
-    if (v24)
+    if (v25)
     {
       if (IMOSLoggingEnabled())
       {
-        v25 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+        v26 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v41 = lCopy;
-          _os_log_impl(&dword_1A85E5000, v25, OS_LOG_TYPE_INFO, "Invoking BlastDoor for adaptive image glyph at source URL: %@", buf, 0xCu);
+          v42 = lCopy;
+          _os_log_impl(&dword_1A85E5000, v26, OS_LOG_TYPE_INFO, "Invoking BlastDoor for adaptive image glyph at source URL: %@", buf, 0xCu);
         }
       }
 
-      v26 = [IMAdaptiveImageGlyphBlastDoor generateEmojiImageAssetFromSourceURL:lCopy senderContext:contextCopy];
-      v27 = v26;
-      if (v26)
+      v27 = [IMAdaptiveImageGlyphBlastDoor generateEmojiImageAssetFromSourceURL:lCopy senderContext:contextCopy];
+      v28 = v27;
+      if (v27)
       {
-        imageData = [v26 imageData];
-        v38 = 0;
-        v29 = [imageData writeToURL:v24 options:1 error:&v38];
-        v30 = v38;
-        if (v29)
+        imageData = [v27 imageData];
+        v39 = 0;
+        v30 = [imageData writeToURL:v25 options:1 error:&v39];
+        v31 = v39;
+        if (v30)
         {
-          v31 = v24;
+          v32 = v25;
         }
 
         else
         {
-          v35 = IMLogHandleForCategory("IMAdaptiveImageGlyphPreviewGenerator");
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+          v36 = IMLogHandleForCategory("IMAdaptiveImageGlyphPreviewGenerator");
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
           {
-            sub_1A88C4C50(v24, v30, v35);
+            sub_1A88C4C50(v25, v31, v36);
           }
 
-          v31 = 0;
+          v32 = 0;
           *error = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"__kIMPreviewGenerationErrorDomain" code:9 userInfo:0];
         }
       }
 
       else
       {
-        v34 = IMLogHandleForCategory("IMAdaptiveImageGlyphPreviewGenerator");
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        v35 = IMLogHandleForCategory("IMAdaptiveImageGlyphPreviewGenerator");
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
         {
-          sub_1A88C4CD8(v24, v34);
+          sub_1A88C4CD8(v25, v35);
         }
 
-        v31 = 0;
+        v32 = 0;
         *error = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"__kIMPreviewGenerationErrorDomain" code:1 userInfo:0];
       }
     }
 
     else
     {
-      v33 = IMLogHandleForCategory("IMAdaptiveImageGlyphPreviewGenerator");
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v34 = IMLogHandleForCategory("IMAdaptiveImageGlyphPreviewGenerator");
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
-        sub_1A88C4D50(lCopy, v33);
+        sub_1A88C4D50(lCopy, v34);
       }
 
       [MEMORY[0x1E696ABC0] errorWithDomain:@"__kIMPreviewGenerationErrorDomain" code:6 userInfo:0];
-      *error = v31 = 0;
+      *error = v32 = 0;
     }
   }
 
@@ -101,20 +101,20 @@
   {
     if (IMOSLoggingEnabled())
     {
-      v32 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+      v33 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A85E5000, v32, OS_LOG_TYPE_INFO, "Invalid parameters", buf, 2u);
+        _os_log_impl(&dword_1A85E5000, v33, OS_LOG_TYPE_INFO, "Invalid parameters", buf, 2u);
       }
     }
 
-    v31 = 0;
+    v32 = 0;
   }
 
   os_activity_scope_leave(&state);
 
-  return v31;
+  return v32;
 }
 
 @end

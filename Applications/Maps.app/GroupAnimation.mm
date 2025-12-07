@@ -148,13 +148,13 @@
     [(GroupAnimation *)self initialVelocity];
     if (v9 <= 0.0)
     {
-      [(GroupAnimation *)self duration];
+      objc_msgSend_duration(self);
       v16 = v15;
       [(GroupAnimation *)self delay];
       v18 = v17;
-      options = [(GroupAnimation *)self options];
+      v19 = objc_msgSend_options(self);
 
-      [(GroupAnimation *)self runWithDuration:options delay:v16 options:v18];
+      [(GroupAnimation *)self runWithDuration:v19 delay:v16 options:v18];
     }
 
     else
@@ -163,23 +163,23 @@
       v11 = v10;
       [(GroupAnimation *)self initialVelocity];
       v13 = v12;
-      options2 = [(GroupAnimation *)self options];
+      v14 = objc_msgSend_options(self);
 
-      [(GroupAnimation *)self runWithDelay:options2 initialVelocity:v11 options:v13];
+      [(GroupAnimation *)self runWithDelay:v14 initialVelocity:v11 options:v13];
     }
   }
 
   else
   {
-    [(GroupAnimation *)self duration];
+    objc_msgSend_duration(self);
     v5 = v4;
     [(GroupAnimation *)self delay];
     v7 = v6;
     [(GroupAnimation *)self springDamping];
     [(GroupAnimation *)self initialVelocity];
-    options3 = [(GroupAnimation *)self options];
+    v8 = objc_msgSend_options(self);
 
-    [GroupAnimation runWithDuration:"runWithDuration:delay:springDamping:initialVelocity:options:" delay:options3 springDamping:v5 initialVelocity:v7 options:?];
+    [GroupAnimation runWithDuration:"runWithDuration:delay:springDamping:initialVelocity:options:" delay:v8 springDamping:v5 initialVelocity:v7 options:?];
   }
 }
 

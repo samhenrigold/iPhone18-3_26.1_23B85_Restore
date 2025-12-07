@@ -191,7 +191,7 @@ LABEL_30:
 LABEL_41:
           if (v29)
           {
-            v26 = _plaintextDocumentForMimePart(v29);
+            v26 = _plaintextDocumentForMimePart(v29, 0xFFFFFFFFLL);
 
             goto LABEL_44;
           }
@@ -413,8 +413,7 @@ LABEL_42:
             else
             {
               htmlData = [v12 mimePart];
-              [v12 preferredEncoding];
-              v17 = _plaintextDocumentForMimePart(htmlData);
+              v17 = _plaintextDocumentForMimePart(htmlData, [v12 preferredEncoding]);
               [array addObject:v17];
               partURL = 0;
 LABEL_26:

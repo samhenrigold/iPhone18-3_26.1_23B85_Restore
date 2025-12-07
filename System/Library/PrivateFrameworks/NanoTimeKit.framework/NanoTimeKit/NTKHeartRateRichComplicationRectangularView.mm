@@ -271,7 +271,7 @@ LABEL_7:
 
 - (void)_loadWithMetadata:(id)metadata
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   v5 = [metadataCopy objectForKeyedSubscript:@"NTKHeartRateRichComplicationMetadataKeyDate"];
   if (v5)
@@ -301,9 +301,9 @@ LABEL_7:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v64 = v7;
-      v65 = 2112;
-      v66 = v12;
+      v66 = v7;
+      v67 = 2112;
+      v68 = v12;
       _os_log_impl(&dword_22D9C5000, v14, OS_LOG_TYPE_DEFAULT, "NTKHeartRateRichComplicationRectangularView: loadWithMetadata with bpm:%{public}@ bpmTextProvider:%@", buf, 0x16u);
     }
 
@@ -312,7 +312,7 @@ LABEL_7:
 
     if (bOOLValue)
     {
-      v62 = v11;
+      v64 = v11;
       v17 = v8;
       v18 = MEMORY[0x277CBBB88];
       v19 = NTKClockFaceLocalizedString(@"HEART_RATE_TIME_NOW", @"Now");
@@ -325,12 +325,12 @@ LABEL_7:
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v64 = v23;
+        v66 = v23;
         _os_log_impl(&dword_22D9C5000, v24, OS_LOG_TYPE_DEFAULT, "NTKHeartRateRichComplicationRectangularView: isNowReading with dateTextProvider:%@", buf, 0xCu);
       }
 
       v8 = v17;
-      v11 = v62;
+      v11 = v64;
     }
 
     else
@@ -340,25 +340,25 @@ LABEL_7:
 
       if (bOOLValue2)
       {
-        v32 = 48;
+        v34 = 48;
       }
 
       else
       {
-        v32 = 112;
+        v34 = 112;
       }
 
-      v33 = NTKCanUseShortRelativeDateStyleForHeartRateComplicationStrings();
-      v34 = MEMORY[0x277CBB6A8];
-      if (!v33)
+      v35 = NTKCanUseShortRelativeDateStyleForHeartRateComplicationStrings(v32, v33);
+      v36 = MEMORY[0x277CBB6A8];
+      if (!v35)
       {
-        v34 = MEMORY[0x277CBB6A0];
+        v36 = MEMORY[0x277CBB6A0];
       }
 
-      v35 = *v34;
-      v36 = MEMORY[0x277CBBB60];
+      v37 = *v36;
+      v38 = MEMORY[0x277CBBB60];
       measurementDate = [(NTKHeartRateRichComplicationRectangularView *)self measurementDate];
-      v23 = [v36 textProviderWithDate:measurementDate style:v35 units:v32];
+      v23 = [v38 textProviderWithDate:measurementDate style:v37 units:v34];
 
       complicationDate2 = [MEMORY[0x277CBBAD8] complicationDate];
       [v23 setRelativeToDate:complicationDate2];
@@ -367,18 +367,18 @@ LABEL_7:
       [v23 setDisableOffsetPrefix:1];
     }
 
-    v39 = +[NTKHeartRateComplicationUtilties heartrateTintColor];
-    [v23 setTintColor:v39];
+    v41 = +[NTKHeartRateComplicationUtilties heartrateTintColor];
+    [v23 setTintColor:v41];
 
-    v40 = MEMORY[0x277CBBBA0];
-    v41 = NTKClockFaceLocalizedString(@"HEART_RATE_SIGNATURE_LARGE_CURRENT_READING_FORMAT", @"%1$@ %2$@");
-    v42 = [v40 textProviderWithFormat:v41, v12, v23];
+    v42 = MEMORY[0x277CBBBA0];
+    v43 = NTKClockFaceLocalizedString(@"HEART_RATE_SIGNATURE_LARGE_CURRENT_READING_FORMAT", @"%1$@ %2$@");
+    v44 = [v42 textProviderWithFormat:v43, v12, v23];
 
     whiteColor2 = [MEMORY[0x277D75348] whiteColor];
-    [v42 setTintColor:whiteColor2];
+    [v44 setTintColor:whiteColor2];
 
     titleLabel = [(NTKRichComplicationRectangularDailyGraphView *)self titleLabel];
-    [titleLabel setTextProvider:v42];
+    [titleLabel setTextProvider:v44];
   }
 
   else
@@ -396,42 +396,42 @@ LABEL_7:
 
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
   measurementDate2 = [(NTKHeartRateRichComplicationRectangularView *)self measurementDate];
-  v47 = [currentCalendar startOfDayForDate:measurementDate2];
+  v49 = [currentCalendar startOfDayForDate:measurementDate2];
 
   measurementDate3 = [(NTKHeartRateRichComplicationRectangularView *)self measurementDate];
-  v49 = [currentCalendar hk_startOfDateByAddingDays:1 toDate:measurementDate3];
+  v51 = [currentCalendar hk_startOfDateByAddingDays:1 toDate:measurementDate3];
 
-  v50 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v47 endDate:v49];
-  [(NTKHeartRateRichComplicationRectangularView *)self setMeasurementDateDayInterval:v50];
+  v52 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v49 endDate:v51];
+  [(NTKHeartRateRichComplicationRectangularView *)self setMeasurementDateDayInterval:v52];
 
-  v51 = [metadataCopy objectForKeyedSubscript:@"NTKHeartRateRichComplicationMetadataKeyDailyHighBPM"];
-  [(NTKHeartRateRichComplicationRectangularView *)self setHighBPM:v51];
+  v53 = [metadataCopy objectForKeyedSubscript:@"NTKHeartRateRichComplicationMetadataKeyDailyHighBPM"];
+  [(NTKHeartRateRichComplicationRectangularView *)self setHighBPM:v53];
 
   dailyHighLabel = [(NTKRichComplicationRectangularDailyGraphView *)self dailyHighLabel];
   highBPM = [(NTKHeartRateRichComplicationRectangularView *)self highBPM];
   [(NTKHeartRateRichComplicationRectangularView *)self _updateDailyLabel:dailyHighLabel withBPM:highBPM];
 
-  v54 = [metadataCopy objectForKeyedSubscript:@"NTKHeartRateRichComplicationMetadataKeyDailyLowBPM"];
-  [(NTKHeartRateRichComplicationRectangularView *)self setLowBPM:v54];
+  v56 = [metadataCopy objectForKeyedSubscript:@"NTKHeartRateRichComplicationMetadataKeyDailyLowBPM"];
+  [(NTKHeartRateRichComplicationRectangularView *)self setLowBPM:v56];
 
   dailyLowLabel = [(NTKRichComplicationRectangularDailyGraphView *)self dailyLowLabel];
   lowBPM = [(NTKHeartRateRichComplicationRectangularView *)self lowBPM];
   [(NTKHeartRateRichComplicationRectangularView *)self _updateDailyLabel:dailyLowLabel withBPM:lowBPM];
 
-  v57 = [metadataCopy objectForKeyedSubscript:@"NTKHeartRateRichComplicationMetadataKeyChartPoints"];
-  [(NTKHeartRateRichComplicationRectangularView *)self setChartPoints:v57];
+  v59 = [metadataCopy objectForKeyedSubscript:@"NTKHeartRateRichComplicationMetadataKeyChartPoints"];
+  [(NTKHeartRateRichComplicationRectangularView *)self setChartPoints:v59];
 
-  v58 = _NTKLoggingObjectForDomain(18, "NTKLoggingDomainComplication");
-  if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+  v60 = _NTKLoggingObjectForDomain(18, "NTKLoggingDomainComplication");
+  if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
   {
     measurementDate4 = [(NTKHeartRateRichComplicationRectangularView *)self measurementDate];
     chartPoints = [(NTKHeartRateRichComplicationRectangularView *)self chartPoints];
-    v61 = [chartPoints count];
+    v63 = [chartPoints count];
     *buf = 138543618;
-    v64 = measurementDate4;
-    v65 = 2048;
-    v66 = v61;
-    _os_log_impl(&dword_22D9C5000, v58, OS_LOG_TYPE_DEFAULT, "NTKHeartRateRichComplicationRectangularView: Load with metadata. measurementDate? %{public}@, chartPointCount? %lu", buf, 0x16u);
+    v66 = measurementDate4;
+    v67 = 2048;
+    v68 = v63;
+    _os_log_impl(&dword_22D9C5000, v60, OS_LOG_TYPE_DEFAULT, "NTKHeartRateRichComplicationRectangularView: Load with metadata. measurementDate? %{public}@, chartPointCount? %lu", buf, 0x16u);
   }
 }
 

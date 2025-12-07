@@ -9,7 +9,7 @@
 {
   eventCopy = event;
   selfCopy = self;
-  v6 = sub_100016678();
+  v6 = sub_100016678(eventCopy);
 
   return v6;
 }
@@ -18,7 +18,7 @@
 {
   messagesCopy = messages;
   selfCopy = self;
-  v6 = sub_100017628();
+  v6 = sub_100017628(messagesCopy);
 
   return v6;
 }

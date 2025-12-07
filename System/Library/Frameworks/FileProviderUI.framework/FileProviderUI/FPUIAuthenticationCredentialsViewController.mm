@@ -116,7 +116,7 @@ void __85__FPUIAuthenticationCredentialsViewController__rowDescriptorForCredenti
 
 void __85__FPUIAuthenticationCredentialsViewController__rowDescriptorForCredentialDescriptor___block_invoke_2(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(a1 + 32) + 1080);
   if (v4 != [v3 row])
@@ -126,29 +126,29 @@ void __85__FPUIAuthenticationCredentialsViewController__rowDescriptorForCredenti
     v6 = [v5 cellForRowAtIndexPath:v3];
 
     [v6 setAccessoryType:3];
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v7 = [*(a1 + 32) tableView];
     v8 = [v7 visibleCells];
 
-    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         v12 = 0;
         do
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v19 + 1) + 8 * v12);
+          v13 = *(*(&v18 + 1) + 8 * v12);
           v14 = [*(a1 + 32) tableView];
           v15 = [v14 indexPathForCell:v13];
 
@@ -166,7 +166,7 @@ void __85__FPUIAuthenticationCredentialsViewController__rowDescriptorForCredenti
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
@@ -175,40 +175,38 @@ void __85__FPUIAuthenticationCredentialsViewController__rowDescriptorForCredenti
     [*(a1 + 32) _updateCurrentlyVisibleSections];
     [*(a1 + 32) setCanTransitionToNextStep:{objc_msgSend(*(a1 + 32), "_canMoveToNextStep")}];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setupTableViewSections
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
-  v11 = FPUILoc(@"CONNECT_AS", v4, v5, v6, v7, v8, v9, v10, v34);
+  v11 = FPUILoc(@"CONNECT_AS", v4, v5, v6, v7, v8, v9, v10, v33);
   [v3 setHeaderTitle:v11];
 
   [v3 setHeaderHeight:*MEMORY[0x277D76F30]];
   array = [MEMORY[0x277CBEB18] array];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   v13 = self->_credentialDescriptors;
-  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v42 objects:v51 count:16];
+  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v41 objects:v50 count:16];
   if (v14)
   {
     v15 = v14;
     v16 = 0;
-    v17 = *v43;
+    v17 = *v42;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v43 != v17)
+        if (*v42 != v17)
         {
           objc_enumerationMutation(v13);
         }
 
-        v19 = *(*(&v42 + 1) + 8 * i);
+        v19 = *(*(&v41 + 1) + 8 * i);
         if ([v19 type] == 1)
         {
           self->_selectedCredentialRow = v16;
@@ -219,7 +217,7 @@ void __85__FPUIAuthenticationCredentialsViewController__rowDescriptorForCredenti
         ++v16;
       }
 
-      v15 = [(NSArray *)v13 countByEnumeratingWithState:&v42 objects:v51 count:16];
+      v15 = [(NSArray *)v13 countByEnumeratingWithState:&v41 objects:v50 count:16];
     }
 
     while (v15);
@@ -233,77 +231,76 @@ void __85__FPUIAuthenticationCredentialsViewController__rowDescriptorForCredenti
   v23 = objc_opt_new();
   [v23 setCellReuseIdentifier:@"TextInputReuseIdentifier"];
   [v23 setCellClass:objc_opt_class()];
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __69__FPUIAuthenticationCredentialsViewController_setupTableViewSections__block_invoke;
-  v41[3] = &unk_278A51590;
-  v41[4] = self;
-  [v23 setCellCustomizationHandler:v41];
   v40[0] = MEMORY[0x277D85DD0];
   v40[1] = 3221225472;
-  v40[2] = __69__FPUIAuthenticationCredentialsViewController_setupTableViewSections__block_invoke_2;
-  v40[3] = &unk_278A514D8;
+  v40[2] = __69__FPUIAuthenticationCredentialsViewController_setupTableViewSections__block_invoke;
+  v40[3] = &unk_278A51590;
   v40[4] = self;
-  [v23 setCellWillDisplayHandler:v40];
+  [v23 setCellCustomizationHandler:v40];
   v39[0] = MEMORY[0x277D85DD0];
   v39[1] = 3221225472;
-  v39[2] = __69__FPUIAuthenticationCredentialsViewController_setupTableViewSections__block_invoke_3;
-  v39[3] = &unk_278A51520;
+  v39[2] = __69__FPUIAuthenticationCredentialsViewController_setupTableViewSections__block_invoke_2;
+  v39[3] = &unk_278A514D8;
   v39[4] = self;
-  [v23 setSelectionHandler:v39];
-  v24 = [v23 copy];
+  [v23 setCellWillDisplayHandler:v39];
   v38[0] = MEMORY[0x277D85DD0];
   v38[1] = 3221225472;
-  v38[2] = __69__FPUIAuthenticationCredentialsViewController_setupTableViewSections__block_invoke_4;
-  v38[3] = &unk_278A51590;
+  v38[2] = __69__FPUIAuthenticationCredentialsViewController_setupTableViewSections__block_invoke_3;
+  v38[3] = &unk_278A51520;
   v38[4] = self;
-  [v24 setCellCustomizationHandler:v38];
+  [v23 setSelectionHandler:v38];
+  v24 = [v23 copy];
   v37[0] = MEMORY[0x277D85DD0];
   v37[1] = 3221225472;
-  v37[2] = __69__FPUIAuthenticationCredentialsViewController_setupTableViewSections__block_invoke_5;
-  v37[3] = &unk_278A514D8;
+  v37[2] = __69__FPUIAuthenticationCredentialsViewController_setupTableViewSections__block_invoke_4;
+  v37[3] = &unk_278A51590;
   v37[4] = self;
-  [v24 setCellWillDisplayHandler:v37];
+  [v24 setCellCustomizationHandler:v37];
   v36[0] = MEMORY[0x277D85DD0];
   v36[1] = 3221225472;
-  v36[2] = __69__FPUIAuthenticationCredentialsViewController_setupTableViewSections__block_invoke_6;
-  v36[3] = &unk_278A51520;
+  v36[2] = __69__FPUIAuthenticationCredentialsViewController_setupTableViewSections__block_invoke_5;
+  v36[3] = &unk_278A514D8;
   v36[4] = self;
-  [v24 setSelectionHandler:v36];
+  [v24 setCellWillDisplayHandler:v36];
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __69__FPUIAuthenticationCredentialsViewController_setupTableViewSections__block_invoke_6;
+  v35[3] = &unk_278A51520;
+  v35[4] = self;
+  [v24 setSelectionHandler:v35];
   v25 = objc_opt_new();
   rememberPasswordSection = self->_rememberPasswordSection;
   self->_rememberPasswordSection = v25;
 
   v27 = objc_opt_new();
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __69__FPUIAuthenticationCredentialsViewController_setupTableViewSections__block_invoke_7;
-  v35[3] = &unk_278A514D8;
-  v35[4] = self;
-  [v27 setCellCustomizationHandler:v35];
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __69__FPUIAuthenticationCredentialsViewController_setupTableViewSections__block_invoke_7;
+  v34[3] = &unk_278A514D8;
+  v34[4] = self;
+  [v27 setCellCustomizationHandler:v34];
   v28 = self->_credentialsInputSection;
-  v50[0] = v3;
-  v50[1] = v28;
-  v50[2] = self->_rememberPasswordSection;
-  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:3];
+  v49[0] = v3;
+  v49[1] = v28;
+  v49[2] = self->_rememberPasswordSection;
+  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:3];
   [(FPUIAuthenticationTableViewController *)self setSectionDescriptors:v29];
 
-  v49[0] = array;
-  v48[0] = &unk_284B1D698;
-  v48[1] = &unk_284B1D6B0;
-  v47[0] = v23;
-  v47[1] = v24;
-  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
-  v49[1] = v30;
-  v48[2] = &unk_284B1D6C8;
-  v46 = v27;
-  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
-  v49[2] = v31;
-  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:3];
+  v48[0] = array;
+  v47[0] = &unk_284B1D698;
+  v47[1] = &unk_284B1D6B0;
+  v46[0] = v23;
+  v46[1] = v24;
+  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
+  v48[1] = v30;
+  v47[2] = &unk_284B1D6C8;
+  v45 = v27;
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
+  v48[2] = v31;
+  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:3];
   [(FPUIAuthenticationTableViewController *)self setRowDescriptors:v32];
 
   [(FPUIAuthenticationCredentialsViewController *)self _updateCurrentlyVisibleSectionsNeedsReloadData:0];
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __69__FPUIAuthenticationCredentialsViewController_setupTableViewSections__block_invoke(uint64_t a1, void *a2)

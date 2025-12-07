@@ -2,12 +2,19 @@
 - (PGHighlightItemModelManager)initWithLibrary:(id)library;
 - (id)_contextualKeyAssetByHighlighItemUUIDForHighlightFilter:(unsigned __int16)filter;
 - (id)_visibilityStateByHighlighItemUUIDForHighlightFilter:(unsigned __int16)filter;
+- (id)contextualKeyAssetForHighlightItem:(id)item sharingFilter:(unsigned __int16)filter;
+- (id)fetchChildHighlightItemsForHighlightItem:(id)item sharingFilter:(unsigned __int16)filter;
 - (id)fetchParentHighlightItemsForHighlightItems:(id)items;
 - (id)highlightUUIDsWithContextualKeyAssetChange;
 - (id)highlightUUIDsWithVisibilityStateChange;
 - (id)initForTesting;
+- (unsigned)visibilityStateForHighlightItem:(id)item sharingFilter:(unsigned __int16)filter;
+- (void)addVisibleHighlight:(id)highlight inMonth:(id)month withHighlightFilter:(unsigned __int16)filter;
 - (void)commonInit;
 - (void)consumeHighlightItemList:(id)list;
+- (void)setContextualKeyAsset:(id)asset forHighlightItem:(id)item sharingFilter:(unsigned __int16)filter;
+- (void)setVisibilityState:(unsigned __int16)state forHighlightItem:(id)item sharingFilter:(unsigned __int16)filter;
+- (void)setVisibilityState:(unsigned __int16)state forHighlightItemList:(id)list sharingFilter:(unsigned __int16)filter;
 @end
 
 @implementation PGHighlightItemModelManager
@@ -30,6 +37,78 @@
   }
 
   return a2;
+}
+
+- (void)addVisibleHighlight:(id)highlight inMonth:(id)month withHighlightFilter:(unsigned __int16)filter
+{
+  filterCopy = filter;
+  v28 = *MEMORY[0x277D85DE8];
+  highlightCopy = highlight;
+  monthCopy = month;
+  v10 = [(PGHighlightItemModelManager *)self fetchChildHighlightItemsForHighlightItem:monthCopy sharingFilter:filterCopy];
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  if (v11)
+  {
+    v12 = v11;
+    v22 = highlightCopy;
+    v13 = 0;
+    v14 = 0;
+    v15 = *v24;
+    v16 = 1.79769313e308;
+    do
+    {
+      for (i = 0; i != v12; ++i)
+      {
+        if (*v24 != v15)
+        {
+          objc_enumerationMutation(v10);
+        }
+
+        v18 = *(*(&v23 + 1) + 8 * i);
+        if (MEMORY[0x231902060]([(PGHighlightItemModelManager *)self visibilityStateForHighlightItem:v18 sharingFilter:filterCopy]))
+        {
+          ++v13;
+          [v18 promotionScore];
+          if (v19 < v16)
+          {
+            v20 = v19;
+            v21 = v18;
+
+            v16 = v20;
+            v14 = v21;
+          }
+        }
+      }
+
+      v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    }
+
+    while (v12);
+    if (v14)
+    {
+      highlightCopy = v22;
+      if (v13 >= +[PGUserDefaults maximumNumberOfVisibleItems])
+      {
+        [(PGHighlightItemModelManager *)self setVisibilityState:1 forHighlightItem:v14 sharingFilter:filterCopy];
+      }
+    }
+
+    else
+    {
+      highlightCopy = v22;
+    }
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  [(PGHighlightItemModelManager *)self setVisibilityState:3 forHighlightItem:highlightCopy sharingFilter:filterCopy];
 }
 
 - (id)highlightUUIDsWithContextualKeyAssetChange
@@ -62,38 +141,131 @@
   return v3;
 }
 
+- (id)contextualKeyAssetForHighlightItem:(id)item sharingFilter:(unsigned __int16)filter
+{
+  filterCopy = filter;
+  itemCopy = item;
+  v7 = [(PGHighlightItemModelManager *)self _contextualKeyAssetByHighlighItemUUIDForHighlightFilter:filterCopy];
+  uuid = [itemCopy uuid];
+
+  v9 = [v7 objectForKeyedSubscript:uuid];
+
+  return v9;
+}
+
+- (void)setContextualKeyAsset:(id)asset forHighlightItem:(id)item sharingFilter:(unsigned __int16)filter
+{
+  filterCopy = filter;
+  itemCopy = item;
+  assetCopy = asset;
+  v11 = [(PGHighlightItemModelManager *)self _contextualKeyAssetByHighlighItemUUIDForHighlightFilter:filterCopy];
+  uuid = [itemCopy uuid];
+
+  [v11 setObject:assetCopy forKeyedSubscript:uuid];
+}
+
+- (unsigned)visibilityStateForHighlightItem:(id)item sharingFilter:(unsigned __int16)filter
+{
+  filterCopy = filter;
+  itemCopy = item;
+  v7 = [(PGHighlightItemModelManager *)self _visibilityStateByHighlighItemUUIDForHighlightFilter:filterCopy];
+  uuid = [itemCopy uuid];
+  v9 = [v7 objectForKeyedSubscript:uuid];
+
+  if (v9)
+  {
+    unsignedShortValue = [v9 unsignedShortValue];
+  }
+
+  else
+  {
+    unsignedShortValue = [itemCopy visibilityStateForHighlightFilter:filterCopy];
+  }
+
+  v11 = unsignedShortValue;
+
+  return v11;
+}
+
+- (void)setVisibilityState:(unsigned __int16)state forHighlightItemList:(id)list sharingFilter:(unsigned __int16)filter
+{
+  filterCopy = filter;
+  stateCopy = state;
+  listCopy = list;
+  [listCopy setVisibilityState:stateCopy forSharingFilter:filterCopy];
+  [(PGHighlightItemModelManager *)self setVisibilityState:stateCopy forHighlightItem:listCopy sharingFilter:filterCopy];
+}
+
+- (void)setVisibilityState:(unsigned __int16)state forHighlightItem:(id)item sharingFilter:(unsigned __int16)filter
+{
+  filterCopy = filter;
+  stateCopy = state;
+  itemCopy = item;
+  v11 = [(PGHighlightItemModelManager *)self _visibilityStateByHighlighItemUUIDForHighlightFilter:filterCopy];
+  v9 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:stateCopy];
+  uuid = [itemCopy uuid];
+
+  [v11 setObject:v9 forKeyedSubscript:uuid];
+}
+
+- (id)fetchChildHighlightItemsForHighlightItem:(id)item sharingFilter:(unsigned __int16)filter
+{
+  filterCopy = filter;
+  v17[2] = *MEMORY[0x277D85DE8];
+  itemCopy = item;
+  library = [(PGHighlightItemModelManager *)self library];
+  librarySpecificFetchOptions = [library librarySpecificFetchOptions];
+
+  [librarySpecificFetchOptions setSharingFilter:filterCopy];
+  v9 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"startDate" ascending:1];
+  v17[0] = v9;
+  v10 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"uuid" ascending:1];
+  v17[1] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  [librarySpecificFetchOptions setSortDescriptors:v11];
+
+  v12 = MEMORY[0x277CD9958];
+  modelObject = [itemCopy modelObject];
+
+  v14 = [v12 fetchChildHighlightsForHighlight:modelObject options:librarySpecificFetchOptions];
+
+  fetchedObjects = [v14 fetchedObjects];
+
+  return fetchedObjects;
+}
+
 - (id)fetchParentHighlightItemsForHighlightItems:(id)items
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   library = [(PGHighlightItemModelManager *)self library];
   librarySpecificFetchOptions = [library librarySpecificFetchOptions];
 
   array = [MEMORY[0x277CBEB18] array];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v8 = itemsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        modelObject = [*(*(&v18 + 1) + 8 * i) modelObject];
+        modelObject = [*(*(&v17 + 1) + 8 * i) modelObject];
         [array addObject:modelObject];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
@@ -109,8 +281,6 @@
   {
     fetchedObjects = MEMORY[0x277CBEBF8];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return fetchedObjects;
 }

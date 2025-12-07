@@ -228,7 +228,7 @@ void __42__UIInputView__setupAppearanceIfNecessary__block_invoke()
 
   else
   {
-    +[UIColor blackColor];
+    objc_msgSend_blackColor(UIColor);
   }
   v2 = ;
 

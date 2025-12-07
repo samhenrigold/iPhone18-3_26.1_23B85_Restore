@@ -101,7 +101,7 @@
 - (void)imDaemonDidConnect:(id)connect
 {
   connectCopy = connect;
-  v5 = sub_100004778();
+  v5 = sub_100004778(connectCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;
@@ -123,7 +123,7 @@
 - (void)preferredAccountChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = sub_100004778();
+  v5 = sub_100004778(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -137,7 +137,7 @@
 - (void)displayNameChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = sub_100004778();
+  v5 = sub_100004778(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -154,25 +154,25 @@
   dispatch_assert_queue_V2(queue);
 
   keychainItem = [(CSDFaceTimeIMAccount *)self keychainItem];
-  v16 = 0;
-  v5 = [keychainItem readPasswordAndReturnError:&v16];
-  v6 = v16;
+  v17 = 0;
+  v5 = [keychainItem readPasswordAndReturnError:&v17];
+  v6 = v17;
 
   v7 = [v5 length];
-  v8 = sub_100004778();
+  v8 = sub_100004778(v7);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (v7)
   {
     if (v9)
     {
       *buf = 138412290;
-      v18 = v5;
+      v19 = v5;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Loaded last known FaceTime caller ID as %@", buf, 0xCu);
     }
 
     v10 = v5;
 LABEL_13:
-    v12 = v10;
+    v13 = v10;
     callerID = self->_callerID;
     self->_callerID = v10;
     goto LABEL_14;
@@ -181,35 +181,35 @@ LABEL_13:
   if (v9)
   {
     *buf = 138412290;
-    v18 = v6;
+    v19 = v6;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find lastKnownFaceTimeCallerID in keychain, error: %@", buf, 0xCu);
   }
 
-  v11 = sub_100004778();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_100004778(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Querying Preferences to see if it exists", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Querying Preferences to see if it exists", buf, 2u);
   }
 
-  v12 = CFPreferencesCopyAppValue(@"lastKnownFaceTimeCallerID", TUBundleIdentifierTelephonyUtilitiesFramework);
-  v13 = [v12 length];
-  callerID = sub_100004778();
-  v15 = os_log_type_enabled(callerID, OS_LOG_TYPE_DEFAULT);
-  if (v13)
+  v13 = CFPreferencesCopyAppValue(@"lastKnownFaceTimeCallerID", TUBundleIdentifierTelephonyUtilitiesFramework);
+  v14 = [v13 length];
+  callerID = sub_100004778(v14);
+  v16 = os_log_type_enabled(callerID, OS_LOG_TYPE_DEFAULT);
+  if (v14)
   {
-    if (v15)
+    if (v16)
     {
       *buf = 138412290;
-      v18 = v12;
+      v19 = v13;
       _os_log_impl(&_mh_execute_header, callerID, OS_LOG_TYPE_DEFAULT, "Found lastKnownFaceTimeCallerID: %@ in Preferences", buf, 0xCu);
     }
 
-    v10 = v12;
+    v10 = v13;
     goto LABEL_13;
   }
 
-  if (v15)
+  if (v16)
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, callerID, OS_LOG_TYPE_DEFAULT, "[WARN] lastKnownFaceTimeCallerID not found in Preferences either", buf, 2u);
@@ -228,13 +228,14 @@ LABEL_14:
 {
   v2 = TUBundleIdentifierTelephonyUtilitiesFramework;
   v3 = CFPreferencesCopyAppValue(@"lastKnownFaceTimeCallerID", TUBundleIdentifierTelephonyUtilitiesFramework);
+  v4 = v3;
   if (v3)
   {
-    v4 = sub_100004778();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100004778(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Removing callerID Preferences value", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Removing callerID Preferences value", v6, 2u);
     }
 
     CFPreferencesSetAppValue(@"lastKnownFaceTimeCallerID", 0, v2);
@@ -247,27 +248,27 @@ LABEL_14:
   queue = [(CSDFaceTimeIMAccount *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = sub_100004778();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100004778(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     callerID = self->_callerID;
     *buf = 138412290;
-    v12 = callerID;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Saving last known FaceTime caller ID as %@", buf, 0xCu);
+    v14 = callerID;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Saving last known FaceTime caller ID as %@", buf, 0xCu);
   }
 
   keychainItem = [(CSDFaceTimeIMAccount *)self keychainItem];
-  v7 = self->_callerID;
-  v10 = 0;
-  [keychainItem savePassword:v7 error:&v10];
-  v8 = v10;
+  v8 = self->_callerID;
+  v12 = 0;
+  [keychainItem savePassword:v8 error:&v12];
+  v9 = v12;
 
-  if (v8)
+  if (v9)
   {
-    v9 = sub_100004778();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = sub_100004778(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_10047D3A4(v8, v9);
+      sub_10047D3A4(v9, v11);
     }
   }
 }
@@ -284,7 +285,8 @@ LABEL_14:
 - (void)updateState
 {
   dispatch_assert_queue_V2(&_dispatch_main_q);
-  if ([(CSDFaceTimeIMAccount *)self isIMDaemonConnected])
+  isIMDaemonConnected = [(CSDFaceTimeIMAccount *)self isIMDaemonConnected];
+  if (isIMDaemonConnected)
   {
     faceTimeIMAccount = [(CSDFaceTimeIMAccount *)self faceTimeIMAccount];
     displayName = [faceTimeIMAccount displayName];
@@ -295,18 +297,18 @@ LABEL_14:
     block[2] = sub_10022D9AC;
     block[3] = &unk_100619D88;
     block[4] = self;
-    v9 = displayName;
-    v6 = displayName;
+    v10 = displayName;
+    v7 = displayName;
     dispatch_async(queue, block);
   }
 
   else
   {
-    v6 = sub_100004778();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100004778(isIMDaemonConnected);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Deferring FaceTime caller ID refresh until connected to IMDaemon", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Deferring FaceTime caller ID refresh until connected to IMDaemon", v8, 2u);
     }
   }
 }
@@ -315,7 +317,7 @@ LABEL_14:
 {
   accountCopy = account;
   changedCopy = changed;
-  v8 = sub_100004778();
+  v8 = sub_100004778(changedCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;

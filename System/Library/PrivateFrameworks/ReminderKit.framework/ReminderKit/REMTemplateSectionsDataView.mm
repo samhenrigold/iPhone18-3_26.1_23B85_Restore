@@ -66,7 +66,7 @@
 
 - (id)fetchTemplateSectionsWithObjectIDs:(id)ds error:(id *)error
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v8 = dsCopy;
   if (dsCopy)
@@ -86,41 +86,41 @@
 
       if (v17)
       {
-        v29 = v11;
-        v30 = v9;
+        v28 = v11;
+        v29 = v9;
         v18 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v17, "count")}];
+        v30 = 0u;
         v31 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v34 = 0u;
         v19 = v17;
-        v20 = [v19 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v30 objects:v34 count:16];
         if (v20)
         {
           v21 = v20;
-          v22 = *v32;
+          v22 = *v31;
           do
           {
             for (i = 0; i != v21; ++i)
             {
-              if (*v32 != v22)
+              if (*v31 != v22)
               {
                 objc_enumerationMutation(v19);
               }
 
-              v24 = *(*(&v31 + 1) + 8 * i);
+              v24 = *(*(&v30 + 1) + 8 * i);
               objectID = [v24 objectID];
               [v18 setObject:v24 forKeyedSubscript:objectID];
             }
 
-            v21 = [v19 countByEnumeratingWithState:&v31 objects:v35 count:16];
+            v21 = [v19 countByEnumeratingWithState:&v30 objects:v34 count:16];
           }
 
           while (v21);
         }
 
-        v11 = v29;
-        v9 = v30;
+        v11 = v28;
+        v9 = v29;
       }
 
       else
@@ -147,20 +147,18 @@
     v18 = 0;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
-
   return v18;
 }
 
 - (id)fetchTemplateSectionWithObjectID:(id)d error:(id *)error
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   v8 = dCopy;
   if (dCopy)
   {
-    v16[0] = dCopy;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+    v15[0] = dCopy;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
     v10 = [(REMTemplateSectionsDataView *)self fetchTemplateSectionsWithObjectIDs:v9 error:error];
 
     if (v10)
@@ -201,69 +199,67 @@ LABEL_12:
   v11 = 0;
 LABEL_13:
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 - (id)templateSectionsFromTemplateStorages:(id)storages templateSectionStorages:(id)sectionStorages store:(id)store
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   storagesCopy = storages;
   sectionStoragesCopy = sectionStorages;
   storeCopy = store;
   v10 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(storagesCopy, "count")}];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = storagesCopy;
-  v11 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v11 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v36;
+    v13 = *v35;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v36 != v13)
+        if (*v35 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = [[REMTemplate alloc] initWithStore:storeCopy storage:*(*(&v35 + 1) + 8 * i)];
+        v15 = [[REMTemplate alloc] initWithStore:storeCopy storage:*(*(&v34 + 1) + 8 * i)];
         objectID = [(REMTemplate *)v15 objectID];
         [v10 setObject:v15 forKeyedSubscript:objectID];
       }
 
-      v12 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v12 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v12);
   }
 
   v17 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(sectionStoragesCopy, "count")}];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v29 = sectionStoragesCopy;
-  v18 = [v29 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v28 = sectionStoragesCopy;
+  v18 = [v28 countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v32;
+    v20 = *v31;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v32 != v20)
+        if (*v31 != v20)
         {
-          objc_enumerationMutation(v29);
+          objc_enumerationMutation(v28);
         }
 
-        v22 = *(*(&v31 + 1) + 8 * j);
+        v22 = *(*(&v30 + 1) + 8 * j);
         parentTemplateID = [v22 parentTemplateID];
 
         if (!parentTemplateID)
@@ -277,66 +273,54 @@ LABEL_13:
         [v17 addObject:v26];
       }
 
-      v19 = [v29 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v19 = [v28 countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v19);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
 
 - (void)fetchTemplateSectionsWithTemplateObjectID:(uint64_t)a1 error:(const char *)a2 .cold.1(uint64_t a1, const char *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   v6 = NSStringFromSelector(a2);
-  v7 = [v3 stringWithFormat:@"%@.%@"];
+  v7 = [v3 stringWithFormat:@"%@.%@", v5, v6];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v8, v9, "[%{public}@] Passing in nil '%s'", v10, v11, v12, v13, v5, v6, v15);
-
-  v14 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v8, v9, "[%{public}@] Passing in nil '%s'", v10, v11, v12, v13, v14, v15);
 }
 
 - (void)fetchTemplateSectionsWithObjectIDs:(uint64_t)a1 error:(const char *)a2 .cold.1(uint64_t a1, const char *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   v6 = NSStringFromSelector(a2);
-  v7 = [v3 stringWithFormat:@"%@.%@"];
+  v7 = [v3 stringWithFormat:@"%@.%@", v5, v6];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v8, v9, "[%{public}@] Passing in nil '%s'", v10, v11, v12, v13, v5, v6, v15);
-
-  v14 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v8, v9, "[%{public}@] Passing in nil '%s'", v10, v11, v12, v13, v14, v15);
 }
 
 - (void)fetchTemplateSectionWithObjectID:(uint64_t)a1 error:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "REMTemplateSectionsDataView: Requested to fetch non-existent templateSection {objectID: %{public}@}", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "REMTemplateSectionsDataView: Requested to fetch non-existent templateSection {objectID: %{public}@}", &v2, 0xCu);
 }
 
 - (void)fetchTemplateSectionWithObjectID:(uint64_t)a1 error:(const char *)a2 .cold.2(uint64_t a1, const char *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   v6 = NSStringFromSelector(a2);
-  v7 = [v3 stringWithFormat:@"%@.%@"];
+  v7 = [v3 stringWithFormat:@"%@.%@", v5, v6];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v8, v9, "[%{public}@] Passing in nil '%s'", v10, v11, v12, v13, v5, v6, v15);
-
-  v14 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v8, v9, "[%{public}@] Passing in nil '%s'", v10, v11, v12, v13, v14, v15);
 }
 
 @end

@@ -78,7 +78,7 @@
 
 - (void)requestMetadataForAuthToken:(id)token withUUID:(id)d requestedLocale:(id)locale requestInfo:(id)info completionHandler:(id)handler
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   dCopy = d;
   localeCopy = locale;
@@ -139,44 +139,42 @@
     v24 = localeIdentifier;
     *buf = 138479107;
     v25 = "YES";
-    v36 = 2048;
-    v35 = tokenCopy;
+    v35 = 2048;
+    v34 = tokenCopy;
     if (!handlerCopy)
     {
       v25 = "NO";
     }
 
-    v37 = v22;
-    v38 = 2112;
-    v39 = dCopy;
-    v40 = 2112;
-    v41 = localeIdentifier;
-    v42 = 2113;
-    v43 = infoCopy;
-    v44 = 2080;
-    v45 = v25;
+    v36 = v22;
+    v37 = 2112;
+    v38 = dCopy;
+    v39 = 2112;
+    v40 = localeIdentifier;
+    v41 = 2113;
+    v42 = infoCopy;
+    v43 = 2080;
+    v44 = v25;
     _os_log_impl(&dword_25627E000, v20, OS_LOG_TYPE_DEFAULT, "token: %{private}@, token.length: %lu, uuid: %@, requestedLocale: %@, requestInfo: %{private}@, completionHandler: %s", buf, 0x3Eu);
   }
 
   if (handlerCopy)
   {
     xpcConnection = [(MFAATokenManager *)self xpcConnection];
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __103__MFAATokenManager_requestMetadataForAuthToken_withUUID_requestedLocale_requestInfo_completionHandler___block_invoke;
-    v32[3] = &unk_279831188;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __103__MFAATokenManager_requestMetadataForAuthToken_withUUID_requestedLocale_requestInfo_completionHandler___block_invoke;
+    v31[3] = &unk_279831188;
     v27 = handlerCopy;
-    v33 = v27;
-    v28 = [xpcConnection remoteObjectProxyWithErrorHandler:v32];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __103__MFAATokenManager_requestMetadataForAuthToken_withUUID_requestedLocale_requestInfo_completionHandler___block_invoke_32;
-    v30[3] = &unk_2798311B0;
-    v31 = v27;
-    [v28 requestMetadataForToken:tokenCopy withUUID:dCopy requestedLocale:localeCopy requestInfo:infoCopy withReply:v30];
+    v32 = v27;
+    v28 = [xpcConnection remoteObjectProxyWithErrorHandler:v31];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __103__MFAATokenManager_requestMetadataForAuthToken_withUUID_requestedLocale_requestInfo_completionHandler___block_invoke_32;
+    v29[3] = &unk_2798311B0;
+    v30 = v27;
+    [v28 requestMetadataForToken:tokenCopy withUUID:dCopy requestedLocale:localeCopy requestInfo:infoCopy withReply:v29];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __103__MFAATokenManager_requestMetadataForAuthToken_withUUID_requestedLocale_requestInfo_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -220,7 +218,7 @@ void __103__MFAATokenManager_requestMetadataForAuthToken_withUUID_requestedLocal
 
 - (void)requestActivationForAuthToken:(id)token withUUID:(id)d completionHandler:(id)handler
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   dCopy = d;
   handlerCopy = handler;
@@ -276,38 +274,36 @@ void __103__MFAATokenManager_requestMetadataForAuthToken_withUUID_requestedLocal
   {
     v16 = "YES";
     *buf = 138478339;
-    v26 = tokenCopy;
+    v25 = tokenCopy;
     if (!handlerCopy)
     {
       v16 = "NO";
     }
 
-    v27 = 2112;
-    v28 = dCopy;
-    v29 = 2080;
-    v30 = v16;
+    v26 = 2112;
+    v27 = dCopy;
+    v28 = 2080;
+    v29 = v16;
     _os_log_impl(&dword_25627E000, v14, OS_LOG_TYPE_DEFAULT, "token: %{private}@, uuid: %@, completionHandler: %s", buf, 0x20u);
   }
 
   if (handlerCopy)
   {
     xpcConnection = [(MFAATokenManager *)self xpcConnection];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __77__MFAATokenManager_requestActivationForAuthToken_withUUID_completionHandler___block_invoke;
-    v23[3] = &unk_279831188;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __77__MFAATokenManager_requestActivationForAuthToken_withUUID_completionHandler___block_invoke;
+    v22[3] = &unk_279831188;
     v18 = handlerCopy;
-    v24 = v18;
-    v19 = [xpcConnection remoteObjectProxyWithErrorHandler:v23];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __77__MFAATokenManager_requestActivationForAuthToken_withUUID_completionHandler___block_invoke_34;
-    v21[3] = &unk_2798311D8;
-    v22 = v18;
-    [v19 requestActivationForToken:tokenCopy withUUID:dCopy withReply:v21];
+    v23 = v18;
+    v19 = [xpcConnection remoteObjectProxyWithErrorHandler:v22];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __77__MFAATokenManager_requestActivationForAuthToken_withUUID_completionHandler___block_invoke_34;
+    v20[3] = &unk_2798311D8;
+    v21 = v18;
+    [v19 requestActivationForToken:tokenCopy withUUID:dCopy withReply:v20];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __77__MFAATokenManager_requestActivationForAuthToken_withUUID_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -351,7 +347,7 @@ void __77__MFAATokenManager_requestActivationForAuthToken_withUUID_completionHan
 
 - (void)confirmActivationForAuthToken:(id)token withUUID:(id)d completionHandler:(id)handler
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   dCopy = d;
   handlerCopy = handler;
@@ -407,38 +403,36 @@ void __77__MFAATokenManager_requestActivationForAuthToken_withUUID_completionHan
   {
     v16 = "YES";
     *buf = 138478339;
-    v26 = tokenCopy;
+    v25 = tokenCopy;
     if (!handlerCopy)
     {
       v16 = "NO";
     }
 
-    v27 = 2112;
-    v28 = dCopy;
-    v29 = 2080;
-    v30 = v16;
+    v26 = 2112;
+    v27 = dCopy;
+    v28 = 2080;
+    v29 = v16;
     _os_log_impl(&dword_25627E000, v14, OS_LOG_TYPE_DEFAULT, "token: %{private}@, uuid: %@, completionHandler: %s", buf, 0x20u);
   }
 
   if (handlerCopy)
   {
     xpcConnection = [(MFAATokenManager *)self xpcConnection];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __77__MFAATokenManager_confirmActivationForAuthToken_withUUID_completionHandler___block_invoke;
-    v23[3] = &unk_279831188;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __77__MFAATokenManager_confirmActivationForAuthToken_withUUID_completionHandler___block_invoke;
+    v22[3] = &unk_279831188;
     v18 = handlerCopy;
-    v24 = v18;
-    v19 = [xpcConnection remoteObjectProxyWithErrorHandler:v23];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __77__MFAATokenManager_confirmActivationForAuthToken_withUUID_completionHandler___block_invoke_36;
-    v21[3] = &unk_279831188;
-    v22 = v18;
-    [v19 confirmActivationForToken:tokenCopy withUUID:dCopy withReply:v21];
+    v23 = v18;
+    v19 = [xpcConnection remoteObjectProxyWithErrorHandler:v22];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __77__MFAATokenManager_confirmActivationForAuthToken_withUUID_completionHandler___block_invoke_36;
+    v20[3] = &unk_279831188;
+    v21 = v18;
+    [v19 confirmActivationForToken:tokenCopy withUUID:dCopy withReply:v20];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __77__MFAATokenManager_confirmActivationForAuthToken_withUUID_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -506,28 +500,28 @@ uint64_t __33__MFAATokenManager_sharedManager__block_invoke(uint64_t a1)
 
 + (BOOL)isTokenValidForFeatures:(unint64_t)features token:(id)token
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = 0;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
   v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
   if (tokenCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     v6 = tokenCopy;
-    v19[0] = [tokenCopy bytes];
-    v19[1] = [tokenCopy length];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __50__MFAATokenManager_isTokenValidForFeatures_token___block_invoke;
-    v18[3] = &unk_279831220;
-    v18[4] = &v20;
-    v18[5] = &v24;
-    DERDecodeSequenceWithBlock(v19, v18);
+    v18[0] = [tokenCopy bytes];
+    v18[1] = [tokenCopy length];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __50__MFAATokenManager_isTokenValidForFeatures_token___block_invoke;
+    v17[3] = &unk_279831220;
+    v17[4] = &v19;
+    v17[5] = &v23;
+    DERDecodeSequenceWithBlock(v18, v17);
     if (gLogObjects && gNumLogObjects >= 3)
     {
       v7 = *(gLogObjects + 16);
@@ -569,7 +563,7 @@ uint64_t __33__MFAATokenManager_sharedManager__block_invoke(uint64_t a1)
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      if (*(v21 + 24))
+      if (*(v20 + 24))
       {
         v11 = "YES";
       }
@@ -584,9 +578,9 @@ uint64_t __33__MFAATokenManager_sharedManager__block_invoke(uint64_t a1)
       _os_log_impl(&dword_25627E000, v9, OS_LOG_TYPE_DEFAULT, "foundProductCapabilities: %s", buf, 0xCu);
     }
 
-    if (*(v21 + 24) == 1)
+    if (*(v20 + 24) == 1)
     {
-      v12 = (features & ~v25[3]) == 0;
+      v12 = (features & ~v24[3]) == 0;
     }
 
     else
@@ -629,46 +623,43 @@ uint64_t __33__MFAATokenManager_sharedManager__block_invoke(uint64_t a1)
     LOBYTE(v12) = 0;
   }
 
-  _Block_object_dispose(&v20, 8);
-  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v23, 8);
 
-  v16 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 uint64_t __50__MFAATokenManager_isTokenValidForFeatures_token___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (*a2 != 0x2000000000000010)
   {
-    goto LABEL_34;
+    return 3;
   }
 
-  v21 = -1431655766;
-  memset(v20, 170, sizeof(v20));
-  v19 = 0xAAAAAAAAAAAAAAAALL;
-  if (DERDecodeSeqContentInit(a2 + 1, &v20[2]))
+  v20 = -1431655766;
+  memset(v19, 170, sizeof(v19));
+  v18 = 0xAAAAAAAAAAAAAAAALL;
+  if (DERDecodeSeqContentInit(a2 + 1, &v19[2]))
   {
-    goto LABEL_34;
+    return 3;
   }
 
-  DERDecodeSeqNext(&v20[2], &v19);
+  DERDecodeSeqNext(&v19[2], &v18);
   result = OUTLINED_FUNCTION_4();
-  if (v4 || v19 != 2)
+  if (v4 || v18 != 2)
   {
-    goto LABEL_33;
+    return result;
   }
 
-  if (DERParseInteger(v20, &v21))
+  if (DERParseInteger(v19, &v20))
   {
-    goto LABEL_34;
+    return 3;
   }
 
-  if (v21 != 2)
+  if (v20 != 2)
   {
-LABEL_32:
-    result = 0;
-    goto LABEL_33;
+    return 0;
   }
 
   v5 = gNumLogObjects;
@@ -682,8 +673,8 @@ LABEL_32:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       OUTLINED_FUNCTION_7();
-      v24 = v5;
-      OUTLINED_FUNCTION_5(&dword_25627E000, MEMORY[0x277D86220], v15, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
+      v23 = v5;
+      OUTLINED_FUNCTION_5(&dword_25627E000, MEMORY[0x277D86220], v14, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
     }
 
     v6 = MEMORY[0x277D86220];
@@ -696,11 +687,11 @@ LABEL_32:
     _os_log_debug_impl(&dword_25627E000, v6, OS_LOG_TYPE_DEBUG, "Found SMFiTokenPayload!", buf, 2u);
   }
 
-  DERDecodeSeqNext(&v20[2], &v19);
+  DERDecodeSeqNext(&v19[2], &v18);
   result = OUTLINED_FUNCTION_4();
-  if (!v8 && v19 == 2)
+  if (!v8 && v18 == 2)
   {
-    if (!DERParseInteger(v20, &v21))
+    if (!DERParseInteger(v19, &v20))
     {
       v9 = gNumLogObjects;
       if (gLogObjects && gNumLogObjects >= 3)
@@ -713,8 +704,8 @@ LABEL_32:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           OUTLINED_FUNCTION_7();
-          v24 = v9;
-          OUTLINED_FUNCTION_5(&dword_25627E000, MEMORY[0x277D86220], v16, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
+          v23 = v9;
+          OUTLINED_FUNCTION_5(&dword_25627E000, MEMORY[0x277D86220], v15, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
         }
 
         v10 = MEMORY[0x277D86220];
@@ -724,74 +715,71 @@ LABEL_32:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         *buf = 67109120;
-        v23 = v21;
+        v22 = v20;
         _os_log_impl(&dword_25627E000, v10, OS_LOG_TYPE_INFO, "SMFiTokenPayload version: %u", buf, 8u);
       }
 
-      if (v21 == 1)
+      if (v20 == 1)
       {
-        DERDecodeSeqNext(&v20[2], &v19);
+        DERDecodeSeqNext(&v19[2], &v18);
         result = OUTLINED_FUNCTION_4();
-        if (!v12 && v19 == 4)
+        if (!v12 && v18 == 4)
         {
-          DERDecodeItem(v20, &v19);
+          DERDecodeItem(v19, &v18);
           result = OUTLINED_FUNCTION_4();
-          if (!v13 && v19 == 0x2000000000000011)
+          if (!v13 && v18 == 0x2000000000000011)
           {
-            v17[0] = MEMORY[0x277D85DD0];
-            v17[1] = 3221225472;
-            v17[2] = __50__MFAATokenManager_isTokenValidForFeatures_token___block_invoke_40;
-            v17[3] = &unk_279831220;
-            v18 = *(a1 + 32);
-            DERDecodeSequenceContentWithBlock(v20, v17);
-            goto LABEL_32;
+            v16[0] = MEMORY[0x277D85DD0];
+            v16[1] = 3221225472;
+            v16[2] = __50__MFAATokenManager_isTokenValidForFeatures_token___block_invoke_40;
+            v16[3] = &unk_279831220;
+            v17 = *(a1 + 32);
+            DERDecodeSequenceContentWithBlock(v19, v16);
+            return 0;
           }
         }
 
-        goto LABEL_33;
+        return result;
       }
     }
 
-LABEL_34:
-    result = 3;
+    return 3;
   }
 
-LABEL_33:
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __50__MFAATokenManager_isTokenValidForFeatures_token___block_invoke_40(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (*a2 != 0x2000000000000010)
   {
-    goto LABEL_44;
+    return 3;
   }
 
-  v26 = -1431655766;
-  memset(v25, 170, sizeof(v25));
-  v24 = 0xAAAAAAAAAAAAAAAALL;
-  if (DERDecodeSeqContentInit(a2 + 1, &v25[2]))
+  v25 = -1431655766;
+  memset(v24, 170, sizeof(v24));
+  v23 = 0xAAAAAAAAAAAAAAAALL;
+  if (DERDecodeSeqContentInit(a2 + 1, &v24[2]))
   {
-    goto LABEL_44;
+    return 3;
   }
 
-  DERDecodeSeqNext(&v25[2], &v24);
+  DERDecodeSeqNext(&v24[2], &v23);
   result = OUTLINED_FUNCTION_4();
-  if (v6 || v24 != 2)
+  if (v6 || v23 != 2)
   {
-    goto LABEL_43;
+    return result;
   }
 
-  if (DERParseInteger(v25, &v26))
+  if (DERParseInteger(v24, &v25))
   {
-    goto LABEL_44;
+    return 3;
   }
 
-  if (v26 != 202)
+  if (v25 != 202)
   {
-    goto LABEL_42;
+    return 0;
   }
 
   *(*(*(a1 + 32) + 8) + 24) = 1;
@@ -807,8 +795,8 @@ uint64_t __50__MFAATokenManager_isTokenValidForFeatures_token___block_invoke_40(
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       OUTLINED_FUNCTION_3();
-      v29 = v7;
-      OUTLINED_FUNCTION_5(&dword_25627E000, MEMORY[0x277D86220], v21, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
+      v28 = v7;
+      OUTLINED_FUNCTION_5(&dword_25627E000, MEMORY[0x277D86220], v20, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
     }
 
     v8 = MEMORY[0x277D86220];
@@ -821,11 +809,11 @@ uint64_t __50__MFAATokenManager_isTokenValidForFeatures_token___block_invoke_40(
     _os_log_debug_impl(&dword_25627E000, v8, OS_LOG_TYPE_DEBUG, "Found SMFiProductCapabilities!", buf, 2u);
   }
 
-  DERDecodeSeqNext(&v25[2], &v24);
+  DERDecodeSeqNext(&v24[2], &v23);
   result = OUTLINED_FUNCTION_4();
-  if (!v10 && v24 == 2)
+  if (!v10 && v23 == 2)
   {
-    if (!DERParseInteger(v25, &v26))
+    if (!DERParseInteger(v24, &v25))
     {
       v11 = gNumLogObjects;
       if (gLogObjects && gNumLogObjects >= 3)
@@ -838,8 +826,8 @@ uint64_t __50__MFAATokenManager_isTokenValidForFeatures_token___block_invoke_40(
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           OUTLINED_FUNCTION_3();
-          v29 = v11;
-          OUTLINED_FUNCTION_5(&dword_25627E000, MEMORY[0x277D86220], v22, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
+          v28 = v11;
+          OUTLINED_FUNCTION_5(&dword_25627E000, MEMORY[0x277D86220], v21, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
         }
 
         v12 = MEMORY[0x277D86220];
@@ -849,25 +837,25 @@ uint64_t __50__MFAATokenManager_isTokenValidForFeatures_token___block_invoke_40(
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         *buf = 67109120;
-        LODWORD(v28) = v26;
+        LODWORD(v27) = v25;
         _os_log_impl(&dword_25627E000, v12, OS_LOG_TYPE_INFO, "SMFiProductCapabilities version: %u", buf, 8u);
       }
 
-      if (v26 == 1)
+      if (v25 == 1)
       {
-        DERDecodeSeqNext(&v25[2], &v24);
+        DERDecodeSeqNext(&v24[2], &v23);
         result = OUTLINED_FUNCTION_4();
         if (v14)
         {
-          goto LABEL_43;
+          return result;
         }
 
-        if (v24 != 4 || v25[1] != 8)
+        if (v23 != 4 || v24[1] != 8)
         {
-          goto LABEL_43;
+          return result;
         }
 
-        *(*(*(a1 + 40) + 8) + 24) = *v25[0];
+        *(*(*(a1 + 40) + 8) + 24) = *v24[0];
         *(*(*(a1 + 40) + 8) + 24) = bswap64(*(*(*(a1 + 40) + 8) + 24));
         v16 = gNumLogObjects;
         if (gLogObjects && gNumLogObjects >= 3)
@@ -880,8 +868,8 @@ uint64_t __50__MFAATokenManager_isTokenValidForFeatures_token___block_invoke_40(
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
             OUTLINED_FUNCTION_3();
-            v29 = v16;
-            OUTLINED_FUNCTION_5(&dword_25627E000, MEMORY[0x277D86220], v23, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
+            v28 = v16;
+            OUTLINED_FUNCTION_5(&dword_25627E000, MEMORY[0x277D86220], v22, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf);
           }
 
           v17 = MEMORY[0x277D86220];
@@ -892,42 +880,27 @@ uint64_t __50__MFAATokenManager_isTokenValidForFeatures_token___block_invoke_40(
         {
           v19 = *(*(*(a1 + 40) + 8) + 24);
           *buf = 134217984;
-          v28 = v19;
+          v27 = v19;
           _os_log_impl(&dword_25627E000, v17, OS_LOG_TYPE_DEFAULT, "productCapabilities: 0x%016llX", buf, 0xCu);
         }
 
-LABEL_42:
-        result = 0;
-        goto LABEL_43;
+        return 0;
       }
     }
 
-LABEL_44:
-    result = 3;
+    return 3;
   }
 
-LABEL_43:
-  v20 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)_init
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_25627E000, a2, OS_LOG_TYPE_DEBUG, "Initializing %@...", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __103__MFAATokenManager_requestMetadataForAuthToken_withUUID_requestedLocale_requestInfo_completionHandler___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_6(&dword_25627E000, v0, v1, "%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25627E000, a2, OS_LOG_TYPE_DEBUG, "Initializing %@...", v5, 0xCu);
 }
 
 @end

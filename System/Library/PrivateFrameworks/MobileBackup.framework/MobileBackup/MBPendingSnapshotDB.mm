@@ -1,4 +1,5 @@
 @interface MBPendingSnapshotDB
++ (id)openOrCreateDatabaseIn:(id)in commitID:(id)d readonly:(BOOL)readonly error:(id *)error;
 - (BOOL)_enumerateDomainsWithState:(unint64_t)state error:(id *)error block:(id)block;
 - (BOOL)_generateDeletionMarkersUsingInodesForDomainName:(id)name error:(id *)error;
 - (BOOL)_generateDeletionMarkersUsingTemporaryAssetIDTable:(id)table error:(id *)error;
@@ -259,7 +260,7 @@
           *buf = 138412290;
           v27 = v13;
           _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Failed to fetch volumeUUID of previous file list: %@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"Df", "Failed to fetch volumeUUID of previous file list: %@", v13);
         }
 
         if (error)
@@ -293,7 +294,7 @@
             *buf = 138412290;
             v27 = nameCopy;
             _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Generating deletion markers for %@ using temporary assetID table", buf, 0xCu);
-            _MBLog();
+            _MBLog(@"Df", "Generating deletion markers for %@ using temporary assetID table", nameCopy);
           }
 
           v21 = [(MBPendingSnapshotDB *)self _generateDeletionMarkersUsingTemporaryAssetIDTable:nameCopy error:error];
@@ -316,7 +317,7 @@
           *buf = 138412290;
           v27 = v19;
           _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Failed to fetch volumeUUID of pending file list: %@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"Df", "Failed to fetch volumeUUID of pending file list: %@", v19);
         }
 
         if (error)
@@ -768,22 +769,21 @@ LABEL_17:
 
       v7 = [(MBPendingSnapshotDB *)self db];
       path2 = [v7 path];
-      _MBLog();
+      _MBLog(@"E ", "Database (%@) was not closed before dealloc", path2);
     }
 
     v13 = 0;
-    v8 = [(MBPendingSnapshotDB *)self close:&v13];
-    v9 = v13;
-    if ((v8 & 1) == 0)
+    v9 = [(MBPendingSnapshotDB *)self close:&v13];
+    v10 = v13;
+    if ((v9 & 1) == 0)
     {
-      v10 = MBGetDefaultLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = MBGetDefaultLog();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v15 = v9;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Error closing database in dealloc: %@", buf, 0xCu);
-        path2 = v9;
-        _MBLog();
+        v15 = v10;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Error closing database in dealloc: %@", buf, 0xCu);
+        _MBLog(@"E ", "Error closing database in dealloc: %@", v10);
       }
     }
   }
@@ -791,6 +791,65 @@ LABEL_17:
   v12.receiver = self;
   v12.super_class = MBPendingSnapshotDB;
   [(MBPendingSnapshotDB *)&v12 dealloc];
+}
+
++ (id)openOrCreateDatabaseIn:(id)in commitID:(id)d readonly:(BOOL)readonly error:(id *)error
+{
+  readonlyCopy = readonly;
+  inCopy = in;
+  dCopy = d;
+  v11 = [inCopy stringByAppendingPathComponent:dCopy];
+  v12 = [v11 stringByAppendingPathComponent:@"pending_snapshot.db"];
+  v13 = +[NSFileManager defaultManager];
+  v14 = [v13 fileExistsAtPath:v11];
+  v15 = v14;
+  if (v14 && ([v13 fileExistsAtPath:v12] & 1) == 0)
+  {
+    v16 = MBGetDefaultLog();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 138543618;
+      v25 = v11;
+      v26 = 2114;
+      v27 = v12;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_FAULT, "Snapshot dir exists at %{public}@ but pending snapshot db does not %{public}@", buf, 0x16u);
+      _MBLog(@"F ", "Snapshot dir exists at %{public}@ but pending snapshot db does not %{public}@", v11, v12);
+    }
+
+    if (![v13 removeItemAtPath:v11 error:error])
+    {
+      goto LABEL_12;
+    }
+  }
+
+  v22[0] = NSFileOwnerAccountName;
+  v22[1] = NSFileGroupOwnerAccountName;
+  v23[0] = @"mobile";
+  v23[1] = @"mobile";
+  v17 = [NSDictionary dictionaryWithObjects:v23 forKeys:v22 count:2];
+  v18 = [v13 createDirectoryAtPath:v11 withIntermediateDirectories:1 attributes:v17 error:error];
+
+  if (v18 && ((v15 & 1) != 0 || MBMoveStashedEncryptionKeysDBIntoPendingSnapshot(inCopy, dCopy, error)))
+  {
+    v19 = MBGetDefaultLog();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v25 = v12;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Opening pending snapshot database at %@", buf, 0xCu);
+      _MBLog(@"Df", "Opening pending snapshot database at %@", v12);
+    }
+
+    v20 = [[MBPendingSnapshotDB alloc] initWithPath:v12 snapshotDirectoryRoot:inCopy commitID:dCopy readonly:readonlyCopy];
+  }
+
+  else
+  {
+LABEL_12:
+    v20 = 0;
+  }
+
+  return v20;
 }
 
 - (int64_t)countAssetsPendingUploadForDomainName:(id)name error:(id *)error
@@ -1006,8 +1065,8 @@ LABEL_11:
         v20 = [v19 componentsJoinedByString:{@", "}];
         allObjects4 = [v9 allObjects];
         v22 = [allObjects4 sortedArrayUsingSelector:"compare:"];
-        v24 = [v22 componentsJoinedByString:{@", "}];
-        _MBLog();
+        v23 = [v22 componentsJoinedByString:{@", "}];
+        _MBLog(@"I ", "=domain repair= Pending repair domains %@ != new repair domains %@", v20, v23);
       }
 
       *result = 0;
@@ -1061,7 +1120,7 @@ LABEL_11:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Checking whether the domain list in the placeholder domain needs updating", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Checking whether the domain list in the placeholder domain needs updating");
   }
 
   v8 = [(MBPendingSnapshotDB *)self db];
@@ -1081,7 +1140,7 @@ LABEL_11:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Domain list needs update - placeholder domain is modified", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Domain list needs update - placeholder domain is modified");
     }
 
     goto LABEL_14;
@@ -1104,7 +1163,7 @@ LABEL_5:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Domain list needs update - new domains detected", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "Domain list needs update - new domains detected");
     }
 
 LABEL_14:
@@ -1142,7 +1201,7 @@ LABEL_14:
         v27 = 2048;
         v28 = 0x4122750000000000;
         _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "Domain list needs update - weekly policy (%.2f > %.2f)", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"I ", "Domain list needs update - weekly policy (%.2f > %.2f)", v22, 604800.0);
       }
     }
   }
@@ -1314,10 +1373,7 @@ LABEL_15:
             _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Updated domain list with %llu server domain hmacs, %llu domains in the current snapshot and %llu dependencies", buf, 0x20u);
           }
 
-          [v14 count];
-          [v15 count];
-          [v17 count];
-          _MBLog();
+          _MBLog(@"Df", "Updated domain list with %llu server domain hmacs, %llu domains in the current snapshot and %llu dependencies", [v14 count], objc_msgSend(v15, "count"), objc_msgSend(v17, "count"));
         }
 
         v23 = 1;

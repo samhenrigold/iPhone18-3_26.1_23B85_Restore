@@ -272,7 +272,7 @@ LABEL_3:
   relationships = self->_relationships;
   self->_relationships = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, relationships);
 }
 
 - (HKConcept)groupByConcept
@@ -316,27 +316,27 @@ LABEL_3:
 
 - (NSString)localizedPreferredName
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   [objc_opt_class() preferredLanguages];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v3 = v21 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v3 = v20 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v18 + 1) + 8 * i);
+        v8 = *(*(&v17 + 1) + 8 * i);
         v9 = [&unk_1F0685F20 objectForKeyedSubscript:v8];
         if (v9)
         {
@@ -348,7 +348,7 @@ LABEL_3:
           {
             if (_os_feature_enabled_impl())
             {
-              v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ [%@]", stringValue, v8, v18];
+              v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ [%@]", stringValue, v8, v17];
             }
 
             else
@@ -364,7 +364,7 @@ LABEL_3:
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v5)
       {
         continue;
@@ -382,8 +382,6 @@ LABEL_3:
 
   v14 = preferredName;
 LABEL_18:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -416,41 +414,39 @@ LABEL_18:
 
 - (void)enumerateAttributesWithType:(int64_t)type block:(id)block
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   blockCopy = block;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   attributes = [(HKConcept *)self attributes];
-  v8 = [attributes countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [attributes countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(attributes);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * i);
+        v12 = *(*(&v13 + 1) + 8 * i);
         if ([v12 type] == type)
         {
           blockCopy[2](blockCopy, v12);
         }
       }
 
-      v9 = [attributes countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [attributes countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)stringsForAttributeType:(int64_t)type
@@ -617,7 +613,7 @@ void __37__HKConcept_stringsForAttributeType___block_invoke(uint64_t a1, void *a
 
 - (HKConcept)initWithCoder:(id)coder
 {
-  v20[6] = *MEMORY[0x1E69E9840];
+  v19[6] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -629,20 +625,20 @@ void __37__HKConcept_stringsForAttributeType___block_invoke(uint64_t a1, void *a
     }
   }
 
-  v19.receiver = self;
-  v19.super_class = HKConcept;
-  v6 = [(HKConcept *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = HKConcept;
+  v6 = [(HKConcept *)&v18 init];
   if (v6)
   {
     v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"Identifier"];
     v8 = objc_alloc(MEMORY[0x1E695DFD8]);
-    v20[0] = objc_opt_class();
-    v20[1] = objc_opt_class();
-    v20[2] = objc_opt_class();
-    v20[3] = objc_opt_class();
-    v20[4] = objc_opt_class();
-    v20[5] = objc_opt_class();
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:6];
+    v19[0] = objc_opt_class();
+    v19[1] = objc_opt_class();
+    v19[2] = objc_opt_class();
+    v19[3] = objc_opt_class();
+    v19[4] = objc_opt_class();
+    v19[5] = objc_opt_class();
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:6];
     v10 = [v8 initWithArray:v9];
 
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"Attributes"];
@@ -662,7 +658,6 @@ void __37__HKConcept_stringsForAttributeType___block_invoke(uint64_t a1, void *a
     v6->_options = [coderCopy decodeIntegerForKey:@"Options"];
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -702,7 +697,7 @@ void __37__HKConcept_stringsForAttributeType___block_invoke(uint64_t a1, void *a
 
 - (void)_appendTreeDescriptionToString:(id)string visitedStack:(id)stack
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   stackCopy = stack;
   [stringCopy appendFormat:@"%012lld", -[HKConceptIdentifier rawIdentifier](self->_identifier, "rawIdentifier")];
@@ -716,26 +711,26 @@ void __37__HKConcept_stringsForAttributeType___block_invoke(uint64_t a1, void *a
   [stringCopy appendFormat:@"\n"];
   v8 = [stackCopy count];
   v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%*s", (10 * v8 - 8), ""];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = [(HKConcept *)self _sortedRelationships];
-  v10 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v10 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v27;
+    v12 = *v26;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v27 != v12)
+        if (*v26 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v26 + 1) + 8 * i);
+        v14 = *(*(&v25 + 1) + 8 * i);
         [stringCopy appendString:v9];
         destination = [v14 destination];
         identifier = [destination identifier];
@@ -763,13 +758,11 @@ void __37__HKConcept_stringsForAttributeType___block_invoke(uint64_t a1, void *a
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v11 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v11);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __33__HKConcept__sortedRelationships__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -792,30 +785,30 @@ uint64_t __33__HKConcept__sortedRelationships__block_invoke(uint64_t a1, void *a
 
 - (void)_appendSortedAttributeTypeCountDescriptionToString:(id)string
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v6 = self->_attributes;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       v10 = 0;
       do
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(*(*(&v19 + 1) + 8 * v10), "type")}];
+        v11 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(*(*(&v18 + 1) + 8 * v10), "type")}];
         v12 = [v5 objectForKeyedSubscript:v11];
         v13 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v12, "integerValue") + 1}];
         [v5 setObject:v13 forKeyedSubscript:v11];
@@ -824,22 +817,20 @@ uint64_t __33__HKConcept__sortedRelationships__block_invoke(uint64_t a1, void *a
       }
 
       while (v8 != v10);
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v8);
   }
 
   hk_sortedKeys = [v5 hk_sortedKeys];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __64__HKConcept__appendSortedAttributeTypeCountDescriptionToString___block_invoke;
-  v17[3] = &unk_1E7379940;
-  v18 = v5;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __64__HKConcept__appendSortedAttributeTypeCountDescriptionToString___block_invoke;
+  v16[3] = &unk_1E7379940;
+  v17 = v5;
   v15 = v5;
-  [stringCopy hk_appendComponentsJoinedByString:@" container:" componentGenerator:{hk_sortedKeys, v17}];
-
-  v16 = *MEMORY[0x1E69E9840];
+  [stringCopy hk_appendComponentsJoinedByString:@" container:" componentGenerator:{hk_sortedKeys, v16}];
 }
 
 id __64__HKConcept__appendSortedAttributeTypeCountDescriptionToString___block_invoke(uint64_t a1, void *a2)

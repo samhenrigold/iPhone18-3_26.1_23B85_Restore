@@ -215,17 +215,15 @@
 
 void __53__HMAccessorySettingConstraint_supportedValueClasses__block_invoke()
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
+  v4 = objc_opt_class();
   v5 = objc_opt_class();
   v6 = objc_opt_class();
-  v7 = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v5 count:3];
-  v2 = [v0 setWithArray:{v1, v5, v6}];
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v4 count:3];
+  v2 = [v0 setWithArray:{v1, v4, v5}];
   v3 = supportedValueClasses_supportedValueClasses;
   supportedValueClasses_supportedValueClasses = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (id)shortDescription

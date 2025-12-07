@@ -21,18 +21,18 @@ void __60__AFMyriadEmergencyCallPunchout_initiateEmergencyCallMyriad__block_invo
   v4 = [v2 initWithProvider:v3];
 
   [v4 setPerformDialAssist:0];
-  [v4 setDialType:1];
-  v5 = getTUCallSourceIdentifierSpeakerRoute();
-  [v4 setAudioSourceIdentifier:v5];
+  v5 = [v4 setDialType:1];
+  v6 = getTUCallSourceIdentifierSpeakerRoute(v5);
+  [v4 setAudioSourceIdentifier:v6];
 
-  v6 = AFSiriLogContextConnection;
+  v7 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
     v12 = "[AFMyriadEmergencyCallPunchout initiateEmergencyCallMyriad]_block_invoke";
     v13 = 2112;
     v14 = v4;
-    _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s Emergency beacon handling created dial request %@", buf, 0x16u);
+    _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s Emergency beacon handling created dial request %@", buf, 0x16u);
   }
 
   v9[0] = MEMORY[0x1E69E9820];
@@ -40,40 +40,36 @@ void __60__AFMyriadEmergencyCallPunchout_initiateEmergencyCallMyriad__block_invo
   v9[2] = __60__AFMyriadEmergencyCallPunchout_initiateEmergencyCallMyriad__block_invoke_24;
   v9[3] = &unk_1E73493C0;
   v10 = v4;
-  v7 = v4;
-  [v1 launchAppForDialRequest:v7 completion:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8 = v4;
+  [v1 launchAppForDialRequest:v8 completion:v9];
 }
 
 void __60__AFMyriadEmergencyCallPunchout_initiateEmergencyCallMyriad__block_invoke_24(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = AFSiriLogContextConnection;
   if (v3)
   {
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315394;
-      v8 = "[AFMyriadEmergencyCallPunchout initiateEmergencyCallMyriad]_block_invoke";
-      v9 = 2112;
-      v10 = v3;
-      _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s Emergency beacon initiated call failed, error: %@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[AFMyriadEmergencyCallPunchout initiateEmergencyCallMyriad]_block_invoke";
+      v8 = 2112;
+      v9 = v3;
+      _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s Emergency beacon initiated call failed, error: %@", &v6, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 32);
-    v7 = 136315394;
-    v8 = "[AFMyriadEmergencyCallPunchout initiateEmergencyCallMyriad]_block_invoke";
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s Emergency beacon initiated call created: %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[AFMyriadEmergencyCallPunchout initiateEmergencyCallMyriad]_block_invoke";
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s Emergency beacon initiated call created: %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (AFMyriadEmergencyCallPunchout)init

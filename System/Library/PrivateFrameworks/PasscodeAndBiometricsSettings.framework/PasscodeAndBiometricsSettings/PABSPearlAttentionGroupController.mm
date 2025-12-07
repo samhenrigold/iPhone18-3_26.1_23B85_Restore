@@ -8,7 +8,6 @@
 - (id)attentionAware:(id)aware;
 - (id)pearlUnlock:(id)unlock;
 - (id)specifiers;
-- (void)_pearlDevice;
 - (void)didCancelEnteringPIN;
 - (void)setAttentionAware:(id)aware specifier:(id)specifier;
 - (void)setPearlUnlock:(id)unlock specifier:(id)specifier;
@@ -127,29 +126,29 @@
 
 void __47__PABSPearlAttentionGroupController_specifiers__block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2050000000;
+  v23 = *MEMORY[0x277D85DE8];
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2050000000;
   v2 = getEREyeReliefClientClass_softClass;
-  v20 = getEREyeReliefClientClass_softClass;
+  v19 = getEREyeReliefClientClass_softClass;
   if (!getEREyeReliefClientClass_softClass)
   {
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __getEREyeReliefClientClass_block_invoke;
-    v22 = &unk_279A03148;
-    v23 = &v17;
+    v21 = &unk_279A03148;
+    v22 = &v16;
     __getEREyeReliefClientClass_block_invoke(buf);
-    v2 = v18[3];
+    v2 = v17[3];
   }
 
   v3 = v2;
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v16, 8);
   v4 = objc_opt_new();
-  v16 = 0;
-  v5 = [v4 isDistanceSamplingEnabledWithError:&v16];
-  v6 = v16;
+  v15 = 0;
+  v5 = [v4 isDistanceSamplingEnabledWithError:&v15];
+  v6 = v15;
   v7 = PABSLogForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
@@ -170,24 +169,22 @@ void __47__PABSPearlAttentionGroupController_specifiers__block_invoke(uint64_t a
 
   if ((v5 & 1) == 0)
   {
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __47__PABSPearlAttentionGroupController_specifiers__block_invoke_36;
-    v12[3] = &unk_279A03080;
-    objc_copyWeak(&v14, (a1 + 40));
-    v13 = *(a1 + 32);
-    v15 = v5;
-    dispatch_async(MEMORY[0x277D85CD0], v12);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __47__PABSPearlAttentionGroupController_specifiers__block_invoke_36;
+    v11[3] = &unk_279A03080;
+    objc_copyWeak(&v13, (a1 + 40));
+    v12 = *(a1 + 32);
+    v14 = v5;
+    dispatch_async(MEMORY[0x277D85CD0], v11);
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v13);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __47__PABSPearlAttentionGroupController_specifiers__block_invoke_36(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -199,9 +196,9 @@ void __47__PABSPearlAttentionGroupController_specifiers__block_invoke_36(uint64_
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = [*(a1 + 32) identifier];
-      v11 = 138412290;
-      v12 = v6;
-      _os_log_impl(&dword_25E0E9000, v5, OS_LOG_TYPE_DEFAULT, "%@: - Reloading -", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v6;
+      _os_log_impl(&dword_25E0E9000, v5, OS_LOG_TYPE_DEFAULT, "%@: - Reloading -", &v10, 0xCu);
     }
 
     v7 = [WeakRetained listController];
@@ -216,18 +213,16 @@ void __47__PABSPearlAttentionGroupController_specifiers__block_invoke_36(uint64_
         v9 = @"disabled";
       }
 
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_25E0E9000, v8, OS_LOG_TYPE_DEFAULT, "AttentionAwareFeatures [%@]", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_impl(&dword_25E0E9000, v8, OS_LOG_TYPE_DEFAULT, "AttentionAwareFeatures [%@]", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_pearlDevice
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   pearlDevice = self->_pearlDevice;
   p_pearlDevice = &self->_pearlDevice;
   v3 = pearlDevice;
@@ -240,36 +235,36 @@ void __47__PABSPearlAttentionGroupController_specifiers__block_invoke_36(uint64_
   {
     location = p_pearlDevice;
     [MEMORY[0x277CF1BC0] availableDevices];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
-    v6 = v28 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v25 objects:v31 count:16];
+    v6 = v27 = 0u;
+    v7 = [v6 countByEnumeratingWithState:&v24 objects:v30 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v26;
+      v9 = *v25;
       while (2)
       {
         v10 = 0;
         do
         {
-          if (*v26 != v9)
+          if (*v25 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v25 + 1) + 8 * v10);
-          v24 = 0;
-          v12 = [MEMORY[0x277CF1BA0] deviceWithDescriptor:v11 error:&v24];
-          v13 = v24;
+          v11 = *(*(&v24 + 1) + 8 * v10);
+          v23 = 0;
+          v12 = [MEMORY[0x277CF1BA0] deviceWithDescriptor:v11 error:&v23];
+          v13 = v23;
           if (v13)
           {
             v14 = PABSLogForCategory(0);
             if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v30 = v13;
+              v29 = v13;
               _os_log_error_impl(&dword_25E0E9000, v14, OS_LOG_TYPE_ERROR, "Could not get device: %@", buf, 0xCu);
             }
           }
@@ -288,7 +283,7 @@ void __47__PABSPearlAttentionGroupController_specifiers__block_invoke_36(uint64_
               {
                 v20 = *location;
                 *buf = 138412290;
-                v30 = v20;
+                v29 = v20;
                 _os_log_impl(&dword_25E0E9000, v18, OS_LOG_TYPE_DEFAULT, "Got device: %@", buf, 0xCu);
               }
 
@@ -306,7 +301,7 @@ void __47__PABSPearlAttentionGroupController_specifiers__block_invoke_36(uint64_
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v25 objects:v31 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v24 objects:v30 count:16];
         if (v8)
         {
           continue;
@@ -326,14 +321,12 @@ void __47__PABSPearlAttentionGroupController_specifiers__block_invoke_36(uint64_
 LABEL_24:
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (void)setProtectedCredentialsWithPasscode:(id)passcode
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   passcodeCopy = passcode;
   v5 = PABSLogForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -359,10 +352,10 @@ LABEL_24:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v27 = __Block_byref_object_copy_;
-    v28 = __Block_byref_object_dispose_;
-    v29 = 0;
-    v25 = 0;
+    v26 = __Block_byref_object_copy_;
+    v27 = __Block_byref_object_dispose_;
+    v28 = 0;
+    v24 = 0;
     if (ACMContextCreate())
     {
       v10 = PABSLogForCategory(0);
@@ -376,15 +369,15 @@ LABEL_24:
 
     else
     {
-      v22[1] = MEMORY[0x277D85DD0];
-      v22[2] = 3221225472;
-      v22[3] = __credentialSetWithPasscodeCredential_block_invoke;
-      v22[4] = &unk_279A031A8;
-      v24 = buf;
-      v23 = v9;
+      v21[1] = MEMORY[0x277D85DD0];
+      v21[2] = 3221225472;
+      v21[3] = __credentialSetWithPasscodeCredential_block_invoke;
+      v21[4] = &unk_279A031A8;
+      v23 = buf;
+      v22 = v9;
       ACMContextGetExternalForm();
       v11 = *(*&buf[8] + 40);
-      v10 = v23;
+      v10 = v22;
     }
 
     _Block_object_dispose(buf, 8);
@@ -397,9 +390,9 @@ LABEL_24:
 
   _pearlDevice = [(PABSPearlAttentionGroupController *)self _pearlDevice];
   updatedConfiguration = self->_updatedConfiguration;
-  v22[0] = 0;
-  [_pearlDevice setProtectedConfiguration:updatedConfiguration forUser:getuid() credentialSet:v11 error:v22];
-  v14 = v22[0];
+  v21[0] = 0;
+  [_pearlDevice setProtectedConfiguration:updatedConfiguration forUser:getuid() credentialSet:v11 error:v21];
+  v14 = v21[0];
 
   v15 = PABSLogForCategory(0);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
@@ -429,8 +422,6 @@ LABEL_24:
   v19 = objc_loadWeakRetained(&self->_listController);
   v20 = [v19 specifierForID:@"PearlUnlockAttention"];
   [v19 reloadSpecifier:v20];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didCancelEnteringPIN
@@ -449,7 +440,7 @@ LABEL_24:
 
 - (void)setAttentionAware:(id)aware specifier:(id)specifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   awareCopy = aware;
   specifierCopy = specifier;
   v8 = [(PABSPearlAttentionGroupController *)self attentionAware:specifierCopy];
@@ -457,13 +448,13 @@ LABEL_24:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [specifierCopy identifier];
-    v15 = 138412802;
-    v16 = identifier;
-    v17 = 2112;
-    v18 = awareCopy;
-    v19 = 2112;
-    v20 = v8;
-    _os_log_impl(&dword_25E0E9000, v9, OS_LOG_TYPE_DEFAULT, "%@: Set: %@ , current is %@", &v15, 0x20u);
+    v14 = 138412802;
+    v15 = identifier;
+    v16 = 2112;
+    v17 = awareCopy;
+    v18 = 2112;
+    v19 = v8;
+    _os_log_impl(&dword_25E0E9000, v9, OS_LOG_TYPE_DEFAULT, "%@: Set: %@ , current is %@", &v14, 0x20u);
   }
 
   bOOLValue = [awareCopy BOOLValue];
@@ -473,9 +464,9 @@ LABEL_24:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       identifier2 = [specifierCopy identifier];
-      v15 = 138412290;
-      v16 = identifier2;
-      _os_log_impl(&dword_25E0E9000, v12, OS_LOG_TYPE_DEFAULT, "%@: Set: ignoring", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = identifier2;
+      _os_log_impl(&dword_25E0E9000, v12, OS_LOG_TYPE_DEFAULT, "%@: Set: ignoring", &v14, 0xCu);
     }
   }
 
@@ -484,8 +475,6 @@ LABEL_24:
     [awareCopy BOOLValue];
     _AXSSetAttentionAwarenessFeaturesEnabled();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)attentionAware:(id)aware
@@ -498,7 +487,7 @@ LABEL_24:
 
 - (void)setPearlUnlock:(id)unlock specifier:(id)specifier
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   unlockCopy = unlock;
   specifierCopy = specifier;
   v8 = [(PABSPearlAttentionGroupController *)self pearlUnlock:specifierCopy];
@@ -507,11 +496,11 @@ LABEL_24:
   {
     identifier = [specifierCopy identifier];
     *buf = 138412802;
-    v40 = identifier;
-    v41 = 2112;
-    v42 = unlockCopy;
-    v43 = 2112;
-    v44 = v8;
+    v39 = identifier;
+    v40 = 2112;
+    v41 = unlockCopy;
+    v42 = 2112;
+    v43 = v8;
     _os_log_impl(&dword_25E0E9000, v9, OS_LOG_TYPE_DEFAULT, "%@: Set: %@ , current is %@", buf, 0x20u);
   }
 
@@ -524,7 +513,7 @@ LABEL_24:
     aBlock[3] = &unk_279A030D0;
     aBlock[4] = self;
     v12 = unlockCopy;
-    v38 = v12;
+    v37 = v12;
     v13 = _Block_copy(aBlock);
     if ([v12 BOOLValue])
     {
@@ -545,29 +534,29 @@ LABEL_16:
         {
           v18 = @"PEARL_PERIOCULAR_UNLOCK_ALERT_BODY";
 LABEL_15:
-          v33 = PABS_LocalizedStringForPasscodeLock(v18);
+          v32 = PABS_LocalizedStringForPasscodeLock(v18);
           v19 = MEMORY[0x277D75110];
           v20 = PABS_LocalizedStringForPasscodeLock(@"PEARL_UNLOCK_ALERT_TITLE");
-          v21 = [v19 alertControllerWithTitle:v20 message:v33 preferredStyle:1];
+          v21 = [v19 alertControllerWithTitle:v20 message:v32 preferredStyle:1];
 
           v22 = MEMORY[0x277D750F8];
           v23 = PABS_LocalizedStringForPasscodeLock(@"CANCEL");
-          v36[0] = MEMORY[0x277D85DD0];
-          v36[1] = 3221225472;
-          v36[2] = __62__PABSPearlAttentionGroupController_setPearlUnlock_specifier___block_invoke_2;
-          v36[3] = &unk_279A030F8;
-          v36[4] = self;
-          v32 = [v22 actionWithTitle:v23 style:1 handler:v36];
+          v35[0] = MEMORY[0x277D85DD0];
+          v35[1] = 3221225472;
+          v35[2] = __62__PABSPearlAttentionGroupController_setPearlUnlock_specifier___block_invoke_2;
+          v35[3] = &unk_279A030F8;
+          v35[4] = self;
+          v31 = [v22 actionWithTitle:v23 style:1 handler:v35];
 
-          [v21 addAction:v32];
+          [v21 addAction:v31];
           v24 = MEMORY[0x277D750F8];
           v25 = PABS_LocalizedStringForPasscodeLock(@"OK");
-          v34[0] = MEMORY[0x277D85DD0];
-          v34[1] = 3221225472;
-          v34[2] = __62__PABSPearlAttentionGroupController_setPearlUnlock_specifier___block_invoke_74;
-          v34[3] = &unk_279A03120;
-          v35 = v13;
-          v26 = [v24 actionWithTitle:v25 style:0 handler:v34];
+          v33[0] = MEMORY[0x277D85DD0];
+          v33[1] = 3221225472;
+          v33[2] = __62__PABSPearlAttentionGroupController_setPearlUnlock_specifier___block_invoke_74;
+          v33[3] = &unk_279A03120;
+          v34 = v13;
+          v26 = [v24 actionWithTitle:v25 style:0 handler:v33];
 
           [v21 addAction:v26];
           WeakRetained = objc_loadWeakRetained(&self->_listController);
@@ -594,12 +583,11 @@ LABEL_15:
   {
     identifier2 = [specifierCopy identifier];
     *buf = 138412290;
-    v40 = identifier2;
+    v39 = identifier2;
     _os_log_impl(&dword_25E0E9000, v14, OS_LOG_TYPE_DEFAULT, "%@: Set: ignoring", buf, 0xCu);
   }
 
 LABEL_17:
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __62__PABSPearlAttentionGroupController_setPearlUnlock_specifier___block_invoke(uint64_t a1)
@@ -634,11 +622,11 @@ void __62__PABSPearlAttentionGroupController_setPearlUnlock_specifier___block_in
 
 - (id)pearlUnlock:(id)unlock
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   _pearlDevice = [(PABSPearlAttentionGroupController *)self _pearlDevice];
-  v12 = 0;
-  v4 = [_pearlDevice protectedConfigurationForUser:getuid() error:&v12];
-  v5 = v12;
+  v11 = 0;
+  v4 = [_pearlDevice protectedConfigurationForUser:getuid() error:&v11];
+  v5 = v11;
 
   if (v5)
   {
@@ -654,15 +642,13 @@ void __62__PABSPearlAttentionGroupController_setPearlUnlock_specifier___block_in
   {
     attentionDetectionEnabled = [v4 attentionDetectionEnabled];
     *buf = 138412546;
-    v14 = v4;
-    v15 = 2112;
-    v16 = attentionDetectionEnabled;
+    v13 = v4;
+    v14 = 2112;
+    v15 = attentionDetectionEnabled;
     _os_log_impl(&dword_25E0E9000, v7, OS_LOG_TYPE_DEFAULT, "Could attention detect: %@ %@", buf, 0x16u);
   }
 
   attentionDetectionEnabled2 = [v4 attentionDetectionEnabled];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return attentionDetectionEnabled2;
 }
@@ -725,38 +711,6 @@ void __62__PABSPearlAttentionGroupController_setPearlUnlock_specifier___block_in
   WeakRetained = objc_loadWeakRetained(&self->_groupSpecifier);
 
   return WeakRetained;
-}
-
-- (void)_pearlDevice
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setProtectedCredentialsWithPasscode:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setProtectedCredentialsWithPasscode:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)pearlUnlock:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -39,19 +39,19 @@
 
 - (void)finishExecutingWithResult:(id)result
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   if (!resultCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't finish executing a fetch operation without a result"];
     *buf = 136315906;
-    v18 = "[FCFetchOperation finishExecutingWithResult:]";
-    v19 = 2080;
-    v20 = "FCFetchOperation.m";
-    v21 = 1024;
-    v22 = 73;
-    v23 = 2114;
-    v24 = v10;
+    v17 = "[FCFetchOperation finishExecutingWithResult:]";
+    v18 = 2080;
+    v19 = "FCFetchOperation.m";
+    v20 = 1024;
+    v21 = 73;
+    v22 = 2114;
+    v23 = v10;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -77,8 +77,8 @@
       else
       {
         missingObjectDescriptions = [resultCopy missingObjectDescriptions];
-        v16 = missingObjectDescriptions;
-        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+        v15 = missingObjectDescriptions;
+        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
         v9 = [v7 fc_partialFailureErrorWithUserInfo:v11];
       }
 
@@ -94,8 +94,6 @@
     [(FCOperation *)selfCopy finishedPerformingOperationWithError:error];
     selfCopy = error;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finishExecutingWithFetchedObject:(id)object

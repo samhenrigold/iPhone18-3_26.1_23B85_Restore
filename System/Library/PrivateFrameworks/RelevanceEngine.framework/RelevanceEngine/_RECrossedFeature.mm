@@ -11,32 +11,32 @@
 
 - (_RECrossedFeature)initWithFeatures:(id)features
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
-  v38 = +[(REFeatureSet *)REMutableFeatureSet];
+  v37 = +[(REFeatureSet *)REMutableFeatureSet];
   v4 = +[REMLModel featureBitWidth];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   obj = featuresCopy;
-  v5 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+  v5 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v46;
+    v8 = *v45;
     v9 = *MEMORY[0x277CBE660];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v46 != v8)
+        if (*v45 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v45 + 1) + 8 * i);
+        v11 = *(*(&v44 + 1) + 8 * i);
         _bitCount = [v11 _bitCount];
         if (_bitCount < 0)
         {
@@ -52,12 +52,12 @@
             if (objc_opt_isKindOfClass())
             {
               _dependentFeatures = [v11 _dependentFeatures];
-              [v38 unionFeatureSet:_dependentFeatures];
+              [v37 unionFeatureSet:_dependentFeatures];
             }
 
             else
             {
-              [v38 addFeature:v11];
+              [v37 addFeature:v11];
             }
 
             v7 = v19;
@@ -70,45 +70,45 @@
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+      v6 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
     }
 
     while (v6);
   }
 
-  v44.receiver = self;
-  v44.super_class = _RECrossedFeature;
-  v21 = [(_RECrossedFeature *)&v44 init];
+  v43.receiver = self;
+  v43.super_class = _RECrossedFeature;
+  v21 = [(_RECrossedFeature *)&v43 init];
   if (v21)
   {
-    v22 = [v38 copy];
+    v22 = [v37 copy];
     dependentFeatures = v21->_dependentFeatures;
     v21->_dependentFeatures = v22;
 
     [(_RECrossedFeature *)v21 _updateFeaturesArray];
     v21->_bitCount = 0;
     string = [MEMORY[0x277CCAB68] string];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v25 = v21->_features;
-    v26 = [(NSArray *)v25 countByEnumeratingWithState:&v40 objects:v49 count:16];
+    v26 = [(NSArray *)v25 countByEnumeratingWithState:&v39 objects:v48 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v41;
+      v28 = *v40;
       v29 = 1;
       do
       {
         for (j = 0; j != v27; ++j)
         {
-          if (*v41 != v28)
+          if (*v40 != v28)
           {
             objc_enumerationMutation(v25);
           }
 
-          v31 = *(*(&v40 + 1) + 8 * j);
+          v31 = *(*(&v39 + 1) + 8 * j);
           if ([string length])
           {
             [string appendString:@"X"];
@@ -125,7 +125,7 @@
           v21->_bitCount += [v31 _bitCount];
         }
 
-        v27 = [(NSArray *)v25 countByEnumeratingWithState:&v40 objects:v49 count:16];
+        v27 = [(NSArray *)v25 countByEnumeratingWithState:&v39 objects:v48 count:16];
       }
 
       while (v27);
@@ -144,7 +144,6 @@
     [(_RECrossedFeature *)v21 _computeHash];
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -230,39 +229,37 @@
 
 - (void)_computeHash
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   self->_hash = self->_featureType;
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = self->_features;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        self->_hash ^= [*(*(&v9 + 1) + 8 * v7++) hash];
+        self->_hash ^= [*(*(&v8 + 1) + 8 * v7++) hash];
       }
 
       while (v5 != v7);
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

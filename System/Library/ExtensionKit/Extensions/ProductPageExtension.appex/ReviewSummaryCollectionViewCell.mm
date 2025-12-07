@@ -12,7 +12,7 @@
   v5 = sub_10076341C();
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   v6 = OBJC_IVAR____TtC20ProductPageExtension31ReviewSummaryCollectionViewCell_reviewSummaryView;
-  *(&self->super.super.super.super.super.isa + v6) = [objc_allocWithZone(type metadata accessor for ReviewSummaryView()) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  *(&self->super.super.super.super.super.isa + v6) = [objc_allocWithZone(type metadata accessor for ReviewSummaryView(0)) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
   result = sub_10077156C();
   __break(1u);
   return result;
@@ -21,7 +21,7 @@
 - (void)layoutSubviews
 {
   v12.receiver = self;
-  v12.super_class = type metadata accessor for ReviewSummaryCollectionViewCell();
+  v12.super_class = type metadata accessor for ReviewSummaryCollectionViewCell(0);
   v2 = v12.receiver;
   [(ReviewSummaryCollectionViewCell *)&v12 layoutSubviews];
   contentView = [v2 contentView];
@@ -37,15 +37,17 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
+  height = fits.height;
+  width = fits.width;
   selfCopy = self;
   traitCollection = [(ReviewSummaryCollectionViewCell *)selfCopy traitCollection];
-  v5 = sub_1003D8880();
-  v7 = v6;
+  v7 = sub_1003D8880(traitCollection, width, height);
+  v9 = v8;
 
-  v8 = v5;
-  v9 = v7;
-  result.height = v9;
-  result.width = v8;
+  v10 = v7;
+  v11 = v9;
+  result.height = v11;
+  result.width = v10;
   return result;
 }
 

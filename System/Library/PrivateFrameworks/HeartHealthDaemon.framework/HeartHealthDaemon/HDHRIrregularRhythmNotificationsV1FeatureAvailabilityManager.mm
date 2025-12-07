@@ -432,10 +432,10 @@ LABEL_13:
 
 - (id)onboardedCountryCodeSupportedStateWithError:(id *)error
 {
-  v41 = *MEMORY[0x277D85DE8];
-  v38 = 0;
-  v5 = [(HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager *)self _onboardingCompletionWithError:&v38];
-  v6 = v38;
+  v40 = *MEMORY[0x277D85DE8];
+  v37 = 0;
+  v5 = [(HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager *)self _onboardingCompletionWithError:&v37];
+  v6 = v37;
   countryCode = [v5 countryCode];
   if (v5)
   {
@@ -490,9 +490,9 @@ LABEL_53:
       {
 LABEL_34:
         disableAndExpiryProvider = self->_disableAndExpiryProvider;
-        v37 = v6;
-        v28 = [(HDFeatureDisableAndExpiryProviding *)disableAndExpiryProvider rescindedStatusForCountryCode:countryCode device:activePairedDevice error:&v37];
-        v21 = v37;
+        v36 = v6;
+        v28 = [(HDFeatureDisableAndExpiryProviding *)disableAndExpiryProvider rescindedStatusForCountryCode:countryCode device:activePairedDevice error:&v36];
+        v21 = v36;
 
         if (v28)
         {
@@ -547,7 +547,7 @@ LABEL_34:
         v17 = v16;
         v18 = objc_opt_class();
         *buf = 138543362;
-        v40 = v18;
+        v39 = v18;
         v19 = v18;
         _os_log_impl(&dword_229486000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] Onboarding record present but not supported due to nil paired device", buf, 0xCu);
       }
@@ -626,12 +626,12 @@ LABEL_11:
 
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = v13;
-      v35 = objc_opt_class();
+      v33 = v13;
+      v34 = objc_opt_class();
       *buf = 138543362;
-      v40 = v35;
-      v36 = v35;
-      _os_log_impl(&dword_229486000, v34, OS_LOG_TYPE_DEFAULT, "[%{public}@] No record of onboarding found", buf, 0xCu);
+      v39 = v34;
+      v35 = v34;
+      _os_log_impl(&dword_229486000, v33, OS_LOG_TYPE_DEFAULT, "[%{public}@] No record of onboarding found", buf, 0xCu);
     }
 
     v20 = &unk_283CD2680;
@@ -639,7 +639,6 @@ LABEL_11:
 
 LABEL_54:
 
-  v32 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -692,8 +691,7 @@ LABEL_54:
     notificationSettingDefaults = self->_notificationSettingDefaults;
     v10 = *MEMORY[0x277CCE430];
     [(NSUserDefaults *)notificationSettingDefaults removeObjectForKey:*MEMORY[0x277CCE430]];
-    v11 = *MEMORY[0x277CCE458];
-    v12 = [MEMORY[0x277CBEB98] setWithObject:v10];
+    v11 = [MEMORY[0x277CBEB98] setWithObject:v10];
     HKSynchronizeNanoPreferencesUserDefaults();
 
     completionCopy[2](completionCopy, 1, 0);
@@ -707,56 +705,54 @@ LABEL_54:
       [HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager removeFeatureSettingValueForKey:completion:];
     }
 
-    v13 = [MEMORY[0x277CCA9B8] hk_error:3 description:@"Cannot remove unknown setting for IRN 1.0"];
-    completionCopy[2](completionCopy, 0, v13);
+    v12 = [MEMORY[0x277CCA9B8] hk_error:3 description:@"Cannot remove unknown setting for IRN 1.0"];
+    completionCopy[2](completionCopy, 0, v12);
 
-    completionCopy = v13;
+    completionCopy = v12;
   }
 }
 
 - (void)resetOnboardingWithCompletion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D10718];
   completionCopy = completion;
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   v7 = [v4 hdhr_heartRhythmProtectedSyncedDomainForProfile:WeakRetained];
 
-  v26 = 0;
-  v8 = [v7 hdhr_resetAtrialFibrillationDetectionOnboardingWithError:&v26];
-  v9 = v26;
+  v23 = 0;
+  v8 = [v7 hdhr_resetAtrialFibrillationDetectionOnboardingWithError:&v23];
+  v9 = v23;
   if (v8)
   {
     hk_heartRhythmDefaults = [MEMORY[0x277CBEBD0] hk_heartRhythmDefaults];
     v11 = *MEMORY[0x277CCB840];
     [hk_heartRhythmDefaults removeObjectForKey:*MEMORY[0x277CCB840]];
-    v12 = *MEMORY[0x277CCE460];
-    v13 = [MEMORY[0x277CBEB98] setWithObject:v11];
+    v12 = [MEMORY[0x277CBEB98] setWithObject:v11];
     HKSynchronizeNanoPreferencesUserDefaults();
 
-    v14 = *MEMORY[0x277CCE430];
+    v13 = *MEMORY[0x277CCE430];
     [(NSUserDefaults *)self->_notificationSettingDefaults removeObjectForKey:*MEMORY[0x277CCE430]];
-    v15 = *MEMORY[0x277CCE458];
-    v16 = [MEMORY[0x277CBEB98] setWithObject:v14];
+    v14 = [MEMORY[0x277CBEB98] setWithObject:v13];
     HKSynchronizeNanoPreferencesUserDefaults();
 
     notify_post(*MEMORY[0x277CCCD08]);
-    v17 = [HDHRHealthKitSyncManager alloc];
-    v18 = objc_loadWeakRetained(&self->_profile);
-    v19 = [(HDHRHealthKitSyncManager *)v17 initWithProfile:v18];
+    v15 = [HDHRHealthKitSyncManager alloc];
+    v16 = objc_loadWeakRetained(&self->_profile);
+    v17 = [(HDHRHealthKitSyncManager *)v15 initWithProfile:v16];
 
-    v20 = MEMORY[0x277CCC2D8];
-    [(HDHRHealthKitSyncManager *)v19 triggerImmediateSyncWithReason:@"IRN onboarding has been reset" loggingCategory:*MEMORY[0x277CCC2D8]];
+    v18 = MEMORY[0x277CCC2D8];
+    [(HDHRHealthKitSyncManager *)v17 triggerImmediateSyncWithReason:@"IRN onboarding has been reset" loggingCategory:*MEMORY[0x277CCC2D8]];
     _HKInitializeLogging();
-    v21 = *v20;
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v19 = *v18;
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = v21;
-      v23 = objc_opt_class();
+      v20 = v19;
+      v21 = objc_opt_class();
       *buf = 138543362;
-      v28 = v23;
-      v24 = v23;
-      _os_log_impl(&dword_229486000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@] Reset onboarding successfully", buf, 0xCu);
+      v25 = v21;
+      v22 = v21;
+      _os_log_impl(&dword_229486000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] Reset onboarding successfully", buf, 0xCu);
     }
   }
 
@@ -770,13 +766,11 @@ LABEL_54:
   }
 
   completionCopy[2](completionCopy, v8, v9);
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCurrentOnboardingVersionCompletedForCountryCode:(id)code countryCodeProvenance:(int64_t)provenance date:(id)date settings:(id)settings completion:(id)completion
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   codeCopy = code;
   dateCopy = date;
   settingsCopy = settings;
@@ -792,18 +786,18 @@ LABEL_54:
       v18 = v17;
       v19 = [dateCopy debugDescription];
       *buf = 138543618;
-      v57 = v17;
-      v58 = 2114;
-      v59 = v19;
+      v56 = v17;
+      v57 = 2114;
+      v58 = v19;
       _os_log_impl(&dword_229486000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] Attempting to set onboarding date to %{public}@, but IRN V1 does not support specifying onboarding date", buf, 0x16u);
     }
   }
 
   if (codeCopy)
   {
-    v55 = 0;
-    v20 = [(HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager *)self featureOnboardingRecordWithError:&v55];
-    v21 = v55;
+    v54 = 0;
+    v20 = [(HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager *)self featureOnboardingRecordWithError:&v54];
+    v21 = v54;
     if (!v20)
     {
       _HKInitializeLogging();
@@ -837,10 +831,10 @@ LABEL_54:
     WeakRetained = objc_loadWeakRetained(&self->_profile);
     v27 = [v25 hdhr_heartRhythmProtectedSyncedDomainForProfile:WeakRetained];
 
-    v54 = v21;
-    v43 = v27;
-    v28 = [v27 hdhr_setAtrialFibrillationDetectionCurrentOnboardingVersionCompletedInCountryCode:codeCopy error:&v54];
-    v45 = v54;
+    v53 = v21;
+    v42 = v27;
+    v28 = [v27 hdhr_setAtrialFibrillationDetectionCurrentOnboardingVersionCompletedInCountryCode:codeCopy error:&v53];
+    v44 = v53;
 
     if (v28)
     {
@@ -851,46 +845,46 @@ LABEL_54:
       {
 LABEL_19:
         v34 = *MEMORY[0x277CCC120];
-        v44 = settingsCopy;
+        v43 = settingsCopy;
         v35 = [settingsCopy numberForKey:*MEMORY[0x277CCC120]];
-        v50[0] = MEMORY[0x277D85DD0];
-        v50[1] = 3221225472;
-        v50[2] = __162__HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager_setCurrentOnboardingVersionCompletedForCountryCode_countryCodeProvenance_date_settings_completion___block_invoke;
-        v50[3] = &unk_27865FD40;
-        v50[4] = self;
-        v52 = completionCopy;
-        v53 = v28;
-        v21 = v45;
-        v51 = v21;
-        v36 = MEMORY[0x22AACDB50](v50);
+        v49[0] = MEMORY[0x277D85DD0];
+        v49[1] = 3221225472;
+        v49[2] = __162__HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager_setCurrentOnboardingVersionCompletedForCountryCode_countryCodeProvenance_date_settings_completion___block_invoke;
+        v49[3] = &unk_27865FD40;
+        v49[4] = self;
+        v51 = completionCopy;
+        v52 = v28;
+        v21 = v44;
+        v50 = v21;
+        v36 = MEMORY[0x22AACDB50](v49);
         v37 = v36;
         if (v35)
         {
-          v48[0] = MEMORY[0x277D85DD0];
-          v48[1] = 3221225472;
-          v48[2] = __162__HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager_setCurrentOnboardingVersionCompletedForCountryCode_countryCodeProvenance_date_settings_completion___block_invoke_3;
-          v48[3] = &unk_27865FD68;
-          v38 = &v49;
-          v48[4] = self;
-          v49 = v36;
+          v47[0] = MEMORY[0x277D85DD0];
+          v47[1] = 3221225472;
+          v47[2] = __162__HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager_setCurrentOnboardingVersionCompletedForCountryCode_countryCodeProvenance_date_settings_completion___block_invoke_3;
+          v47[3] = &unk_27865FD68;
+          v38 = &v48;
+          v47[4] = self;
+          v48 = v36;
           v39 = v36;
-          [(HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager *)self setFeatureSettingNumber:v35 forKey:v34 completion:v48];
+          [(HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager *)self setFeatureSettingNumber:v35 forKey:v34 completion:v47];
         }
 
         else
         {
-          v46[0] = MEMORY[0x277D85DD0];
-          v46[1] = 3221225472;
-          v46[2] = __162__HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager_setCurrentOnboardingVersionCompletedForCountryCode_countryCodeProvenance_date_settings_completion___block_invoke_362;
-          v46[3] = &unk_27865FD68;
-          v38 = &v47;
-          v46[4] = self;
-          v47 = v36;
+          v45[0] = MEMORY[0x277D85DD0];
+          v45[1] = 3221225472;
+          v45[2] = __162__HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager_setCurrentOnboardingVersionCompletedForCountryCode_countryCodeProvenance_date_settings_completion___block_invoke_362;
+          v45[3] = &unk_27865FD68;
+          v38 = &v46;
+          v45[4] = self;
+          v46 = v36;
           v40 = v36;
-          [(HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager *)self removeFeatureSettingValueForKey:v34 completion:v46];
+          [(HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager *)self removeFeatureSettingValueForKey:v34 completion:v45];
         }
 
-        settingsCopy = v44;
+        settingsCopy = v43;
 LABEL_23:
 
         goto LABEL_24;
@@ -899,9 +893,9 @@ LABEL_23:
       v30 = v29;
       v31 = objc_opt_class();
       *buf = 138543618;
-      v57 = v31;
-      v58 = 2114;
-      v59 = codeCopy;
+      v56 = v31;
+      v57 = 2114;
+      v58 = codeCopy;
       v32 = v31;
       _os_log_impl(&dword_229486000, v30, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set onboarding completed in country %{public}@", buf, 0x16u);
     }
@@ -916,14 +910,14 @@ LABEL_23:
       }
 
       v30 = v33;
-      v42 = objc_opt_class();
+      v41 = objc_opt_class();
       *buf = 138543874;
-      v57 = v42;
-      v58 = 2114;
-      v59 = codeCopy;
-      v60 = 2114;
-      v61 = v45;
-      v32 = v42;
+      v56 = v41;
+      v57 = 2114;
+      v58 = codeCopy;
+      v59 = 2114;
+      v60 = v44;
+      v32 = v41;
       _os_log_error_impl(&dword_229486000, v30, OS_LOG_TYPE_ERROR, "[%{public}@] Error setting onboarding completed in country %{public}@: %{public}@", buf, 0x20u);
     }
 
@@ -933,27 +927,23 @@ LABEL_23:
   v21 = [MEMORY[0x277CCA9B8] hk_error:3 description:@"A non-nil country code is required to onboard this feature"];
   completionCopy[2](completionCopy, 0, v21);
 LABEL_24:
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 void __162__HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager_setCurrentOnboardingVersionCompletedForCountryCode_countryCodeProvenance_date_settings_completion___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(v2 + 40);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __162__HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager_setCurrentOnboardingVersionCompletedForCountryCode_countryCodeProvenance_date_settings_completion___block_invoke_2;
-  v9[3] = &unk_27865FD18;
-  v9[4] = v2;
-  [v3 notifyObservers:v9];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __162__HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager_setCurrentOnboardingVersionCompletedForCountryCode_countryCodeProvenance_date_settings_completion___block_invoke_2;
+  v7[3] = &unk_27865FD18;
+  v7[4] = v2;
+  [v3 notifyObservers:v7];
   v4 = [HDHRHealthKitSyncManager alloc];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
   v6 = [(HDHRHealthKitSyncManager *)v4 initWithProfile:WeakRetained];
 
   [(HDHRHealthKitSyncManager *)v6 triggerImmediateSyncWithReason:@"IRN onboarding has been completed" loggingCategory:*MEMORY[0x277CCC2D8]];
-  v7 = *(a1 + 56);
-  v8 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
 }
 
@@ -1043,8 +1033,7 @@ void __162__HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager_setCurr
     bOOLValue = [numberCopy BOOLValue];
     v14 = *MEMORY[0x277CCE430];
     [(NSUserDefaults *)notificationSettingDefaults setBool:bOOLValue forKey:*MEMORY[0x277CCE430]];
-    v15 = *MEMORY[0x277CCE458];
-    v16 = [MEMORY[0x277CBEB98] setWithObject:v14];
+    v15 = [MEMORY[0x277CBEB98] setWithObject:v14];
     HKSynchronizeNanoPreferencesUserDefaults();
 
     completionCopy[2](completionCopy, 1, 0);
@@ -1058,10 +1047,10 @@ void __162__HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager_setCurr
       [HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager setFeatureSettingNumber:forKey:completion:];
     }
 
-    v17 = [MEMORY[0x277CCA9B8] hk_error:3 description:@"Cannot set number string setting for IRN 1.0"];
-    completionCopy[2](completionCopy, 0, v17);
+    v16 = [MEMORY[0x277CCA9B8] hk_error:3 description:@"Cannot set number string setting for IRN 1.0"];
+    completionCopy[2](completionCopy, 0, v16);
 
-    completionCopy = v17;
+    completionCopy = v16;
   }
 }
 
@@ -1096,7 +1085,7 @@ void __162__HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager_setCurr
 
 - (void)database:(id)database protectedDataDidBecomeAvailable:(BOOL)available
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (available)
   {
     _HKInitializeLogging();
@@ -1114,23 +1103,21 @@ void __162__HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager_setCurr
         v11 = v8;
         v12 = [v9 numberWithUnsignedInteger:{-[HKFeatureAvailabilityProvidingObserver count](observers, "count")}];
         *buf = 138543618;
-        v17 = v8;
-        v18 = 2114;
-        v19 = v12;
+        v16 = v8;
+        v17 = 2114;
+        v18 = v12;
         _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_INFO, "[%{public}@] Notifying %{public}@ observers for protected database becoming available", buf, 0x16u);
       }
     }
 
     v13 = self->_observers;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __105__HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager_database_protectedDataDidBecomeAvailable___block_invoke;
-    v15[3] = &unk_27865FD18;
-    v15[4] = self;
-    [(HKFeatureAvailabilityProvidingObserver *)v13 notifyObservers:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __105__HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager_database_protectedDataDidBecomeAvailable___block_invoke;
+    v14[3] = &unk_27865FD18;
+    v14[4] = self;
+    [(HKFeatureAvailabilityProvidingObserver *)v13 notifyObservers:v14];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __105__HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager_database_protectedDataDidBecomeAvailable___block_invoke(uint64_t a1, void *a2)
@@ -1144,7 +1131,7 @@ void __105__HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager_databas
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -1167,40 +1154,38 @@ void __105__HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager_databas
           v19 = v16;
           v20 = [v17 numberWithUnsignedInteger:{-[HKFeatureAvailabilityProvidingObserver count](observers, "count")}];
           *buf = 138543874;
-          v27 = v16;
-          v28 = 2114;
-          v29 = v20;
-          v30 = 2114;
-          v31 = pathCopy;
+          v26 = v16;
+          v27 = 2114;
+          v28 = v20;
+          v29 = 2114;
+          v30 = pathCopy;
           _os_log_impl(&dword_229486000, v15, OS_LOG_TYPE_INFO, "[%{public}@] Notifying %{public}@ observers for change in setting %{public}@", buf, 0x20u);
         }
       }
 
       v21 = self->_observers;
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __111__HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager_observeValueForKeyPath_ofObject_change_context___block_invoke;
-      v23[3] = &unk_27865FD18;
-      v23[4] = self;
-      [(HKFeatureAvailabilityProvidingObserver *)v21 notifyObservers:v23];
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __111__HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager_observeValueForKeyPath_ofObject_change_context___block_invoke;
+      v22[3] = &unk_27865FD18;
+      v22[4] = self;
+      [(HKFeatureAvailabilityProvidingObserver *)v21 notifyObservers:v22];
     }
 
     else
     {
-      v24.receiver = self;
-      v24.super_class = HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager;
-      [(HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager *)&v24 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
+      v23.receiver = self;
+      v23.super_class = HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager;
+      [(HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager *)&v23 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
     }
   }
 
   else
   {
-    v25.receiver = self;
-    v25.super_class = HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager;
-    [(HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager *)&v25 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
+    v24.receiver = self;
+    v24.super_class = HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager;
+    [(HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager *)&v24 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __111__HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1, void *a2)
@@ -1217,219 +1202,165 @@ void __111__HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager_observe
   OUTLINED_FUNCTION_4();
   v7 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  v3 = OUTLINED_FUNCTION_5();
-  v4 = OUTLINED_FUNCTION_2(v3);
+  v4 = OUTLINED_FUNCTION_5(v2, v3);
+  v5 = OUTLINED_FUNCTION_2(v4);
   _os_log_debug_impl(&dword_229486000, v0, OS_LOG_TYPE_DEBUG, "[%{public}@] No onboarding found in health database (error: %{public}@), but workaround is present", v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onboardedCountryCodeSupportedStateWithError:(void *)a1 .cold.1(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = a1;
-  OUTLINED_FUNCTION_7();
+  OUTLINED_FUNCTION_7(v2, v3);
   OUTLINED_FUNCTION_2_0();
-  v4 = v3;
-  OUTLINED_FUNCTION_3_0(&dword_229486000, v5, v6, "[%{public}@] Onboarding is unavailable while the health database is locked, but setting is present. Applying Workaround.", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v5 = v4;
+  OUTLINED_FUNCTION_3_0(&dword_229486000, v6, v7, "[%{public}@] Onboarding is unavailable while the health database is locked, but setting is present. Applying Workaround.", v8, v9, v10, v11);
 }
 
 - (void)onboardedCountryCodeSupportedStateWithError:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v11 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  v3 = OUTLINED_FUNCTION_5();
-  v4 = OUTLINED_FUNCTION_2(v3);
+  v4 = OUTLINED_FUNCTION_5(v2, v3);
+  v5 = OUTLINED_FUNCTION_2(v4);
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
 - (void)onboardedCountryCodeSupportedStateWithError:(void *)a1 .cold.3(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = a1;
-  OUTLINED_FUNCTION_7();
+  OUTLINED_FUNCTION_7(v2, v3);
   OUTLINED_FUNCTION_2_0();
-  v4 = v3;
-  OUTLINED_FUNCTION_3_0(&dword_229486000, v5, v6, "[%{public}@] No onboarding found in health database, but setting is present. Applying Workaround.", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v5 = v4;
+  OUTLINED_FUNCTION_3_0(&dword_229486000, v6, v7, "[%{public}@] No onboarding found in health database, but setting is present. Applying Workaround.", v8, v9, v10, v11);
 }
 
 - (void)onboardedCountryCodeSupportedStateWithError:.cold.4()
 {
   OUTLINED_FUNCTION_4();
-  v11 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  v3 = OUTLINED_FUNCTION_5();
-  v4 = OUTLINED_FUNCTION_2(v3);
+  v4 = OUTLINED_FUNCTION_5(v2, v3);
+  v5 = OUTLINED_FUNCTION_2(v4);
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
 - (void)onboardedCountryCodeSupportedStateWithError:(void *)a1 .cold.5(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = a1;
-  OUTLINED_FUNCTION_7();
+  OUTLINED_FUNCTION_7(v2, v3);
   OUTLINED_FUNCTION_2_0();
-  v4 = v3;
-  OUTLINED_FUNCTION_3_0(&dword_229486000, v5, v6, "[%{public}@] Nil country code found with non-nil onboarding. Applying Workaround.", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v5 = v4;
+  OUTLINED_FUNCTION_3_0(&dword_229486000, v6, v7, "[%{public}@] Nil country code found with non-nil onboarding. Applying Workaround.", v8, v9, v10, v11);
 }
 
 - (void)onboardedCountryCodeSupportedStateWithError:.cold.6()
 {
   OUTLINED_FUNCTION_4();
-  v11 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  v3 = OUTLINED_FUNCTION_5();
-  v4 = OUTLINED_FUNCTION_2(v3);
+  v4 = OUTLINED_FUNCTION_5(v2, v3);
+  v5 = OUTLINED_FUNCTION_2(v4);
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
 - (void)removeFeatureSettingValueForKey:completion:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v11 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  v3 = OUTLINED_FUNCTION_5();
-  v4 = OUTLINED_FUNCTION_2(v3);
+  v4 = OUTLINED_FUNCTION_5(v2, v3);
+  v5 = OUTLINED_FUNCTION_2(v4);
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
 - (void)resetOnboardingWithCompletion:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v11 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  v3 = OUTLINED_FUNCTION_5();
-  v4 = OUTLINED_FUNCTION_2(v3);
+  v4 = OUTLINED_FUNCTION_5(v2, v3);
+  v5 = OUTLINED_FUNCTION_2(v4);
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
 - (void)setCurrentOnboardingVersionCompletedForCountryCode:countryCodeProvenance:date:settings:completion:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v11 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  v3 = OUTLINED_FUNCTION_5();
-  v4 = OUTLINED_FUNCTION_2(v3);
+  v4 = OUTLINED_FUNCTION_5(v2, v3);
+  v5 = OUTLINED_FUNCTION_2(v4);
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
 - (void)setCurrentOnboardingVersionCompletedForCountryCode:countryCodeProvenance:date:settings:completion:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v11 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  v3 = OUTLINED_FUNCTION_5();
-  v4 = OUTLINED_FUNCTION_2(v3);
+  v4 = OUTLINED_FUNCTION_5(v2, v3);
+  v5 = OUTLINED_FUNCTION_2(v4);
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
 void __162__HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager_setCurrentOnboardingVersionCompletedForCountryCode_countryCodeProvenance_date_settings_completion___block_invoke_3_cold_1(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  OUTLINED_FUNCTION_5();
-  v5 = *MEMORY[0x277CCC120];
+  v3 = a2;
+  OUTLINED_FUNCTION_5(v3, v4);
   OUTLINED_FUNCTION_2_0();
-  v7 = OUTLINED_FUNCTION_6(v6);
+  v6 = OUTLINED_FUNCTION_6(v5);
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v8, v9, v10, v11, v12, 0x20u);
-
-  v13 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v7, v8, v9, v10, v11, 0x20u);
 }
 
 void __162__HDHRIrregularRhythmNotificationsV1FeatureAvailabilityManager_setCurrentOnboardingVersionCompletedForCountryCode_countryCodeProvenance_date_settings_completion___block_invoke_362_cold_1(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  OUTLINED_FUNCTION_5();
-  v5 = *MEMORY[0x277CCC120];
+  v3 = a2;
+  OUTLINED_FUNCTION_5(v3, v4);
   OUTLINED_FUNCTION_2_0();
-  v7 = OUTLINED_FUNCTION_6(v6);
+  v6 = OUTLINED_FUNCTION_6(v5);
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v8, v9, v10, v11, v12, 0x20u);
-
-  v13 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v7, v8, v9, v10, v11, 0x20u);
 }
 
 - (void)saveOnboardingCompletion:(void *)a1 settings:completion:.cold.1(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = a1;
-  OUTLINED_FUNCTION_7();
+  OUTLINED_FUNCTION_7(v2, v3);
   OUTLINED_FUNCTION_2_0();
-  v4 = v3;
-  OUTLINED_FUNCTION_3_0(&dword_229486000, v5, v6, "[%{public}@] Saving HKOnboardingCompletion is not supported for IRN 1.0", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v5 = v4;
+  OUTLINED_FUNCTION_3_0(&dword_229486000, v6, v7, "[%{public}@] Saving HKOnboardingCompletion is not supported for IRN 1.0", v8, v9, v10, v11);
 }
 
 - (void)setFeatureSettingData:forKey:completion:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v11 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  v3 = OUTLINED_FUNCTION_5();
-  v4 = OUTLINED_FUNCTION_2(v3);
+  v4 = OUTLINED_FUNCTION_5(v2, v3);
+  v5 = OUTLINED_FUNCTION_2(v4);
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
 - (void)setFeatureSettingString:forKey:completion:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v11 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  v3 = OUTLINED_FUNCTION_5();
-  v4 = OUTLINED_FUNCTION_2(v3);
+  v4 = OUTLINED_FUNCTION_5(v2, v3);
+  v5 = OUTLINED_FUNCTION_2(v4);
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
 - (void)setFeatureSettingNumber:forKey:completion:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v11 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  v3 = OUTLINED_FUNCTION_5();
-  v4 = OUTLINED_FUNCTION_2(v3);
+  v4 = OUTLINED_FUNCTION_5(v2, v3);
+  v5 = OUTLINED_FUNCTION_2(v4);
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
 @end

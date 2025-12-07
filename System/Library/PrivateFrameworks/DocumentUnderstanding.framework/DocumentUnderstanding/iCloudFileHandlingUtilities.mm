@@ -6,7 +6,7 @@
 
 + (unint64_t)isURLDatalessFault:(id)fault
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   cf = 0;
   propertyValueTypeRefPtr = 0;
   faultCopy = fault;
@@ -31,7 +31,7 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = cf;
+      v11 = cf;
       _os_log_error_impl(&dword_232B02000, v5, OS_LOG_TYPE_ERROR, "Could not determine if the document is a dataless fault: %@", buf, 0xCu);
     }
 
@@ -49,7 +49,6 @@
     CFRelease(propertyValueTypeRefPtr);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

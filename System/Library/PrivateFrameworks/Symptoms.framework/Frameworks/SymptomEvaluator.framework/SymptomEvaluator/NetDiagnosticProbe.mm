@@ -111,7 +111,7 @@
 
 void __46__NetDiagnosticProbe_startNetDiagnosticsTask___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -128,7 +128,7 @@ void __46__NetDiagnosticProbe_startNetDiagnosticsTask___block_invoke(uint64_t a1
       v21 = v20;
       v22 = [v7 userInfo];
       *buf = 138412290;
-      v28 = v22;
+      v27 = v22;
       _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_ERROR, "Error: %@", buf, 0xCu);
     }
 
@@ -155,11 +155,11 @@ void __46__NetDiagnosticProbe_startNetDiagnosticsTask___block_invoke(uint64_t a1
         v16 = [v14 taskName];
         v17 = *(a1 + 32);
         *buf = 138412802;
-        v28 = v16;
-        v29 = 2048;
-        v30 = v17;
-        v31 = 2048;
-        v32 = v12;
+        v27 = v16;
+        v28 = 2048;
+        v29 = v17;
+        v30 = 2048;
+        v31 = v12;
         _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_INFO, "%@ (%p) Unknown kNetDiagStatus %lld\n", buf, 0x20u);
       }
 
@@ -179,13 +179,13 @@ LABEL_11:
   [*(a1 + 32) setRunning:1];
   if ([*(a1 + 32) status] == 5)
   {
-    v25 = *(a1 + 32);
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __46__NetDiagnosticProbe_startNetDiagnosticsTask___block_invoke_2;
-    v26[3] = &unk_27898F0A0;
-    v26[4] = v25;
-    [v25 stopNetDiagnosticsTask:v26];
+    v24 = *(a1 + 32);
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __46__NetDiagnosticProbe_startNetDiagnosticsTask___block_invoke_2;
+    v25[3] = &unk_27898F0A0;
+    v25[4] = v24;
+    [v24 stopNetDiagnosticsTask:v25];
   }
 
 LABEL_12:
@@ -194,8 +194,6 @@ LABEL_12:
   {
     (*(v23 + 16))(v23, [*(a1 + 32) status]);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __46__NetDiagnosticProbe_startNetDiagnosticsTask___block_invoke_2(uint64_t a1)
@@ -231,7 +229,7 @@ uint64_t __46__NetDiagnosticProbe_startNetDiagnosticsTask___block_invoke_2(uint6
   }
 }
 
-uint64_t __33__NetDiagnosticProbe_cancelTest___block_invoke(uint64_t a1)
+void *__33__NetDiagnosticProbe_cancelTest___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setStatus:4];
   [*(a1 + 32) removeProbeOutputFiles];
@@ -267,7 +265,7 @@ uint64_t __33__NetDiagnosticProbe_cancelTest___block_invoke(uint64_t a1)
 
 void __45__NetDiagnosticProbe_stopNetDiagnosticsTask___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -289,9 +287,9 @@ void __45__NetDiagnosticProbe_stopNetDiagnosticsTask___block_invoke(uint64_t a1,
       v11 = debuggabilityLogHandle;
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO))
       {
-        v19 = 134217984;
-        v20 = v10;
-        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_INFO, "Unknown kNetDiagStatus %lld\n", &v19, 0xCu);
+        v18 = 134217984;
+        v19 = v10;
+        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_INFO, "Unknown kNetDiagStatus %lld\n", &v18, 0xCu);
       }
 
       v12 = *(a1 + 32);
@@ -312,9 +310,9 @@ void __45__NetDiagnosticProbe_stopNetDiagnosticsTask___block_invoke(uint64_t a1,
     {
       v15 = v14;
       v16 = [v7 userInfo];
-      v19 = 138412290;
-      v20 = v16;
-      _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "Error: %@", &v19, 0xCu);
+      v18 = 138412290;
+      v19 = v16;
+      _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "Error: %@", &v18, 0xCu);
     }
   }
 
@@ -328,8 +326,6 @@ LABEL_13:
   {
     (*(v17 + 16))(v17, [*(a1 + 32) status]);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)netDiagnosticsTaskInProgress:(id)progress
@@ -350,7 +346,7 @@ LABEL_13:
 
 void __51__NetDiagnosticProbe_netDiagnosticsTaskInProgress___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ([*(a1 + 32) status] != 5)
@@ -368,11 +364,11 @@ void __51__NetDiagnosticProbe_netDiagnosticsTaskInProgress___block_invoke(uint64
         v13 = *(*(a1 + 32) + 64);
         v14 = v12;
         v15 = [v6 userInfo];
-        v26 = 138412546;
-        v27 = v13;
-        v28 = 2112;
-        v29 = v15;
-        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_INFO, "%@ kNetDiagCmdTasksStatus %@", &v26, 0x16u);
+        v25 = 138412546;
+        v26 = v13;
+        v27 = 2112;
+        v28 = v15;
+        _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_INFO, "%@ kNetDiagCmdTasksStatus %@", &v25, 0x16u);
       }
 
       goto LABEL_9;
@@ -388,11 +384,11 @@ void __51__NetDiagnosticProbe_netDiagnosticsTaskInProgress___block_invoke(uint64
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO))
       {
         v11 = *(*(a1 + 32) + 64);
-        v26 = 138412546;
-        v27 = v11;
-        v28 = 2048;
-        v29 = v9;
-        _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_INFO, "%@ kNetDiagStatus is %lld\n", &v26, 0x16u);
+        v25 = 138412546;
+        v26 = v11;
+        v27 = 2048;
+        v28 = v9;
+        _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_INFO, "%@ kNetDiagStatus is %lld\n", &v25, 0x16u);
       }
 
 LABEL_9:
@@ -422,11 +418,11 @@ LABEL_19:
           if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO))
           {
             v23 = *(*(a1 + 32) + 64);
-            v26 = 138412546;
-            v27 = v23;
-            v28 = 2048;
-            v29 = v19;
-            _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_INFO, "%@  UNEXPECTED status %lld", &v26, 0x16u);
+            v25 = 138412546;
+            v26 = v23;
+            v27 = 2048;
+            v28 = v19;
+            _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_INFO, "%@  UNEXPECTED status %lld", &v25, 0x16u);
           }
 
           v20 = *(a1 + 32);
@@ -470,8 +466,6 @@ LABEL_25:
   {
     (*(v24 + 16))(v24, [*(a1 + 32) status]);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -1,4 +1,4 @@
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -12,13 +12,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -64,29 +64,29 @@ uint64_t PKIsSixChannelBlendEnabledInPaper()
 
 BOOL PKIsDeviceLocked()
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
   v0 = getMKBGetDeviceLockStateSymbolLoc_ptr;
-  v7 = getMKBGetDeviceLockStateSymbolLoc_ptr;
+  v8 = getMKBGetDeviceLockStateSymbolLoc_ptr;
   if (!getMKBGetDeviceLockStateSymbolLoc_ptr)
   {
-    v3[0] = MEMORY[0x1E69E9820];
-    v3[1] = 3221225472;
-    v3[2] = __getMKBGetDeviceLockStateSymbolLoc_block_invoke;
-    v3[3] = &unk_1E82D6498;
-    v3[4] = &v4;
-    __getMKBGetDeviceLockStateSymbolLoc_block_invoke(v3);
-    v0 = v5[3];
+    v4[0] = MEMORY[0x1E69E9820];
+    v4[1] = 3221225472;
+    v4[2] = __getMKBGetDeviceLockStateSymbolLoc_block_invoke;
+    v4[3] = &unk_1E82D6498;
+    v4[4] = &v5;
+    __getMKBGetDeviceLockStateSymbolLoc_block_invoke(v4);
+    v0 = v6[3];
   }
 
-  _Block_object_dispose(&v4, 8);
+  _Block_object_dispose(&v5, 8);
   if (!v0)
   {
-    dlerror();
-    v2 = abort_report_np();
-    _Block_object_dispose(&v4, 8);
-    _Unwind_Resume(v2);
+    v2 = dlerror();
+    v3 = abort_report_np("%s", v2);
+    _Block_object_dispose(&v5, 8);
+    _Unwind_Resume(v3);
   }
 
   return v0(0) - 1 < 2;
@@ -104,7 +104,7 @@ void std::vector<PKOutputFunction>::__destroy_vector::operator()[abi:ne200100](v
   }
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<double>>,std::vector<double>*,std::vector<double>*,std::vector<double>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<double>>,std::vector<double>*,std::vector<double>*,std::vector<double>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -121,8 +121,8 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std:
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(v4, *v6, v6[1], (v6[1] - *v6) >> 3);
-      v6 += 3;
+      std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 3);
+      v6 += 24;
       v4 = v11 + 3;
       v11 += 3;
     }
@@ -135,21 +135,21 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std:
   return v4;
 }
 
-void std::vector<std::vector<double>>::__assign_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(uint64_t *a1, char **a2, char **a3, unint64_t a4)
+void std::vector<std::vector<double>>::__assign_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(uint64_t a1, char **a2, char **a3, unint64_t a4)
 {
   v8 = *a1;
-  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) < a4)
+  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) < a4)
   {
     std::vector<std::vector<ClipperLib::IntPoint>>::__vdeallocate(a1);
     if (a4 <= 0xAAAAAAAAAAAAAAALL)
     {
-      v9 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
+      v9 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
       if (v9 <= a4)
       {
         v9 = a4;
       }
 
-      if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
+      if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
       {
         v10 = 0xAAAAAAAAAAAAAAALL;
       }
@@ -165,15 +165,15 @@ void std::vector<std::vector<double>>::__assign_with_size[abi:ne200100]<std::vec
     std::vector<CGPoint>::__throw_length_error[abi:ne200100]();
   }
 
-  v11 = a1[1] - v8;
+  v11 = *(a1 + 8) - v8;
   if (0xAAAAAAAAAAAAAAABLL * (v11 >> 3) >= a4)
   {
     std::__copy_impl::operator()[abi:ne200100]<std::vector<double> *,std::vector<double> *,std::vector<double> *>(&v19, a2, a3, v8);
     v13 = v12;
-    v14 = a1[1];
+    v14 = *(a1 + 8);
     if (v14 != v12)
     {
-      v15 = a1[1];
+      v15 = *(a1 + 8);
       do
       {
         v17 = *(v15 - 24);
@@ -191,13 +191,13 @@ void std::vector<std::vector<double>>::__assign_with_size[abi:ne200100]<std::vec
       while (v15 != v13);
     }
 
-    a1[1] = v13;
+    *(a1 + 8) = v13;
   }
 
   else
   {
     std::__copy_impl::operator()[abi:ne200100]<std::vector<double> *,std::vector<double> *,std::vector<double> *>(&v18, a2, (a2 + v11), v8);
-    a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<double>>,std::vector<double>*,std::vector<double>*,std::vector<double>*>(a1, (a2 + v11), a3, a1[1]);
+    *(a1 + 8) = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<double>>,std::vector<double>*,std::vector<double>*,std::vector<double>*>(a1, a2 + v11, a3, *(a1 + 8));
   }
 }
 
@@ -287,14 +287,14 @@ uint64_t std::vector<PKOutputFunction>::__emplace_back_slow_path<PKOutputFunctio
   return v12;
 }
 
-void sub_1C7CCDB20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C7CCDB20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<PKOutputFunction>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -369,7 +369,7 @@ void *std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(v
   return result;
 }
 
-void *PKFunctionPiecewiseBezier::operator=(void *a1, uint64_t a2)
+void **PKFunctionPiecewiseBezier::operator=(void **a1, uint64_t a2)
 {
   if (a1 != a2)
   {
@@ -378,14 +378,14 @@ void *PKFunctionPiecewiseBezier::operator=(void *a1, uint64_t a2)
     std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(a1 + 7, *(a2 + 56), *(a2 + 64), (*(a2 + 64) - *(a2 + 56)) >> 3);
     std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(a1 + 10, *(a2 + 80), *(a2 + 88), (*(a2 + 88) - *(a2 + 80)) >> 3);
     std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(a1 + 13, *(a2 + 104), *(a2 + 112), (*(a2 + 112) - *(a2 + 104)) >> 3);
-    std::vector<std::vector<double>>::__assign_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(a1 + 16, *(a2 + 128), *(a2 + 136), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 136) - *(a2 + 128)) >> 3));
-    std::vector<std::vector<double>>::__assign_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(a1 + 19, *(a2 + 152), *(a2 + 160), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 160) - *(a2 + 152)) >> 3));
+    std::vector<std::vector<double>>::__assign_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>((a1 + 16), *(a2 + 128), *(a2 + 136), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 136) - *(a2 + 128)) >> 3));
+    std::vector<std::vector<double>>::__assign_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>((a1 + 19), *(a2 + 152), *(a2 + 160), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 160) - *(a2 + 152)) >> 3));
   }
 
   return a1;
 }
 
-uint64_t std::vector<PKOutputFunction>::__init_with_size[abi:ne200100]<PKOutputFunction*,PKOutputFunction*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<PKOutputFunction>::__init_with_size[abi:ne200100]<PKOutputFunction*,PKOutputFunction*>(uint64_t *result, PKOutputFunction *a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -505,7 +505,7 @@ void PKFunctionPiecewiseBezier::solve(PKFunctionPiecewiseBezier *this)
   }
 }
 
-void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<double>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -652,11 +652,11 @@ uint64_t std::__copy_impl::operator()[abi:ne200100]<PKOutputFunction *,PKOutputF
   return a3;
 }
 
-void sub_1C7CCE654(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+void sub_1C7CCE654(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   if (a14)
   {
-    (*(*a14 + 40))(a14);
+    (*(*a14 + 40))(a14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -820,7 +820,7 @@ uint64_t std::__split_buffer<std::vector<ClipperLib::IntPoint>>::~__split_buffer
   return a1;
 }
 
-void std::vector<double>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<double>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -830,7 +830,7 @@ void std::vector<double>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
   std::vector<CGPoint>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -852,7 +852,7 @@ void sub_1C7CCEA88(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::vector<double>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<double>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -869,7 +869,7 @@ void sub_1C7CCED48(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t PKHashBytes(uint64_t a1, int a2)
+uint64_t PKHashBytes(uint64_t a1, unsigned int a2)
 {
   if (a2 < 4)
   {
@@ -901,15 +901,15 @@ uint64_t PKHashBytes(uint64_t a1, int a2)
 
   switch(v5)
   {
-    case 1:
+    case 1u:
       v11 = a2;
       goto LABEL_13;
-    case 3:
+    case 3u:
       v11 = a2;
       v12 = *(a1 + a2 - 3) + 16 * v2;
       v2 = (v12 ^ ((v12 & 0xF0000000) >> 24)) & ~(v12 & 0xF0000000);
       goto LABEL_11;
-    case 2:
+    case 2u:
       v11 = a2;
 LABEL_11:
       v13 = *(a1 + v11 - 2) + 16 * v2;
@@ -964,7 +964,7 @@ void *__getMKBGetDeviceLockStateSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -1085,12 +1085,12 @@ double DKD_CGAffineTransformDecompose(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t specialized InkDescriptor.objc(variant:textureLoader:)(uint64_t a1, uint64_t a2, uint64_t *a3)
+id specialized InkDescriptor.objc(variant:textureLoader:)(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   v99 = a1;
   v100 = a2;
-  v4 = (a3 + 39);
-  v5 = type metadata accessor for InkFunction();
+  v4 = a3 + 39;
+  v5 = type metadata accessor for InkFunction(0);
   v101 = *(v5 - 8);
   v102 = v5;
   MEMORY[0x1EEE9AC00](v5);
@@ -1127,7 +1127,7 @@ uint64_t specialized InkDescriptor.objc(variant:textureLoader:)(uint64_t a1, uin
   v20 = *(a3 + 37);
   v21 = *(a3 + 38);
   v22 = *v4;
-  v97 = v4[1];
+  v97 = *(v4 + 1);
   v98 = v22;
   *&v15 = a3[43];
   v95 = a3[44];
@@ -1337,10 +1337,10 @@ LABEL_26:
       v50 = objc_allocWithZone(PKInkBehavior);
       v51 = MEMORY[0x1CCA6CE70](v94, v93);
       v52 = MEMORY[0x1CCA6CE70](v99, v100);
-      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSNumber);
+      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSNumber, 0x1E696AD98);
       isa = Array._bridgeToObjectiveC()().super.isa;
 
-      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for PKInkFunction);
+      type metadata accessor for NSObject(0, &lazy cache variable for type metadata for PKInkFunction, off_1E82D42C8);
       v54 = Array._bridgeToObjectiveC()().super.isa;
       v105 = v54;
 
@@ -1385,116 +1385,116 @@ LABEL_26:
 
 uint64_t InkDescriptor.init(from:)@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9PencilKit13InkDescriptorV10CodingKeys33_1629EF4F71A70372363BC5E8C6DB6C1CLLOGMd);
-  v5 = *(v24 - 8);
-  MEMORY[0x1EEE9AC00](v24);
-  v7 = &v18 - v6;
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  lazy protocol witness table accessor for type InkDescriptor.CodingKeys and conformance InkDescriptor.CodingKeys();
+  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9PencilKit13InkDescriptorV10CodingKeys33_1629EF4F71A70372363BC5E8C6DB6C1CLLOGMd, &_ss22KeyedDecodingContainerVy9PencilKit13InkDescriptorV10CodingKeys33_1629EF4F71A70372363BC5E8C6DB6C1CLLOGMR);
+  v5 = *(v34 - 8);
+  MEMORY[0x1EEE9AC00](v34);
+  v7 = &v28 - v6;
+  v8 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  lazy protocol witness table accessor for type InkDescriptor.CodingKeys and conformance InkDescriptor.CodingKeys(v8, v9, v10);
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (v2)
   {
     return __swift_destroy_boxed_opaque_existential_0(a1);
   }
 
-  v23 = a2;
-  LOBYTE(v26[0]) = 0;
-  v8 = KeyedDecodingContainer.decode(_:forKey:)();
-  v22 = v9;
-  LOBYTE(v26[0]) = 1;
-  v10 = KeyedDecodingContainer.decode(_:forKey:)();
-  v21 = v11;
-  v20 = v10;
-  v48[263] = 2;
-  lazy protocol witness table accessor for type InkRendering and conformance InkRendering();
-  KeyedDecodingContainer.decode<A>(_:forKey:)();
+  v33 = a2;
+  LOBYTE(v36[0]) = 0;
+  v11 = KeyedDecodingContainer.decode(_:forKey:)();
+  v32 = v12;
+  LOBYTE(v36[0]) = 1;
+  v13 = KeyedDecodingContainer.decode(_:forKey:)();
+  v31 = v14;
+  v30 = v13;
+  v58[263] = 2;
+  lazy protocol witness table accessor for type InkRendering and conformance InkRendering(v13, v14, v15);
+  v16 = KeyedDecodingContainer.decode<A>(_:forKey:)();
+  v85 = v70;
+  v86 = v71;
+  v87[0] = *v72;
+  *(v87 + 15) = *&v72[15];
+  v82 = v67;
+  v83 = v68;
+  v84 = v69;
+  v78 = v63;
+  v79 = v64;
+  v80 = v65;
+  v81 = v66;
+  v74 = v59;
   v75 = v60;
   v76 = v61;
-  v77[0] = *v62;
-  *(v77 + 15) = *&v62[15];
-  v72 = v57;
-  v73 = v58;
-  v74 = v59;
-  v68 = v53;
-  v69 = v54;
-  v70 = v55;
-  v71 = v56;
-  v64 = v49;
-  v65 = v50;
-  v66 = v51;
-  v67 = v52;
-  v47 = 3;
-  lazy protocol witness table accessor for type InkBehavior and conformance InkBehavior();
+  v77 = v62;
+  v57 = 3;
+  lazy protocol witness table accessor for type InkBehavior and conformance InkBehavior(v16, v17, v18);
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  memcpy(&v63[5], v48, 0x102uLL);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay12CoreGraphics7CGFloatVGMd);
-  v25[0] = 4;
-  lazy protocol witness table accessor for type [CGFloat] and conformance <A> [A](&lazy protocol witness table cache variable for type [CGFloat] and conformance <A> [A], lazy protocol witness table accessor for type CGFloat and conformance CGFloat);
+  memcpy(&v73[5], v58, 0x102uLL);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay12CoreGraphics7CGFloatVGMd, &_sSay12CoreGraphics7CGFloatVGMR);
+  v35[0] = 4;
+  lazy protocol witness table accessor for type [CGFloat] and conformance <A> [A](&lazy protocol witness table cache variable for type [CGFloat] and conformance <A> [A], lazy protocol witness table accessor for type CGFloat and conformance CGFloat, MEMORY[0x1E69E6330]);
+  v19 = KeyedDecodingContainer.decode<A>(_:forKey:)();
+  v29 = v36[0];
+  v35[0] = 5;
+  lazy protocol witness table accessor for type CGFloat and conformance CGFloat(v19, v20, v21);
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v19 = v26[0];
-  v25[0] = 5;
-  lazy protocol witness table accessor for type CGFloat and conformance CGFloat();
-  KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v12 = v26[0];
-  v46 = 6;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PencilKit16DecodableDefaultVySbGMd);
-  lazy protocol witness table accessor for type DecodableDefault<Bool> and conformance DecodableDefault<A>(&lazy protocol witness table cache variable for type DecodableDefault<Bool> and conformance DecodableDefault<A>, &_s9PencilKit16DecodableDefaultVySbGMd);
+  v22 = v36[0];
+  v56 = 6;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PencilKit16DecodableDefaultVySbGMd, &_s9PencilKit16DecodableDefaultVySbGMR);
+  lazy protocol witness table accessor for type DecodableDefault<Bool> and conformance DecodableDefault<A>(&lazy protocol witness table cache variable for type DecodableDefault<Bool> and conformance DecodableDefault<A>, &_s9PencilKit16DecodableDefaultVySbGMd, &_s9PencilKit16DecodableDefaultVySbGMR, &protocol conformance descriptor for DecodableDefault<A>);
   KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  (*(v5 + 8))(v7, v24);
-  v13 = v45 & 1;
-  v15 = v21;
-  v14 = v22;
-  *v25 = v8;
-  *&v25[8] = v22;
-  *&v25[16] = v20;
-  *&v25[24] = v21;
-  *&v25[224] = v76;
-  *&v25[240] = v77[0];
-  *&v25[255] = *(v77 + 15);
-  *&v25[160] = v72;
-  *&v25[176] = v73;
-  *&v25[208] = v75;
-  *&v25[192] = v74;
-  *&v25[96] = v68;
-  *&v25[112] = v69;
-  *&v25[144] = v71;
-  *&v25[128] = v70;
-  *&v25[32] = v64;
-  *&v25[48] = v65;
-  *&v25[80] = v67;
-  *&v25[64] = v66;
-  memcpy(&v25[259], v63, 0x107uLL);
-  v16 = v19;
-  *&v25[528] = v19;
-  *&v25[536] = v12;
-  v25[544] = v45 & 1;
-  memcpy(v23, v25, 0x221uLL);
-  outlined init with copy of InkDescriptor(v25, v26);
+  (*(v5 + 8))(v7, v34);
+  v23 = v55 & 1;
+  v25 = v31;
+  v24 = v32;
+  *v35 = v11;
+  *&v35[8] = v32;
+  *&v35[16] = v30;
+  *&v35[24] = v31;
+  *&v35[224] = v86;
+  *&v35[240] = v87[0];
+  *&v35[255] = *(v87 + 15);
+  *&v35[160] = v82;
+  *&v35[176] = v83;
+  *&v35[208] = v85;
+  *&v35[192] = v84;
+  *&v35[96] = v78;
+  *&v35[112] = v79;
+  *&v35[144] = v81;
+  *&v35[128] = v80;
+  *&v35[32] = v74;
+  *&v35[48] = v75;
+  *&v35[80] = v77;
+  *&v35[64] = v76;
+  memcpy(&v35[259], v73, 0x107uLL);
+  v26 = v29;
+  *&v35[528] = v29;
+  *&v35[536] = v22;
+  v35[544] = v55 & 1;
+  memcpy(v33, v35, 0x221uLL);
+  outlined init with copy of InkDescriptor(v35, v36);
   __swift_destroy_boxed_opaque_existential_0(a1);
-  v26[0] = v8;
-  v26[1] = v14;
-  v26[2] = v20;
-  v26[3] = v15;
-  v39 = v76;
-  *v40 = v77[0];
-  *&v40[15] = *(v77 + 15);
-  v35 = v72;
-  v36 = v73;
+  v36[0] = v11;
+  v36[1] = v24;
+  v36[2] = v30;
+  v36[3] = v25;
+  v49 = v86;
+  *v50 = v87[0];
+  *&v50[15] = *(v87 + 15);
+  v45 = v82;
+  v46 = v83;
+  v47 = v84;
+  v48 = v85;
+  v41 = v78;
+  v42 = v79;
+  v43 = v80;
+  v44 = v81;
   v37 = v74;
   v38 = v75;
-  v31 = v68;
-  v32 = v69;
-  v33 = v70;
-  v34 = v71;
-  v27 = v64;
-  v28 = v65;
-  v29 = v66;
-  v30 = v67;
-  memcpy(v41, v63, sizeof(v41));
-  v42 = v16;
-  v43 = v12;
-  v44 = v13;
-  return outlined destroy of InkDescriptor(v26);
+  v39 = v76;
+  v40 = v77;
+  memcpy(v51, v73, sizeof(v51));
+  v52 = v26;
+  v53 = v22;
+  v54 = v23;
+  return outlined destroy of InkDescriptor(v36);
 }
 
 char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(char *result, int64_t a2, char a3, char *a4)
@@ -1538,7 +1538,7 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd, &_ss23_ContiguousArrayStorageCyypGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -1616,7 +1616,7 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9PencilKit13PKRefineMorphV7NStrokeVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9PencilKit13PKRefineMorphV7NStrokeVGMd, &_ss23_ContiguousArrayStorageCy9PencilKit13PKRefineMorphV7NStrokeVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -1694,7 +1694,7 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -1772,7 +1772,7 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12CoreGraphics7CGFloatVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12CoreGraphics7CGFloatVGMd, &_ss23_ContiguousArrayStorageCy12CoreGraphics7CGFloatVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -1810,12 +1810,12 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
   return v10;
 }
 
-uint64_t lazy protocol witness table accessor for type [CGFloat] and conformance <A> [A](unint64_t *a1, void (*a2)(void))
+uint64_t lazy protocol witness table accessor for type [CGFloat] and conformance <A> [A](unint64_t *a1, uint64_t (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay12CoreGraphics7CGFloatVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay12CoreGraphics7CGFloatVGMd, &_sSay12CoreGraphics7CGFloatVGMR);
     a2();
     result = swift_getWitnessTable();
     atomic_store(result, a1);
@@ -1824,7 +1824,7 @@ uint64_t lazy protocol witness table accessor for type [CGFloat] and conformance
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type CGSize and conformance CGSize(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type CGSize and conformance CGSize(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1844,7 +1844,7 @@ uint64_t closure #3 in InkFunction.objc(property:)@<X0>(uint64_t result@<X0>, ui
   if (!v5)
   {
     v7 = *(result + 8);
-    result = type metadata accessor for InkFunction();
+    result = type metadata accessor for InkFunction(0);
     v4 = v7 * dbl_1C801B850[*(a2 + *(result + 20))] + 0.0;
   }
 
@@ -1853,7 +1853,7 @@ uint64_t closure #3 in InkFunction.objc(property:)@<X0>(uint64_t result@<X0>, ui
   return result;
 }
 
-uint64_t outlined copy of (@escaping @callee_guaranteed @async (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(uint64_t result)
+uint64_t outlined copy of (@escaping @callee_guaranteed @async (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -1903,7 +1903,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12CoreGraphics7CGFloatVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12CoreGraphics7CGFloatVGMd, &_ss23_ContiguousArrayStorageCy12CoreGraphics7CGFloatVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -1981,7 +1981,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySnySiGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySnySiGGMd, &_ss23_ContiguousArrayStorageCySnySiGGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -2059,7 +2059,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys6UInt16VGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys6UInt16VGMd, &_ss23_ContiguousArrayStorageCys6UInt16VGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -2131,7 +2131,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo12RefineVertexaGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo12RefineVertexaGMd, &_ss23_ContiguousArrayStorageCySo12RefineVertexaGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -2203,7 +2203,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo22RefineFragmentUniformsaGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo22RefineFragmentUniformsaGMd, &_ss23_ContiguousArrayStorageCySo22RefineFragmentUniformsaGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -2275,7 +2275,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9PencilKit27RecognitionSearchControllerC0G6ResultVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9PencilKit27RecognitionSearchControllerC0G6ResultVGMd, &_ss23_ContiguousArrayStorageCy9PencilKit27RecognitionSearchControllerC0G6ResultVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -2347,7 +2347,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9PencilKit13PKRefineMorphV5MatchV0H2ToVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9PencilKit13PKRefineMorphV5MatchV0H2ToVGMd, &_ss23_ContiguousArrayStorageCy9PencilKit13PKRefineMorphV5MatchV0H2ToVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -2419,7 +2419,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9PencilKit13PKRefineMorphV5MatchVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy9PencilKit13PKRefineMorphV5MatchVGMd, &_ss23_ContiguousArrayStorageCy9PencilKit13PKRefineMorphV5MatchVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -2497,7 +2497,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo7CGPointVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo7CGPointVGMd, &_ss23_ContiguousArrayStorageCySo7CGPointVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -2575,7 +2575,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -2653,7 +2653,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12CoreGraphics7CGFloatV_SitGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12CoreGraphics7CGFloatV_SitGMd, &_ss23_ContiguousArrayStorageCy12CoreGraphics7CGFloatV_SitGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -2691,7 +2691,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
   return v10;
 }
 
-char *specialized Sequence.flatMap<A>(_:)(void *(*a1)(uint64_t *__return_ptr, uint64_t *), uint64_t a2, uint64_t a3)
+char *specialized Sequence.flatMap<A>(_:)(char *(*a1)(uint64_t *__return_ptr, uint64_t *, uint64_t), uint64_t a2, uint64_t a3)
 {
   v4 = *(a3 + 16);
   if (!v4)
@@ -2706,7 +2706,7 @@ char *specialized Sequence.flatMap<A>(_:)(void *(*a1)(uint64_t *__return_ptr, ui
   {
     v19 = v5;
     v20 = *(v17 + 16 * v5);
-    result = a1(&v21, &v19);
+    result = a1(&v21, &v19, a2);
     if (v3)
     {
 
@@ -2797,25 +2797,25 @@ LABEL_25:
 
 uint64_t InkAnimationDescriptor.init(from:)@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9PencilKit22InkAnimationDescriptorV10CodingKeys33_1629EF4F71A70372363BC5E8C6DB6C1CLLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9PencilKit22InkAnimationDescriptorV10CodingKeys33_1629EF4F71A70372363BC5E8C6DB6C1CLLOGMd, &_ss22KeyedDecodingContainerVy9PencilKit22InkAnimationDescriptorV10CodingKeys33_1629EF4F71A70372363BC5E8C6DB6C1CLLOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
-  v8 = &v13[-v7];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  lazy protocol witness table accessor for type InkAnimationDescriptor.CodingKeys and conformance InkAnimationDescriptor.CodingKeys();
+  v8 = &v19[-v7];
+  v9 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  lazy protocol witness table accessor for type InkAnimationDescriptor.CodingKeys and conformance InkAnimationDescriptor.CodingKeys(v9, v10, v11);
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (!v2)
   {
-    v15 = 0;
-    KeyedDecodingContainer.decode(_:forKey:)();
-    v10 = v9;
-    v13[15] = 1;
-    lazy protocol witness table accessor for type CGFloat and conformance CGFloat();
+    v21 = 0;
+    v12 = KeyedDecodingContainer.decode(_:forKey:)();
+    v14 = v13;
+    v19[15] = 1;
+    lazy protocol witness table accessor for type CGFloat and conformance CGFloat(v12, v15, v16);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v6 + 8))(v8, v5);
-    v11 = v14;
-    *a2 = v10;
-    a2[1] = v11;
+    v17 = v20;
+    *a2 = v14;
+    a2[1] = v17;
   }
 
   return __swift_destroy_boxed_opaque_existential_0(a1);
@@ -2857,7 +2857,7 @@ LABEL_13:
   }
 
 LABEL_5:
-  specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(result);
+  specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(result, 1);
   v7 = *v1;
   v8 = *v1 & 0xFFFFFFFFFFFFFF8;
   specialized Array._copyContents(initializing:)(v8 + 8 * *(v8 + 0x10) + 32, (*(v8 + 0x18) >> 1) - *(v8 + 0x10), a1);
@@ -2899,7 +2899,7 @@ uint64_t partial apply for closure #1 in InkFunction.objc(property:)@<X0>(uint64
   {
     v6 = *(v2 + 16);
     v7 = *(result + 16);
-    result = type metadata accessor for InkFunction();
+    result = type metadata accessor for InkFunction(0);
     v4 = *(v6 + *(result + 24)) + v7 * (*(v6 + *(result + 24) + 8) - *(v6 + *(result + 24)));
   }
 
@@ -2908,7 +2908,7 @@ uint64_t partial apply for closure #1 in InkFunction.objc(property:)@<X0>(uint64
   return result;
 }
 
-char *specialized Sequence.compactMap<A>(_:)(void (*a1)(uint64_t *__return_ptr, uint64_t *), uint64_t a2, uint64_t a3)
+char *specialized Sequence.compactMap<A>(_:)(void (*a1)(uint64_t *__return_ptr, uint64_t *, uint64_t), uint64_t a2, uint64_t a3)
 {
   v4 = *(a3 + 16);
   if (!v4)
@@ -2923,7 +2923,7 @@ char *specialized Sequence.compactMap<A>(_:)(void (*a1)(uint64_t *__return_ptr, 
   {
     v15 = v6;
     v16 = *(v7 + 16 * v6);
-    a1(&v13, &v15);
+    a1(&v13, &v15, a2);
     if (v3)
     {
       break;
@@ -3046,12 +3046,12 @@ LABEL_6:
   return v14;
 }
 
-uint64_t lazy protocol witness table accessor for type DecodableDefault<Bool> and conformance DecodableDefault<A>(unint64_t *a1, uint64_t *a2)
+uint64_t lazy protocol witness table accessor for type DecodableDefault<Bool> and conformance DecodableDefault<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -3059,401 +3059,401 @@ uint64_t lazy protocol witness table accessor for type DecodableDefault<Bool> an
   return result;
 }
 
-uint64_t InkDescriptorParticles.init(from:)@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
+uint64_t InkDescriptorParticles.init(from:)@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9PencilKit22InkDescriptorParticlesV10CodingKeys33_1629EF4F71A70372363BC5E8C6DB6C1CLLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9PencilKit22InkDescriptorParticlesV10CodingKeys33_1629EF4F71A70372363BC5E8C6DB6C1CLLOGMd, &_ss22KeyedDecodingContainerVy9PencilKit22InkDescriptorParticlesV10CodingKeys33_1629EF4F71A70372363BC5E8C6DB6C1CLLOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
-  v7 = *(a1 + 24);
-  v42 = a1;
+  v7 = a1[3];
+  v54 = a1;
   v8 = a1;
-  v10 = &v32 - v9;
-  __swift_project_boxed_opaque_existential_1(v8, v7);
-  lazy protocol witness table accessor for type InkDescriptorParticles.CodingKeys and conformance InkDescriptorParticles.CodingKeys();
+  v10 = &v44 - v9;
+  v11 = __swift_project_boxed_opaque_existential_1(v8, v7);
+  lazy protocol witness table accessor for type InkDescriptorParticles.CodingKeys and conformance InkDescriptorParticles.CodingKeys(v11, v12, v13);
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (v2)
   {
-    v43 = v2;
-    v41 = 0;
-    v44 = 0;
-    v40 = 0.0;
-    __swift_destroy_boxed_opaque_existential_0(v42);
-    *&v53 = -2.31584178e77;
-    *&v54 = 0x80000001C8020CF0;
-    *(&v54 + 1) = 0x3FB999999999999ALL;
-    v55 = 1.0;
-    v56 = 1.0;
-    v57 = 0;
-    v58 = 0;
-    v59 = 0;
-    v60 = v40;
-    v61 = 0.0;
-    v62 = 0;
-    v63 = v44;
-    *v64 = *v68;
-    *&v64[3] = *&v68[3];
-    v65 = 1;
-    v66 = 1;
-    v67 = v41;
+    v55 = v2;
+    v53 = 0;
+    v56 = 0;
+    v52 = 0.0;
+    __swift_destroy_boxed_opaque_existential_0(v54);
+    *&v65 = -2.31584178e77;
+    *&v66 = 0x80000001C8020CF0;
+    *(&v66 + 1) = 0x3FB999999999999ALL;
+    v67 = 1.0;
+    v68 = 1.0;
+    v69 = 0;
+    v70 = 0;
+    v71 = 0;
+    v72 = v52;
+    v73 = 0.0;
+    v74 = 0;
+    v75 = v56;
+    *v76 = *v80;
+    *&v76[3] = *&v80[3];
+    v77 = 1;
+    v78 = 1;
+    v79 = v53;
   }
 
   else
   {
-    LOBYTE(v53) = 0;
-    v11 = KeyedDecodingContainer.decode(_:forKey:)();
-    v39 = v13;
-    v14 = v11;
-    LOBYTE(v45) = 1;
-    lazy protocol witness table accessor for type CGFloat and conformance CGFloat();
+    LOBYTE(v65) = 0;
+    v14 = KeyedDecodingContainer.decode(_:forKey:)();
+    v51 = v16;
+    v17 = v14;
+    LOBYTE(v57) = 1;
+    lazy protocol witness table accessor for type CGFloat and conformance CGFloat(v14, v16, v18);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v15 = v53;
+    v19 = v65;
     type metadata accessor for CGSize(0);
-    LOBYTE(v45) = 2;
-    lazy protocol witness table accessor for type CGSize and conformance CGSize(&lazy protocol witness table cache variable for type CGSize and conformance CGSize, type metadata accessor for CGSize);
-    KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v17 = *&v53;
-    v16 = *&v54;
-    LOBYTE(v45) = 3;
-    lazy protocol witness table accessor for type InkMask and conformance InkMask();
+    LOBYTE(v57) = 2;
+    lazy protocol witness table accessor for type CGSize and conformance CGSize(&lazy protocol witness table cache variable for type CGSize and conformance CGSize, type metadata accessor for CGSize, MEMORY[0x1E695EFA0]);
+    v20 = KeyedDecodingContainer.decode<A>(_:forKey:)();
+    v22 = *&v65;
+    v21 = *&v66;
+    LOBYTE(v57) = 3;
+    lazy protocol witness table accessor for type InkMask and conformance InkMask(v20, v23, v24);
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v38 = v53;
-    v35 = v54;
-    v40 = v55;
-    v36 = v56;
-    v37 = v57;
-    v44 = v58;
+    v50 = v65;
+    v47 = v66;
+    v52 = v67;
+    v48 = v68;
+    v49 = v69;
+    v56 = v70;
 
-    LOBYTE(v45) = 4;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PencilKit16DecodableDefaultVySiGMd);
-    lazy protocol witness table accessor for type DecodableDefault<Bool> and conformance DecodableDefault<A>(&lazy protocol witness table cache variable for type DecodableDefault<Int> and conformance DecodableDefault<A>, &_s9PencilKit16DecodableDefaultVySiGMd);
-    KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    if (v54)
+    LOBYTE(v57) = 4;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PencilKit16DecodableDefaultVySiGMd, &_s9PencilKit16DecodableDefaultVySiGMR);
+    lazy protocol witness table accessor for type DecodableDefault<Bool> and conformance DecodableDefault<A>(&lazy protocol witness table cache variable for type DecodableDefault<Int> and conformance DecodableDefault<A>, &_s9PencilKit16DecodableDefaultVySiGMd, &_s9PencilKit16DecodableDefaultVySiGMR, &protocol conformance descriptor for DecodableDefault<A>);
+    v25 = KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
+    if (v66)
     {
-      v18 = 1;
+      v28 = 1;
     }
 
     else
     {
-      v18 = v53;
+      v28 = v65;
     }
 
-    LOBYTE(v45) = 5;
-    lazy protocol witness table accessor for type InkDescriptorParticles.ParticleRotation and conformance InkDescriptorParticles.ParticleRotation();
+    LOBYTE(v57) = 5;
+    lazy protocol witness table accessor for type InkDescriptorParticles.ParticleRotation and conformance InkDescriptorParticles.ParticleRotation(v25, v26, v27);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v19 = v53;
-    LOBYTE(v53) = 6;
-    v20 = KeyedDecodingContainer.decode(_:forKey:)();
-    v34 = v19;
-    v41 = v20 & 1;
-    v51 = 7;
-    lazy protocol witness table accessor for type InkDescriptorParticles.ParticleBlendMode and conformance InkDescriptorParticles.ParticleBlendMode();
+    v29 = v65;
+    LOBYTE(v65) = 6;
+    v30 = KeyedDecodingContainer.decode(_:forKey:)();
+    v46 = v29;
+    v53 = v30 & 1;
+    v63 = 7;
+    lazy protocol witness table accessor for type InkDescriptorParticles.ParticleBlendMode and conformance InkDescriptorParticles.ParticleBlendMode(v30, v31, v32);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v43 = 0;
+    v55 = 0;
     (*(v6 + 8))(v10, v5);
-    v33 = v52;
-    *&v45 = v14;
-    *(&v45 + 1) = v39;
-    *&v46 = v15;
-    *(&v46 + 1) = v17;
-    *&v47 = v16;
-    *(&v47 + 1) = v38;
-    v21 = v35;
-    v48 = v35;
-    v22 = *(&v35 + 1);
-    v23 = v40;
-    *&v49 = v40;
-    v24 = v36;
-    *(&v49 + 1) = v36;
-    v25 = v37;
-    *v50 = v37;
-    v26 = v44;
-    v50[8] = v44;
-    *&v50[12] = *&v68[3];
-    *&v50[9] = *v68;
-    *&v50[16] = v18;
-    v50[24] = v34;
-    v32 = v18;
-    v27 = v41;
-    v50[25] = v41;
-    v50[26] = v52;
-    v28 = v46;
-    *a2 = v45;
-    a2[1] = v28;
-    v29 = v47;
-    v30 = v48;
-    *(a2 + 91) = *&v50[11];
-    v31 = *v50;
-    a2[4] = v49;
-    a2[5] = v31;
-    a2[2] = v29;
-    a2[3] = v30;
-    outlined init with copy of InkDescriptorParticles(&v45, &v53);
-    __swift_destroy_boxed_opaque_existential_0(v42);
-    v53 = v14;
-    *&v54 = v39;
-    *(&v54 + 1) = v15;
-    v55 = v17;
-    v56 = v16;
-    v57 = v38;
-    v58 = v21;
-    v59 = v22;
-    v60 = v23;
-    v61 = v24;
-    v62 = v25;
-    v63 = v26;
-    *v64 = *v68;
-    *&v64[3] = *&v68[3];
-    v65 = v32;
-    v66 = v34;
-    LOBYTE(v67) = v27;
-    HIBYTE(v67) = v33;
+    v45 = v64;
+    *&v57 = v17;
+    *(&v57 + 1) = v51;
+    *&v58 = v19;
+    *(&v58 + 1) = v22;
+    *&v59 = v21;
+    *(&v59 + 1) = v50;
+    v33 = v47;
+    v60 = v47;
+    v34 = *(&v47 + 1);
+    v35 = v52;
+    *&v61 = v52;
+    v36 = v48;
+    *(&v61 + 1) = v48;
+    v37 = v49;
+    *v62 = v49;
+    v38 = v56;
+    v62[8] = v56;
+    *&v62[12] = *&v80[3];
+    *&v62[9] = *v80;
+    *&v62[16] = v28;
+    v62[24] = v46;
+    v44 = v28;
+    v39 = v53;
+    v62[25] = v53;
+    v62[26] = v64;
+    v40 = v58;
+    *a2 = v57;
+    a2[1] = v40;
+    v41 = v59;
+    v42 = v60;
+    *(a2 + 91) = *&v62[11];
+    v43 = *v62;
+    a2[4] = v61;
+    a2[5] = v43;
+    a2[2] = v41;
+    a2[3] = v42;
+    outlined init with copy of InkDescriptorParticles(&v57, &v65);
+    __swift_destroy_boxed_opaque_existential_0(v54);
+    v65 = v17;
+    *&v66 = v51;
+    *(&v66 + 1) = v19;
+    v67 = v22;
+    v68 = v21;
+    v69 = v50;
+    v70 = v33;
+    v71 = v34;
+    v72 = v35;
+    v73 = v36;
+    v74 = v37;
+    v75 = v38;
+    *v76 = *v80;
+    *&v76[3] = *&v80[3];
+    v77 = v44;
+    v78 = v46;
+    LOBYTE(v79) = v39;
+    HIBYTE(v79) = v45;
   }
 
-  return outlined destroy of InkDescriptorParticles(&v53);
+  return outlined destroy of InkDescriptorParticles(&v65);
 }
 
 uint64_t InkBehavior.init(from:)@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9PencilKit11InkBehaviorV10CodingKeys33_1629EF4F71A70372363BC5E8C6DB6C1CLLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9PencilKit11InkBehaviorV10CodingKeys33_1629EF4F71A70372363BC5E8C6DB6C1CLLOGMd, &_ss22KeyedDecodingContainerVy9PencilKit11InkBehaviorV10CodingKeys33_1629EF4F71A70372363BC5E8C6DB6C1CLLOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
-  v8 = &v35 - v7;
-  *&v131 = COERCE_DOUBLE(_sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC9PencilKit11InkBehaviorV0E8PropertyO_SayAC0E8FunctionVGTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]));
-  v130 = 1;
-  v69 = 1;
-  v127 = 1;
+  v8 = &v47 - v7;
+  *&v143 = COERCE_DOUBLE(_sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC9PencilKit11InkBehaviorV0E8PropertyO_SayAC0E8FunctionVGTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]));
+  v142 = 1;
+  v81 = 1;
+  v139 = 1;
   v9 = a1[3];
-  v56 = a1;
-  __swift_project_boxed_opaque_existential_1(a1, v9);
-  lazy protocol witness table accessor for type InkBehavior.CodingKeys and conformance InkBehavior.CodingKeys();
+  v68 = a1;
+  v10 = __swift_project_boxed_opaque_existential_1(a1, v9);
+  lazy protocol witness table accessor for type InkBehavior.CodingKeys and conformance InkBehavior.CodingKeys(v10, v11, v12);
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (v2)
   {
-    v59 = v2;
-    v60 = 0;
+    v71 = v2;
+    v72 = 0;
+    v79 = 0;
+    v80 = 0;
+    v77 = 0;
+    v78 = 0;
+    v69 = 0;
+    v70 = 0;
+    v75 = 0;
+    v76 = 0;
     v67 = 0;
-    v68 = 0;
+    v74 = 0;
+    v73 = 0.5;
     v65 = 0;
-    v66 = 0;
-    v57 = 0;
-    v58 = 0;
-    v63 = 0;
-    v64 = 0;
-    v55 = 0;
-    v62 = 0;
-    v61 = 0.5;
-    v53 = 0;
-    v54 = 1.0;
-    __swift_destroy_boxed_opaque_existential_0(v56);
-    v92 = v131;
-    v93 = 0x3FBEB851EB851EB8;
-    *&v94 = 0.16;
-    *&v95 = 0.05;
-    v96 = v61;
-    v97 = 0.0;
-    v98 = 1.0;
-    v99 = 0;
-    v100 = 0;
-    v101 = v54;
-    v102 = 0.0;
-    v103 = v53;
-    v104 = v55;
-    v105 = 0;
-    v106 = 0;
-    v107 = 0;
-    v108 = 0;
-    v109 = 0;
-    v110 = 0;
+    v66 = 1.0;
+    __swift_destroy_boxed_opaque_existential_0(v68);
+    v104 = v143;
+    v105 = 0x3FBEB851EB851EB8;
+    *&v106 = 0.16;
+    *&v107 = 0.05;
+    v108 = v73;
+    v109 = 0.0;
+    v110 = 1.0;
     v111 = 0;
-    v112 = 1;
-    *v113 = v129[0];
-    *&v113[3] = *(v129 + 3);
-    v114 = v57;
-    v115 = v66;
+    v112 = 0;
+    v113 = v66;
+    v114 = 0.0;
+    v115 = v65;
     v116 = v67;
-    v117 = v68;
-    v118 = v60;
-    v119 = v65;
-    v120 = v64;
-    v121 = v58;
-    v122 = v69;
-    *v123 = *v128;
-    *&v123[3] = *&v128[3];
-    v124 = v62;
-    v125 = v63;
-    v126 = v127;
+    v117 = 0;
+    v118 = 0;
+    v119 = 0;
+    v120 = 0;
+    v121 = 0;
+    v122 = 0;
+    v123 = 0;
+    v124 = 1;
+    *v125 = v141[0];
+    *&v125[3] = *(v141 + 3);
+    v126 = v69;
+    v127 = v78;
+    v128 = v79;
+    v129 = v80;
+    v130 = v72;
+    v131 = v77;
+    v132 = v76;
+    v133 = v70;
+    v134 = v81;
+    *v135 = *v140;
+    *&v135[3] = *&v140[3];
+    v136 = v74;
+    v137 = v75;
+    v138 = v139;
   }
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDy9PencilKit11InkBehaviorV0C8PropertyOSayAA0C8FunctionVGGMd);
-    v70[0] = 0;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDy9PencilKit11InkBehaviorV0C8PropertyOSayAA0C8FunctionVGGMd, &_sSDy9PencilKit11InkBehaviorV0C8PropertyOSayAA0C8FunctionVGGMR);
+    v82[0] = 0;
     lazy protocol witness table accessor for type [InkBehavior.InkProperty : [InkFunction]] and conformance <> [A : B]();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
 
-    v131 = v92;
-    v70[0] = 1;
-    lazy protocol witness table accessor for type InkSmoothing and conformance InkSmoothing();
+    v143 = v104;
+    v82[0] = 1;
+    lazy protocol witness table accessor for type InkSmoothing and conformance InkSmoothing(v13, v14, v15);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v11 = v92;
-    v12 = v93;
-    v13 = v94;
-    v61 = *&v95;
-    v14 = v96;
+    v17 = v104;
+    v18 = v105;
+    v19 = v106;
+    v73 = *&v107;
+    v20 = v108;
     type metadata accessor for CGAffineTransform(0);
-    v70[0] = 2;
-    lazy protocol witness table accessor for type CGSize and conformance CGSize(&lazy protocol witness table cache variable for type CGAffineTransform and conformance CGAffineTransform, type metadata accessor for CGAffineTransform);
-    KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v51 = *&v92;
-    v52 = v93;
-    v15 = v94;
-    v16 = *&v95;
-    v17 = v96;
-    v18 = *&v97;
-    v82 = 3;
-    lazy protocol witness table accessor for type InkFeathering and conformance InkFeathering();
+    v82[0] = 2;
+    lazy protocol witness table accessor for type CGSize and conformance CGSize(&lazy protocol witness table cache variable for type CGAffineTransform and conformance CGAffineTransform, type metadata accessor for CGAffineTransform, MEMORY[0x1E695EF60]);
+    v21 = KeyedDecodingContainer.decode<A>(_:forKey:)();
+    v63 = *&v104;
+    v64 = v105;
+    v22 = v106;
+    v23 = *&v107;
+    v24 = v108;
+    v25 = *&v109;
+    v94 = 3;
+    lazy protocol witness table accessor for type InkFeathering and conformance InkFeathering(v21, v26, v27);
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v53 = v18;
-    v54 = v16;
-    v19 = v83;
-    v49 = v85;
-    v50 = v84;
-    v20 = v87;
-    v47 = v88;
-    v48 = v86;
-    v46 = v89;
-    v44 = a2;
-    v45 = v90;
-    v21 = v91;
-    v72 = 4;
+    v65 = v25;
+    v66 = v23;
+    v28 = v95;
+    v61 = v97;
+    v62 = v96;
+    v29 = v99;
+    v59 = v100;
+    v60 = v98;
+    v58 = v101;
+    v56 = a2;
+    v57 = v102;
+    v30 = v103;
+    v84 = 4;
+    v31 = KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
+    v67 = v28;
+    v55 = v20;
+    v32 = v25;
+    v78 = v86;
+    v79 = v87;
+    v80 = v88;
+    v72 = v89;
+    v76 = v91;
+    v77 = v90;
+    v69 = v85;
+    v70 = v92;
+    v81 = v93;
+    v82[0] = 5;
+    lazy protocol witness table accessor for type InkAnimationDescriptor and conformance InkAnimationDescriptor(v31, v33, v34);
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v55 = v19;
-    v43 = v14;
-    v22 = v18;
-    v66 = v74;
-    v67 = v75;
-    v68 = v76;
-    v60 = v77;
-    v64 = v79;
-    v65 = v78;
-    v57 = v73;
-    v58 = v80;
-    v69 = v81;
-    v70[0] = 5;
-    lazy protocol witness table accessor for type InkAnimationDescriptor and conformance InkAnimationDescriptor();
-    KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v42 = v21;
-    v62 = v92;
-    v63 = v93;
-    v127 = v94;
-    v71 = 6;
-    v23 = KeyedDecodingContainer.decode(_:forKey:)();
-    v59 = 0;
-    v24 = v23;
+    v54 = v30;
+    v74 = v104;
+    v75 = v105;
+    v139 = v106;
+    v83 = 6;
+    v35 = KeyedDecodingContainer.decode(_:forKey:)();
+    v71 = 0;
+    v36 = v35;
     (*(v6 + 8))(v8, v5);
-    v38 = v24 & 1;
-    v25 = v131;
-    *v70 = v131;
-    *&v70[8] = v11;
-    *&v70[16] = v12;
-    v41 = v13;
-    v39 = v12;
-    v36 = v11;
-    v26 = v61;
-    *&v70[24] = v13;
-    *&v70[32] = v61;
-    v27 = v43;
-    v28 = v51;
-    v29 = v52;
-    *&v70[40] = v43;
-    *&v70[48] = v51;
-    *&v70[56] = v52;
-    *&v70[64] = v15;
-    *&v70[72] = v16;
-    *&v70[80] = v17;
-    *&v70[88] = v22;
-    *&v70[96] = v19;
-    *&v70[104] = v50;
-    *&v70[112] = v49;
-    *&v70[120] = v48;
-    v40 = v20;
-    *&v70[128] = v20;
-    *&v70[136] = v47;
-    v30 = v45;
-    *&v70[144] = v46;
-    *&v70[152] = v45;
-    v70[160] = v42;
-    *&v70[161] = v129[0];
-    *&v70[164] = *(v129 + 3);
-    v32 = v57;
-    v31 = v58;
-    *&v70[168] = v57;
-    *&v70[176] = v66;
-    *&v70[184] = v67;
-    v33 = v60;
-    *&v70[192] = v68;
-    *&v70[200] = v60;
-    *&v70[208] = v65;
-    *&v70[216] = v64;
-    *&v70[224] = v58;
-    v34 = v69;
-    v70[232] = v69;
-    *&v70[233] = *v128;
-    *&v70[236] = *&v128[3];
-    *&v70[240] = v62;
-    *&v70[248] = v63;
-    v37 = v127;
-    v70[256] = v127;
-    v70[257] = v38;
-    memcpy(v44, v70, 0x102uLL);
-    outlined init with copy of InkBehavior(v70, &v92);
-    __swift_destroy_boxed_opaque_existential_0(v56);
-    v92 = v25;
-    v93 = v36;
-    v94 = v39;
-    v95 = v41;
-    v96 = v26;
-    v97 = v27;
-    v98 = v28;
-    v99 = v29;
-    v100 = v15;
-    v101 = v16;
-    v102 = v17;
-    v103 = v22;
-    v104 = v19;
-    v105 = v50;
-    v106 = v49;
-    v107 = v48;
-    v108 = v40;
-    v109 = v47;
-    v110 = v46;
-    v111 = v30;
-    v112 = v42;
-    *v113 = v129[0];
-    *&v113[3] = *(v129 + 3);
-    v114 = v32;
-    v115 = v66;
-    v116 = v67;
-    v117 = v68;
-    v118 = v33;
-    v119 = v65;
-    v120 = v64;
-    v121 = v31;
-    v122 = v34;
-    *v123 = *v128;
-    *&v123[3] = *&v128[3];
-    v124 = v62;
-    v125 = v63;
-    LOBYTE(v126) = v37;
-    HIBYTE(v126) = v38;
+    v50 = v36 & 1;
+    v37 = v143;
+    *v82 = v143;
+    *&v82[8] = v17;
+    *&v82[16] = v18;
+    v53 = v19;
+    v51 = v18;
+    v48 = v17;
+    v38 = v73;
+    *&v82[24] = v19;
+    *&v82[32] = v73;
+    v39 = v55;
+    v40 = v63;
+    v41 = v64;
+    *&v82[40] = v55;
+    *&v82[48] = v63;
+    *&v82[56] = v64;
+    *&v82[64] = v22;
+    *&v82[72] = v23;
+    *&v82[80] = v24;
+    *&v82[88] = v32;
+    *&v82[96] = v28;
+    *&v82[104] = v62;
+    *&v82[112] = v61;
+    *&v82[120] = v60;
+    v52 = v29;
+    *&v82[128] = v29;
+    *&v82[136] = v59;
+    v42 = v57;
+    *&v82[144] = v58;
+    *&v82[152] = v57;
+    v82[160] = v54;
+    *&v82[161] = v141[0];
+    *&v82[164] = *(v141 + 3);
+    v44 = v69;
+    v43 = v70;
+    *&v82[168] = v69;
+    *&v82[176] = v78;
+    *&v82[184] = v79;
+    v45 = v72;
+    *&v82[192] = v80;
+    *&v82[200] = v72;
+    *&v82[208] = v77;
+    *&v82[216] = v76;
+    *&v82[224] = v70;
+    v46 = v81;
+    v82[232] = v81;
+    *&v82[233] = *v140;
+    *&v82[236] = *&v140[3];
+    *&v82[240] = v74;
+    *&v82[248] = v75;
+    v49 = v139;
+    v82[256] = v139;
+    v82[257] = v50;
+    memcpy(v56, v82, 0x102uLL);
+    outlined init with copy of InkBehavior(v82, &v104);
+    __swift_destroy_boxed_opaque_existential_0(v68);
+    v104 = v37;
+    v105 = v48;
+    v106 = v51;
+    v107 = v53;
+    v108 = v38;
+    v109 = v39;
+    v110 = v40;
+    v111 = v41;
+    v112 = v22;
+    v113 = v23;
+    v114 = v24;
+    v115 = v32;
+    v116 = v28;
+    v117 = v62;
+    v118 = v61;
+    v119 = v60;
+    v120 = v52;
+    v121 = v59;
+    v122 = v58;
+    v123 = v42;
+    v124 = v54;
+    *v125 = v141[0];
+    *&v125[3] = *(v141 + 3);
+    v126 = v44;
+    v127 = v78;
+    v128 = v79;
+    v129 = v80;
+    v130 = v45;
+    v131 = v77;
+    v132 = v76;
+    v133 = v43;
+    v134 = v46;
+    *v135 = *v140;
+    *&v135[3] = *&v140[3];
+    v136 = v74;
+    v137 = v75;
+    LOBYTE(v138) = v49;
+    HIBYTE(v138) = v50;
   }
 
-  return outlined destroy of InkBehavior(&v92);
+  return outlined destroy of InkBehavior(&v104);
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -3466,14 +3466,14 @@ uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t a1)
 
 uint64_t outlined destroy of InkFunction(uint64_t a1)
 {
-  v2 = type metadata accessor for InkFunction();
+  v2 = type metadata accessor for InkFunction(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
 uint64_t outlined destroy of InkDescriptorParticles?(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PencilKit22InkDescriptorParticlesVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PencilKit22InkDescriptorParticlesVSgMd, &_s9PencilKit22InkDescriptorParticlesVSgMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -3485,324 +3485,284 @@ char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacit
   return result;
 }
 
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySNy12CoreGraphics7CGFloatVGGMd);
-  *v3 = result;
-  return result;
-}
-
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCy9PencilKit8PKStrokeVGMd);
-  *v3 = result;
-  return result;
-}
-
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCy9PencilKit13PKStrokePointVGMd);
-  *v3 = result;
-  return result;
-}
-
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
-  *v3 = result;
-  return result;
-}
-
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySo7CGPointVGMd);
-  *v3 = result;
-  return result;
-}
-
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
-  *v3 = result;
-  return result;
-}
-
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
-  *v3 = result;
-  return result;
-}
-
 uint64_t InkRendering.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9PencilKit12InkRenderingV10CodingKeys33_1629EF4F71A70372363BC5E8C6DB6C1CLLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9PencilKit12InkRenderingV10CodingKeys33_1629EF4F71A70372363BC5E8C6DB6C1CLLOGMd, &_ss22KeyedDecodingContainerVy9PencilKit12InkRenderingV10CodingKeys33_1629EF4F71A70372363BC5E8C6DB6C1CLLOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
-  v8 = &v34 - v7;
+  v8 = &v43 - v7;
   v9 = a1[3];
-  v52 = a1;
-  __swift_project_boxed_opaque_existential_1(a1, v9);
-  lazy protocol witness table accessor for type InkRendering.CodingKeys and conformance InkRendering.CodingKeys();
-  dispatch thunk of Decoder.container<A>(keyedBy:)();
+  v61 = a1;
+  v10 = __swift_project_boxed_opaque_existential_1(a1, v9);
+  lazy protocol witness table accessor for type InkRendering.CodingKeys and conformance InkRendering.CodingKeys(v10, v11, v12);
+  v13 = dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (v2)
   {
-    v53 = v2;
-    v54 = 0;
+    v62 = v2;
+    v63 = 0;
+    v140 = 0;
+    v69 = 0;
+    v70 = 0;
+    v67 = 0;
+    v68 = 0;
+    v65 = 0;
+    v66 = 0;
+    v64 = 0;
+    __swift_destroy_boxed_opaque_existential_0(v61);
+    LOBYTE(v118) = 0;
+    v119 = 0;
+    v120 = v63;
+    v121 = v140;
+    v122 = v70;
+    v123 = v69;
+    v124 = v68;
+    v125 = v67;
+    v126 = v66;
+    v127 = v65;
+    v128 = v64;
+    v129 = 0;
+    v130 = 0;
     v131 = 0;
-    v60 = 0;
-    v61 = 0;
-    v58 = 0;
-    v59 = 0;
-    v56 = 0;
-    v57 = 0;
-    v55 = 0;
-    __swift_destroy_boxed_opaque_existential_0(v52);
-    v109[0] = 0;
-    v110 = 0;
-    v111 = v54;
-    v112 = v131;
-    v113 = v61;
-    v114 = v60;
-    v115 = v59;
-    v116 = v58;
-    v117 = v57;
-    v118 = v56;
-    v119 = v55;
-    v120 = 0;
-    v121 = 0;
-    v122 = 0;
-    v124 = 0;
-    v123 = 0;
-    v125 = 0u;
-    v126 = 0u;
-    v127 = 0u;
-    v128 = 0u;
-    v129 = 0u;
-    memset(v130, 0, 27);
+    v133 = 0;
+    v132 = 0;
+    v134 = 0u;
+    v135 = 0u;
+    v136 = 0u;
+    v137 = 0u;
+    v138 = 0u;
+    memset(v139, 0, 27);
   }
 
   else
   {
-    v51 = v6;
-    LOBYTE(v63) = 0;
-    lazy protocol witness table accessor for type InkRendering.BlendMode and conformance InkRendering.BlendMode();
-    KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v50 = v109[0];
-    v93[119] = 1;
-    lazy protocol witness table accessor for type InkDescriptorParticles and conformance InkDescriptorParticles();
+    v60 = v6;
+    LOBYTE(v72) = 0;
+    lazy protocol witness table accessor for type InkRendering.BlendMode and conformance InkRendering.BlendMode(v13, v14, v15);
+    v16 = KeyedDecodingContainer.decode<A>(_:forKey:)();
+    v59 = v118;
+    v102[119] = 1;
+    lazy protocol witness table accessor for type InkDescriptorParticles and conformance InkDescriptorParticles(v16, v18, v19);
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v48 = a2;
-    v49 = v94;
-    v54 = v95;
-    v131 = v96;
-    v60 = v98;
-    v61 = v97;
-    v58 = v100;
-    v59 = v99;
-    v56 = v102;
-    v57 = v101;
-    v55 = v103;
-    v11 = v104;
-    v12 = v105;
-    v13 = v106;
-    v14 = v107 | (v108 << 16);
-    memset(v93, 0, 107);
-    outlined destroy of InkDescriptorParticles?(v93);
-    v77 = 2;
+    v57 = a2;
+    v58 = v103;
+    v63 = v104;
+    v140 = v105;
+    v69 = v107;
+    v70 = v106;
+    v67 = v109;
+    v68 = v108;
+    v65 = v111;
+    v66 = v110;
+    v64 = v112;
+    v20 = v113;
+    v21 = v114;
+    v22 = v115;
+    v23 = v116 | (v117 << 16);
+    memset(v102, 0, 107);
+    outlined destroy of InkDescriptorParticles?(v102);
+    v86 = 2;
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v53 = 0;
-    (*(v51 + 8))(v8, v5);
-    v15 = v78;
-    v36 = v78;
-    v34 = v79;
-    v51 = v80;
-    v46 = v82;
-    v47 = v81;
-    v44 = v84;
-    v45 = v83;
-    v42 = v86;
-    v43 = v85;
-    v40 = v88;
-    v41 = v87;
-    v38 = v90;
-    v39 = v89;
-    v16 = v91;
-    v37 = v92;
-    memset(v62, 0, 107);
-    outlined destroy of InkDescriptorParticles?(v62);
-    v17 = v54;
-    *(&v63 + 1) = v49;
-    *&v64 = v54;
-    *(&v64 + 1) = v131;
-    *&v65 = v61;
-    *(&v65 + 1) = v60;
-    *&v66 = v59;
-    *(&v66 + 1) = v58;
-    *&v67 = v57;
-    *(&v67 + 1) = v56;
-    *&v68 = v55;
-    *(&v68 + 1) = v11;
-    *&v69 = v12;
-    *(&v69 + 1) = v13;
-    v35 = HIWORD(v14);
-    BYTE2(v70) = BYTE2(v14);
-    LOWORD(v70) = v14;
-    *(&v70 + 1) = v15;
-    v18 = v34;
-    *&v71 = v34;
-    *(&v71 + 1) = v51;
-    *&v72 = v47;
-    *(&v72 + 1) = v46;
-    *&v73 = v45;
-    *(&v73 + 1) = v44;
-    *&v74 = v43;
-    *(&v74 + 1) = v42;
-    *&v75 = v41;
-    *(&v75 + 1) = v40;
-    *v76 = v39;
-    *&v76[8] = v38;
-    v76[18] = v37;
-    *&v76[16] = v16;
-    v19 = v70;
-    v20 = v71;
-    v21 = v72;
-    v22 = v73;
-    v23 = v64;
-    v24 = v65;
-    v25 = v66;
-    v26 = v67;
-    v27 = v68;
-    v28 = v69;
-    v29 = v74;
-    v30 = v75;
-    v31 = *v76;
-    v32 = v48;
-    *(v48 + 223) = *&v76[15];
-    v33 = v50;
-    LOBYTE(v63) = v50;
-    v32[8] = v20;
-    v32[9] = v21;
-    *v32 = v63;
-    v32[1] = v23;
-    v32[6] = v28;
-    v32[7] = v19;
-    v32[4] = v26;
-    v32[5] = v27;
-    v32[2] = v24;
-    v32[3] = v25;
-    v32[12] = v30;
-    v32[13] = v31;
-    v32[10] = v22;
-    v32[11] = v29;
-    outlined init with copy of InkRendering(&v63, v109);
-    __swift_destroy_boxed_opaque_existential_0(v52);
-    v109[0] = v33;
-    v110 = v49;
-    v111 = v17;
-    v112 = v131;
-    v113 = v61;
-    v114 = v60;
-    v115 = v59;
-    v116 = v58;
-    v117 = v57;
-    v118 = v56;
-    v119 = v55;
-    v120 = v11;
-    v121 = v12;
-    v122 = v13;
-    v124 = v35;
-    v123 = v14;
-    *&v125 = v36;
-    *(&v125 + 1) = v18;
-    *&v126 = v51;
-    *(&v126 + 1) = v47;
-    *&v127 = v46;
-    *(&v127 + 1) = v45;
-    *&v128 = v44;
-    *(&v128 + 1) = v43;
-    *&v129 = v42;
-    *(&v129 + 1) = v41;
-    v130[0] = v40;
-    v130[1] = v39;
-    v130[2] = v38;
-    BYTE2(v130[3]) = v37;
-    LOWORD(v130[3]) = v16;
+    v62 = 0;
+    (*(v60 + 8))(v8, v5);
+    v24 = v87;
+    v45 = v87;
+    v43 = v88;
+    v60 = v89;
+    v55 = v91;
+    v56 = v90;
+    v53 = v93;
+    v54 = v92;
+    v51 = v95;
+    v52 = v94;
+    v49 = v97;
+    v50 = v96;
+    v47 = v99;
+    v48 = v98;
+    v25 = v100;
+    v46 = v101;
+    memset(v71, 0, 107);
+    outlined destroy of InkDescriptorParticles?(v71);
+    v26 = v63;
+    *(&v72 + 1) = v58;
+    *&v73 = v63;
+    *(&v73 + 1) = v140;
+    *&v74 = v70;
+    *(&v74 + 1) = v69;
+    *&v75 = v68;
+    *(&v75 + 1) = v67;
+    *&v76 = v66;
+    *(&v76 + 1) = v65;
+    *&v77 = v64;
+    *(&v77 + 1) = v20;
+    *&v78 = v21;
+    *(&v78 + 1) = v22;
+    v44 = HIWORD(v23);
+    BYTE2(v79) = BYTE2(v23);
+    LOWORD(v79) = v23;
+    *(&v79 + 1) = v24;
+    v27 = v43;
+    *&v80 = v43;
+    *(&v80 + 1) = v60;
+    *&v81 = v56;
+    *(&v81 + 1) = v55;
+    *&v82 = v54;
+    *(&v82 + 1) = v53;
+    *&v83 = v52;
+    *(&v83 + 1) = v51;
+    *&v84 = v50;
+    *(&v84 + 1) = v49;
+    *v85 = v48;
+    *&v85[8] = v47;
+    v85[18] = v46;
+    *&v85[16] = v25;
+    v28 = v79;
+    v29 = v80;
+    v30 = v81;
+    v31 = v82;
+    v32 = v73;
+    v33 = v74;
+    v34 = v75;
+    v35 = v76;
+    v36 = v77;
+    v37 = v78;
+    v38 = v83;
+    v39 = v84;
+    v40 = *v85;
+    v41 = v57;
+    *(v57 + 223) = *&v85[15];
+    v42 = v59;
+    LOBYTE(v72) = v59;
+    v41[8] = v29;
+    v41[9] = v30;
+    *v41 = v72;
+    v41[1] = v32;
+    v41[6] = v37;
+    v41[7] = v28;
+    v41[4] = v35;
+    v41[5] = v36;
+    v41[2] = v33;
+    v41[3] = v34;
+    v41[12] = v39;
+    v41[13] = v40;
+    v41[10] = v31;
+    v41[11] = v38;
+    outlined init with copy of InkRendering(&v72, &v118);
+    __swift_destroy_boxed_opaque_existential_0(v61);
+    LOBYTE(v118) = v42;
+    v119 = v58;
+    v120 = v26;
+    v121 = v140;
+    v122 = v70;
+    v123 = v69;
+    v124 = v68;
+    v125 = v67;
+    v126 = v66;
+    v127 = v65;
+    v128 = v64;
+    v129 = v20;
+    v130 = v21;
+    v131 = v22;
+    v133 = v44;
+    v132 = v23;
+    *&v134 = v45;
+    *(&v134 + 1) = v27;
+    *&v135 = v60;
+    *(&v135 + 1) = v56;
+    *&v136 = v55;
+    *(&v136 + 1) = v54;
+    *&v137 = v53;
+    *(&v137 + 1) = v52;
+    *&v138 = v51;
+    *(&v138 + 1) = v50;
+    v139[0] = v49;
+    v139[1] = v48;
+    v139[2] = v47;
+    BYTE2(v139[3]) = v46;
+    LOWORD(v139[3]) = v25;
   }
 
-  return outlined destroy of InkRendering(v109);
+  return outlined destroy of InkRendering(&v118);
 }
 
 uint64_t outlined init with copy of InkFunction(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for InkFunction();
+  v4 = type metadata accessor for InkFunction(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t InkSmoothing.init(from:)@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9PencilKit12InkSmoothingV10CodingKeys33_1629EF4F71A70372363BC5E8C6DB6C1CLLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9PencilKit12InkSmoothingV10CodingKeys33_1629EF4F71A70372363BC5E8C6DB6C1CLLOGMd, &_ss22KeyedDecodingContainerVy9PencilKit12InkSmoothingV10CodingKeys33_1629EF4F71A70372363BC5E8C6DB6C1CLLOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
-  v8 = &v15 - v7;
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  lazy protocol witness table accessor for type InkSmoothing.CodingKeys and conformance InkSmoothing.CodingKeys();
-  dispatch thunk of Decoder.container<A>(keyedBy:)();
+  v8 = &v21 - v7;
+  v9 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  lazy protocol witness table accessor for type InkSmoothing.CodingKeys and conformance InkSmoothing.CodingKeys(v9, v10, v11);
+  v12 = dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (!v2)
   {
-    v16 = 0;
-    lazy protocol witness table accessor for type CGFloat and conformance CGFloat();
+    v22 = 0;
+    lazy protocol witness table accessor for type CGFloat and conformance CGFloat(v12, v13, v14);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v9 = v17;
-    v16 = 1;
+    v15 = v23;
+    v22 = 1;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v10 = v17;
-    v16 = 2;
+    v16 = v23;
+    v22 = 2;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v11 = v17;
-    v16 = 3;
+    v17 = v23;
+    v22 = 3;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v13 = v17;
-    v16 = 4;
+    v19 = v23;
+    v22 = 4;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     (*(v6 + 8))(v8, v5);
-    v14 = v17;
-    *a2 = v9;
-    a2[1] = v10;
-    a2[2] = v11;
-    a2[3] = v13;
-    a2[4] = v14;
+    v20 = v23;
+    *a2 = v15;
+    a2[1] = v16;
+    a2[2] = v17;
+    a2[3] = v19;
+    a2[4] = v20;
   }
 
   return __swift_destroy_boxed_opaque_existential_0(a1);
 }
 
-uint64_t specialized static PKInkBehavior.loadInkV2(url:)()
+id specialized static PKInkBehavior.loadInkV2(url:)(uint64_t a1)
 {
   type metadata accessor for PropertyListDecoder();
   swift_allocObject();
   PropertyListDecoder.init()();
-  v0 = Data.init(contentsOf:options:)();
-  v2 = v1;
-  lazy protocol witness table accessor for type InkDescriptor and conformance InkDescriptor();
+  v1 = Data.init(contentsOf:options:)();
+  v3 = v2;
+  lazy protocol witness table accessor for type InkDescriptor and conformance InkDescriptor(v1, v2, v4);
   dispatch thunk of PropertyListDecoder.decode<A>(_:from:)();
-  outlined consume of Data._Representation(v0, v2);
+  outlined consume of Data._Representation(v1, v3);
   memcpy(__dst, __src, 0x221uLL);
-  memcpy(v5, __src, 0x221uLL);
-  v3 = specialized InkDescriptor.objc(variant:textureLoader:)(0x746C7561666564, 0xE700000000000000, v5);
+  memcpy(v7, __src, 0x221uLL);
+  v5 = specialized InkDescriptor.objc(variant:textureLoader:)(0x746C7561666564, 0xE700000000000000, v7);
 
   outlined destroy of InkDescriptor(__dst);
-  return v3;
+  return v5;
 }
 
 id InkFunction.objc(property:)(uint64_t a1)
 {
   v53 = a1;
-  v2 = type metadata accessor for InkFunction();
+  v2 = type metadata accessor for InkFunction(0);
   v3 = *(v1 + *(v2 + 36));
   v57 = v1;
-  v4 = specialized Sequence.compactMap<A>(_:)(partial apply for closure #1 in InkFunction.objc(property:), v56, v3);
+  isUniquelyReferenced_nonNull_native = specialized Sequence.compactMap<A>(_:)(partial apply for closure #1 in InkFunction.objc(property:), v56, v3);
   v54 = v3;
   v55 = v2;
   v5 = v1 + *(v2 + 28);
   v6 = *(v5 + 16);
-  v52 = v4;
+  v52 = isUniquelyReferenced_nonNull_native;
   if (v6)
   {
+
+    v7 = isUniquelyReferenced_nonNull_native;
   }
 
   else
@@ -3821,16 +3781,19 @@ id InkFunction.objc(property:)(uint64_t a1)
         if (!(v9 + 3 * (v10 / 3)))
         {
           v14 = *v13;
-          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+          if ((isUniquelyReferenced_nonNull_native & 1) == 0)
           {
-            v7 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v7 + 16) + 1, 1, v7);
+            isUniquelyReferenced_nonNull_native = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v7 + 16) + 1, 1, v7);
+            v7 = isUniquelyReferenced_nonNull_native;
           }
 
           v16 = *(v7 + 16);
           v15 = *(v7 + 24);
           if (v16 >= v15 >> 1)
           {
-            v7 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v15 > 1), v16 + 1, 1, v7);
+            isUniquelyReferenced_nonNull_native = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v15 > 1), v16 + 1, 1, v7);
+            v7 = isUniquelyReferenced_nonNull_native;
           }
 
           *(v7 + 16) = v16 + 1;
@@ -3852,17 +3815,17 @@ id InkFunction.objc(property:)(uint64_t a1)
     }
   }
 
-  (MEMORY[0x1EEE9AC00])();
+  MEMORY[0x1EEE9AC00](isUniquelyReferenced_nonNull_native);
   v49 = v1;
   v17 = v54;
-  isUniquelyReferenced_nonNull_native = specialized Sequence.compactMap<A>(_:)(partial apply for closure #3 in InkFunction.objc(property:), &v48, v54);
+  v18 = specialized Sequence.compactMap<A>(_:)(partial apply for closure #3 in InkFunction.objc(property:), &v48, v54);
   v50 = 0;
-  v51 = isUniquelyReferenced_nonNull_native;
+  v51 = v18;
   v19 = v1 + v55[8];
   if (*(v19 + 16))
   {
 
-    v20 = isUniquelyReferenced_nonNull_native;
+    v20 = v18;
   }
 
   else
@@ -3882,19 +3845,19 @@ id InkFunction.objc(property:)(uint64_t a1)
         if (!(v23 + 3 * (v24 / 3)))
         {
           v28 = *v26;
-          isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-          if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+          v18 = swift_isUniquelyReferenced_nonNull_native();
+          if ((v18 & 1) == 0)
           {
-            isUniquelyReferenced_nonNull_native = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v20 + 16) + 1, 1, v20);
-            v20 = isUniquelyReferenced_nonNull_native;
+            v18 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v20 + 16) + 1, 1, v20);
+            v20 = v18;
           }
 
           v30 = *(v20 + 16);
           v29 = *(v20 + 24);
           if (v30 >= v29 >> 1)
           {
-            isUniquelyReferenced_nonNull_native = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v29 > 1), v30 + 1, 1, v20);
-            v20 = isUniquelyReferenced_nonNull_native;
+            v18 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v29 > 1), v30 + 1, 1, v20);
+            v20 = v18;
           }
 
           *(v20 + 16) = v30 + 1;
@@ -3916,7 +3879,7 @@ id InkFunction.objc(property:)(uint64_t a1)
     }
   }
 
-  MEMORY[0x1EEE9AC00](isUniquelyReferenced_nonNull_native);
+  MEMORY[0x1EEE9AC00](v18);
   v49 = v1;
   v31 = specialized Sequence.flatMap<A>(_:)(partial apply for closure #5 in InkFunction.objc(property:), &v48, v54);
   v32 = qword_1C801B7E0[*(v1 + v55[5])];
@@ -3964,20 +3927,20 @@ id InkFunction.objc(property:)(uint64_t a1)
 
 uint64_t InkFunction.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v30 = a2;
-  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9PencilKit11InkFunctionV10CodingKeysOGMd);
-  v35 = *(v37 - 8);
-  MEMORY[0x1EEE9AC00](v37);
-  v4 = &v27 - v3;
-  v5 = type metadata accessor for InkFunction();
+  v39 = a2;
+  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9PencilKit11InkFunctionV10CodingKeysOGMd, &_ss22KeyedDecodingContainerVy9PencilKit11InkFunctionV10CodingKeysOGMR);
+  v44 = *(v46 - 8);
+  MEMORY[0x1EEE9AC00](v46);
+  v4 = &v36 - v3;
+  v5 = type metadata accessor for InkFunction(0);
   v6 = (v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
-  v8 = &v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v36 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   UUID.init()();
-  v34 = v6[7];
-  v8[v34] = 3;
-  v33 = v6[8];
-  *&v8[v33] = xmmword_1C8019980;
+  v43 = v6[7];
+  v8[v43] = 3;
+  v42 = v6[8];
+  *&v8[v42] = xmmword_1C8019980;
   v9 = &v8[v6[9]];
   *v9 = 0;
   *(v9 + 1) = 0;
@@ -3988,89 +3951,89 @@ uint64_t InkFunction.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
   v10[16] = 1;
   v11 = v6[11];
   *&v8[v11] = &outlined read-only object #0 of InkFunction.init(from:);
-  v31 = v6[12];
-  v32 = v11;
-  *&v8[v31] = 0;
+  v40 = v6[12];
+  v41 = v11;
+  *&v8[v40] = 0;
   v12 = v6[13];
   v8[v12] = 0;
   v13 = v6[14];
-  v39 = v8;
-  v40 = a1;
+  v48 = v8;
+  v49 = a1;
   v8[v13] = 0;
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  lazy protocol witness table accessor for type InkFunction.CodingKeys and conformance InkFunction.CodingKeys();
-  v36 = v4;
-  v14 = v38;
-  dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v14)
+  v14 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  lazy protocol witness table accessor for type InkFunction.CodingKeys and conformance InkFunction.CodingKeys(v14, v15, v16);
+  v45 = v4;
+  v17 = v47;
+  v18 = dispatch thunk of Decoder.container<A>(keyedBy:)();
+  if (v17)
   {
-    v15 = v39;
+    v21 = v48;
   }
 
   else
   {
-    v17 = v33;
-    v16 = v34;
-    v38 = v9;
-    v28 = v12;
-    v29 = v10;
-    v27 = v13;
-    v18 = v35;
-    v43 = 0;
-    lazy protocol witness table accessor for type InkFunction.Input and conformance InkFunction.Input();
+    v23 = v42;
+    v22 = v43;
+    v47 = v9;
+    v37 = v12;
+    v38 = v10;
+    v36 = v13;
+    v24 = v44;
+    v52 = 0;
+    lazy protocol witness table accessor for type InkFunction.Input and conformance InkFunction.Input(v18, v19, v20);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v15 = v39;
-    v39[v16] = v41;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSNy12CoreGraphics7CGFloatVGMd);
-    v43 = 1;
-    lazy protocol witness table accessor for type ClosedRange<CGFloat> and conformance <> ClosedRange<A>(&lazy protocol witness table cache variable for type ClosedRange<CGFloat> and conformance <> ClosedRange<A>, lazy protocol witness table accessor for type CGFloat and conformance CGFloat);
+    v21 = v48;
+    v48[v22] = v50;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSNy12CoreGraphics7CGFloatVGMd, &_sSNy12CoreGraphics7CGFloatVGMR);
+    v52 = 1;
+    lazy protocol witness table accessor for type ClosedRange<CGFloat> and conformance <> ClosedRange<A>(&lazy protocol witness table cache variable for type ClosedRange<CGFloat> and conformance <> ClosedRange<A>, lazy protocol witness table accessor for type CGFloat and conformance CGFloat, MEMORY[0x1E69E5FC0]);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    *(v15 + v17) = v41;
-    v43 = 2;
+    *(v21 + v23) = v50;
+    v52 = 2;
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v19 = v42;
-    v20 = v38;
-    *v38 = v41;
-    v20[16] = v19;
-    v43 = 3;
+    v25 = v51;
+    v26 = v47;
+    *v47 = v50;
+    v26[16] = v25;
+    v52 = 3;
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v21 = v42;
-    v22 = v29;
-    *v29 = v41;
-    v22[16] = v21;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo7CGPointVGMd);
-    v43 = 4;
-    lazy protocol witness table accessor for type [CGPoint] and conformance <A> [A](&lazy protocol witness table cache variable for type [CGPoint] and conformance <A> [A], &lazy protocol witness table cache variable for type CGPoint and conformance CGPoint);
+    v27 = v51;
+    v28 = v38;
+    *v38 = v50;
+    v28[16] = v27;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo7CGPointVGMd, &_sSaySo7CGPointVGMR);
+    v52 = 4;
+    lazy protocol witness table accessor for type [CGPoint] and conformance <A> [A](&lazy protocol witness table cache variable for type [CGPoint] and conformance <A> [A], &lazy protocol witness table cache variable for type CGPoint and conformance CGPoint, MEMORY[0x1E695EFC0], MEMORY[0x1E69E6330]);
+    v29 = KeyedDecodingContainer.decode<A>(_:forKey:)();
+    *(v21 + v41) = v50;
+    v52 = 5;
+    lazy protocol witness table accessor for type InkFunction.InputProperties and conformance InkFunction.InputProperties(v29, v30, v31);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    *(v15 + v32) = v41;
-    v43 = 5;
-    lazy protocol witness table accessor for type InkFunction.InputProperties and conformance InkFunction.InputProperties();
-    KeyedDecodingContainer.decode<A>(_:forKey:)();
-    *(v15 + v31) = v41;
-    LOBYTE(v41) = 6;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PencilKit16DecodableDefaultVyAA11InkFunctionV4MathOGMd);
-    lazy protocol witness table accessor for type DecodableDefault<Bool> and conformance DecodableDefault<A>(&lazy protocol witness table cache variable for type DecodableDefault<InkFunction.Math> and conformance DecodableDefault<A>, &_s9PencilKit16DecodableDefaultVyAA11InkFunctionV4MathOGMd);
+    *(v21 + v40) = v50;
+    LOBYTE(v50) = 6;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PencilKit16DecodableDefaultVyAA11InkFunctionV4MathOGMd, &_s9PencilKit16DecodableDefaultVyAA11InkFunctionV4MathOGMR);
+    lazy protocol witness table accessor for type DecodableDefault<Bool> and conformance DecodableDefault<A>(&lazy protocol witness table cache variable for type DecodableDefault<InkFunction.Math> and conformance DecodableDefault<A>, &_s9PencilKit16DecodableDefaultVyAA11InkFunctionV4MathOGMd, &_s9PencilKit16DecodableDefaultVyAA11InkFunctionV4MathOGMR, &protocol conformance descriptor for DecodableDefault<A>);
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v24 = v43;
-    if (v43 == 5)
+    v33 = v52;
+    if (v52 == 5)
     {
-      v24 = 0;
+      v33 = 0;
     }
 
-    *(v15 + v28) = v24;
-    LOBYTE(v41) = 7;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PencilKit16DecodableDefaultVySbGMd);
-    lazy protocol witness table accessor for type DecodableDefault<Bool> and conformance DecodableDefault<A>(&lazy protocol witness table cache variable for type DecodableDefault<Bool> and conformance DecodableDefault<A>, &_s9PencilKit16DecodableDefaultVySbGMd);
-    v25 = v36;
-    v26 = v37;
+    *(v21 + v37) = v33;
+    LOBYTE(v50) = 7;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PencilKit16DecodableDefaultVySbGMd, &_s9PencilKit16DecodableDefaultVySbGMR);
+    lazy protocol witness table accessor for type DecodableDefault<Bool> and conformance DecodableDefault<A>(&lazy protocol witness table cache variable for type DecodableDefault<Bool> and conformance DecodableDefault<A>, &_s9PencilKit16DecodableDefaultVySbGMd, &_s9PencilKit16DecodableDefaultVySbGMR, &protocol conformance descriptor for DecodableDefault<A>);
+    v34 = v45;
+    v35 = v46;
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    (*(v18 + 8))(v25, v26);
-    *(v15 + v27) = v43 & 1;
-    outlined init with copy of InkFunction(v15, v30);
+    (*(v24 + 8))(v34, v35);
+    *(v21 + v36) = v52 & 1;
+    outlined init with copy of InkFunction(v21, v39);
   }
 
-  __swift_destroy_boxed_opaque_existential_0(v40);
-  return outlined destroy of InkFunction(v15);
+  __swift_destroy_boxed_opaque_existential_0(v49);
+  return outlined destroy of InkFunction(v21);
 }
 
 id Array<A>.ns.getter(uint64_t a1)
@@ -4085,7 +4048,7 @@ id Array<A>.ns.getter(uint64_t a1)
     do
     {
       v5 = [objc_allocWithZone(MEMORY[0x1E696AD98]) initWithDouble_];
-      v13 = type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSNumber);
+      v13 = type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSNumber, 0x1E696AD98);
       v14 = v3;
       *&v12 = v5;
       v7 = *(v3 + 16);
@@ -4113,7 +4076,7 @@ id Array<A>.ns.getter(uint64_t a1)
   return v10;
 }
 
-uint64_t type metadata accessor for InkFunction()
+uint64_t type metadata accessor for InkFunction(uint64_t a1)
 {
   result = type metadata singleton initialization cache for InkFunction;
   if (!type metadata singleton initialization cache for InkFunction)
@@ -4124,7 +4087,7 @@ uint64_t type metadata accessor for InkFunction()
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type InkSmoothing and conformance InkSmoothing()
+unint64_t lazy protocol witness table accessor for type InkSmoothing and conformance InkSmoothing(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type InkSmoothing and conformance InkSmoothing;
   if (!lazy protocol witness table cache variable for type InkSmoothing and conformance InkSmoothing)
@@ -4147,7 +4110,7 @@ unint64_t lazy protocol witness table accessor for type InkSmoothing and conform
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type InkFunction.CodingKeys and conformance InkFunction.CodingKeys()
+unint64_t lazy protocol witness table accessor for type InkFunction.CodingKeys and conformance InkFunction.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type InkFunction.CodingKeys and conformance InkFunction.CodingKeys;
   if (!lazy protocol witness table cache variable for type InkFunction.CodingKeys and conformance InkFunction.CodingKeys)
@@ -4285,7 +4248,7 @@ unint64_t protocol witness for CodingKey.stringValue.getter in conformance InkDe
   }
 }
 
-unint64_t lazy protocol witness table accessor for type CGFloat and conformance CGFloat()
+unint64_t lazy protocol witness table accessor for type CGFloat and conformance CGFloat(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type CGFloat and conformance CGFloat;
   if (!lazy protocol witness table cache variable for type CGFloat and conformance CGFloat)
@@ -4319,7 +4282,7 @@ unint64_t lazy protocol witness table accessor for type CGFloat and conformance 
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type InkDescriptorParticles.ParticleRotation and conformance InkDescriptorParticles.ParticleRotation()
+unint64_t lazy protocol witness table accessor for type InkDescriptorParticles.ParticleRotation and conformance InkDescriptorParticles.ParticleRotation(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type InkDescriptorParticles.ParticleRotation and conformance InkDescriptorParticles.ParticleRotation;
   if (!lazy protocol witness table cache variable for type InkDescriptorParticles.ParticleRotation and conformance InkDescriptorParticles.ParticleRotation)
@@ -4387,7 +4350,7 @@ uint64_t closure #5 in InkFunction.objc(property:)@<X0>(uint64_t a1@<X0>, uint64
 
   v8 = *(a1 + 8);
   v7 = *(a1 + 16);
-  result = type metadata accessor for InkFunction();
+  result = type metadata accessor for InkFunction(0);
   if (v4 < -2)
   {
     __break(1u);
@@ -4420,7 +4383,7 @@ LABEL_11:
     v17 = (v13 + 48 * (v5 + 1));
     v18 = *v17;
     v19 = v17[1];
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12CoreGraphics7CGFloatVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12CoreGraphics7CGFloatVGMd, &_ss23_ContiguousArrayStorageCy12CoreGraphics7CGFloatVGMR);
     result = swift_allocObject();
     *(result + 16) = xmmword_1C80196F0;
     *(result + 32) = (v8 - v15) / (v18 - v15);
@@ -4437,12 +4400,12 @@ LABEL_12:
 
 uint64_t protocol witness for CodingKeyRepresentable.init<A>(codingKey:) in conformance InkBehavior.InkProperty(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v10 = lazy protocol witness table accessor for type InkBehavior.InkProperty and conformance InkBehavior.InkProperty();
+  v10 = lazy protocol witness table accessor for type InkBehavior.InkProperty and conformance InkBehavior.InkProperty(a1, a2, a3);
 
   return MEMORY[0x1EEE693D0](a1, a4, a2, a5, v10, a3);
 }
 
-unint64_t lazy protocol witness table accessor for type InkRendering.BlendMode and conformance InkRendering.BlendMode()
+unint64_t lazy protocol witness table accessor for type InkRendering.BlendMode and conformance InkRendering.BlendMode(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type InkRendering.BlendMode and conformance InkRendering.BlendMode;
   if (!lazy protocol witness table cache variable for type InkRendering.BlendMode and conformance InkRendering.BlendMode)
@@ -4487,7 +4450,7 @@ unint64_t lazy protocol witness table accessor for type InkRendering.BlendMode a
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type InkDescriptorParticles.CodingKeys and conformance InkDescriptorParticles.CodingKeys()
+unint64_t lazy protocol witness table accessor for type InkDescriptorParticles.CodingKeys and conformance InkDescriptorParticles.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type InkDescriptorParticles.CodingKeys and conformance InkDescriptorParticles.CodingKeys;
   if (!lazy protocol witness table cache variable for type InkDescriptorParticles.CodingKeys and conformance InkDescriptorParticles.CodingKeys)
@@ -4567,10 +4530,10 @@ uint64_t specialized Array._copyContents(initializing:)(uint64_t result, uint64_
       {
         if (v6 >= 1)
         {
-          lazy protocol witness table accessor for type DecodableDefault<Bool> and conformance DecodableDefault<A>(&lazy protocol witness table cache variable for type [PKInkFunction] and conformance [A], &_sSaySo13PKInkFunctionCGMd);
+          lazy protocol witness table accessor for type DecodableDefault<Bool> and conformance DecodableDefault<A>(&lazy protocol witness table cache variable for type [PKInkFunction] and conformance [A], &_sSaySo13PKInkFunctionCGMd, &_sSaySo13PKInkFunctionCGMR, MEMORY[0x1E69E6340]);
           for (i = 0; i != v6; ++i)
           {
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo13PKInkFunctionCGMd);
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo13PKInkFunctionCGMd, &_sSaySo13PKInkFunctionCGMR);
             v9 = specialized protocol witness for Collection.subscript.read in conformance [A](v13, i, a3);
             v11 = *v10;
             (v9)(v13, 0);
@@ -4588,7 +4551,7 @@ uint64_t specialized Array._copyContents(initializing:)(uint64_t result, uint64_
     {
       if (*((a3 & 0xFFFFFFFFFFFFFF8) + 0x10) <= a2)
       {
-        type metadata accessor for NSObject(0, &lazy cache variable for type metadata for PKInkFunction);
+        type metadata accessor for NSObject(0, &lazy cache variable for type metadata for PKInkFunction, off_1E82D42C8);
         swift_arrayInitWithCopy();
         return a3;
       }
@@ -4605,13 +4568,13 @@ LABEL_16:
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type [CGPoint] and conformance <A> [A](unint64_t *a1, unint64_t *a2)
+uint64_t lazy protocol witness table accessor for type [CGPoint] and conformance <A> [A](unint64_t *a1, unint64_t *a2, uint64_t a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo7CGPointVGMd);
-    lazy protocol witness table accessor for type CGSize and conformance CGSize(a2, type metadata accessor for CGPoint);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo7CGPointVGMd, &_sSaySo7CGPointVGMR);
+    lazy protocol witness table accessor for type CGSize and conformance CGSize(a2, type metadata accessor for CGPoint, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -4787,7 +4750,7 @@ LABEL_28:
   return v18();
 }
 
-unint64_t lazy protocol witness table accessor for type InkMask and conformance InkMask()
+unint64_t lazy protocol witness table accessor for type InkMask and conformance InkMask(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type InkMask and conformance InkMask;
   if (!lazy protocol witness table cache variable for type InkMask and conformance InkMask)
@@ -4909,7 +4872,7 @@ void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type InkSmoothing.CodingKeys and conformance InkSmoothing.CodingKeys()
+unint64_t lazy protocol witness table accessor for type InkSmoothing.CodingKeys and conformance InkSmoothing.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type InkSmoothing.CodingKeys and conformance InkSmoothing.CodingKeys;
   if (!lazy protocol witness table cache variable for type InkSmoothing.CodingKeys and conformance InkSmoothing.CodingKeys)
@@ -5058,7 +5021,7 @@ unint64_t protocol witness for CodingKey.stringValue.getter in conformance InkDe
   }
 }
 
-uint64_t protocol witness for CodingKey.stringValue.getter in conformance InkRendering.CodingKeys()
+unint64_t protocol witness for CodingKey.stringValue.getter in conformance InkRendering.CodingKeys()
 {
   v1 = 0x656C636974726170;
   if (*v0 != 1)
@@ -5173,7 +5136,7 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance InkFun
   }
 }
 
-uint64_t type metadata accessor for NSObject(uint64_t a1, unint64_t *a2)
+uint64_t type metadata accessor for NSObject(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -5473,7 +5436,7 @@ LABEL_17:
   return (v8 + 1);
 }
 
-unint64_t lazy protocol witness table accessor for type InkRendering.CodingKeys and conformance InkRendering.CodingKeys()
+unint64_t lazy protocol witness table accessor for type InkRendering.CodingKeys and conformance InkRendering.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type InkRendering.CodingKeys and conformance InkRendering.CodingKeys;
   if (!lazy protocol witness table cache variable for type InkRendering.CodingKeys and conformance InkRendering.CodingKeys)
@@ -5518,7 +5481,7 @@ unint64_t lazy protocol witness table accessor for type InkRendering.CodingKeys 
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type InkAnimationDescriptor and conformance InkAnimationDescriptor()
+unint64_t lazy protocol witness table accessor for type InkAnimationDescriptor and conformance InkAnimationDescriptor(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type InkAnimationDescriptor and conformance InkAnimationDescriptor;
   if (!lazy protocol witness table cache variable for type InkAnimationDescriptor and conformance InkAnimationDescriptor)
@@ -5579,13 +5542,13 @@ id specialized InkDescriptorParticles.objc(textureLoader:)(double *a1)
     v14 = a1[8];
     v16 = *(a1 + 5);
     v17 = *(a1 + 88);
-    v18 = MEMORY[0x1CCA6CE70](*&v2, v3);
+    v18 = MEMORY[0x1CCA6CE70](v2, v3);
     v7 = MEMORY[0x1CCA6CE70](v16, v7);
   }
 
   else
   {
-    v18 = MEMORY[0x1CCA6CE70](*&v2, v3);
+    v18 = MEMORY[0x1CCA6CE70](v2, v3);
     v17 = 0;
     v14 = 0.0;
     v15 = 1.0;
@@ -5601,16 +5564,16 @@ id specialized InkDescriptorParticles.objc(textureLoader:)(double *a1)
   return v19;
 }
 
-uint64_t specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(uint64_t a1)
+uint64_t specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(uint64_t a1, char a2)
 {
-  v3 = *v1;
+  v4 = *v2;
   result = swift_isUniquelyReferenced_nonNull_bridgeObject();
-  *v1 = v3;
+  *v2 = v4;
   if (result)
   {
-    if ((v3 & 0x8000000000000000) == 0 && (v3 & 0x4000000000000000) == 0)
+    if ((v4 & 0x8000000000000000) == 0 && (v4 & 0x4000000000000000) == 0)
     {
-      if (a1 <= *((v3 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      if (a1 <= *((v4 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
         return result;
       }
@@ -5619,7 +5582,7 @@ uint64_t specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(
     }
   }
 
-  else if ((v3 & 0x8000000000000000) == 0 && (v3 & 0x4000000000000000) == 0)
+  else if ((v4 & 0x8000000000000000) == 0 && (v4 & 0x4000000000000000) == 0)
   {
     goto LABEL_9;
   }
@@ -5627,11 +5590,11 @@ uint64_t specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(
   __CocoaSet.count.getter();
 LABEL_9:
   result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-  *v1 = result;
+  *v2 = result;
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type InkAnimationDescriptor.CodingKeys and conformance InkAnimationDescriptor.CodingKeys()
+unint64_t lazy protocol witness table accessor for type InkAnimationDescriptor.CodingKeys and conformance InkAnimationDescriptor.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type InkAnimationDescriptor.CodingKeys and conformance InkAnimationDescriptor.CodingKeys;
   if (!lazy protocol witness table cache variable for type InkAnimationDescriptor.CodingKeys and conformance InkAnimationDescriptor.CodingKeys)
@@ -5676,7 +5639,7 @@ unint64_t lazy protocol witness table accessor for type InkAnimationDescriptor.C
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type InkFunction.InputProperties and conformance InkFunction.InputProperties()
+unint64_t lazy protocol witness table accessor for type InkFunction.InputProperties and conformance InkFunction.InputProperties(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type InkFunction.InputProperties and conformance InkFunction.InputProperties;
   if (!lazy protocol witness table cache variable for type InkFunction.InputProperties and conformance InkFunction.InputProperties)
@@ -5743,7 +5706,7 @@ unint64_t lazy protocol witness table accessor for type InkFunction.InputPropert
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type InkBehavior.CodingKeys and conformance InkBehavior.CodingKeys()
+unint64_t lazy protocol witness table accessor for type InkBehavior.CodingKeys and conformance InkBehavior.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type InkBehavior.CodingKeys and conformance InkBehavior.CodingKeys;
   if (!lazy protocol witness table cache variable for type InkBehavior.CodingKeys and conformance InkBehavior.CodingKeys)
@@ -5861,19 +5824,19 @@ LABEL_17:
   return (v8 + 1);
 }
 
-void type metadata accessor for PKToolPickerCustomItemControlOptions(uint64_t a1, unint64_t *a2)
+void type metadata accessor for PKToolPickerCustomItemControlOptions(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
   }
 }
 
-unint64_t lazy protocol witness table accessor for type InkDescriptor.CodingKeys and conformance InkDescriptor.CodingKeys()
+unint64_t lazy protocol witness table accessor for type InkDescriptor.CodingKeys and conformance InkDescriptor.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type InkDescriptor.CodingKeys and conformance InkDescriptor.CodingKeys;
   if (!lazy protocol witness table cache variable for type InkDescriptor.CodingKeys and conformance InkDescriptor.CodingKeys)
@@ -5918,7 +5881,7 @@ unint64_t lazy protocol witness table accessor for type InkDescriptor.CodingKeys
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type InkDescriptor and conformance InkDescriptor()
+unint64_t lazy protocol witness table accessor for type InkDescriptor and conformance InkDescriptor(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type InkDescriptor and conformance InkDescriptor;
   if (!lazy protocol witness table cache variable for type InkDescriptor and conformance InkDescriptor)
@@ -5930,10 +5893,10 @@ unint64_t lazy protocol witness table accessor for type InkDescriptor and confor
   return result;
 }
 
-uint64_t type metadata completion function for DecodableDefault()
+uint64_t type metadata completion function for DecodableDefault(uint64_t a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -6111,7 +6074,7 @@ LABEL_17:
   return (v8 + 1);
 }
 
-unint64_t lazy protocol witness table accessor for type InkFunction.Input and conformance InkFunction.Input()
+unint64_t lazy protocol witness table accessor for type InkFunction.Input and conformance InkFunction.Input(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type InkFunction.Input and conformance InkFunction.Input;
   if (!lazy protocol witness table cache variable for type InkFunction.Input and conformance InkFunction.Input)
@@ -6167,9 +6130,9 @@ unint64_t lazy protocol witness table accessor for type InkFunction.Input and co
   return result;
 }
 
-unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -6303,7 +6266,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<PK
   return std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<PKOutputFunction>,PKOutputFunction*>>::~__exception_guard_exceptions[abi:ne200100](v9);
 }
 
-void std::vector<PKOutputFunction>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<PKOutputFunction>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x555555555555556)
   {
@@ -6975,7 +6938,7 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC9PencilKit11InkBehaviorV0E8Pr
   v1 = *(a1 + 16);
   if (v1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy9PencilKit11InkBehaviorV0E8PropertyOSayAC0E8FunctionVGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy9PencilKit11InkBehaviorV0E8PropertyOSayAC0E8FunctionVGGMd, &_ss18_DictionaryStorageCy9PencilKit11InkBehaviorV0E8PropertyOSayAC0E8FunctionVGGMR);
     v3 = static _DictionaryStorage.allocate(capacity:)();
 
     for (i = (a1 + 40); ; i += 2)
@@ -7110,7 +7073,7 @@ LABEL_20:
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type InkBehavior.InkProperty and conformance InkBehavior.InkProperty()
+unint64_t lazy protocol witness table accessor for type InkBehavior.InkProperty and conformance InkBehavior.InkProperty(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type InkBehavior.InkProperty and conformance InkBehavior.InkProperty;
   if (!lazy protocol witness table cache variable for type InkBehavior.InkProperty and conformance InkBehavior.InkProperty)
@@ -7244,18 +7207,18 @@ LABEL_20:
   return result;
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
-unint64_t lazy protocol witness table accessor for type InkBehavior and conformance InkBehavior()
+unint64_t lazy protocol witness table accessor for type InkBehavior and conformance InkBehavior(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type InkBehavior and conformance InkBehavior;
   if (!lazy protocol witness table cache variable for type InkBehavior and conformance InkBehavior)
@@ -7285,7 +7248,7 @@ void PKFunctionConstant::~PKFunctionConstant(PKFunction *this)
   JUMPOUT(0x1CCA6ECB0);
 }
 
-unint64_t lazy protocol witness table accessor for type InkRendering and conformance InkRendering()
+unint64_t lazy protocol witness table accessor for type InkRendering and conformance InkRendering(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type InkRendering and conformance InkRendering;
   if (!lazy protocol witness table cache variable for type InkRendering and conformance InkRendering)
@@ -7308,7 +7271,7 @@ unint64_t lazy protocol witness table accessor for type InkRendering and conform
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type InkFeathering and conformance InkFeathering()
+unint64_t lazy protocol witness table accessor for type InkFeathering and conformance InkFeathering(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type InkFeathering and conformance InkFeathering;
   if (!lazy protocol witness table cache variable for type InkFeathering and conformance InkFeathering)
@@ -7459,7 +7422,7 @@ uint64_t getEnumTagSinglePayload for InkDescriptorParticles(uint64_t a1, int a2)
   return (v2 + 1);
 }
 
-unint64_t lazy protocol witness table accessor for type InkDescriptorParticles and conformance InkDescriptorParticles()
+unint64_t lazy protocol witness table accessor for type InkDescriptorParticles and conformance InkDescriptorParticles(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type InkDescriptorParticles and conformance InkDescriptorParticles;
   if (!lazy protocol witness table cache variable for type InkDescriptorParticles and conformance InkDescriptorParticles)
@@ -7482,9 +7445,9 @@ unint64_t lazy protocol witness table accessor for type InkDescriptorParticles a
   return result;
 }
 
-uint64_t instantiation function for generic protocol witness table for CGFloat(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t (*a5)(void))
+uint64_t instantiation function for generic protocol witness table for CGFloat(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t), uint64_t (*a5)(void))
 {
-  *(a1 + 8) = a4();
+  *(a1 + 8) = a4(a1, a2, a3);
   result = a5();
   *(a1 + 16) = result;
   return result;
@@ -7508,7 +7471,7 @@ PencilKit::InkDescriptorParticles::ParticleRotation_optional __swiftcall InkDesc
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type InkDescriptorParticles.ParticleBlendMode and conformance InkDescriptorParticles.ParticleBlendMode()
+unint64_t lazy protocol witness table accessor for type InkDescriptorParticles.ParticleBlendMode and conformance InkDescriptorParticles.ParticleBlendMode(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type InkDescriptorParticles.ParticleBlendMode and conformance InkDescriptorParticles.ParticleBlendMode;
   if (!lazy protocol witness table cache variable for type InkDescriptorParticles.ParticleBlendMode and conformance InkDescriptorParticles.ParticleBlendMode)
@@ -7639,15 +7602,15 @@ void type metadata accessor for ClosedRange<CGFloat>(uint64_t a1, unint64_t *a2,
   }
 }
 
-void type metadata accessor for [CGPoint]()
+void type metadata accessor for [CGPoint](uint64_t a1)
 {
   if (!lazy cache variable for type metadata for [CGPoint])
   {
     type metadata accessor for CGPoint(255);
-    v0 = type metadata accessor for Array();
-    if (!v1)
+    v1 = type metadata accessor for Array();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [CGPoint]);
+      atomic_store(v1, &lazy cache variable for type metadata for [CGPoint]);
     }
   }
 }
@@ -7708,7 +7671,7 @@ PencilKit::InkFunction::Math_optional __swiftcall InkFunction.Math.init(rawValue
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type InkMask.CodingKeys and conformance InkMask.CodingKeys()
+unint64_t lazy protocol witness table accessor for type InkMask.CodingKeys and conformance InkMask.CodingKeys(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type InkMask.CodingKeys and conformance InkMask.CodingKeys;
   if (!lazy protocol witness table cache variable for type InkMask.CodingKeys and conformance InkMask.CodingKeys)
@@ -7753,7 +7716,7 @@ unint64_t lazy protocol witness table accessor for type InkMask.CodingKeys and c
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::string,WeightInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,WeightInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,WeightInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,WeightInfo>>>::find<std::string>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<std::string,WeightInfo>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,WeightInfo>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,WeightInfo>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,WeightInfo>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
   v5 = a1[1];
@@ -7830,25 +7793,25 @@ void *std::__hash_table<std::__hash_value_type<std::string,WeightInfo>,std::__un
   return v11;
 }
 
-void type metadata completion function for InkFunction()
+void type metadata completion function for InkFunction(uint64_t a1)
 {
   type metadata accessor for UUID();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for ClosedRange<CGFloat>(319, &lazy cache variable for type metadata for ClosedRange<CGFloat>, lazy protocol witness table accessor for type CGFloat and conformance CGFloat, MEMORY[0x1E69E7DE0], MEMORY[0x1E69E5F90]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for ClosedRange<CGFloat>?();
-      if (v2 <= 0x3F)
+      type metadata accessor for ClosedRange<CGFloat>?(319);
+      if (v3 <= 0x3F)
       {
-        type metadata accessor for [CGPoint]();
-        if (v3 <= 0x3F)
+        type metadata accessor for [CGPoint](319);
+        if (v4 <= 0x3F)
         {
           type metadata accessor for ClosedRange<CGFloat>(319, &lazy cache variable for type metadata for DecodableDefault<InkFunction.Math>, lazy protocol witness table accessor for type InkFunction.Math and conformance InkFunction.Math, &type metadata for InkFunction.Math, type metadata accessor for DecodableDefault);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
-            type metadata accessor for DecodableDefault<Bool>();
-            if (v5 <= 0x3F)
+            type metadata accessor for DecodableDefault<Bool>(319, v5, v6, v7);
+            if (v8 <= 0x3F)
             {
               swift_cvw_initStructMetadataWithLayoutString();
             }
@@ -7859,20 +7822,20 @@ void type metadata completion function for InkFunction()
   }
 }
 
-void type metadata accessor for ClosedRange<CGFloat>?()
+void type metadata accessor for ClosedRange<CGFloat>?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ClosedRange<CGFloat>?)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSNy12CoreGraphics7CGFloatVGMd);
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSNy12CoreGraphics7CGFloatVGMd, &_sSNy12CoreGraphics7CGFloatVGMR);
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ClosedRange<CGFloat>?);
+      atomic_store(v1, &lazy cache variable for type metadata for ClosedRange<CGFloat>?);
     }
   }
 }
 
-unint64_t lazy protocol witness table accessor for type InkFunction.Math and conformance InkFunction.Math()
+unint64_t lazy protocol witness table accessor for type InkFunction.Math and conformance InkFunction.Math(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type InkFunction.Math and conformance InkFunction.Math;
   if (!lazy protocol witness table cache variable for type InkFunction.Math and conformance InkFunction.Math)
@@ -7939,25 +7902,25 @@ unint64_t lazy protocol witness table accessor for type InkFunction.Math and con
   return result;
 }
 
-void type metadata accessor for DecodableDefault<Bool>()
+void type metadata accessor for DecodableDefault<Bool>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (!lazy cache variable for type metadata for DecodableDefault<Bool>)
   {
-    v0 = type metadata accessor for DecodableDefault();
-    if (!v1)
+    v4 = type metadata accessor for DecodableDefault(0, MEMORY[0x1E69E6370], &protocol witness table for Bool, a4);
+    if (!v5)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for DecodableDefault<Bool>);
+      atomic_store(v4, &lazy cache variable for type metadata for DecodableDefault<Bool>);
     }
   }
 }
 
-uint64_t lazy protocol witness table accessor for type [InkFunction] and conformance <A> [A](unint64_t *a1, unint64_t *a2)
+uint64_t lazy protocol witness table accessor for type [InkFunction] and conformance <A> [A](unint64_t *a1, unint64_t *a2, uint64_t a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay9PencilKit11InkFunctionVGMd);
-    lazy protocol witness table accessor for type CGSize and conformance CGSize(a2, type metadata accessor for InkFunction);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay9PencilKit11InkFunctionVGMd, &_sSay9PencilKit11InkFunctionVGMR);
+    lazy protocol witness table accessor for type CGSize and conformance CGSize(a2, type metadata accessor for InkFunction, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -7965,7 +7928,7 @@ uint64_t lazy protocol witness table accessor for type [InkFunction] and conform
   return result;
 }
 
-uint64_t DecodableDefault.init(from:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t DecodableDefault.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   v19 = a4;
   v8 = type metadata accessor for Optional();
@@ -8010,53 +7973,53 @@ uint64_t outlined init with copy of Decoder(uint64_t a1, uint64_t a2)
 
 uint64_t InkMask.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9PencilKit7InkMaskV10CodingKeys33_1629EF4F71A70372363BC5E8C6DB6C1CLLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy9PencilKit7InkMaskV10CodingKeys33_1629EF4F71A70372363BC5E8C6DB6C1CLLOGMd, &_ss22KeyedDecodingContainerVy9PencilKit7InkMaskV10CodingKeys33_1629EF4F71A70372363BC5E8C6DB6C1CLLOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
-  v8 = &v18 - v7;
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  lazy protocol witness table accessor for type InkMask.CodingKeys and conformance InkMask.CodingKeys();
+  v8 = &v22 - v7;
+  v9 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  lazy protocol witness table accessor for type InkMask.CodingKeys and conformance InkMask.CodingKeys(v9, v10, v11);
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (!v2)
   {
-    LOBYTE(v20) = 0;
-    v9 = KeyedDecodingContainer.decode(_:forKey:)();
-    v12 = v11;
-    v19 = v9;
-    v22 = 1;
-    lazy protocol witness table accessor for type CGFloat and conformance CGFloat();
+    LOBYTE(v24) = 0;
+    v12 = KeyedDecodingContainer.decode(_:forKey:)();
+    v15 = v14;
+    v23 = v12;
+    v26 = 1;
+    lazy protocol witness table accessor for type CGFloat and conformance CGFloat(v12, v14, v16);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v13 = v20;
-    v22 = 2;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PencilKit16DecodableDefaultVy12CoreGraphics7CGFloatVGMd);
-    lazy protocol witness table accessor for type DecodableDefault<Bool> and conformance DecodableDefault<A>(&lazy protocol witness table cache variable for type DecodableDefault<CGFloat> and conformance DecodableDefault<A>, &_s9PencilKit16DecodableDefaultVy12CoreGraphics7CGFloatVGMd);
+    v17 = v24;
+    v26 = 2;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s9PencilKit16DecodableDefaultVy12CoreGraphics7CGFloatVGMd, &_s9PencilKit16DecodableDefaultVy12CoreGraphics7CGFloatVGMR);
+    lazy protocol witness table accessor for type DecodableDefault<Bool> and conformance DecodableDefault<A>(&lazy protocol witness table cache variable for type DecodableDefault<CGFloat> and conformance DecodableDefault<A>, &_s9PencilKit16DecodableDefaultVy12CoreGraphics7CGFloatVGMd, &_s9PencilKit16DecodableDefaultVy12CoreGraphics7CGFloatVGMR, &protocol conformance descriptor for DecodableDefault<A>);
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    if (v21)
+    if (v25)
     {
-      v14 = 0.0;
+      v18 = 0.0;
     }
 
     else
     {
-      v14 = v20;
+      v18 = v24;
     }
 
-    v22 = 3;
+    v26 = 3;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v15 = v20;
-    v22 = 4;
+    v19 = v24;
+    v26 = 4;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v16 = v20;
-    LOBYTE(v20) = 5;
-    v17 = KeyedDecodingContainer.decode(_:forKey:)();
+    v20 = v24;
+    LOBYTE(v24) = 5;
+    v21 = KeyedDecodingContainer.decode(_:forKey:)();
     (*(v6 + 8))(v8, v5);
-    *a2 = v19;
-    *(a2 + 8) = v12;
-    *(a2 + 16) = v13;
-    *(a2 + 24) = v14;
-    *(a2 + 32) = v15;
-    *(a2 + 40) = v16;
-    *(a2 + 48) = v17 & 1;
+    *a2 = v23;
+    *(a2 + 8) = v15;
+    *(a2 + 16) = v17;
+    *(a2 + 24) = v18;
+    *(a2 + 32) = v19;
+    *(a2 + 40) = v20;
+    *(a2 + 48) = v21 & 1;
   }
 
   __swift_destroy_boxed_opaque_existential_0(a1);
@@ -9140,12 +9103,12 @@ void sub_1C7CDE504(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1C7CDE588(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C7CDE588(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = PKDrawing;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -9187,20 +9150,20 @@ void ___ZL41PKAlwaysKeepPredictedTouchesAtEndOfStrokev_block_invoke()
   }
 }
 
-void std::vector<double>::resize(void *a1, unint64_t a2)
+void std::vector<double>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<double>::__append(a1, a2 - v2);
+    std::vector<double>::__append(result, a2 - v2);
   }
 }
 
@@ -9258,7 +9221,7 @@ id PKLongPressGestureRecognizer.init(target:action:)(uint64_t a1, uint64_t a2)
   *v5 = 0;
   *(v5 + 1) = 0;
   *&v2[OBJC_IVAR___PKLongPressGestureRecognizer_pressStartLocations] = MEMORY[0x1E69E7CC0];
-  outlined init with copy of (CIContextOption, Any)(a1, v20, &_sypSgMd);
+  outlined init with copy of (CIContextOption, Any)(a1, v20, &_sypSgMd, &_sypSgMR);
   v6 = v21;
   if (v21)
   {
@@ -9282,12 +9245,12 @@ id PKLongPressGestureRecognizer.init(target:action:)(uint64_t a1, uint64_t a2)
   v19.super_class = v12;
   v13 = objc_msgSendSuper2(&v19, sel_initWithTarget_action_, v11, a2);
   swift_unknownObjectRelease();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v14 = swift_allocObject();
   *(v14 + 16) = xmmword_1C80198D0;
   v15 = v13;
   *(v14 + 32) = Int._bridgeToObjectiveC()();
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSNumber);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSNumber, 0x1E696AD98);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v15 setAllowedTouchTypes_];
@@ -9295,14 +9258,14 @@ id PKLongPressGestureRecognizer.init(target:action:)(uint64_t a1, uint64_t a2)
   v17 = MEMORY[0x1CCA6CE70](0xD000000000000023, 0x80000001C8020CC0);
   [v15 setName_];
 
-  outlined destroy of (CIImageOption, Any)(a1, &_sypSgMd);
+  outlined destroy of (CIImageOption, Any)(a1, &_sypSgMd, &_sypSgMR);
   return v15;
 }
 
-uint64_t outlined destroy of (CIImageOption, Any)(uint64_t a1, uint64_t *a2)
+uint64_t outlined destroy of (CIImageOption, Any)(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
@@ -9409,17 +9372,17 @@ uint64_t PKIsAutoRefineEnabled()
   return result;
 }
 
-id specialized PKTiledViewAnimationController.init(tiledView:)()
+id specialized PKTiledViewAnimationController.init(tiledView:)(uint64_t a1)
 {
   swift_unknownObjectWeakInit();
-  *&v0[OBJC_IVAR___PKTiledViewAnimationController_drawingContinuations] = MEMORY[0x1E69E7CC0];
-  *&v0[OBJC_IVAR___PKTiledViewAnimationController_mtkView] = 0;
-  *&v0[OBJC_IVAR___PKTiledViewAnimationController_renderer] = 0;
-  *&v0[OBJC_IVAR___PKTiledViewAnimationController_newBehavior] = 0;
+  *&v1[OBJC_IVAR___PKTiledViewAnimationController_drawingContinuations] = MEMORY[0x1E69E7CC0];
+  *&v1[OBJC_IVAR___PKTiledViewAnimationController_mtkView] = 0;
+  *&v1[OBJC_IVAR___PKTiledViewAnimationController_renderer] = 0;
+  *&v1[OBJC_IVAR___PKTiledViewAnimationController_newBehavior] = 0;
   swift_unknownObjectWeakAssign();
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for PKTiledViewAnimationController();
-  return objc_msgSendSuper2(&v2, sel_init);
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for PKTiledViewAnimationController();
+  return objc_msgSendSuper2(&v3, sel_init);
 }
 
 id PKCheckedDynamicCast(uint64_t a1, void *a2)
@@ -9467,7 +9430,7 @@ CGColorSpaceRef __DKUDeviceRGBColorSpace_block_invoke()
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type PKInkingTool.InkType and conformance PKInkingTool.InkType()
+unint64_t lazy protocol witness table accessor for type PKInkingTool.InkType and conformance PKInkingTool.InkType(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PKInkingTool.InkType and conformance PKInkingTool.InkType;
   if (!lazy protocol witness table cache variable for type PKInkingTool.InkType and conformance PKInkingTool.InkType)
@@ -9479,7 +9442,7 @@ unint64_t lazy protocol witness table accessor for type PKInkingTool.InkType and
   return result;
 }
 
-Swift::Int specialized RawRepresentable<>._rawHashValue(seed:)()
+Swift::Int specialized RawRepresentable<>._rawHashValue(seed:)(uint64_t a1, unsigned __int8 a2)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -9632,6 +9595,14 @@ uint64_t _sSo15CIContextOptionaSYSCSY8rawValue03RawD0QzvgTW_0@<X0>(uint64_t *a1@
   return result;
 }
 
+void sub_1C7CE3CC8(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = a1[1];
+
+  PKCustomTool.customIdentifier.setter(v1, v2);
+}
+
 id sub_1C7CE3D08@<X0>(id *a1@<X0>, void *a2@<X8>)
 {
   result = [*a1 color];
@@ -9646,7 +9617,7 @@ id sub_1C7CE3D70@<X0>(id *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-void sub_1C7CE3DE8(unsigned __int8 *a1, uint64_t *a2)
+void sub_1C7CE3DE8(_BYTE *a1, uint64_t *a2)
 {
   v3 = *a1;
   v4 = *a2;
@@ -9721,7 +9692,7 @@ uint64_t sub_1C7CE4050()
   return MEMORY[0x1EEE6BDD0](v0, 24, 7);
 }
 
-id sub_1C7CE40BC@<X0>(void *a1@<X0>, void *a2@<X8>)
+void *sub_1C7CE40BC@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v4[1] = *a1;
   result = PKStroke.ink.getter(v4);
@@ -9729,7 +9700,7 @@ id sub_1C7CE40BC@<X0>(void *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-void sub_1C7CE4100(void **a1)
+void sub_1C7CE4100(id *a1)
 {
   v2 = *a1;
   v1 = v2;
@@ -9746,7 +9717,7 @@ double sub_1C7CE413C@<D0>(id *a1@<X0>, _OWORD *a2@<X8>)
   return result;
 }
 
-void sub_1C7CE41B0(void **a1)
+void sub_1C7CE41B0(id *a1)
 {
   v2 = *a1;
   v1 = v2;
@@ -9783,7 +9754,7 @@ id sub_1C7CE42BC@<X0>(id *a1@<X0>, void *a2@<X8>)
 
 uint64_t sub_1C7CE4320()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMd, &_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 64) & ~v3;
@@ -9797,7 +9768,40 @@ uint64_t sub_1C7CE4320()
 
 uint64_t sub_1C7CE4400()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMd, &_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMR);
+  v2 = *(v1 - 8);
+  v3 = *(v2 + 80);
+  v4 = (v3 + 24) & ~v3;
+  v5 = *(v2 + 64);
+
+  (*(v2 + 8))(v0 + v4, v1);
+
+  return MEMORY[0x1EEE6BDD0](v0, v4 + v5, v3 | 7);
+}
+
+uint64_t sub_1C7CE44D0()
+{
+
+  return MEMORY[0x1EEE6BDD0](v0, 32, 7);
+}
+
+uint64_t sub_1C7CE4510()
+{
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMd, &_sScS12ContinuationVy9PencilKit27RecognitionSearchControllerC0E6ResultV_GMR);
+  v2 = *(v1 - 8);
+  v3 = *(v2 + 80);
+  v4 = (v3 + 48) & ~v3;
+  v5 = *(v2 + 64);
+  swift_unknownObjectRelease();
+
+  (*(v2 + 8))(v0 + v4, v1);
+
+  return MEMORY[0x1EEE6BDD0](v0, v4 + v5, v3 | 7);
+}
+
+uint64_t sub_1C7CE45F0()
+{
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 24) & ~v3;

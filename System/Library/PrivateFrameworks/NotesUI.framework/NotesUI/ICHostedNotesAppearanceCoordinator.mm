@@ -334,15 +334,19 @@ LABEL_14:
   objc_opt_class();
   object = [controllerCopy object];
 
-  v6 = ICDynamicCast();
+  v7 = ICDynamicCast();
 
-  if (v6 && [(ICHostedNotesAppearanceCoordinator *)self shouldHideModeButtonWithPresentedViewController:v6])
+  if (v7)
   {
-    [(ICHostedNotesAppearanceCoordinator *)self setModeButtonHidingPresentedViewController:v6];
-    [(ICHostedNotesAppearanceCoordinator *)self updateAppearance];
+    updateAppearance = [(ICHostedNotesAppearanceCoordinator *)self shouldHideModeButtonWithPresentedViewController:v7];
+    if (updateAppearance)
+    {
+      [(ICHostedNotesAppearanceCoordinator *)self setModeButtonHidingPresentedViewController:v7];
+      updateAppearance = [(ICHostedNotesAppearanceCoordinator *)self updateAppearance];
+    }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](updateAppearance);
 }
 
 - (void)willDismissViewController:(id)controller
@@ -370,7 +374,7 @@ LABEL_14:
 - (void)didDismissViewController:(id)controller
 {
   userInfo = [controller userInfo];
-  v4 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E69DE2C0]];
+  v4 = objc_msgSend_objectForKeyedSubscript_(userInfo);
   bOOLValue = [v4 BOOLValue];
 
   if (bOOLValue)

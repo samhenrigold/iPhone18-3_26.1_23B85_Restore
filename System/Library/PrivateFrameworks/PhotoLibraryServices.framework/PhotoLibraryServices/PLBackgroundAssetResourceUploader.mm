@@ -156,7 +156,7 @@
 
   if (v11)
   {
-    sub_19BF3B340(0, &qword_1EAFF3D28);
+    sub_19BF3B340(0, &qword_1EAFF3D28, off_1E755F5E8);
     v12 = sub_19C5C465C();
   }
 

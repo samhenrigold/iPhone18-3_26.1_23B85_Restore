@@ -213,19 +213,7 @@ LABEL_36:
   deviceIdentifier2 = [settingsCopy deviceIdentifier];
   v7 = [deviceIdentifier isEqual:deviceIdentifier2];
 
-  if (!v7)
-  {
-    goto LABEL_8;
-  }
-
-  displayDeviceIdentifier = [(DASessionSettings *)self displayDeviceIdentifier];
-  if (displayDeviceIdentifier != [settingsCopy displayDeviceIdentifier])
-  {
-    goto LABEL_8;
-  }
-
-  fullscreenPromptsEnabled = [(DASessionSettings *)self fullscreenPromptsEnabled];
-  if (fullscreenPromptsEnabled == [settingsCopy fullscreenPromptsEnabled] && (v10 = -[DASessionSettings allowCellularSizeThreshold](self, "allowCellularSizeThreshold"), v10 == objc_msgSend(settingsCopy, "allowCellularSizeThreshold")) && (v11 = -[DASessionSettings overrideDisplayBrightness](self, "overrideDisplayBrightness"), v11 == objc_msgSend(settingsCopy, "overrideDisplayBrightness")) && (-[DASessionSettings requestedDisplayBrightness](self, "requestedDisplayBrightness"), v13 = v12, objc_msgSend(settingsCopy, "requestedDisplayBrightness"), v13 == v14) && (v15 = -[DASessionSettings overrideTrueToneSettings](self, "overrideTrueToneSettings"), v15 == objc_msgSend(settingsCopy, "overrideTrueToneSettings")))
+  if (v7 && (v8 = -[DASessionSettings displayDeviceIdentifier](self, "displayDeviceIdentifier"), v8 == [settingsCopy displayDeviceIdentifier]) && (v9 = -[DASessionSettings fullscreenPromptsEnabled](self, "fullscreenPromptsEnabled"), v9 == objc_msgSend(settingsCopy, "fullscreenPromptsEnabled")) && (v10 = -[DASessionSettings allowCellularSizeThreshold](self, "allowCellularSizeThreshold"), v10 == objc_msgSend(settingsCopy, "allowCellularSizeThreshold")) && (v11 = -[DASessionSettings overrideDisplayBrightness](self, "overrideDisplayBrightness"), v11 == objc_msgSend(settingsCopy, "overrideDisplayBrightness")) && (-[DASessionSettings requestedDisplayBrightness](self, "requestedDisplayBrightness"), v13 = v12, objc_msgSend(settingsCopy, "requestedDisplayBrightness"), v13 == v14) && (v15 = -[DASessionSettings overrideTrueToneSettings](self, "overrideTrueToneSettings"), v15 == objc_msgSend(settingsCopy, "overrideTrueToneSettings")))
   {
     requestedTrueToneSetting = [(DASessionSettings *)self requestedTrueToneSetting];
     v16 = requestedTrueToneSetting ^ [settingsCopy requestedTrueToneSetting] ^ 1;
@@ -233,7 +221,6 @@ LABEL_36:
 
   else
   {
-LABEL_8:
     LOBYTE(v16) = 0;
   }
 

@@ -49,35 +49,35 @@
 
 - (void)executeWithDelay:(double)delay
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   if (self->_block)
   {
     lastExecution = _CurrentTimeForClock(self->_clock);
-    v7 = lastExecution;
+    v9 = lastExecution;
     if (!self->_mode)
     {
       lastExecution = self->_lastExecution;
     }
 
-    v8 = lastExecution + delay;
-    v9 = v8 - v7;
-    if (v8 - v7 <= 0.0)
+    v10 = lastExecution + delay;
+    v11 = v10 - v9;
+    if (v10 - v9 <= 0.0)
     {
       if (self->_loggingCategory)
       {
-        _HKInitializeLogging();
+        _HKInitializeLogging(v6, v7);
         loggingCategory = self->_loggingCategory;
         if (os_log_type_enabled(loggingCategory, OS_LOG_TYPE_INFO))
         {
           loggingName = self->_loggingName;
           *buf = 138543362;
-          v26 = loggingName;
+          v27 = loggingName;
           _os_log_impl(&dword_19197B000, loggingCategory, OS_LOG_TYPE_INFO, "Delayed operation %{public}@: Scheduling immediate execution.", buf, 0xCu);
         }
       }
 
-      self->_nextScheduledExecution = v7;
+      self->_nextScheduledExecution = v9;
       queue = self->_queue;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
@@ -90,25 +90,25 @@
     else
     {
       nextScheduledExecution = self->_nextScheduledExecution;
-      v11 = self->_loggingCategory;
-      if (nextScheduledExecution == 0.0 || v8 < nextScheduledExecution)
+      v13 = self->_loggingCategory;
+      if (nextScheduledExecution == 0.0 || v10 < nextScheduledExecution)
       {
-        if (v11)
+        if (v13)
         {
-          _HKInitializeLogging();
-          v13 = self->_loggingCategory;
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+          _HKInitializeLogging(v6, v7);
+          v15 = self->_loggingCategory;
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
-            v14 = self->_loggingName;
+            v16 = self->_loggingName;
             *buf = 138543618;
-            v26 = v14;
-            v27 = 2048;
-            v28 = v8 - v7;
-            _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_INFO, "Delayed operation %{public}@: Scheduling execution in %lfs.", buf, 0x16u);
+            v27 = v16;
+            v28 = 2048;
+            v29 = v10 - v9;
+            _os_log_impl(&dword_19197B000, v15, OS_LOG_TYPE_INFO, "Delayed operation %{public}@: Scheduling execution in %lfs.", buf, 0x16u);
           }
         }
 
-        self->_nextScheduledExecution = v8;
+        self->_nextScheduledExecution = v10;
         if (!self->_timerSource)
         {
           [(_HKDelayedOperation *)a2 executeWithDelay:?];
@@ -117,7 +117,7 @@
         clock = self->_clock;
         if (clock == 1)
         {
-          v16 = dispatch_time(0, (v9 * 1000000000.0));
+          v18 = dispatch_time(0, (v11 * 1000000000.0));
         }
 
         else
@@ -127,33 +127,31 @@
             [_HKDelayedOperation executeWithDelay:?];
           }
 
-          v16 = dispatch_walltime(0, (v9 * 1000000000.0));
+          v18 = dispatch_walltime(0, (v11 * 1000000000.0));
         }
 
-        dispatch_source_set_timer(self->_timerSource, v16, 0xFFFFFFFFFFFFFFFFLL, 0);
+        dispatch_source_set_timer(self->_timerSource, v18, 0xFFFFFFFFFFFFFFFFLL, 0);
       }
 
-      else if (v11)
+      else if (v13)
       {
-        _HKInitializeLogging();
-        v20 = self->_loggingCategory;
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+        _HKInitializeLogging(v6, v7);
+        v22 = self->_loggingCategory;
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
-          v22 = self->_nextScheduledExecution;
-          v21 = self->_loggingName;
+          v24 = self->_nextScheduledExecution;
+          v23 = self->_loggingName;
           *buf = 138543874;
-          v26 = v21;
-          v27 = 2048;
-          v28 = v8;
-          v29 = 2048;
-          v30 = v22;
-          _os_log_impl(&dword_19197B000, v20, OS_LOG_TYPE_INFO, "Delayed operation %{public}@: Ignoring scheduling request (requested %lf > scheduled %lf).", buf, 0x20u);
+          v27 = v23;
+          v28 = 2048;
+          v29 = v10;
+          v30 = 2048;
+          v31 = v24;
+          _os_log_impl(&dword_19197B000, v22, OS_LOG_TYPE_INFO, "Delayed operation %{public}@: Ignoring scheduling request (requested %lf > scheduled %lf).", buf, 0x20u);
         }
       }
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate
@@ -194,31 +192,31 @@
 
 - (void)_queue_executeBlockIfScheduled
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   if (self->_nextScheduledExecution > 0.0)
   {
-    v3 = _CurrentTimeForClock(self->_clock);
+    v5 = _CurrentTimeForClock(self->_clock);
     if (self->_loggingCategory)
     {
       lastExecution = self->_lastExecution;
       nextScheduledExecution = self->_nextScheduledExecution;
-      _HKInitializeLogging();
+      _HKInitializeLogging(v3, v4);
       loggingCategory = self->_loggingCategory;
       if (os_log_type_enabled(loggingCategory, OS_LOG_TYPE_INFO))
       {
         loggingName = self->_loggingName;
-        v10 = 138543874;
-        v11 = loggingName;
-        v12 = 2048;
-        v13 = v3 - lastExecution;
-        v14 = 2048;
-        v15 = v3 - nextScheduledExecution;
-        _os_log_impl(&dword_19197B000, loggingCategory, OS_LOG_TYPE_INFO, "Delayed operation %{public}@: Executing after %lfs (slipped %lfs).", &v10, 0x20u);
+        v11 = 138543874;
+        v12 = loggingName;
+        v13 = 2048;
+        v14 = v5 - lastExecution;
+        v15 = 2048;
+        v16 = v5 - nextScheduledExecution;
+        _os_log_impl(&dword_19197B000, loggingCategory, OS_LOG_TYPE_INFO, "Delayed operation %{public}@: Executing after %lfs (slipped %lfs).", &v11, 0x20u);
       }
     }
 
-    self->_lastExecution = v3;
+    self->_lastExecution = v5;
     self->_nextScheduledExecution = 0.0;
     block = self->_block;
     if (block)
@@ -226,8 +224,6 @@
       block[2]();
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)executeWithDelay:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

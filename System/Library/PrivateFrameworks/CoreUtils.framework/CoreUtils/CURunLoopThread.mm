@@ -31,7 +31,7 @@
     ucat = self->_ucat;
   }
 
-  LogPrintF(ucat, "[CURunLoopThread _threadMain]", 0x1Eu, "RunLoop thread starting\n", v2, v3, v4, v5, v37);
+  LogPrintF(ucat, "[CURunLoopThread _threadMain]", 30, "RunLoop thread starting\n", v2, v3, v4, v5, v37);
 LABEL_5:
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -124,7 +124,7 @@ LABEL_5:
     {
       v28 = self->_ucat;
 LABEL_20:
-      LogPrintF(v28, "[CURunLoopThread _threadMain]", 0xAu, "Waiting for runloop to start (%d)\n", v23, v24, v25, v26, v27);
+      LogPrintF(v28, "[CURunLoopThread _threadMain]", 10, "Waiting for runloop to start (%d)\n", v23, v24, v25, v26, v27);
     }
 
 LABEL_22:
@@ -145,7 +145,7 @@ LABEL_22:
     {
       v33 = self->_ucat;
 LABEL_26:
-      LogPrintF(v33, "[CURunLoopThread _threadMain]", 0x1Eu, "RunLoop thread stopping\n", v29, v30, v31, v32, v37);
+      LogPrintF(v33, "[CURunLoopThread _threadMain]", 30, "RunLoop thread stopping\n", v29, v30, v31, v32, v37);
     }
   }
 
@@ -175,25 +175,25 @@ LABEL_26:
   dispatch_async(v36, v39);
 }
 
-uint64_t __30__CURunLoopThread__threadMain__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *__30__CURunLoopThread__threadMain__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   result = *(a1 + 32);
-  v10 = *(result + 48);
+  v10 = result[6];
   if (*v10 <= 30)
   {
     if (*v10 != -1)
     {
 LABEL_3:
-      LogPrintF(v10, "[CURunLoopThread _threadMain]_block_invoke", 0x1Eu, "Started RunLoop thread\n", a5, a6, a7, a8, v12);
+      LogPrintF(v10, "[CURunLoopThread _threadMain]_block_invoke", 30, "Started RunLoop thread\n", a5, a6, a7, a8, v12);
       result = *(a1 + 32);
       goto LABEL_5;
     }
 
-    v11 = _LogCategory_Initialize(*(result + 48), 0x1Eu);
+    v11 = _LogCategory_Initialize(result[6], 0x1Eu);
     result = *(a1 + 32);
     if (v11)
     {
-      v10 = *(result + 48);
+      v10 = result[6];
       goto LABEL_3;
     }
   }
@@ -217,7 +217,7 @@ uint64_t __30__CURunLoopThread__threadMain__block_invoke_2(uint64_t a1, uint64_t
     if (*v10 != -1)
     {
 LABEL_3:
-      LogPrintF(v10, "[CURunLoopThread _threadMain]_block_invoke_2", 0x1Eu, "Stopped RunLoop thread\n", a5, a6, a7, a8, v14);
+      LogPrintF(v10, "[CURunLoopThread _threadMain]_block_invoke_2", 30, "Stopped RunLoop thread\n", a5, a6, a7, a8, v14);
       v9 = *(a1 + 32);
       goto LABEL_5;
     }
@@ -259,7 +259,7 @@ LABEL_5:
         ucat = selfCopy->_ucat;
       }
 
-      LogPrintF(ucat, "[CURunLoopThread _scheduleStopThread]", 0x1Eu, "Scheduling stop of RunLoop thread\n", v3, v4, v5, v6, v13);
+      LogPrintF(ucat, "[CURunLoopThread _scheduleStopThread]", 30, "Scheduling stop of RunLoop thread\n", v3, v4, v5, v6, v13);
     }
 
 LABEL_8:
@@ -292,7 +292,7 @@ void __38__CURunLoopThread__scheduleStopThread__block_invoke(uint64_t a1, uint64
     if (*v10 != -1)
     {
 LABEL_3:
-      LogPrintF(v10, "[CURunLoopThread _scheduleStopThread]_block_invoke", 0x1Eu, "Stopping RunLoop thread\n", a5, a6, a7, a8, v13);
+      LogPrintF(v10, "[CURunLoopThread _scheduleStopThread]_block_invoke", 30, "Stopping RunLoop thread\n", a5, a6, a7, a8, v13);
       v9 = *(a1 + 32);
       goto LABEL_5;
     }
@@ -332,44 +332,44 @@ LABEL_5:
   dispatch_async(dispatchQueue, v7);
 }
 
-void __32__CURunLoopThread_performBlock___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void __32__CURunLoopThread_performBlock___block_invoke(uint64_t a1)
 {
-  v8 = *(a1 + 32);
-  if ((v8[8] & 1) == 0)
+  v1 = *(a1 + 32);
+  if ((v1[8] & 1) == 0)
   {
-    FatalErrorF("PerformBlock before activate", a2, a3, a4, a5, a6, a7, a8, v17);
+    FatalErrorF("PerformBlock before activate");
   }
 
-  if (v8[9] == 1)
+  if (v1[9] == 1)
   {
-    FatalErrorF("PerformBlock after invalidate", a2, a3, a4, a5, a6, a7, a8, v17);
+    FatalErrorF("PerformBlock after invalidate");
   }
 
-  obj = v8;
+  obj = v1;
   objc_sync_enter(obj);
-  v10 = *(a1 + 32);
-  v11 = *(v10 + 16);
-  if (v11 && *(v10 + 24) == 1)
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 16);
+  if (v4 && *(v3 + 24) == 1)
   {
-    CFRunLoopPerformBlock(v11, *MEMORY[0x1E695E8E0], *(a1 + 40));
+    CFRunLoopPerformBlock(v4, *MEMORY[0x1E695E8E0], *(a1 + 40));
     CFRunLoopWakeUp(*(*(a1 + 32) + 16));
   }
 
   else
   {
-    v12 = *(v10 + 32);
-    if (!v12)
+    v5 = *(v3 + 32);
+    if (!v5)
     {
-      v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v14 = *(a1 + 32);
-      v15 = *(v14 + 32);
-      *(v14 + 32) = v13;
+      v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v7 = *(a1 + 32);
+      v8 = *(v7 + 32);
+      *(v7 + 32) = v6;
 
-      v12 = *(*(a1 + 32) + 32);
+      v5 = *(*(a1 + 32) + 32);
     }
 
-    v16 = _Block_copy(*(a1 + 40));
-    [v12 addObject:v16];
+    v9 = _Block_copy(*(a1 + 40));
+    [v5 addObject:v9];
   }
 
   objc_sync_exit(obj);
@@ -386,7 +386,7 @@ void __32__CURunLoopThread_performBlock___block_invoke(uint64_t a1, uint64_t a2,
       if (ucat->var0 != -1)
       {
 LABEL_4:
-        LogPrintF(ucat, "[CURunLoopThread _invalidated]", 0x32u, "### Unexpectedly invalidated\n", v3, v4, v5, v6, v13);
+        LogPrintF(ucat, "[CURunLoopThread _invalidated]", 50, "### Unexpectedly invalidated\n", v3, v4, v5, v6, v13);
         goto LABEL_6;
       }
 
@@ -417,7 +417,7 @@ LABEL_6:
       v8 = self->_ucat;
     }
 
-    LogPrintF(v8, "[CURunLoopThread _invalidated]", 0x1Eu, "Invalidated\n", v3, v4, v5, v6, v13);
+    LogPrintF(v8, "[CURunLoopThread _invalidated]", 30, "Invalidated\n", v3, v4, v5, v6, v13);
   }
 
 LABEL_11:
@@ -468,7 +468,7 @@ uint64_t __29__CURunLoopThread_invalidate__block_invoke(uint64_t result, uint64_
     if (*v11 != -1)
     {
 LABEL_4:
-      LogPrintF(v11, "[CURunLoopThread invalidate]_block_invoke", 0x1Eu, "Invalidate\n", a5, a6, a7, a8, v18);
+      LogPrintF(v11, "[CURunLoopThread invalidate]_block_invoke", 30, "Invalidate\n", a5, a6, a7, a8, v18);
       v9 = *(v10 + 32);
       goto LABEL_6;
     }
@@ -510,7 +510,7 @@ LABEL_6:
       result = *(*(v10 + 32) + 48);
     }
 
-    return LogPrintF(result, "[CURunLoopThread invalidate]_block_invoke", 0x1Eu, "Deferring stop of RunLoop thread until it finishes starting\n", v13, v14, v15, v16, a9);
+    return LogPrintF(result, "[CURunLoopThread invalidate]_block_invoke", 30, "Deferring stop of RunLoop thread until it finishes starting\n", v13, v14, v15, v16, a9);
   }
 
   else
@@ -549,7 +549,7 @@ uint64_t __27__CURunLoopThread_activate__block_invoke(uint64_t a1, uint64_t a2, 
       v10 = *(v9 + 48);
     }
 
-    LogPrintF(v10, "[CURunLoopThread activate]_block_invoke", 0x1Eu, "Activate\n", a5, a6, a7, a8, v13);
+    LogPrintF(v10, "[CURunLoopThread activate]_block_invoke", 30, "Activate\n", a5, a6, a7, a8, v13);
     v9 = *(a1 + 32);
   }
 

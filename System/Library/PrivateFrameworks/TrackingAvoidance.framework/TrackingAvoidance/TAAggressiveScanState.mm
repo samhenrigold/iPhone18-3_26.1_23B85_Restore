@@ -93,21 +93,19 @@ LABEL_11:
 
 - (id)descriptionDictionary
 {
-  v12[3] = *MEMORY[0x277D85DE8];
-  v11[0] = @"EventType";
+  v11[3] = *MEMORY[0x277D85DE8];
+  v10[0] = @"EventType";
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v12[0] = v4;
-  v11[1] = @"Date";
+  v11[0] = v4;
+  v10[1] = @"Date";
   date = [(TAAggressiveScanState *)self date];
   getDateString = [date getDateString];
-  v12[1] = getDateString;
-  v11[2] = @"State";
+  v11[1] = getDateString;
+  v10[2] = @"State";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[TAAggressiveScanState state](self, "state")}];
-  v12[2] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[2] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   return v8;
 }

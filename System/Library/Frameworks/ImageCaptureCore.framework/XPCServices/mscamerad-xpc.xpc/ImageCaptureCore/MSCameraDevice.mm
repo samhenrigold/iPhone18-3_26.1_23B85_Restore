@@ -709,7 +709,7 @@ void __68__MSCameraDevice_requestSecurityScopedURLForObjectHandle_withReply___bl
   v11 = *(a1 + 48);
   if (v11)
   {
-    [v11 auditToken];
+    objc_msgSend_auditToken(v11);
   }
 
   v12 = [v3 path];
@@ -1205,27 +1205,7 @@ void __43__MSCameraDevice_sendContentsNotification___block_invoke(uint64_t a1)
 
                 v23 = *(*(&v71 + 1) + 8 * i);
                 lastPathComponent2 = [v23 lastPathComponent];
-                if (!_ValidDCFObjectName([lastPathComponent2 UTF8String], objc_msgSend(lastPathComponent2, "length"), 0))
-                {
-                  goto LABEL_14;
-                }
-
-                path = [v23 path];
-                lastPathComponent3 = [path lastPathComponent];
-                pathExtension = [lastPathComponent3 pathExtension];
-                [pathExtension lowercaseString];
-                v28 = v20;
-                v29 = v21;
-                selfCopy = self;
-                v32 = v31 = name4;
-                v70 = [v32 isEqualToString:@"mov"];
-
-                name4 = v31;
-                self = selfCopy;
-                v21 = v29;
-                v20 = v28;
-
-                if ((v70 & 1) == 0)
+                if (_ValidDCFObjectName([lastPathComponent2 UTF8String], objc_msgSend(lastPathComponent2, "length"), 0) && (objc_msgSend(v23, "path"), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v25, "lastPathComponent"), v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v26, "pathExtension"), v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v27, "lowercaseString"), v28 = v20, v29 = v21, v30 = self, v31 = name4, v32 = objc_claimAutoreleasedReturnValue(), v70 = objc_msgSend(v32, "isEqualToString:", @"mov"), v32, name4 = v31, self = v30, v21 = v29, v20 = v28, v27, v26, v25, (v70 & 1) == 0))
                 {
                   [(MSCameraDevice *)self incrementPreflightObjectCount:1];
                   v69 = (v69 + 1);
@@ -1233,7 +1213,6 @@ void __43__MSCameraDevice_sendContentsNotification___block_invoke(uint64_t a1)
 
                 else
                 {
-LABEL_14:
                   __ICOSLogCreate();
                   name = [(MSCameraDevice *)self name];
                   if ([name length] >= 0x15)
@@ -2759,7 +2738,7 @@ void __68__MSCameraDevice_requestSecurityScopedURLForObjectHandle_withReply___bl
   v5 = a2;
   [a1 UTF8String];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&_mh_execute_header, v6, v7, "%{public}20s ! %{public}@", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_1(&_mh_execute_header, v6, v7, "%{public}20s ! %{public}@", v8, v9, v10, v11);
 }
 
 @end

@@ -27,9 +27,7 @@
 {
   if (!self->_typingContextTimer)
   {
-    v4 = [objc_alloc(MEMORY[0x277D192B8]) initWithTimeInterval:@"typing-indicator-cleanup" name:0 shouldWake:self target:sel___pruneTypingContexts selector:0 userInfo:1500.0];
-    typingContextTimer = self->_typingContextTimer;
-    self->_typingContextTimer = v4;
+    self->_typingContextTimer = [objc_alloc(MEMORY[0x277D192B8]) initWithTimeInterval:@"typing-indicator-cleanup" name:0 shouldWake:self target:sel___pruneTypingContexts selector:0 userInfo:1500.0];
 
     MEMORY[0x2821F96F8]();
   }
@@ -138,30 +136,30 @@
 
 - (BOOL)hasRecentlyMessaged:(id)messaged
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   messagedCopy = messaged;
   if ([messagedCopy count])
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v5 = messagedCopy;
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = [(NSMutableDictionary *)self->_typingContext objectForKey:*(*(&v15 + 1) + 8 * i), v15];
+          v10 = [(NSMutableDictionary *)self->_typingContext objectForKey:*(*(&v14 + 1) + 8 * i), v14];
           v11 = v10;
           if (v10 && !sub_22B6BC520(v10))
           {
@@ -171,7 +169,7 @@
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v7)
         {
           continue;
@@ -190,13 +188,12 @@ LABEL_14:
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (void)noteRecentMessageForPeople:(id)people
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   peopleCopy = people;
   if ([peopleCopy count])
   {
@@ -210,31 +207,31 @@ LABEL_14:
     v7 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceNow:300.0];
     if (v7)
     {
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
       v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
       v8 = peopleCopy;
-      v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v15;
+        v11 = *v14;
         do
         {
           v12 = 0;
           do
           {
-            if (*v15 != v11)
+            if (*v14 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            [(NSMutableDictionary *)self->_typingContext setObject:v7 forKey:*(*(&v14 + 1) + 8 * v12++), v14];
+            [(NSMutableDictionary *)self->_typingContext setObject:v7 forKey:*(*(&v13 + 1) + 8 * v12++), v13];
           }
 
           while (v10 != v12);
-          v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
         }
 
         while (v10);
@@ -243,8 +240,6 @@ LABEL_14:
 
     [(IMDRecentsController *)self _setTimerForPruningTypingContext];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateLatestActiveDestination:(id)destination ForHandle:(id)handle incomingType:(unsigned __int8)type

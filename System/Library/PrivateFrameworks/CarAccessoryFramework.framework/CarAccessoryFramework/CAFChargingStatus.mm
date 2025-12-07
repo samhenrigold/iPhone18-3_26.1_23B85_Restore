@@ -16,6 +16,7 @@
 - (unsigned)cableState;
 - (unsigned)chargingState;
 - (unsigned)portSideIndicator;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -231,6 +232,97 @@
   v3 = portSideIndicatorCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x000000004000000C"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    chargingModeIdentifierCharacteristic = [(CAFChargingStatus *)self chargingModeIdentifierCharacteristic];
+    uniqueIdentifier2 = [chargingModeIdentifierCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      chargingModeIdentifier = [(CAFChargingStatus *)self chargingModeIdentifier];
+      [observers chargingStatusService:self didUpdateChargingModeIdentifier:chargingModeIdentifier];
+
+LABEL_16:
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000040000005"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    chargingStateCharacteristic = [(CAFChargingStatus *)self chargingStateCharacteristic];
+    uniqueIdentifier4 = [chargingStateCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      [observers chargingStatusService:self didUpdateChargingState:{-[CAFChargingStatus chargingState](self, "chargingState")}];
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000040000007"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    cableStateCharacteristic = [(CAFChargingStatus *)self cableStateCharacteristic];
+    uniqueIdentifier6 = [cableStateCharacteristic uniqueIdentifier];
+    v23 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v23)
+    {
+      observers = [(CAFService *)self observers];
+      [observers chargingStatusService:self didUpdateCableState:{-[CAFChargingStatus cableState](self, "cableState")}];
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000041000013"])
+  {
+    goto LABEL_16;
+  }
+
+  uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+  portSideIndicatorCharacteristic = [(CAFChargingStatus *)self portSideIndicatorCharacteristic];
+  uniqueIdentifier8 = [portSideIndicatorCharacteristic uniqueIdentifier];
+  v27 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+  if (v27)
+  {
+    observers = [(CAFService *)self observers];
+    [observers chargingStatusService:self didUpdatePortSideIndicator:{-[CAFChargingStatus portSideIndicator](self, "portSideIndicator")}];
+    goto LABEL_16;
+  }
+
+LABEL_17:
+  v28.receiver = self;
+  v28.super_class = CAFChargingStatus;
+  [(CAFService *)&v28 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForChargingModeIdentifier

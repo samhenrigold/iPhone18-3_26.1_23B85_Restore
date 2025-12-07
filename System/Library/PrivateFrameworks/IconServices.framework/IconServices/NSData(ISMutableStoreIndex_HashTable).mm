@@ -1,7 +1,7 @@
 @interface NSData(ISMutableStoreIndex_HashTable)
 + (id)_ISMutableStoreIndex_mappedDataWithCapacity:()ISMutableStoreIndex_HashTable additionalSize:;
+- (_DWORD)_ISStoreIndex_addNodeWithSize:()ISMutableStoreIndex_HashTable;
 - (uint64_t)_ISMutableStoreIndex_addValue:()ISMutableStoreIndex_HashTable size:forUUID:;
-- (uint64_t)_ISStoreIndex_addNodeWithSize:()ISMutableStoreIndex_HashTable;
 @end
 
 @implementation NSData(ISMutableStoreIndex_HashTable)
@@ -49,14 +49,14 @@
   return v7;
 }
 
-- (uint64_t)_ISStoreIndex_addNodeWithSize:()ISMutableStoreIndex_HashTable
+- (_DWORD)_ISStoreIndex_addNodeWithSize:()ISMutableStoreIndex_HashTable
 {
   result = [self _ISStoreIndex_hashTableHeader];
   if (result)
   {
     v6 = a3 + 36;
-    v7 = *(result + 16);
-    *(result + 16) = v7 + a3 + 36;
+    v7 = result[4];
+    result[4] = v7 + a3 + 36;
     v8 = [self length];
     bytes = [self bytes];
     _ISStoreIndex_nodesOffset = [self _ISStoreIndex_nodesOffset];
@@ -66,7 +66,7 @@
       *v11 = v7 | (v6 << 32);
     }
 
-    return v7 | (v6 << 32);
+    return (v7 | (v6 << 32));
   }
 
   return result;
@@ -127,7 +127,7 @@
         v19 = (result + 24);
         if (v18)
         {
-          v20 = _ISDefaultLog();
+          v20 = _ISDefaultLog(result);
           if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
           {
             [NSData(ISMutableStoreIndex_HashTable) _ISMutableStoreIndex_addValue:v17 size:SHIDWORD(v16) forUUID:v20];
@@ -154,13 +154,12 @@ LABEL_17:
 
 - (void)_ISMutableStoreIndex_addValue:()ISMutableStoreIndex_HashTable size:forUUID:.cold.1(int a1, int a2, os_log_t log)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 67109376;
-  v4[1] = a1;
-  v5 = 1024;
-  v6 = a2;
-  _os_log_fault_impl(&dword_1A77B8000, log, OS_LOG_TYPE_FAULT, "Cyclic node detected: (offset: %u, size: %u) ", v4, 0xEu);
-  v3 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109376;
+  v3[1] = a1;
+  v4 = 1024;
+  v5 = a2;
+  _os_log_fault_impl(&dword_1A77B8000, log, OS_LOG_TYPE_FAULT, "Cyclic node detected: (offset: %u, size: %u) ", v3, 0xEu);
 }
 
 @end

@@ -8,7 +8,7 @@
 
 - (id)accessibilityAttributedLabel
 {
-  v14[1] = *MEMORY[0x29EDCA608];
+  v13[1] = *MEMORY[0x29EDCA608];
   v2 = [(HURecordingButtonAccessibility *)self safeSwiftValueForKey:@"currentRecordingState"];
   safeSwiftEnumCase = [v2 safeSwiftEnumCase];
 
@@ -24,9 +24,9 @@
 
     if (v9)
     {
-      v13 = *MEMORY[0x29EDC7F28];
-      v14[0] = @"ɻɪ.ˈkwɔɻd";
-      v10 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v12 = *MEMORY[0x29EDC7F28];
+      v13[0] = @"ɻɪ.ˈkwɔɻd";
+      v10 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
       [v6 setAttributes:v10 range:{0, objc_msgSend(v6, "length")}];
     }
   }
@@ -36,26 +36,24 @@
     v6 = 0;
   }
 
-  v11 = *MEMORY[0x29EDCA608];
-
   return v6;
 }
 
 - (id)accessibilityUserInputLabels
 {
-  v11[3] = *MEMORY[0x29EDCA608];
+  v10[3] = *MEMORY[0x29EDCA608];
   v2 = [(HURecordingButtonAccessibility *)self safeSwiftValueForKey:@"currentRecordingState"];
   safeSwiftEnumCase = [v2 safeSwiftEnumCase];
 
   if ([safeSwiftEnumCase isEqualToString:@"recording"])
   {
     v4 = accessibilityHomeUILocalizedString(@"record.button");
-    v11[0] = v4;
+    v10[0] = v4;
     v5 = accessibilityHomeUILocalizedString(@"record.alternative.start");
-    v11[1] = v5;
+    v10[1] = v5;
     v6 = accessibilityHomeUILocalizedString(@"record.alternative.announce");
-    v11[2] = v6;
-    v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:v11 count:3];
+    v10[2] = v6;
+    v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:v10 count:3];
 
 LABEL_5:
     goto LABEL_7;
@@ -64,17 +62,15 @@ LABEL_5:
   if ([safeSwiftEnumCase isEqualToString:@"stopped"])
   {
     v4 = accessibilityHomeUILocalizedString(@"stop.button");
-    v10[0] = v4;
+    v9[0] = v4;
     v5 = accessibilityHomeUILocalizedString(@"stop.alternative.done");
-    v10[1] = v5;
-    v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:v10 count:2];
+    v9[1] = v5;
+    v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:v9 count:2];
     goto LABEL_5;
   }
 
   v7 = MEMORY[0x29EDB8E90];
 LABEL_7:
-
-  v8 = *MEMORY[0x29EDCA608];
 
   return v7;
 }

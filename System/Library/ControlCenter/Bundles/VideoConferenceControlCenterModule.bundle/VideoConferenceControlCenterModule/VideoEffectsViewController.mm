@@ -117,7 +117,6 @@
 
   v5 = OBJC_IVAR____TtC34VideoConferenceControlCenterModule26VideoEffectsViewController_requiredVisualStyleCategories;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = categoriesCopy;
 }
 
@@ -167,13 +166,14 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_DB84();
+  sub_DB84(selfCopy);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_EA0C(appear);
+  sub_EA0C(appearCopy);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear

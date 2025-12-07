@@ -55,29 +55,29 @@ LABEL_3:
 
 - (void)_queue_runPrewarm
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_prewarmingQueue);
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   obj = self->_pendingPrewarms;
-  v3 = [(NSMutableSet *)obj countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [(NSMutableSet *)obj countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     do
     {
       v6 = 0;
       do
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = [MEMORY[0x277D46EB0] contextWithIdentity:*(*(&v13 + 1) + 8 * v6)];
+        v7 = [MEMORY[0x277D46EB0] contextWithIdentity:*(*(&v12 + 1) + 8 * v6)];
         [v7 setExplanation:@"RunningBoard Prewarming"];
         v8 = [objc_alloc(MEMORY[0x277D46EC0]) initWithContext:v7];
         WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -87,7 +87,7 @@ LABEL_3:
       }
 
       while (v4 != v6);
-      v4 = [(NSMutableSet *)obj countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [(NSMutableSet *)obj countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
@@ -95,8 +95,6 @@ LABEL_3:
 
   pendingPrewarms = self->_pendingPrewarms;
   self->_pendingPrewarms = 0;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_addPrewarmForIdentity:(id)identity

@@ -31,7 +31,7 @@
 - (float)_mediaPlaybackVolume
 {
   dispatch_assert_queue_V2(self->_queue);
-  v3 = [(NSMutableDictionary *)self->_volumesByCategory objectForKey:@"Audio/Video"];
+  v3 = objc_msgSend_objectForKey_(self->_volumesByCategory);
   [v3 floatValue];
   v5 = v4;
 
@@ -190,7 +190,7 @@
 
   if (!volumeCopy)
   {
-    v23 = [(NSMutableDictionary *)self->_volumesByCategory objectForKey:@"VoiceCommand"];
+    v23 = objc_msgSend_objectForKey_(self->_volumesByCategory);
     v24 = v23;
     if (v23)
     {
@@ -375,7 +375,7 @@ LABEL_51:
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "%s category = %@, volume = %f, audioCategory = %@, reason = %@", &v18, 0x34u);
   }
 
-  v14 = [(NSMutableDictionary *)self->_volumesByCategory objectForKey:categoryCopy];
+  v14 = objc_msgSend_objectForKey_(self->_volumesByCategory);
   *&v15 = volume;
   v16 = [NSNumber numberWithFloat:v15];
   if ([v14 isEqual:v16])
@@ -420,8 +420,8 @@ LABEL_51:
 
   v6 = mach_absolute_time();
   userInfo = [changedCopy userInfo];
-  v8 = [userInfo objectForKey:AVSystemController_AudioCategoryNotificationParameter];
-  v9 = [userInfo objectForKey:AVSystemController_AudioVolumeChangeReasonNotificationParameter];
+  v8 = objc_msgSend_objectForKey_(userInfo);
+  v9 = objc_msgSend_objectForKey_(userInfo);
   v10 = v9;
   v11 = @"Notification";
   if (v9)
@@ -431,7 +431,7 @@ LABEL_51:
 
   v12 = v11;
 
-  v13 = [userInfo objectForKey:AVSystemController_AudioVolumeNotificationParameter];
+  v13 = objc_msgSend_objectForKey_(userInfo);
   [v13 floatValue];
   v15 = v14;
 
@@ -570,7 +570,7 @@ LABEL_19:
         }
 
         v36 = *(*(&v58 + 1) + 8 * v35);
-        v37 = [v36 objectForKey:AVSystemController_RouteDescriptionKey_AVAudioRouteName];
+        v37 = objc_msgSend_objectForKey_(v36);
         v38 = [nameCopy isEqualToString:v37];
 
         if (v38)
@@ -611,9 +611,9 @@ LABEL_8:
         _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "%s routeInfo = %@", buf, 0x16u);
       }
 
-      v25 = [v23 objectForKey:AVSystemController_RouteDescriptionKey_AVAudioRouteName];
-      v26 = [v23 objectForKey:AVSystemController_RouteDescriptionKey_RouteUID];
-      v56 = [v23 objectForKey:AVSystemController_RouteDescriptionKey_RouteSubtype];
+      v25 = objc_msgSend_objectForKey_(v23);
+      v26 = objc_msgSend_objectForKey_(v23);
+      v56 = objc_msgSend_objectForKey_(v23);
       v27 = AFSiriLogContextSpeech;
       if (os_log_type_enabled(AFSiriLogContextSpeech, OS_LOG_TYPE_INFO))
       {
@@ -771,9 +771,9 @@ LABEL_9:
         _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "%s routeInfo = %@", buf, 0x16u);
       }
 
-      v51 = [v21 objectForKey:AVSystemController_RouteDescriptionKey_AVAudioRouteName];
-      v23 = [v21 objectForKey:AVSystemController_RouteDescriptionKey_RouteUID];
-      v24 = [v21 objectForKey:AVSystemController_RouteDescriptionKey_RouteSubtype];
+      v51 = objc_msgSend_objectForKey_(v21);
+      v23 = objc_msgSend_objectForKey_(v21);
+      v24 = objc_msgSend_objectForKey_(v21);
       v25 = AFSiriLogContextSpeech;
       if (os_log_type_enabled(AFSiriLogContextSpeech, OS_LOG_TYPE_INFO))
       {
@@ -878,7 +878,7 @@ LABEL_19:
       }
 
       v36 = *(*(&v53 + 1) + 8 * v35);
-      v37 = [v36 objectForKey:AVSystemController_RouteDescriptionKey_AVAudioRouteName];
+      v37 = objc_msgSend_objectForKey_(v36);
       v38 = [nameCopy isEqualToString:v37];
 
       if (v38)

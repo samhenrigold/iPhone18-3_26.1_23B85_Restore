@@ -276,29 +276,29 @@ void __76__VSIdentityProviderViewController__logoLoadOperationForPreferredImageS
 
 - (void)_showViewController:(id)controller
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   [(VSIdentityProviderViewController *)self _stopValidationAndShowButtons:1];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   childViewControllers = [(VSIdentityProviderViewController *)self childViewControllers];
-  v6 = [childViewControllers countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [childViewControllers countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(childViewControllers);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         [v10 willMoveToParentViewController:0];
         view = [v10 view];
         [view removeFromSuperview];
@@ -306,7 +306,7 @@ void __76__VSIdentityProviderViewController__logoLoadOperationForPreferredImageS
         [v10 removeFromParentViewController];
       }
 
-      v7 = [childViewControllers countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [childViewControllers countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -321,8 +321,6 @@ void __76__VSIdentityProviderViewController__logoLoadOperationForPreferredImageS
   [view3 addSubview:view2];
   [controllerCopy didMoveToParentViewController:self];
   [(UIViewController *)self vs_updateNavigationItemAndForceViewReloadWithSearchController:0];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dismiss
@@ -588,12 +586,12 @@ LABEL_30:
 
 - (BOOL)identityProviderRequestManager:(id)manager requestsAlert:(id)alert
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v44[1] = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   selfCopy = self;
   alertCopy = alert;
   currentlyPresentedIdentityProviderAlert = [(VSIdentityProviderViewController *)self currentlyPresentedIdentityProviderAlert];
-  v28 = currentlyPresentedIdentityProviderAlert;
+  v27 = currentlyPresentedIdentityProviderAlert;
   if (currentlyPresentedIdentityProviderAlert)
   {
     [currentlyPresentedIdentityProviderAlert dismissViewControllerAnimated:1 completion:0];
@@ -616,31 +614,31 @@ LABEL_30:
     [(VSIdentityProviderAlertAction *)v11 setTitle:v13];
 
     [(VSIdentityProviderAlertAction *)v11 setStyle:0];
-    v45[0] = v11;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:1];
+    v44[0] = v11;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:1];
 
     actions = v14;
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   obj = actions;
-  v15 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
+  v15 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
   if (v15)
   {
-    v16 = *v37;
+    v16 = *v36;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v37 != v16)
+        if (*v36 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v36 + 1) + 8 * i);
+        v18 = *(*(&v35 + 1) + 8 * i);
         style = [v18 style];
         v20 = MEMORY[0x277D750F8];
         title2 = [v18 title];
@@ -654,21 +652,21 @@ LABEL_30:
           v22 = 2 * (style == 2);
         }
 
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __81__VSIdentityProviderViewController_identityProviderRequestManager_requestsAlert___block_invoke;
-        v33[3] = &unk_279E196E8;
-        objc_copyWeak(&v34, &from);
-        objc_copyWeak(&v35, &location);
-        v33[4] = v18;
-        v23 = [v20 actionWithTitle:title2 style:v22 handler:v33];
+        v32[0] = MEMORY[0x277D85DD0];
+        v32[1] = 3221225472;
+        v32[2] = __81__VSIdentityProviderViewController_identityProviderRequestManager_requestsAlert___block_invoke;
+        v32[3] = &unk_279E196E8;
+        objc_copyWeak(&v33, &from);
+        objc_copyWeak(&v34, &location);
+        v32[4] = v18;
+        v23 = [v20 actionWithTitle:title2 style:v22 handler:v32];
 
         [val addAction:v23];
-        objc_destroyWeak(&v35);
         objc_destroyWeak(&v34);
+        objc_destroyWeak(&v33);
       }
 
-      v15 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v15 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
     }
 
     while (v15);
@@ -678,7 +676,7 @@ LABEL_30:
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v43 = alertCopy;
+    v42 = alertCopy;
     _os_log_impl(&dword_270DD4000, v24, OS_LOG_TYPE_DEFAULT, "Presenting identity provider alert %@", buf, 0xCu);
   }
 
@@ -688,7 +686,6 @@ LABEL_30:
   objc_destroyWeak(&from);
   objc_destroyWeak(&location);
 
-  v25 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -714,18 +711,22 @@ void __81__VSIdentityProviderViewController_identityProviderRequestManager_reque
 - (void)identityProviderRequestManager:(id)manager didUpdateLogoViewModel:(id)model
 {
   modelCopy = model;
-  if ([modelCopy conformsToProtocol:&unk_2880E88E0])
+  v5 = [modelCopy conformsToProtocol:&unk_2880E88E0];
+  v6 = modelCopy;
+  if (v5)
   {
     [modelCopy preferredLogoSize];
-    v5 = [(VSIdentityProviderViewController *)self _logoLoadOperationForPreferredImageSize:?];
-    if (v5)
+    v7 = [(VSIdentityProviderViewController *)self _logoLoadOperationForPreferredImageSize:?];
+    if (v7)
     {
       privateQueue = [(VSIdentityProviderViewController *)self privateQueue];
-      [privateQueue addOperation:v5];
+      [privateQueue addOperation:v7];
     }
+
+    v6 = modelCopy;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v5, v6);
 }
 
 - (void)viewDidLayoutSubviews
@@ -745,11 +746,10 @@ void __81__VSIdentityProviderViewController_identityProviderRequestManager_reque
 
 - (void)_showValidationAlertForError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_270DD4000, a2, OS_LOG_TYPE_ERROR, "Will show validation alert for error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_270DD4000, a2, OS_LOG_TYPE_ERROR, "Will show validation alert for error: %@", &v2, 0xCu);
 }
 
 @end

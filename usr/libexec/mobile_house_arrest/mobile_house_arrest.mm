@@ -1,8 +1,9 @@
-uint64_t sub_1000009C8(int a1, uint64_t a2, void *a3, int a4)
+uint64_t sub_1000009C8(uint64_t a1, uint64_t a2, void *a3, int a4)
 {
+  v6 = a1;
   v7 = a3;
   v8 = v7;
-  if (a1 < 0 || !v7)
+  if (v6 < 0 || !v7)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
@@ -186,7 +187,7 @@ const __CFString *sub_100000ED0(uint64_t a1, void *a2, unsigned int a3)
 {
   v5 = a2;
   v6 = v5;
-  v51 = 0;
+  v52 = 0;
   if (!a1 || !v5)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
@@ -215,9 +216,9 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v50 = 0;
-  v10 = [[LSApplicationRecord alloc] initWithBundleIdentifier:v5 allowPlaceholder:0 error:&v50];
-  v11 = v50;
+  v51 = 0;
+  v10 = [[LSApplicationRecord alloc] initWithBundleIdentifier:v5 allowPlaceholder:0 error:&v51];
+  v11 = v51;
   if (v10)
   {
 LABEL_16:
@@ -240,7 +241,7 @@ LABEL_16:
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v53 = v14;
+        v54 = v14;
         v21 = "%@ is not an application or extension for an application.";
         goto LABEL_24;
       }
@@ -259,7 +260,7 @@ LABEL_25:
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v53 = v14;
+        v54 = v14;
         v21 = "found placeholder for %@";
 LABEL_24:
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, v21, buf, 0xCu);
@@ -269,51 +270,51 @@ LABEL_24:
       goto LABEL_25;
     }
 
-    v47 = v11;
+    v48 = v11;
     if (os_variant_allows_internal_security_policies())
     {
-      v34 = [v17 isAdHocCodeSigned];
+      v35 = [v17 isAdHocCodeSigned];
     }
 
     else
     {
-      v34 = 0;
+      v35 = 0;
     }
 
-    v35 = [v17 typeForInstallMachinery];
-    v36 = [v35 isEqualToString:@"User"];
+    v36 = [v17 typeForInstallMachinery];
+    v37 = [v36 isEqualToString:@"User"];
 
-    if ((v36 & 1) == 0 && (v34 & 1) == 0)
+    if ((v37 & 1) == 0 && (v35 & 1) == 0)
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
-        v37 = [v17 typeForInstallMachinery];
+        v38 = [v17 typeForInstallMachinery];
         *buf = 138412546;
-        v53 = v14;
-        v54 = 2112;
-        v55 = v37;
+        v54 = v14;
+        v55 = 2112;
+        v56 = v38;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "invalid application type for %@: %@", buf, 0x16u);
       }
 
       v22 = 0;
       v8 = @"InstallationLookupFailed";
-      v11 = v47;
+      v11 = v48;
       goto LABEL_26;
     }
 
     if (a3)
     {
-      v11 = v47;
-      if ((([v17 isFileSharingEnabled] | v34) & 1) == 0)
+      v11 = v48;
+      if ((([v17 isFileSharingEnabled] | v35) & 1) == 0)
       {
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v53 = v14;
-          v38 = "file sharing is not enabled for %@";
-          v39 = 12;
+          v54 = v14;
+          v39 = "file sharing is not enabled for %@";
+          v40 = 12;
 LABEL_78:
-          _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, v38, buf, v39);
+          _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, v39, buf, v40);
         }
 
 LABEL_79:
@@ -327,16 +328,16 @@ LABEL_26:
           if (v23)
           {
             v24 = v23;
-            v46 = v14;
+            v47 = v14;
             v25 = v11;
             v26 = +[NSFileManager defaultManager];
             v27 = [(__CFString *)v24 path];
-            v28 = [v26 fileExistsAtPath:v27 isDirectory:&v51];
+            v28 = [v26 fileExistsAtPath:v27 isDirectory:&v52];
 
             if (v28)
             {
               v29 = v25;
-              if (v51)
+              if (v52)
               {
                 v30 = dispatch_time(0, 1000000000);
                 v31 = dispatch_get_global_queue(0, 0);
@@ -348,9 +349,9 @@ LABEL_26:
                 dispatch_after(v30, v31, block);
 
                 v32 = [(__CFString *)v24 path];
-                LODWORD(v31) = lockdown_get_socket();
+                socket = lockdown_get_socket();
                 securecontext = lockdown_get_securecontext();
-                sub_1000009C8(v31, securecontext, v32, a3);
+                sub_1000009C8(socket, securecontext, v32, a3);
               }
 
               else
@@ -358,9 +359,9 @@ LABEL_26:
                 if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412546;
-                  v53 = v46;
-                  v54 = 2112;
-                  v55 = v24;
+                  v54 = v47;
+                  v55 = 2112;
+                  v56 = v24;
                   _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "invalid data container for %@ (%@)", buf, 0x16u);
                 }
 
@@ -373,9 +374,9 @@ LABEL_26:
               if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
-                v53 = v46;
-                v54 = 2112;
-                v55 = v24;
+                v54 = v47;
+                v55 = 2112;
+                v56 = v24;
                 _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "missing data container for %@ (%@)", buf, 0x16u);
               }
 
@@ -388,7 +389,7 @@ LABEL_26:
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v53 = v14;
+              v54 = v14;
               _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "failed to retrieve data container for %@", buf, 0xCu);
             }
 
@@ -401,9 +402,9 @@ LABEL_26:
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v53 = v14;
-            v54 = 2112;
-            v55 = v8;
+            v54 = v14;
+            v55 = 2112;
+            v56 = v8;
             _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@ is not an allowed app bundle or extension: %@", buf, 0x16u);
           }
         }
@@ -417,10 +418,10 @@ LABEL_60:
       goto LABEL_26;
     }
 
-    v11 = v47;
-    if (([v15 isProfileValidated] | v34))
+    v11 = v48;
+    if (([v15 isProfileValidated] | v35))
     {
-      if (v34 & 1 | (([v15 isUPPValidated] & 1) == 0))
+      if (v35 & 1 | (([v15 isUPPValidated] & 1) == 0))
       {
         goto LABEL_60;
       }
@@ -432,32 +433,32 @@ LABEL_60:
 
       if ([v15 isUPPValidated])
       {
-        v43 = @"true";
+        v44 = @"true";
       }
 
       else
       {
-        v43 = @"false";
+        v44 = @"false";
       }
 
-      v44 = [v17 isAdHocCodeSigned];
+      v45 = [v17 isAdHocCodeSigned];
       *buf = 138412802;
-      if (v44)
+      if (v45)
       {
-        v45 = @"true";
+        v46 = @"true";
       }
 
       else
       {
-        v45 = @"false";
+        v46 = @"false";
       }
 
-      v53 = v14;
-      v54 = 2112;
-      v55 = v43;
-      v56 = 2112;
-      v57 = v45;
-      v38 = "unsupported code signature for %@ (UPP validated profile: %@, ad-hoc signed: %@)";
+      v54 = v14;
+      v55 = 2112;
+      v56 = v44;
+      v57 = 2112;
+      v58 = v46;
+      v39 = "unsupported code signature for %@ (UPP validated profile: %@, ad-hoc signed: %@)";
     }
 
     else
@@ -469,50 +470,50 @@ LABEL_60:
 
       if ([v15 isProfileValidated])
       {
-        v40 = @"true";
+        v41 = @"true";
       }
 
       else
       {
-        v40 = @"false";
+        v41 = @"false";
       }
 
-      v41 = [v17 isAdHocCodeSigned];
+      v42 = [v17 isAdHocCodeSigned];
       *buf = 138412802;
-      if (v41)
+      if (v42)
       {
-        v42 = @"true";
+        v43 = @"true";
       }
 
       else
       {
-        v42 = @"false";
+        v43 = @"false";
       }
 
-      v53 = v14;
-      v54 = 2112;
-      v55 = v40;
-      v56 = 2112;
-      v57 = v42;
-      v38 = "unsupported code signature for %@ (validated profile: %@, ad-hoc signed: %@)";
+      v54 = v14;
+      v55 = 2112;
+      v56 = v41;
+      v57 = 2112;
+      v58 = v43;
+      v39 = "unsupported code signature for %@ (validated profile: %@, ad-hoc signed: %@)";
     }
 
-    v39 = 32;
+    v40 = 32;
     goto LABEL_78;
   }
 
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v53 = v6;
-    v54 = 2112;
-    v55 = v11;
+    v54 = v6;
+    v55 = 2112;
+    v56 = v11;
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "failed to lookup application for %@, attempting app extension: %@", buf, 0x16u);
   }
 
-  v49 = v11;
-  v10 = [[LSApplicationExtensionRecord alloc] initWithBundleIdentifier:v6 error:&v49];
-  v12 = v49;
+  v50 = v11;
+  v10 = [[LSApplicationExtensionRecord alloc] initWithBundleIdentifier:v6 error:&v50];
+  v12 = v50;
 
   if (v10)
   {
@@ -523,9 +524,9 @@ LABEL_60:
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v53 = v6;
-    v54 = 2112;
-    v55 = v12;
+    v54 = v6;
+    v55 = 2112;
+    v56 = v12;
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "failed to lookup app extension for %@: %@", buf, 0x16u);
   }
 

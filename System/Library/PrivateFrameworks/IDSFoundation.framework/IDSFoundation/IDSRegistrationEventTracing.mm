@@ -91,7 +91,7 @@
   selfCopy = self;
   sub_1A7DA77A8(v6, summaryCopy);
 
-  sub_1A7CC7FFC(&qword_1EB2B7230);
+  sub_1A7CC7FFC(&qword_1EB2B7230, &qword_1A7E4F808);
   sub_1A7DAA7E8();
   v8 = sub_1A7E22160();
 

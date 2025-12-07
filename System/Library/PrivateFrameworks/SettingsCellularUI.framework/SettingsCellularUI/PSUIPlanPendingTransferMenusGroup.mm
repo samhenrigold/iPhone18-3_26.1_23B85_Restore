@@ -46,7 +46,7 @@
 
 - (id)specifiers
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   if (self->_planPendingTransfer)
   {
@@ -73,7 +73,7 @@ LABEL_9:
           if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315138;
-            v36 = "[PSUIPlanPendingTransferMenusGroup specifiers]";
+            v35 = "[PSUIPlanPendingTransferMenusGroup specifiers]";
             _os_log_debug_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEBUG, "%s removing pending cellular plan", buf, 0xCu);
           }
 
@@ -91,7 +91,7 @@ LABEL_9:
         goto LABEL_14;
       }
 
-      v34 = activatePlanSpecifier;
+      v33 = activatePlanSpecifier;
       v10 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"CARRIER_NAME"];
       carrierName = [(CTCellularPlanPendingTransfer *)self->_planPendingTransfer carrierName];
       [v10 setName:carrierName];
@@ -110,7 +110,7 @@ LABEL_9:
 
     else
     {
-      v34 = activatePlanSpecifier;
+      v33 = activatePlanSpecifier;
       v10 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"CARRIER_NAME"];
       carrierName2 = [(CTCellularPlanPendingTransfer *)self->_planPendingTransfer carrierName];
       [v10 setName:carrierName2];
@@ -130,7 +130,7 @@ LABEL_9:
       [v3 addObject:v26];
     }
 
-    activatePlanSpecifier = v34;
+    activatePlanSpecifier = v33;
     goto LABEL_9;
   }
 
@@ -138,13 +138,11 @@ LABEL_9:
   if (os_log_type_enabled(emptyGroupSpecifier, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v36 = "[PSUIPlanPendingTransferMenusGroup specifiers]";
+    v35 = "[PSUIPlanPendingTransferMenusGroup specifiers]";
     _os_log_impl(&dword_2658DE000, emptyGroupSpecifier, OS_LOG_TYPE_DEFAULT, "%s No specifiers to show, because there is no pending plan with the given plan reference", buf, 0xCu);
   }
 
 LABEL_14:
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -158,40 +156,39 @@ LABEL_14:
 
 - (void)removePlanPendingTransfer:(id)transfer
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUIPlanPendingTransferMenusGroup *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[PSUIPlanPendingTransferMenusGroup removePlanPendingTransfer:]";
+    v9 = "[PSUIPlanPendingTransferMenusGroup removePlanPendingTransfer:]";
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
   cellularPlanManager = self->_cellularPlanManager;
   planPendingTransfer = self->_planPendingTransfer;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __63__PSUIPlanPendingTransferMenusGroup_removePlanPendingTransfer___block_invoke;
-  v8[3] = &unk_279BA9DF0;
-  v8[4] = self;
-  [(CTCellularPlanManager *)cellularPlanManager deletePlanPendingTransfer:planPendingTransfer completion:v8];
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __63__PSUIPlanPendingTransferMenusGroup_removePlanPendingTransfer___block_invoke;
+  v7[3] = &unk_279BA9DF0;
+  v7[4] = self;
+  [(CTCellularPlanManager *)cellularPlanManager deletePlanPendingTransfer:planPendingTransfer completion:v7];
 }
 
 void __63__PSUIPlanPendingTransferMenusGroup_removePlanPendingTransfer___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = [*(a1 + 32) getLogger];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = *(*(a1 + 32) + 16);
+      v5 = *(*(a1 + 32) + 16);
       *buf = 138412546;
-      v9 = v6;
-      v10 = 2112;
-      v11 = v3;
+      v8 = v5;
+      v9 = 2112;
+      v10 = v3;
       _os_log_error_impl(&dword_2658DE000, v4, OS_LOG_TYPE_ERROR, "Failed to remove the plan pending transfer item: %@ with error: %@", buf, 0x16u);
     }
   }
@@ -205,8 +202,6 @@ void __63__PSUIPlanPendingTransferMenusGroup_removePlanPendingTransfer___block_i
     block[4] = *(a1 + 32);
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __63__PSUIPlanPendingTransferMenusGroup_removePlanPendingTransfer___block_invoke_2(uint64_t a1)

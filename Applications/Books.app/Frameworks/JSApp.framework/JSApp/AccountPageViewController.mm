@@ -68,25 +68,24 @@
 - (_TtC5JSApp25AccountPageViewController)initWithAccountURL:(id)l
 {
   v4 = sub_2805C(&unk_CAE60, &qword_A1800);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v12 - v6;
+  v6 = &v11 - v5;
   if (l)
   {
     sub_8396C();
-    v8 = sub_839CC();
-    v10 = 0;
-    v9 = (*(v8 - 8) + 56);
+    v7 = sub_839CC();
+    v9 = 0;
+    v8 = (*(v7 - 8) + 56);
   }
 
   else
   {
-    v8 = sub_839CC();
-    v9 = (*(v8 - 8) + 56);
-    v10 = 1;
+    v7 = sub_839CC();
+    v8 = (*(v7 - 8) + 56);
+    v9 = 1;
   }
 
-  (*v9)(v7, v10, 1, v8);
+  (*v8)(v6, v9, 1, v7);
   result = _swift_stdlib_reportUnimplementedInitializer();
   __break(1u);
   return result;

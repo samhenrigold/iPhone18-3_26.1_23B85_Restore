@@ -34,7 +34,7 @@
 
   if (!paymentSheet)
   {
-    goto LABEL_59;
+    goto LABEL_60;
   }
 
   authenticationContext = [operationCopy authenticationContext];
@@ -91,24 +91,22 @@
     {
       v89 = 138543362;
       v90 = v12;
-      LODWORD(v57) = 12;
-      v56 = &v89;
-      v31 = _os_log_send_and_compose_impl();
+      v31 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &_mh_execute_header, v29, 16, "%{public}@: [PW] Payment sheet encountered an unknown error", &v89, 12);
 
       if (!v31)
       {
         v22 = 0;
-        goto LABEL_40;
+        goto LABEL_41;
       }
 
-      v29 = [NSString stringWithCString:v31 encoding:4, &v89, v57];
+      v29 = [NSString stringWithCString:v31 encoding:4];
       free(v31);
       v56 = v29;
       SSFileLog();
     }
 
     v22 = 0;
-    goto LABEL_39;
+    goto LABEL_40;
   }
 
   v14 = +[SSLogConfig sharedDaemonConfig];
@@ -140,16 +138,14 @@
   {
     v89 = 138543362;
     v90 = v12;
-    LODWORD(v57) = 12;
-    v56 = &v89;
-    v20 = _os_log_send_and_compose_impl();
+    v20 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &_mh_execute_header, v18, 0, "%{public}@: Preparing to display payment sheet", &v89, 12);
 
     if (!v20)
     {
       goto LABEL_14;
     }
 
-    v18 = [NSString stringWithCString:v20 encoding:4, &v89, v57];
+    v18 = [NSString stringWithCString:v20 encoding:4];
     free(v20);
     v56 = v18;
     SSFileLog();
@@ -162,7 +158,7 @@ LABEL_14:
   v22 = v21;
   if (!v21)
   {
-    goto LABEL_41;
+    goto LABEL_42;
   }
 
   domain = [v21 domain];
@@ -186,23 +182,28 @@ LABEL_14:
     v25 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog3 = [v25 shouldLog];
+  LODWORD(v32) = [v25 shouldLog];
   shouldLogToDisk3 = [v25 shouldLogToDisk];
   oSLogObject3 = [v25 OSLogObject];
   v29 = oSLogObject3;
   if (shouldLogToDisk3)
   {
-    shouldLog3 |= 2u;
+    LODWORD(v32) = v32 | 2;
   }
 
-  if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
   {
-    shouldLog3 &= 2u;
+    v32 = v32;
   }
 
-  if (!shouldLog3)
+  else
   {
-    goto LABEL_39;
+    v32 &= 2u;
+  }
+
+  if (!v32)
+  {
+    goto LABEL_40;
   }
 
   v35 = objc_opt_class();
@@ -212,21 +213,20 @@ LABEL_14:
   v92 = v22;
   v36 = v35;
   LODWORD(v57) = 22;
-  v56 = &v89;
-  v37 = _os_log_send_and_compose_impl();
+  v37 = _os_log_send_and_compose_impl(v32, 0, 0, 0, &_mh_execute_header, v29, 16, "%{public}@: Display payment sheet container operation failed with error: %{public}@", &v89, v57);
 
   if (v37)
   {
-    v29 = [NSString stringWithCString:v37 encoding:4, &v89, v57];
+    v29 = [NSString stringWithCString:v37 encoding:4];
     free(v37);
     v56 = v29;
     SSFileLog();
-LABEL_39:
+LABEL_40:
   }
 
-LABEL_40:
-
 LABEL_41:
+
+LABEL_42:
   if (*(v80 + 24) == 1)
   {
     authenticationContext2 = [operationCopy authenticationContext];
@@ -243,20 +243,20 @@ LABEL_41:
   {
     if ((v80[3] & 1) == 0)
     {
-      goto LABEL_48;
+      goto LABEL_49;
     }
 
-LABEL_60:
+LABEL_61:
     -[RedeemCodesProtocolDataProvider setAuthenticatedAccountCredentialSource:](self, "setAuthenticatedAccountCredentialSource:", [operationCopy authenticatedAccountCredentialSource]);
     authenticatedAccountDSID = [operationCopy authenticatedAccountDSID];
     [(RedeemCodesProtocolDataProvider *)self setAuthenticatedAccountDSID:authenticatedAccountDSID];
 
     redirectURL = [operationCopy redirectURL];
     [(RedeemCodesProtocolDataProvider *)self setRedirectURL:redirectURL];
-    goto LABEL_61;
+    goto LABEL_62;
   }
 
-LABEL_59:
+LABEL_60:
   v50 = v84;
   obj = v84[5];
   v51 = [(RedeemCodesProtocolDataProvider *)self runSubOperation:operationCopy error:&obj, v56];
@@ -264,38 +264,38 @@ LABEL_59:
   *(v80 + 24) = v51;
   if (v51)
   {
-    goto LABEL_60;
+    goto LABEL_61;
   }
 
-LABEL_48:
+LABEL_49:
   redirectURL = +[SSLogConfig sharedDaemonConfig];
   if (!redirectURL)
   {
     redirectURL = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog4 = [redirectURL shouldLog];
+  shouldLog3 = [redirectURL shouldLog];
   shouldLogToDisk4 = [redirectURL shouldLogToDisk];
   oSLogObject4 = [redirectURL OSLogObject];
   v44 = oSLogObject4;
   if (shouldLogToDisk4)
   {
-    shouldLog4 |= 2u;
+    shouldLog3 |= 2u;
   }
 
   if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
   {
-    v45 = shouldLog4;
+    v45 = shouldLog3;
   }
 
   else
   {
-    v45 = shouldLog4 & 2;
+    v45 = shouldLog3 & 2;
   }
 
   if (!v45)
   {
-    goto LABEL_58;
+    goto LABEL_59;
   }
 
   v46 = objc_opt_class();
@@ -306,17 +306,17 @@ LABEL_48:
   v92 = v47;
   v48 = v46;
   LODWORD(v57) = 22;
-  v49 = _os_log_send_and_compose_impl();
+  v49 = _os_log_send_and_compose_impl(v45, 0, 0, 0, &_mh_execute_header, v44, 0, "%{public}@: Server-driven authentication failed with error: %{public}@", &v89, v57);
 
   if (v49)
   {
-    v44 = [NSString stringWithCString:v49 encoding:4, &v89, v57];
+    v44 = [NSString stringWithCString:v49 encoding:4];
     free(v49);
     SSFileLog();
-LABEL_58:
+LABEL_59:
   }
 
-LABEL_61:
+LABEL_62:
 
   performedButton = [operationCopy performedButton];
   [(RedeemCodesProtocolDataProvider *)self setDialogButton:performedButton];

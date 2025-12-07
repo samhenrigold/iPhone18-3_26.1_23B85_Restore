@@ -729,7 +729,7 @@
     }
 
     [(WKActionSheetAssistant *)v67 setDelegate:self];
-    WebKit::SmartMagnificationController::create(self, v69, &v76);
+    WebKit::SmartMagnificationController::create(&v76, self, v69);
     v70 = self->_smartMagnificationController.m_ptr;
     self->_smartMagnificationController.m_ptr = v76;
     if (v70)
@@ -1036,7 +1036,7 @@
           return;
         }
 
-        v14 = WTF::fastMalloc(v13);
+        v14 = WTF::fastMalloc(0, v13);
         v15 = v14;
         v16 = 0;
         do
@@ -1070,9 +1070,9 @@
 
 - (void)didMoveToWindow
 {
-  v7.receiver = self;
-  v7.super_class = WKContentView;
-  [(WKApplicationStateTrackingView *)&v7 didMoveToWindow];
+  v8.receiver = self;
+  v8.super_class = WKContentView;
+  [(WKApplicationStateTrackingView *)&v8 didMoveToWindow];
   if (BYTE2(self->_lastSelectionChildScrollViewContentOffset.var0.__val_.m_y) == 1)
   {
     BYTE2(self->_lastSelectionChildScrollViewContentOffset.var0.__val_.m_y) = 0;
@@ -1084,14 +1084,14 @@
     IsBeingCaptured = WebKit::WebPageProxy::setScreenIsBeingCaptured(self->_page.m_ptr, [(WKContentView *)self screenIsBeingCaptured]);
     WTF::RunLoop::mainSingleton(IsBeingCaptured);
     selfCopy = self;
-    v5 = WTF::fastMalloc(0x10);
-    *v5 = &unk_1F1144F88;
-    v5[1] = self;
-    v6 = v5;
+    v6 = WTF::fastMalloc(v5, 0x10);
+    *v6 = &unk_1F1144F88;
+    v6[1] = self;
+    v7 = v6;
     WTF::RunLoop::dispatch();
-    if (v6)
+    if (v7)
     {
-      (*(*v6 + 8))(v6);
+      (*(*v7 + 8))(v7);
     }
   }
 
@@ -1109,10 +1109,10 @@
   }
 
   m_ptr = self->_tapHighlightView.m_ptr;
-  WebCore::cocoaColor(&v65, &self->_tapHighlightInformation.color, v3);
-  [(WKTapHighlightView *)m_ptr setColor:*&v65.m_p1];
-  m_p1 = v65.m_p1;
-  v65.m_p1 = 0;
+  WebCore::cocoaColor(&v67, &self->_tapHighlightInformation.color, v3);
+  [(WKTapHighlightView *)m_ptr setColor:*&v67.m_p1];
+  m_p1 = v67.m_p1;
+  v67.m_p1 = 0;
   if (m_p1)
   {
   }
@@ -1146,8 +1146,8 @@
   layer = [(WKContentView *)self layer];
   if (layer)
   {
-    [layer transform];
-    v12 = *&v65.m_p1;
+    objc_msgSend_transform(layer);
+    v12 = *&v67.m_p1;
   }
 
   else
@@ -1155,24 +1155,21 @@
     v12 = 0.0;
   }
 
-  v62 = v12;
+  v64 = v12;
   if (!isRectilinear)
   {
     v16 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:4 * self->_tapHighlightInformation.quads.m_size];
-    v42 = self->_tapHighlightInformation.quads.m_size;
-    if (v42)
+    v43 = self->_tapHighlightInformation.quads.m_size;
+    if (v43)
     {
-      v43 = self->_tapHighlightInformation.quads.m_buffer;
-      v44 = 32 * v42;
+      v44 = self->_tapHighlightInformation.quads.m_buffer;
+      v45 = 32 * v43;
       do
       {
-        v65 = *v43;
-        *&v65.m_p1.m_x = vmulq_n_f32(*&v65.m_p1.m_x, v62);
-        *&v65.m_p3.m_x = vmulq_n_f32(*&v65.m_p3.m_x, v62);
-        inflateQuad(&v66, v65.m_p1.m_x, &v65.m_p1);
-        v45 = MEMORY[0x1E696B098];
-        WebCore::FloatPoint::operator CGPoint();
-        [v16 addObject:{objc_msgSend(v45, "valueWithCGPoint:")}];
+        v67 = *v44;
+        *&v67.m_p1.m_x = vmulq_n_f32(*&v67.m_p1.m_x, v64);
+        *&v67.m_p3.m_x = vmulq_n_f32(*&v67.m_p3.m_x, v64);
+        inflateQuad(&v68, v67.m_p1.m_x, &v67.m_p1);
         v46 = MEMORY[0x1E696B098];
         WebCore::FloatPoint::operator CGPoint();
         [v16 addObject:{objc_msgSend(v46, "valueWithCGPoint:")}];
@@ -1182,69 +1179,73 @@
         v48 = MEMORY[0x1E696B098];
         WebCore::FloatPoint::operator CGPoint();
         [v16 addObject:{objc_msgSend(v48, "valueWithCGPoint:")}];
-        ++v43;
-        v44 -= 32;
+        v49 = MEMORY[0x1E696B098];
+        WebCore::FloatPoint::operator CGPoint();
+        [v16 addObject:{objc_msgSend(v49, "valueWithCGPoint:")}];
+        ++v44;
+        v45 -= 32;
       }
 
-      while (v44);
-      v49 = self->_tapHighlightInformation.quads.m_size;
-      v63 = 0;
-      v64 = 0;
-      if (v49)
+      while (v45);
+      v50 = self->_tapHighlightInformation.quads.m_size;
+      v65 = 0;
+      v66 = 0;
+      if (v50)
       {
-        if (v49 >> 27)
+        v51 = (v50 >> 27);
+        if (v51)
         {
           goto LABEL_49;
         }
 
-        v50 = WTF::fastMalloc((32 * v49));
-        LODWORD(v64) = v49;
-        v63 = v50;
+        v52 = WTF::fastMalloc(v51, (32 * v50));
+        LODWORD(v66) = v50;
+        v65 = v52;
         if (self->_tapHighlightInformation.quads.m_size)
         {
-          v51 = 0;
-          v52 = 0;
+          v53 = 0;
+          v54 = 0;
           do
           {
-            v66 = self->_tapHighlightInformation.quads.m_buffer[v51];
-            *&v66.m_p1.m_x = vmulq_n_f32(*&v66.m_p1.m_x, v62);
-            *&v66.m_p3.m_x = vmulq_n_f32(*&v66.m_p3.m_x, v62);
-            inflateQuad(&v65, v66.m_p1.m_x, &v66.m_p1);
-            *(v50 + v51 * 32) = v65;
-            ++v52;
-            ++v51;
+            v68 = self->_tapHighlightInformation.quads.m_buffer[v53 / 4];
+            *&v68.m_p1.m_x = vmulq_n_f32(*&v68.m_p1.m_x, v64);
+            *&v68.m_p3.m_x = vmulq_n_f32(*&v68.m_p3.m_x, v64);
+            inflateQuad(&v67, v68.m_p1.m_x, &v68.m_p1);
+            *&v52[v53] = v67;
+            ++v54;
+            v53 += 4;
           }
 
-          while (v52 < self->_tapHighlightInformation.quads.m_size);
-          HIDWORD(v64) = v52;
+          while (v54 < self->_tapHighlightInformation.quads.m_size);
+          HIDWORD(v66) = v54;
         }
       }
     }
 
     else
     {
-      v63 = 0;
-      v64 = 0;
+      v65 = 0;
+      v66 = 0;
     }
 
-    v55 = self->_tapHighlightView.m_ptr;
-    v56 = *(self->_page.m_ptr + 4);
-    v57 = 0uLL;
-    if (*(v56 + 2784) == 1)
+    v57 = self->_tapHighlightView.m_ptr;
+    v58 = *(self->_page.m_ptr + 4);
+    v59 = 0uLL;
+    if (*(v58 + 2784) == 1)
     {
-      v57 = *(v56 + 2600);
+      v59 = *(v58 + 2600);
     }
 
-    *&v65.m_p1.m_x = v57;
-    [(WKTapHighlightView *)v55 setQuads:&v63 boundaryRect:&v65];
-    v54 = v63;
-    if (!v63)
+    *&v67.m_p1.m_x = v59;
+    [(WKTapHighlightView *)v57 setQuads:&v65 boundaryRect:&v67];
+    v56 = v65;
+    if (!v65)
     {
       goto LABEL_45;
     }
 
-    v63 = 0;
-    LODWORD(v64) = 0;
+    v65 = 0;
+    LODWORD(v66) = 0;
     goto LABEL_44;
   }
 
@@ -1261,29 +1262,29 @@
   if (!v17)
   {
     v33 = self->_tapHighlightView.m_ptr;
-    v66.m_p1 = 0;
-    v66.m_p2 = 0;
+    v68.m_p1 = 0;
+    v68.m_p2 = 0;
     goto LABEL_37;
   }
 
   v18 = self->_tapHighlightInformation.quads.m_buffer;
   v19 = 32 * v17;
-  v61 = xmmword_19E703D50;
+  v63 = xmmword_19E703D50;
   do
   {
     WebCore::FloatQuad::boundingBox(v18);
-    v65.m_p1 = __PAIR64__(v21, v20);
-    v65.m_p2 = __PAIR64__(v23, v22);
-    WebCore::FloatRect::scale(&v65, v62, v62);
-    v24.i64[0] = v65.m_p1;
-    *&v24.u32[2] = vadd_f32(v65.m_p2, 0x4000000040000000);
-    *&v65.m_p1.m_x = vaddq_f32(v24, xmmword_19E703D50);
+    v67.m_p1 = __PAIR64__(v21, v20);
+    v67.m_p2 = __PAIR64__(v23, v22);
+    WebCore::FloatRect::scale(&v67, v64, v64);
+    v24.i64[0] = v67.m_p1;
+    *&v24.u32[2] = vadd_f32(v67.m_p2, 0x4000000040000000);
+    *&v67.m_p1.m_x = vaddq_f32(v24, xmmword_19E703D50);
     v25 = MEMORY[0x1E696B098];
-    WebCore::encloseRectToDevicePixels(&v65, v26, v15);
-    v66.m_p1.m_x = v27;
-    v66.m_p1.m_y = v28;
-    v66.m_p2.m_x = v29;
-    v66.m_p2.m_y = v30;
+    WebCore::encloseRectToDevicePixels(&v67, v26, v15);
+    v68.m_p1.m_x = v27;
+    v68.m_p1.m_y = v28;
+    v68.m_p2.m_x = v29;
+    v68.m_p2.m_y = v30;
     WebCore::FloatRect::operator CGRect();
     v31 = [v25 valueWithCGRect:?];
     if (v31)
@@ -1298,33 +1299,34 @@
   while (v19);
   v32 = self->_tapHighlightInformation.quads.m_size;
   v33 = self->_tapHighlightView.m_ptr;
-  v66.m_p1 = 0;
-  v66.m_p2 = 0;
+  v68.m_p1 = 0;
+  v68.m_p2 = 0;
   if (v32)
   {
-    if (!(v32 >> 28))
+    v34 = (v32 >> 28);
+    if (!v34)
     {
-      v34 = WTF::fastMalloc((16 * v32));
-      LODWORD(v66.m_p2.m_x) = v32;
-      v66.m_p1 = v34;
+      v35 = WTF::fastMalloc(v34, (16 * v32));
+      LODWORD(v68.m_p2.m_x) = v32;
+      v68.m_p1 = v35;
       if (self->_tapHighlightInformation.quads.m_size)
       {
-        v35 = 0;
         v36 = 0;
+        v37 = 0;
         do
         {
-          WebCore::FloatQuad::boundingBox(&self->_tapHighlightInformation.quads.m_buffer[v35]);
-          v65.m_p1 = __PAIR64__(v38, v37);
-          v65.m_p2 = __PAIR64__(v40, v39);
-          WebCore::FloatRect::scale(&v65, v62, v62);
-          v41.i64[0] = v65.m_p1;
-          *&v41.u32[2] = vadd_f32(v65.m_p2, 0x4000000040000000);
-          *(v34 + 16 * v36++) = vaddq_f32(v41, xmmword_19E703D50);
-          ++v35;
+          WebCore::FloatQuad::boundingBox(&self->_tapHighlightInformation.quads.m_buffer[v36]);
+          v67.m_p1 = __PAIR64__(v39, v38);
+          v67.m_p2 = __PAIR64__(v41, v40);
+          WebCore::FloatRect::scale(&v67, v64, v64);
+          v42.i64[0] = v67.m_p1;
+          *&v42.u32[2] = vadd_f32(v67.m_p2, 0x4000000040000000);
+          *&v35[2 * v37++] = vaddq_f32(v42, xmmword_19E703D50);
+          ++v36;
         }
 
-        while (v36 < self->_tapHighlightInformation.quads.m_size);
-        LODWORD(v66.m_p2.m_y) = v36;
+        while (v37 < self->_tapHighlightInformation.quads.m_size);
+        LODWORD(v68.m_p2.m_y) = v37;
       }
 
       goto LABEL_37;
@@ -1336,14 +1338,14 @@ LABEL_49:
   }
 
 LABEL_37:
-  [(WKTapHighlightView *)v33 setFrames:&v66, v61];
-  v54 = v66.m_p1;
-  if (v66.m_p1)
+  [(WKTapHighlightView *)v33 setFrames:&v68, v63];
+  v56 = v68.m_p1;
+  if (v68.m_p1)
   {
-    v66.m_p1 = 0;
-    v66.m_p2.m_x = 0.0;
+    v68.m_p1 = 0;
+    v68.m_p2.m_x = 0.0;
 LABEL_44:
-    WTF::fastFree(v54, v53);
+    WTF::fastFree(v56, v55);
   }
 
 LABEL_45:
@@ -1351,13 +1353,13 @@ LABEL_45:
   {
   }
 
-  v58 = self->_tapHighlightView.m_ptr;
-  v59.i64[0] = 0x4000000040000000;
-  v59.i64[1] = 0x4000000040000000;
-  v60 = vaddq_f32(vmulq_n_f32(vcvtq_f32_s32(*&self->_tapHighlightInformation.bottomLeftRadius.m_width), v62), v59);
-  *&v65.m_p1.m_x = vaddq_f32(vmulq_n_f32(vcvtq_f32_s32(*&self->_tapHighlightInformation.topLeftRadius.m_width), v62), v59);
-  *&v65.m_p3.m_x = v60;
-  [(WKTapHighlightView *)v58 setCornerRadii:&v65];
+  v60 = self->_tapHighlightView.m_ptr;
+  v61.i64[0] = 0x4000000040000000;
+  v61.i64[1] = 0x4000000040000000;
+  v62 = vaddq_f32(vmulq_n_f32(vcvtq_f32_s32(*&self->_tapHighlightInformation.bottomLeftRadius.m_width), v64), v61);
+  *&v67.m_p1.m_x = vaddq_f32(vmulq_n_f32(vcvtq_f32_s32(*&self->_tapHighlightInformation.topLeftRadius.m_width), v64), v61);
+  *&v67.m_p3.m_x = v62;
+  [(WKTapHighlightView *)v60 setCornerRadii:&v67];
 }
 
 - (NSArray)deferringGestures
@@ -2546,7 +2548,7 @@ LABEL_13:
 
 - (void)cleanUpDragSourceSessionState
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if (!self->_isWaitingOnPositionInformation)
   {
     p_pendingRunModalJavaScriptDialogCallback = &self->_pendingRunModalJavaScriptDialogCallback;
@@ -2555,9 +2557,9 @@ LABEL_13:
       v4 = qword_1ED640A68;
       if (os_log_type_enabled(qword_1ED640A68, OS_LOG_TYPE_DEFAULT))
       {
-        LODWORD(v26[0]) = 67109120;
-        DWORD1(v26[0]) = [objc_msgSend(MEMORY[0x1E69E2F60] "sharedInstance")];
-        _os_log_impl(&dword_19D52D000, v4, OS_LOG_TYPE_DEFAULT, "Cleaning up dragging state (has pending operation: %d)", v26, 8u);
+        LODWORD(v31[0]) = 67109120;
+        DWORD1(v31[0]) = [objc_msgSend(MEMORY[0x1E69E2F60] "sharedInstance")];
+        _os_log_impl(&dword_19D52D000, v4, OS_LOG_TYPE_DEFAULT, "Cleaning up dragging state (has pending operation: %d)", v31, 8u);
       }
     }
 
@@ -2580,29 +2582,29 @@ LABEL_13:
     *(&self->_dragDropInteractionState.m_elementIdentifier.var0.__null_state_ + 1) = 0;
     WebKit::DragDropInteractionState::dragAndDropSessionsDidBecomeInactive(p_pendingRunModalJavaScriptDialogCallback);
     v6 = *MEMORY[0x1E695EFF8];
-    v27 = 0u;
-    memset(v28, 0, sizeof(v28));
-    v29 = 0u;
-    v30 = 0u;
-    v31 = 0u;
+    v32 = 0u;
+    memset(v33, 0, sizeof(v33));
+    v34 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v7 = *MEMORY[0x1E695EFF8];
-    v26[0] = v6;
-    v26[1] = v7;
-    BYTE8(v31) = 0;
-    memset(v28 + 8, 0, 33);
-    v29 = 0u;
-    v30 = 0u;
+    v31[0] = v6;
+    v31[1] = v7;
+    BYTE8(v36) = 0;
+    memset(v33 + 8, 0, 33);
+    v34 = 0u;
+    v35 = 0u;
     *&p_pendingRunModalJavaScriptDialogCallback->m_function.m_callableWrapper.__ptr_ = v6;
     *&p_pendingRunModalJavaScriptDialogCallback[2].m_function.m_callableWrapper.__ptr_ = v7;
-    LOWORD(p_pendingRunModalJavaScriptDialogCallback[4].m_function.m_callableWrapper.__ptr_) = v27;
-    *(&v27 + 1) = 0;
+    LOWORD(p_pendingRunModalJavaScriptDialogCallback[4].m_function.m_callableWrapper.__ptr_) = v32;
+    *(&v32 + 1) = 0;
     ptr = p_pendingRunModalJavaScriptDialogCallback[5].m_function.m_callableWrapper.__ptr_;
     p_pendingRunModalJavaScriptDialogCallback[5].m_function.m_callableWrapper.__ptr_ = 0;
     if (ptr)
     {
     }
 
-    *&v28[0] = 0;
+    *&v33[0] = 0;
     v9 = p_pendingRunModalJavaScriptDialogCallback[6].m_function.m_callableWrapper.__ptr_;
     p_pendingRunModalJavaScriptDialogCallback[6].m_function.m_callableWrapper.__ptr_ = 0;
     if (v9)
@@ -2610,11 +2612,11 @@ LABEL_13:
     }
 
     _Block_release(p_pendingRunModalJavaScriptDialogCallback[7].m_function.m_callableWrapper.__ptr_);
-    *(&v28[0] + 1) = 0;
+    *(&v33[0] + 1) = 0;
     p_pendingRunModalJavaScriptDialogCallback[7].m_function.m_callableWrapper.__ptr_ = 0;
     _Block_release(p_pendingRunModalJavaScriptDialogCallback[8].m_function.m_callableWrapper.__ptr_);
-    v11 = *&v28[1];
-    *&v28[1] = 0;
+    v11 = *&v33[1];
+    *&v33[1] = 0;
     p_pendingRunModalJavaScriptDialogCallback[8].m_function.m_callableWrapper.__ptr_ = v11;
     ptr_high = HIDWORD(p_pendingRunModalJavaScriptDialogCallback[10].m_function.m_callableWrapper.__ptr_);
     if (ptr_high)
@@ -2644,51 +2646,51 @@ LABEL_13:
       WTF::fastFree(v16, v10);
     }
 
-    p_pendingRunModalJavaScriptDialogCallback[9].m_function.m_callableWrapper.__ptr_ = *(&v28[1] + 8);
-    v17 = *&v28[2];
-    *(&v28[1] + 1) = 0;
-    *&v28[2] = 0;
+    p_pendingRunModalJavaScriptDialogCallback[9].m_function.m_callableWrapper.__ptr_ = *(&v33[1] + 8);
+    v17 = *&v33[2];
+    *(&v33[1] + 1) = 0;
+    *&v33[2] = 0;
     p_pendingRunModalJavaScriptDialogCallback[10].m_function.m_callableWrapper.__ptr_ = v17;
-    std::__optional_storage_base<WebKit::DragSourceState,false>::__assign_from[abi:sn200100]<std::__optional_move_assign_base<WebKit::DragSourceState,false>>(&p_pendingRunModalJavaScriptDialogCallback[11], &v28[2] + 8);
-    v19 = HIDWORD(p_pendingRunModalJavaScriptDialogCallback[55].m_function.m_callableWrapper.__ptr_);
-    if (v19)
+    std::__optional_storage_base<WebKit::DragSourceState,false>::__assign_from[abi:sn200100]<std::__optional_move_assign_base<WebKit::DragSourceState,false>>(&p_pendingRunModalJavaScriptDialogCallback[11], &v33[2] + 8);
+    v24 = HIDWORD(p_pendingRunModalJavaScriptDialogCallback[55].m_function.m_callableWrapper.__ptr_);
+    if (v24)
     {
-      WTF::VectorTypeOperations<WebKit::DragSourceState>::destruct(p_pendingRunModalJavaScriptDialogCallback[54].m_function.m_callableWrapper.__ptr_, (p_pendingRunModalJavaScriptDialogCallback[54].m_function.m_callableWrapper.__ptr_ + 336 * v19));
+      WTF::VectorTypeOperations<WebKit::DragSourceState>::destruct(p_pendingRunModalJavaScriptDialogCallback[54].m_function.m_callableWrapper.__ptr_, (p_pendingRunModalJavaScriptDialogCallback[54].m_function.m_callableWrapper.__ptr_ + 336 * v24));
     }
 
-    v20 = p_pendingRunModalJavaScriptDialogCallback[54].m_function.m_callableWrapper.__ptr_;
-    if (v20)
+    v25 = p_pendingRunModalJavaScriptDialogCallback[54].m_function.m_callableWrapper.__ptr_;
+    if (v25)
     {
       p_pendingRunModalJavaScriptDialogCallback[54].m_function.m_callableWrapper.__ptr_ = 0;
       LODWORD(p_pendingRunModalJavaScriptDialogCallback[55].m_function.m_callableWrapper.__ptr_) = 0;
-      WTF::fastFree(v20, v18);
+      WTF::fastFree(v25, v18);
     }
 
-    p_pendingRunModalJavaScriptDialogCallback[54].m_function.m_callableWrapper.__ptr_ = v29;
-    v21 = *(&v29 + 1);
-    v29 = 0uLL;
-    p_pendingRunModalJavaScriptDialogCallback[55].m_function.m_callableWrapper.__ptr_ = v21;
-    v22 = v30;
-    *&v30 = 0;
-    v23 = p_pendingRunModalJavaScriptDialogCallback[56].m_function.m_callableWrapper.__ptr_;
-    p_pendingRunModalJavaScriptDialogCallback[56].m_function.m_callableWrapper.__ptr_ = v22;
-    if (v23)
+    p_pendingRunModalJavaScriptDialogCallback[54].m_function.m_callableWrapper.__ptr_ = v34;
+    v26 = *(&v34 + 1);
+    v34 = 0uLL;
+    p_pendingRunModalJavaScriptDialogCallback[55].m_function.m_callableWrapper.__ptr_ = v26;
+    v27 = v35;
+    *&v35 = 0;
+    v28 = p_pendingRunModalJavaScriptDialogCallback[56].m_function.m_callableWrapper.__ptr_;
+    p_pendingRunModalJavaScriptDialogCallback[56].m_function.m_callableWrapper.__ptr_ = v27;
+    if (v28)
     {
-      WTF::HashTable<WTF::RetainPtr<UIDragItem>,WTF::KeyValuePair<WTF::RetainPtr<UIDragItem>,WTF::RetainPtr<UITargetedDragPreview>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::RetainPtr<UIDragItem>,WTF::RetainPtr<UITargetedDragPreview>>>,WTF::DefaultHash<WTF::RetainPtr<UIDragItem>>,WTF::HashMap<WTF::RetainPtr<UIDragItem>,WTF::RetainPtr<UITargetedDragPreview>,WTF::DefaultHash<WTF::RetainPtr<UIDragItem>>,WTF::HashTraits<WTF::RetainPtr<UIDragItem>>,WTF::HashTraits<WTF::RetainPtr<UITargetedDragPreview>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::RetainPtr<UIDragItem>>,WTF::FastMalloc>::deallocateTable(v23, v18);
+      WTF::HashTable<WTF::RetainPtr<UIDragItem>,WTF::KeyValuePair<WTF::RetainPtr<UIDragItem>,WTF::RetainPtr<UITargetedDragPreview>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::RetainPtr<UIDragItem>,WTF::RetainPtr<UITargetedDragPreview>>>,WTF::DefaultHash<WTF::RetainPtr<UIDragItem>>,WTF::HashMap<WTF::RetainPtr<UIDragItem>,WTF::RetainPtr<UITargetedDragPreview>,WTF::DefaultHash<WTF::RetainPtr<UIDragItem>>,WTF::HashTraits<WTF::RetainPtr<UIDragItem>>,WTF::HashTraits<WTF::RetainPtr<UITargetedDragPreview>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::RetainPtr<UIDragItem>>,WTF::FastMalloc>::deallocateTable(v28, v18);
     }
 
-    v24 = *(&v30 + 1);
-    *(&v30 + 1) = 0;
-    v25 = p_pendingRunModalJavaScriptDialogCallback[57].m_function.m_callableWrapper.__ptr_;
-    p_pendingRunModalJavaScriptDialogCallback[57].m_function.m_callableWrapper.__ptr_ = v24;
-    if (v25)
+    v29 = *(&v35 + 1);
+    *(&v35 + 1) = 0;
+    v30 = p_pendingRunModalJavaScriptDialogCallback[57].m_function.m_callableWrapper.__ptr_;
+    p_pendingRunModalJavaScriptDialogCallback[57].m_function.m_callableWrapper.__ptr_ = v29;
+    if (v30)
     {
-      WTF::HashTable<WTF::RetainPtr<UIDragItem>,WTF::KeyValuePair<WTF::RetainPtr<UIDragItem>,WTF::RetainPtr<UITargetedDragPreview>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::RetainPtr<UIDragItem>,WTF::RetainPtr<UITargetedDragPreview>>>,WTF::DefaultHash<WTF::RetainPtr<UIDragItem>>,WTF::HashMap<WTF::RetainPtr<UIDragItem>,WTF::RetainPtr<UITargetedDragPreview>,WTF::DefaultHash<WTF::RetainPtr<UIDragItem>>,WTF::HashTraits<WTF::RetainPtr<UIDragItem>>,WTF::HashTraits<WTF::RetainPtr<UITargetedDragPreview>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::RetainPtr<UIDragItem>>,WTF::FastMalloc>::deallocateTable(v25, v18);
+      WTF::HashTable<WTF::RetainPtr<UIDragItem>,WTF::KeyValuePair<WTF::RetainPtr<UIDragItem>,WTF::RetainPtr<UITargetedDragPreview>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::RetainPtr<UIDragItem>,WTF::RetainPtr<UITargetedDragPreview>>>,WTF::DefaultHash<WTF::RetainPtr<UIDragItem>>,WTF::HashMap<WTF::RetainPtr<UIDragItem>,WTF::RetainPtr<UITargetedDragPreview>,WTF::DefaultHash<WTF::RetainPtr<UIDragItem>>,WTF::HashTraits<WTF::RetainPtr<UIDragItem>>,WTF::HashTraits<WTF::RetainPtr<UITargetedDragPreview>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::RetainPtr<UIDragItem>>,WTF::FastMalloc>::deallocateTable(v30, v18);
     }
 
-    p_pendingRunModalJavaScriptDialogCallback[58].m_function.m_callableWrapper.__ptr_ = v31;
-    LOBYTE(p_pendingRunModalJavaScriptDialogCallback[59].m_function.m_callableWrapper.__ptr_) = BYTE8(v31);
-    WebKit::DragDropInteractionState::~DragDropInteractionState(v26, v18);
+    p_pendingRunModalJavaScriptDialogCallback[58].m_function.m_callableWrapper.__ptr_ = v36;
+    LOBYTE(p_pendingRunModalJavaScriptDialogCallback[59].m_function.m_callableWrapper.__ptr_) = BYTE8(v36);
+    WebKit::DragDropInteractionState::~DragDropInteractionState(v31, v18, v19, v20, v21, v22, v23);
   }
 }
 

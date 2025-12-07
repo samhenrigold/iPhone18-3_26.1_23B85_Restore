@@ -1,12 +1,10 @@
 @interface SCROGenericHIDDriver
 - (BOOL)_HIDSetMainCells:(const char *)cells length:(int64_t)length;
 - (BOOL)_HIDSetMainCells_Legacy:(const char *)legacy length:(int64_t)length;
-- (BOOL)setMainCells:(const char *)cells length:(int64_t)length;
 - (BOOL)unloadDriver;
 - (SCROGenericHIDDriver)init;
 - (id)_HIDGetInputEvents;
 - (id)genericControlRankComparator;
-- (id)getInputEvents;
 - (id)getRevelantHIDElementsFromRoot;
 - (id)rowSizeArray;
 - (int)_HIDLoadDriverWithIOElement:(id)element;
@@ -315,26 +313,6 @@ LABEL_11:
   }
 }
 
-- (id)getInputEvents
-{
-  if (self->_getInputEventsSEL)
-  {
-    getInputEventsSEL = self->_getInputEventsSEL;
-  }
-
-  return (self->_getInputEventsIMP)();
-}
-
-- (BOOL)setMainCells:(const char *)cells length:(int64_t)length
-{
-  if (self->_setMainCellsSEL)
-  {
-    setMainCellsSEL = self->_setMainCellsSEL;
-  }
-
-  return (self->_setMainCellsIMP)();
-}
-
 - (int)_HIDLoadDriverWithIOElement:(id)element
 {
   elementCopy = element;
@@ -364,44 +342,44 @@ LABEL_11:
         v13 = v12 = self;
         productName = [elementCopy productName];
         *buf = 138413058;
-        v60 = v10;
-        v61 = 2112;
-        v62 = v11;
-        v63 = 2112;
-        v64 = v13;
-        v65 = 2112;
-        v66 = productName;
+        v59 = v10;
+        v60 = 2112;
+        v61 = v11;
+        v62 = 2112;
+        v63 = v13;
+        v64 = 2112;
+        v65 = productName;
         _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "HID braille display: VendorID %@ and product id: %@, maker %@, product %@", buf, 0x2Au);
 
         self = v12;
       }
 
-      v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
       v54 = 0u;
+      v55 = 0u;
+      v52 = 0u;
+      v53 = 0u;
       v15 = v8;
-      v16 = [v15 countByEnumeratingWithState:&v53 objects:v58 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v52 objects:v57 count:16];
       if (v16)
       {
         v17 = v16;
         selfCopy = self;
-        v44 = bundleIdentifier;
-        v45 = v5;
-        v46 = elementCopy;
+        v43 = bundleIdentifier;
+        v44 = v5;
+        v45 = elementCopy;
         v18 = 0;
-        v19 = *v54;
+        v19 = *v53;
         do
         {
           v20 = v15;
           for (i = 0; i != v17; i = i + 1)
           {
-            if (*v54 != v19)
+            if (*v53 != v19)
             {
               objc_enumerationMutation(v20);
             }
 
-            v22 = *(*(&v53 + 1) + 8 * i);
+            v22 = *(*(&v52 + 1) + 8 * i);
             v23 = [v22 objectForKeyedSubscript:@"DeviceUsagePage"];
             v24 = [v22 objectForKeyedSubscript:@"DeviceUsage"];
             if ([v23 isEqual:&off_85C0])
@@ -420,12 +398,12 @@ LABEL_11:
           }
 
           v15 = v20;
-          v17 = [v20 countByEnumeratingWithState:&v53 objects:v58 count:16];
+          v17 = [v20 countByEnumeratingWithState:&v52 objects:v57 count:16];
         }
 
         while (v17);
 
-        elementCopy = v46;
+        elementCopy = v45;
         if (v18)
         {
           v25 = IOHIDDeviceOpen(device, 0);
@@ -436,7 +414,7 @@ LABEL_11:
             if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 67109120;
-              LODWORD(v60) = v26 & 0x3FFF;
+              LODWORD(v59) = v26 & 0x3FFF;
               _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "Failed to load GenericHID braille driver because we failed to open the HIDDevice: %d", buf, 8u);
             }
 
@@ -454,26 +432,26 @@ LABEL_11:
             CFRetain(device);
             selfCopy->_isDriverLoaded = 1;
             v32 = IOHIDDeviceCopyMatchingElements(selfCopy->_hidDevice, &off_8C28, 0);
+            v48 = 0u;
             v49 = 0u;
             v50 = 0u;
             v51 = 0u;
-            v52 = 0u;
             v27 = v32;
-            v33 = [v27 countByEnumeratingWithState:&v49 objects:v57 count:16];
+            v33 = [v27 countByEnumeratingWithState:&v48 objects:v56 count:16];
             if (v33)
             {
               v34 = v33;
-              v35 = *v50;
+              v35 = *v49;
               do
               {
                 for (j = 0; j != v34; j = j + 1)
                 {
-                  if (*v50 != v35)
+                  if (*v49 != v35)
                   {
                     objc_enumerationMutation(v27);
                   }
 
-                  v37 = *(*(&v49 + 1) + 8 * j);
+                  v37 = *(*(&v48 + 1) + 8 * j);
                   if (IOHIDElementGetReportSize(v37) == 128)
                   {
                     v38 = mach_absolute_time();
@@ -485,7 +463,7 @@ LABEL_11:
                       if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
                       {
                         *buf = 138412290;
-                        v60 = v40;
+                        v59 = v40;
                         _os_log_impl(&dword_0, v41, OS_LOG_TYPE_DEFAULT, "Reported back screen reader: %@", buf, 0xCu);
                       }
 
@@ -495,7 +473,7 @@ LABEL_11:
                   }
                 }
 
-                v34 = [v27 countByEnumeratingWithState:&v49 objects:v57 count:16];
+                v34 = [v27 countByEnumeratingWithState:&v48 objects:v56 count:16];
               }
 
               while (v34);
@@ -505,20 +483,19 @@ LABEL_11:
             selfCopy->_ioSystemFilterClient = IOHIDEventSystemClientCreate();
             CFRunLoopGetCurrent();
             IOHIDEventSystemClientScheduleWithRunLoop();
-            ioSystemFilterClient = selfCopy->_ioSystemFilterClient;
             IOHIDEventSystemClientRegisterEventFilterCallbackWithPriority();
-            v43 = _SCROD_LOG();
-            if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+            v42 = _SCROD_LOG();
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v60 = v15;
-              _os_log_impl(&dword_0, v43, OS_LOG_TYPE_DEFAULT, "Successful load generic hid: %@", buf, 0xCu);
+              v59 = v15;
+              _os_log_impl(&dword_0, v42, OS_LOG_TYPE_DEFAULT, "Successful load generic hid: %@", buf, 0xCu);
             }
 
             v28 = 0;
-            v5 = v45;
-            elementCopy = v46;
-            bundleIdentifier = v44;
+            v5 = v44;
+            elementCopy = v45;
+            bundleIdentifier = v43;
           }
 
 LABEL_35:
@@ -535,7 +512,7 @@ LABEL_35:
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v60 = v15;
+        v59 = v15;
         _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "Could not match usage for generic hid: %@", buf, 0xCu);
       }
 

@@ -1,82 +1,3 @@
-void sub_1E52426AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
-{
-  if (a23 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void ***std::vector<std::pair<std::string,std::string>>::~vector[abi:ne200100](void ***a1)
-{
-  v2 = *a1;
-  if (*a1)
-  {
-    v3 = a1[1];
-    v4 = *a1;
-    if (v3 == v2)
-    {
-LABEL_11:
-      a1[1] = v2;
-      operator delete(v4);
-      return a1;
-    }
-
-    while (1)
-    {
-      if (*(v3 - 1) < 0)
-      {
-        operator delete(*(v3 - 3));
-        v5 = v3 - 6;
-        if (*(v3 - 25) < 0)
-        {
-LABEL_9:
-          operator delete(*v5);
-        }
-      }
-
-      else
-      {
-        v5 = v3 - 6;
-        if (*(v3 - 25) < 0)
-        {
-          goto LABEL_9;
-        }
-      }
-
-      v3 = v5;
-      if (v5 == v2)
-      {
-        v4 = *a1;
-        goto LABEL_11;
-      }
-    }
-  }
-
-  return a1;
-}
-
-uint64_t std::pair<std::string,std::string>::~pair(uint64_t a1)
-{
-  if (*(a1 + 47) < 0)
-  {
-    operator delete(*(a1 + 24));
-    if ((*(a1 + 23) & 0x80000000) == 0)
-    {
-      return a1;
-    }
-  }
-
-  else if ((*(a1 + 23) & 0x80000000) == 0)
-  {
-    return a1;
-  }
-
-  operator delete(*a1);
-  return a1;
-}
-
 std::locale *std::__bracket_expression<char,std::regex_traits<char>>::~__bracket_expression(std::locale *a1)
 {
   locale = a1[17].__locale_;
@@ -129,7 +50,7 @@ LABEL_21:
       if (*(v8 - 1) < 0)
       {
         operator delete(*(v8 - 3));
-        v10 = v8 - 6;
+        v10 = (v8 - 48);
         if (*(v8 - 25) < 0)
         {
 LABEL_19:
@@ -139,7 +60,7 @@ LABEL_19:
 
       else
       {
-        v10 = v8 - 6;
+        v10 = (v8 - 48);
         if (*(v8 - 25) < 0)
         {
           goto LABEL_19;
@@ -422,7 +343,7 @@ void *std::string::__assign_no_alias<true>(void *__dst, const void *a2, size_t _
   return __dst;
 }
 
-void **std::string::__assign_no_alias<false>(void **a1, const void *a2, size_t __len)
+void ***std::string::__assign_no_alias<false>(void ***a1, const void *a2, void **__len)
 {
   v5 = a1[2];
   v6 = v5 & 0x7FFFFFFFFFFFFFFFLL;
@@ -500,7 +421,7 @@ void **std::string::__assign_no_alias<false>(void **a1, const void *a2, size_t _
     }
   }
 
-  *(v7 + __len) = 0;
+  *(__len + v7) = 0;
   return a1;
 }
 
@@ -618,7 +539,7 @@ LABEL_26:
     v16 = *a4;
   }
 
-  v16[11] = v16[3];
+  *(v16 + 11) = *(v16 + 3);
   if (SHIBYTE(__dst[2]) < 0)
   {
     goto LABEL_29;
@@ -1970,9 +1891,9 @@ LABEL_67:
   }
 }
 
-void sub_1E5244418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1E5244418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::pair<std::string,std::string>::~pair(va);
   _Unwind_Resume(a1);
 }
@@ -1993,11 +1914,11 @@ void sub_1E524442C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, unsigned __int8 a2, uint64_t a3)
+void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a1 + 169) == 1)
   {
-    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24));
+    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24), a2);
     v6 = v5 | ((*(**(a1 + 24) + 40))(*(a1 + 24), a3) << 8);
     v8 = *(a1 + 120);
     v7 = *(a1 + 128);
@@ -2513,7 +2434,7 @@ LABEL_26:
     v16 = *a4;
   }
 
-  v16[11] = v16[3];
+  *(v16 + 11) = *(v16 + 3);
   if (SHIBYTE(__dst[2]) < 0)
   {
     goto LABEL_29;
@@ -2735,11 +2656,11 @@ void sub_1E5244EF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__bracket_expression<char,std::regex_traits<char>>::__add_neg_char[abi:ne200100](uint64_t a1, char a2)
+void std::__bracket_expression<char,std::regex_traits<char>>::__add_neg_char[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 169) == 1)
   {
-    v3 = (*(**(a1 + 24) + 40))(*(a1 + 24));
+    v3 = (*(**(a1 + 24) + 40))(*(a1 + 24), a2);
     v5 = *(a1 + 72);
     v4 = *(a1 + 80);
     if (v5 < v4)
@@ -2749,42 +2670,42 @@ void std::__bracket_expression<char,std::regex_traits<char>>::__add_neg_char[abi
       goto LABEL_28;
     }
 
-    v10 = *(a1 + 64);
-    v11 = v5 - v10;
-    v12 = v5 - v10 + 1;
-    if (v12 >= 0)
+    v9 = *(a1 + 64);
+    v10 = v5 - v9;
+    v11 = v5 - v9 + 1;
+    if (v11 >= 0)
     {
-      v13 = v4 - v10;
-      if (2 * v13 > v12)
+      v12 = v4 - v9;
+      if (2 * v12 > v11)
       {
-        v12 = 2 * v13;
+        v11 = 2 * v12;
       }
 
-      if (v13 >= 0x3FFFFFFFFFFFFFFFLL)
+      if (v12 >= 0x3FFFFFFFFFFFFFFFLL)
       {
-        v14 = 0x7FFFFFFFFFFFFFFFLL;
-      }
-
-      else
-      {
-        v14 = v12;
-      }
-
-      if (v14)
-      {
-        v15 = v3;
-        v16 = operator new(v14);
-        v3 = v15;
+        v13 = 0x7FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v16 = 0;
+        v13 = v11;
       }
 
-      v22 = &v16[v14];
-      v16[v11] = v3;
-      v6 = &v16[v11 + 1];
+      if (v13)
+      {
+        v14 = v3;
+        v15 = operator new(v13);
+        v3 = v14;
+      }
+
+      else
+      {
+        v15 = 0;
+      }
+
+      v21 = &v15[v13];
+      v15[v10] = v3;
+      v6 = &v15[v10 + 1];
       goto LABEL_26;
     }
 
@@ -2792,64 +2713,63 @@ LABEL_29:
     std::vector<std::sub_match<char const*>>::__throw_length_error[abi:ne200100]();
   }
 
-  v7 = *(a1 + 170);
-  v9 = *(a1 + 72);
-  v8 = *(a1 + 80);
-  if (v9 < v8)
+  v8 = *(a1 + 72);
+  v7 = *(a1 + 80);
+  if (v8 < v7)
   {
-    *v9 = a2;
-    *(a1 + 72) = v9 + 1;
+    *v8 = a2;
+    *(a1 + 72) = v8 + 1;
     return;
   }
 
-  v10 = *(a1 + 64);
-  v11 = v9 - v10;
-  v17 = v9 - v10 + 1;
-  if (v17 < 0)
+  v9 = *(a1 + 64);
+  v10 = v8 - v9;
+  v16 = v8 - v9 + 1;
+  if (v16 < 0)
   {
     goto LABEL_29;
   }
 
-  v18 = v8 - v10;
-  if (2 * v18 > v17)
+  v17 = v7 - v9;
+  if (2 * v17 > v16)
   {
-    v17 = 2 * v18;
+    v16 = 2 * v17;
   }
 
-  if (v18 >= 0x3FFFFFFFFFFFFFFFLL)
+  if (v17 >= 0x3FFFFFFFFFFFFFFFLL)
   {
-    v19 = 0x7FFFFFFFFFFFFFFFLL;
-  }
-
-  else
-  {
-    v19 = v17;
-  }
-
-  if (v19)
-  {
-    v20 = a2;
-    v21 = operator new(v19);
-    a2 = v20;
-    v16 = v21;
+    v18 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
   else
   {
-    v16 = 0;
+    v18 = v16;
   }
 
-  v22 = &v16[v19];
-  v16[v11] = a2;
-  v6 = &v16[v11 + 1];
+  if (v18)
+  {
+    v19 = a2;
+    v20 = operator new(v18);
+    LOBYTE(a2) = v19;
+    v15 = v20;
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  v21 = &v15[v18];
+  v15[v10] = a2;
+  v6 = &v15[v10 + 1];
 LABEL_26:
-  memcpy(v16, v10, v11);
-  *(a1 + 64) = v16;
+  memcpy(v15, v9, v10);
+  *(a1 + 64) = v15;
   *(a1 + 72) = v6;
-  *(a1 + 80) = v22;
-  if (v10)
+  *(a1 + 80) = v21;
+  if (v9)
   {
-    operator delete(v10);
+    operator delete(v9);
     *(a1 + 72) = v6;
     return;
   }
@@ -2858,7 +2778,7 @@ LABEL_28:
   *(a1 + 72) = v6;
 }
 
-void std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100](void **a1, __int128 *a2)
+void std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100](char **a1, __int128 *a2)
 {
   v3 = a1[1];
   v4 = a1[2];
@@ -2867,14 +2787,12 @@ void std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100](vo
     v5 = *a2;
     *(v3 + 2) = *(a2 + 2);
     *v3 = v5;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v6 = *(a2 + 24);
     *(v3 + 5) = *(a2 + 5);
     *(v3 + 24) = v6;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
     v7 = v3 + 48;
 LABEL_3:
@@ -2926,14 +2844,11 @@ LABEL_3:
   *v14 = *a2;
   v15 = &v13[48 * v11];
   *(v14 + 2) = *(a2 + 2);
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v16 = *(a2 + 24);
-  *(a2 + 2) = 0;
-  *(a2 + 3) = 0;
+  a2[1] = 0uLL;
   *(v14 + 5) = *(a2 + 5);
-  *(a2 + 4) = 0;
-  *(a2 + 5) = 0;
+  a2[2] = 0uLL;
   v7 = v14 + 48;
   v17 = *a1;
   v18 = a1[1] - *a1;
@@ -3519,7 +3434,7 @@ void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)15
   __cxa_throw(exception, MEMORY[0x1E69E53A0], MEMORY[0x1E69E52B0]);
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_nondupl_RE<std::__wrap_iter<char const*>>(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3)
+std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_nondupl_RE<std::__wrap_iter<char const*>>(uint64_t a1, std::basic_regex<char> *a2, std::basic_regex<char> *a3)
 {
   v4 = a2;
   v6 = std::basic_regex<char,std::regex_traits<char>>::__parse_one_char_or_coll_elem_RE<std::__wrap_iter<char const*>>(a1, a2, a3);
@@ -3528,15 +3443,15 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_nondupl
     return v6;
   }
 
-  if (v4 == a3 || v4 + 1 == a3 || *v6 != 92)
+  if (v4 == a3 || (&v4->__traits_.__loc_.__locale_ + 1) == a3 || LOBYTE(v6->__traits_.__loc_.__locale_) != 92)
   {
     return v4;
   }
 
-  v7 = v4[1];
+  v7 = BYTE1(v4->__traits_.__loc_.__locale_);
   if (v7 == 40)
   {
-    v6 = v4 + 2;
+    v6 = (&v4->__traits_.__loc_.__locale_ + 2);
   }
 
   if (v6 != v4)
@@ -3589,14 +3504,14 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_nondupl
 
     else
     {
-      if (v14 + 1 == a3 || *v14 != 92)
+      if ((&v14->__traits_.__loc_.__locale_ + 1) == a3 || LOBYTE(v14->__traits_.__loc_.__locale_) != 92)
       {
         goto LABEL_31;
       }
 
-      if (v14[1] == 41)
+      if (BYTE1(v14->__traits_.__loc_.__locale_) == 41)
       {
-        v4 = v14 + 2;
+        v4 = (&v14->__traits_.__loc_.__locale_ + 2);
       }
 
       else
@@ -3638,7 +3553,7 @@ LABEL_31:
   }
 
   std::basic_regex<char,std::regex_traits<char>>::__push_back_ref(a1, v7 - 48);
-  return v4 + 2;
+  return (&v4->__traits_.__loc_.__locale_ + 2);
 }
 
 std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_RE_dupl_symbol<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, std::basic_regex<char> *this, std::basic_regex<char> *a3, std::__owns_one_state<char> *a4, size_t __mexp_begin, size_t __mexp_end)
@@ -3675,22 +3590,22 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v11 = LOBYTE(v9->__traits_.__loc_.__locale_);
+  v11 = *v9;
   if ((v11 & 0xF8) != 0x30 && (v11 & 0xFE) != 0x38)
   {
     goto LABEL_54;
   }
 
   v10 = v11 - 48;
-  v12 = &v9->__traits_.__loc_.__locale_ + 1;
-  if ((&v9->__traits_.__loc_.__locale_ + 1) == a3)
+  v12 = (v9 + 1);
+  if ((v9 + 1) == a3)
   {
     goto LABEL_20;
   }
 
   while (1)
   {
-    v13 = *v12;
+    v13 = LOBYTE(v12->__traits_.__loc_.__locale_);
     if ((v13 & 0xF8) != 0x30 && (v13 & 0xFE) != 0x38)
     {
       break;
@@ -3702,7 +3617,8 @@ LABEL_20:
     }
 
     v10 = v13 + 10 * v10 - 48;
-    if (++v12 == a3)
+    v12 = (v12 + 1);
+    if (v12 == a3)
     {
       goto LABEL_20;
     }
@@ -3719,8 +3635,8 @@ LABEL_21:
     goto LABEL_55;
   }
 
-  v14 = *v12;
-  v15 = (v12 + 1);
+  v14 = LOBYTE(v12->__traits_.__loc_.__locale_);
+  v15 = (&v12->__traits_.__loc_.__locale_ + 1);
   if (v14 == 44)
   {
     if (v15 == a3)
@@ -3731,8 +3647,8 @@ LABEL_21:
     v16 = LOBYTE(v15->__traits_.__loc_.__locale_);
     if ((v16 & 0xF8) == 0x30 || (v16 & 0xFE) == 0x38)
     {
-      v15 = (v12 + 2);
-      if (v12 + 2 == a3)
+      v15 = (&v12->__traits_.__loc_.__locale_ + 2);
+      if ((&v12->__traits_.__loc_.__locale_ + 2) == a3)
       {
         goto LABEL_55;
       }
@@ -3819,7 +3735,7 @@ LABEL_55:
     goto LABEL_55;
   }
 
-  v18 = (v12[1] == 125 ? v12 + 2 : v12);
+  v18 = BYTE1(v12->__traits_.__loc_.__locale_) == 125 ? &v12->__traits_.__loc_.__locale_ + 2 : v12;
   if (v12 == v18)
   {
     goto LABEL_55;
@@ -4154,7 +4070,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_QUOTED_
   return v3;
 }
 
-uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(uint64_t a1, std::sub_match<const char *> *a2, std::sub_match<const char *> *a3, std::vector<std::csub_match> *this, int a5)
+uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(uint64_t a1, std::sub_match<const char *> *a2, std::sub_match<const char *> *a3, std::vector<std::csub_match> *this, unsigned int a5)
 {
   if ((a5 & 0x80) != 0)
   {
@@ -4210,19 +4126,19 @@ LABEL_13:
         {
           if (*(a1 + 28))
           {
-            if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_subs<std::allocator<std::sub_match<char const*>>>(a1, i, a3, this, v9 | 0x80u, 0))
+            if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_subs<std::allocator<std::sub_match<char const*>>>(a1, i, a3, this, v9 | 0x80, 0))
             {
               goto LABEL_28;
             }
           }
 
-          else if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_nosubs<std::allocator<std::sub_match<char const*>>>(a1, i, a3, this, v9 | 0x80u, 0))
+          else if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_nosubs<std::allocator<std::sub_match<char const*>>>(a1, i, a3, this, v9 | 0x80, 0))
           {
             goto LABEL_28;
           }
         }
 
-        else if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1, i, a3, this, v9 | 0x80u, 0))
+        else if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1, i, a3, this, v9 | 0x80, 0))
         {
           goto LABEL_28;
         }
@@ -4235,19 +4151,19 @@ LABEL_13:
       {
         if (*(a1 + 28))
         {
-          if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_subs<std::allocator<std::sub_match<char const*>>>(a1, i, a3, this, v9 | 0x80u, 0))
+          if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_subs<std::allocator<std::sub_match<char const*>>>(a1, i, a3, this, v9 | 0x80, 0))
           {
             goto LABEL_28;
           }
         }
 
-        else if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_nosubs<std::allocator<std::sub_match<char const*>>>(a1, i, a3, this, v9 | 0x80u, 0))
+        else if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_nosubs<std::allocator<std::sub_match<char const*>>>(a1, i, a3, this, v9 | 0x80, 0))
         {
           goto LABEL_28;
         }
       }
 
-      else if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1, i, a3, this, v9 | 0x80u, 0))
+      else if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1, i, a3, this, v9 | 0x80, 0))
       {
         goto LABEL_28;
       }
@@ -4853,11 +4769,11 @@ LABEL_97:
   return v67;
 }
 
-void sub_1E5247940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1E5247940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::__state<char>::~__state(va);
-  std::deque<std::__state<char>>::~deque[abi:ne200100]((v9 - 144));
+  std::deque<std::__state<char>>::~deque[abi:ne200100]((v16 - 144));
   _Unwind_Resume(a1);
 }
 
@@ -5315,20 +5231,20 @@ void std::deque<std::__state<char>>::clear(void *a1)
   a1[4] = v13;
 }
 
-void std::deque<std::__state<char>>::__add_back_capacity(uint64_t a1)
+void std::deque<std::__state<char>>::__add_back_capacity(char **a1)
 {
-  v2 = *(a1 + 32);
+  v2 = a1[4];
   v3 = v2 >= 0x2A;
   v4 = v2 - 42;
   if (v3)
   {
-    *(a1 + 32) = v4;
+    a1[4] = v4;
     goto LABEL_4;
   }
 
-  v7 = *(a1 + 16);
-  v6 = *(a1 + 24);
-  v8 = *(a1 + 8);
+  v7 = a1[2];
+  v6 = a1[3];
+  v8 = a1[1];
   v9 = v7 - v8;
   v10 = v6 - *a1;
   if (v7 - v8 < v10)
@@ -5343,9 +5259,9 @@ void std::deque<std::__state<char>>::__add_back_capacity(uint64_t a1)
     v44 = operator new(0xFC0uLL);
     std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(a1, &v44);
 LABEL_4:
-    v5 = *(a1 + 8);
+    v5 = a1[1];
     v44 = *v5;
-    *(a1 + 8) = v5 + 1;
+    a1[1] = v5 + 8;
     std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(a1, &v44);
     return;
   }
@@ -5397,8 +5313,8 @@ LABEL_4:
     v17 = operator new(8 * v22);
     v18 = &v17[8 * v22];
     operator delete(v14);
-    v23 = *(a1 + 8);
-    v7 = *(a1 + 16);
+    v23 = a1[1];
+    v7 = a1[2];
     v14 = v17;
     *v17 = v16;
     v19 = v17 + 8;
@@ -5412,12 +5328,12 @@ LABEL_31:
     {
       v24 = v17;
 LABEL_30:
-      v25 = *(v7 - 8);
+      v25 = *(v7 - 1);
       v7 -= 8;
       *(v24 - 1) = v25;
       v20 = v24 - 8;
       v17 = v20;
-      if (v7 == *(a1 + 8))
+      if (v7 == a1[1])
       {
         goto LABEL_17;
       }
@@ -5527,9 +5443,9 @@ LABEL_16:
 LABEL_17:
   v21 = *a1;
   *a1 = v14;
-  *(a1 + 8) = v20;
-  *(a1 + 16) = v19;
-  *(a1 + 24) = v18;
+  a1[1] = v20;
+  a1[2] = v19;
+  a1[3] = v18;
   if (v21)
   {
 
@@ -6193,7 +6109,7 @@ char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:
         v52 = 16 * (v51 & 0x1FFFFFFFFFFFFFFCLL);
         v15 = &result[v52];
         v25 = &a2[v52];
-        v53 = (a2 + 32);
+        v53 = a2 + 32;
         v54 = result + 32;
         v55 = v51 & 0x1FFFFFFFFFFFFFFCLL;
         do
@@ -6201,13 +6117,13 @@ char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:
           v57 = *(v53 - 2);
           v56 = *(v53 - 1);
           v59 = *v53;
-          v58 = v53[1];
-          v53 += 4;
+          v58 = *(v53 + 1);
+          v53 += 64;
           *(v54 - 2) = v57;
           *(v54 - 1) = v56;
           *v54 = v59;
-          v54[1] = v58;
-          v54 += 4;
+          *(v54 + 1) = v58;
+          v54 += 64;
           v55 -= 4;
         }
 
@@ -6250,7 +6166,7 @@ LABEL_26:
         v36 = 16 * (v35 & 0x1FFFFFFFFFFFFFFCLL);
         v18 = &result[v36];
         v19 = &a2[v36];
-        v37 = (a2 + 32);
+        v37 = a2 + 32;
         v38 = result + 32;
         v39 = v35 & 0x1FFFFFFFFFFFFFFCLL;
         do
@@ -6258,13 +6174,13 @@ LABEL_26:
           v41 = *(v37 - 2);
           v40 = *(v37 - 1);
           v43 = *v37;
-          v42 = v37[1];
-          v37 += 4;
+          v42 = *(v37 + 1);
+          v37 += 64;
           *(v38 - 2) = v41;
           *(v38 - 1) = v40;
           *v38 = v43;
-          v38[1] = v42;
-          v38 += 4;
+          *(v38 + 1) = v42;
+          v38 += 64;
           v39 -= 4;
         }
 
@@ -6585,10 +6501,10 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   MEMORY[0x1E6927080](v14, a1);
   if (LOBYTE(v14[0]) == 1)
   {
-    v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v6 = (a1 + *(*a1 - 24));
+    rdbuf = v6->__rdbuf_;
+    fmtflags = v6->__fmtflags_;
+    v9 = v6[1].__fmtflags_;
     if (v9 == -1)
     {
       v10 = (a1 + *(*a1 - 24));
@@ -6600,7 +6516,7 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
       v10[1].__fmtflags_ = v9;
     }
 
-    if ((v8 & 0xB0) == 0x20)
+    if ((fmtflags & 0xB0) == 0x20)
     {
       v12 = a2 + a3;
     }
@@ -6610,7 +6526,7 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
       v12 = a2;
     }
 
-    if (!std::__pad_and_output[abi:ne200100]<char,std::char_traits<char>>(v7, a2, v12, a2 + a3, v6, v9))
+    if (!std::__pad_and_output[abi:ne200100]<char,std::char_traits<char>>(rdbuf, a2, v12, a2 + a3, v6, v9))
     {
       std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 5);
     }
@@ -6620,9 +6536,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_1E5249498(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_1E5249498(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x1E6927090](&a10);
+  MEMORY[0x1E6927090](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -6820,13 +6736,13 @@ void support::log::client::~client(support::log::client *this)
 
 void UART::~UART(UART *this)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   *this = &unk_1F5EFEE38;
   v2 = **(this + 11);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v17[0]) = 0;
-    _os_log_impl(&dword_1E5234000, v2, OS_LOG_TYPE_INFO, "~UART is called", v17, 2u);
+    LOWORD(v16[0]) = 0;
+    _os_log_impl(&dword_1E5234000, v2, OS_LOG_TYPE_INFO, "~UART is called", v16, 2u);
   }
 
   v3 = *(this + 19);
@@ -6865,14 +6781,14 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v14 = *__error();
-  v15 = __error();
-  v16 = strerror(*v15);
-  v17[0] = 67109378;
-  v17[1] = v14;
-  v18 = 2080;
-  v19 = v16;
-  _os_log_error_impl(&dword_1E5234000, v6, OS_LOG_TYPE_ERROR, "error: close() failed with (%d) %s\n", v17, 0x12u);
+  v13 = *__error();
+  v14 = __error();
+  v15 = strerror(*v14);
+  v16[0] = 67109378;
+  v16[1] = v13;
+  v17 = 2080;
+  v18 = v15;
+  _os_log_error_impl(&dword_1E5234000, v6, OS_LOG_TYPE_ERROR, "error: close() failed with (%d) %s\n", v16, 0x12u);
   v7 = *(this + 21);
   if (v7)
   {
@@ -6931,8 +6847,6 @@ LABEL_25:
   {
     std::__shared_weak_count::__release_weak(v12);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 {
@@ -7000,15 +6914,15 @@ void ___ZN4UART14startAsyncReadEv_block_invoke(void *a1)
   v2 = a1[6];
   if (!v2)
   {
-    goto LABEL_24;
+    return;
   }
 
   v3 = a1[4];
   v4 = std::__shared_weak_count::lock(v2);
-  v20 = v4;
+  v19 = v4;
   if (!v4)
   {
-    goto LABEL_24;
+    return;
   }
 
   if (!a1[5])
@@ -7053,7 +6967,7 @@ LABEL_22:
           std::__shared_weak_count::__release_weak(v17);
         }
 
-        goto LABEL_24;
+        return;
       }
     }
 
@@ -7101,7 +7015,7 @@ LABEL_16:
   v15 = **(v3 + 88);
   if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    v21 = 0;
+    v20 = 0;
     *buf = 0;
     v16 = *(v3 + 144);
     if (v16)
@@ -7113,16 +7027,16 @@ LABEL_30:
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  v19 = __dst;
+  v18 = __dst;
   if (SHIBYTE(__dst[2]) < 0)
   {
-    v19 = __dst[0];
+    v18 = __dst[0];
   }
 
   *buf = 136315138;
-  *&buf[4] = v19;
+  *&buf[4] = v18;
   _os_log_error_impl(&dword_1E5234000, v15, OS_LOG_TYPE_ERROR, "error: read failed: %s", buf, 0xCu);
-  v21 = 0;
+  v20 = 0;
   *buf = 0;
   v16 = *(v3 + 144);
   if (!v16)
@@ -7131,23 +7045,20 @@ LABEL_30:
   }
 
 LABEL_19:
-  (*(*v16 + 48))(v16, buf, &v21);
+  (*(*v16 + 48))(v16, buf, &v20);
   if (SHIBYTE(__dst[2]) < 0)
   {
     operator delete(__dst[0]);
   }
 
-  v4 = v20;
-  if (v20)
+  v4 = v19;
+  if (v19)
   {
     goto LABEL_22;
   }
-
-LABEL_24:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1E5249ED8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
+void sub_1E5249ED8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
 {
   if (a20 < 0)
   {
@@ -7251,22 +7162,22 @@ void std::allocate_shared[abi:ne200100]<UART,std::allocator<UART>,UART::_Config 
 
 uint64_t std::__shared_ptr_emplace<UART>::__shared_ptr_emplace[abi:ne200100]<UART::_Config &,std::allocator<UART>,0>(uint64_t a1, uint64_t a2)
 {
-  v95 = *MEMORY[0x1E69E9840];
+  v94 = *MEMORY[0x1E69E9840];
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
   *a1 = &unk_1F5EFEEC0;
   if (*(a2 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v78, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(&v77, *a2, *(a2 + 8));
   }
 
   else
   {
-    v78 = *a2;
+    v77 = *a2;
   }
 
-  v79 = *(a2 + 24);
-  v80 = *(a2 + 28);
+  v78 = *(a2 + 24);
+  v79 = *(a2 + 28);
   v4 = *(a2 + 32);
   object = v4;
   if (v4)
@@ -7284,37 +7195,37 @@ uint64_t std::__shared_ptr_emplace<UART>::__shared_ptr_emplace[abi:ne200100]<UAR
   {
     v5 = (*(*v5 + 16))(v5);
 LABEL_9:
-    v83 = v5;
+    v82 = v5;
     goto LABEL_11;
   }
 
-  v83 = v82;
-  (*(*v5 + 24))(v5, v82);
+  v82 = v81;
+  (*(*v5 + 24))(v5, v81);
 LABEL_11:
-  v84 = *(a2 + 72);
-  v6 = v84;
-  *(a1 + 52) = v79;
+  v83 = *(a2 + 72);
+  v6 = v83;
+  *(a1 + 52) = v78;
   *(a1 + 40) = 0;
   *(a1 + 32) = 0;
   *(a1 + 24) = &unk_1F5EFEE38;
   *(a1 + 48) = 0;
   *(a1 + 56) = v6;
-  *(a1 + 58) = v80;
-  v77.__r_.__value_.__r.__words[0] = operator new(0x28uLL);
-  *&v77.__r_.__value_.__r.__words[1] = xmmword_1E538EA40;
-  strcpy(v77.__r_.__value_.__l.__data_, "com.apple.telephony.basebandservices");
+  *(a1 + 58) = v79;
+  v76.__r_.__value_.__r.__words[0] = operator new(0x28uLL);
+  *&v76.__r_.__value_.__r.__words[1] = xmmword_1E538EA40;
+  strcpy(v76.__r_.__value_.__l.__data_, "com.apple.telephony.basebandservices");
   *(&__p.__r_.__value_.__s + 23) = 4;
   strcpy(&__p, "uart");
-  support::log::client::client((a1 + 64), &v77, &__p);
+  support::log::client::client((a1 + 64), &v76, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v77.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v76.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
 LABEL_13:
       v7 = a1 + 144;
-      v8 = v83;
-      if (!v83)
+      v8 = v82;
+      if (!v82)
       {
         goto LABEL_19;
       }
@@ -7323,15 +7234,15 @@ LABEL_13:
     }
   }
 
-  else if ((SHIBYTE(v77.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  else if ((SHIBYTE(v76.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_13;
   }
 
-  operator delete(v77.__r_.__value_.__l.__data_);
+  operator delete(v76.__r_.__value_.__l.__data_);
   v7 = a1 + 144;
-  v8 = v83;
-  if (!v83)
+  v8 = v82;
+  if (!v82)
   {
 LABEL_19:
     *(a1 + 168) = v8;
@@ -7339,7 +7250,7 @@ LABEL_19:
   }
 
 LABEL_17:
-  if (v8 != v82)
+  if (v8 != v81)
   {
     v8 = (*(*v8 + 16))(v8);
     goto LABEL_19;
@@ -7365,11 +7276,11 @@ LABEL_21:
   *(a1 + 208) = v10 + 1024;
   bzero(v10, 0x400uLL);
   *(a1 + 200) = v11;
-  if ((SHIBYTE(v78.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  if ((SHIBYTE(v77.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
-    if (*(&v78.__r_.__value_.__s + 23))
+    if (*(&v77.__r_.__value_.__s + 23))
     {
-      v12 = &v78;
+      v12 = &v77;
       goto LABEL_28;
     }
 
@@ -7380,17 +7291,17 @@ LABEL_31:
       goto LABEL_116;
     }
 
-    LOWORD(v93.c_iflag) = 0;
+    LOWORD(v92.c_iflag) = 0;
     v16 = "error: UART::UART(): empty path";
     goto LABEL_63;
   }
 
-  if (!v78.__r_.__value_.__l.__size_)
+  if (!v77.__r_.__value_.__l.__size_)
   {
     goto LABEL_31;
   }
 
-  v12 = v78.__r_.__value_.__r.__words[0];
+  v12 = v77.__r_.__value_.__r.__words[0];
 LABEL_28:
   v13 = open(v12, 131078);
   *(a1 + 48) = v13;
@@ -7409,14 +7320,14 @@ LABEL_28:
 
     if (isatty(*(a1 + 48)))
     {
-      v93.c_ospeed = 0xAAAAAAAAAAAAAAAALL;
+      v92.c_ospeed = 0xAAAAAAAAAAAAAAAALL;
       *&v23 = 0xAAAAAAAAAAAAAAAALL;
       *(&v23 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      *v93.c_cc = v23;
-      *&v93.c_cc[16] = v23;
-      *&v93.c_iflag = v23;
-      *&v93.c_cflag = v23;
-      if (tcgetattr(*(a1 + 48), &v93) == -1)
+      *v92.c_cc = v23;
+      *&v92.c_cc[16] = v23;
+      *&v92.c_iflag = v23;
+      *&v92.c_cflag = v23;
+      if (tcgetattr(*(a1 + 48), &v92) == -1)
       {
         v27 = **(a1 + 112);
         if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
@@ -7425,17 +7336,17 @@ LABEL_28:
         }
 
         v35 = __error();
-        v36 = &v94;
-        std::to_string(&v94, *v35);
-        if ((v94.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        v36 = &v93;
+        std::to_string(&v93, *v35);
+        if ((v93.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v36 = v94.__r_.__value_.__r.__words[0];
+          v36 = v93.__r_.__value_.__r.__words[0];
         }
 
         v37 = __error();
         v38 = strerror(*v37);
         std::string::basic_string[abi:ne200100]<0>(buf, v38);
-        if (v88 >= 0)
+        if (v87 >= 0)
         {
           v39 = buf;
         }
@@ -7445,30 +7356,30 @@ LABEL_28:
           v39 = *buf;
         }
 
-        *v89 = 136315394;
-        v90 = v36;
-        v91 = 2080;
-        v92 = v39;
+        *v88 = 136315394;
+        v89 = v36;
+        v90 = 2080;
+        v91 = v39;
         v33 = "error: UART::UART(): tcgetattr() failed with:(%s) %s";
         goto LABEL_95;
       }
 
-      cfmakeraw(&v93);
-      v93.c_iflag = v93.c_iflag & 0xFFFFFFFFFFFF9000 | 1;
-      v93.c_oflag &= 0xFFFFFFFFFFFFFF98;
-      *&v93.c_cc[16] = -1;
-      *v93.c_cc = -1;
-      *&v93.c_cc[8] = -1;
-      *&v93.c_cc[16] = *(a1 + 56);
+      cfmakeraw(&v92);
+      v92.c_iflag = v92.c_iflag & 0xFFFFFFFFFFFF9000 | 1;
+      v92.c_oflag &= 0xFFFFFFFFFFFFFF98;
+      *&v92.c_cc[16] = -1;
+      *v92.c_cc = -1;
+      *&v92.c_cc[8] = -1;
+      *&v92.c_cc[16] = *(a1 + 56);
       v24 = 51968;
       if (*(a1 + 58))
       {
         v24 = 248576;
       }
 
-      v93.c_cflag = v24 | v93.c_cflag & 0xFFFFFFFFFFFC00FFLL;
-      v93.c_lflag = v93.c_lflag & 0x5D3FF000;
-      v25 = tcsetattr(*(a1 + 48), 0, &v93);
+      v92.c_cflag = v24 | v92.c_cflag & 0xFFFFFFFFFFFC00FFLL;
+      v92.c_lflag = v92.c_lflag & 0x5D3FF000;
+      v25 = tcsetattr(*(a1 + 48), 0, &v92);
       v26 = *(a1 + 48);
       if (v25 == -1)
       {
@@ -7477,11 +7388,11 @@ LABEL_28:
           v63 = *__error();
           v64 = __error();
           v65 = strerror(*v64);
-          LODWORD(v94.__r_.__value_.__l.__data_) = 67109378;
-          HIDWORD(v94.__r_.__value_.__r.__words[0]) = v63;
-          LOWORD(v94.__r_.__value_.__r.__words[1]) = 2080;
-          *(&v94.__r_.__value_.__r.__words[1] + 2) = v65;
-          _os_log_error_impl(&dword_1E5234000, v40, OS_LOG_TYPE_ERROR, "error: close() failed with (%d) %s\n", &v94, 0x12u);
+          LODWORD(v93.__r_.__value_.__l.__data_) = 67109378;
+          HIDWORD(v93.__r_.__value_.__r.__words[0]) = v63;
+          LOWORD(v93.__r_.__value_.__r.__words[1]) = 2080;
+          *(&v93.__r_.__value_.__r.__words[1] + 2) = v65;
+          _os_log_error_impl(&dword_1E5234000, v40, OS_LOG_TYPE_ERROR, "error: close() failed with (%d) %s\n", &v93, 0x12u);
           v27 = **(a1 + 112);
           if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
@@ -7499,17 +7410,17 @@ LABEL_28:
         }
 
         v41 = __error();
-        v42 = &v94;
-        std::to_string(&v94, *v41);
-        if ((v94.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        v42 = &v93;
+        std::to_string(&v93, *v41);
+        if ((v93.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v42 = v94.__r_.__value_.__r.__words[0];
+          v42 = v93.__r_.__value_.__r.__words[0];
         }
 
         v43 = __error();
         v44 = strerror(*v43);
         std::string::basic_string[abi:ne200100]<0>(buf, v44);
-        if (v88 >= 0)
+        if (v87 >= 0)
         {
           v45 = buf;
         }
@@ -7519,10 +7430,10 @@ LABEL_28:
           v45 = *buf;
         }
 
-        *v89 = 136315394;
-        v90 = v42;
-        v91 = 2080;
-        v92 = v45;
+        *v88 = 136315394;
+        v89 = v42;
+        v90 = 2080;
+        v91 = v45;
         v33 = "error: UART::UART(): tcsetattr() failed with:(%s) %s";
         goto LABEL_95;
       }
@@ -7536,17 +7447,17 @@ LABEL_28:
         }
 
         v46 = __error();
-        v47 = &v94;
-        std::to_string(&v94, *v46);
-        if ((v94.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        v47 = &v93;
+        std::to_string(&v93, *v46);
+        if ((v93.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v47 = v94.__r_.__value_.__r.__words[0];
+          v47 = v93.__r_.__value_.__r.__words[0];
         }
 
         v48 = __error();
         v49 = strerror(*v48);
         std::string::basic_string[abi:ne200100]<0>(buf, v49);
-        if (v88 >= 0)
+        if (v87 >= 0)
         {
           v50 = buf;
         }
@@ -7556,16 +7467,16 @@ LABEL_28:
           v50 = *buf;
         }
 
-        *v89 = 136315394;
-        v90 = v47;
-        v91 = 2080;
-        v92 = v50;
+        *v88 = 136315394;
+        v89 = v47;
+        v90 = 2080;
+        v91 = v50;
         v33 = "error: UART::UART(): ioctl(IOSSIOSPEED) failed with:(%s) %s";
         goto LABEL_95;
       }
 
-      v75 = 1024;
-      if (!ioctl(*(a1 + 48), 0x80085409uLL, &v75))
+      v74 = 1024;
+      if (!ioctl(*(a1 + 48), 0x80085409uLL, &v74))
       {
         v27 = **(a1 + 112);
         if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
@@ -7574,17 +7485,17 @@ LABEL_28:
         }
 
         v51 = __error();
-        v52 = &v94;
-        std::to_string(&v94, *v51);
-        if ((v94.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        v52 = &v93;
+        std::to_string(&v93, *v51);
+        if ((v93.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v52 = v94.__r_.__value_.__r.__words[0];
+          v52 = v93.__r_.__value_.__r.__words[0];
         }
 
         v53 = __error();
         v54 = strerror(*v53);
         std::string::basic_string[abi:ne200100]<0>(buf, v54);
-        if (v88 >= 0)
+        if (v87 >= 0)
         {
           v55 = buf;
         }
@@ -7594,10 +7505,10 @@ LABEL_28:
           v55 = *buf;
         }
 
-        *v89 = 136315394;
-        v90 = v52;
-        v91 = 2080;
-        v92 = v55;
+        *v88 = 136315394;
+        v89 = v52;
+        v90 = 2080;
+        v91 = v55;
         v33 = "error: UART::UART(): ioctl(IOAOSRXQ) failed with:(%s) %s";
         goto LABEL_95;
       }
@@ -7617,17 +7528,17 @@ LABEL_53:
         }
 
         v28 = __error();
-        v29 = &v94;
-        std::to_string(&v94, *v28);
-        if ((v94.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        v29 = &v93;
+        std::to_string(&v93, *v28);
+        if ((v93.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v29 = v94.__r_.__value_.__r.__words[0];
+          v29 = v93.__r_.__value_.__r.__words[0];
         }
 
         v30 = __error();
         v31 = strerror(*v30);
         std::string::basic_string[abi:ne200100]<0>(buf, v31);
-        if (v88 >= 0)
+        if (v87 >= 0)
         {
           v32 = buf;
         }
@@ -7637,14 +7548,14 @@ LABEL_53:
           v32 = *buf;
         }
 
-        *v89 = 136315394;
-        v90 = v29;
-        v91 = 2080;
-        v92 = v32;
+        *v88 = 136315394;
+        v89 = v29;
+        v90 = 2080;
+        v91 = v32;
         v33 = "error: UART::UART(): tcflush(TCIOFLUSH) failed with:(%s) %s";
 LABEL_95:
-        _os_log_error_impl(&dword_1E5234000, v27, OS_LOG_TYPE_ERROR, v33, v89, 0x16u);
-        if ((v88 & 0x80000000) == 0)
+        _os_log_error_impl(&dword_1E5234000, v27, OS_LOG_TYPE_ERROR, v33, v88, 0x16u);
+        if ((v87 & 0x80000000) == 0)
         {
           goto LABEL_97;
         }
@@ -7659,14 +7570,14 @@ LABEL_95:
           v57 = *__error();
           if (close(*(a1 + 48)) == -1 && (v58 = **(a1 + 112), os_log_type_enabled(v58, OS_LOG_TYPE_ERROR)))
           {
-            v72 = *__error();
-            v73 = __error();
-            v74 = strerror(*v73);
-            LODWORD(v94.__r_.__value_.__l.__data_) = 67109378;
-            HIDWORD(v94.__r_.__value_.__r.__words[0]) = v72;
-            LOWORD(v94.__r_.__value_.__r.__words[1]) = 2080;
-            *(&v94.__r_.__value_.__r.__words[1] + 2) = v74;
-            _os_log_error_impl(&dword_1E5234000, v58, OS_LOG_TYPE_ERROR, "error: close() failed with (%d) %s\n", &v94, 0x12u);
+            v71 = *__error();
+            v72 = __error();
+            v73 = strerror(*v72);
+            LODWORD(v93.__r_.__value_.__l.__data_) = 67109378;
+            HIDWORD(v93.__r_.__value_.__r.__words[0]) = v71;
+            LOWORD(v93.__r_.__value_.__r.__words[1]) = 2080;
+            *(&v93.__r_.__value_.__r.__words[1] + 2) = v73;
+            _os_log_error_impl(&dword_1E5234000, v58, OS_LOG_TYPE_ERROR, "error: close() failed with (%d) %s\n", &v93, 0x12u);
             v59 = **(a1 + 112);
             if (!os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
             {
@@ -7683,16 +7594,16 @@ LABEL_95:
             }
           }
 
-          v60 = &v94;
-          std::to_string(&v94, v57);
-          if ((v94.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+          v60 = &v93;
+          std::to_string(&v93, v57);
+          if ((v93.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
           {
-            v60 = v94.__r_.__value_.__r.__words[0];
+            v60 = v93.__r_.__value_.__r.__words[0];
           }
 
           v61 = strerror(v57);
           std::string::basic_string[abi:ne200100]<0>(buf, v61);
-          if (v88 >= 0)
+          if (v87 >= 0)
           {
             v62 = buf;
           }
@@ -7702,12 +7613,12 @@ LABEL_95:
             v62 = *buf;
           }
 
-          *v89 = 136315394;
-          v90 = v60;
-          v91 = 2080;
-          v92 = v62;
-          _os_log_error_impl(&dword_1E5234000, v59, OS_LOG_TYPE_ERROR, "error: UART::UART(): flock() failed with:(%s) %s", v89, 0x16u);
-          if ((v88 & 0x80000000) == 0)
+          *v88 = 136315394;
+          v89 = v60;
+          v90 = 2080;
+          v91 = v62;
+          _os_log_error_impl(&dword_1E5234000, v59, OS_LOG_TYPE_ERROR, "error: UART::UART(): flock() failed with:(%s) %s", v88, 0x16u);
+          if ((v87 & 0x80000000) == 0)
           {
             goto LABEL_97;
           }
@@ -7715,9 +7626,9 @@ LABEL_95:
 LABEL_96:
           operator delete(*buf);
 LABEL_97:
-          if (SHIBYTE(v94.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v94.__r_.__value_.__l.__data_);
+            operator delete(v93.__r_.__value_.__l.__data_);
           }
 
           goto LABEL_116;
@@ -7728,14 +7639,14 @@ LABEL_97:
 
       if (close(*(a1 + 48)) == -1 && (v56 = **(a1 + 112), os_log_type_enabled(v56, OS_LOG_TYPE_ERROR)))
       {
-        v69 = *__error();
-        v70 = __error();
-        v71 = strerror(*v70);
-        LODWORD(v94.__r_.__value_.__l.__data_) = 67109378;
-        HIDWORD(v94.__r_.__value_.__r.__words[0]) = v69;
-        LOWORD(v94.__r_.__value_.__r.__words[1]) = 2080;
-        *(&v94.__r_.__value_.__r.__words[1] + 2) = v71;
-        _os_log_error_impl(&dword_1E5234000, v56, OS_LOG_TYPE_ERROR, "error: close() failed with (%d) %s\n", &v94, 0x12u);
+        v68 = *__error();
+        v69 = __error();
+        v70 = strerror(*v69);
+        LODWORD(v93.__r_.__value_.__l.__data_) = 67109378;
+        HIDWORD(v93.__r_.__value_.__r.__words[0]) = v68;
+        LOWORD(v93.__r_.__value_.__r.__words[1]) = 2080;
+        *(&v93.__r_.__value_.__r.__words[1] + 2) = v70;
+        _os_log_error_impl(&dword_1E5234000, v56, OS_LOG_TYPE_ERROR, "error: close() failed with (%d) %s\n", &v93, 0x12u);
         v15 = **(a1 + 112);
         if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
@@ -7752,9 +7663,9 @@ LABEL_97:
         }
       }
 
-      LOWORD(v94.__r_.__value_.__l.__data_) = 0;
+      LOWORD(v93.__r_.__value_.__l.__data_) = 0;
       v16 = "error: UART::UART(): comm port is locked by another process";
-      v34 = &v94;
+      v34 = &v93;
 LABEL_64:
       _os_log_error_impl(&dword_1E5234000, v15, OS_LOG_TYPE_ERROR, v16, v34, 2u);
       goto LABEL_116;
@@ -7766,10 +7677,10 @@ LABEL_64:
       goto LABEL_116;
     }
 
-    LOWORD(v93.c_iflag) = 0;
+    LOWORD(v92.c_iflag) = 0;
     v16 = "error: UART::UART(): opened FD is not a terminal";
 LABEL_63:
-    v34 = &v93;
+    v34 = &v92;
     goto LABEL_64;
   }
 
@@ -7777,46 +7688,46 @@ LABEL_63:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     v18 = __error();
-    c_iflag = &v93;
-    std::to_string(&v93, *v18);
-    if ((v93.c_cflag & 0x8000000000000000) != 0)
+    c_iflag = &v92;
+    std::to_string(&v92, *v18);
+    if ((v92.c_cflag & 0x8000000000000000) != 0)
     {
-      c_iflag = v93.c_iflag;
+      c_iflag = v92.c_iflag;
     }
 
     v20 = __error();
     v21 = strerror(*v20);
-    std::string::basic_string[abi:ne200100]<0>(&v94, v21);
-    if ((v94.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    std::string::basic_string[abi:ne200100]<0>(&v93, v21);
+    if ((v93.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v22 = &v94;
+      v22 = &v93;
     }
 
     else
     {
-      v22 = v94.__r_.__value_.__r.__words[0];
+      v22 = v93.__r_.__value_.__r.__words[0];
     }
 
     *buf = 136315394;
     *&buf[4] = c_iflag;
-    v86 = 2080;
-    v87 = v22;
+    v85 = 2080;
+    v86 = v22;
     _os_log_error_impl(&dword_1E5234000, v17, OS_LOG_TYPE_ERROR, "error: UART::UART(): open() failed with:(%s) %s", buf, 0x16u);
-    if (SHIBYTE(v94.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v93.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v94.__r_.__value_.__l.__data_);
+      operator delete(v93.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v93.c_cflag) < 0)
+    if (SHIBYTE(v92.c_cflag) < 0)
     {
-      operator delete(v93.c_iflag);
+      operator delete(v92.c_iflag);
     }
   }
 
 LABEL_116:
-  if (v83 == v82)
+  if (v82 == v81)
   {
-    (*(*v83 + 32))(v83);
+    (*(*v82 + 32))(v82);
     v66 = object;
     if (object)
     {
@@ -7827,9 +7738,9 @@ LABEL_120:
 
   else
   {
-    if (v83)
+    if (v82)
     {
-      (*(*v83 + 40))();
+      (*(*v82 + 40))();
     }
 
     v66 = object;
@@ -7839,12 +7750,11 @@ LABEL_120:
     }
   }
 
-  if (SHIBYTE(v78.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v77.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v78.__r_.__value_.__l.__data_);
+    operator delete(v77.__r_.__value_.__l.__data_);
   }
 
-  v67 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
@@ -7983,7 +7893,7 @@ uint64_t __cxx_global_var_init()
 uint64_t util::writeJSON(ctu **a1, uint64_t *a2)
 {
   v2 = a2;
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (*(a2 + 23) < 0)
   {
@@ -8003,9 +7913,9 @@ uint64_t util::writeJSON(ctu **a1, uint64_t *a2)
       {
         cf = 0xAAAAAAAAAAAAAAAALL;
         ctu::xpc_to_cf(&cf, *a1, v8);
-        v19 = 0;
-        [MEMORY[0x1E696ACB0] writeJSONObject:cf toStream:v7 options:1 error:&v19];
-        v9 = v19;
+        v18 = 0;
+        [MEMORY[0x1E696ACB0] writeJSONObject:cf toStream:v7 options:1 error:&v18];
+        v9 = v18;
         if (!v9)
         {
           v11 = 1;
@@ -8053,13 +7963,13 @@ LABEL_18:
           v2 = *v2;
         }
 
-        v16 = [v9 localizedDescription];
-        v17 = v16;
-        v18 = [v16 UTF8String];
+        v15 = [v9 localizedDescription];
+        v16 = v15;
+        v17 = [v15 UTF8String];
         *buf = 136315394;
-        v22 = v2;
-        v23 = 2080;
-        v24 = v18;
+        v21 = v2;
+        v22 = 2080;
+        v23 = v17;
         _os_log_error_impl(&dword_1E5234000, v10, OS_LOG_TYPE_ERROR, "Failed to write json to %s (error: %s)", buf, 0x16u);
 
 LABEL_10:
@@ -8109,7 +8019,7 @@ LABEL_20:
       }
 
       *buf = 136315138;
-      v22 = v2;
+      v21 = v2;
       _os_log_error_impl(&dword_1E5234000, v13, OS_LOG_TYPE_ERROR, "Failed to write json to %s due to no space available or invalid path", buf, 0xCu);
       goto LABEL_16;
     }
@@ -8118,8 +8028,39 @@ LABEL_20:
   v11 = 0;
 LABEL_21:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v11;
+}
+
+void sub_1E524B618(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf)
+{
+  if (a2 == 1)
+  {
+    v16 = __cxa_begin_catch(a1);
+    util::sGetOsLogContext(v16);
+    v17 = qword_1ED9482C0;
+    if (os_log_type_enabled(qword_1ED9482C0, OS_LOG_TYPE_ERROR))
+    {
+      v18 = [(util *)v16 name];
+      v19 = [(util *)v16 reason];
+      LODWORD(buf) = 138412546;
+      *(&buf + 4) = v18;
+      WORD6(buf) = 2112;
+      *(&buf + 14) = v19;
+      _os_log_error_impl(&dword_1E5234000, v17, OS_LOG_TYPE_ERROR, "Failed to write json object (exception: %@, %@)", &buf, 0x16u);
+    }
+
+    __cxa_end_catch();
+    if (!a10)
+    {
+      JUMPOUT(0x1E524B46CLL);
+    }
+
+    JUMPOUT(0x1E524B468);
+  }
+
+  ctu::cf::CFSharedRef<void const>::~CFSharedRef(&a10);
+
+  _Unwind_Resume(a1);
 }
 
 void util::sGetOsLogContext(util *this)
@@ -8161,7 +8102,7 @@ const void **ctu::cf::CFSharedRef<void const>::~CFSharedRef(const void **a1)
 
 void util::createDictFromJSONFile(uint64_t *a1@<X0>, void *a2@<X8>)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   *a2 = 0xAAAAAAAAAAAAAAAALL;
   v4 = xpc_null_create();
   *a2 = v4;
@@ -8230,9 +8171,9 @@ void util::createDictFromJSONFile(uint64_t *a1@<X0>, void *a2@<X8>)
     v10 = xpc_null_create();
     if ([v9 hasBytesAvailable])
     {
-      v26 = 0;
-      v11 = [MEMORY[0x1E696ACB0] JSONObjectWithStream:v9 options:0 error:&v26];
-      v13 = v26;
+      v25 = 0;
+      v11 = [MEMORY[0x1E696ACB0] JSONObjectWithStream:v9 options:0 error:&v25];
+      v13 = v25;
       if (!v13)
       {
         ctu::cf_to_xpc(buf, v11, v12);
@@ -8371,8 +8312,6 @@ LABEL_26:
   }
 
 LABEL_38:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E524BD78(_Unwind_Exception *a1, int a2)
@@ -8418,12 +8357,12 @@ void **std::unique_ptr<KTLOptions,support::transport::ARI::KTLOptionsDestructor>
 
 void ___ZN7support9transport3ARI9initLibTUEPKcjj_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(v2 + 104);
   if (a2 == 1)
   {
-    v24 = 1;
+    v23 = 1;
     v6 = (*(*v3 + 16))(v3, a2, **(v2 + 80));
     if (v6)
     {
@@ -8440,21 +8379,21 @@ void ___ZN7support9transport3ARI9initLibTUEPKcjj_block_invoke(uint64_t a1, uint6
 
       if (v7 | os_log_type_enabled(**(v2 + 80), OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v25) = 0;
+        LOWORD(v24) = 0;
         v16 = _os_log_send_and_compose_impl();
         if (v16)
         {
           v12 = v16;
           v13.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
           rep = v13.__d_.__rep_;
-          v25 = &unk_1F5EFEF90;
-          v26 = v2 + 40;
-          v27 = &v24;
+          v24 = &unk_1F5EFEF90;
+          v25 = v2 + 40;
+          v26 = &v23;
           p_rep = &rep;
           v17 = v3 + 15;
           for (i = v3[16]; i != v17; i = *(i + 8))
           {
-            v13.__d_.__rep_ = (***(i + 16))(*(i + 16), &v25, v12);
+            v13.__d_.__rep_ = (***(i + 16))(*(i + 16), &v24, v12);
           }
 
           goto LABEL_29;
@@ -8466,7 +8405,7 @@ void ___ZN7support9transport3ARI9initLibTUEPKcjj_block_invoke(uint64_t a1, uint6
   else if (a2)
   {
     v8 = a2;
-    v24 = 1;
+    v23 = 1;
     v9 = (*(*v3 + 16))(v3, 1, **(v2 + 80));
     if (v9)
     {
@@ -8483,22 +8422,22 @@ void ___ZN7support9transport3ARI9initLibTUEPKcjj_block_invoke(uint64_t a1, uint6
 
       if (v10 | os_log_type_enabled(**(v2 + 80), OS_LOG_TYPE_ERROR))
       {
-        LODWORD(v25) = 67109120;
-        HIDWORD(v25) = v8;
+        LODWORD(v24) = 67109120;
+        HIDWORD(v24) = v8;
         v19 = _os_log_send_and_compose_impl();
         if (v19)
         {
           v12 = v19;
           v13.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
           rep = v13.__d_.__rep_;
-          v25 = &unk_1F5EFEF90;
-          v26 = v2 + 40;
-          v27 = &v24;
+          v24 = &unk_1F5EFEF90;
+          v25 = v2 + 40;
+          v26 = &v23;
           p_rep = &rep;
           v20 = v3 + 15;
           for (j = v3[16]; j != v20; j = *(j + 8))
           {
-            v13.__d_.__rep_ = (***(j + 16))(*(j + 16), &v25, v12);
+            v13.__d_.__rep_ = (***(j + 16))(*(j + 16), &v24, v12);
           }
 
           goto LABEL_29;
@@ -8509,7 +8448,7 @@ void ___ZN7support9transport3ARI9initLibTUEPKcjj_block_invoke(uint64_t a1, uint6
 
   else
   {
-    v24 = 1;
+    v23 = 1;
     v4 = (*(*v3 + 16))(v3, 1, **(v2 + 80));
     if (v4)
     {
@@ -8526,21 +8465,21 @@ void ___ZN7support9transport3ARI9initLibTUEPKcjj_block_invoke(uint64_t a1, uint6
 
       if (v5 | os_log_type_enabled(**(v2 + 80), OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v25) = 0;
+        LOWORD(v24) = 0;
         v11 = _os_log_send_and_compose_impl();
         if (v11)
         {
           v12 = v11;
           v13.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
           rep = v13.__d_.__rep_;
-          v25 = &unk_1F5EFEF90;
-          v26 = v2 + 40;
-          v27 = &v24;
+          v24 = &unk_1F5EFEF90;
+          v25 = v2 + 40;
+          v26 = &v23;
           p_rep = &rep;
           v14 = v3 + 15;
           for (k = v3[16]; k != v14; k = *(k + 8))
           {
-            v13.__d_.__rep_ = (***(k + 16))(*(k + 16), &v25, v12);
+            v13.__d_.__rep_ = (***(k + 16))(*(k + 16), &v24, v12);
           }
 
 LABEL_29:
@@ -8549,108 +8488,105 @@ LABEL_29:
       }
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
-void support::transport::ARI::create(support::transport::ARI *this@<X0>, dispatch_queue_s *a2@<X1>, char a3@<W3>, uint64_t a4@<X4>, char **a5@<X8>)
+void support::transport::ARI::create(support::transport::ARI *this@<X0>, dispatch_queue_s *a2@<X1>, char a3@<W3>, char *a4@<X4>, char **a5@<X8>)
 {
-  *&v11 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v109 = v11;
-  v110 = v11;
-  v108[1] = v11;
-  v108[2] = v11;
-  v108[0] = v11;
-  v107.__r_.__value_.__r.__words[0] = operator new(0x30uLL);
-  *&v105[50] = 0;
-  *&v105[52] = 0;
-  *&v105[56] = 0x8000000000000030;
-  *&v107.__r_.__value_.__r.__words[1] = xmmword_1E538EAF0;
-  strcpy(v107.__r_.__value_.__l.__data_, "com.apple.telephony.basebandservices.support");
-  strcpy(v105, "services.supportony.basebandservcom.apple.teleph,");
+  *&v10 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v106 = v10;
+  v107 = v10;
+  v105[1] = v10;
+  v105[2] = v10;
+  v105[0] = v10;
+  v104.__r_.__value_.__r.__words[0] = operator new(0x30uLL);
+  *&v102[50] = 0;
+  *&v102[52] = 0;
+  *&v102[56] = 0x8000000000000030;
+  *&v104.__r_.__value_.__r.__words[1] = xmmword_1E538EAF0;
+  strcpy(v104.__r_.__value_.__l.__data_, "com.apple.telephony.basebandservices.support");
+  strcpy(v102, "services.supportony.basebandservcom.apple.teleph,");
   *(&__p.__r_.__value_.__s + 23) = 10;
   strcpy(&__p, "ari.create");
-  support::log::client::client(v108, &v107, &__p, a4);
+  support::log::client::client(v105, &v104, &__p, a4);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v107.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v104.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_3;
     }
   }
 
-  else if ((SHIBYTE(v107.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  else if ((SHIBYTE(v104.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_3;
   }
 
-  operator delete(v107.__r_.__value_.__l.__data_);
+  operator delete(v104.__r_.__value_.__l.__data_);
 LABEL_3:
   *a5 = 0xAAAAAAAAAAAAAAAALL;
-  v12 = operator new(0x70uLL);
-  *v12 = &unk_1F5EFEF60;
-  *(v12 + 1) = 0;
-  *(v12 + 4) = 0;
-  v13 = v12 + 16;
-  *(v12 + 3) = 0;
-  v14 = (v12 + 24);
-  v15 = operator new(0x30uLL);
-  *v119 = v15;
-  *&v119[8] = *&v105[48];
-  *v15 = *&v105[32];
-  v15[1] = *&v105[16];
-  *(v15 + 28) = *v105;
-  *(v15 + 44) = 0;
-  *(&v116.__r_.__value_.__s + 23) = 3;
-  LODWORD(v116.__r_.__value_.__l.__data_) = 6910561;
-  support::log::client::client(v12 + 4, v119, &v116, a4);
-  if (SHIBYTE(v116.__r_.__value_.__r.__words[2]) < 0)
+  v11 = operator new(0x70uLL);
+  *v11 = &unk_1F5EFEF60;
+  *(v11 + 1) = 0;
+  *(v11 + 4) = 0;
+  *(v11 + 3) = 0;
+  v12 = (v11 + 24);
+  v13 = operator new(0x30uLL);
+  *v116 = v13;
+  *&v116[8] = *&v102[48];
+  *v13 = *&v102[32];
+  v13[1] = *&v102[16];
+  *(v13 + 28) = *v102;
+  *(v13 + 44) = 0;
+  *(&v113.__r_.__value_.__s + 23) = 3;
+  LODWORD(v113.__r_.__value_.__l.__data_) = 6910561;
+  support::log::client::client(v11 + 4, v116, &v113, a4);
+  if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v116.__r_.__value_.__l.__data_);
-    if ((v119[23] & 0x80000000) == 0)
+    operator delete(v113.__r_.__value_.__l.__data_);
+    if ((v116[23] & 0x80000000) == 0)
     {
       goto LABEL_5;
     }
 
 LABEL_20:
-    operator delete(*v119);
+    operator delete(*v116);
     goto LABEL_5;
   }
 
-  if ((v119[23] & 0x80000000) != 0)
+  if ((v116[23] & 0x80000000) != 0)
   {
     goto LABEL_20;
   }
 
 LABEL_5:
-  *&v105[48] = a5;
-  *a5 = v12;
+  *&v102[48] = a5;
+  *a5 = v11;
+  v14 = getprogname();
+  if (!strncmp(v14, "CommCenter", 0xAuLL))
+  {
+    goto LABEL_24;
+  }
+
+  v15 = getprogname();
+  if (!strncmp(v15, "CommCenter-asan", 0xFuLL))
+  {
+    goto LABEL_24;
+  }
+
   v16 = getprogname();
-  if (!strncmp(v16, "CommCenter", 0xAuLL))
+  if (!strncmp(v16, "basebandd", 9uLL))
   {
     goto LABEL_24;
   }
 
-  v17 = getprogname();
-  if (!strncmp(v17, "CommCenter-asan", 0xFuLL))
-  {
-    goto LABEL_24;
-  }
-
-  v18 = getprogname();
-  if (!strncmp(v18, "basebandd", 9uLL))
-  {
-    goto LABEL_24;
-  }
-
-  v119[23] = 10;
-  strcpy(v119, "CommCenter");
+  v116[23] = 10;
+  strcpy(v116, "CommCenter");
   if (ctu::isProcessRunning())
   {
     isProcessRunning = 1;
-    if ((v119[23] & 0x80000000) != 0)
+    if ((v116[23] & 0x80000000) != 0)
     {
       goto LABEL_10;
     }
@@ -8664,64 +8600,64 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  *(&v116.__r_.__value_.__s + 23) = 9;
-  strcpy(&v116, "basebandd");
+  *(&v113.__r_.__value_.__s + 23) = 9;
+  strcpy(&v113, "basebandd");
   isProcessRunning = ctu::isProcessRunning();
-  if (SHIBYTE(v116.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v116.__r_.__value_.__l.__data_);
-    if ((v119[23] & 0x80000000) == 0)
+    operator delete(v113.__r_.__value_.__l.__data_);
+    if ((v116[23] & 0x80000000) == 0)
     {
       goto LABEL_23;
     }
   }
 
-  else if ((v119[23] & 0x80000000) == 0)
+  else if ((v116[23] & 0x80000000) == 0)
   {
     goto LABEL_23;
   }
 
 LABEL_10:
-  operator delete(*v119);
+  operator delete(*v116);
   if (!isProcessRunning)
   {
 LABEL_11:
-    strcpy(&v124, "com.apple.ARITransport");
-    *(&v124.__r_.__value_.__s + 23) = 22;
-    v123 = 0;
-    v121 = 0u;
-    v122 = 0u;
-    v120 = 0u;
-    memset(v119, 0, sizeof(v119));
+    strcpy(&v121, "com.apple.ARITransport");
+    *(&v121.__r_.__value_.__s + 23) = 22;
+    v120 = 0;
+    v118 = 0u;
+    v119 = 0u;
+    v117 = 0u;
+    memset(v116, 0, sizeof(v116));
     if (!this || !*this)
     {
-      v75 = *(v12 + 13);
-      LOBYTE(v115) = 1;
-      v76 = (*(*v75 + 16))(v75, 1, **(v12 + 10));
-      if (!v76)
+      v72 = *(v11 + 13);
+      LOBYTE(v112) = 1;
+      v73 = (*(*v72 + 16))(v72, 1, **(v11 + 10));
+      if (!v73)
       {
         goto LABEL_207;
       }
 
-      if (*(v75 + 17))
+      if (*(v72 + 17))
       {
-        support::log::buffer::borrow(v76);
-        v77 = 2;
+        support::log::buffer::borrow(v73);
+        v74 = 2;
       }
 
       else
       {
-        v77 = 0;
+        v74 = 0;
       }
 
-      if (!(v77 | os_log_type_enabled(**(v12 + 10), OS_LOG_TYPE_ERROR)))
+      if (!(v74 | os_log_type_enabled(**(v11 + 10), OS_LOG_TYPE_ERROR)))
       {
         goto LABEL_207;
       }
 
-      LOWORD(v116.__r_.__value_.__l.__data_) = 0;
-      v93 = _os_log_send_and_compose_impl();
-      if (!v93)
+      LOWORD(v113.__r_.__value_.__l.__data_) = 0;
+      v90 = _os_log_send_and_compose_impl();
+      if (!v90)
       {
         goto LABEL_207;
       }
@@ -8729,75 +8665,75 @@ LABEL_11:
       goto LABEL_186;
     }
 
-    v20 = strlen(this);
-    if (v20 > 0x7FFFFFFFFFFFFFF7)
+    v18 = strlen(this);
+    if (v18 > 0x7FFFFFFFFFFFFFF7)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v21 = v20;
-    if (v20 >= 0x17)
+    v19 = v18;
+    if (v18 >= 0x17)
     {
-      if ((v20 | 7) == 0x17)
+      if ((v18 | 7) == 0x17)
       {
-        v42 = 25;
+        v39 = 25;
       }
 
       else
       {
-        v42 = (v20 | 7) + 1;
+        v39 = (v18 | 7) + 1;
       }
 
-      p_dst = operator new(v42);
-      __dst.__r_.__value_.__l.__size_ = v21;
-      __dst.__r_.__value_.__r.__words[2] = v42 | 0x8000000000000000;
+      p_dst = operator new(v39);
+      __dst.__r_.__value_.__l.__size_ = v19;
+      __dst.__r_.__value_.__r.__words[2] = v39 | 0x8000000000000000;
       __dst.__r_.__value_.__r.__words[0] = p_dst;
     }
 
     else
     {
-      *(&__dst.__r_.__value_.__s + 23) = v20;
+      *(&__dst.__r_.__value_.__s + 23) = v18;
       p_dst = &__dst;
-      if (!v20)
+      if (!v18)
       {
         goto LABEL_76;
       }
     }
 
-    memcpy(p_dst, this, v21);
+    memcpy(p_dst, this, v19);
 LABEL_76:
-    p_dst->__r_.__value_.__s.__data_[v21] = 0;
-    v43 = std::string::insert(&__dst, 0, ".", 1uLL);
-    v44 = *&v43->__r_.__value_.__l.__data_;
-    v116.__r_.__value_.__r.__words[2] = v43->__r_.__value_.__r.__words[2];
-    *&v116.__r_.__value_.__l.__data_ = v44;
-    v43->__r_.__value_.__l.__size_ = 0;
-    v43->__r_.__value_.__r.__words[2] = 0;
-    v43->__r_.__value_.__r.__words[0] = 0;
-    if ((v116.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    p_dst->__r_.__value_.__s.__data_[v19] = 0;
+    v40 = std::string::insert(&__dst, 0, ".", 1uLL);
+    v41 = *&v40->__r_.__value_.__l.__data_;
+    v113.__r_.__value_.__r.__words[2] = v40->__r_.__value_.__r.__words[2];
+    *&v113.__r_.__value_.__l.__data_ = v41;
+    v40->__r_.__value_.__l.__size_ = 0;
+    v40->__r_.__value_.__r.__words[2] = 0;
+    v40->__r_.__value_.__r.__words[0] = 0;
+    if ((v113.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v45 = &v116;
+      v42 = &v113;
     }
 
     else
     {
-      v45 = v116.__r_.__value_.__r.__words[0];
+      v42 = v113.__r_.__value_.__r.__words[0];
     }
 
-    if ((v116.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v113.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v116.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v113.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v116.__r_.__value_.__l.__size_;
+      size = v113.__r_.__value_.__l.__size_;
     }
 
-    std::string::append(&v124, v45, size);
-    if (SHIBYTE(v116.__r_.__value_.__r.__words[2]) < 0)
+    std::string::append(&v121, v42, size);
+    if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v116.__r_.__value_.__l.__data_);
+      operator delete(v113.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
@@ -8805,79 +8741,79 @@ LABEL_76:
       operator delete(__dst.__r_.__value_.__l.__data_);
     }
 
-    if ((v124.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v121.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v47 = &v124;
+      v44 = &v121;
     }
 
     else
     {
-      v47 = v124.__r_.__value_.__r.__words[0];
+      v44 = v121.__r_.__value_.__r.__words[0];
     }
 
-    v48 = dispatch_queue_create(v47, 0);
-    v49 = *(v12 + 1);
-    *(v12 + 1) = v48;
-    if (v49)
+    v45 = dispatch_queue_create(v44, 0);
+    v46 = *(v11 + 1);
+    *(v11 + 1) = v45;
+    if (v46)
     {
-      dispatch_release(v49);
-      v48 = *(v12 + 1);
+      dispatch_release(v46);
+      v45 = *(v11 + 1);
     }
 
-    if (v48)
+    if (v45)
     {
       TelephonyBasebandPCITransportInitParameters();
-      v50 = *(v12 + 1);
-      *&v119[24] = a2;
-      LODWORD(v120) = v120 | 1;
-      *v119 = 8;
-      v115 = 0;
-      v116.__r_.__value_.__r.__words[0] = MEMORY[0x1E69E9820];
-      v116.__r_.__value_.__l.__size_ = 0x40000000;
-      v116.__r_.__value_.__r.__words[2] = ___ZN7support9transport3ARI9initLibTUEPKcjj_block_invoke;
-      v117 = &__block_descriptor_tmp_0;
-      v118 = v12;
-      *&v119[8] = v50;
-      *&v119[16] = &v116;
+      v47 = *(v11 + 1);
+      *&v116[24] = a2;
+      LODWORD(v117) = v117 | 1;
+      *v116 = 8;
+      v112 = 0;
+      v113.__r_.__value_.__r.__words[0] = MEMORY[0x1E69E9820];
+      v113.__r_.__value_.__l.__size_ = 0x40000000;
+      v113.__r_.__value_.__r.__words[2] = ___ZN7support9transport3ARI9initLibTUEPKcjj_block_invoke;
+      v114 = &__block_descriptor_tmp_0;
+      v115 = v11;
+      *&v116[8] = v47;
+      *&v116[16] = &v113;
       operator new(0x58uLL);
       if ((TelephonyBasebandPCITransportCreate() & 1) == 0)
       {
-        v85 = *(v12 + 13);
-        v114 = 1;
-        v86 = (*(*v85 + 16))(v85, 1, **(v12 + 10));
-        if (v86)
+        v82 = *(v11 + 13);
+        v111 = 1;
+        v83 = (*(*v82 + 16))(v82, 1, **(v11 + 10));
+        if (v83)
         {
-          if (*(v85 + 17))
+          if (*(v82 + 17))
           {
-            support::log::buffer::borrow(v86);
-            v87 = 2;
+            support::log::buffer::borrow(v83);
+            v84 = 2;
           }
 
           else
           {
-            v87 = 0;
+            v84 = 0;
           }
 
-          if (v87 | os_log_type_enabled(**(v12 + 10), OS_LOG_TYPE_ERROR))
+          if (v84 | os_log_type_enabled(**(v11 + 10), OS_LOG_TYPE_ERROR))
           {
             LOWORD(__dst.__r_.__value_.__l.__data_) = 0;
-            v95 = _os_log_send_and_compose_impl();
-            if (v95)
+            v92 = _os_log_send_and_compose_impl();
+            if (v92)
             {
-              v96 = v95;
+              v93 = v92;
               rep = std::chrono::system_clock::now().__d_.__rep_;
               __dst.__r_.__value_.__r.__words[0] = &unk_1F5EFEF90;
-              __dst.__r_.__value_.__l.__size_ = (v12 + 40);
-              __dst.__r_.__value_.__r.__words[2] = &v114;
+              __dst.__r_.__value_.__l.__size_ = (v11 + 40);
+              __dst.__r_.__value_.__r.__words[2] = &v111;
               p_rep = &rep;
-              support::log::manager::message_delegates(v85, &__dst, v96);
+              support::log::manager::message_delegates(v82, &__dst, v93);
             }
           }
         }
 
 LABEL_207:
-        v54 = 0;
-        if ((SHIBYTE(v124.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        v51 = 0;
+        if ((SHIBYTE(v121.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           goto LABEL_101;
         }
@@ -8885,82 +8821,82 @@ LABEL_207:
         goto LABEL_208;
       }
 
-      v51 = operator new(0x20uLL);
-      *v51 = 0u;
-      v51[1] = 0u;
-      v115 = v51;
+      v48 = operator new(0x20uLL);
+      *v48 = 0u;
+      v48[1] = 0u;
+      v112 = v48;
       if (KTLInitOptions())
       {
         if (KTLOpenChannel())
         {
-          v115 = 0;
-          v52 = *v14;
-          *v14 = v51;
-          if (v52)
+          v112 = 0;
+          v49 = *v12;
+          *v12 = v48;
+          if (v49)
           {
-            if (v52[1])
+            if (v49[1])
             {
               TelephonyUtilTransportFree();
-              v53 = v52[1];
-              if (v53)
+              v50 = v49[1];
+              if (v50)
               {
-                operator delete(v53);
+                operator delete(v50);
               }
             }
 
-            operator delete(v52);
+            operator delete(v49);
           }
 
-          v54 = 1;
-          if ((SHIBYTE(v124.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+          v51 = 1;
+          if ((SHIBYTE(v121.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
           {
 LABEL_101:
-            if (v54)
+            if (v51)
             {
               goto LABEL_67;
             }
 
 LABEL_209:
             __dst.__r_.__value_.__s.__data_[0] = 1;
-            v100 = *(&v110 + 1);
-            v101 = (*(**(&v110 + 1) + 16))(*(&v110 + 1), 1, *v109);
-            if (v101)
+            v97 = *(&v107 + 1);
+            v98 = (*(**(&v107 + 1) + 16))(*(&v107 + 1), 1, *v106);
+            if (v98)
             {
-              if (*(v100 + 17))
+              if (*(v97 + 17))
               {
-                support::log::buffer::borrow(v101);
-                v102 = 2;
+                support::log::buffer::borrow(v98);
+                v99 = 2;
               }
 
               else
               {
-                v102 = 0;
+                v99 = 0;
               }
 
-              if (v102 | os_log_type_enabled(*v109, OS_LOG_TYPE_ERROR))
+              if (v99 | os_log_type_enabled(*v106, OS_LOG_TYPE_ERROR))
               {
-                *v119 = 0;
-                v103 = _os_log_send_and_compose_impl();
-                if (v103)
+                *v116 = 0;
+                v100 = _os_log_send_and_compose_impl();
+                if (v100)
                 {
-                  v104 = v103;
-                  v116.__r_.__value_.__l.__data_ = std::chrono::system_clock::now().__d_.__rep_;
-                  *v119 = &unk_1F5EFEF90;
-                  *&v119[8] = v108 + 8;
-                  *&v119[16] = &__dst;
-                  *&v119[24] = &v116;
-                  support::log::manager::message_delegates(v100, v119, v104);
+                  v101 = v100;
+                  v113.__r_.__value_.__l.__data_ = std::chrono::system_clock::now().__d_.__rep_;
+                  *v116 = &unk_1F5EFEF90;
+                  *&v116[8] = v105 + 8;
+                  *&v116[16] = &__dst;
+                  *&v116[24] = &v113;
+                  support::log::manager::message_delegates(v97, v116, v101);
                 }
               }
             }
 
-            v23 = *&v105[48];
+            v21 = *&v102[48];
             goto LABEL_217;
           }
 
 LABEL_208:
-          operator delete(v124.__r_.__value_.__l.__data_);
-          if (v54)
+          operator delete(v121.__r_.__value_.__l.__data_);
+          if (v51)
           {
             goto LABEL_67;
           }
@@ -8968,33 +8904,33 @@ LABEL_208:
           goto LABEL_209;
         }
 
-        v88 = *(v12 + 13);
-        v114 = 1;
-        v91 = (*(*v88 + 16))(v88, 1, **(v12 + 10));
-        if (!v91)
+        v85 = *(v11 + 13);
+        v111 = 1;
+        v88 = (*(*v85 + 16))(v85, 1, **(v11 + 10));
+        if (!v88)
         {
           goto LABEL_203;
         }
 
-        if (*(v88 + 17))
+        if (*(v85 + 17))
         {
-          support::log::buffer::borrow(v91);
-          v92 = 2;
+          support::log::buffer::borrow(v88);
+          v89 = 2;
         }
 
         else
         {
-          v92 = 0;
+          v89 = 0;
         }
 
-        if (!(v92 | os_log_type_enabled(**(v12 + 10), OS_LOG_TYPE_ERROR)))
+        if (!(v89 | os_log_type_enabled(**(v11 + 10), OS_LOG_TYPE_ERROR)))
         {
           goto LABEL_203;
         }
 
         LOWORD(__dst.__r_.__value_.__l.__data_) = 0;
-        v97 = _os_log_send_and_compose_impl();
-        if (!v97)
+        v94 = _os_log_send_and_compose_impl();
+        if (!v94)
         {
           goto LABEL_203;
         }
@@ -9002,100 +8938,100 @@ LABEL_208:
 
       else
       {
-        v88 = *(v12 + 13);
-        v114 = 1;
-        v89 = (*(*v88 + 16))(v88, 1, **(v12 + 10));
-        if (!v89)
+        v85 = *(v11 + 13);
+        v111 = 1;
+        v86 = (*(*v85 + 16))(v85, 1, **(v11 + 10));
+        if (!v86)
         {
           goto LABEL_203;
         }
 
-        if (*(v88 + 17))
+        if (*(v85 + 17))
         {
-          support::log::buffer::borrow(v89);
-          v90 = 2;
+          support::log::buffer::borrow(v86);
+          v87 = 2;
         }
 
         else
         {
-          v90 = 0;
+          v87 = 0;
         }
 
-        if (!(v90 | os_log_type_enabled(**(v12 + 10), OS_LOG_TYPE_ERROR)))
+        if (!(v87 | os_log_type_enabled(**(v11 + 10), OS_LOG_TYPE_ERROR)))
         {
           goto LABEL_203;
         }
 
         LOWORD(__dst.__r_.__value_.__l.__data_) = 0;
-        v97 = _os_log_send_and_compose_impl();
-        if (!v97)
+        v94 = _os_log_send_and_compose_impl();
+        if (!v94)
         {
           goto LABEL_203;
         }
       }
 
-      v98 = v97;
+      v95 = v94;
       rep = std::chrono::system_clock::now().__d_.__rep_;
       __dst.__r_.__value_.__r.__words[0] = &unk_1F5EFEF90;
-      __dst.__r_.__value_.__l.__size_ = (v12 + 40);
-      __dst.__r_.__value_.__r.__words[2] = &v114;
+      __dst.__r_.__value_.__l.__size_ = (v11 + 40);
+      __dst.__r_.__value_.__r.__words[2] = &v111;
       p_rep = &rep;
-      support::log::manager::message_delegates(v88, &__dst, v98);
+      support::log::manager::message_delegates(v85, &__dst, v95);
 LABEL_203:
-      v115 = 0;
-      if (*(v51 + 1))
+      v112 = 0;
+      if (*(v48 + 1))
       {
         TelephonyUtilTransportFree();
-        v99 = *(v51 + 1);
-        if (v99)
+        v96 = *(v48 + 1);
+        if (v96)
         {
-          operator delete(v99);
+          operator delete(v96);
         }
       }
 
-      operator delete(v51);
+      operator delete(v48);
       goto LABEL_207;
     }
 
-    v75 = *(v12 + 13);
-    LOBYTE(v115) = 1;
-    v83 = (*(*v75 + 16))(v75, 1, **(v12 + 10));
-    if (!v83)
+    v72 = *(v11 + 13);
+    LOBYTE(v112) = 1;
+    v80 = (*(*v72 + 16))(v72, 1, **(v11 + 10));
+    if (!v80)
     {
       goto LABEL_207;
     }
 
-    if (*(v75 + 17))
+    if (*(v72 + 17))
     {
-      support::log::buffer::borrow(v83);
-      v84 = 2;
+      support::log::buffer::borrow(v80);
+      v81 = 2;
     }
 
     else
     {
-      v84 = 0;
+      v81 = 0;
     }
 
-    if (!(v84 | os_log_type_enabled(**(v12 + 10), OS_LOG_TYPE_ERROR)))
+    if (!(v81 | os_log_type_enabled(**(v11 + 10), OS_LOG_TYPE_ERROR)))
     {
       goto LABEL_207;
     }
 
-    LOWORD(v116.__r_.__value_.__l.__data_) = 0;
-    v93 = _os_log_send_and_compose_impl();
-    if (!v93)
+    LOWORD(v113.__r_.__value_.__l.__data_) = 0;
+    v90 = _os_log_send_and_compose_impl();
+    if (!v90)
     {
       goto LABEL_207;
     }
 
 LABEL_186:
-    v94 = v93;
+    v91 = v90;
     __dst.__r_.__value_.__l.__data_ = std::chrono::system_clock::now().__d_.__rep_;
-    v116.__r_.__value_.__r.__words[0] = &unk_1F5EFEF90;
-    v116.__r_.__value_.__l.__size_ = (v12 + 40);
-    v116.__r_.__value_.__r.__words[2] = &v115;
-    v117 = &__dst;
-    support::log::manager::message_delegates(v75, &v116, v94);
+    v113.__r_.__value_.__r.__words[0] = &unk_1F5EFEF90;
+    v113.__r_.__value_.__l.__size_ = (v11 + 40);
+    v113.__r_.__value_.__r.__words[2] = &v112;
+    v114 = &__dst;
+    support::log::manager::message_delegates(v72, &v113, v91);
     goto LABEL_207;
   }
 
@@ -9103,33 +9039,33 @@ LABEL_24:
   if ((a3 & 1) == 0)
   {
     __dst.__r_.__value_.__s.__data_[0] = 1;
-    v58 = *(&v110 + 1);
-    v23 = *&v105[48];
-    v59 = (*(**(&v110 + 1) + 16))(*(&v110 + 1), 1, *v109);
-    if (!v59)
+    v55 = *(&v107 + 1);
+    v21 = *&v102[48];
+    v56 = (*(**(&v107 + 1) + 16))(*(&v107 + 1), 1, *v106);
+    if (!v56)
     {
       goto LABEL_217;
     }
 
-    if (*(v58 + 17))
+    if (*(v55 + 17))
     {
-      support::log::buffer::borrow(v59);
-      v60 = 2;
+      support::log::buffer::borrow(v56);
+      v57 = 2;
     }
 
     else
     {
-      v60 = 0;
+      v57 = 0;
     }
 
-    if (!(v60 | os_log_type_enabled(*v109, OS_LOG_TYPE_ERROR)))
+    if (!(v57 | os_log_type_enabled(*v106, OS_LOG_TYPE_ERROR)))
     {
       goto LABEL_217;
     }
 
-    *v119 = 0;
-    v78 = _os_log_send_and_compose_impl();
-    if (!v78)
+    *v116 = 0;
+    v75 = _os_log_send_and_compose_impl();
+    if (!v75)
     {
       goto LABEL_217;
     }
@@ -9137,32 +9073,32 @@ LABEL_24:
     goto LABEL_139;
   }
 
-  strcpy(&v116, "com.apple.ARITransport");
-  *(&v116.__r_.__value_.__s + 23) = 22;
-  v23 = *&v105[48];
+  strcpy(&v113, "com.apple.ARITransport");
+  *(&v113.__r_.__value_.__s + 23) = 22;
+  v21 = *&v102[48];
   if (!this || !*this)
   {
-    v55 = *(v12 + 13);
-    v124.__r_.__value_.__s.__data_[0] = 1;
-    v56 = (*(*v55 + 16))(v55, 1, **(v12 + 10));
-    if (v56)
+    v52 = *(v11 + 13);
+    v121.__r_.__value_.__s.__data_[0] = 1;
+    v53 = (*(*v52 + 16))(v52, 1, **(v11 + 10));
+    if (v53)
     {
-      if (*(v55 + 17))
+      if (*(v52 + 17))
       {
-        support::log::buffer::borrow(v56);
-        v57 = 2;
+        support::log::buffer::borrow(v53);
+        v54 = 2;
       }
 
       else
       {
-        v57 = 0;
+        v54 = 0;
       }
 
-      if (v57 | os_log_type_enabled(**(v12 + 10), OS_LOG_TYPE_ERROR))
+      if (v54 | os_log_type_enabled(**(v11 + 10), OS_LOG_TYPE_ERROR))
       {
-        *v119 = 0;
-        v74 = _os_log_send_and_compose_impl();
-        if (v74)
+        *v116 = 0;
+        v71 = _os_log_send_and_compose_impl();
+        if (v71)
         {
           goto LABEL_155;
         }
@@ -9172,73 +9108,73 @@ LABEL_24:
     goto LABEL_156;
   }
 
-  v24 = strlen(this);
-  if (v24 > 0x7FFFFFFFFFFFFFF7)
+  v22 = strlen(this);
+  if (v22 > 0x7FFFFFFFFFFFFFF7)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  v25 = v24;
-  if (v24 >= 0x17)
+  v23 = v22;
+  if (v22 >= 0x17)
   {
-    if ((v24 | 7) == 0x17)
+    if ((v22 | 7) == 0x17)
     {
-      v27 = 25;
+      v25 = 25;
     }
 
     else
     {
-      v27 = (v24 | 7) + 1;
+      v25 = (v22 | 7) + 1;
     }
 
-    v26 = operator new(v27);
-    __dst.__r_.__value_.__l.__size_ = v25;
-    __dst.__r_.__value_.__r.__words[2] = v27 | 0x8000000000000000;
-    __dst.__r_.__value_.__r.__words[0] = v26;
-    v23 = *&v105[48];
+    v24 = operator new(v25);
+    __dst.__r_.__value_.__l.__size_ = v23;
+    __dst.__r_.__value_.__r.__words[2] = v25 | 0x8000000000000000;
+    __dst.__r_.__value_.__r.__words[0] = v24;
+    v21 = *&v102[48];
     goto LABEL_35;
   }
 
-  *(&__dst.__r_.__value_.__s + 23) = v24;
-  v26 = &__dst;
-  if (v24)
+  *(&__dst.__r_.__value_.__s + 23) = v22;
+  v24 = &__dst;
+  if (v22)
   {
 LABEL_35:
-    memcpy(v26, this, v25);
+    memcpy(v24, this, v23);
   }
 
-  v26->__r_.__value_.__s.__data_[v25] = 0;
-  v28 = std::string::insert(&__dst, 0, ".", 1uLL);
-  v29 = *&v28->__r_.__value_.__l.__data_;
-  *&v119[16] = *(&v28->__r_.__value_.__l + 2);
-  *v119 = v29;
-  v28->__r_.__value_.__l.__size_ = 0;
-  v28->__r_.__value_.__r.__words[2] = 0;
-  v28->__r_.__value_.__r.__words[0] = 0;
-  if (v119[23] >= 0)
+  v24->__r_.__value_.__s.__data_[v23] = 0;
+  v26 = std::string::insert(&__dst, 0, ".", 1uLL);
+  v27 = *&v26->__r_.__value_.__l.__data_;
+  *&v116[16] = *(&v26->__r_.__value_.__l + 2);
+  *v116 = v27;
+  v26->__r_.__value_.__l.__size_ = 0;
+  v26->__r_.__value_.__r.__words[2] = 0;
+  v26->__r_.__value_.__r.__words[0] = 0;
+  if (v116[23] >= 0)
   {
-    v30 = v119;
-  }
-
-  else
-  {
-    v30 = *v119;
-  }
-
-  if (v119[23] >= 0)
-  {
-    v31 = v119[23];
+    v28 = v116;
   }
 
   else
   {
-    v31 = *&v119[8];
+    v28 = *v116;
   }
 
-  std::string::append(&v116, v30, v31);
-  if ((v119[23] & 0x80000000) != 0)
+  if (v116[23] >= 0)
   {
-    operator delete(*v119);
+    v29 = v116[23];
+  }
+
+  else
+  {
+    v29 = *&v116[8];
+  }
+
+  std::string::append(&v113, v28, v29);
+  if ((v116[23] & 0x80000000) != 0)
+  {
+    operator delete(*v116);
     if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_44;
@@ -9252,49 +9188,49 @@ LABEL_35:
 
   operator delete(__dst.__r_.__value_.__l.__data_);
 LABEL_44:
-  if ((v116.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v113.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v32 = &v116;
+    v30 = &v113;
   }
 
   else
   {
-    v32 = v116.__r_.__value_.__r.__words[0];
+    v30 = v113.__r_.__value_.__r.__words[0];
   }
 
-  v33 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
-  v34 = dispatch_queue_create(v32, v33);
-  v35 = *(v12 + 1);
-  *(v12 + 1) = v34;
-  if (v35)
+  v31 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
+  v32 = dispatch_queue_create(v30, v31);
+  v33 = *(v11 + 1);
+  *(v11 + 1) = v32;
+  if (v33)
   {
-    dispatch_release(v35);
-    v34 = *(v12 + 1);
+    dispatch_release(v33);
+    v32 = *(v11 + 1);
   }
 
-  if (!v34)
+  if (!v32)
   {
-    v55 = *(v12 + 13);
-    v124.__r_.__value_.__s.__data_[0] = 1;
-    v63 = (*(*v55 + 16))(v55, 1, **(v12 + 10));
-    if (v63)
+    v52 = *(v11 + 13);
+    v121.__r_.__value_.__s.__data_[0] = 1;
+    v60 = (*(*v52 + 16))(v52, 1, **(v11 + 10));
+    if (v60)
     {
-      if (*(v55 + 17))
+      if (*(v52 + 17))
       {
-        support::log::buffer::borrow(v63);
-        v64 = 2;
+        support::log::buffer::borrow(v60);
+        v61 = 2;
       }
 
       else
       {
-        v64 = 0;
+        v61 = 0;
       }
 
-      if (v64 | os_log_type_enabled(**(v12 + 10), OS_LOG_TYPE_ERROR))
+      if (v61 | os_log_type_enabled(**(v11 + 10), OS_LOG_TYPE_ERROR))
       {
-        *v119 = 0;
-        v74 = _os_log_send_and_compose_impl();
-        if (v74)
+        *v116 = 0;
+        v71 = _os_log_send_and_compose_impl();
+        if (v71)
         {
           goto LABEL_155;
         }
@@ -9304,29 +9240,29 @@ LABEL_44:
     goto LABEL_156;
   }
 
-  if (AriHost::Init(v34))
+  if (AriHost::Init(v32))
   {
-    v55 = *(v12 + 13);
-    v124.__r_.__value_.__s.__data_[0] = 1;
-    v65 = (*(*v55 + 16))(v55, 1, **(v12 + 10));
-    if (v65)
+    v52 = *(v11 + 13);
+    v121.__r_.__value_.__s.__data_[0] = 1;
+    v62 = (*(*v52 + 16))(v52, 1, **(v11 + 10));
+    if (v62)
     {
-      if (*(v55 + 17))
+      if (*(v52 + 17))
       {
-        support::log::buffer::borrow(v65);
-        v66 = 2;
+        support::log::buffer::borrow(v62);
+        v63 = 2;
       }
 
       else
       {
-        v66 = 0;
+        v63 = 0;
       }
 
-      if (v66 | os_log_type_enabled(**(v12 + 10), OS_LOG_TYPE_ERROR))
+      if (v63 | os_log_type_enabled(**(v11 + 10), OS_LOG_TYPE_ERROR))
       {
-        *v119 = 0;
-        v74 = _os_log_send_and_compose_impl();
-        if (v74)
+        *v116 = 0;
+        v71 = _os_log_send_and_compose_impl();
+        if (v71)
         {
           goto LABEL_155;
         }
@@ -9336,14 +9272,129 @@ LABEL_44:
     goto LABEL_156;
   }
 
-  if (AriHost::RegisterClient(this, v13, *(v12 + 1), a2))
+  if (AriHost::RegisterClient(this, v11 + 16, *(v11 + 1), a2))
   {
-    v55 = *(v12 + 13);
-    v124.__r_.__value_.__s.__data_[0] = 1;
-    v67 = (*(*v55 + 16))(v55, 1, **(v12 + 10));
+    v52 = *(v11 + 13);
+    v121.__r_.__value_.__s.__data_[0] = 1;
+    v64 = (*(*v52 + 16))(v52, 1, **(v11 + 10));
+    if (v64)
+    {
+      if (*(v52 + 17))
+      {
+        support::log::buffer::borrow(v64);
+        v65 = 2;
+      }
+
+      else
+      {
+        v65 = 0;
+      }
+
+      if (v65 | os_log_type_enabled(**(v11 + 10), OS_LOG_TYPE_ERROR))
+      {
+        *v116 = 0;
+        v71 = _os_log_send_and_compose_impl();
+        if (v71)
+        {
+LABEL_155:
+          v77 = v71;
+          __dst.__r_.__value_.__l.__data_ = std::chrono::system_clock::now().__d_.__rep_;
+          *v116 = &unk_1F5EFEF90;
+          *&v116[8] = v11 + 40;
+          *&v116[16] = &v121;
+          *&v116[24] = &__dst;
+          support::log::manager::message_delegates(v52, v116, v77);
+        }
+      }
+    }
+
+LABEL_156:
+    v37 = 0;
+    if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
+    {
+      goto LABEL_65;
+    }
+
+    goto LABEL_66;
+  }
+
+  v34 = operator new(0x20uLL);
+  *v34 = 0u;
+  v34[1] = 0u;
+  __dst.__r_.__value_.__r.__words[0] = v34;
+  if (KTLInitOptions())
+  {
+    if (KTLOpenChannel())
+    {
+      __dst.__r_.__value_.__r.__words[0] = 0;
+      v35 = *v12;
+      *v12 = v34;
+      if (!v35)
+      {
+        v37 = 1;
+        if ((SHIBYTE(v113.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        {
+          goto LABEL_66;
+        }
+
+        goto LABEL_65;
+      }
+
+      if (v35[1])
+      {
+        TelephonyUtilTransportFree();
+        v36 = v35[1];
+        v37 = 1;
+        if (v36)
+        {
+          goto LABEL_57;
+        }
+      }
+
+      else
+      {
+        v37 = 1;
+      }
+
+      goto LABEL_64;
+    }
+
+    v66 = *(v11 + 13);
+    LOBYTE(v112) = 1;
+    v69 = (*(*v66 + 16))(v66, 1, **(v11 + 10));
+    if (v69)
+    {
+      if (*(v66 + 17))
+      {
+        support::log::buffer::borrow(v69);
+        v70 = 2;
+      }
+
+      else
+      {
+        v70 = 0;
+      }
+
+      if (v70 | os_log_type_enabled(**(v11 + 10), OS_LOG_TYPE_ERROR))
+      {
+        *v116 = 0;
+        v78 = _os_log_send_and_compose_impl();
+        if (v78)
+        {
+          goto LABEL_165;
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v66 = *(v11 + 13);
+    LOBYTE(v112) = 1;
+    v67 = (*(*v66 + 16))(v66, 1, **(v11 + 10));
     if (v67)
     {
-      if (*(v55 + 17))
+      if (*(v66 + 17))
       {
         support::log::buffer::borrow(v67);
         v68 = 2;
@@ -9354,154 +9405,38 @@ LABEL_44:
         v68 = 0;
       }
 
-      if (v68 | os_log_type_enabled(**(v12 + 10), OS_LOG_TYPE_ERROR))
+      if (v68 | os_log_type_enabled(**(v11 + 10), OS_LOG_TYPE_ERROR))
       {
-        *v119 = 0;
-        v74 = _os_log_send_and_compose_impl();
-        if (v74)
-        {
-LABEL_155:
-          v80 = v74;
-          __dst.__r_.__value_.__l.__data_ = std::chrono::system_clock::now().__d_.__rep_;
-          *v119 = &unk_1F5EFEF90;
-          *&v119[8] = v12 + 40;
-          *&v119[16] = &v124;
-          *&v119[24] = &__dst;
-          support::log::manager::message_delegates(v55, v119, v80);
-        }
-      }
-    }
-
-LABEL_156:
-    v40 = 0;
-    if (SHIBYTE(v116.__r_.__value_.__r.__words[2]) < 0)
-    {
-      goto LABEL_65;
-    }
-
-    goto LABEL_66;
-  }
-
-  v36 = operator new(0x20uLL);
-  *v36 = 0u;
-  v36[1] = 0u;
-  __dst.__r_.__value_.__r.__words[0] = v36;
-  v37 = *v13;
-  if (KTLInitOptions())
-  {
-    if (KTLOpenChannel())
-    {
-      __dst.__r_.__value_.__r.__words[0] = 0;
-      v38 = *v14;
-      *v14 = v36;
-      if (!v38)
-      {
-        v40 = 1;
-        if ((SHIBYTE(v116.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-        {
-          goto LABEL_66;
-        }
-
-        goto LABEL_65;
-      }
-
-      if (v38[1])
-      {
-        TelephonyUtilTransportFree();
-        v39 = v38[1];
-        v40 = 1;
-        if (v39)
-        {
-          goto LABEL_57;
-        }
-      }
-
-      else
-      {
-        v40 = 1;
-      }
-
-      goto LABEL_64;
-    }
-
-    v69 = *(v12 + 13);
-    LOBYTE(v115) = 1;
-    v72 = (*(*v69 + 16))(v69, 1, **(v12 + 10));
-    if (v72)
-    {
-      if (*(v69 + 17))
-      {
-        support::log::buffer::borrow(v72);
-        v73 = 2;
-      }
-
-      else
-      {
-        v73 = 0;
-      }
-
-      if (v73 | os_log_type_enabled(**(v12 + 10), OS_LOG_TYPE_ERROR))
-      {
-        *v119 = 0;
-        v81 = _os_log_send_and_compose_impl();
-        if (v81)
-        {
-          goto LABEL_165;
-        }
-      }
-    }
-  }
-
-  else
-  {
-    v69 = *(v12 + 13);
-    LOBYTE(v115) = 1;
-    v70 = (*(*v69 + 16))(v69, 1, **(v12 + 10));
-    if (v70)
-    {
-      if (*(v69 + 17))
-      {
-        support::log::buffer::borrow(v70);
-        v71 = 2;
-      }
-
-      else
-      {
-        v71 = 0;
-      }
-
-      if (v71 | os_log_type_enabled(**(v12 + 10), OS_LOG_TYPE_ERROR))
-      {
-        *v119 = 0;
-        v81 = _os_log_send_and_compose_impl();
-        if (v81)
+        *v116 = 0;
+        v78 = _os_log_send_and_compose_impl();
+        if (v78)
         {
 LABEL_165:
-          v82 = v81;
-          v124.__r_.__value_.__l.__data_ = std::chrono::system_clock::now().__d_.__rep_;
-          *v119 = &unk_1F5EFEF90;
-          *&v119[8] = v12 + 40;
-          *&v119[16] = &v115;
-          *&v119[24] = &v124;
-          support::log::manager::message_delegates(v69, v119, v82);
+          v79 = v78;
+          v121.__r_.__value_.__l.__data_ = std::chrono::system_clock::now().__d_.__rep_;
+          *v116 = &unk_1F5EFEF90;
+          *&v116[8] = v11 + 40;
+          *&v116[16] = &v112;
+          *&v116[24] = &v121;
+          support::log::manager::message_delegates(v66, v116, v79);
         }
       }
     }
   }
 
   __dst.__r_.__value_.__r.__words[0] = 0;
-  if (*(v36 + 1))
+  if (*(v34 + 1))
   {
     TelephonyUtilTransportFree();
-    v40 = 0;
-    v39 = *(v36 + 1);
-    v38 = v36;
-    if (v39)
+    v37 = 0;
+    v36 = *(v34 + 1);
+    v35 = v34;
+    if (v36)
     {
 LABEL_57:
-      operator delete(v39);
-      operator delete(v38);
-      if ((SHIBYTE(v116.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      operator delete(v36);
+      operator delete(v35);
+      if ((SHIBYTE(v113.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_66;
       }
@@ -9510,8 +9445,8 @@ LABEL_57:
     }
 
 LABEL_64:
-    operator delete(v38);
-    if ((SHIBYTE(v116.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    operator delete(v35);
+    if ((SHIBYTE(v113.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_66;
     }
@@ -9519,76 +9454,76 @@ LABEL_64:
     goto LABEL_65;
   }
 
-  v40 = 0;
-  operator delete(v36);
-  if (SHIBYTE(v116.__r_.__value_.__r.__words[2]) < 0)
+  v37 = 0;
+  operator delete(v34);
+  if (SHIBYTE(v113.__r_.__value_.__r.__words[2]) < 0)
   {
 LABEL_65:
-    operator delete(v116.__r_.__value_.__l.__data_);
+    operator delete(v113.__r_.__value_.__l.__data_);
   }
 
 LABEL_66:
-  if (v40)
+  if (v37)
   {
     goto LABEL_67;
   }
 
   __dst.__r_.__value_.__s.__data_[0] = 1;
-  v58 = *(&v110 + 1);
-  v61 = (*(**(&v110 + 1) + 16))(*(&v110 + 1), 1, *v109);
-  if (!v61)
+  v55 = *(&v107 + 1);
+  v58 = (*(**(&v107 + 1) + 16))(*(&v107 + 1), 1, *v106);
+  if (!v58)
   {
     goto LABEL_217;
   }
 
-  if (*(v58 + 17))
+  if (*(v55 + 17))
   {
-    support::log::buffer::borrow(v61);
-    v62 = 2;
+    support::log::buffer::borrow(v58);
+    v59 = 2;
   }
 
   else
   {
-    v62 = 0;
+    v59 = 0;
   }
 
-  if (!(v62 | os_log_type_enabled(*v109, OS_LOG_TYPE_ERROR)))
+  if (!(v59 | os_log_type_enabled(*v106, OS_LOG_TYPE_ERROR)))
   {
     goto LABEL_217;
   }
 
-  *v119 = 0;
-  v78 = _os_log_send_and_compose_impl();
-  if (!v78)
+  *v116 = 0;
+  v75 = _os_log_send_and_compose_impl();
+  if (!v75)
   {
     goto LABEL_217;
   }
 
 LABEL_139:
-  v79 = v78;
-  v116.__r_.__value_.__l.__data_ = std::chrono::system_clock::now().__d_.__rep_;
-  *v119 = &unk_1F5EFEF90;
-  *&v119[8] = v108 + 8;
-  *&v119[16] = &__dst;
-  *&v119[24] = &v116;
-  support::log::manager::message_delegates(v58, v119, v79);
+  v76 = v75;
+  v113.__r_.__value_.__l.__data_ = std::chrono::system_clock::now().__d_.__rep_;
+  *v116 = &unk_1F5EFEF90;
+  *&v116[8] = v105 + 8;
+  *&v116[16] = &__dst;
+  *&v116[24] = &v113;
+  support::log::manager::message_delegates(v55, v116, v76);
 LABEL_217:
-  *v23 = 0;
-  (*(*v12 + 8))(v12);
+  *v21 = 0;
+  (*(*v11 + 8))(v11);
 LABEL_67:
-  *&v108[0] = &unk_1F5EFEF10;
-  v41 = v110;
-  if (v110)
+  *&v105[0] = &unk_1F5EFEF10;
+  v38 = v107;
+  if (v107)
   {
-    if (!atomic_fetch_add((v110 + 8), 0xFFFFFFFFFFFFFFFFLL))
+    if (!atomic_fetch_add((v107 + 8), 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v41->__on_zero_shared)(v41);
-      std::__shared_weak_count::__release_weak(v41);
+      (v38->__on_zero_shared)(v38);
+      std::__shared_weak_count::__release_weak(v38);
     }
   }
 }
 
-void sub_1E524DC2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, uint64_t a49, uint64_t a50, void *a51, void *__p, uint64_t a53, int a54, __int16 a55, char a56, char a57)
+void sub_1E524DC2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, uint64_t a49, uint64_t a50, void *a51, void *__p, uint64_t a53, int a54, __int16 a55, char a56, char a57)
 {
   std::unique_ptr<KTLOptions,support::transport::ARI::KTLOptionsDestructor>::~unique_ptr[abi:ne200100](&a51);
   if (*(v58 - 105) < 0)
@@ -9602,7 +9537,7 @@ void sub_1E524DC2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void support::transport::ARI::~ARI(support::transport::ARI *this)
+void support::transport::ARI::~ARI(support::transport::ARI *this, uint64_t a2)
 {
   *this = &unk_1F5EFEF60;
   if (*(this + 3))
@@ -9610,21 +9545,21 @@ void support::transport::ARI::~ARI(support::transport::ARI *this)
     KTLCloseChannel();
   }
 
-  v2 = *(this + 4);
-  if (v2)
+  v3 = *(this + 4);
+  if (v3)
   {
-    AriHost::DeregisterClient(v2);
+    AriHost::DeregisterClient(v3);
   }
 
   *(this + 4) = &unk_1F5EFEF10;
-  v3 = *(this + 12);
-  if (v3 && !atomic_fetch_add(&v3->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v4 = *(this + 12);
+  if (v4 && !atomic_fetch_add(&v4->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v3->__on_zero_shared)(v3);
-    std::__shared_weak_count::__release_weak(v3);
-    v4 = *(this + 3);
+    (v4->__on_zero_shared)(v4, a2);
+    std::__shared_weak_count::__release_weak(v4);
+    v5 = *(this + 3);
     *(this + 3) = 0;
-    if (!v4)
+    if (!v5)
     {
       goto LABEL_12;
     }
@@ -9632,37 +9567,37 @@ void support::transport::ARI::~ARI(support::transport::ARI *this)
 
   else
   {
-    v4 = *(this + 3);
+    v5 = *(this + 3);
     *(this + 3) = 0;
-    if (!v4)
+    if (!v5)
     {
       goto LABEL_12;
     }
   }
 
-  if (v4[1])
+  if (v5[1])
   {
     TelephonyUtilTransportFree();
-    v5 = v4[1];
-    if (v5)
+    v6 = v5[1];
+    if (v6)
     {
-      operator delete(v5);
+      operator delete(v6);
     }
   }
 
-  operator delete(v4);
+  operator delete(v5);
 LABEL_12:
-  v6 = *(this + 1);
-  if (v6)
+  v7 = *(this + 1);
+  if (v7)
   {
-    dispatch_release(v6);
+    dispatch_release(v7);
   }
 }
 
 {
-  support::transport::ARI::~ARI(this);
+  support::transport::ARI::~ARI(this, a2);
 
-  operator delete(v1);
+  operator delete(v2);
 }
 
 uint64_t __cxx_global_var_init_0()
@@ -9837,4 +9772,17 @@ LABEL_17:
 LABEL_22:
   (*(**(a1 + 8) + 24))(*(a1 + 8), v8);
   return v8;
+}
+
+void sub_1E524E4AC(_Unwind_Exception *a1, uint64_t a2, void *__p, uint64_t a4, int a5, __int16 a6, char a7, char a8, char a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  if (SHIBYTE(a12) < 0)
+  {
+    operator delete(a10);
+  }
+
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a13, MEMORY[0x1E69E54D8]);
+  MEMORY[0x1E69273B0](va);
+  _Unwind_Resume(a1);
 }

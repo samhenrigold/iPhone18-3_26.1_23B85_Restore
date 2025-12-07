@@ -2,9 +2,9 @@
 - (HDHRHypertensionNotificationsAnalysisScheduler)init;
 - (HDHRHypertensionNotificationsAnalysisScheduler)initWithProfile:(id)profile featureStatusProvider:(id)provider keyValueDomain:(id)domain analysisWindowInterval:(double)interval analysisWindowGraceInterval:(double)graceInterval analysisCadenceInterval:(double)cadenceInterval analysisRetryInterval:(double)retryInterval pregnancyStateProvider:(id)self0 measurementAnalyzer:(id)self1;
 - (HDHRHypertensionNotificationsAnalysisScheduler)initWithProfile:(id)profile featureStatusProvider:(id)provider pregnancyStateProvider:(id)stateProvider measurementAnalyzer:(id)analyzer;
+- (dispatch_queue_t)_queue_resetActivityInterval;
 - (id)_lastAnalysisWindowEndDateOrOnboardingDateWithFeatureStatus:(id)status error:(id *)error;
 - (id)_takeAccessibilityAssertion;
-- (uint64_t)_queue_resetActivityInterval;
 - (void)_enqueueSchedulingOnMaintenanceOperationWithCompletion:(uint64_t)completion;
 - (void)_queue_performAnalysisIfNeededWithDatabaseTransactionContext:(void *)context completion:;
 - (void)database:(id)database protectedDataDidBecomeAvailable:(BOOL)available;
@@ -28,15 +28,15 @@
 
 - (HDHRHypertensionNotificationsAnalysisScheduler)initWithProfile:(id)profile featureStatusProvider:(id)provider keyValueDomain:(id)domain analysisWindowInterval:(double)interval analysisWindowGraceInterval:(double)graceInterval analysisCadenceInterval:(double)cadenceInterval analysisRetryInterval:(double)retryInterval pregnancyStateProvider:(id)self0 measurementAnalyzer:(id)self1
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   providerCopy = provider;
   domainCopy = domain;
   stateProviderCopy = stateProvider;
   analyzerCopy = analyzer;
-  v36.receiver = self;
-  v36.super_class = HDHRHypertensionNotificationsAnalysisScheduler;
-  v24 = [(HDHRHypertensionNotificationsAnalysisScheduler *)&v36 init];
+  v35.receiver = self;
+  v35.super_class = HDHRHypertensionNotificationsAnalysisScheduler;
+  v24 = [(HDHRHypertensionNotificationsAnalysisScheduler *)&v35 init];
   if (v24)
   {
     _HKInitializeLogging();
@@ -44,7 +44,7 @@
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v38 = v24;
+      v37 = v24;
       _os_log_impl(&dword_229486000, v25, OS_LOG_TYPE_DEFAULT, "[%{public}@] Initializing", buf, 0xCu);
     }
 
@@ -71,7 +71,6 @@
     [v32 registerProfileReadyObserver:v24 queue:0];
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -101,13 +100,13 @@ uint64_t __105__HDHRHypertensionNotificationsAnalysisScheduler__enqueueSchedulin
 
 - (id)_lastAnalysisWindowEndDateOrOnboardingDateWithFeatureStatus:(id)status error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   syncedKeyValueDomain = self->_syncedKeyValueDomain;
   v8 = *MEMORY[0x277D12F08];
-  v26 = 0;
-  v9 = [(HDKeyValueDomain *)syncedKeyValueDomain dateForKey:v8 error:&v26];
-  v10 = v26;
+  v25 = 0;
+  v9 = [(HDKeyValueDomain *)syncedKeyValueDomain dateForKey:v8 error:&v25];
+  v10 = v25;
   v11 = v10;
   if (v9)
   {
@@ -125,14 +124,14 @@ uint64_t __105__HDHRHypertensionNotificationsAnalysisScheduler__enqueueSchedulin
     {
 LABEL_10:
       _HKInitializeLogging();
-      v18 = HKLogHeartRateCategory();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v17 = HKLogHeartRateCategory();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
         selfCopy = self;
-        v29 = 2112;
-        v30 = v12;
-        _os_log_impl(&dword_229486000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] Last analysis window end data is missing, using onboarding acknowledged date %@", buf, 0x16u);
+        v28 = 2112;
+        v29 = v12;
+        _os_log_impl(&dword_229486000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] Last analysis window end data is missing, using onboarding acknowledged date %@", buf, 0x16u);
       }
 
       v11 = 0;
@@ -141,14 +140,14 @@ LABEL_10:
 
     onboardingRecord2 = [statusCopy onboardingRecord];
     featureSettings2 = [onboardingRecord2 featureSettings];
-    v21 = *MEMORY[0x277CCC130];
-    v22 = [featureSettings2 numberForKey:*MEMORY[0x277CCC130]];
+    v20 = *MEMORY[0x277CCC130];
+    v21 = [featureSettings2 numberForKey:*MEMORY[0x277CCC130]];
 
-    if (v22 && ([v22 BOOLValue] & 1) != 0)
+    if (v21 && ([v21 BOOLValue] & 1) != 0)
     {
       onboardingRecord3 = [statusCopy onboardingRecord];
       featureSettings3 = [onboardingRecord3 featureSettings];
-      v12 = [featureSettings3 modificationDateForKey:v21];
+      v12 = [featureSettings3 modificationDateForKey:v20];
 
       if (v12)
       {
@@ -160,16 +159,16 @@ LABEL_10:
     {
     }
 
-    v18 = [MEMORY[0x277CCA9B8] hk_error:110 description:@"Onboarding acknowledged date is missing."];
-    if (v18)
+    v17 = [MEMORY[0x277CCA9B8] hk_error:110 description:@"Onboarding acknowledged date is missing."];
+    if (v17)
     {
       if (error)
       {
-        v25 = v18;
+        v24 = v17;
         v12 = 0;
-        *error = v18;
+        *error = v17;
 LABEL_24:
-        v11 = v18;
+        v11 = v17;
 LABEL_25:
 
         goto LABEL_3;
@@ -184,7 +183,7 @@ LABEL_25:
 
   if (error)
   {
-    v15 = v10;
+    v14 = v10;
     v12 = 0;
     *error = v11;
   }
@@ -196,8 +195,6 @@ LABEL_25:
   }
 
 LABEL_3:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -222,11 +219,11 @@ LABEL_3:
   }
 }
 
-uint64_t __91__HDHRHypertensionNotificationsAnalysisScheduler_database_protectedDataDidBecomeAvailable___block_invoke(uint64_t result, uint64_t a2)
+dispatch_queue_t *__91__HDHRHypertensionNotificationsAnalysisScheduler_database_protectedDataDidBecomeAvailable___block_invoke(dispatch_queue_t *result, uint64_t a2)
 {
   if (!a2)
   {
-    return [(HDHRHypertensionNotificationsAnalysisScheduler *)*(result + 32) _queue_resetActivityInterval];
+    return [(HDHRHypertensionNotificationsAnalysisScheduler *)result[4] _queue_resetActivityInterval];
   }
 
   return result;
@@ -234,7 +231,7 @@ uint64_t __91__HDHRHypertensionNotificationsAnalysisScheduler_database_protected
 
 - (void)periodicActivity:(id)activity configureXPCActivityCriteria:(id)criteria
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   criteriaCopy = criteria;
   name = [activity name];
   if ([name isEqualToString:@"com.apple.healthd.heart.hypertension-measurement-analysis"])
@@ -247,11 +244,11 @@ uint64_t __91__HDHRHypertensionNotificationsAnalysisScheduler_database_protected
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [MEMORY[0x277CCABB0] numberWithLongLong:analysisCadenceInterval];
-      v13 = 138543618;
+      v12 = 138543618;
       selfCopy2 = self;
-      v15 = 2112;
-      v16 = v10;
-      _os_log_impl(&dword_229486000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Configuring periodic activity with a time interval: %@", &v13, 0x16u);
+      v14 = 2112;
+      v15 = v10;
+      _os_log_impl(&dword_229486000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Configuring periodic activity with a time interval: %@", &v12, 0x16u);
     }
 
     xpc_dictionary_set_int64(criteriaCopy, *MEMORY[0x277D86288], analysisCadenceInterval);
@@ -263,13 +260,11 @@ uint64_t __91__HDHRHypertensionNotificationsAnalysisScheduler_database_protected
     v11 = HKLogHeartRateCategory();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138543362;
+      v12 = 138543362;
       selfCopy2 = self;
-      _os_log_impl(&dword_229486000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Unexpected activity received; not setting activity criteria.", &v13, 0xCu);
+      _os_log_impl(&dword_229486000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Unexpected activity received; not setting activity criteria.", &v12, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)featureStatusProviding:(id)providing didUpdateFeatureStatus:(id)status
@@ -290,11 +285,11 @@ uint64_t __91__HDHRHypertensionNotificationsAnalysisScheduler_database_protected
   }
 }
 
-uint64_t __96__HDHRHypertensionNotificationsAnalysisScheduler_featureStatusProviding_didUpdateFeatureStatus___block_invoke(uint64_t result, uint64_t a2)
+dispatch_queue_t *__96__HDHRHypertensionNotificationsAnalysisScheduler_featureStatusProviding_didUpdateFeatureStatus___block_invoke(dispatch_queue_t *result, uint64_t a2)
 {
   if (!a2)
   {
-    return [(HDHRHypertensionNotificationsAnalysisScheduler *)*(result + 32) _queue_resetActivityInterval];
+    return [(HDHRHypertensionNotificationsAnalysisScheduler *)result[4] _queue_resetActivityInterval];
   }
 
   return result;
@@ -302,16 +297,16 @@ uint64_t __96__HDHRHypertensionNotificationsAnalysisScheduler_featureStatusProvi
 
 - (void)_queue_performAnalysisIfNeededWithDatabaseTransactionContext:(void *)context completion:
 {
-  v110 = *MEMORY[0x277D85DE8];
+  v99 = *MEMORY[0x277D85DE8];
   v5 = a2;
   contextCopy = context;
   if (self)
   {
     dispatch_assert_queue_V2(*(self + 16));
     v7 = *(self + 24);
-    v99 = 0;
-    v8 = [v7 featureStatusWithError:&v99];
-    v9 = v99;
+    v88 = 0;
+    v8 = [v7 featureStatusWithError:&v88];
+    v9 = v88;
     v10 = v9;
     if (!v8)
     {
@@ -322,15 +317,14 @@ uint64_t __96__HDHRHypertensionNotificationsAnalysisScheduler_featureStatusProvi
         if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           OUTLINED_FUNCTION_0_7();
-          v103 = v10;
+          v92 = v10;
           _os_log_error_impl(&dword_229486000, v22, OS_LOG_TYPE_ERROR, "[%{public}@] Could not get feature status with error %@", buf, 0x16u);
         }
       }
 
-      v30 = *(self + 64);
-      v31 = OUTLINED_FUNCTION_1_6();
-      v32(v31);
-      goto LABEL_42;
+      v29 = OUTLINED_FUNCTION_1_6();
+      v30(v29);
+      goto LABEL_40;
     }
 
     v11 = [v8 objectForKeyedSubscript:*MEMORY[0x277CCBDF8]];
@@ -345,71 +339,68 @@ uint64_t __96__HDHRHypertensionNotificationsAnalysisScheduler_featureStatusProvi
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
         OUTLINED_FUNCTION_0_7();
-        v103 = v25;
+        v92 = v25;
         _os_log_impl(&dword_229486000, v26, OS_LOG_TYPE_DEFAULT, "[%{public}@] %@", buf, 0x16u);
       }
 
-      v27 = *(self + 56);
-      v28 = OUTLINED_FUNCTION_1_6();
-      v29(v28, 0, 0);
+      v27 = OUTLINED_FUNCTION_1_6();
+      v28(v27, 0, 0);
 
-      goto LABEL_41;
+      goto LABEL_39;
     }
 
-    v98 = 0;
-    v12 = [self _lastAnalysisWindowEndDateOrOnboardingDateWithFeatureStatus:v8 error:&v98];
-    v13 = v98;
+    v87 = 0;
+    v12 = [self _lastAnalysisWindowEndDateOrOnboardingDateWithFeatureStatus:v8 error:&v87];
+    v13 = v87;
     v10 = v13;
     if (!v12)
     {
       _HKInitializeLogging();
-      v33 = HKLogHeartRateCategory();
-      v34 = v33;
+      v31 = HKLogHeartRateCategory();
+      v32 = v31;
       if (v10)
       {
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           OUTLINED_FUNCTION_0_7();
-          v103 = v10;
-          OUTLINED_FUNCTION_3_2(&dword_229486000, v64, v65, "[%{public}@] Could not load last analysis date with error %@", v66, v67, v68, v69, v76, v77, v79, v81, v83, v85, v88, v89, v90, v91, selfCopy3, v93, v94, v95, v96, v97, v98, v99, buf[0]);
+          v92 = v10;
+          OUTLINED_FUNCTION_3_2(&dword_229486000, v54, v55, "[%{public}@] Could not load last analysis date with error %@", v56, v57, v58, v59, v66, v67, v69, v71, v72, v74, v77, v78, v79, v80, selfCopy3, v82, v83, v84, v85, v86, v87, v88);
         }
 
-        v35 = *(self + 64);
-        v36 = OUTLINED_FUNCTION_1_6();
-        v38 = 2;
+        v33 = OUTLINED_FUNCTION_1_6();
+        v35 = 2;
       }
 
       else
       {
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
           selfCopy4 = self;
-          v102 = 2112;
-          v103 = @"Last analysis window end date is nil";
-          _os_log_impl(&dword_229486000, v34, OS_LOG_TYPE_DEFAULT, "[%{public}@] %@", buf, 0x16u);
+          v91 = 2112;
+          v92 = @"Last analysis window end date is nil";
+          _os_log_impl(&dword_229486000, v32, OS_LOG_TYPE_DEFAULT, "[%{public}@] %@", buf, 0x16u);
         }
 
         v10 = [MEMORY[0x277CCA9B8] hk_error:110 description:@"Last analysis window end date is nil"];
-        v62 = *(self + 56);
-        v36 = OUTLINED_FUNCTION_1_6();
-        v38 = 1;
+        v33 = OUTLINED_FUNCTION_1_6();
+        v35 = 1;
       }
 
-      v37(v36, v38, v10);
-      goto LABEL_41;
+      v34(v33, v35, v10);
+      goto LABEL_39;
     }
 
     v14 = *(self + 72);
-    v97 = 0;
-    v15 = [v14 latestWashoutEndDateWithError:&v97];
-    v16 = v97;
+    v86 = 0;
+    v15 = [v14 latestWashoutEndDateWithError:&v86];
+    v16 = v86;
     v10 = v16;
     if (v15)
     {
       if ([(__CFString *)v12 hk_isBeforeDate:v15])
       {
-        v86 = v15;
+        v75 = v15;
 
         _HKInitializeLogging();
         v17 = HKLogHeartRateCategory();
@@ -418,139 +409,125 @@ uint64_t __96__HDHRHypertensionNotificationsAnalysisScheduler_featureStatusProvi
           v18 = HKSensitiveLogItem();
           v19 = HKSensitiveLogItem();
           OUTLINED_FUNCTION_0_7();
-          v103 = v18;
-          v104 = v20;
-          v105 = v21;
+          v92 = v18;
+          v93 = v20;
+          v94 = v21;
           _os_log_impl(&dword_229486000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] Setting next analysis date to %@: %@", buf, 0x20u);
         }
 
-        v12 = v86;
+        v12 = v75;
       }
     }
 
     else if (v16)
     {
       _HKInitializeLogging();
-      v39 = HKLogHeartRateCategory();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      v36 = HKLogHeartRateCategory();
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         OUTLINED_FUNCTION_0_7();
-        v103 = v10;
-        OUTLINED_FUNCTION_3_2(&dword_229486000, v70, v71, "[%{public}@] Could not get latest washout end date with error %@", v72, v73, v74, v75, v76, v77, v79, v81, v83, v85, v88, v89, v90, v91, selfCopy3, v93, v94, v95, v96, v97, v98, v99, buf[0]);
+        v92 = v10;
+        OUTLINED_FUNCTION_3_2(&dword_229486000, v60, v61, "[%{public}@] Could not get latest washout end date with error %@", v62, v63, v64, v65, v66, v67, v69, v71, v72, v74, v77, v78, v79, v80, selfCopy3, v82, v83, v84, v85, v86, v87, v88);
       }
 
-      v40 = *(self + 64);
-      v41 = OUTLINED_FUNCTION_1_6();
-      v42(v41, 2, v10);
-      goto LABEL_36;
+      v37 = OUTLINED_FUNCTION_1_6();
+      v38(v37, 2, v10);
+      goto LABEL_34;
     }
 
     date = [MEMORY[0x277CBEAA8] date];
     [date timeIntervalSinceDate:v12];
-    v45 = v44;
-    v46 = *(self + 40) + *(self + 48);
+    v41 = v40;
+    v42 = *(self + 40) + *(self + 48);
     _HKInitializeLogging();
-    v47 = HKLogHeartRateCategory();
-    v48 = os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT);
-    if (v46 <= v45)
+    v43 = HKLogHeartRateCategory();
+    v44 = os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT);
+    if (v42 <= v41)
     {
-      v80 = v5;
-      v82 = v15;
-      v84 = date;
-      if (v48)
+      v70 = v5;
+      v73 = date;
+      if (v44)
       {
-        v53 = [MEMORY[0x277CCABB0] numberWithDouble:*(self + 40)];
-        v54 = [MEMORY[0x277CCABB0] numberWithDouble:*(self + 48)];
+        v48 = [MEMORY[0x277CCABB0] numberWithDouble:*(self + 40)];
+        v49 = [MEMORY[0x277CCABB0] numberWithDouble:*(self + 48)];
         *buf = 138544386;
         selfCopy4 = self;
-        v102 = 2114;
-        v103 = v12;
-        v104 = 2114;
-        v105 = v84;
-        v106 = 2114;
-        v107 = v53;
-        v108 = 2114;
-        v109 = v54;
-        _os_log_impl(&dword_229486000, v47, OS_LOG_TYPE_DEFAULT, "[%{public}@] Executing analysis operation with date range ([%{public}@] - [%{public}@]), with an analysis window timeinterval: [%{public}@], grace time interval: [%{public}@]", buf, 0x34u);
+        v91 = 2114;
+        v92 = v12;
+        v93 = 2114;
+        v94 = v73;
+        v95 = 2114;
+        v96 = v48;
+        v97 = 2114;
+        v98 = v49;
+        _os_log_impl(&dword_229486000, v43, OS_LOG_TYPE_DEFAULT, "[%{public}@] Executing analysis operation with date range ([%{public}@] - [%{public}@]), with an analysis window timeinterval: [%{public}@], grace time interval: [%{public}@]", buf, 0x34u);
       }
 
       [self setUnitTest_latestAnalysisStartDate:v12];
       [self setUnitTest_analysisOperationEnqueued:1];
       WeakRetained = objc_loadWeakRetained((self + 8));
       database = [WeakRetained database];
-      v96 = v10;
-      v88 = MEMORY[0x277D85DD0];
-      v89 = 3221225472;
-      v90 = __122__HDHRHypertensionNotificationsAnalysisScheduler__queue_performAnalysisIfNeededWithDatabaseTransactionContext_completion___block_invoke;
-      v91 = &unk_278660240;
+      v85 = v10;
+      v77 = MEMORY[0x277D85DD0];
+      v78 = 3221225472;
+      v79 = __122__HDHRHypertensionNotificationsAnalysisScheduler__queue_performAnalysisIfNeededWithDatabaseTransactionContext_completion___block_invoke;
+      v80 = &unk_278660240;
       selfCopy3 = self;
-      v93 = v12;
-      date = v84;
-      v94 = v84;
-      v5 = v80;
-      v95 = v80;
-      v56 = [database performWithTransactionContext:v95 error:&v96 block:&v88];
-      v87 = v12;
-      v57 = v96;
+      v82 = v12;
+      date = v73;
+      v83 = v73;
+      v5 = v70;
+      v84 = v70;
+      [database performWithTransactionContext:v84 error:&v85 block:&v77];
+      v76 = v12;
+      v51 = v85;
 
-      v58 = 64;
-      if (v56)
-      {
-        v58 = 56;
-      }
+      v52 = OUTLINED_FUNCTION_1_6();
+      v53(v52);
 
-      v59 = *(self + v58);
-      v60 = OUTLINED_FUNCTION_1_6();
-      v61(v60);
-
-      v10 = v57;
-      v12 = v87;
-      v15 = v82;
+      v10 = v51;
+      v12 = v76;
     }
 
     else
     {
-      if (v48)
+      if (v44)
       {
         *buf = 138543362;
         selfCopy4 = self;
-        OUTLINED_FUNCTION_4_0(&dword_229486000, v47, v49, "[%{public}@] Time interval since last window end date is less than analysis window time interval + grace period", buf);
+        OUTLINED_FUNCTION_4_0(&dword_229486000, v43, v45, "[%{public}@] Time interval since last window end date is less than analysis window time interval + grace period", buf);
       }
 
-      v50 = *(self + 56);
-      v51 = OUTLINED_FUNCTION_1_6();
-      v52(v51, 0, 0);
+      v46 = OUTLINED_FUNCTION_1_6();
+      v47(v46, 0, 0);
     }
 
-LABEL_36:
-LABEL_41:
+LABEL_34:
+LABEL_39:
 
-LABEL_42:
+LABEL_40:
   }
-
-  v63 = *MEMORY[0x277D85DE8];
 }
 
-- (uint64_t)_queue_resetActivityInterval
+- (dispatch_queue_t)_queue_resetActivityInterval
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
-    dispatch_assert_queue_V2(*(result + 16));
+    dispatch_assert_queue_V2(result[2]);
     _HKInitializeLogging();
     v2 = HKLogHeartRateCategory();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138543362;
-      v6 = v1;
-      OUTLINED_FUNCTION_4_0(&dword_229486000, v2, v3, "[%{public}@] Resetting periodic activity", &v5);
+      v4 = 138543362;
+      v5 = v1;
+      OUTLINED_FUNCTION_4_0(&dword_229486000, v2, v3, "[%{public}@] Resetting periodic activity", &v4);
     }
 
-    result = [*(v1 + 96) resetInterval];
+    return [v1[12] resetInterval];
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -578,48 +555,46 @@ LABEL_42:
   }
 }
 
-void __105__HDHRHypertensionNotificationsAnalysisScheduler__enqueueSchedulingOnMaintenanceOperationWithCompletion___block_invoke(uint64_t a1)
+void __105__HDHRHypertensionNotificationsAnalysisScheduler__enqueueSchedulingOnMaintenanceOperationWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
   v16 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
-  v2 = HKLogHeartRateCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = HKLogHeartRateCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
+    v5 = *(a1 + 32);
     v14 = 138543362;
-    v15 = v4;
-    OUTLINED_FUNCTION_4_0(&dword_229486000, v2, v3, "[%{public}@] Executing maintenance operation", &v14);
+    v15 = v5;
+    OUTLINED_FUNCTION_4_0(&dword_229486000, v3, v4, "[%{public}@] Executing maintenance operation", &v14);
   }
 
-  v5 = [(HDHRHypertensionNotificationsAnalysisScheduler *)*(a1 + 32) _takeAccessibilityAssertion];
-  v6 = [MEMORY[0x277D10788] contextForAccessibilityAssertion:v5];
-  [v6 setCacheScope:1];
+  v6 = [(HDHRHypertensionNotificationsAnalysisScheduler *)*(a1 + 32) _takeAccessibilityAssertion];
+  v7 = [MEMORY[0x277D10788] contextForAccessibilityAssertion:v6];
+  [v7 setCacheScope:1];
   OUTLINED_FUNCTION_2_3();
   v11[1] = 3221225472;
   v11[2] = __105__HDHRHypertensionNotificationsAnalysisScheduler__enqueueSchedulingOnMaintenanceOperationWithCompletion___block_invoke_319;
   v11[3] = &unk_278660268;
-  v7 = *(a1 + 32);
-  v8 = *(a1 + 40);
-  v12 = v5;
-  v13 = v8;
-  v9 = v5;
-  [(HDHRHypertensionNotificationsAnalysisScheduler *)v7 _queue_performAnalysisIfNeededWithDatabaseTransactionContext:v6 completion:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *(a1 + 32);
+  v9 = *(a1 + 40);
+  v12 = v6;
+  v13 = v9;
+  v10 = v6;
+  [(HDHRHypertensionNotificationsAnalysisScheduler *)v8 _queue_performAnalysisIfNeededWithDatabaseTransactionContext:v7 completion:v11];
 }
 
 - (id)_takeAccessibilityAssertion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (self)
   {
     WeakRetained = objc_loadWeakRetained((self + 8));
     database = [WeakRetained database];
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
-    v11 = 0;
-    v6 = [database takeAccessibilityAssertionWithOwnerIdentifier:v5 timeout:&v11 error:300.0];
-    v7 = v11;
+    v10 = 0;
+    v6 = [database takeAccessibilityAssertionWithOwnerIdentifier:v5 timeout:&v10 error:300.0];
+    v7 = v10;
 
     if (!v6)
     {
@@ -629,8 +604,8 @@ void __105__HDHRHypertensionNotificationsAnalysisScheduler__enqueueSchedulingOnM
       {
         *buf = 138543618;
         selfCopy = self;
-        v14 = 2114;
-        v15 = v7;
+        v13 = 2114;
+        v14 = v7;
         _os_log_error_impl(&dword_229486000, v8, OS_LOG_TYPE_ERROR, "[%{public}@] Unable to take an accessibility assertion: %{public}@", buf, 0x16u);
       }
     }
@@ -641,26 +616,23 @@ void __105__HDHRHypertensionNotificationsAnalysisScheduler__enqueueSchedulingOnM
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (void)performPeriodicActivity:(id)activity completion:(id)completion
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   _HKInitializeLogging();
   v6 = HKLogHeartRateCategory();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
+    v8 = 138543362;
     selfCopy = self;
-    OUTLINED_FUNCTION_4_0(&dword_229486000, v6, v7, "[%{public}@] Performing periodic activity", &v9);
+    OUTLINED_FUNCTION_4_0(&dword_229486000, v6, v7, "[%{public}@] Performing periodic activity", &v8);
   }
 
   [(HDHRHypertensionNotificationsAnalysisScheduler *)self _enqueueSchedulingOnMaintenanceOperationWithCompletion:completionCopy];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)database:(uint64_t)a1 protectedDataDidBecomeAvailable:(void *)a2 .cold.1(uint64_t a1, void *a2)

@@ -22,16 +22,14 @@
 
 - (void)enumerateContents:(id)contents
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v9 = @"Timestamp";
+  v9[1] = *MEMORY[0x277D85DE8];
+  v8 = @"Timestamp";
   timestamp = self->_timestamp;
   contentsCopy = contents;
   v6 = [(NSDate *)timestamp description];
-  v10[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   (*(contents + 2))(contentsCopy, v7);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

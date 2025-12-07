@@ -460,6 +460,7 @@ void *iosp_poolSetOptions(void *result, const __CFDictionary *a2)
 
 uint64_t iosp_poolDeepCleanup(uint64_t a1)
 {
+  v6 = *MEMORY[0x277D85DE8];
   v2 = FigSimpleMutexLock();
   if ((MEMORY[0x21CEE16F0](v2) - *(a1 + 96)) > *(a1 + 88))
   {
@@ -470,7 +471,7 @@ uint64_t iosp_poolDeepCleanup(uint64_t a1)
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    iosp_poolCleanup(a1, *(a1 + 120), *(a1 + 144));
+    iosp_poolCleanup(a1, *(a1 + 120), *(a1 + 144), v3);
     ++*(a1 + 168);
     if (!*(a1 + 180))
     {
@@ -482,14 +483,14 @@ uint64_t iosp_poolDeepCleanup(uint64_t a1)
   return FigSimpleMutexUnlock();
 }
 
-void iosp_poolCleanup(void *a1, unint64_t a2, unint64_t a3)
+void iosp_poolCleanup(void *a1, unint64_t a2, unint64_t a3, __n128 a4)
 {
-  v19 = a3;
-  v3 = a2;
+  v20 = a3;
+  v4 = a2;
   if (a1[19] <= a2)
   {
-    v5 = a1[20];
-    if (v5 <= a3)
+    v6 = a1[20];
+    if (v6 <= a3)
     {
       return;
     }
@@ -499,47 +500,47 @@ void iosp_poolCleanup(void *a1, unint64_t a2, unint64_t a3)
   {
     if (a1[14] < a2)
     {
-      v3 = a1[14];
+      v4 = a1[14];
     }
 
-    v5 = a1[20];
+    v6 = a1[20];
   }
 
-  if (v5 > a3)
+  if (v6 > a3)
   {
-    v6 = a3;
+    v7 = a3;
     if (a1[17] < a3)
     {
-      v6 = a1[17];
+      v7 = a1[17];
     }
 
-    v19 = v6;
+    v20 = v7;
   }
 
-  v7 = a1[2];
-  if (v7)
+  v8 = a1[2];
+  if (v8)
   {
-    v8 = a1 + 3;
+    v9 = a1 + 3;
     do
     {
-      v9 = *(v7 + 48);
-      if (!IOSurfaceIsInUse(*v7))
+      v10 = *(v8 + 48);
+      if (!IOSurfaceIsInUse(*v8))
       {
-        v10 = *(v7 + 48);
-        v11 = *(v7 + 56);
-        v12 = (v10 + 56);
-        if (!v10)
+        v11 = *(v8 + 48);
+        v12 = *(v8 + 56);
+        v13 = (v11 + 56);
+        if (!v11)
         {
-          v12 = v8;
+          v13 = v9;
         }
 
+        *v13 = v12;
         *v12 = v11;
-        *v11 = v10;
-        v13 = *(v7 + 32);
-        v14 = (v13 ? v13 + 40 : *(v7 + 24) + 8);
-        v15 = *(v7 + 40);
-        *v14 = v15;
-        *v15 = v13;
+        v14 = *(v8 + 32);
+        v15 = (v14 ? v14 + 40 : *(v8 + 24) + 8);
+        v16 = *(v8 + 40);
+        *v15 = v16;
+        *v16 = v14;
         if (dword_27CD38250 >= 2)
         {
           os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -547,24 +548,24 @@ void iosp_poolCleanup(void *a1, unint64_t a2, unint64_t a3)
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
-        CFRelease(*v7);
-        v17 = a1[20];
-        a1[19] -= *(v7 + 8);
-        a1[20] = v17 - 1;
-        v18 = *(v7 + 24);
-        --*(v18 + 24);
-        ++*(v18 + 48);
-        free(v7);
-        if (a1[19] <= v3 && a1[20] <= v19)
+        CFRelease(*v8);
+        v18 = a1[20];
+        a1[19] -= *(v8 + 8);
+        a1[20] = v18 - 1;
+        v19 = *(v8 + 24);
+        --*(v19 + 24);
+        ++*(v19 + 48);
+        free(v8);
+        if (a1[19] <= v4 && a1[20] <= v20)
         {
           break;
         }
       }
 
-      v7 = v9;
+      v8 = v10;
     }
 
-    while (v9);
+    while (v10);
   }
 }
 
@@ -614,21 +615,21 @@ uint64_t FigJPEGIOSurfaceMemoryPoolCreateIOSurface(uint64_t a1, unint64_t a2, IO
 
     if (v7 >= 2)
     {
-      v13 = 0;
+      v14 = 0;
       do
       {
-        if (v6[(v13 + v7) >> 1] >= a2)
+        if (v6[(v14 + v7) >> 1] >= a2)
         {
-          v7 = (v13 + v7) >> 1;
+          v7 = (v14 + v7) >> 1;
         }
 
         else
         {
-          v13 = (v13 + v7) >> 1;
+          v14 = (v14 + v7) >> 1;
         }
       }
 
-      while (v7 - v13 > 1);
+      while (v7 - v14 > 1);
       if ((v7 & 0x8000000000000000) != 0)
       {
 LABEL_4:
@@ -654,23 +655,23 @@ LABEL_4:
     *(a1 + 180) = 0;
   }
 
-  iosp_poolCleanup(a1, *(a1 + 104), *(a1 + 128));
-  v11 = *v9;
+  iosp_poolCleanup(a1, *(a1 + 104), *(a1 + 128), v11);
+  v12 = *v9;
   if (*v9)
   {
-    while (IOSurfaceIsInUse(*v11))
+    while (IOSurfaceIsInUse(*v12))
     {
-      v11 = *(v11 + 32);
-      if (!v11)
+      v12 = *(v12 + 32);
+      if (!v12)
       {
         goto LABEL_12;
       }
     }
 
-    iosp_poolUpdateBuffPosition(a1, v9, v11);
+    iosp_poolUpdateBuffPosition(a1, v9, v12);
     FigSimpleMutexUnlock();
     result = 0;
-    *a3 = *v11;
+    *a3 = *v12;
   }
 
   else
@@ -684,9 +685,9 @@ LABEL_12:
       result = malloc_type_malloc(0x40uLL, 0x10A0040CA53F77BuLL);
       if (result)
       {
-        v12 = v9[2];
+        v13 = v9[2];
         *result = *a3;
-        *(result + 8) = v12;
+        *(result + 8) = v13;
         *(result + 16) = 0;
         *(result + 24) = v9;
         iosp_poolInsertNewBuff(a1, v9, result);
@@ -698,8 +699,10 @@ LABEL_12:
   return result;
 }
 
-uint64_t iosp_createMemIOSurface(int a1, IOSurfaceRef *a2)
+uint64_t iosp_createMemIOSurface(unint64_t a1, IOSurfaceRef *a2)
 {
+  v3 = a1;
+  v10 = *MEMORY[0x277D85DE8];
   if (dword_27CD38250 >= 2)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -716,7 +719,7 @@ uint64_t iosp_createMemIOSurface(int a1, IOSurfaceRef *a2)
   v6 = Mutable;
   iosp_setIntValue(Mutable, *MEMORY[0x277CD2970], 1024);
   iosp_setIntValue(v6, *MEMORY[0x277CD2A70], 1246774599);
-  iosp_setIntValue(v6, *MEMORY[0x277CD2948], a1);
+  iosp_setIntValue(v6, *MEMORY[0x277CD2948], v3);
   v7 = IOSurfaceCreate(v6);
   if (v7)
   {
@@ -899,8 +902,9 @@ LABEL_9:
   return 4294954510;
 }
 
-uint64_t FigJPEGIOSurfaceImagePoolCreateIOSurface(uint64_t a1, int a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, uint64_t a7, int a8, unint64_t a9, IOSurfaceRef *a10)
+uint64_t FigJPEGIOSurfaceImagePoolCreateIOSurface(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6, uint64_t a7, int a8, unint64_t a9, IOSurfaceRef *a10)
 {
+  v16 = a2;
   v18 = iosp_bytesPerPixel(a2);
   if (!*(a1 + 40))
   {
@@ -909,7 +913,7 @@ uint64_t FigJPEGIOSurfaceImagePoolCreateIOSurface(uint64_t a1, int a2, uint64_t 
 
   v19 = v18;
   v20 = 1;
-  if ((a2 & 0xFFFFFFEF) == 0x34323066)
+  if ((v16 & 0xFFFFFFEF) == 0x34323066)
   {
     v20 = 2;
   }
@@ -929,11 +933,11 @@ uint64_t FigJPEGIOSurfaceImagePoolCreateIOSurface(uint64_t a1, int a2, uint64_t 
     v20 = a7;
   }
 
-  if (a2 & 0xFFFFFFEF) == 0x34323066 && ((v20 | v21))
+  if (v16 & 0xFFFFFFEF) == 0x34323066 && ((v20 | v21))
   {
-    v51 = gVTPixelTransferSessionTrace;
+    v52 = gVTPixelTransferSessionTrace;
 
-    return MEMORY[0x282112B88]("%s signalled err=%d at <>:%d", v51, 4294954516, "<<<< FigJPEGIOSurfacePool ", 1063, v10);
+    return MEMORY[0x282112B88]("%s signalled err=%d at <>:%d", v52, 4294954516, "<<<< FigJPEGIOSurfacePool ", 1063, v10);
   }
 
   if (a9)
@@ -1044,7 +1048,7 @@ uint64_t FigJPEGIOSurfaceImagePoolCreateIOSurface(uint64_t a1, int a2, uint64_t 
   *&bytes[4] = v34;
   *&bytes[8] = v29;
   *&bytes[12] = v21;
-  v54 = a2;
+  v55 = v16;
   v36 = CFGetAllocator(a1);
   v37 = CFDataCreate(v36, bytes, 20);
   if (!v37)
@@ -1064,7 +1068,7 @@ uint64_t FigJPEGIOSurfaceImagePoolCreateIOSurface(uint64_t a1, int a2, uint64_t 
       *v40 = 0;
       *(v40 + 1) = v40;
       *(v40 + 56) = *bytes;
-      *(v40 + 18) = v54;
+      *(v40 + 18) = v55;
       CFDictionarySetValue(*(a1 + 40), v38, v40);
     }
   }
@@ -1074,23 +1078,23 @@ uint64_t FigJPEGIOSurfaceImagePoolCreateIOSurface(uint64_t a1, int a2, uint64_t 
   if (!Value)
   {
 LABEL_65:
-    v49 = v19 * v26;
+    v50 = v19 * v26;
     if (!a8)
     {
-      if (v49 % v22)
+      if (v50 % v22)
       {
-        v50 = v22 - v49 % v22;
+        v51 = v22 - v50 % v22;
       }
 
       else
       {
-        LODWORD(v50) = 0;
+        v51 = 0;
       }
 
-      LODWORD(v49) = v50 + v49;
+      v50 += v51;
     }
 
-    result = iosp_createImgIOSurface(a2, a3, a4, v49, v27, *(a1 + 184), a10);
+    result = iosp_createImgIOSurface(v16, a3, a4, v50, v27, *(a1 + 184), a10);
     if (!result)
     {
       IOSurfaceIncrementUseCount(*a10);
@@ -1109,21 +1113,21 @@ LABEL_65:
     *(a1 + 180) = 0;
   }
 
-  iosp_poolCleanup(a1, *(a1 + 104), *(a1 + 128));
+  iosp_poolCleanup(a1, *(a1 + 104), *(a1 + 128), v42);
   for (i = *Value; i; i = *(i + 32))
   {
     if (!IOSurfaceIsInUse(*i))
     {
-      v43 = *(i + 16);
+      v44 = *(i + 16);
       if (a8)
       {
-        if (v43 == v19 * *(*(i + 24) + 64))
+        if (v44 == v19 * *(*(i + 24) + 64))
         {
           goto LABEL_74;
         }
       }
 
-      else if (!(v43 % v22))
+      else if (!(v44 % v22))
       {
 LABEL_74:
         iosp_poolUpdateBuffPosition(a1, Value, i);
@@ -1136,36 +1140,36 @@ LABEL_74:
   }
 
   FigSimpleMutexUnlock();
-  v44 = v19 * *(Value + 16);
+  v45 = v19 * *(Value + 16);
   if (!a8)
   {
-    if (v44 % v22)
+    if (v45 % v22)
     {
-      v45 = v22 - v44 % v22;
+      v46 = v22 - v45 % v22;
     }
 
     else
     {
-      v45 = 0;
+      v46 = 0;
     }
 
-    v44 += v45;
+    v45 += v46;
   }
 
-  result = iosp_createImgIOSurface(a2, *(Value + 14), *(Value + 15), v44, *(Value + 17), *(a1 + 184), a10);
+  result = iosp_createImgIOSurface(v16, *(Value + 14), *(Value + 15), v45, *(Value + 17), *(a1 + 184), a10);
   if (!result)
   {
     IOSurfaceIncrementUseCount(*a10);
     result = malloc_type_malloc(0x40uLL, 0x10A0040CA53F77BuLL);
     if (result)
     {
-      v47 = result;
-      v48 = *a10;
-      *v47 = *a10;
-      v47[3] = Value;
-      v47[1] = IOSurfaceGetAllocSize(v48);
-      v47[2] = v44;
-      iosp_poolInsertNewBuff(a1, Value, v47);
+      v48 = result;
+      v49 = *a10;
+      *v48 = *a10;
+      v48[3] = Value;
+      v48[1] = IOSurfaceGetAllocSize(v49);
+      v48[2] = v45;
+      iosp_poolInsertNewBuff(a1, Value, v48);
       return 0;
     }
   }
@@ -1220,12 +1224,14 @@ LABEL_10:
   return result;
 }
 
-uint64_t iosp_createImgIOSurface(int a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, const void *a6, IOSurfaceRef *a7)
+uint64_t iosp_createImgIOSurface(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, const void *a6, IOSurfaceRef *a7)
 {
   v7 = a7;
   v8 = a6;
   v9 = a5;
+  v10 = a4;
   v12 = a2;
+  v53 = *MEMORY[0x277D85DE8];
   if (dword_27CD38250 >= 2)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -1256,10 +1262,10 @@ uint64_t iosp_createImgIOSurface(int a1, uint64_t a2, uint64_t a3, int a4, uint6
         iosp_setIntValue(v22, *MEMORY[0x277CD2B88], v12);
         iosp_setIntValue(v22, *MEMORY[0x277CD2A28], a3);
         iosp_setIntValue(v22, *MEMORY[0x277CD2A70], a1);
-        iosp_setIntValue(v22, *MEMORY[0x277CD2968], a4);
+        iosp_setIntValue(v22, *MEMORY[0x277CD2968], v10);
         v25 = *MEMORY[0x277CD2948];
         v26 = v22;
-        v27 = v9 * a4;
+        v27 = v9 * v10;
 LABEL_20:
         iosp_setIntValue(v26, v25, v27);
         v29 = IOSurfaceCreate(v22);
@@ -1293,11 +1299,11 @@ LABEL_14:
         iosp_setIntValue(v22, *MEMORY[0x277CD2B88], v12);
         iosp_setIntValue(v22, *MEMORY[0x277CD2A28], a3);
         iosp_setIntValue(v22, *MEMORY[0x277CD2A70], a1);
-        iosp_setIntValue(v22, *MEMORY[0x277CD2968], a4);
+        iosp_setIntValue(v22, *MEMORY[0x277CD2968], v10);
         v23 = *MEMORY[0x277CD2960];
         v24 = iosp_bytesPerPixel(a1);
         iosp_setIntValue(v22, v23, v24);
-        iosp_setIntValue(v22, *MEMORY[0x277CD2948], v9 * a4);
+        iosp_setIntValue(v22, *MEMORY[0x277CD2948], v9 * v10);
         iosp_setIntValue(v22, *MEMORY[0x277CD2A60], 0);
         iosp_setIntValue(v22, *MEMORY[0x277CD29F0], 1);
         v25 = *MEMORY[0x277CD29E8];
@@ -1380,8 +1386,8 @@ LABEL_35:
     v47 = *MEMORY[0x277CD2B38];
     iosp_setIntValue(v37, *MEMORY[0x277CD2B38], 0);
     v39 = *MEMORY[0x277CD2AA0];
-    iosp_setIntValue(v37, *MEMORY[0x277CD2AA0], a4);
-    v40 = v9 * a4;
+    iosp_setIntValue(v37, *MEMORY[0x277CD2AA0], v10);
+    v40 = v9 * v10;
     v46 = v9;
     v41 = *MEMORY[0x277CD2B40];
     iosp_setIntValue(v37, *MEMORY[0x277CD2B40], v40);
@@ -1395,8 +1401,8 @@ LABEL_35:
       iosp_setIntValue(v43, v50, (v38 + 1) >> 1);
       iosp_setIntValue(v43, v48, 2);
       iosp_setIntValue(v43, v47, v40);
-      iosp_setIntValue(v43, v39, a4);
-      v44 = ((v46 + 1) >> 1) * a4;
+      iosp_setIntValue(v43, v39, v10);
+      v44 = ((v46 + 1) >> 1) * v10;
       iosp_setIntValue(v43, v41, v44);
       CFArrayAppendValue(v35, v43);
       CFDictionarySetValue(v22, *MEMORY[0x277CD2B30], v35);
@@ -1448,7 +1454,7 @@ LABEL_35:
 uint64_t FigJPEGIOSurfacePoolFlush(void *a1)
 {
   FigSimpleMutexLock();
-  iosp_poolCleanup(a1, 0, 0);
+  iosp_poolCleanup(a1, 0, 0, v2);
 
   return FigSimpleMutexUnlock();
 }
@@ -1577,7 +1583,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t NewUIImageFromCachedImage(void *a1)
+void *NewUIImageFromCachedImage(void *a1)
 {
   v2 = [a1 imageOrientation];
   v3 = [a1 CGImage];
@@ -1615,7 +1621,7 @@ uint64_t _PLIncrementSharedCountForAssets(void *a1)
   return [v2 performChanges:v4 completionHandler:0];
 }
 
-uint64_t _PLIncrementSharedCountForAsset(void *a1)
+void *_PLIncrementSharedCountForAsset(void *a1)
 {
   v5[1] = *MEMORY[0x277D85DE8];
   result = [a1 pl_PHAssetFromPhotoLibrary:{PLNavigationControllerInterfacePhotoLibrary(objc_msgSend(objc_msgSend(objc_msgSend(a1, "photoLibrary"), "pathManager"), "libraryURL"))}];
@@ -1685,7 +1691,7 @@ void __PLNavigationControllerInterfacePhotoLibrary_block_invoke(uint64_t a1)
   }
 }
 
-void PLNotifyImagePickerOfImageAvailability(void *a1, void *a2, void *a3, void *a4, int a5)
+void PLNotifyImagePickerOfImageAvailability(void *a1, void *a2, void *a3, void *a4, uint64_t a5)
 {
   InfoForImage = __CreateInfoForImage(a1, a2, a3, a4, a5);
   if (a3)
@@ -1696,18 +1702,20 @@ void PLNotifyImagePickerOfImageAvailability(void *a1, void *a2, void *a3, void *
   [a1 _imagePickerDidCompleteWithInfo:InfoForImage];
 }
 
-id __CreateInfoForImage(void *a1, void *a2, void *a3, void *a4, int a5)
+id __CreateInfoForImage(void *a1, void *a2, void *a3, void *a4, uint64_t a5)
 {
+  v5 = a5;
   v10 = [a1 _imagePickerSavingOptions];
   v11 = [a1 sourceType];
   v12 = [objc_msgSend(a1 _valueForProperty:{*MEMORY[0x277D77480]), "BOOLValue"}];
   v13 = [a1 showsCameraControls];
 
-  return __CreateInfoForImageWithProperties(v11, v13, v10, v12, a2, a3, a4, a5);
+  return __CreateInfoForImageWithProperties(v11, v13, v10, v12, a2, a3, a4, v5);
 }
 
-id __CreateInfoForImageWithProperties(uint64_t a1, int a2, char a3, int a4, void *a5, void *a6, void *a7, int a8)
+id __CreateInfoForImageWithProperties(uint64_t a1, int a2, uint64_t a3, int a4, void *a5, void *a6, void *a7, int a8)
 {
+  v56 = a3;
   v14 = a1 & 0xFFFFFFFFFFFFFFFDLL;
   v15 = (a1 & 0xFFFFFFFFFFFFFFFDLL) == 0;
   v16 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -1725,10 +1733,10 @@ id __CreateInfoForImageWithProperties(uint64_t a1, int a2, char a3, int a4, void
     a8 &= a2 & a4;
   }
 
-  v53 = *MEMORY[0x277D76A60];
+  v54 = *MEMORY[0x277D76A60];
   v18 = [a7 objectForKey:?];
   v19 = MEMORY[0x277CE1DB0];
-  v54 = v18;
+  v55 = v18;
   if (v18)
   {
     v19 = MEMORY[0x277CE1DD0];
@@ -1736,26 +1744,26 @@ id __CreateInfoForImageWithProperties(uint64_t a1, int a2, char a3, int a4, void
 
   v20 = [*v19 identifier];
   [v16 setObject:v20 forKey:*MEMORY[0x277D76A70]];
-  v21 = (a3 & 4) == 0;
+  v21 = (v56 & 4) == 0;
+  v72 = 0;
+  v73 = &v72;
+  v74 = 0x2020000000;
+  v75 = 0;
+  v68 = 0;
+  v69 = &v68;
+  v70 = 0x2020000000;
   v71 = 0;
-  v72 = &v71;
-  v73 = 0x2020000000;
-  v74 = 0;
   v67 = 0;
-  v68 = &v67;
-  v69 = 0x2020000000;
-  v70 = 0;
-  v66 = 0;
-  v57[0] = MEMORY[0x277D85DD0];
-  v57[1] = 3221225472;
-  v58 = ____CreateInfoForImageWithProperties_block_invoke;
-  v59 = &unk_2782A1A80;
-  v63 = (a3 & 2) != 0;
-  v64 = v15;
-  v60 = v16;
-  v61 = &v71;
-  v65 = (a3 & 4) >> 2;
-  v62 = &v67;
+  v58[0] = MEMORY[0x277D85DD0];
+  v58[1] = 3221225472;
+  v59 = ____CreateInfoForImageWithProperties_block_invoke;
+  v60 = &unk_2782A1A80;
+  v64 = (v56 & 2) != 0;
+  v65 = v15;
+  v61 = v16;
+  v62 = &v72;
+  v66 = (v56 & 4) >> 2;
+  v63 = &v68;
   if (a7 && a8)
   {
     v22 = [a7 objectForKey:*MEMORY[0x277D3B2A0]];
@@ -1776,9 +1784,9 @@ id __CreateInfoForImageWithProperties(uint64_t a1, int a2, char a3, int a4, void
           }
         }
 
-        if ((a3 & 4) == 0)
+        if ((v56 & 4) == 0)
         {
-          if ((a3 & 2) == 0)
+          if ((v56 & 2) == 0)
           {
             v28 = 0;
             v29 = a6;
@@ -1789,27 +1797,26 @@ id __CreateInfoForImageWithProperties(uint64_t a1, int a2, char a3, int a4, void
           goto LABEL_51;
         }
 
-        v36 = [a7 objectForKey:*MEMORY[0x277D3B2C0]];
-        if (v36)
+        v37 = [a7 objectForKey:*MEMORY[0x277D3B2C0]];
+        if (v37)
         {
-          [a5 _imageOrientation];
-          ImageDataFromJPEGDataAndOrientation = CreateImageDataFromJPEGDataAndOrientation();
-          v38 = ImageDataFromJPEGDataAndOrientation;
+          ImageDataFromJPEGDataAndOrientation = CreateImageDataFromJPEGDataAndOrientation(v37, [a5 _imageOrientation]);
+          v39 = ImageDataFromJPEGDataAndOrientation;
           if (ImageDataFromJPEGDataAndOrientation)
           {
-            v39 = ImageDataFromJPEGDataAndOrientation;
+            v40 = ImageDataFromJPEGDataAndOrientation;
           }
 
           else
           {
-            v39 = v36;
+            v40 = v37;
           }
 
-          [v16 setObject:v39 forKey:*MEMORY[0x277D77470]];
+          [v16 setObject:v40 forKey:*MEMORY[0x277D77470]];
 
-          *(v68 + 24) = 1;
+          *(v69 + 24) = 1;
           v29 = a6;
-          if ((a3 & 2) != 0)
+          if ((v56 & 2) != 0)
           {
 LABEL_51:
             if (!v23)
@@ -1819,24 +1826,24 @@ LABEL_51:
               if (v29)
               {
 LABEL_64:
-                v41 = [MEMORY[0x277D3AC00] sharedAssetsSaver];
-                v42 = [v29 objectID];
-                v43 = [v41 requestSynchronousImageForAssetOID:v42 withFormat:objc_msgSend(objc_msgSend(objc_msgSend(MEMORY[0x277D3B228] allowPlaceholder:"defaultFormatChooser") wantURLOnly:"fullScreenFormatForCurrentDevice") networkAccessAllowed:"formatID") trackCPLDownload:1 outImageDataInfo:v23 == 0 outCPLDownloadContext:0, 0, &v66, 0];
-                (v58)(v57, v43, v66, 0);
+                v42 = [MEMORY[0x277D3AC00] sharedAssetsSaver];
+                v43 = [v29 objectID];
+                v44 = [v42 requestSynchronousImageForAssetOID:v43 withFormat:objc_msgSend(objc_msgSend(objc_msgSend(MEMORY[0x277D3B228] allowPlaceholder:"defaultFormatChooser") wantURLOnly:"fullScreenFormatForCurrentDevice") networkAccessAllowed:"formatID") trackCPLDownload:1 outImageDataInfo:v23 == 0 outCPLDownloadContext:0, 0, &v67, 0];
+                (v59)(v58, v44, v67, 0);
                 a6 = v29;
               }
 
 LABEL_65:
-              v44 = [a7 objectForKey:*MEMORY[0x277D3B298]];
-              v45 = [v16 objectForKey:*MEMORY[0x277D77470]];
-              if (v44)
+              v45 = [a7 objectForKey:*MEMORY[0x277D3B298]];
+              v46 = [v16 objectForKey:*MEMORY[0x277D77470]];
+              if (v45)
               {
-                if (!(v45 | v28))
+                if (!(v46 | v28))
                 {
                   goto LABEL_71;
                 }
 
-                if (v45)
+                if (v46)
                 {
                   PLImageSizeFromImageData();
                 }
@@ -1847,13 +1854,13 @@ LABEL_65:
                 }
 
                 [objc_msgSend(v24 "image")];
-                [v44 CGRectValue];
+                [v45 CGRectValue];
                 PLScaledCropRect();
-                v44 = [MEMORY[0x277CCAE60] valueWithCGRect:?];
-                if (v44)
+                v45 = [MEMORY[0x277CCAE60] valueWithCGRect:?];
+                if (v45)
                 {
 LABEL_71:
-                  [v16 setObject:v44 forKey:*MEMORY[0x277D76A48]];
+                  [v16 setObject:v45 forKey:*MEMORY[0x277D76A48]];
                 }
               }
 
@@ -1866,7 +1873,7 @@ LABEL_52:
             if (v28)
             {
               [v16 setObject:v28 forKey:*MEMORY[0x277D76A80]];
-              *(v72 + 24) = 1;
+              *(v73 + 24) = 1;
             }
 
 LABEL_54:
@@ -1876,19 +1883,19 @@ LABEL_54:
               goto LABEL_65;
             }
 
-            if (!v23 || (a3 & 4) != 0 && *(v68 + 24) != 1)
+            if (!v23 || (v56 & 4) != 0 && *(v69 + 24) != 1)
             {
               goto LABEL_64;
             }
 
-            if ((a3 & 2) == 0)
+            if ((v56 & 2) == 0)
             {
               a6 = v29;
               goto LABEL_65;
             }
 
             a6 = v29;
-            if ((v72[3] & 1) == 0)
+            if ((v73[3] & 1) == 0)
             {
               goto LABEL_64;
             }
@@ -1900,14 +1907,14 @@ LABEL_54:
         else
         {
           v29 = [objc_msgSend(a5 "photo")];
-          if ((a3 & 2) != 0)
+          if ((v56 & 2) != 0)
           {
             goto LABEL_51;
           }
         }
 
         v28 = 0;
-        if (!v23 || (v68[3] & 1) != 0)
+        if (!v23 || (v69[3] & 1) != 0)
         {
           goto LABEL_54;
         }
@@ -1929,23 +1936,23 @@ LABEL_73:
   if (a5)
   {
     v30 = 0;
-    if (v14 && (a3 & 2) != 0)
+    if (v14 && (v56 & 2) != 0)
     {
       v31 = [a5 _newOriginalImageForPickerFromCachedData];
       if (!v31)
       {
         v30 = 0;
 LABEL_24:
-        if ((a3 & 4) != 0)
+        if ((v56 & 4) != 0)
         {
-          if ([a7 objectForKey:*MEMORY[0x277D3B2C0]])
+          v32 = [a7 objectForKey:*MEMORY[0x277D3B2C0]];
+          if (v32)
           {
-            [a5 _imageOrientation];
-            v32 = CreateImageDataFromJPEGDataAndOrientation();
-            [v16 setObject:v32 forKey:*MEMORY[0x277D77470]];
+            v33 = CreateImageDataFromJPEGDataAndOrientation(v32, [a5 _imageOrientation]);
+            [v16 setObject:v33 forKey:*MEMORY[0x277D77470]];
 
-            *(v68 + 24) = 1;
-            v21 = v32 != 0;
+            *(v69 + 24) = 1;
+            v21 = v33 != 0;
           }
 
           else
@@ -1958,8 +1965,8 @@ LABEL_24:
 LABEL_38:
         if (a6)
         {
-          v40 = (a3 & 2) != 0 ? v30 : 1;
-          if (!v14 || !v40 || !v21)
+          v41 = (v56 & 2) != 0 ? v30 : 1;
+          if (!v14 || !v41 || !v21)
           {
             goto LABEL_28;
           }
@@ -1971,7 +1978,7 @@ LABEL_38:
       [v16 setObject:v31 forKey:*MEMORY[0x277D76A80]];
 
       v30 = 1;
-      *(v72 + 24) = 1;
+      *(v73 + 24) = 1;
     }
 
     if (!v14)
@@ -1985,75 +1992,76 @@ LABEL_38:
   if (a6)
   {
 LABEL_28:
-    v33 = [MEMORY[0x277D3AC00] sharedAssetsSaver];
-    v34 = [a6 objectID];
-    v35 = [v33 requestSynchronousImageForAssetOID:v34 withFormat:objc_msgSend(objc_msgSend(objc_msgSend(MEMORY[0x277D3B228] allowPlaceholder:"defaultFormatChooser") wantURLOnly:"fullScreenFormatForCurrentDevice") networkAccessAllowed:"formatID") trackCPLDownload:1 outImageDataInfo:v14 == 0 outCPLDownloadContext:0, 0, &v66, 0];
-    (v58)(v57, v35, v66, 0);
+    v34 = [MEMORY[0x277D3AC00] sharedAssetsSaver];
+    v35 = [a6 objectID];
+    v36 = [v34 requestSynchronousImageForAssetOID:v35 withFormat:objc_msgSend(objc_msgSend(objc_msgSend(MEMORY[0x277D3B228] allowPlaceholder:"defaultFormatChooser") wantURLOnly:"fullScreenFormatForCurrentDevice") networkAccessAllowed:"formatID") trackCPLDownload:1 outImageDataInfo:v14 == 0 outCPLDownloadContext:0, 0, &v67, 0];
+    (v59)(v58, v36, v67, 0);
   }
 
 LABEL_74:
-  v46 = [a6 fileExtension];
-  if ([v66 UTI])
+  v47 = [a6 fileExtension];
+  if ([v67 UTI])
   {
-    v47 = [MEMORY[0x277D3ACE0] preferredFileExtensionForType:{objc_msgSend(v66, "UTI")}];
-    if ([v47 compare:v46 options:1])
+    v48 = [MEMORY[0x277D3ACE0] preferredFileExtensionForType:{objc_msgSend(v67, "UTI")}];
+    if ([v48 compare:v47 options:1])
     {
-      v46 = v47;
+      v47 = v48;
     }
   }
 
   if (a6)
   {
-    v48 = [objc_msgSend(MEMORY[0x277D3AD38] "systemPhotoLibrary")];
-    if (v48)
+    v49 = [objc_msgSend(MEMORY[0x277D3AD38] "systemPhotoLibrary")];
+    if (v49)
     {
-      [v16 setObject:v48 forKey:*MEMORY[0x277D76A90]];
+      [v16 setObject:v49 forKey:*MEMORY[0x277D76A90]];
     }
   }
 
-  v49 = [a7 objectForKey:*MEMORY[0x277D3B2B8]];
-  if (v49)
+  v50 = [a7 objectForKey:*MEMORY[0x277D3B2B8]];
+  if (v50)
   {
-    [v16 setObject:v49 forKey:*MEMORY[0x277D76A68]];
+    [v16 setObject:v50 forKey:*MEMORY[0x277D76A68]];
   }
 
-  v50 = *MEMORY[0x277D77468];
-  v51 = [a7 objectForKey:*MEMORY[0x277D77468]];
-  if (v51)
+  v51 = *MEMORY[0x277D77468];
+  v52 = [a7 objectForKey:*MEMORY[0x277D77468]];
+  if (v52)
   {
-    [v16 setObject:v51 forKey:v50];
+    [v16 setObject:v52 forKey:v51];
   }
 
-  if (v54)
+  if (v55)
   {
-    [v16 setObject:v54 forKey:v53];
+    [v16 setObject:v55 forKey:v54];
   }
 
-  _AddDebugInfo(v16, a3, a6);
-  _Block_object_dispose(&v67, 8);
-  _Block_object_dispose(&v71, 8);
+  _AddDebugInfo(v16, v56, a6);
+  _Block_object_dispose(&v68, 8);
+  _Block_object_dispose(&v72, 8);
   return v16;
 }
 
-void sub_21ACE559C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_21ACE559C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  _Block_object_dispose(&a26, 8);
-  _Block_object_dispose((v26 - 152), 8);
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v25 - 152), 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t CreateImageDataFromJPEGDataAndOrientation()
+uint64_t CreateImageDataFromJPEGDataAndOrientation(uint64_t a1, uint64_t a2)
 {
-  v0 = PLExifOrientationFromImageOrientation();
-  v1 = objc_alloc(MEMORY[0x277CBEAC0]);
-  v2 = [MEMORY[0x277CCABB0] numberWithInt:v0];
-  v3 = [v1 initWithObjectsAndKeys:{v2, *MEMORY[0x277CD3410], 0}];
+  v2 = PLExifOrientationFromImageOrientation();
+  v3 = objc_alloc(MEMORY[0x277CBEAC0]);
+  v4 = [MEMORY[0x277CCABB0] numberWithInt:v2];
+  v5 = [v3 initWithObjectsAndKeys:{v4, *MEMORY[0x277CD3410], 0}];
   EXIFJPEGData = CGImageCreateEXIFJPEGData();
 
   return EXIFJPEGData;
 }
 
-uint64_t _AddDebugInfo(uint64_t result, char a2, void *a3)
+void *_AddDebugInfo(void *result, char a2, void *a3)
 {
   if ((a2 & 8) != 0)
   {
@@ -2121,7 +2129,7 @@ void *__CreateInfoForVideo(void *a1, uint64_t a2, void *a3, uint64_t a4)
   return v11;
 }
 
-uint64_t PLNotifyImagePickerOfMultipleMediaAvailability(void *a1, void *a2, void *a3, int a4)
+uint64_t PLNotifyImagePickerOfMultipleMediaAvailability(void *a1, void *a2, void *a3, uint64_t a4)
 {
   v26 = *MEMORY[0x277D85DE8];
   v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(a2, "count")}];
@@ -2188,7 +2196,7 @@ uint64_t PLNotifyImagePickerOfMultipleMediaAvailability(void *a1, void *a2, void
   return [a1 _imagePickerDidCompleteWithInfoArray:v8];
 }
 
-void PLNotifyImagePickerOfMediaAvailability(void *a1, void *a2, void *a3, void *a4, int a5)
+void PLNotifyImagePickerOfMediaAvailability(void *a1, void *a2, void *a3, void *a4, uint64_t a5)
 {
   if ([a3 isVideo])
   {
@@ -2395,7 +2403,7 @@ void *PLPhotoPickerDictionariesFromMultipleMediaItems(void *a1, void *a2, void *
   return v12;
 }
 
-uint64_t __ShouldZoomToFill(uint64_t a1, double a2, double a3)
+unint64_t __ShouldZoomToFill(uint64_t a1, double a2, double a3)
 {
   v6 = ([objc_msgSend(MEMORY[0x277D75418] "currentDevice")] & 0xFFFFFFFFFFFFFFFBLL) == 1;
   if (![a1 _clientIsWallpaper])
@@ -2432,6 +2440,13 @@ LABEL_7:
   return v8 & 1;
 }
 
+void sub_21ACE8C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_21ACE9DDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
 {
   objc_destroyWeak((v14 + 32));
@@ -2439,7 +2454,7 @@ void sub_21ACE9DDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t PLMRMediaRemoteSetNowPlayingApplicationOverrideEnabled(uint64_t a1)
+void *PLMRMediaRemoteSetNowPlayingApplicationOverrideEnabled(uint64_t a1)
 {
   v6 = 0;
   v7 = &v6;
@@ -2469,9 +2484,9 @@ uint64_t PLMRMediaRemoteSetNowPlayingApplicationOverrideEnabled(uint64_t a1)
   return result;
 }
 
-void sub_21ACEE48C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21ACEE48C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2515,7 +2530,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t __MediaRemoteLibraryCore_block_invoke()
+uint64_t __MediaRemoteLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   MediaRemoteLibraryCore_frameworkLibrary = result;
@@ -2535,7 +2550,7 @@ uint64_t photosPreferenceChanged(uint64_t a1, void *a2)
   return result;
 }
 
-uint64_t myUncaughtExceptionHandler(void *a1)
+void *myUncaughtExceptionHandler(void *a1)
 {
   v2 = [a1 userInfo];
   result = [v2 objectForKey:*MEMORY[0x277CCA7E8]];
@@ -2554,22 +2569,22 @@ uint64_t myUncaughtExceptionHandler(void *a1)
   return result;
 }
 
-uint64_t pl_appPhotoLibrary()
+void *pl_appPhotoLibrary(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  if (!v0 || (v1 = v0, (objc_opt_respondsToSelector() & 1) == 0) || (result = [v1 px_deprecated_appPhotoLibrary]) == 0 && ((objc_opt_respondsToSelector() & 1) == 0 || (result = objc_msgSend(v1, "px_systemPhotoLibrary")) == 0))
+  v2 = objc_opt_class();
+  if (!v2 || (v3 = v2, (objc_opt_respondsToSelector() & 1) == 0) || (result = [v3 px_deprecated_appPhotoLibrary]) == 0 && ((objc_opt_respondsToSelector() & 1) == 0 || (result = objc_msgSend(v3, "px_systemPhotoLibrary")) == 0))
   {
-    v3 = MEMORY[0x277CD9948];
+    v5 = MEMORY[0x277CD9948];
 
-    return [v3 sharedPhotoLibrary];
+    return [v5 sharedPhotoLibrary];
   }
 
   return result;
 }
 
-void sub_21ACF1C34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21ACF1C34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2639,21 +2654,21 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __ManagedConfigurationLibraryCore_block_invoke()
+uint64_t __ManagedConfigurationLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   ManagedConfigurationLibraryCore_frameworkLibrary = result;
   return result;
 }
 
-void sub_21ACF2DD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21ACF2DD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-IOSurfaceRef createDecodeSurfaceFromPool(uint64_t a1, int a2, unsigned int a3, unsigned int a4)
+IOSurfaceRef createDecodeSurfaceFromPool(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4)
 {
   v8 = 0;
   v4 = FigJPEGIOSurfaceImagePoolCreateIOSurface(a1, a2, a3, a4, 1, 16, 16, 1, 0, &v8);
@@ -2705,7 +2720,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __AccelerateLibraryCore_block_invoke()
+uint64_t __AccelerateLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AccelerateLibraryCore_frameworkLibrary = result;
@@ -2736,9 +2751,9 @@ uint64_t getMTLTextureDescriptorClass()
   return v0;
 }
 
-void sub_21ACF78C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21ACF78C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2799,7 +2814,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __MetalLibraryCore_block_invoke()
+uint64_t __MetalLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   MetalLibraryCore_frameworkLibrary = result;
@@ -2848,6 +2863,13 @@ void at_free(void *a1)
   {
     free(a1);
   }
+}
+
+void sub_21ACF9970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
+{
+  va_start(va, a29);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void *__getMTLCreateSystemDefaultDeviceSymbolLoc_block_invoke(uint64_t a1)
@@ -2902,7 +2924,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t PL_ColorSyncProfileCreate(uint64_t a1)
+void *PL_ColorSyncProfileCreate(uint64_t a1)
 {
   v6 = 0;
   v7 = &v6;
@@ -2929,145 +2951,145 @@ uint64_t PL_ColorSyncProfileCreate(uint64_t a1)
   return result;
 }
 
-void sub_21ACF9D08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21ACF9D08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t getkColorSyncProfile()
+void *getkColorSyncProfile(uint64_t a1)
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
-  v0 = getkColorSyncProfileSymbolLoc_ptr;
-  v7 = getkColorSyncProfileSymbolLoc_ptr;
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
+  v1 = getkColorSyncProfileSymbolLoc_ptr;
+  v8 = getkColorSyncProfileSymbolLoc_ptr;
   if (!getkColorSyncProfileSymbolLoc_ptr)
   {
-    v1 = ColorSyncLibrary();
-    v5[3] = dlsym(v1, "kColorSyncProfile");
-    getkColorSyncProfileSymbolLoc_ptr = v5[3];
-    v0 = v5[3];
+    v2 = ColorSyncLibrary();
+    v6[3] = dlsym(v2, "kColorSyncProfile");
+    getkColorSyncProfileSymbolLoc_ptr = v6[3];
+    v1 = v6[3];
   }
 
-  _Block_object_dispose(&v4, 8);
-  if (v0)
+  _Block_object_dispose(&v5, 8);
+  if (v1)
   {
-    return *v0;
+    return *v1;
   }
 
-  v3 = [MEMORY[0x277CCA890] currentHandler];
-  result = [v3 handleFailureInFunction:objc_msgSend(MEMORY[0x277CCACA8] file:"stringWithUTF8String:" lineNumber:"NSString *getkColorSyncProfile(void)") description:{@"PLTiledLayer.m", 91, @"%s", dlerror()}];
+  v4 = [MEMORY[0x277CCA890] currentHandler];
+  result = [v4 handleFailureInFunction:objc_msgSend(MEMORY[0x277CCACA8] file:"stringWithUTF8String:" lineNumber:"NSString *getkColorSyncProfile(void)") description:{@"PLTiledLayer.m", 91, @"%s", dlerror()}];
   __break(1u);
   return result;
 }
 
-void sub_21ACF9E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21ACF9E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t getkColorSyncRenderingIntent()
+void *getkColorSyncRenderingIntent(uint64_t a1)
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
-  v0 = getkColorSyncRenderingIntentSymbolLoc_ptr;
-  v7 = getkColorSyncRenderingIntentSymbolLoc_ptr;
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
+  v1 = getkColorSyncRenderingIntentSymbolLoc_ptr;
+  v8 = getkColorSyncRenderingIntentSymbolLoc_ptr;
   if (!getkColorSyncRenderingIntentSymbolLoc_ptr)
   {
-    v1 = ColorSyncLibrary();
-    v5[3] = dlsym(v1, "kColorSyncRenderingIntent");
-    getkColorSyncRenderingIntentSymbolLoc_ptr = v5[3];
-    v0 = v5[3];
+    v2 = ColorSyncLibrary();
+    v6[3] = dlsym(v2, "kColorSyncRenderingIntent");
+    getkColorSyncRenderingIntentSymbolLoc_ptr = v6[3];
+    v1 = v6[3];
   }
 
-  _Block_object_dispose(&v4, 8);
-  if (v0)
+  _Block_object_dispose(&v5, 8);
+  if (v1)
   {
-    return *v0;
+    return *v1;
   }
 
-  v3 = [MEMORY[0x277CCA890] currentHandler];
-  result = [v3 handleFailureInFunction:objc_msgSend(MEMORY[0x277CCACA8] file:"stringWithUTF8String:" lineNumber:"NSString *getkColorSyncRenderingIntent(void)") description:{@"PLTiledLayer.m", 89, @"%s", dlerror()}];
+  v4 = [MEMORY[0x277CCA890] currentHandler];
+  result = [v4 handleFailureInFunction:objc_msgSend(MEMORY[0x277CCACA8] file:"stringWithUTF8String:" lineNumber:"NSString *getkColorSyncRenderingIntent(void)") description:{@"PLTiledLayer.m", 89, @"%s", dlerror()}];
   __break(1u);
   return result;
 }
 
-void sub_21ACF9F90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21ACF9F90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t getkColorSyncRenderingIntentPerceptual()
+void *getkColorSyncRenderingIntentPerceptual(uint64_t a1)
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
-  v0 = getkColorSyncRenderingIntentPerceptualSymbolLoc_ptr;
-  v7 = getkColorSyncRenderingIntentPerceptualSymbolLoc_ptr;
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
+  v1 = getkColorSyncRenderingIntentPerceptualSymbolLoc_ptr;
+  v8 = getkColorSyncRenderingIntentPerceptualSymbolLoc_ptr;
   if (!getkColorSyncRenderingIntentPerceptualSymbolLoc_ptr)
   {
-    v1 = ColorSyncLibrary();
-    v5[3] = dlsym(v1, "kColorSyncRenderingIntentPerceptual");
-    getkColorSyncRenderingIntentPerceptualSymbolLoc_ptr = v5[3];
-    v0 = v5[3];
+    v2 = ColorSyncLibrary();
+    v6[3] = dlsym(v2, "kColorSyncRenderingIntentPerceptual");
+    getkColorSyncRenderingIntentPerceptualSymbolLoc_ptr = v6[3];
+    v1 = v6[3];
   }
 
-  _Block_object_dispose(&v4, 8);
-  if (v0)
+  _Block_object_dispose(&v5, 8);
+  if (v1)
   {
-    return *v0;
+    return *v1;
   }
 
-  v3 = [MEMORY[0x277CCA890] currentHandler];
-  result = [v3 handleFailureInFunction:objc_msgSend(MEMORY[0x277CCACA8] file:"stringWithUTF8String:" lineNumber:"NSString *getkColorSyncRenderingIntentPerceptual(void)") description:{@"PLTiledLayer.m", 90, @"%s", dlerror()}];
+  v4 = [MEMORY[0x277CCA890] currentHandler];
+  result = [v4 handleFailureInFunction:objc_msgSend(MEMORY[0x277CCACA8] file:"stringWithUTF8String:" lineNumber:"NSString *getkColorSyncRenderingIntentPerceptual(void)") description:{@"PLTiledLayer.m", 90, @"%s", dlerror()}];
   __break(1u);
   return result;
 }
 
-void sub_21ACFA0D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21ACFA0D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t getkColorSyncTransformTag()
+void *getkColorSyncTransformTag(uint64_t a1)
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
-  v0 = getkColorSyncTransformTagSymbolLoc_ptr;
-  v7 = getkColorSyncTransformTagSymbolLoc_ptr;
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
+  v1 = getkColorSyncTransformTagSymbolLoc_ptr;
+  v8 = getkColorSyncTransformTagSymbolLoc_ptr;
   if (!getkColorSyncTransformTagSymbolLoc_ptr)
   {
-    v1 = ColorSyncLibrary();
-    v5[3] = dlsym(v1, "kColorSyncTransformTag");
-    getkColorSyncTransformTagSymbolLoc_ptr = v5[3];
-    v0 = v5[3];
+    v2 = ColorSyncLibrary();
+    v6[3] = dlsym(v2, "kColorSyncTransformTag");
+    getkColorSyncTransformTagSymbolLoc_ptr = v6[3];
+    v1 = v6[3];
   }
 
-  _Block_object_dispose(&v4, 8);
-  if (v0)
+  _Block_object_dispose(&v5, 8);
+  if (v1)
   {
-    return *v0;
+    return *v1;
   }
 
-  v3 = [MEMORY[0x277CCA890] currentHandler];
-  result = [v3 handleFailureInFunction:objc_msgSend(MEMORY[0x277CCACA8] file:"stringWithUTF8String:" lineNumber:"NSString *getkColorSyncTransformTag(void)") description:{@"PLTiledLayer.m", 85, @"%s", dlerror()}];
+  v4 = [MEMORY[0x277CCA890] currentHandler];
+  result = [v4 handleFailureInFunction:objc_msgSend(MEMORY[0x277CCACA8] file:"stringWithUTF8String:" lineNumber:"NSString *getkColorSyncTransformTag(void)") description:{@"PLTiledLayer.m", 85, @"%s", dlerror()}];
   __break(1u);
   return result;
 }
 
-void sub_21ACFA218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21ACFA218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3153,7 +3175,7 @@ void *__getColorSyncTransformCopyPropertySymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __ColorSyncLibraryCore_block_invoke()
+uint64_t __ColorSyncLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   ColorSyncLibraryCore_frameworkLibrary = result;
@@ -3205,11 +3227,18 @@ void *__getColorSyncProfileCreateSymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __MetalPerformanceShadersLibraryCore_block_invoke()
+uint64_t __MetalPerformanceShadersLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   MetalPerformanceShadersLibraryCore_frameworkLibrary = result;
   return result;
+}
+
+void sub_21ACFEFA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t AVAssetExportPresetForRemakerMode(int a1)
@@ -3278,9 +3307,9 @@ LABEL_15:
   return *v3;
 }
 
-void sub_21ACFF714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21ACFF714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3314,28 +3343,28 @@ void __PLVideoRemakerModeForAVAssetExportPreset_block_invoke()
   PLVideoRemakerModeForAVAssetExportPreset___map = Mutable;
 }
 
-void sub_21AD00980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_21AD049D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_21AD00980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_21AD069F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_21AD049D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a6);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t _SetBundlePropertiesOnPropertiesDictionary(void *a1)
+void sub_21AD069F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+{
+  va_start(va, a11);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void *_SetBundlePropertiesOnPropertiesDictionary(void *a1)
 {
   v2 = [objc_msgSend(MEMORY[0x277CCA8D8] "mainBundle")];
   if ([v2 length])
@@ -3357,28 +3386,28 @@ uint64_t _SetBundlePropertiesOnPropertiesDictionary(void *a1)
 
 uint64_t PLSaveImageToCameraRoll(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v8 = pl_appPhotoLibrary();
+  v8 = pl_appPhotoLibrary(a1, a2);
 
   return [v8 legacySaveImageToCameraRoll:a1 completionTarget:a2 completionSelector:a3 contextInfo:a4];
 }
 
 uint64_t PLSaveImageDataToCameraRoll(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v8 = pl_appPhotoLibrary();
+  v8 = pl_appPhotoLibrary(a1, a2);
 
   return [v8 legacySaveImageDataToCameraRoll:a1 completionTarget:a2 completionSelector:a3 contextInfo:a4];
 }
 
 uint64_t PLSaveImageToCameraRollWithTypeAndExtension(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v10 = pl_appPhotoLibrary();
+  v10 = pl_appPhotoLibrary(a1, a2);
 
   return [v10 legacySaveScreenshotToCameraRoll:a1 completionTarget:a4 completionSelector:a5 contextInfo:a6];
 }
 
 uint64_t PLSaveVideoToCameraRoll(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v8 = pl_appPhotoLibrary();
+  v8 = pl_appPhotoLibrary(a1, a2);
 
   return [v8 legacySaveVideoToCameraRoll:a1 completionTarget:a2 completionSelector:a3 contextInfo:a4];
 }

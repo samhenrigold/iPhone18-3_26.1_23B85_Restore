@@ -17,7 +17,7 @@
   dCopy = d;
   if (!dCopy)
   {
-    v7 = sub_100002660();
+    v7 = sub_100002660(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1001C2990();
@@ -72,7 +72,7 @@ LABEL_7:
 
     else
     {
-      reviewBody = sub_100002660();
+      reviewBody = sub_100002660(0);
       if (os_log_type_enabled(reviewBody, OS_LOG_TYPE_ERROR))
       {
         sub_1001C2814();
@@ -91,7 +91,7 @@ LABEL_7:
   recordCopy = record;
   if (!recordCopy)
   {
-    reviewBody = sub_100002660();
+    reviewBody = sub_100002660(0);
     if (os_log_type_enabled(reviewBody, OS_LOG_TYPE_ERROR))
     {
       sub_1001C29C4();

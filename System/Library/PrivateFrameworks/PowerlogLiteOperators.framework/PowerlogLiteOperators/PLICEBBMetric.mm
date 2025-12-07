@@ -47,7 +47,7 @@ void *__31__PLICEBBMetric_sharedInstance__block_invoke(uint64_t a1)
 
 - (void)initializeMetricsSim
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
   v4 = dispatch_queue_attr_make_with_qos_class(v3, QOS_CLASS_BACKGROUND, 0);
 
@@ -77,9 +77,9 @@ void *__31__PLICEBBMetric_sharedInstance__block_invoke(uint64_t a1)
     v16 = PLLogCommon();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      v20 = 138412290;
-      v21 = v11;
-      _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = v11;
+      _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", &v19, 0xCu);
     }
 
     error = self->_error;
@@ -91,8 +91,6 @@ void *__31__PLICEBBMetric_sharedInstance__block_invoke(uint64_t a1)
     plistSimMetrics = self->_plistSimMetrics;
     self->_plistSimMetrics = v18;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)registerForNotifClient:(id)client andProfile:(id)profile
@@ -141,18 +139,18 @@ LABEL_12:
     v17 = objc_alloc(MEMORY[0x277D3F250]);
     v18 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:30.0];
     queue = self->_queue;
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __51__PLICEBBMetric_registerForNotifClient_andProfile___block_invoke;
-    v33[3] = &unk_27825A810;
-    objc_copyWeak(&v34, location);
-    v20 = [v17 initWithFireDate:v18 withInterval:1 withTolerance:0 repeats:queue withUserInfo:v33 withQueue:30.0 withBlock:0.0];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __51__PLICEBBMetric_registerForNotifClient_andProfile___block_invoke;
+    v32[3] = &unk_27825A810;
+    objc_copyWeak(&v33, location);
+    v20 = [v17 initWithFireDate:v18 withInterval:1 withTolerance:0 repeats:queue withUserInfo:v32 withQueue:30.0 withBlock:0.0];
     tickTock = self->_tickTock;
     p_tickTock = &self->_tickTock;
     *p_tickTock = v20;
 
     [*p_tickTock arm];
-    objc_destroyWeak(&v34);
+    objc_destroyWeak(&v33);
     objc_destroyWeak(location);
     goto LABEL_13;
   }
@@ -179,28 +177,27 @@ LABEL_13:
   }
 
 LABEL_15:
-  v26 = objc_opt_new();
-  [v26 setValue:@"1.0" forKey:@"version"];
-  [v26 setValue:&unk_282C11730 forKey:@"error"];
-  v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"*** error *** unsupported profile"];
-  v28 = MEMORY[0x277D3F178];
-  v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KICE/PLICEBBMetric.m"];
-  lastPathComponent = [v29 lastPathComponent];
-  v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLICEBBMetric registerForNotifClient:andProfile:]"];
-  [v28 logMessage:v27 fromFile:lastPathComponent fromFunction:v31 fromLineNumber:134];
+  v25 = objc_opt_new();
+  [v25 setValue:@"1.0" forKey:@"version"];
+  [v25 setValue:&unk_282C11730 forKey:@"error"];
+  v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"*** error *** unsupported profile"];
+  v27 = MEMORY[0x277D3F178];
+  v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KICE/PLICEBBMetric.m"];
+  lastPathComponent = [v28 lastPathComponent];
+  v30 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLICEBBMetric registerForNotifClient:andProfile:]"];
+  [v27 logMessage:v26 fromFile:lastPathComponent fromFunction:v30 fromLineNumber:134];
 
-  v32 = PLLogCommon();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+  v31 = PLLogCommon();
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
   {
     LODWORD(location[0]) = 138412290;
-    *(location + 4) = v27;
-    _os_log_debug_impl(&dword_21A4C6000, v32, OS_LOG_TYPE_DEBUG, "%@", location, 0xCu);
+    *(location + 4) = v26;
+    _os_log_debug_impl(&dword_21A4C6000, v31, OS_LOG_TYPE_DEBUG, "%@", location, 0xCu);
   }
 
   v23 = 0;
 LABEL_14:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -265,174 +262,170 @@ LABEL_8:
 
 void __58__PLICEBBMetric_queuePeriodicMetricId_payload_forTrigger___block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) integerValue];
   v3 = *(*(a1 + 40) + 112);
-  if (v2 != 3932163)
+  if (v2 == 3932163)
   {
-    v13 = [v3 objectForKeyedSubscript:@"arr"];
-    if (v13)
+    if (v3)
     {
-      v14 = [*(*(a1 + 40) + 120) decodePayload:*(a1 + 56) forMetricId:*(a1 + 32)];
-      v15 = objc_opt_class();
-      block[0] = MEMORY[0x277D85DD0];
-      block[1] = 3221225472;
-      block[2] = __58__PLICEBBMetric_queuePeriodicMetricId_payload_forTrigger___block_invoke_2;
-      block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      block[4] = v15;
-      if (qword_2811F7910 != -1)
+      if ([*(a1 + 48) integerValue])
       {
-        dispatch_once(&qword_2811F7910, block);
+        v4 = [*(*(a1 + 40) + 112) objectForKeyedSubscript:@"triggerId"];
+        v5 = [v4 integerValue];
+        v6 = [*(a1 + 48) integerValue];
+
+        if (v5 == v6)
+        {
+          v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"bad tid. will failed assertion if debugEnabled"];
+          v8 = MEMORY[0x277D3F178];
+          v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KICE/PLICEBBMetric.m"];
+          v10 = [v9 lastPathComponent];
+          v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLICEBBMetric queuePeriodicMetricId:payload:forTrigger:]_block_invoke"];
+          [v8 logMessage:v7 fromFile:v10 fromFunction:v11 fromLineNumber:235];
+
+          v12 = PLLogCommon();
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+          {
+            *buf = 138412290;
+            v34 = v7;
+            _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+          }
+
+          [MEMORY[0x277D3F180] debugEnabled];
+          return;
+        }
       }
 
-      if (_MergedGlobals_97 == 1)
+      if (([MEMORY[0x277D3F208] isBasebandClass:1003009] & 1) == 0)
       {
-        v16 = [PLICEBBMetricUtility convertToStringData:*(a1 + 56)];
-        [v14 setObject:v16 forKey:@"payload"];
+        [*(a1 + 40) modelProdMetricsNotify];
       }
 
-      if (v14)
+      v18 = *(*(a1 + 40) + 120);
+      if (v18)
       {
-        [v13 addObject:v14];
+        [v18 logBBIcePeriodicMetrics];
       }
 
-      v17 = *(*(a1 + 40) + 120);
-      if (v17)
+      v19 = [[PowerlogMetricLog alloc] initWithData:*(a1 + 56)];
+      if ([(PowerlogMetricLog *)v19 kCellularPerClientProfileTriggerCountsCount]>= 2)
       {
-        [v17 addToListMetric:*(a1 + 32) payload:*(a1 + 56)];
-      }
-    }
-
-    else
-    {
-      v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"bad arr"];
-      v24 = MEMORY[0x277D3F178];
-      v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KICE/PLICEBBMetric.m"];
-      v26 = [v25 lastPathComponent];
-      v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLICEBBMetric queuePeriodicMetricId:payload:forTrigger:]_block_invoke"];
-      [v24 logMessage:v23 fromFile:v26 fromFunction:v27 fromLineNumber:282];
-
-      v28 = PLLogCommon();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 138412290;
-        v36 = v23;
-        _os_log_debug_impl(&dword_21A4C6000, v28, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        [MEMORY[0x277D3F180] debugEnabled];
       }
 
-      if ([MEMORY[0x277D3F180] debugEnabled])
+      v20 = [(PowerlogMetricLog *)v19 kCellularPerClientProfileTriggerCountAtIndex:0];
+      if ([v20 hasTimestamp])
       {
-        __assert_rtn("[PLICEBBMetric queuePeriodicMetricId:payload:forTrigger:]_block_invoke", "PLICEBBMetric.m", 283, "0");
+        v21 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v20, "timestamp")}];
       }
-    }
 
-    goto LABEL_34;
-  }
+      else
+      {
+        v21 = &unk_282C11718;
+      }
 
-  if (!v3)
-  {
-    v19 = [[PowerlogMetricLog alloc] initWithData:*(a1 + 56)];
-    if ([(PowerlogMetricLog *)v19 kCellularPerClientProfileTriggerCountsCount]>= 2)
-    {
-      [MEMORY[0x277D3F180] debugEnabled];
-    }
-
-    v20 = [(PowerlogMetricLog *)v19 kCellularPerClientProfileTriggerCountAtIndex:0];
-    if ([v20 hasTimestamp])
-    {
-      v22 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v20, "timestamp")}];
-    }
-
-    else
-    {
-      v22 = &unk_282C11718;
-    }
-
-    if ([v20 hasTriggerCount])
-    {
-      v30 = MEMORY[0x277CCABB0];
-      goto LABEL_41;
-    }
-
+      if ([v20 hasTriggerCount])
+      {
+        v29 = MEMORY[0x277CCABB0];
+LABEL_40:
+        v30 = [v29 numberWithUnsignedInt:{objc_msgSend(v20, "triggerCount")}];
 LABEL_42:
-    v31 = &unk_282C11718;
-    goto LABEL_43;
-  }
+        [*(a1 + 40) initializeMetricsDictWithTS:v31 triggerCnt:v30 triggerId:*(a1 + 48)];
+        [*(a1 + 40) initializeDataStoreBBTS:v31 triggerCnt:v30 triggerId:*(a1 + 48)];
 
-  if ([*(a1 + 48) integerValue])
-  {
-    v4 = [*(*(a1 + 40) + 112) objectForKeyedSubscript:@"triggerId"];
-    v5 = [v4 integerValue];
-    v6 = [*(a1 + 48) integerValue];
+        return;
+      }
+    }
 
-    if (v5 == v6)
+    else
     {
-      v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"bad tid. will failed assertion if debugEnabled"];
-      v8 = MEMORY[0x277D3F178];
-      v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KICE/PLICEBBMetric.m"];
-      v10 = [v9 lastPathComponent];
-      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLICEBBMetric queuePeriodicMetricId:payload:forTrigger:]_block_invoke"];
-      [v8 logMessage:v7 fromFile:v10 fromFunction:v11 fromLineNumber:235];
-
-      v12 = PLLogCommon();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v19 = [[PowerlogMetricLog alloc] initWithData:*(a1 + 56)];
+      if ([(PowerlogMetricLog *)v19 kCellularPerClientProfileTriggerCountsCount]>= 2)
       {
-        *buf = 138412290;
-        v36 = v7;
-        _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        [MEMORY[0x277D3F180] debugEnabled];
       }
 
-      [MEMORY[0x277D3F180] debugEnabled];
-LABEL_34:
-      v29 = *MEMORY[0x277D85DE8];
-      return;
+      v20 = [(PowerlogMetricLog *)v19 kCellularPerClientProfileTriggerCountAtIndex:0];
+      if ([v20 hasTimestamp])
+      {
+        v22 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v20, "timestamp")}];
+      }
+
+      else
+      {
+        v22 = &unk_282C11718;
+      }
+
+      if ([v20 hasTriggerCount])
+      {
+        v29 = MEMORY[0x277CCABB0];
+        goto LABEL_40;
+      }
     }
+
+    v30 = &unk_282C11718;
+    goto LABEL_42;
   }
 
-  if (([MEMORY[0x277D3F208] isBasebandClass:1003009] & 1) == 0)
+  v13 = [v3 objectForKeyedSubscript:@"arr"];
+  if (v13)
   {
-    [*(a1 + 40) modelProdMetricsNotify];
-  }
+    v14 = [*(*(a1 + 40) + 120) decodePayload:*(a1 + 56) forMetricId:*(a1 + 32)];
+    v15 = objc_opt_class();
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __58__PLICEBBMetric_queuePeriodicMetricId_payload_forTrigger___block_invoke_2;
+    block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    block[4] = v15;
+    if (qword_2811F7910 != -1)
+    {
+      dispatch_once(&qword_2811F7910, block);
+    }
 
-  v18 = *(*(a1 + 40) + 120);
-  if (v18)
-  {
-    [v18 logBBIcePeriodicMetrics];
-  }
+    if (_MergedGlobals_97 == 1)
+    {
+      v16 = [PLICEBBMetricUtility convertToStringData:*(a1 + 56)];
+      [v14 setObject:v16 forKey:@"payload"];
+    }
 
-  v19 = [[PowerlogMetricLog alloc] initWithData:*(a1 + 56)];
-  if ([(PowerlogMetricLog *)v19 kCellularPerClientProfileTriggerCountsCount]>= 2)
-  {
-    [MEMORY[0x277D3F180] debugEnabled];
-  }
+    if (v14)
+    {
+      [v13 addObject:v14];
+    }
 
-  v20 = [(PowerlogMetricLog *)v19 kCellularPerClientProfileTriggerCountAtIndex:0];
-  if ([v20 hasTimestamp])
-  {
-    v21 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v20, "timestamp")}];
+    v17 = *(*(a1 + 40) + 120);
+    if (v17)
+    {
+      [v17 addToListMetric:*(a1 + 32) payload:*(a1 + 56)];
+    }
   }
 
   else
   {
-    v21 = &unk_282C11718;
+    v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"bad arr"];
+    v24 = MEMORY[0x277D3F178];
+    v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KICE/PLICEBBMetric.m"];
+    v26 = [v25 lastPathComponent];
+    v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLICEBBMetric queuePeriodicMetricId:payload:forTrigger:]_block_invoke"];
+    [v24 logMessage:v23 fromFile:v26 fromFunction:v27 fromLineNumber:282];
+
+    v28 = PLLogCommon();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 138412290;
+      v34 = v23;
+      _os_log_debug_impl(&dword_21A4C6000, v28, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+    }
+
+    if ([MEMORY[0x277D3F180] debugEnabled])
+    {
+      __assert_rtn("[PLICEBBMetric queuePeriodicMetricId:payload:forTrigger:]_block_invoke", "PLICEBBMetric.m", 283, "0");
+    }
   }
-
-  if (![v20 hasTriggerCount])
-  {
-    goto LABEL_42;
-  }
-
-  v30 = MEMORY[0x277CCABB0];
-LABEL_41:
-  v31 = [v30 numberWithUnsignedInt:{objc_msgSend(v20, "triggerCount")}];
-LABEL_43:
-  [*(a1 + 40) initializeMetricsDictWithTS:v33 triggerCnt:v31 triggerId:*(a1 + 48)];
-  [*(a1 + 40) initializeDataStoreBBTS:v33 triggerCnt:v31 triggerId:*(a1 + 48)];
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __58__PLICEBBMetric_queuePeriodicMetricId_payload_forTrigger___block_invoke_2(uint64_t a1)
+void *__58__PLICEBBMetric_queuePeriodicMetricId_payload_forTrigger___block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_97 = result;
@@ -494,34 +487,34 @@ LABEL_8:
 
 void __58__PLICEBBMetric_queueAperiodicMetricId_payload_profileId___block_invoke(uint64_t a1)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v2 = [[PowerlogMetricLog alloc] initWithData:*(a1 + 32)];
   v3 = v2;
   if (v2)
   {
     v4 = [(PowerlogMetricLog *)v2 dictionaryRepresentation];
+    v34 = 0u;
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v36 objects:v42 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v34 objects:v40 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = 0;
-      v8 = *v37;
+      v8 = *v35;
       do
       {
         v9 = 0;
         v10 = v7;
         do
         {
-          if (*v37 != v8)
+          if (*v35 != v8)
           {
             objc_enumerationMutation(v4);
           }
 
-          v11 = [v4 objectForKey:*(*(&v36 + 1) + 8 * v9)];
+          v11 = [v4 objectForKey:*(*(&v34 + 1) + 8 * v9)];
           v7 = [v11 objectAtIndex:0];
 
           ++v9;
@@ -529,7 +522,7 @@ void __58__PLICEBBMetric_queueAperiodicMetricId_payload_profileId___block_invoke
         }
 
         while (v6 != v9);
-        v6 = [v4 countByEnumeratingWithState:&v36 objects:v42 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v34 objects:v40 count:16];
       }
 
       while (v6);
@@ -544,19 +537,18 @@ void __58__PLICEBBMetric_queueAperiodicMetricId_payload_profileId___block_invoke
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v41 = v7;
+      v39 = v7;
       _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "aperiodic ICE metric: %@", buf, 0xCu);
     }
 
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
-      v14 = *(a1 + 40);
-      v15 = objc_opt_class();
+      v14 = objc_opt_class();
       block = MEMORY[0x277D85DD0];
-      v32 = 3221225472;
-      v33 = __58__PLICEBBMetric_queueAperiodicMetricId_payload_profileId___block_invoke_92;
-      v34 = &__block_descriptor_40_e5_v8__0lu32l8;
-      v35 = v15;
+      v30 = 3221225472;
+      v31 = __58__PLICEBBMetric_queueAperiodicMetricId_payload_profileId___block_invoke_92;
+      v32 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v33 = v14;
       if (qword_2811F7918 != -1)
       {
         dispatch_once(&qword_2811F7918, &block);
@@ -564,19 +556,19 @@ void __58__PLICEBBMetric_queueAperiodicMetricId_payload_profileId___block_invoke
 
       if (byte_2811F78F9 == 1)
       {
-        v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"aperiodic ICE metric: %@", v7, block, v32, v33, v34, v35];
-        v17 = MEMORY[0x277D3F178];
-        v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KICE/PLICEBBMetric.m"];
-        v19 = [v18 lastPathComponent];
-        v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLICEBBMetric queueAperiodicMetricId:payload:profileId:]_block_invoke_2"];
-        [v17 logMessage:v16 fromFile:v19 fromFunction:v20 fromLineNumber:348];
+        v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"aperiodic ICE metric: %@", v7, block, v30, v31, v32, v33];
+        v16 = MEMORY[0x277D3F178];
+        v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KICE/PLICEBBMetric.m"];
+        v18 = [v17 lastPathComponent];
+        v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLICEBBMetric queueAperiodicMetricId:payload:profileId:]_block_invoke_2"];
+        [v16 logMessage:v15 fromFile:v18 fromFunction:v19 fromLineNumber:348];
 
-        v21 = PLLogCommon();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+        v20 = PLLogCommon();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v41 = v16;
-          _os_log_debug_impl(&dword_21A4C6000, v21, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+          v39 = v15;
+          _os_log_debug_impl(&dword_21A4C6000, v20, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
@@ -586,24 +578,24 @@ void __58__PLICEBBMetric_queueAperiodicMetricId_payload_profileId___block_invoke
       if ([*(a1 + 48) intValue] == 3932163)
       {
         objc_storeStrong((*(a1 + 40) + 96), *(a1 + 56));
-        v22 = [v7 objectForKeyedSubscript:@"trigger_count"];
-        v23 = *(a1 + 40);
-        v24 = *(v23 + 88);
-        *(v23 + 88) = v22;
+        v21 = [v7 objectForKeyedSubscript:@"trigger_count"];
+        v22 = *(a1 + 40);
+        v23 = *(v22 + 88);
+        *(v22 + 88) = v21;
 
-        v25 = *(a1 + 40);
-        v26 = *(a1 + 32);
-        v27 = *(v25 + 104);
-        *(v25 + 104) = v26;
+        v24 = *(a1 + 40);
+        v25 = *(a1 + 32);
+        v26 = *(v24 + 104);
+        *(v24 + 104) = v25;
       }
 
       else
       {
-        v28 = [PLICEBBHardwareMessage alloc];
-        v29 = [v7 objectForKeyedSubscript:@"timestamp"];
-        v27 = [(PLICEBBHardwareMessage *)v28 initEntryWithBBTS:v29 triggerId:*(a1 + 48) seqnum:*(*(a1 + 40) + 88) payload:*(a1 + 32) logAgent:*(*(a1 + 40) + 8)];
+        v27 = [PLICEBBHardwareMessage alloc];
+        v28 = [v7 objectForKeyedSubscript:@"timestamp"];
+        v26 = [(PLICEBBHardwareMessage *)v27 initEntryWithBBTS:v28 triggerId:*(a1 + 48) seqnum:*(*(a1 + 40) + 88) payload:*(a1 + 32) logAgent:*(*(a1 + 40) + 8)];
 
-        [v27 logBBIceAperiodicMetrics];
+        [v26 logBBIceAperiodicMetrics];
       }
     }
   }
@@ -619,11 +611,9 @@ void __58__PLICEBBMetric_queueAperiodicMetricId_payload_profileId___block_invoke
 
     [MEMORY[0x277D3F180] debugEnabled];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __58__PLICEBBMetric_queueAperiodicMetricId_payload_profileId___block_invoke_92(uint64_t a1)
+void *__58__PLICEBBMetric_queueAperiodicMetricId_payload_profileId___block_invoke_92(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F78F9 = result;
@@ -632,7 +622,7 @@ uint64_t __58__PLICEBBMetric_queueAperiodicMetricId_payload_profileId___block_in
 
 - (void)modelSimMetricsNotify:(id)notify
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   notifyCopy = notify;
   if ([(NSString *)self->_notifyTitle isEqualToString:@"METRIC_PROD"])
   {
@@ -646,9 +636,9 @@ uint64_t __58__PLICEBBMetric_queueAperiodicMetricId_payload_profileId___block_in
     v10 = PLLogCommon();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 138412290;
-      v16 = v5;
-      _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "%@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = v5;
+      _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "%@", &v14, 0xCu);
     }
 
     if ([MEMORY[0x277D3F180] debugEnabled])
@@ -661,19 +651,17 @@ uint64_t __58__PLICEBBMetric_queueAperiodicMetricId_payload_profileId___block_in
   notifyTitle = self->_notifyTitle;
   v13 = [(NSMutableDictionary *)self->_sendSimMetrics copy];
   [v11 postNotificationName:notifyTitle object:self userInfo:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)modelProdMetricsNotify
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = [(NSMutableDictionary *)self->_prodMetrics objectForKey:@"arr"];
-  v2 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v2 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
   if (!v2)
   {
     v5 = -1;
@@ -682,7 +670,7 @@ uint64_t __58__PLICEBBMetric_queueAperiodicMetricId_payload_profileId___block_in
   }
 
   v3 = v2;
-  v4 = *v29;
+  v4 = *v28;
   v5 = -1;
   v6 = @"duration";
   v7 = -1;
@@ -691,12 +679,12 @@ uint64_t __58__PLICEBBMetric_queueAperiodicMetricId_payload_profileId___block_in
     for (i = 0; i != v3; ++i)
     {
       v9 = v6;
-      if (*v29 != v4)
+      if (*v28 != v4)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v28 + 1) + 8 * i);
+      v10 = *(*(&v27 + 1) + 8 * i);
       v11 = [v10 objectForKeyedSubscript:@"metricId"];
       intValue = [v11 intValue];
 
@@ -758,7 +746,7 @@ uint64_t __58__PLICEBBMetric_queueAperiodicMetricId_payload_profileId___block_in
 LABEL_21:
     }
 
-    v3 = [obj countByEnumeratingWithState:&v28 objects:v34 count:16];
+    v3 = [obj countByEnumeratingWithState:&v27 objects:v33 count:16];
   }
 
   while (v3);
@@ -785,7 +773,7 @@ LABEL_25:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v33 = v19;
+      v32 = v19;
       _os_log_debug_impl(&dword_21A4C6000, v24, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
 
@@ -794,8 +782,6 @@ LABEL_25:
       __assert_rtn("[PLICEBBMetric modelProdMetricsNotify]", "PLICEBBMetric.m", 420, "0");
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initializeMetricsDictWithTS:(id)s triggerCnt:(id)cnt triggerId:(id)id

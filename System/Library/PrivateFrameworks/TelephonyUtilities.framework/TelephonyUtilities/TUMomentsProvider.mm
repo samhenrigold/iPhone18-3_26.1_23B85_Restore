@@ -43,34 +43,34 @@
 
 - (TUMomentsProvider)initWithConversation:(id)conversation
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   conversationCopy = conversation;
-  v33.receiver = self;
-  v33.super_class = TUMomentsProvider;
-  v5 = [(TUMomentsProvider *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = TUMomentsProvider;
+  v5 = [(TUMomentsProvider *)&v32 init];
   if (v5)
   {
     v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     activeRemoteParticipants = [conversationCopy activeRemoteParticipants];
-    v8 = [activeRemoteParticipants countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v8 = [activeRemoteParticipants countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v30;
+      v10 = *v29;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v30 != v10)
+          if (*v29 != v10)
           {
             objc_enumerationMutation(activeRemoteParticipants);
           }
 
-          v12 = *(*(&v29 + 1) + 8 * i);
+          v12 = *(*(&v28 + 1) + 8 * i);
           avcIdentifier = [v12 avcIdentifier];
           if (avcIdentifier)
           {
@@ -86,7 +86,7 @@
           }
         }
 
-        v9 = [activeRemoteParticipants countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v9 = [activeRemoteParticipants countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v9);
@@ -117,7 +117,6 @@
     v5->_requesterID = v25;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

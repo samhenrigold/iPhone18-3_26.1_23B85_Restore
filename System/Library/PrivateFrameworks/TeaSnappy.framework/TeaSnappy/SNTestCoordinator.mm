@@ -5,6 +5,7 @@
 - (int64_t)lengthForNumberOfScreens:(int64_t)screens direction:(unint64_t)direction size:(CGSize)size;
 - (unint64_t)axisForDirection:(unint64_t)direction;
 - (void)failedTestWithTestName:(id)name failureMessage:(id)message;
+- (void)finishedTestWithTestName:(id)name waitForCommit:(BOOL)commit;
 - (void)recapScrollTestWithTestName:(id)name scrollView:(id)view;
 - (void)rotateToOrientation:(int64_t)orientation beforeRotation:(id)rotation afterRotation:(id)afterRotation;
 - (void)scrollTestWithTestName:(id)name scrollView:(id)view iterations:(int64_t)iterations offset:(int64_t)offset direction:(unint64_t)direction;
@@ -36,54 +37,74 @@
 
 - (SNTestCoordinator)initWithApplication:(id)application
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   applicationCopy = application;
   v6 = SNDefaultLog;
   if (os_log_type_enabled(SNDefaultLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = applicationCopy;
+    v12 = applicationCopy;
     _os_log_impl(&dword_26D1A2000, v6, OS_LOG_TYPE_DEFAULT, "Creating SNTestCoordinator with application %@", buf, 0xCu);
   }
 
-  v11.receiver = self;
-  v11.super_class = SNTestCoordinator;
-  v7 = [(SNTestCoordinator *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = SNTestCoordinator;
+  v7 = [(SNTestCoordinator *)&v10 init];
   v8 = v7;
   if (v7)
   {
     objc_storeStrong(&v7->_application, application);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (void)startedTestWithTestName:(id)name
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v5 = SNDefaultLog;
   if (os_log_type_enabled(SNDefaultLog, OS_LOG_TYPE_DEFAULT))
   {
     v6 = v5;
     application = [(SNTestCoordinator *)self application];
-    v10 = 138412546;
-    v11 = nameCopy;
-    v12 = 2112;
-    v13 = application;
-    _os_log_impl(&dword_26D1A2000, v6, OS_LOG_TYPE_DEFAULT, "Marking test %@ started on application %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = nameCopy;
+    v11 = 2112;
+    v12 = application;
+    _os_log_impl(&dword_26D1A2000, v6, OS_LOG_TYPE_DEFAULT, "Marking test %@ started on application %@", &v9, 0x16u);
   }
 
   application2 = [(SNTestCoordinator *)self application];
   [application2 startedTest:nameCopy];
+}
 
-  v9 = *MEMORY[0x277D85DE8];
+- (void)finishedTestWithTestName:(id)name waitForCommit:(BOOL)commit
+{
+  commitCopy = commit;
+  v17 = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  v7 = SNDefaultLog;
+  if (os_log_type_enabled(SNDefaultLog, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = v7;
+    application = [(SNTestCoordinator *)self application];
+    v11 = 138412802;
+    v12 = nameCopy;
+    v13 = 1024;
+    v14 = commitCopy;
+    v15 = 2112;
+    v16 = application;
+    _os_log_impl(&dword_26D1A2000, v8, OS_LOG_TYPE_DEFAULT, "Marking test %@ as completed with waitForCommit %d on application %@", &v11, 0x1Cu);
+  }
+
+  application2 = [(SNTestCoordinator *)self application];
+  [application2 finishedTest:nameCopy waitForCommit:commitCopy extraResults:0];
 }
 
 - (void)failedTestWithTestName:(id)name failureMessage:(id)message
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   messageCopy = message;
   v8 = SNDefaultLog;
@@ -91,19 +112,17 @@
   {
     v9 = v8;
     application = [(SNTestCoordinator *)self application];
-    v13 = 138412802;
-    v14 = nameCopy;
-    v15 = 2112;
-    v16 = application;
-    v17 = 2112;
-    v18 = messageCopy;
-    _os_log_impl(&dword_26D1A2000, v9, OS_LOG_TYPE_DEFAULT, "Marking test %@ failed on application %@ with error %@", &v13, 0x20u);
+    v12 = 138412802;
+    v13 = nameCopy;
+    v14 = 2112;
+    v15 = application;
+    v16 = 2112;
+    v17 = messageCopy;
+    _os_log_impl(&dword_26D1A2000, v9, OS_LOG_TYPE_DEFAULT, "Marking test %@ failed on application %@ with error %@", &v12, 0x20u);
   }
 
   application2 = [(SNTestCoordinator *)self application];
   [application2 failedTest:nameCopy withFailure:messageCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)requiresRotationForOrientation:(int64_t)orientation

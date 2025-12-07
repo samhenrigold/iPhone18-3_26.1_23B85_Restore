@@ -100,14 +100,14 @@
 
 - (id)dictionaryRepresentation
 {
-  v14[2] = *MEMORY[0x277D85DE8];
-  v13[0] = @"DDUIMessageResponseIsCancelKey";
+  v13[2] = *MEMORY[0x277D85DE8];
+  v12[0] = @"DDUIMessageResponseIsCancelKey";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:{-[DDUIPairCompleteMessage isCancellation](self, "isCancellation")}];
-  v14[0] = v3;
-  v13[1] = @"DDUIMessageResponseResultKey";
+  v13[0] = v3;
+  v12[1] = @"DDUIMessageResponseResultKey";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[DDUIPairCompleteMessage notificationResult](self, "notificationResult")}];
-  v14[1] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[1] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
   v6 = [v5 mutableCopy];
 
   cancellationReason = [(DDUIPairCompleteMessage *)self cancellationReason];
@@ -125,8 +125,6 @@
     listenerUUID2 = [(DDUIPairCompleteMessage *)self listenerUUID];
     [v6 setObject:listenerUUID2 forKeyedSubscript:@"DDUIMessageResponseListenerUUIDKey"];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

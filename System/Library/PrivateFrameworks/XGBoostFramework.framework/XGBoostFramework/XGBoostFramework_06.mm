@@ -1,549 +1,28 @@
-void xgboost::tree::TreeEvaluator::SplitEvaluator<xgboost::tree::TrainParam>::CalcSplitGain(void *a1, float *a2, int a3, unsigned int a4, double *a5, double *a6, int8x16_t a7, int8x16_t a8)
+void xgboost::tree::TreeEvaluator::AddSplit<false>(uint64_t result, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5, float a6, float a7)
 {
-  if (*a1 <= a4)
+  if (*(result + 28) == 1)
   {
-    std::terminate();
-  }
-
-  v13 = *(a1[1] + 4 * a4);
-  *v14.i32 = xgboost::tree::TreeEvaluator::SplitEvaluator<xgboost::tree::TrainParam>::CalcWeight(a1, a3, a2, a5, a7, a8);
-  v15 = *v14.i32;
-  v17 = xgboost::tree::TreeEvaluator::SplitEvaluator<xgboost::tree::TrainParam>::CalcWeight(a1, a3, a2, a6, v14, v16);
-  xgboost::tree::TreeEvaluator::SplitEvaluator<xgboost::tree::TrainParam>::CalcGainGivenWeight(a1, a2, a5, v15);
-  xgboost::tree::TreeEvaluator::SplitEvaluator<xgboost::tree::TrainParam>::CalcGainGivenWeight(a1, a2, a6, v17);
-}
-
-uint64_t *std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::find<unsigned int>(void *a1, unsigned int *a2)
-{
-  v2 = a1[1];
-  if (!*&v2)
-  {
-    return 0;
-  }
-
-  v3 = *a2;
-  v4 = vcnt_s8(v2);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
-  {
-    v5 = *a2;
-    if (*&v2 <= v3)
-    {
-      v5 = v3 % v2.i32[0];
-    }
-  }
-
-  else
-  {
-    v5 = (v2.i32[0] - 1) & v3;
-  }
-
-  v6 = *(*a1 + 8 * v5);
-  if (!v6)
-  {
-    return 0;
-  }
-
-  for (result = *v6; result; result = *result)
-  {
-    v8 = result[1];
-    if (v8 == v3)
-    {
-      if (*(result + 4) == v3)
-      {
-        return result;
-      }
-    }
-
-    else
-    {
-      if (v4.u32[0] > 1uLL)
-      {
-        if (v8 >= *&v2)
-        {
-          v8 %= *&v2;
-        }
-      }
-
-      else
-      {
-        v8 &= *&v2 - 1;
-      }
-
-      if (v8 != v5)
-      {
-        return 0;
-      }
-    }
-  }
-
-  return result;
-}
-
-float xgboost::tree::TreeEvaluator::SplitEvaluator<xgboost::tree::TrainParam>::CalcWeight(uint64_t a1, int a2, float *a3, double *a4, int8x16_t a5, int8x16_t a6)
-{
-  v6 = a4[1];
-  a6.i64[0] = 0;
-  v7 = v6 <= 0.0 || v6 < a3[8];
-  if (!v7)
-  {
-    v8 = *a4;
-    v9 = a3[10];
-    v10 = v9;
-    v7 = *a4 < -v9;
-    v11 = *a4 + v9;
-    if (!v7)
-    {
-      v11 = 0.0;
-    }
-
-    v12 = v8 <= v10;
-    v13 = v8 - v10;
-    if (v12)
-    {
-      v13 = v11;
-    }
-
-    *a6.i64 = -v13 / (v6 + a3[9]);
-    v14 = a3[11];
-    if (v14 != 0.0)
-    {
-      *a5.i64 = v14;
-      if (fabs(*a6.i64) > *a5.i64)
-      {
-        v15.f64[0] = NAN;
-        v15.f64[1] = NAN;
-        a6.i64[0] = vbslq_s8(vnegq_f64(v15), a5, a6).u64[0];
-      }
-    }
-  }
-
-  v16 = *a6.i64;
-  if (a2 == 0x7FFFFFFF || (*(a1 + 48) & 1) == 0)
-  {
-    return v16;
-  }
-
-  if (*(a1 + 16) <= a2)
-  {
-    goto LABEL_21;
-  }
-
-  result = *(*(a1 + 24) + 4 * a2);
-  if (result > v16)
-  {
-    return result;
-  }
-
-  if (*(a1 + 32) <= a2)
-  {
-LABEL_21:
-    std::terminate();
-  }
-
-  result = v16;
-  if (*(*(a1 + 40) + 4 * a2) < v16)
-  {
-    return *(*(a1 + 40) + 4 * a2);
-  }
-
-  return result;
-}
-
-float xgboost::tree::TreeEvaluator::SplitEvaluator<xgboost::tree::TrainParam>::CalcGainGivenWeight(uint64_t a1, float *a2, double *a3, float a4)
-{
-  v4 = a3[1];
-  v5 = 0.0;
-  if (v4 > 0.0)
-  {
-    if (a2[11] == 0.0 && (*(a1 + 48) & 1) == 0)
-    {
-      v8 = *a3;
-      v9 = a2[10];
-      v10 = v9;
-      if (*a3 <= v9)
-      {
-        v12 = -v9;
-        v11 = 0.0;
-        if (v8 < v12)
-        {
-          v11 = v8 + v10;
-        }
-      }
-
-      else
-      {
-        v11 = v8 - v10;
-      }
-
-      return v11 * v11 / (v4 + a2[9]);
-    }
-
-    else
-    {
-      v6 = *a3;
-      v7 = v4;
-      return -(((a4 * a4) * (a2[9] + v7)) + ((v6 + v6) * a4));
-    }
-  }
-
-  return v5;
-}
-
-int *std::__unique[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<unsigned int *>,std::__wrap_iter<unsigned int *>,std::__equal_to &>(int *a1, int *a2)
-{
-  result = a2;
-  if (a1 != a2)
-  {
-    v4 = a1 + 1;
-    while (v4 != a2)
-    {
-      v5 = *(v4 - 1);
-      v6 = *v4++;
-      if (v5 == v6)
-      {
-        v7 = v4 - 2;
-        goto LABEL_7;
-      }
-    }
-
-    v7 = a2;
-LABEL_7:
-    result = a2;
-    if (v7 != a2)
-    {
-      v8 = v7 + 2;
-      if (v7 + 2 != a2)
-      {
-        v9 = *v7;
-        do
-        {
-          v10 = v9;
-          v9 = *v8;
-          if (v10 != *v8)
-          {
-            v7[1] = v9;
-            ++v7;
-          }
-
-          ++v8;
-        }
-
-        while (v8 != a2);
-      }
-
-      return v7 + 1;
-    }
-  }
-
-  return result;
-}
-
-void xgboost::tree::ColMaker::Builder::InitNewNode(uint64_t a1, int **a2, float32x2_t **a3, uint64_t a4, uint64_t a5)
-{
-  v72 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 2640);
-  v68 = *(a1 + 2648);
-  if (v7 != v68)
-  {
-    while (1)
-    {
-      v8 = *(a5 + 12);
-      memset(v69, 0, sizeof(v69));
-      v9 = *v7;
-      v10 = v7[1];
-      v11 = 0x4EC4EC4EC4EC4EC5 * ((v10 - *v7) >> 3);
-      v12 = v8 - v11;
-      if (v8 > v11)
-      {
-        break;
-      }
-
-      if (v8 < v11)
-      {
-        v17 = v9 + 104 * v8;
-        while (v10 != v17)
-        {
-          v18 = *(v10 - 64);
-          if (v18)
-          {
-            *(v10 - 56) = v18;
-            operator delete(v18);
-          }
-
-          v10 -= 104;
-        }
-
-        goto LABEL_19;
-      }
-
-LABEL_20:
-      v7 += 3;
-      if (v7 == v68)
-      {
-        goto LABEL_21;
-      }
-    }
-
-    v13 = v7[2];
-    if (0x4EC4EC4EC4EC4EC5 * ((v13 - v10) >> 3) < v12)
-    {
-      if ((v8 & 0x80000000) == 0)
-      {
-        v14 = 0x4EC4EC4EC4EC4EC5 * ((v13 - v9) >> 3);
-        v15 = 2 * v14;
-        if (2 * v14 <= v8)
-        {
-          v15 = v8;
-        }
-
-        if (v14 >= 0x13B13B13B13B13BLL)
-        {
-          v16 = 0x276276276276276;
-        }
-
-        else
-        {
-          v16 = v15;
-        }
-
-        std::__allocate_at_least[abi:ne200100]<std::allocator<xgboost::tree::ColMaker::ThreadEntry>>(v16);
-      }
-
-      std::vector<void *>::__throw_length_error[abi:ne200100]();
-    }
-
-    v17 = v10 + 104 * v12;
-    v19 = v10 + 40;
-    v20 = 104 * v8 - 104 * v11;
-    do
-    {
-      *(v19 - 40) = 0u;
-      *(v19 - 24) = 0;
-      *(v19 - 16) = 0;
-      *(v19 - 8) = 0;
-      *(v19 + 8) = 0;
-      *(v19 + 16) = 0;
-      *v19 = 0;
-      std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(v19, 0, 0, 0);
-      *(v19 + 24) = *&v69[1].__ptr_;
-      *(v19 + 40) = *&v69[3].__ptr_;
-      *(v19 + 56) = v69[5];
-      v19 += 104;
-      v20 -= 104;
-    }
-
-    while (v20);
-LABEL_19:
-    v7[1] = v17;
-    goto LABEL_20;
-  }
-
-LABEL_21:
-  v21 = *(a5 + 12);
-  memset(v69, 0, sizeof(v69));
-  v22 = *(a1 + 2672);
-  v23 = *(a1 + 2664);
-  v24 = 0x4EC4EC4EC4EC4EC5 * ((v22 - v23) >> 3);
-  v25 = v21 >= v24;
-  v26 = v21 - v24;
-  if (v21 <= v24)
-  {
-    v32 = a4;
-    v31 = a2;
-    if (!v25)
-    {
-      v33 = v23 + 104 * v21;
-      while (v22 != v33)
-      {
-        v34 = *(v22 - 64);
-        if (v34)
-        {
-          *(v22 - 56) = v34;
-          operator delete(v34);
-        }
-
-        v22 -= 104;
-      }
-
-      *(a1 + 2672) = v33;
-    }
-  }
-
-  else
-  {
-    v27 = *(a1 + 2680);
-    if (0x4EC4EC4EC4EC4EC5 * ((v27 - v22) >> 3) < v26)
-    {
-      if ((v21 & 0x80000000) == 0)
-      {
-        v28 = 0x4EC4EC4EC4EC4EC5 * ((v27 - v23) >> 3);
-        v29 = 2 * v28;
-        if (2 * v28 <= v21)
-        {
-          v29 = v21;
-        }
-
-        if (v28 >= 0x13B13B13B13B13BLL)
-        {
-          v30 = 0x276276276276276;
-        }
-
-        else
-        {
-          v30 = v29;
-        }
-
-        if (v30 <= 0x276276276276276)
-        {
-          operator new();
-        }
-
-        std::__throw_bad_array_new_length[abi:ne200100]();
-      }
-
-      std::vector<void *>::__throw_length_error[abi:ne200100]();
-    }
-
-    v35 = v22 + 104 * v26;
-    v36 = v22 + 40;
-    v37 = 104 * v21 - 104 * v24;
-    do
-    {
-      *(v36 - 40) = 0u;
-      *(v36 - 24) = 0u;
-      *(v36 - 8) = 0;
-      *(v36 + 8) = 0;
-      *(v36 + 16) = 0;
-      *v36 = 0;
-      std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(v36, 0, 0, 0);
-      *(v36 + 24) = *&v69[1].__ptr_;
-      *(v36 + 40) = *&v69[3].__ptr_;
-      *(v36 + 56) = v69[5];
-      v36 += 104;
-      v37 -= 104;
-    }
-
-    while (v37);
-    *(a1 + 2672) = v35;
-    v32 = a4;
-    v31 = a2;
-  }
-
-  v38 = *(*(*v32 + 24))(v32);
-  v69[0].__ptr_ = 0;
-  v69[1].__ptr_ = 850045863;
-  memset(&v69[2], 0, 32);
-  v70 = 0u;
-  v71 = 0;
-  if (v38)
-  {
-    v39 = *(a1 + 2616);
-    v40 = *a3;
-    do
-    {
-      v42 = *v39++;
-      v41 = v42;
-      if ((v42 & 0x80000000) == 0)
-      {
-        *(**(a1 + 2640) + 104 * v41) = vaddq_f64(*(**(a1 + 2640) + 104 * v41), vcvtq_f64_f32(*v40));
-      }
-
-      ++v40;
-      --v38;
-    }
-
-    while (v38);
-  }
-
-  dmlc::OMPException::Rethrow(v69);
-  std::mutex::~mutex(&v69[1]);
-  std::exception_ptr::~exception_ptr(v69);
-  v43 = *v31;
-  v44 = v31[1];
-  if (*v31 != v44)
-  {
-    v45 = *(a1 + 2640);
-    v46 = *(a1 + 2648);
-    v47 = *(a1 + 2664);
-    do
-    {
-      v48 = *v43;
-      v49 = 0uLL;
-      if (v45 != v46)
-      {
-        v50 = v45;
-        do
-        {
-          v51 = *v50;
-          v50 += 3;
-          v49 = vaddq_f64(v49, *(v51 + 104 * v48));
-        }
-
-        while (v50 != v46);
-      }
-
-      *(v47 + 104 * v48) = v49;
-      ++v43;
-    }
-
-    while (v43 != v44);
-  }
-
-  xgboost::tree::TreeEvaluator::GetEvaluator<xgboost::tree::TrainParam>((a1 + 2712), v69);
-  v54 = *v31;
-  v55 = v31[1];
-  if (*v31 != v55)
-  {
-    v56 = *(a1 + 2664);
-    do
-    {
-      v57 = *v54;
-      v58 = *(*(a5 + 160) + 20 * *v54);
-      *v59.i32 = xgboost::tree::TreeEvaluator::SplitEvaluator<xgboost::tree::TrainParam>::CalcWeight(v69, v58 & 0x7FFFFFFF, *(a1 + 8), (v56 + 104 * *v54), v52, v53);
-      v60 = *(a1 + 2664) + 104 * v57;
-      *(v60 + 20) = v59.i32[0];
-      v61 = *(a1 + 8);
-      v63 = xgboost::tree::TreeEvaluator::SplitEvaluator<xgboost::tree::TrainParam>::CalcWeight(v69, v58 & 0x7FFFFFFF, v61, v60, v59, v62);
-      *v52.i32 = xgboost::tree::TreeEvaluator::SplitEvaluator<xgboost::tree::TrainParam>::CalcGainGivenWeight(v69, v61, v60, v63);
-      v56 = *(a1 + 2664);
-      *(v56 + 104 * v57 + 16) = v52.i32[0];
-      ++v54;
-    }
-
-    while (v54 != v55);
-  }
-
-  v64 = *MEMORY[0x277D85DE8];
-}
-
-void xgboost::tree::TreeEvaluator::AddSplit<false>(uint64_t a1, int a2, int a3, int a4, int a5, float a6, float a7)
-{
-  if (*(a1 + 28) == 1)
-  {
-    v15 = v7;
-    v16 = v8;
-    v9 = *(a1 + 24);
-    v10[0] = a3;
-    v10[1] = a2;
-    v10[2] = a4;
-    v10[3] = a5;
-    *&v10[4] = a6;
-    *&v10[5] = a7;
-    v11 = xmmword_274E1F3B0;
-    v12 = vdupq_n_s64(1uLL);
-    v13 = 1;
-    v14 = v9;
-    xgboost::common::Transform<false>::Evaluator<void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1}>::Eval<xgboost::HostDeviceVector<float> *,xgboost::HostDeviceVector<float> *,xgboost::HostDeviceVector<int> *>(v10, a1, a1 + 8, a1 + 16);
+    v17 = v7;
+    v18 = v8;
+    v9 = *(result + 24);
+    *&v10 = __PAIR64__(a2, a3);
+    *(&v10 + 1) = __PAIR64__(a5, a4);
+    v11 = a6;
+    v12 = a7;
+    v13 = xmmword_274E1F3B0;
+    v14 = vdupq_n_s64(1uLL);
+    v15 = 1;
+    v16 = v9;
+    xgboost::common::Transform<false>::Evaluator<void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1}>::Eval<xgboost::HostDeviceVector<float> *,xgboost::HostDeviceVector<float> *,xgboost::HostDeviceVector<int> *>(&v10, result, result + 8, result + 16);
   }
 }
 
-void xgboost::common::ColumnSampler::Init(float *a1, std::vector<unsigned int>::size_type a2, __n128 *__c, float a4, float a5, float a6)
+void xgboost::common::ColumnSampler::Init(std::vector<unsigned int> ***a1, std::vector<unsigned int>::size_type a2, __n128 *__c, float a4, float a5, float a6)
 {
-  std::vector<float>::__move_assign((a1 + 10), __c);
-  a1[16] = a5;
-  a1[17] = a6;
-  a1[18] = a4;
+  std::vector<float>::__move_assign((a1 + 5), __c);
+  *(a1 + 16) = a5;
+  *(a1 + 17) = a6;
+  *(a1 + 18) = a4;
   if (!*a1)
   {
     _ZNSt3__115allocate_sharedB8ne200100IN7xgboost16HostDeviceVectorIjEENS_9allocatorIS3_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
@@ -555,15 +34,15 @@ void xgboost::common::ColumnSampler::Init(float *a1, std::vector<unsigned int>::
   std::vector<unsigned int>::resize(*v11, a2, __x);
   v12 = *a1;
   v13 = **a1;
-  v15 = *v13;
-  v14 = v13[1];
-  if (*v13 != v14)
+  begin = v13->__begin_;
+  end = v13->__end_;
+  if (v13->__begin_ != end)
   {
     v16 = 0;
-    v17 = (v14 - v15 - 4) >> 2;
+    v17 = (end - begin - 4) >> 2;
     v18 = vdupq_n_s64(v17);
     v19 = (v17 + 4) & 0x7FFFFFFFFFFFFFFCLL;
-    v20 = (v15 + 8);
+    v20 = begin + 2;
     do
     {
       v21 = vdupq_n_s64(v16);
@@ -591,7 +70,7 @@ void xgboost::common::ColumnSampler::Init(float *a1, std::vector<unsigned int>::
     while (v19 != v16);
   }
 
-  v23 = *(a1 + 1);
+  v23 = a1[1];
   v26 = v12;
   v27 = v23;
   if (v23)
@@ -599,10 +78,10 @@ void xgboost::common::ColumnSampler::Init(float *a1, std::vector<unsigned int>::
     atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  xgboost::common::ColumnSampler::ColSample(&v26, __x, a1[17]);
+  xgboost::common::ColumnSampler::ColSample(&v26, __x, *(a1 + 17));
   v24 = *__x;
   memset(__x, 0, sizeof(__x));
-  v25 = *(a1 + 1);
+  v25 = a1[1];
   *a1 = v24;
   if (v25)
   {
@@ -635,7 +114,6 @@ void std::vector<int>::reserve(std::vector<int> *this, std::vector<int>::size_ty
   {
     if (!(__n >> 62))
     {
-      v2 = this->__end_ - this->__begin_;
       std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(this, __n);
     }
 
@@ -645,38 +123,38 @@ void std::vector<int>::reserve(std::vector<int> *this, std::vector<int>::size_ty
 
 void dmlc::LogCheckFormat<unsigned long long,unsigned long>(void *a1, void *a2)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v8);
-  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v8, " (", 2);
-  v5 = MEMORY[0x277C68E70](v4, *a1);
-  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, " vs. ", 5);
-  v7 = MEMORY[0x277C68E50](v6, *a2);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, ") ", 2);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v9);
+  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, " (", 2);
+  v6 = MEMORY[0x277C68E70](v5, *a1);
+  v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, " vs. ", 5);
+  v8 = MEMORY[0x277C68E50](v7, *a2);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, ") ", 2);
   operator new();
 }
 
-void sub_274D19ED8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_274D19ED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  MEMORY[0x277C69180](v2, 0x1012C40EC159624);
+  va_start(va, a3);
+  MEMORY[0x277C69180](v3, 0x1012C40EC159624);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
 
 void dmlc::LogCheckFormat<int,xgboost::tree::TrainParam::SamplingMethod>(unsigned int *a1, unsigned int *a2)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v8);
-  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v8, " (", 2);
-  v5 = MEMORY[0x277C68E20](v4, *a1);
-  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, " vs. ", 5);
-  v7 = MEMORY[0x277C68E20](v6, *a2);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, ") ", 2);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v9);
+  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, " (", 2);
+  v6 = MEMORY[0x277C68E20](v5, *a1);
+  v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, " vs. ", 5);
+  v8 = MEMORY[0x277C68E20](v7, *a2);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, ") ", 2);
   operator new();
 }
 
-void sub_274D1A0C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_274D1A0C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  MEMORY[0x277C69180](v2, 0x1012C40EC159624);
+  va_start(va, a3);
+  MEMORY[0x277C69180](v3, 0x1012C40EC159624);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -687,11 +165,11 @@ void xgboost::common::ColumnSampler::Reset(std::vector<unsigned int> ***this)
   v2 = *this;
   __x = 0;
   std::vector<unsigned int>::resize(*v2, 0, &__x);
-  v3 = *(v1 + 3);
-  v1 = (v1 + 24);
-  std::__tree<std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>,std::__map_value_compare<int,std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>>>::destroy(v1 - 8, v3);
+  v3 = v1[3];
+  v1 += 3;
+  std::__tree<std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>,std::__map_value_compare<int,std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>>>::destroy((v1 - 1), v3);
   *v1 = 0;
-  *(v1 + 1) = 0;
+  v1[1] = 0;
   *(v1 - 1) = v1;
 }
 
@@ -732,7 +210,7 @@ void std::__shared_ptr_emplace<xgboost::HostDeviceVector<unsigned int>>::~__shar
   JUMPOUT(0x277C69180);
 }
 
-void std::vector<xgboost::tree::ColMaker::ThreadEntry>::__init_with_size[abi:ne200100]<xgboost::tree::ColMaker::ThreadEntry*,xgboost::tree::ColMaker::ThreadEntry*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<xgboost::tree::ColMaker::ThreadEntry>::__init_with_size[abi:ne200100]<xgboost::tree::ColMaker::ThreadEntry*,xgboost::tree::ColMaker::ThreadEntry*>(uint64_t result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -755,7 +233,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<xgboost::tree::ColMak
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -954,23 +432,23 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<xgboos
   }
 }
 
-void xgboost::common::ColumnSampler::GetFeatureSet(xgboost::common::ColumnSampler *this@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+void xgboost::common::ColumnSampler::GetFeatureSet(void ****__return_ptr a1@<X8>, xgboost::common::ColumnSampler *this@<X0>, int a3@<W1>)
 {
-  v21 = a2;
+  v21 = a3;
   v5 = *(this + 16);
   if (v5 == 1.0 && *(this + 18) == 1.0)
   {
     v6 = *(this + 1);
-    *a3 = *this;
+    *a1 = *this;
     goto LABEL_18;
   }
 
   for (i = *(this + 3); i; i = *i)
   {
     v8 = *(i + 8);
-    if (v8 <= a2)
+    if (v8 <= a3)
     {
-      if (v8 >= a2)
+      if (v8 >= a3)
       {
         goto LABEL_16;
       }
@@ -990,7 +468,7 @@ void xgboost::common::ColumnSampler::GetFeatureSet(xgboost::common::ColumnSample
 
   xgboost::common::ColumnSampler::ColSample(&v18, &v20, v5);
   v22 = &v21;
-  v10 = std::__tree<std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>,std::__map_value_compare<int,std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 16, &v21);
+  v10 = std::__tree<std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>,std::__map_value_compare<int,std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 16, &v21, &std::piecewise_construct, &v22);
   v11 = v20;
   v20 = 0uLL;
   v12 = v10[6];
@@ -1013,11 +491,11 @@ LABEL_16:
   if (*(this + 18) == 1.0)
   {
     *&v20 = &v21;
-    v13 = std::__tree<std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>,std::__map_value_compare<int,std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 16, &v21);
-    *a3 = v13[5];
+    v13 = std::__tree<std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>,std::__map_value_compare<int,std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 16, &v21, &std::piecewise_construct, &v20);
+    *a1 = v13[5];
     v6 = v13[6];
 LABEL_18:
-    *(a3 + 8) = v6;
+    a1[1] = v6;
     if (v6)
     {
       atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
@@ -1027,7 +505,7 @@ LABEL_18:
   }
 
   *&v20 = &v21;
-  v14 = std::__tree<std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>,std::__map_value_compare<int,std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 16, &v21);
+  v14 = std::__tree<std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>,std::__map_value_compare<int,std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(this + 16, &v21, &std::piecewise_construct, &v20);
   v15 = v14[6];
   v16 = v14[5];
   v17 = v15;
@@ -1036,7 +514,7 @@ LABEL_18:
     atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  xgboost::common::ColumnSampler::ColSample(&v16, a3, *(this + 18));
+  xgboost::common::ColumnSampler::ColSample(&v16, a1, *(this + 18));
   if (v17)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v17);
@@ -1053,58 +531,58 @@ void sub_274D1A978(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__tree<std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>,std::__map_value_compare<int,std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>,std::__map_value_compare<int,std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>,std::less<int>,true>,std::allocator<std::__value_type<int,std::shared_ptr<xgboost::HostDeviceVector<unsigned int>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(uint64_t a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-void xgboost::common::Transform<false>::Evaluator<void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1}>::Eval<xgboost::HostDeviceVector<float> *,xgboost::HostDeviceVector<float> *,xgboost::HostDeviceVector<int> *>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void xgboost::common::Transform<false>::Evaluator<void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1}>::Eval<xgboost::HostDeviceVector<float> *,xgboost::HostDeviceVector<float> *,xgboost::HostDeviceVector<int> *>(__int128 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  if ((*(a1 + 60) & 0x80000000) != 0)
+  if ((*(a1 + 15) & 0x80000000) != 0)
   {
     v6 = *a1;
-    v7 = *(a1 + 16);
+    v7 = *(a1 + 2);
     v8 = a4;
     v9 = a3;
     v10 = a2;
-    v4 = *(a1 + 40);
-    v5 = *(a1 + 56);
+    v4 = *(a1 + 5);
+    v5 = *(a1 + 14);
     *&v11 = &v6;
     *(&v11 + 1) = &v10;
     v12 = a1;
@@ -1116,7 +594,7 @@ void xgboost::common::Transform<false>::Evaluator<void xgboost::tree::TreeEvalua
   else
   {
     v11 = *a1;
-    v12 = *(a1 + 16);
+    v12 = *(a1 + 2);
     xgboost::common::Transform<false>::Evaluator<void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1}>::LaunchCUDA<(void *)0,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int>>();
   }
 }
@@ -1133,17 +611,17 @@ void xgboost::common::Transform<false>::Evaluator<void xgboost::tree::TreeEvalua
 
 void xgboost::common::ParallelFor<unsigned long,void xgboost::common::Transform<false>::Evaluator<void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1}>::LaunchCPU<xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int>>(void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1},xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int> *)::{lambda(unsigned long)#1}>(uint64_t a1, int a2, int a3, uint64_t a4, __int128 *a5)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  LODWORD(v20) = a2;
-  v23 = 1;
+  v25 = *MEMORY[0x277D85DE8];
+  LODWORD(v19) = a2;
+  v22 = 1;
   if (a2 < 1)
   {
-    dmlc::LogCheckFormat<int,int>(&v20, &v23);
+    dmlc::LogCheckFormat<int,int>(&v19, &v22);
   }
 
-  v24.__ptr_ = 0;
-  v25.__m_.__sig = 850045863;
-  memset(v25.__m_.__opaque, 0, sizeof(v25.__m_.__opaque));
+  v23.__ptr_ = 0;
+  v24.__m_.__sig = 850045863;
+  memset(v24.__m_.__opaque, 0, sizeof(v24.__m_.__opaque));
   if (a3 > 1)
   {
     if (a3 == 2)
@@ -1155,10 +633,10 @@ void xgboost::common::ParallelFor<unsigned long,void xgboost::common::Transform<
           for (i = 0; i != a1; ++i)
           {
             v14 = a5[1];
-            v20 = *a5;
-            v21 = v14;
-            v22 = *(a5 + 4);
-            dmlc::OMPException::Run<void xgboost::common::Transform<false>::Evaluator<void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1}>::LaunchCPU<xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int>>(void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1},xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int> *)::{lambda(unsigned long)#1},unsigned long>(&v24, &v20, i);
+            v19 = *a5;
+            v20 = v14;
+            v21 = *(a5 + 4);
+            dmlc::OMPException::Run<void xgboost::common::Transform<false>::Evaluator<void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1}>::LaunchCPU<xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int>>(void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1},xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int> *)::{lambda(unsigned long)#1},unsigned long>(&v23, &v19, i);
           }
         }
       }
@@ -1168,10 +646,10 @@ void xgboost::common::ParallelFor<unsigned long,void xgboost::common::Transform<
         for (j = 0; j != a1; ++j)
         {
           v18 = a5[1];
-          v20 = *a5;
-          v21 = v18;
-          v22 = *(a5 + 4);
-          dmlc::OMPException::Run<void xgboost::common::Transform<false>::Evaluator<void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1}>::LaunchCPU<xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int>>(void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1},xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int> *)::{lambda(unsigned long)#1},unsigned long>(&v24, &v20, j);
+          v19 = *a5;
+          v20 = v18;
+          v21 = *(a5 + 4);
+          dmlc::OMPException::Run<void xgboost::common::Transform<false>::Evaluator<void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1}>::LaunchCPU<xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int>>(void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1},xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int> *)::{lambda(unsigned long)#1},unsigned long>(&v23, &v19, j);
         }
       }
     }
@@ -1181,10 +659,10 @@ void xgboost::common::ParallelFor<unsigned long,void xgboost::common::Transform<
       for (k = 0; k != a1; ++k)
       {
         v10 = a5[1];
-        v20 = *a5;
-        v21 = v10;
-        v22 = *(a5 + 4);
-        dmlc::OMPException::Run<void xgboost::common::Transform<false>::Evaluator<void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1}>::LaunchCPU<xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int>>(void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1},xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int> *)::{lambda(unsigned long)#1},unsigned long>(&v24, &v20, k);
+        v19 = *a5;
+        v20 = v10;
+        v21 = *(a5 + 4);
+        dmlc::OMPException::Run<void xgboost::common::Transform<false>::Evaluator<void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1}>::LaunchCPU<xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int>>(void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1},xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int> *)::{lambda(unsigned long)#1},unsigned long>(&v23, &v19, k);
       }
     }
   }
@@ -1200,10 +678,10 @@ void xgboost::common::ParallelFor<unsigned long,void xgboost::common::Transform<
           for (m = 0; m != a1; ++m)
           {
             v8 = a5[1];
-            v20 = *a5;
-            v21 = v8;
-            v22 = *(a5 + 4);
-            dmlc::OMPException::Run<void xgboost::common::Transform<false>::Evaluator<void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1}>::LaunchCPU<xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int>>(void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1},xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int> *)::{lambda(unsigned long)#1},unsigned long>(&v24, &v20, m);
+            v19 = *a5;
+            v20 = v8;
+            v21 = *(a5 + 4);
+            dmlc::OMPException::Run<void xgboost::common::Transform<false>::Evaluator<void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1}>::LaunchCPU<xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int>>(void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1},xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int> *)::{lambda(unsigned long)#1},unsigned long>(&v23, &v19, m);
           }
         }
       }
@@ -1213,10 +691,10 @@ void xgboost::common::ParallelFor<unsigned long,void xgboost::common::Transform<
         for (n = 0; n != a1; ++n)
         {
           v16 = a5[1];
-          v20 = *a5;
-          v21 = v16;
-          v22 = *(a5 + 4);
-          dmlc::OMPException::Run<void xgboost::common::Transform<false>::Evaluator<void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1}>::LaunchCPU<xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int>>(void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1},xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int> *)::{lambda(unsigned long)#1},unsigned long>(&v24, &v20, n);
+          v19 = *a5;
+          v20 = v16;
+          v21 = *(a5 + 4);
+          dmlc::OMPException::Run<void xgboost::common::Transform<false>::Evaluator<void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1}>::LaunchCPU<xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int>>(void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1},xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int> *)::{lambda(unsigned long)#1},unsigned long>(&v23, &v19, n);
         }
       }
     }
@@ -1227,23 +705,22 @@ void xgboost::common::ParallelFor<unsigned long,void xgboost::common::Transform<
     for (ii = 0; ii != a1; ++ii)
     {
       v12 = a5[1];
-      v20 = *a5;
-      v21 = v12;
-      v22 = *(a5 + 4);
-      dmlc::OMPException::Run<void xgboost::common::Transform<false>::Evaluator<void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1}>::LaunchCPU<xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int>>(void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1},xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int> *)::{lambda(unsigned long)#1},unsigned long>(&v24, &v20, ii);
+      v19 = *a5;
+      v20 = v12;
+      v21 = *(a5 + 4);
+      dmlc::OMPException::Run<void xgboost::common::Transform<false>::Evaluator<void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1}>::LaunchCPU<xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int>>(void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1},xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int> *)::{lambda(unsigned long)#1},unsigned long>(&v23, &v19, ii);
     }
   }
 
-  dmlc::OMPException::Rethrow(&v24);
-  std::mutex::~mutex(&v25);
-  std::exception_ptr::~exception_ptr(&v24);
-  v19 = *MEMORY[0x277D85DE8];
+  dmlc::OMPException::Rethrow(&v23);
+  std::mutex::~mutex(&v24);
+  std::exception_ptr::~exception_ptr(&v23);
 }
 
-float *dmlc::OMPException::Run<void xgboost::common::Transform<false>::Evaluator<void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1}>::LaunchCPU<xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int>>(void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1},xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int> *)::{lambda(unsigned long)#1},unsigned long>(uint64_t a1, uint64_t a2, uint64_t a3)
+float *dmlc::OMPException::Run<void xgboost::common::Transform<false>::Evaluator<void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1}>::LaunchCPU<xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int>>(void xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,float,float)::{lambda(unsigned long,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<float,18446744073709551615ul>,xgboost::common::Span<int,18446744073709551615ul>)#1},xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<float>,xgboost::HostDeviceVector<int> *)::{lambda(unsigned long)#1},unsigned long>(uint64_t a1, float **a2, uint64_t a3)
 {
   v3 = *a2;
-  v4 = ***(a2 + 8);
+  v4 = **a2[1];
   v6 = *v4;
   v5 = v4[1];
   v19[0] = (v5 - v6) >> 2;
@@ -1258,20 +735,8 @@ float *dmlc::OMPException::Run<void xgboost::common::Transform<false>::Evaluator
     v7 = v5 == 0;
   }
 
-  if (!v7)
+  if (!v7 || ((v8 = **a2[3], v10 = *v8, v9 = v8[1], v18[0] = (v9 - v10) >> 2, (v18[1] = v10) == 0) ? (v11 = v9 == 0) : (v11 = 1), !v11 || ((v12 = **a2[4], v14 = *v12, v13 = v12[1], v17[0] = (v13 - v14) >> 2, (v17[1] = v14) == 0) ? (v15 = v13 == 0) : (v15 = 1), !v15)))
   {
-    goto LABEL_17;
-  }
-
-  v8 = ***(a2 + 24);
-  v10 = *v8;
-  v9 = v8[1];
-  v18[0] = (v9 - v10) >> 2;
-  v18[1] = v10;
-  v11 = v10 || v9 == 0;
-  if (!v11 || ((v12 = ***(a2 + 32), v14 = *v12, v13 = v12[1], v17[0] = (v13 - v14) >> 2, (v17[1] = v14) == 0) ? (v15 = v13 == 0) : (v15 = 1), !v15))
-  {
-LABEL_17:
     std::terminate();
   }
 
@@ -1282,38 +747,8 @@ float *xgboost::tree::TreeEvaluator::AddSplit<false>(int,int,int,unsigned int,fl
 {
   v5 = *(result + 1);
   v6 = *a3;
-  if (*a3 <= v5)
+  if (*a3 <= v5 || (v7 = *result, v6 <= v7) || (v8 = a3[1], v9 = (v8 + 4 * v7), *v9 = *(v8 + 4 * v5), v10 = *a4, *a4 <= v5) || v10 <= v7 || (v11 = a4[1], v12 = (v11 + 4 * v7), *v12 = *(v11 + 4 * v5), v13 = *(result + 2), v6 <= v13) || (v14 = (v8 + 4 * v13), *v14 = *(v8 + 4 * v5), v10 <= v13) || (v15 = *(v11 + 4 * v5), v16 = (v11 + 4 * v13), *v16 = v15, v17 = *(result + 3), *a5 <= v17))
   {
-    goto LABEL_13;
-  }
-
-  v7 = *result;
-  if (v6 <= v7)
-  {
-    goto LABEL_13;
-  }
-
-  v8 = a3[1];
-  v9 = (v8 + 4 * v7);
-  *v9 = *(v8 + 4 * v5);
-  v10 = *a4;
-  if (*a4 <= v5)
-  {
-    goto LABEL_13;
-  }
-
-  if (v10 <= v7)
-  {
-    goto LABEL_13;
-  }
-
-  v11 = a4[1];
-  v12 = (v11 + 4 * v7);
-  *v12 = *(v11 + 4 * v5);
-  v13 = *(result + 2);
-  if (v6 <= v13 || (v14 = (v8 + 4 * v13), *v14 = *(v8 + 4 * v5), v10 <= v13) || (v15 = *(v11 + 4 * v5), v16 = (v11 + 4 * v13), *v16 = v15, v17 = *(result + 3), *a5 <= v17))
-  {
-LABEL_13:
     std::terminate();
   }
 
@@ -1376,7 +811,7 @@ void xgboost::linear::ShotgunUpdater::~ShotgunUpdater(xgboost::linear::ShotgunUp
   JUMPOUT(0x277C69180);
 }
 
-void xgboost::linear::ShotgunUpdater::LoadConfig(xgboost::linear::ShotgunUpdater *this, char ***a2)
+void xgboost::linear::ShotgunUpdater::LoadConfig(xgboost::linear::ShotgunUpdater *this, const xgboost::Json *a2)
 {
   v3 = xgboost::Cast<xgboost::JsonObject const,xgboost::Value const>(*a2);
   std::string::basic_string[abi:ne200100]<0>(__p, "linear_train_param");
@@ -1402,15 +837,15 @@ void sub_274D1B4A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void xgboost::linear::ShotgunUpdater::SaveConfig(xgboost::linear::ShotgunUpdater *this, xgboost::Json *a2)
 {
-  xgboost::ToJson<xgboost::linear::LinearTrainParam>((this + 16), v4);
+  xgboost::ToJson<xgboost::linear::LinearTrainParam>((this + 16), v5);
   std::string::basic_string[abi:ne200100]<0>(__p, "linear_train_param");
-  (*(**a2 + 24))(*a2, __p);
-  xgboost::Json::operator=();
+  v3 = (*(**a2 + 24))(*a2, __p);
+  xgboost::Json::operator=(v3, v5);
 }
 
 uint64_t xgboost::linear::ShotgunUpdater::Configure(uint64_t a1, uint64_t *a2)
 {
-  xgboost::XGBoostParameter<xgboost::linear::LinearTrainParam>::UpdateAllowUnknown<std::vector<std::pair<std::string,std::string>>>((a1 + 16), a2, v9);
+  xgboost::XGBoostParameter<xgboost::linear::LinearTrainParam>::UpdateAllowUnknown<std::vector<std::pair<std::string,std::string>>>(v9, (a1 + 16), a2);
   v10 = v9;
   std::vector<std::pair<std::string,std::string>>::__destroy_vector::operator()[abi:ne200100](&v10);
   v3 = *(a1 + 32);
@@ -1425,7 +860,7 @@ uint64_t xgboost::linear::ShotgunUpdater::Configure(uint64_t a1, uint64_t *a2)
     v3 = *(a1 + 32);
   }
 
-  v7 = xgboost::linear::FeatureSelector::Create(v3);
+  v7 = xgboost::linear::FeatureSelector::Create(v3, 1);
   result = *(a1 + 48);
   *(a1 + 48) = v7;
   if (result)
@@ -1436,9 +871,9 @@ uint64_t xgboost::linear::ShotgunUpdater::Configure(uint64_t a1, uint64_t *a2)
   return result;
 }
 
-void sub_274D1B6A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_274D1B6A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   dmlc::LogMessageFatal::~LogMessageFatal(va);
   _Unwind_Resume(a1);
 }
@@ -4962,18 +4397,18 @@ _DWORD *XGBoostVersion(_DWORD *result, _DWORD *a2, _DWORD *a3)
 
 void xgboost::XGBBuildInfoDevice(xgboost *this, xgboost::Json *a2)
 {
-  __p[4] = 0x500000000;
-  __p[3] = &unk_2883E70E8;
-  v4 = 0;
+  v5[1] = 0x500000000;
+  v5[0] = &unk_2883E70E8;
+  v6 = 0;
   std::string::basic_string[abi:ne200100]<0>(__p, "USE_CUDA");
-  (*(**this + 24))(*this, __p);
-  xgboost::Json::operator=();
+  v3 = (*(**this + 24))(*this, __p);
+  xgboost::Json::operator=(v3, v5);
 }
 
 void sub_274D1F438(_Unwind_Exception *a1, std::string *a2, std::runtime_error a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, std::runtime_error a15)
 {
   v17 = a2;
-  (*(*v16 + 56))(v16, a2, a3.__vftable, a3.__imp_.__imp_);
+  (*(*v16 + 56))(v16, a2, a3.__vftable, a3.__imp_.__imp_, a4, a5, a6, a7);
   MEMORY[0x277C69180](v15, 0x20C40A4A59CD2);
   if (v17 == 2)
   {
@@ -5073,16 +4508,16 @@ void sub_274D1F730(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   JUMPOUT(0x274D1F6BCLL);
 }
 
-void XGDMatrixCreateFromCSCEx(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void XGDMatrixCreateFromCSCEx(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t *a7)
 {
-  v7 = 0;
-  v6 = &unk_2883E0F08;
-  v8 = a1;
-  v9 = a2;
-  v10 = a3;
-  v11 = a4 - 1;
-  v12 = a6;
-  v13 = a4 - 1;
+  v8 = 0;
+  v7 = &unk_2883E0F08;
+  v9 = a1;
+  v10 = a2;
+  v11 = a3;
+  v12 = a4 - 1;
+  v13 = a6;
+  v14 = a4 - 1;
   operator new();
 }
 
@@ -5122,21 +4557,21 @@ void sub_274D1F980(_Unwind_Exception *a1, std::runtime_error a2, uint64_t a3, ui
   JUMPOUT(0x274D1F968);
 }
 
-void XGDMatrixCreateFromMat(uint64_t a1, uint64_t a2, uint64_t a3)
+void XGDMatrixCreateFromMat(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, float a5)
 {
-  v4 = 0;
-  v3 = &unk_2883E0F90;
-  v5 = a1;
-  v6 = a2;
-  v7 = a3;
+  v6 = 0;
+  v5 = &unk_2883E0F90;
+  v7 = a1;
   v8 = a2;
   v9 = a3;
+  v10 = a2;
+  v11 = a3;
   operator new();
 }
 
 void sub_274D1FBBC(_Unwind_Exception *__p, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, std::string *a7, uint64_t a8, std::runtime_error __pa, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16)
 {
-  MEMORY[0x277C69180](v16, 0x20C40A4A59CD2, a3, a4, a5, a6, a7);
+  MEMORY[0x277C69180](v16, 0x20C40A4A59CD2, a3, a4, a5, a6, a7, a8);
   if (a2 == 2)
   {
     v19 = __cxa_begin_catch(__p);
@@ -5603,19 +5038,19 @@ void sub_274D20BBC(_Unwind_Exception *a1, std::string *a2, std::runtime_error a3
   JUMPOUT(0x274D20BACLL);
 }
 
-void XGBoosterCreate(__int128 **a1, uint64_t a2)
+void XGBoosterCreate(__int128 **a1, uint64_t a2, void *a3)
 {
-  memset(v4, 0, sizeof(v4));
+  memset(v5, 0, sizeof(v5));
   if (a2)
   {
-    v2 = a2;
+    v3 = a2;
     do
     {
-      std::vector<std::shared_ptr<xgboost::DMatrix>>::push_back[abi:ne200100](v4, *a1++);
-      --v2;
+      std::vector<std::shared_ptr<xgboost::DMatrix>>::push_back[abi:ne200100](v5, *a1++);
+      --v3;
     }
 
-    while (v2);
+    while (v3);
   }
 
   xgboost::Learner::Create();
@@ -5994,7 +5429,7 @@ uint64_t XGBoosterEvalOneIter(uint64_t a1, uint64_t a2, __int128 **a3, char **a4
     else
     {
       std::string::basic_string[abi:ne200100]<0>(v22, *a4);
-      v16 = v15 + 24;
+      v16 = v15 + 3;
     }
 
     v22 = v16;
@@ -6063,7 +5498,7 @@ void sub_274D219A4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, std:
   JUMPOUT(0x274D21988);
 }
 
-uint64_t XGBoosterPredict(uint64_t a1, uint64_t *a2, unsigned int a3, uint64_t a4, int a5, uint64_t *a6, void *a7)
+uint64_t XGBoosterPredict(void *a1, uint64_t *a2, unsigned int a3, xgboost *a4, int a5, uint64_t *a6, void *a7)
 {
   if (!a1)
   {
@@ -6141,7 +5576,7 @@ void sub_274D21CA0(_Unwind_Exception *a1, std::string *a2, std::runtime_error a3
   JUMPOUT(0x274D21C84);
 }
 
-uint64_t xgboost::GetIterationFromTreeLimit(uint64_t this, uint64_t a2, xgboost::Learner *a3)
+unint64_t xgboost::GetIterationFromTreeLimit(unint64_t this, void *a2, xgboost::Learner *a3)
 {
   if (this)
   {
@@ -6152,7 +5587,7 @@ uint64_t xgboost::GetIterationFromTreeLimit(uint64_t this, uint64_t a2, xgboost:
   return this;
 }
 
-void sub_274D22484(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, uint64_t a39)
+void sub_274D22484(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, uint64_t a39)
 {
   if (a20 < 0)
   {
@@ -6180,30 +5615,30 @@ void sub_274D22484(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
     if (atomic_fetch_add_explicit(v41 + 2, 0xFFFFFFFF, memory_order_release) == 1)
     {
       __dmb(9u);
-      (*(*v41 + 8))(v41);
+      (*(*v41 + 8))(v41, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void XGBoosterPredictFromDMatrix(uint64_t a1, uint64_t a2, char *__s)
+void XGBoosterPredictFromDMatrix(void *a1, uint64_t a2, char *__s, void *a4, uint64_t *a5, void *a6)
 {
   if (!a1)
   {
     Entry = dmlc::LogMessageFatal::GetEntry(__p);
     dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/c_api/c_api.cc", 764);
-    v6 = dmlc::LogMessageFatal::GetEntry(__p);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "Booster has not been initialized or has already been disposed.", 62);
+    v9 = dmlc::LogMessageFatal::GetEntry(__p);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "Booster has not been initialized or has already been disposed.", 62);
     dmlc::LogMessageFatal::~LogMessageFatal(__p);
   }
 
   if (!a2)
   {
-    v7 = dmlc::LogMessageFatal::GetEntry(__p);
-    dmlc::LogMessageFatal::Entry::Init(v7, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/c_api/c_api.cc", 767);
-    v8 = dmlc::LogMessageFatal::GetEntry(__p);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "DMatrix has not been initialized or has already been disposed.", 62);
+    v10 = dmlc::LogMessageFatal::GetEntry(__p);
+    dmlc::LogMessageFatal::Entry::Init(v10, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/c_api/c_api.cc", 767);
+    v11 = dmlc::LogMessageFatal::GetEntry(__p);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, "DMatrix has not been initialized or has already been disposed.", 62);
     dmlc::LogMessageFatal::~LogMessageFatal(__p);
   }
 
@@ -6211,8 +5646,9 @@ void XGBoosterPredictFromDMatrix(uint64_t a1, uint64_t a2, char *__s)
   xgboost::Json::Load();
 }
 
-void sub_274D22F78(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::runtime_error a15, int a16, __int16 a17, char a18, char a19, std::string *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
+void sub_274D22F78(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::runtime_error a15, int a16, __int16 a17, char a18, char a19, std::string *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
 {
+  v27 = a2;
   if (v25)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v25);
@@ -6222,10 +5658,10 @@ void sub_274D22F78(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   if (v29 && atomic_fetch_add_explicit(v29 + 2, 0xFFFFFFFF, memory_order_release) == 1)
   {
     __dmb(9u);
-    (*(*v29 + 8))(v29);
+    (*(*v29 + 8))(v29, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  if (a2 == 2)
+  if (v27 == 2)
   {
     v30 = __cxa_begin_catch(exception_object);
     v31 = (*(*v30 + 16))(v30);
@@ -6234,7 +5670,7 @@ void sub_274D22F78(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   else
   {
-    if (a2 != 1)
+    if (v27 != 1)
     {
       _Unwind_Resume(exception_object);
     }
@@ -6257,16 +5693,16 @@ void sub_274D22F78(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   JUMPOUT(0x274D22EACLL);
 }
 
-char *xgboost::RequiredArg<xgboost::JsonInteger>(char **a1, uint64_t a2)
+uint64_t xgboost::RequiredArg<xgboost::JsonInteger>(_DWORD *a1, uint64_t a2)
 {
   v3 = xgboost::Cast<xgboost::JsonObject const,xgboost::Value const>(a1);
   v4 = std::__tree<std::__value_type<std::string,dmlc::parameter::FieldAccessEntry *>,std::__map_value_compare<std::string,std::__value_type<std::string,dmlc::parameter::FieldAccessEntry *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,dmlc::parameter::FieldAccessEntry *>>>::find<std::string>((v3 + 16), a2);
   v5 = v4;
-  if (v3 + 24 == v4 || (v6 = *(v4 + 56), *(v6 + 12) == 6))
+  if (v3 + 24 == v4 || (v6 = *(v4 + 56), v6[3] == 6))
   {
-    Entry = dmlc::LogMessageFatal::GetEntry(&v18);
+    Entry = dmlc::LogMessageFatal::GetEntry(&v17);
     dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/c_api/c_api_utils.h", 248);
-    v8 = dmlc::LogMessageFatal::GetEntry(&v18);
+    v8 = dmlc::LogMessageFatal::GetEntry(&v17);
     v10 = *(a2 + 23);
     if (v10 >= 0)
     {
@@ -6291,27 +5727,26 @@ char *xgboost::RequiredArg<xgboost::JsonInteger>(char **a1, uint64_t a2)
     v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, v11, v12);
     for (i = 0; i != 27; ++i)
     {
-      v16 = aXgboosterpredi[i];
       std::ostream::put();
     }
 
-    dmlc::LogMessageFatal::~LogMessageFatal(&v18);
+    dmlc::LogMessageFatal::~LogMessageFatal(&v17);
     v6 = *(v5 + 56);
   }
 
   return xgboost::Cast<xgboost::JsonInteger const,xgboost::Value const>(v6) + 16;
 }
 
-char *xgboost::RequiredArg<xgboost::JsonBoolean>(char **a1, uint64_t a2)
+uint64_t xgboost::RequiredArg<xgboost::JsonBoolean>(_DWORD *a1, uint64_t a2)
 {
   v3 = xgboost::Cast<xgboost::JsonObject const,xgboost::Value const>(a1);
   v4 = std::__tree<std::__value_type<std::string,dmlc::parameter::FieldAccessEntry *>,std::__map_value_compare<std::string,std::__value_type<std::string,dmlc::parameter::FieldAccessEntry *>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,dmlc::parameter::FieldAccessEntry *>>>::find<std::string>((v3 + 16), a2);
   v5 = v4;
-  if (v3 + 24 == v4 || (v6 = *(v4 + 56), *(v6 + 12) == 6))
+  if (v3 + 24 == v4 || (v6 = *(v4 + 56), v6[3] == 6))
   {
-    Entry = dmlc::LogMessageFatal::GetEntry(&v18);
+    Entry = dmlc::LogMessageFatal::GetEntry(&v17);
     dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/c_api/c_api_utils.h", 248);
-    v8 = dmlc::LogMessageFatal::GetEntry(&v18);
+    v8 = dmlc::LogMessageFatal::GetEntry(&v17);
     v10 = *(a2 + 23);
     if (v10 >= 0)
     {
@@ -6336,11 +5771,10 @@ char *xgboost::RequiredArg<xgboost::JsonBoolean>(char **a1, uint64_t a2)
     v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, v11, v12);
     for (i = 0; i != 27; ++i)
     {
-      v16 = aXgboosterpredi[i];
       std::ostream::put();
     }
 
-    dmlc::LogMessageFatal::~LogMessageFatal(&v18);
+    dmlc::LogMessageFatal::~LogMessageFatal(&v17);
     v6 = *(v5 + 56);
   }
 
@@ -6534,13 +5968,14 @@ LABEL_35:
   return 0;
 }
 
-void sub_274D23BCC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::runtime_error a10, uint64_t a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
+void sub_274D23BCC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::runtime_error a10, uint64_t a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
 {
+  v23 = a2;
   v25 = a10.__vftable;
   if (a10.__vftable && atomic_fetch_add_explicit(&a10.~runtime_error_0, 0xFFFFFFFF, memory_order_release) == 1)
   {
     __dmb(9u);
-    (*(v25->~runtime_error + 1))(v25);
+    (*(v25->~runtime_error + 1))(v25, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (*(v22 - 33) < 0)
@@ -6548,7 +5983,7 @@ void sub_274D23BCC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
     operator delete(*(v22 - 56));
   }
 
-  if (a2 == 2)
+  if (v23 == 2)
   {
     v26 = __cxa_begin_catch(exception_object);
     v27 = (*(*v26 + 16))(v26);
@@ -6557,7 +5992,7 @@ void sub_274D23BCC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   else
   {
-    if (a2 != 1)
+    if (v23 != 1)
     {
       _Unwind_Resume(exception_object);
     }
@@ -6580,11 +6015,11 @@ void sub_274D23BCC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   JUMPOUT(0x274D23BB8);
 }
 
-char *XGBoosterLoadModel::$_0::operator()(std::string *a1, char *a2)
+void XGBoosterLoadModel::$_0::operator()(std::string *a1, char *a2)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, a2);
   xgboost::common::LoadSequentialFile(__p, 0, a1);
-  if (v12 < 0)
+  if (v11 < 0)
   {
     operator delete(__p[0]);
   }
@@ -6595,11 +6030,11 @@ char *XGBoosterLoadModel::$_0::operator()(std::string *a1, char *a2)
     size = a1->__r_.__value_.__l.__size_;
   }
 
-  v10 = size;
-  v9 = 3;
+  v9 = size;
+  v8 = 3;
   if (size < 3)
   {
-    dmlc::LogCheckFormat<unsigned long,int>(&v10, &v9);
+    dmlc::LogCheckFormat<unsigned long,int>(&v9, &v8);
   }
 
   if ((a1->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -6612,10 +6047,10 @@ char *XGBoosterLoadModel::$_0::operator()(std::string *a1, char *a2)
     v4 = a1->__r_.__value_.__r.__words[0];
   }
 
-  LOBYTE(v10) = 123;
+  LOBYTE(v9) = 123;
   if (*v4 != 123)
   {
-    dmlc::LogCheckFormat<char,char>(v4, &v10);
+    dmlc::LogCheckFormat<char,char>(v4, &v9);
   }
 
   v5 = HIBYTE(a1->__r_.__value_.__r.__words[2]);
@@ -6635,14 +6070,11 @@ char *XGBoosterLoadModel::$_0::operator()(std::string *a1, char *a2)
     v7 = a1;
   }
 
-  LOBYTE(v10) = 125;
-  result = v7 + v5 - 2;
-  if (*result != 125)
+  LOBYTE(v9) = 125;
+  if (v7->__r_.__value_.__s.__data_[v5 - 2] != 125)
   {
-    dmlc::LogCheckFormat<char,char>(result, &v10);
+    dmlc::LogCheckFormat<char,char>(v7 + v5 - 2, &v9);
   }
-
-  return result;
 }
 
 void sub_274D240AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, char a12, uint64_t a13, int a14, __int16 a15, char a16, char a17)
@@ -6655,71 +6087,44 @@ void sub_274D240AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t XGBoosterSaveModel(uint64_t a1, dmlc::Stream *this)
+uint64_t XGBoosterSaveModel(uint64_t a1, dmlc::Stream *this, uint64_t a3, BOOL a4)
 {
   if (!a1)
   {
-    Entry = dmlc::LogMessageFatal::GetEntry(&v16);
+    Entry = dmlc::LogMessageFatal::GetEntry(&v18);
     dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/c_api/c_api.cc", 943);
-    v5 = dmlc::LogMessageFatal::GetEntry(&v16);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, "DMatrix/Booster has not been initialized or has already been disposed.", 70);
-    dmlc::LogMessageFatal::~LogMessageFatal(&v16);
+    v7 = dmlc::LogMessageFatal::GetEntry(&v18);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "DMatrix/Booster has not been initialized or has already been disposed.", 70);
+    dmlc::LogMessageFatal::~LogMessageFatal(&v18);
   }
 
-  v6 = dmlc::Stream::Create(this, "w", 0);
+  v8 = dmlc::Stream::Create(this, "w", 0);
   (*(*a1 + 32))(a1);
   std::string::basic_string[abi:ne200100]<0>(__p, this);
-  xgboost::common::FileExtension(__p, 1, &v16);
-  if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
+  xgboost::common::FileExtension(__p, 1, &v18);
+  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
   {
-    v7 = v16.__r_.__value_.__l.__size_ == 4 && *v16.__r_.__value_.__l.__data_ == 1852797802;
-    operator delete(v16.__r_.__value_.__l.__data_);
+    v9 = v18.__r_.__value_.__l.__size_ == 4 && *v18.__r_.__value_.__l.__data_ == 1852797802;
+    operator delete(v18.__r_.__value_.__l.__data_);
   }
 
   else
   {
-    v7 = SHIBYTE(v16.__r_.__value_.__r.__words[2]) == 4 && LODWORD(v16.__r_.__value_.__l.__data_) == 1852797802;
+    v9 = SHIBYTE(v18.__r_.__value_.__r.__words[2]) == 4 && LODWORD(v18.__r_.__value_.__l.__data_) == 1852797802;
   }
 
-  if (v15 < 0)
+  if (v17 < 0)
   {
     operator delete(__p[0]);
-    if (v7)
-    {
-LABEL_35:
-      v16.__r_.__value_.__l.__size_ = 0x300000000;
-      v17[0] = 0;
-      v17[1] = 0;
-      v16.__r_.__value_.__r.__words[0] = &unk_2883E6E50;
-      v16.__r_.__value_.__r.__words[2] = v17;
-      operator new();
-    }
-  }
-
-  else if (v7)
-  {
-    goto LABEL_35;
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(v12, this);
-  xgboost::common::FileExtension(v12, 1, &v16);
-  if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
-  {
-    v9 = v16.__r_.__value_.__l.__size_ == 3 && *v16.__r_.__value_.__l.__data_ == 25205 && *(v16.__r_.__value_.__r.__words[0] + 2) == 106;
-    operator delete(v16.__r_.__value_.__l.__data_);
-  }
-
-  else
-  {
-    v9 = SHIBYTE(v16.__r_.__value_.__r.__words[2]) == 3 && LOWORD(v16.__r_.__value_.__l.__data_) == 25205 && v16.__r_.__value_.__s.__data_[2] == 106;
-  }
-
-  if (v13 < 0)
-  {
-    operator delete(v12[0]);
     if (v9)
     {
-      goto LABEL_35;
+LABEL_35:
+      v18.__r_.__value_.__l.__size_ = 0x300000000;
+      v19[0] = 0;
+      v19[1] = 0;
+      v18.__r_.__value_.__r.__words[0] = &unk_2883E6E50;
+      v18.__r_.__value_.__r.__words[2] = v19;
+      operator new();
     }
   }
 
@@ -6728,23 +6133,51 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  (*(*a1 + 112))(a1, v6);
-  if (v6)
+  std::string::basic_string[abi:ne200100]<0>(v14, this);
+  xgboost::common::FileExtension(v14, 1, &v18);
+  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
   {
-    (*(*v6 + 24))(v6);
+    v11 = v18.__r_.__value_.__l.__size_ == 3 && *v18.__r_.__value_.__l.__data_ == 25205 && *(v18.__r_.__value_.__r.__words[0] + 2) == 106;
+    operator delete(v18.__r_.__value_.__l.__data_);
+  }
+
+  else
+  {
+    v11 = SHIBYTE(v18.__r_.__value_.__r.__words[2]) == 3 && LOWORD(v18.__r_.__value_.__l.__data_) == 25205 && v18.__r_.__value_.__s.__data_[2] == 106;
+  }
+
+  if (v15 < 0)
+  {
+    operator delete(v14[0]);
+    if (v11)
+    {
+      goto LABEL_35;
+    }
+  }
+
+  else if (v11)
+  {
+    goto LABEL_35;
+  }
+
+  (*(*a1 + 112))(a1, v8);
+  if (v8)
+  {
+    (*(*v8 + 24))(v8);
   }
 
   return 0;
 }
 
-void sub_274D24588(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, std::runtime_error a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, std::string *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28)
+void sub_274D24588(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, std::runtime_error a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, std::string *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28)
 {
+  v29 = a2;
   if (v28)
   {
-    (*(*v28 + 24))(v28);
+    (*(*v28 + 24))(v28, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  if (a2 == 2)
+  if (v29 == 2)
   {
     v31 = __cxa_begin_catch(exception_object);
     v32 = (*(*v31 + 16))(v31);
@@ -6753,7 +6186,7 @@ void sub_274D24588(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   else
   {
-    if (a2 != 1)
+    if (v29 != 1)
     {
       _Unwind_Resume(exception_object);
     }
@@ -6830,14 +6263,14 @@ void sub_274D248E0(_Unwind_Exception *a1, int a2, std::string *a3, uint64_t a4, 
   JUMPOUT(0x274D248CCLL);
 }
 
-void XGBoosterSaveModelToBuffer(uint64_t a1, char *__s)
+void XGBoosterSaveModelToBuffer(uint64_t a1, char *__s, void *a3, uint64_t *a4)
 {
   if (!a1)
   {
     Entry = dmlc::LogMessageFatal::GetEntry(&__p);
     dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/c_api/c_api.cc", 982);
-    v4 = dmlc::LogMessageFatal::GetEntry(&__p);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "DMatrix/Booster has not been initialized or has already been disposed.", 70);
+    v6 = dmlc::LogMessageFatal::GetEntry(&__p);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "DMatrix/Booster has not been initialized or has already been disposed.", 70);
     dmlc::LogMessageFatal::~LogMessageFatal(&__p);
   }
 
@@ -6845,12 +6278,13 @@ void XGBoosterSaveModelToBuffer(uint64_t a1, char *__s)
   xgboost::Json::Load();
 }
 
-void sub_274D25184(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, std::runtime_error __p, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, std::string *a17, uint64_t a18, uint64_t a19, uint64_t a20)
+void sub_274D25184(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, std::runtime_error __p, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, std::string *a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
+  v21 = a2;
   if (atomic_fetch_add_explicit(v20 + 2, 0xFFFFFFFF, memory_order_release) == 1)
   {
     __dmb(9u);
-    (*(*v20 + 8))(v20);
+    (*(*v20 + 8))(v20, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a13 < 0)
@@ -6865,7 +6299,7 @@ void sub_274D25184(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
     (*(*v23 + 8))(v23);
   }
 
-  if (a2 == 2)
+  if (v21 == 2)
   {
     v24 = __cxa_begin_catch(exception_object);
     v25 = (*(*v24 + 16))(v24);
@@ -6874,7 +6308,7 @@ void sub_274D25184(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   else
   {
-    if (a2 != 1)
+    if (v21 != 1)
     {
       _Unwind_Resume(exception_object);
     }
@@ -7049,7 +6483,7 @@ uint64_t xgboost::data::DMatrixProxy::Info(xgboost::data::DMatrixProxy *this)
   return this + 8;
 }
 
-void xgboost::DMatrix::SetInfo(uint64_t a1, char *a2, uint64_t a3, int a4, uint64_t a5)
+void xgboost::DMatrix::SetInfo(uint64_t a1, char *a2, void *a3, int a4, uint64_t a5)
 {
   v10 = (*(*a1 + 32))(a1);
   v11 = (**a1)(a1);
@@ -7057,28 +6491,33 @@ void xgboost::DMatrix::SetInfo(uint64_t a1, char *a2, uint64_t a3, int a4, uint6
   xgboost::MetaInfo::SetInfo(v11, v10, a2, a3, a4, a5);
 }
 
-void xgboost::DMatrix::SetInfo(uint64_t a1, const char *a2, uint64_t *a3)
+void xgboost::DMatrix::SetInfo(uint64_t a1, const char *a2, uint64_t **a3)
 {
-  (*(*a1 + 32))(a1);
-  (**a1)(a1);
-  strlen(a2);
-  v6 = *(a3 + 23);
-  if (v6 < 0)
+  v6 = (*(*a1 + 32))(a1);
+  v7 = (**a1)(a1);
+  v8 = strlen(a2);
+  v9 = *(a3 + 23);
+  if (v9 >= 0)
   {
-    v7 = *a3;
-  }
-
-  if (v6 >= 0)
-  {
-    v8 = *(a3 + 23);
+    v10 = a3;
   }
 
   else
   {
-    v8 = a3[1];
+    v10 = *a3;
   }
 
-  xgboost::MetaInfo::SetInfo();
+  if (v9 >= 0)
+  {
+    v11 = *(a3 + 23);
+  }
+
+  else
+  {
+    v11 = a3[1];
+  }
+
+  xgboost::MetaInfo::SetInfo(v7, v6, a2, v8, v10, v11);
 }
 
 void xgboost::data::DMatrixProxy::~DMatrixProxy(xgboost::data::DMatrixProxy *this)
@@ -7126,54 +6565,54 @@ uint64_t xgboost::data::DMatrixProxy::Slice()
   return 0;
 }
 
-void xgboost::data::DMatrixProxy::GetRowBatches(xgboost::data::DMatrixProxy *this)
+void xgboost::data::DMatrixProxy::GetRowBatches()
 {
   Entry = dmlc::LogMessageFatal::GetEntry(&v4);
   dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/c_api/../data/proxy_dmatrix.h", 92);
   v2 = dmlc::LogMessageFatal::GetEntry(&v4);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v2, "Not implemented.", 16);
   dmlc::LogMessageFatal::~LogMessageFatal(&v4);
-  xgboost::BatchIterator<xgboost::SparsePage>::BatchIterator(&v3, 0);
+  xgboost::BatchIterator<xgboost::SparsePage>::BatchIterator(v3, 0);
 }
 
-void xgboost::data::DMatrixProxy::GetColumnBatches(xgboost::data::DMatrixProxy *this)
+void xgboost::data::DMatrixProxy::GetColumnBatches()
 {
   Entry = dmlc::LogMessageFatal::GetEntry(&v4);
   dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/c_api/../data/proxy_dmatrix.h", 96);
   v2 = dmlc::LogMessageFatal::GetEntry(&v4);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v2, "Not implemented.", 16);
   dmlc::LogMessageFatal::~LogMessageFatal(&v4);
-  xgboost::BatchIterator<xgboost::CSCPage>::BatchIterator(&v3, 0);
+  xgboost::BatchIterator<xgboost::CSCPage>::BatchIterator(v3, 0);
 }
 
-void xgboost::data::DMatrixProxy::GetSortedColumnBatches(xgboost::data::DMatrixProxy *this)
+void xgboost::data::DMatrixProxy::GetSortedColumnBatches()
 {
   Entry = dmlc::LogMessageFatal::GetEntry(&v4);
   dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/c_api/../data/proxy_dmatrix.h", 100);
   v2 = dmlc::LogMessageFatal::GetEntry(&v4);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v2, "Not implemented.", 16);
   dmlc::LogMessageFatal::~LogMessageFatal(&v4);
-  xgboost::BatchIterator<xgboost::SortedCSCPage>::BatchIterator(&v3, 0);
+  xgboost::BatchIterator<xgboost::SortedCSCPage>::BatchIterator(v3, 0);
 }
 
 void xgboost::data::DMatrixProxy::GetEllpackBatches()
 {
-  Entry = dmlc::LogMessageFatal::GetEntry(&v3);
+  Entry = dmlc::LogMessageFatal::GetEntry(&v4);
   dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/c_api/../data/proxy_dmatrix.h", 104);
-  v1 = dmlc::LogMessageFatal::GetEntry(&v3);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v1, "Not implemented.", 16);
-  dmlc::LogMessageFatal::~LogMessageFatal(&v3);
-  xgboost::BatchIterator<xgboost::EllpackPage>::BatchIterator(&v2, 0);
+  v2 = dmlc::LogMessageFatal::GetEntry(&v4);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v2, "Not implemented.", 16);
+  dmlc::LogMessageFatal::~LogMessageFatal(&v4);
+  xgboost::BatchIterator<xgboost::EllpackPage>::BatchIterator(v3, 0);
 }
 
 void xgboost::data::DMatrixProxy::GetGradientIndex()
 {
-  Entry = dmlc::LogMessageFatal::GetEntry(&v3);
+  Entry = dmlc::LogMessageFatal::GetEntry(&v4);
   dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/c_api/../data/proxy_dmatrix.h", 108);
-  v1 = dmlc::LogMessageFatal::GetEntry(&v3);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v1, "Not implemented.", 16);
-  dmlc::LogMessageFatal::~LogMessageFatal(&v3);
-  xgboost::BatchIterator<xgboost::GHistIndexMatrix>::BatchIterator(&v2, 0);
+  v2 = dmlc::LogMessageFatal::GetEntry(&v4);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v2, "Not implemented.", 16);
+  dmlc::LogMessageFatal::~LogMessageFatal(&v4);
+  xgboost::BatchIterator<xgboost::GHistIndexMatrix>::BatchIterator(v3, 0);
 }
 
 void xgboost::MetaInfo::MetaInfo(xgboost::MetaInfo *this)
@@ -7338,30 +6777,30 @@ void *xgboost::Cast<xgboost::JsonString const,xgboost::Value>(xgboost::Value *a1
 {
   if (*(a1 + 3))
   {
-    Entry = dmlc::LogMessageFatal::GetEntry(&v28);
+    Entry = dmlc::LogMessageFatal::GetEntry(&v26);
     dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/xgboost/json.h", 79);
-    v3 = dmlc::LogMessageFatal::GetEntry(&v28);
-    xgboost::Value::TypeStr(a1, &v23);
-    v4 = std::string::insert(&v23, 0, "Invalid cast, from ");
+    v3 = dmlc::LogMessageFatal::GetEntry(&v26);
+    xgboost::Value::TypeStr(a1, &v21);
+    v4 = std::string::insert(&v21, 0, "Invalid cast, from ");
     v5 = *&v4->__r_.__value_.__l.__data_;
-    v24.__r_.__value_.__r.__words[2] = v4->__r_.__value_.__r.__words[2];
-    *&v24.__r_.__value_.__l.__data_ = v5;
+    v22.__r_.__value_.__r.__words[2] = v4->__r_.__value_.__r.__words[2];
+    *&v22.__r_.__value_.__l.__data_ = v5;
     v4->__r_.__value_.__l.__size_ = 0;
     v4->__r_.__value_.__r.__words[2] = 0;
     v4->__r_.__value_.__r.__words[0] = 0;
-    v6 = std::string::append(&v24, " to ");
+    v6 = std::string::append(&v22, " to ");
     v7 = *&v6->__r_.__value_.__l.__data_;
-    v25.__r_.__value_.__r.__words[2] = v6->__r_.__value_.__r.__words[2];
-    *&v25.__r_.__value_.__l.__data_ = v7;
+    v23.__r_.__value_.__r.__words[2] = v6->__r_.__value_.__r.__words[2];
+    *&v23.__r_.__value_.__l.__data_ = v7;
     v6->__r_.__value_.__l.__size_ = 0;
     v6->__r_.__value_.__r.__words[2] = 0;
     v6->__r_.__value_.__r.__words[0] = 0;
-    *v18 = 0u;
-    v19 = 0;
-    v20 = 0;
-    v17 = &unk_2883E6F38;
-    xgboost::Value::TypeStr(&v17, __p);
-    if ((v22 & 0x80u) == 0)
+    *v16 = 0u;
+    v17 = 0;
+    v18 = 0;
+    v15 = &unk_2883E6F38;
+    xgboost::Value::TypeStr(&v15, __p);
+    if ((v20 & 0x80u) == 0)
     {
       v8 = __p;
     }
@@ -7371,9 +6810,9 @@ void *xgboost::Cast<xgboost::JsonString const,xgboost::Value>(xgboost::Value *a1
       v8 = __p[0];
     }
 
-    if ((v22 & 0x80u) == 0)
+    if ((v20 & 0x80u) == 0)
     {
-      v9 = v22;
+      v9 = v20;
     }
 
     else
@@ -7381,58 +6820,48 @@ void *xgboost::Cast<xgboost::JsonString const,xgboost::Value>(xgboost::Value *a1
       v9 = __p[1];
     }
 
-    v10 = std::string::append(&v25, v8, v9);
+    v10 = std::string::append(&v23, v8, v9);
     v11 = *&v10->__r_.__value_.__l.__data_;
-    v27 = v10->__r_.__value_.__r.__words[2];
-    v26 = v11;
+    v25 = v10->__r_.__value_.__r.__words[2];
+    v24 = v11;
     v10->__r_.__value_.__l.__size_ = 0;
     v10->__r_.__value_.__r.__words[2] = 0;
     v10->__r_.__value_.__r.__words[0] = 0;
-    if (v27 >= 0)
+    if (v25 >= 0)
     {
-      v12 = &v26;
+      v12 = &v24;
     }
 
     else
     {
-      v12 = v26;
+      v12 = v24;
     }
 
-    if (v27 >= 0)
+    if (v25 >= 0)
     {
-      v13 = HIBYTE(v27);
+      v13 = HIBYTE(v25);
     }
 
     else
     {
-      v13 = *(&v26 + 1);
+      v13 = *(&v24 + 1);
     }
 
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, v12, v13);
-    if (SHIBYTE(v27) < 0)
+    if (SHIBYTE(v25) < 0)
     {
-      operator delete(v26);
+      operator delete(v24);
     }
 
-    if (v22 < 0)
+    if (v20 < 0)
     {
       operator delete(__p[0]);
     }
 
-    v17 = &unk_2883E6F38;
-    if (SHIBYTE(v20) < 0)
+    v15 = &unk_2883E6F38;
+    if (SHIBYTE(v18) < 0)
     {
-      operator delete(v18[1]);
-    }
-
-    if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v25.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v24.__r_.__value_.__l.__data_);
+      operator delete(v16[1]);
     }
 
     if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
@@ -7440,13 +6869,21 @@ void *xgboost::Cast<xgboost::JsonString const,xgboost::Value>(xgboost::Value *a1
       operator delete(v23.__r_.__value_.__l.__data_);
     }
 
-    dmlc::LogMessageFatal::~LogMessageFatal(&v28);
-    v14 = **a1;
+    if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v22.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v21.__r_.__value_.__l.__data_);
+    }
+
+    dmlc::LogMessageFatal::~LogMessageFatal(&v26);
   }
 
   else
   {
-    v16 = **a1;
   }
 }
 
@@ -7486,103 +6923,92 @@ void sub_274D26800(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *xgboost::Cast<xgboost::JsonBoolean const,xgboost::Value const>(char **a1)
+void *xgboost::Cast<xgboost::JsonBoolean const,xgboost::Value const>(_DWORD *a1)
 {
-  if (*(a1 + 3) == 5)
+  if (a1[3] == 5)
   {
-    v2 = **a1;
   }
 
   else
   {
-    Entry = dmlc::LogMessageFatal::GetEntry(&v26);
+    Entry = dmlc::LogMessageFatal::GetEntry(&v24);
     dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/xgboost/json.h", 79);
-    v5 = dmlc::LogMessageFatal::GetEntry(&v26);
-    xgboost::Value::TypeStr(a1, &v21);
-    v6 = std::string::insert(&v21, 0, "Invalid cast, from ");
-    v7 = *&v6->__r_.__value_.__l.__data_;
-    v22.__r_.__value_.__r.__words[2] = v6->__r_.__value_.__r.__words[2];
-    *&v22.__r_.__value_.__l.__data_ = v7;
-    v6->__r_.__value_.__l.__size_ = 0;
-    v6->__r_.__value_.__r.__words[2] = 0;
-    v6->__r_.__value_.__r.__words[0] = 0;
-    v8 = std::string::append(&v22, " to ");
-    v9 = *&v8->__r_.__value_.__l.__data_;
-    v23.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
-    *&v23.__r_.__value_.__l.__data_ = v9;
-    v8->__r_.__value_.__l.__size_ = 0;
-    v8->__r_.__value_.__r.__words[2] = 0;
-    v8->__r_.__value_.__r.__words[0] = 0;
-    v17[1] = 0x500000000;
-    v17[0] = &unk_2883E70E8;
-    v18 = 0;
-    xgboost::Value::TypeStr(v17, __p);
-    if ((v20 & 0x80u) == 0)
+    v4 = dmlc::LogMessageFatal::GetEntry(&v24);
+    xgboost::Value::TypeStr(a1, &v19);
+    v5 = std::string::insert(&v19, 0, "Invalid cast, from ");
+    v6 = *&v5->__r_.__value_.__l.__data_;
+    v20.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
+    *&v20.__r_.__value_.__l.__data_ = v6;
+    v5->__r_.__value_.__l.__size_ = 0;
+    v5->__r_.__value_.__r.__words[2] = 0;
+    v5->__r_.__value_.__r.__words[0] = 0;
+    v7 = std::string::append(&v20, " to ");
+    v8 = *&v7->__r_.__value_.__l.__data_;
+    v21.__r_.__value_.__r.__words[2] = v7->__r_.__value_.__r.__words[2];
+    *&v21.__r_.__value_.__l.__data_ = v8;
+    v7->__r_.__value_.__l.__size_ = 0;
+    v7->__r_.__value_.__r.__words[2] = 0;
+    v7->__r_.__value_.__r.__words[0] = 0;
+    v15[1] = 0x500000000;
+    v15[0] = &unk_2883E70E8;
+    v16 = 0;
+    xgboost::Value::TypeStr(v15, __p);
+    if ((v18 & 0x80u) == 0)
     {
-      v10 = __p;
+      v9 = __p;
     }
 
     else
     {
-      v10 = __p[0];
+      v9 = __p[0];
     }
 
-    if ((v20 & 0x80u) == 0)
+    if ((v18 & 0x80u) == 0)
     {
-      v11 = v20;
+      v10 = v18;
     }
 
     else
     {
-      v11 = __p[1];
+      v10 = __p[1];
     }
 
-    v12 = std::string::append(&v23, v10, v11);
-    v13 = *&v12->__r_.__value_.__l.__data_;
-    v25 = v12->__r_.__value_.__r.__words[2];
-    v24 = v13;
-    v12->__r_.__value_.__l.__size_ = 0;
-    v12->__r_.__value_.__r.__words[2] = 0;
-    v12->__r_.__value_.__r.__words[0] = 0;
-    if (v25 >= 0)
+    v11 = std::string::append(&v21, v9, v10);
+    v12 = *&v11->__r_.__value_.__l.__data_;
+    v23 = v11->__r_.__value_.__r.__words[2];
+    v22 = v12;
+    v11->__r_.__value_.__l.__size_ = 0;
+    v11->__r_.__value_.__r.__words[2] = 0;
+    v11->__r_.__value_.__r.__words[0] = 0;
+    if (v23 >= 0)
     {
-      v14 = &v24;
+      v13 = &v22;
     }
 
     else
     {
-      v14 = v24;
+      v13 = v22;
     }
 
-    if (v25 >= 0)
+    if (v23 >= 0)
     {
-      v15 = HIBYTE(v25);
+      v14 = HIBYTE(v23);
     }
 
     else
     {
-      v15 = *(&v24 + 1);
+      v14 = *(&v22 + 1);
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, v14, v15);
-    if (SHIBYTE(v25) < 0)
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, v13, v14);
+    if (SHIBYTE(v23) < 0)
     {
-      operator delete(v24);
+      operator delete(v22);
     }
 
-    if (v20 < 0)
+    if (v18 < 0)
     {
       operator delete(__p[0]);
-    }
-
-    if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v23.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v22.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
@@ -7590,8 +7016,17 @@ void *xgboost::Cast<xgboost::JsonBoolean const,xgboost::Value const>(char **a1)
       operator delete(v21.__r_.__value_.__l.__data_);
     }
 
-    dmlc::LogMessageFatal::~LogMessageFatal(&v26);
-    v16 = **a1;
+    if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v20.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v19.__r_.__value_.__l.__data_);
+    }
+
+    dmlc::LogMessageFatal::~LogMessageFatal(&v24);
   }
 }
 
@@ -7628,19 +7063,19 @@ void sub_274D26B04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void dmlc::LogCheckFormat<int,unsigned long>(unsigned int *a1, void *a2)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v8);
-  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v8, " (", 2);
-  v5 = MEMORY[0x277C68E20](v4, *a1);
-  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, " vs. ", 5);
-  v7 = MEMORY[0x277C68E50](v6, *a2);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, ") ", 2);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v9);
+  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v9, " (", 2);
+  v6 = MEMORY[0x277C68E20](v5, *a1);
+  v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, " vs. ", 5);
+  v8 = MEMORY[0x277C68E50](v7, *a2);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, ") ", 2);
   operator new();
 }
 
-void sub_274D26D4C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_274D26D4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  MEMORY[0x277C69180](v2, 0x1012C40EC159624);
+  va_start(va, a3);
+  MEMORY[0x277C69180](v3, 0x1012C40EC159624);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -7673,9 +7108,9 @@ void *rabit::utils::MemoryFixSizeBuffer::Write(void *this, const void *a2, size_
   if (a3)
   {
     v5 = this;
-    rabit::utils::Assert(this[3] + a3 <= this[2], "write position exceed fixed buffer size", a3);
-    this = memcpy((*(v5 + 8) + *(v5 + 24)), a2, a3);
-    *(v5 + 24) += a3;
+    rabit::utils::Assert((this[3] + a3 <= this[2]), "write position exceed fixed buffer size", a3);
+    this = memcpy((v5[1] + v5[3]), a2, a3);
+    v5[3] += a3;
   }
 
   return this;
@@ -7692,14 +7127,12 @@ uint64_t rabit::utils::MemoryFixSizeBuffer::Seek(uint64_t this, uint64_t a2)
   return this;
 }
 
-uint64_t rabit::utils::Assert(uint64_t this, uint64_t a2, const char *a3, ...)
+void rabit::utils::Assert(rabit::utils *this, const char *a2, const char *a3, ...)
 {
   if ((this & 1) == 0)
   {
     operator new();
   }
-
-  return this;
 }
 
 void sub_274D26F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, __int16 a10, char a11, char a12)
@@ -7709,7 +7142,7 @@ void sub_274D26F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-size_t rabit::utils::MemoryBufferStream::Read(rabit::utils::MemoryBufferStream *this, void *a2, const char *a3)
+const char *rabit::utils::MemoryBufferStream::Read(rabit::utils::MemoryBufferStream *this, void *a2, const char *a3)
 {
   v3 = a3;
   v6 = *(this + 1);
@@ -7719,13 +7152,13 @@ size_t rabit::utils::MemoryBufferStream::Read(rabit::utils::MemoryBufferStream *
     v7 = *(v6 + 8);
   }
 
-  rabit::utils::Assert(*(this + 2) <= v7, "read can not have position excceed buffer length", a3);
+  rabit::utils::Assert((*(this + 2) <= v7), "read can not have position excceed buffer length", a3);
   v8 = *(this + 1);
   v9 = *(v8 + 23);
   if ((v9 & 0x8000000000000000) == 0)
   {
     v10 = *(this + 2);
-    v11 = v9 - v10;
+    v11 = (v9 - v10);
     if (v11 < v3)
     {
       v3 = v11;
@@ -7755,7 +7188,7 @@ LABEL_12:
   }
 
 LABEL_13:
-  *(this + 2) = v3 + v10;
+  *(this + 2) = &v3[v10];
   return v3;
 }
 
@@ -7781,7 +7214,7 @@ char *rabit::utils::MemoryBufferStream::Write(char *this, const void *__src, siz
     if (v8 > size)
     {
       std::string::resize(v6, v8, 0);
-      v6 = v5[1];
+      v6 = *(v5 + 1);
       LOBYTE(v9) = *(&v6->__r_.__value_.__s + 23);
     }
 
@@ -7790,8 +7223,8 @@ char *rabit::utils::MemoryBufferStream::Write(char *this, const void *__src, siz
       v6 = v6->__r_.__value_.__r.__words[0];
     }
 
-    this = memcpy(v6 + v5[2], __src, __n);
-    v5[2] += __n;
+    this = memcpy(v6 + *(v5 + 2), __src, __n);
+    *(v5 + 2) += __n;
   }
 
   return this;
@@ -7861,103 +7294,92 @@ uint64_t std::vector<std::string>::__emplace_back_slow_path<char const*&>(uint64
   return v7;
 }
 
-void *xgboost::Cast<xgboost::JsonInteger const,xgboost::Value const>(char **a1)
+void *xgboost::Cast<xgboost::JsonInteger const,xgboost::Value const>(_DWORD *a1)
 {
-  if (*(a1 + 3) == 2)
+  if (a1[3] == 2)
   {
-    v2 = **a1;
   }
 
   else
   {
-    Entry = dmlc::LogMessageFatal::GetEntry(&v25);
+    Entry = dmlc::LogMessageFatal::GetEntry(&v23);
     dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/src/xgboost/json.h", 79);
-    v5 = dmlc::LogMessageFatal::GetEntry(&v25);
-    xgboost::Value::TypeStr(a1, &v20);
-    v6 = std::string::insert(&v20, 0, "Invalid cast, from ");
-    v7 = *&v6->__r_.__value_.__l.__data_;
-    v21.__r_.__value_.__r.__words[2] = v6->__r_.__value_.__r.__words[2];
-    *&v21.__r_.__value_.__l.__data_ = v7;
-    v6->__r_.__value_.__l.__size_ = 0;
-    v6->__r_.__value_.__r.__words[2] = 0;
-    v6->__r_.__value_.__r.__words[0] = 0;
-    v8 = std::string::append(&v21, " to ");
-    v9 = *&v8->__r_.__value_.__l.__data_;
-    v22.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
-    *&v22.__r_.__value_.__l.__data_ = v9;
-    v8->__r_.__value_.__l.__size_ = 0;
-    v8->__r_.__value_.__r.__words[2] = 0;
-    v8->__r_.__value_.__r.__words[0] = 0;
-    v17[1] = 0x200000000;
-    v17[0] = &unk_2883E7028;
-    v17[2] = 0;
-    xgboost::Value::TypeStr(v17, __p);
-    if ((v19 & 0x80u) == 0)
+    v4 = dmlc::LogMessageFatal::GetEntry(&v23);
+    xgboost::Value::TypeStr(a1, &v18);
+    v5 = std::string::insert(&v18, 0, "Invalid cast, from ");
+    v6 = *&v5->__r_.__value_.__l.__data_;
+    v19.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
+    *&v19.__r_.__value_.__l.__data_ = v6;
+    v5->__r_.__value_.__l.__size_ = 0;
+    v5->__r_.__value_.__r.__words[2] = 0;
+    v5->__r_.__value_.__r.__words[0] = 0;
+    v7 = std::string::append(&v19, " to ");
+    v8 = *&v7->__r_.__value_.__l.__data_;
+    v20.__r_.__value_.__r.__words[2] = v7->__r_.__value_.__r.__words[2];
+    *&v20.__r_.__value_.__l.__data_ = v8;
+    v7->__r_.__value_.__l.__size_ = 0;
+    v7->__r_.__value_.__r.__words[2] = 0;
+    v7->__r_.__value_.__r.__words[0] = 0;
+    v15[1] = 0x200000000;
+    v15[0] = &unk_2883E7028;
+    v15[2] = 0;
+    xgboost::Value::TypeStr(v15, __p);
+    if ((v17 & 0x80u) == 0)
     {
-      v10 = __p;
+      v9 = __p;
     }
 
     else
     {
-      v10 = __p[0];
+      v9 = __p[0];
     }
 
-    if ((v19 & 0x80u) == 0)
+    if ((v17 & 0x80u) == 0)
     {
-      v11 = v19;
+      v10 = v17;
     }
 
     else
     {
-      v11 = __p[1];
+      v10 = __p[1];
     }
 
-    v12 = std::string::append(&v22, v10, v11);
-    v13 = *&v12->__r_.__value_.__l.__data_;
-    v24 = v12->__r_.__value_.__r.__words[2];
-    v23 = v13;
-    v12->__r_.__value_.__l.__size_ = 0;
-    v12->__r_.__value_.__r.__words[2] = 0;
-    v12->__r_.__value_.__r.__words[0] = 0;
-    if (v24 >= 0)
+    v11 = std::string::append(&v20, v9, v10);
+    v12 = *&v11->__r_.__value_.__l.__data_;
+    v22 = v11->__r_.__value_.__r.__words[2];
+    v21 = v12;
+    v11->__r_.__value_.__l.__size_ = 0;
+    v11->__r_.__value_.__r.__words[2] = 0;
+    v11->__r_.__value_.__r.__words[0] = 0;
+    if (v22 >= 0)
     {
-      v14 = &v23;
+      v13 = &v21;
     }
 
     else
     {
-      v14 = v23;
+      v13 = v21;
     }
 
-    if (v24 >= 0)
+    if (v22 >= 0)
     {
-      v15 = HIBYTE(v24);
+      v14 = HIBYTE(v22);
     }
 
     else
     {
-      v15 = *(&v23 + 1);
+      v14 = *(&v21 + 1);
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, v14, v15);
-    if (SHIBYTE(v24) < 0)
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, v13, v14);
+    if (SHIBYTE(v22) < 0)
     {
-      operator delete(v23);
+      operator delete(v21);
     }
 
-    if (v19 < 0)
+    if (v17 < 0)
     {
       operator delete(__p[0]);
-    }
-
-    if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v22.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v21.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
@@ -7965,8 +7387,17 @@ void *xgboost::Cast<xgboost::JsonInteger const,xgboost::Value const>(char **a1)
       operator delete(v20.__r_.__value_.__l.__data_);
     }
 
-    dmlc::LogMessageFatal::~LogMessageFatal(&v25);
-    v16 = **a1;
+    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v19.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v18.__r_.__value_.__l.__data_);
+    }
+
+    dmlc::LogMessageFatal::~LogMessageFatal(&v23);
   }
 }
 
@@ -8110,7 +7541,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<xgboo
 
 void dmlc::io::LocalFileSystem::GetPathInfo(const std::string *a1@<X1>, uint64_t a2@<X8>)
 {
-  v28[3] = *MEMORY[0x277D85DE8];
+  v26[3] = *MEMORY[0x277D85DE8];
   *(a2 + 80) = 0;
   *(a2 + 48) = 0u;
   *(a2 + 64) = 0u;
@@ -8122,7 +7553,7 @@ void dmlc::io::LocalFileSystem::GetPathInfo(const std::string *a1@<X1>, uint64_t
   std::string::operator=((a2 + 48), a1 + 2);
   if ((a1[2].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    data = &a1[2];
+    data = a1 + 2;
   }
 
   else
@@ -8130,43 +7561,43 @@ void dmlc::io::LocalFileSystem::GetPathInfo(const std::string *a1@<X1>, uint64_t
     data = a1[2].__r_.__value_.__l.__data_;
   }
 
-  if (stat(data, &v27) != -1)
+  if (stat(data, &v25) != -1)
   {
 LABEL_16:
-    *(a2 + 72) = v27.st_size;
-    *(a2 + 80) = (v27.st_mode & 0xF000) == 0x4000;
-    goto LABEL_26;
+    *(a2 + 72) = v25.st_size;
+    *(a2 + 80) = (v25.st_mode & 0xF000) == 0x4000;
+    return;
   }
 
-  v6 = *__error();
+  v5 = *__error();
   if ((a1[2].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v7 = &a1[2];
+    v6 = a1 + 2;
   }
 
   else
   {
-    v7 = a1[2].__r_.__value_.__l.__data_;
+    v6 = a1[2].__r_.__value_.__l.__data_;
   }
 
-  if (lstat(v7, &v27))
+  if (lstat(v6, &v25))
   {
-    Entry = dmlc::LogMessageFatal::GetEntry(v28);
+    Entry = dmlc::LogMessageFatal::GetEntry(v26);
     dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/io/local_filesys.cc", 86);
-    v9 = dmlc::LogMessageFatal::GetEntry(v28);
-    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "LocalFileSystem.GetPathInfo: ", 29);
-    v11 = SHIBYTE(a1[2].__r_.__value_.__r.__words[2]);
-    if (v11 >= 0)
+    v8 = dmlc::LogMessageFatal::GetEntry(v26);
+    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "LocalFileSystem.GetPathInfo: ", 29);
+    v10 = SHIBYTE(a1[2].__r_.__value_.__r.__words[2]);
+    if (v10 >= 0)
     {
-      v12 = a1 + 2;
+      v11 = a1 + 2;
     }
 
     else
     {
-      v12 = a1[2].__r_.__value_.__l.__data_;
+      v11 = a1[2].__r_.__value_.__l.__data_;
     }
 
-    if (v11 >= 0)
+    if (v10 >= 0)
     {
       size = HIBYTE(a1[2].__r_.__value_.__r.__words[2]);
     }
@@ -8176,48 +7607,46 @@ LABEL_16:
       size = a1[2].__r_.__value_.__l.__size_;
     }
 
-    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, v12, size);
-    v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, " error: ", 8);
-    v16 = strerror(v6);
-    v17 = strlen(v16);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, v16, v17);
-    dmlc::LogMessageFatal::~LogMessageFatal(v28);
+    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, v11, size);
+    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, " error: ", 8);
+    v15 = strerror(v5);
+    v16 = strlen(v15);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, v15, v16);
+    dmlc::LogMessageFatal::~LogMessageFatal(v26);
     goto LABEL_16;
   }
 
   *(a2 + 72) = 0;
   *(a2 + 80) = 0;
-  dmlc::LogMessage::LogMessage(v28, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/io/local_filesys.cc", 81);
-  v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28[0], "LocalFileSystem.GetPathInfo: detected symlink ", 46);
-  v19 = SHIBYTE(a1[2].__r_.__value_.__r.__words[2]);
-  if (v19 >= 0)
+  dmlc::LogMessage::LogMessage(v26, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/io/local_filesys.cc", 81);
+  v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26[0], "LocalFileSystem.GetPathInfo: detected symlink ", 46);
+  v18 = SHIBYTE(a1[2].__r_.__value_.__r.__words[2]);
+  if (v18 >= 0)
   {
-    v20 = a1 + 2;
+    v19 = a1 + 2;
   }
 
   else
   {
-    v20 = a1[2].__r_.__value_.__l.__data_;
+    v19 = a1[2].__r_.__value_.__l.__data_;
   }
 
-  if (v19 >= 0)
+  if (v18 >= 0)
   {
-    v21 = HIBYTE(a1[2].__r_.__value_.__r.__words[2]);
+    v20 = HIBYTE(a1[2].__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v21 = a1[2].__r_.__value_.__l.__size_;
+    v20 = a1[2].__r_.__value_.__l.__size_;
   }
 
-  v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, v20, v21);
-  v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, " error: ", 8);
-  v24 = strerror(v6);
-  v25 = strlen(v24);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, v24, v25);
-  dmlc::LogMessage::~LogMessage(v28);
-LABEL_26:
-  v26 = *MEMORY[0x277D85DE8];
+  v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, v19, v20);
+  v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, " error: ", 8);
+  v23 = strerror(v5);
+  v24 = strlen(v23);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, v23, v24);
+  dmlc::LogMessage::~LogMessage(v26);
 }
 
 void dmlc::io::FileInfo::~FileInfo(void **this)
@@ -8240,58 +7669,57 @@ void dmlc::io::FileInfo::~FileInfo(void **this)
 
 uint64_t dmlc::io::LocalFileSystem::ListDirectory(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
-  v7 = (a2 + 48);
-  v6 = *(a2 + 48);
+  v6 = (a2 + 48);
   if (*(a2 + 71) >= 0)
   {
-    v8 = (a2 + 48);
+    v7 = (a2 + 48);
   }
 
   else
   {
-    v8 = *(a2 + 48);
+    v7 = *(a2 + 48);
   }
 
-  v9 = opendir(v8);
-  if (!v9)
+  v8 = opendir(v7);
+  if (!v8)
   {
-    v10 = *__error();
-    Entry = dmlc::LogMessageFatal::GetEntry(&v61);
+    v9 = *__error();
+    Entry = dmlc::LogMessageFatal::GetEntry(&v60);
     dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/io/local_filesys.cc", 104);
-    v12 = dmlc::LogMessageFatal::GetEntry(&v61);
-    v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "LocalFileSystem.ListDirectory ", 30);
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, (a2 + 24), &v51);
-    v14 = *(a2 + 71);
-    if (v14 >= 0)
+    v11 = dmlc::LogMessageFatal::GetEntry(&v60);
+    v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, "LocalFileSystem.ListDirectory ", 30);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, (a2 + 24), &v50);
+    v13 = *(a2 + 71);
+    if (v13 >= 0)
     {
-      v15 = v7;
+      v14 = v6;
     }
 
     else
     {
-      v15 = *(a2 + 48);
+      v14 = *(a2 + 48);
     }
 
-    if (v14 >= 0)
+    if (v13 >= 0)
     {
-      v16 = *(a2 + 71);
+      v15 = *(a2 + 71);
     }
 
     else
     {
-      v16 = *(a2 + 56);
+      v15 = *(a2 + 56);
     }
 
-    v17 = std::string::append(&v51, v15, v16);
-    v18 = *&v17->__r_.__value_.__l.__data_;
-    __p.__r_.__value_.__r.__words[2] = v17->__r_.__value_.__r.__words[2];
-    *&__p.__r_.__value_.__l.__data_ = v18;
-    v17->__r_.__value_.__l.__size_ = 0;
-    v17->__r_.__value_.__r.__words[2] = 0;
-    v17->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
+    v16 = std::string::append(&v50, v14, v15);
+    v17 = *&v16->__r_.__value_.__l.__data_;
+    __p.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
+    *&__p.__r_.__value_.__l.__data_ = v17;
+    v16->__r_.__value_.__l.__size_ = 0;
+    v16->__r_.__value_.__r.__words[2] = 0;
+    v16->__r_.__value_.__r.__words[0] = 0;
+    if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v51.__r_.__value_.__l.__data_);
+      operator delete(v50.__r_.__value_.__l.__data_);
     }
 
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -8314,21 +7742,21 @@ uint64_t dmlc::io::LocalFileSystem::ListDirectory(uint64_t a1, uint64_t a2, uint
       size = __p.__r_.__value_.__l.__size_;
     }
 
-    v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, p_p, size);
-    v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, " error: ", 8);
-    v23 = strerror(v10);
-    v24 = strlen(v23);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, v23, v24);
+    v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, p_p, size);
+    v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, " error: ", 8);
+    v22 = strerror(v9);
+    v23 = strlen(v22);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, v22, v23);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    dmlc::LogMessageFatal::~LogMessageFatal(&v61);
+    dmlc::LogMessageFatal::~LogMessageFatal(&v60);
   }
 
   std::vector<dmlc::io::FileInfo>::__base_destruct_at_end[abi:ne200100](a3, *a3);
-  for (i = readdir(v9); i; i = readdir(v9))
+  for (i = readdir(v8); i; i = readdir(v8))
   {
     d_name = i->d_name;
     if (i->d_name[0] != 46 || i->d_name[1] && (i->d_name[1] != 46 || i->d_name[2]))
@@ -8345,159 +7773,159 @@ uint64_t dmlc::io::LocalFileSystem::ListDirectory(uint64_t a1, uint64_t a2, uint
 
       if (*(a2 + 47) < 0)
       {
-        std::string::__init_copy_ctor_external(&v59, *(a2 + 24), *(a2 + 32));
+        std::string::__init_copy_ctor_external(&v58, *(a2 + 24), *(a2 + 32));
       }
 
       else
       {
-        v59 = *(a2 + 24);
+        v58 = *(a2 + 24);
       }
 
       if (*(a2 + 71) < 0)
       {
-        std::string::__init_copy_ctor_external(&v60, *(a2 + 48), *(a2 + 56));
+        std::string::__init_copy_ctor_external(&v59, *(a2 + 48), *(a2 + 56));
       }
 
       else
       {
-        v60 = *v7;
+        v59 = *v6;
       }
 
-      v27 = HIBYTE(v60.__r_.__value_.__r.__words[2]);
-      if ((v60.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      v26 = HIBYTE(v59.__r_.__value_.__r.__words[2]);
+      if ((v59.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v28 = &v60;
+        v27 = &v59;
       }
 
       else
       {
-        v27 = v60.__r_.__value_.__l.__size_;
-        v28 = v60.__r_.__value_.__r.__words[0];
+        v26 = v59.__r_.__value_.__l.__size_;
+        v27 = v59.__r_.__value_.__r.__words[0];
       }
 
-      if (v28->__r_.__value_.__s.__data_[v27 - 1] != 47)
+      if (v27->__r_.__value_.__s.__data_[v26 - 1] != 47)
       {
-        std::string::push_back(&v60, 47);
+        std::string::push_back(&v59, 47);
       }
 
-      std::string::append(&v60, d_name);
-      (*(*a1 + 16))(&v51, a1, &__p);
-      v29 = a3[1];
-      v30 = a3[2];
-      if (v29 >= v30)
+      std::string::append(&v59, d_name);
+      (*(*a1 + 16))(&v50, a1, &__p);
+      v28 = a3[1];
+      v29 = a3[2];
+      if (v28 >= v29)
       {
-        v35 = 0x2E8BA2E8BA2E8BA3 * ((v29 - *a3) >> 3);
-        v36 = v35 + 1;
-        if ((v35 + 1) > 0x2E8BA2E8BA2E8BALL)
+        v34 = 0x2E8BA2E8BA2E8BA3 * ((v28 - *a3) >> 3);
+        v35 = v34 + 1;
+        if ((v34 + 1) > 0x2E8BA2E8BA2E8BALL)
         {
           std::vector<void *>::__throw_length_error[abi:ne200100]();
         }
 
-        v37 = 0x2E8BA2E8BA2E8BA3 * ((v30 - *a3) >> 3);
-        if (2 * v37 > v36)
+        v36 = 0x2E8BA2E8BA2E8BA3 * ((v29 - *a3) >> 3);
+        if (2 * v36 > v35)
         {
-          v36 = 2 * v37;
+          v35 = 2 * v36;
         }
 
-        if (v37 >= 0x1745D1745D1745DLL)
+        if (v36 >= 0x1745D1745D1745DLL)
         {
-          v38 = 0x2E8BA2E8BA2E8BALL;
+          v37 = 0x2E8BA2E8BA2E8BALL;
         }
 
         else
         {
-          v38 = v36;
+          v37 = v35;
         }
 
-        v64 = a3;
-        if (v38)
+        v63 = a3;
+        if (v37)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<dmlc::io::FileInfo>>(a3, v38);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<dmlc::io::FileInfo>>(a3, v37);
         }
 
-        v39 = 88 * v35;
-        v61 = 0;
-        v62 = v39;
-        *(&v63 + 1) = 0;
-        v40 = *&v51.__r_.__value_.__l.__data_;
-        *(v39 + 16) = *(&v51.__r_.__value_.__l + 2);
-        *v39 = v40;
-        memset(&v51, 0, sizeof(v51));
-        v41 = v52;
-        *(v39 + 40) = v53;
-        *(v39 + 24) = v41;
-        v53 = 0;
-        v52 = 0uLL;
-        v42 = v54;
-        *(v39 + 64) = v55;
-        *(v39 + 48) = v42;
-        v54 = 0uLL;
-        v55 = 0;
-        v43 = v56;
-        *(v39 + 80) = v57;
-        *(v39 + 72) = v43;
-        *&v63 = 88 * v35 + 88;
-        v44 = a3[1];
-        v45 = 88 * v35 + *a3 - v44;
-        std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<dmlc::io::FileInfo>,dmlc::io::FileInfo*>(a3, *a3, v44, v39 + *a3 - v44);
-        v46 = *a3;
-        *a3 = v45;
-        v47 = a3[2];
-        v50 = v63;
-        *(a3 + 1) = v63;
-        *&v63 = v46;
-        *(&v63 + 1) = v47;
-        v61 = v46;
-        v62 = v46;
-        std::__split_buffer<dmlc::io::FileInfo>::~__split_buffer(&v61);
-        v48 = SHIBYTE(v55);
-        a3[1] = v50;
-        if (v48 < 0)
+        v38 = 88 * v34;
+        v60 = 0;
+        v61 = v38;
+        *(&v62 + 1) = 0;
+        v39 = *&v50.__r_.__value_.__l.__data_;
+        *(v38 + 16) = *(&v50.__r_.__value_.__l + 2);
+        *v38 = v39;
+        memset(&v50, 0, sizeof(v50));
+        v40 = v51;
+        *(v38 + 40) = v52;
+        *(v38 + 24) = v40;
+        v52 = 0;
+        v51 = 0uLL;
+        v41 = v53;
+        *(v38 + 64) = v54;
+        *(v38 + 48) = v41;
+        v53 = 0uLL;
+        v54 = 0;
+        v42 = v55;
+        *(v38 + 80) = v56;
+        *(v38 + 72) = v42;
+        *&v62 = 88 * v34 + 88;
+        v43 = a3[1];
+        v44 = 88 * v34 + *a3 - v43;
+        std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<dmlc::io::FileInfo>,dmlc::io::FileInfo*>(a3, *a3, v43, v38 + *a3 - v43);
+        v45 = *a3;
+        *a3 = v44;
+        v46 = a3[2];
+        v49 = v62;
+        *(a3 + 1) = v62;
+        *&v62 = v45;
+        *(&v62 + 1) = v46;
+        v60 = v45;
+        v61 = v45;
+        std::__split_buffer<dmlc::io::FileInfo>::~__split_buffer(&v60);
+        v47 = SHIBYTE(v54);
+        a3[1] = v49;
+        if (v47 < 0)
         {
-          operator delete(v54);
+          operator delete(v53);
         }
       }
 
       else
       {
-        v31 = *&v51.__r_.__value_.__l.__data_;
-        *(v29 + 16) = *(&v51.__r_.__value_.__l + 2);
-        *v29 = v31;
-        memset(&v51, 0, sizeof(v51));
+        v30 = *&v50.__r_.__value_.__l.__data_;
+        *(v28 + 16) = *(&v50.__r_.__value_.__l + 2);
+        *v28 = v30;
+        memset(&v50, 0, sizeof(v50));
+        v31 = v52;
+        *(v28 + 24) = v51;
+        *(v28 + 40) = v31;
+        v51 = 0uLL;
         v32 = v53;
-        *(v29 + 24) = v52;
-        *(v29 + 40) = v32;
-        v52 = 0uLL;
-        v33 = v54;
-        *(v29 + 64) = v55;
-        *(v29 + 48) = v33;
-        v55 = 0;
-        v53 = 0;
-        v54 = 0uLL;
-        v34 = v56;
-        *(v29 + 80) = v57;
-        *(v29 + 72) = v34;
-        a3[1] = v29 + 88;
+        *(v28 + 64) = v54;
+        *(v28 + 48) = v32;
+        v54 = 0;
+        v52 = 0;
+        v53 = 0uLL;
+        v33 = v55;
+        *(v28 + 80) = v56;
+        *(v28 + 72) = v33;
+        a3[1] = v28 + 88;
       }
 
-      if (SHIBYTE(v53) < 0)
+      if (SHIBYTE(v52) < 0)
       {
-        operator delete(v52);
+        operator delete(v51);
       }
 
-      if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v51.__r_.__value_.__l.__data_);
-      }
-
-      if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v60.__r_.__value_.__l.__data_);
+        operator delete(v50.__r_.__value_.__l.__data_);
       }
 
       if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v59.__r_.__value_.__l.__data_);
+      }
+
+      if (SHIBYTE(v58.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v58.__r_.__value_.__l.__data_);
       }
 
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -8507,7 +7935,7 @@ uint64_t dmlc::io::LocalFileSystem::ListDirectory(uint64_t a1, uint64_t a2, uint
     }
   }
 
-  return closedir(v9);
+  return closedir(v8);
 }
 
 void sub_274D27F68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37)
@@ -8523,62 +7951,60 @@ void sub_274D27F68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t dmlc::io::LocalFileSystem::Open(dmlc::io::LocalFileSystem *this, const dmlc::io::URI *a2, char *a3, char a4)
 {
-  v8 = a2 + 48;
-  v7 = *(a2 + 6);
+  v7 = a2 + 48;
   if (*(a2 + 71) >= 0)
   {
-    v9 = a2 + 48;
+    v8 = a2 + 48;
   }
 
   else
   {
-    v9 = *(a2 + 6);
+    v8 = *(a2 + 6);
   }
 
-  v10 = strcmp(v9, "stdin");
-  v11 = *MEMORY[0x277D85E00];
-  v12 = strcmp(v9, "stdout");
-  if (v10)
+  v9 = strcmp(v8, "stdin");
+  v10 = *MEMORY[0x277D85E00];
+  v11 = strcmp(v8, "stdout");
+  if (v9)
   {
-    v13 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v13 = v11;
+    v12 = v10;
   }
 
-  if (v10)
+  if (v9)
   {
-    v14 = v12 == 0;
+    v13 = v11 == 0;
   }
 
   else
   {
-    v14 = 1;
+    v13 = 1;
   }
 
-  v15 = *MEMORY[0x277D85E08];
-  if (v12)
+  if (v11)
   {
-    v16 = v13;
+    v14 = v12;
   }
 
   else
   {
-    v16 = *MEMORY[0x277D85E08];
+    v14 = *MEMORY[0x277D85E08];
   }
 
-  v17 = 7;
-  if (strncmp(v9, "file://", 7uLL))
+  v15 = 7;
+  if (strncmp(v8, "file://", 7uLL))
   {
-    v17 = 0;
+    v15 = 0;
   }
 
-  if (v14)
+  if (v13)
   {
 LABEL_34:
-    if (v16)
+    if (v14)
     {
       goto LABEL_35;
     }
@@ -8587,7 +8013,7 @@ LABEL_34:
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__p, a3);
-  v18 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+  v16 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     if (__p.__r_.__value_.__l.__size_ != 1)
@@ -8595,7 +8021,7 @@ LABEL_34:
       goto LABEL_30;
     }
 
-    v19 = __p.__r_.__value_.__r.__words[0];
+    v17 = __p.__r_.__value_.__r.__words[0];
   }
 
   else
@@ -8603,7 +8029,7 @@ LABEL_34:
     if (HIBYTE(__p.__r_.__value_.__r.__words[2]) != 1)
     {
 LABEL_24:
-      if (v18 != 1)
+      if (v16 != 1)
       {
         goto LABEL_30;
       }
@@ -8612,16 +8038,16 @@ LABEL_24:
       goto LABEL_28;
     }
 
-    v19 = &__p;
+    v17 = &__p;
   }
 
-  if (v19->__r_.__value_.__s.__data_[0] == 119)
+  if (v17->__r_.__value_.__s.__data_[0] == 119)
   {
     MEMORY[0x277C68BE0](&__p, "wb");
-    v18 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+    v16 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
   }
 
-  if ((v18 & 0x80) == 0)
+  if ((v16 & 0x80) == 0)
   {
     goto LABEL_24;
   }
@@ -8636,28 +8062,28 @@ LABEL_28:
   if (p_p->__r_.__value_.__s.__data_[0] == 114)
   {
     MEMORY[0x277C68BE0](&__p, "rb");
-    LOBYTE(v18) = *(&__p.__r_.__value_.__s + 23);
+    LOBYTE(v16) = *(&__p.__r_.__value_.__s + 23);
   }
 
 LABEL_30:
-  if ((v18 & 0x80u) == 0)
+  if ((v16 & 0x80u) == 0)
   {
-    v21 = &__p;
+    v19 = &__p;
   }
 
   else
   {
-    v21 = __p.__r_.__value_.__r.__words[0];
+    v19 = __p.__r_.__value_.__r.__words[0];
   }
 
-  v16 = fopen(&v9[v17], v21);
+  v14 = fopen(&v8[v15], v19);
   if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_34;
   }
 
   operator delete(__p.__r_.__value_.__l.__data_);
-  if (v16)
+  if (v14)
   {
 LABEL_35:
     operator new();
@@ -8666,78 +8092,78 @@ LABEL_35:
 LABEL_37:
   if ((a4 & 1) == 0)
   {
-    Entry = dmlc::LogMessageFatal::GetEntry(&v42);
+    Entry = dmlc::LogMessageFatal::GetEntry(&v40);
     dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/io/local_filesys.cc", 209);
-    v23 = dmlc::LogMessageFatal::GetEntry(&v42);
-    v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, "Check failed: allow_null", 24);
-    v25 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, ": ", 2);
-    v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, " LocalFileSystem::Open ", 24);
+    v21 = dmlc::LogMessageFatal::GetEntry(&v40);
+    v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, "Check failed: allow_null", 24);
+    v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, ": ", 2);
+    v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, " LocalFileSystem::Open ", 24);
     std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, a2 + 3, &__p);
-    v27 = *(a2 + 71);
-    if (v27 >= 0)
+    v25 = *(a2 + 71);
+    if (v25 >= 0)
     {
-      v28 = v8;
+      v26 = v7;
     }
 
     else
     {
-      v28 = *(a2 + 6);
+      v26 = *(a2 + 6);
     }
 
-    if (v27 >= 0)
+    if (v25 >= 0)
     {
-      v29 = *(a2 + 71);
+      v27 = *(a2 + 71);
     }
 
     else
     {
-      v29 = *(a2 + 7);
+      v27 = *(a2 + 7);
     }
 
-    v30 = std::string::append(&__p, v28, v29);
-    v31 = *&v30->__r_.__value_.__l.__data_;
-    v41 = v30->__r_.__value_.__r.__words[2];
-    *v40 = v31;
-    v30->__r_.__value_.__l.__size_ = 0;
-    v30->__r_.__value_.__r.__words[2] = 0;
-    v30->__r_.__value_.__r.__words[0] = 0;
+    v28 = std::string::append(&__p, v26, v27);
+    v29 = *&v28->__r_.__value_.__l.__data_;
+    v39 = v28->__r_.__value_.__r.__words[2];
+    *v38 = v29;
+    v28->__r_.__value_.__l.__size_ = 0;
+    v28->__r_.__value_.__r.__words[2] = 0;
+    v28->__r_.__value_.__r.__words[0] = 0;
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (v41 >= 0)
+    if (v39 >= 0)
     {
-      v32 = v40;
+      v30 = v38;
     }
 
     else
     {
-      v32 = v40[0];
+      v30 = v38[0];
     }
 
-    if (v41 >= 0)
+    if (v39 >= 0)
     {
-      v33 = HIBYTE(v41);
+      v31 = HIBYTE(v39);
     }
 
     else
     {
-      v33 = v40[1];
+      v31 = v38[1];
     }
 
-    v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, v32, v33);
-    v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, ": ", 3);
-    v36 = __error();
-    v37 = strerror(*v36);
-    v38 = strlen(v37);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v35, v37, v38);
-    if (SHIBYTE(v41) < 0)
+    v32 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, v30, v31);
+    v33 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, ": ", 3);
+    v34 = __error();
+    v35 = strerror(*v34);
+    v36 = strlen(v35);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v33, v35, v36);
+    if (SHIBYTE(v39) < 0)
     {
-      operator delete(v40[0]);
+      operator delete(v38[0]);
     }
 
-    dmlc::LogMessageFatal::~LogMessageFatal(&v42);
+    dmlc::LogMessageFatal::~LogMessageFatal(&v40);
   }
 
   return 0;
@@ -8754,7 +8180,7 @@ void sub_274D28328(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
+char *std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
 {
   if (*(a1 + 23) >= 0)
   {
@@ -8777,7 +8203,7 @@ uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator
   }
 
   result = std::string::basic_string[abi:ne200100](a3, v6 + v5);
-  if (*(result + 23) >= 0)
+  if (result[23] >= 0)
   {
     v8 = result;
   }
@@ -8822,7 +8248,7 @@ uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator
   return result;
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -8834,11 +8260,11 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 void dmlc::io::FileStream::Write(FILE **this, const void *__ptr, size_t a3)
@@ -8894,14 +8320,14 @@ void dmlc::io::FileStream::Seek(FILE **this, uint64_t a2)
   }
 }
 
-void std::vector<dmlc::io::FileInfo>::__base_destruct_at_end[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<dmlc::io::FileInfo>::__base_destruct_at_end[abi:ne200100](uint64_t result, uint64_t a2)
 {
-  for (i = *(a1 + 8); i != a2; std::allocator_traits<std::allocator<dmlc::io::FileInfo>>::destroy[abi:ne200100]<dmlc::io::FileInfo,0>(a1, i))
+  for (i = *(result + 8); i != a2; std::allocator_traits<std::allocator<dmlc::io::FileInfo>>::destroy[abi:ne200100]<dmlc::io::FileInfo,0>(result, i))
   {
     i -= 88;
   }
 
-  *(a1 + 8) = a2;
+  *(result + 8) = a2;
 }
 
 void std::allocator_traits<std::allocator<dmlc::io::FileInfo>>::destroy[abi:ne200100]<dmlc::io::FileInfo,0>(uint64_t a1, uint64_t a2)
@@ -9182,7 +8608,7 @@ void xgboost::PredictionContainer::ClearExpiredEntries(int8x8_t *this)
         if (v15)
         {
           v16 = this[1];
-          v17 = v15[1];
+          v17 = *(v15 + 1);
           v18 = vcnt_s8(v16);
           v18.i16[0] = vaddlv_u8(v18);
           if (v18.u32[0] > 1uLL)
@@ -9214,18 +8640,18 @@ void xgboost::PredictionContainer::ClearExpiredEntries(int8x8_t *this)
           v21 = v20[1];
           if (v18.u32[0] > 1uLL)
           {
-            if (v21 >= *&v16)
+            if (*&v21 >= *&v16)
             {
-              v21 %= *&v16;
+              *&v21 %= *&v16;
             }
           }
 
           else
           {
-            v21 &= *&v16 - 1;
+            *&v21 &= *&v16 - 1;
           }
 
-          if (v21 != v17)
+          if (*&v21 != v17)
           {
 LABEL_38:
             if (!*v15)
@@ -9311,12 +8737,12 @@ void sub_274D28E58(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *xgboost::PredictionContainer::Cache(int8x8_t *a1, uint64_t *a2, int a3)
+char *xgboost::PredictionContainer::Cache(int8x8_t *a1, uint64_t *a2, int a3)
 {
   xgboost::PredictionContainer::ClearExpiredEntries(a1);
   v11 = *a2;
   v12 = &v11;
-  v6 = std::__hash_table<std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,std::__unordered_map_hasher<xgboost::DMatrix *,std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,std::hash<xgboost::DMatrix *>,std::equal_to<xgboost::DMatrix *>,true>,std::__unordered_map_equal<xgboost::DMatrix *,std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,std::equal_to<xgboost::DMatrix *>,std::hash<xgboost::DMatrix *>,true>,std::allocator<std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>>>::__emplace_unique_key_args<xgboost::DMatrix *,std::piecewise_construct_t const&,std::tuple<xgboost::DMatrix *&&>,std::tuple<>>(a1, &v11);
+  v6 = std::__hash_table<std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,std::__unordered_map_hasher<xgboost::DMatrix *,std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,std::hash<xgboost::DMatrix *>,std::equal_to<xgboost::DMatrix *>,true>,std::__unordered_map_equal<xgboost::DMatrix *,std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,std::equal_to<xgboost::DMatrix *>,std::hash<xgboost::DMatrix *>,true>,std::allocator<std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>>>::__emplace_unique_key_args<xgboost::DMatrix *,std::piecewise_construct_t const&,std::tuple<xgboost::DMatrix *&&>,std::tuple<>>(a1, &v11, &std::piecewise_construct, &v12);
   v8 = *a2;
   v7 = a2[1];
   if (v7)
@@ -9324,9 +8750,9 @@ void *xgboost::PredictionContainer::Cache(int8x8_t *a1, uint64_t *a2, int a3)
     atomic_fetch_add_explicit((v7 + 16), 1uLL, memory_order_relaxed);
   }
 
-  v9 = v6[6];
-  v6[5] = v8;
-  v6[6] = v7;
+  v9 = *(v6 + 6);
+  *(v6 + 5) = v8;
+  *(v6 + 6) = v7;
   if (v9)
   {
     std::__shared_weak_count::__release_weak(v9);
@@ -9336,12 +8762,12 @@ void *xgboost::PredictionContainer::Cache(int8x8_t *a1, uint64_t *a2, int a3)
   {
     v11 = *a2;
     v12 = &v11;
-    std::__hash_table<std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,std::__unordered_map_hasher<xgboost::DMatrix *,std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,std::hash<xgboost::DMatrix *>,std::equal_to<xgboost::DMatrix *>,true>,std::__unordered_map_equal<xgboost::DMatrix *,std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,std::equal_to<xgboost::DMatrix *>,std::hash<xgboost::DMatrix *>,true>,std::allocator<std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>>>::__emplace_unique_key_args<xgboost::DMatrix *,std::piecewise_construct_t const&,std::tuple<xgboost::DMatrix *&&>,std::tuple<>>(a1, &v11);
+    std::__hash_table<std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,std::__unordered_map_hasher<xgboost::DMatrix *,std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,std::hash<xgboost::DMatrix *>,std::equal_to<xgboost::DMatrix *>,true>,std::__unordered_map_equal<xgboost::DMatrix *,std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,std::equal_to<xgboost::DMatrix *>,std::hash<xgboost::DMatrix *>,true>,std::allocator<std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>>>::__emplace_unique_key_args<xgboost::DMatrix *,std::piecewise_construct_t const&,std::tuple<xgboost::DMatrix *&&>,std::tuple<>>(a1, &v11, &std::piecewise_construct, &v12);
   }
 
   v11 = *a2;
   v12 = &v11;
-  return std::__hash_table<std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,std::__unordered_map_hasher<xgboost::DMatrix *,std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,std::hash<xgboost::DMatrix *>,std::equal_to<xgboost::DMatrix *>,true>,std::__unordered_map_equal<xgboost::DMatrix *,std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,std::equal_to<xgboost::DMatrix *>,std::hash<xgboost::DMatrix *>,true>,std::allocator<std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>>>::__emplace_unique_key_args<xgboost::DMatrix *,std::piecewise_construct_t const&,std::tuple<xgboost::DMatrix *&&>,std::tuple<>>(a1, &v11) + 3;
+  return std::__hash_table<std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,std::__unordered_map_hasher<xgboost::DMatrix *,std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,std::hash<xgboost::DMatrix *>,std::equal_to<xgboost::DMatrix *>,true>,std::__unordered_map_equal<xgboost::DMatrix *,std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,std::equal_to<xgboost::DMatrix *>,std::hash<xgboost::DMatrix *>,true>,std::allocator<std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>>>::__emplace_unique_key_args<xgboost::DMatrix *,std::piecewise_construct_t const&,std::tuple<xgboost::DMatrix *&&>,std::tuple<>>(a1, &v11, &std::piecewise_construct, &v12) + 24;
 }
 
 void *xgboost::PredictionContainer::Entry(xgboost::PredictionContainer *this, xgboost::DMatrix *a2)
@@ -9388,7 +8814,7 @@ LABEL_10:
   return v14 + 3;
 }
 
-void xgboost::Predictor::Create(uint64_t a1, uint64_t a2)
+void xgboost::Predictor::Create(uint64_t **a1, uint64_t a2)
 {
   dmlc::Registry<xgboost::PredictorReg>::Get();
   dmlc::Registry<xgboost::PredictorReg>::Get();
@@ -9417,7 +8843,7 @@ void xgboost::Predictor::Create(uint64_t a1, uint64_t a2)
 
     else
     {
-      v11 = *(a1 + 8);
+      v11 = a1[1];
     }
 
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, v10, v11);
@@ -9444,9 +8870,9 @@ uint64_t std::function<xgboost::Predictor * ()(xgboost::GenericParameter const*)
   return (*(*v2 + 48))(v2, &v4);
 }
 
-void xgboost::Predictor::InitOutPredictions(int16x4_t a1, uint64_t a2, unint64_t *a3, uint64_t **a4, uint64_t a5)
+void xgboost::Predictor::InitOutPredictions(uint64_t a1, unint64_t *a2, uint64_t **a3, uint64_t a4, int16x4_t a5)
 {
-  v8 = *(a5 + 8);
+  v8 = *(a4 + 8);
   v10 = *(v8 + 8);
   v9 = (v8 + 8);
   v24 = 0;
@@ -9455,25 +8881,25 @@ void xgboost::Predictor::InitOutPredictions(int16x4_t a1, uint64_t a2, unint64_t
     dmlc::LogCheckFormat<unsigned int,int>(v9, &v24);
   }
 
-  v11 = *(*(a5 + 8) + 8);
-  v12 = *a3 * v11;
-  v13 = a3[10];
+  v11 = *(*(a4 + 8) + 8);
+  v12 = *a2 * v11;
+  v13 = a2[10];
   v15 = *v13;
   v14 = v13[1];
   LODWORD(v25) = 0;
-  std::vector<float>::resize(*a4, v12, &v25, a1);
+  std::vector<float>::resize(*a3, v12, &v25, a5);
   if (v14 != v15)
   {
-    xgboost::ValidateBaseMarginShape<2>((a3 + 10), *a3, v11);
+    xgboost::ValidateBaseMarginShape<2>((a2 + 10), *a2, v11);
     xgboost::HostDeviceVector<float>::Copy();
   }
 
-  v17 = **a4;
-  v18 = ((*a4)[1] - v17) >> 2;
+  v17 = **a3;
+  v18 = ((*a3)[1] - v17) >> 2;
   if (v18 >= 1)
   {
     v19 = 0;
-    v16.i32[0] = **(a5 + 8);
+    v16.i32[0] = **(a4 + 8);
     v20 = vdupq_n_s64(v18 - 1);
     v21 = (v17 + 8);
     do
@@ -9656,51 +9082,43 @@ void *std::__hash_table<std::__hash_value_type<xgboost::DMatrix *,xgboost::Predi
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -9728,35 +9146,35 @@ void std::__destroy_at[abi:ne200100]<std::pair<xgboost::DMatrix * const,xgboost:
   xgboost::HostDeviceVector<float>::~HostDeviceVector();
 }
 
-void *std::__hash_table<std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,std::__unordered_map_hasher<xgboost::DMatrix *,std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,std::hash<xgboost::DMatrix *>,std::equal_to<xgboost::DMatrix *>,true>,std::__unordered_map_equal<xgboost::DMatrix *,std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,std::equal_to<xgboost::DMatrix *>,std::hash<xgboost::DMatrix *>,true>,std::allocator<std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>>>::__emplace_unique_key_args<xgboost::DMatrix *,std::piecewise_construct_t const&,std::tuple<xgboost::DMatrix *&&>,std::tuple<>>(void *a1, void *a2)
+char *std::__hash_table<std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,std::__unordered_map_hasher<xgboost::DMatrix *,std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,std::hash<xgboost::DMatrix *>,std::equal_to<xgboost::DMatrix *>,true>,std::__unordered_map_equal<xgboost::DMatrix *,std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,std::equal_to<xgboost::DMatrix *>,std::hash<xgboost::DMatrix *>,true>,std::allocator<std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>>>::__emplace_unique_key_args<xgboost::DMatrix *,std::piecewise_construct_t const&,std::tuple<xgboost::DMatrix *&&>,std::tuple<>>(uint64_t *a1, void *a2, uint64_t a3, void **a4)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v5 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v4 >> 47) ^ v4);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v9 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+    if (v6 >= *&v7)
     {
-      v7 = v4 % *&v5;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v9 = v6 & (*&v7 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -9764,49 +9182,49 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v11[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v11;
 }
 
-void sub_274D29E7C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_274D29E7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<xgboost::DMatrix *,xgboost::PredictionCacheEntry>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9906,4 +9324,668 @@ uint64_t std::__tree<std::__value_type<std::string,xgboost::PredictorReg *>,std:
   }
 
   return v7;
+}
+
+uint64_t dmlc::io::IndexedRecordIOSplitter::ResetPartition(dmlc::io::IndexedRecordIOSplitter *this, unsigned int a2, unsigned int a3)
+{
+  v5 = *(this + 24);
+  v6 = *(this + 25);
+  result = this + 192;
+  v7 = (v6 - v5) >> 4;
+  v8 = (v7 + a3 - 1) / a3;
+  v9 = v8 * a2;
+  if (v9 < v7)
+  {
+    v10 = *(result - 168);
+    v11 = *(v10 - 1);
+    *(this + 32) = v9;
+    v12 = *(v5 + 16 * v9);
+    *(this + 6) = v12;
+    v13 = v8 * (a2 + 1);
+    if (v13 >= v7)
+    {
+      *(this + 7) = v11;
+      *(this + 33) = v7;
+      v29 = v11;
+      std::vector<std::pair<unsigned long,unsigned long>>::push_back[abi:ne200100](result, &v29);
+      v12 = *(this + 6);
+      v10 = *(this + 3);
+    }
+
+    else
+    {
+      *(this + 33) = v13;
+      *(this + 7) = *(v5 + 16 * v13);
+    }
+
+    *(this + 5) = v12;
+    v14 = *(this + 2);
+    if (v10 == v14)
+    {
+      v22 = -1;
+      *(this + 12) = -1;
+    }
+
+    else
+    {
+      v15 = v10 - v14;
+      v16 = v15;
+      v17 = *(this + 2);
+      do
+      {
+        v18 = v16 >> 1;
+        v19 = &v17[v16 >> 1];
+        v21 = *v19;
+        v20 = v19 + 1;
+        v16 += ~(v16 >> 1);
+        if (v12 < v21)
+        {
+          v16 = v18;
+        }
+
+        else
+        {
+          v17 = v20;
+        }
+      }
+
+      while (v16);
+      v22 = v17 - v14 - 1;
+      *(this + 12) = v22;
+      v10 = v14;
+      do
+      {
+        v23 = v15 >> 1;
+        v24 = &v10[v15 >> 1];
+        v26 = *v24;
+        v25 = v24 + 1;
+        v15 += ~(v15 >> 1);
+        if (*(this + 7) < v26)
+        {
+          v15 = v23;
+        }
+
+        else
+        {
+          v10 = v25;
+        }
+      }
+
+      while (v15);
+    }
+
+    *(this + 13) = v10 - v14 - 1;
+    v27 = *(this + 11);
+    if (v27)
+    {
+      (*(*v27 + 24))(v27);
+      *(this + 11) = 0;
+      v22 = *(this + 12);
+    }
+
+    *(this + 11) = (*(**(this + 1) + 48))(*(this + 1), *(this + 8) + 88 * v22, 0);
+    *(this + 31) = *(this + 32);
+    *(this + 35) = 0;
+    v28 = *(*this + 16);
+
+    return v28(this);
+  }
+
+  return result;
+}
+
+void std::vector<std::pair<unsigned long,unsigned long>>::push_back[abi:ne200100](uint64_t a1, _OWORD *a2)
+{
+  v5 = *(a1 + 8);
+  v4 = *(a1 + 16);
+  if (v5 >= v4)
+  {
+    v7 = (v5 - *a1) >> 4;
+    v8 = v7 + 1;
+    if ((v7 + 1) >> 60)
+    {
+      std::vector<void *>::__throw_length_error[abi:ne200100]();
+    }
+
+    v9 = v4 - *a1;
+    if (v9 >> 3 > v8)
+    {
+      v8 = v9 >> 3;
+    }
+
+    if (v9 >= 0x7FFFFFFFFFFFFFF0)
+    {
+      v10 = 0xFFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v10 = v8;
+    }
+
+    if (v10)
+    {
+      std::__allocate_at_least[abi:ne200100]<std::allocator<xgboost::common::WQSummary<float,float>::Entry>>(a1, v10);
+    }
+
+    v11 = (16 * v7);
+    *v11 = *a2;
+    v6 = 16 * v7 + 16;
+    v12 = *(a1 + 8) - *a1;
+    v13 = v11 - v12;
+    memcpy(v11 - v12, *a1, v12);
+    v14 = *a1;
+    *a1 = v13;
+    *(a1 + 8) = v6;
+    *(a1 + 16) = 0;
+    if (v14)
+    {
+      operator delete(v14);
+    }
+  }
+
+  else
+  {
+    *v5 = *a2;
+    v6 = (v5 + 1);
+  }
+
+  *(a1 + 8) = v6;
+}
+
+void dmlc::io::IndexedRecordIOSplitter::ReadIndexFile(uint64_t a1, uint64_t a2, const std::string *a3)
+{
+  dmlc::io::InputSplitBase::ConvertToURIs(a1, a3, &v27);
+  v5 = 0x8E38E38E38E38E39;
+  __p = (0x8E38E38E38E38E39 * ((v28 - v27) >> 3));
+  *&v19 = 1;
+  if (v28 - v27 != 72)
+  {
+    dmlc::LogCheckFormat<unsigned long,unsigned long>(&__p, &v19);
+  }
+
+  v6 = v27;
+  if (v28 != v27)
+  {
+    v7 = 0;
+    do
+    {
+      v8 = (*(*a2 + 40))(a2, &v6[3 * v7], "r", 1);
+      dmlc::istream::istream(v25, v8, 1024);
+      __p = 0;
+      v23 = 0;
+      v24 = 0;
+      v20 = 0;
+      v21 = 0;
+      while (1)
+      {
+        v9 = MEMORY[0x277C68D70](v25, &v21);
+        v10 = MEMORY[0x277C68D70](v9, &v20);
+        if ((*(v10 + *(*v10 - 24) + 32) & 5) != 0)
+        {
+          break;
+        }
+
+        std::vector<unsigned long>::push_back[abi:ne200100](&__p, &v20);
+      }
+
+      std::__sort<std::__less<unsigned long,unsigned long> &,unsigned long *>();
+      v12 = __p;
+      v11 = v23;
+      if (v23 - __p != 8)
+      {
+        v13 = v5;
+        v14 = 0;
+        do
+        {
+          v15 = v12[v14];
+          v16 = v12[v14 + 1] - v15;
+          *&v19 = v15;
+          *(&v19 + 1) = v16;
+          std::vector<std::pair<unsigned long,unsigned long>>::push_back[abi:ne200100](a1 + 192, &v19);
+          ++v14;
+          v12 = __p;
+          v11 = v23;
+        }
+
+        while (v14 < ((v23 - __p) >> 3) - 1);
+        v5 = v13;
+      }
+
+      v17 = *(v11 - 1);
+      v18 = *(*(a1 + 24) - 8) - v17;
+      *&v19 = v17;
+      *(&v19 + 1) = v18;
+      std::vector<std::pair<unsigned long,unsigned long>>::push_back[abi:ne200100](a1 + 192, &v19);
+      if (__p)
+      {
+        v23 = __p;
+        operator delete(__p);
+      }
+
+      MEMORY[0x277C690D0](&v26);
+      if (v8)
+      {
+        (*(*v8 + 24))(v8);
+      }
+
+      ++v7;
+      v6 = v27;
+    }
+
+    while (v7 < ((v28 - v27) >> 3) * v5);
+  }
+
+  v25[0].__locale_ = &v27;
+  std::vector<dmlc::io::URI>::__destroy_vector::operator()[abi:ne200100](v25);
+}
+
+void sub_274D2A594(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, uint64_t a16, uint64_t a17)
+{
+  a17 = v17 - 112;
+  std::vector<dmlc::io::URI>::__destroy_vector::operator()[abi:ne200100](&a17);
+  _Unwind_Resume(a1);
+}
+
+uint64_t dmlc::istream::istream(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *(a1 + 168) = 0;
+  *a1 = &unk_2883E1530;
+  *(a1 + 8) = 0;
+  *(a1 + 120) = &unk_2883E1558;
+  std::ios_base::init((a1 + 120), 0);
+  *(a1 + 256) = 0;
+  *(a1 + 264) = -1;
+  *a1 = &unk_2883E14C0;
+  *(a1 + 120) = &unk_2883E14E8;
+  dmlc::istream::InBuf::InBuf((a1 + 16), a3);
+  *(a1 + 80) = a2;
+  v6 = *(a1 + 96);
+  *(a1 + 32) = v6;
+  *(a1 + 40) = v6;
+  *(a1 + 48) = v6;
+  v7 = (a1 + *(*a1 - 24));
+  v7->__rdbuf_ = (a1 + 16);
+  std::ios_base::clear(v7, 0);
+  return a1;
+}
+
+void sub_274D2A76C(_Unwind_Exception *a1)
+{
+  dmlc::istream::InBuf::~InBuf(v2);
+  std::istream::~istream();
+  MEMORY[0x277C690D0](v1);
+  _Unwind_Resume(a1);
+}
+
+void dmlc::istream::~istream(std::locale *this)
+{
+  MEMORY[0x277C690D0](v1 + 120);
+}
+
+{
+  MEMORY[0x277C690D0](v1 + 120);
+
+  JUMPOUT(0x277C69180);
+}
+
+uint64_t dmlc::io::IndexedRecordIOSplitter::SeekRecordBegin(uint64_t a1, uint64_t (***a2)(void, uint64_t *, uint64_t))
+{
+  v10 = 0;
+  v3 = 0;
+  while ((**a2)(a2, (&v10 + 4), 4))
+  {
+    if (HIDWORD(v10) == -824761590)
+    {
+      if (!(**a2)(a2, &v10, 4))
+      {
+        Entry = dmlc::LogMessageFatal::GetEntry(&v9);
+        dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/io/indexed_recordio_split.cc", 73);
+        v5 = dmlc::LogMessageFatal::GetEntry(&v9);
+        v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, "Check failed: fi->Read(&lrec, sizeof(lrec)) != 0", 48);
+        v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, ": ", 2);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "invalid record io format", 24);
+        dmlc::LogMessageFatal::~LogMessageFatal(&v9);
+      }
+
+      if (!(v10 >> 30))
+      {
+        return v3;
+      }
+
+      v3 += 8;
+    }
+
+    else
+    {
+      v3 += 4;
+    }
+  }
+
+  return v3;
+}
+
+const char *dmlc::io::IndexedRecordIOSplitter::FindLastRecordBegin(dmlc::io::IndexedRecordIOSplitter *this, const char *a2, const char *a3)
+{
+  v4 = a2;
+  v10 = 0;
+  v11 = a2 & 3;
+  if ((a2 & 3) != 0)
+  {
+    dmlc::LogCheckFormat<unsigned long,unsigned int>(&v11, &v10);
+  }
+
+  v10 = 0;
+  v11 = a3 & 3;
+  if ((a3 & 3) != 0)
+  {
+    dmlc::LogCheckFormat<unsigned long,unsigned int>(&v11, &v10);
+  }
+
+  if (a2 + 8 > a3)
+  {
+    Entry = dmlc::LogMessageFatal::GetEntry(&v12);
+    dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/io/indexed_recordio_split.cc", 92);
+    v6 = dmlc::LogMessageFatal::GetEntry(&v12);
+    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "Check failed: p >= pbegin + 2", 29);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, ": ", 2);
+    dmlc::LogMessageFatal::~LogMessageFatal(&v12);
+  }
+
+  v8 = a3 - 8;
+  if (a3 - 8 != v4)
+  {
+    while (*v8 != -824761590 || *(v8 + 1) >> 30)
+    {
+      v8 -= 4;
+      if (v8 == v4)
+      {
+        return v4;
+      }
+    }
+
+    return v8;
+  }
+
+  return v4;
+}
+
+void sub_274D2ABA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12)
+{
+  v13 = a12;
+  a12 = 0;
+  if (v13)
+  {
+    std::default_delete<std::string>::operator()[abi:ne200100](&a12, v13);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+BOOL dmlc::io::IndexedRecordIOSplitter::ExtractNextRecord(uint64_t a1, unint64_t *a2, unint64_t *a3)
+{
+  v3 = *a3;
+  v36 = a3[1];
+  if (*a3 != v36)
+  {
+    LOBYTE(v6) = *a3;
+    if (v3 + 8 > v36)
+    {
+      Entry = dmlc::LogMessageFatal::GetEntry(&v39);
+      dmlc::LogMessageFatal::Entry::Init(Entry, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/io/indexed_recordio_split.cc", 106);
+      v8 = dmlc::LogMessageFatal::GetEntry(&v39);
+      v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "Check failed: chunk->begin + 2 * sizeof(uint32_t) <= chunk->end", 63);
+      v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, ": ", 2);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "Invalid RecordIO Format", 23);
+      dmlc::LogMessageFatal::~LogMessageFatal(&v39);
+      v6 = *a3;
+    }
+
+    v37 = 0;
+    v38 = v6 & 3;
+    if ((v6 & 3) != 0)
+    {
+      dmlc::LogCheckFormat<unsigned long,unsigned int>(&v38, &v37);
+    }
+
+    v11 = a3[1];
+    v37 = 0;
+    v38 = v11 & 3;
+    if ((v11 & 3) != 0)
+    {
+      dmlc::LogCheckFormat<unsigned long,unsigned int>(&v38, &v37);
+    }
+
+    v12 = *(*a3 + 4);
+    v13 = v12 & 0x1FFFFFFF;
+    v14 = *a3 + 8;
+    *a2 = v14;
+    v15 = v14 + ((v13 + 3) & 0x3FFFFFFC);
+    *a3 = v15;
+    if (v15 > a3[1])
+    {
+      v16 = dmlc::LogMessageFatal::GetEntry(&v39);
+      dmlc::LogMessageFatal::Entry::Init(v16, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/io/indexed_recordio_split.cc", 117);
+      v17 = dmlc::LogMessageFatal::GetEntry(&v39);
+      v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, "Check failed: chunk->begin <= chunk->end", 40);
+      v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, ": ", 2);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, "Invalid RecordIO Format", 23);
+      dmlc::LogMessageFatal::~LogMessageFatal(&v39);
+    }
+
+    v20 = v12 >> 29;
+    a2[1] = v13;
+    if (v20)
+    {
+      if (v20 == 1 || (v21 = dmlc::LogMessageFatal::GetEntry(&v39), dmlc::LogMessageFatal::Entry::Init(v21, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/io/indexed_recordio_split.cc", 122), v22 = dmlc::LogMessageFatal::GetEntry(&v39), v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, "Check failed: cflag == 1U", 25), v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, ": ", 2), std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v24, "Invalid RecordIO Format", 23), dmlc::LogMessageFatal::~LogMessageFatal(&v39), v20 != 3))
+      {
+        v25 = *a3;
+        do
+        {
+          if ((v25 + 2) > a3[1])
+          {
+            v26 = dmlc::LogMessageFatal::GetEntry(&v39);
+            dmlc::LogMessageFatal::Entry::Init(v26, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/io/indexed_recordio_split.cc", 124);
+            v27 = dmlc::LogMessageFatal::GetEntry(&v39);
+            v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, "Check failed: chunk->begin + 2 * sizeof(uint32_t) <= chunk->end", 63);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, ": ", 2);
+            dmlc::LogMessageFatal::~LogMessageFatal(&v39);
+            v25 = *a3;
+          }
+
+          if (*v25 != -824761590)
+          {
+            v29 = dmlc::LogMessageFatal::GetEntry(&v39);
+            dmlc::LogMessageFatal::Entry::Init(v29, "/Library/Caches/com.apple.xbs/Sources/CoreML/xgboost/dmlc/src/io/indexed_recordio_split.cc", 126);
+            v30 = dmlc::LogMessageFatal::GetEntry(&v39);
+            v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, "Check failed: p[0] == RecordIOWriter::kMagic", 44);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, ": ", 2);
+            dmlc::LogMessageFatal::~LogMessageFatal(&v39);
+          }
+
+          v32 = v25[1];
+          *(*a2 + a2[1]) = -824761590;
+          v33 = a2[1] + 4;
+          a2[1] = v33;
+          v34 = v32 & 0x1FFFFFFF;
+          if ((v32 & 0x1FFFFFFF) != 0)
+          {
+            memmove((*a2 + v33), (*a3 + 8), v32 & 0x1FFFFFFF);
+            a2[1] += v34;
+          }
+
+          v25 = (*a3 + ((v34 + 3) & 0x3FFFFFFC) + 8);
+          *a3 = v25;
+        }
+
+        while (v32 >> 29 != 3);
+      }
+    }
+  }
+
+  return v3 != v36;
+}
+
+void sub_274D2B068(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12)
+{
+  v13 = a12;
+  a12 = 0;
+  if (v13)
+  {
+    std::default_delete<std::string>::operator()[abi:ne200100](&a12, v13);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+BOOL dmlc::io::IndexedRecordIOSplitter::ReadChunk(dmlc::io::IndexedRecordIOSplitter *this, char *a2, unint64_t *a3)
+{
+  v4 = *a3;
+  v5 = dmlc::io::InputSplitBase::Read(this, a2, *a3);
+  if (v5 != v4 && v5 != 0)
+  {
+    *a3 = v5;
+  }
+
+  return v5 != 0;
+}
+
+uint64_t dmlc::io::IndexedRecordIOSplitter::NextBatchEx(dmlc::io::IndexedRecordIOSplitter *this, std::vector<unsigned int> *a2, uint64_t a3)
+{
+  v5 = *(this + 35);
+  if (*(this + 240) == 1)
+  {
+    if (v5)
+    {
+      v6 = *(this + 35);
+    }
+
+    else
+    {
+      v6 = a3;
+    }
+
+    if (v6)
+    {
+      v7 = 0;
+      v8 = *(this + 31);
+      while (1)
+      {
+        v9 = *(this + 27);
+        if (v8 >= (*(this + 28) - v9) >> 3)
+        {
+          break;
+        }
+
+        v10 = *(this + 24);
+        v11 = *(v10 + 16 * *(v9 + 8 * v8));
+        *(this + 5) = v11;
+        *(this + 19) = *(v10 + 16 * *(v9 + 8 * v8) + 8) >> 2;
+        v12 = *(this + 2);
+        v13 = *(this + 3);
+        if (v13 != v12)
+        {
+          v14 = v13 - v12;
+          v13 = *(this + 2);
+          do
+          {
+            v15 = v14 >> 1;
+            v16 = &v13[v14 >> 1];
+            v18 = *v16;
+            v17 = v16 + 1;
+            v14 += ~(v14 >> 1);
+            if (v11 < v18)
+            {
+              v14 = v15;
+            }
+
+            else
+            {
+              v13 = v17;
+            }
+          }
+
+          while (v14);
+        }
+
+        v19 = v13 - v12 - 1;
+        v20 = *(this + 11);
+        if (v19 != *(this + 12))
+        {
+          if (v20)
+          {
+            (*(*v20 + 24))(v20);
+          }
+
+          *(this + 12) = v19;
+          v20 = (*(**(this + 1) + 48))(*(this + 1), *(this + 8) + 88 * v19, 0);
+          *(this + 11) = v20;
+          v11 = *(this + 5);
+          v19 = *(this + 12);
+          v12 = *(this + 2);
+        }
+
+        (*(*v20 + 32))(v20, v11 - v12[v19]);
+        v21 = *(this + 19);
+        if (v7)
+        {
+          if (!dmlc::io::InputSplitBase::Chunk::Append(a2, this, v21))
+          {
+            goto LABEL_32;
+          }
+        }
+
+        else if ((dmlc::io::InputSplitBase::Chunk::Load(a2, this, v21) & 1) == 0)
+        {
+          return 0;
+        }
+
+        ++v7;
+        v8 = *(this + 31) + 1;
+        *(this + 31) = v8;
+        if (v7 == v6)
+        {
+          v7 = v6;
+          goto LABEL_32;
+        }
+      }
+
+      if (!v7)
+      {
+        return 0;
+      }
+
+LABEL_32:
+      *(this + 35) = v6 - v7;
+      return 1;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    v22 = *(this + 31);
+    v23 = *(this + 33);
+    if (!v5)
+    {
+      v5 = a3;
+    }
+
+    v24 = v22 + v5;
+    if (v23 >= v24)
+    {
+      v23 = v24;
+    }
+
+    *(this + 35) = v24 - v23;
+    v25 = (*(*(this + 24) + 16 * v23) - *(*(this + 24) + 16 * v22)) >> 2;
+    *(this + 19) = v25;
+    *(this + 31) = v23;
+
+    return dmlc::io::InputSplitBase::Chunk::Load(a2, this, v25);
+  }
 }

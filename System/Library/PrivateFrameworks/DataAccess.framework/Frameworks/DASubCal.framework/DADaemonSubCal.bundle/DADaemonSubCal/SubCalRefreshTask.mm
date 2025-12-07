@@ -12,6 +12,7 @@
 - (void)_processICSData:(id)data;
 - (void)_processICSDataFromFile:(id)file;
 - (void)_processICSDataHoldingGatekeeperLock:(id)lock;
+- (void)_setSpinning:(BOOL)spinning;
 - (void)_syncEndedWithError:(id)error;
 - (void)_syncStarted;
 - (void)_updateSubscribedCalendarWithTmpICSData:(id)data;
@@ -832,6 +833,76 @@ LABEL_73:
   accountID = [account accountID];
 
   return accountID;
+}
+
+- (void)_setSpinning:(BOOL)spinning
+{
+  spinningCopy = spinning;
+  if (!spinning || ![(SubCalRefreshTask *)self isSpinning])
+  {
+    v25 = kCalCalendarBundleIdentifier;
+    [NSArray arrayWithObjects:&v25 count:1];
+    v16 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    obj = v19 = 0u;
+    v5 = [obj countByEnumeratingWithState:&v16 objects:v24 count:16];
+    if (v5)
+    {
+      v6 = v5;
+      v7 = *v17;
+      v8 = _CPLog_to_os_log_type[6];
+      if (spinningCopy)
+      {
+        v9 = @"ON";
+      }
+
+      else
+      {
+        v9 = @"OFF";
+      }
+
+      v10 = _CPLog_to_os_log_type[7];
+      do
+      {
+        for (i = 0; i != v6; i = i + 1)
+        {
+          if (*v17 != v7)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v12 = *(*(&v16 + 1) + 8 * i);
+          v13 = DALoggingwithCategory();
+          if (os_log_type_enabled(v13, v8))
+          {
+            *buf = 138412546;
+            v21 = v9;
+            v22 = 2112;
+            v23 = v12;
+            _os_log_impl(&dword_0, v13, v8, "Telling springboard to set the spinner to %@ for identifier %@", buf, 0x16u);
+          }
+
+          SBSSetStatusBarShowsActivityForApplication();
+          v14 = DALoggingwithCategory();
+          if (os_log_type_enabled(v14, v10))
+          {
+            *buf = 138412546;
+            v21 = v9;
+            v22 = 2112;
+            v23 = v12;
+            _os_log_impl(&dword_0, v14, v10, "Finished telling springboard to set the spinner to %@ for identifier %@", buf, 0x16u);
+          }
+
+          [(SubCalRefreshTask *)self setIsSpinning:spinningCopy];
+        }
+
+        v6 = [obj countByEnumeratingWithState:&v16 objects:v24 count:16];
+      }
+
+      while (v6);
+    }
+  }
 }
 
 - (void)_syncStarted

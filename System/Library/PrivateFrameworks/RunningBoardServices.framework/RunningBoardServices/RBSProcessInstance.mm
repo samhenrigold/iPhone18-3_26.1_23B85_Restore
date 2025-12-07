@@ -5,6 +5,7 @@
 - (NSString)description;
 - (RBSProcessInstance)init;
 - (RBSProcessInstance)initWithRBSXPCCoder:(id)coder;
+- (id)copyWithAuid:(unsigned int)auid;
 - (id)copyWithPersonaString:(id)string;
 - (void)_initWithIdentifier:(void *)identifier identity:;
 - (void)encodeWithRBSXPCCoder:(id)coder;
@@ -46,27 +47,28 @@
     v5 = objc_opt_class();
     if (v5 != objc_opt_class() || (v6 = [(RBSProcessInstance *)self rbs_pid], v6 != [(RBSProcessInstance *)equalCopy rbs_pid]))
     {
-      v11 = 0;
+      v12 = 0;
       goto LABEL_11;
     }
 
     identity = [(RBSProcessInstance *)equalCopy identity];
     identity = self->_identity;
     p_identity = &self->_identity;
-    if (![(RBSProcessIdentity *)identity isEqual:identity])
+    v10 = [(RBSProcessIdentity *)identity isEqual:identity];
+    if ((v10 & 1) == 0)
     {
-      v10 = rbs_process_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+      v11 = rbs_process_log(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        [(RBSProcessInstance *)p_identity isEqual:identity, v10];
+        [(RBSProcessInstance *)p_identity isEqual:identity, v11];
       }
     }
   }
 
-  v11 = 1;
+  v12 = 1;
 LABEL_11:
 
-  return v11;
+  return v12;
 }
 
 - (void)encodeWithRBSXPCCoder:(id)coder
@@ -143,6 +145,17 @@ LABEL_11:
   return self;
 }
 
+- (id)copyWithAuid:(unsigned int)auid
+{
+  v3 = *&auid;
+  v5 = [RBSProcessInstance alloc];
+  identifier = self->_identifier;
+  v7 = [(RBSProcessIdentity *)self->_identity copyWithAuid:v3];
+  v8 = [(RBSProcessInstance *)v5 _initWithIdentifier:v7 identity:?];
+
+  return v8;
+}
+
 - (id)copyWithPersonaString:(id)string
 {
   stringCopy = string;
@@ -156,16 +169,14 @@ LABEL_11:
 
 - (void)isEqual:(NSObject *)a3 .cold.1(id *a1, void *a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = [*a1 debugDescription];
   v6 = [a2 debugDescription];
-  v8 = 138543618;
-  v9 = v5;
-  v10 = 2114;
-  v11 = v6;
-  _os_log_fault_impl(&dword_18E8AD000, a3, OS_LOG_TYPE_FAULT, "Two equal instances have unequal identities. %{public}@ and %{public}@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138543618;
+  v8 = v5;
+  v9 = 2114;
+  v10 = v6;
+  _os_log_fault_impl(&dword_18E8AD000, a3, OS_LOG_TYPE_FAULT, "Two equal instances have unequal identities. %{public}@ and %{public}@", &v7, 0x16u);
 }
 
 @end

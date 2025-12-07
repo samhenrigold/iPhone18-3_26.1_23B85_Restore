@@ -82,6 +82,7 @@
 - (void)setContentType:(id)type;
 - (void)setFileURL:(id)l;
 - (void)setFilename:(id)filename;
+- (void)setFp_isDownloadRequested:(BOOL)requested;
 - (void)setItemIdentifier:(id)identifier;
 - (void)setProviderDomainID:(id)d;
 - (void)setProviderID:(id)d;
@@ -240,522 +241,520 @@
 
 + (id)fp_queryFetchAttributes
 {
-  v93 = *MEMORY[0x1E69E9840];
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
+  v92 = *MEMORY[0x1E69E9840];
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2020000000;
   v2 = getMDItemFilenameSymbolLoc_ptr;
-  v90 = getMDItemFilenameSymbolLoc_ptr;
+  v89 = getMDItemFilenameSymbolLoc_ptr;
   if (!getMDItemFilenameSymbolLoc_ptr)
   {
     v3 = CoreSpotlightLibrary_2();
-    v88[3] = dlsym(v3, "MDItemFilename");
-    getMDItemFilenameSymbolLoc_ptr = v88[3];
-    v2 = v88[3];
+    v87[3] = dlsym(v3, "MDItemFilename");
+    getMDItemFilenameSymbolLoc_ptr = v87[3];
+    v2 = v87[3];
   }
 
-  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v2)
   {
     +[FPItem(CSSearchableItem) fp_queryFetchAttributes];
   }
 
   v4 = *v2;
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2020000000;
   v5 = getMDItemDisplayNameSymbolLoc_ptr;
-  v90 = getMDItemDisplayNameSymbolLoc_ptr;
-  v91[0] = v4;
+  v89 = getMDItemDisplayNameSymbolLoc_ptr;
+  v90[0] = v4;
   if (!getMDItemDisplayNameSymbolLoc_ptr)
   {
     v6 = CoreSpotlightLibrary_2();
-    v88[3] = dlsym(v6, "MDItemDisplayName");
-    getMDItemDisplayNameSymbolLoc_ptr = v88[3];
-    v5 = v88[3];
+    v87[3] = dlsym(v6, "MDItemDisplayName");
+    getMDItemDisplayNameSymbolLoc_ptr = v87[3];
+    v5 = v87[3];
   }
 
-  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v5)
   {
     +[FPItem(CSSearchableItem) fp_queryFetchAttributes];
   }
 
   v7 = *v5;
-  v91[1] = v7;
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
+  v90[1] = v7;
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2020000000;
   v8 = getMDItemContentTypeSymbolLoc_ptr;
-  v90 = getMDItemContentTypeSymbolLoc_ptr;
+  v89 = getMDItemContentTypeSymbolLoc_ptr;
   if (!getMDItemContentTypeSymbolLoc_ptr)
   {
     v9 = CoreSpotlightLibrary_2();
-    v88[3] = dlsym(v9, "MDItemContentType");
-    getMDItemContentTypeSymbolLoc_ptr = v88[3];
-    v8 = v88[3];
+    v87[3] = dlsym(v9, "MDItemContentType");
+    getMDItemContentTypeSymbolLoc_ptr = v87[3];
+    v8 = v87[3];
   }
 
-  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v8)
   {
     +[FPItem(CSSearchableItem) fp_queryFetchAttributes];
   }
 
   v10 = *v8;
-  v91[2] = v10;
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
+  v90[2] = v10;
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2020000000;
   v11 = getMDItemContentCreationDateSymbolLoc_ptr;
-  v90 = getMDItemContentCreationDateSymbolLoc_ptr;
+  v89 = getMDItemContentCreationDateSymbolLoc_ptr;
   if (!getMDItemContentCreationDateSymbolLoc_ptr)
   {
     v12 = CoreSpotlightLibrary_2();
-    v88[3] = dlsym(v12, "MDItemContentCreationDate");
-    getMDItemContentCreationDateSymbolLoc_ptr = v88[3];
-    v11 = v88[3];
+    v87[3] = dlsym(v12, "MDItemContentCreationDate");
+    getMDItemContentCreationDateSymbolLoc_ptr = v87[3];
+    v11 = v87[3];
   }
 
-  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v11)
   {
     +[FPItem(CSSearchableItem) fp_queryFetchAttributes];
   }
 
   v13 = *v11;
-  v91[3] = v13;
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
+  v90[3] = v13;
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2020000000;
   v14 = getMDItemContentModificationDateSymbolLoc_ptr;
-  v90 = getMDItemContentModificationDateSymbolLoc_ptr;
+  v89 = getMDItemContentModificationDateSymbolLoc_ptr;
   if (!getMDItemContentModificationDateSymbolLoc_ptr)
   {
     v15 = CoreSpotlightLibrary_2();
-    v88[3] = dlsym(v15, "MDItemContentModificationDate");
-    getMDItemContentModificationDateSymbolLoc_ptr = v88[3];
-    v14 = v88[3];
+    v87[3] = dlsym(v15, "MDItemContentModificationDate");
+    getMDItemContentModificationDateSymbolLoc_ptr = v87[3];
+    v14 = v87[3];
   }
 
-  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v14)
   {
     +[FPItem(CSSearchableItem) fp_queryFetchAttributes];
   }
 
-  v83 = *v14;
-  v91[4] = v83;
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
+  v82 = *v14;
+  v90[4] = v82;
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2020000000;
   v16 = getMDItemUserTagsSymbolLoc_ptr;
-  v90 = getMDItemUserTagsSymbolLoc_ptr;
+  v89 = getMDItemUserTagsSymbolLoc_ptr;
   if (!getMDItemUserTagsSymbolLoc_ptr)
   {
     v17 = CoreSpotlightLibrary_2();
-    v88[3] = dlsym(v17, "MDItemUserTags");
-    getMDItemUserTagsSymbolLoc_ptr = v88[3];
-    v16 = v88[3];
+    v87[3] = dlsym(v17, "MDItemUserTags");
+    getMDItemUserTagsSymbolLoc_ptr = v87[3];
+    v16 = v87[3];
   }
 
-  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v16)
   {
     +[FPItem(CSSearchableItem) fp_queryFetchAttributes];
   }
 
-  v80 = v10;
-  v81 = v13;
-  v78 = v4;
-  v79 = v7;
-  v82 = *v16;
-  v91[5] = v82;
-  v91[6] = @"_kMDItemUserTags";
-  v86 = getMDItemFileProviderDomainIdentifier();
-  v91[7] = v86;
-  v91[8] = @"FPTagColors";
-  v91[9] = @"FPFilename";
-  v85 = getMDItemLastUsedDate();
-  v91[10] = v85;
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
+  v79 = v10;
+  v80 = v13;
+  v77 = v4;
+  v78 = v7;
+  v81 = *v16;
+  v90[5] = v81;
+  v90[6] = @"_kMDItemUserTags";
+  v85 = getMDItemFileProviderDomainIdentifier();
+  v90[7] = v85;
+  v90[8] = @"FPTagColors";
+  v90[9] = @"FPFilename";
+  v84 = getMDItemLastUsedDate();
+  v90[10] = v84;
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2020000000;
   v18 = getMDItemFavoriteRankSymbolLoc_ptr;
-  v90 = getMDItemFavoriteRankSymbolLoc_ptr;
+  v89 = getMDItemFavoriteRankSymbolLoc_ptr;
   if (!getMDItemFavoriteRankSymbolLoc_ptr)
   {
     v19 = CoreSpotlightLibrary_2();
-    v88[3] = dlsym(v19, "MDItemFavoriteRank");
-    getMDItemFavoriteRankSymbolLoc_ptr = v88[3];
-    v18 = v88[3];
+    v87[3] = dlsym(v19, "MDItemFavoriteRank");
+    getMDItemFavoriteRankSymbolLoc_ptr = v87[3];
+    v18 = v87[3];
   }
 
-  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v18)
   {
     +[FPItem(CSSearchableItem) fp_queryFetchAttributes];
   }
 
   v20 = *v18;
-  v91[11] = v20;
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
+  v90[11] = v20;
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2020000000;
   v21 = getMDItemIsUploadedSymbolLoc_ptr;
-  v90 = getMDItemIsUploadedSymbolLoc_ptr;
+  v89 = getMDItemIsUploadedSymbolLoc_ptr;
   if (!getMDItemIsUploadedSymbolLoc_ptr)
   {
     v22 = CoreSpotlightLibrary_2();
-    v88[3] = dlsym(v22, "MDItemIsUploaded");
-    getMDItemIsUploadedSymbolLoc_ptr = v88[3];
-    v21 = v88[3];
+    v87[3] = dlsym(v22, "MDItemIsUploaded");
+    getMDItemIsUploadedSymbolLoc_ptr = v87[3];
+    v21 = v87[3];
   }
 
-  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v21)
   {
     +[FPItem(CSSearchableItem) fp_queryFetchAttributes];
   }
 
   v23 = *v21;
-  v91[12] = v23;
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
+  v90[12] = v23;
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2020000000;
   v24 = getMDItemIsUploadingSymbolLoc_ptr;
-  v90 = getMDItemIsUploadingSymbolLoc_ptr;
+  v89 = getMDItemIsUploadingSymbolLoc_ptr;
   if (!getMDItemIsUploadingSymbolLoc_ptr)
   {
     v25 = CoreSpotlightLibrary_2();
-    v88[3] = dlsym(v25, "MDItemIsUploading");
-    getMDItemIsUploadingSymbolLoc_ptr = v88[3];
-    v24 = v88[3];
+    v87[3] = dlsym(v25, "MDItemIsUploading");
+    getMDItemIsUploadingSymbolLoc_ptr = v87[3];
+    v24 = v87[3];
   }
 
-  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v24)
   {
     +[FPItem(CSSearchableItem) fp_queryFetchAttributes];
   }
 
   v26 = *v24;
-  v91[13] = v26;
-  v91[14] = @"FPUploadingError";
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
+  v90[13] = v26;
+  v90[14] = @"FPUploadingError";
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2020000000;
   v27 = getMDItemDownloadingStatusSymbolLoc_ptr;
-  v90 = getMDItemDownloadingStatusSymbolLoc_ptr;
+  v89 = getMDItemDownloadingStatusSymbolLoc_ptr;
   if (!getMDItemDownloadingStatusSymbolLoc_ptr)
   {
     v28 = CoreSpotlightLibrary_2();
-    v88[3] = dlsym(v28, "MDItemDownloadingStatus");
-    getMDItemDownloadingStatusSymbolLoc_ptr = v88[3];
-    v27 = v88[3];
+    v87[3] = dlsym(v28, "MDItemDownloadingStatus");
+    getMDItemDownloadingStatusSymbolLoc_ptr = v87[3];
+    v27 = v87[3];
   }
 
-  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v27)
   {
     +[FPItem(CSSearchableItem) fp_queryFetchAttributes];
   }
 
   v29 = *v27;
-  v91[15] = v29;
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
+  v90[15] = v29;
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2020000000;
   v30 = getMDItemVersionIdentifierSymbolLoc_ptr;
-  v90 = getMDItemVersionIdentifierSymbolLoc_ptr;
+  v89 = getMDItemVersionIdentifierSymbolLoc_ptr;
   if (!getMDItemVersionIdentifierSymbolLoc_ptr)
   {
     v31 = CoreSpotlightLibrary_2();
-    v88[3] = dlsym(v31, "MDItemVersionIdentifier");
-    getMDItemVersionIdentifierSymbolLoc_ptr = v88[3];
-    v30 = v88[3];
+    v87[3] = dlsym(v31, "MDItemVersionIdentifier");
+    getMDItemVersionIdentifierSymbolLoc_ptr = v87[3];
+    v30 = v87[3];
   }
 
-  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v30)
   {
     +[FPItem(CSSearchableItem) fp_queryFetchAttributes];
   }
 
-  v77 = *v30;
-  v91[16] = v77;
-  v91[17] = @"FPDownloaded";
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
+  v76 = *v30;
+  v90[16] = v76;
+  v90[17] = @"FPDownloaded";
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2020000000;
   v32 = getMDItemIsDownloadingSymbolLoc_ptr;
-  v90 = getMDItemIsDownloadingSymbolLoc_ptr;
+  v89 = getMDItemIsDownloadingSymbolLoc_ptr;
   if (!getMDItemIsDownloadingSymbolLoc_ptr)
   {
     v33 = CoreSpotlightLibrary_2();
-    v88[3] = dlsym(v33, "MDItemIsDownloading");
-    getMDItemIsDownloadingSymbolLoc_ptr = v88[3];
-    v32 = v88[3];
+    v87[3] = dlsym(v33, "MDItemIsDownloading");
+    getMDItemIsDownloadingSymbolLoc_ptr = v87[3];
+    v32 = v87[3];
   }
 
-  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v32)
   {
     +[FPItem(CSSearchableItem) fp_queryFetchAttributes];
   }
 
-  v76 = *v32;
-  v91[18] = v76;
-  v91[19] = @"FPMostRecentVersionDownloaded";
-  v91[20] = @"FPDownloadingError";
-  v91[21] = @"FPUserInfoValues";
-  v91[22] = @"FPUserInfoKeys";
-  v91[23] = @"FPCapabilities";
-  v91[24] = @"FPSharingCurrentUserPermissions";
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
+  v75 = *v32;
+  v90[18] = v75;
+  v90[19] = @"FPMostRecentVersionDownloaded";
+  v90[20] = @"FPDownloadingError";
+  v90[21] = @"FPUserInfoValues";
+  v90[22] = @"FPUserInfoKeys";
+  v90[23] = @"FPCapabilities";
+  v90[24] = @"FPSharingCurrentUserPermissions";
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2020000000;
   v34 = getMDItemUserOwnedSymbolLoc_ptr;
-  v90 = getMDItemUserOwnedSymbolLoc_ptr;
+  v89 = getMDItemUserOwnedSymbolLoc_ptr;
   if (!getMDItemUserOwnedSymbolLoc_ptr)
   {
     v35 = CoreSpotlightLibrary_2();
-    v88[3] = dlsym(v35, "MDItemUserOwned");
-    getMDItemUserOwnedSymbolLoc_ptr = v88[3];
-    v34 = v88[3];
+    v87[3] = dlsym(v35, "MDItemUserOwned");
+    getMDItemUserOwnedSymbolLoc_ptr = v87[3];
+    v34 = v87[3];
   }
 
-  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v34)
   {
     +[FPItem(CSSearchableItem) fp_queryFetchAttributes];
   }
 
-  v73 = v26;
-  v74 = v29;
-  v71 = v20;
-  v72 = v23;
-  v75 = *v34;
-  v91[25] = v75;
-  v84 = getMDItemFileSize();
-  v91[26] = v84;
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
+  v72 = v26;
+  v73 = v29;
+  v70 = v20;
+  v71 = v23;
+  v74 = *v34;
+  v90[25] = v74;
+  v83 = getMDItemFileSize();
+  v90[26] = v83;
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2020000000;
   v36 = getMDItemSubItemCountSymbolLoc_ptr;
-  v90 = getMDItemSubItemCountSymbolLoc_ptr;
+  v89 = getMDItemSubItemCountSymbolLoc_ptr;
   if (!getMDItemSubItemCountSymbolLoc_ptr)
   {
     v37 = CoreSpotlightLibrary_2();
-    v88[3] = dlsym(v37, "MDItemSubItemCount");
-    getMDItemSubItemCountSymbolLoc_ptr = v88[3];
-    v36 = v88[3];
+    v87[3] = dlsym(v37, "MDItemSubItemCount");
+    getMDItemSubItemCountSymbolLoc_ptr = v87[3];
+    v36 = v87[3];
   }
 
-  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v36)
   {
     +[FPItem(CSSearchableItem) fp_queryFetchAttributes];
   }
 
   v38 = *v36;
-  v91[27] = v38;
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
+  v90[27] = v38;
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2020000000;
   v39 = getMDItemIsSharedSymbolLoc_ptr_0;
-  v90 = getMDItemIsSharedSymbolLoc_ptr_0;
+  v89 = getMDItemIsSharedSymbolLoc_ptr_0;
   if (!getMDItemIsSharedSymbolLoc_ptr_0)
   {
     v40 = CoreSpotlightLibrary_2();
-    v88[3] = dlsym(v40, "MDItemIsShared");
-    getMDItemIsSharedSymbolLoc_ptr_0 = v88[3];
-    v39 = v88[3];
+    v87[3] = dlsym(v40, "MDItemIsShared");
+    getMDItemIsSharedSymbolLoc_ptr_0 = v87[3];
+    v39 = v87[3];
   }
 
-  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v39)
   {
     +[FPItem(CSSearchableItem) fp_queryFetchAttributes];
   }
 
   v41 = *v39;
-  v91[28] = v41;
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
+  v90[28] = v41;
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2020000000;
   v42 = getMDItemOwnerNameSymbolLoc_ptr_0;
-  v90 = getMDItemOwnerNameSymbolLoc_ptr_0;
+  v89 = getMDItemOwnerNameSymbolLoc_ptr_0;
   if (!getMDItemOwnerNameSymbolLoc_ptr_0)
   {
     v43 = CoreSpotlightLibrary_2();
-    v88[3] = dlsym(v43, "MDItemOwnerName");
-    getMDItemOwnerNameSymbolLoc_ptr_0 = v88[3];
-    v42 = v88[3];
+    v87[3] = dlsym(v43, "MDItemOwnerName");
+    getMDItemOwnerNameSymbolLoc_ptr_0 = v87[3];
+    v42 = v87[3];
   }
 
-  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v42)
   {
     +[FPItem(CSSearchableItem) fp_queryFetchAttributes];
   }
 
   v44 = *v42;
-  v91[29] = v44;
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
+  v90[29] = v44;
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2020000000;
   v45 = getMDItemLastEditorNameSymbolLoc_ptr;
-  v90 = getMDItemLastEditorNameSymbolLoc_ptr;
+  v89 = getMDItemLastEditorNameSymbolLoc_ptr;
   if (!getMDItemLastEditorNameSymbolLoc_ptr)
   {
     v46 = CoreSpotlightLibrary_2();
-    v88[3] = dlsym(v46, "MDItemLastEditorName");
-    getMDItemLastEditorNameSymbolLoc_ptr = v88[3];
-    v45 = v88[3];
+    v87[3] = dlsym(v46, "MDItemLastEditorName");
+    getMDItemLastEditorNameSymbolLoc_ptr = v87[3];
+    v45 = v87[3];
   }
 
-  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v45)
   {
     +[FPItem(CSSearchableItem) fp_queryFetchAttributes];
   }
 
   v47 = *v45;
-  v91[30] = v47;
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
+  v90[30] = v47;
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2020000000;
   v48 = getMDItemIsTrashedSymbolLoc_ptr;
-  v90 = getMDItemIsTrashedSymbolLoc_ptr;
+  v89 = getMDItemIsTrashedSymbolLoc_ptr;
   if (!getMDItemIsTrashedSymbolLoc_ptr)
   {
     v49 = CoreSpotlightLibrary_2();
-    v88[3] = dlsym(v49, "MDItemIsTrashed");
-    getMDItemIsTrashedSymbolLoc_ptr = v88[3];
-    v48 = v88[3];
+    v87[3] = dlsym(v49, "MDItemIsTrashed");
+    getMDItemIsTrashedSymbolLoc_ptr = v87[3];
+    v48 = v87[3];
   }
 
-  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v48)
   {
     +[FPItem(CSSearchableItem) fp_queryFetchAttributes];
   }
 
   v50 = *v48;
-  v91[31] = v50;
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
+  v90[31] = v50;
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2020000000;
   v51 = getMDItemContentURLSymbolLoc_ptr;
-  v90 = getMDItemContentURLSymbolLoc_ptr;
+  v89 = getMDItemContentURLSymbolLoc_ptr;
   if (!getMDItemContentURLSymbolLoc_ptr)
   {
     v52 = CoreSpotlightLibrary_2();
-    v88[3] = dlsym(v52, "MDItemContentURL");
-    getMDItemContentURLSymbolLoc_ptr = v88[3];
-    v51 = v88[3];
+    v87[3] = dlsym(v52, "MDItemContentURL");
+    getMDItemContentURLSymbolLoc_ptr = v87[3];
+    v51 = v87[3];
   }
 
-  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v51)
   {
     +[FPItem(CSSearchableItem) fp_queryFetchAttributes];
   }
 
-  v69 = v38;
-  v70 = v41;
+  v68 = v38;
+  v69 = v41;
   v53 = *v51;
-  v91[32] = v53;
+  v90[32] = v53;
   v54 = getMDItemFileItemID();
-  v91[33] = v54;
+  v90[33] = v54;
   v55 = getMDItemFileProviderID();
-  v91[34] = v55;
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
+  v90[34] = v55;
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2020000000;
   v56 = getMDItemParentFileItemIDSymbolLoc_ptr;
-  v90 = getMDItemParentFileItemIDSymbolLoc_ptr;
+  v89 = getMDItemParentFileItemIDSymbolLoc_ptr;
   if (!getMDItemParentFileItemIDSymbolLoc_ptr)
   {
     v57 = CoreSpotlightLibrary_2();
-    v88[3] = dlsym(v57, "MDItemParentFileItemID");
-    getMDItemParentFileItemIDSymbolLoc_ptr = v88[3];
-    v56 = v88[3];
+    v87[3] = dlsym(v57, "MDItemParentFileItemID");
+    getMDItemParentFileItemIDSymbolLoc_ptr = v87[3];
+    v56 = v87[3];
   }
 
-  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v56)
   {
     +[FPItem(CSSearchableItem) fp_queryFetchAttributes];
   }
 
   v58 = *v56;
-  v91[35] = v58;
-  v91[36] = @"FPAppContainerBundleID";
-  v91[37] = @"FPCloudContainerID";
-  v91[38] = @"FPIsContainer";
-  v91[39] = @"FPIsContainerPristine";
-  v91[40] = @"FPIsUbiquitous";
-  v91[41] = @"FPParentFileItemID";
-  v91[42] = @"FPLastModifiedByCurrentUser";
-  v91[43] = @"FPEvictable";
-  v91[44] = @"FPItemIsPinned";
-  v91[45] = @"FPItemIsInPinnedFolder";
-  v91[46] = @"FPIsTopLevelSharedItem";
-  v91[47] = @"FPCollaborationIdentifier";
-  v91[48] = @"FPParentDomainID";
-  v91[49] = @"FPItemVersion";
-  v91[50] = @"FPItemIsRecursivelyDownloaded";
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
+  v90[35] = v58;
+  v90[36] = @"FPAppContainerBundleID";
+  v90[37] = @"FPCloudContainerID";
+  v90[38] = @"FPIsContainer";
+  v90[39] = @"FPIsContainerPristine";
+  v90[40] = @"FPIsUbiquitous";
+  v90[41] = @"FPParentFileItemID";
+  v90[42] = @"FPLastModifiedByCurrentUser";
+  v90[43] = @"FPEvictable";
+  v90[44] = @"FPItemIsPinned";
+  v90[45] = @"FPItemIsInPinnedFolder";
+  v90[46] = @"FPIsTopLevelSharedItem";
+  v90[47] = @"FPCollaborationIdentifier";
+  v90[48] = @"FPParentDomainID";
+  v90[49] = @"FPItemVersion";
+  v90[50] = @"FPItemIsRecursivelyDownloaded";
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2020000000;
   v59 = getMDItemDocumentIdentifierSymbolLoc_ptr;
-  v90 = getMDItemDocumentIdentifierSymbolLoc_ptr;
+  v89 = getMDItemDocumentIdentifierSymbolLoc_ptr;
   if (!getMDItemDocumentIdentifierSymbolLoc_ptr)
   {
     v60 = CoreSpotlightLibrary_2();
-    v88[3] = dlsym(v60, "MDItemDocumentIdentifier");
-    getMDItemDocumentIdentifierSymbolLoc_ptr = v88[3];
-    v59 = v88[3];
+    v87[3] = dlsym(v60, "MDItemDocumentIdentifier");
+    getMDItemDocumentIdentifierSymbolLoc_ptr = v87[3];
+    v59 = v87[3];
   }
 
-  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v59)
   {
     +[FPItem(CSSearchableItem) fp_queryFetchAttributes];
   }
 
   v61 = *v59;
-  v91[51] = v61;
-  v91[52] = @"com_apple_mobilesms_syndicationContentType";
-  v91[53] = @"FPOnDiskIdentifier";
-  v91[54] = @"com.apple.synapse:DocumentAttributes";
-  v87 = 0;
-  v88 = &v87;
-  v89 = 0x2020000000;
+  v90[51] = v61;
+  v90[52] = @"com_apple_mobilesms_syndicationContentType";
+  v90[53] = @"FPOnDiskIdentifier";
+  v90[54] = @"com.apple.synapse:DocumentAttributes";
+  v86 = 0;
+  v87 = &v86;
+  v88 = 0x2020000000;
   v62 = getMDItemAttributeChangeDateSymbolLoc_ptr;
-  v90 = getMDItemAttributeChangeDateSymbolLoc_ptr;
+  v89 = getMDItemAttributeChangeDateSymbolLoc_ptr;
   if (!getMDItemAttributeChangeDateSymbolLoc_ptr)
   {
     v63 = CoreSpotlightLibrary_2();
-    v88[3] = dlsym(v63, "MDItemAttributeChangeDate");
-    getMDItemAttributeChangeDateSymbolLoc_ptr = v88[3];
-    v62 = v88[3];
+    v87[3] = dlsym(v63, "MDItemAttributeChangeDate");
+    getMDItemAttributeChangeDateSymbolLoc_ptr = v87[3];
+    v62 = v87[3];
   }
 
-  _Block_object_dispose(&v87, 8);
+  _Block_object_dispose(&v86, 8);
   if (!v62)
   {
     +[FPItem(CSSearchableItem) fp_queryFetchAttributes];
   }
 
-  v92 = *v62;
+  v91 = *v62;
   v64 = MEMORY[0x1E695DEC8];
-  v65 = v92;
-  v66 = [v64 arrayWithObjects:v91 count:56];
-
-  v67 = *MEMORY[0x1E69E9840];
+  v65 = v91;
+  v66 = [v64 arrayWithObjects:v90 count:56];
 
   return v66;
 }
@@ -1272,7 +1271,7 @@
 {
   sCopy = s;
   capabilitiesCopy = capabilities;
-  v235 = *MEMORY[0x1E69E9840];
+  v234 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   providerCopy = provider;
   domainCopy = domain;
@@ -1317,8 +1316,8 @@ LABEL_11:
 
   if (providerIdentifier)
   {
-    v223 = v19;
-    v227 = v22;
+    v222 = v19;
+    v226 = v22;
     parentItemIdentifier = [itemCopy parentItemIdentifier];
     itemIdentifier = [itemCopy itemIdentifier];
     v25 = itemIdentifier;
@@ -1333,9 +1332,9 @@ LABEL_11:
       }
     }
 
-    v225 = identifierCopy;
-    v226 = parentItemIdentifier;
-    v222 = a2;
+    v224 = identifierCopy;
+    v225 = parentItemIdentifier;
+    v221 = a2;
     if (isKindOfClass & 1) != 0 || (objc_opt_respondsToSelector())
     {
       itemVersion = [itemCopy itemVersion];
@@ -1411,7 +1410,7 @@ LABEL_36:
                 if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v234 = v25;
+                  v233 = v25;
                   _os_log_impl(&dword_1AAAE1000, v45, OS_LOG_TYPE_DEFAULT, "[WARNING] Working around missing type identifier of legacy provider for item %@", buf, 0xCu);
                 }
 
@@ -1423,25 +1422,25 @@ LABEL_36:
             {
               if (!sCopy || *p_itemVersion)
               {
-                v46 = [(FPItem *)self initWithProviderID:providerIdentifier domainIdentifier:v227 itemIdentifier:v25 parentItemIdentifier:v226 filename:filename contentType:contentType2];
+                v46 = [(FPItem *)self initWithProviderID:providerIdentifier domainIdentifier:v226 itemIdentifier:v25 parentItemIdentifier:v225 filename:filename contentType:contentType2];
 
                 if (!v46)
                 {
 LABEL_371:
                   self = v46;
                   selfCopy = self;
-                  identifierCopy = v225;
+                  identifierCopy = v224;
 LABEL_63:
 
-                  v22 = v227;
+                  v22 = v226;
                   goto LABEL_64;
                 }
 
-                v221 = capabilitiesCopy;
+                v220 = capabilitiesCopy;
                 if (isKindOfClass)
                 {
                   v46->_capabilities = [itemCopy capabilities];
-                  v47 = v223;
+                  v47 = v222;
                   v48 = sCopy;
                 }
 
@@ -1463,7 +1462,7 @@ LABEL_63:
                   }
 
                   v46->_capabilities = capabilities;
-                  v47 = v223;
+                  v47 = v222;
                   v48 = sCopy;
                   if ((objc_opt_respondsToSelector() & 1) == 0)
                   {
@@ -1475,7 +1474,7 @@ LABEL_63:
                 }
 
                 documentSize = [itemCopy documentSize];
-                v63 = v46->_documentSize;
+                v62 = v46->_documentSize;
                 v46->_documentSize = documentSize;
 
                 if (isKindOfClass)
@@ -1498,7 +1497,7 @@ LABEL_75:
                   childItemCount2 = 0;
                 }
 
-                v68 = v46->_childItemCount;
+                v67 = v46->_childItemCount;
                 v46->_childItemCount = childItemCount2;
 
                 if ((objc_opt_respondsToSelector() & 1) == 0)
@@ -1543,7 +1542,7 @@ LABEL_93:
                     }
 
 LABEL_89:
-                    v80 = v46->_formerIdentifier;
+                    v79 = v46->_formerIdentifier;
                     v46->_formerIdentifier = 0;
 
                     goto LABEL_93;
@@ -1551,7 +1550,7 @@ LABEL_89:
 
 LABEL_83:
                   contentModificationDate = [itemCopy contentModificationDate];
-                  v74 = v46->_contentModificationDate;
+                  v73 = v46->_contentModificationDate;
                   v46->_contentModificationDate = contentModificationDate;
 
                   if (v47)
@@ -1559,7 +1558,7 @@ LABEL_83:
                     if (isKindOfClass)
                     {
                       formerIdentifier2 = [itemCopy formerIdentifier];
-                      v76 = v46->_formerIdentifier;
+                      v75 = v46->_formerIdentifier;
                       v46->_formerIdentifier = formerIdentifier2;
 
 LABEL_92:
@@ -1587,7 +1586,7 @@ LABEL_94:
 
                       else
                       {
-                        v86 = v46->_lastUsedDate;
+                        v85 = v46->_lastUsedDate;
                         v46->_lastUsedDate = 0;
 
                         v46->_unsupportedFields |= 8uLL;
@@ -1619,15 +1618,15 @@ LABEL_103:
                         }
 
                         tagData = [itemCopy tagData];
-                        v90 = tagData;
+                        v89 = tagData;
                         if (tagData)
                         {
-                          v91 = FPGetTagsFromTagsData(tagData);
-                          v92 = v46->_tags;
-                          v46->_tags = v91;
+                          v90 = FPGetTagsFromTagsData(tagData);
+                          v91 = v46->_tags;
+                          v46->_tags = v90;
                         }
 
-                        v47 = v223;
+                        v47 = v222;
                       }
 
                       if (isKindOfClass)
@@ -1646,13 +1645,13 @@ LABEL_112:
                       if (objc_opt_respondsToSelector())
                       {
                         favoriteRank2 = [itemCopy favoriteRank];
-                        v96 = v46->_favoriteRank;
+                        v95 = v46->_favoriteRank;
                         v46->_favoriteRank = favoriteRank2;
                       }
 
                       else
                       {
-                        v97 = v46->_favoriteRank;
+                        v96 = v46->_favoriteRank;
                         v46->_favoriteRank = 0;
 
                         v46->_unsupportedFields |= 0x20uLL;
@@ -1669,9 +1668,9 @@ LABEL_112:
                       }
 
                       v46->_trashed = isTrashed;
-                      v99 = objc_opt_respondsToSelector();
+                      v98 = objc_opt_respondsToSelector();
                       isUploaded = v48;
-                      if (v99)
+                      if (v98)
                       {
                         isUploaded = [itemCopy isUploaded];
                       }
@@ -1692,10 +1691,10 @@ LABEL_112:
                       {
                         uploadingError = 0;
 LABEL_126:
-                        v220 = uploadingError;
-                        v103 = [uploadingError fp_internalErrorForVendorErrorWithCallerDescription:@"item.uploadingError" itemCreationBlock:0];
+                        v219 = uploadingError;
+                        v102 = [uploadingError fp_internalErrorForVendorErrorWithCallerDescription:@"item.uploadingError" itemCreationBlock:0];
                         uploadingError = v46->_uploadingError;
-                        v46->_uploadingError = v103;
+                        v46->_uploadingError = v102;
 
                         if (isKindOfClass)
                         {
@@ -1745,15 +1744,15 @@ LABEL_126:
                             v46->_supportsMostRecentVersionDownloaded = 1;
                           }
 
-                          v47 = v223;
+                          v47 = v222;
                           if ((objc_opt_respondsToSelector() & 1) == 0)
                           {
                             downloadingError = 0;
 LABEL_142:
-                            v219 = downloadingError;
-                            v109 = [downloadingError fp_internalErrorForVendorErrorWithCallerDescription:@"item.downloadingError" itemCreationBlock:0];
+                            v218 = downloadingError;
+                            v108 = [downloadingError fp_internalErrorForVendorErrorWithCallerDescription:@"item.downloadingError" itemCreationBlock:0];
                             downloadingError = v46->_downloadingError;
-                            v46->_downloadingError = v109;
+                            v46->_downloadingError = v108;
 
                             if (isKindOfClass)
                             {
@@ -1887,7 +1886,7 @@ LABEL_163:
 
 LABEL_169:
                               mostRecentEditorNameComponents = [itemCopy mostRecentEditorNameComponents];
-                              v119 = v46->_mostRecentEditorNameComponents;
+                              v118 = v46->_mostRecentEditorNameComponents;
                               v46->_mostRecentEditorNameComponents = mostRecentEditorNameComponents;
 
                               if ((v47 & 1) == 0)
@@ -1961,7 +1960,7 @@ LABEL_182:
 
                                 else
                                 {
-                                  v125 = v46->_userInfo;
+                                  v124 = v46->_userInfo;
                                   v46->_userInfo = 0;
 
                                   if (v47)
@@ -2003,7 +2002,7 @@ LABEL_192:
                                   v46->_fileURL = fileURL;
                                 }
 
-                                if (v225)
+                                if (v224)
                                 {
                                   objc_storeStrong(&v46->_spotlightDomainIdentifier, obj);
                                   if (v47)
@@ -2024,7 +2023,7 @@ LABEL_211:
                                       {
 LABEL_213:
                                         fp_spotlightSubDomainIdentifier2 = [itemCopy fp_spotlightSubDomainIdentifier];
-                                        v138 = v46->_fp_spotlightSubDomainIdentifier;
+                                        v137 = v46->_fp_spotlightSubDomainIdentifier;
                                         v46->_fp_spotlightSubDomainIdentifier = fp_spotlightSubDomainIdentifier2;
 
                                         if (isKindOfClass)
@@ -2039,7 +2038,7 @@ LABEL_213:
 LABEL_220:
                                         if ((objc_opt_respondsToSelector() & 1) == 0)
                                         {
-                                          v154 = v46->_displayName;
+                                          v153 = v46->_displayName;
                                           v46->_displayName = 0;
 
                                           goto LABEL_224;
@@ -2047,7 +2046,7 @@ LABEL_220:
 
 LABEL_221:
                                         displayName2 = [itemCopy displayName];
-                                        v151 = v46->_displayName;
+                                        v150 = v46->_displayName;
                                         v46->_displayName = displayName2;
 
                                         if (isKindOfClass)
@@ -2062,7 +2061,7 @@ LABEL_221:
 LABEL_224:
                                         if ((objc_opt_respondsToSelector() & 1) == 0)
                                         {
-                                          v159 = v46->_hasUnresolvedConflicts;
+                                          v158 = v46->_hasUnresolvedConflicts;
                                           v46->_hasUnresolvedConflicts = 0;
 
                                           goto LABEL_228;
@@ -2070,7 +2069,7 @@ LABEL_224:
 
 LABEL_225:
                                         hasUnresolvedConflicts2 = [itemCopy hasUnresolvedConflicts];
-                                        v156 = v46->_hasUnresolvedConflicts;
+                                        v155 = v46->_hasUnresolvedConflicts;
                                         v46->_hasUnresolvedConflicts = hasUnresolvedConflicts2;
 
                                         if (isKindOfClass)
@@ -2085,7 +2084,7 @@ LABEL_225:
 LABEL_228:
                                         if ((objc_opt_respondsToSelector() & 1) == 0)
                                         {
-                                          v164 = v46->_isDownloadRequested;
+                                          v163 = v46->_isDownloadRequested;
                                           v46->_isDownloadRequested = 0;
 
                                           goto LABEL_232;
@@ -2093,7 +2092,7 @@ LABEL_228:
 
 LABEL_229:
                                         isDownloadRequested2 = [itemCopy isDownloadRequested];
-                                        v161 = v46->_isDownloadRequested;
+                                        v160 = v46->_isDownloadRequested;
                                         v46->_isDownloadRequested = isDownloadRequested2;
 
                                         if (isKindOfClass)
@@ -2108,7 +2107,7 @@ LABEL_229:
 LABEL_232:
                                         if ((objc_opt_respondsToSelector() & 1) == 0)
                                         {
-                                          v168 = v46->_sharingPermissions;
+                                          v167 = v46->_sharingPermissions;
                                           v46->_sharingPermissions = 0;
 
                                           goto LABEL_238;
@@ -2116,7 +2115,7 @@ LABEL_232:
 
 LABEL_233:
                                         sharingPermissions2 = [itemCopy sharingPermissions];
-                                        v166 = v46->_sharingPermissions;
+                                        v165 = v46->_sharingPermissions;
                                         v46->_sharingPermissions = sharingPermissions2;
 
                                         if (isKindOfClass)
@@ -2183,7 +2182,7 @@ LABEL_240:
                                           goto LABEL_245;
                                         }
 
-                                        v173 = v46->_fp_appContainerBundleIdentifier;
+                                        v172 = v46->_fp_appContainerBundleIdentifier;
                                         v46->_fp_appContainerBundleIdentifier = 0;
 
 LABEL_249:
@@ -2206,10 +2205,10 @@ LABEL_252:
                                               goto LABEL_262;
                                             }
 
-                                            v175 = [itemCopy performSelector:sel_fp_cloudContainerClientBundleIdentifiers];
-                                            v176 = [FPAppMetadata findBundleIDForCurrentPlatformInSet:v175];
-                                            v177 = v46->_fp_appContainerBundleIdentifier;
-                                            v46->_fp_appContainerBundleIdentifier = v176;
+                                            v174 = [itemCopy performSelector:sel_fp_cloudContainerClientBundleIdentifiers];
+                                            v175 = [FPAppMetadata findBundleIDForCurrentPlatformInSet:v174];
+                                            v176 = v46->_fp_appContainerBundleIdentifier;
+                                            v46->_fp_appContainerBundleIdentifier = v175;
                                           }
 
                                           if (v47)
@@ -2234,7 +2233,7 @@ LABEL_260:
                                               fp_parentDomainIdentifier2 = 0;
                                             }
 
-                                            v184 = v46->_fp_parentDomainIdentifier;
+                                            v183 = v46->_fp_parentDomainIdentifier;
                                             v46->_fp_parentDomainIdentifier = fp_parentDomainIdentifier2;
 
                                             if ((objc_opt_respondsToSelector() & 1) == 0)
@@ -2252,7 +2251,7 @@ LABEL_260:
 
 LABEL_267:
                                             fp_cloudContainerIdentifier = [itemCopy fp_cloudContainerIdentifier];
-                                            v186 = v46->_cloudContainerIdentifier;
+                                            v185 = v46->_cloudContainerIdentifier;
                                             v46->_cloudContainerIdentifier = fp_cloudContainerIdentifier;
 
                                             if (!v46->_excludedFromSync)
@@ -2367,30 +2366,30 @@ LABEL_298:
                                                     objc_opt_class();
                                                     if ((objc_opt_isKindOfClass() & 1) == 0)
                                                     {
-                                                      [FPItem initWithVendorItem:extendedAttributes provider:v222 domain:v46 spotlightDomainIdentifier:itemCopy extensionCapabilities:? useFPFS:?];
+                                                      [FPItem initWithVendorItem:extendedAttributes provider:v221 domain:v46 spotlightDomainIdentifier:itemCopy extensionCapabilities:? useFPFS:?];
                                                     }
                                                   }
 
-                                                  v229[0] = MEMORY[0x1E69E9820];
-                                                  v229[1] = 3221225472;
-                                                  v229[2] = __101__FPItem_initWithVendorItem_provider_domain_spotlightDomainIdentifier_extensionCapabilities_useFPFS___block_invoke;
-                                                  v229[3] = &unk_1E793A0B8;
-                                                  v230 = itemCopy;
-                                                  v232 = v222;
-                                                  v196 = v46;
-                                                  v231 = v196;
-                                                  v197 = [extendedAttributes fp_filter:v229];
-                                                  extendedAttributes = v196->_extendedAttributes;
-                                                  v196->_extendedAttributes = v197;
+                                                  v228[0] = MEMORY[0x1E69E9820];
+                                                  v228[1] = 3221225472;
+                                                  v228[2] = __101__FPItem_initWithVendorItem_provider_domain_spotlightDomainIdentifier_extensionCapabilities_useFPFS___block_invoke;
+                                                  v228[3] = &unk_1E793A0B8;
+                                                  v229 = itemCopy;
+                                                  v231 = v221;
+                                                  v195 = v46;
+                                                  v230 = v195;
+                                                  v196 = [extendedAttributes fp_filter:v228];
+                                                  extendedAttributes = v195->_extendedAttributes;
+                                                  v195->_extendedAttributes = v196;
 
-                                                  v47 = v223;
+                                                  v47 = v222;
                                                 }
 
                                                 if (isKindOfClass)
                                                 {
                                                   v46->_fileSystemFlags = [itemCopy fileSystemFlags];
                                                   v46->_enumerationOrigin = 0;
-                                                  v199 = sCopy;
+                                                  v198 = sCopy;
                                                   goto LABEL_321;
                                                 }
                                               }
@@ -2409,35 +2408,35 @@ LABEL_298:
                                               {
                                                 if ((v46->_capabilities & 2) != 0)
                                                 {
-                                                  v200 = 20;
+                                                  v199 = 20;
                                                 }
 
                                                 else
                                                 {
-                                                  v200 = 16;
+                                                  v199 = 16;
                                                 }
 
-                                                v201 = v200 & 0xFFFFFFFFFFFFFFFDLL | (2 * (v46->_capabilities & 1));
+                                                v200 = v199 & 0xFFFFFFFFFFFFFFFDLL | (2 * (v46->_capabilities & 1));
                                                 if (v47 && (objc_opt_respondsToSelector() & 1) != 0 && [itemCopy isHidden])
                                                 {
-                                                  v202 = v201 | 8;
+                                                  v201 = v200 | 8;
                                                 }
 
                                                 else
                                                 {
-                                                  v203 = [(NSString *)v46->_filename hasPrefix:@"."];
-                                                  v202 = v201 | 8;
-                                                  if (!v203)
+                                                  v202 = [(NSString *)v46->_filename hasPrefix:@"."];
+                                                  v201 = v200 | 8;
+                                                  if (!v202)
                                                   {
-                                                    v202 = v201;
+                                                    v201 = v200;
                                                   }
                                                 }
 
-                                                v46->_fileSystemFlags = v202;
+                                                v46->_fileSystemFlags = v201;
                                                 v46->_unsupportedFields |= 0x100uLL;
                                               }
 
-                                              v199 = sCopy;
+                                              v198 = sCopy;
                                               v46->_enumerationOrigin = 0;
                                               if ((objc_opt_respondsToSelector() & 1) == 0)
                                               {
@@ -2448,7 +2447,7 @@ LABEL_298:
                                                 }
 
 LABEL_324:
-                                                if (!v46->_downloaded || !v46->_uploaded || *p_isContainer || [(FPItem *)v46 isFolder]|| (v217 = [(NSNumber *)v46->_documentSize integerValue], (v221 & 2) == 0) || v217 <= 2048)
+                                                if (!v46->_downloaded || !v46->_uploaded || *p_isContainer || [(FPItem *)v46 isFolder]|| (v216 = [(NSNumber *)v46->_documentSize integerValue], (v220 & 2) == 0) || v216 <= 2048)
                                                 {
                                                   if (!v46->_inPinnedFolder)
                                                   {
@@ -2457,7 +2456,7 @@ LABEL_324:
                                                 }
 
 LABEL_330:
-                                                if ((v221 & 4) != 0)
+                                                if ((v220 & 4) != 0)
                                                 {
                                                   v46->_capabilities |= 0x20000000uLL;
                                                 }
@@ -2478,7 +2477,7 @@ LABEL_342:
 
                                                     if ([(NSData *)v46->_versionIdentifier length]>= 0x3E9)
                                                     {
-                                                      [FPItem initWithVendorItem:v222 provider:v46 domain:? spotlightDomainIdentifier:? extensionCapabilities:? useFPFS:?];
+                                                      [FPItem initWithVendorItem:v221 provider:v46 domain:? spotlightDomainIdentifier:? extensionCapabilities:? useFPFS:?];
                                                     }
 
                                                     if ([itemCopy conformsToProtocol:&unk_1F1FCDAF8])
@@ -2595,7 +2594,7 @@ LABEL_370:
                                                     preformattedOwnerName2 = 0;
                                                   }
 
-                                                  v209 = v46->_preformattedOwnerName;
+                                                  v208 = v46->_preformattedOwnerName;
                                                   v46->_preformattedOwnerName = preformattedOwnerName2;
 
                                                   if (objc_opt_respondsToSelector())
@@ -2606,7 +2605,7 @@ LABEL_370:
 
                                                 else
                                                 {
-                                                  v206 = v46->_preformattedOwnerName;
+                                                  v205 = v46->_preformattedOwnerName;
                                                   v46->_preformattedOwnerName = 0;
                                                 }
 
@@ -2615,10 +2614,10 @@ LABEL_370:
                                               }
 
 LABEL_321:
-                                              __FILEPROVIDER_BAD_CONTENT_POLICY__([itemCopy contentPolicy], v199);
+                                              __FILEPROVIDER_BAD_CONTENT_POLICY__([itemCopy contentPolicy], v198);
                                               v46->_contentPolicy = [itemCopy contentPolicy];
                                               v46->_capabilities |= 0x40uLL;
-                                              if (v199)
+                                              if (v198)
                                               {
                                                 goto LABEL_330;
                                               }
@@ -2636,24 +2635,24 @@ LABEL_279:
                                           }
 
 LABEL_262:
-                                          v181 = v46->_fp_parentDomainIdentifier;
+                                          v180 = v46->_fp_parentDomainIdentifier;
                                           v46->_fp_parentDomainIdentifier = 0;
 
-                                          v182 = v46->_cloudContainerIdentifier;
+                                          v181 = v46->_cloudContainerIdentifier;
                                           v46->_cloudContainerIdentifier = 0;
 
                                           if (!v46->_excludedFromSync)
                                           {
                                             if (isKindOfClass)
                                             {
-                                              v183 = 1;
+                                              v182 = 1;
                                               goto LABEL_276;
                                             }
 
 LABEL_275:
-                                            v183 = objc_opt_respondsToSelector();
+                                            v182 = objc_opt_respondsToSelector();
 LABEL_276:
-                                            v46->_isUbiquitous = v183 & 1;
+                                            v46->_isUbiquitous = v182 & 1;
                                             if (v47)
                                             {
                                               goto LABEL_277;
@@ -2675,7 +2674,7 @@ LABEL_250:
                                     {
                                       fp_spotlightDomainIdentifier = [itemCopy fp_spotlightDomainIdentifier];
 LABEL_219:
-                                      v149 = v46->_fp_spotlightSubDomainIdentifier;
+                                      v148 = v46->_fp_spotlightSubDomainIdentifier;
                                       v46->_fp_spotlightSubDomainIdentifier = fp_spotlightDomainIdentifier;
 
                                       goto LABEL_220;
@@ -2703,19 +2702,19 @@ LABEL_219:
                                   goto LABEL_211;
                                 }
 
-                                v141 = v46->_fp_spotlightSubDomainIdentifier;
+                                v140 = v46->_fp_spotlightSubDomainIdentifier;
                                 v46->_fp_spotlightSubDomainIdentifier = 0;
 
-                                v142 = v46->_displayName;
+                                v141 = v46->_displayName;
                                 v46->_displayName = 0;
 
-                                v143 = v46->_hasUnresolvedConflicts;
+                                v142 = v46->_hasUnresolvedConflicts;
                                 v46->_hasUnresolvedConflicts = 0;
 
-                                v144 = v46->_isDownloadRequested;
+                                v143 = v46->_isDownloadRequested;
                                 v46->_isDownloadRequested = 0;
 
-                                v145 = v46->_sharingPermissions;
+                                v144 = v46->_sharingPermissions;
                                 v46->_sharingPermissions = 0;
 
                                 containerDisplayName = 0;
@@ -2731,7 +2730,7 @@ LABEL_175:
 
 LABEL_166:
                             ownerNameComponents2 = [itemCopy ownerNameComponents];
-                            v116 = v46->_ownerNameComponents;
+                            v115 = v46->_ownerNameComponents;
                             v46->_ownerNameComponents = ownerNameComponents2;
 
                             goto LABEL_169;
@@ -2755,7 +2754,7 @@ LABEL_124:
 
 LABEL_79:
                 creationDate = [itemCopy creationDate];
-                v70 = v46->_creationDate;
+                v69 = v46->_creationDate;
                 v46->_creationDate = creationDate;
 
                 if (isKindOfClass)
@@ -2777,9 +2776,9 @@ LABEL_79:
             }
 
             __FILEPROVIDER_BAD_ITEM__(itemCopy, providerIdentifier, v25, filename, contentType2, v50, v49);
-            fp_simulate_crash(@"can't create item because at least one of the required properties is missing. See the log for more details.", v51, v52, v53, v54, v55, v56, v57, v218);
+            fp_simulate_crash(@"can't create item because at least one of the required properties is missing. See the log for more details.", v51, v52, v53, v54, v55, v56, v57, v217);
             v58 = fp_current_or_default_log();
-            identifierCopy = v225;
+            identifierCopy = v224;
             if (os_log_type_enabled(v58, OS_LOG_TYPE_FAULT))
             {
               [FPItem initWithVendorItem:provider:domain:spotlightDomainIdentifier:extensionCapabilities:useFPFS:];
@@ -2834,7 +2833,6 @@ LABEL_27:
   selfCopy = 0;
 LABEL_64:
 
-  v59 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -2871,21 +2869,20 @@ uint64_t __101__FPItem_initWithVendorItem_provider_domain_spotlightDomainIdentif
 
 - (FPItem)initWithCoder:(id)coder
 {
-  v145[3] = *MEMORY[0x1E69E9840];
+  v127[3] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   context = objc_autoreleasePoolPush();
-  v6 = 0x1E696A000uLL;
-  v142 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_providerIdentifier"];
-  v143 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_domainIdentifier"];
-  if (!v143)
+  v124 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_providerIdentifier"];
+  v125 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_domainIdentifier"];
+  if (!v125)
   {
-    v143 = @"NSFileProviderDomainDefaultIdentifier";
+    v125 = @"NSFileProviderDomainDefaultIdentifier";
   }
 
-  v7 = [MEMORY[0x1E696AEC0] fp_providerDomainIDFromProviderID:v142 domainIdentifier:v143];
-  v8 = [coderCopy fp_checkProviderIdentifier:v7];
+  v6 = [MEMORY[0x1E696AEC0] fp_providerDomainIDFromProviderID:v124 domainIdentifier:v125];
+  v7 = [coderCopy fp_checkProviderIdentifier:v6];
 
-  if ((v8 & 1) == 0)
+  if ((v7 & 1) == 0)
   {
 
     objc_autoreleasePoolPop(context);
@@ -2894,30 +2891,29 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_itemIdentifier"];
-  v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_parentItemIdentifier"];
-  v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_filename"];
-  v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_contentType"];
-  if (v12)
+  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_itemIdentifier"];
+  v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_parentItemIdentifier"];
+  v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_filename"];
+  v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_contentType"];
+  if (v11)
   {
-    v13 = v12;
-    v14 = v11;
-    v15 = v10;
-    v16 = v9;
-    v17 = MEMORY[0x1E6982C40];
-    identifier = [v12 identifier];
-    v19 = [v17 fp_cachedTypeWithIdentifier:identifier alreadyAvailableType:v13];
+    v12 = v11;
+    v13 = v10;
+    v14 = v9;
+    v15 = v8;
+    v16 = MEMORY[0x1E6982C40];
+    identifier = [v11 identifier];
+    v18 = [v16 fp_cachedTypeWithIdentifier:identifier alreadyAvailableType:v12];
 
-    v20 = v19;
-    if (v19)
+    v19 = v18;
+    if (v18)
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v9 = v16;
-        v10 = v15;
-        v11 = v14;
-        v6 = 0x1E696A000;
+        v8 = v15;
+        v9 = v14;
+        v10 = v13;
         goto LABEL_14;
       }
 
@@ -2925,211 +2921,196 @@ LABEL_23:
       [currentHandler handleFailureInMethod:a2 object:self file:@"FPItem.m" lineNumber:962 description:@"received contentType with an invalid type"];
     }
 
-    v9 = v16;
-    v10 = v15;
-    v11 = v14;
-    v6 = 0x1E696A000uLL;
+    v8 = v15;
+    v9 = v14;
+    v10 = v13;
   }
 
   else
   {
-    v20 = 0;
+    v19 = 0;
   }
 
-  v22 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_typeIdentifier"];
-  if (!v22)
+  v21 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_typeIdentifier"];
+  if (!v21)
   {
-    v78 = fp_current_or_default_log();
-    if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
+    v71 = fp_current_or_default_log();
+    if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
     {
-      [(FPItem *)v9 initWithCoder:v11];
+      [(FPItem *)v8 initWithCoder:v10];
     }
 
-    v132 = 0;
+    v115 = 0;
     goto LABEL_19;
   }
 
-  v23 = v22;
-  v24 = [MEMORY[0x1E6982C40] fp_cachedTypeWithIdentifier:v22];
-  v25 = v20;
-  v20 = v24;
+  v22 = v21;
+  v23 = [MEMORY[0x1E6982C40] fp_cachedTypeWithIdentifier:v21];
+  v24 = v19;
+  v19 = v23;
 
 LABEL_14:
-  self = [(FPItem *)self initWithProviderID:v142 domainIdentifier:v143 itemIdentifier:v9 parentItemIdentifier:v10 filename:v11 contentType:v20];
+  self = [(FPItem *)self initWithProviderID:v124 domainIdentifier:v125 itemIdentifier:v8 parentItemIdentifier:v9 filename:v10 contentType:v19];
   if (self)
   {
-    v26 = *(v6 + 3776);
-    v27 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_formerIdentifier"];
+    v25 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_formerIdentifier"];
     formerIdentifier = self->_formerIdentifier;
-    self->_formerIdentifier = v27;
+    self->_formerIdentifier = v25;
 
-    v29 = *(v6 + 3776);
-    v30 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_parentFormerIdentifier"];
+    v27 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_parentFormerIdentifier"];
     parentFormerIdentifier = self->_parentFormerIdentifier;
-    self->_parentFormerIdentifier = v30;
+    self->_parentFormerIdentifier = v27;
 
-    v32 = *(v6 + 3776);
-    v33 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_displayName"];
+    v29 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_displayName"];
     displayName = self->_displayName;
-    self->_displayName = v33;
+    self->_displayName = v29;
 
-    v35 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_documentSize"];
+    v31 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_documentSize"];
     documentSize = self->_documentSize;
-    self->_documentSize = v35;
+    self->_documentSize = v31;
 
-    v37 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_urlWrapper"];
+    v33 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_urlWrapper"];
     urlWrapper = self->_urlWrapper;
-    self->_urlWrapper = v37;
+    self->_urlWrapper = v33;
 
-    v39 = [(FPSandboxingURLWrapper *)self->_urlWrapper url];
+    v35 = [(FPSandboxingURLWrapper *)self->_urlWrapper url];
     fileURL = self->_fileURL;
-    self->_fileURL = v39;
+    self->_fileURL = v35;
 
-    v41 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_detachedRootLogicalURL"];
+    v37 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_detachedRootLogicalURL"];
     detachedRootLogicalURL = self->_detachedRootLogicalURL;
-    self->_detachedRootLogicalURL = v41;
+    self->_detachedRootLogicalURL = v37;
 
     self->_capabilities = [coderCopy decodeIntegerForKey:@"_capabilities"];
     self->_enumerationOrigin = [coderCopy decodeIntegerForKey:@"_enumerationOrigin"];
-    v43 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_creationDate"];
+    v39 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_creationDate"];
     creationDate = self->_creationDate;
-    self->_creationDate = v43;
+    self->_creationDate = v39;
 
-    v45 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_contentModificationDate"];
+    v41 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_contentModificationDate"];
     contentModificationDate = self->_contentModificationDate;
-    self->_contentModificationDate = v45;
+    self->_contentModificationDate = v41;
 
     self->_trashed = [coderCopy decodeBoolForKey:@"_trashed"];
-    v47 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_lastUsedDate"];
+    v43 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_lastUsedDate"];
     lastUsedDate = self->_lastUsedDate;
-    self->_lastUsedDate = v47;
+    self->_lastUsedDate = v43;
 
-    v49 = MEMORY[0x1E695DFD8];
-    v140 = v20;
-    v50 = objc_opt_class();
-    v51 = [v49 setWithObjects:{v50, objc_opt_class(), 0}];
-    v52 = [coderCopy decodeObjectOfClasses:v51 forKey:@"_tags"];
+    v45 = MEMORY[0x1E695DFD8];
+    v122 = v19;
+    v46 = objc_opt_class();
+    v47 = [v45 setWithObjects:{v46, objc_opt_class(), 0}];
+    v48 = [coderCopy decodeObjectOfClasses:v47 forKey:@"_tags"];
     tags = self->_tags;
-    self->_tags = v52;
+    self->_tags = v48;
 
-    v54 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_favoriteRank"];
+    v50 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_favoriteRank"];
     favoriteRank = self->_favoriteRank;
-    self->_favoriteRank = v54;
+    self->_favoriteRank = v50;
 
     self->_uploaded = [coderCopy decodeBoolForKey:@"_uploaded"];
     self->_uploading = [coderCopy decodeBoolForKey:@"_uploading"];
-    v56 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_uploadingError"];
+    v52 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_uploadingError"];
     uploadingError = self->_uploadingError;
-    self->_uploadingError = v56;
+    self->_uploadingError = v52;
 
     self->_excludedFromSync = [coderCopy decodeBoolForKey:@"_excludedFromSync"];
     self->_ignoreRoot = [coderCopy decodeBoolForKey:@"_ignoreRoot"];
     self->_exclusionType = [coderCopy decodeIntegerForKey:@"_exclusionType"];
     self->_downloaded = [coderCopy decodeBoolForKey:@"_downloaded"];
     self->_downloading = [coderCopy decodeBoolForKey:@"_downloading"];
-    v58 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_downloadingError"];
+    v54 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_downloadingError"];
     downloadingError = self->_downloadingError;
-    self->_downloadingError = v58;
+    self->_downloadingError = v54;
 
     self->_mostRecentVersionDownloaded = [coderCopy decodeBoolForKey:@"_mostRecentVersionDownloaded"];
     self->_shared = [coderCopy decodeBoolForKey:@"_shared"];
     self->_sharedByCurrentUser = [coderCopy decodeBoolForKey:@"_sharedByCurrentUser"];
     self->_fp_lastModifiedByCurrentUser = [coderCopy decodeBoolForKey:@"_fp_lastModifiedByCurrentUser"];
-    v60 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_ownerNameComponents"];
+    v56 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_ownerNameComponents"];
     ownerNameComponents = self->_ownerNameComponents;
-    self->_ownerNameComponents = v60;
+    self->_ownerNameComponents = v56;
 
-    v62 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_mostRecentEditorNameComponents"];
+    v58 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_mostRecentEditorNameComponents"];
     mostRecentEditorNameComponents = self->_mostRecentEditorNameComponents;
-    self->_mostRecentEditorNameComponents = v62;
+    self->_mostRecentEditorNameComponents = v58;
 
-    v64 = v6;
-    v65 = *(v6 + 3776);
-    v66 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_collaborationIdentifier"];
+    v60 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_collaborationIdentifier"];
     collaborationIdentifier = self->_collaborationIdentifier;
-    self->_collaborationIdentifier = v66;
+    self->_collaborationIdentifier = v60;
 
-    v68 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_originatorInfo"];
+    v62 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_originatorInfo"];
     originatorInfo = self->_originatorInfo;
-    self->_originatorInfo = v68;
+    self->_originatorInfo = v62;
 
-    v70 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_childItemCount"];
+    v64 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_childItemCount"];
     childItemCount = self->_childItemCount;
-    self->_childItemCount = v70;
+    self->_childItemCount = v64;
 
-    v137 = MEMORY[0x1E695DFD8];
-    v136 = objc_opt_class();
-    v72 = *(v6 + 3776);
-    v73 = objc_opt_class();
-    v138 = v10;
-    v74 = objc_opt_class();
-    v75 = objc_opt_class();
-    v139 = v9;
-    v76 = objc_opt_class();
-    v77 = objc_opt_class();
-    v20 = v140;
-    v78 = [v137 setWithObjects:{v136, v73, v74, v75, v76, v77, objc_opt_class(), 0}];
-    v79 = [coderCopy decodeObjectOfClasses:v78 forKey:@"_userInfo"];
+    v119 = MEMORY[0x1E695DFD8];
+    v118 = objc_opt_class();
+    v66 = objc_opt_class();
+    v120 = v9;
+    v67 = objc_opt_class();
+    v68 = objc_opt_class();
+    v121 = v8;
+    v69 = objc_opt_class();
+    v70 = objc_opt_class();
+    v19 = v122;
+    v71 = [v119 setWithObjects:{v118, v66, v67, v68, v69, v70, objc_opt_class(), 0}];
+    v72 = [coderCopy decodeObjectOfClasses:v71 forKey:@"_userInfo"];
     userInfo = self->_userInfo;
-    self->_userInfo = v79;
+    self->_userInfo = v72;
 
     self->_state = [coderCopy decodeIntegerForKey:@"_state"];
-    v81 = *(v64 + 3776);
-    v82 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_placeholdIdentifier"];
+    v74 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_placeholdIdentifier"];
     placeholderIdentifier = self->_placeholderIdentifier;
-    self->_placeholderIdentifier = v82;
+    self->_placeholderIdentifier = v74;
 
-    v84 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_versionIdentifier"];
+    v76 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_versionIdentifier"];
     versionIdentifier = self->_versionIdentifier;
-    self->_versionIdentifier = v84;
+    self->_versionIdentifier = v76;
 
-    v86 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_itemVersion"];
+    v78 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_itemVersion"];
     itemVersion = self->_itemVersion;
-    self->_itemVersion = v86;
+    self->_itemVersion = v78;
 
-    v88 = *(v64 + 3776);
-    v89 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"rsdi"];
+    v80 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"rsdi"];
     spotlightDomainIdentifier = self->_spotlightDomainIdentifier;
-    self->_spotlightDomainIdentifier = v89;
+    self->_spotlightDomainIdentifier = v80;
 
-    v91 = *(v64 + 3776);
-    v92 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_spotlightDomainIdentifier"];
+    v82 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_spotlightDomainIdentifier"];
     fp_spotlightSubDomainIdentifier = self->_fp_spotlightSubDomainIdentifier;
-    self->_fp_spotlightSubDomainIdentifier = v92;
+    self->_fp_spotlightSubDomainIdentifier = v82;
 
-    v94 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_hasUnresolvedConflicts"];
+    v84 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_hasUnresolvedConflicts"];
     hasUnresolvedConflicts = self->_hasUnresolvedConflicts;
-    self->_hasUnresolvedConflicts = v94;
+    self->_hasUnresolvedConflicts = v84;
 
-    v96 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_isDownloadRequested"];
+    v86 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_isDownloadRequested"];
     isDownloadRequested = self->_isDownloadRequested;
-    self->_isDownloadRequested = v96;
+    self->_isDownloadRequested = v86;
 
-    v98 = *(v64 + 3776);
-    v99 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_sharingPermissions"];
+    v88 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_sharingPermissions"];
     sharingPermissions = self->_sharingPermissions;
-    self->_sharingPermissions = v99;
+    self->_sharingPermissions = v88;
 
-    v101 = *(v64 + 3776);
-    v102 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_containerDisplayName"];
+    v90 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_containerDisplayName"];
     containerDisplayName = self->_containerDisplayName;
-    self->_containerDisplayName = v102;
+    self->_containerDisplayName = v90;
 
     self->_supportsMostRecentVersionDownloaded = [coderCopy decodeBoolForKey:@"_supportsMostRecentVersionDownloaded"];
-    v104 = *(v64 + 3776);
-    v105 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_fp_appContainerBundleIdentifier"];
+    v92 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_fp_appContainerBundleIdentifier"];
     fp_appContainerBundleIdentifier = self->_fp_appContainerBundleIdentifier;
-    self->_fp_appContainerBundleIdentifier = v105;
+    self->_fp_appContainerBundleIdentifier = v92;
 
-    v107 = *(v64 + 3776);
-    v108 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_fp_parentDomainIdentifier"];
+    v94 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_fp_parentDomainIdentifier"];
     fp_parentDomainIdentifier = self->_fp_parentDomainIdentifier;
-    self->_fp_parentDomainIdentifier = v108;
+    self->_fp_parentDomainIdentifier = v94;
 
-    v110 = *(v64 + 3776);
-    v111 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_cloudContainerIdentifier"];
+    v96 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_cloudContainerIdentifier"];
     cloudContainerIdentifier = self->_cloudContainerIdentifier;
-    self->_cloudContainerIdentifier = v111;
+    self->_cloudContainerIdentifier = v96;
 
     self->_isUbiquitous = [coderCopy decodeBoolForKey:@"_isUbiquitous"];
     self->_isContainer = [coderCopy decodeBoolForKey:@"_isContainer"];
@@ -3140,42 +3121,40 @@ LABEL_14:
     self->_contentZoneRoot = [coderCopy decodeBoolForKey:@"_contentZoneRoot"];
     self->_isCollaborationInvitation = [coderCopy decodeBoolForKey:@"_isCollaborationInvitation"];
     self->_recursivelyDownloaded = [coderCopy decodeBoolForKey:@"_recursivelyDownloaded"];
-    v113 = MEMORY[0x1E695DFD8];
-    v114 = objc_opt_class();
-    v115 = [v113 setWithObjects:{v114, objc_opt_class(), 0}];
-    v116 = [coderCopy decodeObjectOfClasses:v115 forKey:@"_conflictingVersions"];
+    v98 = MEMORY[0x1E695DFD8];
+    v99 = objc_opt_class();
+    v100 = [v98 setWithObjects:{v99, objc_opt_class(), 0}];
+    v101 = [coderCopy decodeObjectOfClasses:v100 forKey:@"_conflictingVersions"];
     conflictingVersions = self->_conflictingVersions;
-    self->_conflictingVersions = v116;
+    self->_conflictingVersions = v101;
 
     self->_fileSystemFlags = [coderCopy decodeIntegerForKey:@"_fileSystemFlags"];
-    v118 = MEMORY[0x1E695DFD8];
-    v145[0] = objc_opt_class();
-    v119 = *(v64 + 3776);
-    v145[1] = objc_opt_class();
-    v145[2] = objc_opt_class();
-    v120 = [MEMORY[0x1E695DEC8] arrayWithObjects:v145 count:3];
-    v121 = [v118 setWithArray:v120];
-    v122 = [coderCopy decodeObjectOfClasses:v121 forKey:@"_extendedAttributes"];
+    v103 = MEMORY[0x1E695DFD8];
+    v127[0] = objc_opt_class();
+    v127[1] = objc_opt_class();
+    v127[2] = objc_opt_class();
+    v104 = [MEMORY[0x1E695DEC8] arrayWithObjects:v127 count:3];
+    v105 = [v103 setWithArray:v104];
+    v106 = [coderCopy decodeObjectOfClasses:v105 forKey:@"_extendedAttributes"];
     extendedAttributes = self->_extendedAttributes;
-    self->_extendedAttributes = v122;
+    self->_extendedAttributes = v106;
 
-    v124 = MEMORY[0x1E695DFD8];
-    v10 = v138;
-    v9 = v139;
-    v144[0] = objc_opt_class();
-    v125 = *(v64 + 3776);
-    v144[1] = objc_opt_class();
-    v126 = [MEMORY[0x1E695DEC8] arrayWithObjects:v144 count:2];
-    v127 = [v124 setWithArray:v126];
-    v128 = [coderCopy decodeObjectOfClasses:v127 forKey:@"_decorations"];
+    v108 = MEMORY[0x1E695DFD8];
+    v9 = v120;
+    v8 = v121;
+    v126[0] = objc_opt_class();
+    v126[1] = objc_opt_class();
+    v109 = [MEMORY[0x1E695DEC8] arrayWithObjects:v126 count:2];
+    v110 = [v108 setWithArray:v109];
+    v111 = [coderCopy decodeObjectOfClasses:v110 forKey:@"_decorations"];
     decorations = self->_decorations;
-    self->_decorations = v128;
+    self->_decorations = v111;
 
     self->_fileID = [coderCopy decodeInt64ForKey:@"_fileID"];
     self->_documentID = [coderCopy decodeInt32ForKey:@"_documentID"];
-    v130 = [coderCopy decodeObjectOfClasses:v78 forKey:@"_inheritedUserInfo"];
+    v113 = [coderCopy decodeObjectOfClasses:v71 forKey:@"_inheritedUserInfo"];
     inheritedUserInfo = self->_inheritedUserInfo;
-    self->_inheritedUserInfo = v130;
+    self->_inheritedUserInfo = v113;
 
     self->_allowsContextualMenuDownloadEntry = [coderCopy decodeBoolForKey:@"_allowsContextualMenuDownloadEntry"];
     self->_typeAndCreator.type = [coderCopy decodeInt32ForKey:@"_typeAndCreator.type"];
@@ -3187,17 +3166,17 @@ LABEL_14:
     self->_isEvictedWithClone = [coderCopy decodeBoolForKey:@"_isEvictedWithClone"];
     self->_syncPaused = [coderCopy decodeBoolForKey:@"_syncPaused"];
     self->_supportsUploadWithFailOnConflict = [coderCopy decodeBoolForKey:@"_supportsUploadWithFailOnConflict"];
-    v132 = 1;
+    v115 = 1;
 LABEL_19:
 
     goto LABEL_21;
   }
 
-  v132 = 1;
+  v115 = 1;
 LABEL_21:
 
   objc_autoreleasePoolPop(context);
-  if (!v132)
+  if (!v115)
   {
     goto LABEL_23;
   }
@@ -3206,7 +3185,6 @@ LABEL_21:
   selfCopy = self;
 LABEL_24:
 
-  v134 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -5502,7 +5480,7 @@ LABEL_153:
       v66 = fp_current_or_default_log();
       if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v66 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_capabilities = [itemCopy capabilities];
@@ -5517,7 +5495,7 @@ LABEL_153:
       v68 = fp_current_or_default_log();
       if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v68 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_enumerationOrigin = [itemCopy enumerationOrigin];
@@ -5631,7 +5609,7 @@ LABEL_191:
       v80 = fp_current_or_default_log();
       if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v80 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_trashed = [itemCopy isTrashed];
@@ -5796,7 +5774,7 @@ LABEL_238:
       v97 = fp_current_or_default_log();
       if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v97 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_uploaded = [itemCopy isUploaded];
@@ -5811,7 +5789,7 @@ LABEL_238:
       v99 = fp_current_or_default_log();
       if (os_log_type_enabled(v99, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v99 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_uploading = [itemCopy isUploading];
@@ -5876,7 +5854,7 @@ LABEL_262:
       v106 = fp_current_or_default_log();
       if (os_log_type_enabled(v106, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v106 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_downloaded = [itemCopy isDownloaded];
@@ -5891,7 +5869,7 @@ LABEL_262:
       v108 = fp_current_or_default_log();
       if (os_log_type_enabled(v108, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v108 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_downloading = [itemCopy isDownloading];
@@ -5956,7 +5934,7 @@ LABEL_286:
       v115 = fp_current_or_default_log();
       if (os_log_type_enabled(v115, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v115 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_mostRecentVersionDownloaded = [itemCopy isMostRecentVersionDownloaded];
@@ -5971,7 +5949,7 @@ LABEL_286:
       v117 = fp_current_or_default_log();
       if (os_log_type_enabled(v117, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v117 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_shared = [itemCopy isShared];
@@ -5986,7 +5964,7 @@ LABEL_286:
       v119 = fp_current_or_default_log();
       if (os_log_type_enabled(v119, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v119 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_sharedByCurrentUser = [itemCopy isSharedByCurrentUser];
@@ -6001,7 +5979,7 @@ LABEL_286:
       v121 = fp_current_or_default_log();
       if (os_log_type_enabled(v121, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v121 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_fp_lastModifiedByCurrentUser = [itemCopy fp_isLastModifiedByCurrentUser];
@@ -6268,7 +6246,7 @@ LABEL_376:
       v148 = fp_current_or_default_log();
       if (os_log_type_enabled(v148, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v148 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_state = [itemCopy state];
@@ -6535,7 +6513,7 @@ LABEL_451:
       v175 = fp_current_or_default_log();
       if (os_log_type_enabled(v175, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v175 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_inPinnedFolder = [itemCopy isInPinnedFolder];
@@ -6550,7 +6528,7 @@ LABEL_451:
       v177 = fp_current_or_default_log();
       if (os_log_type_enabled(v177, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v177 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_pinned = [itemCopy isPinned];
@@ -6766,7 +6744,7 @@ LABEL_517:
       v199 = fp_current_or_default_log();
       if (os_log_type_enabled(v199, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v199 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_supportsMostRecentVersionDownloaded = [itemCopy supportsMostRecentVersionDownloaded];
@@ -6931,7 +6909,7 @@ LABEL_564:
       v216 = fp_current_or_default_log();
       if (os_log_type_enabled(v216, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v216 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_isUbiquitous = [itemCopy isUbiquitous];
@@ -6946,7 +6924,7 @@ LABEL_564:
       v218 = fp_current_or_default_log();
       if (os_log_type_enabled(v218, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v218 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_isContainer = [itemCopy isContainer];
@@ -6961,7 +6939,7 @@ LABEL_564:
       v220 = fp_current_or_default_log();
       if (os_log_type_enabled(v220, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v220 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_isContainerPristine = [itemCopy isContainerPristine];
@@ -6976,7 +6954,7 @@ LABEL_564:
       v222 = fp_current_or_default_log();
       if (os_log_type_enabled(v222, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v222 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_topLevelSharedItem = [itemCopy isTopLevelSharedItem];
@@ -6991,7 +6969,7 @@ LABEL_564:
       v224 = fp_current_or_default_log();
       if (os_log_type_enabled(v224, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v224 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_recursivelyDownloaded = [itemCopy isRecursivelyDownloaded];
@@ -7056,7 +7034,7 @@ LABEL_603:
       v231 = fp_current_or_default_log();
       if (os_log_type_enabled(v231, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v231 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_fileSystemFlags = [itemCopy fileSystemFlags];
@@ -7182,7 +7160,7 @@ LABEL_637:
       v244 = fp_current_or_default_log();
       if (os_log_type_enabled(v244, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v244 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_contentPolicy = [itemCopy contentPolicy];
@@ -7197,7 +7175,7 @@ LABEL_637:
       v246 = fp_current_or_default_log();
       if (os_log_type_enabled(v246, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v246 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_inheritedContentPolicy = [itemCopy inheritedContentPolicy];
@@ -7212,7 +7190,7 @@ LABEL_637:
       v248 = fp_current_or_default_log();
       if (os_log_type_enabled(v248, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v248 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_effectiveContentPolicy = [itemCopy effectiveContentPolicy];
@@ -7227,7 +7205,7 @@ LABEL_637:
       v250 = fp_current_or_default_log();
       if (os_log_type_enabled(v250, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v250 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_isEvictedWithClone = [itemCopy isEvictedWithClone];
@@ -7242,7 +7220,7 @@ LABEL_637:
       v252 = fp_current_or_default_log();
       if (os_log_type_enabled(v252, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v252 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_syncPaused = [itemCopy isSyncPaused];
@@ -7257,7 +7235,7 @@ LABEL_637:
       v254 = fp_current_or_default_log();
       if (os_log_type_enabled(v254, OS_LOG_TYPE_DEBUG))
       {
-        [(FPItem *)itemCopy overrideFields:v254 ofItem:?];
+        [FPItem overrideFields:ofItem:];
       }
 
       self->_supportsUploadWithFailOnConflict = [itemCopy supportsUploadWithFailOnConflict];
@@ -8346,37 +8324,35 @@ id __25__FPItem_itemDecorations__block_invoke(uint64_t a1, uint64_t a2)
 
 + (id)allUbiquitousResourceKeys
 {
-  v15[17] = *MEMORY[0x1E69E9840];
+  v14[17] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   v3 = *MEMORY[0x1E695DCD8];
-  v15[0] = *MEMORY[0x1E695DBD8];
-  v15[1] = v3;
+  v14[0] = *MEMORY[0x1E695DBD8];
+  v14[1] = v3;
   v4 = *MEMORY[0x1E695DCB8];
-  v15[2] = *MEMORY[0x1E695DCE0];
-  v15[3] = v4;
+  v14[2] = *MEMORY[0x1E695DCE0];
+  v14[3] = v4;
   v5 = *MEMORY[0x1E695DCF0];
-  v15[4] = *MEMORY[0x1E695DC98];
-  v15[5] = v5;
+  v14[4] = *MEMORY[0x1E695DC98];
+  v14[5] = v5;
   v6 = *MEMORY[0x1E695DD10];
-  v15[6] = *MEMORY[0x1E695DC80];
-  v15[7] = v6;
+  v14[6] = *MEMORY[0x1E695DC80];
+  v14[7] = v6;
   v7 = *MEMORY[0x1E695DCA8];
-  v15[8] = *MEMORY[0x1E695DD08];
-  v15[9] = v7;
+  v14[8] = *MEMORY[0x1E695DD08];
+  v14[9] = v7;
   v8 = *MEMORY[0x1E695DC78];
-  v15[10] = *MEMORY[0x1E695DC70];
-  v15[11] = v8;
+  v14[10] = *MEMORY[0x1E695DC70];
+  v14[11] = v8;
   v9 = *MEMORY[0x1E695DD00];
-  v15[12] = *MEMORY[0x1E695DCC8];
-  v15[13] = v9;
+  v14[12] = *MEMORY[0x1E695DCC8];
+  v14[13] = v9;
   v10 = *MEMORY[0x1E695DCD0];
-  v15[14] = *MEMORY[0x1E695DCF8];
-  v15[15] = v10;
-  v15[16] = *MEMORY[0x1E695DCE8];
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:17];
+  v14[14] = *MEMORY[0x1E695DCF8];
+  v14[15] = v10;
+  v14[16] = *MEMORY[0x1E695DCE8];
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:17];
   v12 = [v2 setWithArray:v11];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -8893,6 +8869,15 @@ LABEL_9:
   coreSpotlightIdentifier = [v4 coreSpotlightIdentifier];
 
   return coreSpotlightIdentifier;
+}
+
+- (void)setFp_isDownloadRequested:(BOOL)requested
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:requested];
+  isDownloadRequested = self->_isDownloadRequested;
+  self->_isDownloadRequested = v4;
+
+  MEMORY[0x1EEE66BB8](v4, isDownloadRequested);
 }
 
 + (id)appLibraryFromContainerItem:(id)item documentsItem:(id)documentsItem
@@ -9597,38 +9582,34 @@ LABEL_18:
 
 + (id)fp_minimalAttributesForEvictionPriority
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = getMDItemLastUsedDate();
-  v9[0] = v2;
+  v8[0] = v2;
   v3 = getMDItemFileSize();
-  v9[1] = v3;
+  v8[1] = v3;
   v4 = getMDItemFileProviderID();
-  v9[2] = v4;
+  v8[2] = v4;
   v5 = getMDItemFileProviderDomainIdentifier();
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }
 
 + (id)fp_minimalAttributesForEviction
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = getMDItemLastUsedDate();
-  v10[0] = v2;
+  v9[0] = v2;
   v3 = getMDItemFileSize();
-  v10[1] = v3;
+  v9[1] = v3;
   v4 = getMDItemFileItemID();
-  v10[2] = v4;
+  v9[2] = v4;
   v5 = getMDItemFileProviderID();
-  v10[3] = v5;
+  v9[3] = v5;
   v6 = getMDItemFileProviderDomainIdentifier();
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
@@ -9870,587 +9851,960 @@ LABEL_9:
 
 - (void)initWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = [a2 fp_obfuscatedFilename];
   OUTLINED_FUNCTION_16_0();
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)encodeWithCoder:(os_log_t)log .cold.1(void *a1, uint64_t *a2, os_log_t log)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = *a2;
   v4 = a1[10];
   v5 = a1[45];
   v6 = a1[22];
-  v8 = 138413314;
-  v9 = a1;
-  v10 = 2112;
-  v11 = v3;
-  v12 = 2112;
-  v13 = v4;
-  v14 = 2112;
-  v15 = v5;
-  v16 = 2112;
-  v17 = v6;
-  _os_log_error_impl(&dword_1AAAE1000, log, OS_LOG_TYPE_ERROR, "[ERROR] item %@ does not have all the required properties; encoding will be invalid (%@, %@, %@, %@)", &v8, 0x34u);
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138413314;
+  v8 = a1;
+  v9 = 2112;
+  v10 = v3;
+  v11 = 2112;
+  v12 = v4;
+  v13 = 2112;
+  v14 = v5;
+  v15 = 2112;
+  v16 = v6;
+  _os_log_error_impl(&dword_1AAAE1000, log, OS_LOG_TYPE_ERROR, "[ERROR] item %@ does not have all the required properties; encoding will be invalid (%@, %@, %@, %@)", &v7, 0x34u);
 }
 
 - (void)fieldDifferencesWithItem:(uint64_t)a1 onlyMetadata:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = [a2 itemID];
   OUTLINED_FUNCTION_16_0();
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)overrideFields:ofItem:.cold.1()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() itemIdentifier];
   v4 = [OUTLINED_FUNCTION_9_1() itemIdentifier];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.2()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() formerIdentifier];
   v4 = [OUTLINED_FUNCTION_9_1() formerIdentifier];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.3()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() parentFormerIdentifier];
   v4 = [OUTLINED_FUNCTION_9_1() parentFormerIdentifier];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.4()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() parentItemIdentifier];
   v4 = [OUTLINED_FUNCTION_9_1() parentItemIdentifier];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.5()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() providerID];
   v4 = [OUTLINED_FUNCTION_9_1() providerID];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.6()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() domainIdentifier];
   v4 = [OUTLINED_FUNCTION_9_1() domainIdentifier];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.7()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() filename];
   v4 = [OUTLINED_FUNCTION_9_1() filename];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.8()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() displayName];
   v4 = [OUTLINED_FUNCTION_9_1() displayName];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.9()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() contentType];
   v4 = [OUTLINED_FUNCTION_9_1() contentType];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.10()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() documentSize];
   v4 = [OUTLINED_FUNCTION_9_1() documentSize];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.11()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() fileURL];
   v4 = [OUTLINED_FUNCTION_9_1() fileURL];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
+}
 
-  v11 = *MEMORY[0x1E69E9840];
+- (void)overrideFields:ofItem:.cold.12()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() capabilities];
+  [OUTLINED_FUNCTION_8_0() numberWithUnsignedInteger:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() capabilities];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithUnsignedInteger:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
+}
+
+- (void)overrideFields:ofItem:.cold.13()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() enumerationOrigin];
+  [OUTLINED_FUNCTION_8_0() numberWithUnsignedInteger:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() enumerationOrigin];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithUnsignedInteger:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
 }
 
 - (void)overrideFields:ofItem:.cold.14()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() creationDate];
   v4 = [OUTLINED_FUNCTION_9_1() creationDate];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.15()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() contentModificationDate];
   v4 = [OUTLINED_FUNCTION_9_1() contentModificationDate];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
+}
 
-  v11 = *MEMORY[0x1E69E9840];
+- (void)overrideFields:ofItem:.cold.16()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() isTrashed];
+  [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() isTrashed];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
 }
 
 - (void)overrideFields:ofItem:.cold.17()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() lastUsedDate];
   v4 = [OUTLINED_FUNCTION_9_1() lastUsedDate];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.18()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() tags];
   v4 = [OUTLINED_FUNCTION_9_1() tags];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.19()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() favoriteRank];
   v4 = [OUTLINED_FUNCTION_9_1() favoriteRank];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
+}
 
-  v11 = *MEMORY[0x1E69E9840];
+- (void)overrideFields:ofItem:.cold.20()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() isUploaded];
+  [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() isUploaded];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
+}
+
+- (void)overrideFields:ofItem:.cold.21()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() isUploading];
+  [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() isUploading];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
 }
 
 - (void)overrideFields:ofItem:.cold.22()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() uploadingError];
   v4 = [OUTLINED_FUNCTION_9_1() uploadingError];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
+}
 
-  v11 = *MEMORY[0x1E69E9840];
+- (void)overrideFields:ofItem:.cold.23()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() isDownloaded];
+  [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() isDownloaded];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
+}
+
+- (void)overrideFields:ofItem:.cold.24()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() isDownloading];
+  [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() isDownloading];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
 }
 
 - (void)overrideFields:ofItem:.cold.25()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() downloadingError];
   v4 = [OUTLINED_FUNCTION_9_1() downloadingError];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
+}
 
-  v11 = *MEMORY[0x1E69E9840];
+- (void)overrideFields:ofItem:.cold.26()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() isMostRecentVersionDownloaded];
+  [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() isMostRecentVersionDownloaded];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
+}
+
+- (void)overrideFields:ofItem:.cold.27()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() isShared];
+  [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() isShared];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
+}
+
+- (void)overrideFields:ofItem:.cold.28()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() isSharedByCurrentUser];
+  [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() isSharedByCurrentUser];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
+}
+
+- (void)overrideFields:ofItem:.cold.29()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() fp_isLastModifiedByCurrentUser];
+  [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() fp_isLastModifiedByCurrentUser];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
 }
 
 - (void)overrideFields:ofItem:.cold.30()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() ownerNameComponents];
   v4 = [OUTLINED_FUNCTION_9_1() ownerNameComponents];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.31()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() mostRecentEditorNameComponents];
   v4 = [OUTLINED_FUNCTION_9_1() mostRecentEditorNameComponents];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.32()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() collaborationIdentifier];
   v4 = [OUTLINED_FUNCTION_9_1() collaborationIdentifier];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.33()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() childItemCount];
   v4 = [OUTLINED_FUNCTION_9_1() childItemCount];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.34()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() userInfo];
   v4 = [OUTLINED_FUNCTION_9_1() userInfo];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
+}
 
-  v11 = *MEMORY[0x1E69E9840];
+- (void)overrideFields:ofItem:.cold.35()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() state];
+  [OUTLINED_FUNCTION_8_0() numberWithUnsignedInteger:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() state];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithUnsignedInteger:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
 }
 
 - (void)overrideFields:ofItem:.cold.36()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() placeholderIdentifier];
   v4 = [OUTLINED_FUNCTION_9_1() placeholderIdentifier];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.37()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() versionIdentifier];
   v4 = [OUTLINED_FUNCTION_9_1() versionIdentifier];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.38()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() itemVersion];
   v4 = [OUTLINED_FUNCTION_9_1() itemVersion];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.39()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() spotlightDomainIdentifier];
   v4 = [OUTLINED_FUNCTION_9_1() spotlightDomainIdentifier];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.40()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() fp_spotlightSubDomainIdentifier];
   v4 = [OUTLINED_FUNCTION_9_1() fp_spotlightSubDomainIdentifier];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
+}
 
-  v11 = *MEMORY[0x1E69E9840];
+- (void)overrideFields:ofItem:.cold.41()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() isInPinnedFolder];
+  [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() isInPinnedFolder];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
+}
+
+- (void)overrideFields:ofItem:.cold.42()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() isPinned];
+  [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() isPinned];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
 }
 
 - (void)overrideFields:ofItem:.cold.43()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() hasUnresolvedConflicts];
   v4 = [OUTLINED_FUNCTION_9_1() hasUnresolvedConflicts];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.44()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() isDownloadRequested];
   v4 = [OUTLINED_FUNCTION_9_1() isDownloadRequested];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.45()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() sharingPermissions];
   v4 = [OUTLINED_FUNCTION_9_1() sharingPermissions];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.46()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() containerDisplayName];
   v4 = [OUTLINED_FUNCTION_9_1() containerDisplayName];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
+}
 
-  v11 = *MEMORY[0x1E69E9840];
+- (void)overrideFields:ofItem:.cold.47()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() supportsMostRecentVersionDownloaded];
+  [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() supportsMostRecentVersionDownloaded];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
 }
 
 - (void)overrideFields:ofItem:.cold.48()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() fp_appContainerBundleIdentifier];
   v4 = [OUTLINED_FUNCTION_9_1() fp_appContainerBundleIdentifier];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.49()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() fp_parentDomainIdentifier];
   v4 = [OUTLINED_FUNCTION_9_1() fp_parentDomainIdentifier];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.50()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() cloudContainerIdentifier];
   v4 = [OUTLINED_FUNCTION_9_1() cloudContainerIdentifier];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
+}
 
-  v11 = *MEMORY[0x1E69E9840];
+- (void)overrideFields:ofItem:.cold.51()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() isUbiquitous];
+  [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() isUbiquitous];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
+}
+
+- (void)overrideFields:ofItem:.cold.52()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() isContainer];
+  [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() isContainer];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
+}
+
+- (void)overrideFields:ofItem:.cold.53()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() isContainerPristine];
+  [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() isContainerPristine];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
+}
+
+- (void)overrideFields:ofItem:.cold.54()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() isTopLevelSharedItem];
+  [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() isTopLevelSharedItem];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
+}
+
+- (void)overrideFields:ofItem:.cold.55()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() isRecursivelyDownloaded];
+  [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() isRecursivelyDownloaded];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
 }
 
 - (void)overrideFields:ofItem:.cold.56()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() conflictingVersions];
   v4 = [OUTLINED_FUNCTION_9_1() conflictingVersions];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
+}
 
-  v11 = *MEMORY[0x1E69E9840];
+- (void)overrideFields:ofItem:.cold.57()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() fileSystemFlags];
+  [OUTLINED_FUNCTION_8_0() numberWithUnsignedInteger:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() fileSystemFlags];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithUnsignedInteger:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
 }
 
 - (void)overrideFields:ofItem:.cold.58()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() extendedAttributes];
   v4 = [OUTLINED_FUNCTION_9_1() extendedAttributes];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:ofItem:.cold.59()
 {
   OUTLINED_FUNCTION_3_1();
-  v12 = *MEMORY[0x1E69E9840];
   [v2 itemID];
   objc_claimAutoreleasedReturnValue();
   v3 = [OUTLINED_FUNCTION_10_0() decorations];
   v4 = [OUTLINED_FUNCTION_9_1() decorations];
+  v11 = 138413058;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6_2(&dword_1AAAE1000, v5, v6, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v7, v8, v9, v10, v11);
 }
 
 - (void)overrideFields:(void *)a1 ofItem:.cold.60(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = [a1 itemID];
+  v6 = [a1 itemID];
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
+}
 
-  v6 = *MEMORY[0x1E69E9840];
+- (void)overrideFields:ofItem:.cold.61()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() contentPolicy];
+  [OUTLINED_FUNCTION_8_0() numberWithInteger:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() contentPolicy];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithInteger:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
+}
+
+- (void)overrideFields:ofItem:.cold.62()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() inheritedContentPolicy];
+  [OUTLINED_FUNCTION_8_0() numberWithInteger:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() inheritedContentPolicy];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithInteger:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
+}
+
+- (void)overrideFields:ofItem:.cold.63()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() effectiveContentPolicy];
+  [OUTLINED_FUNCTION_8_0() numberWithInteger:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() effectiveContentPolicy];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithInteger:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
+}
+
+- (void)overrideFields:ofItem:.cold.64()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() isEvictedWithClone];
+  [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() isEvictedWithClone];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
+}
+
+- (void)overrideFields:ofItem:.cold.65()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() isSyncPaused];
+  [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() isSyncPaused];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
+}
+
+- (void)overrideFields:ofItem:.cold.66()
+{
+  OUTLINED_FUNCTION_15_0();
+  OUTLINED_FUNCTION_4_1();
+  [v2 itemID];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_2_1() supportsUploadWithFailOnConflict];
+  [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  objc_claimAutoreleasedReturnValue();
+  [OUTLINED_FUNCTION_5_0() supportsUploadWithFailOnConflict];
+  v3 = [OUTLINED_FUNCTION_8_0() numberWithBool:?];
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_7_0(&dword_1AAAE1000, v4, v5, "[DEBUG] Overriding field %@ for itemID %@ - old %@ new %@", v6, v7, v8, v9);
+
+  OUTLINED_FUNCTION_14_1();
 }
 
 @end

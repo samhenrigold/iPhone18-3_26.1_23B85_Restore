@@ -232,7 +232,7 @@ void __51__FamilyHotspotSettingsController__setFamilyShare___block_invoke_2(uint
   return familyMembers;
 }
 
-uint64_t __64__FamilyHotspotSettingsController__shouldShareHotspotWithFamily__block_invoke(uint64_t a1, void *a2)
+void *__64__FamilyHotspotSettingsController__shouldShareHotspotWithFamily__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 shareOption];
   if (result)

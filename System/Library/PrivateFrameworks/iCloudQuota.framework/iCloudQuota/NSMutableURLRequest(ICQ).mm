@@ -56,7 +56,7 @@
 
 - (void)icq_renewAuthorizationHeadersForAccount:()ICQ store:completion:
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = a4;
   v10 = a5;
@@ -108,10 +108,10 @@ LABEL_5:
   else
   {
     v15 = _ICQGetLogSystem();
-    v19 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+    v18 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
     if (!v12)
     {
-      if (v19)
+      if (v18)
       {
         *buf = 0;
         _os_log_impl(&dword_275572000, v15, OS_LOG_TYPE_DEFAULT, "Missing auth headers and no account provided or found, unable to renew credentials.", buf, 2u);
@@ -120,32 +120,30 @@ LABEL_5:
       goto LABEL_5;
     }
 
-    if (v19)
+    if (v18)
     {
       *buf = 138412290;
       selfCopy2 = self;
       _os_log_impl(&dword_275572000, v15, OS_LOG_TYPE_DEFAULT, "Missing auth header or client info header, attempting to renew credentials. request: %@", buf, 0xCu);
     }
 
-    v20 = *MEMORY[0x277CB9098];
-    v25[0] = *MEMORY[0x277CB90A0];
-    v25[1] = v20;
-    v26[0] = MEMORY[0x277CBEC28];
-    v26[1] = MEMORY[0x277CBEC38];
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __85__NSMutableURLRequest_ICQ__icq_renewAuthorizationHeadersForAccount_store_completion___block_invoke;
-    v22[3] = &unk_27A653000;
-    v22[4] = self;
-    v23 = v12;
-    v24 = v10;
-    [v9 renewCredentialsForAccount:v23 options:v21 completion:v22];
+    v19 = *MEMORY[0x277CB9098];
+    v24[0] = *MEMORY[0x277CB90A0];
+    v24[1] = v19;
+    v25[0] = MEMORY[0x277CBEC28];
+    v25[1] = MEMORY[0x277CBEC38];
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __85__NSMutableURLRequest_ICQ__icq_renewAuthorizationHeadersForAccount_store_completion___block_invoke;
+    v21[3] = &unk_27A653000;
+    v21[4] = self;
+    v22 = v12;
+    v23 = v10;
+    [v9 renewCredentialsForAccount:v22 options:v20 completion:v21];
   }
 
 LABEL_13:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)icq_hasAuthHeaders
@@ -167,13 +165,12 @@ LABEL_13:
 
 - (void)icq_renewAuthorizationHeadersForAccount:()ICQ store:completion:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[NSMutableURLRequest(ICQ) icq_renewAuthorizationHeadersForAccount:store:completion:]";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_275572000, a2, OS_LOG_TYPE_ERROR, "%s account change detected while validating auth headers. request %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[NSMutableURLRequest(ICQ) icq_renewAuthorizationHeadersForAccount:store:completion:]";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_275572000, a2, OS_LOG_TYPE_ERROR, "%s account change detected while validating auth headers. request %@", &v2, 0x16u);
 }
 
 @end

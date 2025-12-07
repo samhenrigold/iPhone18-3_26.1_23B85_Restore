@@ -15,7 +15,6 @@
 - (FBSDisplayMode)preferredMode;
 - (double)nativeOrientation;
 - (id)CADisplay;
-- (id)_initWithIdentity:(void *)identity hardwareIdentifier:(void *)identifier name:(void *)name deviceName:(void *)deviceName seed:(int)seed comparable:(char)comparable tags:(double)tags currentMode:(double)self0 preferredMode:(CGFloat)self1 otherModes:(CGFloat)self2 cloningSupported:(CGFloat)self3 overscanned:(CGFloat)self4 overscanCompensation:(CGFloat)self5 safeOverscanRatio:(CGFloat)self6 pixelSize:(unint64_t)self7 nativeBounds:(void *)self8 bounds:(void *)self9 latency:(void *)latency originatingConfiguration:(char)configuration validityCheck:(char)check;
 - (id)_initWithImmutableDisplay:(id)display originalDisplay:(id)originalDisplay assertIfInvalid:(BOOL)invalid;
 - (id)_nameForDisplayType;
 - (id)copyForSecureRendering;
@@ -28,6 +27,7 @@
 - (id)laterConfiguration:(id)configuration;
 - (id)succinctDescription;
 - (id)succinctDescriptionBuilder;
+- (uint64_t)_initWithIdentity:(void *)identity hardwareIdentifier:(void *)identifier name:(void *)name deviceName:(void *)deviceName seed:(int)seed comparable:(char)comparable tags:(double)tags currentMode:(double)self0 preferredMode:(CGFloat)self1 otherModes:(CGFloat)self2 cloningSupported:(CGFloat)self3 overscanned:(CGFloat)self4 overscanCompensation:(CGFloat)self5 safeOverscanRatio:(CGFloat)self6 pixelSize:(unint64_t)self7 nativeBounds:(void *)self8 bounds:(void *)self9 latency:(void *)latency originatingConfiguration:(char)configuration validityCheck:(char)check;
 - (void)CADisplay;
 - (void)encodeWithCoder:(id)coder;
 - (void)encodeWithXPCDictionary:(id)dictionary;
@@ -67,7 +67,7 @@
 
 - (id)CADisplay
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if ([(FBSDisplayConfiguration *)self isVirtualized])
   {
     v3 = 0;
@@ -80,25 +80,25 @@
     if (!selfCopy->_caDisplay)
     {
       displayID = [(FBSDisplayIdentity *)selfCopy->_identity displayID];
-      v15 = 0u;
       v16 = 0u;
-      v13 = 0u;
+      v17 = 0u;
       v14 = 0u;
+      v15 = 0u;
       displays = [getCADisplayClass() displays];
-      v7 = [displays countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [displays countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
-        v8 = *v14;
+        v8 = *v15;
         while (2)
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v14 != v8)
+            if (*v15 != v8)
             {
               objc_enumerationMutation(displays);
             }
 
-            v10 = *(*(&v13 + 1) + 8 * i);
+            v10 = *(*(&v14 + 1) + 8 * i);
             if ([v10 displayId] == displayID)
             {
               objc_storeStrong(&selfCopy->_caDisplay, v10);
@@ -106,7 +106,7 @@
             }
           }
 
-          v7 = [displays countByEnumeratingWithState:&v13 objects:v17 count:16];
+          v7 = [displays countByEnumeratingWithState:&v14 objects:v18 count:16];
           if (v7)
           {
             continue;
@@ -120,8 +120,8 @@ LABEL_14:
 
       if (!selfCopy->_caDisplay)
       {
-        v11 = FBLogCommon();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v12 = FBLogCommon(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           [(FBSDisplayConfiguration *)displayID CADisplay];
         }
@@ -449,7 +449,7 @@ LABEL_37:
   goto LABEL_45;
 }
 
-- (id)_initWithIdentity:(void *)identity hardwareIdentifier:(void *)identifier name:(void *)name deviceName:(void *)deviceName seed:(int)seed comparable:(char)comparable tags:(double)tags currentMode:(double)self0 preferredMode:(CGFloat)self1 otherModes:(CGFloat)self2 cloningSupported:(CGFloat)self3 overscanned:(CGFloat)self4 overscanCompensation:(CGFloat)self5 safeOverscanRatio:(CGFloat)self6 pixelSize:(unint64_t)self7 nativeBounds:(void *)self8 bounds:(void *)self9 latency:(void *)latency originatingConfiguration:(char)configuration validityCheck:(char)check
+- (uint64_t)_initWithIdentity:(void *)identity hardwareIdentifier:(void *)identifier name:(void *)name deviceName:(void *)deviceName seed:(int)seed comparable:(char)comparable tags:(double)tags currentMode:(double)self0 preferredMode:(CGFloat)self1 otherModes:(CGFloat)self2 cloningSupported:(CGFloat)self3 overscanned:(CGFloat)self4 overscanCompensation:(CGFloat)self5 safeOverscanRatio:(CGFloat)self6 pixelSize:(unint64_t)self7 nativeBounds:(void *)self8 bounds:(void *)self9 latency:(void *)latency originatingConfiguration:(char)configuration validityCheck:(char)check
 {
   v84 = *MEMORY[0x1E69E9840];
   identityCopy = identity;
@@ -469,22 +469,22 @@ LABEL_37:
   {
     objc_storeStrong(v48 + 14, identity);
     v50 = [v45 copy];
-    v51 = v49[15];
-    v49[15] = v50;
+    v51 = *(v49 + 120);
+    *(v49 + 120) = v50;
 
     v52 = [nameCopy copy];
-    v53 = v49[16];
-    v49[16] = v52;
+    v53 = *(v49 + 128);
+    *(v49 + 128) = v52;
 
     v54 = [deviceNameCopy copy];
-    v55 = v49[17];
-    v49[17] = v54;
+    v55 = *(v49 + 136);
+    *(v49 + 136) = v54;
 
-    *(v49 + 52) = seed;
+    *(v49 + 208) = seed;
     *(v49 + 218) = comparable;
-    v49[24] = size;
-    objc_storeStrong(v49 + 18, bounds);
-    if (v49[18])
+    *(v49 + 192) = size;
+    objc_storeStrong((v49 + 144), bounds);
+    if (*(v49 + 144))
     {
       [MEMORY[0x1E695DFA8] setWithObject:?];
     }
@@ -496,42 +496,42 @@ LABEL_37:
     v56 = ;
     if (v78)
     {
-      objc_storeStrong(v49 + 19, a19);
-      [v56 addObject:v49[19]];
+      objc_storeStrong((v49 + 152), a19);
+      [v56 addObject:*(v49 + 152)];
     }
 
     if ([latencyCopy count])
     {
       v57 = [latencyCopy copy];
-      v58 = v49[20];
-      v49[20] = v57;
+      v58 = *(v49 + 160);
+      *(v49 + 160) = v57;
 
       [v56 unionSet:latencyCopy];
     }
 
     v59 = [v56 copy];
-    v60 = v49[21];
-    v49[21] = v59;
+    v60 = *(v49 + 168);
+    *(v49 + 168) = v59;
 
     *(v49 + 216) = configuration;
     *(v49 + 217) = check;
-    v49[25] = a23;
-    *(v49 + 9) = tags;
-    *(v49 + 10) = mode;
-    *(v49 + 11) = preferredMode;
-    *(v49 + 12) = modes;
-    *(v49 + 1) = supported;
-    *(v49 + 2) = overscanned;
-    *(v49 + 3) = compensation;
-    *(v49 + 4) = ratio;
-    *(v49 + 5) = a24;
-    *(v49 + 6) = a25;
-    *(v49 + 7) = a26;
-    *(v49 + 8) = a27;
-    v49[13] = a28;
+    *(v49 + 200) = a23;
+    *(v49 + 72) = tags;
+    *(v49 + 80) = mode;
+    *(v49 + 88) = preferredMode;
+    *(v49 + 96) = modes;
+    *(v49 + 8) = supported;
+    *(v49 + 16) = overscanned;
+    *(v49 + 24) = compensation;
+    *(v49 + 32) = ratio;
+    *(v49 + 40) = a24;
+    *(v49 + 48) = a25;
+    *(v49 + 56) = a26;
+    *(v49 + 64) = a27;
+    *(v49 + 104) = a28;
     v61 = [v47 copy];
-    v62 = v49[28];
-    v49[28] = v61;
+    v62 = *(v49 + 224);
+    *(v49 + 224) = v61;
   }
 
   if (a30 == 3)
@@ -555,11 +555,12 @@ LABEL_37:
     }
 
     v66 = objc_opt_class();
-    if (v66 != objc_opt_class() || !FBSDisplayTypeIsValid(type) || !FBSDisplayConnectionTypeIsValid(connectionType) || !type && [identityCopy displayID] != 1 || (v67 = FBSDisplayTypeToDisplayTag(type), !boundsCopy) || (v67 & size) != v67 || !FBSDisplayOverscanCompensationIsValid(a23) || tags < 0.0 || tags > 1.0 || mode < 0.0 || mode > 1.0 || (v68 = *MEMORY[0x1E695EFF8], v69 = *(MEMORY[0x1E695EFF8] + 8), v85.origin.x = *MEMORY[0x1E695EFF8], v85.origin.y = v69, v85.size.width = preferredMode, v85.size.height = modes, CGRectIsNull(v85)) || (v86.origin.x = v68, v86.origin.y = v69, v86.size.width = preferredMode, v86.size.height = modes, CGRectIsInfinite(v86)) || (v87.origin.x = supported, v87.origin.y = overscanned, v87.size.width = compensation, v87.size.height = ratio, CGRectIsNull(v87)) || (v88.origin.x = supported, v88.origin.y = overscanned, v88.size.width = compensation, v88.size.height = ratio, CGRectIsInfinite(v88)) || (v89.origin.x = a24, v89.origin.y = a25, v89.size.width = a26, v89.size.height = a27, CGRectIsNull(v89)) || (v90.origin.x = a24, v90.origin.y = a25, v90.size.width = a26, v90.size.height = a27, CGRectIsInfinite(v90)))
+    IsValid = objc_opt_class();
+    if (v66 != IsValid || (IsValid = FBSDisplayTypeIsValid(type), !IsValid) || (IsValid = FBSDisplayConnectionTypeIsValid(connectionType), !IsValid) || !type && (IsValid = [identityCopy displayID], IsValid != 1) || (IsValid = FBSDisplayTypeToDisplayTag(type), !boundsCopy) || (IsValid & size) != IsValid || (IsValid = FBSDisplayOverscanCompensationIsValid(a23), !IsValid) || tags < 0.0 || tags > 1.0 || mode < 0.0 || mode > 1.0 || (v68 = *MEMORY[0x1E695EFF8], v69 = *(MEMORY[0x1E695EFF8] + 8), v85.origin.x = *MEMORY[0x1E695EFF8], v85.origin.y = v69, v85.size.width = preferredMode, v85.size.height = modes, IsValid = CGRectIsNull(v85), (IsValid & 1) != 0) || (v86.origin.x = v68, v86.origin.y = v69, v86.size.width = preferredMode, v86.size.height = modes, IsValid = CGRectIsInfinite(v86), (IsValid & 1) != 0) || (v87.origin.x = supported, v87.origin.y = overscanned, v87.size.width = compensation, v87.size.height = ratio, IsValid = CGRectIsNull(v87), (IsValid & 1) != 0) || (v88.origin.x = supported, v88.origin.y = overscanned, v88.size.width = compensation, v88.size.height = ratio, IsValid = CGRectIsInfinite(v88), (IsValid & 1) != 0) || (v89.origin.x = a24, v89.origin.y = a25, v89.size.width = a26, v89.size.height = a27, IsValid = CGRectIsNull(v89), (IsValid & 1) != 0) || (v90.origin.x = a24, v90.origin.y = a25, v90.size.width = a26, v90.size.height = a27, IsValid = CGRectIsInfinite(v90), IsValid))
     {
       if (a30 == 2)
       {
-        v71 = FBLogCommon();
+        v71 = FBLogCommon(IsValid);
         if (os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
         {
           *buf = 138543362;
@@ -1178,15 +1179,14 @@ void __65__FBSDisplayConfiguration_descriptionBuilderWithMultilinePrefix___block
 
 - (void)initWithCADisplay:(char *)a3 isMainDisplay:.cold.1(uint64_t a1, uint64_t a2, char *a3)
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed to create a non-main FBSDisplayConfiguration from CADisplay=%@ -> created=%@"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed to create a non-main FBSDisplayConfiguration from CADisplay=%@ -> created=%@", a1, a2];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a3);
-    objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_12();
-    v6 = NSStringFromClass(v5);
+    v5 = NSStringFromSelector(a3);
+    v7 = OUTLINED_FUNCTION_12(v5, v6);
+    v8 = NSStringFromClass(v7);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, a1, a2, v14);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v14, v15);
   }
 
   [v4 UTF8String];
@@ -1195,15 +1195,14 @@ void __65__FBSDisplayConfiguration_descriptionBuilderWithMultilinePrefix___block
 
 - (void)initWithCADisplay:(char *)a3 isMainDisplay:.cold.2(uint64_t a1, uint64_t a2, char *a3)
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed to create a main FBSDisplayConfiguration from CADisplay=%@ -> created=%@"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed to create a main FBSDisplayConfiguration from CADisplay=%@ -> created=%@", a1, a2];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a3);
-    objc_claimAutoreleasedReturnValue();
-    v5 = OUTLINED_FUNCTION_12();
-    v6 = NSStringFromClass(v5);
+    v5 = NSStringFromSelector(a3);
+    v7 = OUTLINED_FUNCTION_12(v5, v6);
+    v8 = NSStringFromClass(v7);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, a1, a2, v14);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v14, v15);
   }
 
   [v4 UTF8String];
@@ -1212,67 +1211,62 @@ void __65__FBSDisplayConfiguration_descriptionBuilderWithMultilinePrefix___block
 
 - (void)_initWithImmutableDisplay:(const char *)a1 originalDisplay:assertIfInvalid:.cold.1(const char *a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  NSStringFromSelector(a1);
-  objc_claimAutoreleasedReturnValue();
-  v2 = OUTLINED_FUNCTION_10();
-  v3 = NSStringFromClass(v2);
+  v8 = *MEMORY[0x1E69E9840];
+  v2 = NSStringFromSelector(a1);
+  v4 = OUTLINED_FUNCTION_10(v2, v3);
+  v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_5_4(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5);
+  OUTLINED_FUNCTION_5_4(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7);
 }
 
 - (void)_initWithImmutableDisplay:(const char *)a1 originalDisplay:assertIfInvalid:.cold.2(const char *a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  NSStringFromSelector(a1);
-  objc_claimAutoreleasedReturnValue();
-  v2 = OUTLINED_FUNCTION_10();
-  v3 = NSStringFromClass(v2);
+  v8 = *MEMORY[0x1E69E9840];
+  v2 = NSStringFromSelector(a1);
+  v4 = OUTLINED_FUNCTION_10(v2, v3);
+  v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_5_4(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5);
+  OUTLINED_FUNCTION_5_4(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7);
 }
 
 - (void)_initWithImmutableDisplay:(const char *)a1 originalDisplay:assertIfInvalid:.cold.3(const char *a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  NSStringFromSelector(a1);
-  objc_claimAutoreleasedReturnValue();
-  v2 = OUTLINED_FUNCTION_10();
-  v3 = NSStringFromClass(v2);
+  v8 = *MEMORY[0x1E69E9840];
+  v2 = NSStringFromSelector(a1);
+  v4 = OUTLINED_FUNCTION_10(v2, v3);
+  v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_5_4(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5);
+  OUTLINED_FUNCTION_5_4(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7);
 }
 
 - (void)_initWithIdentity:(const char *)a1 hardwareIdentifier:name:deviceName:seed:comparable:tags:currentMode:preferredMode:otherModes:cloningSupported:overscanned:overscanCompensation:safeOverscanRatio:pixelSize:nativeBounds:bounds:latency:originatingConfiguration:validityCheck:.cold.1(const char *a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  NSStringFromSelector(a1);
-  objc_claimAutoreleasedReturnValue();
-  v2 = OUTLINED_FUNCTION_10();
-  v3 = NSStringFromClass(v2);
+  v8 = *MEMORY[0x1E69E9840];
+  v2 = NSStringFromSelector(a1);
+  v4 = OUTLINED_FUNCTION_10(v2, v3);
+  v5 = NSStringFromClass(v4);
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_5_4(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5);
+  OUTLINED_FUNCTION_5_4(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7);
 }
 
 - (void)copyWithUniqueIdentifier:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1281,15 +1275,14 @@ void __65__FBSDisplayConfiguration_descriptionBuilderWithMultilinePrefix___block
 
 - (void)copyWithUniqueIdentifier:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1298,15 +1291,14 @@ void __65__FBSDisplayConfiguration_descriptionBuilderWithMultilinePrefix___block
 
 - (void)copyWithOverrideMode:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSDisplayModeClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSDisplayModeClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1315,15 +1307,14 @@ void __65__FBSDisplayConfiguration_descriptionBuilderWithMultilinePrefix___block
 
 - (void)copyWithOverrideMode:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1332,15 +1323,14 @@ void __65__FBSDisplayConfiguration_descriptionBuilderWithMultilinePrefix___block
 
 - (void)copyWithOverrideMode:(char *)a1 pixelSize:nativeBounds:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:FBSDisplayModeClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:FBSDisplayModeClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -1349,15 +1339,14 @@ void __65__FBSDisplayConfiguration_descriptionBuilderWithMultilinePrefix___block
 
 - (void)copyWithOverrideMode:(char *)a1 pixelSize:nativeBounds:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];

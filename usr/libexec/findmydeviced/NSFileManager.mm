@@ -11,14 +11,14 @@
   v7 = rLCopy;
   if (!lCopy || !rLCopy)
   {
-    v13 = sub_100002880();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100002880(rLCopy);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v20 = lCopy;
-      v21 = 2112;
-      v22 = v7;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Skipping file migration due to nil url, from %@ to %@.", buf, 0x16u);
+      v23 = lCopy;
+      v24 = 2112;
+      v25 = v7;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Skipping file migration due to nil url, from %@ to %@.", buf, 0x16u);
     }
 
     goto LABEL_15;
@@ -30,48 +30,48 @@
 
   if (v10)
   {
-    v11 = sub_100002880();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100002880(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v20 = lCopy;
-      v21 = 2112;
-      v22 = v7;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Migrating file from %@ to %@", buf, 0x16u);
+      v23 = lCopy;
+      v24 = 2112;
+      v25 = v7;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Migrating file from %@ to %@", buf, 0x16u);
     }
 
-    v12 = +[NSFileManager defaultManager];
-    v18 = 0;
-    [v12 copyItemAtURL:lCopy toURL:v7 error:&v18];
-    v13 = v18;
+    v13 = +[NSFileManager defaultManager];
+    v21 = 0;
+    [v13 copyItemAtURL:lCopy toURL:v7 error:&v21];
+    v14 = v21;
 
-    if (v13)
+    if (v14)
     {
-      v14 = sub_100002880();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = sub_100002880(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        sub_100227204(v13, v14);
+        sub_100227204(v14, v16);
       }
     }
 
     else
     {
-      v15 = +[NSFileManager defaultManager];
-      v17 = 0;
-      [v15 removeItemAtURL:lCopy error:&v17];
-      v16 = v17;
+      v17 = +[NSFileManager defaultManager];
+      v20 = 0;
+      [v17 removeItemAtURL:lCopy error:&v20];
+      v18 = v20;
 
-      if (!v16)
+      if (!v18)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      v14 = sub_100002880();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = sub_100002880(v19);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        sub_10022727C(v14);
+        sub_10022727C(v16);
       }
     }
 

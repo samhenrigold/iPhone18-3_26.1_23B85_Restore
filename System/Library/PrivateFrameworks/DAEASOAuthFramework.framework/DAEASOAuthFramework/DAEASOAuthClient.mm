@@ -4,18 +4,19 @@
 + (id)clientIDForOAuthType:(unint64_t)type;
 + (id)clientRedirectForOAuthType:(unint64_t)type;
 + (id)clientRedirectURLSchemeForOAuthType:(unint64_t)type;
++ (id)defaultScopeForOAuthType:(unint64_t)type withResourceIdentifier:(id)identifier forToken:(BOOL)token isOnPrem:(BOOL)prem;
 @end
 
 @implementation DAEASOAuthClient
 
 + (id)clientIDForOAuthType:(unint64_t)type
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   if ((type & 0xFFFFFFFFFFFFFFFDLL) == 1)
   {
     v3 = [@"91:ef870.a438-57cd.99ce-3b3543e71d71" length];
     MEMORY[0x28223BE20]();
-    v5 = v16 - v4;
+    v5 = v15 - v4;
     uTF8String = [@"91:ef870.a438-57cd.99ce-3b3543e71d71" UTF8String];
     if (v3 >= 1)
     {
@@ -43,7 +44,7 @@ LABEL_12:
   {
     v9 = [@"g8e99a:6.0:9:-53g5.8bf4-79:72c8bc433" length];
     MEMORY[0x28223BE20]();
-    v5 = v16 - v10;
+    v5 = v15 - v10;
     uTF8String2 = [@"g8e99a:6.0:9:-53g5.8bf4-79:72c8bc433" UTF8String];
     if (v9 >= 1)
     {
@@ -64,7 +65,6 @@ LABEL_12:
 
   v13 = 0;
 LABEL_14:
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -107,6 +107,85 @@ LABEL_14:
   }
 
   return v4;
+}
+
++ (id)defaultScopeForOAuthType:(unint64_t)type withResourceIdentifier:(id)identifier forToken:(BOOL)token isOnPrem:(BOOL)prem
+{
+  tokenCopy = token;
+  v32 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v12 = [self _defaultScopeWithoutDomainForOAuthType:type forToken:tokenCopy];
+  [v11 addObjectsFromArray:v12];
+
+  v13 = _os_feature_enabled_impl();
+  if (type == 1)
+  {
+    v14 = v13;
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  if (prem || (v14 & 1) != 0)
+  {
+    v15 = [self _defaultScopeWithDomainForOAuthType:type];
+    [v11 addObjectsFromArray:v15];
+  }
+
+  else
+  {
+    if (!identifierCopy)
+    {
+      goto LABEL_17;
+    }
+
+    v15 = [objc_alloc(MEMORY[0x277CBEBC0]) initWithString:identifierCopy];
+    v16 = objc_alloc_init(MEMORY[0x277CCACE0]);
+    scheme = [v15 scheme];
+    [v16 setScheme:scheme];
+
+    host = [v15 host];
+    [v16 setHost:host];
+
+    v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v19 = [self _defaultScopeWithDomainForOAuthType:{type, 0}];
+    v20 = [v19 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    if (v20)
+    {
+      v21 = v20;
+      v22 = *v28;
+      do
+      {
+        for (i = 0; i != v21; ++i)
+        {
+          if (*v28 != v22)
+          {
+            objc_enumerationMutation(v19);
+          }
+
+          v24 = [@"/" stringByAppendingString:*(*(&v27 + 1) + 8 * i)];
+          [v16 setPath:v24];
+
+          string = [v16 string];
+          [v11 addObject:string];
+        }
+
+        v21 = [v19 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      }
+
+      while (v21);
+    }
+  }
+
+LABEL_17:
+
+  return v11;
 }
 
 + (id)clientRedirectForOAuthType:(unint64_t)type

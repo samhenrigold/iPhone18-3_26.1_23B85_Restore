@@ -18,24 +18,7 @@
 {
   objectCopy = object;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_14;
-  }
-
-  object = [(HDCodableSample *)self object];
-  v6 = [object applyToObject:objectCopy];
-
-  if (!v6)
-  {
-    goto LABEL_14;
-  }
-
-  v7 = (*&self->_has & 4) != 0 ? self->_startDate : 2.22507386e-308;
-  [objectCopy _setStartTimestamp:v7];
-  v8 = (*&self->_has & 2) != 0 ? self->_endDate : 2.22507386e-308;
-  [objectCopy _setEndTimestamp:v8];
-  if ((*&self->_has & 1) != 0 && (dataType = self->_dataType, _HKValidDataTypeCode()))
+  if (objc_opt_isKindOfClass() & 1) != 0 && (-[HDCodableSample object](self, "object"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 applyToObject:objectCopy], v5, v6) && ((*&self->_has & 4) != 0 ? (startDate = self->_startDate) : (startDate = 2.22507386e-308), (objc_msgSend(objectCopy, "_setStartTimestamp:", startDate), (*&self->_has & 2) != 0) ? (endDate = self->_endDate) : (endDate = 2.22507386e-308), (objc_msgSend(objectCopy, "_setEndTimestamp:", endDate), (*&self->_has) && (dataType = self->_dataType, _HKValidDataTypeCode())))
   {
     v10 = [MEMORY[0x277CCD720] dataTypeWithCode:dataType];
     objc_opt_class();
@@ -48,7 +31,6 @@
 
   else
   {
-LABEL_14:
     isKindOfClass = 0;
   }
 
@@ -149,19 +131,18 @@ LABEL_7:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_object)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    dataType = self->_dataType;
     PBDataWriterWriteInt64Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -180,15 +161,13 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  startDate = self->_startDate;
   PBDataWriterWriteDoubleField();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_6:
-    endDate = self->_endDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_7:

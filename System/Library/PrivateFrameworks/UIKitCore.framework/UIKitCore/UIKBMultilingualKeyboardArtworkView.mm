@@ -57,7 +57,7 @@
     [(UIView *)v10 addSubview:memoji24];
 
     v27 = TIInputModeGetLanguage();
-    LODWORD(_memojiAssets2) = [v27 isEqualToString:@"en"];
+    LODWORD(_memojiAssets2) = objc_msgSend_isEqualToString_(v27);
 
     if (_memojiAssets2)
     {
@@ -71,12 +71,12 @@
     else
     {
       v32 = TIInputModeGetLanguage();
-      v33 = [v32 isEqualToString:@"en"];
+      isEqualToString = objc_msgSend_isEqualToString_(v32);
 
       v34 = GetExampleSentencesForLanguage(language1Copy);
       v29 = [v34 objectAtIndexedSubscript:0];
 
-      if (v33)
+      if (isEqualToString)
       {
         v30 = language1Copy;
       }

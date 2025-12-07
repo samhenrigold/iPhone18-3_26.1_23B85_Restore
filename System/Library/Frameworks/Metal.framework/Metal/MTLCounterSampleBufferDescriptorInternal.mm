@@ -73,16 +73,14 @@ LABEL_3:
 
 - (unint64_t)hash
 {
-  v7[4] = *MEMORY[0x1E69E9840];
-  v7[0] = [(MTLCounterSet *)self->_counterSet hash];
+  v6[4] = *MEMORY[0x1E69E9840];
+  v6[0] = [(MTLCounterSet *)self->_counterSet hash];
   v3 = [(NSString *)self->_label hash];
   storageMode = self->_storageMode;
-  v7[1] = v3;
-  v7[2] = storageMode;
-  v7[3] = self->_sampleCount;
-  LODWORD(result) = _MTLHashState(v7, 0x20uLL);
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  v6[1] = v3;
+  v6[2] = storageMode;
+  v6[3] = self->_sampleCount;
+  return _MTLHashState(v6, 0x20uLL);
 }
 
 @end

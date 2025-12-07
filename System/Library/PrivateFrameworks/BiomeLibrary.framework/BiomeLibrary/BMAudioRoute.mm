@@ -25,22 +25,20 @@
 
 + (id)columns
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"external" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:12 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"identifier" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"portType" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"portName" dataType:2 requestOnly:0 fieldNumber:4 protoDataType:13 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"routeChangeReason" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:4 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"type" dataType:0 requestOnly:0 fieldNumber:6 protoDataType:4 convertedType:0];
-  v11[0] = v2;
-  v11[1] = v3;
-  v11[2] = v4;
-  v11[3] = v5;
-  v11[4] = v6;
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[0] = v2;
+  v10[1] = v3;
+  v10[2] = v4;
+  v10[3] = v5;
+  v10[4] = v6;
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }
@@ -151,7 +149,7 @@ LABEL_24:
 
 - (id)jsonDictionary
 {
-  v23[6] = *MEMORY[0x1E69E9840];
+  v22[6] = *MEMORY[0x1E69E9840];
   if ([(BMAudioRoute *)self hasExternal])
   {
     v3 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMAudioRoute external](self, "external")}];
@@ -167,58 +165,58 @@ LABEL_24:
   portName = [(BMAudioRoute *)self portName];
   v7 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMAudioRoute routeChangeReason](self, "routeChangeReason")}];
   v8 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMAudioRoute type](self, "type")}];
-  v22[0] = @"external";
+  v21[0] = @"external";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20 = null;
-  v21 = v3;
-  v23[0] = null;
-  v22[1] = @"identifier";
+  v19 = null;
+  v20 = v3;
+  v22[0] = null;
+  v21[1] = @"identifier";
   null2 = identifier;
   if (!identifier)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18 = null2;
-  v23[1] = null2;
-  v22[2] = @"portType";
+  v17 = null2;
+  v22[1] = null2;
+  v21[2] = @"portType";
   null3 = portType;
   if (!portType)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[2] = null3;
-  v22[3] = @"portName";
+  v22[2] = null3;
+  v21[3] = @"portName";
   null4 = portName;
   if (!portName)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[3] = null4;
-  v22[4] = @"routeChangeReason";
+  v22[3] = null4;
+  v21[4] = @"routeChangeReason";
   null5 = v7;
   if (!v7)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[4] = null5;
-  v22[5] = @"type";
+  v22[4] = null5;
+  v21[5] = @"type";
   null6 = v8;
   if (!v8)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[5] = null6;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:{6, v18}];
+  v22[5] = null6;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:{6, v17}];
   if (v8)
   {
     if (v7)
@@ -276,18 +274,16 @@ LABEL_20:
 LABEL_30:
 
 LABEL_21:
-  if (!v21)
+  if (!v20)
   {
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 - (BMAudioRoute)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v61[1] = *MEMORY[0x1E69E9840];
+  v60[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"external"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -311,10 +307,10 @@ LABEL_4:
         v21 = objc_alloc(MEMORY[0x1E696ABC0]);
         v22 = v8;
         v23 = *MEMORY[0x1E698F240];
-        v58 = *MEMORY[0x1E696A578];
-        v48 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"identifier"];
-        v59 = v48;
-        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+        v57 = *MEMORY[0x1E696A578];
+        v47 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"identifier"];
+        v58 = v47;
+        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
         v24 = v23;
         v8 = v22;
         v18 = 0;
@@ -323,12 +319,12 @@ LABEL_4:
         goto LABEL_49;
       }
 
-      v47 = v9;
+      v46 = v9;
     }
 
     else
     {
-      v47 = 0;
+      v46 = 0;
     }
 
     v10 = [dictionaryCopy objectForKeyedSubscript:@"portType"];
@@ -340,26 +336,26 @@ LABEL_4:
       {
         if (!error)
         {
-          v48 = 0;
+          v47 = 0;
           v20 = 0;
-          v18 = v47;
+          v18 = v46;
           goto LABEL_49;
         }
 
         v25 = objc_alloc(MEMORY[0x1E696ABC0]);
         v26 = v8;
         v27 = *MEMORY[0x1E698F240];
-        v56 = *MEMORY[0x1E696A578];
-        v45 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"portType"];
-        v57 = v45;
-        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+        v55 = *MEMORY[0x1E696A578];
+        v44 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"portType"];
+        v56 = v44;
+        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
         v28 = v27;
         v8 = v26;
-        v48 = 0;
+        v47 = 0;
         v20 = 0;
         *errorCopy = [v25 initWithDomain:v28 code:2 userInfo:v11];
 LABEL_48:
-        v18 = v47;
+        v18 = v46;
 
         self = selfCopy;
 LABEL_49:
@@ -367,16 +363,16 @@ LABEL_49:
         goto LABEL_50;
       }
 
-      v48 = v10;
+      v47 = v10;
     }
 
     else
     {
-      v48 = 0;
+      v47 = 0;
     }
 
     v11 = [dictionaryCopy objectForKeyedSubscript:@"portName"];
-    v44 = v8;
+    v43 = v8;
     if (v11 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -384,30 +380,30 @@ LABEL_49:
       {
         if (!error)
         {
-          v45 = 0;
+          v44 = 0;
           v20 = 0;
           goto LABEL_48;
         }
 
-        v46 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v45 = objc_alloc(MEMORY[0x1E696ABC0]);
         v29 = *MEMORY[0x1E698F240];
-        v54 = *MEMORY[0x1E696A578];
+        v53 = *MEMORY[0x1E696A578];
         v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"portName"];
-        v55 = v13;
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
-        v30 = [v46 initWithDomain:v29 code:2 userInfo:v12];
-        v45 = 0;
+        v54 = v13;
+        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+        v30 = [v45 initWithDomain:v29 code:2 userInfo:v12];
+        v44 = 0;
         v20 = 0;
         *errorCopy = v30;
         goto LABEL_47;
       }
 
-      v45 = v11;
+      v44 = v11;
     }
 
     else
     {
-      v45 = 0;
+      v44 = 0;
     }
 
     v12 = [dictionaryCopy objectForKeyedSubscript:@"routeChangeReason"];
@@ -431,16 +427,16 @@ LABEL_49:
             goto LABEL_47;
           }
 
-          v36 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v37 = *MEMORY[0x1E698F240];
-          v52 = *MEMORY[0x1E696A578];
+          v35 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v36 = *MEMORY[0x1E698F240];
+          v51 = *MEMORY[0x1E696A578];
           v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"routeChangeReason"];
-          v53 = v32;
-          v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
-          v38 = [v36 initWithDomain:v37 code:2 userInfo:v31];
+          v52 = v32;
+          v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+          v37 = [v35 initWithDomain:v36 code:2 userInfo:v31];
           v13 = 0;
           v20 = 0;
-          *errorCopy = v38;
+          *errorCopy = v37;
           goto LABEL_46;
         }
 
@@ -471,13 +467,13 @@ LABEL_49:
         {
           if (errorCopy)
           {
-            v42 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v41 = *MEMORY[0x1E698F240];
-            v50 = *MEMORY[0x1E696A578];
-            v39 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"type"];
-            v51 = v39;
-            v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
-            *errorCopy = [v42 initWithDomain:v41 code:2 userInfo:v40];
+            v41 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v40 = *MEMORY[0x1E698F240];
+            v49 = *MEMORY[0x1E696A578];
+            v38 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"type"];
+            v50 = v38;
+            v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+            *errorCopy = [v41 initWithDomain:v40 code:2 userInfo:v39];
           }
 
           v32 = 0;
@@ -496,12 +492,12 @@ LABEL_49:
       v32 = 0;
     }
 
-    v20 = -[BMAudioRoute initWithExternal:identifier:portType:portName:routeChangeReason:type:](selfCopy, "initWithExternal:identifier:portType:portName:routeChangeReason:type:", v44, v47, v48, v45, [v13 intValue], objc_msgSend(v32, "intValue"));
+    v20 = -[BMAudioRoute initWithExternal:identifier:portType:portName:routeChangeReason:type:](selfCopy, "initWithExternal:identifier:portType:portName:routeChangeReason:type:", v43, v46, v47, v44, [v13 intValue], objc_msgSend(v32, "intValue"));
     selfCopy = v20;
 LABEL_46:
 
 LABEL_47:
-    v8 = v44;
+    v8 = v43;
     goto LABEL_48;
   }
 
@@ -522,10 +518,10 @@ LABEL_47:
   errorCopy2 = error;
   v16 = objc_alloc(MEMORY[0x1E696ABC0]);
   v17 = *MEMORY[0x1E698F240];
-  v60 = *MEMORY[0x1E696A578];
+  v59 = *MEMORY[0x1E696A578];
   v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"external"];
-  v61[0] = v18;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:&v60 count:1];
+  v60[0] = v18;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v60 forKeys:&v59 count:1];
   v19 = [v16 initWithDomain:v17 code:2 userInfo:v9];
   v8 = 0;
   v20 = 0;
@@ -533,7 +529,6 @@ LABEL_47:
 LABEL_50:
 
 LABEL_51:
-  v34 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -542,7 +537,6 @@ LABEL_51:
   toCopy = to;
   if (self->_hasExternal)
   {
-    external = self->_external;
     PBDataWriterWriteBOOLField();
   }
 
@@ -561,9 +555,7 @@ LABEL_51:
     PBDataWriterWriteStringField();
   }
 
-  routeChangeReason = self->_routeChangeReason;
   PBDataWriterWriteUint32Field();
-  type = self->_type;
   PBDataWriterWriteUint32Field();
 }
 
@@ -875,22 +867,20 @@ LABEL_72:
 
 + (id)protoFields
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"external" number:1 type:12 subMessageClass:0];
-  v11[0] = v2;
+  v10[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"identifier" number:2 type:13 subMessageClass:0];
-  v11[1] = v3;
+  v10[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"portType" number:3 type:13 subMessageClass:0];
-  v11[2] = v4;
+  v10[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"portName" number:4 type:13 subMessageClass:0];
-  v11[3] = v5;
+  v10[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"routeChangeReason" number:5 type:4 subMessageClass:0];
-  v11[4] = v6;
+  v10[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"type" number:6 type:4 subMessageClass:0];
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }

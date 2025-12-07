@@ -49,7 +49,7 @@
   self->rightEyeRect.origin.y = v22;
   self->rightEyeRect.size.width = v23;
   self->rightEyeRect.size.height = v24;
-  [stat timestamp];
+  objc_msgSend_timestamp(stat);
   self->timestamp = v25;
   [stat leftEyeBlinkScore];
   self->leftEyeBlinkScore = v26;

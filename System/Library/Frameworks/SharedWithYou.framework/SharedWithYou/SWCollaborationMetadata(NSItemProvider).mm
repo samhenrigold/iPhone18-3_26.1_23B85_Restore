@@ -17,39 +17,38 @@
     [SWCollaborationMetadata(NSItemProvider) processSigningQueue];
   }
 
-  v1 = processSigningQueue_internalQueue;
+  v2 = processSigningQueue_internalQueue;
 
-  return v1;
+  return v2;
 }
 
 + (id)readableTypeIdentifiersForItemProvider
 {
-  v4[2] = *MEMORY[0x1E69E9840];
+  v3[2] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E697B770];
-  v4[0] = @"com.apple.SharedWithYou.SWCollaborationMetadata";
-  v4[1] = v0;
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
-  v2 = *MEMORY[0x1E69E9840];
+  v3[0] = @"com.apple.SharedWithYou.SWCollaborationMetadata";
+  v3[1] = v0;
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:2];
 
   return v1;
 }
 
 + (id)objectWithItemProviderData:()NSItemProvider typeIdentifier:error:
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   if ([v8 isEqualToString:@"com.apple.SharedWithYou.SWCollaborationMetadata"])
   {
     v9 = MEMORY[0x1E696ACD0];
     v10 = MEMORY[0x1E695DFD8];
-    v20[0] = objc_opt_class();
-    v20[1] = objc_opt_class();
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
+    v19[0] = objc_opt_class();
+    v19[1] = objc_opt_class();
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
     v12 = [v10 setWithArray:v11];
-    v19 = 0;
-    collaborationMetadata = [v9 unarchivedObjectOfClasses:v12 fromData:v7 error:&v19];
-    v14 = v19;
+    v18 = 0;
+    collaborationMetadata = [v9 unarchivedObjectOfClasses:v12 fromData:v7 error:&v18];
+    v14 = v18;
 
     if (!a5)
     {
@@ -84,8 +83,6 @@ LABEL_8:
 
 LABEL_9:
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return collaborationMetadata;
 }
 
@@ -118,24 +115,22 @@ LABEL_9:
 
 + (id)writableTypeIdentifiersForItemProvider
 {
-  v4[2] = *MEMORY[0x1E69E9840];
+  v3[2] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E697B770];
-  v4[0] = @"com.apple.SharedWithYou.SWCollaborationMetadata";
-  v4[1] = v0;
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
-  v2 = *MEMORY[0x1E69E9840];
+  v3[0] = @"com.apple.SharedWithYou.SWCollaborationMetadata";
+  v3[1] = v0;
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:2];
 
   return v1;
 }
 
 - (id)writableTypeIdentifiersForItemProvider
 {
-  v4[2] = *MEMORY[0x1E69E9840];
+  v3[2] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E697B770];
-  v4[0] = @"com.apple.SharedWithYou.SWCollaborationMetadata";
-  v4[1] = v0;
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
-  v2 = *MEMORY[0x1E69E9840];
+  v3[0] = @"com.apple.SharedWithYou.SWCollaborationMetadata";
+  v3[1] = v0;
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:2];
 
   return v1;
 }

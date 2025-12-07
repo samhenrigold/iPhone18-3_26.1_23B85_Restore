@@ -55,7 +55,7 @@
 {
   if (specialized DOCSuggestionsTableViewController.keyCommands.getter())
   {
-    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIKeyCommand);
+    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIKeyCommand, 0x277D75650);
     v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -99,7 +99,7 @@
   v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  DOCSuggestionsTableViewController.notiftyDelegateForSelection(at:)();
+  DOCSuggestionsTableViewController.notiftyDelegateForSelection(at:)(v9);
 
   (*(v6 + 8))(v9, v5);
 }

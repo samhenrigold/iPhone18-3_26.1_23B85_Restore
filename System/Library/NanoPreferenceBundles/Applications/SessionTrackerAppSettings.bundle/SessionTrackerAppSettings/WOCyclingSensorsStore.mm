@@ -9,7 +9,6 @@
 {
   v4 = _Block_copy(completion);
   *(swift_allocObject() + 16) = v4;
-  v5 = *(&self->super.isa + OBJC_IVAR___WOCyclingSensorsStore_cyclingSensorsStore);
   selfCopy = self;
   sub_22454();
 }
@@ -17,10 +16,11 @@
 - (WOCyclingSensorsStore)init
 {
   v3 = OBJC_IVAR___WOCyclingSensorsStore_cyclingSensorsStore;
-  *(&self->super.isa + v3) = [objc_allocWithZone(sub_22464()) init];
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for CyclingSensorsStoreBridge();
-  return [(WOCyclingSensorsStore *)&v5 init];
+  v4 = [objc_allocWithZone(sub_22464()) init];
+  *(&self->super.isa + v3) = v4;
+  v7.receiver = self;
+  v7.super_class = type metadata accessor for CyclingSensorsStoreBridge(v4, v5);
+  return [(WOCyclingSensorsStore *)&v7 init];
 }
 
 @end

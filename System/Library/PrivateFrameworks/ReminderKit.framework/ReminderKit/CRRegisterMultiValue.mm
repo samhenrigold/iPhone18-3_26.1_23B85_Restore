@@ -82,7 +82,7 @@
 
 - (id)allContents
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   cachedValues = [(CRRegisterMultiValue *)self cachedValues];
 
   if (!cachedValues)
@@ -91,30 +91,30 @@
     values = [(CRRegisterMultiValue *)self values];
     v6 = [v4 initWithCapacity:{objc_msgSend(values, "count")}];
 
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     values2 = [(CRRegisterMultiValue *)self values];
-    v8 = [values2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [values2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v8)
     {
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         v10 = 0;
         do
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(values2);
           }
 
-          [v6 addObject:*(*(&v14 + 1) + 8 * v10++)];
+          [v6 addObject:*(*(&v13 + 1) + 8 * v10++)];
         }
 
         while (v8 != v10);
-        v8 = [values2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [values2 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -124,35 +124,34 @@
   }
 
   cachedValues2 = [(CRRegisterMultiValue *)self cachedValues];
-  v12 = *MEMORY[0x1E69E9840];
 
   return cachedValues2;
 }
 
 - (id)contents
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   values = [(CRRegisterMultiValue *)self values];
   v3 = 0;
-  v4 = [values countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [values countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(values);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
-        if (!v3 || [*(*(&v11 + 1) + 8 * i) compare:v3] == 1)
+        v7 = *(*(&v10 + 1) + 8 * i);
+        if (!v3 || [*(*(&v10 + 1) + 8 * i) compare:v3] == 1)
         {
           v8 = v7;
 
@@ -160,13 +159,11 @@
         }
       }
 
-      v4 = [values countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [values countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -257,41 +254,40 @@
 
 - (id)description
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AD60];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   v6 = objc_msgSend(v3, "stringWithFormat:", @"<%@ %p ("), v5, self;
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   values = [(CRRegisterMultiValue *)self values];
-  v8 = [values countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [values countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(values);
         }
 
-        [v6 appendFormat:@"%@, ", *(*(&v13 + 1) + 8 * i)];
+        [v6 appendFormat:@"%@, ", *(*(&v12 + 1) + 8 * i)];
       }
 
-      v8 = [values countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [values countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
 
   [v6 replaceCharactersInRange:objc_msgSend(v6 withString:{"length") - 2, 2, @">"}]);
-  v11 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

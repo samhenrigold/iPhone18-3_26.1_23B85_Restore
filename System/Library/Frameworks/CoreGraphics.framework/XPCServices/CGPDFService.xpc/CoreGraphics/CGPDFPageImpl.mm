@@ -106,13 +106,10 @@ uint64_t __29__CGPDFPageImpl_getRotation___block_invoke(uint64_t a1)
 
 uint64_t __39__CGPDFPageImpl_getBoxRect_completion___block_invoke(uint64_t a1)
 {
-  y = CGRectZero.origin.y;
-  width = CGRectZero.size.width;
-  height = CGRectZero.size.height;
   [*(a1 + 32) rectForBox:*(a1 + 48)];
-  v5 = *(*(a1 + 40) + 16);
+  v2 = *(*(a1 + 40) + 16);
 
-  return v5();
+  return v2();
 }
 
 - (void)drawWithBox:(int)box size:(CGSize)size colorSpace:(id)space options:(id)options completion:(id)completion
@@ -148,29 +145,22 @@ void __64__CGPDFPageImpl_drawWithBox_size_colorSpace_options_completion___block_
     v3 = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
   }
 
-  v4 = *(a1 + 64);
-  v5 = *(a1 + 72);
-  v6 = CGBitmapContextCreateWithShareableMappedData();
-  if (v6)
+  v4 = CGBitmapContextCreateWithShareableMappedData();
+  if (v4)
   {
     CGContextClear();
-    v7 = *(a1 + 64);
-    v8 = *(a1 + 72);
-    v9 = *(a1 + 48);
-    v10 = *(*(a1 + 40) + 24);
-    v11 = *(a1 + 80);
     CGContextDrawPDFPageInRectWithOptions();
-    Data = CGBitmapContextGetData(v6);
-    v13 = dispatch_data_create(Data, 0, 0, _dispatch_data_destructor_munmap);
-    v14 = [[CGBitmapFormat alloc] initWithBitmapContext:v6];
-    CFRelease(v6);
+    Data = CGBitmapContextGetData(v4);
+    v6 = dispatch_data_create(Data, 0, 0, _dispatch_data_destructor_munmap);
+    v7 = [[CGBitmapFormat alloc] initWithBitmapContext:v4];
+    CFRelease(v4);
   }
 
   else
   {
     (*(*(a1 + 56) + 16))();
-    v13 = 0;
-    v14 = 0;
+    v6 = 0;
+    v7 = 0;
   }
 
   if (v3)
@@ -178,7 +168,7 @@ void __64__CGPDFPageImpl_drawWithBox_size_colorSpace_options_completion___block_
     CFRelease(v3);
   }
 
-  if (v6)
+  if (v4)
   {
     (*(*(a1 + 56) + 16))();
   }
@@ -200,8 +190,7 @@ void __64__CGPDFPageImpl_drawWithBox_size_colorSpace_options_completion___block_
 
 void __29__CGPDFPageImpl_getPageText___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 24);
-  v3 = CGPDFPageCopyString();
+  v2 = CGPDFPageCopyString();
   (*(*(a1 + 40) + 16))();
 }
 

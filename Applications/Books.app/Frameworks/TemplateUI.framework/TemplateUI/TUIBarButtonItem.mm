@@ -168,20 +168,20 @@
 - (id)accessibilityHint
 {
   customView = [(TUIBarButtonItem *)self customView];
-  accessibilityHint = [customView accessibilityHint];
+  v4 = objc_msgSend_accessibilityHint(customView);
 
-  if (accessibilityHint)
+  if (v4)
   {
     customView2 = [(TUIBarButtonItem *)self customView];
-    accessibilityHint2 = [customView2 accessibilityHint];
+    axHint = objc_msgSend_accessibilityHint(customView2);
   }
 
   else
   {
-    accessibilityHint2 = [(TUIAXAttributes *)self->_axAttributes axHint];
+    axHint = [(TUIAXAttributes *)self->_axAttributes axHint];
   }
 
-  return accessibilityHint2;
+  return axHint;
 }
 
 - (id)accessibilityIdentifier

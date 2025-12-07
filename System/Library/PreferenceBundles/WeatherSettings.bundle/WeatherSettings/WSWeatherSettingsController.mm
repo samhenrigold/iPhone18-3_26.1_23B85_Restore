@@ -18,11 +18,14 @@
 - (void)registerUndoActionWithKey:(id)key urlString:(id)string undoAction:(id)action;
 - (void)reloadWidget;
 - (void)selectUnit:(id)unit;
+- (void)setHomeAndWorkEnabled:(BOOL)enabled;
 - (void)setPreferenceValue:(id)value specifier:(id)specifier;
+- (void)setUseSignificantLocationsEnabled:(BOOL)enabled;
 - (void)showPrivacyPane;
 - (void)updateHomeAndWorkSwitch;
 - (void)updateSelectedUnit;
 - (void)updateUseSignificantLocationsSwitch;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation WSWeatherSettingsController
@@ -59,10 +62,27 @@
   return v2;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v11.receiver = self;
+  v11.super_class = WSWeatherSettingsController;
+  [(WSWeatherSettingsController *)&v11 viewDidAppear:appear];
+  v4 = +[_TtC15WeatherSettings24WeatherSettingsConstants RootNavigationUrl];
+  v5 = [NSURL URLWithString:v4];
+
+  v6 = [_NSLocalizedStringResource alloc];
+  v7 = +[NSLocale currentLocale];
+  v8 = WSBundle(v7);
+  bundleURL = [v8 bundleURL];
+  v10 = [v6 initWithKey:@"weather-settings-title" table:@"Localizable" locale:v7 bundleURL:bundleURL];
+
+  [(WSWeatherSettingsController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.weather" title:v10 localizedNavigationComponents:&__NSArray0__struct deepLink:v5];
+}
+
 - (id)homeAndWorkSpecifierWithTarget:(id)target
 {
   targetCopy = target;
-  v5 = WSBundle();
+  v5 = WSBundle(targetCopy);
   v6 = [v5 localizedStringForKey:@"home-and-work" value:&stru_CB20 table:@"Localizable"];
 
   v7 = [(WSWeatherSettingsController *)self makeSpecifierWithIdentifier:@"HOME_WORK_SHOW_LABELS" name:v6 target:targetCopy type:6 keyName:0 defaultValue:&__kCFBooleanTrue];
@@ -73,7 +93,7 @@
 - (id)useSignificantLocationsSpecifierWithTarget:(id)target
 {
   targetCopy = target;
-  v5 = WSBundle();
+  v5 = WSBundle(targetCopy);
   v6 = [v5 localizedStringForKey:@"suggested-locations" value:&stru_CB20 table:@"Localizable"];
 
   v7 = [(WSWeatherSettingsController *)self makeSpecifierWithIdentifier:@"USE_SIGNIFICANT_LOCATIONS" name:v6 target:targetCopy type:6 keyName:0 defaultValue:&__kCFBooleanFalse];
@@ -87,7 +107,7 @@
 - (id)privacySpecifierWithTarget:(id)target
 {
   targetCopy = target;
-  v5 = WSBundle();
+  v5 = WSBundle(targetCopy);
   v6 = [v5 localizedStringForKey:@"reset-identifier-title" value:&stru_CB20 table:@"Localizable"];
 
   v7 = [(WSWeatherSettingsController *)self makeSpecifierWithIdentifier:@"PRIVACY_RESET" name:v6 target:targetCopy type:6 keyName:0 defaultValue:0];
@@ -98,7 +118,7 @@
 - (id)temperatureSpecifierWithTarget:(id)target
 {
   targetCopy = target;
-  v5 = WSBundle();
+  v5 = WSBundle(targetCopy);
   v6 = [v5 localizedStringForKey:@"preferred-metric-celsius" value:&stru_CB20 table:@"Localizable"];
 
   v7 = [(WSWeatherSettingsController *)self makeSpecifierWithIdentifier:@"WSTemperatureUnitC" name:v6 target:targetCopy type:3 keyName:0 defaultValue:0];
@@ -160,8 +180,8 @@
   v3 = *&self->PSListController_opaque[OBJC_IVAR___PSListController__specifiers];
   if (!v3)
   {
-    v72 = OBJC_IVAR___PSListController__specifiers;
-    v4 = WSBundle();
+    v80 = OBJC_IVAR___PSListController__specifiers;
+    v4 = WSBundle(0);
     v5 = [v4 localizedStringForKey:@"weather-settings-title" value:&stru_CB20 table:@"Localizable"];
     [(WSWeatherSettingsController *)self setTitle:v5];
 
@@ -172,49 +192,49 @@
     specifiers = [appPolicy specifiers];
     v9 = [specifiers mutableCopy];
 
-    v10 = WSBundle();
-    v11 = [v10 localizedStringForKey:@"preferred-metric-group-title" value:&stru_CB20 table:@"Localizable"];
+    v11 = WSBundle(v10);
+    v12 = [v11 localizedStringForKey:@"preferred-metric-group-title" value:&stru_CB20 table:@"Localizable"];
 
-    v71 = v11;
-    v12 = [PSSpecifier groupSpecifierWithID:@"TEMPERATURE_UNIT" name:v11];
-    [(WSWeatherSettingsController *)self setTemperatureUnitGroup:v12];
+    v79 = v12;
+    v13 = [PSSpecifier groupSpecifierWithID:@"TEMPERATURE_UNIT" name:v12];
+    [(WSWeatherSettingsController *)self setTemperatureUnitGroup:v13];
 
     temperatureUnitGroup = [(WSWeatherSettingsController *)self temperatureUnitGroup];
     [temperatureUnitGroup setObject:&__kCFBooleanTrue forKeyedSubscript:PSIsRadioGroupKey];
 
-    v14 = [(WSWeatherSettingsController *)self temperatureSpecifierWithTarget:self];
-    [(WSWeatherSettingsController *)self setCelsius:v14];
+    v15 = [(WSWeatherSettingsController *)self temperatureSpecifierWithTarget:self];
+    [(WSWeatherSettingsController *)self setCelsius:v15];
 
     celsius = [(WSWeatherSettingsController *)self celsius];
     [celsius setButtonAction:"selectUnit:"];
 
-    v16 = WSBundle();
-    v17 = [v16 localizedStringForKey:@"preferred-metric-fahrenheit" value:&stru_CB20 table:@"Localizable"];
+    v18 = WSBundle(v17);
+    v19 = [v18 localizedStringForKey:@"preferred-metric-fahrenheit" value:&stru_CB20 table:@"Localizable"];
 
-    v70 = v17;
-    v18 = [(WSWeatherSettingsController *)self makeSpecifierWithIdentifier:@"WSTemperatureUnitF" name:v17 target:self type:3 keyName:0 defaultValue:0];
-    [(WSWeatherSettingsController *)self setFahrenheit:v18];
+    v78 = v19;
+    v20 = [(WSWeatherSettingsController *)self makeSpecifierWithIdentifier:@"WSTemperatureUnitF" name:v19 target:self type:3 keyName:0 defaultValue:0];
+    [(WSWeatherSettingsController *)self setFahrenheit:v20];
 
     fahrenheit = [(WSWeatherSettingsController *)self fahrenheit];
     [fahrenheit setButtonAction:"selectUnit:"];
 
-    v20 = WSBundle();
-    v21 = [v20 localizedStringForKey:@"preferred-metric-use-system" value:&stru_CB20 table:@"Localizable"];
+    v23 = WSBundle(v22);
+    v24 = [v23 localizedStringForKey:@"preferred-metric-use-system" value:&stru_CB20 table:@"Localizable"];
 
-    v69 = v21;
-    v22 = [(WSWeatherSettingsController *)self makeSpecifierWithIdentifier:@"WSTemperatureUnitMirrorSystem" name:v21 target:self type:3 keyName:0 defaultValue:0];
-    [(WSWeatherSettingsController *)self setMirrorSystem:v22];
+    v77 = v24;
+    v25 = [(WSWeatherSettingsController *)self makeSpecifierWithIdentifier:@"WSTemperatureUnitMirrorSystem" name:v24 target:self type:3 keyName:0 defaultValue:0];
+    [(WSWeatherSettingsController *)self setMirrorSystem:v25];
 
     mirrorSystem = [(WSWeatherSettingsController *)self mirrorSystem];
     [mirrorSystem setButtonAction:"selectUnit:"];
 
-    v24 = WSBundle();
-    v25 = [v24 localizedStringForKey:@"preferred-metric-footer-title" value:&stru_CB20 table:@"Localizable"];
+    v28 = WSBundle(v27);
+    v29 = [v28 localizedStringForKey:@"preferred-metric-footer-title" value:&stru_CB20 table:@"Localizable"];
 
     temperatureUnitGroup2 = [(WSWeatherSettingsController *)self temperatureUnitGroup];
-    v68 = v25;
-    v73 = PSFooterTextGroupKey;
-    [temperatureUnitGroup2 setProperty:v25 forKey:?];
+    v76 = v29;
+    v81 = PSFooterTextGroupKey;
+    [temperatureUnitGroup2 setProperty:v29 forKey:?];
 
     temperatureUnitGroup3 = [(WSWeatherSettingsController *)self temperatureUnitGroup];
     [v9 addObject:temperatureUnitGroup3];
@@ -228,115 +248,115 @@
     mirrorSystem2 = [(WSWeatherSettingsController *)self mirrorSystem];
     [v9 addObject:mirrorSystem2];
 
-    v31 = WSBundle();
-    v32 = [v31 localizedStringForKey:@"locations-group-title" value:&stru_CB20 table:@"Localizable"];
+    v36 = WSBundle(v35);
+    v37 = [v36 localizedStringForKey:@"locations-group-title" value:&stru_CB20 table:@"Localizable"];
 
-    v67 = v32;
-    v33 = [PSSpecifier groupSpecifierWithID:@"WSHomeWorkGroup" name:v32];
-    v34 = +[_TtC15WeatherSettings20WeatherSettingsState defaultState];
-    areSignificantLocationsFeaturesAvailableInWeather = [v34 areSignificantLocationsFeaturesAvailableInWeather];
+    v75 = v37;
+    v38 = [PSSpecifier groupSpecifierWithID:@"WSHomeWorkGroup" name:v37];
+    v39 = +[_TtC15WeatherSettings20WeatherSettingsState defaultState];
+    areSignificantLocationsFeaturesAvailableInWeather = [v39 areSignificantLocationsFeaturesAvailableInWeather];
 
-    v36 = WSBundle();
-    v37 = v36;
+    v42 = WSBundle(v41);
+    v43 = v42;
     if (areSignificantLocationsFeaturesAvailableInWeather)
     {
-      v38 = @"locations-footer-title-with-link-loc-intel";
+      v44 = @"locations-footer-title-with-link-loc-intel";
     }
 
     else
     {
-      v38 = @"locations-footer-title-with-link";
+      v44 = @"locations-footer-title-with-link";
     }
 
-    v39 = [v36 localizedStringForKey:v38 value:&stru_CB20 table:@"Localizable"];
+    v45 = [v42 localizedStringForKey:v44 value:&stru_CB20 table:@"Localizable"];
 
-    v40 = [v39 rangeOfString:@"["];
-    v41 = [v39 rangeOfString:@"]"];
-    if (v40 == 0x7FFFFFFFFFFFFFFFLL || (v42 = v41, v41 == 0x7FFFFFFFFFFFFFFFLL))
+    v46 = [v45 rangeOfString:@"["];
+    v47 = [v45 rangeOfString:@"]"];
+    if (v46 == 0x7FFFFFFFFFFFFFFFLL || (v48 = v47, v47 == 0x7FFFFFFFFFFFFFFFLL))
     {
-      [v33 setProperty:v39 forKey:v73];
+      [v38 setProperty:v45 forKey:v81];
     }
 
     else
     {
-      v43 = [v39 stringByReplacingOccurrencesOfString:@"[" withString:&stru_CB20];
-      v44 = [v43 stringByReplacingOccurrencesOfString:@"]" withString:&stru_CB20];
+      v49 = [v45 stringByReplacingOccurrencesOfString:@"[" withString:&stru_CB20];
+      v50 = [v49 stringByReplacingOccurrencesOfString:@"]" withString:&stru_CB20];
 
-      v45 = v40 + ~v42;
-      if (v42 > v40)
+      v51 = v46 + ~v48;
+      if (v48 > v46)
       {
-        v46 = v42 + ~v40;
+        v52 = v48 + ~v46;
       }
 
       else
       {
-        v40 = v42;
-        v46 = v45;
+        v46 = v48;
+        v52 = v51;
       }
 
-      v47 = objc_opt_class();
-      v48 = NSStringFromClass(v47);
-      [v33 setProperty:v48 forKey:PSFooterCellClassGroupKey];
+      v53 = objc_opt_class();
+      v54 = NSStringFromClass(v53);
+      [v38 setProperty:v54 forKey:PSFooterCellClassGroupKey];
 
-      v75.location = v40;
-      v75.length = v46;
-      v49 = NSStringFromRange(v75);
-      [v33 setProperty:v49 forKey:PSFooterHyperlinkViewLinkRangeKey];
+      v83.location = v46;
+      v83.length = v52;
+      v55 = NSStringFromRange(v83);
+      [v38 setProperty:v55 forKey:PSFooterHyperlinkViewLinkRangeKey];
 
-      v50 = [NSValue valueWithNonretainedObject:self];
-      [v33 setProperty:v50 forKey:PSFooterHyperlinkViewTargetKey];
+      v56 = [NSValue valueWithNonretainedObject:self];
+      [v38 setProperty:v56 forKey:PSFooterHyperlinkViewTargetKey];
 
-      v51 = NSStringFromSelector("openContacts");
-      [v33 setProperty:v51 forKey:PSFooterHyperlinkViewActionKey];
+      v57 = NSStringFromSelector("openContacts");
+      [v38 setProperty:v57 forKey:PSFooterHyperlinkViewActionKey];
 
-      [v33 setProperty:v44 forKey:PSFooterHyperlinkViewTitleKey];
+      [v38 setProperty:v50 forKey:PSFooterHyperlinkViewTitleKey];
     }
 
-    [v9 addObject:v33];
-    v52 = [(WSWeatherSettingsController *)self homeAndWorkSpecifierWithTarget:self];
-    [(WSWeatherSettingsController *)self setShowHomeAndWorkLabels:v52];
+    [v9 addObject:v38];
+    v58 = [(WSWeatherSettingsController *)self homeAndWorkSpecifierWithTarget:self];
+    [(WSWeatherSettingsController *)self setShowHomeAndWorkLabels:v58];
 
     showHomeAndWorkLabels = [(WSWeatherSettingsController *)self showHomeAndWorkLabels];
     [v9 addObject:showHomeAndWorkLabels];
 
     if (areSignificantLocationsFeaturesAvailableInWeather)
     {
-      v54 = [(WSWeatherSettingsController *)self useSignificantLocationsSpecifierWithTarget:self];
-      [(WSWeatherSettingsController *)self setUseSignificantLocationsSpecifier:v54];
+      v61 = [(WSWeatherSettingsController *)self useSignificantLocationsSpecifierWithTarget:self];
+      [(WSWeatherSettingsController *)self setUseSignificantLocationsSpecifier:v61];
 
       useSignificantLocationsSpecifier = [(WSWeatherSettingsController *)self useSignificantLocationsSpecifier];
       [v9 addObject:useSignificantLocationsSpecifier];
     }
 
-    v56 = WSBundle();
-    v57 = [v56 localizedStringForKey:@"privacy-settings-group-title" value:&stru_CB20 table:@"Localizable"];
+    v63 = WSBundle(v60);
+    v64 = [v63 localizedStringForKey:@"privacy-settings-group-title" value:&stru_CB20 table:@"Localizable"];
 
-    v58 = [PSSpecifier groupSpecifierWithID:@"WSPrivacyGroup" name:v57];
+    v65 = [PSSpecifier groupSpecifierWithID:@"WSPrivacyGroup" name:v64];
     privacyButtonTitle = [(WSWeatherSettingsController *)self privacyButtonTitle];
-    v60 = [PSSpecifier preferenceSpecifierNamed:privacyButtonTitle target:self set:0 get:0 detail:0 cell:13 edit:0];
+    v67 = [PSSpecifier preferenceSpecifierNamed:privacyButtonTitle target:self set:0 get:0 detail:0 cell:13 edit:0];
 
-    [v60 setButtonAction:"showPrivacyPane"];
-    [v60 setProperty:&__kCFBooleanTrue forKey:PSAllowMultilineTitleKey];
-    v61 = [(WSWeatherSettingsController *)self privacySpecifierWithTarget:self];
-    [(WSWeatherSettingsController *)self setResetIdentifier:v61];
+    [v67 setButtonAction:"showPrivacyPane"];
+    [v67 setProperty:&__kCFBooleanTrue forKey:PSAllowMultilineTitleKey];
+    v68 = [(WSWeatherSettingsController *)self privacySpecifierWithTarget:self];
+    [(WSWeatherSettingsController *)self setResetIdentifier:v68];
 
-    v62 = WSBundle();
-    v63 = [v62 localizedStringForKey:@"privacy-settings-footer-title" value:&stru_CB20 table:@"Localizable"];
+    v70 = WSBundle(v69);
+    v71 = [v70 localizedStringForKey:@"privacy-settings-footer-title" value:&stru_CB20 table:@"Localizable"];
 
-    [v58 setProperty:v63 forKey:v73];
-    [v9 addObject:v58];
-    [v9 addObject:v60];
+    [v65 setProperty:v71 forKey:v81];
+    [v9 addObject:v65];
+    [v9 addObject:v67];
     resetIdentifier = [(WSWeatherSettingsController *)self resetIdentifier];
     [v9 addObject:resetIdentifier];
 
-    v65 = *&self->PSListController_opaque[v72];
-    *&self->PSListController_opaque[v72] = v9;
+    v73 = *&self->PSListController_opaque[v80];
+    *&self->PSListController_opaque[v80] = v9;
 
     [(WSWeatherSettingsController *)self updateSelectedUnit];
     [(WSWeatherSettingsController *)self updateHomeAndWorkSwitch];
     [(WSWeatherSettingsController *)self updateUseSignificantLocationsSwitch];
 
-    v3 = *&self->PSListController_opaque[v72];
+    v3 = *&self->PSListController_opaque[v80];
   }
 
   return v3;
@@ -454,6 +474,32 @@ LABEL_7:
   [(WSWeatherSettingsController *)self setHomeAndWorkEnabled:locationPermissionsSupportHomeAndWork];
 }
 
+- (void)setHomeAndWorkEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  showHomeAndWorkLabels = [(WSWeatherSettingsController *)self showHomeAndWorkLabels];
+
+  if (showHomeAndWorkLabels)
+  {
+    showHomeAndWorkLabels2 = [(WSWeatherSettingsController *)self showHomeAndWorkLabels];
+    v7 = [NSNumber numberWithBool:enabledCopy];
+    [showHomeAndWorkLabels2 setProperty:v7 forKey:PSEnabledKey];
+
+    showHomeAndWorkLabels3 = [(WSWeatherSettingsController *)self showHomeAndWorkLabels];
+    v9 = [(WSWeatherSettingsController *)self readPreferenceValue:showHomeAndWorkLabels3];
+    v10 = v9 != 0;
+
+    showHomeAndWorkLabels4 = [(WSWeatherSettingsController *)self showHomeAndWorkLabels];
+    v12 = [NSNumber numberWithBool:v10];
+    [showHomeAndWorkLabels4 setProperty:v12 forKey:PSValueKey];
+
+    showHomeAndWorkLabels5 = [(WSWeatherSettingsController *)self showHomeAndWorkLabels];
+    v13 = [showHomeAndWorkLabels5 propertyForKey:PSTableCellKey];
+    showHomeAndWorkLabels6 = [(WSWeatherSettingsController *)self showHomeAndWorkLabels];
+    [v13 reloadWithSpecifier:showHomeAndWorkLabels6 animated:1];
+  }
+}
+
 - (BOOL)locationPermissionsSupportHomeAndWork
 {
   locationManager = [(WSWeatherSettingsController *)self locationManager];
@@ -467,6 +513,32 @@ LABEL_7:
   locationPermissionsSupportSignificantLocations = [(WSWeatherSettingsController *)self locationPermissionsSupportSignificantLocations];
 
   [(WSWeatherSettingsController *)self setUseSignificantLocationsEnabled:locationPermissionsSupportSignificantLocations];
+}
+
+- (void)setUseSignificantLocationsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  useSignificantLocationsSpecifier = [(WSWeatherSettingsController *)self useSignificantLocationsSpecifier];
+
+  if (useSignificantLocationsSpecifier)
+  {
+    useSignificantLocationsSpecifier2 = [(WSWeatherSettingsController *)self useSignificantLocationsSpecifier];
+    v7 = [NSNumber numberWithBool:enabledCopy];
+    [useSignificantLocationsSpecifier2 setProperty:v7 forKey:PSEnabledKey];
+
+    useSignificantLocationsSpecifier3 = [(WSWeatherSettingsController *)self useSignificantLocationsSpecifier];
+    v9 = [(WSWeatherSettingsController *)self readPreferenceValue:useSignificantLocationsSpecifier3];
+    v10 = v9 != 0;
+
+    useSignificantLocationsSpecifier4 = [(WSWeatherSettingsController *)self useSignificantLocationsSpecifier];
+    v12 = [NSNumber numberWithBool:v10];
+    [useSignificantLocationsSpecifier4 setProperty:v12 forKey:PSValueKey];
+
+    useSignificantLocationsSpecifier5 = [(WSWeatherSettingsController *)self useSignificantLocationsSpecifier];
+    v13 = [useSignificantLocationsSpecifier5 propertyForKey:PSTableCellKey];
+    useSignificantLocationsSpecifier6 = [(WSWeatherSettingsController *)self useSignificantLocationsSpecifier];
+    [v13 reloadWithSpecifier:useSignificantLocationsSpecifier6 animated:1];
+  }
 }
 
 - (BOOL)locationPermissionsSupportSignificantLocations
@@ -540,16 +612,16 @@ LABEL_7:
 
   if (localizedButtonTitle)
   {
-    v5 = localizedButtonTitle;
+    v6 = localizedButtonTitle;
   }
 
   else
   {
-    v6 = WSBundle();
-    v5 = [v6 localizedStringForKey:@"privacy-about-privacy-title" value:&stru_CB20 table:@"Localizable"];
+    v7 = WSBundle(v5);
+    v6 = [v7 localizedStringForKey:@"privacy-about-privacy-title" value:&stru_CB20 table:@"Localizable"];
   }
 
-  return v5;
+  return v6;
 }
 
 - (id)readPreferenceValue:(id)value
@@ -716,7 +788,7 @@ LABEL_12:
   keyCopy = key;
   v11 = [_NSLocalizedStringResource alloc];
   v12 = +[NSLocale currentLocale];
-  v13 = WSBundle();
+  v13 = WSBundle(v12);
   bundleURL = [v13 bundleURL];
   v16 = [v11 initWithKey:keyCopy table:@"Localizable" locale:v12 bundleURL:bundleURL];
 

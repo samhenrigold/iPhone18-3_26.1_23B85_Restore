@@ -204,9 +204,9 @@ void gdc::typelist_as_vector<std::tuple<md::ls::HasMaterialRasterRenderItem>>(vo
   else
   {
     *v2 = 0xD5B48B62BD07EF80;
-    v2[1] = "md::ls::HasMaterialRasterRenderItem]";
-    v2[2] = 35;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::HasMaterialRasterRenderItem]";
+    *(v2 + 2) = 35;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -418,9 +418,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0xD5AD9B8C3FE62EE8;
-    v2[1] = "md::ls::StyleGroundOcclusionConstantDataHandle]";
-    v2[2] = 46;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::StyleGroundOcclusionConstantDataHandle]";
+    *(v2 + 2) = 46;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -769,9 +769,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0x944162BB9DE8E7EBLL;
-    v2[1] = "md::ls::UseIdentityMatrix]";
-    v2[2] = 25;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::UseIdentityMatrix]";
+    *(v2 + 2) = 25;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -846,9 +846,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0xE7D1C5E790E8E07;
-    v2[1] = "md::ls::IntendedStandardPassSceneDepth]";
-    v2[2] = 38;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::IntendedStandardPassSceneDepth]";
+    *(v2 + 2) = 38;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -1060,9 +1060,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0x98A9F01DBB8BCCCELL;
-    v2[1] = "md::ls::PreserveHeight]";
-    v2[2] = 22;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::PreserveHeight]";
+    *(v2 + 2) = 22;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -1137,9 +1137,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0xA50DD2A5BD75DBD6;
-    v2[1] = "md::ls::StyleEmissiveDataKeyHandle]";
-    v2[2] = 34;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::StyleEmissiveDataKeyHandle]";
+    *(v2 + 2) = 34;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -1214,9 +1214,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0xCE03281732FA0019;
-    v2[1] = "md::ls::TextureHandleForType<DaVinci::EmissiveTexture>]";
-    v2[2] = 54;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::TextureHandleForType<DaVinci::EmissiveTexture>]";
+    *(v2 + 2) = 54;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -1291,9 +1291,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0x499CE17DBD9A1615;
-    v2[1] = "md::ls::NeedsZBias]";
-    v2[2] = 18;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::NeedsZBias]";
+    *(v2 + 2) = 18;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -1368,9 +1368,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0x11BB47B172EB0B40;
-    v2[1] = "md::ls::NeedsClimateTint]";
-    v2[2] = 24;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::NeedsClimateTint]";
+    *(v2 + 2) = 24;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -2088,9 +2088,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0x56D66E00519BD989;
-    v2[1] = "md::ls::NeedsNewRenderState]";
-    v2[2] = 27;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::NeedsNewRenderState]";
+    *(v2 + 2) = 27;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -3994,9 +3994,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0xD68EA0DE832DEC03;
-    v2[1] = "md::ls::RenderItemID]";
-    v2[2] = 20;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::RenderItemID]";
+    *(v2 + 2) = 20;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -4324,9 +4324,9 @@ void gdc::typelist_as_vector<std::tuple<md::ls::PipelineSetup>>(void **a1)
   else
   {
     *v2 = 0x9C4E7BCF9B8D6334;
-    v2[1] = "md::ls::PipelineSetup]";
-    v2[2] = 21;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::PipelineSetup]";
+    *(v2 + 2) = 21;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -6712,9 +6712,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0xE3549AC6494FE40ELL;
-    v2[1] = "md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LightingDebugOptions>>]";
-    v2[2] = 96;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::RequiresShaderConstantDataID<ggl::ConstantDataTyped<ggl::DaVinci::LightingDebugOptions>>]";
+    *(v2 + 2) = 96;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;
@@ -9735,9 +9735,9 @@ void std::__function::__func<ecs2::ExecutionTaskFunction::ExecutionTaskFunction<
   else
   {
     *v2 = 0xAEACE637C9751345;
-    v2[1] = "md::ls::RequiresShaderTextureID<DaVinci::AmbientTexture>]";
-    v2[2] = 56;
-    v4 = v2 + 3;
+    *(v2 + 1) = "md::ls::RequiresShaderTextureID<DaVinci::AmbientTexture>]";
+    *(v2 + 2) = 56;
+    v4 = v2 + 24;
   }
 
   a1[1] = v4;

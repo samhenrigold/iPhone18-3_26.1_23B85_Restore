@@ -1,4 +1,5 @@
 @interface OrgApacheLuceneUtilAutomatonAutomaton
+- (BOOL)isAcceptWithInt:(int)int;
 - (BOOL)transitionSortedWithOrgApacheLuceneUtilAutomatonTransition:(id)transition;
 - (id)getSortedTransitions;
 - (id)getStartPoints;
@@ -8,14 +9,17 @@
 - (int)initTransitionWithInt:(int)int withOrgApacheLuceneUtilAutomatonTransition:(id)transition;
 - (int)stepWithInt:(int)int withInt:(int)withInt;
 - (int64_t)ramBytesUsed;
-- (uint64_t)finishCurrentState;
 - (unsigned)growStates;
 - (unsigned)growTransitions;
+- (void)addEpsilonWithInt:(int)int withInt:(int)withInt;
+- (void)addTransitionWithInt:(int)int withInt:(int)withInt withInt:(int)a5 withInt:(int)a6;
 - (void)copy__WithOrgApacheLuceneUtilAutomatonAutomaton:(id)automaton;
 - (void)dealloc;
+- (void)finishCurrentState;
 - (void)finishState;
 - (void)getNextTransitionWithOrgApacheLuceneUtilAutomatonTransition:(id)transition;
 - (void)getTransitionWithInt:(int)int withInt:(int)withInt withOrgApacheLuceneUtilAutomatonTransition:(id)transition;
+- (void)setAcceptWithInt:(int)int withBoolean:(BOOL)boolean;
 @end
 
 @implementation OrgApacheLuceneUtilAutomatonAutomaton
@@ -62,53 +66,216 @@
   return result;
 }
 
+- (void)setAcceptWithInt:(int)int withBoolean:(BOOL)boolean
+{
+  booleanCopy = boolean;
+  v5 = *&int;
+  if ([(OrgApacheLuceneUtilAutomatonAutomaton *)self getNumStates]<= int)
+  {
+    [(OrgApacheLuceneUtilAutomatonAutomaton *)self getNumStates];
+    v15 = JreStrcat("$I$IC", v8, v9, v10, v11, v12, v13, v14, @"state=");
+    v16 = new_JavaLangIllegalArgumentException_initWithNSString_(v15);
+    objc_exception_throw(v16);
+  }
+
+  isAccept = self->isAccept_;
+  if (booleanCopy)
+  {
+    if (isAccept)
+    {
+
+      [(JavaUtilBitSet *)isAccept setWithInt:v5];
+      return;
+    }
+
+LABEL_11:
+    JreThrowNullPointerException();
+  }
+
+  if (!isAccept)
+  {
+    goto LABEL_11;
+  }
+
+  [(JavaUtilBitSet *)isAccept clearWithInt:v5];
+}
+
 - (id)getSortedTransitions
 {
   getNumStates = [(OrgApacheLuceneUtilAutomatonAutomaton *)self getNumStates];
-  v4 = OrgApacheLuceneUtilAutomatonTransition_class_();
-  v5 = [IOSObjectArray arrayWithLength:getNumStates type:IOSClass_arrayType(v4, 1u)];
-  if (getNumStates >= 1)
+  v4 = getNumStates;
+  v5 = getNumStates;
+  v7 = OrgApacheLuceneUtilAutomatonTransition_class_(getNumStates, v6);
+  v8 = [IOSObjectArray arrayWithLength:v5 type:IOSClass_arrayType(v7, 1u)];
+  if (v4 >= 1)
   {
-    v6 = 0;
-    v7 = getNumStates;
+    v9 = 0;
+    v10 = v4;
     do
     {
-      v8 = [(OrgApacheLuceneUtilAutomatonAutomaton *)self getNumTransitionsWithInt:v6];
-      v9 = [IOSObjectArray newArrayWithLength:v8 type:OrgApacheLuceneUtilAutomatonTransition_class_()];
-      IOSObjectArray_SetAndConsume(v5, v6, v9);
-      if (v8 >= 1)
+      v11 = [(OrgApacheLuceneUtilAutomatonAutomaton *)self getNumTransitionsWithInt:v9];
+      v12 = v11;
+      v14 = [IOSObjectArray newArrayWithLength:v11 type:OrgApacheLuceneUtilAutomatonTransition_class_(v11, v13)];
+      IOSObjectArray_SetAndConsume(v8, v9, v14);
+      if (v12 >= 1)
       {
-        v10 = 0;
-        v11 = v8;
+        v15 = 0;
+        v16 = v12;
         do
         {
-          v12 = new_OrgApacheLuceneUtilAutomatonTransition_init();
-          [(OrgApacheLuceneUtilAutomatonAutomaton *)self getTransitionWithInt:v6 withInt:v10 withOrgApacheLuceneUtilAutomatonTransition:v12];
-          size = v5->super.size_;
-          if (v6 >= size)
+          v17 = new_OrgApacheLuceneUtilAutomatonTransition_init();
+          [(OrgApacheLuceneUtilAutomatonAutomaton *)self getTransitionWithInt:v9 withInt:v15 withOrgApacheLuceneUtilAutomatonTransition:v17];
+          size = v8->super.size_;
+          if (v9 >= size)
           {
-            IOSArray_throwOutOfBoundsWithMsg(size, v6);
+            IOSArray_throwOutOfBoundsWithMsg(size, v9);
           }
 
-          v14 = (&v5->elementType_)[v6];
-          if (!v14)
+          v19 = (&v8->elementType_)[v9];
+          if (!v19)
           {
             JreThrowNullPointerException();
           }
 
-          IOSObjectArray_Set(v14, v10++, v12);
+          IOSObjectArray_Set(v19, v15++, v17);
         }
 
-        while (v11 != v10);
+        while (v16 != v15);
       }
 
-      ++v6;
+      ++v9;
     }
 
-    while (v6 != v7);
+    while (v9 != v10);
   }
 
-  return v5;
+  return v8;
+}
+
+- (BOOL)isAcceptWithInt:(int)int
+{
+  isAccept = self->isAccept_;
+  if (!isAccept)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [(JavaUtilBitSet *)isAccept getWithInt:*&int];
+}
+
+- (void)addTransitionWithInt:(int)int withInt:(int)withInt withInt:(int)a5 withInt:(int)a6
+{
+  v9 = self->nextState_ / 2;
+  if (v9 <= int)
+  {
+    v41 = @"source=";
+LABEL_33:
+    v42 = JreStrcat("$I$IC", a2, *&int, *&withInt, *&a5, *&a6, v6, v7, v41);
+    v43 = new_JavaLangIllegalArgumentException_initWithNSString_(v42);
+    goto LABEL_34;
+  }
+
+  if (v9 <= withInt)
+  {
+    v41 = @"dest=";
+    goto LABEL_33;
+  }
+
+  [OrgApacheLuceneUtilAutomatonAutomaton growTransitions]_0(self, a2, *&int, *&withInt, *&a5, *&a6, v6, v7);
+  curState = self->curState_;
+  if (curState == int)
+  {
+    goto LABEL_13;
+  }
+
+  if (curState != -1)
+  {
+    [OrgApacheLuceneUtilAutomatonAutomaton finishCurrentState]_0(self);
+  }
+
+  self->curState_ = int;
+  states = self->states_;
+  if (!states)
+  {
+LABEL_24:
+    JreThrowNullPointerException();
+  }
+
+  v23 = 2 * int;
+  size = states->super.size_;
+  if (2 * int < 0 || v23 >= size)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(size, v23);
+  }
+
+  if (*(&states->super.size_ + 2 * int + 1) != -1)
+  {
+    v44 = JreStrcat("$I$", v14, v15, v16, v17, v18, v19, v20, @"from state (");
+    v43 = new_JavaLangIllegalStateException_initWithNSString_(v44);
+LABEL_34:
+    objc_exception_throw(v43);
+  }
+
+  v25 = self->states_;
+  v26 = 2 * self->curState_;
+  v27 = v25->super.size_;
+  if (v26 < 0 || v26 >= v27)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v27, v26);
+  }
+
+  *(&v25->super.size_ + v26 + 1) = self->nextTransition_;
+LABEL_13:
+  transitions = self->transitions_;
+  if (!transitions)
+  {
+    goto LABEL_24;
+  }
+
+  nextTransition = self->nextTransition_;
+  self->nextTransition_ = nextTransition + 1;
+  v30 = transitions->super.size_;
+  if (nextTransition < 0 || nextTransition >= v30)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v30, nextTransition);
+  }
+
+  *(&transitions->super.size_ + nextTransition + 1) = withInt;
+  v31 = self->transitions_;
+  v32 = self->nextTransition_;
+  self->nextTransition_ = v32 + 1;
+  v33 = v31->super.size_;
+  if (v32 < 0 || v32 >= v33)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v33, v32);
+  }
+
+  *(&v31->super.size_ + v32 + 1) = a5;
+  v34 = self->transitions_;
+  v35 = self->nextTransition_;
+  self->nextTransition_ = v35 + 1;
+  v36 = v34->super.size_;
+  if (v35 < 0 || v35 >= v36)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v36, v35);
+  }
+
+  *(&v34->super.size_ + v35 + 1) = a6;
+  v37 = self->states_;
+  if (!v37)
+  {
+    goto LABEL_24;
+  }
+
+  v38 = 2 * self->curState_;
+  v39 = v38 | 1;
+  v40 = v37->super.size_;
+  if (v38 < 0 || v39 >= v40)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v40, v38 | 1);
+  }
+
+  ++*(&v37->super.size_ + v39 + 1);
 }
 
 - (unsigned)growTransitions
@@ -131,15 +298,15 @@
   return result;
 }
 
-- (uint64_t)finishCurrentState
+- (void)finishCurrentState
 {
-  v1 = *(self + 24);
+  v1 = result[3];
   if (!v1)
   {
     goto LABEL_81;
   }
 
-  v3 = 2 * *(self + 16);
+  v3 = 2 * *(result + 4);
   v4 = v3 | 1;
   v5 = *(v1 + 8);
   if (v3 < 0 || v4 >= v5)
@@ -154,7 +321,7 @@
     IOSArray_throwOutOfBoundsWithMsg(v5, v3);
   }
 
-  v8 = *(self + 56);
+  v8 = result[7];
   if (!v8)
   {
     goto LABEL_81;
@@ -181,7 +348,7 @@
   v17 = v9;
   do
   {
-    v18 = *(self + 40);
+    v18 = result[5];
     if (!v18)
     {
       goto LABEL_81;
@@ -193,7 +360,7 @@
       IOSArray_throwOutOfBoundsWithMsg(v19, v14);
     }
 
-    v20 = *(self + 40);
+    v20 = result[5];
     v21 = *(v18 + 12 + 4 * v14);
     v22 = v14 + 1;
     if (v14 + 1 < 0 || v22 >= v19)
@@ -214,7 +381,7 @@
     {
       if (v16 != -1)
       {
-        v37 = *(self + 40);
+        v37 = result[5];
         v38 = *(v37 + 8);
         v39 = 3 * v11 + v17;
         if (v39 < 0 || v39 >= v38)
@@ -223,7 +390,7 @@
         }
 
         *(v37 + 12 + 4 * v39) = v16;
-        v40 = *(self + 40);
+        v40 = result[5];
         v41 = *(v40 + 8);
         v42 = v39 + 1;
         if (v39 + 1 < 0 || v42 >= v41)
@@ -232,7 +399,7 @@
         }
 
         *(v40 + 12 + 4 * v42) = v12;
-        v43 = *(self + 40);
+        v43 = result[5];
         v44 = *(v43 + 8);
         v45 = v39 + 2;
         v46 = v39 + 2;
@@ -253,7 +420,7 @@
     {
       if (v16 != -1)
       {
-        v27 = *(self + 40);
+        v27 = result[5];
         v28 = *(v27 + 8);
         v29 = 3 * v11 + v17;
         if (v29 < 0 || v29 >= v28)
@@ -262,7 +429,7 @@
         }
 
         *(v27 + 12 + 4 * v29) = v16;
-        v30 = *(self + 40);
+        v30 = result[5];
         v31 = *(v30 + 8);
         v32 = v29 + 1;
         if (v29 + 1 < 0 || v32 >= v31)
@@ -271,7 +438,7 @@
         }
 
         *(v30 + 12 + 4 * v32) = v12;
-        v33 = *(self + 40);
+        v33 = result[5];
         v34 = *(v33 + 8);
         v35 = v29 + 2;
         v36 = v29 + 2;
@@ -307,7 +474,7 @@ LABEL_38:
     goto LABEL_60;
   }
 
-  v47 = *(self + 40);
+  v47 = result[5];
   if (!v47)
   {
     goto LABEL_81;
@@ -322,7 +489,7 @@ LABEL_38:
   }
 
   *(v47 + 12 + 4 * v49) = v16;
-  v51 = *(self + 40);
+  v51 = result[5];
   v52 = *(v51 + 8);
   v53 = v49 + 1;
   if (v50 + 1 < 0 || v53 >= v52)
@@ -331,7 +498,7 @@ LABEL_38:
   }
 
   *(v51 + 12 + 4 * v53) = v12;
-  v54 = *(self + 40);
+  v54 = result[5];
   v55 = *(v54 + 8);
   v57 = v50 + 2;
   v56 = v50 + 2 < 0;
@@ -347,9 +514,9 @@ LABEL_38:
 LABEL_60:
   LODWORD(v7) = v75;
 LABEL_61:
-  v59 = *(self + 16);
-  *(self + 12) += -3 * (v7 - v11);
-  v60 = *(self + 24);
+  v59 = *(result + 4);
+  *(result + 3) += -3 * (v7 - v11);
+  v60 = result[3];
   v61 = (2 * v59) | 1;
   v62 = *(v60 + 8);
   if (2 * v59 < 0 || v61 >= v62)
@@ -358,20 +525,20 @@ LABEL_61:
   }
 
   *(v60 + 12 + 4 * v61) = v11;
-  v63 = *(self + 64);
+  v63 = result[8];
   if (!v63)
   {
     goto LABEL_81;
   }
 
   v64 = v11;
-  result = [v63 sortWithInt:v10 withInt:(v11 + v10)];
-  if (*(self + 48) != 1 || v64 < 2)
+  v65 = [v63 sortWithInt:v10 withInt:(v11 + v10)];
+  if (*(result + 48) != 1 || v64 < 2)
   {
-    return result;
+    return v65;
   }
 
-  v66 = *(self + 40);
+  v66 = result[5];
   if (!v66)
   {
 LABEL_81:
@@ -390,12 +557,12 @@ LABEL_81:
   v71 = v64 - 1;
   while (1)
   {
-    v72 = *(self + 40);
-    result = *(v72 + 8);
+    v72 = result[5];
+    v65 = *(v72 + 8);
     v73 = v70 - 1;
-    if (v70 - 1 < 0 || v73 >= result)
+    if (v70 - 1 < 0 || v73 >= v65)
     {
-      IOSArray_throwOutOfBoundsWithMsg(result, v73);
+      IOSArray_throwOutOfBoundsWithMsg(v65, v73);
     }
 
     if (*(v72 + 12 + 4 * v73) <= *v69)
@@ -403,23 +570,49 @@ LABEL_81:
       break;
     }
 
-    v74 = *(self + 40);
-    result = *(v74 + 8);
-    if ((v70 & 0x80000000) != 0 || v70 >= result)
+    v74 = result[5];
+    v65 = *(v74 + 8);
+    if ((v70 & 0x80000000) != 0 || v70 >= v65)
     {
-      IOSArray_throwOutOfBoundsWithMsg(result, v70);
+      IOSArray_throwOutOfBoundsWithMsg(v65, v70);
     }
 
     v69 = (v74 + 12 + 4 * v70);
     v70 = (v70 + 3);
     if (!--v71)
     {
-      return result;
+      return v65;
     }
   }
 
-  *(self + 48) = 0;
-  return result;
+  *(result + 48) = 0;
+  return v65;
+}
+
+- (void)addEpsilonWithInt:(int)int withInt:(int)withInt
+{
+  v4 = *&withInt;
+  v5 = *&int;
+  v7 = new_OrgApacheLuceneUtilAutomatonTransition_init();
+  v8 = [(OrgApacheLuceneUtilAutomatonAutomaton *)self initTransitionWithInt:v4 withOrgApacheLuceneUtilAutomatonTransition:v7];
+  if (v8 >= 1)
+  {
+    v9 = v8;
+    do
+    {
+      [(OrgApacheLuceneUtilAutomatonAutomaton *)self getNextTransitionWithOrgApacheLuceneUtilAutomatonTransition:v7];
+      [(OrgApacheLuceneUtilAutomatonAutomaton *)self addTransitionWithInt:v5 withInt:v7->dest_ withInt:v7->min_ withInt:v7->max_];
+      --v9;
+    }
+
+    while (v9);
+  }
+
+  if ([(OrgApacheLuceneUtilAutomatonAutomaton *)self isAcceptWithInt:v4])
+  {
+
+    [(OrgApacheLuceneUtilAutomatonAutomaton *)self setAcceptWithInt:v5 withBoolean:1];
+  }
 }
 
 - (void)copy__WithOrgApacheLuceneUtilAutomatonAutomaton:(id)automaton
@@ -893,53 +1086,53 @@ LABEL_37:
   }
 
   v16 = [IOSIntArray arrayWithLength:[(JavaUtilHashSet *)v3 size]];
-  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v17 = [(JavaUtilHashSet *)v3 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v31 = 0u;
+  v17 = [(JavaUtilHashSet *)v3 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v17)
   {
-    v18 = v17;
-    v19 = 0;
-    v20 = *v28;
+    v19 = v17;
+    v20 = 0;
+    v21 = *v29;
     do
     {
-      v21 = 0;
+      v22 = 0;
       do
       {
-        if (*v28 != v20)
+        if (*v29 != v21)
         {
           objc_enumerationMutation(v3);
         }
 
-        v22 = *(*(&v27 + 1) + 8 * v21);
-        if (!v22)
+        v23 = *(*(&v28 + 1) + 8 * v22);
+        if (!v23)
         {
           goto LABEL_37;
         }
 
-        intValue = [v22 intValue];
-        v24 = v16->super.size_;
-        if ((v19 & 0x80000000) != 0 || v19 >= v24)
+        intValue = [v23 intValue];
+        v25 = v16->super.size_;
+        if ((v20 & 0x80000000) != 0 || v20 >= v25)
         {
-          IOSArray_throwOutOfBoundsWithMsg(v24, v19);
+          IOSArray_throwOutOfBoundsWithMsg(v25, v20);
         }
 
-        *(&v16->super.size_ + v19 + 1) = intValue;
-        ++v21;
-        v19 = (v19 + 1);
+        *(&v16->super.size_ + v20 + 1) = intValue;
+        ++v22;
+        v20 = (v20 + 1);
       }
 
-      while (v18 != v21);
-      v25 = [(JavaUtilHashSet *)v3 countByEnumeratingWithState:&v27 objects:v31 count:16];
-      v18 = v25;
+      while (v19 != v22);
+      v26 = [(JavaUtilHashSet *)v3 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v19 = v26;
     }
 
-    while (v25);
+    while (v26);
   }
 
-  JavaUtilArrays_sortWithIntArray_(v16);
+  JavaUtilArrays_sortWithIntArray_(v16, v18);
   return v16;
 }
 

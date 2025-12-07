@@ -159,13 +159,12 @@ LABEL_14:
     geometryInterface = [layerCopy geometryInterface];
     [geometryInterface targetBackingScaleFactor];
     BackingScaleFactor = v6;
-    v8.n128_u64[0] = 0;
-    v9.n128_u64[0] = 0;
-    [geometryInterface convertRectToRootView:v4 fromPageLayer:{PDFRectMake(v8, v9, 1.0, 1.0)}];
-    v11 = floor(v10 * 0.75);
-    if (BackingScaleFactor < v11)
+    PDFRectMake();
+    [geometryInterface convertRectToRootView:v4 fromPageLayer:?];
+    v9 = floor(v8 * 0.75);
+    if (BackingScaleFactor < v9)
     {
-      BackingScaleFactor = v11;
+      BackingScaleFactor = v9;
     }
   }
 
@@ -221,14 +220,13 @@ LABEL_14:
   if (layerCopy && self->_private->highlightRef)
   {
     geometryInterface = [layerCopy geometryInterface];
-    v11.n128_u64[0] = 0;
-    v12.n128_u64[0] = 0;
-    [geometryInterface convertRectToRootView:v8 fromPageLayer:{PDFRectMake(v11, v12, 1.0, 1.0)}];
-    v14 = v13;
+    PDFRectMake();
+    [geometryInterface convertRectToRootView:v8 fromPageLayer:?];
+    v12 = v11;
 
-    v15 = PDFPointScale(x, y, v14);
-    v17 = v16;
-    v18 = malloc_type_malloc(32 * [(NSArray *)self->_private->rects count], 0x1000040E0EAB150uLL);
+    v13 = PDFPointScale(x, y, v12);
+    v15 = v14;
+    v16 = malloc_type_malloc(32 * [(NSArray *)self->_private->rects count], 0x1000040E0EAB150uLL);
     [(NSArray *)self->_private->rects count];
     if (loadReveal_onceToken != -1)
     {
@@ -236,37 +234,37 @@ LABEL_14:
     }
 
     [(PDFScannerResult *)self displayScaleOnPageLayer:v8];
-    v20 = v19;
+    v18 = v17;
     if ([(NSArray *)self->_private->rects count])
     {
-      v21 = 0;
-      v22 = v17 / v20;
-      v23 = v18 + 2;
-      v24 = v15 / v20;
+      v19 = 0;
+      v20 = v15 / v18;
+      v21 = v16 + 16;
+      v22 = v13 / v18;
       do
       {
-        v27.origin.x = PDFRectFromCGRect(*(v23 - 2), *(v23 - 1), *v23, v23[1]);
-        v26.x = v24;
-        v26.y = v22;
-        v9 = PDFRectContainsPoint(v27, v26);
+        PDFRectFromCGRect();
+        v24.x = v22;
+        v24.y = v20;
+        v9 = PDFRectContainsPoint(v25, v24);
         if (v9)
         {
           break;
         }
 
-        ++v21;
-        v23 += 4;
+        ++v19;
+        v21 += 32;
       }
 
-      while ([(NSArray *)self->_private->rects count]> v21);
+      while ([(NSArray *)self->_private->rects count]> v19);
       goto LABEL_11;
     }
 
     v9 = 0;
-    if (v18)
+    if (v16)
     {
 LABEL_11:
-      free(v18);
+      free(v16);
     }
   }
 
@@ -317,16 +315,15 @@ LABEL_11:
       x = button.x;
       layerCopy = layer;
       geometryInterface = [layerCopy geometryInterface];
-      v9.n128_u64[0] = 0;
-      v10.n128_u64[0] = 0;
-      [geometryInterface convertRectToRootView:layerCopy fromPageLayer:{PDFRectMake(v9, v10, 1.0, 1.0)}];
-      v12 = v11;
+      PDFRectMake();
+      [geometryInterface convertRectToRootView:layerCopy fromPageLayer:?];
+      v10 = v9;
 
       [(PDFScannerResult *)self displayScaleOnPageLayer:layerCopy];
-      v14 = v13;
+      v12 = v11;
 
-      v15 = PDFPointScale(x, y, v12 / v14);
-      PDFPointToCGPoint(v15, v16);
+      PDFPointScale(x, y, v10 / v12);
+      PDFPointToCGPoint();
       if (loadReveal_onceToken != -1)
       {
         RVItemClass_cold_1();

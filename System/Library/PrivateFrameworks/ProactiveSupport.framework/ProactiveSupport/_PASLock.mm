@@ -131,23 +131,22 @@ LABEL_7:
 
 - (_PASLock)initWithGuardedData:(id)data
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  v9.receiver = self;
-  v9.super_class = _PASLock;
-  v6 = [(_PASLock *)&v9 init];
+  v8.receiver = self;
+  v8.super_class = _PASLock;
+  v6 = [(_PASLock *)&v8 init];
   if (v6)
   {
-    v10.__sig = 0;
-    *v10.__opaque = 0;
-    pthread_mutexattr_init(&v10);
-    pthread_mutexattr_settype(&v10, 2);
-    pthread_mutex_init(&v6->_lock, &v10);
-    pthread_mutexattr_destroy(&v10);
+    v9.__sig = 0;
+    *v9.__opaque = 0;
+    pthread_mutexattr_init(&v9);
+    pthread_mutexattr_settype(&v9, 2);
+    pthread_mutex_init(&v6->_lock, &v9);
+    pthread_mutexattr_destroy(&v9);
     objc_storeStrong(&v6->_guardedData, data);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

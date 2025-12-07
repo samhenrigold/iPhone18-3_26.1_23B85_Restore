@@ -121,7 +121,7 @@
     if (v10)
     {
       v11 = v10;
-      if (([(NSURL *)v10 isEqualToString:@"/"]& 1) == 0)
+      if ((objc_msgSend_isEqualToString_(v10) & 1) == 0)
       {
         if ((options & 0x202) == 0)
         {
@@ -389,21 +389,21 @@ LABEL_8:
 {
   fileType = [(NSDictionary *)[(NSFileWrapper *)self fileAttributes] fileType];
 
-  return [fileType isEqualToString:@"NSFileTypeDirectory"];
+  return objc_msgSend_isEqualToString_(fileType);
 }
 
 - (BOOL)isRegularFile
 {
   fileType = [(NSDictionary *)[(NSFileWrapper *)self fileAttributes] fileType];
 
-  return [fileType isEqualToString:@"NSFileTypeRegular"];
+  return objc_msgSend_isEqualToString_(fileType);
 }
 
 - (BOOL)isSymbolicLink
 {
   fileType = [(NSDictionary *)[(NSFileWrapper *)self fileAttributes] fileType];
 
-  return [fileType isEqualToString:@"NSFileTypeSymbolicLink"];
+  return objc_msgSend_isEqualToString_(fileType);
 }
 
 - (void)_observePreferredFileNameOfChild:(id)child
@@ -588,7 +588,7 @@ LABEL_8:
     [date timeIntervalSinceReferenceDate];
     v10 = v9;
     [fileModificationDate timeIntervalSinceReferenceDate];
-    return vabdd_f64(v10, v11) < 1.0 && ([kind isEqualToString:@"NSFileTypeDirectory"] && -[NSFileWrapper isDirectory](self, "isDirectory") || objc_msgSend(kind, "isEqualToString:", @"NSFileTypeRegular") && -[NSFileWrapper isRegularFile](self, "isRegularFile") || objc_msgSend(kind, "isEqualToString:", @"NSFileTypeSymbolicLink") && -[NSFileWrapper isSymbolicLink](self, "isSymbolicLink"));
+    return vabdd_f64(v10, v11) < 1.0 && (objc_msgSend_isEqualToString_(kind) && [(NSFileWrapper *)self isDirectory]|| objc_msgSend_isEqualToString_(kind) && [(NSFileWrapper *)self isRegularFile]|| objc_msgSend_isEqualToString_(kind) && [(NSFileWrapper *)self isSymbolicLink]);
   }
 
   return result;
@@ -701,7 +701,7 @@ LABEL_8:
 {
   v55 = *MEMORY[0x1E69E9840];
   v13 = +[NSFileManager defaultManager];
-  if ([kind isEqualToString:@"NSFileTypeDirectory"])
+  if (objc_msgSend_isEqualToString_(kind))
   {
     v14 = [(NSFileManager *)v13 contentsOfDirectoryAtURL:l includingPropertiesForKeys:0 options:0 error:error];
     if (v14)
@@ -733,7 +733,7 @@ LABEL_8:
             v21 = *(*(&v51 + 1) + 8 * i);
             v22 = objc_alloc_init(NSAutoreleasePool);
             lastPathComponent = [v21 lastPathComponent];
-            if (![objc_msgSend(lastPathComponent "pathExtension")])
+            if (!objc_msgSend_isEqualToString_([lastPathComponent pathExtension]))
             {
               goto LABEL_51;
             }
@@ -835,14 +835,14 @@ LABEL_40:
     return 0;
   }
 
-  if ([kind isEqualToString:@"NSFileTypeRegular"])
+  if (objc_msgSend_isEqualToString_(kind))
   {
     v32 = objc_alloc(MEMORY[0x1E695DEF0]);
 
     return [v32 initWithContentsOfURL:l options:~(options >> 1) & 1 error:error];
   }
 
-  if (![kind isEqualToString:@"NSFileTypeSymbolicLink"])
+  if (!objc_msgSend_isEqualToString_(kind))
   {
     if (error)
     {
@@ -934,7 +934,7 @@ LABEL_40:
       while (v20);
     }
 
-    if ([kind isEqualToString:@"NSFileTypeDirectory"])
+    if (objc_msgSend_isEqualToString_(kind))
     {
       v33 = 0u;
       v34 = 0u;
@@ -1267,7 +1267,7 @@ LABEL_47:
         {
           domain = [*error domain];
           code = [*error code];
-          if ([domain isEqualToString:@"NSCocoaErrorDomain"] && code == 640)
+          if (objc_msgSend_isEqualToString_(domain) && code == 640)
           {
             errorCopy2 = error;
             v44 = [NSError alloc];
@@ -1315,7 +1315,7 @@ LABEL_47:
   v13[5] = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   fileAttributes = [(NSFileWrapper *)self fileAttributes];
-  if (([-[NSDictionary fileType](fileAttributes "fileType")] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_([(NSDictionary *)fileAttributes fileType]) & 1) == 0)
   {
     v5 = [(NSDictionary *)fileAttributes objectForKey:@"NSFileCreationDate"];
     if (v5)
@@ -1348,7 +1348,7 @@ LABEL_47:
     }
   }
 
-  if ([-[NSDictionary fileType](fileAttributes "fileType")])
+  if (objc_msgSend_isEqualToString_([(NSDictionary *)fileAttributes fileType]))
   {
     v10 = [(NSDictionary *)fileAttributes objectForKey:@"NSFileHFSCreatorCode"];
     if ([v10 unsignedIntValue])
@@ -1372,7 +1372,7 @@ LABEL_47:
   return dictionary;
 }
 
-uint64_t __35__NSFileWrapper__attributesToWrite__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__35__NSFileWrapper__attributesToWrite__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 hasPrefix:@"NSFile"];
   if ((result & 1) == 0)
@@ -1613,14 +1613,14 @@ LABEL_17:
   v11->_preferredFileName = [nameCopy copy];
   v11->_fileName = [fileName copy];
   fileType = [(NSDictionary *)v11->_fileAttributes fileType];
-  if (![fileType isEqualToString:@"NSFileTypeDirectory"])
+  if (!objc_msgSend_isEqualToString_(fileType))
   {
-    if ([fileType isEqualToString:@"NSFileTypeRegular"])
+    if (objc_msgSend_isEqualToString_(fileType))
     {
       v11->_contents = [impl data];
     }
 
-    else if ([fileType isEqualToString:@"NSFileTypeSymbolicLink"])
+    else if (objc_msgSend_isEqualToString_(fileType))
     {
       v37 = [[NSString alloc] initWithData:impl encoding:4];
       v11->_contents = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithPath:v37];
@@ -1645,7 +1645,7 @@ LABEL_31:
   while (1)
   {
     v25 = [v24 objectAtIndex:0];
-    if ([v25 isEqualToString:0x1EEF028D0])
+    if (objc_msgSend_isEqualToString_(v25))
     {
       goto LABEL_30;
     }
@@ -1655,7 +1655,7 @@ LABEL_31:
       break;
     }
 
-    if ([objc_msgSend(v25 "pathExtension")] && (v26 = objc_msgSend(v25, "stringByDeletingPathExtension"), v27 = objc_msgSend(v24, "indexOfObject:", v26), v27 != 0x7FFFFFFFFFFFFFFFLL))
+    if (objc_msgSend_isEqualToString_([v25 pathExtension]) && (v26 = objc_msgSend(v25, "stringByDeletingPathExtension"), v27 = objc_msgSend(v24, "indexOfObject:", v26), v27 != 0x7FFFFFFFFFFFFFFFLL))
     {
       v34 = v27;
       v35 = [objc_alloc(objc_opt_class()) _initWithImpl:objc_msgSend(impl preferredFileName:"objectForKey:" uniqueFileName:v26) docInfo:0 iconData:{v26, objc_msgSend(impl, "_getDocInfoForKey:", v26), objc_msgSend(impl, "objectForKey:", v25)}];
@@ -1937,7 +1937,7 @@ LABEL_16:
     objc_exception_throw([v13 exceptionWithName:*v14 reason:v12 userInfo:0]);
   }
 
-  if (!preferredFilename || [(NSString *)preferredFilename isEqualToString:&stru_1EEEFDF90])
+  if (!preferredFilename || objc_msgSend_isEqualToString_(preferredFilename))
   {
     v12 = [NSString stringWithFormat:@"%@ *** a document must have a preferredFilename before it can be added as the subdocument of another document.", _NSFullMethodName(self, a2)];
     v13 = MEMORY[0x1E695DF30];
@@ -2350,7 +2350,7 @@ LABEL_16:
   [l setResourceValues:dictionary2 error:0];
 }
 
-uint64_t __61__NSFileWrapper_NSInternalForAppKit___writeAttributes_toURL___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__61__NSFileWrapper_NSInternalForAppKit___writeAttributes_toURL___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = _NSIsNSString();
   if (result)

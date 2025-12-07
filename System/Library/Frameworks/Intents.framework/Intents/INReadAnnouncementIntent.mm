@@ -24,8 +24,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v15[3] = *MEMORY[0x1E69E9840];
-  v14[0] = @"readType";
+  v14[3] = *MEMORY[0x1E69E9840];
+  v13[0] = @"readType";
   readType = [(INReadAnnouncementIntent *)self readType];
   v4 = @"unknown";
   if (readType == 2)
@@ -39,8 +39,8 @@
   }
 
   v5 = v4;
-  v15[0] = v5;
-  v14[1] = @"startAnnouncementIdentifier";
+  v14[0] = v5;
+  v13[1] = @"startAnnouncementIdentifier";
   startAnnouncementIdentifier = [(INReadAnnouncementIntent *)self startAnnouncementIdentifier];
   null = startAnnouncementIdentifier;
   if (!startAnnouncementIdentifier)
@@ -48,8 +48,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[1] = null;
-  v14[2] = @"userNotificationType";
+  v14[1] = null;
+  v13[2] = @"userNotificationType";
   userNotificationType = [(INReadAnnouncementIntent *)self userNotificationType];
   v9 = @"unknown";
   if (userNotificationType == 2)
@@ -63,14 +63,12 @@
   }
 
   v10 = v9;
-  v15[2] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v14[2] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
 
   if (!startAnnouncementIdentifier)
   {
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

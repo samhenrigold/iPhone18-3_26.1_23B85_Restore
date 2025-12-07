@@ -111,7 +111,7 @@
   selfCopy = self;
   DBThemeController.displays.getter();
 
-  sub_24814FB28(0, &qword_27EE93B28);
+  sub_24814FB28(0, &qword_27EE93B28, 0x277CF9250);
   v3 = sub_248383B00();
 
   return v3;
@@ -131,7 +131,7 @@
 
 - (id)urlFor:(id)for displayID:(id)d
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE904C0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE904C0, &qword_24839D660);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v21 - v6;
   v8 = sub_248383960();
@@ -166,7 +166,7 @@
 
 - (int64_t)defaultAppearanceModePreferenceForThemeData:(id)data
 {
-  sub_24814FB28(0, &qword_27EE8FEF8);
+  sub_24814FB28(0, &qword_27EE8FEF8, 0x277CF8A50);
   v4 = sub_2483838A0();
   selfCopy = self;
   v6 = DBThemeController.defaultAppearanceModePreference(for:)(v4);
@@ -176,7 +176,7 @@
 
 - (void)willUpdateThemeData:(id)data withDuration:(double)duration delay:(double)delay
 {
-  sub_24814FB28(0, &qword_27EE8FEF8);
+  sub_24814FB28(0, &qword_27EE8FEF8, 0x277CF8A50);
   sub_2483838A0();
   v8 = *(&self->super.isa + OBJC_IVAR____TtC9DashBoard17DBThemeController_observers);
   selfCopy = self;

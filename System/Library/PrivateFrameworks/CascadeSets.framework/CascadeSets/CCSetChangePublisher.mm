@@ -8,9 +8,7 @@
 - (id)startWithSubscriber:(id)subscriber;
 - (unint64_t)localItemInstanceCount;
 - (unint64_t)sharedItemCount;
-- (void)localItemInstanceCount;
 - (void)reset;
-- (void)sharedItemCount;
 @end
 
 @implementation CCSetChangePublisher
@@ -28,10 +26,21 @@
 
 - (void)reset
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "Failed to reset: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  enumerator = self->_enumerator;
+  v8 = 0;
+  v4 = [(CCSetChangeEnumerator *)enumerator reset:&v8];
+  v5 = v8;
+  if ((v4 & 1) == 0)
+  {
+    v6 = __biome_log_for_category();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      [CCSetChangePublisher reset];
+    }
+  }
+
+  enumeratorBookmark = self->_enumeratorBookmark;
+  self->_enumeratorBookmark = 0;
 }
 
 + (id)publisherForSet:(id)set useCase:(id)case
@@ -163,30 +172,6 @@
   }
 
   return v7;
-}
-
-- (void)sharedItemCount
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "Failed to get sharedItemCount: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)localItemInstanceCount
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "Failed to get localItemInstanceCount: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)startWithSubscriber:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "Failed to begin enumeration: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

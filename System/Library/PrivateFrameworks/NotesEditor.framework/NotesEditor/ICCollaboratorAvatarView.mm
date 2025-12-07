@@ -98,7 +98,7 @@
 
   selfCopy = self;
   sub_21532DCA8(v7, v6);
-  sub_21532594C(v7);
+  sub_21532594C(v7, v6);
 }
 
 - (void)updateWithoutAnimation

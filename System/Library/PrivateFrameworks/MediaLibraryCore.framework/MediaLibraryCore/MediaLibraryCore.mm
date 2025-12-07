@@ -284,8 +284,7 @@ void std::vector<std::string>::push_back[abi:ne200100](uint64_t a1, __int128 *a2
     v12 = *a2;
     *(v11 + 16) = *(a2 + 2);
     *v11 = v12;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v6 = 24 * v7 + 24;
     v13 = *(a1 + 8) - *a1;
@@ -308,8 +307,7 @@ void std::vector<std::string>::push_back[abi:ne200100](uint64_t a1, __int128 *a2
     v5 = *a2;
     *(v3 + 16) = *(a2 + 2);
     *v3 = v5;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v6 = v3 + 24;
   }
@@ -491,17 +489,17 @@ void mediaplatform::ComponentsSeparatedByString(std::string *a1@<X0>, char *a2@<
             v26 = *(a2 + 1);
           }
 
-          v27 = &v23[-v19];
+          v27 = v23 - v19;
           if (v23 >= v19)
           {
             v18 += v9;
             if (v26)
             {
-              v28 = &v23[v22];
+              v28 = v22 + v23;
               if (v27 >= v26)
               {
                 v34 = v22;
-                v30 = (v22 + v19);
+                v30 = v22 + v19;
                 v31 = *v25;
                 do
                 {
@@ -535,7 +533,7 @@ LABEL_50:
 
               else
               {
-                v29 = &v23[v22];
+                v29 = v22 + v23;
               }
 
               if (v29 == v28)
@@ -545,7 +543,7 @@ LABEL_50:
 
               else
               {
-                v18 = &v29[-v22];
+                v18 = v29 - v22;
               }
 
               v4 = v35;
@@ -774,7 +772,7 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
   return a1;
 }
 
-void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -784,7 +782,7 @@ void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t 
   std::vector<std::string>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+std::string *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(std::string *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -801,52 +799,52 @@ void sub_1D575B5D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *mediaplatform::ContentBundle::ContentBundle(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+uint64_t mediaplatform::ContentBundle::ContentBundle(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __int128 **a5)
 {
   *a1 = &unk_1F50DE578;
-  a1[1] = 0;
-  a1[2] = 0;
-  a1[3] = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a1 + 1), *(a2 + 8), *(a2 + 16), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 16) - *(a2 + 8)) >> 3));
-  a1[5] = 0;
-  a1[4] = &unk_1F50DE578;
-  a1[6] = 0;
-  a1[7] = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a1 + 5), *(a3 + 8), *(a3 + 16), 0xAAAAAAAAAAAAAAABLL * ((*(a3 + 16) - *(a3 + 8)) >> 3));
-  a1[9] = 0;
-  a1[8] = &unk_1F50DE578;
-  a1[10] = 0;
-  a1[11] = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a1 + 9), *(a4 + 8), *(a4 + 16), 0xAAAAAAAAAAAAAAABLL * ((*(a4 + 16) - *(a4 + 8)) >> 3));
-  a1[12] = 0;
-  a1[13] = 0;
-  a1[14] = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a1 + 12), *a5, a5[1], 0xAAAAAAAAAAAAAAABLL * ((a5[1] - *a5) >> 3));
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *(a1 + 24) = 0;
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a1 + 8), *(a2 + 8), *(a2 + 16), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 16) - *(a2 + 8)) >> 3));
+  *(a1 + 40) = 0;
+  *(a1 + 32) = &unk_1F50DE578;
+  *(a1 + 48) = 0;
+  *(a1 + 56) = 0;
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a1 + 40), *(a3 + 8), *(a3 + 16), 0xAAAAAAAAAAAAAAABLL * ((*(a3 + 16) - *(a3 + 8)) >> 3));
+  *(a1 + 72) = 0;
+  *(a1 + 64) = &unk_1F50DE578;
+  *(a1 + 80) = 0;
+  *(a1 + 88) = 0;
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a1 + 72), *(a4 + 8), *(a4 + 16), 0xAAAAAAAAAAAAAAABLL * ((*(a4 + 16) - *(a4 + 8)) >> 3));
+  *(a1 + 96) = 0;
+  *(a1 + 104) = 0;
+  *(a1 + 112) = 0;
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a1 + 96), *a5, a5[1], 0xAAAAAAAAAAAAAAABLL * ((a5[1] - *a5) >> 3));
   return a1;
 }
 
-void sub_1D575B75C(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, ...)
+void sub_1D575B75C(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  *v5 = v7;
+  va_start(va, a7);
+  *v8 = v10;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
-  *a3 = v6;
+  *a6 = v9;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
-  *v4 = a4;
+  *v7 = a7;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_1D575B844(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D575B844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::wstring_convert<std::codecvt_utf8_utf16<wchar_t,1114111ul,(std::codecvt_mode)0>,wchar_t,std::allocator<wchar_t>,std::allocator<char>>::~wstring_convert(va);
   _Unwind_Resume(a1);
 }
 
 void std::wstring_convert<std::codecvt_utf8_utf16<wchar_t,1114111ul,(std::codecvt_mode)0>,wchar_t,std::allocator<wchar_t>,std::allocator<char>>::from_bytes(std::wstring *this, uint64_t a2, std::wstring *a3, std::wstring *a4)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   *(a2 + 184) = 0;
   if (!*(a2 + 48))
   {
@@ -886,14 +884,14 @@ void std::wstring_convert<std::codecvt_utf8_utf16<wchar_t,1114111ul,(std::codecv
 
     std::wstring::resize(this, v10, 0);
     v11 = *(a2 + 136);
-    v47[4] = *(a2 + 120);
-    v47[5] = v11;
+    v46[4] = *(a2 + 120);
+    v46[5] = v11;
     v12 = *(a2 + 168);
-    v47[6] = *(a2 + 152);
-    v47[7] = v12;
+    v46[6] = *(a2 + 152);
+    v46[7] = v12;
     v13 = *(a2 + 72);
-    v47[0] = *(a2 + 56);
-    v47[1] = v13;
+    v46[0] = *(a2 + 56);
+    v46[1] = v13;
     v14 = *(a2 + 88);
     v15 = *(a2 + 104);
     size = HIBYTE(this->__r_.__value_.__r.__words[2]);
@@ -913,13 +911,13 @@ void std::wstring_convert<std::codecvt_utf8_utf16<wchar_t,1114111ul,(std::codecv
     }
 
     v18 = v17 + 4 * size;
-    v47[2] = *(a2 + 88);
-    v47[3] = v15;
+    v46[2] = *(a2 + 88);
+    v46[3] = v15;
     while (1)
     {
-      v19 = (*(**(a2 + 48) + 32))(*(a2 + 48), v47, v7, a4, &v44, v17, v18, &v43, v14);
-      v20 = v44 == v7;
-      *(a2 + 184) += v44 - v7;
+      v19 = (*(**(a2 + 48) + 32))(*(a2 + 48), v46, v7, a4, &v43, v17, v18, &v42, v14);
+      v20 = v43 == v7;
+      *(a2 + 184) += v43 - v7;
       if (v20)
       {
         goto LABEL_42;
@@ -940,8 +938,8 @@ void std::wstring_convert<std::codecvt_utf8_utf16<wchar_t,1114111ul,(std::codecv
         v21 = this->__r_.__value_.__r.__words[0];
       }
 
-      v22 = v43 - v21;
-      std::wstring::resize(this, (v43 - v21) >> 1, 0);
+      v22 = v42 - v21;
+      std::wstring::resize(this, (v42 - v21) >> 1, 0);
       v23 = HIBYTE(this->__r_.__value_.__r.__words[2]);
       v24 = v23;
       v25 = this->__r_.__value_.__r.__words[0];
@@ -957,8 +955,8 @@ void std::wstring_convert<std::codecvt_utf8_utf16<wchar_t,1114111ul,(std::codecv
       }
 
       v18 = v25 + 4 * v23;
-      v7 = v44;
-      if (v44 >= a4)
+      v7 = v43;
+      if (v43 >= a4)
       {
         if ((v24 & 0x80) == 0)
         {
@@ -968,24 +966,27 @@ void std::wstring_convert<std::codecvt_utf8_utf16<wchar_t,1114111ul,(std::codecv
 LABEL_43:
         operator delete(this->__r_.__value_.__l.__data_);
 LABEL_29:
-        if (*(a2 + 47) < 0)
+        if ((*(a2 + 47) & 0x80000000) == 0)
         {
-          v31 = *(a2 + 32);
-          if (v31)
+          if (*(a2 + 47))
           {
-            std::wstring::__init_copy_ctor_external(this, *(a2 + 24), v31);
-            goto LABEL_48;
+            *&this->__r_.__value_.__l.__data_ = *(a2 + 24);
+            this->__r_.__value_.__r.__words[2] = *(a2 + 40);
+            return;
           }
+
+LABEL_76:
+          std::__throw_range_error[abi:ne200100]("wstring_convert: from_bytes error");
         }
 
-        else if (*(a2 + 47))
+        v31 = *(a2 + 32);
+        if (!v31)
         {
-          *&this->__r_.__value_.__l.__data_ = *(a2 + 24);
-          this->__r_.__value_.__r.__words[2] = *(a2 + 40);
-          goto LABEL_48;
+          goto LABEL_76;
         }
 
-        std::__throw_range_error[abi:ne200100]("wstring_convert: from_bytes error");
+        std::wstring::__init_copy_ctor_external(this, *(a2 + 24), v31);
+        return;
       }
     }
 
@@ -1018,21 +1019,21 @@ LABEL_42:
       {
         if (v7 == a4)
         {
-          goto LABEL_48;
+          return;
         }
 
         v27 = this->__r_.__value_.__l.__size_;
-        v34 = this->__r_.__value_.__r.__words[2];
-        v28 = (v34 & 0x7FFFFFFFFFFFFFFFLL) - 1;
+        v33 = this->__r_.__value_.__r.__words[2];
+        v28 = (v33 & 0x7FFFFFFFFFFFFFFFLL) - 1;
         v30 = this->__r_.__value_.__r.__words[0];
-        v29 = HIBYTE(v34);
+        v29 = HIBYTE(v33);
       }
 
       else
       {
         if (v7 == a4)
         {
-          goto LABEL_48;
+          return;
         }
 
         v28 = 4;
@@ -1040,85 +1041,85 @@ LABEL_42:
         v30 = this;
       }
 
-      v35 = a4 - v7;
-      v36 = v35 >> 2;
+      v34 = a4 - v7;
+      v35 = v34 >> 2;
       if (v30 > v7 || (v30->__r_.__value_.__r.__words + 4 * v27 + 4) <= v7)
       {
-        if (v28 - v27 < v36)
+        if (v28 - v27 < v35)
         {
-          std::wstring::__grow_by(this, v28, v27 - v28 + v36, v27, v27, 0, 0);
+          std::wstring::__grow_by(this, v28, v27 - v28 + v35, v27, v27, 0, 0);
           this->__r_.__value_.__l.__size_ = v27;
           LOBYTE(v29) = *(&this->__r_.__value_.__s + 23);
         }
 
-        v37 = this;
+        v36 = this;
         if ((v29 & 0x80) != 0)
         {
-          v37 = this->__r_.__value_.__r.__words[0];
+          v36 = this->__r_.__value_.__r.__words[0];
         }
 
-        v38 = v37 + 4 * v27;
-        memmove(v38, v7, v35);
-        *&v38[v35] = 0;
-        v39 = v36 + v27;
+        v37 = v36 + 4 * v27;
+        memmove(v37, v7, v34);
+        *&v37[v34] = 0;
+        v38 = v35 + v27;
         if (SHIBYTE(this->__r_.__value_.__r.__words[2]) < 0)
         {
-          this->__r_.__value_.__l.__size_ = v39;
+          this->__r_.__value_.__l.__size_ = v38;
         }
 
         else
         {
-          *(&this->__r_.__value_.__s + 23) = v39 & 0x7F;
+          *(&this->__r_.__value_.__s + 23) = v38 & 0x7F;
         }
       }
 
       else
       {
-        if (v36 > 0x3FFFFFFFFFFFFFF7)
+        if (v35 > 0x3FFFFFFFFFFFFFF7)
         {
           std::string::__throw_length_error[abi:ne200100]();
         }
 
-        if (v36 > 4)
+        if (v35 > 4)
         {
-          if ((v36 | 1) == 5)
+          if ((v35 | 1) == 5)
           {
-            v40 = 7;
+            v39 = 7;
           }
 
           else
           {
-            v40 = (v36 | 1) + 1;
+            v39 = (v35 | 1) + 1;
           }
 
-          std::__allocate_at_least[abi:ne200100]<std::allocator<wchar_t>>(v40);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<wchar_t>>(v39);
         }
 
-        v46 = v35 >> 2;
-        memmove(__dst, v7, v35);
-        *(__dst + v35) = 0;
-        if ((v46 & 0x80u) == 0)
+        v45 = v34 >> 2;
+        memmove(__dst, v7, v34);
+        *(__dst + v34) = 0;
+        if ((v45 & 0x80u) == 0)
         {
-          v41 = __dst;
+          v40 = __dst;
         }
 
         else
         {
-          v41 = __dst[0];
+          v40 = __dst[0];
         }
 
-        if ((v46 & 0x80u) == 0)
+        if ((v45 & 0x80u) == 0)
         {
-          v42 = v46;
+          v41 = v45;
         }
 
         else
         {
-          v42 = __dst[1];
+          v41 = __dst[1];
         }
 
-        std::wstring::append(this, v41, v42);
-        if (v46 < 0)
+        std::wstring::append(this, v40, v41);
+        if (v45 < 0)
         {
           operator delete(__dst[0]);
         }
@@ -1137,12 +1138,9 @@ LABEL_42:
         v32 = this->__r_.__value_.__r.__words[0];
       }
 
-      std::wstring::resize(this, (v43 - v32) >> 2, 0);
+      std::wstring::resize(this, (v42 - v32) >> 2, 0);
     }
   }
-
-LABEL_48:
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1D575BD6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
@@ -1188,14 +1186,14 @@ void std::codecvt_utf8_utf16<wchar_t,1114111ul,(std::codecvt_mode)0>::~codecvt_u
   JUMPOUT(0x1DA6EDD40);
 }
 
-uint64_t mlcore::LocalizedSectionHeader::LocalizedSectionHeader(uint64_t a1, int a2, int a3, uint64_t *a4, void *a5)
+uint64_t mlcore::LocalizedSectionHeader::LocalizedSectionHeader(uint64_t a1, int a2, int a3, __int128 **a4, void *a5)
 {
   *a1 = a2;
   *(a1 + 4) = a3;
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
   *(a1 + 24) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a1 + 8, *a4, a4[1], 0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a1 + 8), *a4, a4[1], 0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 3));
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
@@ -1203,9 +1201,9 @@ uint64_t mlcore::LocalizedSectionHeader::LocalizedSectionHeader(uint64_t a1, int
   return a1;
 }
 
-void sub_1D575BEDC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D575BEDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -1497,9 +1495,9 @@ unint64_t std::__string_hash<char>::operator()[abi:ne200100](uint64_t a1)
   return result;
 }
 
-_BYTE *mediaplatform::StringToUCharString@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+void *mediaplatform::StringToUCharString@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   *pErrorCode = 0;
   v3 = *(a1 + 23);
   if (v3 >= 0)
@@ -1533,16 +1531,14 @@ _BYTE *mediaplatform::StringToUCharString@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
     if (pErrorCode[0])
     {
       exception = __cxa_allocate_exception(0x40uLL);
-      v11 = 37;
-      std::to_string(&v9, pErrorCode[0]);
-      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v10, "u_strFromUTF8: ", &v9);
-      mediaplatform::PlatformErrorCondition::PlatformErrorCondition(exception, &v11, &v10);
+      v10 = 37;
+      std::to_string(&v8, pErrorCode[0]);
+      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v9, "u_strFromUTF8: ", &v8);
+      mediaplatform::PlatformErrorCondition::PlatformErrorCondition(exception, &v10, &v9);
     }
   }
 
-  result = std::wstring::basic_string[abi:ne200100](a2, dest, pErrorCode[1]);
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return std::wstring::basic_string[abi:ne200100](a2, dest, pErrorCode[1]);
 }
 
 void sub_1D575C7A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -1572,7 +1568,7 @@ LABEL_8:
   goto LABEL_8;
 }
 
-_BYTE *std::wstring::basic_string[abi:ne200100](_BYTE *__dst, void *__src, unint64_t a3)
+void *std::wstring::basic_string[abi:ne200100](void *__dst, void *__src, unint64_t a3)
 {
   if (a3 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -1594,13 +1590,13 @@ _BYTE *std::wstring::basic_string[abi:ne200100](_BYTE *__dst, void *__src, unint
     std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned short>>(v6);
   }
 
-  __dst[23] = a3;
+  *(__dst + 23) = a3;
   if (a3)
   {
     memmove(__dst, __src, 2 * a3);
   }
 
-  *&__dst[2 * a3] = 0;
+  *(__dst + a3) = 0;
   return __dst;
 }
 
@@ -1625,44 +1621,43 @@ _BYTE *std::wstring::basic_string[abi:ne200100](_BYTE *__dst, void *__src, unint
     std::__allocate_at_least[abi:ne200100]<std::allocator<wchar_t>>(v6);
   }
 
-  __dst[23] = a3;
+  *(__dst + 23) = a3;
   if (a3)
   {
     memmove(__dst, __src, 4 * a3);
   }
 
-  *&__dst[4 * a3] = 0;
+  *(__dst + a3) = 0;
   return __dst;
 }
 
-uint64_t mlcore::LocalizedSectionsInfo::LocalizedSectionsInfo(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4, __int128 *a5)
+std::string *mlcore::LocalizedSectionsInfo::LocalizedSectionsInfo(std::string *a1, uint64_t *a2, uint64_t *a3, void *a4, __int128 *a5)
 {
-  *a1 = 0;
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
+  a1->__r_.__value_.__r.__words[2] = 0;
   std::vector<mlcore::LocalizedSectionHeader>::__init_with_size[abi:ne200100]<mlcore::LocalizedSectionHeader*,mlcore::LocalizedSectionHeader*>(a1, *a2, a2[1], 0x6DB6DB6DB6DB6DB7 * ((a2[1] - *a2) >> 3));
-  *(a1 + 24) = 0;
-  *(a1 + 32) = 0;
-  *(a1 + 40) = 0;
+  a1[1].__r_.__value_.__r.__words[0] = 0;
+  a1[1].__r_.__value_.__l.__size_ = 0;
+  a1[1].__r_.__value_.__r.__words[2] = 0;
   if (*(a5 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external((a1 + 48), *a5, *(a5 + 1));
+    std::string::__init_copy_ctor_external(a1 + 2, *a5, *(a5 + 1));
   }
 
   else
   {
     v9 = *a5;
-    *(a1 + 64) = *(a5 + 2);
-    *(a1 + 48) = v9;
+    a1[2].__r_.__value_.__r.__words[2] = *(a5 + 2);
+    *&a1[2].__r_.__value_.__l.__data_ = v9;
   }
 
   mlcore::LocalizedSectionsInfo::_initializeLocalizedIndices(a1, a3, a4);
   return a1;
 }
 
-void sub_1D575C9D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D575C9D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   std::vector<mlcore::LocalizedSectionHeader>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
@@ -1678,7 +1673,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned short>>(uint
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::vector<mlcore::LocalizedSectionHeader>::__init_with_size[abi:ne200100]<mlcore::LocalizedSectionHeader*,mlcore::LocalizedSectionHeader*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<mlcore::LocalizedSectionHeader>::__init_with_size[abi:ne200100]<mlcore::LocalizedSectionHeader*,mlcore::LocalizedSectionHeader*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1691,9 +1686,9 @@ void std::vector<mlcore::LocalizedSectionHeader>::__init_with_size[abi:ne200100]
   }
 }
 
-void sub_1D575CB8C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D575CB8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<mlcore::LocalizedSectionHeader>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1787,7 +1782,7 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
   return a1;
 }
 
-void *mlcore::LocalizedSortingDetails::LocalizedSortingDetails(void *a1, uint64_t *a2)
+void *mlcore::LocalizedSortingDetails::LocalizedSortingDetails(void *a1, __int128 **a2)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -1804,7 +1799,7 @@ void *mlcore::LocalizedSortingDetails::LocalizedSortingDetails(void *a1, uint64_
   return a1;
 }
 
-void std::vector<std::wstring>::__init_with_size[abi:ne200100]<std::wstring*,std::wstring*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<std::wstring>::__init_with_size[abi:ne200100]<std::wstring*,std::wstring*>(uint64_t result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1817,16 +1812,15 @@ void std::vector<std::wstring>::__init_with_size[abi:ne200100]<std::wstring*,std
   }
 }
 
-std::string *mlcore::LanguageResources::LanguageResources(std::string *a1, uint64_t a2, uint64_t *a3, __int128 *a4)
+std::string *mlcore::LanguageResources::LanguageResources(std::string *a1, uint64_t a2, __int128 **a3, __int128 *a4)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
   std::vector<mlcore::LocalizedSectionHeader>::__init_with_size[abi:ne200100]<mlcore::LocalizedSectionHeader*,mlcore::LocalizedSectionHeader*>(a1, *a2, *(a2 + 8), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 8) - *a2) >> 3));
   a1[1].__r_.__value_.__r.__words[0] = 0;
   a1[1].__r_.__value_.__l.__size_ = 0;
   a1[1].__r_.__value_.__r.__words[2] = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&a1[1], *(a2 + 24), *(a2 + 32), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 32) - *(a2 + 24)) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a1 + 1, *(a2 + 24), *(a2 + 32), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 32) - *(a2 + 24)) >> 3));
   if (*(a2 + 71) < 0)
   {
     std::string::__init_copy_ctor_external(a1 + 2, *(a2 + 48), *(a2 + 56));
@@ -1858,11 +1852,11 @@ std::string *mlcore::LanguageResources::LanguageResources(std::string *a1, uint6
   return a1;
 }
 
-void sub_1D575D058(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D575D058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
-  mlcore::LocalizedSectionsInfo::~LocalizedSectionsInfo(v2);
+  mlcore::LocalizedSectionsInfo::~LocalizedSectionsInfo(v3);
   _Unwind_Resume(a1);
 }
 
@@ -1873,7 +1867,7 @@ void sub_1D575D188(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t mlcore::Library::Library(uint64_t a1, __int128 *a2, uint64_t *a3)
+uint64_t mlcore::Library::Library(uint64_t a1, __int128 *a2, __int128 **a3)
 {
   *a1 = &unk_1F50D3A60;
   if (*(a2 + 23) < 0)
@@ -1892,36 +1886,36 @@ uint64_t mlcore::Library::Library(uint64_t a1, __int128 *a2, uint64_t *a3)
   *(a1 + 32) = &unk_1F50DE578;
   *(a1 + 48) = 0;
   *(a1 + 56) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a1 + 40, a3[1], a3[2], 0xAAAAAAAAAAAAAAABLL * ((a3[2] - a3[1]) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a1 + 40), a3[1], a3[2], 0xAAAAAAAAAAAAAAABLL * ((a3[2] - a3[1]) >> 3));
   *(a1 + 72) = 0;
   *(a1 + 64) = &unk_1F50DE578;
   *(a1 + 80) = 0;
   *(a1 + 88) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a1 + 72, a3[5], a3[6], 0xAAAAAAAAAAAAAAABLL * ((a3[6] - a3[5]) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a1 + 72), a3[5], a3[6], 0xAAAAAAAAAAAAAAABLL * ((a3[6] - a3[5]) >> 3));
   *(a1 + 104) = 0;
   *(a1 + 96) = &unk_1F50DE578;
   *(a1 + 112) = 0;
   *(a1 + 120) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a1 + 104, a3[9], a3[10], 0xAAAAAAAAAAAAAAABLL * ((a3[10] - a3[9]) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a1 + 104), a3[9], a3[10], 0xAAAAAAAAAAAAAAABLL * ((a3[10] - a3[9]) >> 3));
   *(a1 + 128) = 0;
   *(a1 + 136) = 0;
   *(a1 + 144) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a1 + 128, a3[12], a3[13], 0xAAAAAAAAAAAAAAABLL * ((a3[13] - a3[12]) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a1 + 128), a3[12], a3[13], 0xAAAAAAAAAAAAAAABLL * ((a3[13] - a3[12]) >> 3));
   return a1;
 }
 
-void sub_1D575D364(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, ...)
+void sub_1D575D364(_Unwind_Exception *a1, void *a2, uint64_t a3, void *a4, void *a5, uint64_t a6, void *a7, ...)
 {
-  va_start(va, a4);
-  *v6 = v8;
+  va_start(va, a7);
+  *v9 = v11;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
-  *a2 = v7;
+  *a5 = v10;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
-  *a4 = a3;
+  *a7 = a6;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
-  if (*(v4 + 31) < 0)
+  if (*(v7 + 31) < 0)
   {
-    operator delete(*v5);
+    operator delete(*v8);
   }
 
   _Unwind_Resume(a1);
@@ -1937,10 +1931,10 @@ void sub_1D575D4E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void mlcore::LocalLibrary::LocalLibrary(mlcore::LocalLibrary *this, const mediaplatform::ContentBundle *a2, const mediaplatform::FilePath *a3, const mlcore::LanguageResources *a4)
+void mlcore::LocalLibrary::LocalLibrary(mlcore::LocalLibrary *this, __int128 **a2, const mediaplatform::FilePath *a3, const mlcore::LanguageResources *a4)
 {
   v12[4] = *MEMORY[0x1E69E9840];
-  mlcore::LocalLibrary::_libraryIdentifierFromContentBundleAndRelativePath(a2, a3, &__p);
+  mlcore::LocalLibrary::_libraryIdentifierFromContentBundleAndRelativePath(&__p, a2, a3);
   mlcore::Library::Library(this, &__p, a2);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -1958,12 +1952,12 @@ void mlcore::LocalLibrary::LocalLibrary(mlcore::LocalLibrary *this, const mediap
   v7 = *(this + 20);
   v8 = *(this + 21);
   v9 = &unk_1F50DE578;
-  memset(v10, 0, sizeof(v10));
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v10, v7, v8, 0xAAAAAAAAAAAAAAABLL * ((v8 - v7) >> 3));
+  memset(&v10, 0, sizeof(v10));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v10, v7, v8, 0xAAAAAAAAAAAAAAABLL * ((v8 - v7) >> 3));
   v12[0] = &unk_1F50D37F0;
   v12[1] = mediaplatform::DefaultConnectionAllocator;
   v12[3] = v12;
-  mediaplatform::DatabaseConnectionPool::DatabaseConnectionPool(this + 23, &v9, 10, 1, v12);
+  mediaplatform::DatabaseConnectionPool::DatabaseConnectionPool(this + 184, &v9, 0xAuLL, 1, v12);
 }
 
 void sub_1D575D828(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -1978,11 +1972,11 @@ void sub_1D575D828(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void mlcore::LocalLibrary::_libraryIdentifierFromContentBundleAndRelativePath(mlcore::LocalLibrary *this@<X0>, const mediaplatform::ContentBundle *a2@<X1>, std::string *a3@<X8>)
+void mlcore::LocalLibrary::_libraryIdentifierFromContentBundleAndRelativePath(std::string *__return_ptr a1@<X8>, __int128 **this@<X0>, const mediaplatform::ContentBundle *a3@<X1>)
 {
-  mlcore::LocalLibrary::_databasePathFromContentBundleAndRelativePath(this, a2, &v6);
+  mlcore::LocalLibrary::_databasePathFromContentBundleAndRelativePath(this, a3, &v6);
   v5 = std::string::insert(&v6, 0, "local:", 6uLL);
-  *a3 = *v5;
+  *a1 = *v5;
   v5->__r_.__value_.__l.__size_ = 0;
   v5->__r_.__value_.__r.__words[2] = 0;
   v5->__r_.__value_.__r.__words[0] = 0;
@@ -2002,19 +1996,19 @@ void sub_1D575D9A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void mlcore::LocalLibrary::_databasePathFromContentBundleAndRelativePath(mlcore::LocalLibrary *this@<X0>, const mediaplatform::ContentBundle *a2@<X1>, std::string *a3@<X8>)
+void mlcore::LocalLibrary::_databasePathFromContentBundleAndRelativePath(__int128 **this@<X0>, const mediaplatform::ContentBundle *a2@<X1>, std::string *a3@<X8>)
 {
-  v8 = &unk_1F50DE578;
-  memset(v9, 0, sizeof(v9));
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v9, *(this + 1), *(this + 2), 0xAAAAAAAAAAAAAAABLL * ((*(this + 2) - *(this + 1)) >> 3));
-  mediaplatform::FilePath::operator+(&v8, a2, &v6);
-  mediaplatform::FilePath::str(&v6, a3);
-  v6 = &unk_1F50DE578;
-  v10 = &v7;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v10);
-  v8 = &unk_1F50DE578;
-  v6 = v9;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v6);
+  v7 = &unk_1F50DE578;
+  memset(&v8, 0, sizeof(v8));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v8, this[1], this[2], 0xAAAAAAAAAAAAAAABLL * ((this[2] - this[1]) >> 3));
+  mediaplatform::FilePath::operator+(&v7, a2, &v5);
+  mediaplatform::FilePath::str(&v5, a3);
+  v5 = &unk_1F50DE578;
+  v9 = &v6;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v9);
+  v7 = &unk_1F50DE578;
+  v5 = &v8;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v5);
 }
 
 void sub_1D575DAA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
@@ -2026,23 +2020,21 @@ void sub_1D575DAA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void mediaplatform::FilePath::operator+(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void mediaplatform::FilePath::operator+(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  memset(&v8, 0, sizeof(v8));
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v8, *(a1 + 8), *(a1 + 16), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *(a1 + 8)) >> 3));
-  v5 = 0;
-  v6 = 0;
-  v7 = 0;
+  memset(&v6, 0, sizeof(v6));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v6, *(a1 + 8), *(a1 + 16), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *(a1 + 8)) >> 3));
+  memset(&v5, 0, sizeof(v5));
   std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v5, *(a2 + 8), *(a2 + 16), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 16) - *(a2 + 8)) >> 3));
-  std::vector<std::string>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::string const*>,std::__wrap_iter<std::string const*>>(&v8, v8.__end_, v5, v6, 0xAAAAAAAAAAAAAAABLL * ((v6 - v5) >> 3));
-  v9 = &v5;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v9);
+  std::vector<std::string>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::string const*>,std::__wrap_iter<std::string const*>>(&v6, v6.__r_.__value_.__l.__size_, v5.__r_.__value_.__l.__data_, v5.__r_.__value_.__l.__size_, 0xAAAAAAAAAAAAAAABLL * ((v5.__r_.__value_.__l.__size_ - v5.__r_.__value_.__r.__words[0]) >> 3));
+  v7 = &v5;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v7);
   *a3 = &unk_1F50DE578;
-  a3[2] = 0;
-  a3[3] = 0;
-  a3[1] = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a3 + 1), v8.__begin_, v8.__end_, 0xAAAAAAAAAAAAAAABLL * ((v8.__end_ - v8.__begin_) >> 3));
-  v5 = &v8;
+  *(a3 + 16) = 0;
+  *(a3 + 24) = 0;
+  *(a3 + 8) = 0;
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a3 + 8), v6.__r_.__value_.__l.__data_, v6.__r_.__value_.__l.__size_, 0xAAAAAAAAAAAAAAABLL * ((v6.__r_.__value_.__l.__size_ - v6.__r_.__value_.__r.__words[0]) >> 3));
+  v5.__r_.__value_.__r.__words[0] = &v6;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v5);
 }
 
@@ -2348,7 +2340,7 @@ void sub_1D575E2F0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t mediaplatform::ComponentsJoinedByString<std::string>(_BYTE *a1, uint64_t *a2, uint64_t a3)
+uint64_t mediaplatform::ComponentsJoinedByString<std::string>(void *a1, uint64_t **a2, uint64_t **a3)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v16);
   v7 = *a2;
@@ -2378,7 +2370,7 @@ uint64_t mediaplatform::ComponentsJoinedByString<std::string>(_BYTE *a1, uint64_
 
         else
         {
-          v11 = *(a3 + 8);
+          v11 = a3[1];
         }
 
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v16, v10, v11);
@@ -2428,9 +2420,9 @@ uint64_t mediaplatform::ComponentsJoinedByString<std::string>(_BYTE *a1, uint64_
   return MEMORY[0x1DA6EDCB0](&v20);
 }
 
-void sub_1D575E4CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D575E4CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -2626,49 +2618,51 @@ LABEL_27:
   return a1;
 }
 
-void sub_1D575E950(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+void sub_1D575E950(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
 {
   if (a17 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x1DA6EDAB0](&a10);
+  MEMORY[0x1DA6EDAB0](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v17 + *(*v17 - 24)));
   __cxa_end_catch();
   JUMPOUT(0x1D575E924);
 }
 
-void mediaplatform::DatabaseConnectionPool::DatabaseConnectionPool(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void mediaplatform::DatabaseConnectionPool::DatabaseConnectionPool(uint64_t a1, uint64_t a2, std::string::size_type a3, uint64_t a4, uint64_t a5)
 {
+  v9 = a3;
   *a1 = &unk_1F50DE578;
-  a1[1] = 0;
-  a1[2] = 0;
-  a1[3] = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a1 + 1), *(a2 + 8), *(a2 + 16), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 16) - *(a2 + 8)) >> 3));
-  v7 = *(a5 + 24);
-  if (v7)
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *(a1 + 24) = 0;
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a1 + 8), *(a2 + 8), *(a2 + 16), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 16) - *(a2 + 8)) >> 3));
+  v8 = *(a5 + 24);
+  if (v8)
   {
-    if (v7 == a5)
+    if (v8 == a5)
     {
-      a1[7] = a1 + 4;
-      (*(**(a5 + 24) + 24))(*(a5 + 24), a1 + 4);
+      *(a1 + 56) = a1 + 32;
+      (*(**(a5 + 24) + 24))(*(a5 + 24), a1 + 32);
 LABEL_6:
-      std::allocate_shared[abi:ne200100]<mediaplatform::DBCPSubpool,std::allocator<mediaplatform::DBCPSubpool>,mediaplatform::FilePath &,unsigned long &,BOOL,0>();
+      v10[0] = 1;
+      std::allocate_shared[abi:ne200100]<mediaplatform::DBCPSubpool,std::allocator<mediaplatform::DBCPSubpool>,mediaplatform::FilePath &,unsigned long &,BOOL,0>((a1 + 64), a2, &v9, v10);
     }
 
-    v7 = (*(*v7 + 16))(v7);
+    v8 = (*(*v8 + 16))(v8);
   }
 
-  a1[7] = v7;
+  *(a1 + 56) = v8;
   goto LABEL_6;
 }
 
-void sub_1D575EB0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1D575EB0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  *v4 = v5;
+  va_start(va, a7);
+  *v7 = v8;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2718,51 +2712,51 @@ uint64_t std::__function::__value_func<std::shared_ptr<mediaplatform::DatabaseCo
 
 uint64_t std::function<void ()(mediaplatform::DatabaseConnection &)>::operator=(uint64_t a1, uint64_t a2)
 {
-  v10[3] = *MEMORY[0x1E69E9840];
+  v9[3] = *MEMORY[0x1E69E9840];
   v3 = *(a2 + 24);
   if (v3)
   {
     if (v3 == a2)
     {
-      v9 = v8;
-      (*(*v3 + 24))(v3, v8);
+      v8 = v7;
+      (*(*v3 + 24))(v3, v7);
     }
 
     else
     {
-      v9 = (*(*v3 + 16))(v3);
+      v8 = (*(*v3 + 16))(v3);
     }
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  if (v8 != a1)
+  if (v7 != a1)
   {
-    v4 = v9;
+    v4 = v8;
     v5 = *(a1 + 24);
-    if (v9 == v8)
+    if (v8 == v7)
     {
       if (v5 == a1)
       {
-        (*(*v9 + 24))();
-        (*(*v9 + 32))(v9);
-        v9 = 0;
-        (*(**(a1 + 24) + 24))(*(a1 + 24), v8);
+        (*(*v8 + 24))();
+        (*(*v8 + 32))(v8);
+        v8 = 0;
+        (*(**(a1 + 24) + 24))(*(a1 + 24), v7);
         (*(**(a1 + 24) + 32))(*(a1 + 24));
         *(a1 + 24) = 0;
-        v9 = v8;
-        (*(v10[0] + 24))(v10, a1);
-        (*(v10[0] + 32))(v10);
+        v8 = v7;
+        (*(v9[0] + 24))(v9, a1);
+        (*(v9[0] + 32))(v9);
       }
 
       else
       {
-        (*(*v9 + 24))();
-        (*(*v9 + 32))(v9);
-        v9 = *(a1 + 24);
+        (*(*v8 + 24))();
+        (*(*v8 + 32))(v8);
+        v8 = *(a1 + 24);
       }
 
       *(a1 + 24) = a1;
@@ -2770,21 +2764,20 @@ uint64_t std::function<void ()(mediaplatform::DatabaseConnection &)>::operator=(
 
     else if (v5 == a1)
     {
-      (*(*v5 + 24))(*(a1 + 24), v8);
+      (*(*v5 + 24))(*(a1 + 24), v7);
       (*(**(a1 + 24) + 32))(*(a1 + 24));
-      *(a1 + 24) = v9;
-      v9 = v8;
+      *(a1 + 24) = v8;
+      v8 = v7;
     }
 
     else
     {
-      v9 = *(a1 + 24);
+      v8 = *(a1 + 24);
       *(a1 + 24) = v4;
     }
   }
 
-  std::__function::__value_func<void ()(mediaplatform::DatabaseConnection &)>::~__value_func[abi:ne200100](v8);
-  v6 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<void ()(mediaplatform::DatabaseConnection &)>::~__value_func[abi:ne200100](v7);
   return a1;
 }
 
@@ -2800,32 +2793,30 @@ void sub_1D575F328(_Unwind_Exception *a1, int a2)
 
 void mediaplatform::DBCPSubpool::setDelegateCallbacks(mediaplatform::DBCPSubpool *this, const mediaplatform::DatabaseConnectionCallbacks *a2)
 {
-  v7[4] = *MEMORY[0x1E69E9840];
+  v6[4] = *MEMORY[0x1E69E9840];
   std::function<void ()(mediaplatform::DatabaseConnection &)>::operator=(this + 96, a2);
   std::function<void ()(mediaplatform::DatabaseConnection &)>::operator=(this + 128, a2 + 32);
   std::function<void ()(mediaplatform::DatabaseConnection &)>::operator=(this + 160, a2 + 64);
-  (*(*this + 24))(&v5, this);
-  v7[0] = &unk_1F50DCBF8;
-  v7[1] = this;
-  v7[2] = a2;
-  v7[3] = v7;
-  (*(*v5 + 48))(v5, v7);
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v7);
-  if (v6)
+  (*(*this + 24))(&v4, this);
+  v6[0] = &unk_1F50DCBF8;
+  v6[1] = this;
+  v6[2] = a2;
+  v6[3] = v6;
+  (*(*v4 + 48))(v4, v6);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v6);
+  if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1D575F43C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, ...)
+void sub_1D575F43C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, std::__shared_weak_count *a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
-  if (a4)
+  if (a7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a7);
   }
 
   _Unwind_Resume(a1);
@@ -2901,18 +2892,18 @@ uint64_t mediaplatform::_SyncDispatcher(mediaplatform *this, void *a2)
   return v4();
 }
 
-void *mediaplatform::UnionSets<std::shared_ptr<mediaplatform::DatabaseConnection>>(void *a1, uint64_t a2, uint64_t a3)
+void *mediaplatform::UnionSets<std::shared_ptr<mediaplatform::DatabaseConnection>>(void *a1, uint64_t a2, void *a3)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = a1 + 1;
   std::set<std::shared_ptr<mediaplatform::DatabaseConnection>>::insert[abi:ne200100]<std::__tree_const_iterator<std::shared_ptr<mediaplatform::DatabaseConnection>,std::__tree_node<std::shared_ptr<mediaplatform::DatabaseConnection>,void *> *,long>>(a1, *a2, (a2 + 8));
-  return std::set<std::shared_ptr<mediaplatform::DatabaseConnection>>::insert[abi:ne200100]<std::__tree_const_iterator<std::shared_ptr<mediaplatform::DatabaseConnection>,std::__tree_node<std::shared_ptr<mediaplatform::DatabaseConnection>,void *> *,long>>(a1, *a3, (a3 + 8));
+  return std::set<std::shared_ptr<mediaplatform::DatabaseConnection>>::insert[abi:ne200100]<std::__tree_const_iterator<std::shared_ptr<mediaplatform::DatabaseConnection>,std::__tree_node<std::shared_ptr<mediaplatform::DatabaseConnection>,void *> *,long>>(a1, *a3, a3 + 1);
 }
 
 void std::__function::__func<void mediaplatform::DispatchTarget::invokeSync<mediaplatform::DBCPSubpool::setDelegateCallbacks(mediaplatform::DatabaseConnectionCallbacks const&)::$_0>(mediaplatform::DBCPSubpool::setDelegateCallbacks(mediaplatform::DatabaseConnectionCallbacks const&)::$_0)::{lambda(void)#1},std::allocator<void mediaplatform::DispatchTarget::invokeSync<mediaplatform::DBCPSubpool::setDelegateCallbacks(mediaplatform::DatabaseConnectionCallbacks const&)::$_0>(mediaplatform::DBCPSubpool::setDelegateCallbacks(mediaplatform::DatabaseConnectionCallbacks const&)::$_0)::{lambda(void)#1}>,void ()(void)>::operator()(uint64_t a1)
 {
-  mediaplatform::UnionSets<std::shared_ptr<mediaplatform::DatabaseConnection>>(&v8, *(a1 + 8) + 192, *(a1 + 8) + 216);
+  mediaplatform::UnionSets<std::shared_ptr<mediaplatform::DatabaseConnection>>(&v8, *(a1 + 8) + 192, (*(a1 + 8) + 216));
   v2 = v8;
   if (v8 != v9)
   {
@@ -3154,7 +3145,7 @@ uint64_t mlcore::TypedEntityClass<mlcore::Item>::sharedPointer()
   return mlcore::TypedEntityClass<mlcore::Item>::sharedPointer(void)::__sharedPointer;
 }
 
-uint64_t JRNewAtomContainer(void *a1)
+uint64_t JRNewAtomContainer(uint64_t **a1)
 {
   if (a1)
   {
@@ -3182,9 +3173,9 @@ uint64_t JRNewAtomContainer(void *a1)
   return v3;
 }
 
-uint64_t JRDisposeAtomContainer(uint64_t a1)
+uint64_t JRDisposeAtomContainer(void **a1)
 {
-  if (a1 && *(a1 + 8) >= 0x20u && (v1 = *a1, *(*a1 + 16) == 1851876723) && *(v1 + 5) == 0x1000000)
+  if (a1 && *(a1 + 2) >= 0x20u && (v1 = *a1, *(*a1 + 4) == 1851876723) && *(v1 + 5) == 0x1000000)
   {
     v1[2] = 0;
     MemDisposeHandle(a1);
@@ -3241,7 +3232,7 @@ _DWORD *JRAtomContainerIsValidRetainedContainer(_DWORD *result)
   return result;
 }
 
-_DWORD *JRAtomContainerRelease(_DWORD *result)
+void **JRAtomContainerRelease(void **result)
 {
   if (result)
   {
@@ -3249,11 +3240,11 @@ _DWORD *JRAtomContainerRelease(_DWORD *result)
     result = JRAtomContainerIsValidRetainedContainer(result);
     if (result)
     {
-      v2 = *(*v1 + 24);
+      v2 = *(*v1 + 12);
       if ((v2 - 1001) >= 0xFC18u)
       {
         v3 = v2 - 1;
-        *(*v1 + 24) = v3;
+        *(*v1 + 12) = v3;
         if (!v3)
         {
 
@@ -3335,7 +3326,7 @@ uint64_t JRAtomContainerIsValidAtomChildren(uint64_t result, int a2, int a3)
 
         if (a3)
         {
-          result = JRAtomContainerIsValidAtomChildren(v3, (v10 - v4), 0);
+          result = JRAtomContainerIsValidAtomChildren(v3, v10 - v4, 0);
           if (!result)
           {
             return result;
@@ -3383,7 +3374,7 @@ uint64_t getAtomFirstChild(void *a1, int a2)
   }
 }
 
-uint64_t JRDataToAtomContainer(unsigned int a1, const void *a2)
+void **JRDataToAtomContainer(unsigned int a1, const void *a2)
 {
   v3 = a1;
   v4 = MemNewHandleClear(a1);
@@ -3508,25 +3499,27 @@ unsigned int *JRAtomContainerIsValidAtom(unsigned int *result, int a2)
   return result;
 }
 
-uint64_t JRCountChildrenOfType(unsigned int *a1, int a2, int a3)
+uint64_t JRCountChildrenOfType(unsigned int *a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v4 = a2;
   v6 = JRAtomContainerIsValidAtom(a1, a2);
   LOWORD(v7) = 0;
   if (a1 && v6)
   {
     v14 = 0;
-    v8 = a2 ? a2 : 12;
+    v8 = v4 ? v4 : 12;
     v7 = bswap32(*(*a1 + v8 + 14)) >> 16;
-    if (a3)
+    if (v3)
     {
-      ChildAtomPtr = findChildAtomPtr(a1, a2, a3, 1, 0, &v14, 0);
+      ChildAtomPtr = findChildAtomPtr(a1, v4, v3, 1, 0, &v14, 0);
       if (ChildAtomPtr && v14 <= v7)
       {
         v11 = v7 - v14 + 1;
         v12 = v7 - v14 + 1;
         v13 = v14 + 1;
         LOWORD(v7) = 0;
-        while (bswap32(ChildAtomPtr[1]) == a3)
+        while (bswap32(ChildAtomPtr[1]) == v3)
         {
           LOWORD(v7) = v7 + 1;
           v14 = v13;
@@ -3774,7 +3767,7 @@ LABEL_21:
   return 0;
 }
 
-uint64_t JRSetAtomData(unsigned int *a1, unsigned int a2, int a3, const void *a4)
+uint64_t JRSetAtomData(unsigned int *a1, uint64_t a2, uint64_t a3, const void *a4)
 {
   if (!JRAtomContainerIsValidAtom(a1, a2))
   {
@@ -3799,9 +3792,9 @@ uint64_t JRSetAtomData(unsigned int *a1, unsigned int a2, int a3, const void *a4
   return setAtomData(a1, a2, a3, a4);
 }
 
-uint64_t setAtomData(int *a1, unsigned int a2, int a3, const void *a4)
+uint64_t setAtomData(int *a1, uint64_t a2, uint64_t a3, const void *a4)
 {
-  if (!a1 || a3 && !a4)
+  if (!a1 || (v5 = a3, v6 = a2, a3) && !a4)
   {
     LOWORD(v8) = -50;
     return v8;
@@ -3825,10 +3818,10 @@ uint64_t setAtomData(int *a1, unsigned int a2, int a3, const void *a4)
   }
 
   v12 = (*a1 + v9);
-  *v12 = bswap32(a3 + 20);
-  memmove(v12 + 5, a4, a3);
+  *v12 = bswap32(v5 + 20);
+  memmove(v12 + 5, a4, v5);
 
-  return patchParentSizes(a1, a2, a3 - v10, 0);
+  return patchParentSizes(a1, v6, v5 - v10, 0);
 }
 
 uint64_t resizeContainer(uint64_t a1, int a2, int a3, int a4)
@@ -3888,7 +3881,7 @@ uint64_t resizeContainer(uint64_t a1, int a2, int a3, int a4)
   return v6;
 }
 
-uint64_t patchParentSizes(int *a1, unsigned int a2, int a3, int a4)
+uint64_t patchParentSizes(int *a1, signed int a2, int a3, int a4)
 {
   v4 = 0;
   if (!a2 || a2 == 12)
@@ -4200,7 +4193,7 @@ uint64_t JRGetAtomTypeAndID(unsigned int *a1, int a2, _DWORD *a3, _DWORD *a4)
   return v9;
 }
 
-uint64_t JRCopyAtom(unsigned int *a1, int a2, uint64_t *a3)
+uint64_t JRCopyAtom(unsigned int *a1, int a2, uint64_t **a3)
 {
   if (a3)
   {
@@ -4409,8 +4402,9 @@ uint64_t JRFindAndGetAtomDataPtr(unsigned int *a1, int a2, int a3, int a4, _DWOR
   return v9;
 }
 
-unsigned int *JRAddOrInsertAtom(unsigned int *a1, int a2, unsigned int a3, int a4, const void *a5)
+unsigned int *JRAddOrInsertAtom(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t a4, const void *a5)
 {
+  v8 = a2;
   v10 = JRFindChildByIndex(a1, a2, a3, 1, 0);
   v13 = v10;
   if (v10)
@@ -4421,14 +4415,14 @@ unsigned int *JRAddOrInsertAtom(unsigned int *a1, int a2, unsigned int a3, int a
 
   else
   {
-    JRInsertChild(a1, a2, a3, 0, 1, a4, a5, &v13);
+    JRInsertChild(a1, v8, a3, 0, 1, a4, a5, &v13);
     return v13;
   }
 
   return v11;
 }
 
-uint64_t JRInsertChild(unsigned int *a1, int a2, unsigned int a3, unsigned int a4, int a5, int a6, const void *a7, _DWORD *a8)
+uint64_t JRInsertChild(unsigned int *a1, int a2, uint64_t a3, unsigned int a4, int a5, int a6, const void *a7, _DWORD *a8)
 {
   if (!JRAtomContainerIsValidAtom(a1, a2))
   {
@@ -4709,7 +4703,7 @@ LABEL_31:
   }
 
   JRLockContainer(a3);
-  v11 = 0;
+  LODWORD(v11) = 0;
   do
   {
 LABEL_15:
@@ -4855,8 +4849,8 @@ uint64_t JRRemoveChildren(unsigned int *a1, int a2)
     v8 = 0;
   }
 
-  v9 = &v8[v7];
-  if (!*(v9 + 7))
+  v9 = v8 + v7;
+  if (!*(v9 + 14))
   {
     LOWORD(v6) = 0;
     return v6;
@@ -4876,7 +4870,7 @@ uint64_t JRRemoveChildren(unsigned int *a1, int a2)
   return patchParentSizes(a1, v7, 20 - v10, 0);
 }
 
-uint64_t JRReplaceAtom(unsigned int *a1, int a2, unsigned int *a3, int a4)
+uint64_t JRReplaceAtom(unsigned int *a1, uint64_t a2, unsigned int *a3, int a4)
 {
   if (!JRAtomContainerIsValidAtom(a1, a2) || !JRAtomContainerIsValidAtom(a3, a4))
   {
@@ -4956,28 +4950,29 @@ uint64_t JRReplaceAtom(unsigned int *a1, int a2, unsigned int *a3, int a4)
 
 uint64_t JRSwapAtoms(unsigned int *a1, int a2, int a3)
 {
+  LODWORD(v3) = a3;
   v16 = 0;
   v17 = 0;
   if (JRAtomContainerIsValidAtom(a1, a2))
   {
-    if (JRAtomContainerIsValidAtom(a1, a3))
+    if (JRAtomContainerIsValidAtom(a1, v3))
     {
       v6 = -50;
-      if (a2 && a3)
+      if (a2 && v3)
       {
         v7 = *(*a1 + a2 + 4);
-        if (v7 == *(*a1 + a3 + 4))
+        if (v7 == *(*a1 + v3 + 4))
         {
-          if (a2 == a3)
+          if (a2 == v3)
           {
             v6 = 0;
           }
 
           else
           {
-            if (a2 >= a3)
+            if (a2 >= v3)
             {
-              v8 = a3;
+              v8 = v3;
             }
 
             else
@@ -4985,21 +4980,26 @@ uint64_t JRSwapAtoms(unsigned int *a1, int a2, int a3)
               v8 = a2;
             }
 
-            if (a2 >= a3)
+            if (a2 < v3)
             {
-              a3 = a2;
+              v3 = v3;
+            }
+
+            else
+            {
+              v3 = a2;
             }
 
             v9 = JRCopyAtom(a1, v8, &v17);
             if (!v9)
             {
-              v9 = JRCopyAtom(a1, a3, &v16);
+              v9 = JRCopyAtom(a1, v3, &v16);
               if (!v9)
               {
                 v10 = bswap32(v7);
                 v11 = v17;
                 v12 = JRFindChildByIndex(v17, 0, v10, 1, 0);
-                v9 = JRReplaceAtom(a1, a3, v11, v12);
+                v9 = JRReplaceAtom(a1, v3, v11, v12);
                 if (!v9)
                 {
                   v13 = v16;
@@ -5044,13 +5044,14 @@ uint64_t JRSwapAtoms(unsigned int *a1, int a2, int a3)
   return v6;
 }
 
-uint64_t JRSetAtomID(unsigned int *a1, unsigned int a2, unsigned int a3)
+uint64_t JRSetAtomID(unsigned int *a1, uint64_t a2, unsigned int a3)
 {
+  v4 = a2;
   v6 = JRAtomContainerIsValidAtom(a1, a2);
   v7 = -2106;
-  if (a2 >= 0x20 && v6)
+  if (v4 >= 0x20 && v6)
   {
-    v8 = JRGetAtomParent(a1, a2);
+    v8 = JRGetAtomParent(a1, v4);
     if (v8 == -1)
     {
       return -2106;
@@ -5068,7 +5069,7 @@ uint64_t JRSetAtomID(unsigned int *a1, unsigned int a2, unsigned int a3)
         v9 = 0;
       }
 
-      v10 = v9 + a2;
+      v10 = v9 + v4;
       if (findChildAtomPtr(a1, v8, bswap32(*(v10 + 4)), 0, a3, 0, 0))
       {
         return -2105;
@@ -5245,7 +5246,7 @@ void sub_1D576296C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -5259,13 +5260,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -5521,9 +5522,16 @@ uint64_t mediaplatform::DatabaseColumn<std::string>::~DatabaseColumn(uint64_t a1
   return a1;
 }
 
-void sub_1D5763350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void mediaplatform::DatabaseTable<long long,std::string>::targetColumnExpression(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  va_start(va, a4);
+  v3 = a1 + 8;
+  (*(*a1 + 24))(v4);
+  std::allocate_shared[abi:ne200100]<mediaplatform::SQLColumnNameExpression,std::allocator<mediaplatform::SQLColumnNameExpression>,std::string &,std::string const&,0>(a2, v4[0], v3);
+}
+
+void sub_1D5763350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5562,9 +5570,9 @@ void mediaplatform::DatabaseTable<long long,std::string>::columnNames(uint64_t a
   mediaplatform::ColumnNamesApplier::operator()<std::string>(a2, a1 + 80);
 }
 
-void sub_1D5763574(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D5763574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6268,9 +6276,16 @@ uint64_t mediaplatform::DatabaseColumn<mediaplatform::Data>::~DatabaseColumn(uin
   return a1;
 }
 
-void sub_1D5764E10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void mediaplatform::DatabaseTable<long long,mediaplatform::Data>::targetColumnExpression(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  va_start(va, a4);
+  v3 = a1 + 8;
+  (*(*a1 + 24))(v4);
+  std::allocate_shared[abi:ne200100]<mediaplatform::SQLColumnNameExpression,std::allocator<mediaplatform::SQLColumnNameExpression>,std::string &,std::string const&,0>(a2, v4[0], v3);
+}
+
+void sub_1D5764E10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6284,9 +6299,9 @@ void mediaplatform::DatabaseTable<long long,mediaplatform::Data>::columnNames(ui
   mediaplatform::ColumnNamesApplier::operator()<mediaplatform::Data>(a2, a1 + 80);
 }
 
-void sub_1D5764E74(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D5764E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6575,9 +6590,9 @@ double mlcore::Query::_allPropertiesToFetch@<D0>(uint64_t a1@<X0>, mlcore::Libra
     *(&v9 + 1) = v4;
     atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
 LABEL_6:
-    mlcore::LibraryView::_predicateByApplyingFilters(v10, *(a1 + 8), v6, &v9);
-    v5 = v10[0];
-    v7 = v10[1];
+    mlcore::LibraryView::_predicateByApplyingFilters(&v10, *(a1 + 8), v6, &v9);
+    v7 = v10.n128_u64[1];
+    v5 = v10.n128_u64[0];
     if (v4)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v4);
@@ -6646,7 +6661,7 @@ void sub_1D5765874(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void mlcore::Query::_SQLWhereExpression(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void mlcore::Query::_SQLWhereExpression(uint64_t a1@<X0>, mlcore::LibraryView **a2@<X1>, void *a3@<X8>)
 {
   v6 = *(a1 + 16);
   v5 = *(a1 + 24);
@@ -6663,9 +6678,9 @@ void mlcore::Query::_SQLWhereExpression(uint64_t a1@<X0>, uint64_t a2@<X1>, void
     *(&v12 + 1) = v5;
     atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
 LABEL_6:
-    mlcore::LibraryView::_predicateByApplyingFilters(v13, *(a1 + 8), v7, &v12);
-    v6 = v13[0];
-    v8 = v13[1];
+    mlcore::LibraryView::_predicateByApplyingFilters(&v13, *(a1 + 8), v7, &v12);
+    v8 = v13.n128_u64[1];
+    v6 = v13.n128_u64[0];
     if (v5)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v5);
@@ -6708,7 +6723,7 @@ LABEL_20:
   }
 
 LABEL_12:
-  v9 = *(a2 + 8);
+  v9 = a2[1];
   v10 = *a2;
   v11 = v9;
   if (v9)
@@ -6806,7 +6821,6 @@ void std::__shared_ptr_emplace<mediaplatform::SQLSelectStatement>::~__shared_ptr
 
 void mlcore::Query::_SQLFromStatement(void *a1, uint64_t *a2)
 {
-  v3 = a1[1];
   v4 = a2[1];
   v5 = *a2;
   v6 = v4;
@@ -6926,6 +6940,13 @@ void mlcore::Query::_SQLOrderingTerms(void *a1@<X8>)
   a1[2] = 0;
 }
 
+void mlcore::Query::_SQLResultColumnExpressions()
+{
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 1;
+  std::allocate_shared[abi:ne200100]<mediaplatform::SQLLiteralValue<int>,std::allocator<mediaplatform::SQLLiteralValue<int>>,int,0>(&v2, &v1);
+}
+
 void sub_1D5766274(_Unwind_Exception *exception_object)
 {
   if (v1)
@@ -6948,7 +6969,7 @@ void sub_1D5766378(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::shared_ptr<mediaplatform::SQLExpression const>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::shared_ptr<mediaplatform::SQLExpression const>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -6989,7 +7010,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<media
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t mediaplatform::SQLLiteralValue<int>::sql@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t mediaplatform::SQLLiteralValue<int>::sql@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v15);
   v4 = *(a1 + 8);
@@ -7068,7 +7089,7 @@ LABEL_22:
   return MEMORY[0x1DA6EDCB0](&v19);
 }
 
-void sub_1D5766828(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
+void sub_1D5766828(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
 {
   if (a15 < 0)
   {
@@ -7079,7 +7100,7 @@ void sub_1D5766828(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-const void *std::ostringstream::str[abi:ne200100](_BYTE *a1, uint64_t a2)
+void *std::ostringstream::str[abi:ne200100](void *a1, uint64_t a2)
 {
   result = std::stringbuf::view[abi:ne200100](a2 + 8);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -7093,13 +7114,13 @@ const void *std::ostringstream::str[abi:ne200100](_BYTE *a1, uint64_t a2)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     result = memmove(a1, result, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return result;
 }
 
@@ -7155,16 +7176,13 @@ uint64_t std::stringbuf::view[abi:ne200100](uint64_t a1)
 
   else if ((v1 & 8) != 0)
   {
-    v2 = *(a1 + 16);
-    v4 = *(a1 + 32);
+    return *(a1 + 16);
   }
 
   else
   {
     return 0;
   }
-
-  return v2;
 }
 
 void mediaplatform::SQLLiteralValue<int>::~SQLLiteralValue(uint64_t a1)
@@ -7197,32 +7215,30 @@ void std::__shared_ptr_emplace<mediaplatform::SQLLiteralValue<int>>::~__shared_p
   JUMPOUT(0x1DA6EDD40);
 }
 
-void mlcore::Query::descriptionAttributes(mlcore::Query *this@<X0>, void *a2@<X8>)
+void mlcore::Query::descriptionAttributes(mlcore::Query *this@<X0>, std::string *a2@<X8>)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  *&v10 = *MEMORY[0x1E69E9840];
   (*(**(this + 1) + 56))(__p);
-  mediaplatform::FormatString<std::string>(&v9, "entityClass = {0}", __p);
-  v8 = (this + 16);
-  memset(&v10, 0, sizeof(v10));
-  mediaplatform::FormatImplementation<std::shared_ptr<mlcore::Predicate>>("predicate = {0}", &v10, 0, &v8);
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(a2, &v9, &v11, 2uLL);
+  mediaplatform::FormatString<std::string>(&v8, "entityClass = {0}", __p);
+  v7 = (this + 16);
+  memset(&v9, 0, sizeof(v9));
+  mediaplatform::FormatImplementation<std::shared_ptr<mlcore::Predicate>>("predicate = {0}", &v9, 0, &v7);
+  a2->__r_.__value_.__r.__words[0] = 0;
+  a2->__r_.__value_.__l.__size_ = 0;
+  a2->__r_.__value_.__r.__words[2] = 0;
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(a2, &v8, &v10, 2uLL);
   for (i = 0; i != -6; i -= 3)
   {
-    if (SHIBYTE(v10.__r_.__value_.__r.__words[i + 2]) < 0)
+    if (SHIBYTE(v9.__r_.__value_.__r.__words[i + 2]) < 0)
     {
-      operator delete(*(&v9 + i * 8 + 24));
+      operator delete(*(&v8 + i * 8 + 24));
     }
   }
 
-  if (v7 < 0)
+  if (v6 < 0)
   {
     operator delete(__p[0]);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1D5766CFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
@@ -7272,7 +7288,7 @@ void sub_1D5766DEC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+std::string *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(std::string *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7869,7 +7885,7 @@ void mediaplatform::FormatImplementation<std::string>(std::string *a1, std::stri
             v16 = a2->__r_.__value_.__r.__words[0];
           }
 
-          mediaplatform::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(v24, &v16[v10], &v29);
+          mediaplatform::FormatOptions::justifyNativeValueOfLength<std::__wrap_iter<char *>,std::string>(v24, v16 + v10, &v29);
           if (v10 != a3)
           {
             mediaplatform::CopyFormatSectionToResult(a1, a2, a3, v10 - a3, v9 & 1);
@@ -8029,7 +8045,7 @@ LABEL_14:
       result = memmove(__dst, v6, v7);
     }
 
-    v29 = v5[52];
+    v29 = *(v5 + 52);
     if (v28 <= 1)
     {
       v30 = 1;
@@ -8137,7 +8153,7 @@ LABEL_14:
       result = memmove(__dst, v6, v7);
     }
 
-    v17 = v5[52];
+    v17 = *(v5 + 52);
     v18 = (v10 + 15) & 0xFFFFFFFFFFFFFFF0;
     v19 = vdupq_n_s64(v10 - 1);
     v20 = &__dst[v8 + 7];
@@ -8256,7 +8272,7 @@ uint64_t mlcore::RangeQuery::_SQLLimitExpression@<X0>(uint64_t this@<X0>, void *
 {
   if (*(this + 40))
   {
-    std::allocate_shared[abi:ne200100]<mediaplatform::SQLLiteralValue<unsigned long>,std::allocator<mediaplatform::SQLLiteralValue<unsigned long>>,unsigned long &,0>();
+    std::allocate_shared[abi:ne200100]<mediaplatform::SQLLiteralValue<unsigned long>,std::allocator<mediaplatform::SQLLiteralValue<unsigned long>>,unsigned long &,0>(&v2, (this + 40));
   }
 
   *a2 = 0;
@@ -8276,7 +8292,7 @@ void sub_1D576835C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t mediaplatform::SQLLiteralValue<unsigned long>::sql@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t mediaplatform::SQLLiteralValue<unsigned long>::sql@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   std::ostringstream::basic_ostringstream[abi:ne200100](&v15);
   v4 = *(a1 + 8);
@@ -8355,7 +8371,7 @@ LABEL_22:
   return MEMORY[0x1DA6EDCB0](&v19);
 }
 
-void sub_1D5768654(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
+void sub_1D5768654(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
 {
   if (a15 < 0)
   {
@@ -8396,29 +8412,26 @@ void std::__shared_ptr_emplace<mediaplatform::SQLLiteralValue<unsigned long>>::~
   JUMPOUT(0x1DA6EDD40);
 }
 
-uint64_t mlcore::RangeQuery::_SQLOffsetExpression@<X0>(uint64_t this@<X0>, void *a2@<X8>)
+void mlcore::RangeQuery::_SQLOffsetExpression(mlcore::RangeQuery *this@<X0>, void *a2@<X8>)
 {
-  if (*(this + 32))
+  if (*(this + 4))
   {
-    std::allocate_shared[abi:ne200100]<mediaplatform::SQLLiteralValue<unsigned long>,std::allocator<mediaplatform::SQLLiteralValue<unsigned long>>,unsigned long &,0>();
+    std::allocate_shared[abi:ne200100]<mediaplatform::SQLLiteralValue<unsigned long>,std::allocator<mediaplatform::SQLLiteralValue<unsigned long>>,unsigned long &,0>(&v2, this + 4);
   }
 
   *a2 = 0;
   a2[1] = 0;
-  return this;
 }
 
-void mlcore::RangeQuery::_SQLSelectStatement(uint64_t a1, uint64_t *a2)
+void mlcore::RangeQuery::_SQLSelectStatement(uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v2 = a2[1];
-  v3 = *a2;
-  v4 = v2;
-  if (v2)
+  v3 = a2[1];
+  if (v3)
   {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
-  mlcore::Query::_SQLSelectStatement();
+  mlcore::Query::_SQLSelectStatement(a3);
 }
 
 void sub_1D5768960(_Unwind_Exception *exception_object)
@@ -8716,68 +8729,67 @@ __n128 mlcore::RangeQuery::setRange(__n128 *a1, __n128 *a2)
   return result;
 }
 
-void mlcore::AggregateFunctionQuery::_perform(uint64_t a1, uint64_t *a2)
+void mlcore::AggregateFunctionQuery::_perform(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v2 = *a2;
-  v3 = *(*a2 + 16);
-  v4 = *(*a2 + 24);
-  if (v4)
+  v3 = *a2;
+  v4 = *(*a2 + 16);
+  v5 = *(*a2 + 24);
+  if (v5)
   {
-    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
-    v2 = *a2;
+    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+    v3 = *a2;
   }
 
-  v5 = *(v2 + 48);
-  v7 = *v5;
-  v6 = v5[1];
+  v6 = *(*(v3 + 48) + 8);
   if (v6)
   {
     atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v8 = v3;
-  v9 = v4;
-  if (v4)
+  v7 = v4;
+  v8 = v5;
+  if (v5)
   {
-    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
   }
 
-  (*(*a1 + 72))(&v12);
-  v10 = v12;
-  v12 = 0uLL;
-  mlcore::SQLRenderer::SQLRenderer(v11);
+  (*(*a1 + 72))(&v11);
+  v9 = v11;
+  v11 = 0uLL;
+  mlcore::SQLRenderer::SQLRenderer(v10, &v9);
 }
 
-void sub_1D576923C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22)
+void sub_1D576923C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  std::__shared_weak_count::~__shared_weak_count(v25);
-  operator delete(v27);
-  if (v24)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
-  }
-
-  mlcore::SQLRenderer::~SQLRenderer(&a22);
+  va_start(va, a21);
+  std::__shared_weak_count::~__shared_weak_count(v24);
+  operator delete(v26);
   if (v23)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v23);
-    if (!v22)
+  }
+
+  mlcore::SQLRenderer::~SQLRenderer(va);
+  if (v22)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+    if (!v21)
     {
 LABEL_4:
       _Unwind_Resume(a1);
     }
   }
 
-  else if (!v22)
+  else if (!v21)
   {
     goto LABEL_4;
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v21);
   goto LABEL_4;
 }
 
-void std::vector<std::shared_ptr<mediaplatform::DatabaseParameterBase>>::__init_with_size[abi:ne200100]<std::shared_ptr<mediaplatform::DatabaseParameterBase>*,std::shared_ptr<mediaplatform::DatabaseParameterBase>*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<std::shared_ptr<mediaplatform::DatabaseParameterBase>>::__init_with_size[abi:ne200100]<std::shared_ptr<mediaplatform::DatabaseParameterBase>*,std::shared_ptr<mediaplatform::DatabaseParameterBase>*>(void *result, void *a2, void *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8790,13 +8802,13 @@ void std::vector<std::shared_ptr<mediaplatform::DatabaseParameterBase>>::__init_
   }
 }
 
-sqlite3_int64 mediaplatform::DatabaseResult<long long>::valueForFirstRowAndColumn(uint64_t *a1)
+sqlite3_int64 mediaplatform::DatabaseResult<long long>::valueForFirstRowAndColumn(mediaplatform::DatabaseStatement **a1)
 {
   v2 = *a1;
-  v3 = sqlite3_step(*(*a1 + 24));
+  v3 = sqlite3_step(*(*a1 + 3));
   mediaplatform::DatabaseStatement::_checkSQLiteResult(v2, v3);
   *(v2 + 56) = v3;
-  v4 = *(*a1 + 56);
+  v4 = *(*a1 + 14);
   if (v4 != 100)
   {
     if (v4 != -1)
@@ -8809,7 +8821,7 @@ sqlite3_int64 mediaplatform::DatabaseResult<long long>::valueForFirstRowAndColum
     __assert_rtn("hasColumnValueData", "DatabaseStatement.cpp", 102, "_lastStepResult != -1");
   }
 
-  v6 = sqlite3_column_int64(*(*a1 + 24), 0);
+  v6 = sqlite3_column_int64(*(*a1 + 3), 0);
   v7 = *a1;
   v8 = sqlite3_reset(*(v7 + 24));
   mediaplatform::DatabaseStatement::_checkSQLiteResult(v7, v8);
@@ -8887,7 +8899,7 @@ void std::__shared_ptr_emplace<mlcore::AggregateFunctionQueryResult>::~__shared_
   JUMPOUT(0x1DA6EDD40);
 }
 
-void mediaplatform::DatabaseStatement::bindParameters<mediaplatform::DatabaseParameterList>(uint64_t a1, uint64_t a2, uint64_t a3)
+void mediaplatform::DatabaseStatement::bindParameters<mediaplatform::DatabaseParameterList>(uint64_t a1, char *a2, char *a3)
 {
   v7 = 0;
   v8 = 0;
@@ -8920,9 +8932,9 @@ void mediaplatform::DatabaseStatement::bindParameters<mediaplatform::DatabasePar
   std::vector<std::shared_ptr<mediaplatform::SQLJoinClause const>>::__destroy_vector::operator()[abi:ne200100](&v10);
 }
 
-void sub_1D57699E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1D57699E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   std::vector<std::shared_ptr<mediaplatform::SQLJoinClause const>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8937,9 +8949,9 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<media
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void mlcore::AggregateFunctionQuery::_allPropertiesToFetch(uint64_t a1@<X0>, uint64_t a2@<X1>, int8x8_t *a3@<X8>)
+void mlcore::AggregateFunctionQuery::_allPropertiesToFetch(uint64_t a1@<X0>, mlcore::LibraryView **a2@<X1>, int8x8_t *a3@<X8>)
 {
-  v5 = *(a2 + 8);
+  v5 = a2[1];
   v7[0] = *a2;
   v7[1] = v5;
   if (v5)
@@ -8960,12 +8972,12 @@ void mlcore::AggregateFunctionQuery::_allPropertiesToFetch(uint64_t a1@<X0>, uin
   }
 }
 
-int8x8_t *mlcore::OrderedSet<mlcore::ModelPropertyBase *,std::hash<mlcore::ModelPropertyBase *>,std::equal_to<mlcore::ModelPropertyBase *>>::insert(int8x8_t *result, void *a2)
+void mlcore::OrderedSet<mlcore::ModelPropertyBase *,std::hash<mlcore::ModelPropertyBase *>,std::equal_to<mlcore::ModelPropertyBase *>>::insert(int8x8_t *a1, void *a2)
 {
   v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
   v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
   v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = result[4];
+  v5 = a1[4];
   if (!*&v5)
   {
     goto LABEL_18;
@@ -8987,7 +8999,7 @@ int8x8_t *mlcore::OrderedSet<mlcore::ModelPropertyBase *,std::hash<mlcore::Model
     v7 = v4 & (*&v5 - 1);
   }
 
-  v8 = *(*&result[3] + 8 * v7);
+  v8 = *(*&a1[3] + 8 * v7);
   if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
@@ -9032,8 +9044,6 @@ LABEL_17:
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<mlcore::ModelPropertyBase *>>(unint64_t a1)
@@ -9046,17 +9056,17 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<mlcore::ModelProperty
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void mlcore::AggregateFunctionQuery::_SQLSelectStatement(uint64_t a1, uint64_t *a2)
+void mlcore::AggregateFunctionQuery::_SQLSelectStatement(uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v2 = a2[1];
-  v3[0] = *a2;
-  v3[1] = v2;
-  if (v2)
+  v3 = a2[1];
+  v4[0] = *a2;
+  v4[1] = v3;
+  if (v3)
   {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
   }
 
-  mlcore::RangeQuery::_SQLSelectStatement(a1, v3);
+  mlcore::RangeQuery::_SQLSelectStatement(v4, a3);
 }
 
 void sub_1D576A4B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28)
@@ -9257,26 +9267,26 @@ void *mlcore::AggregateFunctionQueryResult::AggregateFunctionQueryResult(void *a
   return a1;
 }
 
-void sub_1D576AC30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D576AC30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   mlcore::MediaError::~MediaError(va);
   _Unwind_Resume(a1);
 }
 
-void mlcore::ContainerAuthorTable::targetColumnExpression(mlcore::ContainerAuthorTable *this, const mediaplatform::DatabaseTableBase *a2, const mediaplatform::DatabaseColumnBase *a3)
+void mlcore::ContainerAuthorTable::targetColumnExpression(mlcore::ContainerAuthorTable *this@<X0>, const mediaplatform::DatabaseColumnBase *a2@<X2>, void *a3@<X8>)
 {
-  if (*(a3 + 31) < 0)
+  if (*(a2 + 31) < 0)
   {
-    std::string::__init_copy_ctor_external(&__p, *(a3 + 1), *(a3 + 2));
+    std::string::__init_copy_ctor_external(&__p, *(a2 + 1), *(a2 + 2));
   }
 
   else
   {
-    __p = *(a3 + 8);
+    __p = *(a2 + 8);
   }
 
-  std::allocate_shared[abi:ne200100]<mediaplatform::SQLColumnNameExpression,std::allocator<mediaplatform::SQLColumnNameExpression>,std::string,std::string const&,0>();
+  std::allocate_shared[abi:ne200100]<mediaplatform::SQLColumnNameExpression,std::allocator<mediaplatform::SQLColumnNameExpression>,std::string,std::string const&,0>(a3, &__p, this + 8);
 }
 
 void sub_1D576ACE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -9319,9 +9329,9 @@ void mediaplatform::DatabaseTable<long long,long long,long long,int,int,int>::co
   mediaplatform::ColumnNamesApplier::operator()<int>(a2, a1 + 80);
 }
 
-void sub_1D576AE9C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D576AE9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9461,9 +9471,16 @@ void mediaplatform::DatabaseTable<long long,long long,long long,int,int,int>::~D
   mediaplatform::DatabaseTableBase::~DatabaseTableBase(this);
 }
 
-void sub_1D576B30C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void mediaplatform::DatabaseTable<long long,long long,long long,int,int,int>::targetColumnExpression(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  va_start(va, a4);
+  v3 = a1 + 8;
+  (*(*a1 + 24))(v4);
+  std::allocate_shared[abi:ne200100]<mediaplatform::SQLColumnNameExpression,std::allocator<mediaplatform::SQLColumnNameExpression>,std::string &,std::string const&,0>(a2, v4[0], v3);
+}
+
+void sub_1D576B30C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }

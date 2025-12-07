@@ -127,7 +127,7 @@ uint64_t __49__VSSingleThreadDispatchQueue_dispatchBlockSync___block_invoke(uint
 - (void)_threadMain
 {
   v18 = *MEMORY[0x277D85DE8];
-  v3 = VSDefaultLogObject();
+  v3 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf.version) = 136315138;

@@ -279,7 +279,7 @@ void sub_26B2D61E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t SLCartDict::LTGenResultRaw(SLCartDict *this, const char *a2, uint64_t a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v6 = *(this + 12);
   v7 = bswap32(v6);
   if (*(this + 4) != *(this + 5))
@@ -333,23 +333,23 @@ LABEL_16:
   {
     v17 = 0;
     v18 = 0;
-    v25 = this + 112;
-    v23 = *(this + 9);
-    v24 = this + 240;
+    v24 = this + 112;
+    v22 = *(this + 9);
+    v23 = this + 240;
     while (1)
     {
-      v27 = v15;
+      v26 = v15;
       v19 = &v13[v17];
-      v26 = v23 + 32 * (result - v14);
-      v25[v18] = v17;
+      v25 = v22 + 32 * (result - v14);
+      v24[v18] = v17;
       v13[v17] = 43;
-      *&v24[2 * v18] = SLCartDict::LTGenLabelConfusions(this, v26, &__b[v17], this + 80);
+      *&v23[2 * v18] = SLCartDict::LTGenLabelConfusions(this, v25, &__b[v17], this + 80);
       v20 = v18 | 1;
-      v25[v18 | 1] = v17;
+      v24[v18 | 1] = v17;
       *v19 = 45;
       v18 += 2;
-      *&v24[2 * v20] = SLCartDict::LTGenLabelConfusions(this, v26, &__b[v17], this + 80);
-      *v19 = v27;
+      *&v23[2 * v20] = SLCartDict::LTGenLabelConfusions(this, v25, &__b[v17], this + 80);
+      *v19 = v26;
       if (++v17 == v9)
       {
         break;
@@ -359,8 +359,7 @@ LABEL_16:
       result = strchr(v14, v15);
       if (!result)
       {
-        result = v17 >= v9;
-        goto LABEL_18;
+        return v17 >= v9;
       }
     }
 
@@ -368,11 +367,9 @@ LABEL_16:
 LABEL_17:
     *(this + v21 + 120) = -1;
     *(this + v21 + 112) = -1;
-    result = 1;
+    return 1;
   }
 
-LABEL_18:
-  v22 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -420,7 +417,7 @@ uint64_t SLCartDict::LTCleanupLabels(uint64_t this)
   return this;
 }
 
-void std::vector<unsigned char>::push_back[abi:ne200100](uint64_t a1, _BYTE *a2)
+void std::vector<unsigned char>::push_back[abi:ne200100](uint64_t a1, char *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -595,12 +592,12 @@ std::logic_error *std::length_error::length_error[abi:ne200100](std::logic_error
 
 uint64_t SLCompressedDict::CompareEntry(SLCompressedDict *this, const char *a2, size_t a3, unsigned __int8 *a4)
 {
-  v16[4] = *MEMORY[0x277D85DE8];
+  v15[4] = *MEMORY[0x277D85DE8];
   v4 = *a4;
   v5 = v4 >> 3;
   v6 = v4 << 10;
-  v7 = v16;
-  v15 = v5;
+  v7 = v15;
+  v14 = v5;
   v8 = 10;
   v9 = a4;
 LABEL_2:
@@ -632,9 +629,7 @@ LABEL_2:
 
   while (v5-- >= 2);
   *(this + 8) = v9 - a4;
-  result = SLUncompressedDict::CompareEntry(this, a2, a3, &v15);
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return SLUncompressedDict::CompareEntry(this, a2, a3, &v14);
 }
 
 void SLCompressedDict::~SLCompressedDict(SLCompressedDict *this)
@@ -998,9 +993,9 @@ uint64_t SLMorph::Lookup(SLMorph *this, const char *a2, uint64_t a3, SLWordBuild
   return v10;
 }
 
-void sub_26B2D76A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26B2D76A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   SLTokenBuilder::~SLTokenBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -1231,7 +1226,7 @@ void sub_26B2D7AC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, void *__src, size_t __len)
+void *std::string::basic_string[abi:ne200100](void *__dst, void *__src, size_t __len)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -1243,13 +1238,13 @@ _BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, void *__src, size_t
     operator new();
   }
 
-  __dst[23] = __len;
+  *(__dst + 23) = __len;
   if (__len)
   {
     memmove(__dst, __src, __len);
   }
 
-  __dst[__len] = 0;
+  *(__dst + __len) = 0;
   return __dst;
 }
 
@@ -1449,11 +1444,12 @@ uint64_t SLMorph_Apostrophe::MorphLookup(uint64_t a1, uint64_t a2, uint64_t a3, 
 
 void SLMorphRules::Create(SLMorphRules *this, const __CFLocale *a2)
 {
+  v2 = a2;
   Value = CFLocaleGetValue(this, *MEMORY[0x277CBEED0]);
   if (CFStringCompare(Value, @"en", 0) == kCFCompareEqualTo)
   {
 
-    SLCreateMorphRulesEng();
+    SLCreateMorphRulesEng(v2);
   }
 
   SLMorphRules::Create();
@@ -1461,11 +1457,12 @@ void SLMorphRules::Create(SLMorphRules *this, const __CFLocale *a2)
 
 void SLMorphRules::CreateFlat(SLMorphRules *this, const __CFLocale *a2, SLDictionary *a3)
 {
+  v3 = a3;
   Value = CFLocaleGetValue(this, *MEMORY[0x277CBEED0]);
   if (CFStringCompare(Value, @"en", 0) == kCFCompareEqualTo)
   {
 
-    SLCreateFlatMorphRulesEng(a2);
+    SLCreateFlatMorphRulesEng(a2, v3);
   }
 
   SLMorphRules::CreateFlat();
@@ -1550,13 +1547,13 @@ char *std::vector<unsigned char>::__insert_with_size[abi:ne200100]<unsigned char
 
   v10 = *(a1 + 8);
   v9 = *(a1 + 16);
-  if (v9 - v10 >= a5)
+  if ((v9 - v10) >= a5)
   {
     v16 = v10 - __dst;
-    if (v10 - __dst >= a5)
+    if ((v10 - __dst) >= a5)
     {
       v21 = &__dst[a5];
-      v22 = &v10[-a5];
+      v22 = (v10 - a5);
       v23 = *(a1 + 8);
       if (v10 >= a5)
       {
@@ -1591,7 +1588,7 @@ char *std::vector<unsigned char>::__insert_with_size[abi:ne200100]<unsigned char
 
       else
       {
-        v18 = &a4[__dst] - __src;
+        v18 = (&a4[__dst] - __src);
         v19 = *(a1 + 8);
         do
         {
@@ -1609,9 +1606,9 @@ char *std::vector<unsigned char>::__insert_with_size[abi:ne200100]<unsigned char
       }
 
       v32 = &__dst[a5];
-      v33 = (v18 - a5);
+      v33 = &v18[-a5];
       v34 = v18;
-      if (v18 - a5 < v10)
+      if (&v18[-a5] < v10)
       {
         do
         {
@@ -1638,7 +1635,7 @@ char *std::vector<unsigned char>::__insert_with_size[abi:ne200100]<unsigned char
   }
 
   v11 = *a1;
-  v12 = &v10[a5 - *a1];
+  v12 = v10 - *a1 + a5;
   if (v12 < 0)
   {
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
@@ -1925,15 +1922,15 @@ uint64_t SLPronouncerImpl::AppendUnit(uint64_t a1, char **a2, _BYTE *a3, char a4
     SLTokenList::SLTokenList(__p);
     (*(*a1 + 232))(a1, a2, __p, 0, 0);
     v11 = __p[0];
-    v12 = v26;
+    v12 = v25;
     v13 = *(__p[0] + 1);
     v14 = *(__p[0] + 2);
     v15 = *__p[0];
     *(v15 + 8) = v13;
     *v13 = v15;
-    v26 = v12 - 1;
+    v25 = v12 - 1;
     operator delete(v11);
-    for (i = v26; v26; i = v26)
+    for (i = v25; v25; i = v25)
     {
       v17 = __p[0];
       v18 = *(__p[0] + 1);
@@ -1941,7 +1938,7 @@ uint64_t SLPronouncerImpl::AppendUnit(uint64_t a1, char **a2, _BYTE *a3, char a4
       v20 = *__p[0];
       *(v20 + 8) = v18;
       *v18 = v20;
-      v26 = i - 1;
+      v25 = i - 1;
       operator delete(v17);
       if (v19)
       {
@@ -1954,10 +1951,9 @@ uint64_t SLPronouncerImpl::AppendUnit(uint64_t a1, char **a2, _BYTE *a3, char a4
     if (v21 && *v21 == 124)
     {
       v22 = 0;
-      v23 = *a2;
-      v27[1] = a2[1];
-      v27[0] = v21 + 1;
-      a2 = v27;
+      v26[1] = a2[1];
+      v26[0] = v21 + 1;
+      a2 = v26;
     }
 
     else
@@ -2077,26 +2073,25 @@ uint64_t SLPronouncerImpl::SymbolLookup(uint64_t a1, uint64_t a2, unint64_t a3, 
   return v12(a1, v11);
 }
 
-void SLPronouncerImpl::AppendSymbol(uint64_t a1, char **a2)
+void SLPronouncerImpl::AppendSymbol(uint64_t result, char **a2, SLTokenList *a3, uint64_t a4, uint64_t a5)
 {
   if (a2)
   {
       ;
     }
 
-    v3 = strpbrk(i, " ;|");
-    if (v3)
+    v6 = strpbrk(i, " ;|");
+    if (v6)
     {
-      v4 = v3 - i;
-      v5 = *v3 != 32;
+      v7 = v6 - i;
     }
 
     else
     {
-      v4 = strlen(i);
+      v7 = strlen(i);
     }
 
-    if (v4 == 1 && (*i & 0xFE) == 0x28)
+    if (v7 == 1 && (*i & 0xFE) == 0x28)
     {
       operator new();
     }
@@ -2105,7 +2100,7 @@ void SLPronouncerImpl::AppendSymbol(uint64_t a1, char **a2)
   }
 }
 
-void std::vector<unsigned short>::push_back[abi:ne200100](const void **a1, _WORD *a2)
+void std::vector<unsigned short>::push_back[abi:ne200100](const void **a1, unsigned __int16 *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -2167,11 +2162,11 @@ void std::vector<unsigned short>::push_back[abi:ne200100](const void **a1, _WORD
   a1[1] = v6;
 }
 
-uint64_t SLPronouncerImpl::AppendAccentedCharacterSpelling(SLPronouncerImpl *this, unsigned int a2, SLTokenList *a3, uint64_t a4, uint64_t a5)
+uint64_t SLPronouncerImpl::AppendAccentedCharacterSpelling(SLDictLookup **this, unsigned int a2, SLTokenList *a3, uint64_t a4, uint64_t a5)
 {
   v7 = a2 & 0x3F | (SLChar::sUniMap[a2 >> 6] << 6);
   v8 = SLChar::sCharClass[v7];
-  SLPronouncerImpl::AppendCharacterSpelling(this, SLChar::sFoldAll[v7] + a2, a3, a4, a5, (v8 & 0x9F) == 129);
+  SLPronouncerImpl::AppendCharacterSpelling(this, (SLChar::sFoldAll[v7] + a2), a3, a4, a5, (v8 & 0x9F) == 129);
   v9 = (v8 >> 8) & 7;
   if (v9 > 3)
   {
@@ -2179,23 +2174,23 @@ uint64_t SLPronouncerImpl::AppendAccentedCharacterSpelling(SLPronouncerImpl *thi
     {
       if (v9 == 6)
       {
-        v11 = (*(*this + 216))(this, 124);
+        v11 = (*(*this + 27))(this, 124);
       }
 
       else
       {
-        v11 = (*(*this + 216))(this, 125);
+        v11 = (*(*this + 27))(this, 125);
       }
     }
 
     else if (v9 == 4)
     {
-      v11 = (*(*this + 216))(this, 122);
+      v11 = (*(*this + 27))(this, 122);
     }
 
     else
     {
-      v11 = (*(*this + 216))(this, 123);
+      v11 = (*(*this + 27))(this, 123);
     }
   }
 
@@ -2203,12 +2198,12 @@ uint64_t SLPronouncerImpl::AppendAccentedCharacterSpelling(SLPronouncerImpl *thi
   {
     if (v9 == 2)
     {
-      v11 = (*(*this + 216))(this, 120);
+      v11 = (*(*this + 27))(this, 120);
     }
 
     else
     {
-      v11 = (*(*this + 216))(this, 121);
+      v11 = (*(*this + 27))(this, 121);
     }
   }
 
@@ -2220,26 +2215,20 @@ uint64_t SLPronouncerImpl::AppendAccentedCharacterSpelling(SLPronouncerImpl *thi
       goto LABEL_17;
     }
 
-    v11 = (*(*this + 216))(this, 119);
+    v11 = (*(*this + 27))(this, 119);
   }
 
   v10 = v11;
 LABEL_17:
-  v12 = *(*this + 232);
+  v12 = *(*this + 29);
 
   return v12(this, v10, a3, 0, 0);
 }
 
-void SLPronouncerImpl::AppendCharacterSpelling(SLPronouncerImpl *this, unsigned int a2, SLTokenList *a3, uint64_t a4, uint64_t a5, int a6)
+void SLPronouncerImpl::AppendCharacterSpelling(SLDictLookup **this, uint64_t a2, SLTokenList *a3, uint64_t a4, uint64_t a5, int a6)
 {
-  v10 = a2 >> 6;
-  if (!a6)
-  {
-    v11 = SLChar::sCharClass[a2 & 0x3F | (SLChar::sUniMap[v10] << 6)] & 0x9F;
-  }
-
   memset(&__p, 0, sizeof(__p));
-  SLChar::PushUTF8(&__p, (SLChar::sToUpper[a2 & 0x3F | (SLChar::sUniMap[v10] << 6)] + a2));
+  SLChar::PushUTF8(&__p, (SLChar::sToUpper[a2 & 0x3F | (SLChar::sUniMap[a2 >> 6] << 6)] + a2));
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
@@ -2250,13 +2239,13 @@ void SLPronouncerImpl::AppendCharacterSpelling(SLPronouncerImpl *this, unsigned 
     p_p = __p.__r_.__value_.__r.__words[0];
   }
 
-  v13 = (*(*this + 208))(this, p_p);
-  if (!v13)
+  v11 = (*(*this + 26))(this, p_p);
+  if (!v11)
   {
     operator new();
   }
 
-  (*(*this + 232))(this, v13, a3, a4, a5);
+  (*(*this + 29))(this, v11, a3, a4, a5);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -2273,7 +2262,7 @@ void sub_26B2D98C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SLPronouncerImpl::PronounceCharByChar(SLPronouncerImpl *this, SLToken *a2, SLTokenList *a3, char a4)
+void SLPronouncerImpl::PronounceCharByChar(SLDictLookup **this, SLToken *a2, SLTokenList *a3, char a4)
 {
   if ((a4 & 0x20) != 0)
   {
@@ -2317,8 +2306,8 @@ void SLPronouncerImpl::PronounceCharByChar(SLPronouncerImpl *this, SLToken *a2, 
 
         if (a4 < 0 && v16 == 38)
         {
-          v17 = (*(*this + 216))(this, 118);
-          (*(*this + 232))(this, v17, a3, v14 + v13, 1);
+          v17 = (*(*this + 27))(this, 118);
+          (*(*this + 29))(this, v17, a3, v14 + v13, 1);
         }
 
         else if ((a4 & 0x20) == 0 || (v13 & 1) == 0)
@@ -2346,16 +2335,16 @@ void SLPronouncerImpl::PronounceCharByChar(SLPronouncerImpl *this, SLToken *a2, 
 
     if ((*(a2 + 18) & 8) != 0)
     {
-      v20 = *(*this + 184);
+      v20 = *(*this + 23);
 
       v20(this);
     }
   }
 }
 
-uint64_t SLPronouncerImpl::PronouncePhoneNumber(SLPronouncerImpl *this, SLToken *a2, SLTokenList *a3)
+uint64_t SLPronouncerImpl::PronouncePhoneNumber(SLDictLookup **this, SLToken *a2, SLTokenList *a3)
 {
-  *(a3 + 24) = (*(*this + 168))(this, 1);
+  *(a3 + 24) = (*(*this + 21))(this, 1);
   v6 = *(a2 + 7);
   v7 = *(a2 + 8) - 2;
   if (v6 != v7)
@@ -2376,12 +2365,12 @@ uint64_t SLPronouncerImpl::PronouncePhoneNumber(SLPronouncerImpl *this, SLToken 
       {
         if ((v6 + 2) < v7 && v10 == 56 && v8 <= 1 && v6[1] == 48 && v6[2] == 48)
         {
-          v12 = (*(*this + 216))(this, 134);
-          (*(*this + 232))(this, v12, a3, v9, 1);
+          v12 = (*(*this + 27))(this, 134);
+          (*(*this + 29))(this, v12, a3, v9, 1);
           *(a3 + 24) = 1;
-          v13 = (*(*this + 216))(this, 155);
-          (*(*this + 232))(this, v13, a3, v9 + 1, 2);
-          *(a3 + 24) = (*(*this + 168))(this, 0);
+          v13 = (*(*this + 27))(this, 155);
+          (*(*this + 29))(this, v13, a3, v9 + 1, 2);
+          *(a3 + 24) = (*(*this + 21))(this, 0);
           v9 += 2;
           v8 += 2;
           v6 += 2;
@@ -2389,8 +2378,8 @@ uint64_t SLPronouncerImpl::PronouncePhoneNumber(SLPronouncerImpl *this, SLToken 
 
         else
         {
-          v16 = (*(*this + 216))(this, v10 + 78);
-          (*(*this + 232))(this, v16, a3, v9, 1);
+          v16 = (*(*this + 27))(this, v10 + 78);
+          (*(*this + 29))(this, v16, a3, v9, 1);
           *(a3 + 24) = 1;
         }
 
@@ -2402,13 +2391,13 @@ uint64_t SLPronouncerImpl::PronouncePhoneNumber(SLPronouncerImpl *this, SLToken 
         v14 = *this;
         if (v10 == 43)
         {
-          v15 = (*(v14 + 216))(this, 218);
-          (*(*this + 232))(this, v15, a3, v9, 1);
+          v15 = (*(v14 + 27))(this, 218);
+          (*(*this + 29))(this, v15, a3, v9, 1);
         }
 
         else
         {
-          *(a3 + 24) = (*(v14 + 168))(this, 0);
+          *(a3 + 24) = (*(v14 + 21))(this, 0);
         }
       }
 
@@ -2419,25 +2408,24 @@ uint64_t SLPronouncerImpl::PronouncePhoneNumber(SLPronouncerImpl *this, SLToken 
     while (v6 != v7);
   }
 
-  result = (*(*this + 168))(this, 1);
+  result = (*(*this + 21))(this, 1);
   *(a3 + 24) = result;
   return result;
 }
 
-uint64_t SLPronouncerImpl::PronounceWordByWord(uint64_t this, SLToken *a2, SLTokenList *a3)
+SLDictLookup **SLPronouncerImpl::PronounceWordByWord(SLDictLookup **this, SLToken *a2, SLTokenList *a3)
 {
-  v28 = this;
+  v27 = this;
   v3 = (*(a2 + 8) - *(a2 + 7)) >> 1;
   v4 = v3 - 1;
   if (v3 != 1)
   {
     v6 = 0;
     v7 = v3 - 3;
-    v27 = v3 - 4;
+    v26 = v3 - 4;
     v8 = v3 - 2;
-    v30 = v3 - 1;
-    v31 = v3 - 3;
-    v29 = v3 - 2;
+    v29 = v3 - 3;
+    v28 = v3 - 2;
     do
     {
       if (v4 - v6 < 2)
@@ -2453,7 +2441,7 @@ uint64_t SLPronouncerImpl::PronounceWordByWord(uint64_t this, SLToken *a2, SLTok
 
       if (v6 + 1 >= v4)
       {
-        v25 = 0;
+        v24 = 0;
         v13 = v6 + 1;
         goto LABEL_19;
       }
@@ -2468,12 +2456,12 @@ uint64_t SLPronouncerImpl::PronounceWordByWord(uint64_t this, SLToken *a2, SLTok
         v16 = SLChar::sCharClass[v15 & 0x3F | (SLChar::sUniMap[v15 >> 6] << 6)];
         if (v16 == 4)
         {
-          if (v27 == v13)
+          if (v26 == v13)
           {
             if (*(v12 + 2 * v7 + 2) == 115)
             {
-              v23 = (*(*v28 + 176))(v28);
-              v25 = v23 ^ 1u;
+              v23 = (*(*v27 + 22))(v27);
+              v24 = v23 ^ 1u;
               if (v23)
               {
                 v13 = v4;
@@ -2481,13 +2469,13 @@ uint64_t SLPronouncerImpl::PronounceWordByWord(uint64_t this, SLToken *a2, SLTok
 
               else
               {
-                v13 = v31;
+                v13 = v29;
               }
             }
 
             else
             {
-              v25 = 1;
+              v24 = 1;
               v13 = v7;
             }
           }
@@ -2495,7 +2483,7 @@ uint64_t SLPronouncerImpl::PronounceWordByWord(uint64_t this, SLToken *a2, SLTok
           else
           {
             ++v13;
-            v25 = 1;
+            v24 = 1;
           }
 
           goto LABEL_19;
@@ -2506,7 +2494,7 @@ uint64_t SLPronouncerImpl::PronounceWordByWord(uint64_t this, SLToken *a2, SLTok
         {
           if (v17 != 129)
           {
-            v25 = 0;
+            v24 = 0;
             ++v13;
             goto LABEL_19;
           }
@@ -2523,7 +2511,7 @@ uint64_t SLPronouncerImpl::PronounceWordByWord(uint64_t this, SLToken *a2, SLTok
 LABEL_16:
         if (v8 == ++v13)
         {
-          v25 = 0;
+          v24 = 0;
           v13 = v4;
           goto LABEL_19;
         }
@@ -2531,27 +2519,27 @@ LABEL_16:
 
       if (v15 != 115)
       {
-        v25 = 0;
+        v24 = 0;
         goto LABEL_19;
       }
 
       if (v7 == v13)
       {
-        v25 = 0;
+        v24 = 0;
       }
 
       else
       {
-        v26 = SLChar::sCharClass[*(v14 + 4) & 0x3F | (SLChar::sUniMap[*(v14 + 4) >> 6] << 6)];
-        if (v26 == 4)
+        v25 = SLChar::sCharClass[*(v14 + 4) & 0x3F | (SLChar::sUniMap[*(v14 + 4) >> 6] << 6)];
+        if (v25 == 4)
         {
-          v25 = 1;
+          v24 = 1;
         }
 
         else
         {
-          v25 = 0;
-          if ((v26 & 0x9F) != 1)
+          v24 = 0;
+          if ((v25 & 0x9F) != 1)
           {
             goto LABEL_19;
           }
@@ -2562,62 +2550,52 @@ LABEL_16:
 LABEL_19:
       if (v6 || v13 != 2)
       {
-        if (v6 && v13 < v4 && v13 - v6 == 1)
+        if (v6)
         {
-          v21 = *(a2 + 7);
-          v22 = *(v21 + 2 * (v6 - 1));
-          if (SLChar::sCharClass[v22 & 0x3F | (SLChar::sUniMap[v22 >> 6] << 6)] == 4 && SLChar::sCharClass[*(v21 + 2 * v13) & 0x3F | (SLChar::sUniMap[*(v21 + 2 * v13) >> 6] << 6)] == 4)
+          if (v13 < v4 && v13 - v6 == 1)
           {
-            *(&v33.__r_.__value_.__s + 23) = 1;
-            LOWORD(v33.__r_.__value_.__l.__data_) = 39;
-            SLChar::PushUTF8(&v33, (SLChar::sToUpper[*(v21 + 2 * v6) & 0x3F | (SLChar::sUniMap[*(v21 + 2 * v6) >> 6] << 6)] + *(v21 + 2 * v6)));
-            std::string::push_back(&v33, 39);
-            operator new();
+            v21 = *(a2 + 7);
+            v22 = *(v21 + 2 * (v6 - 1));
+            if (SLChar::sCharClass[v22 & 0x3F | (SLChar::sUniMap[v22 >> 6] << 6)] == 4 && SLChar::sCharClass[*(v21 + 2 * v13) & 0x3F | (SLChar::sUniMap[*(v21 + 2 * v13) >> 6] << 6)] == 4)
+            {
+              *(&v31.__r_.__value_.__s + 23) = 1;
+              LOWORD(v31.__r_.__value_.__l.__data_) = 39;
+              SLChar::PushUTF8(&v31, (SLChar::sToUpper[*(v21 + 2 * v6) & 0x3F | (SLChar::sUniMap[*(v21 + 2 * v6) >> 6] << 6)] + *(v21 + 2 * v6)));
+              std::string::push_back(&v31, 39);
+              operator new();
+            }
           }
-
-          v4 = v30;
         }
 
-LABEL_37:
-        if (v13 == v4)
-        {
-          v24 = *(a2 + 4) & 1;
-        }
-
-        if (!v10 && v13 + v25 >= v4)
-        {
-          *(a2 + 18);
-        }
-
+LABEL_36:
         operator new();
       }
 
       v18 = *(a2 + 7);
       if (*v18 != 77 || v18[v6 + 1] != 99)
       {
-        v13 = 2;
-        goto LABEL_37;
+        goto LABEL_36;
       }
 
-      v19 = (*(*v28 + 216))(v28, 231);
-      this = (*(*v28 + 232))(v28, v19, a3, *(a2 + 4), 2);
-      v7 = v31;
+      v19 = (*(*v27 + 27))(v27, 231);
+      this = (*(*v27 + 29))(v27, v19, a3, *(a2 + 4), 2);
+      v7 = v29;
       v20 = *(*a3 + 16);
       *(v20 + 16) &= ~8u;
       *(v20 + 5) = 1;
-      v6 = v25 + 2;
-      v8 = v29;
+      v6 = v24 + 2;
+      v8 = v28;
     }
 
-    while (v25 + 2 < v4);
+    while (v24 + 2 < v4);
   }
 
   return this;
 }
 
-void sub_26B2DA60C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_26B2DA60C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
-  MEMORY[0x26D6753C0](v23, 0x10F0C4034644DEDLL);
+  MEMORY[0x26D6753C0](v23, 0x10F0C4034644DEDLL, a3, a4, a5, a6, a7, a8);
   if (a23 < 0)
   {
     operator delete(__p);
@@ -2793,7 +2771,7 @@ uint64_t std::list<SLToken *>::splice(uint64_t result, uint64_t *a2, uint64_t a3
   return result;
 }
 
-void SLPronouncerImpl::PronounceURLSymbol(SLPronouncerImpl *this, unsigned int a2, SLTokenList *a3, uint64_t a4)
+void SLPronouncerImpl::PronounceURLSymbol(SLDictLookup **this, uint64_t a2, SLTokenList *a3, uint64_t a4)
 {
   v6 = a2;
   if (a2 >= 0x80)
@@ -2809,10 +2787,10 @@ void SLPronouncerImpl::PronounceURLSymbol(SLPronouncerImpl *this, unsigned int a
   v9[0] = 47;
   v9[2] = 0;
   v9[1] = v6;
-  v8 = (*(*this + 208))(this, v9);
+  v8 = (*(*this + 26))(this, v9);
   if (v8)
   {
-    (*(*this + 232))(this, v8, a3, a4, 1);
+    (*(*this + 29))(this, v8, a3, a4, 1);
     return;
   }
 
@@ -2820,7 +2798,7 @@ LABEL_6:
   SLPronouncerImpl::AppendCharacterSpelling(this, v6, a3, a4, 1, 0);
 }
 
-uint64_t SLPronouncerImpl::PronounceNumber(uint64_t a1, uint64_t a2, _WORD *a3, void *a4, uint64_t a5, uint64_t a6)
+void *SLPronouncerImpl::PronounceNumber(uint64_t a1, uint64_t a2, _WORD *a3, void *a4, uint64_t a5, uint64_t a6)
 {
   v9 = *a4;
   v10 = 10 * *a4 + 20;
@@ -2954,10 +2932,9 @@ void SLPronouncerImpl::PronounceFraction(SLPronouncerImpl *this, SLToken *a2, SL
     v10 = strchr(*v8, 59);
     if (v10)
     {
-      v11 = *v9;
-      v12[1] = v9[1];
-      v12[0] = v10 + 1;
-      v9 = v12;
+      v11[1] = v9[1];
+      v11[0] = v10 + 1;
+      v9 = v11;
     }
   }
 
@@ -3055,7 +3032,7 @@ LABEL_8:
   return std::__list_imp<SLToken *>::clear(&v25);
 }
 
-uint64_t SLPronouncerImpl::PronounceInteger(uint64_t this, SLToken *a2, CFRange a3, SLTokenList *a4, unint64_t a5, uint64_t a6)
+SLPronouncerImpl *SLPronouncerImpl::PronounceInteger(SLPronouncerImpl *this, SLToken *a2, CFRange a3, SLTokenList *a4, unint64_t a5, uint64_t a6)
 {
   v6 = a4;
   length = a3.length;
@@ -3114,113 +3091,111 @@ LABEL_13:
   v16 = *(a2 + 7);
   v17 = *(v16 + v14 + 2 * v12);
 LABEL_26:
-  v34 = length - v12;
-  v35 = location + v12;
+  v33 = length - v12;
+  v34 = location + v12;
   if ((a5 & 0x100) == 0 && v17 == 48)
   {
-    v36 = (a5 & 0x10) == 0 && length - 2 == v12;
-    v37 = (a5 >> 3) & 1;
-    if (v36)
+    v35 = (a5 & 0x10) == 0 && length - 2 == v12;
+    v36 = (a5 >> 3) & 1;
+    if (v35)
     {
-      LODWORD(v37) = 1;
+      LODWORD(v36) = 1;
     }
 
-    if (v11 != v12 && v37 && *(v16 + v14 + 2 * v12 + 2) != 48)
+    if (v11 != v12 && v36 && *(v16 + v14 + 2 * v12 + 2) != 48)
     {
-      v35 = location + v12 + 1;
-      v38 = (*(*v10 + 216))(v10, 136);
-      (*(*v10 + 232))(v10, v38, a4, location + v12 + *(a2 + 4), 1);
-      v34 = ~v12 + length;
+      v34 = location + v12 + 1;
+      v37 = (*(*v10 + 216))(v10, 136);
+      (*(*v10 + 232))(v10, v37, a4, location + v12 + *(a2 + 4), 1);
+      v33 = ~v12 + length;
     }
 
     do
     {
-      v39 = *(a2 + 4);
-      v40 = (*(*v10 + 216))(v10, *(*(a2 + 7) + 2 * v35) + 78);
-      this = (*(*v10 + 232))(v10, v40, a4, v35 + v39, 1);
-      ++v35;
-      --v34;
+      v38 = *(a2 + 4);
+      v39 = (*(*v10 + 216))(v10, *(*(a2 + 7) + 2 * v34) + 78);
+      this = (*(*v10 + 232))(v10, v39, a4, v34 + v38, 1);
+      ++v34;
+      --v33;
     }
 
-    while (v34);
+    while (v33);
     return this;
   }
 
-  v41 = v14 - v13;
-  v42 = -v12;
+  v40 = v14 - v13;
+  v41 = -v12;
   v20 = *(a2 + 7);
-  v19 = v35 + v34;
+  v19 = v34 + v33;
   v6 = a4;
   do
   {
-    if (*(v20 + v41) != 48)
+    if (*(v20 + v40) != 48)
     {
-      v21 = (v20 + v41);
-      v71 = *(a2 + 4);
-      v72 = location + v71 - v42;
-      length += v42;
+      v21 = (v20 + v40);
+      v69 = *(a2 + 4);
+      v70 = location + v69 - v41;
+      length += v41;
       if ((a5 & 0x80) == 0 || length != 3)
       {
-        v22 = location + v71 - v42;
+        v22 = location + v69 - v41;
         goto LABEL_15;
       }
 
-      if (*(v20 + v41 + 2) == 48 && !*(v20 + v41 + 4))
+      if (*(v20 + v40 + 2) == 48 && !*(v20 + v40 + 4))
       {
-        LOBYTE(v33) = 0;
-        v22 = v72;
+        LOBYTE(v32) = 0;
+        v22 = v70;
         goto LABEL_115;
       }
 
-      v73 = *v21;
-      v74 = location + v71 - v42;
-      v75 = v74 + 1;
+      v71 = *v21;
+      v72 = location + v69 - v41;
+      v73 = v72 + 1;
       v23 = a5 & 1;
-      v76 = *v10 + 216;
       v24 = a6 + 1;
-      v77 = 119;
+      v74 = 119;
       if ((a5 & 1) == 0)
       {
-        v77 = 78;
+        v74 = 78;
       }
 
-      v78 = (*(*v10 + 216))(v10, v73 + v77);
-      (*(*v10 + 232))(v10, v78, a4, v72, v24);
-      v70 = *(v20 + v41 + 2);
-      if (v70 == 48)
+      v75 = (*(*v10 + 216))(v10, v71 + v74);
+      (*(*v10 + 232))(v10, v75, a4, v70, v24);
+      v68 = *(v20 + v40 + 2);
+      if (v68 == 48)
       {
-        v79 = (*(*v10 + 216))(v10, 136);
-        (*(*v10 + 232))(v10, v79, a4, v74 + 1, 1);
-        v80 = v20 + v41;
-        v22 = v74 + 2;
-        v21 = (v80 + 4);
+        v76 = (*(*v10 + 216))(v10, 136);
+        (*(*v10 + 232))(v10, v76, a4, v72 + 1, 1);
+        v77 = v20 + v40;
+        v22 = v72 + 2;
+        v21 = (v77 + 4);
 LABEL_19:
-        v25 = *v10 + 216;
-        v26 = 119;
+        v25 = 119;
         if (!v23)
         {
-          v26 = 78;
+          v25 = 78;
         }
 
-        v27 = (*(*v10 + 216))(v10, *v21 + v26);
-        v28 = *(*v10 + 232);
-        v29 = v10;
-        v30 = v6;
-        v31 = v22;
-        v32 = v24;
+        v26 = (*(*v10 + 216))(v10, *v21 + v25);
+        v27 = *(*v10 + 232);
+        v28 = v10;
+        v29 = v6;
+        v30 = v22;
+        v31 = v24;
         goto LABEL_100;
       }
 
-      v21 = (v20 + v41 + 2);
-      v22 = v75;
+      v21 = (v20 + v40 + 2);
+      v22 = v73;
       goto LABEL_132;
     }
 
-    --v42;
-    v41 += 2;
+    --v41;
+    v40 += 2;
   }
 
-  while (length + v42 + 1 > 1);
+  while (length + v41 + 1 > 1);
   length = 0;
 LABEL_14:
   v21 = (v20 + 2 * v19);
@@ -3235,75 +3210,74 @@ LABEL_15:
         goto LABEL_44;
       }
 
-      LOBYTE(v33) = 0;
+      LOBYTE(v32) = 0;
 LABEL_115:
-      v81 = *(v21 + 1);
-      if (v81 == 48 && *(v21 + 2) == 48)
+      v78 = *(v21 + 1);
+      if (v78 == 48 && *(v21 + 2) == 48)
       {
-        v82 = *v21;
+        v79 = *v21;
 
-        return SLPronouncerImpl::PronounceThreeDigits(v10, v82, 48, 48, v22, v6, a5, a6);
+        return SLPronouncerImpl::PronounceThreeDigits(v10, v79, 48, 48, v22, v6, a5, a6);
       }
 
-      v83 = *v21;
-      if (v83 == 48)
+      v80 = *v21;
+      if (v80 == 48)
       {
-        if ((v33 & 1) == 0)
+        if ((v32 & 1) == 0)
         {
 LABEL_128:
-          v89 = v21[4];
-          v90 = v81;
-          v91 = v22 + 1;
-          v92 = v10;
+          v85 = v21[4];
+          v86 = v78;
+          v87 = v22 + 1;
+          v88 = v10;
 LABEL_133:
 
-          return SLPronouncerImpl::PronounceTwoDigits(v92, v90, v89, v91, v6, a5, a6);
+          return SLPronouncerImpl::PronounceTwoDigits(v88, v86, v85, v87, v6, a5, a6);
         }
       }
 
       else
       {
-        v84 = (*(*v10 + 216))(v10, v83 + 78);
-        (*(*v10 + 232))(v10, v84, v6, v22, 1);
+        v81 = (*(*v10 + 216))(v10, v80 + 78);
+        (*(*v10 + 232))(v10, v81, v6, v22, 1);
         *(v6 + 24) = 2;
-        v85 = (*(*v10 + 216))(v10, 155);
-        (*(*v10 + 232))(v10, v85, v6, -1, 0);
-        v81 = *(v21 + 1);
+        v82 = (*(*v10 + 216))(v10, 155);
+        (*(*v10 + 232))(v10, v82, v6, -1, 0);
+        v78 = *(v21 + 1);
       }
 
-      v86 = *v10 + 216;
-      if (v81 == 48)
+      if (v78 == 48)
       {
-        v87 = 211;
+        v83 = 211;
       }
 
       else
       {
-        v87 = 1167;
+        v83 = 1167;
       }
 
-      v88 = (*(*v10 + 216))(v10, v87);
-      (*(*v10 + 232))(v10, v88, v6, -1, 0);
-      LOBYTE(v81) = v21[2];
+      v84 = (*(*v10 + 216))(v10, v83);
+      (*(*v10 + 232))(v10, v84, v6, -1, 0);
+      LOBYTE(v78) = v21[2];
       goto LABEL_128;
     }
 
-    v70 = *v21;
-    if (v70 == 48)
+    v68 = *v21;
+    if (v68 == 48)
     {
       if (*(v21 + 1) == 48)
       {
         return this;
       }
 
-      LOBYTE(v70) = 48;
+      LOBYTE(v68) = 48;
     }
 
 LABEL_132:
-    v89 = v21[2];
-    v90 = v70;
-    v92 = v10;
-    v91 = v22;
+    v85 = v21[2];
+    v86 = v68;
+    v88 = v10;
+    v87 = v22;
     goto LABEL_133;
   }
 
@@ -3317,25 +3291,25 @@ LABEL_132:
     }
 
 LABEL_44:
-    v33 = 0;
-    v43 = a5 & 0x20;
-    v98 = v43 >> 5;
-    v44 = (v43 >> 5) + 3;
-    v45 = v43 >> 4;
-    v93 = v43 >> 4;
+    v32 = 0;
+    v42 = a5 & 0x20;
+    v94 = v42 >> 5;
+    v43 = (v42 >> 5) + 3;
+    v44 = v42 >> 4;
+    v89 = v42 >> 4;
     while (2)
     {
-      v46 = length % v44;
-      v47 = 48;
-      if (length % v44 > 1)
+      v45 = length % v43;
+      v46 = 48;
+      if (length % v43 > 1)
       {
-        if (v46 != 2)
+        if (v45 != 2)
         {
-          if (v46 != 3)
+          if (v45 != 3)
           {
-            v49 = v22;
-            v48 = 48;
-            v50 = 48;
+            v48 = v22;
+            v47 = 48;
+            v49 = 48;
             goto LABEL_54;
           }
 
@@ -3345,118 +3319,118 @@ LABEL_44:
 
       else
       {
-        if (v46)
+        if (v45)
         {
-          v48 = 48;
-          v49 = v22;
-          v50 = 48;
-          if (v46 != 1)
+          v47 = 48;
+          v48 = v22;
+          v49 = 48;
+          if (v45 != 1)
           {
             goto LABEL_54;
           }
 
 LABEL_53:
-          v53 = *v21;
+          v52 = *v21;
           v21 += 2;
-          v50 = v53;
-          v49 = v22 + 1;
+          v49 = v52;
+          v48 = v22 + 1;
 LABEL_54:
-          v54 = (length - 1) / v44;
-          v21 += v45;
-          v22 = v49 + v98;
-          length = v44 * v54 - v98;
-          if (v47 != 48 || v48 != 48 || v50 != 48)
+          v53 = (length - 1) / v43;
+          v21 += v44;
+          v22 = v48 + v94;
+          length = v43 * v53 - v94;
+          if (v46 != 48 || v47 != 48 || v49 != 48)
           {
-            v94 = v48;
-            v95 = v47;
-            SLPronouncerImpl::PronounceThreeDigits(v10, v47, v48, v50, v49 - 3, a4, 0, 0);
+            v90 = v47;
+            v91 = v46;
+            SLPronouncerImpl::PronounceThreeDigits(v10, v46, v47, v49, v48 - 3, a4, 0, 0);
             if (length < 1)
             {
 LABEL_66:
               *(a4 + 24) = 2;
               if ((a5 & 1) == 0)
               {
-                v62 = v33;
-                v63 = 0;
+                v61 = v32;
+                v62 = 0;
                 goto LABEL_69;
               }
 
-              v58 = (*(*v10 + 216))(v10, v54 + 195);
-              v59 = 0;
-              v60 = length + a6;
-              v61 = v22;
+              v57 = (*(*v10 + 216))(v10, v53 + 195);
+              v58 = 0;
+              v59 = length + a6;
+              v60 = v22;
             }
 
             else
             {
-              v55 = v21;
+              v54 = v21;
               while (1)
               {
-                v56 = *v55;
-                if (v56 <= 0xFF && v56 != 48 && (*(MEMORY[0x277D85DE0] + 4 * v56 + 60) & 0x400) != 0)
+                v55 = *v54;
+                if (v55 <= 0xFF && v55 != 48 && (*(MEMORY[0x277D85DE0] + 4 * v55 + 60) & 0x400) != 0)
                 {
                   break;
                 }
 
-                if (++v55 >= &v21[2 * length])
+                if (++v54 >= &v21[2 * length])
                 {
                   goto LABEL_66;
                 }
               }
 
-              v62 = v33;
+              v61 = v32;
               *(a4 + 24) = 2;
-              v63 = 1;
+              v62 = 1;
 LABEL_69:
-              v58 = (*(*v10 + 216))(v10, v54 + 155);
-              v64 = v22 - 1;
+              v57 = (*(*v10 + 216))(v10, v53 + 155);
+              v63 = v22 - 1;
               if ((a5 & 0x20) == 0)
               {
-                v64 = v49;
+                v63 = v48;
               }
 
-              v59 = (v63 & 1) != 0;
-              if (v63)
+              v58 = (v62 & 1) != 0;
+              if (v62)
               {
-                v61 = v64;
+                v60 = v63;
               }
 
               else
               {
-                v61 = v22;
+                v60 = v22;
               }
 
-              if (v63)
+              if (v62)
               {
-                v60 = v98;
+                v59 = v94;
               }
 
               else
               {
-                v60 = length + a6;
+                v59 = length + a6;
               }
 
-              v33 = v62;
-              v45 = v93;
+              v32 = v61;
+              v44 = v89;
             }
 
-            (*(*v10 + 232))(v10, v58, a4, v61, v60);
-            if (!v59)
+            (*(*v10 + 232))(v10, v57, a4, v60, v59);
+            if (!v58)
             {
               v6 = a4;
               goto LABEL_115;
             }
 
-            v67 = v54 > 1 || v95 > 48 || v94 > 49;
-            if ((v67 | v33))
+            v66 = v53 > 1 || v91 > 48 || v90 > 49;
+            if ((v66 | v32))
             {
               v6 = a4;
               *(a4 + 24) = (*(*v10 + 168))(v10, 0);
-              v33 = 1;
+              v32 = 1;
               goto LABEL_92;
             }
 
-            v33 = 1;
+            v32 = 1;
           }
 
           v6 = a4;
@@ -3470,44 +3444,43 @@ LABEL_92:
         }
 
 LABEL_51:
-        v51 = *v21;
+        v50 = *v21;
         v21 += 2;
-        v47 = v51;
+        v46 = v50;
         ++v22;
       }
 
       break;
     }
 
-    v52 = *v21;
+    v51 = *v21;
     v21 += 2;
-    v48 = v52;
+    v47 = v51;
     ++v22;
     goto LABEL_53;
   }
 
   if ((a5 & 4) == 0)
   {
-    v68 = *v10 + 216;
     if (a5)
     {
-      v69 = 167;
+      v67 = 167;
     }
 
     else
     {
-      v69 = 126;
+      v67 = 126;
     }
 
-    v27 = (*(*v10 + 216))(v10, v69);
-    v28 = *(*v10 + 232);
-    v32 = a6 + 1;
-    v29 = v10;
-    v30 = v6;
-    v31 = v22 - 1;
+    v26 = (*(*v10 + 216))(v10, v67);
+    v27 = *(*v10 + 232);
+    v31 = a6 + 1;
+    v28 = v10;
+    v29 = v6;
+    v30 = v22 - 1;
 LABEL_100:
 
-    return v28(v29, v27, v30, v31, v32);
+    return v27(v28, v26, v29, v30, v31);
   }
 
   return this;
@@ -3515,17 +3488,16 @@ LABEL_100:
 
 uint64_t SLPronouncerImpl::PronounceOneDigit(uint64_t a1, int a2, uint64_t a3, uint64_t a4, char a5, uint64_t a6)
 {
-  v10 = *a1 + 216;
-  v11 = 119;
+  v10 = 119;
   if ((a5 & 1) == 0)
   {
-    v11 = 78;
+    v10 = 78;
   }
 
-  v12 = (*(*a1 + 216))(a1, v11 + a2);
-  v13 = *(*a1 + 232);
+  v11 = (*(*a1 + 216))(a1, v10 + a2);
+  v12 = *(*a1 + 232);
 
-  return v13(a1, v12, a4, a3, a6 + 1);
+  return v12(a1, v11, a4, a3, a6 + 1);
 }
 
 uint64_t SLPronouncerImpl::PronounceTwoDigits(uint64_t result, int a2, int a3, uint64_t a4, uint64_t a5, char a6, uint64_t a7)
@@ -3535,50 +3507,49 @@ uint64_t SLPronouncerImpl::PronounceTwoDigits(uint64_t result, int a2, int a3, u
   {
     if (a2 == 49)
     {
-      v13 = *result + 216;
       if (a6)
       {
-        v14 = a3 + 129;
+        v13 = a3 + 129;
       }
 
       else
       {
-        v14 = a3 + 89;
+        v13 = a3 + 89;
       }
 
-      v16 = (*(*result + 216))(result, v14);
-      v17 = *(*v12 + 232);
-      v21 = a7 + 2;
-      v18 = v12;
-      v19 = a5;
-      v20 = a4;
+      v15 = (*(*result + 216))(result, v13);
+      v16 = *(*v12 + 232);
+      v20 = a7 + 2;
+      v17 = v12;
+      v18 = a5;
+      v19 = a4;
       goto LABEL_18;
     }
 
-    v15 = *(*result + 216);
+    v14 = *(*result + 216);
     if (a3 == 48 && (a6 & 1) != 0)
     {
-      v16 = v15(result, (a2 + 137));
-      v17 = *(*v12 + 232);
-      v18 = v12;
-      v19 = a5;
-      v20 = a4;
-      v21 = a7 + 2;
+      v15 = v14(result, (a2 + 137));
+      v16 = *(*v12 + 232);
+      v17 = v12;
+      v18 = a5;
+      v19 = a4;
+      v20 = a7 + 2;
       goto LABEL_18;
     }
 
-    v22 = v15(result, a2 + 97);
+    v21 = v14(result, a2 + 97);
     if (a3 == 48)
     {
-      v23 = a7 + 2;
+      v22 = a7 + 2;
     }
 
     else
     {
-      v23 = 1;
+      v22 = 1;
     }
 
-    result = (*(*v12 + 232))(v12, v22, a5, a4, v23);
+    result = (*(*v12 + 232))(v12, v21, a5, a4, v22);
   }
 
   if (a3 == 48)
@@ -3587,22 +3558,21 @@ uint64_t SLPronouncerImpl::PronounceTwoDigits(uint64_t result, int a2, int a3, u
   }
 
   *(a5 + 24) = 2;
-  v24 = *v12 + 216;
-  v25 = 119;
+  v23 = 119;
   if ((a6 & 1) == 0)
   {
-    v25 = 78;
+    v23 = 78;
   }
 
-  v16 = (*(*v12 + 216))(v12, v25 + a3);
-  v17 = *(*v12 + 232);
-  v20 = a4 + 1;
-  v21 = a7 + 1;
-  v18 = v12;
-  v19 = a5;
+  v15 = (*(*v12 + 216))(v12, v23 + a3);
+  v16 = *(*v12 + 232);
+  v19 = a4 + 1;
+  v20 = a7 + 1;
+  v17 = v12;
+  v18 = a5;
 LABEL_18:
 
-  return v17(v18, v16, v19, v20, v21);
+  return v16(v17, v15, v18, v19, v20);
 }
 
 uint64_t SLPronouncerImpl::PronounceThreeDigits(uint64_t result, int a2, int a3, int a4, uint64_t a5, uint64_t a6, char a7, uint64_t a8)
@@ -3618,12 +3588,12 @@ uint64_t SLPronouncerImpl::PronounceThreeDigits(uint64_t result, int a2, int a3,
     v19 = *(*v14 + 216);
     if ((v18 & 1) == 0)
     {
-      v24 = v19(v14, 195);
-      v25 = *(*v14 + 232);
-      v26 = a5 + 1;
-      v28 = v14;
-      v29 = a6;
-      v27 = a8 + 2;
+      v23 = v19(v14, 195);
+      v24 = *(*v14 + 232);
+      v25 = a5 + 1;
+      v27 = v14;
+      v28 = a6;
+      v26 = a8 + 2;
       goto LABEL_25;
     }
 
@@ -3652,22 +3622,21 @@ uint64_t SLPronouncerImpl::PronounceThreeDigits(uint64_t result, int a2, int a3,
     return result;
   }
 
-  v22 = *v14 + 216;
-  v23 = 119;
+  v22 = 119;
   if ((a7 & 1) == 0)
   {
-    v23 = 78;
+    v22 = 78;
   }
 
-  v24 = (*(*v14 + 216))(v14, v23 + a4);
-  v25 = *(*v14 + 232);
-  v26 = a5 + 2;
-  v27 = a8 + 1;
-  v28 = v14;
-  v29 = a6;
+  v23 = (*(*v14 + 216))(v14, v22 + a4);
+  v24 = *(*v14 + 232);
+  v25 = a5 + 2;
+  v26 = a8 + 1;
+  v27 = v14;
+  v28 = a6;
 LABEL_25:
 
-  return v25(v28, v24, v29, v26, v27);
+  return v24(v27, v23, v28, v25, v26);
 }
 
 uint64_t SLPronouncerImpl::PronounceDigits(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6, uint64_t a7)
@@ -3756,7 +3725,6 @@ void *SLPronouncerImpl::PronounceMoney(uint64_t a1, char **a2, uint64_t a3, uint
   {
     if (*(a5 + 7))
     {
-      *a5;
       (*(*a1 + 56))(a1, a4, *(a5 + 1));
       (*(*a1 + 240))(a1, &v37, a10, *(a5 + 7) != 1, *(a3 + 32), *(a3 + 40));
       *(a10 + 24) = (*(*a1 + 168))(a1, 0);
@@ -3846,9 +3814,9 @@ LABEL_21:
   return std::__list_imp<SLToken *>::clear(v36);
 }
 
-void sub_26B2DD348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_26B2DD348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::__list_imp<SLToken *>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -3940,17 +3908,15 @@ uint64_t SLPronouncerImpl::PronounceDate(uint64_t *a1, uint64_t a2, uint64_t a3,
   if (*(a4 + 16) == 4)
   {
     v11 = *(v10 + 96);
-    v12 = *(a4 + 8);
 
     return v11(a1, a2, a3, v9, 4, 0, 0);
   }
 
   else
   {
-    v14 = *(v10 + 56);
-    v15 = *(a4 + 8);
+    v13 = *(v10 + 56);
 
-    return v14(a1, a2, v9);
+    return v13(a1, a2, v9);
   }
 }
 
@@ -4011,19 +3977,18 @@ LABEL_18:
     v10 = *(a4 + 3);
   }
 
-  v12 = *a1 + 216;
   if (v10 == 65)
   {
-    v13 = 220;
+    v12 = 220;
   }
 
   else
   {
-    v13 = 221;
+    v12 = 221;
   }
 
-  v14 = (*(*a1 + 216))(a1, v13);
-  (*(*a1 + 232))(a1, v14, a3, *(a4 + 72) + *(a2 + 32), *(a4 + 80));
+  v13 = (*(*a1 + 216))(a1, v12);
+  (*(*a1 + 232))(a1, v13, a3, *(a4 + 72) + *(a2 + 32), *(a4 + 80));
 LABEL_25:
   result = (*(*a1 + 288))(a1, 0);
   *(a3 + 24) = result;
@@ -4126,10 +4091,8 @@ void SLPronouncerImpl::PronounceLegalSection(SLPronouncerImpl *this, SLToken *a2
   operator new();
 }
 
-void SLPronouncerImpl::PronounceGeoLoc(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void SLPronouncerImpl::PronounceGeoLoc(uint64_t result, uint64_t a2, SLTokenList *a3, void *a4)
 {
-  v4 = *(a2 + 17);
-  v5 = a4[14] == 0;
   if (a4[2])
   {
     operator new();
@@ -4151,7 +4114,7 @@ void SLPronouncerImpl::PronounceGeoLoc(uint64_t a1, uint64_t a2, uint64_t a3, vo
   }
 }
 
-uint64_t SLPronouncerImpl::PronounceDottedNumber(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t SLPronouncerImpl::PronounceDottedNumber(uint64_t a1, uint64_t a2, SLTokenList *a3, uint64_t a4)
 {
   *(a3 + 24) = (*(*a1 + 168))(a1, 1);
   if ((*(a2 + 17) & 4) != 0 && *a4 != 1)
@@ -4303,9 +4266,9 @@ uint64_t SLSplitCartDict::Lookup(uint64_t (****this)(void), const char *a2, uint
   return v8;
 }
 
-void sub_26B2DEB2C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26B2DEB2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   SLTokenBuilder::~SLTokenBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -4344,7 +4307,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<SLHomograph *>>(uint6
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t SLPrefixDict::SLPDFindPage(int a1, uint64_t a2, uint64_t a3, void *__s1, unint64_t a5, size_t *a6)
+uint64_t SLPrefixDict::SLPDFindPage(int a1, uint64_t a2, uint64_t a3, void *__s1, size_t a5, size_t *a6)
 {
   v7 = a3 + *(a2 + 28);
   if (a5 >= 5)
@@ -4451,7 +4414,7 @@ void SLPrefixDict::~SLPrefixDict(SLPrefixDict *this)
   JUMPOUT(0x26D6753C0);
 }
 
-BOOL SLPrefixDict::Decoder::DecodePhoneme(SLPrefixDict::Decoder *this, char a2)
+uint64_t SLPrefixDict::Decoder::DecodePhoneme(SLPrefixDict::Decoder *this, char a2)
 {
   v3 = a2 < 0;
   v4 = a2 & 0x3F;
@@ -4515,7 +4478,7 @@ uint64_t SLPrefixDict::Decoder::FoundWord(SLPrefixDict::Decoder *this, const cha
     while (!SLPrefixDict::Decoder::DecodePhoneme(this, v20));
     v22 = *a4;
     v21 = a4 + 1;
-    if (!SLPrefixDict::Decoder::DecodePhoneme(this, v22 & 0x3F))
+    if ((SLPrefixDict::Decoder::DecodePhoneme(this, v22 & 0x3F) & 1) == 0)
     {
       do
       {
@@ -4602,7 +4565,7 @@ uint64_t SLPrefixDict::Decoder::FoundWord(SLPrefixDict::Decoder *this, const cha
   return 1;
 }
 
-uint64_t SLPrefixDict::Lookup(SLPrefixDict *this, char *__s1, unint64_t a3, SLWordBuilder *a4, SLDictionary *a5)
+uint64_t SLPrefixDict::Lookup(SLPrefixDict *this, char *__s1, size_t a3, SLWordBuilder *a4, SLDictionary *a5)
 {
   v40 = 0;
   v9 = *(this + 3);
@@ -4815,7 +4778,7 @@ void SLTuplesImpl::SLTuplesImpl(SLTuplesImpl *this, SLLexer *a2, const __CFStrin
   *(this + 6) = 0u;
   *(this + 7) = 0u;
   *(this + 8) = 0u;
-  std::string::basic_string[abi:ne200100]<0>(this + 144, ".");
+  std::string::basic_string[abi:ne200100]<0>(this + 18, ".");
   v5 = SLGetSpeechDictionaryBundle();
   if (v5)
   {
@@ -4835,7 +4798,7 @@ void sub_26B2DF9C8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -4849,13 +4812,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -5156,7 +5119,7 @@ void SLTuplesImpl::~SLTuplesImpl(SLTuplesImpl *this)
 
 SLToken *SLTuplesImpl::NextToken(int64x2_t *this)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = this[8].i64[1];
   if (!v2)
   {
@@ -5166,14 +5129,16 @@ SLToken *SLTuplesImpl::NextToken(int64x2_t *this)
       v2 = this[8].i64[1];
       if (!v2)
       {
+        v19[0] = v19;
+        v19[1] = v19;
+        v20 = 0;
         v18[0] = v18;
         v18[1] = v18;
-        v19 = 0;
-        v17[0] = v17;
-        v17[1] = v17;
-        v17[2] = 0;
-        std::string::basic_string[abi:ne200100]<0>(&v16, "");
-        std::__list_imp<SLTupleHypothesis>::__create_node[abi:ne200100]<SLTupleHypothesis const&>();
+        v18[2] = 0;
+        v15[0] = 0;
+        v16 = 0;
+        std::string::basic_string[abi:ne200100]<0>(&v17, "");
+        std::__list_imp<SLTupleHypothesis>::__create_node[abi:ne200100]<SLTupleHypothesis const&>(v19, 0, 0, v15);
       }
     }
 
@@ -5216,14 +5181,14 @@ SLToken *SLTuplesImpl::NextToken(int64x2_t *this)
     {
       if (v11 != 2)
       {
-        goto LABEL_23;
+        return v5;
       }
 
       v13 = 512;
     }
 
     this[4].i64[0] = v13;
-    goto LABEL_23;
+    return v5;
   }
 
   if (*(v4 + 8) - *(v4 + 7) == 4)
@@ -5251,8 +5216,6 @@ SLToken *SLTuplesImpl::NextToken(int64x2_t *this)
     MEMORY[0x26D6752E0](&this[9], v8);
   }
 
-LABEL_23:
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -5331,8 +5294,7 @@ void std::vector<std::string>::push_back[abi:ne200100](uint64_t a1, __int128 *a2
     v6 = *a2;
     *(v4 + 16) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v7 = v4 + 24;
   }
@@ -5436,20 +5398,20 @@ void sub_26B2E0DD4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__list_imp<SLTupleHypothesis>::clear(void *a1)
+void std::__list_imp<SLTupleHypothesis>::clear(uint64_t *result)
 {
-  if (a1[2])
+  if (result[2])
   {
-    v2 = a1[1];
-    v3 = *(*a1 + 8);
+    v2 = result[1];
+    v3 = *(*result + 8);
     v4 = *v2;
     v4[1] = v3;
     *v3 = v4;
-    a1[2] = 0;
-    while (v2 != a1)
+    result[2] = 0;
+    while (v2 != result)
     {
       v5 = *(v2 + 8);
-      std::__list_imp<SLTupleHypothesis>::__delete_node[abi:ne200100](a1, v2);
+      std::__list_imp<SLTupleHypothesis>::__delete_node[abi:ne200100](result, v2);
       v2 = v5;
     }
   }
@@ -5841,20 +5803,20 @@ LABEL_12:
   return 1;
 }
 
-void std::vector<SLHomograph *>::resize(void *a1, unint64_t a2)
+void std::vector<SLHomograph *>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<SLHomograph *>::__append(a1, a2 - v2);
+    std::vector<SLHomograph *>::__append(result, a2 - v2);
   }
 }
 
@@ -6093,29 +6055,29 @@ LABEL_14:
   std::vector<unsigned short>::push_back[abi:ne200100](v4, &v21);
 }
 
-char *SLToken::AppendToken(SLToken *this, char **a2)
+char *SLToken::AppendToken(SLToken *this, void **a2)
 {
-  result = std::vector<unsigned short>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned short *>,std::__wrap_iter<unsigned short *>>(this + 56, (*(this + 8) - 2), a2[7], a2[8] - 2, (a2[8] - 2 - a2[7]) >> 1);
+  result = std::vector<unsigned short>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned short *>,std::__wrap_iter<unsigned short *>>(this + 7, (*(this + 8) - 2), a2[7], a2[8] - 2, (a2[8] - 2 - a2[7]) >> 1);
   *(this + 4) = a2[2] & 0x1001 | *(this + 4) & 0xFFFFEFFE;
   v5 = *(this + 5);
   if (a2[4] == (v5 + *(this + 4)))
   {
-    *(this + 5) = &a2[5][v5];
+    *(this + 5) = a2[5] + v5;
   }
 
   return result;
 }
 
-void SLToken::SetTokenRange(SLToken *this, SLToken *a2, CFRange a3)
+void SLToken::SetTokenRange(void **this, SLToken *a2, CFRange a3)
 {
   length = a3.length;
   location = a3.location;
   std::vector<unsigned short>::__assign_with_size[abi:ne200100]<std::__wrap_iter<unsigned short *>,std::__wrap_iter<unsigned short *>>(this + 7, (*(a2 + 7) + 2 * a3.location), (*(a2 + 7) + 2 * (a3.location + a3.length)), a3.length);
   v7 = 0;
   std::vector<unsigned short>::push_back[abi:ne200100](this + 7, &v7);
-  *(this + 4) = location;
-  *(this + 5) = length;
-  *(this + 4) = *(a2 + 4) + location;
+  this[4] = location;
+  this[5] = length;
+  this[4] = (*(a2 + 4) + location);
 }
 
 void *SLToken::RemoveRange(void *this, CFRange a2)
@@ -6133,14 +6095,14 @@ void *SLToken::RemoveRange(void *this, CFRange a2)
       this = memmove(v5, v6, v4 - v6);
     }
 
-    *(v3 + 64) = &v5[v7];
+    v3[8] = &v5[v7];
   }
 
-  *(v3 + 40) -= length;
+  v3[5] -= length;
   return this;
 }
 
-void SLToken::TransferTokenRange(SLToken *this, SLToken *a2, CFRange a3)
+void SLToken::TransferTokenRange(void **this, SLToken *a2, CFRange a3)
 {
   length = a3.length;
   location = a3.location;
@@ -6329,7 +6291,6 @@ SLToken *SLTokenCreateFromBuffer(uint64_t a1)
     }
 
     *(v2 + 5) = 0uLL;
-    v5 = *(v2 + 12);
     *(v2 + 12) = 0;
     if (v4)
     {
@@ -6375,7 +6336,7 @@ CFStringRef SLTokenGetText(void *a1)
 
 char *SLTokenAddHomographs(uint64_t a1, uint64_t a2)
 {
-  result = std::vector<SLHomograph *>::__insert_with_size[abi:ne200100]<std::__wrap_iter<SLHomograph **>,std::__wrap_iter<SLHomograph **>>(a1 + 80, *(a1 + 88), *(a2 + 80), *(a2 + 88), (*(a2 + 88) - *(a2 + 80)) >> 3);
+  result = std::vector<SLHomograph *>::__insert_with_size[abi:ne200100]<std::__wrap_iter<SLHomograph **>,std::__wrap_iter<SLHomograph **>>((a1 + 80), *(a1 + 88), *(a2 + 80), *(a2 + 88), (*(a2 + 88) - *(a2 + 80)) >> 3);
   *(a2 + 88) = *(a2 + 80);
   return result;
 }
@@ -6620,65 +6581,64 @@ CFArrayRef SLHomographCopyTune(uint64_t a1)
     return 0;
   }
 
-  memset(v25, 0, sizeof(v25));
-  for (; v1 < v2; v1 += 32)
+  memset(v24, 0, sizeof(v24));
+  for (; v1 < v2; v1 += 4)
   {
-    *v23 = 0u;
-    v24 = 0u;
-    v22 = 0u;
+    *v22 = 0u;
+    v23 = 0u;
+    v21 = 0u;
     v3 = kCFTuneDurationKey;
     v4 = CFNumberCreate(0, kCFNumberFloat32Type, v1);
-    SLCFDictionaryBuilder::push_back(&v22, v3, v4);
-    v5 = *(v1 + 8);
-    v6 = *(v1 + 16);
-    v7 = *(v1 + 8);
-    if (v7 != v6)
+    SLCFDictionaryBuilder::push_back(&v21, v3, v4);
+    v5 = v1[2];
+    v6 = v1[1];
+    if (v6 != v5)
     {
-      memset(v21, 0, sizeof(v21));
-      while (v7 < v6)
+      memset(v20, 0, sizeof(v20));
+      while (v6 < v5)
       {
         *__p = 0u;
-        v20 = 0u;
-        v18 = 0u;
-        v8 = kCFTunePitchKey;
-        v9 = CFNumberCreate(0, kCFNumberFloat32Type, v7);
-        SLCFDictionaryBuilder::push_back(&v18, v8, v9);
-        v10 = kCFTuneLocationKey;
-        v11 = v7 + 4;
-        v12 = CFNumberCreate(0, kCFNumberFloat32Type, v11);
-        SLCFDictionaryBuilder::push_back(&v18, v10, v12);
-        Dictionary = SLCFDictionaryBuilder::CreateDictionary(&v18);
-        std::vector<void const*>::push_back[abi:ne200100](v21, &Dictionary);
+        v19 = 0u;
+        v17 = 0u;
+        v7 = kCFTunePitchKey;
+        v8 = CFNumberCreate(0, kCFNumberFloat32Type, v6);
+        SLCFDictionaryBuilder::push_back(&v17, v7, v8);
+        v9 = kCFTuneLocationKey;
+        v10 = v6 + 4;
+        v11 = CFNumberCreate(0, kCFNumberFloat32Type, v10);
+        SLCFDictionaryBuilder::push_back(&v17, v9, v11);
+        Dictionary = SLCFDictionaryBuilder::CreateDictionary(&v17);
+        std::vector<void const*>::push_back[abi:ne200100](v20, &Dictionary);
         if (__p[1])
         {
-          *&v20 = __p[1];
+          *&v19 = __p[1];
           operator delete(__p[1]);
         }
 
-        SLCFArrayBuilder::~SLCFArrayBuilder(&v18);
-        v7 = v11 + 4;
+        SLCFArrayBuilder::~SLCFArrayBuilder(&v17);
+        v6 = v10 + 4;
       }
 
-      v13 = kCFTunePitchTargetsKey;
-      Array = SLCFArrayBuilder::CreateArray(v21);
-      SLCFDictionaryBuilder::push_back(&v22, v13, Array);
-      SLCFArrayBuilder::~SLCFArrayBuilder(v21);
+      v12 = kCFTunePitchTargetsKey;
+      Array = SLCFArrayBuilder::CreateArray(v20);
+      SLCFDictionaryBuilder::push_back(&v21, v12, Array);
+      SLCFArrayBuilder::~SLCFArrayBuilder(v20);
     }
 
-    *&v18 = SLCFDictionaryBuilder::CreateDictionary(&v22);
-    std::vector<void const*>::push_back[abi:ne200100](v25, &v18);
-    if (v23[1])
+    *&v17 = SLCFDictionaryBuilder::CreateDictionary(&v21);
+    std::vector<void const*>::push_back[abi:ne200100](v24, &v17);
+    if (v22[1])
     {
-      *&v24 = v23[1];
-      operator delete(v23[1]);
+      *&v23 = v22[1];
+      operator delete(v22[1]);
     }
 
-    SLCFArrayBuilder::~SLCFArrayBuilder(&v22);
+    SLCFArrayBuilder::~SLCFArrayBuilder(&v21);
   }
 
-  v15 = SLCFArrayBuilder::CreateArray(v25);
-  SLCFArrayBuilder::~SLCFArrayBuilder(v25);
-  return v15;
+  v14 = SLCFArrayBuilder::CreateArray(v24);
+  SLCFArrayBuilder::~SLCFArrayBuilder(v24);
+  return v14;
 }
 
 void std::vector<void const*>::push_back[abi:ne200100](uint64_t a1, void *a2)
@@ -6815,7 +6775,7 @@ void std::vector<SLHomograph *>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-char *std::vector<unsigned short>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned short *>,std::__wrap_iter<unsigned short *>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<unsigned short>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned short *>,std::__wrap_iter<unsigned short *>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -6824,8 +6784,8 @@ char *std::vector<unsigned short>::__insert_with_size[abi:ne200100]<std::__wrap_
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 1)
   {
     v11 = *a1;
@@ -6867,23 +6827,24 @@ char *std::vector<unsigned short>::__insert_with_size[abi:ne200100]<std::__wrap_
     v35 = (2 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 2;
       *v35++ = v36;
       v34 -= 2;
     }
 
     while (v34);
-    memcpy((v33 + 2 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 2 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 2 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 2 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -6898,14 +6859,14 @@ char *std::vector<unsigned short>::__insert_with_size[abi:ne200100]<std::__wrap_
   {
     v29 = &__dst[2 * a5];
     v30 = (v10 - 2 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[2 * a5], __dst, v10 - v29);
@@ -6920,11 +6881,11 @@ char *std::vector<unsigned short>::__insert_with_size[abi:ne200100]<std::__wrap_
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[2 * a5];
@@ -6944,7 +6905,7 @@ char *std::vector<unsigned short>::__insert_with_size[abi:ne200100]<std::__wrap_
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[2 * a5], v5, v21 - v22);
@@ -6963,7 +6924,7 @@ LABEL_30:
   return v5;
 }
 
-void *std::vector<unsigned short>::__assign_with_size[abi:ne200100]<std::__wrap_iter<unsigned short *>,std::__wrap_iter<unsigned short *>>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<unsigned short>::__assign_with_size[abi:ne200100]<std::__wrap_iter<unsigned short *>,std::__wrap_iter<unsigned short *>>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -7042,7 +7003,7 @@ void *std::vector<unsigned short>::__assign_with_size[abi:ne200100]<std::__wrap_
   return result;
 }
 
-void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -7080,7 +7041,7 @@ void std::vector<SLPhonTune>::clear[abi:ne200100](uint64_t *a1)
   a1[1] = v2;
 }
 
-void *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -7155,7 +7116,7 @@ void *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char
   return result;
 }
 
-void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -7165,7 +7126,7 @@ void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t
   std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
 }
 
-char *std::vector<SLHomograph *>::__insert_with_size[abi:ne200100]<std::__wrap_iter<SLHomograph **>,std::__wrap_iter<SLHomograph **>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<SLHomograph *>::__insert_with_size[abi:ne200100]<std::__wrap_iter<SLHomograph **>,std::__wrap_iter<SLHomograph **>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -7174,8 +7135,8 @@ char *std::vector<SLHomograph *>::__insert_with_size[abi:ne200100]<std::__wrap_i
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 3)
   {
     v11 = *a1;
@@ -7213,23 +7174,24 @@ char *std::vector<SLHomograph *>::__insert_with_size[abi:ne200100]<std::__wrap_i
     v35 = (8 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 8;
       *v35++ = v36;
       v34 -= 8;
     }
 
     while (v34);
-    memcpy((v33 + 8 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 8 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 8 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 8 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -7244,14 +7206,14 @@ char *std::vector<SLHomograph *>::__insert_with_size[abi:ne200100]<std::__wrap_i
   {
     v29 = &__dst[8 * a5];
     v30 = (v10 - 8 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[8 * a5], __dst, v10 - v29);
@@ -7266,11 +7228,11 @@ char *std::vector<SLHomograph *>::__insert_with_size[abi:ne200100]<std::__wrap_i
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[8 * a5];
@@ -7290,7 +7252,7 @@ char *std::vector<SLHomograph *>::__insert_with_size[abi:ne200100]<std::__wrap_i
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[8 * a5], v5, v21 - v22);
@@ -7321,13 +7283,13 @@ char *std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_i
   v7 = __src;
   v9 = *(a1 + 8);
   v10 = *(a1 + 16);
-  if (v10 - v9 >= a5)
+  if ((v10 - v9) >= a5)
   {
     v15 = v9 - __dst;
-    if (v9 - __dst >= a5)
+    if ((v9 - __dst) >= a5)
     {
       v19 = &__dst[a5];
-      v20 = &v9[-a5];
+      v20 = (v9 - a5);
       v21 = *(a1 + 8);
       if (v9 >= a5)
       {
@@ -7362,7 +7324,7 @@ char *std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_i
 
       else
       {
-        v17 = (&v9[a4] - v16);
+        v17 = (&a4[v9] - v16);
         v18 = *(a1 + 8);
         do
         {
@@ -7409,7 +7371,7 @@ char *std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_i
   }
 
   v11 = *a1;
-  v12 = &v9[a5 - *a1];
+  v12 = v9 - *a1 + a5;
   if (v12 < 0)
   {
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
@@ -7914,86 +7876,66 @@ uint64_t SLLexerInstance::Refill(SLLexerInstance *this)
   return result;
 }
 
-void SLLexerInstance::CreateToken(uint64_t this)
+void SLLexerInstance::CreateToken(SLLexerInstance *this, uint64_t a2, uint64_t a3)
 {
-  v1 = *(this + 64);
-  if ((*(this + 16) & 0x80000000) != 0 && v1 == *(this + 32))
+  v3 = *(this + 8);
+  if ((*(this + 4) & 0x80000000) != 0 && v3 == *(this + 4))
   {
-    *(this + 64) = v1 + 2;
+    v3 += 2;
+    *(this + 8) = v3;
   }
 
-  v2 = *(this + 24);
-  SLLexerInstance::CreateToken<unsigned short>(this);
+  SLLexerInstance::CreateToken<unsigned short>(this, a2, a3, v3);
 }
 
-void SLLexerInstance::CreateToken(SLLexerInstance *this, unsigned __int8 a2, unsigned int a3, const char *__s)
+void SLLexerInstance::CreateToken(SLLexerInstance *this, uint64_t a2, uint64_t a3, const char *__s)
 {
-  strlen(__s);
+  v5 = a3;
+  v6 = a2;
+  v8 = &__s[strlen(__s)];
 
-  SLLexerInstance::CreateToken<char>(this);
+  SLLexerInstance::CreateToken<char>(this, v6, v5, __s, v8);
 }
 
-void SLLexerInstance::CreateToken<char>(uint64_t a1)
+void SLLexerInstance::CreateToken<char>(uint64_t a1, char a2, int a3, uint64_t a4, uint64_t a5)
 {
   *(a1 + 89) = 0;
-  v1 = *(a1 + 24);
-  v2 = (SLChar::sLexFold[*v1 & 0x3F | (SLChar::sUniMap[*v1 >> 6] << 6)] + *v1);
-  if (v2 <= 0x20)
-  {
-    v3 = ((1 << (LOBYTE(SLChar::sLexFold[*v1 & 0x3F | (SLChar::sUniMap[*v1 >> 6] << 6)]) + *v1)) & 0x100002601) == 0;
-    LOBYTE(SLChar::sLexFold[*v1 & 0x3F | (SLChar::sUniMap[*v1 >> 6] << 6)]);
-  }
-
-  else
-  {
-    v3 = 1;
-  }
-
-  v4 = !v3 || v2 == 8239;
-  if (v4 || v2 == 160)
+  v5 = *(a1 + 24);
+  v6 = (SLChar::sLexFold[*v5 & 0x3F | (SLChar::sUniMap[*v5 >> 6] << 6)] + *v5);
+  v8 = v6 <= 0x20 && ((1 << (LOBYTE(SLChar::sLexFold[*v5 & 0x3F | (SLChar::sUniMap[*v5 >> 6] << 6)]) + *v5)) & 0x100002601) != 0 || v6 == 8239;
+  if (v8 || v6 == 160)
   {
     *(a1 + 89) = 1;
-    v5 = 32;
+    v9 = 32;
   }
 
   else
   {
-    v5 = *(v1 - 1);
+    v9 = *(v5 - 1);
   }
 
-  *(a1 + 90) = v5;
+  *(a1 + 90) = v9;
   operator new();
 }
 
-void SLLexerInstance::CreateToken<unsigned short>(uint64_t a1)
+void SLLexerInstance::CreateToken<unsigned short>(uint64_t a1, char a2, int a3, void *a4)
 {
   *(a1 + 89) = 0;
-  v1 = *(a1 + 24);
-  v2 = (SLChar::sLexFold[*v1 & 0x3F | (SLChar::sUniMap[*v1 >> 6] << 6)] + *v1);
-  if (v2 <= 0x20)
-  {
-    v3 = ((1 << (LOBYTE(SLChar::sLexFold[*v1 & 0x3F | (SLChar::sUniMap[*v1 >> 6] << 6)]) + *v1)) & 0x100002601) == 0;
-    LOBYTE(SLChar::sLexFold[*v1 & 0x3F | (SLChar::sUniMap[*v1 >> 6] << 6)]);
-  }
-
-  else
-  {
-    v3 = 1;
-  }
-
-  v4 = !v3 || v2 == 8239;
-  if (v4 || v2 == 160)
+  v4 = *(a1 + 24);
+  v5 = (SLChar::sLexFold[*v4 & 0x3F | (SLChar::sUniMap[*v4 >> 6] << 6)] + *v4);
+  v7 = v5 <= 0x20 && ((1 << (LOBYTE(SLChar::sLexFold[*v4 & 0x3F | (SLChar::sUniMap[*v4 >> 6] << 6)]) + *v4)) & 0x100002601) != 0 || v5 == 8239;
+  if (v7 || v5 == 160)
   {
     *(a1 + 89) = 1;
-    v5 = 32;
+    v8 = 32;
   }
 
   else
   {
-    v5 = *(v1 - 1);
+    v8 = *(v4 - 1);
   }
 
-  *(a1 + 90) = v5;
+  *(a1 + 90) = v8;
   operator new();
 }
 
@@ -8172,7 +8114,7 @@ void SLLexerBuffer::~SLLexerBuffer(SLLexerBuffer *this)
   JUMPOUT(0x26D6753C0);
 }
 
-uint64_t *SLLexerBuffer::push_front(SLLexerBuffer *this, const SLTokenList *a2)
+void *SLLexerBuffer::push_front(SLLexerBuffer *this, const SLTokenList *a2)
 {
   v3 = *(this + 4);
   v4 = (v3 + 8 * (*(this + 7) >> 9));
@@ -8205,7 +8147,7 @@ uint64_t *SLLexerBuffer::push_front(SLLexerBuffer *this, const SLTokenList *a2)
     while (v8 != a2);
   }
 
-  return std::deque<SLToken *>::__insert_bidirectional[abi:ne200100]<std::__list_const_iterator<SLToken *,void *>>(this + 24, v4, v5, v6, a2, v7);
+  return std::deque<SLToken *>::__insert_bidirectional[abi:ne200100]<std::__list_const_iterator<SLToken *,void *>>((this + 24), v4, v5, v6, a2, v7);
 }
 
 uint64_t (***SLLexerBuffer::operator[](void *a1, unint64_t a2))(void)
@@ -8249,35 +8191,32 @@ uint64_t (***SLLexerBuffer::operator[](void *a1, unint64_t a2))(void)
   return result;
 }
 
-void *std::deque<SLToken *>::push_back(void *result, void *a2)
+void std::deque<SLToken *>::push_back(unint64_t *result, void *a2)
 {
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  if (v5 == v6)
+  v4 = result[2];
+  v5 = result[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = ((v5 - v6) << 6) - 1;
+    v6 = ((v4 - v5) << 6) - 1;
   }
 
-  v8 = result[5];
-  v9 = v8 + result[4];
-  if (v7 == v9)
+  v7 = result[5];
+  v8 = v7 + result[4];
+  if (v6 == v8)
   {
-    result = std::deque<SLToken *>::__add_back_capacity(result);
-    v6 = v3[1];
-    v8 = v3[5];
-    v9 = v3[4] + v8;
+    std::deque<SLToken *>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
-  *(*(v6 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v9 & 0x1FF)) = *a2;
-  v3[5] = v8 + 1;
-  return result;
+  *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
+  result[5] = v7 + 1;
 }
 
 void SLLexerChain::~SLLexerChain(SLLexerChain *this)
@@ -8301,7 +8240,7 @@ void SLLexerChain::~SLLexerChain(SLLexerChain *this)
   JUMPOUT(0x26D6753C0);
 }
 
-void *std::vector<unsigned short>::__assign_with_size[abi:ne200100]<unsigned short const*,unsigned short const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<unsigned short>::__assign_with_size[abi:ne200100]<unsigned short const*,unsigned short const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -8377,8 +8316,7 @@ void *std::vector<unsigned short>::__assign_with_size[abi:ne200100]<unsigned sho
       {
         v16 = *v13;
         v13 += 2;
-        *v15 = v16;
-        v15 += 2;
+        *v15++ = v16;
         v14 += 2;
       }
 
@@ -8392,7 +8330,7 @@ void *std::vector<unsigned short>::__assign_with_size[abi:ne200100]<unsigned sho
   return result;
 }
 
-_WORD *std::vector<unsigned short>::__assign_with_size[abi:ne200100]<char const*,char const*>(void *a1, char *a2, char *a3, unint64_t a4)
+_WORD *std::vector<unsigned short>::__assign_with_size[abi:ne200100]<char const*,char const*>(uint64_t *a1, char *a2, char *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -8477,7 +8415,7 @@ _WORD *std::vector<unsigned short>::__assign_with_size[abi:ne200100]<char const*
       {
         v16 = *v13++;
         *v11++ = v16;
-        ++v15;
+        v15 += 2;
       }
 
       while (v13 != a3);
@@ -8553,13 +8491,13 @@ uint64_t std::__split_buffer<SLToken **>::~__split_buffer(uint64_t a1)
   return a1;
 }
 
-uint64_t *std::deque<SLToken *>::__insert_bidirectional[abi:ne200100]<std::__list_const_iterator<SLToken *,void *>>(uint64_t a1, char *a2, uint64_t a3, void *a4, void *a5, unint64_t a6)
+void *std::deque<SLToken *>::__insert_bidirectional[abi:ne200100]<std::__list_const_iterator<SLToken *,void *>>(int64x2_t *a1, char *a2, uint64_t a3, void *a4, void *a5, unint64_t a6)
 {
   v6 = a6;
-  v10 = *(a1 + 32);
+  v10 = a1[2].u64[0];
   v11 = v10 >> 9;
-  v12 = *(a1 + 8);
-  v13 = *(a1 + 16);
+  v12 = a1->i64[1];
+  v13 = a1[1].i64[0];
   v14 = (v12 + 8 * (v10 >> 9));
   if (v13 == v12)
   {
@@ -8568,7 +8506,7 @@ uint64_t *std::deque<SLToken *>::__insert_bidirectional[abi:ne200100]<std::__lis
 
   else
   {
-    v15 = *v14 + 8 * (*(a1 + 32) & 0x1FFLL);
+    v15 = *v14 + 8 * (a1[2].i64[0] & 0x1FF);
   }
 
   if (a3 == v15)
@@ -8581,15 +8519,15 @@ uint64_t *std::deque<SLToken *>::__insert_bidirectional[abi:ne200100]<std::__lis
     v16 = ((a3 - *a2) >> 3) + ((a2 - v14) << 6) - ((v15 - *v14) >> 3);
   }
 
-  v17 = *(a1 + 40);
+  v17 = a1[2].i64[1];
   if (v16 < v17 - v16)
   {
     if (a6 > v10)
     {
       std::deque<SLToken *>::__add_front_capacity(a1, a6 - v10);
-      v10 = *(a1 + 32);
-      v12 = *(a1 + 8);
-      v13 = *(a1 + 16);
+      v10 = a1[2].u64[0];
+      v12 = a1->i64[1];
+      v13 = a1[1].i64[0];
       v11 = v10 >> 9;
     }
 
@@ -8673,7 +8611,7 @@ uint64_t *std::deque<SLToken *>::__insert_bidirectional[abi:ne200100]<std::__lis
 
     if (v27 != a4)
     {
-      v34 = *(a1 + 40);
+      v34 = a1[2].i64[1];
       v35 = v27;
       do
       {
@@ -8691,8 +8629,8 @@ uint64_t *std::deque<SLToken *>::__insert_bidirectional[abi:ne200100]<std::__lis
       }
 
       while (v35 != a4);
-      *(a1 + 32) = v10;
-      *(a1 + 40) = v34;
+      a1[2].i64[0] = v10;
+      a1[2].i64[1] = v34;
     }
 
 LABEL_55:
@@ -8709,7 +8647,7 @@ LABEL_56:
     v41 = v72.n128_u64[1];
     if (v72.n128_u64[1] != v38)
     {
-      v42 = *(a1 + 32);
+      v42 = a1[2];
       v43 = v37;
       v44 = v38;
       do
@@ -8726,8 +8664,7 @@ LABEL_56:
           v44 = (v46 + 4096);
         }
 
-        v47 = *(v44 - 1);
-        v44 -= 8;
+        v47 = *--v44;
         *(v19 - 8) = v47;
         v19 -= 8;
         v42 = vaddq_s64(v42, xmmword_26B34D7E0);
@@ -8735,7 +8672,7 @@ LABEL_56:
       }
 
       while (v44 != v72.n128_u64[1]);
-      *(a1 + 32) = v42;
+      a1[2] = v42;
     }
 
     if (v6 < v16)
@@ -8780,10 +8717,10 @@ LABEL_56:
   if (a6 > v22)
   {
     std::deque<SLToken *>::__add_back_capacity(a1, a6 - v22);
-    v17 = *(a1 + 40);
-    v12 = *(a1 + 8);
-    v13 = *(a1 + 16);
-    v21 = *(a1 + 32) + v17;
+    v17 = a1[2].i64[1];
+    v12 = a1->i64[1];
+    v13 = a1[1].i64[0];
+    v21 = a1[2].i64[0] + v17;
   }
 
   v23 = (v12 + 8 * (v21 >> 9));
@@ -8876,7 +8813,7 @@ LABEL_56:
     }
 
     while (v53 != a5);
-    *(a1 + 40) = v17;
+    a1[2].i64[1] = v17;
   }
 
   v6 = v28;
@@ -8889,7 +8826,7 @@ LABEL_81:
     v59 = v72.n128_u64[1];
     if (v72.n128_u64[1] != v56)
     {
-      v60 = *(a1 + 40);
+      v60 = a1[2].i64[1];
       v61 = v55;
       v62 = v56;
       do
@@ -8903,7 +8840,7 @@ LABEL_81:
         }
 
         v62 += 8;
-        if (&v62[-*v61] == 4096)
+        if (v62 - *v61 == 4096)
         {
           v64 = v61[1];
           ++v61;
@@ -8915,7 +8852,7 @@ LABEL_81:
       }
 
       while (v62 != v72.n128_u64[1]);
-      *(a1 + 40) = v60;
+      a1[2].i64[1] = v60;
     }
 
     if (v6 < v28)
@@ -8947,27 +8884,26 @@ LABEL_81:
   }
 
 LABEL_96:
-  v69 = *(a1 + 8);
-  if (*(a1 + 16) == v69)
+  v69 = a1->i64[1];
+  if (a1[1].i64[0] == v69)
   {
     v70 = 0;
   }
 
   else
   {
-    v70 = *(v69 + 8 * (*(a1 + 32) >> 9)) + 8 * (*(a1 + 32) & 0x1FFLL);
+    v70 = *(v69 + 8 * (a1[2].i64[0] >> 9)) + 8 * (a1[2].i64[0] & 0x1FF);
   }
 
-  v73.n128_u64[0] = v69 + 8 * (*(a1 + 32) >> 9);
+  v73.n128_u64[0] = v69 + 8 * (a1[2].i64[0] >> 9);
   v73.n128_u64[1] = v70;
   return std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>::operator+[abi:ne200100](&v73, v16);
 }
 
-const void **std::deque<SLToken *>::__add_front_capacity(const void **result, unint64_t a2)
+void std::deque<SLToken *>::__add_front_capacity(const void **a1, unint64_t a2)
 {
-  v2 = result;
-  v3 = result[1];
-  v4 = result[2];
+  v3 = a1[1];
+  v4 = a1[2];
   v5 = v4 - v3;
   if (v4 == v3)
   {
@@ -8999,8 +8935,8 @@ const void **std::deque<SLToken *>::__add_front_capacity(const void **result, un
     v8 = v6 >> 9;
   }
 
-  v9 = result[4];
-  v10 = v7 - &v9[result[5]];
+  v9 = a1[4];
+  v10 = v7 - &v9[a1[5]];
   if (v8 >= v10 >> 9)
   {
     v11 = v10 >> 9;
@@ -9013,19 +8949,19 @@ const void **std::deque<SLToken *>::__add_front_capacity(const void **result, un
 
   if (v8 <= v10 >> 9)
   {
-    for (result[4] = &v9[512 * v11]; v11; --v11)
+    for (a1[4] = &v9[512 * v11]; v11; --v11)
     {
-      v15 = v2[2];
+      v15 = a1[2];
       *&v17[0] = *(v15 - 1);
-      v2[2] = v15 - 1;
-      result = std::__split_buffer<SLToken **>::emplace_front<SLToken **&>(v2, v17);
+      a1[2] = v15 - 1;
+      std::__split_buffer<SLToken **>::emplace_front<SLToken **&>(a1, v17);
     }
   }
 
   else
   {
     v12 = v8 - v11;
-    v13 = result[3] - *result;
+    v13 = a1[3] - *a1;
     if (v8 - v11 > (v13 >> 3) - (v5 >> 3))
     {
       if (v13 >> 2 <= v12 + (v5 >> 3))
@@ -9038,10 +8974,10 @@ const void **std::deque<SLToken *>::__add_front_capacity(const void **result, un
         v14 = v13 >> 2;
       }
 
-      v18 = result;
+      v18 = a1;
       if (v14)
       {
-        std::__allocate_at_least[abi:ne200100]<std::allocator<SLToken **>>(result, v14);
+        std::__allocate_at_least[abi:ne200100]<std::allocator<SLToken **>>(a1, v14);
       }
 
       memset(v17, 0, sizeof(v17));
@@ -9050,7 +8986,7 @@ const void **std::deque<SLToken *>::__add_front_capacity(const void **result, un
 
     if (v12)
     {
-      if (v3 != *result)
+      if (v3 != *a1)
       {
         operator new();
       }
@@ -9058,16 +8994,14 @@ const void **std::deque<SLToken *>::__add_front_capacity(const void **result, un
       operator new();
     }
 
-    for (result[4] = &v9[512 * v11]; v11; --v11)
+    for (a1[4] = &v9[512 * v11]; v11; --v11)
     {
-      v16 = v2[2];
+      v16 = a1[2];
       *&v17[0] = *(v16 - 1);
-      v2[2] = v16 - 1;
-      result = std::__split_buffer<SLToken **>::emplace_front<SLToken **&>(v2, v17);
+      a1[2] = v16 - 1;
+      std::__split_buffer<SLToken **>::emplace_front<SLToken **&>(a1, v17);
     }
   }
-
-  return result;
 }
 
 void sub_26B2E5840(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -9080,7 +9014,7 @@ void sub_26B2E5840(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>::operator+[abi:ne200100](uint64_t a1, uint64_t a2)
+void *std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>::operator+[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   result = *a1;
   if (a2)
@@ -9089,23 +9023,20 @@ uint64_t *std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long
     if (v4 < 1)
     {
       result -= (511 - v4) >> 9;
-      v6 = *result;
     }
 
     else
     {
       result += v4 >> 9;
-      v5 = *result;
     }
   }
 
   return result;
 }
 
-void *std::deque<SLToken *>::__add_back_capacity(void *result, unint64_t a2)
+void std::deque<SLToken *>::__add_back_capacity(unint64_t *a1, unint64_t a2)
 {
-  v2 = result;
-  v3 = result[2] - result[1];
+  v3 = a1[2] - a1[1];
   if (v3)
   {
     v4 = a2;
@@ -9126,7 +9057,7 @@ void *std::deque<SLToken *>::__add_back_capacity(void *result, unint64_t a2)
     v5 = v4 >> 9;
   }
 
-  v6 = result[4];
+  v6 = a1[4];
   if (v5 >= v6 >> 9)
   {
     v7 = v6 >> 9;
@@ -9139,19 +9070,19 @@ void *std::deque<SLToken *>::__add_back_capacity(void *result, unint64_t a2)
 
   if (v5 <= v6 >> 9)
   {
-    for (result[4] = v6 - (v7 << 9); v7; --v7)
+    for (a1[4] = v6 - (v7 << 9); v7; --v7)
     {
-      v14 = v2[1];
+      v14 = a1[1];
       v16[0] = *v14;
-      v2[1] = v14 + 1;
-      result = std::__split_buffer<SLToken **>::emplace_back<SLToken **>(v2, v16);
+      a1[1] = (v14 + 1);
+      std::__split_buffer<SLToken **>::emplace_back<SLToken **>(a1, v16);
     }
   }
 
   else
   {
     v8 = v5 - v7;
-    v9 = result[3] - *result;
+    v9 = a1[3] - *a1;
     if (v5 - v7 > (v9 >> 3) - (v3 >> 3))
     {
       v10 = v3 >> 3;
@@ -9167,10 +9098,10 @@ void *std::deque<SLToken *>::__add_back_capacity(void *result, unint64_t a2)
       }
 
       v13 = v10 - v7;
-      v18 = result;
+      v18 = a1;
       if (v12)
       {
-        std::__allocate_at_least[abi:ne200100]<std::allocator<SLToken **>>(result, v12);
+        std::__allocate_at_least[abi:ne200100]<std::allocator<SLToken **>>(a1, v12);
       }
 
       v16[0] = 0;
@@ -9181,7 +9112,7 @@ void *std::deque<SLToken *>::__add_back_capacity(void *result, unint64_t a2)
 
     if (v8)
     {
-      if (result[3] != result[2])
+      if (a1[3] != a1[2])
       {
         operator new();
       }
@@ -9189,16 +9120,14 @@ void *std::deque<SLToken *>::__add_back_capacity(void *result, unint64_t a2)
       operator new();
     }
 
-    for (result[4] -= v7 << 9; v7; --v7)
+    for (a1[4] -= v7 << 9; v7; --v7)
     {
-      v15 = v2[1];
+      v15 = a1[1];
       v16[0] = *v15;
-      v2[1] = v15 + 1;
-      result = std::__split_buffer<SLToken **>::emplace_back<SLToken **>(v2, v16);
+      a1[1] = (v15 + 1);
+      std::__split_buffer<SLToken **>::emplace_back<SLToken **>(a1, v16);
     }
   }
-
-  return result;
 }
 
 void sub_26B2E5BBC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -9211,7 +9140,7 @@ void sub_26B2E5BBC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>::operator-[abi:ne200100](uint64_t a1, uint64_t a2)
+void *std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>::operator-[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   result = *a1;
   if (a2)
@@ -9220,27 +9149,24 @@ uint64_t *std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long
     if (v4 < 1)
     {
       result -= (511 - v4) >> 9;
-      v6 = *result;
     }
 
     else
     {
       result += v4 >> 9;
-      v5 = *result;
     }
   }
 
   return result;
 }
 
-const void **std::__split_buffer<SLToken **>::emplace_front<SLToken **&>(const void **result, void *a2)
+void std::__split_buffer<SLToken **>::emplace_front<SLToken **&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -9253,38 +9179,36 @@ const void **std::__split_buffer<SLToken **>::emplace_front<SLToken **&>(const v
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<SLToken **>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<SLToken **>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -9297,52 +9221,50 @@ const void **std::__split_buffer<SLToken **>::emplace_front<SLToken **&>(const v
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<SLToken **>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<SLToken **>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<SLToken **>::emplace_back<SLToken **>(void *result, void *a2)
+void std::__split_buffer<SLToken **>::emplace_back<SLToken **>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<SLToken **>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<SLToken **>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -9351,40 +9273,38 @@ void *std::__split_buffer<SLToken **>::emplace_back<SLToken **>(void *result, vo
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<SLToken **>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<SLToken **>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -9393,18 +9313,17 @@ void *std::__split_buffer<SLToken **>::emplace_back<SLToken **>(void *result, vo
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<SLToken **>>(uint64_t a1, unint64_t a2)
@@ -9417,19 +9336,19 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<SLToken **>>(uint64_t
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>,std::__move_impl<std::_ClassicAlgPolicy>::_MoveSegment<std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>,std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>>>(char **a1, char *__src, char **a3, char *a4, uint64_t a5)
+double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>,std::__move_impl<std::_ClassicAlgPolicy>::_MoveSegment<std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>,std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>>>(void **a1, uint64_t *__src, void **a3, uint64_t *a4, void ***a5)
 {
   if (a1 == a3)
   {
     v7 = *a5;
-    v8 = *(a5 + 8);
+    v8 = a5[1];
     v9 = __src;
   }
 
   else
   {
     v11 = a1 + 1;
-    std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,SLToken **,SLToken **,std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>,0>(__src, *(a5 + 8), *a1 + 4096, *a5, &v15);
+    std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,SLToken **,SLToken **,std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>,0>(&v15, __src, a5[1], *a1 + 512, *a5);
     for (i = v16; ; i = v16)
     {
       *a5 = i;
@@ -9439,39 +9358,39 @@ double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<SLToken *,SLT
       }
 
       v13 = *v11++;
-      std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,SLToken **,SLToken **,std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>,0>(v13, *(a5 + 8), v13 + 4096, *a5, &v15);
+      std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,SLToken **,SLToken **,std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>,0>(&v15, v13, a5[1], v13 + 512, *a5);
     }
 
     v9 = *v11;
     v7 = *a5;
-    v8 = *(a5 + 8);
+    v8 = a5[1];
   }
 
-  std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,SLToken **,SLToken **,std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>,0>(v9, v8, a4, v7, &v15);
+  std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,SLToken **,SLToken **,std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>,0>(&v15, v9, v8, a4, v7);
   result = *&v16;
   *a5 = v16;
   return result;
 }
 
-char *std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,SLToken **,SLToken **,std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>,0>@<X0>(char *__src@<X0>, char *__dst@<X3>, char *a3@<X1>, void **a4@<X2>, char **a5@<X8>)
+uint64_t *std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,SLToken **,SLToken **,std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>,0>@<X0>(uint64_t **__return_ptr a1@<X8>, uint64_t *__src@<X0>, char *__dst@<X3>, uint64_t *a4@<X1>, void **a5@<X2>)
 {
-  v6 = a4;
-  if (__src != a3)
+  v6 = a5;
+  if (__src != a4)
   {
     v9 = __src;
-    v6 = a4 + 1;
-    v10 = *a4;
+    v6 = a5 + 1;
+    v10 = *a5;
     while (1)
     {
       v11 = v10 - __dst + 4096;
-      v12 = (a3 - v9) >> 3 >= v11 >> 3 ? v11 >> 3 : (a3 - v9) >> 3;
+      v12 = a4 - v9 >= v11 >> 3 ? v11 >> 3 : a4 - v9;
       if (v12)
       {
         __src = memmove(__dst, v9, 8 * v12);
       }
 
-      v9 += 8 * v12;
-      if (v9 == a3)
+      v9 += v12;
+      if (v9 == a4)
       {
         break;
       }
@@ -9493,13 +9412,13 @@ char *std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_Classic
     }
   }
 
-  *a5 = a3;
-  a5[1] = v6;
-  a5[2] = __dst;
+  *a1 = a4;
+  a1[1] = v6;
+  a1[2] = __dst;
   return __src;
 }
 
-__n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>,std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>,0>@<Q0>(char **a1@<X1>, char *a2@<X2>, char **a3@<X3>, char *a4@<X4>, void *a5@<X5>, char *a6@<X6>, __n128 *a7@<X8>)
+__n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>,std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>,0>@<Q0>(uint64_t *a1@<X1>, char *a2@<X2>, char **a3@<X3>, unint64_t a4@<X4>, char *a5@<X5>, char *a6@<X6>, __n128 *a7@<X8>)
 {
   if (a1 == a3)
   {
@@ -9511,7 +9430,7 @@ __n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne20010
 
   else
   {
-    v17 = a3 - 1;
+    v17 = (a3 - 1);
     v16 = *a3;
     v18 = a4;
     v13 = a5;
@@ -9528,10 +9447,10 @@ __n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne20010
 
       v19 = *v17--;
       v16 = v19;
-      v18 = v19 + 4096;
+      v18 = (v19 + 4096);
     }
 
-    v12 = *v17 + 4096;
+    v12 = (*v17 + 4096);
     v11 = a2;
   }
 
@@ -9543,7 +9462,7 @@ __n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne20010
   return result;
 }
 
-void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<SLToken **,std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>,0>@<X0>(char *a1@<X1>, char *a2@<X2>, void *a3@<X3>, char *a4@<X4>, void *a5@<X8>)
+void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<SLToken **,std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>,0>@<X0>(char *a1@<X1>, char *a2@<X2>, char *a3@<X3>, char *a4@<X4>, char **a5@<X8>)
 {
   v6 = a3;
   if (a1 == a2)
@@ -9581,15 +9500,16 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
         break;
       }
 
-      v15 = *--v6;
+      v15 = *(v6 - 1);
+      v6 -= 8;
       v10 = v15;
       a4 = (v15 + 4096);
     }
 
     if ((*v6 + 4096) == a4)
     {
-      v16 = v6[1];
-      ++v6;
+      v16 = *(v6 + 1);
+      v6 += 8;
       a4 = v16;
     }
   }
@@ -9600,19 +9520,19 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
   return result;
 }
 
-void *std::deque<SLToken *>::__add_back_capacity(void *a1)
+void std::deque<SLToken *>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -9620,25 +9540,25 @@ void *std::deque<SLToken *>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<SLToken **>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<SLToken **>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<SLToken **>::emplace_back<SLToken **>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<SLToken **>::emplace_back<SLToken **>(a1, &v9);
 }
 
 void sub_26B2E65AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -9652,7 +9572,7 @@ void sub_26B2E65AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-__CFBundle *SLDictLookup::Create(SLDictLookup *this, const __CFLocale *a2)
+CFBundleRef SLDictLookup::Create(SLDictLookup *this, const __CFLocale *a2)
 {
   Value = CFLocaleGetValue(this, *MEMORY[0x277CBEED0]);
   if (CFStringCompare(Value, @"en", 0))
@@ -9807,9 +9727,9 @@ CFArrayRef SLDictLookup::CreatePhonemeSymbols(SLDictLookup *this, const __CFLoca
   return Array;
 }
 
-void sub_26B2E6C44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_26B2E6C44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   SLCFArrayBuilder::~SLCFArrayBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -9863,4 +9783,59 @@ uint64_t SLDictLookup::Lookup(SLDictLookup *this, SLDictionary *a2, const char *
 
   SLTokenBuilder::~SLTokenBuilder(v13);
   return v11;
+}
+
+void sub_26B2E6EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  MEMORY[0x26D6753C0](v3, 0x10A1C40DD1828A3);
+  SLTokenBuilder::~SLTokenBuilder(va);
+  _Unwind_Resume(a1);
+}
+
+void SLTokenBuilder::SLTokenBuilder(SLTokenBuilder *this, SLToken *a2)
+{
+  SLWordBuilder::SLWordBuilder(this);
+  *v3 = &unk_287BD3C40;
+  *(v3 + 16) = 0;
+  *(v3 + 24) = 0;
+  *(v3 + 32) = 0;
+  *(v3 + 40) = a2;
+  *(v3 + 56) = 0;
+  *(v3 + 64) = 1;
+}
+
+{
+  SLWordBuilder::SLWordBuilder(this);
+  *v3 = &unk_287BD3C40;
+  *(v3 + 16) = 0;
+  *(v3 + 24) = 0;
+  *(v3 + 32) = 0;
+  *(v3 + 40) = a2;
+  *(v3 + 56) = 0;
+  *(v3 + 64) = 1;
+}
+
+void SLTokenBuilder::Build(SLTokenBuilder *this)
+{
+  v2 = this + 16;
+  if ((*(this + 39) & 0x80000000) == 0)
+  {
+    if (!*(this + 39))
+    {
+      goto LABEL_7;
+    }
+
+    goto LABEL_6;
+  }
+
+  if (*(this + 3))
+  {
+    v2 = *v2;
+LABEL_6:
+    SLToken::SetText(*(this + 5), v2);
+  }
+
+LABEL_7:
+  *(*(this + 5) + 16) |= 0x40u;
 }

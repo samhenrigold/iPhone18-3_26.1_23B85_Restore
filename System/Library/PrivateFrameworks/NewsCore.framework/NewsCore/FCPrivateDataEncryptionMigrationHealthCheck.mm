@@ -56,18 +56,15 @@
 
 + (id)run
 {
-  v5 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
   [v2 run];
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return 0;
 }
 
 - (void)run
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   [(FCPrivateDataEncryptionMigrationHealthCheck *)self _eraseAllPrivateData];
   array = [MEMORY[0x1E695DF70] array];
   _prepareHistoryAndReturnExpectations = [(FCPrivateDataEncryptionMigrationHealthCheck *)self _prepareHistoryAndReturnExpectations];
@@ -107,50 +104,48 @@
   containerIdentifier2 = [secureContainer containerIdentifier];
   v19 = [(FCCKPrivateDatabase *)v14 initWithContainerIdentifier:containerIdentifier secureContainerIdentifier:containerIdentifier2 productionEnvironment:1 encryptionDelegate:self networkBehaviorMonitor:0 privateDataSyncingEnabled:1];
 
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __50__FCPrivateDataEncryptionMigrationHealthCheck_run__block_invoke;
-  v31[3] = &unk_1E7C37E50;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __50__FCPrivateDataEncryptionMigrationHealthCheck_run__block_invoke;
+  v30[3] = &unk_1E7C37E50;
   v20 = v19;
-  v32 = v20;
-  FCWaitUntilBlockIsInvoked(v31);
+  v31 = v20;
+  FCWaitUntilBlockIsInvoked(v30);
   [MEMORY[0x1E696AF00] isMainThread];
   if (!v20 || v20[5] <= 0)
   {
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:@"private database started up with encryption disabled"];
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v21 = array;
-  v22 = [v21 countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v26 objects:v32 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v28;
+    v24 = *v27;
     do
     {
       v25 = 0;
       do
       {
-        if (*v28 != v24)
+        if (*v27 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        [*(*(&v27 + 1) + 8 * v25++) validate];
+        [*(*(&v26 + 1) + 8 * v25++) validate];
       }
 
       while (v23 != v25);
-      v23 = [v21 countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v26 objects:v32 count:16];
     }
 
     while (v23);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_eraseAllPrivateData
@@ -246,7 +241,7 @@ void __67__FCPrivateDataEncryptionMigrationHealthCheck__eraseAllPrivateData__blo
 
 - (id)_prepareHistoryAndReturnExpectations
 {
-  v88[1] = *MEMORY[0x1E69E9840];
+  v87[1] = *MEMORY[0x1E69E9840];
   schema = [(FCPrivateDataEncryptionMigrationHealthCheck *)self schema];
   v4 = [(FCCKPrivateDatabaseSchema *)schema mappingFromRecordType:@"ReadingHistory" inZoneName:[(FCPrivateDataEncryptionMigrationHealthCheck *)self toVersion] toVersion:?];
 
@@ -328,33 +323,33 @@ void __67__FCPrivateDataEncryptionMigrationHealthCheck__eraseAllPrivateData__blo
     v24 = 0;
   }
 
-  v67 = v24;
+  v66 = v24;
 
-  v81 = 0;
-  v82 = &v81;
-  v83 = 0x3032000000;
-  v84 = __Block_byref_object_copy__5;
-  v85 = __Block_byref_object_dispose__5;
-  v86 = 0;
-  v77[0] = MEMORY[0x1E69E9820];
-  v77[1] = 3221225472;
-  v77[2] = __83__FCPrivateDataEncryptionMigrationHealthCheck__prepareHistoryAndReturnExpectations__block_invoke;
-  v77[3] = &unk_1E7C37EF0;
+  v80 = 0;
+  v81 = &v80;
+  v82 = 0x3032000000;
+  v83 = __Block_byref_object_copy__5;
+  v84 = __Block_byref_object_dispose__5;
+  v85 = 0;
+  v76[0] = MEMORY[0x1E69E9820];
+  v76[1] = 3221225472;
+  v76[2] = __83__FCPrivateDataEncryptionMigrationHealthCheck__prepareHistoryAndReturnExpectations__block_invoke;
+  v76[3] = &unk_1E7C37EF0;
   v25 = v21;
-  v78 = v25;
+  v77 = v25;
   selfCopy = self;
-  v80 = &v81;
-  FCWaitUntilBlockIsInvoked(v77);
+  v79 = &v80;
+  FCWaitUntilBlockIsInvoked(v76);
   [MEMORY[0x1E696AF00] isMainThread];
-  if (v82[5])
+  if (v81[5])
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving history zone: %@", v82[5]}];
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving history zone: %@", v81[5]}];
   }
 
-  v64 = FCRandomTagCloudKitID();
+  v63 = FCRandomTagCloudKitID();
   v26 = FCRandomArticleCloudKitID();
-  v66 = FCHistoryItemIDFromArticleID(v26);
-  v65 = [objc_alloc(MEMORY[0x1E695BA70]) initWithRecordName:v66 zoneID:v25];
+  v65 = FCHistoryItemIDFromArticleID(v26);
+  v64 = [objc_alloc(MEMORY[0x1E695BA70]) initWithRecordName:v65 zoneID:v25];
   v27 = objc_alloc(MEMORY[0x1E695BA60]);
   fromRecordSchema2 = [v4 fromRecordSchema];
   v29 = fromRecordSchema2;
@@ -369,10 +364,10 @@ void __67__FCPrivateDataEncryptionMigrationHealthCheck__eraseAllPrivateData__blo
   }
 
   v31 = v30;
-  v32 = [v27 initWithRecordType:v31 recordID:v65];
+  v32 = [v27 initWithRecordType:v31 recordID:v64];
 
   [v32 setObject:v26 forKeyedSubscript:@"articleID"];
-  [v32 setObject:v64 forKeyedSubscript:@"sourceChannelTagID"];
+  [v32 setObject:v63 forKeyedSubscript:@"sourceChannelTagID"];
   uUID = [MEMORY[0x1E696AFB0] UUID];
   uUIDString = [uUID UUIDString];
   [v32 setObject:uUIDString forKeyedSubscript:@"deviceID"];
@@ -405,25 +400,25 @@ void __67__FCPrivateDataEncryptionMigrationHealthCheck__eraseAllPrivateData__blo
   [v32 setObject:&unk_1F2E6FCD8 forKeyedSubscript:@"readCount"];
   [v32 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"removedFromAudio"];
   [v32 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"pruningDisabled"];
-  v71 = 0;
-  v72 = &v71;
-  v73 = 0x3032000000;
-  v74 = __Block_byref_object_copy__5;
-  v75 = __Block_byref_object_dispose__5;
-  v76 = 0;
-  v68[0] = MEMORY[0x1E69E9820];
-  v68[1] = 3221225472;
-  v68[2] = __83__FCPrivateDataEncryptionMigrationHealthCheck__prepareHistoryAndReturnExpectations__block_invoke_49;
-  v68[3] = &unk_1E7C37EF0;
-  v68[4] = self;
+  v70 = 0;
+  v71 = &v70;
+  v72 = 0x3032000000;
+  v73 = __Block_byref_object_copy__5;
+  v74 = __Block_byref_object_dispose__5;
+  v75 = 0;
+  v67[0] = MEMORY[0x1E69E9820];
+  v67[1] = 3221225472;
+  v67[2] = __83__FCPrivateDataEncryptionMigrationHealthCheck__prepareHistoryAndReturnExpectations__block_invoke_49;
+  v67[3] = &unk_1E7C37EF0;
+  v67[4] = self;
   v39 = v32;
-  v69 = v39;
-  v70 = &v71;
-  FCWaitUntilBlockIsInvoked(v68);
+  v68 = v39;
+  v69 = &v70;
+  FCWaitUntilBlockIsInvoked(v67);
   [MEMORY[0x1E696AF00] isMainThread];
-  if (v72[5])
+  if (v71[5])
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving history record: %@", v72[5]}];
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving history record: %@", v71[5]}];
   }
 
   v40 = objc_opt_new();
@@ -431,7 +426,7 @@ void __67__FCPrivateDataEncryptionMigrationHealthCheck__eraseAllPrivateData__blo
   privateCloudDatabase = [secureContainer privateCloudDatabase];
   [v40 setDatabase:privateCloudDatabase];
 
-  [v40 setZoneID:v67];
+  [v40 setZoneID:v66];
   [v40 setShouldExist:1];
   v43 = objc_opt_new();
   container = [(FCPrivateDataEncryptionMigrationHealthCheck *)self container];
@@ -473,20 +468,18 @@ void __67__FCPrivateDataEncryptionMigrationHealthCheck__eraseAllPrivateData__blo
   privateCloudDatabase3 = [secureContainer2 privateCloudDatabase];
   [v57 setDatabase:privateCloudDatabase3];
 
-  [v57 setZoneID:v67];
-  v88[0] = v46;
-  v60 = [MEMORY[0x1E695DEC8] arrayWithObjects:v88 count:1];
+  [v57 setZoneID:v66];
+  v87[0] = v46;
+  v60 = [MEMORY[0x1E695DEC8] arrayWithObjects:v87 count:1];
   [v57 setRecordTests:v60];
 
-  v87[0] = v40;
-  v87[1] = v57;
-  v87[2] = v43;
-  v61 = [MEMORY[0x1E695DEC8] arrayWithObjects:v87 count:3];
+  v86[0] = v40;
+  v86[1] = v57;
+  v86[2] = v43;
+  v61 = [MEMORY[0x1E695DEC8] arrayWithObjects:v86 count:3];
 
-  _Block_object_dispose(&v71, 8);
-  _Block_object_dispose(&v81, 8);
-
-  v62 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v70, 8);
+  _Block_object_dispose(&v80, 8);
 
   return v61;
 }
@@ -541,7 +534,7 @@ void __83__FCPrivateDataEncryptionMigrationHealthCheck__prepareHistoryAndReturnE
 
 - (id)_prepareIssueHistoryAndReturnExpectations
 {
-  v84[1] = *MEMORY[0x1E69E9840];
+  v83[1] = *MEMORY[0x1E69E9840];
   schema = [(FCPrivateDataEncryptionMigrationHealthCheck *)self schema];
   v4 = [(FCCKPrivateDatabaseSchema *)schema mappingFromRecordType:@"IssueReadingHistory" inZoneName:[(FCPrivateDataEncryptionMigrationHealthCheck *)self toVersion] toVersion:?];
 
@@ -623,32 +616,32 @@ void __83__FCPrivateDataEncryptionMigrationHealthCheck__prepareHistoryAndReturnE
     v24 = 0;
   }
 
-  v63 = v24;
+  v62 = v24;
 
-  v77 = 0;
-  v78 = &v77;
-  v79 = 0x3032000000;
-  v80 = __Block_byref_object_copy__5;
-  v81 = __Block_byref_object_dispose__5;
-  v82 = 0;
-  v73[0] = MEMORY[0x1E69E9820];
-  v73[1] = 3221225472;
-  v73[2] = __88__FCPrivateDataEncryptionMigrationHealthCheck__prepareIssueHistoryAndReturnExpectations__block_invoke;
-  v73[3] = &unk_1E7C37EF0;
+  v76 = 0;
+  v77 = &v76;
+  v78 = 0x3032000000;
+  v79 = __Block_byref_object_copy__5;
+  v80 = __Block_byref_object_dispose__5;
+  v81 = 0;
+  v72[0] = MEMORY[0x1E69E9820];
+  v72[1] = 3221225472;
+  v72[2] = __88__FCPrivateDataEncryptionMigrationHealthCheck__prepareIssueHistoryAndReturnExpectations__block_invoke;
+  v72[3] = &unk_1E7C37EF0;
   v25 = v21;
-  v74 = v25;
+  v73 = v25;
   selfCopy = self;
-  v76 = &v77;
-  FCWaitUntilBlockIsInvoked(v73);
+  v75 = &v76;
+  FCWaitUntilBlockIsInvoked(v72);
   [MEMORY[0x1E696AF00] isMainThread];
-  if (v78[5])
+  if (v77[5])
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving issue history zone: %@", v78[5]}];
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving issue history zone: %@", v77[5]}];
   }
 
   v26 = FCRandomIssueCloudKitID();
-  v62 = FCIssueHistoryItemIDFromIssueID(v26);
-  v61 = [objc_alloc(MEMORY[0x1E695BA70]) initWithRecordName:v62 zoneID:v25];
+  v61 = FCIssueHistoryItemIDFromIssueID(v26);
+  v60 = [objc_alloc(MEMORY[0x1E695BA70]) initWithRecordName:v61 zoneID:v25];
   v27 = objc_alloc(MEMORY[0x1E695BA60]);
   fromRecordSchema2 = [v4 fromRecordSchema];
   v29 = fromRecordSchema2;
@@ -663,7 +656,7 @@ void __83__FCPrivateDataEncryptionMigrationHealthCheck__prepareHistoryAndReturnE
   }
 
   v31 = v30;
-  v32 = [v27 initWithRecordType:v31 recordID:v61];
+  v32 = [v27 initWithRecordType:v31 recordID:v60];
 
   [v32 setObject:v26 forKeyedSubscript:@"issueID"];
   date = [MEMORY[0x1E695DF00] date];
@@ -675,25 +668,25 @@ void __83__FCPrivateDataEncryptionMigrationHealthCheck__prepareHistoryAndReturnE
   date3 = [MEMORY[0x1E695DF00] date];
   [v32 setObject:date3 forKeyedSubscript:@"lastEngaged"];
 
-  v67 = 0;
-  v68 = &v67;
-  v69 = 0x3032000000;
-  v70 = __Block_byref_object_copy__5;
-  v71 = __Block_byref_object_dispose__5;
-  v72 = 0;
-  v64[0] = MEMORY[0x1E69E9820];
-  v64[1] = 3221225472;
-  v64[2] = __88__FCPrivateDataEncryptionMigrationHealthCheck__prepareIssueHistoryAndReturnExpectations__block_invoke_3;
-  v64[3] = &unk_1E7C37EF0;
-  v64[4] = self;
+  v66 = 0;
+  v67 = &v66;
+  v68 = 0x3032000000;
+  v69 = __Block_byref_object_copy__5;
+  v70 = __Block_byref_object_dispose__5;
+  v71 = 0;
+  v63[0] = MEMORY[0x1E69E9820];
+  v63[1] = 3221225472;
+  v63[2] = __88__FCPrivateDataEncryptionMigrationHealthCheck__prepareIssueHistoryAndReturnExpectations__block_invoke_3;
+  v63[3] = &unk_1E7C37EF0;
+  v63[4] = self;
   v36 = v32;
-  v65 = v36;
-  v66 = &v67;
-  FCWaitUntilBlockIsInvoked(v64);
+  v64 = v36;
+  v65 = &v66;
+  FCWaitUntilBlockIsInvoked(v63);
   [MEMORY[0x1E696AF00] isMainThread];
-  if (v68[5])
+  if (v67[5])
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving issue history record: %@", v68[5]}];
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving issue history record: %@", v67[5]}];
   }
 
   v37 = objc_opt_new();
@@ -701,7 +694,7 @@ void __83__FCPrivateDataEncryptionMigrationHealthCheck__prepareHistoryAndReturnE
   privateCloudDatabase = [secureContainer privateCloudDatabase];
   [v37 setDatabase:privateCloudDatabase];
 
-  [v37 setZoneID:v63];
+  [v37 setZoneID:v62];
   [v37 setShouldExist:1];
   v40 = objc_opt_new();
   container = [(FCPrivateDataEncryptionMigrationHealthCheck *)self container];
@@ -743,20 +736,18 @@ void __83__FCPrivateDataEncryptionMigrationHealthCheck__prepareHistoryAndReturnE
   privateCloudDatabase3 = [secureContainer2 privateCloudDatabase];
   [v54 setDatabase:privateCloudDatabase3];
 
-  [v54 setZoneID:v63];
-  v84[0] = v43;
-  v57 = [MEMORY[0x1E695DEC8] arrayWithObjects:v84 count:1];
+  [v54 setZoneID:v62];
+  v83[0] = v43;
+  v57 = [MEMORY[0x1E695DEC8] arrayWithObjects:v83 count:1];
   [v54 setRecordTests:v57];
 
-  v83[0] = v37;
-  v83[1] = v54;
-  v83[2] = v40;
-  v58 = [MEMORY[0x1E695DEC8] arrayWithObjects:v83 count:3];
+  v82[0] = v37;
+  v82[1] = v54;
+  v82[2] = v40;
+  v58 = [MEMORY[0x1E695DEC8] arrayWithObjects:v82 count:3];
 
-  _Block_object_dispose(&v67, 8);
-  _Block_object_dispose(&v77, 8);
-
-  v59 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v66, 8);
+  _Block_object_dispose(&v76, 8);
 
   return v58;
 }
@@ -811,7 +802,7 @@ void __88__FCPrivateDataEncryptionMigrationHealthCheck__prepareIssueHistoryAndRe
 
 - (id)_prepareReadingListAndReturnExpectations
 {
-  v82[1] = *MEMORY[0x1E69E9840];
+  v81[1] = *MEMORY[0x1E69E9840];
   schema = [(FCPrivateDataEncryptionMigrationHealthCheck *)self schema];
   v4 = [(FCCKPrivateDatabaseSchema *)schema mappingFromRecordType:@"ReadingList" inZoneName:[(FCPrivateDataEncryptionMigrationHealthCheck *)self toVersion] toVersion:?];
 
@@ -893,32 +884,32 @@ void __88__FCPrivateDataEncryptionMigrationHealthCheck__prepareIssueHistoryAndRe
     v24 = 0;
   }
 
-  v61 = v24;
+  v60 = v24;
 
-  v75 = 0;
-  v76 = &v75;
-  v77 = 0x3032000000;
-  v78 = __Block_byref_object_copy__5;
-  v79 = __Block_byref_object_dispose__5;
-  v80 = 0;
-  v71[0] = MEMORY[0x1E69E9820];
-  v71[1] = 3221225472;
-  v71[2] = __87__FCPrivateDataEncryptionMigrationHealthCheck__prepareReadingListAndReturnExpectations__block_invoke;
-  v71[3] = &unk_1E7C37EF0;
+  v74 = 0;
+  v75 = &v74;
+  v76 = 0x3032000000;
+  v77 = __Block_byref_object_copy__5;
+  v78 = __Block_byref_object_dispose__5;
+  v79 = 0;
+  v70[0] = MEMORY[0x1E69E9820];
+  v70[1] = 3221225472;
+  v70[2] = __87__FCPrivateDataEncryptionMigrationHealthCheck__prepareReadingListAndReturnExpectations__block_invoke;
+  v70[3] = &unk_1E7C37EF0;
   v25 = v21;
-  v72 = v25;
+  v71 = v25;
   selfCopy = self;
-  v74 = &v75;
-  FCWaitUntilBlockIsInvoked(v71);
+  v73 = &v74;
+  FCWaitUntilBlockIsInvoked(v70);
   [MEMORY[0x1E696AF00] isMainThread];
-  if (v76[5])
+  if (v75[5])
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving reading list zone: %@", v76[5]}];
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving reading list zone: %@", v75[5]}];
   }
 
   v26 = FCRandomArticleCloudKitID();
-  v60 = FCReadingListEntryIDFromArticleID(v26);
-  v59 = [objc_alloc(MEMORY[0x1E695BA70]) initWithRecordName:v60 zoneID:v25];
+  v59 = FCReadingListEntryIDFromArticleID(v26);
+  v58 = [objc_alloc(MEMORY[0x1E695BA70]) initWithRecordName:v59 zoneID:v25];
   v27 = objc_alloc(MEMORY[0x1E695BA60]);
   fromRecordSchema2 = [v4 fromRecordSchema];
   v29 = fromRecordSchema2;
@@ -933,7 +924,7 @@ void __88__FCPrivateDataEncryptionMigrationHealthCheck__prepareIssueHistoryAndRe
   }
 
   v31 = v30;
-  v32 = [v27 initWithRecordType:v31 recordID:v59];
+  v32 = [v27 initWithRecordType:v31 recordID:v58];
 
   [v32 setObject:v26 forKeyedSubscript:@"articleID"];
   date = [MEMORY[0x1E695DF00] date];
@@ -942,25 +933,25 @@ void __88__FCPrivateDataEncryptionMigrationHealthCheck__prepareIssueHistoryAndRe
   [v32 setObject:&unk_1F2E6FCF0 forKeyedSubscript:@"origin"];
   [v32 setObject:&unk_1F2E6FCC0 forKeyedSubscript:@"writerVersionHighWatermark"];
   [v32 setObject:&unk_1F2E6FCC0 forKeyedSubscript:@"readerMinimumRequiredVersion"];
-  v65 = 0;
-  v66 = &v65;
-  v67 = 0x3032000000;
-  v68 = __Block_byref_object_copy__5;
-  v69 = __Block_byref_object_dispose__5;
-  v70 = 0;
-  v62[0] = MEMORY[0x1E69E9820];
-  v62[1] = 3221225472;
-  v62[2] = __87__FCPrivateDataEncryptionMigrationHealthCheck__prepareReadingListAndReturnExpectations__block_invoke_89;
-  v62[3] = &unk_1E7C37EF0;
-  v62[4] = self;
+  v64 = 0;
+  v65 = &v64;
+  v66 = 0x3032000000;
+  v67 = __Block_byref_object_copy__5;
+  v68 = __Block_byref_object_dispose__5;
+  v69 = 0;
+  v61[0] = MEMORY[0x1E69E9820];
+  v61[1] = 3221225472;
+  v61[2] = __87__FCPrivateDataEncryptionMigrationHealthCheck__prepareReadingListAndReturnExpectations__block_invoke_89;
+  v61[3] = &unk_1E7C37EF0;
+  v61[4] = self;
   v34 = v32;
-  v63 = v34;
-  v64 = &v65;
-  FCWaitUntilBlockIsInvoked(v62);
+  v62 = v34;
+  v63 = &v64;
+  FCWaitUntilBlockIsInvoked(v61);
   [MEMORY[0x1E696AF00] isMainThread];
-  if (v66[5])
+  if (v65[5])
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving reading list record: %@", v66[5]}];
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving reading list record: %@", v65[5]}];
   }
 
   v35 = objc_opt_new();
@@ -968,7 +959,7 @@ void __88__FCPrivateDataEncryptionMigrationHealthCheck__prepareIssueHistoryAndRe
   privateCloudDatabase = [secureContainer privateCloudDatabase];
   [v35 setDatabase:privateCloudDatabase];
 
-  [v35 setZoneID:v61];
+  [v35 setZoneID:v60];
   [v35 setShouldExist:1];
   v38 = objc_opt_new();
   container = [(FCPrivateDataEncryptionMigrationHealthCheck *)self container];
@@ -1010,20 +1001,18 @@ void __88__FCPrivateDataEncryptionMigrationHealthCheck__prepareIssueHistoryAndRe
   privateCloudDatabase3 = [secureContainer2 privateCloudDatabase];
   [v52 setDatabase:privateCloudDatabase3];
 
-  [v52 setZoneID:v61];
-  v82[0] = v41;
-  v55 = [MEMORY[0x1E695DEC8] arrayWithObjects:v82 count:1];
+  [v52 setZoneID:v60];
+  v81[0] = v41;
+  v55 = [MEMORY[0x1E695DEC8] arrayWithObjects:v81 count:1];
   [v52 setRecordTests:v55];
 
-  v81[0] = v35;
-  v81[1] = v52;
-  v81[2] = v38;
-  v56 = [MEMORY[0x1E695DEC8] arrayWithObjects:v81 count:3];
+  v80[0] = v35;
+  v80[1] = v52;
+  v80[2] = v38;
+  v56 = [MEMORY[0x1E695DEC8] arrayWithObjects:v80 count:3];
 
-  _Block_object_dispose(&v65, 8);
-  _Block_object_dispose(&v75, 8);
-
-  v57 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v64, 8);
+  _Block_object_dispose(&v74, 8);
 
   return v56;
 }
@@ -1078,7 +1067,7 @@ void __87__FCPrivateDataEncryptionMigrationHealthCheck__prepareReadingListAndRet
 
 - (id)_prepareSubscriptionsAndReturnExpectations
 {
-  v82[1] = *MEMORY[0x1E69E9840];
+  v81[1] = *MEMORY[0x1E69E9840];
   schema = [(FCPrivateDataEncryptionMigrationHealthCheck *)self schema];
   v4 = [(FCCKPrivateDatabaseSchema *)schema mappingFromRecordType:@"Subscriptions" inZoneName:[(FCPrivateDataEncryptionMigrationHealthCheck *)self toVersion] toVersion:?];
 
@@ -1160,32 +1149,32 @@ void __87__FCPrivateDataEncryptionMigrationHealthCheck__prepareReadingListAndRet
     v24 = 0;
   }
 
-  v61 = v24;
+  v60 = v24;
 
-  v75 = 0;
-  v76 = &v75;
-  v77 = 0x3032000000;
-  v78 = __Block_byref_object_copy__5;
-  v79 = __Block_byref_object_dispose__5;
-  v80 = 0;
-  v71[0] = MEMORY[0x1E69E9820];
-  v71[1] = 3221225472;
-  v71[2] = __89__FCPrivateDataEncryptionMigrationHealthCheck__prepareSubscriptionsAndReturnExpectations__block_invoke;
-  v71[3] = &unk_1E7C37EF0;
+  v74 = 0;
+  v75 = &v74;
+  v76 = 0x3032000000;
+  v77 = __Block_byref_object_copy__5;
+  v78 = __Block_byref_object_dispose__5;
+  v79 = 0;
+  v70[0] = MEMORY[0x1E69E9820];
+  v70[1] = 3221225472;
+  v70[2] = __89__FCPrivateDataEncryptionMigrationHealthCheck__prepareSubscriptionsAndReturnExpectations__block_invoke;
+  v70[3] = &unk_1E7C37EF0;
   v25 = v21;
-  v72 = v25;
+  v71 = v25;
   selfCopy = self;
-  v74 = &v75;
-  FCWaitUntilBlockIsInvoked(v71);
+  v73 = &v74;
+  FCWaitUntilBlockIsInvoked(v70);
   [MEMORY[0x1E696AF00] isMainThread];
-  if (v76[5])
+  if (v75[5])
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving subscriptions zone: %@", v76[5]}];
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving subscriptions zone: %@", v75[5]}];
   }
 
   v26 = FCRandomTagCloudKitID();
-  v60 = [FCSubscriptionList subscriptionIDForTagID:v26 type:0];
-  v59 = [objc_alloc(MEMORY[0x1E695BA70]) initWithRecordName:v60 zoneID:v25];
+  v59 = [FCSubscriptionList subscriptionIDForTagID:v26 type:0];
+  v58 = [objc_alloc(MEMORY[0x1E695BA70]) initWithRecordName:v59 zoneID:v25];
   v27 = objc_alloc(MEMORY[0x1E695BA60]);
   fromRecordSchema2 = [v4 fromRecordSchema];
   v29 = fromRecordSchema2;
@@ -1200,7 +1189,7 @@ void __87__FCPrivateDataEncryptionMigrationHealthCheck__prepareReadingListAndRet
   }
 
   v31 = v30;
-  v32 = [v27 initWithRecordType:v31 recordID:v59];
+  v32 = [v27 initWithRecordType:v31 recordID:v58];
 
   [v32 setObject:@"tag" forKeyedSubscript:@"subscriptionType"];
   [v32 setObject:&unk_1F2E6FD08 forKeyedSubscript:@"subscriptionOrder"];
@@ -1212,25 +1201,25 @@ void __87__FCPrivateDataEncryptionMigrationHealthCheck__prepareReadingListAndRet
   [v32 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"notificationsEnabled"];
   [v32 setObject:&unk_1F2E6FCC0 forKeyedSubscript:@"writerVersionHighWatermark"];
   [v32 setObject:&unk_1F2E6FCC0 forKeyedSubscript:@"readerMinimumRequiredVersion"];
-  v65 = 0;
-  v66 = &v65;
-  v67 = 0x3032000000;
-  v68 = __Block_byref_object_copy__5;
-  v69 = __Block_byref_object_dispose__5;
-  v70 = 0;
-  v62[0] = MEMORY[0x1E69E9820];
-  v62[1] = 3221225472;
-  v62[2] = __89__FCPrivateDataEncryptionMigrationHealthCheck__prepareSubscriptionsAndReturnExpectations__block_invoke_111;
-  v62[3] = &unk_1E7C37EF0;
-  v62[4] = self;
+  v64 = 0;
+  v65 = &v64;
+  v66 = 0x3032000000;
+  v67 = __Block_byref_object_copy__5;
+  v68 = __Block_byref_object_dispose__5;
+  v69 = 0;
+  v61[0] = MEMORY[0x1E69E9820];
+  v61[1] = 3221225472;
+  v61[2] = __89__FCPrivateDataEncryptionMigrationHealthCheck__prepareSubscriptionsAndReturnExpectations__block_invoke_111;
+  v61[3] = &unk_1E7C37EF0;
+  v61[4] = self;
   v34 = v32;
-  v63 = v34;
-  v64 = &v65;
-  FCWaitUntilBlockIsInvoked(v62);
+  v62 = v34;
+  v63 = &v64;
+  FCWaitUntilBlockIsInvoked(v61);
   [MEMORY[0x1E696AF00] isMainThread];
-  if (v66[5])
+  if (v65[5])
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving subscription record: %@", v66[5]}];
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving subscription record: %@", v65[5]}];
   }
 
   v35 = objc_opt_new();
@@ -1238,7 +1227,7 @@ void __87__FCPrivateDataEncryptionMigrationHealthCheck__prepareReadingListAndRet
   privateCloudDatabase = [container privateCloudDatabase];
   [v35 setDatabase:privateCloudDatabase];
 
-  [v35 setZoneID:v61];
+  [v35 setZoneID:v60];
   [v35 setShouldExist:1];
   v38 = objc_opt_new();
   container2 = [(FCPrivateDataEncryptionMigrationHealthCheck *)self container];
@@ -1280,20 +1269,18 @@ void __87__FCPrivateDataEncryptionMigrationHealthCheck__prepareReadingListAndRet
   privateCloudDatabase3 = [containerWithZoneWidePCS privateCloudDatabase];
   [v52 setDatabase:privateCloudDatabase3];
 
-  [v52 setZoneID:v61];
-  v82[0] = v41;
-  v55 = [MEMORY[0x1E695DEC8] arrayWithObjects:v82 count:1];
+  [v52 setZoneID:v60];
+  v81[0] = v41;
+  v55 = [MEMORY[0x1E695DEC8] arrayWithObjects:v81 count:1];
   [v52 setRecordTests:v55];
 
-  v81[0] = v35;
-  v81[1] = v52;
-  v81[2] = v38;
-  v56 = [MEMORY[0x1E695DEC8] arrayWithObjects:v81 count:3];
+  v80[0] = v35;
+  v80[1] = v52;
+  v80[2] = v38;
+  v56 = [MEMORY[0x1E695DEC8] arrayWithObjects:v80 count:3];
 
-  _Block_object_dispose(&v65, 8);
-  _Block_object_dispose(&v75, 8);
-
-  v57 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v64, 8);
+  _Block_object_dispose(&v74, 8);
 
   return v56;
 }
@@ -1348,7 +1335,7 @@ void __89__FCPrivateDataEncryptionMigrationHealthCheck__prepareSubscriptionsAndR
 
 - (id)_prepareSensitiveSubscriptionsAndReturnExpectations
 {
-  v84[1] = *MEMORY[0x1E69E9840];
+  v83[1] = *MEMORY[0x1E69E9840];
   schema = [(FCPrivateDataEncryptionMigrationHealthCheck *)self schema];
   v4 = [(FCCKPrivateDatabaseSchema *)schema mappingFromRecordType:@"SensitiveSubscriptions" inZoneName:[(FCPrivateDataEncryptionMigrationHealthCheck *)self toVersion] toVersion:?];
 
@@ -1430,32 +1417,32 @@ void __89__FCPrivateDataEncryptionMigrationHealthCheck__prepareSubscriptionsAndR
     v24 = 0;
   }
 
-  v63 = v24;
+  v62 = v24;
 
-  v77 = 0;
-  v78 = &v77;
-  v79 = 0x3032000000;
-  v80 = __Block_byref_object_copy__5;
-  v81 = __Block_byref_object_dispose__5;
-  v82 = 0;
-  v73[0] = MEMORY[0x1E69E9820];
-  v73[1] = 3221225472;
-  v73[2] = __98__FCPrivateDataEncryptionMigrationHealthCheck__prepareSensitiveSubscriptionsAndReturnExpectations__block_invoke;
-  v73[3] = &unk_1E7C37EF0;
+  v76 = 0;
+  v77 = &v76;
+  v78 = 0x3032000000;
+  v79 = __Block_byref_object_copy__5;
+  v80 = __Block_byref_object_dispose__5;
+  v81 = 0;
+  v72[0] = MEMORY[0x1E69E9820];
+  v72[1] = 3221225472;
+  v72[2] = __98__FCPrivateDataEncryptionMigrationHealthCheck__prepareSensitiveSubscriptionsAndReturnExpectations__block_invoke;
+  v72[3] = &unk_1E7C37EF0;
   v25 = v21;
-  v74 = v25;
+  v73 = v25;
   selfCopy = self;
-  v76 = &v77;
-  FCWaitUntilBlockIsInvoked(v73);
+  v75 = &v76;
+  FCWaitUntilBlockIsInvoked(v72);
   [MEMORY[0x1E696AF00] isMainThread];
-  if (v78[5])
+  if (v77[5])
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving subscriptions zone: %@", v78[5]}];
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving subscriptions zone: %@", v77[5]}];
   }
 
   v26 = FCRandomTagCloudKitID();
-  v62 = [FCSubscriptionList subscriptionIDForTagID:v26 type:0];
-  v61 = [objc_alloc(MEMORY[0x1E695BA70]) initWithRecordName:v62 zoneID:v25];
+  v61 = [FCSubscriptionList subscriptionIDForTagID:v26 type:0];
+  v60 = [objc_alloc(MEMORY[0x1E695BA70]) initWithRecordName:v61 zoneID:v25];
   v27 = objc_alloc(MEMORY[0x1E695BA60]);
   fromRecordSchema2 = [v4 fromRecordSchema];
   v29 = fromRecordSchema2;
@@ -1470,7 +1457,7 @@ void __89__FCPrivateDataEncryptionMigrationHealthCheck__prepareSubscriptionsAndR
   }
 
   v31 = v30;
-  v32 = [v27 initWithRecordType:v31 recordID:v61];
+  v32 = [v27 initWithRecordType:v31 recordID:v60];
 
   [v32 setObject:@"autoFavoriteTag" forKeyedSubscript:@"subscriptionType"];
   [v32 setObject:&unk_1F2E6FD38 forKeyedSubscript:@"subscriptionOrigin"];
@@ -1485,25 +1472,25 @@ void __89__FCPrivateDataEncryptionMigrationHealthCheck__prepareSubscriptionsAndR
 
   [v32 setObject:&unk_1F2E6FCC0 forKeyedSubscript:@"writerVersionHighWatermark"];
   [v32 setObject:&unk_1F2E6FCC0 forKeyedSubscript:@"readerMinimumRequiredVersion"];
-  v67 = 0;
-  v68 = &v67;
-  v69 = 0x3032000000;
-  v70 = __Block_byref_object_copy__5;
-  v71 = __Block_byref_object_dispose__5;
-  v72 = 0;
-  v64[0] = MEMORY[0x1E69E9820];
-  v64[1] = 3221225472;
-  v64[2] = __98__FCPrivateDataEncryptionMigrationHealthCheck__prepareSensitiveSubscriptionsAndReturnExpectations__block_invoke_127;
-  v64[3] = &unk_1E7C37EF0;
-  v64[4] = self;
+  v66 = 0;
+  v67 = &v66;
+  v68 = 0x3032000000;
+  v69 = __Block_byref_object_copy__5;
+  v70 = __Block_byref_object_dispose__5;
+  v71 = 0;
+  v63[0] = MEMORY[0x1E69E9820];
+  v63[1] = 3221225472;
+  v63[2] = __98__FCPrivateDataEncryptionMigrationHealthCheck__prepareSensitiveSubscriptionsAndReturnExpectations__block_invoke_127;
+  v63[3] = &unk_1E7C37EF0;
+  v63[4] = self;
   v36 = v32;
-  v65 = v36;
-  v66 = &v67;
-  FCWaitUntilBlockIsInvoked(v64);
+  v64 = v36;
+  v65 = &v66;
+  FCWaitUntilBlockIsInvoked(v63);
   [MEMORY[0x1E696AF00] isMainThread];
-  if (v68[5])
+  if (v67[5])
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving sensitive subscription record: %@", v68[5]}];
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving sensitive subscription record: %@", v67[5]}];
   }
 
   v37 = objc_opt_new();
@@ -1511,7 +1498,7 @@ void __89__FCPrivateDataEncryptionMigrationHealthCheck__prepareSubscriptionsAndR
   privateCloudDatabase = [secureContainer privateCloudDatabase];
   [v37 setDatabase:privateCloudDatabase];
 
-  [v37 setZoneID:v63];
+  [v37 setZoneID:v62];
   [v37 setShouldExist:1];
   v40 = objc_opt_new();
   container = [(FCPrivateDataEncryptionMigrationHealthCheck *)self container];
@@ -1553,20 +1540,18 @@ void __89__FCPrivateDataEncryptionMigrationHealthCheck__prepareSubscriptionsAndR
   privateCloudDatabase3 = [secureContainer2 privateCloudDatabase];
   [v54 setDatabase:privateCloudDatabase3];
 
-  [v54 setZoneID:v63];
-  v84[0] = v43;
-  v57 = [MEMORY[0x1E695DEC8] arrayWithObjects:v84 count:1];
+  [v54 setZoneID:v62];
+  v83[0] = v43;
+  v57 = [MEMORY[0x1E695DEC8] arrayWithObjects:v83 count:1];
   [v54 setRecordTests:v57];
 
-  v83[0] = v37;
-  v83[1] = v54;
-  v83[2] = v40;
-  v58 = [MEMORY[0x1E695DEC8] arrayWithObjects:v83 count:3];
+  v82[0] = v37;
+  v82[1] = v54;
+  v82[2] = v40;
+  v58 = [MEMORY[0x1E695DEC8] arrayWithObjects:v82 count:3];
 
-  _Block_object_dispose(&v67, 8);
-  _Block_object_dispose(&v77, 8);
-
-  v59 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v66, 8);
+  _Block_object_dispose(&v76, 8);
 
   return v58;
 }
@@ -1621,7 +1606,7 @@ void __98__FCPrivateDataEncryptionMigrationHealthCheck__prepareSensitiveSubscrip
 
 - (id)_prepareUserInfoAndReturnExpectations
 {
-  v86[1] = *MEMORY[0x1E69E9840];
+  v85[1] = *MEMORY[0x1E69E9840];
   schema = [(FCPrivateDataEncryptionMigrationHealthCheck *)self schema];
   v4 = [(FCCKPrivateDatabaseSchema *)schema mappingFromRecordType:@"UserInfo" inZoneName:[(FCPrivateDataEncryptionMigrationHealthCheck *)self toVersion] toVersion:?];
 
@@ -1703,31 +1688,31 @@ void __98__FCPrivateDataEncryptionMigrationHealthCheck__prepareSensitiveSubscrip
     v24 = 0;
   }
 
-  v65 = v24;
+  v64 = v24;
 
-  v79 = 0;
-  v80 = &v79;
-  v81 = 0x3032000000;
-  v82 = __Block_byref_object_copy__5;
-  v83 = __Block_byref_object_dispose__5;
-  v84 = 0;
-  v75[0] = MEMORY[0x1E69E9820];
-  v75[1] = 3221225472;
-  v75[2] = __84__FCPrivateDataEncryptionMigrationHealthCheck__prepareUserInfoAndReturnExpectations__block_invoke;
-  v75[3] = &unk_1E7C37EF0;
-  v64 = v21;
-  v76 = v64;
+  v78 = 0;
+  v79 = &v78;
+  v80 = 0x3032000000;
+  v81 = __Block_byref_object_copy__5;
+  v82 = __Block_byref_object_dispose__5;
+  v83 = 0;
+  v74[0] = MEMORY[0x1E69E9820];
+  v74[1] = 3221225472;
+  v74[2] = __84__FCPrivateDataEncryptionMigrationHealthCheck__prepareUserInfoAndReturnExpectations__block_invoke;
+  v74[3] = &unk_1E7C37EF0;
+  v63 = v21;
+  v75 = v63;
   selfCopy = self;
-  v78 = &v79;
-  FCWaitUntilBlockIsInvoked(v75);
+  v77 = &v78;
+  FCWaitUntilBlockIsInvoked(v74);
   [MEMORY[0x1E696AF00] isMainThread];
-  if (v80[5])
+  if (v79[5])
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving user info zone: %@", v80[5]}];
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving user info zone: %@", v79[5]}];
   }
 
-  v63 = [objc_alloc(MEMORY[0x1E695BA70]) initWithRecordName:@"user_info_static_record_name" zoneID:v64];
-  v62 = [objc_alloc(MEMORY[0x1E695BA70]) initWithRecordName:@"user_info_static_record_name_secure" zoneID:v65];
+  v62 = [objc_alloc(MEMORY[0x1E695BA70]) initWithRecordName:@"user_info_static_record_name" zoneID:v63];
+  v61 = [objc_alloc(MEMORY[0x1E695BA70]) initWithRecordName:@"user_info_static_record_name_secure" zoneID:v64];
   v25 = objc_alloc(MEMORY[0x1E695BA60]);
   fromRecordSchema2 = [v4 fromRecordSchema];
   v27 = fromRecordSchema2;
@@ -1742,7 +1727,7 @@ void __98__FCPrivateDataEncryptionMigrationHealthCheck__prepareSensitiveSubscrip
   }
 
   v29 = v28;
-  v30 = [v25 initWithRecordType:v29 recordID:v63];
+  v30 = [v25 initWithRecordType:v29 recordID:v62];
 
   uUID = [MEMORY[0x1E696AFB0] UUID];
   uUIDString = [uUID UUIDString];
@@ -1754,25 +1739,25 @@ void __98__FCPrivateDataEncryptionMigrationHealthCheck__prepareSensitiveSubscrip
   [v30 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"topStoriesIntroduced"];
   [v30 setObject:&unk_1F2E6FCC0 forKeyedSubscript:@"writerVersionHighWatermark"];
   [v30 setObject:&unk_1F2E6FCC0 forKeyedSubscript:@"readerMinimumRequiredVersion"];
-  v69 = 0;
-  v70 = &v69;
-  v71 = 0x3032000000;
-  v72 = __Block_byref_object_copy__5;
-  v73 = __Block_byref_object_dispose__5;
-  v74 = 0;
-  v66[0] = MEMORY[0x1E69E9820];
-  v66[1] = 3221225472;
-  v66[2] = __84__FCPrivateDataEncryptionMigrationHealthCheck__prepareUserInfoAndReturnExpectations__block_invoke_3;
-  v66[3] = &unk_1E7C37EF0;
-  v66[4] = self;
+  v68 = 0;
+  v69 = &v68;
+  v70 = 0x3032000000;
+  v71 = __Block_byref_object_copy__5;
+  v72 = __Block_byref_object_dispose__5;
+  v73 = 0;
+  v65[0] = MEMORY[0x1E69E9820];
+  v65[1] = 3221225472;
+  v65[2] = __84__FCPrivateDataEncryptionMigrationHealthCheck__prepareUserInfoAndReturnExpectations__block_invoke_3;
+  v65[3] = &unk_1E7C37EF0;
+  v65[4] = self;
   v34 = v30;
-  v67 = v34;
-  v68 = &v69;
-  FCWaitUntilBlockIsInvoked(v66);
+  v66 = v34;
+  v67 = &v68;
+  FCWaitUntilBlockIsInvoked(v65);
   [MEMORY[0x1E696AF00] isMainThread];
-  if (v70[5])
+  if (v69[5])
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving user info record: %@", v70[5]}];
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving user info record: %@", v69[5]}];
   }
 
   v35 = objc_opt_new();
@@ -1780,14 +1765,14 @@ void __98__FCPrivateDataEncryptionMigrationHealthCheck__prepareSensitiveSubscrip
   privateCloudDatabase = [secureContainer privateCloudDatabase];
   [v35 setDatabase:privateCloudDatabase];
 
-  [v35 setZoneID:v65];
+  [v35 setZoneID:v64];
   [v35 setShouldExist:1];
   v38 = objc_opt_new();
   container = [(FCPrivateDataEncryptionMigrationHealthCheck *)self container];
   privateCloudDatabase2 = [container privateCloudDatabase];
   [v38 setDatabase:privateCloudDatabase2];
 
-  [v38 setZoneID:v64];
+  [v38 setZoneID:v63];
   [v38 setShouldExist:0];
   v41 = objc_opt_new();
   toRecordSchema2 = [v4 toRecordSchema];
@@ -1822,9 +1807,9 @@ void __98__FCPrivateDataEncryptionMigrationHealthCheck__prepareSensitiveSubscrip
   privateCloudDatabase3 = [secureContainer2 privateCloudDatabase];
   [v52 setDatabase:privateCloudDatabase3];
 
-  [v52 setZoneID:v65];
-  v86[0] = v41;
-  v55 = [MEMORY[0x1E695DEC8] arrayWithObjects:v86 count:1];
+  [v52 setZoneID:v64];
+  v85[0] = v41;
+  v55 = [MEMORY[0x1E695DEC8] arrayWithObjects:v85 count:1];
   [v52 setRecordTests:v55];
 
   v56 = objc_opt_new();
@@ -1832,18 +1817,16 @@ void __98__FCPrivateDataEncryptionMigrationHealthCheck__prepareSensitiveSubscrip
   privateCloudDatabase4 = [secureContainer3 privateCloudDatabase];
   [v56 setDatabase:privateCloudDatabase4];
 
-  [v56 setRecordID:v62];
+  [v56 setRecordID:v61];
   [v56 setShouldExist:1];
-  v85[0] = v35;
-  v85[1] = v52;
-  v85[2] = v38;
-  v85[3] = v56;
-  v59 = [MEMORY[0x1E695DEC8] arrayWithObjects:v85 count:4];
+  v84[0] = v35;
+  v84[1] = v52;
+  v84[2] = v38;
+  v84[3] = v56;
+  v59 = [MEMORY[0x1E695DEC8] arrayWithObjects:v84 count:4];
 
-  _Block_object_dispose(&v69, 8);
-  _Block_object_dispose(&v79, 8);
-
-  v60 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v68, 8);
+  _Block_object_dispose(&v78, 8);
 
   return v59;
 }
@@ -1898,7 +1881,7 @@ void __84__FCPrivateDataEncryptionMigrationHealthCheck__prepareUserInfoAndReturn
 
 - (id)_prepareTagSettingsAndReturnExpectations
 {
-  v83[1] = *MEMORY[0x1E69E9840];
+  v82[1] = *MEMORY[0x1E69E9840];
   schema = [(FCPrivateDataEncryptionMigrationHealthCheck *)self schema];
   v4 = [(FCCKPrivateDatabaseSchema *)schema mappingFromRecordType:@"UserInfo" inZoneName:[(FCPrivateDataEncryptionMigrationHealthCheck *)self toVersion] toVersion:?];
 
@@ -1980,32 +1963,32 @@ void __84__FCPrivateDataEncryptionMigrationHealthCheck__prepareUserInfoAndReturn
     v24 = 0;
   }
 
-  v62 = v24;
+  v61 = v24;
 
-  v76 = 0;
-  v77 = &v76;
-  v78 = 0x3032000000;
-  v79 = __Block_byref_object_copy__5;
-  v80 = __Block_byref_object_dispose__5;
-  v81 = 0;
-  v72[0] = MEMORY[0x1E69E9820];
-  v72[1] = 3221225472;
-  v72[2] = __87__FCPrivateDataEncryptionMigrationHealthCheck__prepareTagSettingsAndReturnExpectations__block_invoke;
-  v72[3] = &unk_1E7C37EF0;
+  v75 = 0;
+  v76 = &v75;
+  v77 = 0x3032000000;
+  v78 = __Block_byref_object_copy__5;
+  v79 = __Block_byref_object_dispose__5;
+  v80 = 0;
+  v71[0] = MEMORY[0x1E69E9820];
+  v71[1] = 3221225472;
+  v71[2] = __87__FCPrivateDataEncryptionMigrationHealthCheck__prepareTagSettingsAndReturnExpectations__block_invoke;
+  v71[3] = &unk_1E7C37EF0;
   v25 = v21;
-  v73 = v25;
+  v72 = v25;
   selfCopy = self;
-  v75 = &v76;
-  FCWaitUntilBlockIsInvoked(v72);
+  v74 = &v75;
+  FCWaitUntilBlockIsInvoked(v71);
   [MEMORY[0x1E696AF00] isMainThread];
-  if (v77[5])
+  if (v76[5])
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving user info zone: %@", v77[5]}];
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving user info zone: %@", v76[5]}];
   }
 
   v26 = FCRandomTagCloudKitID();
-  v61 = FCTagSettingsEntryIDFromTagID(v26);
-  v60 = [objc_alloc(MEMORY[0x1E695BA70]) initWithRecordName:v61 zoneID:v25];
+  v60 = FCTagSettingsEntryIDFromTagID(v26);
+  v59 = [objc_alloc(MEMORY[0x1E695BA70]) initWithRecordName:v60 zoneID:v25];
   v27 = objc_alloc(MEMORY[0x1E695BA60]);
   fromRecordSchema2 = [v4 fromRecordSchema];
   v29 = fromRecordSchema2;
@@ -2020,7 +2003,7 @@ void __84__FCPrivateDataEncryptionMigrationHealthCheck__prepareUserInfoAndReturn
   }
 
   v31 = v30;
-  v32 = [v27 initWithRecordType:v31 recordID:v60];
+  v32 = [v27 initWithRecordType:v31 recordID:v59];
 
   [v32 setObject:v26 forKeyedSubscript:@"tagID"];
   uUID = [MEMORY[0x1E696AFB0] UUID];
@@ -2030,25 +2013,25 @@ void __84__FCPrivateDataEncryptionMigrationHealthCheck__prepareUserInfoAndReturn
   [v32 setObject:&unk_1F2E6FD50 forKeyedSubscript:@"fontMultiplier"];
   [v32 setObject:&unk_1F2E6FCC0 forKeyedSubscript:@"writerVersionHighWatermark"];
   [v32 setObject:&unk_1F2E6FCC0 forKeyedSubscript:@"readerMinimumRequiredVersion"];
-  v66 = 0;
-  v67 = &v66;
-  v68 = 0x3032000000;
-  v69 = __Block_byref_object_copy__5;
-  v70 = __Block_byref_object_dispose__5;
-  v71 = 0;
-  v63[0] = MEMORY[0x1E69E9820];
-  v63[1] = 3221225472;
-  v63[2] = __87__FCPrivateDataEncryptionMigrationHealthCheck__prepareTagSettingsAndReturnExpectations__block_invoke_159;
-  v63[3] = &unk_1E7C37EF0;
-  v63[4] = self;
+  v65 = 0;
+  v66 = &v65;
+  v67 = 0x3032000000;
+  v68 = __Block_byref_object_copy__5;
+  v69 = __Block_byref_object_dispose__5;
+  v70 = 0;
+  v62[0] = MEMORY[0x1E69E9820];
+  v62[1] = 3221225472;
+  v62[2] = __87__FCPrivateDataEncryptionMigrationHealthCheck__prepareTagSettingsAndReturnExpectations__block_invoke_159;
+  v62[3] = &unk_1E7C37EF0;
+  v62[4] = self;
   v35 = v32;
-  v64 = v35;
-  v65 = &v66;
-  FCWaitUntilBlockIsInvoked(v63);
+  v63 = v35;
+  v64 = &v65;
+  FCWaitUntilBlockIsInvoked(v62);
   [MEMORY[0x1E696AF00] isMainThread];
-  if (v67[5])
+  if (v66[5])
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving tag settings record: %@", v67[5]}];
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving tag settings record: %@", v66[5]}];
   }
 
   v36 = objc_opt_new();
@@ -2056,7 +2039,7 @@ void __84__FCPrivateDataEncryptionMigrationHealthCheck__prepareUserInfoAndReturn
   privateCloudDatabase = [secureContainer privateCloudDatabase];
   [v36 setDatabase:privateCloudDatabase];
 
-  [v36 setZoneID:v62];
+  [v36 setZoneID:v61];
   [v36 setShouldExist:1];
   v39 = objc_opt_new();
   container = [(FCPrivateDataEncryptionMigrationHealthCheck *)self container];
@@ -2098,20 +2081,18 @@ void __84__FCPrivateDataEncryptionMigrationHealthCheck__prepareUserInfoAndReturn
   privateCloudDatabase3 = [secureContainer2 privateCloudDatabase];
   [v53 setDatabase:privateCloudDatabase3];
 
-  [v53 setZoneID:v62];
-  v83[0] = v42;
-  v56 = [MEMORY[0x1E695DEC8] arrayWithObjects:v83 count:1];
+  [v53 setZoneID:v61];
+  v82[0] = v42;
+  v56 = [MEMORY[0x1E695DEC8] arrayWithObjects:v82 count:1];
   [v53 setRecordTests:v56];
 
-  v82[0] = v36;
-  v82[1] = v53;
-  v82[2] = v39;
-  v57 = [MEMORY[0x1E695DEC8] arrayWithObjects:v82 count:3];
+  v81[0] = v36;
+  v81[1] = v53;
+  v81[2] = v39;
+  v57 = [MEMORY[0x1E695DEC8] arrayWithObjects:v81 count:3];
 
-  _Block_object_dispose(&v66, 8);
-  _Block_object_dispose(&v76, 8);
-
-  v58 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v65, 8);
+  _Block_object_dispose(&v75, 8);
 
   return v57;
 }
@@ -2166,17 +2147,17 @@ void __87__FCPrivateDataEncryptionMigrationHealthCheck__prepareTagSettingsAndRet
 
 - (id)_preparePersonalizationProfileAndReturnExpectations
 {
-  v63[4] = *MEMORY[0x1E69E9840];
+  v62[4] = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(MEMORY[0x1E695BA70]) initWithRecordName:@"SharedPersonalizationProfile"];
   schema = [(FCPrivateDataEncryptionMigrationHealthCheck *)self schema];
-  v53 = [(FCCKPrivateDatabaseSchema *)schema mappingFromRecordID:v3 toVersion:[(FCPrivateDataEncryptionMigrationHealthCheck *)self toVersion]];
+  v52 = [(FCCKPrivateDatabaseSchema *)schema mappingFromRecordID:v3 toVersion:[(FCPrivateDataEncryptionMigrationHealthCheck *)self toVersion]];
 
   schema2 = [(FCPrivateDataEncryptionMigrationHealthCheck *)self schema];
   v6 = *MEMORY[0x1E695B800];
   v7 = [(FCCKPrivateDatabaseSchema *)schema2 mappingFromRecordType:*MEMORY[0x1E695B800] inZoneName:[(FCPrivateDataEncryptionMigrationHealthCheck *)self toVersion] toVersion:?];
 
   [MEMORY[0x1E696AF00] isMainThread];
-  fromZoneSchema = [v53 fromZoneSchema];
+  fromZoneSchema = [v52 fromZoneSchema];
   v9 = fromZoneSchema;
   if (fromZoneSchema)
   {
@@ -2239,7 +2220,7 @@ void __87__FCPrivateDataEncryptionMigrationHealthCheck__prepareTagSettingsAndRet
     v23 = 0;
   }
 
-  v52 = v23;
+  v51 = v23;
 
   toZoneSchema = [v7 toZoneSchema];
   v25 = toZoneSchema;
@@ -2253,7 +2234,7 @@ void __87__FCPrivateDataEncryptionMigrationHealthCheck__prepareTagSettingsAndRet
     v26 = 0;
   }
 
-  v51 = v26;
+  v50 = v26;
 
   v27 = objc_alloc(MEMORY[0x1E695BA60]);
   fromRecordSchema2 = [v7 fromRecordSchema];
@@ -2277,25 +2258,25 @@ void __87__FCPrivateDataEncryptionMigrationHealthCheck__prepareTagSettingsAndRet
   [v32 setObject:&unk_1F2E6FD68 forKeyedSubscript:@"version"];
   [v32 setObject:&unk_1F2E6FCC0 forKeyedSubscript:@"writerVersionHighWatermark"];
   [v32 setObject:&unk_1F2E6FCC0 forKeyedSubscript:@"readerMinimumRequiredVersion"];
-  v57 = 0;
-  v58 = &v57;
-  v59 = 0x3032000000;
-  v60 = __Block_byref_object_copy__5;
-  v61 = __Block_byref_object_dispose__5;
-  v62 = 0;
-  v54[0] = MEMORY[0x1E69E9820];
-  v54[1] = 3221225472;
-  v54[2] = __98__FCPrivateDataEncryptionMigrationHealthCheck__preparePersonalizationProfileAndReturnExpectations__block_invoke;
-  v54[3] = &unk_1E7C37EF0;
-  v54[4] = self;
+  v56 = 0;
+  v57 = &v56;
+  v58 = 0x3032000000;
+  v59 = __Block_byref_object_copy__5;
+  v60 = __Block_byref_object_dispose__5;
+  v61 = 0;
+  v53[0] = MEMORY[0x1E69E9820];
+  v53[1] = 3221225472;
+  v53[2] = __98__FCPrivateDataEncryptionMigrationHealthCheck__preparePersonalizationProfileAndReturnExpectations__block_invoke;
+  v53[3] = &unk_1E7C37EF0;
+  v53[4] = self;
   v34 = v32;
-  v55 = v34;
-  v56 = &v57;
-  FCWaitUntilBlockIsInvoked(v54);
+  v54 = v34;
+  v55 = &v56;
+  FCWaitUntilBlockIsInvoked(v53);
   [MEMORY[0x1E696AF00] isMainThread];
-  if (v58[5])
+  if (v57[5])
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving personalization profile record: %@", v58[5]}];
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving personalization profile record: %@", v57[5]}];
   }
 
   v35 = objc_opt_new();
@@ -2303,21 +2284,21 @@ void __87__FCPrivateDataEncryptionMigrationHealthCheck__prepareTagSettingsAndRet
   privateCloudDatabase = [secureContainer privateCloudDatabase];
   [v35 setDatabase:privateCloudDatabase];
 
-  [v35 setZoneID:v52];
+  [v35 setZoneID:v51];
   [v35 setShouldExist:1];
   v38 = objc_opt_new();
   secureContainer2 = [(FCPrivateDataEncryptionMigrationHealthCheck *)self secureContainer];
   privateCloudDatabase2 = [secureContainer2 privateCloudDatabase];
   [v38 setDatabase:privateCloudDatabase2];
 
-  [v38 setZoneID:v51];
+  [v38 setZoneID:v50];
   [v38 setShouldExist:1];
   v41 = objc_opt_new();
   secureContainer3 = [(FCPrivateDataEncryptionMigrationHealthCheck *)self secureContainer];
   privateCloudDatabase3 = [secureContainer3 privateCloudDatabase];
   [v41 setDatabase:privateCloudDatabase3];
 
-  toRecordID = [v53 toRecordID];
+  toRecordID = [v52 toRecordID];
   [v41 setRecordID:toRecordID];
 
   [v41 setShouldExist:1];
@@ -2328,14 +2309,13 @@ void __87__FCPrivateDataEncryptionMigrationHealthCheck__prepareTagSettingsAndRet
 
   [v45 setRecordID:v3];
   [v45 setShouldExist:0];
-  v63[0] = v35;
-  v63[1] = v38;
-  v63[2] = v41;
-  v63[3] = v45;
-  v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:v63 count:4];
+  v62[0] = v35;
+  v62[1] = v38;
+  v62[2] = v41;
+  v62[3] = v45;
+  v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:v62 count:4];
 
-  _Block_object_dispose(&v57, 8);
-  v49 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v56, 8);
 
   return v48;
 }
@@ -2366,7 +2346,7 @@ void __98__FCPrivateDataEncryptionMigrationHealthCheck__preparePersonalizationPr
 
 - (id)_prepareReferenceToChannelMembershipsAndReturnExpectations
 {
-  v95[1] = *MEMORY[0x1E69E9840];
+  v94[1] = *MEMORY[0x1E69E9840];
   schema = [(FCPrivateDataEncryptionMigrationHealthCheck *)self schema];
   v4 = [(FCCKPrivateDatabaseSchema *)schema mappingFromRecordType:@"ChannelMemberships" inZoneName:[(FCPrivateDataEncryptionMigrationHealthCheck *)self toVersion] toVersion:?];
 
@@ -2494,25 +2474,25 @@ void __98__FCPrivateDataEncryptionMigrationHealthCheck__preparePersonalizationPr
 
   v36 = v35;
 
-  v88 = 0;
-  v89 = &v88;
-  v90 = 0x3032000000;
-  v91 = __Block_byref_object_copy__5;
-  v92 = __Block_byref_object_dispose__5;
-  v93 = 0;
-  v84[0] = MEMORY[0x1E69E9820];
-  v84[1] = 3221225472;
-  v84[2] = __105__FCPrivateDataEncryptionMigrationHealthCheck__prepareReferenceToChannelMembershipsAndReturnExpectations__block_invoke;
-  v84[3] = &unk_1E7C37EF0;
+  v87 = 0;
+  v88 = &v87;
+  v89 = 0x3032000000;
+  v90 = __Block_byref_object_copy__5;
+  v91 = __Block_byref_object_dispose__5;
+  v92 = 0;
+  v83[0] = MEMORY[0x1E69E9820];
+  v83[1] = 3221225472;
+  v83[2] = __105__FCPrivateDataEncryptionMigrationHealthCheck__prepareReferenceToChannelMembershipsAndReturnExpectations__block_invoke;
+  v83[3] = &unk_1E7C37EF0;
   v37 = v36;
-  v85 = v37;
+  v84 = v37;
   selfCopy = self;
-  v87 = &v88;
-  FCWaitUntilBlockIsInvoked(v84);
+  v86 = &v87;
+  FCWaitUntilBlockIsInvoked(v83);
   [MEMORY[0x1E696AF00] isMainThread];
-  if (v89[5])
+  if (v88[5])
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving reference-to-membership zone: %@", v89[5]}];
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving reference-to-membership zone: %@", v88[5]}];
   }
 
   v38 = objc_alloc(MEMORY[0x1E695BA70]);
@@ -2540,25 +2520,25 @@ void __98__FCPrivateDataEncryptionMigrationHealthCheck__preparePersonalizationPr
   uUIDString2 = [uUID2 UUIDString];
   [v47 setObject:uUIDString2 forKeyedSubscript:@"membershipID"];
 
-  v78 = 0;
-  v79 = &v78;
-  v80 = 0x3032000000;
-  v81 = __Block_byref_object_copy__5;
-  v82 = __Block_byref_object_dispose__5;
-  v83 = 0;
-  v75[0] = MEMORY[0x1E69E9820];
-  v75[1] = 3221225472;
-  v75[2] = __105__FCPrivateDataEncryptionMigrationHealthCheck__prepareReferenceToChannelMembershipsAndReturnExpectations__block_invoke_3;
-  v75[3] = &unk_1E7C37EF0;
-  v75[4] = self;
+  v77 = 0;
+  v78 = &v77;
+  v79 = 0x3032000000;
+  v80 = __Block_byref_object_copy__5;
+  v81 = __Block_byref_object_dispose__5;
+  v82 = 0;
+  v74[0] = MEMORY[0x1E69E9820];
+  v74[1] = 3221225472;
+  v74[2] = __105__FCPrivateDataEncryptionMigrationHealthCheck__prepareReferenceToChannelMembershipsAndReturnExpectations__block_invoke_3;
+  v74[3] = &unk_1E7C37EF0;
+  v74[4] = self;
   v50 = v47;
-  v76 = v50;
-  v77 = &v78;
-  FCWaitUntilBlockIsInvoked(v75);
+  v75 = v50;
+  v76 = &v77;
+  FCWaitUntilBlockIsInvoked(v74);
   [MEMORY[0x1E696AF00] isMainThread];
-  if (v79[5])
+  if (v78[5])
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving reference-to-membership record: %@", v79[5]}];
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D920] format:{@"error saving reference-to-membership record: %@", v78[5]}];
   }
 
   v51 = objc_opt_new();
@@ -2609,19 +2589,17 @@ void __98__FCPrivateDataEncryptionMigrationHealthCheck__preparePersonalizationPr
   [v68 setDatabase:privateCloudDatabase3];
 
   [v68 setZoneID:v37];
-  v95[0] = v57;
-  v71 = [MEMORY[0x1E695DEC8] arrayWithObjects:v95 count:1];
+  v94[0] = v57;
+  v71 = [MEMORY[0x1E695DEC8] arrayWithObjects:v94 count:1];
   [v68 setRecordTests:v71];
 
-  v94[0] = v51;
-  v94[1] = v54;
-  v94[2] = v68;
-  v72 = [MEMORY[0x1E695DEC8] arrayWithObjects:v94 count:3];
+  v93[0] = v51;
+  v93[1] = v54;
+  v93[2] = v68;
+  v72 = [MEMORY[0x1E695DEC8] arrayWithObjects:v93 count:3];
 
-  _Block_object_dispose(&v78, 8);
-  _Block_object_dispose(&v88, 8);
-
-  v73 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v77, 8);
+  _Block_object_dispose(&v87, 8);
 
   return v72;
 }
@@ -2676,7 +2654,7 @@ void __105__FCPrivateDataEncryptionMigrationHealthCheck__prepareReferenceToChann
 
 - (id)_prepareSentinelsAndReturnExpectations
 {
-  v22[3] = *MEMORY[0x1E69E9840];
+  v21[3] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E695BA90]);
   v4 = [v3 initWithZoneName:*MEMORY[0x1E695B800] ownerName:*MEMORY[0x1E695B728]];
   v5 = [objc_alloc(MEMORY[0x1E695BA70]) initWithRecordName:@"static_sentinel" zoneID:v4];
@@ -2696,22 +2674,20 @@ void __105__FCPrivateDataEncryptionMigrationHealthCheck__prepareReferenceToChann
   [v10 setRecordID:v6];
   [v10 setShouldExist:1];
   v13 = objc_opt_new();
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __85__FCPrivateDataEncryptionMigrationHealthCheck__prepareSentinelsAndReturnExpectations__block_invoke;
-  v19[3] = &unk_1E7C376A0;
-  v19[4] = self;
-  v20 = v5;
-  v21 = v6;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __85__FCPrivateDataEncryptionMigrationHealthCheck__prepareSentinelsAndReturnExpectations__block_invoke;
+  v18[3] = &unk_1E7C376A0;
+  v18[4] = self;
+  v19 = v5;
+  v20 = v6;
   v14 = v6;
   v15 = v5;
-  [v13 setBlock:v19];
-  v22[0] = v7;
-  v22[1] = v10;
-  v22[2] = v13;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:3];
-
-  v17 = *MEMORY[0x1E69E9840];
+  [v13 setBlock:v18];
+  v21[0] = v7;
+  v21[1] = v10;
+  v21[2] = v13;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:3];
 
   return v16;
 }

@@ -29,8 +29,6 @@
 - (void)setObservedControlClasses:(id)classes
 {
   classesCopy = classes;
-  observedControlClasses = self->_observedControlClasses;
-  v7 = classesCopy;
   if ((BSEqualSets() & 1) == 0)
   {
     objc_storeStrong(&self->_observedControlClasses, classes);
@@ -74,35 +72,35 @@
 
 - (void)touchesMoved:(id)moved withEvent:(id)event
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   movedCopy = moved;
   eventCopy = event;
-  v24.receiver = self;
-  v24.super_class = ACUISDependencyGestureRecognizer;
-  [(ACUISDependencyGestureRecognizer *)&v24 touchesMoved:movedCopy withEvent:eventCopy];
+  v23.receiver = self;
+  v23.super_class = ACUISDependencyGestureRecognizer;
+  [(ACUISDependencyGestureRecognizer *)&v23 touchesMoved:movedCopy withEvent:eventCopy];
   if (![(ACUISDependencyGestureRecognizer *)self state]&& [(ACUISDependencyGestureRecognizer *)self _didExceedHysteresisWithTouches:movedCopy])
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v8 = movedCopy;
-    v9 = [v8 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v21;
+      v11 = *v20;
       while (2)
       {
         v12 = 0;
         do
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          view = [*(*(&v20 + 1) + 8 * v12) view];
+          view = [*(*(&v19 + 1) + 8 * v12) view];
           if ([(ACUISDependencyGestureRecognizer *)self shouldRecognizeTouchForView:view])
           {
 
@@ -137,7 +135,7 @@
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v19 objects:v24 count:16];
         if (v10)
         {
           continue;
@@ -152,13 +150,11 @@ LABEL_18:
 
     [(ACUISDependencyGestureRecognizer *)self setState:v18];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)shouldRecognizeTouchForView:(id)view
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   viewCopy = view;
   v5 = viewCopy;
   if (viewCopy)
@@ -166,38 +162,36 @@ LABEL_18:
     v6 = viewCopy;
     while ((objc_opt_respondsToSelector() & 1) == 0)
     {
-      v21 = 0u;
-      v22 = 0u;
       v19 = 0u;
       v20 = 0u;
-      observedControlClasses = [(ACUISDependencyGestureRecognizer *)self observedControlClasses];
-      v8 = [observedControlClasses countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v18 = 0u;
+      v7 = [(ACUISDependencyGestureRecognizer *)self observedControlClasses:0];
+      v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v20;
+        v10 = *v18;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v20 != v10)
+            if (*v18 != v10)
             {
-              objc_enumerationMutation(observedControlClasses);
+              objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v19 + 1) + 8 * i);
             isKindOfClass = objc_opt_isKindOfClass();
           }
 
-          v14 = isKindOfClass;
-          v9 = [observedControlClasses countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v13 = isKindOfClass;
+          v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
         }
 
         while (v9);
 
-        if (v14)
+        if (v13)
         {
-          v16 = 1;
+          v15 = 1;
           goto LABEL_18;
         }
       }
@@ -211,22 +205,21 @@ LABEL_18:
       v6 = superview;
       if (!superview)
       {
-        v16 = 0;
+        v15 = 0;
         goto LABEL_18;
       }
     }
 
-    v16 = [v6 acuis_wantsPriorityOverTargetOfGestureRecognizer:self];
+    v15 = [v6 acuis_wantsPriorityOverTargetOfGestureRecognizer:self];
 LABEL_18:
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-  return v16;
+  return v15;
 }
 
 - (CGPoint)_convertPoint:(CGPoint)point fromSceneReferenceCoordinatesToView:(id)view

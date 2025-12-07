@@ -1,8 +1,17 @@
 @interface SecuritydXPCCallback
 - (SecuritydXPCCallback)initWithCallback:(id)callback;
+- (void)callCallback:(BOOL)callback error:(id)error;
 @end
 
 @implementation SecuritydXPCCallback
+
+- (void)callCallback:(BOOL)callback error:(id)error
+{
+  callbackCopy = callback;
+  errorCopy = error;
+  callback = [(SecuritydXPCCallback *)self callback];
+  callback[2](callback, callbackCopy, errorCopy);
+}
 
 - (SecuritydXPCCallback)initWithCallback:(id)callback
 {

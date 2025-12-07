@@ -1326,13 +1326,13 @@ LABEL_15:
   return v12;
 }
 
-void __42__SBDeckSwitcherModifier_debugDescription__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __42__SBDeckSwitcherModifier_debugDescription__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v4 = MEMORY[0x277CCACA8];
   v5 = *(a1 + 32);
   v6 = *(a1 + 40);
   v7 = a2;
-  if ([v6 count] - 1 == a3)
+  if (([v6 count] - 1) == a3)
   {
     v8 = &stru_283094718;
   }

@@ -7,12 +7,12 @@
 
 - (BOOL)exportFromLocalModel:(id)model updatedProperties:(id)properties context:(id)context
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   contextCopy = context;
-  v25.receiver = self;
-  v25.super_class = MKFCKAppleMediaAccessory;
-  if ([(MKFCKAccessory *)&v25 exportFromLocalModel:modelCopy updatedProperties:properties context:contextCopy])
+  v24.receiver = self;
+  v24.super_class = MKFCKAppleMediaAccessory;
+  if ([(MKFCKAccessory *)&v24 exportFromLocalModel:modelCopy updatedProperties:properties context:contextCopy])
   {
     v10 = modelCopy;
     v11 = contextCopy;
@@ -43,16 +43,16 @@
           {
             v20 = HMFGetLogIdentifier();
             [v10 objectID];
-            v21 = v24 = v17;
+            v21 = v23 = v17;
             *buf = 138543874;
-            v27 = v20;
-            v28 = 2112;
-            v29 = v21;
-            v30 = 2112;
-            v31 = resident;
+            v26 = v20;
+            v27 = 2112;
+            v28 = v21;
+            v29 = 2112;
+            v30 = resident;
             _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Cannot fulfill relationship yet: %@.resident = %@", buf, 0x20u);
 
-            v17 = v24;
+            v17 = v23;
           }
 
           objc_autoreleasePoolPop(v17);
@@ -66,18 +66,17 @@
     v12 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (BOOL)importIntoLocalModel:(id)model updatedProperties:(id)properties context:(id)context
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   contextCopy = context;
-  v27.receiver = self;
-  v27.super_class = MKFCKAppleMediaAccessory;
-  if ([(MKFCKAccessory *)&v27 importIntoLocalModel:modelCopy updatedProperties:properties context:contextCopy])
+  v26.receiver = self;
+  v26.super_class = MKFCKAppleMediaAccessory;
+  if ([(MKFCKAccessory *)&v26 importIntoLocalModel:modelCopy updatedProperties:properties context:contextCopy])
   {
     v10 = modelCopy;
     v11 = contextCopy;
@@ -116,18 +115,18 @@
           v21 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
           {
-            v26 = HMFGetLogIdentifier();
+            v25 = HMFGetLogIdentifier();
             [(MKFCKAppleMediaAccessory *)selfCopy objectID];
-            v22 = v25 = v19;
+            v22 = v24 = v19;
             *buf = 138543874;
-            v29 = v26;
-            v30 = 2112;
-            v31 = v22;
-            v32 = 2112;
-            v33 = v14;
+            v28 = v25;
+            v29 = 2112;
+            v30 = v22;
+            v31 = 2112;
+            v32 = v14;
             _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Cannot fulfill relationship yet: %@.resident = %@", buf, 0x20u);
 
-            v19 = v25;
+            v19 = v24;
           }
 
           objc_autoreleasePoolPop(v19);
@@ -141,7 +140,6 @@
     v12 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

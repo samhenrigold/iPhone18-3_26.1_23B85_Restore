@@ -63,7 +63,7 @@
 - (int64_t)messageType
 {
   selfCopy = self;
-  v3 = sub_1000B1F98();
+  v3 = sub_1000B1F98(selfCopy);
 
   return v3;
 }
@@ -228,7 +228,7 @@
 
 - (id)contactUsingContactStore:(id)store withKeysToFetch:(id)fetch
 {
-  sub_1000525C4(&unk_100124BB0);
+  sub_1000525C4(&unk_100124BB0, &unk_1000D91C0);
   static Array._unconditionallyBridgeFromObjectiveC(_:)();
   storeCopy = store;
   selfCopy = self;

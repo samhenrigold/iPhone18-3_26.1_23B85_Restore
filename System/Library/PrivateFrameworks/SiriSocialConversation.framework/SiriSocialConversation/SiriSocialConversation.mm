@@ -1,22 +1,22 @@
-uint64_t SiriSocialConversationDataModels.ButtonModel.init(label:directInvocation:userData:link:separated:)@<X0>(uint64_t a1@<X2>, uint64_t a2@<X3>, uint64_t a3@<X4>, uint64_t a4@<X5>, uint64_t a5@<X6>, char a6@<W7>, uint64_t a7@<X8>)
+uint64_t SiriSocialConversationDataModels.ButtonModel.init(label:directInvocation:userData:link:separated:)@<X0>(uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, char a8@<W7>, void *a9@<X8>)
 {
   sub_269075FAC();
-  v9 = type metadata accessor for SiriSocialConversationDataModels.ButtonModel(0);
-  v10 = v9[6];
-  v11 = (a7 + v9[5]);
+  v11 = type metadata accessor for SiriSocialConversationDataModels.ButtonModel(0);
+  v12 = v11[6];
+  v13 = (a9 + v11[5]);
   sub_26907602C();
-  v12 = (a7 + v9[8]);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5140, &qword_269076680);
-  OUTLINED_FUNCTION_3(v13);
-  (*(v14 + 8))(a7);
+  v14 = (a9 + v11[8]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5140, &qword_269076680);
+  OUTLINED_FUNCTION_3();
+  (*(v15 + 8))(a9);
   sub_269075FAC();
 
-  *v11 = a1;
-  v11[1] = a2;
-  *(a7 + v10) = a3;
-  *(a7 + v9[7]) = a6;
-  *v12 = a4;
-  v12[1] = a5;
+  *v13 = a3;
+  v13[1] = a4;
+  *(a9 + v12) = a5;
+  *(a9 + v11[7]) = a8;
+  *v14 = a6;
+  v14[1] = a7;
   return result;
 }
 
@@ -25,7 +25,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -45,7 +44,7 @@ uint64_t sub_26906F6FC(uint64_t *a1)
   v1 = *a1;
   v2 = a1[1];
 
-  return SiriSocialConversationDataModels.ButtonModel.label.setter();
+  return SiriSocialConversationDataModels.ButtonModel.label.setter(v1, v2);
 }
 
 uint64_t (*SiriSocialConversationDataModels.ButtonModel.label.modify())()
@@ -71,20 +70,19 @@ void *__swift_coroFrameAllocStub(size_t a1)
 uint64_t SiriSocialConversationDataModels.ButtonModel.directInvocation.modify()
 {
   v0 = OUTLINED_FUNCTION_13();
-  v1 = *(type metadata accessor for SiriSocialConversationDataModels.ButtonModel(v0) + 20);
+  type metadata accessor for SiriSocialConversationDataModels.ButtonModel(v0);
   return OUTLINED_FUNCTION_16();
 }
 
 uint64_t SiriSocialConversationDataModels.ButtonModel.userData.getter()
 {
-  v1 = *(v0 + *(type metadata accessor for SiriSocialConversationDataModels.ButtonModel(0) + 24));
+  type metadata accessor for SiriSocialConversationDataModels.ButtonModel(0);
 }
 
 uint64_t SiriSocialConversationDataModels.ButtonModel.userData.setter()
 {
   v2 = OUTLINED_FUNCTION_13();
   v3 = *(type metadata accessor for SiriSocialConversationDataModels.ButtonModel(v2) + 24);
-  v4 = *(v1 + v3);
 
   *(v1 + v3) = v0;
   return result;
@@ -93,7 +91,7 @@ uint64_t SiriSocialConversationDataModels.ButtonModel.userData.setter()
 uint64_t SiriSocialConversationDataModels.ButtonModel.userData.modify()
 {
   v0 = OUTLINED_FUNCTION_13();
-  v1 = *(type metadata accessor for SiriSocialConversationDataModels.ButtonModel(v0) + 24);
+  type metadata accessor for SiriSocialConversationDataModels.ButtonModel(v0);
   return OUTLINED_FUNCTION_16();
 }
 
@@ -107,15 +105,13 @@ uint64_t SiriSocialConversationDataModels.ButtonModel.separated.setter(char a1)
 uint64_t SiriSocialConversationDataModels.ButtonModel.separated.modify()
 {
   v0 = OUTLINED_FUNCTION_13();
-  v1 = *(type metadata accessor for SiriSocialConversationDataModels.ButtonModel(v0) + 28);
+  type metadata accessor for SiriSocialConversationDataModels.ButtonModel(v0);
   return OUTLINED_FUNCTION_16();
 }
 
 uint64_t SiriSocialConversationDataModels.ButtonModel.link.getter()
 {
-  v1 = (v0 + *(type metadata accessor for SiriSocialConversationDataModels.ButtonModel(0) + 32));
-  v2 = *v1;
-  v3 = v1[1];
+  type metadata accessor for SiriSocialConversationDataModels.ButtonModel(0);
 
   return OUTLINED_FUNCTION_32();
 }
@@ -123,7 +119,6 @@ uint64_t SiriSocialConversationDataModels.ButtonModel.link.getter()
 uint64_t SiriSocialConversationDataModels.ButtonModel.link.setter(uint64_t a1, uint64_t a2)
 {
   v5 = (v2 + *(type metadata accessor for SiriSocialConversationDataModels.ButtonModel(0) + 32));
-  v6 = v5[1];
 
   *v5 = a1;
   v5[1] = a2;
@@ -133,7 +128,7 @@ uint64_t SiriSocialConversationDataModels.ButtonModel.link.setter(uint64_t a1, u
 uint64_t SiriSocialConversationDataModels.ButtonModel.link.modify()
 {
   v0 = OUTLINED_FUNCTION_13();
-  v1 = *(type metadata accessor for SiriSocialConversationDataModels.ButtonModel(v0) + 32);
+  type metadata accessor for SiriSocialConversationDataModels.ButtonModel(v0);
   return OUTLINED_FUNCTION_16();
 }
 
@@ -373,47 +368,41 @@ uint64_t SiriSocialConversationDataModels.ButtonModel.encode(to:)(uint64_t a1)
 {
   v3 = v1;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5148, &qword_269076688);
-  OUTLINED_FUNCTION_0(v5);
+  OUTLINED_FUNCTION_0();
   v7 = v6;
-  v9 = *(v8 + 64);
   OUTLINED_FUNCTION_5();
-  MEMORY[0x28223BE20](v10);
-  v12 = &v22[-v11];
-  v13 = *(a1 + 24);
-  v14 = *(a1 + 32);
+  MEMORY[0x28223BE20](v8);
+  v10 = &v15[-v9];
+  v11 = *(a1 + 24);
   OUTLINED_FUNCTION_17();
   sub_269070304();
   OUTLINED_FUNCTION_19();
   sub_2690761AC();
-  v24 = 0;
+  v17 = 0;
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5140, &qword_269076680);
   OUTLINED_FUNCTION_2();
-  sub_269073164(v15);
+  sub_269073164(v12);
   OUTLINED_FUNCTION_14();
   sub_26907613C();
   if (!v2)
   {
-    v16 = type metadata accessor for SiriSocialConversationDataModels.ButtonModel(0);
-    OUTLINED_FUNCTION_12(v16);
-    v23 = *(v3 + v13[6]);
-    v22[15] = 2;
+    v13 = type metadata accessor for SiriSocialConversationDataModels.ButtonModel(0);
+    OUTLINED_FUNCTION_12(v13);
+    v16 = *(v3 + *(v11 + 24));
+    v15[15] = 2;
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5160, &qword_269076690);
     sub_2690731CC(&unk_2802F5168);
     OUTLINED_FUNCTION_14();
     sub_26907613C();
-    v17 = *(v3 + v13[7]);
-    v22[14] = 3;
+    v15[14] = 3;
     OUTLINED_FUNCTION_14();
     sub_26907612C();
-    v18 = (v3 + v13[8]);
-    v19 = *v18;
-    v20 = v18[1];
-    v22[13] = 4;
+    v15[13] = 4;
     OUTLINED_FUNCTION_14();
     sub_26907611C();
   }
 
-  return (*(v7 + 8))(v12, v5);
+  return (*(v7 + 8))(v10, v5);
 }
 
 void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
@@ -443,7 +432,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -457,16 +445,9 @@ uint64_t SiriSocialConversationDataModels.ButtonModel.hash(into:)(const void *a1
   sub_269070458();
   sub_26907604C();
   v3 = type metadata accessor for SiriSocialConversationDataModels.ButtonModel(0);
-  v4 = (v1 + v3[5]);
-  v5 = *v4;
-  v6 = v4[1];
   sub_26907607C();
-  sub_269072FB8(a1, *(v1 + v3[6]));
-  v7 = *(v1 + v3[7]);
+  sub_269072FB8(a1, *(v1 + *(v3 + 24)));
   sub_26907617C();
-  v8 = (v1 + v3[8]);
-  v9 = *v8;
-  v10 = v8[1];
 
   return sub_26907607C();
 }
@@ -484,88 +465,84 @@ unint64_t sub_269070458()
   return result;
 }
 
-uint64_t SiriSocialConversationDataModels.ButtonModel.hashValue.getter()
+uint64_t SiriSocialConversationDataModels.ButtonModel.hashValue.getter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_36();
-  SiriSocialConversationDataModels.ButtonModel.hash(into:)(v1);
+  OUTLINED_FUNCTION_36(a1);
+  SiriSocialConversationDataModels.ButtonModel.hash(into:)(v2);
   return sub_26907618C();
 }
 
-void SiriSocialConversationDataModels.ButtonModel.init(from:)()
+void SiriSocialConversationDataModels.ButtonModel.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   OUTLINED_FUNCTION_23();
-  v41 = v1;
-  v3 = v2;
-  v38 = v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5140, &qword_269076680);
-  OUTLINED_FUNCTION_0(v5);
-  v44 = v6;
-  v8 = *(v7 + 64);
+  v58 = v24;
+  v26 = v25;
+  v55 = v27;
+  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5140, &qword_269076680);
+  OUTLINED_FUNCTION_0();
+  v61 = v29;
   OUTLINED_FUNCTION_5();
-  (MEMORY[0x28223BE20])();
-  v10 = &v37 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5178, &qword_269076698);
-  v12 = OUTLINED_FUNCTION_0(v11);
-  v39 = v13;
-  v40 = v12;
-  v15 = *(v14 + 64);
+  MEMORY[0x28223BE20](v30);
+  v32 = &v54 - v31;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5178, &qword_269076698);
+  OUTLINED_FUNCTION_0();
+  v56 = v34;
+  v57 = v33;
   OUTLINED_FUNCTION_5();
-  (MEMORY[0x28223BE20])();
-  v16 = OUTLINED_FUNCTION_33();
-  v17 = type metadata accessor for SiriSocialConversationDataModels.ButtonModel(v16);
-  v18 = OUTLINED_FUNCTION_3(v17);
-  v20 = *(v19 + 64);
-  MEMORY[0x28223BE20](v18);
+  MEMORY[0x28223BE20](v35);
+  v36 = OUTLINED_FUNCTION_33();
+  v37 = type metadata accessor for SiriSocialConversationDataModels.ButtonModel(v36);
+  OUTLINED_FUNCTION_3();
+  MEMORY[0x28223BE20](v38);
   OUTLINED_FUNCTION_4();
-  v45 = 0;
-  v46 = 0xE000000000000000;
-  v23 = v22 - v21;
+  v62 = 0;
+  v63 = 0xE000000000000000;
+  v41 = v40 - v39;
   sub_269075FAC();
-  v42 = sub_26907602C();
-  v43 = v3;
-  v24 = v3[4];
-  __swift_project_boxed_opaque_existential_1(v3, v3[3]);
+  v59 = sub_26907602C();
+  v60 = v26;
+  __swift_project_boxed_opaque_existential_1(v26, v26[3]);
   sub_269070304();
-  v25 = v41;
+  v42 = v58;
   sub_26907619C();
-  if (v25)
+  if (v42)
   {
-    v26 = v5;
-    v29 = v44;
-    __swift_destroy_boxed_opaque_existential_1(v43);
-    (*(v29 + 8))(v23, v26);
+    v43 = v28;
+    v46 = v61;
+    __swift_destroy_boxed_opaque_existential_1(v60);
+    (*(v46 + 8))(v41, v43);
   }
 
   else
   {
-    v27 = v39;
-    LOBYTE(v45) = 0;
+    v44 = v56;
+    LOBYTE(v62) = 0;
     OUTLINED_FUNCTION_1();
-    sub_269073164(v28);
+    sub_269073164(v45);
     sub_2690760EC();
-    (*(v44 + 40))(v23, v10, v5);
-    LOBYTE(v45) = 1;
-    v41 = v0;
-    v30 = sub_2690760CC();
-    v31 = (v23 + v17[5]);
-    *v31 = v30;
-    v31[1] = v32;
+    (*(v61 + 40))(v41, v32, v28);
+    LOBYTE(v62) = 1;
+    v58 = v23;
+    v47 = sub_2690760CC();
+    v48 = (v41 + v37[5]);
+    *v48 = v47;
+    v48[1] = v49;
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5160, &qword_269076690);
     sub_2690731CC(&unk_2802F5188);
     sub_2690760EC();
 
-    *(v23 + v17[6]) = v45;
+    *(v41 + v37[6]) = v62;
     OUTLINED_FUNCTION_25(3);
-    *(v23 + v17[7]) = sub_2690760DC() & 1;
+    *(v41 + v37[7]) = sub_2690760DC() & 1;
     OUTLINED_FUNCTION_25(4);
-    v33 = sub_2690760CC();
-    v34 = (v23 + v17[8]);
-    v36 = v35;
-    (*(v27 + 8))(v41, v40);
-    *v34 = v33;
-    v34[1] = v36;
-    sub_2690734B4(v23, v38, type metadata accessor for SiriSocialConversationDataModels.ButtonModel);
-    __swift_destroy_boxed_opaque_existential_1(v43);
+    v50 = sub_2690760CC();
+    v51 = (v41 + v37[8]);
+    v53 = v52;
+    (*(v44 + 8))(v58, v57);
+    *v51 = v50;
+    v51[1] = v53;
+    sub_2690734B4(v41, v55, type metadata accessor for SiriSocialConversationDataModels.ButtonModel);
+    __swift_destroy_boxed_opaque_existential_1(v60);
     sub_269073380();
   }
 
@@ -579,32 +556,25 @@ uint64_t sub_26907097C()
   return sub_26907618C();
 }
 
-uint64_t SiriSocialConversationDataModels.ButtonStackModel.init(buttons:text:sash:)@<X0>(char a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char a4@<W3>, uint64_t a5@<X8>)
+uint64_t SiriSocialConversationDataModels.ButtonStackModel.init(buttons:text:sash:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, char a3@<W3>, void *a4@<X8>, char a5@<W0>)
 {
   v32 = MEMORY[0x277D84F90];
   v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5190, &qword_2690766A0);
   OUTLINED_FUNCTION_26(v10, v11, v12, v13, v14, v15, v16, v17, v30, v32);
   sub_269075FAC();
   v18 = type metadata accessor for SiriSocialConversationDataModels.ButtonStackModel(0);
-  v19 = (a5 + *(v18 + 20));
+  v19 = (a4 + *(v18 + 20));
   *v19 = 0;
   v19[1] = 0xE000000000000000;
   v20 = *(v18 + 24);
-  *(a5 + v20) = 1;
+  *(a4 + v20) = 1;
   v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5198, &qword_2690766A8);
-  OUTLINED_FUNCTION_26(v21, v22, v23, v24, v25, v26, v27, v28, v31, a1);
+  OUTLINED_FUNCTION_26(v21, v22, v23, v24, v25, v26, v27, v28, v31, a5);
   result = sub_269075FDC();
-  *v19 = a2;
-  v19[1] = a3;
-  *(a5 + v20) = a4;
+  *v19 = a1;
+  v19[1] = a2;
+  *(a4 + v20) = a3;
   return result;
-}
-
-uint64_t sub_269070AB0(uint64_t *a1)
-{
-  v1 = *a1;
-
-  return SiriSocialConversationDataModels.ButtonStackModel.buttons.setter(v2);
 }
 
 uint64_t (*SiriSocialConversationDataModels.ButtonStackModel.buttons.modify())()
@@ -619,9 +589,7 @@ uint64_t (*SiriSocialConversationDataModels.ButtonStackModel.buttons.modify())()
 
 uint64_t sub_269070B64(uint64_t (*a1)(void))
 {
-  v2 = (v1 + *(a1(0) + 20));
-  v3 = *v2;
-  v4 = v2[1];
+  a1(0);
 
   return OUTLINED_FUNCTION_32();
 }
@@ -629,7 +597,6 @@ uint64_t sub_269070B64(uint64_t (*a1)(void))
 uint64_t sub_269070BC0(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 {
   v6 = (v3 + *(a3(0) + 20));
-  v7 = v6[1];
 
   *v6 = a1;
   v6[1] = a2;
@@ -639,7 +606,7 @@ uint64_t sub_269070BC0(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 uint64_t SiriSocialConversationDataModels.ButtonStackModel.text.modify()
 {
   v0 = OUTLINED_FUNCTION_13();
-  v1 = *(type metadata accessor for SiriSocialConversationDataModels.ButtonStackModel(v0) + 20);
+  type metadata accessor for SiriSocialConversationDataModels.ButtonStackModel(v0);
   return OUTLINED_FUNCTION_16();
 }
 
@@ -653,7 +620,7 @@ uint64_t SiriSocialConversationDataModels.ButtonStackModel.sash.setter(char a1)
 uint64_t SiriSocialConversationDataModels.ButtonStackModel.sash.modify()
 {
   v0 = OUTLINED_FUNCTION_13();
-  v1 = *(type metadata accessor for SiriSocialConversationDataModels.ButtonStackModel(v0) + 24);
+  type metadata accessor for SiriSocialConversationDataModels.ButtonStackModel(v0);
   return OUTLINED_FUNCTION_16();
 }
 
@@ -698,10 +665,11 @@ uint64_t sub_269070CE0(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_269070E00(unsigned __int8 a1)
+uint64_t sub_269070E00(uint64_t a1)
 {
-  OUTLINED_FUNCTION_36();
-  MEMORY[0x26D630CB0](a1);
+  v1 = a1;
+  OUTLINED_FUNCTION_36(a1);
+  MEMORY[0x26D630CB0](v1);
   return sub_26907618C();
 }
 
@@ -758,116 +726,108 @@ uint64_t sub_269070F60(uint64_t a1)
 
 uint64_t SiriSocialConversationDataModels.ButtonStackModel.encode(to:)(uint64_t a1)
 {
-  v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F51A0, &qword_2690766B0);
-  OUTLINED_FUNCTION_0(v5);
-  v7 = v6;
-  v9 = *(v8 + 64);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F51A0, &qword_2690766B0);
+  OUTLINED_FUNCTION_0();
+  v4 = v3;
   OUTLINED_FUNCTION_5();
-  MEMORY[0x28223BE20](v10);
-  v12 = &v19[-v11];
-  v13 = *(a1 + 24);
-  v14 = *(a1 + 32);
+  MEMORY[0x28223BE20](v5);
+  v7 = &v12[-v6 - 3];
   OUTLINED_FUNCTION_17();
   sub_269073250();
   OUTLINED_FUNCTION_19();
   sub_2690761AC();
-  v19[15] = 0;
+  v13 = 0;
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5198, &qword_2690766A8);
   OUTLINED_FUNCTION_2();
-  sub_2690733D4(v15);
+  sub_2690733D4(v8);
   OUTLINED_FUNCTION_14();
   sub_26907613C();
-  if (!v2)
+  if (!v1)
   {
-    v16 = type metadata accessor for SiriSocialConversationDataModels.ButtonStackModel(0);
-    OUTLINED_FUNCTION_12(v16);
-    v17 = *(v3 + *(v13 + 24));
-    v19[13] = 2;
+    v9 = type metadata accessor for SiriSocialConversationDataModels.ButtonStackModel(0);
+    OUTLINED_FUNCTION_12(v9);
+    v12[0] = 2;
     OUTLINED_FUNCTION_14();
     sub_26907612C();
   }
 
-  return (*(v7 + 8))(v12, v5);
+  return (*(v4 + 8))(v7, v2);
 }
 
-void SiriSocialConversationDataModels.ButtonStackModel.init(from:)()
+void SiriSocialConversationDataModels.ButtonStackModel.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   OUTLINED_FUNCTION_23();
-  v2 = v1;
-  v29 = v3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5198, &qword_2690766A8);
-  v5 = OUTLINED_FUNCTION_0(v4);
-  v30 = v6;
-  v31 = v5;
-  v8 = *(v7 + 64);
+  v22 = v21;
+  v41 = v23;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5198, &qword_2690766A8);
+  OUTLINED_FUNCTION_0();
+  v42 = v25;
+  v43 = v24;
   OUTLINED_FUNCTION_5();
-  MEMORY[0x28223BE20](v9);
+  MEMORY[0x28223BE20](v26);
   OUTLINED_FUNCTION_34();
-  v32 = v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F51D8, &qword_2690766B8);
-  OUTLINED_FUNCTION_0(v11);
-  v13 = *(v12 + 64);
+  v44 = v27;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F51D8, &qword_2690766B8);
+  OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
-  MEMORY[0x28223BE20](v14);
-  v15 = type metadata accessor for SiriSocialConversationDataModels.ButtonStackModel(0);
-  v16 = v15 - 8;
-  v17 = *(*(v15 - 8) + 64);
-  MEMORY[0x28223BE20](v15);
+  MEMORY[0x28223BE20](v28);
+  v29 = type metadata accessor for SiriSocialConversationDataModels.ButtonStackModel(0);
+  v30 = v29 - 8;
+  MEMORY[0x28223BE20](v29);
   OUTLINED_FUNCTION_4();
-  v20 = v19 - v18;
+  v33 = v32 - v31;
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5190, &qword_2690766A0);
   sub_269075FAC();
-  v21 = (v20 + *(v16 + 28));
-  *v21 = 0;
-  v21[1] = 0xE000000000000000;
-  v22 = *(v16 + 32);
-  *(v20 + v22) = 1;
-  v23 = v2[4];
-  __swift_project_boxed_opaque_existential_1(v2, v2[3]);
+  v34 = (v33 + *(v30 + 28));
+  *v34 = 0;
+  v34[1] = 0xE000000000000000;
+  v35 = *(v30 + 32);
+  *(v33 + v35) = 1;
+  __swift_project_boxed_opaque_existential_1(v22, v22[3]);
   sub_269073250();
   sub_26907619C();
-  if (!v0)
+  if (!v20)
   {
     OUTLINED_FUNCTION_1();
-    sub_2690733D4(v24);
+    sub_2690733D4(v36);
     sub_2690760EC();
-    (*(v30 + 40))(v20, v32, v31);
-    *v21 = sub_2690760CC();
-    v21[1] = v25;
-    v26 = sub_2690760DC();
-    v27 = OUTLINED_FUNCTION_29();
-    v28(v27);
-    *(v20 + v22) = v26 & 1;
-    sub_2690734B4(v20, v29, type metadata accessor for SiriSocialConversationDataModels.ButtonStackModel);
+    (*(v42 + 40))(v33, v44, v43);
+    *v34 = sub_2690760CC();
+    v34[1] = v37;
+    v38 = sub_2690760DC();
+    v39 = OUTLINED_FUNCTION_29();
+    v40(v39);
+    *(v33 + v35) = v38 & 1;
+    sub_2690734B4(v33, v41, type metadata accessor for SiriSocialConversationDataModels.ButtonStackModel);
   }
 
-  __swift_destroy_boxed_opaque_existential_1(v2);
+  __swift_destroy_boxed_opaque_existential_1(v22);
   OUTLINED_FUNCTION_7();
   sub_269073380();
   OUTLINED_FUNCTION_22();
 }
 
-uint64_t SiriSocialConversationDataModels.StoryDataModel.init(storyTexts:dialogIds:)()
+void *SiriSocialConversationDataModels.StoryDataModel.init(storyTexts:dialogIds:)()
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F51E8, &qword_2690766C0);
   sub_269075FAC();
-  v0 = *(type metadata accessor for SiriSocialConversationDataModels.StoryDataModel(0) + 20);
+  type metadata accessor for SiriSocialConversationDataModels.StoryDataModel(0);
   return sub_269075FAC();
 }
 
-uint64_t sub_2690714E8(char a1, uint64_t *a2, uint64_t *a3)
+uint64_t sub_2690714E8(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
+  v13 = a1;
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
-  OUTLINED_FUNCTION_26(v3, v4, v5, v6, v7, v8, v9, v10, v12, a1);
+  OUTLINED_FUNCTION_26(v3, v4, v5, v6, v7, v8, v9, v10, v12, v13);
   return sub_269075FDC();
 }
 
 uint64_t SiriSocialConversationDataModels.StoryDataModel.storyTexts.setter(char a1)
 {
-  v1 = *(type metadata accessor for SiriSocialConversationDataModels.StoryDataModel(0) + 20);
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F51F0, &qword_2690766C8);
-  OUTLINED_FUNCTION_26(v2, v3, v4, v5, v6, v7, v8, v9, v11, a1);
+  type metadata accessor for SiriSocialConversationDataModels.StoryDataModel(0);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F51F0, &qword_2690766C8);
+  OUTLINED_FUNCTION_26(v1, v2, v3, v4, v5, v6, v7, v8, v10, a1);
   return sub_269075FDC();
 }
 
@@ -876,13 +836,6 @@ uint64_t sub_269071584(uint64_t *a1, uint64_t *a2)
   __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
   sub_269075FCC();
   return v3;
-}
-
-uint64_t sub_2690715B0(uint64_t *a1)
-{
-  v1 = *a1;
-
-  return SiriSocialConversationDataModels.StoryDataModel.dialogIds.setter(v2);
 }
 
 uint64_t (*SiriSocialConversationDataModels.StoryDataModel.dialogIds.modify())()
@@ -897,17 +850,10 @@ uint64_t (*SiriSocialConversationDataModels.StoryDataModel.dialogIds.modify())()
 
 uint64_t SiriSocialConversationDataModels.StoryDataModel.storyTexts.getter()
 {
-  v0 = *(type metadata accessor for SiriSocialConversationDataModels.StoryDataModel(0) + 20);
+  type metadata accessor for SiriSocialConversationDataModels.StoryDataModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F51F0, &qword_2690766C8);
   sub_269075FCC();
-  return v2;
-}
-
-uint64_t sub_2690716A0(uint64_t *a1)
-{
-  v1 = *a1;
-
-  return SiriSocialConversationDataModels.StoryDataModel.storyTexts.setter(v2);
+  return v1;
 }
 
 uint64_t (*SiriSocialConversationDataModels.StoryDataModel.storyTexts.modify())()
@@ -915,7 +861,7 @@ uint64_t (*SiriSocialConversationDataModels.StoryDataModel.storyTexts.modify())(
   v1 = OUTLINED_FUNCTION_27();
   v2 = __swift_coroFrameAllocStub(v1);
   OUTLINED_FUNCTION_30(v2);
-  v3 = *(type metadata accessor for SiriSocialConversationDataModels.StoryDataModel(0) + 20);
+  type metadata accessor for SiriSocialConversationDataModels.StoryDataModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F51F0, &qword_2690766C8);
   *(v0 + 32) = sub_269075FBC();
   return sub_26907174C;
@@ -1001,93 +947,86 @@ uint64_t sub_2690719B8(uint64_t a1)
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-uint64_t SiriSocialConversationDataModels.StoryDataModel.encode(to:)(uint64_t a1)
+uint64_t SiriSocialConversationDataModels.StoryDataModel.encode(to:)()
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F51F8, &qword_2690766D0);
-  OUTLINED_FUNCTION_0(v3);
-  v5 = v4;
-  v7 = *(v6 + 64);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F51F8, &qword_2690766D0);
+  OUTLINED_FUNCTION_0();
+  v3 = v2;
   OUTLINED_FUNCTION_5();
-  MEMORY[0x28223BE20](v8);
-  v10 = &v16[-v9];
-  v11 = *(a1 + 24);
-  v12 = *(a1 + 32);
+  MEMORY[0x28223BE20](v4);
+  v6 = &v9[-v5];
   OUTLINED_FUNCTION_17();
   sub_269073530();
   OUTLINED_FUNCTION_19();
   sub_2690761AC();
-  v16[15] = 0;
+  v9[15] = 0;
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F51F0, &qword_2690766C8);
   OUTLINED_FUNCTION_2();
-  sub_269073584(v13);
+  sub_269073584(v7);
   OUTLINED_FUNCTION_19();
   sub_26907613C();
-  if (!v1)
+  if (!v0)
   {
-    v14 = *(type metadata accessor for SiriSocialConversationDataModels.StoryDataModel(0) + 20);
-    v16[14] = 1;
+    type metadata accessor for SiriSocialConversationDataModels.StoryDataModel(0);
+    v9[14] = 1;
     OUTLINED_FUNCTION_19();
     sub_26907613C();
   }
 
-  return (*(v5 + 8))(v10, v3);
+  return (*(v3 + 8))(v6, v1);
 }
 
-void SiriSocialConversationDataModels.StoryDataModel.init(from:)()
+void SiriSocialConversationDataModels.StoryDataModel.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   OUTLINED_FUNCTION_23();
-  v2 = v1;
-  v36 = v3;
-  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F51F0, &qword_2690766C8);
-  v4 = OUTLINED_FUNCTION_0(v41);
-  v38 = v5;
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x28223BE20](v4);
-  v10 = v33 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v40 = v33 - v11;
-  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5220, &qword_2690766D8);
-  OUTLINED_FUNCTION_0(v39);
-  v37 = v12;
-  v14 = *(v13 + 64);
+  v25 = v24;
+  v52 = v26;
+  v57 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F51F0, &qword_2690766C8);
+  OUTLINED_FUNCTION_0();
+  v54 = v27;
+  v29 = MEMORY[0x28223BE20](v28);
+  v31 = v49 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v29);
+  v56 = v49 - v32;
+  v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5220, &qword_2690766D8);
+  OUTLINED_FUNCTION_0();
+  v53 = v33;
   OUTLINED_FUNCTION_5();
-  MEMORY[0x28223BE20](v15);
-  v17 = v33 - v16;
-  v18 = type metadata accessor for SiriSocialConversationDataModels.StoryDataModel(0);
-  v19 = OUTLINED_FUNCTION_3(v18);
-  v21 = *(v20 + 64);
-  MEMORY[0x28223BE20](v19);
+  MEMORY[0x28223BE20](v34);
+  v36 = v49 - v35;
+  v37 = type metadata accessor for SiriSocialConversationDataModels.StoryDataModel(0);
+  OUTLINED_FUNCTION_3();
+  MEMORY[0x28223BE20](v38);
   OUTLINED_FUNCTION_4();
-  v24 = v23 - v22;
-  v25 = v2[4];
-  __swift_project_boxed_opaque_existential_1(v2, v2[3]);
+  v41 = v40 - v39;
+  __swift_project_boxed_opaque_existential_1(v25, v25[3]);
   sub_269073530();
   sub_26907619C();
-  if (v0)
+  if (v23)
   {
-    __swift_destroy_boxed_opaque_existential_1(v2);
+    __swift_destroy_boxed_opaque_existential_1(v25);
   }
 
   else
   {
-    v34 = v18;
-    v35 = v24;
-    v27 = v37;
-    v26 = v38;
+    v50 = v37;
+    v51 = v41;
+    v43 = v53;
+    v42 = v54;
     OUTLINED_FUNCTION_1();
-    v29 = sub_269073584(v28);
-    v30 = v39;
+    v45 = sub_269073584(v44);
+    v46 = v55;
     sub_2690760EC();
-    v33[1] = v29;
-    v31 = v40;
-    v40 = *(v26 + 32);
-    (v40)(v35, v31, v41);
+    v49[1] = v45;
+    v47 = v56;
+    v56 = *(v42 + 32);
+    (v56)(v51, v47, v57);
     sub_2690760EC();
-    (*(v27 + 8))(v17, v30);
-    v32 = v35;
-    (v40)(v35 + *(v34 + 20), v10, v41);
-    sub_2690734B4(v32, v36, type metadata accessor for SiriSocialConversationDataModels.StoryDataModel);
-    __swift_destroy_boxed_opaque_existential_1(v2);
+    (*(v43 + 8))(v36, v46);
+    v48 = v51;
+    (v56)(v51 + *(v50 + 20), v31, v57);
+    sub_2690734B4(v48, v52, type metadata accessor for SiriSocialConversationDataModels.StoryDataModel);
+    __swift_destroy_boxed_opaque_existential_1(v25);
     OUTLINED_FUNCTION_8();
     sub_269073380();
   }
@@ -1126,10 +1065,11 @@ uint64_t sub_269071EC0(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_269071F98(char a1)
+uint64_t sub_269071F98(uint64_t a1)
 {
-  OUTLINED_FUNCTION_36();
-  MEMORY[0x26D630CB0](a1 & 1);
+  v1 = a1;
+  OUTLINED_FUNCTION_36(a1);
+  MEMORY[0x26D630CB0](v1 & 1);
   return sub_26907618C();
 }
 
@@ -1164,9 +1104,9 @@ uint64_t sub_269072020(uint64_t a1, uint64_t a2)
   return v4 & 1;
 }
 
-uint64_t sub_2690720B8()
+uint64_t sub_2690720B8(uint64_t a1)
 {
-  OUTLINED_FUNCTION_36();
+  OUTLINED_FUNCTION_36(a1);
   MEMORY[0x26D630CB0](0);
   return sub_26907618C();
 }
@@ -1241,92 +1181,83 @@ uint64_t sub_26907235C(uint64_t a1)
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-void SiriSocialConversationDataModels.encode(to:)()
+void SiriSocialConversationDataModels.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   OUTLINED_FUNCTION_23();
-  v65 = v2;
-  v63 = v1;
-  v4 = v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5230, &qword_2690766E0);
-  v6 = OUTLINED_FUNCTION_0(v5);
-  v61 = v7;
-  v62 = v6;
-  v9 = *(v8 + 64);
+  v68 = v25;
+  v66 = v24;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5230, &qword_2690766E0);
+  OUTLINED_FUNCTION_0();
+  v64 = v27;
+  v65 = v26;
   OUTLINED_FUNCTION_5();
-  MEMORY[0x28223BE20](v10);
+  MEMORY[0x28223BE20](v28);
   OUTLINED_FUNCTION_34();
-  v60 = v11;
-  v58 = type metadata accessor for SiriSocialConversationDataModels.StoryDataModel(0);
-  v12 = OUTLINED_FUNCTION_3(v58);
-  v14 = *(v13 + 64);
-  MEMORY[0x28223BE20](v12);
+  v63 = v29;
+  v61 = type metadata accessor for SiriSocialConversationDataModels.StoryDataModel(0);
+  OUTLINED_FUNCTION_3();
+  MEMORY[0x28223BE20](v30);
   OUTLINED_FUNCTION_4();
-  v59 = v16 - v15;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5238, &qword_2690766E8);
-  v18 = OUTLINED_FUNCTION_0(v17);
-  v56 = v19;
-  v57 = v18;
-  v21 = *(v20 + 64);
+  v62 = v32 - v31;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5238, &qword_2690766E8);
+  OUTLINED_FUNCTION_0();
+  v59 = v34;
+  v60 = v33;
   OUTLINED_FUNCTION_5();
-  MEMORY[0x28223BE20](v22);
-  v23 = OUTLINED_FUNCTION_33();
-  v55 = type metadata accessor for SiriSocialConversationDataModels.ButtonStackModel(v23);
-  v24 = OUTLINED_FUNCTION_3(v55);
-  v26 = *(v25 + 64);
-  MEMORY[0x28223BE20](v24);
+  MEMORY[0x28223BE20](v35);
+  v36 = OUTLINED_FUNCTION_33();
+  v58[1] = type metadata accessor for SiriSocialConversationDataModels.ButtonStackModel(v36);
+  OUTLINED_FUNCTION_3();
+  MEMORY[0x28223BE20](v37);
   OUTLINED_FUNCTION_4();
-  v29 = v28 - v27;
-  v30 = type metadata accessor for SiriSocialConversationDataModels(0);
-  v31 = OUTLINED_FUNCTION_3(v30);
-  v33 = *(v32 + 64);
-  MEMORY[0x28223BE20](v31);
-  OUTLINED_FUNCTION_4();
-  v36 = v35 - v34;
-  v64 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5240, &qword_2690766F0);
-  OUTLINED_FUNCTION_0(v64);
-  v38 = v37;
-  v40 = *(v39 + 64);
-  OUTLINED_FUNCTION_5();
+  v40 = v39 - v38;
+  type metadata accessor for SiriSocialConversationDataModels(0);
+  OUTLINED_FUNCTION_3();
   MEMORY[0x28223BE20](v41);
-  v43 = &v54 - v42;
-  v45 = *(v4 + 24);
-  v44 = *(v4 + 32);
+  OUTLINED_FUNCTION_4();
+  v44 = v43 - v42;
+  v67 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5240, &qword_2690766F0);
+  OUTLINED_FUNCTION_0();
+  v46 = v45;
+  OUTLINED_FUNCTION_5();
+  MEMORY[0x28223BE20](v47);
+  v49 = v58 - v48;
   OUTLINED_FUNCTION_17();
   sub_2690736FC();
   sub_2690761AC();
-  sub_2690734B4(v63, v36, type metadata accessor for SiriSocialConversationDataModels);
-  v46 = (v38 + 8);
+  sub_2690734B4(v66, v44, type metadata accessor for SiriSocialConversationDataModels);
+  v50 = (v46 + 8);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    sub_2690737A4(v36, v59, type metadata accessor for SiriSocialConversationDataModels.StoryDataModel);
+    sub_2690737A4(v44, v62, type metadata accessor for SiriSocialConversationDataModels.StoryDataModel);
     sub_269073750();
-    v47 = v60;
-    v48 = v64;
+    v51 = v63;
+    v52 = v67;
     sub_26907610C();
     OUTLINED_FUNCTION_6();
-    sub_26907333C(v49);
-    v50 = v62;
+    sub_26907333C(v53);
+    v54 = v65;
     sub_26907613C();
-    (*(v61 + 8))(v47, v50);
+    (*(v64 + 8))(v51, v54);
     OUTLINED_FUNCTION_8();
     sub_269073380();
-    (*v46)(v43, v48);
+    (*v50)(v49, v52);
   }
 
   else
   {
-    sub_2690737A4(v36, v29, type metadata accessor for SiriSocialConversationDataModels.ButtonStackModel);
+    sub_2690737A4(v44, v40, type metadata accessor for SiriSocialConversationDataModels.ButtonStackModel);
     sub_269073800();
-    v51 = v64;
+    v55 = v67;
     sub_26907610C();
     OUTLINED_FUNCTION_9();
-    sub_26907333C(v52);
-    v53 = v57;
+    sub_26907333C(v56);
+    v57 = v60;
     sub_26907613C();
-    (*(v56 + 8))(v0, v53);
+    (*(v59 + 8))(v23, v57);
     OUTLINED_FUNCTION_7();
     sub_269073380();
-    (*v46)(v43, v51);
+    (*v50)(v49, v55);
   }
 
   OUTLINED_FUNCTION_22();
@@ -1337,112 +1268,107 @@ void SiriSocialConversationDataModels.init(from:)(uint64_t a1, uint64_t a2, uint
   OUTLINED_FUNCTION_23();
   a23 = v25;
   a24 = v26;
-  v107 = v24;
+  v105 = v24;
   v28 = v27;
-  v98 = v29;
-  v106 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5270, &qword_2690766F8);
-  OUTLINED_FUNCTION_0(v106);
-  v101 = v30;
-  v32 = *(v31 + 64);
+  v96 = v29;
+  v104 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5270, &qword_2690766F8);
+  OUTLINED_FUNCTION_0();
+  v99 = v30;
   OUTLINED_FUNCTION_5();
-  MEMORY[0x28223BE20](v33);
+  MEMORY[0x28223BE20](v31);
   OUTLINED_FUNCTION_34();
-  v103 = v34;
-  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5278, &qword_269076700);
-  v36 = OUTLINED_FUNCTION_0(v35);
-  v99 = v37;
+  v101 = v32;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5278, &qword_269076700);
+  OUTLINED_FUNCTION_0();
+  v97 = v34;
+  v98 = v33;
+  OUTLINED_FUNCTION_5();
+  MEMORY[0x28223BE20](v35);
+  OUTLINED_FUNCTION_34();
   v100 = v36;
-  v39 = *(v38 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5280, &qword_269076708);
+  OUTLINED_FUNCTION_0();
+  v102 = v38;
+  v103 = v37;
   OUTLINED_FUNCTION_5();
-  MEMORY[0x28223BE20](v40);
-  OUTLINED_FUNCTION_34();
-  v102 = v41;
-  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5280, &qword_269076708);
-  v43 = OUTLINED_FUNCTION_0(v42);
-  v104 = v44;
-  v105 = v43;
-  v46 = *(v45 + 64);
-  OUTLINED_FUNCTION_5();
+  MEMORY[0x28223BE20](v39);
+  v41 = &v92 - v40;
+  v42 = type metadata accessor for SiriSocialConversationDataModels(0);
+  OUTLINED_FUNCTION_3();
+  v44 = MEMORY[0x28223BE20](v43);
+  v46 = &v92 - ((v45 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v47 = MEMORY[0x28223BE20](v44);
+  v49 = &v92 - v48;
   MEMORY[0x28223BE20](v47);
-  v49 = &v94 - v48;
-  v50 = type metadata accessor for SiriSocialConversationDataModels(0);
-  v51 = OUTLINED_FUNCTION_3(v50);
-  v53 = *(v52 + 64);
-  v54 = MEMORY[0x28223BE20](v51);
-  v56 = &v94 - ((v55 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v57 = MEMORY[0x28223BE20](v54);
-  v59 = &v94 - v58;
-  MEMORY[0x28223BE20](v57);
-  v61 = &v94 - v60;
-  v62 = v28[4];
+  v51 = &v92 - v50;
   __swift_project_boxed_opaque_existential_1(v28, v28[3]);
   sub_2690736FC();
-  v63 = v107;
+  v52 = v105;
   sub_26907619C();
-  if (v63)
+  if (v52)
   {
     goto LABEL_8;
   }
 
-  v94 = v56;
-  v95 = v59;
-  v64 = v105;
-  v96 = v61;
-  v97 = v50;
-  v107 = v28;
-  v65 = sub_2690760FC();
-  v69 = sub_269072F70(v65, 0);
-  if (v67 == v68 >> 1)
+  v92 = v46;
+  v93 = v49;
+  v53 = v103;
+  v94 = v51;
+  v95 = v42;
+  v105 = v28;
+  v54 = sub_2690760FC();
+  v58 = sub_269072F70(v54, 0);
+  if (v56 == v57 >> 1)
   {
 LABEL_7:
-    v79 = v97;
-    v80 = sub_26907609C();
+    v73 = v95;
+    v74 = sub_26907609C();
     swift_allocError();
-    v82 = v81;
-    v83 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5288, &qword_269076710) + 48);
-    *v82 = v79;
+    v76 = v75;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2802F5288, &qword_269076710);
+    *v76 = v73;
     sub_2690760BC();
     sub_26907608C();
-    (*(*(v80 - 8) + 104))(v82, *MEMORY[0x277D84160], v80);
+    (*(*(v74 - 8) + 104))(v76, *MEMORY[0x277D84160], v74);
     swift_willThrow();
     swift_unknownObjectRelease();
-    v84 = OUTLINED_FUNCTION_10();
-    v85(v84, v64);
-    v28 = v107;
+    v77 = OUTLINED_FUNCTION_10();
+    v78(v77, v53);
+    v28 = v105;
 LABEL_8:
-    v86 = v28;
+    v79 = v28;
 LABEL_9:
-    __swift_destroy_boxed_opaque_existential_1(v86);
+    __swift_destroy_boxed_opaque_existential_1(v79);
     OUTLINED_FUNCTION_22();
     return;
   }
 
-  if (v67 < (v68 >> 1))
+  if (v56 < (v57 >> 1))
   {
-    a10 = *(v66 + v67);
-    sub_269073854(v67 + 1, v68 >> 1, v69, v66, v67, v68);
-    v71 = v70;
-    v73 = v72;
+    a10 = *(v55 + v56);
+    sub_269073854(v56 + 1, v57 >> 1, v58, v55, v56, v57);
+    v60 = v59;
+    v62 = v61;
     swift_unknownObjectRelease();
-    if (v71 == v73 >> 1)
+    if (v60 == v62 >> 1)
     {
-      v74 = v64;
+      v63 = v53;
       if (a10)
       {
         a14 = 1;
         sub_269073750();
         OUTLINED_FUNCTION_20(&type metadata for SiriSocialConversationDataModels.StoryViewCodingKeys, &a14);
-        v75 = v96;
-        type metadata accessor for SiriSocialConversationDataModels.StoryDataModel(0);
+        v64 = v94;
+        v65 = type metadata accessor for SiriSocialConversationDataModels.StoryDataModel(0);
         OUTLINED_FUNCTION_6();
-        sub_26907333C(v76);
-        v77 = v94;
-        OUTLINED_FUNCTION_35();
-        v78 = v104;
+        v67 = sub_26907333C(v66);
+        v68 = v92;
+        OUTLINED_FUNCTION_35(v65, v69, v70, v71, v67);
+        v72 = v102;
         swift_unknownObjectRelease();
-        v88 = OUTLINED_FUNCTION_11();
-        v89(v88);
-        (*(v78 + 8))(v49, v74);
+        v86 = OUTLINED_FUNCTION_11();
+        v87(v86);
+        (*(v72 + 8))(v41, v63);
       }
 
       else
@@ -1450,23 +1376,23 @@ LABEL_9:
         a13 = 0;
         sub_269073800();
         OUTLINED_FUNCTION_20(&type metadata for SiriSocialConversationDataModels.ButtonStackViewCodingKeys, &a13);
-        v75 = v96;
-        type metadata accessor for SiriSocialConversationDataModels.ButtonStackModel(0);
+        v64 = v94;
+        v80 = type metadata accessor for SiriSocialConversationDataModels.ButtonStackModel(0);
         OUTLINED_FUNCTION_9();
-        sub_26907333C(v87);
-        v77 = v95;
-        OUTLINED_FUNCTION_35();
+        v82 = sub_26907333C(v81);
+        v68 = v93;
+        OUTLINED_FUNCTION_35(v80, v83, v84, v85, v82);
         swift_unknownObjectRelease();
-        v90 = OUTLINED_FUNCTION_11();
-        v91(v90);
-        v92 = OUTLINED_FUNCTION_10();
-        v93(v92, v74);
+        v88 = OUTLINED_FUNCTION_11();
+        v89(v88);
+        v90 = OUTLINED_FUNCTION_10();
+        v91(v90, v63);
       }
 
       swift_storeEnumTagMultiPayload();
-      sub_2690737A4(v77, v75, type metadata accessor for SiriSocialConversationDataModels);
-      sub_2690737A4(v75, v98, type metadata accessor for SiriSocialConversationDataModels);
-      v86 = v107;
+      sub_2690737A4(v68, v64, type metadata accessor for SiriSocialConversationDataModels);
+      sub_2690737A4(v64, v96, type metadata accessor for SiriSocialConversationDataModels);
+      v79 = v105;
       goto LABEL_9;
     }
 
@@ -1478,12 +1404,11 @@ LABEL_9:
 
 unint64_t sub_269072E44(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   sub_26907615C();
   sub_26907607C();
-  v6 = sub_26907618C();
+  v4 = sub_26907618C();
 
-  return sub_269072EBC(a1, a2, v6);
+  return sub_269072EBC(a1, a2, v4);
 }
 
 unint64_t sub_269072EBC(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1538,60 +1463,59 @@ LABEL_9:
 
 uint64_t sub_269072FB8(const void *a1, uint64_t a2)
 {
-  v3 = a2 + 64;
-  v4 = 1 << *(a2 + 32);
-  v5 = -1;
-  if (v4 < 64)
+  v2 = a2 + 64;
+  v3 = 1 << *(a2 + 32);
+  v4 = -1;
+  if (v3 < 64)
   {
-    v5 = ~(-1 << v4);
+    v4 = ~(-1 << v3);
   }
 
-  v6 = v5 & *(a2 + 64);
-  v7 = (v4 + 63) >> 6;
+  v5 = v4 & *(a2 + 64);
+  v6 = (v3 + 63) >> 6;
 
+  v8 = 0;
   v9 = 0;
-  for (i = 0; v6; v9 ^= result)
+  if (v5)
   {
-    v11 = i;
-LABEL_9:
-    v12 = __clz(__rbit64(v6));
-    v6 &= v6 - 1;
-    v13 = (v11 << 10) | (16 * v12);
-    v14 = (*(a2 + 48) + v13);
-    v15 = *v14;
-    v16 = v14[1];
-    v17 = (*(a2 + 56) + v13);
-    v18 = *v17;
-    v19 = v17[1];
-    memcpy(__dst, a1, sizeof(__dst));
-
-    sub_26907607C();
-
-    sub_26907607C();
-
-    result = sub_26907618C();
+    goto LABEL_9;
   }
 
   while (1)
   {
-    v11 = i + 1;
-    if (__OFADD__(i, 1))
+    v10 = v9 + 1;
+    if (__OFADD__(v9, 1))
     {
       break;
     }
 
-    if (v11 >= v7)
+    if (v10 >= v6)
     {
 
-      return MEMORY[0x26D630CB0](v9);
+      return MEMORY[0x26D630CB0](v8);
     }
 
-    v6 = *(v3 + 8 * v11);
-    ++i;
-    if (v6)
+    v5 = *(v2 + 8 * v10);
+    ++v9;
+    if (v5)
     {
-      i = v11;
-      goto LABEL_9;
+      v9 = v10;
+      do
+      {
+LABEL_9:
+        v5 &= v5 - 1;
+        memcpy(__dst, a1, sizeof(__dst));
+
+        sub_26907607C();
+
+        sub_26907607C();
+
+        result = sub_26907618C();
+        v8 ^= result;
+      }
+
+      while (v5);
+      continue;
     }
   }
 
@@ -1599,15 +1523,17 @@ LABEL_9:
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 unint64_t sub_269073164(uint64_t a1)
@@ -1681,9 +1607,9 @@ unint64_t sub_26907333C(uint64_t a1)
 uint64_t sub_269073380()
 {
   v1 = OUTLINED_FUNCTION_13();
-  v3 = v2(v1);
-  OUTLINED_FUNCTION_3(v3);
-  (*(v4 + 8))(v0);
+  v2(v1);
+  OUTLINED_FUNCTION_3();
+  (*(v3 + 8))(v0);
   return v0;
 }
 
@@ -1705,11 +1631,10 @@ unint64_t sub_2690733D4(uint64_t a1)
 
 uint64_t sub_2690734B4(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 {
-  v4 = a3(0);
-  OUTLINED_FUNCTION_3(v4);
-  v6 = *(v5 + 16);
-  v7 = OUTLINED_FUNCTION_32();
-  v8(v7);
+  a3(0);
+  OUTLINED_FUNCTION_3();
+  v4 = OUTLINED_FUNCTION_32();
+  v5(v4);
   return a2;
 }
 
@@ -1754,7 +1679,7 @@ unint64_t sub_26907363C(uint64_t a1)
   return result;
 }
 
-uint64_t sub_2690736C4(uint64_t a1, uint64_t *a2)
+uint64_t sub_2690736C4(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -1791,11 +1716,10 @@ unint64_t sub_269073750()
 
 uint64_t sub_2690737A4(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 {
-  v4 = a3(0);
-  OUTLINED_FUNCTION_3(v4);
-  v6 = *(v5 + 32);
-  v7 = OUTLINED_FUNCTION_32();
-  v8(v7);
+  a3(0);
+  OUTLINED_FUNCTION_3();
+  v4 = OUTLINED_FUNCTION_32();
+  v5(v4);
   return a2;
 }
 
@@ -1876,13 +1800,13 @@ uint64_t sub_269073B4C()
   return result;
 }
 
-uint64_t sub_269073BD0()
+uint64_t sub_269073BD0(uint64_t a1)
 {
   result = type metadata accessor for SiriSocialConversationDataModels.ButtonStackModel(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for SiriSocialConversationDataModels.StoryDataModel(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
       return 0;
@@ -1892,13 +1816,13 @@ uint64_t sub_269073BD0()
   return result;
 }
 
-void sub_269073C94()
+void sub_269073C94(uint64_t a1)
 {
   sub_269073D30();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_269073D80();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -1968,10 +1892,10 @@ uint64_t __swift_store_extra_inhabitant_indexTm(uint64_t a1, int a2, int a3, uin
   return result;
 }
 
-void sub_269073F84()
+void sub_269073F84(uint64_t a1)
 {
   sub_26907416C(319, &qword_2802F52F8, &qword_2802F5190, &qword_2690766A0);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
   }
@@ -1992,10 +1916,10 @@ uint64_t sub_26907409C()
   return __swift_storeEnumTagSinglePayload(v0, v1, v2, v3);
 }
 
-void sub_2690740E8()
+void sub_2690740E8(uint64_t a1)
 {
   sub_26907416C(319, &qword_2802F5310, &qword_2802F51E8, &qword_2690766C0);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
   }
@@ -2853,22 +2777,9 @@ unint64_t sub_269074DC4()
 
 uint64_t OUTLINED_FUNCTION_12(uint64_t a1)
 {
-  v4 = (v1 + *(a1 + 20));
-  v5 = *v4;
-  v6 = v4[1];
-  *(v2 - 66) = 1;
+  *(v1 - 66) = 1;
 
   return sub_26907611C();
-}
-
-uint64_t OUTLINED_FUNCTION_18@<X0>(uint64_t a1@<X8>)
-{
-  result = *(v2 + a1);
-  v4 = *(v2 + a1 + 8);
-  v5 = (v1 + a1);
-  v6 = *v5;
-  v7 = v5[1];
-  return result;
 }
 
 uint64_t OUTLINED_FUNCTION_20(uint64_t a1, uint64_t a2)
@@ -2877,22 +2788,13 @@ uint64_t OUTLINED_FUNCTION_20(uint64_t a1, uint64_t a2)
   return MEMORY[0x2821FD968](a1, a2, v2, a1);
 }
 
-uint64_t OUTLINED_FUNCTION_25@<X0>(char a1@<W8>)
-{
-  *(v1 - 96) = a1;
-  result = v1 - 96;
-  v3 = *(v1 - 136);
-  v4 = *(v1 - 128);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_35()
+uint64_t OUTLINED_FUNCTION_35(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
 
   return sub_2690760EC();
 }
 
-uint64_t OUTLINED_FUNCTION_36()
+void *OUTLINED_FUNCTION_36(uint64_t a1, ...)
 {
 
   return sub_26907615C();
@@ -2918,21 +2820,20 @@ void sub_269075148(id *a1@<X0>, uint64_t *a2@<X8>)
   a2[1] = v7;
 }
 
-void sub_2690751B0(uint64_t *a1, void **a2)
+void sub_2690751B0(void *a1, void **a2)
 {
   v2 = *a2;
   if (a1[1])
   {
-    v3 = *a1;
-    v4 = sub_26907605C();
+    v3 = sub_26907605C();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  v5 = v4;
+  v4 = v3;
   [v2 setIntentType_];
 }
 
@@ -2993,48 +2894,48 @@ id SocialConversationIntent.init(identifier:backingStore:)(uint64_t a1, uint64_t
   return v14;
 }
 
-id SocialConversationIntent.__allocating_init(domain:verb:parametersByName:)()
+id SocialConversationIntent.__allocating_init(domain:verb:parametersByName:)(uint64_t a1)
 {
-  v2 = OUTLINED_FUNCTION_1_0();
+  v3 = OUTLINED_FUNCTION_1_0(a1);
 
-  v3 = sub_26907605C();
+  v4 = sub_26907605C();
 
-  if (v1)
+  if (v2)
   {
-    v4 = sub_26907600C();
+    v5 = sub_26907600C();
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  v5 = [objc_allocWithZone(v0) initWithDomain:v2 verb:v3 parametersByName:v4];
+  v6 = [objc_allocWithZone(v1) initWithDomain:v3 verb:v4 parametersByName:v5];
 
-  return v5;
+  return v6;
 }
 
-id SocialConversationIntent.init(domain:verb:parametersByName:)()
+id SocialConversationIntent.init(domain:verb:parametersByName:)(uint64_t a1)
 {
-  v2 = OUTLINED_FUNCTION_1_0();
+  v3 = OUTLINED_FUNCTION_1_0(a1);
 
-  v3 = sub_26907605C();
+  v4 = sub_26907605C();
 
-  if (v1)
+  if (v2)
   {
-    v4 = sub_26907600C();
+    v5 = sub_26907600C();
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  v7.receiver = v0;
-  v7.super_class = type metadata accessor for SocialConversationIntent();
-  v5 = objc_msgSendSuper2(&v7, sel_initWithDomain_verb_parametersByName_, v2, v3, v4);
+  v8.receiver = v1;
+  v8.super_class = type metadata accessor for SocialConversationIntent();
+  v6 = objc_msgSendSuper2(&v8, sel_initWithDomain_verb_parametersByName_, v3, v4, v5);
 
-  return v5;
+  return v6;
 }
 
 unint64_t SocialConversationIntentResponseCode.init(rawValue:)(unint64_t result)
@@ -3213,15 +3114,14 @@ unint64_t sub_269075E50()
   return result;
 }
 
-uint64_t sub_269075EB8@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t sub_269075EB8@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *a1;
   result = sub_269075824();
-  *a2 = result;
+  *a1 = result;
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_1_0()
+uint64_t OUTLINED_FUNCTION_1_0(uint64_t a1)
 {
 
   return sub_26907605C();

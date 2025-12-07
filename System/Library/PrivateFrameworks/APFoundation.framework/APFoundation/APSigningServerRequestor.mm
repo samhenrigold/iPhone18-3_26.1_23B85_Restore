@@ -31,7 +31,7 @@
 
 - (void)sendRequestForData:(id)data requestType:(int64_t)type completionHandler:(id)handler
 {
-  v77[3] = *MEMORY[0x1E69E9840];
+  v76[3] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   handlerCopy = handler;
   if (objc_msgSend_isAppleInternalInstall(APSystemInternal, v10, v11, v12))
@@ -84,14 +84,14 @@
   v35 = MEMORY[0x1E696AEC0];
   v39 = objc_msgSend_serverRequestorId(self, v36, v37, v38);
   v42 = objc_msgSend_stringWithFormat_(v35, v40, @"%lu", v41, v39);
-  v76[0] = v27;
-  v76[1] = @"x-apple-auth-request-id";
-  v77[0] = dataCopy;
-  v77[1] = v42;
-  v76[2] = @"user-agent";
+  v75[0] = v27;
+  v75[1] = @"x-apple-auth-request-id";
+  v76[0] = dataCopy;
+  v76[1] = v42;
+  v75[2] = @"user-agent";
   v46 = objc_msgSend_userAgentString(self, v43, v44, v45);
-  v77[2] = v46;
-  v48 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v47, v77, v76, 3);
+  v76[2] = v46;
+  v48 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v47, v76, v75, 3);
 
   objc_msgSend_setAllHTTPHeaderFields_(v34, v49, v48, v50);
   objc_msgSend_setHTTPMethod_(v34, v51, @"GET", v52);
@@ -100,7 +100,7 @@
     goto LABEL_21;
   }
 
-  v71 = dataCopy;
+  v70 = dataCopy;
   v57 = objc_alloc_init(APSigningAuthoritySettings);
   v61 = v57;
   if (type == 1301)
@@ -114,7 +114,7 @@
     {
 LABEL_20:
 
-      dataCopy = v71;
+      dataCopy = v70;
 LABEL_21:
       objc_msgSend_sendRequest_requestType_completionHandler_(self, v56, v34, type, handlerCopy);
       goto LABEL_22;
@@ -138,20 +138,18 @@ LABEL_21:
   block[2] = sub_1BAF1A574;
   block[3] = &unk_1E7F1D178;
   block[4] = self;
-  v73 = v34;
+  v72 = v34;
   typeCopy = type;
-  v74 = handlerCopy;
+  v73 = handlerCopy;
   dispatch_after(v68, v69, block);
 
-  dataCopy = v71;
+  dataCopy = v70;
 LABEL_22:
-
-  v70 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendRequest:(id)request requestType:(int64_t)type completionHandler:(id)handler
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   requestCopy = request;
   v10 = APLogForCategory(0x30uLL);
@@ -164,25 +162,24 @@ LABEL_22:
 
   v14 = objc_msgSend_date(MEMORY[0x1E695DF00], v11, v12, v13);
   v18 = objc_msgSend_session(self, v15, v16, v17);
-  v27 = MEMORY[0x1E69E9820];
-  v28 = 3221225472;
-  v29 = sub_1BAF1A718;
-  v30 = &unk_1E7F1D1A0;
-  v31 = v14;
+  v26 = MEMORY[0x1E69E9820];
+  v27 = 3221225472;
+  v28 = sub_1BAF1A718;
+  v29 = &unk_1E7F1D1A0;
+  v30 = v14;
   selfCopy = self;
-  v33 = handlerCopy;
+  v32 = handlerCopy;
   typeCopy2 = type;
   v19 = handlerCopy;
   v20 = v14;
-  v22 = objc_msgSend_dataTaskWithRequest_completionHandler_(v18, v21, requestCopy, &v27);
+  v22 = objc_msgSend_dataTaskWithRequest_completionHandler_(v18, v21, requestCopy, &v26);
 
-  objc_msgSend_resume(v22, v23, v24, v25, v27, v28, v29, v30);
-  v26 = *MEMORY[0x1E69E9840];
+  objc_msgSend_resume(v22, v23, v24, v25, v26, v27, v28, v29);
 }
 
 - (BOOL)_retrieveResponse:(void *)response andLength:(unsigned int *)length fromData:(id)data error:(id *)error
 {
-  v46[1] = *MEMORY[0x1E69E9840];
+  v45[1] = *MEMORY[0x1E69E9840];
   v9 = MEMORY[0x1E696AEC0];
   dataCopy = data;
   v11 = [v9 alloc];
@@ -195,10 +192,10 @@ LABEL_22:
     if (error)
     {
       v28 = MEMORY[0x1E696ABC0];
-      v45 = @"reason";
+      v44 = @"reason";
       v29 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v14, @"%@ is nil", v15, @"Encoded result string");
-      v46[0] = v29;
-      v31 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v30, v46, &v45, 1);
+      v45[0] = v29;
+      v31 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v30, v45, &v44, 1);
       *error = objc_msgSend_errorWithDomain_code_userInfo_(v28, v32, @"com.apple.ap.signingServerRequestor", 6200, v31);
 LABEL_8:
     }
@@ -214,13 +211,13 @@ LABEL_9:
     if (error)
     {
       v33 = MEMORY[0x1E696ABC0];
-      v43 = @"reason";
+      v42 = @"reason";
       v34 = MEMORY[0x1E696AEC0];
       v35 = objc_opt_class();
       v29 = NSStringFromClass(v35);
       v31 = objc_msgSend_stringWithFormat_(v34, v36, @"%@ is of the wrong type (%@)", v37, @"Encoded result string", v29);
-      v44 = v31;
-      v39 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v38, &v44, &v43, 1);
+      v43 = v31;
+      v39 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v38, &v43, &v42, 1);
       *error = objc_msgSend_errorWithDomain_code_userInfo_(v33, v40, @"com.apple.ap.signingServerRequestor", 6200, v39);
 
       goto LABEL_8;
@@ -238,7 +235,6 @@ LABEL_9:
   v27 = 1;
 LABEL_10:
 
-  v41 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
@@ -278,9 +274,9 @@ LABEL_10:
 
 - (id)deviceModel
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v17 = 0;
-  if (sysctlbyname("hw.machine", 0, &v17, 0, 0))
+  v23 = *MEMORY[0x1E69E9840];
+  v16 = 0;
+  if (sysctlbyname("hw.machine", 0, &v16, 0, 0))
   {
     v2 = APLogForCategory(0x30uLL);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
@@ -289,11 +285,11 @@ LABEL_10:
       v4 = __error();
       v5 = strerror(*v4);
       *buf = 136446722;
-      v19 = "hw.machine";
-      v20 = 1026;
-      v21 = v3;
-      v22 = 2082;
-      v23 = v5;
+      v18 = "hw.machine";
+      v19 = 1026;
+      v20 = v3;
+      v21 = 2082;
+      v22 = v5;
     }
 
     v6 = @"unknown";
@@ -301,8 +297,8 @@ LABEL_10:
 
   else
   {
-    v7 = &v16 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-    if (sysctlbyname("hw.machine", v7, &v17, 0, 0))
+    v7 = &v15 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+    if (sysctlbyname("hw.machine", v7, &v16, 0, 0))
     {
       v10 = APLogForCategory(0x30uLL);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
@@ -311,11 +307,11 @@ LABEL_10:
         v12 = __error();
         v13 = strerror(*v12);
         *buf = 136446722;
-        v19 = "hw.machine";
-        v20 = 1026;
-        v21 = v11;
-        v22 = 2080;
-        v23 = v13;
+        v18 = "hw.machine";
+        v19 = 1026;
+        v20 = v11;
+        v21 = 2080;
+        v22 = v13;
       }
 
       v6 = @"unknown";
@@ -326,8 +322,6 @@ LABEL_10:
       v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v8, v7, v9);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

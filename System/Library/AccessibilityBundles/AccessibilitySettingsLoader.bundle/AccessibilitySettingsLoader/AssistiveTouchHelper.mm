@@ -108,7 +108,7 @@ void __50__AssistiveTouchHelper__sendKeyboardStatusUpdate___block_invoke(NSRect 
   __break(1u);
 }
 
-uint64_t __47__AssistiveTouchHelper_installKeyboardListener__block_invoke(uint64_t a1)
+void *__47__AssistiveTouchHelper_installKeyboardListener__block_invoke(uint64_t a1)
 {
   result = _AXSAssistiveTouchEnabled();
   if (result)
@@ -123,48 +123,46 @@ uint64_t __47__AssistiveTouchHelper_installKeyboardListener__block_invoke(uint64
 
 void __47__AssistiveTouchHelper_installKeyboardListener__block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   v3 = a2;
   v4 = ASTLogCommon();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_29BADF000, v4, OS_LOG_TYPE_INFO, "Home Screen displayed: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_29BADF000, v4, OS_LOG_TYPE_INFO, "Home Screen displayed: %{public}@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void __47__AssistiveTouchHelper_installKeyboardListener__block_invoke_304(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   v3 = a2;
   v4 = ASTLogCommon();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_29BADF000, v4, OS_LOG_TYPE_INFO, "Home Screen displayed: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_29BADF000, v4, OS_LOG_TYPE_INFO, "Home Screen displayed: %{public}@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void __47__AssistiveTouchHelper_installKeyboardListener__block_invoke_305(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v3 = a2;
   if (_AXSAssistiveTouchEnabled())
   {
     v4 = ASTLogCommon();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v16 = 138543362;
-      v17 = v3;
-      _os_log_impl(&dword_29BADF000, v4, OS_LOG_TYPE_INFO, "Keyboard shown notification: %{public}@", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v3;
+      _os_log_impl(&dword_29BADF000, v4, OS_LOG_TYPE_INFO, "Keyboard shown notification: %{public}@", &v15, 0xCu);
     }
 
     v5 = [v3 userInfo];
@@ -177,28 +175,24 @@ void __47__AssistiveTouchHelper_installKeyboardListener__block_invoke_305(uint64
 
     [*(a1 + 32) _sendKeyboardStatusUpdate:{v8, v10, v12, v14}];
   }
-
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 void __47__AssistiveTouchHelper_installKeyboardListener__block_invoke_306(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   v3 = a2;
   if (_AXSAssistiveTouchEnabled())
   {
     v4 = ASTLogCommon();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v6 = 138543362;
-      v7 = v3;
-      _os_log_impl(&dword_29BADF000, v4, OS_LOG_TYPE_INFO, "Keyboard hidden notification: %{public}@", &v6, 0xCu);
+      v5 = 138543362;
+      v6 = v3;
+      _os_log_impl(&dword_29BADF000, v4, OS_LOG_TYPE_INFO, "Keyboard hidden notification: %{public}@", &v5, 0xCu);
     }
 
     [*(a1 + 32) _sendKeyboardStatusUpdateHidden];
   }
-
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 - (void)loadBuddyBundles
@@ -211,7 +205,7 @@ void __47__AssistiveTouchHelper_installKeyboardListener__block_invoke_306(uint64
 
 void __40__AssistiveTouchHelper_loadBuddyBundles__block_invoke()
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v0 = MEMORY[0x29EDB9F48];
   v1 = AXAccessibilityBundlesDirectory();
   v2 = [v1 stringByAppendingPathComponent:@"/UIKit.axbundle"];
@@ -219,9 +213,9 @@ void __40__AssistiveTouchHelper_loadBuddyBundles__block_invoke()
 
   if (([v3 isLoaded] & 1) == 0)
   {
-    v11 = 0;
-    v4 = [v3 loadAndReturnError:&v11];
-    v5 = v11;
+    v10 = 0;
+    v4 = [v3 loadAndReturnError:&v10];
+    v5 = v10;
     if (v4)
     {
       v6 = v5 == 0;
@@ -248,7 +242,7 @@ void __40__AssistiveTouchHelper_loadBuddyBundles__block_invoke()
 
       v9 = [v3 principalClass];
       *buf = 138543362;
-      v13 = v9;
+      v12 = v9;
       v8 = v9;
       _os_log_impl(&dword_29BADF000, v7, OS_LOG_TYPE_INFO, "Loading: %{public}@", buf, 0xCu);
     }
@@ -265,8 +259,6 @@ void __40__AssistiveTouchHelper_loadBuddyBundles__block_invoke()
 
 LABEL_13:
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 + (void)initializeMonitoring

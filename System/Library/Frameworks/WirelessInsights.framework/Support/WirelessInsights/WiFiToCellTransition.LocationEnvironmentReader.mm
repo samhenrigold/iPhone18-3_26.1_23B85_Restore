@@ -17,7 +17,7 @@
   managerCopy = manager;
   errorCopy = error;
   selfCopy = self;
-  sub_100183EC8();
+  sub_100183EC8(errorCopy);
 }
 
 @end

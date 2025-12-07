@@ -94,10 +94,10 @@
   v5 = v4;
   if (v4)
   {
-    p_mRangeList = &v4->mRangeList;
+    p_begin = &v4->mRangeList.__begin_;
     if (&v5->mRangeList != vector)
     {
-      sub_100070F88(p_mRangeList, *vector, *(vector + 1), (*(vector + 1) - *vector) >> 4);
+      sub_100070F88(p_begin, *vector, *(vector + 1), (*(vector + 1) - *vector) >> 4);
     }
   }
 
@@ -110,10 +110,10 @@
   v5 = v4;
   if (v4)
   {
-    p_mRangeList = &v4->mRangeList;
+    p_begin = &v4->mRangeList.__begin_;
     if (&v5->mRangeList != move)
     {
-      sub_100070F88(p_mRangeList, *move, *(move + 1), (*(move + 1) - *move) >> 4);
+      sub_100070F88(p_begin, *move, *(move + 1), (*(move + 1) - *move) >> 4);
     }
   }
 

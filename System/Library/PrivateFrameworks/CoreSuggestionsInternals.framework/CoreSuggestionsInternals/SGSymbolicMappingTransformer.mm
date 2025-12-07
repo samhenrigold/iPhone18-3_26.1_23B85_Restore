@@ -97,16 +97,14 @@ LABEL_12:
 
 - (id)toPlistWithChunks:(id)chunks
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"NUMERIC_MAPPING";
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"NUMERIC_MAPPING";
   numericMapping = [(SGSymbolicMappingTransformer *)self numericMapping];
-  v9[1] = @"CHARACTER_MAPPING";
-  v10[0] = numericMapping;
+  v8[1] = @"CHARACTER_MAPPING";
+  v9[0] = numericMapping;
   characterMapping = [(SGSymbolicMappingTransformer *)self characterMapping];
-  v10[1] = characterMapping;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[1] = characterMapping;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   return v6;
 }

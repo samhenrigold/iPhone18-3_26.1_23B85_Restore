@@ -207,34 +207,34 @@ LABEL_2:
 
 - (double)_calculateScoreWithNeighborMomentNodes:(id)nodes referenceDate:(id)date referenceDistance:(double)distance andDistanceBlock:(id)block
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   dateCopy = date;
   blockCopy = block;
   v12 = objc_opt_new();
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
   distanceCopy = distance;
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   v13 = nodesCopy;
-  v14 = [v13 countByEnumeratingWithState:&v37 objects:v45 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v36 objects:v44 count:16];
   if (v14)
   {
-    v15 = *v38;
+    v15 = *v37;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v38 != v15)
+        if (*v37 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        v17 = *(*(&v37 + 1) + 8 * i);
+        v17 = *(*(&v36 + 1) + 8 * i);
         v18 = blockCopy[2](blockCopy, v17);
         if (dateCopy)
         {
@@ -248,35 +248,35 @@ LABEL_2:
         v22 = [MEMORY[0x277CCABB0] numberWithDouble:v18];
         [v12 addObject:v22];
 
-        v42[3] = v18 + v42[3];
+        v41[3] = v18 + v41[3];
       }
 
-      v14 = [v13 countByEnumeratingWithState:&v37 objects:v45 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v36 objects:v44 count:16];
     }
 
     while (v14);
   }
 
   v23 = [v13 count];
-  v24 = v42[3] / (v23 + 1);
-  v42[3] = v24;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
-  v36 = (distance - v24) * (distance - v24);
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __115__PGNeighborScoreComputer__calculateScoreWithNeighborMomentNodes_referenceDate_referenceDistance_andDistanceBlock___block_invoke;
-  v32[3] = &unk_278883510;
-  v32[4] = &v33;
-  v32[5] = &v41;
-  [v12 enumerateObjectsUsingBlock:v32];
-  v25 = sqrt(v34[3] / ([v13 count] + 1));
-  v34[3] = v25;
+  v24 = v41[3] / (v23 + 1);
+  v41[3] = v24;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = (distance - v24) * (distance - v24);
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __115__PGNeighborScoreComputer__calculateScoreWithNeighborMomentNodes_referenceDate_referenceDistance_andDistanceBlock___block_invoke;
+  v31[3] = &unk_278883510;
+  v31[4] = &v32;
+  v31[5] = &v40;
+  [v12 enumerateObjectsUsingBlock:v31];
+  v25 = sqrt(v33[3] / ([v13 count] + 1));
+  v33[3] = v25;
   v26 = 0.0;
   if (v25 > 0.0)
   {
-    v27 = v42[3];
+    v27 = v41[3];
     v28 = v27 - v25;
     distanceCopy2 = v25 + v27;
     if (v25 + v27 >= distance)
@@ -292,10 +292,9 @@ LABEL_2:
     v26 = (v25 + v28 - v27) / (v25 + v25);
   }
 
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v40, 8);
 
-  v30 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
@@ -311,19 +310,19 @@ double __115__PGNeighborScoreComputer__calculateScoreWithNeighborMomentNodes_ref
 
 - (double)_calculateScoreWithNeighborMomentNodes:(id)nodes referenceDate:(id)date andDistanceBlock:(id)block
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   dateCopy = date;
   blockCopy = block;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v10 = [nodesCopy countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v10 = [nodesCopy countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v31;
+    v12 = *v30;
     v13 = 0.0;
     v14 = 1.79769313e308;
     v15 = 0.0;
@@ -331,12 +330,12 @@ double __115__PGNeighborScoreComputer__calculateScoreWithNeighborMomentNodes_ref
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v31 != v12)
+        if (*v30 != v12)
         {
           objc_enumerationMutation(nodesCopy);
         }
 
-        v17 = *(*(&v30 + 1) + 8 * i);
+        v17 = *(*(&v29 + 1) + 8 * i);
         v18 = blockCopy[2](blockCopy, v17);
         v19 = v18;
         if (dateCopy)
@@ -361,7 +360,7 @@ double __115__PGNeighborScoreComputer__calculateScoreWithNeighborMomentNodes_ref
         v15 = v15 + v18;
       }
 
-      v11 = [nodesCopy countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v11 = [nodesCopy countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v11);
@@ -399,7 +398,6 @@ double __115__PGNeighborScoreComputer__calculateScoreWithNeighborMomentNodes_ref
     v26 = fmax(v27, 0.0);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
@@ -415,11 +413,11 @@ double __115__PGNeighborScoreComputer__calculateScoreWithNeighborMomentNodes_ref
   return result;
 }
 
-uint64_t __101__PGNeighborScoreComputer__locationScoreWithNeighborMomentNodes_referenceDate_andLocationCoordinate___block_invoke(uint64_t a1, uint64_t a2)
+double __101__PGNeighborScoreComputer__locationScoreWithNeighborMomentNodes_referenceDate_andLocationCoordinate___block_invoke(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) _bestLocationCoordinateForMomentNode:a2];
-  v3 = *(a1 + 40);
-  return CLLocationCoordinate2DGetDistanceFrom();
+  CLLocationCoordinate2DGetDistanceFrom();
+  return result;
 }
 
 - (double)_peopleScoreWithNeighborMomentNodes:(id)nodes referenceDate:(id)date andPersonLocalIdentifiers:(id)identifiers
@@ -442,31 +440,31 @@ uint64_t __101__PGNeighborScoreComputer__locationScoreWithNeighborMomentNodes_re
 
 double __103__PGNeighborScoreComputer__peopleScoreWithNeighborMomentNodes_referenceDate_andPersonLocalIdentifiers___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 32) _personLocalIdentifiersForMomentNode:a2];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v6 += [*(a1 + 40) containsObject:*(*(&v12 + 1) + 8 * i)];
+        v6 += [*(a1 + 40) containsObject:*(*(&v11 + 1) + 8 * i)];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -478,7 +476,6 @@ double __103__PGNeighborScoreComputer__peopleScoreWithNeighborMomentNodes_refere
     v9 = 0.0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -516,7 +513,7 @@ double __103__PGNeighborScoreComputer__peopleScoreWithNeighborMomentNodes_refere
   return v14;
 }
 
-unint64_t __96__PGNeighborScoreComputer__densityScoreWithNeighborMomentNodes_referenceDate_andNumberOfAssets___block_invoke(uint64_t a1, void *a2)
+void *__96__PGNeighborScoreComputer__densityScoreWithNeighborMomentNodes_referenceDate_andNumberOfAssets___block_invoke(uint64_t a1, void *a2)
 {
   v3 = *(*(*(a1 + 32) + 8) + 24);
   result = [a2 numberOfAssets];
@@ -576,7 +573,7 @@ uint64_t __96__PGNeighborScoreComputer__densityScoreWithNeighborMomentNodes_refe
   return v5;
 }
 
-uint64_t __63__PGNeighborScoreComputer_maximumNeighborScoreWithMomentNodes___block_invoke(uint64_t a1, uint64_t a2)
+void *__63__PGNeighborScoreComputer_maximumNeighborScoreWithMomentNodes___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) neighborScoreWithMomentNode:a2];
   v5 = *(*(a1 + 40) + 8);
@@ -612,7 +609,7 @@ uint64_t __63__PGNeighborScoreComputer_maximumNeighborScoreWithMomentNodes___blo
   return v7;
 }
 
-uint64_t __58__PGNeighborScoreComputer_neighborScoreWithHighlightNode___block_invoke(uint64_t a1, uint64_t a2)
+void *__58__PGNeighborScoreComputer_neighborScoreWithHighlightNode___block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = *(*(*(a1 + 40) + 8) + 24);
   result = [*(a1 + 32) neighborScoreWithMomentNode:a2];

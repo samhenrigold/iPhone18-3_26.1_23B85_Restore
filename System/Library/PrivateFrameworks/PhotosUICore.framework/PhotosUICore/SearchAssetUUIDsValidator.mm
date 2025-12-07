@@ -10,19 +10,20 @@
 {
   changeCopy = change;
   selfCopy = self;
-  v6 = sub_1A43F54FC(changeCopy);
+  sub_1A43F54FC(changeCopy);
+  v7 = v6;
 
-  if (v6)
+  if (v7)
   {
-    v7 = sub_1A524C3D4();
+    v8 = sub_1A524C3D4();
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (void)photoLibraryDidChangeOnMainQueue:(id)queue withPreparedInfo:(id)info

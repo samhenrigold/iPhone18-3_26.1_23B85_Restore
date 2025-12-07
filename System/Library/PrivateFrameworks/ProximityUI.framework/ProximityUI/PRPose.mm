@@ -1,7 +1,6 @@
 @interface PRPose
 + (PRPose)poseWithTime:(double)time pose:(double)pose;
 - (PRPose)initWithTime:(__n128)time pose:(__n128)pose;
-- (__n128)pose;
 @end
 
 @implementation PRPose
@@ -28,15 +27,6 @@
   v5 = [[PRPose alloc] initWithTime:self pose:a2, time, pose, a5];
 
   return v5;
-}
-
-- (__n128)pose
-{
-  result = *(self + 16);
-  v2 = *(self + 32);
-  v3 = *(self + 48);
-  v4 = *(self + 64);
-  return result;
 }
 
 @end

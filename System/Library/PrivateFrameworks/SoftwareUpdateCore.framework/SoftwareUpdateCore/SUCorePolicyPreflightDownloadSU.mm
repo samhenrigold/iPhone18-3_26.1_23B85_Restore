@@ -1,6 +1,7 @@
 @interface SUCorePolicyPreflightDownloadSU
 - (BOOL)isEqual:(id)equal;
 - (SUCorePolicyPreflightDownloadSU)initWithCoder:(id)coder;
+- (SUCorePolicyPreflightDownloadSU)initWithSkipPhaseSet:(BOOL)set;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)summary;
@@ -9,6 +10,21 @@
 @end
 
 @implementation SUCorePolicyPreflightDownloadSU
+
+- (SUCorePolicyPreflightDownloadSU)initWithSkipPhaseSet:(BOOL)set
+{
+  setCopy = set;
+  v7.receiver = self;
+  v7.super_class = SUCorePolicyPreflightDownloadSU;
+  v4 = [(SUCorePolicyPreflightDownloadSU *)&v7 init];
+  v5 = v4;
+  if (v4)
+  {
+    [(SUCorePolicyPreflightDownloadSU *)v4 backToDefaultsWithSkipPhaseSet:setCopy];
+  }
+
+  return v5;
+}
 
 - (void)backToDefaultsWithSkipPhaseSet:(BOOL)set
 {

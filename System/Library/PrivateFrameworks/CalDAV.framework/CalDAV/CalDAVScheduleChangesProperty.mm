@@ -43,7 +43,7 @@
 
 + (id)propertyWithItem:(id)item
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   if (!itemCopy)
   {
@@ -108,30 +108,30 @@
 
     if (recurrences)
     {
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
       v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       v19 = recurrences;
-      v20 = [v19 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (v20)
       {
         v21 = v20;
-        v22 = *v28;
+        v22 = *v27;
         do
         {
           for (i = 0; i != v21; ++i)
           {
-            if (*v28 != v22)
+            if (*v27 != v22)
             {
               objc_enumerationMutation(v19);
             }
 
-            v24 = [CalDAVOccurrenceChange changeWithItem:*(*(&v27 + 1) + 8 * i), v27];
+            v24 = [CalDAVOccurrenceChange changeWithItem:*(*(&v26 + 1) + 8 * i), v26];
             [v4 addOccurrenceChange:v24];
           }
 
-          v21 = [v19 countByEnumeratingWithState:&v27 objects:v31 count:16];
+          v21 = [v19 countByEnumeratingWithState:&v26 objects:v30 count:16];
         }
 
         while (v21);
@@ -145,7 +145,6 @@
 LABEL_22:
 
 LABEL_23:
-  v25 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -162,10 +161,10 @@ LABEL_23:
 
       if (masterChange)
       {
-        v7 = scheduleChangesLogHandle();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v8 = scheduleChangesLogHandle(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          [CalDAVScheduleChangesProperty addOccurrenceChange:v7];
+          [CalDAVScheduleChangesProperty addOccurrenceChange:v8];
         }
       }
 
@@ -175,10 +174,10 @@ LABEL_23:
     else
     {
       recurrenceID = [v5 recurrenceID];
-      v9 = [recurrenceID ICSStringWithOptions:0];
+      v10 = [recurrenceID ICSStringWithOptions:0];
 
       occurrenceChanges = [(CalDAVScheduleChangesProperty *)self occurrenceChanges];
-      [occurrenceChanges setObject:v5 forKeyedSubscript:v9];
+      [occurrenceChanges setObject:v5 forKeyedSubscript:v10];
     }
   }
 }

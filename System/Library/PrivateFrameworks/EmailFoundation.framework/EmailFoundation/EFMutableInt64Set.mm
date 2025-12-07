@@ -30,7 +30,7 @@
 {
   if (indexes)
   {
-    std::set<long long>::insert[abi:ne200100]<std::__tree_const_iterator<long long,std::__tree_node<long long,void *> *,long>>(&self->super._underlying, *(indexes + 1), indexes + 2);
+    std::set<long long>::insert[abi:ne200100]<std::__tree_const_iterator<long long,std::__tree_node<long long,void *> *,long>>(&self->super._underlying.__tree_.__begin_node_, *(indexes + 1), indexes + 2);
   }
 }
 
@@ -101,7 +101,7 @@
     v10 = v11;
     begin_node = self->super._underlying.__tree_.__begin_node_;
     p_underlying = &self->super._underlying;
-    std::__set_intersection[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void>,std::__tree_const_iterator<long long,std::__tree_node<long long,void *> *,long>,std::__tree_const_iterator<long long,std::__tree_node<long long,void *> *,long>,std::__tree_const_iterator<long long,std::__tree_node<long long,void *> *,long>,std::__tree_const_iterator<long long,std::__tree_node<long long,void *> *,long>,std::insert_iterator<std::set<long long>>>(begin_node, &p_underlying->__tree_.__end_node_.__left_, *(indexesCopy + 1), indexesCopy + 2, &v10, v11, v12);
+    std::__set_intersection[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void>,std::__tree_const_iterator<long long,std::__tree_node<long long,void *> *,long>,std::__tree_const_iterator<long long,std::__tree_node<long long,void *> *,long>,std::__tree_const_iterator<long long,std::__tree_node<long long,void *> *,long>,std::__tree_const_iterator<long long,std::__tree_node<long long,void *> *,long>,std::insert_iterator<std::set<long long>>>(begin_node, &p_underlying->__tree_.__end_node_.__left_, *(indexesCopy + 1), indexesCopy + 2, &v10, v11, &v12, v13);
     if (p_underlying != &v10)
     {
       std::__tree<long long>::__assign_multi<std::__tree_const_iterator<long long,std::__tree_node<long long,void *> *,long>>(p_underlying, v10, v11);

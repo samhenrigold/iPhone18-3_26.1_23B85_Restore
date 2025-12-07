@@ -102,29 +102,25 @@ void __97__HDMCDaySummaryObserverQueryServer_initWithUUID_configuration_client_d
   dispatch_async(queryQueue, v8);
 }
 
-uint64_t __57__HDMCDaySummaryObserverQueryServer_samplesAdded_anchor___block_invoke(uint64_t a1)
+uint64_t __57__HDMCDaySummaryObserverQueryServer_samplesAdded_anchor___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
-  v2 = *MEMORY[0x277CCC2E8];
+  v3 = *MEMORY[0x277CCC2E8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = v2;
+    v4 = v3;
     v5 = objc_opt_class();
-    v6 = *(a1 + 40);
-    v7 = v5;
-    v8 = HKSensitiveLogItem();
-    v11 = 138543618;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v8;
-    _os_log_impl(&dword_2293D1000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating due to samples added: %@", &v11, 0x16u);
+    v6 = v5;
+    v7 = HKSensitiveLogItem();
+    v9 = 138543618;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v7;
+    _os_log_impl(&dword_2293D1000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating due to samples added: %@", &v9, 0x16u);
   }
 
-  result = [*(*(a1 + 32) + 216) execute];
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(*(a1 + 32) + 216) execute];
 }
 
 - (void)samplesOfTypesWereRemoved:(id)removed anchor:(id)anchor
@@ -141,29 +137,25 @@ uint64_t __57__HDMCDaySummaryObserverQueryServer_samplesAdded_anchor___block_inv
   dispatch_async(queryQueue, v8);
 }
 
-uint64_t __70__HDMCDaySummaryObserverQueryServer_samplesOfTypesWereRemoved_anchor___block_invoke(uint64_t a1)
+uint64_t __70__HDMCDaySummaryObserverQueryServer_samplesOfTypesWereRemoved_anchor___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
-  v2 = *MEMORY[0x277CCC2E8];
+  v3 = *MEMORY[0x277CCC2E8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = v2;
+    v4 = v3;
     v5 = objc_opt_class();
-    v6 = *(a1 + 40);
-    v7 = v5;
-    v8 = HKSensitiveLogItem();
-    v11 = 138543618;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v8;
-    _os_log_impl(&dword_2293D1000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating due to samples removed of types: %@", &v11, 0x16u);
+    v6 = v5;
+    v7 = HKSensitiveLogItem();
+    v9 = 138543618;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v7;
+    _os_log_impl(&dword_2293D1000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating due to samples removed of types: %@", &v9, 0x16u);
   }
 
-  result = [*(*(a1 + 32) + 216) execute];
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(*(a1 + 32) + 216) execute];
 }
 
 + (BOOL)validateConfiguration:(id)configuration client:(id)client error:(id *)error
@@ -198,19 +190,19 @@ uint64_t __70__HDMCDaySummaryObserverQueryServer_samplesOfTypesWereRemoved_ancho
 
 - (void)_queue_start
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v27.receiver = self;
-  v27.super_class = HDMCDaySummaryObserverQueryServer;
-  [(HDQueryServer *)&v27 _queue_start];
+  v32 = *MEMORY[0x277D85DE8];
+  v26.receiver = self;
+  v26.super_class = HDMCDaySummaryObserverQueryServer;
+  [(HDQueryServer *)&v26 _queue_start];
   clientProxy = [(HDQueryServer *)self clientProxy];
   remoteObjectProxy = [clientProxy remoteObjectProxy];
 
   client = [(HDQueryServer *)self client];
   authorizationOracle = [client authorizationOracle];
   objectTypes = [(HDMCDaySummaryObserverQueryServer *)self objectTypes];
-  v26 = 0;
-  v8 = [authorizationOracle authorizationStatusRecordsForTypes:objectTypes error:&v26];
-  v9 = v26;
+  v25 = 0;
+  v8 = [authorizationOracle authorizationStatusRecordsForTypes:objectTypes error:&v25];
+  v9 = v25;
 
   if (!v8)
   {
@@ -220,29 +212,29 @@ uint64_t __70__HDMCDaySummaryObserverQueryServer_samplesOfTypesWereRemoved_ancho
     goto LABEL_19;
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   allValues = [v8 allValues];
-  v11 = [allValues countByEnumeratingWithState:&v22 objects:v32 count:16];
+  v11 = [allValues countByEnumeratingWithState:&v21 objects:v31 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v23;
+    v13 = *v22;
     canRead = 1;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v23 != v13)
+        if (*v22 != v13)
         {
           objc_enumerationMutation(allValues);
         }
 
         if (canRead)
         {
-          canRead = [*(*(&v22 + 1) + 8 * i) canRead];
+          canRead = [*(*(&v21 + 1) + 8 * i) canRead];
         }
 
         else
@@ -251,7 +243,7 @@ uint64_t __70__HDMCDaySummaryObserverQueryServer_samplesOfTypesWereRemoved_ancho
         }
       }
 
-      v12 = [allValues countByEnumeratingWithState:&v22 objects:v32 count:16];
+      v12 = [allValues countByEnumeratingWithState:&v21 objects:v31 count:16];
     }
 
     while (v12);
@@ -265,9 +257,9 @@ uint64_t __70__HDMCDaySummaryObserverQueryServer_samplesOfTypesWereRemoved_ancho
         v17 = v16;
         v18 = objc_opt_class();
         *buf = 138543618;
-        v29 = v18;
-        v30 = 2114;
-        v31 = v8;
+        v28 = v18;
+        v29 = 2114;
+        v30 = v8;
         v19 = v18;
         _os_log_impl(&dword_2293D1000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] Avoiding exposing health data due to missing authorization: %{public}@", buf, 0x16u);
       }
@@ -287,8 +279,6 @@ uint64_t __70__HDMCDaySummaryObserverQueryServer_samplesOfTypesWereRemoved_ancho
   }
 
 LABEL_19:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_deliverUpdate

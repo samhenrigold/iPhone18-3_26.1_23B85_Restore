@@ -6,9 +6,9 @@
 
 - (uint64_t)prui_setPreferredSwitcherLayoutMode:()PosterBoardUI
 {
-  v2 = modeFromPRUISwitcherLayoutMode();
+  v4 = modeFromPRUISwitcherLayoutMode();
 
-  return [self pruis_setPreferredSwitcherLayoutMode:v2];
+  return [self pruis_setPreferredSwitcherLayoutMode:v4];
 }
 
 @end

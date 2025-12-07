@@ -44,13 +44,13 @@
 - (void)setTickMarkSpacing:(double)spacing
 {
   selfCopy = self;
-  sub_1B7ECC454(&OBJC_IVAR____TtC13CameraEditKit14TickMarksModel_tickMarkSpacing, spacing);
+  sub_1B7ECC454(&OBJC_IVAR____TtC13CameraEditKit14TickMarksModel_tickMarkSpacing, selfCopy, spacing);
 }
 
 - (void)setTickMarkWidth:(double)width
 {
   selfCopy = self;
-  sub_1B7ECC454(&OBJC_IVAR____TtC13CameraEditKit14TickMarksModel_tickMarkWidth, width);
+  sub_1B7ECC454(&OBJC_IVAR____TtC13CameraEditKit14TickMarksModel_tickMarkWidth, selfCopy, width);
 }
 
 - (void)setMainTickMarkInterval:(int64_t)interval
@@ -119,18 +119,18 @@
 - (double)xOffsetForTickMarkIndex:(unint64_t)index
 {
   selfCopy = self;
-  sub_1B7ECCDEC(index);
-  v6 = v5;
+  sub_1B7ECCDEC(index, v5);
+  v7 = v6;
 
-  return v6;
+  return v7;
 }
 
 - (double)xOffsetForNormalizedValue:(double)value
 {
   selfCopy = self;
-  v5 = sub_1B7ECCF2C(value);
+  v6 = sub_1B7ECCF2C(value, selfCopy, v5);
 
-  return v5;
+  return v6;
 }
 
 - (double)absoluteValueForNormalizedValue:(double)value inAbsoluteRangeSize:(double)size

@@ -1,16 +1,16 @@
 @interface NSLocale(CalClassAdditions)
 - (uint64_t)CalLanguageIsSimplifiedChinese;
-- (uint64_t)CalPrefersFullMonthDisplayNames;
 - (uint64_t)CalRegionIsChina;
 - (uint64_t)CalUnableToAbbreviateMonthNames;
 - (uint64_t)CalUsesCelsius;
 - (uint64_t)_calendarIsIslamic;
 - (uint64_t)_languageIsArabic;
+- (void)CalPrefersFullMonthDisplayNames;
 @end
 
 @implementation NSLocale(CalClassAdditions)
 
-- (uint64_t)CalPrefersFullMonthDisplayNames
+- (void)CalPrefersFullMonthDisplayNames
 {
   result = [self _languageIsArabic];
   if (result)

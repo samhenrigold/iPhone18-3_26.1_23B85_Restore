@@ -809,7 +809,7 @@ LABEL_28:
   if (s_enableAutoExposureFilter == 1)
   {
     v28[0] = *MEMORY[0x277CC0618];
-    v5 = BrightnessIdentifier();
+    v5 = BrightnessIdentifier(self);
     v28[1] = *MEMORY[0x277CC0608];
     v29[0] = v5;
     v29[1] = *MEMORY[0x277CC0588];
@@ -1384,93 +1384,94 @@ LABEL_34:
   if (dataCopy)
   {
     depthCodecType = [(JFXVideoWriter *)self depthCodecType];
-    v10 = JFXVideoWriterIntervalSignpostCategory();
+    v10 = depthCodecType;
+    v12 = JFXVideoWriterIntervalSignpostCategory(depthCodecType, v11);
     signPostID = [(JFXVideoWriter *)self signPostID];
-    v12 = signPostID - 1;
-    if (depthCodecType == 1111970369)
+    v14 = signPostID - 1;
+    if (v10 == 1111970369)
     {
-      if (v12 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+      if (v14 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
       {
         LOWORD(formatDescription[0]) = 0;
-        _os_signpost_emit_with_name_impl(&dword_242A3B000, v10, OS_SIGNPOST_INTERVAL_BEGIN, signPostID, "encode_uncompressed_depth", &unk_242B66C87, formatDescription, 2u);
+        _os_signpost_emit_with_name_impl(&dword_242A3B000, v12, OS_SIGNPOST_INTERVAL_BEGIN, signPostID, "encode_uncompressed_depth", &unk_242B66C87, formatDescription, 2u);
       }
 
       v8 = v7;
       if ([v8 depthDataType]!= 1717855600)
       {
-        v13 = [v8 depthDataByConvertingToDepthDataType:1717855600];
+        v15 = [v8 depthDataByConvertingToDepthDataType:1717855600];
 
-        v8 = v13;
+        v8 = v15;
       }
 
       depthDataMap = [v8 depthDataMap];
       if (depthDataMap)
       {
-        v15 = [(JFXVideoWriter *)self JFX_copyDepthBufferAsBGRA:depthDataMap];
-        if (v15)
+        depthDataMap = [(JFXVideoWriter *)self JFX_copyDepthBufferAsBGRA:depthDataMap];
+        if (depthDataMap)
         {
-          v16 = v15;
+          v18 = depthDataMap;
           formatDescription[0] = 0;
-          v17 = *MEMORY[0x277CBECE8];
-          CMVideoFormatDescriptionCreateForImageBuffer(*MEMORY[0x277CBECE8], v15, formatDescription);
+          v19 = *MEMORY[0x277CBECE8];
+          depthDataMap = CMVideoFormatDescriptionCreateForImageBuffer(*MEMORY[0x277CBECE8], depthDataMap, formatDescription);
           if (formatDescription[0])
           {
             sampleBufferOut = 0;
-            CMSampleBufferCreateReadyWithImageBuffer(v17, v16, formatDescription[0], info, &sampleBufferOut);
+            v20 = CMSampleBufferCreateReadyWithImageBuffer(v19, v18, formatDescription[0], info, &sampleBufferOut);
             if (sampleBufferOut)
             {
-              v18 = JFXVideoWriterIntervalSignpostCategory();
+              v22 = JFXVideoWriterIntervalSignpostCategory(v20, v21);
               signPostID2 = [(JFXVideoWriter *)self signPostID];
               if (signPostID2 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
               {
-                v20 = signPostID2;
-                if (os_signpost_enabled(v18))
+                v24 = signPostID2;
+                if (os_signpost_enabled(v22))
                 {
                   *buf = 0;
-                  _os_signpost_emit_with_name_impl(&dword_242A3B000, v18, OS_SIGNPOST_INTERVAL_END, v20, "encode_uncompressed_depth", &unk_242B66C87, buf, 2u);
+                  _os_signpost_emit_with_name_impl(&dword_242A3B000, v22, OS_SIGNPOST_INTERVAL_END, v24, "encode_uncompressed_depth", &unk_242B66C87, buf, 2u);
                 }
               }
 
-              v21 = JFXVideoWriterIntervalSignpostCategory();
+              v27 = JFXVideoWriterIntervalSignpostCategory(v25, v26);
               signPostID3 = [(JFXVideoWriter *)self signPostID];
               if (signPostID3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
               {
-                v23 = signPostID3;
-                if (os_signpost_enabled(v21))
+                v29 = signPostID3;
+                if (os_signpost_enabled(v27))
                 {
                   *buf = 0;
-                  _os_signpost_emit_with_name_impl(&dword_242A3B000, v21, OS_SIGNPOST_INTERVAL_BEGIN, v23, "write_uncompressed_depth", &unk_242B66C87, buf, 2u);
+                  _os_signpost_emit_with_name_impl(&dword_242A3B000, v27, OS_SIGNPOST_INTERVAL_BEGIN, v29, "write_uncompressed_depth", &unk_242B66C87, buf, 2u);
                 }
               }
 
-              [(JFXVideoWriter *)self JFX_writeBuffer:sampleBufferOut sampleType:2];
-              v24 = JFXVideoWriterIntervalSignpostCategory();
+              v30 = [(JFXVideoWriter *)self JFX_writeBuffer:sampleBufferOut sampleType:2];
+              v32 = JFXVideoWriterIntervalSignpostCategory(v30, v31);
               signPostID4 = [(JFXVideoWriter *)self signPostID];
               if (signPostID4 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
               {
-                v26 = signPostID4;
-                if (os_signpost_enabled(v24))
+                v34 = signPostID4;
+                if (os_signpost_enabled(v32))
                 {
                   *buf = 0;
-                  _os_signpost_emit_with_name_impl(&dword_242A3B000, v24, OS_SIGNPOST_INTERVAL_END, v26, "write_uncompressed_depth", &unk_242B66C87, buf, 2u);
+                  _os_signpost_emit_with_name_impl(&dword_242A3B000, v32, OS_SIGNPOST_INTERVAL_END, v34, "write_uncompressed_depth", &unk_242B66C87, buf, 2u);
                 }
               }
 
               CFRelease(sampleBufferOut);
-              CVPixelBufferRelease(v16);
+              CVPixelBufferRelease(v18);
               CFRelease(formatDescription[0]);
               goto LABEL_52;
             }
 
-            CVPixelBufferRelease(v16);
+            CVPixelBufferRelease(v18);
             CFRelease(formatDescription[0]);
           }
         }
       }
 
-      v38 = JFXVideoWriterIntervalSignpostCategory();
+      v51 = JFXVideoWriterIntervalSignpostCategory(depthDataMap, v17);
       signPostID5 = [(JFXVideoWriter *)self signPostID];
-      if (signPostID5 - 1 > 0xFFFFFFFFFFFFFFFDLL || (v40 = signPostID5, !os_signpost_enabled(v38)))
+      if (signPostID5 - 1 > 0xFFFFFFFFFFFFFFFDLL || (v53 = signPostID5, !os_signpost_enabled(v51)))
       {
 LABEL_51:
 
@@ -1478,101 +1479,101 @@ LABEL_51:
       }
 
       LOWORD(formatDescription[0]) = 0;
-      v41 = "encode_uncompressed_depth";
+      v54 = "encode_uncompressed_depth";
     }
 
     else
     {
-      if (v12 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+      if (v14 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
       {
         LOWORD(formatDescription[0]) = 0;
-        _os_signpost_emit_with_name_impl(&dword_242A3B000, v10, OS_SIGNPOST_INTERVAL_BEGIN, signPostID, "encode_compressed_depth", &unk_242B66C87, formatDescription, 2u);
+        _os_signpost_emit_with_name_impl(&dword_242A3B000, v12, OS_SIGNPOST_INTERVAL_BEGIN, signPostID, "encode_compressed_depth", &unk_242B66C87, formatDescription, 2u);
       }
 
       depthCompressor = [(JFXVideoWriter *)self depthCompressor];
-      v28 = *&info->var2.var0;
-      v47 = *&info->var1.var1;
-      v48 = v28;
+      v36 = *&info->var2.var0;
+      v62 = *&info->var1.var1;
+      v63 = v36;
       var3 = info->var2.var3;
-      v50 = 0;
-      v29 = *&info->var0.var3;
+      v65 = 0;
+      v37 = *&info->var0.var3;
       *formatDescription = *&info->var0.var0;
-      v46 = v29;
-      v8 = [depthCompressor compressAVDepthData:v7 timingInfo:formatDescription error:&v50];
-      v30 = v50;
+      v61 = v37;
+      v8 = [depthCompressor compressAVDepthData:v7 timingInfo:formatDescription error:&v65];
+      v38 = v65;
 
-      if (v30 || !v8)
+      if (v38 || !v8)
       {
-        v42 = JFXLog_DebugWriter();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+        v55 = JFXLog_DebugWriter();
+        if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
         {
           [JFXVideoWriter JFX_writeDepthBufferForAVDepthData:withTimingInfo:];
         }
 
-        v38 = JFXVideoWriterIntervalSignpostCategory();
+        v51 = JFXVideoWriterIntervalSignpostCategory(v56, v57);
         signPostID6 = [(JFXVideoWriter *)self signPostID];
         if (signPostID6 - 1 > 0xFFFFFFFFFFFFFFFDLL)
         {
           goto LABEL_51;
         }
 
-        v40 = signPostID6;
-        if (!os_signpost_enabled(v38))
+        v53 = signPostID6;
+        if (!os_signpost_enabled(v51))
         {
           goto LABEL_51;
         }
 
         LOWORD(formatDescription[0]) = 0;
-        v41 = "encode_compressed_depth";
+        v54 = "encode_compressed_depth";
       }
 
       else
       {
         sampleBufferRef = [v8 sampleBufferRef];
-        v32 = JFXVideoWriterIntervalSignpostCategory();
+        v41 = JFXVideoWriterIntervalSignpostCategory(sampleBufferRef, v40);
         signPostID7 = [(JFXVideoWriter *)self signPostID];
         if (signPostID7 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
         {
-          v34 = signPostID7;
-          if (os_signpost_enabled(v32))
+          v43 = signPostID7;
+          if (os_signpost_enabled(v41))
           {
             LOWORD(formatDescription[0]) = 0;
-            _os_signpost_emit_with_name_impl(&dword_242A3B000, v32, OS_SIGNPOST_INTERVAL_END, v34, "encode_compressed_depth", &unk_242B66C87, formatDescription, 2u);
+            _os_signpost_emit_with_name_impl(&dword_242A3B000, v41, OS_SIGNPOST_INTERVAL_END, v43, "encode_compressed_depth", &unk_242B66C87, formatDescription, 2u);
           }
         }
 
-        v35 = JFXVideoWriterIntervalSignpostCategory();
+        v46 = JFXVideoWriterIntervalSignpostCategory(v44, v45);
         signPostID8 = [(JFXVideoWriter *)self signPostID];
         if (signPostID8 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
         {
-          v37 = signPostID8;
-          if (os_signpost_enabled(v35))
+          v48 = signPostID8;
+          if (os_signpost_enabled(v46))
           {
             LOWORD(formatDescription[0]) = 0;
-            _os_signpost_emit_with_name_impl(&dword_242A3B000, v35, OS_SIGNPOST_INTERVAL_BEGIN, v37, "write_compressed_depth", &unk_242B66C87, formatDescription, 2u);
+            _os_signpost_emit_with_name_impl(&dword_242A3B000, v46, OS_SIGNPOST_INTERVAL_BEGIN, v48, "write_compressed_depth", &unk_242B66C87, formatDescription, 2u);
           }
         }
 
-        [(JFXVideoWriter *)self JFX_writeBuffer:sampleBufferRef sampleType:3];
-        v38 = JFXVideoWriterIntervalSignpostCategory();
+        v49 = [(JFXVideoWriter *)self JFX_writeBuffer:sampleBufferRef sampleType:3];
+        v51 = JFXVideoWriterIntervalSignpostCategory(v49, v50);
         signPostID9 = [(JFXVideoWriter *)self signPostID];
         if (signPostID9 - 1 > 0xFFFFFFFFFFFFFFFDLL)
         {
           goto LABEL_51;
         }
 
-        v40 = signPostID9;
-        if (!os_signpost_enabled(v38))
+        v53 = signPostID9;
+        if (!os_signpost_enabled(v51))
         {
           goto LABEL_51;
         }
 
         LOWORD(formatDescription[0]) = 0;
-        v41 = "write_compressed_depth";
+        v54 = "write_compressed_depth";
       }
     }
 
-    _os_signpost_emit_with_name_impl(&dword_242A3B000, v38, OS_SIGNPOST_INTERVAL_END, v40, v41, &unk_242B66C87, formatDescription, 2u);
+    _os_signpost_emit_with_name_impl(&dword_242A3B000, v51, OS_SIGNPOST_INTERVAL_END, v53, v54, &unk_242B66C87, formatDescription, 2u);
     goto LABEL_51;
   }
 
@@ -1699,7 +1700,7 @@ LABEL_10:
         memset(&v15, 0, sizeof(v15));
         if (v8)
         {
-          [v8 presentationTimeStamp];
+          objc_msgSend_presentationTimeStamp(v8);
         }
 
         time1 = v15;
@@ -1824,7 +1825,7 @@ LABEL_10:
     if ((LODWORD(v7) & 0x7FFFFFFFu) <= 0x7F7FFFFF)
     {
       metadataItem = [MEMORY[0x277CE6558] metadataItem];
-      v12 = BrightnessIdentifier();
+      v12 = BrightnessIdentifier(metadataItem);
       [metadataItem setIdentifier:v12];
 
       [metadataItem setDataType:*MEMORY[0x277CC0588]];
@@ -2494,7 +2495,7 @@ LABEL_5:
   OUTLINED_FUNCTION_0_10(a1);
   v2 = JFXNSStringForCMTime(v1);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v3, v4, "Session start time:      %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v3, v4, "Session start time:      %@", v5, v6, v7, v8);
 }
 
 - (void)JFX_writeBuffer:(uint64_t)a1 sampleType:arMetadata:.cold.1(uint64_t a1)
@@ -2502,7 +2503,7 @@ LABEL_5:
   OUTLINED_FUNCTION_0_10(a1);
   v2 = JFXNSStringForCMTime(v1);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v3, v4, "start session at %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v3, v4, "start session at %@", v5, v6, v7, v8);
 }
 
 - (void)JFX_writeBuffer:(uint64_t)a1 sampleType:arMetadata:.cold.3(uint64_t a1)
@@ -2510,21 +2511,21 @@ LABEL_5:
   OUTLINED_FUNCTION_0_10(a1);
   v2 = JFXNSStringForCMTime(v1);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v3, v4, "Audio Sample Start time: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v3, v4, "Audio Sample Start time: %@", v5, v6, v7, v8);
 }
 
 - (void)JFX_writeBuffer:(id *)a1 sampleType:arMetadata:.cold.4(id *a1)
 {
   v1 = [*a1 error];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v2, v3, "video error: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v2, v3, "video error: %@", v4, v5, v6, v7);
 }
 
 - (void)JFX_writeBuffer:(id *)a1 sampleType:arMetadata:.cold.5(id *a1)
 {
   v1 = [*a1 error];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v2, v3, "metadata error: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v2, v3, "metadata error: %@", v4, v5, v6, v7);
 }
 
 - (void)JFX_queueAudioBufferBeforeSessionStart:(os_log_t)log .cold.1(os_log_t log)
@@ -2538,8 +2539,9 @@ LABEL_5:
 - (void)JFX_writeAutoExposureMetadata:(uint64_t)a1 .cold.1(uint64_t a1)
 {
   OUTLINED_FUNCTION_0_10(a1);
-  CMTimeGetSeconds(v1);
-  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v2, v3, "Error: dropping autoexposure metadata at time %f because writer not ready", v4, v5, v6, v7, 0);
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = CMTimeGetSeconds(v1);
+  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v2, v3, "Error: dropping autoexposure metadata at time %f because writer not ready", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)JFX_writeFaceMetadata:withTimingInfo:.cold.1()
@@ -2552,15 +2554,17 @@ LABEL_5:
 - (void)JFX_writeFaceDetectMetadata:(uint64_t)a1 pts:.cold.1(uint64_t a1)
 {
   OUTLINED_FUNCTION_0_10(a1);
-  CMTimeGetSeconds(v1);
-  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v2, v3, "Droppping face detection metadata at pts=%f", v4, v5, v6, v7, 0);
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = CMTimeGetSeconds(v1);
+  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v2, v3, "Droppping face detection metadata at pts=%f", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)JFX_writeFaceDetectMetadata:(uint64_t)a1 pts:.cold.2(uint64_t a1)
 {
   OUTLINED_FUNCTION_0_10(a1);
-  CMTimeGetSeconds(v1);
-  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v2, v3, "Error: dropping face detection metadata at time %f because writer not ready", v4, v5, v6, v7, 0);
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = CMTimeGetSeconds(v1);
+  OUTLINED_FUNCTION_1_0(&dword_242A3B000, v2, v3, "Error: dropping face detection metadata at time %f because writer not ready", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

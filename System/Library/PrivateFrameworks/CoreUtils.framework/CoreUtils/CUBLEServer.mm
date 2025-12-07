@@ -29,7 +29,7 @@ LABEL_3:
       v6 = [l2capChannel PSM];
       peer = [l2capChannel peer];
       identifier = [peer identifier];
-      LogPrintF(ucat, "[CUBLEServer _handleConnectionInvalidated:]", 0x1Eu, "Connection ended PSM 0x%04X, peer %@\n", v8, v9, v10, v11, v6);
+      LogPrintF(ucat, "[CUBLEServer _handleConnectionInvalidated:]", 30, "Connection ended PSM 0x%04X, peer %@\n", v8, v9, v10, v11, v6);
 
       goto LABEL_5;
     }
@@ -126,7 +126,7 @@ LABEL_15:
               v39 = self->_ucat;
             }
 
-            LogPrintF(v39, "[CUBLEServer peripheralManager:didOpenL2CAPChannel:error:]", 0x5Au, "### Activate accepted connection failed: %{error}\n", v30, v31, v32, v33, v34);
+            LogPrintF(v39, "[CUBLEServer peripheralManager:didOpenL2CAPChannel:error:]", 90, "### Activate accepted connection failed: %{error}\n", v30, v31, v32, v33, v34);
           }
 
 LABEL_28:
@@ -142,7 +142,7 @@ LABEL_29:
       v21 = [v18 PSM];
       peer = [v18 peer];
       identifier = [peer identifier];
-      LogPrintF(ucat, "[CUBLEServer peripheralManager:didOpenL2CAPChannel:error:]", 0x1Eu, "L2CAP channel opened PSM 0x%04X, peer %@: %{error}\n", v23, v24, v25, v26, v21);
+      LogPrintF(ucat, "[CUBLEServer peripheralManager:didOpenL2CAPChannel:error:]", 30, "L2CAP channel opened PSM 0x%04X, peer %@: %{error}\n", v23, v24, v25, v26, v21);
 
       goto LABEL_15;
     }
@@ -159,7 +159,7 @@ LABEL_29:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUBLEServer peripheralManager:didOpenL2CAPChannel:error:]", 0x5Au, "### L2CAP open channel null\n", v14, v15, v16, v17, v40);
+      LogPrintF(ucat, "[CUBLEServer peripheralManager:didOpenL2CAPChannel:error:]", 90, "### L2CAP open channel null\n", v14, v15, v16, v17, v40);
     }
 
 LABEL_30:
@@ -180,7 +180,7 @@ LABEL_30:
       v13 = self->_ucat;
     }
 
-    LogPrintF(v13, "[CUBLEServer peripheralManager:didOpenL2CAPChannel:error:]", 0x5Au, "### L2CAP open channel failed: %{error}\n", v9, v10, v11, v12, errorCopy);
+    LogPrintF(v13, "[CUBLEServer peripheralManager:didOpenL2CAPChannel:error:]", 90, "### L2CAP open channel failed: %{error}\n", v9, v10, v11, v12, errorCopy);
   }
 
 LABEL_31:
@@ -197,7 +197,7 @@ LABEL_31:
     if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF(ucat, "[CUBLEServer peripheralManager:didUnpublishL2CAPChannel:error:]", 0x1Eu, "Unpublished L2CAP channel with PSM 0x%04X: %{error}\n", v7, v8, v9, v10, channelCopy);
+      LogPrintF(ucat, "[CUBLEServer peripheralManager:didUnpublishL2CAPChannel:error:]", 30, "Unpublished L2CAP channel with PSM 0x%04X: %{error}\n", v7, v8, v9, v10, channelCopy);
       goto LABEL_5;
     }
 
@@ -234,7 +234,7 @@ LABEL_5:
     {
       ucat = self->_ucat;
 LABEL_4:
-      LogPrintF(ucat, "[CUBLEServer peripheralManager:didPublishL2CAPChannel:error:]", 0x5Au, "### Publish L2CAP channel failed: %{error}\n", v7, v8, v9, v10, errorCopy);
+      LogPrintF(ucat, "[CUBLEServer peripheralManager:didPublishL2CAPChannel:error:]", 90, "### Publish L2CAP channel failed: %{error}\n", v7, v8, v9, v10, errorCopy);
     }
   }
 
@@ -255,7 +255,7 @@ LABEL_4:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUBLEServer peripheralManager:didPublishL2CAPChannel:error:]", 0x1Eu, "Published L2CAP channel with PSM 0x%04X\n", v7, v8, v9, v10, channelCopy);
+    LogPrintF(ucat, "[CUBLEServer peripheralManager:didPublishL2CAPChannel:error:]", 30, "Published L2CAP channel with PSM 0x%04X\n", v7, v8, v9, v10, channelCopy);
   }
 
 LABEL_12:
@@ -300,7 +300,7 @@ LABEL_12:
       v12 = off_1E73A3018[state];
     }
 
-    LogPrintF(ucat, "[CUBLEServer peripheralManagerDidUpdateState:]", 0x1Eu, "Bluetooth state changed: %s\n", v7, v8, v9, v10, v12);
+    LogPrintF(ucat, "[CUBLEServer peripheralManagerDidUpdateState:]", 30, "Bluetooth state changed: %s\n", v7, v8, v9, v10, v12);
   }
 
 LABEL_9:
@@ -331,7 +331,7 @@ LABEL_9:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUBLEServer _startIfNeeded]", 9u, "StartIfNeeded\n", v2, v3, v4, v5, v10);
+    LogPrintF(ucat, "[CUBLEServer _startIfNeeded]", 9, "StartIfNeeded\n", v2, v3, v4, v5, v10);
   }
 
 LABEL_5:
@@ -441,7 +441,7 @@ LABEL_6:
           v31 = self->_ucat;
         }
 
-        LogPrintF(v31, "[CUBLEServer _invalidate]", 0x1Eu, "Invalidated\n", v27, v28, v29, v30, v32);
+        LogPrintF(v31, "[CUBLEServer _invalidate]", 30, "Invalidated\n", v27, v28, v29, v30, v32);
 LABEL_23:
 
         return;
@@ -450,7 +450,7 @@ LABEL_23:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUBLEServer _invalidate]", 0x1Eu, "Invalidate\n", v2, v3, v4, v5, v32);
+    LogPrintF(ucat, "[CUBLEServer _invalidate]", 30, "Invalidate\n", v2, v3, v4, v5, v32);
     goto LABEL_6;
   }
 }
@@ -476,7 +476,7 @@ LABEL_23:
     goto LABEL_3;
   }
 
-  v18 = [objc_alloc(getCBPeripheralManagerClass_1525[0]()) initWithDelegate:self queue:self->_dispatchQueue];
+  v18 = [objc_alloc(getCBPeripheralManagerClass_1525()) initWithDelegate:self queue:self->_dispatchQueue];
   peripheralManager = self->_peripheralManager;
   self->_peripheralManager = v18;
 
@@ -495,7 +495,7 @@ LABEL_23:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUBLEServer _activateWithCompletion:]", 0x1Eu, "Activate PSM 0x%04X\n", v6, v7, v8, v9, self->_listenPSM);
+      LogPrintF(ucat, "[CUBLEServer _activateWithCompletion:]", 30, "Activate PSM 0x%04X\n", v6, v7, v8, v9, self->_listenPSM);
     }
 
 LABEL_16:
@@ -524,7 +524,7 @@ LABEL_3:
       v17 = self->_ucat;
     }
 
-    LogPrintF(v17, "[CUBLEServer _activateWithCompletion:]", 0x5Au, "### Activate failed: %{error}\n", v12, v13, v14, v15, v16);
+    LogPrintF(v17, "[CUBLEServer _activateWithCompletion:]", 90, "### Activate failed: %{error}\n", v12, v13, v14, v15, v16);
   }
 
 LABEL_11:

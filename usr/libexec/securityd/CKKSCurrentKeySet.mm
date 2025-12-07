@@ -85,7 +85,7 @@
 
   v14 = [(CKKSCurrentKeySet *)self tlk];
   v15 = [v14 copyWithZone:zone];
-  [v5 setTlk:v15];
+  objc_msgSend_setTlk_(v5);
 
   classA = [(CKKSCurrentKeySet *)self classA];
   v17 = [classA copyWithZone:zone];
@@ -186,13 +186,13 @@
     v18 = [CKKSKey tryFromDatabase:currentKeyUUID2 contextID:dCopy zoneID:zoneCopy error:&v36];
     v19 = v36;
 
-    [(CKKSCurrentKeySet *)v7 setTlk:v18];
+    objc_msgSend_setTlk_(v7);
     v13 = v19;
   }
 
   else
   {
-    [(CKKSCurrentKeySet *)v7 setTlk:0];
+    objc_msgSend_setTlk_(v7);
   }
 
   currentClassAPointer = [(CKKSCurrentKeySet *)v7 currentClassAPointer];

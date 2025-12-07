@@ -203,7 +203,7 @@ LABEL_22:
 
 - (void)updateData
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   fenceHandle = [(RTIDocumentTraits *)self->_documentTraits fenceHandle];
 
   if (!fenceHandle)
@@ -231,18 +231,16 @@ LABEL_22:
     sessionUUID = self->_sessionUUID;
     if (sessionUUID)
     {
-      v12[0] = 0;
-      v12[1] = 0;
-      [(NSUUID *)sessionUUID getUUIDBytes:v12];
-      v9 = [MEMORY[0x1E695DEF0] dataWithBytes:v12 length:16];
+      v11[0] = 0;
+      v11[1] = 0;
+      [(NSUUID *)sessionUUID getUUIDBytes:v11];
+      v9 = [MEMORY[0x1E695DEF0] dataWithBytes:v11 length:16];
       [v4 encodeObject:v9 forKey:@"sessionUUID"];
     }
 
     encodedData = [v4 encodedData];
     [(RTIDataPayload *)self setData:encodedData];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_unarchiveData

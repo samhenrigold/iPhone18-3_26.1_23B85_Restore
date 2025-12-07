@@ -1,6 +1,6 @@
 uint64_t create_sqlite3_db_profile(uint64_t a1, uint64_t **a2, _DWORD *a3, _BYTE *a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     *a3 = 8;
@@ -12,17 +12,17 @@ uint64_t create_sqlite3_db_profile(uint64_t a1, uint64_t **a2, _DWORD *a3, _BYTE
   }
 
   v8 = *(a1 + 80);
-  v28 = 0;
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
+  v27 = 0;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v9 = *(a1 + 8);
   v10 = *(a1 + 16);
   *buf = 0;
-  if (!(*(v10 + 72))(v9, 0, &v22, 100, buf, 0))
+  if (!(*(v10 + 72))(v9, 0, &v21, 100, buf, 0))
   {
     goto LABEL_12;
   }
@@ -32,9 +32,9 @@ uint64_t create_sqlite3_db_profile(uint64_t a1, uint64_t **a2, _DWORD *a3, _BYTE
     goto LABEL_12;
   }
 
-  v11 = v23;
-  v12 = __rev16(v23);
-  LOWORD(v23) = v12;
+  v11 = v22;
+  v12 = __rev16(v22);
+  LOWORD(v22) = v12;
   v13 = malloc_type_realloc(0, 0x38uLL, 0x1000040C4DFEAEFuLL);
   if (!v13)
   {
@@ -64,51 +64,44 @@ LABEL_12:
       *a4 = 1;
     }
 
-    v16 = (*(a1 + 168))(a1, a2, a3, 0);
-    goto LABEL_15;
+    return (*(a1 + 168))(a1, a2, a3, 0);
   }
 
   *a2 = v13;
-  if (gVerbose == 2)
+  if (gVerbose != 2)
   {
+    return 1;
+  }
+
+  if (CK_DEFAULT_LOG_BLOCK_10 != -1)
+  {
+    create_sqlite3_db_profile_cold_1();
+  }
+
+  if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG) && os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
+  {
+    v18 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"returning %u sections for %s\n", 1, *(a1 + 104));
     if (CK_DEFAULT_LOG_BLOCK_10 != -1)
     {
-      create_sqlite3_db_profile_cold_1();
+      create_sqlite3_db_profile_cold_2();
     }
 
-    if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG) && os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
+    v19 = CK_DEFAULT_LOG_INTERNAL_10;
+    if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
     {
-      v19 = CFStringCreateWithFormat(*MEMORY[0x277CBECE8], 0, @"returning %u sections for %s\n", 1, *(a1 + 104));
-      if (CK_DEFAULT_LOG_BLOCK_10 != -1)
-      {
-        create_sqlite3_db_profile_cold_2();
-      }
-
-      v20 = CK_DEFAULT_LOG_INTERNAL_10;
-      if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
-      {
-        *buf = 138543362;
-        *&buf[4] = v19;
-        _os_log_impl(&dword_243431000, v20, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
-      }
-
-      if (v19)
-      {
-        CFRelease(v19);
-      }
+      *buf = 138543362;
+      *&buf[4] = v18;
+      _os_log_impl(&dword_243431000, v19, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
     }
 
-    v16 = 1;
-    print_sections(v14, 1u);
+    if (v18)
+    {
+      CFRelease(v18);
+    }
   }
 
-  else
-  {
-    v16 = 1;
-  }
-
-LABEL_15:
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = 1;
+  print_sections(v14, 1u);
   return v16;
 }
 
@@ -303,7 +296,7 @@ os_log_t __create_default_rabin_profile_block_invoke_3()
 
 uint64_t detect_magics(uint64_t a1, int *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   *a2 = 0;
   v4 = (a1 + 32);
   v5 = *(a1 + 24);
@@ -318,7 +311,7 @@ uint64_t detect_magics(uint64_t a1, int *a2)
     v6 = 4;
 LABEL_27:
     *a2 = v6;
-    goto LABEL_28;
+    return 0;
   }
 
   if (v5 >= 0xC)
@@ -352,7 +345,7 @@ LABEL_27:
           if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138543362;
-            v17 = v11;
+            v16 = v11;
             _os_log_impl(&dword_243431000, v12, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
           }
 
@@ -375,8 +368,8 @@ LABEL_25:
 
       else if (v9 >= 0xC)
       {
-        v15 = *(a1 + 40) == 28781 && *(a1 + 42) == 52;
-        if (v15 || *(a1 + 40) == 538997873 || *(a1 + 40) == 542520397 || *(a1 + 40) == 541144141)
+        v14 = *(a1 + 40) == 28781 && *(a1 + 42) == 52;
+        if (v14 || *(a1 + 40) == 538997873 || *(a1 + 40) == 542520397 || *(a1 + 40) == 541144141)
         {
           goto LABEL_25;
         }
@@ -384,8 +377,6 @@ LABEL_25:
     }
   }
 
-LABEL_28:
-  v13 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -486,22 +477,22 @@ os_log_t __create_zip_profile_block_invoke_3_358()
 
 uint64_t locate_zip64_extra_field(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t *a4, _DWORD *a5)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (a3 >= 4)
   {
     v7 = a3;
     v9 = *(a1 + 8);
     v10 = *(a1 + 16);
-    v18 = 0;
+    v17 = 0;
     while (1)
     {
-      v17 = 0;
-      if (((*(v10 + 72))(v9, a2, &v18, 4, &v17, 0) & 1) == 0)
+      v16 = 0;
+      if (((*(v10 + 72))(v9, a2, &v17, 4, &v16, 0) & 1) == 0)
       {
         break;
       }
 
-      if (v17 != 4)
+      if (v16 != 4)
       {
         if (gVerbose == 2)
         {
@@ -522,7 +513,7 @@ uint64_t locate_zip64_extra_field(uint64_t a1, uint64_t a2, unsigned int a3, uin
             if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138543362;
-              v20 = v13;
+              v19 = v13;
 LABEL_28:
               _os_log_impl(&dword_243431000, v14, OS_LOG_TYPE_DEBUG, "%{public}@", buf, 0xCu);
             }
@@ -531,29 +522,29 @@ LABEL_28:
           }
         }
 
-        goto LABEL_31;
+        return 0xFFFFFFFFLL;
       }
 
-      v11 = HIWORD(v18) + 4;
+      v11 = HIWORD(v17) + 4;
       v12 = v7 >= v11;
       v7 -= v11;
       if (!v12)
       {
-        goto LABEL_31;
+        return 0xFFFFFFFFLL;
       }
 
-      if (v18 == 1)
+      if (v17 == 1)
       {
         result = 0;
         *a4 = a2;
         *a5 = v11;
-        goto LABEL_32;
+        return result;
       }
 
       a2 += v11;
       if (v7 <= 3)
       {
-        goto LABEL_31;
+        return 0xFFFFFFFFLL;
       }
     }
 
@@ -576,7 +567,7 @@ LABEL_28:
         if (os_log_type_enabled(CK_DEFAULT_LOG_INTERNAL_10, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138543362;
-          v20 = v13;
+          v19 = v13;
           goto LABEL_28;
         }
 
@@ -589,11 +580,7 @@ LABEL_29:
     }
   }
 
-LABEL_31:
-  result = 0xFFFFFFFFLL;
-LABEL_32:
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0xFFFFFFFFLL;
 }
 
 os_log_t __create_zip_profile_block_invoke_362()
@@ -1054,7 +1041,7 @@ uint64_t CKProfileResultsCreate(uint64_t *a1, int a2, const void *a3, const void
   }
 
   *a1 = 0;
-  v11 = CKTypeRegister(&CKProfileResultsGetTypeID_typeID);
+  v11 = CKTypeRegister(&CKProfileResultsGetTypeID_typeID, &kCKProfileResultsContextClass);
   result = CKTypeCreateInstance_(0, v11, 0x30uLL);
   if (result)
   {
@@ -1266,25 +1253,25 @@ uint64_t CKChunkSignatureGeneratorV1Update(uint64_t a1, const void *a2, CC_LONG 
 
 uint64_t CKChunkSignatureGeneratorV1Finish(uint64_t a1, uint64_t a2, uint64_t *a3, CFErrorRef *a4)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (a4)
   {
     *a4 = 0;
   }
 
   *md = 0u;
-  v30 = 0u;
+  v29 = 0u;
   v9 = (a1 + 32);
   v8 = *(a1 + 32);
   if (!v8)
   {
     CC_SHA256_Final(md, *(a1 + 48));
-    v28 = CKChunkDigestArgumentsChunkSchemeByte(*(a1 + 24));
+    v27 = CKChunkDigestArgumentsChunkSchemeByte(*(a1 + 24));
     v13 = CKChunkDigestArgumentsChunkEncryptionKeySchemeByte(*(a1 + 24));
-    v27 = v13;
+    v26 = v13;
     if (v13)
     {
-      v14 = CKSchemeAndEncryptionKeySize(&v27);
+      v14 = CKSchemeAndEncryptionKeySize(&v26);
       v15 = malloc_type_malloc(v14, 0x100004077774924uLL);
       v10 = v15;
       if (!v15)
@@ -1293,11 +1280,11 @@ uint64_t CKChunkSignatureGeneratorV1Finish(uint64_t a1, uint64_t a2, uint64_t *a
         goto LABEL_21;
       }
 
-      *v15 = v27;
+      *v15 = v26;
       v16 = CKChunkEncryptionKeySize(v15);
       bzero(v10 + 1, v16);
       v17 = 0;
-      v18 = &v30;
+      v18 = &v29;
       do
       {
         v19 = *(v18 - 16);
@@ -1313,7 +1300,7 @@ uint64_t CKChunkSignatureGeneratorV1Finish(uint64_t a1, uint64_t a2, uint64_t *a
       v10 = 0;
     }
 
-    v21 = CKChunkSchemeAndSignatureSize(&v28);
+    v21 = CKChunkSchemeAndSignatureSize(&v27);
     v11 = malloc_type_malloc(v21, 0x100004077774924uLL);
     if (!v11)
     {
@@ -1321,9 +1308,9 @@ uint64_t CKChunkSignatureGeneratorV1Finish(uint64_t a1, uint64_t a2, uint64_t *a
     }
 
     CC_SHA256(md, 0x20u, md);
-    *v11 = v28;
+    *v11 = v27;
     v22 = *md;
-    *(v11 + 17) = v30;
+    *(v11 + 17) = v29;
     *(v11 + 1) = v22;
     if (!CKChunkDigestResultsCreate((a1 + 32), v11, v10, *(a1 + 40)))
     {
@@ -1384,7 +1371,6 @@ LABEL_5:
 LABEL_22:
   free(v10);
   free(v11);
-  v25 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

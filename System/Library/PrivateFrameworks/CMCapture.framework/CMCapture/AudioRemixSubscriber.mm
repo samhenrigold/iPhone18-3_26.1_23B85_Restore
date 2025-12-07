@@ -93,27 +93,27 @@
     return -1;
   }
 
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
-  v12 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0;
   if (!_FigIsNotCurrentDispatchQueue())
   {
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, v9, block, v11, v12, v13, selfCopy);
   }
 
   workQueue = self->_workQueue;
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __44__AudioRemixSubscriber_handleReceiveResult___block_invoke;
-  block[3] = &unk_1E79906C0;
-  block[4] = self;
-  block[5] = result;
-  block[6] = &v9;
-  dispatch_sync(workQueue, block);
-  v4 = *(v10 + 6);
-  _Block_object_dispose(&v9, 8);
-  return v4;
+  block = MEMORY[0x1E69E9820];
+  v11 = 3221225472;
+  v12 = __44__AudioRemixSubscriber_handleReceiveResult___block_invoke;
+  v13 = &unk_1E79906C0;
+  selfCopy = self;
+  resultCopy = result;
+  v16 = &v17;
+  dispatch_sync(workQueue, &block);
+  v5 = *(v18 + 6);
+  _Block_object_dispose(&v17, 8);
+  return v5;
 }
 
 void __44__AudioRemixSubscriber_handleReceiveResult___block_invoke(uint64_t a1)
@@ -282,50 +282,51 @@ LABEL_23:
 
 - (int)handleReceiveCompletion:(id)completion
 {
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
-  v12 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
   if (!_FigIsNotCurrentDispatchQueue())
   {
-    FigDebugAssert3();
+    v9 = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v9, v3, block, v11, v12, v13, selfCopy, completionCopy);
   }
 
   workQueue = self->_workQueue;
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __48__AudioRemixSubscriber_handleReceiveCompletion___block_invoke;
-  block[3] = &unk_1E79906E8;
-  block[4] = self;
-  block[5] = completion;
-  block[6] = &v9;
-  block[7] = &v13;
-  dispatch_sync(workQueue, block);
-  if (*(v10 + 24) == 1)
+  block = MEMORY[0x1E69E9820];
+  v11 = 3221225472;
+  v12 = __48__AudioRemixSubscriber_handleReceiveCompletion___block_invoke;
+  v13 = &unk_1E79906E8;
+  selfCopy = self;
+  completionCopy = completion;
+  v16 = &v18;
+  v17 = &v22;
+  dispatch_sync(workQueue, &block);
+  if (*(v19 + 24) == 1)
   {
-    (*(self->_subscriptionCompletionHandler + 2))(self->_subscriptionCompletionHandler, 0);
+    (*(self->_subscriptionCompletionHandler + 2))();
   }
 
-  v6 = *(v14 + 6);
-  _Block_object_dispose(&v9, 8);
-  _Block_object_dispose(&v13, 8);
-  return v6;
+  v7 = *(v23 + 6);
+  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v22, 8);
+  return v7;
 }
 
-void *__48__AudioRemixSubscriber_handleReceiveCompletion___block_invoke(void *result)
+void *__48__AudioRemixSubscriber_handleReceiveCompletion___block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
-  v1 = result[4];
-  if ((*(v1 + 24) & 1) == 0)
+  v8 = result[4];
+  if ((*(v8 + 24) & 1) == 0)
   {
-    *(v1 + 24) = 1;
+    *(v8 + 24) = 1;
     *(*(result[6] + 8) + 24) = 1;
     if (result[5])
     {
-      return __48__AudioRemixSubscriber_handleReceiveCompletion___block_invoke_cold_1(result);
+      return __48__AudioRemixSubscriber_handleReceiveCompletion___block_invoke_cold_1(result, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -334,29 +335,30 @@ void *__48__AudioRemixSubscriber_handleReceiveCompletion___block_invoke(void *re
 
 - (void)cancelSubscription
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
   if (!_FigIsNotCurrentDispatchQueue())
   {
-    FigDebugAssert3();
+    v5 = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v5, v2, block, v7, v8, v9, selfCopy, v11);
   }
 
   workQueue = self->_workQueue;
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __42__AudioRemixSubscriber_cancelSubscription__block_invoke;
-  block[3] = &unk_1E79904A0;
-  block[4] = self;
-  block[5] = &v5;
-  dispatch_sync(workQueue, block);
-  if (*(v6 + 24) == 1)
+  block = MEMORY[0x1E69E9820];
+  v7 = 3221225472;
+  v8 = __42__AudioRemixSubscriber_cancelSubscription__block_invoke;
+  v9 = &unk_1E79904A0;
+  selfCopy = self;
+  v11 = &v12;
+  dispatch_sync(workQueue, &block);
+  if (*(v13 + 24) == 1)
   {
-    (*(self->_subscriptionCompletionHandler + 2))(self->_subscriptionCompletionHandler, 1);
+    (*(self->_subscriptionCompletionHandler + 2))();
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v12, 8);
 }
 
 void __42__AudioRemixSubscriber_cancelSubscription__block_invoke(uint64_t a1)
@@ -431,7 +433,7 @@ NSObject *__32__AudioRemixSubscriber_activate__block_invoke_2(uint64_t a1, uint6
 
   else
   {
-    __32__AudioRemixSubscriber_activate__block_invoke_2_cold_2();
+    __32__AudioRemixSubscriber_activate__block_invoke_2_cold_2(0, v5, v6, v7, v8, v9, v10, v11, v13, v14, SHIDWORD(v14), vars0);
   }
 
   result = *(*(a1 + 32) + 64);
@@ -457,7 +459,7 @@ NSObject *__32__AudioRemixSubscriber_activate__block_invoke_3(uint64_t a1, uint6
 
   else
   {
-    __32__AudioRemixSubscriber_activate__block_invoke_3_cold_2();
+    __32__AudioRemixSubscriber_activate__block_invoke_3_cold_2(0, v5, v6, v7, v8, v9, v10, v11, v13, v14, SHIDWORD(v14), vars0);
   }
 
   result = *(*(a1 + 32) + 72);
@@ -472,45 +474,77 @@ NSObject *__32__AudioRemixSubscriber_activate__block_invoke_3(uint64_t a1, uint6
 
 - (int)finishAndGetResultsBlockingWithStartingPTS:(id *)s andEndingPTS:(id *)tS
 {
-  if (self->_resultHandlerSemaphore || self->_completionHandlerSemaphore)
+  if (self->_resultHandlerSemaphore)
   {
     OUTLINED_FUNCTION_2_27();
-
-    return FigSignalErrorAtGM();
-  }
-
-  else if ((s->var2 & 1) != 0 && (tS->var2 & 1) != 0 && (time1 = *s, v16 = *tS, CMTimeCompare(&time1, &v16) < 0))
-  {
-    v7 = *&s->var0;
-    self->_startingPTS.epoch = s->var3;
-    *&self->_startingPTS.value = v7;
-    v8 = *&tS->var0;
-    self->_endingPTS.epoch = tS->var3;
-    *&self->_endingPTS.value = v8;
-    self->_resultHandlerSemaphore = dispatch_semaphore_create(0);
-    self->_completionHandlerSemaphore = dispatch_semaphore_create(0);
-    [(SNMovieRemixSession *)self->_session finishWithError:0];
-    resultHandlerSemaphore = self->_resultHandlerSemaphore;
-    v10 = dispatch_time(0, 2000000000);
-    v11 = dispatch_semaphore_wait(resultHandlerSemaphore, v10);
-    dispatch_release(self->_resultHandlerSemaphore);
-    self->_resultHandlerSemaphore = 0;
-    if (v11 || (completionHandlerSemaphore = self->_completionHandlerSemaphore, v13 = dispatch_time(0, 2000000000), v14 = dispatch_semaphore_wait(completionHandlerSemaphore, v13), dispatch_release(self->_completionHandlerSemaphore), self->_completionHandlerSemaphore = 0, v14))
-    {
-      OUTLINED_FUNCTION_2_27();
-      return FigSignalErrorAtGM();
-    }
-
-    else
-    {
-      return 0;
-    }
+    v20 = 263;
   }
 
   else
   {
-    return -16992;
+    if (!self->_completionHandlerSemaphore)
+    {
+      if ((s->var2 & 1) == 0)
+      {
+        return -16992;
+      }
+
+      if ((tS->var2 & 1) == 0)
+      {
+        return -16992;
+      }
+
+      time1 = *s;
+      v26 = *tS;
+      if ((CMTimeCompare(&time1, &v26) & 0x80000000) == 0)
+      {
+        return -16992;
+      }
+
+      v7 = *&s->var0;
+      self->_startingPTS.epoch = s->var3;
+      *&self->_startingPTS.value = v7;
+      v8 = *&tS->var0;
+      self->_endingPTS.epoch = tS->var3;
+      *&self->_endingPTS.value = v8;
+      self->_resultHandlerSemaphore = dispatch_semaphore_create(0);
+      self->_completionHandlerSemaphore = dispatch_semaphore_create(0);
+      [(SNMovieRemixSession *)self->_session finishWithError:0];
+      resultHandlerSemaphore = self->_resultHandlerSemaphore;
+      v10 = dispatch_time(0, 2000000000);
+      v11 = dispatch_semaphore_wait(resultHandlerSemaphore, v10);
+      dispatch_release(self->_resultHandlerSemaphore);
+      self->_resultHandlerSemaphore = 0;
+      if (v11)
+      {
+        OUTLINED_FUNCTION_2_27();
+        v25 = 284;
+      }
+
+      else
+      {
+        completionHandlerSemaphore = self->_completionHandlerSemaphore;
+        v13 = dispatch_time(0, 2000000000);
+        v14 = dispatch_semaphore_wait(completionHandlerSemaphore, v13);
+        dispatch_release(self->_completionHandlerSemaphore);
+        self->_completionHandlerSemaphore = 0;
+        if (!v14)
+        {
+          return 0;
+        }
+
+        OUTLINED_FUNCTION_2_27();
+        v25 = 290;
+      }
+
+      return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v21, 0xFFFFBDA0, "<<<< BWAudioRemixAnalysisMetadataNode >>>>", v25, v22, v23, v24, v26.value);
+    }
+
+    OUTLINED_FUNCTION_2_27();
+    v20 = 265;
   }
+
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v16, 0xFFFFBDA0, "<<<< BWAudioRemixAnalysisMetadataNode >>>>", v20, v17, v18, v19, v29);
 }
 
 @end

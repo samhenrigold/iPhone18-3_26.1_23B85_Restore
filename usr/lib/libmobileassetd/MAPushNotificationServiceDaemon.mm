@@ -82,7 +82,7 @@ void __49__MAPushNotificationServiceDaemon_sharedInstance__block_invoke(id a1)
 
 - (int64_t)channelTypeForDevice
 {
-  if (_MAPreferencesIsInternalAllowed())
+  if (_MAPreferencesIsInternalAllowed(self, a2))
   {
     v2 = 1;
   }

@@ -56,9 +56,9 @@
 - (int)duration
 {
   clip = [(CFXClipCompositionDataSource *)self clip];
-  duration = [clip duration];
+  v3 = objc_msgSend_duration(clip);
 
-  return duration;
+  return v3;
 }
 
 - (int)frameRate

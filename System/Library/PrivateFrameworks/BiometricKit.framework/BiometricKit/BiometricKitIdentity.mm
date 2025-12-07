@@ -98,14 +98,14 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v7[2] = *MEMORY[0x1E69E9840];
-  v7[0] = 0;
-  v7[1] = 0;
+  v6[2] = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
+  v6[1] = 0;
   uuid = self->_uuid;
   coderCopy = coder;
-  [(NSUUID *)uuid getUUIDBytes:v7];
+  [(NSUUID *)uuid getUUIDBytes:v6];
   [coderCopy encodeInt32:self->_userID forKey:@"BKIdentityUserID"];
-  [coderCopy encodeBytes:v7 length:16 forKey:@"BKIdentityUUID"];
+  [coderCopy encodeBytes:v6 length:16 forKey:@"BKIdentityUUID"];
   [coderCopy encodeInt:self->_type forKey:@"BKIdentityType"];
   [coderCopy encodeInt:self->_attribute forKey:@"BKIdentityAttribute"];
   [coderCopy encodeInt:self->_entity forKey:@"BKIdentityEntityNumber"];
@@ -116,8 +116,6 @@
   [coderCopy encodeInteger:self->_updateCount forKey:@"BKIdentityUpdateCount"];
   [coderCopy encodeInt32:self->_flags forKey:@"BKIdentityFlags"];
   [coderCopy encodeObject:self->_accessory forKey:@"BKIdentityAccessory"];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

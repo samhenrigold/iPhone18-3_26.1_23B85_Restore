@@ -135,21 +135,21 @@ void __25__IFImage_allocWithZone___block_invoke(uint64_t a1)
     goto LABEL_33;
   }
 
-  LODWORD(v5) = *(__IS_imageHeader + 12);
+  LODWORD(v5) = *(__IS_imageHeader + 3);
   v7 = v5;
-  v8 = *(__IS_imageHeader + 36) * v7;
-  v9 = *(__IS_imageHeader + 32) * v7;
+  v8 = *(__IS_imageHeader + 9) * v7;
+  v9 = *(__IS_imageHeader + 8) * v7;
   if (v9 == *MEMORY[0x1E695F060] && v8 == *(MEMORY[0x1E695F060] + 8))
   {
     goto LABEL_33;
   }
 
-  v11 = *(__IS_imageHeader + 4);
-  v12 = [IFGraphicsContext colorSpaceFromPixelFormat:*(__IS_imageHeader + 40)];
+  v11 = *(__IS_imageHeader + 1);
+  v12 = [IFGraphicsContext colorSpaceFromPixelFormat:*(__IS_imageHeader + 10)];
   if (!v12)
   {
-    v20 = IFDefaultLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = IFDefaultLog(0);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       +[IFImage createCGImageWithIFImageData:];
     }
@@ -160,100 +160,100 @@ void __25__IFImage_allocWithZone___block_invoke(uint64_t a1)
   v13 = v12;
   v14 = dataCopy;
   bytes = [v14 bytes];
-  v16 = CGDataProviderCreateWithData(v14, (bytes + 48), v11, MEMORY[0x1E695D7C0]);
-  if (!v16)
+  __IS_imageHeader = CGDataProviderCreateWithData(v14, (bytes + 48), v11, MEMORY[0x1E695D7C0]);
+  if (!__IS_imageHeader)
   {
 LABEL_33:
-    v20 = IFDefaultLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = IFDefaultLog(__IS_imageHeader);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       +[IFImage createCGImageWithIFImageData:];
     }
 
 LABEL_35:
 
-    v24 = 0;
+    v23 = 0;
     goto LABEL_36;
   }
 
-  v17 = v16;
-  v18 = *(v6 + 40);
-  v19 = 1;
-  if (v18 > 3u)
+  v16 = __IS_imageHeader;
+  v17 = *(v6 + 10);
+  v18 = 1;
+  if (v17 > 3u)
   {
-    if (*(v6 + 40) > 5u)
+    if (*(v6 + 10) > 5u)
     {
-      if (v18 == 6)
+      if (v17 == 6)
       {
-        v21 = v9;
-        v22 = v8;
-        v19 = 7;
+        v20 = v9;
+        v21 = v8;
+        v18 = 7;
 LABEL_30:
-        v23 = 1;
+        v22 = 1;
         goto LABEL_31;
       }
 
-      if (v18 != 7)
+      if (v17 != 7)
       {
         goto LABEL_27;
       }
     }
 
-    else if (v18 != 4)
+    else if (v17 != 4)
     {
-      if (v18 == 5)
+      if (v17 == 5)
       {
         goto LABEL_28;
       }
 
 LABEL_27:
-      v19 = 0;
+      v18 = 0;
       goto LABEL_28;
     }
 
 LABEL_24:
-    v19 = 4353;
+    v18 = 4353;
     goto LABEL_25;
   }
 
-  if (*(v6 + 40) > 1u)
+  if (*(v6 + 10) > 1u)
   {
-    if (v18 == 2)
+    if (v17 == 2)
     {
       goto LABEL_28;
     }
 
-    if (v18 == 3)
+    if (v17 == 3)
     {
-      v19 = 4352;
+      v18 = 4352;
 LABEL_25:
-      v21 = v9;
-      v22 = v8;
-      v23 = 4;
+      v20 = v9;
+      v21 = v8;
+      v22 = 4;
       goto LABEL_31;
     }
 
     goto LABEL_27;
   }
 
-  if (*(v6 + 40))
+  if (*(v6 + 10))
   {
     goto LABEL_24;
   }
 
 LABEL_28:
-  v21 = v9;
-  v22 = v8;
-  v23 = 4;
-  if (v18 >= 5u && v18 != 7)
+  v20 = v9;
+  v21 = v8;
+  v22 = 4;
+  if (v17 >= 5u && v17 != 7)
   {
     goto LABEL_30;
   }
 
 LABEL_31:
-  v24 = CGImageCreate(v21, v22, BYTE2(v18) / v23, *(v6 + 42), (v9 * (*(v6 + 42) >> 3)), v13, v19, v17, 0, 1, kCGRenderingIntentDefault);
-  CFRelease(v17);
-  if (!v24)
+  v23 = CGImageCreate(v20, v21, BYTE2(v17) / v22, *(v6 + 42), (v9 * (*(v6 + 42) >> 3)), v13, v18, v16, 0, 1, kCGRenderingIntentDefault);
+  CFRelease(v16);
+  if (!v23)
   {
     goto LABEL_33;
   }
@@ -261,18 +261,18 @@ LABEL_31:
   CGImageSetProperty();
 LABEL_36:
 
-  return v24;
+  return v23;
 }
 
 + (id)_layerDataFromIFImageData:(id)data
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v4 = dataCopy;
   if (!dataCopy)
   {
-    v8 = IFDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = IFDefaultLog(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       +[IFImage _layerDataFromIFImageData:];
     }
@@ -283,8 +283,8 @@ LABEL_36:
   __IS_imageHeader = [dataCopy __IS_imageHeader];
   if (!__IS_imageHeader)
   {
-    v8 = IFDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = IFDefaultLog(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       +[IFImage _layerDataFromIFImageData:];
     }
@@ -295,101 +295,104 @@ LABEL_36:
   v6 = *(__IS_imageHeader + 8);
   if (!v6)
   {
-    v8 = IFDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = IFDefaultLog(__IS_imageHeader);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_1B9DEC000, v8, OS_LOG_TYPE_INFO, "layer data size zero", &v17, 2u);
+      LOWORD(v20) = 0;
+      _os_log_impl(&dword_1B9DEC000, v9, OS_LOG_TYPE_INFO, "layer data size zero", &v20, 2u);
     }
 
     goto LABEL_21;
   }
 
   v7 = *(__IS_imageHeader + 4);
-  if ([v4 length] < v6)
+  v8 = [v4 length];
+  if (v8 < v6)
   {
-    v8 = IFDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = IFDefaultLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(IFImage *)v4 _layerDataFromIFImageData:v6, v8];
+      [(IFImage *)v4 _layerDataFromIFImageData:v6, v9];
     }
 
     goto LABEL_21;
   }
 
-  v9 = v7 + 48 + v6;
-  if (v9 > [v4 length])
+  v10 = v7 + 48 + v6;
+  v11 = [v4 length];
+  if (v10 > v11)
   {
-    v8 = IFDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = IFDefaultLog(v11);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v17 = 134218752;
-      v18 = [v4 length];
-      v19 = 2048;
-      v20 = 48;
-      v21 = 1024;
-      *v22 = v7;
-      *&v22[4] = 1024;
-      *&v22[6] = v6;
-      v10 = "Incorrect formed data. Data size (%lu) exceeded. Header size: %lu, expected bitmap size: %d, expected layer size: %d";
-      v11 = v8;
-      v12 = 34;
+      v20 = 134218752;
+      v21 = [v4 length];
+      v22 = 2048;
+      v23 = 48;
+      v24 = 1024;
+      *v25 = v7;
+      *&v25[4] = 1024;
+      *&v25[6] = v6;
+      v12 = "Incorrect formed data. Data size (%lu) exceeded. Header size: %lu, expected bitmap size: %d, expected layer size: %d";
+      v13 = v9;
+      v14 = 34;
 LABEL_29:
-      _os_log_error_impl(&dword_1B9DEC000, v11, OS_LOG_TYPE_ERROR, v10, &v17, v12);
+      _os_log_error_impl(&dword_1B9DEC000, v13, OS_LOG_TYPE_ERROR, v12, &v20, v14);
       goto LABEL_21;
     }
 
     goto LABEL_21;
   }
 
-  if (v9 > [v4 length] || v7 + 48 >= objc_msgSend(v4, "length"))
+  v15 = [v4 length];
+  if (v10 > v15 || (v15 = [v4 length], v7 + 48 >= v15))
   {
-    v8 = IFDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = IFDefaultLog(v15);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v17 = 134219008;
-      v18 = v7 + 48;
-      v19 = 2048;
-      v20 = v6;
-      v21 = 2048;
-      *v22 = [v4 length];
-      *&v22[8] = 2048;
-      v23 = v7;
+      v20 = 134219008;
+      v21 = v7 + 48;
+      v22 = 2048;
+      v23 = v6;
       v24 = 2048;
-      v25 = v6;
-      v10 = "Incorrect formed layer data. Range: [%lu - %lu], bounds: [0 - %lu], expected bitmap size: %lu, expected layer size: %lu";
-      v11 = v8;
-      v12 = 52;
+      *v25 = [v4 length];
+      *&v25[8] = 2048;
+      v26 = v7;
+      v27 = 2048;
+      v28 = v6;
+      v12 = "Incorrect formed layer data. Range: [%lu - %lu], bounds: [0 - %lu], expected bitmap size: %lu, expected layer size: %lu";
+      v13 = v9;
+      v14 = 52;
       goto LABEL_29;
     }
 
 LABEL_21:
-    v14 = 0;
+    v17 = 0;
     goto LABEL_22;
   }
 
-  v13 = [v4 subdataWithRange:{v7 + 48, v6}];
-  v8 = v13;
-  if (v13)
+  v16 = [v4 subdataWithRange:{v7 + 48, v6}];
+  v9 = v16;
+  if (v16)
   {
-    v8 = v13;
-    v14 = v8;
+    v9 = v16;
+    v17 = v9;
   }
 
   else
   {
-    v16 = IFDefaultLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v19 = IFDefaultLog(0);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       +[IFImage _layerDataFromIFImageData:];
     }
 
-    v14 = 0;
+    v17 = 0;
   }
 
 LABEL_22:
 
-  return v14;
+  return v17;
 }
 
 - (IFImage)initWithCoder:(id)coder
@@ -543,10 +546,11 @@ LABEL_22:
 
 + (CGImage)escapingCGImageWithCGImage:(CGImage *)image
 {
-  if (CGImageGetProperty() == *MEMORY[0x1E695E4D0])
+  Property = CGImageGetProperty();
+  if (Property == *MEMORY[0x1E695E4D0])
   {
-    v5 = IFDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = IFDefaultLog(Property);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       +[IFImage escapingCGImageWithCGImage:];
     }
@@ -554,10 +558,10 @@ LABEL_22:
     CGImageGetWidth(image);
     CGImageGetHeight(image);
     CGImageGetImageProvider();
-    v6 = CGImageProviderCopyImageBlockSet();
-    if (v6)
+    v7 = CGImageProviderCopyImageBlockSet();
+    if (v7)
     {
-      [[ISCGImageBlockSet alloc] initWithBlockSet:v6];
+      [[ISCGImageBlockSet alloc] initWithBlockSet:v7];
       CGImageBlockSetRelease();
       CGImageProviderGetSize();
       CGImageProviderGetComponentType();
@@ -567,17 +571,17 @@ LABEL_22:
         +[IFImage escapingCGImageWithCGImage:];
       }
 
-      v7 = CGImageProviderAuxInfo_auxiliaryInfo;
-      v8 = CGImageProviderCreate();
-      if (v8)
+      v8 = CGImageProviderAuxInfo_auxiliaryInfo;
+      v9 = CGImageProviderCreate();
+      if (v9)
       {
-        v9 = v8;
-        v10 = CGImageCreateWithImageProvider();
-        CFRelease(v9);
-        if (v10)
+        v10 = v9;
+        v11 = CGImageCreateWithImageProvider();
+        CFRelease(v10);
+        if (v11)
         {
-          CFAutorelease(v10);
-          return v10;
+          CFAutorelease(v11);
+          return v11;
         }
       }
     }

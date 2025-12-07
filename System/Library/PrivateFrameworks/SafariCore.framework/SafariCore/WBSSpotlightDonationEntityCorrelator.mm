@@ -36,7 +36,7 @@
 {
   itemCopy = item;
   selfCopy = self;
-  sub_1B855A77C(itemCopy);
+  sub_1B855A77C(itemCopy, 0x4579726F74736948, 0xED0000797469746ELL);
 }
 
 - (void)correlateBookmarkEntityForItem:(id)item withUUIDString:(id)string
@@ -61,17 +61,18 @@
 
 - (void)correlateReadingListEntityForItem:(id)item withUUIDString:(id)string
 {
-  sub_1B8565DA8();
+  v6 = sub_1B8565DA8();
+  v8 = v7;
   itemCopy = item;
   selfCopy = self;
-  sub_1B855A63C(itemCopy);
+  sub_1B855A63C(itemCopy, v6, v8);
 }
 
 - (void)correlateTabEntityForItem:(id)item
 {
   itemCopy = item;
   selfCopy = self;
-  sub_1B855A77C(itemCopy);
+  sub_1B855A77C(itemCopy, 0x7469746E45626154, 0xE900000000000079);
 }
 
 @end

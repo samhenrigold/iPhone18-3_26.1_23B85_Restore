@@ -43,7 +43,7 @@ void __48__EFFileLogger__ensureCustomLogFileInDirectory___block_invoke()
 
 void __48__EFFileLogger__ensureCustomLogFileInDirectory___block_invoke_2(uint64_t a1)
 {
-  v18[6] = *MEMORY[0x1E69E9840];
+  v17[6] = *MEMORY[0x1E69E9840];
   v2 = _ensureCustomLogFileInDirectory__knownCustomNames;
   v3 = [*(a1 + 32) filename];
   LOBYTE(v2) = [v2 containsObject:v3];
@@ -54,34 +54,32 @@ void __48__EFFileLogger__ensureCustomLogFileInDirectory___block_invoke_2(uint64_
     DAMigrateLogsIfNeeded();
     v5 = *MEMORY[0x1E69998D8];
     v6 = *(a1 + 32);
-    v18[0] = *(a1 + 40);
+    v17[0] = *(a1 + 40);
     v7 = *MEMORY[0x1E69998E0];
-    v17[0] = v5;
-    v17[1] = v7;
+    v16[0] = v5;
+    v16[1] = v7;
     v8 = [v6 filename];
-    v18[1] = v8;
-    v18[2] = &unk_1F45ACFB0;
+    v17[1] = v8;
+    v17[2] = &unk_1F45ACFB0;
     v9 = *MEMORY[0x1E69998F8];
-    v17[2] = *MEMORY[0x1E69998E8];
-    v17[3] = v9;
-    v18[3] = *MEMORY[0x1E695E4C0];
-    v17[4] = *MEMORY[0x1E69998D0];
+    v16[2] = *MEMORY[0x1E69998E8];
+    v16[3] = v9;
+    v17[3] = *MEMORY[0x1E695E4C0];
+    v16[4] = *MEMORY[0x1E69998D0];
     v10 = _Block_copy(v4);
-    v17[5] = *MEMORY[0x1E69998F0];
-    v18[4] = v10;
-    v18[5] = &unk_1F45ACFC8;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:6];
+    v16[5] = *MEMORY[0x1E69998F0];
+    v17[4] = v10;
+    v17[5] = &unk_1F45ACFC8;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:6];
 
     v12 = [*(a1 + 32) filename];
-    v16 = v12;
-    MEMORY[0x1C6956E00]([MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1], v11);
+    v15 = v12;
+    MEMORY[0x1C6956E00]([MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1], v11);
 
     v13 = _ensureCustomLogFileInDirectory__knownCustomNames;
     v14 = [*(a1 + 32) filename];
     [v13 addObject:v14];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (EFFileLogger)initWithFilename:(id)filename directory:(id)directory

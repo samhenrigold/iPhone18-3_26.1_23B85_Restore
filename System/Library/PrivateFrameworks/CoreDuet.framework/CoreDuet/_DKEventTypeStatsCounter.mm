@@ -23,7 +23,6 @@
 
 - (void)incrementCountWithTypeValue:(uint64_t)value
 {
-  v14 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (value)
   {
@@ -45,8 +44,6 @@
       [OUTLINED_FUNCTION_5_11() trackEventWithPropertyValues:? value:?];
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)eventName
@@ -93,7 +90,7 @@
 
 - (void)incrementCountByNumber:(void *)number typeValue:
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   numberCopy = number;
   if (self)
   {
@@ -108,15 +105,13 @@
         Property = objc_getProperty(v8, v9, v10, v11);
       }
 
-      v16[0] = numberCopy;
+      v15[0] = numberCopy;
       v12 = MEMORY[0x1E695DEC8];
       v13 = Property;
-      v14 = [v12 arrayWithObjects:v16 count:1];
+      v14 = [v12 arrayWithObjects:v15 count:1];
       OUTLINED_FUNCTION_11_6(v14);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

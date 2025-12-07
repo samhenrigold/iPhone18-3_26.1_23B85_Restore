@@ -27,7 +27,7 @@
 
 - (void)sendPayload:(id)payload completion:(id)completion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   completionCopy = completion;
   v8 = _CDPSignpostLogSystem();
@@ -46,14 +46,14 @@
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v31 = v9;
+    v30 = v9;
     _os_log_impl(&dword_24510B000, v14, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: SecureChannelSendPayload  enableTelemetry=YES ", buf, 0xCu);
   }
 
   v15 = MEMORY[0x277CBEB38];
-  v28 = @"CDPChannelTTSUPayloadKey";
-  v29 = payloadCopy;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+  v27 = @"CDPChannelTTSUPayloadKey";
+  v28 = payloadCopy;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
   v17 = [v15 dictionaryWithDictionary:v16];
 
   telemetryFlowID = [(CDPContext *)self->_cdpContext telemetryFlowID];
@@ -71,30 +71,28 @@
   }
 
   sharingSession = self->_sharingSession;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __41__CDPTTSUChannel_sendPayload_completion___block_invoke;
-  v24[3] = &unk_278E24D40;
-  v26 = v9;
-  v27 = v11;
-  v24[4] = self;
-  v25 = completionCopy;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __41__CDPTTSUChannel_sendPayload_completion___block_invoke;
+  v23[3] = &unk_278E24D40;
+  v25 = v9;
+  v26 = v11;
+  v23[4] = self;
+  v24 = completionCopy;
   v22 = completionCopy;
-  [(CUMessageSession *)sharingSession sendRequestID:@"CDPChannelTTSURequestID" options:MEMORY[0x277CBEC10] request:v17 responseHandler:v24];
-
-  v23 = *MEMORY[0x277D85DE8];
+  [(CUMessageSession *)sharingSession sendRequestID:@"CDPChannelTTSURequestID" options:MEMORY[0x277CBEC10] request:v17 responseHandler:v23];
 }
 
 void __41__CDPTTSUChannel_sendPayload_completion___block_invoke(void *a1, int a2, uint64_t a3, void *a4)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v6 = a4;
   v7 = _CDPLogSystem();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v36 = 138412290;
-    v37 = v6;
-    _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "Response received: %@", &v36, 0xCu);
+    v33 = 138412290;
+    v34 = v6;
+    _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "Response received: %@", &v33, 0xCu);
   }
 
   v8 = [v6 objectForKeyedSubscript:@"CDPChannelTTSUPayloadBackupRecordsExistKey"];
@@ -131,97 +129,93 @@ void __41__CDPTTSUChannel_sendPayload_completion___block_invoke(void *a1, int a2
     v16 = _CDPLogSystem();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v36) = 0;
+      LOWORD(v33) = 0;
     }
   }
 
-  v17 = a1[6];
-  v18 = a1[7];
   Nanoseconds = _CDPSignpostGetNanoseconds();
-  v20 = _CDPSignpostLogSystem();
-  v21 = v20;
-  v22 = a1[6];
-  if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+  v18 = _CDPSignpostLogSystem();
+  v19 = v18;
+  v20 = a1[6];
+  if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
-    LOWORD(v36) = 0;
-    _os_signpost_emit_with_name_impl(&dword_24510B000, v21, OS_SIGNPOST_INTERVAL_END, v22, "SecureChannelSendPayload", "", &v36, 2u);
+    LOWORD(v33) = 0;
+    _os_signpost_emit_with_name_impl(&dword_24510B000, v19, OS_SIGNPOST_INTERVAL_END, v20, "SecureChannelSendPayload", "", &v33, 2u);
   }
 
-  v23 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v21 = _CDPSignpostLogSystem();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = a1[6];
-    v36 = 134218240;
-    v37 = v24;
-    v38 = 2048;
-    v39 = Nanoseconds / 1000000000.0;
-    _os_log_impl(&dword_24510B000, v23, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: SecureChannelSendPayload ", &v36, 0x16u);
+    v22 = a1[6];
+    v33 = 134218240;
+    v34 = v22;
+    v35 = 2048;
+    v36 = Nanoseconds / 1000000000.0;
+    _os_log_impl(&dword_24510B000, v21, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: SecureChannelSendPayload ", &v33, 0x16u);
   }
 
   if (a2)
   {
-    v25 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:a2 userInfo:0];
+    v23 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:a2 userInfo:0];
   }
 
   else
   {
-    v25 = 0;
+    v23 = 0;
   }
 
-  v26 = [v6 objectForKeyedSubscript:@"CDPChannelTTSUPayloadKey"];
-  if (v25)
+  v24 = [v6 objectForKeyedSubscript:@"CDPChannelTTSUPayloadKey"];
+  if (v23)
   {
-    v27 = _CDPLogSystem();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    v25 = _CDPLogSystem();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
-      __41__CDPTTSUChannel_sendPayload_completion___block_invoke_cold_3(v25, v27);
+      __41__CDPTTSUChannel_sendPayload_completion___block_invoke_cold_3(v23, v25);
     }
 
-    v28 = a1[5];
-    if (v28)
-    {
-      v29 = *(v28 + 16);
-LABEL_33:
-      v29();
-    }
-  }
-
-  else
-  {
-    v30 = _CDPLogSystem();
-    v31 = v30;
+    v26 = a1[5];
     if (v26)
     {
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+      v27 = *(v26 + 16);
+LABEL_33:
+      v27();
+    }
+  }
+
+  else
+  {
+    v28 = _CDPLogSystem();
+    v29 = v28;
+    if (v24)
+    {
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
-        __41__CDPTTSUChannel_sendPayload_completion___block_invoke_cold_4(v26, v31);
+        __41__CDPTTSUChannel_sendPayload_completion___block_invoke_cold_4(v24, v29);
       }
 
-      v32 = a1[5];
-      if (v32)
+      v30 = a1[5];
+      if (v30)
       {
-        v29 = *(v32 + 16);
+        v27 = *(v30 + 16);
         goto LABEL_33;
       }
     }
 
     else
     {
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
       {
-        __41__CDPTTSUChannel_sendPayload_completion___block_invoke_cold_5(v31);
+        __41__CDPTTSUChannel_sendPayload_completion___block_invoke_cold_5(v29);
       }
 
-      v34 = a1[5];
-      if (v34)
+      v31 = a1[5];
+      if (v31)
       {
-        v35 = [MEMORY[0x277CCA9B8] cdp_errorWithCode:-5320];
-        (*(v34 + 16))(v34, 0, v35);
+        v32 = [MEMORY[0x277CCA9B8] cdp_errorWithCode:-5320];
+        (*(v31 + 16))(v31, 0, v32);
       }
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)listenForPayloadsWithHandler:(id)handler
@@ -248,14 +242,14 @@ LABEL_33:
 
 void __47__CDPTTSUChannel_listenForPayloadsWithHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = _CDPLogSystem();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v32 = v6;
+    v31 = v6;
     _os_log_impl(&dword_24510B000, v8, OS_LOG_TYPE_DEFAULT, "Payload received from requestor: %@", buf, 0xCu);
   }
 
@@ -278,32 +272,32 @@ void __47__CDPTTSUChannel_listenForPayloadsWithHandler___block_invoke(uint64_t a
   }
 
   v15 = *(a1 + 40);
+  v24 = 0;
   v25 = 0;
-  v26 = 0;
   (*(v15 + 16))();
-  v16 = v26;
-  v17 = v25;
+  v16 = v25;
+  v17 = v24;
   if (v16)
   {
     v18 = *(a1 + 32);
     if (*(v18 + 24))
     {
-      v27 = @"CDPChannelTTSUPayloadKey";
-      v28 = v16;
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+      v26 = @"CDPChannelTTSUPayloadKey";
+      v27 = v16;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
     }
 
     else
     {
-      v30[0] = v16;
-      v29[0] = @"CDPChannelTTSUPayloadKey";
-      v29[1] = @"CDPChannelTTSUPayloadBackupRecordsExistKey";
+      v29[0] = v16;
+      v28[0] = @"CDPChannelTTSUPayloadKey";
+      v28[1] = @"CDPChannelTTSUPayloadBackupRecordsExistKey";
       v20 = [MEMORY[0x277CCABB0] numberWithBool:*(v18 + 8)];
-      v30[1] = v20;
-      v29[2] = @"CDPChannelTTSUPayloadiCloudKeychainEnabledKey";
+      v29[1] = v20;
+      v28[2] = @"CDPChannelTTSUPayloadiCloudKeychainEnabledKey";
       v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(*(a1 + 32) + 16)];
-      v30[2] = v21;
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:3];
+      v29[2] = v21;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:3];
 
       *(*(a1 + 32) + 24) = 1;
     }
@@ -318,7 +312,7 @@ void __47__CDPTTSUChannel_listenForPayloadsWithHandler___block_invoke(uint64_t a
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v32 = v19;
+    v31 = v19;
     _os_log_impl(&dword_24510B000, v22, OS_LOG_TYPE_DEFAULT, "Sending response to requestor: %@", buf, 0xCu);
   }
 
@@ -333,46 +327,39 @@ void __47__CDPTTSUChannel_listenForPayloadsWithHandler___block_invoke(uint64_t a
   }
 
   v7[2](v7, v23, MEMORY[0x277CBEC10], v19);
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __41__CDPTTSUChannel_sendPayload_completion___block_invoke_cold_1(char a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1 & 1;
-  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "Setting _approverBackupRecordsExist = %{BOOL}d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1 & 1;
+  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "Setting _approverBackupRecordsExist = %{BOOL}d", v2, 8u);
 }
 
 void __41__CDPTTSUChannel_sendPayload_completion___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "Setting _approveriCloudKeychainState = %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "Setting _approveriCloudKeychainState = %ld", &v2, 0xCu);
 }
 
 void __41__CDPTTSUChannel_sendPayload_completion___block_invoke_cold_3(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 localizedDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "CDPTTSUChannel: Received error: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "CDPTTSUChannel: Received error: %@", &v4, 0xCu);
 }
 
 void __41__CDPTTSUChannel_sendPayload_completion___block_invoke_cold_4(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "CDPTTSUChannel: Recieved reply: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "CDPTTSUChannel: Recieved reply: %@", &v2, 0xCu);
 }
 
 @end

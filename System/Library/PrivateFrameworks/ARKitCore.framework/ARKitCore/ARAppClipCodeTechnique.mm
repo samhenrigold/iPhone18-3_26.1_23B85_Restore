@@ -28,7 +28,7 @@
     v5->_urlDecoder = v8;
 
     v5->_prepared = 0;
-    v10 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.accresults");
+    v10 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.accresults", 0xFFFFFFFFLL);
     resultDispatchingQueue = v5->_resultDispatchingQueue;
     v5->_resultDispatchingQueue = v10;
   }
@@ -38,56 +38,56 @@
 
 - (void)dealloc
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (self->_appClipCodeSession)
   {
-    v3 = _ARLogTechnique();
+    v3 = _ARLogTechnique(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       v4 = objc_opt_class();
       v5 = NSStringFromClass(v4);
       appClipCodeSession = self->_appClipCodeSession;
       *buf = 138543874;
-      v12 = v5;
-      v13 = 2048;
+      v13 = v5;
+      v14 = 2048;
       selfCopy2 = self;
-      v15 = 2048;
-      v16 = appClipCodeSession;
+      v16 = 2048;
+      v17 = appClipCodeSession;
       _os_log_impl(&dword_1C241C000, v3, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Releasing app clip code session: %p …", buf, 0x20u);
     }
 
-    AppC3DRelease();
-    v7 = _ARLogTechnique();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v7 = AppC3DRelease();
+    v8 = _ARLogTechnique(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
       *buf = 138543618;
-      v12 = v9;
-      v13 = 2048;
+      v13 = v10;
+      v14 = 2048;
       selfCopy2 = self;
-      _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: App clip code session released", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: App clip code session released", buf, 0x16u);
     }
   }
 
-  v10.receiver = self;
-  v10.super_class = ARAppClipCodeTechnique;
-  [(ARAppClipCodeTechnique *)&v10 dealloc];
+  v11.receiver = self;
+  v11.super_class = ARAppClipCodeTechnique;
+  [(ARAppClipCodeTechnique *)&v11 dealloc];
 }
 
 - (void)prepare:(BOOL)prepare
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   if (self->_prepared)
   {
-    v4 = _ARLogTechnique();
+    v4 = _ARLogTechnique(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       v5 = objc_opt_class();
       v6 = NSStringFromClass(v5);
       *buf = 138543618;
-      v37 = v6;
-      v38 = 2048;
+      v40 = v6;
+      v41 = 2048;
       selfCopy6 = self;
       _os_log_impl(&dword_1C241C000, v4, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: App clip code session already exists, not recreating it.", buf, 0x16u);
     }
@@ -109,126 +109,128 @@
       AppC3DConfigSetTrackingConfig();
     }
 
-    if ([ARAppClipCodeTechnique shouldRunCameraOrScannerPerformanceTestingMode:0])
+    v9 = [ARAppClipCodeTechnique shouldRunCameraOrScannerPerformanceTestingMode:0];
+    if (v9)
     {
-      v9 = _ARLogTechnique();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v10 = _ARLogTechnique(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v10 = objc_opt_class();
-        v11 = NSStringFromClass(v10);
-        v12 = @"scanner";
+        v11 = objc_opt_class();
+        v12 = NSStringFromClass(v11);
+        v13 = @"scanner";
         *buf = 138543874;
-        v37 = v11;
+        v40 = v12;
         if (v8 == 1)
         {
-          v12 = @"camera";
+          v13 = @"camera";
         }
 
-        v38 = 2048;
+        v41 = 2048;
         selfCopy6 = self;
-        v40 = 2112;
-        *v41 = v12;
-        _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Running in '%@' performance test mode", buf, 0x20u);
+        v43 = 2112;
+        *v44 = v13;
+        _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Running in '%@' performance test mode", buf, 0x20u);
       }
 
-      v13 = 0;
+      v14 = 0;
     }
 
     else
     {
-      v13 = 1;
+      v14 = 1;
     }
 
-    AppC3DConfigSetTrackingMode();
-    if (v33)
+    v15 = AppC3DConfigSetTrackingMode();
+    if (v36)
     {
       if (ARShouldUseLogTypeError_onceToken_5 != -1)
       {
         [ARAppClipCodeTechnique prepare:];
       }
 
-      v14 = ARShouldUseLogTypeError_internalOSVersion_5;
-      v15 = _ARLogTechnique();
-      v16 = v15;
-      if (v14 == 1)
+      v16 = ARShouldUseLogTypeError_internalOSVersion_5;
+      v17 = _ARLogTechnique(v15);
+      v18 = v17;
+      if (v16 == 1)
       {
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          v17 = objc_opt_class();
-          v18 = NSStringFromClass(v17);
+          v19 = objc_opt_class();
+          v20 = NSStringFromClass(v19);
           *buf = 138544130;
-          v37 = v18;
-          v38 = 2048;
+          v40 = v20;
+          v41 = 2048;
           selfCopy6 = self;
-          v40 = 1024;
-          *v41 = v13;
-          *&v41[4] = 2112;
-          *&v41[6] = v33;
-          _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not set app clip code config tracking mode to: %d failed with error: %@", buf, 0x26u);
+          v43 = 1024;
+          *v44 = v14;
+          *&v44[4] = 2112;
+          *&v44[6] = v36;
+          _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Could not set app clip code config tracking mode to: %d failed with error: %@", buf, 0x26u);
         }
       }
 
-      else if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
-        v19 = objc_opt_class();
-        v20 = NSStringFromClass(v19);
+        v21 = objc_opt_class();
+        v22 = NSStringFromClass(v21);
         *buf = 138544130;
-        v37 = v20;
-        v38 = 2048;
+        v40 = v22;
+        v41 = 2048;
         selfCopy6 = self;
-        v40 = 1024;
-        *v41 = v13;
-        *&v41[4] = 2112;
-        *&v41[6] = v33;
-        _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Could not set app clip code config tracking mode to: %d failed with error: %@", buf, 0x26u);
+        v43 = 1024;
+        *v44 = v14;
+        *&v44[4] = 2112;
+        *&v44[6] = v36;
+        _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Could not set app clip code config tracking mode to: %d failed with error: %@", buf, 0x26u);
       }
 
       AppC3DConfigRelease();
       delegate = [(ARTechnique *)self delegate];
-      v22 = ARErrorWithCodeAndUserInfo(151, 0);
-      [delegate technique:self didFailWithError:v22];
+      v24 = ARErrorWithCodeAndUserInfo(151, 0);
+      [delegate technique:self didFailWithError:v24];
     }
 
     else
     {
       AppC3DConfigSetMaxNumberCodesToTrack();
-      v34 = *MEMORY[0x1E698AAE0];
-      v23 = [MEMORY[0x1E696AD98] numberWithBool:prepareCopy];
-      v35 = v23;
-      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+      v37 = *MEMORY[0x1E698AAE0];
+      v25 = [MEMORY[0x1E696AD98] numberWithBool:prepareCopy];
+      v38 = v25;
+      v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
       appClipCodeTrackingOptions = self->_appClipCodeTrackingOptions;
-      self->_appClipCodeTrackingOptions = v24;
+      self->_appClipCodeTrackingOptions = v26;
 
       AppC3DCreate();
       AppC3DConfigRelease();
       AppC3DSetUpdateCallback();
       [(ARAppClipCodeTechnique *)self setPowerUsage:[(ARTechnique *)self powerUsage]];
       deterministicMode = [(ARAppClipCodeTechnique *)self deterministicMode];
-      v27 = _ARLogTechnique();
-      v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG);
-      if (deterministicMode)
+      v29 = deterministicMode;
+      v30 = _ARLogTechnique(deterministicMode);
+      v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG);
+      if (v29)
       {
-        if (v28)
+        if (v31)
         {
-          v29 = objc_opt_class();
-          v30 = NSStringFromClass(v29);
+          v32 = objc_opt_class();
+          v33 = NSStringFromClass(v32);
           *buf = 138543618;
-          v37 = v30;
-          v38 = 2048;
+          v40 = v33;
+          v41 = 2048;
           selfCopy6 = self;
-          _os_log_impl(&dword_1C241C000, v27, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: prepared for deterministic mode.", buf, 0x16u);
+          _os_log_impl(&dword_1C241C000, v30, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: prepared for deterministic mode.", buf, 0x16u);
         }
       }
 
-      else if (v28)
+      else if (v31)
       {
-        v31 = objc_opt_class();
-        v32 = NSStringFromClass(v31);
+        v34 = objc_opt_class();
+        v35 = NSStringFromClass(v34);
         *buf = 138543618;
-        v37 = v32;
-        v38 = 2048;
+        v40 = v35;
+        v41 = 2048;
         selfCopy6 = self;
-        _os_log_impl(&dword_1C241C000, v27, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: prepared for non-deterministic mode.", buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v30, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: prepared for non-deterministic mode.", buf, 0x16u);
       }
 
       self->_prepared = 1;
@@ -260,7 +262,7 @@
   {
     [v6 visionTransform];
     IsZero = ARMatrix4x4IsZero(v8, v9, v10, v11);
-    [v7 timestamp];
+    objc_msgSend_timestamp(v7);
     if (!IsZero)
     {
       kdebug_trace();
@@ -270,7 +272,7 @@
       [v7 visionTransform];
       v21 = [ARAppClipCodeTechnique shouldRunCameraOrScannerPerformanceTestingMode:ARMatrix4x4RowMajorRotationAndTranslation(v27];
       [v7 pixelBuffer];
-      [v7 timestamp];
+      objc_msgSend_timestamp(v7);
       if (v21)
       {
         AppC3DProcessCameraFrameData();
@@ -287,13 +289,13 @@
     }
 
     [(ARImageBasedTechnique *)self pushResultData:MEMORY[0x1E695E0F0] forTimestamp:?];
-    [v7 timestamp];
+    objc_msgSend_timestamp(v7);
     kdebug_trace();
   }
 
   else
   {
-    [v6 timestamp];
+    objc_msgSend_timestamp(v6);
     [(ARImageBasedTechnique *)self pushResultData:MEMORY[0x1E695E0F0] forTimestamp:?];
   }
 
@@ -332,10 +334,10 @@ LABEL_13:
 
 - (void)setPowerUsage:(unint64_t)usage
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = ARAppClipCodeTechnique;
-  [(ARTechnique *)&v9 setPowerUsage:?];
+  v19 = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = ARAppClipCodeTechnique;
+  [(ARTechnique *)&v10 setPowerUsage:?];
   if (self->_appClipCodeSession)
   {
     if (usage == 1)
@@ -348,21 +350,21 @@ LABEL_13:
       v5 = 2 * (usage == 2);
     }
 
-    AppC3DSetPerformanceMode();
-    v6 = _ARLogTechnique();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v6 = AppC3DSetPerformanceMode();
+    v7 = _ARLogTechnique(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
       *buf = 138544130;
-      v11 = v8;
-      v12 = 2048;
+      v12 = v9;
+      v13 = 2048;
       selfCopy = self;
-      v14 = 2048;
+      v15 = 2048;
       selfCopy2 = self;
-      v16 = 1024;
-      v17 = v5;
-      _os_log_impl(&dword_1C241C000, v6, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: ARAppClipCodeTechnique(%p): Setting performance mode %i.", buf, 0x26u);
+      v17 = 1024;
+      v18 = v5;
+      _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: ARAppClipCodeTechnique(%p): Setting performance mode %i.", buf, 0x26u);
     }
   }
 }

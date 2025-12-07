@@ -12,12 +12,10 @@
 
 - (NSString)authTokenHeaderKey
 {
-  v2 = *(self + OBJC_IVAR___NDOCoverageCentralViewController_authTokenHeaderKey);
-  v3 = *(self + OBJC_IVAR___NDOCoverageCentralViewController_authTokenHeaderKey + 8);
 
-  v4 = sub_25BDDFE38();
+  v2 = sub_25BDDFE38();
 
-  return v4;
+  return v2;
 }
 
 - (void)setEmbeddedController:(id)controller
@@ -92,7 +90,7 @@
 
   selfCopy = self;
   NDOCoverageCentralViewController.handleURL(_:withCompletion:)(l, v8, v7);
-  sub_25BDA8480(v8);
+  sub_25BDA8480(v8, v7);
 }
 
 @end

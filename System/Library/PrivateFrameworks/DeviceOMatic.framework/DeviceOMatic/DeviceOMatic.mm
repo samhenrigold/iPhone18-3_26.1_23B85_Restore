@@ -25,7 +25,7 @@ uint64_t DOMRegisterForMatching(uint64_t a1, void *a2, void *a3, void *a4)
 
 void __DOMRegisterForMatching_block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   CFStringGetCString(*(a1 + 56), buffer, 256, 0x8000100u);
   mach_service = xpc_connection_create_mach_service(buffer, *(a1 + 32), 1uLL);
   v3 = DOMRegisterForMatching_listener;
@@ -36,12 +36,10 @@ void __DOMRegisterForMatching_block_invoke(uint64_t a1)
   handler[1] = 3221225472;
   handler[2] = __DOMRegisterForMatching_block_invoke_2;
   handler[3] = &unk_278F5FE30;
-  v7 = *(a1 + 40);
-  v8 = *(a1 + 48);
+  v6 = *(a1 + 40);
+  v7 = *(a1 + 48);
   xpc_connection_set_event_handler(v4, handler);
   xpc_connection_resume(DOMRegisterForMatching_listener);
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __DOMRegisterForMatching_block_invoke_2(uint64_t a1, void *a2)
@@ -149,7 +147,7 @@ LABEL_14:
 
 id NSLocalizedString(void *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CCA8D8] mainBundle];
   v3 = v2;
@@ -179,30 +177,30 @@ id NSLocalizedString(void *a1)
 
 LABEL_19:
 LABEL_20:
-    v13 = [v3 localizedStringForKey:v1 value:v1 table:{@"Localizable", v16}];
+    v13 = [v3 localizedStringForKey:v1 value:v1 table:{@"Localizable", v15}];
     goto LABEL_21;
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [v3 localizedStringForKey:v1 value:0 table:@"Localizable" localization:{*(*(&v16 + 1) + 8 * i), v16}];
+        v12 = [v3 localizedStringForKey:v1 value:0 table:@"Localizable" localization:{*(*(&v15 + 1) + 8 * i), v15}];
         if (v12)
         {
           v13 = v12;
@@ -210,7 +208,7 @@ LABEL_20:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v9)
       {
         continue;
@@ -230,12 +228,10 @@ LABEL_16:
 
 LABEL_21:
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
-uint64_t getLogHandle()
+uint64_t getLogHandle(uint64_t a1, uint64_t a2)
 {
   if (getLogHandle_onceToken != -1)
   {
@@ -392,23 +388,23 @@ LABEL_25:
 
 uint64_t serviceIsAttachedToRemovableDevice(io_object_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v10 = __serviceIsAttachedToRemovableDevice_block_invoke;
-  v11 = &unk_278F5FEA0;
-  v12 = &v13;
-  v2 = v9;
-  v18 = 0;
-  v10();
-  if ((v18 & 1) == 0)
+  v19 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v9 = __serviceIsAttachedToRemovableDevice_block_invoke;
+  v10 = &unk_278F5FEA0;
+  v11 = &v12;
+  v2 = v8;
+  v17 = 0;
+  v9();
+  if ((v17 & 1) == 0)
   {
     IOObjectRetain(a1);
-    if ((v18 & 1) == 0)
+    if ((v17 & 1) == 0)
     {
       while (1)
       {
@@ -426,8 +422,8 @@ uint64_t serviceIsAttachedToRemovableDevice(io_object_t a1)
           goto LABEL_9;
         }
 
-        (v10)(v2, parent, &v18);
-        if (v18 == 1)
+        (v9)(v2, parent, &v17);
+        if (v17 == 1)
         {
           IOObjectRelease(a1);
           goto LABEL_9;
@@ -445,9 +441,8 @@ uint64_t serviceIsAttachedToRemovableDevice(io_object_t a1)
 
 LABEL_9:
 
-  v6 = *(v14 + 24);
-  _Block_object_dispose(&v13, 8);
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *(v13 + 24);
+  _Block_object_dispose(&v12, 8);
   return v6;
 }
 
@@ -493,7 +488,7 @@ __CFDictionary *propertiesForRegistryEntryID(uint64_t a1)
 
 uint64_t getAllChildren(uint64_t a1, __CFDictionary *a2, void *a3)
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (getAllChildren_onceToken != -1)
   {
@@ -513,11 +508,11 @@ uint64_t getAllChildren(uint64_t a1, __CFDictionary *a2, void *a3)
   if (v8)
   {
     v9 = v8;
-    v35 = 0;
+    v34 = 0;
     v10 = MEMORY[0x277D86220];
-    v29 = a2;
-    v30 = v5;
-    v33 = v7;
+    v28 = a2;
+    v29 = v5;
+    v32 = v7;
     do
     {
       IOServiceWaitQuiet(v9, 0);
@@ -536,11 +531,11 @@ uint64_t getAllChildren(uint64_t a1, __CFDictionary *a2, void *a3)
           if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v53 = key;
+            v52 = key;
             _os_log_impl(&dword_248945000, v10, OS_LOG_TYPE_DEFAULT, "%@ matches via IOServiceMatchPropertyTable", buf, 0xCu);
           }
 
-          v35 = 1;
+          v34 = 1;
         }
       }
 
@@ -551,52 +546,52 @@ uint64_t getAllChildren(uint64_t a1, __CFDictionary *a2, void *a3)
         CFDictionarySetValue(a2, key, *matches);
       }
 
-      if (!((v5 == 0) | v35 & 1))
+      if (!((v5 == 0) | v34 & 1))
       {
-        v31 = v9;
-        v39 = [v5 count];
+        v30 = v9;
+        v38 = [v5 count];
+        v44 = 0u;
         v45 = 0u;
         v46 = 0u;
         v47 = 0u;
-        v48 = 0u;
         obj = v7;
-        v37 = [(__CFDictionary *)obj countByEnumeratingWithState:&v45 objects:v63 count:16];
-        if (v37)
+        v36 = [(__CFDictionary *)obj countByEnumeratingWithState:&v44 objects:v62 count:16];
+        if (v36)
         {
           v11 = 0;
-          v35 = 0;
-          v36 = *v46;
+          v34 = 0;
+          v35 = *v45;
           do
           {
-            for (i = 0; i != v37; ++i)
+            for (i = 0; i != v36; ++i)
             {
-              if (*v46 != v36)
+              if (*v45 != v35)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v13 = *(*(&v45 + 1) + 8 * i);
+              v13 = *(*(&v44 + 1) + 8 * i);
+              v40 = 0u;
               v41 = 0u;
               v42 = 0u;
               v43 = 0u;
-              v44 = 0u;
               v14 = *matches;
-              v15 = [v14 countByEnumeratingWithState:&v41 objects:v62 count:16];
+              v15 = [v14 countByEnumeratingWithState:&v40 objects:v61 count:16];
               if (v15)
               {
                 v16 = v15;
-                v38 = i;
-                v17 = *v42;
+                v37 = i;
+                v17 = *v41;
                 while (2)
                 {
                   for (j = 0; j != v16; ++j)
                   {
-                    if (*v42 != v17)
+                    if (*v41 != v17)
                     {
                       objc_enumerationMutation(v14);
                     }
 
-                    v19 = *(*(&v41 + 1) + 8 * j);
+                    v19 = *(*(&v40 + 1) + 8 * j);
                     if ([(__CFDictionary *)v13 isEqualToString:v19])
                     {
                       v20 = v10;
@@ -605,15 +600,15 @@ uint64_t getAllChildren(uint64_t a1, __CFDictionary *a2, void *a3)
                         v21 = [(__CFDictionary *)obj objectForKey:v13];
                         v22 = [*matches objectForKey:v19];
                         *buf = 134219010;
-                        v53 = v11;
-                        v54 = 2112;
-                        v55 = v13;
-                        v56 = 2112;
-                        v57 = v19;
-                        v58 = 2112;
-                        v59 = v21;
-                        v60 = 2112;
-                        v61 = v22;
+                        v52 = v11;
+                        v53 = 2112;
+                        v54 = v13;
+                        v55 = 2112;
+                        v56 = v19;
+                        v57 = 2112;
+                        v58 = v21;
+                        v59 = 2112;
+                        v60 = v22;
                         _os_log_impl(&dword_248945000, v20, OS_LOG_TYPE_DEFAULT, "[%lu] comparing keys %@:%@ and values %@:%@", buf, 0x34u);
                       }
 
@@ -625,21 +620,21 @@ uint64_t getAllChildren(uint64_t a1, __CFDictionary *a2, void *a3)
                       {
                         ++v11;
                         v10 = v20;
-                        if (v11 == v39)
+                        if (v11 == v38)
                         {
                           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
                           {
                             *buf = 138412802;
-                            v53 = key;
-                            v54 = 2112;
-                            v55 = v33;
-                            v56 = 2112;
-                            v57 = *matches;
+                            v52 = key;
+                            v53 = 2112;
+                            v54 = v32;
+                            v55 = 2112;
+                            v56 = *matches;
                             _os_log_impl(&dword_248945000, v20, OS_LOG_TYPE_DEFAULT, "%@ MATCHED %@ with %@", buf, 0x20u);
                           }
 
-                          v35 = 1;
-                          v11 = v39;
+                          v34 = 1;
+                          v11 = v38;
                           goto LABEL_38;
                         }
                       }
@@ -651,7 +646,7 @@ uint64_t getAllChildren(uint64_t a1, __CFDictionary *a2, void *a3)
                     }
                   }
 
-                  v16 = [v14 countByEnumeratingWithState:&v41 objects:v62 count:16];
+                  v16 = [v14 countByEnumeratingWithState:&v40 objects:v61 count:16];
                   if (v16)
                   {
                     continue;
@@ -661,25 +656,25 @@ uint64_t getAllChildren(uint64_t a1, __CFDictionary *a2, void *a3)
                 }
 
 LABEL_38:
-                i = v38;
+                i = v37;
               }
             }
 
-            v37 = [(__CFDictionary *)obj countByEnumeratingWithState:&v45 objects:v63 count:16];
+            v36 = [(__CFDictionary *)obj countByEnumeratingWithState:&v44 objects:v62 count:16];
           }
 
-          while (v37);
+          while (v36);
         }
 
         else
         {
-          v35 = 0;
+          v34 = 0;
         }
 
-        a2 = v29;
-        v5 = v30;
-        v7 = v33;
-        v9 = v31;
+        a2 = v28;
+        v5 = v29;
+        v7 = v32;
+        v9 = v30;
       }
 
       CFRelease(key);
@@ -694,13 +689,12 @@ LABEL_38:
 
   else
   {
-    v35 = 0;
+    v34 = 0;
   }
 
   IOObjectRelease(iterator);
 
-  v27 = *MEMORY[0x277D85DE8];
-  return v35 & 1;
+  return v34 & 1;
 }
 
 uint64_t __getAllChildren_block_invoke()
@@ -712,7 +706,7 @@ uint64_t __getAllChildren_block_invoke()
 
 void printAllChildren(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = objc_alloc_init(MEMORY[0x277CCAB68]);
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
@@ -720,116 +714,110 @@ void printAllChildren(void *a1)
   v4 = printObjectToString(Mutable, 2, v2);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412546;
-    v7 = v1;
-    v8 = 2112;
-    v9 = v2;
-    _os_log_impl(&dword_248945000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@\nchildren: %@", &v6, 0x16u);
+    v5 = 138412546;
+    v6 = v1;
+    v7 = 2112;
+    v8 = v2;
+    _os_log_impl(&dword_248945000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@\nchildren: %@", &v5, 0x16u);
   }
 
   CFRelease(Mutable);
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void printChildSet(void *a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v14 = a1;
+  v32 = *MEMORY[0x277D85DE8];
+  v13 = a1;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = a2;
-  v16 = [obj countByEnumeratingWithState:&v23 objects:v32 count:16];
-  if (v16)
+  v15 = [obj countByEnumeratingWithState:&v22 objects:v31 count:16];
+  if (v15)
   {
-    v15 = *v24;
+    v14 = *v23;
     v3 = MEMORY[0x277D86220];
     do
     {
       v4 = 0;
       do
       {
-        if (*v24 != v15)
+        if (*v23 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = v4;
-        v5 = *(*(&v23 + 1) + 8 * v4);
+        v17 = v4;
+        v5 = *(*(&v22 + 1) + 8 * v4);
         if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v29 = v14;
-          v30 = 2112;
-          v31 = v5;
+          v28 = v13;
+          v29 = 2112;
+          v30 = v5;
           _os_log_impl(&dword_248945000, v3, OS_LOG_TYPE_DEFAULT, "%@ child %@", buf, 0x16u);
         }
 
         v6 = [obj objectForKey:v5];
+        v18 = 0u;
         v19 = 0u;
         v20 = 0u;
         v21 = 0u;
-        v22 = 0u;
-        v7 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v18 objects:v26 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v20;
+          v9 = *v19;
           do
           {
             for (i = 0; i != v8; ++i)
             {
-              if (*v20 != v9)
+              if (*v19 != v9)
               {
                 objc_enumerationMutation(v6);
               }
 
               if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
               {
-                v11 = *(*(&v19 + 1) + 8 * i);
+                v11 = *(*(&v18 + 1) + 8 * i);
                 v12 = [v6 objectForKey:v11];
                 *buf = 138412546;
-                v29 = v11;
-                v30 = 2112;
-                v31 = v12;
+                v28 = v11;
+                v29 = 2112;
+                v30 = v12;
                 _os_log_impl(&dword_248945000, v3, OS_LOG_TYPE_DEFAULT, "\tproperty %@: %@", buf, 0x16u);
               }
             }
 
-            v8 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
+            v8 = [v6 countByEnumeratingWithState:&v18 objects:v26 count:16];
           }
 
           while (v8);
         }
 
-        v4 = v18 + 1;
+        v4 = v17 + 1;
       }
 
-      while (v18 + 1 != v16);
-      v16 = [obj countByEnumeratingWithState:&v23 objects:v32 count:16];
+      while (v17 + 1 != v15);
+      v15 = [obj countByEnumeratingWithState:&v22 objects:v31 count:16];
     }
 
-    while (v16);
+    while (v15);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 id copyEntryProperties(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   properties = 0;
-  memset(v8, 0, 512);
+  memset(v7, 0, 512);
   IORegistryEntryGetNameInPlane(a1, "IOService", name);
-  MEMORY[0x24C1DDA30](a1, "IOService", v8);
+  MEMORY[0x24C1DDA30](a1, "IOService", v7);
   IORegistryEntryCreateCFProperties(a1, &properties, 0, 0);
   v2 = objc_alloc_init(MEMORY[0x277CCAB68]);
   v3 = printObjectToString(properties, 0, 0);
-  [v2 appendFormat:@"%s:\nPath:\n%s\n%@\n", name, v8, v3];
-
-  v4 = *MEMORY[0x277D85DE8];
+  [v2 appendFormat:@"%s:\nPath:\n%s\n%@\n", name, v7, v3];
 
   return v2;
 }
@@ -950,7 +938,7 @@ void logEvent(void *a1, uint64_t a2)
 
 void __logEvent_block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x24C1DDE20](*(a1 + 32));
   v3 = MEMORY[0x277D86220];
   v4 = MEMORY[0x277D86220];
@@ -968,19 +956,17 @@ void __logEvent_block_invoke(uint64_t a1)
       string = &unk_24894875F;
     }
 
-    v9 = 136315650;
-    v10 = v5;
-    v11 = 2080;
-    v12 = v6;
-    v13 = 2080;
-    v14 = string;
-    _os_log_impl(&dword_248945000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s %s %s", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = v5;
+    v10 = 2080;
+    v11 = v6;
+    v12 = 2080;
+    v13 = string;
+    _os_log_impl(&dword_248945000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s %s %s", &v8, 0x20u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void __printObjectToString_block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void __printObjectToString_block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v9 = a3;
   v5 = printObjectToString(a2, (*(a1 + 40) + 1), *(a1 + 32));
@@ -991,7 +977,7 @@ void __printObjectToString_block_invoke(uint64_t a1, uint64_t a2, void *a3)
 
 void __DOMRegisterForMatching_block_invoke_3_cold_1(void *a1, void *a2, int *a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   uint64 = xpc_dictionary_get_uint64(v5, "_LB_SERVICE_ID");
@@ -1030,8 +1016,8 @@ LABEL_21:
     Mutable = CFArrayCreateMutable(0, 0, 0);
     if (xpc_array_get_count(v14))
     {
-      v29 = v6;
-      v30 = a3;
+      v28 = v6;
+      v29 = a3;
       v16 = 0;
       v17 = MEMORY[0x277D86220];
       do
@@ -1048,7 +1034,7 @@ LABEL_21:
         else if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v32 = v18;
+          v31 = v18;
           _os_log_impl(&dword_248945000, v17, OS_LOG_TYPE_DEFAULT, "Couldn't create service for id %llx", buf, 0xCu);
         }
 
@@ -1056,8 +1042,8 @@ LABEL_21:
       }
 
       while (v16 < xpc_array_get_count(v14));
-      v6 = v29;
-      a3 = v30;
+      v6 = v28;
+      a3 = v29;
     }
 
     v21 = OUTLINED_FUNCTION_0();
@@ -1104,8 +1090,6 @@ LABEL_24:
 
 LABEL_25:
   *a3 = v25;
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __DOMRegisterForMatching_block_invoke_3_cold_2(void *a1, void *a2, int *a3)
@@ -1158,25 +1142,23 @@ void __DOMRegisterForMatching_block_invoke_3_cold_2(void *a1, void *a2, int *a3)
 
 void __DOMRegisterForMatching_block_invoke_3_cold_3(uint64_t a1, _DWORD *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 134217984;
-    v6 = a1;
-    _os_log_impl(&dword_248945000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "got weird type from LB: %lld", &v5, 0xCu);
+    v4 = 134217984;
+    v5 = a1;
+    _os_log_impl(&dword_248945000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "got weird type from LB: %lld", &v4, 0xCu);
   }
 
   *a2 = 1;
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __DOMRegisterForMatching_block_invoke_3_cold_4(int a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 67109120;
-  v2[1] = a1;
-  _os_log_error_impl(&dword_248945000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Bad juju: %d", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 67109120;
+  v1[1] = a1;
+  _os_log_error_impl(&dword_248945000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Bad juju: %d", v1, 8u);
 }
 
 void serviceIsAttachedToRemovableDevice_cold_1(uint64_t a1, uint8_t *buf)
@@ -1188,7 +1170,7 @@ void serviceIsAttachedToRemovableDevice_cold_1(uint64_t a1, uint8_t *buf)
 
 void errorEvent_cold_1(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v6 = stringForXPCType(a2);
   if (a2 == MEMORY[0x277D86480])
   {
@@ -1200,12 +1182,11 @@ void errorEvent_cold_1(uint64_t a1, uint64_t a2, void *a3)
     string = &unk_24894875F;
   }
 
-  v9 = 136315650;
-  v10 = a1;
-  v11 = 2080;
-  v12 = v6;
-  v13 = 2080;
-  v14 = string;
-  _os_log_error_impl(&dword_248945000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s %s %s", &v9, 0x20u);
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 136315650;
+  v9 = a1;
+  v10 = 2080;
+  v11 = v6;
+  v12 = 2080;
+  v13 = string;
+  _os_log_error_impl(&dword_248945000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s %s %s", &v8, 0x20u);
 }

@@ -52,7 +52,7 @@ void __75__MDMLostDeviceLocationManager_getCurrentLocationForOriginator_completi
 
   if (v2)
   {
-    v23 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D033D8] code:7000 userInfo:0];
+    v22 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D033D8] code:7000 userInfo:0];
     (*(*(a1 + 48) + 16))();
   }
 
@@ -60,48 +60,47 @@ void __75__MDMLostDeviceLocationManager_getCurrentLocationForOriginator_completi
   {
     [*(a1 + 32) setCompletionBlock:*(a1 + 48)];
     [*(a1 + 32) setOriginator:*(a1 + 40)];
-    v3 = *(a1 + 32);
-    v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v5 = [MEMORY[0x277CBFBD0] newAssertionForBundle:v4 withReason:@"MDMDLostDeviceLocationManager getCurrentLocationForOriginator:completion:"];
-    [MEMORY[0x277CBFC10] setAuthorizationStatusByType:3 forBundle:v4];
-    v6 = objc_alloc(MEMORY[0x277CBFC10]);
-    v7 = [v4 bundlePath];
-    v8 = *(a1 + 32);
-    v9 = [v8 queue];
-    v10 = [v6 initWithEffectiveBundlePath:v7 delegate:v8 onQueue:v9];
-    [*(a1 + 32) setLocationManager:v10];
+    v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v4 = [MEMORY[0x277CBFBD0] newAssertionForBundle:v3 withReason:@"MDMDLostDeviceLocationManager getCurrentLocationForOriginator:completion:"];
+    [MEMORY[0x277CBFC10] setAuthorizationStatusByType:3 forBundle:v3];
+    v5 = objc_alloc(MEMORY[0x277CBFC10]);
+    v6 = [v3 bundlePath];
+    v7 = *(a1 + 32);
+    v8 = [v7 queue];
+    v9 = [v5 initWithEffectiveBundlePath:v6 delegate:v7 onQueue:v8];
+    [*(a1 + 32) setLocationManager:v9];
 
-    v11 = *(a1 + 32);
-    v12 = [v11 locationManager];
-    [v12 setDelegate:v11];
+    v10 = *(a1 + 32);
+    v11 = [v10 locationManager];
+    [v11 setDelegate:v10];
 
-    v13 = *MEMORY[0x277CE4208];
-    v14 = [*(a1 + 32) locationManager];
-    [v14 setDesiredAccuracy:v13];
+    v12 = *MEMORY[0x277CE4208];
+    v13 = [*(a1 + 32) locationManager];
+    [v13 setDesiredAccuracy:v12];
 
-    v15 = [*(a1 + 32) queue];
-    v16 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, v15);
-    [*(a1 + 32) setTimeoutTimerDispatchSource:v16];
+    v14 = [*(a1 + 32) queue];
+    v15 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, v14);
+    [*(a1 + 32) setTimeoutTimerDispatchSource:v15];
 
-    v17 = [*(a1 + 32) timeoutTimerDispatchSource];
-    v18 = dispatch_time(0xFFFFFFFFFFFFFFFELL, 30000000000);
-    dispatch_source_set_timer(v17, v18, 0x3B9ACA00uLL, 0x3B9ACA00uLL);
+    v16 = [*(a1 + 32) timeoutTimerDispatchSource];
+    v17 = dispatch_time(0xFFFFFFFFFFFFFFFELL, 30000000000);
+    dispatch_source_set_timer(v16, v17, 0x3B9ACA00uLL, 0x3B9ACA00uLL);
 
-    v19 = [*(a1 + 32) timeoutTimerDispatchSource];
+    v18 = [*(a1 + 32) timeoutTimerDispatchSource];
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 3221225472;
     handler[2] = __75__MDMLostDeviceLocationManager_getCurrentLocationForOriginator_completion___block_invoke_2;
     handler[3] = &unk_27982BAC8;
     handler[4] = *(a1 + 32);
-    v25 = v5;
-    v20 = v5;
-    dispatch_source_set_event_handler(v19, handler);
+    v24 = v4;
+    v19 = v4;
+    dispatch_source_set_event_handler(v18, handler);
 
-    v21 = [*(a1 + 32) timeoutTimerDispatchSource];
-    dispatch_activate(v21);
+    v20 = [*(a1 + 32) timeoutTimerDispatchSource];
+    dispatch_activate(v20);
 
-    v22 = [*(a1 + 32) locationManager];
-    [v22 requestLocation];
+    v21 = [*(a1 + 32) locationManager];
+    [v21 requestLocation];
   }
 }
 
@@ -128,52 +127,51 @@ void __75__MDMLostDeviceLocationManager_getCurrentLocationForOriginator_completi
 
 - (void)clearLastLocationRequestedDate
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEBC0];
   v3 = DMCSystemLostModeRequestPath();
   v4 = [v2 fileURLWithPath:v3 isDirectory:0];
 
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
-  v5 = objc_opt_new();
-  v11 = &v13;
   v12 = 0;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __62__MDMLostDeviceLocationManager_clearLastLocationRequestedDate__block_invoke;
-  v9[3] = &unk_27982BE38;
-  v10 = 0;
-  [v5 coordinateWritingItemAtURL:v4 options:1 error:&v12 byAccessor:v9];
-  v6 = v12;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
+  v5 = objc_opt_new();
+  v10 = &v12;
+  v11 = 0;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __62__MDMLostDeviceLocationManager_clearLastLocationRequestedDate__block_invoke;
+  v8[3] = &unk_27982BE38;
+  v9 = 0;
+  [v5 coordinateWritingItemAtURL:v4 options:1 error:&v11 byAccessor:v8];
+  v6 = v11;
 
-  if ((v14[3] & 1) == 0)
+  if ((v13[3] & 1) == 0)
   {
     v7 = *(DMCLogObjects() + 8);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = v6;
+      v17 = v6;
       _os_log_impl(&dword_2561F5000, v7, OS_LOG_TYPE_ERROR, "Could not read device last location requested file: %@", buf, 0xCu);
     }
   }
 
-  _Block_object_dispose(&v13, 8);
-  v8 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v12, 8);
 }
 
 void __62__MDMLostDeviceLocationManager_clearLastLocationRequestedDate__block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   *(*(*(a1 + 40) + 8) + 24) = 1;
   v3 = MEMORY[0x277CCAA00];
   v4 = a2;
   v5 = [v3 defaultManager];
-  v12 = 0;
-  v6 = [v5 removeItemAtURL:v4 error:&v12];
+  v11 = 0;
+  v6 = [v5 removeItemAtURL:v4 error:&v11];
 
-  v7 = v12;
+  v7 = v11;
   if (v6)
   {
   }
@@ -199,38 +197,36 @@ void __62__MDMLostDeviceLocationManager_clearLastLocationRequestedDate__block_in
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = v7;
+      v13 = v7;
       _os_log_impl(&dword_2561F5000, v10, OS_LOG_TYPE_ERROR, "Could not remove device last located file: %@", buf, 0xCu);
     }
   }
 
 LABEL_9:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)lastLocationRequestedDateMessage
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEBC0];
   v3 = DMCSystemLostModeRequestPath();
   v4 = [v2 fileURLWithPath:v3 isDirectory:0];
 
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__3;
-  v32 = __Block_byref_object_dispose__3;
-  v33 = 0;
-  v5 = objc_opt_new();
-  v26[4] = &v28;
   v27 = 0;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __64__MDMLostDeviceLocationManager_lastLocationRequestedDateMessage__block_invoke;
-  v26[3] = &unk_27982BE60;
-  [v5 coordinateReadingItemAtURL:v4 options:0 error:&v27 byAccessor:v26];
-  v6 = v27;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__3;
+  v31 = __Block_byref_object_dispose__3;
+  v32 = 0;
+  v5 = objc_opt_new();
+  v25[4] = &v27;
+  v26 = 0;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __64__MDMLostDeviceLocationManager_lastLocationRequestedDateMessage__block_invoke;
+  v25[3] = &unk_27982BE60;
+  [v5 coordinateReadingItemAtURL:v4 options:0 error:&v26 byAccessor:v25];
+  v6 = v26;
 
   if (v6)
   {
@@ -238,12 +234,12 @@ LABEL_9:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v35 = v6;
+      v34 = v6;
       _os_log_impl(&dword_2561F5000, v7, OS_LOG_TYPE_DEFAULT, "MDMLostDeviceLocationManager+iphoneOS could not read last location request date with error: %{public}@", buf, 0xCu);
     }
   }
 
-  v8 = [v29[5] objectForKeyedSubscript:*MEMORY[0x277D26440]];
+  v8 = [v28[5] objectForKeyedSubscript:*MEMORY[0x277D26440]];
   v9 = v8;
   if (v8)
   {
@@ -254,7 +250,7 @@ LABEL_9:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v35 = v11;
+      v34 = v11;
       _os_log_impl(&dword_2561F5000, v12, OS_LOG_TYPE_DEFAULT, "MDMLostDeviceLocationManager+iphoneOS last located device on %{public}@.", buf, 0xCu);
     }
 
@@ -267,7 +263,7 @@ LABEL_9:
     [v13 setTimeStyle:0];
     [v13 setDateStyle:3];
     v16 = [v13 stringFromDate:v11];
-    v17 = [v29[5] objectForKeyedSubscript:@"originator"];
+    v17 = [v28[5] objectForKeyedSubscript:@"originator"];
     v18 = v17;
     if (v17)
     {
@@ -276,7 +272,7 @@ LABEL_9:
 
     else
     {
-      v21 = [v29[5] objectForKeyedSubscript:@"organizationName"];
+      v21 = [v28[5] objectForKeyedSubscript:@"organizationName"];
       v22 = v21;
       if (v21)
       {
@@ -285,7 +281,7 @@ LABEL_9:
 
       else
       {
-        v23 = [v29[5] objectForKeyedSubscript:@"serverName"];
+        v23 = [v28[5] objectForKeyedSubscript:@"serverName"];
       }
 
       v19 = v23;
@@ -299,18 +295,14 @@ LABEL_9:
     v20 = 0;
   }
 
-  _Block_object_dispose(&v28, 8);
-  v24 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v27, 8);
 
   return v20;
 }
 
 uint64_t __64__MDMLostDeviceLocationManager_lastLocationRequestedDateMessage__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:a2];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:a2];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -362,7 +354,7 @@ uint64_t __64__MDMLostDeviceLocationManager_lastLocationRequestedDateMessage__bl
 
 - (void)locationManager:(id)manager didFailWithError:(id)error
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   queue = [(MDMLostDeviceLocationManager *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -370,9 +362,9 @@ uint64_t __64__MDMLostDeviceLocationManager_lastLocationRequestedDateMessage__bl
   v7 = *(DMCLogObjects() + 8);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v10 = 138543362;
-    v11 = errorCopy;
-    _os_log_impl(&dword_2561F5000, v7, OS_LOG_TYPE_ERROR, "Location Manager failed: error=%{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = errorCopy;
+    _os_log_impl(&dword_2561F5000, v7, OS_LOG_TYPE_ERROR, "Location Manager failed: error=%{public}@", &v9, 0xCu);
   }
 
   completionBlock = [(MDMLostDeviceLocationManager *)self completionBlock];
@@ -381,8 +373,6 @@ uint64_t __64__MDMLostDeviceLocationManager_lastLocationRequestedDateMessage__bl
   {
     (completionBlock)[2](completionBlock, 0, errorCopy);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanupAfterResponseFromLocationManagerOrTimeout
@@ -404,56 +394,55 @@ uint64_t __64__MDMLostDeviceLocationManager_lastLocationRequestedDateMessage__bl
 
 - (BOOL)_updateLostModeFileForOriginator:(id)originator
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   originatorCopy = originator;
   v4 = MEMORY[0x277CBEBC0];
   v5 = DMCSystemLostModeRequestPath();
   v6 = [v4 fileURLWithPath:v5 isDirectory:0];
 
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 0;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
   v22 = 0;
-  v7 = objc_opt_new();
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
   v18 = 0;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __65__MDMLostDeviceLocationManager__updateLostModeFileForOriginator___block_invoke;
-  v14[3] = &unk_27982BE88;
-  v16 = &v23;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
+  v7 = objc_opt_new();
+  v17 = 0;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __65__MDMLostDeviceLocationManager__updateLostModeFileForOriginator___block_invoke;
+  v13[3] = &unk_27982BE88;
+  v15 = &v22;
   v8 = originatorCopy;
-  v15 = v8;
-  v17 = &v19;
-  [v7 coordinateWritingItemAtURL:v6 options:0 error:&v18 byAccessor:v14];
-  v9 = v18;
+  v14 = v8;
+  v16 = &v18;
+  [v7 coordinateWritingItemAtURL:v6 options:0 error:&v17 byAccessor:v13];
+  v9 = v17;
 
-  if ((v24[3] & 1) == 0)
+  if ((v23[3] & 1) == 0)
   {
     v10 = *(DMCLogObjects() + 8);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v28 = v9;
+      v27 = v9;
       _os_log_impl(&dword_2561F5000, v10, OS_LOG_TYPE_DEFAULT, "Could not read device last located time interval for update: %@", buf, 0xCu);
     }
   }
 
-  v11 = *(v20 + 24);
+  v11 = *(v19 + 24);
 
-  _Block_object_dispose(&v19, 8);
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v22, 8);
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11 & 1;
 }
 
 void __65__MDMLostDeviceLocationManager__updateLostModeFileForOriginator___block_invoke(void *a1, void *a2)
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   *(*(a1[5] + 8) + 24) = 1;
   v4 = MEMORY[0x277CCABB0];
@@ -461,24 +450,24 @@ void __65__MDMLostDeviceLocationManager__updateLostModeFileForOriginator___block
   [v5 timeIntervalSinceReferenceDate];
   v6 = [v4 numberWithDouble:?];
 
-  v22[0] = *MEMORY[0x277D26440];
-  v22[1] = @"originator";
+  v21[0] = *MEMORY[0x277D26440];
+  v21[1] = @"originator";
   v7 = a1[4];
-  v23[0] = v6;
-  v23[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
+  v22[0] = v6;
+  v22[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
   if ([v8 writeToURL:v3 atomically:1])
   {
     v9 = *MEMORY[0x277CCA1B8];
     v10 = *MEMORY[0x277CBE878];
-    v20[0] = *MEMORY[0x277CCA1B0];
-    v20[1] = v10;
-    v21[0] = v9;
-    v21[1] = MEMORY[0x277CBEC38];
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-    v17 = 0;
-    v12 = [v3 setResourceValues:v11 error:&v17];
-    v13 = v17;
+    v19[0] = *MEMORY[0x277CCA1B0];
+    v19[1] = v10;
+    v20[0] = v9;
+    v20[1] = MEMORY[0x277CBEC38];
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+    v16 = 0;
+    v12 = [v3 setResourceValues:v11 error:&v16];
+    v13 = v16;
 
     if (v12)
     {
@@ -491,7 +480,7 @@ void __65__MDMLostDeviceLocationManager__updateLostModeFileForOriginator___block
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v19 = v13;
+        v18 = v13;
         _os_log_impl(&dword_2561F5000, v15, OS_LOG_TYPE_ERROR, "Could not write device last located time interval URL resourve values: %@", buf, 0xCu);
       }
     }
@@ -506,8 +495,6 @@ void __65__MDMLostDeviceLocationManager__updateLostModeFileForOriginator___block
       _os_log_impl(&dword_2561F5000, v14, OS_LOG_TYPE_ERROR, "Could not write device last located time interval", buf, 2u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

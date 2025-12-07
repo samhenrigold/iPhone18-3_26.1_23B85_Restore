@@ -233,18 +233,18 @@
       while (1)
       {
         v52 = objc_msgSend_nextElement(v48, v47, v49, v50, v51);
-        v57 = v52;
+        v56 = v52;
         if (!v52)
         {
           break;
         }
 
-        objc_msgSend_position(v52, v53, v54, v55, v56);
-        v62 = objc_msgSend_series(WeakRetained, v58, v59, v60, v61);
-        v67 = objc_msgSend_p_calculateRangeForSeries_index_intercept_(self, v63, v64, v65, v66, v62, v78, v42);
-        v68 = self->_rangeCache;
-        v73 = objc_msgSend_flatIndex_(self, v69, v70, v71, v72, v78);
-        objc_msgSend_setObject_atIndexedSubscript_(v68, v74, v75, v76, v77, v67, v73);
+        objc_msgSend_position(v52, v53, v54, v55);
+        v61 = objc_msgSend_series(WeakRetained, v57, v58, v59, v60);
+        v66 = objc_msgSend_p_calculateRangeForSeries_index_intercept_(self, v62, v63, v64, v65, v61, v77, v42);
+        v67 = self->_rangeCache;
+        v72 = objc_msgSend_flatIndex_(self, v68, v69, v70, v71, v77);
+        objc_msgSend_setObject_atIndexedSubscript_(v67, v73, v74, v75, v76, v66, v72);
       }
     }
   }
@@ -277,50 +277,50 @@
   objc_msgSend_unitSpaceValueForSeries_groupIndex_(v15, v16, v17, v18, v19, seriesCopy, v10);
   v21 = v20;
 
-  objc_msgSend_value(interceptCopy, v22, v23, v24, v25);
-  v30 = v27;
+  objc_msgSend_value(interceptCopy, v22, v23, v24);
+  v28 = v25;
   if (self->_stacked)
   {
-    objc_msgSend_value(interceptCopy, v26, v27, v28, v29);
-    v32 = v31;
-    if (objc_msgSend_seriesIndex(seriesCopy, v33, v31, v34, v35) != *(index + 1))
+    objc_msgSend_value(interceptCopy, v25, v26, v27);
+    v30 = v29;
+    if (objc_msgSend_seriesIndex(seriesCopy, v31, v29, v32, v33) != *(index + 1))
     {
-      v40 = MEMORY[0x277D81150];
-      v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, v37, v38, v39, "[TSCH3DChartBarElementProperties p_calculateRangeForSeries:index:intercept:]");
-      v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, v43, v44, v45, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartBarElementProperties.mm");
-      v51 = objc_msgSend_seriesIndex(seriesCopy, v47, v48, v49, v50);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v40, v52, v53, v54, v55, v41, v46, 275, 0, "series index mismatch %lu should be %lu", v51, *(index + 1));
+      v38 = MEMORY[0x277D81150];
+      v39 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, v35, v36, v37, "[TSCH3DChartBarElementProperties p_calculateRangeForSeries:index:intercept:]");
+      v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v40, v41, v42, v43, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCH3DChartBarElementProperties.mm");
+      v49 = objc_msgSend_seriesIndex(seriesCopy, v45, v46, v47, v48);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v38, v50, v51, v52, v53, v39, v44, 275, 0, "series index mismatch %lu should be %lu", v49, *(index + 1));
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v56, v57, v58, v59);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v54, v55, v56, v57);
     }
 
-    objc_msgSend_value(interceptCopy, v36, v37, v38, v39);
-    v61 = v60;
-    v65 = objc_msgSend_valueAxis(interceptCopy, v62, v60, v63, v64);
-    objc_msgSend_beginValueForStackedBarSeries_groupIndex_unitSpaceIntercept_relativelyPositive_valueAxis_(TSCHChartInfo, v66, v61, v67, v68, seriesCopy, v10, v21 >= v32, v65);
-    v30 = v69;
+    objc_msgSend_value(interceptCopy, v35, v36, v37);
+    v59 = v58;
+    v63 = objc_msgSend_valueAxis(interceptCopy, v60, v58, v61, v62);
+    objc_msgSend_beginValueForStackedBarSeries_groupIndex_unitSpaceIntercept_relativelyPositive_valueAxis_(TSCHChartInfo, v64, v59, v65, v66, seriesCopy, v10, v21 >= v30, v63);
+    v28 = v67;
   }
 
-  v70 = fmin(v30, 1.0);
+  v68 = fmin(v28, 1.0);
+  v69 = fmax(v68, 0.0);
+  objc_msgSend_value(interceptCopy, v68, 0.0, v27);
+  v70 = fmin(v21, 1.0);
   v71 = fmax(v70, 0.0);
-  objc_msgSend_value(interceptCopy, v26, v70, 0.0, v29);
-  v72 = fmin(v21, 1.0);
-  v73 = fmax(v72, 0.0);
-  *&v72 = v71;
-  *&v73 = v73;
-  *&v74 = v74;
-  v76 = objc_msgSend_rangeWithIntercept_begin_end_(TSCH3DRange, v75, v74, v72, v73);
+  *&v70 = v69;
+  *&v71 = v71;
+  *&v72 = v72;
+  v74 = objc_msgSend_rangeWithIntercept_begin_end_(TSCH3DRange, v73, v72, v70, v71);
 
-  return v76;
+  return v74;
 }
 
 - (float)interceptValueForSeries:(id)series
 {
   v6 = objc_msgSend_calculateInterceptForSeries_(self, a2, v3, v4, v5, series);
-  objc_msgSend_value(v6, v7, v8, v9, v10);
-  v12 = v11;
+  objc_msgSend_value(v6, v7, v8, v9);
+  v11 = v10;
 
-  return v12;
+  return v11;
 }
 
 - (float)elementTransformDepthFromPropertyAccessor:(id)accessor
@@ -345,7 +345,7 @@
   {
     if (accessorCopy)
     {
-      objc_msgSend_stageScale(accessorCopy, v35, v36, v37, v38);
+      objc_msgSend_stageScale(accessorCopy, v36, v37, v38);
     }
 
     else
@@ -378,38 +378,38 @@
   v31 = objc_msgSend_rangeForSeries_index_(self, v11, v13, v14, v15, seriesCopy, index);
   objc_msgSend_elementTransformDepthFromPropertyAccessor_(self, v32, v33, v34, v35, accessorCopy);
   v37 = *&v36;
-  objc_msgSend_scale(v31, v38, v36, v39, v40);
-  v42 = *&v41;
+  objc_msgSend_scale(v31, v36, v38, v39);
+  v41 = *&v40;
   barWidth = self->_barWidth;
   elementsXOffset = self->_elementsXOffset;
   seriesOffset = self->_seriesOffset;
   indexCopy = index;
-  v46 = *index.var0.var0;
-  v47 = *(*&indexCopy + 4);
+  v45 = *index.var0.var0;
+  v46 = *(*&indexCopy + 4);
   setWidth = self->_setWidth;
-  objc_msgSend_offset(v31, v50, v41, v51, v52);
-  v63 = xmmword_2764D5F20;
-  v64 = 0;
-  v65 = 0;
-  v62[3] = barWidth;
-  v62[4] = v42;
-  v62[5] = v37;
-  v62[0] = (elementsXOffset + (v47 * seriesOffset)) + (v46 * setWidth);
-  v62[1] = v53;
-  v62[2] = 0.0;
-  v66 = 1;
-  *&v54 = sub_276168C80(transform, v62);
-  if ((objc_msgSend_above(v31, v55, v54, v56, v57) & 1) == 0)
+  objc_msgSend_offset(v31, v40, v49, v50);
+  v61 = xmmword_2764D5F20;
+  v62 = 0;
+  v63 = 0;
+  v60[3] = barWidth;
+  v60[4] = v41;
+  v60[5] = v37;
+  v60[0] = (elementsXOffset + (v46 * seriesOffset)) + (v45 * setWidth);
+  v60[1] = v51;
+  v60[2] = 0.0;
+  v64 = 1;
+  *&v52 = sub_276168C80(transform, v60);
+  if ((objc_msgSend_above(v31, v53, v52, v54, v55) & 1) == 0)
   {
-    v60 = 0;
-    v59[0] = xmmword_2764D5F20;
-    v59[1] = xmmword_2764D5F30;
-    v59[2] = xmmword_2764D60F0;
-    v61 = 1;
-    sub_276168C80(transform, v59);
+    v58 = 0;
+    v57[0] = xmmword_2764D5F20;
+    v57[1] = xmmword_2764D5F30;
+    v57[2] = xmmword_2764D60F0;
+    v59 = 1;
+    sub_276168C80(transform, v57);
   }
 
-  return fabsf(v42) > 0.00000011921;
+  return fabsf(v41) > 0.00000011921;
 }
 
 - (id)p_barResourceCacheItemAtIndex:(void *)index
@@ -543,50 +543,50 @@
   v59 = v58;
 
   v60 = objc_loadWeakRetained(&self->super._enumerator);
-  v65 = v60;
+  v64 = v60;
   if (v60)
   {
-    objc_msgSend_size(v60, v61, v62, v63, v64);
+    objc_msgSend_size(v60, v61, v62, v63);
   }
 
   else
   {
-    v72 = 0;
+    v71 = 0;
   }
 
-  v66 = v47 / 100.0;
-  v67 = v59 / 100.0;
+  v65 = v47 / 100.0;
+  v66 = v59 / 100.0;
 
-  v68 = *p_stacked;
-  v69 = HIDWORD(v72);
+  v67 = *p_stacked;
+  v68 = HIDWORD(v71);
   if (*p_stacked)
   {
-    v69 = 1;
+    v68 = 1;
   }
 
+  v69 = 0.0;
   v70 = 0.0;
-  v71 = 0.0;
-  if (v69 * v72)
+  if (v68 * v71)
   {
-    v71 = 1.0 / (((v69 * v72) + (v72 * v66)) + (((v69 - 1) * v72) * v67));
+    v70 = 1.0 / (((v68 * v71) + (v71 * v65)) + (((v68 - 1) * v71) * v66));
   }
 
-  self->_barWidth = v71;
-  self->_elementsXOffset = (v66 * v71) * 0.5;
-  if (!v68)
+  self->_barWidth = v70;
+  self->_elementsXOffset = (v65 * v70) * 0.5;
+  if (!v67)
   {
-    v70 = self->_barWidth + (v67 * self->_barWidth);
+    v69 = self->_barWidth + (v66 * self->_barWidth);
   }
 
-  self->_seriesOffset = v70;
-  self->_setWidth = ((v66 + v69) + ((v69 - 1) * v67)) * self->_barWidth;
+  self->_seriesOffset = v69;
+  self->_setWidth = ((v65 + v68) + ((v68 - 1) * v66)) * self->_barWidth;
 }
 
 - (void)updateMaxValuesAndBevels
 {
   var0 = self->super._size.var0.var0;
-  sub_27616D88C(v79, var0);
-  v72 = var0;
+  sub_27616D88C(v76, var0);
+  v69 = var0;
   sub_27616D88C(__p, var0);
   WeakRetained = objc_loadWeakRetained(&self->super._enumerator);
   v9 = objc_msgSend_seriesEnumerator(WeakRetained, v5, v6, v7, v8);
@@ -605,88 +605,88 @@
     while (1)
     {
       v26 = objc_msgSend_nextElement(v21, v20, v22, v23, v24);
-      v31 = v26;
+      v30 = v26;
       if (!v26)
       {
         break;
       }
 
-      objc_msgSend_position(v26, v27, v28, v29, v30);
-      v36 = objc_msgSend_series(v19, v32, v33, v34, v35);
-      v41 = objc_msgSend_rangeForSeries_index_(self, v37, v38, v39, v40, v36, v77);
+      objc_msgSend_position(v26, v27, v28, v29);
+      v35 = objc_msgSend_series(v19, v31, v32, v33, v34);
+      v40 = objc_msgSend_rangeForSeries_index_(self, v36, v37, v38, v39, v35, v74);
 
       if (self->_stacked)
       {
-        objc_msgSend_scale(v41, v42, v43, v44, v45);
-        if (*&v43 > 0.0)
+        objc_msgSend_scale(v40, v42, v43, v44);
+        if (*&v42 > 0.0)
         {
-          if (objc_msgSend_above(v41, v42, v43, v44, v45))
+          if (objc_msgSend_above(v40, v41, v42, v43, v44))
           {
-            v46 = v79;
+            v45 = v76;
           }
 
           else
           {
-            v46 = __p;
+            v45 = __p;
           }
 
-          v47 = v77[0];
-          v48 = *v46 + 16 * v77[0];
-          *v48 = v77[0];
-          v48[1] = v77[1];
-          v49 = *v46 + 16 * v47;
-          v76 = *(v49 + 8);
-          *(v49 + 8) = v76 + 1;
+          v46 = v74[0];
+          v47 = *v45 + 16 * v74[0];
+          *v47 = v74[0];
+          v47[1] = v74[1];
+          v48 = *v45 + 16 * v46;
+          v73 = *(v48 + 8);
+          *(v48 + 8) = v73 + 1;
         }
       }
 
-      v75 = objc_msgSend_above(v41, v42, v43, v44, v45);
-      LOBYTE(v73) = !self->_stacked;
-      objc_msgSend_scale(v41, v50, v51, v52, v53);
-      v74 = LODWORD(v54);
-      objc_msgSend_setElementInfo_atIndex_(self, v55, v54, v56, v57, &v73, v77);
-      objc_msgSend_scale(v41, v58, v59, v60, v61);
-      if (v25 < v62)
+      v72 = objc_msgSend_above(v40, v41, v42, v43, v44);
+      LOBYTE(v70) = !self->_stacked;
+      objc_msgSend_scale(v40, v49, v50, v51);
+      v71 = LODWORD(v52);
+      objc_msgSend_setElementInfo_atIndex_(self, v53, v52, v54, v55, &v70, v74);
+      objc_msgSend_scale(v40, v56, v57, v58);
+      if (v25 < v59)
       {
-        v25 = v62;
+        v25 = v59;
       }
     }
 
-    objc_msgSend_position(v19, v27, v28, v29, v30);
-    *&v63 = v25;
-    objc_msgSend_setMaxValueForSeries_value_(self, v64, v63, v65, v66, v74);
+    objc_msgSend_position(v19, v27, v28, v29);
+    *&v60 = v25;
+    objc_msgSend_setMaxValueForSeries_value_(self, v61, v60, v62, v63, v71);
   }
 
-  if (v72 >= 1 && self->_stacked)
+  if (v69 >= 1 && self->_stacked)
   {
-    for (i = 0; i != v72; ++i)
+    for (i = 0; i != v69; ++i)
     {
-      v68 = 1;
+      v65 = 1;
       do
       {
-        v69 = v68;
-        if (v68)
+        v66 = v65;
+        if (v65)
         {
-          v70 = v79;
+          v67 = v76;
         }
 
         else
         {
-          v70 = __p;
+          v67 = __p;
         }
 
-        v71 = (*v70 + 16 * i);
-        v73 = *v71;
-        v74 = v71[1];
-        if ((v73 & 0x80000000) == 0)
+        v68 = (*v67 + 16 * i);
+        v70 = *v68;
+        v71 = v68[1];
+        if ((v70 & 0x80000000) == 0)
         {
-          *objc_msgSend_elementInfoAtIndex_(self, v15, v16, v17, v18, &v73) = 1;
+          *objc_msgSend_elementInfoAtIndex_(self, v15, v16, v17, v18, &v70) = 1;
         }
 
-        v68 = 0;
+        v65 = 0;
       }
 
-      while ((v69 & 1) != 0);
+      while ((v66 & 1) != 0);
     }
   }
 
@@ -696,10 +696,10 @@
     operator delete(__p[0]);
   }
 
-  if (v79[0])
+  if (v76[0])
   {
-    v79[1] = v79[0];
-    operator delete(v79[0]);
+    v76[1] = v76[0];
+    operator delete(v76[0]);
   }
 }
 
@@ -732,46 +732,46 @@
   v23 = objc_loadWeakRetained(&self->super._enumerator);
   v28 = objc_msgSend_seriesEnumerator(v23, v24, v25, v26, v27);
 
-  v106 = objc_msgSend_model(v28, v29, v30, v31, v32);
+  v103 = objc_msgSend_model(v28, v29, v30, v31, v32);
   objc_msgSend_nextSeries(v28, v33, v34, v35, v36);
   while (1)
     v37 = {;
-    v42 = v37;
+    v41 = v37;
     if (!v37)
     {
       break;
     }
 
-    v43 = v28;
-    objc_msgSend_position(v37, v38, v39, v40, v41);
-    v109[0] = 0;
-    v109[1] = v108;
-    v44 = objc_loadWeakRetained(&self->super._enumerator);
-    v49 = objc_msgSend_info(v44, v45, v46, v47, v48);
-    v54 = objc_msgSend_paragraphStyleForLabelsFontForInfo_(TSCHChartCategoryAxis, v50, v51, v52, v53, v49);
+    v42 = v28;
+    objc_msgSend_position(v37, v38, v39, v40);
+    v106[0] = 0;
+    v106[1] = v105;
+    v43 = objc_loadWeakRetained(&self->super._enumerator);
+    v48 = objc_msgSend_info(v43, v44, v45, v46, v47);
+    v53 = objc_msgSend_paragraphStyleForLabelsFontForInfo_(TSCHChartCategoryAxis, v49, v50, v51, v52, v48);
 
-    v59 = objc_msgSend_seriesLabels(self, v55, v56, v57, v58);
-    objc_msgSend_setParagraphStyle_atIndex_(v59, v60, v61, v62, v63, v54, v109);
+    v58 = objc_msgSend_seriesLabels(self, v54, v55, v56, v57);
+    objc_msgSend_setParagraphStyle_atIndex_(v58, v59, v60, v61, v62, v53, v106);
 
-    v68 = objc_msgSend_index(v42, v64, v65, v66, v67);
-    v73 = objc_msgSend_barModelCacheForSeries_(v106, v69, v70, v71, v72, v68);
-    v79 = objc_msgSend_elementEnumerator(v42, v74, v75, v76, v77);
+    v66 = objc_msgSend_index(v41, v63, v64, v65);
+    v71 = objc_msgSend_barModelCacheForSeries_(v103, v67, v68, v69, v70, v66);
+    v77 = objc_msgSend_elementEnumerator(v41, v72, v73, v74, v75);
     while (1)
     {
-      v84 = objc_msgSend_nextElement(v79, v78, v80, v81, v82);
-      if (!v84)
+      v82 = objc_msgSend_nextElement(v77, v76, v78, v79, v80);
+      if (!v82)
       {
         break;
       }
 
-      v88 = objc_msgSend_labels(self, v83, v85, v86, v87);
-      v93 = objc_msgSend_paragraphStyle(v73, v89, v90, v91, v92);
-      objc_msgSend_position(v84, v94, v95, v96, v97);
-      objc_msgSend_setParagraphStyle_atIndex_(v88, v98, v99, v100, v101, v93, v107);
+      v86 = objc_msgSend_labels(self, v81, v83, v84, v85);
+      v91 = objc_msgSend_paragraphStyle(v71, v87, v88, v89, v90);
+      objc_msgSend_position(v82, v92, v93, v94);
+      objc_msgSend_setParagraphStyle_atIndex_(v86, v95, v96, v97, v98, v91, v104);
     }
 
-    v28 = v43;
-    objc_msgSend_nextSeries(v43, v102, v103, v104, v105);
+    v28 = v42;
+    objc_msgSend_nextSeries(v42, v99, v100, v101, v102);
   }
 }
 
@@ -787,21 +787,21 @@
 
   self->_barShape = v20;
   objc_msgSend_p_updateAppearance(self, v21, v22, v23, v24);
-  v29 = objc_msgSend_transform(TSCH3DTransform, v25, v26, v27, v28);
-  objc_msgSend_setChartTransform_(self, v30, v31, v32, v33, v29);
+  v28 = objc_msgSend_transform(TSCH3DTransform, v25, v26, v27);
+  objc_msgSend_setChartTransform_(self, v29, v30, v31, v32, v28);
 
-  objc_msgSend_chartInitialDepthOffset(self, v34, v35, v36, v37);
-  v39 = LODWORD(v38);
-  v43 = objc_msgSend_chartTransform(self, v40, v38, v41, v42);
-  v68 = 0;
-  v69 = v39;
-  objc_msgSend_setTranslation_(v43, v44, v45, v46, v47, &v68);
+  objc_msgSend_chartInitialDepthOffset(self, v33, v34, v35, v36);
+  v38 = LODWORD(v37);
+  v42 = objc_msgSend_chartTransform(self, v39, v37, v40, v41);
+  v67 = 0;
+  v68 = v38;
+  objc_msgSend_setTranslation_(v42, v43, v44, v45, v46, &v67);
 
-  objc_msgSend_createResources(self, v48, v49, v50, v51);
-  objc_msgSend_updateLabels(self, v52, v53, v54, v55);
-  objc_msgSend_calculateLayout(self, v56, v57, v58, v59);
-  objc_msgSend_p_updateRangeCache(self, v60, v61, v62, v63);
-  objc_msgSend_updateMaxValuesAndBevels(self, v64, v65, v66, v67);
+  objc_msgSend_createResources(self, v47, v48, v49, v50);
+  objc_msgSend_updateLabels(self, v51, v52, v53, v54);
+  objc_msgSend_calculateLayout(self, v55, v56, v57, v58);
+  objc_msgSend_p_updateRangeCache(self, v59, v60, v61, v62);
+  objc_msgSend_updateMaxValuesAndBevels(self, v63, v64, v65, v66);
 }
 
 - (float)maxValueForSeries:(int64_t)series
@@ -882,7 +882,7 @@
     v14 = objc_msgSend_objectAtIndexedSubscript_(v7, v6, v8, v9, v10, v11);
     if (v14)
     {
-      objc_msgSend_defaultDetails(v14, v15, v16, v17, v18);
+      objc_msgSend_defaultDetails(v14, v16, v17, v18);
     }
 
     else

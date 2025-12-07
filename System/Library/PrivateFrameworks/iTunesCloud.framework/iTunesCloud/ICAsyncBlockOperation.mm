@@ -56,9 +56,12 @@ uint64_t __48__ICAsyncBlockOperation_setCancellationHandler___block_invoke(uint6
 
 uint64_t __44__ICAsyncBlockOperation_cancellationHandler__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = MEMORY[0x1B8C781E0](*(*(a1 + 32) + 296));
+  v2 = MEMORY[0x1B8C781E0](*(*(a1 + 32) + 296));
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)finishWithError:(id)error

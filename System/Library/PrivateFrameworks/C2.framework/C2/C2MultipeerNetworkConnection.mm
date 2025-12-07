@@ -1,4 +1,5 @@
 @interface C2MultipeerNetworkConnection
+- (C2MultipeerNetworkConnection)initWithParent:(id)parent queue:(id)queue connection:(id)connection peerID:(id)d isClientConnection:(BOOL)clientConnection;
 - (void)receiveNextMessage;
 - (void)sendMessageWithData:(id)data completionHandler:(id)handler;
 - (void)startConnection;
@@ -6,6 +7,30 @@
 @end
 
 @implementation C2MultipeerNetworkConnection
+
+- (C2MultipeerNetworkConnection)initWithParent:(id)parent queue:(id)queue connection:(id)connection peerID:(id)d isClientConnection:(BOOL)clientConnection
+{
+  clientConnectionCopy = clientConnection;
+  connectionCopy = connection;
+  v21.receiver = self;
+  v21.super_class = C2MultipeerNetworkConnection;
+  v14 = [(C2MultipeerConnection *)&v21 initWithParent:parent queue:queue peerID:d isClientConnection:clientConnectionCopy];
+  v15 = v14;
+  if (v14)
+  {
+    objc_storeStrong(&v14->_connection, connection);
+    v15->_connectionState = 0;
+    v16 = objc_alloc_init(MEMORY[0x277CBEB28]);
+    receiveLengthBuffer = v15->_receiveLengthBuffer;
+    v15->_receiveLengthBuffer = v16;
+
+    v18 = objc_alloc_init(MEMORY[0x277CBEB28]);
+    receiveMessageBuffer = v15->_receiveMessageBuffer;
+    v15->_receiveMessageBuffer = v18;
+  }
+
+  return v15;
+}
 
 - (void)startConnection
 {
@@ -28,7 +53,7 @@
 
 void __47__C2MultipeerNetworkConnection_startConnection__block_invoke(uint64_t a1, int a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v4);
 
@@ -49,9 +74,9 @@ void __47__C2MultipeerNetworkConnection_startConnection__block_invoke(uint64_t a
           v17 = *(a1 + 32);
           v18 = v16;
           v19 = [v17 peerID];
-          v27 = 138412290;
-          v28 = v19;
-          _os_log_impl(&dword_242158000, v18, OS_LOG_TYPE_INFO, "nw_connection_state_ready for peer %@", &v27, 0xCu);
+          v26 = 138412290;
+          v27 = v19;
+          _os_log_impl(&dword_242158000, v18, OS_LOG_TYPE_INFO, "nw_connection_state_ready for peer %@", &v26, 0xCu);
         }
 
         [*(a1 + 32) receiveNextMessage];
@@ -68,9 +93,9 @@ void __47__C2MultipeerNetworkConnection_startConnection__block_invoke(uint64_t a
           v23 = *(a1 + 32);
           v24 = v22;
           v25 = [v23 peerID];
-          v27 = 138412290;
-          v28 = v25;
-          _os_log_impl(&dword_242158000, v24, OS_LOG_TYPE_INFO, "nw_connection_state_failed for peer %@", &v27, 0xCu);
+          v26 = 138412290;
+          v27 = v25;
+          _os_log_impl(&dword_242158000, v24, OS_LOG_TYPE_INFO, "nw_connection_state_failed for peer %@", &v26, 0xCu);
         }
 
         nw_connection_cancel(*(*(a1 + 32) + 64));
@@ -87,9 +112,9 @@ void __47__C2MultipeerNetworkConnection_startConnection__block_invoke(uint64_t a
           v11 = *(a1 + 32);
           v12 = v10;
           v13 = [v11 peerID];
-          v27 = 138412290;
-          v28 = v13;
-          _os_log_impl(&dword_242158000, v12, OS_LOG_TYPE_INFO, "nw_connection_state_cancelled for peer %@", &v27, 0xCu);
+          v26 = 138412290;
+          v27 = v13;
+          _os_log_impl(&dword_242158000, v12, OS_LOG_TYPE_INFO, "nw_connection_state_cancelled for peer %@", &v26, 0xCu);
         }
 
         [*(a1 + 32) stopConnection];
@@ -112,8 +137,8 @@ void __47__C2MultipeerNetworkConnection_startConnection__block_invoke(uint64_t a
         v21 = *(a1 + 32);
         v7 = v20;
         v8 = [v21 peerID];
-        v27 = 138412290;
-        v28 = v8;
+        v26 = 138412290;
+        v27 = v8;
         v9 = "nw_connection_state_waiting for peer %@";
         goto LABEL_30;
       }
@@ -132,11 +157,11 @@ void __47__C2MultipeerNetworkConnection_startConnection__block_invoke(uint64_t a
         v6 = *(a1 + 32);
         v7 = v5;
         v8 = [v6 peerID];
-        v27 = 138412290;
-        v28 = v8;
+        v26 = 138412290;
+        v27 = v8;
         v9 = "nw_connection_state_preparing for peer %@";
 LABEL_30:
-        _os_log_impl(&dword_242158000, v7, OS_LOG_TYPE_INFO, v9, &v27, 0xCu);
+        _os_log_impl(&dword_242158000, v7, OS_LOG_TYPE_INFO, v9, &v26, 0xCu);
       }
     }
   }
@@ -154,14 +179,12 @@ LABEL_30:
       v15 = *(a1 + 32);
       v7 = v14;
       v8 = [v15 peerID];
-      v27 = 138412290;
-      v28 = v8;
+      v26 = 138412290;
+      v27 = v8;
       v9 = "nw_connection_state_invalid for peer %@";
       goto LABEL_30;
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__C2MultipeerNetworkConnection_startConnection__block_invoke_2()
@@ -234,7 +257,7 @@ uint64_t __47__C2MultipeerNetworkConnection_startConnection__block_invoke_143()
 
 void __50__C2MultipeerNetworkConnection_receiveNextMessage__block_invoke(uint64_t a1, void *a2, void *a3, int a4, void *a5)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   v11 = a5;
@@ -273,16 +296,16 @@ void __50__C2MultipeerNetworkConnection_receiveNextMessage__block_invoke(uint64_
 
     v18 = @"no";
     *buf = 136315650;
-    v27 = identifier;
-    v28 = 2112;
+    v26 = identifier;
+    v27 = 2112;
     if (a4)
     {
       v18 = @"yes";
     }
 
-    v29 = v18;
-    v30 = 2112;
-    v31 = v15;
+    v28 = v18;
+    v29 = 2112;
+    v30 = v15;
     _os_log_impl(&dword_242158000, v16, OS_LOG_TYPE_DEFAULT, "received message %s, is complete: %@, with error %@", buf, 0x20u);
   }
 
@@ -290,19 +313,17 @@ void __50__C2MultipeerNetworkConnection_receiveNextMessage__block_invoke(uint64_
   {
     if (v9)
     {
-      v20 = MEMORY[0x277D85DD0];
-      v21 = 3221225472;
-      v22 = __50__C2MultipeerNetworkConnection_receiveNextMessage__block_invoke_157;
-      v23 = &unk_278D40238;
-      v24 = *(a1 + 32);
-      v25 = WeakRetained;
-      dispatch_data_apply(v9, &v20);
+      v19 = MEMORY[0x277D85DD0];
+      v20 = 3221225472;
+      v21 = __50__C2MultipeerNetworkConnection_receiveNextMessage__block_invoke_157;
+      v22 = &unk_278D40238;
+      v23 = *(a1 + 32);
+      v24 = WeakRetained;
+      dispatch_data_apply(v9, &v19);
     }
 
     [WeakRetained receiveNextMessage];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __50__C2MultipeerNetworkConnection_receiveNextMessage__block_invoke_2()
@@ -314,8 +335,8 @@ uint64_t __50__C2MultipeerNetworkConnection_receiveNextMessage__block_invoke_2()
 
 uint64_t __50__C2MultipeerNetworkConnection_receiveNextMessage__block_invoke_157(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, unint64_t a5)
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v33 = a2;
+  v39 = *MEMORY[0x277D85DE8];
+  v32 = a2;
   if (C2_MULTIPEER_LOG_BLOCK_0 != -1)
   {
     __50__C2MultipeerNetworkConnection_receiveNextMessage__block_invoke_157_cold_1();
@@ -326,9 +347,9 @@ uint64_t __50__C2MultipeerNetworkConnection_receiveNextMessage__block_invoke_157
   {
     v9 = *(a1 + 32);
     *buf = 138412546;
-    v35 = v9;
-    v36 = 2048;
-    v37 = a5;
+    v34 = v9;
+    v35 = 2048;
+    v36 = a5;
     _os_log_impl(&dword_242158000, v8, OS_LOG_TYPE_INFO, "[%@ receiveNextMessage] - consuming %llu bytes", buf, 0x16u);
   }
 
@@ -362,11 +383,11 @@ uint64_t __50__C2MultipeerNetworkConnection_receiveNextMessage__block_invoke_157
       {
         v16 = *(a1 + 32);
         *buf = 138412802;
-        v35 = v16;
-        v36 = 2048;
-        v37 = v14;
-        v38 = 2048;
-        v39 = a5;
+        v34 = v16;
+        v35 = 2048;
+        v36 = v14;
+        v37 = 2048;
+        v38 = a5;
         _os_log_impl(&dword_242158000, v15, OS_LOG_TYPE_INFO, "[%@ receiveNextMessage] - consuming %llu bytes of %llu bytes for receive length buffer.", buf, 0x20u);
       }
 
@@ -403,11 +424,11 @@ uint64_t __50__C2MultipeerNetworkConnection_receiveNextMessage__block_invoke_157
     {
       v23 = *(a1 + 32);
       *buf = 138412802;
-      v35 = v23;
-      v36 = 2048;
-      v37 = v21;
-      v38 = 2048;
-      v39 = a5;
+      v34 = v23;
+      v35 = 2048;
+      v36 = v21;
+      v37 = 2048;
+      v38 = a5;
       _os_log_impl(&dword_242158000, v22, OS_LOG_TYPE_INFO, "[%@ receiveNextMessage] - consuming %llu bytes of %llu bytes for receive message buffer.", buf, 0x20u);
     }
 
@@ -433,7 +454,6 @@ uint64_t __50__C2MultipeerNetworkConnection_receiveNextMessage__block_invoke_157
     a4 += v21;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -460,7 +480,7 @@ uint64_t __50__C2MultipeerNetworkConnection_receiveNextMessage__block_invoke_164
 
 - (void)sendMessageWithData:(id)data completionHandler:(id)handler
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   handlerCopy = handler;
   queue = [(C2MultipeerConnection *)self queue];
@@ -492,10 +512,10 @@ uint64_t __50__C2MultipeerNetworkConnection_receiveNextMessage__block_invoke_164
 
       *buf = 138412802;
       *&buf[4] = self;
-      v28 = 2080;
-      v29 = identifier;
-      v30 = 2048;
-      v31 = [dataCopy length];
+      v27 = 2080;
+      v28 = identifier;
+      v29 = 2048;
+      v30 = [dataCopy length];
       _os_log_impl(&dword_242158000, v12, OS_LOG_TYPE_DEFAULT, "[%@ sendMessageWithData] - sending message %s with length %llu", buf, 0x20u);
     }
 
@@ -513,8 +533,8 @@ uint64_t __50__C2MultipeerNetworkConnection_receiveNextMessage__block_invoke_164
     completion[2] = __70__C2MultipeerNetworkConnection_sendMessageWithData_completionHandler___block_invoke_178;
     completion[3] = &unk_278D40288;
     completion[4] = self;
-    v25 = v11;
-    v26 = handlerCopy;
+    v24 = v11;
+    v25 = handlerCopy;
     v22 = v11;
     nw_connection_send(connection, alloc, v21, 1, completion);
   }
@@ -535,14 +555,12 @@ uint64_t __50__C2MultipeerNetworkConnection_receiveNextMessage__block_invoke_164
     }
 
     v15 = MEMORY[0x277CCA9B8];
-    v32 = *MEMORY[0x277CCA450];
-    v33[0] = @"peer connection not ready";
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
+    v31 = *MEMORY[0x277CCA450];
+    v32[0] = @"peer connection not ready";
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
     v17 = [v15 errorWithDomain:@"C2MultipeerErrorDomain" code:300 userInfo:v16];
     (*(handlerCopy + 2))(handlerCopy, v17);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __70__C2MultipeerNetworkConnection_sendMessageWithData_completionHandler___block_invoke()
@@ -561,7 +579,7 @@ uint64_t __70__C2MultipeerNetworkConnection_sendMessageWithData_completionHandle
 
 void __70__C2MultipeerNetworkConnection_sendMessageWithData_completionHandler___block_invoke_178(void *a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -590,17 +608,16 @@ void __70__C2MultipeerNetworkConnection_sendMessageWithData_completionHandler___
       identifier = "(null)";
     }
 
-    v11 = 138412802;
-    v12 = v8;
-    v13 = 2080;
-    v14 = identifier;
-    v15 = 2112;
-    v16 = v5;
-    _os_log_impl(&dword_242158000, v6, OS_LOG_TYPE_DEFAULT, "[%@ sendMessageWithData] - sending message %s completed with error %@", &v11, 0x20u);
+    v10 = 138412802;
+    v11 = v8;
+    v12 = 2080;
+    v13 = identifier;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_impl(&dword_242158000, v6, OS_LOG_TYPE_DEFAULT, "[%@ sendMessageWithData] - sending message %s completed with error %@", &v10, 0x20u);
   }
 
   (*(a1[6] + 16))();
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __70__C2MultipeerNetworkConnection_sendMessageWithData_completionHandler___block_invoke_2()

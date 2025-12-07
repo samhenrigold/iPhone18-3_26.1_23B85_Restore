@@ -10,11 +10,10 @@
 
 - (double)debouncingInterval
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC7remindd21RDDebouncerWithNumber_debouncer);
   selfCopy = self;
-  v4 = sub_1004434C4();
+  v3 = sub_1004434C4();
 
-  return v4;
+  return v3;
 }
 
 - (void)setDebouncingInterval:(double)interval
@@ -28,11 +27,12 @@
   v8 = _Block_copy(handler);
   v9 = swift_allocObject();
   *(v9 + 16) = v8;
-  *v14 = interval;
-  memset(&v14[1], 0, 24);
+  v14 = *&interval;
   v15 = 0;
+  v16 = 0;
+  v17 = 0;
   queueCopy = queue;
-  *(&self->super.isa + OBJC_IVAR____TtC7remindd21RDDebouncerWithNumber_debouncer) = sub_1004427E0(0, 0, v14, queueCopy, sub_10014F6E4, v9);
+  *(&self->super.isa + OBJC_IVAR____TtC7remindd21RDDebouncerWithNumber_debouncer) = sub_1004427E0(0, 0, &v14, queueCopy, sub_10014F6E4, v9);
   v13.receiver = self;
   v13.super_class = type metadata accessor for RDDebouncerWithNumber();
   v11 = [(RDDebouncerWithNumber *)&v13 init];
@@ -59,11 +59,12 @@
     v7 = 0;
   }
 
-  v9 = *(&self->super.isa + OBJC_IVAR____TtC7remindd21RDDebouncerWithNumber_debouncer);
   selfCopy = self;
   sub_10043BF60(v6, v8, v7);
 
-  sub_10003E114(v8);
+  v6, v10, v11, v12, v13, v14, v15, v16;
+
+  sub_10003E114(v8, v7);
 }
 
 - (_TtC7remindd21RDDebouncerWithNumber)init

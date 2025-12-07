@@ -57,28 +57,28 @@
 
 - (id)description
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD60] stringWithFormat:@"NRDevice[%p]: ", self];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   propertyNames = [(NRDevice *)self propertyNames];
-  v5 = [propertyNames countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [propertyNames countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(propertyNames);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         v10 = objc_autoreleasePoolPush();
         v11 = [(NRDevice *)self objectForKeyedSubscript:v9];
         [v3 appendFormat:@"%@=%@ ", v9, v11];
@@ -86,13 +86,11 @@
         objc_autoreleasePoolPop(v10);
       }
 
-      v6 = [propertyNames countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [propertyNames countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -151,7 +149,7 @@ void __25__NRDevice_propertyNames__block_invoke(uint64_t a1, void *a2)
 
 - (BOOL)canMigrate
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:@"119C9267-C24D-4FC3-8FE9-2D394943F2E6"];
   v4 = [(NRDevice *)self supportsCapability:v3];
 
@@ -219,26 +217,25 @@ void __25__NRDevice_propertyNames__block_invoke(uint64_t a1, void *a2)
     {
       v17 = [(NRDevice *)self valueForProperty:@"pairingID"];
       *buf = 136316162;
-      v22 = "[NRDevice(migration) canMigrate]";
+      v21 = "[NRDevice(migration) canMigrate]";
       v18 = " - ";
-      v23 = 2112;
-      v25 = 1024;
-      v24 = v17;
+      v22 = 2112;
+      v24 = 1024;
+      v23 = v17;
       if (v12)
       {
         v18 = "";
       }
 
-      v26 = v12;
-      v27 = 2080;
-      v28 = v18;
-      v29 = 2112;
-      v30 = v13;
+      v25 = v12;
+      v26 = 2080;
+      v27 = v18;
+      v28 = 2112;
+      v29 = v13;
       _os_log_impl(&dword_1E0ADF000, v16, OS_LOG_TYPE_DEFAULT, "%s: %@ %{BOOL}d%s%@", buf, 0x30u);
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -362,7 +359,7 @@ uint64_t __51__NRDevice_initWithRegistry_diff_pairingID_notify___block_invoke(ui
 
 - (void)_fireChangeNotificationsForDiff:(void *)diff secureProperties:(int)properties notify:
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   diffCopy = diff;
   if (self)
   {
@@ -379,48 +376,48 @@ LABEL_51:
     v9 = diff;
     if (properties && diff)
     {
-      v62[0] = MEMORY[0x1E69E9820];
-      v62[1] = 3221225472;
-      v62[2] = __68__NRDevice__fireChangeNotificationsForDiff_secureProperties_notify___block_invoke;
-      v62[3] = &unk_1E86DC898;
-      v62[4] = self;
-      [NRMutableDevice parseDiff:diff forPropertyChange:@"isActive" withBlock:v62];
       v61[0] = MEMORY[0x1E69E9820];
       v61[1] = 3221225472;
-      v61[2] = __68__NRDevice__fireChangeNotificationsForDiff_secureProperties_notify___block_invoke_2;
+      v61[2] = __68__NRDevice__fireChangeNotificationsForDiff_secureProperties_notify___block_invoke;
       v61[3] = &unk_1E86DC898;
       v61[4] = self;
-      [NRMutableDevice parseDiff:v9 forPropertyChange:@"bluetoothPaired" withBlock:v61];
+      [NRMutableDevice parseDiff:diff forPropertyChange:@"isActive" withBlock:v61];
       v60[0] = MEMORY[0x1E69E9820];
       v60[1] = 3221225472;
-      v60[2] = __68__NRDevice__fireChangeNotificationsForDiff_secureProperties_notify___block_invoke_3;
+      v60[2] = __68__NRDevice__fireChangeNotificationsForDiff_secureProperties_notify___block_invoke_2;
       v60[3] = &unk_1E86DC898;
       v60[4] = self;
-      [NRMutableDevice parseDiff:v9 forPropertyChange:@"isActive" withBlock:v60];
+      [NRMutableDevice parseDiff:v9 forPropertyChange:@"bluetoothPaired" withBlock:v60];
       v59[0] = MEMORY[0x1E69E9820];
       v59[1] = 3221225472;
-      v59[2] = __68__NRDevice__fireChangeNotificationsForDiff_secureProperties_notify___block_invoke_4;
+      v59[2] = __68__NRDevice__fireChangeNotificationsForDiff_secureProperties_notify___block_invoke_3;
       v59[3] = &unk_1E86DC898;
       v59[4] = self;
-      [NRMutableDevice parseDiff:v9 forPropertyChange:@"remoteUnpairingStarted" withBlock:v59];
+      [NRMutableDevice parseDiff:v9 forPropertyChange:@"isActive" withBlock:v59];
       v58[0] = MEMORY[0x1E69E9820];
       v58[1] = 3221225472;
-      v58[2] = __68__NRDevice__fireChangeNotificationsForDiff_secureProperties_notify___block_invoke_5;
+      v58[2] = __68__NRDevice__fireChangeNotificationsForDiff_secureProperties_notify___block_invoke_4;
       v58[3] = &unk_1E86DC898;
       v58[4] = self;
-      [NRMutableDevice parseDiff:v9 forPropertyChange:@"isPaired" withBlock:v58];
+      [NRMutableDevice parseDiff:v9 forPropertyChange:@"remoteUnpairingStarted" withBlock:v58];
       v57[0] = MEMORY[0x1E69E9820];
       v57[1] = 3221225472;
-      v57[2] = __68__NRDevice__fireChangeNotificationsForDiff_secureProperties_notify___block_invoke_6;
+      v57[2] = __68__NRDevice__fireChangeNotificationsForDiff_secureProperties_notify___block_invoke_5;
       v57[3] = &unk_1E86DC898;
       v57[4] = self;
-      [NRMutableDevice parseDiff:v9 forPropertyChange:@"isSetup" withBlock:v57];
+      [NRMutableDevice parseDiff:v9 forPropertyChange:@"isPaired" withBlock:v57];
       v56[0] = MEMORY[0x1E69E9820];
       v56[1] = 3221225472;
-      v56[2] = __68__NRDevice__fireChangeNotificationsForDiff_secureProperties_notify___block_invoke_7;
+      v56[2] = __68__NRDevice__fireChangeNotificationsForDiff_secureProperties_notify___block_invoke_6;
       v56[3] = &unk_1E86DC898;
       v56[4] = self;
-      [NRMutableDevice parseDiff:v9 forPropertyChange:@"compatibilityState" withBlock:v56];
+      [NRMutableDevice parseDiff:v9 forPropertyChange:@"isSetup" withBlock:v56];
+      v55[0] = MEMORY[0x1E69E9820];
+      v55[1] = 3221225472;
+      v55[2] = __68__NRDevice__fireChangeNotificationsForDiff_secureProperties_notify___block_invoke_7;
+      v55[3] = &unk_1E86DC898;
+      v55[4] = self;
+      [NRMutableDevice parseDiff:v9 forPropertyChange:@"compatibilityState" withBlock:v55];
     }
 
     if ([v7 changeType] == 2)
@@ -444,26 +441,26 @@ LABEL_51:
         }
       }
 
-      v50 = 0u;
-      v51 = 0u;
-      v48 = 0u;
       v49 = 0u;
+      v50 = 0u;
+      v47 = 0u;
+      v48 = 0u;
       v15 = *(self + 40);
-      v16 = [v15 countByEnumeratingWithState:&v48 objects:v63 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v47 objects:v62 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v49;
+        v18 = *v48;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v49 != v18)
+            if (*v48 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            v20 = *(*(&v48 + 1) + 8 * i);
+            v20 = *(*(&v47 + 1) + 8 * i);
             v21 = [*(self + 40) objectForKeyedSubscript:v20];
             if (properties)
             {
@@ -471,7 +468,7 @@ LABEL_51:
             }
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v48 objects:v63 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v47 objects:v62 count:16];
         }
 
         while (v17);
@@ -523,33 +520,33 @@ LABEL_47:
       goto LABEL_49;
     }
 
-    v42 = v9;
-    v43 = v7;
+    v41 = v9;
+    v42 = v7;
     diff2 = [v7 diff];
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
-    v26 = [diff2 countByEnumeratingWithState:&v52 objects:v64 count:16];
+    v26 = [diff2 countByEnumeratingWithState:&v51 objects:v63 count:16];
     if (!v26)
     {
       goto LABEL_44;
     }
 
     v27 = v26;
-    v28 = *v53;
+    v28 = *v52;
     selfCopy = self;
 LABEL_27:
     v29 = 0;
-    v45 = v27;
+    v44 = v27;
     while (1)
     {
-      if (*v53 != v28)
+      if (*v52 != v28)
       {
         objc_enumerationMutation(diff2);
       }
 
-      v30 = *(*(&v52 + 1) + 8 * v29);
+      v30 = *(*(&v51 + 1) + 8 * v29);
       v31 = [diff2 objectForKeyedSubscript:v30];
       if ([v31 changeType] == 2)
       {
@@ -587,13 +584,13 @@ LABEL_42:
 
       if (v27 == ++v29)
       {
-        v27 = [diff2 countByEnumeratingWithState:&v52 objects:v64 count:16];
+        v27 = [diff2 countByEnumeratingWithState:&v51 objects:v63 count:16];
         if (!v27)
         {
 LABEL_44:
 
-          v10 = v42;
-          v7 = v43;
+          v10 = v41;
+          v7 = v42;
           goto LABEL_50;
         }
 
@@ -612,13 +609,11 @@ LABEL_38:
     }
 
     v28 = v35;
-    v27 = v45;
+    v27 = v44;
     goto LABEL_41;
   }
 
 LABEL_52:
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __51__NRDevice_initWithRegistry_diff_pairingID_notify___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -631,38 +626,38 @@ uint64_t __51__NRDevice_initWithRegistry_diff_pairingID_notify___block_invoke_2(
 
 void __51__NRDevice_initWithRegistry_diff_pairingID_notify___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 32);
-  v16 = a3;
+  v15 = a3;
   if (v4)
   {
     v5 = [a2 objectForKeyedSubscript:*(v4 + 24)];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v18;
+      v8 = *v17;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v17 + 1) + 8 * i);
+          v10 = *(*(&v16 + 1) + 8 * i);
           v11 = [v5 objectForKeyedSubscript:v10];
           v12 = [v11 value];
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v13 = [v16 objectForKeyedSubscript:v12];
+            v13 = [v15 objectForKeyedSubscript:v12];
             if (v13)
             {
               v14 = [*(v4 + 40) objectForKeyedSubscript:v10];
@@ -676,14 +671,12 @@ void __51__NRDevice_initWithRegistry_diff_pairingID_notify___block_invoke_3(uint
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v7);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setValue:(id)value forProperty:(id)property
@@ -788,7 +781,7 @@ uint64_t __22__NRDevice_invalidate__block_invoke(uint64_t a1)
 
 void __51__NRDevice_addPropertyObserver_forPropertyChanges___block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = *(a1 + 48);
   v3 = *(a1 + 40);
@@ -798,56 +791,56 @@ void __51__NRDevice_addPropertyObserver_forPropertyChanges___block_invoke(uint64
   {
     if (v4)
     {
-      v30 = 0uLL;
-      v31 = 0uLL;
-      v28 = 0uLL;
       v29 = 0uLL;
-      v6 = [v4 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v30 = 0uLL;
+      v27 = 0uLL;
+      v28 = 0uLL;
+      v6 = [v4 countByEnumeratingWithState:&v27 objects:v35 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v29;
+        v8 = *v28;
         obj = v5;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v29 != v8)
+            if (*v28 != v8)
             {
               objc_enumerationMutation(obj);
             }
 
-            v10 = *(*(&v28 + 1) + 8 * i);
+            v10 = *(*(&v27 + 1) + 8 * i);
             v11 = [*(v1 + 56) objectForKey:v10];
             if (v11)
             {
-              v26 = 0u;
-              v27 = 0u;
-              v24 = 0u;
               v25 = 0u;
+              v26 = 0u;
+              v23 = 0u;
+              v24 = 0u;
               v12 = v11;
-              v13 = [v12 countByEnumeratingWithState:&v24 objects:&v32 count:16];
+              v13 = [v12 countByEnumeratingWithState:&v23 objects:&v31 count:16];
               if (v13)
               {
                 v14 = v13;
-                v15 = *v25;
+                v15 = *v24;
                 while (2)
                 {
                   for (j = 0; j != v14; ++j)
                   {
-                    if (*v25 != v15)
+                    if (*v24 != v15)
                     {
                       objc_enumerationMutation(v12);
                     }
 
-                    if (*(*(&v24 + 1) + 8 * j) == v3)
+                    if (*(*(&v23 + 1) + 8 * j) == v3)
                     {
 
                       goto LABEL_21;
                     }
                   }
 
-                  v14 = [v12 countByEnumeratingWithState:&v24 objects:&v32 count:16];
+                  v14 = [v12 countByEnumeratingWithState:&v23 objects:&v31 count:16];
                   if (v14)
                   {
                     continue;
@@ -869,7 +862,7 @@ LABEL_21:
           }
 
           v5 = obj;
-          v7 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+          v7 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
         }
 
         while (v7);
@@ -878,33 +871,33 @@ LABEL_21:
 
     else
     {
-      v34 = 0uLL;
-      v35 = 0uLL;
-      v32 = 0uLL;
       v33 = 0uLL;
+      v34 = 0uLL;
+      v31 = 0uLL;
+      v32 = 0uLL;
       v17 = *(v1 + 64);
-      v18 = [v17 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v31 objects:v35 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v33;
+        v20 = *v32;
         while (2)
         {
           for (k = 0; k != v19; ++k)
           {
-            if (*v33 != v20)
+            if (*v32 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            if (*(*(&v32 + 1) + 8 * k) == v3)
+            if (*(*(&v31 + 1) + 8 * k) == v3)
             {
 
               goto LABEL_34;
             }
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v32 objects:v36 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v31 objects:v35 count:16];
           if (v19)
           {
             continue;
@@ -919,8 +912,6 @@ LABEL_21:
   }
 
 LABEL_34:
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removePropertyObserver:(id)observer forPropertyChanges:(id)changes
@@ -944,48 +935,48 @@ LABEL_34:
 
 void __54__NRDevice_removePropertyObserver_forPropertyChanges___block_invoke(uint64_t a1)
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = *(a1 + 48);
   v3 = *(a1 + 40);
   v4 = v2;
   v5 = v4;
-  v40 = v1;
+  v39 = v1;
   if (v1)
   {
     if (v4)
     {
-      v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
       v54 = 0u;
-      v6 = [v4 countByEnumeratingWithState:&v53 objects:v58 count:16];
+      v55 = 0u;
+      v52 = 0u;
+      v53 = 0u;
+      v6 = [v4 countByEnumeratingWithState:&v52 objects:v57 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v54;
+        v8 = *v53;
         obj = v5;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v54 != v8)
+            if (*v53 != v8)
             {
               objc_enumerationMutation(obj);
             }
 
-            v10 = [*(v40 + 56) objectForKey:*(*(&v53 + 1) + 8 * i)];
+            v10 = [*(v39 + 56) objectForKey:*(*(&v52 + 1) + 8 * i)];
+            v48 = 0u;
             v49 = 0u;
             v50 = 0u;
             v51 = 0u;
-            v52 = 0u;
             v11 = v10;
-            v12 = [v11 countByEnumeratingWithState:&v49 objects:v57 count:16];
+            v12 = [v11 countByEnumeratingWithState:&v48 objects:v56 count:16];
             if (v12)
             {
               v13 = v12;
               v14 = 0;
-              v15 = *v50;
+              v15 = *v49;
               while (2)
               {
                 v16 = 0;
@@ -993,12 +984,12 @@ void __54__NRDevice_removePropertyObserver_forPropertyChanges___block_invoke(uin
                 v14 += v13;
                 do
                 {
-                  if (*v50 != v15)
+                  if (*v49 != v15)
                   {
                     objc_enumerationMutation(v11);
                   }
 
-                  if (*(*(&v49 + 1) + 8 * v16) == v3)
+                  if (*(*(&v48 + 1) + 8 * v16) == v3)
                   {
 
                     if (v17 != 0x7FFFFFFFFFFFFFFFLL)
@@ -1014,7 +1005,7 @@ void __54__NRDevice_removePropertyObserver_forPropertyChanges___block_invoke(uin
                 }
 
                 while (v13 != v16);
-                v13 = [v11 countByEnumeratingWithState:&v49 objects:v57 count:16];
+                v13 = [v11 countByEnumeratingWithState:&v48 objects:v56 count:16];
                 if (v13)
                 {
                   continue;
@@ -1028,7 +1019,7 @@ LABEL_19:
           }
 
           v5 = obj;
-          v7 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
+          v7 = [obj countByEnumeratingWithState:&v52 objects:v57 count:16];
         }
 
         while (v7);
@@ -1037,37 +1028,37 @@ LABEL_19:
 
     else
     {
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
       v50 = 0u;
-      v38 = [*(v1 + 56) allKeys];
-      v18 = [v38 countByEnumeratingWithState:&v49 objects:v58 count:16];
+      v51 = 0u;
+      v48 = 0u;
+      v49 = 0u;
+      v37 = [*(v1 + 56) allKeys];
+      v18 = [v37 countByEnumeratingWithState:&v48 objects:v57 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v50;
+        v20 = *v49;
         do
         {
           for (j = 0; j != v19; ++j)
           {
-            if (*v50 != v20)
+            if (*v49 != v20)
             {
-              objc_enumerationMutation(v38);
+              objc_enumerationMutation(v37);
             }
 
-            v22 = [*(v40 + 56) objectForKey:*(*(&v49 + 1) + 8 * j)];
+            v22 = [*(v39 + 56) objectForKey:*(*(&v48 + 1) + 8 * j)];
+            v44 = 0u;
             v45 = 0u;
             v46 = 0u;
             v47 = 0u;
-            v48 = 0u;
             v23 = v22;
-            v24 = [v23 countByEnumeratingWithState:&v45 objects:v57 count:16];
+            v24 = [v23 countByEnumeratingWithState:&v44 objects:v56 count:16];
             if (v24)
             {
               v25 = v24;
               v26 = 0;
-              v27 = *v46;
+              v27 = *v45;
               while (2)
               {
                 v28 = 0;
@@ -1075,12 +1066,12 @@ LABEL_19:
                 v26 += v25;
                 do
                 {
-                  if (*v46 != v27)
+                  if (*v45 != v27)
                   {
                     objc_enumerationMutation(v23);
                   }
 
-                  if (*(*(&v45 + 1) + 8 * v28) == v3)
+                  if (*(*(&v44 + 1) + 8 * v28) == v3)
                   {
 
                     if (v29 != 0x7FFFFFFFFFFFFFFFLL)
@@ -1096,7 +1087,7 @@ LABEL_19:
                 }
 
                 while (v25 != v28);
-                v25 = [v23 countByEnumeratingWithState:&v45 objects:v57 count:16];
+                v25 = [v23 countByEnumeratingWithState:&v44 objects:v56 count:16];
                 if (v25)
                 {
                   continue;
@@ -1109,24 +1100,24 @@ LABEL_19:
 LABEL_38:
           }
 
-          v19 = [v38 countByEnumeratingWithState:&v49 objects:v58 count:16];
+          v19 = [v37 countByEnumeratingWithState:&v48 objects:v57 count:16];
         }
 
         while (v19);
       }
 
-      v43 = 0u;
-      v44 = 0u;
-      v41 = 0u;
       v42 = 0u;
-      v30 = *(v40 + 64);
-      v31 = [v30 countByEnumeratingWithState:&v41 objects:&v53 count:16];
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v30 = *(v39 + 64);
+      v31 = [v30 countByEnumeratingWithState:&v40 objects:&v52 count:16];
       v5 = 0;
       if (v31)
       {
         v32 = v31;
         v33 = 0;
-        v34 = *v42;
+        v34 = *v41;
         while (2)
         {
           v35 = 0;
@@ -1134,17 +1125,17 @@ LABEL_38:
           v33 += v32;
           do
           {
-            if (*v42 != v34)
+            if (*v41 != v34)
             {
               objc_enumerationMutation(v30);
             }
 
-            if (*(*(&v41 + 1) + 8 * v35) == v3)
+            if (*(*(&v40 + 1) + 8 * v35) == v3)
             {
 
               if (v36 != 0x7FFFFFFFFFFFFFFFLL)
               {
-                [*(v40 + 64) removePointerAtIndex:v36];
+                [*(v39 + 64) removePointerAtIndex:v36];
               }
 
               goto LABEL_51;
@@ -1155,7 +1146,7 @@ LABEL_38:
           }
 
           while (v32 != v35);
-          v32 = [v30 countByEnumeratingWithState:&v41 objects:&v53 count:16];
+          v32 = [v30 countByEnumeratingWithState:&v40 objects:&v52 count:16];
           if (v32)
           {
             continue;
@@ -1168,8 +1159,6 @@ LABEL_38:
   }
 
 LABEL_51:
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (id)valueForProperty:(id)property
@@ -1292,12 +1281,11 @@ void __68__NRDevice__fireChangeNotificationsForDiff_secureProperties_notify___bl
 
 void __68__NRDevice__fireChangeNotificationsForDiff_secureProperties_notify___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v7 = a3;
-  if (v7)
+  v6 = a3;
+  if (v6)
   {
-    v4 = [v7 BOOLValue];
+    v4 = [v6 BOOLValue];
     v5 = NRPairedDeviceRegistryDeviceDidBeginPairingNotification;
-    v6 = *(a1 + 32);
     if (!v4)
     {
       v5 = NRPairedDeviceRegistryDeviceDidReceiveBTPairingRequestNotification;
@@ -1387,71 +1375,67 @@ void __42__NRDevice_postNotification_withUserInfo___block_invoke(void *a1)
 
 void __61__NRDevice__queueFirePropertyObserversForProperty_fromValue___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v20;
+    v5 = *v17;
     do
     {
       v6 = 0;
       do
       {
-        if (*v20 != v5)
+        if (*v17 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v19 + 1) + 8 * v6++) device:*(a1 + 40) propertyDidChange:*(a1 + 48) fromValue:*(a1 + 56)];
+        [*(*(&v16 + 1) + 8 * v6++) device:*(a1 + 40) propertyDidChange:*(a1 + 48) fromValue:*(a1 + 56)];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v4);
   }
 
-  v17 = 0u;
-  v18 = 0u;
+  v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = *(a1 + 64);
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v23 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(a1 + 48);
-        v13 = *(a1 + 56);
-        (*(*(*(&v15 + 1) + 8 * v11) + 16))(*(*(&v15 + 1) + 8 * v11));
+        (*(*(*(&v12 + 1) + 8 * v11) + 16))(*(*(&v12 + 1) + 8 * v11));
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v23 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v20 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (NRDevice)initWithCoder:(id)coder
@@ -1518,7 +1502,7 @@ void __25__NRDevice_propertyNames__block_invoke_2(uint64_t a1)
 
 void __49__NRDevice_registerForPropertyChanges_withBlock___block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = *(a1 + 48);
   v3 = *(a1 + 40);
@@ -1527,56 +1511,56 @@ void __49__NRDevice_registerForPropertyChanges_withBlock___block_invoke(uint64_t
   {
     if (v3)
     {
-      v31 = 0uLL;
-      v32 = 0uLL;
-      v29 = 0uLL;
       v30 = 0uLL;
-      v5 = [v3 countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v31 = 0uLL;
+      v28 = 0uLL;
+      v29 = 0uLL;
+      v5 = [v3 countByEnumeratingWithState:&v28 objects:v36 count:16];
       if (v5)
       {
         v6 = v5;
-        v7 = *v30;
+        v7 = *v29;
         obj = v3;
         do
         {
           for (i = 0; i != v6; ++i)
           {
-            if (*v30 != v7)
+            if (*v29 != v7)
             {
               objc_enumerationMutation(obj);
             }
 
-            v9 = *(*(&v29 + 1) + 8 * i);
+            v9 = *(*(&v28 + 1) + 8 * i);
             v10 = [*(v1 + 72) objectForKey:v9];
             if (v10)
             {
-              v27 = 0u;
-              v28 = 0u;
-              v25 = 0u;
               v26 = 0u;
+              v27 = 0u;
+              v24 = 0u;
+              v25 = 0u;
               v11 = v10;
-              v12 = [v11 countByEnumeratingWithState:&v25 objects:&v33 count:16];
+              v12 = [v11 countByEnumeratingWithState:&v24 objects:&v32 count:16];
               if (v12)
               {
                 v13 = v12;
-                v14 = *v26;
+                v14 = *v25;
                 while (2)
                 {
                   for (j = 0; j != v13; ++j)
                   {
-                    if (*v26 != v14)
+                    if (*v25 != v14)
                     {
                       objc_enumerationMutation(v11);
                     }
 
-                    if (*(*(&v25 + 1) + 8 * j) == v4)
+                    if (*(*(&v24 + 1) + 8 * j) == v4)
                     {
 
                       goto LABEL_21;
                     }
                   }
 
-                  v13 = [v11 countByEnumeratingWithState:&v25 objects:&v33 count:16];
+                  v13 = [v11 countByEnumeratingWithState:&v24 objects:&v32 count:16];
                   if (v13)
                   {
                     continue;
@@ -1600,7 +1584,7 @@ LABEL_21:
           }
 
           v3 = obj;
-          v6 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
+          v6 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
         }
 
         while (v6);
@@ -1609,33 +1593,33 @@ LABEL_21:
 
     else
     {
-      v35 = 0uLL;
-      v36 = 0uLL;
-      v33 = 0uLL;
       v34 = 0uLL;
+      v35 = 0uLL;
+      v32 = 0uLL;
+      v33 = 0uLL;
       v17 = *(v1 + 80);
-      v18 = [v17 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v32 objects:v36 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v34;
+        v20 = *v33;
 LABEL_26:
         v21 = 0;
         while (1)
         {
-          if (*v34 != v20)
+          if (*v33 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          if (*(*(&v33 + 1) + 8 * v21) == v4)
+          if (*(*(&v32 + 1) + 8 * v21) == v4)
           {
             break;
           }
 
           if (v19 == ++v21)
           {
-            v19 = [v17 countByEnumeratingWithState:&v33 objects:v37 count:16];
+            v19 = [v17 countByEnumeratingWithState:&v32 objects:v36 count:16];
             if (v19)
             {
               goto LABEL_26;
@@ -1656,8 +1640,6 @@ LABEL_32:
       }
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterForPropertyChanges:(id)changes withBlock:(id)block
@@ -1681,7 +1663,7 @@ LABEL_32:
 
 void __51__NRDevice_unregisterForPropertyChanges_withBlock___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = *(a1 + 48);
   v3 = *(a1 + 40);
@@ -1690,29 +1672,29 @@ void __51__NRDevice_unregisterForPropertyChanges_withBlock___block_invoke(uint64
   {
     if (v3)
     {
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
       v26 = 0u;
-      v5 = [v3 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
+      v5 = [v3 countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v5)
       {
         v6 = v5;
-        v7 = *v26;
+        v7 = *v25;
         do
         {
           for (i = 0; i != v6; ++i)
           {
-            if (*v26 != v7)
+            if (*v25 != v7)
             {
               objc_enumerationMutation(v3);
             }
 
-            v9 = *(*(&v25 + 1) + 8 * i);
+            v9 = *(*(&v24 + 1) + 8 * i);
             v10 = *(v1 + 72);
             if (v4)
             {
-              v11 = [v10 objectForKey:*(*(&v25 + 1) + 8 * i)];
+              v11 = [v10 objectForKey:*(*(&v24 + 1) + 8 * i)];
               v12 = MEMORY[0x1E12E7560](v4);
               [v11 removeObject:v12];
 
@@ -1724,11 +1706,11 @@ void __51__NRDevice_unregisterForPropertyChanges_withBlock___block_invoke(uint64
 
             else
             {
-              [v10 removeObjectForKey:*(*(&v25 + 1) + 8 * i)];
+              [v10 removeObjectForKey:*(*(&v24 + 1) + 8 * i)];
             }
           }
 
-          v6 = [v3 countByEnumeratingWithState:&v25 objects:v29 count:16];
+          v6 = [v3 countByEnumeratingWithState:&v24 objects:v28 count:16];
         }
 
         while (v6);
@@ -1741,25 +1723,25 @@ void __51__NRDevice_unregisterForPropertyChanges_withBlock___block_invoke(uint64
       if (v4)
       {
         v14 = [v13 allKeys];
+        v24 = 0u;
         v25 = 0u;
         v26 = 0u;
         v27 = 0u;
-        v28 = 0u;
-        v15 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v26;
+          v17 = *v25;
           do
           {
             for (j = 0; j != v16; ++j)
             {
-              if (*v26 != v17)
+              if (*v25 != v17)
               {
                 objc_enumerationMutation(v14);
               }
 
-              v19 = *(*(&v25 + 1) + 8 * j);
+              v19 = *(*(&v24 + 1) + 8 * j);
               v20 = [*(v1 + 72) objectForKey:v19];
               v21 = MEMORY[0x1E12E7560](v4);
               [v20 removeObject:v21];
@@ -1770,7 +1752,7 @@ void __51__NRDevice_unregisterForPropertyChanges_withBlock___block_invoke(uint64
               }
             }
 
-            v16 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
+            v16 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
           }
 
           while (v16);
@@ -1788,8 +1770,6 @@ void __51__NRDevice_unregisterForPropertyChanges_withBlock___block_invoke(uint64
       }
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (NRDevice)initWithQueue:(id)queue

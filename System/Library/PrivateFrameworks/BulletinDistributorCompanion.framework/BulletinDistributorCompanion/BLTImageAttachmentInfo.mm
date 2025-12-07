@@ -7,7 +7,7 @@
 
 + (id)imageAttachmentInfoForImageURL:(id)l
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   v4 = objc_opt_new();
   identifier = [*MEMORY[0x277CE1E10] identifier];
@@ -17,9 +17,9 @@
   if (v6)
   {
     v7 = v6;
-    v18 = *MEMORY[0x277CD3618];
-    v19[0] = MEMORY[0x277CBEC28];
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x277CD3618];
+    v18[0] = MEMORY[0x277CBEC28];
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v9 = CGImageSourceCopyPropertiesAtIndex(v7, 0, v8);
     if (v9)
     {
@@ -41,7 +41,7 @@
 
     else
     {
-      v11 = blt_ids_log();
+      v11 = blt_ids_log(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [(BLTImageAttachmentInfo *)lCopy imageAttachmentInfoForImageURL:v11];
@@ -53,7 +53,7 @@
 
   else
   {
-    v8 = blt_ids_log();
+    v8 = blt_ids_log(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(BLTImageAttachmentInfo *)lCopy imageAttachmentInfoForImageURL:v8];
@@ -61,8 +61,6 @@
 
     v15 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -78,20 +76,18 @@
 
 + (void)imageAttachmentInfoForImageURL:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "BLTImageAttachmentInfo CGImageSourceCopyPropertiesAtIndex failed for: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "BLTImageAttachmentInfo CGImageSourceCopyPropertiesAtIndex failed for: %@", &v2, 0xCu);
 }
 
 + (void)imageAttachmentInfoForImageURL:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "BLTImageAttachmentInfo CGImageSourceCreateWithURL failed for: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "BLTImageAttachmentInfo CGImageSourceCreateWithURL failed for: %@", &v2, 0xCu);
 }
 
 @end

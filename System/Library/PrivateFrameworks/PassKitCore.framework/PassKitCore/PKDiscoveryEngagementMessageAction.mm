@@ -24,32 +24,32 @@
     v5->_titleKey = v6;
 
     v8 = [dictionaryCopy PKStringForKey:@"type"];
-    if ([@"passDetails" isEqualToString:v8])
+    if (objc_msgSend_isEqualToString_(@"passDetails"))
     {
       v9 = 1;
     }
 
-    else if ([@"openURL" isEqualToString:v8])
+    else if (objc_msgSend_isEqualToString_(@"openURL"))
     {
       v9 = 2;
     }
 
-    else if ([@"cardNumbers" isEqualToString:v8])
+    else if (objc_msgSend_isEqualToString_(@"cardNumbers"))
     {
       v9 = 3;
     }
 
-    else if ([@"setDefaultWallet" isEqualToString:v8])
+    else if (objc_msgSend_isEqualToString_(@"setDefaultWallet"))
     {
       v9 = 4;
     }
 
-    else if ([@"setDefaultApple" isEqualToString:v8])
+    else if (objc_msgSend_isEqualToString_(@"setDefaultApple"))
     {
       v9 = 5;
     }
 
-    else if ([@"setDefaultWalletAndApple" isEqualToString:v8])
+    else if (objc_msgSend_isEqualToString_(@"setDefaultWalletAndApple"))
     {
       v9 = 6;
     }

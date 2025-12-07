@@ -14,6 +14,7 @@
 - (void)selectAudiogram:(id)audiogram;
 - (void)showInstructionForUse;
 - (void)updateAudiograms:(id)audiograms invalidAudiograms:(id)invalidAudiograms;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -260,6 +261,69 @@ void __62__HMHearingAidEnrollmentViewController_initHearingModeService__block_in
   [(HMHearingAidEnrollmentViewController *)self moveToStep:0];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v22.receiver = self;
+  v22.super_class = HMHearingAidEnrollmentViewController;
+  [(OBBaseWelcomeController *)&v22 viewDidAppear:appear];
+  hearingLevelSummary = [(HKAudiogramSample *)self->_selectedAudiogram hearingLevelSummary];
+  leftEarMetrics = [hearingLevelSummary leftEarMetrics];
+  if (leftEarMetrics)
+  {
+    hearingLevelSummary2 = [(HKAudiogramSample *)self->_selectedAudiogram hearingLevelSummary];
+    leftEarMetrics2 = [hearingLevelSummary2 leftEarMetrics];
+    averageSensitivity = [leftEarMetrics2 averageSensitivity];
+  }
+
+  else
+  {
+    averageSensitivity = 0;
+  }
+
+  hearingLevelSummary3 = [(HKAudiogramSample *)self->_selectedAudiogram hearingLevelSummary];
+  rightEarMetrics = [hearingLevelSummary3 rightEarMetrics];
+  if (rightEarMetrics)
+  {
+    hearingLevelSummary4 = [(HKAudiogramSample *)self->_selectedAudiogram hearingLevelSummary];
+    rightEarMetrics2 = [hearingLevelSummary4 rightEarMetrics];
+    averageSensitivity2 = [rightEarMetrics2 averageSensitivity];
+  }
+
+  else
+  {
+    averageSensitivity2 = 0;
+  }
+
+  v14 = +[_TtC13HearingModeUI25EnrollmentAnalyticManager shared];
+  if ([(HKAudiogramSample *)self->_selectedAudiogram isFirstPartyHearingTestResult])
+  {
+    v15 = 1;
+  }
+
+  else
+  {
+    v15 = 2;
+  }
+
+  [v14 updateKeyWithKey:1 value:v15];
+
+  v16 = +[_TtC13HearingModeUI25EnrollmentAnalyticManager shared];
+  [v16 updateKeyWithKey:2 value:HKHearingLevelClassificationForSensitivity()];
+
+  v17 = +[_TtC13HearingModeUI25EnrollmentAnalyticManager shared];
+  [v17 updateKeyWithKey:3 value:HKHearingLevelClassificationForSensitivity()];
+
+  processInfo = [MEMORY[0x277CCAC38] processInfo];
+  processName = [processInfo processName];
+  v20 = [processName isEqualToString:@"Health"];
+
+  if (v20)
+  {
+    v21 = +[_TtC13HearingModeUI25EnrollmentAnalyticManager shared];
+    [v21 updateKeyWithKey:6 value:2];
+  }
+}
+
 - (void)dismissHearingAidEnrollment
 {
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -405,122 +469,127 @@ void __56__HMHearingAidEnrollmentViewController_enrollHearingAid__block_invoke_4
 
 - (void)moveToStep:(int)step
 {
-  v54[4] = *MEMORY[0x277D85DE8];
+  v51[4] = *MEMORY[0x277D85DE8];
   NSLog(&cfstr_HearingAidMove.isa, a2, step);
   if (step <= 1)
   {
     if (step)
     {
-      if (step == 1)
+      if (step != 1)
       {
-        if (!self->_adjustModeInfoViewController)
-        {
-          v10 = [[_TtC13HearingModeUI32AnyHearingFeatureContentProvider alloc] initWithDevice:self->_headphoneDevice];
-          v11 = [[HMHearingAidTimeToAdjustInfoViewController alloc] initWithContentProvider:v10];
-          adjustModeInfoViewController = self->_adjustModeInfoViewController;
-          self->_adjustModeInfoViewController = v11;
-
-          [(HMHearingAidTimeToAdjustInfoViewController *)self->_adjustModeInfoViewController setDelegate:self];
-        }
-
-        navigationController = [(HMHearingAidEnrollmentViewController *)self navigationController];
-        [navigationController pushViewController:self->_adjustModeInfoViewController animated:1];
-
-        v8 = +[_TtC13HearingModeUI25EnrollmentAnalyticManager shared];
-        v52 = v8;
-        v9 = 8;
-        goto LABEL_18;
-      }
-    }
-
-    else
-    {
-      if (!self->_hearingAidIntroViewController)
-      {
-        v53 = [[_TtC13HearingModeUI32AnyHearingFeatureContentProvider alloc] initWithDevice:self->_headphoneDevice];
-        v23 = [[HMHearingAidIntroViewController alloc] initWithContentProvider:v53];
-        hearingAidIntroViewController = self->_hearingAidIntroViewController;
-        self->_hearingAidIntroViewController = v23;
-
-        [(HMHearingAidIntroViewController *)self->_hearingAidIntroViewController setDelegate:self];
-        [(HMHearingAidEnrollmentViewController *)self addChildViewController:self->_hearingAidIntroViewController];
-        [(HMHearingAidIntroViewController *)self->_hearingAidIntroViewController didMoveToParentViewController:self];
-        view = [(HMHearingAidEnrollmentViewController *)self view];
-        view2 = [(HMHearingAidIntroViewController *)self->_hearingAidIntroViewController view];
-        [view addSubview:view2];
-
-        v42 = MEMORY[0x277CCAAD0];
-        view3 = [(HMHearingAidIntroViewController *)self->_hearingAidIntroViewController view];
-        topAnchor = [view3 topAnchor];
-        view4 = [(HMHearingAidEnrollmentViewController *)self view];
-        topAnchor2 = [view4 topAnchor];
-        v47 = [topAnchor constraintEqualToAnchor:topAnchor2];
-        v54[0] = v47;
-        view5 = [(HMHearingAidIntroViewController *)self->_hearingAidIntroViewController view];
-        heightAnchor = [view5 heightAnchor];
-        view6 = [(HMHearingAidEnrollmentViewController *)self view];
-        heightAnchor2 = [view6 heightAnchor];
-        v41 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
-        v54[1] = v41;
-        view7 = [(HMHearingAidIntroViewController *)self->_hearingAidIntroViewController view];
-        leadingAnchor = [view7 leadingAnchor];
-        view8 = [(HMHearingAidEnrollmentViewController *)self view];
-        leadingAnchor2 = [view8 leadingAnchor];
-        v30 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-        v54[2] = v30;
-        view9 = [(HMHearingAidIntroViewController *)self->_hearingAidIntroViewController view];
-        trailingAnchor = [view9 trailingAnchor];
-        view10 = [(HMHearingAidEnrollmentViewController *)self view];
-        trailingAnchor2 = [view10 trailingAnchor];
-        v35 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-        v54[3] = v35;
-        v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:4];
-        [v42 activateConstraints:v36];
+        return;
       }
 
-      v37 = +[_TtC13HearingModeUI25EnrollmentAnalyticManager shared];
-      [v37 updateKeyWithKey:4 value:7];
+      if (!self->_adjustModeInfoViewController)
+      {
+        v10 = [[_TtC13HearingModeUI32AnyHearingFeatureContentProvider alloc] initWithDevice:self->_headphoneDevice];
+        v11 = [[HMHearingAidTimeToAdjustInfoViewController alloc] initWithContentProvider:v10];
+        adjustModeInfoViewController = self->_adjustModeInfoViewController;
+        self->_adjustModeInfoViewController = v11;
 
-      v38 = +[_TtC13HearingModeUI25EnrollmentAnalyticManager shared];
-      [v38 updateKeyWithKey:5 value:1];
+        [(HMHearingAidTimeToAdjustInfoViewController *)self->_adjustModeInfoViewController setDelegate:self];
+      }
+
+      navigationController = [(HMHearingAidEnrollmentViewController *)self navigationController];
+      [navigationController pushViewController:self->_adjustModeInfoViewController animated:1];
+
+      v8 = +[_TtC13HearingModeUI25EnrollmentAnalyticManager shared];
+      v49 = v8;
+      v9 = 8;
+      goto LABEL_18;
     }
 
-    goto LABEL_27;
+    if (!self->_hearingAidIntroViewController)
+    {
+      v50 = [[_TtC13HearingModeUI32AnyHearingFeatureContentProvider alloc] initWithDevice:self->_headphoneDevice];
+      v21 = [[HMHearingAidIntroViewController alloc] initWithContentProvider:v50];
+      hearingAidIntroViewController = self->_hearingAidIntroViewController;
+      self->_hearingAidIntroViewController = v21;
+
+      [(HMHearingAidIntroViewController *)self->_hearingAidIntroViewController setDelegate:self];
+      [(HMHearingAidEnrollmentViewController *)self addChildViewController:self->_hearingAidIntroViewController];
+      [(HMHearingAidIntroViewController *)self->_hearingAidIntroViewController didMoveToParentViewController:self];
+      view = [(HMHearingAidEnrollmentViewController *)self view];
+      view2 = [(HMHearingAidIntroViewController *)self->_hearingAidIntroViewController view];
+      [view addSubview:view2];
+
+      v39 = MEMORY[0x277CCAAD0];
+      view3 = [(HMHearingAidIntroViewController *)self->_hearingAidIntroViewController view];
+      topAnchor = [view3 topAnchor];
+      view4 = [(HMHearingAidEnrollmentViewController *)self view];
+      topAnchor2 = [view4 topAnchor];
+      v44 = [topAnchor constraintEqualToAnchor:topAnchor2];
+      v51[0] = v44;
+      view5 = [(HMHearingAidIntroViewController *)self->_hearingAidIntroViewController view];
+      heightAnchor = [view5 heightAnchor];
+      view6 = [(HMHearingAidEnrollmentViewController *)self view];
+      heightAnchor2 = [view6 heightAnchor];
+      v38 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
+      v51[1] = v38;
+      view7 = [(HMHearingAidIntroViewController *)self->_hearingAidIntroViewController view];
+      leadingAnchor = [view7 leadingAnchor];
+      view8 = [(HMHearingAidEnrollmentViewController *)self view];
+      leadingAnchor2 = [view8 leadingAnchor];
+      v28 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+      v51[2] = v28;
+      view9 = [(HMHearingAidIntroViewController *)self->_hearingAidIntroViewController view];
+      trailingAnchor = [view9 trailingAnchor];
+      view10 = [(HMHearingAidEnrollmentViewController *)self view];
+      trailingAnchor2 = [view10 trailingAnchor];
+      v33 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+      v51[3] = v33;
+      v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:4];
+      [v39 activateConstraints:v34];
+    }
+
+    v35 = +[_TtC13HearingModeUI25EnrollmentAnalyticManager shared];
+    [v35 updateKeyWithKey:4 value:7];
+
+    v36 = +[_TtC13HearingModeUI25EnrollmentAnalyticManager shared];
+    [v36 updateKeyWithKey:5 value:1];
   }
 
-  if (step == 2)
+  else
   {
-    if (!self->_setupCompleteViewController)
+    if (step == 2)
     {
-      v14 = [HMHearingAidSetupCompleteViewController alloc];
-      name = [(BluetoothDevice *)self->_device name];
-      v16 = [(HMHearingAidSetupCompleteViewController *)v14 initWithDeviceName:name];
-      setupCompleteViewController = self->_setupCompleteViewController;
-      self->_setupCompleteViewController = v16;
+      if (!self->_setupCompleteViewController)
+      {
+        v14 = [HMHearingAidSetupCompleteViewController alloc];
+        name = [(BluetoothDevice *)self->_device name];
+        v16 = [(HMHearingAidSetupCompleteViewController *)v14 initWithDeviceName:name];
+        setupCompleteViewController = self->_setupCompleteViewController;
+        self->_setupCompleteViewController = v16;
 
-      [(HMHearingAidSetupCompleteViewController *)self->_setupCompleteViewController setDelegate:self];
+        [(HMHearingAidSetupCompleteViewController *)self->_setupCompleteViewController setDelegate:self];
+      }
+
+      if (!self->_instructionForUseViewController)
+      {
+        v18 = objc_alloc_init(HMHearingAidInstructionsForUseViewController);
+        instructionForUseViewController = self->_instructionForUseViewController;
+        self->_instructionForUseViewController = &v18->super.super;
+      }
+
+      navigationController2 = [(HMHearingAidEnrollmentViewController *)self navigationController];
+      [navigationController2 pushViewController:self->_setupCompleteViewController animated:1];
+
+      v8 = +[_TtC13HearingModeUI25EnrollmentAnalyticManager shared];
+      v49 = v8;
+      v9 = 9;
+LABEL_18:
+      [v8 updateKeyWithKey:4 value:v9];
+
+      return;
     }
 
-    if (!self->_instructionForUseViewController)
+    if (step != 3)
     {
-      v18 = objc_alloc_init(HMHearingAidInstructionsForUseViewController);
-      instructionForUseViewController = self->_instructionForUseViewController;
-      self->_instructionForUseViewController = &v18->super.super;
-    }
+      if (step != 4)
+      {
+        return;
+      }
 
-    navigationController2 = [(HMHearingAidEnrollmentViewController *)self navigationController];
-    [navigationController2 pushViewController:self->_setupCompleteViewController animated:1];
-
-    v8 = +[_TtC13HearingModeUI25EnrollmentAnalyticManager shared];
-    v52 = v8;
-    v9 = 9;
-    goto LABEL_18;
-  }
-
-  if (step != 3)
-  {
-    if (step == 4)
-    {
       if (!self->_adjustSoundInfoViewController)
       {
         v5 = objc_alloc_init(HMHearingAidAdjustSoundInControlCenterViewController);
@@ -534,23 +603,13 @@ void __56__HMHearingAidEnrollmentViewController_enrollHearingAid__block_invoke_4
       [navigationController3 pushViewController:self->_adjustSoundInfoViewController animated:1];
 
       v8 = +[_TtC13HearingModeUI25EnrollmentAnalyticManager shared];
-      v52 = v8;
+      v49 = v8;
       v9 = 10;
-LABEL_18:
-      [v8 updateKeyWithKey:4 value:v9];
-      v21 = *MEMORY[0x277D85DE8];
-
-      return;
+      goto LABEL_18;
     }
 
-LABEL_27:
-    v39 = *MEMORY[0x277D85DE8];
-    return;
+    [(HMHearingAidEnrollmentViewController *)self dismissHearingAidEnrollment];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
-
-  [(HMHearingAidEnrollmentViewController *)self dismissHearingAidEnrollment];
 }
 
 - (void)completeStep:(int)step

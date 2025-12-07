@@ -38,7 +38,7 @@
 - (ICSDate)initWithYear:(int64_t)year month:(int64_t)month day:(int64_t)day hour:(int64_t)hour minute:(int64_t)minute second:(int64_t)second timeZone:(id)zone
 {
   zoneCopy = zone;
-  v16 = [MEMORY[0x277CBEBB0] timeZoneWithName:@"GMT"];
+  v16 = objc_msgSend_timeZoneWithName_(MEMORY[0x277CBEBB0]);
   if ([zoneCopy isEqualToTimeZone:v16])
   {
     v17 = objc_opt_class();
@@ -46,31 +46,24 @@
 
   else
   {
-    v18 = [MEMORY[0x277CBEBB0] timeZoneWithName:@"UTC"];
-    v19 = [zoneCopy isEqualToTimeZone:v18];
-    v20 = off_27A64B570;
-    if (!v19)
-    {
-      v20 = off_27A64B578;
-    }
-
-    v21 = *v20;
+    v18 = objc_msgSend_timeZoneWithName_(MEMORY[0x277CBEBB0]);
+    [zoneCopy isEqualToTimeZone:v18];
     v17 = objc_opt_class();
   }
 
-  v22 = [[v17 alloc] initWithYear:year month:month day:day hour:hour minute:minute second:second];
-  v23 = [(ICSProperty *)self initWithValue:v22 type:5016];
-  if (v23)
+  v19 = [[v17 alloc] initWithYear:year month:month day:day hour:hour minute:minute second:second];
+  v20 = [(ICSProperty *)self initWithValue:v19 type:5016];
+  if (v20)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       name = [zoneCopy name];
-      [(ICSDate *)v23 setTzid:name];
+      [(ICSDate *)v20 setTzid:name];
     }
   }
 
-  return v23;
+  return v20;
 }
 
 - (id)components

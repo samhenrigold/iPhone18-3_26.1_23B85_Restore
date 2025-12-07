@@ -4,6 +4,7 @@
 - (void)getNSXPCListenerEndpoint:(id)endpoint instanceID:(id)d replyHandler:(id)handler;
 - (void)handleInvalidated;
 - (void)installedExtensions:(id)extensions;
+- (void)setEnabledState:(id)state newState:(BOOL)newState replyHandler:(id)handler;
 - (void)setInstanceDeathHandler:(id)handler;
 - (void)setupHandlers;
 - (void)startExtension:(id)extension instanceID:(id)d replyHandler:(id)handler;
@@ -83,7 +84,7 @@ void __30__FSAgentClient_setupHandlers__block_invoke_3(uint64_t a1)
 
 - (id)initToUser:(unsigned int)user
 {
-  v4 = fskit_std_log();
+  v4 = fskit_std_log(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     [FSAgentClient initToUser:v4];
@@ -177,6 +178,22 @@ void __30__FSAgentClient_setupHandlers__block_invoke_3(uint64_t a1)
   extensionCopy = extension;
   v13 = [(NSXPCConnection *)conn remoteObjectProxyWithErrorHandler:v14];
   [v13 stopExtension:extensionCopy instanceID:dCopy replyHandler:v10];
+}
+
+- (void)setEnabledState:(id)state newState:(BOOL)newState replyHandler:(id)handler
+{
+  newStateCopy = newState;
+  handlerCopy = handler;
+  conn = self->_conn;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __55__FSAgentClient_setEnabledState_newState_replyHandler___block_invoke;
+  v13[3] = &unk_278FECE20;
+  v14 = handlerCopy;
+  v10 = handlerCopy;
+  stateCopy = state;
+  v12 = [(NSXPCConnection *)conn remoteObjectProxyWithErrorHandler:v13];
+  [v12 setEnabledState:stateCopy newState:newStateCopy replyHandler:v10];
 }
 
 @end

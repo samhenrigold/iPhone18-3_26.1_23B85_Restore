@@ -1,5 +1,6 @@
 @interface MLCMatMulDescriptor
 + (MLCMatMulDescriptor)descriptor;
++ (MLCMatMulDescriptor)descriptorWithAlpha:(float)alpha transposesX:(BOOL)transposesX transposesY:(BOOL)transposesY;
 - (BOOL)isEqual:(id)equal;
 - (MLCMatMulDescriptor)initWithAlpha:(float)alpha transposesX:(BOOL)x transposesY:(BOOL)y;
 - (id)copyWithZone:(_NSZone *)zone;
@@ -16,6 +17,17 @@
   v4 = [v2 initWithAlpha:0 transposesX:0 transposesY:v3];
 
   return v4;
+}
+
++ (MLCMatMulDescriptor)descriptorWithAlpha:(float)alpha transposesX:(BOOL)transposesX transposesY:(BOOL)transposesY
+{
+  v5 = transposesY;
+  v6 = transposesX;
+  v8 = [self alloc];
+  *&v9 = alpha;
+  v10 = [v8 initWithAlpha:v6 transposesX:v5 transposesY:v9];
+
+  return v10;
 }
 
 - (MLCMatMulDescriptor)initWithAlpha:(float)alpha transposesX:(BOOL)x transposesY:(BOOL)y

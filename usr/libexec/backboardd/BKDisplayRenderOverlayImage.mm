@@ -116,19 +116,12 @@
 {
   settingsCopy = settings;
   pathCopy = path;
-  isSpringAnimation = [settingsCopy isSpringAnimation];
-  v8 = CASpringAnimation_ptr;
-  if (!isSpringAnimation)
-  {
-    v8 = CABasicAnimation_ptr;
-  }
+  [settingsCopy isSpringAnimation];
+  v7 = [objc_opt_class() animationWithKeyPath:pathCopy];
 
-  v9 = *v8;
-  v10 = [objc_opt_class() animationWithKeyPath:pathCopy];
+  [settingsCopy applyToCAAnimation:v7];
 
-  [settingsCopy applyToCAAnimation:v10];
-
-  return v10;
+  return v7;
 }
 
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix

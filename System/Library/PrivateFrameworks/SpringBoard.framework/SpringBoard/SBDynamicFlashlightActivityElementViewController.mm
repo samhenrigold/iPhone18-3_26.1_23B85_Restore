@@ -57,8 +57,7 @@
     fluidBehaviorSettings = v12->_fluidBehaviorSettings;
     v12->_fluidBehaviorSettings = v14;
 
-    [(SBFFluidBehaviorSettings *)v12->_fluidBehaviorSettings setName:@"Dynamic Flashlight"];
-    v16 = SBLogFlashlightHUD();
+    v16 = SBLogFlashlightHUD([(SBFFluidBehaviorSettings *)v12->_fluidBehaviorSettings setName:@"Dynamic Flashlight"]);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       [SBDynamicFlashlightActivityElementViewController initWithOptionsProvider:state:fixedWidth:];
@@ -160,15 +159,15 @@
       v18 = v17;
 
       v19 = fmax(v18, fmin(v16, 1.0));
-      v20 = SBLogFlashlightHUD();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v21 = SBLogFlashlightHUD(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
-        [(SBDynamicFlashlightActivityElementViewController *)v9 _beamStateForState:v20 currentBeamState:v19];
+        [(SBDynamicFlashlightActivityElementViewController *)v9 _beamStateForState:v21 currentBeamState:v19];
       }
 
       if (self->_fixedWidth)
       {
-        v21 = 0.95;
+        v22 = 0.95;
       }
 
       else
@@ -176,7 +175,7 @@
         [v9 initialWidth];
       }
 
-      x = fmax(fmin(v21, 1.0), 0.0);
+      x = fmax(fmin(v22, 1.0), 0.0);
       v8 = fmax(fmin(v19, 1.0), 0.0);
     }
 
@@ -186,63 +185,65 @@
     }
   }
 
-  v22 = x;
-  v23 = v8;
-  result.y = v23;
-  result.x = v22;
+  v23 = x;
+  v24 = v8;
+  result.y = v24;
+  result.x = v23;
   return result;
 }
 
 - (void)setState:(id)state
 {
   stateCopy = state;
-  if (![(SBDynamicFlashlightActivityElementViewController *)self _hasActiveTouches])
+  _hasActiveTouches = [(SBDynamicFlashlightActivityElementViewController *)self _hasActiveTouches];
+  if ((_hasActiveTouches & 1) == 0)
   {
-    v5 = SBLogFlashlightHUD();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = SBLogFlashlightHUD(_hasActiveTouches);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [SBDynamicFlashlightActivityElementViewController setState:];
     }
 
     p_torchState = &self->_torchState;
     [(SBDynamicFlashlightActivityElementViewController *)self _beamStateForState:stateCopy currentBeamState:self->_torchState.x, self->_torchState.y];
-    v8 = v7;
-    v10 = v9;
+    v9 = v8;
+    v11 = v10;
     [(SBDynamicFlashlightOptionsProvider *)self->_optionsProvider minimumIntensity];
-    if (v10 >= v11)
+    if (v11 >= v12)
     {
-      p_torchState->x = v8;
-      self->_torchState.y = v10;
+      p_torchState->x = v9;
+      self->_torchState.y = v11;
       [(SBDynamicFlashlightActivityElementViewController *)self _invalidateDismissalTimer];
     }
 
     else if ([(SBDynamicFlashlightActivityElementViewController *)self isBeamOn])
     {
       [(SBDynamicFlashlightActivityElementViewController *)self _saveTorchState];
-      p_torchState->x = v8;
+      p_torchState->x = v9;
       self->_torchState.y = 0.0;
       [(SBDynamicFlashlightActivityElementViewController *)self _startDismissalTimer];
     }
 
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __61__SBDynamicFlashlightActivityElementViewController_setState___block_invoke;
-    v12[3] = &unk_2783A8C18;
-    v12[4] = self;
-    [(SBDynamicFlashlightActivityElementViewController *)self _animateUntracked:v12 completion:0];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __61__SBDynamicFlashlightActivityElementViewController_setState___block_invoke;
+    v13[3] = &unk_2783A8C18;
+    v13[4] = self;
+    [(SBDynamicFlashlightActivityElementViewController *)self _animateUntracked:v13 completion:0];
   }
 }
 
 - (void)_toggleBeamState
 {
   isBeamOn = [(SBDynamicFlashlightActivityElementViewController *)self isBeamOn];
-  v4 = SBLogFlashlightHUD();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v4 = isBeamOn;
+  v5 = SBLogFlashlightHUD(isBeamOn);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [SBDynamicFlashlightActivityElementViewController _toggleBeamState];
   }
 
-  if (isBeamOn)
+  if (v4)
   {
     [(SBDynamicFlashlightActivityElementViewController *)self _saveTorchState];
     self->_torchState.y = 0.0;
@@ -255,12 +256,12 @@
     [(SBDynamicFlashlightActivityElementViewController *)self _invalidateDismissalTimer];
   }
 
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __68__SBDynamicFlashlightActivityElementViewController__toggleBeamState__block_invoke;
-  v5[3] = &unk_2783A8C18;
-  v5[4] = self;
-  [(SBDynamicFlashlightActivityElementViewController *)self _animateUntracked:v5 completion:0];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __68__SBDynamicFlashlightActivityElementViewController__toggleBeamState__block_invoke;
+  v6[3] = &unk_2783A8C18;
+  v6[4] = self;
+  [(SBDynamicFlashlightActivityElementViewController *)self _animateUntracked:v6 completion:0];
 }
 
 uint64_t __68__SBDynamicFlashlightActivityElementViewController__toggleBeamState__block_invoke(uint64_t a1)
@@ -380,15 +381,15 @@ void __72__SBDynamicFlashlightActivityElementViewController__startDismissalTimer
 
 - (void)_dismissalTimerDidFire:(id)fire
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
-  v5 = SBLogFlashlightHUD();
+  v5 = SBLogFlashlightHUD(fireCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [SBDynamicFlashlightActivityElementViewController _dismissalTimerDidFire:];
   }
 
-  if (self->_dismissalTimer == fireCopy && ![(SBDynamicFlashlightActivityElementViewController *)self isBeamOn])
+  if (self->_dismissalTimer == fireCopy && (v6 = [(SBDynamicFlashlightActivityElementViewController *)self isBeamOn], (v6 & 1) == 0))
   {
     self->_shouldDismissWhenOff = 1;
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -400,15 +401,15 @@ void __72__SBDynamicFlashlightActivityElementViewController__startDismissalTimer
 
   else
   {
-    p_super = SBLogFlashlightHUD();
+    p_super = SBLogFlashlightHUD(v6);
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEBUG))
     {
-      v8 = self->_dismissalTimer == fireCopy;
-      v9[0] = 67109376;
-      v9[1] = v8;
-      v10 = 1024;
-      v11 = ![(SBDynamicFlashlightActivityElementViewController *)self isBeamOn];
-      _os_log_debug_impl(&dword_21ED4E000, p_super, OS_LOG_TYPE_DEBUG, "Ignoring dismissal timer! Right timer? %{BOOL}i, Beam off? %{BOOL}i", v9, 0xEu);
+      v9 = self->_dismissalTimer == fireCopy;
+      v10[0] = 67109376;
+      v10[1] = v9;
+      v11 = 1024;
+      v12 = ![(SBDynamicFlashlightActivityElementViewController *)self isBeamOn];
+      _os_log_debug_impl(&dword_21ED4E000, p_super, OS_LOG_TYPE_DEBUG, "Ignoring dismissal timer! Right timer? %{BOOL}i, Beam off? %{BOOL}i", v10, 0xEu);
     }
   }
 }

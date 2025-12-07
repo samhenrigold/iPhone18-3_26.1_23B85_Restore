@@ -1,3 +1,2135 @@
+uint64_t ssl_write_server_key_exchange(void *a1)
+{
+  v4 = a1;
+  v3 = -110;
+  v2 = 0;
+  v3 = ssl_prepare_server_key_exchange(a1, &v2);
+  if (v3)
+  {
+    if (v3 != -25856)
+    {
+      v4[46] = 0;
+    }
+
+    return v3;
+  }
+
+  else
+  {
+    *(v4 + 90) = 22;
+    *v4[44] = 12;
+    ++*(v4 + 2);
+    v3 = mbedtls_ssl_write_handshake_msg(v4);
+    if (v3)
+    {
+      return v3;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+}
+
+uint64_t ssl_write_certificate_request(uint64_t a1)
+{
+  if (mbedtls_ssl_ciphersuite_cert_req_allowed(*(*(a1 + 104) + 16)))
+  {
+    return -27648;
+  }
+
+  else
+  {
+    ++*(a1 + 8);
+    return 0;
+  }
+}
+
+uint64_t ssl_write_server_hello_done(uint64_t a1)
+{
+  *(a1 + 368) = 4;
+  *(a1 + 360) = 22;
+  **(a1 + 352) = 14;
+  ++*(a1 + 8);
+  if (*(*a1 + 9) == 1)
+  {
+    mbedtls_ssl_send_flight_completed(a1);
+  }
+
+  v2 = mbedtls_ssl_write_handshake_msg(a1);
+  if (v2)
+  {
+    return v2;
+  }
+
+  else if (*(*a1 + 9) == 1 && (v3 = mbedtls_ssl_flight_transmit(a1)) != 0)
+  {
+    return v3;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t ssl_parse_client_key_exchange(uint64_t a1)
+{
+  v5 = *(*(a1 + 104) + 16);
+  record = mbedtls_ssl_read_record(a1, 1);
+  if (record)
+  {
+    return record;
+  }
+
+  else
+  {
+    v3 = *(a1 + 208);
+    v4 = v3 + mbedtls_ssl_hs_hdr_len(a1);
+    if (*(a1 + 224) == 22)
+    {
+      if (**(a1 + 208) == 16)
+      {
+        if (*(v5 + 18) == 11)
+        {
+          if (mbedtls_ecjpake_read_round_two((*(a1 + 104) + 72), v4, *(a1 + 208) + *(a1 + 280) - v4))
+          {
+            return -27648;
+          }
+
+          else
+          {
+            v7 = mbedtls_ecjpake_derive_secret((*(a1 + 104) + 72), *(a1 + 104) + 960, 0x20uLL, (*(a1 + 104) + 992), *(*a1 + 40), *(*a1 + 48));
+            if (v7)
+            {
+              return v7;
+            }
+
+            else
+            {
+              v1 = mbedtls_ssl_derive_keys(a1);
+              if (v1)
+              {
+                return v1;
+              }
+
+              else
+              {
+                ++*(a1 + 8);
+                return 0;
+              }
+            }
+          }
+        }
+
+        else
+        {
+          return -27648;
+        }
+      }
+
+      else
+      {
+        return -30464;
+      }
+    }
+
+    else
+    {
+      return -30464;
+    }
+  }
+}
+
+uint64_t mbedtls_ssl_in_hdr_len(uint64_t a1)
+{
+  if (*(*a1 + 9) == 1)
+  {
+    return 13;
+  }
+
+  else
+  {
+    return 5;
+  }
+}
+
+uint64_t mbedtls_ssl_hs_hdr_len(uint64_t a1)
+{
+  if (*(*a1 + 9) == 1)
+  {
+    return 12;
+  }
+
+  else
+  {
+    return 4;
+  }
+}
+
+uint64_t ssl_parse_renegotiation_info(uint64_t a1, _BYTE *a2, uint64_t a3)
+{
+  if (a3 == 1 && !*a2)
+  {
+    *(a1 + 424) = 1;
+    return 0;
+  }
+
+  else
+  {
+    mbedtls_ssl_send_alert_message(a1, 2, 40);
+    return -28160;
+  }
+}
+
+uint64_t ssl_parse_supported_groups_ext(uint64_t a1, unsigned __int16 *a2, unint64_t a3)
+{
+  if (a3 >= 2 && (v10 = bswap32(*a2) >> 16, v10 + 2 == a3) && !(v10 % 2))
+  {
+    if (*(*(a1 + 104) + 584))
+    {
+      mbedtls_ssl_send_alert_message(a1, 2, 47);
+      return -26112;
+    }
+
+    else
+    {
+      v9 = v10 / 2 + 1;
+      if (v9 > 0xE)
+      {
+        v9 = 14;
+      }
+
+      v7 = mbedtls_calloc(v9, 2);
+      if (v7)
+      {
+        *(*(a1 + 104) + 584) = v7;
+        for (i = a2 + 1; ; ++i)
+        {
+          v5 = 0;
+          if (v10)
+          {
+            v5 = v9 > 1;
+          }
+
+          if (!v5)
+          {
+            break;
+          }
+
+          v6 = bswap32(*i) >> 16;
+          if (mbedtls_ssl_get_ecp_group_id_from_tls_id(v6))
+          {
+            v3 = v7;
+            v7 += 2;
+            *v3 = v6;
+            --v9;
+          }
+
+          v10 -= 2;
+        }
+
+        return 0;
+      }
+
+      else
+      {
+        mbedtls_ssl_send_alert_message(a1, 2, 80);
+        return -32512;
+      }
+    }
+  }
+
+  else
+  {
+    mbedtls_ssl_send_alert_message(a1, 2, 50);
+    return -29440;
+  }
+}
+
+uint64_t ssl_parse_supported_point_formats(uint64_t a1, unsigned __int8 *a2, uint64_t a3)
+{
+  if (a3 && *a2 + 1 == a3)
+  {
+    v5 = *a2;
+    v4 = a2 + 1;
+    while (v5)
+    {
+      if (!*v4 || *v4 == 1)
+      {
+        mbedtls_ecjpake_set_point_format(*(a1 + 104) + 72, *v4);
+        return 0;
+      }
+
+      --v5;
+      ++v4;
+    }
+
+    return 0;
+  }
+
+  else
+  {
+    mbedtls_ssl_send_alert_message(a1, 2, 50);
+    return -29440;
+  }
+}
+
+uint64_t ssl_parse_ecjpake_kkpp(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (mbedtls_ecjpake_check(*(a1 + 104) + 72))
+  {
+    return 0;
+  }
+
+  else
+  {
+    round_one = mbedtls_ecjpake_read_round_one((*(a1 + 104) + 72), a2, a3);
+    if (round_one)
+    {
+      mbedtls_ssl_send_alert_message(a1, 2, 47);
+      return round_one;
+    }
+
+    else
+    {
+      *(*(a1 + 104) + 1) |= 2u;
+      return 0;
+    }
+  }
+}
+
+uint64_t ssl_parse_max_fragment_length_ext(uint64_t a1, _BYTE *a2, uint64_t a3)
+{
+  if (a3 == 1 && *a2 < 5u)
+  {
+    **(a1 + 96) = *a2;
+    return 0;
+  }
+
+  else
+  {
+    mbedtls_ssl_send_alert_message(a1, 2, 47);
+    return -26112;
+  }
+}
+
+uint64_t ssl_ciphersuite_match(uint64_t a1, int a2, uint64_t *a3)
+{
+  v4 = mbedtls_ssl_ciphersuite_from_id(a2);
+  if (v4)
+  {
+    if (*(v4 + 10) <= *(a1 + 12) && *(v4 + 11) >= *(a1 + 12))
+    {
+      if (*(v4 + 18) != 11 || (*(*(a1 + 104) + 1) & 2) != 0)
+      {
+        if (!ssl_pick_cert(a1, v4))
+        {
+          *a3 = v4;
+        }
+
+        return 0;
+      }
+
+      else
+      {
+        return 0;
+      }
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    return -27648;
+  }
+}
+
+uint64_t ssl_pick_cert(void *a1, uint64_t a2)
+{
+  v7 = a1;
+  v6 = a2;
+  i = 0;
+  *&v4[8] = 0;
+  *v4 = mbedtls_ssl_get_ciphersuite_sig_pk_alg(a2);
+  v3 = 0;
+  *&v4[4] = *(*v7 + 128);
+  if (*v4)
+  {
+    if (*&v4[4])
+    {
+      for (i = *&v4[4]; i; i = i[2])
+      {
+        v3 = 0;
+        if (mbedtls_pk_can_do(*i + 360, *v4))
+        {
+          if (!mbedtls_ssl_check_cert_usage(*i, v6, 1, &v3))
+          {
+            break;
+          }
+        }
+      }
+
+      if (i)
+      {
+        *(v7[13] + 592) = i;
+        return 0;
+      }
+
+      else
+      {
+        return -1;
+      }
+    }
+
+    else
+    {
+      return -1;
+    }
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t ssl_write_hello_verify_request(uint64_t a1)
+{
+  v6 = a1;
+  v5 = -110;
+  v4 = *(a1 + 352) + 4;
+  mbedtls_ssl_write_version(v4, *(*v6 + 9), *(v6 + 12));
+  v4 += 2;
+  if (*(*v6 + 96))
+  {
+    v1 = v4++;
+    v3 = v1;
+    v5 = (*(*v6 + 96))(*(*v6 + 112), &v4, *(v6 + 312) + 16429, *(v6 + 408), *(v6 + 416));
+    if (v5)
+    {
+      return v5;
+    }
+
+    else
+    {
+      *v3 = v4 - (v3 + 1);
+      *(v6 + 368) = v4 - *(v6 + 352);
+      *(v6 + 360) = 22;
+      **(v6 + 352) = 3;
+      *(v6 + 8) = 17;
+      v5 = mbedtls_ssl_write_handshake_msg(v6);
+      if (v5)
+      {
+        return v5;
+      }
+
+      else if (*(*v6 + 9) == 1 && (v5 = mbedtls_ssl_flight_transmit(v6)) != 0)
+      {
+        return v5;
+      }
+
+      else
+      {
+        return 0;
+      }
+    }
+  }
+
+  else
+  {
+    return -27648;
+  }
+}
+
+void *ssl_handle_id_based_session_resumption(uint64_t a1)
+{
+  result = memset(__b, 0, sizeof(__b));
+  __dst = *(a1 + 96);
+  if (**(a1 + 104) != 1 && *(__dst + 2) && *(*a1 + 56))
+  {
+    mbedtls_ssl_session_init(__b);
+    if (!(*(*a1 + 56))(*(*a1 + 72), __dst + 24, *(__dst + 2), __b) && *(__dst + 2) == __b[2])
+    {
+      mbedtls_ssl_session_free(__dst);
+      memcpy(__dst, __b, 0x80uLL);
+      memset(__b, 0, sizeof(__b));
+      **(a1 + 104) = 1;
+    }
+
+    return mbedtls_ssl_session_free(__b);
+  }
+
+  return result;
+}
+
+uint64_t ssl_write_renegotiation_ext(uint64_t result, _BYTE *a2, void *a3)
+{
+  if (*(result + 424) == 1)
+  {
+    result = __memcpy_chk();
+    a2[2] = 0;
+    a2[3] = 1;
+    a2[4] = 0;
+    *a3 = a2 + 5 - a2;
+  }
+
+  else
+  {
+    *a3 = 0;
+  }
+
+  return result;
+}
+
+uint64_t ssl_write_max_fragment_length_ext(uint64_t result, _BYTE *a2, void *a3)
+{
+  v5 = result;
+  if (**(result + 96))
+  {
+    result = __memcpy_chk();
+    a2[2] = 0;
+    a2[3] = 1;
+    a2[4] = **(v5 + 96);
+    *a3 = 5;
+  }
+
+  else
+  {
+    *a3 = 0;
+  }
+
+  return result;
+}
+
+uint64_t ssl_write_supported_point_formats_ext(uint64_t result, _BYTE *a2, void *a3)
+{
+  if (*(*(result + 104) + 1))
+  {
+    result = __memcpy_chk();
+    a2[2] = 0;
+    a2[3] = 2;
+    a2[4] = 1;
+    a2[5] = 0;
+    *a3 = 6;
+  }
+
+  else
+  {
+    *a3 = 0;
+  }
+
+  return result;
+}
+
+void *ssl_write_ecjpake_kkpp_ext(void *result, uint64_t a2, void *a3)
+{
+  v9 = result;
+  v8 = a2;
+  v7 = a3;
+  v6 = -110;
+  v5 = a2;
+  v4 = result[44] + 0x4000;
+  v3 = 0;
+  *a3 = 0;
+  if (*(*(v9[13] + 16) + 18) == 11 && v4 - v5 >= 4)
+  {
+    v13 = v5;
+    v12 = 1;
+    __memcpy_chk();
+    v5 += 2;
+    result = mbedtls_ecjpake_write_round_one((v9[13] + 72), v5 + 2, v4 - v5 - 2, &v3, *(*v9 + 40), *(*v9 + 48));
+    v6 = result;
+    if (!result)
+    {
+      v11 = v5;
+      v10 = bswap32(v3) >> 16;
+      result = __memcpy_chk();
+      *v7 = v3 + 4;
+    }
+  }
+
+  return result;
+}
+
+uint64_t ssl_prepare_server_key_exchange(void *a1, uint64_t a2)
+{
+  v7 = a1;
+  v6 = a2;
+  v5 = *(a1[13] + 16);
+  a1[46] = 4;
+  if (*(v5 + 18) != 11)
+  {
+    return 0;
+  }
+
+  v4 = -110;
+  v3 = 0;
+  v4 = mbedtls_ecjpake_write_round_two((v7[13] + 72), v7[44] + v7[46], 0x4000 - v7[46], &v3, *(*v7 + 40), *(*v7 + 48));
+  if (!v4)
+  {
+    v7[46] += v3;
+    return 0;
+  }
+
+  return v4;
+}
+
+uint64_t mbedtls_ssl_tls12_write_client_hello_exts(void *a1, _BYTE *a2, unint64_t a3, int a4, void *a5)
+{
+  v13 = a1;
+  v12 = a2;
+  v11 = a3;
+  v10 = a4;
+  v9 = a5;
+  v8 = -110;
+  v7 = a2;
+  v6 = 0;
+  *a5 = 0;
+  if (v10)
+  {
+    v8 = ssl_write_supported_point_formats_ext_0(v13, v7, v11, &v6);
+    if (v8)
+    {
+      return v8;
+    }
+
+    v7 += v6;
+  }
+
+  v8 = ssl_write_ecjpake_kkpp_ext_0(v13, v7, v11, &v6);
+  if (v8)
+  {
+    return v8;
+  }
+
+  else
+  {
+    v7 += v6;
+    v8 = ssl_write_max_fragment_length_ext_0(v13, v7, v11, &v6);
+    if (v8)
+    {
+      return v8;
+    }
+
+    else
+    {
+      v7 += v6;
+      *v9 = v7 - v12;
+      return 0;
+    }
+  }
+}
+
+uint64_t ssl_write_supported_point_formats_ext_0(uint64_t a1, _BYTE *a2, unint64_t a3, void *a4)
+{
+  *a4 = 0;
+  if (mbedtls_ssl_chk_buf_ptr(a2, a3, 6uLL))
+  {
+    return -27136;
+  }
+
+  else
+  {
+    __memcpy_chk();
+    a2[2] = 0;
+    a2[3] = 2;
+    a2[4] = 1;
+    a2[5] = 0;
+    *a4 = 6;
+    return 0;
+  }
+}
+
+uint64_t ssl_write_ecjpake_kkpp_ext_0(void *a1, unint64_t a2, unint64_t a3, void *a4)
+{
+  v12 = a1;
+  v11 = a2;
+  v10 = a3;
+  v9 = a4;
+  v8 = -110;
+  v7 = a2;
+  v6 = 0;
+  *a4 = 0;
+  if (mbedtls_ecjpake_check(v12[13] + 72))
+  {
+    return 0;
+  }
+
+  else
+  {
+    if (!mbedtls_ssl_chk_buf_ptr(v7, v10, 4uLL))
+    {
+      v17 = v7;
+      v16 = 1;
+      __memcpy_chk();
+      v7 += 2;
+      if (*(v12[13] + 568) && *(v12[13] + 576))
+      {
+        v6 = *(v12[13] + 576);
+        if (mbedtls_ssl_chk_buf_ptr(v7 + 2, v10, v6))
+        {
+          return -27136;
+        }
+
+        __memcpy_chk();
+      }
+
+      else
+      {
+        v8 = mbedtls_ecjpake_write_round_one((v12[13] + 72), v7 + 2, v10 - v7 - 2, &v6, *(*v12 + 40), *(*v12 + 48));
+        if (v8)
+        {
+          return v8;
+        }
+
+        v4 = mbedtls_calloc(1, v6);
+        *(v12[13] + 568) = v4;
+        if (!*(v12[13] + 568))
+        {
+          return -32512;
+        }
+
+        __memcpy_chk();
+        *(v12[13] + 576) = v6;
+      }
+
+      v15 = v7;
+      v14 = bswap32(v6) >> 16;
+      __memcpy_chk();
+      v7 += 2;
+      *v9 = v6 + 4;
+      return 0;
+    }
+
+    return -27136;
+  }
+}
+
+uint64_t ssl_write_max_fragment_length_ext_0(uint64_t a1, _BYTE *a2, unint64_t a3, void *a4)
+{
+  *a4 = 0;
+  if (*(*a1 + 12))
+  {
+    if (mbedtls_ssl_chk_buf_ptr(a2, a3, 5uLL))
+    {
+      return -27136;
+    }
+
+    else
+    {
+      __memcpy_chk();
+      a2[2] = 0;
+      a2[3] = 1;
+      a2[4] = *(*a1 + 12);
+      *a4 = 5;
+      return 0;
+    }
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t mbedtls_ssl_handshake_client_step(uint64_t a1)
+{
+  v2 = 0;
+  switch(*(a1 + 8))
+  {
+    case 0:
+      *(a1 + 8) = 1;
+      goto LABEL_19;
+    case 1:
+      v2 = mbedtls_ssl_write_client_hello(a1);
+      goto LABEL_19;
+    case 2:
+      v2 = ssl_parse_server_hello(a1);
+      goto LABEL_19;
+    case 3:
+      v2 = mbedtls_ssl_parse_certificate(a1);
+      goto LABEL_19;
+    case 4:
+      v2 = ssl_parse_server_key_exchange(a1);
+      goto LABEL_19;
+    case 5:
+      v2 = ssl_write_certificate_request(a1);
+      goto LABEL_19;
+    case 6:
+      v2 = ssl_parse_server_hello_done(a1);
+      goto LABEL_19;
+    case 7:
+      v2 = mbedtls_ssl_write_certificate(a1);
+      goto LABEL_19;
+    case 8:
+      v2 = ssl_write_client_key_exchange(a1);
+      goto LABEL_19;
+    case 9:
+      v2 = ssl_write_certificate_verify(a1);
+      goto LABEL_19;
+    case 0xA:
+      v2 = mbedtls_ssl_write_change_cipher_spec(a1);
+      goto LABEL_19;
+    case 0xB:
+      v2 = mbedtls_ssl_write_finished(a1);
+      goto LABEL_19;
+    case 0xC:
+      v2 = mbedtls_ssl_parse_change_cipher_spec(a1);
+      goto LABEL_19;
+    case 0xD:
+      v2 = mbedtls_ssl_parse_finished(a1);
+      goto LABEL_19;
+    case 0xE:
+      *(a1 + 8) = 15;
+      goto LABEL_19;
+    case 0xF:
+      mbedtls_ssl_handshake_wrapup(a1);
+LABEL_19:
+      v3 = v2;
+      break;
+    default:
+      v3 = -28928;
+      break;
+  }
+
+  return v3;
+}
+
+uint64_t ssl_parse_server_hello(_DWORD *a1)
+{
+  v11 = 0;
+  record = mbedtls_ssl_read_record(a1, 1);
+  if (record)
+  {
+    return record;
+  }
+
+  v13 = *(a1 + 26);
+  if (a1[56] != 22)
+  {
+    mbedtls_ssl_send_alert_message(a1, 2, 10);
+    return -30464;
+  }
+
+  if (*(*a1 + 9) == 1)
+  {
+    if (*v13 == 3)
+    {
+      return ssl_parse_hello_verify_request(a1);
+    }
+
+    mbedtls_free(*(*(a1 + 13) + 752));
+    *(*(a1 + 13) + 752) = 0;
+    *(*(a1 + 13) + 760) = 0;
+  }
+
+  v7 = *(a1 + 35);
+  if (v7 < mbedtls_ssl_hs_hdr_len(a1) + 38 || *v13 != 2)
+  {
+    goto LABEL_48;
+  }
+
+  v14 = &v13[mbedtls_ssl_hs_hdr_len(a1)];
+  a1[3] = mbedtls_ssl_read_version(v14, *(*a1 + 9));
+  *(*(a1 + 12) + 4) = a1[3];
+  *(*(a1 + 12) + 2) = *(*a1 + 8);
+  if (a1[3] < *(*a1 + 4) || a1[3] > **a1)
+  {
+    mbedtls_ssl_send_alert_message(a1, 2, 70);
+    return -28288;
+  }
+
+  __memcpy_chk();
+  __n = *(v14 + 34);
+  if (__n > 0x20)
+  {
+    goto LABEL_48;
+  }
+
+  v6 = *(a1 + 35);
+  if (v6 <= mbedtls_ssl_hs_hdr_len(a1) + 39 + __n)
+  {
+    v4 = *(a1 + 35);
+    if (v4 == mbedtls_ssl_hs_hdr_len(a1) + 38 + __n)
+    {
+      v15 = 0;
+      goto LABEL_26;
+    }
+
+LABEL_48:
+    mbedtls_ssl_send_alert_message(a1, 2, 50);
+    return -29440;
+  }
+
+  v15 = bswap32(*(v14 + __n + 38)) >> 16;
+  if (v15 && v15 < 4)
+  {
+    goto LABEL_48;
+  }
+
+  v5 = *(a1 + 35);
+  if (v5 != mbedtls_ssl_hs_hdr_len(a1) + 40 + __n + v15)
+  {
+    goto LABEL_48;
+  }
+
+LABEL_26:
+  v17 = bswap32(*(v14 + __n + 35)) >> 16;
+  if (*(v14 + __n + 37))
+  {
+    mbedtls_ssl_send_alert_message(a1, 2, 47);
+    return -28800;
+  }
+
+  else
+  {
+    *(*(a1 + 13) + 16) = mbedtls_ssl_ciphersuite_from_id(v17);
+    if (*(*(a1 + 13) + 16))
+    {
+      mbedtls_ssl_optimize_checksum(a1, *(*(a1 + 13) + 16));
+      if (**(a1 + 13) && __n && *(*(a1 + 12) + 8) == v17 && *(*(a1 + 12) + 16) == __n && !memcmp((*(a1 + 12) + 24), v14 + 35, __n))
+      {
+        a1[2] = 12;
+      }
+
+      else
+      {
+        ++a1[2];
+        **(a1 + 13) = 0;
+        *(*(a1 + 12) + 8) = v17;
+        *(*(a1 + 12) + 16) = __n;
+        __memcpy_chk();
+      }
+
+      v18 = 0;
+      do
+      {
+        if (!*(*(*a1 + 16) + 4 * v18))
+        {
+          mbedtls_ssl_send_alert_message(a1, 2, 47);
+          return -26112;
+        }
+
+        v1 = v18++;
+      }
+
+      while (*(*(*a1 + 16) + 4 * v1) != *(*(a1 + 12) + 8));
+      v10 = mbedtls_ssl_ciphersuite_from_id(*(*(a1 + 12) + 8));
+      if (!mbedtls_ssl_validate_ciphersuite(a1, v10, a1[3], a1[3]))
+      {
+        v12 = v14 + __n + 40;
+        while (v15)
+        {
+          v9 = bswap32(*v12) >> 16;
+          v8 = bswap32(*(v12 + 1)) >> 16;
+          if (v8 + 4 > v15)
+          {
+            goto LABEL_48;
+          }
+
+          switch(v9)
+          {
+            case 1u:
+              v21 = ssl_parse_max_fragment_length_ext_0(a1, v12 + 4, v8);
+              if (v21)
+              {
+                return v21;
+              }
+
+              break;
+            case 0xBu:
+              v22 = ssl_parse_supported_point_formats_ext(a1, v12 + 4, v8);
+              if (v22)
+              {
+                return v22;
+              }
+
+              break;
+            case 0x100u:
+              v23 = ssl_parse_ecjpake_kkpp_0(a1, (v12 + 4), v8);
+              if (v23)
+              {
+                return v23;
+              }
+
+              break;
+            case 0xFF01u:
+              v20 = ssl_parse_renegotiation_info(a1, v12 + 4, v8);
+              if (v20)
+              {
+                return v20;
+              }
+
+              break;
+          }
+
+          v15 -= v8 + 4;
+          v12 += v8 + 4;
+          if (v15 && v15 < 4)
+          {
+            return -29440;
+          }
+        }
+
+        if (**(a1 + 13))
+        {
+          v24 = mbedtls_ssl_derive_keys(a1);
+          if (v24)
+          {
+            mbedtls_ssl_send_alert_message(a1, 2, 80);
+            return v24;
+          }
+        }
+
+        if (!a1[106] && *(*a1 + 11) == 2)
+        {
+          v11 = 1;
+        }
+
+        if (v11 != 1)
+        {
+          return 0;
+        }
+      }
+
+      mbedtls_ssl_send_alert_message(a1, 2, 40);
+      return -28160;
+    }
+
+    else
+    {
+      mbedtls_ssl_send_alert_message(a1, 2, 80);
+      return -28928;
+    }
+  }
+}
+
+uint64_t ssl_parse_server_key_exchange(uint64_t a1)
+{
+  v4 = *(*(a1 + 104) + 16);
+  record = mbedtls_ssl_read_record(a1, 1);
+  if (!record)
+  {
+    if (*(a1 + 224) != 22)
+    {
+LABEL_4:
+      mbedtls_ssl_send_alert_message(a1, 2, 10);
+      return -30464;
+    }
+
+    if (**(a1 + 208) == 12)
+    {
+      v2 = *(a1 + 208);
+      v3 = v2 + mbedtls_ssl_hs_hdr_len(a1);
+      if (*(v4 + 18) != 11)
+      {
+        return -27648;
+      }
+
+      if (mbedtls_ecjpake_read_round_two((*(a1 + 104) + 72), v3, *(a1 + 208) + *(a1 + 280) - v3))
+      {
+        mbedtls_ssl_send_alert_message(a1, 2, 40);
+        return -28160;
+      }
+    }
+
+    else
+    {
+      if (*(v4 + 18) != 5 && *(v4 + 18) != 7)
+      {
+        goto LABEL_4;
+      }
+
+      *(a1 + 292) = 1;
+    }
+
+    ++*(a1 + 8);
+    return 0;
+  }
+
+  return record;
+}
+
+uint64_t ssl_parse_server_hello_done(uint64_t a1)
+{
+  record = mbedtls_ssl_read_record(a1, 1);
+  if (record)
+  {
+    return record;
+  }
+
+  else if (*(a1 + 224) == 22)
+  {
+    v2 = *(a1 + 280);
+    if (v2 == mbedtls_ssl_hs_hdr_len(a1) && **(a1 + 208) == 14)
+    {
+      ++*(a1 + 8);
+      if (*(*a1 + 9) == 1)
+      {
+        mbedtls_ssl_recv_flight_completed(a1);
+      }
+
+      return 0;
+    }
+
+    else
+    {
+      mbedtls_ssl_send_alert_message(a1, 2, 50);
+      return -29440;
+    }
+  }
+
+  else
+  {
+    return -30464;
+  }
+}
+
+uint64_t ssl_write_client_key_exchange(uint64_t a1)
+{
+  v6 = a1;
+  v5 = -110;
+  v4 = 0;
+  v3 = 0;
+  if (*(*(*(a1 + 104) + 16) + 18) == 11)
+  {
+    v4 = 4;
+    v5 = mbedtls_ecjpake_write_round_two((*(v6 + 104) + 72), *(v6 + 352) + 4, 16380, &v3, *(*v6 + 40), *(*v6 + 48));
+    if (v5)
+    {
+      return v5;
+    }
+
+    else
+    {
+      v5 = mbedtls_ecjpake_derive_secret((*(v6 + 104) + 72), *(v6 + 104) + 960, 0x20uLL, (*(v6 + 104) + 992), *(*v6 + 40), *(*v6 + 48));
+      if (v5)
+      {
+        return v5;
+      }
+
+      else
+      {
+        *(v6 + 368) = v4 + v3;
+        *(v6 + 360) = 22;
+        **(v6 + 352) = 16;
+        ++*(v6 + 8);
+        v1 = mbedtls_ssl_write_handshake_msg(v6);
+        v5 = v1;
+        if (v1)
+        {
+          return v5;
+        }
+
+        else
+        {
+          return 0;
+        }
+      }
+    }
+  }
+
+  else
+  {
+    return -27648;
+  }
+}
+
+uint64_t ssl_write_certificate_verify(uint64_t a1)
+{
+  v3 = *(*(a1 + 104) + 16);
+  v2 = mbedtls_ssl_derive_keys(a1);
+  if (v2)
+  {
+    return v2;
+  }
+
+  else if (mbedtls_ssl_ciphersuite_cert_req_allowed(v3))
+  {
+    return -27648;
+  }
+
+  else
+  {
+    ++*(a1 + 8);
+    return 0;
+  }
+}
+
+uint64_t ssl_parse_hello_verify_request(uint64_t a1)
+{
+  v2 = *(a1 + 208);
+  v5 = (v2 + mbedtls_ssl_hs_hdr_len(a1));
+  if ((mbedtls_ssl_hs_hdr_len(a1) + 3) > *(a1 + 232))
+  {
+    goto LABEL_2;
+  }
+
+  v4 = bswap32(*v5) >> 16;
+  v6 = (v5 + 1);
+  if (v4 != 65277 && v4 != 65279)
+  {
+    mbedtls_ssl_send_alert_message(a1, 2, 70);
+    return -28288;
+  }
+
+  v3 = *v6;
+  if (*(a1 + 208) + *(a1 + 232) - (v6 + 1) < *v6)
+  {
+LABEL_2:
+    mbedtls_ssl_send_alert_message(a1, 2, 50);
+    return -29440;
+  }
+
+  else
+  {
+    mbedtls_free(*(*(a1 + 104) + 752));
+    *(*(a1 + 104) + 752) = mbedtls_calloc(1, v3);
+    if (*(*(a1 + 104) + 752))
+    {
+      __memcpy_chk();
+      *(*(a1 + 104) + 760) = v3;
+      *(a1 + 8) = 1;
+      v7 = mbedtls_ssl_reset_checksum(a1);
+      if (v7)
+      {
+        return v7;
+      }
+
+      else
+      {
+        mbedtls_ssl_recv_flight_completed(a1);
+        return 0;
+      }
+    }
+
+    else
+    {
+      return -32512;
+    }
+  }
+}
+
+uint64_t ssl_parse_max_fragment_length_ext_0(uint64_t a1, unsigned __int8 *a2, uint64_t a3)
+{
+  if (*(*a1 + 12) && a3 == 1 && *a2 == *(*a1 + 12))
+  {
+    return 0;
+  }
+
+  else
+  {
+    mbedtls_ssl_send_alert_message(a1, 2, 47);
+    return -26112;
+  }
+}
+
+uint64_t ssl_parse_supported_point_formats_ext(uint64_t a1, unsigned __int8 *a2, uint64_t a3)
+{
+  if (a3 && *a2 + 1 == a3)
+  {
+    v5 = *a2;
+    v4 = a2 + 1;
+    while (v5)
+    {
+      if (!*v4 || *v4 == 1)
+      {
+        mbedtls_ecjpake_set_point_format(*(a1 + 104) + 72, *v4);
+        return 0;
+      }
+
+      --v5;
+      ++v4;
+    }
+
+    mbedtls_ssl_send_alert_message(a1, 2, 40);
+    return -28160;
+  }
+
+  else
+  {
+    mbedtls_ssl_send_alert_message(a1, 2, 50);
+    return -29440;
+  }
+}
+
+uint64_t ssl_parse_ecjpake_kkpp_0(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (*(*(*(a1 + 104) + 16) + 18) == 11)
+  {
+    mbedtls_free(*(*(a1 + 104) + 568));
+    *(*(a1 + 104) + 568) = 0;
+    *(*(a1 + 104) + 576) = 0;
+    round_one = mbedtls_ecjpake_read_round_one((*(a1 + 104) + 72), a2, a3);
+    if (round_one)
+    {
+      mbedtls_ssl_send_alert_message(a1, 2, 40);
+      return round_one;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+const char **mbedtls_ssl_ciphersuite_from_string(const char *a1)
+{
+  v2 = &ciphersuite_definitions;
+  if (!a1)
+  {
+    return 0;
+  }
+
+  while (*v2)
+  {
+    if (!strcmp(v2[1], a1))
+    {
+      return v2;
+    }
+
+    v2 += 3;
+  }
+
+  return 0;
+}
+
+_DWORD *mbedtls_ssl_ciphersuite_from_id(int a1)
+{
+  for (i = &ciphersuite_definitions; *i; i += 6)
+  {
+    if (*i == a1)
+    {
+      return i;
+    }
+  }
+
+  return 0;
+}
+
+const char *mbedtls_ssl_get_ciphersuite_name(int a1)
+{
+  v2 = mbedtls_ssl_ciphersuite_from_id(a1);
+  if (v2)
+  {
+    return *(v2 + 1);
+  }
+
+  else
+  {
+    return "unknown";
+  }
+}
+
+uint64_t mbedtls_ssl_get_ciphersuite_id(const char *a1)
+{
+  v2 = mbedtls_ssl_ciphersuite_from_string(a1);
+  if (v2)
+  {
+    return *v2;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t mbedtls_ssl_get_ciphersuite_sig_pk_alg(uint64_t a1)
+{
+  v2 = *(a1 + 18);
+  if ((v2 - 1) <= 2)
+  {
+    return 1;
+  }
+
+  if (v2 == 4)
+  {
+    return 4;
+  }
+
+  if (v2 == 7)
+  {
+    return 1;
+  }
+
+  else if (v2 != 10 && v2 != 9)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return 2;
+  }
+}
+
+uint64_t mbedtls_ssl_get_ciphersuite_sig_alg(uint64_t a1)
+{
+  v2 = *(a1 + 18);
+  if (v2 != 3 && v2 != 2)
+  {
+    if (v2 == 4)
+    {
+      return 4;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    return 1;
+  }
+}
+
+uint64_t mbedtls_ssl_cookie_init(uint64_t a1)
+{
+  result = mbedtls_md_init(a1);
+  *(a1 + 24) = 0;
+  *(a1 + 32) = 60;
+  return result;
+}
+
+uint64_t mbedtls_ssl_cookie_setup(void **a1, uint64_t (*a2)(uint64_t, _BYTE *, uint64_t), uint64_t a3)
+{
+  v5 = a2(a3, v10, 32);
+  if (v5)
+  {
+    return v5;
+  }
+
+  else
+  {
+    v3 = mbedtls_md_info_from_type(9);
+    v6 = mbedtls_md_setup(a1, v3, 1);
+    if (v6)
+    {
+      return v6;
+    }
+
+    else
+    {
+      v7 = mbedtls_md_hmac_starts(a1, v10, 0x20uLL);
+      if (v7)
+      {
+        return v7;
+      }
+
+      else
+      {
+        mbedtls_platform_zeroize(v10, 0x20uLL);
+        return 0;
+      }
+    }
+  }
+}
+
+uint64_t mbedtls_ssl_cookie_write(void *a1, unint64_t *a2, unint64_t a3, uint64_t a4, unint64_t a5)
+{
+  if (a1 && a4)
+  {
+    if (mbedtls_ssl_chk_buf_ptr(*a2, a3, 0x20uLL))
+    {
+      return -27136;
+    }
+
+    else
+    {
+      ++a1[3];
+      __memcpy_chk();
+      *a2 += 4;
+      return ssl_cookie_hmac(a1, *a2 - 4, a2, a3, a4, a5);
+    }
+  }
+
+  else
+  {
+    return -28928;
+  }
+}
+
+uint64_t ssl_cookie_hmac(void *a1, uint64_t a2, unint64_t *a3, unint64_t a4, uint64_t a5, unint64_t a6)
+{
+  if (mbedtls_ssl_chk_buf_ptr(*a3, a4, 0x1CuLL))
+  {
+    return -27136;
+  }
+
+  else if (mbedtls_md_hmac_reset(a1) || mbedtls_md_hmac_update(a1, a2, 4uLL) || mbedtls_md_hmac_update(a1, a5, a6) || mbedtls_md_hmac_finish(a1, v13))
+  {
+    return -27648;
+  }
+
+  else
+  {
+    __memcpy_chk();
+    *a3 += 28;
+    return 0;
+  }
+}
+
+uint64_t mbedtls_ssl_cookie_check(void *a1, unsigned int *a2, uint64_t a3, uint64_t a4, unint64_t a5)
+{
+  v15 = a1;
+  v14 = a2;
+  v13 = a3;
+  v12 = a4;
+  v11 = a5;
+  v10 = v19;
+  v9 = 0;
+  if (a1 && v12)
+  {
+    if (v13 == 32)
+    {
+      if (ssl_cookie_hmac(a1, v14, &v10, (v10 + 28), v12, v11))
+      {
+        v9 = -1;
+      }
+
+      if (!v9)
+      {
+        if (mbedtls_ct_memcmp((v14 + 1), v19, 0x1CuLL))
+        {
+          v9 = -1;
+        }
+
+        else
+        {
+          v7 = a1[3];
+          v18 = v14;
+          v17 = 0;
+          v17 = *v14;
+          v6 = bswap32(v17);
+          if (a1[4] && (v7 - v6) > a1[4])
+          {
+            v9 = -1;
+          }
+        }
+      }
+
+      mbedtls_platform_zeroize(v19, 0x1CuLL);
+      return v9;
+    }
+
+    else
+    {
+      return -1;
+    }
+  }
+
+  else
+  {
+    return -28928;
+  }
+}
+
+uint64_t mbedtls_ssl_set_timer(uint64_t result, unsigned int a2)
+{
+  if (*(result + 152))
+  {
+    return (*(result + 152))(*(result + 144), a2 / 4, a2);
+  }
+
+  return result;
+}
+
+uint64_t mbedtls_ssl_check_timer(uint64_t a1)
+{
+  if (*(a1 + 160))
+  {
+    if ((*(a1 + 160))(*(a1 + 144)) == 2)
+    {
+      return -1;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t mbedtls_ssl_check_record(void *a1, _BYTE *a2, size_t a3)
+{
+  if (*(*a1 + 9))
+  {
+    memset(__b, 0, sizeof(__b));
+    v4 = ssl_parse_record_header(a1, a2, a3, __b);
+    if (!v4 && a1[14])
+    {
+      v4 = mbedtls_ssl_decrypt_buf(a1, a1[14], __b);
+    }
+  }
+
+  else
+  {
+    v4 = -28800;
+  }
+
+  mbedtls_platform_zeroize(a2, a3);
+  if (v4 == -24576 || v4 == -25728)
+  {
+    return -26368;
+  }
+
+  return v4;
+}
+
+uint64_t ssl_parse_record_header(uint64_t a1, _BYTE *a2, unint64_t a3, unsigned __int16 *a4)
+{
+  if (*(*a1 + 9) == 1)
+  {
+    v5 = 11;
+  }
+
+  else
+  {
+    v5 = 3;
+  }
+
+  if (a3 < v5 + 2)
+  {
+    return -29184;
+  }
+
+  *(a4 + 8) = *a2;
+  if (ssl_check_record_type(*(a4 + 8)))
+  {
+    return -29184;
+  }
+
+  *(a4 + 9) = a2[1];
+  *(a4 + 10) = a2[2];
+  if (mbedtls_ssl_read_version((a2 + 1), *(*a1 + 9)) > **a1)
+  {
+    return -29184;
+  }
+
+  __memcpy_chk();
+  *(a4 + 4) = v5 + 2;
+  *(a4 + 5) = bswap32(*&a2[v5]) >> 16;
+  *(a4 + 2) = a2;
+  *(a4 + 3) = *(a4 + 4) + *(a4 + 5);
+  if (!*(a4 + 5))
+  {
+    return -29184;
+  }
+
+  if (*(*a1 + 9) != 1)
+  {
+    return 0;
+  }
+
+  v6 = bswap32(*a4) >> 16;
+  if (a3 < *(a4 + 4) + *(a4 + 5))
+  {
+    return -29184;
+  }
+
+  if (v6 == *(a1 + 248))
+  {
+    if (mbedtls_ssl_dtls_record_replay_check(a1, a4))
+    {
+      return -26368;
+    }
+
+    return 0;
+  }
+
+  if (v6 == *(a1 + 248) + 1)
+  {
+    return -25728;
+  }
+
+  else
+  {
+    return -26368;
+  }
+}
+
+uint64_t mbedtls_ssl_decrypt_buf(uint64_t a1, uint64_t a2, void *a3)
+{
+  v12 = a2;
+  v11 = a3;
+  v10 = 0;
+  mode_from_transform = 0;
+  v8 = 0;
+  v7 = 0;
+  v6 = 0;
+  v5 = 0;
+  v13 = 0;
+  if (a3 && v11[2] && v11[3] >= v11[4] && v11[3] - v11[4] >= v11[5])
+  {
+    v6 = (v11[2] + v11[4]);
+    mode_from_transform = mbedtls_ssl_get_mode_from_transform(v12);
+    if (mode_from_transform != 3)
+    {
+      return -27648;
+    }
+
+    if (ssl_transform_aead_dynamic_iv_is_explicit(v12))
+    {
+      if (v11[5] < 8uLL)
+      {
+        return -29056;
+      }
+
+      v4 = v6;
+      v6 += 8;
+      v11[4] += 8;
+      v11[5] -= 8;
+    }
+
+    else
+    {
+      v4 = v11;
+    }
+
+    if (v11[5] >= *(v12 + 32))
+    {
+      v11[5] -= *(v12 + 32);
+      ssl_build_record_nonce(v15, 12, v12 + 56, *(v12 + 16), v4, 8uLL);
+      ssl_extract_add_data_from_record(v16, &v5, v11);
+      v8 = mbedtls_cipher_auth_decrypt_ext((v12 + 160), v15, *(v12 + 8), v16, v5, v6, v11[5] + *(v12 + 32), v6, v11[3] - &v6[-v11[2]], &v10, *(v12 + 32));
+      if (v8)
+      {
+        if (v8 == -25344)
+        {
+          return -29056;
+        }
+
+        else
+        {
+          return v8;
+        }
+      }
+
+      else
+      {
+        ++v7;
+        if (v10 == v11[5])
+        {
+          if (v7 == 1)
+          {
+            return 0;
+          }
+
+          else
+          {
+            return -27648;
+          }
+        }
+
+        else
+        {
+          return -27648;
+        }
+      }
+    }
+
+    else
+    {
+      return -29056;
+    }
+  }
+
+  else
+  {
+    return -27648;
+  }
+}
+
+uint64_t mbedtls_ssl_encrypt_buf(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
+{
+  v16 = a2;
+  v15 = a3;
+  v14 = a4;
+  v13 = a5;
+  mode_from_transform = 0;
+  v11 = 0;
+  v10 = 0;
+  v9 = 0;
+  v17 = 0;
+  if (a2)
+  {
+    if (v15 && v15[2] && v15[3] >= v15[4] && v15[3] - v15[4] >= v15[5])
+    {
+      mode_from_transform = mbedtls_ssl_get_mode_from_transform(v16);
+      v10 = v15[2] + v15[4];
+      if (v15[5] <= 0x4000uLL)
+      {
+        v8 = v15[3] - (v15[5] + v15[4]);
+        if (mode_from_transform != 3)
+        {
+          return -27648;
+        }
+
+        is_explicit = ssl_transform_aead_dynamic_iv_is_explicit(v16);
+        if (v8 >= *(v16 + 32))
+        {
+          ssl_build_record_nonce(v19, 12, v16 + 40, *(v16 + 16), v15, 8uLL);
+          ssl_extract_add_data_from_record(v20, &v9, v15);
+          v6 = mbedtls_cipher_auth_encrypt_ext((v16 + 80), v19, *(v16 + 8), v20, v9, v10, v15[5], v10, v15[3] - (v10 - v15[2]), v15 + 5, *(v16 + 32));
+          if (v6)
+          {
+            return v6;
+          }
+
+          else
+          {
+            if (is_explicit)
+            {
+              if (v15[4] < 8uLL)
+              {
+                return -27136;
+              }
+
+              __memcpy_chk();
+              v15[4] -= 8;
+              v15[5] += 8;
+            }
+
+            if (++v11 == 1)
+            {
+              return 0;
+            }
+
+            else
+            {
+              return -27648;
+            }
+          }
+        }
+
+        else
+        {
+          return -27136;
+        }
+      }
+
+      else
+      {
+        return -28928;
+      }
+    }
+
+    else
+    {
+      return -27648;
+    }
+  }
+
+  else
+  {
+    return -27648;
+  }
+}
+
+uint64_t ssl_build_record_nonce(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6)
+{
+  __memset_chk();
+  result = __memcpy_chk();
+  v12 = a1 + a2 - a6;
+  for (i = 0; i + 16 <= a6; i += 16)
+  {
+    *(v12 + i) = veorq_s8(*(v12 + i), *(a5 + i));
+  }
+
+  while (i < a6)
+  {
+    *(v12 + i) ^= *(a5 + i);
+    ++i;
+  }
+
+  return result;
+}
+
+uint64_t ssl_extract_add_data_from_record(uint64_t a1, void *a2, uint64_t a3)
+{
+  __memcpy_chk();
+  *(a1 + 8) = *(a3 + 8);
+  __memcpy_chk();
+  result = __memcpy_chk();
+  *a2 = a1 + 13 - a1;
+  return result;
+}
+
+uint64_t mbedtls_ssl_fetch_input(void *a1, unint64_t a2)
+{
+  if (*(a1 + 3) == 0)
+  {
+    return -28928;
+  }
+
+  if (a2 > 16429 - (a1[23] - a1[21]))
+  {
+    return -28928;
+  }
+
+  if (*(*a1 + 9) != 1)
+  {
+    while (a1[30] < a2)
+    {
+      v5 = a2 - a1[30];
+      if (mbedtls_ssl_check_timer(a1))
+      {
+        v8 = -26624;
+      }
+
+      else if (a1[7])
+      {
+        v8 = (a1[7])(a1[8], a1[23] + a1[30], v5, *(*a1 + 168));
+      }
+
+      else
+      {
+        v8 = (a1[6])(a1[8], a1[23] + a1[30], v5);
+      }
+
+      if (!v8)
+      {
+        return -29312;
+      }
+
+      if (v8 < 0)
+      {
+        return v8;
+      }
+
+      if (v8 > v5)
+      {
+        return -27648;
+      }
+
+      a1[30] += v8;
+    }
+
+    return 0;
+  }
+
+  if (a1[32])
+  {
+    if (a1[30] < a1[32])
+    {
+      return -27648;
+    }
+
+    a1[30] -= a1[32];
+    if (a1[30])
+    {
+      __memmove_chk();
+    }
+
+    a1[32] = 0;
+  }
+
+  if (a2 <= a1[30])
+  {
+    return 0;
+  }
+
+  if (a1[30])
+  {
+    return -27648;
+  }
+
+  if (mbedtls_ssl_check_timer(a1))
+  {
+    v6 = -26624;
+  }
+
+  else
+  {
+    v4 = 16429 - (a1[23] - a1[21]);
+    if (mbedtls_ssl_is_handshake_over(a1))
+    {
+      v3 = *(*a1 + 168);
+    }
+
+    else
+    {
+      v3 = *(a1[13] + 772);
+    }
+
+    if (a1[7])
+    {
+      v6 = (a1[7])(a1[8], a1[23], v4, v3);
+    }
+
+    else
+    {
+      v6 = (a1[6])(a1[8], a1[23], v4);
+    }
+
+    if (!v6)
+    {
+      return -29312;
+    }
+  }
+
+  if (v6 != -26624 || (mbedtls_ssl_set_timer(a1, 0), *(a1 + 2) == 27))
+  {
+    if (v6 < 0)
+    {
+      return v6;
+    }
+
+    a1[30] = v6;
+    return 0;
+  }
+
+  if (ssl_double_retransmit_timeout(a1))
+  {
+    return -26624;
+  }
+
+  else
+  {
+    v7 = mbedtls_ssl_resend(a1);
+    if (v7)
+    {
+      return v7;
+    }
+
+    else
+    {
+      return -26880;
+    }
+  }
+}
+
+uint64_t ssl_double_retransmit_timeout(void *a1)
+{
+  if (*(a1[13] + 772) < *(*a1 + 176))
+  {
+    if (*(a1[13] + 772) != *(*a1 + 172))
+    {
+      *(a1[13] + 824) = 508;
+    }
+
+    v2 = 2 * *(a1[13] + 772);
+    if (v2 < *(a1[13] + 772) || v2 > *(*a1 + 176))
+    {
+      v2 = *(*a1 + 176);
+    }
+
+    *(a1[13] + 772) = v2;
+    return 0;
+  }
+
+  else
+  {
+    return -1;
+  }
+}
+
+uint64_t mbedtls_ssl_flush_output(uint64_t a1)
+{
+  if (*(a1 + 40))
+  {
+    if (*(a1 + 376))
+    {
+      while (*(a1 + 376))
+      {
+        v2 = (*(a1 + 40))(*(a1 + 64), *(a1 + 328) - *(a1 + 376), *(a1 + 376));
+        if (v2 <= 0)
+        {
+          return v2;
+        }
+
+        if (v2 > *(a1 + 376))
+        {
+          return -27648;
+        }
+
+        *(a1 + 376) -= v2;
+      }
+
+      if (*(*a1 + 9) == 1)
+      {
+        *(a1 + 328) = *(a1 + 312);
+      }
+
+      else
+      {
+        *(a1 + 328) = *(a1 + 312) + 8;
+      }
+
+      mbedtls_ssl_update_out_pointers(a1, *(a1 + 120));
+      return 0;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    return -28928;
+  }
+}
+
+uint64_t mbedtls_ssl_update_out_pointers(uint64_t result, uint64_t a2)
+{
+  v2 = result;
+  if (*(*result + 9) == 1)
+  {
+    *(result + 320) = *(result + 328) + 3;
+    *(result + 336) = *(result + 320) + 8;
+    *(result + 344) = *(result + 336) + 2;
+  }
+
+  else
+  {
+    *(result + 336) = *(result + 328) + 3;
+    *(result + 344) = *(result + 328) + 5;
+  }
+
+  *(result + 352) = *(result + 344);
+  if (a2)
+  {
+    result = ssl_transform_get_explicit_iv_len(a2);
+    *(v2 + 352) += result;
+  }
+
+  return result;
+}
+
+uint64_t *mbedtls_ssl_flight_free(uint64_t *result)
+{
+  for (i = result; i; i = v1)
+  {
+    v1 = i[3];
+    mbedtls_free(*i);
+    result = mbedtls_free(i);
+  }
+
+  return result;
+}
+
 uint64_t mbedtls_ssl_flight_transmit(uint64_t a1)
 {
   if (*(*(a1 + 104) + 8) == 1)
@@ -9,10 +2141,10 @@ uint64_t mbedtls_ssl_flight_transmit(uint64_t a1)
 LABEL_5:
         if (!*(*(a1 + 104) + 784))
         {
-          v21 = mbedtls_ssl_flush_output(a1);
-          if (v21)
+          v15 = mbedtls_ssl_flush_output(a1);
+          if (v15)
           {
-            return v21;
+            return v15;
           }
 
           else
@@ -32,20 +2164,20 @@ LABEL_5:
           }
         }
 
-        v13 = *(*(a1 + 104) + 784);
-        v9 = 0;
-        if (*(v13 + 16) == 22)
+        v7 = *(*(a1 + 104) + 784);
+        v3 = 0;
+        if (*(v7 + 16) == 22)
         {
-          v9 = **v13 == 20;
+          v3 = **v7 == 20;
         }
 
-        v12 = *(a1 + 304) == 1;
-        if (v9 && *(*(a1 + 104) + 792) == *v13 + 12)
+        v6 = *(a1 + 304) == 1;
+        if (v3 && *(*(a1 + 104) + 792) == *v7 + 12)
         {
-          v15 = ssl_swap_epochs(a1);
-          if (v15)
+          v9 = ssl_swap_epochs(a1);
+          if (v9)
           {
-            return v15;
+            return v9;
           }
         }
 
@@ -55,46 +2187,43 @@ LABEL_5:
           return remaining_payload_in_datagram;
         }
 
-        if (*(v13 + 16) == 20)
+        if (*(v7 + 16) == 20)
         {
           break;
         }
 
-        v11 = *(v13 + 8) - 12;
-        v10 = *(*(a1 + 104) + 792) - (*v13 + 12);
-        if (remaining_payload_in_datagram >= 0xC && (remaining_payload_in_datagram != 12 || *(v13 + 8) == 12))
+        v5 = *(v7 + 8) - 12;
+        v4 = *(*(a1 + 104) + 792) - (*v7 + 12);
+        if (remaining_payload_in_datagram >= 0xC && (remaining_payload_in_datagram != 12 || *(v7 + 8) == 12))
         {
-          if (v11 - v10 <= (remaining_payload_in_datagram - 12))
+          if (v5 - v4 <= (remaining_payload_in_datagram - 12))
           {
-            v8 = v11 - v10;
+            v2 = v5 - v4;
           }
 
           else
           {
-            v8 = remaining_payload_in_datagram - 12;
+            v2 = remaining_payload_in_datagram - 12;
           }
 
-          v4 = *(a1 + 352);
-          v5 = *v13;
           __memcpy_chk();
-          *(*(a1 + 352) + 6) = BYTE2(v10);
-          *(*(a1 + 352) + 7) = BYTE1(v10);
-          *(*(a1 + 352) + 8) = v10;
-          *(*(a1 + 352) + 9) = BYTE2(v8);
-          *(*(a1 + 352) + 10) = BYTE1(v8);
-          *(*(a1 + 352) + 11) = v8;
-          v6 = *(a1 + 352);
+          *(*(a1 + 352) + 6) = BYTE2(v4);
+          *(*(a1 + 352) + 7) = BYTE1(v4);
+          *(*(a1 + 352) + 8) = v4;
+          *(*(a1 + 352) + 9) = BYTE2(v2);
+          *(*(a1 + 352) + 10) = BYTE1(v2);
+          *(*(a1 + 352) + 11) = v2;
           __memcpy_chk();
-          *(a1 + 368) = v8 + 12;
-          *(a1 + 360) = *(v13 + 16);
-          *(*(a1 + 104) + 792) += v8;
+          *(a1 + 368) = v2 + 12;
+          *(a1 + 360) = *(v7 + 16);
+          *(*(a1 + 104) + 792) += v2;
 LABEL_33:
-          if (*(*(a1 + 104) + 792) >= *v13 + *(v13 + 8))
+          if (*(*(a1 + 104) + 792) >= *v7 + *(v7 + 8))
           {
-            if (*(v13 + 24))
+            if (*(v7 + 24))
             {
-              *(*(a1 + 104) + 784) = *(v13 + 24);
-              *(*(a1 + 104) + 792) = **(v13 + 24) + 12;
+              *(*(a1 + 104) + 784) = *(v7 + 24);
+              *(*(a1 + 104) + 792) = **(v7 + 24) + 12;
             }
 
             else
@@ -104,75 +2233,69 @@ LABEL_33:
             }
           }
 
-          v20 = mbedtls_ssl_write_record(a1, v12);
-          if (v20)
+          v14 = mbedtls_ssl_write_record(a1, v6);
+          if (v14)
           {
-            return v20;
+            return v14;
           }
         }
 
         else
         {
-          if (v9)
+          if (v3)
           {
-            v18 = ssl_swap_epochs(a1);
-            if (v18)
+            v12 = ssl_swap_epochs(a1);
+            if (v12)
             {
-              return v18;
+              return v12;
             }
           }
 
-          v19 = mbedtls_ssl_flush_output(a1);
-          if (v19)
+          v13 = mbedtls_ssl_flush_output(a1);
+          if (v13)
           {
-            return v19;
+            return v13;
           }
         }
       }
 
       if (remaining_payload_in_datagram)
       {
-        v1 = *(a1 + 352);
-        v2 = *v13;
-        v3 = *(v13 + 8);
         __memcpy_chk();
-        *(a1 + 368) = *(v13 + 8);
-        *(a1 + 360) = *(v13 + 16);
-        *(*(a1 + 104) + 792) += *(v13 + 8);
+        *(a1 + 368) = *(v7 + 8);
+        *(a1 + 360) = *(v7 + 16);
+        *(*(a1 + 104) + 792) += *(v7 + 8);
         goto LABEL_33;
       }
 
-      v17 = mbedtls_ssl_flush_output(a1);
-      if (v17)
+      v11 = mbedtls_ssl_flush_output(a1);
+      if (v11)
       {
-        return v17;
+        return v11;
       }
     }
   }
 
   *(*(a1 + 104) + 784) = *(*(a1 + 104) + 776);
   *(*(a1 + 104) + 792) = **(*(a1 + 104) + 776) + 12;
-  v14 = ssl_swap_epochs(a1);
-  if (!v14)
+  v8 = ssl_swap_epochs(a1);
+  if (!v8)
   {
     *(*(a1 + 104) + 8) = 1;
     goto LABEL_5;
   }
 
-  return v14;
+  return v8;
 }
 
 uint64_t ssl_swap_epochs(void *a1)
 {
   if (a1[15] != *(a1[13] + 808))
   {
-    v4 = a1[15];
+    v2 = a1[15];
     a1[15] = *(a1[13] + 808);
-    *(a1[13] + 808) = v4;
-    v6 = a1[48];
-    v1 = a1[13];
+    *(a1[13] + 808) = v2;
     __memcpy_chk();
-    v2 = a1[13];
     __memcpy_chk();
     mbedtls_ssl_update_out_pointers(a1, a1[15]);
   }
@@ -233,14 +2356,10 @@ uint64_t ssl_get_remaining_payload_in_datagram(uint64_t a1)
 
 uint64_t mbedtls_ssl_write_record(uint64_t a1, _BOOL4 a2)
 {
-  v13 = *(a1 + 368);
-  v9 = *(a1 + 12);
-  v2 = *(a1 + 328) + 1;
-  v3 = *(*a1 + 9);
-  mbedtls_ssl_write_version();
-  v4 = *(a1 + 320);
+  v9 = *(a1 + 368);
+  v5 = *(a1 + 12);
+  mbedtls_ssl_write_version(*(a1 + 328) + 1, *(*a1 + 9), v5);
   __memcpy_chk();
-  v21 = *(a1 + 336);
   __memcpy_chk();
   if (*(a1 + 120))
   {
@@ -250,13 +2369,12 @@ uint64_t mbedtls_ssl_write_record(uint64_t a1, _BOOL4 a2)
     __b[5] = *(a1 + 368);
     __b[4] = *(a1 + 352) - __b[2];
     __b[0] = **(a1 + 320);
-    v5 = *(*a1 + 9);
-    mbedtls_ssl_write_version();
+    mbedtls_ssl_write_version(&__b[1] + 1, *(*a1 + 9), v5);
     LOBYTE(__b[1]) = *(a1 + 360);
-    v14 = mbedtls_ssl_encrypt_buf(a1, *(a1 + 120), __b, *(*a1 + 40), *(*a1 + 48));
-    if (v14)
+    v10 = mbedtls_ssl_encrypt_buf(a1, *(a1 + 120), __b, *(*a1 + 40), *(*a1 + 48));
+    if (v10)
     {
-      return v14;
+      return v10;
     }
 
     if (__b[4])
@@ -265,13 +2383,12 @@ uint64_t mbedtls_ssl_write_record(uint64_t a1, _BOOL4 a2)
     }
 
     *(a1 + 360) = LOBYTE(__b[1]);
-    v13 = __b[5];
+    v9 = __b[5];
     *(a1 + 368) = __b[5];
-    v20 = *(a1 + 336);
     __memcpy_chk();
   }
 
-  v10 = v13 + mbedtls_ssl_out_hdr_len(a1);
+  v6 = v9 + mbedtls_ssl_out_hdr_len(a1);
   if (*(*a1 + 9) == 1)
   {
     remaining_space_in_datagram = ssl_get_remaining_space_in_datagram(a1);
@@ -280,22 +2397,22 @@ uint64_t mbedtls_ssl_write_record(uint64_t a1, _BOOL4 a2)
       return remaining_space_in_datagram;
     }
 
-    if (v10 > remaining_space_in_datagram)
+    if (v6 > remaining_space_in_datagram)
     {
       return -27648;
     }
   }
 
   **(a1 + 328) = *(a1 + 360);
-  *(a1 + 376) += v10;
-  *(a1 + 328) += v10;
+  *(a1 + 376) += v6;
+  *(a1 + 328) += v6;
   mbedtls_ssl_update_out_pointers(a1, *(a1 + 120));
   for (i = 8; i > mbedtls_ssl_ep_len(a1); --i)
   {
-    v6 = i - 1;
-    v7 = *(a1 + 384 + v6) + 1;
-    *(a1 + 384 + v6) = v7;
-    if (v7)
+    v2 = i - 1;
+    v3 = *(a1 + 384 + v2) + 1;
+    *(a1 + 384 + v2) = v3;
+    if (v3)
     {
       break;
     }
@@ -319,9 +2436,9 @@ uint64_t mbedtls_ssl_write_record(uint64_t a1, _BOOL4 a2)
       a2 = remaining_payload_in_datagram == 0;
     }
 
-    if (a2 && (v17 = mbedtls_ssl_flush_output(a1)) != 0)
+    if (a2 && (v13 = mbedtls_ssl_flush_output(a1)) != 0)
     {
-      return v17;
+      return v13;
     }
 
     else
@@ -353,16 +2470,19 @@ uint64_t mbedtls_ssl_recv_flight_completed(uint64_t a1)
   return result;
 }
 
-void mbedtls_ssl_buffering_free(uint64_t a1)
+uint64_t mbedtls_ssl_buffering_free(uint64_t result)
 {
-  if (*(a1 + 104))
+  v2 = result;
+  if (*(result + 104))
   {
-    ssl_free_buffered_record(a1);
+    result = ssl_free_buffered_record(result);
     for (i = 0; i < 4; ++i)
     {
-      ssl_buffering_free_slot(a1, i);
+      result = ssl_buffering_free_slot(v2, i);
     }
   }
+
+  return result;
 }
 
 uint64_t mbedtls_ssl_send_flight_completed(uint64_t a1)
@@ -393,11 +2513,11 @@ uint64_t mbedtls_ssl_start_handshake_msg(uint64_t a1, char a2, void *a3, void *a
 
 uint64_t mbedtls_ssl_write_handshake_msg_ext(uint64_t a1, int a2, _BOOL4 a3)
 {
-  v10 = *(a1 + 368) - 4;
-  v9 = **(a1 + 352);
+  v5 = *(a1 + 368) - 4;
+  v4 = **(a1 + 352);
   if (*(a1 + 360) == 22 || *(a1 + 360) == 20)
   {
-    if (*(a1 + 360) == 22 && !v9 || *(a1 + 104))
+    if (*(a1 + 360) == 22 && !v4 || *(a1 + 104))
     {
       if (*(*a1 + 9) == 1 && *(a1 + 104) && *(*(a1 + 104) + 8) == 1)
       {
@@ -410,9 +2530,9 @@ uint64_t mbedtls_ssl_write_handshake_msg_ext(uint64_t a1, int a2, _BOOL4 a3)
         {
           if (*(a1 + 360) == 22)
           {
-            *(*(a1 + 352) + 1) = BYTE2(v10);
-            *(*(a1 + 352) + 2) = BYTE1(v10);
-            *(*(a1 + 352) + 3) = v10;
+            *(*(a1 + 352) + 1) = BYTE2(v5);
+            *(*(a1 + 352) + 2) = BYTE1(v5);
+            *(*(a1 + 352) + 3) = v5;
             if (*(*a1 + 9) == 1)
             {
               if ((0x4000 - *(a1 + 368)) < 8)
@@ -420,14 +2540,10 @@ uint64_t mbedtls_ssl_write_handshake_msg_ext(uint64_t a1, int a2, _BOOL4 a3)
                 return -28928;
               }
 
-              v3 = *(a1 + 352) + 12;
-              v4 = *(a1 + 352);
               __memmove_chk();
               *(a1 + 368) += 8;
-              if (v9)
+              if (v4)
               {
-                v19 = *(a1 + 352) + 4;
-                v18 = bswap32(*(*(a1 + 104) + 764)) >> 16;
                 __memcpy_chk();
                 ++*(*(a1 + 104) + 764);
               }
@@ -438,41 +2554,38 @@ uint64_t mbedtls_ssl_write_handshake_msg_ext(uint64_t a1, int a2, _BOOL4 a3)
                 *(*(a1 + 352) + 5) = 0;
               }
 
-              v5 = *(a1 + 352);
               __memset_chk();
-              v6 = *(a1 + 352) + 9;
-              v7 = *(a1 + 352);
               __memcpy_chk();
             }
 
-            if (v9)
+            if (v4)
             {
               if (a2)
               {
-                v11 = (*(*(a1 + 104) + 24))(a1, *(a1 + 352), *(a1 + 368));
-                if (v11)
+                v6 = (*(*(a1 + 104) + 24))(a1, *(a1 + 352), *(a1 + 368));
+                if (v6)
                 {
-                  return v11;
+                  return v6;
                 }
               }
             }
           }
 
-          if (*(*a1 + 9) == 1 && (*(a1 + 360) != 22 || v9))
+          if (*(*a1 + 9) == 1 && (*(a1 + 360) != 22 || v4))
           {
-            v12 = ssl_flight_append(a1);
-            if (v12)
+            v7 = ssl_flight_append(a1);
+            if (v7)
             {
-              return v12;
+              return v7;
             }
           }
 
           else
           {
-            v13 = mbedtls_ssl_write_record(a1, a3);
-            if (v13)
+            v8 = mbedtls_ssl_write_record(a1, a3);
+            if (v8)
             {
-              return v13;
+              return v8;
             }
           }
 
@@ -497,32 +2610,28 @@ uint64_t mbedtls_ssl_write_handshake_msg_ext(uint64_t a1, int a2, _BOOL4 a3)
 
 uint64_t ssl_flight_append(uint64_t a1)
 {
-  v8 = mbedtls_calloc();
-  if (v8)
+  v4 = mbedtls_calloc(1, 32);
+  if (v4)
   {
-    v1 = *(a1 + 368);
-    v2 = mbedtls_calloc();
-    *v8 = v2;
-    if (v2)
+    v1 = mbedtls_calloc(1, *(a1 + 368));
+    *v4 = v1;
+    if (v1)
     {
-      v3 = *v8;
-      v4 = *(a1 + 352);
-      v5 = *(a1 + 368);
       __memcpy_chk();
-      *(v8 + 8) = *(a1 + 368);
-      *(v8 + 16) = *(a1 + 360);
-      *(v8 + 24) = 0;
+      *(v4 + 8) = *(a1 + 368);
+      *(v4 + 16) = *(a1 + 360);
+      *(v4 + 24) = 0;
       if (*(*(a1 + 104) + 776))
       {
           ;
         }
 
-        *(i + 24) = v8;
+        *(i + 24) = v4;
       }
 
       else
       {
-        *(*(a1 + 104) + 776) = v8;
+        *(*(a1 + 104) + 776) = v4;
       }
 
       return 0;
@@ -530,7 +2639,7 @@ uint64_t ssl_flight_append(uint64_t a1)
 
     else
     {
-      mbedtls_free();
+      mbedtls_free(v4);
       return -32512;
     }
   }
@@ -715,11 +2824,10 @@ uint64_t mbedtls_ssl_dtls_replay_check(void *a1)
   {
     if (six_bytes <= a1[33])
     {
-      v3 = a1[33] - six_bytes;
-      if (v3 < 0x40)
+      v2 = a1[33] - six_bytes;
+      if (v2 < 0x40)
       {
-        v1 = a1[33] - six_bytes;
-        if ((a1[34] & (1 << v3)) != 0)
+        if ((a1[34] & (1 << v2)) != 0)
         {
           return -1;
         }
@@ -755,20 +2863,19 @@ unint64_t mbedtls_ssl_dtls_replay_update(void *a1)
   {
     if (result <= a1[33])
     {
-      v3 = a1[33] - result;
-      if (v3 < 0x40)
+      v2 = a1[33] - result;
+      if (v2 < 0x40)
       {
-        a1[34] |= 1 << v3;
+        a1[34] |= 1 << v2;
       }
     }
 
     else
     {
-      v4 = result - a1[33];
-      if (v4 < 0x40)
+      v3 = result - a1[33];
+      if (v3 < 0x40)
       {
-        v2 = result - a1[33];
-        a1[34] <<= v4;
+        a1[34] <<= v3;
         a1[34] |= 1uLL;
       }
 
@@ -784,11 +2891,11 @@ unint64_t mbedtls_ssl_dtls_replay_update(void *a1)
   return result;
 }
 
-uint64_t mbedtls_ssl_read_record(uint64_t a1, int a2)
+uint64_t mbedtls_ssl_read_record(_DWORD *a1, int a2)
 {
-  if (*(a1 + 292))
+  if (a1[73])
   {
-    *(a1 + 292) = 0;
+    a1[73] = 0;
     return 0;
   }
 
@@ -846,7 +2953,7 @@ LABEL_16:
   while (v3);
   if (!next_record)
   {
-    if (*(a1 + 224) == 22 && a2 == 1)
+    if (a1[56] == 22 && a2 == 1)
     {
       updated = mbedtls_ssl_update_handshake_status(a1);
       if (updated)
@@ -884,9 +2991,6 @@ uint64_t ssl_consume_current_message(void *a1)
     else
     {
       a1[29] -= a1[35];
-      v1 = a1[26];
-      v2 = a1[26] + a1[35];
-      v3 = a1[29];
       __memmove_chk();
     }
 
@@ -899,20 +3003,20 @@ uint64_t ssl_consume_current_message(void *a1)
 
 uint64_t ssl_load_buffered_message(uint64_t a1)
 {
-  v7 = *(a1 + 104);
-  v6 = 0;
-  if (v7)
+  v4 = *(a1 + 104);
+  v3 = 0;
+  if (v4)
   {
     if (*(a1 + 8) == 10 || *(a1 + 8) == 12)
     {
-      if (*(v7 + 624))
+      if (*(v4 + 624))
       {
         *(a1 + 224) = 20;
         *(a1 + 232) = 1;
         **(a1 + 208) = 1;
         *(a1 + 240) = 0;
         *(a1 + 256) = 0;
-        *(v7 + 624) = 0;
+        *(v4 + 624) = 0;
       }
 
       else
@@ -921,20 +3025,17 @@ uint64_t ssl_load_buffered_message(uint64_t a1)
       }
     }
 
-    else if ((*(v7 + 632) & 1) == 1 && ((*(v7 + 632) >> 2) & 1) == 1)
+    else if ((*(v4 + 632) & 1) == 1 && ((*(v4 + 632) >> 2) & 1) == 1)
     {
-      v5 = (*(*(v7 + 640) + 2) << 8) | (*(*(v7 + 640) + 1) << 16) | *(*(v7 + 640) + 3);
-      if ((v5 + 12) > 0x4000)
+      v2 = (*(*(v4 + 640) + 2) << 8) | (*(*(v4 + 640) + 1) << 16) | *(*(v4 + 640) + 3);
+      if ((v2 + 12) > 0x4000)
       {
         return -27648;
       }
 
       *(a1 + 224) = 22;
-      *(a1 + 280) = v5 + 12;
-      *(a1 + 232) = v5 + 12;
-      v1 = *(a1 + 208);
-      v2 = *(v7 + 640);
-      v3 = *(a1 + 280);
+      *(a1 + 280) = v2 + 12;
+      *(a1 + 232) = v2 + 12;
       __memcpy_chk();
       return 0;
     }
@@ -944,7 +3045,7 @@ uint64_t ssl_load_buffered_message(uint64_t a1)
       return -1;
     }
 
-    return v6;
+    return v3;
   }
 
   return -1;
@@ -970,26 +3071,26 @@ uint64_t ssl_get_next_record(uint64_t a1)
 
     else
     {
-      v8 = ssl_parse_record_header(a1, *(a1 + 184), *(a1 + 240), __b);
-      if (v8)
+      v6 = ssl_parse_record_header(a1, *(a1 + 184), *(a1 + 240), __b);
+      if (v6)
       {
         if (*(*a1 + 9) != 1)
         {
-          return v8;
+          return v6;
         }
 
-        if (v8 == -25728)
+        if (v6 == -25728)
         {
-          v9 = ssl_buffer_future_record(a1, __b);
-          if (v9)
+          v7 = ssl_buffer_future_record(a1, __b);
+          if (v7)
           {
-            return v9;
+            return v7;
           }
 
-          v8 = -26368;
+          v6 = -26368;
         }
 
-        if (v8 == -26368)
+        if (v6 == -26368)
         {
           *(a1 + 256) = __b[3];
         }
@@ -1008,34 +3109,32 @@ uint64_t ssl_get_next_record(uint64_t a1)
         if (*(*a1 + 9) == 1)
         {
           *(a1 + 256) = __b[3];
-          v2 = *(a1 + 256);
-          v3 = *(a1 + 240);
         }
 
         else
         {
-          v10 = mbedtls_ssl_fetch_input(a1, __b[3]);
-          if (v10)
+          v8 = mbedtls_ssl_fetch_input(a1, __b[3]);
+          if (v8)
           {
-            return v10;
+            return v8;
           }
 
           *(a1 + 240) = 0;
         }
 
-        v11 = ssl_prepare_record_content(a1, __b);
-        if (v11)
+        v9 = ssl_prepare_record_content(a1, __b);
+        if (v9)
         {
           if (*(*a1 + 9) == 1)
           {
-            if (v11 == -29056)
+            if (v9 == -29056)
             {
               if (*(a1 + 8) == 11 || *(a1 + 8) == 13)
               {
                 return -29056;
               }
 
-              else if (*(*a1 + 180) && (v4 = *(a1 + 16) + 1, *(a1 + 16) = v4, v4 >= *(*a1 + 180)))
+              else if (*(*a1 + 180) && (v2 = *(a1 + 16) + 1, *(a1 + 16) = v2, v2 >= *(*a1 + 180)))
               {
                 return -29056;
               }
@@ -1050,13 +3149,13 @@ uint64_t ssl_get_next_record(uint64_t a1)
 
             else
             {
-              return v11;
+              return v9;
             }
           }
 
           else
           {
-            return v11;
+            return v9;
           }
         }
 
@@ -1068,7 +3167,6 @@ uint64_t ssl_get_next_record(uint64_t a1)
           **(a1 + 184) = __b[1];
           *(a1 + 208) = __b[2] + __b[4];
           *(a1 + 232) = __b[5];
-          v14 = *(a1 + 192);
           __memcpy_chk();
           return 0;
         }
@@ -1168,93 +3266,87 @@ LABEL_15:
 
 uint64_t ssl_buffer_message(uint64_t a1)
 {
-  v19 = 0;
-  v18 = *(a1 + 104);
-  if (v18)
+  v13 = 0;
+  v12 = *(a1 + 104);
+  if (v12)
   {
-    v9 = *(a1 + 224);
-    if (v9 == 20)
+    v3 = *(a1 + 224);
+    if (v3 == 20)
     {
-      *(v18 + 624) = 1;
+      *(v12 + 624) = 1;
     }
 
-    else if (v9 == 22)
+    else if (v3 == 22)
     {
-      v16 = bswap32(*(*(a1 + 208) + 4)) >> 16;
-      v14 = *(a1 + 280) - 12;
-      if (v16 < *(*(a1 + 104) + 768))
+      v10 = bswap32(*(*(a1 + 208) + 4)) >> 16;
+      v8 = *(a1 + 280) - 12;
+      if (v10 < *(*(a1 + 104) + 768))
       {
         return -27648;
       }
 
-      v17 = v16 - *(*(a1 + 104) + 768);
-      if (v17 < 4)
+      v11 = v10 - *(*(a1 + 104) + 768);
+      if (v11 < 4)
       {
-        v15 = (v18 + 632 + 24 * v17);
-        if (*v15)
+        v9 = (v12 + 632 + 24 * v11);
+        if (*v9)
         {
-          if (memcmp(*(v15 + 1), *(a1 + 208), 4uLL))
+          if (memcmp(*(v9 + 1), *(a1 + 208), 4uLL))
           {
-            return v19;
+            return v13;
           }
 
           goto LABEL_23;
         }
 
-        *v15 = *v15 & 0xFD | (2 * ssl_hs_is_proper_fragment(a1));
-        if (v14 + 12 <= 0x4000)
+        *v9 = *v9 & 0xFD | (2 * ssl_hs_is_proper_fragment(a1));
+        if (v8 + 12 <= 0x4000)
         {
-          if (*(v18 + 616) > 0x8000uLL)
+          if (*(v12 + 616) > 0x8000uLL)
           {
             return -27648;
           }
 
-          reassembly_buffer_size = ssl_get_reassembly_buffer_size(v14, (*v15 >> 1) & 1);
-          v13 = reassembly_buffer_size;
-          if (reassembly_buffer_size <= 0x8000 - *(v18 + 616))
+          reassembly_buffer_size = ssl_get_reassembly_buffer_size(v8, (*v9 >> 1) & 1);
+          v7 = reassembly_buffer_size;
+          if (reassembly_buffer_size <= 0x8000 - *(v12 + 616))
           {
 LABEL_19:
-            *(v15 + 1) = mbedtls_calloc();
-            if (!*(v15 + 1))
+            *(v9 + 1) = mbedtls_calloc(1, v7);
+            if (!*(v9 + 1))
             {
               return -32512;
             }
 
-            *(v15 + 2) = v13;
-            v2 = *(v15 + 1);
-            v3 = *(a1 + 208);
+            *(v9 + 2) = v7;
             __memcpy_chk();
-            v4 = *(v15 + 1);
             __memset_chk();
-            v5 = *(v15 + 1) + 9;
-            v6 = *(v15 + 1);
             __memcpy_chk();
-            *v15 = *v15 & 0xFE | 1;
-            *(v18 + 616) += v13;
+            *v9 = *v9 & 0xFE | 1;
+            *(v12 + 616) += v7;
 LABEL_23:
-            if ((*v15 & 4) == 0)
+            if ((*v9 & 4) == 0)
             {
-              v10 = *(v15 + 1) + 12;
+              v4 = *(v9 + 1) + 12;
               hs_frag_off = ssl_get_hs_frag_off(a1);
               hs_frag_len = ssl_get_hs_frag_len(a1);
-              v7 = *(a1 + 208);
               __memcpy_chk();
-              if ((*v15 & 2) != 0)
+              if ((*v9 & 2) != 0)
               {
-                ssl_bitmask_set(v10 + v14, hs_frag_off, hs_frag_len);
-                *v15 = *v15 & 0xFB | (4 * (ssl_bitmask_check(v10 + v14, v14) == 0));
+                ssl_bitmask_set(v4 + v8, hs_frag_off, hs_frag_len);
+                *v9 = *v9 & 0xFB | (4 * (ssl_bitmask_check(v4 + v8, v8) == 0));
               }
 
               else
               {
-                *v15 = *v15 & 0xFB | 4;
+                *v9 = *v9 & 0xFB | 4;
               }
             }
 
-            return v19;
+            return v13;
           }
 
-          if (!v17)
+          if (!v11)
           {
             if (ssl_buffer_make_space(a1, reassembly_buffer_size))
             {
@@ -1267,7 +3359,7 @@ LABEL_23:
       }
     }
 
-    return v19;
+    return v13;
   }
 
   return 0;
@@ -1352,7 +3444,6 @@ uint64_t mbedtls_ssl_parse_change_cipher_spec(uint64_t a1)
 
       else
       {
-        v2 = *(a1 + 176);
         __memset_chk();
       }
 
@@ -1478,7 +3569,7 @@ uint64_t mbedtls_cipher_get_cipher_mode(uint64_t a1)
   }
 }
 
-uint64_t mbedtls_ssl_read(uint64_t a1, uint64_t a2, size_t a3)
+uint64_t mbedtls_ssl_read(void *a1, uint64_t a2, size_t a3)
 {
   if (a1 && *a1)
   {
@@ -1490,9 +3581,9 @@ uint64_t mbedtls_ssl_read(uint64_t a1, uint64_t a2, size_t a3)
         return v4;
       }
 
-      if (*(a1 + 104))
+      if (a1[13])
       {
-        if (*(*(a1 + 104) + 8) == 1)
+        if (*(a1[13] + 8) == 1)
         {
           v5 = mbedtls_ssl_flight_transmit(a1);
           if (v5)
@@ -1503,16 +3594,16 @@ uint64_t mbedtls_ssl_read(uint64_t a1, uint64_t a2, size_t a3)
       }
     }
 
-    if (*(a1 + 8) == 27 || (v6 = mbedtls_ssl_handshake(a1), v6 == -27392) || !v6)
+    if (*(a1 + 2) == 27 || (v6 = mbedtls_ssl_handshake(a1), v6 == -27392) || !v6)
     {
       while (1)
       {
-        if (*(a1 + 216))
+        if (a1[27])
         {
           return ssl_read_application_data(a1, a2, a3);
         }
 
-        if (*(a1 + 160) && (*(a1 + 160))(*(a1 + 144)) == -1)
+        if (a1[20] && (a1[20])(a1[18]) == -1)
         {
           mbedtls_ssl_set_timer(a1, *(*a1 + 168));
         }
@@ -1531,7 +3622,7 @@ uint64_t mbedtls_ssl_read(uint64_t a1, uint64_t a2, size_t a3)
           }
         }
 
-        if (!*(a1 + 232) && *(a1 + 224) == 23)
+        if (!a1[29] && *(a1 + 56) == 23)
         {
           v8 = mbedtls_ssl_read_record(a1, 1);
           if (v8)
@@ -1540,7 +3631,7 @@ uint64_t mbedtls_ssl_read(uint64_t a1, uint64_t a2, size_t a3)
           }
         }
 
-        switch(*(a1 + 224))
+        switch(*(a1 + 56))
         {
           case 0x16:
             v9 = ssl_handle_hs_message_post_handshake(a1);
@@ -1553,7 +3644,7 @@ uint64_t mbedtls_ssl_read(uint64_t a1, uint64_t a2, size_t a3)
           case 0x15:
             return -26880;
           case 0x17:
-            *(a1 + 216) = *(a1 + 208);
+            a1[27] = a1[26];
             if (mbedtls_ssl_is_handshake_over(a1))
             {
               mbedtls_ssl_set_timer(a1, 0);
@@ -1605,25 +3696,24 @@ size_t ssl_read_application_data(uint64_t a1, uint64_t a2, size_t a3)
 {
   if (a3 >= *(a1 + 232))
   {
-    v5 = *(a1 + 232);
+    v4 = *(a1 + 232);
   }
 
   else
   {
-    v5 = a3;
+    v4 = a3;
   }
 
   if (a3)
   {
-    v3 = *(a1 + 216);
     __memcpy_chk();
-    *(a1 + 232) -= v5;
+    *(a1 + 232) -= v4;
   }
 
-  mbedtls_platform_zeroize(*(a1 + 216), v5);
+  mbedtls_platform_zeroize(*(a1 + 216), v4);
   if (*(a1 + 232))
   {
-    *(a1 + 216) += v5;
+    *(a1 + 216) += v4;
   }
 
   else
@@ -1632,7 +3722,7 @@ size_t ssl_read_application_data(uint64_t a1, uint64_t a2, size_t a3)
     *(a1 + 292) = 0;
   }
 
-  return v5;
+  return v4;
 }
 
 uint64_t mbedtls_ssl_write(uint64_t a1, uint64_t a2, unint64_t a3)
@@ -1673,10 +3763,10 @@ uint64_t ssl_write_real(uint64_t a1, uint64_t a2, unint64_t a3)
 
     if (*(a1 + 376))
     {
-      v6 = mbedtls_ssl_flush_output(a1);
-      if (v6)
+      v5 = mbedtls_ssl_flush_output(a1);
+      if (v5)
       {
-        return v6;
+        return v5;
       }
     }
 
@@ -1686,14 +3776,13 @@ uint64_t ssl_write_real(uint64_t a1, uint64_t a2, unint64_t a3)
       *(a1 + 360) = 23;
       if (a3)
       {
-        v3 = *(a1 + 352);
         __memcpy_chk();
       }
 
-      v7 = mbedtls_ssl_write_record(a1, 1);
-      if (v7)
+      v6 = mbedtls_ssl_write_record(a1, 1);
+      if (v6)
       {
-        return v7;
+        return v6;
       }
     }
 
@@ -1737,26 +3826,20 @@ char *mbedtls_ssl_transform_free(char *result)
   return result;
 }
 
-uint64_t mbedtls_ssl_set_inbound_transform(uint64_t a1, uint64_t a2)
+uint64_t ssl_free_buffered_record(uint64_t result)
 {
-  *(a1 + 112) = a2;
-  v2 = *(a1 + 176);
-  return __memset_chk();
-}
-
-void ssl_free_buffered_record(uint64_t a1)
-{
-  v2 = *(a1 + 104);
-  if (v2)
+  v1 = *(result + 104);
+  if (v1)
   {
-    if (v2[91])
+    if (v1[91])
     {
-      v2[77] -= v2[92];
-      v1 = v2[91];
-      mbedtls_free();
-      v2[91] = 0;
+      v1[77] -= v1[92];
+      result = mbedtls_free(v1[91]);
+      v1[91] = 0;
     }
   }
+
+  return result;
 }
 
 uint64_t mbedtls_ssl_read_version(unsigned __int16 *a1, int a2)
@@ -1815,7 +3898,7 @@ uint64_t mbedtls_ssl_pend_fatal_alert(uint64_t result, char a2, int a3)
   return result;
 }
 
-uint64_t ssl_get_maximum_datagram_size(uint64_t a1)
+unint64_t ssl_get_maximum_datagram_size(uint64_t a1)
 {
   current_mtu = mbedtls_ssl_get_current_mtu(a1);
   if (current_mtu && current_mtu < 0x402D)
@@ -1947,27 +4030,26 @@ uint64_t ssl_bitmask_check(uint64_t a1, unint64_t a2)
 
 uint64_t ssl_load_buffered_record(uint64_t a1)
 {
-  v5 = *(a1 + 104);
+  v4 = *(a1 + 104);
   if (*(*a1 + 9) == 1)
   {
-    if (v5)
+    if (v4)
     {
-      v4 = *(v5 + 736);
-      v3 = *(v5 + 744);
-      if (*(v5 + 728))
+      v3 = *(v4 + 736);
+      v2 = *(v4 + 744);
+      if (*(v4 + 728))
       {
         if (!ssl_next_record_is_in_datagram(a1))
         {
-          if (v3 == *(a1 + 248))
+          if (v2 == *(a1 + 248))
           {
-            if (v4 > 16429 - (*(a1 + 184) - *(a1 + 168)))
+            if (v3 > 16429 - (*(a1 + 184) - *(a1 + 168)))
             {
               return -27648;
             }
 
-            v1 = *(a1 + 184);
             __memcpy_chk();
-            *(a1 + 240) = v4;
+            *(a1 + 240) = v3;
             *(a1 + 256) = 0;
             ssl_free_buffered_record(a1);
           }
@@ -1998,22 +4080,18 @@ uint64_t ssl_load_buffered_record(uint64_t a1)
 
 uint64_t ssl_buffer_future_record(uint64_t a1, uint64_t a2)
 {
-  v7 = *(a1 + 104);
-  if (v7)
+  v3 = *(a1 + 104);
+  if (v3)
   {
-    if (*(a2 + 8) == 22 && !*(v7 + 728) && *(a2 + 24) <= (0x8000 - *(v7 + 616)))
+    if (*(a2 + 8) == 22 && !*(v3 + 728) && *(a2 + 24) <= (0x8000 - *(v3 + 616)))
     {
-      *(v7 + 744) = *(a1 + 248) + 1;
-      *(v7 + 736) = *(a2 + 24);
-      v2 = *(v7 + 736);
-      *(v7 + 728) = mbedtls_calloc();
-      if (*(v7 + 728))
+      *(v3 + 744) = *(a1 + 248) + 1;
+      *(v3 + 736) = *(a2 + 24);
+      *(v3 + 728) = mbedtls_calloc(1, *(v3 + 736));
+      if (*(v3 + 728))
       {
-        v3 = *(v7 + 728);
-        v4 = *(a2 + 16);
-        v5 = *(a2 + 24);
         __memcpy_chk();
-        *(v7 + 616) += *(a2 + 24);
+        *(v3 + 616) += *(a2 + 24);
       }
     }
   }
@@ -2025,14 +4103,12 @@ uint64_t ssl_prepare_record_content(void *a1, uint64_t a2)
 {
   if (a1[14])
   {
-    v7 = *(a2 + 8);
-    v8 = mbedtls_ssl_decrypt_buf(a1, a1[14], a2);
-    if (v8)
+    v6 = mbedtls_ssl_decrypt_buf(a1, a1[14], a2);
+    if (v6)
     {
-      return v8;
+      return v6;
     }
 
-    v2 = *(a2 + 8);
     if (*(a2 + 40))
     {
       *(a1 + 72) = 0;
@@ -2055,10 +4131,10 @@ uint64_t ssl_prepare_record_content(void *a1, uint64_t a2)
     {
       for (i = 8; i > mbedtls_ssl_ep_len(a1); --i)
       {
-        v3 = i - 1;
-        v4 = *(a1[22] + v3) + 1;
-        *(a1[22] + v3) = v4;
-        if (v4)
+        v2 = i - 1;
+        v3 = *(a1[22] + v2) + 1;
+        *(a1[22] + v2) = v3;
+        if (v3)
         {
           break;
         }
@@ -2136,13 +4212,9 @@ uint64_t mbedtls_ssl_session_copy(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v2 = *(a2 + 112);
-  *(a1 + 104) = mbedtls_calloc();
+  *(a1 + 104) = mbedtls_calloc(1, *(a2 + 112));
   if (*(a1 + 104))
   {
-    v3 = *(a1 + 104);
-    v4 = *(a2 + 104);
-    v5 = *(a2 + 112);
     __memcpy_chk();
     *(a1 + 120) = *(a2 + 120);
     *(a1 + 112) = *(a2 + 112);
@@ -2312,22 +4384,21 @@ uint64_t mbedtls_ssl_add_hs_msg_to_checksum(uint64_t a1, int a2, uint64_t a3, ui
 uint64_t mbedtls_ssl_reset_checksum(uint64_t a1)
 {
   mbedtls_md_free((*(a1 + 104) + 832));
-  v1 = *(a1 + 104);
-  mbedtls_md_init();
-  v4 = *(a1 + 104);
-  v2 = mbedtls_md_info_from_type(9);
-  v5 = mbedtls_md_setup(v4 + 832, v2, 0);
-  if (v5)
+  mbedtls_md_init(*(a1 + 104) + 832);
+  v3 = *(a1 + 104);
+  v1 = mbedtls_md_info_from_type(9);
+  v4 = mbedtls_md_setup((v3 + 832), v1, 0);
+  if (v4)
   {
-    return v5;
+    return v4;
   }
 
   else
   {
-    v6 = mbedtls_md_starts((*(a1 + 104) + 832));
-    if (v6)
+    v5 = mbedtls_md_starts((*(a1 + 104) + 832));
+    if (v5)
     {
-      return v6;
+      return v5;
     }
 
     else
@@ -2337,30 +4408,30 @@ uint64_t mbedtls_ssl_reset_checksum(uint64_t a1)
   }
 }
 
-uint64_t mbedtls_ssl_transform_init()
+uint64_t mbedtls_ssl_transform_init(uint64_t a1)
 {
   __memset_chk();
-  mbedtls_cipher_init();
-  return mbedtls_cipher_init();
+  mbedtls_cipher_init(a1 + 80);
+  return mbedtls_cipher_init(a1 + 160);
 }
 
-uint64_t mbedtls_ssl_setup(_DWORD **a1, _DWORD *a2)
+uint64_t mbedtls_ssl_setup(void *a1, uint64_t a2)
 {
   *a1 = a2;
-  v5 = ssl_conf_check(a1);
-  if (!v5)
+  v3 = ssl_conf_check(a1);
+  if (!v3)
   {
     *(a1 + 3) = **a1;
     a1[39] = 0;
-    a1[21] = mbedtls_calloc();
+    a1[21] = mbedtls_calloc(1, 16429);
     if (a1[21])
     {
-      a1[39] = mbedtls_calloc();
+      a1[39] = mbedtls_calloc(1, 16429);
       if (a1[39])
       {
         mbedtls_ssl_reset_in_out_pointers(a1);
-        v6 = ssl_handshake_init(a1);
-        if (!v6)
+        v4 = ssl_handshake_init(a1);
+        if (!v4)
         {
           return 0;
         }
@@ -2368,19 +4439,17 @@ uint64_t mbedtls_ssl_setup(_DWORD **a1, _DWORD *a2)
 
       else
       {
-        v6 = -32512;
+        v4 = -32512;
       }
     }
 
     else
     {
-      v6 = -32512;
+      v4 = -32512;
     }
 
-    v2 = a1[21];
-    mbedtls_free();
-    v3 = a1[39];
-    mbedtls_free();
+    mbedtls_free(a1[21]);
+    mbedtls_free(a1[39]);
     *a1 = 0;
     a1[21] = 0;
     a1[39] = 0;
@@ -2394,13 +4463,13 @@ uint64_t mbedtls_ssl_setup(_DWORD **a1, _DWORD *a2)
     a1[42] = 0;
     a1[43] = 0;
     a1[44] = 0;
-    return v6;
+    return v4;
   }
 
-  return v5;
+  return v3;
 }
 
-uint64_t ssl_conf_check(_DWORD **a1)
+uint64_t ssl_conf_check(void *a1)
 {
   v2 = ssl_conf_version_check(a1);
   if (v2)
@@ -2408,7 +4477,7 @@ uint64_t ssl_conf_check(_DWORD **a1)
     return v2;
   }
 
-  else if (*(*a1 + 5))
+  else if (*(*a1 + 40))
   {
     return 0;
   }
@@ -2438,28 +4507,26 @@ uint64_t ssl_handshake_init(uint64_t a1)
 
   if (!*(a1 + 136))
   {
-    *(a1 + 136) = mbedtls_calloc();
+    *(a1 + 136) = mbedtls_calloc(1, 240);
   }
 
   if (!*(a1 + 96))
   {
-    *(a1 + 96) = mbedtls_calloc();
+    *(a1 + 96) = mbedtls_calloc(1, 128);
   }
 
   if (!*(a1 + 104))
   {
-    *(a1 + 104) = mbedtls_calloc();
+    *(a1 + 104) = mbedtls_calloc(1, 1000);
   }
 
   if (*(a1 + 104) && *(a1 + 136) && *(a1 + 96))
   {
-    v4 = *(a1 + 96);
-    mbedtls_ssl_session_init();
+    mbedtls_ssl_session_init(*(a1 + 96));
     ssl_handshake_params_init(*(a1 + 104));
-    v5 = *(a1 + 136);
-    mbedtls_ssl_transform_init();
-    v12 = mbedtls_ssl_reset_checksum(a1);
-    if (!v12)
+    mbedtls_ssl_transform_init(*(a1 + 136));
+    v7 = mbedtls_ssl_reset_checksum(a1);
+    if (!v7)
     {
       if (*(*a1 + 9) == 1)
       {
@@ -2479,30 +4546,30 @@ uint64_t ssl_handshake_init(uint64_t a1)
 
       if (*(*a1 + 152))
       {
-        v10 = *(*a1 + 152);
+        v5 = *(*a1 + 152);
           ;
         }
 
-        v9 = mbedtls_calloc();
-        if (!v9)
+        v4 = mbedtls_calloc(i + 1, 2);
+        if (!v4)
         {
           return -32512;
         }
 
         for (j = 0; j < i; ++j)
         {
-          tls_id_from_ecp_group_id = mbedtls_ssl_get_tls_id_from_ecp_group_id(*(v10 + 4 * j));
+          tls_id_from_ecp_group_id = mbedtls_ssl_get_tls_id_from_ecp_group_id(*(v5 + 4 * j));
           if (!tls_id_from_ecp_group_id)
           {
-            mbedtls_free();
+            mbedtls_free(v4);
             return -24192;
           }
 
-          *(v9 + 2 * j) = tls_id_from_ecp_group_id;
+          *(v4 + 2 * j) = tls_id_from_ecp_group_id;
         }
 
-        *(v9 + 2 * i) = 0;
-        *(*(a1 + 104) + 56) = v9;
+        *(v4 + 2 * i) = 0;
+        *(*(a1 + 104) + 56) = v4;
         *(*(a1 + 104) + 9) = 1;
       }
 
@@ -2515,25 +4582,22 @@ uint64_t ssl_handshake_init(uint64_t a1)
       return 0;
     }
 
-    return v12;
+    return v7;
   }
 
   else
   {
-    v1 = *(a1 + 104);
-    mbedtls_free();
+    mbedtls_free(*(a1 + 104));
     *(a1 + 104) = 0;
-    v2 = *(a1 + 136);
-    mbedtls_free();
+    mbedtls_free(*(a1 + 136));
     *(a1 + 136) = 0;
-    v3 = *(a1 + 96);
-    mbedtls_free();
+    mbedtls_free(*(a1 + 96));
     *(a1 + 96) = 0;
     return -32512;
   }
 }
 
-void mbedtls_ssl_session_reset_msg_layer(uint64_t a1)
+uint64_t mbedtls_ssl_session_reset_msg_layer(uint64_t a1)
 {
   mbedtls_ssl_set_timer(a1, 0);
   mbedtls_ssl_reset_in_out_pointers(a1);
@@ -2547,24 +4611,23 @@ void mbedtls_ssl_session_reset_msg_layer(uint64_t a1)
   *(a1 + 256) = 0;
   *(a1 + 248) = 0;
   *(a1 + 240) = 0;
-  v1 = *(a1 + 168);
   __memset_chk();
   *(a1 + 296) = 0;
   *(a1 + 360) = 0;
   *(a1 + 368) = 0;
   *(a1 + 376) = 0;
-  v2 = *(a1 + 312);
   __memset_chk();
   __memset_chk();
   *(a1 + 120) = 0;
-  mbedtls_ssl_dtls_replay_reset(a1);
+  result = mbedtls_ssl_dtls_replay_reset(a1);
   if (*(a1 + 128))
   {
     mbedtls_ssl_transform_free(*(a1 + 128));
-    v3 = *(a1 + 128);
-    mbedtls_free();
+    result = mbedtls_free(*(a1 + 128));
     *(a1 + 128) = 0;
   }
+
+  return result;
 }
 
 uint64_t mbedtls_ssl_session_reset_int(uint64_t a1)
@@ -2578,19 +4641,17 @@ uint64_t mbedtls_ssl_session_reset_int(uint64_t a1)
   if (*(a1 + 88))
   {
     mbedtls_ssl_session_free(*(a1 + 88));
-    v1 = *(a1 + 88);
-    mbedtls_free();
+    mbedtls_free(*(a1 + 88));
     *(a1 + 88) = 0;
   }
 
-  v2 = *(a1 + 408);
-  mbedtls_free();
+  mbedtls_free(*(a1 + 408));
   *(a1 + 408) = 0;
   *(a1 + 416) = 0;
-  v4 = ssl_handshake_init(a1);
-  if (v4)
+  v2 = ssl_handshake_init(a1);
+  if (v2)
   {
-    return v4;
+    return v2;
   }
 
   else
@@ -2687,7 +4748,7 @@ uint64_t ssl_append_key_cert(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
-    v5 = mbedtls_calloc();
+    v5 = mbedtls_calloc(1, 24);
     if (v5)
     {
       *v5 = a2;
@@ -2745,12 +4806,12 @@ uint64_t mbedtls_ssl_set_hs_ecjpake_password(void *a1, uint64_t a2, unint64_t a3
     {
       if (*(*a1 + 8) == 1)
       {
-        return mbedtls_ecjpake_setup(a1[13] + 72, 1u, 9, 3, a2, a3);
+        return mbedtls_ecjpake_setup((a1[13] + 72), 1u, 9, 3, a2, a3);
       }
 
       else
       {
-        return mbedtls_ecjpake_setup(a1[13] + 72, 0, 9, 3, a2, a3);
+        return mbedtls_ecjpake_setup((a1[13] + 72), 0, 9, 3, a2, a3);
       }
     }
 
@@ -2828,8 +4889,8 @@ uint64_t mbedtls_ssl_conf_groups(uint64_t result, uint64_t a2)
 
 uint64_t mbedtls_ssl_set_hostname(uint64_t a1, const char *a2)
 {
-  v5 = 0;
-  if (!a2 || (v5 = strlen(a2), v5 <= 0xFF))
+  v4 = 0;
+  if (!a2 || (v4 = strlen(a2), v4 <= 0xFF))
   {
     if (*(a1 + 400))
     {
@@ -2839,15 +4900,14 @@ uint64_t mbedtls_ssl_set_hostname(uint64_t a1, const char *a2)
 
     if (a2)
     {
-      *(a1 + 400) = mbedtls_calloc();
+      *(a1 + 400) = mbedtls_calloc(1, v4 + 1);
       if (!*(a1 + 400))
       {
         return -32512;
       }
 
-      v3 = *(a1 + 400);
       __memcpy_chk();
-      *(*(a1 + 400) + v5) = 0;
+      *(*(a1 + 400) + v4) = 0;
     }
 
     else
@@ -3110,16 +5170,6 @@ unint64_t mbedtls_ssl_get_max_in_record_payload(uint64_t a1)
   return v3;
 }
 
-uint64_t mbedtls_ssl_get_peer_cert(uint64_t a1)
-{
-  if (a1)
-  {
-    *(a1 + 88);
-  }
-
-  return 0;
-}
-
 uint64_t mbedtls_ssl_get_session(uint64_t *a1, uint64_t a2)
 {
   if (a1 && a2 && a1[11] && !*(*a1 + 8))
@@ -3176,7 +5226,6 @@ uint64_t ssl_session_save(uint64_t a1, char a2, _BYTE *a3, unint64_t a4, unint64
     {
       *a3 = *(a1 + 4);
       a3[1] = *(a1 + 2);
-      v15 = bswap32(*(a1 + 8)) >> 16;
       __memcpy_chk();
       a3 += 4;
       v6 = a4 - v8;
@@ -3209,7 +5258,7 @@ uint64_t ssl_session_save(uint64_t a1, char a2, _BYTE *a3, unint64_t a4, unint64
   }
 }
 
-uint64_t mbedtls_ssl_session_load(void *a1, unsigned __int8 *a2, unint64_t a3)
+uint64_t mbedtls_ssl_session_load(void *a1, char *a2, unint64_t a3)
 {
   v4 = ssl_session_load(a1, 0, a2, a3);
   if (v4)
@@ -3220,7 +5269,7 @@ uint64_t mbedtls_ssl_session_load(void *a1, unsigned __int8 *a2, unint64_t a3)
   return v4;
 }
 
-uint64_t ssl_session_load(uint64_t a1, char a2, unsigned __int8 *a3, unint64_t a4)
+uint64_t ssl_session_load(uint64_t a1, char a2, char *a3, unint64_t a4)
 {
   __s1 = a3;
   v5 = &a3[a4];
@@ -3246,7 +5295,7 @@ uint64_t ssl_session_load(uint64_t a1, char a2, unsigned __int8 *a3, unint64_t a
       *(a1 + 4) = *__s1 | 0x300;
       *(a1 + 2) = __s1[1];
       *(a1 + 8) = bswap32(*(__s1 + 1)) >> 16;
-      __s1a = __s1 + 4;
+      __s1a = (__s1 + 4);
       if (*(a1 + 4) == 771)
       {
         return ssl_tls12_session_load(a1, __s1a, v5 - __s1a);
@@ -3384,101 +5433,93 @@ uint64_t mbedtls_ssl_handshake(uint64_t a1)
 
 void *mbedtls_ssl_handshake_free(void *result)
 {
-  v6 = result;
-  v5 = result[13];
-  if (v5)
+  v2 = result;
+  v1 = result[13];
+  if (v1)
   {
     if (*(result[13] + 9))
     {
-      v1 = *(v5 + 56);
-      mbedtls_free();
+      mbedtls_free(*(v1 + 56));
     }
 
-    *(v5 + 56) = 0;
-    mbedtls_md_free((v5 + 832));
-    mbedtls_ecjpake_free(v5 + 72);
-    v2 = *(v5 + 568);
-    mbedtls_free();
-    *(v5 + 568) = 0;
-    *(v5 + 576) = 0;
-    v3 = *(v5 + 584);
-    mbedtls_free();
-    mbedtls_pk_free((v5 + 600));
-    v4 = *(v5 + 752);
-    mbedtls_free();
-    mbedtls_ssl_flight_free(*(v5 + 776));
-    mbedtls_ssl_buffering_free(v6);
-    return mbedtls_platform_zeroize(v5, 0x3E8uLL);
+    *(v1 + 56) = 0;
+    mbedtls_md_free((v1 + 832));
+    mbedtls_ecjpake_free((v1 + 72));
+    mbedtls_free(*(v1 + 568));
+    *(v1 + 568) = 0;
+    *(v1 + 576) = 0;
+    mbedtls_free(*(v1 + 584));
+    mbedtls_pk_free((v1 + 600));
+    mbedtls_free(*(v1 + 752));
+    mbedtls_ssl_flight_free(*(v1 + 776));
+    mbedtls_ssl_buffering_free(v2);
+    return mbedtls_platform_zeroize(v1, 0x3E8uLL);
   }
 
   return result;
 }
 
-void ssl_clear_peer_cert(uint64_t a1)
+uint64_t ssl_clear_peer_cert(uint64_t result)
 {
-  if (*(a1 + 104))
+  v1 = result;
+  if (*(result + 104))
   {
-    v1 = *(a1 + 104);
-    mbedtls_free();
-    *(a1 + 104) = 0;
-    *(a1 + 120) = 0;
-    *(a1 + 112) = 0;
+    result = mbedtls_free(*(result + 104));
+    *(v1 + 104) = 0;
+    *(v1 + 120) = 0;
+    *(v1 + 112) = 0;
   }
+
+  return result;
 }
 
 void **mbedtls_ssl_free(void **result)
 {
-  v8 = result;
+  v2 = result;
   if (result)
   {
     if (result[39])
     {
       mbedtls_zeroize_and_free(result[39], 0x402DuLL);
-      v8[39] = 0;
+      v2[39] = 0;
     }
 
-    if (v8[21])
+    if (v2[21])
     {
-      mbedtls_zeroize_and_free(v8[21], 0x402DuLL);
-      v8[21] = 0;
+      mbedtls_zeroize_and_free(v2[21], 0x402DuLL);
+      v2[21] = 0;
     }
 
-    if (v8[16])
+    if (v2[16])
     {
-      mbedtls_ssl_transform_free(v8[16]);
-      v1 = v8[16];
-      mbedtls_free();
+      mbedtls_ssl_transform_free(v2[16]);
+      mbedtls_free(v2[16]);
     }
 
-    if (v8[13])
+    if (v2[13])
     {
-      mbedtls_ssl_handshake_free(v8);
-      v2 = v8[13];
-      mbedtls_free();
-      mbedtls_ssl_transform_free(v8[17]);
-      v3 = v8[17];
-      mbedtls_free();
-      mbedtls_ssl_session_free(v8[12]);
-      v4 = v8[12];
-      mbedtls_free();
+      mbedtls_ssl_handshake_free(v2);
+      mbedtls_free(v2[13]);
+      mbedtls_ssl_transform_free(v2[17]);
+      mbedtls_free(v2[17]);
+      mbedtls_ssl_session_free(v2[12]);
+      mbedtls_free(v2[12]);
     }
 
-    if (v8[11])
+    if (v2[11])
     {
-      mbedtls_ssl_session_free(v8[11]);
-      v5 = v8[11];
-      mbedtls_free();
+      mbedtls_ssl_session_free(v2[11]);
+      mbedtls_free(v2[11]);
     }
 
-    if (v8[50])
+    if (v2[50])
     {
-      v6 = strlen(v8[50]);
-      mbedtls_zeroize_and_free(v8[50], v6);
+      v1 = strlen(v2[50]);
+      mbedtls_zeroize_and_free(v2[50], v1);
     }
 
-    v7 = v8[51];
-    mbedtls_free();
-    return mbedtls_platform_zeroize(v8, 0x1C8uLL);
+    mbedtls_free(v2[51]);
+    return mbedtls_platform_zeroize(v2, 0x1C8uLL);
   }
 
   return result;
@@ -3521,14 +5562,15 @@ uint64_t mbedtls_ssl_config_defaults(uint64_t a1, int a2, char a3, int a4)
   return 0;
 }
 
-void ssl_key_cert_free(uint64_t a1)
+uint64_t ssl_key_cert_free(uint64_t result)
 {
-  while (a1)
+  for (i = result; i; i = v1)
   {
-    v1 = *(a1 + 16);
-    mbedtls_free();
-    a1 = v1;
+    v1 = *(i + 16);
+    result = mbedtls_free(i);
   }
+
+  return result;
 }
 
 uint64_t mbedtls_ssl_sig_from_pk_alg(int a1)
@@ -3575,7 +5617,7 @@ uint64_t mbedtls_ssl_hash_from_md_alg(int a1)
   }
 }
 
-uint64_t mbedtls_ssl_check_curve_tls_id(void *a1, __int16 a2)
+uint64_t mbedtls_ssl_check_curve_tls_id(void *a1, unsigned __int16 a2)
 {
   groups = mbedtls_ssl_get_groups(a1);
   if (groups)
@@ -3767,7 +5809,7 @@ uint64_t ssl_get_handshake_transcript_sha256(uint64_t a1, uint64_t a2, unint64_t
   memset(v6, 0, sizeof(v6));
   if (a3 >= 0x20)
   {
-    mbedtls_md_init();
+    mbedtls_md_init(v6);
     v4 = mbedtls_md_info_from_type(9);
     v7 = mbedtls_md_setup(v6, v4, 0);
     if (!v7)
@@ -3775,7 +5817,7 @@ uint64_t ssl_get_handshake_transcript_sha256(uint64_t a1, uint64_t a2, unint64_t
       v7 = mbedtls_md_clone(v6, *(v11 + 104) + 832);
       if (!v7)
       {
-        v7 = mbedtls_md_finish(v6);
+        v7 = mbedtls_md_finish(v6, v10);
         if (!v7)
         {
           *v8 = 32;
@@ -3795,33 +5837,30 @@ uint64_t ssl_get_handshake_transcript_sha256(uint64_t a1, uint64_t a2, unint64_t
 
 uint64_t mbedtls_ssl_derive_keys(uint64_t a1)
 {
-  v1 = *(*(*(a1 + 104) + 16) + 17);
-  v5 = ssl_set_handshake_prfs(*(a1 + 104));
-  if (v5)
+  v2 = ssl_set_handshake_prfs(*(a1 + 104));
+  if (v2)
   {
-    return v5;
+    return v2;
   }
 
   else
   {
-    v6 = ssl_compute_master(*(a1 + 104), *(a1 + 96) + 56);
-    if (v6)
+    v3 = ssl_compute_master(*(a1 + 104), *(a1 + 96) + 56);
+    if (v3)
     {
-      return v6;
+      return v3;
     }
 
     else
     {
       memcpy(__dst, (*(a1 + 104) + 896), sizeof(__dst));
-      v2 = *(a1 + 104);
       __memcpy_chk();
-      v3 = *(a1 + 104);
       __memcpy_chk();
       mbedtls_platform_zeroize(__dst, 0x40uLL);
-      v7 = ssl_tls12_populate_transform(*(a1 + 136), *(*(a1 + 96) + 8), (*(a1 + 96) + 56), *(*(a1 + 104) + 48), *(a1 + 104) + 896, *(a1 + 12), *(*a1 + 8), a1);
-      if (v7)
+      v4 = ssl_tls12_populate_transform(*(a1 + 136), *(*(a1 + 96) + 8), *(a1 + 96) + 56, *(*(a1 + 104) + 48), *(a1 + 104) + 896, *(a1 + 12), *(*a1 + 8), a1);
+      if (v4)
       {
-        return v7;
+        return v4;
       }
 
       else
@@ -3864,16 +5903,16 @@ uint64_t ssl_compute_master(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t ssl_tls12_populate_transform(uint64_t a1, int a2, _BYTE *a3, uint64_t (*a4)(_BYTE *a1, unint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7), uint64_t a5, int a6, int a7, uint64_t a8)
+uint64_t ssl_tls12_populate_transform(uint64_t a1, int a2, uint64_t a3, uint64_t (*a4)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7), uint64_t a5, int a6, int a7, uint64_t a8)
 {
   *(a1 + 72) = a6;
-  v21 = mbedtls_ssl_ciphersuite_from_id(a2);
-  if (v21)
+  v17 = mbedtls_ssl_ciphersuite_from_id(a2);
+  if (v17)
   {
-    mode_from_ciphersuite = mbedtls_ssl_get_mode_from_ciphersuite(v21);
+    mode_from_ciphersuite = mbedtls_ssl_get_mode_from_ciphersuite(v17);
     if (mode_from_ciphersuite == 3)
     {
-      if ((v21[19] & 2) != 0)
+      if ((v17[19] & 2) != 0)
       {
         v8 = 8;
       }
@@ -3886,24 +5925,24 @@ uint64_t ssl_tls12_populate_transform(uint64_t a1, int a2, _BYTE *a3, uint64_t (
       *(a1 + 32) = v8;
     }
 
-    v19 = mbedtls_cipher_info_from_type(v21[16]);
-    if (!v19)
+    v15 = mbedtls_cipher_info_from_type(v17[16]);
+    if (!v15)
     {
       return -28928;
     }
 
-    if (!mbedtls_md_info_from_type(v21[17]))
+    if (!mbedtls_md_info_from_type(v17[17]))
     {
       return -28928;
     }
 
-    v25 = a4(a3, 48uLL, "key expansion", a5, 64, v34, 256uLL);
-    if (v25)
+    v21 = a4(a3, 48, "key expansion", a5, 64, v30, 256);
+    if (v21)
     {
-      return v25;
+      return v21;
     }
 
-    v22 = mbedtls_cipher_info_get_key_bitlen(v19) / 8;
+    v18 = mbedtls_cipher_info_get_key_bitlen(v15) / 8;
     if (mode_from_ciphersuite != 3)
     {
       return -27648;
@@ -3911,7 +5950,7 @@ uint64_t ssl_tls12_populate_transform(uint64_t a1, int a2, _BYTE *a3, uint64_t (
 
     *(a1 + 24) = 0;
     *(a1 + 8) = 12;
-    if (mbedtls_cipher_info_get_mode(v19) == 11)
+    if (mbedtls_cipher_info_get_mode(v15) == 11)
     {
       *(a1 + 16) = 12;
     }
@@ -3926,38 +5965,20 @@ uint64_t ssl_tls12_populate_transform(uint64_t a1, int a2, _BYTE *a3, uint64_t (
     {
       if (a7 != 1)
       {
-        v26 = -27648;
-LABEL_36:
-        mbedtls_platform_zeroize(v34, 0x100uLL);
-        return v26;
+        v22 = -27648;
+LABEL_32:
+        mbedtls_platform_zeroize(v30, 0x100uLL);
+        return v22;
       }
 
-      v24 = &v34[v22];
-      v23 = v34;
-      if (*(a1 + 16))
-      {
-        v15 = *(a1 + 16);
-      }
-
-      else
-      {
-        v16 = *(a1 + 8);
-      }
+      v20 = &v30[v18];
+      v19 = v30;
     }
 
     else
     {
-      v24 = v34;
-      v23 = &v34[v22];
-      if (*(a1 + 16))
-      {
-        v17 = *(a1 + 16);
-      }
-
-      else
-      {
-        v18 = *(a1 + 8);
-      }
+      v20 = v30;
+      v19 = &v30[v18];
     }
 
     __memcpy_chk();
@@ -3970,23 +5991,23 @@ LABEL_36:
       v13(v14, 0, a3, 48, a5 + 32, a5, type);
     }
 
-    v26 = mbedtls_cipher_setup((a1 + 80), v19);
-    if (!v26)
+    v22 = mbedtls_cipher_setup((a1 + 80), v15);
+    if (!v22)
     {
-      v26 = mbedtls_cipher_setup((a1 + 160), v19);
-      if (!v26)
+      v22 = mbedtls_cipher_setup((a1 + 160), v15);
+      if (!v22)
       {
-        key_bitlen = mbedtls_cipher_info_get_key_bitlen(v19);
-        v26 = mbedtls_cipher_setkey(a1 + 80, v24, key_bitlen, 1u);
-        if (!v26)
+        key_bitlen = mbedtls_cipher_info_get_key_bitlen(v15);
+        v22 = mbedtls_cipher_setkey(a1 + 80, v20, key_bitlen, 1u);
+        if (!v22)
         {
-          v11 = mbedtls_cipher_info_get_key_bitlen(v19);
-          v26 = mbedtls_cipher_setkey(a1 + 160, v23, v11, 0);
+          v11 = mbedtls_cipher_info_get_key_bitlen(v15);
+          v22 = mbedtls_cipher_setkey(a1 + 160, v19, v11, 0);
         }
       }
     }
 
-    goto LABEL_36;
+    goto LABEL_32;
   }
 
   return -28928;
@@ -4034,31 +6055,29 @@ uint64_t mbedtls_ssl_parse_certificate(uint64_t a1)
   }
 }
 
-void mbedtls_ssl_handshake_wrapup_free_hs_transform(uint64_t a1)
+uint64_t mbedtls_ssl_handshake_wrapup_free_hs_transform(uint64_t a1)
 {
   mbedtls_ssl_handshake_free(a1);
-  v1 = *(a1 + 104);
-  mbedtls_free();
+  result = mbedtls_free(*(a1 + 104));
   *(a1 + 104) = 0;
   if (*(a1 + 128))
   {
     mbedtls_ssl_transform_free(*(a1 + 128));
-    v2 = *(a1 + 128);
-    mbedtls_free();
+    result = mbedtls_free(*(a1 + 128));
   }
 
   *(a1 + 128) = *(a1 + 136);
   *(a1 + 136) = 0;
+  return result;
 }
 
-void mbedtls_ssl_handshake_wrapup(void *a1)
+uint64_t mbedtls_ssl_handshake_wrapup(void *a1)
 {
   v2 = *a1[13];
   if (a1[11])
   {
     mbedtls_ssl_session_free(a1[11]);
-    v1 = a1[11];
-    mbedtls_free();
+    mbedtls_free(a1[11]);
   }
 
   a1[11] = a1[12];
@@ -4070,15 +6089,16 @@ void mbedtls_ssl_handshake_wrapup(void *a1)
 
   if (*(*a1 + 9) == 1 && *(a1[13] + 776))
   {
-    mbedtls_ssl_set_timer(a1, 0);
+    result = mbedtls_ssl_set_timer(a1, 0);
   }
 
   else
   {
-    mbedtls_ssl_handshake_wrapup_free_hs_transform(a1);
+    result = mbedtls_ssl_handshake_wrapup_free_hs_transform(a1);
   }
 
   *(a1 + 2) = 27;
+  return result;
 }
 
 uint64_t mbedtls_ssl_write_finished(uint64_t a1)
@@ -4109,15 +6129,14 @@ uint64_t mbedtls_ssl_write_finished(uint64_t a1)
   if (*(*a1 + 9) == 1)
   {
     *(*(a1 + 104) + 808) = *(a1 + 120);
-    v1 = *(a1 + 104) + 816;
     __memcpy_chk();
     __memset_chk();
     for (i = 2; i; --i)
     {
-      v2 = i - 1;
-      v3 = *(a1 + 384 + v2) + 1;
-      *(a1 + 384 + v2) = v3;
-      if (v3)
+      v1 = i - 1;
+      v2 = *(a1 + 384 + v1) + 1;
+      *(a1 + 384 + v1) = v2;
+      if (v2)
       {
         break;
       }
@@ -4141,15 +6160,15 @@ uint64_t mbedtls_ssl_write_finished(uint64_t a1)
     mbedtls_ssl_send_flight_completed(a1);
   }
 
-  v6 = mbedtls_ssl_write_handshake_msg(a1);
-  if (v6)
+  v5 = mbedtls_ssl_write_handshake_msg(a1);
+  if (v5)
   {
-    return v6;
+    return v5;
   }
 
-  else if (*(*a1 + 9) == 1 && (v7 = mbedtls_ssl_flight_transmit(a1)) != 0)
+  else if (*(*a1 + 9) == 1 && (v6 = mbedtls_ssl_flight_transmit(a1)) != 0)
   {
-    return v7;
+    return v6;
   }
 
   else
@@ -4158,18 +6177,18 @@ uint64_t mbedtls_ssl_write_finished(uint64_t a1)
   }
 }
 
-uint64_t mbedtls_ssl_parse_finished(uint64_t a1)
+uint64_t mbedtls_ssl_parse_finished(void *a1)
 {
-  (*(*(a1 + 104) + 40))(a1, v7, *(*a1 + 8) ^ 1u);
+  (*(a1[13] + 40))(a1, v7, *(*a1 + 8) ^ 1u);
   record = mbedtls_ssl_read_record(a1, 1);
   if (!record)
   {
-    if (*(a1 + 224) == 22 && **(a1 + 208) == 20)
+    if (*(a1 + 56) == 22 && *a1[26] == 20)
     {
-      v4 = *(a1 + 280);
+      v4 = a1[35];
       if (v4 == mbedtls_ssl_hs_hdr_len(a1) + 12)
       {
-        v3 = *(a1 + 208);
+        v3 = a1[26];
         v1 = mbedtls_ssl_hs_hdr_len(a1);
         if (mbedtls_ct_memcmp(v3 + v1, v7, 0xCuLL))
         {
@@ -4179,22 +6198,22 @@ uint64_t mbedtls_ssl_parse_finished(uint64_t a1)
 
         else
         {
-          if (**(a1 + 104))
+          if (*a1[13])
           {
             if (!*(*a1 + 8))
             {
-              *(a1 + 8) = 10;
+              *(a1 + 2) = 10;
             }
 
             if (*(*a1 + 8) == 1)
             {
-              *(a1 + 8) = 15;
+              *(a1 + 2) = 15;
             }
           }
 
           else
           {
-            ++*(a1 + 8);
+            ++*(a1 + 2);
           }
 
           if (*(*a1 + 9) == 1)
@@ -4234,7 +6253,7 @@ uint64_t mbedtls_ssl_get_key_exchange_md_tls1_2(uint64_t a1, uint64_t a2, void *
   memset(v8, 0, sizeof(v8));
   v7 = mbedtls_md_info_from_type(a6);
   *v13 = mbedtls_md_get_size(v7);
-  mbedtls_md_init();
+  mbedtls_md_init(v8);
   v9 = mbedtls_md_setup(v8, v7, 0);
   if (!v9)
   {
@@ -4247,7 +6266,7 @@ uint64_t mbedtls_ssl_get_key_exchange_md_tls1_2(uint64_t a1, uint64_t a2, void *
         v9 = mbedtls_md_update(v8, v12, v11);
         if (!v9)
         {
-          v9 = mbedtls_md_finish(v8);
+          v9 = mbedtls_md_finish(v8, v14);
         }
       }
     }
@@ -4291,7 +6310,7 @@ uint64_t mbedtls_ssl_validate_ciphersuite(uint64_t a1, uint64_t a2, unsigned int
   }
 }
 
-uint64_t ssl_conf_version_check(_DWORD **a1)
+uint64_t ssl_conf_version_check(void *a1)
 {
   if (mbedtls_ssl_conf_is_tls12_only(*a1))
   {
@@ -4318,7 +6337,7 @@ BOOL mbedtls_ssl_conf_is_tls12_only(_DWORD *a1)
 void *ssl_handshake_params_init(uint64_t a1)
 {
   __memset_chk();
-  mbedtls_md_init();
+  mbedtls_md_init(a1 + 832);
   *(a1 + 24) = ssl_update_checksum_start;
   mbedtls_ecjpake_init((a1 + 72));
   *(a1 + 568) = 0;
@@ -4342,111 +6361,105 @@ uint64_t ssl_update_checksum_start(uint64_t a1, uint64_t a2, unint64_t a3)
 
 unint64_t ssl_tls12_session_save(uint64_t a1, _BYTE *a2, unint64_t a3)
 {
-  v9 = a2;
+  v7 = a2;
   if (a3 >= 0x55)
   {
     *a2 = *(a1 + 16);
     __memcpy_chk();
     __memcpy_chk();
-    v12 = bswap32(*(a1 + 124));
     __memcpy_chk();
-    v9 += 85;
+    v7 += 85;
   }
 
   if (*(a1 + 104))
   {
-    v7 = *(a1 + 112) + 87;
-    if (v7 <= a3)
+    v5 = *(a1 + 112) + 87;
+    if (v5 <= a3)
     {
-      *v9 = *(a1 + 120);
-      v9[1] = *(a1 + 112);
-      v3 = *(a1 + 104);
-      v4 = *(a1 + 112);
+      *v7 = *(a1 + 120);
+      v7[1] = *(a1 + 112);
       __memcpy_chk();
-      v9 += *(a1 + 112) + 2;
+      v7 += *(a1 + 112) + 2;
     }
   }
 
   else
   {
-    v7 = 87;
+    v5 = 87;
     if (a3 >= 0x57)
     {
-      *v9 = 0;
-      v5 = v9 + 1;
-      v9 += 2;
-      *v5 = 0;
+      *v7 = 0;
+      v3 = v7 + 1;
+      v7 += 2;
+      *v3 = 0;
     }
   }
 
-  v8 = v7 + 1;
-  if (v8 <= a3)
+  v6 = v5 + 1;
+  if (v6 <= a3)
   {
-    *v9 = *a1;
+    *v7 = *a1;
   }
 
-  return v8;
+  return v6;
 }
 
 uint64_t ssl_tls12_session_load(uint64_t a1, unsigned __int8 *a2, unint64_t a3)
 {
-  v10 = &a2[a3];
+  v7 = &a2[a3];
   if (a3 >= 0x55)
   {
     *(a1 + 16) = *a2;
     __memcpy_chk();
-    v12 = a2 + 33;
+    v9 = a2 + 33;
     __memcpy_chk();
-    *(a1 + 124) = bswap32(*(v12 + 12));
-    v13 = v12 + 52;
+    *(a1 + 124) = bswap32(*(v9 + 12));
+    v10 = v9 + 52;
     *(a1 + 104) = 0;
-    if ((v10 - v13) >= 2)
+    if ((v7 - v10) >= 2)
     {
-      *(a1 + 120) = *v13;
-      v3 = v13 + 1;
-      v14 = v13 + 2;
+      *(a1 + 120) = *v10;
+      v3 = v10 + 1;
+      v11 = v10 + 2;
       *(a1 + 112) = *v3;
       if (*(a1 + 112))
       {
-        v9 = mbedtls_md_info_from_type(*(a1 + 120));
-        if (!v9)
+        v6 = mbedtls_md_info_from_type(*(a1 + 120));
+        if (!v6)
         {
           return -28928;
         }
 
-        v8 = *(a1 + 112);
-        if (v8 != mbedtls_md_get_size(v9))
+        v5 = *(a1 + 112);
+        if (v5 != mbedtls_md_get_size(v6))
         {
           return -28928;
         }
 
-        if (*(a1 + 112) > (v10 - v14))
+        if (*(a1 + 112) > (v7 - v11))
         {
           return -28928;
         }
 
-        v4 = *(a1 + 112);
-        *(a1 + 104) = mbedtls_calloc();
+        *(a1 + 104) = mbedtls_calloc(1, *(a1 + 112));
         if (!*(a1 + 104))
         {
           return -32512;
         }
 
-        v5 = *(a1 + 104);
-        v6 = *(a1 + 112);
         __memcpy_chk();
-        v14 += *(a1 + 112);
+        v11 += *(a1 + 112);
       }
 
-      if (v10 == v14)
+      if (v7 == v11)
       {
         return -28928;
       }
 
       else
       {
-        *a1 = *v14;
-        if (v14 + 1 == v10)
+        *a1 = *v11;
+        if (v11 + 1 == v7)
         {
           return 0;
         }
@@ -4487,14 +6500,15 @@ uint64_t tls_prf_generic(int a1, _BYTE *a2, unint64_t a3, const char *a4, uint64
   size = 0;
   v14 = 0;
   v13 = 0;
+  v12 = 0;
   memset(v11, 0, sizeof(v11));
-  mbedtls_md_init();
+  mbedtls_md_init(v11);
   v12 = mbedtls_md_info_from_type(v27);
   if (v12)
   {
     size = mbedtls_md_get_size(v12);
     v13 = size + strlen(v24) + v22;
-    v14 = mbedtls_calloc();
+    v14 = mbedtls_calloc(1, v13);
     if (v14)
     {
       v19 = strlen(v24);
@@ -4510,7 +6524,7 @@ uint64_t tls_prf_generic(int a1, _BYTE *a2, unint64_t a3, const char *a4, uint64
           v10 = mbedtls_md_hmac_update(v11, v14 + size, v19);
           if (!v10)
           {
-            v10 = mbedtls_md_hmac_finish(v11);
+            v10 = mbedtls_md_hmac_finish(v11, v14);
             if (!v10)
             {
               for (i = 0; i < v20; i += size)
@@ -4527,7 +6541,7 @@ uint64_t tls_prf_generic(int a1, _BYTE *a2, unint64_t a3, const char *a4, uint64
                   break;
                 }
 
-                v10 = mbedtls_md_hmac_finish(v11);
+                v10 = mbedtls_md_hmac_finish(v11, v29);
                 if (v10)
                 {
                   break;
@@ -4545,7 +6559,7 @@ uint64_t tls_prf_generic(int a1, _BYTE *a2, unint64_t a3, const char *a4, uint64
                   break;
                 }
 
-                v10 = mbedtls_md_hmac_finish(v11);
+                v10 = mbedtls_md_hmac_finish(v11, v14);
                 if (v10)
                 {
                   break;
@@ -4585,7 +6599,7 @@ uint64_t tls_prf_generic(int a1, _BYTE *a2, unint64_t a3, const char *a4, uint64
     }
 
     mbedtls_platform_zeroize(v29, 0x20uLL);
-    mbedtls_free();
+    mbedtls_free(v14);
     return v10;
   }
 
@@ -4608,7 +6622,7 @@ uint64_t ssl_calc_finished_tls_generic(void *a1, uint64_t a2, void *a3, size_t a
   v12 = -110;
   v11 = a2;
   memset(v10, 0, sizeof(v10));
-  mbedtls_md_init();
+  mbedtls_md_init(v10);
   v9 = v20[12];
   if (!v9)
   {
@@ -4629,7 +6643,7 @@ uint64_t ssl_calc_finished_tls_generic(void *a1, uint64_t a2, void *a3, size_t a
     v12 = mbedtls_md_clone(v10, v11);
     if (!v12)
     {
-      v12 = mbedtls_md_finish(v10);
+      v12 = mbedtls_md_finish(v10, v18);
       if (!v12)
       {
         (*(v20[13] + 48))(v9 + 56, 48, v13, v18, v17, v16, v14);
@@ -4650,7 +6664,7 @@ uint64_t ssl_calc_verify_tls_legacy(uint64_t a1, uint64_t a2, uint64_t a3, void 
   v10 = a4;
   v9 = -110;
   memset(v8, 0, sizeof(v8));
-  mbedtls_md_init();
+  mbedtls_md_init(v8);
   v4 = mbedtls_md_info_from_ctx(v12);
   v9 = mbedtls_md_setup(v8, v4, 0);
   if (!v9)
@@ -4658,7 +6672,7 @@ uint64_t ssl_calc_verify_tls_legacy(uint64_t a1, uint64_t a2, uint64_t a3, void 
     v9 = mbedtls_md_clone(v8, v12);
     if (!v9)
     {
-      v9 = mbedtls_md_finish(v8);
+      v9 = mbedtls_md_finish(v8, v11);
       if (!v9)
       {
         v5 = mbedtls_md_info_from_ctx(v12);
@@ -4672,7 +6686,7 @@ uint64_t ssl_calc_verify_tls_legacy(uint64_t a1, uint64_t a2, uint64_t a3, void 
   return v9;
 }
 
-uint64_t tls_prf_get_type(uint64_t (*a1)(_BYTE *a1, unint64_t a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7))
+uint64_t tls_prf_get_type(uint64_t (*a1)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7))
 {
   if (a1 == tls_prf_sha256)
   {
@@ -4779,7 +6793,7 @@ LABEL_2:
           return 0;
         }
 
-        *(v8 + 48) = mbedtls_calloc();
+        *(v8 + 48) = mbedtls_calloc(1, 64);
         if (!*(v8 + 48))
         {
           tag = -10368;
@@ -4791,7 +6805,7 @@ LABEL_2:
       }
 
       *(v8 + 56) = 1;
-      *(v8 + 48) = mbedtls_calloc();
+      *(v8 + 48) = mbedtls_calloc(1, 64);
       if (!*(v8 + 48))
       {
         tag = -10368;
@@ -5062,64 +7076,64 @@ uint64_t mbedtls_x509_get_ext(unsigned __int8 **a1, unsigned __int8 *a2, uint64_
 
 uint64_t mbedtls_x509_dn_gets(char *a1, size_t a2, uint64_t a3)
 {
-  v40 = a1;
-  v39 = a2;
-  v38 = a3;
+  v39 = a1;
+  v38 = a2;
+  v37 = a3;
   attr_short_name = -110;
   i = 0;
-  v35 = 0;
-  v33 = 0;
+  v34 = 0;
   v32 = 0;
   v31 = 0;
+  v30 = 0;
   __c_1 = 0;
   __c = 0;
-  v27 = 0;
-  v25 = 0;
+  v26 = 0;
+  v24 = 0;
   memset(__b, 0, sizeof(__b));
-  v26 = v38;
-  v20 = v40;
-  v34 = v39;
-  while (v26)
+  v25 = v37;
+  v19 = v39;
+  v33 = v38;
+  while (v25)
   {
-    if (*(v26 + 16))
+    if (*(v25 + 16))
     {
-      if (v26 != v38)
+      if (v25 != v37)
       {
-        if (v27)
+        if (v26)
         {
-          v3 = __snprintf_chk(v20, v34, 0, 0xFFFFFFFFFFFFFFFFLL, " + ");
+          v3 = __snprintf_chk(v19, v33, 0, 0xFFFFFFFFFFFFFFFFLL, " + ");
         }
 
         else
         {
-          v3 = __snprintf_chk(v20, v34, 0, 0xFFFFFFFFFFFFFFFFLL, ", ");
+          v3 = __snprintf_chk(v19, v33, 0, 0xFFFFFFFFFFFFFFFFLL, ", ");
         }
 
         attr_short_name = v3;
-        if (v3 < 0 || attr_short_name >= v34)
+        if (v3 < 0 || attr_short_name >= v33)
         {
           return -10624;
         }
 
-        v34 -= attr_short_name;
-        v20 += attr_short_name;
+        v33 -= attr_short_name;
+        v19 += attr_short_name;
       }
 
-      v18 = 0;
-      if (*(v26 + 24) != 12)
+      v17 = 0;
+      if (*(v25 + 24) != 12)
       {
-        v18 = 0;
-        if (*(v26 + 24) != 19)
+        v17 = 0;
+        if (*(v25 + 24) != 19)
         {
-          v18 = *(v26 + 24) != 22;
+          v17 = *(v25 + 24) != 22;
         }
       }
 
-      v19 = v18;
-      attr_short_name = mbedtls_oid_get_attr_short_name(v26, &v25);
+      v18 = v17;
+      attr_short_name = mbedtls_oid_get_attr_short_name(v25, &v24);
       if (attr_short_name)
       {
-        attr_short_name = mbedtls_oid_get_numeric_string(v20, v34, v26);
+        attr_short_name = mbedtls_oid_get_numeric_string(v19, v33, v25);
         if (attr_short_name <= 0)
         {
           if (attr_short_name == -11)
@@ -5127,162 +7141,161 @@ uint64_t mbedtls_x509_dn_gets(char *a1, size_t a2, uint64_t a3)
             return -10624;
           }
 
-          attr_short_name = __snprintf_chk(v20, v34, 0, 0xFFFFFFFFFFFFFFFFLL, "??=");
+          attr_short_name = __snprintf_chk(v19, v33, 0, 0xFFFFFFFFFFFFFFFFLL, "??=");
         }
 
         else
         {
-          v34 -= attr_short_name;
-          v20 += attr_short_name;
-          attr_short_name = __snprintf_chk(v20, v34, 0, 0xFFFFFFFFFFFFFFFFLL, "=");
-          v19 = 1;
+          v33 -= attr_short_name;
+          v19 += attr_short_name;
+          attr_short_name = __snprintf_chk(v19, v33, 0, 0xFFFFFFFFFFFFFFFFLL, "=");
+          v18 = 1;
         }
       }
 
       else
       {
-        attr_short_name = __snprintf_chk(v20, v34, 0, 0xFFFFFFFFFFFFFFFFLL, "%s=", v25);
+        attr_short_name = __snprintf_chk(v19, v33, 0, 0xFFFFFFFFFFFFFFFFLL, "%s=", v24);
       }
 
-      if (attr_short_name < 0 || attr_short_name >= v34)
+      if (attr_short_name < 0 || attr_short_name >= v33)
       {
         return -10624;
       }
 
-      v34 -= attr_short_name;
-      v21 = &v20[attr_short_name];
-      if (v19)
+      v33 -= attr_short_name;
+      v20 = &v19[attr_short_name];
+      if (v18)
       {
         __b[0] = 35;
-        __c_1 = &v31;
-        attr_short_name = mbedtls_asn1_write_len(&__c_1, v30, *(v26 + 32));
-        if (attr_short_name < 0)
-        {
-          return -110;
-        }
-
-        v33 = attr_short_name;
-        v4 = *(v26 + 24);
-        attr_short_name = mbedtls_asn1_write_tag(&__c_1, v30, *(v26 + 24));
+        __c_1 = &v30;
+        attr_short_name = mbedtls_asn1_write_len(&__c_1, v29, *(v25 + 32));
         if (attr_short_name < 0)
         {
           return -110;
         }
 
         v32 = attr_short_name;
-        v31 = 6 - v33 - attr_short_name;
-        i = 0;
-        v35 = 1;
-        while (i < v33 + v32)
+        attr_short_name = mbedtls_asn1_write_tag(&__c_1, v29, *(v25 + 24));
+        if (attr_short_name < 0)
         {
-          if (v35 + 1 >= 0xFF)
+          return -110;
+        }
+
+        v31 = attr_short_name;
+        v30 = 6 - v32 - attr_short_name;
+        i = 0;
+        v34 = 1;
+        while (i < v32 + v31)
+        {
+          if (v34 + 1 >= 0xFF)
           {
             return -10624;
           }
 
-          __c = v30[v31 + i];
-          v22 = __c & 0xF;
-          v5 = nibble_to_hex_digit(__c >> 4);
-          v6 = v35++;
-          __b[v6] = v5;
-          v7 = nibble_to_hex_digit(v22);
-          v8 = v35++;
-          __b[v8] = v7;
+          __c = v29[v30 + i];
+          v21 = __c & 0xF;
+          v4 = nibble_to_hex_digit(__c >> 4);
+          v5 = v34++;
+          __b[v5] = v4;
+          v6 = nibble_to_hex_digit(v21);
+          v7 = v34++;
+          __b[v7] = v6;
           ++i;
         }
 
-        for (i = 0; i < *(v26 + 32); ++i)
+        for (i = 0; i < *(v25 + 32); ++i)
         {
-          if (v35 + 1 >= 0xFF)
+          if (v34 + 1 >= 0xFF)
           {
             return -10624;
           }
 
-          __c = *(*(v26 + 40) + i);
-          v23 = __c & 0xF;
-          v9 = nibble_to_hex_digit(__c >> 4);
-          v10 = v35++;
-          __b[v10] = v9;
-          v11 = nibble_to_hex_digit(v23);
-          v12 = v35++;
-          __b[v12] = v11;
+          __c = *(*(v25 + 40) + i);
+          v22 = __c & 0xF;
+          v8 = nibble_to_hex_digit(__c >> 4);
+          v9 = v34++;
+          __b[v9] = v8;
+          v10 = nibble_to_hex_digit(v22);
+          v11 = v34++;
+          __b[v11] = v10;
         }
       }
 
       else
       {
         i = 0;
-        v35 = 0;
-        while (i < *(v26 + 32))
+        v34 = 0;
+        while (i < *(v25 + 32))
         {
-          if (v35 >= 0xFF)
+          if (v34 >= 0xFF)
           {
             return -10624;
           }
 
-          __c = *(*(v26 + 40) + i);
+          __c = *(*(v25 + 40) + i);
           if (!__c)
           {
             return -9088;
           }
 
-          if (strchr(",=+<>;\, __c) || !i && strchr("# "", __c) || i == *(v26 + 32) - 1 && __c == 32)
+          if (strchr(",=+<>;\, __c) || !i && strchr("# "", __c) || i == *(v25 + 32) - 1 && __c == 32)
           {
-            if (v35 + 1 >= 0xFF)
+            if (v34 + 1 >= 0xFF)
             {
               return -10624;
             }
 
-            v13 = v35++;
-            __b[v13] = 92;
+            v12 = v34++;
+            __b[v12] = 92;
           }
 
           if (__c >= 0x20u && __c < 0x7Fu)
           {
-            __b[v35] = __c;
+            __b[v34] = __c;
           }
 
           else
           {
-            if (v35 + 3 >= 0xFF)
+            if (v34 + 3 >= 0xFF)
             {
               return -10624;
             }
 
-            v14 = v35++;
-            __b[v14] = 92;
-            v24 = __c & 0xF;
-            v15 = nibble_to_hex_digit(__c >> 4);
-            v16 = v35++;
-            __b[v16] = v15;
-            __b[v35] = nibble_to_hex_digit(v24);
+            v13 = v34++;
+            __b[v13] = 92;
+            v23 = __c & 0xF;
+            v14 = nibble_to_hex_digit(__c >> 4);
+            v15 = v34++;
+            __b[v15] = v14;
+            __b[v34] = nibble_to_hex_digit(v23);
           }
 
           ++i;
-          ++v35;
+          ++v34;
         }
       }
 
-      __b[v35] = 0;
-      attr_short_name = __snprintf_chk(v21, v34, 0, 0xFFFFFFFFFFFFFFFFLL, "%s", __b);
-      if (attr_short_name < 0 || attr_short_name >= v34)
+      __b[v34] = 0;
+      attr_short_name = __snprintf_chk(v20, v33, 0, 0xFFFFFFFFFFFFFFFFLL, "%s", __b);
+      if (attr_short_name < 0 || attr_short_name >= v33)
       {
         return -10624;
       }
 
-      v34 -= attr_short_name;
-      v20 = &v21[attr_short_name];
-      v27 = *(v26 + 56);
-      v26 = *(v26 + 48);
+      v33 -= attr_short_name;
+      v19 = &v20[attr_short_name];
+      v26 = *(v25 + 56);
+      v25 = *(v25 + 48);
     }
 
     else
     {
-      v26 = *(v26 + 48);
+      v25 = *(v25 + 48);
     }
   }
 
-  return (v39 - v34);
+  return (v38 - v33);
 }
 
 uint64_t nibble_to_hex_digit(int a1)
@@ -5454,7 +7467,7 @@ uint64_t mbedtls_x509_get_subject_alt_name_ext(unint64_t *a1, _BYTE *a2, uint64_
         return -9472;
       }
 
-      *(v8 + 24) = mbedtls_calloc();
+      *(v8 + 24) = mbedtls_calloc(1, 32);
       if (!*(v8 + 24))
       {
         return mbedtls_error_add(-9472, -106);
@@ -5549,12 +7562,14 @@ uint64_t mbedtls_x509_parse_subject_alt_name(_DWORD *a1, _DWORD *a2)
   return -8320;
 }
 
-void mbedtls_x509_free_subject_alt_name(uint64_t a1)
+uint64_t mbedtls_x509_free_subject_alt_name(uint64_t result)
 {
-  if (*a1 == 4)
+  if (*result == 4)
   {
-    mbedtls_asn1_free_named_data_list_shallow(*(a1 + 56));
+    return mbedtls_asn1_free_named_data_list_shallow(*(result + 56));
   }
+
+  return result;
 }
 
 uint64_t mbedtls_x509_get_subject_alt_name(unint64_t *a1, _BYTE *a2, uint64_t a3)
@@ -5581,7 +7596,7 @@ uint64_t mbedtls_x509_get_subject_alt_name(unint64_t *a1, _BYTE *a2, uint64_t a3
   }
 }
 
-uint64_t mbedtls_x509_get_ns_cert_type(unsigned __int8 **a1, uint64_t a2, _BYTE *a3)
+uint64_t mbedtls_x509_get_ns_cert_type(unsigned __int8 **a1, unsigned __int8 *a2, _BYTE *a3)
 {
   v9 = a1;
   v8 = a2;
@@ -5617,7 +7632,7 @@ uint64_t mbedtls_x509_get_ns_cert_type(unsigned __int8 **a1, uint64_t a2, _BYTE 
   }
 }
 
-uint64_t mbedtls_x509_get_key_usage(unsigned __int8 **a1, uint64_t a2, _DWORD *a3)
+uint64_t mbedtls_x509_get_key_usage(unsigned __int8 **a1, unsigned __int8 *a2, _DWORD *a3)
 {
   v11 = a1;
   v10 = a2;
@@ -6406,55 +8421,54 @@ LABEL_24:
 
 uint64_t mbedtls_x509_crt_parse_der_internal(uint64_t a1, unsigned __int8 *a2, uint64_t a3, int a4, uint64_t (*a5)(uint64_t, uint64_t, uint64_t *, void, unsigned __int8 *, unsigned __int8 *), uint64_t a6)
 {
-  v10 = a1;
-  v9 = 0;
+  v9 = a1;
+  v8 = 0;
   if (a1 && a2)
   {
     while (1)
     {
-      v8 = 0;
-      if (*(v10 + 56))
+      v7 = 0;
+      if (*(v9 + 56))
       {
-        v8 = *(v10 + 736) != 0;
+        v7 = *(v9 + 736) != 0;
       }
 
-      if (!v8)
+      if (!v7)
       {
         break;
       }
 
-      v9 = v10;
-      v10 = *(v10 + 736);
+      v8 = v9;
+      v9 = *(v9 + 736);
     }
 
-    if (*(v10 + 56) && !*(v10 + 736))
+    if (*(v9 + 56) && !*(v9 + 736))
     {
-      *(v10 + 736) = mbedtls_calloc();
-      if (!*(v10 + 736))
+      *(v9 + 736) = mbedtls_calloc(1, 744);
+      if (!*(v9 + 736))
       {
         return -10368;
       }
 
-      v9 = v10;
-      v6 = *(v10 + 736);
-      mbedtls_x509_crt_init();
-      v10 = *(v10 + 736);
+      v8 = v9;
+      mbedtls_x509_crt_init(*(v9 + 736));
+      v9 = *(v9 + 736);
     }
 
-    v11 = x509_crt_parse_der_core(v10, a2, a3, a4, a5, a6);
-    if (v11)
+    v10 = x509_crt_parse_der_core(v9, a2, a3, a4, a5, a6);
+    if (v10)
     {
-      if (v9)
+      if (v8)
       {
-        *(v9 + 736) = 0;
+        *(v8 + 736) = 0;
       }
 
-      if (v10 != a1)
+      if (v9 != a1)
       {
-        mbedtls_free();
+        mbedtls_free(v9);
       }
 
-      return v11;
+      return v10;
     }
 
     else
@@ -7076,31 +9090,34 @@ uint64_t x509_crt_verify_restartable_ca_cb(uint64_t a1, uint64_t a2, uint64_t a3
   }
 }
 
-void mbedtls_x509_crt_free(void *a1)
+uint64_t mbedtls_x509_crt_free(uint64_t result)
 {
-  v2 = a1;
+  v3 = result;
+  v2 = result;
   while (v2)
   {
-    mbedtls_pk_free(v2 + 45);
-    mbedtls_asn1_free_named_data_list_shallow(v2[26]);
-    mbedtls_asn1_free_named_data_list_shallow(v2[34]);
-    mbedtls_asn1_sequence_free(v2[85]);
-    mbedtls_asn1_sequence_free(v2[59]);
-    mbedtls_asn1_sequence_free(v2[79]);
-    mbedtls_asn1_sequence_free(v2[69]);
-    if (v2[3] && *v2)
+    mbedtls_pk_free((v2 + 360));
+    mbedtls_asn1_free_named_data_list_shallow(*(v2 + 208));
+    mbedtls_asn1_free_named_data_list_shallow(*(v2 + 272));
+    mbedtls_asn1_sequence_free(*(v2 + 680));
+    mbedtls_asn1_sequence_free(*(v2 + 472));
+    mbedtls_asn1_sequence_free(*(v2 + 632));
+    mbedtls_asn1_sequence_free(*(v2 + 552));
+    if (*(v2 + 24) && *v2)
     {
-      mbedtls_zeroize_and_free(v2[3], v2[2]);
+      mbedtls_zeroize_and_free(*(v2 + 24), *(v2 + 16));
     }
 
     v1 = v2;
-    v2 = v2[92];
-    mbedtls_platform_zeroize(v1, 0x2E8uLL);
-    if (v1 != a1)
+    v2 = *(v2 + 736);
+    result = mbedtls_platform_zeroize(v1, 0x2E8uLL);
+    if (v1 != v3)
     {
-      mbedtls_free();
+      result = mbedtls_free(v1);
     }
   }
+
+  return result;
 }
 
 uint64_t mbedtls_x509_crt_get_ca_istrue(uint64_t a1)
@@ -7116,213 +9133,183 @@ uint64_t mbedtls_x509_crt_get_ca_istrue(uint64_t a1)
   }
 }
 
-uint64_t x509_crt_parse_der_core(void *a1, unsigned __int8 *a2, uint64_t a3, int a4, uint64_t (*a5)(uint64_t, uint64_t, uint64_t *, void, unsigned __int8 *, unsigned __int8 *), uint64_t a6)
+uint64_t x509_crt_parse_der_core(uint64_t a1, unsigned __int8 *a2, uint64_t a3, int a4, uint64_t (*a5)(uint64_t, uint64_t, uint64_t *, void, unsigned __int8 *, unsigned __int8 *), uint64_t a6)
 {
-  v29 = a1;
-  v28 = a2;
-  v27 = a3;
-  v26 = a4;
-  v25 = a5;
-  v24 = a6;
+  v26 = a1;
+  v25 = a2;
+  v24 = a3;
+  v23 = a4;
+  v22 = a5;
+  v21 = a6;
   tag = -110;
-  v22 = 0;
-  v21 = 0;
-  v20 = 0;
   v19 = 0;
+  v18 = 0;
+  v17 = 0;
   v16 = 0;
+  v13 = 0;
   __n = 0;
   __s1 = 0;
-  v13 = 0;
-  v14 = 0;
-  v15 = 0;
   v10 = 0;
   v11 = 0;
+  v12 = 0;
+  v7 = 0;
+  v8 = 0;
   __s2 = 0;
-  if (!a1 || !v28)
+  if (!a1 || !v25)
   {
     return -10240;
   }
 
-  v21 = v28;
-  v22 = v27;
-  v20 = &v28[v27];
-  tag = mbedtls_asn1_get_tag(&v21, &v28[v27], &v22, 48);
+  v18 = v25;
+  v19 = v24;
+  v17 = &v25[v24];
+  tag = mbedtls_asn1_get_tag(&v18, &v25[v24], &v19, 48);
   if (tag)
   {
-    mbedtls_x509_crt_free(v29);
+    mbedtls_x509_crt_free(v26);
     return -8576;
   }
 
-  v19 = &v21[v22];
-  v20 = &v21[v22];
-  v29[2] = &v21[v22] - v28;
-  if (v26)
+  v16 = &v18[v19];
+  v17 = &v18[v19];
+  *(v26 + 16) = &v18[v19] - v25;
+  if (v23)
   {
-    v6 = v29[2];
-    v21 = mbedtls_calloc();
-    v29[3] = v21;
-    if (!v29[3])
+    v18 = mbedtls_calloc(1, *(v26 + 16));
+    *(v26 + 24) = v18;
+    if (!*(v26 + 24))
     {
       return -10368;
     }
 
-    v7 = v29[3];
-    v8 = v29[2];
     __memcpy_chk();
-    *v29 = 1;
-    v21 += v29[2] - v22;
-    v19 = &v21[v22];
-    v20 = &v21[v22];
+    *v26 = 1;
+    v18 += *(v26 + 16) - v19;
+    v16 = &v18[v19];
+    v17 = &v18[v19];
   }
 
   else
   {
-    v29[3] = v28;
-    *v29 = 0;
+    *(v26 + 24) = v25;
+    *v26 = 0;
   }
 
-  v29[6] = v21;
-  tag = mbedtls_asn1_get_tag(&v21, v20, &v22, 48);
+  *(v26 + 48) = v18;
+  tag = mbedtls_asn1_get_tag(&v18, v17, &v19, 48);
   if (tag)
   {
-    mbedtls_x509_crt_free(v29);
+    mbedtls_x509_crt_free(v26);
     return mbedtls_error_add(-8576, tag);
   }
 
-  v20 = &v21[v22];
-  v29[5] = &v21[v22 - v29[6]];
-  tag = x509_get_version(&v21, v20, v29 + 14);
+  v17 = &v18[v19];
+  *(v26 + 40) = &v18[v19 - *(v26 + 48)];
+  tag = x509_get_version(&v18, v17, (v26 + 56));
   if (tag)
   {
     goto LABEL_40;
   }
 
-  tag = mbedtls_x509_get_serial(&v21, v20, (v29 + 8));
+  tag = mbedtls_x509_get_serial(&v18, v17, v26 + 64);
   if (tag)
   {
     goto LABEL_40;
   }
 
-  tag = mbedtls_x509_get_alg(&v21, v20, (v29 + 11), &v16);
+  tag = mbedtls_x509_get_alg(&v18, v17, v26 + 88, &v13);
   if (tag)
   {
     goto LABEL_40;
   }
 
-  if ((v29[7] & 0x80000000) != 0 || *(v29 + 14) > 2)
+  if ((*(v26 + 56) & 0x80000000) != 0 || *(v26 + 56) > 2)
   {
-    mbedtls_x509_crt_free(v29);
+    mbedtls_x509_crt_free(v26);
     return -9600;
   }
 
-  ++*(v29 + 14);
-  tag = mbedtls_x509_get_sig_alg((v29 + 11), &v16, v29 + 180, v29 + 181, v29 + 91);
+  ++*(v26 + 56);
+  tag = mbedtls_x509_get_sig_alg(v26 + 88, &v13, (v26 + 720), (v26 + 724), (v26 + 728));
   if (tag)
   {
     goto LABEL_40;
   }
 
-  v29[16] = v21;
-  tag = mbedtls_asn1_get_tag(&v21, v20, &v22, 48);
+  *(v26 + 128) = v18;
+  tag = mbedtls_asn1_get_tag(&v18, v17, &v19, 48);
   if (tag)
   {
 LABEL_22:
-    mbedtls_x509_crt_free(v29);
+    mbedtls_x509_crt_free(v26);
     return mbedtls_error_add(-8576, tag);
   }
 
-  tag = mbedtls_x509_get_name(&v21, &v21[v22], (v29 + 20));
+  tag = mbedtls_x509_get_name(&v18, &v18[v19], v26 + 160);
   if (tag)
   {
     goto LABEL_40;
   }
 
-  v29[15] = &v21[-v29[16]];
-  tag = x509_get_dates(&v21, v20, v29 + 72, v29 + 78);
+  *(v26 + 120) = &v18[-*(v26 + 128)];
+  tag = x509_get_dates(&v18, v17, (v26 + 288), (v26 + 312));
   if (tag)
   {
     goto LABEL_40;
   }
 
-  v29[19] = v21;
-  tag = mbedtls_asn1_get_tag(&v21, v20, &v22, 48);
+  *(v26 + 152) = v18;
+  tag = mbedtls_asn1_get_tag(&v18, v17, &v19, 48);
   if (tag)
   {
     goto LABEL_22;
   }
 
-  if (v22)
-  {
-    tag = mbedtls_x509_get_name(&v21, &v21[v22], (v29 + 28));
-    if (tag)
-    {
-      goto LABEL_40;
-    }
-  }
-
-  v29[18] = &v21[-v29[19]];
-  v29[44] = v21;
-  tag = mbedtls_pk_parse_subpubkey(&v21, v20, v29 + 45);
-  if (tag)
-  {
-    goto LABEL_40;
-  }
-
-  v29[43] = &v21[-v29[44]];
-  if (*(v29 + 14) == 2 || *(v29 + 14) == 3)
-  {
-    tag = x509_get_uid(&v21, v20, (v29 + 47), 1);
-    if (tag)
-    {
-      goto LABEL_40;
-    }
-  }
-
-  if ((*(v29 + 14) == 2 || *(v29 + 14) == 3) && (tag = x509_get_uid(&v21, v20, (v29 + 50), 2)) != 0 || *(v29 + 14) == 3 && (tag = x509_get_crt_ext(&v21, v20, v29, v25, v24)) != 0)
+  if (v19 && (tag = mbedtls_x509_get_name(&v18, &v18[v19], v26 + 224)) != 0 || (*(v26 + 144) = &v18[-*(v26 + 152)], *(v26 + 352) = v18, (tag = mbedtls_pk_parse_subpubkey(&v18, v17, (v26 + 360))) != 0) || ((*(v26 + 344) = &v18[-*(v26 + 352)], *(v26 + 56) == 2) || *(v26 + 56) == 3) && (tag = x509_get_uid(&v18, v17, v26 + 376, 1)) != 0 || (*(v26 + 56) == 2 || *(v26 + 56) == 3) && (tag = x509_get_uid(&v18, v17, v26 + 400, 2)) != 0 || *(v26 + 56) == 3 && (tag = x509_get_crt_ext(&v18, v17, v26, v22, v21)) != 0)
   {
 LABEL_40:
-    mbedtls_x509_crt_free(v29);
+    mbedtls_x509_crt_free(v26);
     return tag;
   }
 
-  if (v21 == v20)
+  if (v18 == v17)
   {
-    v20 = v19;
-    tag = mbedtls_x509_get_alg(&v21, v19, &v10, &v13);
+    v17 = v16;
+    tag = mbedtls_x509_get_alg(&v18, v16, &v7, &v10);
     if (tag)
     {
       goto LABEL_44;
     }
 
-    if (v29[12] != v11 || memcmp(v29[13], __s2, v29[12]) || v16 != v13 || __n != v14 || __n && memcmp(__s1, v15, __n))
+    if (*(v26 + 96) != v8 || memcmp(*(v26 + 104), __s2, *(v26 + 96)) || v13 != v10 || __n != v11 || __n && memcmp(__s1, v12, __n))
     {
-      mbedtls_x509_crt_free(v29);
+      mbedtls_x509_crt_free(v26);
       return -9856;
     }
 
-    tag = mbedtls_x509_get_sig(&v21, v20, (v29 + 87));
+    tag = mbedtls_x509_get_sig(&v18, v17, v26 + 696);
     if (tag)
     {
 LABEL_44:
-      mbedtls_x509_crt_free(v29);
+      mbedtls_x509_crt_free(v26);
       return tag;
     }
 
-    else if (v21 == v20)
+    else if (v18 == v17)
     {
       return 0;
     }
 
     else
     {
-      mbedtls_x509_crt_free(v29);
+      mbedtls_x509_crt_free(v26);
       return mbedtls_error_add(-8576, -102);
     }
   }
 
   else
   {
-    mbedtls_x509_crt_free(v29);
+    mbedtls_x509_crt_free(v26);
     return mbedtls_error_add(-8576, -102);
   }
 }
@@ -7414,7 +9401,7 @@ uint64_t x509_get_dates(char **a1, char *a2, unsigned int *a3, unsigned int *a4)
   }
 }
 
-uint64_t x509_get_uid(unsigned __int8 **a1, uint64_t a2, uint64_t a3, int a4)
+uint64_t x509_get_uid(unsigned __int8 **a1, unsigned __int8 *a2, uint64_t a3, int a4)
 {
   if (*a1 == a2)
   {
@@ -7447,7 +9434,7 @@ uint64_t x509_get_uid(unsigned __int8 **a1, uint64_t a2, uint64_t a3, int a4)
   }
 }
 
-uint64_t x509_get_crt_ext(unint64_t *a1, unsigned __int8 *a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t *, void, unsigned __int8 *, unsigned __int8 *), uint64_t a5)
+uint64_t x509_get_crt_ext(unsigned __int8 **a1, unsigned __int8 *a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t *, void, unsigned __int8 *, unsigned __int8 *), uint64_t a5)
 {
   v20 = a1;
   v19 = a2;
@@ -7640,1955 +9627,4 @@ uint64_t x509_get_crt_ext(unint64_t *a1, unsigned __int8 *a2, uint64_t a3, uint6
       return 0;
     }
   }
-}
-
-uint64_t x509_get_basic_constraints(unsigned __int8 **a1, unsigned __int8 *a2, int *a3, int *a4)
-{
-  v10 = a1;
-  v9 = a2;
-  v8 = a3;
-  v7 = a4;
-  tag = -110;
-  v5 = 0;
-  *a3 = 0;
-  *v7 = 0;
-  tag = mbedtls_asn1_get_tag(v10, v9, &v5, 48);
-  if (tag)
-  {
-    return mbedtls_error_add(-9472, tag);
-  }
-
-  if (*v10 == v9)
-  {
-    return 0;
-  }
-
-  else
-  {
-    tag = mbedtls_asn1_get_BOOL(v10, v9, v8);
-    if (tag)
-    {
-      if (tag == -98)
-      {
-        tag = mbedtls_asn1_get_int(v10, v9, v8);
-      }
-
-      if (tag)
-      {
-        return mbedtls_error_add(-9472, tag);
-      }
-
-      if (*v8)
-      {
-        *v8 = 1;
-      }
-    }
-
-    if (*v10 == v9)
-    {
-      return 0;
-    }
-
-    else
-    {
-      tag = mbedtls_asn1_get_int(v10, v9, v7);
-      if (tag)
-      {
-        return mbedtls_error_add(-9472, tag);
-      }
-
-      if (*v10 == v9)
-      {
-        if (*v7 == 0x7FFFFFFF)
-        {
-          return mbedtls_error_add(-9472, -100);
-        }
-
-        else
-        {
-          ++*v7;
-          return 0;
-        }
-      }
-
-      else
-      {
-        return mbedtls_error_add(-9472, -102);
-      }
-    }
-  }
-}
-
-uint64_t x509_get_ext_key_usage(_BYTE **a1, _BYTE *a2, uint64_t a3)
-{
-  sequence_of = mbedtls_asn1_get_sequence_of(a1, a2, a3, 6u);
-  if (sequence_of)
-  {
-    return mbedtls_error_add(-9472, sequence_of);
-  }
-
-  else if (*(a3 + 16))
-  {
-    return 0;
-  }
-
-  else
-  {
-    return mbedtls_error_add(-9472, -100);
-  }
-}
-
-uint64_t x509_get_subject_key_id(unsigned __int8 **a1, uint64_t a2, uint64_t a3)
-{
-  v8 = a1;
-  v7 = a2;
-  v6 = a3;
-  tag = -110;
-  v4 = 0;
-  tag = mbedtls_asn1_get_tag(a1, a2, &v4, 4);
-  if (tag)
-  {
-    return mbedtls_error_add(-9472, tag);
-  }
-
-  else
-  {
-    *(v6 + 8) = v4;
-    *v6 = 4;
-    *(v6 + 16) = *v8;
-    *v8 += v4;
-    if (*v8 == v7)
-    {
-      return 0;
-    }
-
-    else
-    {
-      return mbedtls_error_add(-9472, -102);
-    }
-  }
-}
-
-uint64_t x509_get_authority_key_id(unint64_t *a1, uint64_t a2, uint64_t a3)
-{
-  v8 = a1;
-  v7 = a2;
-  v6 = a3;
-  tag = -110;
-  v4 = 0;
-  tag = mbedtls_asn1_get_tag(a1, a2, &v4, 48);
-  if (tag)
-  {
-    return mbedtls_error_add(-9472, tag);
-  }
-
-  if (&(*v8)[v4] != v7)
-  {
-    return mbedtls_error_add(-9472, -102);
-  }
-
-  tag = mbedtls_asn1_get_tag(v8, v7, &v4, 128);
-  if (tag)
-  {
-    if (tag != -98)
-    {
-      return mbedtls_error_add(-9472, tag);
-    }
-  }
-
-  else
-  {
-    *(v6 + 8) = v4;
-    *(v6 + 16) = *v8;
-    *v6 = 4;
-    *v8 += v4;
-  }
-
-  if (*v8 < v7)
-  {
-    tag = mbedtls_asn1_get_tag(v8, v7, &v4, 161);
-    if (tag)
-    {
-      return mbedtls_error_add(-9472, tag);
-    }
-
-    tag = mbedtls_x509_get_subject_alt_name_ext(v8, &(*v8)[v4], v6 + 24);
-    if (tag)
-    {
-      return tag;
-    }
-
-    tag = mbedtls_asn1_get_tag(v8, v7, &v4, 130);
-    if (tag)
-    {
-      return mbedtls_error_add(-9472, tag);
-    }
-
-    *(v6 + 64) = v4;
-    *(v6 + 72) = *v8;
-    *(v6 + 56) = 2;
-    *v8 += v4;
-  }
-
-  if (*v8 == v7)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return -9574;
-  }
-}
-
-uint64_t x509_get_certificate_policies(unsigned __int8 **a1, unsigned __int8 *a2, uint64_t a3)
-{
-  v14 = a1;
-  v13 = a2;
-  v12 = a3;
-  tag = 0;
-  v10 = 0;
-  v9 = 0;
-  v8 = a3;
-  tag = mbedtls_asn1_get_tag(a1, a2, &v9, 48);
-  if (tag)
-  {
-    return mbedtls_error_add(-9472, tag);
-  }
-
-  else
-  {
-    if (&(*v14)[v9] != v13 || !v9)
-    {
-      return mbedtls_error_add(-9472, -102);
-    }
-
-    while (*v14 < v13)
-    {
-      tag = mbedtls_asn1_get_tag(v14, v13, &v9, 48);
-      if (tag)
-      {
-        return mbedtls_error_add(-9472, tag);
-      }
-
-      v5 = &(*v14)[v9];
-      tag = mbedtls_asn1_get_tag(v14, v5, &v9, 6);
-      if (tag)
-      {
-        return mbedtls_error_add(-9472, tag);
-      }
-
-      __n = v9;
-      __s2 = *v14;
-      v4 = 1;
-      if (v9 == 4)
-      {
-        v4 = memcmp(&unk_10044AF65, __s2, 4uLL) != 0;
-      }
-
-      if (v4)
-      {
-        v10 = -8320;
-      }
-
-      if (*(v8 + 16))
-      {
-        if (*(v8 + 24))
-        {
-          return -9472;
-        }
-
-        *(v8 + 24) = mbedtls_calloc();
-        if (!*(v8 + 24))
-        {
-          return mbedtls_error_add(-9472, -106);
-        }
-
-        v8 = *(v8 + 24);
-      }
-
-      *v8 = 6;
-      *(v8 + 16) = __s2;
-      *(v8 + 8) = __n;
-      *v14 += v9;
-      if (*v14 < v5)
-      {
-        tag = mbedtls_asn1_get_tag(v14, v5, &v9, 48);
-        if (tag)
-        {
-          return mbedtls_error_add(-9472, tag);
-        }
-
-        *v14 += v9;
-      }
-
-      if (*v14 != v5)
-      {
-        return mbedtls_error_add(-9472, -102);
-      }
-    }
-
-    *(v8 + 24) = 0;
-    if (*v14 == v13)
-    {
-      return v10;
-    }
-
-    else
-    {
-      return mbedtls_error_add(-9472, -102);
-    }
-  }
-}
-
-uint64_t x509_crt_verify_chain_reset(uint64_t result)
-{
-  for (i = 0; i < 0xA; ++i)
-  {
-    *(result + 16 * i) = 0;
-    *(result + 16 * i + 8) = -1;
-  }
-
-  *(result + 160) = 0;
-  return result;
-}
-
-unint64_t x509_crt_verify_name(uint64_t a1, char *a2, _DWORD *a3)
-{
-  result = strlen(a2);
-  v5 = result;
-  if ((*(a1 + 640) & 0x20) != 0)
-  {
-    result = x509_crt_check_san(a1 + 448, a2, result);
-    if (!result)
-    {
-      return result;
-    }
-  }
-
-  else
-  {
-    for (i = a1 + 224; i; i = *(i + 48))
-    {
-      v4 = 1;
-      if (*(i + 8) == 3)
-      {
-        result = memcmp("U\x04\x03", *(i + 16), *(i + 8));
-        v4 = result != 0;
-      }
-
-      if (!v4)
-      {
-        result = x509_crt_check_cn(i + 24, a2, v5);
-        if (!result)
-        {
-          return result;
-        }
-      }
-    }
-  }
-
-  *a3 |= 4u;
-  return result;
-}
-
-uint64_t x509_profile_check_pk_alg(uint64_t a1, int a2)
-{
-  if (a2)
-  {
-    if ((*(a1 + 4) & (1 << (a2 - 1))) != 0)
-    {
-      return 0;
-    }
-
-    else
-    {
-      return -1;
-    }
-  }
-
-  else
-  {
-    return -1;
-  }
-}
-
-uint64_t x509_profile_check_key(uint64_t a1, unsigned int **a2)
-{
-  type = mbedtls_pk_get_type(a2);
-  if (type == 1 || type == 6)
-  {
-    if (mbedtls_pk_get_bitlen(a2) >= *(a1 + 12))
-    {
-      return 0;
-    }
-
-    else
-    {
-      return -1;
-    }
-  }
-
-  else if (type == 4 || type == 2 || type == 3)
-  {
-    ec_group_id = mbedtls_pk_get_ec_group_id(a2);
-    if (ec_group_id)
-    {
-      if ((*(a1 + 8) & (1 << (ec_group_id - 1))) != 0)
-      {
-        return 0;
-      }
-
-      else
-      {
-        return -1;
-      }
-    }
-
-    else
-    {
-      return -1;
-    }
-  }
-
-  else
-  {
-    return -1;
-  }
-}
-
-uint64_t x509_crt_verify_chain(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _DWORD *a6, uint64_t a7, uint64_t a8)
-{
-  v25 = a1;
-  v24 = a2;
-  v23 = a3;
-  v22 = a4;
-  v21 = a5;
-  v20 = a6;
-  v19 = a7;
-  v18 = a8;
-  parent = -110;
-  v16 = 0;
-  v15 = 0;
-  v13 = 0;
-  v10 = 0;
-  v14 = a1;
-  v9 = 0;
-  v12 = 0;
-  v11 = 0;
-  while (1)
-  {
-    v15 = v19 + 16 * *(v19 + 160);
-    *v15 = v14;
-    *(v15 + 8) = 0;
-    ++*(v19 + 160);
-    v16 = (v15 + 8);
-    if (v11)
-    {
-      return 0;
-    }
-
-    if (x509_profile_check_md_alg(v20, *(v14 + 720)))
-    {
-      *v16 |= 0x4000u;
-    }
-
-    if (x509_profile_check_pk_alg(v20, *(v14 + 724)))
-    {
-      *v16 |= 0x8000u;
-    }
-
-    if (*(v19 + 160) == 1 && !x509_crt_check_ee_locally_trusted(v14, v24))
-    {
-      return 0;
-    }
-
-    parent = x509_crt_find_parent(v14, v24, &v13, &v12, &v10, *(v19 + 160) - 1, v9);
-    if (!v13)
-    {
-      *v16 |= 8u;
-      return 0;
-    }
-
-    if (*(v19 + 160) != 1 && !x509_name_cmp(v14 + 160, v14 + 224))
-    {
-      ++v9;
-    }
-
-    if (!v12 && *(v19 + 160) > 8u)
-    {
-      break;
-    }
-
-    if (!v10)
-    {
-      *v16 |= 8u;
-    }
-
-    if (x509_profile_check_key(v20, (v13 + 360)))
-    {
-      *v16 |= 0x10000u;
-    }
-
-    v14 = v13;
-    v13 = 0;
-    v11 = v12;
-    v10 = 0;
-  }
-
-  return -12288;
-}
-
-uint64_t x509_crt_merge_flags_with_cb(_DWORD *a1, uint64_t a2, uint64_t (*a3)(uint64_t, void, void, int *), uint64_t a4)
-{
-  v12 = a1;
-  v11 = a2;
-  v10 = a3;
-  v9 = a4;
-  v8 = -110;
-  i = 0;
-  v6 = 0;
-  for (i = *(a2 + 160); i; --i)
-  {
-    v5 = v11 + 16 * (i - 1);
-    v6 = *(v5 + 8);
-    if (v10)
-    {
-      v8 = v10(v9, *v5, (i - 1), &v6);
-      if (v8)
-      {
-        return v8;
-      }
-    }
-
-    *v12 |= v6;
-  }
-
-  return 0;
-}
-
-uint64_t x509_crt_check_san(uint64_t a1, char *a2, unint64_t a3)
-{
-  v7 = 0;
-  v6 = 0;
-  for (i = a1; i; i = *(i + 24))
-  {
-    v4 = *i & 0x1F;
-    switch(v4)
-    {
-      case 2:
-        if (!x509_crt_check_cn(i, a2, a3))
-        {
-          return 0;
-        }
-
-        break;
-      case 6:
-        v6 = 1;
-        break;
-      case 7:
-        v7 = 1;
-        break;
-    }
-  }
-
-  if (!v7 || x509_crt_check_san_ip(a1, a2))
-  {
-    if (!v6 || x509_crt_check_san_uri(a1, a2, a3))
-    {
-      return -1;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t x509_crt_check_cn(uint64_t a1, const char *a2, unint64_t a3)
-{
-  if (*(a1 + 8) != a3 || x509_memcasecmp(a2, *(a1 + 16), a3))
-  {
-    if (x509_check_wildcard(a2, a1))
-    {
-      return -1;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t x509_crt_check_san_ip(uint64_t a1, char *a2)
-{
-  __n = mbedtls_x509_crt_parse_cn_inet_pton(a2, __s2);
-  if (__n)
-  {
-    for (i = a1; i; i = *(i + 24))
-    {
-      if ((*i & 0x1F) == 7 && *(i + 8) == __n && !memcmp(*(i + 16), __s2, __n))
-      {
-        return 0;
-      }
-    }
-
-    return -1;
-  }
-
-  else
-  {
-    return -1;
-  }
-}
-
-uint64_t x509_crt_check_san_uri(uint64_t a1, const void *a2, size_t a3)
-{
-  while (a1)
-  {
-    if ((*a1 & 0x1F) == 6 && *(a1 + 8) == a3 && !memcmp(*(a1 + 16), a2, a3))
-    {
-      return 0;
-    }
-
-    a1 = *(a1 + 24);
-  }
-
-  return -1;
-}
-
-uint64_t x509_memcasecmp(uint64_t a1, uint64_t a2, unint64_t a3)
-{
-  for (i = 0; i < a3; ++i)
-  {
-    v4 = *(a1 + i) ^ *(a2 + i);
-    if (v4 && (v4 != 32 || (*(a1 + i) < 0x61u || *(a1 + i) > 0x7Au) && (*(a1 + i) < 0x41u || *(a1 + i) > 0x5Au)))
-    {
-      return -1;
-    }
-  }
-
-  return 0;
-}
-
-uint64_t x509_check_wildcard(const char *a1, uint64_t a2)
-{
-  v4 = 0;
-  v3 = strlen(a1);
-  if (*(a2 + 8) >= 3uLL && **(a2 + 16) == 42 && *(*(a2 + 16) + 1) == 46)
-  {
-    for (i = 0; i < v3; ++i)
-    {
-      if (a1[i] == 46)
-      {
-        v4 = i;
-        break;
-      }
-    }
-
-    if (v4)
-    {
-      if (v3 - v4 != *(a2 + 8) - 1 || x509_memcasecmp(*(a2 + 16) + 1, &a1[v4], *(a2 + 8) - 1))
-      {
-        return -1;
-      }
-
-      else
-      {
-        return 0;
-      }
-    }
-
-    else
-    {
-      return -1;
-    }
-  }
-
-  else
-  {
-    return -1;
-  }
-}
-
-uint64_t x509_profile_check_md_alg(_DWORD *a1, int a2)
-{
-  if (a2)
-  {
-    if ((*a1 & (1 << (a2 - 1))) != 0)
-    {
-      return 0;
-    }
-
-    else
-    {
-      return -1;
-    }
-  }
-
-  else
-  {
-    return -1;
-  }
-}
-
-uint64_t x509_crt_check_ee_locally_trusted(uint64_t a1, uint64_t a2)
-{
-  if (x509_name_cmp(a1 + 160, a1 + 224))
-  {
-    return -1;
-  }
-
-  else
-  {
-    for (i = a2; i; i = *(i + 736))
-    {
-      if (*(a1 + 16) == *(i + 16) && !memcmp(*(a1 + 24), *(i + 24), *(a1 + 16)))
-      {
-        return 0;
-      }
-    }
-
-    return -1;
-  }
-}
-
-uint64_t x509_crt_find_parent(uint64_t a1, uint64_t a2, uint64_t *a3, int *a4, _BOOL4 *a5, int a6, int a7)
-{
-  for (*a4 = 1; ; *a4 = 0)
-  {
-    v8 = *a4 ? a2 : *(a1 + 736);
-    x509_crt_find_parent_in(a1, v8, a3, a5, *a4, a6, a7);
-    if (*a3 || !*a4)
-    {
-      break;
-    }
-  }
-
-  if (!*a3)
-  {
-    *a4 = 0;
-    *a5 = 0;
-  }
-
-  return 0;
-}
-
-uint64_t x509_name_cmp(uint64_t a1, uint64_t a2)
-{
-  while (1)
-  {
-    v3 = 1;
-    if (!a1)
-    {
-      v3 = a2 != 0;
-    }
-
-    if (!v3)
-    {
-      break;
-    }
-
-    if (!a1 || !a2)
-    {
-      return -1;
-    }
-
-    if (*a1 != *a2 || *(a1 + 8) != *(a2 + 8) || memcmp(*(a1 + 16), *(a2 + 16), *(a2 + 8)))
-    {
-      return -1;
-    }
-
-    if (x509_string_cmp(a1 + 24, a2 + 24))
-    {
-      return -1;
-    }
-
-    if (*(a1 + 56) != *(a2 + 56))
-    {
-      return -1;
-    }
-
-    a1 = *(a1 + 48);
-    a2 = *(a2 + 48);
-  }
-
-  return 0;
-}
-
-uint64_t x509_crt_find_parent_in(uint64_t a1, uint64_t a2, uint64_t *a3, _BOOL4 *a4, int a5, int a6, int a7)
-{
-  while (a2)
-  {
-    if (!x509_crt_check_parent(a1, a2, a5) && (*(a2 + 648) <= 0 || *(a2 + 648) >= (a6 + 1 - a7)))
-    {
-      v8 = x509_crt_check_signature(a1, a2) == 0;
-      if (!a5 || v8)
-      {
-        *a3 = a2;
-        *a4 = v8;
-        break;
-      }
-    }
-
-    a2 = *(a2 + 736);
-  }
-
-  if (!a2)
-  {
-    *a3 = 0;
-    *a4 = 0;
-  }
-
-  return 0;
-}
-
-uint64_t x509_crt_check_parent(uint64_t a1, uint64_t a2, int a3)
-{
-  if (x509_name_cmp(a1 + 160, a2 + 224))
-  {
-    return -1;
-  }
-
-  else
-  {
-    v4 = 1;
-    if (a3)
-    {
-      v4 = *(a2 + 56) >= 3;
-    }
-
-    if (!v4 || *(a2 + 644))
-    {
-      if (v4 && mbedtls_x509_crt_check_key_usage(a2, 4))
-      {
-        return -1;
-      }
-
-      else
-      {
-        return 0;
-      }
-    }
-
-    else
-    {
-      return -1;
-    }
-  }
-}
-
-uint64_t x509_crt_check_signature(uint64_t a1, uint64_t a2)
-{
-  v3 = mbedtls_md_info_from_type(*(a1 + 720));
-  size = mbedtls_md_get_size(v3);
-  if (mbedtls_md(v3, *(a1 + 48), *(a1 + 40), v8))
-  {
-    return -1;
-  }
-
-  else if (mbedtls_pk_can_do(a2 + 360, *(a1 + 724)))
-  {
-    return mbedtls_pk_verify_ext(*(a1 + 724), *(a1 + 728), a2 + 360, *(a1 + 720), v8, size, *(a1 + 712), *(a1 + 704));
-  }
-
-  else
-  {
-    return -1;
-  }
-}
-
-uint64_t x509_string_cmp(uint64_t a1, uint64_t a2)
-{
-  if (*a1 == *a2 && *(a1 + 8) == *(a2 + 8) && !memcmp(*(a1 + 16), *(a2 + 16), *(a2 + 8)))
-  {
-    return 0;
-  }
-
-  else if ((*a1 == 12 || *a1 == 19) && (*a2 == 12 || *a2 == 19) && *(a1 + 8) == *(a2 + 8) && !x509_memcasecmp(*(a1 + 16), *(a2 + 16), *(a2 + 8)))
-  {
-    return 0;
-  }
-
-  else
-  {
-    return -1;
-  }
-}
-
-ot::Cli::Interpreter *ot::Cli::Interpreter::Interpreter(ot::Cli::Interpreter *this, ot::Instance *a2, int (*a3)(void *, const char *, char *), void *a4)
-{
-  ot::Cli::OutputImplementer::OutputImplementer(this, a3, a4);
-  ot::Cli::Utils::Utils(this + 2, a2, this);
-  *(this + 56) = 0;
-  *(this + 57) = 0;
-  ot::TimerMilliContext::TimerMilliContext((this + 64), a2, ot::Cli::Interpreter::HandleTimer, this);
-  ot::Cli::Dataset::Dataset(this + 12, a2, this);
-  ot::Cli::NetworkData::NetworkData(this + 112, a2, this);
-  ot::Cli::UdpExample::UdpExample(this + 136, a2, this);
-  ot::Cli::Dataset::Dataset(this + 29, a2, this);
-  ot::Cli::Dataset::Dataset(this + 31, a2, this);
-  ot::Cli::Coap::Coap(this + 264, a2, this);
-  ot::Cli::Dataset::Dataset(this + 48, a2, this);
-  ot::Cli::Dataset::Dataset(this + 50, a2, this);
-  ot::Cli::Dataset::Dataset(this + 52, a2, this);
-  ot::Cli::Dataset::Dataset(this + 54, a2, this);
-  ot::Cli::LinkMetrics::LinkMetrics(this + 456, a2, this);
-  ot::Cli::PingSender::PingSender(this + 504, a2, this);
-  InstancePtr = ot::Cli::Utils::GetInstancePtr((this + 16));
-  otThreadSetDiscoveryRequestCallback(InstancePtr, ot::Cli::Interpreter::HandleDiscoveryRequest, this);
-  v5 = ot::Cli::Utils::GetInstancePtr((this + 16));
-  otDiagSetOutputCallback(v5, ot::Cli::Interpreter::HandleDiagOutput, this);
-  ot::Cli::Utils::ClearAllBytes<ot::Cli::Interpreter::UserCommandsEntry [1]>(this + 4);
-  v6 = ot::Cli::Utils::GetInstancePtr((this + 16));
-  otDiagSetOutputCallback(v6, ot::Cli::Interpreter::HandleDiagOutput, this);
-  ot::Cli::Utils::ClearAllBytes<ot::Cli::Interpreter::UserCommandsEntry [1]>(this + 4);
-  ot::Cli::Interpreter::OutputPrompt(this);
-  return this;
-}
-
-{
-  ot::Cli::Interpreter::Interpreter(this, a2, a3, a4);
-  return this;
-}
-
-void *ot::Cli::Utils::Utils(void *result, uint64_t a2, uint64_t a3)
-{
-  *result = a2;
-  result[1] = a3;
-  return result;
-}
-
-ot::TimerMilliContext *ot::TimerMilliContext::TimerMilliContext(ot::TimerMilliContext *this, ot::Instance *a2, void (*a3)(ot::Timer *), void *a4)
-{
-  ot::TimerMilliContext::TimerMilliContext(this, a2, a3, a4);
-  return this;
-}
-
-{
-  ot::TimerMilli::TimerMilli(this, a2, a3);
-  result = this;
-  *(this + 3) = a4;
-  return result;
-}
-
-void *ot::Cli::Dataset::Dataset(void *a1, uint64_t a2, uint64_t a3)
-{
-  ot::Cli::Dataset::Dataset(a1, a2, a3);
-  return a1;
-}
-
-{
-  ot::Cli::Utils::Utils(a1, a2, a3);
-  return a1;
-}
-
-void ot::Cli::Interpreter::HandleDiscoveryRequest()
-{
-  ot::Cli::Interpreter::HandleDiscoveryRequest();
-}
-
-{
-  ;
-}
-
-void *ot::Cli::Utils::ClearAllBytes<ot::Cli::Interpreter::UserCommandsEntry [1]>(void *result)
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  return result;
-}
-
-{
-  return ot::Cli::Utils::ClearAllBytes<ot::Cli::Interpreter::UserCommandsEntry [1]>(result);
-}
-
-void ot::Cli::Interpreter::OutputPrompt(ot::Cli::Interpreter *this)
-{
-  ot::Cli::OutputImplementer::SetEmittingCommandOutput(this);
-  ot::Cli::Utils::OutputFormat((this + 16), "%s", "> ");
-  ot::Cli::OutputImplementer::SetEmittingCommandOutput(this);
-}
-
-void ot::Cli::Interpreter::OutputResult(_BYTE *a1, int a2)
-{
-  if (a1[57])
-  {
-    if (a2)
-    {
-      v2 = otThreadErrorToString(a2);
-      ot::Cli::Utils::OutputLine((a1 + 16), "Error %u: %s", a2, v2);
-    }
-  }
-
-  else
-  {
-    if ((a1[56] & 1) == 0)
-    {
-      __assert_rtn("OutputResult", "cli.cpp", 201, "mCommandIsPending");
-    }
-
-    if (a2 != 36)
-    {
-      if (a2)
-      {
-        v3 = otThreadErrorToString(a2);
-        ot::Cli::Utils::OutputLine((a1 + 16), "Error %u: %s", a2, v3);
-      }
-
-      ot::Cli::Utils::OutputLine((a1 + 16), "Done");
-      a1[56] = 0;
-      ot::TimerMilli::Stop((a1 + 64));
-      ot::Cli::Interpreter::OutputPrompt(a1);
-    }
-  }
-}
-
-uint64_t ot::Cli::Interpreter::Process<1714215925ull>(uint64_t a1, ot::Utils::CmdLineParser::Arg *a2)
-{
-  memset(__b, 0, sizeof(__b));
-  ot::Utils::CmdLineParser::Arg::CopyArgsToStringArray(a2, __b, v2);
-  InstancePtr = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-  ArgsLength = ot::Utils::CmdLineParser::Arg::GetArgsLength(a2, v3);
-  return otDiagProcessCmd(InstancePtr, ArgsLength, __b);
-}
-
-uint64_t ot::Cli::Interpreter::Process<30363746172521848ull>(uint64_t a1, const char **a2)
-{
-  v5 = 0;
-  if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
-  {
-    VersionString = otGetVersionString();
-    ot::Cli::Utils::OutputLine((a1 + 16), "%s", VersionString);
-  }
-
-  else if (ot::Utils::CmdLineParser::Arg::operator==(a2, "api"))
-  {
-    ot::Cli::Utils::OutputLine((a1 + 16), "%u", 431);
-  }
-
-  else
-  {
-    return 35;
-  }
-
-  return v5;
-}
-
-uint64_t ot::Cli::Interpreter::Process<492159295119ull>(uint64_t a1, ot::Utils::CmdLineParser::Arg *a2)
-{
-  if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
-  {
-    InstancePtr = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-    otInstanceReset(InstancePtr);
-  }
-
-  return 35;
-}
-
-void ot::Cli::Interpreter::ProcessLine(ot::Cli::Interpreter *this, ot *a2)
-{
-  v4 = 0;
-  if (!a2)
-  {
-    __assert_rtn("ProcessLine", "cli.cpp", 322, "aBuf != nullptr");
-  }
-
-  if ((*(this + 57) & 1) == 0)
-  {
-    if (*(this + 56))
-    {
-      ot::Utils::CmdLineParser::Arg::Clear(v6);
-      goto LABEL_17;
-    }
-
-    *(this + 56) = 1;
-    if (ot::StringLength(a2, 0x280) > 639)
-    {
-      v4 = 6;
-      goto LABEL_17;
-    }
-  }
-
-  v4 = ot::Utils::CmdLineParser::ParseCmd(a2, v6, 0x20);
-  if (!v4)
-  {
-    if (ot::Utils::CmdLineParser::Arg::IsEmpty(v6))
-    {
-      *(this + 56) = 0;
-    }
-
-    else if (*(this + 57) & 1) == 0 && (ot::Cli::Utils::LogInput((this + 16), v6), InstancePtr = ot::Cli::Utils::GetInstancePtr((this + 16)), (otDiagIsEnabled(InstancePtr)) && ot::Utils::CmdLineParser::Arg::operator!=(v6, "diag") && ot::Utils::CmdLineParser::Arg::operator!=(v6, "factoryreset"))
-    {
-      ot::Cli::Utils::OutputLine((this + 16), "under diagnostics mode, execute 'diag stop' before running any other commands.");
-      v4 = 13;
-    }
-
-    else
-    {
-      v4 = ot::Cli::Interpreter::ProcessCommand(this, v6);
-    }
-  }
-
-LABEL_17:
-  if (!v4 && ot::Utils::CmdLineParser::Arg::IsEmpty(v6))
-  {
-    if ((*(this + 56) & 1) == 0)
-    {
-      ot::Cli::Interpreter::OutputPrompt(this);
-    }
-  }
-
-  else
-  {
-    ot::Cli::Interpreter::OutputResult(this, v4);
-  }
-}
-
-void *ot::Utils::CmdLineParser::Arg::Clear(void *this)
-{
-  *this = 0;
-  return this;
-}
-
-{
-  return ot::Utils::CmdLineParser::Arg::Clear(this);
-}
-
-void ot::Cli::Utils::LogInput(ot::Cli::Utils *this, const ot::Utils::CmdLineParser::Arg *a2)
-{
-  ;
-}
-
-{
-  ot::Cli::Utils::LogInput(this, a2);
-}
-
-BOOL ot::Utils::CmdLineParser::Arg::operator!=(const char **a1, const char *a2)
-{
-  return !ot::Utils::CmdLineParser::Arg::operator==(a1, a2);
-}
-
-{
-  return ot::Utils::CmdLineParser::Arg::operator!=(a1, a2);
-}
-
-uint64_t ot::Cli::Interpreter::ProcessCommand(ot::Cli::Interpreter *this, const char **a2)
-{
-  v18 = this;
-  v17 = a2;
-  v16 = 0;
-  CString = ot::Utils::CmdLineParser::Arg::GetCString(a2);
-  v15 = ot::BinarySearch::Find<char *,ot::Cli::Utils::CommandEntry<ot::Cli::Interpreter>,(unsigned short)121>(&CString, &ot::Cli::Interpreter::ProcessCommand(ot::Utils::CmdLineParser::Arg *)::kCommands, v2, v3, v4, v5);
-  if (v15)
-  {
-    v9 = *(v15 + 1);
-    v6 = *(v15 + 2);
-    v10 = (this + (v6 >> 1));
-    if (v6)
-    {
-      return (*(*v10 + v9))(v10, v17 + 1);
-    }
-
-    else
-    {
-      return v9(v10, v17 + 1);
-    }
-  }
-
-  else if (ot::Utils::CmdLineParser::Arg::operator==(v17, "help"))
-  {
-    ot::Cli::Utils::OutputCommandTable<ot::Cli::Interpreter,(unsigned short)121>(this + 16, &ot::Cli::Interpreter::ProcessCommand(ot::Utils::CmdLineParser::Arg *)::kCommands);
-    for (i = this + 32; i != this + 56; i += 24)
-    {
-      for (j = 0; j < i[8]; ++j)
-      {
-        ot::Cli::Utils::OutputLine((this + 16), "%s", *(*i + 16 * j));
-      }
-    }
-  }
-
-  else
-  {
-    return ot::Cli::Interpreter::ProcessUserCommands(this, v17);
-  }
-
-  return v16;
-}
-
-uint64_t ot::Cli::Interpreter::ProcessUserCommands(ot::Cli::Interpreter *this, ot::Utils::CmdLineParser::Arg *a2)
-{
-  v11 = 35;
-  v10 = this + 32;
-  v9 = this + 56;
-  while (v10 != v9)
-  {
-    for (i = 0; i < v10[8]; ++i)
-    {
-      if (ot::Utils::CmdLineParser::Arg::operator==(a2, *(*v10 + 16 * i)))
-      {
-        memset(__b, 0, sizeof(__b));
-        ot::Utils::CmdLineParser::Arg::CopyArgsToStringArray(a2, __b, v2);
-        v6 = *(*v10 + 16 * i + 8);
-        v7 = *(v10 + 2);
-        ArgsLength = ot::Utils::CmdLineParser::Arg::GetArgsLength(a2, v3);
-        v11 = v6(v7, (ArgsLength - 1), &__b[8]);
-        break;
-      }
-    }
-
-    v10 += 24;
-  }
-
-  return v11;
-}
-
-uint64_t ot::Cli::Interpreter::SetUserCommands(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
-{
-  v6 = 1;
-  for (i = a1 + 32; i != a1 + 56; i += 24)
-  {
-    if (!*i)
-    {
-      *i = a2;
-      *(i + 8) = a3;
-      *(i + 16) = a4;
-      return 0;
-    }
-  }
-
-  return v6;
-}
-
-uint64_t ot::Cli::Interpreter::Process<24833ull>(uint64_t a1, const char **a2)
-{
-  v15 = a1;
-  v14 = a2;
-  Id = 0;
-  if (ot::Utils::CmdLineParser::Arg::operator==(a2, "port"))
-  {
-    InstancePtr = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-    UdpPort = otBorderAgentGetUdpPort(InstancePtr);
-    ot::Cli::Utils::OutputLine((a1 + 16), "%hu", UdpPort);
-  }
-
-  else if (ot::Utils::CmdLineParser::Arg::operator==(v14, "state"))
-  {
-    v4 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-    State = otBorderAgentGetState(v4);
-    v6 = ot::Cli::Utils::Stringify<otBorderAgentState,(unsigned short)3>(State, ot::Cli::Interpreter::Process<24833ull>(ot::Utils::CmdLineParser::Arg *)::kStateStrings, "unknown");
-    ot::Cli::Utils::OutputLine((a1 + 16), "%s", v6);
-  }
-
-  else if (ot::Utils::CmdLineParser::Arg::operator==(v14, "id"))
-  {
-    if (ot::Utils::CmdLineParser::Arg::IsEmpty((v14 + 1)))
-    {
-      v8 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-      Id = otBorderAgentGetId(v8, v16);
-      if (!Id)
-      {
-        ot::Cli::Utils::OutputBytesLine<(unsigned char)16>((a1 + 16), v16);
-      }
-    }
-
-    else
-    {
-      v12 = 16;
-      Id = ot::Utils::CmdLineParser::Arg::ParseAsHexString(v14 + 1, &v12, v16, v7);
-      if (!Id)
-      {
-        if (v12 == 16)
-        {
-          v9 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-          return otBorderAgentSetId(v9, v16);
-        }
-
-        else
-        {
-          return 7;
-        }
-      }
-    }
-  }
-
-  else
-  {
-    return 35;
-  }
-
-  return Id;
-}
-
-uint64_t ot::Cli::Utils::Stringify<otBorderAgentState,(unsigned short)3>(unsigned __int16 a1, uint64_t a2, uint64_t a3)
-{
-  if (a1 >= 3u)
-  {
-    return a3;
-  }
-
-  else
-  {
-    return *(a2 + 8 * a1);
-  }
-}
-
-{
-  return ot::Cli::Utils::Stringify<otBorderAgentState,(unsigned short)3>(a1, a2, a3);
-}
-
-uint64_t ot::Cli::Utils::OutputBytesLine<(unsigned char)16>(ot::Cli::Utils *a1, const unsigned __int8 *a2)
-{
-  return ot::Cli::Utils::OutputBytesLine(a1, a2, 0x10u);
-}
-
-{
-  return ot::Cli::Utils::OutputBytesLine<(unsigned char)16>(a1, a2);
-}
-
-uint64_t ot::Utils::CmdLineParser::Arg::ParseAsHexString(ot::Utils::CmdLineParser **this, char *a2, unsigned __int16 *a3, unsigned __int8 *a4)
-{
-  return ot::Utils::CmdLineParser::ParseAsHexString(*this, a2, a3, a4);
-}
-
-{
-  return ot::Utils::CmdLineParser::Arg::ParseAsHexString(this, a2, a3, a4);
-}
-
-uint64_t ot::Cli::Utils::ProcessGetSet<char const*>(ot::Cli::Utils *a1, ot::Utils::CmdLineParser::Arg *a2, uint64_t (*a3)(uint64_t), unsigned int (*a4)(uint64_t, uint64_t))
-{
-  v6 = ot::Cli::Utils::ProcessGet<char const*>(a1, a2, a3);
-  if (v6)
-  {
-    return ot::Cli::Utils::ProcessSet<char const*>(a1, a2, a4);
-  }
-
-  return v6;
-}
-
-{
-  return ot::Cli::Utils::ProcessGetSet<char const*>(a1, a2, a3, a4);
-}
-
-uint64_t ot::Cli::Interpreter::Process<6337360ull>(uint64_t a1, const char **a2)
-{
-  v11 = a1;
-  v10 = a2;
-  v9 = 0;
-  if (ot::Utils::CmdLineParser::Arg::operator==(a2, "iid"))
-  {
-    if (ot::Utils::CmdLineParser::Arg::IsEmpty((v10 + 1)))
-    {
-      InstancePtr = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-      FixedDuaInterfaceIdentifier = otThreadGetFixedDuaInterfaceIdentifier(InstancePtr);
-      if (FixedDuaInterfaceIdentifier)
-      {
-        ot::Cli::Utils::OutputBytesLine<(unsigned char)8>((a1 + 16), FixedDuaInterfaceIdentifier);
-      }
-    }
-
-    else if (ot::Utils::CmdLineParser::Arg::operator==(v10 + 1, "clear"))
-    {
-      v3 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-      return otThreadSetFixedDuaInterfaceIdentifier(v3, 0);
-    }
-
-    else
-    {
-      v9 = ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)8>(v10 + 1, v7);
-      if (!v9)
-      {
-        v4 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-        return otThreadSetFixedDuaInterfaceIdentifier(v4, v7);
-      }
-    }
-  }
-
-  else
-  {
-    return 35;
-  }
-
-  return v9;
-}
-
-uint64_t ot::Cli::Utils::OutputBytesLine<(unsigned char)8>(ot::Cli::Utils *a1, const unsigned __int8 *a2)
-{
-  return ot::Cli::Utils::OutputBytesLine(a1, a2, 8u);
-}
-
-{
-  return ot::Cli::Utils::OutputBytesLine<(unsigned char)8>(a1, a2);
-}
-
-uint64_t ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)8>(ot::Utils::CmdLineParser **a1, char *a2)
-{
-  return ot::Utils::CmdLineParser::Arg::ParseAsHexString(a1, a2, 8u);
-}
-
-{
-  return ot::Utils::CmdLineParser::Arg::ParseAsHexString<(unsigned short)8>(a1, a2);
-}
-
-uint64_t ot::Cli::Interpreter::Process<13711823289570935762ull>(uint64_t a1, const char **a2)
-{
-  v14 = a1;
-  v13 = a2;
-  v12 = 0;
-  if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
-  {
-    InstancePtr = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-    otMessageGetBufferInfo(InstancePtr, v11);
-    ot::Cli::Utils::OutputLine((a1 + 16), "total: %u", v11[0]);
-    ot::Cli::Utils::OutputLine((a1 + 16), "free: %u", v11[1]);
-    ot::Cli::Utils::OutputLine((a1 + 16), "max-used: %u", v11[2]);
-    for (i = &ot::Cli::Interpreter::Process<13711823289570935762ull>(ot::Utils::CmdLineParser::Arg *)::kBufferInfoNames; i != ot::Cli::Interpreter::Process<424622705244ull>(ot::Utils::CmdLineParser::Arg *)::kChildTableTitles; i += 2)
-    {
-      v6 = i[1];
-      v7 = *(v11 + *i);
-      v8 = *(&v11[1] + *i);
-      v3 = ot::ToUlong(*(&v11[2] + *i));
-      ot::Cli::Utils::OutputLine((a1 + 16), "%s: %u %u %lu", v6, v7, v8, v3);
-    }
-  }
-
-  else if (ot::Utils::CmdLineParser::Arg::operator==(v13, "reset"))
-  {
-    v4 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-    otMessageResetBufferInfo(v4);
-  }
-
-  else
-  {
-    return 7;
-  }
-
-  return v12;
-}
-
-uint64_t ot::Cli::Interpreter::Process<11512677311266953430ull>(uint64_t a1, ot::Utils::CmdLineParser **a2)
-{
-  v10 = a1;
-  v9 = a2;
-  CcaEnergyDetectThreshold = 0;
-  v7 = 0;
-  if (ot::Utils::CmdLineParser::Arg::IsEmpty(a2))
-  {
-    InstancePtr = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-    CcaEnergyDetectThreshold = otPlatRadioGetCcaEnergyDetectThreshold(InstancePtr, &v7);
-    if (!CcaEnergyDetectThreshold)
-    {
-      ot::Cli::Utils::OutputLine((a1 + 16), "%d dBm", v7);
-    }
-  }
-
-  else
-  {
-    CcaEnergyDetectThreshold = ot::Utils::CmdLineParser::Arg::ParseAsInt8(v9, &v7, v2);
-    if (!CcaEnergyDetectThreshold)
-    {
-      v4 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-      return otPlatRadioSetCcaEnergyDetectThreshold(v4, v7);
-    }
-  }
-
-  return CcaEnergyDetectThreshold;
-}
-
-uint64_t ot::Utils::CmdLineParser::Arg::ParseAsInt8(ot::Utils::CmdLineParser **this, signed __int8 *a2, unsigned __int8 *a3)
-{
-  return ot::Utils::CmdLineParser::ParseAsInt8(*this, a2, a3);
-}
-
-{
-  return ot::Utils::CmdLineParser::Arg::ParseAsInt8(this, a2, a3);
-}
-
-uint64_t ot::Cli::Interpreter::Process<29803101196888419ull>(uint64_t a1, const char **a2)
-{
-  v33 = a1;
-  v32 = a2;
-  v31 = 0;
-  if (ot::Utils::CmdLineParser::Arg::operator==(a2, "supported"))
-  {
-    ot::Cli::Utils::GetInstancePtr((a1 + 16));
-    SupportedChannelMask = otPlatRadioGetSupportedChannelMask();
-    v3 = ot::ToUlong(SupportedChannelMask);
-    ot::Cli::Utils::OutputLine((a1 + 16), "0x%lx", v3);
-  }
-
-  else if (ot::Utils::CmdLineParser::Arg::operator==(v32, "preferred"))
-  {
-    ot::Cli::Utils::GetInstancePtr((a1 + 16));
-    PreferredChannelMask = otPlatRadioGetPreferredChannelMask();
-    v5 = ot::ToUlong(PreferredChannelMask);
-    ot::Cli::Utils::OutputLine((a1 + 16), "0x%lx", v5);
-  }
-
-  else if (ot::Utils::CmdLineParser::Arg::operator==(v32, "manager"))
-  {
-    if (ot::Utils::CmdLineParser::Arg::IsEmpty((v32 + 1)))
-    {
-      InstancePtr = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-      RequestedChannel = otChannelManagerGetRequestedChannel(InstancePtr);
-      ot::Cli::Utils::OutputLine((a1 + 16), "channel: %u", RequestedChannel);
-      v8 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-      AutoChannelSelectionEnabled = otChannelManagerGetAutoChannelSelectionEnabled(v8);
-      ot::Cli::Utils::OutputLine((a1 + 16), "auto: %d", AutoChannelSelectionEnabled & 1);
-      v10 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-      if (otChannelManagerGetAutoChannelSelectionEnabled(v10))
-      {
-        v11 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-        SupportedChannels = otChannelManagerGetSupportedChannels(v11);
-        ot::Mac::ChannelMask::ChannelMask(v30, SupportedChannels);
-        v13 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-        FavoredChannels = otChannelManagerGetFavoredChannels(v13);
-        ot::Mac::ChannelMask::ChannelMask(v29, FavoredChannels);
-        v15 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-        Delay = otChannelManagerGetDelay(v15);
-        ot::Cli::Utils::OutputLine((a1 + 16), "delay: %u", Delay);
-        v17 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-        AutoChannelSelectionInterval = otChannelManagerGetAutoChannelSelectionInterval(v17);
-        v19 = ot::ToUlong(AutoChannelSelectionInterval);
-        ot::Cli::Utils::OutputLine((a1 + 16), "interval: %lu", v19);
-        v20 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-        CcaFailureRateThreshold = otChannelManagerGetCcaFailureRateThreshold(v20);
-        ot::Cli::Utils::OutputLine((a1 + 16), "cca threshold: 0x%04x", CcaFailureRateThreshold);
-        ot::Mac::ChannelMask::ToString(v30, v35);
-        v22 = ot::String<(unsigned short)45>::AsCString(v35);
-        ot::Cli::Utils::OutputLine((a1 + 16), "supported: %s", v22);
-        ot::Mac::ChannelMask::ToString(v29, v34);
-        v23 = ot::String<(unsigned short)45>::AsCString(v34);
-        ot::Cli::Utils::OutputLine((a1 + 16), "favored: %s", v23);
-      }
-    }
-
-    else if (ot::Utils::CmdLineParser::Arg::operator==(v32 + 1, "change"))
-    {
-      return ot::Cli::Utils::ProcessSet<unsigned char>((a1 + 16), v32 + 2, otChannelManagerRequestChannelChange);
-    }
-
-    else if (ot::Utils::CmdLineParser::Arg::operator==(v32 + 1, "auto"))
-    {
-      v28 = 0;
-      v31 = ot::Utils::CmdLineParser::Arg::ParseAsBool(v32 + 2, &v28, v24);
-      if (!v31)
-      {
-        v25 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-        otChannelManagerSetAutoChannelSelectionEnabled(v25);
-      }
-    }
-
-    else if (ot::Utils::CmdLineParser::Arg::operator==(v32 + 1, "delay"))
-    {
-      return ot::Cli::Utils::ProcessGetSet<unsigned short>((a1 + 16), (v32 + 2), otChannelManagerGetDelay, otChannelManagerSetDelay);
-    }
-
-    else if (ot::Utils::CmdLineParser::Arg::operator==(v32 + 1, "interval"))
-    {
-      return ot::Cli::Utils::ProcessSet<unsigned int>((a1 + 16), v32 + 2, otChannelManagerSetAutoChannelSelectionInterval);
-    }
-
-    else if (ot::Utils::CmdLineParser::Arg::operator==(v32 + 1, "supported"))
-    {
-      return ot::Cli::Utils::ProcessSet<unsigned int>((a1 + 16), v32 + 2, otChannelManagerSetSupportedChannels);
-    }
-
-    else if (ot::Utils::CmdLineParser::Arg::operator==(v32 + 1, "favored"))
-    {
-      return ot::Cli::Utils::ProcessSet<unsigned int>((a1 + 16), v32 + 2, otChannelManagerSetFavoredChannels);
-    }
-
-    else if (ot::Utils::CmdLineParser::Arg::operator==(v32 + 1, "threshold"))
-    {
-      return ot::Cli::Utils::ProcessSet<unsigned short>((a1 + 16), v32 + 2, otChannelManagerSetCcaFailureRateThreshold);
-    }
-
-    else
-    {
-      return 7;
-    }
-  }
-
-  else
-  {
-    return ot::Cli::Utils::ProcessGetSet<unsigned char>((a1 + 16), v32, otLinkGetChannel, otLinkSetChannel);
-  }
-
-  return v31;
-}
-
-uint64_t ot::String<(unsigned short)45>::AsCString(uint64_t a1)
-{
-  return a1 + 12;
-}
-
-{
-  return ot::String<(unsigned short)45>::AsCString(a1);
-}
-
-uint64_t ot::Cli::Utils::ProcessSet<unsigned char>(ot::Cli::Utils *a1, ot::Utils::CmdLineParser **a2, unsigned __int8 *a3)
-{
-  v11 = a1;
-  v10 = a2;
-  v9 = a3;
-  v8 = 0;
-  v7 = 0;
-  v8 = ot::Utils::CmdLineParser::Arg::ParseAs<unsigned char>(a2, &v7, a3);
-  if (!v8)
-  {
-    if (ot::Utils::CmdLineParser::Arg::IsEmpty((v10 + 1)))
-    {
-      v5 = v9;
-      InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
-      (v5)(InstancePtr, v7);
-    }
-
-    else
-    {
-      return 7;
-    }
-  }
-
-  return v8;
-}
-
-{
-  v11 = a1;
-  v10 = a2;
-  v9 = a3;
-  v8 = 0;
-  v7 = 0;
-  v8 = ot::Utils::CmdLineParser::Arg::ParseAs<unsigned char>(a2, &v7, a3);
-  if (!v8)
-  {
-    if (ot::Utils::CmdLineParser::Arg::IsEmpty((v10 + 1)))
-    {
-      v5 = v9;
-      InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
-      return (v5)(InstancePtr, v7);
-    }
-
-    else
-    {
-      return 7;
-    }
-  }
-
-  return v8;
-}
-
-{
-  return ot::Cli::Utils::ProcessSet<unsigned char>(a1, a2, a3);
-}
-
-{
-  return ot::Cli::Utils::ProcessSet<unsigned char>(a1, a2, a3);
-}
-
-uint64_t ot::Cli::Utils::ProcessGetSet<unsigned short>(ot::Cli::Utils *a1, ot::Utils::CmdLineParser::Arg *a2, uint64_t (*a3)(uint64_t), unsigned __int8 *a4)
-{
-  v6 = ot::Cli::Utils::ProcessGet<unsigned short>(a1, a2, a3);
-  if (v6)
-  {
-    return ot::Cli::Utils::ProcessSet<unsigned short>(a1, a2, a4);
-  }
-
-  return v6;
-}
-
-{
-  v6 = ot::Cli::Utils::ProcessGet<unsigned short>(a1, a2, a3);
-  if (v6)
-  {
-    return ot::Cli::Utils::ProcessSet<unsigned short>(a1, a2, a4);
-  }
-
-  return v6;
-}
-
-{
-  return ot::Cli::Utils::ProcessGetSet<unsigned short>(a1, a2, a3, a4);
-}
-
-{
-  return ot::Cli::Utils::ProcessGetSet<unsigned short>(a1, a2, a3, a4);
-}
-
-uint64_t ot::Cli::Utils::ProcessSet<unsigned int>(ot::Cli::Utils *a1, ot::Utils::CmdLineParser **a2, unsigned __int8 *a3)
-{
-  v11 = a1;
-  v10 = a2;
-  v9 = a3;
-  v8 = 0;
-  v7 = 0;
-  v8 = ot::Utils::CmdLineParser::Arg::ParseAs<unsigned int>(a2, &v7, a3);
-  if (!v8)
-  {
-    if (ot::Utils::CmdLineParser::Arg::IsEmpty((v10 + 1)))
-    {
-      v5 = v9;
-      InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
-      return (v5)(InstancePtr, v7);
-    }
-
-    else
-    {
-      return 7;
-    }
-  }
-
-  return v8;
-}
-
-{
-  v11 = a1;
-  v10 = a2;
-  v9 = a3;
-  v8 = 0;
-  v7 = 0;
-  v8 = ot::Utils::CmdLineParser::Arg::ParseAs<unsigned int>(a2, &v7, a3);
-  if (!v8)
-  {
-    if (ot::Utils::CmdLineParser::Arg::IsEmpty((v10 + 1)))
-    {
-      v5 = v9;
-      InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
-      (v5)(InstancePtr, v7);
-    }
-
-    else
-    {
-      return 7;
-    }
-  }
-
-  return v8;
-}
-
-{
-  return ot::Cli::Utils::ProcessSet<unsigned int>(a1, a2, a3);
-}
-
-{
-  return ot::Cli::Utils::ProcessSet<unsigned int>(a1, a2, a3);
-}
-
-uint64_t ot::Cli::Utils::ProcessSet<unsigned short>(ot::Cli::Utils *a1, ot::Utils::CmdLineParser **a2, unsigned __int8 *a3)
-{
-  v11 = a1;
-  v10 = a2;
-  v9 = a3;
-  v8 = 0;
-  v7 = 0;
-  v8 = ot::Utils::CmdLineParser::Arg::ParseAs<unsigned short>(a2, &v7, a3);
-  if (!v8)
-  {
-    if (ot::Utils::CmdLineParser::Arg::IsEmpty((v10 + 1)))
-    {
-      v5 = v9;
-      InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
-      (v5)(InstancePtr, v7);
-    }
-
-    else
-    {
-      return 7;
-    }
-  }
-
-  return v8;
-}
-
-{
-  v11 = a1;
-  v10 = a2;
-  v9 = a3;
-  v8 = 0;
-  v7 = 0;
-  v8 = ot::Utils::CmdLineParser::Arg::ParseAs<unsigned short>(a2, &v7, a3);
-  if (!v8)
-  {
-    if (ot::Utils::CmdLineParser::Arg::IsEmpty((v10 + 1)))
-    {
-      v5 = v9;
-      InstancePtr = ot::Cli::Utils::GetInstancePtr(a1);
-      return (v5)(InstancePtr, v7);
-    }
-
-    else
-    {
-      return 7;
-    }
-  }
-
-  return v8;
-}
-
-{
-  return ot::Cli::Utils::ProcessSet<unsigned short>(a1, a2, a3);
-}
-
-{
-  return ot::Cli::Utils::ProcessSet<unsigned short>(a1, a2, a3);
-}
-
-uint64_t ot::Cli::Utils::ProcessGetSet<unsigned char>(ot::Cli::Utils *a1, ot::Utils::CmdLineParser::Arg *a2, uint64_t (*a3)(uint64_t), unsigned __int8 *a4)
-{
-  v6 = ot::Cli::Utils::ProcessGet<unsigned char>(a1, a2, a3);
-  if (v6)
-  {
-    return ot::Cli::Utils::ProcessSet<unsigned char>(a1, a2, a4);
-  }
-
-  return v6;
-}
-
-{
-  v6 = ot::Cli::Utils::ProcessGet<unsigned char>(a1, a2, a3);
-  if (v6)
-  {
-    return ot::Cli::Utils::ProcessSet<unsigned char>(a1, a2, a4);
-  }
-
-  return v6;
-}
-
-{
-  return ot::Cli::Utils::ProcessGetSet<unsigned char>(a1, a2, a3, a4);
-}
-
-{
-  return ot::Cli::Utils::ProcessGetSet<unsigned char>(a1, a2, a3, a4);
-}
-
-uint64_t ot::Cli::Interpreter::Process<424622705244ull>(uint64_t a1, ot::Utils::CmdLineParser **a2)
-{
-  v21 = a1;
-  v20 = a2;
-  ChildInfoById = 0;
-  v18 = 0;
-  v17 = ot::Utils::CmdLineParser::Arg::operator==(a2, "table");
-  if (v17 || ot::Utils::CmdLineParser::Arg::operator==(v20, "list"))
-  {
-    if (v17)
-    {
-      ot::Cli::Utils::OutputTableHeader<(unsigned char)14>((a1 + 16), ot::Cli::Interpreter::Process<424622705244ull>(ot::Utils::CmdLineParser::Arg *)::kChildTableTitles, ot::Cli::Interpreter::Process<424622705244ull>(ot::Utils::CmdLineParser::Arg *)::kChildTableColumnWidths);
-    }
-
-    InstancePtr = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-    MaxAllowedChildren = otThreadGetMaxAllowedChildren(InstancePtr);
-    for (i = 0; i < MaxAllowedChildren; ++i)
-    {
-      v4 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-      if (!otThreadGetChildInfoByIndex(v4, i, v22) && (v37 & 8) == 0)
-      {
-        if (v17)
-        {
-          ot::Cli::Utils::OutputFormat((a1 + 16), "| %3u ", v26);
-          ot::Cli::Utils::OutputFormat((a1 + 16), "| 0x%04x ", v25);
-          v5 = ot::ToUlong(v23);
-          ot::Cli::Utils::OutputFormat((a1 + 16), "| %10lu ", v5);
-          v6 = ot::ToUlong(v24);
-          ot::Cli::Utils::OutputFormat((a1 + 16), "| %10lu ", v6);
-          ot::Cli::Utils::OutputFormat((a1 + 16), "| %5u ", v28);
-          ot::Cli::Utils::OutputFormat((a1 + 16), "| %4u ", v27);
-          ot::Cli::Utils::OutputFormat((a1 + 16), "|%1d", v37 & 1);
-          ot::Cli::Utils::OutputFormat((a1 + 16), "|%1d", (v37 & 2) != 0);
-          ot::Cli::Utils::OutputFormat((a1 + 16), "|%1d", (v37 & 4) != 0);
-          ot::Cli::Utils::OutputFormat((a1 + 16), "|%3u", v32);
-          ot::Cli::Utils::OutputFormat((a1 + 16), "| %1d ", (v37 & 0x10) != 0);
-          ot::Cli::Utils::OutputFormat((a1 + 16), "| %5u ", v30);
-          ot::Cli::Utils::OutputFormat((a1 + 16), "| %5u ", v31);
-          ot::Cli::Utils::OutputFormat((a1 + 16), "| ");
-          ot::Cli::Utils::OutputExtAddress((a1 + 16), v22);
-          ot::Cli::Utils::OutputLine((a1 + 16), " |");
-        }
-
-        else
-        {
-          ot::Cli::Utils::OutputFormat((a1 + 16), "%u ", v26);
-        }
-      }
-    }
-
-    ot::Cli::Utils::OutputNewLine((a1 + 16));
-  }
-
-  else
-  {
-    ChildInfoById = ot::Utils::CmdLineParser::Arg::ParseAsUint16(v20, &v18, v2);
-    if (!ChildInfoById)
-    {
-      v7 = ot::Cli::Utils::GetInstancePtr((a1 + 16));
-      ChildInfoById = otThreadGetChildInfoById(v7, v18, v22);
-      if (!ChildInfoById)
-      {
-        ot::Cli::Utils::OutputLine((a1 + 16), "Child ID: %u", v26);
-        ot::Cli::Utils::OutputLine((a1 + 16), "Rloc: %04x", v25);
-        ot::Cli::Utils::OutputFormat((a1 + 16), "Ext Addr: ");
-        ot::Cli::Utils::OutputExtAddressLine((a1 + 16), v22);
-        v16 = v16 & 0xFE | v37 & 1;
-        v16 = v16 & 0xFD | (2 * ((v37 & 2) != 0));
-        v16 = v16 & 0xFB | (4 * ((v37 & 2) != 0));
-        v8 = ot::Cli::Utils::LinkModeToString(&v16, v15);
-        ot::Cli::Utils::OutputLine((a1 + 16), "Mode: %s", v8);
-        ot::Cli::Utils::OutputLine((a1 + 16), "CSL Synchronized: %d ", (v37 & 0x10) != 0);
-        ot::Cli::Utils::OutputLine((a1 + 16), "Net Data: %u", v27);
-        v9 = ot::ToUlong(v23);
-        ot::Cli::Utils::OutputLine((a1 + 16), "Timeout: %lu", v9);
-        v10 = ot::ToUlong(v24);
-        ot::Cli::Utils::OutputLine((a1 + 16), "Age: %lu", v10);
-        ot::Cli::Utils::OutputLine((a1 + 16), "Link Quality In: %u", v28);
-        ot::Cli::Utils::OutputLine((a1 + 16), "RSSI: %d", v29);
-        ot::Cli::Utils::OutputLine((a1 + 16), "Supervision Interval: %d", v31);
-        ot::Cli::Utils::OutputLine((a1 + 16), "CSL Channel:%d", v33);
-        ot::Cli::Utils::OutputLine((a1 + 16), "CSL Timeout:%d", v34);
-        ot::Cli::Utils::OutputLine((a1 + 16), "CSL Period:%d", v35);
-        ot::Cli::Utils::OutputLine((a1 + 16), "CSL Phase:%d", v36);
-      }
-    }
-  }
-
-  return ChildInfoById;
-}
-
-uint64_t ot::Cli::Utils::OutputTableHeader<(unsigned char)14>(ot::Cli::Utils *a1, const char *const *a2, const unsigned __int8 *a3)
-{
-  return ot::Cli::Utils::OutputTableHeader(a1, 0xEu, a2, a3);
-}
-
-{
-  return ot::Cli::Utils::OutputTableHeader<(unsigned char)14>(a1, a2, a3);
-}
-
-ot::Cli::Utils *ot::Cli::Utils::OutputExtAddress(ot::Cli::Utils *a1, const unsigned __int8 *a2)
-{
-  return ot::Cli::Utils::OutputBytes<(unsigned char)8>(a1, a2);
-}
-
-{
-  return ot::Cli::Utils::OutputExtAddress(a1, a2);
-}
-
-uint64_t ot::Cli::Utils::OutputExtAddressLine(ot::Cli::Utils *a1, const unsigned __int8 *a2)
-{
-  return ot::Cli::Utils::OutputBytesLine<(unsigned char)8>(a1, a2);
-}
-
-{
-  return ot::Cli::Utils::OutputExtAddressLine(a1, a2);
 }

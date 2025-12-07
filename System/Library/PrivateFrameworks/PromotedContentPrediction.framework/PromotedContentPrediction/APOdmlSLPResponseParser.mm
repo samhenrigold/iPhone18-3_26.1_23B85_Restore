@@ -12,213 +12,210 @@
 
 + (BOOL)isValidResponse:(id)response
 {
-  v3 = objc_msgSend_objectForKey_(response, a2, @"odmlEnabled");
+  v3 = [response objectForKey:@"odmlEnabled"];
 
   return v3 != 0;
 }
 
 + (id)parseResponseForFeatureValues:(id)values
 {
-  v4 = objc_msgSend_objectForKey_(values, a2, @"features");
-  if (v4 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && objc_msgSend_count(v4, v5, v6))
+  v4 = [values objectForKey:@"features"];
+  if (v4 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [v4 count])
   {
-    v8 = objc_msgSend_parseFeatureDictionaryForFeatureValues_(self, v7, v4);
-    if (objc_msgSend_count(v8, v9, v10))
+    v5 = [self parseFeatureDictionaryForFeatureValues:v4];
+    if ([v5 count])
     {
-      v11 = v8;
+      v6 = v5;
     }
 
     else
     {
-      v11 = 0;
+      v6 = 0;
     }
   }
 
   else
   {
-    v11 = 0;
+    v6 = 0;
   }
 
-  return v11;
+  return v6;
 }
 
 + (id)parseFeatureDictionaryForFeatureValues:(id)values
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
-  v7 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v5, v6);
-  v46 = 0u;
-  v47 = 0u;
-  v48 = 0u;
-  v49 = 0u;
-  v8 = valuesCopy;
-  v45 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v46, v56, 16);
-  if (v45)
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v32 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v6 = valuesCopy;
+  v31 = [v6 countByEnumeratingWithState:&v32 objects:v42 count:16];
+  if (v31)
   {
-    v10 = *v47;
-    v11 = @"value";
-    v43 = v7;
-    v44 = *v47;
+    v7 = *v33;
+    v8 = @"value";
+    v29 = dictionary;
+    v30 = *v33;
     do
     {
-      for (i = 0; i != v45; ++i)
+      for (i = 0; i != v31; ++i)
       {
-        if (*v47 != v10)
+        if (*v33 != v7)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v46 + 1) + 8 * i);
-        v14 = objc_autoreleasePoolPush();
-        v16 = objc_msgSend_objectForKey_(v8, v15, v13);
+        v10 = *(*(&v32 + 1) + 8 * i);
+        v11 = objc_autoreleasePoolPush();
+        v12 = [v6 objectForKey:v10];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
 
         if (isKindOfClass)
         {
-          v19 = objc_msgSend_objectForKey_(v8, v18, v13);
-          v21 = objc_msgSend_parseFeature_withTopLevelKey_forKey_(self, v20, v19, v13, v11);
+          v14 = [v6 objectForKey:v10];
+          v15 = [self parseFeature:v14 withTopLevelKey:v10 forKey:v8];
 
-          objc_msgSend_addEntriesFromDictionary_(v7, v22, v21);
+          [dictionary addEntriesFromDictionary:v15];
         }
 
         else
         {
-          v21 = OdmlLogForCategory(5uLL);
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v15 = OdmlLogForCategory(5uLL);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
-            v23 = objc_opt_class();
-            v24 = v23;
-            objc_msgSend_objectForKey_(v8, v25, v13);
-            v26 = v11;
-            v27 = v8;
-            v29 = v28 = self;
+            v16 = objc_opt_class();
+            v17 = v16;
+            [v6 objectForKey:v10];
+            v18 = v8;
+            v19 = v6;
+            v21 = v20 = self;
             *buf = 138412802;
-            v51 = v23;
-            v52 = 2112;
-            v53 = v29;
-            v54 = 2112;
-            v55 = v13;
-            _os_log_impl(&dword_260ECB000, v21, OS_LOG_TYPE_ERROR, "[%@] Failed to parse feature %@ with key %@", buf, 0x20u);
+            v37 = v16;
+            v38 = 2112;
+            v39 = v21;
+            v40 = 2112;
+            v41 = v10;
+            _os_log_impl(&dword_260ECB000, v15, OS_LOG_TYPE_ERROR, "[%@] Failed to parse feature %@ with key %@", buf, 0x20u);
 
-            self = v28;
-            v8 = v27;
-            v11 = v26;
+            self = v20;
+            v6 = v19;
+            v8 = v18;
 
-            v7 = v43;
-            v10 = v44;
+            dictionary = v29;
+            v7 = v30;
           }
         }
 
-        objc_autoreleasePoolPop(v14);
+        objc_autoreleasePoolPop(v11);
       }
 
-      v45 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v30, &v46, v56, 16);
+      v31 = [v6 countByEnumeratingWithState:&v32 objects:v42 count:16];
     }
 
-    while (v45);
+    while (v31);
   }
 
-  v31 = OdmlLogForCategory(5uLL);
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+  v22 = OdmlLogForCategory(5uLL);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v32 = objc_opt_class();
-    v33 = v32;
-    objc_msgSend_mlJSONString(v7, v34, v35);
-    v37 = v36 = v8;
+    v23 = objc_opt_class();
+    v24 = v23;
+    [dictionary mlJSONString];
+    v26 = v25 = v6;
     *buf = 138412546;
-    v51 = v32;
-    v52 = 2112;
-    v53 = v37;
-    _os_log_impl(&dword_260ECB000, v31, OS_LOG_TYPE_DEFAULT, "[%@] Successfully parsed feature dictionary: %@", buf, 0x16u);
+    v37 = v23;
+    v38 = 2112;
+    v39 = v26;
+    _os_log_impl(&dword_260ECB000, v22, OS_LOG_TYPE_DEFAULT, "[%@] Successfully parsed feature dictionary: %@", buf, 0x16u);
 
-    v8 = v36;
+    v6 = v25;
   }
 
-  v40 = objc_msgSend_copy(v7, v38, v39);
-  v41 = *MEMORY[0x277D85DE8];
+  v27 = [dictionary copy];
 
-  return v40;
+  return v27;
 }
 
 + (id)parseFeature:(id)feature withTopLevelKey:(id)key forKey:(id)forKey
 {
-  v47[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   featureCopy = feature;
   keyCopy = key;
   forKeyCopy = forKey;
-  v12 = objc_msgSend_objectForKey_(featureCopy, v11, forKeyCopy);
+  v11 = [featureCopy objectForKey:forKeyCopy];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v39 = forKeyCopy;
-    v40 = featureCopy;
-    v14 = objc_msgSend_stringByAppendingString_(keyCopy, v13, @"_");
+    v26 = forKeyCopy;
+    v27 = featureCopy;
+    v12 = [keyCopy stringByAppendingString:@"_"];
 
-    v17 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v15, v16);
-    v41 = 0u;
-    v42 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v38 = v12;
-    v18 = v12;
-    v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, &v41, v45, 16);
-    if (v20)
+    dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v28 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v25 = v11;
+    v14 = v11;
+    v15 = [v14 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    if (v15)
     {
-      v21 = v20;
-      v22 = *v42;
+      v16 = v15;
+      v17 = *v29;
       do
       {
-        for (i = 0; i != v21; ++i)
+        for (i = 0; i != v16; ++i)
         {
-          if (*v42 != v22)
+          if (*v29 != v17)
           {
-            objc_enumerationMutation(v18);
+            objc_enumerationMutation(v14);
           }
 
-          v24 = *(*(&v41 + 1) + 8 * i);
-          v25 = objc_autoreleasePoolPush();
-          v27 = objc_msgSend_stringByAppendingString_(v14, v26, v24);
-          v29 = objc_msgSend_parseFeature_withTopLevelKey_forKey_(self, v28, v18, v27, v24);
-          objc_msgSend_addEntriesFromDictionary_(v17, v30, v29);
+          v19 = *(*(&v28 + 1) + 8 * i);
+          v20 = objc_autoreleasePoolPush();
+          v21 = [v12 stringByAppendingString:v19];
+          v22 = [self parseFeature:v14 withTopLevelKey:v21 forKey:v19];
+          [dictionary addEntriesFromDictionary:v22];
 
-          objc_autoreleasePoolPop(v25);
+          objc_autoreleasePoolPop(v20);
         }
 
-        v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v31, &v41, v45, 16);
+        v16 = [v14 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
-      while (v21);
+      while (v16);
     }
 
-    v34 = objc_msgSend_copy(v17, v32, v33);
-    forKeyCopy = v39;
-    featureCopy = v40;
-    v12 = v38;
+    v23 = [dictionary copy];
+    forKeyCopy = v26;
+    featureCopy = v27;
+    v11 = v25;
   }
 
   else
   {
-    v46 = keyCopy;
-    v17 = objc_msgSend_convertToFeatureValue_(self, v13, v12);
-    v47[0] = v17;
-    v34 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v35, v47, &v46, 1);
-    v14 = keyCopy;
+    v33 = keyCopy;
+    dictionary = [self convertToFeatureValue:v11];
+    v34[0] = dictionary;
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v12 = keyCopy;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
-
-  return v34;
+  return v23;
 }
 
 + (id)convertToFeatureValue:(id)value
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v6 = objc_msgSend_convertStringToFeatureValue_(self, v5, valueCopy);
+    v5 = [self convertStringToFeatureValue:valueCopy];
   }
 
   else
@@ -226,7 +223,7 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v6 = objc_msgSend_convertArrayToFeatureValue_(self, v7, valueCopy);
+      v5 = [self convertArrayToFeatureValue:valueCopy];
     }
 
     else
@@ -234,74 +231,72 @@
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v10 = MEMORY[0x277CBFEF8];
-        objc_msgSend_doubleValue(valueCopy, v8, v9);
-        v6 = objc_msgSend_featureValueWithDouble_(v10, v11, v12);
+        v6 = MEMORY[0x277CBFEF8];
+        [valueCopy doubleValue];
+        v5 = [v6 featureValueWithDouble:?];
       }
 
       else
       {
-        v13 = OdmlLogForCategory(5uLL);
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v7 = OdmlLogForCategory(5uLL);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v19 = 138412546;
-          v20 = objc_opt_class();
-          v21 = 2112;
-          v22 = valueCopy;
-          v14 = v20;
-          _os_log_impl(&dword_260ECB000, v13, OS_LOG_TYPE_DEFAULT, "[%@] Failed to convert the following to an MLFeatureValue: %@", &v19, 0x16u);
+          v11 = 138412546;
+          v12 = objc_opt_class();
+          v13 = 2112;
+          v14 = valueCopy;
+          v8 = v12;
+          _os_log_impl(&dword_260ECB000, v7, OS_LOG_TYPE_DEFAULT, "[%@] Failed to convert the following to an MLFeatureValue: %@", &v11, 0x16u);
         }
 
-        v6 = objc_msgSend_undefinedFeatureValueWithType_(MEMORY[0x277CBFEF8], v15, 2);
+        v5 = [MEMORY[0x277CBFEF8] undefinedFeatureValueWithType:2];
       }
     }
   }
 
-  v16 = v6;
+  v9 = v5;
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v16;
+  return v9;
 }
 
 + (id)convertStringToFeatureValue:(id)value
 {
   valueCopy = value;
-  v6 = objc_msgSend_containsOnlyDecimalCharacters(valueCopy, v4, v5);
-  v9 = MEMORY[0x277CBFEF8];
-  if (v6)
+  containsOnlyDecimalCharacters = [valueCopy containsOnlyDecimalCharacters];
+  v5 = MEMORY[0x277CBFEF8];
+  if (containsOnlyDecimalCharacters)
   {
-    objc_msgSend_doubleValue(valueCopy, v7, v8);
-    v11 = v10;
+    [valueCopy doubleValue];
+    v7 = v6;
 
-    v14 = objc_msgSend_featureValueWithDouble_(v9, v12, v13, v11);
+    v8 = [v5 featureValueWithDouble:v7];
   }
 
   else
   {
-    v14 = objc_msgSend_featureValueWithString_(MEMORY[0x277CBFEF8], v7, valueCopy);
+    v8 = [MEMORY[0x277CBFEF8] featureValueWithString:valueCopy];
   }
 
-  return v14;
+  return v8;
 }
 
 + (id)convertArrayToFeatureValue:(id)value
 {
   valueCopy = value;
-  if (objc_msgSend_count(valueCopy, v4, v5))
+  if ([valueCopy count])
   {
-    v8 = objc_msgSend_firstObject(valueCopy, v6, v7);
+    firstObject = [valueCopy firstObject];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v11 = objc_msgSend_firstObject(valueCopy, v9, v10);
-      v14 = objc_msgSend_containsOnlyDecimalCharacters(v11, v12, v13);
+      firstObject2 = [valueCopy firstObject];
+      containsOnlyDecimalCharacters = [firstObject2 containsOnlyDecimalCharacters];
 
-      if ((v14 & 1) == 0)
+      if ((containsOnlyDecimalCharacters & 1) == 0)
       {
-        v17 = MEMORY[0x277CBFEF8];
-        v18 = objc_msgSend_sequenceWithStringArray_(MEMORY[0x277CBFF78], v15, valueCopy);
-        v20 = objc_msgSend_featureValueWithSequence_(v17, v19, v18);
+        v7 = MEMORY[0x277CBFEF8];
+        array = [MEMORY[0x277CBFF78] sequenceWithStringArray:valueCopy];
+        v9 = [v7 featureValueWithSequence:array];
         goto LABEL_11;
       }
     }
@@ -310,43 +305,43 @@
     {
     }
 
-    v18 = objc_msgSend_array(MEMORY[0x277CBEB18], v15, v16);
-    if (objc_msgSend_count(valueCopy, v26, v27))
+    array = [MEMORY[0x277CBEB18] array];
+    if ([valueCopy count])
     {
-      v30 = 0;
+      v13 = 0;
       do
       {
-        v31 = MEMORY[0x277CCABB0];
-        v32 = objc_msgSend_objectAtIndexedSubscript_(valueCopy, v28, v30);
-        objc_msgSend_doubleValue(v32, v33, v34);
-        v37 = objc_msgSend_numberWithDouble_(v31, v35, v36);
-        objc_msgSend_addObject_(v18, v38, v37);
+        v14 = MEMORY[0x277CCABB0];
+        v15 = [valueCopy objectAtIndexedSubscript:v13];
+        [v15 doubleValue];
+        v16 = [v14 numberWithDouble:?];
+        [array addObject:v16];
 
-        ++v30;
+        ++v13;
       }
 
-      while (v30 < objc_msgSend_count(valueCopy, v39, v40));
+      while (v13 < [valueCopy count]);
     }
 
-    v41 = MEMORY[0x277CBFEF8];
-    v42 = MEMORY[0x277CBFF48];
-    v43 = objc_msgSend_copy(v18, v28, v29);
-    v45 = objc_msgSend_multiarrayFromArray_(v42, v44, v43);
-    v20 = objc_msgSend_featureValueWithMultiArray_(v41, v46, v45);
+    v17 = MEMORY[0x277CBFEF8];
+    v18 = MEMORY[0x277CBFF48];
+    v19 = [array copy];
+    v20 = [v18 multiarrayFromArray:v19];
+    v9 = [v17 featureValueWithMultiArray:v20];
   }
 
   else
   {
-    v21 = MEMORY[0x277CBFEF8];
-    v22 = MEMORY[0x277CBFF48];
-    v18 = objc_msgSend_array(MEMORY[0x277CBEA60], v6, v7);
-    v24 = objc_msgSend_multiarrayFromArray_(v22, v23, v18);
-    v20 = objc_msgSend_featureValueWithMultiArray_(v21, v25, v24);
+    v10 = MEMORY[0x277CBFEF8];
+    v11 = MEMORY[0x277CBFF48];
+    array = [MEMORY[0x277CBEA60] array];
+    v12 = [v11 multiarrayFromArray:array];
+    v9 = [v10 featureValueWithMultiArray:v12];
   }
 
 LABEL_11:
 
-  return v20;
+  return v9;
 }
 
 @end

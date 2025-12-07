@@ -122,8 +122,8 @@
     lastProductVersion = [(SUState *)self->_state lastProductVersion];
     v14 = +[SUUtility currentProductBuild];
     v15 = +[SUUtility currentProductVersion];
-    v119 = v14;
-    v120 = lastProductBuild;
+    v120 = v14;
+    v121 = lastProductBuild;
     if ([lastProductVersion isEqualToString:v15] && (objc_msgSend(lastProductBuild, "isEqualToString:", v14) & 1) != 0)
     {
       v23 = 0;
@@ -131,7 +131,7 @@
 
     else
     {
-      SULogInfo(@"New OS detected. Clearing the last auto-install-operation", v16, v17, v18, v19, v20, v21, v22, v116);
+      SULogInfo(@"New OS detected. Clearing the last auto-install-operation", v16, v17, v18, v19, v20, v21, v22, v117);
       v23 = 1;
     }
 
@@ -142,22 +142,12 @@
 
     if (v27 == 1)
     {
-      SULogInfo(@"Saved auto-install-operation is expired", v28, v29, v30, v31, v32, v33, v34, v116);
+      SULogInfo(@"Saved auto-install-operation is expired", v28, v29, v30, v31, v32, v33, v34, v117);
       v23 = 1;
     }
 
     download = [(SUManagerInterface *)self->_manager download];
-    if (!download)
-    {
-      goto LABEL_12;
-    }
-
-    v43 = download;
-    download2 = [(SUManagerInterface *)self->_manager download];
-    progress = [download2 progress];
-    isDone = [progress isDone];
-
-    if (isDone)
+    if (download && (v43 = download, -[SUManagerInterface download](self->_manager, "download"), v44 = objc_claimAutoreleasedReturnValue(), [v44 progress], v45 = objc_claimAutoreleasedReturnValue(), v46 = objc_msgSend(v45, "isDone"), v45, v44, v43, (v46 & 1) != 0))
     {
       if (!v23)
       {
@@ -170,37 +160,37 @@ LABEL_21:
           date2 = [MEMORY[0x277CBEAA8] date];
           forecast2 = [lastAutoInstallOperationModel forecast];
           unlockStartDate = [forecast2 unlockStartDate];
-          v94 = [date2 compare:unlockStartDate];
+          v95 = [date2 compare:unlockStartDate];
 
-          if (v94 == 1)
+          if (v95 == 1)
           {
-            SULogInfo(@"Unlock window passed. Firing unlock window timer manually", v95, v96, v97, v98, v99, v100, v101, v117);
+            SULogInfo(@"Unlock window passed. Firing unlock window timer manually", v96, v97, v98, v99, v100, v101, v102, v118);
             [(SUAutoInstallManager *)self noteAutoInstallOperationUnlockWindowDidBegin];
           }
         }
 
-        download3 = [(SUManagerInterface *)self->_manager download];
-        progress2 = [download3 progress];
-        isDone2 = [progress2 isDone];
+        download2 = [(SUManagerInterface *)self->_manager download];
+        progress = [download2 progress];
+        isDone = [progress isDone];
 
-        if (isDone2)
+        if (isDone)
         {
-          SULogInfo(@"%s: Scheduling tonight activity because the download is finished", v105, v106, v107, v108, v109, v110, v111, "[SUAutoInstallManager _queue_resumeOrResetStateIfNecessary]");
-          v112 = +[SUScheduler sharedInstance];
+          SULogInfo(@"%s: Scheduling tonight activity because the download is finished", v106, v107, v108, v109, v110, v111, v112, "[SUAutoInstallManager _queue_resumeOrResetStateIfNecessary]");
+          v113 = +[SUScheduler sharedInstance];
           forecast3 = [(_SUAutoInstallOperationModel *)self->_operationModel forecast];
-          download4 = [(SUManagerInterface *)self->_manager download];
-          descriptor = [download4 descriptor];
-          [v112 scheduleAllAutoInstallUpdateTasks:forecast3 descriptor:descriptor];
+          download3 = [(SUManagerInterface *)self->_manager download];
+          descriptor = [download3 descriptor];
+          [v113 scheduleAllAutoInstallUpdateTasks:forecast3 descriptor:descriptor];
 
           [(SUManagerInterface *)self->_manager setIsInstallTonightScheduled:1];
         }
 
         else
         {
-          SULogInfo(@"%s: Do not schedule tonight activity because the download is not finished", v105, v106, v107, v108, v109, v110, v111, "[SUAutoInstallManager _queue_resumeOrResetStateIfNecessary]");
+          SULogInfo(@"%s: Do not schedule tonight activity because the download is not finished", v106, v107, v108, v109, v110, v111, v112, "[SUAutoInstallManager _queue_resumeOrResetStateIfNecessary]");
         }
 
-        v90 = v119;
+        v91 = v120;
 
         goto LABEL_28;
       }
@@ -208,46 +198,45 @@ LABEL_21:
 
     else
     {
-LABEL_12:
-      SULogInfo(@"There is no downloaded asset. Clearing the last auto-install-operation", v36, v37, v38, v39, v40, v41, v42, v116);
+      SULogInfo(@"There is no downloaded asset. Clearing the last auto-install-operation", v36, v37, v38, v39, v40, v41, v42, v117);
     }
 
     if ([(SUAutoInstallManager *)self isAutoUpdateEnabled])
     {
-      download5 = [(SUManagerInterface *)self->_manager download];
-      progress3 = [download5 progress];
-      isDone3 = [progress3 isDone];
+      download4 = [(SUManagerInterface *)self->_manager download];
+      progress2 = [download4 progress];
+      isDone2 = [progress2 isDone];
 
       SULogInfo(@"%s: canceling %@", v57, v58, v59, v60, v61, v62, v63, "[SUAutoInstallManager _queue_resumeOrResetStateIfNecessary]");
       v64 = +[SUScheduler sharedInstance];
       [v64 cancelAllAutoInstallTasks];
 
-      [(SUAutoUpdatePasscodePolicy *)self->_passcodePolicy setCurrentPolicyType:0];
-      if (isDone3)
+      v65 = [(SUAutoUpdatePasscodePolicy *)self->_passcodePolicy setCurrentPolicyType:0];
+      if (isDone2)
       {
         [(SUState *)self->_state setLastAutoInstallOperationModel:0];
         [(SUState *)self->_state save];
-        SULogInfo(@"Last AutoInstall operation found\n %@", v65, v66, v67, v68, v69, v70, v71, lastAutoInstallOperationModel);
+        SULogInfo(@"Last AutoInstall operation found\n %@", v66, v67, v68, v69, v70, v71, v72, lastAutoInstallOperationModel);
         if (![(SUAutoInstallManager *)self isAutoUpdateEnabled])
         {
           goto LABEL_21;
         }
 
-        v121 = 0;
-        v72 = [(SUAutoInstallManager *)self _queue_currentAutoInstallOperationCreatingIfNecessary:1 notifyIfExpired:1 error:&v121];
-        v73 = v121;
+        v122 = 0;
+        v73 = [(SUAutoInstallManager *)self _queue_currentAutoInstallOperationCreatingIfNecessary:1 notifyIfExpired:1 error:&v122];
+        v74 = v122;
         operationModel = self->_operationModel;
-        self->_operationModel = v72;
+        self->_operationModel = v73;
 
-        if (!v73)
+        if (!v74)
         {
           goto LABEL_21;
         }
 
-        SULogInfo(@"Error creating new autoInstallOperationModel: %@", v75, v76, v77, v78, v79, v80, v81, v73);
+        SULogInfo(@"Error creating new autoInstallOperationModel: %@", v76, v77, v78, v79, v80, v81, v82, v74);
 
 LABEL_20:
-        v90 = v119;
+        v91 = v120;
 LABEL_28:
 
         goto LABEL_29;
@@ -257,14 +246,14 @@ LABEL_28:
     else
     {
       SULogInfo(@"%s: canceling %@", v47, v48, v49, v50, v51, v52, v53, "[SUAutoInstallManager _queue_resumeOrResetStateIfNecessary]");
-      v82 = +[SUScheduler sharedInstance];
-      [v82 cancelAllAutoInstallTasks];
+      v83 = +[SUScheduler sharedInstance];
+      [v83 cancelAllAutoInstallTasks];
 
-      [(SUAutoUpdatePasscodePolicy *)self->_passcodePolicy setCurrentPolicyType:0];
+      v65 = [(SUAutoUpdatePasscodePolicy *)self->_passcodePolicy setCurrentPolicyType:0];
     }
 
-    v83 = SULogBadging();
-    SULogInfoForSubsystem(v83, @"resumeOrResetStateIfNecessary: Dismissing AutoUpdateBanner if present", v84, v85, v86, v87, v88, v89, v118);
+    v84 = SULogBadging(v65);
+    SULogInfoForSubsystem(v84, @"resumeOrResetStateIfNecessary: Dismissing AutoUpdateBanner if present", v85, v86, v87, v88, v89, v90, v119);
 
     [(SUManagerInterface *)self->_manager dismissAutoUpdateBanner];
     [(SUState *)self->_state setLastAutoInstallOperationModel:0];
@@ -347,7 +336,7 @@ uint64_t __77__SUAutoInstallManager_currentAutoInstallOperationCreatingIfNecessa
   _Block_object_dispose(&v11, 8);
 }
 
-uint64_t __63__SUAutoInstallManager_copyAutoInstallOperationForecast_error___block_invoke(uint64_t a1)
+void *__63__SUAutoInstallManager_copyAutoInstallOperationForecast_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_canGetAutoInstallOperation];
   if (result)
@@ -631,7 +620,7 @@ LABEL_30:
     return;
   }
 
-  SULogInfo(@"AutoSU consented", v8, v9, v10, v11, v12, v13, v14, v44);
+  SULogInfo(@"AutoSU consented", v8, v9, v10, v11, v12, v13, v14, v45);
   [(_SUAutoInstallOperationModel *)self->_operationModel setAgreementStatus:1];
   forecast = [(_SUAutoInstallOperationModel *)self->_operationModel forecast];
   unlockStartDate = [forecast unlockStartDate];
@@ -645,7 +634,7 @@ LABEL_30:
 
     if (v21 == 1)
     {
-      SULogInfo(@"User consented during unlock window. Persisting stash", v22, v23, v24, v25, v26, v27, v28, v45);
+      SULogInfo(@"User consented during unlock window. Persisting stash", v22, v23, v24, v25, v26, v27, v28, v46);
       [(SUManagerInterface *)self->_manager persistStashOnUnlock];
     }
   }
@@ -666,7 +655,7 @@ LABEL_30:
 
     if (!hasPasscodeSet)
     {
-      v35 = @"Auto update consented and no passcode set. Displaying banner";
+      v36 = @"Auto update consented and no passcode set. Displaying banner";
       goto LABEL_13;
     }
   }
@@ -679,13 +668,13 @@ LABEL_30:
 
     if (isDone)
     {
-      v35 = @"Install tonight is scheduled and download is done. Displaying banner";
+      v36 = @"Install tonight is scheduled and download is done. Displaying banner";
 LABEL_13:
-      v36 = SULogBadging();
-      SULogInfoForSubsystem(v36, v35, v37, v38, v39, v40, v41, v42, v45);
+      v37 = SULogBadging(v32);
+      SULogInfoForSubsystem(v37, v36, v38, v39, v40, v41, v42, v43, v46);
 
-      v43 = +[SUScheduler sharedInstance];
-      [v43 schedulePresentAutoUpdateBanner];
+      v44 = +[SUScheduler sharedInstance];
+      [v44 schedulePresentAutoUpdateBanner];
     }
   }
 
@@ -793,7 +782,7 @@ LABEL_13:
   return selfCopy;
 }
 
-uint64_t __58__SUAutoInstallManager_isAutoInstallOperationReadyToBegin__block_invoke(uint64_t a1)
+void *__58__SUAutoInstallManager_isAutoInstallOperationReadyToBegin__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_isAutoInstallOperationReadyToBegin];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -897,59 +886,56 @@ void __67__SUAutoInstallManager__queue_noteAutoInstallOperationWantsToBegin__blo
 
 void __67__SUAutoInstallManager__queue_noteAutoInstallOperationWantsToBegin__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v10 = [*(a1 + 32) isAutoInstallOperationReadyToBegin];
-  v18 = *(a1 + 48);
-  if (v10)
+  if ([*(a1 + 32) isAutoInstallOperationReadyToBegin])
   {
-    v19 = *(a1 + 32);
+    v17 = *(a1 + 32);
     if (*(a1 + 48))
     {
-      [v19 setFailedToAutoInstallError:0];
-      v20 = [MEMORY[0x277CCAB98] defaultCenter];
-      [v20 postNotificationName:@"SUAutoInstallOperationIsReadyToInstallNotification" object:0];
+      [v17 setFailedToAutoInstallError:0];
+      v18 = [MEMORY[0x277CCAB98] defaultCenter];
+      [v18 postNotificationName:@"SUAutoInstallOperationIsReadyToInstallNotification" object:0];
 
       WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
-      v22 = *(a1 + 32);
-      v23 = [v22 operationModel];
-      v44[0] = MEMORY[0x277D85DD0];
-      v44[1] = 3221225472;
-      v44[2] = __67__SUAutoInstallManager__queue_noteAutoInstallOperationWantsToBegin__block_invoke_3;
-      v44[3] = &unk_279CAAEB8;
-      v44[4] = *(a1 + 32);
-      [WeakRetained autoInstallManager:v22 isReadyToInstall:v23 withResult:v44];
+      v20 = *(a1 + 32);
+      v21 = [v20 operationModel];
+      v41[0] = MEMORY[0x277D85DD0];
+      v41[1] = 3221225472;
+      v41[2] = __67__SUAutoInstallManager__queue_noteAutoInstallOperationWantsToBegin__block_invoke_3;
+      v41[3] = &unk_279CAAEB8;
+      v41[4] = *(a1 + 32);
+      [WeakRetained autoInstallManager:v20 isReadyToInstall:v21 withResult:v41];
     }
 
     else
     {
-      [v19 setFailedToAutoInstallError:*(a1 + 40)];
+      [v17 setFailedToAutoInstallError:*(a1 + 40)];
       [*(a1 + 32) _installAttemptDone];
-      v32 = *(a1 + 40);
       if (*(a1 + 49) == 1)
       {
-        SULogInfo(@"Could not install due to %@.", v25, v26, v27, v28, v29, v30, v31, *(a1 + 40));
+        SULogInfo(@"Could not install due to %@.", v23, v24, v25, v26, v27, v28, v29, *(a1 + 40));
         [*(a1 + 32) trySchedulingAutoInstallAgainLater];
       }
 
       else
       {
-        SULogInfo(@"Could not install due to %@, and should not retry. Canceling auto install", v25, v26, v27, v28, v29, v30, v31, *(a1 + 40));
-        v33 = +[SUScheduler sharedInstance];
-        [v33 cancelAutoInstallStartInstallTask];
+        SULogInfo(@"Could not install due to %@, and should not retry. Canceling auto install", v23, v24, v25, v26, v27, v28, v29, *(a1 + 40));
+        v30 = +[SUScheduler sharedInstance];
+        [v30 cancelAutoInstallStartInstallTask];
       }
 
       if ([*(a1 + 32) isCurrentUpdateAutoUpdate] && !objc_msgSend(*(*(a1 + 32) + 48), "isCurrentlyPresentingFollowUpType:", 2))
       {
 
-        SULogInfo(@"AutoUpdate cannot be installed, but user is not yet aware of the same..NOT presenting error alert", v34, v35, v36, v37, v38, v39, v40, a9);
+        SULogInfo(@"AutoUpdate cannot be installed, but user is not yet aware of the same..NOT presenting error alert", v31, v32, v33, v34, v35, v36, v37, a9);
       }
 
       else
       {
-        SULogInfo(@"AutoUpdate cannot be installed and user has been informed of the update..Presenting error alert", v34, v35, v36, v37, v38, v39, v40, v43);
-        v41 = *(a1 + 40);
-        v42 = *(*(a1 + 32) + 16);
+        SULogInfo(@"AutoUpdate cannot be installed and user has been informed of the update..Presenting error alert", v31, v32, v33, v34, v35, v36, v37, v40);
+        v38 = *(a1 + 40);
+        v39 = *(*(a1 + 32) + 16);
 
-        [v42 autoSUFailedWithError:v41];
+        [v39 autoSUFailedWithError:v38];
       }
     }
   }
@@ -958,15 +944,15 @@ void __67__SUAutoInstallManager__queue_noteAutoInstallOperationWantsToBegin__blo
   {
     if (*(a1 + 48))
     {
-      v24 = @"Yes";
+      v22 = @"Yes";
     }
 
     else
     {
-      v24 = @"No";
+      v22 = @"No";
     }
 
-    SULogInfo(@"Not ready to begin AutoInstall operation. Is update ready for install? %@", v11, v12, v13, v14, v15, v16, v17, v24);
+    SULogInfo(@"Not ready to begin AutoInstall operation. Is update ready for install? %@", v10, v11, v12, v13, v14, v15, v16, v22);
   }
 }
 
@@ -1079,16 +1065,16 @@ LABEL_11:
   dispatch_async(stateQueue, block);
 }
 
-uint64_t __57__SUAutoInstallManager_keybagInterfacePasscodeDidChange___block_invoke(uint64_t result)
+void *__57__SUAutoInstallManager_keybagInterfacePasscodeDidChange___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (*(v1 + 32))
   {
     v2 = result;
     result = [*(v1 + 40) currentPolicyType];
     if (!result)
     {
-      v3 = *(*(v2 + 32) + 40);
+      v3 = *(v2[4] + 40);
 
       return [v3 setCurrentPolicyType:1];
     }
@@ -1143,14 +1129,14 @@ void __47__SUAutoInstallManager_downloadWasInvalidated___block_invoke(uint64_t a
   dispatch_async(stateQueue, block);
 }
 
-uint64_t __59__SUAutoInstallManager_unattendedInstallationKeybagCreated__block_invoke(uint64_t a1)
+void *__59__SUAutoInstallManager_unattendedInstallationKeybagCreated__block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 16) addUnlockCallback:sel_persistStashOnUnlock forKey:@"unlockCallbackPersistStash"];
   [*(*(a1 + 32) + 16) persistStashOnUnlock];
   result = [*(a1 + 32) isCurrentUpdateAutoUpdate];
   if (result)
   {
-    v3 = SULogBadging();
+    v3 = SULogBadging(result);
     SULogInfoForSubsystem(v3, @"unattendedInstallationKeybagCreated: isAutoUpdate and isAutoDownload are true..Scheduling presentation of AutoUpdateBanner", v4, v5, v6, v7, v8, v9, v12);
 
     v10 = +[SUScheduler sharedInstance];

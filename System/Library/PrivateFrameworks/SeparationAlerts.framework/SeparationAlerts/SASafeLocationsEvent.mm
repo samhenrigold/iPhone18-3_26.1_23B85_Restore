@@ -13,23 +13,22 @@
 
 - (SASafeLocationsEvent)initWithCoder:(id)coder
 {
-  v13[6] = *MEMORY[0x277D85DE8];
+  v12[6] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB98];
   coderCopy = coder;
-  v13[0] = objc_opt_class();
-  v13[1] = objc_opt_class();
-  v13[2] = objc_opt_class();
-  v13[3] = objc_opt_class();
-  v13[4] = objc_opt_class();
-  v13[5] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:6];
+  v12[0] = objc_opt_class();
+  v12[1] = objc_opt_class();
+  v12[2] = objc_opt_class();
+  v12[3] = objc_opt_class();
+  v12[4] = objc_opt_class();
+  v12[5] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:6];
   v7 = [v4 setWithArray:v6];
 
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"kSASafeLocationsEventKeySafeLocations"];
   v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"kSASafeLocationsEventKeyDate"];
 
   v10 = [(SASafeLocationsEvent *)self initWithSafeLocations:v8 date:v9];
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -161,12 +160,12 @@ LABEL_15:
 
 - (id)descriptionDictionary
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v10[0] = @"EventType";
+  v10[2] = *MEMORY[0x277D85DE8];
+  v9[0] = @"EventType";
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v10[1] = @"kSASafeLocationsEventKeySafeLocations";
-  v11[0] = v4;
+  v9[1] = @"kSASafeLocationsEventKeySafeLocations";
+  v10[0] = v4;
   safeLocations = [(SASafeLocationsEvent *)self safeLocations];
   if (safeLocations)
   {
@@ -179,13 +178,11 @@ LABEL_15:
     v6 = &stru_287709218;
   }
 
-  v11[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
   if (safeLocations)
   {
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -193,15 +190,15 @@ LABEL_15:
 - (NSString)description
 {
   descriptionDictionary = [(SASafeLocationsEvent *)self descriptionDictionary];
-  v9 = 0;
-  v3 = [MEMORY[0x277CCAAA0] JSONStringFromNSDictionary:descriptionDictionary error:&v9];
-  v4 = v9;
-  if (v4)
+  v10 = 0;
+  v4 = [MEMORY[0x277CCAAA0] JSONStringFromNSDictionary:descriptionDictionary error:&v10];
+  v5 = v10;
+  if (v5)
   {
-    v5 = TASALog;
+    v6 = TASALog;
     if (os_log_type_enabled(TASALog, OS_LOG_TYPE_ERROR))
     {
-      [(SASafeLocationUpdateEvent *)v5 description];
+      [(SASafeLocationUpdateEvent *)v6 description];
     }
 
     string = [MEMORY[0x277CCACA8] string];
@@ -209,12 +206,12 @@ LABEL_15:
 
   else
   {
-    string = v3;
+    string = v4;
   }
 
-  v7 = string;
+  v8 = string;
 
-  return v7;
+  return v8;
 }
 
 @end

@@ -83,9 +83,10 @@ void __37__UIColor_IC__ICTintedSelectionColor__block_invoke()
 
 uint64_t __54__UIColor_IC__ICSelectedAttachmentBrickHighlightColor__block_invoke()
 {
-  ICSelectedAttachmentBrickHighlightColor_color = [MEMORY[0x1E69DC888] colorNamed:@"selected_search_highlight"];
+  v0 = [MEMORY[0x1E69DC888] colorNamed:@"selected_search_highlight"];
+  ICSelectedAttachmentBrickHighlightColor_color = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 void __46__UIColor_NotesColors__ic_notesAppYellowColor__block_invoke()

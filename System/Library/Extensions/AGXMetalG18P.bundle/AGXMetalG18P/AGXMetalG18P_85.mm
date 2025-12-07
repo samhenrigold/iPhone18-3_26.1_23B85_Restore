@@ -1,3 +1,10 @@
+void sub_29CF29328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  std::function<char const* ()(DriverArgumentOffset::SectionType)>::~function(va);
+  _Unwind_Resume(a1);
+}
+
 void AGX::RenderTileDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::dispatchThreadsWithIndirectParameters(uint64_t a1, int64x2_t *a2, _BYTE *a3, _DWORD *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, int a11)
 {
   AGX::RenderTileDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::bindTilePipelineResources(a1, *(a1 + 23952), a5);
@@ -546,7 +553,7 @@ LABEL_17:
   return result;
 }
 
-void AGX::RenderTileDispatchSWEndOfTile<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::dispatch(uint64_t *a1, uint64_t a2, _BYTE *a3, _DWORD *a4)
+void AGX::RenderTileDispatchSWEndOfTile<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::dispatch(void *a1, uint64_t a2, _BYTE *a3, _DWORD *a4)
 {
   v249 = *MEMORY[0x29EDCA608];
   v4 = *a1;
@@ -1484,21 +1491,21 @@ void sub_29CF2AE88(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t AGX::RenderTileDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::dispatchThreads(uint64_t a1, unint64_t *a2, _BYTE *a3, _DWORD *a4, uint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8)
+uint64_t AGX::RenderTileDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::dispatchThreads(void *a1, unint64_t *a2, _BYTE *a3, _DWORD *a4, uint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8)
 {
-  result = AGX::RenderTileDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::bindTilePipelineResources(a1, *(a1 + 1288), a5);
-  v16 = *(a1 + 936);
+  result = AGX::RenderTileDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::bindTilePipelineResources(a1, a1[161], a5);
+  v16 = a1[117];
   v17 = *a2;
   v18 = a2[1];
   *(v16 + 832) = *a2;
   *(v16 + 836) = v18;
-  v19 = *(a1 + 1288);
+  v19 = a1[161];
   if (!v19 || (v18 * v17) <= *(v19 + 3832))
   {
     v60 = a4;
-    v20 = *(a1 + 1280);
+    v20 = a1[160];
     v58 = a2[2];
-    v59 = *(a1 + 928);
+    v59 = a1[116];
     v21 = *(v20 + 96);
     v22 = *(v21 + 4932);
     v23 = *(v21 + 4936);
@@ -1610,7 +1617,7 @@ uint64_t AGX::RenderTileDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Class
     v62[0] = v17;
     v62[1] = v18;
     v62[2] = v58;
-    AGX::RenderTileDispatchEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::emitDispatch<AGX::HAL300::TileProgramVariant,AGX::TileDriverArgumentTable<AGX::HAL300::Classes>>(v20, v19, v59, a1 + 88, v62, a3, v60, TileDispatchVertexProgram, v57, v32, a8);
+    AGX::RenderTileDispatchEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::emitDispatch<AGX::HAL300::TileProgramVariant,AGX::TileDriverArgumentTable<AGX::HAL300::Classes>>(v20, v19, v59, (a1 + 11), v62, a3, v60, TileDispatchVertexProgram, v57, v32, a8);
     v63 = &unk_2A23F96F8;
     if (__p)
     {
@@ -1618,7 +1625,7 @@ uint64_t AGX::RenderTileDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Class
       operator delete(__p);
     }
 
-    return AGX::SpillInfoGen4<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::allocateUSCSpillBuffer(*(a1 + 1280) + 120, a5 + 320, 1);
+    return AGX::SpillInfoGen4<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::allocateUSCSpillBuffer(a1[160] + 120, a5 + 320, 1);
   }
 
   return result;
@@ -1657,7 +1664,7 @@ uint64_t AGX::RenderTileDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Class
   v9 = *(*(a1 + 1320) + 848);
   v60.i64[0] = *(a1 + 936) + 216;
   v60.i64[1] = a1 + 1112;
-  AGX::Mempool<16u,0u,true,0u,0u,AGX::HAL300::SamplerHeapElem>::addToResourceList(v9 + 2152, &v60);
+  AGX::Mempool<16u,0u,true,0u,0u,AGX::HAL300::SamplerHeapElem>::addToResourceList(v9 + 2152, &v60, *(a1 + 48));
   *(a3 + 2096) = *(*(a1 + 936) + 216);
   explicit = atomic_load_explicit((*(*(a1 + 1320) + 848) + 9388), memory_order_acquire);
   if (explicit)
@@ -1671,7 +1678,7 @@ uint64_t AGX::RenderTileDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Class
   }
 
   *(a3 + 2104) = v11;
-  v12 = a2[150].u64[0];
+  v12 = a2[150].i64[0];
   v58 = a2[150].u64[1];
   v13 = *(a1 + 1296);
   v14 = *(a1 + 936);
@@ -1735,7 +1742,7 @@ uint64_t AGX::RenderTileDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Class
   v23 = *(*(a1 + 1320) + 848);
   v60.i64[0] = v20 + 11424;
   v60.i64[1] = v20 + 11432;
-  if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v23 + 3146, &v60))
+  if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v23 + 3146, &v60, *(a1 + 48)))
   {
     IOGPUResourceListAddResource();
   }
@@ -1745,7 +1752,7 @@ uint64_t AGX::RenderTileDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Class
   v25 = *(*(a1 + 1280) + 88);
   v60.i64[0] = v25 + 11440;
   v60.i64[1] = v25 + 11448;
-  if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v24 + 2952, &v60))
+  if (AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v24 + 2952, &v60, *(a1 + 48)))
   {
     IOGPUResourceListAddResource();
   }
@@ -1754,26 +1761,26 @@ uint64_t AGX::RenderTileDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Class
   v26 = *(*(a1 + 1320) + 848);
   v60.i64[0] = *(a1 + 936) + 344;
   v60.i64[1] = a1 + 1240;
-  AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::addToResourceList(v26 + 3534, &v60);
+  AGX::Mempool<32u,0u,true,0u,0u,std::array<AGX::IntersectionFunctionTableEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::Entry,8ul>>::addToResourceList(v26 + 3534, &v60, *(a1 + 48));
   IOGPUResourceListAddResource();
   v27 = *(a1 + 64);
   v60.i64[0] = *(a1 + 936) + 240;
   v60.i64[1] = a1 + 1136;
-  AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v27, &v60);
+  AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(v27, &v60, *(a1 + 48));
   IOGPUResourceListAddResource();
   v60.i64[0] = *(a1 + 936) + 256;
   v60.i64[1] = a1 + 1152;
-  AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(*(a1 + 56), &v60);
+  AGX::Mempool<32u,0u,true,0u,0u,unsigned long long>::addToResourceList(*(a1 + 56), &v60, *(a1 + 48));
   IOGPUResourceListAddResource();
   v28 = *(*(a1 + 1320) + 848);
   v60.i64[0] = *(a1 + 936) + 232;
   v60.i64[1] = a1 + 1128;
-  AGX::Mempool<16u,0u,true,0u,0u,AGX::HAL300::BVHStateHeapElem>::addToResourceList(v28 + 2352, &v60);
+  AGX::Mempool<16u,0u,true,0u,0u,AGX::HAL300::BVHStateHeapElem>::addToResourceList(v28 + 2352, &v60, *(a1 + 48));
   IOGPUResourceListAddResource();
   v29 = *(*(a1 + 1320) + 848);
   v60.i64[0] = *(a1 + 936) + 328;
   v60.i64[1] = a1 + 1224;
-  AGX::Mempool<16u,0u,true,8u,0u,AGX::HAL300::TensorStateHeapElem>::addToResourceList(v29 + 2752, &v60);
+  AGX::Mempool<16u,0u,true,8u,0u,AGX::HAL300::TensorStateHeapElem>::addToResourceList(v29 + 2752, &v60, *(a1 + 48));
   result = IOGPUResourceListAddResource();
   v33 = *(a1 + 1312);
   v34.i64[0] = -1;
@@ -1897,7 +1904,7 @@ LABEL_50:
   return result;
 }
 
-void AGX::RenderTileDispatchEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::emitDispatch<AGX::HAL300::TileProgramVariant,AGX::TileDriverArgumentTable<AGX::HAL300::Classes>>(void *a1, uint64_t a2, size_t a3, uint64_t a4, _DWORD *a5, _BYTE *a6, _DWORD *a7, uint64_t a8, char a9, int a10, uint64_t a11)
+void AGX::RenderTileDispatchEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::emitDispatch<AGX::HAL300::TileProgramVariant,AGX::TileDriverArgumentTable<AGX::HAL300::Classes>>(void *a1, uint64_t a2, size_t a3, size_t a4, _DWORD *a5, _BYTE *a6, _DWORD *a7, uint64_t a8, char a9, int a10, uint64_t a11)
 {
   v16 = *(a8 + 2120);
   do
@@ -1964,7 +1971,7 @@ void AGX::RenderTileDispatchEncoderGen2<AGX::HAL300::Encoders,AGX::HAL300::Class
   }
 }
 
-void AGX::RenderTileDispatchEncoder<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeAndEmitTileState<AGX::HAL300::TileProgramVariant,AGX::TileDriverArgumentTable<AGX::HAL300::Classes>>(uint64_t a1, uint64_t a2, size_t a3, uint64_t a4, uint64_t a5)
+void AGX::RenderTileDispatchEncoder<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::encodeAndEmitTileState<AGX::HAL300::TileProgramVariant,AGX::TileDriverArgumentTable<AGX::HAL300::Classes>>(uint64_t a1, uint64_t a2, size_t a3, size_t a4, uint64_t a5)
 {
   v248 = *MEMORY[0x29EDCA608];
   if (!a2 || (*(a2 + 2407) & 0x40) == 0)
@@ -3049,6 +3056,13 @@ LABEL_176:
   v208[6] = v211 + 1;
 }
 
+void sub_29CF2CC60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  std::function<char const* ()(DriverArgumentOffset::SectionType)>::~function(va);
+  _Unwind_Resume(a1);
+}
+
 void AGX::RenderTileDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::dispatchThreadsWithIndirectParameters(uint64_t a1, int64x2_t *a2, _BYTE *a3, _DWORD *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10)
 {
   AGX::RenderTileDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::bindTilePipelineResources(a1, *(a1 + 1288), a5);
@@ -3268,7 +3282,7 @@ void sub_29CF2D05C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void AGX::RenderTileDispatchSWEndOfTile<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::dispatch(uint64_t *a1, uint64_t a2, _BYTE *a3, _DWORD *a4)
+void AGX::RenderTileDispatchSWEndOfTile<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::dispatch(void *a1, uint64_t a2, _BYTE *a3, _DWORD *a4)
 {
   v249 = *MEMORY[0x29EDCA608];
   v4 = *a1;
@@ -4954,51 +4968,51 @@ uint64_t AGX::RenderUSCStateLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes>::
   return a1;
 }
 
-void AGX::RenderUSCStateLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes>::setupResolveCommand(uint64_t a1, void *a2, uint64_t a3, void *a4, void *a5)
+void AGX::RenderUSCStateLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes>::setupResolveCommand(void *a1, void *a2, uint64_t a3, void *a4, void *a5)
 {
   v33 = *MEMORY[0x29EDCA608];
   BGOProgramVariant = AGX::Framebuffer<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::getBGOProgramVariant(a5, 2);
   memcpy(__dst, a5 + 456, 0x328uLL);
   memcpy(v32, a5 + 557, sizeof(v32));
   v11 = AGX::RenderUSCStateLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes>::emitBackgroundObjectArguments(a1, a3, a4, BGOProgramVariant, __dst, v32);
-  if (*(BGOProgramVariant + 3152) == 1)
+  if (LOBYTE(BGOProgramVariant[394].isa) == 1)
   {
-    v12 = AGX::BackgroundObjectProgramVariantESLState<AGX::HAL300::Encoders,AGX::HAL300::Classes>::calculateBackgroundObjectBits(BGOProgramVariant + 1784, v11, 0, 0);
+    v12 = AGX::BackgroundObjectProgramVariantESLState<AGX::HAL300::Encoders,AGX::HAL300::Classes>::calculateBackgroundObjectBits(&BGOProgramVariant[223], v11, 0, 0);
   }
 
   else
   {
-    v12 = *(BGOProgramVariant + 3112) & 0x7FFFFFFFFFFFLL | (*(BGOProgramVariant + 3136) << 47);
-    v13 = *(BGOProgramVariant + 3120) & 0xFFFF00000000003FLL | (((v11 >> 6) & 0x3FFFFFFFFFFLL) << 6);
+    v12 = BGOProgramVariant[389].isa & 0x7FFFFFFFFFFFLL | (LODWORD(BGOProgramVariant[392].isa) << 47);
+    v13 = BGOProgramVariant[390].isa & 0xFFFF00000000003FLL | (((v11 >> 6) & 0x3FFFFFFFFFFLL) << 6);
   }
 
   a2[20] = v12;
   a2[21] = v13;
-  v14 = *(BGOProgramVariant + 688);
-  if (*(a1 + 248) > v14)
+  isa = BGOProgramVariant[86].isa;
+  if (*(a1 + 62) > isa)
   {
-    v14 = *(a1 + 248);
+    isa = *(a1 + 62);
   }
 
-  if (v14 <= *(BGOProgramVariant + 700))
+  if (isa <= HIDWORD(BGOProgramVariant[87].isa))
   {
-    v14 = *(BGOProgramVariant + 700);
+    isa = HIDWORD(BGOProgramVariant[87].isa);
   }
 
-  *(a1 + 248) = v14;
-  v15 = *(BGOProgramVariant + 716);
-  if (*(a1 + 256) > v15)
+  *(a1 + 62) = isa;
+  isa_high = HIDWORD(BGOProgramVariant[89].isa);
+  if (*(a1 + 64) > isa_high)
   {
-    v15 = *(a1 + 256);
+    isa_high = *(a1 + 64);
   }
 
-  if (v15 <= *(BGOProgramVariant + 728))
+  if (isa_high <= LODWORD(BGOProgramVariant[91].isa))
   {
-    v15 = *(BGOProgramVariant + 728);
+    isa_high = BGOProgramVariant[91].isa;
   }
 
-  *(a1 + 256) = v15;
-  *(a1 + 252) = *(BGOProgramVariant + 684);
+  *(a1 + 64) = isa_high;
+  *(a1 + 63) = HIDWORD(BGOProgramVariant[85].isa);
   v31 = 0;
   v30 = 0;
   v29 = 0;
@@ -5046,7 +5060,7 @@ void AGX::RenderUSCStateLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes>::setu
   v18 = *(a1 + 228);
   *&v32[32] = *(a1 + 212);
   *&v32[48] = v18;
-  *&v32[64] = *(a1 + 244);
+  *&v32[64] = *(a1 + 61);
   v19 = *(a1 + 180);
   *&v32[16] = v17;
   *v32 = v19;
@@ -5058,31 +5072,31 @@ void AGX::RenderUSCStateLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes>::setu
   a2[25] = v22;
   a2[26] = v20;
   a2[27] = v22;
-  v24 = EOTProgramVariant[48];
-  if (*(a1 + 248) > v24)
+  v24 = EOTProgramVariant[24].isa;
+  if (*(a1 + 62) > v24)
   {
-    v24 = *(a1 + 248);
+    v24 = *(a1 + 62);
   }
 
-  if (v24 <= EOTProgramVariant[50])
+  if (v24 <= LODWORD(EOTProgramVariant[25].isa))
   {
-    v24 = EOTProgramVariant[50];
+    v24 = EOTProgramVariant[25].isa;
   }
 
-  *(a1 + 248) = v24;
-  v25 = EOTProgramVariant[51];
-  if (*(a1 + 256) > v25)
+  *(a1 + 62) = v24;
+  v25 = HIDWORD(EOTProgramVariant[25].isa);
+  if (*(a1 + 64) > v25)
   {
-    v25 = *(a1 + 256);
+    v25 = *(a1 + 64);
   }
 
-  if (v25 <= EOTProgramVariant[53])
+  if (v25 <= HIDWORD(EOTProgramVariant[26].isa))
   {
-    v25 = EOTProgramVariant[53];
+    v25 = HIDWORD(EOTProgramVariant[26].isa);
   }
 
-  *(a1 + 256) = v25;
-  *(a1 + 252) = EOTProgramVariant[54];
+  *(a1 + 64) = v25;
+  *(a1 + 63) = EOTProgramVariant[27].isa;
 }
 
 uint64_t AGX::EndOfTileEmitter<AGX::HAL300::Encoders,AGX::HAL300::Classes>::emitEndOfTileArgumentsEarly(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5, char **a6, void *a7, unint64_t *a8, unint64_t *a9)
@@ -5400,9 +5414,9 @@ LABEL_28:
   *(a8 + 2) = v34;
 }
 
-void sub_29CF2FA70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29CF2FA70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::function<char const* ()(DriverArgumentOffset::SectionType)>::~function(va);
   _Unwind_Resume(a1);
 }
@@ -5452,7 +5466,7 @@ uint64_t AGX::RenderUSCStateLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes>::
   v18 = *(v16 + 40);
   if ((vmaxv_u8(vmovn_s16(vmvnq_s8(vuzp1q_s16(vceqq_s32(v17, *(a5 + 5536)), vceqq_s32(*(v16 + 16), *(a5 + 5552)))))) & 1) != 0 || (*(v16 + 32) == *(a5 + 5568) ? (v19 = v18 == *(a5 + 5576)) : (v19 = 0), !v19))
   {
-    if (*(BGOProgramVariant + 3152) == 1)
+    if (LOBYTE(BGOProgramVariant[394].isa) == 1)
     {
       v20 = *(v16 + 16);
       *&v36[45] = *v16;
@@ -5582,15 +5596,15 @@ void AGX::RenderUSCStateLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes>::emit
       v17 = *(a1 + 176);
     }
 
-    if (*(BGOProgramVariant + 3152) == 1)
+    if (LOBYTE(BGOProgramVariant[394].isa) == 1)
     {
-      v13 = AGX::BackgroundObjectProgramVariantESLState<AGX::HAL300::Encoders,AGX::HAL300::Classes>::calculateBackgroundObjectBits(BGOProgramVariant + 1784, *(a1 + 16), v17, v16);
+      v13 = AGX::BackgroundObjectProgramVariantESLState<AGX::HAL300::Encoders,AGX::HAL300::Classes>::calculateBackgroundObjectBits(&BGOProgramVariant[223], *(a1 + 16), v17, v16);
     }
 
     else
     {
-      v13 = *(BGOProgramVariant + 3112) & 0x7FFFFFFFFFFFLL | (*(BGOProgramVariant + 4 * v17 + 3136) << 47);
-      v14 = *(BGOProgramVariant + 3120) & 0xFFFF00000000003FLL | (((*(a1 + 16) >> 6) & 0x3FFFFFFFFFFLL) << 6);
+      v13 = BGOProgramVariant[389].isa & 0x7FFFFFFFFFFFLL | (*(&BGOProgramVariant[392].isa + v17) << 47);
+      v14 = BGOProgramVariant[390].isa & 0xFFFF00000000003FLL | (((*(a1 + 16) >> 6) & 0x3FFFFFFFFFFLL) << 6);
     }
   }
 
@@ -9121,7 +9135,7 @@ __n128 std::__function::__func<void AGX::SegmentedArgumentGatherer<(AGX::Segment
   return result;
 }
 
-int8x8_t AGX::RenderUSCStateLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes>::emitFragmentProgramVariantAndArguments<AGX::HAL300::FixedLayoutUserArgumentTable,AGX::CombinedUserDriverArgumentTable<AGX::HAL300::Classes,AGX::FragmentDriverArgumentTable<AGX::HAL300::Classes>>>(char ***a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64x2_t *a6, uint64_t a7, unsigned int a8, int8x8_t result, char a10)
+int8x8_t AGX::RenderUSCStateLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes>::emitFragmentProgramVariantAndArguments<AGX::HAL300::FixedLayoutUserArgumentTable,AGX::CombinedUserDriverArgumentTable<AGX::HAL300::Classes,AGX::FragmentDriverArgumentTable<AGX::HAL300::Classes>>>(char ***a1, uint64_t a2, uint64_t a3, void *a4, uint64x2_t *a5, uint64x2_t *a6, uint64_t a7, unsigned int a8, int8x8_t result, char a10)
 {
   v160 = *MEMORY[0x29EDCA608];
   v10 = (a7 & 0xF8000000002) == 0 || a10 == 1;
@@ -9286,8 +9300,8 @@ LABEL_57:
             {
               v65 = *v63;
               v63 += 4;
-              v66 = (a5 + 496 + 8 * v65);
-              v67 = v66[1];
+              v66 = &a5[31].i8[8 * v65];
+              v67 = *(v66 + 1);
               *v64 = *v66;
               v64[1] = v67;
               v64 += 2;
@@ -9310,7 +9324,7 @@ LABEL_57:
         {
           v70 = *(a3 + 1316);
           v71 = (v27 + 8 * v60);
-          v72 = a5 + 16880;
+          v72 = a5 + 1055;
           if (*(a3 + 2192) == 1)
           {
             if (v70)
@@ -9319,7 +9333,7 @@ LABEL_57:
               do
               {
                 v126 = *v125++;
-                *v71++ = *(v72 + 8 * v126);
+                *v71++ = v72->i64[v126];
                 --v70;
               }
 
@@ -9335,7 +9349,7 @@ LABEL_57:
             {
               v75 = *v74;
               v74 += 4;
-              *v71 = *(v72 + 8 * v75);
+              *v71 = v72->i64[v75];
               v71 += 4;
               --v73;
             }
@@ -9377,7 +9391,7 @@ LABEL_80:
             do
             {
               v87 = *v86++;
-              *v85++ = *(a5 + 16880 + 8 * v87);
+              *v85++ = a5[1055].i64[v87];
               LODWORD(v44) = v44 - 1;
             }
 
@@ -9396,7 +9410,7 @@ LABEL_80:
           v88 = (v27 + v42);
           v89 = 4 * *(a3 + 1024);
           v90 = a5;
-          memcpy(v88, (a5 + 4 * *(a3 + 1020)), v89);
+          memcpy(v88, a5 + 4 * *(a3 + 1020), v89);
           v137 = v90;
           v147 = a6;
           v148 = v90;
@@ -9898,54 +9912,4 @@ __n128 std::__function::__func<void AGX::SegmentedArgumentGatherer<(AGX::Segment
   result = *(a1 + 8);
   *(a2 + 8) = result;
   return result;
-}
-
-uint64_t std::__function::__func<void AGX::SegmentedArgumentGatherer<(AGX::SegmentedArgumentGathererAlgorthim)1,unsigned long long,AGX::CombinedUserDriverArgumentTable<AGX::HAL300::Classes,AGX::MeshDriverArgumentTable<AGX::HAL300::Classes>>>::gatherArguments<AGX::HAL300::ConfigurableLayoutUserArgumentTable,AGX::MeshDriverArgumentTable<AGX::HAL300::Classes>>(unsigned long long *,AGX::HAL300::ConfigurableLayoutUserArgumentTable *,AGX::MeshDriverArgumentTable<AGX::HAL300::Classes> *)::{lambda(DriverArgumentOffset::SectionType)#1},std::allocator<void AGX::SegmentedArgumentGatherer<(AGX::SegmentedArgumentGathererAlgorthim)1,unsigned long long,AGX::CombinedUserDriverArgumentTable<AGX::HAL300::Classes,AGX::MeshDriverArgumentTable<AGX::HAL300::Classes>>>::gatherArguments<AGX::HAL300::ConfigurableLayoutUserArgumentTable,AGX::MeshDriverArgumentTable<AGX::HAL300::Classes>>(unsigned long long *,AGX::HAL300::ConfigurableLayoutUserArgumentTable *,AGX::MeshDriverArgumentTable<AGX::HAL300::Classes> *)::{lambda(DriverArgumentOffset::SectionType)#1}>,char const* ()(DriverArgumentOffset::SectionType)>::operator()(uint64_t a1, int *a2)
-{
-  v3 = *a2;
-  if (!*a2)
-  {
-    return **(a1 + 8);
-  }
-
-  result = 0;
-  v5 = **(a1 + 16);
-  if (v3 > 2)
-  {
-    if (v3 == 3)
-    {
-      v6 = *(v5 + 24);
-      v7 = *(v5 + 12);
-    }
-
-    else
-    {
-      if (v3 != 4)
-      {
-        return result;
-      }
-
-      v6 = *(v5 + 24);
-      v7 = *(v5 + 20);
-    }
-  }
-
-  else if (v3 == 1)
-  {
-    v6 = *(v5 + 24);
-    v7 = *(v5 + 4);
-  }
-
-  else
-  {
-    if (v3 != 2)
-    {
-      return result;
-    }
-
-    v6 = *(v5 + 24);
-    v7 = *(v5 + 8);
-  }
-
-  return v6 + v7;
 }

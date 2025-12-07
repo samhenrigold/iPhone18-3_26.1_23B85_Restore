@@ -142,7 +142,7 @@ void __33__HACCPSESettings_initWithFrame___block_invoke_2(uint64_t a1)
   [mEMORY[0x277D12E00] getCurrentRouteSupportingHeadphoneAccommodationsWithCompletion:v4];
 }
 
-uint64_t __61__HACCPSESettings_updateVoiceAmplificationSliderAvailability__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+uint64_t __61__HACCPSESettings_updateVoiceAmplificationSliderAvailability__block_invoke(uint64_t a1, uint64_t a2, unint64_t a3, void *a4)
 {
   v4 = MEMORY[0x277D3A1C8];
   v5 = a4;

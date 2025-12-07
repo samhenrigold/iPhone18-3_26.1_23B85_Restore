@@ -6,7 +6,7 @@
 
 - (id)_pl_prettyDescriptionWithIndent:()PhotoLibraryServices
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   changedObjectID = [self changedObjectID];
   pl_shortURI = [changedObjectID pl_shortURI];
 
@@ -28,51 +28,51 @@
     updatedProperties = tombstone;
     if (tombstone)
     {
-      v25 = pl_shortURI;
+      v27 = pl_shortURI;
       allKeys = [tombstone allKeys];
-      v8 = [allKeys sortedArrayUsingSelector:sel_compare_];
+      v10 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
       string = [MEMORY[0x1E696AD60] string];
       [(__CFString *)string appendString:@" {"];
+      v31 = 0u;
+      v32 = 0u;
       v29 = 0u;
       v30 = 0u;
-      v27 = 0u;
-      v28 = 0u;
-      obj = v8;
-      v9 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
-      if (v9)
+      obj = v10;
+      v11 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      if (v11)
       {
-        v10 = v9;
-        v11 = *v28;
-        v12 = &stru_1F0F06D80;
+        v12 = v11;
+        v13 = *v30;
+        v14 = &stru_1F0F06D80;
         do
         {
-          for (i = 0; i != v10; ++i)
+          for (i = 0; i != v12; ++i)
           {
-            v14 = string;
-            if (*v28 != v11)
+            v16 = string;
+            if (*v30 != v13)
             {
               objc_enumerationMutation(obj);
             }
 
-            v15 = *(*(&v27 + 1) + 8 * i);
-            v16 = [updatedProperties objectForKeyedSubscript:v15];
-            v24 = v15;
-            string = v14;
-            [(__CFString *)v14 appendFormat:@"%@%@: %@", v12, v24, v16];
+            v17 = *(*(&v29 + 1) + 8 * i);
+            v18 = [updatedProperties objectForKeyedSubscript:v17];
+            v26 = v17;
+            string = v16;
+            [(__CFString *)v16 appendFormat:@"%@%@: %@", v14, v26, v18];
 
-            v12 = @", ";
+            v14 = @", ";
           }
 
-          v10 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
-          v12 = @", ";
+          v12 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+          v14 = @", ";
         }
 
-        while (v10);
+        while (v12);
       }
 
       [(__CFString *)string appendString:@"}"];
-      pl_shortURI = v25;
+      pl_shortURI = v27;
     }
 
     else
@@ -82,24 +82,24 @@
   }
 
 LABEL_17:
-  v17 = MEMORY[0x1E696AEC0];
-  v18 = PLIndentToString();
+  v19 = MEMORY[0x1E696AEC0];
+  v20 = PLIndentToString();
   changeID = [self changeID];
   changeType = [self changeType];
-  v21 = @"insert";
+  v23 = @"insert";
   if (changeType == 1)
   {
-    v21 = @"update";
+    v23 = @"update";
   }
 
   if (changeType == 2)
   {
-    v21 = @"delete";
+    v23 = @"delete";
   }
 
-  v22 = [v17 stringWithFormat:@"%@Change %08lld: %@ %@%@\n", v18, changeID, v21, pl_shortURI, string];
+  v24 = [v19 stringWithFormat:@"%@Change %08lld: %@ %@%@\n", v20, changeID, v23, pl_shortURI, string];
 
-  return v22;
+  return v24;
 }
 
 @end

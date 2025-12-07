@@ -31,32 +31,32 @@
 
 - (id)retrieve
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_identifiers(self, a2, v2);
 
   if (v4)
   {
-    v56 = objc_msgSend_array(MEMORY[0x277CBEB18], v5, v6);
+    v55 = objc_msgSend_array(MEMORY[0x277CBEB18], v5, v6);
+    v57 = 0u;
     v58 = 0u;
     v59 = 0u;
     v60 = 0u;
-    v61 = 0u;
     v9 = objc_msgSend_identifiers(self, v7, v8);
-    v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v58, v62, 16);
+    v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v57, v61, 16);
     if (v11)
     {
       v12 = v11;
-      v13 = *v59;
+      v13 = *v58;
 LABEL_4:
       v14 = 0;
       while (1)
       {
-        if (*v59 != v13)
+        if (*v58 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v58 + 1) + 8 * v14);
+        v15 = *(*(&v57 + 1) + 8 * v14);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -90,30 +90,30 @@ LABEL_22:
 
         v27 = objc_msgSend_descriptorsForRequiredKeys(MEMORY[0x277CFBC48], v21, v22);
         v30 = objc_msgSend_contactStore(self, v28, v29);
-        v57 = 0;
-        v32 = objc_msgSend_unifiedContactWithIdentifier_keysToFetch_error_(v30, v31, v23, v27, &v57);
+        v56 = 0;
+        v32 = objc_msgSend_unifiedContactWithIdentifier_keysToFetch_error_(v30, v31, v23, v27, &v56);
 
         if (v32)
         {
-          objc_msgSend_addObject_(v56, v33, v32);
+          objc_msgSend_addObject_(v55, v33, v32);
         }
 
         else
         {
           v34 = objc_alloc(MEMORY[0x277D47208]);
-          v55 = objc_msgSend_initWithReason_(v34, v35, @"Invalid person identifier (person does not exist)");
+          v54 = objc_msgSend_initWithReason_(v34, v35, @"Invalid person identifier (person does not exist)");
         }
 
         if (!v32)
         {
-          v48 = v55;
-          v37 = v56;
+          v48 = v54;
+          v37 = v55;
           goto LABEL_27;
         }
 
         if (v12 == ++v14)
         {
-          v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v36, &v58, v62, 16);
+          v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v36, &v57, v61, 16);
           if (v12)
           {
             goto LABEL_4;
@@ -128,16 +128,16 @@ LABEL_23:
       v50 = objc_alloc(MEMORY[0x277D47208]);
       v48 = objc_msgSend_initWithReason_(v50, v51, v49);
 
-      v37 = v56;
+      v37 = v55;
       goto LABEL_27;
     }
 
 LABEL_18:
 
-    v37 = v56;
-    if (objc_msgSend_count(v56, v38, v39))
+    v37 = v55;
+    if (objc_msgSend_count(v55, v38, v39))
     {
-      v9 = objc_msgSend_mapUsingBlock_(v56, v40, &unk_2848D10B8);
+      v9 = objc_msgSend_mapUsingBlock_(v55, v40, &unk_2848D10B8);
       v41 = MEMORY[0x277CFBC48];
       v44 = objc_msgSend_contactStore(self, v42, v43);
       objc_msgSend_markMeContactInPeople_usingStore_(v41, v45, v9, v44);
@@ -158,8 +158,6 @@ LABEL_27:
     v46 = objc_alloc(MEMORY[0x277D47208]);
     v48 = objc_msgSend_initWithReason_(v46, v47, @"Expected identifiers to be set");
   }
-
-  v53 = *MEMORY[0x277D85DE8];
 
   return v48;
 }

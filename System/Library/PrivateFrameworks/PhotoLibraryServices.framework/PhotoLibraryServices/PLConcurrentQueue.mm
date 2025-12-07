@@ -9,7 +9,7 @@
 
 - (void)_internalQueue_tryDispatchingNextPendingBlock
 {
-  if ([(NSMutableArray *)self->_internalQueue_pendingBlocks count])
+  if (objc_msgSend_count(self->_internalQueue_pendingBlocks, a2))
   {
     if (self->_internalQueue_usedWidth < self->_width)
     {

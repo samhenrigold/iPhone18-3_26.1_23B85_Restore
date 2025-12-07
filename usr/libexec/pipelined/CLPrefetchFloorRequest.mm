@@ -3,6 +3,7 @@
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToRequest:(id)request;
 - (CLPrefetchFloorRequest)initWithCoder:(id)coder;
+- (CLPrefetchFloorRequest)initWithFloor:(id)floor inVenue:(id)venue lastRelevant:(id)relevant hasCompleteFloor:(BOOL)completeFloor allowCellularDownload:(BOOL)download locationContext:(int64_t)context;
 - (CLPrefetchFloorRequest)initWithFloor:(id)floor inVenue:(id)venue lastRelevant:(id)relevant hasCompleteFloor:(BOOL)completeFloor allowCellularDownload:(BOOL)download locationContext:(int64_t)context ranking:(int64_t)ranking;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -17,6 +18,29 @@
   v12 = [[CLPrefetchFloorRequest alloc] initWithFloor:floorCopy inVenue:venueCopy lastRelevant:relevantCopy locationContext:context];
 
   return v12;
+}
+
+- (CLPrefetchFloorRequest)initWithFloor:(id)floor inVenue:(id)venue lastRelevant:(id)relevant hasCompleteFloor:(BOOL)completeFloor allowCellularDownload:(BOOL)download locationContext:(int64_t)context
+{
+  downloadCopy = download;
+  completeFloorCopy = completeFloor;
+  floorCopy = floor;
+  venueCopy = venue;
+  relevantCopy = relevant;
+  v20.receiver = self;
+  v20.super_class = CLPrefetchFloorRequest;
+  v17 = [(CLPrefetchFloorRequest *)&v20 init];
+  if (v17)
+  {
+    v18 = [(CLPrefetchFloorRequest *)v17 initWithFloor:floorCopy inVenue:venueCopy lastRelevant:relevantCopy hasCompleteFloor:completeFloorCopy allowCellularDownload:downloadCopy locationContext:context priority:1];
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  return v18;
 }
 
 - (CLPrefetchFloorRequest)initWithFloor:(id)floor inVenue:(id)venue lastRelevant:(id)relevant hasCompleteFloor:(BOOL)completeFloor allowCellularDownload:(BOOL)download locationContext:(int64_t)context ranking:(int64_t)ranking

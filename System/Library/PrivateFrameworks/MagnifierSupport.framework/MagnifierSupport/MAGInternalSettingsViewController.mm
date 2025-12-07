@@ -29,14 +29,14 @@
 {
   v6 = sub_257ECCEB0();
   v7 = *(v6 - 8);
-  MEMORY[0x28223BE20](v6);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6, v8, v9, v10, v11);
+  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_257ECCE40();
   viewCopy = view;
   selfCopy = self;
   sub_257EB0080(viewCopy);
 
-  (*(v7 + 8))(v9, v6);
+  (*(v7 + 8))(v13, v6);
 }
 
 - (_TtC16MagnifierSupport33MAGInternalSettingsViewController)initWithNibName:(id)name bundle:(id)bundle

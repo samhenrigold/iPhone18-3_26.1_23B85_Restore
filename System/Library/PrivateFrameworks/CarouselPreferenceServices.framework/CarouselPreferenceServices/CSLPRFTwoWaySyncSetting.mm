@@ -215,12 +215,12 @@ LABEL_7:
 
 - (CSLPRFTwoWaySyncSetting)initWithKey:(id)key defaultValue:(id)value notification:(const char *)notification
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   valueCopy = value;
-  v28.receiver = self;
-  v28.super_class = CSLPRFTwoWaySyncSetting;
-  v11 = [(CSLPRFTwoWaySyncSetting *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = CSLPRFTwoWaySyncSetting;
+  v11 = [(CSLPRFTwoWaySyncSetting *)&v27 init];
   v12 = v11;
   if (v11)
   {
@@ -239,21 +239,21 @@ LABEL_7:
       {
         notificationName = v12->_notificationName;
         *buf = 138412546;
-        v30 = v12;
-        v31 = 2080;
-        v32 = notificationName;
+        v29 = v12;
+        v30 = 2080;
+        v31 = notificationName;
         _os_log_impl(&dword_22CE92000, v15, OS_LOG_TYPE_INFO, "%@ registering to receive %s", buf, 0x16u);
       }
 
       v17 = MEMORY[0x277D85CD0];
-      v22 = MEMORY[0x277D85DD0];
-      v23 = 3221225472;
-      v24 = __65__CSLPRFTwoWaySyncSetting_initWithKey_defaultValue_notification___block_invoke;
-      v25 = &unk_278744900;
-      objc_copyWeak(&v26, &location);
-      notify_register_dispatch(notification, &v12->_notifyToken, MEMORY[0x277D85CD0], &v22);
+      v21 = MEMORY[0x277D85DD0];
+      v22 = 3221225472;
+      v23 = __65__CSLPRFTwoWaySyncSetting_initWithKey_defaultValue_notification___block_invoke;
+      v24 = &unk_278744900;
+      objc_copyWeak(&v25, &location);
+      notify_register_dispatch(notification, &v12->_notifyToken, MEMORY[0x277D85CD0], &v21);
 
-      objc_destroyWeak(&v26);
+      objc_destroyWeak(&v25);
       objc_destroyWeak(&location);
     }
 
@@ -264,13 +264,12 @@ LABEL_7:
     [mEMORY[0x277D37B50] addDelegate:v12];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 void __65__CSLPRFTwoWaySyncSetting_initWithKey_defaultValue_notification___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -278,17 +277,15 @@ void __65__CSLPRFTwoWaySyncSetting_initWithKey_defaultValue_notification___block
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
       v3 = WeakRetained[2];
-      v5 = 138412546;
-      v6 = WeakRetained;
-      v7 = 2080;
-      v8 = v3;
-      _os_log_impl(&dword_22CE92000, v2, OS_LOG_TYPE_INFO, "%@ received %s", &v5, 0x16u);
+      v4 = 138412546;
+      v5 = WeakRetained;
+      v6 = 2080;
+      v7 = v3;
+      _os_log_impl(&dword_22CE92000, v2, OS_LOG_TYPE_INFO, "%@ received %s", &v4, 0x16u);
     }
 
     [WeakRetained didUpdate];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

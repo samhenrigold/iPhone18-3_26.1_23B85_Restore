@@ -59,7 +59,7 @@
   v11 = [bundleCopy pathForResource:nameCopy ofType:@"plist"];
   if (!v11)
   {
-    v12 = _PSLoggingFacility();
+    v12 = _PSLoggingFacility(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       bundlePath = [bundleCopy bundlePath];

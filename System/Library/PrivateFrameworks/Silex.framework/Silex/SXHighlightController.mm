@@ -112,7 +112,7 @@
     iccCopy = v80;
     if (v74)
     {
-      [v74 wordMetricsAtCharIndex:location];
+      objc_msgSend_wordMetricsAtCharIndex_(v74);
       v46 = 0.0 - 0.0;
     }
 

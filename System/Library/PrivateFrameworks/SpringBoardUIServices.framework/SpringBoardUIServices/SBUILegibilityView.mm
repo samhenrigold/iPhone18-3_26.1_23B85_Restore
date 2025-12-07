@@ -42,7 +42,7 @@
 
 - (BOOL)_updateShadow
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   superview = [(SBUILegibilityView *)self superview];
   if (!superview)
   {
@@ -58,6 +58,7 @@
   }
 
   v6 = self->_image;
+  v7 = v6;
   if (v6 && self->_legibilitySettings)
   {
     if (self->_strength <= 0.0)
@@ -67,18 +68,18 @@
 
     else
     {
-      v7 = SBLogLegibility();
-      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
+      v8 = SBLogLegibility(v6);
+      v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
 
       Current = 0.0;
-      if (v8)
+      if (v9)
       {
         Current = CFAbsoluteTimeGetCurrent();
       }
 
-      v25 = 0;
+      v28 = 0;
       legibilityEngine = [(SBUILegibilityView *)self legibilityEngine];
-      [legibilityEngine executeLegibilityUpdateForContainer:self forImage:v6 settings:self->_legibilitySettings strength:&self->_strength engineResult:&v25];
+      [legibilityEngine executeLegibilityUpdateForContainer:self forImage:v7 settings:self->_legibilitySettings strength:&self->_strength engineResult:&v28];
       _screen = [(SBUILegibilityView *)self _screen];
       if (_screen)
       {
@@ -89,55 +90,55 @@
       {
         [MEMORY[0x1E69DCEB0] mainScreen];
       }
-      v14 = ;
-      [v14 scale];
-      self->_appliedScale = v15;
+      v15 = ;
+      [v15 scale];
+      self->_appliedScale = v16;
 
-      if (v25 == 1 && self->_backfillTemplateResults)
+      if (v28 == 1 && self->_backfillTemplateResults)
       {
-        v16 = [legibilityEngine executeAsyncLegibilityUpdateForContainer:self image:v6 settings:self->_legibilitySettings strength:&self->_strength completion:0];
+        v18 = [legibilityEngine executeAsyncLegibilityUpdateForContainer:self image:v7 settings:self->_legibilitySettings strength:&self->_strength completion:0];
         runningAsyncOperations = self->_runningAsyncOperations;
         if (!runningAsyncOperations)
         {
-          v18 = objc_opt_new();
-          v19 = self->_runningAsyncOperations;
-          self->_runningAsyncOperations = v18;
+          v20 = objc_opt_new();
+          v21 = self->_runningAsyncOperations;
+          self->_runningAsyncOperations = v20;
 
           runningAsyncOperations = self->_runningAsyncOperations;
         }
 
-        [(NSMutableArray *)runningAsyncOperations addObject:v16];
+        [(NSMutableArray *)runningAsyncOperations addObject:v18];
       }
 
-      v20 = SBLogLegibility();
-      v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG);
+      v22 = SBLogLegibility(v17);
+      v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG);
 
-      if (v21)
+      if (v23)
       {
-        v22 = CFAbsoluteTimeGetCurrent();
-        v23 = SBLogLegibility();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+        v24 = CFAbsoluteTimeGetCurrent();
+        v26 = SBLogLegibility(v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
         {
           userInfo = [(SBUILegibilityView *)self userInfo];
           *buf = 138412546;
-          v27 = userInfo;
-          v28 = 2048;
-          v29 = v22 - Current;
-          _os_log_debug_impl(&dword_1A9A79000, v23, OS_LOG_TYPE_DEBUG, "Legibility generation time (%@): %f", buf, 0x16u);
+          v30 = userInfo;
+          v31 = 2048;
+          v32 = v24 - Current;
+          _os_log_debug_impl(&dword_1A9A79000, v26, OS_LOG_TYPE_DEBUG, "Legibility generation time (%@): %f", buf, 0x16u);
         }
       }
     }
 
     self->_needsUpdateShadow = 0;
-    v12 = 1;
+    v13 = 1;
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 - (SBUILegibilityView)initWithFrame:(CGRect)frame
@@ -450,7 +451,7 @@
 
 - (void)updateForChangedSettings:(id)settings options:(int64_t)options image:(id)image strength:(double)strength
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   settingsCopy = settings;
   imageCopy = image;
   v12 = BSEqualObjects();
@@ -494,21 +495,22 @@
     self->_strength = strength;
     self->_appliedScale = 0.0;
     _updateShadow = [(SBUILegibilityView *)self _updateShadow];
-    v20 = [(SBUILegibilityView *)self _updateStrength:strength];
+    v21 = [(SBUILegibilityView *)self _updateStrength:strength];
     _updateFilters = [(SBUILegibilityView *)self _updateFilters];
-    v22 = SBLogLegibility();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    v23 = _updateFilters;
+    v24 = SBLogLegibility(_updateFilters);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
       userInfo = [(SBUILegibilityView *)self userInfo];
-      v25[0] = 67109890;
-      v25[1] = _updateShadow;
-      v26 = 1024;
-      v27 = v20;
+      v27[0] = 67109890;
+      v27[1] = _updateShadow;
       v28 = 1024;
-      v29 = _updateFilters;
-      v30 = 2112;
-      v31 = userInfo;
-      _os_log_debug_impl(&dword_1A9A79000, v22, OS_LOG_TYPE_DEBUG, "updateForChangedSettings committed! didUpdateShadow: %{BOOL}u -- didUpdateStrength: %{BOOL}u -- didUpdateFilters: %{BOOL}u -- userInfo: %@", v25, 0x1Eu);
+      v29 = v21;
+      v30 = 1024;
+      v31 = v23;
+      v32 = 2112;
+      v33 = userInfo;
+      _os_log_debug_impl(&dword_1A9A79000, v24, OS_LOG_TYPE_DEBUG, "updateForChangedSettings committed! didUpdateShadow: %{BOOL}u -- didUpdateStrength: %{BOOL}u -- didUpdateFilters: %{BOOL}u -- userInfo: %@", v27, 0x1Eu);
     }
 
     [(SBUILegibilityView *)self setNeedsLayout];
@@ -518,10 +520,10 @@
 
   else
   {
-    v23 = SBLogLegibility();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+    v25 = SBLogLegibility(v19);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
-      [SBUILegibilityView updateForChangedSettings:self options:v23 image:? strength:?];
+      [SBUILegibilityView updateForChangedSettings:self options:v25 image:? strength:?];
     }
   }
 }
@@ -654,20 +656,20 @@ LABEL_12:
 
 - (BOOL)_updateStrength:(double)strength
 {
-  v21 = *MEMORY[0x1E69E9840];
-  [(SBUILegibilityContainerView *)self->_shadowImageView strength];
-  v6 = v5;
-  if (self->_strength == v5)
+  v23 = *MEMORY[0x1E69E9840];
+  strength = [(SBUILegibilityContainerView *)self->_shadowImageView strength];
+  v7 = v6;
+  if (self->_strength == v6)
   {
     return 0;
   }
 
   self->_strength = strength;
-  v8 = SBLogLegibility();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+  v9 = SBLogLegibility(strength);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
 
   Current = 0.0;
-  if (v9)
+  if (v10)
   {
     Current = CFAbsoluteTimeGetCurrent();
   }
@@ -676,26 +678,25 @@ LABEL_12:
   [(SBUILegibilityShadowView *)self->_shadowImageView setHidden:[(SBUILegibilityView *)self _hideShadowImageViewForStrength:0]];
   shadowImageView = self->_shadowImageView;
   [(SBUILegibilityView *)self _shadowImageViewAlphaForStrength:0];
-  [(SBUILegibilityShadowView *)shadowImageView setAlpha:?];
-  v12 = SBLogLegibility();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
+  v13 = SBLogLegibility([(SBUILegibilityShadowView *)shadowImageView setAlpha:?]);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG);
 
-  if (v13)
+  if (v14)
   {
-    v14 = CFAbsoluteTimeGetCurrent();
-    v15 = SBLogLegibility();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v15 = CFAbsoluteTimeGetCurrent();
+    v17 = SBLogLegibility(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       userInfo = [(SBUILegibilityView *)self userInfo];
-      v17 = 138412546;
-      v18 = userInfo;
-      v19 = 2048;
-      v20 = v14 - Current;
-      _os_log_debug_impl(&dword_1A9A79000, v15, OS_LOG_TYPE_DEBUG, "(%@) legibility strength application time: %f", &v17, 0x16u);
+      v19 = 138412546;
+      v20 = userInfo;
+      v21 = 2048;
+      v22 = v15 - Current;
+      _os_log_debug_impl(&dword_1A9A79000, v17, OS_LOG_TYPE_DEBUG, "(%@) legibility strength application time: %f", &v19, 0x16u);
     }
   }
 
-  return v6 != strength;
+  return v7 != strength;
 }
 
 - (BOOL)_hideShadowImageViewForStrength:(double *)strength

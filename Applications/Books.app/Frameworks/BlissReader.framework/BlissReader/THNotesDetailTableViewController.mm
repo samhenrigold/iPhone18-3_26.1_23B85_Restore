@@ -1904,67 +1904,67 @@ LABEL_14:
   mTableCellNIB = self->mTableCellNIB;
   if (!mTableCellNIB)
   {
-    v12 = THBundle();
-    v13 = [UINib nibWithNibName:@"THNotesDetailTableViewCellController" bundle:v12];
-    v14 = self->mTableCellNIB;
-    self->mTableCellNIB = v13;
+    v13 = THBundle(0, v11);
+    v14 = [UINib nibWithNibName:@"THNotesDetailTableViewCellController" bundle:v13];
+    v15 = self->mTableCellNIB;
+    self->mTableCellNIB = v14;
 
     mTableCellNIB = self->mTableCellNIB;
   }
 
-  v15 = [(UINib *)mTableCellNIB instantiateWithOwner:v10 options:0];
-  v16 = [(THNotesDetailTableViewController *)self p_annotationAtIndexPath:pathCopy];
-  if (v16)
+  v16 = [(UINib *)mTableCellNIB instantiateWithOwner:v10 options:0];
+  v17 = [(THNotesDetailTableViewController *)self p_annotationAtIndexPath:pathCopy];
+  if (v17)
   {
-    v42 = cellCopy;
-    v41 = -[NSArray objectAtIndex:](self->mSections, "objectAtIndex:", [pathCopy section]);
-    v17 = [(TSUNoCopyDictionary *)self->mRenderedAnnotations objectForKey:v16];
+    v43 = cellCopy;
+    v42 = -[NSArray objectAtIndex:](self->mSections, "objectAtIndex:", [pathCopy section]);
+    v18 = [(TSUNoCopyDictionary *)self->mRenderedAnnotations objectForKey:v17];
     tableView = [(THNotesDetailTableViewController *)self tableView];
     [tableView bounds];
-    v19 = v18;
-    highlightLayer = [v17 highlightLayer];
-    [v17 highlightTextFrame];
-    v21 = v20;
-    v23 = v22;
-    v25 = v24;
-    v27 = v26;
-    editingHighlightLayer = [v17 editingHighlightLayer];
-    annotationIsOrphan = [v16 annotationIsOrphan];
+    v20 = v19;
+    highlightLayer = [v18 highlightLayer];
+    [v18 highlightTextFrame];
+    v22 = v21;
+    v24 = v23;
+    v26 = v25;
+    v28 = v27;
+    editingHighlightLayer = [v18 editingHighlightLayer];
+    annotationIsOrphan = [v17 annotationIsOrphan];
     if (annotationIsOrphan)
     {
-      v30 = &stru_471858;
+      v31 = &stru_471858;
     }
 
     else
     {
-      v38 = objc_loadWeakRetained(&self->mBookViewController);
-      v30 = [v38 pageNumberStringForAnnotation:v16];
+      v39 = objc_loadWeakRetained(&self->mBookViewController);
+      v31 = [v39 pageNumberStringForAnnotation:v17];
     }
 
-    v31 = [pathCopy row];
-    if (v31)
+    v32 = [pathCopy row];
+    if (v32)
     {
-      v32 = 0.0;
+      v33 = 0.0;
     }
 
     else
     {
-      v37 = objc_loadWeakRetained(&self->mDelegate);
-      [v37 firstNoteBelowSectionAdjustment];
-      v32 = v33;
+      v38 = objc_loadWeakRetained(&self->mDelegate);
+      [v38 firstNoteBelowSectionAdjustment];
+      v33 = v34;
     }
 
-    v34 = [pathCopy row];
-    notes = [v41 notes];
-    [v42 populateWithCellController:v10 annotation:v16 cellWidth:highlightLayer highlightLayer:editingHighlightLayer highlightTextFrame:v30 editingHighlightLayer:v34 < objc_msgSend(notes pageNumberString:"count") - 1 topAdjustment:v19 showDivider:{v21, v23, v25, v27, v32}];
+    v35 = [pathCopy row];
+    notes = [v42 notes];
+    [v43 populateWithCellController:v10 annotation:v17 cellWidth:highlightLayer highlightLayer:editingHighlightLayer highlightTextFrame:v31 editingHighlightLayer:v35 < objc_msgSend(notes pageNumberString:"count") - 1 topAdjustment:v20 showDivider:{v22, v24, v26, v28, v33}];
 
-    if (v31)
+    if (v32)
     {
       if (annotationIsOrphan)
       {
 LABEL_13:
 
-        cellCopy = v42;
+        cellCopy = v43;
         goto LABEL_14;
       }
     }

@@ -1,301 +1,455 @@
-void TextStateRule::parseStateAllowRightWordBoundary(TextStateRule *this, DgnTextFileParser *a2)
+void sub_26274C95C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  DgnString::DgnString(&v45);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v22 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  DgnString::~DgnString(va);
+  DgnString::~DgnString(va1);
+  BitArray::~BitArray((v20 - 96));
+  _Unwind_Resume(a1);
+}
+
+void TextStateRule::parseStateAllowLeftWordBoundary(TextStateRule *this, DgnTextFileParser *a2)
+{
+  DgnString::DgnString(&v28);
   while (1)
   {
-    DgnString::DgnString(&v43);
-    DgnString::DgnString(v42);
-    DgnString::DgnString(v40);
-    DgnString::DgnString(v38);
-    DgnString::DgnString(v36);
+    DgnString::DgnString(&v26);
+    DgnString::DgnString(v25);
+    DgnString::DgnString(v23);
+    DgnString::DgnString(v21);
+    DgnString::DgnString(v19);
     LineFieldString = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::operator=(v42, LineFieldString);
+    DgnString::operator=(v25, LineFieldString);
     if (*(this + 32) == 1)
     {
-      v11 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
-      DgnString::operator=(&v43, v11);
+      v5 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
+      DgnString::operator=(&v26, v5);
     }
 
-    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3), v5, v6, v7, v8, v9, v10);
-    v13 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
-    DgnString::operator=(v40, v13);
-    v14 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
-    DgnString::operator=(v38, v14);
-    v15 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
-    DgnString::operator=(v36, v15);
-    v22 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7), v16, v17, v18, v19, v20, v21);
+    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3));
+    v7 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
+    DgnString::operator=(v23, v7);
+    v8 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
+    DgnString::operator=(v21, v8);
+    v9 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
+    DgnString::operator=(v19, v9);
+    v10 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7));
     if (*(this + 12))
     {
-      v23 = *(this + 5);
+      v11 = *(this + 5);
     }
 
     else
     {
-      v23 = &byte_262899963;
+      v11 = &byte_262899963;
     }
 
-    if (v44)
+    if (v27)
     {
-      v24 = v43;
+      v12 = v26;
     }
 
     else
     {
-      v24 = &byte_262899963;
+      v12 = &byte_262899963;
     }
 
-    if (strcmp(v23, v24))
+    if (strcmp(v11, v12))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1516, "voc/tsr", 29, "%u %500s %500s", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1457, "voc/tsr", 29, "%u %500s %500s", *(a2 + 25), "StateAllowLeftWordBoundary", v12);
     }
 
-    if (v41 >= 2)
+    if (v24 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1518, "voc/tsr", 10, "%u", v27, v28, *(a2 + 25));
-    }
-
-    if (v39 >= 2)
-    {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1520, "voc/tsr", 11, "%u", v27, v28, *(a2 + 25));
-    }
-
-    if (v37 >= 2)
-    {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1522, "voc/tsr", 12, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1459, "voc/tsr", 10, "%u", *(a2 + 25));
     }
 
     if (v22 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1525, "voc/tsr", 14, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1461, "voc/tsr", 11, "%u", *(a2 + 25));
+    }
+
+    if (v20 >= 2)
+    {
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1463, "voc/tsr", 12, "%u", *(a2 + 25));
+    }
+
+    if (v10 >= 2)
+    {
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1466, "voc/tsr", 14, "%u", *(a2 + 25));
     }
 
     if (LineFieldInteger <= 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1530, "voc/tsr", 17, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1471, "voc/tsr", 17, "%u", *(a2 + 25));
     }
 
-    if (v46 < LineFieldInteger + 1)
+    if (v29 < LineFieldInteger + 1)
     {
-      BitArray::setSize(&v45, LineFieldInteger + 1);
+      BitArray::setSize(&v28, LineFieldInteger + 1);
     }
 
-    v29 = *(v45 + 4 * (LineFieldInteger >> 5));
-    if ((v29 & (1 << LineFieldInteger)) != 0)
+    v13 = *(v28 + 4 * (LineFieldInteger >> 5));
+    if ((v13 & (1 << LineFieldInteger)) != 0)
     {
-      v33 = *this;
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1543, "voc/tsr", 4, "%u %.500s %u %u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1484, "voc/tsr", 4, "%u %.500s %u %u", *(a2 + 25), "StateAllowLeftWordBoundary", LineFieldInteger, *this);
     }
 
     else
     {
-      *(v45 + 4 * (LineFieldInteger >> 5)) = v29 | (1 << LineFieldInteger);
+      *(v28 + 4 * (LineFieldInteger >> 5)) = v13 | (1 << LineFieldInteger);
     }
 
-    StateMgr::setRightWBAllowed(*(*(**VocMgr::smpVocMgr + 8 * *this) + 56), LineFieldInteger, v22 == 1, 1, v25, v26, v27, v28);
+    StateMgr::setLeftWBAllowed(*(*(**VocMgr::smpVocMgr + 8 * *this) + 56), LineFieldInteger, v10 == 1, 1);
     if (!DgnTextFileParser::parseNextLine(a2))
     {
       break;
     }
 
-    v30 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::DgnString(&v34, v30);
-    if (v35)
+    v14 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
+    DgnString::DgnString(&v17, v14);
+    if (v18)
     {
-      v31 = v34;
+      v15 = v17;
     }
 
     else
     {
-      v31 = &byte_262899963;
+      v15 = &byte_262899963;
     }
 
-    v32 = strcmp(v31, "StateAllowRightWordBoundary");
-    DgnString::~DgnString(&v34);
-    DgnString::~DgnString(v36);
-    DgnString::~DgnString(v38);
-    DgnString::~DgnString(v40);
-    DgnString::~DgnString(v42);
-    DgnString::~DgnString(&v43);
-    if (v32)
+    v16 = strcmp(v15, "StateAllowLeftWordBoundary");
+    DgnString::~DgnString(&v17);
+    DgnString::~DgnString(v19);
+    DgnString::~DgnString(v21);
+    DgnString::~DgnString(v23);
+    DgnString::~DgnString(v25);
+    DgnString::~DgnString(&v26);
+    if (v16)
     {
       goto LABEL_34;
     }
   }
 
-  DgnString::~DgnString(v36);
-  DgnString::~DgnString(v38);
-  DgnString::~DgnString(v40);
-  DgnString::~DgnString(v42);
-  DgnString::~DgnString(&v43);
+  DgnString::~DgnString(v19);
+  DgnString::~DgnString(v21);
+  DgnString::~DgnString(v23);
+  DgnString::~DgnString(v25);
+  DgnString::~DgnString(&v26);
 LABEL_34:
-  BitArray::~BitArray(&v45);
+  BitArray::~BitArray(&v28);
 }
 
-void sub_26274D1FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_26274CDAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v15 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v22 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   DgnString::~DgnString(va);
   DgnString::~DgnString(va1);
-  BitArray::~BitArray((v13 - 96));
+  BitArray::~BitArray((v20 - 96));
   _Unwind_Resume(a1);
 }
 
-void TextStateRule::parseStateAllowPrecedingNonAcousticWords(TextStateRule *this, DgnTextFileParser *a2)
+void TextStateRule::parseStateAllowRightWordBoundary(TextStateRule *this, DgnTextFileParser *a2)
 {
-  DgnString::DgnString(&v52);
-  v50 = 0;
-  v51 = 0;
+  DgnString::DgnString(&v28);
   while (1)
   {
-    DgnString::DgnString(&v48);
-    DgnString::DgnString(v47);
-    DgnString::DgnString(v45);
-    DgnString::DgnString(v43);
-    DgnString::DgnString(v41);
+    DgnString::DgnString(&v26);
+    DgnString::DgnString(v25);
+    DgnString::DgnString(v23);
+    DgnString::DgnString(v21);
+    DgnString::DgnString(v19);
     LineFieldString = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::operator=(v47, LineFieldString);
+    DgnString::operator=(v25, LineFieldString);
     if (*(this + 32) == 1)
     {
-      v11 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
-      DgnString::operator=(&v48, v11);
+      v5 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
+      DgnString::operator=(&v26, v5);
     }
 
-    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3), v5, v6, v7, v8, v9, v10);
-    v13 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
-    DgnString::operator=(v45, v13);
-    v14 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
-    DgnString::operator=(v43, v14);
-    v15 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
-    DgnString::operator=(v41, v15);
-    v22 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7), v16, v17, v18, v19, v20, v21);
+    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3));
+    v7 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
+    DgnString::operator=(v23, v7);
+    v8 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
+    DgnString::operator=(v21, v8);
+    v9 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
+    DgnString::operator=(v19, v9);
+    v10 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7));
     if (*(this + 12))
     {
-      v23 = *(this + 5);
+      v11 = *(this + 5);
     }
 
     else
     {
-      v23 = &byte_262899963;
+      v11 = &byte_262899963;
     }
 
-    if (v49)
+    if (v27)
     {
-      v24 = v48;
+      v12 = v26;
     }
 
     else
     {
-      v24 = &byte_262899963;
+      v12 = &byte_262899963;
     }
 
-    if (strcmp(v23, v24))
+    if (strcmp(v11, v12))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1577, "voc/tsr", 29, "%u %500s %500s", v25, v26, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1516, "voc/tsr", 29, "%u %500s %500s", *(a2 + 25), "StateAllowRightWordBoundary", v12);
     }
 
-    if (v46 >= 2)
+    if (v24 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1579, "voc/tsr", 10, "%u", v25, v26, *(a2 + 25));
-    }
-
-    if (v44 >= 2)
-    {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1581, "voc/tsr", 11, "%u", v25, v26, *(a2 + 25));
-    }
-
-    if (v42 >= 2)
-    {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1583, "voc/tsr", 12, "%u", v25, v26, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1518, "voc/tsr", 10, "%u", *(a2 + 25));
     }
 
     if (v22 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1586, "voc/tsr", 14, "%u", v25, v26, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1520, "voc/tsr", 11, "%u", *(a2 + 25));
+    }
+
+    if (v20 >= 2)
+    {
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1522, "voc/tsr", 12, "%u", *(a2 + 25));
+    }
+
+    if (v10 >= 2)
+    {
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1525, "voc/tsr", 14, "%u", *(a2 + 25));
     }
 
     if (LineFieldInteger <= 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1591, "voc/tsr", 17, "%u", v25, v26, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1530, "voc/tsr", 17, "%u", *(a2 + 25));
     }
 
-    if (v53 < LineFieldInteger + 1)
+    if (v29 < LineFieldInteger + 1)
     {
-      BitArray::setSize(&v52, LineFieldInteger + 1);
+      BitArray::setSize(&v28, LineFieldInteger + 1);
     }
 
-    v27 = *(v52 + 4 * (LineFieldInteger >> 5));
-    if ((v27 & (1 << LineFieldInteger)) != 0)
+    v13 = *(v28 + 4 * (LineFieldInteger >> 5));
+    if ((v13 & (1 << LineFieldInteger)) != 0)
     {
-      v38 = *this;
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1605, "voc/tsr", 4, "%u %.500s %u %u", v25, v26, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1543, "voc/tsr", 4, "%u %.500s %u %u", *(a2 + 25), "StateAllowRightWordBoundary", LineFieldInteger, *this);
     }
 
     else
     {
-      *(v52 + 4 * (LineFieldInteger >> 5)) = v27 | (1 << LineFieldInteger);
+      *(v28 + 4 * (LineFieldInteger >> 5)) = v13 | (1 << LineFieldInteger);
     }
 
-    v28 = v51;
-    while (v28 < LineFieldInteger + 1)
-    {
-      if (v28 == HIDWORD(v51))
-      {
-        DgnPrimArray<char>::reallocElts(&v50, 1, 1);
-        v28 = v51;
-      }
-
-      *(v50 + v28) = 0;
-      v28 = v51 + 1;
-      LODWORD(v51) = v51 + 1;
-    }
-
-    *(v50 + LineFieldInteger) = v22;
+    StateMgr::setRightWBAllowed(*(*(**VocMgr::smpVocMgr + 8 * *this) + 56), LineFieldInteger, v10 == 1, 1);
     if (!DgnTextFileParser::parseNextLine(a2))
     {
       break;
     }
 
-    v29 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::DgnString(&v39, v29);
-    if (v40)
+    v14 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
+    DgnString::DgnString(&v17, v14);
+    if (v18)
     {
-      v30 = v39;
+      v15 = v17;
     }
 
     else
     {
-      v30 = &byte_262899963;
+      v15 = &byte_262899963;
     }
 
-    v31 = strcmp(v30, "StateAllowPrecedingNonAcousticWords");
-    DgnString::~DgnString(&v39);
-    DgnString::~DgnString(v41);
-    DgnString::~DgnString(v43);
-    DgnString::~DgnString(v45);
-    DgnString::~DgnString(v47);
-    DgnString::~DgnString(&v48);
-    if (v31)
+    v16 = strcmp(v15, "StateAllowRightWordBoundary");
+    DgnString::~DgnString(&v17);
+    DgnString::~DgnString(v19);
+    DgnString::~DgnString(v21);
+    DgnString::~DgnString(v23);
+    DgnString::~DgnString(v25);
+    DgnString::~DgnString(&v26);
+    if (v16)
+    {
+      goto LABEL_34;
+    }
+  }
+
+  DgnString::~DgnString(v19);
+  DgnString::~DgnString(v21);
+  DgnString::~DgnString(v23);
+  DgnString::~DgnString(v25);
+  DgnString::~DgnString(&v26);
+LABEL_34:
+  BitArray::~BitArray(&v28);
+}
+
+void sub_26274D1FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va1, a20);
+  va_start(va, a20);
+  v22 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  DgnString::~DgnString(va);
+  DgnString::~DgnString(va1);
+  BitArray::~BitArray((v20 - 96));
+  _Unwind_Resume(a1);
+}
+
+void TextStateRule::parseStateAllowPrecedingNonAcousticWords(TextStateRule *this, DgnTextFileParser *a2)
+{
+  DgnString::DgnString(&v31);
+  v29 = 0;
+  v30 = 0;
+  while (1)
+  {
+    DgnString::DgnString(&v27);
+    DgnString::DgnString(v26);
+    DgnString::DgnString(v24);
+    DgnString::DgnString(v22);
+    DgnString::DgnString(v20);
+    LineFieldString = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
+    DgnString::operator=(v26, LineFieldString);
+    if (*(this + 32) == 1)
+    {
+      v5 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
+      DgnString::operator=(&v27, v5);
+    }
+
+    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3));
+    v7 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
+    DgnString::operator=(v24, v7);
+    v8 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
+    DgnString::operator=(v22, v8);
+    v9 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
+    DgnString::operator=(v20, v9);
+    v10 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7));
+    if (*(this + 12))
+    {
+      v11 = *(this + 5);
+    }
+
+    else
+    {
+      v11 = &byte_262899963;
+    }
+
+    if (v28)
+    {
+      v12 = v27;
+    }
+
+    else
+    {
+      v12 = &byte_262899963;
+    }
+
+    if (strcmp(v11, v12))
+    {
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1577, "voc/tsr", 29, "%u %500s %500s", *(a2 + 25), "StateAllowPrecedingNonAcousticWords", v12);
+    }
+
+    if (v25 >= 2)
+    {
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1579, "voc/tsr", 10, "%u", *(a2 + 25));
+    }
+
+    if (v23 >= 2)
+    {
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1581, "voc/tsr", 11, "%u", *(a2 + 25));
+    }
+
+    if (v21 >= 2)
+    {
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1583, "voc/tsr", 12, "%u", *(a2 + 25));
+    }
+
+    if (v10 >= 2)
+    {
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1586, "voc/tsr", 14, "%u", *(a2 + 25));
+    }
+
+    if (LineFieldInteger <= 0)
+    {
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1591, "voc/tsr", 17, "%u", *(a2 + 25));
+    }
+
+    if (v32 < LineFieldInteger + 1)
+    {
+      BitArray::setSize(&v31, LineFieldInteger + 1);
+    }
+
+    v13 = *(v31 + 4 * (LineFieldInteger >> 5));
+    if ((v13 & (1 << LineFieldInteger)) != 0)
+    {
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1605, "voc/tsr", 4, "%u %.500s %u %u", *(a2 + 25), "StateAllowPrecedingNonAcousticWords", LineFieldInteger, *this);
+    }
+
+    else
+    {
+      *(v31 + 4 * (LineFieldInteger >> 5)) = v13 | (1 << LineFieldInteger);
+    }
+
+    v14 = v30;
+    while (v14 < LineFieldInteger + 1)
+    {
+      if (v14 == HIDWORD(v30))
+      {
+        DgnPrimArray<char>::reallocElts(&v29, 1, 1);
+        v14 = v30;
+      }
+
+      *(v29 + v14) = 0;
+      v14 = v30 + 1;
+      LODWORD(v30) = v30 + 1;
+    }
+
+    *(v29 + LineFieldInteger) = v10;
+    if (!DgnTextFileParser::parseNextLine(a2))
+    {
+      break;
+    }
+
+    v15 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
+    DgnString::DgnString(&v18, v15);
+    if (v19)
+    {
+      v16 = v18;
+    }
+
+    else
+    {
+      v16 = &byte_262899963;
+    }
+
+    v17 = strcmp(v16, "StateAllowPrecedingNonAcousticWords");
+    DgnString::~DgnString(&v18);
+    DgnString::~DgnString(v20);
+    DgnString::~DgnString(v22);
+    DgnString::~DgnString(v24);
+    DgnString::~DgnString(v26);
+    DgnString::~DgnString(&v27);
+    if (v17)
     {
       goto LABEL_39;
     }
   }
 
-  DgnString::~DgnString(v41);
-  DgnString::~DgnString(v43);
-  DgnString::~DgnString(v45);
-  DgnString::~DgnString(v47);
-  DgnString::~DgnString(&v48);
+  DgnString::~DgnString(v20);
+  DgnString::~DgnString(v22);
+  DgnString::~DgnString(v24);
+  DgnString::~DgnString(v26);
+  DgnString::~DgnString(&v27);
 LABEL_39:
-  if (v51)
+  if (v30)
   {
-    StateMgr::upgradePrecedingNonAcousticWordsAllowed(*(*(**VocMgr::smpVocMgr + 8 * *this) + 56), &v50, v32, v33, v34, v35, v36, v37);
+    StateMgr::upgradePrecedingNonAcousticWordsAllowed(*(*(**VocMgr::smpVocMgr + 8 * *this) + 56), &v29);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v50);
-  BitArray::~BitArray(&v52);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v29);
+  BitArray::~BitArray(&v31);
 }
 
 void sub_26274D6A4(_Unwind_Exception *a1)
@@ -307,1021 +461,1016 @@ void sub_26274D6A4(_Unwind_Exception *a1)
 
 void TextStateRule::parseStateAllowPrefiltering(TextStateRule *this, DgnTextFileParser *a2)
 {
-  DgnString::DgnString(&v45);
+  DgnString::DgnString(&v28);
   while (1)
   {
-    DgnString::DgnString(&v43);
-    DgnString::DgnString(v42);
-    DgnString::DgnString(v40);
-    DgnString::DgnString(v38);
-    DgnString::DgnString(v36);
+    DgnString::DgnString(&v26);
+    DgnString::DgnString(v25);
+    DgnString::DgnString(v23);
+    DgnString::DgnString(v21);
+    DgnString::DgnString(v19);
     LineFieldString = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::operator=(v42, LineFieldString);
+    DgnString::operator=(v25, LineFieldString);
     if (*(this + 32) == 1)
     {
-      v11 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
-      DgnString::operator=(&v43, v11);
+      v5 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
+      DgnString::operator=(&v26, v5);
     }
 
-    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3), v5, v6, v7, v8, v9, v10);
-    v13 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
-    DgnString::operator=(v40, v13);
-    v14 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
-    DgnString::operator=(v38, v14);
-    v15 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
-    DgnString::operator=(v36, v15);
-    v22 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7), v16, v17, v18, v19, v20, v21);
+    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3));
+    v7 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
+    DgnString::operator=(v23, v7);
+    v8 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
+    DgnString::operator=(v21, v8);
+    v9 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
+    DgnString::operator=(v19, v9);
+    v10 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7));
     if (*(this + 12))
     {
-      v23 = *(this + 5);
+      v11 = *(this + 5);
     }
 
     else
     {
-      v23 = &byte_262899963;
+      v11 = &byte_262899963;
     }
 
-    if (v44)
+    if (v27)
     {
-      v24 = v43;
+      v12 = v26;
     }
 
     else
     {
-      v24 = &byte_262899963;
+      v12 = &byte_262899963;
     }
 
-    if (strcmp(v23, v24))
+    if (strcmp(v11, v12))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1650, "voc/tsr", 29, "%u %500s %500s", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1650, "voc/tsr", 29, "%u %500s %500s", *(a2 + 25), "StateAllowPrefiltering", v12);
     }
 
-    if (v41 >= 2)
+    if (v24 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1652, "voc/tsr", 10, "%u", v27, v28, *(a2 + 25));
-    }
-
-    if (v39 >= 2)
-    {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1654, "voc/tsr", 11, "%u", v27, v28, *(a2 + 25));
-    }
-
-    if (v37 >= 2)
-    {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1656, "voc/tsr", 12, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1652, "voc/tsr", 10, "%u", *(a2 + 25));
     }
 
     if (v22 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1659, "voc/tsr", 14, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1654, "voc/tsr", 11, "%u", *(a2 + 25));
+    }
+
+    if (v20 >= 2)
+    {
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1656, "voc/tsr", 12, "%u", *(a2 + 25));
+    }
+
+    if (v10 >= 2)
+    {
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1659, "voc/tsr", 14, "%u", *(a2 + 25));
     }
 
     if (LineFieldInteger <= 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1664, "voc/tsr", 17, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1664, "voc/tsr", 17, "%u", *(a2 + 25));
     }
 
-    if (v46 < LineFieldInteger + 1)
+    if (v29 < LineFieldInteger + 1)
     {
-      BitArray::setSize(&v45, LineFieldInteger + 1);
+      BitArray::setSize(&v28, LineFieldInteger + 1);
     }
 
-    v29 = *(v45 + 4 * (LineFieldInteger >> 5));
-    if ((v29 & (1 << LineFieldInteger)) != 0)
+    v13 = *(v28 + 4 * (LineFieldInteger >> 5));
+    if ((v13 & (1 << LineFieldInteger)) != 0)
     {
-      v33 = *this;
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1677, "voc/tsr", 4, "%u %.500s %u %u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1677, "voc/tsr", 4, "%u %.500s %u %u", *(a2 + 25), "StateAllowPrefiltering", LineFieldInteger, *this);
     }
 
     else
     {
-      *(v45 + 4 * (LineFieldInteger >> 5)) = v29 | (1 << LineFieldInteger);
+      *(v28 + 4 * (LineFieldInteger >> 5)) = v13 | (1 << LineFieldInteger);
     }
 
-    StateMgr::setPrefilteringAllowed(*(*(**VocMgr::smpVocMgr + 8 * *this) + 56), LineFieldInteger, v22 == 1, 1, v25, v26, v27, v28);
+    StateMgr::setPrefilteringAllowed(*(*(**VocMgr::smpVocMgr + 8 * *this) + 56), LineFieldInteger, v10 == 1, 1);
     if (!DgnTextFileParser::parseNextLine(a2))
     {
       break;
     }
 
-    v30 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::DgnString(&v34, v30);
-    if (v35)
+    v14 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
+    DgnString::DgnString(&v17, v14);
+    if (v18)
     {
-      v31 = v34;
+      v15 = v17;
     }
 
     else
     {
-      v31 = &byte_262899963;
+      v15 = &byte_262899963;
     }
 
-    v32 = strcmp(v31, "StateAllowPrefiltering");
-    DgnString::~DgnString(&v34);
-    DgnString::~DgnString(v36);
-    DgnString::~DgnString(v38);
-    DgnString::~DgnString(v40);
-    DgnString::~DgnString(v42);
-    DgnString::~DgnString(&v43);
-    if (v32)
+    v16 = strcmp(v15, "StateAllowPrefiltering");
+    DgnString::~DgnString(&v17);
+    DgnString::~DgnString(v19);
+    DgnString::~DgnString(v21);
+    DgnString::~DgnString(v23);
+    DgnString::~DgnString(v25);
+    DgnString::~DgnString(&v26);
+    if (v16)
     {
       goto LABEL_34;
     }
   }
 
-  DgnString::~DgnString(v36);
-  DgnString::~DgnString(v38);
-  DgnString::~DgnString(v40);
-  DgnString::~DgnString(v42);
-  DgnString::~DgnString(&v43);
+  DgnString::~DgnString(v19);
+  DgnString::~DgnString(v21);
+  DgnString::~DgnString(v23);
+  DgnString::~DgnString(v25);
+  DgnString::~DgnString(&v26);
 LABEL_34:
-  BitArray::~BitArray(&v45);
+  BitArray::~BitArray(&v28);
 }
 
-void sub_26274DB04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_26274DB04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v15 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v22 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   DgnString::~DgnString(va);
   DgnString::~DgnString(va1);
-  BitArray::~BitArray((v13 - 96));
+  BitArray::~BitArray((v20 - 96));
   _Unwind_Resume(a1);
 }
 
 void TextStateRule::parseStateAllowEndOfUtt(TextStateRule *this, DgnTextFileParser *a2)
 {
-  DgnString::DgnString(&v45);
+  DgnString::DgnString(&v28);
   while (1)
   {
-    DgnString::DgnString(&v43);
-    DgnString::DgnString(v42);
-    DgnString::DgnString(v40);
-    DgnString::DgnString(v38);
-    DgnString::DgnString(v36);
+    DgnString::DgnString(&v26);
+    DgnString::DgnString(v25);
+    DgnString::DgnString(v23);
+    DgnString::DgnString(v21);
+    DgnString::DgnString(v19);
     LineFieldString = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::operator=(v42, LineFieldString);
+    DgnString::operator=(v25, LineFieldString);
     if (*(this + 32) == 1)
     {
-      v11 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
-      DgnString::operator=(&v43, v11);
+      v5 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
+      DgnString::operator=(&v26, v5);
     }
 
-    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3), v5, v6, v7, v8, v9, v10);
-    v13 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
-    DgnString::operator=(v40, v13);
-    v14 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
-    DgnString::operator=(v38, v14);
-    v15 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
-    DgnString::operator=(v36, v15);
-    v22 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7), v16, v17, v18, v19, v20, v21);
+    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3));
+    v7 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
+    DgnString::operator=(v23, v7);
+    v8 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
+    DgnString::operator=(v21, v8);
+    v9 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
+    DgnString::operator=(v19, v9);
+    v10 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7));
     if (*(this + 12))
     {
-      v23 = *(this + 5);
+      v11 = *(this + 5);
     }
 
     else
     {
-      v23 = &byte_262899963;
+      v11 = &byte_262899963;
     }
 
-    if (v44)
+    if (v27)
     {
-      v24 = v43;
+      v12 = v26;
     }
 
     else
     {
-      v24 = &byte_262899963;
+      v12 = &byte_262899963;
     }
 
-    if (strcmp(v23, v24))
+    if (strcmp(v11, v12))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1708, "voc/tsr", 29, "%u %500s %500s", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1708, "voc/tsr", 29, "%u %500s %500s", *(a2 + 25), "StateAllowEndOfUtt", v12);
     }
 
-    if (v41 >= 2)
+    if (v24 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1710, "voc/tsr", 10, "%u", v27, v28, *(a2 + 25));
-    }
-
-    if (v39 >= 2)
-    {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1712, "voc/tsr", 11, "%u", v27, v28, *(a2 + 25));
-    }
-
-    if (v37 >= 2)
-    {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1714, "voc/tsr", 12, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1710, "voc/tsr", 10, "%u", *(a2 + 25));
     }
 
     if (v22 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1717, "voc/tsr", 14, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1712, "voc/tsr", 11, "%u", *(a2 + 25));
+    }
+
+    if (v20 >= 2)
+    {
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1714, "voc/tsr", 12, "%u", *(a2 + 25));
+    }
+
+    if (v10 >= 2)
+    {
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1717, "voc/tsr", 14, "%u", *(a2 + 25));
     }
 
     if (LineFieldInteger <= 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1722, "voc/tsr", 17, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1722, "voc/tsr", 17, "%u", *(a2 + 25));
     }
 
-    if (v46 < LineFieldInteger + 1)
+    if (v29 < LineFieldInteger + 1)
     {
-      BitArray::setSize(&v45, LineFieldInteger + 1);
+      BitArray::setSize(&v28, LineFieldInteger + 1);
     }
 
-    v29 = *(v45 + 4 * (LineFieldInteger >> 5));
-    if ((v29 & (1 << LineFieldInteger)) != 0)
+    v13 = *(v28 + 4 * (LineFieldInteger >> 5));
+    if ((v13 & (1 << LineFieldInteger)) != 0)
     {
-      v33 = *this;
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1735, "voc/tsr", 4, "%u %.500s %u %u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1735, "voc/tsr", 4, "%u %.500s %u %u", *(a2 + 25), "StateAllowEndOfUtt", LineFieldInteger, *this);
     }
 
     else
     {
-      *(v45 + 4 * (LineFieldInteger >> 5)) = v29 | (1 << LineFieldInteger);
+      *(v28 + 4 * (LineFieldInteger >> 5)) = v13 | (1 << LineFieldInteger);
     }
 
-    StateMgr::setEndOfUtteranceAllowed(*(*(**VocMgr::smpVocMgr + 8 * *this) + 56), LineFieldInteger, v22 == 1, 1, v25, v26, v27, v28);
+    StateMgr::setEndOfUtteranceAllowed(*(*(**VocMgr::smpVocMgr + 8 * *this) + 56), LineFieldInteger, v10 == 1, 1);
     if (!DgnTextFileParser::parseNextLine(a2))
     {
       break;
     }
 
-    v30 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::DgnString(&v34, v30);
-    if (v35)
+    v14 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
+    DgnString::DgnString(&v17, v14);
+    if (v18)
     {
-      v31 = v34;
+      v15 = v17;
     }
 
     else
     {
-      v31 = &byte_262899963;
+      v15 = &byte_262899963;
     }
 
-    v32 = strcmp(v31, "StateAllowEndOfUtt");
-    DgnString::~DgnString(&v34);
-    DgnString::~DgnString(v36);
-    DgnString::~DgnString(v38);
-    DgnString::~DgnString(v40);
-    DgnString::~DgnString(v42);
-    DgnString::~DgnString(&v43);
-    if (v32)
+    v16 = strcmp(v15, "StateAllowEndOfUtt");
+    DgnString::~DgnString(&v17);
+    DgnString::~DgnString(v19);
+    DgnString::~DgnString(v21);
+    DgnString::~DgnString(v23);
+    DgnString::~DgnString(v25);
+    DgnString::~DgnString(&v26);
+    if (v16)
     {
       goto LABEL_34;
     }
   }
 
-  DgnString::~DgnString(v36);
-  DgnString::~DgnString(v38);
-  DgnString::~DgnString(v40);
-  DgnString::~DgnString(v42);
-  DgnString::~DgnString(&v43);
+  DgnString::~DgnString(v19);
+  DgnString::~DgnString(v21);
+  DgnString::~DgnString(v23);
+  DgnString::~DgnString(v25);
+  DgnString::~DgnString(&v26);
 LABEL_34:
-  BitArray::~BitArray(&v45);
+  BitArray::~BitArray(&v28);
 }
 
-void sub_26274DF54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_26274DF54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v15 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v22 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   DgnString::~DgnString(va);
   DgnString::~DgnString(va1);
-  BitArray::~BitArray((v13 - 96));
+  BitArray::~BitArray((v20 - 96));
   _Unwind_Resume(a1);
 }
 
 void TextStateRule::parseStateAliasState(TextStateRule *this, DgnTextFileParser *a2)
 {
-  DgnString::DgnString(&v45);
+  DgnString::DgnString(&v28);
   while (1)
   {
-    DgnString::DgnString(&v43);
-    DgnString::DgnString(v42);
-    DgnString::DgnString(v40);
-    DgnString::DgnString(v38);
-    DgnString::DgnString(v36);
+    DgnString::DgnString(&v26);
+    DgnString::DgnString(v25);
+    DgnString::DgnString(v23);
+    DgnString::DgnString(v21);
+    DgnString::DgnString(v19);
     LineFieldString = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::operator=(v42, LineFieldString);
+    DgnString::operator=(v25, LineFieldString);
     if (*(this + 32) == 1)
     {
-      v11 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
-      DgnString::operator=(&v43, v11);
+      v5 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
+      DgnString::operator=(&v26, v5);
     }
 
-    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3), v5, v6, v7, v8, v9, v10);
-    v13 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
-    DgnString::operator=(v40, v13);
-    v14 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
-    DgnString::operator=(v38, v14);
-    v15 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
-    DgnString::operator=(v36, v15);
-    v22 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7), v16, v17, v18, v19, v20, v21);
+    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3));
+    v7 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
+    DgnString::operator=(v23, v7);
+    v8 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
+    DgnString::operator=(v21, v8);
+    v9 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
+    DgnString::operator=(v19, v9);
+    v10 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7));
     if (*(this + 12))
     {
-      v23 = *(this + 5);
+      v11 = *(this + 5);
     }
 
     else
     {
-      v23 = &byte_262899963;
+      v11 = &byte_262899963;
     }
 
-    if (v44)
+    if (v27)
     {
-      v24 = v43;
+      v12 = v26;
     }
 
     else
     {
-      v24 = &byte_262899963;
+      v12 = &byte_262899963;
     }
 
-    if (strcmp(v23, v24))
+    if (strcmp(v11, v12))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1767, "voc/tsr", 29, "%u %500s %500s", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1767, "voc/tsr", 29, "%u %500s %500s", *(a2 + 25), "StateAliasState", v12);
     }
 
-    if (v41 >= 2)
+    if (v24 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1769, "voc/tsr", 10, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1769, "voc/tsr", 10, "%u", *(a2 + 25));
     }
 
-    if (v39 >= 2)
+    if (v22 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1771, "voc/tsr", 11, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1771, "voc/tsr", 11, "%u", *(a2 + 25));
     }
 
-    if (v37 >= 2)
+    if (v20 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1773, "voc/tsr", 12, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1773, "voc/tsr", 12, "%u", *(a2 + 25));
     }
 
     if (LineFieldInteger <= 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1778, "voc/tsr", 17, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1778, "voc/tsr", 17, "%u", *(a2 + 25));
     }
 
-    if (v22 <= 0)
+    if (v10 <= 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1782, "voc/tsr", 18, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1782, "voc/tsr", 18, "%u", *(a2 + 25));
     }
 
-    if (v46 < LineFieldInteger + 1)
+    if (v29 < LineFieldInteger + 1)
     {
-      BitArray::setSize(&v45, LineFieldInteger + 1);
+      BitArray::setSize(&v28, LineFieldInteger + 1);
     }
 
-    v29 = *(v45 + 4 * (LineFieldInteger >> 5));
-    if ((v29 & (1 << LineFieldInteger)) != 0)
+    v13 = *(v28 + 4 * (LineFieldInteger >> 5));
+    if ((v13 & (1 << LineFieldInteger)) != 0)
     {
-      v33 = *this;
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1796, "voc/tsr", 4, "%u %.500s %u %u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1796, "voc/tsr", 4, "%u %.500s %u %u", *(a2 + 25), "StateAliasState", LineFieldInteger, *this);
     }
 
     else
     {
-      *(v45 + 4 * (LineFieldInteger >> 5)) = v29 | (1 << LineFieldInteger);
+      *(v28 + 4 * (LineFieldInteger >> 5)) = v13 | (1 << LineFieldInteger);
     }
 
-    StateMgr::setWordAliasState(*(*(**VocMgr::smpVocMgr + 8 * *this) + 56), LineFieldInteger, v22, 1, v25, v26, v27, v28);
+    StateMgr::setWordAliasState(*(*(**VocMgr::smpVocMgr + 8 * *this) + 56), LineFieldInteger, v10, 1);
     if (!DgnTextFileParser::parseNextLine(a2))
     {
       break;
     }
 
-    v30 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::DgnString(&v34, v30);
-    if (v35)
+    v14 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
+    DgnString::DgnString(&v17, v14);
+    if (v18)
     {
-      v31 = v34;
+      v15 = v17;
     }
 
     else
     {
-      v31 = &byte_262899963;
+      v15 = &byte_262899963;
     }
 
-    v32 = strcmp(v31, "StateAliasState");
-    DgnString::~DgnString(&v34);
-    DgnString::~DgnString(v36);
-    DgnString::~DgnString(v38);
-    DgnString::~DgnString(v40);
-    DgnString::~DgnString(v42);
-    DgnString::~DgnString(&v43);
-    if (v32)
+    v16 = strcmp(v15, "StateAliasState");
+    DgnString::~DgnString(&v17);
+    DgnString::~DgnString(v19);
+    DgnString::~DgnString(v21);
+    DgnString::~DgnString(v23);
+    DgnString::~DgnString(v25);
+    DgnString::~DgnString(&v26);
+    if (v16)
     {
       goto LABEL_34;
     }
   }
 
-  DgnString::~DgnString(v36);
-  DgnString::~DgnString(v38);
-  DgnString::~DgnString(v40);
-  DgnString::~DgnString(v42);
-  DgnString::~DgnString(&v43);
+  DgnString::~DgnString(v19);
+  DgnString::~DgnString(v21);
+  DgnString::~DgnString(v23);
+  DgnString::~DgnString(v25);
+  DgnString::~DgnString(&v26);
 LABEL_34:
-  BitArray::~BitArray(&v45);
+  BitArray::~BitArray(&v28);
 }
 
-void sub_26274E3A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_26274E3A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va2, a11);
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va2, a18);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   va_copy(va2, va1);
-  v16 = va_arg(va2, void);
-  v18 = va_arg(va2, void);
+  v23 = va_arg(va2, void);
+  v25 = va_arg(va2, void);
   DgnString::~DgnString(va);
   DgnString::~DgnString(va1);
   DgnString::~DgnString(va2);
-  BitArray::~BitArray((v11 - 96));
+  BitArray::~BitArray((v18 - 96));
   _Unwind_Resume(a1);
 }
 
 void TextStateRule::parseStatePrecedingNonAcousticWordState(TextStateRule *this, DgnTextFileParser *a2)
 {
-  DgnString::DgnString(&v45);
+  DgnString::DgnString(&v28);
   while (1)
   {
-    DgnString::DgnString(&v43);
-    DgnString::DgnString(v42);
-    DgnString::DgnString(v40);
-    DgnString::DgnString(v38);
-    DgnString::DgnString(v36);
+    DgnString::DgnString(&v26);
+    DgnString::DgnString(v25);
+    DgnString::DgnString(v23);
+    DgnString::DgnString(v21);
+    DgnString::DgnString(v19);
     LineFieldString = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::operator=(v42, LineFieldString);
+    DgnString::operator=(v25, LineFieldString);
     if (*(this + 32) == 1)
     {
-      v11 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
-      DgnString::operator=(&v43, v11);
+      v5 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
+      DgnString::operator=(&v26, v5);
     }
 
-    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3), v5, v6, v7, v8, v9, v10);
-    v13 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
-    DgnString::operator=(v40, v13);
-    v14 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
-    DgnString::operator=(v38, v14);
-    v15 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
-    DgnString::operator=(v36, v15);
-    v22 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7), v16, v17, v18, v19, v20, v21);
+    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3));
+    v7 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
+    DgnString::operator=(v23, v7);
+    v8 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
+    DgnString::operator=(v21, v8);
+    v9 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
+    DgnString::operator=(v19, v9);
+    v10 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7));
     if (*(this + 12))
     {
-      v23 = *(this + 5);
+      v11 = *(this + 5);
     }
 
     else
     {
-      v23 = &byte_262899963;
+      v11 = &byte_262899963;
     }
 
-    if (v44)
+    if (v27)
     {
-      v24 = v43;
+      v12 = v26;
     }
 
     else
     {
-      v24 = &byte_262899963;
+      v12 = &byte_262899963;
     }
 
-    if (strcmp(v23, v24))
+    if (strcmp(v11, v12))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1829, "voc/tsr", 29, "%u %500s %500s", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1829, "voc/tsr", 29, "%u %500s %500s", *(a2 + 25), "StatePrecedingNonAcousticWordState", v12);
     }
 
-    if (v41 >= 2)
+    if (v24 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1831, "voc/tsr", 10, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1831, "voc/tsr", 10, "%u", *(a2 + 25));
     }
 
-    if (v39 >= 2)
+    if (v22 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1833, "voc/tsr", 11, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1833, "voc/tsr", 11, "%u", *(a2 + 25));
     }
 
-    if (v37 >= 2)
+    if (v20 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1835, "voc/tsr", 12, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1835, "voc/tsr", 12, "%u", *(a2 + 25));
     }
 
     if (LineFieldInteger <= 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1840, "voc/tsr", 17, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1840, "voc/tsr", 17, "%u", *(a2 + 25));
     }
 
-    if (v22 <= 0)
+    if (v10 <= 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1844, "voc/tsr", 18, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1844, "voc/tsr", 18, "%u", *(a2 + 25));
     }
 
-    if (v46 < LineFieldInteger + 1)
+    if (v29 < LineFieldInteger + 1)
     {
-      BitArray::setSize(&v45, LineFieldInteger + 1);
+      BitArray::setSize(&v28, LineFieldInteger + 1);
     }
 
-    v29 = *(v45 + 4 * (LineFieldInteger >> 5));
-    if ((v29 & (1 << LineFieldInteger)) != 0)
+    v13 = *(v28 + 4 * (LineFieldInteger >> 5));
+    if ((v13 & (1 << LineFieldInteger)) != 0)
     {
-      v33 = *this;
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1860, "voc/tsr", 4, "%u %.500s %u %u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1860, "voc/tsr", 4, "%u %.500s %u %u", *(a2 + 25), "StatePrecedingNonAcousticWordState", LineFieldInteger, *this);
     }
 
     else
     {
-      *(v45 + 4 * (LineFieldInteger >> 5)) = v29 | (1 << LineFieldInteger);
+      *(v28 + 4 * (LineFieldInteger >> 5)) = v13 | (1 << LineFieldInteger);
     }
 
-    StateMgr::setPrecedingNonAcousticWordState(*(*(**VocMgr::smpVocMgr + 8 * *this) + 56), LineFieldInteger, v22, 1, v25, v26, v27, v28);
+    StateMgr::setPrecedingNonAcousticWordState(*(*(**VocMgr::smpVocMgr + 8 * *this) + 56), LineFieldInteger, v10, 1);
     if (!DgnTextFileParser::parseNextLine(a2))
     {
       break;
     }
 
-    v30 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::DgnString(&v34, v30);
-    if (v35)
+    v14 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
+    DgnString::DgnString(&v17, v14);
+    if (v18)
     {
-      v31 = v34;
+      v15 = v17;
     }
 
     else
     {
-      v31 = &byte_262899963;
+      v15 = &byte_262899963;
     }
 
-    v32 = strcmp(v31, "StatePrecedingNonAcousticWordState");
-    DgnString::~DgnString(&v34);
-    DgnString::~DgnString(v36);
-    DgnString::~DgnString(v38);
-    DgnString::~DgnString(v40);
-    DgnString::~DgnString(v42);
-    DgnString::~DgnString(&v43);
-    if (v32)
+    v16 = strcmp(v15, "StatePrecedingNonAcousticWordState");
+    DgnString::~DgnString(&v17);
+    DgnString::~DgnString(v19);
+    DgnString::~DgnString(v21);
+    DgnString::~DgnString(v23);
+    DgnString::~DgnString(v25);
+    DgnString::~DgnString(&v26);
+    if (v16)
     {
       goto LABEL_34;
     }
   }
 
-  DgnString::~DgnString(v36);
-  DgnString::~DgnString(v38);
-  DgnString::~DgnString(v40);
-  DgnString::~DgnString(v42);
-  DgnString::~DgnString(&v43);
+  DgnString::~DgnString(v19);
+  DgnString::~DgnString(v21);
+  DgnString::~DgnString(v23);
+  DgnString::~DgnString(v25);
+  DgnString::~DgnString(&v26);
 LABEL_34:
-  BitArray::~BitArray(&v45);
+  BitArray::~BitArray(&v28);
 }
 
-void sub_26274E7EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_26274E7EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va2, a11);
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va2, a18);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   va_copy(va2, va1);
-  v16 = va_arg(va2, void);
-  v18 = va_arg(va2, void);
+  v23 = va_arg(va2, void);
+  v25 = va_arg(va2, void);
   DgnString::~DgnString(va);
   DgnString::~DgnString(va1);
   DgnString::~DgnString(va2);
-  BitArray::~BitArray((v11 - 96));
+  BitArray::~BitArray((v18 - 96));
   _Unwind_Resume(a1);
 }
 
 void TextStateRule::parseStatePrecedingNonAcousticWordRequired(TextStateRule *this, DgnTextFileParser *a2)
 {
-  DgnString::DgnString(&v45);
+  DgnString::DgnString(&v28);
   while (1)
   {
-    DgnString::DgnString(&v43);
-    DgnString::DgnString(v42);
-    DgnString::DgnString(v40);
-    DgnString::DgnString(v38);
-    DgnString::DgnString(v36);
+    DgnString::DgnString(&v26);
+    DgnString::DgnString(v25);
+    DgnString::DgnString(v23);
+    DgnString::DgnString(v21);
+    DgnString::DgnString(v19);
     LineFieldString = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::operator=(v42, LineFieldString);
+    DgnString::operator=(v25, LineFieldString);
     if (*(this + 32) == 1)
     {
-      v11 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
-      DgnString::operator=(&v43, v11);
+      v5 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
+      DgnString::operator=(&v26, v5);
     }
 
-    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3), v5, v6, v7, v8, v9, v10);
-    v13 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
-    DgnString::operator=(v40, v13);
-    v14 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
-    DgnString::operator=(v38, v14);
-    v15 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
-    DgnString::operator=(v36, v15);
-    v22 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7), v16, v17, v18, v19, v20, v21);
+    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3));
+    v7 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
+    DgnString::operator=(v23, v7);
+    v8 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
+    DgnString::operator=(v21, v8);
+    v9 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
+    DgnString::operator=(v19, v9);
+    v10 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7));
     if (*(this + 12))
     {
-      v23 = *(this + 5);
+      v11 = *(this + 5);
     }
 
     else
     {
-      v23 = &byte_262899963;
+      v11 = &byte_262899963;
     }
 
-    if (v44)
+    if (v27)
     {
-      v24 = v43;
+      v12 = v26;
     }
 
     else
     {
-      v24 = &byte_262899963;
+      v12 = &byte_262899963;
     }
 
-    if (strcmp(v23, v24))
+    if (strcmp(v11, v12))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1895, "voc/tsr", 29, "%u %500s %500s", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1895, "voc/tsr", 29, "%u %500s %500s", *(a2 + 25), "StatePrecedingNonAcousticWordRequired", v12);
     }
 
-    if (v41 >= 2)
+    if (v24 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1897, "voc/tsr", 10, "%u", v27, v28, *(a2 + 25));
-    }
-
-    if (v39 >= 2)
-    {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1899, "voc/tsr", 11, "%u", v27, v28, *(a2 + 25));
-    }
-
-    if (v37 >= 2)
-    {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1901, "voc/tsr", 12, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1897, "voc/tsr", 10, "%u", *(a2 + 25));
     }
 
     if (v22 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1904, "voc/tsr", 14, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1899, "voc/tsr", 11, "%u", *(a2 + 25));
+    }
+
+    if (v20 >= 2)
+    {
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1901, "voc/tsr", 12, "%u", *(a2 + 25));
+    }
+
+    if (v10 >= 2)
+    {
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1904, "voc/tsr", 14, "%u", *(a2 + 25));
     }
 
     if (LineFieldInteger <= 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1909, "voc/tsr", 17, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1909, "voc/tsr", 17, "%u", *(a2 + 25));
     }
 
-    if (v46 < LineFieldInteger + 1)
+    if (v29 < LineFieldInteger + 1)
     {
-      BitArray::setSize(&v45, LineFieldInteger + 1);
+      BitArray::setSize(&v28, LineFieldInteger + 1);
     }
 
-    v29 = *(v45 + 4 * (LineFieldInteger >> 5));
-    if ((v29 & (1 << LineFieldInteger)) != 0)
+    v13 = *(v28 + 4 * (LineFieldInteger >> 5));
+    if ((v13 & (1 << LineFieldInteger)) != 0)
     {
-      v33 = *this;
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1923, "voc/tsr", 4, "%u %.500s %u %u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1923, "voc/tsr", 4, "%u %.500s %u %u", *(a2 + 25), "StatePrecedingNonAcousticWordRequired", LineFieldInteger, *this);
     }
 
     else
     {
-      *(v45 + 4 * (LineFieldInteger >> 5)) = v29 | (1 << LineFieldInteger);
+      *(v28 + 4 * (LineFieldInteger >> 5)) = v13 | (1 << LineFieldInteger);
     }
 
-    StateMgr::setPrecedingNonAcousticWordRequired(*(*(**VocMgr::smpVocMgr + 8 * *this) + 56), LineFieldInteger, v22 == 1, 1, v25, v26, v27, v28);
+    StateMgr::setPrecedingNonAcousticWordRequired(*(*(**VocMgr::smpVocMgr + 8 * *this) + 56), LineFieldInteger, v10 == 1, 1);
     if (!DgnTextFileParser::parseNextLine(a2))
     {
       break;
     }
 
-    v30 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::DgnString(&v34, v30);
-    if (v35)
+    v14 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
+    DgnString::DgnString(&v17, v14);
+    if (v18)
     {
-      v31 = v34;
+      v15 = v17;
     }
 
     else
     {
-      v31 = &byte_262899963;
+      v15 = &byte_262899963;
     }
 
-    v32 = strcmp(v31, "StatePrecedingNonAcousticWordRequired");
-    DgnString::~DgnString(&v34);
-    DgnString::~DgnString(v36);
-    DgnString::~DgnString(v38);
-    DgnString::~DgnString(v40);
-    DgnString::~DgnString(v42);
-    DgnString::~DgnString(&v43);
-    if (v32)
+    v16 = strcmp(v15, "StatePrecedingNonAcousticWordRequired");
+    DgnString::~DgnString(&v17);
+    DgnString::~DgnString(v19);
+    DgnString::~DgnString(v21);
+    DgnString::~DgnString(v23);
+    DgnString::~DgnString(v25);
+    DgnString::~DgnString(&v26);
+    if (v16)
     {
       goto LABEL_34;
     }
   }
 
-  DgnString::~DgnString(v36);
-  DgnString::~DgnString(v38);
-  DgnString::~DgnString(v40);
-  DgnString::~DgnString(v42);
-  DgnString::~DgnString(&v43);
+  DgnString::~DgnString(v19);
+  DgnString::~DgnString(v21);
+  DgnString::~DgnString(v23);
+  DgnString::~DgnString(v25);
+  DgnString::~DgnString(&v26);
 LABEL_34:
-  BitArray::~BitArray(&v45);
+  BitArray::~BitArray(&v28);
 }
 
-void sub_26274EC3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_26274EC3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v15 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v22 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   DgnString::~DgnString(va);
   DgnString::~DgnString(va1);
-  BitArray::~BitArray((v13 - 96));
+  BitArray::~BitArray((v20 - 96));
   _Unwind_Resume(a1);
 }
 
 uint64_t TextStateRule::parseStateIncludedWord(TextStateRule *this, DgnTextFileParser *a2)
 {
-  v70 = 0;
-  v71 = 0;
-  DgnString::DgnString(&v68);
+  v46 = 0;
+  v47 = 0;
+  DgnString::DgnString(&v44);
   v4 = 0;
   LOWORD(v5) = 127;
   do
   {
-    DgnString::DgnString(&v66);
-    DgnString::DgnString(v65);
-    DgnString::DgnString(&v63);
-    DgnString::DgnString(v61);
-    DgnString::DgnString(v59);
+    DgnString::DgnString(&v42);
+    DgnString::DgnString(v41);
+    DgnString::DgnString(&v39);
+    DgnString::DgnString(v37);
+    DgnString::DgnString(v35);
     LineFieldString = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::operator=(v65, LineFieldString);
+    DgnString::operator=(v41, LineFieldString);
     if (*(this + 32) == 1)
     {
-      v13 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
-      DgnString::operator=(&v66, v13);
+      v7 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
+      DgnString::operator=(&v42, v7);
     }
 
-    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3), v7, v8, v9, v10, v11, v12);
-    v15 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
-    DgnString::operator=(&v63, v15);
-    v16 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
-    DgnString::operator=(v61, v16);
-    v17 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
-    DgnString::operator=(v59, v17);
-    v24 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7), v18, v19, v20, v21, v22, v23);
+    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3));
+    v9 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
+    DgnString::operator=(&v39, v9);
+    v10 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
+    DgnString::operator=(v37, v10);
+    v11 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
+    DgnString::operator=(v35, v11);
+    v12 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7));
     if (*(this + 12))
     {
-      v25 = *(this + 5);
+      v13 = *(this + 5);
     }
 
     else
     {
-      v25 = &byte_262899963;
+      v13 = &byte_262899963;
     }
 
-    if (v67)
+    if (v43)
     {
-      v26 = v66;
+      v14 = v42;
     }
 
     else
     {
-      v26 = &byte_262899963;
+      v14 = &byte_262899963;
     }
 
-    if (strcmp(v25, v26))
+    if (strcmp(v13, v14))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1959, "voc/tsr", 29, "%u %500s %500s", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1959, "voc/tsr", 29, "%u %500s %500s", *(a2 + 25), "StateIncludedWord", v14);
     }
 
-    if (v62 >= 2)
+    if (v38 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1961, "voc/tsr", 11, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1961, "voc/tsr", 11, "%u", *(a2 + 25));
     }
 
-    if (v60 >= 2)
+    if (v36 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1963, "voc/tsr", 12, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1963, "voc/tsr", 12, "%u", *(a2 + 25));
     }
 
-    if (v24)
+    if (v12)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1965, "voc/tsr", 13, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1965, "voc/tsr", 13, "%u", *(a2 + 25));
     }
 
     if (LineFieldInteger <= 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1970, "voc/tsr", 17, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1970, "voc/tsr", 17, "%u", *(a2 + 25));
     }
 
     if (v4 == 0 && v5 == 127)
     {
       LOWORD(v5) = *this;
-      v29 = LineFieldInteger;
+      v15 = LineFieldInteger;
     }
 
     else
     {
-      v29 = v4;
+      v15 = v4;
     }
 
-    if (v64)
+    if (v40)
     {
-      v30 = v63;
+      v16 = v39;
     }
 
     else
     {
-      v30 = &byte_262899963;
+      v16 = &byte_262899963;
     }
 
-    WordId = GetWordId(*this, v30, "StateIncludedWord", ".tsr", 0, 0, v27, v28);
-    if (LineFieldInteger != v29 || (v38 = v5, *this != v5))
+    WordId = GetWordId(*this, v16, "StateIncludedWord", ".tsr", 0, 0);
+    if (LineFieldInteger != v15 || (v18 = v5, *this != v5))
     {
-      if (v69 < v29 + 1)
+      if (v45 < v15 + 1)
       {
-        BitArray::setSize(&v68, v29 + 1);
+        BitArray::setSize(&v44, v15 + 1);
       }
 
-      v39 = *(v68 + 4 * (v29 >> 5));
-      if ((v39 & (1 << v29)) != 0)
+      v19 = *(v44 + 4 * (v15 >> 5));
+      if ((v19 & (1 << v15)) != 0)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1994, "voc/tsr", 4, "%u %.500s %u %u", v35, v36, *(a2 + 25));
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 1994, "voc/tsr", 4, "%u %.500s %u %u", *(a2 + 25), "StateIncludedWord", v15, v5);
       }
 
       else
       {
-        *(v68 + 4 * (v29 >> 5)) = v39 | (1 << v29);
+        *(v44 + 4 * (v15 >> 5)) = v19 | (1 << v15);
       }
 
-      StateMgr::addWordIdArray(*(*(**VocMgr::smpVocMgr + 8 * v5) + 56), v29, &v70, 1, v33, v34, v35, v36);
-      LODWORD(v71) = 0;
-      v38 = *this;
+      StateMgr::addWordIdArray(*(*(**VocMgr::smpVocMgr + 8 * v5) + 56), v15, &v46, 1);
+      LODWORD(v47) = 0;
+      v18 = *this;
     }
 
-    v57 = 0;
-    v58 = 0;
-    v40 = *(*(**VocMgr::smpVocMgr + 8 * v38) + 48);
-    WordList::verifyVisible(v40, WordId, v31, v32, v33, v34, v35, v36);
-    WordList::lookupAll(v40, WordId, &v57);
-    v41 = v58;
-    if ((v71 + v58) > HIDWORD(v71))
+    v33 = 0;
+    v34 = 0;
+    v20 = *(*(**VocMgr::smpVocMgr + 8 * v18) + 48);
+    WordList::verifyVisible(v20, WordId);
+    WordList::lookupAll(v20, WordId, &v33);
+    v21 = v34;
+    if ((v47 + v34) > HIDWORD(v47))
     {
-      DgnPrimArray<unsigned int>::reallocElts(&v70, (v71 + v58 - HIDWORD(v71)), 1);
-      v41 = v58;
+      DgnPrimArray<unsigned int>::reallocElts(&v46, (v47 + v34 - HIDWORD(v47)), 1);
+      v21 = v34;
     }
 
-    if (v41)
+    if (v21)
     {
-      v42 = 0;
-      v43 = v57;
-      v44 = v70;
+      v22 = 0;
+      v23 = v33;
+      v24 = v46;
       do
       {
-        *(v44 + 4 * (v42 + v71)) = *(v43 + 4 * v42);
-        ++v42;
-        v45 = v58;
+        *(v24 + 4 * (v22 + v47)) = *(v23 + 4 * v22);
+        ++v22;
+        v25 = v34;
       }
 
-      while (v42 < v58);
+      while (v22 < v34);
     }
 
     else
     {
-      v45 = 0;
+      v25 = 0;
     }
 
-    LODWORD(v71) = v71 + v45;
+    LODWORD(v47) = v47 + v25;
     if (DgnTextFileParser::parseNextLine(a2))
     {
-      v46 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-      DgnString::DgnString(&v55, v46);
-      if (v56)
+      v26 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
+      DgnString::DgnString(&v31, v26);
+      if (v32)
       {
-        v47 = v55;
+        v27 = v31;
       }
 
       else
       {
-        v47 = &byte_262899963;
+        v27 = &byte_262899963;
       }
 
-      v48 = strcmp(v47, "StateIncludedWord") == 0;
-      DgnString::~DgnString(&v55);
+      v28 = strcmp(v27, "StateIncludedWord") == 0;
+      DgnString::~DgnString(&v31);
     }
 
     else
     {
-      v48 = 0;
+      v28 = 0;
     }
 
     v5 = *this;
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v57);
-    DgnString::~DgnString(v59);
-    DgnString::~DgnString(v61);
-    DgnString::~DgnString(&v63);
-    DgnString::~DgnString(v65);
-    DgnString::~DgnString(&v66);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v33);
+    DgnString::~DgnString(v35);
+    DgnString::~DgnString(v37);
+    DgnString::~DgnString(&v39);
+    DgnString::~DgnString(v41);
+    DgnString::~DgnString(&v42);
     v4 = LineFieldInteger;
   }
 
-  while (v48);
-  if (v69 < LineFieldInteger + 1)
+  while (v28);
+  if (v45 < LineFieldInteger + 1)
   {
-    BitArray::setSize(&v68, LineFieldInteger + 1);
+    BitArray::setSize(&v44, LineFieldInteger + 1);
   }
 
-  v53 = *(v68 + 4 * (LineFieldInteger >> 5));
-  if ((v53 & (1 << LineFieldInteger)) != 0)
+  v29 = *(v44 + 4 * (LineFieldInteger >> 5));
+  if ((v29 & (1 << LineFieldInteger)) != 0)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2035, "voc/tsr", 4, "%u %.500s %u %u", v51, v52, *(a2 + 25));
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2035, "voc/tsr", 4, "%u %.500s %u %u", *(a2 + 25), "StateIncludedWord", LineFieldInteger, v5);
   }
 
   else
   {
-    *(v68 + 4 * (LineFieldInteger >> 5)) = v53 | (1 << LineFieldInteger);
+    *(v44 + 4 * (LineFieldInteger >> 5)) = v29 | (1 << LineFieldInteger);
   }
 
-  StateMgr::addWordIdArray(*(*(**VocMgr::smpVocMgr + 8 * v5) + 56), LineFieldInteger, &v70, 1, v49, v50, v51, v52);
-  BitArray::~BitArray(&v68);
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v70);
+  StateMgr::addWordIdArray(*(*(**VocMgr::smpVocMgr + 8 * v5) + 56), LineFieldInteger, &v46, 1);
+  BitArray::~BitArray(&v44);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v46);
 }
 
 uint64_t TextStateRule::parseStateTransitionState(TextStateRule *this, DgnTextFileParser *a2)
 {
-  v93 = 0;
-  v94 = 0;
-  DgnString::DgnString(&v91);
+  v48 = 0;
+  v49 = 0;
+  DgnString::DgnString(&v46);
   v4 = 0;
   v5 = 127;
   v6 = "StateTransitionState";
   do
   {
-    DgnString::DgnString(&v89);
-    DgnString::DgnString(v88);
-    DgnString::DgnString(&v86);
-    DgnString::DgnString(v84);
-    DgnString::DgnString(v82);
+    DgnString::DgnString(&v44);
+    DgnString::DgnString(v43);
+    DgnString::DgnString(&v41);
+    DgnString::DgnString(v39);
+    DgnString::DgnString(v37);
     LineFieldString = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::operator=(v88, LineFieldString);
+    DgnString::operator=(v43, LineFieldString);
     if (*(this + 32) == 1)
     {
-      v14 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
-      DgnString::operator=(&v89, v14);
+      v8 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
+      DgnString::operator=(&v44, v8);
     }
 
-    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3), v8, v9, v10, v11, v12, v13);
-    v16 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
-    DgnString::operator=(&v86, v16);
-    v17 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
-    DgnString::operator=(v84, v17);
-    v18 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
-    DgnString::operator=(v82, v18);
-    v25 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7), v19, v20, v21, v22, v23, v24);
+    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3));
+    v10 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
+    DgnString::operator=(&v41, v10);
+    v11 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
+    DgnString::operator=(v39, v11);
+    v12 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
+    DgnString::operator=(v37, v12);
+    v13 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7));
     if (*(this + 12))
     {
-      v26 = *(this + 5);
+      v14 = *(this + 5);
     }
 
     else
     {
-      v26 = &byte_262899963;
+      v14 = &byte_262899963;
     }
 
-    if (v90)
+    if (v45)
     {
-      v27 = v89;
+      v15 = v44;
     }
 
     else
     {
-      v27 = &byte_262899963;
+      v15 = &byte_262899963;
     }
 
-    if (strcmp(v26, v27))
+    if (strcmp(v14, v15))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2062, "voc/tsr", 29, "%u %500s %500s", v31, v32, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2062, "voc/tsr", 29, "%u %500s %500s", *(a2 + 25), v6, v15);
     }
 
-    if (v85 >= 2)
+    if (v40 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2064, "voc/tsr", 11, "%u", v31, v32, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2064, "voc/tsr", 11, "%u", *(a2 + 25));
     }
 
-    if (v83 >= 2)
+    if (v38 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2066, "voc/tsr", 12, "%u", v31, v32, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2066, "voc/tsr", 12, "%u", *(a2 + 25));
     }
 
     if (LineFieldInteger <= 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2071, "voc/tsr", 17, "%u", v31, v32, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2071, "voc/tsr", 17, "%u", *(a2 + 25));
     }
 
-    if (v25 <= 0)
+    if (v13 <= 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2075, "voc/tsr", 18, "%u", v31, v32, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2075, "voc/tsr", 18, "%u", *(a2 + 25));
     }
 
     if (!v4 && v5 == 127)
@@ -1332,228 +1481,225 @@ uint64_t TextStateRule::parseStateTransitionState(TextStateRule *this, DgnTextFi
 
     if ((*(this + 32) & 1) == 0)
     {
-      v33 = v87 ? v86 : &byte_262899963;
-      if (*v33)
+      v16 = v42 ? v41 : &byte_262899963;
+      if (*v16)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2088, "voc/tsr", 10, "%u", v31, v32, *(a2 + 25));
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2088, "voc/tsr", 10, "%u", *(a2 + 25));
       }
     }
 
     if (v4 == LineFieldInteger && v5 == *this)
     {
-      v34 = v94;
+      v17 = v49;
     }
 
     else
     {
-      if (v92 < v4 + 1)
+      if (v47 < v4 + 1)
       {
-        BitArray::setSize(&v91, v4 + 1);
+        BitArray::setSize(&v46, v4 + 1);
       }
 
-      v35 = *(v91 + 4 * (v4 >> 5));
-      if ((v35 & (1 << v4)) != 0)
+      v18 = *(v46 + 4 * (v4 >> 5));
+      if ((v18 & (1 << v4)) != 0)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2105, "voc/tsr", 4, "%u %.500s %u %u", v31, v32, *(a2 + 25));
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2105, "voc/tsr", 4, "%u %.500s %u %u", *(a2 + 25), v6, v4, v5);
       }
 
       else
       {
-        *(v91 + 4 * (v4 >> 5)) = v35 | (1 << v4);
+        *(v46 + 4 * (v4 >> 5)) = v18 | (1 << v4);
       }
 
-      v79 = v25;
-      v36 = v6;
-      v37 = LineFieldInteger;
-      v38 = *(*(**VocMgr::smpVocMgr + 8 * v5) + 56);
-      RightWBAllowed = StateMgr::getRightWBAllowed(v38, v4, 1, v28, v29, v30, v31, v32);
-      if (StateMgr::getSkipAllowed(v38, v4, 1, v40, v41, v42, v43, v44) && RightWBAllowed != StateMgr::getLeftWBAllowed(v38, v4, 1, v45, v46, v47, v48, v49))
+      v34 = v13;
+      v19 = v6;
+      v20 = LineFieldInteger;
+      v21 = *(*(**VocMgr::smpVocMgr + 8 * v5) + 56);
+      RightWBAllowed = StateMgr::getRightWBAllowed(v21, v4, 1);
+      if (StateMgr::getSkipAllowed(v21, v4, 1) && RightWBAllowed != StateMgr::getLeftWBAllowed(v21, v4, 1))
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2122, "voc/tsr", 9, "%u %u", v48, v49, *(a2 + 25));
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2122, "voc/tsr", 9, "%u %u", *(a2 + 25), v4);
       }
 
-      if (v94)
+      if (v49)
       {
-        v50 = 0;
+        v23 = 0;
         do
         {
-          v51 = *(*(**VocMgr::smpVocMgr + 8 * *this) + 56);
-          if (RightWBAllowed != StateMgr::getLeftWBAllowed(v51, *(v93 + 4 * v50), 1, v45, v46, v47, v48, v49))
+          v24 = *(*(**VocMgr::smpVocMgr + 8 * *this) + 56);
+          if (RightWBAllowed != StateMgr::getLeftWBAllowed(v24, *(v48 + 4 * v23), 1))
           {
-            v77 = *(v93 + 4 * v50);
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2132, "voc/tsr", 6, "%u %u %u", v55, v56, *(a2 + 25));
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2132, "voc/tsr", 6, "%u %u %u", *(a2 + 25), v4, *(v48 + 4 * v23));
           }
 
-          if (StateMgr::getSkipAllowed(v51, *(v93 + 4 * v50), 1, v52, v53, v54, v55, v56) && RightWBAllowed != StateMgr::getRightWBAllowed(v51, *(v93 + 4 * v50), 1, v45, v46, v47, v48, v49))
+          if (StateMgr::getSkipAllowed(v24, *(v48 + 4 * v23), 1) && RightWBAllowed != StateMgr::getRightWBAllowed(v24, *(v48 + 4 * v23), 1))
           {
-            v76 = *(v93 + 4 * v50);
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2139, "voc/tsr", 9, "%u %u", v48, v49, *(a2 + 25));
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2139, "voc/tsr", 9, "%u %u", *(a2 + 25), *(v48 + 4 * v23));
           }
 
-          ++v50;
+          ++v23;
         }
 
-        while (v50 < v94);
+        while (v23 < v49);
       }
 
-      StateMgr::addStateTransition(v38, v4, &v93, 1, 0, 0, v48, v49);
-      v34 = 0;
-      LODWORD(v94) = 0;
-      LineFieldInteger = v37;
-      v6 = v36;
-      v25 = v79;
+      StateMgr::addStateTransition(v21, v4, &v48, 1, 0, 0);
+      v17 = 0;
+      LODWORD(v49) = 0;
+      LineFieldInteger = v20;
+      v6 = v19;
+      v13 = v34;
     }
 
-    if (v34 == HIDWORD(v94))
+    if (v17 == HIDWORD(v49))
     {
-      DgnPrimArray<unsigned int>::reallocElts(&v93, 1, 1);
-      v34 = v94;
+      DgnPrimArray<unsigned int>::reallocElts(&v48, 1, 1);
+      v17 = v49;
     }
 
-    *(v93 + 4 * v34) = v25;
-    LODWORD(v94) = v94 + 1;
+    *(v48 + 4 * v17) = v13;
+    LODWORD(v49) = v49 + 1;
     if (DgnTextFileParser::parseNextLine(a2))
     {
-      v57 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-      DgnString::DgnString(&v80, v57);
-      if (v81)
+      v25 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
+      DgnString::DgnString(&v35, v25);
+      if (v36)
       {
-        v58 = v80;
+        v26 = v35;
       }
 
       else
       {
-        v58 = &byte_262899963;
+        v26 = &byte_262899963;
       }
 
-      v59 = strcmp(v58, v6) == 0;
-      DgnString::~DgnString(&v80);
+      v27 = strcmp(v26, v6) == 0;
+      DgnString::~DgnString(&v35);
     }
 
     else
     {
-      v59 = 0;
+      v27 = 0;
     }
 
     v5 = *this;
-    DgnString::~DgnString(v82);
-    DgnString::~DgnString(v84);
-    DgnString::~DgnString(&v86);
-    DgnString::~DgnString(v88);
-    DgnString::~DgnString(&v89);
+    DgnString::~DgnString(v37);
+    DgnString::~DgnString(v39);
+    DgnString::~DgnString(&v41);
+    DgnString::~DgnString(v43);
+    DgnString::~DgnString(&v44);
     v4 = LineFieldInteger;
   }
 
-  while (v59);
-  if (v92 < LineFieldInteger + 1)
+  while (v27);
+  if (v47 < LineFieldInteger + 1)
   {
-    BitArray::setSize(&v91, LineFieldInteger + 1);
+    BitArray::setSize(&v46, LineFieldInteger + 1);
   }
 
-  v65 = *(v91 + 4 * (LineFieldInteger >> 5));
-  if ((v65 & (1 << LineFieldInteger)) != 0)
+  v28 = *(v46 + 4 * (LineFieldInteger >> 5));
+  if ((v28 & (1 << LineFieldInteger)) != 0)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2171, "voc/tsr", 4, "%u %.500s %u %u", v63, v64, *(a2 + 25));
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2171, "voc/tsr", 4, "%u %.500s %u %u", *(a2 + 25), v6, LineFieldInteger, v5);
   }
 
   else
   {
-    *(v91 + 4 * (LineFieldInteger >> 5)) = v65 | (1 << LineFieldInteger);
+    *(v46 + 4 * (LineFieldInteger >> 5)) = v28 | (1 << LineFieldInteger);
   }
 
-  v66 = *(*(**VocMgr::smpVocMgr + 8 * v5) + 56);
-  v67 = StateMgr::getRightWBAllowed(v66, LineFieldInteger, 1, v60, v61, v62, v63, v64);
-  if (v94)
+  v29 = *(*(**VocMgr::smpVocMgr + 8 * v5) + 56);
+  v30 = StateMgr::getRightWBAllowed(v29, LineFieldInteger, 1);
+  if (v49)
   {
-    v73 = v67;
-    v74 = 0;
+    v31 = v30;
+    v32 = 0;
     do
     {
-      if (v73 != StateMgr::getLeftWBAllowed(*(*(**VocMgr::smpVocMgr + 8 * *this) + 56), *(v93 + 4 * v74), 1, v68, v69, v70, v71, v72))
+      if (v31 != StateMgr::getLeftWBAllowed(*(*(**VocMgr::smpVocMgr + 8 * *this) + 56), *(v48 + 4 * v32), 1))
       {
-        v78 = *(v93 + 4 * v74);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2188, "voc/tsr", 6, "%u %u %u", v71, v72, *(a2 + 25));
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2188, "voc/tsr", 6, "%u %u %u", *(a2 + 25), LineFieldInteger, *(v48 + 4 * v32));
       }
 
-      ++v74;
+      ++v32;
     }
 
-    while (v74 < v94);
+    while (v32 < v49);
   }
 
-  StateMgr::addStateTransition(v66, LineFieldInteger, &v93, 1, 0, 0, v71, v72);
-  BitArray::~BitArray(&v91);
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v93);
+  StateMgr::addStateTransition(v29, LineFieldInteger, &v48, 1, 0, 0);
+  BitArray::~BitArray(&v46);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v48);
 }
 
 uint64_t TextStateRule::parseStateAllowedCollations(TextStateRule *this, DgnTextFileParser *a2)
 {
-  v60 = 0;
-  v61 = 0;
-  DgnString::DgnString(&v58);
+  v37 = 0;
+  v38 = 0;
+  DgnString::DgnString(&v35);
   v4 = 0;
   v5 = 127;
   do
   {
-    DgnString::DgnString(&v56);
-    DgnString::DgnString(v55);
-    DgnString::DgnString(&v53);
-    DgnString::DgnString(v51);
-    DgnString::DgnString(v50);
+    DgnString::DgnString(&v33);
+    DgnString::DgnString(v32);
+    DgnString::DgnString(&v30);
+    DgnString::DgnString(v28);
+    DgnString::DgnString(v27);
     LineFieldString = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::operator=(v55, LineFieldString);
+    DgnString::operator=(v32, LineFieldString);
     if (*(this + 32) == 1)
     {
-      v13 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
-      DgnString::operator=(&v56, v13);
+      v7 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
+      DgnString::operator=(&v33, v7);
     }
 
-    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3), v7, v8, v9, v10, v11, v12);
-    v15 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
-    DgnString::operator=(&v53, v15);
-    v16 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
-    DgnString::operator=(v51, v16);
-    v17 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
-    DgnString::operator=(v50, v17);
-    v24 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7), v18, v19, v20, v21, v22, v23);
+    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3));
+    v9 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
+    DgnString::operator=(&v30, v9);
+    v10 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
+    DgnString::operator=(v28, v10);
+    v11 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
+    DgnString::operator=(v27, v11);
+    v12 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7));
     if (*(this + 12))
     {
-      v25 = *(this + 5);
+      v13 = *(this + 5);
     }
 
     else
     {
-      v25 = &byte_262899963;
+      v13 = &byte_262899963;
     }
 
-    if (v57)
+    if (v34)
     {
-      v26 = v56;
+      v14 = v33;
     }
 
     else
     {
-      v26 = &byte_262899963;
+      v14 = &byte_262899963;
     }
 
-    if (strcmp(v25, v26))
+    if (strcmp(v13, v14))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2210, "voc/tsr", 29, "%u %500s %500s", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2210, "voc/tsr", 29, "%u %500s %500s", *(a2 + 25), "StateAllowedCollations", v14);
     }
 
-    if (v52 >= 2)
+    if (v29 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2212, "voc/tsr", 11, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2212, "voc/tsr", 11, "%u", *(a2 + 25));
     }
 
-    if (v24)
+    if (v12)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2214, "voc/tsr", 13, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2214, "voc/tsr", 13, "%u", *(a2 + 25));
     }
 
     if (LineFieldInteger <= 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2219, "voc/tsr", 17, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2219, "voc/tsr", 17, "%u", *(a2 + 25));
     }
 
     if (!v4 && v5 == 127)
@@ -1562,288 +1708,292 @@ uint64_t TextStateRule::parseStateAllowedCollations(TextStateRule *this, DgnText
       v4 = LineFieldInteger;
     }
 
-    if (v54)
+    if (v31)
     {
-      v29 = v53;
+      v15 = v30;
     }
 
     else
     {
-      v29 = &byte_262899963;
+      v15 = &byte_262899963;
     }
 
-    if (!strcmp(v29, "_IDENTITY"))
+    if (!strcmp(v15, "_IDENTITY"))
     {
-      v36 = -2;
+      v17 = -2;
     }
 
     else
     {
-      v36 = CollMgr::lookupCollation(*(*(**VocMgr::smpVocMgr + 8 * *this) + 16), v29, v30, v31, v32, v33, v34, v35);
+      v17 = CollMgr::lookupCollation(*(*(**VocMgr::smpVocMgr + 8 * *this) + 16), v15, v16);
     }
 
     if (v4 == LineFieldInteger && v5 == *this)
     {
-      v37 = v61;
+      v18 = v38;
     }
 
     else
     {
-      if (v59 < v4 + 1)
+      if (v36 < v4 + 1)
       {
-        BitArray::setSize(&v58, v4 + 1);
+        BitArray::setSize(&v35, v4 + 1);
       }
 
-      v38 = *(v58 + 4 * (v4 >> 5));
-      if ((v38 & (1 << v4)) != 0)
+      v19 = *(v35 + 4 * (v4 >> 5));
+      if ((v19 & (1 << v4)) != 0)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2246, "voc/tsr", 4, "%u %.500s %u %u", v34, v35, *(a2 + 25));
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2246, "voc/tsr", 4, "%u %.500s %u %u", *(a2 + 25), "StateAllowedCollations", v4, v5);
       }
 
       else
       {
-        *(v58 + 4 * (v4 >> 5)) = v38 | (1 << v4);
+        *(v35 + 4 * (v4 >> 5)) = v19 | (1 << v4);
       }
 
-      StateMgr::setColls(*(*(**VocMgr::smpVocMgr + 8 * v5) + 56), v4, &v60, 1, v32, v33, v34, v35);
-      v37 = 0;
-      LODWORD(v61) = 0;
+      StateMgr::setColls(*(*(**VocMgr::smpVocMgr + 8 * v5) + 56), v4, &v37, 1);
+      v18 = 0;
+      LODWORD(v38) = 0;
     }
 
-    if (v37 == HIDWORD(v61))
+    if (v18 == HIDWORD(v38))
     {
-      DgnPrimArray<short>::reallocElts(&v60, 1, 1);
-      v37 = v61;
+      DgnPrimArray<short>::reallocElts(&v37, 1, 1);
+      v18 = v38;
     }
 
-    *(v60 + 2 * v37) = v36;
-    LODWORD(v61) = v37 + 1;
+    *(v37 + 2 * v18) = v17;
+    LODWORD(v38) = v18 + 1;
     if (DgnTextFileParser::parseNextLine(a2))
     {
-      v39 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-      DgnString::DgnString(&v48, v39);
-      if (v49)
+      v20 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
+      DgnString::DgnString(&v25, v20);
+      if (v26)
       {
-        v40 = v48;
+        v21 = v25;
       }
 
       else
       {
-        v40 = &byte_262899963;
+        v21 = &byte_262899963;
       }
 
-      v41 = strcmp(v40, "StateAllowedCollations") == 0;
-      DgnString::~DgnString(&v48);
+      v22 = strcmp(v21, "StateAllowedCollations") == 0;
+      DgnString::~DgnString(&v25);
     }
 
     else
     {
-      v41 = 0;
+      v22 = 0;
     }
 
     v5 = *this;
-    DgnString::~DgnString(v50);
-    DgnString::~DgnString(v51);
-    DgnString::~DgnString(&v53);
-    DgnString::~DgnString(v55);
-    DgnString::~DgnString(&v56);
+    DgnString::~DgnString(v27);
+    DgnString::~DgnString(v28);
+    DgnString::~DgnString(&v30);
+    DgnString::~DgnString(v32);
+    DgnString::~DgnString(&v33);
     v4 = LineFieldInteger;
   }
 
-  while (v41);
-  if (v59 < LineFieldInteger + 1)
+  while (v22);
+  if (v36 < LineFieldInteger + 1)
   {
-    BitArray::setSize(&v58, LineFieldInteger + 1);
+    BitArray::setSize(&v35, LineFieldInteger + 1);
   }
 
-  v46 = *(v58 + 4 * (LineFieldInteger >> 5));
-  if ((v46 & (1 << LineFieldInteger)) != 0)
+  v23 = *(v35 + 4 * (LineFieldInteger >> 5));
+  if ((v23 & (1 << LineFieldInteger)) != 0)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2282, "voc/tsr", 4, "%u %.500s %u %u", v44, v45, *(a2 + 25));
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2282, "voc/tsr", 4, "%u %.500s %u %u", *(a2 + 25), "StateAllowedCollations", LineFieldInteger, v5);
   }
 
   else
   {
-    *(v58 + 4 * (LineFieldInteger >> 5)) = v46 | (1 << LineFieldInteger);
+    *(v35 + 4 * (LineFieldInteger >> 5)) = v23 | (1 << LineFieldInteger);
   }
 
-  StateMgr::setColls(*(*(**VocMgr::smpVocMgr + 8 * v5) + 56), LineFieldInteger, &v60, 1, v42, v43, v44, v45);
-  BitArray::~BitArray(&v58);
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v60);
+  StateMgr::setColls(*(*(**VocMgr::smpVocMgr + 8 * v5) + 56), LineFieldInteger, &v37, 1);
+  BitArray::~BitArray(&v35);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v37);
 }
 
 void TextStateRule::parseStateEnv(TextStateRule *this, DgnTextFileParser *a2)
 {
-  DgnString::DgnString(&v68);
+  DgnString::DgnString(&v38);
   v4 = 0;
-  v66 = 0;
-  v67 = 0;
+  v36 = 0;
+  v37 = 0;
   v5 = 127;
   do
   {
-    DgnString::DgnString(&v64);
-    DgnString::DgnString(v63);
-    DgnString::DgnString(&v61);
-    DgnString::DgnString(v59);
-    DgnString::DgnString(v57);
+    DgnString::DgnString(&v34);
+    DgnString::DgnString(v33);
+    DgnString::DgnString(&v31);
+    DgnString::DgnString(v29);
+    DgnString::DgnString(v27);
     LineFieldString = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::operator=(v63, LineFieldString);
+    DgnString::operator=(v33, LineFieldString);
     if (*(this + 32) == 1)
     {
-      v13 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
-      DgnString::operator=(&v64, v13);
+      v7 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
+      DgnString::operator=(&v34, v7);
     }
 
-    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3), v7, v8, v9, v10, v11, v12);
-    v15 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
-    DgnString::operator=(&v61, v15);
-    v16 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
-    DgnString::operator=(v59, v16);
-    v17 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
-    DgnString::operator=(v57, v17);
-    v24 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7), v18, v19, v20, v21, v22, v23);
+    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3));
+    v9 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
+    DgnString::operator=(&v31, v9);
+    v10 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
+    DgnString::operator=(v29, v10);
+    v11 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
+    DgnString::operator=(v27, v11);
+    v12 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7));
     if (*(this + 12))
     {
-      v25 = *(this + 5);
+      v13 = *(this + 5);
     }
 
     else
     {
-      v25 = &byte_262899963;
+      v13 = &byte_262899963;
     }
 
-    if (v65)
+    if (v35)
     {
-      v26 = v64;
+      v14 = v34;
     }
 
     else
     {
-      v26 = &byte_262899963;
+      v14 = &byte_262899963;
     }
 
-    if (strcmp(v25, v26))
+    if (strcmp(v13, v14))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2307, "voc/tsr", 29, "%u %500s %500s", v31, v32, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2307, "voc/tsr", 29, "%u %500s %500s", *(a2 + 25), "StateEnv", v14);
     }
 
-    if (v58 >= 2)
+    if (v28 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2309, "voc/tsr", 12, "%u", v31, v32, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2309, "voc/tsr", 12, "%u", *(a2 + 25));
     }
 
-    if (v24)
+    if (v12)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2311, "voc/tsr", 13, "%u", v31, v32, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2311, "voc/tsr", 13, "%u", *(a2 + 25));
     }
 
     if (LineFieldInteger <= 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2316, "voc/tsr", 17, "%u", v31, v32, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2316, "voc/tsr", 17, "%u", *(a2 + 25));
     }
 
     if ((v4 || v5 != 127) && (LineFieldInteger != v4 || *this != v5))
     {
-      if (v69 < v4 + 1)
+      if (v39 < v4 + 1)
       {
-        BitArray::setSize(&v68, v4 + 1);
+        BitArray::setSize(&v38, v4 + 1);
       }
 
-      v33 = *(v68 + 4 * (v4 >> 5));
-      if ((v33 & (1 << v4)) != 0)
+      v15 = *(v38 + 4 * (v4 >> 5));
+      if ((v15 & (1 << v4)) != 0)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2338, "voc/tsr", 4, "%u %.500s %u %u", v31, v32, *(a2 + 25));
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2338, "voc/tsr", 4, "%u %.500s %u %u", *(a2 + 25), "StateEnv", v4, v5);
       }
 
       else
       {
-        *(v68 + 4 * (v4 >> 5)) = v33 | (1 << v4);
+        *(v38 + 4 * (v4 >> 5)) = v15 | (1 << v4);
       }
     }
 
-    v34 = *(*(**VocMgr::smpVocMgr + 8 * *this) + 56);
-    StateMgr::verifyVisible(v34, LineFieldInteger, v27, v28, v29, v30, v31, v32);
-    v35 = *(v34 + 94);
-    ItemEnvIdMaybeNew = EnvMgr::getItemEnvIdMaybeNew(v35, LineFieldInteger, 1, v36, v37, v38, v39, v40);
-    if (v62 <= 1)
+    v16 = *(*(**VocMgr::smpVocMgr + 8 * *this) + 56);
+    StateMgr::verifyVisible(v16, LineFieldInteger);
+    v17 = *(v16 + 752);
+    ItemEnvIdMaybeNew = EnvMgr::getItemEnvIdMaybeNew(v17, LineFieldInteger, 1);
+    if (v32 <= 1)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2353, "voc/tsr", 15, "%u", v41, v42, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2353, "voc/tsr", 15, "%u", *(a2 + 25));
     }
 
-    if (v60 <= 1)
+    if (v30 <= 1)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2355, "voc/tsr", 16, "%u", v41, v42, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2355, "voc/tsr", 16, "%u", *(a2 + 25));
     }
 
     if (*(a2 + 10))
     {
-      v44 = *(a2 + 4);
-    }
-
-    v45 = *(a2 + 25);
-    DgnTextFile::convertFromEnvValueFormat(v59, &v66);
-    if (v62)
-    {
-      v48 = v61;
+      v19 = *(a2 + 4);
     }
 
     else
     {
-      v48 = &byte_262899963;
+      v19 = &byte_262899963;
     }
 
-    EnvMgr::setData(v35, ItemEnvIdMaybeNew, v48, v66, v67, 1, v46, v47);
+    DgnTextFile::convertFromEnvValueFormat(v29, &v36, v19, *(a2 + 25));
+    if (v32)
+    {
+      v20 = v31;
+    }
+
+    else
+    {
+      v20 = &byte_262899963;
+    }
+
+    EnvMgr::setData(v17, ItemEnvIdMaybeNew, v20, v36, v37, 1);
     if (DgnTextFileParser::parseNextLine(a2))
     {
-      v49 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-      DgnString::DgnString(&v55, v49);
-      if (v56)
+      v21 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
+      DgnString::DgnString(&v25, v21);
+      if (v26)
       {
-        v50 = v55;
+        v22 = v25;
       }
 
       else
       {
-        v50 = &byte_262899963;
+        v22 = &byte_262899963;
       }
 
-      v51 = strcmp(v50, "StateEnv") == 0;
-      DgnString::~DgnString(&v55);
+      v23 = strcmp(v22, "StateEnv") == 0;
+      DgnString::~DgnString(&v25);
     }
 
     else
     {
-      v51 = 0;
+      v23 = 0;
     }
 
     v5 = *this;
-    DgnString::~DgnString(v57);
-    DgnString::~DgnString(v59);
-    DgnString::~DgnString(&v61);
-    DgnString::~DgnString(v63);
-    DgnString::~DgnString(&v64);
+    DgnString::~DgnString(v27);
+    DgnString::~DgnString(v29);
+    DgnString::~DgnString(&v31);
+    DgnString::~DgnString(v33);
+    DgnString::~DgnString(&v34);
     v4 = LineFieldInteger;
   }
 
-  while (v51);
-  if (v69 < LineFieldInteger + 1)
+  while (v23);
+  if (v39 < LineFieldInteger + 1)
   {
-    BitArray::setSize(&v68, LineFieldInteger + 1);
+    BitArray::setSize(&v38, LineFieldInteger + 1);
   }
 
-  v54 = *(v68 + 4 * (LineFieldInteger >> 5));
-  if ((v54 & (1 << LineFieldInteger)) != 0)
+  v24 = *(v38 + 4 * (LineFieldInteger >> 5));
+  if ((v24 & (1 << LineFieldInteger)) != 0)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2383, "voc/tsr", 4, "%u %.500s %u %u", v52, v53, *(a2 + 25));
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2383, "voc/tsr", 4, "%u %.500s %u %u", *(a2 + 25), "StateEnv", LineFieldInteger, v5);
   }
 
   else
   {
-    *(v68 + 4 * (LineFieldInteger >> 5)) = v54 | (1 << LineFieldInteger);
+    *(v38 + 4 * (LineFieldInteger >> 5)) = v24 | (1 << LineFieldInteger);
   }
 
-  DgnPrimFixArray<double>::~DgnPrimFixArray(&v66);
-  BitArray::~BitArray(&v68);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(&v36);
+  BitArray::~BitArray(&v38);
 }
 
 void sub_2627504FC(_Unwind_Exception *a1)
@@ -1855,185 +2005,189 @@ void sub_2627504FC(_Unwind_Exception *a1)
 
 void TextStateRule::parseStateIncludedWordEnv(TextStateRule *this, DgnTextFileParser *a2)
 {
-  DgnString::DgnString(&v79);
+  DgnString::DgnString(&v42);
   v4 = 0;
-  v77 = 0;
-  v78 = 0;
+  v40 = 0;
+  v41 = 0;
   v5 = 127;
   do
   {
-    DgnString::DgnString(&v75);
-    DgnString::DgnString(v74);
-    DgnString::DgnString(&v72);
-    DgnString::DgnString(&v70);
-    DgnString::DgnString(v68);
+    DgnString::DgnString(&v38);
+    DgnString::DgnString(v37);
+    DgnString::DgnString(&v35);
+    DgnString::DgnString(&v33);
+    DgnString::DgnString(v31);
     LineFieldString = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::operator=(v74, LineFieldString);
+    DgnString::operator=(v37, LineFieldString);
     if (*(this + 32) == 1)
     {
-      v13 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
-      DgnString::operator=(&v75, v13);
+      v7 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
+      DgnString::operator=(&v38, v7);
     }
 
-    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3), v7, v8, v9, v10, v11, v12);
-    v15 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
-    DgnString::operator=(&v72, v15);
-    v16 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
-    DgnString::operator=(&v70, v16);
-    v17 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
-    DgnString::operator=(v68, v17);
-    v24 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7), v18, v19, v20, v21, v22, v23);
+    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3));
+    v9 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
+    DgnString::operator=(&v35, v9);
+    v10 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
+    DgnString::operator=(&v33, v10);
+    v11 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
+    DgnString::operator=(v31, v11);
+    v12 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7));
     if (*(this + 12))
     {
-      v25 = *(this + 5);
+      v13 = *(this + 5);
     }
 
     else
     {
-      v25 = &byte_262899963;
+      v13 = &byte_262899963;
     }
 
-    if (v76)
+    if (v39)
     {
-      v26 = v75;
+      v14 = v38;
     }
 
     else
     {
-      v26 = &byte_262899963;
+      v14 = &byte_262899963;
     }
 
-    if (strcmp(v25, v26))
+    if (strcmp(v13, v14))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2407, "voc/tsr", 29, "%u %500s %500s", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2407, "voc/tsr", 29, "%u %500s %500s", *(a2 + 25), "StateIncludedWordEnv", v14);
     }
 
-    if (v24)
+    if (v12)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2409, "voc/tsr", 13, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2409, "voc/tsr", 13, "%u", *(a2 + 25));
     }
 
     if (LineFieldInteger <= 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2414, "voc/tsr", 17, "%u", v27, v28, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2414, "voc/tsr", 17, "%u", *(a2 + 25));
     }
 
     if ((v4 || v5 != 127) && (LineFieldInteger != v4 || *this != v5))
     {
-      if (v80 < v4 + 1)
+      if (v43 < v4 + 1)
       {
-        BitArray::setSize(&v79, v4 + 1);
+        BitArray::setSize(&v42, v4 + 1);
       }
 
-      v29 = *(v79 + 4 * (v4 >> 5));
-      if ((v29 & (1 << v4)) != 0)
+      v15 = *(v42 + 4 * (v4 >> 5));
+      if ((v15 & (1 << v4)) != 0)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2436, "voc/tsr", 4, "%u %.500s %u %u", v27, v28, *(a2 + 25));
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2436, "voc/tsr", 4, "%u %.500s %u %u", *(a2 + 25), "StateIncludedWordEnv", v4, v5);
       }
 
       else
       {
-        *(v79 + 4 * (v4 >> 5)) = v29 | (1 << v4);
+        *(v42 + 4 * (v4 >> 5)) = v15 | (1 << v4);
       }
     }
 
-    if (v73)
+    if (v36)
     {
-      v30 = v72;
+      v16 = v35;
     }
 
     else
     {
-      v30 = &byte_262899963;
+      v16 = &byte_262899963;
     }
 
-    WordId = GetWordId(*this, v30, "StateIncludedWordEnv word", ".tsr", 0, 0, v27, v28);
+    WordId = GetWordId(*this, v16, "StateIncludedWordEnv word", ".tsr", 0, 0);
     v4 = LineFieldInteger;
-    v32 = *(**VocMgr::smpVocMgr + 8 * *this);
-    v33 = *(v32 + 48);
-    v34 = *(v32 + 56);
-    StateMgr::verifyVisible(v34, LineFieldInteger, v35, v36, v37, v38, v39, v40);
-    WordList::verifyVisible(v33, WordId, v41, v42, v43, v44, v45, v46);
-    v47 = *(v34 + 95);
-    ItemPairEnvIdMaybeNew = EnvMgr::getItemPairEnvIdMaybeNew(v47, LineFieldInteger, WordId, 1, v48, v49, v50, v51);
-    if (v71 <= 1)
+    v18 = *(**VocMgr::smpVocMgr + 8 * *this);
+    v19 = *(v18 + 48);
+    v20 = *(v18 + 56);
+    StateMgr::verifyVisible(v20, LineFieldInteger);
+    WordList::verifyVisible(v19, WordId);
+    v21 = *(v20 + 760);
+    ItemPairEnvIdMaybeNew = EnvMgr::getItemPairEnvIdMaybeNew(v21, LineFieldInteger, WordId, 1);
+    if (v34 <= 1)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2456, "voc/tsr", 16, "%u", v52, v53, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2456, "voc/tsr", 16, "%u", *(a2 + 25));
     }
 
-    if (v69 <= 1)
+    if (v32 <= 1)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2458, "voc/tsr", 24, "%u", v52, v53, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2458, "voc/tsr", 24, "%u", *(a2 + 25));
     }
 
     if (*(a2 + 10))
     {
-      v55 = *(a2 + 4);
-    }
-
-    v56 = *(a2 + 25);
-    DgnTextFile::convertFromEnvValueFormat(v68, &v77);
-    if (v71)
-    {
-      v59 = v70;
+      v23 = *(a2 + 4);
     }
 
     else
     {
-      v59 = &byte_262899963;
+      v23 = &byte_262899963;
     }
 
-    EnvMgr::setData(v47, ItemPairEnvIdMaybeNew, v59, v77, v78, 1, v57, v58);
+    DgnTextFile::convertFromEnvValueFormat(v31, &v40, v23, *(a2 + 25));
+    if (v34)
+    {
+      v24 = v33;
+    }
+
+    else
+    {
+      v24 = &byte_262899963;
+    }
+
+    EnvMgr::setData(v21, ItemPairEnvIdMaybeNew, v24, v40, v41, 1);
     if (DgnTextFileParser::parseNextLine(a2))
     {
-      v60 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-      DgnString::DgnString(&v66, v60);
-      if (v67)
+      v25 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
+      DgnString::DgnString(&v29, v25);
+      if (v30)
       {
-        v61 = v66;
+        v26 = v29;
       }
 
       else
       {
-        v61 = &byte_262899963;
+        v26 = &byte_262899963;
       }
 
-      v62 = strcmp(v61, "StateIncludedWordEnv") == 0;
-      DgnString::~DgnString(&v66);
+      v27 = strcmp(v26, "StateIncludedWordEnv") == 0;
+      DgnString::~DgnString(&v29);
     }
 
     else
     {
-      v62 = 0;
+      v27 = 0;
     }
 
     v5 = *this;
-    DgnString::~DgnString(v68);
-    DgnString::~DgnString(&v70);
-    DgnString::~DgnString(&v72);
-    DgnString::~DgnString(v74);
-    DgnString::~DgnString(&v75);
+    DgnString::~DgnString(v31);
+    DgnString::~DgnString(&v33);
+    DgnString::~DgnString(&v35);
+    DgnString::~DgnString(v37);
+    DgnString::~DgnString(&v38);
   }
 
-  while (v62);
-  if (v80 < LineFieldInteger + 1)
+  while (v27);
+  if (v43 < LineFieldInteger + 1)
   {
-    BitArray::setSize(&v79, LineFieldInteger + 1);
+    BitArray::setSize(&v42, LineFieldInteger + 1);
   }
 
-  v65 = *(v79 + 4 * (LineFieldInteger >> 5));
-  if ((v65 & (1 << LineFieldInteger)) != 0)
+  v28 = *(v42 + 4 * (LineFieldInteger >> 5));
+  if ((v28 & (1 << LineFieldInteger)) != 0)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2486, "voc/tsr", 4, "%u %.500s %u %u", v63, v64, *(a2 + 25));
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2486, "voc/tsr", 4, "%u %.500s %u %u", *(a2 + 25), "StateIncludedWordEnv", LineFieldInteger, v5);
   }
 
   else
   {
-    *(v79 + 4 * (LineFieldInteger >> 5)) = v65 | (1 << LineFieldInteger);
+    *(v42 + 4 * (LineFieldInteger >> 5)) = v28 | (1 << LineFieldInteger);
   }
 
-  DgnPrimFixArray<double>::~DgnPrimFixArray(&v77);
-  BitArray::~BitArray(&v79);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(&v40);
+  BitArray::~BitArray(&v42);
 }
 
 void sub_262750A68(_Unwind_Exception *a1)
@@ -2045,811 +2199,806 @@ void sub_262750A68(_Unwind_Exception *a1)
 
 void TextStateRule::parseRuleDefinition(TextStateRule *this, DgnTextFileParser *a2)
 {
-  DgnString::DgnString(&v46);
+  DgnString::DgnString(&v28);
   while (1)
   {
-    DgnString::DgnString(&v44);
-    DgnString::DgnString(v43);
-    DgnString::DgnString(v41);
-    DgnString::DgnString(v39);
-    DgnString::DgnString(v37);
+    DgnString::DgnString(&v26);
+    DgnString::DgnString(v25);
+    DgnString::DgnString(v23);
+    DgnString::DgnString(v21);
+    DgnString::DgnString(v19);
     LineFieldString = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::operator=(v43, LineFieldString);
+    DgnString::operator=(v25, LineFieldString);
     if (*(this + 32) == 1)
     {
-      v11 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
-      DgnString::operator=(&v44, v11);
+      v5 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
+      DgnString::operator=(&v26, v5);
     }
 
-    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3), v5, v6, v7, v8, v9, v10);
-    v13 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
-    DgnString::operator=(v41, v13);
-    v14 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
-    DgnString::operator=(v39, v14);
-    v15 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
-    DgnString::operator=(v37, v15);
-    v22 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7), v16, v17, v18, v19, v20, v21);
+    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3));
+    v7 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
+    DgnString::operator=(v23, v7);
+    v8 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
+    DgnString::operator=(v21, v8);
+    v9 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
+    DgnString::operator=(v19, v9);
+    v10 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7));
     if (*(this + 12))
     {
-      v23 = *(this + 5);
+      v11 = *(this + 5);
     }
 
     else
     {
-      v23 = &byte_262899963;
+      v11 = &byte_262899963;
     }
 
-    if (v45)
+    if (v27)
     {
-      v24 = v44;
+      v12 = v26;
     }
 
     else
     {
-      v24 = &byte_262899963;
+      v12 = &byte_262899963;
     }
 
-    if (strcmp(v23, v24))
+    if (strcmp(v11, v12))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2506, "voc/tsr", 29, "%u %500s %500s", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2506, "voc/tsr", 29, "%u %500s %500s", *(a2 + 25), "RuleDefinition", v12);
     }
 
-    if (v42 >= 2)
+    if (v24 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2508, "voc/tsr", 10, "%u", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2508, "voc/tsr", 10, "%u", *(a2 + 25));
     }
 
-    if (v40 >= 2)
+    if (v22 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2510, "voc/tsr", 11, "%u", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2510, "voc/tsr", 11, "%u", *(a2 + 25));
     }
 
-    if (v38 >= 2)
+    if (v20 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2512, "voc/tsr", 12, "%u", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2512, "voc/tsr", 12, "%u", *(a2 + 25));
     }
 
     if (LineFieldInteger <= 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2517, "voc/tsr", 17, "%u", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2517, "voc/tsr", 17, "%u", *(a2 + 25));
     }
 
-    if ((v22 & 0x80000000) != 0)
+    if ((v10 & 0x80000000) != 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2522, "voc/tsr", 18, "%u", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2522, "voc/tsr", 18, "%u", *(a2 + 25));
     }
 
-    if (v47 <= LineFieldInteger)
+    if (v29 <= LineFieldInteger)
     {
-      BitArray::setSize(&v46, LineFieldInteger + 1);
+      BitArray::setSize(&v28, LineFieldInteger + 1);
     }
 
-    v30 = *(v46 + 4 * (LineFieldInteger >> 5));
-    if ((v30 & (1 << LineFieldInteger)) != 0)
+    v13 = *(v28 + 4 * (LineFieldInteger >> 5));
+    if ((v13 & (1 << LineFieldInteger)) != 0)
     {
-      v34 = *this;
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2542, "voc/tsr", 5, "%u %.500s %u %u", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2542, "voc/tsr", 5, "%u %.500s %u %u", *(a2 + 25), "RuleDefinition", LineFieldInteger, *this);
     }
 
     else
     {
-      *(v46 + 4 * (LineFieldInteger >> 5)) = v30 | (1 << LineFieldInteger);
+      *(v28 + 4 * (LineFieldInteger >> 5)) = v13 | (1 << LineFieldInteger);
     }
 
-    RuleMgr::newRule(*(*(**VocMgr::smpVocMgr + 8 * *this) + 64), v22, LineFieldInteger, v25, v26, v27, v28, v29);
+    RuleMgr::newRule(*(*(**VocMgr::smpVocMgr + 8 * *this) + 64), v10, LineFieldInteger);
     if (!DgnTextFileParser::parseNextLine(a2))
     {
       break;
     }
 
-    v31 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::DgnString(&v35, v31);
-    if (v36)
+    v14 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
+    DgnString::DgnString(&v17, v14);
+    if (v18)
     {
-      v32 = v35;
+      v15 = v17;
     }
 
     else
     {
-      v32 = &byte_262899963;
+      v15 = &byte_262899963;
     }
 
-    v33 = strcmp(v32, "RuleDefinition");
-    DgnString::~DgnString(&v35);
-    DgnString::~DgnString(v37);
-    DgnString::~DgnString(v39);
-    DgnString::~DgnString(v41);
-    DgnString::~DgnString(v43);
-    DgnString::~DgnString(&v44);
-    if (v33)
+    v16 = strcmp(v15, "RuleDefinition");
+    DgnString::~DgnString(&v17);
+    DgnString::~DgnString(v19);
+    DgnString::~DgnString(v21);
+    DgnString::~DgnString(v23);
+    DgnString::~DgnString(v25);
+    DgnString::~DgnString(&v26);
+    if (v16)
     {
       goto LABEL_34;
     }
   }
 
-  DgnString::~DgnString(v37);
-  DgnString::~DgnString(v39);
-  DgnString::~DgnString(v41);
-  DgnString::~DgnString(v43);
-  DgnString::~DgnString(&v44);
+  DgnString::~DgnString(v19);
+  DgnString::~DgnString(v21);
+  DgnString::~DgnString(v23);
+  DgnString::~DgnString(v25);
+  DgnString::~DgnString(&v26);
 LABEL_34:
-  BitArray::~BitArray(&v46);
+  BitArray::~BitArray(&v28);
 }
 
-void sub_262750EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_262750EC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va2, a11);
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va2, a18);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   va_copy(va2, va1);
-  v16 = va_arg(va2, void);
-  v18 = va_arg(va2, void);
+  v23 = va_arg(va2, void);
+  v25 = va_arg(va2, void);
   DgnString::~DgnString(va);
   DgnString::~DgnString(va1);
   DgnString::~DgnString(va2);
-  BitArray::~BitArray((v11 - 96));
+  BitArray::~BitArray((v18 - 96));
   _Unwind_Resume(a1);
 }
 
 void TextStateRule::parseRuleName(TextStateRule *this, DgnTextFileParser *a2)
 {
-  DgnString::DgnString(&v47);
+  DgnString::DgnString(&v29);
   while (1)
   {
-    DgnString::DgnString(&v45);
-    DgnString::DgnString(v44);
-    DgnString::DgnString(&v42);
-    DgnString::DgnString(v40);
-    DgnString::DgnString(v38);
+    DgnString::DgnString(&v27);
+    DgnString::DgnString(v26);
+    DgnString::DgnString(&v24);
+    DgnString::DgnString(v22);
+    DgnString::DgnString(v20);
     LineFieldString = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::operator=(v44, LineFieldString);
+    DgnString::operator=(v26, LineFieldString);
     if (*(this + 32) == 1)
     {
-      v11 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
-      DgnString::operator=(&v45, v11);
+      v5 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
+      DgnString::operator=(&v27, v5);
     }
 
-    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3), v5, v6, v7, v8, v9, v10);
-    v13 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
-    DgnString::operator=(&v42, v13);
-    v14 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
-    DgnString::operator=(v40, v14);
-    v15 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
-    DgnString::operator=(v38, v15);
-    v22 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7), v16, v17, v18, v19, v20, v21);
+    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3));
+    v7 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
+    DgnString::operator=(&v24, v7);
+    v8 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
+    DgnString::operator=(v22, v8);
+    v9 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
+    DgnString::operator=(v20, v9);
+    v10 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7));
     if (*(this + 12))
     {
-      v23 = *(this + 5);
+      v11 = *(this + 5);
     }
 
     else
     {
-      v23 = &byte_262899963;
+      v11 = &byte_262899963;
     }
 
-    if (v46)
+    if (v28)
     {
-      v24 = v45;
+      v12 = v27;
     }
 
     else
     {
-      v24 = &byte_262899963;
+      v12 = &byte_262899963;
     }
 
-    if (strcmp(v23, v24))
+    if (strcmp(v11, v12))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2575, "voc/tsr", 29, "%u %500s %500s", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2575, "voc/tsr", 29, "%u %500s %500s", *(a2 + 25), "RuleName", v12);
     }
 
-    if (v41 >= 2)
+    if (v23 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2577, "voc/tsr", 11, "%u", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2577, "voc/tsr", 11, "%u", *(a2 + 25));
     }
 
-    if (v39 >= 2)
+    if (v21 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2579, "voc/tsr", 12, "%u", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2579, "voc/tsr", 12, "%u", *(a2 + 25));
     }
 
-    if (v22)
+    if (v10)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2581, "voc/tsr", 13, "%u", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2581, "voc/tsr", 13, "%u", *(a2 + 25));
     }
 
     if (LineFieldInteger <= 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2586, "voc/tsr", 17, "%u", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2586, "voc/tsr", 17, "%u", *(a2 + 25));
     }
 
-    if (v48 <= LineFieldInteger)
+    if (v30 <= LineFieldInteger)
     {
-      BitArray::setSize(&v47, LineFieldInteger + 1);
+      BitArray::setSize(&v29, LineFieldInteger + 1);
     }
 
-    v30 = *(v47 + 4 * (LineFieldInteger >> 5));
-    if ((v30 & (1 << LineFieldInteger)) != 0)
+    v13 = *(v29 + 4 * (LineFieldInteger >> 5));
+    if ((v13 & (1 << LineFieldInteger)) != 0)
     {
-      v35 = *this;
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2599, "voc/tsr", 5, "%u %.500s %u %u", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2599, "voc/tsr", 5, "%u %.500s %u %u", *(a2 + 25), "RuleName", LineFieldInteger, *this);
     }
 
     else
     {
-      *(v47 + 4 * (LineFieldInteger >> 5)) = v30 | (1 << LineFieldInteger);
+      *(v29 + 4 * (LineFieldInteger >> 5)) = v13 | (1 << LineFieldInteger);
     }
 
-    v31 = v43 ? v42 : &byte_262899963;
-    RuleMgr::setName(*(*(**VocMgr::smpVocMgr + 8 * *this) + 64), LineFieldInteger, v31, v25, v26, v27, v28, v29);
+    v14 = v25 ? v24 : &byte_262899963;
+    RuleMgr::setName(*(*(**VocMgr::smpVocMgr + 8 * *this) + 64), LineFieldInteger, v14);
     if (!DgnTextFileParser::parseNextLine(a2))
     {
       break;
     }
 
-    v32 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::DgnString(&v36, v32);
-    if (v37)
+    v15 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
+    DgnString::DgnString(&v18, v15);
+    if (v19)
     {
-      v33 = v36;
+      v16 = v18;
     }
 
     else
     {
-      v33 = &byte_262899963;
+      v16 = &byte_262899963;
     }
 
-    v34 = strcmp(v33, "RuleName");
-    DgnString::~DgnString(&v36);
-    DgnString::~DgnString(v38);
-    DgnString::~DgnString(v40);
-    DgnString::~DgnString(&v42);
-    DgnString::~DgnString(v44);
-    DgnString::~DgnString(&v45);
-    if (v34)
+    v17 = strcmp(v16, "RuleName");
+    DgnString::~DgnString(&v18);
+    DgnString::~DgnString(v20);
+    DgnString::~DgnString(v22);
+    DgnString::~DgnString(&v24);
+    DgnString::~DgnString(v26);
+    DgnString::~DgnString(&v27);
+    if (v17)
     {
       goto LABEL_35;
     }
   }
 
-  DgnString::~DgnString(v38);
-  DgnString::~DgnString(v40);
-  DgnString::~DgnString(&v42);
-  DgnString::~DgnString(v44);
-  DgnString::~DgnString(&v45);
+  DgnString::~DgnString(v20);
+  DgnString::~DgnString(v22);
+  DgnString::~DgnString(&v24);
+  DgnString::~DgnString(v26);
+  DgnString::~DgnString(&v27);
 LABEL_35:
-  BitArray::~BitArray(&v47);
+  BitArray::~BitArray(&v29);
 }
 
-void sub_2627512EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2627512EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va2, a11);
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va2, a18);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   va_copy(va2, va1);
-  v16 = va_arg(va2, void);
-  v18 = va_arg(va2, void);
+  v23 = va_arg(va2, void);
+  v25 = va_arg(va2, void);
   DgnString::~DgnString(va);
   DgnString::~DgnString(va1);
   DgnString::~DgnString(va2);
-  BitArray::~BitArray((v11 - 96));
+  BitArray::~BitArray((v18 - 96));
   _Unwind_Resume(a1);
 }
 
 void TextStateRule::parseRuleAllowLM(TextStateRule *this, DgnTextFileParser *a2)
 {
-  DgnString::DgnString(&v46);
+  DgnString::DgnString(&v28);
   while (1)
   {
-    DgnString::DgnString(&v44);
-    DgnString::DgnString(v43);
-    DgnString::DgnString(v41);
-    DgnString::DgnString(v39);
-    DgnString::DgnString(v37);
+    DgnString::DgnString(&v26);
+    DgnString::DgnString(v25);
+    DgnString::DgnString(v23);
+    DgnString::DgnString(v21);
+    DgnString::DgnString(v19);
     LineFieldString = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::operator=(v43, LineFieldString);
+    DgnString::operator=(v25, LineFieldString);
     if (*(this + 32) == 1)
     {
-      v11 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
-      DgnString::operator=(&v44, v11);
+      v5 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
+      DgnString::operator=(&v26, v5);
     }
 
-    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3), v5, v6, v7, v8, v9, v10);
-    v13 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
-    DgnString::operator=(v41, v13);
-    v14 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
-    DgnString::operator=(v39, v14);
-    v15 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
-    DgnString::operator=(v37, v15);
-    v22 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7), v16, v17, v18, v19, v20, v21);
+    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3));
+    v7 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
+    DgnString::operator=(v23, v7);
+    v8 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
+    DgnString::operator=(v21, v8);
+    v9 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
+    DgnString::operator=(v19, v9);
+    v10 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7));
     if (*(this + 12))
     {
-      v23 = *(this + 5);
+      v11 = *(this + 5);
     }
 
     else
     {
-      v23 = &byte_262899963;
+      v11 = &byte_262899963;
     }
 
-    if (v45)
+    if (v27)
     {
-      v24 = v44;
+      v12 = v26;
     }
 
     else
     {
-      v24 = &byte_262899963;
+      v12 = &byte_262899963;
     }
 
-    if (strcmp(v23, v24))
+    if (strcmp(v11, v12))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2629, "voc/tsr", 29, "%u %500s %500s", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2629, "voc/tsr", 29, "%u %500s %500s", *(a2 + 25), "RuleAllowLM", v12);
     }
 
-    if (v42 >= 2)
+    if (v24 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2631, "voc/tsr", 10, "%u", v28, v29, *(a2 + 25));
-    }
-
-    if (v40 >= 2)
-    {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2633, "voc/tsr", 11, "%u", v28, v29, *(a2 + 25));
-    }
-
-    if (v38 >= 2)
-    {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2635, "voc/tsr", 12, "%u", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2631, "voc/tsr", 10, "%u", *(a2 + 25));
     }
 
     if (v22 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2638, "voc/tsr", 14, "%u", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2633, "voc/tsr", 11, "%u", *(a2 + 25));
+    }
+
+    if (v20 >= 2)
+    {
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2635, "voc/tsr", 12, "%u", *(a2 + 25));
+    }
+
+    if (v10 >= 2)
+    {
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2638, "voc/tsr", 14, "%u", *(a2 + 25));
     }
 
     if (LineFieldInteger <= 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2643, "voc/tsr", 17, "%u", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2643, "voc/tsr", 17, "%u", *(a2 + 25));
     }
 
-    if (v47 <= LineFieldInteger)
+    if (v29 <= LineFieldInteger)
     {
-      BitArray::setSize(&v46, LineFieldInteger + 1);
+      BitArray::setSize(&v28, LineFieldInteger + 1);
     }
 
-    v30 = *(v46 + 4 * (LineFieldInteger >> 5));
-    if ((v30 & (1 << LineFieldInteger)) != 0)
+    v13 = *(v28 + 4 * (LineFieldInteger >> 5));
+    if ((v13 & (1 << LineFieldInteger)) != 0)
     {
-      v34 = *this;
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2656, "voc/tsr", 5, "%u %.500s %u %u", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2656, "voc/tsr", 5, "%u %.500s %u %u", *(a2 + 25), "RuleAllowLM", LineFieldInteger, *this);
     }
 
     else
     {
-      *(v46 + 4 * (LineFieldInteger >> 5)) = v30 | (1 << LineFieldInteger);
+      *(v28 + 4 * (LineFieldInteger >> 5)) = v13 | (1 << LineFieldInteger);
     }
 
-    RuleMgr::setLMAllowed(*(*(**VocMgr::smpVocMgr + 8 * *this) + 64), LineFieldInteger, v22 == 1, v25, v26, v27, v28, v29);
+    RuleMgr::setLMAllowed(*(*(**VocMgr::smpVocMgr + 8 * *this) + 64), LineFieldInteger, v10 == 1);
     if (!DgnTextFileParser::parseNextLine(a2))
     {
       break;
     }
 
-    v31 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::DgnString(&v35, v31);
-    if (v36)
+    v14 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
+    DgnString::DgnString(&v17, v14);
+    if (v18)
     {
-      v32 = v35;
+      v15 = v17;
     }
 
     else
     {
-      v32 = &byte_262899963;
+      v15 = &byte_262899963;
     }
 
-    v33 = strcmp(v32, "RuleAllowLM");
-    DgnString::~DgnString(&v35);
-    DgnString::~DgnString(v37);
-    DgnString::~DgnString(v39);
-    DgnString::~DgnString(v41);
-    DgnString::~DgnString(v43);
-    DgnString::~DgnString(&v44);
-    if (v33)
+    v16 = strcmp(v15, "RuleAllowLM");
+    DgnString::~DgnString(&v17);
+    DgnString::~DgnString(v19);
+    DgnString::~DgnString(v21);
+    DgnString::~DgnString(v23);
+    DgnString::~DgnString(v25);
+    DgnString::~DgnString(&v26);
+    if (v16)
     {
       goto LABEL_34;
     }
   }
 
-  DgnString::~DgnString(v37);
-  DgnString::~DgnString(v39);
-  DgnString::~DgnString(v41);
-  DgnString::~DgnString(v43);
-  DgnString::~DgnString(&v44);
+  DgnString::~DgnString(v19);
+  DgnString::~DgnString(v21);
+  DgnString::~DgnString(v23);
+  DgnString::~DgnString(v25);
+  DgnString::~DgnString(&v26);
 LABEL_34:
-  BitArray::~BitArray(&v46);
+  BitArray::~BitArray(&v28);
 }
 
-void sub_26275173C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_26275173C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v15 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v22 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   DgnString::~DgnString(va);
   DgnString::~DgnString(va1);
-  BitArray::~BitArray((v13 - 96));
+  BitArray::~BitArray((v20 - 96));
   _Unwind_Resume(a1);
 }
 
 void TextStateRule::parseRuleAllowCoart(TextStateRule *this, DgnTextFileParser *a2)
 {
-  DgnString::DgnString(&v46);
+  DgnString::DgnString(&v28);
   while (1)
   {
-    DgnString::DgnString(&v44);
-    DgnString::DgnString(v43);
-    DgnString::DgnString(v41);
-    DgnString::DgnString(v39);
-    DgnString::DgnString(v37);
+    DgnString::DgnString(&v26);
+    DgnString::DgnString(v25);
+    DgnString::DgnString(v23);
+    DgnString::DgnString(v21);
+    DgnString::DgnString(v19);
     LineFieldString = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::operator=(v43, LineFieldString);
+    DgnString::operator=(v25, LineFieldString);
     if (*(this + 32) == 1)
     {
-      v11 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
-      DgnString::operator=(&v44, v11);
+      v5 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
+      DgnString::operator=(&v26, v5);
     }
 
-    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3), v5, v6, v7, v8, v9, v10);
-    v13 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
-    DgnString::operator=(v41, v13);
-    v14 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
-    DgnString::operator=(v39, v14);
-    v15 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
-    DgnString::operator=(v37, v15);
-    v22 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7), v16, v17, v18, v19, v20, v21);
+    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3));
+    v7 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
+    DgnString::operator=(v23, v7);
+    v8 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
+    DgnString::operator=(v21, v8);
+    v9 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
+    DgnString::operator=(v19, v9);
+    v10 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7));
     if (*(this + 12))
     {
-      v23 = *(this + 5);
+      v11 = *(this + 5);
     }
 
     else
     {
-      v23 = &byte_262899963;
+      v11 = &byte_262899963;
     }
 
-    if (v45)
+    if (v27)
     {
-      v24 = v44;
+      v12 = v26;
     }
 
     else
     {
-      v24 = &byte_262899963;
+      v12 = &byte_262899963;
     }
 
-    if (strcmp(v23, v24))
+    if (strcmp(v11, v12))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2686, "voc/tsr", 29, "%u %500s %500s", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2686, "voc/tsr", 29, "%u %500s %500s", *(a2 + 25), "RuleAllowCoart", v12);
     }
 
-    if (v42 >= 2)
+    if (v24 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2688, "voc/tsr", 10, "%u", v28, v29, *(a2 + 25));
-    }
-
-    if (v40 >= 2)
-    {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2690, "voc/tsr", 11, "%u", v28, v29, *(a2 + 25));
-    }
-
-    if (v38 >= 2)
-    {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2692, "voc/tsr", 12, "%u", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2688, "voc/tsr", 10, "%u", *(a2 + 25));
     }
 
     if (v22 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2695, "voc/tsr", 14, "%u", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2690, "voc/tsr", 11, "%u", *(a2 + 25));
+    }
+
+    if (v20 >= 2)
+    {
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2692, "voc/tsr", 12, "%u", *(a2 + 25));
+    }
+
+    if (v10 >= 2)
+    {
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2695, "voc/tsr", 14, "%u", *(a2 + 25));
     }
 
     if (LineFieldInteger <= 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2700, "voc/tsr", 17, "%u", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2700, "voc/tsr", 17, "%u", *(a2 + 25));
     }
 
-    if (v47 <= LineFieldInteger)
+    if (v29 <= LineFieldInteger)
     {
-      BitArray::setSize(&v46, LineFieldInteger + 1);
+      BitArray::setSize(&v28, LineFieldInteger + 1);
     }
 
-    v30 = *(v46 + 4 * (LineFieldInteger >> 5));
-    if ((v30 & (1 << LineFieldInteger)) != 0)
+    v13 = *(v28 + 4 * (LineFieldInteger >> 5));
+    if ((v13 & (1 << LineFieldInteger)) != 0)
     {
-      v34 = *this;
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2713, "voc/tsr", 5, "%u %.500s %u %u", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2713, "voc/tsr", 5, "%u %.500s %u %u", *(a2 + 25), "RuleAllowLM", LineFieldInteger, *this);
     }
 
     else
     {
-      *(v46 + 4 * (LineFieldInteger >> 5)) = v30 | (1 << LineFieldInteger);
+      *(v28 + 4 * (LineFieldInteger >> 5)) = v13 | (1 << LineFieldInteger);
     }
 
-    RuleMgr::setCoartAllowed(*(*(**VocMgr::smpVocMgr + 8 * *this) + 64), LineFieldInteger, v22 == 1, v25, v26, v27, v28, v29);
+    RuleMgr::setCoartAllowed(*(*(**VocMgr::smpVocMgr + 8 * *this) + 64), LineFieldInteger, v10 == 1);
     if (!DgnTextFileParser::parseNextLine(a2))
     {
       break;
     }
 
-    v31 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::DgnString(&v35, v31);
-    if (v36)
+    v14 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
+    DgnString::DgnString(&v17, v14);
+    if (v18)
     {
-      v32 = v35;
+      v15 = v17;
     }
 
     else
     {
-      v32 = &byte_262899963;
+      v15 = &byte_262899963;
     }
 
-    v33 = strcmp(v32, "RuleAllowCoart");
-    DgnString::~DgnString(&v35);
-    DgnString::~DgnString(v37);
-    DgnString::~DgnString(v39);
-    DgnString::~DgnString(v41);
-    DgnString::~DgnString(v43);
-    DgnString::~DgnString(&v44);
-    if (v33)
+    v16 = strcmp(v15, "RuleAllowCoart");
+    DgnString::~DgnString(&v17);
+    DgnString::~DgnString(v19);
+    DgnString::~DgnString(v21);
+    DgnString::~DgnString(v23);
+    DgnString::~DgnString(v25);
+    DgnString::~DgnString(&v26);
+    if (v16)
     {
       goto LABEL_34;
     }
   }
 
-  DgnString::~DgnString(v37);
-  DgnString::~DgnString(v39);
-  DgnString::~DgnString(v41);
-  DgnString::~DgnString(v43);
-  DgnString::~DgnString(&v44);
+  DgnString::~DgnString(v19);
+  DgnString::~DgnString(v21);
+  DgnString::~DgnString(v23);
+  DgnString::~DgnString(v25);
+  DgnString::~DgnString(&v26);
 LABEL_34:
-  BitArray::~BitArray(&v46);
+  BitArray::~BitArray(&v28);
 }
 
-void sub_262751B94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_262751B94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v15 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v22 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   DgnString::~DgnString(va);
   DgnString::~DgnString(va1);
-  BitArray::~BitArray((v13 - 96));
+  BitArray::~BitArray((v20 - 96));
   _Unwind_Resume(a1);
 }
 
 void TextStateRule::parseRuleAllowPrefiltering(TextStateRule *this, DgnTextFileParser *a2)
 {
-  DgnString::DgnString(&v46);
+  DgnString::DgnString(&v28);
   while (1)
   {
-    DgnString::DgnString(&v44);
-    DgnString::DgnString(v43);
-    DgnString::DgnString(v41);
-    DgnString::DgnString(v39);
-    DgnString::DgnString(v37);
+    DgnString::DgnString(&v26);
+    DgnString::DgnString(v25);
+    DgnString::DgnString(v23);
+    DgnString::DgnString(v21);
+    DgnString::DgnString(v19);
     LineFieldString = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::operator=(v43, LineFieldString);
+    DgnString::operator=(v25, LineFieldString);
     if (*(this + 32) == 1)
     {
-      v11 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
-      DgnString::operator=(&v44, v11);
+      v5 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
+      DgnString::operator=(&v26, v5);
     }
 
-    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3), v5, v6, v7, v8, v9, v10);
-    v13 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
-    DgnString::operator=(v41, v13);
-    v14 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
-    DgnString::operator=(v39, v14);
-    v15 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
-    DgnString::operator=(v37, v15);
-    v22 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7), v16, v17, v18, v19, v20, v21);
+    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3));
+    v7 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
+    DgnString::operator=(v23, v7);
+    v8 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
+    DgnString::operator=(v21, v8);
+    v9 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
+    DgnString::operator=(v19, v9);
+    v10 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7));
     if (*(this + 12))
     {
-      v23 = *(this + 5);
+      v11 = *(this + 5);
     }
 
     else
     {
-      v23 = &byte_262899963;
+      v11 = &byte_262899963;
     }
 
-    if (v45)
+    if (v27)
     {
-      v24 = v44;
+      v12 = v26;
     }
 
     else
     {
-      v24 = &byte_262899963;
+      v12 = &byte_262899963;
     }
 
-    if (strcmp(v23, v24))
+    if (strcmp(v11, v12))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2744, "voc/tsr", 29, "%u %500s %500s", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2744, "voc/tsr", 29, "%u %500s %500s", *(a2 + 25), "RuleAllowPrefiltering", v12);
     }
 
-    if (v42 >= 2)
+    if (v24 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2746, "voc/tsr", 10, "%u", v28, v29, *(a2 + 25));
-    }
-
-    if (v40 >= 2)
-    {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2748, "voc/tsr", 11, "%u", v28, v29, *(a2 + 25));
-    }
-
-    if (v38 >= 2)
-    {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2750, "voc/tsr", 12, "%u", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2746, "voc/tsr", 10, "%u", *(a2 + 25));
     }
 
     if (v22 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2753, "voc/tsr", 14, "%u", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2748, "voc/tsr", 11, "%u", *(a2 + 25));
+    }
+
+    if (v20 >= 2)
+    {
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2750, "voc/tsr", 12, "%u", *(a2 + 25));
+    }
+
+    if (v10 >= 2)
+    {
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2753, "voc/tsr", 14, "%u", *(a2 + 25));
     }
 
     if (LineFieldInteger <= 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2758, "voc/tsr", 17, "%u", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2758, "voc/tsr", 17, "%u", *(a2 + 25));
     }
 
-    if (v47 <= LineFieldInteger)
+    if (v29 <= LineFieldInteger)
     {
-      BitArray::setSize(&v46, LineFieldInteger + 1);
+      BitArray::setSize(&v28, LineFieldInteger + 1);
     }
 
-    v30 = *(v46 + 4 * (LineFieldInteger >> 5));
-    if ((v30 & (1 << LineFieldInteger)) != 0)
+    v13 = *(v28 + 4 * (LineFieldInteger >> 5));
+    if ((v13 & (1 << LineFieldInteger)) != 0)
     {
-      v34 = *this;
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2771, "voc/tsr", 5, "%u %.500s %u %u", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2771, "voc/tsr", 5, "%u %.500s %u %u", *(a2 + 25), "RuleAllowPrefiltering", LineFieldInteger, *this);
     }
 
     else
     {
-      *(v46 + 4 * (LineFieldInteger >> 5)) = v30 | (1 << LineFieldInteger);
+      *(v28 + 4 * (LineFieldInteger >> 5)) = v13 | (1 << LineFieldInteger);
     }
 
-    RuleMgr::setPrefilteringAllowed(*(*(**VocMgr::smpVocMgr + 8 * *this) + 64), LineFieldInteger, v22 == 1, v25, v26, v27, v28, v29);
+    RuleMgr::setPrefilteringAllowed(*(*(**VocMgr::smpVocMgr + 8 * *this) + 64), LineFieldInteger, v10 == 1);
     if (!DgnTextFileParser::parseNextLine(a2))
     {
       break;
     }
 
-    v31 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::DgnString(&v35, v31);
-    if (v36)
+    v14 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
+    DgnString::DgnString(&v17, v14);
+    if (v18)
     {
-      v32 = v35;
+      v15 = v17;
     }
 
     else
     {
-      v32 = &byte_262899963;
+      v15 = &byte_262899963;
     }
 
-    v33 = strcmp(v32, "RuleAllowPrefiltering");
-    DgnString::~DgnString(&v35);
-    DgnString::~DgnString(v37);
-    DgnString::~DgnString(v39);
-    DgnString::~DgnString(v41);
-    DgnString::~DgnString(v43);
-    DgnString::~DgnString(&v44);
-    if (v33)
+    v16 = strcmp(v15, "RuleAllowPrefiltering");
+    DgnString::~DgnString(&v17);
+    DgnString::~DgnString(v19);
+    DgnString::~DgnString(v21);
+    DgnString::~DgnString(v23);
+    DgnString::~DgnString(v25);
+    DgnString::~DgnString(&v26);
+    if (v16)
     {
       goto LABEL_34;
     }
   }
 
-  DgnString::~DgnString(v37);
-  DgnString::~DgnString(v39);
-  DgnString::~DgnString(v41);
-  DgnString::~DgnString(v43);
-  DgnString::~DgnString(&v44);
+  DgnString::~DgnString(v19);
+  DgnString::~DgnString(v21);
+  DgnString::~DgnString(v23);
+  DgnString::~DgnString(v25);
+  DgnString::~DgnString(&v26);
 LABEL_34:
-  BitArray::~BitArray(&v46);
+  BitArray::~BitArray(&v28);
 }
 
-void sub_262751FE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_262751FE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v15 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v22 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   DgnString::~DgnString(va);
   DgnString::~DgnString(va1);
-  BitArray::~BitArray((v13 - 96));
+  BitArray::~BitArray((v20 - 96));
   _Unwind_Resume(a1);
 }
 
 uint64_t TextStateRule::parseRuleDescription(TextStateRule *this, DgnTextFileParser *a2)
 {
-  v72 = 0;
-  v73 = 0;
-  DgnString::DgnString(&v70);
+  v46 = 0;
+  v47 = 0;
+  DgnString::DgnString(&v44);
   v5 = 0;
   v6 = 127;
   do
   {
-    DgnString::DgnString(&v68);
-    DgnString::DgnString(v67);
-    DgnString::DgnString(&v65);
-    DgnString::DgnString(&v63);
-    DgnString::DgnString(&v61);
+    DgnString::DgnString(&v42);
+    DgnString::DgnString(v41);
+    DgnString::DgnString(&v39);
+    DgnString::DgnString(&v37);
+    DgnString::DgnString(&v35);
     LineFieldString = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::operator=(v67, LineFieldString);
+    DgnString::operator=(v41, LineFieldString);
     if (*(this + 32) == 1)
     {
-      v14 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
-      DgnString::operator=(&v68, v14);
+      v8 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
+      DgnString::operator=(&v42, v8);
     }
 
-    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3), v8, v9, v10, v11, v12, v13);
-    v16 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
-    DgnString::operator=(&v65, v16);
-    v17 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
-    DgnString::operator=(&v63, v17);
-    v18 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
-    DgnString::operator=(&v61, v18);
-    v25 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7), v19, v20, v21, v22, v23, v24);
+    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3));
+    v10 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
+    DgnString::operator=(&v39, v10);
+    v11 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
+    DgnString::operator=(&v37, v11);
+    v12 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
+    DgnString::operator=(&v35, v12);
+    v13 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7));
     if (*(this + 12))
     {
-      v26 = *(this + 5);
+      v14 = *(this + 5);
     }
 
     else
     {
-      v26 = &byte_262899963;
+      v14 = &byte_262899963;
     }
 
-    if (v69)
+    if (v43)
     {
-      v27 = v68;
+      v15 = v42;
     }
 
     else
     {
-      v27 = &byte_262899963;
+      v15 = &byte_262899963;
     }
 
-    if (strcmp(v26, v27))
+    if (strcmp(v14, v15))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2805, "voc/tsr", 29, "%u %500s %500s", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2805, "voc/tsr", 29, "%u %500s %500s", *(a2 + 25), "RuleDescription", v15);
     }
 
-    if (v62 >= 2)
+    if (v36 >= 2)
     {
-      v30 = v66 ? v65 : &byte_262899963;
-      if (strcmp(v30, "Word"))
+      v16 = v40 ? v39 : &byte_262899963;
+      if (strcmp(v16, "Word"))
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2809, "voc/tsr", 12, "%u", v28, v29, *(a2 + 25));
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2809, "voc/tsr", 12, "%u", *(a2 + 25));
       }
     }
 
-    if (v25)
+    if (v13)
     {
-      v31 = v66 ? v65 : &byte_262899963;
-      if (strcmp(v31, "State") && strcmp(v31, "Rule") && strcmp(v31, "Word"))
+      v17 = v40 ? v39 : &byte_262899963;
+      if (strcmp(v17, "State") && strcmp(v17, "Rule") && strcmp(v17, "Word"))
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2815, "voc/tsr", 13, "%u", v28, v29, *(a2 + 25));
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2815, "voc/tsr", 13, "%u", *(a2 + 25));
       }
     }
 
     if (LineFieldInteger <= 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2820, "voc/tsr", 17, "%u", v28, v29, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2820, "voc/tsr", 17, "%u", *(a2 + 25));
     }
 
     if (v6 == 127 && !v5)
@@ -2858,341 +3007,341 @@ uint64_t TextStateRule::parseRuleDescription(TextStateRule *this, DgnTextFilePar
       v5 = LineFieldInteger;
     }
 
-    if (v66)
+    if (v40)
     {
-      v32 = v65;
+      v18 = v39;
     }
 
     else
     {
-      v32 = &byte_262899963;
+      v18 = &byte_262899963;
     }
 
-    if (!strcmp(v32, "StartOperation"))
+    if (!strcmp(v18, "StartOperation"))
     {
-      v40 = 3;
+      v19 = 3;
     }
 
     else
     {
-      if (strcmp(v32, "EndOperation"))
+      if (strcmp(v18, "EndOperation"))
       {
-        if (!strcmp(v32, "Word"))
+        if (!strcmp(v18, "Word"))
         {
-          if ((v25 - 1001) <= 0xFFFFF82E)
+          if ((v13 - 1001) <= 0xFFFFF82E)
           {
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2871, "voc/tsr", 26, "%u %500s %d", v33, v34, *(a2 + 25));
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2871, "voc/tsr", 26, "%u %500s %d", *(a2 + 25), "RuleDescription Word", v13);
           }
 
           if ((*(this + 32) & 1) == 0)
           {
-            v42 = v64 ? v63 : &byte_262899963;
-            if (*v42)
+            v21 = v38 ? v37 : &byte_262899963;
+            if (*v21)
             {
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2878, "voc/tsr", 10, "%u", v33, v34, *(a2 + 25));
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2878, "voc/tsr", 10, "%u", *(a2 + 25));
             }
           }
 
-          if (v62)
+          if (v36)
           {
-            v43 = v61;
+            v22 = v35;
           }
 
           else
           {
-            v43 = &byte_262899963;
+            v22 = &byte_262899963;
           }
 
-          WordId = GetWordId(*this, v43, "RuleDescription word", ".tsr", 0, 0, v33, v34);
-          v40 = 4;
+          WordId = GetWordId(*this, v22, "RuleDescription word", ".tsr", 0, 0);
+          v19 = 4;
         }
 
         else
         {
-          if (!strcmp(v32, "State"))
+          if (!strcmp(v18, "State"))
           {
             if ((*(this + 32) & 1) == 0)
             {
-              v44 = v64 ? v63 : &byte_262899963;
-              if (*v44)
+              v23 = v38 ? v37 : &byte_262899963;
+              if (*v23)
               {
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2894, "voc/tsr", 10, "%u", v38, v39, *(a2 + 25));
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2894, "voc/tsr", 10, "%u", *(a2 + 25));
               }
             }
 
-            if (v25 <= 0)
+            if (v13 <= 0)
             {
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2900, "voc/tsr", 18, "%u", v38, v39, *(a2 + 25));
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2900, "voc/tsr", 18, "%u", *(a2 + 25));
             }
 
-            v40 = 1;
-            WordId = v25;
+            v19 = 1;
+            WordId = v13;
             goto LABEL_83;
           }
 
-          if (!strcmp(v32, "Rule"))
+          if (!strcmp(v18, "Rule"))
           {
             if ((*(this + 32) & 1) == 0)
             {
-              v45 = v64 ? v63 : &byte_262899963;
-              if (*v45)
+              v24 = v38 ? v37 : &byte_262899963;
+              if (*v24)
               {
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2910, "voc/tsr", 10, "%u", v38, v39, *(a2 + 25));
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2910, "voc/tsr", 10, "%u", *(a2 + 25));
               }
             }
 
-            if (v25 <= 0)
+            if (v13 <= 0)
             {
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2916, "voc/tsr", 18, "%u", v38, v39, *(a2 + 25));
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2916, "voc/tsr", 18, "%u", *(a2 + 25));
             }
 
-            WordId = WordId & 0xFFFF0000 | v25;
-            v40 = 2;
+            WordId = WordId & 0xFFFF0000 | v13;
+            v19 = 2;
             goto LABEL_83;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2923, "voc/tsr", 15, "%u", v38, v39, *(a2 + 25));
-          v25 = 0;
-          v40 = 3;
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2923, "voc/tsr", 15, "%u", *(a2 + 25));
+          v13 = 0;
+          v19 = 3;
         }
 
         goto LABEL_84;
       }
 
-      v40 = 0;
+      v19 = 0;
     }
 
-    if (v64)
+    if (v38)
     {
-      v41 = v63;
+      v20 = v37;
     }
 
     else
     {
-      v41 = &byte_262899963;
+      v20 = &byte_262899963;
     }
 
-    if (!strcmp(v41, "Sequence"))
+    if (!strcmp(v20, "Sequence"))
     {
       goto LABEL_50;
     }
 
-    if (strcmp(v41, "Alternative"))
+    if (strcmp(v20, "Alternative"))
     {
-      if (!strcmp(v41, "Repeat"))
+      if (!strcmp(v20, "Repeat"))
       {
-        v25 = 0;
+        v13 = 0;
         WordId = 2;
         goto LABEL_84;
       }
 
-      if (!strcmp(v41, "Optional"))
+      if (!strcmp(v20, "Optional"))
       {
-        v25 = 0;
+        v13 = 0;
         WordId = 3;
         goto LABEL_84;
       }
 
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2862, "voc/tsr", 16, "%u", v38, v39, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2862, "voc/tsr", 16, "%u", *(a2 + 25));
 LABEL_50:
       WordId = 0;
 LABEL_83:
-      v25 = 0;
+      v13 = 0;
       goto LABEL_84;
     }
 
-    v25 = 0;
+    v13 = 0;
     WordId = 1;
 LABEL_84:
     if (*this == v6 && v5 == LineFieldInteger)
     {
-      v46 = v73;
+      v25 = v47;
     }
 
     else
     {
-      if (v71 <= v5)
+      if (v45 <= v5)
       {
-        BitArray::setSize(&v70, v5 + 1);
+        BitArray::setSize(&v44, v5 + 1);
       }
 
-      v47 = *(v70 + 4 * (v5 >> 5));
-      if ((v47 & (1 << v5)) != 0)
+      v26 = *(v44 + 4 * (v5 >> 5));
+      if ((v26 & (1 << v5)) != 0)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2938, "voc/tsr", 5, "%u %.500s %u %u", v38, v39, *(a2 + 25));
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2938, "voc/tsr", 5, "%u %.500s %u %u", *(a2 + 25), "RuleDescription", v5, v6);
       }
 
       else
       {
-        *(v70 + 4 * (v5 >> 5)) = v47 | (1 << v5);
+        *(v44 + 4 * (v5 >> 5)) = v26 | (1 << v5);
       }
 
-      RuleMgr::setDesc(*(*(**VocMgr::smpVocMgr + 8 * v6) + 64), v5, &v72, v35, v36, v37, v38, v39);
-      v46 = 0;
-      LODWORD(v73) = 0;
+      RuleMgr::setDesc(*(*(**VocMgr::smpVocMgr + 8 * v6) + 64), v5, &v46);
+      v25 = 0;
+      LODWORD(v47) = 0;
     }
 
-    if (v46 == HIDWORD(v73))
+    if (v25 == HIDWORD(v47))
     {
-      DgnArray<RuleDesc>::reallocElts(&v72, 1, 1);
-      LODWORD(v46) = v73;
+      DgnArray<RuleDesc>::reallocElts(&v46, 1, 1);
+      LODWORD(v25) = v47;
     }
 
-    v48 = (v72 + 12 * v46);
-    *v48 = v40;
-    v48[1] = v25;
-    v48[2] = WordId;
-    LODWORD(v73) = v73 + 1;
+    v27 = (v46 + 12 * v25);
+    *v27 = v19;
+    v27[1] = v13;
+    v27[2] = WordId;
+    LODWORD(v47) = v47 + 1;
     if (DgnTextFileParser::parseNextLine(a2))
     {
-      v49 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-      DgnString::DgnString(&v59, v49);
-      if (v60)
+      v28 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
+      DgnString::DgnString(&v33, v28);
+      if (v34)
       {
-        v50 = v59;
+        v29 = v33;
       }
 
       else
       {
-        v50 = &byte_262899963;
+        v29 = &byte_262899963;
       }
 
-      v51 = strcmp(v50, "RuleDescription") == 0;
-      DgnString::~DgnString(&v59);
+      v30 = strcmp(v29, "RuleDescription") == 0;
+      DgnString::~DgnString(&v33);
     }
 
     else
     {
-      v51 = 0;
+      v30 = 0;
     }
 
     v6 = *this;
-    DgnString::~DgnString(&v61);
-    DgnString::~DgnString(&v63);
-    DgnString::~DgnString(&v65);
-    DgnString::~DgnString(v67);
-    DgnString::~DgnString(&v68);
+    DgnString::~DgnString(&v35);
+    DgnString::~DgnString(&v37);
+    DgnString::~DgnString(&v39);
+    DgnString::~DgnString(v41);
+    DgnString::~DgnString(&v42);
     v5 = LineFieldInteger;
   }
 
-  while (v51);
-  if (v71 <= LineFieldInteger)
+  while (v30);
+  if (v45 <= LineFieldInteger)
   {
-    BitArray::setSize(&v70, LineFieldInteger + 1);
+    BitArray::setSize(&v44, LineFieldInteger + 1);
   }
 
-  v57 = *(v70 + 4 * (LineFieldInteger >> 5));
-  if ((v57 & (1 << LineFieldInteger)) != 0)
+  v31 = *(v44 + 4 * (LineFieldInteger >> 5));
+  if ((v31 & (1 << LineFieldInteger)) != 0)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2973, "voc/tsr", 5, "%u %.500s %u %u", v55, v56, *(a2 + 25));
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2973, "voc/tsr", 5, "%u %.500s %u %u", *(a2 + 25), "RuleDescription", LineFieldInteger, v6);
   }
 
   else
   {
-    *(v70 + 4 * (LineFieldInteger >> 5)) = v57 | (1 << LineFieldInteger);
+    *(v44 + 4 * (LineFieldInteger >> 5)) = v31 | (1 << LineFieldInteger);
   }
 
-  RuleMgr::setDesc(*(*(**VocMgr::smpVocMgr + 8 * v6) + 64), LineFieldInteger, &v72, v52, v53, v54, v55, v56);
-  BitArray::~BitArray(&v70);
-  return DgnIArray<Utterance *>::~DgnIArray(&v72);
+  RuleMgr::setDesc(*(*(**VocMgr::smpVocMgr + 8 * v6) + 64), LineFieldInteger, &v46);
+  BitArray::~BitArray(&v44);
+  return DgnIArray<Utterance *>::~DgnIArray(&v46);
 }
 
-void sub_2627528E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2627528E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va4, a8);
-  va_start(va3, a8);
-  va_start(va2, a8);
-  va_start(va1, a8);
-  va_start(va, a8);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va4, a15);
+  va_start(va3, a15);
+  va_start(va2, a15);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
   va_copy(va2, va1);
-  v13 = va_arg(va2, void);
-  v15 = va_arg(va2, void);
+  v20 = va_arg(va2, void);
+  v22 = va_arg(va2, void);
   va_copy(va3, va2);
-  v16 = va_arg(va3, void);
-  v18 = va_arg(va3, void);
+  v23 = va_arg(va3, void);
+  v25 = va_arg(va3, void);
   va_copy(va4, va3);
-  v19 = va_arg(va4, void);
-  v21 = va_arg(va4, void);
+  v26 = va_arg(va4, void);
+  v28 = va_arg(va4, void);
   DgnString::~DgnString(va);
   DgnString::~DgnString(va1);
   DgnString::~DgnString(va2);
   DgnString::~DgnString(va3);
   DgnString::~DgnString(va4);
-  BitArray::~BitArray((v8 - 120));
-  DgnIArray<Utterance *>::~DgnIArray(v8 - 104);
+  BitArray::~BitArray((v15 - 120));
+  DgnIArray<Utterance *>::~DgnIArray(v15 - 104);
   _Unwind_Resume(a1);
 }
 
 void TextStateRule::parseRuleEnv(TextStateRule *this, DgnTextFileParser *a2)
 {
-  DgnString::DgnString(&v66);
+  DgnString::DgnString(&v37);
   v4 = 0;
-  v64 = 0;
-  v65 = 0;
+  v35 = 0;
+  v36 = 0;
   v5 = 127;
   do
   {
-    DgnString::DgnString(&v62);
-    DgnString::DgnString(v61);
-    DgnString::DgnString(&v59);
-    DgnString::DgnString(v57);
-    DgnString::DgnString(v55);
+    DgnString::DgnString(&v33);
+    DgnString::DgnString(v32);
+    DgnString::DgnString(&v30);
+    DgnString::DgnString(v28);
+    DgnString::DgnString(v26);
     LineFieldString = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-    DgnString::operator=(v61, LineFieldString);
+    DgnString::operator=(v32, LineFieldString);
     if (*(this + 32) == 1)
     {
-      v13 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
-      DgnString::operator=(&v62, v13);
+      v7 = DgnTextFileParser::getLineFieldString(a2, *(this + 2));
+      DgnString::operator=(&v33, v7);
     }
 
-    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3), v7, v8, v9, v10, v11, v12);
-    v15 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
-    DgnString::operator=(&v59, v15);
-    v16 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
-    DgnString::operator=(v57, v16);
-    v17 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
-    DgnString::operator=(v55, v17);
-    v24 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7), v18, v19, v20, v21, v22, v23);
+    LineFieldInteger = DgnTextFileParser::getLineFieldInteger(a2, *(this + 3));
+    v9 = DgnTextFileParser::getLineFieldString(a2, *(this + 4));
+    DgnString::operator=(&v30, v9);
+    v10 = DgnTextFileParser::getLineFieldString(a2, *(this + 5));
+    DgnString::operator=(v28, v10);
+    v11 = DgnTextFileParser::getLineFieldString(a2, *(this + 6));
+    DgnString::operator=(v26, v11);
+    v12 = DgnTextFileParser::getLineFieldInteger(a2, *(this + 7));
     if (*(this + 12))
     {
-      v25 = *(this + 5);
+      v13 = *(this + 5);
     }
 
     else
     {
-      v25 = &byte_262899963;
+      v13 = &byte_262899963;
     }
 
-    if (v63)
+    if (v34)
     {
-      v26 = v62;
+      v14 = v33;
     }
 
     else
     {
-      v26 = &byte_262899963;
+      v14 = &byte_262899963;
     }
 
-    if (strcmp(v25, v26))
+    if (strcmp(v13, v14))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2998, "voc/tsr", 29, "%u %500s %500s", v30, v31, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 2998, "voc/tsr", 29, "%u %500s %500s", *(a2 + 25), "RuleEnv", v14);
     }
 
-    if (v56 >= 2)
+    if (v27 >= 2)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 3000, "voc/tsr", 12, "%u", v30, v31, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 3000, "voc/tsr", 12, "%u", *(a2 + 25));
     }
 
-    if (v24)
+    if (v12)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 3002, "voc/tsr", 13, "%u", v30, v31, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 3002, "voc/tsr", 13, "%u", *(a2 + 25));
     }
 
     if (LineFieldInteger <= 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 3007, "voc/tsr", 17, "%u", v30, v31, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 3007, "voc/tsr", 17, "%u", *(a2 + 25));
     }
 
     if (!v4 && v5 == 127)
@@ -3203,100 +3352,104 @@ void TextStateRule::parseRuleEnv(TextStateRule *this, DgnTextFileParser *a2)
 
     if (LineFieldInteger != v4 || *this != v5)
     {
-      if (v67 <= v4)
+      if (v38 <= v4)
       {
-        BitArray::setSize(&v66, v4 + 1);
+        BitArray::setSize(&v37, v4 + 1);
       }
 
-      v32 = *(v66 + 4 * (v4 >> 5));
-      if ((v32 & (1 << v4)) != 0)
+      v15 = *(v37 + 4 * (v4 >> 5));
+      if ((v15 & (1 << v4)) != 0)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 3028, "voc/tsr", 5, "%u %.500s %u %u", v30, v31, *(a2 + 25));
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 3028, "voc/tsr", 5, "%u %.500s %u %u", *(a2 + 25), "RuleEnv", v4, v5);
       }
 
       else
       {
-        *(v66 + 4 * (v4 >> 5)) = v32 | (1 << v4);
+        *(v37 + 4 * (v4 >> 5)) = v15 | (1 << v4);
       }
     }
 
-    v33 = *(*(**VocMgr::smpVocMgr + 8 * *this) + 64);
-    RuleMgr::verifyRule(v33, LineFieldInteger, 1, v27, v28, v29, v30, v31);
-    v34 = *(v33 + 10);
-    ItemEnvIdMaybeNew = EnvMgr::getItemEnvIdMaybeNew(v34, LineFieldInteger, 1, v35, v36, v37, v38, v39);
-    if (v60 <= 1)
+    v16 = *(*(**VocMgr::smpVocMgr + 8 * *this) + 64);
+    RuleMgr::verifyRule(v16, LineFieldInteger, 1);
+    v17 = *(v16 + 10);
+    ItemEnvIdMaybeNew = EnvMgr::getItemEnvIdMaybeNew(v17, LineFieldInteger, 1);
+    if (v31 <= 1)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 3043, "voc/tsr", 15, "%u", v40, v41, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 3043, "voc/tsr", 15, "%u", *(a2 + 25));
     }
 
-    if (v58 <= 1)
+    if (v29 <= 1)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 3045, "voc/tsr", 16, "%u", v40, v41, *(a2 + 25));
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 3045, "voc/tsr", 16, "%u", *(a2 + 25));
     }
 
     if (*(a2 + 10))
     {
-      v43 = *(a2 + 4);
-    }
-
-    v44 = *(a2 + 25);
-    DgnTextFile::convertFromEnvValueFormat(v57, &v64);
-    if (v60)
-    {
-      v47 = v59;
+      v19 = *(a2 + 4);
     }
 
     else
     {
-      v47 = &byte_262899963;
+      v19 = &byte_262899963;
     }
 
-    EnvMgr::setData(v34, ItemEnvIdMaybeNew, v47, v64, v65, 1, v45, v46);
+    DgnTextFile::convertFromEnvValueFormat(v28, &v35, v19, *(a2 + 25));
+    if (v31)
+    {
+      v20 = v30;
+    }
+
+    else
+    {
+      v20 = &byte_262899963;
+    }
+
+    EnvMgr::setData(v17, ItemEnvIdMaybeNew, v20, v35, v36, 1);
     if (DgnTextFileParser::parseNextLine(a2))
     {
-      v48 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
-      DgnString::DgnString(&v53, v48);
-      if (v54)
+      v21 = DgnTextFileParser::getLineFieldString(a2, *(this + 1));
+      DgnString::DgnString(&v24, v21);
+      if (v25)
       {
-        v49 = v53;
+        v22 = v24;
       }
 
       else
       {
-        v49 = &byte_262899963;
+        v22 = &byte_262899963;
       }
 
-      v50 = strcmp(v49, "RuleEnv") == 0;
-      DgnString::~DgnString(&v53);
+      v23 = strcmp(v22, "RuleEnv") == 0;
+      DgnString::~DgnString(&v24);
     }
 
     else
     {
-      v50 = 0;
+      v23 = 0;
     }
 
     v5 = *this;
-    DgnString::~DgnString(v55);
-    DgnString::~DgnString(v57);
-    DgnString::~DgnString(&v59);
-    DgnString::~DgnString(v61);
-    DgnString::~DgnString(&v62);
+    DgnString::~DgnString(v26);
+    DgnString::~DgnString(v28);
+    DgnString::~DgnString(&v30);
+    DgnString::~DgnString(v32);
+    DgnString::~DgnString(&v33);
     v4 = LineFieldInteger;
   }
 
-  while (v50);
-  if (v67 <= LineFieldInteger)
+  while (v23);
+  if (v38 <= LineFieldInteger)
   {
-    BitArray::setSize(&v66, LineFieldInteger + 1);
+    BitArray::setSize(&v37, LineFieldInteger + 1);
   }
 
-  if ((*(v66 + 4 * (LineFieldInteger >> 5)) >> LineFieldInteger))
+  if ((*(v37 + 4 * (LineFieldInteger >> 5)) >> LineFieldInteger))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 3071, "voc/tsr", 5, "%u %.500s %u %u", v51, v52, *(a2 + 25));
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 3071, "voc/tsr", 5, "%u %.500s %u %u", *(a2 + 25), "RuleEnv", LineFieldInteger, v5);
   }
 
-  DgnPrimFixArray<double>::~DgnPrimFixArray(&v64);
-  BitArray::~BitArray(&v66);
+  DgnPrimFixArray<double>::~DgnPrimFixArray(&v35);
+  BitArray::~BitArray(&v37);
 }
 
 void sub_262752E54(_Unwind_Exception *a1)
@@ -3306,1800 +3459,1800 @@ void sub_262752E54(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void TextStateRule::loadStatesAndRules(TextStateRule *this, DFile *a2, __int16 a3)
+void TextStateRule::loadStatesAndRules(TextStateRule *this, FileSpec **a2, __int16 a3)
 {
-  DgnTextFileParser::DgnTextFileParser(v9);
-  DgnTextFileParser::openDgnTextFileParser(v9, a2, 0x61u, 1);
+  DgnTextFileParser::DgnTextFileParser(v7);
+  DgnTextFileParser::openDgnTextFileParser(v7, a2, 97, 1);
   *this = a3;
-  DgnString::DgnString(v8);
-  TextStateRule::parseHeader(this, v9);
-  TextStateRule::parseBody(this, v9);
-  if (DgnTextFileParser::parseNextLine(v9))
+  DgnString::DgnString(v6);
+  TextStateRule::parseHeader(this, v7);
+  TextStateRule::parseBody(this, v7);
+  if (DgnTextFileParser::parseNextLine(v7))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 3084, "voc/tsr", 23, "%u", v6, v7, v9[100]);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/tsr.cpp", 3084, "voc/tsr", 23, "%u", v8);
   }
 
-  DgnString::~DgnString(v8);
-  DgnTextFileParser::~DgnTextFileParser(v9);
+  DgnString::~DgnString(v6);
+  DgnTextFileParser::~DgnTextFileParser(v7);
 }
 
-void sub_262752F98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_262752F98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   DgnTextFileParser::~DgnTextFileParser(va);
   _Unwind_Resume(a1);
 }
 
 void TextStateRule::saveStatesAndRules(TextStateRule *this, DFile *a2, unsigned int a3)
 {
-  DgnTextFileWriter::DgnTextFileWriter(v634);
-  DgnTextFileWriter::openDgnTextFileWriter(v634, a2, 0x61u, 1);
-  v632 = 0;
-  v633 = 0;
-  DgnTextFile::legalDgnTextFileVersions(v634, sTSR_Versions, &v632, v5, v6, v7, v8, v9);
-  DgnTextFileWriter::setFileType(v634, "TSR", (v632 + 8 * (v633 - 1)));
+  DgnTextFileWriter::DgnTextFileWriter(v299);
+  DgnTextFileWriter::openDgnTextFileWriter(v299, a2, 97, 1);
+  v297 = 0;
+  v298 = 0;
+  DgnTextFile::legalDgnTextFileVersions(v299, sTSR_Versions, &v297);
+  DgnTextFileWriter::setFileType(v299, "TSR", (v297 + 8 * (v298 - 1)));
   *(this + 1) = 0;
   *(this + 12) = xmmword_26288C7F0;
   *(this + 7) = 5;
-  v630 = 0;
-  v631 = 0;
-  v623 = 0;
-  v10 = realloc_array(0, &v623, 0x18uLL, 0, 0, 1);
-  v629 = 0;
-  v630 = v623;
-  LODWORD(v631) = 6;
-  HIDWORD(v631) = v10 >> 2;
-  v628 = 0;
-  v623 = 0;
-  HIDWORD(v629) = realloc_array(0, &v623, 0x60uLL, 0, 0, 1) >> 4;
-  v628 = v623;
-  v11 = v629;
-  if (v629 <= 6)
+  v295 = 0;
+  v296 = 0;
+  v288 = 0;
+  v5 = realloc_array(0, &v288, 0x18uLL, 0, 0, 1);
+  v294 = 0;
+  v295 = v288;
+  LODWORD(v296) = 6;
+  HIDWORD(v296) = v5 >> 2;
+  v293 = 0;
+  v288 = 0;
+  HIDWORD(v294) = realloc_array(0, &v288, 0x60uLL, 0, 0, 1) >> 4;
+  v293 = v288;
+  v6 = v294;
+  if (v294 <= 6)
   {
-    if (v629 != 6)
+    if (v294 != 6)
     {
-      v13 = v629 + 1;
-      v14 = 16 * v629;
+      v8 = v294 + 1;
+      v9 = 16 * v294;
       do
       {
-        DgnString::DgnString(&v628[v14]);
-        v14 += 16;
-        v15 = v13++ == 6;
+        DgnString::DgnString(&v293[v9]);
+        v9 += 16;
+        v10 = v8++ == 6;
       }
 
-      while (!v15);
+      while (!v10);
     }
   }
 
-  else if (v629 >= 7)
+  else if (v294 >= 7)
   {
-    v12 = 16 * v629 - 16;
+    v7 = 16 * v294 - 16;
     do
     {
-      --v11;
-      DgnString::~DgnString(&v628[v12]);
-      v12 -= 16;
+      --v6;
+      DgnString::~DgnString(&v293[v7]);
+      v7 -= 16;
     }
 
-    while (v11 > 6);
+    while (v6 > 6);
   }
 
-  LODWORD(v629) = 6;
-  DgnString::operator=(&v628[16 * *(this + 1)], "Type");
-  v630[*(this + 1)] = 0;
-  DgnString::operator=(&v628[16 * *(this + 3)], "IntValue1");
-  v630[*(this + 3)] = 1;
-  DgnString::operator=(&v628[16 * *(this + 4)], "StrValue1");
-  v630[*(this + 4)] = 0;
-  DgnString::operator=(&v628[16 * *(this + 5)], "StrValue2");
-  v630[*(this + 5)] = 0;
-  DgnString::operator=(&v628[16 * *(this + 6)], "StrValue3");
-  v630[*(this + 6)] = 0;
-  DgnString::operator=(&v628[16 * *(this + 7)], "IntValue2");
-  v630[*(this + 7)] = 1;
-  DgnTextFileWriter::setLineFieldFormat(v634, &v630, &v628);
-  v16 = *(**VocMgr::smpVocMgr + 8 * a3);
-  v17 = *(*(v16 + 8) + 32);
-  DgnTextFileWriter::setHeaderFieldUnsigned(v634, "MaxStateId", *(*(v16 + 7) + 720));
-  DgnTextFileWriter::setHeaderFieldUnsigned(v634, "MaxRuleId", v17);
-  v18 = *(v16 + 7);
-  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-  while (v627)
+  LODWORD(v294) = 6;
+  DgnString::operator=(&v293[16 * *(this + 1)], "Type");
+  v295[*(this + 1)] = 0;
+  DgnString::operator=(&v293[16 * *(this + 3)], "IntValue1");
+  v295[*(this + 3)] = 1;
+  DgnString::operator=(&v293[16 * *(this + 4)], "StrValue1");
+  v295[*(this + 4)] = 0;
+  DgnString::operator=(&v293[16 * *(this + 5)], "StrValue2");
+  v295[*(this + 5)] = 0;
+  DgnString::operator=(&v293[16 * *(this + 6)], "StrValue3");
+  v295[*(this + 6)] = 0;
+  DgnString::operator=(&v293[16 * *(this + 7)], "IntValue2");
+  v295[*(this + 7)] = 1;
+  DgnTextFileWriter::setLineFieldFormat(v299, &v295, &v293);
+  v11 = *(**VocMgr::smpVocMgr + 8 * a3);
+  v12 = *(*(v11 + 8) + 32);
+  DgnTextFileWriter::setHeaderFieldUnsigned(v299, "MaxStateId", *(*(v11 + 7) + 720));
+  DgnTextFileWriter::setHeaderFieldUnsigned(v299, "MaxRuleId", v12);
+  v13 = *(v11 + 7);
+  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+  while (v292)
   {
-    v25 = v626;
-    v26 = v624;
-    v27 = *(v624 + 4 * v626);
-    if (v27)
+    v14 = v291;
+    v15 = v289;
+    v16 = *(v289 + 4 * v291);
+    if (v16)
     {
-      Parent = StateMgr::getParent(v18, *(v624 + 4 * v626), v19, v20, v21, v22, v23, v24);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "StateDefinition");
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v27);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
+      Parent = StateMgr::getParent(v13, *(v289 + 4 * v291));
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "StateDefinition");
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v16);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
       if (Parent)
       {
-        v29 = Parent;
+        v18 = Parent;
       }
 
       else
       {
-        v29 = -1;
+        v18 = -1;
       }
 
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 7), v29);
-      DgnTextFileWriter::writeNextLine(v634);
-      v25 = v626;
-      v26 = v624;
-      v30 = *(v624 + 4 * v626);
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 7), v18);
+      DgnTextFileWriter::writeNextLine(v299);
+      v14 = v291;
+      v15 = v289;
+      v19 = *(v289 + 4 * v291);
     }
 
     else
     {
-      v30 = 0;
+      v19 = 0;
     }
 
-    *(v26 + 4 * v25) = 0;
-    v31 = v626 + 1;
-    v15 = v627 == 1;
-    LODWORD(v626) = v626 + 1;
-    --v627;
-    if (v15)
+    *(v15 + 4 * v14) = 0;
+    v20 = v291 + 1;
+    v10 = v292 == 1;
+    LODWORD(v291) = v291 + 1;
+    --v292;
+    if (v10)
     {
-      v626 = 0;
+      v291 = 0;
     }
 
     else
     {
-      v32 = v31 >= v625;
-      v33 = v31 - v625;
-      if (v32)
+      v21 = v20 >= v290;
+      v22 = v20 - v290;
+      if (v21)
       {
-        LODWORD(v626) = v33;
+        LODWORD(v291) = v22;
       }
     }
 
-    ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v30, v19, v20, v21, v22, v23, v24);
+    ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v19);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
-  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-  while (v627)
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
+  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+  while (v292)
   {
-    v40 = v626;
-    v41 = v624;
-    v42 = *(v624 + 4 * v626);
-    if (v42)
+    v23 = v291;
+    v24 = v289;
+    v25 = *(v289 + 4 * v291);
+    if (v25)
     {
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "StateName");
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v42);
-      v43 = *(this + 4);
-      Name = StateMgr::getName(v18, v42, v44, v45, v46, v47, v48, v49);
-      DgnTextFileWriter::setLineFieldValue(v634, v43, Name);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 7), 0);
-      DgnTextFileWriter::writeNextLine(v634);
-      v40 = v626;
-      v41 = v624;
-      v51 = *(v624 + 4 * v626);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "StateName");
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v25);
+      v26 = *(this + 4);
+      Name = StateMgr::getName(v13, v25);
+      DgnTextFileWriter::setLineFieldValue(v299, v26, Name);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 7), 0);
+      DgnTextFileWriter::writeNextLine(v299);
+      v23 = v291;
+      v24 = v289;
+      v28 = *(v289 + 4 * v291);
     }
 
     else
     {
-      v51 = 0;
+      v28 = 0;
+    }
+
+    *(v24 + 4 * v23) = 0;
+    v29 = v291 + 1;
+    v10 = v292 == 1;
+    LODWORD(v291) = v291 + 1;
+    --v292;
+    if (v10)
+    {
+      v291 = 0;
+    }
+
+    else
+    {
+      v21 = v29 >= v290;
+      v30 = v29 - v290;
+      if (v21)
+      {
+        LODWORD(v291) = v30;
+      }
+    }
+
+    ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v28);
+  }
+
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
+  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+  while (v292)
+  {
+    v31 = v291;
+    v32 = v289;
+    v33 = *(v289 + 4 * v291);
+    if (v33)
+    {
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "StateAllowLM");
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v33);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+      v34 = *(this + 7);
+      LMAllowed = StateMgr::getLMAllowed(v13, v33, 1);
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, v34, LMAllowed);
+      DgnTextFileWriter::writeNextLine(v299);
+      v31 = v291;
+      v32 = v289;
+      v36 = *(v289 + 4 * v291);
+    }
+
+    else
+    {
+      v36 = 0;
+    }
+
+    *(v32 + 4 * v31) = 0;
+    v37 = v291 + 1;
+    v10 = v292 == 1;
+    LODWORD(v291) = v291 + 1;
+    --v292;
+    if (v10)
+    {
+      v291 = 0;
+    }
+
+    else
+    {
+      v21 = v37 >= v290;
+      v38 = v37 - v290;
+      if (v21)
+      {
+        LODWORD(v291) = v38;
+      }
+    }
+
+    ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v36);
+  }
+
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
+  v39 = *(v11 + 9);
+  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+  while (v292)
+  {
+    v40 = v291;
+    v41 = v289;
+    v42 = *(v289 + 4 * v291);
+    if (v42)
+    {
+      if (StateMgr::getWeights(v13, *(v289 + 4 * v291), 1) == 0xFFFF)
+      {
+        v43 = 0;
+      }
+
+      else
+      {
+        v43 = (*(*v39 + 672))(v39);
+      }
+
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "StateWeightsName");
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v42);
+      if (v43 && *(v43 + 8))
+      {
+        v45 = *v43;
+      }
+
+      else
+      {
+        v45 = &byte_262899963;
+      }
+
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), v45);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 7), 0);
+      DgnTextFileWriter::writeNextLine(v299);
+      v40 = v291;
+      v41 = v289;
+      v44 = *(v289 + 4 * v291);
+    }
+
+    else
+    {
+      v44 = 0;
     }
 
     *(v41 + 4 * v40) = 0;
-    v52 = v626 + 1;
-    v15 = v627 == 1;
-    LODWORD(v626) = v626 + 1;
-    --v627;
-    if (v15)
+    v46 = v291 + 1;
+    v10 = v292 == 1;
+    LODWORD(v291) = v291 + 1;
+    --v292;
+    if (v10)
     {
-      v626 = 0;
+      v291 = 0;
     }
 
     else
     {
-      v32 = v52 >= v625;
-      v53 = v52 - v625;
-      if (v32)
+      v21 = v46 >= v290;
+      v47 = v46 - v290;
+      if (v21)
       {
-        LODWORD(v626) = v53;
+        LODWORD(v291) = v47;
       }
     }
 
-    ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v51, v34, v35, v36, v37, v38, v39);
+    ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v44);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
-  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-  while (v627)
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
+  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+  while (v292)
   {
-    v60 = v626;
-    v61 = v624;
-    v62 = *(v624 + 4 * v626);
-    if (v62)
+    v48 = v291;
+    v49 = v289;
+    v50 = *(v289 + 4 * v291);
+    if (v50)
     {
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "StateAllowLM");
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v62);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-      v63 = *(this + 7);
-      LMAllowed = StateMgr::getLMAllowed(v18, v62, 1, v64, v65, v66, v67, v68);
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, v63, LMAllowed);
-      DgnTextFileWriter::writeNextLine(v634);
-      v60 = v626;
-      v61 = v624;
-      v70 = *(v624 + 4 * v626);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "StateWordPenalty");
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v50);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+      v51 = *(this + 7);
+      WordPenalty = StateMgr::getWordPenalty(v13, v50, 1);
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, v51, WordPenalty);
+      DgnTextFileWriter::writeNextLine(v299);
+      v48 = v291;
+      v49 = v289;
+      v53 = *(v289 + 4 * v291);
     }
 
     else
     {
-      v70 = 0;
+      v53 = 0;
     }
 
-    *(v61 + 4 * v60) = 0;
-    v71 = v626 + 1;
-    v15 = v627 == 1;
-    LODWORD(v626) = v626 + 1;
-    --v627;
-    if (v15)
+    *(v49 + 4 * v48) = 0;
+    v54 = v291 + 1;
+    v10 = v292 == 1;
+    LODWORD(v291) = v291 + 1;
+    --v292;
+    if (v10)
     {
-      v626 = 0;
+      v291 = 0;
     }
 
     else
     {
-      v32 = v71 >= v625;
-      v72 = v71 - v625;
-      if (v32)
+      v21 = v54 >= v290;
+      v55 = v54 - v290;
+      if (v21)
       {
-        LODWORD(v626) = v72;
+        LODWORD(v291) = v55;
       }
     }
 
-    ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v70, v54, v55, v56, v57, v58, v59);
+    ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v53);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
-  v73 = *(v16 + 9);
-  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-  while (v627)
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
+  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+  while (v292)
   {
-    v80 = v626;
-    v81 = v624;
-    v82 = *(v624 + 4 * v626);
+    v56 = v291;
+    v57 = v289;
+    v58 = *(v289 + 4 * v291);
+    if (v58)
+    {
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "StateMinStartTime");
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v58);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 7), *(*(v13 + 50) + 4 * v58));
+      DgnTextFileWriter::writeNextLine(v299);
+      v56 = v291;
+      v57 = v289;
+      v59 = *(v289 + 4 * v291);
+    }
+
+    else
+    {
+      v59 = 0;
+    }
+
+    *(v57 + 4 * v56) = 0;
+    v60 = v291 + 1;
+    v10 = v292 == 1;
+    LODWORD(v291) = v291 + 1;
+    --v292;
+    if (v10)
+    {
+      v291 = 0;
+    }
+
+    else
+    {
+      v21 = v60 >= v290;
+      v61 = v60 - v290;
+      if (v21)
+      {
+        LODWORD(v291) = v61;
+      }
+    }
+
+    ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v59);
+  }
+
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
+  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+  while (v292)
+  {
+    v62 = v291;
+    v63 = v289;
+    v64 = *(v289 + 4 * v291);
+    if (v64)
+    {
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "StateMaxStartTime");
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v64);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 7), *(*(v13 + 52) + 4 * v64));
+      DgnTextFileWriter::writeNextLine(v299);
+      v62 = v291;
+      v63 = v289;
+      v65 = *(v289 + 4 * v291);
+    }
+
+    else
+    {
+      v65 = 0;
+    }
+
+    *(v63 + 4 * v62) = 0;
+    v66 = v291 + 1;
+    v10 = v292 == 1;
+    LODWORD(v291) = v291 + 1;
+    --v292;
+    if (v10)
+    {
+      v291 = 0;
+    }
+
+    else
+    {
+      v21 = v66 >= v290;
+      v67 = v66 - v290;
+      if (v21)
+      {
+        LODWORD(v291) = v67;
+      }
+    }
+
+    ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v65);
+  }
+
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
+  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+  while (v292)
+  {
+    v68 = v291;
+    v69 = v289;
+    v70 = *(v289 + 4 * v291);
+    if (v70)
+    {
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "StateMinEndTime");
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v70);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 7), *(*(v13 + 54) + 4 * v70));
+      DgnTextFileWriter::writeNextLine(v299);
+      v68 = v291;
+      v69 = v289;
+      v71 = *(v289 + 4 * v291);
+    }
+
+    else
+    {
+      v71 = 0;
+    }
+
+    *(v69 + 4 * v68) = 0;
+    v72 = v291 + 1;
+    v10 = v292 == 1;
+    LODWORD(v291) = v291 + 1;
+    --v292;
+    if (v10)
+    {
+      v291 = 0;
+    }
+
+    else
+    {
+      v21 = v72 >= v290;
+      v73 = v72 - v290;
+      if (v21)
+      {
+        LODWORD(v291) = v73;
+      }
+    }
+
+    ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v71);
+  }
+
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
+  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+  while (v292)
+  {
+    v74 = v291;
+    v75 = v289;
+    v76 = *(v289 + 4 * v291);
+    if (v76)
+    {
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "StateMaxEndTime");
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v76);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 7), *(*(v13 + 56) + 4 * v76));
+      DgnTextFileWriter::writeNextLine(v299);
+      v74 = v291;
+      v75 = v289;
+      v77 = *(v289 + 4 * v291);
+    }
+
+    else
+    {
+      v77 = 0;
+    }
+
+    *(v75 + 4 * v74) = 0;
+    v78 = v291 + 1;
+    v10 = v292 == 1;
+    LODWORD(v291) = v291 + 1;
+    --v292;
+    if (v10)
+    {
+      v291 = 0;
+    }
+
+    else
+    {
+      v21 = v78 >= v290;
+      v79 = v78 - v290;
+      if (v21)
+      {
+        LODWORD(v291) = v79;
+      }
+    }
+
+    ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v77);
+  }
+
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
+  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+  while (v292)
+  {
+    v80 = v291;
+    v81 = v289;
+    v82 = *(v289 + 4 * v291);
     if (v82)
     {
-      if (StateMgr::getWeights(v18, *(v624 + 4 * v626), 1, v75, v76, v77, v78, v79) == 0xFFFF)
-      {
-        v83 = 0;
-      }
-
-      else
-      {
-        v83 = (*(*v73 + 672))(v73);
-      }
-
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "StateWeightsName");
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v82);
-      if (v83 && *(v83 + 8))
-      {
-        v85 = *v83;
-      }
-
-      else
-      {
-        v85 = &byte_262899963;
-      }
-
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), v85);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 7), 0);
-      DgnTextFileWriter::writeNextLine(v634);
-      v80 = v626;
-      v81 = v624;
-      v84 = *(v624 + 4 * v626);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "StateCollapsible");
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v82);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+      v83 = *(this + 7);
+      Collapsible = StateMgr::getCollapsible(v13, v82);
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, v83, Collapsible);
+      DgnTextFileWriter::writeNextLine(v299);
+      v80 = v291;
+      v81 = v289;
+      v85 = *(v289 + 4 * v291);
     }
 
     else
     {
-      v84 = 0;
+      v85 = 0;
     }
 
     *(v81 + 4 * v80) = 0;
-    v86 = v626 + 1;
-    v15 = v627 == 1;
-    LODWORD(v626) = v626 + 1;
-    --v627;
-    if (v15)
+    v86 = v291 + 1;
+    v10 = v292 == 1;
+    LODWORD(v291) = v291 + 1;
+    --v292;
+    if (v10)
     {
-      v626 = 0;
+      v291 = 0;
     }
 
     else
     {
-      v32 = v86 >= v625;
-      v87 = v86 - v625;
-      if (v32)
+      v21 = v86 >= v290;
+      v87 = v86 - v290;
+      if (v21)
       {
-        LODWORD(v626) = v87;
+        LODWORD(v291) = v87;
       }
     }
 
-    ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v84, v74, v75, v76, v77, v78, v79);
+    ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v85);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
-  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-  while (v627)
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
+  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+  while (v292)
   {
-    v94 = v626;
-    v95 = v624;
-    v96 = *(v624 + 4 * v626);
-    if (v96)
+    v88 = v291;
+    v89 = v289;
+    v90 = *(v289 + 4 * v291);
+    if (v90)
     {
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "StateWordPenalty");
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v96);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-      v97 = *(this + 7);
-      WordPenalty = StateMgr::getWordPenalty(v18, v96, 1, v98, v99, v100, v101, v102);
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, v97, WordPenalty);
-      DgnTextFileWriter::writeNextLine(v634);
-      v94 = v626;
-      v95 = v624;
-      v104 = *(v624 + 4 * v626);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "StateAllowCoart");
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v90);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+      v91 = *(this + 7);
+      CoartAllowed = StateMgr::getCoartAllowed(v13, v90, 1);
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, v91, CoartAllowed);
+      DgnTextFileWriter::writeNextLine(v299);
+      v88 = v291;
+      v89 = v289;
+      v93 = *(v289 + 4 * v291);
     }
 
     else
     {
-      v104 = 0;
+      v93 = 0;
     }
 
-    *(v95 + 4 * v94) = 0;
-    v105 = v626 + 1;
-    v15 = v627 == 1;
-    LODWORD(v626) = v626 + 1;
-    --v627;
-    if (v15)
+    *(v89 + 4 * v88) = 0;
+    v94 = v291 + 1;
+    v10 = v292 == 1;
+    LODWORD(v291) = v291 + 1;
+    --v292;
+    if (v10)
     {
-      v626 = 0;
+      v291 = 0;
     }
 
     else
     {
-      v32 = v105 >= v625;
-      v106 = v105 - v625;
-      if (v32)
+      v21 = v94 >= v290;
+      v95 = v94 - v290;
+      if (v21)
       {
-        LODWORD(v626) = v106;
+        LODWORD(v291) = v95;
       }
     }
 
-    ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v104, v88, v89, v90, v91, v92, v93);
+    ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v93);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
-  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-  while (v627)
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
+  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+  while (v292)
   {
-    v113 = v626;
-    v114 = v624;
-    v115 = *(v624 + 4 * v626);
-    if (v115)
+    v96 = v291;
+    v97 = v289;
+    v98 = *(v289 + 4 * v291);
+    if (v98)
     {
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "StateMinStartTime");
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v115);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 7), *(*(v18 + 50) + 4 * v115));
-      DgnTextFileWriter::writeNextLine(v634);
-      v113 = v626;
-      v114 = v624;
-      v116 = *(v624 + 4 * v626);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "StateAllowSkip");
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v98);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+      v99 = *(this + 7);
+      SkipAllowed = StateMgr::getSkipAllowed(v13, v98, 1);
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, v99, SkipAllowed);
+      DgnTextFileWriter::writeNextLine(v299);
+      v96 = v291;
+      v97 = v289;
+      v101 = *(v289 + 4 * v291);
     }
 
     else
     {
-      v116 = 0;
+      v101 = 0;
     }
 
-    *(v114 + 4 * v113) = 0;
-    v117 = v626 + 1;
-    v15 = v627 == 1;
-    LODWORD(v626) = v626 + 1;
-    --v627;
-    if (v15)
+    *(v97 + 4 * v96) = 0;
+    v102 = v291 + 1;
+    v10 = v292 == 1;
+    LODWORD(v291) = v291 + 1;
+    --v292;
+    if (v10)
     {
-      v626 = 0;
+      v291 = 0;
     }
 
     else
     {
-      v32 = v117 >= v625;
-      v118 = v117 - v625;
-      if (v32)
+      v21 = v102 >= v290;
+      v103 = v102 - v290;
+      if (v21)
       {
-        LODWORD(v626) = v118;
+        LODWORD(v291) = v103;
       }
     }
 
-    ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v116, v107, v108, v109, v110, v111, v112);
+    ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v101);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
-  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-  while (v627)
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
+  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+  while (v292)
   {
-    v125 = v626;
-    v126 = v624;
-    v127 = *(v624 + 4 * v626);
-    if (v127)
+    v104 = v291;
+    v105 = v289;
+    v106 = *(v289 + 4 * v291);
+    if (v106)
     {
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "StateMaxStartTime");
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v127);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 7), *(*(v18 + 52) + 4 * v127));
-      DgnTextFileWriter::writeNextLine(v634);
-      v125 = v626;
-      v126 = v624;
-      v128 = *(v624 + 4 * v626);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "StateAllowLeftWordBoundary");
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v106);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+      v107 = *(this + 7);
+      LeftWBAllowed = StateMgr::getLeftWBAllowed(v13, v106, 1);
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, v107, LeftWBAllowed);
+      DgnTextFileWriter::writeNextLine(v299);
+      v104 = v291;
+      v105 = v289;
+      v109 = *(v289 + 4 * v291);
     }
 
     else
     {
-      v128 = 0;
+      v109 = 0;
     }
 
-    *(v126 + 4 * v125) = 0;
-    v129 = v626 + 1;
-    v15 = v627 == 1;
-    LODWORD(v626) = v626 + 1;
-    --v627;
-    if (v15)
+    *(v105 + 4 * v104) = 0;
+    v110 = v291 + 1;
+    v10 = v292 == 1;
+    LODWORD(v291) = v291 + 1;
+    --v292;
+    if (v10)
     {
-      v626 = 0;
+      v291 = 0;
     }
 
     else
     {
-      v32 = v129 >= v625;
-      v130 = v129 - v625;
-      if (v32)
+      v21 = v110 >= v290;
+      v111 = v110 - v290;
+      if (v21)
       {
-        LODWORD(v626) = v130;
+        LODWORD(v291) = v111;
       }
     }
 
-    ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v128, v119, v120, v121, v122, v123, v124);
+    ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v109);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
-  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-  while (v627)
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
+  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+  while (v292)
   {
-    v137 = v626;
-    v138 = v624;
-    v139 = *(v624 + 4 * v626);
-    if (v139)
+    v112 = v291;
+    v113 = v289;
+    v114 = *(v289 + 4 * v291);
+    if (v114)
     {
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "StateMinEndTime");
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v139);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 7), *(*(v18 + 54) + 4 * v139));
-      DgnTextFileWriter::writeNextLine(v634);
-      v137 = v626;
-      v138 = v624;
-      v140 = *(v624 + 4 * v626);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "StateAllowRightWordBoundary");
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v114);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+      v115 = *(this + 7);
+      RightWBAllowed = StateMgr::getRightWBAllowed(v13, v114, 1);
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, v115, RightWBAllowed);
+      DgnTextFileWriter::writeNextLine(v299);
+      v112 = v291;
+      v113 = v289;
+      v117 = *(v289 + 4 * v291);
     }
 
     else
     {
-      v140 = 0;
+      v117 = 0;
     }
 
-    *(v138 + 4 * v137) = 0;
-    v141 = v626 + 1;
-    v15 = v627 == 1;
-    LODWORD(v626) = v626 + 1;
-    --v627;
-    if (v15)
+    *(v113 + 4 * v112) = 0;
+    v118 = v291 + 1;
+    v10 = v292 == 1;
+    LODWORD(v291) = v291 + 1;
+    --v292;
+    if (v10)
     {
-      v626 = 0;
+      v291 = 0;
     }
 
     else
     {
-      v32 = v141 >= v625;
-      v142 = v141 - v625;
-      if (v32)
+      v21 = v118 >= v290;
+      v119 = v118 - v290;
+      if (v21)
       {
-        LODWORD(v626) = v142;
+        LODWORD(v291) = v119;
       }
     }
 
-    ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v140, v131, v132, v133, v134, v135, v136);
+    ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v117);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
-  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-  while (v627)
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
+  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+  while (v292)
   {
-    v149 = v626;
-    v150 = v624;
-    v151 = *(v624 + 4 * v626);
-    if (v151)
+    v120 = v291;
+    v121 = v289;
+    v122 = *(v289 + 4 * v291);
+    if (v122)
     {
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "StateMaxEndTime");
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v151);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 7), *(*(v18 + 56) + 4 * v151));
-      DgnTextFileWriter::writeNextLine(v634);
-      v149 = v626;
-      v150 = v624;
-      v152 = *(v624 + 4 * v626);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "StateAllowPrefiltering");
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v122);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+      v123 = *(this + 7);
+      PrefilteringAllowed = StateMgr::getPrefilteringAllowed(v13, v122);
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, v123, PrefilteringAllowed);
+      DgnTextFileWriter::writeNextLine(v299);
+      v120 = v291;
+      v121 = v289;
+      v125 = *(v289 + 4 * v291);
     }
 
     else
     {
-      v152 = 0;
+      v125 = 0;
     }
 
-    *(v150 + 4 * v149) = 0;
-    v153 = v626 + 1;
-    v15 = v627 == 1;
-    LODWORD(v626) = v626 + 1;
-    --v627;
-    if (v15)
+    *(v121 + 4 * v120) = 0;
+    v126 = v291 + 1;
+    v10 = v292 == 1;
+    LODWORD(v291) = v291 + 1;
+    --v292;
+    if (v10)
     {
-      v626 = 0;
+      v291 = 0;
     }
 
     else
     {
-      v32 = v153 >= v625;
-      v154 = v153 - v625;
-      if (v32)
+      v21 = v126 >= v290;
+      v127 = v126 - v290;
+      if (v21)
       {
-        LODWORD(v626) = v154;
+        LODWORD(v291) = v127;
       }
     }
 
-    ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v152, v143, v144, v145, v146, v147, v148);
+    ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v125);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
-  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-  while (v627)
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
+  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+  while (v292)
   {
-    v161 = v626;
-    v162 = v624;
-    v163 = *(v624 + 4 * v626);
-    if (v163)
+    v128 = v291;
+    v129 = v289;
+    v130 = *(v289 + 4 * v291);
+    if (v130)
     {
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "StateCollapsible");
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v163);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-      v164 = *(this + 7);
-      Collapsible = StateMgr::getCollapsible(v18, v163, v165, v166, v167, v168, v169, v170);
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, v164, Collapsible);
-      DgnTextFileWriter::writeNextLine(v634);
-      v161 = v626;
-      v162 = v624;
-      v172 = *(v624 + 4 * v626);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "StateAllowEndOfUtt");
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v130);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+      v131 = *(this + 7);
+      EndOfUtteranceAllowed = StateMgr::getEndOfUtteranceAllowed(v13, v130);
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, v131, EndOfUtteranceAllowed);
+      DgnTextFileWriter::writeNextLine(v299);
+      v128 = v291;
+      v129 = v289;
+      v133 = *(v289 + 4 * v291);
     }
 
     else
     {
-      v172 = 0;
+      v133 = 0;
     }
 
-    *(v162 + 4 * v161) = 0;
-    v173 = v626 + 1;
-    v15 = v627 == 1;
-    LODWORD(v626) = v626 + 1;
-    --v627;
-    if (v15)
+    *(v129 + 4 * v128) = 0;
+    v134 = v291 + 1;
+    v10 = v292 == 1;
+    LODWORD(v291) = v291 + 1;
+    --v292;
+    if (v10)
     {
-      v626 = 0;
+      v291 = 0;
     }
 
     else
     {
-      v32 = v173 >= v625;
-      v174 = v173 - v625;
-      if (v32)
+      v21 = v134 >= v290;
+      v135 = v134 - v290;
+      if (v21)
       {
-        LODWORD(v626) = v174;
+        LODWORD(v291) = v135;
       }
     }
 
-    ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v172, v155, v156, v157, v158, v159, v160);
+    ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v133);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
-  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-  while (v627)
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
+  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+  while (v292)
   {
-    v181 = v626;
-    v182 = v624;
-    v183 = *(v624 + 4 * v626);
-    if (v183)
+    v136 = *(v289 + 4 * v291);
+    if (v136)
     {
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "StateAllowCoart");
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v183);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-      v184 = *(this + 7);
-      CoartAllowed = StateMgr::getCoartAllowed(v18, v183, 1, v185, v186, v187, v188, v189);
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, v184, CoartAllowed);
-      DgnTextFileWriter::writeNextLine(v634);
-      v181 = v626;
-      v182 = v624;
-      v191 = *(v624 + 4 * v626);
-    }
-
-    else
-    {
-      v191 = 0;
-    }
-
-    *(v182 + 4 * v181) = 0;
-    v192 = v626 + 1;
-    v15 = v627 == 1;
-    LODWORD(v626) = v626 + 1;
-    --v627;
-    if (v15)
-    {
-      v626 = 0;
-    }
-
-    else
-    {
-      v32 = v192 >= v625;
-      v193 = v192 - v625;
-      if (v32)
-      {
-        LODWORD(v626) = v193;
-      }
-    }
-
-    ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v191, v175, v176, v177, v178, v179, v180);
-  }
-
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
-  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-  while (v627)
-  {
-    v200 = v626;
-    v201 = v624;
-    v202 = *(v624 + 4 * v626);
-    if (v202)
-    {
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "StateAllowSkip");
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v202);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-      v203 = *(this + 7);
-      SkipAllowed = StateMgr::getSkipAllowed(v18, v202, 1, v204, v205, v206, v207, v208);
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, v203, SkipAllowed);
-      DgnTextFileWriter::writeNextLine(v634);
-      v200 = v626;
-      v201 = v624;
-      v210 = *(v624 + 4 * v626);
-    }
-
-    else
-    {
-      v210 = 0;
-    }
-
-    *(v201 + 4 * v200) = 0;
-    v211 = v626 + 1;
-    v15 = v627 == 1;
-    LODWORD(v626) = v626 + 1;
-    --v627;
-    if (v15)
-    {
-      v626 = 0;
-    }
-
-    else
-    {
-      v32 = v211 >= v625;
-      v212 = v211 - v625;
-      if (v32)
-      {
-        LODWORD(v626) = v212;
-      }
-    }
-
-    ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v210, v194, v195, v196, v197, v198, v199);
-  }
-
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
-  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-  while (v627)
-  {
-    v219 = v626;
-    v220 = v624;
-    v221 = *(v624 + 4 * v626);
-    if (v221)
-    {
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "StateAllowLeftWordBoundary");
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v221);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-      v222 = *(this + 7);
-      LeftWBAllowed = StateMgr::getLeftWBAllowed(v18, v221, 1, v223, v224, v225, v226, v227);
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, v222, LeftWBAllowed);
-      DgnTextFileWriter::writeNextLine(v634);
-      v219 = v626;
-      v220 = v624;
-      v229 = *(v624 + 4 * v626);
-    }
-
-    else
-    {
-      v229 = 0;
-    }
-
-    *(v220 + 4 * v219) = 0;
-    v230 = v626 + 1;
-    v15 = v627 == 1;
-    LODWORD(v626) = v626 + 1;
-    --v627;
-    if (v15)
-    {
-      v626 = 0;
-    }
-
-    else
-    {
-      v32 = v230 >= v625;
-      v231 = v230 - v625;
-      if (v32)
-      {
-        LODWORD(v626) = v231;
-      }
-    }
-
-    ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v229, v213, v214, v215, v216, v217, v218);
-  }
-
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
-  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-  while (v627)
-  {
-    v238 = v626;
-    v239 = v624;
-    v240 = *(v624 + 4 * v626);
-    if (v240)
-    {
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "StateAllowRightWordBoundary");
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v240);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-      v241 = *(this + 7);
-      RightWBAllowed = StateMgr::getRightWBAllowed(v18, v240, 1, v242, v243, v244, v245, v246);
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, v241, RightWBAllowed);
-      DgnTextFileWriter::writeNextLine(v634);
-      v238 = v626;
-      v239 = v624;
-      v248 = *(v624 + 4 * v626);
-    }
-
-    else
-    {
-      v248 = 0;
-    }
-
-    *(v239 + 4 * v238) = 0;
-    v249 = v626 + 1;
-    v15 = v627 == 1;
-    LODWORD(v626) = v626 + 1;
-    --v627;
-    if (v15)
-    {
-      v626 = 0;
-    }
-
-    else
-    {
-      v32 = v249 >= v625;
-      v250 = v249 - v625;
-      if (v32)
-      {
-        LODWORD(v626) = v250;
-      }
-    }
-
-    ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v248, v232, v233, v234, v235, v236, v237);
-  }
-
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
-  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-  while (v627)
-  {
-    v257 = v626;
-    v258 = v624;
-    v259 = *(v624 + 4 * v626);
-    if (v259)
-    {
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "StateAllowPrefiltering");
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v259);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-      v260 = *(this + 7);
-      PrefilteringAllowed = StateMgr::getPrefilteringAllowed(v18, v259, v261, v262, v263, v264, v265, v266);
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, v260, PrefilteringAllowed);
-      DgnTextFileWriter::writeNextLine(v634);
-      v257 = v626;
-      v258 = v624;
-      v268 = *(v624 + 4 * v626);
-    }
-
-    else
-    {
-      v268 = 0;
-    }
-
-    *(v258 + 4 * v257) = 0;
-    v269 = v626 + 1;
-    v15 = v627 == 1;
-    LODWORD(v626) = v626 + 1;
-    --v627;
-    if (v15)
-    {
-      v626 = 0;
-    }
-
-    else
-    {
-      v32 = v269 >= v625;
-      v270 = v269 - v625;
-      if (v32)
-      {
-        LODWORD(v626) = v270;
-      }
-    }
-
-    ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v268, v251, v252, v253, v254, v255, v256);
-  }
-
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
-  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-  while (v627)
-  {
-    v277 = v626;
-    v278 = v624;
-    v279 = *(v624 + 4 * v626);
-    if (v279)
-    {
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "StateAllowEndOfUtt");
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v279);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-      v280 = *(this + 7);
-      EndOfUtteranceAllowed = StateMgr::getEndOfUtteranceAllowed(v18, v279, v281, v282, v283, v284, v285, v286);
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, v280, EndOfUtteranceAllowed);
-      DgnTextFileWriter::writeNextLine(v634);
-      v277 = v626;
-      v278 = v624;
-      v288 = *(v624 + 4 * v626);
-    }
-
-    else
-    {
-      v288 = 0;
-    }
-
-    *(v278 + 4 * v277) = 0;
-    v289 = v626 + 1;
-    v15 = v627 == 1;
-    LODWORD(v626) = v626 + 1;
-    --v627;
-    if (v15)
-    {
-      v626 = 0;
-    }
-
-    else
-    {
-      v32 = v289 >= v625;
-      v290 = v289 - v625;
-      if (v32)
-      {
-        LODWORD(v626) = v290;
-      }
-    }
-
-    ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v288, v271, v272, v273, v274, v275, v276);
-  }
-
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
-  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-  while (v627)
-  {
-    v297 = *(v624 + 4 * v626);
-    if (v297)
-    {
-      WordAliasState = StateMgr::getWordAliasState(v18, *(v624 + 4 * v626), 1, v292, v293, v294, v295, v296);
+      WordAliasState = StateMgr::getWordAliasState(v13, *(v289 + 4 * v291), 1);
       if (WordAliasState)
       {
-        DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "StateAliasState");
-        DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v297);
-        DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), &byte_262899963);
-        DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-        DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-        DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 7), WordAliasState);
-        DgnTextFileWriter::writeNextLine(v634);
+        DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "StateAliasState");
+        DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v136);
+        DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), &byte_262899963);
+        DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+        DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+        DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 7), WordAliasState);
+        DgnTextFileWriter::writeNextLine(v299);
       }
     }
 
-    v299 = *(v624 + 4 * v626);
-    *(v624 + 4 * v626) = 0;
-    v300 = v626 + 1;
-    v15 = v627 == 1;
-    LODWORD(v626) = v626 + 1;
-    --v627;
-    if (v15)
+    v138 = *(v289 + 4 * v291);
+    *(v289 + 4 * v291) = 0;
+    v139 = v291 + 1;
+    v10 = v292 == 1;
+    LODWORD(v291) = v291 + 1;
+    --v292;
+    if (v10)
     {
-      v626 = 0;
+      v291 = 0;
     }
 
     else
     {
-      v32 = v300 >= v625;
-      v301 = v300 - v625;
-      if (v32)
+      v21 = v139 >= v290;
+      v140 = v139 - v290;
+      if (v21)
       {
-        LODWORD(v626) = v301;
+        LODWORD(v291) = v140;
       }
     }
 
-    ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v299, v291, v292, v293, v294, v295, v296);
+    ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v138);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
-  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-  while (v627)
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
+  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+  while (v292)
   {
-    v308 = *(v624 + 4 * v626);
-    if (v308)
+    v141 = *(v289 + 4 * v291);
+    if (v141)
     {
-      PrecedingNonAcousticWordState = StateMgr::getPrecedingNonAcousticWordState(v18, *(v624 + 4 * v626), v302, v303, v304, v305, v306, v307);
+      PrecedingNonAcousticWordState = StateMgr::getPrecedingNonAcousticWordState(v13, *(v289 + 4 * v291));
       if (PrecedingNonAcousticWordState)
       {
-        DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "StatePrecedingNonAcousticWordState");
-        DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v308);
-        DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), &byte_262899963);
-        DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-        DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-        DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 7), PrecedingNonAcousticWordState);
-        DgnTextFileWriter::writeNextLine(v634);
+        DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "StatePrecedingNonAcousticWordState");
+        DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v141);
+        DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), &byte_262899963);
+        DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+        DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+        DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 7), PrecedingNonAcousticWordState);
+        DgnTextFileWriter::writeNextLine(v299);
       }
     }
 
-    v310 = *(v624 + 4 * v626);
-    *(v624 + 4 * v626) = 0;
-    v311 = v626 + 1;
-    v15 = v627 == 1;
-    LODWORD(v626) = v626 + 1;
-    --v627;
-    if (v15)
+    v143 = *(v289 + 4 * v291);
+    *(v289 + 4 * v291) = 0;
+    v144 = v291 + 1;
+    v10 = v292 == 1;
+    LODWORD(v291) = v291 + 1;
+    --v292;
+    if (v10)
     {
-      v626 = 0;
+      v291 = 0;
     }
 
     else
     {
-      v32 = v311 >= v625;
-      v312 = v311 - v625;
-      if (v32)
+      v21 = v144 >= v290;
+      v145 = v144 - v290;
+      if (v21)
       {
-        LODWORD(v626) = v312;
+        LODWORD(v291) = v145;
       }
     }
 
-    ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v310, v302, v303, v304, v305, v306, v307);
+    ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v143);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
-  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-  while (v627)
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
+  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+  while (v292)
   {
-    v319 = v626;
-    v320 = v624;
-    v321 = *(v624 + 4 * v626);
-    if (v321)
+    v146 = v291;
+    v147 = v289;
+    v148 = *(v289 + 4 * v291);
+    if (v148)
     {
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "StatePrecedingNonAcousticWordRequired");
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v321);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-      DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-      v322 = *(this + 7);
-      PrecedingNonAcousticWordRequired = StateMgr::getPrecedingNonAcousticWordRequired(v18, v321, v323, v324, v325, v326, v327, v328);
-      DgnTextFileWriter::setLineFieldIntegerValue(v634, v322, PrecedingNonAcousticWordRequired);
-      DgnTextFileWriter::writeNextLine(v634);
-      v319 = v626;
-      v320 = v624;
-      v330 = *(v624 + 4 * v626);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "StatePrecedingNonAcousticWordRequired");
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v148);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+      DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+      v149 = *(this + 7);
+      PrecedingNonAcousticWordRequired = StateMgr::getPrecedingNonAcousticWordRequired(v13, v148);
+      DgnTextFileWriter::setLineFieldIntegerValue(v299, v149, PrecedingNonAcousticWordRequired);
+      DgnTextFileWriter::writeNextLine(v299);
+      v146 = v291;
+      v147 = v289;
+      v151 = *(v289 + 4 * v291);
     }
 
     else
     {
-      v330 = 0;
+      v151 = 0;
     }
 
-    *(v320 + 4 * v319) = 0;
-    v331 = v626 + 1;
-    v15 = v627 == 1;
-    LODWORD(v626) = v626 + 1;
-    --v627;
-    if (v15)
+    *(v147 + 4 * v146) = 0;
+    v152 = v291 + 1;
+    v10 = v292 == 1;
+    LODWORD(v291) = v291 + 1;
+    --v292;
+    if (v10)
     {
-      v626 = 0;
+      v291 = 0;
     }
 
     else
     {
-      v32 = v331 >= v625;
-      v332 = v331 - v625;
-      if (v32)
+      v21 = v152 >= v290;
+      v153 = v152 - v290;
+      if (v21)
       {
-        LODWORD(v626) = v332;
+        LODWORD(v291) = v153;
       }
     }
 
-    ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v330, v313, v314, v315, v316, v317, v318);
+    ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v151);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
-  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-  while (v627)
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
+  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+  while (v292)
   {
-    v339 = *(v624 + 4 * v626);
-    if (v339)
+    v154 = *(v289 + 4 * v291);
+    if (v154)
     {
-      CollWords = StateMgr::getCollWords(v18, *(v624 + 4 * v626), 0xFFFFu, 1, v335, v336, v337, v338);
-      v341 = *(CollWords + 8);
-      if (v341)
+      CollWords = StateMgr::getCollWords(v13, *(v289 + 4 * v291), 0xFFFFu, 1);
+      v156 = *(CollWords + 8);
+      if (v156)
       {
-        for (i = 0; i < v341; ++i)
+        for (i = 0; i < v156; ++i)
         {
-          v343 = *(*CollWords + 4 * i);
-          v344 = *(v16 + 6);
-          if (*(v344 + 388) > v343 && *(*(v344 + 104) + v343) && *(*(v344 + 256) + 4 * v343) == v343)
+          v158 = *(*CollWords + 4 * i);
+          v159 = *(v11 + 6);
+          if (*(v159 + 388) > v158 && *(*(v159 + 104) + v158) && *(*(v159 + 256) + 4 * v158) == v158)
           {
-            WordName = GetWordName(a3, v343, 0, 0, v335, v336, v337, v338);
-            DgnString::DgnString(&v621, WordName);
-            DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "StateIncludedWord");
-            DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v339);
-            if (v622)
+            WordName = GetWordName(a3, v158);
+            DgnString::DgnString(&v286, WordName);
+            DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "StateIncludedWord");
+            DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v154);
+            if (v287)
             {
-              v346 = v621;
+              v161 = v286;
             }
 
             else
             {
-              v346 = &byte_262899963;
+              v161 = &byte_262899963;
             }
 
-            DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), v346);
-            DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-            DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-            DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 7), 0);
-            DgnTextFileWriter::writeNextLine(v634);
-            DgnString::~DgnString(&v621);
-            v341 = *(CollWords + 8);
+            DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), v161);
+            DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+            DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+            DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 7), 0);
+            DgnTextFileWriter::writeNextLine(v299);
+            DgnString::~DgnString(&v286);
+            v156 = *(CollWords + 8);
           }
         }
       }
     }
 
-    v347 = *(v624 + 4 * v626);
-    *(v624 + 4 * v626) = 0;
-    v348 = v626 + 1;
-    v15 = v627 == 1;
-    LODWORD(v626) = v626 + 1;
-    --v627;
-    if (v15)
+    v162 = *(v289 + 4 * v291);
+    *(v289 + 4 * v291) = 0;
+    v163 = v291 + 1;
+    v10 = v292 == 1;
+    LODWORD(v291) = v291 + 1;
+    --v292;
+    if (v10)
     {
-      v626 = 0;
+      v291 = 0;
     }
 
     else
     {
-      v32 = v348 >= v625;
-      v349 = v348 - v625;
-      if (v32)
+      v21 = v163 >= v290;
+      v164 = v163 - v290;
+      if (v21)
       {
-        LODWORD(v626) = v349;
+        LODWORD(v291) = v164;
       }
     }
 
-    ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v347, v333, v334, v335, v336, v337, v338);
+    ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v162);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
-  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-  while (v627)
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
+  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+  while (v292)
   {
-    v356 = *(v624 + 4 * v626);
-    if (v356)
+    v165 = *(v289 + 4 * v291);
+    if (v165)
     {
-      StateTransition = StateMgr::getStateTransition(v18, *(v624 + 4 * v626), 1, v351, v352, v353, v354, v355);
+      StateTransition = StateMgr::getStateTransition(v13, *(v289 + 4 * v291), 1);
       if (*(StateTransition + 8))
       {
-        v358 = 0;
+        v167 = 0;
         do
         {
-          v359 = *(*StateTransition + 4 * v358);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "StateTransitionState");
-          DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v356);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), &byte_262899963);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-          DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 7), v359);
-          DgnTextFileWriter::writeNextLine(v634);
-          ++v358;
+          v168 = *(*StateTransition + 4 * v167);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "StateTransitionState");
+          DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v165);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), &byte_262899963);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+          DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 7), v168);
+          DgnTextFileWriter::writeNextLine(v299);
+          ++v167;
         }
 
-        while (v358 < *(StateTransition + 8));
+        while (v167 < *(StateTransition + 8));
       }
     }
 
-    v360 = *(v624 + 4 * v626);
-    *(v624 + 4 * v626) = 0;
-    v361 = v626 + 1;
-    v15 = v627 == 1;
-    LODWORD(v626) = v626 + 1;
-    --v627;
-    if (v15)
+    v169 = *(v289 + 4 * v291);
+    *(v289 + 4 * v291) = 0;
+    v170 = v291 + 1;
+    v10 = v292 == 1;
+    LODWORD(v291) = v291 + 1;
+    --v292;
+    if (v10)
     {
-      v626 = 0;
+      v291 = 0;
     }
 
     else
     {
-      v32 = v361 >= v625;
-      v362 = v361 - v625;
-      if (v32)
+      v21 = v170 >= v290;
+      v171 = v170 - v290;
+      if (v21)
       {
-        LODWORD(v626) = v362;
+        LODWORD(v291) = v171;
       }
     }
 
-    ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v360, v350, v351, v352, v353, v354, v355);
+    ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v169);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
-  v363 = *(v16 + 2);
-  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-  while (v627)
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
+  v172 = *(v11 + 2);
+  ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+  while (v292)
   {
-    v370 = v626;
-    v371 = v624;
-    v372 = *(v624 + 4 * v626);
-    if (v372)
+    v173 = v291;
+    v174 = v289;
+    v175 = *(v289 + 4 * v291);
+    if (v175)
     {
-      Colls = StateMgr::getColls(v18, *(v624 + 4 * v626), 1, v365, v366, v367, v368, v369);
-      v621 = 0;
-      v622 = 0;
-      DgnPrimArray<unsigned short>::copyArraySlice(&v621, Colls, 0, *(Colls + 8));
-      if (v622)
+      Colls = StateMgr::getColls(v13, *(v289 + 4 * v291), 1);
+      v286 = 0;
+      v287 = 0;
+      DgnPrimArray<unsigned short>::copyArraySlice(&v286, Colls, 0, *(Colls + 8));
+      if (v287)
       {
-        v379 = 0;
+        v178 = 0;
         do
         {
-          v380 = *(v621 + v379);
+          v179 = *(v286 + v178);
           CollationName = "_IDENTITY";
-          if (v380 != 65534)
+          if (v179 != 65534)
           {
-            CollationName = CollMgr::getCollationName(v363, v380, "_IDENTITY", v374, v375, v376, v377, v378);
+            CollationName = CollMgr::getCollationName(v172, v179, v177);
           }
 
-          DgnString::DgnString(&v619, CollationName);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "StateAllowedCollations");
-          DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v372);
-          if (v620)
+          DgnString::DgnString(&v284, CollationName);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "StateAllowedCollations");
+          DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v175);
+          if (v285)
           {
-            v382 = v619;
+            v181 = v284;
           }
 
           else
           {
-            v382 = &byte_262899963;
+            v181 = &byte_262899963;
           }
 
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), v382);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-          DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 7), 0);
-          DgnTextFileWriter::writeNextLine(v634);
-          DgnString::~DgnString(&v619);
-          ++v379;
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), v181);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+          DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 7), 0);
+          DgnTextFileWriter::writeNextLine(v299);
+          DgnString::~DgnString(&v284);
+          ++v178;
         }
 
-        while (v379 < v622);
+        while (v178 < v287);
       }
 
-      DgnPrimArray<unsigned int>::~DgnPrimArray(&v621);
-      v370 = v626;
-      v371 = v624;
-      v383 = *(v624 + 4 * v626);
+      DgnPrimArray<unsigned int>::~DgnPrimArray(&v286);
+      v173 = v291;
+      v174 = v289;
+      v182 = *(v289 + 4 * v291);
     }
 
     else
     {
-      v383 = 0;
+      v182 = 0;
     }
 
-    *(v371 + 4 * v370) = 0;
-    v384 = v626 + 1;
-    v15 = v627 == 1;
-    LODWORD(v626) = v626 + 1;
-    --v627;
-    if (v15)
+    *(v174 + 4 * v173) = 0;
+    v183 = v291 + 1;
+    v10 = v292 == 1;
+    LODWORD(v291) = v291 + 1;
+    --v292;
+    if (v10)
     {
-      v626 = 0;
+      v291 = 0;
     }
 
     else
     {
-      v32 = v384 >= v625;
-      v385 = v384 - v625;
-      if (v32)
+      v21 = v183 >= v290;
+      v184 = v183 - v290;
+      if (v21)
       {
-        LODWORD(v626) = v385;
+        LODWORD(v291) = v184;
       }
     }
 
-    ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v383, v364, v365, v366, v367, v368, v369);
+    ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v182);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
-  v386 = *(v18 + 94);
-  v621 = 0;
-  v622 = 0;
-  EnvMgr::getItemsWithEnv(v386, &v621);
-  DgnString::DgnString(&v619);
-  v611 = v18;
-  v614 = v16;
-  if (v622)
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
+  v185 = *(v13 + 94);
+  v286 = 0;
+  v287 = 0;
+  EnvMgr::getItemsWithEnv(v185, &v286);
+  DgnString::DgnString(&v284);
+  v276 = v13;
+  v279 = v11;
+  if (v287)
   {
-    v387 = 0;
+    v186 = 0;
     do
     {
-      v388 = *(v621 + v387);
-      ItemEnvId = EnvMgr::getItemEnvId(v386, v388);
-      NameIds = EnvMgr::getNameIds(v386, ItemEnvId, v390, v391, v392, v393, v394, v395);
-      Values = EnvMgr::getValues(v386, ItemEnvId, v397, v398, v399, v400, v401, v402);
+      v187 = *(v286 + v186);
+      ItemEnvId = EnvMgr::getItemEnvId(v185, v187);
+      NameIds = EnvMgr::getNameIds(v185, ItemEnvId);
+      Values = EnvMgr::getValues(v185, ItemEnvId);
       if (*(NameIds + 8))
       {
-        v404 = Values;
-        v405 = 0;
-        v406 = 0;
+        v191 = Values;
+        v192 = 0;
+        v193 = 0;
         do
         {
-          v407 = EnvMgr::getName(v386, *(*NameIds + 2 * v406));
-          DgnTextFile::convertToEnvValueFormat(*v404 + v405, &v619);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "StateEnv");
-          DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v388);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), v407);
-          if (v620)
+          v194 = EnvMgr::getName(v185, *(*NameIds + 2 * v193));
+          DgnTextFile::convertToEnvValueFormat(*v191 + v192, &v284);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "StateEnv");
+          DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v187);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), v194);
+          if (v285)
           {
-            v408 = v619;
+            v195 = v284;
           }
 
           else
           {
-            v408 = &byte_262899963;
+            v195 = &byte_262899963;
           }
 
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), v408);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-          DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 7), 0);
-          DgnTextFileWriter::writeNextLine(v634);
-          ++v406;
-          v405 += 16;
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), v195);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+          DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 7), 0);
+          DgnTextFileWriter::writeNextLine(v299);
+          ++v193;
+          v192 += 16;
         }
 
-        while (v406 < *(NameIds + 8));
+        while (v193 < *(NameIds + 8));
       }
 
-      ++v387;
-      v18 = v611;
-      v16 = v614;
+      ++v186;
+      v13 = v276;
+      v11 = v279;
     }
 
-    while (v387 < v622);
+    while (v186 < v287);
   }
 
-  if (v621)
+  if (v286)
   {
-    MemChunkFree(v621, 0);
-    v621 = 0;
+    MemChunkFree(v286, 0);
+    v286 = 0;
   }
 
-  v622 = 0;
-  v618[0] = 0;
-  v618[1] = 0;
-  EnvMgr::getItemPairsWithEnv(v386, &v621, v618);
-  if (v622)
+  v287 = 0;
+  v283[0] = 0;
+  v283[1] = 0;
+  EnvMgr::getItemPairsWithEnv(v185, &v286, v283);
+  if (v287)
   {
-    v413 = 0;
+    v196 = 0;
     do
     {
-      v414 = *(v621 + v413);
-      v415 = GetWordName(a3, *(v618[0] + 4 * v413), 0, 0, v409, v410, v411, v412);
-      DgnString::DgnString(&v623, v415);
-      ItemPairEnvId = EnvMgr::getItemPairEnvId(v386, *(v621 + v413), *(v618[0] + 4 * v413));
-      v423 = EnvMgr::getNameIds(v386, ItemPairEnvId, v417, v418, v419, v420, v421, v422);
-      v430 = EnvMgr::getValues(v386, ItemPairEnvId, v424, v425, v426, v427, v428, v429);
-      if (*(v423 + 8))
+      v197 = *(v286 + v196);
+      v198 = GetWordName(a3, *(v283[0] + 4 * v196));
+      DgnString::DgnString(&v288, v198);
+      ItemPairEnvId = EnvMgr::getItemPairEnvId(v185, *(v286 + v196), *(v283[0] + 4 * v196));
+      v200 = EnvMgr::getNameIds(v185, ItemPairEnvId);
+      v201 = EnvMgr::getValues(v185, ItemPairEnvId);
+      if (*(v200 + 8))
       {
-        v431 = v430;
-        v432 = 0;
-        v433 = 0;
+        v202 = v201;
+        v203 = 0;
+        v204 = 0;
         do
         {
-          v434 = EnvMgr::getName(v386, *(*v423 + 2 * v433));
-          DgnTextFile::convertToEnvValueFormat(*v431 + v432, &v619);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "StateIncludedWordEnv");
-          DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v414);
-          if (v624)
+          v205 = EnvMgr::getName(v185, *(*v200 + 2 * v204));
+          DgnTextFile::convertToEnvValueFormat(*v202 + v203, &v284);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "StateIncludedWordEnv");
+          DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v197);
+          if (v289)
           {
-            v435 = v623;
+            v206 = v288;
           }
 
           else
           {
-            v435 = &byte_262899963;
+            v206 = &byte_262899963;
           }
 
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), v435);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), v434);
-          if (v620)
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), v206);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), v205);
+          if (v285)
           {
-            v436 = v619;
+            v207 = v284;
           }
 
           else
           {
-            v436 = &byte_262899963;
+            v207 = &byte_262899963;
           }
 
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), v436);
-          DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 7), 0);
-          DgnTextFileWriter::writeNextLine(v634);
-          ++v433;
-          v432 += 16;
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), v207);
+          DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 7), 0);
+          DgnTextFileWriter::writeNextLine(v299);
+          ++v204;
+          v203 += 16;
         }
 
-        while (v433 < *(v423 + 8));
+        while (v204 < *(v200 + 8));
       }
 
-      DgnString::~DgnString(&v623);
-      ++v413;
-      v18 = v611;
-      v16 = v614;
+      DgnString::~DgnString(&v288);
+      ++v196;
+      v13 = v276;
+      v11 = v279;
     }
 
-    while (v413 < v622);
+    while (v196 < v287);
   }
 
-  v615 = *(v16 + 8);
-  if (!RuleMgr::isEmpty(v615))
+  v280 = *(v11 + 8);
+  if (!RuleMgr::isEmpty(v280))
   {
-    ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-    while (v627)
+    ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+    while (v292)
     {
-      v443 = *(v624 + 4 * v626);
-      ChildRules = StateMgr::getChildRules(v18, v443, v437, v438, v439, v440, v441, v442);
+      v208 = *(v289 + 4 * v291);
+      ChildRules = StateMgr::getChildRules(v13, v208);
       if (*(ChildRules + 8))
       {
-        v451 = 0;
+        v210 = 0;
         do
         {
-          v452 = *(*ChildRules + 2 * v451);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "RuleDefinition");
-          DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v452);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), &byte_262899963);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-          DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 7), v443);
-          DgnTextFileWriter::writeNextLine(v634);
-          ++v451;
+          v211 = *(*ChildRules + 2 * v210);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "RuleDefinition");
+          DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v211);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), &byte_262899963);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+          DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 7), v208);
+          DgnTextFileWriter::writeNextLine(v299);
+          ++v210;
         }
 
-        while (v451 < *(ChildRules + 8));
+        while (v210 < *(ChildRules + 8));
       }
 
-      v453 = *(v624 + 4 * v626);
-      *(v624 + 4 * v626) = 0;
-      v454 = v626 + 1;
-      v15 = v627 == 1;
-      LODWORD(v626) = v626 + 1;
-      --v627;
-      if (v15)
+      v212 = *(v289 + 4 * v291);
+      *(v289 + 4 * v291) = 0;
+      v213 = v291 + 1;
+      v10 = v292 == 1;
+      LODWORD(v291) = v291 + 1;
+      --v292;
+      if (v10)
       {
-        v626 = 0;
+        v291 = 0;
       }
 
       else
       {
-        v32 = v454 >= v625;
-        v455 = v454 - v625;
-        if (v32)
+        v21 = v213 >= v290;
+        v214 = v213 - v290;
+        if (v21)
         {
-          LODWORD(v626) = v455;
+          LODWORD(v291) = v214;
         }
       }
 
-      ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v453, v444, v445, v446, v447, v448, v449);
+      ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v212);
     }
 
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
   }
 
-  if (!RuleMgr::isEmpty(v615))
+  if (!RuleMgr::isEmpty(v280))
   {
-    ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-    while (v627)
+    ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+    while (v292)
     {
-      v468 = StateMgr::getChildRules(v18, *(v624 + 4 * v626), v456, v457, v458, v459, v460, v461);
-      if (*(v468 + 8))
+      v215 = StateMgr::getChildRules(v13, *(v289 + 4 * v291));
+      if (*(v215 + 8))
       {
-        v469 = 0;
+        v216 = 0;
         do
         {
-          v470 = *(*v468 + 2 * v469);
-          v471 = RuleMgr::getName(v615, v470, v462, v463, v464, v465, v466, v467);
-          DgnString::DgnString(&v616, v471);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "RuleName");
-          DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v470);
-          if (v617)
+          v217 = *(*v215 + 2 * v216);
+          v218 = RuleMgr::getName(v280, v217);
+          DgnString::DgnString(&v281, v218);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "RuleName");
+          DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v217);
+          if (v282)
           {
-            v472 = v616;
+            v219 = v281;
           }
 
           else
           {
-            v472 = &byte_262899963;
+            v219 = &byte_262899963;
           }
 
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), v472);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-          DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 7), 0);
-          DgnTextFileWriter::writeNextLine(v634);
-          DgnString::~DgnString(&v616);
-          ++v469;
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), v219);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+          DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 7), 0);
+          DgnTextFileWriter::writeNextLine(v299);
+          DgnString::~DgnString(&v281);
+          ++v216;
         }
 
-        while (v469 < *(v468 + 8));
+        while (v216 < *(v215 + 8));
       }
 
-      v473 = *(v624 + 4 * v626);
-      *(v624 + 4 * v626) = 0;
-      v474 = v626 + 1;
-      v15 = v627 == 1;
-      LODWORD(v626) = v626 + 1;
-      --v627;
-      if (v15)
+      v220 = *(v289 + 4 * v291);
+      *(v289 + 4 * v291) = 0;
+      v221 = v291 + 1;
+      v10 = v292 == 1;
+      LODWORD(v291) = v291 + 1;
+      --v292;
+      if (v10)
       {
-        v626 = 0;
+        v291 = 0;
       }
 
       else
       {
-        v32 = v474 >= v625;
-        v475 = v474 - v625;
-        if (v32)
+        v21 = v221 >= v290;
+        v222 = v221 - v290;
+        if (v21)
         {
-          LODWORD(v626) = v475;
+          LODWORD(v291) = v222;
         }
       }
 
-      ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v473, v462, v463, v464, v465, v466, v467);
+      ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v220);
     }
 
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
   }
 
-  if (!RuleMgr::isEmpty(v615))
+  if (!RuleMgr::isEmpty(v280))
   {
-    ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-    while (v627)
+    ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+    while (v292)
     {
-      v488 = StateMgr::getChildRules(v18, *(v624 + 4 * v626), v476, v477, v478, v479, v480, v481);
-      if (*(v488 + 8))
+      v223 = StateMgr::getChildRules(v13, *(v289 + 4 * v291));
+      if (*(v223 + 8))
       {
-        v489 = 0;
+        v224 = 0;
         do
         {
-          v490 = *(*v488 + 2 * v489);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "RuleAllowLM");
-          DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v490);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), &byte_262899963);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-          v491 = *(this + 7);
-          v498 = RuleMgr::getLMAllowed(v615, v490, v492, v493, v494, v495, v496, v497);
-          DgnTextFileWriter::setLineFieldIntegerValue(v634, v491, v498);
-          DgnTextFileWriter::writeNextLine(v634);
-          ++v489;
+          v225 = *(*v223 + 2 * v224);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "RuleAllowLM");
+          DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v225);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), &byte_262899963);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+          v226 = *(this + 7);
+          v227 = RuleMgr::getLMAllowed(v280, v225);
+          DgnTextFileWriter::setLineFieldIntegerValue(v299, v226, v227);
+          DgnTextFileWriter::writeNextLine(v299);
+          ++v224;
         }
 
-        while (v489 < *(v488 + 8));
+        while (v224 < *(v223 + 8));
       }
 
-      v499 = *(v624 + 4 * v626);
-      *(v624 + 4 * v626) = 0;
-      v500 = v626 + 1;
-      v15 = v627 == 1;
-      LODWORD(v626) = v626 + 1;
-      --v627;
-      if (v15)
+      v228 = *(v289 + 4 * v291);
+      *(v289 + 4 * v291) = 0;
+      v229 = v291 + 1;
+      v10 = v292 == 1;
+      LODWORD(v291) = v291 + 1;
+      --v292;
+      if (v10)
       {
-        v626 = 0;
+        v291 = 0;
       }
 
       else
       {
-        v32 = v500 >= v625;
-        v501 = v500 - v625;
-        if (v32)
+        v21 = v229 >= v290;
+        v230 = v229 - v290;
+        if (v21)
         {
-          LODWORD(v626) = v501;
+          LODWORD(v291) = v230;
         }
       }
 
-      ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v499, v482, v483, v484, v485, v486, v487);
+      ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v228);
     }
 
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
   }
 
-  if (!RuleMgr::isEmpty(v615))
+  if (!RuleMgr::isEmpty(v280))
   {
-    ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-    while (v627)
+    ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+    while (v292)
     {
-      v514 = StateMgr::getChildRules(v18, *(v624 + 4 * v626), v502, v503, v504, v505, v506, v507);
-      if (*(v514 + 8))
+      v231 = StateMgr::getChildRules(v13, *(v289 + 4 * v291));
+      if (*(v231 + 8))
       {
-        v515 = 0;
+        v232 = 0;
         do
         {
-          v516 = *(*v514 + 2 * v515);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "RuleAllowCoart");
-          DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v516);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), &byte_262899963);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-          v517 = *(this + 7);
-          v524 = RuleMgr::getCoartAllowed(v615, v516, v518, v519, v520, v521, v522, v523);
-          DgnTextFileWriter::setLineFieldIntegerValue(v634, v517, v524);
-          DgnTextFileWriter::writeNextLine(v634);
-          ++v515;
+          v233 = *(*v231 + 2 * v232);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "RuleAllowCoart");
+          DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v233);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), &byte_262899963);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+          v234 = *(this + 7);
+          v235 = RuleMgr::getCoartAllowed(v280, v233);
+          DgnTextFileWriter::setLineFieldIntegerValue(v299, v234, v235);
+          DgnTextFileWriter::writeNextLine(v299);
+          ++v232;
         }
 
-        while (v515 < *(v514 + 8));
+        while (v232 < *(v231 + 8));
       }
 
-      v525 = *(v624 + 4 * v626);
-      *(v624 + 4 * v626) = 0;
-      v526 = v626 + 1;
-      v15 = v627 == 1;
-      LODWORD(v626) = v626 + 1;
-      --v627;
-      if (v15)
+      v236 = *(v289 + 4 * v291);
+      *(v289 + 4 * v291) = 0;
+      v237 = v291 + 1;
+      v10 = v292 == 1;
+      LODWORD(v291) = v291 + 1;
+      --v292;
+      if (v10)
       {
-        v626 = 0;
+        v291 = 0;
       }
 
       else
       {
-        v32 = v526 >= v625;
-        v527 = v526 - v625;
-        if (v32)
+        v21 = v237 >= v290;
+        v238 = v237 - v290;
+        if (v21)
         {
-          LODWORD(v626) = v527;
+          LODWORD(v291) = v238;
         }
       }
 
-      ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v525, v508, v509, v510, v511, v512, v513);
+      ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v236);
     }
 
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
   }
 
-  if (!RuleMgr::isEmpty(v615))
+  if (!RuleMgr::isEmpty(v280))
   {
-    ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-    while (v627)
+    ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+    while (v292)
     {
-      v540 = StateMgr::getChildRules(v18, *(v624 + 4 * v626), v528, v529, v530, v531, v532, v533);
-      if (*(v540 + 8))
+      v239 = StateMgr::getChildRules(v13, *(v289 + 4 * v291));
+      if (*(v239 + 8))
       {
-        v541 = 0;
+        v240 = 0;
         do
         {
-          v542 = *(*v540 + 2 * v541);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "RuleAllowPrefiltering");
-          DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v542);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), &byte_262899963);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-          v543 = *(this + 7);
-          v550 = RuleMgr::getPrefilteringAllowed(v615, v542, v544, v545, v546, v547, v548, v549);
-          DgnTextFileWriter::setLineFieldIntegerValue(v634, v543, v550);
-          DgnTextFileWriter::writeNextLine(v634);
-          ++v541;
+          v241 = *(*v239 + 2 * v240);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "RuleAllowPrefiltering");
+          DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v241);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), &byte_262899963);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+          v242 = *(this + 7);
+          v243 = RuleMgr::getPrefilteringAllowed(v280, v241);
+          DgnTextFileWriter::setLineFieldIntegerValue(v299, v242, v243);
+          DgnTextFileWriter::writeNextLine(v299);
+          ++v240;
         }
 
-        while (v541 < *(v540 + 8));
+        while (v240 < *(v239 + 8));
       }
 
-      v551 = *(v624 + 4 * v626);
-      *(v624 + 4 * v626) = 0;
-      v552 = v626 + 1;
-      v15 = v627 == 1;
-      LODWORD(v626) = v626 + 1;
-      --v627;
-      if (v15)
+      v244 = *(v289 + 4 * v291);
+      *(v289 + 4 * v291) = 0;
+      v245 = v291 + 1;
+      v10 = v292 == 1;
+      LODWORD(v291) = v291 + 1;
+      --v292;
+      if (v10)
       {
-        v626 = 0;
+        v291 = 0;
       }
 
       else
       {
-        v32 = v552 >= v625;
-        v553 = v552 - v625;
-        if (v32)
+        v21 = v245 >= v290;
+        v246 = v245 - v290;
+        if (v21)
         {
-          LODWORD(v626) = v553;
+          LODWORD(v291) = v246;
         }
       }
 
-      ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v551, v534, v535, v536, v537, v538, v539);
+      ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v244);
     }
 
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
   }
 
-  if (!RuleMgr::isEmpty(v615))
+  if (!RuleMgr::isEmpty(v280))
   {
-    ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v623, v18);
-    while (v627)
+    ParentFirstStateIdIterator::ParentFirstStateIdIterator(&v288, v13);
+    while (v292)
     {
-      v560 = StateMgr::getChildRules(v611, *(v624 + 4 * v626), v554, v555, v556, v557, v558, v559);
-      v567 = v560;
-      if (*(v560 + 8))
+      v247 = StateMgr::getChildRules(v276, *(v289 + 4 * v291));
+      v248 = v247;
+      if (*(v247 + 8))
       {
-        v568 = 0;
-        v612 = v560;
+        v249 = 0;
+        v277 = v247;
         while (1)
         {
-          v569 = *(*v567 + 2 * v568);
-          Desc = RuleMgr::getDesc(v615, v569, v561, v562, v563, v564, v565, v566);
+          v250 = *(*v248 + 2 * v249);
+          Desc = RuleMgr::getDesc(v280, v250);
           if (*(Desc + 8))
           {
             break;
           }
 
 LABEL_393:
-          ++v568;
-          v567 = v612;
-          if (v568 >= *(v612 + 8))
+          ++v249;
+          v248 = v277;
+          if (v249 >= *(v277 + 8))
           {
             goto LABEL_394;
           }
         }
 
-        v571 = 0;
-        v572 = 0;
+        v252 = 0;
+        v253 = 0;
         while (2)
         {
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "RuleDescription");
-          DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v569);
-          v573 = *Desc;
-          v574 = *(*Desc + v571);
-          if (v574 <= 1)
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "RuleDescription");
+          DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v250);
+          v254 = *Desc;
+          v255 = *(*Desc + v252);
+          if (v255 <= 1)
           {
-            if (v574)
+            if (v255)
             {
-              if (v574 != 1)
+              if (v255 != 1)
               {
                 goto LABEL_392;
               }
 
-              DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), "State");
-              DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-              DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-              v578 = *(v573 + v571 + 8);
+              DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), "State");
+              DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+              DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+              v259 = *(v254 + v252 + 8);
             }
 
             else
             {
-              DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), "EndOperation");
-              v575 = *(this + 5);
-              v576 = *(v573 + v571 + 8);
-              if (v576 <= 2)
+              DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), "EndOperation");
+              v256 = *(this + 5);
+              v257 = *(v254 + v252 + 8);
+              if (v257 <= 2)
               {
                 goto LABEL_389;
               }
 
 LABEL_382:
-              v577 = "Optional";
+              v258 = "Optional";
 LABEL_390:
-              DgnTextFileWriter::setLineFieldValue(v634, v575, v577);
-              DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-              v578 = 0;
+              DgnTextFileWriter::setLineFieldValue(v299, v256, v258);
+              DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+              v259 = 0;
             }
           }
 
           else
           {
-            switch(v574)
+            switch(v255)
             {
               case 2:
-                DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), "Rule");
-                DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-                DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-                v578 = *(v573 + v571 + 8);
+                DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), "Rule");
+                DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+                DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+                v259 = *(v254 + v252 + 8);
                 break;
               case 4:
-                DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), "Word");
-                DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), &byte_262899963);
-                v579 = *(this + 6);
-                v584 = GetWordName(a3, *(v573 + v571 + 8), 0, 0, v580, v581, v582, v583);
-                DgnTextFileWriter::setLineFieldValue(v634, v579, v584);
-                v578 = *(v573 + v571 + 4);
+                DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), "Word");
+                DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), &byte_262899963);
+                v260 = *(this + 6);
+                v261 = GetWordName(a3, *(v254 + v252 + 8));
+                DgnTextFileWriter::setLineFieldValue(v299, v260, v261);
+                v259 = *(v254 + v252 + 4);
                 break;
               case 3:
-                DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), "StartOperation");
-                v575 = *(this + 5);
-                v576 = *(v573 + v571 + 8);
-                if (v576 >= 3)
+                DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), "StartOperation");
+                v256 = *(this + 5);
+                v257 = *(v254 + v252 + 8);
+                if (v257 >= 3)
                 {
                   goto LABEL_382;
                 }
 
 LABEL_389:
-                v577 = off_279B3F868[v576];
+                v258 = off_279B3F868[v257];
                 goto LABEL_390;
               default:
 LABEL_392:
-                DgnTextFileWriter::writeNextLine(v634);
-                ++v572;
-                v571 += 12;
-                if (v572 >= *(Desc + 8))
+                DgnTextFileWriter::writeNextLine(v299);
+                ++v253;
+                v252 += 12;
+                if (v253 >= *(Desc + 8))
                 {
                   goto LABEL_393;
                 }
@@ -5111,109 +5264,110 @@ LABEL_392:
           break;
         }
 
-        DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 7), v578);
+        DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 7), v259);
         goto LABEL_392;
       }
 
 LABEL_394:
-      v585 = *(v624 + 4 * v626);
-      *(v624 + 4 * v626) = 0;
-      v586 = v626 + 1;
-      v15 = v627 == 1;
-      LODWORD(v626) = v626 + 1;
-      --v627;
-      if (v15)
+      v262 = *(v289 + 4 * v291);
+      *(v289 + 4 * v291) = 0;
+      v263 = v291 + 1;
+      v10 = v292 == 1;
+      LODWORD(v291) = v291 + 1;
+      --v292;
+      if (v10)
       {
-        v626 = 0;
+        v291 = 0;
       }
 
       else
       {
-        v32 = v586 >= v625;
-        v587 = v586 - v625;
-        if (v32)
+        v21 = v263 >= v290;
+        v264 = v263 - v290;
+        if (v21)
         {
-          LODWORD(v626) = v587;
+          LODWORD(v291) = v264;
         }
       }
 
-      ParentFirstStateIdIterator::addChildStatesToQueue(&v623, v585, v561, v562, v563, v564, v565, v566);
+      ParentFirstStateIdIterator::addChildStatesToQueue(&v288, v262);
     }
 
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v624);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v289);
   }
 
-  v588 = *(v615 + 10);
-  v623 = 0;
-  v624 = 0;
-  EnvMgr::getItemsWithEnv(v588, &v623);
-  if (v624)
+  v265 = *(v280 + 10);
+  v288 = 0;
+  v289 = 0;
+  EnvMgr::getItemsWithEnv(v265, &v288);
+  if (v289)
   {
-    v589 = 0;
+    v266 = 0;
     do
     {
-      v590 = *(v623 + v589);
-      v591 = EnvMgr::getItemEnvId(v588, v590);
-      v598 = EnvMgr::getNameIds(v588, v591, v592, v593, v594, v595, v596, v597);
-      v605 = EnvMgr::getValues(v588, v591, v599, v600, v601, v602, v603, v604);
-      if (*(v598 + 8))
+      v267 = *(v288 + v266);
+      v268 = EnvMgr::getItemEnvId(v265, v267);
+      v269 = EnvMgr::getNameIds(v265, v268);
+      v270 = EnvMgr::getValues(v265, v268);
+      if (*(v269 + 8))
       {
-        v606 = v605;
-        v607 = 0;
-        v608 = 0;
+        v271 = v270;
+        v272 = 0;
+        v273 = 0;
         do
         {
-          v609 = EnvMgr::getName(v588, *(*v598 + 2 * v608));
-          DgnTextFile::convertToEnvValueFormat(*v606 + v607, &v619);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 1), "RuleEnv");
-          DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 3), v590);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 4), v609);
-          if (v620)
+          v274 = EnvMgr::getName(v265, *(*v269 + 2 * v273));
+          DgnTextFile::convertToEnvValueFormat(*v271 + v272, &v284);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 1), "RuleEnv");
+          DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 3), v267);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 4), v274);
+          if (v285)
           {
-            v610 = v619;
+            v275 = v284;
           }
 
           else
           {
-            v610 = &byte_262899963;
+            v275 = &byte_262899963;
           }
 
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 5), v610);
-          DgnTextFileWriter::setLineFieldValue(v634, *(this + 6), &byte_262899963);
-          DgnTextFileWriter::setLineFieldIntegerValue(v634, *(this + 7), 0);
-          DgnTextFileWriter::writeNextLine(v634);
-          ++v608;
-          v607 += 16;
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 5), v275);
+          DgnTextFileWriter::setLineFieldValue(v299, *(this + 6), &byte_262899963);
+          DgnTextFileWriter::setLineFieldIntegerValue(v299, *(this + 7), 0);
+          DgnTextFileWriter::writeNextLine(v299);
+          ++v273;
+          v272 += 16;
         }
 
-        while (v608 < *(v598 + 8));
+        while (v273 < *(v269 + 8));
       }
 
-      ++v589;
+      ++v266;
     }
 
-    while (v589 < v624);
+    while (v266 < v289);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v623);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v618);
-  DgnString::~DgnString(&v619);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v621);
-  DgnArray<DgnString>::releaseAll(&v628);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v630);
-  DgnIArray<Utterance *>::~DgnIArray(&v632);
-  DgnTextFileWriter::~DgnTextFileWriter(v634);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v288);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v283);
+  DgnString::~DgnString(&v284);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v286);
+  DgnArray<DgnString>::releaseAll(&v293);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v295);
+  DgnIArray<Utterance *>::~DgnIArray(&v297);
+  DgnTextFileWriter::~DgnTextFileWriter(v299);
 }
 
-void sub_26275590C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, char a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, char a29, uint64_t a30, char a31, uint64_t a32, char a33)
+void sub_26275590C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a16);
   DgnString::~DgnString(&a18);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a20);
   DgnArray<DgnString>::releaseAll(&a27);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a29);
   DgnIArray<Utterance *>::~DgnIArray(&a31);
-  DgnTextFileWriter::~DgnTextFileWriter(&a33);
+  DgnTextFileWriter::~DgnTextFileWriter(va);
   _Unwind_Resume(a1);
 }
 
@@ -5230,69 +5384,68 @@ void UserMgr::printSize(UserMgr *this, uint64_t a2, uint64_t a3, unint64_t *a4, 
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/usermgr.cpp", 61, &v32);
-  if (v33)
+  getShipObjectSizeDescription(&v19, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/usermgr.cpp", 61);
+  if (v20)
   {
-    v15 = v32;
+    v12 = v19;
   }
 
   else
   {
-    v15 = &byte_262899963;
+    v12 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v11, v12, v13, v14, a3, &byte_262899963, a3, &byte_262899963, v15);
-  DgnString::~DgnString(&v32);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v11, a3, &byte_262899963, a3, &byte_262899963, v12);
+  DgnString::~DgnString(&v19);
   if (a2 != -1)
   {
-    xlprintf("%d ", v16, v17, v18, v19, a2);
+    xlprintf("%d ", v13, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v16, v17, v18, v19, a3, &byte_262899963);
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v13, a3, &byte_262899963);
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v20 = 4;
+    v14 = 4;
   }
 
   else
   {
-    v20 = 8;
+    v14 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/usermgr.cpp", 62, &v32);
-  if (v33)
+  getShipObjectSizeDescription(&v19, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/usermgr.cpp", 62);
+  if (v20)
   {
-    v25 = v32;
+    v16 = v19;
   }
 
   else
   {
-    v25 = &byte_262899963;
+    v16 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v21, v22, v23, v24, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v25, v20, v20, 0);
-  DgnString::~DgnString(&v32);
-  *a4 += v20;
-  *a5 += v20;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/usermgr.cpp", 63, &v32);
-  if (v33)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v15, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v16, v14, v14, 0);
+  DgnString::~DgnString(&v19);
+  *a4 += v14;
+  *a5 += v14;
+  getShipObjectSizeDescription(&v19, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/user/usermgr.cpp", 63);
+  if (v20)
   {
-    v30 = v32;
+    v18 = v19;
   }
 
   else
   {
-    v30 = &byte_262899963;
+    v18 = &byte_262899963;
   }
 
-  v31 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v26, v27, v28, v29, a3, &byte_262899963, (35 - a3), (35 - a3), v30, *a4, *a5, *a6);
-  DgnString::~DgnString(&v32);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v17, a3, &byte_262899963, (35 - a3), (35 - a3), v18, *a4, *a5, *a6);
+  DgnString::~DgnString(&v19);
 }
 
-void sub_262755DD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_262755DD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -5364,8 +5517,10 @@ uint64_t BackTraceNodeCache::sizeObject(uint64_t a1, int a2)
   return v5 + v4;
 }
 
-uint64_t BackTraceNodeCache::createNodeCache(int a1, uint64_t a2, char a3, char a4)
+uint64_t BackTraceNodeCache::createNodeCache(int a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
+  v5 = a3;
   result = 0;
   if (a1 <= 1)
   {
@@ -5374,14 +5529,14 @@ uint64_t BackTraceNodeCache::createNodeCache(int a1, uint64_t a2, char a3, char 
       if (a1 == 1)
       {
         v10 = MemChunkAlloc(0x98uLL, 0);
-        return BtNodeCacheType<BtNodeHashKey,BtNodeKeyGenerator<false,true>>::BtNodeCacheType(v10, a2, a3, a4);
+        return BtNodeCacheType<BtNodeHashKey,BtNodeKeyGenerator<false,true>>::BtNodeCacheType(v10, a2, v5, v4);
       }
     }
 
     else
     {
       v13 = MemChunkAlloc(0x98uLL, 0);
-      return BtNodeCacheType<BtTrigramNodeHashKey,BtTrigramNodeHashKey>::BtNodeCacheType(v13, a2, a3, a4);
+      return BtNodeCacheType<BtTrigramNodeHashKey,BtTrigramNodeHashKey>::BtNodeCacheType(v13, a2, v5, v4);
     }
   }
 
@@ -5391,13 +5546,13 @@ uint64_t BackTraceNodeCache::createNodeCache(int a1, uint64_t a2, char a3, char 
     {
       case 2:
         v11 = MemChunkAlloc(0x98uLL, 0);
-        return BtNodeCacheType<BtNodeHashKey,BtNodeKeyGenerator<true,true>>::BtNodeCacheType(v11, a2, a3, a4);
+        return BtNodeCacheType<BtNodeHashKey,BtNodeKeyGenerator<true,true>>::BtNodeCacheType(v11, a2, v5, v4);
       case 3:
         v12 = MemChunkAlloc(0x98uLL, 0);
-        return BtNodeCacheType<BtNodeHashKey,BtNodeKeyGenerator<true,false>>::BtNodeCacheType(v12, a2, a3, a4);
+        return BtNodeCacheType<BtNodeHashKey,BtNodeKeyGenerator<true,false>>::BtNodeCacheType(v12, a2, v5, v4);
       case 4:
         v9 = MemChunkAlloc(0x98uLL, 0);
-        return BtNodeCacheType<BtUnigramNodeHashKey,BtUnigramNodeHashKey>::BtNodeCacheType(v9, a2, a3, 0);
+        return BtNodeCacheType<BtUnigramNodeHashKey,BtUnigramNodeHashKey>::BtNodeCacheType(v9, a2, v5, 0);
     }
   }
 
@@ -5434,30 +5589,30 @@ NetNBestAlg *DgnDelete<NetNBestAlg>(NetNBestAlg *result)
   return result;
 }
 
-void BtNBestResult::prepare(uint64_t a1, uint64_t a2, unsigned int *a3, int a4)
+void BtNBestResult::prepare(unint64_t result, uint64_t a2, unsigned int *a3, int a4)
 {
-  if (*(a1 + 93) == 1)
+  if (*(result + 93) == 1)
   {
     v5 = *a3;
-    *(a1 + 8) = v5;
-    *(a1 + 12) = a3[1];
-    *(a1 + 16) = *(a3 + 2);
-    if ((*(a1 + 94) & 1) == 0 && v5 != -50331650)
+    *(result + 8) = v5;
+    *(result + 12) = a3[1];
+    *(result + 16) = *(a3 + 2);
+    if ((*(result + 94) & 1) == 0 && v5 != -50331650)
     {
       v8 = *(*(**VocMgr::smpVocMgr + ((v5 >> 22) & 0x3F8)) + 184);
-      BitArray::setSizeNoGrow((a1 + 40), 0);
-      BitArray::setSize((a1 + 40), v8);
-      *(a1 + 92) = 0;
-      *(a1 + 32) = a2;
-      *(a1 + 88) = a4;
-      v9 = *(a1 + 64);
+      BitArray::setSizeNoGrow((result + 40), 0);
+      BitArray::setSize((result + 40), v8);
+      *(result + 92) = 0;
+      *(result + 32) = a2;
+      *(result + 88) = a4;
+      v9 = *(result + 64);
       if (v9 >= 1)
       {
         v10 = (v9 + 3) & 0xFFFFFFFC;
         v11 = vdupq_n_s64(v9 - 1);
         v12 = xmmword_26286BF80;
         v13 = xmmword_26286B680;
-        v14 = (*(a1 + 56) + 40);
+        v14 = (*(result + 56) + 40);
         v15 = vdupq_n_s64(4uLL);
         do
         {
@@ -5489,20 +5644,20 @@ void BtNBestResult::prepare(uint64_t a1, uint64_t a2, unsigned int *a3, int a4)
 
       while (v9 < v8)
       {
-        if (v9 == *(a1 + 68))
+        if (v9 == *(result + 68))
         {
-          DgnArray<DgnPrimArray<double>>::reallocElts(a1 + 56, 1, 1);
-          LODWORD(v9) = *(a1 + 64);
+          DgnArray<DgnPrimArray<double>>::reallocElts(result + 56, 1, 1);
+          LODWORD(v9) = *(result + 64);
         }
 
-        v9 = *(a1 + 56) + 16 * v9;
+        v9 = *(result + 56) + 16 * v9;
         *v9 = 0;
         *(v9 + 8) = 0;
-        LODWORD(v9) = *(a1 + 64) + 1;
-        *(a1 + 64) = v9;
+        LODWORD(v9) = *(result + 64) + 1;
+        *(result + 64) = v9;
       }
 
-      *(a1 + 80) = 0;
+      *(result + 80) = 0;
     }
   }
 }
@@ -5554,7 +5709,7 @@ uint64_t sizeObject<HistoryAndBigScore>(uint64_t a1, int a2)
   return v5;
 }
 
-uint64_t BackTraceLatticeBuilder::BackTraceLatticeBuilder(uint64_t a1, Constraint *a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6, int a7, int a8, double a9, int a10, int a11, int a12, unsigned int a13, int a14, int a15, int a16, char a17, char a18, char a19, int a20, int a21, char a22, char a23, char a24, uint64_t a25, int a26)
+uint64_t BackTraceLatticeBuilder::BackTraceLatticeBuilder(uint64_t a1, Constraint *a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6, int a7, int a8, double a9, int a10, int a11, int a12, unsigned int a13, int a14, int a15, int a16, char a17, char a18, char a19, int a20, int a21, char a22, unsigned __int8 a23, char a24, uint64_t a25, int a26)
 {
   *a1 = a19;
   *(a1 + 4) = 0x7000000000000000;
@@ -5697,16 +5852,16 @@ void (***DgnDelete<BackTraceNodeCache>(void (***result)(void)))(void)
   return result;
 }
 
-uint64_t BackTraceLatticeBuilder::getLatticeType(BackTraceLatticeBuilder *this, int a2, int a3, int a4, BOOL a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t BackTraceLatticeBuilder::getLatticeType(BackTraceLatticeBuilder *this, int a2, int a3, int a4)
 {
-  v8 = this;
+  v4 = this;
   if (a3 == 2)
   {
     if (this)
     {
       if ((a2 & 1) == 0)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/btlat.cpp", 501, "kernel/btlat", 2, "%.500s", a7, a8, "Bigram lattice, node creation use right word, with no coarticulation");
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/btlat.cpp", 501, "kernel/btlat", 2, "%.500s", "Bigram lattice, node creation use right word, with no coarticulation");
       }
 
       return 0;
@@ -5727,17 +5882,17 @@ uint64_t BackTraceLatticeBuilder::getLatticeType(BackTraceLatticeBuilder *this, 
   {
     if ((a2 & 1) == 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/btlat.cpp", 481, "kernel/btlat", 2, "%.500s", a7, a8, "Trigram lattice with no coarticulation");
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/btlat.cpp", 481, "kernel/btlat", 2, "%.500s", "Trigram lattice with no coarticulation");
     }
 
-    return v8 ^ 1u;
+    return v4 ^ 1u;
   }
 
   else
   {
     if (a4)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/btlat.cpp", 519, "kernel/btlat", 2, "%.500s", a7, a8, "Unigram lattice does not work with SearchLatticeComputeOnlyBestTimes set to True");
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/btlat.cpp", 519, "kernel/btlat", 2, "%.500s", "Unigram lattice does not work with SearchLatticeComputeOnlyBestTimes set to True");
     }
 
     return 4;
@@ -5932,9 +6087,9 @@ LABEL_45:
   return v13;
 }
 
-void sub_262756DC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_262756DC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   DgnArray<DgnPrimArray<unsigned char>>::releaseAll(va);
   MrecInitModule_sdpres_sdapi();
   _Unwind_Resume(a1);
@@ -6179,7 +6334,7 @@ double BackTraceLatticeBuilder::assembleRightGerms(BackTraceLatticeBuilder *this
   return a2.n128_f64[0];
 }
 
-uint64_t BackTraceLatticeBuilder::seedOneInContext(unint64_t a1, uint64_t a2, unsigned int *a3, unsigned int *a4, int a5, int a6, unsigned int a7, int a8, uint64_t a9, LMStats *a10, uint64_t a11, char a12)
+uint64_t BackTraceLatticeBuilder::seedOneInContext(uint64_t a1, uint64_t a2, unsigned int *a3, unsigned int *a4, int a5, int a6, unsigned int a7, int a8, unint64_t a9, LMStats *a10, uint64_t a11, char a12)
 {
   v19 = VocMgr::smpVocMgr;
   v20 = *a3;
@@ -6773,10 +6928,11 @@ LABEL_70:
   return v79;
 }
 
-void sub_262758080(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
+void sub_262758080(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
 {
+  va_start(va, a44);
   WordLatticeLC::~WordLatticeLC(&a22);
-  WordLatticeLC::~WordLatticeLC(&a45);
+  WordLatticeLC::~WordLatticeLC(va);
   _Unwind_Resume(a1);
 }
 
@@ -6805,7 +6961,7 @@ BOOL BackTraceLatticeBuilder::canSeedInAcousticContext(uint64_t a1, unsigned int
   return result;
 }
 
-uint64_t Hash<BackTraceLinkPair,BackTraceLinkPair,BackTraceLinkPair,int>::add(uint64_t a1, uint64_t a2, _DWORD *a3)
+uint64_t Hash<BackTraceLinkPair,BackTraceLinkPair,BackTraceLinkPair,int>::add(uint64_t a1, int *a2, _DWORD *a3)
 {
   v6 = *(a1 + 12);
   if (*(a1 + 8) >= v6 >> 1)
@@ -6816,10 +6972,10 @@ uint64_t Hash<BackTraceLinkPair,BackTraceLinkPair,BackTraceLinkPair,int>::add(ui
   result = CWIDAC::computeHash(a2);
   HIDWORD(v8) = result;
   LODWORD(v8) = result;
-  v9 = *(a2 + 28);
+  v9 = *(a2 + 7);
   HIDWORD(v8) = (v8 >> 19) + v9;
   LODWORD(v8) = HIDWORD(v8);
-  v10 = *(a2 + 36);
+  v10 = a2[9];
   HIDWORD(v8) = (v8 >> 19) + HIDWORD(v9);
   LODWORD(v8) = HIDWORD(v8);
   v11 = *(a2 + 24);
@@ -6844,8 +7000,8 @@ uint64_t Hash<BackTraceLinkPair,BackTraceLinkPair,BackTraceLinkPair,int>::add(ui
     result = DgnPool::addChunk((a1 + 24));
     v16 = *(a1 + 32);
     LOBYTE(v11) = *(a2 + 24);
-    v9 = *(a2 + 28);
-    v10 = *(a2 + 36);
+    v9 = *(a2 + 7);
+    v10 = a2[9];
   }
 
   v17 = (v15 + 8 * v14);
@@ -6853,8 +7009,8 @@ uint64_t Hash<BackTraceLinkPair,BackTraceLinkPair,BackTraceLinkPair,int>::add(ui
   v18 = *a2;
   *(v16 + 8) = 0;
   *(v16 + 12) = v18;
-  *(v16 + 16) = *(a2 + 4);
-  *(v16 + 20) = *(a2 + 8);
+  *(v16 + 16) = a2[1];
+  *(v16 + 20) = *(a2 + 2);
   *(v16 + 36) = v11;
   *(v16 + 40) = v9;
   *(v16 + 48) = v10;
@@ -6886,7 +7042,7 @@ uint64_t Hash<BackTraceLinkPair,BackTraceLinkPair,BackTraceLinkPair,int>::add(ui
   return result;
 }
 
-uint64_t Lattice<WordLatticeLC>::maybeCreateAndConnectOrUpdateLink(uint64_t a1, unsigned int a2, const WordLatticeLC *a3, WordLatticeLC *a4, int a5, _DWORD *a6)
+uint64_t Lattice<WordLatticeLC>::maybeCreateAndConnectOrUpdateLink(unint64_t a1, int a2, const WordLatticeLC *a3, WordLatticeLC *a4, int a5, _DWORD *a6)
 {
   v9 = a3;
   v12 = *(*(a1 + 80) + 24 * a2 + 20);
@@ -6964,11 +7120,11 @@ LABEL_6:
   }
 }
 
-unint64_t BackTraceLatticeBuilder::updateLinkBestPathScore(unint64_t this, int a2, unsigned int a3)
+uint64_t *BackTraceLatticeBuilder::updateLinkBestPathScore(uint64_t *this, int a2, unsigned int a3)
 {
   v5 = this;
-  v6 = (this + 536);
-  v7 = *(this + 544);
+  v6 = this + 67;
+  v7 = *(this + 136);
   if (v7 <= a3)
   {
     do
@@ -7095,9 +7251,9 @@ uint64_t BackTraceLatticeBuilder::stackDecode(BackTraceLatticeBuilder *this, Wor
 {
   if (*(this + 83))
   {
-    v13 = this + 448;
-    v34 = this + 312;
-    v33 = this + 448;
+    v13 = (this + 448);
+    v29 = this + 312;
+    v28 = this + 448;
     do
     {
       v14 = *(this + 37);
@@ -7113,7 +7269,7 @@ uint64_t BackTraceLatticeBuilder::stackDecode(BackTraceLatticeBuilder *this, Wor
         *(this + 82) = v15;
       }
 
-      CWIDCrumbBank::getFrameInfoForBTLat(*(this + 2), *(this + 424), v15 - 1, v13, this + 464, this + 480, this + 62, *(this + 100));
+      CWIDCrumbBank::getFrameInfoForBTLat(*(this + 2), *(this + 424), v15 - 1, v13, this + 464, this + 120, this + 62, *(this + 100));
       v16 = *(this + 107);
       v17 = *(CWIDCrumbBank::getCrumbFrame(*(this + 2), *(this + 82) - 1) + 24);
       v18 = *(this + 37) + 16 * *(this + 82);
@@ -7127,72 +7283,72 @@ uint64_t BackTraceLatticeBuilder::stackDecode(BackTraceLatticeBuilder *this, Wor
         *(v20 + 32) = 0;
         v20[3] = 0;
         *v20 = &unk_287524340;
-        v20[5] = v34;
+        v20[5] = v29;
         *(v20 + 3) = *(this + 80);
-        Constraint::prunePreList(*(this + 6), v20, 1, v21, v22, v23, v24, v25);
-        v26 = MemChunkAlloc(0x30uLL, 0);
-        *(v26 + 2) = 0;
-        v26[3] = 0;
-        *v26 = &unk_2875253D0;
-        v26[5] = v13;
-        v27 = *(this + 114);
-        *(v26 + 3) = v27;
-        *a5 += v27;
-        v38 = 0x3FFFFAFFFFFFLL;
-        v39 = xmmword_26286CC40;
-        v40 = 0;
-        v41 = 1310720000;
-        v42 = 0;
-        v43 = 0x70000000FFFFFFFELL;
-        *(v26 + 32) = 0;
-        *(v26 + 2) = 0;
-        if (*(v26 + 3))
+        Constraint::prunePreList(*(this + 6), v20, 1);
+        v21 = MemChunkAlloc(0x30uLL, 0);
+        *(v21 + 2) = 0;
+        v21[3] = 0;
+        *v21 = &unk_2875253D0;
+        v21[5] = v13;
+        v22 = *(this + 114);
+        *(v21 + 3) = v22;
+        *a5 += v22;
+        v33 = 0x3FFFFAFFFFFFLL;
+        v34 = xmmword_26286CC40;
+        v35 = 0;
+        v36 = 1310720000;
+        v37 = 0;
+        v38 = 0x70000000FFFFFFFELL;
+        *(v21 + 32) = 0;
+        *(v21 + 2) = 0;
+        if (*(v21 + 3))
         {
           while (1)
           {
-            (*(*v26 + 16))(v26, &v38);
-            v28 = *(v26 + 2);
-            BtNBestResult::prepare(this + 184, *(this + 60) + 24 * v28, &v38, v17 + v16);
-            if (BackTraceLatticeBuilder::seedAllRightGerms(this, &v38, v28, a2, 0, a4, a6, a7, a8) & 1) != 0 || (BackTraceLatticeBuilder::seedFinalSilence(this, &v38, v28, a2, a3, a7, a8))
+            (*(*v21 + 16))(v21, &v33);
+            v23 = *(v21 + 2);
+            BtNBestResult::prepare(this + 184, *(this + 60) + 24 * v23, &v33, v17 + v16);
+            if (BackTraceLatticeBuilder::seedAllRightGerms(this, &v33, v23, a2, 0, a4, a6, a7, a8) & 1) != 0 || (BackTraceLatticeBuilder::seedFinalSilence(this, &v33, v23, a2, a3, a7, a8))
             {
               break;
             }
 
-            v29 = *(v26 + 2) + 1;
-            *(v26 + 2) = v29;
-            if (*(v26 + 32))
+            v24 = *(v21 + 2) + 1;
+            *(v21 + 2) = v24;
+            if (*(v21 + 32))
             {
-              (*(*v26 + 24))(v26);
-              v29 = *(v26 + 2);
+              (*(*v21 + 24))(v21);
+              v24 = *(v21 + 2);
             }
 
-            if (v29 == *(v26 + 3))
+            if (v24 == *(v21 + 3))
             {
-              v30 = 0;
+              v25 = 0;
               goto LABEL_18;
             }
           }
 
-          v30 = 1;
+          v25 = 1;
 LABEL_18:
-          v13 = v33;
+          v13 = v28;
         }
 
         else
         {
-          v30 = 0;
+          v25 = 0;
         }
 
-        DgnDelete<RecogGermIterator>(v26);
+        DgnDelete<RecogGermIterator>(v21);
         DgnDelete<RecogGermIterator>(v20);
-        v31 = *(this + 37) + 16 * *(this + 82);
-        if (*v31)
+        v26 = *(this + 37) + 16 * *(this + 82);
+        if (*v26)
         {
-          MemChunkFree(*v31, 0);
-          *v31 = 0;
+          MemChunkFree(*v26, 0);
+          *v26 = 0;
         }
 
-        *(v31 + 8) = 0;
+        *(v26 + 8) = 0;
         *(this + 80) = 0;
       }
 
@@ -7204,13 +7360,13 @@ LABEL_18:
           *v18 = 0;
         }
 
-        v30 = 0;
+        v25 = 0;
         *(v18 + 8) = 0;
       }
     }
 
-    while (*(this + 83) && !v30);
-    if (v30)
+    while (*(this + 83) && !v25);
+    if (v25)
     {
       return 1;
     }
@@ -7246,7 +7402,7 @@ uint64_t *BackTraceItemCache::clearCache(uint64_t *this)
   return this;
 }
 
-uint64_t BackTraceLatticeBuilder::seedAllRightGerms(unint64_t a1, unsigned int *a2, unsigned int a3, uint64_t a4, uint64_t a5, _DWORD *a6, _DWORD *a7, _DWORD *a8, LMStats *a9)
+uint64_t BackTraceLatticeBuilder::seedAllRightGerms(uint64_t a1, unsigned int *a2, unsigned int a3, unint64_t a4, uint64_t a5, _DWORD *a6, _DWORD *a7, _DWORD *a8, LMStats *a9)
 {
   v83[0] = 0;
   v82[0] = 0;
@@ -7515,7 +7671,7 @@ LABEL_71:
   return v57;
 }
 
-uint64_t BackTraceLatticeBuilder::seedFinalSilence(unint64_t a1, unsigned int *a2, unsigned int a3, uint64_t a4, int a5, _DWORD *a6, LMStats *a7)
+uint64_t BackTraceLatticeBuilder::seedFinalSilence(uint64_t a1, unsigned int *a2, unsigned int a3, unint64_t a4, int a5, _DWORD *a6, LMStats *a7)
 {
   v14 = *a2;
   v15 = v14 & 0xFFFFFF;
@@ -7840,31 +7996,31 @@ BOOL BackTraceLatticeBuilder::canSeedInLMContext(uint64_t a1, unsigned int *a2, 
   return v12;
 }
 
-void sub_2627599A8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2627599A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   DgnArray<DgnArray<ParseToken>>::releaseAll(va);
   _Unwind_Resume(a1);
 }
 
-void BackTraceLatticeBuilder::maybeEnableNBestGeneration(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void BackTraceLatticeBuilder::maybeEnableNBestGeneration(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2 && (*(a2 + 16) || *(a2 + 32)))
   {
     if (*(a1 + 512) == 1)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/btlat.cpp", 2797, "kernel/btlat", 1, "%.500s", a7, a8, "TrigramsWithBigramLattice");
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/btlat.cpp", 2797, "kernel/btlat", 1, "%.500s", "TrigramsWithBigramLattice");
     }
 
     if ((*(a1 + 400) & 0x80000000) == 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/btlat.cpp", 2800, "kernel/btlat", 1, "%.500s", a7, a8, "LatticeBestCrumbDistancemaxFrames");
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/kernel/btlat.cpp", 2800, "kernel/btlat", 1, "%.500s", "LatticeBestCrumbDistancemaxFrames");
     }
 
     *(a1 + 277) = 1;
-    v11 = *(a1 + 424);
-    *(a1 + 278) = v11;
-    if ((v11 & 1) == 0)
+    v6 = *(a1 + 424);
+    *(a1 + 278) = v6;
+    if ((v6 & 1) == 0)
     {
 
       BtNBestResult::init((a1 + 184), a2, a3);
@@ -7995,14 +8151,14 @@ LABEL_19:
   return this;
 }
 
-void sub_262759CA4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_262759CA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t Lattice<WordLatticeLC>::pruneLinks(unint64_t a1, int a2, void *a3)
+uint64_t Lattice<WordLatticeLC>::pruneLinks(uint64_t a1, int a2, void *a3)
 {
   v23 = 0;
   v24 = 0;
@@ -8093,153 +8249,154 @@ uint64_t Lattice<WordLatticeLC>::pruneLinks(unint64_t a1, int a2, void *a3)
   return DgnPrimArray<unsigned int>::~DgnPrimArray(&v23);
 }
 
-void sub_262759E58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
+void sub_262759E58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a9);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&a11);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *BackTraceLatticeBuilder::makeLattice(BackTraceLatticeBuilder *this, __int16 a2, PelScorer *a3, int a4, char a5, int a6, LatticeStats *a7, int a8, unsigned int a9, unsigned int a10, char a11)
+WordLattice *BackTraceLatticeBuilder::makeLattice(BackTraceLatticeBuilder *this, __int16 a2, PelScorer *a3, int a4, char a5, int a6, LatticeStats *a7, int a8, unsigned int a9, unsigned int a10, char a11)
 {
   *(this + 107) = a8;
   *(this + 1) = CWIDCrumbBank::getLastFrame(*(this + 2)) + 1;
-  BackTraceLatticeBuilder::maybeEnableNBestGeneration(this, *(this + 4), *(this + 3), v16, v17, v18, v19, v20);
+  BackTraceLatticeBuilder::maybeEnableNBestGeneration(this, *(this + 4), *(this + 3));
   *(this + 83) = 0;
-  v21 = *(this + 1);
-  v22 = *(this + 77);
-  if (v21 > v22)
+  v16 = *(this + 1);
+  v17 = *(this + 77);
+  if (v16 > v17)
   {
-    DgnArray<DgnPrimArray<double>>::reallocElts(this + 296, v21 - v22, 0);
+    DgnArray<DgnPrimArray<double>>::reallocElts(this + 296, v16 - v17, 0);
   }
 
-  v23 = *(this + 76);
-  if (v23 <= v21)
+  v18 = *(this + 76);
+  if (v18 <= v16)
   {
-    if (v23 < v21)
+    if (v18 < v16)
     {
-      v26 = v21 - v23;
-      v27 = 16 * v23;
+      v21 = v16 - v18;
+      v22 = 16 * v18;
       do
       {
-        v28 = (*(this + 37) + v27);
+        v23 = (*(this + 37) + v22);
+        *v23 = 0;
+        v23[1] = 0;
+        v22 += 16;
+        --v21;
+      }
+
+      while (v21);
+    }
+  }
+
+  else if (v18 > v16)
+  {
+    v19 = v18;
+    v20 = 16 * v18 - 16;
+    do
+    {
+      --v19;
+      DgnIArray<Utterance *>::~DgnIArray(*(this + 37) + v20);
+      v20 -= 16;
+    }
+
+    while (v19 > v16);
+  }
+
+  *(this + 76) = v16;
+  if (v16)
+  {
+    v24 = (v16 + 3) & 0x1FFFFFFFCLL;
+    v25 = vdupq_n_s64(v16 - 1);
+    v26 = xmmword_26286BF80;
+    v27 = xmmword_26286B680;
+    v28 = (*(this + 37) + 40);
+    v29 = vdupq_n_s64(4uLL);
+    do
+    {
+      v30 = vmovn_s64(vcgeq_u64(v25, v27));
+      if (vuzp1_s16(v30, *v25.i8).u8[0])
+      {
+        *(v28 - 8) = 0;
+      }
+
+      if (vuzp1_s16(v30, *&v25).i8[2])
+      {
+        *(v28 - 4) = 0;
+      }
+
+      if (vuzp1_s16(*&v25, vmovn_s64(vcgeq_u64(v25, *&v26))).i32[1])
+      {
         *v28 = 0;
-        v28[1] = 0;
-        v27 += 16;
-        --v26;
+        v28[4] = 0;
       }
 
-      while (v26);
-    }
-  }
-
-  else if (v23 > v21)
-  {
-    v24 = v23;
-    v25 = 16 * v23 - 16;
-    do
-    {
-      --v24;
-      DgnIArray<Utterance *>::~DgnIArray(*(this + 37) + v25);
-      v25 -= 16;
+      v26 = vaddq_s64(v26, v29);
+      v27 = vaddq_s64(v27, v29);
+      v28 += 16;
+      v24 -= 4;
     }
 
-    while (v24 > v21);
+    while (v24);
   }
 
-  *(this + 76) = v21;
-  if (v21)
-  {
-    v29 = (v21 + 3) & 0x1FFFFFFFCLL;
-    v30 = vdupq_n_s64(v21 - 1);
-    v31 = xmmword_26286BF80;
-    v32 = xmmword_26286B680;
-    v33 = (*(this + 37) + 40);
-    v34 = vdupq_n_s64(4uLL);
-    do
-    {
-      v35 = vmovn_s64(vcgeq_u64(v30, v32));
-      if (vuzp1_s16(v35, *v30.i8).u8[0])
-      {
-        *(v33 - 8) = 0;
-      }
-
-      if (vuzp1_s16(v35, *&v30).i8[2])
-      {
-        *(v33 - 4) = 0;
-      }
-
-      if (vuzp1_s16(*&v30, vmovn_s64(vcgeq_u64(v30, *&v31))).i32[1])
-      {
-        *v33 = 0;
-        v33[4] = 0;
-      }
-
-      v31 = vaddq_s64(v31, v34);
-      v32 = vaddq_s64(v32, v34);
-      v33 += 16;
-      v29 -= 4;
-    }
-
-    while (v29);
-  }
-
-  v72 = 1879048192;
-  v73 = -2;
-  CWIDCrumbBank::getRightSilenceInfo(*(this + 2), *(this + 1) - 1, &v73, &v72);
+  v67 = 1879048192;
+  v68 = -2;
+  CWIDCrumbBank::getRightSilenceInfo(*(this + 2), *(this + 1) - 1, &v68, &v67);
   if (a5)
   {
-    v36 = *(*(this + 3) + 8) + 36 * *(*(*(this + 3) + 8) + 36 * v73 + 32);
-    v70 = 0x3FFFFCFFFFFDLL;
-    v71 = xmmword_26286CC40;
-    LMScore = BackTraceLatticeBuilder::getLMScore(this, v36, &v70, 0, (a7 + 48));
-    v38 = v72 + LMScore;
-    v72 += LMScore;
+    v31 = *(*(this + 3) + 8) + 36 * *(*(*(this + 3) + 8) + 36 * v68 + 32);
+    v65 = 0x3FFFFCFFFFFDLL;
+    v66 = xmmword_26286CC40;
+    LMScore = BackTraceLatticeBuilder::getLMScore(this, v31, &v65, 0, (a7 + 48));
+    v33 = v67 + LMScore;
+    v67 += LMScore;
   }
 
   else
   {
-    v38 = v72;
+    v33 = v67;
   }
 
-  *(this + 3) = v38;
+  *(this + 3) = v33;
   *(this + 138) = 0x80000000;
   if (a6)
   {
-    v39 = *(this + 98);
-    if (v39 < 0)
+    v34 = *(this + 98);
+    if (v34 < 0)
     {
-      v41 = fround(*(this + 48), 3);
-      if (v72 < 0)
+      v36 = fround(*(this + 48), 3);
+      if (v67 < 0)
       {
-        v41 = -v41;
+        v36 = -v36;
       }
 
-      v40 = ((v41 + *(this + 1)) * v72 / *(this + 1));
+      v35 = ((v36 + *(this + 1)) * v67 / *(this + 1));
     }
 
     else
     {
-      v40 = v39 + v38;
+      v35 = v34 + v33;
     }
   }
 
   else
   {
-    v40 = 1879048192;
+    v35 = 1879048192;
   }
 
-  *(this + 2) = v40;
-  v42 = *(this + 1) - *(*(this + 2) + 48);
-  v43 = MemChunkAlloc(0x120uLL, 0);
-  WordLattice::WordLattice(v43, v42, a9, a10, a2, *(this + 64), a11, 0, *this != 1);
-  BackTraceLatticeBuilder::bootStrap(this, v43, v44, 0, v45);
-  v46 = BackTraceLatticeBuilder::stackDecode(this, v43, a4, a7, a7 + 1, a7 + 2, a7 + 3, (a7 + 48));
-  if (v46)
+  *(this + 2) = v35;
+  v37 = *(this + 1) - *(*(this + 2) + 48);
+  v38 = MemChunkAlloc(0x120uLL, 0);
+  WordLattice::WordLattice(v38, v37, a9, a10, a2, *(this + 64), a11, 0, *this != 1);
+  BackTraceLatticeBuilder::bootStrap(this, v38, v39, 0, v40);
+  v41 = BackTraceLatticeBuilder::stackDecode(this, v38, a4, a7, a7 + 1, a7 + 2, a7 + 3, (a7 + 48));
+  if (v41)
   {
-    DgnDelete<WordLattice>(v43);
-    v43 = MemChunkAlloc(0x120uLL, 0);
-    WordLattice::WordLattice(v43, v42, a9, a10, a2, *(this + 64), a11, 1, *this != 1);
+    DgnDelete<WordLattice>(v38);
+    v38 = MemChunkAlloc(0x120uLL, 0);
+    WordLattice::WordLattice(v38, v37, a9, a10, a2, *(this + 64), a11, 1, *this != 1);
     if (*(this + 425) == 1)
     {
       Hash<BackTraceLinkPair,BackTraceLinkPair,BackTraceLinkPair,int>::removeAll(*(this + 70));
@@ -8249,134 +8406,134 @@ uint64_t *BackTraceLatticeBuilder::makeLattice(BackTraceLatticeBuilder *this, __
     *(this + 277) = 0;
     *(this + 51) = 0;
     *(this + 52) = 0;
-    v48 = *(this + 76);
-    if (v48 >= 1)
+    v43 = *(this + 76);
+    if (v43 >= 1)
     {
-      v49 = 16 * v48 - 16;
+      v44 = 16 * v43 - 16;
       do
       {
-        DgnIArray<Utterance *>::~DgnIArray(*(this + 37) + v49);
-        v49 -= 16;
+        DgnIArray<Utterance *>::~DgnIArray(*(this + 37) + v44);
+        v44 -= 16;
       }
 
-      while (v49 != -16);
+      while (v44 != -16);
     }
 
-    v50 = 0;
+    v45 = 0;
     *(this + 76) = 0;
     *(this + 83) = 0;
-    v51 = *(this + 1);
-    v52 = *(this + 77);
-    if (v51 <= v52 || (DgnArray<DgnPrimArray<double>>::reallocElts(this + 296, v51 - v52, 0), v50 = *(this + 76), v50 <= v51))
+    v46 = *(this + 1);
+    v47 = *(this + 77);
+    if (v46 <= v47 || (DgnArray<DgnPrimArray<double>>::reallocElts(this + 296, v46 - v47, 0), v45 = *(this + 76), v45 <= v46))
     {
-      if (v50 < v51)
+      if (v45 < v46)
       {
-        v55 = v51 - v50;
-        v56 = 16 * v50;
+        v50 = v46 - v45;
+        v51 = 16 * v45;
         do
         {
-          v57 = (*(this + 37) + v56);
-          *v57 = 0;
-          v57[1] = 0;
-          v56 += 16;
-          --v55;
+          v52 = (*(this + 37) + v51);
+          *v52 = 0;
+          v52[1] = 0;
+          v51 += 16;
+          --v50;
         }
 
-        while (v55);
+        while (v50);
       }
     }
 
     else
     {
-      if (v50 <= v51)
+      if (v45 <= v46)
       {
-        *(this + 76) = v51;
+        *(this + 76) = v46;
         goto LABEL_46;
       }
 
-      v53 = v50;
-      v54 = 16 * v50 - 16;
+      v48 = v45;
+      v49 = 16 * v45 - 16;
       do
       {
-        --v53;
-        DgnIArray<Utterance *>::~DgnIArray(*(this + 37) + v54);
-        v54 -= 16;
+        --v48;
+        DgnIArray<Utterance *>::~DgnIArray(*(this + 37) + v49);
+        v49 -= 16;
       }
 
-      while (v53 > v51);
+      while (v48 > v46);
     }
 
-    *(this + 76) = v51;
-    if (!v51)
+    *(this + 76) = v46;
+    if (!v46)
     {
 LABEL_54:
       (*(**(this + 35) + 24))(*(this + 35));
       *(*(this + 35) + 16) = 0;
       BackTraceItemCache::clearCache(this + 36);
-      BackTraceLatticeBuilder::bootStrap(this, v43, v65, 0, v66);
-      BackTraceLatticeBuilder::stackDecode(this, v43, a4, a7, a7 + 1, a7 + 2, a7 + 3, (a7 + 48));
+      BackTraceLatticeBuilder::bootStrap(this, v38, v60, 0, v61);
+      BackTraceLatticeBuilder::stackDecode(this, v38, a4, a7, a7 + 1, a7 + 2, a7 + 3, (a7 + 48));
       goto LABEL_55;
     }
 
 LABEL_46:
-    v58 = (v51 + 3) & 0x1FFFFFFFCLL;
-    v59 = vdupq_n_s64(v51 - 1);
-    v60 = xmmword_26286BF80;
-    v61 = xmmword_26286B680;
-    v62 = (*(this + 37) + 40);
-    v63 = vdupq_n_s64(4uLL);
+    v53 = (v46 + 3) & 0x1FFFFFFFCLL;
+    v54 = vdupq_n_s64(v46 - 1);
+    v55 = xmmword_26286BF80;
+    v56 = xmmword_26286B680;
+    v57 = (*(this + 37) + 40);
+    v58 = vdupq_n_s64(4uLL);
     do
     {
-      v64 = vmovn_s64(vcgeq_u64(v59, v61));
-      if (vuzp1_s16(v64, *v59.i8).u8[0])
+      v59 = vmovn_s64(vcgeq_u64(v54, v56));
+      if (vuzp1_s16(v59, *v54.i8).u8[0])
       {
-        *(v62 - 8) = 0;
+        *(v57 - 8) = 0;
       }
 
-      if (vuzp1_s16(v64, *&v59).i8[2])
+      if (vuzp1_s16(v59, *&v54).i8[2])
       {
-        *(v62 - 4) = 0;
+        *(v57 - 4) = 0;
       }
 
-      if (vuzp1_s16(*&v59, vmovn_s64(vcgeq_u64(v59, *&v60))).i32[1])
+      if (vuzp1_s16(*&v54, vmovn_s64(vcgeq_u64(v54, *&v55))).i32[1])
       {
-        *v62 = 0;
-        v62[4] = 0;
+        *v57 = 0;
+        v57[4] = 0;
       }
 
-      v60 = vaddq_s64(v60, v63);
-      v61 = vaddq_s64(v61, v63);
-      v62 += 16;
-      v58 -= 4;
+      v55 = vaddq_s64(v55, v58);
+      v56 = vaddq_s64(v56, v58);
+      v57 += 16;
+      v53 -= 4;
     }
 
-    while (v58);
+    while (v53);
     goto LABEL_54;
   }
 
 LABEL_55:
   if (*(this + 99))
   {
-    v67 = v46;
+    v62 = v41;
   }
 
   else
   {
-    v67 = 1;
+    v62 = 1;
   }
 
-  if ((v67 & 1) == 0)
+  if ((v62 & 1) == 0)
   {
-    BackTraceLatticeBuilder::pruneLinks(this, v43, a10, v47);
+    BackTraceLatticeBuilder::pruneLinks(this, v38, a10, v42);
   }
 
-  WordLattice::getLatticeStats(v43, a7 + 4, a7 + 5, a7 + 3, a7 + 4);
+  WordLattice::getLatticeStats(v38, a7 + 4, a7 + 5, a7 + 3, a7 + 4);
   *(a7 + 10) += *(this + 20);
   Hash<CWIDACPair,CWIDACPair,CWIDACPair,BigScorePair>::removeAll(this + 72);
   (*(**(this + 35) + 24))(*(this + 35));
-  Lattice<WordLatticeLC>::gc(v43);
-  Lattice<WordLatticeLC>::topSortInternal(v43, 0);
-  return v43;
+  Lattice<WordLatticeLC>::gc(v38);
+  Lattice<WordLatticeLC>::topSortInternal(v38, 0);
+  return v38;
 }
 
 uint64_t Hash<BackTraceLinkPair,BackTraceLinkPair,BackTraceLinkPair,int>::removeAll(uint64_t result)
@@ -8424,53 +8581,51 @@ uint64_t Hash<BackTraceLinkPair,BackTraceLinkPair,BackTraceLinkPair,int>::remove
   return result;
 }
 
-uint64_t Hash<CWIDACPair,CWIDACPair,CWIDACPair,BigScorePair>::removeAll(uint64_t result)
+void Hash<CWIDACPair,CWIDACPair,CWIDACPair,BigScorePair>::removeAll(uint64_t a1)
 {
-  v1 = result;
-  v2 = *(result + 88);
+  v2 = *(a1 + 88);
   if (v2)
   {
     for (i = 0; i < v2; ++i)
     {
-      v4 = *(v1 + 80);
+      v4 = *(a1 + 80);
       v5 = *(v4 + 8 * i);
       if (v5)
       {
         do
         {
           v6 = *v5;
-          v7 = *(v1 + 96);
+          v7 = *(a1 + 96);
           if (v7)
           {
             v7(v5 + 12);
           }
 
-          v8 = *(v1 + 104);
+          v8 = *(a1 + 104);
           if (v8)
           {
             v8(v5 + 60);
           }
 
-          result = MrecInitModule_sdpres_sdapi();
-          *v5 = *(v1 + 32);
-          *(v1 + 32) = v5;
+          MrecInitModule_sdpres_sdapi();
+          *v5 = *(a1 + 32);
+          *(a1 + 32) = v5;
           v5 = v6;
         }
 
         while (v6);
-        v4 = *(v1 + 80);
-        v2 = *(v1 + 88);
+        v4 = *(a1 + 80);
+        v2 = *(a1 + 88);
       }
 
       *(v4 + 8 * i) = 0;
     }
   }
 
-  *(v1 + 8) = 0;
-  return result;
+  *(a1 + 8) = 0;
 }
 
-uint64_t *BackTraceLatticeBuilder::makeSilentLattice(BackTraceLatticeBuilder *this, int a2, int a3, int a4, int a5, uint64_t a6, LatticeStats *a7)
+WordLattice *BackTraceLatticeBuilder::makeSilentLattice(BackTraceLatticeBuilder *this, int a2, int a3, int a4, int a5, uint64_t a6, LatticeStats *a7)
 {
   v7 = a7;
   v9 = a5;
@@ -8568,7 +8723,7 @@ void DgnPriorityQueue<NBestQueueItem>::~DgnPriorityQueue(uint64_t a1)
 {
   for (; *(a1 + 64); *(a1 + 8) = Min)
   {
-    Min = DgnHeap<NBestQueueItem>::extractMin(a1 + 56);
+    Min = DgnHeap<NBestQueueItem>::extractMin((a1 + 56));
     *Min = *(a1 + 8);
   }
 
@@ -8577,19 +8732,19 @@ void DgnPriorityQueue<NBestQueueItem>::~DgnPriorityQueue(uint64_t a1)
   DgnPool::~DgnPool(a1);
 }
 
-uint64_t DgnHeap<NBestQueueItem>::extractMin(uint64_t a1)
+uint64_t DgnHeap<NBestQueueItem>::extractMin(uint64_t **a1)
 {
-  v1 = *(a1 + 8) - 1;
+  v1 = *(a1 + 2) - 1;
   v2 = **a1;
   if (v1 < 1)
   {
-    *(a1 + 8) = 0;
+    *(a1 + 2) = 0;
   }
 
   else
   {
-    **a1 = *(*a1 + 8 * v1);
-    *(a1 + 8) = v1;
+    **a1 = (*a1)[v1];
+    *(a1 + 2) = v1;
     DgnHeap<NBestQueueItem>::heapifyDown(a1, 0);
   }
 
@@ -8674,7 +8829,6 @@ void HashKEV<BackTraceItemHashKey,BackTraceItem,BackTraceItemHashKey>::~HashKEV(
   JUMPOUT(0x26672B1B0);
 }
 
-uint64_t HashKEV<BackTraceItemHashKey,BackTraceItem,BackTraceItemHashKey>::~HashKEV(uint64_t a1)
 {
   *a1 = &unk_287523AF0;
   if (*(a1 + 8))
@@ -8685,7 +8839,7 @@ uint64_t HashKEV<BackTraceItemHashKey,BackTraceItem,BackTraceItemHashKey>::~Hash
   DgnPrimFixArray<double>::~DgnPrimFixArray(a1 + 80);
   DgnPool::~DgnPool((a1 + 24));
 
-  return MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
 }
 
 uint64_t HashKEV<BackTraceItemHashKey,BackTraceItem,BackTraceItemHashKey>::removeAll(uint64_t result)
@@ -8913,7 +9067,7 @@ void BtNodeCacheType<BtTrigramNodeHashKey,BtTrigramNodeHashKey>::~BtNodeCacheTyp
   JUMPOUT(0x26672B1B0);
 }
 
-uint64_t BtNodeCacheType<BtTrigramNodeHashKey,BtTrigramNodeHashKey>::sizeObject(uint64_t a1, int a2)
+uint64_t BtNodeCacheType<BtTrigramNodeHashKey,BtTrigramNodeHashKey>::sizeObject(uint64_t a1, uint64_t a2)
 {
   v4 = sizeObject<unsigned int>(a1 + 8, a2);
   v5 = 8;
@@ -9070,7 +9224,6 @@ void HashNCHV<BtTrigramNodeHashKey,BtTrigramNodeHashKey,BtTrigramNodeHashKey,uns
   JUMPOUT(0x26672B1B0);
 }
 
-uint64_t HashNCHV<BtTrigramNodeHashKey,BtTrigramNodeHashKey,BtTrigramNodeHashKey,unsigned int>::~HashNCHV(uint64_t a1)
 {
   *a1 = &unk_2875234E0;
   if (*(a1 + 8))
@@ -9081,7 +9234,7 @@ uint64_t HashNCHV<BtTrigramNodeHashKey,BtTrigramNodeHashKey,BtTrigramNodeHashKey
   DgnPrimFixArray<double>::~DgnPrimFixArray(a1 + 80);
   DgnPool::~DgnPool((a1 + 24));
 
-  return MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
 }
 
 uint64_t HashNCHV<BtTrigramNodeHashKey,BtTrigramNodeHashKey,BtTrigramNodeHashKey,unsigned int>::removeAll(uint64_t result)
@@ -9129,7 +9282,7 @@ uint64_t HashNCHV<BtTrigramNodeHashKey,BtTrigramNodeHashKey,BtTrigramNodeHashKey
   return result;
 }
 
-uint64_t HashNCHV<BtTrigramNodeHashKey,BtTrigramNodeHashKey,BtTrigramNodeHashKey,unsigned int>::add(uint64_t a1, uint64_t a2, _DWORD *a3)
+unint64_t HashNCHV<BtTrigramNodeHashKey,BtTrigramNodeHashKey,BtTrigramNodeHashKey,unsigned int>::add(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
   v6 = *(a1 + 12);
   if (*(a1 + 8) >= v6 >> 1)
@@ -9303,9 +9456,9 @@ uint64_t HashNCHV<BtTrigramNodeHashKey,BtTrigramNodeHashKey,BtTrigramNodeHashKey
   return DgnPrimFixArray<double>::~DgnPrimFixArray(&v14);
 }
 
-void sub_26275B988(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26275B988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   DgnPrimFixArray<double>::~DgnPrimFixArray(va);
   _Unwind_Resume(a1);
 }
@@ -9348,7 +9501,7 @@ void BtNodeCacheType<BtNodeHashKey,BtNodeKeyGenerator<false,true>>::~BtNodeCache
   JUMPOUT(0x26672B1B0);
 }
 
-uint64_t BtNodeCacheType<BtNodeHashKey,BtNodeKeyGenerator<false,true>>::sizeObject(uint64_t a1, int a2)
+uint64_t BtNodeCacheType<BtNodeHashKey,BtNodeKeyGenerator<false,true>>::sizeObject(uint64_t a1, uint64_t a2)
 {
   v4 = sizeObject<unsigned int>(a1 + 8, a2);
   v5 = 8;
@@ -9380,8 +9533,9 @@ uint64_t BtNodeCacheType<BtNodeHashKey,BtNodeKeyGenerator<false,true>>::sizeObje
   return v7 + Hash<CWIDAtFrame,CWIDAtFrame,CWIDAtFrame,unsigned int>::sizeObject(a1 + 40, a2) + v6;
 }
 
-uint64_t BtNodeCacheType<BtNodeHashKey,BtNodeKeyGenerator<false,true>>::findOrCreateNode(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int *a4, char a5, unsigned int *a6, char *a7)
+uint64_t BtNodeCacheType<BtNodeHashKey,BtNodeKeyGenerator<false,true>>::findOrCreateNode(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int *a4, uint64_t a5, unsigned int *a6, char *a7)
 {
+  v9 = a5;
   if (*(a1 + 32) != 1 || ((v14 = *a4, (v14 & 0xFE000000) != 0xFA000000) ? (v15 = (v14 & 0xFE000000) == -67108864) : (v15 = 1), v15))
   {
     LOBYTE(v16) = 0;
@@ -9407,7 +9561,7 @@ uint64_t BtNodeCacheType<BtNodeHashKey,BtNodeKeyGenerator<false,true>>::findOrCr
     }
   }
 
-  BtNodeKeyGenerator<false,true>::getKey(a3, a4, a5, a6, v16 & 1, v26);
+  BtNodeKeyGenerator<false,true>::getKey(a3, a4, v9, a6, v16 & 1, v26);
   Bucket = HashNCHV<BtNodeHashKey,BtNodeHashKey,BtNodeHashKey,unsigned int>::findBucket(a1 + 40, v26);
   if (*Bucket)
   {
@@ -9491,7 +9645,6 @@ void HashNCHV<BtNodeHashKey,BtNodeHashKey,BtNodeHashKey,unsigned int>::~HashNCHV
   JUMPOUT(0x26672B1B0);
 }
 
-uint64_t HashNCHV<BtNodeHashKey,BtNodeHashKey,BtNodeHashKey,unsigned int>::~HashNCHV(uint64_t a1)
 {
   *a1 = &unk_287523508;
   if (*(a1 + 8))
@@ -9502,7 +9655,7 @@ uint64_t HashNCHV<BtNodeHashKey,BtNodeHashKey,BtNodeHashKey,unsigned int>::~Hash
   DgnPrimFixArray<double>::~DgnPrimFixArray(a1 + 80);
   DgnPool::~DgnPool((a1 + 24));
 
-  return MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
 }
 
 uint64_t HashNCHV<BtNodeHashKey,BtNodeHashKey,BtNodeHashKey,unsigned int>::removeAll(uint64_t result)
@@ -9584,7 +9737,7 @@ uint64_t BtNodeKeyGenerator<false,true>::getKey@<X0>(uint64_t result@<X0>, int *
   return result;
 }
 
-uint64_t HashNCHV<BtNodeHashKey,BtNodeHashKey,BtNodeHashKey,unsigned int>::add(uint64_t a1, uint64_t a2, _DWORD *a3)
+unint64_t HashNCHV<BtNodeHashKey,BtNodeHashKey,BtNodeHashKey,unsigned int>::add(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
   v6 = *(a1 + 12);
   if (*(a1 + 8) >= v6 >> 1)
@@ -9756,132 +9909,4 @@ uint64_t HashNCHV<BtNodeHashKey,BtNodeHashKey,BtNodeHashKey,unsigned int>::upSiz
   }
 
   return DgnPrimFixArray<double>::~DgnPrimFixArray(&v14);
-}
-
-void sub_26275C3BC(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  DgnPrimFixArray<double>::~DgnPrimFixArray(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t BtNodeCacheType<BtNodeHashKey,BtNodeKeyGenerator<true,false>>::BtNodeCacheType(uint64_t a1, uint64_t a2, char a3, char a4)
-{
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
-  *(a1 + 24) = a2;
-  *(a1 + 32) = a3;
-  *(a1 + 33) = a4;
-  *a1 = &unk_287527E20;
-  HashNCHV<BtNodeHashKey,BtNodeHashKey,BtNodeHashKey,unsigned int>::HashNCHV(a1 + 40, 0, 128);
-  return a1;
-}
-
-void sub_26275C43C(_Unwind_Exception *a1)
-{
-  *v1 = &unk_287526A00;
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v2);
-  _Unwind_Resume(a1);
-}
-
-void *BtNodeCacheType<BtNodeHashKey,BtNodeKeyGenerator<true,false>>::~BtNodeCacheType(void *a1)
-{
-  *a1 = &unk_287527E20;
-  HashNCHV<BtNodeHashKey,BtNodeHashKey,BtNodeHashKey,unsigned int>::~HashNCHV((a1 + 5));
-  *a1 = &unk_287526A00;
-  DgnPrimArray<unsigned int>::~DgnPrimArray((a1 + 1));
-  return a1;
-}
-
-void BtNodeCacheType<BtNodeHashKey,BtNodeKeyGenerator<true,false>>::~BtNodeCacheType(void *a1)
-{
-  *a1 = &unk_287527E20;
-  HashNCHV<BtNodeHashKey,BtNodeHashKey,BtNodeHashKey,unsigned int>::~HashNCHV((a1 + 5));
-  *a1 = &unk_287526A00;
-  DgnPrimArray<unsigned int>::~DgnPrimArray((a1 + 1));
-
-  JUMPOUT(0x26672B1B0);
-}
-
-uint64_t BtNodeCacheType<BtNodeHashKey,BtNodeKeyGenerator<true,false>>::sizeObject(uint64_t a1, int a2)
-{
-  v4 = sizeObject<unsigned int>(a1 + 8, a2);
-  v5 = 8;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v5 = 4;
-  }
-
-  if (a2 == 3)
-  {
-    v6 = 0;
-  }
-
-  else
-  {
-    v6 = v5;
-  }
-
-  if (a2 == 3)
-  {
-    v7 = v4;
-  }
-
-  else
-  {
-    v7 = v4 + 1;
-  }
-
-  return v7 + Hash<CWIDAtFrame,CWIDAtFrame,CWIDAtFrame,unsigned int>::sizeObject(a1 + 40, a2) + v6;
-}
-
-uint64_t BtNodeCacheType<BtNodeHashKey,BtNodeKeyGenerator<true,false>>::findOrCreateNode(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, char *a7)
-{
-  v12 = *a4;
-  v13 = *a4 & 0xFE000000;
-  if (*(a1 + 32) == 1 && v13 != -100663296 && v13 != -67108864)
-  {
-    v22 = *(a1 + 24);
-    if ((*(v22 + 68) & 0xFFFFFFFD) == 0)
-    {
-      Constraint::isCoartAllowedForState(v22, a4);
-      v12 = *a4;
-    }
-  }
-
-  v16 = *(a4 + 4);
-  v24[0] = v12;
-  v24[1] = v16;
-  v25 = *(a4 + 8);
-  v26 = vdup_n_s32(0xFAFFFFFC);
-  v27 = a3;
-  v28 = 0;
-  v29 = 0;
-  Bucket = HashNCHV<BtNodeHashKey,BtNodeHashKey,BtNodeHashKey,unsigned int>::findBucket(a1 + 40, v24);
-  if (*Bucket)
-  {
-    v18 = 0;
-    p_Node = (*Bucket + 40);
-  }
-
-  else
-  {
-    Node = Lattice<WordLatticeLC>::createNode(a2);
-    v20 = *(a1 + 16);
-    if (v20 == *(a1 + 20))
-    {
-      DgnPrimArray<unsigned int>::reallocElts(a1 + 8, 1, 1);
-      v20 = *(a1 + 16);
-    }
-
-    *(*(a1 + 8) + 4 * v20) = 1879048192;
-    ++*(a1 + 16);
-    p_Node = &Node;
-    HashNCHV<BtNodeHashKey,BtNodeHashKey,BtNodeHashKey,unsigned int>::add(a1 + 40, v24, &Node);
-    v18 = 1;
-  }
-
-  result = *p_Node;
-  *a7 = v18;
-  return result;
 }

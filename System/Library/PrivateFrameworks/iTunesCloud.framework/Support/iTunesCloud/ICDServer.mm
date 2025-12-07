@@ -48,6 +48,8 @@
 - (void)_updateSocialFeaturesAvailabilityIfNeededUsingBag:(id)bag;
 - (void)_updateURLResolutionCacheFile;
 - (void)_writeURLResolutionCacheFileUsingBag:(id)bag;
+- (void)addBackgroundOperation:(id)operation priority:(int)priority;
+- (void)addOperation:(id)operation priority:(int)priority;
 - (void)dealloc;
 - (void)enumerateBackgroundOperationsUsingBlock:(id)block;
 - (void)enumerateOperationsUsingBlock:(id)block;
@@ -2319,7 +2321,7 @@ LABEL_9:
     processIdentifier = [connectionCopy processIdentifier];
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
     else
@@ -2466,12 +2468,12 @@ LABEL_26:
 - (int64_t)_ICCloudServerSupportedServiceForXPCListener:(id)listener
 {
   listenerCopy = listener;
+  v12[0] = 0;
+  v12[1] = v12;
+  v12[2] = 0x3032000000;
+  v12[3] = sub_100064CD4;
+  v12[4] = sub_100064CE4;
   v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = sub_100064CD4;
-  v17 = sub_100064CE4;
-  v18 = 0;
   serialQueue = self->_serialQueue;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
@@ -2479,14 +2481,13 @@ LABEL_26:
   block[3] = &unk_1001DCFA8;
   block[4] = self;
   v6 = listenerCopy;
-  v11 = v6;
-  v12 = &v13;
+  v10 = v6;
+  v11 = v12;
   dispatch_sync(serialQueue, block);
-  v7 = v14[5];
-  v8 = ICCloudServerSupportedServiceForName();
+  v7 = ICCloudServerSupportedServiceForName();
 
-  _Block_object_dispose(&v13, 8);
-  return v8;
+  _Block_object_dispose(v12, 8);
+  return v7;
 }
 
 - (id)_setupXPCListenerForService:(int64_t)service
@@ -2862,6 +2863,22 @@ LABEL_11:
   LOBYTE(class) = [serverOperationsManager cancelOperationsByClass:class];
 
   return class;
+}
+
+- (void)addBackgroundOperation:(id)operation priority:(int)priority
+{
+  v4 = *&priority;
+  operationCopy = operation;
+  serverOperationsManager = [(ICDServer *)self serverOperationsManager];
+  [serverOperationsManager addBackgroundOperation:operationCopy priority:v4];
+}
+
+- (void)addOperation:(id)operation priority:(int)priority
+{
+  v4 = *&priority;
+  operationCopy = operation;
+  serverOperationsManager = [(ICDServer *)self serverOperationsManager];
+  [serverOperationsManager addOperation:operationCopy priority:v4];
 }
 
 - (void)stop

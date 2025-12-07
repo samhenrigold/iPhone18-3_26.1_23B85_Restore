@@ -31,7 +31,7 @@
     self->_addressBook = v4;
     if (!v4)
     {
-      v5 = PHDefaultLog();
+      v5 = PHDefaultLog(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         [(VoiceDialResultHandler *)&error _addressBook];

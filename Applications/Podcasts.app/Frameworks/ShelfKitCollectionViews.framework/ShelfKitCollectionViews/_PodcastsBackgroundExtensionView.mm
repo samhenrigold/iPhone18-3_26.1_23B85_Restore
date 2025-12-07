@@ -51,7 +51,7 @@
   y = frame.origin.y;
   x = frame.origin.x;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC23ShelfKitCollectionViews32_PodcastsBackgroundExtensionView_disableAutomaticLayout) = 0;
-  *(&self->super.super.super.isa + OBJC_IVAR____TtC23ShelfKitCollectionViews32_PodcastsBackgroundExtensionView_effectsView) = [objc_allocWithZone(type metadata accessor for _UIBackgroundExtensionEffectsView()) initWithFrame:{0.0, 0.0, frame.size.width, frame.size.height}];
+  *(&self->super.super.super.isa + OBJC_IVAR____TtC23ShelfKitCollectionViews32_PodcastsBackgroundExtensionView_effectsView) = [objc_allocWithZone(type metadata accessor for _UIBackgroundExtensionEffectsView(0)) initWithFrame:{0.0, 0.0, frame.size.width, frame.size.height}];
   v10.receiver = self;
   v10.super_class = type metadata accessor for _PodcastsBackgroundExtensionView();
   height = [(_PodcastsBackgroundExtensionView *)&v10 initWithFrame:x, y, width, height];

@@ -7,7 +7,7 @@
 
 - (HMDNaturalLightingActiveTransitionContext)activeTransitionContext
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   identifier = [self identifier];
   if (identifier)
   {
@@ -36,11 +36,11 @@
         if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
           v17 = HMFGetLogIdentifier();
-          v20 = 138543618;
-          v21 = v17;
-          v22 = 2112;
+          v19 = 138543618;
+          v20 = v17;
+          v21 = 2112;
           selfCopy = self;
-          _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Start time missing in the controller context %@", &v20, 0x16u);
+          _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Start time missing in the controller context %@", &v19, 0x16u);
         }
 
         objc_autoreleasePoolPop(v15);
@@ -58,8 +58,6 @@
   {
     v14 = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

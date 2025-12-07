@@ -1,8 +1,13 @@
 @interface PDDPSurveyStep
 - (BOOL)isEqual:(id)equal;
+- (id)answerFormatTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)multipleChoiceTypeAsString:(int)string;
+- (id)openResponseTypeAsString:(int)string;
+- (id)sliderTypeAsString:(int)string;
+- (id)surveyStepTypeAsString:(int)string;
 - (int)StringAsAnswerFormatType:(id)type;
 - (int)StringAsMultipleChoiceType:(id)type;
 - (int)StringAsOpenResponseType:(id)type;
@@ -77,6 +82,29 @@
   *&self->_has = *&self->_has & 0xFDFF | v3;
 }
 
+- (id)surveyStepTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"QUESTION_STEP_TYPE";
+    }
+
+    else
+    {
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"UNKNOWN_STEP_TYPE";
+  }
+
+  return v4;
+}
+
 - (int)StringAsSurveyStepType:(id)type
 {
   typeCopy = type;
@@ -136,6 +164,21 @@
   *&self->_has = *&self->_has & 0xFFFB | v3;
 }
 
+- (id)answerFormatTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100206780 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsAnswerFormatType:(id)type
 {
   typeCopy = type;
@@ -193,6 +236,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFFEF | v3;
+}
+
+- (id)multipleChoiceTypeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1002067A0 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsMultipleChoiceType:(id)type
@@ -277,6 +335,29 @@
   *&self->_has = *&self->_has & 0xFEFF | v3;
 }
 
+- (id)sliderTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"CONTINUOUS_SLIDER_TYPE";
+    }
+
+    else
+    {
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"UNKNOWN_SLIDER_TYPE";
+  }
+
+  return v4;
+}
+
 - (int)StringAsSliderType:(id)type
 {
   typeCopy = type;
@@ -334,6 +415,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFF7F | v3;
+}
+
+- (id)openResponseTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1002067C8 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsOpenResponseType:(id)type
@@ -750,14 +846,12 @@ LABEL_67:
   has = self->_has;
   if ((has & 0x400) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 0x200) != 0)
   {
-    surveyStepType = self->_surveyStepType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -768,7 +862,6 @@ LABEL_67:
 
   if ((*&self->_has & 8) != 0)
   {
-    displayOrder = self->_displayOrder;
     PBDataWriterWriteInt32Field();
   }
 
@@ -777,59 +870,55 @@ LABEL_67:
     PBDataWriterWriteStringField();
   }
 
-  v9 = self->_has;
-  if ((v9 & 4) != 0)
+  v6 = self->_has;
+  if ((v6 & 4) != 0)
   {
-    answerFormatType = self->_answerFormatType;
     PBDataWriterWriteInt32Field();
-    v9 = self->_has;
+    v6 = self->_has;
   }
 
-  if ((v9 & 0x10) != 0)
+  if ((v6 & 0x10) != 0)
   {
-    multipleChoiceType = self->_multipleChoiceType;
     PBDataWriterWriteInt32Field();
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v12 = self->_optionItems;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v37 objects:v42 count:16];
-  if (v13)
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v7 = self->_optionItems;
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  if (v8)
   {
-    v14 = v13;
-    v15 = *v38;
+    v9 = v8;
+    v10 = *v24;
     do
     {
-      for (i = 0; i != v14; i = i + 1)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v38 != v15)
+        if (*v24 != v10)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v7);
         }
 
-        v17 = *(*(&v37 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
-    while (v14);
+    while (v9);
   }
 
-  v18 = self->_has;
-  if ((v18 & 0x100) != 0)
+  v12 = self->_has;
+  if ((v12 & 0x100) != 0)
   {
-    sliderType = self->_sliderType;
     PBDataWriterWriteInt32Field();
-    v18 = self->_has;
-    if ((v18 & 2) == 0)
+    v12 = self->_has;
+    if ((v12 & 2) == 0)
     {
 LABEL_32:
-      if ((v18 & 1) == 0)
+      if ((v12 & 1) == 0)
       {
         goto LABEL_34;
       }
@@ -838,17 +927,15 @@ LABEL_32:
     }
   }
 
-  else if ((v18 & 2) == 0)
+  else if ((v12 & 2) == 0)
   {
     goto LABEL_32;
   }
 
-  sliderMinimum = self->_sliderMinimum;
   PBDataWriterWriteDoubleField();
   if (*&self->_has)
   {
 LABEL_33:
-    sliderMaximum = self->_sliderMaximum;
     PBDataWriterWriteDoubleField();
   }
 
@@ -870,7 +957,6 @@ LABEL_34:
 
   if ((*&self->_has & 0x80) != 0)
   {
-    openResponseType = self->_openResponseType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -879,16 +965,15 @@ LABEL_34:
     PBDataWriterWriteStringField();
   }
 
-  v21 = self->_has;
-  if ((v21 & 0x800) != 0)
+  v13 = self->_has;
+  if ((v13 & 0x800) != 0)
   {
-    openResponseAllowMedia = self->_openResponseAllowMedia;
     PBDataWriterWriteBOOLField();
-    v21 = self->_has;
-    if ((v21 & 0x40) == 0)
+    v13 = self->_has;
+    if ((v13 & 0x40) == 0)
     {
 LABEL_46:
-      if ((v21 & 0x20) == 0)
+      if ((v13 & 0x20) == 0)
       {
         goto LABEL_48;
       }
@@ -897,48 +982,45 @@ LABEL_46:
     }
   }
 
-  else if ((v21 & 0x40) == 0)
+  else if ((v13 & 0x40) == 0)
   {
     goto LABEL_46;
   }
 
-  openResponseMinimumTextLength = self->_openResponseMinimumTextLength;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_47:
-    openResponseMaximumTextLength = self->_openResponseMaximumTextLength;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_48:
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v23 = self->_classIds;
-  v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v33 objects:v41 count:16];
-  if (v24)
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v14 = self->_classIds;
+  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  if (v15)
   {
-    v25 = v24;
-    v26 = *v34;
+    v16 = v15;
+    v17 = *v20;
     do
     {
-      for (j = 0; j != v25; j = j + 1)
+      for (j = 0; j != v16; ++j)
       {
-        if (*v34 != v26)
+        if (*v20 != v17)
         {
-          objc_enumerationMutation(v23);
+          objc_enumerationMutation(v14);
         }
 
-        v28 = *(*(&v33 + 1) + 8 * j);
         PBDataWriterWriteStringField();
       }
 
-      v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
-    while (v25);
+    while (v16);
   }
 }
 
@@ -1602,7 +1684,7 @@ LABEL_28:
     }
 
 LABEL_93:
-    v22 = 0;
+    v21 = 0;
     goto LABEL_94;
   }
 
@@ -1611,7 +1693,6 @@ LABEL_93:
     goto LABEL_93;
   }
 
-  v20 = *(equalCopy + 164);
   if (self->_openResponseAllowMedia)
   {
     if ((*(equalCopy + 164) & 1) == 0)
@@ -1655,17 +1736,17 @@ LABEL_75:
   classIds = self->_classIds;
   if (classIds | *(equalCopy + 5))
   {
-    v22 = [(NSMutableArray *)classIds isEqual:?];
+    v21 = [(NSMutableArray *)classIds isEqual:?];
   }
 
   else
   {
-    v22 = 1;
+    v21 = 1;
   }
 
 LABEL_94:
 
-  return v22;
+  return v21;
 }
 
 - (unint64_t)hash

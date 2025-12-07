@@ -47,7 +47,7 @@
 - (id)__initWithEntitlements:(unint64_t)entitlements
 {
   entitlementsCopy = entitlements;
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if ((entitlements & 1) == 0)
   {
     v5 = objc_autoreleasePoolPush();
@@ -57,7 +57,7 @@
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v13 = v8;
+      v12 = v8;
       _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Adding missing developer client entitlement requirement", buf, 0xCu);
     }
 
@@ -65,15 +65,14 @@
     entitlementsCopy |= 1uLL;
   }
 
-  v11.receiver = self;
-  v11.super_class = HMDXPCMessagePolicy;
-  result = [(HMDXPCMessagePolicy *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = HMDXPCMessagePolicy;
+  result = [(HMDXPCMessagePolicy *)&v10 init];
   if (result)
   {
     *(result + 1) = entitlementsCopy;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 

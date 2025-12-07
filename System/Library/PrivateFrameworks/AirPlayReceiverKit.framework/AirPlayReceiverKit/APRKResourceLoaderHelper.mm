@@ -15,10 +15,10 @@
 
 - (APRKResourceLoaderHelper)init
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v11.receiver = self;
-  v11.super_class = APRKResourceLoaderHelper;
-  v2 = [(APRKResourceLoaderHelper *)&v11 init];
+  v18 = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = APRKResourceLoaderHelper;
+  v2 = [(APRKResourceLoaderHelper *)&v13 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -29,19 +29,19 @@
     resourceLoaderQueue = v2->_resourceLoaderQueue;
     v2->_resourceLoaderQueue = v5;
 
-    v12[0] = @"Accept-Encoding";
-    v12[1] = @"User-Agent";
-    v13[0] = @"gzip";
-    v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"AppleCoreMedia/1.0.0.%.*s (Apple TV U; CPU OS 12_0 like Mac OS X; en_us)", APSVersionUtilsGetShortVersionLength(), "920.10.1"];;
-    v13[1] = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+    v14 = @"Accept-Encoding";
+    v15 = @"User-Agent";
+    v16 = @"gzip";
+    v7 = [MEMORY[0x277CCACA8] stringWithFormat:APSVersionUtilsGetShortVersionLength(), "920.10.1"];
+    v17 = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
     headersDictionary = v2->_headersDictionary;
     v2->_headersDictionary = v8;
 
     v2->_requestIDCnt = 0;
     if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
     {
-      [APRKResourceLoaderHelper init];
+      [(APRKResourceLoaderHelper *)v2 init];
     }
   }
 
@@ -54,23 +54,23 @@
   v5 = assetCopy;
   if (assetCopy)
   {
-    v10 = assetCopy;
+    v8 = assetCopy;
     if (gLogCategory_AirPlayReceiverKit <= 30)
     {
-      if (gLogCategory_AirPlayReceiverKit != -1 || (v6 = _LogCategory_Initialize(), v5 = v10, v6))
+      if (gLogCategory_AirPlayReceiverKit != -1 || (v6 = _LogCategory_Initialize(), v5 = v8, v6))
       {
-        v8 = v5;
-        selfCopy = self;
-        LogPrintF();
-        v5 = v10;
+        LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKResourceLoaderHelper registerAVURLAsset:]", 33554462, "Registering asset %@ with resource loader helper %@", v5, self);
+        v5 = v8;
       }
     }
 
     resourceLoader = [v5 resourceLoader];
-    [resourceLoader setDelegate:self queue:self->_resourceLoaderQueue];
+    [resourceLoader setDelegate:? queue:?];
+
+    v5 = v8;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](assetCopy, v5);
 }
 
 - (void)unregisterAVURLAsset:(id)asset
@@ -79,30 +79,30 @@
   v5 = assetCopy;
   if (assetCopy)
   {
-    v10 = assetCopy;
+    v8 = assetCopy;
     if (gLogCategory_AirPlayReceiverKit <= 30)
     {
-      if (gLogCategory_AirPlayReceiverKit != -1 || (v6 = _LogCategory_Initialize(), v5 = v10, v6))
+      if (gLogCategory_AirPlayReceiverKit != -1 || (v6 = _LogCategory_Initialize(), v5 = v8, v6))
       {
-        v8 = v5;
-        selfCopy = self;
-        LogPrintF();
-        v5 = v10;
+        LogPrintF(&gLogCategory_AirPlayReceiverKit, "[APRKResourceLoaderHelper unregisterAVURLAsset:]", 33554462, "Unregistering asset %@ from resource loader helper %@", v5, self);
+        v5 = v8;
       }
     }
 
     resourceLoader = [v5 resourceLoader];
-    [resourceLoader setDelegate:0 queue:self->_resourceLoaderQueue];
+    [resourceLoader setDelegate:? queue:?];
+
+    v5 = v8;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](assetCopy, v5);
 }
 
 - (void)forgetAllActiveResourceLoadingRequests
 {
   if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
   {
-    [APRKResourceLoaderHelper forgetAllActiveResourceLoadingRequests];
+    [(APRKResourceLoaderHelper *)self forgetAllActiveResourceLoadingRequests];
   }
 
   obj = self;
@@ -114,14 +114,14 @@
 - (void)processUnhandledURLResponseWithDictionary:(id)dictionary error:(id *)error
 {
   dictionaryCopy = dictionary;
-  v6 = [dictionaryCopy objectForKey:*MEMORY[0x277CC0950]];
-  v7 = [dictionaryCopy objectForKey:*MEMORY[0x277CC0958]];
+  v6 = [dictionaryCopy objectForKey:?];
+  v7 = [dictionaryCopy objectForKey:?];
   integerValue = [v7 integerValue];
 
-  v9 = [dictionaryCopy objectForKey:*MEMORY[0x277CC0960]];
-  v10 = [dictionaryCopy objectForKey:*MEMORY[0x277CC0938]];
-  v11 = [dictionaryCopy objectForKey:*MEMORY[0x277CC0928]];
-  v12 = [dictionaryCopy objectForKey:*MEMORY[0x277CC0930]];
+  v9 = [dictionaryCopy objectForKey:?];
+  v10 = [dictionaryCopy objectForKey:?];
+  v11 = [dictionaryCopy objectForKey:?];
+  v14 = [dictionaryCopy objectForKey:?];
   if (gLogCategory_AirPlayReceiverKit > 30 || gLogCategory_AirPlayReceiverKit == -1 && !_LogCategory_Initialize())
   {
     if (v6)
@@ -130,140 +130,133 @@
     }
 
 LABEL_13:
-    v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v17 = *MEMORY[0x277CCA590];
-    v18 = -6708;
-LABEL_14:
-    v19 = [v16 initWithDomain:v17 code:v18 userInfo:0];
-    goto LABEL_15;
+    v18 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:? code:? userInfo:?];
+    goto LABEL_14;
   }
 
-  [APRKResourceLoaderHelper processUnhandledURLResponseWithDictionary:error:];
+  [(APRKResourceLoaderHelper *)v6 processUnhandledURLResponseWithDictionary:v12 error:v13];
   if (!v6)
   {
     goto LABEL_13;
   }
 
 LABEL_5:
-  if (v12)
+  if (v14)
   {
-    v13 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v13 = integerValue == 0;
+    v15 = integerValue == 0;
   }
 
-  if (!v13)
+  if (!v15)
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    v15 = [(NSMutableDictionary *)selfCopy->_activeResourceLoadingRequests objectForKey:v6];
+    v17 = [(NSMutableDictionary *)selfCopy->_activeResourceLoadingRequests objectForKey:?];
     objc_sync_exit(selfCopy);
 
-    if (v15)
+    if (v17)
     {
-      goto LABEL_19;
+      goto LABEL_18;
     }
 
-    v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v17 = *MEMORY[0x277CCA590];
-    v18 = -6727;
-    goto LABEL_14;
+    goto LABEL_13;
   }
 
-  v19 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA738] code:-1 userInfo:0];
-LABEL_15:
-  v20 = v19;
-  if (v19)
+  v18 = [MEMORY[0x277CCA9B8] errorWithDomain:? code:? userInfo:?];
+LABEL_14:
+  v19 = v18;
+  if (v18)
   {
     if (error)
     {
-      v21 = v19;
-      v15 = 0;
-      *error = v20;
+      v20 = v18;
+      v17 = 0;
+      *error = v19;
     }
 
     else
     {
-      v15 = 0;
+      v17 = 0;
     }
 
-    goto LABEL_31;
+    goto LABEL_30;
   }
 
-  v15 = 0;
-LABEL_19:
-  if ((integerValue - 301) > 4 || integerValue == 304)
+  v17 = 0;
+LABEL_18:
+  if (integerValue - 301 > 4 || (integerValue - 301) == 3)
   {
-    if (v12)
+    if (v14)
     {
-      v44 = v12;
-      v35 = v10;
-      v36 = v11;
-      v37 = objc_alloc(MEMORY[0x277CBAB48]);
-      [MEMORY[0x277CBEBC0] URLWithString:v9];
+      v43 = v14;
+      v34 = v10;
+      v35 = v11;
+      v36 = objc_alloc(MEMORY[0x277CBAB48]);
+      [MEMORY[0x277CBEBC0] URLWithString:?];
       selfCopy2 = self;
-      v40 = v39 = v9;
-      v23 = [v37 initWithURL:v40 statusCode:integerValue HTTPVersion:@"HTTP/1.1" headerFields:v35];
+      v39 = v38 = v9;
+      v22 = [v36 initWithURL:? statusCode:? HTTPVersion:? headerFields:?];
 
-      v9 = v39;
+      v9 = v38;
       self = selfCopy2;
-      [v15 setResponse:v23];
-      dataRequest = [v15 dataRequest];
-      [dataRequest respondWithData:v44];
+      [v17 setResponse:?];
+      dataRequest = [v17 dataRequest];
+      [dataRequest respondWithData:?];
 
-      v11 = v36;
-      v10 = v35;
-      v12 = v44;
-      [v15 finishLoading];
+      v11 = v35;
+      v10 = v34;
+      v14 = v43;
+      [v17 finishLoading];
     }
 
     else
     {
-      v23 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA738] code:integerValue userInfo:0];
-      [v15 finishLoadingWithError:v23];
+      v22 = [MEMORY[0x277CCA9B8] errorWithDomain:? code:? userInfo:?];
+      [v17 finishLoadingWithError:?];
     }
   }
 
   else
   {
-    v23 = [v10 objectForKey:@"Location"];
-    if (v23)
+    v22 = [v10 objectForKey:?];
+    if (v22)
     {
-      v24 = MEMORY[0x277CBABA0];
-      v43 = v12;
-      v25 = v10;
-      v26 = v11;
-      [MEMORY[0x277CBEBC0] URLWithString:v23];
-      v27 = v42 = v9;
-      v28 = [v24 requestWithURL:v27];
+      v23 = MEMORY[0x277CBABA0];
+      v42 = v14;
+      v24 = v10;
+      v25 = v11;
+      [MEMORY[0x277CBEBC0] URLWithString:?];
+      v26 = v41 = v9;
+      v27 = [v23 requestWithURL:?];
 
-      v29 = objc_alloc(MEMORY[0x277CBAB48]);
-      v30 = [MEMORY[0x277CBEBC0] URLWithString:v42];
-      v31 = [v29 initWithURL:v30 statusCode:integerValue HTTPVersion:@"HTTP/1.1" headerFields:v25];
+      v28 = objc_alloc(MEMORY[0x277CBAB48]);
+      v29 = [MEMORY[0x277CBEBC0] URLWithString:?];
+      v30 = [v28 initWithURL:? statusCode:? HTTPVersion:? headerFields:?];
 
-      [v15 setResponse:v31];
-      [v15 setRedirect:v28];
-      contentInformationRequest = [v15 contentInformationRequest];
-      [contentInformationRequest setRenewalDate:v26];
+      [v17 setResponse:?];
+      [v17 setRedirect:?];
+      contentInformationRequest = [v17 contentInformationRequest];
+      [contentInformationRequest setRenewalDate:?];
 
-      dataRequest2 = [v15 dataRequest];
-      [dataRequest2 respondWithData:v43];
+      dataRequest2 = [v17 dataRequest];
+      [dataRequest2 respondWithData:?];
 
-      v11 = v26;
-      v10 = v25;
-      v12 = v43;
-      [v15 finishLoading];
+      v11 = v25;
+      v10 = v24;
+      v14 = v42;
+      [v17 finishLoading];
 
-      v9 = v42;
+      v9 = v41;
     }
 
     else
     {
-      v28 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA738] code:integerValue userInfo:0];
-      [v15 finishLoadingWithError:v28];
+      v27 = [MEMORY[0x277CCA9B8] errorWithDomain:? code:? userInfo:?];
+      [v17 finishLoadingWithError:?];
     }
   }
 
@@ -271,64 +264,53 @@ LABEL_19:
   {
     selfCopy3 = self;
     objc_sync_enter(selfCopy3);
-    [(NSMutableDictionary *)selfCopy3->_activeResourceLoadingRequests removeObjectForKey:v6];
+    [(NSMutableDictionary *)selfCopy3->_activeResourceLoadingRequests removeObjectForKey:?];
     objc_sync_exit(selfCopy3);
   }
 
-  v20 = 0;
-LABEL_31:
+  v19 = 0;
+LABEL_30:
 }
 
 - (BOOL)resourceLoader:(id)loader shouldWaitForLoadingOfRequestedResource:(id)resource
 {
-  v25[4] = *MEMORY[0x277D85DE8];
   loaderCopy = loader;
   resourceCopy = resource;
   serializableRepresentation = [resourceCopy serializableRepresentation];
-  v9 = *MEMORY[0x277CC0940];
-  v10 = [serializableRepresentation objectForKey:*MEMORY[0x277CC0940]];
-  bOOLValue = [v10 BOOLValue];
+  v9 = [serializableRepresentation objectForKey:?];
+  bOOLValue = [v9 BOOLValue];
 
   if (bOOLValue)
   {
     contentInformationRequest = [resourceCopy contentInformationRequest];
-    [contentInformationRequest setContentType:*MEMORY[0x277CE6180]];
+    [contentInformationRequest setContentType:?];
 
     [resourceCopy finishLoading];
   }
 
   else
   {
-    v13 = MEMORY[0x277CCABB0];
+    v12 = MEMORY[0x277CCABB0];
     ++self->_requestIDCnt;
-    v14 = [v13 numberWithLongLong:?];
+    v13 = [v12 numberWithLongLong:?];
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    [(NSMutableDictionary *)selfCopy->_activeResourceLoadingRequests setObject:resourceCopy forKey:v14];
+    [NSMutableDictionary setObject:"setObject:forKey:" forKey:?];
     objc_sync_exit(selfCopy);
 
-    v24[0] = *MEMORY[0x277CC0960];
     request = [resourceCopy request];
-    v17 = [request URL];
-    absoluteString = [v17 absoluteString];
-    v25[0] = absoluteString;
-    v25[1] = MEMORY[0x277CBEC28];
-    v19 = *MEMORY[0x277CC0950];
-    v24[1] = v9;
-    v24[2] = v19;
-    v24[3] = *MEMORY[0x277CC0938];
-    headersDictionary = selfCopy->_headersDictionary;
-    v25[2] = v14;
-    v25[3] = headersDictionary;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
+    v16 = [request URL];
+    absoluteString = [v16 absoluteString];
+    v17 = *MEMORY[0x277CC0950];
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
 
     if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
     {
-      [(APRKResourceLoaderHelper *)serializableRepresentation resourceLoader:v19 shouldWaitForLoadingOfRequestedResource:resourceCopy];
+      [(APRKResourceLoaderHelper *)serializableRepresentation resourceLoader:v17 shouldWaitForLoadingOfRequestedResource:resourceCopy];
     }
 
     delegate = [(APRKResourceLoaderHelper *)selfCopy delegate];
-    [delegate resourceLoaderHelper:selfCopy wantsToPerformUnhandledURLRequestWithDictionary:v21 forRequestID:v14];
+    [delegate resourceLoaderHelper:? wantsToPerformUnhandledURLRequestWithDictionary:? forRequestID:?];
   }
 
   return 1;
@@ -340,8 +322,8 @@ LABEL_31:
   requestCopy = request;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v8 = [(NSMutableDictionary *)selfCopy->_activeResourceLoadingRequests allKeysForObject:requestCopy];
-  [(NSMutableDictionary *)selfCopy->_activeResourceLoadingRequests removeObjectsForKeys:v8];
+  v8 = [(NSMutableDictionary *)selfCopy->_activeResourceLoadingRequests allKeysForObject:?];
+  [(NSMutableDictionary *)selfCopy->_activeResourceLoadingRequests removeObjectsForKeys:?];
 
   objc_sync_exit(selfCopy);
 }
@@ -350,9 +332,13 @@ LABEL_31:
 {
   loaderCopy = loader;
   challengeCopy = challenge;
-  if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
+  v9 = challengeCopy;
+  if (gLogCategory_AirPlayReceiverKit <= 30)
   {
-    [APRKResourceLoaderHelper resourceLoader:shouldWaitForResponseToAuthenticationChallenge:];
+    if (gLogCategory_AirPlayReceiverKit != -1 || (challengeCopy = _LogCategory_Initialize(), challengeCopy))
+    {
+      [(APRKResourceLoaderHelper *)challengeCopy resourceLoader:v7 shouldWaitForResponseToAuthenticationChallenge:v8];
+    }
   }
 
   return 0;
@@ -362,9 +348,13 @@ LABEL_31:
 {
   loaderCopy = loader;
   challengeCopy = challenge;
-  if (gLogCategory_AirPlayReceiverKit <= 30 && (gLogCategory_AirPlayReceiverKit != -1 || _LogCategory_Initialize()))
+  v8 = challengeCopy;
+  if (gLogCategory_AirPlayReceiverKit <= 30)
   {
-    [APRKResourceLoaderHelper resourceLoader:didCancelAuthenticationChallenge:];
+    if (gLogCategory_AirPlayReceiverKit != -1 || (challengeCopy = _LogCategory_Initialize(), challengeCopy))
+    {
+      [(APRKResourceLoaderHelper *)challengeCopy resourceLoader:v6 didCancelAuthenticationChallenge:v7];
+    }
   }
 }
 
@@ -377,11 +367,11 @@ LABEL_31:
 
 - (void)resourceLoader:(void *)a3 shouldWaitForLoadingOfRequestedResource:.cold.1(void *a1, uint64_t a2, void *a3)
 {
-  v4 = [a1 objectForKey:a2];
+  v4 = [a1 objectForKey:?];
   v5 = [a3 request];
   v6 = [v5 URL];
-  v7 = [v6 absoluteString];
-  OUTLINED_FUNCTION_1();
+  v8 = [v6 absoluteString];
+  OUTLINED_FUNCTION_1(&gLogCategory_AirPlayReceiverKit, "[APRKResourceLoaderHelper resourceLoader:shouldWaitForLoadingOfRequestedResource:]", v7, "Get custom URL request ID = %@, URL: '%@', new AirPlay request ID = %@");
 }
 
 @end

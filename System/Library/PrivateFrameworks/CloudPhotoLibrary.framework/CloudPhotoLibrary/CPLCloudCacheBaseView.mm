@@ -8,29 +8,29 @@
 
 - (id)recordViewsWithRelatedScopedIdentifier:(id)identifier class:(Class)class
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v7 = [(CPLEngineCloudCache *)self->_cloudCache recordsWithRelatedScopedIdentifier:identifierCopy class:class isFinal:self->_useFinal, 0];
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
+        v13 = *(*(&v16 + 1) + 8 * i);
         if (!v10)
         {
           v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -40,7 +40,7 @@
         [v10 addObject:asRecordView];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
@@ -50,8 +50,6 @@
   {
     v10 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

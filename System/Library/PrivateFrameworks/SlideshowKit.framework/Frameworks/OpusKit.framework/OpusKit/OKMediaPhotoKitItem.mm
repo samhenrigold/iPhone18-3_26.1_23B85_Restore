@@ -82,7 +82,7 @@
   return v2;
 }
 
-uint64_t __27__OKMediaPhotoKitItem_init__block_invoke()
+void *__27__OKMediaPhotoKitItem_init__block_invoke()
 {
   if (objc_opt_respondsToSelector())
   {
@@ -319,7 +319,7 @@ uint64_t __59__OKMediaPhotoKitItem_createMetadataWithCompletionHandler___block_i
 
   if ([(OKMediaItemMetadata *)v6 type]== 3 || [(OKMediaItemMetadata *)v6 type]== 1)
   {
-    [*(*(a1 + 32) + 40) duration];
+    objc_msgSend_duration(*(*(a1 + 32) + 40));
     [(OKMediaItemMetadata *)v6 setDuration:?];
   }
 
@@ -393,12 +393,12 @@ void __59__OKMediaPhotoKitItem_createMetadataWithCompletionHandler___block_invok
   }
 }
 
-intptr_t __59__OKMediaPhotoKitItem_createMetadataWithCompletionHandler___block_invoke_3(uint64_t a1)
+intptr_t __59__OKMediaPhotoKitItem_createMetadataWithCompletionHandler___block_invoke_3(uint64_t a1, const char *a2)
 {
-  v2 = *(a1 + 40);
-  if (v2)
+  v3 = *(a1 + 40);
+  if (v3)
   {
-    [v2 duration];
+    objc_msgSend_duration(v3, a2);
   }
 
   else
@@ -544,20 +544,20 @@ LABEL_15:
   _Block_object_dispose(v19, 8);
 }
 
-uint64_t __88__OKMediaPhotoKitItem_createThumbnailImageForResolution_withMetadata_completionHandler___block_invoke_2(uint64_t result, uint64_t a2, double a3)
+id *__88__OKMediaPhotoKitItem_createThumbnailImageForResolution_withMetadata_completionHandler___block_invoke_2(id *result, uint64_t a2, double a3)
 {
   if (a2)
   {
     v3 = result;
-    if ((*(*(*(result + 48) + 8) + 24) & 1) == 0)
+    if ((*(*(result[6] + 1) + 24) & 1) == 0)
     {
       v4 = a3;
       if (*MEMORY[0x277D62808] >= 7)
       {
-        [MEMORY[0x277D627B8] logMessageWithLevel:7 file:"/Library/Caches/com.apple.xbs/Sources/SlideshowKit/OpusKit/Framework/Media/PhotoKit/OKMediaPhotoKitItem.m" line:375 andFormat:@"OKMediaPhotoKitItem %@: Creating Thumbnail %ld: Progress %lf", objc_msgSend(*(result + 32), "uniqueURL"), *(result + 56), *&a3];
+        [MEMORY[0x277D627B8] logMessageWithLevel:7 file:"/Library/Caches/com.apple.xbs/Sources/SlideshowKit/OpusKit/Framework/Media/PhotoKit/OKMediaPhotoKitItem.m" line:375 andFormat:@"OKMediaPhotoKitItem %@: Creating Thumbnail %ld: Progress %lf", objc_msgSend(result[4], "uniqueURL"), result[7], *&a3];
       }
 
-      v5 = *(v3 + 40);
+      v5 = v3[5];
 
       *&a3 = v4;
       return [v5 setProgress:a3];
@@ -684,18 +684,18 @@ intptr_t __88__OKMediaPhotoKitItem_createThumbnailImageForResolution_withMetadat
   return result;
 }
 
-uint64_t __88__OKMediaPhotoKitItem_createThumbnailImageForResolution_withMetadata_completionHandler___block_invoke_6(uint64_t result)
+id *__88__OKMediaPhotoKitItem_createThumbnailImageForResolution_withMetadata_completionHandler___block_invoke_6(id *result)
 {
   v1 = result;
   if (*MEMORY[0x277D62808] >= 7)
   {
-    result = [MEMORY[0x277D627B8] logMessageWithLevel:7 file:"/Library/Caches/com.apple.xbs/Sources/SlideshowKit/OpusKit/Framework/Media/PhotoKit/OKMediaPhotoKitItem.m" line:502 andFormat:@"OKMediaPhotoKitItem %@: Creating Thumbnail %ld: Cancelling %ld", objc_msgSend(*(result + 32), "uniqueURL"), *(result + 48), *(*(*(result + 40) + 8) + 24)];
+    result = [MEMORY[0x277D627B8] logMessageWithLevel:7 file:"/Library/Caches/com.apple.xbs/Sources/SlideshowKit/OpusKit/Framework/Media/PhotoKit/OKMediaPhotoKitItem.m" line:502 andFormat:@"OKMediaPhotoKitItem %@: Creating Thumbnail %ld: Cancelling %ld", objc_msgSend(result[4], "uniqueURL"), result[6], *(*(result[5] + 1) + 24)];
   }
 
-  if (*(*(*(v1 + 40) + 8) + 24))
+  if (*(*(v1[5] + 1) + 24))
   {
     v2 = [MEMORY[0x277CD9898] defaultManager];
-    v3 = *(*(*(v1 + 40) + 8) + 24);
+    v3 = *(*(v1[5] + 1) + 24);
 
     return [v2 cancelImageRequest:v3];
   }
@@ -789,7 +789,7 @@ void __67__OKMediaPhotoKitItem_importMediaToDirectoryURL_completionHandler___blo
   }
 }
 
-uint64_t __67__OKMediaPhotoKitItem_importMediaToDirectoryURL_completionHandler___block_invoke_2(uint64_t a1, double a2, uint64_t a3, _BYTE *a4)
+void *__67__OKMediaPhotoKitItem_importMediaToDirectoryURL_completionHandler___block_invoke_2(uint64_t a1, double a2, uint64_t a3, _BYTE *a4)
 {
   *&a2 = a2;
   [*(a1 + 32) setProgress:a2];
@@ -911,14 +911,14 @@ void __52__OKMediaPhotoKitItem_avAssetWithCompletionHandler___block_invoke(uint6
   _Block_object_dispose(v12, 8);
 }
 
-uint64_t __52__OKMediaPhotoKitItem_avAssetWithCompletionHandler___block_invoke_2(uint64_t result, uint64_t a2, double a3)
+id *__52__OKMediaPhotoKitItem_avAssetWithCompletionHandler___block_invoke_2(id *result, uint64_t a2, double a3)
 {
   if (a2)
   {
-    if ((*(*(*(result + 40) + 8) + 24) & 1) == 0)
+    if ((*(*(result[5] + 1) + 24) & 1) == 0)
     {
       *&a3 = a3;
-      return [*(result + 32) setProgress:a3];
+      return [result[4] setProgress:a3];
     }
   }
 
@@ -953,13 +953,13 @@ intptr_t __52__OKMediaPhotoKitItem_avAssetWithCompletionHandler___block_invoke_3
   return result;
 }
 
-uint64_t __52__OKMediaPhotoKitItem_avAssetWithCompletionHandler___block_invoke_4(uint64_t result)
+void *__52__OKMediaPhotoKitItem_avAssetWithCompletionHandler___block_invoke_4(void *result)
 {
-  if (*(*(*(result + 32) + 8) + 24))
+  if (*(*(result[4] + 8) + 24))
   {
     v1 = result;
     v2 = [MEMORY[0x277CD9898] defaultManager];
-    v3 = *(*(*(v1 + 32) + 8) + 24);
+    v3 = *(*(v1[4] + 8) + 24);
 
     return [v2 cancelImageRequest:v3];
   }

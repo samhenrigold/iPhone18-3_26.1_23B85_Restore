@@ -20,8 +20,7 @@
 - (void)updateCurrentNetwork:(id)network
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280937E30, &qword_2741CDC20);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
+  MEMORY[0x28223BE20](v5 - 8, v6);
   v8 = &v16 - v7;
   v9 = sub_2741C80DC();
   (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
@@ -42,10 +41,9 @@
 - (void)updateScannedNetworks:(id)networks
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280937E30, &qword_2741CDC20);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
+  MEMORY[0x28223BE20](v4 - 8, v5);
   v7 = &v14 - v6;
-  type metadata accessor for WiFiNetwork();
+  type metadata accessor for WiFiNetwork(0);
   v8 = sub_2741C7FEC();
   v9 = sub_2741C80DC();
   (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
@@ -64,8 +62,7 @@
 - (void)updateScannedNetworksWithInfo:(id)info
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280937E30, &qword_2741CDC20);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
+  MEMORY[0x28223BE20](v4 - 8, v5);
   v7 = &v14 - v6;
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809385B8, &qword_2741CD5E0);
   v8 = sub_2741C7FEC();

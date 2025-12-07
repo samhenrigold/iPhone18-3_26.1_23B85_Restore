@@ -108,7 +108,7 @@ void __49__SBExampleUserNotificationCenter_sharedInstance__block_invoke()
   }
 }
 
-uint64_t __76__SBExampleUserNotificationCenter_publish_numberOfUniqueThreads_completion___block_invoke(uint64_t a1, void *a2)
+void *__76__SBExampleUserNotificationCenter_publish_numberOfUniqueThreads_completion___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 count];
   *(*(*(a1 + 32) + 8) + 24) = result;

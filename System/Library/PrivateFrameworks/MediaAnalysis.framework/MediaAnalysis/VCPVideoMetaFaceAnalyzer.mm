@@ -10,29 +10,25 @@
 
 - (VCPVideoMetaFaceAnalyzer)initWithTransform:(CGAffineTransform *)transform
 {
-  v14.receiver = self;
-  v14.super_class = VCPVideoMetaFaceAnalyzer;
-  v4 = [(VCPVideoMetaFaceAnalyzer *)&v14 init];
+  v15.receiver = self;
+  v15.super_class = VCPVideoMetaFaceAnalyzer;
+  v4 = [(VCPVideoMetaFaceAnalyzer *)&v15 init];
   v5 = v4;
   if (v4)
   {
     activeFaces = v4->_activeFaces;
     v4->_activeFaces = 0;
 
-    v7 = *&transform->c;
-    v13[0] = *&transform->a;
-    v13[1] = v7;
-    v13[2] = *&transform->tx;
-    [(VCPVideoMetaFaceAnalyzer *)v5 flipTransform:v13];
-    v9 = v13[4];
-    v8 = v13[5];
-    *&v5->_transform.a = v13[3];
-    *&v5->_transform.c = v9;
-    *&v5->_transform.tx = v8;
+    objc_msgSend_flipTransform_(v5, *&transform->a, *&transform->b, *&transform->c, *&transform->d, *&transform->tx, *&transform->ty);
+    v8 = v13;
+    v7 = v14;
+    *&v5->_transform.a = v12;
+    *&v5->_transform.c = v8;
+    *&v5->_transform.tx = v7;
     faceResults = v5->_faceResults;
     v5->_faceResults = 0;
 
-    v11 = v5;
+    v10 = v5;
   }
 
   return v5;
@@ -126,8 +122,8 @@
           {
             if (v9)
             {
-              [v9 time];
-              [v9 duration];
+              objc_msgSend_time(v9);
+              objc_msgSend_duration(v9);
             }
 
             else
@@ -152,7 +148,7 @@
             v19 = objc_alloc_init(VCPFaceDetectionRange);
             if (v9)
             {
-              [v9 time];
+              objc_msgSend_time(v9);
             }
 
             else
@@ -166,8 +162,8 @@
             [(VCPFaceDetectionRange *)v19 setStart:&v36];
             if (v9)
             {
-              [v9 time];
-              [v9 duration];
+              objc_msgSend_time(v9);
+              objc_msgSend_duration(v9);
             }
 
             else
@@ -259,7 +255,7 @@ LABEL_26:
           v30[0] = @"start";
           if (v6)
           {
-            [v6 start];
+            objc_msgSend_start(v6);
           }
 
           else
@@ -273,8 +269,8 @@ LABEL_26:
           v30[1] = @"duration";
           if (v7)
           {
-            [v7 last];
-            [v7 start];
+            objc_msgSend_last(v7);
+            objc_msgSend_start(v7);
           }
 
           else

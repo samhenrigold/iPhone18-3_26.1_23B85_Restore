@@ -39,7 +39,7 @@
 - (void)addObject:(id)object
 {
   CFBinaryHeapAddValue(self->_binaryHeap, object);
-  if ([(SSBinaryHeap *)self count]> self->_maxCount)
+  if (objc_msgSend_count(self) > self->_maxCount)
   {
 
     [(SSBinaryHeap *)self removeMinimumValue];

@@ -37,7 +37,7 @@
   [coderCopy encodeXPCObject:_endpoint forKey:@"listenerEndpoint"];
 
   v7 = MEMORY[0x1E695DEF0];
-  [(LNConnectionActionResponse *)self auditToken];
+  objc_msgSend_auditToken(self);
   v8 = [v7 if_dataWithAuditToken:&v9];
   [coderCopy encodeObject:v8 forKey:@"auditToken"];
 }
@@ -53,7 +53,7 @@
     [v7 _setEndpoint:v5];
     if (v6)
     {
-      [v6 if_auditToken];
+      objc_msgSend_if_auditToken(v6);
     }
 
     else
@@ -104,7 +104,7 @@
 
   else
   {
-    [v6 if_auditToken];
+    objc_msgSend_if_auditToken(v6);
     self = [(LNConnectionActionResponse *)self initWithXPCListenerEndpoint:v5 auditToken:&v12];
     selfCopy = self;
   }
@@ -123,7 +123,7 @@
   }
 
   v5 = MEMORY[0x1E695DEF0];
-  [(LNConnectionActionResponse *)self auditToken];
+  objc_msgSend_auditToken(self);
   v6 = [v5 if_dataWithAuditToken:&v9];
   [coderCopy encodeObject:v6 forKey:@"auditToken"];
 

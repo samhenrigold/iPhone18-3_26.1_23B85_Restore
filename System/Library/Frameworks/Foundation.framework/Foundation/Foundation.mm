@@ -251,7 +251,7 @@ LABEL_33:
   return v18;
 }
 
-void *retainingAcquire(void *a1, const char *a2, int a3)
+id retainingAcquire(void *a1, const char *a2, int a3)
 {
   if (a3)
   {
@@ -537,7 +537,7 @@ char *allocateStorageWithSentinel(unint64_t a1)
       }
 
       v5 = vaddq_s64(v5, v7);
-      v6 += 2;
+      v6 += 16;
       v3 -= 2;
     }
 
@@ -790,7 +790,7 @@ NSString *_NSNewStringByAppendingStrings(malloc_zone_t *a1, uint64_t a2, uint64_
     {
       if (v12 == 40)
       {
-        objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"Too many strings to append" userInfo:0]);
+        objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"Too many strings to append" userInfo:{0, a6, a7, a8}]);
       }
 
       if (v13)
@@ -875,7 +875,7 @@ NSString *_NSNewStringByAppendingStrings(malloc_zone_t *a1, uint64_t a2, uint64_
           while (v16 != v28);
           v23 = v36;
           a1 = v37;
-          return [[NSString allocWithZone:?]length:"initWithCStringNoCopy:length:freeWhenDone:" freeWhenDone:v23, v11, 1];
+          return [[NSString initWithCStringNoCopy:a1 length:a4 freeWhenDone:a5 allocWithZone:a6, a7, a8], "initWithCStringNoCopy:length:freeWhenDone:", v23, v11, 1];
         }
       }
 
@@ -927,7 +927,7 @@ NSString *_NSNewStringByAppendingStrings(malloc_zone_t *a1, uint64_t a2, uint64_
   }
 
   v23 = 0;
-  return [[NSString allocWithZone:?]length:"initWithCStringNoCopy:length:freeWhenDone:" freeWhenDone:v23, v11, 1];
+  return [[NSString initWithCStringNoCopy:a1 length:a4 freeWhenDone:a5 allocWithZone:a6, a7, a8], "initWithCStringNoCopy:length:freeWhenDone:", v23, v11, 1];
 }
 
 Class NSClassFromString(Class aClassName)
@@ -1503,12 +1503,13 @@ LABEL_26:
   _Block_object_dispose(&v62, 8);
 }
 
-void sub_18076171C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
+void sub_18076171C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
 {
+  va_start(va, a44);
   _Block_object_dispose(&a31, 8);
   _Block_object_dispose(&a35, 8);
   _Block_object_dispose(&a39, 8);
-  _Block_object_dispose(&a45, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1821,10 +1822,11 @@ uint64_t __DataStorage.__deallocating_deinit()
     v3 = v1[6];
     if (v3)
     {
-      v4 = v1[3];
+      v4 = v1[7];
+      v5 = v1[3];
 
-      v3(v2, v4);
-      outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(v3);
+      v3(v2, v5);
+      outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(v3, v4);
     }
 
     else
@@ -1833,16 +1835,17 @@ uint64_t __DataStorage.__deallocating_deinit()
     }
   }
 
-  v5 = v1[6];
+  v6 = v1[6];
+  v7 = v1[7];
   v1[6] = 0;
   v1[7] = 0;
-  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(v5);
-  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(v1[6]);
+  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(v6, v7);
+  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(v1[6], v1[7]);
 
   return swift_deallocClassInstance();
 }
 
-uint64_t outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(uint64_t result)
+uint64_t outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -1854,7 +1857,7 @@ uint64_t outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, 
 uint64_t protocol witness for static _ObjectiveCBridgeable._conditionallyBridgeFromObjectiveC(_:result:) in conformance Int64(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, SEL *a5, SEL *a6)
 {
   v8 = [a1 *a5];
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
   v9 = [objc_allocWithZone(NSNumber) *a6];
   v10 = static NSObject.== infix(_:_:)();
 
@@ -1867,7 +1870,7 @@ uint64_t protocol witness for static _ObjectiveCBridgeable._conditionallyBridgeF
   return v10 & 1;
 }
 
-uint64_t type metadata accessor for NSMorphologyPronoun(uint64_t a1, unint64_t *a2)
+uint64_t type metadata accessor for NSMorphologyPronoun(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -2459,7 +2462,7 @@ void *_NSKeyValueRetainedObservationInfoForObject(void *a1, uint64_t a2)
   return v5;
 }
 
-void NSKeyValueWillChangeWithPerThreadPendingNotifications(void *a1, uint64_t a2, int a3, void (*a4)(__int128 *__return_ptr, uint64_t, uint64_t, void, unint64_t, uint64_t, char *), uint64_t a5, uint64_t a6)
+void NSKeyValueWillChangeWithPerThreadPendingNotifications(void *a1, uint64_t a2, unsigned int a3, void (*a4)(__int128 *__return_ptr, uint64_t, void *, void, unint64_t, uint64_t, char *), uint64_t a5, uint64_t a6)
 {
   v30 = a4;
   v31 = a5;
@@ -2598,9 +2601,9 @@ LABEL_4:
   return result;
 }
 
-uint64_t dealloc(uint64_t result, uint64_t a2)
+uint64_t *dealloc(uint64_t *result, uint64_t a2)
 {
-  v2 = *(result + 24);
+  v2 = result[3];
   if (v2)
   {
     v4 = result;
@@ -2634,7 +2637,7 @@ id *clearARCWeakAtWithSentinel(id *location)
   return location;
 }
 
-uint64_t empty(uint64_t result, uint64_t a2)
+void *empty(void *result, uint64_t a2)
 {
   if (a2)
   {
@@ -2666,7 +2669,7 @@ uint64_t empty(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t empty_0(uint64_t result, uint64_t a2)
+void *empty_0(void *result, uint64_t a2)
 {
   if (a2)
   {
@@ -2698,8 +2701,9 @@ uint64_t empty_0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void NSKeyValueDidChangeWithPerThreadPendingNotifications(void *a1, uint64_t a2, char a3, void (*a4)(__int128 *__return_ptr, uint64_t, uint64_t, uint64_t, _BOOL8, unint64_t, _OWORD *), uint64_t a5)
+void NSKeyValueDidChangeWithPerThreadPendingNotifications(void *a1, uint64_t a2, uint64_t a3, void (*a4)(__int128 *__return_ptr, uint64_t, const void *, uint64_t, _BOOL8, unint64_t, _OWORD *), uint64_t a5)
 {
+  v7 = a3;
   v13[3] = *MEMORY[0x1E69E9840];
   v10 = NSKVOCopyPendingNotificationStack(a1, a2, a5, a3, 0);
   if (v10)
@@ -2711,10 +2715,10 @@ void NSKeyValueDidChangeWithPerThreadPendingNotifications(void *a1, uint64_t a2,
       v13[0] = v11;
       v13[1] = 0;
       v13[2] = a5;
-      NSKeyValueDidChange(a1, a2, a3, a4, 0, NSKeyValuePopPendingNotificationPerThread, v13);
+      NSKeyValueDidChange(a1, a2, v7, a4, 0, NSKeyValuePopPendingNotificationPerThread, v13);
       if (!CFArrayGetCount(v11))
       {
-        NSKVOPendingNotificationStackRemove(a1, a2, a5, a3);
+        NSKVOPendingNotificationStackRemove(a1, a2, a5, v7);
       }
     }
 
@@ -2945,7 +2949,7 @@ double NSFastEnumerationIterator.init(_:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8
   return result;
 }
 
-size_t _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(size_t result, int64_t a2, char a3, void *a4, uint64_t a5)
+void *_ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4, uint64_t a5)
 {
   v7 = result;
   if (a3)
@@ -3044,7 +3048,7 @@ uint64_t getContiguousArrayStorageType<A>(for:)(uint64_t a1, uint64_t a2)
   if (swift_isClassType() && a2)
   {
 
-    return __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+    return __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   }
 
   else
@@ -3203,7 +3207,7 @@ LABEL_6:
   }
 }
 
-uint64_t CFBasicHashFindBucket@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t CFBasicHashFindBucket@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>, uint64_t a3@<X1>)
 {
   v3 = *(result + 16);
   if ((v3 & 0x3F0000) != 0)
@@ -3213,7 +3217,7 @@ uint64_t CFBasicHashFindBucket@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint
     {
       if (v4 == 1)
       {
-        return ___CFBasicHashFindBucket1(result, a2, 0, a3);
+        return ___CFBasicHashFindBucket1(result, a3, 0, a2);
       }
 
       else
@@ -3224,23 +3228,23 @@ uint64_t CFBasicHashFindBucket@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint
 
     else if (v4 == 2)
     {
-      return ___CFBasicHashFindBucket2(result, a2, 0, a3);
+      return ___CFBasicHashFindBucket2(result, a3, 0, a2);
     }
 
     else
     {
-      return ___CFBasicHashFindBucket3(result, a2, 0, a3);
+      return ___CFBasicHashFindBucket3(result, a3, 0, a2);
     }
   }
 
   else
   {
     v5 = (*(result + 24) << 32) & 0xFFFFFF0000000000;
-    *a3 = -1;
-    *(a3 + 8) = v5;
-    *(a3 + 16) = v5;
-    *(a3 + 24) = 0u;
-    *(a3 + 40) = 0u;
+    *a2 = -1;
+    *(a2 + 8) = v5;
+    *(a2 + 16) = v5;
+    *(a2 + 24) = 0u;
+    *(a2 + 40) = 0u;
   }
 
   return result;
@@ -3501,7 +3505,7 @@ LABEL_24:
         v8 = v7[9];
         if (!v8)
         {
-          return CFStringCreateWithFormat(*MEMORY[0x1E695E4A8], 0, @"<%p>", a3);
+          return CFStringCreateWithFormat(*MEMORY[0x1E695E4A8], 0, @"<%p>", a4, a3);
         }
 
         break;
@@ -3509,7 +3513,7 @@ LABEL_24:
         v8 = v7[5];
         if (!v8)
         {
-          return CFStringCreateWithFormat(*MEMORY[0x1E695E4A8], 0, @"<%p>", a3);
+          return CFStringCreateWithFormat(*MEMORY[0x1E695E4A8], 0, @"<%p>", a4, a3);
         }
 
         break;
@@ -3620,7 +3624,7 @@ unint64_t type metadata accessor for NSData()
   return result;
 }
 
-uint64_t specialized Data._Representation.init(_:count:)(void *a1, uint64_t a2)
+uint64_t specialized Data._Representation.init(_:count:)(void *a1, unint64_t a2)
 {
   v18 = *MEMORY[0x1E69E9840];
   if (!a2)
@@ -3631,7 +3635,7 @@ uint64_t specialized Data._Representation.init(_:count:)(void *a1, uint64_t a2)
   v2 = a2;
   if (a2 <= 14)
   {
-    if (a2 < 0)
+    if ((a2 & 0x8000000000000000) != 0)
     {
       __break(1u);
     }
@@ -3727,57 +3731,57 @@ LABEL_29:
   return result;
 }
 
-unint64_t CFBasicHashAddValue(unint64_t result, uint64_t a2)
+void *CFBasicHashAddValue(void *result, uint64_t a2, uint64_t a3)
 {
-  v3 = result;
-  v12 = *MEMORY[0x1E69E9840];
-  memset(v11, 0, sizeof(v11));
-  v4 = *(result + 16);
-  if ((v4 & 0x3F0000) != 0)
+  v4 = result;
+  v13 = *MEMORY[0x1E69E9840];
+  memset(v12, 0, sizeof(v12));
+  v5 = result[2];
+  if ((v5 & 0x3F0000) != 0)
   {
-    v5 = v4 & 3;
-    if (v5 <= 1)
+    v6 = v5 & 3;
+    if (v6 <= 1)
     {
-      if (v5 != 1)
+      if (v6 != 1)
       {
 LABEL_15:
         __break(1u);
         return result;
       }
 
-      result = ___CFBasicHashFindBucket1(result, a2, 0, v11);
+      result = ___CFBasicHashFindBucket1(result, a2, 0, v12);
     }
 
-    else if (v5 == 2)
+    else if (v6 == 2)
     {
-      result = ___CFBasicHashFindBucket2(result, a2, 0, v11);
+      result = ___CFBasicHashFindBucket2(result, a2, 0, v12);
     }
 
     else
     {
-      result = ___CFBasicHashFindBucket3(result, a2, 0, v11);
+      result = ___CFBasicHashFindBucket3(result, a2, 0, v12);
     }
   }
 
   else
   {
-    v6 = (*(result + 24) << 32) & 0xFFFFFF0000000000;
-    *v11 = -1;
-    *&v11[8] = v6;
-    *&v11[16] = v6;
-    memset(&v11[24], 0, 32);
+    v7 = (result[3] << 32) & 0xFFFFFF0000000000;
+    *v12 = -1;
+    *&v12[8] = v7;
+    *&v12[16] = v7;
+    memset(&v12[24], 0, 32);
   }
 
-  if (*&v11[40])
+  if (*&v12[40])
   {
-    *(v3 + 30) = ((*(v3 + 30) << 48) + 0x1000000000000) >> 48;
-    v7 = *(v3 + 16);
-    if ((v7 & 0x380) != 0)
+    *(v4 + 15) = ((*(v4 + 15) << 48) + 0x1000000000000) >> 48;
+    v8 = v4[2];
+    if ((v8 & 0x380) != 0)
     {
-      v8 = (v7 >> 7) & 7;
-      if (v8)
+      v9 = (v8 >> 7) & 7;
+      if (v9)
       {
-        ++*(*(v3 + 8 * v8 + 40) + 8 * *v11);
+        ++*(v4[v9 + 5] + 8 * *v12);
         return result;
       }
 
@@ -3787,17 +3791,17 @@ LABEL_15:
 
   else
   {
-    v9[0] = *v11;
-    v9[1] = *&v11[16];
-    v9[2] = *&v11[32];
-    v10 = *&v11[48];
-    return __CFBasicHashAddValue(v3, v9, a2);
+    v10[0] = *v12;
+    v10[1] = *&v12[16];
+    v10[2] = *&v12[32];
+    v11 = *&v12[48];
+    return __CFBasicHashAddValue(v4, v10, a2);
   }
 
   return result;
 }
 
-uint64_t __CFBasicHashAddValue(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__CFBasicHashAddValue(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v24 = *MEMORY[0x1E69E9840];
   *(a1 + 30) = ((*(a1 + 30) << 48) + 0x1000000000000) >> 48;
@@ -4567,7 +4571,7 @@ objc_class *_NSSetCheckSize(objc_class *result, const char *a2, unint64_t a3, ui
   return result;
 }
 
-uint64_t pathifiedNSURL(void *a1, NSError **a2)
+void *pathifiedNSURL(void *a1, NSError **a2)
 {
   if (!_NSIsNSURL() || ([a1 isFileURL] & 1) == 0 && objc_msgSend(a1, "scheme"))
   {
@@ -4593,7 +4597,7 @@ uint64_t pathifiedNSURL(void *a1, NSError **a2)
   return result;
 }
 
-uint64_t @objc static NSData._readBytes(fromPath:maxLength:bytes:length:didMap:options:reportProgress:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, char **a5, char **a6, BOOL *a7, char a8, char a9)
+uint64_t @objc static NSData._readBytes(fromPath:maxLength:bytes:length:didMap:options:reportProgress:)(uint64_t a1, uint64_t a2, void *a3, off_t a4, void *a5, char **a6, BOOL *a7, uint64_t a8, unsigned __int8 a9)
 {
   v14 = static String._unconditionallyBridgeFromObjectiveC(_:)(a3);
   specialized static NSData._readBytes(fromPath:maxLength:bytes:length:didMap:options:reportProgress:)(v14, v15, a4, a5, a6, a7, a8, a9);
@@ -4601,12 +4605,13 @@ uint64_t @objc static NSData._readBytes(fromPath:maxLength:bytes:length:didMap:o
   return 1;
 }
 
-unint64_t specialized static NSData._readBytes(fromPath:maxLength:bytes:length:didMap:options:reportProgress:)(uint64_t a1, uint64_t a2, uint64_t a3, char **a4, char **a5, BOOL *a6, char a7, char a8)
+uint64_t specialized static NSData._readBytes(fromPath:maxLength:bytes:length:didMap:options:reportProgress:)(uint64_t a1, uint64_t a2, off_t a3, void *a4, char **a5, BOOL *a6, uint64_t a7, uint64_t a8)
 {
-  v24 = MEMORY[0x1E69E7CC8];
-  v21[0] = a1;
-  v21[1] = a2;
-  v22 = 0;
+  v9 = a8;
+  v25 = MEMORY[0x1E69E7CC8];
+  v22[0] = a1;
+  v22[1] = a2;
+  v23 = 0;
   v16 = a3 == 0x7FFFFFFFFFFFFFFFLL;
   if (a3 == 0x7FFFFFFFFFFFFFFFLL)
   {
@@ -4618,24 +4623,26 @@ unint64_t specialized static NSData._readBytes(fromPath:maxLength:bytes:length:d
     v17 = a3;
   }
 
-  readBytesFromFile(path:reportProgress:maxLength:options:attributesToRead:attributes:)(v21, a8, v17, v16, a7, MEMORY[0x1E69E7CC0], &v24, v23);
+  readBytesFromFile(path:reportProgress:maxLength:options:attributesToRead:attributes:)(v22, v9, v17, v16, a7, MEMORY[0x1E69E7CC0], &v25, v24);
   outlined consume of PathOrURL(a1, a2, 0);
 
   if (!v8)
   {
-    v19 = v23[1];
-    v20 = v23[2];
-    *a4 = v23[0];
+    v19 = v24[1];
+    v20 = v24[2];
+    v21 = v24[3];
+    *a4 = v24[0];
     *a5 = v19;
     *a6 = v20 == 1;
-    return outlined consume of Data.Deallocator?(v20);
+    return outlined consume of Data.Deallocator?(v20, v21);
   }
 
   return result;
 }
 
-uint64_t readBytesFromFile(path:reportProgress:maxLength:options:attributesToRead:attributes:)@<X0>(uint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X2>, char a4@<W3>, char a5@<W4>, uint64_t a6@<X5>, void *a7@<X6>, char **a8@<X8>)
+uint64_t readBytesFromFile(path:reportProgress:maxLength:options:attributesToRead:attributes:)@<X0>(uint64_t a1@<X0>, char a2@<W1>, off_t a3@<X2>, char a4@<W3>, uint64_t a5@<X4>, void *a6@<X5>, void *a7@<X6>, char **a8@<X8>)
 {
+  v9 = a5;
   LOBYTE(v10) = a4;
   v329 = *MEMORY[0x1E69E9840];
   v13 = *(a1 + 8);
@@ -4661,7 +4668,7 @@ uint64_t readBytesFromFile(path:reportProgress:maxLength:options:attributesToRea
   v10 = v19;
 
   v20 = static String._unconditionallyBridgeFromObjectiveC(_:)(@"NSCocoaErrorDomain");
-  a5 = v21;
+  v9 = v21;
   if (v14 == v20 && v10 == v21)
   {
 
@@ -4959,7 +4966,7 @@ LABEL_336:
     goto LABEL_169;
   }
 
-  if ((a5 & 2) != 0)
+  if ((v9 & 2) != 0)
   {
     MEMORY[0x1865CA7C0](v28, 48, 1);
   }
@@ -5244,7 +5251,7 @@ LABEL_334:
   v326 = v314;
   v327 = v14;
   v313 = v28;
-  v41 = shouldMapFileDescriptor(_:path:options:)(v28, &v325, a5);
+  v41 = shouldMapFileDescriptor(_:path:options:)(v28, &v325, v9);
   if (v40 == S_IFREG.getter())
   {
     if ((st_size & 0x8000000000000000) != 0)
@@ -5435,13 +5442,13 @@ LABEL_340:
 
 LABEL_140:
           v126 = a6;
-          v127 = *(a6 + 16);
+          v127 = a6[2];
           if (v127)
           {
             v316 = v73;
 
             v322 = MEMORY[0x1E69E7CC8];
-            v129 = (v126 + 40);
+            v129 = v126 + 5;
             while (1)
             {
               v130 = *(v129 - 1);
@@ -6593,17 +6600,17 @@ uint64_t outlined consume of PathOrURL(uint64_t a1, uint64_t a2, char a3)
   }
 }
 
-unint64_t outlined consume of Data.Deallocator?(unint64_t result)
+uint64_t outlined consume of Data.Deallocator?(uint64_t result, uint64_t a2)
 {
   if (result != 4)
   {
-    return outlined consume of Data.Deallocator(result);
+    return outlined consume of Data.Deallocator(result, a2);
   }
 
   return result;
 }
 
-unint64_t outlined consume of Data.Deallocator(unint64_t result)
+unint64_t outlined consume of Data.Deallocator(unint64_t result, uint64_t a2)
 {
   if (result >= 4)
   {
@@ -6673,7 +6680,7 @@ void _convertToUnichars(unsigned __int16 *a1, size_t a2, void *a3, void **a4)
   }
 }
 
-uint64_t _NSConvertToASCIIorUnicode2(unsigned __int16 *a1, size_t size, unint64_t encoding, char a4, uint64_t a5, malloc_zone_t *zone)
+uint64_t _NSConvertToASCIIorUnicode2(unsigned __int16 *a1, size_t size, unint64_t encoding, uint64_t a4, uint64_t a5, malloc_zone_t *zone)
 {
   *a5 = a4 ^ 1;
   *(a5 + 1) = 0;
@@ -6804,7 +6811,7 @@ LABEL_30:
   return (IsEncodingAvailable != 0) & v9;
 }
 
-uint64_t _NSExpandTildeInPath(uint64_t result, uint64_t *a2)
+int64_t _NSExpandTildeInPath(int64_t result, uint64_t *a2)
 {
   v10 = *a2;
   if (*a2 >= 1)
@@ -6870,7 +6877,7 @@ uint64_t _NSExpandTildeInPath(uint64_t result, uint64_t *a2)
   return result;
 }
 
-void _NSResolveSymlinksInPathUsingCache(unsigned __int16 *a1, uint64_t *a2, int a3)
+void _NSResolveSymlinksInPathUsingCache(unsigned __int16 *a1, void **a2, int a3)
 {
   v66 = *MEMORY[0x1E69E9840];
   v3 = *a2;
@@ -7071,7 +7078,7 @@ uint64_t _writeJSONValue(void *a1, __CFString *a2, uint64_t a3, uint64_t a4)
     __src[0] = 0;
     __src[1] = 0;
     v19 = 0;
-    if (!a2 || ([(__CFString *)a2 decimalValue], (__src[0] & 0x1F00) != 0x1000))
+    if (!a2 || (objc_msgSend_decimalValue(a2), (__src[0] & 0x1F00) != 0x1000))
     {
       v9 = [(__CFString *)a2 stringValue];
       return [a1 appendString:v9 range:{0, objc_msgSend(v9, "length")}];
@@ -7141,21 +7148,21 @@ LABEL_32:
   }
 }
 
-id __NSConcreteUUID.init(uuidString:)()
+id __NSConcreteUUID.init(uuidString:)(uint64_t a1, uint64_t a2)
 {
-  UUID.init(uuidString:)(v12);
+  UUID.init(uuidString:)(v14);
 
-  if (v13)
+  if (v15)
   {
     if ([objc_opt_self() _compatibilityBehavior])
     {
-      v1 = &v0[OBJC_IVAR_____NSConcreteUUID__storage];
-      v2 = type metadata accessor for __NSConcreteUUID();
-      *v1 = 0;
-      *(v1 + 1) = 0;
-      v11.receiver = v0;
-      v11.super_class = v2;
-      return objc_msgSendSuper2(&v11, sel_init);
+      v3 = &v2[OBJC_IVAR_____NSConcreteUUID__storage];
+      v4 = type metadata accessor for __NSConcreteUUID();
+      *v3 = 0;
+      *(v3 + 1) = 0;
+      v13.receiver = v2;
+      v13.super_class = v4;
+      return objc_msgSendSuper2(&v13, sel_init);
     }
 
     else
@@ -7168,28 +7175,29 @@ id __NSConcreteUUID.init(uuidString:)()
 
   else
   {
-    v5 = HIDWORD(v12[0]);
-    v4 = v12[1];
-    v6 = v12[0] >> 8;
-    v7 = v12[0] >> 16;
-    v8 = v12[0] >> 24;
-    v9 = &v0[OBJC_IVAR_____NSConcreteUUID__storage];
-    *v9 = v12[0];
-    v9[1] = v6;
-    v9[2] = v7;
-    v9[3] = v8;
-    *(v9 + 1) = v5;
-    *(v9 + 1) = v4;
-    v10.receiver = v0;
-    v10.super_class = type metadata accessor for __NSConcreteUUID();
-    return objc_msgSendSuper2(&v10, sel_init);
+    v7 = HIDWORD(v14[0]);
+    v6 = v14[1];
+    v8 = v14[0] >> 8;
+    v9 = v14[0] >> 16;
+    v10 = v14[0] >> 24;
+    v11 = &v2[OBJC_IVAR_____NSConcreteUUID__storage];
+    *v11 = v14[0];
+    v11[1] = v8;
+    v11[2] = v9;
+    v11[3] = v10;
+    *(v11 + 1) = v7;
+    *(v11 + 1) = v6;
+    v12.receiver = v2;
+    v12.super_class = type metadata accessor for __NSConcreteUUID();
+    return objc_msgSendSuper2(&v12, sel_init);
   }
 }
 
 uint64_t UUID.init(uuidString:)@<X0>(uint64_t a1@<X8>)
 {
   v7 = *MEMORY[0x1E69E9840];
-  *v6 = 0uLL;
+  *v6 = 0;
+  *&v6[8] = 0;
   v2 = String.utf8CString.getter();
   v3 = _foundation_uuid_parse((v2 + 32), v6);
 
@@ -7788,7 +7796,7 @@ LABEL_38:
   return v3;
 }
 
-id NSString.__swiftFillFileSystemRepresentation(pointer:maxLength:)(_BYTE *a1, uint64_t a2)
+id NSString.__swiftFillFileSystemRepresentation(pointer:maxLength:)(_BYTE *a1, int64_t a2)
 {
   v3 = v2;
   v6 = objc_autoreleasePoolPush();
@@ -7842,7 +7850,7 @@ LABEL_25:
             }
 
             memcpy(a1, v13, v29);
-            v30 = &v15[v13];
+            v30 = &v13[v15];
             v13 += v29;
             goto LABEL_30;
           }
@@ -8242,7 +8250,7 @@ LABEL_49:
   }
 }
 
-uint64_t _sSR10FoundationE11_decomposed33_A8D938B711950E5A2A1A070C68A5275BLL_2as4into14nullTerminatedSiSSAAE18_NormalizationTypeO_qd__mSrys5UInt8VGSbtK8CodeUnitQyd__Rszs12UnicodeCodecRd__lFs6UInt16V_s0U0O5UTF16OTt0g5(char a1, _BYTE *a2, uint64_t a3, int a4, unsigned __int16 *a5, uint64_t a6)
+char *_sSR10FoundationE11_decomposed33_A8D938B711950E5A2A1A070C68A5275BLL_2as4into14nullTerminatedSiSSAAE18_NormalizationTypeO_qd__mSrys5UInt8VGSbtK8CodeUnitQyd__Rszs12UnicodeCodecRd__lFs6UInt16V_s0U0O5UTF16OTt0g5(char a1, _BYTE *a2, uint64_t a3, int a4, unsigned __int16 *a5, uint64_t a6)
 {
   v157 = *MEMORY[0x1E69E9840];
   v12 = type metadata accessor for Unicode._NFD();
@@ -8250,9 +8258,9 @@ uint64_t _sSR10FoundationE11_decomposed33_A8D938B711950E5A2A1A070C68A5275BLL_2as
   v134 = &v127 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   v142 = type metadata accessor for Unicode.CanonicalCombiningClass();
   v14 = *(v142 - 8);
-  v15 = MEMORY[0x1EEE9AC00](v142);
-  v141 = &v127 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
+  MEMORY[0x1EEE9AC00](v142);
+  v141 = &v127 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v16);
   v140 = &v127 - v17;
   v139 = type metadata accessor for Unicode.Scalar.Properties();
   MEMORY[0x1EEE9AC00](v139);
@@ -8287,8 +8295,8 @@ uint64_t _sSR10FoundationE11_decomposed33_A8D938B711950E5A2A1A070C68A5275BLL_2as
     }
 
     v33 = &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd);
-    lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMR);
+    lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMR);
     v43 = swift_allocError();
     *v44 = 0;
     v150 = v43;
@@ -8350,7 +8358,7 @@ uint64_t _sSR10FoundationE11_decomposed33_A8D938B711950E5A2A1A070C68A5275BLL_2as
         v90 = WeekendRange.onsetTime.modify();
         specialized RangeReplaceableCollection.remove(at:)(0);
         LODWORD(v28) = v149;
-        v90(&v153, 0);
+        (v90)(&v153, 0);
         v20 = v89;
         v30 = v148;
         v54 = v24;
@@ -8426,7 +8434,7 @@ LABEL_21:
             v42 = MEMORY[0x1E69E7CC0];
           }
 
-          v155 = v42 + 32;
+          v155 = (v42 + 32);
           v156 = v41;
           specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(&v155, v151, &v153, v39);
           v150 = v40;
@@ -8532,8 +8540,8 @@ LABEL_138:
           }
 
           v33 = &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd;
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd);
-          lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMR);
+          lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMR);
           v114 = swift_allocError();
           *v115 = 0;
           v150 = v114;
@@ -8545,7 +8553,7 @@ LABEL_138:
 
           if (v22 >= v135)
           {
-            v22 = (v135 - 1);
+            v22 = v135 - 1;
             if (__OFSUB__(v135, 1))
             {
               goto LABEL_235;
@@ -8625,8 +8633,8 @@ LABEL_146:
       if (v30 != v145)
       {
         v33 = &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd);
-        lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMR);
+        lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMR);
         v109 = swift_allocError();
         *v110 = 0;
         v150 = v109;
@@ -8658,7 +8666,7 @@ LABEL_233:
         if (!__OFSUB__(v135, 1))
         {
 LABEL_189:
-          v112 = &v119[a2];
+          v112 = &a2[v119];
           goto LABEL_190;
         }
 
@@ -8699,8 +8707,8 @@ LABEL_159:
           goto LABEL_209;
         }
 
-        a3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd);
-        lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd);
+        a3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMR);
+        lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMR);
         v33 = v135;
         v120 = swift_allocError();
         *v121 = 0;
@@ -8733,7 +8741,7 @@ LABEL_190:
           goto LABEL_200;
         }
 
-        v119 = v33 - 1;
+        v119 = (v33 - 1);
         if (__OFSUB__(v33, 1))
         {
           __break(1u);
@@ -8863,8 +8871,8 @@ LABEL_51:
     if (!((v54 == 0) | v28 & 1))
     {
       v33 = &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd);
-      lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMR);
+      lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMR);
       v116 = swift_allocError();
       *v117 = 1;
       v150 = v116;
@@ -9100,7 +9108,7 @@ LABEL_92:
     v23 = MEMORY[0x1E69E7CC0];
     if (*(v42 + 3) >= 2uLL)
     {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7UnicodeO6ScalarVGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7UnicodeO6ScalarVGMd, &_ss23_ContiguousArrayStorageCys7UnicodeO6ScalarVGMR);
       v23 = swift_allocObject();
       v87 = _swift_stdlib_malloc_size(v23);
       v88 = v87 - 32;
@@ -9128,8 +9136,8 @@ LABEL_106:
     if (v22 >= a3)
     {
       v33 = &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd);
-      lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMR);
+      lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMR);
       v123 = swift_allocError();
       *v124 = 0;
       v150 = v123;
@@ -9160,7 +9168,7 @@ LABEL_106:
       }
 
 LABEL_214:
-      v119[a2 - 1] = 0;
+      a2[v119 - 1] = 0;
       goto LABEL_200;
     }
 
@@ -9226,8 +9234,8 @@ LABEL_220:
 LABEL_221:
       v33 = &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd;
       v42 = &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMR;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd);
-      lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMR);
+      lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMR);
       v125 = swift_allocError();
       *v126 = 2;
       v150 = v125;
@@ -9321,8 +9329,8 @@ LABEL_79:
   }
 
   v33 = &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd);
-  lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMR);
+  lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys6UInt16V_GMR);
   v92 = swift_allocError();
   *v93 = 0;
   v150 = v92;
@@ -9367,7 +9375,7 @@ uint64_t String._fileSystemRepresentation(into:)(_BYTE *a1, uint64_t a2, uint64_
   {
     if ((a4 & 0x1000000000000000) != 0)
     {
-      a3 = static String._copying(_:)();
+      a3 = static String._copying(_:)(a3, a4);
       v11 = v10;
 
       a4 = v11;
@@ -9407,7 +9415,7 @@ LABEL_12:
 
   if ((a4 & 0x1000000000000000) != 0)
   {
-    a3 = static String._copying(_:)();
+    a3 = static String._copying(_:)(a3, a4);
     v14 = v13;
 
     if ((v14 & 0x2000000000000000) == 0)
@@ -9428,7 +9436,7 @@ LABEL_8:
   return 0;
 }
 
-uint64_t _sSR10FoundationE11_decomposed33_A8D938B711950E5A2A1A070C68A5275BLL_2as4into14nullTerminatedSiSSAAE18_NormalizationTypeO_qd__mSrys5UInt8VGSbtK8CodeUnitQyd__Rszs12UnicodeCodecRd__lFAJ_s0U0O4UTF8OTt0g5(char a1, _BYTE *a2, uint64_t a3, int a4, unsigned __int8 *a5, uint64_t a6)
+uint64_t _sSR10FoundationE11_decomposed33_A8D938B711950E5A2A1A070C68A5275BLL_2as4into14nullTerminatedSiSSAAE18_NormalizationTypeO_qd__mSrys5UInt8VGSbtK8CodeUnitQyd__Rszs12UnicodeCodecRd__lFAJ_s0U0O4UTF8OTt0g5(char a1, _BYTE *a2, uint64_t a3, int a4, char *a5, uint64_t a6)
 {
   v161 = a2;
   v155 = a4;
@@ -9438,9 +9446,9 @@ uint64_t _sSR10FoundationE11_decomposed33_A8D938B711950E5A2A1A070C68A5275BLL_2as
   v12 = &v136 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v152 = type metadata accessor for Unicode.CanonicalCombiningClass();
   v13 = *(v152 - 8);
-  v14 = MEMORY[0x1EEE9AC00](v152);
-  v151 = &v136 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
+  MEMORY[0x1EEE9AC00](v152);
+  v151 = &v136 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15);
   v150 = &v136 - v16;
   v149 = type metadata accessor for Unicode.Scalar.Properties();
   MEMORY[0x1EEE9AC00](v149);
@@ -9475,8 +9483,8 @@ uint64_t _sSR10FoundationE11_decomposed33_A8D938B711950E5A2A1A070C68A5275BLL_2as
     }
 
     v24 = &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd);
-    lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMR);
+    lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMR);
     v100 = swift_allocError();
     *v101 = 0;
     v160 = v100;
@@ -9533,7 +9541,7 @@ uint64_t _sSR10FoundationE11_decomposed33_A8D938B711950E5A2A1A070C68A5275BLL_2as
         lazy protocol witness table accessor for type Unicode.UTF8.ForwardParser and conformance Unicode.UTF8.ForwardParser();
         v90 = WeekendRange.onsetTime.modify();
         specialized RangeReplaceableCollection.remove(at:)(0);
-        v90(&v164, 0);
+        (v90)(&v164, 0);
         v31 = (v21 + 1);
         goto LABEL_33;
       }
@@ -9583,8 +9591,8 @@ LABEL_172:
 
         v24 = &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd;
         v20 = &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMR;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd);
-        lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMR);
+        lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMR);
         v123 = swift_allocError();
         *v124 = 0;
         v160 = v123;
@@ -9633,8 +9641,8 @@ LABEL_180:
               }
 
               v24 = &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd;
-              __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd);
-              lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd);
+              __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMR);
+              lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMR);
               v131 = swift_allocError();
               *v132 = 0;
               v160 = v131;
@@ -9722,8 +9730,8 @@ LABEL_208:
         __break(1u);
 LABEL_204:
         v24 = &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd);
-        lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMR);
+        lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMR);
         v129 = swift_allocError();
         *v130 = 1;
         v160 = v129;
@@ -9770,7 +9778,7 @@ LABEL_207:
       }
     }
 
-    a5 = v29 + 1;
+    a5 = (v29 + 1);
     v21 = (*v29 << v24) | ((-255 << v24) - 1) & v21;
     v32 = v24 + 8;
     if ((v24 + 8) >= 0x20u)
@@ -9783,7 +9791,7 @@ LABEL_207:
       goto LABEL_26;
     }
 
-    a5 = v29 + 2;
+    a5 = (v29 + 2);
     v21 = (v29[1] << (v24 + 8)) | ((-255 << (v24 + 8)) - 1) & v21;
     v32 = v24 + 16;
     if ((v24 + 16) > 0x1Fu)
@@ -9796,7 +9804,7 @@ LABEL_207:
       goto LABEL_26;
     }
 
-    a5 = v29 + 3;
+    a5 = (v29 + 3);
     v21 = (v29[2] << v32) | ((-255 << v32) - 1) & v21;
     v32 = v24 + 24;
     if ((v24 + 24) > 0x1Fu)
@@ -9809,7 +9817,7 @@ LABEL_207:
       goto LABEL_26;
     }
 
-    a5 = v29 + 4;
+    a5 = (v29 + 4);
     v21 = (v29[3] << v32) | ((-255 << v32) - 1) & v21;
     v32 = v24 + 32;
     if (v24 < 0xE0u)
@@ -9818,7 +9826,7 @@ LABEL_28:
       LOBYTE(v24) = v32;
     }
 
-    else if (a5 == v19 || (a5 = v29 + 5, v21 = (v29[4] << v24) | ((-255 << v24) - 1) & v21, v32 = v24 + 40, LOBYTE(v24) = v24 + 40, v24 < 0x20u))
+    else if (a5 == v19 || (a5 = (v29 + 5), v21 = (v29[4] << v24) | ((-255 << v24) - 1) & v21, v32 = v24 + 40, LOBYTE(v24) = v24 + 40, v24 < 0x20u))
     {
 LABEL_26:
       LOBYTE(v24) = v32;
@@ -9856,8 +9864,8 @@ LABEL_29:
 LABEL_139:
         Unicode.UTF8.ForwardParser._invalidLength()();
         v24 = &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd;
-        v94 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd);
-        lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd);
+        v94 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMR);
+        lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMR);
         v106 = swift_allocError();
         *v107 = 2;
         v160 = v106;
@@ -10025,7 +10033,7 @@ LABEL_82:
     }
 
     v50 = *(v48 + 2);
-    a5 = (v48 + 32);
+    a5 = v48 + 32;
     v164 = v48 + 32;
     v165 = v50;
     v51 = _minimumMergeRunLength(_:)(v50);
@@ -10122,7 +10130,7 @@ LABEL_81:
     v87 = MEMORY[0x1E69E7CC0];
     if (*(v48 + 3) >= 2uLL)
     {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7UnicodeO6ScalarVGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7UnicodeO6ScalarVGMd, &_ss23_ContiguousArrayStorageCys7UnicodeO6ScalarVGMR);
       v87 = swift_allocObject();
       v88 = _swift_stdlib_malloc_size(v87);
       v89 = v88 - 32;
@@ -10149,8 +10157,8 @@ LABEL_104:
     {
       v102 = v161;
       v24 = &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd);
-      lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMR);
+      lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMR);
       v133 = swift_allocError();
       *v134 = 0;
       v160 = v133;
@@ -10374,8 +10382,8 @@ LABEL_161:
         }
 
         v125 = v161;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd);
-        lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMR);
+        lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMR);
         v126 = swift_allocError();
         *v127 = 0;
         v160 = v126;
@@ -10471,8 +10479,8 @@ LABEL_68:
 
   v102 = v161;
   v24 = &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd);
-  lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMR);
+  lazy protocol witness table accessor for type UnsafeBufferPointer<UInt16>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8>.DecompositionError and conformance UnsafeBufferPointer<A>.DecompositionError, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMd, &_sSR10FoundationE18DecompositionError33_A8D938B711950E5A2A1A070C68A5275BLLOys5UInt8V_GMR);
   v103 = swift_allocError();
   *v104 = 0;
   v160 = v103;

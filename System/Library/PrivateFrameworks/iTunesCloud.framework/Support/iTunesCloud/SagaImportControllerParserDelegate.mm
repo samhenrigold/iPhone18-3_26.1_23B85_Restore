@@ -89,7 +89,7 @@ LABEL_15:
     currentLyricsToken = self->_currentLyricsToken;
     self->_currentCloudID = 0;
     self->_currentLyricsToken = 0;
-    _objc_release_x1();
+    _objc_release_x1(self, currentLyricsToken);
   }
 
   else if (code == 1836413554)
@@ -187,7 +187,7 @@ LABEL_8:
   self->_shouldRestart = 0;
   currentPaginationToken = self->_currentPaginationToken;
   self->_currentPaginationToken = 0;
-  _objc_release_x1();
+  _objc_release_x1(self, currentPaginationToken);
 }
 
 - (SagaImportControllerParserDelegate)init

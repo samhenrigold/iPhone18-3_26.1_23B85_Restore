@@ -12,6 +12,8 @@
 - (BOOL)newPrimaryIsInREv2BasedOnTheirTimestamp:(id)timestamp ourSelectionInfo:(id)info;
 - (BOOL)shouldRegeneratePreferredResidentsListBasedOnFoundResidents:(id)residents residentLocationMap:(id)map;
 - (BOOL)shouldTakeOverAsTheCurrentPrimaryWithSelectionInfo:(id)info isTimerTriggered:(BOOL)triggered;
+- (BOOL)takeOverIfConditionsAreMetWithIsTimerTriggered:(BOOL)triggered;
+- (BOOL)takeOverIfPrimaryIsNotViableWithIsTimerTriggered:(BOOL)triggered;
 - (HMDIDSServerBag)idsServerBag;
 - (HMDResidentDeviceManagerContext)context;
 - (HMDResidentSelectionMode)initWithContext:(id)context;
@@ -72,6 +74,8 @@
 - (void)performSelectionWithPreferredPrimaryResident:(id)resident requireAutoUpdate:(BOOL)update reason:(unint64_t)reason completion:(id)completion;
 - (void)scheduleDailyPreferredResidentsListRegenerationTask;
 - (void)scheduleTakeOverTimerIfRequiredAfterBlockDuration:(double)duration;
+- (void)selectPrimaryResidentFromResidents:(id)residents requireAutoUpdate:(BOOL)update completion:(id)completion;
+- (void)sendSelectionMessageToResident:(id)resident requireAutoUpdate:(BOOL)update completion:(id)completion;
 - (void)start;
 - (void)takeOverWithSelectionTimestamp:(id)timestamp;
 - (void)timerDidFire:(id)fire;
@@ -153,7 +157,7 @@ LABEL_6:
     [v7 addObject:currentResidentDevice];
   }
 
-  v10 = [v7 copy];
+  v10 = objc_msgSend_copy(v7);
 
   return v10;
 }
@@ -194,7 +198,7 @@ LABEL_6:
     [v7 addObject:currentResidentDevice];
   }
 
-  v10 = [v7 copy];
+  v10 = objc_msgSend_copy(v7);
 
   return v10;
 }
@@ -222,7 +226,7 @@ LABEL_6:
 
 - (int64_t)compareProductTypeResident1:(id)resident1 resident2:(id)resident2
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   resident1Copy = resident1;
   resident2Copy = resident2;
   productTypePreferenceList = [(HMDResidentSelectionMode *)self productTypePreferenceList];
@@ -245,12 +249,12 @@ LABEL_6:
     {
       v19 = HMFGetLogIdentifier();
       shortDescription = [resident1Copy shortDescription];
-      v27 = 138543618;
-      v28 = v19;
-      v29 = 2112;
-      v30 = shortDescription;
+      v26 = 138543618;
+      v27 = v19;
+      v28 = 2112;
+      v29 = shortDescription;
 LABEL_7:
-      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Could not find the product type for: %@", &v27, 0x16u);
+      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Could not find the product type for: %@", &v26, 0x16u);
     }
   }
 
@@ -268,10 +272,10 @@ LABEL_7:
     {
       v19 = HMFGetLogIdentifier();
       shortDescription = [resident2Copy shortDescription];
-      v27 = 138543618;
-      v28 = v19;
-      v29 = 2112;
-      v30 = shortDescription;
+      v26 = 138543618;
+      v27 = v19;
+      v28 = 2112;
+      v29 = shortDescription;
       goto LABEL_7;
     }
   }
@@ -304,7 +308,6 @@ LABEL_9:
     v24 = v22;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
@@ -444,7 +447,7 @@ LABEL_9:
 
     if (softwareVersion2)
     {
-      [softwareVersion2 operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(softwareVersion2);
       if (!softwareVersion)
       {
 LABEL_6:
@@ -459,7 +462,7 @@ LABEL_6:
       goto LABEL_6;
     }
 
-    [softwareVersion operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(softwareVersion);
     goto LABEL_6;
   }
 
@@ -485,15 +488,8 @@ uint64_t __59__HMDResidentSelectionMode__sortResidentsUsingAllCriteria___block_i
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) compareLocationResident1:v5 resident2:v6];
-  if (v7)
+  if (v7 || (v7 = [*(a1 + 32) compareVersionResident1:v5 resident2:v6]) != 0 || (v7 = objc_msgSend(*(a1 + 32), "compareNetworkConnectionResident1:resident2:", v5, v6)) != 0 || (v7 = objc_msgSend(*(a1 + 32), "compareProductTypeResident1:resident2:", v5, v6)) != 0 || (objc_msgSend(*(a1 + 32), "idsServerBag"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "disableResidentSelectionReachableAccessoriesCriteria"), v10, (v11 & 1) == 0) && (v7 = objc_msgSend(*(a1 + 32), "compareReachableAccessoriesResident1:resident2:", v5, v6)) != 0)
   {
-    goto LABEL_5;
-  }
-
-  v7 = [*(a1 + 32) compareVersionResident1:v5 resident2:v6];
-  if (v7 || (v7 = [*(a1 + 32) compareNetworkConnectionResident1:v5 resident2:v6]) != 0 || (v7 = objc_msgSend(*(a1 + 32), "compareProductTypeResident1:resident2:", v5, v6)) != 0 || (objc_msgSend(*(a1 + 32), "idsServerBag"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "disableResidentSelectionReachableAccessoriesCriteria"), v10, (v11 & 1) == 0) && (v7 = objc_msgSend(*(a1 + 32), "compareReachableAccessoriesResident1:resident2:", v5, v6)) != 0)
-  {
-LABEL_5:
     v8 = v7;
   }
 
@@ -513,19 +509,19 @@ LABEL_5:
 
 - (id)preferredResidentsRemovedFromHome
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   context = [(HMDResidentSelectionMode *)self context];
   electorsPreferredResidentsList = [context electorsPreferredResidentsList];
   residentIDSIdentifiers = [electorsPreferredResidentsList residentIDSIdentifiers];
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __61__HMDResidentSelectionMode_preferredResidentsRemovedFromHome__block_invoke;
-  v18 = &unk_278672878;
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __61__HMDResidentSelectionMode_preferredResidentsRemovedFromHome__block_invoke;
+  v17 = &unk_278672878;
   selfCopy = self;
   v7 = array;
-  v20 = v7;
-  [residentIDSIdentifiers hmf_enumerateWithAutoreleasePoolUsingBlock:&v15];
+  v19 = v7;
+  [residentIDSIdentifiers hmf_enumerateWithAutoreleasePoolUsingBlock:&v14];
 
   if ([v7 count])
   {
@@ -536,9 +532,9 @@ LABEL_5:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v11;
-      v23 = 2112;
-      v24 = v7;
+      v21 = v11;
+      v22 = 2112;
+      v23 = v7;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Residents that should be removed from the Preferred Residents List are: %@", buf, 0x16u);
     }
 
@@ -546,8 +542,6 @@ LABEL_5:
   }
 
   v12 = [MEMORY[0x277CBEA60] arrayWithArray:v7];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -566,7 +560,7 @@ void __61__HMDResidentSelectionMode_preferredResidentsRemovedFromHome__block_inv
 
 - (void)_publishPreferredResidentsList:(id)list
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   listCopy = list;
   context = [(HMDResidentSelectionMode *)self context];
   isActingAsResident = [context isActingAsResident];
@@ -586,20 +580,18 @@ void __61__HMDResidentSelectionMode_preferredResidentsRemovedFromHome__block_inv
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v11;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Not publishing the preferred residents list since we are not acting as a resident.", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Not publishing the preferred residents list since we are not acting as a resident.", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_updateLocalPreferredResidentsList
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   localPreferredResidentsList = [(HMDResidentSelectionMode *)self localPreferredResidentsList];
   _generatePreferredResidentsList = [(HMDResidentSelectionMode *)self _generatePreferredResidentsList];
   v5 = _generatePreferredResidentsList;
@@ -611,9 +603,9 @@ void __61__HMDResidentSelectionMode_preferredResidentsRemovedFromHome__block_inv
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v20 = 138543362;
-      v21 = v12;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Local preferred residents list is already up to date", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v12;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Local preferred residents list is already up to date", &v19, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -628,11 +620,11 @@ void __61__HMDResidentSelectionMode_preferredResidentsRemovedFromHome__block_inv
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       v17 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v17;
-      v22 = 2112;
-      v23 = v5;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Updating local preferred residents list: %@.", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v17;
+      v21 = 2112;
+      v22 = v5;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Updating local preferred residents list: %@.", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v14);
@@ -640,13 +632,12 @@ void __61__HMDResidentSelectionMode_preferredResidentsRemovedFromHome__block_inv
     v13 = 1;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (void)_publishElectorsList
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   context = [(HMDResidentSelectionMode *)self context];
   electorsPreferredResidentsList = [context electorsPreferredResidentsList];
 
@@ -661,11 +652,11 @@ void __61__HMDResidentSelectionMode_preferredResidentsRemovedFromHome__block_inv
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2112;
-      v15 = electorsPreferredResidentsList;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Publishing the preferred residents list from elector: %@.", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v10;
+      v13 = 2112;
+      v14 = electorsPreferredResidentsList;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Publishing the preferred residents list from elector: %@.", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -676,13 +667,11 @@ void __61__HMDResidentSelectionMode_preferredResidentsRemovedFromHome__block_inv
   {
     [(HMDResidentSelectionMode *)self _updateLocalPreferredResidentsList];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDailyPreferredResidentsListRegenerationNotification:(id)notification
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo hmf_stringForKey:@"HMD.BGTM.NK"];
@@ -699,7 +688,7 @@ void __61__HMDResidentSelectionMode_preferredResidentsRemovedFromHome__block_inv
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v17 = v12;
+      v16 = v12;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Preferred residents list regeneration task fired.", buf, 0xCu);
     }
 
@@ -712,13 +701,11 @@ void __61__HMDResidentSelectionMode_preferredResidentsRemovedFromHome__block_inv
     block[4] = selfCopy;
     dispatch_async(queue, block);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __86__HMDResidentSelectionMode_handleDailyPreferredResidentsListRegenerationNotification___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) _updateLocalPreferredResidentsList];
   if ([*(a1 + 32) currentModeType] == 2)
   {
@@ -742,7 +729,7 @@ uint64_t __86__HMDResidentSelectionMode_handleDailyPreferredResidentsListRegener
         {
           v12 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v26 = v12;
+          v25 = v12;
           _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Preferred resident is removed while in Manual mode. Will force switch to Auto mode.", buf, 0xCu);
         }
 
@@ -753,24 +740,22 @@ uint64_t __86__HMDResidentSelectionMode_handleDailyPreferredResidentsListRegener
 
         v16 = [*(a1 + 32) delegate];
         v17 = *(a1 + 32);
-        v20 = MEMORY[0x277D85DD0];
-        v21 = 3221225472;
-        v22 = __86__HMDResidentSelectionMode_handleDailyPreferredResidentsListRegenerationNotification___block_invoke_151;
-        v23 = &unk_27868A250;
-        v24 = v17;
+        v19 = MEMORY[0x277D85DD0];
+        v20 = 3221225472;
+        v21 = __86__HMDResidentSelectionMode_handleDailyPreferredResidentsListRegenerationNotification___block_invoke_151;
+        v22 = &unk_27868A250;
+        v23 = v17;
         [v16 primarySelectionMode:? didUpdateResidentSelectionInfo:? completion:?];
       }
     }
   }
 
-  result = [*(a1 + 32) scheduleDailyPreferredResidentsListRegenerationTask];
-  v19 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) scheduleDailyPreferredResidentsListRegenerationTask];
 }
 
 void __86__HMDResidentSelectionMode_handleDailyPreferredResidentsListRegenerationNotification___block_invoke_151(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -778,18 +763,17 @@ void __86__HMDResidentSelectionMode_handleDailyPreferredResidentsListRegeneratio
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Model update for switching from Manual to Auto mode completed.", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Model update for switching from Manual to Auto mode completed.", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_nextResidentsListGenerationDate
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D0F8D0] = [MEMORY[0x277D0F8D0] sharedPreferences];
   v4 = [mEMORY[0x277D0F8D0] preferenceForKey:@"rsPreferredListGenInterval"];
   numberValue = [v4 numberValue];
@@ -808,15 +792,15 @@ void __86__HMDResidentSelectionMode_handleDailyPreferredResidentsListRegeneratio
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         v15 = HMFGetLogIdentifier();
-        v26 = 138544130;
-        v27 = v15;
-        v28 = 2048;
-        v29 = 18000;
-        v30 = 2048;
+        v25 = 138544130;
+        v26 = v15;
+        v27 = 2048;
+        v28 = 18000;
+        v29 = 2048;
         preferredListGenerationStartHour2 = [(HMDResidentSelectionMode *)selfCopy preferredListGenerationStartHour];
-        v32 = 2048;
+        v31 = 2048;
         preferredListGenerationEndHour3 = [(HMDResidentSelectionMode *)selfCopy preferredListGenerationEndHour];
-        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Overriding to default allowedGenerationIntervalSeconds value %zu due to startHour=%zu, endHour=%zu", &v26, 0x2Au);
+        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Overriding to default allowedGenerationIntervalSeconds value %zu due to startHour=%zu, endHour=%zu", &v25, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -840,8 +824,6 @@ void __86__HMDResidentSelectionMode_handleDailyPreferredResidentsListRegeneratio
   {
     v7 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:?];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -884,7 +866,7 @@ void __86__HMDResidentSelectionMode_handleDailyPreferredResidentsListRegeneratio
 
 - (void)scheduleDailyPreferredResidentsListRegenerationTask
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   context = [(HMDResidentSelectionMode *)self context];
   isActingAsResident = [context isActingAsResident];
 
@@ -897,7 +879,7 @@ void __86__HMDResidentSelectionMode_handleDailyPreferredResidentsListRegeneratio
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v26 = v11;
+      v25 = v11;
       v12 = "%{public}@Scheduling preferred resident list regen task on non-resident";
       v13 = v10;
       v14 = OS_LOG_TYPE_ERROR;
@@ -907,7 +889,7 @@ void __86__HMDResidentSelectionMode_handleDailyPreferredResidentsListRegeneratio
 LABEL_8:
 
     objc_autoreleasePoolPop(v8);
-    goto LABEL_12;
+    return;
   }
 
   backgroundTaskManager = [(HMDResidentSelectionMode *)self backgroundTaskManager];
@@ -923,7 +905,7 @@ LABEL_8:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v26 = v11;
+      v25 = v11;
       v12 = "%{public}@Not scheduling the task to regenerate the preferred list because there is an outstanding one.";
       v13 = v10;
       v14 = OS_LOG_TYPE_INFO;
@@ -939,9 +921,9 @@ LABEL_7:
   _nextResidentsListGenerationDate = [(HMDResidentSelectionMode *)self _nextResidentsListGenerationDate];
   backgroundTaskManager2 = [(HMDResidentSelectionMode *)self backgroundTaskManager];
   backgroundTaskIdentifier2 = [(HMDResidentSelectionMode *)self backgroundTaskIdentifier];
-  v24 = 0;
-  [backgroundTaskManager2 scheduleTaskWithIdentifier:backgroundTaskIdentifier2 fireDate:_nextResidentsListGenerationDate onObserver:self selector:sel_handleDailyPreferredResidentsListRegenerationNotification_ error:&v24];
-  v18 = v24;
+  v23 = 0;
+  [backgroundTaskManager2 scheduleTaskWithIdentifier:backgroundTaskIdentifier2 fireDate:_nextResidentsListGenerationDate onObserver:self selector:sel_handleDailyPreferredResidentsListRegenerationNotification_ error:&v23];
+  v18 = v23;
 
   v19 = objc_autoreleasePoolPush();
   selfCopy3 = self;
@@ -950,15 +932,13 @@ LABEL_7:
   {
     v22 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v26 = v22;
-    v27 = 2112;
-    v28 = _nextResidentsListGenerationDate;
+    v25 = v22;
+    v26 = 2112;
+    v27 = _nextResidentsListGenerationDate;
     _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Scheduled a background task for preferred residents list regeneration for: %@.", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v19);
-LABEL_12:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deregisterForMessages
@@ -970,7 +950,7 @@ LABEL_12:
 
 - (id)backupsForResident:(id)resident
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   residentCopy = resident;
   sortedResidents = [(HMDResidentSelectionMode *)self sortedResidents];
   v6 = sortedResidents;
@@ -988,16 +968,14 @@ LABEL_12:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v11;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@There are no residents available to act as a backup.", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v11;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@There are no residents available to act as a backup.", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
     v7 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1042,7 +1020,7 @@ LABEL_12:
 
 void __94__HMDResidentSelectionMode_handleWeAreSelectedAsThePreferredPrimaryWithInfo_selectionMessage___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1053,11 +1031,11 @@ void __94__HMDResidentSelectionMode_handleWeAreSelectedAsThePreferredPrimaryWith
     if (v7)
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Completed selection with error: %@.", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Completed selection with error: %@.", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -1069,21 +1047,19 @@ void __94__HMDResidentSelectionMode_handleWeAreSelectedAsThePreferredPrimaryWith
     if (v7)
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Successfully completed selection.", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Successfully completed selection.", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
     [*(a1 + 40) respondWithSuccess];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleWeAreSelectedAsThePreferredPrimaryWithSelectionTimestamp:(id)timestamp selectionMessage:(id)message
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   timestampCopy = timestamp;
   messageCopy = message;
   v8 = objc_autoreleasePoolPush();
@@ -1092,16 +1068,14 @@ void __94__HMDResidentSelectionMode_handleWeAreSelectedAsThePreferredPrimaryWith
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v11;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@We are selected as the new preferred.", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v11;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@We are selected as the new preferred.", &v13, 0xCu);
   }
 
   objc_autoreleasePoolPop(v8);
   v12 = [(HMDResidentSelectionMode *)selfCopy residentSelectionInfoWithOurselvesAsThePreferredWithTimestamp:timestampCopy];
   [(HMDResidentSelectionMode *)selfCopy handleWeAreSelectedAsThePreferredPrimaryWithInfo:v12 selectionMessage:messageCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_preferredResidentsListFromElectorUpdated
@@ -1208,7 +1182,7 @@ void __59__HMDResidentSelectionMode__generatePreferredResidentsList__block_invok
   [residentsPresentOnStatusKit hmf_enumerateWithAutoreleasePoolUsingBlock:v24];
 
   availableResidentDevices = [context availableResidentDevices];
-  v11 = [availableResidentDevices copy];
+  v11 = objc_msgSend_copy(availableResidentDevices);
 
   v18 = MEMORY[0x277D85DD0];
   v19 = 3221225472;
@@ -1265,31 +1239,31 @@ LABEL_5:
 
 - (BOOL)allResidentsAboveMeAreUnreachableIn:(id)in
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   inCopy = in;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
-  v35 = 1;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 1;
   context = [(HMDResidentSelectionMode *)self context];
   currentResidentDevice = [context currentResidentDevice];
   device = [currentResidentDevice device];
   idsIdentifier = [device idsIdentifier];
 
   residentsPresentOnStatusKit = [context residentsPresentOnStatusKit];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __64__HMDResidentSelectionMode_allResidentsAboveMeAreUnreachableIn___block_invoke;
-  v26[3] = &unk_278672850;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __64__HMDResidentSelectionMode_allResidentsAboveMeAreUnreachableIn___block_invoke;
+  v25[3] = &unk_278672850;
   v10 = idsIdentifier;
-  v27 = v10;
+  v26 = v10;
   v11 = residentsPresentOnStatusKit;
-  v31 = &v32;
-  v28 = v11;
+  v30 = &v31;
+  v27 = v11;
   selfCopy = self;
   v12 = context;
-  v30 = v12;
-  [inCopy hmf_enumerateWithAutoreleasePoolUsingBlock:v26];
+  v29 = v12;
+  [inCopy hmf_enumerateWithAutoreleasePoolUsingBlock:v25];
   firstObject = [inCopy firstObject];
   LOBYTE(device) = [firstObject isEqual:v10];
 
@@ -1301,7 +1275,7 @@ LABEL_5:
   takeOverInfo2 = [(HMDResidentSelectionMode *)self takeOverInfo];
   [takeOverInfo2 setTotalResidentCount:v16];
 
-  if ((v33[3] & device) == 1)
+  if ((v32[3] & device) == 1)
   {
     v18 = objc_autoreleasePoolPush();
     selfCopy2 = self;
@@ -1310,12 +1284,12 @@ LABEL_5:
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v37 = v21;
+      v36 = v21;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Taking over as the current primary since we are on top of the preferred residents list.", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v18);
-    if ((v33[3] & 1) == 0)
+    if ((v32[3] & 1) == 0)
     {
       goto LABEL_5;
     }
@@ -1326,7 +1300,7 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  if (*(v33 + 24))
+  if (*(v32 + 24))
   {
     goto LABEL_7;
   }
@@ -1336,10 +1310,9 @@ LABEL_5:
   [takeOverInfo3 setTakeOverFinding:5];
 LABEL_8:
 
-  v23 = *(v33 + 24);
-  _Block_object_dispose(&v32, 8);
+  v23 = *(v32 + 24);
+  _Block_object_dispose(&v31, 8);
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23 & 1;
 }
 
@@ -1365,7 +1338,7 @@ LABEL_5:
 
 - (BOOL)_shouldTakeOverBasedOnReachability
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   context = [(HMDResidentSelectionMode *)self context];
   electorsPreferredResidentsList = [context electorsPreferredResidentsList];
 
@@ -1381,13 +1354,13 @@ LABEL_5:
 
   v6 = [(HMDResidentSelectionMode *)self residentsNotPresentInPreferredResidentsList:residentIDSIdentifiers];
   array = [MEMORY[0x277CBEB18] array];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __62__HMDResidentSelectionMode__shouldTakeOverBasedOnReachability__block_invoke;
-  v17[3] = &unk_278684FC0;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __62__HMDResidentSelectionMode__shouldTakeOverBasedOnReachability__block_invoke;
+  v16[3] = &unk_278684FC0;
   v8 = array;
-  v18 = v8;
-  [v6 hmf_enumerateWithAutoreleasePoolUsingBlock:v17];
+  v17 = v8;
+  [v6 hmf_enumerateWithAutoreleasePoolUsingBlock:v16];
   v9 = [residentIDSIdentifiers arrayByAddingObjectsFromArray:v8];
   v10 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1396,16 +1369,15 @@ LABEL_5:
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v20 = v13;
-    v21 = 2112;
-    v22 = v9;
+    v19 = v13;
+    v20 = 2112;
+    v21 = v9;
     _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Preferred Residents: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v10);
   v14 = [(HMDResidentSelectionMode *)selfCopy allResidentsAboveMeAreUnreachableIn:v9];
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -1449,7 +1421,7 @@ void __62__HMDResidentSelectionMode__shouldTakeOverBasedOnReachability__block_in
 - (BOOL)shouldTakeOverAsTheCurrentPrimaryWithSelectionInfo:(id)info isTimerTriggered:(BOOL)triggered
 {
   triggeredCopy = triggered;
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   context = [(HMDResidentSelectionMode *)self context];
   if ([context isActingAsResident])
@@ -1486,9 +1458,9 @@ void __62__HMDResidentSelectionMode__shouldTakeOverBasedOnReachability__block_in
         if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
           v27 = HMFGetLogIdentifier();
-          v42 = 138543362;
-          v43 = v27;
-          _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@Should take over as the current primary since we are the user preferred.", &v42, 0xCu);
+          v41 = 138543362;
+          v42 = v27;
+          _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@Should take over as the current primary since we are the user preferred.", &v41, 0xCu);
         }
 
         objc_autoreleasePoolPop(v24);
@@ -1508,9 +1480,9 @@ void __62__HMDResidentSelectionMode__shouldTakeOverBasedOnReachability__block_in
           if (v35)
           {
             v36 = HMFGetLogIdentifier();
-            v42 = 138543362;
-            v43 = v36;
-            _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@Should take over as the current primary since all residents above me in the list are unreachable.", &v42, 0xCu);
+            v41 = 138543362;
+            v42 = v36;
+            _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@Should take over as the current primary since all residents above me in the list are unreachable.", &v41, 0xCu);
           }
 
           objc_autoreleasePoolPop(v32);
@@ -1528,13 +1500,13 @@ void __62__HMDResidentSelectionMode__shouldTakeOverBasedOnReachability__block_in
 
         if (v35)
         {
-          v40 = HMFGetLogIdentifier();
-          v41 = StringFromHMDResidentLocation([context myLocation]);
-          v42 = 138543618;
-          v43 = v40;
-          v44 = 2112;
-          v45 = v41;
-          _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@Should not take over as the current primary since none of the conditions apply. Our location: %@", &v42, 0x16u);
+          v39 = HMFGetLogIdentifier();
+          v40 = StringFromHMDResidentLocation([context myLocation]);
+          v41 = 138543618;
+          v42 = v39;
+          v43 = 2112;
+          v44 = v40;
+          _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@Should not take over as the current primary since none of the conditions apply. Our location: %@", &v41, 0x16u);
         }
 
         v18 = v32;
@@ -1554,11 +1526,11 @@ void __62__HMDResidentSelectionMode__shouldTakeOverBasedOnReachability__block_in
       {
         v17 = HMFGetLogIdentifier();
         shortDescription = [v8 shortDescription];
-        v42 = 138543618;
-        v43 = v17;
-        v44 = 2112;
-        v45 = shortDescription;
-        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@Should not take over as the current primary since the user preferred resident: %@ is viable.", &v42, 0x16u);
+        v41 = 138543618;
+        v42 = v17;
+        v43 = 2112;
+        v44 = shortDescription;
+        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@Should not take over as the current primary since the user preferred resident: %@ is viable.", &v41, 0x16u);
 
         goto LABEL_8;
       }
@@ -1575,9 +1547,9 @@ void __62__HMDResidentSelectionMode__shouldTakeOverBasedOnReachability__block_in
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         v17 = HMFGetLogIdentifier();
-        v42 = 138543362;
-        v43 = v17;
-        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@Should not take over as the current primary since there are other residents and we are not connected.", &v42, 0xCu);
+        v41 = 138543362;
+        v42 = v17;
+        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@Should not take over as the current primary since there are other residents and we are not connected.", &v41, 0xCu);
 LABEL_8:
       }
     }
@@ -1594,7 +1566,6 @@ LABEL_26:
   v19 = 0;
 LABEL_27:
 
-  v38 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -1608,7 +1579,7 @@ LABEL_27:
 
 - (BOOL)hasViablePrimaryResidentWithSelectionInfo:(id)info
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   context = [(HMDResidentSelectionMode *)self context];
   residentStatusChannel = [context residentStatusChannel];
@@ -1624,7 +1595,7 @@ LABEL_27:
   takeOverInfo = [(HMDResidentSelectionMode *)self takeOverInfo];
   [takeOverInfo setHasViablePrimary:0];
 
-  v54 = v13;
+  v53 = v13;
   if ([v13 isCurrentDevice])
   {
     v15 = objc_autoreleasePoolPush();
@@ -1633,14 +1604,14 @@ LABEL_27:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       HMFGetLogIdentifier();
-      v53 = currentResidentDevice;
+      v52 = currentResidentDevice;
       v18 = context;
       v19 = currentPrimaryResident;
       v20 = swVersion;
       v21 = infoCopy;
       v23 = v22 = version;
       *buf = 138543362;
-      v56 = v23;
+      v55 = v23;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Should take over since we are the user preferred and hence better than the current primary.", buf, 0xCu);
 
       version = v22;
@@ -1648,7 +1619,7 @@ LABEL_27:
       swVersion = v20;
       currentPrimaryResident = v19;
       context = v18;
-      currentResidentDevice = v53;
+      currentResidentDevice = v52;
     }
 
     objc_autoreleasePoolPop(v15);
@@ -1656,7 +1627,7 @@ LABEL_27:
     takeOverInfo4 = takeOverInfo2;
     v26 = 4;
 LABEL_13:
-    [takeOverInfo2 setViablePrimaryResult:{v26, v53}];
+    [takeOverInfo2 setViablePrimaryResult:{v26, v52}];
 LABEL_22:
 
     goto LABEL_23;
@@ -1670,12 +1641,12 @@ LABEL_22:
     if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
       HMFGetLogIdentifier();
-      v53 = currentResidentDevice;
+      v52 = currentResidentDevice;
       v37 = swVersion;
       v38 = infoCopy;
       v40 = v39 = version;
       *buf = 138543362;
-      v56 = v40;
+      v55 = v40;
       _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_DEFAULT, "%{public}@Should take over since the current primary is not reachable.", buf, 0xCu);
 
       version = v39;
@@ -1699,16 +1670,16 @@ LABEL_22:
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       HMFGetLogIdentifier();
-      v30 = v53 = v27;
+      v30 = v52 = v27;
       *buf = 138543874;
-      v56 = v30;
-      v57 = 2112;
-      v58 = swVersion;
-      v59 = 2112;
-      v60 = version;
+      v55 = v30;
+      v56 = 2112;
+      v57 = swVersion;
+      v58 = 2112;
+      v59 = version;
       _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@Should not take over since the current primary version: %@ is same or better than ours: %@.", buf, 0x20u);
 
-      v27 = v53;
+      v27 = v52;
     }
 
     objc_autoreleasePoolPop(v27);
@@ -1716,7 +1687,7 @@ LABEL_22:
     v32 = takeOverInfo3;
     v33 = 3;
 LABEL_21:
-    [takeOverInfo3 setViablePrimaryResult:{v33, v53}];
+    [takeOverInfo3 setViablePrimaryResult:{v33, v52}];
 
     takeOverInfo4 = [(HMDResidentSelectionMode *)selfCopy4 takeOverInfo];
     [takeOverInfo4 setHasViablePrimary:1];
@@ -1731,12 +1702,12 @@ LABEL_21:
     if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
     {
       HMFGetLogIdentifier();
-      v48 = v53 = v46;
+      v48 = v52 = v46;
       *buf = 138543362;
-      v56 = v48;
+      v55 = v48;
       _os_log_impl(&dword_229538000, v47, OS_LOG_TYPE_DEFAULT, "%{public}@Should not take over since we are not reachable.", buf, 0xCu);
 
-      v46 = v53;
+      v46 = v52;
     }
 
     objc_autoreleasePoolPop(v46);
@@ -1755,12 +1726,12 @@ LABEL_21:
   if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
   {
     HMFGetLogIdentifier();
-    v45 = v53 = v42;
+    v45 = v52 = v42;
     *buf = 138543362;
-    v56 = v45;
+    v55 = v45;
     _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_DEFAULT, "%{public}@Should take over since the current primary is not better than us.", buf, 0xCu);
 
-    v42 = v53;
+    v42 = v52;
   }
 
   objc_autoreleasePoolPop(v42);
@@ -1768,7 +1739,6 @@ LABEL_23:
   takeOverInfo6 = [(HMDResidentSelectionMode *)self takeOverInfo];
   hasViablePrimary = [takeOverInfo6 hasViablePrimary];
 
-  v51 = *MEMORY[0x277D85DE8];
   return hasViablePrimary;
 }
 
@@ -1786,7 +1756,7 @@ LABEL_23:
 
 - (void)takeOverWithSelectionTimestamp:(id)timestamp
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   timestampCopy = timestamp;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1794,9 +1764,9 @@ LABEL_23:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v15 = 138543362;
-    v16 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Taking over as the current primary.", &v15, 0xCu);
+    v14 = 138543362;
+    v15 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Taking over as the current primary.", &v14, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -1808,31 +1778,83 @@ LABEL_23:
   [delegate primarySelectionMode:selfCopy didReceivePrimaryResidentIdsIdentifier:idsIdentifier selectionTimestamp:timestampCopy];
 
   [(HMDResidentSelectionMode *)selfCopy cancelAllTakeOverTimers];
-  v14 = *MEMORY[0x277D85DE8];
+}
+
+- (BOOL)takeOverIfConditionsAreMetWithIsTimerTriggered:(BOOL)triggered
+{
+  triggeredCopy = triggered;
+  v23 = *MEMORY[0x277D85DE8];
+  context = [(HMDResidentSelectionMode *)self context];
+  if ([context isActingAsResident])
+  {
+    residentSelectionInfo = [context residentSelectionInfo];
+    v7 = [(HMDResidentSelectionMode *)self shouldTakeOverAsTheCurrentPrimaryWithSelectionInfo:residentSelectionInfo isTimerTriggered:triggeredCopy];
+    takeOverInfo = [(HMDResidentSelectionMode *)self takeOverInfo];
+    [takeOverInfo setFinalDecision:v7];
+
+    v9 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v11 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = HMFGetLogIdentifier();
+      takeOverInfo2 = [(HMDResidentSelectionMode *)selfCopy takeOverInfo];
+      v19 = 138543618;
+      v20 = v12;
+      v21 = 2112;
+      v22 = takeOverInfo2;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Take over snapshot: %@", &v19, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v9);
+    if (v7)
+    {
+      selectionTimestamp = [residentSelectionInfo selectionTimestamp];
+      [(HMDResidentSelectionMode *)selfCopy takeOverWithSelectionTimestamp:selectionTimestamp];
+    }
+  }
+
+  else
+  {
+    v7 = objc_autoreleasePoolPush();
+    selfCopy2 = self;
+    v16 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      v17 = HMFGetLogIdentifier();
+      v19 = 138543362;
+      v20 = v17;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Evaluating becoming the primary on non-resident", &v19, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v7);
+    LOBYTE(v7) = 0;
+  }
+
+  return v7;
 }
 
 - (void)handleTakeOverTimerFired
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Takeover timer fired.", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Takeover timer fired.", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   [(HMDResidentSelectionMode *)selfCopy takeOverIfConditionsAreMetWithIsTimerTriggered:1];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_rescheduleTakeOverTimer
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   [(HMDResidentSelectionMode *)self _takeOverTimerInterval];
   v4 = v3;
   v5 = objc_autoreleasePoolPush();
@@ -1841,11 +1863,11 @@ LABEL_23:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = HMFGetLogIdentifier();
-    v16 = 138543618;
-    v17 = v8;
-    v18 = 2048;
-    v19 = v4;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Rescheduling take over time in %f", &v16, 0x16u);
+    v15 = 138543618;
+    v16 = v8;
+    v17 = 2048;
+    v18 = v4;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Rescheduling take over time in %f", &v15, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -1864,8 +1886,6 @@ LABEL_23:
 
   takeOverTimer4 = [(HMDResidentSelectionMode *)selfCopy takeOverTimer];
   [takeOverTimer4 resume];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (double)_takeOverTimerInterval
@@ -1889,7 +1909,7 @@ LABEL_23:
 
 - (void)scheduleTakeOverTimerIfRequiredAfterBlockDuration:(double)duration
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   takeOverIfPrimaryIsNotViableTimer = [(HMDResidentSelectionMode *)self takeOverIfPrimaryIsNotViableTimer];
   isRunning = [takeOverIfPrimaryIsNotViableTimer isRunning];
 
@@ -1903,11 +1923,11 @@ LABEL_23:
       v10 = HMFGetLogIdentifier();
       takeOverIfPrimaryIsNotViableTimer2 = [(HMDResidentSelectionMode *)selfCopy takeOverIfPrimaryIsNotViableTimer];
       fireDate = [takeOverIfPrimaryIsNotViableTimer2 fireDate];
-      v22 = 138543618;
-      v23 = v10;
-      v24 = 2112;
-      v25 = *&fireDate;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Primary takeover is blocked. Take over timer is already running. It will fire at: %@.", &v22, 0x16u);
+      v21 = 138543618;
+      v22 = v10;
+      v23 = 2112;
+      v24 = *&fireDate;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Primary takeover is blocked. Take over timer is already running. It will fire at: %@.", &v21, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -1922,11 +1942,11 @@ LABEL_23:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v17 = HMFGetLogIdentifier();
-      v22 = 138543618;
-      v23 = v17;
-      v24 = 2048;
-      v25 = v13;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@Primary takeover is blocked. Scheduling timer after: %fs", &v22, 0x16u);
+      v21 = 138543618;
+      v22 = v17;
+      v23 = 2048;
+      v24 = v13;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@Primary takeover is blocked. Scheduling timer after: %fs", &v21, 0x16u);
     }
 
     objc_autoreleasePoolPop(v14);
@@ -1936,27 +1956,110 @@ LABEL_23:
     v20 = [(HMDResidentTakeOverInfo *)v18 initWithContext:context takeOverTrigger:5];
     [(HMDResidentSelectionMode *)selfCopy2 setTakeOverInfo:v20];
   }
+}
 
-  v21 = *MEMORY[0x277D85DE8];
+- (BOOL)takeOverIfPrimaryIsNotViableWithIsTimerTriggered:(BOOL)triggered
+{
+  triggeredCopy = triggered;
+  v26 = *MEMORY[0x277D85DE8];
+  context = [(HMDResidentSelectionMode *)self context];
+  if (([context isActingAsResident] & 1) == 0)
+  {
+    v7 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v9 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      v10 = HMFGetLogIdentifier();
+      v22 = 138543362;
+      v23 = v10;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Evaluating becoming the primary on non-resident", &v22, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v7);
+    goto LABEL_7;
+  }
+
+  [context blockPrimaryTakeoverDuration];
+  if (v6 <= 0.0)
+  {
+    residentSelectionInfo = [context residentSelectionInfo];
+    v13 = [(HMDResidentSelectionMode *)self shouldTakeOverAsTheCurrentPrimaryWithSelectionInfo:residentSelectionInfo isTimerTriggered:triggeredCopy];
+    if (v13)
+    {
+      v11 = [(HMDResidentSelectionMode *)self hasViablePrimaryResidentWithSelectionInfo:residentSelectionInfo]^ 1;
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+
+    takeOverInfo = [(HMDResidentSelectionMode *)self takeOverInfo];
+    [takeOverInfo setFinalDecision:v11];
+
+    v15 = objc_autoreleasePoolPush();
+    selfCopy2 = self;
+    v17 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      v18 = HMFGetLogIdentifier();
+      takeOverInfo2 = [(HMDResidentSelectionMode *)selfCopy2 takeOverInfo];
+      v22 = 138543618;
+      v23 = v18;
+      v24 = 2112;
+      v25 = takeOverInfo2;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Take over snapshot (with viable primary check): %@", &v22, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v15);
+    if (v11)
+    {
+      selectionTimestamp = [residentSelectionInfo selectionTimestamp];
+      [(HMDResidentSelectionMode *)selfCopy2 takeOverWithSelectionTimestamp:selectionTimestamp];
+    }
+
+    else
+    {
+      if (!v13)
+      {
+LABEL_18:
+
+        goto LABEL_19;
+      }
+
+      [(HMDResidentSelectionMode *)selfCopy2 _rescheduleTakeOverTimer];
+      selectionTimestamp = [[HMDResidentTakeOverInfo alloc] initWithContext:context takeOverTrigger:6];
+      [(HMDResidentSelectionMode *)selfCopy2 setTakeOverInfo:selectionTimestamp];
+    }
+
+    goto LABEL_18;
+  }
+
+  [(HMDResidentSelectionMode *)self scheduleTakeOverTimerIfRequiredAfterBlockDuration:?];
+LABEL_7:
+  LOBYTE(v11) = 0;
+LABEL_19:
+
+  return v11;
 }
 
 - (void)handleTakeOverIfPrimaryIsNotViableTimerFired
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Takeover if better than the current primary timer fired.", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Takeover if better than the current primary timer fired.", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   [(HMDResidentSelectionMode *)selfCopy takeOverIfPrimaryIsNotViableWithIsTimerTriggered:1];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_rescheduleTakeOverIfPrimaryIsNotViableTimerWithTimeInterval:(double)interval
@@ -2030,7 +2133,7 @@ void __108__HMDResidentSelectionMode_shouldRegeneratePreferredResidentsListBased
 
 - (void)handleMeshInformationRequest:(id)request
 {
-  v49[5] = *MEMORY[0x277D85DE8];
+  v48[5] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   dispatch_assert_queue_V2(self->_queue);
   context = [(HMDResidentSelectionMode *)self context];
@@ -2045,9 +2148,9 @@ void __108__HMDResidentSelectionMode_shouldRegeneratePreferredResidentsListBased
       v36 = HMFGetLogIdentifier();
       destination = [requestCopy destination];
       *buf = 138543618;
-      v43 = v36;
-      v44 = 2112;
-      v45 = destination;
+      v42 = v36;
+      v43 = 2112;
+      v44 = destination;
       v38 = "%{public}@Responding with error to mesh information request from: %@ due to missing context.";
 LABEL_14:
       _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_ERROR, v38, buf, 0x16u);
@@ -2073,9 +2176,9 @@ LABEL_15:
       v36 = HMFGetLogIdentifier();
       destination = [requestCopy destination];
       *buf = 138543618;
-      v43 = v36;
-      v44 = 2112;
-      v45 = destination;
+      v42 = v36;
+      v43 = 2112;
+      v44 = destination;
       v38 = "%{public}@Ignoring mesh information request from: %@ since we are not a resident.";
       goto LABEL_14;
     }
@@ -2083,7 +2186,7 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v41 = requestCopy;
+  v40 = requestCopy;
   v8 = MEMORY[0x277CCABB0];
   home = [v6 home];
   accessories = [home accessories];
@@ -2106,9 +2209,9 @@ LABEL_15:
       HMFGetLogIdentifier();
       v21 = v20 = v6;
       *buf = 138543618;
-      v43 = v21;
-      v44 = 2112;
-      v45 = primaryResidentDevice;
+      v42 = v21;
+      v43 = 2112;
+      v44 = primaryResidentDevice;
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Using resident: %@ for the leader for the mesh information request since we do not have a primary.", buf, 0x16u);
 
       v6 = v20;
@@ -2120,21 +2223,21 @@ LABEL_15:
   identifier = [primaryResidentDevice identifier];
   uUIDString = [identifier UUIDString];
 
-  v48[0] = @"r";
-  v40 = v6;
+  v47[0] = @"r";
+  v39 = v6;
   currentResidentDevice2 = [v6 currentResidentDevice];
   identifier2 = [currentResidentDevice2 identifier];
   uUIDString2 = [identifier2 UUIDString];
-  v49[0] = uUIDString2;
-  v49[1] = v11;
-  v48[1] = @"rip";
-  v48[2] = @"res";
-  v49[2] = v15;
-  v49[3] = uUIDString;
-  v48[3] = @"l";
-  v48[4] = @"p";
-  v49[4] = uUIDString;
-  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:5];
+  v48[0] = uUIDString2;
+  v48[1] = v11;
+  v47[1] = @"rip";
+  v47[2] = @"res";
+  v48[2] = v15;
+  v48[3] = uUIDString;
+  v47[3] = @"l";
+  v47[4] = @"p";
+  v48[4] = uUIDString;
+  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:5];
 
   v28 = objc_autoreleasePoolPush();
   selfCopy4 = self;
@@ -2144,23 +2247,21 @@ LABEL_15:
     v31 = HMFGetLogIdentifier();
     destination2 = [requestCopy destination];
     *buf = 138543874;
-    v43 = v31;
-    v44 = 2112;
-    v45 = destination2;
-    v46 = 2112;
-    v47 = v27;
+    v42 = v31;
+    v43 = 2112;
+    v44 = destination2;
+    v45 = 2112;
+    v46 = v27;
     _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@Handling mesh information request from: %@ and responding with: %@.", buf, 0x20u);
 
-    requestCopy = v41;
+    requestCopy = v40;
   }
 
   objc_autoreleasePoolPop(v28);
   [requestCopy respondWithPayload:v27];
 
-  v6 = v40;
+  v6 = v39;
 LABEL_16:
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_highestVersionLowestUUIDResident
@@ -2246,7 +2347,7 @@ uint64_t __68__HMDResidentSelectionMode__sortResidentsByLatestVersionLowestUUID_
 
 - (NSArray)sortedResidents
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   context = [(HMDResidentSelectionMode *)self context];
   home = [context home];
   enabledResidents = [home enabledResidents];
@@ -2259,15 +2360,14 @@ uint64_t __68__HMDResidentSelectionMode__sortResidentsByLatestVersionLowestUUID_
   {
     v10 = HMFGetLogIdentifier();
     shortDescription = [v6 shortDescription];
-    v14 = 138543618;
-    v15 = v10;
-    v16 = 2112;
-    v17 = shortDescription;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Residents after sorting: %@.", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v10;
+    v15 = 2112;
+    v16 = shortDescription;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Residents after sorting: %@.", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -2315,7 +2415,7 @@ uint64_t __68__HMDResidentSelectionMode__sortResidentsByLatestVersionLowestUUID_
 
 - (void)didUpdateResidentStatus:(id)status residentsFound:(id)found residentsLost:(id)lost
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   foundCopy = found;
   lostCopy = lost;
@@ -2349,14 +2449,14 @@ uint64_t __68__HMDResidentSelectionMode__sortResidentsByLatestVersionLowestUUID_
         {
           v24 = HMFGetLogIdentifier();
           [statusCopy residentIDSIdentifierToLocationMap];
-          v25 = v38 = v21;
+          v25 = v37 = v21;
           *buf = 138543618;
-          v40 = v24;
-          v41 = 2112;
-          v42 = *&v25;
+          v39 = v24;
+          v40 = 2112;
+          v41 = *&v25;
           _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Regenerating new preferred residents list. Latest location info: %@", buf, 0x16u);
 
-          v21 = v38;
+          v21 = v37;
         }
 
         objc_autoreleasePoolPop(v21);
@@ -2380,13 +2480,13 @@ uint64_t __68__HMDResidentSelectionMode__sortResidentsByLatestVersionLowestUUID_
           v34 = HMFBooleanToString();
           v35 = HMFBooleanToString();
           *buf = 138544130;
-          v40 = v33;
-          v41 = 2048;
-          v42 = v29;
-          v43 = 2112;
-          v44 = v34;
-          v45 = 2112;
-          v46 = v35;
+          v39 = v33;
+          v40 = 2048;
+          v41 = v29;
+          v42 = 2112;
+          v43 = v34;
+          v44 = 2112;
+          v45 = v35;
           _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_INFO, "%{public}@Kicking off debounce for taking over evaluation in %f. Reachability changed: %@. Preferred Residents list updated: %@", buf, 0x2Au);
         }
 
@@ -2406,7 +2506,7 @@ uint64_t __68__HMDResidentSelectionMode__sortResidentsByLatestVersionLowestUUID_
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v40 = v18;
+        v39 = v18;
         _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@We are not connected per the latest resident status update, not acting on this update.", buf, 0xCu);
       }
 
@@ -2414,8 +2514,6 @@ uint64_t __68__HMDResidentSelectionMode__sortResidentsByLatestVersionLowestUUID_
       [(HMDResidentSelectionMode *)selfCopy3 cancelAllTakeOverTimers];
     }
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (double)_statusDebounceInterval
@@ -2439,7 +2537,7 @@ uint64_t __68__HMDResidentSelectionMode__sortResidentsByLatestVersionLowestUUID_
 
 - (void)didReceiveSelectionMessage:(id)message
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   messagePayload = [messageCopy messagePayload];
   v6 = [messagePayload hmf_UUIDForKey:@"primary.ids.identifier"];
@@ -2464,9 +2562,9 @@ uint64_t __68__HMDResidentSelectionMode__sortResidentsByLatestVersionLowestUUID_
         if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           v16 = HMFGetLogIdentifier();
-          v26 = 138543362;
-          v27 = v16;
-          _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Controller notified that current device is the new preferred primary", &v26, 0xCu);
+          v25 = 138543362;
+          v26 = v16;
+          _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Controller notified that current device is the new preferred primary", &v25, 0xCu);
         }
 
         objc_autoreleasePoolPop(v13);
@@ -2482,11 +2580,11 @@ uint64_t __68__HMDResidentSelectionMode__sortResidentsByLatestVersionLowestUUID_
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         v24 = HMFGetLogIdentifier();
-        v26 = 138543618;
-        v27 = v24;
-        v28 = 2112;
-        v29 = v6;
-        _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Message with preferred primary: %@ did not contain a preferred primary selection timestamp", &v26, 0x16u);
+        v25 = 138543618;
+        v26 = v24;
+        v27 = 2112;
+        v28 = v6;
+        _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Message with preferred primary: %@ did not contain a preferred primary selection timestamp", &v25, 0x16u);
       }
 
       objc_autoreleasePoolPop(v21);
@@ -2503,17 +2601,15 @@ uint64_t __68__HMDResidentSelectionMode__sortResidentsByLatestVersionLowestUUID_
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       v20 = HMFGetLogIdentifier();
-      v26 = 138543362;
-      v27 = v20;
-      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Message did not contain a preferred primary value", &v26, 0xCu);
+      v25 = 138543362;
+      v26 = v20;
+      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Message did not contain a preferred primary value", &v25, 0xCu);
     }
 
     objc_autoreleasePoolPop(v17);
     v8 = [MEMORY[0x277CCA9B8] hmErrorWithCode:27];
     [messageCopy respondWithError:v8];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didUpdateResidentSelectionModelTo:(id)to
@@ -2537,7 +2633,7 @@ uint64_t __68__HMDResidentSelectionMode__sortResidentsByLatestVersionLowestUUID_
 
 - (void)_evaluatePrimaryChangedReasonForCurrentSelectionInfo:(id)info previousSelectionInfo:(id)selectionInfo
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   selectionInfoCopy = selectionInfo;
   dispatch_assert_queue_V2(self->_queue);
@@ -2590,32 +2686,110 @@ LABEL_12:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     v16 = HMFGetLogIdentifier();
-    v18 = 138543618;
-    v19 = v16;
-    v20 = 2048;
+    v17 = 138543618;
+    v18 = v16;
+    v19 = 2048;
     primaryChangedReason = [(HMDResidentSelectionMode *)selfCopy primaryChangedReason];
-    _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@New evaluated primary changed reason: %lu", &v18, 0x16u);
+    _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@New evaluated primary changed reason: %lu", &v17, 0x16u);
   }
 
   objc_autoreleasePoolPop(v13);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __88__HMDResidentSelectionMode_sendSelectionMessageToResident_requireAutoUpdate_completion___block_invoke(void *a1)
+- (void)sendSelectionMessageToResident:(id)resident requireAutoUpdate:(BOOL)update completion:(id)completion
 {
-  v2 = a1[4];
+  updateCopy = update;
+  v42 = *MEMORY[0x277D85DE8];
+  residentCopy = resident;
+  completionCopy = completion;
+  if ([residentCopy isCurrentDevice])
+  {
+    queue = [(HMDResidentSelectionMode *)self queue];
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __88__HMDResidentSelectionMode_sendSelectionMessageToResident_requireAutoUpdate_completion___block_invoke;
+    block[3] = &unk_278689F98;
+    block[4] = self;
+    v37 = completionCopy;
+    v36 = residentCopy;
+    dispatch_async(queue, block);
+  }
+
+  else
+  {
+    device = [residentCopy device];
+    idsIdentifier = [device idsIdentifier];
+
+    if (idsIdentifier)
+    {
+      v38[0] = @"primary.ids.identifier";
+      device2 = [residentCopy device];
+      idsIdentifier2 = [device2 idsIdentifier];
+      uUIDString = [idsIdentifier2 UUIDString];
+      v39[0] = uUIDString;
+      v38[1] = @"primary.selection.timestamp";
+      date = [MEMORY[0x277CBEAA8] date];
+      v39[1] = date;
+      v38[2] = @"primary.selection.mode";
+      v17 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:{-[HMDResidentSelectionMode currentModeType](self, "currentModeType")}];
+      v39[2] = v17;
+      v38[3] = @"RS.requireAutoUpdate";
+      v18 = [MEMORY[0x277CCABB0] numberWithBool:updateCopy];
+      v39[3] = v18;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:4];
+
+      v20 = [HMDRemoteDeviceMessageDestination alloc];
+      messageTargetUUID = [(HMDResidentSelectionMode *)self messageTargetUUID];
+      device3 = [residentCopy device];
+      v23 = [(HMDRemoteDeviceMessageDestination *)v20 initWithTarget:messageTargetUUID device:device3];
+
+      v24 = [[HMDRemoteMessage alloc] initWithName:@"residentSelection.preferred" qualityOfService:25 destination:v23 payload:v19 type:0 timeout:1 secure:0.0 restriction:[(HMDResidentSelectionMode *)self messageTransportRestriction]];
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __88__HMDResidentSelectionMode_sendSelectionMessageToResident_requireAutoUpdate_completion___block_invoke_114;
+      v32[3] = &unk_278685AF8;
+      v34 = completionCopy;
+      v33 = residentCopy;
+      [(HMDRemoteMessage *)v24 setResponseHandler:v32];
+      context = [(HMDResidentSelectionMode *)self context];
+      messageDispatcher = [context messageDispatcher];
+      [messageDispatcher sendMessage:v24 completionHandler:0];
+    }
+
+    else
+    {
+      v27 = objc_autoreleasePoolPush();
+      selfCopy = self;
+      v29 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      {
+        v30 = HMFGetLogIdentifier();
+        *buf = 138543362;
+        v41 = v30;
+        _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@IDS identifier of the preferred resident is nil.", buf, 0xCu);
+      }
+
+      objc_autoreleasePoolPop(v27);
+      v31 = [MEMORY[0x277CCA9B8] hmErrorWithCode:27];
+      (*(completionCopy + 2))(completionCopy, residentCopy, v31);
+    }
+  }
+}
+
+uint64_t __88__HMDResidentSelectionMode_sendSelectionMessageToResident_requireAutoUpdate_completion___block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 32);
   v3 = [MEMORY[0x277CBEAA8] date];
   [v2 handleWeAreSelectedAsThePreferredPrimaryWithSelectionTimestamp:v3 selectionMessage:0];
 
-  v4 = a1[5];
-  v5 = *(a1[6] + 16);
+  v4 = *(*(a1 + 48) + 16);
 
-  return v5();
+  return v4();
 }
 
 - (void)didSucceedResidentSelectionWithPreferred:(id)preferred
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   preferredCopy = preferred;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -2623,11 +2797,11 @@ uint64_t __88__HMDResidentSelectionMode_sendSelectionMessageToResident_requireAu
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v8;
-    v14 = 2112;
-    v15 = preferredCopy;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Selection completed with preferred primary: %@.", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v8;
+    v13 = 2112;
+    v14 = preferredCopy;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Selection completed with preferred primary: %@.", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -2640,13 +2814,11 @@ uint64_t __88__HMDResidentSelectionMode_sendSelectionMessageToResident_requireAu
 
   [(HMDResidentSelectionMode *)selfCopy setSelectionCompletion:0];
   [(HMDResidentSelectionMode *)selfCopy setResidentsEnumerator:0];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didFailResidentSelectionWithResident:(id)resident error:(id)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   residentCopy = resident;
   errorCopy = error;
   residentsEnumerator = [(HMDResidentSelectionMode *)self residentsEnumerator];
@@ -2658,13 +2830,13 @@ uint64_t __88__HMDResidentSelectionMode_sendSelectionMessageToResident_requireAu
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     v13 = HMFGetLogIdentifier();
-    v18 = 138543874;
-    v19 = v13;
-    v20 = 2112;
-    v21 = residentCopy;
-    v22 = 2112;
-    v23 = nextObject;
-    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Failed to select resident %@. Attempting the next one: %@", &v18, 0x20u);
+    v17 = 138543874;
+    v18 = v13;
+    v19 = 2112;
+    v20 = residentCopy;
+    v21 = 2112;
+    v22 = nextObject;
+    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Failed to select resident %@. Attempting the next one: %@", &v17, 0x20u);
   }
 
   objc_autoreleasePoolPop(v10);
@@ -2686,8 +2858,6 @@ uint64_t __88__HMDResidentSelectionMode_sendSelectionMessageToResident_requireAu
     [(HMDResidentSelectionMode *)selfCopy setSelectionCompletion:0];
     [(HMDResidentSelectionMode *)selfCopy setResidentsEnumerator:0];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createSelectionMessageCompletion
@@ -2747,6 +2917,20 @@ void __60__HMDResidentSelectionMode_createSelectionMessageCompletion__block_invo
   }
 }
 
+- (void)selectPrimaryResidentFromResidents:(id)residents requireAutoUpdate:(BOOL)update completion:(id)completion
+{
+  updateCopy = update;
+  residentsCopy = residents;
+  [(HMDResidentSelectionMode *)self setSelectionCompletion:completion];
+  objectEnumerator = [residentsCopy objectEnumerator];
+
+  [(HMDResidentSelectionMode *)self setResidentsEnumerator:objectEnumerator];
+  residentsEnumerator = [(HMDResidentSelectionMode *)self residentsEnumerator];
+  nextObject = [residentsEnumerator nextObject];
+  createSelectionMessageCompletion = [(HMDResidentSelectionMode *)self createSelectionMessageCompletion];
+  [(HMDResidentSelectionMode *)self sendSelectionMessageToResident:nextObject requireAutoUpdate:updateCopy completion:createSelectionMessageCompletion];
+}
+
 - (void)performSelectionWithPreferredPrimaryResident:(id)resident requireAutoUpdate:(BOOL)update reason:(unint64_t)reason completion:(id)completion
 {
   residentCopy = resident;
@@ -2764,7 +2948,7 @@ void __60__HMDResidentSelectionMode_createSelectionMessageCompletion__block_invo
 
 - (BOOL)allowExternalUpdateOfPrimaryResidentTo:(id)to selectionTimestamp:(id)timestamp
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   toCopy = to;
   timestampCopy = timestamp;
   context = [(HMDResidentSelectionMode *)self context];
@@ -2776,13 +2960,13 @@ void __60__HMDResidentSelectionMode_createSelectionMessageCompletion__block_invo
   {
     v13 = HMFGetLogIdentifier();
     shortDescription = [toCopy shortDescription];
-    v34 = 138543874;
-    v35 = v13;
-    v36 = 2112;
-    v37 = shortDescription;
-    v38 = 2112;
-    v39 = *&timestampCopy;
-    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Evaluating to allow external update of primary resident to: %@ with selection timestamp: %@.", &v34, 0x20u);
+    v33 = 138543874;
+    v34 = v13;
+    v35 = 2112;
+    v36 = shortDescription;
+    v37 = 2112;
+    v38 = *&timestampCopy;
+    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Evaluating to allow external update of primary resident to: %@ with selection timestamp: %@.", &v33, 0x20u);
   }
 
   objc_autoreleasePoolPop(v10);
@@ -2808,13 +2992,13 @@ void __60__HMDResidentSelectionMode_createSelectionMessageCompletion__block_invo
       if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
       {
         v30 = HMFGetLogIdentifier();
-        v34 = 138543874;
-        v35 = v30;
-        v36 = 2112;
-        v37 = toCopy;
-        v38 = 2048;
-        v39 = v26;
-        _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_INFO, "%{public}@For now allowing external update of primary resident to: %@. Will reconsider in %f seconds", &v34, 0x20u);
+        v33 = 138543874;
+        v34 = v30;
+        v35 = 2112;
+        v36 = toCopy;
+        v37 = 2048;
+        v38 = v26;
+        _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_INFO, "%{public}@For now allowing external update of primary resident to: %@. Will reconsider in %f seconds", &v33, 0x20u);
       }
 
       objc_autoreleasePoolPop(v27);
@@ -2835,9 +3019,9 @@ LABEL_13:
   if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
     v21 = HMFGetLogIdentifier();
-    v34 = 138543362;
-    v35 = v21;
-    _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Not allowing external update of primary resident because its an REV2 device.", &v34, 0xCu);
+    v33 = 138543362;
+    v34 = v21;
+    _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Not allowing external update of primary resident because its an REV2 device.", &v33, 0xCu);
   }
 
   objc_autoreleasePoolPop(v18);
@@ -2849,7 +3033,6 @@ LABEL_12:
   v31 = !v17;
 
 LABEL_14:
-  v32 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
@@ -2905,7 +3088,7 @@ LABEL_14:
 - (void)configureAsAResidentWithRunPrimaryEvaluation:(BOOL)evaluation
 {
   evaluationCopy = evaluation;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   context = [(HMDResidentSelectionMode *)self context];
   isActingAsResident = [context isActingAsResident];
   v7 = objc_autoreleasePoolPush();
@@ -2917,11 +3100,11 @@ LABEL_14:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v17 = 138543618;
-      v18 = v11;
-      v19 = 1024;
-      v20 = evaluationCopy;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Configuring as a resident in the current mode. Run primary evaluation: %d", &v17, 0x12u);
+      v16 = 138543618;
+      v17 = v11;
+      v18 = 1024;
+      v19 = evaluationCopy;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Configuring as a resident in the current mode. Run primary evaluation: %d", &v16, 0x12u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -2943,20 +3126,18 @@ LABEL_14:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v15;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Configuring as resident on non-resident", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v15;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Configuring as resident on non-resident", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)currentDeviceReadyAsAResident
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   context = [(HMDResidentSelectionMode *)self context];
   isActingAsResident = [context isActingAsResident];
   v5 = objc_autoreleasePoolPush();
@@ -2968,9 +3149,9 @@ LABEL_14:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v9;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Current device ready as a resident", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v9;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Current device ready as a resident", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -2992,39 +3173,36 @@ LABEL_14:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Ready as resident on non-resident", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Ready as resident on non-resident", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting.", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting.", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   [(HMDResidentSelectionMode *)selfCopy _registerForMessagesAsAResident];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForMessagesAsAResident
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   context = [(HMDResidentSelectionMode *)self context];
   if ([context isActingAsResident])
@@ -3032,14 +3210,14 @@ LABEL_14:
     v4 = +[(HMDRemoteMessagePolicy *)HMDMutableRemoteMessagePolicy];
     [v4 setRequiresSecureMessage:1];
     [v4 setRoles:{objc_msgSend(v4, "roles") | 4}];
-    v5 = [v4 copy];
+    v5 = objc_msgSend_copy(v4);
     home = [context home];
     v7 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:3 remoteAccessRequired:0];
 
     messageDispatcher = [context messageDispatcher];
-    v15[0] = v5;
-    v15[1] = v7;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v14[0] = v5;
+    v14[1] = v7;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
     [messageDispatcher registerForMessage:@"mesh.meshInformationRequest" receiver:self policies:v9 selector:sel_handleMeshInformationRequest_];
   }
 
@@ -3052,14 +3230,12 @@ LABEL_14:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v17 = v13;
+      v16 = v13;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Not registering for messages since we are not a resident.", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDResidentSelectionMode)initWithContext:(id)context backgroundTaskManager:(id)manager
@@ -3118,10 +3294,9 @@ LABEL_14:
 
 void __39__HMDResidentSelectionMode_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v69;
-  logCategory__hmf_once_v69 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v69;
+  logCategory__hmf_once_v69 = v0;
 }
 
 @end

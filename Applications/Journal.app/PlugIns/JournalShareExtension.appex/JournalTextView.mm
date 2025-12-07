@@ -94,7 +94,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_10005EC50();
+  sub_10005EC50(selfCopy);
 }
 
 - (void)updateProperties
@@ -118,7 +118,7 @@
 - (void)deleteBackward
 {
   selfCopy = self;
-  sub_100060DE4();
+  sub_100060DE4(selfCopy);
 }
 
 - (BOOL)accessibilityActivate
@@ -139,7 +139,7 @@
 - (CGRect)accessibilityFrame
 {
   selfCopy = self;
-  v3 = sub_100062068();
+  v3 = sub_100062068(selfCopy);
   v5 = v4;
   v7 = v6;
   v9 = v8;
@@ -189,7 +189,7 @@
     [(JournalTextView *)&v6 deleteBackward];
   }
 
-  sub_10000FFB4(v7, &qword_10014CA68);
+  sub_10000FFB4(v7, &qword_10014CA68, &qword_10010D130);
 }
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
@@ -210,20 +210,20 @@
 
   v8 = sub_1000622D8(action, v10);
 
-  sub_10000FFB4(v10, &qword_10014CA68);
+  sub_10000FFB4(v10, &qword_10014CA68, &qword_10010D130);
   return v8 & 1;
 }
 
 - (id)editMenuForTextRange:(id)range suggestedActions:(id)actions
 {
-  sub_100010F50(0, &qword_10014E1F0);
-  sub_1001011D4();
+  sub_100010F50(0, &qword_10014E1F0, UIMenuElement_ptr);
+  v6 = sub_1001011D4();
   rangeCopy = range;
   selfCopy = self;
-  sub_1000628AC(rangeCopy);
-  v9 = v8;
+  sub_1000628AC(rangeCopy, v6);
+  v10 = v9;
 
-  return v9;
+  return v10;
 }
 
 - (void)validateCommand:(id)command

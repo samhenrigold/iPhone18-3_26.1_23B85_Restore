@@ -21,18 +21,17 @@
 
   if (unsignedIntegerValue >= 6)
   {
-    v3 = NNSetupCompanionSyncLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = NNSetupCompanionSyncLog(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = 134217984;
       v7 = unsignedIntegerValue;
-      _os_log_impl(&dword_25BF21000, v3, OS_LOG_TYPE_INFO, "Unknown type %lu", &v6, 0xCu);
+      _os_log_impl(&dword_25BF21000, v4, OS_LOG_TYPE_INFO, "Unknown type %lu", &v6, 0xCu);
     }
 
-    unsignedIntegerValue = 0;
+    return 0;
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return unsignedIntegerValue;
 }
 

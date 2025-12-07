@@ -120,12 +120,12 @@
 {
   preferredContentSizeCategory = [UIApp preferredContentSizeCategory];
   v4 = 20.0;
-  if (([preferredContentSizeCategory isEqualToString:@"UICTContentSizeCategoryXS"] & 1) == 0 && (objc_msgSend(preferredContentSizeCategory, "isEqualToString:", @"UICTContentSizeCategoryS") & 1) == 0 && (objc_msgSend(preferredContentSizeCategory, "isEqualToString:", @"UICTContentSizeCategoryM") & 1) == 0 && (objc_msgSend(preferredContentSizeCategory, "isEqualToString:", @"UICTContentSizeCategoryL") & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(preferredContentSizeCategory) & 1) == 0 && (objc_msgSend_isEqualToString_(preferredContentSizeCategory) & 1) == 0 && (objc_msgSend_isEqualToString_(preferredContentSizeCategory) & 1) == 0 && (objc_msgSend_isEqualToString_(preferredContentSizeCategory) & 1) == 0)
   {
     v4 = 22.0;
-    if (([preferredContentSizeCategory isEqualToString:@"UICTContentSizeCategoryXL"] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(preferredContentSizeCategory) & 1) == 0)
     {
-      if ([preferredContentSizeCategory isEqualToString:@"UICTContentSizeCategoryXXL"])
+      if (objc_msgSend_isEqualToString_(preferredContentSizeCategory))
       {
         v4 = 23.0;
       }

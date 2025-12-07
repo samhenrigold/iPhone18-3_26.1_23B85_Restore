@@ -134,7 +134,7 @@ void __57__WPAdvertisingRequestsQueue_removeRequestsOfClientType___block_invoke(
   return selfCopy;
 }
 
-uint64_t __57__WPAdvertisingRequestsQueue_isAdvertisingForClientType___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__57__WPAdvertisingRequestsQueue_isAdvertisingForClientType___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 clientType];
   if (result == *(a1 + 40))

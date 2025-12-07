@@ -1784,14 +1784,14 @@ uint64_t __73__CLSPersonIdentity_relationshipRegularExpressionForRelationship_lo
   return v2;
 }
 
-void __68__CLSPersonIdentity__personRelationshipVocabularyByLocaleDictionary__block_invoke()
+void __68__CLSPersonIdentity__personRelationshipVocabularyByLocaleDictionary__block_invoke(uint64_t a1)
 {
-  v0 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v3 = [v0 URLForResource:@"personRelationshipVocabulary" withExtension:@"plist"];
+  v1 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = [v1 URLForResource:@"personRelationshipVocabulary" withExtension:@"plist"];
 
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v3];
-  v2 = _personRelationshipVocabularyByLocaleDictionary_sPersonRelationshipVocabularyByLocaleDictionary;
-  _personRelationshipVocabularyByLocaleDictionary_sPersonRelationshipVocabularyByLocaleDictionary = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v4];
+  v3 = _personRelationshipVocabularyByLocaleDictionary_sPersonRelationshipVocabularyByLocaleDictionary;
+  _personRelationshipVocabularyByLocaleDictionary_sPersonRelationshipVocabularyByLocaleDictionary = v2;
 }
 
 + (BOOL)isFamilyRelationship:(unint64_t)relationship

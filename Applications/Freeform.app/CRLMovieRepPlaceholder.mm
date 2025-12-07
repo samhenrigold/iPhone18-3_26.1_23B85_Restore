@@ -9,7 +9,7 @@
 
 - (NSURL)previewItemURL
 {
-  v3 = sub_1005B981C(&unk_1019F33C0);
+  v3 = sub_1005B981C(&unk_1019F33C0, &unk_101468A60);
   __chkstk_darwin(v3 - 8);
   v5 = &v14 - v4;
   v6 = OBJC_IVAR____TtC8Freeform22CRLMovieRepPlaceholder_previewItemURL;
@@ -32,7 +32,7 @@
 
 - (void)setPreviewItemURL:(id)l
 {
-  v5 = sub_1005B981C(&unk_1019F33C0);
+  v5 = sub_1005B981C(&unk_1019F33C0, &unk_101468A60);
   __chkstk_darwin(v5 - 8);
   v7 = &v12 - v6;
   if (l)

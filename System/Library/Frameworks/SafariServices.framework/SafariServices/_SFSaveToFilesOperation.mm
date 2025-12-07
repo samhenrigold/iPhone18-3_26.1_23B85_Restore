@@ -32,7 +32,7 @@
   selfCopy = self;
   safari_privacyPreservingDescription = [OUTLINED_FUNCTION_2() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v4, v5, "Failed to delete temporary directory: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v4, v5, "Failed to delete temporary directory: %{public}@", v6, v7, v8, v9);
 }
 
 - (void)start
@@ -171,7 +171,7 @@ LABEL_6:
   {
 LABEL_12:
     canShareAsDownload = [v7 canShareAsDownload];
-    v20 = 0;
+    v22 = 0;
     goto LABEL_13;
   }
 
@@ -192,9 +192,10 @@ LABEL_7:
     v17 = [v15 properFilenameForOriginalFilename:_sf_suggestedFilename typeIdentifier:0 mimeType:_MIMEType sourceURL:_committedURL];
     v18 = [(_SFSaveToFilesOperation *)self _temporaryFileWithName:v17];
 
-    v55[0] = 0;
-    LODWORD(_MIMEType) = [item writeToURL:v18 options:0 error:v55];
-    v19 = v55[0];
+    v59[0] = 0;
+    LODWORD(_MIMEType) = [item writeToURL:v18 options:0 error:v59];
+    v19 = v59[0];
+    v21 = v19;
     if (_MIMEType)
     {
       dataCopy[2](dataCopy, v18, _committedURL, 0);
@@ -202,10 +203,10 @@ LABEL_7:
 
     else
     {
-      v26 = WBS_LOG_CHANNEL_PREFIXDownloads();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v28 = WBS_LOG_CHANNEL_PREFIXDownloads(v19, v20);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        [_SFSaveToFilesOperation _copyFileData:v26];
+        [_SFSaveToFilesOperation _copyFileData:v28];
       }
 
       dataCopy[2](dataCopy, 0, 0, 0);
@@ -219,7 +220,7 @@ LABEL_7:
     goto LABEL_12;
   }
 
-  v20 = 1;
+  v22 = 1;
   canShareAsDownload = 1;
 LABEL_13:
   downloadProvider = [(_SFActivityItemProviderCollection *)self->_collection downloadProvider];
@@ -247,20 +248,20 @@ LABEL_13:
       quickLookDocument = item2;
       quickLookDocument2 = [item quickLookDocument];
       inferredUTI = [quickLookDocument2 inferredUTI];
-      v52[0] = MEMORY[0x1E69E9820];
-      v52[1] = 3221225472;
-      v52[2] = __41___SFSaveToFilesOperation__copyFileData___block_invoke;
-      v52[3] = &unk_1E84959B0;
-      v54 = dataCopy;
-      v53 = item;
-      v32 = [quickLookDocument loadInPlaceFileRepresentationForTypeIdentifier:inferredUTI completionHandler:v52];
+      v56[0] = MEMORY[0x1E69E9820];
+      v56[1] = 3221225472;
+      v56[2] = __41___SFSaveToFilesOperation__copyFileData___block_invoke;
+      v56[3] = &unk_1E84959B0;
+      v58 = dataCopy;
+      v57 = item;
+      v34 = [quickLookDocument loadInPlaceFileRepresentationForTypeIdentifier:inferredUTI completionHandler:v56];
     }
 
 LABEL_41:
     goto LABEL_47;
   }
 
-  if ((v20 & 1) != 0 || [v7 canShareAsWebArchive])
+  if ((v22 & 1) != 0 || [v7 canShareAsWebArchive])
   {
     webArchiveProvider = [(_SFActivityItemProviderCollection *)self->_collection webArchiveProvider];
 
@@ -271,14 +272,14 @@ LABEL_41:
 
       if (webView)
       {
-        v29 = *MEMORY[0x1E69638F0];
-        v50[0] = MEMORY[0x1E69E9820];
-        v50[1] = 3221225472;
-        v50[2] = __41___SFSaveToFilesOperation__copyFileData___block_invoke_2;
-        v50[3] = &unk_1E84959D8;
-        v50[4] = self;
-        v51 = dataCopy;
-        [webView loadItemForTypeIdentifier:v29 options:0 completionHandler:v50];
+        v31 = *MEMORY[0x1E69638F0];
+        v54[0] = MEMORY[0x1E69E9820];
+        v54[1] = 3221225472;
+        v54[2] = __41___SFSaveToFilesOperation__copyFileData___block_invoke_2;
+        v54[3] = &unk_1E84959D8;
+        v54[4] = self;
+        v55 = dataCopy;
+        [webView loadItemForTypeIdentifier:v31 options:0 completionHandler:v54];
       }
 
       else
@@ -289,7 +290,7 @@ LABEL_41:
       goto LABEL_22;
     }
 
-    if (v20)
+    if (v22)
     {
       goto LABEL_51;
     }
@@ -307,15 +308,15 @@ LABEL_51:
       _sf_suggestedFilename = pdfItemProvider;
       if (pdfItemProvider)
       {
-        v35 = *MEMORY[0x1E6963858];
-        v46[0] = MEMORY[0x1E69E9820];
-        v46[1] = 3221225472;
-        v46[2] = __41___SFSaveToFilesOperation__copyFileData___block_invoke_4;
-        v46[3] = &unk_1E8495A00;
-        v47 = pdfItemProvider;
+        v37 = *MEMORY[0x1E6963858];
+        v50[0] = MEMORY[0x1E69E9820];
+        v50[1] = 3221225472;
+        v50[2] = __41___SFSaveToFilesOperation__copyFileData___block_invoke_4;
+        v50[3] = &unk_1E8495A00;
+        v51 = pdfItemProvider;
         selfCopy = self;
-        v49 = dataCopy;
-        v36 = [v47 loadDataRepresentationForTypeIdentifier:v35 completionHandler:v46];
+        v53 = dataCopy;
+        v38 = [v51 loadDataRepresentationForTypeIdentifier:v37 completionHandler:v50];
       }
 
       else
@@ -330,28 +331,29 @@ LABEL_22:
     }
   }
 
-  if ([(_SFActivityItemProviderCollection *)self->_collection displayingStandaloneMedia])
+  displayingStandaloneMedia = [(_SFActivityItemProviderCollection *)self->_collection displayingStandaloneMedia];
+  if (displayingStandaloneMedia)
   {
     selfCopy2 = self;
-    v38 = objc_loadWeakRetained(&self->_delegate);
+    v42 = objc_loadWeakRetained(&self->_delegate);
     if (objc_opt_respondsToSelector())
     {
-      v39 = [v38 saveToFilesOperationSupportsDownloads:selfCopy2];
+      v43 = [v42 saveToFilesOperationSupportsDownloads:selfCopy2];
 
-      if (v39)
+      if (v43)
       {
         item2 = [(_SFActivityItemProviderCollection *)self->_collection webView];
-        v40 = +[_SFDownloadDispatcher sharedDownloadDispatcher];
-        v41 = [v40 startDownloadForCurrentURLFromWebView:item2];
+        v44 = +[_SFDownloadDispatcher sharedDownloadDispatcher];
+        v45 = [v44 startDownloadForCurrentURLFromWebView:item2];
 
-        [v41 setExplicitlySaved:1];
-        v42 = +[_SFDownloadManager sharedManager];
-        [v41 setDelegate:v42];
+        [v45 setExplicitlySaved:1];
+        v46 = +[_SFDownloadManager sharedManager];
+        [v45 setDelegate:v46];
 
-        [v41 setPlaceholderImporter:selfCopy2];
-        v43 = _Block_copy(dataCopy);
+        [v45 setPlaceholderImporter:selfCopy2];
+        v47 = _Block_copy(dataCopy);
         prepareDownloadPlaceholderHandler = selfCopy2->_prepareDownloadPlaceholderHandler;
-        selfCopy2->_prepareDownloadPlaceholderHandler = v43;
+        selfCopy2->_prepareDownloadPlaceholderHandler = v47;
 
         goto LABEL_41;
       }
@@ -362,10 +364,10 @@ LABEL_22:
     }
   }
 
-  v45 = WBS_LOG_CHANNEL_PREFIXDownloads();
-  if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+  v49 = WBS_LOG_CHANNEL_PREFIXDownloads(displayingStandaloneMedia, v40);
+  if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
   {
-    [_SFSaveToFilesOperation _copyFileData:v45];
+    [_SFSaveToFilesOperation _copyFileData:v49];
   }
 
   dataCopy[2](dataCopy, 0, 0, 0);
@@ -419,7 +421,7 @@ LABEL_47:
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v4, v5, "Failed to save standalone image data: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v4, v5, "Failed to save standalone image data: %{public}@", v6, v7, v8, v9);
 }
 
 @end

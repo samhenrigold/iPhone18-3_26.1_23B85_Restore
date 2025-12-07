@@ -77,7 +77,7 @@
   v49 = metadataObject2;
   v43 = title;
   v41 = responseCopy;
-  v28 = [responseCopy state] == 2 || objc_msgSend(responseCopy, "state") == 5;
+  v28 = objc_msgSend_state(responseCopy) == 2 || objc_msgSend_state(responseCopy) == 5;
   v29 = (playingItem == 0) & ~v28;
   contentItemIdentifier = [playingItem contentItemIdentifier];
   artist = [song artist];

@@ -32,85 +32,84 @@ void sub_1000006DC(uint64_t a1, xpc_object_t object)
 {
   if (xpc_get_type(object) == &_xpc_type_dictionary)
   {
-    v4 = *(a1 + 32);
-    v5 = xpc_connection_copy_entitlement_value();
-    if (v5 && (v6 = v5, value = xpc_BOOL_get_value(v5), xpc_release(v6), value))
+    v4 = xpc_connection_copy_entitlement_value();
+    if (v4 && (v5 = v4, value = xpc_BOOL_get_value(v4), xpc_release(v5), value))
     {
       string = xpc_dictionary_get_string(object, "tz");
       if (string)
       {
-        v9 = string;
+        v8 = string;
         if (__strlcpy_chk() >= 0x400)
         {
-          v10 = 63;
+          v9 = 63;
 LABEL_17:
-          v11 = v10;
+          v10 = v9;
           goto LABEL_18;
         }
 
-        v12 = strdup(v9);
-        *&v15.st_dev = v12;
+        v11 = strdup(v8);
+        *&v14.st_dev = v11;
         while (1)
         {
-          v13 = strsep(&v15, "/");
-          if (!v13)
+          v12 = strsep(&v14, "/");
+          if (!v12)
           {
             break;
           }
 
-          v10 = 22;
-          if (!*v13 || *v13 == 46)
+          v9 = 22;
+          if (!*v12 || *v12 == 46)
           {
             goto LABEL_16;
           }
 
           if (__strlcat_chk() > 0x3FF || __strlcat_chk() >= 0x400)
           {
-            v10 = 63;
+            v9 = 63;
 LABEL_16:
-            free(v12);
+            free(v11);
             goto LABEL_17;
           }
         }
 
-        free(v12);
-        memset(&v15, 0, sizeof(v15));
-        if (lstat(v16, &v15))
+        free(v11);
+        memset(&v14, 0, sizeof(v14));
+        if (lstat(v15, &v14))
         {
           if (!*__error())
           {
             goto LABEL_35;
           }
 
-          v10 = *__error();
-          if (v10)
+          v9 = *__error();
+          if (v9)
           {
             goto LABEL_17;
           }
 
 LABEL_32:
           unlink("/var/db/timezone/localtime");
-          if (!symlink(v16, "/var/db/timezone/localtime"))
+          if (!symlink(v15, "/var/db/timezone/localtime"))
           {
             notify_post("SignificantTimeChangeNotification");
-            v10 = 0;
+            v9 = 0;
             goto LABEL_17;
           }
 
           if (*__error())
           {
-            v10 = *__error();
+            v9 = *__error();
             goto LABEL_17;
           }
 
 LABEL_35:
-          v10 = 14;
+          v9 = 14;
           goto LABEL_17;
         }
 
-        if ((v15.st_mode & 0xF000) == 0x8000)
+        if ((v14.st_mode & 0xF000) == 0x8000)
         {
-          if (*&v15.st_uid)
+          if (*&v14.st_uid)
           {
             if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
             {
@@ -120,7 +119,7 @@ LABEL_35:
 
           else
           {
-            if ((v15.st_mode & 0x1FF) == 0x1A4)
+            if ((v14.st_mode & 0x1FF) == 0x1A4)
             {
               goto LABEL_32;
             }
@@ -134,24 +133,24 @@ LABEL_35:
 
         else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
         {
-          sub_1000009EC(v16);
+          sub_1000009EC(v15);
         }
 
-        v10 = 2;
+        v9 = 2;
         goto LABEL_17;
       }
 
-      v11 = 22;
+      v10 = 22;
     }
 
     else
     {
-      v11 = 1;
+      v10 = 1;
     }
 
 LABEL_18:
     reply = xpc_dictionary_create_reply(object);
-    xpc_dictionary_set_uint64(reply, "error", v11);
+    xpc_dictionary_set_uint64(reply, "error", v10);
     xpc_connection_send_message(*(a1 + 32), reply);
     xpc_release(reply);
   }

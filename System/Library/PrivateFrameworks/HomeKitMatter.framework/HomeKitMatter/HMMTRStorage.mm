@@ -33,6 +33,7 @@
 - (BOOL)setStorageData:(id)data forKey:(id)key;
 - (BOOL)setValueForKey:(id)key removingKeys:(id)keys systemCommissionerFabric:(BOOL)fabric block:(id)block;
 - (BOOL)setValueForKey:(id)key value:(id)value;
+- (BOOL)setValueForKey:(id)key value:(id)value systemCommissionerFabric:(BOOL)fabric;
 - (BOOL)syncDataSourceDictionary:(id)dictionary forFabric:(id)fabric;
 - (BOOL)threadCredentialManagementEnabledForSystemCommissionerFabricNode:(id)node;
 - (BOOL)wedSupportedForSystemCommissionerFabricNode:(id)node;
@@ -50,6 +51,7 @@
 - (id)logIdentifier;
 - (id)operationalCertificate;
 - (id)pairedNodeIDsFromStoredStringValue:(id)value;
+- (id)pairedNodeIDsOnSystemCommissionerFabric:(BOOL)fabric;
 - (id)productIDForNode:(id)node;
 - (id)productIDForSystemCommissionerFabricNode:(id)node;
 - (id)rootCertificate;
@@ -70,11 +72,14 @@
 - (void)_setPreferencesValueForKey:(id)key value:(id)value;
 - (void)_syncToRemoteStorage;
 - (void)addPairedNodeID:(id)d;
+- (void)addPairedNodeID:(id)d toSystemCommissionerFabric:(BOOL)fabric;
 - (void)clearStaleItems;
 - (void)endLocalStorageModeByPersistingAppleFabricData;
 - (void)endLocalStorageModeBySyncingToRemote:(BOOL)remote;
 - (void)removeAndSyncAllKeysNotIncludedInActiveNodeIDs:(id)ds;
 - (void)removePairedNodeID:(id)d;
+- (void)removePairedNodeID:(id)d fromSystemCommissionerFabric:(BOOL)fabric;
+- (void)removeRecordsForNode:(id)node systemCommissionerFabric:(BOOL)fabric;
 - (void)removeRecordsForNodeIDs:(id)ds systemCommissionerFabric:(BOOL)fabric;
 - (void)removeRecordsForSystemCommissionerFabricNode:(id)node;
 - (void)setCategory:(id)category forNode:(id)node;
@@ -86,17 +91,21 @@
 - (void)setLocalStorageMode:(BOOL)mode;
 - (void)setOperationalCertificate:(id)certificate;
 - (void)setPairedNodeIDs:(id)ds;
+- (void)setPairedNodeIDs:(id)ds forSystemCommissionerFabric:(BOOL)fabric;
 - (void)setProductID:(id)d forNode:(id)node;
 - (void)setProductID:(id)d forSystemCommissionerFabricNode:(id)node;
 - (void)setRootCertificate:(id)certificate;
 - (void)setSerialNumber:(id)number forSystemCommissionerFabricNode:(id)node;
 - (void)setSetupPayload:(id)payload forSystemCommissionerFabricNode:(id)node;
+- (void)setStaged:(BOOL)staged forNode:(id)node;
 - (void)setSystemCommissionerFabricNodeID:(id)d forUuid:(id)uuid;
+- (void)setThreadCredentialManagementEnabled:(BOOL)enabled forSystemCommissionerFabricNode:(id)node;
 - (void)setThreadCredentialManagementEndpoint:(id)endpoint forSystemCommissionerFabricNode:(id)node;
 - (void)setTopology:(id)topology forNode:(id)node;
 - (void)setUuid:(id)uuid forSystemCommissionerFabricNode:(id)node;
 - (void)setVendorID:(id)d forNode:(id)node;
 - (void)setVendorID:(id)d forSystemCommissionerFabricNode:(id)node;
+- (void)setWEDSupported:(BOOL)supported forSystemCommissionerFabricNode:(id)node;
 - (void)startLocalStorageMode;
 @end
 
@@ -104,7 +113,7 @@
 
 - (void)removeRecordsForSystemCommissionerFabricNode:(id)node
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -112,11 +121,11 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v27 = 138543618;
-    v28 = v8;
-    v29 = 2112;
-    v30 = nodeCopy;
-    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Deleting records from storage for System Commissioner Fabric NodeID: %@", &v27, 0x16u);
+    v26 = 138543618;
+    v27 = v8;
+    v28 = 2112;
+    v29 = nodeCopy;
+    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Deleting records from storage for System Commissioner Fabric NodeID: %@", &v26, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -174,34 +183,32 @@
 
   v25 = [HMMTRStorage formatKeyForNodeId:nodeCopy key:@"HMD.MTRPlugin.MTS.TCM.on"];
   [(HMMTRStorage *)selfCopy removeValueForKey:v25 systemCommissionerFabric:1];
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)threadCredentialManagementNodesAndEndpointsForSystemCommissioner
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = [(HMMTRStorage *)self pairedNodeIDsOnSystemCommissionerFabric:1, 0];
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         v10 = [(HMMTRStorage *)self threadCredentialManagementEndpointForSystemCommissionerFabricNode:v9];
         if (v10 && [(HMMTRStorage *)self threadCredentialManagementEnabledForSystemCommissionerFabricNode:v9])
         {
@@ -209,13 +216,11 @@
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -239,6 +244,14 @@
   bOOLValue = [v7 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setThreadCredentialManagementEnabled:(BOOL)enabled forSystemCommissionerFabricNode:(id)node
+{
+  enabledCopy = enabled;
+  v7 = [HMMTRStorage formatKeyForNodeId:node key:@"HMD.MTRPlugin.MTS.TCM.on"];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+  [(HMMTRStorage *)self setValueForKey:v7 value:v6 systemCommissionerFabric:1];
 }
 
 - (id)threadCredentialManagementEndpointForSystemCommissionerFabricNode:(id)node
@@ -323,6 +336,14 @@
   }
 
   return v8;
+}
+
+- (void)setWEDSupported:(BOOL)supported forSystemCommissionerFabricNode:(id)node
+{
+  supportedCopy = supported;
+  v7 = [HMMTRStorage formatKeyForNodeId:node key:@"HMD.MTRPlugin.MTS.WEDSupported."];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:supportedCopy];
+  [(HMMTRStorage *)self setValueForKey:v7 value:v6 systemCommissionerFabric:1];
 }
 
 - (id)categoryForSystemCommissionerFabricNode:(id)node
@@ -491,7 +512,7 @@
 
 - (void)removeAndSyncAllKeysNotIncludedInActiveNodeIDs:(id)ds
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -500,28 +521,26 @@
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v14 = v8;
-    v15 = 2112;
-    v16 = dsCopy;
+    v13 = v8;
+    v14 = 2112;
+    v15 = dsCopy;
     _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Removing all keys not included in active node IDs: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __72__HMMTRStorage_Records__removeAndSyncAllKeysNotIncludedInActiveNodeIDs___block_invoke;
-  v11[3] = &unk_2786ED840;
-  v11[4] = selfCopy;
-  v12 = dsCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __72__HMMTRStorage_Records__removeAndSyncAllKeysNotIncludedInActiveNodeIDs___block_invoke;
+  v10[3] = &unk_2786ED840;
+  v10[4] = selfCopy;
+  v11 = dsCopy;
   v9 = dsCopy;
-  [(HMMTRStorage *)selfCopy replaceAllKeysAndSyncWithBlock:v11 systemCommissionerFabric:[(HMMTRStorage *)selfCopy isSystemCommissionerFabric:v11[0]]];
-
-  v10 = *MEMORY[0x277D85DE8];
+  [(HMMTRStorage *)selfCopy replaceAllKeysAndSyncWithBlock:v10 systemCommissionerFabric:[(HMMTRStorage *)selfCopy isSystemCommissionerFabric:v10[0]]];
 }
 
 id __72__HMMTRStorage_Records__removeAndSyncAllKeysNotIncludedInActiveNodeIDs___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [HMMTRStorage accessoryNodeIDFromPluginKey:v5];
@@ -546,12 +565,12 @@ LABEL_16:
   v9 = [*(a1 + 32) pairedNodeIDsFromStoredStringValue:v6];
   v10 = [v9 mutableCopy];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v11 = [v10 copy];
-  v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (!v12)
   {
 
@@ -561,19 +580,19 @@ LABEL_18:
   }
 
   v13 = v12;
-  v21 = v6;
+  v20 = v6;
   v14 = 0;
-  v15 = *v23;
+  v15 = *v22;
   do
   {
     for (i = 0; i != v13; ++i)
     {
-      if (*v23 != v15)
+      if (*v22 != v15)
       {
         objc_enumerationMutation(v11);
       }
 
-      v17 = *(*(&v22 + 1) + 8 * i);
+      v17 = *(*(&v21 + 1) + 8 * i);
       if (([*(a1 + 40) containsObject:v17] & 1) == 0)
       {
         [v10 removeObject:v17];
@@ -581,12 +600,12 @@ LABEL_18:
       }
     }
 
-    v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
   }
 
   while (v13);
 
-  v6 = v21;
+  v6 = v20;
   if ((v14 & 1) == 0)
   {
     goto LABEL_18;
@@ -597,7 +616,6 @@ LABEL_19:
   v8 = v18;
 
 LABEL_20:
-  v19 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -605,7 +623,7 @@ LABEL_20:
 - (void)removeRecordsForNodeIDs:(id)ds systemCommissionerFabric:(BOOL)fabric
 {
   fabricCopy = fabric;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   v6 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -614,35 +632,35 @@ LABEL_20:
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v36 = v9;
-    v37 = 2112;
-    v38 = dsCopy;
+    v35 = v9;
+    v36 = 2112;
+    v37 = dsCopy;
     _os_log_impl(&dword_22AEAE000, v8, OS_LOG_TYPE_INFO, "%{public}@Deleting records from storage for node IDs: %@", buf, 0x16u);
   }
 
-  v25 = selfCopy;
+  v24 = selfCopy;
   objc_autoreleasePoolPop(v6);
   array = [MEMORY[0x277CBEB18] array];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = dsCopy;
-  v11 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v11 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v31;
+    v13 = *v30;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v31 != v13)
+        if (*v30 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v30 + 1) + 8 * i);
+        v15 = *(*(&v29 + 1) + 8 * i);
         v16 = [HMMTRStorage formatKeyForNodeId:v15 key:@"HMD.MTRPlugin.VendorID."];
         [array addObject:v16];
 
@@ -665,53 +683,51 @@ LABEL_20:
         [array addObject:v22];
       }
 
-      v12 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v12 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v12);
   }
 
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __74__HMMTRStorage_Records__removeRecordsForNodeIDs_systemCommissionerFabric___block_invoke;
-  v28[3] = &unk_2786ED818;
-  v28[4] = v25;
-  v29 = obj;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __74__HMMTRStorage_Records__removeRecordsForNodeIDs_systemCommissionerFabric___block_invoke;
+  v27[3] = &unk_2786ED818;
+  v27[4] = v24;
+  v28 = obj;
   v23 = obj;
-  [(HMMTRStorage *)v25 setValueForKey:@"HMD.MTRPlugin.PairedNodeIDs" removingKeys:array systemCommissionerFabric:fabricCopy block:v28];
-
-  v24 = *MEMORY[0x277D85DE8];
+  [(HMMTRStorage *)v24 setValueForKey:@"HMD.MTRPlugin.PairedNodeIDs" removingKeys:array systemCommissionerFabric:fabricCopy block:v27];
 }
 
 id __74__HMMTRStorage_Records__removeRecordsForNodeIDs_systemCommissionerFabric___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 32) pairedNodeIDsFromStoredStringValue:a2];
   v4 = [v3 mutableCopy];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = *(a1 + 40);
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [v4 removeObject:{*(*(&v13 + 1) + 8 * i), v13}];
+        [v4 removeObject:{*(*(&v12 + 1) + 8 * i), v12}];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
@@ -719,9 +735,19 @@ id __74__HMMTRStorage_Records__removeRecordsForNodeIDs_systemCommissionerFabric_
 
   v10 = [*(a1 + 32) storedStringValueFromPairedNodeIDs:v4];
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
+}
+
+- (void)removeRecordsForNode:(id)node systemCommissionerFabric:(BOOL)fabric
+{
+  fabricCopy = fabric;
+  v10 = *MEMORY[0x277D85DE8];
+  nodeCopy = node;
+  v6 = MEMORY[0x277CBEA60];
+  nodeCopy2 = node;
+  v8 = [v6 arrayWithObjects:&nodeCopy count:1];
+
+  [(HMMTRStorage *)self removeRecordsForNodeIDs:v8 systemCommissionerFabric:fabricCopy, nodeCopy, v10];
 }
 
 - (id)operationalCertificate
@@ -878,6 +904,28 @@ id __74__HMMTRStorage_Records__removeRecordsForNodeIDs_systemCommissionerFabric_
   return bOOLValue;
 }
 
+- (void)setStaged:(BOOL)staged forNode:(id)node
+{
+  stagedCopy = staged;
+  v7 = [HMMTRStorage formatKeyForNodeId:node key:@"HMD.MTRPlugin.Staged."];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:stagedCopy];
+  [(HMMTRStorage *)self setValueForKey:v7 value:v6];
+}
+
+- (void)removePairedNodeID:(id)d fromSystemCommissionerFabric:(BOOL)fabric
+{
+  fabricCopy = fabric;
+  dCopy = d;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __73__HMMTRStorage_Records__removePairedNodeID_fromSystemCommissionerFabric___block_invoke;
+  v8[3] = &unk_2786ED818;
+  v8[4] = self;
+  v9 = dCopy;
+  v7 = dCopy;
+  [(HMMTRStorage *)self setValueForKey:@"HMD.MTRPlugin.PairedNodeIDs" removingKeys:0 systemCommissionerFabric:fabricCopy block:v8];
+}
+
 id __73__HMMTRStorage_Records__removePairedNodeID_fromSystemCommissionerFabric___block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = [*(a1 + 32) pairedNodeIDsFromStoredStringValue:a2];
@@ -887,6 +935,20 @@ id __73__HMMTRStorage_Records__removePairedNodeID_fromSystemCommissionerFabric__
   v5 = [*(a1 + 32) storedStringValueFromPairedNodeIDs:v4];
 
   return v5;
+}
+
+- (void)addPairedNodeID:(id)d toSystemCommissionerFabric:(BOOL)fabric
+{
+  fabricCopy = fabric;
+  dCopy = d;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __68__HMMTRStorage_Records__addPairedNodeID_toSystemCommissionerFabric___block_invoke;
+  v8[3] = &unk_2786ED818;
+  v8[4] = self;
+  v9 = dCopy;
+  v7 = dCopy;
+  [(HMMTRStorage *)self setValueForKey:@"HMD.MTRPlugin.PairedNodeIDs" removingKeys:0 systemCommissionerFabric:fabricCopy block:v8];
 }
 
 id __68__HMMTRStorage_Records__addPairedNodeID_toSystemCommissionerFabric___block_invoke(uint64_t a1, uint64_t a2)
@@ -902,7 +964,7 @@ id __68__HMMTRStorage_Records__addPairedNodeID_toSystemCommissionerFabric___bloc
 
 - (id)storedStringValueFromPairedNodeIDs:(id)ds
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   v5 = [HMMTRUtilities encodeObject:dsCopy];
   v6 = v5;
@@ -919,23 +981,52 @@ id __68__HMMTRStorage_Records__addPairedNodeID_toSystemCommissionerFabric___bloc
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v11;
-      _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_FAULT, "%{public}@Failed to encode NodeID set", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v11;
+      _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_FAULT, "%{public}@Failed to encode NodeID set", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
     v7 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v7;
+}
+
+- (void)setPairedNodeIDs:(id)ds forSystemCommissionerFabric:(BOOL)fabric
+{
+  fabricCopy = fabric;
+  v14 = *MEMORY[0x277D85DE8];
+  dsCopy = ds;
+  if (dsCopy)
+  {
+    v7 = [(HMMTRStorage *)self storedStringValueFromPairedNodeIDs:dsCopy];
+    if (v7)
+    {
+      [(HMMTRStorage *)self setValueForKey:@"HMD.MTRPlugin.PairedNodeIDs" value:v7 systemCommissionerFabric:fabricCopy];
+    }
+  }
+
+  else
+  {
+    v8 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v10 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    {
+      v11 = HMFGetLogIdentifier();
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_FAULT, "%{public}@Invalid value for pairedNodeID set", &v12, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v8);
+  }
 }
 
 - (id)pairedNodeIDsFromStoredStringValue:(id)value
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   if (valueCopy)
   {
@@ -944,15 +1035,15 @@ id __68__HMMTRStorage_Records__addPairedNodeID_toSystemCommissionerFabric___bloc
     {
       v6 = MEMORY[0x277CCAAC8];
       v7 = MEMORY[0x277CBEB98];
-      v26[0] = objc_opt_class();
-      v26[1] = objc_opt_class();
-      v26[2] = objc_opt_class();
-      v26[3] = objc_opt_class();
-      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:4];
+      v25[0] = objc_opt_class();
+      v25[1] = objc_opt_class();
+      v25[2] = objc_opt_class();
+      v25[3] = objc_opt_class();
+      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:4];
       v9 = [v7 setWithArray:v8];
-      v25 = 0;
-      v10 = [v6 unarchivedObjectOfClasses:v9 fromData:v5 error:&v25];
-      v11 = v25;
+      v24 = 0;
+      v10 = [v6 unarchivedObjectOfClasses:v9 fromData:v5 error:&v24];
+      v11 = v24;
 
       if (v10)
       {
@@ -968,9 +1059,9 @@ id __68__HMMTRStorage_Records__addPairedNodeID_toSystemCommissionerFabric___bloc
         {
           v22 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v28 = v22;
-          v29 = 2112;
-          v30 = v11;
+          v27 = v22;
+          v28 = 2112;
+          v29 = v11;
           _os_log_impl(&dword_22AEAE000, v21, OS_LOG_TYPE_FAULT, "%{public}@Failed to load NodeID set with Error: %@", buf, 0x16u);
         }
 
@@ -991,9 +1082,9 @@ id __68__HMMTRStorage_Records__addPairedNodeID_toSystemCommissionerFabric___bloc
         v17 = HMFGetLogIdentifier();
         fabricID = [(HMMTRStorage *)selfCopy2 fabricID];
         *buf = 138543618;
-        v28 = v17;
-        v29 = 2112;
-        v30 = fabricID;
+        v27 = v17;
+        v28 = 2112;
+        v29 = fabricID;
         _os_log_impl(&dword_22AEAE000, v16, OS_LOG_TYPE_INFO, "%{public}@No paired NodeIDs set for fabricMapping index:%@", buf, 0x16u);
       }
 
@@ -1007,9 +1098,15 @@ id __68__HMMTRStorage_Records__addPairedNodeID_toSystemCommissionerFabric___bloc
     v13 = [MEMORY[0x277CBEB98] set];
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v13;
+}
+
+- (id)pairedNodeIDsOnSystemCommissionerFabric:(BOOL)fabric
+{
+  v4 = [(HMMTRStorage *)self valueForKey:@"HMD.MTRPlugin.PairedNodeIDs" systemCommissionerFabric:fabric];
+  v5 = [(HMMTRStorage *)self pairedNodeIDsFromStoredStringValue:v4];
+
+  return v5;
 }
 
 - (void)removePairedNodeID:(id)d
@@ -1055,14 +1152,14 @@ id __68__HMMTRStorage_Records__addPairedNodeID_toSystemCommissionerFabric___bloc
 
 + (id)nodeIdFromPluginKey:(id)key
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if ([self isPluginKey:keyCopy])
   {
     v5 = keyCopy;
-    v23 = 0;
-    v6 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"\\D+(\\d+)$" options:0 error:&v23];
-    v7 = v23;
+    v22 = 0;
+    v6 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"\\D+(\\d+)$" options:0 error:&v22];
+    v7 = v22;
     v8 = [v6 matchesInString:v5 options:0 range:{0, objc_msgSend(v5, "length")}];
     if ([v8 count] < 2)
     {
@@ -1112,18 +1209,16 @@ id __68__HMMTRStorage_Records__addPairedNodeID_toSystemCommissionerFabric___bloc
     v13 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 + (id)keyByStrippingNodeIdFromKey:(id)key
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   keyCopy = key;
-  v20 = 0;
-  v5 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"(.*\\D)\\d+$" options:0 error:&v20];
-  v6 = v20;
+  v19 = 0;
+  v5 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"(.*\\D)\\d+$" options:0 error:&v19];
+  v6 = v19;
   v7 = [v5 matchesInString:keyCopy options:0 range:{0, objc_msgSend(keyCopy, "length")}];
   if ([v7 count] < 2)
   {
@@ -1152,7 +1247,7 @@ id __68__HMMTRStorage_Records__addPairedNodeID_toSystemCommissionerFabric___bloc
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v22 = v11;
+      v21 = v11;
       _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_ERROR, "%{public}@More than 1 match found, ignoring input", buf, 0xCu);
     }
 
@@ -1160,36 +1255,34 @@ id __68__HMMTRStorage_Records__addPairedNodeID_toSystemCommissionerFabric___bloc
     v12 = keyCopy;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 + (id)matterItemsFromDictionary:(id)dictionary
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v15 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   allKeys = [dictionaryCopy allKeys];
-  v5 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         v10 = +[HMMTRStorage chipPluginStorageKeys];
         v11 = [HMMTRStorage keyByStrippingNodeIdFromKey:v9];
         if ([v10 containsObject:v11])
@@ -1206,24 +1299,22 @@ id __68__HMMTRStorage_Records__addPairedNodeID_toSystemCommissionerFabric___bloc
           }
 
           v10 = [dictionaryCopy objectForKeyedSubscript:v9];
-          [v15 setObject:v10 forKeyedSubscript:v9];
+          [v14 setObject:v10 forKeyedSubscript:v9];
         }
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v15;
+  return v14;
 }
 
 + (BOOL)isMemoryStorageKey:(id)key
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v4 = +[HMMTRStorage memoryStorageKeys];
   if ([v4 containsObject:keyCopy])
@@ -1232,33 +1323,33 @@ id __68__HMMTRStorage_Records__addPairedNodeID_toSystemCommissionerFabric___bloc
     goto LABEL_21;
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v24;
+    v9 = *v23;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        if ([keyCopy hasPrefix:*(*(&v23 + 1) + 8 * i)])
+        if ([keyCopy hasPrefix:*(*(&v22 + 1) + 8 * i)])
         {
           v5 = 1;
           goto LABEL_20;
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v8)
       {
         continue;
@@ -1268,18 +1359,18 @@ id __68__HMMTRStorage_Records__addPairedNodeID_toSystemCommissionerFabric___bloc
     }
   }
 
-  v22 = 0;
-  v11 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"^f/[0-9a-fA-F]+/s/" options:0 error:&v22];
-  v6 = v22;
+  v21 = 0;
+  v11 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"^f/[0-9a-fA-F]+/s/" options:0 error:&v21];
+  v6 = v21;
   v12 = [v11 matchesInString:keyCopy options:0 range:{0, objc_msgSend(keyCopy, "length")}];
   if ([v12 count] == 1)
   {
     goto LABEL_12;
   }
 
-  v21 = v6;
-  v13 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"^f/[0-9a-fA-F]+/n$" options:0 error:&v21];
-  v14 = v21;
+  v20 = v6;
+  v13 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"^f/[0-9a-fA-F]+/n$" options:0 error:&v20];
+  v14 = v20;
 
   v15 = [v13 matchesInString:keyCopy options:0 range:{0, objc_msgSend(keyCopy, "length")}];
 
@@ -1291,9 +1382,9 @@ id __68__HMMTRStorage_Records__addPairedNodeID_toSystemCommissionerFabric___bloc
 
   else
   {
-    v20 = v14;
-    v11 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"^f/[0-9a-fA-F]+/o$" options:0 error:&v20];
-    v6 = v20;
+    v19 = v14;
+    v11 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"^f/[0-9a-fA-F]+/o$" options:0 error:&v19];
+    v6 = v19;
 
     v12 = [v11 matchesInString:keyCopy options:0 range:{0, objc_msgSend(keyCopy, "length")}];
 
@@ -1304,9 +1395,9 @@ LABEL_12:
       goto LABEL_19;
     }
 
-    v19 = v6;
-    v13 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"^f/[0-9a-fA-F]+/i$" options:0 error:&v19];
-    v14 = v19;
+    v18 = v6;
+    v13 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"^f/[0-9a-fA-F]+/i$" options:0 error:&v18];
+    v14 = v18;
 
     v16 = [v13 matchesInString:keyCopy options:0 range:{0, objc_msgSend(keyCopy, "length")}];
 
@@ -1321,7 +1412,6 @@ LABEL_19:
 LABEL_20:
 LABEL_21:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1356,7 +1446,7 @@ LABEL_21:
 
 + (BOOL)isMatterKey:(id)key
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v4 = +[HMMTRStorage matterStorageKeys];
   if ([v4 containsObject:keyCopy])
@@ -1366,33 +1456,33 @@ LABEL_21:
 
   else
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          if ([keyCopy hasPrefix:*(*(&v15 + 1) + 8 * i)])
+          if ([keyCopy hasPrefix:*(*(&v14 + 1) + 8 * i)])
           {
             v5 = 1;
             goto LABEL_13;
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v8)
         {
           continue;
@@ -1402,15 +1492,14 @@ LABEL_21:
       }
     }
 
-    v14 = 0;
-    v6 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"^f/[0-9a-fA-F]+/s/" options:0 error:&v14];
+    v13 = 0;
+    v6 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"^f/[0-9a-fA-F]+/s/" options:0 error:&v13];
     v11 = [v6 matchesInString:keyCopy options:0 range:{0, objc_msgSend(keyCopy, "length")}];
     v5 = [v11 count] == 1;
 
 LABEL_13:
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1506,44 +1595,42 @@ void __46__HMMTRStorage_Records__chipPluginStorageKeys__block_invoke()
 
 + (id)removeRecordsForUnpairedNodesInDict:(id)dict pairedNodes:(id)nodes
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dictCopy = dict;
   nodesCopy = nodes;
   v7 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:dictCopy];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v8 = dictCopy;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
-        v14 = [HMMTRStorage nodeIdFromPluginKey:v13, v17];
+        v13 = *(*(&v16 + 1) + 8 * i);
+        v14 = [HMMTRStorage nodeIdFromPluginKey:v13, v16];
         if (v14 && ([nodesCopy containsObject:v14] & 1) == 0)
         {
           [v7 setObject:0 forKeyedSubscript:v13];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1558,12 +1645,12 @@ void __46__HMMTRStorage_Records__chipPluginStorageKeys__block_invoke()
 - (void)_syncToRemoteStorage
 {
   selfCopy = self;
-  v122 = *MEMORY[0x277D85DE8];
+  v121 = *MEMORY[0x277D85DE8];
   if (![(HMMTRStorage *)self storageSyncInProgress])
   {
     if (![(HMMTRStorage *)selfCopy storageSyncPending])
     {
-      goto LABEL_55;
+      return;
     }
 
     [(HMMTRStorage *)selfCopy setStorageSyncInProgress:1];
@@ -1573,12 +1660,12 @@ void __46__HMMTRStorage_Records__chipPluginStorageKeys__block_invoke()
       v8 = [(HMMTRStorage *)selfCopy pairedNodeIDsOnSystemCommissionerFabric:1];
       v9 = [HMMTRStorage removeRecordsForUnpairedNodesInDict:localStorage pairedNodes:v8];
 
-      v93 = v9;
+      v92 = v9;
       v10 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:v9];
       [(HMMTRStorage *)selfCopy setLocalStorage:v10];
 
       v11 = objc_autoreleasePoolPush();
-      v94 = selfCopy;
+      v93 = selfCopy;
       v12 = selfCopy;
       v13 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
@@ -1586,34 +1673,34 @@ void __46__HMMTRStorage_Records__chipPluginStorageKeys__block_invoke()
         v14 = HMFGetLogIdentifier();
         v15 = [(HMMTRStorage *)v12 pairedNodeIDsOnSystemCommissionerFabric:1];
         *buf = 138543618;
-        v115 = v14;
-        v116 = 2112;
-        v117 = v15;
+        v114 = v14;
+        v115 = 2112;
+        v116 = v15;
         _os_log_impl(&dword_22AEAE000, v13, OS_LOG_TYPE_INFO, "%{public}@Currently paired nodes on System commissioner fabric %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v11);
       array = [MEMORY[0x277CBEB18] array];
+      v108 = 0u;
       v109 = 0u;
       v110 = 0u;
       v111 = 0u;
-      v112 = 0u;
       obj = [(HMMTRStorage *)v12 localStorageWithoutUpdates];
-      v16 = [obj countByEnumeratingWithState:&v109 objects:v121 count:16];
+      v16 = [obj countByEnumeratingWithState:&v108 objects:v120 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v110;
+        v18 = *v109;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v110 != v18)
+            if (*v109 != v18)
             {
               objc_enumerationMutation(obj);
             }
 
-            v20 = *(*(&v109 + 1) + 8 * i);
+            v20 = *(*(&v108 + 1) + 8 * i);
             localStorage2 = [(HMMTRStorage *)v12 localStorage];
             v22 = [localStorage2 objectForKey:v20];
 
@@ -1638,37 +1725,37 @@ void __46__HMMTRStorage_Records__chipPluginStorageKeys__block_invoke()
             }
           }
 
-          v17 = [obj countByEnumeratingWithState:&v109 objects:v121 count:16];
+          v17 = [obj countByEnumeratingWithState:&v108 objects:v120 count:16];
         }
 
         while (v17);
       }
 
-      v108 = 0u;
-      v106 = 0u;
       v107 = 0u;
       v105 = 0u;
+      v106 = 0u;
+      v104 = 0u;
       v29 = array;
-      v30 = [v29 countByEnumeratingWithState:&v105 objects:v120 count:16];
-      v96 = v29;
+      v30 = [v29 countByEnumeratingWithState:&v104 objects:v119 count:16];
+      v95 = v29;
       if (v30)
       {
         v31 = v30;
-        v32 = *v106;
+        v32 = *v105;
         do
         {
           for (j = 0; j != v31; ++j)
           {
-            if (*v106 != v32)
+            if (*v105 != v32)
             {
               objc_enumerationMutation(v29);
             }
 
-            v34 = *(*(&v105 + 1) + 8 * j);
+            v34 = *(*(&v104 + 1) + 8 * j);
             systemCommissionerKeyValueStore = [(HMMTRStorage *)v12 systemCommissionerKeyValueStore];
-            v104 = 0;
-            v36 = [systemCommissionerKeyValueStore removeStoredValueForKey:v34 error:&v104];
-            v37 = v104;
+            v103 = 0;
+            v36 = [systemCommissionerKeyValueStore removeStoredValueForKey:v34 error:&v103];
+            v37 = v103;
 
             if ((v36 & 1) == 0)
             {
@@ -1679,52 +1766,52 @@ void __46__HMMTRStorage_Records__chipPluginStorageKeys__block_invoke()
               {
                 v41 = HMFGetLogIdentifier();
                 *buf = 138543874;
-                v115 = v41;
-                v116 = 2112;
-                v117 = v34;
-                v118 = 2112;
-                v119 = v37;
+                v114 = v41;
+                v115 = 2112;
+                v116 = v34;
+                v117 = 2112;
+                v118 = v37;
                 _os_log_impl(&dword_22AEAE000, v40, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove %@ from System Commissioner storage with error %@", buf, 0x20u);
 
-                v29 = v96;
+                v29 = v95;
               }
 
               objc_autoreleasePoolPop(v38);
             }
           }
 
-          v31 = [v29 countByEnumeratingWithState:&v105 objects:v120 count:16];
+          v31 = [v29 countByEnumeratingWithState:&v104 objects:v119 count:16];
         }
 
         while (v31);
       }
 
-      v102 = 0u;
-      v103 = 0u;
-      v100 = 0u;
       v101 = 0u;
+      v102 = 0u;
+      v99 = 0u;
+      v100 = 0u;
       obja = [(HMMTRStorage *)v12 localStorage];
-      v42 = [obja countByEnumeratingWithState:&v100 objects:v113 count:16];
+      v42 = [obja countByEnumeratingWithState:&v99 objects:v112 count:16];
       if (v42)
       {
         v43 = v42;
-        v44 = *v101;
+        v44 = *v100;
         do
         {
           for (k = 0; k != v43; ++k)
           {
-            if (*v101 != v44)
+            if (*v100 != v44)
             {
               objc_enumerationMutation(obja);
             }
 
-            v46 = *(*(&v100 + 1) + 8 * k);
+            v46 = *(*(&v99 + 1) + 8 * k);
             systemCommissionerKeyValueStore2 = [(HMMTRStorage *)v12 systemCommissionerKeyValueStore];
             localStorage5 = [(HMMTRStorage *)v12 localStorage];
             v49 = [localStorage5 objectForKeyedSubscript:v46];
-            v99 = 0;
-            v50 = [systemCommissionerKeyValueStore2 setStoredValue:v49 forKey:v46 error:&v99];
-            v51 = v99;
+            v98 = 0;
+            v50 = [systemCommissionerKeyValueStore2 setStoredValue:v49 forKey:v46 error:&v98];
+            v51 = v98;
 
             if ((v50 & 1) == 0)
             {
@@ -1735,11 +1822,11 @@ void __46__HMMTRStorage_Records__chipPluginStorageKeys__block_invoke()
               {
                 v55 = HMFGetLogIdentifier();
                 *buf = 138543874;
-                v115 = v55;
-                v116 = 2112;
-                v117 = v46;
-                v118 = 2112;
-                v119 = v51;
+                v114 = v55;
+                v115 = 2112;
+                v116 = v46;
+                v117 = 2112;
+                v118 = v51;
                 _os_log_impl(&dword_22AEAE000, v54, OS_LOG_TYPE_ERROR, "%{public}@Failed to write to System Commissioner storage for key %@ with error %@", buf, 0x20u);
               }
 
@@ -1747,7 +1834,7 @@ void __46__HMMTRStorage_Records__chipPluginStorageKeys__block_invoke()
             }
           }
 
-          v43 = [obja countByEnumeratingWithState:&v100 objects:v113 count:16];
+          v43 = [obja countByEnumeratingWithState:&v99 objects:v112 count:16];
         }
 
         while (v43);
@@ -1762,13 +1849,13 @@ void __46__HMMTRStorage_Records__chipPluginStorageKeys__block_invoke()
         v60 = MEMORY[0x277CCABB0];
         localStorage6 = [(HMMTRStorage *)v57 localStorage];
         v62 = [v60 numberWithUnsignedInteger:{objc_msgSend(localStorage6, "count")}];
-        v63 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v96, "count")}];
+        v63 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v95, "count")}];
         *buf = 138543874;
-        v115 = v59;
-        v116 = 2112;
-        v117 = v62;
-        v118 = 2112;
-        v119 = v63;
+        v114 = v59;
+        v115 = 2112;
+        v116 = v62;
+        v117 = 2112;
+        v118 = v63;
         _os_log_impl(&dword_22AEAE000, v58, OS_LOG_TYPE_INFO, "%{public}@Updated %@ and removed %@ key-value pairs while sync'ing from local storage with remote System Commissioner Fabric storage", buf, 0x20u);
       }
 
@@ -1776,7 +1863,7 @@ void __46__HMMTRStorage_Records__chipPluginStorageKeys__block_invoke()
       systemCommissionerKeyValueStore3 = [(HMMTRStorage *)v57 systemCommissionerKeyValueStore];
       v65 = objc_opt_respondsToSelector();
 
-      selfCopy = v94;
+      selfCopy = v93;
       if (v65)
       {
         v66 = objc_autoreleasePoolPush();
@@ -1788,12 +1875,12 @@ void __46__HMMTRStorage_Records__chipPluginStorageKeys__block_invoke()
           systemCommissionerKeyValueStore4 = [(HMMTRStorage *)v67 systemCommissionerKeyValueStore];
           storedValuesByKey = [systemCommissionerKeyValueStore4 storedValuesByKey];
           *buf = 138543618;
-          v115 = v69;
-          v116 = 2112;
-          v117 = storedValuesByKey;
+          v114 = v69;
+          v115 = 2112;
+          v116 = storedValuesByKey;
           _os_log_impl(&dword_22AEAE000, v68, OS_LOG_TYPE_INFO, "%{public}@System Commissioner storage contains %@", buf, 0x16u);
 
-          selfCopy = v94;
+          selfCopy = v93;
         }
 
         objc_autoreleasePoolPop(v66);
@@ -1811,22 +1898,22 @@ void __46__HMMTRStorage_Records__chipPluginStorageKeys__block_invoke()
 
       if (!fabricDataSource)
       {
-        v88 = objc_autoreleasePoolPush();
-        v89 = selfCopy;
-        v90 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v90, OS_LOG_TYPE_INFO))
+        v87 = objc_autoreleasePoolPush();
+        v88 = selfCopy;
+        v89 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v89, OS_LOG_TYPE_INFO))
         {
-          v91 = HMFGetLogIdentifier();
-          fabricUUID2 = [(HMMTRStorage *)v89 fabricUUID];
+          v90 = HMFGetLogIdentifier();
+          fabricUUID2 = [(HMMTRStorage *)v88 fabricUUID];
           *buf = 138543618;
-          v115 = v91;
-          v116 = 2112;
-          v117 = fabricUUID2;
-          _os_log_impl(&dword_22AEAE000, v90, OS_LOG_TYPE_INFO, "%{public}@Remote storage is not yet available for fabric %@", buf, 0x16u);
+          v114 = v90;
+          v115 = 2112;
+          v116 = fabricUUID2;
+          _os_log_impl(&dword_22AEAE000, v89, OS_LOG_TYPE_INFO, "%{public}@Remote storage is not yet available for fabric %@", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v88);
-        v86 = v89;
+        objc_autoreleasePoolPop(v87);
+        v86 = v88;
         goto LABEL_54;
       }
 
@@ -1844,9 +1931,9 @@ void __46__HMMTRStorage_Records__chipPluginStorageKeys__block_invoke()
         localStorage8 = [(HMMTRStorage *)v79 localStorage];
         v84 = [v82 numberWithUnsignedInteger:{objc_msgSend(localStorage8, "count")}];
         *buf = 138543618;
-        v115 = v81;
-        v116 = 2112;
-        v117 = v84;
+        v114 = v81;
+        v115 = 2112;
+        v116 = v84;
         _os_log_impl(&dword_22AEAE000, v80, OS_LOG_TYPE_INFO, "%{public}@Synced %@ key-value pairs from local storage to remote Apple Home storage", buf, 0x16u);
       }
 
@@ -1860,7 +1947,7 @@ void __46__HMMTRStorage_Records__chipPluginStorageKeys__block_invoke()
     v86 = selfCopy;
 LABEL_54:
     [(HMMTRStorage *)v86 setStorageSyncInProgress:0];
-    goto LABEL_55;
+    return;
   }
 
   v3 = objc_autoreleasePoolPush();
@@ -1870,18 +1957,16 @@ LABEL_54:
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v115 = v6;
+    v114 = v6;
     _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_INFO, "%{public}@Attempting to sync to remote storage when another sync is already in progress; ignoring", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
-LABEL_55:
-  v87 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endLocalStorageModeByPersistingAppleFabricData
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if ([(HMMTRStorage *)self isLocalStorageMode])
   {
     if ([(HMMTRStorage *)self isSystemCommissionerFabric])
@@ -1892,9 +1977,9 @@ LABEL_55:
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         v6 = HMFGetLogIdentifier();
-        v15 = 138543362;
-        v16 = v6;
-        _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_ERROR, "%{public}@Cannot persist Apple Fabric data while in System Commissioner Fabric", &v15, 0xCu);
+        v14 = 138543362;
+        v15 = v6;
+        _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_ERROR, "%{public}@Cannot persist Apple Fabric data while in System Commissioner Fabric", &v14, 0xCu);
       }
 
       objc_autoreleasePoolPop(v3);
@@ -1912,9 +1997,9 @@ LABEL_55:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         v12 = HMFGetLogIdentifier();
-        v15 = 138543362;
-        v16 = v12;
-        _os_log_impl(&dword_22AEAE000, v11, OS_LOG_TYPE_INFO, "%{public}@Discarding Local Storage, but keeping Apple Home keys", &v15, 0xCu);
+        v14 = 138543362;
+        v15 = v12;
+        _os_log_impl(&dword_22AEAE000, v11, OS_LOG_TYPE_INFO, "%{public}@Discarding Local Storage, but keeping Apple Home keys", &v14, 0xCu);
       }
 
       objc_autoreleasePoolPop(v9);
@@ -1925,13 +2010,11 @@ LABEL_55:
       [(HMMTRStorage *)selfCopy2 setLocalStorageMode:0];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endLocalStorageModeBySyncingToRemote:(BOOL)remote
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if ([(HMMTRStorage *)self isLocalStorageMode])
   {
     if (remote)
@@ -1948,9 +2031,9 @@ LABEL_55:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = HMFGetLogIdentifier();
-        v11 = 138543362;
-        v12 = v8;
-        _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Discarding Local Storage", &v11, 0xCu);
+        v10 = 138543362;
+        v11 = v8;
+        _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Discarding Local Storage", &v10, 0xCu);
       }
 
       objc_autoreleasePoolPop(v5);
@@ -1967,22 +2050,20 @@ LABEL_55:
 
     [(HMMTRStorage *)self setLocalStorageMode:0];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startLocalStorageMode
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v29 = 138543362;
-    v30 = v6;
-    _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_INFO, "%{public}@Attempting to start local storage mode", &v29, 0xCu);
+    v28 = 138543362;
+    v29 = v6;
+    _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_INFO, "%{public}@Attempting to start local storage mode", &v28, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -2054,20 +2135,19 @@ LABEL_16:
     v25 = MEMORY[0x277CCABB0];
     localStorage = [(HMMTRStorage *)v22 localStorage];
     v27 = [v25 numberWithUnsignedInteger:{objc_msgSend(localStorage, "count")}];
-    v29 = 138543618;
-    v30 = v24;
-    v31 = 2112;
-    v32 = v27;
-    _os_log_impl(&dword_22AEAE000, v23, OS_LOG_TYPE_INFO, "%{public}@Local storage initiated with %@ keys", &v29, 0x16u);
+    v28 = 138543618;
+    v29 = v24;
+    v30 = 2112;
+    v31 = v27;
+    _os_log_impl(&dword_22AEAE000, v23, OS_LOG_TYPE_INFO, "%{public}@Local storage initiated with %@ keys", &v28, 0x16u);
   }
 
   objc_autoreleasePoolPop(v21);
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLocalStorageMode:(BOOL)mode
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
@@ -2077,20 +2157,19 @@ LABEL_16:
     [(HMMTRStorage *)selfCopy isLocalStorageMode];
     v9 = HMFBooleanToString();
     v10 = HMFBooleanToString();
-    v12 = 138543874;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v9;
-    v16 = 2112;
-    v17 = v10;
-    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Changing local storage mode from %@ to %@", &v12, 0x20u);
+    v11 = 138543874;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v9;
+    v15 = 2112;
+    v16 = v10;
+    _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Changing local storage mode from %@ to %@", &v11, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
   os_unfair_lock_lock_with_options();
   selfCopy->_localStorageMode = mode;
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)localStorageMode
@@ -2112,7 +2191,7 @@ LABEL_16:
 - (BOOL)replaceAllKeysAndSyncWithBlock:(id)block systemCommissionerFabric:(BOOL)fabric
 {
   fabricCopy = fabric;
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v7 = blockCopy;
   if (fabricCopy)
@@ -2120,34 +2199,34 @@ LABEL_16:
     systemCommissionerKeyValueStore = [(HMMTRStorage *)self systemCommissionerKeyValueStore];
     storedValuesByKey = [systemCommissionerKeyValueStore storedValuesByKey];
 
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
     v55 = 0u;
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
     v10 = storedValuesByKey;
-    v11 = [v10 countByEnumeratingWithState:&v54 objects:v64 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v53 objects:v63 count:16];
     if (v11)
     {
       v13 = v11;
-      v14 = *v55;
-      v45 = 1;
+      v14 = *v54;
+      v44 = 1;
       *&v12 = 138543874;
-      v44 = v12;
-      v46 = *v55;
-      v47 = v7;
+      v43 = v12;
+      v45 = *v54;
+      v46 = v7;
       do
       {
         v15 = 0;
-        v48 = v13;
+        v47 = v13;
         do
         {
-          if (*v55 != v14)
+          if (*v54 != v14)
           {
             objc_enumerationMutation(v10);
           }
 
-          v16 = *(*(&v54 + 1) + 8 * v15);
-          v17 = [v10 objectForKeyedSubscript:{v16, v44}];
+          v16 = *(*(&v53 + 1) + 8 * v15);
+          v17 = [v10 objectForKeyedSubscript:{v16, v43}];
           v18 = (v7)[2](v7, v16, v17);
           if (([v17 isEqual:v18] & 1) == 0)
           {
@@ -2162,16 +2241,16 @@ LABEL_16:
             v22 = systemCommissionerKeyValueStore2;
             if (v18)
             {
-              v53 = 0;
-              v23 = [systemCommissionerKeyValueStore2 setStoredValue:v18 forKey:v16 error:&v53];
-              v24 = v53;
+              v52 = 0;
+              v23 = [systemCommissionerKeyValueStore2 setStoredValue:v18 forKey:v16 error:&v52];
+              v24 = v52;
             }
 
             else
             {
-              v52 = 0;
-              v23 = [systemCommissionerKeyValueStore2 removeStoredValueForKey:v16 error:&v52];
-              v24 = v52;
+              v51 = 0;
+              v23 = [systemCommissionerKeyValueStore2 removeStoredValueForKey:v16 error:&v51];
+              v24 = v51;
             }
 
             v25 = v24;
@@ -2185,9 +2264,9 @@ LABEL_16:
               {
                 v29 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                v59 = v29;
-                v60 = 2112;
-                v61 = v16;
+                v58 = v29;
+                v59 = 2112;
+                v60 = v16;
                 _os_log_impl(&dword_22AEAE000, v28, OS_LOG_TYPE_INFO, "%{public}@%@ removed from keychain store", buf, 0x16u);
               }
             }
@@ -2200,31 +2279,31 @@ LABEL_16:
               if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
               {
                 v31 = HMFGetLogIdentifier();
-                *buf = v44;
-                v59 = v31;
-                v60 = 2112;
-                v61 = v16;
-                v62 = 2112;
-                v63 = v25;
+                *buf = v43;
+                v58 = v31;
+                v59 = 2112;
+                v60 = v16;
+                v61 = 2112;
+                v62 = v25;
                 _os_log_impl(&dword_22AEAE000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to update key %@ from System Commissioner storage with error %@", buf, 0x20u);
               }
 
-              v45 = 0;
+              v44 = 0;
             }
 
-            v14 = v46;
+            v14 = v45;
 
             objc_autoreleasePoolPop(v26);
             v10 = v20;
-            v7 = v47;
-            v13 = v48;
+            v7 = v46;
+            v13 = v47;
           }
 
           ++v15;
         }
 
         while (v13 != v15);
-        v13 = [v10 countByEnumeratingWithState:&v54 objects:v64 count:16];
+        v13 = [v10 countByEnumeratingWithState:&v53 objects:v63 count:16];
       }
 
       while (v13);
@@ -2232,23 +2311,23 @@ LABEL_16:
 
     else
     {
-      v45 = 1;
+      v44 = 1;
     }
 
-    v37 = v45;
+    v37 = v44;
   }
 
   else
   {
-    v51 = 0;
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __72__HMMTRStorage_replaceAllKeysAndSyncWithBlock_systemCommissionerFabric___block_invoke;
-    v49[3] = &unk_2786F0E80;
-    v49[4] = self;
-    v50 = blockCopy;
-    v32 = [(HMMTRStorage *)self _syncSetDataSourceValuesWithError:&v51 block:v49];
-    v10 = v51;
+    v50 = 0;
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __72__HMMTRStorage_replaceAllKeysAndSyncWithBlock_systemCommissionerFabric___block_invoke;
+    v48[3] = &unk_2786F0E80;
+    v48[4] = self;
+    v49 = blockCopy;
+    v32 = [(HMMTRStorage *)self _syncSetDataSourceValuesWithError:&v50 block:v48];
+    v10 = v50;
     if (v32)
     {
 
@@ -2259,7 +2338,7 @@ LABEL_16:
       {
         v36 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v59 = v36;
+        v58 = v36;
         _os_log_impl(&dword_22AEAE000, v35, OS_LOG_TYPE_INFO, "%{public}@Successfully updated key-value store", buf, 0xCu);
       }
 
@@ -2276,9 +2355,9 @@ LABEL_16:
       {
         v41 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v59 = v41;
-        v60 = 2112;
-        v61 = v10;
+        v58 = v41;
+        v59 = 2112;
+        v60 = v10;
         _os_log_impl(&dword_22AEAE000, v40, OS_LOG_TYPE_ERROR, "%{public}@Failed to update key-value store with error %@", buf, 0x16u);
       }
 
@@ -2287,36 +2366,35 @@ LABEL_16:
     }
   }
 
-  v42 = *MEMORY[0x277D85DE8];
   return v37 & 1;
 }
 
 uint64_t __72__HMMTRStorage_replaceAllKeysAndSyncWithBlock_systemCommissionerFabric___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v18 = a3;
+  v17 = a3;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v6 = [v5 allKeys];
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         v13 = [v5 objectForKeyedSubscript:v12];
         v14 = (*(*(a1 + 40) + 16))();
         if (([v13 isEqual:v14] & 1) == 0)
@@ -2330,14 +2408,14 @@ uint64_t __72__HMMTRStorage_replaceAllKeysAndSyncWithBlock_systemCommissionerFab
           [v5 setObject:v14 forKeyedSubscript:v12];
           if (!v14)
           {
-            [v18 addObject:v12];
+            [v17 addObject:v12];
           }
 
           v9 = 1;
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v8);
@@ -2348,14 +2426,13 @@ uint64_t __72__HMMTRStorage_replaceAllKeysAndSyncWithBlock_systemCommissionerFab
     v9 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v9 & 1;
 }
 
 - (BOOL)removeValueForKey:(id)key systemCommissionerFabric:(BOOL)fabric
 {
   fabricCopy = fabric;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if ([(HMMTRStorage *)self isLocalStorageMode])
   {
@@ -2369,9 +2446,9 @@ uint64_t __72__HMMTRStorage_replaceAllKeysAndSyncWithBlock_systemCommissionerFab
   if (fabricCopy)
   {
     systemCommissionerKeyValueStore = [(HMMTRStorage *)self systemCommissionerKeyValueStore];
-    v22 = 0;
-    v8 = [systemCommissionerKeyValueStore removeStoredValueForKey:keyCopy error:&v22];
-    v10 = v22;
+    v21 = 0;
+    v8 = [systemCommissionerKeyValueStore removeStoredValueForKey:keyCopy error:&v21];
+    v10 = v21;
 
     v11 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -2383,9 +2460,9 @@ uint64_t __72__HMMTRStorage_replaceAllKeysAndSyncWithBlock_systemCommissionerFab
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v24 = v15;
-        v25 = 2112;
-        v26 = keyCopy;
+        v23 = v15;
+        v24 = 2112;
+        v25 = keyCopy;
         v16 = "%{public}@Removal of %@ requested from keychain store";
         v17 = v14;
         v18 = OS_LOG_TYPE_INFO;
@@ -2398,9 +2475,9 @@ LABEL_13:
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v15;
-      v25 = 2112;
-      v26 = v10;
+      v23 = v15;
+      v24 = 2112;
+      v25 = v10;
       v16 = "%{public}@Failed to remove key from System Commissioner storage with error %@";
       v17 = v14;
       v18 = OS_LOG_TYPE_ERROR;
@@ -2420,14 +2497,13 @@ LABEL_13:
   v8 = [(HMMTRStorage *)self _syncSetDataSourceValue:0 forKey:keyCopy];
 LABEL_15:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (BOOL)setValueForKey:(id)key removingKeys:(id)keys systemCommissionerFabric:(BOOL)fabric block:(id)block
 {
   fabricCopy = fabric;
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   keysCopy = keys;
   blockCopy = block;
@@ -2458,110 +2534,110 @@ LABEL_5:
   if (fabricCopy)
   {
     systemCommissionerKeyValueStore = [(HMMTRStorage *)self systemCommissionerKeyValueStore];
-    v22 = [systemCommissionerKeyValueStore storedValueForKey:keyCopy];
-    v23 = blockCopy[2](blockCopy, v22);
+    v21 = [systemCommissionerKeyValueStore storedValueForKey:keyCopy];
+    v22 = blockCopy[2](blockCopy, v21);
 
     systemCommissionerKeyValueStore2 = [(HMMTRStorage *)self systemCommissionerKeyValueStore];
-    v81 = 0;
-    v63 = v23;
-    LOBYTE(v22) = [systemCommissionerKeyValueStore2 setStoredValue:v23 forKey:keyCopy error:&v81];
-    v25 = v81;
+    v80 = 0;
+    v62 = v22;
+    LOBYTE(v21) = [systemCommissionerKeyValueStore2 setStoredValue:v22 forKey:keyCopy error:&v80];
+    v24 = v80;
 
-    v68 = v22;
-    if ((v22 & 1) == 0)
+    v67 = v21;
+    if ((v21 & 1) == 0)
     {
-      v26 = objc_autoreleasePoolPush();
+      v25 = objc_autoreleasePoolPush();
       selfCopy = self;
-      v28 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v27 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v29 = HMFGetLogIdentifier();
+        v28 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v83 = v29;
-        v84 = 2112;
-        v85 = v25;
-        _os_log_impl(&dword_22AEAE000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to write to System Commissioner storage with error %@", buf, 0x16u);
+        v82 = v28;
+        v83 = 2112;
+        v84 = v24;
+        _os_log_impl(&dword_22AEAE000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to write to System Commissioner storage with error %@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v26);
+      objc_autoreleasePoolPop(v25);
     }
 
-    v62 = v25;
-    v65 = keyCopy;
-    v66 = blockCopy;
-    v79 = 0u;
-    v80 = 0u;
-    v77 = 0u;
+    v61 = v24;
+    v64 = keyCopy;
+    v65 = blockCopy;
     v78 = 0u;
-    v64 = keysCopy;
+    v79 = 0u;
+    v76 = 0u;
+    v77 = 0u;
+    v63 = keysCopy;
     obj = keysCopy;
-    v30 = [obj countByEnumeratingWithState:&v77 objects:v90 count:16];
-    if (v30)
+    v29 = [obj countByEnumeratingWithState:&v76 objects:v89 count:16];
+    if (v29)
     {
-      v31 = v30;
-      v32 = *v78;
+      v30 = v29;
+      v31 = *v77;
       do
       {
-        for (i = 0; i != v31; ++i)
+        for (i = 0; i != v30; ++i)
         {
-          if (*v78 != v32)
+          if (*v77 != v31)
           {
             objc_enumerationMutation(obj);
           }
 
-          v34 = *(*(&v77 + 1) + 8 * i);
+          v33 = *(*(&v76 + 1) + 8 * i);
           systemCommissionerKeyValueStore3 = [(HMMTRStorage *)self systemCommissionerKeyValueStore];
-          v76 = 0;
-          v36 = [systemCommissionerKeyValueStore3 removeStoredValueForKey:v34 error:&v76];
-          v37 = v76;
+          v75 = 0;
+          v35 = [systemCommissionerKeyValueStore3 removeStoredValueForKey:v33 error:&v75];
+          v36 = v75;
 
-          v38 = objc_autoreleasePoolPush();
+          v37 = objc_autoreleasePoolPush();
           selfCopy2 = self;
-          v40 = HMFGetOSLogHandle();
-          v41 = v40;
-          if (v36)
+          v39 = HMFGetOSLogHandle();
+          v40 = v39;
+          if (v35)
           {
-            if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+            if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
             {
-              v42 = HMFGetLogIdentifier();
+              v41 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v83 = v42;
-              v84 = 2112;
-              v85 = v34;
-              _os_log_impl(&dword_22AEAE000, v41, OS_LOG_TYPE_INFO, "%{public}@Removal of %@ requested from keychain store", buf, 0x16u);
+              v82 = v41;
+              v83 = 2112;
+              v84 = v33;
+              _os_log_impl(&dword_22AEAE000, v40, OS_LOG_TYPE_INFO, "%{public}@Removal of %@ requested from keychain store", buf, 0x16u);
             }
           }
 
           else
           {
-            if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
             {
-              v43 = HMFGetLogIdentifier();
+              v42 = HMFGetLogIdentifier();
               *buf = 138543874;
-              v83 = v43;
-              v84 = 2112;
-              v85 = v34;
-              v86 = 2112;
-              v87 = v37;
-              _os_log_impl(&dword_22AEAE000, v41, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove key %@ from System Commissioner storage with error %@", buf, 0x20u);
+              v82 = v42;
+              v83 = 2112;
+              v84 = v33;
+              v85 = 2112;
+              v86 = v36;
+              _os_log_impl(&dword_22AEAE000, v40, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove key %@ from System Commissioner storage with error %@", buf, 0x20u);
             }
 
-            v68 = 0;
+            v67 = 0;
           }
 
-          objc_autoreleasePoolPop(v38);
+          objc_autoreleasePoolPop(v37);
         }
 
-        v31 = [obj countByEnumeratingWithState:&v77 objects:v90 count:16];
+        v30 = [obj countByEnumeratingWithState:&v76 objects:v89 count:16];
       }
 
-      while (v31);
+      while (v30);
     }
 
-    keysCopy = v64;
-    keyCopy = v65;
-    blockCopy = v66;
-    v18 = v68;
+    keysCopy = v63;
+    keyCopy = v64;
+    blockCopy = v65;
+    v18 = v67;
   }
 
   else
@@ -2572,10 +2648,10 @@ LABEL_5:
       if ([(HMMTRStorage *)self isResidentDevice]&& [HMMTRStorage isMemoryStorageKey:keyCopy])
       {
         inMemoryStorage = [(HMMTRStorage *)self inMemoryStorage];
-        v46 = [inMemoryStorage objectForKeyedSubscript:keyCopy];
-        v47 = blockCopy[2](blockCopy, v46);
+        v45 = [inMemoryStorage objectForKeyedSubscript:keyCopy];
+        v46 = blockCopy[2](blockCopy, v45);
         inMemoryStorage2 = [(HMMTRStorage *)self inMemoryStorage];
-        [inMemoryStorage2 setObject:v47 forKeyedSubscript:keyCopy];
+        [inMemoryStorage2 setObject:v46 forKeyedSubscript:keyCopy];
 
         if (keysCopy)
         {
@@ -2588,65 +2664,65 @@ LABEL_5:
 
       else
       {
-        v75 = 0;
-        v71[0] = MEMORY[0x277D85DD0];
-        v71[1] = 3221225472;
-        v71[2] = __75__HMMTRStorage_setValueForKey_removingKeys_systemCommissionerFabric_block___block_invoke;
-        v71[3] = &unk_2786F0E58;
-        v67 = blockCopy;
-        v74 = blockCopy;
-        v50 = keyCopy;
+        v74 = 0;
+        v70[0] = MEMORY[0x277D85DD0];
+        v70[1] = 3221225472;
+        v70[2] = __75__HMMTRStorage_setValueForKey_removingKeys_systemCommissionerFabric_block___block_invoke;
+        v70[3] = &unk_2786F0E58;
+        v66 = blockCopy;
+        v73 = blockCopy;
+        v49 = keyCopy;
+        v71 = v49;
+        v50 = keysCopy;
         v72 = v50;
-        v51 = keysCopy;
-        v73 = v51;
-        v52 = [(HMMTRStorage *)self _syncSetDataSourceValuesWithError:&v75 block:v71];
-        v53 = v75;
-        v69 = v52;
-        if (v52)
+        v51 = [(HMMTRStorage *)self _syncSetDataSourceValuesWithError:&v74 block:v70];
+        v52 = v74;
+        v68 = v51;
+        if (v51)
         {
 
-          v54 = objc_autoreleasePoolPush();
+          v53 = objc_autoreleasePoolPush();
           selfCopy3 = self;
-          v56 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+          v55 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
           {
-            v57 = HMFGetLogIdentifier();
+            v56 = HMFGetLogIdentifier();
             *buf = 138543874;
-            v83 = v57;
-            v84 = 2112;
-            v85 = v50;
-            v86 = 2112;
-            v87 = v51;
-            _os_log_impl(&dword_22AEAE000, v56, OS_LOG_TYPE_INFO, "%{public}@Successfully updated key-value store for added key = %@, removed keys %@", buf, 0x20u);
+            v82 = v56;
+            v83 = 2112;
+            v84 = v49;
+            v85 = 2112;
+            v86 = v50;
+            _os_log_impl(&dword_22AEAE000, v55, OS_LOG_TYPE_INFO, "%{public}@Successfully updated key-value store for added key = %@, removed keys %@", buf, 0x20u);
           }
 
-          objc_autoreleasePoolPop(v54);
+          objc_autoreleasePoolPop(v53);
         }
 
         else
         {
-          v58 = objc_autoreleasePoolPush();
+          v57 = objc_autoreleasePoolPush();
           selfCopy4 = self;
-          v60 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+          v59 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
           {
-            v61 = HMFGetLogIdentifier();
+            v60 = HMFGetLogIdentifier();
             *buf = 138544130;
-            v83 = v61;
-            v84 = 2112;
-            v85 = v50;
-            v86 = 2112;
-            v87 = v51;
-            v88 = 2112;
-            v89 = v53;
-            _os_log_impl(&dword_22AEAE000, v60, OS_LOG_TYPE_ERROR, "%{public}@Failed to update key-value store for added key = %@, removed keys = %@ with error %@", buf, 0x2Au);
+            v82 = v60;
+            v83 = 2112;
+            v84 = v49;
+            v85 = 2112;
+            v86 = v50;
+            v87 = 2112;
+            v88 = v52;
+            _os_log_impl(&dword_22AEAE000, v59, OS_LOG_TYPE_ERROR, "%{public}@Failed to update key-value store for added key = %@, removed keys = %@ with error %@", buf, 0x2Au);
           }
 
-          objc_autoreleasePoolPop(v58);
+          objc_autoreleasePoolPop(v57);
         }
 
-        blockCopy = v67;
-        v18 = v69;
+        blockCopy = v66;
+        v18 = v68;
       }
     }
 
@@ -2658,7 +2734,6 @@ LABEL_5:
 
 LABEL_6:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18 & 1;
 }
 
@@ -2688,10 +2763,25 @@ uint64_t __75__HMMTRStorage_setValueForKey_removingKeys_systemCommissionerFabric
   return v11 ^ 1u;
 }
 
+- (BOOL)setValueForKey:(id)key value:(id)value systemCommissionerFabric:(BOOL)fabric
+{
+  fabricCopy = fabric;
+  valueCopy = value;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __62__HMMTRStorage_setValueForKey_value_systemCommissionerFabric___block_invoke;
+  v11[3] = &unk_2786F0E30;
+  v12 = valueCopy;
+  v9 = valueCopy;
+  LOBYTE(fabricCopy) = [(HMMTRStorage *)self setValueForKey:key removingKeys:0 systemCommissionerFabric:fabricCopy block:v11];
+
+  return fabricCopy;
+}
+
 - (id)valueForKey:(id)key systemCommissionerFabric:(BOOL)fabric
 {
   fabricCopy = fabric;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if ([HMMTRStorage shouldIgnoreWritesForKey:keyCopy])
   {
@@ -2718,21 +2808,21 @@ LABEL_2:
 
     if (!fabricID)
     {
-      v16 = objc_autoreleasePoolPush();
+      v15 = objc_autoreleasePoolPush();
       selfCopy = self;
-      v18 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v17 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v19 = HMFGetLogIdentifier();
+        v18 = HMFGetLogIdentifier();
         fabricUUID = [(HMMTRStorage *)selfCopy fabricUUID];
-        v21 = 138543618;
-        v22 = v19;
-        v23 = 2112;
-        v24 = fabricUUID;
-        _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_ERROR, "%{public}@Not reading because fabricID is not yet defined for target fabric %@", &v21, 0x16u);
+        v20 = 138543618;
+        v21 = v18;
+        v22 = 2112;
+        v23 = fabricUUID;
+        _os_log_impl(&dword_22AEAE000, v17, OS_LOG_TYPE_ERROR, "%{public}@Not reading because fabricID is not yet defined for target fabric %@", &v20, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v16);
+      objc_autoreleasePoolPop(v15);
       goto LABEL_2;
     }
 
@@ -2755,7 +2845,6 @@ LABEL_2:
 LABEL_15:
 
 LABEL_16:
-  v14 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -2813,7 +2902,7 @@ LABEL_16:
 - (id)ipkForTargetFabricUUID:(id)d forPairing:(BOOL)pairing
 {
   pairingCopy = pairing;
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (!dCopy || (-[HMMTRStorage dataSource](self, "dataSource"), v7 = objc_claimAutoreleasedReturnValue(), [v7 storageDataSourceForFabricUUID:dCopy], v8 = objc_claimAutoreleasedReturnValue(), v7, !v8))
   {
@@ -2823,11 +2912,11 @@ LABEL_16:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = HMFGetLogIdentifier();
-      v27 = 138543618;
-      v28 = v15;
-      v29 = 2112;
-      v30 = dCopy;
-      _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_INFO, "%{public}@Fabric data source not available; failed to get ipk for fabric %@", &v27, 0x16u);
+      v26 = 138543618;
+      v27 = v15;
+      v28 = 2112;
+      v29 = dCopy;
+      _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_INFO, "%{public}@Fabric data source not available; failed to get ipk for fabric %@", &v26, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -2842,11 +2931,11 @@ LABEL_9:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         v20 = HMFGetLogIdentifier();
-        v27 = 138543618;
-        v28 = v20;
-        v29 = 2112;
-        v30 = dCopy;
-        _os_log_impl(&dword_22AEAE000, v19, OS_LOG_TYPE_INFO, "%{public}@Generating new IPK for fabric %@", &v27, 0x16u);
+        v26 = 138543618;
+        v27 = v20;
+        v28 = 2112;
+        v29 = dCopy;
+        _os_log_impl(&dword_22AEAE000, v19, OS_LOG_TYPE_INFO, "%{public}@Generating new IPK for fabric %@", &v26, 0x16u);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -2866,10 +2955,10 @@ LABEL_9:
       }
 
       v22 = HMFGetLogIdentifier();
-      v27 = 138543618;
-      v28 = v22;
-      v29 = 2112;
-      v30 = dCopy;
+      v26 = 138543618;
+      v27 = v22;
+      v28 = 2112;
+      v29 = dCopy;
       v23 = "%{public}@FATAL Error: Failed to generate IPK for fabric %@";
     }
 
@@ -2885,14 +2974,14 @@ LABEL_19:
       }
 
       v22 = HMFGetLogIdentifier();
-      v27 = 138543618;
-      v28 = v22;
-      v29 = 2112;
-      v30 = dCopy;
+      v26 = 138543618;
+      v27 = v22;
+      v28 = 2112;
+      v29 = dCopy;
       v23 = "%{public}@IPK missing for fabric %@";
     }
 
-    _os_log_impl(&dword_22AEAE000, v19, OS_LOG_TYPE_ERROR, v23, &v27, 0x16u);
+    _os_log_impl(&dword_22AEAE000, v19, OS_LOG_TYPE_ERROR, v23, &v26, 0x16u);
 
     goto LABEL_19;
   }
@@ -2914,14 +3003,12 @@ LABEL_19:
 
 LABEL_20:
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (BOOL)syncDataSourceDictionary:(id)dictionary forFabric:(id)fabric
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   fabricCopy = fabric;
   v8 = objc_autoreleasePoolPush();
@@ -2942,38 +3029,37 @@ LABEL_20:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v30 = 1;
+  v29 = 1;
   v13 = objc_alloc_init(MEMORY[0x277D0F780]);
   objc_initWeak(&location, v13);
-  v19 = MEMORY[0x277D85DD0];
-  v20 = 3221225472;
-  v21 = __51__HMMTRStorage_syncDataSourceDictionary_forFabric___block_invoke;
-  v22 = &unk_2786F0E08;
-  objc_copyWeak(&v27, &location);
-  v23 = selfCopy;
+  v18 = MEMORY[0x277D85DD0];
+  v19 = 3221225472;
+  v20 = __51__HMMTRStorage_syncDataSourceDictionary_forFabric___block_invoke;
+  v21 = &unk_2786F0E08;
+  objc_copyWeak(&v26, &location);
+  v22 = selfCopy;
   v14 = dictionaryCopy;
-  v24 = v14;
+  v23 = v14;
   v15 = fabricCopy;
-  v25 = v15;
-  v26 = buf;
-  [v13 addExecutionBlock:&v19];
-  v16 = [(HMMTRStorage *)selfCopy keyValueStoreUpdateQueue:v19];
+  v24 = v15;
+  v25 = buf;
+  [v13 addExecutionBlock:&v18];
+  v16 = [(HMMTRStorage *)selfCopy keyValueStoreUpdateQueue:v18];
   [v16 addOperation:v13];
 
   [v13 waitUntilFinished];
   LOBYTE(v16) = *(*&buf[8] + 24);
 
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v26);
   objc_destroyWeak(&location);
 
   _Block_object_dispose(buf, 8);
-  v17 = *MEMORY[0x277D85DE8];
   return v16 & 1;
 }
 
 void __51__HMMTRStorage_syncDataSourceDictionary_forFabric___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
@@ -2983,9 +3069,9 @@ void __51__HMMTRStorage_syncDataSourceDictionary_forFabric___block_invoke(uint64
     v6 = HMFGetLogIdentifier();
     v7 = [*(a1 + 40) allKeys];
     *buf = 138543618;
-    v25 = v6;
-    v26 = 2112;
-    v27 = v7;
+    v24 = v6;
+    v25 = 2112;
+    v26 = v7;
     _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Setting data source value for keys: %@", buf, 0x16u);
   }
 
@@ -3000,20 +3086,20 @@ void __51__HMMTRStorage_syncDataSourceDictionary_forFabric___block_invoke(uint64
 
     if (v11)
     {
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __51__HMMTRStorage_syncDataSourceDictionary_forFabric___block_invoke_123;
-      v22[3] = &unk_2786F0DB8;
-      v23 = *(a1 + 40);
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __51__HMMTRStorage_syncDataSourceDictionary_forFabric___block_invoke_2;
-      v19[3] = &unk_2786F0D68;
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __51__HMMTRStorage_syncDataSourceDictionary_forFabric___block_invoke_123;
+      v21[3] = &unk_2786F0DB8;
+      v22 = *(a1 + 40);
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __51__HMMTRStorage_syncDataSourceDictionary_forFabric___block_invoke_2;
+      v18[3] = &unk_2786F0D68;
       v12 = *(a1 + 56);
-      v19[4] = *(a1 + 32);
-      v21 = v12;
-      v20 = WeakRetained;
-      [v11 updateKeyValueStoreWithBlock:v22 completion:v19];
+      v18[4] = *(a1 + 32);
+      v20 = v12;
+      v19 = WeakRetained;
+      [v11 updateKeyValueStoreWithBlock:v21 completion:v18];
     }
 
     else
@@ -3026,9 +3112,9 @@ void __51__HMMTRStorage_syncDataSourceDictionary_forFabric___block_invoke(uint64
         v16 = HMFGetLogIdentifier();
         v17 = [*(a1 + 48) fabricID];
         *buf = 138543618;
-        v25 = v16;
-        v26 = 2112;
-        v27 = v17;
+        v24 = v16;
+        v25 = 2112;
+        v26 = v17;
         _os_log_impl(&dword_22AEAE000, v15, OS_LOG_TYPE_ERROR, "%{public}@Fabric data source for fabric ID %@ is not available yet; cannot update storage", buf, 0x16u);
       }
 
@@ -3042,13 +3128,11 @@ void __51__HMMTRStorage_syncDataSourceDictionary_forFabric___block_invoke(uint64
     *(*(*(a1 + 56) + 8) + 24) = 0;
     [WeakRetained finish];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __51__HMMTRStorage_syncDataSourceDictionary_forFabric___block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -3059,11 +3143,11 @@ void __51__HMMTRStorage_syncDataSourceDictionary_forFabric___block_invoke_2(uint
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to update key-value store with error %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to update key-value store with error %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -3075,22 +3159,20 @@ void __51__HMMTRStorage_syncDataSourceDictionary_forFabric___block_invoke_2(uint
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Successfully updated key-value store", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Successfully updated key-value store", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
 
   [*(a1 + 40) finish];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_syncSetDataSourceDictionary:(id)dictionary
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -3110,36 +3192,35 @@ void __51__HMMTRStorage_syncDataSourceDictionary_forFabric___block_invoke_2(uint
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v21 = 1;
+  v20 = 1;
   v10 = objc_alloc_init(MEMORY[0x277D0F780]);
   objc_initWeak(&location, v10);
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __45__HMMTRStorage__syncSetDataSourceDictionary___block_invoke;
-  v15[3] = &unk_2786F0DE0;
-  objc_copyWeak(&v18, &location);
-  v15[4] = selfCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __45__HMMTRStorage__syncSetDataSourceDictionary___block_invoke;
+  v14[3] = &unk_2786F0DE0;
+  objc_copyWeak(&v17, &location);
+  v14[4] = selfCopy;
   v11 = dictionaryCopy;
-  v16 = v11;
-  v17 = buf;
-  [v10 addExecutionBlock:v15];
+  v15 = v11;
+  v16 = buf;
+  [v10 addExecutionBlock:v14];
   keyValueStoreUpdateQueue = [(HMMTRStorage *)selfCopy keyValueStoreUpdateQueue];
   [keyValueStoreUpdateQueue addOperation:v10];
 
   [v10 waitUntilFinished];
   LOBYTE(keyValueStoreUpdateQueue) = *(*&buf[8] + 24);
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
 
   _Block_object_dispose(buf, 8);
-  v13 = *MEMORY[0x277D85DE8];
   return keyValueStoreUpdateQueue & 1;
 }
 
 void __45__HMMTRStorage__syncSetDataSourceDictionary___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
@@ -3149,9 +3230,9 @@ void __45__HMMTRStorage__syncSetDataSourceDictionary___block_invoke(uint64_t a1)
     v6 = HMFGetLogIdentifier();
     v7 = [*(a1 + 40) allKeys];
     *buf = 138543618;
-    v28 = v6;
-    v29 = 2112;
-    v30 = v7;
+    v27 = v6;
+    v28 = 2112;
+    v29 = v7;
     _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Setting data source value for keys: %@", buf, 0x16u);
   }
 
@@ -3188,9 +3269,9 @@ LABEL_12:
       v19 = HMFGetLogIdentifier();
       v20 = [*(a1 + 32) fabricID];
       *buf = 138543618;
-      v28 = v19;
-      v29 = 2112;
-      v30 = v20;
+      v27 = v19;
+      v28 = 2112;
+      v29 = v20;
       _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_ERROR, "%{public}@Fabric data source for fabric ID %@ is not available yet; cannot update storage", buf, 0x16u);
     }
 
@@ -3199,28 +3280,27 @@ LABEL_12:
   }
 
   v14 = [*(a1 + 32) fabricDataSource];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __45__HMMTRStorage__syncSetDataSourceDictionary___block_invoke_122;
-  v25[3] = &unk_2786F0DB8;
-  v26 = *(a1 + 40);
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __45__HMMTRStorage__syncSetDataSourceDictionary___block_invoke_2;
-  v22[3] = &unk_2786F0D68;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __45__HMMTRStorage__syncSetDataSourceDictionary___block_invoke_122;
+  v24[3] = &unk_2786F0DB8;
+  v25 = *(a1 + 40);
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __45__HMMTRStorage__syncSetDataSourceDictionary___block_invoke_2;
+  v21[3] = &unk_2786F0D68;
   v15 = *(a1 + 48);
-  v22[4] = *(a1 + 32);
-  v24 = v15;
-  v23 = WeakRetained;
-  [v14 updateKeyValueStoreWithBlock:v25 completion:v22];
+  v21[4] = *(a1 + 32);
+  v23 = v15;
+  v22 = WeakRetained;
+  [v14 updateKeyValueStoreWithBlock:v24 completion:v21];
 
 LABEL_13:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __45__HMMTRStorage__syncSetDataSourceDictionary___block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -3231,11 +3311,11 @@ void __45__HMMTRStorage__syncSetDataSourceDictionary___block_invoke_2(uint64_t a
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to update key-value store with error %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to update key-value store with error %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -3247,22 +3327,20 @@ void __45__HMMTRStorage__syncSetDataSourceDictionary___block_invoke_2(uint64_t a
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Successfully updated key-value store", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Successfully updated key-value store", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
 
   [*(a1 + 40) finish];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_removeAllDataSourceData
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -3277,34 +3355,33 @@ void __45__HMMTRStorage__syncSetDataSourceDictionary___block_invoke_2(uint64_t a
   objc_autoreleasePoolPop(v3);
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v20 = 0x2020000000;
-  v21 = 1;
+  v19 = 0x2020000000;
+  v20 = 1;
   v7 = objc_alloc_init(MEMORY[0x277D0F780]);
   objc_initWeak(&location, v7);
-  v11 = MEMORY[0x277D85DD0];
-  v12 = 3221225472;
-  v13 = __40__HMMTRStorage__removeAllDataSourceData__block_invoke;
-  v14 = &unk_2786F0D90;
-  objc_copyWeak(&v17, &location);
-  v15 = selfCopy;
+  v10 = MEMORY[0x277D85DD0];
+  v11 = 3221225472;
+  v12 = __40__HMMTRStorage__removeAllDataSourceData__block_invoke;
+  v13 = &unk_2786F0D90;
+  objc_copyWeak(&v16, &location);
+  v14 = selfCopy;
   p_buf = &buf;
-  [v7 addExecutionBlock:&v11];
-  v8 = [(HMMTRStorage *)selfCopy keyValueStoreUpdateQueue:v11];
+  [v7 addExecutionBlock:&v10];
+  v8 = [(HMMTRStorage *)selfCopy keyValueStoreUpdateQueue:v10];
   [v8 addOperation:v7];
 
   [v7 waitUntilFinished];
   LOBYTE(v8) = *(*(&buf + 1) + 24);
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(&location);
 
   _Block_object_dispose(&buf, 8);
-  v9 = *MEMORY[0x277D85DE8];
   return v8 & 1;
 }
 
 void __40__HMMTRStorage__removeAllDataSourceData__block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
@@ -3313,7 +3390,7 @@ void __40__HMMTRStorage__removeAllDataSourceData__block_invoke(uint64_t a1)
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v29 = v6;
+    v28 = v6;
     _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_INFO, "%{public}@Removing all data source data", buf, 0xCu);
   }
 
@@ -3330,7 +3407,7 @@ void __40__HMMTRStorage__removeAllDataSourceData__block_invoke(uint64_t a1)
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v29 = v19;
+      v28 = v19;
       _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_ERROR, "%{public}@Expecting fabric ID to be present when data source is removed", buf, 0xCu);
     }
 
@@ -3359,9 +3436,9 @@ void __40__HMMTRStorage__removeAllDataSourceData__block_invoke(uint64_t a1)
       v22 = HMFGetLogIdentifier();
       v23 = [*(a1 + 32) fabricID];
       *buf = 138543618;
-      v29 = v22;
-      v30 = 2112;
-      v31 = v23;
+      v28 = v22;
+      v29 = 2112;
+      v30 = v23;
       _os_log_impl(&dword_22AEAE000, v21, OS_LOG_TYPE_ERROR, "%{public}@Fabric data source for fabric ID %@ is not available yet; cannot remove data from storage", buf, 0x16u);
     }
 
@@ -3373,23 +3450,22 @@ LABEL_14:
 
   v13 = [*(a1 + 32) fabricDataSource];
   v14 = [MEMORY[0x277CBEAC0] dictionary];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __40__HMMTRStorage__removeAllDataSourceData__block_invoke_121;
-  v25[3] = &unk_2786F0D68;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __40__HMMTRStorage__removeAllDataSourceData__block_invoke_121;
+  v24[3] = &unk_2786F0D68;
   v15 = *(a1 + 40);
-  v25[4] = *(a1 + 32);
-  v27 = v15;
-  v26 = WeakRetained;
-  [v13 updateKeyValueStore:v14 completion:v25];
+  v24[4] = *(a1 + 32);
+  v26 = v15;
+  v25 = WeakRetained;
+  [v13 updateKeyValueStore:v14 completion:v24];
 
 LABEL_15:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __40__HMMTRStorage__removeAllDataSourceData__block_invoke_121(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -3400,11 +3476,11 @@ void __40__HMMTRStorage__removeAllDataSourceData__block_invoke_121(uint64_t a1, 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove key-value store: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove key-value store: %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -3416,22 +3492,20 @@ void __40__HMMTRStorage__removeAllDataSourceData__block_invoke_121(uint64_t a1, 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Successfully removed all keys from key-value store", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_22AEAE000, v7, OS_LOG_TYPE_INFO, "%{public}@Successfully removed all keys from key-value store", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
 
   [*(a1 + 40) finish];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_syncSetDataSourceValuesWithError:(id *)error block:(id)block
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -3447,22 +3521,22 @@ void __40__HMMTRStorage__removeAllDataSourceData__block_invoke_121(uint64_t a1, 
   objc_autoreleasePoolPop(v7);
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__12349;
-  v25 = __Block_byref_object_dispose__12350;
-  v26 = 0;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__12349;
+  v24 = __Block_byref_object_dispose__12350;
+  v25 = 0;
   v11 = objc_alloc_init(MEMORY[0x277D0F780]);
   objc_initWeak(&location, v11);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __56__HMMTRStorage__syncSetDataSourceValuesWithError_block___block_invoke;
-  v17[3] = &unk_2786F0D40;
-  objc_copyWeak(&v20, &location);
-  v17[4] = selfCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __56__HMMTRStorage__syncSetDataSourceValuesWithError_block___block_invoke;
+  v16[3] = &unk_2786F0D40;
+  objc_copyWeak(&v19, &location);
+  v16[4] = selfCopy;
   v12 = blockCopy;
-  v18 = v12;
+  v17 = v12;
   p_buf = &buf;
-  [v11 addExecutionBlock:v17];
+  [v11 addExecutionBlock:v16];
   keyValueStoreUpdateQueue = [(HMMTRStorage *)selfCopy keyValueStoreUpdateQueue];
   [keyValueStoreUpdateQueue addOperation:v11];
 
@@ -3474,17 +3548,16 @@ void __40__HMMTRStorage__removeAllDataSourceData__block_invoke_121(uint64_t a1, 
 
   v14 = *(*(&buf + 1) + 40) == 0;
 
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(&location);
 
   _Block_object_dispose(&buf, 8);
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 void __56__HMMTRStorage__syncSetDataSourceValuesWithError_block___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
@@ -3493,7 +3566,7 @@ void __56__HMMTRStorage__syncSetDataSourceValuesWithError_block___block_invoke(u
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v25 = v6;
+    v24 = v6;
     _os_log_impl(&dword_22AEAE000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Setting data source values", buf, 0xCu);
   }
 
@@ -3527,9 +3600,9 @@ void __56__HMMTRStorage__syncSetDataSourceValuesWithError_block___block_invoke(u
       v18 = HMFGetLogIdentifier();
       v19 = [*(a1 + 32) fabricID];
       *buf = 138543618;
-      v25 = v18;
-      v26 = 2112;
-      v27 = v19;
+      v24 = v18;
+      v25 = 2112;
+      v26 = v19;
       _os_log_impl(&dword_22AEAE000, v17, OS_LOG_TYPE_INFO, "%{public}@Fabric data source for fabric ID %@ is not available yet", buf, 0x16u);
     }
 
@@ -3540,17 +3613,16 @@ LABEL_11:
   }
 
   v13 = [*(a1 + 32) fabricDataSource];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __56__HMMTRStorage__syncSetDataSourceValuesWithError_block___block_invoke_118;
-  v21[3] = &unk_2786F0D18;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __56__HMMTRStorage__syncSetDataSourceValuesWithError_block___block_invoke_118;
+  v20[3] = &unk_2786F0D18;
   v14 = *(a1 + 40);
-  v23 = *(a1 + 48);
-  v22 = WeakRetained;
-  [v13 updateKeyValueStoreWithBlock:v14 completion:v21];
+  v22 = *(a1 + 48);
+  v21 = WeakRetained;
+  [v13 updateKeyValueStoreWithBlock:v14 completion:v20];
 
 LABEL_12:
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __56__HMMTRStorage__syncSetDataSourceValuesWithError_block___block_invoke_118(uint64_t a1, void *a2)
@@ -3562,7 +3634,7 @@ void __56__HMMTRStorage__syncSetDataSourceValuesWithError_block___block_invoke_1
 
 - (BOOL)_syncSetDataSourceValue:(id)value forKey:(id)key
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   keyCopy = key;
   v8 = objc_autoreleasePoolPush();
@@ -3572,25 +3644,25 @@ void __56__HMMTRStorage__syncSetDataSourceValuesWithError_block___block_invoke_1
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v31 = v11;
-    v32 = 2112;
-    v33 = keyCopy;
+    v30 = v11;
+    v31 = 2112;
+    v32 = keyCopy;
     _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Queueing sync set data source values for key: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
-  v29 = 0;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __47__HMMTRStorage__syncSetDataSourceValue_forKey___block_invoke;
-  v26[3] = &unk_2786F0CF0;
-  v26[4] = selfCopy;
+  v28 = 0;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __47__HMMTRStorage__syncSetDataSourceValue_forKey___block_invoke;
+  v25[3] = &unk_2786F0CF0;
+  v25[4] = selfCopy;
   v12 = keyCopy;
-  v27 = v12;
+  v26 = v12;
   v13 = valueCopy;
-  v28 = v13;
-  v14 = [(HMMTRStorage *)selfCopy _syncSetDataSourceValuesWithError:&v29 block:v26];
-  v15 = v29;
+  v27 = v13;
+  v14 = [(HMMTRStorage *)selfCopy _syncSetDataSourceValuesWithError:&v28 block:v25];
+  v15 = v28;
   if (v14)
   {
     v16 = objc_autoreleasePoolPush();
@@ -3600,9 +3672,9 @@ void __56__HMMTRStorage__syncSetDataSourceValuesWithError_block___block_invoke_1
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v31 = v19;
-      v32 = 2112;
-      v33 = v12;
+      v30 = v19;
+      v31 = 2112;
+      v32 = v12;
       _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_INFO, "%{public}@Successfully updated key-value store for key = %@", buf, 0x16u);
     }
 
@@ -3619,24 +3691,23 @@ void __56__HMMTRStorage__syncSetDataSourceValuesWithError_block___block_invoke_1
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v31 = v23;
-      v32 = 2112;
-      v33 = v12;
-      v34 = 2112;
-      v35 = v15;
+      v30 = v23;
+      v31 = 2112;
+      v32 = v12;
+      v33 = 2112;
+      v34 = v15;
       _os_log_impl(&dword_22AEAE000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to update key-value store for key = %@ with error %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v20);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 uint64_t __47__HMMTRStorage__syncSetDataSourceValue_forKey___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -3646,34 +3717,33 @@ uint64_t __47__HMMTRStorage__syncSetDataSourceValue_forKey___block_invoke(uint64
   {
     v10 = HMFGetLogIdentifier();
     v11 = *(a1 + 40);
-    v22 = 138543618;
-    v23 = v10;
-    v24 = 2112;
-    v25 = v11;
-    _os_log_impl(&dword_22AEAE000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Setting data source value for key: %@", &v22, 0x16u);
+    v20 = 138543618;
+    v21 = v10;
+    v22 = 2112;
+    v23 = v11;
+    _os_log_impl(&dword_22AEAE000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Setting data source value for key: %@", &v20, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
   v12 = [v5 objectForKeyedSubscript:*(a1 + 40)];
-  v13 = *(a1 + 48);
-  v14 = HMFEqualObjects();
-  if (v14)
+  v13 = HMFEqualObjects();
+  if (v13)
   {
-    v15 = objc_autoreleasePoolPush();
-    v16 = *(a1 + 32);
-    v17 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v14 = objc_autoreleasePoolPush();
+    v15 = *(a1 + 32);
+    v16 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v18 = HMFGetLogIdentifier();
-      v19 = *(a1 + 40);
-      v22 = 138543618;
+      v17 = HMFGetLogIdentifier();
+      v18 = *(a1 + 40);
+      v20 = 138543618;
+      v21 = v17;
+      v22 = 2112;
       v23 = v18;
-      v24 = 2112;
-      v25 = v19;
-      _os_log_impl(&dword_22AEAE000, v17, OS_LOG_TYPE_INFO, "%{public}@Skipping write for key %@ as new value is same as existing", &v22, 0x16u);
+      _os_log_impl(&dword_22AEAE000, v16, OS_LOG_TYPE_INFO, "%{public}@Skipping write for key %@ as new value is same as existing", &v20, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v15);
+    objc_autoreleasePoolPop(v14);
   }
 
   else
@@ -3685,8 +3755,7 @@ uint64_t __47__HMMTRStorage__syncSetDataSourceValue_forKey___block_invoke(uint64
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v14 ^ 1u;
+  return v13 ^ 1u;
 }
 
 - (void)clearStaleItems
@@ -3702,7 +3771,7 @@ uint64_t __47__HMMTRStorage__syncSetDataSourceValue_forKey___block_invoke(uint64
 
 void __31__HMMTRStorage_clearStaleItems__block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) fabricDataSource];
   if (v2)
   {
@@ -3725,7 +3794,7 @@ void __31__HMMTRStorage_clearStaleItems__block_invoke(uint64_t a1)
         {
           v12 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v25 = v12;
+          v24 = v12;
           _os_log_impl(&dword_22AEAE000, v11, OS_LOG_TYPE_INFO, "%{public}@Storage for Apple Home fabric contains System Commissioner Fabric ID. Cleaning it up", buf, 0xCu);
         }
 
@@ -3737,9 +3806,9 @@ void __31__HMMTRStorage_clearStaleItems__block_invoke(uint64_t a1)
         if (!v14)
         {
           v15 = [*(a1 + 32) systemCommissionerKeyValueStore];
-          v23 = 0;
-          v16 = [v15 setStoredValue:v8 forKey:@"HMD.MTRPlugin.MTS.SystemCommissionerFabricIndex" error:&v23];
-          v17 = v23;
+          v22 = 0;
+          v16 = [v15 setStoredValue:v8 forKey:@"HMD.MTRPlugin.MTS.SystemCommissionerFabricIndex" error:&v22];
+          v17 = v22;
 
           if ((v16 & 1) == 0)
           {
@@ -3750,9 +3819,9 @@ void __31__HMMTRStorage_clearStaleItems__block_invoke(uint64_t a1)
             {
               v21 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v25 = v21;
-              v26 = 2112;
-              v27 = v17;
+              v24 = v21;
+              v25 = 2112;
+              v26 = v17;
               _os_log_impl(&dword_22AEAE000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to write to System Commissioner fabric ID with error %@", buf, 0x16u);
             }
 
@@ -3762,13 +3831,11 @@ void __31__HMMTRStorage_clearStaleItems__block_invoke(uint64_t a1)
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setPreferencesValueForKey:(id)key value:(id)value
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   valueCopy = value;
   v8 = objc_autoreleasePoolPush();
@@ -3777,17 +3844,15 @@ void __31__HMMTRStorage_clearStaleItems__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     v11 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v11;
-    v15 = 2112;
-    v16 = keyCopy;
-    _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Setting preferences value for key: %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v11;
+    v14 = 2112;
+    v15 = keyCopy;
+    _os_log_impl(&dword_22AEAE000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Setting preferences value for key: %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   CFPreferencesSetAppValue(keyCopy, valueCopy, *MEMORY[0x277CBF028]);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_preferencesValueForKey:(id)key
@@ -3858,9 +3923,9 @@ void __31__HMMTRStorage_clearStaleItems__block_invoke(uint64_t a1)
   v35 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   storageCopy = storage;
-  if (isFeatureMatterLocalFabricConfigEnabled())
+  if (isFeatureMatterLocalFabricConfigEnabled(storageCopy, v7))
   {
-    LOBYTE(v7) = 0;
+    LOBYTE(v8) = 0;
   }
 
   else
@@ -3870,37 +3935,37 @@ void __31__HMMTRStorage_clearStaleItems__block_invoke(uint64_t a1)
     v29 = 0u;
     v30 = 0u;
     allKeys = [itemsCopy allKeys];
-    v9 = [allKeys countByEnumeratingWithState:&v29 objects:v34 count:16];
-    if (v9)
+    v10 = [allKeys countByEnumeratingWithState:&v29 objects:v34 count:16];
+    if (v10)
     {
-      v10 = v9;
-      v11 = *v30;
+      v11 = v10;
+      v12 = *v30;
       while (2)
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v30 != v11)
+          if (*v30 != v12)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v13 = *(*(&v29 + 1) + 8 * i);
-          if (![HMMTRStorage isPluginKey:v13]&& ![HMMTRStorage isMatterKey:v13])
+          v14 = *(*(&v29 + 1) + 8 * i);
+          if (![HMMTRStorage isPluginKey:v14]&& ![HMMTRStorage isMatterKey:v14])
           {
-            v14 = [itemsCopy objectForKeyedSubscript:v13];
-            v15 = [storageCopy objectForKeyedSubscript:v13];
-            if (![v14 isEqual:v15])
+            v15 = [itemsCopy objectForKeyedSubscript:v14];
+            v16 = [storageCopy objectForKeyedSubscript:v14];
+            if (![v15 isEqual:v16])
             {
 LABEL_24:
-              NSLog(&cfstr_StorageKeyHasC.isa, v13);
-              LOBYTE(v7) = 1;
+              NSLog(&cfstr_StorageKeyHasC.isa, v14);
+              LOBYTE(v8) = 1;
               goto LABEL_25;
             }
           }
         }
 
-        v10 = [allKeys countByEnumeratingWithState:&v29 objects:v34 count:16];
-        if (v10)
+        v11 = [allKeys countByEnumeratingWithState:&v29 objects:v34 count:16];
+        if (v11)
         {
           continue;
         }
@@ -3909,43 +3974,43 @@ LABEL_24:
       }
     }
 
-    v16 = MEMORY[0x277CBEB58];
+    v17 = MEMORY[0x277CBEB58];
     allKeys2 = [itemsCopy allKeys];
-    allKeys = [v16 setWithArray:allKeys2];
+    allKeys = [v17 setWithArray:allKeys2];
 
-    v18 = MEMORY[0x277CBEB58];
+    v19 = MEMORY[0x277CBEB58];
     allKeys3 = [storageCopy allKeys];
-    v20 = [v18 setWithArray:allKeys3];
+    v21 = [v19 setWithArray:allKeys3];
 
-    [v20 minusSet:allKeys];
+    [v21 minusSet:allKeys];
     v27 = 0u;
     v28 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v15 = v20;
-    v7 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
-    if (v7)
+    v16 = v21;
+    v8 = [v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
+    if (v8)
     {
-      v21 = *v26;
+      v22 = *v26;
       while (2)
       {
-        for (j = 0; j != v7; ++j)
+        for (j = 0; j != v8; ++j)
         {
-          if (*v26 != v21)
+          if (*v26 != v22)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v16);
           }
 
-          v13 = *(*(&v25 + 1) + 8 * j);
-          if (![HMMTRStorage isPluginKey:v13])
+          v14 = *(*(&v25 + 1) + 8 * j);
+          if (![HMMTRStorage isPluginKey:v14])
           {
-            v14 = v15;
+            v15 = v16;
             goto LABEL_24;
           }
         }
 
-        v7 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
-        if (v7)
+        v8 = [v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
+        if (v8)
         {
           continue;
         }
@@ -3954,12 +4019,11 @@ LABEL_24:
       }
     }
 
-    v14 = v15;
+    v15 = v16;
 LABEL_25:
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-  return v7;
+  return v8;
 }
 
 + (id)shortDescription
@@ -3983,17 +4047,16 @@ LABEL_25:
 
 uint64_t __27__HMMTRStorage_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v69_12374;
-  logCategory__hmf_once_v69_12374 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v69_12374;
+  logCategory__hmf_once_v69_12374 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)generateIPK
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (SecRandomCopyBytes(*MEMORY[0x277CDC540], 0x10uLL, bytes))
   {
     v2 = 0;
@@ -4004,14 +4067,12 @@ uint64_t __27__HMMTRStorage_logCategory__block_invoke()
     v2 = [MEMORY[0x277CBEA90] dataWithBytes:bytes length:16];
   }
 
-  v3 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
 + (BOOL)checkAndUpdateExpiryOfCertificate:(id)certificate keyPair:(id)pair newCertificate:(id *)newCertificate
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   certificateCopy = certificate;
   pairCopy = pair;
   if ([MEMORY[0x277CD5230] keypair:pairCopy matchesCertificate:certificateCopy])
@@ -4038,11 +4099,11 @@ uint64_t __27__HMMTRStorage_logCategory__block_invoke()
           [MEMORY[0x277CBEAA8] distantFuture];
           v23 = v22 = v10;
           *buf = 138543874;
-          v60 = v20;
-          v61 = 2112;
-          v62 = notAfter2;
-          v63 = 2112;
-          v64 = v23;
+          v59 = v20;
+          v60 = 2112;
+          v61 = notAfter2;
+          v62 = 2112;
+          v63 = v23;
           _os_log_impl(&dword_22AEAE000, v19, OS_LOG_TYPE_INFO, "%{public}@Certificate expires in distant future. No update needed %@ vs %@", buf, 0x20u);
 
           v10 = v22;
@@ -4055,7 +4116,7 @@ uint64_t __27__HMMTRStorage_logCategory__block_invoke()
 
       else
       {
-        v56 = v10;
+        v55 = v10;
         v33 = objc_alloc(MEMORY[0x277CCA970]);
         notBefore = [v12 notBefore];
         distantFuture2 = [MEMORY[0x277CBEAA8] distantFuture];
@@ -4065,12 +4126,12 @@ uint64_t __27__HMMTRStorage_logCategory__block_invoke()
         v37 = MEMORY[0x277CD5230];
         issuer = [v12 issuer];
         rootCACertificateID = [issuer rootCACertificateID];
-        v55 = v12;
+        v54 = v12;
         issuer2 = [v12 issuer];
         fabricID = [issuer2 fabricID];
-        v58 = 0;
-        v42 = [v37 createRootCertificate:pairCopy issuerID:rootCACertificateID fabricID:fabricID validityPeriod:v36 error:&v58];
-        v54 = v58;
+        v57 = 0;
+        v42 = [v37 createRootCertificate:pairCopy issuerID:rootCACertificateID fabricID:fabricID validityPeriod:v36 error:&v57];
+        v53 = v57;
         v43 = v42;
         *newCertificateCopy = v42;
 
@@ -4086,37 +4147,37 @@ uint64_t __27__HMMTRStorage_logCategory__block_invoke()
           {
             v49 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v60 = v49;
-            v61 = 2112;
-            v62 = v36;
+            v59 = v49;
+            v60 = 2112;
+            v61 = v36;
             _os_log_impl(&dword_22AEAE000, v48, OS_LOG_TYPE_INFO, "%{public}@Successfully re-created certificate with new validity %@", buf, 0x16u);
           }
 
           objc_autoreleasePoolPop(v45);
           [MEMORY[0x277CD5230] printX509Certificate:*newCertificateCopy];
-          v50 = v54;
+          v50 = v53;
         }
 
         else
         {
-          v50 = v54;
+          v50 = v53;
           if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
           {
             v51 = HMFGetLogIdentifier();
             *buf = 138543874;
-            v60 = v51;
-            v61 = 2112;
-            v62 = v36;
-            v63 = 2112;
-            v64 = v54;
+            v59 = v51;
+            v60 = 2112;
+            v61 = v36;
+            v62 = 2112;
+            v63 = v53;
             _os_log_impl(&dword_22AEAE000, v48, OS_LOG_TYPE_ERROR, "%{public}@Failed to re-create certificate with new validity %@ due to error %@", buf, 0x20u);
           }
 
           objc_autoreleasePoolPop(v45);
         }
 
-        v12 = v55;
-        v10 = v56;
+        v12 = v54;
+        v10 = v55;
       }
     }
 
@@ -4130,7 +4191,7 @@ uint64_t __27__HMMTRStorage_logCategory__block_invoke()
       {
         v32 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v60 = v32;
+        v59 = v32;
         _os_log_impl(&dword_22AEAE000, v31, OS_LOG_TYPE_ERROR, "%{public}@Couldn't extract certificate info", buf, 0xCu);
       }
 
@@ -4149,9 +4210,9 @@ uint64_t __27__HMMTRStorage_logCategory__block_invoke()
     {
       v28 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v60 = v28;
-      v61 = 2112;
-      v62 = pairCopy;
+      v59 = v28;
+      v60 = 2112;
+      v61 = pairCopy;
       _os_log_impl(&dword_22AEAE000, v27, OS_LOG_TYPE_ERROR, "%{public}@Certificate doesn't match key pair %@", buf, 0x16u);
     }
 
@@ -4159,42 +4220,41 @@ uint64_t __27__HMMTRStorage_logCategory__block_invoke()
     v24 = 0;
   }
 
-  v52 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 + (unsigned)knownFabricInStorage:(id)storage fabricID:(id)d keyPair:(id)pair controllerNodeID:(id *)iD rootCertificate:(id *)certificate
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   storageCopy = storage;
   dCopy = d;
   pairCopy = pair;
+  v75 = 0u;
   v76 = 0u;
   v77 = 0u;
   v78 = 0u;
-  v79 = 0u;
   allKeys = [storageCopy allKeys];
-  v11 = [allKeys countByEnumeratingWithState:&v76 objects:v86 count:16];
+  v11 = [allKeys countByEnumeratingWithState:&v75 objects:v85 count:16];
   if (!v11)
   {
     goto LABEL_53;
   }
 
   v12 = v11;
-  v13 = *v77;
-  v67 = storageCopy;
-  v72 = allKeys;
-  v74 = *v77;
+  v13 = *v76;
+  v66 = storageCopy;
+  v71 = allKeys;
+  v73 = *v76;
   do
   {
     for (i = 0; i != v12; ++i)
     {
-      if (*v77 != v13)
+      if (*v76 != v13)
       {
         objc_enumerationMutation(allKeys);
       }
 
-      v15 = *(*(&v76 + 1) + 8 * i);
+      v15 = *(*(&v75 + 1) + 8 * i);
       if ([v15 hasPrefix:@"f/"] && objc_msgSend(v15, "hasSuffix:", @"/r") && objc_msgSend(v15, "length") >= 5)
       {
         v16 = [v15 substringWithRange:{2, objc_msgSend(v15, "length") - 4}];
@@ -4213,9 +4273,9 @@ uint64_t __27__HMMTRStorage_logCategory__block_invoke()
           while (++v17 < [v16 length]);
         }
 
-        v75 = 0;
+        v74 = 0;
         v19 = [MEMORY[0x277CCAC80] scannerWithString:v16];
-        v20 = [v19 scanHexInt:&v75];
+        v20 = [v19 scanHexInt:&v74];
 
         if ((v20 & 1) == 0)
         {
@@ -4245,25 +4305,25 @@ uint64_t __27__HMMTRStorage_logCategory__block_invoke()
           {
             v40 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v81 = v40;
-            v82 = 1024;
-            *v83 = v75;
+            v80 = v40;
+            v81 = 1024;
+            *v82 = v74;
             _os_log_impl(&dword_22AEAE000, v39, OS_LOG_TYPE_ERROR, "%{public}@f/%x/r isn't base64 encoded", buf, 0x12u);
           }
 
           objc_autoreleasePoolPop(v37);
-          allKeys = v72;
+          allKeys = v71;
 LABEL_38:
 
-          v13 = v74;
+          v13 = v73;
           continue;
         }
 
         v25 = v24;
-        v71 = [MEMORY[0x277CD5230] convertMatterCertificate:v24];
+        v70 = [MEMORY[0x277CD5230] convertMatterCertificate:v24];
         if ([MEMORY[0x277CD5230] keypair:pairCopy matchesCertificate:?])
         {
-          v69 = [MEMORY[0x277CCACA8] stringWithFormat:@"f/%x/n", v75];
+          v68 = [MEMORY[0x277CCACA8] stringWithFormat:@"f/%x/n", v74];
           v26 = [storageCopy objectForKeyedSubscript:?];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
@@ -4278,21 +4338,21 @@ LABEL_38:
 
           v28 = v27;
 
-          v68 = v28;
+          v67 = v28;
           if (v28 && (v29 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v28 options:0]) != 0)
           {
-            v63 = v29;
-            v66 = [objc_alloc(MEMORY[0x277CD5228]) initWithTLVBytes:v29];
-            subject = [v66 subject];
+            v62 = v29;
+            v65 = [objc_alloc(MEMORY[0x277CD5228]) initWithTLVBytes:v29];
+            subject = [v65 subject];
             fabricID = [subject fabricID];
 
-            v64 = fabricID;
-            v62 = [fabricID isEqual:dCopy];
-            if (v62)
+            v63 = fabricID;
+            v61 = [fabricID isEqual:dCopy];
+            if (v61)
             {
               if (iD)
               {
-                subject2 = [v66 subject];
+                subject2 = [v65 subject];
                 nodeID = [subject2 nodeID];
 
                 context = objc_autoreleasePoolPush();
@@ -4302,13 +4362,13 @@ LABEL_38:
                 {
                   v35 = HMFGetLogIdentifier();
                   *buf = 138544130;
-                  v81 = v35;
-                  v82 = 2112;
-                  *v83 = dCopy;
-                  *&v83[8] = 1024;
-                  *&v83[10] = v75;
-                  v84 = 2112;
-                  v85 = nodeID;
+                  v80 = v35;
+                  v81 = 2112;
+                  *v82 = dCopy;
+                  *&v82[8] = 1024;
+                  *&v82[10] = v74;
+                  v83 = 2112;
+                  v84 = nodeID;
                   _os_log_impl(&dword_22AEAE000, v34, OS_LOG_TYPE_DEBUG, "%{public}@Retrieved root cert for fabric ID %@ with fabric index 0x%x. Controller node ID is %@.", buf, 0x26u);
                 }
 
@@ -4316,15 +4376,15 @@ LABEL_38:
                 v36 = nodeID;
                 *iD = v36;
 
-                allKeys = v72;
+                allKeys = v71;
               }
 
               if (certificate)
               {
-                *certificate = v71;
+                *certificate = v70;
               }
 
-              v59 = v75;
+              v58 = v74;
             }
 
             else
@@ -4337,23 +4397,23 @@ LABEL_38:
                 HMFGetLogIdentifier();
                 v53 = contexta = v50;
                 *buf = 138544130;
-                v81 = v53;
-                v82 = 1024;
-                *v83 = v75;
-                *&v83[4] = 2112;
-                *&v83[6] = v64;
-                v84 = 2112;
-                v85 = dCopy;
+                v80 = v53;
+                v81 = 1024;
+                *v82 = v74;
+                *&v82[4] = 2112;
+                *&v82[6] = v63;
+                v83 = 2112;
+                v84 = dCopy;
                 _os_log_impl(&dword_22AEAE000, v52, OS_LOG_TYPE_DEBUG, "%{public}@f/%x/n fabric ID %@ doesn't match fabric ID %@", buf, 0x26u);
 
                 v50 = contexta;
               }
 
               objc_autoreleasePoolPop(v50);
-              allKeys = v72;
+              allKeys = v71;
             }
 
-            v45 = v62 ^ 1;
+            v45 = v61 ^ 1;
           }
 
           else
@@ -4365,18 +4425,18 @@ LABEL_38:
             {
               v49 = HMFGetLogIdentifier();
               *buf = 138543874;
-              v81 = v49;
-              v82 = 1024;
-              *v83 = v75;
-              *&v83[4] = 1024;
-              *&v83[6] = v75;
+              v80 = v49;
+              v81 = 1024;
+              *v82 = v74;
+              *&v82[4] = 1024;
+              *&v82[6] = v74;
               _os_log_impl(&dword_22AEAE000, v48, OS_LOG_TYPE_ERROR, "%{public}@f/%x/r doesn't have matching f/%x/n", buf, 0x18u);
             }
 
             objc_autoreleasePoolPop(v46);
             v45 = 1;
-            storageCopy = v67;
-            allKeys = v72;
+            storageCopy = v66;
+            allKeys = v71;
           }
         }
 
@@ -4389,21 +4449,21 @@ LABEL_38:
           {
             v44 = HMFGetLogIdentifier();
             *buf = 138543874;
-            v81 = v44;
-            v82 = 1024;
-            *v83 = v75;
-            *&v83[4] = 2112;
-            *&v83[6] = pairCopy;
+            v80 = v44;
+            v81 = 1024;
+            *v82 = v74;
+            *&v82[4] = 2112;
+            *&v82[6] = pairCopy;
             _os_log_impl(&dword_22AEAE000, v43, OS_LOG_TYPE_DEBUG, "%{public}@f/%x/r doesn't match system commissioner keypair %@", buf, 0x1Cu);
           }
 
           objc_autoreleasePoolPop(v41);
           v45 = 1;
-          storageCopy = v67;
-          allKeys = v72;
+          storageCopy = v66;
+          allKeys = v71;
         }
 
-        v13 = v74;
+        v13 = v73;
         if ((v45 & 1) == 0)
         {
           goto LABEL_54;
@@ -4411,16 +4471,15 @@ LABEL_38:
       }
     }
 
-    v12 = [allKeys countByEnumeratingWithState:&v76 objects:v86 count:16];
+    v12 = [allKeys countByEnumeratingWithState:&v75 objects:v85 count:16];
   }
 
   while (v12);
 LABEL_53:
-  v59 = 0;
+  v58 = 0;
 LABEL_54:
 
-  v54 = *MEMORY[0x277D85DE8];
-  return v59;
+  return v58;
 }
 
 @end

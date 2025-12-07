@@ -8,7 +8,7 @@
 - (_TtC18ASMessagesProvider34SmallLockupCollectionViewTableCell)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC18ASMessagesProvider34SmallLockupCollectionViewTableCell_lockupView;
-  type metadata accessor for SmallLockupView();
+  type metadata accessor for SmallLockupView(0);
   *&self->UICollectionViewTableCell_opaque[v4] = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
   result = sub_76A840();
   __break(1u);

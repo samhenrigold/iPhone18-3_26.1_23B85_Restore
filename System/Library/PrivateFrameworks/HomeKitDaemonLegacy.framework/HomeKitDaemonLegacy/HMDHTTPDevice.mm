@@ -94,16 +94,16 @@
 
 - (HMDHTTPDevice)initWithIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (identifierCopy)
   {
-    v15.receiver = self;
-    v15.super_class = HMDHTTPDevice;
-    v5 = [(HMDHTTPDevice *)&v15 init];
+    v14.receiver = self;
+    v14.super_class = HMDHTTPDevice;
+    v5 = [(HMDHTTPDevice *)&v14 init];
     if (v5)
     {
-      v6 = [identifierCopy copy];
+      v6 = objc_msgSend_copy(identifierCopy);
       identifier = v5->_identifier;
       v5->_identifier = v6;
     }
@@ -121,9 +121,9 @@
       v11 = HMFGetLogIdentifier();
       v12 = +[HMDHTTPDevice description];
       *buf = 138543618;
-      v17 = v11;
-      v18 = 2112;
-      v19 = v12;
+      v16 = v11;
+      v17 = 2112;
+      v18 = v12;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@[%@] A valid identifier is required", buf, 0x16u);
     }
 
@@ -131,7 +131,6 @@
     selfCopy = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -157,12 +156,11 @@
 
 uint64_t __28__HMDHTTPDevice_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_43687;
-  logCategory__hmf_once_v2_43687 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_43687;
+  logCategory__hmf_once_v2_43687 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)shortDescription

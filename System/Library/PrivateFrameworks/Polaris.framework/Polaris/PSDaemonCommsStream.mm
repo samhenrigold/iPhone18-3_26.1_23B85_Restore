@@ -44,32 +44,48 @@
 
 - (void)stop
 {
-  if (![(PSDaemonCommsStream *)self sendMessageWithType:3])
+  v5 = OUTLINED_FUNCTION_3_2(self, a2, *MEMORY[0x277D85DE8]);
+  v6 = asprintf(self, "Could not close source node for key (%s). Check polarisd logs for more info", v5);
+  v7 = __PLSLogSharedInstance(v6);
+  if (OUTLINED_FUNCTION_5(v7))
   {
-    [(PSDaemonCommsStream *)&v6 stop];
-    goto LABEL_5;
+    [*(a2 + 8) UTF8String];
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d Could not close source node for key (%s). Check polarisd logs for more info", v10, v11, v12, v13, v23, v24);
   }
 
-  if (![(PSDaemonCommsStream *)self sendMessageWithType:1])
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-LABEL_5:
-    stop = [(PSDaemonCommsStream *)&v6 stop];
-    [(PSDaemonCommsStream *)stop isAck:v4, v5];
+    v15 = __PLSLogSharedInstance(v14);
+    if (OUTLINED_FUNCTION_6(v15))
+    {
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21, v23, v24);
+    }
   }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v22 = OUTLINED_FUNCTION_0();
+  [PSDaemonCommsStream isAck:v22];
 }
 
 - (BOOL)isAck:(id *)ack
 {
-  if (MEMORY[0x25F8C8EC0](ack, a2))
+  v4 = MEMORY[0x25F8C8EC0](ack, a2);
+  if (v4)
   {
     var5 = ack->var0.var0.var2.var1.var5;
     if (var5 != 1)
     {
-      v5 = __PLSLogSharedInstance();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = __PLSLogSharedInstance(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        *v10 = 0;
-        _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "Could not create shared source node.", v10, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_ERROR, "Could not create shared source node.", v11, 2u);
       }
     }
 
@@ -78,33 +94,31 @@ LABEL_5:
 
   else
   {
-    v7 = [PSDaemonCommsStream isAck:?];
-    return [(PSDaemonCommsStream *)v7 sendMessageWithType:v8, v9];
+    [PSDaemonCommsStream isAck:?];
+    return [(PSDaemonCommsStream *)v8 sendMessageWithType:v9, v10];
   }
 }
 
 - (BOOL)sendMessageWithType:(int)type
 {
-  v10 = *MEMORY[0x277D85DE8];
-  bzero(v8, 0x430uLL);
+  v9 = *MEMORY[0x277D85DE8];
+  bzero(v7, 0x430uLL);
   [(NSString *)self->_key cStringUsingEncoding:4, 0, 0, 0, 0, 0, 0, 0];
   __strlcpy_chk();
   typeCopy = type;
-  MEMORY[0x25F8C8EE0](self->_comms, v8, 1072, &v7, 56, 2);
-  result = [(PSDaemonCommsStream *)self isAck:&v7];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  MEMORY[0x25F8C8EE0](self->_comms, v7, 1072, &v6, 56, 2);
+  return [(PSDaemonCommsStream *)self isAck:&v6];
 }
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = __PLSLogSharedInstance();
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = __PLSLogSharedInstance(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     key = self->_key;
     *buf = 138412290;
-    v9 = key;
+    v8 = key;
     _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_DEBUG, "PSDaemonCommsStream dealloc for key (%@)", buf, 0xCu);
   }
 
@@ -116,31 +130,30 @@ LABEL_5:
   v5 = self->_key;
   self->_key = 0;
 
-  v7.receiver = self;
-  v7.super_class = PSDaemonCommsStream;
-  [(PSDaemonCommsStream *)&v7 dealloc];
-  v6 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = PSDaemonCommsStream;
+  [(PSDaemonCommsStream *)&v6 dealloc];
 }
 
 - (uint64_t)initWithKey:(char *)a1 .cold.1(char **a1, id *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Could not create stream for key %s. Check polarisd logs for more info.", [*a2 UTF8String]);
-  v4 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v4))
+  v4 = asprintf(a1, "Could not create stream for key %s. Check polarisd logs for more info.", [*a2 UTF8String]);
+  v5 = __PLSLogSharedInstance(v4);
+  if (OUTLINED_FUNCTION_5(v5))
   {
     [*a2 UTF8String];
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d Could not create stream for key %s. Check polarisd logs for more info.", v7, v8, v9, v10, v20, v21, 2u);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Could not create stream for key %s. Check polarisd logs for more info.", v8, v9, v10, v11, v23, v24);
   }
 
-  if (OSLogFlushBuffers())
+  v12 = OSLogFlushBuffers();
+  if (v12)
   {
-    v11 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v11))
+    v13 = __PLSLogSharedInstance(v12);
+    if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17, v20, v21, buf);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24);
     }
   }
 
@@ -149,28 +162,29 @@ LABEL_5:
     OUTLINED_FUNCTION_7();
   }
 
-  v18 = OUTLINED_FUNCTION_0();
-  return [(PSDaemonCommsStream *)v18 start];
+  v20 = OUTLINED_FUNCTION_0();
+  return [(PSDaemonCommsStream *)v20 start];
 }
 
 - (uint64_t)start
 {
   v5 = OUTLINED_FUNCTION_3_2(self, a2, *MEMORY[0x277D85DE8]);
-  asprintf(self, "Could not start source node for key (%s). Check polarisd logs for more info", v5);
-  v6 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v6))
+  v6 = asprintf(self, "Could not start source node for key (%s). Check polarisd logs for more info", v5);
+  v7 = __PLSLogSharedInstance(v6);
+  if (OUTLINED_FUNCTION_5(v7))
   {
     [*(a2 + 8) UTF8String];
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d Could not start source node for key (%s). Check polarisd logs for more info", v9, v10, v11, v12, v22, v23, 2u);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d Could not start source node for key (%s). Check polarisd logs for more info", v10, v11, v12, v13, v25, v26);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v13 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
+    v15 = __PLSLogSharedInstance(v14);
+    if (OUTLINED_FUNCTION_6(v15))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23, buf);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21, v25, v26);
     }
   }
 
@@ -179,28 +193,29 @@ LABEL_5:
     OUTLINED_FUNCTION_7();
   }
 
-  v20 = OUTLINED_FUNCTION_0();
-  return [(PSDaemonCommsStream *)v20 stop];
+  v22 = OUTLINED_FUNCTION_0();
+  return [(PSDaemonCommsStream *)v22 stop];
 }
 
 - (uint64_t)stop
 {
   v5 = OUTLINED_FUNCTION_3_2(self, a2, *MEMORY[0x277D85DE8]);
-  asprintf(self, "Could not close source node for key (%s). Check polarisd logs for more info", v5);
-  v6 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v6))
+  v6 = asprintf(self, "Could not stop source node for key (%s). Check polarisd logs for more info", v5);
+  v7 = __PLSLogSharedInstance(v6);
+  if (OUTLINED_FUNCTION_5(v7))
   {
     [*(a2 + 8) UTF8String];
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d Could not close source node for key (%s). Check polarisd logs for more info", v9, v10, v11, v12, v22, v23, 2u);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d Could not stop source node for key (%s). Check polarisd logs for more info", v10, v11, v12, v13, v25, v26);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v13 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
+    v15 = __PLSLogSharedInstance(v14);
+    if (OUTLINED_FUNCTION_6(v15))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23, buf);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21, v25, v26);
     }
   }
 
@@ -209,17 +224,17 @@ LABEL_5:
     OUTLINED_FUNCTION_7();
   }
 
-  v20 = OUTLINED_FUNCTION_0();
-  return [PSDaemonCommsStream isAck:v20];
+  v22 = OUTLINED_FUNCTION_0();
+  return [(PSDaemonCommsStream *)v22 stop];
 }
 
-- (uint64_t)isAck:(char *)a1 .cold.1(char **a1)
+- (void)isAck:(char *)a1 .cold.1(char **a1)
 {
   v12 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Invalid message received. Received a complex message when expecting a simple message");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "Invalid message received. Received a complex message when expecting a simple message");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
     v8 = 136315394;
     v9 = "[PSDaemonCommsStream isAck:]";
@@ -228,17 +243,17 @@ LABEL_5:
     _os_log_impl(&dword_25EA3A000, v1, OS_LOG_TYPE_FAULT, "%s:%d Invalid message received. Received a complex message when expecting a simple message", &v8, 0x12u);
   }
 
-  v3 = OSLogFlushBuffers();
-  if (v3)
+  v4 = OSLogFlushBuffers();
+  if (v4)
   {
-    v4 = v3;
-    v5 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v5))
+    v5 = v4;
+    v6 = __PLSLogSharedInstance(v4);
+    if (OUTLINED_FUNCTION_6(v6))
     {
       v8 = 136315394;
       v9 = "[PSDaemonCommsStream isAck:]";
       v10 = 1024;
-      v11 = v4;
+      v11 = v5;
       _os_log_impl(&dword_25EA3A000, v1, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v8, 0x12u);
     }
   }
@@ -248,8 +263,8 @@ LABEL_5:
     OUTLINED_FUNCTION_7();
   }
 
-  v6 = OUTLINED_FUNCTION_0();
-  return [PSHIDStream initWithKey:v6 rate:? queue:? writerInstance:? execSessionName:?];
+  v7 = OUTLINED_FUNCTION_0();
+  [PSHIDStream initWithKey:v7 rate:? queue:? writerInstance:? execSessionName:?];
 }
 
 @end

@@ -17,33 +17,16 @@
   lCopy = l;
   patternsCopy = patterns;
   v7 = patternsCopy;
-  if (!lCopy)
-  {
-    goto LABEL_5;
-  }
-
-  domain = [patternsCopy domain];
-  v9 = [domain length];
-
-  if (!v9)
-  {
-    goto LABEL_5;
-  }
-
-  bundleIdPatterns = [v7 bundleIdPatterns];
-  v11 = [bundleIdPatterns count];
-
-  if (v11)
+  if (lCopy && ([patternsCopy domain], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "length"), v8, v9) && (objc_msgSend(v7, "bundleIdPatterns"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "count"), v10, v11))
   {
     v12 = [MEMORY[0x277CCACE0] componentsWithURL:lCopy resolvingAgainstBaseURL:1];
     host = [v12 host];
-    domain2 = [v7 domain];
-    v15 = [host isEqualToString:domain2];
+    domain = [v7 domain];
+    v15 = [host isEqualToString:domain];
   }
 
   else
   {
-LABEL_5:
     v15 = 0;
   }
 
@@ -52,7 +35,7 @@ LABEL_5:
 
 - (id)matchPattern:(id)pattern withURL:(id)l forBundleID:(id)d expirationDate:(id)date error:(id *)error
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   patternCopy = pattern;
   lCopy = l;
   dCopy = d;
@@ -79,7 +62,7 @@ LABEL_5:
     v19 = [MEMORY[0x277CCACE0] componentsWithURL:lCopy resolvingAgainstBaseURL:1];
     percentEncodedPath = [v19 percentEncodedPath];
     percentEncodedQuery = [v19 percentEncodedQuery];
-    v69 = percentEncodedPath;
+    v68 = percentEncodedPath;
     if ([path length])
     {
       errorCopy = error;
@@ -87,39 +70,39 @@ LABEL_5:
       if (*[path UTF8String]!= 47)
       {
         v35 = 0;
-        v73 = &stru_28544C2A0;
+        v72 = &stru_28544C2A0;
         goto LABEL_65;
       }
 
-      v65 = v18;
-      v67 = v19;
-      v63 = dateCopy;
-      v59 = dCopy;
+      v64 = v18;
+      v66 = v19;
+      v62 = dateCopy;
+      v58 = dCopy;
       if (*[percentEncodedPath UTF8String] == 47)
       {
         v21 = @"/";
       }
 
       v22 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:?];
-      v61 = path;
+      v60 = path;
       v23 = [objc_alloc(MEMORY[0x277CCAC80]) initWithString:path];
       [v23 setCharactersToBeSkipped:v22];
       v24 = [objc_alloc(MEMORY[0x277CCAC80]) initWithString:percentEncodedPath];
       [v24 setCharactersToBeSkipped:v22];
-      v83 = 0;
-      v25 = [v23 scanUpToCharactersFromSet:v22 intoString:&v83];
-      v26 = v83;
+      v82 = 0;
+      v25 = [v23 scanUpToCharactersFromSet:v22 intoString:&v82];
+      v26 = v82;
       if (v25)
       {
-        v75 = 0;
-        v76 = 0;
         v74 = 0;
+        v75 = 0;
+        v73 = 0;
         while (1)
         {
           *buf = 0;
-          v82 = 0;
-          v27 = [(BCSURLPatternMatcher *)self isAnyMatchFoundForPathPattern:v26 countOfPathComponents:buf error:&v82];
-          v28 = v82;
+          v81 = 0;
+          v27 = [(BCSURLPatternMatcher *)self isAnyMatchFoundForPathPattern:v26 countOfPathComponents:buf error:&v81];
+          v28 = v81;
           v29 = v28;
           if (v28)
           {
@@ -135,8 +118,8 @@ LABEL_5:
               goto LABEL_30;
             }
 
-            v74 = 0;
-            ++v76;
+            v73 = 0;
+            ++v75;
           }
 
           else
@@ -151,14 +134,14 @@ LABEL_30:
               goto LABEL_31;
             }
 
+            ++v73;
             ++v74;
-            ++v75;
           }
 
           v21 = v30;
-          v83 = v26;
-          v31 = [v23 scanUpToCharactersFromSet:v22 intoString:&v83];
-          v32 = v83;
+          v82 = v26;
+          v31 = [v23 scanUpToCharactersFromSet:v22 intoString:&v82];
+          v32 = v82;
 
           v26 = v32;
           if ((v31 & 1) == 0)
@@ -185,45 +168,45 @@ LABEL_31:
       else
       {
         v33 = lCopy;
+        v73 = 0;
         v74 = 0;
         v75 = 0;
-        v76 = 0;
         v34 = 0;
       }
 
 LABEL_32:
 
-      dateCopy = v63;
+      dateCopy = v62;
       if (v34)
       {
-        v73 = v21;
+        v72 = v21;
         v35 = 0;
         v21 = &stru_28544C2A0;
         lCopy = v33;
-        dCopy = v59;
-        path = v61;
-        v18 = v65;
-        v19 = v67;
+        dCopy = v58;
+        path = v60;
+        v18 = v64;
+        v19 = v66;
         goto LABEL_65;
       }
 
       lCopy = v33;
-      dCopy = v59;
-      path = v61;
-      v18 = v65;
-      v19 = v67;
-      percentEncodedPath = v69;
+      dCopy = v58;
+      path = v60;
+      v18 = v64;
+      v19 = v66;
+      percentEncodedPath = v68;
     }
 
     else
     {
+      v73 = 0;
       v74 = 0;
       v75 = 0;
-      v76 = 0;
       v21 = &stru_28544C2A0;
     }
 
-    v73 = v21;
+    v72 = v21;
     if (-[NSObject length](path, "length") && [v18 length] && !-[__CFString isEqualToString:](v21, "isEqualToString:", percentEncodedPath) || !path && objc_msgSend(v18, "length") && objc_msgSend(percentEncodedPath, "length") && !objc_msgSend(percentEncodedPath, "isEqualToString:", @"/"))
     {
       v35 = 0;
@@ -232,29 +215,29 @@ LABEL_32:
 
     else
     {
-      v62 = path;
-      v64 = dateCopy;
-      v66 = v18;
-      v68 = v19;
+      v61 = path;
+      v63 = dateCopy;
+      v65 = v18;
+      v67 = v19;
       if ([v18 length])
       {
-        v58 = patternCopy;
+        v57 = patternCopy;
         v38 = [(BCSURLPatternMatcher *)self dictionaryFromQueryString:v18 orderedKeys:0];
-        v81 = 0;
-        v39 = [(BCSURLPatternMatcher *)self dictionaryFromQueryString:percentEncodedQuery orderedKeys:&v81];
-        v57 = v81;
+        v80 = 0;
+        v39 = [(BCSURLPatternMatcher *)self dictionaryFromQueryString:percentEncodedQuery orderedKeys:&v80];
+        v56 = v80;
         [(BCSURLPatternMatcher *)self orderedKeysForPatternQuery:v38 originalURLQuery:v39 orderedOriginalURLQueryKeys:?];
+        v76 = 0u;
         v77 = 0u;
         v78 = 0u;
-        v79 = 0u;
-        obj = v80 = 0u;
-        v40 = [obj countByEnumeratingWithState:&v77 objects:v84 count:16];
+        obj = v79 = 0u;
+        v40 = [obj countByEnumeratingWithState:&v76 objects:v83 count:16];
         if (v40)
         {
           v41 = v40;
-          v60 = dCopy;
-          v56 = lCopy;
-          v42 = *v78;
+          v59 = dCopy;
+          v55 = lCopy;
+          v42 = *v77;
           v43 = &stru_28544C2A0;
           while (2)
           {
@@ -262,12 +245,12 @@ LABEL_32:
             v21 = v43;
             do
             {
-              if (*v78 != v42)
+              if (*v77 != v42)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v45 = *(*(&v77 + 1) + 8 * v44);
+              v45 = *(*(&v76 + 1) + 8 * v44);
               v46 = [v38 objectForKeyedSubscript:v45];
               v47 = [v39 valueForKey:v45];
               if (![v47 length])
@@ -280,7 +263,7 @@ LABEL_57:
 
               if ([v46 isEqualToString:@"*"])
               {
-                ++v76;
+                ++v75;
               }
 
               else
@@ -290,7 +273,7 @@ LABEL_57:
                   goto LABEL_57;
                 }
 
-                ++v75;
+                ++v74;
               }
 
               v43 = [(BCSURLPatternMatcher *)self extractedQueryByAddingKey:v45 value:v47 toExtractedQuery:v21];
@@ -300,7 +283,7 @@ LABEL_57:
             }
 
             while (v41 != v44);
-            v41 = [obj countByEnumeratingWithState:&v77 objects:v84 count:16];
+            v41 = [obj countByEnumeratingWithState:&v76 objects:v83 count:16];
             if (v41)
             {
               continue;
@@ -312,9 +295,9 @@ LABEL_57:
           v48 = 1;
           v21 = v43;
 LABEL_58:
-          lCopy = v56;
-          dCopy = v60;
-          v18 = v66;
+          lCopy = v55;
+          dCopy = v59;
+          v18 = v65;
         }
 
         else
@@ -323,17 +306,17 @@ LABEL_58:
           v21 = &stru_28544C2A0;
         }
 
-        patternCopy = v58;
+        patternCopy = v57;
         if (!v48)
         {
           v35 = 0;
-          path = v62;
-          dateCopy = v64;
-          v19 = v68;
+          path = v61;
+          dateCopy = v63;
+          v19 = v67;
           goto LABEL_65;
         }
 
-        v19 = v68;
+        v19 = v67;
       }
 
       else
@@ -341,22 +324,22 @@ LABEL_58:
         v21 = &stru_28544C2A0;
       }
 
-      v49 = [(BCSURLPatternMatcher *)self extractedURLForOriginalURL:lCopy originalURLPathComponents:v19 extractedPath:v73 extractedQuery:v21];
+      v49 = [(BCSURLPatternMatcher *)self extractedURLForOriginalURL:lCopy originalURLPathComponents:v19 extractedPath:v72 extractedQuery:v21];
       v50 = [BCSURLNormalizer normalizedURLForURL:v49];
       v51 = [BCSURLPatternMatchResult alloc];
       v52 = [patternCopy description];
       v53 = objc_alloc_init(BCSDateHelper);
-      v35 = [(BCSURLPatternMatchResult *)v51 initWithOriginalURL:lCopy extractedURL:v50 totalConsecutivePrefixMatches:v74 totalExactMatches:v75 totalAnyMatches:v76 bundleID:dCopy pattern:v52 expirationDate:v64 dateHelper:v53];
+      v35 = [(BCSURLPatternMatchResult *)v51 initWithOriginalURL:lCopy extractedURL:v50 totalConsecutivePrefixMatches:v73 totalExactMatches:v74 totalAnyMatches:v75 bundleID:dCopy pattern:v52 expirationDate:v63 dateHelper:v53];
 
-      v19 = v68;
-      dateCopy = v64;
-      path = v62;
-      v18 = v66;
+      v19 = v67;
+      dateCopy = v63;
+      path = v61;
+      v18 = v65;
     }
 
 LABEL_65:
 
-    v36 = v73;
+    v36 = v72;
 LABEL_66:
 
     goto LABEL_67;
@@ -372,8 +355,6 @@ LABEL_66:
 
   v35 = 0;
 LABEL_67:
-
-  v54 = *MEMORY[0x277D85DE8];
 
   return v35;
 }
@@ -503,7 +484,7 @@ LABEL_15:
 
 - (BOOL)isAnyMatchFoundForPathPattern:(id)pattern countOfPathComponents:(int64_t *)components error:(id *)error
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   patternCopy = pattern;
   if ([patternCopy length] < 3)
   {
@@ -514,10 +495,10 @@ LABEL_15:
   {
     [patternCopy length];
     MEMORY[0x28223BE20]();
-    v9 = (v22 - v8);
+    v9 = (v21 - v8);
     [patternCopy length];
     MEMORY[0x28223BE20]();
-    v11 = v22 - v10;
+    v11 = v21 - v10;
     [patternCopy getCharacters:v9 range:{0, objc_msgSend(patternCopy, "length")}];
     if (*v9 != 91 || v9[[patternCopy length] - 1] != 93)
     {
@@ -573,16 +554,15 @@ LABEL_11:
 
 LABEL_17:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (id)dictionaryFromQueryString:(id)string orderedKeys:(id *)keys
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = [string componentsSeparatedByString:@"&"];
   [MEMORY[0x277CBEB38] dictionary];
-  v23 = v22 = keys;
+  v22 = v21 = keys;
   if (keys)
   {
     v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v5, "count")}];
@@ -593,29 +573,29 @@ LABEL_17:
     v6 = 0;
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   obj = v5;
-  v7 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v7 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v27;
+    v9 = *v26;
     v10 = @"=";
     do
     {
       v11 = 0;
-      v24 = v8;
+      v23 = v8;
       do
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = [*(*(&v26 + 1) + 8 * v11) componentsSeparatedByString:{v10, v22}];
+        v12 = [*(*(&v25 + 1) + 8 * v11) componentsSeparatedByString:{v10, v21}];
         if ([v12 count] >= 2)
         {
           v13 = [v12 objectAtIndexedSubscript:0];
@@ -628,30 +608,28 @@ LABEL_17:
           v19 = v18 = v6;
 
           v10 = v15;
-          [v23 setObject:v19 forKeyedSubscript:v13];
+          [v22 setObject:v19 forKeyedSubscript:v13];
 
           v6 = v18;
-          v8 = v24;
+          v8 = v23;
         }
 
         ++v11;
       }
 
       while (v8 != v11);
-      v8 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v8 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v8);
   }
 
-  if (v22)
+  if (v21)
   {
-    *v22 = [v6 copy];
+    *v21 = [v6 copy];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v23;
+  return v22;
 }
 
 - (id)extractedQueryByAddingKey:(id)key value:(id)value toExtractedQuery:(id)query
@@ -679,31 +657,31 @@ LABEL_17:
 
 - (id)orderedKeysForPatternQuery:(id)query originalURLQuery:(id)lQuery orderedOriginalURLQueryKeys:(id)keys
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   lQueryCopy = lQuery;
   keysCopy = keys;
   v10 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(queryCopy, "count")}];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v11 = keysCopy;
-  v12 = [v11 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v33;
+    v14 = *v32;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v33 != v14)
+        if (*v32 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v32 + 1) + 8 * i);
+        v16 = *(*(&v31 + 1) + 8 * i);
         v17 = [queryCopy objectForKeyedSubscript:v16];
 
         if (v17)
@@ -712,32 +690,32 @@ LABEL_17:
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v13);
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   allKeys = [queryCopy allKeys];
-  v19 = [allKeys countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v19 = [allKeys countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v29;
+    v21 = *v28;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v29 != v21)
+        if (*v28 != v21)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v23 = *(*(&v28 + 1) + 8 * j);
+        v23 = *(*(&v27 + 1) + 8 * j);
         v24 = [lQueryCopy objectForKeyedSubscript:v23];
 
         if (!v24)
@@ -746,14 +724,13 @@ LABEL_17:
         }
       }
 
-      v20 = [allKeys countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v20 = [allKeys countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
     while (v20);
   }
 
   v25 = [v10 copy];
-  v26 = *MEMORY[0x277D85DE8];
 
   return v25;
 }

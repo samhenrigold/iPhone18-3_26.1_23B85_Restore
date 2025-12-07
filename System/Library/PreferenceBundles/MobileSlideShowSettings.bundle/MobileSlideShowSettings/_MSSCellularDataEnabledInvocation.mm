@@ -44,7 +44,6 @@
   setter = self->_setter;
   if (setter)
   {
-    v11 = self->_setter;
     [WeakRetained setter];
   }
 
@@ -53,9 +52,9 @@
     [WeakRetained 0];
   }
 
-  v12 = *(self->_changeHandler + 2);
+  v11 = *(self->_changeHandler + 2);
 
-  v12();
+  v11();
 }
 
 - (_MSSCellularDataEnabledInvocation)initWithSpecifier:(id)specifier changeHandler:(id)handler

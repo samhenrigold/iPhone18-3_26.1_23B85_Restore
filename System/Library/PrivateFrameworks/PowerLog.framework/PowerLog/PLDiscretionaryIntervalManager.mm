@@ -13,60 +13,61 @@
 - (void)logActivityNameToInvolvedIdentifiers;
 - (void)logDiscretionaryIntervals;
 - (void)reportIntervalsToPowerlog;
+- (void)reportQuickEnergyForInterval:(id)interval withIdentifier:(id)identifier andAdjustSnapshotToNow:(BOOL)now;
 @end
 
 @implementation PLDiscretionaryIntervalManager
 
 - (PLDiscretionaryIntervalManager)initWithEnergyMonitor:(id)monitor andMockData:(id)data
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   monitorCopy = monitor;
   dataCopy = data;
-  v17.receiver = self;
-  v17.super_class = PLDiscretionaryIntervalManager;
-  v8 = [(PLDiscretionaryIntervalManager *)&v17 init];
+  v18.receiver = self;
+  v18.super_class = PLDiscretionaryIntervalManager;
+  v8 = [(PLDiscretionaryIntervalManager *)&v18 init];
+  v9 = v8;
   if (v8)
   {
-    v9 = PLLogDiscretionaryEnergyMonitor();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = PLLogDiscretionaryEnergyMonitor(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = dataCopy;
-      _os_log_impl(&dword_1BACB7000, v9, OS_LOG_TYPE_DEFAULT, "Initializing DiscretionaryIntervalManager, with mockData=%@", buf, 0xCu);
+      v20 = dataCopy;
+      _os_log_impl(&dword_1BACB7000, v10, OS_LOG_TYPE_DEFAULT, "Initializing DiscretionaryIntervalManager, with mockData=%@", buf, 0xCu);
     }
 
-    [(PLDiscretionaryIntervalManager *)v8 setMockData:dataCopy];
-    v10 = objc_opt_new();
-    [(PLDiscretionaryIntervalManager *)v8 setIdentifierToDiscretionaryIntervals:v10];
-
+    [(PLDiscretionaryIntervalManager *)v9 setMockData:dataCopy];
     v11 = objc_opt_new();
-    [(PLDiscretionaryIntervalManager *)v8 setActivityNameToInvolvedIdentifiers:v11];
+    [(PLDiscretionaryIntervalManager *)v9 setIdentifierToDiscretionaryIntervals:v11];
 
-    [(PLDiscretionaryIntervalManager *)v8 setDiscretionaryEnergyMonitor:monitorCopy];
-    [(PLDiscretionaryIntervalManager *)v8 setQuickEnergyEnabled:1];
-    createOpenIntervalTimer = [(PLDiscretionaryIntervalManager *)v8 createOpenIntervalTimer];
-    [(PLDiscretionaryIntervalManager *)v8 setOpenIntervalTimer:createOpenIntervalTimer];
+    v12 = objc_opt_new();
+    [(PLDiscretionaryIntervalManager *)v9 setActivityNameToInvolvedIdentifiers:v12];
 
-    createPowerlogReportTimer = [(PLDiscretionaryIntervalManager *)v8 createPowerlogReportTimer];
-    [(PLDiscretionaryIntervalManager *)v8 setPowerlogReportTimer:createPowerlogReportTimer];
+    [(PLDiscretionaryIntervalManager *)v9 setDiscretionaryEnergyMonitor:monitorCopy];
+    [(PLDiscretionaryIntervalManager *)v9 setQuickEnergyEnabled:1];
+    createOpenIntervalTimer = [(PLDiscretionaryIntervalManager *)v9 createOpenIntervalTimer];
+    [(PLDiscretionaryIntervalManager *)v9 setOpenIntervalTimer:createOpenIntervalTimer];
 
-    v14 = PLLogDiscretionaryEnergyMonitor();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    createPowerlogReportTimer = [(PLDiscretionaryIntervalManager *)v9 createPowerlogReportTimer];
+    [(PLDiscretionaryIntervalManager *)v9 setPowerlogReportTimer:createPowerlogReportTimer];
+
+    v16 = PLLogDiscretionaryEnergyMonitor(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BACB7000, v14, OS_LOG_TYPE_DEFAULT, "Finished initializing DiscretionaryIntervalManager", buf, 2u);
+      _os_log_impl(&dword_1BACB7000, v16, OS_LOG_TYPE_DEFAULT, "Finished initializing DiscretionaryIntervalManager", buf, 2u);
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v9;
 }
 
 - (void)handleStartEvent:(id)event withInfo:(id)info
 {
   eventCopy = event;
   infoCopy = info;
-  v8 = PLLogDiscretionaryEnergyMonitor();
+  v8 = PLLogDiscretionaryEnergyMonitor(infoCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [PLDiscretionaryIntervalManager handleStartEvent:withInfo:];
@@ -95,8 +96,7 @@
   v16[4] = self;
   v17 = infoCopy;
   v14 = infoCopy;
-  [v11 enumerateObjectsUsingBlock:v16];
-  v15 = PLLogDiscretionaryEnergyMonitor();
+  v15 = PLLogDiscretionaryEnergyMonitor([v11 enumerateObjectsUsingBlock:v16]);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [PLDiscretionaryIntervalManager handleStartEvent:? withInfo:?];
@@ -116,38 +116,39 @@ void __60__PLDiscretionaryIntervalManager_handleStartEvent_withInfo___block_invo
     [v6 setObject:v5 forKeyedSubscript:v3];
   }
 
-  if ([v5 count] && (objc_msgSend(v5, "lastObject"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isClosed"), v7, (v8 & 1) == 0))
+  v7 = [v5 count];
+  if (v7 && ([v5 lastObject], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "isClosed"), v8, (v9 & 1) == 0))
   {
-    v15 = PLLogDiscretionaryEnergyMonitor();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v16 = PLLogDiscretionaryEnergyMonitor(v7);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       __60__PLDiscretionaryIntervalManager_handleStartEvent_withInfo___block_invoke_cold_1();
     }
 
-    v16 = [v5 lastObject];
-    [v16 openCount];
-    [v16 setOpenCount:v17 + 1.0];
+    v17 = [v5 lastObject];
+    [v17 openCount];
+    [v17 setOpenCount:v18 + 1.0];
 
-    v14 = [v5 lastObject];
-    [(PLDiscretionaryInterval *)v14 startCount];
-    [(PLDiscretionaryInterval *)v14 setStartCount:v18 + 1.0];
+    v15 = [v5 lastObject];
+    [(PLDiscretionaryInterval *)v15 startCount];
+    [(PLDiscretionaryInterval *)v15 setStartCount:v19 + 1.0];
   }
 
   else
   {
-    v9 = PLLogDiscretionaryEnergyMonitor();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = PLLogDiscretionaryEnergyMonitor(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       __60__PLDiscretionaryIntervalManager_handleStartEvent_withInfo___block_invoke_cold_2();
     }
 
-    v10 = [PLDiscretionaryInterval alloc];
-    v11 = *(a1 + 40);
-    v12 = [*(a1 + 32) quickEnergyEnabled];
-    v13 = [*(a1 + 32) mockData];
-    v14 = [(PLDiscretionaryInterval *)v10 initWithIdentifier:v3 andInfo:v11 andSnapshottingEnabled:v12 andMockData:v13];
+    v11 = [PLDiscretionaryInterval alloc];
+    v12 = *(a1 + 40);
+    v13 = [*(a1 + 32) quickEnergyEnabled];
+    v14 = [*(a1 + 32) mockData];
+    v15 = [(PLDiscretionaryInterval *)v11 initWithIdentifier:v3 andInfo:v12 andSnapshottingEnabled:v13 andMockData:v14];
 
-    [v5 addObject:v14];
+    [v5 addObject:v15];
   }
 }
 
@@ -155,7 +156,7 @@ void __60__PLDiscretionaryIntervalManager_handleStartEvent_withInfo___block_invo
 {
   eventCopy = event;
   infoCopy = info;
-  v8 = PLLogDiscretionaryEnergyMonitor();
+  v8 = PLLogDiscretionaryEnergyMonitor(infoCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [PLDiscretionaryIntervalManager handleStopEvent:withInfo:];
@@ -166,36 +167,35 @@ void __60__PLDiscretionaryIntervalManager_handleStartEvent_withInfo___block_invo
 
   if (v10)
   {
-    v11 = [infoCopy mutableCopy];
-    v12 = PLLogDiscretionaryEnergyMonitor();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v12 = [infoCopy mutableCopy];
+    v13 = PLLogDiscretionaryEnergyMonitor(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       [PLDiscretionaryIntervalManager handleStopEvent:? withInfo:?];
     }
 
     activityNameToInvolvedIdentifiers2 = [(PLDiscretionaryIntervalManager *)self activityNameToInvolvedIdentifiers];
-    v14 = [activityNameToInvolvedIdentifiers2 objectForKeyedSubscript:eventCopy];
-    [v11 setObject:v14 forKeyedSubscript:@"involvedIdentifiers"];
+    v15 = [activityNameToInvolvedIdentifiers2 objectForKeyedSubscript:eventCopy];
+    [v12 setObject:v15 forKeyedSubscript:@"involvedIdentifiers"];
 
-    v15 = [v11 objectForKeyedSubscript:@"involvedIdentifiers"];
-    v16 = [v15 mutableCopy];
+    v16 = [v12 objectForKeyedSubscript:@"involvedIdentifiers"];
+    v17 = [v16 mutableCopy];
 
-    v17 = [infoCopy objectForKeyedSubscript:@"requiresNetwork"];
-    bOOLValue = [v17 BOOLValue];
+    v18 = [infoCopy objectForKeyedSubscript:@"requiresNetwork"];
+    bOOLValue = [v18 BOOLValue];
 
     if (bOOLValue)
     {
-      [v16 addObject:@"discretionaryNetworkTasks"];
+      [v17 addObject:@"discretionaryNetworkTasks"];
     }
 
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __59__PLDiscretionaryIntervalManager_handleStopEvent_withInfo___block_invoke;
-    v20[3] = &unk_1E7F18708;
-    v20[4] = self;
-    [v16 enumerateObjectsUsingBlock:v20];
-    v19 = PLLogDiscretionaryEnergyMonitor();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __59__PLDiscretionaryIntervalManager_handleStopEvent_withInfo___block_invoke;
+    v21[3] = &unk_1E7F18708;
+    v21[4] = self;
+    v20 = PLLogDiscretionaryEnergyMonitor([v17 enumerateObjectsUsingBlock:v21]);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       [PLDiscretionaryIntervalManager handleStopEvent:? withInfo:?];
     }
@@ -203,8 +203,8 @@ void __60__PLDiscretionaryIntervalManager_handleStartEvent_withInfo___block_invo
 
   else
   {
-    v11 = PLLogDiscretionaryEnergyMonitor();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = PLLogDiscretionaryEnergyMonitor(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [PLDiscretionaryIntervalManager handleStopEvent:eventCopy withInfo:self];
     }
@@ -220,10 +220,11 @@ void __59__PLDiscretionaryIntervalManager_handleStopEvent_withInfo___block_invok
   if ([v5 count])
   {
     v6 = [v5 lastObject];
-    if ([v6 isClosed])
+    v7 = [v6 isClosed];
+    if (v7)
     {
-      v7 = PLLogDiscretionaryEnergyMonitor();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = PLLogDiscretionaryEnergyMonitor(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         __59__PLDiscretionaryIntervalManager_handleStopEvent_withInfo___block_invoke_cold_2();
       }
@@ -234,7 +235,7 @@ LABEL_15:
     }
 
     [v6 openCount];
-    [v6 setOpenCount:v8 + -1.0];
+    [v6 setOpenCount:v9 + -1.0];
     if ([v6 shouldClose])
     {
       if ([*(a1 + 32) quickEnergyEnabled])
@@ -243,35 +244,36 @@ LABEL_15:
       }
 
       [v6 closeInterval];
-      v9 = [*(a1 + 32) activityNameToInvolvedIdentifiers];
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __59__PLDiscretionaryIntervalManager_handleStopEvent_withInfo___block_invoke_345;
-      v14[3] = &unk_1E7F186E0;
-      v15 = v3;
-      v10 = [v9 keysOfEntriesPassingTest:v14];
+      v10 = [*(a1 + 32) activityNameToInvolvedIdentifiers];
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __59__PLDiscretionaryIntervalManager_handleStopEvent_withInfo___block_invoke_345;
+      v16[3] = &unk_1E7F186E0;
+      v17 = v3;
+      v11 = [v10 keysOfEntriesPassingTest:v16];
 
-      if ([v10 count])
+      v12 = [v11 count];
+      if (v12)
       {
-        v11 = [*(a1 + 32) activityNameToInvolvedIdentifiers];
-        v12 = [v10 allObjects];
-        [v11 removeObjectsForKeys:v12];
+        v13 = [*(a1 + 32) activityNameToInvolvedIdentifiers];
+        v14 = [v11 allObjects];
+        [v13 removeObjectsForKeys:v14];
       }
 
-      v13 = PLLogDiscretionaryEnergyMonitor();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v15 = PLLogDiscretionaryEnergyMonitor(v12);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         __59__PLDiscretionaryIntervalManager_handleStopEvent_withInfo___block_invoke_cold_1();
       }
 
-      v7 = v15;
+      v8 = v17;
       goto LABEL_15;
     }
   }
 
   else
   {
-    v6 = PLLogDiscretionaryEnergyMonitor();
+    v6 = PLLogDiscretionaryEnergyMonitor(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __59__PLDiscretionaryIntervalManager_handleStopEvent_withInfo___block_invoke_cold_3();
@@ -290,65 +292,65 @@ LABEL_16:
 
 void __59__PLDiscretionaryIntervalManager_reportIntervalsToPowerlog__block_invoke(id *a1, void *a2, void *a3)
 {
-  v50 = *MEMORY[0x1E69E9840];
-  v37 = a2;
+  v51 = *MEMORY[0x1E69E9840];
+  v38 = a2;
   v4 = a3;
-  v5 = PLLogDiscretionaryEnergyMonitor();
+  v5 = PLLogDiscretionaryEnergyMonitor(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __59__PLDiscretionaryIntervalManager_reportIntervalsToPowerlog__block_invoke_cold_1();
   }
 
   v6 = objc_opt_new();
-  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
   v7 = v4;
-  v8 = [v7 countByEnumeratingWithState:&v38 objects:v49 count:16];
-  v35 = v6;
+  v8 = [v7 countByEnumeratingWithState:&v39 objects:v50 count:16];
+  v36 = v6;
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v39;
+    v11 = *v40;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v39 != v11)
+        if (*v40 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v38 + 1) + 8 * i);
+        v13 = *(*(&v39 + 1) + 8 * i);
         v14 = [v13 originalStartDate];
         v15 = [v13 endDate];
         if (([v13 isClosed] & 1) == 0)
         {
-          [v13 checkOpenIntervalDuration:v37];
+          [v13 checkOpenIntervalDuration:v38];
           v10 |= v16 > 600.0;
           v17 = [MEMORY[0x1E695DF00] date];
 
-          v48 = v13;
-          v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v48 count:1];
+          v49 = v13;
+          v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v49 count:1];
           v19 = [v18 mutableCopy];
-          v6 = v35;
-          [a1[4] setObject:v19 forKeyedSubscript:v37];
+          v6 = v36;
+          [a1[4] setObject:v19 forKeyedSubscript:v38];
 
           v15 = v17;
         }
 
-        v46[0] = @"startDate";
-        v46[1] = @"endDate";
-        v47[0] = v14;
-        v47[1] = v15;
-        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:v46 count:2];
+        v47[0] = @"startDate";
+        v47[1] = @"endDate";
+        v48[0] = v14;
+        v48[1] = v15;
+        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:2];
         v21 = [v20 mutableCopy];
         [v6 addObject:v21];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v38 objects:v49 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v39 objects:v50 count:16];
     }
 
     while (v9);
@@ -363,75 +365,72 @@ void __59__PLDiscretionaryIntervalManager_reportIntervalsToPowerlog__block_invok
   {
   }
 
-  if (([v37 isEqualToString:@"discretionaryNetworkTasks"] & 1) == 0)
+  v22 = [v38 isEqualToString:@"discretionaryNetworkTasks"];
+  if ((v22 & 1) == 0)
   {
-    v22 = PLLogDiscretionaryEnergyMonitor();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+    v23 = PLLogDiscretionaryEnergyMonitor(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       __59__PLDiscretionaryIntervalManager_reportIntervalsToPowerlog__block_invoke_cold_2();
     }
 
-    v23 = objc_opt_new();
-    [v23 setObject:&unk_1F38E30B0 forKeyedSubscript:@"updateType"];
-    v24 = MEMORY[0x1E695DEC8];
-    v25 = [a1[5] coalesceIntervals:v6];
-    v26 = [v24 arrayWithArray:v25];
-    [v23 setObject:v26 forKeyedSubscript:@"eventIntervals"];
+    v24 = objc_opt_new();
+    [v24 setObject:&unk_1F38E30B0 forKeyedSubscript:@"updateType"];
+    v25 = MEMORY[0x1E695DEC8];
+    v26 = [a1[5] coalesceIntervals:v6];
+    v27 = [v25 arrayWithArray:v26];
+    [v24 setObject:v27 forKeyedSubscript:@"eventIntervals"];
 
-    v27 = v37;
-    v28 = +[PLCPUEnergySnapshot identifierToAccountingName];
-    v29 = [v28 objectForKeyedSubscript:v27];
+    v28 = v38;
+    v29 = +[PLCPUEnergySnapshot identifierToAccountingName];
+    v30 = [v29 objectForKeyedSubscript:v28];
 
-    if (v29)
+    if (v30)
     {
-      v30 = +[PLCPUEnergySnapshot identifierToAccountingName];
-      v31 = [v30 objectForKeyedSubscript:v27];
+      v31 = +[PLCPUEnergySnapshot identifierToAccountingName];
+      v32 = [v31 objectForKeyedSubscript:v28];
 
-      v32 = PLLogDiscretionaryEnergyMonitor();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+      v34 = PLLogDiscretionaryEnergyMonitor(v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v43 = v27;
-        v44 = 2112;
-        v45 = v31;
-        _os_log_impl(&dword_1BACB7000, v32, OS_LOG_TYPE_INFO, "Adjusting identifier=%@ to accountingName=%@ before reporting to powerlog", buf, 0x16u);
+        v44 = v28;
+        v45 = 2112;
+        v46 = v32;
+        _os_log_impl(&dword_1BACB7000, v34, OS_LOG_TYPE_INFO, "Adjusting identifier=%@ to accountingName=%@ before reporting to powerlog", buf, 0x16u);
       }
     }
 
     else
     {
-      v31 = v27;
+      v32 = v28;
     }
 
-    v6 = v35;
-    [v23 setObject:v31 forKeyedSubscript:@"bundleID"];
-    v33 = [v23 mutableCopy];
-    [a1[6] addObject:v33];
+    v6 = v36;
+    [v24 setObject:v32 forKeyedSubscript:@"bundleID"];
+    v35 = [v24 mutableCopy];
+    [a1[6] addObject:v35];
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 void __59__PLDiscretionaryIntervalManager_reportIntervalsToPowerlog__block_invoke_365(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = PLLogDiscretionaryEnergyMonitor();
+  v3 = PLLogDiscretionaryEnergyMonitor(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1BACB7000, v3, OS_LOG_TYPE_INFO, "%@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1BACB7000, v3, OS_LOG_TYPE_INFO, "%@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)coalesceIntervals:(id)intervals
 {
   v28 = *MEMORY[0x1E69E9840];
   intervalsCopy = intervals;
-  v4 = PLLogDiscretionaryEnergyMonitor();
+  v4 = PLLogDiscretionaryEnergyMonitor(intervalsCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [PLDiscretionaryIntervalManager coalesceIntervals:];
@@ -500,7 +499,7 @@ void __59__PLDiscretionaryIntervalManager_reportIntervalsToPowerlog__block_invok
 
     if (v8)
     {
-      [array addObject:v8];
+      v19 = [array addObject:v8];
     }
   }
 
@@ -510,20 +509,117 @@ void __59__PLDiscretionaryIntervalManager_reportIntervalsToPowerlog__block_invok
     v8 = 0;
   }
 
-  v19 = PLLogDiscretionaryEnergyMonitor();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v20 = PLLogDiscretionaryEnergyMonitor(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     [PLDiscretionaryIntervalManager coalesceIntervals:];
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return array;
+}
+
+- (void)reportQuickEnergyForInterval:(id)interval withIdentifier:(id)identifier andAdjustSnapshotToNow:(BOOL)now
+{
+  nowCopy = now;
+  v44 = *MEMORY[0x1E69E9840];
+  intervalCopy = interval;
+  identifierCopy = identifier;
+  v10 = PLLogDiscretionaryEnergyMonitor(identifierCopy);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  {
+    v33 = [MEMORY[0x1E696AD98] numberWithBool:nowCopy];
+    v34 = 138412802;
+    v35 = *&intervalCopy;
+    v36 = 2112;
+    v37 = identifierCopy;
+    v38 = 2112;
+    v39 = v33;
+    _os_log_debug_impl(&dword_1BACB7000, v10, OS_LOG_TYPE_DEBUG, "reporting quick energy for interval=%@, identifier=%@, adjustSnapshotToNow=%@", &v34, 0x20u);
+  }
+
+  date = [MEMORY[0x1E695DF00] date];
+  currentStartDate = [intervalCopy currentStartDate];
+  [date timeIntervalSinceDate:currentStartDate];
+  v14 = v13;
+
+  cpuEnergySnapshot = [intervalCopy cpuEnergySnapshot];
+
+  if (cpuEnergySnapshot)
+  {
+    cpuEnergySnapshot2 = [intervalCopy cpuEnergySnapshot];
+    [cpuEnergySnapshot2 computeEnergyDiffUntilNow:identifierCopy andAdjustSnapshotToNow:nowCopy];
+    v18 = v17;
+
+    if (v18 > 0.0)
+    {
+      v20 = PLLogDiscretionaryEnergyMonitor(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      {
+        currentStartDate2 = [intervalCopy currentStartDate];
+        v34 = 134219010;
+        v35 = v18;
+        v36 = 2112;
+        v37 = identifierCopy;
+        v38 = 2048;
+        v39 = v14;
+        v40 = 2112;
+        v41 = currentStartDate2;
+        v42 = 2112;
+        v43 = date;
+        _os_log_impl(&dword_1BACB7000, v20, OS_LOG_TYPE_DEFAULT, "Adding CPUEnergy=%f for identifier=%@ over %f seconds from startDate=%@ to endDate=%@", &v34, 0x34u);
+      }
+
+      discretionaryEnergyMonitor = [(PLDiscretionaryIntervalManager *)self discretionaryEnergyMonitor];
+      [discretionaryEnergyMonitor incrementCPUEnergy:v18];
+    }
+  }
+
+  networkEnergySnapshot = [intervalCopy networkEnergySnapshot];
+  if (networkEnergySnapshot)
+  {
+    v24 = networkEnergySnapshot;
+    v25 = [identifierCopy isEqualToString:@"discretionaryNetworkTasks"];
+
+    if (v25)
+    {
+      networkEnergySnapshot2 = [intervalCopy networkEnergySnapshot];
+      [networkEnergySnapshot2 computeEnergyDiffUntilNow:nowCopy];
+      v28 = v27;
+
+      if (v28 > 0.0)
+      {
+        v30 = PLLogDiscretionaryEnergyMonitor(v29);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+        {
+          currentStartDate3 = [intervalCopy currentStartDate];
+          v34 = 134219010;
+          v35 = v28;
+          v36 = 2112;
+          v37 = identifierCopy;
+          v38 = 2048;
+          v39 = v14;
+          v40 = 2112;
+          v41 = currentStartDate3;
+          v42 = 2112;
+          v43 = date;
+          _os_log_impl(&dword_1BACB7000, v30, OS_LOG_TYPE_INFO, "Adding NetworkEnergy=%f for identifier=%@ over %f seconds from startDate=%@ to endDate=%@", &v34, 0x34u);
+        }
+
+        discretionaryEnergyMonitor2 = [(PLDiscretionaryIntervalManager *)self discretionaryEnergyMonitor];
+        [discretionaryEnergyMonitor2 incrementNetworkEnergy:v28];
+      }
+    }
+  }
+
+  if (nowCopy)
+  {
+    [intervalCopy setCurrentStartDate:date];
+  }
 }
 
 - (void)handleOpenIntervalTimer
 {
-  v3 = discretionaryEnergyMonitorQueue();
+  v3 = discretionaryEnergyMonitorQueue(self);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __57__PLDiscretionaryIntervalManager_handleOpenIntervalTimer__block_invoke;
@@ -534,7 +630,7 @@ void __59__PLDiscretionaryIntervalManager_reportIntervalsToPowerlog__block_invok
 
 void __57__PLDiscretionaryIntervalManager_handleOpenIntervalTimer__block_invoke(uint64_t a1)
 {
-  v2 = PLLogDiscretionaryEnergyMonitor();
+  v2 = PLLogDiscretionaryEnergyMonitor(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __57__PLDiscretionaryIntervalManager_handleOpenIntervalTimer__block_invoke_cold_1();
@@ -557,21 +653,25 @@ void __57__PLDiscretionaryIntervalManager_handleOpenIntervalTimer__block_invoke_
   v8 = [v6 lastObject];
 
   LOBYTE(v6) = [v8 isClosed];
-  if ((v6 & 1) == 0 && [*(a1 + 32) quickEnergyEnabled])
+  if ((v6 & 1) == 0)
   {
-    v9 = PLLogDiscretionaryEnergyMonitor();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v9 = [*(a1 + 32) quickEnergyEnabled];
+    if (v9)
     {
-      __57__PLDiscretionaryIntervalManager_handleOpenIntervalTimer__block_invoke_369_cold_1();
-    }
+      v10 = PLLogDiscretionaryEnergyMonitor(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      {
+        __57__PLDiscretionaryIntervalManager_handleOpenIntervalTimer__block_invoke_369_cold_1();
+      }
 
-    [*(a1 + 32) reportQuickEnergyForInterval:v7 withIdentifier:v5 andAdjustSnapshotToNow:1];
+      [*(a1 + 32) reportQuickEnergyForInterval:v7 withIdentifier:v5 andAdjustSnapshotToNow:1];
+    }
   }
 }
 
 - (void)handlePowerlogReportTimer
 {
-  v3 = discretionaryEnergyMonitorQueue();
+  v3 = discretionaryEnergyMonitorQueue(self);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __59__PLDiscretionaryIntervalManager_handlePowerlogReportTimer__block_invoke;
@@ -582,7 +682,7 @@ void __57__PLDiscretionaryIntervalManager_handleOpenIntervalTimer__block_invoke_
 
 uint64_t __59__PLDiscretionaryIntervalManager_handlePowerlogReportTimer__block_invoke(uint64_t a1)
 {
-  v2 = PLLogDiscretionaryEnergyMonitor();
+  v2 = PLLogDiscretionaryEnergyMonitor(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __59__PLDiscretionaryIntervalManager_handlePowerlogReportTimer__block_invoke_cold_1();
@@ -593,7 +693,7 @@ uint64_t __59__PLDiscretionaryIntervalManager_handlePowerlogReportTimer__block_i
 
 - (id)createOpenIntervalTimer
 {
-  v3 = PLLogDiscretionaryEnergyMonitor();
+  v3 = PLLogDiscretionaryEnergyMonitor(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [PLDiscretionaryIntervalManager createOpenIntervalTimer];
@@ -617,7 +717,7 @@ uint64_t __59__PLDiscretionaryIntervalManager_handlePowerlogReportTimer__block_i
 
 - (id)createPowerlogReportTimer
 {
-  v3 = PLLogDiscretionaryEnergyMonitor();
+  v3 = PLLogDiscretionaryEnergyMonitor(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [PLDiscretionaryIntervalManager createPowerlogReportTimer];
@@ -641,96 +741,91 @@ uint64_t __59__PLDiscretionaryIntervalManager_handlePowerlogReportTimer__block_i
 
 - (void)logActivityNameToInvolvedIdentifiers
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v3 = PLLogDiscretionaryEnergyMonitor();
+  v8 = *MEMORY[0x1E69E9840];
+  v3 = PLLogDiscretionaryEnergyMonitor(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     activityNameToInvolvedIdentifiers = [(PLDiscretionaryIntervalManager *)self activityNameToInvolvedIdentifiers];
-    v7 = 134217984;
-    v8 = [activityNameToInvolvedIdentifiers count];
-    _os_log_impl(&dword_1BACB7000, v3, OS_LOG_TYPE_INFO, "Logging activityNameToInvolvedIdentifiers, count=%lu", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = [activityNameToInvolvedIdentifiers count];
+    _os_log_impl(&dword_1BACB7000, v3, OS_LOG_TYPE_INFO, "Logging activityNameToInvolvedIdentifiers, count=%lu", &v6, 0xCu);
   }
 
   activityNameToInvolvedIdentifiers2 = [(PLDiscretionaryIntervalManager *)self activityNameToInvolvedIdentifiers];
   [activityNameToInvolvedIdentifiers2 enumerateKeysAndObjectsUsingBlock:&__block_literal_global_372];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __70__PLDiscretionaryIntervalManager_logActivityNameToInvolvedIdentifiers__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = a3;
-  v6 = PLLogDiscretionaryEnergyMonitor();
+  v6 = PLLogDiscretionaryEnergyMonitor(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412546;
-    v9 = v4;
-    v10 = 2112;
-    v11 = v5;
-    _os_log_impl(&dword_1BACB7000, v6, OS_LOG_TYPE_INFO, "activityName=%@, involvedIdentifiers=%@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v4;
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&dword_1BACB7000, v6, OS_LOG_TYPE_INFO, "activityName=%@, involvedIdentifiers=%@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logDiscretionaryIntervals
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v3 = PLLogDiscretionaryEnergyMonitor();
+  v8 = *MEMORY[0x1E69E9840];
+  v3 = PLLogDiscretionaryEnergyMonitor(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     identifierToDiscretionaryIntervals = [(PLDiscretionaryIntervalManager *)self identifierToDiscretionaryIntervals];
-    v7 = 134217984;
-    v8 = [identifierToDiscretionaryIntervals count];
-    _os_log_impl(&dword_1BACB7000, v3, OS_LOG_TYPE_DEFAULT, "Logging identifierToDiscretionaryIntervals, count=%lu", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = [identifierToDiscretionaryIntervals count];
+    _os_log_impl(&dword_1BACB7000, v3, OS_LOG_TYPE_DEFAULT, "Logging identifierToDiscretionaryIntervals, count=%lu", &v6, 0xCu);
   }
 
   identifierToDiscretionaryIntervals2 = [(PLDiscretionaryIntervalManager *)self identifierToDiscretionaryIntervals];
   [identifierToDiscretionaryIntervals2 enumerateKeysAndObjectsUsingBlock:&__block_literal_global_374];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __59__PLDiscretionaryIntervalManager_logDiscretionaryIntervals__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = a3;
-  v6 = PLLogDiscretionaryEnergyMonitor();
+  v6 = PLLogDiscretionaryEnergyMonitor(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v27 = v4;
-    v28 = 2048;
-    v29 = [v5 count];
+    v26 = v4;
+    v27 = 2048;
+    v28 = [v5 count];
     _os_log_impl(&dword_1BACB7000, v6, OS_LOG_TYPE_INFO, "identifier=%@, intervalCount=%lu", buf, 0x16u);
   }
 
-  v20 = v4;
+  v19 = v4;
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   obj = v5;
-  v7 = [obj countByEnumeratingWithState:&v22 objects:v36 count:16];
+  v7 = [obj countByEnumeratingWithState:&v21 objects:v35 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v22;
     do
     {
-      for (i = 0; i != v8; ++i)
+      v10 = 0;
+      do
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
-        v12 = PLLogDiscretionaryEnergyMonitor();
+        v11 = *(*(&v21 + 1) + 8 * v10);
+        v12 = PLLogDiscretionaryEnergyMonitor(v7);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
           v13 = [v11 originalStartDate];
@@ -740,26 +835,28 @@ void __59__PLDiscretionaryIntervalManager_logDiscretionaryIntervals__block_invok
           v17 = v16;
           [v11 startCount];
           *buf = 138413314;
-          v27 = v13;
-          v28 = 2112;
-          v29 = v14;
-          v30 = 2112;
-          v31 = v15;
-          v32 = 2048;
-          v33 = v17;
-          v34 = 2048;
-          v35 = v18;
+          v26 = v13;
+          v27 = 2112;
+          v28 = v14;
+          v29 = 2112;
+          v30 = v15;
+          v31 = 2048;
+          v32 = v17;
+          v33 = 2048;
+          v34 = v18;
           _os_log_impl(&dword_1BACB7000, v12, OS_LOG_TYPE_INFO, "-> interval: originalStartDate=%@, currentStartDate=%@, endDate=%@, openCount=%f, startCount=%f", buf, 0x34u);
         }
+
+        ++v10;
       }
 
-      v8 = [obj countByEnumeratingWithState:&v22 objects:v36 count:16];
+      while (v8 != v10);
+      v7 = [obj countByEnumeratingWithState:&v21 objects:v35 count:16];
+      v8 = v7;
     }
 
-    while (v8);
+    while (v7);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (PLDiscretionaryEnergyMonitor)discretionaryEnergyMonitor
@@ -769,144 +866,86 @@ void __59__PLDiscretionaryIntervalManager_logDiscretionaryIntervals__block_invok
   return WeakRetained;
 }
 
-- (void)handleStartEvent:withInfo:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1BACB7000, v0, v1, "handling start event for activityName=%@ with info=%@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 - (void)handleStartEvent:(void *)a1 withInfo:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 identifierToDiscretionaryIntervals];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __60__PLDiscretionaryIntervalManager_handleStartEvent_withInfo___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __60__PLDiscretionaryIntervalManager_handleStartEvent_withInfo___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)handleStopEvent:withInfo:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1BACB7000, v0, v1, "handling stop event for activityName=%@ with info=%@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleStopEvent:(void *)a1 withInfo:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 activityNameToInvolvedIdentifiers];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleStopEvent:(void *)a1 withInfo:.cold.3(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 identifierToDiscretionaryIntervals];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleStopEvent:(uint64_t)a1 withInfo:(void *)a2 .cold.4(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = [a2 activityNameToInvolvedIdentifiers];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __59__PLDiscretionaryIntervalManager_handleStopEvent_withInfo___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1BACB7000, v0, v1, "closed interval=%@ for identifier=%@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __59__PLDiscretionaryIntervalManager_handleStopEvent_withInfo___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __59__PLDiscretionaryIntervalManager_handleStopEvent_withInfo___block_invoke_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __59__PLDiscretionaryIntervalManager_reportIntervalsToPowerlog__block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1BACB7000, v0, v1, "Processing identifier=%@ and intervals=%@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __59__PLDiscretionaryIntervalManager_reportIntervalsToPowerlog__block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)coalesceIntervals:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)coalesceIntervals:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __57__PLDiscretionaryIntervalManager_handleOpenIntervalTimer__block_invoke_cold_1()
@@ -918,11 +957,9 @@ void __57__PLDiscretionaryIntervalManager_handleOpenIntervalTimer__block_invoke_
 
 void __57__PLDiscretionaryIntervalManager_handleOpenIntervalTimer__block_invoke_369_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __59__PLDiscretionaryIntervalManager_handlePowerlogReportTimer__block_invoke_cold_1()

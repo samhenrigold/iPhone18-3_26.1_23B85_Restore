@@ -23,9 +23,10 @@
 
 uint64_t __48__ICKeyboardNotificationListener_sharedListener__block_invoke()
 {
-  sharedListener_listener = objc_alloc_init(ICKeyboardNotificationListener);
+  v0 = objc_alloc_init(ICKeyboardNotificationListener);
+  sharedListener_listener = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 - (ICKeyboardNotificationListener)init

@@ -32,7 +32,7 @@
 
 - (BOOL)_writePlistFile:(id *)file
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v6 = dictionary;
   dictationInteractionId = self->_dictationInteractionId;
@@ -76,9 +76,9 @@
   v14 = [v13 numberWithFloat:?];
   [v6 setObject:v14 forKey:@"samplingRate"];
 
-  v43 = 0;
-  v15 = [MEMORY[0x1E696AE40] dataWithPropertyList:v6 format:100 options:0 error:&v43];
-  v16 = v43;
+  v42 = 0;
+  v15 = [MEMORY[0x1E696AE40] dataWithPropertyList:v6 format:100 options:0 error:&v42];
+  v16 = v42;
   if (!v15)
   {
     v26 = CSLogCategoryAudio;
@@ -88,11 +88,11 @@
       samplingString = [(CSUncompressedAudioLogging *)self samplingString];
       localizedDescription = [v16 localizedDescription];
       *buf = 136315650;
-      v49 = "[CSUncompressedAudioLogging _writePlistFile:]";
-      v50 = 2112;
-      v51 = samplingString;
-      v52 = 2114;
-      v53 = localizedDescription;
+      v48 = "[CSUncompressedAudioLogging _writePlistFile:]";
+      v49 = 2112;
+      v50 = samplingString;
+      v51 = 2114;
+      v52 = localizedDescription;
       _os_log_error_impl(&dword_1DDA4B000, v31, OS_LOG_TYPE_ERROR, "%s %@: Failed to serialize plistRoot into plist : %{public}@", buf, 0x20u);
 
       if (!file)
@@ -108,11 +108,11 @@
 
     if (v16)
     {
-      v46 = *MEMORY[0x1E696AA08];
-      v47 = v16;
+      v45 = *MEMORY[0x1E696AA08];
+      v46 = v16;
       v27 = MEMORY[0x1E695DF20];
-      v28 = &v47;
-      v29 = &v46;
+      v28 = &v46;
+      v29 = &v45;
 LABEL_31:
       v18 = [v27 dictionaryWithObjects:v28 forKeys:v29 count:1];
 LABEL_33:
@@ -135,9 +135,9 @@ LABEL_32:
       v37 = v30;
       samplingString2 = [(CSUncompressedAudioLogging *)self samplingString];
       *buf = 136315394;
-      v49 = "[CSUncompressedAudioLogging _writePlistFile:]";
-      v50 = 2112;
-      v51 = samplingString2;
+      v48 = "[CSUncompressedAudioLogging _writePlistFile:]";
+      v49 = 2112;
+      v50 = samplingString2;
       _os_log_error_impl(&dword_1DDA4B000, v37, OS_LOG_TYPE_ERROR, "%s %@: Failed to create FD for plist file", buf, 0x16u);
 
       if (file)
@@ -145,11 +145,11 @@ LABEL_32:
 LABEL_29:
         if (v16)
         {
-          v44 = *MEMORY[0x1E696AA08];
-          v45 = v16;
+          v43 = *MEMORY[0x1E696AA08];
+          v44 = v16;
           v27 = MEMORY[0x1E695DF20];
-          v28 = &v45;
-          v29 = &v44;
+          v28 = &v44;
+          v29 = &v43;
           goto LABEL_31;
         }
 
@@ -168,18 +168,18 @@ LABEL_40:
   }
 
   v18 = [objc_alloc(MEMORY[0x1E696AC00]) initWithFileDescriptor:v17 closeOnDealloc:1];
-  v42 = 0;
-  [v18 writeData:v15 error:&v42];
-  v19 = v42;
+  v41 = 0;
+  [v18 writeData:v15 error:&v41];
+  v19 = v41;
   [v18 closeFile];
   if (self->_rpiEnabled && self->_shouldWriteRpiData)
   {
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     plistFilePath = self->_plistFilePath;
     rpiPlistFilePath = self->_rpiPlistFilePath;
-    v41 = v19;
-    [defaultManager linkItemAtPath:plistFilePath toPath:rpiPlistFilePath error:&v41];
-    v23 = v41;
+    v40 = v19;
+    [defaultManager linkItemAtPath:plistFilePath toPath:rpiPlistFilePath error:&v40];
+    v23 = v40;
 
     v19 = v23;
   }
@@ -197,11 +197,11 @@ LABEL_40:
     samplingString3 = [(CSUncompressedAudioLogging *)self samplingString];
     localizedDescription2 = [v19 localizedDescription];
     *buf = 136315650;
-    v49 = "[CSUncompressedAudioLogging _writePlistFile:]";
-    v50 = 2112;
-    v51 = samplingString3;
-    v52 = 2114;
-    v53 = localizedDescription2;
+    v48 = "[CSUncompressedAudioLogging _writePlistFile:]";
+    v49 = 2112;
+    v50 = samplingString3;
+    v51 = 2114;
+    v52 = localizedDescription2;
     _os_log_error_impl(&dword_1DDA4B000, v34, OS_LOG_TYPE_ERROR, "%s %@: Unable to writeData : %{public}@", buf, 0x20u);
 
     if (!file)
@@ -223,13 +223,12 @@ LABEL_22:
 LABEL_34:
 LABEL_41:
 
-  v39 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
 - (int)_createFileDescriptor:(id)descriptor protectionClass:(int)class
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
   v7 = CSLogCategoryAudio;
   if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
@@ -237,17 +236,16 @@ LABEL_41:
     v8 = v7;
     samplingString = [(CSUncompressedAudioLogging *)self samplingString];
     *buf = 136315650;
-    v14 = "[CSUncompressedAudioLogging _createFileDescriptor:protectionClass:]";
-    v15 = 2112;
-    v16 = samplingString;
-    v17 = 2112;
-    v18 = descriptorCopy;
+    v13 = "[CSUncompressedAudioLogging _createFileDescriptor:protectionClass:]";
+    v14 = 2112;
+    v15 = samplingString;
+    v16 = 2112;
+    v17 = descriptorCopy;
     _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s %@: Creating logging file : %@", buf, 0x20u);
   }
 
   v10 = open_dprotected_np([descriptorCopy UTF8String], 514, class, 0, 420);
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -286,7 +284,7 @@ uint64_t __66__CSUncompressedAudioLogging_endAudioWithCancellation_completion___
 
 void __66__CSUncompressedAudioLogging_endAudioWithCancellation_completion___block_invoke_2(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) audioFileHandle];
   [v2 closeFile];
 
@@ -299,9 +297,9 @@ void __66__CSUncompressedAudioLogging_endAudioWithCancellation_completion___bloc
       v5 = v3;
       v6 = [v4 samplingString];
       *buf = 136315394;
-      v23 = "[CSUncompressedAudioLogging endAudioWithCancellation:completion:]_block_invoke_2";
-      v24 = 2112;
-      v25 = v6;
+      v21 = "[CSUncompressedAudioLogging endAudioWithCancellation:completion:]_block_invoke_2";
+      v22 = 2112;
+      v23 = v6;
       _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s %@: Request is cancelled remove logging", buf, 0x16u);
     }
 
@@ -311,40 +309,39 @@ void __66__CSUncompressedAudioLogging_endAudioWithCancellation_completion___bloc
   else
   {
     v7 = *(a1 + 32);
-    v21 = 0;
-    v8 = [v7 _moveAudioLoggingToCollectionDirectory:&v21];
-    v9 = v21;
+    v19 = 0;
+    v8 = [v7 _moveAudioLoggingToCollectionDirectory:&v19];
+    v9 = v19;
     if (v8)
     {
       v10 = *(a1 + 32);
-      v20 = 0;
-      v11 = [v10 _writePlistFile:&v20];
-      v12 = v20;
+      v18 = 0;
+      v11 = [v10 _writePlistFile:&v18];
+      v12 = v18;
       if (v11)
       {
         v13 = CSLogCategoryAudio;
         if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEBUG))
         {
-          v17 = *(a1 + 32);
-          v18 = v13;
-          v19 = [v17 samplingString];
+          v15 = *(a1 + 32);
+          v16 = v13;
+          v17 = [v15 samplingString];
           *buf = 136315394;
-          v23 = "[CSUncompressedAudioLogging endAudioWithCancellation:completion:]_block_invoke";
-          v24 = 2112;
-          v25 = v19;
-          _os_log_debug_impl(&dword_1DDA4B000, v18, OS_LOG_TYPE_DEBUG, "%s %@: Done with audio logging", buf, 0x16u);
+          v21 = "[CSUncompressedAudioLogging endAudioWithCancellation:completion:]_block_invoke";
+          v22 = 2112;
+          v23 = v17;
+          _os_log_debug_impl(&dword_1DDA4B000, v16, OS_LOG_TYPE_DEBUG, "%s %@: Done with audio logging", buf, 0x16u);
         }
 
-        v14 = *(*(a1 + 32) + 112);
-        v15 = *(*(a1 + 40) + 16);
+        v14 = *(*(a1 + 40) + 16);
       }
 
       else
       {
-        v15 = *(*(a1 + 40) + 16);
+        v14 = *(*(a1 + 40) + 16);
       }
 
-      v15();
+      v14();
     }
 
     else
@@ -352,13 +349,11 @@ void __66__CSUncompressedAudioLogging_endAudioWithCancellation_completion___bloc
       (*(*(a1 + 40) + 16))();
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_moveAudioLoggingToCollectionDirectory:(id *)directory
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   tmpAudioFilePath = [(CSUncompressedAudioLogging *)self tmpAudioFilePath];
   v7 = [defaultManager fileExistsAtPath:tmpAudioFilePath];
@@ -368,9 +363,9 @@ void __66__CSUncompressedAudioLogging_endAudioWithCancellation_completion___bloc
     defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
     tmpAudioFilePath2 = [(CSUncompressedAudioLogging *)self tmpAudioFilePath];
     audioFilePath = [(CSUncompressedAudioLogging *)self audioFilePath];
-    v30 = 0;
-    v11 = [defaultManager2 moveItemAtPath:tmpAudioFilePath2 toPath:audioFilePath error:&v30];
-    v12 = v30;
+    v29 = 0;
+    v11 = [defaultManager2 moveItemAtPath:tmpAudioFilePath2 toPath:audioFilePath error:&v29];
+    v12 = v29;
 
     if (v11)
     {
@@ -380,9 +375,9 @@ void __66__CSUncompressedAudioLogging_endAudioWithCancellation_completion___bloc
         defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
         audioFilePath2 = [(CSUncompressedAudioLogging *)self audioFilePath];
         rpiAudioFilePath2 = [(CSUncompressedAudioLogging *)self rpiAudioFilePath];
-        v29 = v12;
-        v18 = [defaultManager3 linkItemAtPath:audioFilePath2 toPath:rpiAudioFilePath2 error:&v29];
-        v19 = v29;
+        v28 = v12;
+        v18 = [defaultManager3 linkItemAtPath:audioFilePath2 toPath:rpiAudioFilePath2 error:&v28];
+        v19 = v28;
 
         if (v18)
         {
@@ -395,9 +390,9 @@ void __66__CSUncompressedAudioLogging_endAudioWithCancellation_completion___bloc
           if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315394;
-            v34 = "[CSUncompressedAudioLogging _moveAudioLoggingToCollectionDirectory:]";
-            v35 = 2112;
-            v36 = v19;
+            v33 = "[CSUncompressedAudioLogging _moveAudioLoggingToCollectionDirectory:]";
+            v34 = 2112;
+            v35 = v19;
             _os_log_error_impl(&dword_1DDA4B000, v23, OS_LOG_TYPE_ERROR, "%s audio move for rpi failed with: %@", buf, 0x16u);
           }
 
@@ -418,16 +413,16 @@ void __66__CSUncompressedAudioLogging_endAudioWithCancellation_completion___bloc
     v21 = CSLogCategoryAudio;
     if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
     {
-      v26 = v21;
+      v25 = v21;
       samplingString = [(CSUncompressedAudioLogging *)self samplingString];
       localizedDescription = [v12 localizedDescription];
       *buf = 136315650;
-      v34 = "[CSUncompressedAudioLogging _moveAudioLoggingToCollectionDirectory:]";
-      v35 = 2112;
-      v36 = samplingString;
-      v37 = 2112;
-      v38 = localizedDescription;
-      _os_log_error_impl(&dword_1DDA4B000, v26, OS_LOG_TYPE_ERROR, "%s %@: Failed to move audio logging %@", buf, 0x20u);
+      v33 = "[CSUncompressedAudioLogging _moveAudioLoggingToCollectionDirectory:]";
+      v34 = 2112;
+      v35 = samplingString;
+      v36 = 2112;
+      v37 = localizedDescription;
+      _os_log_error_impl(&dword_1DDA4B000, v25, OS_LOG_TYPE_ERROR, "%s %@: Failed to move audio logging %@", buf, 0x20u);
 
       if (directory)
       {
@@ -440,9 +435,9 @@ void __66__CSUncompressedAudioLogging_endAudioWithCancellation_completion___bloc
 LABEL_11:
       if (v12)
       {
-        v31 = *MEMORY[0x1E696AA08];
-        v32 = v12;
-        v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+        v30 = *MEMORY[0x1E696AA08];
+        v31 = v12;
+        v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
       }
 
       else
@@ -456,22 +451,16 @@ LABEL_11:
     v20 = 0;
 LABEL_22:
 
-    goto LABEL_23;
+    return v20;
   }
 
-  if (directory)
+  if (!directory)
   {
-    [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.corespeech" code:2353 userInfo:0];
-    *directory = v20 = 0;
+    return 0;
   }
 
-  else
-  {
-    v20 = 0;
-  }
-
-LABEL_23:
-  v24 = *MEMORY[0x1E69E9840];
+  [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.corespeech" code:2353 userInfo:0];
+  *directory = v20 = 0;
   return v20;
 }
 
@@ -488,7 +477,7 @@ LABEL_23:
 
 void __49__CSUncompressedAudioLogging__removeTmpAudioFile__block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AC08] defaultManager];
   v3 = [*(a1 + 32) tmpAudioFilePath];
   v4 = [v2 fileExistsAtPath:v3];
@@ -497,31 +486,29 @@ void __49__CSUncompressedAudioLogging__removeTmpAudioFile__block_invoke(uint64_t
   {
     v5 = [MEMORY[0x1E696AC08] defaultManager];
     v6 = [*(a1 + 32) tmpAudioFilePath];
-    v15 = 0;
-    v7 = [v5 removeItemAtPath:v6 error:&v15];
-    v8 = v15;
+    v14 = 0;
+    v7 = [v5 removeItemAtPath:v6 error:&v14];
+    v8 = v14;
 
     if ((v7 & 1) == 0)
     {
       v9 = CSLogCategoryAudio;
       if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
       {
-        v11 = *(a1 + 32);
-        v12 = v9;
-        v13 = [v11 samplingString];
-        v14 = [v8 localizedDescription];
+        v10 = *(a1 + 32);
+        v11 = v9;
+        v12 = [v10 samplingString];
+        v13 = [v8 localizedDescription];
         *buf = 136315650;
-        v17 = "[CSUncompressedAudioLogging _removeTmpAudioFile]_block_invoke";
-        v18 = 2112;
-        v19 = v13;
-        v20 = 2112;
-        v21 = v14;
-        _os_log_error_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_ERROR, "%s %@: Failed to remove audio logging in the tmp : %@", buf, 0x20u);
+        v16 = "[CSUncompressedAudioLogging _removeTmpAudioFile]_block_invoke";
+        v17 = 2112;
+        v18 = v12;
+        v19 = 2112;
+        v20 = v13;
+        _os_log_error_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_ERROR, "%s %@: Failed to remove audio logging in the tmp : %@", buf, 0x20u);
       }
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelAudioLogging
@@ -537,23 +524,21 @@ void __49__CSUncompressedAudioLogging__removeTmpAudioFile__block_invoke(uint64_t
 
 uint64_t __48__CSUncompressedAudioLogging_cancelAudioLogging__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = CSLogCategoryAudio;
   if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 samplingString];
-    v8 = 136315394;
-    v9 = "[CSUncompressedAudioLogging cancelAudioLogging]_block_invoke";
-    v10 = 2112;
-    v11 = v5;
-    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s %@: Cancelling audio logging", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[CSUncompressedAudioLogging cancelAudioLogging]_block_invoke";
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s %@: Cancelling audio logging", &v7, 0x16u);
   }
 
-  result = [*(a1 + 32) setIsCancelled:1];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) setIsCancelled:1];
 }
 
 - (void)appendAudioData:(id)data
@@ -575,33 +560,31 @@ uint64_t __48__CSUncompressedAudioLogging_cancelAudioLogging__block_invoke(uint6
 
 void __46__CSUncompressedAudioLogging_appendAudioData___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) audioFileHandle];
   v3 = *(a1 + 40);
-  v11 = 0;
-  [v2 writeData:v3 error:&v11];
-  v4 = v11;
+  v10 = 0;
+  [v2 writeData:v3 error:&v10];
+  v4 = v10;
 
   if (v4)
   {
     v5 = CSLogCategoryAudio;
     if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = v5;
-      v9 = [v7 samplingString];
-      v10 = [v4 localizedDescription];
+      v6 = *(a1 + 32);
+      v7 = v5;
+      v8 = [v6 samplingString];
+      v9 = [v4 localizedDescription];
       *buf = 136315650;
-      v13 = "[CSUncompressedAudioLogging appendAudioData:]_block_invoke";
-      v14 = 2112;
-      v15 = v9;
-      v16 = 2114;
-      v17 = v10;
-      _os_log_error_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_ERROR, "%s %@: Unable to writeData : %{public}@", buf, 0x20u);
+      v12 = "[CSUncompressedAudioLogging appendAudioData:]_block_invoke";
+      v13 = 2112;
+      v14 = v8;
+      v15 = 2114;
+      v16 = v9;
+      _os_log_error_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_ERROR, "%s %@: Unable to writeData : %{public}@", buf, 0x20u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setShouldWriteRPIData:(BOOL)data
@@ -618,7 +601,7 @@ void __46__CSUncompressedAudioLogging_appendAudioData___block_invoke(uint64_t a1
 
 - (BOOL)_setupFilePath:(id *)path
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   date = [MEMORY[0x1E695DF00] date];
   loggingDate = self->_loggingDate;
   self->_loggingDate = date;
@@ -663,17 +646,17 @@ void __46__CSUncompressedAudioLogging_appendAudioData___block_invoke(uint64_t a1
     {
       v24 = self->_rpiSamplingDirectory;
       *buf = 136315394;
-      v80 = "[CSUncompressedAudioLogging _setupFilePath:]";
-      v81 = 2112;
-      v82 = v24;
+      v79 = "[CSUncompressedAudioLogging _setupFilePath:]";
+      v80 = 2112;
+      v81 = v24;
       _os_log_impl(&dword_1DDA4B000, v23, OS_LOG_TYPE_DEFAULT, "%s Setting rpi sampling directory as: %@", buf, 0x16u);
     }
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
     v26 = self->_rpiSamplingDirectory;
-    v76 = 0;
-    v27 = [defaultManager createDirectoryAtPath:v26 withIntermediateDirectories:1 attributes:0 error:&v76];
-    v28 = v76;
+    v75 = 0;
+    v27 = [defaultManager createDirectoryAtPath:v26 withIntermediateDirectories:1 attributes:0 error:&v75];
+    v28 = v75;
 
     if ((v27 & 1) == 0)
     {
@@ -681,9 +664,9 @@ void __46__CSUncompressedAudioLogging_appendAudioData___block_invoke(uint64_t a1
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v80 = "[CSUncompressedAudioLogging _setupFilePath:]";
-        v81 = 2112;
-        v82 = v28;
+        v79 = "[CSUncompressedAudioLogging _setupFilePath:]";
+        v80 = 2112;
+        v81 = v28;
         _os_log_error_impl(&dword_1DDA4B000, v67, OS_LOG_TYPE_ERROR, "%s error when creating directory: %@", buf, 0x16u);
       }
 
@@ -698,28 +681,26 @@ void __46__CSUncompressedAudioLogging_appendAudioData___block_invoke(uint64_t a1
     if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v80 = "[CSUncompressedAudioLogging _setupFilePath:]";
-      v81 = 2112;
-      v82 = 0;
+      v79 = "[CSUncompressedAudioLogging _setupFilePath:]";
+      v80 = 2112;
+      v81 = 0;
       _os_log_error_impl(&dword_1DDA4B000, v64, OS_LOG_TYPE_ERROR, "%s Failed to get SamplingDirectory : %@", buf, 0x16u);
       if (!path)
       {
-        goto LABEL_31;
+        return 0;
       }
     }
 
     else if (!path)
     {
-LABEL_31:
-      result = 0;
-      goto LABEL_32;
+      return 0;
     }
 
     v65 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.corespeech" code:2351 userInfo:0];
     v66 = v65;
     result = 0;
     *path = v65;
-    goto LABEL_32;
+    return result;
   }
 
   v30 = [(NSString *)v29 stringByAppendingPathComponent:self->_samplingDate];
@@ -733,9 +714,9 @@ LABEL_31:
   {
     defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
     v35 = self->_samplingDirectory;
-    v75 = 0;
-    v36 = [defaultManager3 createDirectoryAtPath:v35 withIntermediateDirectories:1 attributes:0 error:&v75];
-    v28 = v75;
+    v74 = 0;
+    v36 = [defaultManager3 createDirectoryAtPath:v35 withIntermediateDirectories:1 attributes:0 error:&v74];
+    v28 = v74;
 
     if (v36)
     {
@@ -746,16 +727,16 @@ LABEL_31:
     v68 = CSLogCategoryAudio;
     if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
     {
-      v72 = v68;
+      v71 = v68;
       samplingString = [(CSUncompressedAudioLogging *)self samplingString];
       localizedDescription = [(NSString *)v28 localizedDescription];
       *buf = 136315650;
-      v80 = "[CSUncompressedAudioLogging _setupFilePath:]";
-      v81 = 2112;
-      v82 = samplingString;
-      v83 = 2112;
-      v84 = localizedDescription;
-      _os_log_error_impl(&dword_1DDA4B000, v72, OS_LOG_TYPE_ERROR, "%s %@: Failed to create directory : %@", buf, 0x20u);
+      v79 = "[CSUncompressedAudioLogging _setupFilePath:]";
+      v80 = 2112;
+      v81 = samplingString;
+      v82 = 2112;
+      v83 = localizedDescription;
+      _os_log_error_impl(&dword_1DDA4B000, v71, OS_LOG_TYPE_ERROR, "%s %@: Failed to create directory : %@", buf, 0x20u);
 
       if (path)
       {
@@ -768,9 +749,9 @@ LABEL_31:
 LABEL_26:
       if (v28)
       {
-        v77 = *MEMORY[0x1E696AA08];
-        v78 = v28;
-        v69 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
+        v76 = *MEMORY[0x1E696AA08];
+        v77 = v28;
+        v69 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
       }
 
       else
@@ -783,7 +764,7 @@ LABEL_26:
 
 LABEL_30:
 
-    goto LABEL_31;
+    return 0;
   }
 
 LABEL_12:
@@ -835,23 +816,20 @@ LABEL_12:
   v62 = CSLogCategoryAudio;
   if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEBUG))
   {
-    v71 = self->_audioFilePath;
+    v70 = self->_audioFilePath;
     *buf = 136315394;
-    v80 = "[CSUncompressedAudioLogging _setupFilePath:]";
-    v81 = 2112;
-    v82 = v71;
+    v79 = "[CSUncompressedAudioLogging _setupFilePath:]";
+    v80 = 2112;
+    v81 = v70;
     _os_log_debug_impl(&dword_1DDA4B000, v62, OS_LOG_TYPE_DEBUG, "%s CSUncompressedAudioLogging file path : %@", buf, 0x16u);
   }
 
-  result = 1;
-LABEL_32:
-  v70 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 - (BOOL)_prepareFileForLogging:(id *)logging
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = [(CSUncompressedAudioLogging *)self _createFileDescriptor:self->_tmpAudioFilePath protectionClass:+[CSUncompressedAudioLogging loggingFileProtectionClass]];
   if (v5 <= 0)
   {
@@ -861,23 +839,23 @@ LABEL_32:
       v11 = v10;
       samplingString = [(CSUncompressedAudioLogging *)self samplingString];
       tmpAudioFilePath = self->_tmpAudioFilePath;
-      v16 = 136315650;
-      v17 = "[CSUncompressedAudioLogging _prepareFileForLogging:]";
-      v18 = 2114;
-      v19 = samplingString;
-      v20 = 2114;
-      v21 = tmpAudioFilePath;
-      _os_log_error_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_ERROR, "%s %{public}@: Unable to create FD on audioFilePath : (%{public}@)", &v16, 0x20u);
+      v15 = 136315650;
+      v16 = "[CSUncompressedAudioLogging _prepareFileForLogging:]";
+      v17 = 2114;
+      v18 = samplingString;
+      v19 = 2114;
+      v20 = tmpAudioFilePath;
+      _os_log_error_impl(&dword_1DDA4B000, v11, OS_LOG_TYPE_ERROR, "%s %{public}@: Unable to create FD on audioFilePath : (%{public}@)", &v15, 0x20u);
 
       if (!logging)
       {
-        goto LABEL_10;
+        return 0;
       }
     }
 
     else if (!logging)
     {
-      goto LABEL_10;
+      return 0;
     }
 
     v9 = 2355;
@@ -897,15 +875,12 @@ LABEL_32:
 LABEL_8:
       [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.corespeech" code:v9 userInfo:0];
       *logging = v6 = 0;
-      goto LABEL_11;
+      return v6;
     }
 
-LABEL_10:
-    v6 = 0;
+    return 0;
   }
 
-LABEL_11:
-  v14 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -943,22 +918,22 @@ uint64_t __45__CSUncompressedAudioLogging_prepareLogging___block_invoke(uint64_t
 
 void __45__CSUncompressedAudioLogging_prepareLogging___block_invoke_2(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E698D1B8] sharedPreferences];
   v3 = [v2 siriDataSharingOptInStatus];
 
   if (v3 == 1)
   {
     v4 = *(a1 + 32);
-    v21 = 0;
-    v5 = [v4 _setupFilePath:&v21];
-    v6 = v21;
+    v20 = 0;
+    v5 = [v4 _setupFilePath:&v20];
+    v6 = v20;
     if (v5)
     {
       v7 = *(a1 + 32);
-      v20 = 0;
-      v8 = [v7 _prepareFileForLogging:&v20];
-      v9 = v20;
+      v19 = 0;
+      v8 = [v7 _prepareFileForLogging:&v19];
+      v9 = v19;
       if (v8)
       {
         v10 = CSLogCategoryAudio;
@@ -968,9 +943,9 @@ void __45__CSUncompressedAudioLogging_prepareLogging___block_invoke_2(uint64_t a
           v12 = v10;
           v13 = [v11 samplingString];
           *buf = 136315394;
-          v23 = "[CSUncompressedAudioLogging prepareLogging:]_block_invoke_2";
-          v24 = 2112;
-          v25 = v13;
+          v22 = "[CSUncompressedAudioLogging prepareLogging:]_block_invoke_2";
+          v23 = 2112;
+          v24 = v13;
           _os_log_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_DEFAULT, "%s %@: uncompressed audio logging will be enabled for this request", buf, 0x16u);
         }
 
@@ -1000,16 +975,14 @@ void __45__CSUncompressedAudioLogging_prepareLogging___block_invoke_2(uint64_t a
       v17 = v15;
       v18 = [v16 samplingString];
       *buf = 136315394;
-      v23 = "[CSUncompressedAudioLogging prepareLogging:]_block_invoke";
-      v24 = 2112;
-      v25 = v18;
+      v22 = "[CSUncompressedAudioLogging prepareLogging:]_block_invoke";
+      v23 = 2112;
+      v24 = v18;
       _os_log_impl(&dword_1DDA4B000, v17, OS_LOG_TYPE_DEFAULT, "%s %@: uncompressed audio logging will be disabled for this request", buf, 0x16u);
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (CSUncompressedAudioLogging)initWithRequestId:(id)id asrId:(id)asrId dictationInteractionId:(id)interactionId languageCode:(id)code task:(id)task isSamplingForDictation:(BOOL)dictation rpiEnabled:(BOOL)enabled

@@ -11,10 +11,10 @@
 
 - (unint64_t)retrieveFileIDWithError:(id *)error
 {
-  memset(&v7, 0, sizeof(v7));
-  if ((fstat(self->_fd, &v7) & 0x80000000) == 0)
+  memset(&v6, 0, sizeof(v6));
+  if ((fstat(self->_fd, &v6) & 0x80000000) == 0)
   {
-    return v7.st_ino;
+    return v6.st_ino;
   }
 
   if (error)
@@ -22,10 +22,10 @@
     *error = [MEMORY[0x1E696ABC0] fp_errorWithPOSIXCode:*__error()];
   }
 
-  v6 = fp_current_or_default_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v5 = fp_current_or_default_log();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    [FPDSubtreeChangeDetector retrieveFileIDWithError:?];
+    [FPDSubtreeChangeDetector retrieveFileIDWithError:];
   }
 
   return 0;
@@ -33,33 +33,33 @@
 
 - (BOOL)maintainDirstatWithError:(id *)error
 {
-  v8 = 0;
-  v5 = ffsctl(self->_fd, 0x80084A02uLL, &v8, 0);
-  if (v5 < 0)
+  v7 = 0;
+  v4 = ffsctl(self->_fd, 0x80084A02uLL, &v7, 0);
+  if (v4 < 0)
   {
     if (error)
     {
       *error = [MEMORY[0x1E696ABC0] fp_errorWithPOSIXCode:*__error()];
     }
 
-    v6 = fp_current_or_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = fp_current_or_default_log();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [FPDSubtreeChangeDetector maintainDirstatWithError:?];
+      [FPDSubtreeChangeDetector maintainDirstatWithError:];
     }
   }
 
-  return v5 >= 0;
+  return v4 >= 0;
 }
 
 - (unint64_t)retrieveDirstatGenCountWithError:(id *)error
 {
+  v7 = 0u;
   v8 = 0u;
-  v9 = 0u;
-  v7 = 1;
-  if ((ffsctl(self->_fd, 0xC0284A20uLL, &v7, 0) & 0x80000000) == 0)
+  v6 = 1;
+  if ((ffsctl(self->_fd, 0xC0284A20uLL, &v6, 0) & 0x80000000) == 0)
   {
-    return *(&v9 + 1);
+    return *(&v8 + 1);
   }
 
   if (error)
@@ -67,10 +67,10 @@
     *error = [MEMORY[0x1E696ABC0] fp_errorWithPOSIXCode:*__error()];
   }
 
-  v6 = fp_current_or_default_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v5 = fp_current_or_default_log();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    [FPDSubtreeChangeDetector retrieveDirstatGenCountWithError:?];
+    [FPDSubtreeChangeDetector retrieveDirstatGenCountWithError:];
   }
 
   return 0;
@@ -173,47 +173,36 @@ LABEL_14:
   return v5;
 }
 
-- (void)retrieveFileIDWithError:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)retrieveFileIDWithError:.cold.1()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 16);
-  v2 = __error();
-  strerror(*v2);
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_5(&dword_1CEFC7000, v3, v4, "[ERROR] Unable to stat directory at '%@': %s", v5, v6, v7, v8, v10);
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1CEFC7000, v1, v2, "[ERROR] Unable to stat directory at '%@': %s", v3, v4, v5, v6);
 }
 
-- (void)maintainDirstatWithError:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)maintainDirstatWithError:.cold.1()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 16);
-  v2 = __error();
-  strerror(*v2);
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_5(&dword_1CEFC7000, v3, v4, "[ERROR] Unable to maintain dirstats at '%@': %s", v5, v6, v7, v8, v10);
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1CEFC7000, v1, v2, "[ERROR] Unable to maintain dirstats at '%@': %s", v3, v4, v5, v6);
 }
 
-- (void)retrieveDirstatGenCountWithError:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)retrieveDirstatGenCountWithError:.cold.1()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 16);
-  v2 = __error();
-  strerror(*v2);
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_5(&dword_1CEFC7000, v3, v4, "[ERROR] Unable to retrieve dirstats at '%@': %s", v5, v6, v7, v8, v10);
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1CEFC7000, v1, v2, "[ERROR] Unable to retrieve dirstats at '%@': %s", v3, v4, v5, v6);
 }
 
 - (void)initAtPath:error:.cold.1()
 {
-  v9 = *MEMORY[0x1E69E9840];
   v0 = __error();
   strerror(*v0);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_5(&dword_1CEFC7000, v1, v2, "[ERROR] Unable to open directory at '%@': %s", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1CEFC7000, v1, v2, "[ERROR] Unable to open directory at '%@': %s", v3, v4, v5, v6);
 }
 
 @end

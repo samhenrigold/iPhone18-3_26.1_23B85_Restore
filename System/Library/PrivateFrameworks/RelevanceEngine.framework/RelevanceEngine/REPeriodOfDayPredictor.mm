@@ -239,7 +239,7 @@ void __54__REPeriodOfDayPredictor__handleSignificantTimeChange__block_invoke_2(u
 
 - (id)dateIntervalForNextPeriodOfDay:(unint64_t)day afterDate:(id)date
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   [(NSLock *)self->_storedPeriodsLock lock];
   v7 = [(NSArray *)self->_storedPeriods copy];
@@ -272,11 +272,11 @@ void __54__REPeriodOfDayPredictor__handleSignificantTimeChange__block_invoke_2(u
       v10 = off_2785FAB38[day];
     }
 
-    v20 = 138412546;
-    v21 = v10;
-    v22 = 2112;
-    v23 = v7;
-    _os_log_impl(&dword_22859F000, v9, OS_LOG_TYPE_INFO, "Unable to find %@ in current data: %@\nfalling back to default data", &v20, 0x16u);
+    v19 = 138412546;
+    v20 = v10;
+    v21 = 2112;
+    v22 = v7;
+    _os_log_impl(&dword_22859F000, v9, OS_LOG_TYPE_INFO, "Unable to find %@ in current data: %@\nfalling back to default data", &v19, 0x16u);
   }
 
   date = [MEMORY[0x277CBEAA8] date];
@@ -301,8 +301,6 @@ void __54__REPeriodOfDayPredictor__handleSignificantTimeChange__block_invoke_2(u
 
 LABEL_17:
 LABEL_18:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return interval;
 }
@@ -334,7 +332,7 @@ LABEL_18:
 
 - (id)dateIntervalForPreviousPeriodOfDay:(unint64_t)day beforeDate:(id)date
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   [(NSLock *)self->_storedPeriodsLock lock];
   v7 = [(NSArray *)self->_storedPeriods copy];
@@ -356,11 +354,11 @@ LABEL_5:
         v12 = off_2785FAB38[day];
       }
 
-      v21 = 138412546;
-      v22 = v12;
-      v23 = 2112;
-      v24 = v7;
-      _os_log_impl(&dword_22859F000, v11, OS_LOG_TYPE_INFO, "Unable to find %@ in current data: %@\nfalling back to default data", &v21, 0x16u);
+      v20 = 138412546;
+      v21 = v12;
+      v22 = 2112;
+      v23 = v7;
+      _os_log_impl(&dword_22859F000, v11, OS_LOG_TYPE_INFO, "Unable to find %@ in current data: %@\nfalling back to default data", &v20, 0x16u);
     }
 
     date = [MEMORY[0x277CBEAA8] date];
@@ -414,8 +412,6 @@ LABEL_15:
     interval = [v10 interval];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return interval;
 }
 
@@ -438,30 +434,30 @@ LABEL_15:
 
 void __32__REPeriodOfDayPredictor_update__block_invoke(uint64_t a1, void *a2)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [MEMORY[0x277CBEB18] array];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   obj = v2;
-  v4 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
+  v4 = [obj countByEnumeratingWithState:&v38 objects:v46 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v40;
+    v6 = *v39;
     do
     {
       v7 = 0;
       do
       {
-        if (*v40 != v6)
+        if (*v39 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v39 + 1) + 8 * v7);
+        v8 = *(*(&v38 + 1) + 8 * v7);
         if ([v3 count])
         {
           v9 = [v3 lastObject];
@@ -479,9 +475,9 @@ void __32__REPeriodOfDayPredictor_update__block_invoke(uint64_t a1, void *a2)
               if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412546;
-                v44 = v9;
-                v45 = 2112;
-                v46 = v8;
+                v43 = v9;
+                v44 = 2112;
+                v45 = v8;
                 _os_log_debug_impl(&dword_22859F000, v15, OS_LOG_TYPE_DEBUG, "Found overlapping intervals %@ and %@", buf, 0x16u);
               }
             }
@@ -506,7 +502,7 @@ void __32__REPeriodOfDayPredictor_update__block_invoke(uint64_t a1, void *a2)
       }
 
       while (v5 != v7);
-      v5 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
+      v5 = [obj countByEnumeratingWithState:&v38 objects:v46 count:16];
     }
 
     while (v5);
@@ -549,10 +545,10 @@ void __32__REPeriodOfDayPredictor_update__block_invoke(uint64_t a1, void *a2)
   v29 = v23 == v28;
   v30 = v23 != v28;
   v31 = *(a1 + 32);
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __32__REPeriodOfDayPredictor_update__block_invoke_372;
-  v36[3] = &unk_2785FAA50;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __32__REPeriodOfDayPredictor_update__block_invoke_372;
+  v35[3] = &unk_2785FAA50;
   if (v29)
   {
     v32 = v24;
@@ -563,12 +559,10 @@ void __32__REPeriodOfDayPredictor_update__block_invoke(uint64_t a1, void *a2)
     v32 = 1;
   }
 
-  v36[4] = v31;
-  v37 = v32;
-  v38 = v30;
-  [v31 onQueue:v36];
-
-  v33 = *MEMORY[0x277D85DE8];
+  v35[4] = v31;
+  v36 = v32;
+  v37 = v30;
+  [v31 onQueue:v35];
 }
 
 uint64_t __32__REPeriodOfDayPredictor_update__block_invoke_372(uint64_t a1)
@@ -715,51 +709,51 @@ void __57__REPeriodOfDayPredictor__periodsOfDayForSleepIntervals___block_invoke(
 
 - (void)_getPredictedSleepIntervalsWithCompletion:(id)completion
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (completionCopy)
   {
     [(REPredictor *)self beginFetchingData];
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = __68__REPeriodOfDayPredictor__getPredictedSleepIntervalsWithCompletion___block_invoke;
-    v50[3] = &unk_2785FAAA0;
-    v50[4] = self;
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __68__REPeriodOfDayPredictor__getPredictedSleepIntervalsWithCompletion___block_invoke;
+    v49[3] = &unk_2785FAAA0;
+    v49[4] = self;
     v5 = completionCopy;
-    v51 = v5;
-    v6 = MEMORY[0x22AABC5E0](v50);
+    v50 = v5;
+    v6 = MEMORY[0x22AABC5E0](v49);
     array = [MEMORY[0x277CBEB18] array];
     currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
     date = [MEMORY[0x277CBEAA8] date];
     sleepStore = self->_sleepStore;
-    v49 = 0;
-    v43 = [(HKSPSleepStore *)sleepStore currentSleepScheduleWithError:&v49];
-    v11 = v49;
+    v48 = 0;
+    v42 = [(HKSPSleepStore *)sleepStore currentSleepScheduleWithError:&v48];
+    v11 = v48;
     if (v11)
     {
       v12 = RELogForDomain(8);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v53 = v11;
+        v52 = v11;
         _os_log_impl(&dword_22859F000, v12, OS_LOG_TYPE_DEFAULT, "Unable to get the current sleep schedule: %@", buf, 0xCu);
       }
     }
 
-    v42 = v11;
-    if (v43)
+    v41 = v11;
+    if (v42)
     {
-      v37 = v5;
+      v36 = v5;
       selfCopy = self;
-      v41 = v6;
-      v47[0] = MEMORY[0x277D85DD0];
-      v47[1] = 3221225472;
-      v47[2] = __68__REPeriodOfDayPredictor__getPredictedSleepIntervalsWithCompletion___block_invoke_377;
-      v47[3] = &unk_2785FA9E0;
-      v40 = currentCalendar;
-      v48 = currentCalendar;
-      v13 = MEMORY[0x22AABC5E0](v47);
-      v39 = date;
+      v40 = v6;
+      v46[0] = MEMORY[0x277D85DD0];
+      v46[1] = 3221225472;
+      v46[2] = __68__REPeriodOfDayPredictor__getPredictedSleepIntervalsWithCompletion___block_invoke_377;
+      v46[3] = &unk_2785FA9E0;
+      v39 = currentCalendar;
+      v47 = currentCalendar;
+      v13 = MEMORY[0x22AABC5E0](v46);
+      v38 = date;
       v14 = date;
       v15 = 1;
       v16 = v14;
@@ -767,7 +761,7 @@ void __57__REPeriodOfDayPredictor__periodsOfDayForSleepIntervals___block_invoke(
       {
         v17 = v16;
         v16 = (v13)[2](v13, v14, v15);
-        v18 = [_TtC15RelevanceEngine20RESleepScheduleEntry sleepEntryForDatesWithCurrent:v17 next:v16 schedule:v43];
+        v18 = [_TtC15RelevanceEngine20RESleepScheduleEntry sleepEntryForDatesWithCurrent:v17 next:v16 schedule:v42];
         bedtime = [v18 bedtime];
         wakeupTime = [v18 wakeupTime];
 
@@ -794,20 +788,20 @@ void __57__REPeriodOfDayPredictor__periodsOfDayForSleepIntervals___block_invoke(
       if ([array count])
       {
         [(REPredictor *)selfCopy finishFetchingData];
-        v37[2](v37, array);
+        v36[2](v36, array);
 
-        sleepInterval = v48;
-        v6 = v41;
-        date = v39;
-        currentCalendar = v40;
+        sleepInterval = v47;
+        v6 = v40;
+        date = v38;
+        currentCalendar = v39;
 LABEL_27:
 
         goto LABEL_28;
       }
 
-      v6 = v41;
-      date = v39;
-      currentCalendar = v40;
+      v6 = v40;
+      date = v38;
+      currentCalendar = v39;
       self = selfCopy;
     }
 
@@ -819,7 +813,7 @@ LABEL_27:
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v53 = sleepInterval;
+        v52 = sleepInterval;
         _os_log_impl(&dword_22859F000, v25, OS_LOG_TYPE_DEFAULT, "Received expected in bed period: %@", buf, 0xCu);
       }
 
@@ -852,41 +846,37 @@ LABEL_27:
       v27 = [(REDuetKnowledgeStore *)self->_knowledgeStore queryForPredictedChargingEventsWithMinimumDuration:60.0];
       knowledgeStore = self->_knowledgeStore;
       queue = [(REPredictor *)self queue];
-      v44[0] = MEMORY[0x277D85DD0];
-      v44[1] = 3221225472;
-      v44[2] = __68__REPeriodOfDayPredictor__getPredictedSleepIntervalsWithCompletion___block_invoke_379;
-      v44[3] = &unk_2785FAB18;
-      v45 = array;
-      v46 = v6;
-      [(REDuetKnowledgeStore *)knowledgeStore executeQuery:v27 responseQueue:queue completion:v44];
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __68__REPeriodOfDayPredictor__getPredictedSleepIntervalsWithCompletion___block_invoke_379;
+      v43[3] = &unk_2785FAB18;
+      v44 = array;
+      v45 = v6;
+      [(REDuetKnowledgeStore *)knowledgeStore executeQuery:v27 responseQueue:queue completion:v43];
 
-      v29 = v45;
+      v29 = v44;
     }
 
     goto LABEL_27;
   }
 
 LABEL_28:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __68__REPeriodOfDayPredictor__getPredictedSleepIntervalsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = REUpNextDuplicateIntervalsByAddingUnit(a2, 16, 1uLL, 3);
   v4 = RELogForDomain(8);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_22859F000, v4, OS_LOG_TYPE_INFO, "Updated predicted sleep events: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_22859F000, v4, OS_LOG_TYPE_INFO, "Updated predicted sleep events: %@", &v5, 0xCu);
   }
 
   [*(a1 + 32) finishFetchingData];
   (*(*(a1 + 40) + 16))();
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 id __68__REPeriodOfDayPredictor__getPredictedSleepIntervalsWithCompletion___block_invoke_377(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -953,7 +943,7 @@ void __68__REPeriodOfDayPredictor__getPredictedSleepIntervalsWithCompletion___bl
 
 - (void)_getHistoricSleepIntervalsWithCompletion:(id)completion
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (completionCopy)
   {
@@ -961,37 +951,37 @@ void __68__REPeriodOfDayPredictor__getPredictedSleepIntervalsWithCompletion___bl
     currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
     date = [MEMORY[0x277CBEAA8] date];
     sleepStore = self->_sleepStore;
-    v47 = 0;
-    v40 = [(HKSPSleepStore *)sleepStore currentSleepScheduleWithError:&v47];
-    v8 = v47;
+    v46 = 0;
+    v39 = [(HKSPSleepStore *)sleepStore currentSleepScheduleWithError:&v46];
+    v8 = v46;
     if (v8)
     {
       v9 = RELogForDomain(8);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v50 = v8;
+        v49 = v8;
         _os_log_impl(&dword_22859F000, v9, OS_LOG_TYPE_DEFAULT, "Unable to get the current sleep schedule: %@", buf, 0xCu);
       }
     }
 
-    if (v40)
+    if (v39)
     {
       selfCopy = self;
-      v45[0] = MEMORY[0x277D85DD0];
-      v45[1] = 3221225472;
-      v45[2] = __67__REPeriodOfDayPredictor__getHistoricSleepIntervalsWithCompletion___block_invoke;
-      v45[3] = &unk_2785FA9E0;
-      v39 = currentCalendar;
-      v46 = currentCalendar;
-      v10 = MEMORY[0x22AABC5E0](v45);
+      v44[0] = MEMORY[0x277D85DD0];
+      v44[1] = 3221225472;
+      v44[2] = __67__REPeriodOfDayPredictor__getHistoricSleepIntervalsWithCompletion___block_invoke;
+      v44[3] = &unk_2785FA9E0;
+      v38 = currentCalendar;
+      v45 = currentCalendar;
+      v10 = MEMORY[0x22AABC5E0](v44);
       v11 = -3;
       v12 = (v10)[2](v10, date, -3);
       do
       {
         v13 = v12;
         v12 = (v10)[2](v10, date, ++v11);
-        v14 = [_TtC15RelevanceEngine20RESleepScheduleEntry sleepEntryForDatesWithCurrent:v13 next:v12 schedule:v40];
+        v14 = [_TtC15RelevanceEngine20RESleepScheduleEntry sleepEntryForDatesWithCurrent:v13 next:v12 schedule:v39];
         bedtime = [v14 bedtime];
         wakeupTime = [v14 wakeupTime];
 
@@ -1018,14 +1008,14 @@ void __68__REPeriodOfDayPredictor__getPredictedSleepIntervalsWithCompletion___bl
         v19 = [array copy];
         completionCopy[2](completionCopy, v19);
 
-        sleepInterval = v46;
-        currentCalendar = v39;
+        sleepInterval = v45;
+        currentCalendar = v38;
 LABEL_31:
 
         goto LABEL_32;
       }
 
-      currentCalendar = v39;
+      currentCalendar = v38;
       self = selfCopy;
     }
 
@@ -1037,7 +1027,7 @@ LABEL_31:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v50 = sleepInterval;
+        v49 = sleepInterval;
         _os_log_impl(&dword_22859F000, v22, OS_LOG_TYPE_DEFAULT, "Received expected in bed period (using for historic calculation): %@", buf, 0xCu);
       }
 
@@ -1061,8 +1051,8 @@ LABEL_31:
       }
 
       v30 = [v28 initWithStartDate:startDate duration:v29];
-      v48 = v30;
-      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v48 count:1];
+      v47 = v30;
+      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
       v32 = REUpNextDuplicateIntervalsByAddingUnit(v31, 16, 0xFFFFFFFFFFFFFFFFLL, 3);
       [array addObjectsFromArray:v32];
 
@@ -1086,23 +1076,21 @@ LABEL_31:
       startDate = [(REDuetKnowledgeStore *)self->_knowledgeStore queryForHistoricChargingEventsWithMinimumDuration:3 inThePastDays:60.0];
       knowledgeStore = self->_knowledgeStore;
       queue = [(REPredictor *)self queue];
-      v42[0] = MEMORY[0x277D85DD0];
-      v42[1] = 3221225472;
-      v42[2] = __67__REPeriodOfDayPredictor__getHistoricSleepIntervalsWithCompletion___block_invoke_384;
-      v42[3] = &unk_2785FAB18;
-      v43 = array;
-      v44 = completionCopy;
-      [(REDuetKnowledgeStore *)knowledgeStore executeQuery:startDate responseQueue:queue completion:v42];
+      v41[0] = MEMORY[0x277D85DD0];
+      v41[1] = 3221225472;
+      v41[2] = __67__REPeriodOfDayPredictor__getHistoricSleepIntervalsWithCompletion___block_invoke_384;
+      v41[3] = &unk_2785FAB18;
+      v42 = array;
+      v43 = completionCopy;
+      [(REDuetKnowledgeStore *)knowledgeStore executeQuery:startDate responseQueue:queue completion:v41];
 
-      v30 = v43;
+      v30 = v42;
     }
 
     goto LABEL_31;
   }
 
 LABEL_32:
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 id __67__REPeriodOfDayPredictor__getHistoricSleepIntervalsWithCompletion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1116,7 +1104,7 @@ id __67__REPeriodOfDayPredictor__getHistoricSleepIntervalsWithCompletion___block
 
 void __67__REPeriodOfDayPredictor__getHistoricSleepIntervalsWithCompletion___block_invoke_384(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = RELogForDomain(8);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -1126,26 +1114,26 @@ void __67__REPeriodOfDayPredictor__getHistoricSleepIntervalsWithCompletion___blo
 
   if (v3)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v18;
+      v8 = *v17;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v17 + 1) + 8 * i);
+          v10 = *(*(&v16 + 1) + 8 * i);
           [v10 confidence];
           if (v11 > 0.779999971)
           {
@@ -1155,7 +1143,7 @@ void __67__REPeriodOfDayPredictor__getHistoricSleepIntervalsWithCompletion___blo
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v7);
@@ -1165,8 +1153,6 @@ void __67__REPeriodOfDayPredictor__getHistoricSleepIntervalsWithCompletion___blo
   v14 = *(a1 + 40);
   v15 = [*(a1 + 32) copy];
   (*(v14 + 16))(v14, v15);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_updateNextDateUpdateTimer
@@ -1234,66 +1220,55 @@ void __58__REPeriodOfDayPredictor__queue_updateNextDateUpdateTimer__block_invoke
 
 - (void)currentPeriodOfDay
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(&dword_22859F000, v0, OS_LOG_TYPE_ERROR, "Unable to find now in current data: %@\nfalling back to default data", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_22859F000, v0, OS_LOG_TYPE_ERROR, "Unable to find now in current data: %@\nfalling back to default data", v1, 0xCu);
 }
 
 void __32__REPeriodOfDayPredictor_update__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_22859F000, v1, OS_LOG_TYPE_DEBUG, "Determined sleep intervals: %@\nFor date: %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_22859F000, v1, OS_LOG_TYPE_DEBUG, "Determined sleep intervals: %@\nFor date: %@", v2, 0x16u);
 }
 
 void __32__REPeriodOfDayPredictor_update__block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __57__REPeriodOfDayPredictor__periodsOfDayForSleepIntervals___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_22859F000, v1, OS_LOG_TYPE_ERROR, "Trying to create invalid interval from %@ to %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_22859F000, v1, OS_LOG_TYPE_ERROR, "Trying to create invalid interval from %@ to %@", v2, 0x16u);
 }
 
 void __68__REPeriodOfDayPredictor__getPredictedSleepIntervalsWithCompletion___block_invoke_379_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_getHistoricSleepIntervalsWithCompletion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __67__REPeriodOfDayPredictor__getHistoricSleepIntervalsWithCompletion___block_invoke_384_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

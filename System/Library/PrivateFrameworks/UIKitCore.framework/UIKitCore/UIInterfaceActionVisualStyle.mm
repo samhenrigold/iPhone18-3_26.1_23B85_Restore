@@ -117,25 +117,25 @@
     v7 = equalCopy;
     groupViewState = [(UIInterfaceActionVisualStyle *)self groupViewState];
     groupViewState2 = [v7 groupViewState];
-    if ([groupViewState isEqual:groupViewState2])
+    if (objc_msgSend_isEqual_(groupViewState))
     {
       concreteVisualStyle = [(UIInterfaceActionVisualStyle *)self concreteVisualStyle];
       concreteVisualStyle2 = [v7 concreteVisualStyle];
-      v6 = [concreteVisualStyle isEqual:concreteVisualStyle2];
+      isEqual = objc_msgSend_isEqual_(concreteVisualStyle);
     }
 
     else
     {
-      v6 = 0;
+      isEqual = 0;
     }
   }
 
   else
   {
-    v6 = 0;
+    isEqual = 0;
   }
 
-  return v6;
+  return isEqual;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -179,7 +179,7 @@
 - (void)setVisualStyleOverride:(id)override
 {
   overrideCopy = override;
-  if (![(UIInterfaceActionOverrideVisualStyle *)self->_visualStyleOverride isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_visualStyleOverride) & 1) == 0)
   {
     objc_storeStrong(&self->_visualStyleOverride, override);
     [(UIInterfaceActionVisualStyle *)self->_visualStyleOverride setConcreteVisualStyle:self->_concreteVisualStyle];
@@ -189,7 +189,7 @@
 - (void)setConcreteVisualStyle:(id)style
 {
   styleCopy = style;
-  if (([(UIInterfaceActionConcreteVisualStyleImpl *)self->_concreteVisualStyle isEqual:?]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_concreteVisualStyle) & 1) == 0)
   {
     objc_storeStrong(&self->_concreteVisualStyle, style);
     [(UIInterfaceActionVisualStyle *)self->_visualStyleOverride setConcreteVisualStyle:self->_concreteVisualStyle];

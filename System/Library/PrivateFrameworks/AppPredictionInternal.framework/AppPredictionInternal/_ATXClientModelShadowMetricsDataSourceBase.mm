@@ -119,22 +119,7 @@ LABEL_7:
     v7 = predictionCopy;
     v8 = toPredictionCopy;
     executableType = [v7 executableType];
-    if (executableType != [v8 executableType])
-    {
-      goto LABEL_8;
-    }
-
-    predictionReasons = [v7 predictionReasons];
-    if (predictionReasons != [v8 predictionReasons])
-    {
-      goto LABEL_8;
-    }
-
-    scoreSpecification = [v7 scoreSpecification];
-    scoreSpecification2 = [v8 scoreSpecification];
-    v13 = [scoreSpecification isEqual:scoreSpecification2];
-
-    if (v13)
+    if (executableType == [v8 executableType] && (v10 = objc_msgSend(v7, "predictionReasons"), v10 == objc_msgSend(v8, "predictionReasons")) && (objc_msgSend(v7, "scoreSpecification"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "scoreSpecification"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v11, "isEqual:", v12), v12, v11, v13))
     {
       executableIdentifier = [v7 executableIdentifier];
       executableIdentifier2 = [v8 executableIdentifier];
@@ -143,7 +128,6 @@ LABEL_7:
 
     else
     {
-LABEL_8:
       v16 = 0;
     }
   }
@@ -158,38 +142,38 @@ LABEL_8:
 
 - (unint64_t)numberOfPredictionsInCache:(id)cache ofType:(int64_t)type
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   cacheCopy = cache;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     suggestions = [cacheCopy suggestions];
-    v7 = [suggestions countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [suggestions countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
-      v10 = *v15;
+      v10 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(suggestions);
           }
 
-          if ([*(*(&v14 + 1) + 8 * i) executableType] == type)
+          if ([*(*(&v13 + 1) + 8 * i) executableType] == type)
           {
             ++v9;
           }
         }
 
-        v8 = [suggestions countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [suggestions countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -206,7 +190,6 @@ LABEL_8:
     v9 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

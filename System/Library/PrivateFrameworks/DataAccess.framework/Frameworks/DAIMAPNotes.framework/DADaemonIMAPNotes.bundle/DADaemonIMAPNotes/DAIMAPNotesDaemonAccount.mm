@@ -2,6 +2,7 @@
 + (BOOL)shouldCreateAccountForBackingAccountInfo:(id)info;
 + (void)_setMailHacks;
 - (DAIMAPNotesDaemonAccount)initWithBackingAccountInfo:(id)info;
+- (id)_copyDAFolderFromMailboxUid:(id)uid isDefault:(BOOL)default;
 - (id)_copyNotesStoreFromDAFolder:(id)folder withNoteContext:(id)context;
 - (id)defaultNotesFolder;
 - (id)localNotesAccountInContext:(id)context;
@@ -11,6 +12,7 @@
 - (void)_consumerQueueWrapperSuccessfullyRetrievedFolderList:(id)list;
 - (void)_noteInvocationFinishedOnMainThread;
 - (void)_reallySyncNotesFolderListWithConsumerQueueWrapper:(id)wrapper;
+- (void)_setSpinning:(BOOL)spinning;
 - (void)_syncNotesFolderListInLockWithConsumer:(id)consumer queue:(id)queue;
 - (void)addNoteNeedingBodyDownload:(id)download;
 - (void)dealloc;
@@ -371,6 +373,29 @@ LABEL_26:
   return newlyAddedAccount;
 }
 
+- (id)_copyDAFolderFromMailboxUid:(id)uid isDefault:(BOOL)default
+{
+  defaultCopy = default;
+  uidCopy = uid;
+  v6 = objc_opt_new();
+  displayName = [uidCopy displayName];
+  if (![displayName length])
+  {
+    name = [uidCopy name];
+
+    displayName = name;
+  }
+
+  [v6 setFolderName:displayName];
+  uRLString = [uidCopy URLString];
+  [v6 setFolderID:uRLString];
+
+  [v6 setIsDefault:defaultCopy];
+  [v6 setMailboxUid:uidCopy];
+
+  return v6;
+}
+
 - (id)_copyNotesStoreFromDAFolder:(id)folder withNoteContext:(id)context
 {
   folderCopy = folder;
@@ -398,6 +423,54 @@ LABEL_26:
   }
 
   return newlyAddedStore;
+}
+
+- (void)_setSpinning:(BOOL)spinning
+{
+  spinningCopy = spinning;
+  if (!spinning || ![(DAIMAPNotesDaemonAccount *)self isSpinning])
+  {
+    v5 = DALoggingwithCategory();
+    v6 = _CPLog_to_os_log_type[6];
+    if (os_log_type_enabled(v5, v6))
+    {
+      if (spinningCopy)
+      {
+        v7 = @"ON";
+      }
+
+      else
+      {
+        v7 = @"OFF";
+      }
+
+      v11 = 138412290;
+      v12 = v7;
+      _os_log_impl(&dword_0, v5, v6, "Telling springboard to set the spinner to %@ for identifier com.apple.mobilenotes", &v11, 0xCu);
+    }
+
+    SBSSetStatusBarShowsActivityForApplication();
+    v8 = DALoggingwithCategory();
+    v9 = _CPLog_to_os_log_type[7];
+    if (os_log_type_enabled(v8, v9))
+    {
+      if (spinningCopy)
+      {
+        v10 = @"ON";
+      }
+
+      else
+      {
+        v10 = @"OFF";
+      }
+
+      v11 = 138412290;
+      v12 = v10;
+      _os_log_impl(&dword_0, v8, v9, "Finished telling springboard to set the spinner to %@ for identifier com.apple.mobilenotes", &v11, 0xCu);
+    }
+
+    [(DAIMAPNotesDaemonAccount *)self setIsSpinning:spinningCopy];
+  }
 }
 
 - (void)_reallySyncNotesFolderListWithConsumerQueueWrapper:(id)wrapper

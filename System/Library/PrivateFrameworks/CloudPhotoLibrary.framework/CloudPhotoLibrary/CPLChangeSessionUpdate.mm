@@ -20,27 +20,13 @@
   v12.receiver = self;
   v12.super_class = CPLChangeSessionUpdate;
   v5 = [(CPLChangeSessionUpdate *)&v12 init];
-  if (!v5)
-  {
-    goto LABEL_3;
-  }
-
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"libraryVersion"];
-  libraryVersion = v5->_libraryVersion;
-  v5->_libraryVersion = v6;
-
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"date"];
-  queuedDate = v5->_queuedDate;
-  v5->_queuedDate = v8;
-
-  if (!v5->_libraryVersion)
+  if (v5 && ([coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"libraryVersion"], v6 = objc_claimAutoreleasedReturnValue(), libraryVersion = v5->_libraryVersion, v5->_libraryVersion = v6, libraryVersion, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"date"), v8 = objc_claimAutoreleasedReturnValue(), queuedDate = v5->_queuedDate, v5->_queuedDate = v8, queuedDate, !v5->_libraryVersion))
   {
     v10 = 0;
   }
 
   else
   {
-LABEL_3:
     v10 = v5;
   }
 

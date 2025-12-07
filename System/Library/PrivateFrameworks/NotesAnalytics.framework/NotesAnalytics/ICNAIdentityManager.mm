@@ -313,78 +313,76 @@ uint64_t __45__ICNAIdentityManager_debug_clearIdentifiers__block_invoke(uint64_t
 
 - (void)debug_dumpIdentifiers
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = os_log_create("com.apple.notes", "Analytics");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     userID = [(ICNAIdentityManager *)self userID];
-    v6 = userID;
+    v5 = userID;
     if (userID)
     {
-      v7 = userID;
+      v6 = userID;
     }
 
     else
     {
-      v7 = @"nil";
+      v6 = @"nil";
     }
 
-    v21[0] = v7;
-    v20[1] = @"privateUserID";
+    v20[0] = v6;
+    v19[1] = @"privateUserID";
     privateUserID = [(ICNAIdentityManager *)self privateUserID];
-    v9 = privateUserID;
+    v8 = privateUserID;
     if (privateUserID)
     {
-      v10 = privateUserID;
+      v9 = privateUserID;
     }
 
     else
     {
-      v10 = @"nil";
+      v9 = @"nil";
     }
 
-    v21[1] = v10;
-    v20[2] = @"salts";
+    v20[1] = v9;
+    v19[2] = @"salts";
     salts = [(ICNAIdentityManager *)self salts];
-    v12 = salts;
+    v11 = salts;
     if (salts)
     {
-      v13 = salts;
+      v12 = salts;
     }
 
     else
     {
-      v13 = @"nil";
+      v12 = @"nil";
     }
 
-    v21[2] = v13;
-    v20[3] = @"identityTimestampYYYYMM";
+    v20[2] = v12;
+    v19[3] = @"identityTimestampYYYYMM";
     identityTimestampYYYYMM = [(ICNAIdentityManager *)self identityTimestampYYYYMM];
-    v15 = identityTimestampYYYYMM;
+    v14 = identityTimestampYYYYMM;
     if (identityTimestampYYYYMM)
     {
-      v16 = identityTimestampYYYYMM;
+      v15 = identityTimestampYYYYMM;
     }
 
     else
     {
-      v16 = @"nil";
+      v15 = @"nil";
     }
 
-    v21[3] = v16;
-    v20[4] = @"startYear";
-    v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ICNAIdentityManager startYear](self, "startYear")}];
-    v21[4] = v17;
-    v20[5] = @"startMonth";
-    v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ICNAIdentityManager startMonth](self, "startMonth")}];
-    v21[5] = v18;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:6];
+    v20[3] = v15;
+    v19[4] = @"startYear";
+    v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ICNAIdentityManager startYear](self, "startYear")}];
+    v20[4] = v16;
+    v19[5] = @"startMonth";
+    v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ICNAIdentityManager startMonth](self, "startMonth")}];
+    v20[5] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:6];
     *buf = 138412290;
-    v23 = v19;
+    v22 = v18;
     _os_log_debug_impl(&dword_25C6BF000, v3, OS_LOG_TYPE_DEBUG, "Identifiers: %@", buf, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadIdentifiersFromKVSAndForceRegenerateIdentity:(BOOL)identity
@@ -463,142 +461,139 @@ uint64_t __45__ICNAIdentityManager_debug_clearIdentifiers__block_invoke(uint64_t
   self->_salts = v25;
 
   v28 = [v11 objectForKey:@"identityTimestampYYYYMM"];
-  p_identityTimestampYYYYMM = &self->_identityTimestampYYYYMM;
   identityTimestampYYYYMM = self->_identityTimestampYYYYMM;
   self->_identityTimestampYYYYMM = v28;
 
-  if (![(NSString *)self->_identityTimestampYYYYMM isEqualToString:v20]|| identity || !self->_userID || !self->_privateUserID || (v31 = *p_salts) == 0)
+  if (![(NSString *)self->_identityTimestampYYYYMM isEqualToString:v20]|| identity || !self->_userID || !self->_privateUserID || (v30 = *p_salts) == 0)
   {
     self->_identifierResetOccurred = 1;
-    v41 = os_log_create("com.apple.notes", "Analytics");
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+    v39 = os_log_create("com.apple.notes", "Analytics");
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
     {
       [ICNAIdentityManager loadIdentifiersFromKVSAndForceRegenerateIdentity:];
     }
 
     uUID = [MEMORY[0x277CCAD78] UUID];
     uUIDString = [uUID UUIDString];
-    v44 = self->_userID;
+    v42 = self->_userID;
     self->_userID = uUIDString;
 
     [v11 setObject:self->_userID forKey:@"userID"];
-    v45 = os_log_create("com.apple.notes", "Analytics");
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+    v43 = os_log_create("com.apple.notes", "Analytics");
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
     {
       [ICNAIdentityManager loadIdentifiersFromKVSAndForceRegenerateIdentity:];
     }
 
     uUID2 = [MEMORY[0x277CCAD78] UUID];
     uUIDString2 = [uUID2 UUIDString];
-    v48 = self->_privateUserID;
+    v46 = self->_privateUserID;
     self->_privateUserID = uUIDString2;
 
     [v11 setObject:self->_privateUserID forKey:@"privateUserID"];
-    v49 = os_log_create("com.apple.notes", "Analytics");
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+    v47 = os_log_create("com.apple.notes", "Analytics");
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
     {
       [ICNAIdentityManager loadIdentifiersFromKVSAndForceRegenerateIdentity:];
     }
 
-    v50 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v48 = objc_alloc_init(MEMORY[0x277CBEB38]);
     newSalt = [objc_opt_class() newSalt];
-    v52 = objc_opt_class();
-    v53 = NSStringFromClass(v52);
-    [v50 setObject:newSalt forKeyedSubscript:v53];
+    v50 = objc_opt_class();
+    v51 = NSStringFromClass(v50);
+    [v48 setObject:newSalt forKeyedSubscript:v51];
 
     newSalt2 = [objc_opt_class() newSalt];
-    v55 = objc_opt_class();
-    v56 = NSStringFromClass(v55);
-    [v50 setObject:newSalt2 forKeyedSubscript:v56];
+    v53 = objc_opt_class();
+    v54 = NSStringFromClass(v53);
+    [v48 setObject:newSalt2 forKeyedSubscript:v54];
 
     newSalt3 = [objc_opt_class() newSalt];
-    v58 = objc_opt_class();
-    v59 = NSStringFromClass(v58);
-    [v50 setObject:newSalt3 forKeyedSubscript:v59];
+    v56 = objc_opt_class();
+    v57 = NSStringFromClass(v56);
+    [v48 setObject:newSalt3 forKeyedSubscript:v57];
 
     newSalt4 = [objc_opt_class() newSalt];
-    v61 = objc_opt_class();
-    v62 = NSStringFromClass(v61);
-    [v50 setObject:newSalt4 forKeyedSubscript:v62];
+    v59 = objc_opt_class();
+    v60 = NSStringFromClass(v59);
+    [v48 setObject:newSalt4 forKeyedSubscript:v60];
 
     newSalt5 = [objc_opt_class() newSalt];
-    v64 = objc_opt_class();
-    v65 = NSStringFromClass(v64);
-    [v50 setObject:newSalt5 forKeyedSubscript:v65];
+    v62 = objc_opt_class();
+    v63 = NSStringFromClass(v62);
+    [v48 setObject:newSalt5 forKeyedSubscript:v63];
 
     newSalt6 = [objc_opt_class() newSalt];
-    v67 = objc_opt_class();
-    v68 = NSStringFromClass(v67);
-    [v50 setObject:newSalt6 forKeyedSubscript:v68];
+    v65 = objc_opt_class();
+    v66 = NSStringFromClass(v65);
+    [v48 setObject:newSalt6 forKeyedSubscript:v66];
 
     newSalt7 = [objc_opt_class() newSalt];
-    v70 = objc_opt_class();
-    v71 = NSStringFromClass(v70);
-    [v50 setObject:newSalt7 forKeyedSubscript:v71];
+    v68 = objc_opt_class();
+    v69 = NSStringFromClass(v68);
+    [v48 setObject:newSalt7 forKeyedSubscript:v69];
 
     newSalt8 = [objc_opt_class() newSalt];
-    v73 = objc_opt_class();
-    v74 = NSStringFromClass(v73);
-    [v50 setObject:newSalt8 forKeyedSubscript:v74];
+    v71 = objc_opt_class();
+    v72 = NSStringFromClass(v71);
+    [v48 setObject:newSalt8 forKeyedSubscript:v72];
 
     newSalt9 = [objc_opt_class() newSalt];
-    v76 = objc_opt_class();
-    v77 = NSStringFromClass(v76);
-    [v50 setObject:newSalt9 forKeyedSubscript:v77];
+    v74 = objc_opt_class();
+    v75 = NSStringFromClass(v74);
+    [v48 setObject:newSalt9 forKeyedSubscript:v75];
 
     newSalt10 = [objc_opt_class() newSalt];
-    v79 = objc_opt_class();
-    v80 = NSStringFromClass(v79);
-    [v50 setObject:newSalt10 forKeyedSubscript:v80];
+    v77 = objc_opt_class();
+    v78 = NSStringFromClass(v77);
+    [v48 setObject:newSalt10 forKeyedSubscript:v78];
 
     newSalt11 = [objc_opt_class() newSalt];
-    v82 = objc_opt_class();
-    v83 = NSStringFromClass(v82);
-    [v50 setObject:newSalt11 forKeyedSubscript:v83];
+    v80 = objc_opt_class();
+    v81 = NSStringFromClass(v80);
+    [v48 setObject:newSalt11 forKeyedSubscript:v81];
 
     newSalt12 = [objc_opt_class() newSalt];
-    v85 = objc_opt_class();
-    v86 = NSStringFromClass(v85);
-    [v50 setObject:newSalt12 forKeyedSubscript:v86];
+    v83 = objc_opt_class();
+    v84 = NSStringFromClass(v83);
+    [v48 setObject:newSalt12 forKeyedSubscript:v84];
 
     newSalt13 = [objc_opt_class() newSalt];
-    v88 = objc_opt_class();
-    v89 = NSStringFromClass(v88);
-    [v50 setObject:newSalt13 forKeyedSubscript:v89];
+    v86 = objc_opt_class();
+    v87 = NSStringFromClass(v86);
+    [v48 setObject:newSalt13 forKeyedSubscript:v87];
 
     newSalt14 = [objc_opt_class() newSalt];
-    v91 = objc_opt_class();
-    v92 = NSStringFromClass(v91);
-    [v50 setObject:newSalt14 forKeyedSubscript:v92];
+    v89 = objc_opt_class();
+    v90 = NSStringFromClass(v89);
+    [v48 setObject:newSalt14 forKeyedSubscript:v90];
 
-    v93 = [v50 copy];
-    v94 = self->_salts;
-    self->_salts = v93;
+    v91 = [v48 copy];
+    v92 = self->_salts;
+    self->_salts = v91;
 
     [v11 setObject:self->_salts forKey:@"salts"];
-    v95 = v20;
-    v96 = self->_identityTimestampYYYYMM;
-    self->_identityTimestampYYYYMM = v95;
-    v97 = @"identityTimestampYYYYMM";
+    v93 = v20;
+    v94 = self->_identityTimestampYYYYMM;
+    self->_identityTimestampYYYYMM = v93;
+    v95 = @"identityTimestampYYYYMM";
     p_salts = &self->_identityTimestampYYYYMM;
     goto LABEL_28;
   }
 
-  v130 = v9;
-  v32 = objc_opt_class();
-  v33 = NSStringFromClass(v32);
-  v34 = [v31 objectForKeyedSubscript:v33];
-  v35 = 0x2799AE000uLL;
-  if (v34)
+  v127 = v9;
+  v31 = objc_opt_class();
+  v32 = NSStringFromClass(v31);
+  v33 = [v30 objectForKeyedSubscript:v32];
+  if (v33)
   {
-    v36 = v34;
-    v37 = *p_salts;
-    v38 = objc_opt_class();
-    v39 = NSStringFromClass(v38);
-    v40 = [v37 objectForKeyedSubscript:v39];
+    v34 = v33;
+    v35 = *p_salts;
+    v36 = objc_opt_class();
+    v37 = NSStringFromClass(v36);
+    v38 = [v35 objectForKeyedSubscript:v37];
 
-    v35 = 0x2799AE000;
-    if (v40)
+    if (v38)
     {
       goto LABEL_35;
     }
@@ -608,91 +603,90 @@ uint64_t __45__ICNAIdentityManager_debug_clearIdentifiers__block_invoke(uint64_t
   {
   }
 
-  v101 = [(NSDictionary *)self->_salts mutableCopy];
+  v99 = [(NSDictionary *)self->_salts mutableCopy];
   newSalt15 = [objc_opt_class() newSalt];
-  v103 = objc_opt_class();
-  v104 = NSStringFromClass(v103);
-  [v101 setObject:newSalt15 forKeyedSubscript:v104];
+  v101 = objc_opt_class();
+  v102 = NSStringFromClass(v101);
+  [v99 setObject:newSalt15 forKeyedSubscript:v102];
 
   newSalt16 = [objc_opt_class() newSalt];
-  v106 = *(v35 + 2408);
-  v107 = objc_opt_class();
-  v108 = NSStringFromClass(v107);
-  [v101 setObject:newSalt16 forKeyedSubscript:v108];
+  v104 = objc_opt_class();
+  v105 = NSStringFromClass(v104);
+  [v99 setObject:newSalt16 forKeyedSubscript:v105];
 
-  v109 = [v101 copy];
-  v110 = self->_salts;
-  self->_salts = v109;
+  v106 = [v99 copy];
+  v107 = self->_salts;
+  self->_salts = v106;
 
   [v11 setObject:self->_salts forKey:@"salts"];
   v12 = 1;
 LABEL_35:
-  v111 = *p_salts;
-  v112 = objc_opt_class();
-  v113 = NSStringFromClass(v112);
-  v114 = [v111 objectForKeyedSubscript:v113];
+  v108 = *p_salts;
+  v109 = objc_opt_class();
+  v110 = NSStringFromClass(v109);
+  v111 = [v108 objectForKeyedSubscript:v110];
 
-  if (!v114)
+  if (!v111)
   {
-    v115 = [(NSDictionary *)self->_salts mutableCopy];
+    v112 = [(NSDictionary *)self->_salts mutableCopy];
     newSalt17 = [objc_opt_class() newSalt];
-    v117 = objc_opt_class();
-    v118 = NSStringFromClass(v117);
-    [v115 setObject:newSalt17 forKeyedSubscript:v118];
+    v114 = objc_opt_class();
+    v115 = NSStringFromClass(v114);
+    [v112 setObject:newSalt17 forKeyedSubscript:v115];
 
-    v119 = [v115 copy];
-    v120 = self->_salts;
-    self->_salts = v119;
+    v116 = [v112 copy];
+    v117 = self->_salts;
+    self->_salts = v116;
 
     [v11 setObject:self->_salts forKey:@"salts"];
     v12 = 1;
   }
 
-  v121 = *p_salts;
-  v122 = objc_opt_class();
-  v123 = NSStringFromClass(v122);
-  v124 = [v121 objectForKeyedSubscript:v123];
+  v118 = *p_salts;
+  v119 = objc_opt_class();
+  v120 = NSStringFromClass(v119);
+  v121 = [v118 objectForKeyedSubscript:v120];
 
-  v9 = v130;
-  if (!v124)
+  v9 = v127;
+  if (!v121)
   {
-    v50 = [(NSDictionary *)self->_salts mutableCopy];
+    v48 = [(NSDictionary *)self->_salts mutableCopy];
     newSalt18 = [objc_opt_class() newSalt];
-    v127 = objc_opt_class();
-    v128 = NSStringFromClass(v127);
-    [v50 setObject:newSalt18 forKeyedSubscript:v128];
+    v124 = objc_opt_class();
+    v125 = NSStringFromClass(v124);
+    [v48 setObject:newSalt18 forKeyedSubscript:v125];
 
-    v129 = [v50 copy];
-    v96 = self->_salts;
-    self->_salts = v129;
-    v97 = @"salts";
+    v126 = [v48 copy];
+    v94 = self->_salts;
+    self->_salts = v126;
+    v95 = @"salts";
 LABEL_28:
 
-    [v11 setObject:*p_salts forKey:v97];
+    [v11 setObject:*p_salts forKey:v95];
     goto LABEL_29;
   }
 
   if (!v12)
   {
-    v125 = os_log_create("com.apple.notes", "Analytics");
-    if (os_log_type_enabled(v125, OS_LOG_TYPE_DEBUG))
+    v122 = os_log_create("com.apple.notes", "Analytics");
+    if (os_log_type_enabled(v122, OS_LOG_TYPE_DEBUG))
     {
-      [(ICNAIdentityManager *)v11 loadIdentifiersFromKVSAndForceRegenerateIdentity:?];
+      [ICNAIdentityManager loadIdentifiersFromKVSAndForceRegenerateIdentity:v11];
     }
 
     goto LABEL_32;
   }
 
 LABEL_29:
-  v98 = os_log_create("com.apple.notes", "Analytics");
-  if (os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+  v96 = os_log_create("com.apple.notes", "Analytics");
+  if (os_log_type_enabled(v96, OS_LOG_TYPE_DEBUG))
   {
-    [(ICNAIdentityManager *)v11 loadIdentifiersFromKVSAndForceRegenerateIdentity:?];
+    [ICNAIdentityManager loadIdentifiersFromKVSAndForceRegenerateIdentity:v11];
   }
 
   encryptedKVStore = self->_encryptedKVStore;
-  v100 = [v11 copy];
-  [(NSUbiquitousKeyValueStore *)encryptedKVStore setDictionary:v100 forKey:@"identityManager"];
+  v98 = [v11 copy];
+  [(NSUbiquitousKeyValueStore *)encryptedKVStore setDictionary:v98 forKey:@"identityManager"];
 
   [(NSUbiquitousKeyValueStore *)self->_encryptedKVStore synchronize];
 LABEL_32:
@@ -801,7 +795,7 @@ uint64_t __57__ICNAIdentityManager__keyValueStoreDidChangeExternally___block_inv
 
 + (id)saltedID:(id)d withSalt:(id)salt
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (salt)
   {
@@ -810,13 +804,13 @@ uint64_t __57__ICNAIdentityManager__keyValueStoreDidChangeExternally___block_inv
     v8 = 0;
     if (dCopy && v6)
     {
-      memset(&v14, 0, sizeof(v14));
-      CCHmacInit(&v14, 2u, [v6 bytes:0], [v6 length]);
+      memset(&v13, 0, sizeof(v13));
+      CCHmacInit(&v13, 2u, [v6 bytes:0], [v6 length]);
       uTF8String = [dCopy UTF8String];
       v10 = strlen(uTF8String);
-      CCHmacUpdate(&v14, uTF8String, v10);
+      CCHmacUpdate(&v13, uTF8String, v10);
       memset(macOut, 0, sizeof(macOut));
-      CCHmacFinal(&v14, macOut);
+      CCHmacFinal(&v13, macOut);
       v11 = [MEMORY[0x277CBEA90] dataWithBytes:macOut length:32];
       v8 = [v11 base64EncodedStringWithOptions:0];
     }
@@ -833,27 +827,21 @@ uint64_t __57__ICNAIdentityManager__keyValueStoreDidChangeExternally___block_inv
     v8 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 + (id)newSalt
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (SecRandomCopyBytes(*MEMORY[0x277CDC540], 0x200uLL, bytes))
   {
-    v2 = 0;
+    return 0;
   }
 
-  else
-  {
-    v3 = [MEMORY[0x277CBEA90] dataWithBytes:bytes length:512];
-    v4 = [v3 base64EncodedDataWithOptions:0];
-    v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v4 encoding:4];
-  }
+  v3 = [MEMORY[0x277CBEA90] dataWithBytes:bytes length:512];
+  v4 = [v3 base64EncodedDataWithOptions:0];
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v4 encoding:4];
 
-  v5 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -864,52 +852,20 @@ uint64_t __57__ICNAIdentityManager__keyValueStoreDidChangeExternally___block_inv
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)loadIdentifiersFromKVSAndForceRegenerateIdentity:(void *)a1 .cold.2(void *a1, uint64_t *a2)
+- (void)loadIdentifiersFromKVSAndForceRegenerateIdentity:(void *)a1 .cold.2(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = [a1 ic_md5];
-  v4 = *a2;
+  v1 = [a1 ic_md5];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
-- (void)loadIdentifiersFromKVSAndForceRegenerateIdentity:.cold.3()
+- (void)loadIdentifiersFromKVSAndForceRegenerateIdentity:(void *)a1 .cold.6(void *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)loadIdentifiersFromKVSAndForceRegenerateIdentity:.cold.4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)loadIdentifiersFromKVSAndForceRegenerateIdentity:.cold.5()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)loadIdentifiersFromKVSAndForceRegenerateIdentity:(void *)a1 .cold.6(void *a1, uint64_t *a2)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = [a1 ic_md5];
-  v4 = *a2;
+  v1 = [a1 ic_md5];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 - (void)_keyValueStoreDidChangeExternally:.cold.1()
@@ -921,12 +877,9 @@ uint64_t __57__ICNAIdentityManager__keyValueStoreDidChangeExternally___block_inv
 
 - (void)_keyValueStoreDidChangeExternally:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 userInfo];
+  v6 = [a1 userInfo];
   OUTLINED_FUNCTION_2();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __57__ICNAIdentityManager__keyValueStoreDidChangeExternally___block_invoke_cold_1()
@@ -945,11 +898,10 @@ void __57__ICNAIdentityManager__keyValueStoreDidChangeExternally___block_invoke_
 
 + (void)saltedID:(void *)a1 withSalt:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 134217984;
-  v5 = [a1 length];
-  _os_log_error_impl(&dword_25C6BF000, a2, OS_LOG_TYPE_ERROR, "Salt is nil when trying to salt identifier length=%lu", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = [a1 length];
+  _os_log_error_impl(&dword_25C6BF000, a2, OS_LOG_TYPE_ERROR, "Salt is nil when trying to salt identifier length=%lu", &v3, 0xCu);
 }
 
 @end

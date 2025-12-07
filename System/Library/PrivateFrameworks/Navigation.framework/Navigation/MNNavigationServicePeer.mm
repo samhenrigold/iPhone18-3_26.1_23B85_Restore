@@ -29,11 +29,11 @@
 
 - (MNNavigationServicePeer)initWithConnection:(id)connection
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
-  v17.receiver = self;
-  v17.super_class = MNNavigationServicePeer;
-  v5 = [(GEONavdPeer *)&v17 initWithXPCConnection:connectionCopy];
+  v16.receiver = self;
+  v16.super_class = MNNavigationServicePeer;
+  v5 = [(GEONavdPeer *)&v16 initWithXPCConnection:connectionCopy];
   if (v5)
   {
     lastPathComponent = [connectionCopy valueForEntitlement:@"application-identifier"];
@@ -49,7 +49,7 @@
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v19 = lastPathComponent;
+          v18 = lastPathComponent;
           _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_DEBUG, "No application ID or process name found. Using process ID as ID: %@", buf, 0xCu);
         }
       }
@@ -62,7 +62,7 @@
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v19 = lastPathComponent;
+          v18 = lastPathComponent;
           _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_DEBUG, "No application ID found. Using process name as ID: %@", buf, 0xCu);
         }
       }
@@ -73,8 +73,8 @@
     {
       buffer[0] = 67109378;
       buffer[1] = v8;
-      v21 = 2112;
-      v22 = lastPathComponent;
+      v20 = 2112;
+      v21 = lastPathComponent;
       _os_log_impl(&dword_1D311E000, v12, OS_LOG_TYPE_INFO, "Allocating new peer for process identifier: %d, peer identifier: %@", buffer, 0x12u);
     }
 
@@ -85,7 +85,6 @@
     v14 = v5;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

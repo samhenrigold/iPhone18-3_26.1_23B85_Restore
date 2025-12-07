@@ -52,29 +52,29 @@
 
 - (void)fillOutRequestProperties:(id)properties
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   v5 = objc_opt_new();
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v8 = objc_msgSend_subscriptionsToSave(self, v6, v7);
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v24, v28, 16);
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v23, v27, 16);
   if (v10)
   {
     v11 = v10;
-    v12 = *v25;
+    v12 = *v24;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v25 != v12)
+        if (*v24 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v24 + 1) + 8 * i);
+        v14 = *(*(&v23 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -100,29 +100,25 @@
 LABEL_12:
       }
 
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v19, &v24, v28, 16);
+      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v19, &v23, v27, 16);
     }
 
     while (v11);
   }
 
   objc_msgSend_setModifySubscriptionRecordZoneIDs_(propertiesCopy, v21, v5);
-  v23.receiver = self;
-  v23.super_class = CKDModifySubscriptionsURLRequest;
-  [(CKDURLRequest *)&v23 fillOutRequestProperties:propertiesCopy];
-
-  v22 = *MEMORY[0x277D85DE8];
+  v22.receiver = self;
+  v22.super_class = CKDModifySubscriptionsURLRequest;
+  [(CKDURLRequest *)&v22 fillOutRequestProperties:propertiesCopy];
 }
 
 - (id)zoneIDsToLock
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = objc_msgSend_defaultRecordZone(MEMORY[0x277CBC5E8], a2, v2);
   v6 = objc_msgSend_zoneID(v3, v4, v5);
-  v11[0] = v6;
-  v8 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v7, v11, 1);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10[0] = v6;
+  v8 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v7, v10, 1);
 
   return v8;
 }
@@ -153,37 +149,37 @@ LABEL_12:
 
 - (id)generateRequestOperations
 {
-  v130 = *MEMORY[0x277D85DE8];
-  v116 = objc_opt_new();
+  v129 = *MEMORY[0x277D85DE8];
+  v115 = objc_opt_new();
+  v121 = 0u;
   v122 = 0u;
   v123 = 0u;
   v124 = 0u;
-  v125 = 0u;
   obj = objc_msgSend_subscriptionsToSave(self, v3, v4);
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v5, &v122, v129, 16);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v5, &v121, v128, 16);
   if (v6)
   {
     v8 = v6;
-    v114 = *v123;
+    v113 = *v122;
     do
     {
       v9 = 0;
       do
       {
-        if (*v123 != v114)
+        if (*v122 != v113)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v122 + 1) + 8 * v9);
+        v10 = *(*(&v121 + 1) + 8 * v9);
         v11 = objc_msgSend_operationRequestWithType_(self, v7, 300);
         v12 = objc_opt_new();
         objc_msgSend_setSubscriptionCreateRequest_(v11, v13, v12);
 
         v16 = objc_msgSend_translator(self, v14, v15);
-        v121 = 0;
-        v18 = objc_msgSend_pSubscriptionFromSubscription_error_(v16, v17, v10, &v121);
-        v19 = v121;
+        v120 = 0;
+        v18 = objc_msgSend_pSubscriptionFromSubscription_error_(v16, v17, v10, &v120);
+        v19 = v120;
         v22 = objc_msgSend_subscriptionCreateRequest(v11, v20, v21);
         objc_msgSend_setSubscription_(v22, v23, v18);
 
@@ -192,7 +188,7 @@ LABEL_12:
 
         if (v29)
         {
-          objc_msgSend_addObject_(v116, v30, v11);
+          objc_msgSend_addObject_(v115, v30, v11);
           v33 = objc_msgSend_subscriptionID(v10, v31, v32);
           v36 = objc_msgSend_subscriptionIDByRequestID(self, v34, v35);
           v39 = objc_msgSend_request(v11, v37, v38);
@@ -212,7 +208,7 @@ LABEL_14:
         if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v128 = v19;
+          v127 = v19;
           _os_log_error_impl(&dword_22506F000, v44, OS_LOG_TYPE_ERROR, "Failed to convert subscription: %@", buf, 0xCu);
         }
 
@@ -254,32 +250,32 @@ LABEL_15:
       }
 
       while (v8 != v9);
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v122, v129, 16);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v7, &v121, v128, 16);
     }
 
     while (v8);
   }
 
-  v119 = 0u;
-  v120 = 0u;
-  v117 = 0u;
   v118 = 0u;
-  v115 = objc_msgSend_subscriptionIDsToDelete(self, v81, v82);
-  v84 = objc_msgSend_countByEnumeratingWithState_objects_count_(v115, v83, &v117, v126, 16);
+  v119 = 0u;
+  v116 = 0u;
+  v117 = 0u;
+  v114 = objc_msgSend_subscriptionIDsToDelete(self, v81, v82);
+  v84 = objc_msgSend_countByEnumeratingWithState_objects_count_(v114, v83, &v116, v125, 16);
   if (v84)
   {
     v86 = v84;
-    v87 = *v118;
+    v87 = *v117;
     do
     {
       for (i = 0; i != v86; ++i)
       {
-        if (*v118 != v87)
+        if (*v117 != v87)
         {
-          objc_enumerationMutation(v115);
+          objc_enumerationMutation(v114);
         }
 
-        v89 = *(*(&v117 + 1) + 8 * i);
+        v89 = *(*(&v116 + 1) + 8 * i);
         v90 = objc_msgSend_operationRequestWithType_(self, v85, 302);
         v91 = objc_opt_new();
         objc_msgSend_setSubscriptionDeleteRequest_(v90, v92, v91);
@@ -288,22 +284,20 @@ LABEL_15:
         v98 = objc_msgSend_subscriptionDeleteRequest(v90, v96, v97);
         objc_msgSend_setIdentifier_(v98, v99, v95);
 
-        objc_msgSend_addObject_(v116, v100, v90);
+        objc_msgSend_addObject_(v115, v100, v90);
         v103 = objc_msgSend_subscriptionIDByRequestID(self, v101, v102);
         v106 = objc_msgSend_request(v90, v104, v105);
         v109 = objc_msgSend_operationUUID(v106, v107, v108);
         objc_msgSend_setObject_forKeyedSubscript_(v103, v110, v89, v109);
       }
 
-      v86 = objc_msgSend_countByEnumeratingWithState_objects_count_(v115, v85, &v117, v126, 16);
+      v86 = objc_msgSend_countByEnumeratingWithState_objects_count_(v114, v85, &v116, v125, 16);
     }
 
     while (v86);
   }
 
-  v111 = *MEMORY[0x277D85DE8];
-
-  return v116;
+  return v115;
 }
 
 - (id)requestDidParseProtobufObject:(id)object

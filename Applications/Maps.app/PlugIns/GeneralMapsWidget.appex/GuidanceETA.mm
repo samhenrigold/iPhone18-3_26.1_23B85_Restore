@@ -7,6 +7,7 @@
 + (id)defaultTimeUnit;
 + (id)defaultTimeUnitAccessibility;
 + (id)displayDateForDate:(id)date;
++ (id)etaStringFromEtaLegInfo:(id)info includingAMPMSymbols:(BOOL)symbols;
 + (id)invalidValueString;
 - (BOOL)isVisuallyDistinctFromGuidanceETA:(id)a;
 - (GuidanceETA)initWithDisplayETA:(id)a remainingDistance:(id)distance batteryChargeInfo:(id)info destinationTimeZone:(id)zone transportType:(int)type;
@@ -201,6 +202,31 @@
   return v4;
 }
 
++ (id)etaStringFromEtaLegInfo:(id)info includingAMPMSymbols:(BOOL)symbols
+{
+  symbolsCopy = symbols;
+  infoCopy = info;
+  v6 = objc_opt_class();
+  v7 = [infoCopy eta];
+  timeZone = [infoCopy timeZone];
+
+  v9 = [v6 _arrivalTimeStringForEtaDate:v7 timeZone:timeZone includingAMPMSymbols:symbolsCopy];
+
+  if ([v9 length])
+  {
+    v10 = +[NSBundle mainBundle];
+    v11 = [v10 localizedStringForKey:@"[Navigation] <time> ETA" value:@"localized string not found" table:0];
+    v12 = [NSString stringWithFormat:v11, v9];
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
+}
+
 + (id)displayDateForDate:(id)date
 {
   dateCopy = date;
@@ -382,85 +408,85 @@
   remainingMinutes_low = LODWORD(self->_remainingMinutes);
   if (remainingMinutes_low < 14401)
   {
-    v12 = (remainingMinutes_low / 60);
+    v10 = (remainingMinutes_low / 60);
     if (remainingMinutes_low <= 1439)
     {
-      v13 = (remainingMinutes_low % 60);
+      v11 = (remainingMinutes_low % 60);
     }
 
     else
     {
-      v13 = 0;
+      v11 = 0;
+    }
+
+    if (v11)
+    {
+      v12 = (remainingMinutes_low - 60) >= 0x3C;
+    }
+
+    else
+    {
+      v12 = 1;
+    }
+
+    if (v12)
+    {
+      v13 = v10;
+    }
+
+    else
+    {
+      v13 = 2;
     }
 
     if (v13)
     {
-      v14 = (remainingMinutes_low - 60) >= 0x3C;
-    }
-
-    else
-    {
-      v14 = 1;
-    }
-
-    if (v14)
-    {
-      v15 = v12;
-    }
-
-    else
-    {
-      v15 = 2;
-    }
-
-    if (v15)
-    {
-      if (v13)
+      if (v11)
       {
-        v16 = +[NSBundle mainBundle];
-        v17 = [v16 localizedStringForKey:@"Hours and minutes value [ETA]" value:@"localized string not found" table:0];
-        v18 = [NSString localizedStringWithFormat:v17, v12, v13];
+        v14 = +[NSBundle mainBundle];
+        v15 = [v14 localizedStringForKey:@"Hours and minutes value [ETA]" value:@"localized string not found" table:0];
+        v16 = [NSString localizedStringWithFormat:v15, v10, v11];
         timeValue = self->_timeValue;
-        self->_timeValue = v18;
+        self->_timeValue = v16;
       }
 
       else
       {
-        v27 = [NSString localizedStringWithFormat:@"%d", v12];
-        v16 = self->_timeValue;
-        self->_timeValue = v27;
+        v25 = [NSString localizedStringWithFormat:@"%d", v10];
+        v14 = self->_timeValue;
+        self->_timeValue = v25;
       }
 
-      v28 = +[NSBundle mainBundle];
-      v29 = [v28 localizedStringForKey:@"Hours label [ETA]" value:@"localized string not found" table:0];
-      v30 = [NSString stringWithFormat:v29, v15];
+      v26 = +[NSBundle mainBundle];
+      v27 = [v26 localizedStringForKey:@"Hours label [ETA]" value:@"localized string not found" table:0];
+      v28 = [NSString stringWithFormat:v27, v13];
       timeUnit = self->_timeUnit;
-      self->_timeUnit = v30;
+      self->_timeUnit = v28;
 
       +[NSBundle mainBundle];
-      v26 = [objc_claimAutoreleasedReturnValue() localizedStringForKey:@"Hours accessibility label [ETA]" value:@"localized string not found" table:0];
-      [NSString stringWithFormat:v26, v15];
+      v24 = [objc_claimAutoreleasedReturnValue() localizedStringForKey:@"Hours accessibility label [ETA]" value:@"localized string not found" table:0];
+      [NSString stringWithFormat:v24, v13];
     }
 
     else
     {
-      v20 = [NSString localizedStringWithFormat:@"%d", LODWORD(self->_remainingMinutes)];
-      v21 = self->_timeValue;
-      self->_timeValue = v20;
+      v18 = [NSString localizedStringWithFormat:@"%d", LODWORD(self->_remainingMinutes)];
+      v19 = self->_timeValue;
+      self->_timeValue = v18;
 
-      v22 = +[NSBundle mainBundle];
-      v23 = [v22 localizedStringForKey:@"Minutes label [ETA]" value:@"localized string not found" table:0];
-      remainingMinutes_low = [NSString stringWithFormat:v23, remainingMinutes_low];
-      v25 = self->_timeUnit;
+      v20 = +[NSBundle mainBundle];
+      v21 = [v20 localizedStringForKey:@"Minutes label [ETA]" value:@"localized string not found" table:0];
+      remainingMinutes_low = [NSString stringWithFormat:v21, remainingMinutes_low];
+      v23 = self->_timeUnit;
       self->_timeUnit = remainingMinutes_low;
 
       +[NSBundle mainBundle];
-      v26 = [objc_claimAutoreleasedReturnValue() localizedStringForKey:@"Minutes accessibility label [ETA]" value:@"localized string not found" table:0];
-      [NSString stringWithFormat:v26, remainingMinutes_low];
+      v24 = [objc_claimAutoreleasedReturnValue() localizedStringForKey:@"Minutes accessibility label [ETA]" value:@"localized string not found" table:0];
+      [NSString stringWithFormat:v24, remainingMinutes_low];
     }
-    v32 = ;
+    v30 = ;
     timeUnitAccessibility = self->_timeUnitAccessibility;
-    self->_timeUnitAccessibility = v32;
+    self->_timeUnitAccessibility = v30;
   }
 
   else
@@ -475,9 +501,7 @@
     v9 = self->_timeUnit;
     self->_timeUnit = v8;
 
-    v10 = self->_timeUnit;
-    v11 = self->_timeUnitAccessibility;
-    self->_timeUnitAccessibility = v10;
+    self->_timeUnitAccessibility = self->_timeUnit;
   }
 
   _objc_release_x1();
@@ -598,58 +622,56 @@
 
 - (void)_computeDistanceProperties
 {
-  transportType = self->_transportType;
-  remainingDistance = self->_remainingDistance;
-  v19 = GEORoundedMeasurementForDistance();
-  [v19 doubleValue];
-  v6 = v5;
+  v17 = GEORoundedMeasurementForDistance();
+  [v17 doubleValue];
+  v4 = v3;
   if (self->_remainingDistance >= 0.0)
   {
-    if (vabdd_f64(v5, floor(v5)) < 0.000001)
+    if (vabdd_f64(v3, floor(v3)) < 0.000001)
     {
-      [NSString localizedStringWithFormat:@"%.0f", *&v5];
+      [NSString localizedStringWithFormat:@"%.0f", *&v3];
     }
 
     else
     {
-      [NSString localizedStringWithFormat:@"%.1f", *&v5];
+      [NSString localizedStringWithFormat:@"%.1f", *&v3];
     }
-    v10 = ;
+    v8 = ;
     distanceValue = self->_distanceValue;
-    self->_distanceValue = v10;
+    self->_distanceValue = v8;
   }
 
   else
   {
     distanceValue = +[NSBundle mainBundle];
-    v8 = [distanceValue localizedStringForKey:@"Invalid Distance [ETA]" value:@"localized string not found" table:0];
-    v9 = self->_distanceValue;
-    self->_distanceValue = v8;
+    v6 = [distanceValue localizedStringForKey:@"Invalid Distance [ETA]" value:@"localized string not found" table:0];
+    v7 = self->_distanceValue;
+    self->_distanceValue = v6;
   }
 
-  unit = [v19 unit];
-  v12 = [(GuidanceETA *)self _lengthUnitFromUnit:unit];
+  unit = [v17 unit];
+  v10 = [(GuidanceETA *)self _lengthUnitFromUnit:unit];
 
   if (qword_1000E2B68 != -1)
   {
     sub_10007D150();
   }
 
-  v13 = qword_1000E2B60;
-  [v13 setUnitStyle:{-[GuidanceETA _unitStyleForUnit:](self, "_unitStyleForUnit:", v12)}];
-  v14 = [v13 unitStringFromValue:v12 unit:v6];
+  v11 = qword_1000E2B60;
+  [v11 setUnitStyle:{-[GuidanceETA _unitStyleForUnit:](self, "_unitStyleForUnit:", v10)}];
+  v12 = [v11 unitStringFromValue:v10 unit:v4];
   distanceUnit = self->_distanceUnit;
-  self->_distanceUnit = v14;
+  self->_distanceUnit = v12;
 
   if (qword_1000E2B78 != -1)
   {
     sub_10007D164();
   }
 
-  v16 = qword_1000E2B70;
-  v17 = [v16 unitStringFromValue:v12 unit:v6];
+  v14 = qword_1000E2B70;
+  v15 = [v14 unitStringFromValue:v10 unit:v4];
   distanceUnitAccessibility = self->_distanceUnitAccessibility;
-  self->_distanceUnitAccessibility = v17;
+  self->_distanceUnitAccessibility = v15;
 }
 
 + (id)defaultArrivalString

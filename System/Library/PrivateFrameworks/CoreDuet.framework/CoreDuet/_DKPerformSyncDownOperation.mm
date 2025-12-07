@@ -64,7 +64,7 @@
 
 - (void)performSyncDown
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = +[_DKSyncSerializer underlyingQueue];
@@ -73,27 +73,27 @@
     v3 = objc_opt_new();
     if ([self[39] count])
     {
-      v15 = 0u;
-      v16 = 0u;
-      v13 = 0u;
       v14 = 0u;
+      v15 = 0u;
+      v12 = 0u;
+      v13 = 0u;
       obj = self[39];
-      v4 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [obj countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v4)
       {
         v5 = v4;
-        v6 = *v14;
+        v6 = *v13;
         while (2)
         {
           v7 = 0;
           do
           {
-            if (*v14 != v6)
+            if (*v13 != v6)
             {
               objc_enumerationMutation(obj);
             }
 
-            v8 = *(*(&v13 + 1) + 8 * v7);
+            v8 = *(*(&v12 + 1) + 8 * v7);
             v9 = objc_opt_class();
             if (([_DKSync2Coordinator canPerformSyncOperationWithClass:v9 syncType:self[41] history:v3 transport:self[38] peer:v8 policy:self[40]]& 1) != 0)
             {
@@ -105,7 +105,7 @@
           }
 
           while (v5 != v7);
-          v5 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
+          v5 = [obj countByEnumeratingWithState:&v12 objects:v16 count:16];
           if (v5)
           {
             continue;
@@ -130,13 +130,11 @@ LABEL_15:
     [self endOperation];
 LABEL_16:
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performSyncDown2
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = +[_DKSyncSerializer underlyingQueue];
@@ -148,12 +146,12 @@ LABEL_16:
       v4 = +[_CDLogging syncChannel];
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
-        v37 = [objc_opt_class() description];
+        v36 = [objc_opt_class() description];
         name = [self[38] name];
         *buf = 138543618;
-        v54 = v37;
-        v55 = 2114;
-        v56 = name;
+        v53 = v36;
+        v54 = 2114;
+        v55 = name;
         _os_log_debug_impl(&dword_191750000, v4, OS_LOG_TYPE_DEBUG, "%{public}@: Finding peers for sync down operation on transport %{public}@", buf, 0x16u);
       }
 
@@ -166,15 +164,15 @@ LABEL_16:
     v8 = +[_CDLogging syncChannel];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v31 = [objc_opt_class() description];
-      v32 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(self[39], "count")}];
+      v30 = [objc_opt_class() description];
+      v31 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(self[39], "count")}];
       name2 = [self[38] name];
       *buf = 138543874;
-      v54 = v31;
-      v55 = 2112;
-      v56 = v32;
-      v57 = 2114;
-      v58 = name2;
+      v53 = v30;
+      v54 = 2112;
+      v55 = v31;
+      v56 = 2114;
+      v57 = name2;
       _os_log_debug_impl(&dword_191750000, v8, OS_LOG_TYPE_DEBUG, "%{public}@: Creating %@ sync down subordinate operations on transport %{public}@", buf, 0x20u);
     }
 
@@ -182,28 +180,28 @@ LABEL_16:
     if ([self[39] count])
     {
       [self[38] clearPrewarmedFlag];
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
       v50 = 0u;
+      v51 = 0u;
+      v48 = 0u;
+      v49 = 0u;
       v10 = self[39];
-      v11 = [v10 countByEnumeratingWithState:&v49 objects:v63 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v48 objects:v62 count:16];
       if (v11)
       {
         v12 = v11;
         v13 = 0;
-        v14 = *v50;
+        v14 = *v49;
         do
         {
           v15 = 0;
           do
           {
-            if (*v50 != v14)
+            if (*v49 != v14)
             {
               objc_enumerationMutation(v10);
             }
 
-            v16 = *(*(&v49 + 1) + 8 * v15);
+            v16 = *(*(&v48 + 1) + 8 * v15);
             sourceDeviceID = [v16 sourceDeviceID];
 
             if (sourceDeviceID)
@@ -226,7 +224,7 @@ LABEL_16:
               syncChannel = [*(v3 + 648) syncChannel];
               if (os_log_type_enabled(syncChannel, OS_LOG_TYPE_DEBUG))
               {
-                v48 = [objc_opt_class() description];
+                v47 = [objc_opt_class() description];
                 v22 = [v16 me];
                 v23 = @"pseudo ";
                 if (!v22)
@@ -234,34 +232,34 @@ LABEL_16:
                   v23 = &stru_1F05B9908;
                 }
 
-                v45 = v23;
+                v44 = v23;
                 identifier = [v16 identifier];
                 model = [v16 model];
                 v25 = &stru_1F05B9908;
-                v46 = model;
+                v45 = model;
                 if (model)
                 {
-                  v43 = MEMORY[0x1E696AEC0];
+                  v42 = MEMORY[0x1E696AEC0];
                   model2 = [v16 model];
-                  v41 = [v43 stringWithFormat:@" (%@)", model2];
-                  v25 = v41;
+                  v40 = [v42 stringWithFormat:@" (%@)", model2];
+                  v25 = v40;
                 }
 
-                v44 = v25;
+                v43 = v25;
                 name3 = [self[38] name];
                 *buf = 138544386;
-                v54 = v48;
-                v55 = 2114;
-                v56 = v45;
-                v57 = 2114;
-                v58 = identifier;
-                v59 = 2114;
-                v60 = v44;
-                v61 = 2114;
-                v62 = name3;
+                v53 = v47;
+                v54 = 2114;
+                v55 = v44;
+                v56 = 2114;
+                v57 = identifier;
+                v58 = 2114;
+                v59 = v43;
+                v60 = 2114;
+                v61 = name3;
                 _os_log_debug_impl(&dword_191750000, syncChannel, OS_LOG_TYPE_DEBUG, "%{public}@: Skipping %{public}@peer %{public}@%{public}@ for sync down operation on transport %{public}@ due to missing source device id", buf, 0x34u);
 
-                if (v46)
+                if (v45)
                 {
                 }
               }
@@ -273,7 +271,7 @@ LABEL_16:
           }
 
           while (v12 != v15);
-          v27 = [v10 countByEnumeratingWithState:&v49 objects:v63 count:16];
+          v27 = [v10 countByEnumeratingWithState:&v48 objects:v62 count:16];
           v12 = v27;
         }
 
@@ -296,12 +294,12 @@ LABEL_16:
       syncChannel2 = [*(v3 + 648) syncChannel];
       if (os_log_type_enabled(syncChannel2, OS_LOG_TYPE_DEBUG))
       {
-        v39 = [objc_opt_class() description];
+        v38 = [objc_opt_class() description];
         name4 = [self[38] name];
         *buf = 138543618;
-        v54 = v39;
-        v55 = 2114;
-        v56 = name4;
+        v53 = v38;
+        v54 = 2114;
+        v55 = name4;
         _os_log_debug_impl(&dword_191750000, syncChannel2, OS_LOG_TYPE_DEBUG, "%{public}@: No peers to sync down on transport %{public}@", buf, 0x16u);
       }
 
@@ -311,20 +309,18 @@ LABEL_16:
     syncChannel3 = [*(v3 + 648) syncChannel];
     if (os_log_type_enabled(syncChannel3, OS_LOG_TYPE_DEBUG))
     {
-      v34 = [objc_opt_class() description];
-      v35 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v9, "count")}];
+      v33 = [objc_opt_class() description];
+      v34 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v9, "count")}];
       name5 = [self[38] name];
       *buf = 138543874;
-      v54 = v34;
-      v55 = 2112;
-      v56 = v35;
-      v57 = 2114;
-      v58 = name5;
+      v53 = v33;
+      v54 = 2112;
+      v55 = v34;
+      v56 = 2114;
+      v57 = name5;
       _os_log_debug_impl(&dword_191750000, syncChannel3, OS_LOG_TYPE_DEBUG, "%{public}@: Done queuing %@ subordinate sync down operations on transport %{public}@", buf, 0x20u);
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 @end

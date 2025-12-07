@@ -30,53 +30,12 @@
   ObjectType = swift_getObjectType();
   if (request)
   {
-    v31 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+    v28 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
   else
   {
-    v31 = 0;
-  }
-
-  _s15SwiftTLSLibrary23PAKEClientConfigurationVSgWOi0_(v33);
-  v35[4] = v33[4];
-  v35[5] = v33[5];
-  v36[0] = v34[0];
-  *(v36 + 9) = *(v34 + 9);
-  v35[0] = v33[0];
-  v35[1] = v33[1];
-  v35[2] = v33[2];
-  v35[3] = v33[3];
-  objc_allocWithZone(ObjectType);
-  strCopy = str;
-  initCopy = init;
-  nameCopy = name;
-  alpnCopy = alpn;
-  stateCopy = state;
-  keyCopy = key;
-  alpnCopy2 = alpn;
-  v24 = keyCopy;
-  v25 = specialized STLSRecordHandler.init(_:serverName:alpn:sessionState:ticketRequest:keyExchangeGroup:externalPreSharedKey:rawEPSKsEnabled:enableEarlyData:pakeClientConfiguration:logStr:)(init, name, alpnCopy2, state, v31, groupCopy, key, enabled, data, v35, strCopy);
-
-  swift_getObjectType();
-  v26 = *((*MEMORY[0x1E69E7D40] & self->super.isa) + 0x30);
-  v27 = *((*MEMORY[0x1E69E7D40] & self->super.isa) + 0x34);
-  swift_deallocPartialClassInstance();
-  return v25;
-}
-
-- (id)init:(id)init serverName:(id)name alpn:(id)alpn sessionState:(id)state ticketRequest:(id)request keyExchangeGroup:(unsigned __int16)group enableEarlyData:(BOOL)data logStr:(id)self0
-{
-  groupCopy = group;
-  ObjectType = swift_getObjectType();
-  if (request)
-  {
-    v27 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  }
-
-  else
-  {
-    v27 = 0;
+    v28 = 0;
   }
 
   _s15SwiftTLSLibrary23PAKEClientConfigurationVSgWOi0_(v30);
@@ -94,15 +53,52 @@
   nameCopy = name;
   alpnCopy = alpn;
   stateCopy = state;
-  stateCopy2 = state;
-  v22 = stateCopy;
-  v23 = specialized STLSRecordHandler.init(_:serverName:alpn:sessionState:ticketRequest:keyExchangeGroup:externalPreSharedKey:rawEPSKsEnabled:enableEarlyData:pakeClientConfiguration:logStr:)(init, name, alpn, stateCopy2, v27, groupCopy, 0, 0, data, v32, strCopy);
+  keyCopy = key;
+  alpnCopy2 = alpn;
+  v23 = keyCopy;
+  v24 = specialized STLSRecordHandler.init(_:serverName:alpn:sessionState:ticketRequest:keyExchangeGroup:externalPreSharedKey:rawEPSKsEnabled:enableEarlyData:pakeClientConfiguration:logStr:)(init, name, alpnCopy2, state, v28, groupCopy, key, enabled, data, v32, strCopy);
 
   swift_getObjectType();
-  v24 = *((*MEMORY[0x1E69E7D40] & self->super.isa) + 0x30);
-  v25 = *((*MEMORY[0x1E69E7D40] & self->super.isa) + 0x34);
   swift_deallocPartialClassInstance();
-  return v23;
+  return v24;
+}
+
+- (id)init:(id)init serverName:(id)name alpn:(id)alpn sessionState:(id)state ticketRequest:(id)request keyExchangeGroup:(unsigned __int16)group enableEarlyData:(BOOL)data logStr:(id)self0
+{
+  groupCopy = group;
+  ObjectType = swift_getObjectType();
+  if (request)
+  {
+    v24 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  }
+
+  else
+  {
+    v24 = 0;
+  }
+
+  _s15SwiftTLSLibrary23PAKEClientConfigurationVSgWOi0_(v27);
+  v29[4] = v27[4];
+  v29[5] = v27[5];
+  v30[0] = v28[0];
+  *(v30 + 9) = *(v28 + 9);
+  v29[0] = v27[0];
+  v29[1] = v27[1];
+  v29[2] = v27[2];
+  v29[3] = v27[3];
+  objc_allocWithZone(ObjectType);
+  strCopy = str;
+  initCopy = init;
+  nameCopy = name;
+  alpnCopy = alpn;
+  stateCopy = state;
+  stateCopy2 = state;
+  v21 = stateCopy;
+  v22 = specialized STLSRecordHandler.init(_:serverName:alpn:sessionState:ticketRequest:keyExchangeGroup:externalPreSharedKey:rawEPSKsEnabled:enableEarlyData:pakeClientConfiguration:logStr:)(init, name, alpn, stateCopy2, v24, groupCopy, 0, 0, data, v29, strCopy);
+
+  swift_getObjectType();
+  swift_deallocPartialClassInstance();
+  return v22;
 }
 
 - (id)init:(id)init alpn:(id)alpn sessionState:(id)state ticketRequest:(id)request pakeContext:(id)context pakeClientIdentity:(id)identity pakeServerIdentity:(id)serverIdentity pakeClientPasswordVerifier:(id)self0 logStr:(id)self1
@@ -134,48 +130,46 @@
 {
   enabledCopy = enabled;
   ObjectType = swift_getObjectType();
-  v17 = _Block_copy(block);
-  v18 = v17;
+  v16 = _Block_copy(block);
+  v17 = v16;
   if (!ks)
   {
-    v31 = 0;
-    if (v17)
+    v28 = 0;
+    if (v16)
     {
       goto LABEL_3;
     }
 
 LABEL_5:
-    v19 = 0;
+    v18 = 0;
     goto LABEL_6;
   }
 
   type metadata accessor for SwiftTLSExternalPreSharedKey(0, &lazy cache variable for type metadata for SwiftTLSExternalPreSharedKey, off_1E7B2E030);
-  v31 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  if (!v18)
+  v28 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  if (!v17)
   {
     goto LABEL_5;
   }
 
 LABEL_3:
-  v19 = swift_allocObject();
-  *(v19 + 16) = v18;
-  v18 = partial apply for thunk for @escaping @callee_unowned @convention(block) (@unowned NSArray, @unowned @escaping @callee_unowned @convention(block) (@unowned SecExternalPreSharedKey?) -> ()) -> ();
+  v18 = swift_allocObject();
+  *(v18 + 16) = v17;
+  v17 = partial apply for thunk for @escaping @callee_unowned @convention(block) (@unowned NSArray, @unowned @escaping @callee_unowned @convention(block) (@unowned SecExternalPreSharedKey?) -> ()) -> ();
 LABEL_6:
-  v20 = objc_allocWithZone(ObjectType);
+  v19 = objc_allocWithZone(ObjectType);
   strCopy = str;
   initCopy = init;
   keyCopy = key;
   alpnCopy = alpn;
   alpnCopy2 = alpn;
-  v26 = alpnCopy;
-  v27 = specialized STLSRecordHandler.init(_:serverKey:alpn:EPSKs:epskSelectionBlock:rawEPSKsEnabled:pakeServerConfiguration:enableEarlyData:logStr:)(init, key, alpnCopy2, v31, v18, v19, enabledCopy, 0, 0, strCopy);
+  v25 = alpnCopy;
+  v26 = specialized STLSRecordHandler.init(_:serverKey:alpn:EPSKs:epskSelectionBlock:rawEPSKsEnabled:pakeServerConfiguration:enableEarlyData:logStr:)(init, key, alpnCopy2, v28, v17, v18, enabledCopy, 0, 0, strCopy);
 
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed [SwiftOfferedEPSK], @guaranteed @escaping @callee_guaranteed (@unowned Int, @in_guaranteed EPSK?) -> ()) -> ())?(v18);
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed [SwiftOfferedEPSK], @guaranteed @escaping @callee_guaranteed (@unowned Int, @in_guaranteed EPSK?) -> ()) -> ())?(v17, v18);
   swift_getObjectType();
-  v28 = *((*MEMORY[0x1E69E7D40] & self->super.isa) + 0x30);
-  v29 = *((*MEMORY[0x1E69E7D40] & self->super.isa) + 0x34);
   swift_deallocPartialClassInstance();
-  return v27;
+  return v26;
 }
 
 - (void)startHandshake
@@ -209,31 +203,29 @@ LABEL_6:
 - (BOOL)isHandshakeComplete
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SwiftTLSLibrary16TLSRecordHandlerVSgMd, &_s15SwiftTLSLibrary16TLSRecordHandlerVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v15 - v5;
-  v7 = type metadata accessor for TLSRecordHandler();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x1EEE9AC00](v7);
-  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = OBJC_IVAR____TtC10nwswifttls17STLSRecordHandler_recordHandler;
+  v5 = &v13 - v4;
+  v6 = type metadata accessor for TLSRecordHandler(0);
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = OBJC_IVAR____TtC10nwswifttls17STLSRecordHandler_recordHandler;
   swift_beginAccess();
-  outlined init with copy of Any?(self + v12, v6, &_s15SwiftTLSLibrary16TLSRecordHandlerVSgMd, &_s15SwiftTLSLibrary16TLSRecordHandlerVSgMR);
-  if ((*(v8 + 48))(v6, 1, v7) == 1)
+  outlined init with copy of Any?(self + v10, v5, &_s15SwiftTLSLibrary16TLSRecordHandlerVSgMd, &_s15SwiftTLSLibrary16TLSRecordHandlerVSgMR);
+  if ((*(v7 + 48))(v5, 1, v6) == 1)
   {
-    outlined destroy of P256.Signing.PrivateKey?(v6, &_s15SwiftTLSLibrary16TLSRecordHandlerVSgMd, &_s15SwiftTLSLibrary16TLSRecordHandlerVSgMR);
+    outlined destroy of P256.Signing.PrivateKey?(v5, &_s15SwiftTLSLibrary16TLSRecordHandlerVSgMd, &_s15SwiftTLSLibrary16TLSRecordHandlerVSgMR);
     return 0;
   }
 
   else
   {
-    outlined init with take of TLSRecordHandler(v6, v11, type metadata accessor for TLSRecordHandler);
-    v13 = TLSRecordHandler.handshakeComplete.getter();
-    outlined destroy of TLSRecordHandler(v11, type metadata accessor for TLSRecordHandler);
+    outlined init with take of TLSRecordHandler(v5, v9, type metadata accessor for TLSRecordHandler);
+    v11 = TLSRecordHandler.handshakeComplete.getter();
+    outlined destroy of TLSRecordHandler(v9, type metadata accessor for TLSRecordHandler);
   }
 
-  return v13;
+  return v11;
 }
 
 - (int64_t)getAvailableApplicationDataLength
@@ -247,22 +239,23 @@ LABEL_6:
 - (id)getOutput
 {
   selfCopy = self;
-  v3 = STLSRecordHandler.getOutput()();
-  v5 = v4;
+  STLSRecordHandler.getOutput()();
+  v4 = v3;
+  v6 = v5;
 
-  if (v5 >> 60 == 15)
+  if (v6 >> 60 == 15)
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
     isa = Data._bridgeToObjectiveC()().super.isa;
-    outlined consume of ByteBuffer?(v3, v5);
-    v6 = isa;
+    outlined consume of ByteBuffer?(v4, v6);
+    v7 = isa;
   }
 
-  return v6;
+  return v7;
 }
 
 - (unsigned)getOutgoingBytesCount
@@ -276,29 +269,27 @@ LABEL_6:
 - (int64_t)getNegotiatedCiphersuite
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SwiftTLSLibrary16TLSRecordHandlerVSgMd, &_s15SwiftTLSLibrary16TLSRecordHandlerVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v15 - v5;
-  v7 = type metadata accessor for TLSRecordHandler();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x1EEE9AC00](v7);
-  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = OBJC_IVAR____TtC10nwswifttls17STLSRecordHandler_recordHandler;
+  v5 = &v13 - v4;
+  v6 = type metadata accessor for TLSRecordHandler(0);
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = OBJC_IVAR____TtC10nwswifttls17STLSRecordHandler_recordHandler;
   swift_beginAccess();
-  outlined init with copy of Any?(self + v12, v6, &_s15SwiftTLSLibrary16TLSRecordHandlerVSgMd, &_s15SwiftTLSLibrary16TLSRecordHandlerVSgMR);
-  if ((*(v8 + 48))(v6, 1, v7) == 1)
+  outlined init with copy of Any?(self + v10, v5, &_s15SwiftTLSLibrary16TLSRecordHandlerVSgMd, &_s15SwiftTLSLibrary16TLSRecordHandlerVSgMR);
+  if ((*(v7 + 48))(v5, 1, v6) == 1)
   {
-    outlined destroy of P256.Signing.PrivateKey?(v6, &_s15SwiftTLSLibrary16TLSRecordHandlerVSgMd, &_s15SwiftTLSLibrary16TLSRecordHandlerVSgMR);
+    outlined destroy of P256.Signing.PrivateKey?(v5, &_s15SwiftTLSLibrary16TLSRecordHandlerVSgMd, &_s15SwiftTLSLibrary16TLSRecordHandlerVSgMR);
     return 0;
   }
 
   else
   {
-    outlined init with take of TLSRecordHandler(v6, v11, type metadata accessor for TLSRecordHandler);
-    v14 = TLSRecordHandler.getNegotiatedCiphersuite.getter();
-    outlined destroy of TLSRecordHandler(v11, type metadata accessor for TLSRecordHandler);
-    return v14;
+    outlined init with take of TLSRecordHandler(v5, v9, type metadata accessor for TLSRecordHandler);
+    v12 = TLSRecordHandler.getNegotiatedCiphersuite.getter();
+    outlined destroy of TLSRecordHandler(v9, type metadata accessor for TLSRecordHandler);
+    return v12;
   }
 }
 
@@ -312,26 +303,25 @@ LABEL_6:
 
 - (BOOL)getNegotiatedEPSK
 {
-  v3 = type metadata accessor for TLSRecordHandler();
+  v3 = type metadata accessor for TLSRecordHandler(0);
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = OBJC_IVAR____TtC10nwswifttls17STLSRecordHandler_recordHandler;
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = OBJC_IVAR____TtC10nwswifttls17STLSRecordHandler_recordHandler;
   swift_beginAccess();
-  if ((*(v4 + 48))(self + v8, 1, v3))
+  if ((*(v4 + 48))(self + v7, 1, v3))
   {
-    v9 = 0;
+    v8 = 0;
   }
 
   else
   {
-    outlined init with copy of TLSRecordHandler(self + v8, v7, type metadata accessor for TLSRecordHandler);
-    v9 = TLSRecordHandler.getNegotiatedEPSK.getter();
-    outlined destroy of TLSRecordHandler(v7, type metadata accessor for TLSRecordHandler);
+    outlined init with copy of TLSRecordHandler(self + v7, v6, type metadata accessor for TLSRecordHandler);
+    v8 = TLSRecordHandler.getNegotiatedEPSK.getter();
+    outlined destroy of TLSRecordHandler(v6, type metadata accessor for TLSRecordHandler);
   }
 
-  return v9 & 1;
+  return v8 & 1;
 }
 
 - (BOOL)getEPSKOffered

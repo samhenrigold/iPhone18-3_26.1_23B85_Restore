@@ -27,7 +27,7 @@
 - (void)_updateUserFeedbackParticipationAllAdvertisements:(id)advertisements session:(id)session ownRecord:(id)record won:(BOOL)won triggerType:(id)type lastActivationTime:(double)time requestStartDate:(id)date voiceTriggerDate:(id)self0 scoreBoosters:(id)self1 deviceClass:(unsigned __int8)self2
 {
   wonCopy = won;
-  v119[1] = *MEMORY[0x1E69E9840];
+  v118[1] = *MEMORY[0x1E69E9840];
   advertisementsCopy = advertisements;
   sessionCopy = session;
   recordCopy = record;
@@ -35,7 +35,7 @@
   dateCopy = date;
   triggerDateCopy = triggerDate;
   boostersCopy = boosters;
-  v95 = sessionCopy;
+  v94 = sessionCopy;
   sessionId = [sessionCopy sessionId];
   uUIDString = [sessionId UUIDString];
 
@@ -182,15 +182,15 @@
     }
 
     v54 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:class];
-    v119[0] = v54;
-    v55 = [MEMORY[0x1E695DEC8] arrayWithObjects:v119 count:1];
+    v118[0] = v54;
+    v55 = [MEMORY[0x1E695DEC8] arrayWithObjects:v118 count:1];
     [v43 setDeviceClass:v55];
 
-    v91 = MGCopyAnswer();
-    if (v91)
+    v90 = MGCopyAnswer();
+    if (v90)
     {
-      v118 = v91;
-      v56 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v118 count:1];
+      v117 = v90;
+      v56 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v117 count:1];
       [v43 setProductTypes:v56];
     }
 
@@ -201,8 +201,8 @@
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v115 = __Block_byref_object_copy__38907;
-    v116 = __Block_byref_object_dispose__38908;
+    v114 = __Block_byref_object_copy__38907;
+    v115 = __Block_byref_object_dispose__38908;
     if (wonCopy)
     {
       v58 = v34;
@@ -213,27 +213,27 @@
       v58 = 0;
     }
 
-    v117 = v58;
-    v107[0] = 0;
-    v107[1] = v107;
-    v107[2] = 0x3032000000;
-    v107[3] = __Block_byref_object_copy__38907;
-    v107[4] = __Block_byref_object_dispose__38908;
-    v108 = 0;
-    v93 = advertisementsCopy;
+    v116 = v58;
+    v106[0] = 0;
+    v106[1] = v106;
+    v106[2] = 0x3032000000;
+    v106[3] = __Block_byref_object_copy__38907;
+    v106[4] = __Block_byref_object_dispose__38908;
+    v107 = 0;
+    v92 = advertisementsCopy;
     array = [MEMORY[0x1E695DF70] array];
-    v101[0] = MEMORY[0x1E69E9820];
-    v101[1] = 3221225472;
-    v101[2] = __203__AFArbitrationParticipationController__updateUserFeedbackParticipationAllAdvertisements_session_ownRecord_won_triggerType_lastActivationTime_requestStartDate_voiceTriggerDate_scoreBoosters_deviceClass___block_invoke;
-    v101[3] = &unk_1E7347A40;
-    v102 = recordCopy;
-    v89 = v34;
+    v100[0] = MEMORY[0x1E69E9820];
+    v100[1] = 3221225472;
+    v100[2] = __203__AFArbitrationParticipationController__updateUserFeedbackParticipationAllAdvertisements_session_ownRecord_won_triggerType_lastActivationTime_requestStartDate_voiceTriggerDate_scoreBoosters_deviceClass___block_invoke;
+    v100[3] = &unk_1E7347A40;
+    v101 = recordCopy;
+    v88 = v34;
+    v102 = v88;
+    v89 = array;
     v103 = v89;
-    v90 = array;
-    v104 = v90;
-    v105 = buf;
-    v106 = v107;
-    [v93 enumerateObjectsUsingBlock:v101];
+    v104 = buf;
+    v105 = v106;
+    [v92 enumerateObjectsUsingBlock:v100];
     if (*(*&buf[8] + 40))
     {
       [v23 setWinnerAdvertisement:?];
@@ -242,11 +242,11 @@
     v60 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
-      *v110 = 136315394;
-      v111 = "[AFArbitrationParticipationController _updateUserFeedbackParticipationAllAdvertisements:session:ownRecord:won:triggerType:lastActivationTime:requestStartDate:voiceTriggerDate:scoreBoosters:deviceClass:]";
-      v112 = 2112;
-      v113 = boostersCopy;
-      _os_log_debug_impl(&dword_1912FE000, v60, OS_LOG_TYPE_DEBUG, "%s #myriad #feedback scoreBoosters from myriadInstrumentation: %@", v110, 0x16u);
+      *v109 = 136315394;
+      v110 = "[AFArbitrationParticipationController _updateUserFeedbackParticipationAllAdvertisements:session:ownRecord:won:triggerType:lastActivationTime:requestStartDate:voiceTriggerDate:scoreBoosters:deviceClass:]";
+      v111 = 2112;
+      v112 = boostersCopy;
+      _os_log_debug_impl(&dword_1912FE000, v60, OS_LOG_TYPE_DEBUG, "%s #myriad #feedback scoreBoosters from myriadInstrumentation: %@", v109, 0x16u);
       if (boostersCopy)
       {
         goto LABEL_43;
@@ -276,8 +276,8 @@ LABEL_43:
       }
 
       v63 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v62];
-      v109 = v63;
-      v64 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v109 count:1];
+      v108 = v63;
+      v64 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v108 count:1];
       [v23 setTrumpReasons:v64];
 
       array2 = [MEMORY[0x1E695DF70] array];
@@ -369,9 +369,9 @@ LABEL_43:
       [v23 setBoosts:v87];
     }
 
-    [v23 setSeenAdvertisements:v90];
+    [v23 setSeenAdvertisements:v89];
 
-    _Block_object_dispose(v107, 8);
+    _Block_object_dispose(v106, 8);
     _Block_object_dispose(buf, 8);
 
 LABEL_64:
@@ -388,8 +388,6 @@ LABEL_64:
   }
 
 LABEL_65:
-
-  v88 = *MEMORY[0x1E69E9840];
 }
 
 void __203__AFArbitrationParticipationController__updateUserFeedbackParticipationAllAdvertisements_session_ownRecord_won_triggerType_lastActivationTime_requestStartDate_voiceTriggerDate_scoreBoosters_deviceClass___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -439,7 +437,7 @@ void __203__AFArbitrationParticipationController__updateUserFeedbackParticipatio
 
 - (void)_publishFeedbackArbitrationRecord
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   allValues = [(NSMutableDictionary *)self->_participationsForUserFeedback allValues];
   if (!self->_participationsPublished)
   {
@@ -451,27 +449,25 @@ void __203__AFArbitrationParticipationController__updateUserFeedbackParticipatio
   v6 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
-    v8 = v6;
+    v7 = v6;
     *buf = 136315394;
-    v11 = "[AFArbitrationParticipationController _publishFeedbackArbitrationRecord]";
-    v12 = 2048;
-    v13 = [allValues count];
-    _os_log_debug_impl(&dword_1912FE000, v8, OS_LOG_TYPE_DEBUG, "%s #myriad #feedback action: publishing %lu pariticipations", buf, 0x16u);
+    v10 = "[AFArbitrationParticipationController _publishFeedbackArbitrationRecord]";
+    v11 = 2048;
+    v12 = [allValues count];
+    _os_log_debug_impl(&dword_1912FE000, v7, OS_LOG_TYPE_DEBUG, "%s #myriad #feedback action: publishing %lu pariticipations", buf, 0x16u);
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __73__AFArbitrationParticipationController__publishFeedbackArbitrationRecord__block_invoke;
-  v9[3] = &unk_1E7347A18;
-  v9[4] = self;
-  [allValues enumerateObjectsUsingBlock:v9];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __73__AFArbitrationParticipationController__publishFeedbackArbitrationRecord__block_invoke;
+  v8[3] = &unk_1E7347A18;
+  v8[4] = self;
+  [allValues enumerateObjectsUsingBlock:v8];
 }
 
 void __73__AFArbitrationParticipationController__publishFeedbackArbitrationRecord__block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 result] || (objc_msgSend(v3, "rawGoodnessScore"), v9 != 0.0))
   {
@@ -498,11 +494,11 @@ void __73__AFArbitrationParticipationController__publishFeedbackArbitrationRecor
       v7 = AFSiriLogContextConnection;
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
       {
-        v14 = 136315138;
-        v15 = "[AFArbitrationParticipationController _publishFeedbackArbitrationRecord]_block_invoke";
+        v13 = 136315138;
+        v14 = "[AFArbitrationParticipationController _publishFeedbackArbitrationRecord]_block_invoke";
         v8 = "%s #myriad #feedback participation already published throwing out.";
 LABEL_11:
-        _os_log_debug_impl(&dword_1912FE000, v7, OS_LOG_TYPE_DEBUG, v8, &v14, 0xCu);
+        _os_log_debug_impl(&dword_1912FE000, v7, OS_LOG_TYPE_DEBUG, v8, &v13, 0xCu);
       }
     }
 
@@ -511,8 +507,8 @@ LABEL_11:
       v7 = AFSiriLogContextConnection;
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
       {
-        v14 = 136315138;
-        v15 = "[AFArbitrationParticipationController _publishFeedbackArbitrationRecord]_block_invoke";
+        v13 = 136315138;
+        v14 = "[AFArbitrationParticipationController _publishFeedbackArbitrationRecord]_block_invoke";
         v8 = "%s #myriad #feedback participation without request start date, throwing out";
         goto LABEL_11;
       }
@@ -524,21 +520,19 @@ LABEL_11:
     v7 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
-      v14 = 136315138;
-      v15 = "[AFArbitrationParticipationController _publishFeedbackArbitrationRecord]_block_invoke";
+      v13 = 136315138;
+      v14 = "[AFArbitrationParticipationController _publishFeedbackArbitrationRecord]_block_invoke";
       v8 = "%s #myriad #feedback removing participation with nil result";
       goto LABEL_11;
     }
   }
 
 LABEL_13:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_publishFeedbackArbitrationRecordForNearMiss
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   v4 = objc_opt_new();
   v5 = MGCopyAnswer();
@@ -578,8 +572,8 @@ LABEL_13:
   v15 = v14;
   if (v14)
   {
-    v24[0] = v14;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+    v23[0] = v14;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
     [v4 setProductTypes:v16];
   }
 
@@ -595,14 +589,12 @@ LABEL_13:
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v23 = "[AFArbitrationParticipationController _publishFeedbackArbitrationRecordForNearMiss]";
+    v22 = "[AFArbitrationParticipationController _publishFeedbackArbitrationRecordForNearMiss]";
     _os_log_debug_impl(&dword_1912FE000, v19, OS_LOG_TYPE_DEBUG, "%s #myriad #feedback", buf, 0xCu);
   }
 
   settingsConnection = [(AFArbitrationParticipationController *)self settingsConnection];
   [settingsConnection publishFeedbackArbitrationParticipation:v3];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestWillPresentUsefulUserResult:(id)result
@@ -621,18 +613,16 @@ LABEL_13:
 
 uint64_t __75__AFArbitrationParticipationController_requestWillPresentUsefulUserResult___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 136315138;
-    v6 = "[AFArbitrationParticipationController requestWillPresentUsefulUserResult:]_block_invoke";
-    _os_log_debug_impl(&dword_1912FE000, v2, OS_LOG_TYPE_DEBUG, "%s #myriad #feedback event: requestWillPresentUsefulUserResult", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[AFArbitrationParticipationController requestWillPresentUsefulUserResult:]_block_invoke";
+    _os_log_debug_impl(&dword_1912FE000, v2, OS_LOG_TYPE_DEBUG, "%s #myriad #feedback event: requestWillPresentUsefulUserResult", &v4, 0xCu);
   }
 
-  result = [*(a1 + 32) _publishFeedbackArbitrationRecord];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _publishFeedbackArbitrationRecord];
 }
 
 - (void)arbitrationEndedTask:(id)task
@@ -651,18 +641,16 @@ uint64_t __75__AFArbitrationParticipationController_requestWillPresentUsefulUser
 
 uint64_t __61__AFArbitrationParticipationController_arbitrationEndedTask___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 136315138;
-    v6 = "[AFArbitrationParticipationController arbitrationEndedTask:]_block_invoke";
-    _os_log_debug_impl(&dword_1912FE000, v2, OS_LOG_TYPE_DEBUG, "%s #myriad #feedback event: arbitrationEndedTask", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[AFArbitrationParticipationController arbitrationEndedTask:]_block_invoke";
+    _os_log_debug_impl(&dword_1912FE000, v2, OS_LOG_TYPE_DEBUG, "%s #myriad #feedback event: arbitrationEndedTask", &v4, 0xCu);
   }
 
-  result = [*(a1 + 32) _publishFeedbackArbitrationRecord];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _publishFeedbackArbitrationRecord];
 }
 
 - (void)arbitrationEndedAdvertising:(id)advertising
@@ -681,18 +669,16 @@ uint64_t __61__AFArbitrationParticipationController_arbitrationEndedTask___block
 
 uint64_t __68__AFArbitrationParticipationController_arbitrationEndedAdvertising___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 136315138;
-    v6 = "[AFArbitrationParticipationController arbitrationEndedAdvertising:]_block_invoke";
-    _os_log_debug_impl(&dword_1912FE000, v2, OS_LOG_TYPE_DEBUG, "%s #myriad #feedback event: arbitrationEndedAdvertising", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[AFArbitrationParticipationController arbitrationEndedAdvertising:]_block_invoke";
+    _os_log_debug_impl(&dword_1912FE000, v2, OS_LOG_TYPE_DEBUG, "%s #myriad #feedback event: arbitrationEndedAdvertising", &v4, 0xCu);
   }
 
-  result = [*(a1 + 32) _resetSettingsConnection];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _resetSettingsConnection];
 }
 
 - (void)arbitrationDidUpdateWithContext:(id)context session:(id)session completion:(id)completion
@@ -717,12 +703,12 @@ uint64_t __68__AFArbitrationParticipationController_arbitrationEndedAdvertising_
 
 uint64_t __91__AFArbitrationParticipationController_arbitrationDidUpdateWithContext_session_completion___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v18 = "[AFArbitrationParticipationController arbitrationDidUpdateWithContext:session:completion:]_block_invoke";
+    v17 = "[AFArbitrationParticipationController arbitrationDidUpdateWithContext:session:completion:]_block_invoke";
     _os_log_debug_impl(&dword_1912FE000, v2, OS_LOG_TYPE_DEBUG, "%s #myriad #feedback event: arbitrationDidUpdateWithContext", buf, 0xCu);
   }
 
@@ -737,12 +723,10 @@ uint64_t __91__AFArbitrationParticipationController_arbitrationDidUpdateWithCont
   v11 = [*(a1 + 40) requestStartDate];
   v12 = [*(a1 + 40) voiceTriggerDate];
   v13 = [*(a1 + 40) scoreBoosters];
-  LOBYTE(v16) = [*(a1 + 40) deviceClass];
-  [v3 _updateUserFeedbackParticipationAllAdvertisements:v4 session:v5 ownRecord:v6 won:v7 triggerType:v8 lastActivationTime:v11 requestStartDate:v10 voiceTriggerDate:v12 scoreBoosters:v13 deviceClass:v16];
+  LOBYTE(v15) = [*(a1 + 40) deviceClass];
+  [v3 _updateUserFeedbackParticipationAllAdvertisements:v4 session:v5 ownRecord:v6 won:v7 triggerType:v8 lastActivationTime:v11 requestStartDate:v10 voiceTriggerDate:v12 scoreBoosters:v13 deviceClass:v15];
 
-  result = (*(*(a1 + 56) + 16))();
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 56) + 16))();
 }
 
 - (void)arbitrationSessionWillStart:(id)start
@@ -763,13 +747,13 @@ uint64_t __91__AFArbitrationParticipationController_arbitrationDidUpdateWithCont
 
 void __68__AFArbitrationParticipationController_arbitrationSessionWillStart___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 136315138;
-    v11 = "[AFArbitrationParticipationController arbitrationSessionWillStart:]_block_invoke";
-    _os_log_debug_impl(&dword_1912FE000, v2, OS_LOG_TYPE_DEBUG, "%s #myriad #feedback event: arbitrationSessionWillStart", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[AFArbitrationParticipationController arbitrationSessionWillStart:]_block_invoke";
+    _os_log_debug_impl(&dword_1912FE000, v2, OS_LOG_TYPE_DEBUG, "%s #myriad #feedback event: arbitrationSessionWillStart", &v9, 0xCu);
   }
 
   [*(*(a1 + 32) + 24) removeAllObjects];
@@ -785,11 +769,11 @@ void __68__AFArbitrationParticipationController_arbitrationSessionWillStart___bl
     v7 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v10 = 136315394;
-      v11 = "[AFArbitrationParticipationController arbitrationSessionWillStart:]_block_invoke";
-      v12 = 2112;
-      v13 = v4;
-      _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s #myriad #feedback Created participation for %@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[AFArbitrationParticipationController arbitrationSessionWillStart:]_block_invoke";
+      v11 = 2112;
+      v12 = v4;
+      _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s #myriad #feedback Created participation for %@", &v9, 0x16u);
     }
   }
 
@@ -798,13 +782,11 @@ void __68__AFArbitrationParticipationController_arbitrationSessionWillStart___bl
     v8 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 136315138;
-      v11 = "[AFArbitrationParticipationController arbitrationSessionWillStart:]_block_invoke";
-      _os_log_debug_impl(&dword_1912FE000, v8, OS_LOG_TYPE_DEBUG, "%s #myriad #feedback myriad sessionid is nil. Returning", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[AFArbitrationParticipationController arbitrationSessionWillStart:]_block_invoke";
+      _os_log_debug_impl(&dword_1912FE000, v8, OS_LOG_TYPE_DEBUG, "%s #myriad #feedback myriad sessionid is nil. Returning", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (AFSettingsConnection)settingsConnection

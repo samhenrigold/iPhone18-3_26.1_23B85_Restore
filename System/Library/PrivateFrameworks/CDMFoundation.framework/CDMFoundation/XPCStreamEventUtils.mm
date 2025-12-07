@@ -6,7 +6,7 @@
 
 + (id)getXPCEventName:(id)name
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   if (MEMORY[0x1E1298A50]() != MEMORY[0x1E69E9E80])
   {
@@ -19,11 +19,11 @@ LABEL_3:
       goto LABEL_6;
     }
 
-    v10 = 136315138;
-    v11 = "+[XPCStreamEventUtils getXPCEventName:]";
-    v9 = "%s [ERR]: Cannot extract name from XPC event of non-dictionary type";
+    v9 = 136315138;
+    v10 = "+[XPCStreamEventUtils getXPCEventName:]";
+    v8 = "%s [ERR]: Cannot extract name from XPC event of non-dictionary type";
 LABEL_12:
-    _os_log_error_impl(&dword_1DC287000, v4, OS_LOG_TYPE_ERROR, v9, &v10, 0xCu);
+    _os_log_error_impl(&dword_1DC287000, v4, OS_LOG_TYPE_ERROR, v8, &v9, 0xCu);
     goto LABEL_3;
   }
 
@@ -36,16 +36,14 @@ LABEL_12:
       goto LABEL_3;
     }
 
-    v10 = 136315138;
-    v11 = "+[XPCStreamEventUtils getXPCEventName:]";
-    v9 = "%s [ERR]: Cannot extract name from XPC event, since the key is missing";
+    v9 = 136315138;
+    v10 = "+[XPCStreamEventUtils getXPCEventName:]";
+    v8 = "%s [ERR]: Cannot extract name from XPC event, since the key is missing";
     goto LABEL_12;
   }
 
   v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:string];
 LABEL_6:
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

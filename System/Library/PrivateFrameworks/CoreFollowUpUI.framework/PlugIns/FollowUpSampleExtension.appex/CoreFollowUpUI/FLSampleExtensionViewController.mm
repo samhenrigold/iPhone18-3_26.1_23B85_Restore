@@ -2,6 +2,7 @@
 - (void)_appeared;
 - (void)followUpPerformUpdateWithCompletionHandler:(id)handler;
 - (void)processFollowUpItem:(id)item selectedAction:(id)action completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation FLSampleExtensionViewController
@@ -118,6 +119,14 @@ LABEL_15:
   }
 
   [FLAlertControllerHelper presentAlertWithTitle:@"Extension Alert" message:@"We are running in extension process now" actions:v8 presentingController:self];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = FLSampleExtensionViewController;
+  [(FLSampleExtensionViewController *)&v4 viewDidAppear:appear];
+  [(FLSampleExtensionViewController *)self _appeared];
 }
 
 @end

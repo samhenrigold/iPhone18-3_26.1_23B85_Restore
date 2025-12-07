@@ -1,10 +1,13 @@
 @interface UMAppleKeyStoreMock
+- (BOOL)addPersonaWithUUID:(id)d toSession:(unsigned int)session passcode:(id)passcode error:(id *)error;
 - (BOOL)bootstrapVolumeWithMountPoint:(id)point user:(unsigned int)user error:(id *)error;
 - (BOOL)changeSecretrForIdentityWithUUID:(id)d oldPasscode:(id)passcode newPasscode:(id)newPasscode existingSession:(unsigned int)session isACMCredential:(BOOL)credential error:(id *)error;
 - (BOOL)createIdentityWithUUID:(id)d passcode:(id)passcode existingSession:(unsigned int)session existingSessionPasscode:(id)sessionPasscode isACMCredential:(BOOL)credential error:(id *)error;
 - (BOOL)deleteIdentity:(id)identity error:(id *)error;
+- (BOOL)deletePersonaWithUUID:(id)d fromSession:(unsigned int)session error:(id *)error;
 - (BOOL)loadIdentity:(id)identity intoSession:(unsigned int)session error:(id *)error;
 - (BOOL)loginIdentity:(id)identity intoSession:(unsigned int)session passcode:(id)passcode isACMCredential:(BOOL)credential error:(id *)error;
+- (BOOL)mapVolume:(id)volume toSession:(unsigned int)session withPersona:(id)persona error:(id *)error;
 - (BOOL)unloadIdentityFromSession:(unsigned int)session error:(id *)error;
 - (BOOL)unlockIdentity:(unsigned int)identity passcode:(id)passcode isACMCredential:(BOOL)credential error:(id *)error;
 - (BOOL)unlockIdentityInSession:(unsigned int)session passcode:(id)passcode isACMCredential:(BOOL)credential error:(id *)error;
@@ -83,6 +86,92 @@ LABEL_4:
 LABEL_10:
 
   return v8;
+}
+
+- (BOOL)mapVolume:(id)volume toSession:(unsigned int)session withPersona:(id)persona error:(id *)error
+{
+  v8 = *&session;
+  volumeCopy = volume;
+  personaCopy = persona;
+  if (error)
+  {
+    *error = 0;
+  }
+
+  if ([(UMAppleKeyStoreMock *)self ignoreIdentityMethods])
+  {
+    goto LABEL_4;
+  }
+
+  if (self && self->_mapVolumeErrorOverride)
+  {
+    if (error)
+    {
+      v13 = self->_mapVolumeErrorOverride;
+      v12 = 0;
+      *error = v13;
+      goto LABEL_20;
+    }
+
+LABEL_19:
+    v12 = 0;
+    goto LABEL_20;
+  }
+
+  if (personaCopy)
+  {
+    if (self)
+    {
+      personas = self->_personas;
+    }
+
+    else
+    {
+      personas = 0;
+    }
+
+    v15 = personas;
+    v16 = [NSNumber numberWithUnsignedInt:v8];
+    v17 = [(NSMutableDictionary *)v15 objectForKeyedSubscript:v16];
+
+    if (([v17 containsObject:personaCopy] & 1) == 0)
+    {
+      if (error)
+      {
+        *error = [NSError errorWithDomain:NSPOSIXErrorDomain code:2 userInfo:0];
+      }
+
+      goto LABEL_19;
+    }
+
+    v18 = [NSNumber numberWithUnsignedInt:v8];
+    v19 = v18;
+    if (self)
+    {
+      [(NSMutableDictionary *)self->_mappedVolumes setObject:v18 forKeyedSubscript:volumeCopy];
+
+      mappedVolumePersonas = self->_mappedVolumePersonas;
+    }
+
+    else
+    {
+      sub_10008997C(v18, volumeCopy);
+      mappedVolumePersonas = 0;
+    }
+
+    [(NSMutableDictionary *)mappedVolumePersonas setObject:personaCopy forKeyedSubscript:volumeCopy];
+  }
+
+  else
+  {
+    sub_1000899C0();
+  }
+
+LABEL_4:
+  v12 = 1;
+LABEL_20:
+
+  return v12;
 }
 
 - (BOOL)unmapVolume:(id)volume error:(id *)error
@@ -559,6 +648,138 @@ LABEL_13:
   }
 
   return sub_100017D50();
+}
+
+- (BOOL)addPersonaWithUUID:(id)d toSession:(unsigned int)session passcode:(id)passcode error:(id *)error
+{
+  v7 = *&session;
+  dCopy = d;
+  if (error)
+  {
+    *error = 0;
+  }
+
+  if (self)
+  {
+    addPersonaToSessionErrorOverride = self->_addPersonaToSessionErrorOverride;
+    if (addPersonaToSessionErrorOverride)
+    {
+      if (error)
+      {
+        *error = self->_addPersonaToSessionErrorOverride;
+      }
+
+      goto LABEL_15;
+    }
+  }
+
+  else
+  {
+    addPersonaToSessionErrorOverride = 0;
+  }
+
+  if (self)
+  {
+    personas = self->_personas;
+  }
+
+  else
+  {
+    personas = 0;
+  }
+
+  v12 = personas;
+  v13 = [NSNumber numberWithUnsignedInt:v7];
+  v14 = [(NSMutableDictionary *)v12 objectForKeyedSubscript:v13];
+
+  if (!v14)
+  {
+    v14 = +[NSMutableSet set];
+  }
+
+  [v14 addObject:dCopy];
+  if (self)
+  {
+    v15 = self->_personas;
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  v16 = v15;
+  v17 = [NSNumber numberWithUnsignedInt:v7];
+  sub_100017D70(v17);
+
+LABEL_15:
+  return addPersonaToSessionErrorOverride == 0;
+}
+
+- (BOOL)deletePersonaWithUUID:(id)d fromSession:(unsigned int)session error:(id *)error
+{
+  v6 = *&session;
+  dCopy = d;
+  if (error)
+  {
+    *error = 0;
+  }
+
+  if (self)
+  {
+    deletePersonaFromSessionErrorOverride = self->_deletePersonaFromSessionErrorOverride;
+    if (deletePersonaFromSessionErrorOverride)
+    {
+      if (error)
+      {
+        *error = self->_deletePersonaFromSessionErrorOverride;
+      }
+
+      goto LABEL_15;
+    }
+  }
+
+  else
+  {
+    deletePersonaFromSessionErrorOverride = 0;
+  }
+
+  if (self)
+  {
+    personas = self->_personas;
+  }
+
+  else
+  {
+    personas = 0;
+  }
+
+  v11 = personas;
+  v12 = [NSNumber numberWithUnsignedInt:v6];
+  v13 = [(NSMutableDictionary *)v11 objectForKeyedSubscript:v12];
+
+  if (!v13)
+  {
+    v13 = +[NSMutableSet set];
+  }
+
+  [v13 removeObject:dCopy];
+  if (self)
+  {
+    v14 = self->_personas;
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  v15 = v14;
+  v16 = [NSNumber numberWithUnsignedInt:v6];
+  sub_100017D70(v16);
+
+LABEL_15:
+  return deletePersonaFromSessionErrorOverride == 0;
 }
 
 @end

@@ -214,7 +214,7 @@ void __captureSession_Invalidate_block_invoke(uint64_t a1)
     *(*(a1 + 32) + 288) = 0;
   }
 
-  captureSession_stopObservingInvalidAudioRecordingState();
+  captureSession_stopObservingInvalidAudioRecordingState(*(a1 + 40));
   v46 = *(*(a1 + 32) + 368);
   if (v46)
   {
@@ -222,7 +222,7 @@ void __captureSession_Invalidate_block_invoke(uint64_t a1)
     *(*(a1 + 32) + 368) = 0;
   }
 
-  captureSession_cancelPrewarmingTimeoutTimer();
+  captureSession_cancelPrewarmingTimeoutTimer(*(a1 + 40));
 
   v47 = *(a1 + 32);
   *(v47 + 936) = 0;

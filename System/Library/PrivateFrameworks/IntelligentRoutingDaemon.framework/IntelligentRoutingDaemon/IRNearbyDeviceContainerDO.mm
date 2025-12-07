@@ -22,38 +22,36 @@
 
 - (id)exportAsArray
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   nearbyDevices = [(IRNearbyDeviceContainerDO *)self nearbyDevices];
-  v5 = [nearbyDevices countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [nearbyDevices countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(nearbyDevices);
         }
 
-        exportAsDictionary = [*(*(&v12 + 1) + 8 * i) exportAsDictionary];
+        exportAsDictionary = [*(*(&v11 + 1) + 8 * i) exportAsDictionary];
         [v3 addObject:exportAsDictionary];
       }
 
-      v6 = [nearbyDevices countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [nearbyDevices countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -104,39 +102,8 @@
 {
   oCopy = o;
   v5 = oCopy;
-  if (!oCopy)
+  if (!oCopy || (v6 = self->_freezeDateNIHomeDevice == 0, [oCopy freezeDateNIHomeDevice], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (freezeDateNIHomeDevice = self->_freezeDateNIHomeDevice) != 0 && (objc_msgSend(v5, "freezeDateNIHomeDevice"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSDate isEqual:](freezeDateNIHomeDevice, "isEqual:", v10), v10, !v11) || (v12 = self->_nearbyDevices == 0, objc_msgSend(v5, "nearbyDevices"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14))
   {
-    goto LABEL_8;
-  }
-
-  v6 = self->_freezeDateNIHomeDevice == 0;
-  freezeDateNIHomeDevice = [oCopy freezeDateNIHomeDevice];
-  v8 = freezeDateNIHomeDevice != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_8;
-  }
-
-  freezeDateNIHomeDevice = self->_freezeDateNIHomeDevice;
-  if (freezeDateNIHomeDevice)
-  {
-    freezeDateNIHomeDevice2 = [v5 freezeDateNIHomeDevice];
-    v11 = [(NSDate *)freezeDateNIHomeDevice isEqual:freezeDateNIHomeDevice2];
-
-    if (!v11)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  v12 = self->_nearbyDevices == 0;
-  nearbyDevices = [v5 nearbyDevices];
-  v14 = nearbyDevices != 0;
-
-  if (v12 == v14)
-  {
-LABEL_8:
     v17 = 0;
   }
 
@@ -145,8 +112,8 @@ LABEL_8:
     nearbyDevices = self->_nearbyDevices;
     if (nearbyDevices)
     {
-      nearbyDevices2 = [v5 nearbyDevices];
-      v17 = [(NSSet *)nearbyDevices isEqual:nearbyDevices2];
+      nearbyDevices = [v5 nearbyDevices];
+      v17 = [(NSSet *)nearbyDevices isEqual:nearbyDevices];
     }
 
     else
@@ -177,7 +144,7 @@ LABEL_8:
 
 - (IRNearbyDeviceContainerDO)initWithCoder:(id)coder
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"freezeDateNIHomeDevice"];
   if (v5)
@@ -190,9 +157,9 @@ LABEL_8:
       v8 = objc_opt_class();
       v9 = NSStringFromClass(v8);
       v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for IRNearbyDeviceContainerDO key freezeDateNIHomeDevice (expected %@, decoded %@)", v7, v9, 0];
-      v22 = *MEMORY[0x277CCA450];
-      v23[0] = v10;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v21 = *MEMORY[0x277CCA450];
+      v22[0] = v10;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v12 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"IRNearbyDeviceContainerDOOCNTErrorDomain" code:3 userInfo:v11];
       [coderCopy failWithError:v12];
 
@@ -229,7 +196,6 @@ LABEL_5:
   }
 
 LABEL_11:
-  v20 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

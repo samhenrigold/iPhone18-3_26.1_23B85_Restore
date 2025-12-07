@@ -4,6 +4,7 @@
 - (BOOL)shouldShowLabels;
 - (BOOL)shouldShowSubtitle;
 - (CGImage)newAvatarImage;
+- (CGImage)newAvatarImageForConversationDrawingMetadata:(id)metadata allowSnowglobe:(BOOL)snowglobe allowMonogram:(BOOL)monogram;
 - (CGImage)newAvatarImageForRecipientDrawingMetadata:(id)metadata allowMonogram:(BOOL)monogram;
 - (CGImage)newGroupPhotoImageFromFileURL:(id)l;
 - (CGImage)newImageFromData:(id)data;
@@ -44,13 +45,13 @@
 
 - (void)renderInContext:(CGContext *)context
 {
-  v77 = *MEMORY[0x277D85DE8];
-  v5 = SLDaemonLogHandle();
+  v79 = *MEMORY[0x277D85DE8];
+  v5 = SLDaemonLogHandle(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v71 = 138412290;
+    v73 = 138412290;
     selfCopy5 = self;
-    _os_log_impl(&dword_231772000, v5, OS_LOG_TYPE_DEFAULT, "[%@] SLDCollaborationAttributionViewRenderer about to render.", &v71, 0xCu);
+    _os_log_impl(&dword_231772000, v5, OS_LOG_TYPE_DEFAULT, "[%@] SLDCollaborationAttributionViewRenderer about to render.", &v73, 0xCu);
   }
 
   v6 = *MEMORY[0x277CBF3A0];
@@ -74,31 +75,31 @@
     slotTag = [(SLDCollaborationAttributionViewRenderer *)self slotTag];
     v21 = -[SLDCollaborationAttributionViewRenderer shouldShowGenericIconIfApplicableForVariant:](self, "shouldShowGenericIconIfApplicableForVariant:", [slotTag variant]);
 
-    v22 = SLDaemonLogHandle();
-    v23 = os_log_type_enabled(v22, OS_LOG_TYPE_INFO);
+    v23 = SLDaemonLogHandle(v22);
+    v24 = os_log_type_enabled(v23, OS_LOG_TYPE_INFO);
     if (v21)
     {
-      if (v23)
+      if (v24)
       {
-        v71 = 138412290;
+        v73 = 138412290;
         selfCopy5 = self;
-        _os_log_impl(&dword_231772000, v22, OS_LOG_TYPE_INFO, "[%@] SLDCollaborationAttributionViewRenderer Showing generic glyph because avatar image was nil.", &v71, 0xCu);
+        _os_log_impl(&dword_231772000, v23, OS_LOG_TYPE_INFO, "[%@] SLDCollaborationAttributionViewRenderer Showing generic glyph because avatar image was nil.", &v73, 0xCu);
       }
 
       [(SLDCollaborationAttributionViewRenderer *)self drawGenericGlyphInContext:context];
-      v13 = v24;
-      v15 = v25;
-      v17 = v26;
-      v19 = v27;
+      v13 = v25;
+      v15 = v26;
+      v17 = v27;
+      v19 = v28;
     }
 
     else
     {
-      if (v23)
+      if (v24)
       {
-        v71 = 138412290;
+        v73 = 138412290;
         selfCopy5 = self;
-        _os_log_impl(&dword_231772000, v22, OS_LOG_TYPE_INFO, "[%@] SLDCollaborationAttributionViewRenderer Not drawing an avatar because avatar image was nil and generic icon was not supported for the current variant.", &v71, 0xCu);
+        _os_log_impl(&dword_231772000, v23, OS_LOG_TYPE_INFO, "[%@] SLDCollaborationAttributionViewRenderer Not drawing an avatar because avatar image was nil and generic icon was not supported for the current variant.", &v73, 0xCu);
       }
 
       v19 = v9;
@@ -139,13 +140,13 @@
     {
 LABEL_17:
       metricsProvider = [(SLDCollaborationAttributionViewRenderer *)self metricsProvider];
-      v33 = [metricsProvider singleLineTitleForString:title];
+      v34 = [metricsProvider singleLineTitleForString:title];
 
       goto LABEL_20;
     }
 
 LABEL_19:
-    v33 = 0;
+    v34 = 0;
 LABEL_20:
     if ([(SLDCollaborationAttributionViewRenderer *)self shouldShowSubtitle])
     {
@@ -153,133 +154,130 @@ LABEL_20:
       if (withCollaboratorsString)
       {
         metricsProvider2 = [(SLDCollaborationAttributionViewRenderer *)self metricsProvider];
-        v37 = [metricsProvider2 singleLineSubtitleForString:withCollaboratorsString];
+        v38 = [metricsProvider2 singleLineSubtitleForString:withCollaboratorsString];
       }
 
       else
       {
-        v37 = 0;
+        v38 = 0;
       }
     }
 
     else
     {
-      v37 = 0;
+      v38 = 0;
     }
 
-    v78.origin.x = v13;
-    v78.origin.y = v15;
-    v78.size.width = v17;
-    v78.size.height = v19;
-    v80.origin.x = v6;
-    v80.origin.y = v7;
-    v80.size.width = v8;
-    v80.size.height = v9;
-    v38 = 0.0;
-    if (!CGRectEqualToRect(v78, v80))
+    v80.origin.x = v13;
+    v80.origin.y = v15;
+    v80.size.width = v17;
+    v80.size.height = v19;
+    v82.origin.x = v6;
+    v82.origin.y = v7;
+    v82.size.width = v8;
+    v82.size.height = v9;
+    v39 = 0.0;
+    if (!CGRectEqualToRect(v80, v82))
     {
       metricsProvider3 = [(SLDCollaborationAttributionViewRenderer *)self metricsProvider];
       [metricsProvider3 avatarLabelSpace];
-      v38 = v40;
+      v39 = v41;
     }
 
-    v79.origin.x = v13;
-    v79.origin.y = v15;
-    v79.size.width = v17;
-    v79.size.height = v19;
-    MaxX = CGRectGetMaxX(v79);
-    [(SLDCollaborationAttributionViewRenderer *)self heightForLine:v33 withOptions:8];
-    v43 = v42;
-    [(SLDCollaborationAttributionViewRenderer *)self heightForLine:v37 withOptions:8];
-    v45 = v44;
-    v46 = v43 + v44;
-    if (v44 > 0.0)
+    v81.origin.x = v13;
+    v81.origin.y = v15;
+    v81.size.width = v17;
+    v81.size.height = v19;
+    MaxX = CGRectGetMaxX(v81);
+    [(SLDCollaborationAttributionViewRenderer *)self heightForLine:v34 withOptions:8];
+    v44 = v43;
+    v45 = [(SLDCollaborationAttributionViewRenderer *)self heightForLine:v38 withOptions:8];
+    v47 = v46;
+    v48 = v44 + v46;
+    if (v46 > 0.0)
     {
       metricsProvider4 = [(SLDCollaborationAttributionViewRenderer *)self metricsProvider];
       [metricsProvider4 titleSubtitleSpace];
-      v46 = v46 + v48;
+      v48 = v48 + v50;
     }
 
-    v49 = v38 + MaxX;
-    if (v46 >= v19)
+    v51 = v39 + MaxX;
+    if (v48 >= v19)
     {
-      v50 = 0.0;
+      v52 = 0.0;
     }
 
     else
     {
-      v50 = (v19 - v46) * 0.5;
+      v52 = (v19 - v48) * 0.5;
     }
 
-    if (v33)
+    if (v34)
     {
       metricsProvider5 = [(SLDCollaborationAttributionViewRenderer *)self metricsProvider];
       [metricsProvider5 drawingSize];
-      v53 = v52 - v49;
+      v55 = v54 - v51;
 
-      [(SLDCollaborationAttributionViewRenderer *)self drawLine:v33 inRect:context inContext:v49, v50, v53, v43];
-      if (v37)
+      v56 = [(SLDCollaborationAttributionViewRenderer *)self drawLine:v34 inRect:context inContext:v51, v52, v55, v44];
+      if (v38)
       {
 LABEL_35:
         metricsProvider6 = [(SLDCollaborationAttributionViewRenderer *)self metricsProvider];
         [metricsProvider6 titleSubtitleSpace];
-        v56 = v43 + v50 + v55;
+        v59 = v44 + v52 + v58;
         metricsProvider7 = [(SLDCollaborationAttributionViewRenderer *)self metricsProvider];
         [metricsProvider7 drawingSize];
-        v59 = v58 - v49;
+        v62 = v61 - v51;
 
-        [(SLDCollaborationAttributionViewRenderer *)self drawLine:v37 inRect:context inContext:v49, v56, v59, v45];
+        [(SLDCollaborationAttributionViewRenderer *)self drawLine:v38 inRect:context inContext:v51, v59, v62, v47];
 LABEL_42:
 
-        goto LABEL_43;
+        return;
       }
     }
 
     else
     {
-      v60 = SLDaemonLogHandle();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
+      v63 = SLDaemonLogHandle(v45);
+      if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
       {
         slotTag5 = [(SLDCollaborationAttributionViewRenderer *)self slotTag];
         conversationDrawingMetadata = [slotTag5 conversationDrawingMetadata];
         slotTag6 = [(SLDCollaborationAttributionViewRenderer *)self slotTag];
         collaboratorDisplayNames = [slotTag6 collaboratorDisplayNames];
-        v71 = 138412802;
+        v73 = 138412802;
         selfCopy5 = self;
-        v73 = 2112;
-        v74 = conversationDrawingMetadata;
         v75 = 2112;
-        v76 = collaboratorDisplayNames;
-        _os_log_impl(&dword_231772000, v60, OS_LOG_TYPE_INFO, "[%@] SLDCollaborationAttributionViewRenderer failed to draw a title. conversationMetadata:%@ collaborationDisplayNames:%@.", &v71, 0x20u);
+        v76 = conversationDrawingMetadata;
+        v77 = 2112;
+        v78 = collaboratorDisplayNames;
+        _os_log_impl(&dword_231772000, v63, OS_LOG_TYPE_INFO, "[%@] SLDCollaborationAttributionViewRenderer failed to draw a title. conversationMetadata:%@ collaborationDisplayNames:%@.", &v73, 0x20u);
       }
 
-      if (v37)
+      if (v38)
       {
         goto LABEL_35;
       }
     }
 
-    v65 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
+    v68 = SLDaemonLogHandle(v56);
+    if (os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
     {
       slotTag7 = [(SLDCollaborationAttributionViewRenderer *)self slotTag];
       conversationDrawingMetadata2 = [slotTag7 conversationDrawingMetadata];
       slotTag8 = [(SLDCollaborationAttributionViewRenderer *)self slotTag];
       collaboratorDisplayNames2 = [slotTag8 collaboratorDisplayNames];
-      v71 = 138412802;
+      v73 = 138412802;
       selfCopy5 = self;
-      v73 = 2112;
-      v74 = conversationDrawingMetadata2;
       v75 = 2112;
-      v76 = collaboratorDisplayNames2;
-      _os_log_impl(&dword_231772000, v65, OS_LOG_TYPE_INFO, "[%@] SLDCollaborationAttributionViewRenderer failed to draw a subtitle. conversationMetadata:%@ collaborationDisplayNames:%@.", &v71, 0x20u);
+      v76 = conversationDrawingMetadata2;
+      v77 = 2112;
+      v78 = collaboratorDisplayNames2;
+      _os_log_impl(&dword_231772000, v68, OS_LOG_TYPE_INFO, "[%@] SLDCollaborationAttributionViewRenderer failed to draw a subtitle. conversationMetadata:%@ collaborationDisplayNames:%@.", &v73, 0x20u);
     }
 
     goto LABEL_42;
   }
-
-LABEL_43:
-  v70 = *MEMORY[0x277D85DE8];
 }
 
 - (CGImage)newGroupPhotoImageFromFileURL:(id)l
@@ -291,36 +289,36 @@ LABEL_43:
     v11 = 0;
     v5 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:lCopy options:1 error:&v11];
     v6 = v11;
+    v7 = v6;
     if (v5)
     {
-      v7 = SLDCreateGroupPhotoImageWithData(v5);
+      v8 = SLDCreateGroupPhotoImageWithData(v5);
     }
 
     else
     {
-      v8 = SLDaemonLogHandle();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = SLDaemonLogHandle(v6);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
         selfCopy = self;
         v14 = 2112;
         v15 = lCopy;
         v16 = 2112;
-        v17 = v6;
-        _os_log_error_impl(&dword_231772000, v8, OS_LOG_TYPE_ERROR, "[%@] SLDCollaborationAttributionViewRenderer failed to retrieve group photo data from file URL %@. error: %@", buf, 0x20u);
+        v17 = v7;
+        _os_log_error_impl(&dword_231772000, v9, OS_LOG_TYPE_ERROR, "[%@] SLDCollaborationAttributionViewRenderer failed to retrieve group photo data from file URL %@. error: %@", buf, 0x20u);
       }
 
-      v7 = 0;
+      v8 = 0;
     }
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return v7;
+  return v8;
 }
 
 - (CGImage)newSnowglobeImageWithCGImages:(id)images
@@ -373,17 +371,16 @@ LABEL_43:
   v20 = MEMORY[0x277CFBF20];
   v21 = [v6 count];
   v22 = [v20 imageForAvatarImages:v10 badgeImages:0 badgeTypes:MEMORY[0x277CBEBF8] rect:v21 itemCount:v19 scope:{0.0, 0.0, v16, v16}];
-  CFRetain(v22);
+  v23 = CFRetain(v22);
   if (!v22)
   {
-    v23 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = SLDaemonLogHandle(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      [(SLDCollaborationAttributionViewRenderer *)self newSnowglobeImageWithCGImages:imagesCopy, v23];
+      [(SLDCollaborationAttributionViewRenderer *)self newSnowglobeImageWithCGImages:imagesCopy, v24];
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -451,8 +448,8 @@ LABEL_6:
   CGColorSpaceRelease(DeviceRGB);
   if (!Image)
   {
-    v17 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = SLDaemonLogHandle(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [SLDCollaborationAttributionViewRenderer newMonogramImageForContact:];
     }
@@ -465,6 +462,128 @@ LABEL_7:
   return Image;
 }
 
+- (CGImage)newAvatarImageForConversationDrawingMetadata:(id)metadata allowSnowglobe:(BOOL)snowglobe allowMonogram:(BOOL)monogram
+{
+  monogramCopy = monogram;
+  snowglobeCopy = snowglobe;
+  v38 = *MEMORY[0x277D85DE8];
+  metadataCopy = metadata;
+  if (![metadataCopy isGroupConversation])
+  {
+    recipientDrawingMetadata = [metadataCopy recipientDrawingMetadata];
+    firstObject = [recipientDrawingMetadata firstObject];
+
+    if (firstObject)
+    {
+      v17 = [(SLDCollaborationAttributionViewRenderer *)self newAvatarImageForRecipientDrawingMetadata:firstObject allowMonogram:monogramCopy];
+LABEL_21:
+      v13 = v17;
+LABEL_28:
+
+      goto LABEL_29;
+    }
+
+    v27 = SLDaemonLogHandle(v19);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412546;
+      selfCopy3 = self;
+      v36 = 2112;
+      v37 = metadataCopy;
+      _os_log_impl(&dword_231772000, v27, OS_LOG_TYPE_INFO, "[%@] SLDCollaborationAttributionViewRenderer Returning nil for avatar image because recipient drawing metadata was nil. %@.", buf, 0x16u);
+    }
+
+LABEL_27:
+    v13 = 0;
+    goto LABEL_28;
+  }
+
+  groupID = [metadataCopy groupID];
+  if (!groupID || (v10 = groupID, [metadataCopy groupPhotoFileURL], v11 = objc_claimAutoreleasedReturnValue(), v11, v10, !v11))
+  {
+    if (snowglobeCopy)
+    {
+      firstObject = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v29 = 0u;
+      v30 = 0u;
+      v31 = 0u;
+      v32 = 0u;
+      recipientDrawingMetadata2 = [metadataCopy recipientDrawingMetadata];
+      v21 = [recipientDrawingMetadata2 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      if (v21)
+      {
+        v22 = v21;
+        v23 = *v30;
+        do
+        {
+          v24 = 0;
+          do
+          {
+            if (*v30 != v23)
+            {
+              objc_enumerationMutation(recipientDrawingMetadata2);
+            }
+
+            v25 = [(SLDCollaborationAttributionViewRenderer *)self newAvatarImageForRecipientDrawingMetadata:*(*(&v29 + 1) + 8 * v24) allowMonogram:1];
+            if (v25)
+            {
+              v26 = v25;
+              [firstObject addObject:v25];
+              CFRelease(v26);
+            }
+
+            ++v24;
+          }
+
+          while (v22 != v24);
+          v22 = [recipientDrawingMetadata2 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        }
+
+        while (v22);
+      }
+
+      v17 = [(SLDCollaborationAttributionViewRenderer *)self newSnowglobeImageWithCGImages:firstObject];
+      goto LABEL_21;
+    }
+
+    firstObject = SLDaemonLogHandle(groupID);
+    if (os_log_type_enabled(firstObject, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412546;
+      selfCopy3 = self;
+      v36 = 2112;
+      v37 = metadataCopy;
+      _os_log_impl(&dword_231772000, firstObject, OS_LOG_TYPE_INFO, "[%@] SLDCollaborationAttributionViewRenderer Returning nil for avatar image because there was no group photo and snowglobes aren't allowed. %@.", buf, 0x16u);
+    }
+
+    goto LABEL_27;
+  }
+
+  groupID2 = [metadataCopy groupID];
+  v13 = SLDCreateGroupPhotoImageWithGroupID(groupID2);
+
+  if (!v13)
+  {
+    v15 = SLDaemonLogHandle(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412546;
+      selfCopy3 = self;
+      v36 = 2112;
+      v37 = metadataCopy;
+      _os_log_impl(&dword_231772000, v15, OS_LOG_TYPE_INFO, "[%@] SLDCollaborationAttributionViewRenderer Failed to get avatar image from IMSPI. Trying with groupPhotoFileURL. %@.", buf, 0x16u);
+    }
+
+    firstObject = [metadataCopy groupPhotoFileURL];
+    v17 = [(SLDCollaborationAttributionViewRenderer *)self newGroupPhotoImageFromFileURL:firstObject];
+    goto LABEL_21;
+  }
+
+LABEL_29:
+
+  return v13;
+}
+
 - (CGImage)newAvatarImageForRecipientDrawingMetadata:(id)metadata allowMonogram:(BOOL)monogram
 {
   monogramCopy = monogram;
@@ -473,49 +592,50 @@ LABEL_7:
   contact = [metadataCopy contact];
   if (!contact)
   {
-    contactImageData = SLDaemonLogHandle();
-    if (os_log_type_enabled(contactImageData, OS_LOG_TYPE_INFO))
+    v9 = SLDaemonLogHandle(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v14 = 138412546;
       selfCopy2 = self;
       v16 = 2112;
       v17 = metadataCopy;
-      _os_log_impl(&dword_231772000, contactImageData, OS_LOG_TYPE_INFO, "[%@] SLDCollaborationAttributionViewRenderer Returning nil for avatar image because recipient contact was nil. %@.", &v14, 0x16u);
+      _os_log_impl(&dword_231772000, v9, OS_LOG_TYPE_INFO, "[%@] SLDCollaborationAttributionViewRenderer Returning nil for avatar image because recipient contact was nil. %@.", &v14, 0x16u);
     }
 
     goto LABEL_15;
   }
 
   contactImageData = [metadataCopy contactImageData];
+  v9 = contactImageData;
   if (!contactImageData)
   {
     if (monogramCopy)
     {
 LABEL_11:
-      v9 = [(SLDCollaborationAttributionViewRenderer *)self newMonogramImageForContact:contact];
+      v10 = [(SLDCollaborationAttributionViewRenderer *)self newMonogramImageForContact:contact];
       goto LABEL_16;
     }
 
-    v11 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = SLDaemonLogHandle(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v14 = 138412546;
       selfCopy2 = self;
       v16 = 2112;
       v17 = metadataCopy;
-      _os_log_impl(&dword_231772000, v11, OS_LOG_TYPE_INFO, "[%@] SLDCollaborationAttributionViewRenderer Returning nil for avatar image because there was no contact photo and monograms aren't allowed. %@.", &v14, 0x16u);
+      _os_log_impl(&dword_231772000, v12, OS_LOG_TYPE_INFO, "[%@] SLDCollaborationAttributionViewRenderer Returning nil for avatar image because there was no contact photo and monograms aren't allowed. %@.", &v14, 0x16u);
     }
 
 LABEL_15:
-    v9 = 0;
+    v10 = 0;
     goto LABEL_16;
   }
 
-  v9 = [(SLDCollaborationAttributionViewRenderer *)self newImageFromData:contactImageData];
-  if (!v9 && monogramCopy)
+  v10 = [(SLDCollaborationAttributionViewRenderer *)self newImageFromData:contactImageData];
+  if (!v10 && monogramCopy)
   {
-    v10 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = SLDaemonLogHandle(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [SLDCollaborationAttributionViewRenderer newAvatarImageForRecipientDrawingMetadata:allowMonogram:];
     }
@@ -525,19 +645,18 @@ LABEL_15:
 
 LABEL_16:
 
-  v12 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v10;
 }
 
 - (CGImage)newAvatarImage
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   slotTag = [(SLDCollaborationAttributionViewRenderer *)self slotTag];
   isPlaceholder = [slotTag isPlaceholder];
 
   if (isPlaceholder)
   {
-    conversationDrawingMetadata = SLDaemonLogHandle();
+    conversationDrawingMetadata = SLDaemonLogHandle(v5);
     if (os_log_type_enabled(conversationDrawingMetadata, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
@@ -552,92 +671,92 @@ LABEL_16:
   conversationDrawingMetadata = [slotTag2 conversationDrawingMetadata];
 
   slotTag3 = [(SLDCollaborationAttributionViewRenderer *)self slotTag];
-  v8 = -[SLDCollaborationAttributionViewRenderer shouldShowSnowglobeIfApplicableForVariant:](self, "shouldShowSnowglobeIfApplicableForVariant:", [slotTag3 variant]);
+  v9 = -[SLDCollaborationAttributionViewRenderer shouldShowSnowglobeIfApplicableForVariant:](self, "shouldShowSnowglobeIfApplicableForVariant:", [slotTag3 variant]);
 
   slotTag4 = [(SLDCollaborationAttributionViewRenderer *)self slotTag];
-  v10 = -[SLDCollaborationAttributionViewRenderer shouldShowMonogramIfApplicableForVariant:](self, "shouldShowMonogramIfApplicableForVariant:", [slotTag4 variant]);
+  v11 = -[SLDCollaborationAttributionViewRenderer shouldShowMonogramIfApplicableForVariant:](self, "shouldShowMonogramIfApplicableForVariant:", [slotTag4 variant]);
 
   if ([conversationDrawingMetadata count]== 1)
   {
     firstObject = [conversationDrawingMetadata firstObject];
-    v12 = [(SLDCollaborationAttributionViewRenderer *)self newAvatarImageForConversationDrawingMetadata:firstObject allowSnowglobe:v8 allowMonogram:v10];
+    v13 = [(SLDCollaborationAttributionViewRenderer *)self newAvatarImageForConversationDrawingMetadata:firstObject allowSnowglobe:v9 allowMonogram:v11];
 
     goto LABEL_25;
   }
 
-  if ([conversationDrawingMetadata count]< 2)
+  v14 = [conversationDrawingMetadata count];
+  if (v14 < 2)
   {
-    v20 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v22 = SLDaemonLogHandle(v14);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
       selfCopy3 = self;
-      v21 = "[%@] SLDCollaborationAttributionViewRenderer Returning nil for avatar image because slot tag conversationDrawingMetadata was empty.";
+      v23 = "[%@] SLDCollaborationAttributionViewRenderer Returning nil for avatar image because slot tag conversationDrawingMetadata was empty.";
 LABEL_22:
-      _os_log_impl(&dword_231772000, v20, OS_LOG_TYPE_INFO, v21, buf, 0xCu);
+      _os_log_impl(&dword_231772000, v22, OS_LOG_TYPE_INFO, v23, buf, 0xCu);
     }
 
 LABEL_23:
 
 LABEL_24:
-    v12 = 0;
+    v13 = 0;
     goto LABEL_25;
   }
 
-  if (!v8)
+  if (!v9)
   {
-    v20 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v22 = SLDaemonLogHandle(v14);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
       selfCopy3 = self;
-      v21 = "[%@] SLDCollaborationAttributionViewRenderer Returning nil for avatar image because snowglobes were not allowed for the current variant.";
+      v23 = "[%@] SLDCollaborationAttributionViewRenderer Returning nil for avatar image because snowglobes were not allowed for the current variant.";
       goto LABEL_22;
     }
 
     goto LABEL_23;
   }
 
-  v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v24 = 0u;
+  v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
   conversationDrawingMetadata = conversationDrawingMetadata;
-  v14 = [conversationDrawingMetadata countByEnumeratingWithState:&v24 objects:v30 count:16];
-  if (v14)
+  v16 = [conversationDrawingMetadata countByEnumeratingWithState:&v25 objects:v31 count:16];
+  if (v16)
   {
-    v15 = v14;
-    v16 = *v25;
+    v17 = v16;
+    v18 = *v26;
     do
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v17; ++i)
       {
-        if (*v25 != v16)
+        if (*v26 != v18)
         {
           objc_enumerationMutation(conversationDrawingMetadata);
         }
 
-        v18 = [(SLDCollaborationAttributionViewRenderer *)self newAvatarImageForConversationDrawingMetadata:*(*(&v24 + 1) + 8 * i) allowSnowglobe:0 allowMonogram:1, v24];
-        if (v18)
+        v20 = [(SLDCollaborationAttributionViewRenderer *)self newAvatarImageForConversationDrawingMetadata:*(*(&v25 + 1) + 8 * i) allowSnowglobe:0 allowMonogram:1, v25];
+        if (v20)
         {
-          v19 = v18;
-          [v13 addObject:v18];
-          CFRelease(v19);
+          v21 = v20;
+          [v15 addObject:v20];
+          CFRelease(v21);
         }
       }
 
-      v15 = [conversationDrawingMetadata countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v17 = [conversationDrawingMetadata countByEnumeratingWithState:&v25 objects:v31 count:16];
     }
 
-    while (v15);
+    while (v17);
   }
 
-  v12 = [(SLDCollaborationAttributionViewRenderer *)self newSnowglobeImageWithCGImages:v13];
+  v13 = [(SLDCollaborationAttributionViewRenderer *)self newSnowglobeImageWithCGImages:v15];
 LABEL_25:
 
-  v22 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v13;
 }
 
 - (CGRect)drawGenericGlyphInContext:(CGContext *)context
@@ -865,7 +984,7 @@ LABEL_6:
   if (![v6 count])
   {
     v12 = MEMORY[0x277CCACA8];
-    v13 = SLFrameworkBundle();
+    v13 = SLFrameworkBundle(0);
     v14 = v13;
     if (with)
     {
@@ -887,7 +1006,7 @@ LABEL_6:
     if ([v6 count] == 2)
     {
       v16 = MEMORY[0x277CCACA8];
-      v17 = SLFrameworkBundle();
+      v17 = SLFrameworkBundle(2);
       v14 = v17;
       if (with)
       {
@@ -909,7 +1028,7 @@ LABEL_6:
     {
       v20 = [v6 count];
       v21 = MEMORY[0x277CCACA8];
-      v22 = SLFrameworkBundle();
+      v22 = SLFrameworkBundle(v20);
       v14 = v22;
       if (v20 == 3)
       {
@@ -957,7 +1076,7 @@ LABEL_26:
   if (with)
   {
     v7 = MEMORY[0x277CCACA8];
-    v8 = SLFrameworkBundle();
+    v8 = SLFrameworkBundle(1);
     v9 = [v8 localizedStringForKey:@"With %@" value:&stru_28468DAB8 table:@"SocialLayer"];
     firstObject = [v6 firstObject];
     firstObject2 = [v7 stringWithFormat:v9, firstObject];
@@ -991,29 +1110,12 @@ LABEL_27:
 
 - (void)newSnowglobeImageWithCGImages:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2048;
-  v8 = [a2 count];
-  _os_log_error_impl(&dword_231772000, a3, OS_LOG_TYPE_ERROR, "[%@] SLDCollaborationAttributionViewRenderer Had images, but the snowglobe image ref was still nil. cgImages.count: %li", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)newMonogramImageForContact:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_0(&dword_231772000, v0, v1, "[%@] SLDCollaborationAttributionViewRenderer Had a contact, but the monogram image ref was still nil. contact: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)newAvatarImageForRecipientDrawingMetadata:allowMonogram:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_0(&dword_231772000, v0, v1, "[%@] SLDCollaborationAttributionViewRenderer Had contact image data, but avatar image was still nil. Falling back to monogram. %@.");
-  v2 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2048;
+  v7 = [a2 count];
+  _os_log_error_impl(&dword_231772000, a3, OS_LOG_TYPE_ERROR, "[%@] SLDCollaborationAttributionViewRenderer Had images, but the snowglobe image ref was still nil. cgImages.count: %li", &v4, 0x16u);
 }
 
 @end

@@ -10,9 +10,9 @@
 - (WLURLSessionController)initWithAuthentication:(id)authentication
 {
   authenticationCopy = authentication;
-  v15.receiver = self;
-  v15.super_class = WLURLSessionController;
-  v6 = [(WLURLSessionController *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = WLURLSessionController;
+  v6 = [(WLURLSessionController *)&v14 init];
   v7 = v6;
   if (v6)
   {
@@ -29,7 +29,6 @@
     urlSession = v7->_urlSession;
     v7->_urlSession = v11;
 
-    v14 = v7->_urlSession;
     _WLLog();
   }
 
@@ -59,7 +58,7 @@
 
 - (void)URLSession:(id)session didReceiveChallenge:(id)challenge completionHandler:(id)handler
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   challengeCopy = challenge;
   handlerCopy = handler;
@@ -86,46 +85,45 @@ LABEL_3:
     v15 = +[WLCredentialStore sharedInstance];
     v16 = [v15 credentialsForAuthentication:self->_auth];
 
-    v17 = *MEMORY[0x277CBECE8];
     [v16 localCertificate];
     [v16 privateKey];
-    v18 = SecIdentityCreate();
-    v19 = MEMORY[0x277CCACF0];
-    v37[0] = [v16 localCertificate];
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
-    v21 = [v19 credentialWithIdentity:v18 certificates:v20 persistence:2];
+    v17 = SecIdentityCreate();
+    v18 = MEMORY[0x277CCACF0];
+    v35[0] = [v16 localCertificate];
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
+    v20 = [v18 credentialWithIdentity:v17 certificates:v19 persistence:2];
 
-    (handlerCopy)[2](handlerCopy, 0, v21);
+    (handlerCopy)[2](handlerCopy, 0, v20);
     goto LABEL_14;
   }
 
   protectionSpace3 = [challengeCopy protectionSpace];
   authenticationMethod3 = [protectionSpace3 authenticationMethod];
-  v24 = [authenticationMethod3 isEqualToString:*MEMORY[0x277CCA720]];
+  v23 = [authenticationMethod3 isEqualToString:*MEMORY[0x277CCA720]];
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_3;
   }
 
-  v25 = +[WLCredentialStore sharedInstance];
-  v26 = [v25 credentialsForAuthentication:self->_auth];
+  v24 = +[WLCredentialStore sharedInstance];
+  v25 = [v24 credentialsForAuthentication:self->_auth];
 
-  [v26 remoteCertificate];
-  v27 = SecCertificateCopySHA256Digest();
+  [v25 remoteCertificate];
+  v26 = SecCertificateCopySHA256Digest();
   protectionSpace4 = [challengeCopy protectionSpace];
-  v29 = SecTrustCopyCertificateChain([protectionSpace4 serverTrust]);
+  v28 = SecTrustCopyCertificateChain([protectionSpace4 serverTrust]);
 
-  if (CFArrayGetCount(v29))
+  if (CFArrayGetCount(v28))
   {
-    CFArrayGetValueAtIndex(v29, 0);
-    v30 = SecCertificateCopySHA256Digest();
-    if ([v27 isEqualToData:v30])
+    CFArrayGetValueAtIndex(v28, 0);
+    v29 = SecCertificateCopySHA256Digest();
+    if ([v26 isEqualToData:v29])
     {
-      v31 = MEMORY[0x277CCACF0];
+      v30 = MEMORY[0x277CCACF0];
       protectionSpace5 = [challengeCopy protectionSpace];
-      v33 = [v31 credentialForTrust:{objc_msgSend(protectionSpace5, "serverTrust")}];
-      (handlerCopy)[2](handlerCopy, 0, v33);
+      v32 = [v30 credentialForTrust:{objc_msgSend(protectionSpace5, "serverTrust")}];
+      (handlerCopy)[2](handlerCopy, 0, v32);
     }
 
     else
@@ -142,7 +140,6 @@ LABEL_3:
   }
 
 LABEL_14:
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 @end

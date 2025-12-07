@@ -1,10 +1,10 @@
 @interface WebFrameView(WebInternal)
-+ (uint64_t)_viewTypesAllowImageTypeOmission:()WebInternal;
++ (void)_viewTypesAllowImageTypeOmission:()WebInternal;
 @end
 
 @implementation WebFrameView(WebInternal)
 
-+ (uint64_t)_viewTypesAllowImageTypeOmission:()WebInternal
++ (void)_viewTypesAllowImageTypeOmission:()WebInternal
 {
   v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
   *self = v2;

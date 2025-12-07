@@ -26,7 +26,7 @@
 {
   appearCopy = appear;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for CardListController();
+  v7.super_class = type metadata accessor for CardListController(0);
   v4 = v7.receiver;
   [(CardListController *)&v7 viewWillAppear:appearCopy];
   v5 = sub_1000336B0();
@@ -144,7 +144,7 @@
 
 - (void)collectionView:(id)view didDeselectItemAtIndexPath:(id)path
 {
-  v5 = sub_100005AD4(&unk_1003AB970);
+  v5 = sub_100005AD4(&unk_1003AB970, &unk_1002DD540);
   __chkstk_darwin(v5 - 8);
   v7 = &v13 - v6;
   v8 = type metadata accessor for IndexPath();
@@ -157,7 +157,7 @@
   selfCopy = self;
   sub_100035F80(v7, 1);
 
-  sub_100009EBC(v7, &unk_1003AB970);
+  sub_100009EBC(v7, &unk_1003AB970, &unk_1002DD540);
   (*(v9 + 8))(v11, v8);
 }
 

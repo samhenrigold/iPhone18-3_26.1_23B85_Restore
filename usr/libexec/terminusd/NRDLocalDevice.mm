@@ -131,7 +131,7 @@ LABEL_13:
     if (IsLevelEnabled)
     {
       v90 = sub_10015B480();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v90, 17, "%s called with null nrUUID", "[NRDLocalDevice initWithCoder:]");
     }
 
     selfCopy2 = 0;
@@ -510,7 +510,7 @@ LABEL_12:
         dispatch_once(&qword_100229488, &stru_1001FD018);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100229480, 0, "%s%.30s:%-4d Migrating legacy ClassD keys for %@", ", "[NRDLocalDevice initWithCoder:]"", 2202, v7);
     }
 
     v82 = sub_10015D958([NRDLDDataClassKeychainItems alloc], v81);
@@ -542,7 +542,7 @@ LABEL_12:
         dispatch_once(&qword_100229488, &stru_1001FD018);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_100229480, 0, "%s%.30s:%-4d Migrating legacy OOBK key for %@", ", "[NRDLocalDevice initWithCoder:]"", 2210, v7);
     }
 
     v85 = sub_10015DD58([NRDLDKeychainItemData alloc], v84);
@@ -589,13 +589,13 @@ LABEL_10:
     if (IsLevelEnabled)
     {
       v18 = sub_10015B480();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v18, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (newDevice) != ((void*)0)", ", "[NRDLocalDevice copyWithZone:]"", 2076);
     }
 
     v5 = _os_log_pack_size();
     v8 = &v71 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v19 = *__error();
-    v20 = _os_log_pack_fill();
+    v19 = __error();
+    v20 = _os_log_pack_fill(v8, v5, *v19, &_mh_execute_header, "%{public}s Assertion Failed: (newDevice) != ((void*)0)");
     *v20 = 136446210;
     *(v20 + 4) = "[NRDLocalDevice copyWithZone:]";
     sub_10015B480();

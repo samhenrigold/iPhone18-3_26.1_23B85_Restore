@@ -187,7 +187,6 @@ LABEL_18:
 
   if (iataCode)
   {
-    iataCode = self->_iataCode;
     PBDataWriterWriteStringField();
   }
 
@@ -195,18 +194,16 @@ LABEL_18:
 
   if (icaoCode)
   {
-    icaoCode = self->_icaoCode;
     PBDataWriterWriteStringField();
   }
 
   name = [(_INPBAirline *)self name];
 
-  v9 = toCopy;
+  v7 = toCopy;
   if (name)
   {
-    name = self->_name;
     PBDataWriterWriteStringField();
-    v9 = toCopy;
+    v7 = toCopy;
   }
 }
 

@@ -45,11 +45,10 @@
 
 - (void)startMonitoring
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1C0E8A000, a2, OS_LOG_TYPE_DEBUG, "AXSSMotionTrackingHIDManager: startMonitoring %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1C0E8A000, a2, OS_LOG_TYPE_DEBUG, "AXSSMotionTrackingHIDManager: startMonitoring %@", &v2, 0xCu);
 }
 
 void __47__AXSSMotionTrackingHIDManager_startMonitoring__block_invoke(uint64_t a1, void *a2, char a3)
@@ -76,11 +75,10 @@ void __47__AXSSMotionTrackingHIDManager_startMonitoring__block_invoke_2(uint64_t
 
 - (void)stopMonitoring
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1C0E8A000, a2, OS_LOG_TYPE_DEBUG, "AXSSMotionTrackingHIDManager: stopMonitoring %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1C0E8A000, a2, OS_LOG_TYPE_DEBUG, "AXSSMotionTrackingHIDManager: stopMonitoring %@", &v2, 0xCu);
 }
 
 - (NSArray)devices
@@ -183,50 +181,45 @@ LABEL_21:
 
 - (void)_deviceNotification:(os_log_t)log added:.cold.1(uint64_t a1, char a2, os_log_t log)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = @"NO";
-  v6 = "[AXSSMotionTrackingHIDManager _deviceNotification:added:]";
-  v5 = 136315650;
-  v7 = 2112;
-  v8 = a1;
+  v5 = "[AXSSMotionTrackingHIDManager _deviceNotification:added:]";
+  v4 = 136315650;
+  v6 = 2112;
+  v7 = a1;
   if (a2)
   {
     v3 = @"YES";
   }
 
-  v9 = 2112;
-  v10 = v3;
-  _os_log_debug_impl(&dword_1C0E8A000, log, OS_LOG_TYPE_DEBUG, "%s: device: %@, added: %@", &v5, 0x20u);
-  v4 = *MEMORY[0x1E69E9840];
+  v8 = 2112;
+  v9 = v3;
+  _os_log_debug_impl(&dword_1C0E8A000, log, OS_LOG_TYPE_DEBUG, "%s: device: %@, added: %@", &v4, 0x20u);
 }
 
 - (void)_deviceNotification:added:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_8();
-  _os_log_error_impl(&dword_1C0E8A000, v0, OS_LOG_TYPE_ERROR, "%s: device is not MFi authenticated!: %@", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1C0E8A000, v0, OS_LOG_TYPE_ERROR, "%s: device is not MFi authenticated!: %@", v1, 0x16u);
 }
 
 - (void)_deviceNotification:added:.cold.3()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_8();
-  _os_log_error_impl(&dword_1C0E8A000, v0, OS_LOG_TYPE_ERROR, "%s: device does not support X or Y position usages. Note: this might be a valid eye tracker and you may be missing proper entitlements. %@", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1C0E8A000, v0, OS_LOG_TYPE_ERROR, "%s: device does not support X or Y position usages. Note: this might be a valid eye tracker and you may be missing proper entitlements. %@", v1, 0x16u);
 }
 
 - (void)_deviceNotification:(void *)a1 added:(NSObject *)a2 .cold.4(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = [a1 _devices];
-  v5[0] = 136315394;
+  v4[0] = 136315394;
   OUTLINED_FUNCTION_0_8();
-  _os_log_debug_impl(&dword_1C0E8A000, a2, OS_LOG_TYPE_DEBUG, "%s: notifying delegate of updated devices: %@", v5, 0x16u);
-
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1C0E8A000, a2, OS_LOG_TYPE_DEBUG, "%s: notifying delegate of updated devices: %@", v4, 0x16u);
 }
 
 @end

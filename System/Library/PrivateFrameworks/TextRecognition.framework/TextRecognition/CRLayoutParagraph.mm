@@ -17,48 +17,48 @@
 
 - (NSUUID)uuid
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB884870);
-  MEMORY[0x1EEE9AC00](v3 - 8, v4);
-  v6 = &v14 - v5;
-  v7 = OBJC_IVAR____TtC15TextRecognition17CRLayoutParagraph_uuid;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB884870, &qword_1B42AC0A0);
+  MEMORY[0x1EEE9AC00](v3 - 8);
+  v5 = &v13 - v4;
+  v6 = OBJC_IVAR____TtC15TextRecognition17CRLayoutParagraph_uuid;
   swift_beginAccess();
-  sub_1B40DDA80(self + v7, v6);
-  v8 = sub_1B429F6D8();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  sub_1B40DDA80(self + v6, v5);
+  v7 = sub_1B429F6D8();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_1B429F6A8();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_1B429F6A8();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)setUuid:(id)uuid
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB884870);
-  MEMORY[0x1EEE9AC00](v5 - 8, v6);
-  v8 = &v13 - v7;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB884870, &qword_1B42AC0A0);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = &v12 - v6;
   if (uuid)
   {
     sub_1B429F6B8();
-    v9 = sub_1B429F6D8();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = sub_1B429F6D8();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = sub_1B429F6D8();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = sub_1B429F6D8();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
-  v11 = OBJC_IVAR____TtC15TextRecognition17CRLayoutParagraph_uuid;
+  v10 = OBJC_IVAR____TtC15TextRecognition17CRLayoutParagraph_uuid;
   swift_beginAccess();
   selfCopy = self;
-  sub_1B41289B4(v8, self + v11);
+  sub_1B41289B4(v7, self + v10);
   swift_endAccess();
 }
 
@@ -85,7 +85,7 @@
 {
   swift_beginAccess();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB884BF0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB884BF0, &qword_1B42ACD90);
   v2 = sub_1B429FDE8();
 
   return v2;
@@ -93,7 +93,7 @@
 
 - (void)setSubregions:(id)subregions
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB884BF0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB884BF0, &qword_1B42ACD90);
   v4 = sub_1B429FDF8();
   v5 = OBJC_IVAR____TtC15TextRecognition17CRLayoutParagraph_subregions;
   swift_beginAccess();

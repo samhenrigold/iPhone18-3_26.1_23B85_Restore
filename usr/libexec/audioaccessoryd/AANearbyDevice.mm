@@ -79,126 +79,147 @@
 - (id)descriptionWithLevel:(int)level
 {
   levelCopy = level;
-  identifier = self->_identifier;
-  NSAppendPrintF_safe();
-  v5 = 0;
+  v47 = 0;
+  NSAppendPrintF_safe(&v47, "AANearbyDevice identifier: %@", self->_identifier);
+  v5 = v47;
   bluetoothAddress = [(AANearbyDevice *)self bluetoothAddress];
+  v7 = bluetoothAddress;
   if (bluetoothAddress)
   {
-    NSAppendPrintF_safe();
-    v7 = v5;
+    v46 = v5;
+    NSAppendPrintF_safe(&v46, ", Bt addr '%@'", bluetoothAddress);
+    v8 = v46;
 
-    v5 = v7;
+    v5 = v8;
   }
 
   model = [(AANearbyDevice *)self model];
+  v10 = model;
   if (model)
   {
-    NSAppendPrintF_safe();
-    v9 = v5;
-
-    v5 = v9;
-  }
-
-  name = [(AANearbyDevice *)self name];
-  if (name)
-  {
-    NSAppendPrintF_safe();
-    v11 = v5;
+    v45 = v5;
+    NSAppendPrintF_safe(&v45, ", Md '%@'", model);
+    v11 = v45;
 
     v5 = v11;
   }
 
-  paired = [(AANearbyDevice *)self paired];
-  v13 = "not paired";
-  if (paired)
+  name = [(AANearbyDevice *)self name];
+  v13 = name;
+  if (name)
   {
-    v13 = "paired";
+    v44 = v5;
+    NSAppendPrintF_safe(&v44, ", Nm '%@'", name);
+    v14 = v44;
+
+    v5 = v14;
   }
 
-  v32 = v13;
-  NSAppendPrintF_safe();
-  v14 = v5;
+  v43 = v5;
+  paired = [(AANearbyDevice *)self paired];
+  v16 = "not paired";
+  if (paired)
+  {
+    v16 = "paired";
+  }
+
+  NSAppendPrintF_safe(&v43, ", %s", v16);
+  v17 = v43;
 
   if ([(AANearbyDevice *)self isCase])
   {
-    NSAppendPrintF_safe();
-    v15 = v14;
+    v42 = v17;
+    NSAppendPrintF_safe(&v42, ", Case");
+    v18 = v42;
 
     primaryDeviceIdentifier = [(AANearbyDevice *)self primaryDeviceIdentifier];
-    v17 = primaryDeviceIdentifier;
+    v20 = primaryDeviceIdentifier;
     if (primaryDeviceIdentifier)
     {
-      v33 = primaryDeviceIdentifier;
-      NSAppendPrintF_safe();
-      v18 = v15;
+      v41 = v18;
+      NSAppendPrintF_safe(&v41, ", Prim Id '%@'", primaryDeviceIdentifier);
+      v21 = v41;
 
-      v15 = v18;
+      v18 = v21;
     }
 
     primaryBluetoothAddress = [(AANearbyDevice *)self primaryBluetoothAddress];
-    v20 = primaryBluetoothAddress;
+    v23 = primaryBluetoothAddress;
     if (primaryBluetoothAddress)
     {
-      v33 = primaryBluetoothAddress;
-      NSAppendPrintF_safe();
-      v21 = v15;
+      v40 = v18;
+      NSAppendPrintF_safe(&v40, ", Prim Bt addr '%@'", primaryBluetoothAddress);
+      v24 = v40;
 
-      v15 = v21;
+      v18 = v24;
     }
 
-    v14 = v15;
+    v17 = v18;
   }
 
   proximityPairingPayload = [(AANearbyDevice *)self proximityPairingPayload];
-  v23 = proximityPairingPayload;
+  v26 = proximityPairingPayload;
   if (proximityPairingPayload)
   {
-    v34 = proximityPairingPayload;
-    NSAppendPrintF_safe();
-    v24 = v14;
+    v39 = v17;
+    NSAppendPrintF_safe(&v39, ". %@", proximityPairingPayload);
+    v27 = v39;
 
-    v14 = v24;
+    v17 = v27;
   }
 
   heartRateMonitorCapability = [(AANearbyDevice *)self heartRateMonitorCapability];
   if (heartRateMonitorCapability)
   {
-    v26 = "Unsupported";
+    v29 = "Unsupported";
     if (heartRateMonitorCapability != 1)
     {
-      v26 = "?";
+      v29 = "?";
     }
 
     if (heartRateMonitorCapability == 2)
     {
-      v26 = "Supported";
+      v29 = "Supported";
     }
 
-    v34 = v26;
-    NSAppendPrintF_safe();
-    v27 = v14;
+    v38 = v17;
+    NSAppendPrintF_safe(&v38, ", HRM Cap %s", v29);
+    v30 = v38;
 
-    v14 = v27;
+    v17 = v30;
   }
 
-  if ([(AANearbyDevice *)self healthKitDataWriteAllowed])
+  healthKitDataWriteAllowed = [(AANearbyDevice *)self healthKitDataWriteAllowed];
+  if (healthKitDataWriteAllowed)
   {
-    NSAppendPrintF();
-    v28 = v14;
+    v32 = "Yes";
+    if (healthKitDataWriteAllowed != 1)
+    {
+      v32 = "?";
+    }
 
-    v14 = v28;
+    if (healthKitDataWriteAllowed == 2)
+    {
+      v32 = "No";
+    }
+
+    v37 = v17;
+    NSAppendPrintF(&v37, ", HK Data Wr %s", v32);
+    v33 = v37;
+
+    v17 = v33;
   }
 
   if (levelCopy < 0x15u)
   {
-    NSAppendPrintF_safe();
-    v29 = v14;
+    v36 = v17;
+    NSAppendPrintF_safe(&v36, "\n");
+    v34 = v36;
 
-    v14 = v29;
+    v17 = v34;
   }
 
-  return v14;
+  return v17;
 }
 
 - (BOOL)updateWithCBDevice:(id)device

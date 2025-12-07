@@ -1,9 +1,24 @@
 @interface CTXPCGetSupports5GStandaloneResponse
 + (id)allowedClassesForArguments;
 - (BOOL)support;
+- (CTXPCGetSupports5GStandaloneResponse)initWithSupport:(BOOL)support;
 @end
 
 @implementation CTXPCGetSupports5GStandaloneResponse
+
+- (CTXPCGetSupports5GStandaloneResponse)initWithSupport:(BOOL)support
+{
+  v10[1] = *MEMORY[0x1E69E9840];
+  v9 = @"enable";
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:support];
+  v10[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8.receiver = self;
+  v8.super_class = CTXPCGetSupports5GStandaloneResponse;
+  v6 = [(CTXPCMessage *)&v8 initWithNamedArguments:v5];
+
+  return v6;
+}
 
 - (BOOL)support
 {

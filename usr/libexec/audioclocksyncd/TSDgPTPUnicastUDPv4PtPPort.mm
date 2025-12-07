@@ -1,5 +1,6 @@
 @interface TSDgPTPUnicastUDPv4PtPPort
 + (id)diagnosticInfoForService:(id)service;
+- (TSDgPTPUnicastUDPv4PtPPort)initWithService:(id)service pid:(int)pid;
 - (id)_destinationAddressString;
 - (id)_destinationIPv4Address;
 - (id)_sourceAddressString;
@@ -7,6 +8,22 @@
 @end
 
 @implementation TSDgPTPUnicastUDPv4PtPPort
+
+- (TSDgPTPUnicastUDPv4PtPPort)initWithService:(id)service pid:(int)pid
+{
+  v9.receiver = self;
+  v9.super_class = TSDgPTPUnicastUDPv4PtPPort;
+  v4 = [(TSDgPTPFDPtPPort *)&v9 initWithService:service pid:*&pid];
+  v5 = v4;
+  if (v4)
+  {
+    _destinationIPv4Address = [(TSDgPTPUnicastUDPv4PtPPort *)v4 _destinationIPv4Address];
+    destinationIPv4Address = v5->_destinationIPv4Address;
+    v5->_destinationIPv4Address = _destinationIPv4Address;
+  }
+
+  return v5;
+}
 
 - (id)_sourceAddressString
 {

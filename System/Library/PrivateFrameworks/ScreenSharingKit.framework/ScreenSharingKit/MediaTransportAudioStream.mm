@@ -1,6 +1,7 @@
 @interface MediaTransportAudioStream
 - (_TtC16ScreenSharingKit25MediaTransportAudioStream)init;
 - (void)dealloc;
+- (void)stream:(id)stream didStart:(BOOL)start error:(id)error;
 - (void)streamDidRTCPTimeOut:(id)out;
 - (void)streamDidStop:(id)stop;
 @end
@@ -12,7 +13,7 @@
   if (*(&self->super.isa + OBJC_IVAR____TtC16ScreenSharingKit25MediaTransportAudioStream_currentState) == 5)
   {
     v3.receiver = self;
-    v3.super_class = type metadata accessor for MediaTransportAudioStream();
+    v3.super_class = type metadata accessor for MediaTransportAudioStream(0);
     v2 = v3.receiver;
     [(MediaTransportAudioStream *)&v3 dealloc];
   }
@@ -36,6 +37,15 @@
   outCopy = out;
   selfCopy = self;
   sub_264A2CBC4(out);
+}
+
+- (void)stream:(id)stream didStart:(BOOL)start error:(id)error
+{
+  startCopy = start;
+  streamCopy = stream;
+  selfCopy = self;
+  errorCopy = error;
+  sub_264A2D510(startCopy, error);
 }
 
 - (void)streamDidStop:(id)stop

@@ -28,14 +28,13 @@
 {
   v3 = sub_1B6AB8BB0();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v7, self + OBJC_IVAR___AAUploadBatchEventConfig_directory, v3);
-  v8 = sub_1B6AB8B20();
-  (*(v4 + 8))(v7, v3);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 16))(v6, self + OBJC_IVAR___AAUploadBatchEventConfig_directory, v3);
+  v7 = sub_1B6AB8B20();
+  (*(v4 + 8))(v6, v3);
 
-  return v8;
+  return v7;
 }
 
 - (id)withMaxEventsPerSessionBatch:(int64_t)batch
@@ -84,16 +83,15 @@
 {
   v4 = sub_1B6AB8BB0();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1B6AB8B60();
   selfCopy = self;
-  v10 = UploadBatchEventConfig.with(directory:)(v8);
+  v9 = UploadBatchEventConfig.with(directory:)(v7);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 
-  return v10;
+  return v9;
 }
 
 - (AAUploadBatchEventConfig)init

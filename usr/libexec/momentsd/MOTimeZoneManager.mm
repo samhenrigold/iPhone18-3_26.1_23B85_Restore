@@ -409,7 +409,7 @@ LABEL_23:
   v3 = NSStringFromSelector(a1);
   [a2 count];
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_2(&_mh_execute_header, v4, v5, "%@, TimeZoneManager.timeZoneRecords, %lu", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_2(&_mh_execute_header, v4, v5, "%@, TimeZoneManager.timeZoneRecords, %lu", v6, v7, v8, v9);
 }
 
 - (void)processTimeZoneEvents:(const char *)a1 .cold.2(const char *a1, void *a2)
@@ -418,7 +418,7 @@ LABEL_23:
   v4 = [a2 condensedRecords];
   [v4 count];
   OUTLINED_FUNCTION_0_14();
-  OUTLINED_FUNCTION_2(&_mh_execute_header, v5, v6, "%@, TimeZoneManager.condensedRecords, %lu", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_2(&_mh_execute_header, v5, v6, "%@, TimeZoneManager.condensedRecords, %lu", v7, v8, v9, v10);
 }
 
 @end

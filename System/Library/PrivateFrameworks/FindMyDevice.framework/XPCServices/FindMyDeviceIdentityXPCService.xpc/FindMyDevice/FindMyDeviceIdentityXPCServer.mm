@@ -9,7 +9,7 @@
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
   connectionCopy = connection;
-  v6 = sub_100001AC8();
+  v6 = sub_100001AC8(connectionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -29,13 +29,13 @@
 {
   contextCopy = context;
   completionCopy = completion;
-  v8 = sub_100001AC8();
+  v8 = sub_100001AC8(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v25 = "[FindMyDeviceIdentityXPCServer identityForPasscodeActivationUnlockWithContext:completion:]";
-    v26 = 2048;
-    v27 = [contextCopy count];
+    v26 = "[FindMyDeviceIdentityXPCServer identityForPasscodeActivationUnlockWithContext:completion:]";
+    v27 = 2048;
+    v28 = [contextCopy count];
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s with %ld context keys", buf, 0x16u);
   }
 
@@ -47,12 +47,12 @@
     v11 = objc_alloc_init(FMDBAADataSource);
     v12 = objc_alloc_init(FMDSecuritySignatureDataSource);
     v13 = [[FMDPasscodeActivationUnlockIdentityEncoder alloc] initWithCertificateDataSource:v11 signatureDataSource:v12];
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_1000015AC;
-    v20[3] = &unk_10000CC90;
-    v21 = completionCopy;
-    [(FMDPasscodeActivationUnlockIdentityEncoder *)v13 identityForPasscodeActivationUnlockWithContext:contextCopy completion:v20];
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_1000015AC;
+    v21[3] = &unk_10000CC90;
+    v22 = completionCopy;
+    [(FMDPasscodeActivationUnlockIdentityEncoder *)v13 identityForPasscodeActivationUnlockWithContext:contextCopy completion:v21];
   }
 
   else
@@ -72,15 +72,15 @@
       v17 = &stru_10000F6E0;
     }
 
-    v22 = NSLocalizedFailureReasonErrorKey;
-    v23 = v17;
-    v18 = [NSDictionary dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+    v23 = NSLocalizedFailureReasonErrorKey;
+    v24 = v17;
+    v18 = [NSDictionary dictionaryWithObjects:&v24 forKeys:&v23 count:1];
     v12 = [v15 initWithDomain:v16 code:6 userInfo:v18];
 
-    v19 = sub_100001AC8();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = sub_100001AC8(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      sub_100003EB4(v11, v19);
+      sub_100003EB4(v11, v20);
     }
 
     if (completionCopy)
@@ -94,14 +94,14 @@
 {
   requestCopy = request;
   completionCopy = completion;
-  v8 = sub_100001AC8();
+  v8 = sub_100001AC8(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     dataToSign = [requestCopy dataToSign];
     *buf = 136315394;
-    v26 = "[FindMyDeviceIdentityXPCServer baaIdentityAttestationForSigningRequest:completion:]";
-    v27 = 1024;
-    v28 = dataToSign != 0;
+    v27 = "[FindMyDeviceIdentityXPCServer baaIdentityAttestationForSigningRequest:completion:]";
+    v28 = 1024;
+    v29 = dataToSign != 0;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s with %i", buf, 0x12u);
   }
 
@@ -113,12 +113,12 @@
     v12 = objc_alloc_init(FMDBAADataSource);
     v13 = objc_alloc_init(FMDSecuritySignatureDataSource);
     v14 = [[FMDActivationLockIdentityEncoder alloc] initWithCertificateDataSource:v12 signatureDataSource:v13];
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_1000018C4;
-    v21[3] = &unk_10000CCB8;
-    v22 = completionCopy;
-    [(FMDActivationLockIdentityEncoder *)v14 identityForActivationLockRequest:requestCopy completion:v21];
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_1000018C4;
+    v22[3] = &unk_10000CCB8;
+    v23 = completionCopy;
+    [(FMDActivationLockIdentityEncoder *)v14 identityForActivationLockRequest:requestCopy completion:v22];
   }
 
   else
@@ -138,15 +138,15 @@
       v18 = &stru_10000F6E0;
     }
 
-    v23 = NSLocalizedFailureReasonErrorKey;
-    v24 = v18;
-    v19 = [NSDictionary dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    v24 = NSLocalizedFailureReasonErrorKey;
+    v25 = v18;
+    v19 = [NSDictionary dictionaryWithObjects:&v25 forKeys:&v24 count:1];
     v13 = [v16 initWithDomain:v17 code:6 userInfo:v19];
 
-    v20 = sub_100001AC8();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = sub_100001AC8(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      sub_100003EB4(v12, v20);
+      sub_100003EB4(v12, v21);
     }
 
     if (completionCopy)

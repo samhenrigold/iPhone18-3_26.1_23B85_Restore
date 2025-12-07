@@ -50,15 +50,15 @@
 
 id __60__HFAbstractPositionStatusItem__subclass_updateWithOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v55[1] = *MEMORY[0x277D85DE8];
+  v54[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (!WeakRetained)
   {
     v9 = MEMORY[0x277D2C900];
-    v54 = @"hidden";
-    v55[0] = MEMORY[0x277CBEC38];
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:&v54 count:1];
+    v53 = @"hidden";
+    v54[0] = MEMORY[0x277CBEC38];
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:&v53 count:1];
     goto LABEL_5;
   }
 
@@ -86,25 +86,25 @@ LABEL_5:
   v16 = [MEMORY[0x277CBEB58] set];
   v17 = [MEMORY[0x277CBEB58] set];
   v18 = [v7 objectForKeyedSubscript:@"representedHomeKitObjects"];
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = __60__HFAbstractPositionStatusItem__subclass_updateWithOptions___block_invoke_2;
-  v46[3] = &unk_277DFECC8;
-  v47 = v3;
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __60__HFAbstractPositionStatusItem__subclass_updateWithOptions___block_invoke_2;
+  v45[3] = &unk_277DFECC8;
+  v46 = v3;
   v19 = v12;
-  v48 = v19;
-  v45 = v17;
-  v49 = v45;
+  v47 = v19;
+  v44 = v17;
+  v48 = v44;
   v20 = v15;
-  v50 = v20;
+  v49 = v20;
   v21 = v13;
-  v51 = v21;
+  v50 = v21;
   v22 = v14;
-  v52 = v22;
+  v51 = v22;
   v23 = v16;
-  v53 = v23;
-  v44 = v18;
-  [v18 na_each:v46];
+  v52 = v23;
+  v43 = v18;
+  [v18 na_each:v45];
   if ([v21 count])
   {
     [v21 unionSet:v22];
@@ -132,7 +132,7 @@ LABEL_5:
     {
       [WeakRetained multipleObstructedServicesDescriptionString];
     }
-    v41 = ;
+    v40 = ;
     v25 = v19;
   }
 
@@ -157,7 +157,7 @@ LABEL_5:
     {
       [WeakRetained multipleOpenServicesDescriptionString];
     }
-    v41 = ;
+    v40 = ;
     v25 = v21;
   }
 
@@ -182,7 +182,7 @@ LABEL_5:
     {
       [WeakRetained multipleOpeningServicesDescriptionString];
     }
-    v41 = ;
+    v40 = ;
     v25 = v22;
   }
 
@@ -207,7 +207,7 @@ LABEL_5:
     {
       [WeakRetained multipleClosingServicesDescriptionString];
     }
-    v41 = ;
+    v40 = ;
     v25 = v20;
   }
 
@@ -217,7 +217,7 @@ LABEL_5:
     {
       v24 = 0;
       v26 = 0;
-      v41 = 0;
+      v40 = 0;
       goto LABEL_50;
     }
 
@@ -240,7 +240,7 @@ LABEL_5:
     {
       [WeakRetained multipleClosedServicesDescriptionString];
     }
-    v41 = ;
+    v40 = ;
     v25 = v23;
   }
 
@@ -251,10 +251,10 @@ LABEL_50:
   [v7 setObject:v22 forKeyedSubscript:@"openingServices"];
   [v7 setObject:v20 forKeyedSubscript:@"closingServices"];
   [v7 setObject:v23 forKeyedSubscript:@"closedServices"];
-  [v7 setObject:v45 forKeyedSubscript:@"unknownServices"];
-  v42 = v19;
-  v43 = v22;
-  v40 = v3;
+  [v7 setObject:v44 forKeyedSubscript:@"unknownServices"];
+  v41 = v19;
+  v42 = v22;
+  v39 = v3;
   if (v24)
   {
     v27 = v23;
@@ -272,8 +272,8 @@ LABEL_50:
 
     v34 = @"description";
     v33 = v7;
-    v31 = v41;
-    v32 = v41;
+    v31 = v40;
+    v32 = v40;
     goto LABEL_57;
   }
 
@@ -282,7 +282,7 @@ LABEL_50:
   v29 = [v7 objectForKeyedSubscript:@"statusItemCategory"];
   v30 = [v29 integerValue];
 
-  v31 = v41;
+  v31 = v40;
   if (v30 == 3)
   {
     v32 = MEMORY[0x277CBEC38];
@@ -296,10 +296,8 @@ LABEL_57:
   v37 = [HFItemUpdateOutcome outcomeWithResults:v7];
   v11 = [v36 futureWithResult:v37];
 
-  v3 = v40;
+  v3 = v39;
 LABEL_59:
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

@@ -25,17 +25,16 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  coderCopy = coder;
-  v4 = _EXDefaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v3 = _EXDefaultLog(coder);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    v5 = 136315650;
-    v6 = "/Library/Caches/com.apple.xbs/Sources/ExtensionFoundation/ExtensionFoundation/Source/NSExtension/NSExtensionSupport/ItemProvider/EXLoadOperator.m";
-    v7 = 1024;
-    v8 = 229;
-    v9 = 2080;
-    v10 = "[_EXSinkLoadOperator encodeWithCoder:]";
-    _os_log_fault_impl(&dword_1847D1000, v4, OS_LOG_TYPE_FAULT, "%s - %d: %s unexpected call in destination process", &v5, 0x1Cu);
+    v4 = 136315650;
+    v5 = "/Library/Caches/com.apple.xbs/Sources/ExtensionFoundation/ExtensionFoundation/Source/NSExtension/NSExtensionSupport/ItemProvider/EXLoadOperator.m";
+    v6 = 1024;
+    v7 = 229;
+    v8 = 2080;
+    v9 = "[_EXSinkLoadOperator encodeWithCoder:]";
+    _os_log_fault_impl(&dword_1847D1000, v3, OS_LOG_TYPE_FAULT, "%s - %d: %s unexpected call in destination process", &v4, 0x1Cu);
   }
 
   __break(1u);
@@ -43,22 +42,22 @@
 
 - (void)loadItemForTypeIdentifier:(id)identifier completionHandler:(id)handler expectedValueClass:(Class)class options:(id)options
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   handlerCopy = handler;
   optionsCopy = options;
-  v13 = _EXDefaultLog();
+  v13 = _EXDefaultLog(optionsCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v32 = NSStringFromClass(class);
+    v33 = NSStringFromClass(class);
     *buf = 136446978;
-    v43 = "[_EXSinkLoadOperator loadItemForTypeIdentifier:completionHandler:expectedValueClass:options:]";
-    v44 = 2114;
-    v45 = identifierCopy;
-    v46 = 2114;
-    v47 = v32;
-    v48 = 2114;
-    v49 = optionsCopy;
+    v44 = "[_EXSinkLoadOperator loadItemForTypeIdentifier:completionHandler:expectedValueClass:options:]";
+    v45 = 2114;
+    v46 = identifierCopy;
+    v47 = 2114;
+    v48 = v33;
+    v49 = 2114;
+    v50 = optionsCopy;
     _os_log_debug_impl(&dword_1847D1000, v13, OS_LOG_TYPE_DEBUG, "%{public}s typeIdentifier: %{public}@ expectedValueClass: %{public}@ options: %{public}@", buf, 0x2Au);
   }
 
@@ -67,7 +66,7 @@
     v16 = +[_EXDefaults sharedInstance];
     itemProviderTypes = [v16 itemProviderTypes];
 
-    v14 = _EXDefaultLog();
+    v14 = _EXDefaultLog(v18);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       [_EXSinkLoadOperator loadItemForTypeIdentifier:completionHandler:expectedValueClass:options:];
@@ -78,10 +77,10 @@
 
   if (objc_opt_class() == class)
   {
-    v18 = +[_EXDefaults sharedInstance];
-    itemProviderTypes = [v18 itemProviderTypes];
+    v19 = +[_EXDefaults sharedInstance];
+    itemProviderTypes = [v19 itemProviderTypes];
 
-    v14 = _EXDefaultLog();
+    v14 = _EXDefaultLog(v20);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       [_EXSinkLoadOperator loadItemForTypeIdentifier:completionHandler:expectedValueClass:options:];
@@ -92,11 +91,11 @@
 
   if (objc_opt_class() == class)
   {
-    v19 = MEMORY[0x1E695DFD8];
-    v41[0] = class;
-    v41[1] = objc_opt_class();
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:2];
-    plistAndValueTypes = [v19 setWithArray:v14];
+    v21 = MEMORY[0x1E695DFD8];
+    v42[0] = class;
+    v42[1] = objc_opt_class();
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:2];
+    plistAndValueTypes = [v21 setWithArray:v14];
     goto LABEL_14;
   }
 
@@ -113,53 +112,51 @@ LABEL_15:
 
   itemProviderTypes = [MEMORY[0x1E695DFD8] setWithObject:class];
 LABEL_16:
-  v20 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1EF2A5190];
-  [v20 setClasses:itemProviderTypes forSelector:sel_resolveWithIdentifier_className_options_reply_ argumentIndex:0 ofReply:1];
-  v21 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithListenerEndpoint:self->_endpoint];
-  [v21 setRemoteObjectInterface:v20];
-  [v21 resume];
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __94___EXSinkLoadOperator_loadItemForTypeIdentifier_completionHandler_expectedValueClass_options___block_invoke;
-  v37[3] = &unk_1E6E4DB38;
-  v22 = handlerCopy;
-  v38 = v22;
-  v23 = [v21 remoteObjectProxyWithErrorHandler:v37];
-  v24 = NSStringFromClass(class);
-  if (v24)
+  v22 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1EF2A5190];
+  [v22 setClasses:itemProviderTypes forSelector:sel_resolveWithIdentifier_className_options_reply_ argumentIndex:0 ofReply:1];
+  v23 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithListenerEndpoint:self->_endpoint];
+  [v23 setRemoteObjectInterface:v22];
+  [v23 resume];
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __94___EXSinkLoadOperator_loadItemForTypeIdentifier_completionHandler_expectedValueClass_options___block_invoke;
+  v38[3] = &unk_1E6E4DB38;
+  v24 = handlerCopy;
+  v39 = v24;
+  v25 = [v23 remoteObjectProxyWithErrorHandler:v38];
+  v26 = NSStringFromClass(class);
+  if (v26)
   {
-    v25 = [optionsCopy objectForKeyedSubscript:@"com.apple.Foundation.NSItemProviderExpectedClass"];
-    v26 = v25;
-    if (!v25 || ![v25 length])
+    v27 = [optionsCopy objectForKeyedSubscript:@"com.apple.Foundation.NSItemProviderExpectedClass"];
+    v28 = v27;
+    if (!v27 || ![v27 length])
     {
-      v39 = @"com.apple.Foundation.NSItemProviderExpectedClass";
-      v40 = v24;
-      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+      v40 = @"com.apple.Foundation.NSItemProviderExpectedClass";
+      v41 = v26;
+      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
 
-      optionsCopy = v27;
+      optionsCopy = v29;
     }
   }
 
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __94___EXSinkLoadOperator_loadItemForTypeIdentifier_completionHandler_expectedValueClass_options___block_invoke_126;
-  v33[3] = &unk_1E6E4E6E8;
-  v34 = v24;
-  v35 = identifierCopy;
-  v36 = v22;
-  v28 = v22;
-  v29 = identifierCopy;
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __94___EXSinkLoadOperator_loadItemForTypeIdentifier_completionHandler_expectedValueClass_options___block_invoke_126;
+  v34[3] = &unk_1E6E4E6E8;
+  v35 = v26;
+  v36 = identifierCopy;
+  v37 = v24;
   v30 = v24;
-  [v23 resolveWithIdentifier:v29 className:v30 options:optionsCopy reply:v33];
-
-  v31 = *MEMORY[0x1E69E9840];
+  v31 = identifierCopy;
+  v32 = v26;
+  [v25 resolveWithIdentifier:v31 className:v32 options:optionsCopy reply:v34];
 }
 
 - (void)loadPreviewImageWithCompletionHandler:(id)handler expectedValueClass:(Class)class options:(id)options
 {
   handlerCopy = handler;
   optionsCopy = options;
-  v10 = _EXDefaultLog();
+  v10 = _EXDefaultLog(optionsCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [_EXSinkLoadOperator loadPreviewImageWithCompletionHandler:class expectedValueClass:optionsCopy options:v10];
@@ -200,36 +197,32 @@ LABEL_16:
 
 - (void)loadItemForTypeIdentifier:completionHandler:expectedValueClass:options:.cold.1()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3[0] = 136446466;
+  v4 = *MEMORY[0x1E69E9840];
+  v2[0] = 136446466;
   OUTLINED_FUNCTION_0_6();
-  v4 = v0;
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = v0;
 }
 
 - (void)loadItemForTypeIdentifier:completionHandler:expectedValueClass:options:.cold.2()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3[0] = 136446466;
+  v4 = *MEMORY[0x1E69E9840];
+  v2[0] = 136446466;
   OUTLINED_FUNCTION_0_6();
-  v4 = v0;
-  _os_log_fault_impl(&dword_1847D1000, v1, OS_LOG_TYPE_FAULT, "%{public}s nil expectedValueClass allowing %{public}@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = v0;
+  _os_log_fault_impl(&dword_1847D1000, v1, OS_LOG_TYPE_FAULT, "%{public}s nil expectedValueClass allowing %{public}@", v2, 0x16u);
 }
 
 - (void)loadPreviewImageWithCompletionHandler:(objc_class *)a1 expectedValueClass:(uint64_t)a2 options:(NSObject *)a3 .cold.1(objc_class *a1, uint64_t a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = NSStringFromClass(a1);
-  v7 = 136315650;
-  v8 = "[_EXSinkLoadOperator loadPreviewImageWithCompletionHandler:expectedValueClass:options:]";
-  v9 = 2112;
-  v10 = v5;
-  v11 = 2112;
-  v12 = a2;
-  _os_log_debug_impl(&dword_1847D1000, a3, OS_LOG_TYPE_DEBUG, "%s expectedValueClass: %@ options: %@", &v7, 0x20u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 136315650;
+  v7 = "[_EXSinkLoadOperator loadPreviewImageWithCompletionHandler:expectedValueClass:options:]";
+  v8 = 2112;
+  v9 = v5;
+  v10 = 2112;
+  v11 = a2;
+  _os_log_debug_impl(&dword_1847D1000, a3, OS_LOG_TYPE_DEBUG, "%s expectedValueClass: %@ options: %@", &v6, 0x20u);
 }
 
 @end

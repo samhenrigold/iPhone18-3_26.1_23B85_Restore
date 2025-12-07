@@ -29,7 +29,7 @@ LABEL_5:
   }
 
   type metadata accessor for PSSGGraphID(0);
-  sub_25EB24DC0(&unk_27FD11DF0, 255, type metadata accessor for PSSGGraphID);
+  sub_25EB24DC0(&unk_27FD11DF0, 255, type metadata accessor for PSSGGraphID, MEMORY[0x277D85378]);
   v6 = sub_25EB6E438();
   v7 = OBJC_IVAR___PSSGResource_producer;
   *(self + OBJC_IVAR___PSSGResource_producer) = 0;
@@ -55,7 +55,7 @@ LABEL_6:
   producer = [(PSSGResource *)selfCopy producer];
   consumers = [(PSSGResource *)selfCopy consumers];
   type metadata accessor for PSSGGraphID(0);
-  sub_25EB24DC0(&unk_27FD11DF0, 255, type metadata accessor for PSSGGraphID);
+  sub_25EB24DC0(&unk_27FD11DF0, 255, type metadata accessor for PSSGGraphID, MEMORY[0x277D85378]);
   sub_25EB6E438();
 
   v6 = objc_allocWithZone(PSSGResource);

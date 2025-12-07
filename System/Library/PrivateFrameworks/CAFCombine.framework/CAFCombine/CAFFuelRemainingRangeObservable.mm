@@ -23,7 +23,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFFuelRemainingRangeObservable.fuelRemainingRangeService(_:didUpdateHidden:)();
+  CAFFuelRemainingRangeObservable.fuelRemainingRangeService(_:didUpdateHidden:)(selfCopy, hidden);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

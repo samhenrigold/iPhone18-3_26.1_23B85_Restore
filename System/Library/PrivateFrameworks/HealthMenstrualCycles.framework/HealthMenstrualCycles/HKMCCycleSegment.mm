@@ -72,12 +72,10 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:self->_type];
-  start = self->_days.start;
-  duration = self->_days.duration;
-  v8 = NSStringFromHKDayIndexRange();
-  v9 = [v3 stringWithFormat:@"<%@:%p type:%@ days:%@>", v4, self, v5, v8];
+  v6 = NSStringFromHKDayIndexRange();
+  v7 = [v3 stringWithFormat:@"<%@:%p type:%@ days:%@>", v4, self, v5, v6];
 
-  return v9;
+  return v7;
 }
 
 - (BOOL)isEqual:(id)equal

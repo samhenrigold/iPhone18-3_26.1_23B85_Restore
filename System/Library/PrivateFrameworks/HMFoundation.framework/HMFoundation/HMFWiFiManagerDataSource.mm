@@ -22,7 +22,7 @@
 
 - (BOOL)isCaptive
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   Current = CFAbsoluteTimeGetCurrent();
   [(NSLock *)self->_captiveCachedLock lock];
   captiveCached = self->_captiveCached;
@@ -47,13 +47,13 @@
     else
     {
       v7 = objc_autoreleasePoolPush();
-      v8 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v9 = HMFGetOSLogHandle(0, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v9 = HMFGetLogIdentifier(0);
-        v16 = 138543362;
-        v17 = v9;
-        _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_DEBUG, "%{public}@[HMFWiFiManagerDataSource] isCaptive: WiFi info not found", &v16, 0xCu);
+        v10 = HMFGetLogIdentifier(0);
+        v17 = 138543362;
+        v18 = v10;
+        _os_log_impl(&dword_22ADEC000, v9, OS_LOG_TYPE_DEBUG, "%{public}@[HMFWiFiManagerDataSource] isCaptive: WiFi info not found", &v17, 0xCu);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -63,33 +63,32 @@
   }
 
   [(NSLock *)self->_captiveCachedLock unlock];
-  v10 = objc_autoreleasePoolPush();
-  v11 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v11 = objc_autoreleasePoolPush();
+  v13 = HMFGetOSLogHandle(0, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v12 = HMFGetLogIdentifier(0);
-    v13 = CFAbsoluteTimeGetCurrent();
-    v16 = 138543874;
-    v17 = v12;
-    v18 = 2048;
-    v19 = v13 - Current;
-    v20 = 1024;
-    v21 = captiveCached == 6;
-    _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_DEBUG, "%{public}@[HMFWiFiManagerDataSource] isCaptive took %.02f seconds (captive: %d)", &v16, 0x1Cu);
+    v14 = HMFGetLogIdentifier(0);
+    v15 = CFAbsoluteTimeGetCurrent();
+    v17 = 138543874;
+    v18 = v14;
+    v19 = 2048;
+    v20 = v15 - Current;
+    v21 = 1024;
+    v22 = captiveCached == 6;
+    _os_log_impl(&dword_22ADEC000, v13, OS_LOG_TYPE_DEBUG, "%{public}@[HMFWiFiManagerDataSource] isCaptive took %.02f seconds (captive: %d)", &v17, 0x1Cu);
   }
 
-  objc_autoreleasePoolPop(v10);
-  v14 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v11);
   return captiveCached == 6;
 }
 
 - (HMFWiFiManagerDataSource)initWithWorkQueue:(id)queue
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
-  v26.receiver = self;
-  v26.super_class = HMFWiFiManagerDataSource;
-  v6 = [(HMFWiFiManagerDataSource *)&v26 init];
+  v22.receiver = self;
+  v22.super_class = HMFWiFiManagerDataSource;
+  v6 = [(HMFWiFiManagerDataSource *)&v22 init];
   v7 = v6;
   if (v6)
   {
@@ -99,39 +98,34 @@
     v7->_captiveCachedLock = v8;
 
     v10 = objc_autoreleasePoolPush();
-    v11 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = HMFGetOSLogHandle(0, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v12 = HMFGetLogIdentifier(0);
+      v13 = HMFGetLogIdentifier(0);
       *buf = 138543362;
-      v28 = v12;
-      _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_INFO, "%{public}@[HMFWiFiManagerDataSource] Initializing WiFi Services", buf, 0xCu);
+      v24 = v13;
+      _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_INFO, "%{public}@[HMFWiFiManagerDataSource] Initializing WiFi Services", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
-    v13 = *MEMORY[0x277CBECE8];
     v14 = WiFiManagerClientCreate();
     v7->_wifiClientReference = v14;
     if (v14)
     {
       CFRunLoopGetMain();
-      v15 = *MEMORY[0x277CBF058];
       WiFiManagerClientScheduleWithRunLoop();
-      wifiClientReference = v7->_wifiClientReference;
       WiFiManagerClientRegisterDeviceAttachmentCallback();
-      v17 = v7->_wifiClientReference;
       WiFiManagerClientRegisterWowStateChangedCallback();
-      v18 = v7->_wifiClientReference;
-      v19 = WiFiManagerClientCopyDevices();
-      if (v19)
+      v15 = WiFiManagerClientCopyDevices();
+      if (v15)
       {
-        v20 = v19;
-        if (CFArrayGetCount(v19))
+        v16 = v15;
+        if (CFArrayGetCount(v15))
         {
-          [(HMFWiFiManagerDataSource *)v7 startWithWiFiDevice:CFArrayGetValueAtIndex(v20, 0)];
+          [(HMFWiFiManagerDataSource *)v7 startWithWiFiDevice:CFArrayGetValueAtIndex(v16, 0)];
         }
 
-        CFRelease(v20);
+        CFRelease(v16);
       }
 
       [(HMFWiFiManagerDataSource *)v7 _registerForCaptiveStateChanges];
@@ -139,38 +133,37 @@
 
     else
     {
-      v21 = objc_autoreleasePoolPush();
-      v22 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v17 = objc_autoreleasePoolPush();
+      v19 = HMFGetOSLogHandle(0, v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        v23 = HMFGetLogIdentifier(0);
+        v20 = HMFGetLogIdentifier(0);
         *buf = 138543362;
-        v28 = v23;
-        _os_log_impl(&dword_22ADEC000, v22, OS_LOG_TYPE_ERROR, "%{public}@[HMFWiFiManagerDataSource] Failed to create WiFiManagerClient", buf, 0xCu);
+        v24 = v20;
+        _os_log_impl(&dword_22ADEC000, v19, OS_LOG_TYPE_ERROR, "%{public}@[HMFWiFiManagerDataSource] Failed to create WiFiManagerClient", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v21);
+      objc_autoreleasePoolPop(v17);
       v7 = 0;
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ([(HMFWiFiManagerDataSource *)self wifiClientReference])
   {
     v3 = objc_autoreleasePoolPush();
-    v4 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = HMFGetOSLogHandle(0, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v5 = HMFGetLogIdentifier(0);
+      v6 = HMFGetLogIdentifier(0);
       *buf = 138543362;
-      v12 = v5;
-      _os_log_impl(&dword_22ADEC000, v4, OS_LOG_TYPE_INFO, "%{public}@[HMFWiFiManagerDataSource] Clearing wifi client reference", buf, 0xCu);
+      v13 = v6;
+      _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_INFO, "%{public}@[HMFWiFiManagerDataSource] Clearing wifi client reference", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -183,17 +176,17 @@
 
   if ([(HMFWiFiManagerDataSource *)self wifiDeviceReference])
   {
-    v6 = objc_autoreleasePoolPush();
-    v7 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v7 = objc_autoreleasePoolPush();
+    v9 = HMFGetOSLogHandle(0, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v8 = HMFGetLogIdentifier(0);
+      v10 = HMFGetLogIdentifier(0);
       *buf = 138543362;
-      v12 = v8;
-      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_INFO, "%{public}@[HMFWiFiManagerDataSource] Clearing wifi device reference", buf, 0xCu);
+      v13 = v10;
+      _os_log_impl(&dword_22ADEC000, v9, OS_LOG_TYPE_INFO, "%{public}@[HMFWiFiManagerDataSource] Clearing wifi device reference", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v6);
+    objc_autoreleasePoolPop(v7);
     [(HMFWiFiManagerDataSource *)self wifiDeviceReference];
     WiFiDeviceClientRegisterExtendedLinkCallback();
     CFRelease([(HMFWiFiManagerDataSource *)self wifiDeviceReference]);
@@ -211,10 +204,9 @@
     CFRelease([(HMFWiFiManagerDataSource *)self scStore]);
   }
 
-  v10.receiver = self;
-  v10.super_class = HMFWiFiManagerDataSource;
-  [(HMFWiFiManagerDataSource *)&v10 dealloc];
-  v9 = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = HMFWiFiManagerDataSource;
+  [(HMFWiFiManagerDataSource *)&v11 dealloc];
 }
 
 + (NSString)MACAddressString
@@ -267,21 +259,20 @@
   dispatch_assert_queue_V2(workQueue);
 
   v6 = objc_autoreleasePoolPush();
-  v7 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = HMFGetOSLogHandle(0, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v8 = HMFGetLogIdentifier(0);
+    v9 = HMFGetLogIdentifier(0);
     v10 = 138543618;
-    v11 = v8;
+    v11 = v9;
     v12 = 1024;
     v13 = assertedCopy;
-    _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_INFO, "%{public}@[HMFWiFiManagerDataSource] Calling WiFiManagerClientSetWoWState() with %d", &v10, 0x12u);
+    _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_INFO, "%{public}@[HMFWiFiManagerDataSource] Calling WiFiManagerClientSetWoWState() with %d", &v10, 0x12u);
   }
 
   objc_autoreleasePoolPop(v6);
   [(HMFWiFiManagerDataSource *)self wifiClientReference];
   WiFiManagerClientSetWoWState();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (HMFWifiNetworkAssociation)currentNetworkAssociation
@@ -396,51 +387,49 @@ void __48__HMFWiFiManagerDataSource_startWithWiFiDevice___block_invoke(uint64_t 
 {
   v19 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
-  v3 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v4 = HMFGetOSLogHandle(0, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v4 = HMFGetLogIdentifier(0);
+    v5 = HMFGetLogIdentifier(0);
     v15 = 138543362;
-    v16 = v4;
-    _os_log_impl(&dword_22ADEC000, v3, OS_LOG_TYPE_INFO, "%{public}@[HMFWiFiManagerDataSource] Initializing WiFi Device", &v15, 0xCu);
+    v16 = v5;
+    _os_log_impl(&dword_22ADEC000, v4, OS_LOG_TYPE_INFO, "%{public}@[HMFWiFiManagerDataSource] Initializing WiFi Device", &v15, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   if ([*(a1 + 32) wifiDeviceReference])
   {
-    v5 = objc_autoreleasePoolPush();
-    v6 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v6 = objc_autoreleasePoolPush();
+    v8 = HMFGetOSLogHandle(0, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v7 = HMFGetLogIdentifier(0);
+      v9 = HMFGetLogIdentifier(0);
       v15 = 138543362;
-      v16 = v7;
-      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_INFO, "%{public}@[HMFWiFiManagerDataSource] Clearing previous reference", &v15, 0xCu);
+      v16 = v9;
+      _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_INFO, "%{public}@[HMFWiFiManagerDataSource] Clearing previous reference", &v15, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v5);
+    objc_autoreleasePoolPop(v6);
     [*(a1 + 32) wifiDeviceReference];
-    v8 = *(a1 + 32);
     WiFiDeviceClientRegisterExtendedLinkCallback();
     CFRelease([*(a1 + 32) wifiDeviceReference]);
   }
 
   [*(a1 + 32) setWifiDeviceReference:CFRetain(*(a1 + 40))];
   [*(a1 + 32) wifiDeviceReference];
-  v9 = *(a1 + 32);
   WiFiDeviceClientRegisterExtendedLinkCallback();
   [*(a1 + 32) wifiDeviceReference];
   v10 = WiFiDeviceClientCopyCurrentNetwork();
   v11 = objc_autoreleasePoolPush();
-  v12 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v13 = HMFGetOSLogHandle(0, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v13 = HMFGetLogIdentifier(0);
+    v14 = HMFGetLogIdentifier(0);
     v15 = 138543618;
-    v16 = v13;
+    v16 = v14;
     v17 = 2112;
     v18 = v10;
-    _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_INFO, "%{public}@[HMFWiFiManagerDataSource] Initialized WiFi Device with current network: %@", &v15, 0x16u);
+    _os_log_impl(&dword_22ADEC000, v13, OS_LOG_TYPE_INFO, "%{public}@[HMFWiFiManagerDataSource] Initialized WiFi Device with current network: %@", &v15, 0x16u);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -449,8 +438,6 @@ void __48__HMFWiFiManagerDataSource_startWithWiFiDevice___block_invoke(uint64_t 
   {
     CFRelease(v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleWiFiLinkChangedWithEventDictionary:(id)dictionary
@@ -475,30 +462,29 @@ void __69__HMFWiFiManagerDataSource_handleWiFiLinkChangedWithEventDictionary___b
   v4 = [*(a1 + 32) objectForKeyedSubscript:@"LINK_CHANGED_NETWORK"];
 
   v5 = objc_autoreleasePoolPush();
-  v6 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = HMFGetOSLogHandle(0, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v7 = HMFGetLogIdentifier(0);
-    v8 = v7;
-    v9 = @"Up";
+    v8 = HMFGetLogIdentifier(0);
+    v9 = v8;
+    v10 = @"Up";
     if (v3)
     {
-      v9 = @"Down";
+      v10 = @"Down";
     }
 
     v12 = 138543618;
-    v13 = v7;
+    v13 = v8;
     v14 = 2112;
-    v15 = v9;
-    _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_INFO, "%{public}@[HMFWiFiManagerDataSource] WiFi link is %@", &v12, 0x16u);
+    v15 = v10;
+    _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_INFO, "%{public}@[HMFWiFiManagerDataSource] WiFi link is %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v10 = [*(a1 + 40) delegate];
-  [v10 dataSource:*(a1 + 40) didChangeLinkAvailability:v3 ^ 1u];
+  v11 = [*(a1 + 40) delegate];
+  [v11 dataSource:*(a1 + 40) didChangeLinkAvailability:v3 ^ 1u];
 
   [*(a1 + 40) _setCurrentNetwork:v4];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setCurrentNetwork:(__WiFiNetwork *)network

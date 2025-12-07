@@ -175,7 +175,7 @@ void __73__TUCollaborationManager_isCollaborationLocallyInitiatedForConversation
 
 void __50__TUCollaborationManager_collaborationsDidChange___block_invoke(uint64_t a1)
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) featureFlags];
   v3 = [v2 gelatoEnabled];
 
@@ -191,225 +191,224 @@ void __50__TUCollaborationManager_collaborationsDidChange___block_invoke(uint64_
 
       if (v7)
       {
-        v8 = TUDefaultLog();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v9 = TUDefaultLog(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v71 = v7;
-          _os_log_impl(&dword_1956FD000, v8, OS_LOG_TYPE_DEFAULT, "Pending collaboration fulfilled: %@", buf, 0xCu);
+          v74 = v7;
+          _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "Pending collaboration fulfilled: %@", buf, 0xCu);
         }
 
-        v9 = [*(a1 + 32) delegate];
-        v10 = [*(a1 + 32) pendingConversationToAdd];
-        [v9 addCollaboration:v7 forConversation:v10];
+        v10 = [*(a1 + 32) delegate];
+        v11 = [*(a1 + 32) pendingConversationToAdd];
+        [v10 addCollaboration:v7 forConversation:v11];
 
         [*(a1 + 32) setPendingCollaborationToAdd:0];
         [*(a1 + 32) setPendingConversationToAdd:0];
       }
     }
 
-    v11 = [*(a1 + 32) highlightsByIdentifier];
-    v12 = [v11 copy];
+    v12 = [*(a1 + 32) highlightsByIdentifier];
+    v13 = [v12 copy];
 
-    v67 = 0u;
+    v70 = 0u;
+    v71 = 0u;
     v68 = 0u;
-    v65 = 0u;
-    v66 = 0u;
-    obj = v12;
-    v13 = [obj countByEnumeratingWithState:&v65 objects:v74 count:16];
-    if (v13)
+    v69 = 0u;
+    obj = v13;
+    v14 = [obj countByEnumeratingWithState:&v68 objects:v77 count:16];
+    if (v14)
     {
-      v15 = v13;
-      v16 = *v66;
-      *&v14 = 138412290;
-      v59 = v14;
+      v16 = v14;
+      v17 = *v69;
+      *&v15 = 138412290;
+      v62 = v15;
       do
       {
-        for (i = 0; i != v15; ++i)
+        for (i = 0; i != v16; ++i)
         {
-          if (*v66 != v16)
+          if (*v69 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v65 + 1) + 8 * i);
-          v19 = [*(a1 + 40) collaborationHighlightForIdentifier:{v18, v59}];
-          v20 = [obj objectForKeyedSubscript:v18];
-          v21 = TUDefaultLog();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v19 = *(*(&v68 + 1) + 8 * i);
+          v20 = [*(a1 + 40) collaborationHighlightForIdentifier:{v19, v62}];
+          v21 = [obj objectForKeyedSubscript:v19];
+          v22 = TUDefaultLog(v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v71 = v19;
-            v72 = 2112;
-            v73 = v20;
-            _os_log_impl(&dword_1956FD000, v21, OS_LOG_TYPE_DEFAULT, "highlight: %@ oldHighlight: %@", buf, 0x16u);
+            v74 = v20;
+            v75 = 2112;
+            v76 = v21;
+            _os_log_impl(&dword_1956FD000, v22, OS_LOG_TYPE_DEFAULT, "highlight: %@ oldHighlight: %@", buf, 0x16u);
           }
 
-          v22 = [*(a1 + 32) conversationsByHighlightIdentifier];
-          v23 = [v22 objectForKeyedSubscript:v18];
+          v23 = [*(a1 + 32) conversationsByHighlightIdentifier];
+          v24 = [v23 objectForKeyedSubscript:v19];
 
-          v24 = [*(a1 + 32) originatingParticipantByHighlightIdentifier];
-          v25 = [v24 objectForKeyedSubscript:v18];
-
-          if (!v19)
-          {
-            v29 = TUDefaultLog();
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
-            {
-              *buf = v59;
-              v71 = v18;
-              _os_log_impl(&dword_1956FD000, v29, OS_LOG_TYPE_DEFAULT, "highlight with identifier: %@ removed from SWY", buf, 0xCu);
-            }
-
-            v30 = [*(a1 + 32) originatingParticipantByHighlightIdentifier];
-            [v30 setObject:0 forKeyedSubscript:v18];
-
-            v31 = [*(a1 + 32) highlightsByIdentifier];
-            [v31 setObject:0 forKeyedSubscript:v18];
-
-            v32 = [*(a1 + 32) pendingHighlightIdentifiers];
-            [v32 addObject:v18];
-
-            [*(a1 + 32) notifyDelegateOfHighlightChanged:0 onConversation:v23];
-            v33 = *(a1 + 32);
-            v34 = v20;
-            v35 = v25;
-            v36 = v23;
-            v37 = 16;
-            goto LABEL_27;
-          }
+          v25 = [*(a1 + 32) originatingParticipantByHighlightIdentifier];
+          v26 = [v25 objectForKeyedSubscript:v19];
 
           if (!v20)
           {
-            v38 = TUDefaultLog();
-            if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+            v32 = TUDefaultLog(v27);
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v59;
-              v71 = v18;
-              _os_log_fault_impl(&dword_1956FD000, v38, OS_LOG_TYPE_FAULT, "highlight with identifier: %@ added to SWY - should not be possible to hit this case", buf, 0xCu);
+              *buf = v62;
+              v74 = v19;
+              _os_log_impl(&dword_1956FD000, v32, OS_LOG_TYPE_DEFAULT, "highlight with identifier: %@ removed from SWY", buf, 0xCu);
             }
 
-            v39 = [*(a1 + 32) highlightsByIdentifier];
-            [v39 setObject:v19 forKeyedSubscript:v18];
+            v33 = [*(a1 + 32) originatingParticipantByHighlightIdentifier];
+            [v33 setObject:0 forKeyedSubscript:v19];
 
-            v40 = [*(a1 + 32) pendingHighlightIdentifiers];
-            [v40 removeObject:v18];
+            v34 = [*(a1 + 32) highlightsByIdentifier];
+            [v34 setObject:0 forKeyedSubscript:v19];
 
-            [*(a1 + 32) notifyDelegateOfHighlightChanged:v19 onConversation:v23];
-            v33 = *(a1 + 32);
-            v34 = v19;
-            v35 = v25;
-            v36 = v23;
-            v37 = 15;
+            v35 = [*(a1 + 32) pendingHighlightIdentifiers];
+            [v35 addObject:v19];
+
+            [*(a1 + 32) notifyDelegateOfHighlightChanged:0 onConversation:v24];
+            v36 = *(a1 + 32);
+            v37 = v21;
+            v38 = v26;
+            v39 = v24;
+            v40 = 16;
+            goto LABEL_27;
+          }
+
+          if (!v21)
+          {
+            v41 = TUDefaultLog(v27);
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_FAULT))
+            {
+              *buf = v62;
+              v74 = v19;
+              _os_log_fault_impl(&dword_1956FD000, v41, OS_LOG_TYPE_FAULT, "highlight with identifier: %@ added to SWY - should not be possible to hit this case", buf, 0xCu);
+            }
+
+            v42 = [*(a1 + 32) highlightsByIdentifier];
+            [v42 setObject:v20 forKeyedSubscript:v19];
+
+            v43 = [*(a1 + 32) pendingHighlightIdentifiers];
+            [v43 removeObject:v19];
+
+            [*(a1 + 32) notifyDelegateOfHighlightChanged:v20 onConversation:v24];
+            v36 = *(a1 + 32);
+            v37 = v20;
+            v38 = v26;
+            v39 = v24;
+            v40 = 15;
 LABEL_27:
-            [v33 vendNoticeForCollaboration:v34 participant:v35 forConversation:v36 type:v37];
+            [v36 vendNoticeForCollaboration:v37 participant:v38 forConversation:v39 type:v40];
             goto LABEL_28;
           }
 
-          if (([v19 isEqual:v20] & 1) == 0)
+          v28 = [v20 isEqual:v21];
+          if ((v28 & 1) == 0)
           {
-            v26 = TUDefaultLog();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+            v29 = TUDefaultLog(v28);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              v71 = v19;
-              v72 = 2112;
-              v73 = v18;
-              _os_log_impl(&dword_1956FD000, v26, OS_LOG_TYPE_DEFAULT, "highlight: %@ with identifier: %@ changed", buf, 0x16u);
+              v74 = v20;
+              v75 = 2112;
+              v76 = v19;
+              _os_log_impl(&dword_1956FD000, v29, OS_LOG_TYPE_DEFAULT, "highlight: %@ with identifier: %@ changed", buf, 0x16u);
             }
 
-            v27 = [*(a1 + 32) highlightsByIdentifier];
-            [v27 setObject:v19 forKeyedSubscript:v18];
+            v30 = [*(a1 + 32) highlightsByIdentifier];
+            [v30 setObject:v20 forKeyedSubscript:v19];
 
-            v28 = [*(a1 + 32) pendingHighlightIdentifiers];
-            [v28 removeObject:v18];
+            v31 = [*(a1 + 32) pendingHighlightIdentifiers];
+            [v31 removeObject:v19];
           }
 
 LABEL_28:
         }
 
-        v15 = [obj countByEnumeratingWithState:&v65 objects:v74 count:16];
+        v16 = [obj countByEnumeratingWithState:&v68 objects:v77 count:16];
       }
 
-      while (v15);
+      while (v16);
     }
 
-    v41 = [*(a1 + 32) pendingHighlightIdentifiers];
-    v42 = [v41 copy];
+    v44 = [*(a1 + 32) pendingHighlightIdentifiers];
+    v45 = [v44 copy];
 
-    v63 = 0u;
+    v66 = 0u;
+    v67 = 0u;
     v64 = 0u;
-    v61 = 0u;
-    v62 = 0u;
-    v43 = v42;
-    v44 = [v43 countByEnumeratingWithState:&v61 objects:v69 count:16];
-    if (v44)
+    v65 = 0u;
+    v46 = v45;
+    v47 = [v46 countByEnumeratingWithState:&v64 objects:v72 count:16];
+    if (v47)
     {
-      v45 = v44;
-      v46 = *v62;
+      v48 = v47;
+      v49 = *v65;
       do
       {
-        for (j = 0; j != v45; ++j)
+        for (j = 0; j != v48; ++j)
         {
-          if (*v62 != v46)
+          if (*v65 != v49)
           {
-            objc_enumerationMutation(v43);
+            objc_enumerationMutation(v46);
           }
 
-          v48 = *(*(&v61 + 1) + 8 * j);
-          v49 = [*(a1 + 40) collaborationHighlightForIdentifier:v48];
-          v50 = [*(a1 + 32) conversationsByHighlightIdentifier];
-          v51 = [v50 objectForKeyedSubscript:v48];
+          v51 = *(*(&v64 + 1) + 8 * j);
+          v52 = [*(a1 + 40) collaborationHighlightForIdentifier:v51];
+          v53 = [*(a1 + 32) conversationsByHighlightIdentifier];
+          v54 = [v53 objectForKeyedSubscript:v51];
 
-          v52 = [*(a1 + 32) originatingParticipantByHighlightIdentifier];
-          v53 = [v52 objectForKeyedSubscript:v48];
+          v55 = [*(a1 + 32) originatingParticipantByHighlightIdentifier];
+          v56 = [v55 objectForKeyedSubscript:v51];
 
-          if (v49)
+          if (v52)
           {
-            v54 = v51 == 0;
+            v58 = v54 == 0;
           }
 
           else
           {
-            v54 = 1;
+            v58 = 1;
           }
 
-          if (!v54)
+          if (!v58)
           {
-            v55 = TUDefaultLog();
-            if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+            v59 = TUDefaultLog(v57);
+            if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              v71 = v49;
-              v72 = 2112;
-              v73 = v48;
-              _os_log_impl(&dword_1956FD000, v55, OS_LOG_TYPE_DEFAULT, "highlight: %@ with identifier: %@ added to SWY from pending", buf, 0x16u);
+              v74 = v52;
+              v75 = 2112;
+              v76 = v51;
+              _os_log_impl(&dword_1956FD000, v59, OS_LOG_TYPE_DEFAULT, "highlight: %@ with identifier: %@ added to SWY from pending", buf, 0x16u);
             }
 
-            v56 = [*(a1 + 32) highlightsByIdentifier];
-            [v56 setObject:v49 forKeyedSubscript:v48];
+            v60 = [*(a1 + 32) highlightsByIdentifier];
+            [v60 setObject:v52 forKeyedSubscript:v51];
 
-            v57 = [*(a1 + 32) pendingHighlightIdentifiers];
-            [v57 removeObject:v48];
+            v61 = [*(a1 + 32) pendingHighlightIdentifiers];
+            [v61 removeObject:v51];
 
-            [*(a1 + 32) startTrackingCollaborationIfNecessaryAndNotifyDelegate:v49 forConversation:v51];
-            [*(a1 + 32) vendNoticeForCollaboration:v49 participant:v53 forConversation:v51 type:15];
+            [*(a1 + 32) startTrackingCollaborationIfNecessaryAndNotifyDelegate:v52 forConversation:v54];
+            [*(a1 + 32) vendNoticeForCollaboration:v52 participant:v56 forConversation:v54 type:15];
           }
         }
 
-        v45 = [v43 countByEnumeratingWithState:&v61 objects:v69 count:16];
+        v48 = [v46 countByEnumeratingWithState:&v64 objects:v72 count:16];
       }
 
-      while (v45);
+      while (v48);
     }
   }
-
-  v58 = *MEMORY[0x1E69E9840];
 }
 
 - (void)vendNoticeForCollaboration:(id)collaboration participant:(id)participant forConversation:(id)conversation type:(int64_t)type
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   collaborationCopy = collaboration;
   participantCopy = participant;
   conversationCopy = conversation;
@@ -423,7 +422,7 @@ LABEL_28:
   {
     if ([conversationCopy avMode] == 1)
     {
-      v16 = TUDefaultLog();
+      v16 = TUDefaultLog(1);
       if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_9:
@@ -432,9 +431,9 @@ LABEL_9:
       }
 
       identifier = [collaborationCopy identifier];
-      v23 = 138412290;
-      v24 = identifier;
-      _os_log_impl(&dword_1956FD000, v16, OS_LOG_TYPE_DEFAULT, "Not posting a notice for collaboration: %@ since the conversation is avModeAudio", &v23, 0xCu);
+      v22 = 138412290;
+      v23 = identifier;
+      _os_log_impl(&dword_1956FD000, v16, OS_LOG_TYPE_DEFAULT, "Not posting a notice for collaboration: %@ since the conversation is avModeAudio", &v22, 0xCu);
     }
 
     else
@@ -444,18 +443,17 @@ LABEL_9:
       v16 = [(TUCollaborationNotice *)v18 initWithUUID:uUID];
 
       [v16 setSessionEventType:type];
-      [v16 setCollaboration:collaborationCopy];
-      v20 = TUDefaultLog();
+      v20 = TUDefaultLog([v16 setCollaboration:collaborationCopy]);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         collaborationIdentifier = [collaborationCopy collaborationIdentifier];
-        v23 = 138412802;
-        v24 = v16;
-        v25 = 2112;
-        v26 = collaborationIdentifier;
-        v27 = 2112;
-        v28 = participantCopy;
-        _os_log_impl(&dword_1956FD000, v20, OS_LOG_TYPE_DEFAULT, "Vending notice: %@ for collaboration: %@, for participant: %@", &v23, 0x20u);
+        v22 = 138412802;
+        v23 = v16;
+        v24 = 2112;
+        v25 = collaborationIdentifier;
+        v26 = 2112;
+        v27 = participantCopy;
+        _os_log_impl(&dword_1956FD000, v20, OS_LOG_TYPE_DEFAULT, "Vending notice: %@ for collaboration: %@, for participant: %@", &v22, 0x20u);
       }
 
       identifier = [(TUCollaborationManager *)self delegate];
@@ -466,8 +464,6 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyDelegateOfHighlightChanged:(id)changed onConversation:(id)conversation
@@ -498,12 +494,12 @@ LABEL_10:
 
   anyObject = [highlightIdentifiers anyObject];
 
-  v8 = TUDefaultLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = TUDefaultLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v15 = 138412290;
     v16 = anyObject;
-    _os_log_impl(&dword_1956FD000, v8, OS_LOG_TYPE_DEFAULT, "Asked to stop tracking highlight for conversation with collaboration Identifier: %@", &v15, 0xCu);
+    _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "Asked to stop tracking highlight for conversation with collaboration Identifier: %@", &v15, 0xCu);
   }
 
   if (anyObject)
@@ -523,8 +519,6 @@ LABEL_10:
     collaborationStateByIdentifier = [(TUCollaborationManager *)self collaborationStateByIdentifier];
     [collaborationStateByIdentifier removeObjectForKey:anyObject];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)collaborationForConversation:(id)conversation
@@ -565,7 +559,7 @@ LABEL_10:
 
 void __55__TUCollaborationManager_collaborationForConversation___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) highlightIdentifiers];
   v3 = [v2 count];
 
@@ -579,20 +573,20 @@ void __55__TUCollaborationManager_collaborationForConversation___block_invoke(ui
 
     if (v7)
     {
-      v8 = TUDefaultLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = TUDefaultLog(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = *(a1 + 32);
-        v20 = 138412546;
-        v21 = v5;
-        v22 = 2112;
-        v23 = v9;
-        _os_log_impl(&dword_1956FD000, v8, OS_LOG_TYPE_DEFAULT, "Highlight identifier: %@ is currently pending for conversation: %@", &v20, 0x16u);
+        v10 = *(a1 + 32);
+        v19 = 138412546;
+        v20 = v5;
+        v21 = 2112;
+        v22 = v10;
+        _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "Highlight identifier: %@ is currently pending for conversation: %@", &v19, 0x16u);
       }
 
-      v10 = *(*(a1 + 48) + 8);
-      v11 = *(v10 + 40);
-      *(v10 + 40) = 0;
+      v11 = *(*(a1 + 48) + 8);
+      v12 = *(v11 + 40);
+      *(v11 + 40) = 0;
     }
 
     else
@@ -603,16 +597,13 @@ void __55__TUCollaborationManager_collaborationForConversation___block_invoke(ui
       v18 = *(v17 + 40);
       *(v17 + 40) = v16;
     }
-
-    v19 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v12 = *(*(a1 + 48) + 8);
-    v13 = *(v12 + 40);
-    *(v12 + 40) = 0;
-    v14 = *MEMORY[0x1E69E9840];
+    v13 = *(*(a1 + 48) + 8);
+    v14 = *(v13 + 40);
+    *(v13 + 40) = 0;
   }
 }
 
@@ -652,28 +643,26 @@ void __60__TUCollaborationManager_collaborationStateForConversation___block_invo
 
     if (v5)
     {
-      v6 = [*(a1 + 32) collaborationStateByIdentifier];
-      v7 = [v6 objectForKeyedSubscript:v5];
+      v7 = [*(a1 + 32) collaborationStateByIdentifier];
+      v8 = [v7 objectForKeyedSubscript:v5];
 
-      if (v7)
+      if (v8)
       {
-        v8 = [*(a1 + 32) collaborationStateByIdentifier];
-        v9 = [v8 objectForKeyedSubscript:v5];
-        *(*(*(a1 + 48) + 8) + 24) = [v9 intValue];
+        v9 = [*(a1 + 32) collaborationStateByIdentifier];
+        v10 = [v9 objectForKeyedSubscript:v5];
+        *(*(*(a1 + 48) + 8) + 24) = [v10 intValue];
       }
     }
 
-    v10 = TUDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = TUDefaultLog(v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(*(*(a1 + 48) + 8) + 24);
+      v12 = *(*(*(a1 + 48) + 8) + 24);
       v13 = 134217984;
-      v14 = v11;
-      _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "Collaboration state for conversation is %ld", &v13, 0xCu);
+      v14 = v12;
+      _os_log_impl(&dword_1956FD000, v11, OS_LOG_TYPE_DEFAULT, "Collaboration state for conversation is %ld", &v13, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)associateCollaborationWithNewConversation:(id)conversation
@@ -692,17 +681,17 @@ void __60__TUCollaborationManager_collaborationStateForConversation___block_invo
 
 void __68__TUCollaborationManager_associateCollaborationWithNewConversation___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v40 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) highlightIdentifiers];
     v4 = [v3 anyObject];
     v5 = *(a1 + 32);
     *buf = 138412546;
-    v36 = v4;
-    v37 = 2112;
-    v38 = v5;
+    v37 = v4;
+    v38 = 2112;
+    v39 = v5;
     _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Conversation created with collaboration identifier: %@ conversation: %@", buf, 0x16u);
   }
 
@@ -719,54 +708,54 @@ void __68__TUCollaborationManager_associateCollaborationWithNewConversation___bl
 
     if (v11)
     {
-      v12 = TUDefaultLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = TUDefaultLog(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v36 = v9;
-        _os_log_impl(&dword_1956FD000, v12, OS_LOG_TYPE_DEFAULT, "collaboration found: %@ ", buf, 0xCu);
+        v37 = v9;
+        _os_log_impl(&dword_1956FD000, v13, OS_LOG_TYPE_DEFAULT, "collaboration found: %@ ", buf, 0xCu);
       }
 
-      v13 = [*(a1 + 40) highlightsByIdentifier];
-      [v13 setObject:v11 forKeyedSubscript:v9];
+      v14 = [*(a1 + 40) highlightsByIdentifier];
+      [v14 setObject:v11 forKeyedSubscript:v9];
 
-      v14 = *(a1 + 32);
-      v15 = [*(a1 + 40) conversationsByHighlightIdentifier];
-      [v15 setObject:v14 forKeyedSubscript:v9];
+      v15 = *(a1 + 32);
+      v16 = [*(a1 + 40) conversationsByHighlightIdentifier];
+      [v16 setObject:v15 forKeyedSubscript:v9];
 
-      v32 = 0u;
       v33 = 0u;
-      v30 = 0u;
+      v34 = 0u;
       v31 = 0u;
-      v16 = [*(a1 + 32) activeRemoteParticipants];
-      v17 = [v16 countByEnumeratingWithState:&v30 objects:v34 count:16];
-      if (v17)
+      v32 = 0u;
+      v17 = [*(a1 + 32) activeRemoteParticipants];
+      v18 = [v17 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      if (v18)
       {
-        v29 = v9;
-        v18 = *v31;
+        v30 = v9;
+        v19 = *v32;
         while (2)
         {
-          for (i = 0; i != v17; i = (i + 1))
+          for (i = 0; i != v18; i = (i + 1))
           {
-            if (*v31 != v18)
+            if (*v32 != v19)
             {
-              objc_enumerationMutation(v16);
+              objc_enumerationMutation(v17);
             }
 
-            v20 = *(*(&v30 + 1) + 8 * i);
-            v21 = [v20 handle];
-            v22 = [*(a1 + 32) initiator];
-            v23 = [v21 isEqualToHandle:v22];
+            v21 = *(*(&v31 + 1) + 8 * i);
+            v22 = [v21 handle];
+            v23 = [*(a1 + 32) initiator];
+            v24 = [v22 isEqualToHandle:v23];
 
-            if (v23)
+            if (v24)
             {
-              v17 = v20;
+              v18 = v21;
               goto LABEL_17;
             }
           }
 
-          v17 = [v16 countByEnumeratingWithState:&v30 objects:v34 count:16];
-          if (v17)
+          v18 = [v17 countByEnumeratingWithState:&v31 objects:v35 count:16];
+          if (v18)
           {
             continue;
           }
@@ -775,12 +764,15 @@ void __68__TUCollaborationManager_associateCollaborationWithNewConversation___bl
         }
 
 LABEL_17:
-        v9 = v29;
+        v9 = v30;
       }
 
-      if ([*(a1 + 32) state] == 3 && objc_msgSend(*(a1 + 40), "isIpad"))
+      if ([*(a1 + 32) state] == 3)
       {
-        [*(a1 + 40) vendNoticeForCollaboration:v11 participant:v17 forConversation:*(a1 + 32) type:15];
+        if ([*(a1 + 40) isIpad])
+        {
+          [*(a1 + 40) vendNoticeForCollaboration:v11 participant:v18 forConversation:*(a1 + 32) type:15];
+        }
       }
 
       [*(a1 + 40) notifyDelegateOfHighlightChanged:v11 onConversation:*(a1 + 32)];
@@ -788,27 +780,25 @@ LABEL_17:
 
     else
     {
-      v24 = [*(a1 + 40) pendingHighlightIdentifiers];
-      [v24 addObject:v9];
+      v25 = [*(a1 + 40) pendingHighlightIdentifiers];
+      [v25 addObject:v9];
 
-      v25 = *(a1 + 32);
-      v26 = [*(a1 + 40) conversationsByHighlightIdentifier];
-      [v26 setObject:v25 forKeyedSubscript:v9];
+      v26 = *(a1 + 32);
+      v27 = [*(a1 + 40) conversationsByHighlightIdentifier];
+      [v27 setObject:v26 forKeyedSubscript:v9];
 
-      v17 = TUDefaultLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = TUDefaultLog(v28);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = [*(a1 + 40) pendingHighlightIdentifiers];
+        v29 = [*(a1 + 40) pendingHighlightIdentifiers];
         *buf = 138412290;
-        v36 = v27;
-        _os_log_impl(&dword_1956FD000, v17, OS_LOG_TYPE_DEFAULT, "Highlight not found: %@ ", buf, 0xCu);
+        v37 = v29;
+        _os_log_impl(&dword_1956FD000, v18, OS_LOG_TYPE_DEFAULT, "Highlight not found: %@ ", buf, 0xCu);
       }
     }
 
     [*(a1 + 40) startTrackingCollaborationIfNecessaryAndNotifyDelegate:v11 forConversation:*(a1 + 32)];
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)participant:(id)participant addedHighlightToConversation:(id)conversation highlightIdentifier:(id)identifier oldHighlightIdentifier:(id)highlightIdentifier isFirstAdd:(BOOL)add
@@ -837,20 +827,20 @@ LABEL_17:
 
 void __121__TUCollaborationManager_participant_addedHighlightToConversation_highlightIdentifier_oldHighlightIdentifier_isFirstAdd___block_invoke(uint64_t a1)
 {
-  v46 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v48 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     v5 = *(a1 + 48);
-    v40 = 138412802;
-    v41 = v3;
-    v42 = 2112;
-    v43 = v4;
+    v42 = 138412802;
+    v43 = v3;
     v44 = 2112;
-    v45 = v5;
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Participant: %@ added highlightIdentifier: %@ to conversation: %@", &v40, 0x20u);
+    v45 = v4;
+    v46 = 2112;
+    v47 = v5;
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Participant: %@ added highlightIdentifier: %@ to conversation: %@", &v42, 0x20u);
   }
 
   v6 = [*(a1 + 56) featureFlags];
@@ -858,131 +848,126 @@ void __121__TUCollaborationManager_participant_addedHighlightToConversation_high
 
   if (v7)
   {
-    if (*(a1 + 72))
+    if ((*(a1 + 72) & 1) == 0)
     {
-      v8 = *(a1 + 32);
-      v9 = [*(a1 + 56) originatingParticipantByHighlightIdentifier];
-      [v9 setObject:v8 forKeyedSubscript:*(a1 + 40)];
+      [*(a1 + 56) participant:*(a1 + 32) reAddedHighlightToConversation:*(a1 + 48) highlightIdentifier:*(a1 + 40)];
+      return;
+    }
 
-      if (!*(a1 + 64))
+    v8 = *(a1 + 32);
+    v9 = [*(a1 + 56) originatingParticipantByHighlightIdentifier];
+    [v9 setObject:v8 forKeyedSubscript:*(a1 + 40)];
+
+    if (*(a1 + 64))
+    {
+      v10 = [*(a1 + 40) isEqualToString:?];
+      if (v10)
       {
-        v26 = [*(a1 + 56) collaborationProvider];
-        v20 = [v26 collaborationHighlightForIdentifier:*(a1 + 40)];
-
-        if (v20)
-        {
-          v27 = TUDefaultLog();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
-          {
-            v28 = *(a1 + 40);
-            v40 = 138412290;
-            v41 = v28;
-            _os_log_impl(&dword_1956FD000, v27, OS_LOG_TYPE_DEFAULT, "Highlight found: %@ ", &v40, 0xCu);
-          }
-
-          v29 = [*(a1 + 56) highlightsByIdentifier];
-          [v29 setObject:v20 forKeyedSubscript:*(a1 + 40)];
-
-          v30 = *(a1 + 48);
-          v31 = [*(a1 + 56) conversationsByHighlightIdentifier];
-          [v31 setObject:v30 forKeyedSubscript:*(a1 + 40)];
-
-          v32 = *(a1 + 56);
-          v33 = [v32 originatingParticipantByHighlightIdentifier];
-          v34 = [v33 objectForKeyedSubscript:*(a1 + 40)];
-          [v32 vendNoticeForCollaboration:v20 participant:v34 forConversation:*(a1 + 48) type:15];
-
-          [*(a1 + 56) notifyDelegateOfHighlightChanged:v20 onConversation:*(a1 + 48)];
-          goto LABEL_20;
-        }
-
-        v35 = [*(a1 + 56) pendingHighlightIdentifiers];
-        [v35 addObject:*(a1 + 40)];
-
-        v36 = *(a1 + 48);
-        v37 = [*(a1 + 56) conversationsByHighlightIdentifier];
-        [v37 setObject:v36 forKeyedSubscript:*(a1 + 40)];
-
-        v24 = TUDefaultLog();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
-        {
-          v38 = [*(a1 + 56) pendingHighlightIdentifiers];
-          v40 = 138412290;
-          v41 = v38;
-          _os_log_impl(&dword_1956FD000, v24, OS_LOG_TYPE_DEFAULT, "Highlight not found: %@ ", &v40, 0xCu);
-        }
-
-LABEL_19:
-
-LABEL_20:
-        [*(a1 + 56) startTrackingCollaborationIfNecessaryAndNotifyDelegate:v20 forConversation:*(a1 + 48)];
-
-        goto LABEL_21;
+        return;
       }
 
-      if (([*(a1 + 40) isEqualToString:?] & 1) == 0)
+      v11 = TUDefaultLog(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = TUDefaultLog();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-        {
-          v11 = *(a1 + 64);
-          v12 = *(a1 + 40);
-          v40 = 138412546;
-          v41 = v11;
-          v42 = 2112;
-          v43 = v12;
-          _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "Changed collaborations from oldIdentifier: %@ to %@", &v40, 0x16u);
-        }
+        v12 = *(a1 + 64);
+        v13 = *(a1 + 40);
+        v42 = 138412546;
+        v43 = v12;
+        v44 = 2112;
+        v45 = v13;
+        _os_log_impl(&dword_1956FD000, v11, OS_LOG_TYPE_DEFAULT, "Changed collaborations from oldIdentifier: %@ to %@", &v42, 0x16u);
+      }
 
-        v13 = [*(a1 + 56) originatingParticipantByHighlightIdentifier];
-        [v13 removeObjectForKey:*(a1 + 64)];
+      v14 = [*(a1 + 56) originatingParticipantByHighlightIdentifier];
+      [v14 removeObjectForKey:*(a1 + 64)];
 
-        v14 = [*(a1 + 56) conversationsByHighlightIdentifier];
-        [v14 removeObjectForKey:*(a1 + 64)];
+      v15 = [*(a1 + 56) conversationsByHighlightIdentifier];
+      [v15 removeObjectForKey:*(a1 + 64)];
 
-        v15 = [*(a1 + 56) highlightsByIdentifier];
-        [v15 removeObjectForKey:*(a1 + 64)];
+      v16 = [*(a1 + 56) highlightsByIdentifier];
+      [v16 removeObjectForKey:*(a1 + 64)];
 
-        v16 = [*(a1 + 56) pendingHighlightIdentifiers];
-        [v16 removeObject:*(a1 + 64)];
+      v17 = [*(a1 + 56) pendingHighlightIdentifiers];
+      [v17 removeObject:*(a1 + 64)];
 
-        v17 = *(a1 + 48);
-        v18 = [*(a1 + 56) conversationsByHighlightIdentifier];
-        [v18 setObject:v17 forKeyedSubscript:*(a1 + 40)];
+      v18 = *(a1 + 48);
+      v19 = [*(a1 + 56) conversationsByHighlightIdentifier];
+      [v19 setObject:v18 forKeyedSubscript:*(a1 + 40)];
 
-        v19 = [*(a1 + 56) collaborationProvider];
-        v20 = [v19 collaborationHighlightForIdentifier:*(a1 + 40)];
+      v20 = [*(a1 + 56) collaborationProvider];
+      v21 = [v20 collaborationHighlightForIdentifier:*(a1 + 40)];
 
-        v21 = *(a1 + 56);
-        if (v20)
-        {
-          v22 = [v21 highlightsByIdentifier];
-          [v22 setObject:v20 forKeyedSubscript:*(a1 + 40)];
+      v22 = *(a1 + 56);
+      if (v21)
+      {
+        v23 = [v22 highlightsByIdentifier];
+        [v23 setObject:v21 forKeyedSubscript:*(a1 + 40)];
 
-          v23 = *(a1 + 56);
-          v24 = [v23 originatingParticipantByHighlightIdentifier];
-          v25 = [v24 objectForKeyedSubscript:*(a1 + 40)];
-          [v23 vendNoticeForCollaboration:v20 participant:v25 forConversation:*(a1 + 48) type:15];
-        }
+        v24 = *(a1 + 56);
+        v25 = [v24 originatingParticipantByHighlightIdentifier];
+        v26 = [v25 objectForKeyedSubscript:*(a1 + 40)];
+        [v24 vendNoticeForCollaboration:v21 participant:v26 forConversation:*(a1 + 48) type:15];
+      }
 
-        else
-        {
-          v24 = [v21 pendingHighlightIdentifiers];
-          [v24 addObject:*(a1 + 40)];
-        }
-
-        goto LABEL_19;
+      else
+      {
+        v25 = [v22 pendingHighlightIdentifiers];
+        [v25 addObject:*(a1 + 40)];
       }
     }
 
     else
     {
-      [*(a1 + 56) participant:*(a1 + 32) reAddedHighlightToConversation:*(a1 + 48) highlightIdentifier:*(a1 + 40)];
-    }
-  }
+      v27 = [*(a1 + 56) collaborationProvider];
+      v21 = [v27 collaborationHighlightForIdentifier:*(a1 + 40)];
 
-LABEL_21:
-  v39 = *MEMORY[0x1E69E9840];
+      if (v21)
+      {
+        v29 = TUDefaultLog(v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        {
+          v30 = *(a1 + 40);
+          v42 = 138412290;
+          v43 = v30;
+          _os_log_impl(&dword_1956FD000, v29, OS_LOG_TYPE_DEFAULT, "Highlight found: %@ ", &v42, 0xCu);
+        }
+
+        v31 = [*(a1 + 56) highlightsByIdentifier];
+        [v31 setObject:v21 forKeyedSubscript:*(a1 + 40)];
+
+        v32 = *(a1 + 48);
+        v33 = [*(a1 + 56) conversationsByHighlightIdentifier];
+        [v33 setObject:v32 forKeyedSubscript:*(a1 + 40)];
+
+        v34 = *(a1 + 56);
+        v35 = [v34 originatingParticipantByHighlightIdentifier];
+        v36 = [v35 objectForKeyedSubscript:*(a1 + 40)];
+        [v34 vendNoticeForCollaboration:v21 participant:v36 forConversation:*(a1 + 48) type:15];
+
+        [*(a1 + 56) notifyDelegateOfHighlightChanged:v21 onConversation:*(a1 + 48)];
+        goto LABEL_20;
+      }
+
+      v37 = [*(a1 + 56) pendingHighlightIdentifiers];
+      [v37 addObject:*(a1 + 40)];
+
+      v38 = *(a1 + 48);
+      v39 = [*(a1 + 56) conversationsByHighlightIdentifier];
+      [v39 setObject:v38 forKeyedSubscript:*(a1 + 40)];
+
+      v25 = TUDefaultLog(v40);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      {
+        v41 = [*(a1 + 56) pendingHighlightIdentifiers];
+        v42 = 138412290;
+        v43 = v41;
+        _os_log_impl(&dword_1956FD000, v25, OS_LOG_TYPE_DEFAULT, "Highlight not found: %@ ", &v42, 0xCu);
+      }
+    }
+
+LABEL_20:
+    [*(a1 + 56) startTrackingCollaborationIfNecessaryAndNotifyDelegate:v21 forConversation:*(a1 + 48)];
+  }
 }
 
 - (void)participant:(id)participant reAddedHighlightToConversation:(id)conversation highlightIdentifier:(id)identifier
@@ -1007,20 +992,20 @@ LABEL_21:
 
 void __89__TUCollaborationManager_participant_reAddedHighlightToConversation_highlightIdentifier___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v21 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     v5 = *(a1 + 48);
-    v16 = 138412802;
-    v17 = v3;
-    v18 = 2112;
-    v19 = v4;
-    v20 = 2112;
-    v21 = v5;
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Participant: %@ readded highlightIdentifier: %@ to conversation: %@", &v16, 0x20u);
+    v15 = 138412802;
+    v16 = v3;
+    v17 = 2112;
+    v18 = v4;
+    v19 = 2112;
+    v20 = v5;
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Participant: %@ readded highlightIdentifier: %@ to conversation: %@", &v15, 0x20u);
   }
 
   v6 = [*(a1 + 56) featureFlags];
@@ -1040,8 +1025,6 @@ void __89__TUCollaborationManager_participant_reAddedHighlightToConversation_hig
     v14 = [v13 objectForKeyedSubscript:*(a1 + 40)];
     [v12 vendNoticeForCollaboration:v11 participant:v14 forConversation:*(a1 + 48) type:15];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)participant:(id)participant removedHighlightFromConversation:(id)conversation highlightIdentifier:(id)identifier
@@ -1066,20 +1049,20 @@ void __89__TUCollaborationManager_participant_reAddedHighlightToConversation_hig
 
 void __91__TUCollaborationManager_participant_removedHighlightFromConversation_highlightIdentifier___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v2 = TUDefaultLog();
+  v22 = *MEMORY[0x1E69E9840];
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     v5 = *(a1 + 48);
-    v17 = 138412802;
-    v18 = v3;
-    v19 = 2112;
-    v20 = v4;
-    v21 = 2112;
-    v22 = v5;
-    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Participant: %@ removed highlightIdentifier: %@ from conversation: %@", &v17, 0x20u);
+    v16 = 138412802;
+    v17 = v3;
+    v18 = 2112;
+    v19 = v4;
+    v20 = 2112;
+    v21 = v5;
+    _os_log_impl(&dword_1956FD000, v2, OS_LOG_TYPE_DEFAULT, "Participant: %@ removed highlightIdentifier: %@ from conversation: %@", &v16, 0x20u);
   }
 
   v6 = [*(a1 + 56) featureFlags];
@@ -1113,8 +1096,6 @@ void __91__TUCollaborationManager_participant_removedHighlightFromConversation_h
       [*(a1 + 56) vendNoticeForCollaboration:v9 participant:*(a1 + 32) forConversation:*(a1 + 48) type:16];
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setCollaborationState:(int64_t)state forCollaborationIdentifier:(id)identifier
@@ -1199,31 +1180,31 @@ LABEL_11:
 
 void __74__TUCollaborationManager_conversationManager_stateChangedForConversation___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) featureFlags];
   v3 = [v2 gelatoEnabled];
 
   if (v3 && [*(a1 + 32) isIpad] && objc_msgSend(*(a1 + 40), "state") == 3)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v4 = [*(a1 + 40) activeRemoteParticipants];
-    v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v5)
     {
-      v6 = *v18;
+      v6 = *v17;
       while (2)
       {
         for (i = 0; i != v5; i = i + 1)
         {
-          if (*v18 != v6)
+          if (*v17 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          v8 = *(*(&v17 + 1) + 8 * i);
+          v8 = *(*(&v16 + 1) + 8 * i);
           v9 = [v8 handle];
           v10 = [*(a1 + 40) initiator];
           v11 = [v9 isEqualToHandle:v10];
@@ -1235,7 +1216,7 @@ void __74__TUCollaborationManager_conversationManager_stateChangedForConversatio
           }
         }
 
-        v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v5)
         {
           continue;
@@ -1254,8 +1235,6 @@ LABEL_14:
 
     [*(a1 + 32) vendNoticeForCollaboration:v15 participant:v5 forConversation:*(a1 + 40) type:15];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startTrackingCollaborationIfNecessaryAndNotifyDelegate:(id)delegate forConversation:(id)conversation
@@ -1303,13 +1282,13 @@ LABEL_14:
 
 void __97__TUCollaborationManager_startTrackingCollaborationIfNecessaryAndNotifyDelegate_forConversation___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v6 = TUDefaultLog();
+  v12 = *MEMORY[0x1E69E9840];
+  v6 = TUDefaultLog(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 134217984;
-    v12 = a2;
-    _os_log_impl(&dword_1956FD000, v6, OS_LOG_TYPE_DEFAULT, "Collaboration state for conversation document state %ld", &v11, 0xCu);
+    v10 = 134217984;
+    v11 = a2;
+    _os_log_impl(&dword_1956FD000, v6, OS_LOG_TYPE_DEFAULT, "Collaboration state for conversation document state %ld", &v10, 0xCu);
   }
 
   if (!a3)
@@ -1324,8 +1303,6 @@ void __97__TUCollaborationManager_startTrackingCollaborationIfNecessaryAndNotify
       [*(a1 + 48) collaborationChanged:*(a1 + 40) forConversation:*(a1 + 56) collaborationState:a2];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (TUCollaborationManagerDelegate)delegate

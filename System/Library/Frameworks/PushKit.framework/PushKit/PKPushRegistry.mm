@@ -82,15 +82,14 @@
 
 + (id)_pushTypeToMachServiceName
 {
-  v6[3] = *MEMORY[0x277D85DE8];
-  v5[0] = @"PKPushTypeVoIP";
-  v5[1] = @"PKPushTypeComplication";
-  v6[0] = @"com.apple.telephonyutilities.callservicesdaemon.voip";
-  v6[1] = @"com.apple.watchconnectivity.complication";
-  v5[2] = @"PKPushTypeFileProvider";
-  v6[2] = @"com.apple.fileprovider.pushkit";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:3];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
+  v4[0] = @"PKPushTypeVoIP";
+  v4[1] = @"PKPushTypeComplication";
+  v5[0] = @"com.apple.telephonyutilities.callservicesdaemon.voip";
+  v5[1] = @"com.apple.watchconnectivity.complication";
+  v4[2] = @"PKPushTypeFileProvider";
+  v5[2] = @"com.apple.fileprovider.pushkit";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:3];
 
   return v2;
 }
@@ -652,7 +651,7 @@ void __74__PKPushRegistry_remoteUserNotificationPayloadReceived_completionHandle
   dispatch_sync(ivarQueue, block);
 }
 
-uint64_t __43__PKPushRegistry__noteIncomingCallReported__block_invoke(uint64_t a1)
+void *__43__PKPushRegistry__noteIncomingCallReported__block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 20) = 0;
   result = [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
@@ -918,34 +917,34 @@ LABEL_14:
 
 void __38__PKPushRegistry_setDesiredPushTypes___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) mutableCopy];
   [v2 minusSet:*(*(a1 + 40) + 24)];
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v3 = v2;
-  v4 = [v3 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v23;
+    v6 = *v22;
     do
     {
       v7 = 0;
       do
       {
-        if (*v23 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(a1 + 40) _registerForPushType:*(*(&v22 + 1) + 8 * v7++)];
+        [*(a1 + 40) _registerForPushType:*(*(&v21 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v5);
@@ -953,31 +952,31 @@ void __38__PKPushRegistry_setDesiredPushTypes___block_invoke(uint64_t a1)
 
   v8 = [*(*(a1 + 40) + 24) mutableCopy];
   [v8 minusSet:*(a1 + 32)];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       v13 = 0;
       do
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [*(a1 + 40) _unregisterForPushType:{*(*(&v18 + 1) + 8 * v13++), v18}];
+        [*(a1 + 40) _unregisterForPushType:{*(*(&v17 + 1) + 8 * v13++), v17}];
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v11);
@@ -987,8 +986,6 @@ void __38__PKPushRegistry_setDesiredPushTypes___block_invoke(uint64_t a1)
   v15 = *(a1 + 40);
   v16 = *(v15 + 24);
   *(v15 + 24) = v14;
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)desiredPushTypes
@@ -1015,10 +1012,7 @@ void __38__PKPushRegistry_setDesiredPushTypes___block_invoke(uint64_t a1)
 
 uint64_t __34__PKPushRegistry_desiredPushTypes__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 24) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 24) copy];
 
   return MEMORY[0x2821F96F8]();
 }

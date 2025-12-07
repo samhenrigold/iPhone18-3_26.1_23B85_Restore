@@ -13,6 +13,7 @@
 - (void)openDatabaseIfNecessary;
 - (void)saveCloudTabDevices:(id)devices tabs:(id)tabs closeRequests:(id)requests completionHandler:(id)handler;
 - (void)setServerChangeTokenData:(id)data completionHandler:(id)handler;
+- (void)setUseManateeContainerForSyncing:(BOOL)syncing completionHandler:(id)handler;
 @end
 
 @implementation CloudTabLocalStoreShim
@@ -156,6 +157,19 @@
   else
   {
     [(CloudTabLocalStore *)self->_cloudTabLocalStore getUseManateeContainerForSyncingWithCompletionHandler:handler];
+  }
+}
+
+- (void)setUseManateeContainerForSyncing:(BOOL)syncing completionHandler:(id)handler
+{
+  if (self->_disabled)
+  {
+    (*(handler + 2))(handler, 14);
+  }
+
+  else
+  {
+    [(CloudTabLocalStore *)self->_cloudTabLocalStore setUseManateeContainerForSyncing:syncing completionHandler:handler];
   }
 }
 

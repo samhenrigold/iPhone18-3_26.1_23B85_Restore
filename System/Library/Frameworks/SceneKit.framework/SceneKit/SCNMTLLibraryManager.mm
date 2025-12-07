@@ -13,10 +13,10 @@
 
 - (SCNMTLLibraryManager)initWithDevice:(id)device
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v28.receiver = self;
-  v28.super_class = SCNMTLLibraryManager;
-  v4 = [(SCNMTLLibraryManager *)&v28 init];
+  v31 = *MEMORY[0x277D85DE8];
+  v29.receiver = self;
+  v29.super_class = SCNMTLLibraryManager;
+  v4 = [(SCNMTLLibraryManager *)&v29 init];
   v5 = v4;
   if (v4)
   {
@@ -38,64 +38,64 @@
     }
 
     v7 = v6;
-    v27 = 0;
+    v28 = 0;
     if ([objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")])
     {
-      v8 = [(MTLDevice *)v5->_device newLibraryWithURL:v7 error:&v27];
+      v8 = [(MTLDevice *)v5->_device newLibraryWithURL:v7 error:&v28];
       if (v8)
       {
-        v9 = v8;
-        v10 = CFHash(v7);
-        v5->_commonProfileCacheLibrary = v9;
+        v10 = v8;
+        v11 = CFHash(v7);
+        v5->_commonProfileCacheLibrary = v10;
         aBlock[0] = MEMORY[0x277D85DD0];
         aBlock[1] = 3221225472;
         aBlock[2] = __39__SCNMTLLibraryManager_initWithDevice___block_invoke;
         aBlock[3] = &__block_descriptor_40_e5_Q8__0l;
-        aBlock[4] = v10;
+        aBlock[4] = v11;
         v5->_commonProfileCacheLibraryHasherBlock = _Block_copy(aBlock);
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __39__SCNMTLLibraryManager_initWithDevice___block_invoke_2;
-        v25[3] = &unk_2782FE8C8;
-        v25[4] = v9;
-        v5->_commonProfileCacheLibraryProviderBlock = _Block_copy(v25);
+        v26[0] = MEMORY[0x277D85DD0];
+        v26[1] = 3221225472;
+        v26[2] = __39__SCNMTLLibraryManager_initWithDevice___block_invoke_2;
+        v26[3] = &unk_2782FE8C8;
+        v26[4] = v10;
+        v5->_commonProfileCacheLibraryProviderBlock = _Block_copy(v26);
         functionNames = [(MTLLibrary *)v5->_commonProfileCacheLibrary functionNames];
-        v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
-        v21 = 0u;
+        v13 = objc_alloc_init(MEMORY[0x277CBEB38]);
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v13 = [functionNames countByEnumeratingWithState:&v21 objects:v29 count:16];
-        if (v13)
+        v25 = 0u;
+        v14 = [functionNames countByEnumeratingWithState:&v22 objects:v30 count:16];
+        if (v14)
         {
-          v14 = v13;
-          v15 = *v22;
+          v15 = v14;
+          v16 = *v23;
           do
           {
-            for (i = 0; i != v14; ++i)
+            for (i = 0; i != v15; ++i)
             {
-              if (*v22 != v15)
+              if (*v23 != v16)
               {
                 objc_enumerationMutation(functionNames);
               }
 
-              v17 = *(*(&v21 + 1) + 8 * i);
-              if (([v17 hasPrefix:@"commonprofile_vert"] & 1) != 0 || objc_msgSend(v17, "hasPrefix:", @"commonprofile_frag"))
+              v18 = *(*(&v22 + 1) + 8 * i);
+              if (([v18 hasPrefix:@"commonprofile_vert"] & 1) != 0 || objc_msgSend(v18, "hasPrefix:", @"commonprofile_frag"))
               {
-                v18 = [(MTLLibrary *)v5->_commonProfileCacheLibrary newFunctionWithName:v17];
-                [v12 setObject:v18 forKeyedSubscript:v17];
+                v19 = [(MTLLibrary *)v5->_commonProfileCacheLibrary newFunctionWithName:v18];
+                [v13 setObject:v19 forKeyedSubscript:v18];
               }
             }
 
-            v14 = [functionNames countByEnumeratingWithState:&v21 objects:v29 count:16];
+            v15 = [functionNames countByEnumeratingWithState:&v22 objects:v30 count:16];
           }
 
-          while (v14);
+          while (v15);
         }
 
-        if ([v12 count])
+        if ([v13 count])
         {
-          v5->_commonProfilePrecompiledFunctions = [v12 copy];
+          v5->_commonProfilePrecompiledFunctions = [v13 copy];
         }
 
         else
@@ -108,8 +108,8 @@
 
       else
       {
-        v19 = scn_default_log();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v20 = scn_default_log(0, v9);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           [SCNMTLLibraryManager initWithDevice:];
         }
@@ -132,79 +132,80 @@
 
 + (id)hashCodeForSource:(id)source macros:(id)macros
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   CC_SHA256_Init(&c);
-  CFStringUpdateHash();
-  v5 = [objc_msgSend(macros "allKeys")];
-  v23 = 0u;
-  v24 = 0u;
+  CFStringUpdateHash(source);
+  v6 = [objc_msgSend(macros "allKeys")];
   v25 = 0u;
   v26 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v23 objects:v31 count:16];
-  if (v6)
+  v27 = 0u;
+  v28 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  if (v7)
   {
-    v7 = v6;
-    v8 = *v24;
+    v8 = v7;
+    v9 = *v26;
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v24 != v8)
+        if (*v26 != v9)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v6);
         }
 
-        v10 = [macros objectForKeyedSubscript:*(*(&v23 + 1) + 8 * i)];
-        CFStringUpdateHash();
+        v11 = *(*(&v25 + 1) + 8 * i);
+        v12 = [macros objectForKeyedSubscript:v11];
+        CFStringUpdateHash(v11);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          CFStringUpdateHash();
+          CFStringUpdateHash(v12);
         }
 
         else
         {
-          data[0] = [v10 hash];
+          data[0] = [v12 hash];
           CC_SHA256_Update(&c, data, 8u);
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
-    while (v7);
+    while (v8);
   }
 
   CC_SHA256_Final(md, &c);
-  v11 = 0;
-  v12 = data;
-  v13.i64[0] = 0xA0A0A0A0A0A0A0A0;
-  v13.i64[1] = 0xA0A0A0A0A0A0A0A0;
-  v14.i64[0] = 0x3737373737373737;
-  v14.i64[1] = 0x3737373737373737;
-  v15.i64[0] = 0x3030303030303030;
-  v15.i64[1] = 0x3030303030303030;
-  v16.i64[0] = 0xF0F0F0F0F0F0F0FLL;
-  v16.i64[1] = 0xF0F0F0F0F0F0F0FLL;
-  v17.i64[0] = 0xA0A0A0A0A0A0A0ALL;
-  v17.i64[1] = 0xA0A0A0A0A0A0A0ALL;
+  v13 = 0;
+  v14 = data;
+  v15.i64[0] = 0xA0A0A0A0A0A0A0A0;
+  v15.i64[1] = 0xA0A0A0A0A0A0A0A0;
+  v16.i64[0] = 0x3737373737373737;
+  v16.i64[1] = 0x3737373737373737;
+  v17.i64[0] = 0x3030303030303030;
+  v17.i64[1] = 0x3030303030303030;
+  v18.i64[0] = 0xF0F0F0F0F0F0F0FLL;
+  v18.i64[1] = 0xF0F0F0F0F0F0F0FLL;
+  v19.i64[0] = 0xA0A0A0A0A0A0A0ALL;
+  v19.i64[1] = 0xA0A0A0A0A0A0A0ALL;
   do
   {
-    v18 = *&md[v11];
-    v19.i64[0] = 0x3737373737373737;
-    v19.i64[1] = 0x3737373737373737;
-    v20.i64[0] = 0x3030303030303030;
-    v20.i64[1] = 0x3030303030303030;
-    v33.val[0] = vbslq_s8(vcgtq_u8(v13, v18), vsraq_n_u8(v20, v18, 4uLL), vsraq_n_u8(v19, v18, 4uLL));
-    v21 = vandq_s8(v18, v16);
-    v33.val[1] = vbslq_s8(vcgtq_u8(v17, v21), vorrq_s8(v21, v15), vaddq_s8(v21, v14));
-    vst2q_s8(v12, v33);
-    v12 += 32;
-    v11 += 16;
+    v20 = *&md[v13];
+    v21.i64[0] = 0x3737373737373737;
+    v21.i64[1] = 0x3737373737373737;
+    v22.i64[0] = 0x3030303030303030;
+    v22.i64[1] = 0x3030303030303030;
+    v35.val[0] = vbslq_s8(vcgtq_u8(v15, v20), vsraq_n_u8(v22, v20, 4uLL), vsraq_n_u8(v21, v20, 4uLL));
+    v23 = vandq_s8(v20, v18);
+    v35.val[1] = vbslq_s8(vcgtq_u8(v19, v23), vorrq_s8(v23, v17), vaddq_s8(v23, v16));
+    vst2q_s8(v14, v35);
+    v14 += 32;
+    v13 += 16;
   }
 
-  while (v11 != 32);
-  v29 = 0;
+  while (v13 != 32);
+  v31 = 0;
   return [MEMORY[0x277CCACA8] stringWithCString:data encoding:1];
 }
 
@@ -260,7 +261,7 @@ SCNMTLLibrary *__38__SCNMTLLibraryManager_defaultLibrary__block_invoke(uint64_t 
   return v4;
 }
 
-uint64_t __39__SCNMTLLibraryManager_libraryForFile___block_invoke(void *a1)
+MTLLibrary *__39__SCNMTLLibraryManager_libraryForFile___block_invoke(void *a1)
 {
   v2 = [*(a1[4] + 88) objectForKey:a1[5]];
   if (!v2)
@@ -281,10 +282,10 @@ uint64_t __39__SCNMTLLibraryManager_libraryForFile___block_invoke(void *a1)
   Value = CFDictionaryGetValue(self->_availableCompiledLibraries, v7);
   if (!Value)
   {
-    v12 = 0;
+    v14 = 0;
     ++self->__engineStats->onlineShaderCount;
     v9 = CACurrentMediaTime();
-    Value = [(MTLDevice *)self->_device newLibraryWithSource:code options:options error:&v12];
+    Value = [(MTLDevice *)self->_device newLibraryWithSource:code options:options error:&v14];
     self->__engineStats->onlineShaderCompilationTime = CACurrentMediaTime() - v9 + self->__engineStats->onlineShaderCompilationTime;
     if (Value)
     {
@@ -293,8 +294,8 @@ uint64_t __39__SCNMTLLibraryManager_libraryForFile___block_invoke(void *a1)
 
     else
     {
-      v10 = scn_default_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = scn_default_log(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [SCNMTLLibraryManager libraryForSourceCode:options:];
       }
@@ -309,101 +310,103 @@ uint64_t __39__SCNMTLLibraryManager_libraryForFile___block_invoke(void *a1)
 {
   if (desc->var0)
   {
+    selfCopy = self;
     TypeID = C3DFXMetalProgramGetTypeID();
-    if (TypeID == CFGetTypeID(desc->var0))
+    self = CFGetTypeID(desc->var0);
+    if (TypeID == self)
     {
       var0 = desc->var0;
       LibraryProviderBlock = C3DFXMetalProgramGetLibraryProviderBlock(&desc->var0->var0.var0.var0.var0);
-      if (!LibraryProviderBlock || (defaultLibrary = (*(LibraryProviderBlock + 16))(LibraryProviderBlock, self->_device)) == 0)
+      if (!LibraryProviderBlock || (defaultLibrary = (*(LibraryProviderBlock + 16))(LibraryProviderBlock, selfCopy->_device)) == 0)
       {
-        SourceCode = C3DFXMetalProgramGetSourceCode(var0);
+        SourceCode = C3DFXMetalProgramGetSourceCode(var0, v10);
         if (SourceCode)
         {
-          v12 = SourceCode;
-          PreprocessorsMacros = C3DFXMetalProgramGetPreprocessorsMacros(var0);
-          v14 = [SCNMTLLibraryManager hashCodeForSource:v12 macros:PreprocessorsMacros];
-          os_unfair_lock_lock(&self->_availableCompiledLibrariesLock);
-          Value = CFDictionaryGetValue(self->_availableCompiledLibraries, v14);
-          os_unfair_lock_unlock(&self->_availableCompiledLibrariesLock);
+          v14 = SourceCode;
+          PreprocessorsMacros = C3DFXMetalProgramGetPreprocessorsMacros(var0, v13);
+          v16 = [SCNMTLLibraryManager hashCodeForSource:v14 macros:PreprocessorsMacros];
+          os_unfair_lock_lock(&selfCopy->_availableCompiledLibrariesLock);
+          Value = CFDictionaryGetValue(selfCopy->_availableCompiledLibraries, v16);
+          os_unfair_lock_unlock(&selfCopy->_availableCompiledLibrariesLock);
           if (Value)
           {
-            v16 = *(handler + 2);
+            v20 = *(handler + 2);
             handlerCopy3 = handler;
             commonProfileCacheLibrary = Value;
 LABEL_19:
 
-            v16(handlerCopy3, commonProfileCacheLibrary, 0);
+            v20(handlerCopy3, commonProfileCacheLibrary, 0);
             return;
           }
 
-          v20 = C3DShouldCollectGeneratedShaders();
-          v21 = [(NSDictionary *)self->_commonProfilePrecompiledFunctions count];
-          if (!v21 && !v20)
+          v24 = C3DShouldCollectGeneratedShaders(v18, v19);
+          v25 = [(NSDictionary *)selfCopy->_commonProfilePrecompiledFunctions count];
+          if (!v25 && !v24)
           {
 LABEL_34:
             OverrideMaterial = C3DGeometryGetOverrideMaterial(var0);
-            v28 = SCNMetalLanguageVersion();
-            LanguageVersion = C3DFXMetalProgramGetLanguageVersion(var0);
-            if (v28 <= LanguageVersion)
+            v35 = SCNMetalLanguageVersion(OverrideMaterial, v34);
+            LanguageVersion = C3DFXMetalProgramGetLanguageVersion(var0, v36);
+            if (v35 <= LanguageVersion)
             {
-              v30 = LanguageVersion;
+              v38 = LanguageVersion;
             }
 
             else
             {
-              v30 = v28;
+              v38 = v35;
             }
 
-            v31 = objc_alloc_init(MEMORY[0x277CD6D08]);
-            [v31 setPreprocessorMacros:PreprocessorsMacros];
-            [v31 setLanguageVersion:v30];
-            [v31 setAdditionalCompilerArguments:@" -w "];
+            v39 = objc_alloc_init(MEMORY[0x277CD6D08]);
+            [v39 setPreprocessorMacros:PreprocessorsMacros];
+            [v39 setLanguageVersion:v38];
+            [v39 setAdditionalCompilerArguments:@" -w "];
             kdebug_trace();
-            v46[0] = MEMORY[0x277D85DD0];
-            v46[1] = 3221225472;
-            v47 = __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___block_invoke_49;
-            v48 = &unk_2782FE9B8;
-            v32 = *&desc->var13;
-            v57 = *&desc->var11;
-            v58 = v32;
+            v56[0] = MEMORY[0x277D85DD0];
+            v56[1] = 3221225472;
+            v57 = __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___block_invoke_49;
+            v58 = &unk_2782FE9B8;
+            v40 = *&desc->var13;
+            v67 = *&desc->var11;
+            v68 = v40;
             var16 = desc->var16;
             var17 = desc->var17;
-            v34 = *&desc->var2;
-            v53 = *&desc->var0;
-            v54 = v34;
-            v35 = *&desc->var6;
-            v55 = *&desc->var4;
-            v56 = v35;
-            v60 = var17;
-            v61 = OverrideMaterial;
-            v49 = v12;
-            selfCopy = self;
-            v51 = v14;
+            v42 = *&desc->var2;
+            v63 = *&desc->var0;
+            v64 = v42;
+            v43 = *&desc->var6;
+            v65 = *&desc->var4;
+            v66 = v43;
+            v70 = var17;
+            v71 = OverrideMaterial;
+            v59 = v14;
+            v60 = selfCopy;
+            v61 = v16;
             handlerCopy2 = handler;
-            v62 = var0;
-            ++self->__engineStats->onlineShaderCount;
-            v36 = CACurrentMediaTime();
+            v72 = var0;
+            ++selfCopy->__engineStats->onlineShaderCount;
+            v46 = CACurrentMediaTime();
             var14 = desc->var14;
             if (desc->var14)
             {
               if (var14 == 2)
               {
-                device = self->_device;
-                v44[0] = MEMORY[0x277D85DD0];
-                v44[1] = 3221225472;
-                v44[2] = __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___block_invoke_3_56;
-                v44[3] = &unk_2782FEA58;
-                v44[4] = self;
-                v44[5] = v46;
-                v39 = v44;
+                device = selfCopy->_device;
+                v54[0] = MEMORY[0x277D85DD0];
+                v54[1] = 3221225472;
+                v54[2] = __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___block_invoke_3_56;
+                v54[3] = &unk_2782FEA58;
+                v54[4] = selfCopy;
+                v54[5] = v56;
+                v49 = v54;
               }
 
               else
               {
                 if (var14 != 1)
                 {
-                  v41 = scn_default_log();
-                  if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+                  v51 = scn_default_log(v44, v45);
+                  if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
                   {
                     [SCNMTLLibraryManager libraryForProgramDesc:completionHandler:];
                   }
@@ -411,27 +414,27 @@ LABEL_34:
                   goto LABEL_46;
                 }
 
-                dispatch_group_enter(self->_shaderCompilationGroup);
-                device = self->_device;
-                v45[0] = MEMORY[0x277D85DD0];
-                v45[1] = 3221225472;
-                v45[2] = __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___block_invoke_54;
-                v45[3] = &unk_2782FEA08;
-                *&v45[6] = v36;
-                v45[4] = self;
-                v45[5] = v46;
-                v39 = v45;
+                dispatch_group_enter(selfCopy->_shaderCompilationGroup);
+                device = selfCopy->_device;
+                v55[0] = MEMORY[0x277D85DD0];
+                v55[1] = 3221225472;
+                v55[2] = __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___block_invoke_54;
+                v55[3] = &unk_2782FEA08;
+                *&v55[6] = v46;
+                v55[4] = selfCopy;
+                v55[5] = v56;
+                v49 = v55;
               }
 
-              [(MTLDevice *)device newLibraryWithSource:v12 options:v31 completionHandler:v39];
+              [(MTLDevice *)device newLibraryWithSource:v14 options:v39 completionHandler:v49];
             }
 
             else
             {
-              v43 = 0;
-              v40 = [(MTLDevice *)self->_device newLibraryWithSource:v12 options:v31 error:&v43];
-              self->__engineStats->onlineShaderCompilationTime = CACurrentMediaTime() - v36 + self->__engineStats->onlineShaderCompilationTime;
-              v47(v46, v40, v43);
+              v53 = 0;
+              v50 = [(MTLDevice *)selfCopy->_device newLibraryWithSource:v14 options:v39 error:&v53];
+              selfCopy->__engineStats->onlineShaderCompilationTime = CACurrentMediaTime() - v46 + selfCopy->__engineStats->onlineShaderCompilationTime;
+              v57(v56, v50, v53);
             }
 
 LABEL_46:
@@ -439,25 +442,30 @@ LABEL_46:
             return;
           }
 
-          v22 = [@"commonprofile_vert" stringByAppendingString:v14];
-          v42 = [@"commonprofile_frag" stringByAppendingString:v14];
-          if (v21)
+          v26 = [@"commonprofile_vert" stringByAppendingString:v16];
+          v52 = [@"commonprofile_frag" stringByAppendingString:v16];
+          if (v25)
           {
-            if ([(NSDictionary *)self->_commonProfilePrecompiledFunctions objectForKeyedSubscript:v22]&& [(NSDictionary *)self->_commonProfilePrecompiledFunctions objectForKeyedSubscript:v42])
+            v27 = [(NSDictionary *)selfCopy->_commonProfilePrecompiledFunctions objectForKeyedSubscript:v26];
+            if (v27)
             {
-              C3DFXMetalProgramSetFunctionName(var0, 0, v22);
-              C3DFXMetalProgramSetFunctionName(var0, 1, v42);
-              C3DFXMetalProgramReplaceSourceCodeWithLibrary(var0, self->_commonProfileCacheLibraryHasherBlock, self->_commonProfileCacheLibraryProviderBlock);
-              commonProfileCacheLibrary = self->_commonProfileCacheLibrary;
-              goto LABEL_18;
+              v27 = [(NSDictionary *)selfCopy->_commonProfilePrecompiledFunctions objectForKeyedSubscript:v52];
+              if (v27)
+              {
+                C3DFXMetalProgramSetFunctionName(var0, 0, v26);
+                C3DFXMetalProgramSetFunctionName(var0, 1, v52);
+                C3DFXMetalProgramReplaceSourceCodeWithLibrary(var0, selfCopy->_commonProfileCacheLibraryHasherBlock, selfCopy->_commonProfileCacheLibraryProviderBlock);
+                commonProfileCacheLibrary = selfCopy->_commonProfileCacheLibrary;
+                goto LABEL_18;
+              }
             }
 
-            v23 = scn_default_log();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+            v29 = scn_default_log(v27, v28);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
             {
-              v24 = v22;
+              v30 = v26;
               [SCNMTLLibraryManager libraryForProgramDesc:completionHandler:];
-              if (!v20)
+              if (!v24)
               {
                 goto LABEL_34;
               }
@@ -465,8 +473,8 @@ LABEL_46:
 
             else
             {
-              v24 = v22;
-              if (!v20)
+              v30 = v26;
+              if (!v24)
               {
                 goto LABEL_34;
               }
@@ -475,17 +483,17 @@ LABEL_46:
 
           else
           {
-            v24 = v22;
-            if (!v20)
+            v30 = v26;
+            if (!v24)
             {
               goto LABEL_34;
             }
           }
 
-          v25 = C3DGetShaderCompilationDirectory();
-          if (v25)
+          v31 = C3DGetShaderCompilationDirectory();
+          if (v31)
           {
-            v26 = v25;
+            v32 = v31;
             if ([SCNMTLLibraryManager libraryForProgramDesc:completionHandler:]::onceToken != -1)
             {
               [SCNMTLLibraryManager libraryForProgramDesc:completionHandler:];
@@ -496,10 +504,10 @@ LABEL_46:
             block[1] = 3221225472;
             block[2] = __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___block_invoke_2;
             block[3] = &unk_2782FE968;
-            block[4] = v26;
-            block[5] = v14;
-            block[6] = v24;
-            block[7] = v42;
+            block[4] = v32;
+            block[5] = v16;
+            block[6] = v30;
+            block[7] = v52;
             block[8] = var0;
             dispatch_async([SCNMTLLibraryManager libraryForProgramDesc:completionHandler:]::shaderCollectionQueue, block);
           }
@@ -507,27 +515,27 @@ LABEL_46:
           goto LABEL_34;
         }
 
-        if (C3DFXProgramIsClientProgram(desc->var0))
+        if (C3DFXProgramIsClientProgram(desc->var0, v13))
         {
-          defaultLibrary = [(SCNMTLLibraryManager *)self defaultLibrary];
+          defaultLibrary = [(SCNMTLLibraryManager *)selfCopy defaultLibrary];
         }
 
         else
         {
-          defaultLibrary = [(SCNMTLLibraryManager *)self frameworkLibrary];
+          defaultLibrary = [(SCNMTLLibraryManager *)selfCopy frameworkLibrary];
         }
       }
 
       commonProfileCacheLibrary = defaultLibrary;
 LABEL_18:
-      v16 = *(handler + 2);
+      v20 = *(handler + 2);
       handlerCopy3 = handler;
       goto LABEL_19;
     }
   }
 
-  v19 = scn_default_log();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  v23 = scn_default_log(self, a2);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
     [SCNMTLLibraryManager libraryForProgramDesc:completionHandler:];
   }
@@ -566,38 +574,40 @@ void __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___block_
 void __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  v6 = 0;
-  if ([a2 writeToURL:objc_msgSend(v2 atomically:"URLByAppendingPathComponent:" encoding:objc_msgSend(MEMORY[0x277CCACA8] error:{"stringWithFormat:", @"commonProfile_%@.metal", v5)), 1, 4, &v6}])
+  v7 = *(a1 + 40);
+  v8 = 0;
+  v3 = [a2 writeToURL:objc_msgSend(v2 atomically:"URLByAppendingPathComponent:" encoding:objc_msgSend(MEMORY[0x277CCACA8] error:{"stringWithFormat:", @"commonProfile_%@.metal", v7)), 1, 4, &v8}];
+  if (v3)
   {
-    v3 = v6 == 0;
+    v5 = v8 == 0;
   }
 
   else
   {
-    v3 = 0;
+    v5 = 0;
   }
 
-  if (!v3)
+  if (!v5)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = scn_default_log(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___block_invoke_3_cold_1(&v6);
+      __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___block_invoke_3_cold_1(&v8);
     }
   }
 }
 
-void __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___block_invoke_43(uint64_t a1, void *a2)
+void __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___block_invoke_43(uint64_t a1, void *a2, uint64_t a3)
 {
-  v6 = 0;
-  v3 = [*(a1 + 32) URLByAppendingPathComponent:?];
+  v11 = 0;
+  v4 = [*(a1 + 32) URLByAppendingPathComponent:?];
   if ([objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")])
   {
-    if (([objc_msgSend(MEMORY[0x277CCACA8] stringWithContentsOfURL:v3 encoding:4 error:{0), "isEqualToString:", a2}] & 1) == 0)
+    isEqualToString = objc_msgSend_isEqualToString_([MEMORY[0x277CCACA8] stringWithContentsOfURL:v4 encoding:4 error:0]);
+    if ((isEqualToString & 1) == 0)
     {
-      v4 = scn_default_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v7 = scn_default_log(isEqualToString, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___block_invoke_43_cold_2();
       }
@@ -607,12 +617,13 @@ void __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___block_
   else
   {
     [objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")];
-    if (![a2 writeToURL:v3 atomically:1 encoding:4 error:&v6] || v6)
+    v8 = [a2 writeToURL:v4 atomically:1 encoding:4 error:&v11];
+    if (!v8 || v11)
     {
-      v5 = scn_default_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v10 = scn_default_log(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___block_invoke_3_cold_1(&v6);
+        __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___block_invoke_3_cold_1(&v11);
       }
     }
   }
@@ -642,33 +653,33 @@ uint64_t __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___bl
 
   else
   {
-    v7 = *(a1 + 184);
-    if (v7 && (Callbacks = C3DFXProgramDelegateGetCallbacks(v7)) != 0 && (v9 = *(Callbacks + 16)) != 0)
+    Callbacks = *(a1 + 184);
+    if (Callbacks && (Callbacks = C3DFXProgramDelegateGetCallbacks(Callbacks, a2)) != 0 && (v8 = *(Callbacks + 16)) != 0)
     {
-      UserInfo = C3DFXProgramDelegateGetUserInfo(*(a1 + 184));
-      v9(0, a3, UserInfo);
+      UserInfo = C3DFXProgramDelegateGetUserInfo(*(a1 + 184), a2);
+      v8(0, a3, UserInfo);
     }
 
     else
     {
-      v11 = scn_default_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v10 = scn_default_log(Callbacks, a2);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___block_invoke_49_cold_1(a3);
       }
 
-      v15[0] = 0;
-      v15[1] = v15;
-      v15[2] = 0x2020000000;
-      v16 = 0;
-      v12 = *(a1 + 32);
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___block_invoke_50;
-      v14[3] = &unk_2782FE990;
-      v14[4] = v15;
-      [v12 enumerateLinesUsingBlock:v14];
-      _Block_object_dispose(v15, 8);
+      v14[0] = 0;
+      v14[1] = v14;
+      v14[2] = 0x2020000000;
+      v15 = 0;
+      v11 = *(a1 + 32);
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___block_invoke_50;
+      v13[3] = &unk_2782FE990;
+      v13[4] = v14;
+      [v11 enumerateLinesUsingBlock:v13];
+      _Block_object_dispose(v14, 8);
     }
   }
 
@@ -679,7 +690,7 @@ uint64_t __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___bl
 void __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___block_invoke_50(uint64_t a1, uint64_t a2)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v4 = scn_default_log();
+  v4 = scn_default_log(a1, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(*(a1 + 32) + 8);
@@ -761,7 +772,7 @@ void __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___block_
 {
   [*a1 localizedDescription];
   OUTLINED_FUNCTION_2_7();
-  OUTLINED_FUNCTION_1_7(&dword_21BEF7000, v1, v2, "Error: Failed to collect shader: %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_1_7(&dword_21BEF7000, v1, v2, "Error: Failed to collect shader: %@", v3, v4, v5, v6);
 }
 
 void __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___block_invoke_43_cold_2()
@@ -775,7 +786,7 @@ void __64__SCNMTLLibraryManager_libraryForProgramDesc_completionHandler___block_
 {
   [a1 description];
   OUTLINED_FUNCTION_2_7();
-  OUTLINED_FUNCTION_1_7(&dword_21BEF7000, v1, v2, "Error: FATAL ERROR : failed compiling shader:\n%@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_1_7(&dword_21BEF7000, v1, v2, "Error: FATAL ERROR : failed compiling shader:\n%@", v3, v4, v5, v6);
 }
 
 @end

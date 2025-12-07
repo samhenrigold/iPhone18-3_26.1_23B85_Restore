@@ -47,51 +47,50 @@
   summaryCopy = summary;
   contentCopy = content;
   v25 = sub_1C645C674();
-  v26 = *(*(v25 - 8) + 64);
-  v27 = MEMORY[0x1EEE9AC00](v25 - 8);
-  v29 = &v62[-((v28 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x1EEE9AC00](v27);
-  v31 = &v62[-v30];
-  v32 = sub_1C645C874();
-  v84 = v33;
-  v85 = v32;
-  v86 = v31;
+  v26 = MEMORY[0x1EEE9AC00](v25 - 8);
+  v28 = &v61[-((v27 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x1EEE9AC00](v26);
+  v30 = &v61[-v29];
+  v31 = sub_1C645C874();
+  v83 = v32;
+  v84 = v31;
+  v85 = v30;
   sub_1C645C654();
-  v87 = v29;
+  v86 = v28;
   sub_1C645C654();
-  v83 = sub_1C645CA14();
   v82 = sub_1C645CA14();
-  v80 = sub_1C645CA14();
+  v81 = sub_1C645CA14();
   v79 = sub_1C645CA14();
+  v78 = sub_1C645CA14();
   if (headers)
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1C4450, &qword_1C6473900);
-    v78 = sub_1C645C7E4();
+    v77 = sub_1C645C7E4();
   }
 
   else
   {
-    v78 = 0;
+    v77 = 0;
   }
 
-  v67 = typeCopy;
+  v66 = typeCopy;
   addressesCopy = addressesCopy;
   updateCopy = updateCopy;
   categoryCopy = categoryCopy;
   attachmentsCopy = attachmentsCopy;
-  v34 = identifierCopy;
-  v35 = iDCopy;
-  v36 = dCopy;
-  v37 = summaryCopy;
+  v33 = identifierCopy;
+  v34 = iDCopy;
+  v35 = dCopy;
+  v36 = summaryCopy;
   priorityCopy = priorityCopy;
   if (contentCopy)
   {
-    v38 = contentCopy;
-    v39 = sub_1C645C594();
-    typeCopy = v40;
-    contentCopy = v39;
+    v37 = contentCopy;
+    v38 = sub_1C645C594();
+    typeCopy = v39;
+    contentCopy = v38;
 
-    if (v37)
+    if (v36)
     {
       goto LABEL_6;
     }
@@ -101,21 +100,21 @@
   {
     typeCopy = 0xF000000000000000;
     contentCopy = 0;
-    if (v37)
+    if (v36)
     {
 LABEL_6:
       summaryCopy = sub_1C645C874();
-      v66 = v41;
+      v65 = v40;
 
-      if (v36)
+      if (v35)
       {
         goto LABEL_7;
       }
 
 LABEL_11:
       dCopy = 0;
-      v65 = 0;
-      if (v35)
+      v64 = 0;
+      if (v34)
       {
         goto LABEL_8;
       }
@@ -125,77 +124,76 @@ LABEL_11:
   }
 
   summaryCopy = 0;
-  v66 = 0;
-  if (!v36)
+  v65 = 0;
+  if (!v35)
   {
     goto LABEL_11;
   }
 
 LABEL_7:
   dCopy = sub_1C645C874();
-  v65 = v42;
+  v64 = v41;
 
-  if (v35)
+  if (v34)
   {
 LABEL_8:
     iDCopy = sub_1C645C874();
-    v64 = v43;
+    v63 = v42;
 
     goto LABEL_13;
   }
 
 LABEL_12:
   iDCopy = 0;
-  v64 = 0;
+  v63 = 0;
 LABEL_13:
   threadCopy = thread;
-  if (v34)
+  if (v33)
   {
-    v44 = sub_1C645C874();
-    v46 = v45;
+    v43 = sub_1C645C874();
+    v45 = v44;
   }
 
   else
   {
-    v44 = 0;
-    v46 = 0;
+    v43 = 0;
+    v45 = 0;
   }
 
-  v47 = v67;
-  v48 = sub_1C645C874();
-  v50 = v49;
+  v46 = v66;
+  v47 = sub_1C645C874();
+  v49 = v48;
 
-  v51 = addressesCopy;
-  v52 = sub_1C645CA14();
+  v50 = addressesCopy;
+  v51 = sub_1C645CA14();
 
-  v53 = categoryCopy;
-  v54 = attachmentsCopy;
-  v55 = updateCopy;
-  v61 = v48;
-  v56 = typeCopy;
-  v57 = contentCopy;
-  v58 = priorityCopy;
-  v59 = sub_1C6433808(v85, v84, v86, v87, encryptedCopy, priorityCopy, v83, v82, v80, v79, v78, contentCopy, typeCopy, summaryCopy, v66, dCopy, v65, iDCopy, v64, threadCopy, data, v44, v46, managed, v61, v50, v52, updateCopy, attachmentsCopy, categoryCopy);
+  v52 = categoryCopy;
+  v53 = attachmentsCopy;
+  v54 = updateCopy;
+  v60 = v47;
+  v55 = typeCopy;
+  v56 = contentCopy;
+  v57 = priorityCopy;
+  v58 = sub_1C6433808(v84, v83, v85, v86, encryptedCopy, priorityCopy, v82, v81, v79, v78, v77, contentCopy, typeCopy, summaryCopy, v65, dCopy, v64, iDCopy, v63, threadCopy, data, v43, v45, managed, v60, v49, v51, updateCopy, attachmentsCopy, categoryCopy);
 
-  sub_1C641711C(v57, v56);
-  return v59;
+  sub_1C641711C(v56, v55);
+  return v58;
 }
 
 - (void)addToAttributes:(id)attributes forIdentifier:(id)identifier
 {
   v6 = type metadata accessor for SearchableMessage(0);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v9 = &v15[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v10 = sub_1C645C874();
-  v12 = v11;
-  sub_1C640DBAC(self + OBJC_IVAR___EDSearchableMessage__underlying, v15);
+  v8 = &v14[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v9 = sub_1C645C874();
+  v11 = v10;
+  sub_1C640DBAC(self + OBJC_IVAR___EDSearchableMessage__underlying, v14);
   attributesCopy = attributes;
   selfCopy = self;
   swift_dynamicCast();
-  sub_1C643C638(attributesCopy, v10, v12);
+  sub_1C643C638(attributesCopy, v9, v11);
 
-  sub_1C6434174(v9, type metadata accessor for SearchableMessage);
+  sub_1C6434174(v8, type metadata accessor for SearchableMessage);
 }
 
 - (EDSearchableMessage)init

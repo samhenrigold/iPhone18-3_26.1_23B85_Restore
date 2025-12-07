@@ -479,7 +479,7 @@ LABEL_12:
   }
 
   CFRelease(v3);
-  UIWriteArchiveToData(self->data, 1, dictionary, dictionary2, self->values, @"UINibEncoderEmptyKey");
+  UIWriteArchiveToData(self->data, 1u, dictionary, dictionary2, self->values, @"UINibEncoderEmptyKey");
 }
 
 - (int64_t)versionForClassName:(id)name

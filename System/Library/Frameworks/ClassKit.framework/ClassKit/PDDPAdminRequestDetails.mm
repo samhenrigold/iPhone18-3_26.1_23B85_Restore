@@ -1,8 +1,11 @@
 @interface PDDPAdminRequestDetails
 - (BOOL)isEqual:(id)equal;
+- (id)approvalStatusAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)requestStatusAsString:(int)string;
+- (id)typeAsString:(int)string;
 - (int)StringAsApprovalStatus:(id)status;
 - (int)StringAsRequestStatus:(id)status;
 - (int)StringAsType:(id)type;
@@ -47,6 +50,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100202B70 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsType:(id)type
@@ -118,6 +136,21 @@
   *&self->_has = *&self->_has & 0xFB | v3;
 }
 
+- (id)requestStatusAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100202BA0 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsRequestStatus:(id)status
 {
   statusCopy = status;
@@ -165,6 +198,21 @@
   {
     return 0;
   }
+}
+
+- (id)approvalStatusAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100202BC8 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsApprovalStatus:(id)status
@@ -431,7 +479,6 @@ LABEL_29:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -451,12 +498,10 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  requestStatus = self->_requestStatus;
   PBDataWriterWriteInt32Field();
   if (*&self->_has)
   {
 LABEL_16:
-    approvalStatus = self->_approvalStatus;
     PBDataWriterWriteInt32Field();
   }
 
@@ -468,7 +513,6 @@ LABEL_17:
 
   if ((*&self->_has & 2) != 0)
   {
-    options = self->_options;
     PBDataWriterWriteUint32Field();
   }
 
@@ -477,33 +521,32 @@ LABEL_17:
     PBDataWriterWriteStringField();
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v8 = self->_adminRequestAccountIds;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v9)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_adminRequestAccountIds;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v17;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v10; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v11)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 
   if (self->_adminNote)

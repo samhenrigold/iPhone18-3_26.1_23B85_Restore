@@ -78,7 +78,7 @@
   }
 }
 
-void __30__MGGroupsQueryOperation_main__block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
+void __30__MGGroupsQueryOperation_main__block_invoke(uint64_t a1, void *a2, void *a3, unsigned __int8 *a4)
 {
   v9 = a2;
   v7 = a3;

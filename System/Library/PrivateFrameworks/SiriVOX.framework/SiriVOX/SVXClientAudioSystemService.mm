@@ -76,7 +76,7 @@ void __61__SVXClientAudioSystemService_handleAudioSessionIDDidChange___block_inv
 
 void __103__SVXClientAudioSystemService_handleAudioSessionDidBecomeActive_activationContext_deactivationContext___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CEF098];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
@@ -84,21 +84,34 @@ void __103__SVXClientAudioSystemService_handleAudioSessionDidBecomeActive_activa
     v4 = *(a1 + 56);
     v5 = *(a1 + 32);
     v6 = *(a1 + 40);
-    v20 = 136315906;
-    v21 = "[SVXClientAudioSystemService handleAudioSessionDidBecomeActive:activationContext:deactivationContext:]_block_invoke";
-    v22 = 1024;
-    v23 = v4;
-    v24 = 2112;
-    v25 = v5;
-    v26 = 2112;
-    v27 = v6;
-    _os_log_impl(&dword_2695B9000, v3, OS_LOG_TYPE_INFO, "%s flag = %d, activationContext = %@, deactivationContext = %@", &v20, 0x26u);
+    v19 = 136315906;
+    v20 = "[SVXClientAudioSystemService handleAudioSessionDidBecomeActive:activationContext:deactivationContext:]_block_invoke";
+    v21 = 1024;
+    v22 = v4;
+    v23 = 2112;
+    v24 = v5;
+    v25 = 2112;
+    v26 = v6;
+    _os_log_impl(&dword_2695B9000, v3, OS_LOG_TYPE_INFO, "%s flag = %d, activationContext = %@, deactivationContext = %@", &v19, 0x26u);
   }
 
   v7 = *(a1 + 48);
   v8 = *(v7 + 24);
   v9 = *(a1 + 56);
-  if (v8 != v9)
+  if (v8 == v9)
+  {
+    v10 = *v2;
+    if (os_log_type_enabled(*v2, OS_LOG_TYPE_ERROR))
+    {
+      v19 = 136315394;
+      v20 = "[SVXClientAudioSystemService handleAudioSessionDidBecomeActive:activationContext:deactivationContext:]_block_invoke";
+      v21 = 1024;
+      v22 = v8;
+      _os_log_error_impl(&dword_2695B9000, v10, OS_LOG_TYPE_ERROR, "%s _isAudioSessionActive = %d, no need to deliver the delegate callbacka again.", &v19, 0x12u);
+    }
+  }
+
+  else
   {
     *(v7 + 24) = v9;
     WeakRetained = objc_loadWeakRetained((*(a1 + 48) + 32));
@@ -118,7 +131,7 @@ void __103__SVXClientAudioSystemService_handleAudioSessionDidBecomeActive_activa
 
       if ((v16 & 1) == 0)
       {
-        goto LABEL_14;
+        return;
       }
 
       v17 = objc_loadWeakRetained((*(a1 + 48) + 32));
@@ -131,28 +144,13 @@ void __103__SVXClientAudioSystemService_handleAudioSessionDidBecomeActive_activa
 
       if ((v18 & 1) == 0)
       {
-        goto LABEL_14;
+        return;
       }
 
       v17 = objc_loadWeakRetained((*(a1 + 48) + 32));
       [v17 audioSystemService:*(a1 + 48) audioSessionDidBecomeInactiveWithDeactivationContext:*(a1 + 40)];
     }
-
-    goto LABEL_14;
   }
-
-  v10 = *v2;
-  if (os_log_type_enabled(*v2, OS_LOG_TYPE_ERROR))
-  {
-    v20 = 136315394;
-    v21 = "[SVXClientAudioSystemService handleAudioSessionDidBecomeActive:activationContext:deactivationContext:]_block_invoke";
-    v22 = 1024;
-    v23 = v8;
-    _os_log_error_impl(&dword_2695B9000, v10, OS_LOG_TYPE_ERROR, "%s _isAudioSessionActive = %d, no need to deliver the delegate callbacka again.", &v20, 0x12u);
-  }
-
-LABEL_14:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAudioSessionWillBecomeActive:(BOOL)active activationContext:(id)context deactivationContext:(id)deactivationContext
@@ -175,22 +173,22 @@ LABEL_14:
 
 void __104__SVXClientAudioSystemService_handleAudioSessionWillBecomeActive_activationContext_deactivationContext___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 56);
     v4 = *(a1 + 32);
     v5 = *(a1 + 40);
-    v15 = 136315906;
-    v16 = "[SVXClientAudioSystemService handleAudioSessionWillBecomeActive:activationContext:deactivationContext:]_block_invoke";
-    v17 = 1024;
-    v18 = v3;
-    v19 = 2112;
-    v20 = v4;
-    v21 = 2112;
-    v22 = v5;
-    _os_log_impl(&dword_2695B9000, v2, OS_LOG_TYPE_INFO, "%s flag = %d, activationContext = %@, deactivationContext = %@", &v15, 0x26u);
+    v14 = 136315906;
+    v15 = "[SVXClientAudioSystemService handleAudioSessionWillBecomeActive:activationContext:deactivationContext:]_block_invoke";
+    v16 = 1024;
+    v17 = v3;
+    v18 = 2112;
+    v19 = v4;
+    v20 = 2112;
+    v21 = v5;
+    _os_log_impl(&dword_2695B9000, v2, OS_LOG_TYPE_INFO, "%s flag = %d, activationContext = %@, deactivationContext = %@", &v14, 0x26u);
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 48) + 32));
@@ -208,27 +206,27 @@ void __104__SVXClientAudioSystemService_handleAudioSessionWillBecomeActive_activ
   {
     v11 = objc_opt_respondsToSelector();
 
-    if (v11)
+    if ((v11 & 1) == 0)
     {
-      v12 = objc_loadWeakRetained((*(a1 + 48) + 32));
-      [v12 audioSystemService:*(a1 + 48) audioSessionWillBecomeActiveWithActivationContext:*(a1 + 32)];
-LABEL_10:
+      return;
     }
+
+    v12 = objc_loadWeakRetained((*(a1 + 48) + 32));
+    [v12 audioSystemService:*(a1 + 48) audioSessionWillBecomeActiveWithActivationContext:*(a1 + 32)];
   }
 
   else
   {
     v13 = objc_opt_respondsToSelector();
 
-    if (v13)
+    if ((v13 & 1) == 0)
     {
-      v12 = objc_loadWeakRetained((*(a1 + 48) + 32));
-      [v12 audioSystemService:*(a1 + 48) audioSessionWillBecomeInactiveWithDeactivationContext:*(a1 + 40)];
-      goto LABEL_10;
+      return;
     }
-  }
 
-  v14 = *MEMORY[0x277D85DE8];
+    v12 = objc_loadWeakRetained((*(a1 + 48) + 32));
+    [v12 audioSystemService:*(a1 + 48) audioSessionWillBecomeInactiveWithDeactivationContext:*(a1 + 40)];
+  }
 }
 
 @end

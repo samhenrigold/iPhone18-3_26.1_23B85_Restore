@@ -116,7 +116,7 @@ id __74__CLKUIMetalResourcePool_texturePoolWithDescriptor_expectedCountPerFrame_
   return v8;
 }
 
-uint64_t __71__CLKUIMetalResourcePool_dequeueReusableResourceForUseOnCommandBuffer___block_invoke(uint64_t a1)
+void *__71__CLKUIMetalResourcePool_dequeueReusableResourceForUseOnCommandBuffer___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) count];
   if (result)
@@ -148,7 +148,7 @@ uint64_t __71__CLKUIMetalResourcePool_dequeueReusableResourceForUseOnCommandBuff
   dispatch_async(buffersQueue, v7);
 }
 
-unint64_t __49__CLKUIMetalResourcePool_returnReusableResource___block_invoke(uint64_t a1)
+void *__49__CLKUIMetalResourcePool_returnReusableResource___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) count];
   v3 = *(a1 + 32);

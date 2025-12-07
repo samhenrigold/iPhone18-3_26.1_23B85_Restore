@@ -145,8 +145,9 @@ void __55__SYDUserNotifications_requestAuthorizationIfNecessary__block_invoke(ui
   [v3 requestAuthorizationWithOptions:4 completionHandler:&__block_literal_global_7];
 }
 
-void __55__SYDUserNotifications_requestAuthorizationIfNecessary__block_invoke_4(uint64_t a1, char a2, void *a3)
+void __55__SYDUserNotifications_requestAuthorizationIfNecessary__block_invoke_4(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v4 = a3;
   v5 = SYDGetMiscLog();
   v6 = v5;
@@ -160,7 +161,7 @@ void __55__SYDUserNotifications_requestAuthorizationIfNecessary__block_invoke_4(
 
   else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    __55__SYDUserNotifications_requestAuthorizationIfNecessary__block_invoke_4_cold_2(a2, v6);
+    __55__SYDUserNotifications_requestAuthorizationIfNecessary__block_invoke_4_cold_2(v3, v6);
   }
 }
 
@@ -223,29 +224,26 @@ void __29__SYDUserNotifications_queue__block_invoke()
 
 void __72__SYDUserNotifications_showNotificationWithTitle_body_threadIdentifier___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_26C384000, a2, OS_LOG_TYPE_ERROR, "Error adding notification request: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_26C384000, a2, OS_LOG_TYPE_ERROR, "Error adding notification request: %@", &v2, 0xCu);
 }
 
 void __55__SYDUserNotifications_requestAuthorizationIfNecessary__block_invoke_4_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_26C384000, a2, OS_LOG_TYPE_ERROR, "Error requesting notification authorization: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_26C384000, a2, OS_LOG_TYPE_ERROR, "Error requesting notification authorization: %@", &v2, 0xCu);
 }
 
 void __55__SYDUserNotifications_requestAuthorizationIfNecessary__block_invoke_4_cold_2(char a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1 & 1;
-  _os_log_debug_impl(&dword_26C384000, a2, OS_LOG_TYPE_DEBUG, "Requested notification authorization, granted=%d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1 & 1;
+  _os_log_debug_impl(&dword_26C384000, a2, OS_LOG_TYPE_DEBUG, "Requested notification authorization, granted=%d", v2, 8u);
 }
 
 @end

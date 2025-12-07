@@ -71,7 +71,7 @@
 
 - (id)wf_contentItemClassWithAppBundleIdentifier:()ContentItem
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69E0970] = [MEMORY[0x1E69E0970] sharedProvider];
   identifier = [self identifier];
   bundleIdentifier = [self bundleIdentifier];
@@ -84,9 +84,9 @@
   {
     identifier2 = [self identifier];
     wf_placeDescriptorEntityIdentifier = [MEMORY[0x1E69ACA38] wf_placeDescriptorEntityIdentifier];
-    v10 = [identifier2 isEqualToString:wf_placeDescriptorEntityIdentifier];
+    isEqualToString = objc_msgSend_isEqualToString_(identifier2);
 
-    if (v10)
+    if (isEqualToString)
     {
       v11 = objc_opt_class();
       os_unfair_lock_lock(&wf_contentItemClassWithAppBundleIdentifier__placeDescriptorEntityValueClassRegistrationLock);
@@ -98,12 +98,12 @@
         aBlock[3] = &__block_descriptor_40_e14_B32__0_8_16_24lu32l8;
         aBlock[4] = v11;
         v12 = _Block_copy(aBlock);
-        v19[0] = MEMORY[0x1E69E9820];
-        v19[1] = 3221225472;
-        v19[2] = __83__LNSystemEntityValueType_ContentItem__wf_contentItemClassWithAppBundleIdentifier___block_invoke_2;
-        v19[3] = &__block_descriptor_40_e8__16__0_8lu32l8;
-        v19[4] = v7;
-        v13 = _Block_copy(v19);
+        v18[0] = MEMORY[0x1E69E9820];
+        v18[1] = 3221225472;
+        v18[2] = __83__LNSystemEntityValueType_ContentItem__wf_contentItemClassWithAppBundleIdentifier___block_invoke_2;
+        v18[3] = &__block_descriptor_40_e8__16__0_8lu32l8;
+        v18[4] = v7;
+        v13 = _Block_copy(v18);
         v12[2](v12, v11, sel_entityContentItemClass, v13);
 
         wf_contentItemClassWithAppBundleIdentifier__hasEntityMetadata = 1;
@@ -127,18 +127,16 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315650;
-      v22 = "[LNSystemEntityValueType(ContentItem) wf_contentItemClassWithAppBundleIdentifier:]";
-      v23 = 2112;
+      v21 = "[LNSystemEntityValueType(ContentItem) wf_contentItemClassWithAppBundleIdentifier:]";
+      v22 = 2112;
       selfCopy = self;
-      v25 = 2112;
-      v26 = v5;
+      v24 = 2112;
+      v25 = v5;
       _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_FAULT, "%s Unable to construct entityContentItemClass for value type: %@, entityMetadata: %@", buf, 0x20u);
     }
 
     v16 = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

@@ -72,12 +72,12 @@ LABEL_9:
     v27 = v26;
     v29 = v28;
 
-    if ([v21 containsObject:@"x"])
+    if (objc_msgSend_containsObject_(v21))
     {
       v23 = v27;
     }
 
-    v30 = [v21 containsObject:@"y"];
+    v30 = objc_msgSend_containsObject_(v21);
 
     if (v30)
     {
@@ -113,22 +113,22 @@ LABEL_22:
     v48 = v47;
     v50 = v49;
 
-    if ([v34 containsObject:@"origin.x"])
+    if (objc_msgSend_containsObject_(v34))
     {
       v36 = v44;
     }
 
-    if ([v34 containsObject:@"origin.y"])
+    if (objc_msgSend_containsObject_(v34))
     {
       v38 = v46;
     }
 
-    if ([v34 containsObject:@"size.width"])
+    if (objc_msgSend_containsObject_(v34))
     {
       v40 = v48;
     }
 
-    v51 = [v34 containsObject:@"size.height"];
+    v51 = objc_msgSend_containsObject_(v34);
 
     if (v51)
     {

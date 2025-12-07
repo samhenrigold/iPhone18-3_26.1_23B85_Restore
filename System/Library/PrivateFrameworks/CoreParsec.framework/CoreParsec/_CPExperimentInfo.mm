@@ -120,7 +120,6 @@ LABEL_18:
 
   if (namespaceId)
   {
-    namespaceId = self->_namespaceId;
     PBDataWriterWriteStringField();
   }
 
@@ -128,7 +127,6 @@ LABEL_18:
 
   if (experimentId)
   {
-    experimentId = self->_experimentId;
     PBDataWriterWriteStringField();
   }
 
@@ -136,19 +134,16 @@ LABEL_18:
 
   if (treatmentId)
   {
-    treatmentId = self->_treatmentId;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPExperimentInfo *)self deploymentId])
   {
-    deploymentId = self->_deploymentId;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPExperimentInfo *)self version])
   {
-    version = self->_version;
     PBDataWriterWriteInt32Field();
   }
 

@@ -19,7 +19,7 @@
 {
   senderCopy = sender;
   selfCopy = self;
-  sub_24125AD8C();
+  sub_24125AD8C(senderCopy);
 }
 
 - (_TtC11AssetViewer18CameraControlsView)initWithFrame:(CGRect)frame

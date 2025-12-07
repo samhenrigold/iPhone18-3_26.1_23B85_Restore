@@ -210,7 +210,7 @@ void __85__WDClinicalSourcesDataProvider__fetchLogoForBrand_fallback_size_option
       v9 = *MEMORY[0x1E696B948];
       if (os_log_type_enabled(*MEMORY[0x1E696B948], OS_LOG_TYPE_ERROR))
       {
-        __85__WDClinicalSourcesDataProvider__fetchLogoForBrand_fallback_size_options_completion___block_invoke_2_cold_1(a1, v9);
+        __85__WDClinicalSourcesDataProvider__fetchLogoForBrand_fallback_size_options_completion___block_invoke_2_cold_1(a1, v9, v7);
       }
     }
 
@@ -647,19 +647,33 @@ uint64_t __80__WDClinicalSourcesDataProvider__objectCompletionOnMainQueue_cancel
   return healthStore;
 }
 
-void __85__WDClinicalSourcesDataProvider__fetchLogoForBrand_fallback_size_options_completion___block_invoke_2_cold_1(uint64_t a1, void *a2)
+void __72__WDClinicalSourcesDataProvider__fetchAccountsForDisplayWithCompletion___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v4 = [v2 externalID];
-  v5 = HKSensitiveLogItem();
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2(&dword_1D101F000, a2, a3, "Accounts fetch failed: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __85__WDClinicalSourcesDataProvider__fetchLogoForBrand_fallback_size_options_completion___block_invoke_2_cold_1(uint64_t a1, void *a2, uint64_t a3)
+{
+  v12 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 32);
+  v4 = a2;
+  v5 = [v3 externalID];
   v6 = HKSensitiveLogItem();
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 2114;
-  v10 = v6;
-  _os_log_error_impl(&dword_1D101F000, v3, OS_LOG_TYPE_ERROR, "Unable to fetch image for brand %@: %{public}@", &v7, 0x16u);
+  v7 = HKSensitiveLogItem();
+  v8 = 138412546;
+  v9 = v6;
+  v10 = 2114;
+  v11 = v7;
+  _os_log_error_impl(&dword_1D101F000, v4, OS_LOG_TYPE_ERROR, "Unable to fetch image for brand %@: %{public}@", &v8, 0x16u);
+}
+
+void __79__WDClinicalSourcesDataProvider_sourcesRequestingAuthorizationForClinicalTypes__block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2(&dword_1D101F000, a2, a3, "Failed to fetch all sources requesting clinical types: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __88__WDClinicalSourcesDataProvider_fetchSignedClinicalDataRecordWithIdentifier_completion___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)

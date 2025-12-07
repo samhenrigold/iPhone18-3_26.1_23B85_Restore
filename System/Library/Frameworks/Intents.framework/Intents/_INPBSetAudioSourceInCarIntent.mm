@@ -1,8 +1,10 @@
 @interface _INPBSetAudioSourceInCarIntent
 - (BOOL)isEqual:(id)equal;
 - (_INPBSetAudioSourceInCarIntent)initWithCoder:(id)coder;
+- (id)audioSourceAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)relativeAudioSourceReferenceAsString:(int)string;
 - (int)StringAsAudioSource:(id)source;
 - (int)StringAsRelativeAudioSourceReference:(id)reference;
 - (unint64_t)hash;
@@ -207,7 +209,6 @@ LABEL_14:
   toCopy = to;
   if ([(_INPBSetAudioSourceInCarIntent *)self hasAudioSource])
   {
-    audioSource = self->_audioSource;
     PBDataWriterWriteInt32Field();
   }
 
@@ -221,7 +222,6 @@ LABEL_14:
 
   if ([(_INPBSetAudioSourceInCarIntent *)self hasRelativeAudioSourceReference])
   {
-    relativeAudioSourceReference = self->_relativeAudioSourceReference;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -241,6 +241,26 @@ LABEL_14:
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)relativeAudioSourceReferenceAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"NEXT";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"PREVIOUS";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;
@@ -327,6 +347,21 @@ LABEL_14:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)audioSourceAsString:(int)string
+{
+  if ((string - 1) >= 9)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7280658[string - 1];
   }
 
   return v4;

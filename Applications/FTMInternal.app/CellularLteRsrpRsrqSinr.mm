@@ -153,7 +153,6 @@
   toCopy = to;
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -165,14 +164,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    numSubs = self->_numSubs;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 
@@ -181,33 +178,32 @@
     PBDataWriterWriteSubmessage();
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v9 = self->_instValues;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v10)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_instValues;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v11 = v10;
-    v12 = *v16;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v11; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v12)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v6);
         }
 
-        v14 = *(*(&v15 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v11);
+    while (v8);
   }
 }
 
@@ -335,7 +331,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 48);
   if (has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -355,14 +350,13 @@
     if (![(NSString *)callId isEqual:?])
     {
 LABEL_24:
-      v11 = 0;
+      v9 = 0;
       goto LABEL_25;
     }
 
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 48);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 48) & 2) == 0 || self->_numSubs != *(equalCopy + 10))
@@ -398,17 +392,17 @@ LABEL_24:
   instValues = self->_instValues;
   if (instValues | *(equalCopy + 4))
   {
-    v11 = [(NSMutableArray *)instValues isEqual:?];
+    v9 = [(NSMutableArray *)instValues isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v9 = 1;
   }
 
 LABEL_25:
 
-  return v11;
+  return v9;
 }
 
 - (unint64_t)hash

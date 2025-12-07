@@ -15,32 +15,32 @@
 
 - (void)_processMoodSourcesWithGraph:(id)graph
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   v5 = objc_opt_new();
-  v25 = objc_opt_new();
+  v24 = objc_opt_new();
   _moodSources = [(PGMoodGenerator *)self _moodSources];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v7 = [_moodSources countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v7 = [_moodSources countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v27;
+    v9 = *v26;
     do
     {
       v10 = 0;
       do
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(_moodSources);
         }
 
         enrichedMemory = self->_enrichedMemory;
-        v12 = objc_alloc(*(*(&v26 + 1) + 8 * v10));
+        v12 = objc_alloc(*(*(&v25 + 1) + 8 * v10));
         photoLibrary = self->_photoLibrary;
         options = self->_options;
         if (enrichedMemory)
@@ -63,14 +63,14 @@
           [(PGMoodVector *)v5 addMoodVector:v19];
           v20 = [v16 negativeVectorWithGraph:graphCopy];
           [v20 multiplyByWeight:v18];
-          [(PGMoodVector *)v25 addMoodVector:v20];
+          [(PGMoodVector *)v24 addMoodVector:v20];
         }
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [_moodSources countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v8 = [_moodSources countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v8);
@@ -81,45 +81,43 @@
   v22 = v5;
 
   negativeMoodVector = self->_negativeMoodVector;
-  self->_negativeMoodVector = v25;
-
-  v24 = *MEMORY[0x277D85DE8];
+  self->_negativeMoodVector = v24;
 }
 
 - (id)historyWeightedPositiveMoodVectorWithGraph:(id)graph
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   historyWeightedPositiveMoodVector = self->_historyWeightedPositiveMoodVector;
   if (!historyWeightedPositiveMoodVector)
   {
     v5 = [(PGMoodGenerator *)self positiveMoodVectorWithGraph:graph];
     v6 = [v5 copy];
 
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     moodHistory = [(PGMoodGeneratorOptions *)self->_options moodHistory];
-    v8 = [moodHistory countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [moodHistory countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         v11 = 0;
         do
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(moodHistory);
           }
 
-          -[PGMoodVector multiplyByWeight:forMood:](v6, "multiplyByWeight:forMood:", [*(*(&v15 + 1) + 8 * v11++) unsignedIntegerValue], 0.9);
+          -[PGMoodVector multiplyByWeight:forMood:](v6, "multiplyByWeight:forMood:", [*(*(&v14 + 1) + 8 * v11++) unsignedIntegerValue], 0.9);
         }
 
         while (v9 != v11);
-        v9 = [moodHistory countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [moodHistory countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
@@ -130,8 +128,6 @@
 
     historyWeightedPositiveMoodVector = self->_historyWeightedPositiveMoodVector;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return historyWeightedPositiveMoodVector;
 }
@@ -216,21 +212,19 @@
 
 void __31__PGMoodGenerator__moodSources__block_invoke()
 {
-  v3[9] = *MEMORY[0x277D85DE8];
-  v3[0] = objc_opt_class();
-  v3[1] = objc_opt_class();
-  v3[2] = objc_opt_class();
-  v3[3] = objc_opt_class();
-  v3[4] = objc_opt_class();
-  v3[5] = objc_opt_class();
-  v3[6] = objc_opt_class();
-  v3[7] = objc_opt_class();
-  v3[8] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:9];
+  v2[9] = *MEMORY[0x277D85DE8];
+  v2[0] = objc_opt_class();
+  v2[1] = objc_opt_class();
+  v2[2] = objc_opt_class();
+  v2[3] = objc_opt_class();
+  v2[4] = objc_opt_class();
+  v2[5] = objc_opt_class();
+  v2[6] = objc_opt_class();
+  v2[7] = objc_opt_class();
+  v2[8] = objc_opt_class();
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:9];
   v1 = _moodSources_moodSources;
   _moodSources_moodSources = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (PGMoodGenerator)initWithEnrichedMemory:(id)memory photoLibrary:(id)library options:(id)options

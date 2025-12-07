@@ -211,18 +211,14 @@ LABEL_13:
 
 - (void)setApplicationBundleIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  applicationBundleIdentifier = self->_applicationBundleIdentifier;
-  self->_applicationBundleIdentifier = v4;
+  self->_applicationBundleIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setUserActivityRequiredString:(id)string
 {
-  v4 = [string copy];
-  userActivityRequiredString = self->_userActivityRequiredString;
-  self->_userActivityRequiredString = v4;
+  self->_userActivityRequiredString = [string copy];
 
   MEMORY[0x1EEE66BB8]();
 }

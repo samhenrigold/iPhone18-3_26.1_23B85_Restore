@@ -130,27 +130,23 @@ LABEL_10:
 
 + (void)enterCriticalSection
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   localizedDescription = [self localizedDescription];
-  v5 = 138412290;
-  v6 = localizedDescription;
-  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "failed to enter critical section. error: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = localizedDescription;
+  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "failed to enter critical section. error: %@", &v4, 0xCu);
 }
 
 + (void)exitCriticalSectionUsingRequestID:(NSObject *)a3 .cold.2(void *a1, void *a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = [a1 UUIDString];
   v6 = [a2 localizedDescription];
-  v8 = 138412546;
-  v9 = v5;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_error_impl(&dword_1A2860000, a3, OS_LOG_TYPE_ERROR, "failed to exit critical section for requestID: %@. error: %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_error_impl(&dword_1A2860000, a3, OS_LOG_TYPE_ERROR, "failed to exit critical section for requestID: %@. error: %@", &v7, 0x16u);
 }
 
 @end

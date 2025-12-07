@@ -51,7 +51,7 @@
 - (void)computeTimeSinceLastShareWithConversation:(id)conversation interactionRecord:(id)record;
 - (void)computeTimeSinceLastUIEngagementForConversationId:(id)id interactionRecord:(id)record;
 - (void)copyFeatureForArguments:(id)arguments;
-- (void)dispatchComputationForBatchFeature:(void *)feature;
+- (void)dispatchComputationForBatchFeature:(void *)result;
 - (void)dispatchComputationForContentFeature:(void *)feature personIdsDetectedInPhoto:(void *)photo sceneCategoriesDetectedInPhoto:;
 - (void)dispatchComputationForIncrementalFeature:(void *)feature conversationId:(void *)id interactionRecord:;
 - (void)divideWithDivisorForArguments:(id)arguments;
@@ -163,7 +163,7 @@
 
 - (void)computeNumberOfSharesOfTopDomainURLWithConversationForConversationId:(id)id interactionRecord:(id)record
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   idCopy = id;
   recordCopy = record;
   config = [(_PSInteractionsStatistics *)self config];
@@ -175,28 +175,28 @@
 
     if (mechanism == 13)
     {
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
       v25 = 0u;
-      v21 = recordCopy;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
+      v20 = recordCopy;
       obj = [recordCopy attachments];
-      v11 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v11 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v25;
+        v13 = *v24;
         do
         {
           v14 = 0;
           do
           {
-            if (*v25 != v13)
+            if (*v24 != v13)
             {
               objc_enumerationMutation(obj);
             }
 
-            contentURL = [*(*(&v24 + 1) + 8 * v14) contentURL];
+            contentURL = [*(*(&v23 + 1) + 8 * v14) contentURL];
             host = [contentURL host];
             config2 = [(_PSInteractionsStatistics *)self config];
             topDomainURL2 = [config2 topDomainURL];
@@ -211,26 +211,24 @@
           }
 
           while (v12 != v14);
-          v12 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+          v12 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
         }
 
         while (v12);
       }
 
-      recordCopy = v21;
+      recordCopy = v20;
     }
   }
 
   else
   {
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)computeNumberOfEngagedSuggestionsOfTopDomainURLWithConversationForConversationId:(id)id interactionRecord:(id)record
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   idCopy = id;
   recordCopy = record;
   config = [(_PSInteractionsStatistics *)self config];
@@ -242,28 +240,28 @@
 
     if (mechanism == 20)
     {
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
       v25 = 0u;
-      v21 = recordCopy;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
+      v20 = recordCopy;
       obj = [recordCopy attachments];
-      v11 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v11 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v25;
+        v13 = *v24;
         do
         {
           v14 = 0;
           do
           {
-            if (*v25 != v13)
+            if (*v24 != v13)
             {
               objc_enumerationMutation(obj);
             }
 
-            contentURL = [*(*(&v24 + 1) + 8 * v14) contentURL];
+            contentURL = [*(*(&v23 + 1) + 8 * v14) contentURL];
             host = [contentURL host];
             config2 = [(_PSInteractionsStatistics *)self config];
             topDomainURL2 = [config2 topDomainURL];
@@ -278,21 +276,19 @@
           }
 
           while (v12 != v14);
-          v12 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+          v12 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
         }
 
         while (v12);
       }
 
-      recordCopy = v21;
+      recordCopy = v20;
     }
   }
 
   else
   {
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)computeNumberOfSharesWithConversationId:(id)id interactionRecord:(id)record
@@ -479,31 +475,31 @@
 
 - (void)computeTimeSinceLastPhotoShareWithConversationId:(id)id interactionRecord:(id)record
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   idCopy = id;
   recordCopy = record;
   if ([recordCopy mechanism] == 20)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     attachments = [recordCopy attachments];
-    v9 = [attachments countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v9 = [attachments countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v24;
+      v11 = *v23;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v24 != v11)
+          if (*v23 != v11)
           {
             objc_enumerationMutation(attachments);
           }
 
-          photoLocalIdentifier = [*(*(&v23 + 1) + 8 * i) photoLocalIdentifier];
+          photoLocalIdentifier = [*(*(&v22 + 1) + 8 * i) photoLocalIdentifier];
 
           if (photoLocalIdentifier)
           {
@@ -526,7 +522,7 @@
           }
         }
 
-        v10 = [attachments countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v10 = [attachments countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v10)
         {
           continue;
@@ -538,8 +534,6 @@
 
 LABEL_14:
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)computeTimeSinceLastShareWithConversation:(id)conversation interactionRecord:(id)record
@@ -596,7 +590,7 @@ LABEL_14:
 
 - (void)computeScenesBasedFeaturesForConversationId:(id)id interactionRecord:(id)record
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   idCopy = id;
   recordCopy = record;
   if ([recordCopy mechanism] == 13)
@@ -604,32 +598,32 @@ LABEL_14:
     attachments = [recordCopy attachments];
     v8 = [attachments _pas_mappedSetWithTransform:&__block_literal_global_31_0];
 
-    v29 = v8;
+    v28 = v8;
     if ([v8 count])
     {
-      v25 = recordCopy;
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
+      v24 = recordCopy;
       v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
       config = [(_PSInteractionsStatistics *)self config];
       sceneCategoryTagMapping = [config sceneCategoryTagMapping];
 
       obj = sceneCategoryTagMapping;
-      v30 = [sceneCategoryTagMapping countByEnumeratingWithState:&v35 objects:v40 count:16];
-      if (v30)
+      v29 = [sceneCategoryTagMapping countByEnumeratingWithState:&v34 objects:v39 count:16];
+      if (v29)
       {
-        v28 = *v36;
+        v27 = *v35;
         do
         {
-          for (i = 0; i != v30; ++i)
+          for (i = 0; i != v29; ++i)
           {
-            if (*v36 != v28)
+            if (*v35 != v27)
             {
               objc_enumerationMutation(obj);
             }
 
-            v12 = *(*(&v35 + 1) + 8 * i);
+            v12 = *(*(&v34 + 1) + 8 * i);
             config2 = [(_PSInteractionsStatistics *)self config];
             v14 = [config2 sceneTagThresholdForSceneCategoryName:v12];
 
@@ -637,27 +631,27 @@ LABEL_14:
             sceneCategoryTagMapping2 = [config3 sceneCategoryTagMapping];
             v17 = [sceneCategoryTagMapping2 objectForKeyedSubscript:v12];
 
-            v33 = 0u;
-            v34 = 0u;
-            v31 = 0u;
             v32 = 0u;
-            v18 = v29;
-            v19 = [v18 countByEnumeratingWithState:&v31 objects:v39 count:16];
+            v33 = 0u;
+            v30 = 0u;
+            v31 = 0u;
+            v18 = v28;
+            v19 = [v18 countByEnumeratingWithState:&v30 objects:v38 count:16];
             if (v19)
             {
               v20 = v19;
               v21 = 0;
-              v22 = *v32;
+              v22 = *v31;
               while (2)
               {
                 for (j = 0; j != v20; ++j)
                 {
-                  if (*v32 != v22)
+                  if (*v31 != v22)
                   {
                     objc_enumerationMutation(v18);
                   }
 
-                  if ([v17 containsObject:*(*(&v31 + 1) + 8 * j)])
+                  if ([v17 containsObject:*(*(&v30 + 1) + 8 * j)])
                   {
                     if (++v21 >= [v14 intValue])
                     {
@@ -667,7 +661,7 @@ LABEL_14:
                   }
                 }
 
-                v20 = [v18 countByEnumeratingWithState:&v31 objects:v39 count:16];
+                v20 = [v18 countByEnumeratingWithState:&v30 objects:v38 count:16];
                 if (v20)
                 {
                   continue;
@@ -680,71 +674,69 @@ LABEL_14:
 LABEL_19:
           }
 
-          v30 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+          v29 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
         }
 
-        while (v30);
+        while (v29);
       }
 
-      recordCopy = v25;
+      recordCopy = v24;
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)computeNumberOfFacesSharedWithConversation
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = [(_PSInteractionsStatistics *)self conversationIds];
-  v3 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v3 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v3)
   {
     v4 = v3;
-    v17 = *v23;
+    v16 = *v22;
     do
     {
       v5 = 0;
       do
       {
-        if (*v23 != v17)
+        if (*v22 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v22 + 1) + 8 * v5);
+        v6 = *(*(&v21 + 1) + 8 * v5);
         v7 = objc_opt_new();
+        v17 = 0u;
         v18 = 0u;
         v19 = 0u;
         v20 = 0u;
-        v21 = 0u;
         personsIdsInPhotosForPastShareInteractions = [(_PSInteractionsStatistics *)self personsIdsInPhotosForPastShareInteractions];
         v9 = [personsIdsInPhotosForPastShareInteractions objectForKeyedSubscript:v6];
 
-        v10 = [v9 countByEnumeratingWithState:&v18 objects:v26 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v17 objects:v25 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v19;
+          v12 = *v18;
           do
           {
             v13 = 0;
             do
             {
-              if (*v19 != v12)
+              if (*v18 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              [v7 unionSet:*(*(&v18 + 1) + 8 * v13++)];
+              [v7 unionSet:*(*(&v17 + 1) + 8 * v13++)];
             }
 
             while (v11 != v13);
-            v11 = [v9 countByEnumeratingWithState:&v18 objects:v26 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v17 objects:v25 count:16];
           }
 
           while (v11);
@@ -757,39 +749,37 @@ LABEL_19:
       }
 
       while (v5 != v4);
-      v4 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v4 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v4);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)computeNumberOfSharesToTargetApp
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = [(_PSInteractionsStatistics *)self conversationIds];
-  v4 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v4 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v32;
+    v6 = *v31;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v32 != v6)
+        if (*v31 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v31 + 1) + 8 * i);
+        v8 = *(*(&v30 + 1) + 8 * i);
         v9 = [(_PSInteractionsStatistics *)self bundleIdForConversationId:v8];
         if (v9)
         {
@@ -809,32 +799,32 @@ LABEL_19:
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v5 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v5);
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   conversationIds = [(_PSInteractionsStatistics *)self conversationIds];
-  v17 = [conversationIds countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v17 = [conversationIds countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v28;
+    v19 = *v27;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v28 != v19)
+        if (*v27 != v19)
         {
           objc_enumerationMutation(conversationIds);
         }
 
-        v21 = *(*(&v27 + 1) + 8 * j);
+        v21 = *(*(&v26 + 1) + 8 * j);
         v22 = [(_PSInteractionsStatistics *)self bundleIdForConversationId:v21];
         v23 = [v3 objectForKeyedSubscript:v22];
 
@@ -845,39 +835,37 @@ LABEL_19:
         }
       }
 
-      v18 = [conversationIds countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v18 = [conversationIds countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v18);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)computeNumberOfEngagedSuggestionsToTargetApp
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = [(_PSInteractionsStatistics *)self conversationIds];
-  v4 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v4 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v32;
+    v6 = *v31;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v32 != v6)
+        if (*v31 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v31 + 1) + 8 * i);
+        v8 = *(*(&v30 + 1) + 8 * i);
         v9 = [(_PSInteractionsStatistics *)self bundleIdForConversationId:v8];
         if (v9)
         {
@@ -897,32 +885,32 @@ LABEL_19:
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v5 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v5);
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   conversationIds = [(_PSInteractionsStatistics *)self conversationIds];
-  v17 = [conversationIds countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v17 = [conversationIds countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v28;
+    v19 = *v27;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v28 != v19)
+        if (*v27 != v19)
         {
           objc_enumerationMutation(conversationIds);
         }
 
-        v21 = *(*(&v27 + 1) + 8 * j);
+        v21 = *(*(&v26 + 1) + 8 * j);
         v22 = [(_PSInteractionsStatistics *)self bundleIdForConversationId:v21];
         if (v22)
         {
@@ -936,13 +924,11 @@ LABEL_19:
         }
       }
 
-      v18 = [conversationIds countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v18 = [conversationIds countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v18);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)computeNumberOfAppsSharedFromWithConversation
@@ -959,76 +945,76 @@ LABEL_19:
 - (void)computeNumberOfSharesOfPeopleInPhoto
 {
   selfCopy = self;
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   obj = [(_PSInteractionsStatistics *)self conversationIds];
-  v26 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
-  if (v26)
+  v25 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
+  if (v25)
   {
-    v24 = *v40;
-    v25 = selfCopy;
+    v23 = *v39;
+    v24 = selfCopy;
     do
     {
       v3 = 0;
       do
       {
-        if (*v40 != v24)
+        if (*v39 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = v3;
-        v4 = *(*(&v39 + 1) + 8 * v3);
+        v28 = v3;
+        v4 = *(*(&v38 + 1) + 8 * v3);
         context = objc_autoreleasePoolPush();
         v5 = objc_opt_new();
         personsIdsInPhotosForPastShareInteractions = [(_PSInteractionsStatistics *)selfCopy personsIdsInPhotosForPastShareInteractions];
-        v27 = v4;
+        v26 = v4;
         v7 = [personsIdsInPhotosForPastShareInteractions objectForKeyedSubscript:v4];
 
-        v37 = 0u;
-        v38 = 0u;
-        v35 = 0u;
         v36 = 0u;
-        v30 = v7;
-        v8 = [v30 countByEnumeratingWithState:&v35 objects:v44 count:16];
+        v37 = 0u;
+        v34 = 0u;
+        v35 = 0u;
+        v29 = v7;
+        v8 = [v29 countByEnumeratingWithState:&v34 objects:v43 count:16];
         if (v8)
         {
           v9 = v8;
           v10 = 0;
-          v11 = *v36;
+          v11 = *v35;
           do
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v36 != v11)
+              if (*v35 != v11)
               {
-                objc_enumerationMutation(v30);
+                objc_enumerationMutation(v29);
               }
 
-              v13 = *(*(&v35 + 1) + 8 * i);
+              v13 = *(*(&v34 + 1) + 8 * i);
+              v30 = 0u;
               v31 = 0u;
               v32 = 0u;
               v33 = 0u;
-              v34 = 0u;
               v14 = v13;
-              v15 = [v14 countByEnumeratingWithState:&v31 objects:v43 count:16];
+              v15 = [v14 countByEnumeratingWithState:&v30 objects:v42 count:16];
               if (v15)
               {
                 v16 = v15;
-                v17 = *v32;
+                v17 = *v31;
                 do
                 {
                   for (j = 0; j != v16; ++j)
                   {
-                    if (*v32 != v17)
+                    if (*v31 != v17)
                     {
                       objc_enumerationMutation(v14);
                     }
 
-                    v19 = *(*(&v31 + 1) + 8 * j);
+                    v19 = *(*(&v30 + 1) + 8 * j);
                     [v5 addObject:v19];
                     v20 = [v5 countForObject:v19];
                     if (v10 <= v20)
@@ -1037,14 +1023,14 @@ LABEL_19:
                     }
                   }
 
-                  v16 = [v14 countByEnumeratingWithState:&v31 objects:v43 count:16];
+                  v16 = [v14 countByEnumeratingWithState:&v30 objects:v42 count:16];
                 }
 
                 while (v16);
               }
             }
 
-            v9 = [v30 countByEnumeratingWithState:&v35 objects:v44 count:16];
+            v9 = [v29 countByEnumeratingWithState:&v34 objects:v43 count:16];
           }
 
           while (v9);
@@ -1056,96 +1042,94 @@ LABEL_19:
         }
 
         v21 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v10];
-        selfCopy = v25;
-        [(_PSInteractionsStatistics *)v25 setValue:v21 forFeature:@"numberOfSharesOfPeopleInPhotoWithConversation" andConversationId:v27];
+        selfCopy = v24;
+        [(_PSInteractionsStatistics *)v24 setValue:v21 forFeature:@"numberOfSharesOfPeopleInPhotoWithConversation" andConversationId:v26];
 
         objc_autoreleasePoolPop(context);
-        v3 = v29 + 1;
+        v3 = v28 + 1;
       }
 
-      while (v29 + 1 != v26);
-      v26 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+      while (v28 + 1 != v25);
+      v25 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)computeNumberOfEngagedSuggestionsOfPeopleInPhoto
 {
   selfCopy = self;
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   obj = [(_PSInteractionsStatistics *)self conversationIds];
-  v26 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
-  if (v26)
+  v25 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
+  if (v25)
   {
-    v24 = *v40;
-    v25 = selfCopy;
+    v23 = *v39;
+    v24 = selfCopy;
     do
     {
       v3 = 0;
       do
       {
-        if (*v40 != v24)
+        if (*v39 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = v3;
-        v4 = *(*(&v39 + 1) + 8 * v3);
+        v28 = v3;
+        v4 = *(*(&v38 + 1) + 8 * v3);
         context = objc_autoreleasePoolPush();
         v5 = objc_opt_new();
         personsIdsInPhotosForPastSyntheticShareInteractions = [(_PSInteractionsStatistics *)selfCopy personsIdsInPhotosForPastSyntheticShareInteractions];
-        v27 = v4;
+        v26 = v4;
         v7 = [personsIdsInPhotosForPastSyntheticShareInteractions objectForKeyedSubscript:v4];
 
-        v37 = 0u;
-        v38 = 0u;
-        v35 = 0u;
         v36 = 0u;
-        v30 = v7;
-        v8 = [v30 countByEnumeratingWithState:&v35 objects:v44 count:16];
+        v37 = 0u;
+        v34 = 0u;
+        v35 = 0u;
+        v29 = v7;
+        v8 = [v29 countByEnumeratingWithState:&v34 objects:v43 count:16];
         if (v8)
         {
           v9 = v8;
           v10 = 0;
-          v11 = *v36;
+          v11 = *v35;
           do
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v36 != v11)
+              if (*v35 != v11)
               {
-                objc_enumerationMutation(v30);
+                objc_enumerationMutation(v29);
               }
 
-              v13 = *(*(&v35 + 1) + 8 * i);
+              v13 = *(*(&v34 + 1) + 8 * i);
+              v30 = 0u;
               v31 = 0u;
               v32 = 0u;
               v33 = 0u;
-              v34 = 0u;
               v14 = v13;
-              v15 = [v14 countByEnumeratingWithState:&v31 objects:v43 count:16];
+              v15 = [v14 countByEnumeratingWithState:&v30 objects:v42 count:16];
               if (v15)
               {
                 v16 = v15;
-                v17 = *v32;
+                v17 = *v31;
                 do
                 {
                   for (j = 0; j != v16; ++j)
                   {
-                    if (*v32 != v17)
+                    if (*v31 != v17)
                     {
                       objc_enumerationMutation(v14);
                     }
 
-                    v19 = *(*(&v31 + 1) + 8 * j);
+                    v19 = *(*(&v30 + 1) + 8 * j);
                     [v5 addObject:v19];
                     v20 = [v5 countForObject:v19];
                     if (v10 <= v20)
@@ -1154,14 +1138,14 @@ LABEL_19:
                     }
                   }
 
-                  v16 = [v14 countByEnumeratingWithState:&v31 objects:v43 count:16];
+                  v16 = [v14 countByEnumeratingWithState:&v30 objects:v42 count:16];
                 }
 
                 while (v16);
               }
             }
 
-            v9 = [v30 countByEnumeratingWithState:&v35 objects:v44 count:16];
+            v9 = [v29 countByEnumeratingWithState:&v34 objects:v43 count:16];
           }
 
           while (v9);
@@ -1173,68 +1157,66 @@ LABEL_19:
         }
 
         v21 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v10];
-        selfCopy = v25;
-        [(_PSInteractionsStatistics *)v25 setValue:v21 forFeature:@"numberOfEngagedSuggestionsOfPeopleInPhotoWithConversation" andConversationId:v27];
+        selfCopy = v24;
+        [(_PSInteractionsStatistics *)v24 setValue:v21 forFeature:@"numberOfEngagedSuggestionsOfPeopleInPhotoWithConversation" andConversationId:v26];
 
         objc_autoreleasePoolPop(context);
-        v3 = v29 + 1;
+        v3 = v28 + 1;
       }
 
-      while (v29 + 1 != v26);
-      v26 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+      while (v28 + 1 != v25);
+      v25 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)computeNumberOfSharesOfScenesInPhoto
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = [(_PSInteractionsStatistics *)self conversationIds];
-  v18 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
-  if (v18)
+  v17 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+  if (v17)
   {
-    v17 = *v24;
+    v16 = *v23;
     do
     {
-      for (i = 0; i != v18; ++i)
+      for (i = 0; i != v17; ++i)
       {
-        if (*v24 != v17)
+        if (*v23 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v23 + 1) + 8 * i);
+        v4 = *(*(&v22 + 1) + 8 * i);
+        v18 = 0u;
         v19 = 0u;
         v20 = 0u;
         v21 = 0u;
-        v22 = 0u;
         config = [(_PSInteractionsStatistics *)self config];
         configuredSceneCategoryTagNames = [config configuredSceneCategoryTagNames];
 
-        v7 = [configuredSceneCategoryTagNames countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v7 = [configuredSceneCategoryTagNames countByEnumeratingWithState:&v18 objects:v26 count:16];
         if (v7)
         {
           v8 = v7;
           LODWORD(v9) = 0;
-          v10 = *v20;
+          v10 = *v19;
           do
           {
             for (j = 0; j != v8; ++j)
             {
-              if (*v20 != v10)
+              if (*v19 != v10)
               {
                 objc_enumerationMutation(configuredSceneCategoryTagNames);
               }
 
-              v12 = [(_PSInteractionsStatistics *)self valueForFeature:*(*(&v19 + 1) + 8 * j) forConversationId:v4];
+              v12 = [(_PSInteractionsStatistics *)self valueForFeature:*(*(&v18 + 1) + 8 * j) forConversationId:v4];
               intValue = [v12 intValue];
 
               if (v9 <= intValue)
@@ -1248,7 +1230,7 @@ LABEL_19:
               }
             }
 
-            v8 = [configuredSceneCategoryTagNames countByEnumeratingWithState:&v19 objects:v27 count:16];
+            v8 = [configuredSceneCategoryTagNames countByEnumeratingWithState:&v18 objects:v26 count:16];
           }
 
           while (v8);
@@ -1263,90 +1245,88 @@ LABEL_19:
         [(_PSInteractionsStatistics *)self setValue:v14 forFeature:@"numberOfSharesOfScenesInPhotoWithConversation" andConversationId:v4];
       }
 
-      v18 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v17 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
-    while (v18);
+    while (v17);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)computeNumberOfSharesOfDetectedPeopleForPeopleDetectedInPhoto:(id)photo
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   photoCopy = photo;
   if (photoCopy)
   {
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     obj = [(_PSInteractionsStatistics *)self conversationIds];
-    v27 = [obj countByEnumeratingWithState:&v41 objects:v47 count:16];
-    if (v27)
+    v26 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
+    if (v26)
     {
-      v25 = *v42;
+      v24 = *v41;
       selfCopy = self;
       do
       {
         v5 = 0;
         do
         {
-          if (*v42 != v25)
+          if (*v41 != v24)
           {
             objc_enumerationMutation(obj);
           }
 
-          v30 = v5;
-          v6 = *(*(&v41 + 1) + 8 * v5);
+          v29 = v5;
+          v6 = *(*(&v40 + 1) + 8 * v5);
           context = objc_autoreleasePoolPush();
           v7 = objc_opt_new();
           personsIdsInPhotosForPastShareInteractions = [(_PSInteractionsStatistics *)self personsIdsInPhotosForPastShareInteractions];
-          v28 = v6;
+          v27 = v6;
           v9 = [personsIdsInPhotosForPastShareInteractions objectForKeyedSubscript:v6];
 
-          v39 = 0u;
-          v40 = 0u;
-          v37 = 0u;
           v38 = 0u;
-          v31 = v9;
-          v10 = [v31 countByEnumeratingWithState:&v37 objects:v46 count:16];
+          v39 = 0u;
+          v36 = 0u;
+          v37 = 0u;
+          v30 = v9;
+          v10 = [v30 countByEnumeratingWithState:&v36 objects:v45 count:16];
           if (v10)
           {
             v11 = v10;
             v12 = 0;
-            v32 = *v38;
+            v31 = *v37;
             do
             {
               for (i = 0; i != v11; ++i)
               {
-                if (*v38 != v32)
+                if (*v37 != v31)
                 {
-                  objc_enumerationMutation(v31);
+                  objc_enumerationMutation(v30);
                 }
 
-                v14 = *(*(&v37 + 1) + 8 * i);
+                v14 = *(*(&v36 + 1) + 8 * i);
+                v32 = 0u;
                 v33 = 0u;
                 v34 = 0u;
                 v35 = 0u;
-                v36 = 0u;
                 v15 = v14;
-                v16 = [v15 countByEnumeratingWithState:&v33 objects:v45 count:16];
+                v16 = [v15 countByEnumeratingWithState:&v32 objects:v44 count:16];
                 if (v16)
                 {
                   v17 = v16;
-                  v18 = *v34;
+                  v18 = *v33;
                   do
                   {
                     for (j = 0; j != v17; ++j)
                     {
-                      if (*v34 != v18)
+                      if (*v33 != v18)
                       {
                         objc_enumerationMutation(v15);
                       }
 
-                      v20 = *(*(&v33 + 1) + 8 * j);
+                      v20 = *(*(&v32 + 1) + 8 * j);
                       if ([photoCopy containsObject:v20])
                       {
                         [v7 addObject:v20];
@@ -1358,14 +1338,14 @@ LABEL_19:
                       }
                     }
 
-                    v17 = [v15 countByEnumeratingWithState:&v33 objects:v45 count:16];
+                    v17 = [v15 countByEnumeratingWithState:&v32 objects:v44 count:16];
                   }
 
                   while (v17);
                 }
               }
 
-              v11 = [v31 countByEnumeratingWithState:&v37 objects:v46 count:16];
+              v11 = [v30 countByEnumeratingWithState:&v36 objects:v45 count:16];
             }
 
             while (v11);
@@ -1378,98 +1358,96 @@ LABEL_19:
 
           v22 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v12];
           self = selfCopy;
-          [(_PSInteractionsStatistics *)selfCopy setValue:v22 forFeature:@"numberOfSharesOfDetectedPeopleWithConversation" andConversationId:v28];
+          [(_PSInteractionsStatistics *)selfCopy setValue:v22 forFeature:@"numberOfSharesOfDetectedPeopleWithConversation" andConversationId:v27];
 
           objc_autoreleasePoolPop(context);
-          v5 = v30 + 1;
+          v5 = v29 + 1;
         }
 
-        while (v30 + 1 != v27);
-        v27 = [obj countByEnumeratingWithState:&v41 objects:v47 count:16];
+        while (v29 + 1 != v26);
+        v26 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
       }
 
-      while (v27);
+      while (v26);
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)computeNumberOfEngagedSuggestionsOfDetectedPeopleForPeopleDetectedInPhoto:(id)photo
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   photoCopy = photo;
   if (photoCopy)
   {
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     obj = [(_PSInteractionsStatistics *)self conversationIds];
-    v27 = [obj countByEnumeratingWithState:&v41 objects:v47 count:16];
-    if (v27)
+    v26 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
+    if (v26)
     {
-      v25 = *v42;
+      v24 = *v41;
       selfCopy = self;
       do
       {
         v5 = 0;
         do
         {
-          if (*v42 != v25)
+          if (*v41 != v24)
           {
             objc_enumerationMutation(obj);
           }
 
-          v30 = v5;
-          v6 = *(*(&v41 + 1) + 8 * v5);
+          v29 = v5;
+          v6 = *(*(&v40 + 1) + 8 * v5);
           context = objc_autoreleasePoolPush();
           v7 = objc_opt_new();
           personsIdsInPhotosForPastSyntheticShareInteractions = [(_PSInteractionsStatistics *)self personsIdsInPhotosForPastSyntheticShareInteractions];
-          v28 = v6;
+          v27 = v6;
           v9 = [personsIdsInPhotosForPastSyntheticShareInteractions objectForKeyedSubscript:v6];
 
-          v39 = 0u;
-          v40 = 0u;
-          v37 = 0u;
           v38 = 0u;
-          v31 = v9;
-          v10 = [v31 countByEnumeratingWithState:&v37 objects:v46 count:16];
+          v39 = 0u;
+          v36 = 0u;
+          v37 = 0u;
+          v30 = v9;
+          v10 = [v30 countByEnumeratingWithState:&v36 objects:v45 count:16];
           if (v10)
           {
             v11 = v10;
             v12 = 0;
-            v32 = *v38;
+            v31 = *v37;
             do
             {
               for (i = 0; i != v11; ++i)
               {
-                if (*v38 != v32)
+                if (*v37 != v31)
                 {
-                  objc_enumerationMutation(v31);
+                  objc_enumerationMutation(v30);
                 }
 
-                v14 = *(*(&v37 + 1) + 8 * i);
+                v14 = *(*(&v36 + 1) + 8 * i);
+                v32 = 0u;
                 v33 = 0u;
                 v34 = 0u;
                 v35 = 0u;
-                v36 = 0u;
                 v15 = v14;
-                v16 = [v15 countByEnumeratingWithState:&v33 objects:v45 count:16];
+                v16 = [v15 countByEnumeratingWithState:&v32 objects:v44 count:16];
                 if (v16)
                 {
                   v17 = v16;
-                  v18 = *v34;
+                  v18 = *v33;
                   do
                   {
                     for (j = 0; j != v17; ++j)
                     {
-                      if (*v34 != v18)
+                      if (*v33 != v18)
                       {
                         objc_enumerationMutation(v15);
                       }
 
-                      v20 = *(*(&v33 + 1) + 8 * j);
+                      v20 = *(*(&v32 + 1) + 8 * j);
                       if ([photoCopy containsObject:v20])
                       {
                         [v7 addObject:v20];
@@ -1481,14 +1459,14 @@ LABEL_19:
                       }
                     }
 
-                    v17 = [v15 countByEnumeratingWithState:&v33 objects:v45 count:16];
+                    v17 = [v15 countByEnumeratingWithState:&v32 objects:v44 count:16];
                   }
 
                   while (v17);
                 }
               }
 
-              v11 = [v31 countByEnumeratingWithState:&v37 objects:v46 count:16];
+              v11 = [v30 countByEnumeratingWithState:&v36 objects:v45 count:16];
             }
 
             while (v11);
@@ -1501,74 +1479,72 @@ LABEL_19:
 
           v22 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v12];
           self = selfCopy;
-          [(_PSInteractionsStatistics *)selfCopy setValue:v22 forFeature:@"numberOfEngagedSuggestionsOfDetectedPeopleWithConversation" andConversationId:v28];
+          [(_PSInteractionsStatistics *)selfCopy setValue:v22 forFeature:@"numberOfEngagedSuggestionsOfDetectedPeopleWithConversation" andConversationId:v27];
 
           objc_autoreleasePoolPop(context);
-          v5 = v30 + 1;
+          v5 = v29 + 1;
         }
 
-        while (v30 + 1 != v27);
-        v27 = [obj countByEnumeratingWithState:&v41 objects:v47 count:16];
+        while (v29 + 1 != v26);
+        v26 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
       }
 
-      while (v27);
+      while (v26);
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)computeMaxIoUOfSharesOfPeopleInPhotoForPeopleDetectedInPhoto:(id)photo
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   photoCopy = photo;
   if (photoCopy)
   {
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     obj = [(_PSInteractionsStatistics *)self conversationIds];
-    v23 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
-    if (v23)
+    v22 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+    if (v22)
     {
-      v21 = *v33;
+      v20 = *v32;
       selfCopy = self;
       do
       {
-        for (i = 0; i != v23; ++i)
+        for (i = 0; i != v22; ++i)
         {
-          if (*v33 != v21)
+          if (*v32 != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v6 = *(*(&v32 + 1) + 8 * i);
+          v6 = *(*(&v31 + 1) + 8 * i);
           context = objc_autoreleasePoolPush();
+          v27 = 0u;
           v28 = 0u;
           v29 = 0u;
           v30 = 0u;
-          v31 = 0u;
           personsIdsInPhotosForPastShareInteractions = [(_PSInteractionsStatistics *)self personsIdsInPhotosForPastShareInteractions];
-          v24 = v6;
+          v23 = v6;
           v8 = [personsIdsInPhotosForPastShareInteractions objectForKeyedSubscript:v6];
 
-          v9 = [v8 countByEnumeratingWithState:&v28 objects:v36 count:16];
+          v9 = [v8 countByEnumeratingWithState:&v27 objects:v35 count:16];
           if (v9)
           {
             v10 = v9;
-            v11 = *v29;
+            v11 = *v28;
             v12 = 0.0;
             do
             {
               for (j = 0; j != v10; ++j)
               {
-                if (*v29 != v11)
+                if (*v28 != v11)
                 {
                   objc_enumerationMutation(v8);
                 }
 
-                v14 = *(*(&v28 + 1) + 8 * j);
+                v14 = *(*(&v27 + 1) + 8 * j);
                 v15 = [photoCopy mutableCopy];
                 v16 = [photoCopy mutableCopy];
                 [v15 intersectSet:v14];
@@ -1583,12 +1559,12 @@ LABEL_19:
                   v17 = +[_PSLogging rewriteChannel];
                   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
                   {
-                    [(_PSInteractionsStatistics(StaticFeatures) *)&buf computeMaxIoUOfSharesOfPeopleInPhotoForPeopleDetectedInPhoto:v27, v17];
+                    [(_PSInteractionsStatistics(StaticFeatures) *)&buf computeMaxIoUOfSharesOfPeopleInPhotoForPeopleDetectedInPhoto:v26, v17];
                   }
                 }
               }
 
-              v10 = [v8 countByEnumeratingWithState:&v28 objects:v36 count:16];
+              v10 = [v8 countByEnumeratingWithState:&v27 objects:v35 count:16];
             }
 
             while (v10);
@@ -1601,71 +1577,69 @@ LABEL_19:
 
           v18 = [MEMORY[0x1E696AD98] numberWithDouble:v12];
           self = selfCopy;
-          [(_PSInteractionsStatistics *)selfCopy setValue:v18 forFeature:@"maxIoUIoUSharesOfPeopleInPhotoWithConversation" andConversationId:v24];
+          [(_PSInteractionsStatistics *)selfCopy setValue:v18 forFeature:@"maxIoUIoUSharesOfPeopleInPhotoWithConversation" andConversationId:v23];
 
           objc_autoreleasePoolPop(context);
         }
 
-        v23 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v22 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
       }
 
-      while (v23);
+      while (v22);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)computeNumberOfSharesOfDetectedScenesInPhotoForSceneCategoriesDetectedInPhoto:(id)photo
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   photoCopy = photo;
   if (photoCopy)
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     obj = [(_PSInteractionsStatistics *)self conversationIds];
-    v21 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
-    if (v21)
+    v20 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+    if (v20)
     {
-      v20 = *v28;
+      v19 = *v27;
       do
       {
         v5 = 0;
         do
         {
-          if (*v28 != v20)
+          if (*v27 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v6 = *(*(&v27 + 1) + 8 * v5);
+          v6 = *(*(&v26 + 1) + 8 * v5);
+          v22 = 0u;
           v23 = 0u;
           v24 = 0u;
           v25 = 0u;
-          v26 = 0u;
           config = [(_PSInteractionsStatistics *)self config];
           configuredSceneCategoryTagNames = [config configuredSceneCategoryTagNames];
 
-          v9 = [configuredSceneCategoryTagNames countByEnumeratingWithState:&v23 objects:v31 count:16];
-          v22 = v5;
+          v9 = [configuredSceneCategoryTagNames countByEnumeratingWithState:&v22 objects:v30 count:16];
+          v21 = v5;
           if (v9)
           {
             v10 = v9;
             LODWORD(v11) = 0;
-            v12 = *v24;
+            v12 = *v23;
             do
             {
               for (i = 0; i != v10; ++i)
               {
-                if (*v24 != v12)
+                if (*v23 != v12)
                 {
                   objc_enumerationMutation(configuredSceneCategoryTagNames);
                 }
 
-                v14 = *(*(&v23 + 1) + 8 * i);
+                v14 = *(*(&v22 + 1) + 8 * i);
                 if (([photoCopy containsObject:v14] & 1) == 0)
                 {
                   [(_PSInteractionsStatistics *)self removeFeature:v14 andConversation:v6];
@@ -1685,7 +1659,7 @@ LABEL_19:
                 }
               }
 
-              v10 = [configuredSceneCategoryTagNames countByEnumeratingWithState:&v23 objects:v31 count:16];
+              v10 = [configuredSceneCategoryTagNames countByEnumeratingWithState:&v22 objects:v30 count:16];
             }
 
             while (v10);
@@ -1699,52 +1673,50 @@ LABEL_19:
           v17 = [MEMORY[0x1E696AD98] numberWithInt:v11];
           [(_PSInteractionsStatistics *)self setValue:v17 forFeature:@"numberOfSharesOfDetectedScenesInPhotoWithConversation" andConversationId:v6];
 
-          v5 = v22 + 1;
+          v5 = v21 + 1;
         }
 
-        while (v22 + 1 != v21);
-        v21 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+        while (v21 + 1 != v20);
+        v20 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
-      while (v21);
+      while (v20);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sumWithKeyForArguments:(id)arguments
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   argumentsCopy = arguments;
   if ([argumentsCopy count] > 2)
   {
     v5 = [argumentsCopy objectAtIndexedSubscript:0];
     v6 = [argumentsCopy objectAtIndexedSubscript:1];
-    v25 = argumentsCopy;
-    v26 = [argumentsCopy objectAtIndexedSubscript:2];
+    v24 = argumentsCopy;
+    v25 = [argumentsCopy objectAtIndexedSubscript:2];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     obj = [(_PSInteractionsStatistics *)self conversationIds];
-    v7 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v7 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v30;
+      v9 = *v29;
       do
       {
         v10 = 0;
-        v27 = v8;
+        v26 = v8;
         do
         {
-          if (*v30 != v9)
+          if (*v29 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v29 + 1) + 8 * v10);
+          v11 = *(*(&v28 + 1) + 8 * v10);
           v12 = objc_autoreleasePoolPush();
           v13 = [(_PSInteractionsStatistics *)self valueOrDefaultValueForFeature:v5 forConversationId:v11];
           v14 = [(_PSInteractionsStatistics *)self valueOrDefaultValueForFeature:v6 forConversationId:v11];
@@ -1768,12 +1740,12 @@ LABEL_19:
             v20 = v9;
             v21 = v6;
             v23 = v22 = v5;
-            [(_PSInteractionsStatistics *)self setValue:v23 forFeature:v26 andConversationId:v11];
+            [(_PSInteractionsStatistics *)self setValue:v23 forFeature:v25 andConversationId:v11];
 
             v5 = v22;
             v6 = v21;
             v9 = v20;
-            v8 = v27;
+            v8 = v26;
           }
 
           objc_autoreleasePoolPop(v12);
@@ -1781,13 +1753,13 @@ LABEL_19:
         }
 
         while (v8 != v10);
-        v8 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v8 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v8);
     }
 
-    argumentsCopy = v25;
+    argumentsCopy = v24;
   }
 
   else
@@ -1798,13 +1770,11 @@ LABEL_19:
       [_PSInteractionsStatistics(DynamicFeatures) sumWithKeyForArguments:];
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sumWithAddendForArguments:(id)arguments
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   argumentsCopy = arguments;
   if ([argumentsCopy count] > 2)
   {
@@ -1813,29 +1783,29 @@ LABEL_19:
     [v6 doubleValue];
     v8 = v7;
 
-    v22 = argumentsCopy;
-    v23 = [argumentsCopy objectAtIndexedSubscript:2];
+    v21 = argumentsCopy;
+    v22 = [argumentsCopy objectAtIndexedSubscript:2];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     conversationIds = [(_PSInteractionsStatistics *)self conversationIds];
-    v10 = [conversationIds countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v10 = [conversationIds countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v25;
+      v12 = *v24;
       do
       {
         v13 = 0;
         do
         {
-          if (*v25 != v12)
+          if (*v24 != v12)
           {
             objc_enumerationMutation(conversationIds);
           }
 
-          v14 = *(*(&v24 + 1) + 8 * v13);
+          v14 = *(*(&v23 + 1) + 8 * v13);
           v15 = objc_autoreleasePoolPush();
           v16 = [(_PSInteractionsStatistics *)self valueOrDefaultValueForFeature:v5 forConversationId:v14];
           v17 = v16;
@@ -1844,7 +1814,7 @@ LABEL_19:
             v18 = MEMORY[0x1E696AD98];
             [v16 doubleValue];
             v20 = [v18 numberWithDouble:v8 + v19];
-            [(_PSInteractionsStatistics *)self setValue:v20 forFeature:v23 andConversationId:v14];
+            [(_PSInteractionsStatistics *)self setValue:v20 forFeature:v22 andConversationId:v14];
           }
 
           objc_autoreleasePoolPop(v15);
@@ -1852,13 +1822,13 @@ LABEL_19:
         }
 
         while (v11 != v13);
-        v11 = [conversationIds countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v11 = [conversationIds countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v11);
     }
 
-    argumentsCopy = v22;
+    argumentsCopy = v21;
   }
 
   else
@@ -1869,11 +1839,165 @@ LABEL_19:
       [_PSInteractionsStatistics(DynamicFeatures) sumWithKeyForArguments:];
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)multiplyWithKeyForArguments:(id)arguments
+{
+  v33 = *MEMORY[0x1E69E9840];
+  argumentsCopy = arguments;
+  if ([argumentsCopy count] > 2)
+  {
+    v5 = [argumentsCopy objectAtIndexedSubscript:0];
+    v6 = [argumentsCopy objectAtIndexedSubscript:1];
+    v24 = argumentsCopy;
+    v25 = [argumentsCopy objectAtIndexedSubscript:2];
+    v28 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    obj = [(_PSInteractionsStatistics *)self conversationIds];
+    v7 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+    if (v7)
+    {
+      v8 = v7;
+      v9 = *v29;
+      do
+      {
+        v10 = 0;
+        v26 = v8;
+        do
+        {
+          if (*v29 != v9)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v11 = *(*(&v28 + 1) + 8 * v10);
+          v12 = objc_autoreleasePoolPush();
+          v13 = [(_PSInteractionsStatistics *)self valueOrDefaultValueForFeature:v5 forConversationId:v11];
+          v14 = [(_PSInteractionsStatistics *)self valueOrDefaultValueForFeature:v6 forConversationId:v11];
+          v15 = v14;
+          if (v13)
+          {
+            v16 = v14 == 0;
+          }
+
+          else
+          {
+            v16 = 1;
+          }
+
+          if (!v16)
+          {
+            [v13 doubleValue];
+            v18 = v17;
+            [v15 doubleValue];
+            [MEMORY[0x1E696AD98] numberWithDouble:v18 * v19];
+            v20 = v9;
+            v21 = v6;
+            v23 = v22 = v5;
+            [(_PSInteractionsStatistics *)self setValue:v23 forFeature:v25 andConversationId:v11];
+
+            v5 = v22;
+            v6 = v21;
+            v9 = v20;
+            v8 = v26;
+          }
+
+          objc_autoreleasePoolPop(v12);
+          ++v10;
+        }
+
+        while (v8 != v10);
+        v8 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      }
+
+      while (v8);
+    }
+
+    argumentsCopy = v24;
+  }
+
+  else
+  {
+    v5 = +[_PSLogging rewriteChannel];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      [_PSInteractionsStatistics(DynamicFeatures) sumWithKeyForArguments:];
+    }
+  }
+}
+
+- (void)mutliplyWithScalarForArguments:(id)arguments
+{
+  v28 = *MEMORY[0x1E69E9840];
+  argumentsCopy = arguments;
+  if ([argumentsCopy count] > 2)
+  {
+    v5 = [argumentsCopy objectAtIndexedSubscript:0];
+    v6 = [argumentsCopy objectAtIndexedSubscript:1];
+    [v6 doubleValue];
+    v8 = v7;
+
+    v21 = argumentsCopy;
+    v22 = [argumentsCopy objectAtIndexedSubscript:2];
+    v23 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    conversationIds = [(_PSInteractionsStatistics *)self conversationIds];
+    v10 = [conversationIds countByEnumeratingWithState:&v23 objects:v27 count:16];
+    if (v10)
+    {
+      v11 = v10;
+      v12 = *v24;
+      do
+      {
+        v13 = 0;
+        do
+        {
+          if (*v24 != v12)
+          {
+            objc_enumerationMutation(conversationIds);
+          }
+
+          v14 = *(*(&v23 + 1) + 8 * v13);
+          v15 = objc_autoreleasePoolPush();
+          v16 = [(_PSInteractionsStatistics *)self valueOrDefaultValueForFeature:v5 forConversationId:v14];
+          v17 = v16;
+          if (v16)
+          {
+            v18 = MEMORY[0x1E696AD98];
+            [v16 doubleValue];
+            v20 = [v18 numberWithDouble:v8 * v19];
+            [(_PSInteractionsStatistics *)self setValue:v20 forFeature:v22 andConversationId:v14];
+          }
+
+          objc_autoreleasePoolPop(v15);
+          ++v13;
+        }
+
+        while (v11 != v13);
+        v11 = [conversationIds countByEnumeratingWithState:&v23 objects:v27 count:16];
+      }
+
+      while (v11);
+    }
+
+    argumentsCopy = v21;
+  }
+
+  else
+  {
+    v5 = +[_PSLogging rewriteChannel];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      [_PSInteractionsStatistics(DynamicFeatures) sumWithKeyForArguments:];
+    }
+  }
+}
+
+- (void)divideWithDivisorForArguments:(id)arguments
 {
   v34 = *MEMORY[0x1E69E9840];
   argumentsCopy = arguments;
@@ -1905,166 +2029,6 @@ LABEL_19:
           }
 
           v11 = *(*(&v29 + 1) + 8 * v10);
-          v12 = objc_autoreleasePoolPush();
-          v13 = [(_PSInteractionsStatistics *)self valueOrDefaultValueForFeature:v5 forConversationId:v11];
-          v14 = [(_PSInteractionsStatistics *)self valueOrDefaultValueForFeature:v6 forConversationId:v11];
-          v15 = v14;
-          if (v13)
-          {
-            v16 = v14 == 0;
-          }
-
-          else
-          {
-            v16 = 1;
-          }
-
-          if (!v16)
-          {
-            [v13 doubleValue];
-            v18 = v17;
-            [v15 doubleValue];
-            [MEMORY[0x1E696AD98] numberWithDouble:v18 * v19];
-            v20 = v9;
-            v21 = v6;
-            v23 = v22 = v5;
-            [(_PSInteractionsStatistics *)self setValue:v23 forFeature:v26 andConversationId:v11];
-
-            v5 = v22;
-            v6 = v21;
-            v9 = v20;
-            v8 = v27;
-          }
-
-          objc_autoreleasePoolPop(v12);
-          ++v10;
-        }
-
-        while (v8 != v10);
-        v8 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
-      }
-
-      while (v8);
-    }
-
-    argumentsCopy = v25;
-  }
-
-  else
-  {
-    v5 = +[_PSLogging rewriteChannel];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      [_PSInteractionsStatistics(DynamicFeatures) sumWithKeyForArguments:];
-    }
-  }
-
-  v24 = *MEMORY[0x1E69E9840];
-}
-
-- (void)mutliplyWithScalarForArguments:(id)arguments
-{
-  v29 = *MEMORY[0x1E69E9840];
-  argumentsCopy = arguments;
-  if ([argumentsCopy count] > 2)
-  {
-    v5 = [argumentsCopy objectAtIndexedSubscript:0];
-    v6 = [argumentsCopy objectAtIndexedSubscript:1];
-    [v6 doubleValue];
-    v8 = v7;
-
-    v22 = argumentsCopy;
-    v23 = [argumentsCopy objectAtIndexedSubscript:2];
-    v24 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    conversationIds = [(_PSInteractionsStatistics *)self conversationIds];
-    v10 = [conversationIds countByEnumeratingWithState:&v24 objects:v28 count:16];
-    if (v10)
-    {
-      v11 = v10;
-      v12 = *v25;
-      do
-      {
-        v13 = 0;
-        do
-        {
-          if (*v25 != v12)
-          {
-            objc_enumerationMutation(conversationIds);
-          }
-
-          v14 = *(*(&v24 + 1) + 8 * v13);
-          v15 = objc_autoreleasePoolPush();
-          v16 = [(_PSInteractionsStatistics *)self valueOrDefaultValueForFeature:v5 forConversationId:v14];
-          v17 = v16;
-          if (v16)
-          {
-            v18 = MEMORY[0x1E696AD98];
-            [v16 doubleValue];
-            v20 = [v18 numberWithDouble:v8 * v19];
-            [(_PSInteractionsStatistics *)self setValue:v20 forFeature:v23 andConversationId:v14];
-          }
-
-          objc_autoreleasePoolPop(v15);
-          ++v13;
-        }
-
-        while (v11 != v13);
-        v11 = [conversationIds countByEnumeratingWithState:&v24 objects:v28 count:16];
-      }
-
-      while (v11);
-    }
-
-    argumentsCopy = v22;
-  }
-
-  else
-  {
-    v5 = +[_PSLogging rewriteChannel];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      [_PSInteractionsStatistics(DynamicFeatures) sumWithKeyForArguments:];
-    }
-  }
-
-  v21 = *MEMORY[0x1E69E9840];
-}
-
-- (void)divideWithDivisorForArguments:(id)arguments
-{
-  v35 = *MEMORY[0x1E69E9840];
-  argumentsCopy = arguments;
-  if ([argumentsCopy count] > 2)
-  {
-    v5 = [argumentsCopy objectAtIndexedSubscript:0];
-    v6 = [argumentsCopy objectAtIndexedSubscript:1];
-    v26 = argumentsCopy;
-    v27 = [argumentsCopy objectAtIndexedSubscript:2];
-    v30 = 0u;
-    v31 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    obj = [(_PSInteractionsStatistics *)self conversationIds];
-    v7 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
-    if (v7)
-    {
-      v8 = v7;
-      v9 = *v31;
-      do
-      {
-        v10 = 0;
-        v28 = v8;
-        do
-        {
-          if (*v31 != v9)
-          {
-            objc_enumerationMutation(obj);
-          }
-
-          v11 = *(*(&v30 + 1) + 8 * v10);
           v12 = objc_autoreleasePoolPush();
           v13 = [(_PSInteractionsStatistics *)self valueOrDefaultValueForFeature:v5 forConversationId:v11];
           v14 = [(_PSInteractionsStatistics *)self valueOrDefaultValueForFeature:v6 forConversationId:v11];
@@ -2091,12 +2055,12 @@ LABEL_19:
               v21 = v9;
               v22 = v6;
               v24 = v23 = v5;
-              [(_PSInteractionsStatistics *)self setValue:v24 forFeature:v27 andConversationId:v11];
+              [(_PSInteractionsStatistics *)self setValue:v24 forFeature:v26 andConversationId:v11];
 
               v5 = v23;
               v6 = v22;
               v9 = v21;
-              v8 = v28;
+              v8 = v27;
             }
           }
 
@@ -2105,13 +2069,13 @@ LABEL_19:
         }
 
         while (v8 != v10);
-        v8 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v8 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v8);
     }
 
-    argumentsCopy = v26;
+    argumentsCopy = v25;
   }
 
   else
@@ -2122,13 +2086,11 @@ LABEL_19:
       [_PSInteractionsStatistics(DynamicFeatures) sumWithKeyForArguments:];
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)exponentialWithMultiplierForArguments:(id)arguments
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   argumentsCopy = arguments;
   if ([argumentsCopy count] > 2)
   {
@@ -2137,29 +2099,29 @@ LABEL_19:
     [v6 doubleValue];
     v8 = v7;
 
-    v21 = argumentsCopy;
+    v20 = argumentsCopy;
     v9 = [argumentsCopy objectAtIndexedSubscript:2];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     obj = [(_PSInteractionsStatistics *)self conversationIds];
-    v10 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v10 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v24;
+      v12 = *v23;
       do
       {
         v13 = 0;
         do
         {
-          if (*v24 != v12)
+          if (*v23 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v23 + 1) + 8 * v13);
+          v14 = *(*(&v22 + 1) + 8 * v13);
           v15 = objc_autoreleasePoolPush();
           v16 = [(_PSInteractionsStatistics *)self valueOrDefaultValueForFeature:v5 forConversationId:v14];
           v17 = v16;
@@ -2175,7 +2137,79 @@ LABEL_19:
         }
 
         while (v11 != v13);
-        v11 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v11 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      }
+
+      while (v11);
+    }
+
+    argumentsCopy = v20;
+  }
+
+  else
+  {
+    v5 = +[_PSLogging rewriteChannel];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      [_PSInteractionsStatistics(DynamicFeatures) sumWithKeyForArguments:];
+    }
+  }
+}
+
+- (void)reciprocalWithOffsetForArguments:(id)arguments
+{
+  v28 = *MEMORY[0x1E69E9840];
+  argumentsCopy = arguments;
+  if ([argumentsCopy count] > 2)
+  {
+    v5 = [argumentsCopy objectAtIndexedSubscript:0];
+    v6 = [argumentsCopy objectAtIndexedSubscript:1];
+    [v6 doubleValue];
+    v8 = v7;
+
+    v21 = argumentsCopy;
+    v22 = [argumentsCopy objectAtIndexedSubscript:2];
+    v23 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    conversationIds = [(_PSInteractionsStatistics *)self conversationIds];
+    v10 = [conversationIds countByEnumeratingWithState:&v23 objects:v27 count:16];
+    if (v10)
+    {
+      v11 = v10;
+      v12 = *v24;
+      do
+      {
+        v13 = 0;
+        do
+        {
+          if (*v24 != v12)
+          {
+            objc_enumerationMutation(conversationIds);
+          }
+
+          v14 = *(*(&v23 + 1) + 8 * v13);
+          v15 = objc_autoreleasePoolPush();
+          v16 = [(_PSInteractionsStatistics *)self valueOrDefaultValueForFeature:v5 forConversationId:v14];
+          v17 = v16;
+          if (v16)
+          {
+            [v16 doubleValue];
+            if (v8 + v18 != 0.0)
+            {
+              [v17 doubleValue];
+              v20 = [MEMORY[0x1E696AD98] numberWithDouble:1.0 / (v8 + v19)];
+              [(_PSInteractionsStatistics *)self setValue:v20 forFeature:v22 andConversationId:v14];
+            }
+          }
+
+          objc_autoreleasePoolPop(v15);
+          ++v13;
+        }
+
+        while (v11 != v13);
+        v11 = [conversationIds countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v11);
@@ -2192,87 +2226,11 @@ LABEL_19:
       [_PSInteractionsStatistics(DynamicFeatures) sumWithKeyForArguments:];
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
-}
-
-- (void)reciprocalWithOffsetForArguments:(id)arguments
-{
-  v29 = *MEMORY[0x1E69E9840];
-  argumentsCopy = arguments;
-  if ([argumentsCopy count] > 2)
-  {
-    v5 = [argumentsCopy objectAtIndexedSubscript:0];
-    v6 = [argumentsCopy objectAtIndexedSubscript:1];
-    [v6 doubleValue];
-    v8 = v7;
-
-    v22 = argumentsCopy;
-    v23 = [argumentsCopy objectAtIndexedSubscript:2];
-    v24 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    conversationIds = [(_PSInteractionsStatistics *)self conversationIds];
-    v10 = [conversationIds countByEnumeratingWithState:&v24 objects:v28 count:16];
-    if (v10)
-    {
-      v11 = v10;
-      v12 = *v25;
-      do
-      {
-        v13 = 0;
-        do
-        {
-          if (*v25 != v12)
-          {
-            objc_enumerationMutation(conversationIds);
-          }
-
-          v14 = *(*(&v24 + 1) + 8 * v13);
-          v15 = objc_autoreleasePoolPush();
-          v16 = [(_PSInteractionsStatistics *)self valueOrDefaultValueForFeature:v5 forConversationId:v14];
-          v17 = v16;
-          if (v16)
-          {
-            [v16 doubleValue];
-            if (v8 + v18 != 0.0)
-            {
-              [v17 doubleValue];
-              v20 = [MEMORY[0x1E696AD98] numberWithDouble:1.0 / (v8 + v19)];
-              [(_PSInteractionsStatistics *)self setValue:v20 forFeature:v23 andConversationId:v14];
-            }
-          }
-
-          objc_autoreleasePoolPop(v15);
-          ++v13;
-        }
-
-        while (v11 != v13);
-        v11 = [conversationIds countByEnumeratingWithState:&v24 objects:v28 count:16];
-      }
-
-      while (v11);
-    }
-
-    argumentsCopy = v22;
-  }
-
-  else
-  {
-    v5 = +[_PSLogging rewriteChannel];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      [_PSInteractionsStatistics(DynamicFeatures) sumWithKeyForArguments:];
-    }
-  }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)powerWithExponentForArguments:(id)arguments
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   argumentsCopy = arguments;
   if ([argumentsCopy count] > 2)
   {
@@ -2281,29 +2239,29 @@ LABEL_19:
     [v6 doubleValue];
     v8 = v7;
 
-    v21 = argumentsCopy;
+    v20 = argumentsCopy;
     v9 = [argumentsCopy objectAtIndexedSubscript:2];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     obj = [(_PSInteractionsStatistics *)self conversationIds];
-    v10 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v10 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v24;
+      v12 = *v23;
       do
       {
         v13 = 0;
         do
         {
-          if (*v24 != v12)
+          if (*v23 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v23 + 1) + 8 * v13);
+          v14 = *(*(&v22 + 1) + 8 * v13);
           v15 = objc_autoreleasePoolPush();
           v16 = [(_PSInteractionsStatistics *)self valueOrDefaultValueForFeature:v5 forConversationId:v14];
           v17 = v16;
@@ -2319,13 +2277,13 @@ LABEL_19:
         }
 
         while (v11 != v13);
-        v11 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v11 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v11);
     }
 
-    argumentsCopy = v21;
+    argumentsCopy = v20;
   }
 
   else
@@ -2336,13 +2294,11 @@ LABEL_19:
       [_PSInteractionsStatistics(DynamicFeatures) sumWithKeyForArguments:];
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)laplaceProbabilityWithAlphaForArguments:(id)arguments
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   argumentsCopy = arguments;
   if ([argumentsCopy count] > 2)
   {
@@ -2351,37 +2307,37 @@ LABEL_19:
     [v6 doubleValue];
     v8 = v7;
 
-    v30 = argumentsCopy;
-    v32 = [argumentsCopy objectAtIndexedSubscript:2];
+    v29 = argumentsCopy;
+    v31 = [argumentsCopy objectAtIndexedSubscript:2];
     conversationIds = [(_PSInteractionsStatistics *)self conversationIds];
     v10 = [conversationIds count];
 
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     conversationIds2 = [(_PSInteractionsStatistics *)self conversationIds];
-    v12 = [conversationIds2 countByEnumeratingWithState:&v37 objects:v42 count:16];
+    v12 = [conversationIds2 countByEnumeratingWithState:&v36 objects:v41 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v38;
+      v14 = *v37;
       v15 = 0.0;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v38 != v14)
+          if (*v37 != v14)
           {
             objc_enumerationMutation(conversationIds2);
           }
 
-          v17 = [(_PSInteractionsStatistics *)self valueOrDefaultValueForFeature:v5 forConversationId:*(*(&v37 + 1) + 8 * i)];
+          v17 = [(_PSInteractionsStatistics *)self valueOrDefaultValueForFeature:v5 forConversationId:*(*(&v36 + 1) + 8 * i)];
           [v17 doubleValue];
           v15 = v15 + v18;
         }
 
-        v13 = [conversationIds2 countByEnumeratingWithState:&v37 objects:v42 count:16];
+        v13 = [conversationIds2 countByEnumeratingWithState:&v36 objects:v41 count:16];
       }
 
       while (v13);
@@ -2392,43 +2348,43 @@ LABEL_19:
       v15 = 0.0;
     }
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     obj = [(_PSInteractionsStatistics *)self conversationIds];
-    v19 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
+    v19 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v34;
+      v21 = *v33;
       v22 = v15 + v8 * v10;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v34 != v21)
+          if (*v33 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
-          v24 = *(*(&v33 + 1) + 8 * j);
+          v24 = *(*(&v32 + 1) + 8 * j);
           v25 = objc_autoreleasePoolPush();
           v26 = [(_PSInteractionsStatistics *)self valueOrDefaultValueForFeature:v5 forConversationId:v24];
           [v26 doubleValue];
           v28 = [MEMORY[0x1E696AD98] numberWithDouble:(v8 + v27) / v22];
-          [(_PSInteractionsStatistics *)self setValue:v28 forFeature:v32 andConversationId:v24];
+          [(_PSInteractionsStatistics *)self setValue:v28 forFeature:v31 andConversationId:v24];
 
           objc_autoreleasePoolPop(v25);
         }
 
-        v20 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
+        v20 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
       }
 
       while (v20);
     }
 
-    argumentsCopy = v30;
+    argumentsCopy = v29;
   }
 
   else
@@ -2439,13 +2395,11 @@ LABEL_19:
       [_PSInteractionsStatistics(DynamicFeatures) sumWithKeyForArguments:];
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logWithBaseForArguments:(id)arguments
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   argumentsCopy = arguments;
   if ([argumentsCopy count] > 2)
   {
@@ -2454,30 +2408,30 @@ LABEL_19:
     [v6 doubleValue];
     v8 = v7;
 
-    v21 = argumentsCopy;
+    v20 = argumentsCopy;
     v9 = [argumentsCopy objectAtIndexedSubscript:2];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     obj = [(_PSInteractionsStatistics *)self conversationIds];
-    v10 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v10 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v24;
+      v12 = *v23;
       v13 = log(v8);
       do
       {
         v14 = 0;
         do
         {
-          if (*v24 != v12)
+          if (*v23 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v23 + 1) + 8 * v14);
+          v15 = *(*(&v22 + 1) + 8 * v14);
           v16 = objc_autoreleasePoolPush();
           v17 = [(_PSInteractionsStatistics *)self valueOrDefaultValueForFeature:v5 forConversationId:v15];
           [v17 doubleValue];
@@ -2489,13 +2443,13 @@ LABEL_19:
         }
 
         while (v11 != v14);
-        v11 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v11 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v11);
     }
 
-    argumentsCopy = v21;
+    argumentsCopy = v20;
   }
 
   else
@@ -2506,210 +2460,9 @@ LABEL_19:
       [_PSInteractionsStatistics(DynamicFeatures) sumWithKeyForArguments:];
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)renameFeatureForArguments:(id)arguments
-{
-  v20 = *MEMORY[0x1E69E9840];
-  argumentsCopy = arguments;
-  if ([argumentsCopy count] > 1)
-  {
-    v5 = [argumentsCopy objectAtIndexedSubscript:0];
-    v6 = [argumentsCopy objectAtIndexedSubscript:1];
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    conversationIds = [(_PSInteractionsStatistics *)self conversationIds];
-    v8 = [conversationIds countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v8)
-    {
-      v9 = v8;
-      v10 = *v16;
-      do
-      {
-        for (i = 0; i != v9; ++i)
-        {
-          if (*v16 != v10)
-          {
-            objc_enumerationMutation(conversationIds);
-          }
-
-          v12 = *(*(&v15 + 1) + 8 * i);
-          v13 = [(_PSInteractionsStatistics *)self valueForFeature:v5 forConversationId:v12];
-          [(_PSInteractionsStatistics *)self setValue:v13 forFeature:v6 andConversationId:v12];
-          [(_PSInteractionsStatistics *)self removeFeature:v5 andConversation:v12];
-        }
-
-        v9 = [conversationIds countByEnumeratingWithState:&v15 objects:v19 count:16];
-      }
-
-      while (v9);
-    }
-  }
-
-  else
-  {
-    v5 = +[_PSLogging rewriteChannel];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      [_PSInteractionsStatistics(DynamicFeatures) sumWithKeyForArguments:];
-    }
-  }
-
-  v14 = *MEMORY[0x1E69E9840];
-}
-
-- (void)copyFeatureForArguments:(id)arguments
-{
-  v20 = *MEMORY[0x1E69E9840];
-  argumentsCopy = arguments;
-  if ([argumentsCopy count] > 1)
-  {
-    v5 = [argumentsCopy objectAtIndexedSubscript:0];
-    v6 = [argumentsCopy objectAtIndexedSubscript:1];
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    conversationIds = [(_PSInteractionsStatistics *)self conversationIds];
-    v8 = [conversationIds countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v8)
-    {
-      v9 = v8;
-      v10 = *v16;
-      do
-      {
-        for (i = 0; i != v9; ++i)
-        {
-          if (*v16 != v10)
-          {
-            objc_enumerationMutation(conversationIds);
-          }
-
-          v12 = *(*(&v15 + 1) + 8 * i);
-          v13 = [(_PSInteractionsStatistics *)self valueForFeature:v5 forConversationId:v12];
-          [(_PSInteractionsStatistics *)self setValue:v13 forFeature:v6 andConversationId:v12];
-        }
-
-        v9 = [conversationIds countByEnumeratingWithState:&v15 objects:v19 count:16];
-      }
-
-      while (v9);
-    }
-  }
-
-  else
-  {
-    v5 = +[_PSLogging rewriteChannel];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      [_PSInteractionsStatistics(DynamicFeatures) sumWithKeyForArguments:];
-    }
-  }
-
-  v14 = *MEMORY[0x1E69E9840];
-}
-
-- (void)aggregateSumForArguments:(id)arguments
-{
-  v37 = *MEMORY[0x1E69E9840];
-  argumentsCopy = arguments;
-  if ([argumentsCopy count] > 1)
-  {
-    v6 = [argumentsCopy objectAtIndexedSubscript:0];
-    v26 = argumentsCopy;
-    v7 = [argumentsCopy objectAtIndexedSubscript:1];
-    v31 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v34 = 0u;
-    conversationIds = [(_PSInteractionsStatistics *)self conversationIds];
-    v9 = [conversationIds countByEnumeratingWithState:&v31 objects:v36 count:16];
-    if (v9)
-    {
-      v10 = v9;
-      v11 = *v32;
-      v12 = 0.0;
-      do
-      {
-        for (i = 0; i != v10; ++i)
-        {
-          if (*v32 != v11)
-          {
-            objc_enumerationMutation(conversationIds);
-          }
-
-          v14 = [(_PSInteractionsStatistics *)self valueOrDefaultValueForFeature:v6 forConversationId:*(*(&v31 + 1) + 8 * i)];
-          [v14 doubleValue];
-          v12 = v12 + v15;
-        }
-
-        v10 = [conversationIds countByEnumeratingWithState:&v31 objects:v36 count:16];
-      }
-
-      while (v10);
-    }
-
-    else
-    {
-      v12 = 0.0;
-    }
-
-    v25 = v6;
-
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
-    v28 = 0u;
-    conversationIds2 = [(_PSInteractionsStatistics *)self conversationIds];
-    v17 = [conversationIds2 countByEnumeratingWithState:&v27 objects:v35 count:16];
-    if (v17)
-    {
-      v18 = v17;
-      v19 = *v28;
-      do
-      {
-        for (j = 0; j != v18; ++j)
-        {
-          if (*v28 != v19)
-          {
-            objc_enumerationMutation(conversationIds2);
-          }
-
-          v21 = *(*(&v27 + 1) + 8 * j);
-          v22 = objc_autoreleasePoolPush();
-          v23 = [MEMORY[0x1E696AD98] numberWithDouble:v12];
-          [(_PSInteractionsStatistics *)self setValue:v23 forFeature:v7 andConversationId:v21];
-
-          objc_autoreleasePoolPop(v22);
-        }
-
-        v18 = [conversationIds2 countByEnumeratingWithState:&v27 objects:v35 count:16];
-      }
-
-      while (v18);
-    }
-
-    v5 = v25;
-    argumentsCopy = v26;
-  }
-
-  else
-  {
-    v5 = +[_PSLogging rewriteChannel];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      [_PSInteractionsStatistics(DynamicFeatures) sumWithKeyForArguments:];
-    }
-  }
-
-  v24 = *MEMORY[0x1E69E9840];
-}
-
-- (void)imputeFeatureForArguments:(id)arguments
 {
   v19 = *MEMORY[0x1E69E9840];
   argumentsCopy = arguments;
@@ -2737,10 +2490,9 @@ LABEL_19:
           }
 
           v12 = *(*(&v14 + 1) + 8 * i);
-          if ([(_PSInteractionsStatistics *)self isUsingDefaultValue:v5 forConversationId:v12])
-          {
-            [(_PSInteractionsStatistics *)self setValue:v6 forFeature:v5 andConversationId:v12];
-          }
+          v13 = [(_PSInteractionsStatistics *)self valueForFeature:v5 forConversationId:v12];
+          [(_PSInteractionsStatistics *)self setValue:v13 forFeature:v6 andConversationId:v12];
+          [(_PSInteractionsStatistics *)self removeFeature:v5 andConversation:v12];
         }
 
         v9 = [conversationIds countByEnumeratingWithState:&v14 objects:v18 count:16];
@@ -2758,8 +2510,200 @@ LABEL_19:
       [_PSInteractionsStatistics(DynamicFeatures) sumWithKeyForArguments:];
     }
   }
+}
 
-  v13 = *MEMORY[0x1E69E9840];
+- (void)copyFeatureForArguments:(id)arguments
+{
+  v19 = *MEMORY[0x1E69E9840];
+  argumentsCopy = arguments;
+  if ([argumentsCopy count] > 1)
+  {
+    v5 = [argumentsCopy objectAtIndexedSubscript:0];
+    v6 = [argumentsCopy objectAtIndexedSubscript:1];
+    v14 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    conversationIds = [(_PSInteractionsStatistics *)self conversationIds];
+    v8 = [conversationIds countByEnumeratingWithState:&v14 objects:v18 count:16];
+    if (v8)
+    {
+      v9 = v8;
+      v10 = *v15;
+      do
+      {
+        for (i = 0; i != v9; ++i)
+        {
+          if (*v15 != v10)
+          {
+            objc_enumerationMutation(conversationIds);
+          }
+
+          v12 = *(*(&v14 + 1) + 8 * i);
+          v13 = [(_PSInteractionsStatistics *)self valueForFeature:v5 forConversationId:v12];
+          [(_PSInteractionsStatistics *)self setValue:v13 forFeature:v6 andConversationId:v12];
+        }
+
+        v9 = [conversationIds countByEnumeratingWithState:&v14 objects:v18 count:16];
+      }
+
+      while (v9);
+    }
+  }
+
+  else
+  {
+    v5 = +[_PSLogging rewriteChannel];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      [_PSInteractionsStatistics(DynamicFeatures) sumWithKeyForArguments:];
+    }
+  }
+}
+
+- (void)aggregateSumForArguments:(id)arguments
+{
+  v36 = *MEMORY[0x1E69E9840];
+  argumentsCopy = arguments;
+  if ([argumentsCopy count] > 1)
+  {
+    v6 = [argumentsCopy objectAtIndexedSubscript:0];
+    v25 = argumentsCopy;
+    v7 = [argumentsCopy objectAtIndexedSubscript:1];
+    v30 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    conversationIds = [(_PSInteractionsStatistics *)self conversationIds];
+    v9 = [conversationIds countByEnumeratingWithState:&v30 objects:v35 count:16];
+    if (v9)
+    {
+      v10 = v9;
+      v11 = *v31;
+      v12 = 0.0;
+      do
+      {
+        for (i = 0; i != v10; ++i)
+        {
+          if (*v31 != v11)
+          {
+            objc_enumerationMutation(conversationIds);
+          }
+
+          v14 = [(_PSInteractionsStatistics *)self valueOrDefaultValueForFeature:v6 forConversationId:*(*(&v30 + 1) + 8 * i)];
+          [v14 doubleValue];
+          v12 = v12 + v15;
+        }
+
+        v10 = [conversationIds countByEnumeratingWithState:&v30 objects:v35 count:16];
+      }
+
+      while (v10);
+    }
+
+    else
+    {
+      v12 = 0.0;
+    }
+
+    v24 = v6;
+
+    v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    conversationIds2 = [(_PSInteractionsStatistics *)self conversationIds];
+    v17 = [conversationIds2 countByEnumeratingWithState:&v26 objects:v34 count:16];
+    if (v17)
+    {
+      v18 = v17;
+      v19 = *v27;
+      do
+      {
+        for (j = 0; j != v18; ++j)
+        {
+          if (*v27 != v19)
+          {
+            objc_enumerationMutation(conversationIds2);
+          }
+
+          v21 = *(*(&v26 + 1) + 8 * j);
+          v22 = objc_autoreleasePoolPush();
+          v23 = [MEMORY[0x1E696AD98] numberWithDouble:v12];
+          [(_PSInteractionsStatistics *)self setValue:v23 forFeature:v7 andConversationId:v21];
+
+          objc_autoreleasePoolPop(v22);
+        }
+
+        v18 = [conversationIds2 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      }
+
+      while (v18);
+    }
+
+    v5 = v24;
+    argumentsCopy = v25;
+  }
+
+  else
+  {
+    v5 = +[_PSLogging rewriteChannel];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      [_PSInteractionsStatistics(DynamicFeatures) sumWithKeyForArguments:];
+    }
+  }
+}
+
+- (void)imputeFeatureForArguments:(id)arguments
+{
+  v18 = *MEMORY[0x1E69E9840];
+  argumentsCopy = arguments;
+  if ([argumentsCopy count] > 1)
+  {
+    v5 = [argumentsCopy objectAtIndexedSubscript:0];
+    v6 = [argumentsCopy objectAtIndexedSubscript:1];
+    v13 = 0u;
+    v14 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    conversationIds = [(_PSInteractionsStatistics *)self conversationIds];
+    v8 = [conversationIds countByEnumeratingWithState:&v13 objects:v17 count:16];
+    if (v8)
+    {
+      v9 = v8;
+      v10 = *v14;
+      do
+      {
+        for (i = 0; i != v9; ++i)
+        {
+          if (*v14 != v10)
+          {
+            objc_enumerationMutation(conversationIds);
+          }
+
+          v12 = *(*(&v13 + 1) + 8 * i);
+          if ([(_PSInteractionsStatistics *)self isUsingDefaultValue:v5 forConversationId:v12])
+          {
+            [(_PSInteractionsStatistics *)self setValue:v6 forFeature:v5 andConversationId:v12];
+          }
+        }
+
+        v9 = [conversationIds countByEnumeratingWithState:&v13 objects:v17 count:16];
+      }
+
+      while (v9);
+    }
+  }
+
+  else
+  {
+    v5 = +[_PSLogging rewriteChannel];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      [_PSInteractionsStatistics(DynamicFeatures) sumWithKeyForArguments:];
+    }
+  }
 }
 
 - (_PSInteractionsStatistics)initWithConfig:(id)config
@@ -2908,84 +2852,81 @@ LABEL_19:
 
 - (id)nonNilFeaturesForConversationId:(id)id
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   idCopy = id;
   v5 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   defaultValues = [(_PSInteractionsStatisticsConfig *)self->_config defaultValues];
-  v7 = [defaultValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [defaultValues countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(defaultValues);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         v12 = [(_PSInteractionsStatistics *)self valueOrDefaultValueForFeature:v11 forConversationId:idCopy];
         [v5 setObject:v12 forKeyedSubscript:v11];
       }
 
-      v8 = [defaultValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [defaultValues countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
 
   v13 = [v5 copy];
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 - (void)initFeature:(id)feature withValue:(id)value
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   featureCopy = feature;
   valueCopy = value;
   if (valueCopy)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     conversationIds = [(_PSInteractionsStatistics *)self conversationIds];
-    v9 = [conversationIds countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v9 = [conversationIds countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v15;
+      v11 = *v14;
       do
       {
         v12 = 0;
         do
         {
-          if (*v15 != v11)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(conversationIds);
           }
 
-          [(_PSInteractionsStatistics *)self setValue:valueCopy forFeature:featureCopy andConversationId:*(*(&v14 + 1) + 8 * v12++)];
+          [(_PSInteractionsStatistics *)self setValue:valueCopy forFeature:featureCopy andConversationId:*(*(&v13 + 1) + 8 * v12++)];
         }
 
         while (v10 != v12);
-        v10 = [conversationIds countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v10 = [conversationIds countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v10);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setValue:(id)value forFeature:(id)feature andConversationId:(id)id
@@ -3116,7 +3057,7 @@ LABEL_19:
 
 - (void)computeStatisticsWithInteractionStore:(id)store
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   v5 = objc_opt_new();
   v6 = objc_alloc(MEMORY[0x1E696AEC0]);
@@ -3134,22 +3075,22 @@ LABEL_19:
     _os_log_impl(&dword_1B5ED1000, v10, OS_LOG_TYPE_DEFAULT, "Processing sharing interactions", buf, 2u);
   }
 
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = __67___PSInteractionsStatistics_computeStatisticsWithInteractionStore___block_invoke;
-  v42[3] = &unk_1E7C24218;
-  v11 = v5;
-  v43 = v11;
-  v12 = MEMORY[0x1B8C8C060](v42);
-  sharingInteractionPredicate = [(_PSInteractionsStatisticsConfig *)self->_config sharingInteractionPredicate];
-  fetchLimit = [(_PSInteractionsStatisticsConfig *)self->_config fetchLimit];
   v41[0] = MEMORY[0x1E69E9820];
   v41[1] = 3221225472;
-  v41[2] = __67___PSInteractionsStatistics_computeStatisticsWithInteractionStore___block_invoke_2;
-  v41[3] = &unk_1E7C24240;
-  v41[4] = self;
-  v33 = v12;
-  [storeCopy iterInteractionRecordsWithPredicate:sharingInteractionPredicate fetchLimit:fetchLimit sortAscending:0 updateTelemetry:v12 withBlock:v41];
+  v41[2] = __67___PSInteractionsStatistics_computeStatisticsWithInteractionStore___block_invoke;
+  v41[3] = &unk_1E7C24218;
+  v11 = v5;
+  v42 = v11;
+  v12 = MEMORY[0x1B8C8C060](v41);
+  sharingInteractionPredicate = [(_PSInteractionsStatisticsConfig *)self->_config sharingInteractionPredicate];
+  fetchLimit = [(_PSInteractionsStatisticsConfig *)self->_config fetchLimit];
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __67___PSInteractionsStatistics_computeStatisticsWithInteractionStore___block_invoke_2;
+  v40[3] = &unk_1E7C24240;
+  v40[4] = self;
+  v32 = v12;
+  [storeCopy iterInteractionRecordsWithPredicate:sharingInteractionPredicate fetchLimit:fetchLimit sortAscending:0 updateTelemetry:v12 withBlock:v40];
 
   v15 = +[_PSLogging rewriteChannel];
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
@@ -3158,43 +3099,43 @@ LABEL_19:
     _os_log_impl(&dword_1B5ED1000, v15, OS_LOG_TYPE_DEFAULT, "Processing communication interactions", buf, 2u);
   }
 
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __67___PSInteractionsStatistics_computeStatisticsWithInteractionStore___block_invoke_81;
-  v39[3] = &unk_1E7C24218;
-  v31 = v11;
-  v40 = v31;
-  v16 = MEMORY[0x1B8C8C060](v39);
-  communicationInteractionPredicate = [(_PSInteractionsStatisticsConfig *)self->_config communicationInteractionPredicate];
-  fetchLimit2 = [(_PSInteractionsStatisticsConfig *)self->_config fetchLimit];
   v38[0] = MEMORY[0x1E69E9820];
   v38[1] = 3221225472;
-  v38[2] = __67___PSInteractionsStatistics_computeStatisticsWithInteractionStore___block_invoke_2_85;
-  v38[3] = &unk_1E7C24240;
-  v38[4] = self;
-  v32 = v16;
-  [storeCopy iterInteractionRecordsWithPredicate:communicationInteractionPredicate fetchLimit:fetchLimit2 sortAscending:0 updateTelemetry:v16 withBlock:v38];
+  v38[2] = __67___PSInteractionsStatistics_computeStatisticsWithInteractionStore___block_invoke_81;
+  v38[3] = &unk_1E7C24218;
+  v30 = v11;
+  v39 = v30;
+  v16 = MEMORY[0x1B8C8C060](v38);
+  communicationInteractionPredicate = [(_PSInteractionsStatisticsConfig *)self->_config communicationInteractionPredicate];
+  fetchLimit2 = [(_PSInteractionsStatisticsConfig *)self->_config fetchLimit];
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = 3221225472;
+  v37[2] = __67___PSInteractionsStatistics_computeStatisticsWithInteractionStore___block_invoke_2_85;
+  v37[3] = &unk_1E7C24240;
+  v37[4] = self;
+  v31 = v16;
+  [storeCopy iterInteractionRecordsWithPredicate:communicationInteractionPredicate fetchLimit:fetchLimit2 sortAscending:0 updateTelemetry:v16 withBlock:v37];
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   staticFeatures = [(_PSInteractionsStatisticsConfig *)self->_config staticFeatures];
-  v20 = [staticFeatures countByEnumeratingWithState:&v34 objects:v46 count:16];
+  v20 = [staticFeatures countByEnumeratingWithState:&v33 objects:v45 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v35;
+    v22 = *v34;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v35 != v22)
+        if (*v34 != v22)
         {
           objc_enumerationMutation(staticFeatures);
         }
 
-        v24 = *(*(&v34 + 1) + 8 * i);
+        v24 = *(*(&v33 + 1) + 8 * i);
         v25 = PSStaticFeatureFromString(v24);
         if (v25)
         {
@@ -3207,13 +3148,13 @@ LABEL_19:
           if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v45 = v24;
+            v44 = v24;
             _os_log_error_impl(&dword_1B5ED1000, v26, OS_LOG_TYPE_ERROR, "Attempted to compute invalid batch statName %@", buf, 0xCu);
           }
         }
       }
 
-      v21 = [staticFeatures countByEnumeratingWithState:&v34 objects:v46 count:16];
+      v21 = [staticFeatures countByEnumeratingWithState:&v33 objects:v45 count:16];
     }
 
     while (v21);
@@ -3226,15 +3167,13 @@ LABEL_19:
   }
 
   queryStats = self->_queryStats;
-  self->_queryStats = v31;
-  v29 = v31;
-
-  v30 = *MEMORY[0x1E69E9840];
+  self->_queryStats = v30;
+  v29 = v30;
 }
 
 - (void)processInteractionRecord:(id)record
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   targetBundleId = [recordCopy targetBundleId];
   v6 = [targetBundleId isEqual:@"com.apple.telephonyutilities.callservicesd"];
@@ -3257,26 +3196,26 @@ LABEL_19:
   {
     [(_PSInteractionsStatistics *)self addConversationId:conversationId];
     [(_PSInteractionsStatistics *)self _updatePropertiesFromRecord:recordCopy forConversationId:conversationId];
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     staticFeatures = [(_PSInteractionsStatisticsConfig *)self->_config staticFeatures];
-    v13 = [staticFeatures countByEnumeratingWithState:&v21 objects:v27 count:16];
+    v13 = [staticFeatures countByEnumeratingWithState:&v20 objects:v26 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v22;
+      v15 = *v21;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v22 != v15)
+          if (*v21 != v15)
           {
             objc_enumerationMutation(staticFeatures);
           }
 
-          v17 = *(*(&v21 + 1) + 8 * i);
+          v17 = *(*(&v20 + 1) + 8 * i);
           v18 = PSStaticFeatureFromString(v17);
           if (v18)
           {
@@ -3289,13 +3228,13 @@ LABEL_19:
             if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v26 = v17;
+              v25 = v17;
               _os_log_error_impl(&dword_1B5ED1000, v19, OS_LOG_TYPE_ERROR, "Attempted to compute invalid incremental statName %@", buf, 0xCu);
             }
           }
         }
 
-        v14 = [staticFeatures countByEnumeratingWithState:&v21 objects:v27 count:16];
+        v14 = [staticFeatures countByEnumeratingWithState:&v20 objects:v26 count:16];
       }
 
       while (v14);
@@ -3310,8 +3249,6 @@ LABEL_19:
       [(_PSInteractionsStatistics *)recordCopy processInteractionRecord:staticFeatures];
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updatePropertiesFromRecord:(id)record forConversationId:(id)id
@@ -3365,29 +3302,29 @@ LABEL_19:
 
 - (void)computeContentBasedFeaturesForPersonIdsDetectedInPhoto:(id)photo sceneCategoriesDetectedInPhoto:(id)inPhoto
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   photoCopy = photo;
   inPhotoCopy = inPhoto;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   staticFeatures = [(_PSInteractionsStatisticsConfig *)self->_config staticFeatures];
-  v9 = [staticFeatures countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v9 = [staticFeatures countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(staticFeatures);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
+        v13 = *(*(&v16 + 1) + 8 * i);
         v14 = PSStaticFeatureFromString(v13);
         if (v14)
         {
@@ -3400,56 +3337,52 @@ LABEL_19:
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v22 = v13;
+            v21 = v13;
             _os_log_error_impl(&dword_1B5ED1000, v15, OS_LOG_TYPE_ERROR, "Attempted to compute invalid incremental statName %@", buf, 0xCu);
           }
         }
       }
 
-      v10 = [staticFeatures countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v10 = [staticFeatures countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)computeDynamicFeatures
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   dynamicFeatureRecipe = [(_PSInteractionsStatisticsConfig *)self->_config dynamicFeatureRecipe];
-  v4 = [dynamicFeatureRecipe countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [dynamicFeatureRecipe countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(dynamicFeatureRecipe);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         v9 = [v8 objectAtIndexedSubscript:0];
         v10 = [v8 subarrayWithRange:{1, objc_msgSend(v8, "count") - 1}];
         [(_PSInteractionsStatistics *)self computeDynamicFeatureWithOperatorName:v9 forArguments:v10];
       }
 
-      v5 = [dynamicFeatureRecipe countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [dynamicFeatureRecipe countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)privacyMitigatedFeatureValueFromName:(id)name forConversationId:(id)id
@@ -3498,36 +3431,36 @@ LABEL_19:
   }
 }
 
-- (void)dispatchComputationForBatchFeature:(void *)feature
+- (void)dispatchComputationForBatchFeature:(void *)result
 {
-  if (feature)
+  if (result)
   {
     switch(a2)
     {
       case 0x16uLL:
-        feature = [feature computeNumberOfSharesToTargetApp];
+        result = [result computeNumberOfSharesToTargetApp];
         break;
       case 0x17uLL:
-        feature = [feature computeNumberOfEngagedSuggestionsToTargetApp];
+        result = [result computeNumberOfEngagedSuggestionsToTargetApp];
         break;
       case 0x18uLL:
-        feature = [feature computeNumberOfEngagedSuggestionsOfPeopleInPhoto];
+        result = [result computeNumberOfEngagedSuggestionsOfPeopleInPhoto];
         break;
       case 0x19uLL:
-        feature = [feature computeNumberOfSharesOfPeopleInPhoto];
+        result = [result computeNumberOfSharesOfPeopleInPhoto];
         break;
       case 0x1AuLL:
-        feature = [feature computeNumberOfSharesOfScenesInPhoto];
+        result = [result computeNumberOfSharesOfScenesInPhoto];
         break;
       case 0x1BuLL:
-        feature = [feature computeNumberOfFacesSharedWithConversation];
+        result = [result computeNumberOfFacesSharedWithConversation];
         break;
       default:
-        return feature;
+        return result;
     }
   }
 
-  return feature;
+  return result;
 }
 
 - (void)dispatchComputationForIncrementalFeature:(void *)feature conversationId:(void *)id interactionRecord:
@@ -3609,7 +3542,7 @@ LABEL_19:
 
 - (void)computeDynamicFeatureWithOperatorName:(void *)name forArguments:
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a2;
   nameCopy = name;
   if (self)
@@ -3662,25 +3595,22 @@ LABEL_19:
         v7 = +[_PSLogging rewriteChannel];
         if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
-          v9 = 138412290;
-          v10 = v5;
-          _os_log_error_impl(&dword_1B5ED1000, v7, OS_LOG_TYPE_ERROR, "Attempted to compute unknown operator: %@", &v9, 0xCu);
+          v8 = 138412290;
+          v9 = v5;
+          _os_log_error_impl(&dword_1B5ED1000, v7, OS_LOG_TYPE_ERROR, "Attempted to compute unknown operator: %@", &v8, 0xCu);
         }
 
         break;
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)processInteractionRecord:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138477827;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_DEBUG, "Skipping interaction with nil conversationId: %{private}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138477827;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_DEBUG, "Skipping interaction with nil conversationId: %{private}@", &v2, 0xCu);
 }
 
 @end

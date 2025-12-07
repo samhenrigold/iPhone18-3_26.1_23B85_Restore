@@ -59,52 +59,52 @@
 
 - (BOOL)supportsReportWithNameSpace:(id)space andName:(id)name
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   spaceCopy = space;
   nameCopy = name;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   supportedReports = [(CoreDAVSupportedReportSetItem *)self supportedReports];
-  v26 = [supportedReports countByEnumeratingWithState:&v32 objects:v37 count:16];
-  if (v26)
+  v25 = [supportedReports countByEnumeratingWithState:&v31 objects:v36 count:16];
+  if (v25)
   {
-    v9 = *v33;
-    v27 = supportedReports;
-    v25 = *v33;
+    v9 = *v32;
+    v26 = supportedReports;
+    v24 = *v32;
     do
     {
-      for (i = 0; i != v26; ++i)
+      for (i = 0; i != v25; ++i)
       {
-        if (*v33 != v9)
+        if (*v32 != v9)
         {
           objc_enumerationMutation(supportedReports);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * i);
+        v11 = *(*(&v31 + 1) + 8 * i);
+        v27 = 0u;
         v28 = 0u;
         v29 = 0u;
         v30 = 0u;
-        v31 = 0u;
         report = [v11 report];
         extraChildItems = [report extraChildItems];
 
-        v14 = [extraChildItems countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v14 = [extraChildItems countByEnumeratingWithState:&v27 objects:v35 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v29;
+          v16 = *v28;
           do
           {
             for (j = 0; j != v15; ++j)
             {
-              if (*v29 != v16)
+              if (*v28 != v16)
               {
                 objc_enumerationMutation(extraChildItems);
               }
 
-              v18 = *(*(&v28 + 1) + 8 * j);
+              v18 = *(*(&v27 + 1) + 8 * j);
               nameSpace = [v18 nameSpace];
               if ([nameSpace isEqualToString:spaceCopy])
               {
@@ -115,7 +115,7 @@
                 {
 
                   v22 = 1;
-                  supportedReports = v27;
+                  supportedReports = v26;
                   goto LABEL_21;
                 }
               }
@@ -125,21 +125,21 @@
               }
             }
 
-            v15 = [extraChildItems countByEnumeratingWithState:&v28 objects:v36 count:16];
+            v15 = [extraChildItems countByEnumeratingWithState:&v27 objects:v35 count:16];
           }
 
           while (v15);
         }
 
-        supportedReports = v27;
-        v9 = v25;
+        supportedReports = v26;
+        v9 = v24;
       }
 
       v22 = 0;
-      v26 = [v27 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v25 = [v26 countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
 
   else
@@ -149,7 +149,6 @@
 
 LABEL_21:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 

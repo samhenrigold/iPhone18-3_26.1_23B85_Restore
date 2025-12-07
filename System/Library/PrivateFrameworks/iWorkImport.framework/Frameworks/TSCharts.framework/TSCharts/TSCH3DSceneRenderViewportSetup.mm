@@ -48,7 +48,7 @@
   v11 = objc_msgSend_context(pipeline, v6, v7, v8, v9);
   if (cameraCopy)
   {
-    objc_msgSend_viewport(cameraCopy, v10, v12, v13, v14);
+    objc_msgSend_viewport(cameraCopy, v12, v13, v14);
   }
 
   else

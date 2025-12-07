@@ -35,6 +35,8 @@
 - (BOOL)producesLowFidelityAudio;
 - (BOOL)representsUGLSender;
 - (BOOL)requiresAuthorization;
+- (BOOL)setAllowsHeadTrackedSpatialAudio:(BOOL)audio error:(id *)error;
+- (BOOL)setConversationDetectionEnabled:(BOOL)enabled error:(id *)error;
 - (BOOL)setCurrentBluetoothListeningMode:(id)mode error:(id *)error;
 - (BOOL)setHeadTrackedSpatialAudioMode:(id)mode error:(id *)error;
 - (BOOL)supportsBluetoothSharing;
@@ -80,7 +82,9 @@
 - (unsigned)deviceType;
 - (unsigned)volumeCapabilities;
 - (void)adjustVolume:(int64_t)volume details:(id)details;
+- (void)setCarPlayVideoActive:(BOOL)active completion:(id)completion;
 - (void)setVolume:(float)volume details:(id)details;
+- (void)setVolumeMuted:(BOOL)muted details:(id)details;
 @end
 
 @implementation MRAVConcreteOutputDevice
@@ -960,6 +964,23 @@ BOOL __78__MRAVConcreteOutputDevice__loadLocalOverridesWithOutputContext_outputD
   return allowsHeadTrackedSpatialAudio;
 }
 
+- (BOOL)setAllowsHeadTrackedSpatialAudio:(BOOL)audio error:(id *)error
+{
+  audioCopy = audio;
+  avOutputDevice = [(MRAVConcreteOutputDevice *)self avOutputDevice];
+  v11 = 0;
+  v7 = [avOutputDevice setAllowsHeadTrackedSpatialAudio:audioCopy error:&v11];
+  v8 = v11;
+
+  if (error)
+  {
+    v9 = v8;
+    *error = v8;
+  }
+
+  return v7;
+}
+
 - (BOOL)setHeadTrackedSpatialAudioMode:(id)mode error:(id *)error
 {
   modeCopy = mode;
@@ -977,6 +998,29 @@ BOOL __78__MRAVConcreteOutputDevice__loadLocalOverridesWithOutputContext_outputD
   return v8;
 }
 
+- (BOOL)setConversationDetectionEnabled:(BOOL)enabled error:(id *)error
+{
+  enabledCopy = enabled;
+  avOutputDevice = [(MRAVConcreteOutputDevice *)self avOutputDevice];
+  v12 = 0;
+  v7 = [avOutputDevice setConversationDetectionEnabled:enabledCopy error:&v12];
+  v8 = v12;
+
+  v9 = 0;
+  if ((v7 & 1) == 0)
+  {
+    v9 = [v8 mr_errorByEnvelopingWithMRError:49];
+  }
+
+  if (error)
+  {
+    v10 = v9;
+    *error = v9;
+  }
+
+  return v7;
+}
+
 - (float)batteryLevel
 {
   avOutputDevice = [(MRAVConcreteOutputDevice *)self avOutputDevice];
@@ -992,6 +1036,14 @@ BOOL __78__MRAVConcreteOutputDevice__loadLocalOverridesWithOutputContext_outputD
   isCarPlayVideoActive = [avOutputDevice isCarPlayVideoActive];
 
   return isCarPlayVideoActive;
+}
+
+- (void)setCarPlayVideoActive:(BOOL)active completion:(id)completion
+{
+  activeCopy = active;
+  completionCopy = completion;
+  avOutputDevice = [(MRAVConcreteOutputDevice *)self avOutputDevice];
+  [avOutputDevice setCarPlayVideoActive:activeCopy completionHandler:completionCopy];
 }
 
 - (float)volume
@@ -1013,7 +1065,7 @@ BOOL __78__MRAVConcreteOutputDevice__loadLocalOverridesWithOutputContext_outputD
 
 - (void)setVolume:(float)volume details:(id)details
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   detailsCopy = details;
   sourceInfo = [(MRAVConcreteOutputDevice *)self sourceInfo];
   sourceType = [sourceInfo sourceType];
@@ -1038,7 +1090,7 @@ BOOL __78__MRAVConcreteOutputDevice__loadLocalOverridesWithOutputContext_outputD
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v24 = avOutputDevice;
+      v23 = avOutputDevice;
       _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
     }
   }
@@ -1060,7 +1112,7 @@ BOOL __78__MRAVConcreteOutputDevice__loadLocalOverridesWithOutputContext_outputD
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v24 = v19;
+      v23 = v19;
       _os_log_impl(&dword_1A2860000, v20, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
     }
 
@@ -1068,13 +1120,11 @@ BOOL __78__MRAVConcreteOutputDevice__loadLocalOverridesWithOutputContext_outputD
     *&v21 = volume;
     [avOutputDevice setVolume:v21];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)adjustVolume:(int64_t)volume details:(id)details
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   detailsCopy = details;
   sourceInfo = [(MRAVConcreteOutputDevice *)self sourceInfo];
   sourceType = [sourceInfo sourceType];
@@ -1100,7 +1150,7 @@ BOOL __78__MRAVConcreteOutputDevice__loadLocalOverridesWithOutputContext_outputD
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v24 = avOutputDevice;
+      v23 = avOutputDevice;
       _os_log_impl(&dword_1A2860000, v17, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
     }
   }
@@ -1122,7 +1172,7 @@ BOOL __78__MRAVConcreteOutputDevice__loadLocalOverridesWithOutputContext_outputD
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v24 = v20;
+      v23 = v20;
       _os_log_impl(&dword_1A2860000, v21, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
     }
 
@@ -1143,8 +1193,39 @@ BOOL __78__MRAVConcreteOutputDevice__loadLocalOverridesWithOutputContext_outputD
       }
     }
   }
+}
 
-  v22 = *MEMORY[0x1E69E9840];
+- (void)setVolumeMuted:(BOOL)muted details:(id)details
+{
+  mutedCopy = muted;
+  v18 = *MEMORY[0x1E69E9840];
+  detailsCopy = details;
+  sourceInfo = [(MRAVConcreteOutputDevice *)self sourceInfo];
+  sourceType = [sourceInfo sourceType];
+
+  if (sourceType == 2)
+  {
+    v9 = objc_alloc(MEMORY[0x1E696AEC0]);
+    debugName = [(MRAVOutputDevice *)self debugName];
+    mutedCopy = [v9 initWithFormat:@"%@ -> %u will not work with AVOD sourced from Discovery", debugName, mutedCopy];
+
+    v12 = objc_alloc(MEMORY[0x1E696AD60]);
+    requestID = [detailsCopy requestID];
+    v14 = [v12 initWithFormat:@"%@<%@>", @"ConcreteOutputDevice.adjustVolume", requestID];
+
+    if (mutedCopy)
+    {
+      [v14 appendFormat:@" for %@", mutedCopy];
+    }
+
+    v15 = _MRLogForCategory(0xAuLL);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138543362;
+      v17 = v14;
+      _os_log_impl(&dword_1A2860000, v15, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
+    }
+  }
 }
 
 - (BOOL)containsUID:(id)d
@@ -1152,7 +1233,7 @@ BOOL __78__MRAVConcreteOutputDevice__loadLocalOverridesWithOutputContext_outputD
   dCopy = d;
   avOutputDevice = [(MRAVConcreteOutputDevice *)self avOutputDevice];
   deviceID = [avOutputDevice deviceID];
-  if ([deviceID isEqualToString:dCopy])
+  if (objc_msgSend_isEqualToString_(deviceID))
   {
     v7 = 1;
   }
@@ -1237,87 +1318,88 @@ LABEL_8:
 
 - (BOOL)_loadLocalOverridesWithOutputContext:(void *)context outputDevice:
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   v5 = a2;
   contextCopy = context;
+  v8 = contextCopy;
   if (self)
   {
-    IsMediaRemoteDaemon = MRProcessIsMediaRemoteDaemon();
-    v8 = +[MROrigin localOrigin];
+    IsMediaRemoteDaemon = MRProcessIsMediaRemoteDaemon(contextCopy, v7);
+    v10 = +[MROrigin localOrigin];
     if (IsMediaRemoteDaemon)
     {
-      [MRDeviceInfoRequest cachedDeviceInfoForOrigin:v8];
+      [MRDeviceInfoRequest cachedDeviceInfoForOrigin:v10];
     }
 
     else
     {
-      [MRDeviceInfoRequest deviceInfoForOrigin:v8];
+      [MRDeviceInfoRequest deviceInfoForOrigin:v10];
     }
-    v9 = ;
+    v11 = ;
 
-    if ([contextCopy deviceSubType] != 15 && objc_msgSend(self, "isLocalDevice"))
+    if ([v8 deviceSubType] != 15 && objc_msgSend(self, "isLocalDevice"))
     {
-      deviceUID = [v9 deviceUID];
+      deviceUID = [v11 deviceUID];
       OUTLINED_FUNCTION_2_12(deviceUID, 320);
       [self[40] length];
     }
 
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = __78__MRAVConcreteOutputDevice__loadLocalOverridesWithOutputContext_outputDevice___block_invoke_2;
-    v45[3] = &unk_1E76A3130;
-    v11 = v5;
-    v46 = v11;
-    v12 = contextCopy;
-    v47 = v12;
-    v13 = (__78__MRAVConcreteOutputDevice__loadLocalOverridesWithOutputContext_outputDevice___block_invoke_2)(v45);
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __78__MRAVConcreteOutputDevice__loadLocalOverridesWithOutputContext_outputDevice___block_invoke_4;
-    v42[3] = &unk_1E76A3158;
-    v44 = v13;
-    v42[4] = self;
-    v14 = v12;
-    v43 = v14;
-    if ((__78__MRAVConcreteOutputDevice__loadLocalOverridesWithOutputContext_outputDevice___block_invoke_4)(v42) && v9)
+    v46[0] = MEMORY[0x1E69E9820];
+    v46[1] = 3221225472;
+    v46[2] = __78__MRAVConcreteOutputDevice__loadLocalOverridesWithOutputContext_outputDevice___block_invoke_2;
+    v46[3] = &unk_1E76A3130;
+    v13 = v5;
+    v47 = v13;
+    v14 = v8;
+    v48 = v14;
+    v15 = (__78__MRAVConcreteOutputDevice__loadLocalOverridesWithOutputContext_outputDevice___block_invoke_2)(v46);
+    v43[0] = MEMORY[0x1E69E9820];
+    v43[1] = 3221225472;
+    v43[2] = __78__MRAVConcreteOutputDevice__loadLocalOverridesWithOutputContext_outputDevice___block_invoke_4;
+    v43[3] = &unk_1E76A3158;
+    v45 = v15;
+    v43[4] = self;
+    v16 = v14;
+    v44 = v16;
+    if ((__78__MRAVConcreteOutputDevice__loadLocalOverridesWithOutputContext_outputDevice___block_invoke_4)(v43) && v11)
     {
-      airPlayGroupUID = [v9 airPlayGroupUID];
+      airPlayGroupUID = [v11 airPlayGroupUID];
       OUTLINED_FUNCTION_2_12(airPlayGroupUID, 328);
-      parentGroupID = [v9 parentGroupID];
+      parentGroupID = [v11 parentGroupID];
       OUTLINED_FUNCTION_2_12(parentGroupID, 336);
       [OUTLINED_FUNCTION_1_22() isGroupLeader];
-      v17 = [OUTLINED_FUNCTION_0_22() numberWithBool:?];
-      OUTLINED_FUNCTION_2_12(v17, 344);
-      [OUTLINED_FUNCTION_1_22() isAirPlayActive];
-      v18 = [OUTLINED_FUNCTION_0_22() numberWithBool:?];
-      OUTLINED_FUNCTION_2_12(v18, 352);
-      [OUTLINED_FUNCTION_1_22() isProxyGroupPlayer];
       v19 = [OUTLINED_FUNCTION_0_22() numberWithBool:?];
-      OUTLINED_FUNCTION_2_12(v19, 360);
-      [OUTLINED_FUNCTION_1_22() groupContainsDiscoverableGroupLeader];
+      OUTLINED_FUNCTION_2_12(v19, 344);
+      [OUTLINED_FUNCTION_1_22() isAirPlayActive];
       v20 = [OUTLINED_FUNCTION_0_22() numberWithBool:?];
-      OUTLINED_FUNCTION_2_12(v20, 368);
-      [OUTLINED_FUNCTION_1_22() parentGroupContainsDiscoverableGroupLeader];
+      OUTLINED_FUNCTION_2_12(v20, 352);
+      [OUTLINED_FUNCTION_1_22() isProxyGroupPlayer];
       v21 = [OUTLINED_FUNCTION_0_22() numberWithBool:?];
-      OUTLINED_FUNCTION_2_12(v21, 376);
-      [OUTLINED_FUNCTION_1_22() supportsMultiplayer];
+      OUTLINED_FUNCTION_2_12(v21, 360);
+      [OUTLINED_FUNCTION_1_22() groupContainsDiscoverableGroupLeader];
       v22 = [OUTLINED_FUNCTION_0_22() numberWithBool:?];
-      OUTLINED_FUNCTION_2_12(v22, 384);
+      OUTLINED_FUNCTION_2_12(v22, 368);
+      [OUTLINED_FUNCTION_1_22() parentGroupContainsDiscoverableGroupLeader];
+      v23 = [OUTLINED_FUNCTION_0_22() numberWithBool:?];
+      OUTLINED_FUNCTION_2_12(v23, 376);
+      [OUTLINED_FUNCTION_1_22() supportsMultiplayer];
+      v24 = [OUTLINED_FUNCTION_0_22() numberWithBool:?];
+      OUTLINED_FUNCTION_2_12(v24, 384);
     }
 
-    if (v13)
+    if (v15)
     {
-      v23 = +[MRUserSettings currentSettings];
-      canHostMultiplayerStream = [v23 canHostMultiplayerStream];
+      v25 = +[MRUserSettings currentSettings];
+      canHostMultiplayerStream = [v25 canHostMultiplayerStream];
 
       if (canHostMultiplayerStream)
       {
-        if (v9)
+        if (v11)
         {
-          senderDefaultGroupUID = [v9 senderDefaultGroupUID];
-          clusterType = [v9 clusterType];
-          preferredClusterLeaderID = [v9 preferredClusterLeaderID];
-          deviceUID2 = [v9 deviceUID];
+          senderDefaultGroupUID = [v11 senderDefaultGroupUID];
+          clusterType = [v11 clusterType];
+          preferredClusterLeaderID = [v11 preferredClusterLeaderID];
+          deviceUID2 = [v11 deviceUID];
         }
 
         else
@@ -1328,20 +1410,20 @@ LABEL_8:
           deviceUID2 = MRMediaRemoteAirPlayReceiverCopyPairingIdentity();
         }
 
-        v40 = deviceUID2;
+        v41 = deviceUID2;
         if (clusterType)
         {
-          v28 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(deviceUID2, "isEqualToString:", preferredClusterLeaderID) ^ 1}];
+          v30 = [MEMORY[0x1E696AD98] numberWithInt:objc_msgSend_isEqualToString_(deviceUID2) ^ 1];
         }
 
         else
         {
-          v28 = 0;
+          v30 = 0;
         }
 
-        v29 = [v11 ID];
-        v30 = MRComputeGroupID(senderDefaultGroupUID, v28, v29);
-        OUTLINED_FUNCTION_2_12(v30, 328);
+        v31 = [v13 ID];
+        v32 = MRComputeGroupID(senderDefaultGroupUID, v30, v31);
+        OUTLINED_FUNCTION_2_12(v32, 328);
 
         if (clusterType)
         {
@@ -1349,28 +1431,28 @@ LABEL_8:
 
         if ([self[41] length])
         {
-          v31 = self[41];
-          groupID = [v14 groupID];
-          LOBYTE(v31) = [v31 isEqualToString:groupID];
+          v33 = self[41];
+          groupID = [v16 groupID];
+          LOBYTE(v33) = objc_msgSend_isEqualToString_(v33);
 
-          if ((v31 & 1) == 0)
+          if ((v33 & 1) == 0)
           {
-            v33 = _MRLogForCategory(0);
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+            v35 = _MRLogForCategory(0);
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
             {
-              v36 = [v14 ID];
-              name = [v14 name];
-              groupID2 = [v14 groupID];
-              v39 = self[41];
+              v37 = [v16 ID];
+              name = [v16 name];
+              groupID2 = [v16 groupID];
+              v40 = self[41];
               *buf = 138413058;
-              v49 = v36;
-              v50 = 2112;
-              v51 = name;
-              v52 = 2112;
-              v53 = groupID2;
-              v54 = 2112;
-              v55 = v39;
-              _os_log_error_impl(&dword_1A2860000, v33, OS_LOG_TYPE_ERROR, "[MRAVConcreteOutputDevice] GroupID mismatch on %@:%@: %@ -> %@", buf, 0x2Au);
+              v50 = v37;
+              v51 = 2112;
+              v52 = name;
+              v53 = 2112;
+              v54 = groupID2;
+              v55 = 2112;
+              v56 = v40;
+              _os_log_error_impl(&dword_1A2860000, v35, OS_LOG_TYPE_ERROR, "[MRAVConcreteOutputDevice] GroupID mismatch on %@:%@: %@ -> %@", buf, 0x2Au);
             }
           }
         }
@@ -1378,35 +1460,34 @@ LABEL_8:
     }
   }
 
-  v34 = *MEMORY[0x1E69E9840];
   return self != 0;
 }
 
 - (id)_playingPairedDeviceNameForAVOutputDevice:(uint64_t)device
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (device)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v4 = [MEMORY[0x1E6958818] pairedDevicesConnectedToOutputDevice:{v3, 0}];
-    name = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    name = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (name)
     {
-      v6 = *v12;
+      v6 = *v11;
       while (2)
       {
         for (i = 0; i != name; i = i + 1)
         {
-          if (*v12 != v6)
+          if (*v11 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          v8 = *(*(&v11 + 1) + 8 * i);
+          v8 = *(*(&v10 + 1) + 8 * i);
           if ([v8 isPlaying])
           {
             name = [v8 name];
@@ -1414,7 +1495,7 @@ LABEL_8:
           }
         }
 
-        name = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        name = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
         if (name)
         {
           continue;
@@ -1431,8 +1512,6 @@ LABEL_12:
   {
     name = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return name;
 }

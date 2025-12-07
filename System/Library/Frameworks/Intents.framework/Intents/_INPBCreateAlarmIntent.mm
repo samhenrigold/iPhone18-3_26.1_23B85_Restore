@@ -1,6 +1,7 @@
 @interface _INPBCreateAlarmIntent
 - (BOOL)isEqual:(id)equal;
 - (_INPBCreateAlarmIntent)initWithCoder:(id)coder;
+- (id)alarmRepeatScheduleOptionsAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (int)StringAsAlarmRepeatScheduleOptions:(id)options;
@@ -252,19 +253,17 @@ LABEL_23:
 
 - (void)writeTo:(id)to
 {
-  p_alarmRepeatScheduleOptions = &self->_alarmRepeatScheduleOptions;
   toCopy = to;
   if (self->_alarmRepeatScheduleOptions.count)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = p_alarmRepeatScheduleOptions->list[v5];
       PBDataWriterWriteInt32Field();
-      ++v5;
+      ++v4;
     }
 
-    while (v5 < self->_alarmRepeatScheduleOptions.count);
+    while (v4 < self->_alarmRepeatScheduleOptions.count);
   }
 
   intentMetadata = [(_INPBCreateAlarmIntent *)self intentMetadata];
@@ -285,19 +284,18 @@ LABEL_23:
 
   if ([(_INPBCreateAlarmIntent *)self hasRelativeOffsetInMinutes])
   {
-    relativeOffsetInMinutes = self->_relativeOffsetInMinutes;
     PBDataWriterWriteInt32Field();
   }
 
   time = [(_INPBCreateAlarmIntent *)self time];
 
-  v13 = toCopy;
+  v10 = toCopy;
   if (time)
   {
     time2 = [(_INPBCreateAlarmIntent *)self time];
     PBDataWriterWriteSubmessage();
 
-    v13 = toCopy;
+    v10 = toCopy;
   }
 }
 
@@ -347,6 +345,21 @@ LABEL_23:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)alarmRepeatScheduleOptionsAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72880F0[string];
   }
 
   return v4;

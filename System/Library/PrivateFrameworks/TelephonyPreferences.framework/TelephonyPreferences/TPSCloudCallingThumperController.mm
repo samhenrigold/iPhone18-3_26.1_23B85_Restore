@@ -7,6 +7,7 @@
 - (TPSCloudCallingThumperController)initWithSubscriptionContext:(id)context;
 - (TPSCloudCallingThumperControllerDelegate)delegate;
 - (TUSenderIdentityCapabilities)subscriptionCapabilities;
+- (void)setThumperCallingEnabled:(BOOL)enabled;
 @end
 
 @implementation TPSCloudCallingThumperController
@@ -35,7 +36,7 @@
 
 - (TUSenderIdentityCapabilities)subscriptionCapabilities
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   p_subscriptionCapabilities = &self->_subscriptionCapabilities;
   subscriptionCapabilities = self->_subscriptionCapabilities;
   if (!subscriptionCapabilities)
@@ -44,26 +45,26 @@
     subscriptionContext = [(TPSCloudCallingThumperController *)self subscriptionContext];
     uuid = [subscriptionContext uuid];
 
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v8 = senderIdentityCapabilities;
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * i);
+          v13 = *(*(&v17 + 1) + 8 * i);
           senderIdentityUUID = [v13 senderIdentityUUID];
           v15 = [senderIdentityUUID isEqual:uuid];
 
@@ -73,7 +74,7 @@
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v10);
@@ -82,9 +83,14 @@
     subscriptionCapabilities = *p_subscriptionCapabilities;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return subscriptionCapabilities;
+}
+
+- (void)setThumperCallingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  subscriptionCapabilities = [(TPSCloudCallingThumperController *)self subscriptionCapabilities];
+  [subscriptionCapabilities setThumperCallingEnabled:enabledCopy];
 }
 
 - (BOOL)isThumperCallingEnabled

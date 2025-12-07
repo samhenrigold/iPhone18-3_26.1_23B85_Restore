@@ -396,83 +396,81 @@ void __81__PKUserNotificationsRemoteNotificationServiceConnection__queue_ensureC
 
 - (void)_queue_remoteUserNotificationsRegistrationSucceededWithDeviceToken:(id)token
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   dispatch_assert_queue_V2(self->_queue);
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = self->_registries;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) remoteUserNotificationRegistrationSucceededWithDeviceToken:{tokenCopy, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) remoteUserNotificationRegistrationSucceededWithDeviceToken:{tokenCopy, v10}];
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_remoteUserNotificationPayloadReceived:(id)received completionHandler:(id)handler
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   receivedCopy = received;
   handlerCopy = handler;
   dispatch_assert_queue_V2(self->_queue);
   v7 = dispatch_group_create();
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v8 = self->_registries;
-  v9 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v9 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v22;
     do
     {
       v12 = 0;
       do
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * v12);
+        v13 = *(*(&v21 + 1) + 8 * v12);
         dispatch_group_enter(v7);
-        v20[0] = MEMORY[0x277D85DD0];
-        v20[1] = 3221225472;
-        v20[2] = __121__PKUserNotificationsRemoteNotificationServiceConnection__queue_remoteUserNotificationPayloadReceived_completionHandler___block_invoke;
-        v20[3] = &unk_278B54CD0;
-        v21 = v7;
-        [v13 remoteUserNotificationPayloadReceived:receivedCopy completionHandler:v20];
+        v19[0] = MEMORY[0x277D85DD0];
+        v19[1] = 3221225472;
+        v19[2] = __121__PKUserNotificationsRemoteNotificationServiceConnection__queue_remoteUserNotificationPayloadReceived_completionHandler___block_invoke;
+        v19[3] = &unk_278B54CD0;
+        v20 = v7;
+        [v13 remoteUserNotificationPayloadReceived:receivedCopy completionHandler:v19];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v10 = [(NSMutableSet *)v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v10);
@@ -483,11 +481,9 @@ void __81__PKUserNotificationsRemoteNotificationServiceConnection__queue_ensureC
   block[1] = 3221225472;
   block[2] = __121__PKUserNotificationsRemoteNotificationServiceConnection__queue_remoteUserNotificationPayloadReceived_completionHandler___block_invoke_2;
   block[3] = &unk_278B54EA8;
-  v19 = handlerCopy;
+  v18 = handlerCopy;
   v15 = handlerCopy;
   dispatch_group_notify(v7, v14, block);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __121__PKUserNotificationsRemoteNotificationServiceConnection__queue_remoteUserNotificationPayloadReceived_completionHandler___block_invoke_2(uint64_t a1)

@@ -72,7 +72,7 @@ LABEL_13:
 
 - (id)jsonDictionary
 {
-  v17[4] = *MEMORY[0x1E69E9840];
+  v16[4] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMWalletPaymentsCommerceSearch tagSource](self, "tagSource")}];
   v4 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMWalletPaymentsCommerceSearch tagType](self, "tagType")}];
   v5 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMWalletPaymentsCommerceSearch passType](self, "passType")}];
@@ -89,39 +89,39 @@ LABEL_13:
     v8 = [v7 numberWithDouble:?];
   }
 
-  v16[0] = @"tagSource";
+  v15[0] = @"tagSource";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17[0] = null;
-  v16[1] = @"tagType";
+  v16[0] = null;
+  v15[1] = @"tagType";
   null2 = v4;
   if (!v4)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17[1] = null2;
-  v16[2] = @"passType";
+  v16[1] = null2;
+  v15[2] = @"passType";
   null3 = v5;
   if (!v5)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17[2] = null3;
-  v16[3] = @"tagClickDate";
+  v16[2] = null3;
+  v15[3] = @"tagClickDate";
   null4 = v8;
   if (!v8)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17[3] = null4;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
+  v16[3] = null4;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:4];
   if (v8)
   {
     if (v5)
@@ -166,14 +166,13 @@ LABEL_16:
 LABEL_23:
 
 LABEL_17:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 - (BMWalletPaymentsCommerceSearch)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"tagSource"];
   selfCopy = self;
@@ -182,7 +181,7 @@ LABEL_17:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v33 = v7;
+      v32 = v7;
     }
 
     else
@@ -192,31 +191,31 @@ LABEL_17:
       {
         if (!error)
         {
-          v33 = 0;
+          v32 = 0;
           selfCopy2 = 0;
           goto LABEL_31;
         }
 
-        v20 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v21 = *MEMORY[0x1E698F240];
-        v40 = *MEMORY[0x1E696A578];
-        v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"tagSource"];
-        v41[0] = v22;
-        v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
-        v33 = 0;
+        v19 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v20 = *MEMORY[0x1E698F240];
+        v39 = *MEMORY[0x1E696A578];
+        v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"tagSource"];
+        v40[0] = v21;
+        v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+        v32 = 0;
         selfCopy2 = 0;
-        *error = [v20 initWithDomain:v21 code:2 userInfo:v8];
-        error = v22;
+        *error = [v19 initWithDomain:v20 code:2 userInfo:v8];
+        error = v21;
         goto LABEL_45;
       }
 
-      v33 = [MEMORY[0x1E696AD98] numberWithInt:BMWalletPaymentsCommerceSearchTagSourceFromString(v7)];
+      v32 = [MEMORY[0x1E696AD98] numberWithInt:BMWalletPaymentsCommerceSearchTagSourceFromString(v7)];
     }
   }
 
   else
   {
-    v33 = 0;
+    v32 = 0;
   }
 
   v8 = [dictionaryCopy objectForKeyedSubscript:@"tagType"];
@@ -230,7 +229,7 @@ LABEL_17:
       {
         v9 = v8;
 LABEL_15:
-        v30 = v9;
+        v29 = v9;
         goto LABEL_16;
       }
 
@@ -243,14 +242,14 @@ LABEL_15:
 
       if (error)
       {
-        v23 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v24 = *MEMORY[0x1E698F240];
-        v38 = *MEMORY[0x1E696A578];
+        v22 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v23 = *MEMORY[0x1E698F240];
+        v37 = *MEMORY[0x1E696A578];
         v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"tagType"];
-        v39 = v11;
-        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+        v38 = v11;
+        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
         selfCopy2 = 0;
-        *error = [v23 initWithDomain:v24 code:2 userInfo:v10];
+        *error = [v22 initWithDomain:v23 code:2 userInfo:v10];
         error = 0;
         self = selfCopy;
         goto LABEL_29;
@@ -263,7 +262,7 @@ LABEL_45:
     }
   }
 
-  v30 = 0;
+  v29 = 0;
 LABEL_16:
   v10 = [dictionaryCopy objectForKeyedSubscript:@"passType"];
   if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -283,22 +282,22 @@ LABEL_16:
         {
           v11 = 0;
           selfCopy2 = 0;
-          error = v30;
+          error = v29;
           goto LABEL_29;
         }
 
-        v25 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v24 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy = error;
-        v27 = *MEMORY[0x1E698F240];
-        v36 = *MEMORY[0x1E696A578];
+        v26 = *MEMORY[0x1E698F240];
+        v35 = *MEMORY[0x1E696A578];
         v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"passType"];
-        v37 = v14;
-        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-        v28 = [v25 initWithDomain:v27 code:2 userInfo:v13];
+        v36 = v14;
+        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+        v27 = [v24 initWithDomain:v26 code:2 userInfo:v13];
         v11 = 0;
         selfCopy2 = 0;
-        *errorCopy = v28;
-        error = v30;
+        *errorCopy = v27;
+        error = v29;
         self = selfCopy;
         goto LABEL_28;
       }
@@ -322,18 +321,18 @@ LABEL_16:
     {
       if (error)
       {
-        v32 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v29 = *MEMORY[0x1E698F240];
-        v34 = *MEMORY[0x1E696A578];
-        v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"tagClickDate"];
-        v35 = v18;
-        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-        *error = [v32 initWithDomain:v29 code:2 userInfo:v19];
+        v31 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v28 = *MEMORY[0x1E698F240];
+        v33 = *MEMORY[0x1E696A578];
+        v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"tagClickDate"];
+        v34 = v17;
+        v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+        *error = [v31 initWithDomain:v28 code:2 userInfo:v18];
       }
 
       v14 = 0;
       selfCopy2 = 0;
-      error = v30;
+      error = v29;
       goto LABEL_28;
     }
 
@@ -345,8 +344,8 @@ LABEL_16:
     v14 = 0;
   }
 
-  error = v30;
-  self = -[BMWalletPaymentsCommerceSearch initWithTagSource:tagType:passType:tagClickDate:](self, "initWithTagSource:tagType:passType:tagClickDate:", [v33 intValue], objc_msgSend(v30, "intValue"), objc_msgSend(v11, "intValue"), v14);
+  error = v29;
+  self = -[BMWalletPaymentsCommerceSearch initWithTagSource:tagType:passType:tagClickDate:](self, "initWithTagSource:tagType:passType:tagClickDate:", [v32 intValue], objc_msgSend(v29, "intValue"), objc_msgSend(v11, "intValue"), v14);
   selfCopy2 = self;
 LABEL_28:
 
@@ -354,7 +353,6 @@ LABEL_29:
 LABEL_30:
 
 LABEL_31:
-  v16 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 
@@ -370,15 +368,11 @@ LABEL_31:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  tagSource = self->_tagSource;
   PBDataWriterWriteUint32Field();
-  tagType = self->_tagType;
   PBDataWriterWriteUint32Field();
-  passType = self->_passType;
   PBDataWriterWriteUint32Field();
   if (self->_hasTagClickDate)
   {
-    tagClickDate = self->_tagClickDate;
     PBDataWriterWriteDoubleField();
   }
 }
@@ -688,36 +682,32 @@ LABEL_73:
 
 + (id)protoFields
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"tagSource" number:1 type:4 subMessageClass:0];
-  v9[0] = v2;
+  v8[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"tagType" number:2 type:4 subMessageClass:0];
-  v9[1] = v3;
+  v8[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"passType" number:3 type:4 subMessageClass:0];
-  v9[2] = v4;
+  v8[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"tagClickDate" number:4 type:0 subMessageClass:0];
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }
 
 + (id)columns
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"tagSource" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:4 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"tagType" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:4 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"passType" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:4 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"tagClickDate" dataType:1 requestOnly:0 fieldNumber:4 protoDataType:0 convertedType:0];
-  v9[0] = v2;
-  v9[1] = v3;
-  v9[2] = v4;
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v2;
+  v8[1] = v3;
+  v8[2] = v4;
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }

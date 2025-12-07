@@ -11,8 +11,10 @@
 - (void)deletePlaybackPositionEntitiesFromLibraryWithIdentifier:(id)identifier;
 - (void)deletePlaybackPositionEntity:(id)entity;
 - (void)getLocalPlaybackPositionForEntityIdentifiers:(id)identifiers forDomain:(id)domain fromLibraryWithIdentifier:(id)identifier completionBlock:(id)block;
+- (void)persistPlaybackPositionEntity:(id)entity isCheckpoint:(BOOL)checkpoint completionBlock:(id)block;
 - (void)pullPlaybackPositionEntity:(id)entity completionBlock:(id)block;
 - (void)pushPlaybackPositionEntity:(id)entity completionBlock:(id)block;
+- (void)synchronizePlaybackPositionsForLibraryWithIdentifier:(id)identifier forDomain:(id)domain isCheckpoint:(BOOL)checkpoint;
 - (void)updateForeignDatabaseWithValuesFromPlaybackPositionEntity:(id)entity;
 @end
 
@@ -24,7 +26,7 @@
   v3 = v2;
   if (v2)
   {
-    [v2 auditToken];
+    objc_msgSend_auditToken(v2);
     v4 = MSVTCCIdentityForAuditToken();
     if (v4)
     {
@@ -353,6 +355,40 @@ LABEL_12:
   [(ICDPlaybackPositionRequestController *)requestController getLocalPlaybackPositionForEntityIdentifiers:identifiersCopy forDomain:domainCopy fromLibraryWithIdentifier:v19 clientIdentity:_connectionClientIdentity completionBlock:v20];
 }
 
+- (void)persistPlaybackPositionEntity:(id)entity isCheckpoint:(BOOL)checkpoint completionBlock:(id)block
+{
+  checkpointCopy = checkpoint;
+  entityCopy = entity;
+  blockCopy = block;
+  v10 = os_log_create("com.apple.amp.itunescloudd", "PlaybackPosition");
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = +[NSXPCConnection currentConnection];
+    libraryIdentifier = [entityCopy libraryIdentifier];
+    *buf = 138543874;
+    selfCopy = self;
+    v22 = 2114;
+    v23 = v11;
+    v24 = 2114;
+    v25 = libraryIdentifier;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@ persistPlaybackPositionEntity:isCheckpoint:completionBlock:] Received request from connection %{public}@. libraryUID=%{public}@", buf, 0x20u);
+  }
+
+  v13 = [ICDPlaybackPositionRequestContext alloc];
+  _connectionClientIdentity = [(ICDPlaybackPositionService *)self _connectionClientIdentity];
+  v15 = [(ICDPlaybackPositionRequestContext *)v13 initWithEntity:entityCopy clientIdentity:_connectionClientIdentity];
+
+  requestController = self->_requestController;
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_100059540;
+  v18[3] = &unk_1001DC268;
+  v18[4] = self;
+  v19 = blockCopy;
+  v17 = blockCopy;
+  [(ICDPlaybackPositionRequestController *)requestController persistPlaybackPositionWithContext:v15 isCheckpoint:checkpointCopy completionHandler:v18];
+}
+
 - (void)deletePlaybackPositionEntity:(id)entity
 {
   entityCopy = entity;
@@ -396,6 +432,33 @@ LABEL_12:
   requestController = self->_requestController;
   _connectionClientIdentity = [(ICDPlaybackPositionService *)self _connectionClientIdentity];
   [(ICDPlaybackPositionRequestController *)requestController deletePlaybackPositionEntitiesFromLibraryWithIdentifier:identifierCopy clientIdentity:_connectionClientIdentity];
+}
+
+- (void)synchronizePlaybackPositionsForLibraryWithIdentifier:(id)identifier forDomain:(id)domain isCheckpoint:(BOOL)checkpoint
+{
+  checkpointCopy = checkpoint;
+  identifierCopy = identifier;
+  domainCopy = domain;
+  v10 = os_log_create("com.apple.amp.itunescloudd", "PlaybackPosition");
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = +[NSXPCConnection currentConnection];
+    v15 = 138544130;
+    selfCopy = self;
+    v17 = 2114;
+    v18 = v11;
+    v19 = 2114;
+    v20 = identifierCopy;
+    v21 = 1024;
+    v22 = checkpointCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@ synchronizePlaybackPositionsForLibraryWithIdentifier:] Received request from connection %{public}@ for library with identifier %{public}@. checkpoint=%{BOOL}u", &v15, 0x26u);
+  }
+
+  v12 = [ICDPlaybackPositionRequestContext alloc];
+  _connectionClientIdentity = [(ICDPlaybackPositionService *)self _connectionClientIdentity];
+  v14 = [(ICDPlaybackPositionRequestContext *)v12 initWithLibraryIdentifier:identifierCopy domain:domainCopy clientIdentity:_connectionClientIdentity];
+
+  [(ICDPlaybackPositionRequestController *)self->_requestController scheduleSyncWithContext:v14 isCheckpoint:checkpointCopy];
 }
 
 - (void)dealloc

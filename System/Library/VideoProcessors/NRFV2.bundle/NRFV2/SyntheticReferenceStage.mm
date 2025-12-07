@@ -7,9 +7,9 @@
 - (int)startDetectorsWithGrayGhost:(id)ghost motionDetection:(id)detection evm:(id)evm ev0:(id)ev0 evmProperties:(const frameProperties_t *)properties ev0Properties:(const frameProperties_t *)ev0Properties nrfPlist:(id)plist;
 - (uint64_t)_doDeepShadowRecovery:(__n128)recovery noiseDivisorOutputTex:(__n128)tex lscGainsTex:(__n128)gainsTex evm:(__n128)evm ev0:(__n128)ev0 evmHomography:(__n128)homography ev0Homography:(__n128)ev0Homography evmProperties:(uint64_t)self0 evmGreenTintAdjustmentParams:(void *)self1 ev0Properties:(void *)self2 srPlist:(void *)self3 intermediateMetadata:(void *)self4;
 - (uint64_t)_doHighlightRecovery:(__n128)recovery noiseDivisorOutputTex:(__n128)tex evm:(__n128)evm ev0:(__n128)ev0 evmHomography:(__n128)homography ev0Homography:(__n128)ev0Homography evmProperties:(__n128)properties evmGreenTintAdjustmentParams:(uint64_t)self0 ev0Properties:(void *)self1 srPlist:(void *)self2 intermediateMetadata:(void *)self3;
-- (uint64_t)doSyntheticReference:(double)reference noiseDivisorOutputTex:(double)tex lscGainsTex:(double)gainsTex evm:(double)evm ev0:(double)ev0 evmHomography:(double)homography ev0Homography:(double)ev0Homography evmProperties:(uint64_t)self0 evmGreenTintAdjustment:(void *)self1 ev0Properties:(void *)self2 nrfPlist:(void *)self3 intermediateMetadata:(void *)self4;
 - (uint64_t)generateNoiseMap:(__n128)map outputNoiseMapChroma:(__n128)chroma lscGainsTex:(uint64_t)tex ev0:(void *)ev0 ev0Homography:(void *)homography ev0Properties:(void *)properties;
 - (uint64_t)generateNoiseMap:(__n128)map outputNoiseMapChroma:(__n128)chroma noiseDivisorTex:(__n128)tex lscGainsTex:(__n128)gainsTex evm:(__n128)evm ev0:(__n128)ev0 evmHomography:(__n128)homography ev0Homography:(uint64_t)self0 evmProperties:(void *)self1 evmGreenTintAdjustmentParams:(void *)self2 ev0Properties:(void *)self3;
+- (unint64_t)doSyntheticReference:(double)reference noiseDivisorOutputTex:(double)tex lscGainsTex:(double)gainsTex evm:(double)evm ev0:(double)ev0 evmHomography:(double)homography ev0Homography:(double)ev0Homography evmProperties:(uint64_t)self0 evmGreenTintAdjustment:(void *)self1 ev0Properties:(void *)self2 nrfPlist:(void *)self3 intermediateMetadata:(void *)self4;
 @end
 
 @implementation SyntheticReferenceStage
@@ -889,16 +889,16 @@ LABEL_14:
               goto LABEL_16;
             }
 
-            sub_29589E528();
+            sub_29589E528(v77, v71, v143);
             goto LABEL_28;
           }
 
-          sub_29589E5CC();
+          sub_29589E5CC(v77, v71, v143);
         }
 
         else
         {
-          sub_29589E670();
+          sub_29589E670(v77, v71, v143);
         }
       }
 
@@ -1026,7 +1026,7 @@ LABEL_16:
           v58 = v21[82];
           if (!v58)
           {
-            sub_29589E990();
+            sub_29589E990(v56, v50, v108);
             goto LABEL_26;
           }
 
@@ -1066,7 +1066,7 @@ LABEL_14:
           goto LABEL_15;
         }
 
-        sub_29589E8EC();
+        sub_29589E8EC(v56, v50, v108);
 LABEL_26:
         v87 = LODWORD(v108[0]);
         goto LABEL_14;
@@ -1177,7 +1177,7 @@ LABEL_15:
     {
       v33 = properties[1].meta.ltmCurves.ltmLut.bytes[179];
       v150 = 0uLL;
-      *v151 = 0uLL;
+      v151[0] = 0uLL;
       v148 = 0uLL;
       v149 = 0uLL;
       v146 = 0uLL;
@@ -1226,7 +1226,7 @@ LABEL_15:
       v109 = *&properties[1].meta.ROI.size.height;
       v110 = v39;
       objc_msgSend_getLumaPedestalWithProperties_plistSource_(DeepFusionCommon, v15, &properties->meta.exposureParams, plistCopy[7]);
-      v151[0] = v40;
+      LODWORD(v151[0]) = v40;
       v44 = objc_msgSend_numberWithFloat_(MEMORY[0x29EDBA070], v41, v42, v43);
       objc_msgSend_setObject_forKeyedSubscript_(metadataCopy, v45, v44, @"syntheticReferencePedestal");
 
@@ -1245,7 +1245,7 @@ LABEL_15:
             v61 = ev0Copy[82];
             if (!v61)
             {
-              sub_29589EC14();
+              sub_29589EC14(v59, v53, v108);
               goto LABEL_28;
             }
 
@@ -1262,8 +1262,8 @@ LABEL_15:
 
           objc_msgSend_setTexture_atIndex_(v59, v63, outputCopy[2], 2);
           objc_msgSend_setTexture_atIndex_(v59, v65, outputCopy[3], 3);
-          *&v66 = v151[0];
-          v68 = objc_msgSend_getKernel_configFlags_(self->_shaders, v67, 3, v33 | (4 * (v151[0] != 0.0)), v66);
+          LODWORD(v66) = v151[0];
+          v68 = objc_msgSend_getKernel_configFlags_(self->_shaders, v67, 3, v33 | (4 * (*v151 != 0.0)), v66);
           if (v68)
           {
             v71 = v68;
@@ -1285,7 +1285,7 @@ LABEL_15:
             goto LABEL_16;
           }
 
-          sub_29589EB70();
+          sub_29589EB70(v59, v53, v108);
 LABEL_28:
           v90 = v108[0];
           goto LABEL_15;
@@ -1350,10 +1350,10 @@ LABEL_16:
   v20 = plistCopy;
   self->_syntheticReferenceMode = 0;
   self->_useMotionDetector = 0;
-  v35 = ghostCopy;
+  v36 = ghostCopy;
   if (!ghostCopy)
   {
-    sub_29589F4FC(&v37);
+    sub_29589F4FC(&v38);
 LABEL_27:
     v23 = 0;
     v22 = 0;
@@ -1362,43 +1362,43 @@ LABEL_27:
 
   if (!detectionCopy)
   {
-    sub_29589F460(&v37);
+    sub_29589F460(&v38);
 LABEL_25:
     v23 = 0;
     v22 = 0;
     ghostCopy = 0;
 LABEL_28:
-    started = v37;
+    v34 = v38;
     goto LABEL_17;
   }
 
   if (!evmCopy)
   {
-    sub_29589F3C4(&v37);
+    sub_29589F3C4(&v38);
     goto LABEL_25;
   }
 
   if (!ev0Copy)
   {
-    sub_29589F328(&v37);
+    sub_29589F328(&v38);
     goto LABEL_25;
   }
 
   if (!properties)
   {
-    sub_29589F28C(&v37);
+    sub_29589F28C(&v38);
     goto LABEL_25;
   }
 
   if (!ev0Properties)
   {
-    sub_29589F1F0(&v37);
+    sub_29589F1F0(&v38);
     goto LABEL_25;
   }
 
   if (!plistCopy)
   {
-    sub_29589F154(&v37);
+    sub_29589F154(&v38);
     goto LABEL_25;
   }
 
@@ -1406,20 +1406,20 @@ LABEL_28:
   ghostCopy = v21;
   if (!v21)
   {
-    sub_29589F0B8(&v37);
+    sub_29589F0B8(&v38);
     goto LABEL_27;
   }
 
-  v36[0] = v21[9];
-  v36[1] = v21[8];
-  v36[2] = v21[10];
+  v37[0] = v21[9];
+  v37[1] = v21[8];
+  v37[2] = v21[10];
   v22 = malloc_type_malloc(0x36BE0uLL, 0x1020040DF6BF6F3uLL);
   if (!v22)
   {
     sub_29589F058();
     v23 = 0;
 LABEL_31:
-    started = -12786;
+    v34 = -12786;
     goto LABEL_17;
   }
 
@@ -1442,10 +1442,10 @@ LABEL_31:
   v23[13993] = v25;
   v23[13994] = v26;
   v23[13995] = v27;
-  hasChromaBias_atBand_params = objc_msgSend_runGrayGhostDetection_ev0Bands_evmProperties_ev0Properties_hasChromaBias_atBand_params_(v35, v28, evmCopy, ev0Copy, v22, v23, 0, ghostCopy[6], v36);
+  hasChromaBias_atBand_params = objc_msgSend_runGrayGhostDetection_ev0Bands_evmProperties_ev0Properties_hasChromaBias_atBand_params_(v36, v28, evmCopy, ev0Copy, v22, v23, 0, ghostCopy[6], v37);
   if (hasChromaBias_atBand_params)
   {
-    started = hasChromaBias_atBand_params;
+    v34 = hasChromaBias_atBand_params;
     sub_29589EF38();
   }
 
@@ -1455,9 +1455,10 @@ LABEL_31:
     v32 = v31 <= (*(ghostCopy + 12) / 0.98) && v31 >= (*(ghostCopy + 13) * 0.98);
     self->_useMotionDetector = v32;
     started = objc_msgSend_startMotionDetection_evm_ev0_evmProperties_ev0Properties_(detectionCopy, v30, v20, evmCopy[43], ev0Copy[43], v22, v23);
+    v34 = started;
     if (started)
     {
-      sub_29589EF98();
+      sub_29589EF98(started);
     }
   }
 
@@ -1465,7 +1466,7 @@ LABEL_17:
   free(v22);
   free(v23);
 
-  return started;
+  return v34;
 }
 
 - (int)collectDetectorsResultsWithGrayGhost:(id)ghost motionDetection:(id)detection nrfPlist:(id)plist
@@ -1524,7 +1525,7 @@ LABEL_13:
   return v25;
 }
 
-- (uint64_t)doSyntheticReference:(double)reference noiseDivisorOutputTex:(double)tex lscGainsTex:(double)gainsTex evm:(double)evm ev0:(double)ev0 evmHomography:(double)homography ev0Homography:(double)ev0Homography evmProperties:(uint64_t)self0 evmGreenTintAdjustment:(void *)self1 ev0Properties:(void *)self2 nrfPlist:(void *)self3 intermediateMetadata:(void *)self4
+- (unint64_t)doSyntheticReference:(double)reference noiseDivisorOutputTex:(double)tex lscGainsTex:(double)gainsTex evm:(double)evm ev0:(double)ev0 evmHomography:(double)homography ev0Homography:(double)ev0Homography evmProperties:(uint64_t)self0 evmGreenTintAdjustment:(void *)self1 ev0Properties:(void *)self2 nrfPlist:(void *)self3 intermediateMetadata:(void *)self4
 {
   adjustmentCopy = adjustment;
   ev0PropertiesCopy = ev0Properties;

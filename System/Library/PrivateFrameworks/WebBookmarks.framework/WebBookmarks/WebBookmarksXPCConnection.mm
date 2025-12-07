@@ -83,7 +83,7 @@ void __48__WebBookmarksXPCConnection_initWithConnection___block_invoke_2(uint64_
 
 - (void)_handleMessage:(id)message
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   if (MEMORY[0x2743D6E50]() == MEMORY[0x277D86480])
   {
@@ -103,9 +103,9 @@ void __48__WebBookmarksXPCConnection_initWithConnection___block_invoke_2(uint64_
     {
       if (v7)
       {
-        v15 = 136446210;
-        v16 = string;
-        _os_log_impl(&dword_272C20000, v6, OS_LOG_TYPE_INFO, "Handling XPC message name: %{public}s.", &v15, 0xCu);
+        v14 = 136446210;
+        v15 = string;
+        _os_log_impl(&dword_272C20000, v6, OS_LOG_TYPE_INFO, "Handling XPC message name: %{public}s.", &v14, 0xCu);
       }
 
       messageHandlers = self->_messageHandlers;
@@ -129,12 +129,10 @@ void __48__WebBookmarksXPCConnection_initWithConnection___block_invoke_2(uint64_
 
     else if (v7)
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_272C20000, v6, OS_LOG_TYPE_INFO, "XPC message name unexpectedly nil, nothing to handle.", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_272C20000, v6, OS_LOG_TYPE_INFO, "XPC message name unexpectedly nil, nothing to handle.", &v14, 2u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setHandler:(id)handler forMessageNamed:(const char *)named
@@ -167,13 +165,12 @@ void __48__WebBookmarksXPCConnection_initWithConnection___block_invoke_2(uint64_
   v5 = [(NSMutableDictionary *)self->_entitlementLookupCache objectForKey:entitlementCopy];
   if (!v5)
   {
-    connection = self->_connection;
     [entitlementCopy UTF8String];
-    v7 = xpc_connection_copy_entitlement_value();
-    v8 = v7;
-    if (v7 && MEMORY[0x2743D6E50](v7) == MEMORY[0x277D86448])
+    v6 = xpc_connection_copy_entitlement_value();
+    v7 = v6;
+    if (v6 && MEMORY[0x2743D6E50](v6) == MEMORY[0x277D86448])
     {
-      v5 = [MEMORY[0x277CCABB0] numberWithBool:xpc_BOOL_get_value(v8)];
+      v5 = [MEMORY[0x277CCABB0] numberWithBool:xpc_BOOL_get_value(v7)];
     }
 
     else
@@ -197,8 +194,6 @@ void __48__WebBookmarksXPCConnection_initWithConnection___block_invoke_2(uint64_
   keys[0] = "_name";
   v4 = xpc_dictionary_create(keys, &values, 1uLL);
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
@@ -211,23 +206,23 @@ void __48__WebBookmarksXPCConnection_initWithConnection___block_invoke_2(uint64_
   {
     if (handlerCopy)
     {
-      v15[0] = 0;
-      v15[1] = v15;
-      v15[2] = 0x3032000000;
-      v15[3] = __Block_byref_object_copy__9;
-      v15[4] = __Block_byref_object_dispose__9;
+      v16[0] = 0;
+      v16[1] = v16;
+      v16[2] = 0x3032000000;
+      v16[3] = __Block_byref_object_copy__9;
+      v16[4] = __Block_byref_object_dispose__9;
       selfCopy = self;
-      v16 = selfCopy;
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __58__WebBookmarksXPCConnection_sendMessage_withReplyHandler___block_invoke;
-      v12[3] = &unk_279E77E20;
-      v13 = handlerCopy;
-      v14 = v15;
-      v10 = MEMORY[0x2743D6830](v12);
-      xpc_connection_send_message_with_reply(self->_connection, messageCopy, selfCopy->_connectionQueue, v10);
+      v17 = selfCopy;
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __58__WebBookmarksXPCConnection_sendMessage_withReplyHandler___block_invoke;
+      v13[3] = &unk_279E77E20;
+      v14 = handlerCopy;
+      v15 = v16;
+      v11 = MEMORY[0x2743D6830](v13);
+      xpc_connection_send_message_with_reply(self->_connection, messageCopy, selfCopy->_connectionQueue, v11);
 
-      _Block_object_dispose(v15, 8);
+      _Block_object_dispose(v16, 8);
     }
 
     else
@@ -238,10 +233,10 @@ void __48__WebBookmarksXPCConnection_initWithConnection___block_invoke_2(uint64_
 
   else
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXWebsiteData();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = WBS_LOG_CHANNEL_PREFIXWebsiteData(0, v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [WebBookmarksXPCConnection sendMessage:v11 withReplyHandler:?];
+      [WebBookmarksXPCConnection sendMessage:v12 withReplyHandler:?];
     }
   }
 }
@@ -283,11 +278,10 @@ LABEL_6:
 
 - (void)_handleMessage:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 136446210;
-  v4 = a1;
-  _os_log_fault_impl(&dword_272C20000, a2, OS_LOG_TYPE_FAULT, "WebBookmarksXPCConnection: No handler registered for the message %{public}s.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 136446210;
+  v3 = a1;
+  _os_log_fault_impl(&dword_272C20000, a2, OS_LOG_TYPE_FAULT, "WebBookmarksXPCConnection: No handler registered for the message %{public}s.", &v2, 0xCu);
 }
 
 @end

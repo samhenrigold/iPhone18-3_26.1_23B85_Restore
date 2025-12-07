@@ -225,7 +225,7 @@
   if (_containerViewDescription)
   {
     v6 = _containerViewDescription;
-    [_containerViewDescription renderingConfiguration];
+    objc_msgSend_renderingConfiguration(_containerViewDescription);
     _containerViewDescription = v6;
   }
 

@@ -3523,16 +3523,16 @@ uint64_t __70__PSCoreSpotlightIndexer_performYukonManifestMigrationWithCompletio
   return result;
 }
 
-id __49__PSCoreSpotlightIndexer__allowedManifestBundles__block_invoke()
+id __49__PSCoreSpotlightIndexer__allowedManifestBundles__block_invoke(uint64_t a1)
 {
   if (kNameKey_block_invoke_na_once_token_62 != -1)
   {
     __49__PSCoreSpotlightIndexer__allowedManifestBundles__block_invoke_cold_1();
   }
 
-  v1 = kNameKey_block_invoke_na_once_object_62;
+  v2 = kNameKey_block_invoke_na_once_object_62;
 
-  return v1;
+  return v2;
 }
 
 void __49__PSCoreSpotlightIndexer__allowedManifestBundles__block_invoke_2()
@@ -3548,7 +3548,7 @@ void __49__PSCoreSpotlightIndexer__allowedManifestBundles__block_invoke_2()
 
 - (id)bundleBlockList
 {
-  v3 = __41__PSCoreSpotlightIndexer_bundleBlockList__block_invoke();
+  v3 = __41__PSCoreSpotlightIndexer_bundleBlockList__block_invoke(self);
   v7[0] = MEMORY[0x1E69E9820];
   v7[1] = 3221225472;
   v7[2] = __41__PSCoreSpotlightIndexer_bundleBlockList__block_invoke_3;
@@ -3560,16 +3560,16 @@ void __49__PSCoreSpotlightIndexer__allowedManifestBundles__block_invoke_2()
   return v5;
 }
 
-id __41__PSCoreSpotlightIndexer_bundleBlockList__block_invoke()
+id __41__PSCoreSpotlightIndexer_bundleBlockList__block_invoke(uint64_t a1)
 {
   if (kNameKey_block_invoke_2_na_once_token_63 != -1)
   {
     __41__PSCoreSpotlightIndexer_bundleBlockList__block_invoke_cold_1();
   }
 
-  v1 = kNameKey_block_invoke_2_na_once_object_63;
+  v2 = kNameKey_block_invoke_2_na_once_object_63;
 
-  return v1;
+  return v2;
 }
 
 void __41__PSCoreSpotlightIndexer_bundleBlockList__block_invoke_2()
@@ -3635,16 +3635,16 @@ uint64_t __41__PSCoreSpotlightIndexer_bundleBlockList__block_invoke_4(uint64_t a
   return v8;
 }
 
-id __78__PSCoreSpotlightIndexer__allowedManifestFilesFromPreferenceManifestsInternal__block_invoke()
+id __78__PSCoreSpotlightIndexer__allowedManifestFilesFromPreferenceManifestsInternal__block_invoke(uint64_t a1)
 {
   if (kNameKey_block_invoke_3_na_once_token_64 != -1)
   {
     __78__PSCoreSpotlightIndexer__allowedManifestFilesFromPreferenceManifestsInternal__block_invoke_cold_1();
   }
 
-  v1 = kNameKey_block_invoke_3_na_once_object_64;
+  v2 = kNameKey_block_invoke_3_na_once_object_64;
 
-  return v1;
+  return v2;
 }
 
 void __78__PSCoreSpotlightIndexer__allowedManifestFilesFromPreferenceManifestsInternal__block_invoke_2()

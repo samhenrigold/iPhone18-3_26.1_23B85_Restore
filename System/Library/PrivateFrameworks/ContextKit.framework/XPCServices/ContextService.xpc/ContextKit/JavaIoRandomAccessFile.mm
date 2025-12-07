@@ -27,6 +27,7 @@
 - (void)writeFloatWithFloat:(float)float;
 - (void)writeUTFWithNSString:(id)string;
 - (void)writeWithByteArray:(id)array;
+- (void)writeWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (void)writeWithInt:(int)int;
 @end
 
@@ -198,7 +199,7 @@
 {
   v2 = [JavaIoRandomAccessFile readLong]_0(self);
 
-  return JavaLangDouble_longBitsToDoubleWithLong_(v2);
+  return JavaLangDouble_longBitsToDoubleWithLong_(v2, v3);
 }
 
 - (unint64_t)readLong
@@ -219,7 +220,7 @@
 {
   v2 = [JavaIoRandomAccessFile readInt]_0(self);
 
-  return JavaLangFloat_intBitsToFloatWithInt_(v2);
+  return JavaLangFloat_intBitsToFloatWithInt_(v2, v3);
 }
 
 - (uint64_t)readInt
@@ -250,7 +251,7 @@
 
 - (id)readLine
 {
-  v3 = new_JavaLangStringBuilder_initWithInt_(0x50u);
+  v3 = new_JavaLangStringBuilder_initWithInt_(80);
   v4 = 0;
   getFilePointer = 0;
   while (1)
@@ -423,6 +424,21 @@ LABEL_12:
   v4 = *(array + 2);
 
   [(JavaIoRandomAccessFile *)self writeWithByteArray:array withInt:0 withInt:v4];
+}
+
+- (void)writeWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  LibcoreIoIoBridge_writeWithJavaIoFileDescriptor_withByteArray_withInt_withInt_(self->fd_, array, *&int, *&withInt);
+  if (self->syncMetadata_)
+  {
+    fd = self->fd_;
+    if (!fd)
+    {
+      JreThrowNullPointerException();
+    }
+
+    [(JavaIoFileDescriptor *)fd sync];
+  }
 }
 
 - (void)writeWithInt:(int)int

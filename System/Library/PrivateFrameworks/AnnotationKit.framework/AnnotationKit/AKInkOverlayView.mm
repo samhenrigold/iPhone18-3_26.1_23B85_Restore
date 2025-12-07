@@ -152,13 +152,22 @@
     [(AKInkOverlayView *)self _updateCanvasViewInk];
   }
 
-  if (-[PKInk _isLassoInk](self->_ink, "_isLassoInk") && [inkCopy _isLassoInk])
+  _isLassoInk = [(PKInk *)self->_ink _isLassoInk];
+  v6 = inkCopy;
+  if (_isLassoInk)
   {
-    color = [inkCopy color];
-    [(AKInkOverlayView *)self _updatedSelectedStrokesWithColor:color];
+    _isLassoInk = [inkCopy _isLassoInk];
+    v6 = inkCopy;
+    if (_isLassoInk)
+    {
+      color = [inkCopy color];
+      [(AKInkOverlayView *)self _updatedSelectedStrokesWithColor:color];
+
+      v6 = inkCopy;
+    }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](_isLassoInk, v6);
 }
 
 - (void)_updateCanvasViewInk
@@ -709,7 +718,7 @@
     memset(&v30, 0, sizeof(v30));
     viewSpaceCopy = viewSpace;
     spaceCopy = space;
-    [viewSpaceCopy drawingTransform];
+    objc_msgSend_drawingTransform(viewSpaceCopy);
     CGAffineTransformInvert(&v30, &v29);
     [spaceCopy convertRectFromModelToOverlay:{x, y, width, height}];
     v13 = v12;

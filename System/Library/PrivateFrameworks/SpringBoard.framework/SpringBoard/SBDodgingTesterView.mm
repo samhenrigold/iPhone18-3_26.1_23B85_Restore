@@ -119,7 +119,7 @@
   v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v8];
   [textLabel setText:v10];
 
-  if ([(NSMutableSet *)self->_ignoringItems containsObject:v8])
+  if (objc_msgSend_containsObject_(self->_ignoringItems))
   {
     v11 = 3;
   }
@@ -143,7 +143,7 @@
   v9 = [pathCopy row];
 
   v13 = [(NSArray *)otherIdentifiers objectAtIndex:v9];
-  v10 = [(NSMutableSet *)self->_ignoringItems containsObject:?];
+  v10 = objc_msgSend_containsObject_(self->_ignoringItems);
   ignoringItems = self->_ignoringItems;
   if (v10)
   {
@@ -246,9 +246,9 @@ LABEL_12:
   [(UITableView *)self->_otherItemsTable sizeThatFits:v4, v6];
   v29 = v28;
   otherItemsTable = self->_otherItemsTable;
-  [(UILabel *)self->_resolvedValuesLabel frame];
+  objc_msgSend_frame(self->_resolvedValuesLabel);
   v32 = v31;
-  [(UILabel *)self->_resolvedValuesLabel frame];
+  objc_msgSend_frame(self->_resolvedValuesLabel);
   [(UITableView *)otherItemsTable setFrame:0.0, v32 + v33 + 5.0, v4, v29];
   titleLabel = self->_titleLabel;
   v35 = MEMORY[0x277D75348];
@@ -368,11 +368,11 @@ LABEL_12:
   [gestureCopy locationInView:self];
   v6 = v5;
   v8 = v7;
-  [(UIView *)self->_resizeView frame];
+  objc_msgSend_frame(self->_resizeView);
   UIRectGetCenter();
   v10 = v6 - v9;
   v12 = v8 - v11;
-  [(SBDodgingTesterView *)self frame];
+  objc_msgSend_frame(self);
   corner = self->_corner;
   if (corner > 1)
   {

@@ -153,7 +153,7 @@ LABEL_35:
   return v12;
 }
 
-uint64_t getDummy0PSDData(void *a1, void *a2)
+uint64_t getDummy0PSDData(void *a1, uint64_t *a2)
 {
   if (qword_1C6C98 != -1)
   {
@@ -396,10 +396,11 @@ void sub_CA770(id a1)
   objc_storeStrong(&__osLogPearlLibTrace, v3);
 }
 
-void sub_CA92C(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint8_t buf)
+void sub_CA92C(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
 
-  _os_log_impl(a1, v15, OS_LOG_TYPE_DEFAULT, a4, &buf, 0x30u);
+  _os_log_impl(a1, v14, OS_LOG_TYPE_DEFAULT, a4, va, 0x30u);
 }
 
 BOOL sub_CA94C@<W0>(NSObject *a1@<X8>)
@@ -417,10 +418,11 @@ BOOL sub_CA94C@<W0>(NSObject *a1@<X8>)
   return os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 }
 
-void sub_CA96C(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint8_t buf)
+void sub_CA96C(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
 
-  _os_log_impl(a1, v15, OS_LOG_TYPE_DEFAULT, a4, &buf, 0x30u);
+  _os_log_impl(a1, v14, OS_LOG_TYPE_DEFAULT, a4, va, 0x30u);
 }
 
 BOOL sub_CA98C@<W0>(NSObject *a1@<X8>)
@@ -438,10 +440,11 @@ BOOL sub_CA98C@<W0>(NSObject *a1@<X8>)
   return os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 }
 
-void sub_CAA00(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint8_t buf)
+void sub_CAA00(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
 
-  _os_log_impl(a1, v15, OS_LOG_TYPE_DEFAULT, a4, &buf, 0x30u);
+  _os_log_impl(a1, v14, OS_LOG_TYPE_DEFAULT, a4, va, 0x30u);
 }
 
 BOOL sub_CAA20@<W0>(NSObject *a1@<X8>)
@@ -480,10 +483,11 @@ BOOL sub_CAAF0@<W0>(NSObject *a1@<X8>)
   return os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 }
 
-void sub_CABBC(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint8_t buf)
+void sub_CABBC(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
 
-  _os_log_impl(a1, v15, OS_LOG_TYPE_ERROR, a4, &buf, 8u);
+  _os_log_impl(a1, v14, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 BOOL sub_CABDC@<W0>(NSObject *a1@<X8>)
@@ -722,7 +726,7 @@ uint64_t sub_D4FB4(mach_port_t a1, uint32_t a2, const uint64_t *a3, uint32_t a4,
   return IOConnectCallMethod(a1, a2, a3, a4, 0, 0, 0, 0, a9, a10);
 }
 
-uint64_t sub_D4FD4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, unsigned int a14, __int16 a15, char a16, BOOL a17)
+uint64_t sub_D4FD4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, int a14, __int16 a15, char a16, char a17)
 {
   a17 = 0;
   a14 = 0;
@@ -737,7 +741,7 @@ uint64_t sub_D500C(io_service_t a1, int a2, int a3, int a4, int a5, int a6, int 
   return IOServiceOpen(a1, v14, 0, &connect);
 }
 
-uint64_t sub_D502C(unint64_t a1)
+BOOL sub_D502C(unint64_t a1)
 {
   v1 = 0;
   v2 = 4866;
@@ -890,7 +894,7 @@ BOOL sub_D5140(int a1, int a2, int a3)
   return dword_1C6CA8 >= a3;
 }
 
-uint64_t sub_D5200(uint64_t a1, int a2, int a3, int a4)
+uint64_t sub_D5200(int a1, int a2, int a3, int a4)
 {
   if (qword_1C6CB8 == -1)
   {
@@ -1185,7 +1189,7 @@ void sub_D592C(void *a1, _OWORD *a2)
   *a2 = 0u;
   os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
   sub_EAD8();
-  sub_EAB4();
+  sub_EAB4(v2, v3, v4, v5, &dword_0);
   _os_crash_msg();
   __break(1u);
 }
@@ -1200,7 +1204,7 @@ void sub_D59D0(void *a1, _OWORD *a2)
   *a2 = 0u;
   os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
   sub_EAD8();
-  sub_EAB4();
+  sub_EAB4(v2, v3, v4, v5, &dword_0);
   _os_crash_msg();
   __break(1u);
 }
@@ -1215,7 +1219,7 @@ void sub_D5A60(void *a1, _OWORD *a2)
   *a2 = 0u;
   os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
   sub_EAD8();
-  sub_EAB4();
+  sub_EAB4(v2, v3, v4, v5, &dword_0);
   _os_crash_msg();
   __break(1u);
 }
@@ -1226,39 +1230,39 @@ CFDataRef ramrod_hash_data_with_method(const __CFData *a1, CFStringRef theString
   {
     if (CFStringCompare(theString1, kAMAuthInstallApParameterImg4DigestSHA384, 0))
     {
-      ramrod_log_msg("Unrecognized hash implementation.\n", v4, v5, v6, v7, v8, v9, v10, v19[0]);
-      v11 = 0;
+      ramrod_log_msg("Unrecognized hash implementation.\n");
+      v4 = 0;
       goto LABEL_4;
     }
 
-    v13 = &kImg4DecodeSecureBootRsa4kSha384;
+    v6 = &kImg4DecodeSecureBootRsa4kSha384;
   }
 
   else
   {
-    v13 = &kImg4DecodeSecureBootRsa1kSha1;
+    v6 = &kImg4DecodeSecureBootRsa1kSha1;
   }
 
-  v14 = v13[1];
-  v19[0] = *v13;
-  v19[1] = v14;
-  v20 = v13[2];
-  v21 = *(v13 + 6);
-  v15 = *v20;
-  v11 = calloc(*v20, 1uLL);
+  v7 = v6[1];
+  v12[0] = *v6;
+  v12[1] = v7;
+  v13 = v6[2];
+  v14 = *(v6 + 6);
+  v8 = *v13;
+  v4 = calloc(*v13, 1uLL);
   BytePtr = CFDataGetBytePtr(a1);
   Length = CFDataGetLength(a1);
-  if (!(*&v19[0])(BytePtr, Length, v11, v15, v19))
+  if (!(*&v12[0])(BytePtr, Length, v4, v8, v12))
   {
-    v12 = CFDataCreate(kCFAllocatorDefault, v11, v15);
+    v5 = CFDataCreate(kCFAllocatorDefault, v4, v8);
     goto LABEL_9;
   }
 
 LABEL_4:
-  v12 = 0;
+  v5 = 0;
 LABEL_9:
-  free(v11);
-  return v12;
+  free(v4);
+  return v5;
 }
 
 void sub_D5C30(void *a1, _OWORD *a2)
@@ -1266,7 +1270,7 @@ void sub_D5C30(void *a1, _OWORD *a2)
   sub_13494(a1, a2);
   sub_134AC();
   sub_EAD8();
-  sub_EAB4();
+  sub_EAB4(v2, v3, v4, v5, &dword_0);
   _os_crash_msg();
   __break(1u);
 }
@@ -1276,7 +1280,7 @@ void sub_D5CC4(void *a1, _OWORD *a2)
   sub_13494(a1, a2);
   sub_134AC();
   sub_EAD8();
-  sub_EAB4();
+  sub_EAB4(v2, v3, v4, v5, &dword_0);
   _os_crash_msg();
   __break(1u);
 }
@@ -1286,7 +1290,7 @@ void sub_D5D44(void *a1, _OWORD *a2)
   sub_13494(a1, a2);
   sub_134AC();
   sub_EAD8();
-  sub_EAB4();
+  sub_EAB4(v2, v3, v4, v5, &dword_0);
   _os_crash_msg();
   __break(1u);
 }
@@ -1296,30 +1300,30 @@ void sub_D5DD8(void *a1, _OWORD *a2)
   sub_13494(a1, a2);
   sub_134AC();
   sub_EAD8();
-  sub_EAB4();
+  sub_EAB4(v2, v3, v4, v5, &dword_0);
   _os_crash_msg();
   __break(1u);
 }
 
-uint64_t sub_D6054()
+uint64_t sub_D6054(int a1)
 {
-  v0 = __error();
-  strerror(*v0);
-  return AMSupportLogInternal();
+  v2 = __error();
+  v3 = strerror(*v2);
+  return AMSupportLogInternal(3, "_AMRestorePartitionOpenFileWithURL", "open() returned %d, %s", a1, v3);
 }
 
 uint64_t sub_D6174()
 {
   v0 = __error();
-  strerror(*v0);
-  return AMSupportLogInternal();
+  v1 = strerror(*v0);
+  return AMSupportLogInternal(3, "_copyDataFromHandle", "read failed: %s", v1);
 }
 
-uint64_t sub_D61B8()
+uint64_t sub_D61B8(int a1)
 {
-  v0 = __error();
-  strerror(*v0);
-  return AMSupportLogInternal();
+  v2 = __error();
+  v3 = strerror(*v2);
+  return AMSupportLogInternal(3, "_copyDataFromHandle", "malloc(%d) failed: %s", a1, v3);
 }
 
 CFTypeRef ramrod_copy_imr4_with_key_value(const void *a1, const void *a2, const void *a3)
@@ -1334,7 +1338,7 @@ CFTypeRef ramrod_copy_imr4_with_key_value(const void *a1, const void *a2, const 
       if (CFDictionaryGetValue(theDict, a2))
       {
         cf = CFRetain(a1);
-        v14 = "im4r has required tag.\n";
+        ramrod_log_msg("im4r has required tag.\n", theDict);
       }
 
       else
@@ -1342,17 +1346,16 @@ CFTypeRef ramrod_copy_imr4_with_key_value(const void *a1, const void *a2, const 
         CFDictionarySetValue(theDict, a2, a3);
         if (AMAuthInstallApImg4EncodeRestoreInfo())
         {
-          ramrod_log_msg("Failed to re-encode img4\n", v7, v8, v9, v10, v11, v12, v13, theDict);
-          goto LABEL_6;
+          ramrod_log_msg("Failed to re-encode img4\n");
         }
 
-        v14 = "Re-encoded img4 because im4r was missing required tag.\n";
+        else
+        {
+          ramrod_log_msg("Re-encoded img4 because im4r was missing required tag.\n", theDict);
+        }
       }
-
-      ramrod_log_msg(v14, v7, v8, v9, v10, v11, v12, v13, theDict);
     }
 
-LABEL_6:
     Mutable = theDict;
   }
 
@@ -1386,16 +1389,16 @@ BOOL ramrod_verify_dual_iboot_spi_partition(unsigned int a1, const __CFData *a2,
     v7 = wait_for_io_service_matching_class_with_timeout("AppleEmbeddedSimpleSPINORFlasherDriver", 0xFu);
     if (!v7)
     {
-      ramrod_log_msg("%s: no SPI flasher driver\n", v8, v9, v10, v11, v12, v13, v14, "ramrod_verify_dual_iboot_spi_partition");
+      ramrod_log_msg("%s: no SPI flasher driver\n", "ramrod_verify_dual_iboot_spi_partition");
       v3 = 0;
       goto LABEL_19;
     }
 
-    v15 = v7;
-    v16 = [[IODualSPIWriter alloc] initWithService:v7];
-    if ([(IOServiceWriter *)v16 isAvailable])
+    v8 = v7;
+    v9 = [[IODualSPIWriter alloc] initWithService:v7];
+    if ([(IOServiceWriter *)v9 isAvailable])
     {
-      if ([(IODualSPIWriter *)v16 verifyHeadersAtIndex:a1])
+      if ([(IODualSPIWriter *)v9 verifyHeadersAtIndex:a1])
       {
         keys = @"BNCN";
         values = 0;
@@ -1403,60 +1406,60 @@ BOOL ramrod_verify_dual_iboot_spi_partition(unsigned int a1, const __CFData *a2,
         {
           values = a3;
           CFRetain(a3);
-          v24 = 0;
-          v25 = kCFAllocatorDefault;
+          v10 = 0;
+          v11 = kCFAllocatorDefault;
         }
 
         else
         {
-          v26 = IORegistryEntryFromPath(kIOMasterPortDefault, "IODeviceTree:/chosen");
-          if (!v26)
+          v12 = IORegistryEntryFromPath(kIOMasterPortDefault, "IODeviceTree:/chosen");
+          if (!v12)
           {
-            ramrod_create_error_cf(0, kCFErrorDomainMach, -536870911, 0, @"%s: unable to find chosen node to fetch boot nonce", v27, v28, v29, "create_iBoot_SPI_firmware_image");
+            ramrod_create_error_cf(0, kCFErrorDomainMach, -536870911, 0, @"%s: unable to find chosen node to fetch boot nonce", v13, v14, v15, "create_iBoot_SPI_firmware_image");
             goto LABEL_17;
           }
 
-          v24 = v26;
-          v25 = kCFAllocatorDefault;
-          values = IORegistryEntryCreateCFProperty(v26, @"boot-nonce", kCFAllocatorDefault, 0);
+          v10 = v12;
+          v11 = kCFAllocatorDefault;
+          values = IORegistryEntryCreateCFProperty(v12, @"boot-nonce", kCFAllocatorDefault, 0);
           if (!values)
           {
-            sub_44A10(0, @"RamrodErrorDomain", @"%s: can't find boot-nonce in IORegistry", v30, v31, v32, "create_iBoot_SPI_firmware_image");
+            sub_44A10(0, @"RamrodErrorDomain", @"%s: can't find boot-nonce in IORegistry", v16, v17, v18, "create_iBoot_SPI_firmware_image");
 LABEL_16:
-            IOObjectRelease(v24);
+            IOObjectRelease(v10);
 LABEL_17:
             AMSupportSafeRelease();
             AMSupportSafeRelease();
             AMSupportSafeRelease();
             AMSupportSafeRelease();
             AMSupportSafeRelease();
-            v3 = [(IODualSPIWriter *)v16 verifyFirmwareAtIndex:a1 againstData:0];
+            v3 = [(IODualSPIWriter *)v9 verifyFirmwareAtIndex:a1 againstData:0];
             goto LABEL_18;
           }
         }
 
-        if (CFDictionaryCreate(v25, &keys, &values, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks))
+        if (CFDictionaryCreate(v11, &keys, &values, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks))
         {
           CFDataGetLength(a2);
           if (AMAuthInstallApImg4EncodeRestoreInfo())
           {
-            v40 = @"%s: error creating new LLB img4 with restore info";
+            v26 = @"%s: error creating new LLB img4 with restore info";
           }
 
           else
           {
-            v40 = @"%s: NULL LLG img4 with restore info";
+            v26 = @"%s: NULL LLG img4 with restore info";
           }
 
-          ramrod_create_error_cf(0, @"RamrodErrorDomain", 7, 0, v40, v36, v37, v38, "create_iBoot_SPI_firmware_image");
+          ramrod_create_error_cf(0, @"RamrodErrorDomain", 7, 0, v26, v22, v23, v24, "create_iBoot_SPI_firmware_image");
         }
 
         else
         {
-          ramrod_create_error_cf(0, @"RamrodErrorDomain", 6, 0, @"%s: unable to allocate restore info dict from boot-nonce data", v33, v34, v35, "create_iBoot_SPI_firmware_image");
+          ramrod_create_error_cf(0, @"RamrodErrorDomain", 6, 0, @"%s: unable to allocate restore info dict from boot-nonce data", v19, v20, v21, "create_iBoot_SPI_firmware_image");
         }
 
-        if (!v24)
+        if (!v10)
         {
           goto LABEL_17;
         }
@@ -1464,12 +1467,12 @@ LABEL_17:
         goto LABEL_16;
       }
 
-      ramrod_log_msg("%s: error - new header does not have a larger generation count than existing header", v17, v18, v19, v20, v21, v22, v23, "ramrod_verify_dual_iboot_spi_partition");
+      ramrod_log_msg("%s: error - new header does not have a larger generation count than existing header", "ramrod_verify_dual_iboot_spi_partition");
     }
 
     v3 = 0;
 LABEL_18:
-    IOObjectRelease(v15);
+    IOObjectRelease(v8);
   }
 
 LABEL_19:
@@ -1477,14 +1480,17 @@ LABEL_19:
   return v3;
 }
 
-const char *ramrod_update_twostage_enabled(const __CFString *a1)
+const char *ramrod_update_twostage_enabled(__CFString *a1)
 {
-  v21 = 0;
-  v22 = 0;
+  v23 = 0;
+  v24 = 0;
   cf = 0;
   if (!a1)
   {
-    goto LABEL_32;
+    AMSupportLogInternal(3, "ramrod_update_twostage_enabled", "ERROR updater NULL.");
+LABEL_33:
+    v3 = 0;
+    goto LABEL_35;
   }
 
   CStringPtr = AMAuthInstallUpdaterTwoStageEnabled();
@@ -1499,80 +1505,90 @@ LABEL_3:
   CStringPtr = CFStringGetCStringPtr(a1, 0x8000100u);
   if (!CStringPtr)
   {
-    AMSupportLogInternal();
+    AMSupportLogInternal(3, "ramrod_update_twostage_enabled", "Failed to convert %@ name to C String.. skipping update.", a1);
     goto LABEL_3;
   }
 
   dylib = ramrod_update_get_dylib(a1);
+  v5 = dylib;
   if (!dylib)
   {
-LABEL_32:
-    AMSupportLogInternal();
-    v3 = 0;
-    goto LABEL_34;
+    AMSupportLogInternal(3, "ramrod_update_twostage_enabled", "ramrod_update_get_dylib returned NULL for %@, skipping update.", a1);
+    goto LABEL_33;
   }
 
-  v5 = dlopen(dylib, 261);
-  v3 = v5;
-  if (!v5)
+  v6 = dlopen(dylib, 261);
+  v3 = v6;
+  if (!v6)
   {
-    dlerror();
-    AMSupportLogInternal();
-    goto LABEL_34;
+    v20 = dlerror();
+    AMSupportLogInternal(3, "ramrod_update_twostage_enabled", "%@ dylib missing, skipping update: %s: %s", a1, v5, v20);
+    goto LABEL_35;
   }
 
-  if (!ramrod_copy_updater_functions(v5, CStringPtr, &v22, 0, v6, v7, v8, v9) || !*(v22 + 2) || !*v22)
+  if (!ramrod_copy_updater_functions(v6, CStringPtr, &v24, 0, v7, v8, v9, v10) || !*(v24 + 2) || !*v24)
   {
-    goto LABEL_34;
+    goto LABEL_35;
   }
 
-  v10 = *(v22 + 3);
-  if (!v10)
+  v11 = *(v24 + 3);
+  if (!v11)
   {
     Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     if (Mutable)
     {
-      v13 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-      if (v13)
+      v14 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+      if (v14)
       {
-        CFDictionarySetValue(Mutable, @"Options", v13);
+        CFDictionarySetValue(Mutable, @"Options", v14);
         sub_449C0();
-        v15 = v14(Mutable);
-        if (v15)
+        v16 = v15(Mutable);
+        if (v16)
         {
-          v19 = 0;
-          if ((*(v22 + 2))(v15, @"queryInfo", 0, &cf, &v19) == 1 && !v19 && cf && (v16 = CFGetTypeID(cf), v16 == CFDictionaryGetTypeID()) && CFDictionaryGetValue(cf, @"IsTwoStageSupported") == kCFBooleanTrue)
+          v21 = 0;
+          if ((*(v24 + 2))(v16, @"queryInfo", 0, &cf, &v21) == 1 && !v21 && cf && (v17 = CFGetTypeID(cf), v17 == CFDictionaryGetTypeID()) && CFDictionaryGetValue(cf, @"IsTwoStageSupported") == kCFBooleanTrue)
           {
-            v17 = "Enable";
+            v18 = "Enable";
             CStringPtr = (&dword_0 + 1);
           }
 
           else
           {
             CStringPtr = 0;
-            v17 = "Disable";
+            v18 = "Disable";
           }
 
-          ramrod_log_msg_cf(@"Runtime check for two-stage support: %s\n", v17);
+          ramrod_log_msg_cf(@"Runtime check for two-stage support: %s\n", v18);
           goto LABEL_25;
         }
+
+        AMSupportLogInternal(3, "ramrod_update_twostage_enabled", "Failed to create %s obj, error=%@", CStringPtr, v23);
+      }
+
+      else
+      {
+        AMSupportLogInternal(4, "ramrod_update_twostage_enabled", "subOptions failed to allocate");
       }
     }
 
-    AMSupportLogInternal();
-LABEL_34:
+    else
+    {
+      AMSupportLogInternal(4, "ramrod_update_twostage_enabled", "updaterOptions failed to allocate");
+    }
+
+LABEL_35:
     CStringPtr = 0;
     goto LABEL_25;
   }
 
-  CStringPtr = v10(&v21);
-  v11 = "Enable";
+  CStringPtr = v11(&v23);
+  v12 = "Enable";
   if (!CStringPtr)
   {
-    v11 = "Disable";
+    v12 = "Disable";
   }
 
-  ramrod_log_msg_cf(@"Runtime (via IsTwoStageSupported) check for two-stage support: %s\n", v11);
+  ramrod_log_msg_cf(@"Runtime (via IsTwoStageSupported) check for two-stage support: %s\n", v12);
   sub_44A78();
 LABEL_25:
   AMSupportSafeRelease();
@@ -1580,10 +1596,10 @@ LABEL_25:
   AMSupportSafeRelease();
   AMSupportSafeRelease();
   AMSupportSafeRelease();
-  if (v22)
+  if (v24)
   {
-    free(v22);
-    v22 = 0;
+    free(v24);
+    v24 = 0;
   }
 
   if (v3)
@@ -1597,97 +1613,120 @@ LABEL_25:
 const __CFString *ramrod_update_supported(CFStringRef theString, const __CFString *a2)
 {
   v2 = theString;
-  v22[1] = 0;
+  v27 = 0;
   cf = 0;
-  v22[0] = 0;
+  v26 = 0;
   if (theString)
   {
     CStringPtr = CFStringGetCStringPtr(theString, 0x8000100u);
-    if (CStringPtr)
+    if (!CStringPtr)
     {
-      dylib = ramrod_update_get_dylib(v2);
-      if (dylib)
-      {
-        v6 = dlopen(dylib, 261);
-        if (!v6)
-        {
-          dlerror();
-          AMSupportLogInternal();
-          goto LABEL_14;
-        }
+      AMSupportLogInternal(3, "_ramrod_update_supported", "Failed to convert %@ name to C String.. skipping update.", v2);
+      goto LABEL_15;
+    }
 
-        Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-        if (Mutable)
-        {
-          v8 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-          if (v8)
-          {
-            CFDictionarySetValue(Mutable, @"Options", v8);
-            CFDictionarySetValue(v8, @"PreflightRequired", kCFBooleanTrue);
-            if (ramrod_copy_updater_functions(v6, CStringPtr, v22, 0, v9, v10, v11, v12) && *(v22[0] + 2) && *(v22[0] + 1) && *v22[0])
-            {
-              sub_449C0();
-              v14 = v13(Mutable);
-              v15 = v14;
-              if (v14)
-              {
-                err = 0;
-                if (!(*(v22[0] + 1))(v14, 0))
-                {
-                  v16 = (*(v22[0] + 2))(v15, @"queryInfo", 0, &cf, &err);
-                  if (v16 != 1 || err || cf && ((v17 = CFGetTypeID(cf), v17 != CFDictionaryGetTypeID()) || CFDictionaryGetCount(cf)))
-                  {
-                    v18 = err;
-                    if (!a2 || !err)
-                    {
-                      goto LABEL_25;
-                    }
+    dylib = ramrod_update_get_dylib(v2);
+    v6 = dylib;
+    if (!dylib)
+    {
+      AMSupportLogInternal(3, "_ramrod_update_supported", "ramrod_update_get_dylib returned NULL for %@, skipping update.", v2);
+      goto LABEL_15;
+    }
 
-                    v19 = CFErrorCopyDescription(err);
-                    if (!v19 || CFStringCompare(v19, a2, 0))
-                    {
-                      AMSupportLogInternal();
-                      v18 = err;
-LABEL_25:
-                      ramrod_log_msg_cf(@"%@ tells us to attempt Update.  success=%d, error=%d, result=%d.", v2, v16, v18 != 0, cf != 0);
-                      v2 = (&dword_0 + 1);
-                      goto LABEL_26;
-                    }
-                  }
-                }
-              }
+    v7 = dlopen(dylib, 261);
+    if (!v7)
+    {
+      v23 = dlerror();
+      AMSupportLogInternal(3, "_ramrod_update_supported", "%@ dylib missing, skipping update: %s: %s", v2, v6, v23);
+      goto LABEL_15;
+    }
 
-              AMSupportLogInternal();
-            }
-          }
+    Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    if (!Mutable)
+    {
+      AMSupportLogInternal(4, "_ramrod_update_supported", "updaterOptions failed to allocate");
+      goto LABEL_15;
+    }
 
-          else
-          {
-            AMSupportLogInternal();
-          }
+    v9 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    if (!v9)
+    {
+      AMSupportLogInternal(4, "_ramrod_update_supported", "subOptions failed to allocate");
+      goto LABEL_15;
+    }
 
+    CFDictionarySetValue(Mutable, @"Options", v9);
+    CFDictionarySetValue(v9, @"PreflightRequired", kCFBooleanTrue);
+    if (!ramrod_copy_updater_functions(v7, CStringPtr, &v26, 0, v10, v11, v12, v13) || !*(v26 + 2) || !*(v26 + 1) || !*v26)
+    {
+      goto LABEL_15;
+    }
+
+    sub_449C0();
+    v15 = v14(Mutable);
+    v16 = v15;
+    if (!v15)
+    {
+      AMSupportLogInternal(3, "_ramrod_update_supported", "Failed to create %s obj, error=%@", CStringPtr, v27);
+      goto LABEL_15;
+    }
+
+    err = 0;
+    if ((*(v26 + 1))(v15, 0))
+    {
+      v24 = v2;
+      v17 = "%@ instructed us not to attempt OTA (via isDone)";
 LABEL_14:
-          v2 = 0;
-          goto LABEL_26;
-        }
+      AMSupportLogInternal(4, "_ramrod_update_supported", v17, v24);
+LABEL_15:
+      v2 = 0;
+      goto LABEL_27;
+    }
+
+    v18 = (*(v26 + 2))(v16, @"queryInfo", 0, &cf, &err);
+    if (v18 == 1 && !err)
+    {
+      if (!cf || (v19 = CFGetTypeID(cf), v19 == CFDictionaryGetTypeID()) && !CFDictionaryGetCount(cf))
+      {
+        v24 = v2;
+        v17 = "%@ instructed us not to attempt OTA (via QueryInfo)";
+        goto LABEL_14;
       }
     }
 
-    AMSupportLogInternal();
-    goto LABEL_14;
+    v20 = err;
+    if (a2 && err)
+    {
+      v21 = CFErrorCopyDescription(err);
+      if (v21 && CFStringCompare(v21, a2, 0) == kCFCompareEqualTo)
+      {
+        AMSupportLogInternal(4, "_ramrod_update_supported", "%@ instructed us not to attempt update (via QueryInfo Error string match)", v2);
+        goto LABEL_15;
+      }
+
+      AMSupportLogInternal(4, "_ramrod_update_supported", "%@ returned error, but no indication to skip update: %@", v2, err);
+      v20 = err;
+    }
+
+    ramrod_log_msg_cf(@"%@ tells us to attempt Update.  success=%d, error=%d, result=%d.", v2, v18, v20 != 0, cf != 0);
+    v2 = (&dword_0 + 1);
   }
 
-  AMSupportLogInternal();
-LABEL_26:
-  AMSupportSafeRelease();
-  AMSupportSafeRelease();
-  AMSupportSafeRelease();
-  AMSupportSafeRelease();
-  AMSupportSafeRelease();
-  AMSupportSafeRelease();
-  if (v22[0])
+  else
   {
-    free(v22[0]);
+    AMSupportLogInternal(3, "_ramrod_update_supported", "ERROR updater NULL.");
+  }
+
+LABEL_27:
+  AMSupportSafeRelease();
+  AMSupportSafeRelease();
+  AMSupportSafeRelease();
+  AMSupportSafeRelease();
+  AMSupportSafeRelease();
+  AMSupportSafeRelease();
+  if (v26)
+  {
+    free(v26);
   }
 
   return v2;
@@ -1710,9 +1749,9 @@ uint64_t ramrod_device_hide_fdr_failure(const void *a1)
 
 uint64_t ramrod_load_sep_os_and_patch_from_filesystem(CFDictionaryRef theDict, const char *a2, uint64_t a3, CFErrorRef *a4)
 {
-  v68[0] = 0;
-  v69[0] = off_1A98C0;
-  memset(&v69[1], 0, 48);
+  v25[0] = 0;
+  v26[0] = off_1A98C0;
+  memset(&v26[1], 0, 48);
   if (!a2)
   {
     return 0;
@@ -1739,7 +1778,7 @@ uint64_t ramrod_load_sep_os_and_patch_from_filesystem(CFDictionaryRef theDict, c
 
   else
   {
-    *(&v69[0] + 1) = "--preflight";
+    *(&v26[0] + 1) = "--preflight";
     v11 = 2;
   }
 
@@ -1761,74 +1800,74 @@ uint64_t ramrod_load_sep_os_and_patch_from_filesystem(CFDictionaryRef theDict, c
     v12 = "--load";
   }
 
-  *(v69 + v11) = v12;
+  *(v26 + v11) = v12;
   v13 = v11 + 2;
-  *(v69 + v11 + 1) = a2;
+  *(v26 + v11 + 1) = a2;
   if (a3)
   {
-    *(v69 + v13) = "--patches";
+    *(v26 + v13) = "--patches";
     v13 = v11 | 4;
-    *(&v69[1] + v11 + 1) = a3;
+    *(&v26[1] + v11 + 1) = a3;
   }
 
-  if (_ramrod_device_has_sandcat())
+  if (_ramrod_device_has_sandcat(v10, a2))
   {
-    v67 = 2;
-    v21 = CFStringCreateWithCString(kCFAllocatorDefault, a2, 0x8000100u);
-    v68[1] = 0;
-    if (v21)
+    v24 = 2;
+    v14 = CFStringCreateWithCString(kCFAllocatorDefault, a2, 0x8000100u);
+    v25[1] = 0;
+    if (v14)
     {
-      if (CFURLCreateWithFileSystemPath(kCFAllocatorDefault, v21, kCFURLPOSIXPathStyle, 0))
+      if (CFURLCreateWithFileSystemPath(kCFAllocatorDefault, v14, kCFURLPOSIXPathStyle, 0))
       {
         AMSupportCreateDataFromMappedFileURL();
-        ramrod_log_msg("WARNING: failed to open path %s with error: %d\n", v29, v30, v31, v32, v33, v34, v35, a2);
+        ramrod_log_msg("WARNING: failed to open path %s with error: %d\n");
       }
 
       else
       {
-        ramrod_log_msg("WARNING: failed to create path URL from: %s.\n", v22, v23, v24, v25, v26, v27, v28, a2);
+        ramrod_log_msg("WARNING: failed to create path URL from: %s.\n");
       }
     }
 
     else
     {
-      ramrod_log_msg("WARNING: failed to create path string from: %s.\n", v14, v15, v16, v17, v18, v19, v20, a2);
+      ramrod_log_msg("WARNING: failed to create path string from: %s.\n", a2);
     }
 
     AMSupportSafeRelease();
     AMSupportSafeRelease();
     AMSupportSafeRelease();
-    ramrod_log_msg("Warning: No snid stitched to sep being loaded, will attempt to use flashing slot as proxy.\n", v36, v37, v38, v39, v40, v41, v42, v66);
-    v67 = dword_1C4800;
-    asprintf(v68, "--slot=%d", dword_1C4800);
-    if (!v68[0])
+    ramrod_log_msg("Warning: No snid stitched to sep being loaded, will attempt to use flashing slot as proxy.\n");
+    v24 = dword_1C4800;
+    asprintf(v25, "--slot=%d", dword_1C4800);
+    if (!v25[0])
     {
-      v57 = __error();
-      ramrod_log_msg("unable to load sepos because sandcat slot print failed. error: %d\n", v58, v59, v60, v61, v62, v63, v64, *v57);
+      v22 = __error();
+      ramrod_log_msg("unable to load sepos because sandcat slot print failed. error: %d\n", *v22);
       goto LABEL_27;
     }
 
-    *(v69 + v13) = v68[0];
+    *(v26 + v13) = v25[0];
   }
 
-  v43 = ramrod_execute_command(v69);
-  if (!v43)
+  v15 = ramrod_execute_command(v26);
+  if (!v15)
   {
-    v56 = 1;
+    v21 = 1;
     goto LABEL_28;
   }
 
-  ramrod_log_msg("seputil failure when attempting to load the SEP OS firmware: %d\n", v44, v45, v46, v47, v48, v49, v50, v43);
-  sub_44A2C(a4, @"RamrodErrorDomain", v51, v52, @"%s: seputil failed when attempting to load the SEP OS firmware: %d", v53, v54, v55, "ramrod_load_sep_os_and_patch_from_filesystem");
+  ramrod_log_msg("seputil failure when attempting to load the SEP OS firmware: %d\n", v15);
+  sub_44A2C(a4, @"RamrodErrorDomain", v16, v17, @"%s: seputil failed when attempting to load the SEP OS firmware: %d", v18, v19, v20, "ramrod_load_sep_os_and_patch_from_filesystem");
 LABEL_27:
-  v56 = 0;
+  v21 = 0;
 LABEL_28:
-  if (v68[0])
+  if (v25[0])
   {
-    free(v68[0]);
+    free(v25[0]);
   }
 
-  return v56;
+  return v21;
 }
 
 void *_ramrod_copy_update_firmware_info(uint64_t a1)
@@ -1866,108 +1905,107 @@ void *_ramrod_copy_update_firmware_info(uint64_t a1)
   return v2;
 }
 
-uint64_t sub_D7964(uint64_t a1, uint64_t (**a2)(void), uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_D7964(uint64_t a1, uint64_t (**a2)(void), const __CFDictionary *a3)
 {
-  ramrod_log_msg("Step 1: Writing out individual EAN keys.\n", a2, a3, a4, a5, a6, a7, a8, v37);
-  v10 = a2[9](a3);
-  v15 = v10;
-  if (v10)
+  ramrod_log_msg("Step 1: Writing out individual EAN keys.\n");
+  v5 = (a2)[9](a3);
+  v6 = v5;
+  if (v5)
   {
-    if (sub_33250(v10, a2, a3, 1, v11, v12, v13, v14))
+    if (sub_33250(v5, a2, a3, 1))
     {
-      ramrod_log_msg("Step 2: Clean up any orphaned keys that moved from EAN to iBootEAN.\n", v16, v17, v18, v19, v20, v21, v22, v38);
-      v23 = a2[11](a3);
-      v31 = v23;
-      if (v23)
+      ramrod_log_msg("Step 2: Clean up any orphaned keys that moved from EAN to iBootEAN.\n");
+      v7 = (a2)[11](a3);
+      v8 = v7;
+      if (v7)
       {
-        if (CFDictionaryGetCount(v23) >= 1 && !sub_4412C(v31, v15))
+        if (CFDictionaryGetCount(v7) >= 1 && !sub_4412C(v8, v6))
         {
           goto LABEL_15;
         }
 
-        ramrod_log_msg("Step 3: Clean up any orphaned keys that moved from EAN to iBootNonEssentialEAN.\n", v24, v25, v26, v27, v28, v29, v30, v38);
-        v32 = a2[12](a3);
-        v33 = v32;
-        if (!v32)
+        ramrod_log_msg("Step 3: Clean up any orphaned keys that moved from EAN to iBootNonEssentialEAN.\n");
+        v9 = (a2)[12](a3);
+        v10 = v9;
+        if (!v9)
         {
-          v34 = 1;
-          v35 = "copy_ibne_data returned NULL.\n";
+          v11 = 1;
+          ramrod_log_msg("copy_ibne_data returned NULL.\n");
           goto LABEL_10;
         }
 
-        if (CFDictionaryGetCount(v32) >= 1 && !sub_4412C(v33, v15))
+        if (CFDictionaryGetCount(v9) >= 1 && !sub_4412C(v10, v6))
         {
 LABEL_15:
-          v34 = 1;
-          v35 = "_cleanup_ibfw failure.\n";
+          v11 = 1;
+          ramrod_log_msg("_cleanup_ibfw failure.\n");
           goto LABEL_10;
         }
 
-        v34 = 1;
-        v35 = "All Done.\n";
+        v11 = 1;
+        ramrod_log_msg("All Done.\n");
       }
 
       else
       {
-        v34 = 1;
-        v35 = "copy_ibfw_data returned NULL.\n";
+        v11 = 1;
+        ramrod_log_msg("copy_ibfw_data returned NULL.\n");
       }
     }
 
     else
     {
       sub_44A78();
-      v34 = 0;
-      v35 = "_write_ean failure.\n";
+      v11 = 0;
+      ramrod_log_msg("_write_ean failure.\n");
     }
   }
 
   else
   {
     sub_44A78();
-    v34 = 0;
-    v35 = "copy_ean_data returned NULL.\n";
+    v11 = 0;
+    ramrod_log_msg("copy_ean_data returned NULL.\n");
   }
 
 LABEL_10:
-  ramrod_log_msg(v35, v24, v25, v26, v27, v28, v29, v30, v38);
   AMSupportSafeRelease();
   AMSupportSafeRelease();
   AMSupportSafeRelease();
   AMSupportSafeRelease();
-  return v34;
+  return v11;
 }
 
-uint64_t ramrod_unarchive_dir(uint64_t a1, const __CFData *a2)
+uint64_t ramrod_unarchive_dir(const char *a1, const __CFData *a2)
 {
-  bzero(&v22, 0x98uLL);
-  v20 = 0;
-  v21 = 0;
-  v11 = 0xFFFFFFFFLL;
+  bzero(&v9, 0x98uLL);
+  v7 = 0;
+  v8 = 0;
+  v4 = 0xFFFFFFFFLL;
   if (a1 && a2)
   {
     if (CFDataGetLength(a2) < 1)
     {
-      v11 = 0xFFFFFFFFLL;
+      v4 = 0xFFFFFFFFLL;
     }
 
     else
     {
-      CFDataGetLength(a2);
-      ramrod_log_msg("[%s] extracting archive (%lu bytes) to dir '%s'\n", v12, v13, v14, v15, v16, v17, v18, "ramrod_unarchive_dir");
-      bzero(&v22, 0x98uLL);
-      v20 = a2;
-      v21 = 0;
-      v22 = 1;
-      v23 = a1;
-      v24 = sub_D7BBC;
-      v25 = &v20;
-      v11 = ParallelArchiveExtract();
+      Length = CFDataGetLength(a2);
+      ramrod_log_msg("[%s] extracting archive (%lu bytes) to dir '%s'\n", "ramrod_unarchive_dir", Length, a1);
+      bzero(&v9, 0x98uLL);
+      v7 = a2;
+      v8 = 0;
+      v9 = 1;
+      v10 = a1;
+      v11 = sub_D7BBC;
+      v12 = &v7;
+      v4 = ParallelArchiveExtract();
     }
   }
 
-  ramrod_log_msg("[%s] result = %d\n", v4, v5, v6, v7, v8, v9, v10, "ramrod_unarchive_dir");
-  return v11;
+  ramrod_log_msg("[%s] result = %d\n", "ramrod_unarchive_dir", v4);
+  return v4;
 }
 
 CFIndex sub_D7BBC(uint64_t a1, UInt8 *a2, CFIndex a3)
@@ -1984,7 +2022,7 @@ CFIndex sub_D7BBC(uint64_t a1, UInt8 *a2, CFIndex a3)
         {
           v8 = *(a1 + 8);
           Length = CFDataGetLength(v7);
-          ramrod_log_msg("[%s] [num bytes to read = %llu] [byte offset: %lu] [length: %lu]\n", v10, v11, v12, v13, v14, v15, v16, "_read_data");
+          ramrod_log_msg("[%s] [num bytes to read = %llu] [byte offset: %lu] [length: %lu]\n", "_read_data", a3, v8, Length);
           if (Length - v8 >= a3)
           {
             v3 = a3;
@@ -1995,9 +2033,9 @@ CFIndex sub_D7BBC(uint64_t a1, UInt8 *a2, CFIndex a3)
             v3 = Length - v8;
           }
 
-          v18.location = v8;
-          v18.length = v3;
-          CFDataGetBytes(*a1, v18, a2);
+          v11.location = v8;
+          v11.length = v3;
+          CFDataGetBytes(*a1, v11, a2);
           *(a1 + 8) += v3;
         }
       }
@@ -2009,21 +2047,21 @@ CFIndex sub_D7BBC(uint64_t a1, UInt8 *a2, CFIndex a3)
 
 uint64_t sub_D7C6C(int a1, const __CFData *a2, CFErrorRef *a3)
 {
-  bzero(&v42, 0x90uLL);
-  if (fstat(a1, &v42))
+  bzero(&v37, 0x90uLL);
+  if (fstat(a1, &v37))
   {
-    v30 = *__error();
-    v31 = __error();
-    strerror(*v31);
-    ramrod_create_error_cf(a3, kCFErrorDomainPOSIX, v30, 0, @"%s: Error calling fstat() on fd: err='%s'", v32, v33, v34, "write_data_to_fd");
+    v25 = *__error();
+    v26 = __error();
+    strerror(*v26);
+    ramrod_create_error_cf(a3, kCFErrorDomainPOSIX, v25, 0, @"%s: Error calling fstat() on fd: err='%s'", v27, v28, v29, "write_data_to_fd");
     return 0;
   }
 
-  st_blksize = v42.st_blksize;
-  if (!v42.st_blksize)
+  st_blksize = v37.st_blksize;
+  if (!v37.st_blksize)
   {
-    v35 = sub_44A44();
-    ramrod_create_error_cf(v35, v36, 2, 0, v37, v38, v39, v40, v41);
+    v30 = sub_44A44();
+    ramrod_create_error_cf(v30, v31, 2, 0, v32, v33, v34, v35, v36);
     return 0;
   }
 
@@ -2031,10 +2069,10 @@ uint64_t sub_D7C6C(int a1, const __CFData *a2, CFErrorRef *a3)
   v8 = v7 & ~(v7 >> 63);
   Length = CFDataGetLength(a2);
   sub_44A64();
-  ramrod_log_msg("%s: length=%ld, preferred_block_size=%lu, next_io_size=%lu\n", v10, v11, v12, v13, v14, v15, v16, "write_data_to_fd");
-  v17 = valloc(st_blksize);
-  bzero(v17, st_blksize);
-  if (!v17)
+  ramrod_log_msg("%s: length=%ld, preferred_block_size=%lu, next_io_size=%lu\n", "write_data_to_fd", v10, st_blksize, v11);
+  v12 = valloc(st_blksize);
+  bzero(v12, st_blksize);
+  if (!v12)
   {
     return 0;
   }
@@ -2042,64 +2080,74 @@ uint64_t sub_D7C6C(int a1, const __CFData *a2, CFErrorRef *a3)
   if (Length < 1)
   {
 LABEL_12:
-    v23 = 1;
+    v18 = 1;
   }
 
   else
   {
-    v18 = Length;
+    v13 = Length;
     while (1)
     {
       sub_44A64();
-      v20 = v18 >= v19 ? v19 : v18;
-      v43.location = Length - v18;
-      v43.length = v20;
-      CFDataGetBytes(a2, v43, v17);
-      v21 = write(a1, v17, v20);
-      if (v21 == -1)
+      v15 = v13 >= v14 ? v14 : v13;
+      v38.location = Length - v13;
+      v38.length = v15;
+      CFDataGetBytes(a2, v38, v12);
+      v16 = write(a1, v12, v15);
+      if (v16 == -1)
       {
         break;
       }
 
-      v8 += v21;
-      v22 = v18 <= v21;
-      v18 -= v21;
-      if (v22)
+      v8 += v16;
+      v17 = v13 <= v16;
+      v13 -= v16;
+      if (v17)
       {
         goto LABEL_12;
       }
     }
 
-    v25 = *__error();
-    v26 = __error();
-    strerror(*v26);
-    ramrod_create_error_cf(a3, kCFErrorDomainPOSIX, v25, 0, @"%s: Error writing to fd: err='%s'", v27, v28, v29, "write_data_to_fd");
-    v23 = 0;
+    v20 = *__error();
+    v21 = __error();
+    strerror(*v21);
+    ramrod_create_error_cf(a3, kCFErrorDomainPOSIX, v20, 0, @"%s: Error writing to fd: err='%s'", v22, v23, v24, "write_data_to_fd");
+    v18 = 0;
   }
 
-  free(v17);
-  return v23;
+  free(v12);
+  return v18;
 }
 
-void sub_D7EC4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_D7EC4()
 {
-  ramrod_log_msg("failed to skip from nvmefwupdater\n", a2, a3, a4, a5, a6, a7, a8, v16);
-  v8 = sub_44A44();
-  sub_44A2C(v8, v9, v10, v11, v12, v13, v14, v15, v17);
+  ramrod_log_msg("failed to skip from nvmefwupdater\n");
+  v0 = sub_44A44();
+  sub_44A2C(v0, v1, v2, v3, v4, v5, v6, v7, v8);
 }
 
-void sub_D7F80(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_D7F80()
 {
-  ramrod_log_msg("failed to create nvmefwupdater config dict\n", a2, a3, a4, a5, a6, a7, a8, v14);
-  v8 = sub_44A44();
-  ramrod_create_error_cf(v8, v9, 6, 0, v10, v11, v12, v13, v15);
+  ramrod_log_msg("failed to create nvmefwupdater config dict\n");
+  v0 = sub_44A44();
+  ramrod_create_error_cf(v0, v1, 6, 0, v2, v3, v4, v5, v6);
 }
 
-void sub_D7FE0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_D7FE0(char a1)
 {
-  ramrod_log_msg("invalid arguments for %s: only %s specified (text and data both required)\n", a2, a3, a4, a5, a6, a7, a8, "/usr/bin/nvmefwupdater");
-  v8 = sub_44A44();
-  ramrod_create_error_cf(v8, v9, 1018, 0, v10, v11, v12, v13, v14);
+  if (a1)
+  {
+    v1 = "phy_text";
+  }
+
+  else
+  {
+    v1 = "phy_data";
+  }
+
+  ramrod_log_msg("invalid arguments for %s: only %s specified (text and data both required)\n", "/usr/bin/nvmefwupdater", v1);
+  v2 = sub_44A44();
+  ramrod_create_error_cf(v2, v3, 1018, 0, v4, v5, v6, v7, v8);
 }
 
 void sub_D83C8(CFErrorRef *a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -2111,14 +2159,14 @@ void sub_D83C8(CFErrorRef *a1, const void *a2, uint64_t a3, uint64_t a4, uint64_
 
 void sub_D854C(const void *a1)
 {
-  AMSupportLogInternal();
+  AMSupportLogInternal(3, "ramrod_update_copy_all_names", "Updater entry is NULL, Error.");
 
   CFRelease(a1);
 }
 
 void sub_D85AC(const void *a1)
 {
-  AMSupportLogInternal();
+  AMSupportLogInternal(3, "ramrod_update_copy_booted_updater_names", "Updater entry is NULL, Error.");
 
   CFRelease(a1);
 }
@@ -2126,32 +2174,32 @@ void sub_D85AC(const void *a1)
 void sub_D8670()
 {
   sub_44A50();
-  AMSupportLogInternal();
-  ramrod_create_error_cf(v1, v0, 1013, *v2, @"%s: Preflight Create failed on %s", v3, v4, v5, "ramrod_update_copy_deviceinfo_with_options");
+  AMSupportLogInternal(3, "ramrod_update_copy_deviceinfo_with_options", "fp_create failed on %s. error=%@", v4, *v3);
+  ramrod_create_error_cf(v1, v0, 1013, *v2, @"%s: Preflight Create failed on %s", v5, v6, v7, "ramrod_update_copy_deviceinfo_with_options");
 }
 
 void sub_D86EC()
 {
   sub_44A50();
-  AMSupportLogInternal();
-  ramrod_create_error_cf(v1, v0, 1016, *v2, @"%s: Exceeded maximum loops for %s", v3, v4, v5, "ramrod_update_copy_deviceinfo_with_options");
+  AMSupportLogInternal(3, "ramrod_update_copy_deviceinfo_with_options", "Exceeded maximum loops (%d) for %s. error=%@", 1024, v3);
+  ramrod_create_error_cf(v1, v0, 1016, *v2, @"%s: Exceeded maximum loops for %s", v4, v5, v6, "ramrod_update_copy_deviceinfo_with_options");
 }
 
-uint64_t sub_D9034(const char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_D9034(const char *a1, void *a2)
 {
-  ramrod_log_msg(a1, a2, a3, a4, a5, a6, a7, a8, v9);
+  ramrod_log_msg(a1);
   AMSupportSafeRelease();
   return AMSupportSafeRelease();
 }
 
-void sub_D95CC(const char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_D95CC(const char *a1, uint64_t a2, uint64_t a3)
 {
-  ramrod_log_msg(a1, a2, a3, a4, a5, a6, a7, a8, v21);
+  ramrod_log_msg(a1);
   AMSupportSafeRelease();
   AMSupportSafeRelease();
-  ramrod_log_msg("Failed to write staged FDR EAN key.\n", v8, v9, v10, v11, v12, v13, v14, v22);
-  v15 = sub_44A44();
-  ramrod_create_error_cf(v15, v16, 1023, 0, v17, v18, v19, v20, v23);
+  ramrod_log_msg("Failed to write staged FDR EAN key.\n");
+  v3 = sub_44A44();
+  ramrod_create_error_cf(v3, v4, 1023, 0, v5, v6, v7, v8, v9);
 }
 
 void sub_D9650()
@@ -2175,30 +2223,30 @@ uint64_t sub_D9854(const __CFData *a1, CFDataRef *a2, int a3)
   v8 = IOServiceMatching("IOAESAccelerator");
   if (!v8)
   {
-    ramrod_log_msg("Could not allocate matching dict for kIOAESAcceleratorClass", v9, v10, v11, v12, v13, v14, v15, v59);
+    ramrod_log_msg("Could not allocate matching dict for kIOAESAcceleratorClass");
     return 0;
   }
 
-  v16 = v8;
+  v9 = v8;
   CFRetain(v8);
-  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v16);
+  MatchingService = IOServiceGetMatchingService(kIOMasterPortDefault, v9);
   if (!MatchingService)
   {
-    ramrod_log_msg("Could not find kIOAESAcceleratorClass", v18, v19, v20, v21, v22, v23, v24, v59);
-    CFRelease(v16);
+    ramrod_log_msg("Could not find kIOAESAcceleratorClass");
+    CFRelease(v9);
     return 0;
   }
 
-  v25 = MatchingService;
-  v26 = IOServiceOpen(MatchingService, mach_task_self_, 0, connect);
-  if (v26)
+  v11 = MatchingService;
+  v12 = IOServiceOpen(MatchingService, mach_task_self_, 0, connect);
+  if (v12)
   {
-    ramrod_log_msg("Return %d trying to open kIOAESAcceleratorClass", v27, v28, v29, v30, v31, v32, v33, v26);
+    ramrod_log_msg("Return %d trying to open kIOAESAcceleratorClass", v12);
   }
 
-  CFRelease(v16);
-  IOObjectRelease(v25);
-  v34 = connect[0];
+  CFRelease(v9);
+  IOObjectRelease(v11);
+  v13 = connect[0];
   if (!connect[0])
   {
     return 0;
@@ -2209,118 +2257,114 @@ uint64_t sub_D9854(const __CFData *a1, CFDataRef *a2, int a3)
     if (v7)
     {
       BytePtr = CFDataGetBytePtr(a1);
-      v36 = sub_452C8((v7 + 19) & 0x1FFFFFFF0);
-      if (v36)
+      v15 = sub_452C8((v7 + 19) & 0x1FFFFFFF0);
+      if (v15)
       {
-        v37 = v36;
-        *v36 = v7;
-        memcpy(v36 + 1, BytePtr, v7);
+        v16 = v15;
+        *v15 = v7;
+        memcpy(v15 + 1, BytePtr, v7);
         v7 = (v7 + 19) & 0x1FFFFFFF0;
         goto LABEL_14;
       }
     }
 
-    goto LABEL_25;
-  }
-
-  if (v7 < 5 || (v38 = CFDataGetBytePtr(a1), (v39 = sub_452C8(v7)) == 0))
-  {
-LABEL_25:
-    IOServiceClose(v34);
-    return 0;
-  }
-
-  v37 = v39;
-  memcpy(v39, v38, v7);
-LABEL_14:
-  v40 = sub_452C8(v7);
-  v41 = v40;
-  if (!v40)
-  {
-LABEL_24:
-    v53 = 0;
-    goto LABEL_33;
-  }
-
-  v71 = 0;
-  outputStructCnt = 88;
-  if (a3)
-  {
-    v42 = v37;
-  }
-
-  else
-  {
-    v42 = v40;
-  }
-
-  if (a3)
-  {
-    v43 = v40;
-  }
-
-  else
-  {
-    v43 = v37;
-  }
-
-  *connect = v42;
-  v62 = v43;
-  v63 = v7;
-  v65 = 0;
-  v64 = 0;
-  v66 = a3 ^ 1;
-  v67 = 128;
-  v68 = 0u;
-  v69 = 0u;
-  v70 = 2108;
-  v44 = IOConnectCallStructMethod(v34, 1u, connect, 0x58uLL, connect, &outputStructCnt);
-  if (v44)
-  {
-    v59 = v44;
-    v52 = "perform aes => %d";
-LABEL_23:
-    ramrod_log_msg(v52, v45, v46, v47, v48, v49, v50, v51, v59);
     goto LABEL_24;
   }
 
+  if (v7 < 5 || (v17 = CFDataGetBytePtr(a1), (v18 = sub_452C8(v7)) == 0))
+  {
+LABEL_24:
+    IOServiceClose(v13);
+    return 0;
+  }
+
+  v16 = v18;
+  memcpy(v18, v17, v7);
+LABEL_14:
+  v19 = sub_452C8(v7);
+  v20 = v19;
+  if (!v19)
+  {
+LABEL_23:
+    v23 = 0;
+    goto LABEL_32;
+  }
+
+  v40 = 0;
+  outputStructCnt = 88;
   if (a3)
   {
-    v54 = kCFAllocatorDefault;
-    v55 = v41;
-    v56 = v7;
+    v21 = v16;
   }
 
   else
   {
-    v56 = *v41;
-    if (v7 - 4 < v56)
-    {
-      goto LABEL_24;
-    }
-
-    v54 = kCFAllocatorDefault;
-    v55 = v41 + 4;
+    v21 = v19;
   }
 
-  v57 = CFDataCreate(v54, v55, v56);
-  *a2 = v57;
-  if (!v57)
+  if (a3)
   {
-    v52 = "Unable to allocate return crypto CFData";
+    v22 = v19;
+  }
+
+  else
+  {
+    v22 = v16;
+  }
+
+  *connect = v21;
+  v31 = v22;
+  v32 = v7;
+  v34 = 0;
+  v33 = 0;
+  v35 = a3 ^ 1;
+  v36 = 128;
+  v37 = 0u;
+  v38 = 0u;
+  v39 = 2108;
+  if (IOConnectCallStructMethod(v13, 1u, connect, 0x58uLL, connect, &outputStructCnt))
+  {
+    ramrod_log_msg("perform aes => %d");
     goto LABEL_23;
   }
 
-  v53 = 1;
-LABEL_33:
-  IOServiceClose(v34);
-  free(v37);
-  if (v41)
+  if (a3)
   {
-    free(v41);
+    v24 = kCFAllocatorDefault;
+    v25 = v20;
+    v26 = v7;
   }
 
-  return v53;
+  else
+  {
+    v26 = *v20;
+    if (v7 - 4 < v26)
+    {
+      goto LABEL_23;
+    }
+
+    v24 = kCFAllocatorDefault;
+    v25 = v20 + 4;
+  }
+
+  v27 = CFDataCreate(v24, v25, v26);
+  *a2 = v27;
+  if (!v27)
+  {
+    ramrod_log_msg("Unable to allocate return crypto CFData");
+    goto LABEL_23;
+  }
+
+  v23 = 1;
+LABEL_32:
+  IOServiceClose(v13);
+  free(v16);
+  if (v20)
+  {
+    free(v20);
+  }
+
+  return v23;
 }
 
 void sub_D9B14(void *a1, _OWORD *a2)
@@ -2331,8 +2375,17 @@ void sub_D9B14(void *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  sub_EAB4();
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  sub_EAB4(v5, v2, v3, v4, &dword_0);
   _os_crash_msg();
   __break(1u);
 }
@@ -2345,8 +2398,17 @@ void sub_D9BC4(void *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  sub_EAB4();
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  sub_EAB4(v5, v2, v3, v4, &dword_0);
   _os_crash_msg();
   __break(1u);
 }
@@ -2356,7 +2418,7 @@ void sub_D9E68(void *a1, _OWORD *a2)
   sub_13494(a1, a2);
   sub_134AC();
   sub_EAD8();
-  sub_57C98();
+  sub_57C98(v3, a1, v4, v5, &dword_0);
   _os_crash_msg();
   __break(1u);
 }
@@ -2366,7 +2428,7 @@ void sub_D9F00(void *a1, _OWORD *a2)
   sub_13494(a1, a2);
   sub_134AC();
   sub_EAD8();
-  sub_57C98();
+  sub_57C98(v3, a1, v4, v5, &dword_0);
   _os_crash_msg();
   __break(1u);
 }
@@ -2376,7 +2438,7 @@ void sub_D9F84(void *a1, _OWORD *a2)
   sub_13494(a1, a2);
   sub_134AC();
   sub_EAD8();
-  sub_57C98();
+  sub_57C98(v3, a1, v4, v5, &dword_0);
   _os_crash_msg();
   __break(1u);
 }
@@ -2390,10 +2452,19 @@ void sub_DA008(const char *a1, void *a2, _OWORD *a3)
   a3[2] = 0u;
   a3[3] = 0u;
   a3[4] = 0u;
-  sub_134AC();
-  v5 = __error();
-  strerror(*v5);
-  sub_57C98();
+  if (sub_134AC())
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  v6 = __error();
+  strerror(*v6);
+  sub_57C98(v5, a2, v7, v8, &dword_0);
   _os_crash_msg();
   __break(1u);
 }
@@ -2435,16 +2506,16 @@ const __CFArray *wait_for_io_service_matching_any_dict(const __CFArray *result, 
 
 LABEL_10:
       v9 = CFCopyDescription(v3);
-      v23 = 0;
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
-      v20 = 0u;
+      v16 = 0;
+      v14 = 0u;
+      v15 = 0u;
+      v12 = 0u;
+      v13 = 0u;
       *buffer = 0u;
-      v18 = 0u;
+      v11 = 0u;
       if (CFStringGetCString(v9, buffer, 100, 0x8000100u))
       {
-        ramrod_log_msg("waiting for matching IOKit service: %s\n", v10, v11, v12, v13, v14, v15, v16, buffer);
+        ramrod_log_msg("waiting for matching IOKit service: %s\n", buffer);
       }
 
       CFRelease(v9);
@@ -2558,7 +2629,7 @@ LABEL_12:
   return v17;
 }
 
-uint64_t sub_DA4F0(void **a1, unint64_t a2, char *a3, unsigned __int8 **a4, unint64_t a5)
+uint64_t sub_DA4F0(char **a1, unint64_t a2, char *a3, unsigned __int8 **a4, unint64_t a5)
 {
   v7 = *a1;
   v8 = *a4;

@@ -245,7 +245,7 @@
 
     _os_log_impl(&dword_1DB56E000, v18, OS_LOG_TYPE_DEFAULT, v17, v30, v19);
 LABEL_28:
-    [(VCVideoCapture *)self cleanupSinkEntry:v7, *v30, *&v30[16], v31, selfCopy3, *v33];
+    [(VCVideoCapture *)self cleanupSinkEntry:v7, *v30, *&v30[8], v31, selfCopy3, *v33, *&v33[8]];
     free(v7);
     goto LABEL_29;
   }

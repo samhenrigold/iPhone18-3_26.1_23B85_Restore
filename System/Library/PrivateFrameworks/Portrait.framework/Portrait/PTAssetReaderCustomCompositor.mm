@@ -45,7 +45,7 @@
     v9 = [PTAssetReaderComposedFrame alloc];
     if (requestCopy)
     {
-      [requestCopy compositionTime];
+      objc_msgSend_compositionTime(requestCopy);
     }
 
     else

@@ -33,7 +33,7 @@
     v18 = [TSDLayoutGeometry alloc];
     if (layoutCopy)
     {
-      [layoutCopy computedTransform];
+      objc_msgSend_computedTransform(layoutCopy);
     }
 
     else

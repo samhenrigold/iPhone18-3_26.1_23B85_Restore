@@ -43,21 +43,21 @@
 - (BMPostSiriEngagementEvent)initWithUISessionId:(id)id domain:(id)domain action:(id)action isPostSiriEngagement:(BOOL)engagement pseDeltaDuration:(double)duration pseDeltaSinceUIStart:(double)start pseDeltaSinceUIEnd:(double)end pseContents:(id)self0
 {
   engagementCopy = engagement;
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   idCopy = id;
   domainCopy = domain;
   actionCopy = action;
   contentsCopy = contents;
-  v52.receiver = self;
-  v52.super_class = BMPostSiriEngagementEvent;
-  v23 = [(BMEventBase *)&v52 init];
+  v51.receiver = self;
+  v51.super_class = BMPostSiriEngagementEvent;
+  v23 = [(BMEventBase *)&v51 init];
   v24 = v23;
   if (v23)
   {
-    v44 = engagementCopy;
-    v45 = actionCopy;
-    v46 = domainCopy;
-    v47 = idCopy;
+    v43 = engagementCopy;
+    v44 = actionCopy;
+    v45 = domainCopy;
+    v46 = idCopy;
     objc_storeStrong(&v23->_UISessionID, id);
     taskID = v24->_taskID;
     v24->_taskID = 0;
@@ -71,28 +71,28 @@
     v24->_hasTaskSuccess = 0;
     v24->_hasIsUserAbandoned = 0;
     v24->_hasIsUserCancelled = 0;
-    v43 = [[BMPostSiriEngagementEventSignalDeltaEvent alloc] initWithDuration:duration sinceUIEnd:end sinceUIStart:start];
+    v42 = [[BMPostSiriEngagementEventSignalDeltaEvent alloc] initWithDuration:duration sinceUIEnd:end sinceUIStart:start];
     v28 = objc_opt_new();
+    v47 = 0u;
     v48 = 0u;
     v49 = 0u;
     v50 = 0u;
-    v51 = 0u;
     v29 = contentsCopy;
-    v30 = [v29 countByEnumeratingWithState:&v48 objects:v54 count:16];
+    v30 = [v29 countByEnumeratingWithState:&v47 objects:v53 count:16];
     if (v30)
     {
       v31 = v30;
-      v32 = *v49;
+      v32 = *v48;
       do
       {
         for (i = 0; i != v31; ++i)
         {
-          if (*v49 != v32)
+          if (*v48 != v32)
           {
             objc_enumerationMutation(v29);
           }
 
-          v34 = *(*(&v48 + 1) + 8 * i);
+          v34 = *(*(&v47 + 1) + 8 * i);
           v35 = [BMPostSiriEngagementEventSignalContent alloc];
           v36 = [v29 objectForKeyedSubscript:v34];
           v37 = [(BMPostSiriEngagementEventSignalContent *)v35 initWithKey:v34 value:v36];
@@ -100,24 +100,23 @@
           [v28 addObject:v37];
         }
 
-        v31 = [v29 countByEnumeratingWithState:&v48 objects:v54 count:16];
+        v31 = [v29 countByEnumeratingWithState:&v47 objects:v53 count:16];
       }
 
       while (v31);
     }
 
-    actionCopy = v45;
-    domainCopy = v46;
-    v38 = [[BMPostSiriEngagementEventSignal alloc] initWithDomain:v46 action:v45 isPostSiriEngagement:v44 pseDelta:v43 pseContents:v28];
-    v53 = v38;
-    v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v53 count:1];
+    actionCopy = v44;
+    domainCopy = v45;
+    v38 = [[BMPostSiriEngagementEventSignal alloc] initWithDomain:v45 action:v44 isPostSiriEngagement:v43 pseDelta:v42 pseContents:v28];
+    v52 = v38;
+    v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v52 count:1];
     pseEvents = v24->_pseEvents;
     v24->_pseEvents = v39;
 
-    idCopy = v47;
+    idCopy = v46;
   }
 
-  v41 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
@@ -461,7 +460,7 @@ LABEL_78:
 
 - (void)writeTo:(id)to
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_UISessionID)
   {
@@ -485,54 +484,49 @@ LABEL_78:
 
   if (self->_hasTaskSuccess)
   {
-    taskSuccess = self->_taskSuccess;
     PBDataWriterWriteUint32Field();
   }
 
   if (self->_hasIsUserAbandoned)
   {
-    isUserAbandoned = self->_isUserAbandoned;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasIsUserCancelled)
   {
-    isUserCancelled = self->_isUserCancelled;
     PBDataWriterWriteBOOLField();
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v8 = self->_pseEvents;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v9)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v5 = self->_pseEvents;
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v6)
   {
-    v10 = v9;
-    v11 = *v16;
+    v7 = v6;
+    v8 = *v12;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v11)
+        if (*v12 != v8)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v5);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v11 + 1) + 8 * i);
         PBDataWriterPlaceMark();
-        [v13 writeTo:toCopy];
+        [v10 writeTo:toCopy];
         PBDataWriterRecallMark();
       }
 
-      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v10);
+    while (v7);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

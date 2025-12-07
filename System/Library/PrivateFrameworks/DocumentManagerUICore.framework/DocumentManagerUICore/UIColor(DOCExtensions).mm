@@ -28,12 +28,11 @@
 
 - (id)_doc_invertedColor
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 0u;
-  *v5 = 0u;
-  [self getRed:&v4 green:&v4 + 8 blue:v5 alpha:&v5[1]];
-  v1 = [MEMORY[0x277D75348] colorWithRed:1.0 - *&v4 green:1.0 - *(&v4 + 1) blue:1.0 - v5[0] alpha:v5[1]];
-  v2 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 0u;
+  *v4 = 0u;
+  [self getRed:&v3 green:&v3 + 8 blue:v4 alpha:&v4[1]];
+  v1 = [MEMORY[0x277D75348] colorWithRed:1.0 - *&v3 green:1.0 - *(&v3 + 1) blue:1.0 - v4[0] alpha:v4[1]];
 
   return v1;
 }

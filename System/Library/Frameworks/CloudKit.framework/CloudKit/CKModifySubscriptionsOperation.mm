@@ -25,7 +25,7 @@
 
 - (void)perSubscriptionSaveBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -61,7 +61,7 @@
 
 - (void)modifySubscriptionsCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -144,7 +144,7 @@
 - (void)setPerSubscriptionSaveBlock:(void *)perSubscriptionSaveBlock
 {
   v6 = perSubscriptionSaveBlock;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -176,7 +176,7 @@ LABEL_9:
 - (void)setPerSubscriptionDeleteBlock:(void *)perSubscriptionDeleteBlock
 {
   v6 = perSubscriptionDeleteBlock;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -207,7 +207,7 @@ LABEL_9:
 
 - (void)perSubscriptionDeleteBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -244,7 +244,7 @@ LABEL_9:
 - (void)setModifySubscriptionsCompletionBlockIVar:(id)var
 {
   varCopy = var;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -344,29 +344,29 @@ LABEL_9:
 
 - (BOOL)CKOperationShouldRun:(id *)run
 {
-  v86 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
   v4 = objc_opt_new();
+  v79 = 0u;
   v80 = 0u;
   v81 = 0u;
   v82 = 0u;
-  v83 = 0u;
   v7 = objc_msgSend_subscriptionsToSave(self, v5, v6);
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v80, v85, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v79, v84, 16);
   if (v9)
   {
     v10 = v9;
-    v11 = *v81;
+    v11 = *v80;
     do
     {
       v12 = 0;
       do
       {
-        if (*v81 != v11)
+        if (*v80 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v80 + 1) + 8 * v12);
+        v13 = *(*(&v79 + 1) + 8 * v12);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -443,7 +443,7 @@ LABEL_9:
       }
 
       while (v10 != v12);
-      v38 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v37, &v80, v85, 16);
+      v38 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v37, &v79, v84, 16);
       v10 = v38;
     }
 
@@ -451,29 +451,29 @@ LABEL_9:
   }
 
   v7 = objc_opt_new();
+  v75 = 0u;
   v76 = 0u;
   v77 = 0u;
   v78 = 0u;
-  v79 = 0u;
   v41 = objc_msgSend_subscriptionIDsToDelete(self, v39, v40);
-  v43 = objc_msgSend_countByEnumeratingWithState_objects_count_(v41, v42, &v76, v84, 16);
+  v43 = objc_msgSend_countByEnumeratingWithState_objects_count_(v41, v42, &v75, v83, 16);
   if (!v43)
   {
     goto LABEL_29;
   }
 
   v44 = v43;
-  v45 = *v77;
+  v45 = *v76;
   while (2)
   {
     for (i = 0; i != v44; ++i)
     {
-      if (*v77 != v45)
+      if (*v76 != v45)
       {
         objc_enumerationMutation(v41);
       }
 
-      v47 = *(*(&v76 + 1) + 8 * i);
+      v47 = *(*(&v75 + 1) + 8 * i);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -516,7 +516,7 @@ LABEL_42:
       objc_msgSend_addObject_(v7, v50, v47);
     }
 
-    v44 = objc_msgSend_countByEnumeratingWithState_objects_count_(v41, v51, &v76, v84, 16);
+    v44 = objc_msgSend_countByEnumeratingWithState_objects_count_(v41, v51, &v75, v83, 16);
     if (v44)
     {
       continue;
@@ -535,16 +535,16 @@ LABEL_29:
     goto LABEL_46;
   }
 
-  v70 = objc_msgSend_subscriptionIDsToDelete(self, v57, v58);
-  v73 = objc_msgSend_count(v70, v71, v72);
+  v69 = objc_msgSend_subscriptionIDsToDelete(self, v57, v58);
+  v72 = objc_msgSend_count(v69, v70, v71);
 
   runCopy4 = run;
-  if (v73)
+  if (v72)
   {
 LABEL_46:
-    v75.receiver = self;
-    v75.super_class = CKModifySubscriptionsOperation;
-    v63 = [(CKDatabaseOperation *)&v75 CKOperationShouldRun:runCopy4];
+    v74.receiver = self;
+    v74.super_class = CKModifySubscriptionsOperation;
+    v63 = [(CKDatabaseOperation *)&v74 CKOperationShouldRun:runCopy4];
     goto LABEL_44;
   }
 
@@ -552,13 +552,12 @@ LABEL_43:
   v63 = 0;
 LABEL_44:
 
-  v68 = *MEMORY[0x1E69E9840];
   return v63;
 }
 
 - (void)handleSubscriptionSaveForSubscriptionID:(id)d error:(id)error
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v9 = objc_msgSend_CKClientSuitableError(error, v7, v8);
   if (self)
@@ -605,11 +604,11 @@ LABEL_44:
 
       if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
       {
-        v46 = 138412546;
-        v47 = dCopy;
-        v48 = 2112;
-        v49 = v9;
-        _os_signpost_emit_with_name_impl(&dword_1883EA000, v18, OS_SIGNPOST_EVENT, v23, "CKModifySubscriptionsOperation", "Subscription %@ saved with error: %@", &v46, 0x16u);
+        v45 = 138412546;
+        v46 = dCopy;
+        v47 = 2112;
+        v48 = v9;
+        _os_signpost_emit_with_name_impl(&dword_1883EA000, v18, OS_SIGNPOST_EVENT, v23, "CKModifySubscriptionsOperation", "Subscription %@ saved with error: %@", &v45, 0x16u);
       }
     }
 
@@ -661,9 +660,9 @@ LABEL_44:
 
       if (v36 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
       {
-        v46 = 138412290;
-        v47 = dCopy;
-        _os_signpost_emit_with_name_impl(&dword_1883EA000, v31, OS_SIGNPOST_EVENT, v36, "CKModifySubscriptionsOperation", "Subscription %@ saved", &v46, 0xCu);
+        v45 = 138412290;
+        v46 = dCopy;
+        _os_signpost_emit_with_name_impl(&dword_1883EA000, v31, OS_SIGNPOST_EVENT, v36, "CKModifySubscriptionsOperation", "Subscription %@ saved", &v45, 0xCu);
       }
     }
 
@@ -708,13 +707,11 @@ LABEL_44:
   {
     v43[2](v43, dCopy, v26, v9);
   }
-
-  v45 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleSubscriptionDeleteForSubscriptionID:(id)d error:(id)error
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v9 = objc_msgSend_CKClientSuitableError(error, v7, v8);
   if (self)
@@ -772,8 +769,8 @@ LABEL_44:
       goto LABEL_21;
     }
 
-    *v48 = 138412290;
-    *&v48[4] = dCopy;
+    *v47 = 138412290;
+    *&v47[4] = dCopy;
     v24 = "Subscription %@ deleted";
     v25 = v18;
     v26 = v36;
@@ -819,16 +816,16 @@ LABEL_44:
 
   if ((v23 - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
-    *v48 = 138412546;
-    *&v48[4] = dCopy;
-    *&v48[12] = 2112;
-    *&v48[14] = v9;
+    *v47 = 138412546;
+    *&v47[4] = dCopy;
+    *&v47[12] = 2112;
+    *&v47[14] = v9;
     v24 = "Subscription %@ deleted with error: %@";
     v25 = v18;
     v26 = v23;
     v27 = 22;
 LABEL_20:
-    _os_signpost_emit_with_name_impl(&dword_1883EA000, v25, OS_SIGNPOST_EVENT, v26, "CKModifySubscriptionsOperation", v24, v48, v27);
+    _os_signpost_emit_with_name_impl(&dword_1883EA000, v25, OS_SIGNPOST_EVENT, v26, "CKModifySubscriptionsOperation", v24, v47, v27);
   }
 
 LABEL_21:
@@ -840,12 +837,12 @@ LABEL_21:
 LABEL_28:
       if (self)
       {
-        objc_msgSend_addObject_(self->_deletedSubscriptionIDs, v39, dCopy, *v48, *&v48[8], v49);
+        objc_msgSend_addObject_(self->_deletedSubscriptionIDs, v39, dCopy, *v47, *&v47[8], v48);
       }
 
       else
       {
-        objc_msgSend_addObject_(0, v39, dCopy, *v48, *&v48[8], v49);
+        objc_msgSend_addObject_(0, v39, dCopy, *v47, *&v47[8], v48);
       }
 
       goto LABEL_30;
@@ -854,17 +851,17 @@ LABEL_28:
 LABEL_25:
     if (self)
     {
-      objc_msgSend_setObject_forKeyedSubscript_(self->_subscriptionErrors, v39, v9, dCopy, *v48, *&v48[16], v49);
+      objc_msgSend_setObject_forKeyedSubscript_(self->_subscriptionErrors, v39, v9, dCopy, *v47, *&v47[8], v48);
     }
 
     else
     {
-      objc_msgSend_setObject_forKeyedSubscript_(0, v39, v9, dCopy, *v48, *&v48[16], v49);
+      objc_msgSend_setObject_forKeyedSubscript_(0, v39, v9, dCopy, *v47, *&v47[8], v48);
     }
   }
 
 LABEL_30:
-  v41 = objc_msgSend_perSubscriptionDeleteBlock_wrapper(self, v39, v40, *v48, *&v48[8]);
+  v41 = objc_msgSend_perSubscriptionDeleteBlock_wrapper(self, v39, v40, *v47, *&v47[8]);
   v44 = v41;
   if (v41)
   {
@@ -881,8 +878,6 @@ LABEL_30:
   {
     v45[2](v45, dCopy, v9);
   }
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finishOnCallbackQueueWithError:(id)error
@@ -1013,7 +1008,7 @@ LABEL_30:
 
 - (void)ckSignpostBegin
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if (self)
   {
     signpost = self->super.super._signpost;
@@ -1066,28 +1061,26 @@ LABEL_30:
       v36 = CKStringForDiscretionaryNetworkBehavior(v35);
       v39 = objc_msgSend_qualityOfService(self, v37, v38);
       v41 = CKStringForQOS(v39, v40);
-      v43 = 138413570;
-      v44 = v17;
-      v45 = 2112;
-      v46 = v20;
-      v47 = 2112;
-      v48 = v26;
-      v49 = 2114;
-      v50 = v29;
-      v51 = 2114;
-      v52 = v36;
-      v53 = 2114;
-      v54 = v41;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKModifySubscriptionsOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v43, 0x3Eu);
+      v42 = 138413570;
+      v43 = v17;
+      v44 = 2112;
+      v45 = v20;
+      v46 = 2112;
+      v47 = v26;
+      v48 = 2114;
+      v49 = v29;
+      v50 = 2114;
+      v51 = v36;
+      v52 = 2114;
+      v53 = v41;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKModifySubscriptionsOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v42, 0x3Eu);
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ckSignpostEndWithError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -1131,13 +1124,11 @@ LABEL_30:
 
     if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
-      v18 = 138412290;
-      v19 = errorCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKModifySubscriptionsOperation", "Error=%{signpost.description:attribute}@ ", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = errorCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKModifySubscriptionsOperation", "Error=%{signpost.description:attribute}@ ", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)activityCreate

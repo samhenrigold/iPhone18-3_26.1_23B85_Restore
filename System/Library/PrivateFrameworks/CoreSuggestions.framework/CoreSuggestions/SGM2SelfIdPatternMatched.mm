@@ -4,6 +4,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)nameClassAsString:(int)string;
+- (id)patternTypeAsString:(int)string;
 - (int)StringAsNameClass:(id)class;
 - (int)StringAsPatternType:(id)type;
 - (int)nameClass;
@@ -331,32 +333,30 @@ LABEL_11:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 8) != 0)
   {
-    patternType = self->_patternType;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_patternHash)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    nameTokens = self->_nameTokens;
     PBDataWriterWriteUint32Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -375,15 +375,13 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  nameClass = self->_nameClass;
   PBDataWriterWriteInt32Field();
-  toCopy = v10;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_10:
-    messageIndex = self->_messageIndex;
     PBDataWriterWriteUint32Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_11:
@@ -518,6 +516,21 @@ LABEL_16:
   return v4;
 }
 
+- (id)nameClassAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7EFABA8[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasNameClass:(BOOL)class
 {
   if (class)
@@ -572,6 +585,29 @@ LABEL_16:
   else
   {
     v4 = [typeCopy isEqualToString:@"SGMSIPatternTypeSelfIdRequest"];
+  }
+
+  return v4;
+}
+
+- (id)patternTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"SGMSIPatternTypeSelfIdRequest";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"SGMSIPatternTypeSelfId";
   }
 
   return v4;

@@ -576,7 +576,7 @@
     v5 = +[IDSLogging IDSDevice];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_195B26A7C();
+      sub_195B26A7C(self, v5);
     }
 
     selfCopy = 0;
@@ -621,7 +621,7 @@
     v5 = +[IDSLogging IDSDevice];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_195B26A7C();
+      sub_195B26A7C(self, v5);
     }
 
     selfCopy = 0;

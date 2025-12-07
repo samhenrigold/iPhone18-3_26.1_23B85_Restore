@@ -77,7 +77,7 @@
   WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector<WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> WTF::makeVector<WTF::String>(NSArray *)::{lambda(unsigned long)#1}>(v30, v17, &v38, 0);
   if (view)
   {
-    [view _page];
+    objc_msgSend__page(view);
   }
 
   v18 = WebCore::UserStyleSheet::UserStyleSheet();

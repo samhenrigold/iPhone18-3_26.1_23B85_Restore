@@ -18,7 +18,7 @@
 
 - (id)wf_fileRepresentation
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E69E0AF8];
   typeIdentifier = [self typeIdentifier];
   v4 = [v2 typeWithString:typeIdentifier];
@@ -30,7 +30,7 @@
     if ([self _hasAssociatedAuditToken])
     {
       fileURL2 = [self fileURL];
-      [self _associatedAuditToken];
+      objc_msgSend__associatedAuditToken(self);
       v7 = [fileURL2 wf_sandboxAllowsReadingFileWithAuditToken:buf];
 
       if (!v7)
@@ -74,9 +74,9 @@
     v20 = objc_opt_class();
     _itemProviderRequestMetadata2 = [selfCopy _itemProviderRequestMetadata];
     metadata2 = [_itemProviderRequestMetadata2 metadata];
-    v29 = 0;
-    v23 = [v19 unarchivedObjectOfClass:v20 fromData:metadata2 error:&v29];
-    v24 = v29;
+    v28 = 0;
+    v23 = [v19 unarchivedObjectOfClass:v20 fromData:metadata2 error:&v28];
+    v24 = v28;
 
     if (v23)
     {
@@ -89,9 +89,9 @@
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v31 = "WFItemProviderRequestMetadataWithINFile";
-        v32 = 2112;
-        v33 = v24;
+        v30 = "WFItemProviderRequestMetadataWithINFile";
+        v31 = 2112;
+        v32 = v24;
         _os_log_impl(&dword_1CA256000, v26, OS_LOG_TYPE_ERROR, "%s Could not unarchive item provider metadata with error: %@", buf, 0x16u);
       }
     }
@@ -104,8 +104,6 @@
 
   [v12 setMetadata:v23];
 LABEL_18:
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -150,7 +148,7 @@ LABEL_18:
 
 + (id)compatibleFileTypeForContentItem:()Workflow availableTypes:
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a4;
   preferredFileType = [v5 preferredFileType];
@@ -161,26 +159,26 @@ LABEL_18:
 
   else
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     supportedTypes = [v5 supportedTypes];
-    v10 = [supportedTypes countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v10 = [supportedTypes countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(supportedTypes);
           }
 
-          v14 = *(*(&v18 + 1) + 8 * i);
+          v14 = *(*(&v17 + 1) + 8 * i);
           if (v14)
           {
             objc_opt_class();
@@ -209,7 +207,7 @@ LABEL_18:
           }
         }
 
-        v11 = [supportedTypes countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [supportedTypes countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v11)
         {
           continue;
@@ -224,14 +222,12 @@ LABEL_18:
 
 LABEL_18:
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 + (void)coerceContentItems:()Workflow toSupportedUTIs:completion:
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v8 = a4;
   v9 = a5;
   v10 = a3;
@@ -244,36 +240,35 @@ LABEL_18:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315650;
-    v32 = "+[INFile(Workflow) coerceContentItems:toSupportedUTIs:completion:]";
-    v33 = 2114;
-    v34 = v8;
-    v35 = 2114;
-    v36 = v14;
+    v31 = "+[INFile(Workflow) coerceContentItems:toSupportedUTIs:completion:]";
+    v32 = 2114;
+    v33 = v8;
+    v34 = 2114;
+    v35 = v14;
     _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_DEBUG, "%s Mapped UTIs: %{public}@ to content items: %{public}@", buf, 0x20u);
   }
 
   v16 = MEMORY[0x1E6996CF0];
   array = [v14 array];
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __66__INFile_Workflow__coerceContentItems_toSupportedUTIs_completion___block_invoke_200;
-  v25[3] = &unk_1E837E410;
-  v27 = v9;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __66__INFile_Workflow__coerceContentItems_toSupportedUTIs_completion___block_invoke_200;
+  v24[3] = &unk_1E837E410;
+  v26 = v9;
   selfCopy = self;
-  v26 = v11;
+  v25 = v11;
   v18 = v11;
   v19 = v9;
-  v20 = [v16 requestForCoercingToContentClasses:array completionHandler:v25];
+  v20 = [v16 requestForCoercingToContentClasses:array completionHandler:v24];
 
   v21 = MEMORY[0x1E6996CE8];
-  v29 = *MEMORY[0x1E6997008];
-  v30 = *MEMORY[0x1E69970C0];
-  v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+  v28 = *MEMORY[0x1E6997008];
+  v29 = *MEMORY[0x1E69970C0];
+  v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
   v23 = [v21 optionsWithDictionary:v22];
   [v20 setOptions:v23];
 
   [v10 performCoercion:v20];
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 + (void)coerceContentItemsIfAppropriate:()Workflow toSupportedUTIs:withParameterStates:dynamicOptions:completion:
@@ -294,7 +289,7 @@ LABEL_18:
 
 + (void)getINFileRepresentationsFromContent:()Workflow byCoercingToSupportedUTIs:withParameterState:dynamicOptions:completion:
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v12 = a3;
   v13 = a4;
   v14 = a5;
@@ -323,8 +318,8 @@ LABEL_18:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v26[0] = v14;
-      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
+      v25[0] = v14;
+      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
     }
 
     else
@@ -333,22 +328,20 @@ LABEL_18:
     }
   }
 
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __127__INFile_Workflow__getINFileRepresentationsFromContent_byCoercingToSupportedUTIs_withParameterState_dynamicOptions_completion___block_invoke;
-  v23[3] = &unk_1E837F020;
-  v24 = v19;
-  v25 = v15;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __127__INFile_Workflow__getINFileRepresentationsFromContent_byCoercingToSupportedUTIs_withParameterState_dynamicOptions_completion___block_invoke;
+  v22[3] = &unk_1E837F020;
+  v23 = v19;
+  v24 = v15;
   v20 = v19;
   v21 = v15;
-  [self coerceContentItemsIfAppropriate:v12 toSupportedUTIs:v13 withParameterStates:v20 dynamicOptions:a6 completion:v23];
-
-  v22 = *MEMORY[0x1E69E9840];
+  [self coerceContentItemsIfAppropriate:v12 toSupportedUTIs:v13 withParameterStates:v20 dynamicOptions:a6 completion:v22];
 }
 
 + (uint64_t)wf_processParameterValue:()Workflow parameterState:coerceToSupportedUTIs:array:dynamicOptions:completionHandler:
 {
-  v55[1] = *MEMORY[0x1E69E9840];
+  v53[1] = *MEMORY[0x1E69E9840];
   v14 = a3;
   v15 = a4;
   v16 = a5;
@@ -358,23 +351,23 @@ LABEL_18:
   aBlock[2] = __121__INFile_Workflow__wf_processParameterValue_parameterState_coerceToSupportedUTIs_array_dynamicOptions_completionHandler___block_invoke;
   aBlock[3] = &unk_1E837E310;
   v18 = v17;
-  v52 = v18;
-  v53 = a6;
+  v50 = v18;
+  v51 = a6;
   v19 = _Block_copy(aBlock);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v20 = MEMORY[0x1E6996D40];
     [MEMORY[0x1E6996D58] itemWithFile:v14];
-    v45 = v14;
+    v43 = v14;
     v21 = v18;
     v22 = a7;
     v23 = v19;
     v24 = v16;
     v26 = v25 = v15;
-    v55[0] = v26;
+    v53[0] = v26;
     v27 = 1;
-    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:1];
+    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:1];
     v29 = [v20 collectionWithItems:v28];
 
     v15 = v25;
@@ -382,7 +375,7 @@ LABEL_18:
     v19 = v23;
     v30 = v22;
     v18 = v21;
-    v14 = v45;
+    v14 = v43;
     [self getINFileRepresentationsFromContent:v29 byCoercingToSupportedUTIs:v16 withParameterState:v15 dynamicOptions:v30 completion:v23];
 
     goto LABEL_11;
@@ -425,43 +418,42 @@ LABEL_10:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v46 = v15;
-    v49 = 0u;
-    v50 = 0u;
+    v44 = v15;
     v47 = 0u;
     v48 = 0u;
-    v38 = v14;
-    v39 = [v38 countByEnumeratingWithState:&v47 objects:v54 count:16];
-    if (v39)
+    v45 = 0u;
+    v46 = 0u;
+    v37 = v14;
+    v38 = [v37 countByEnumeratingWithState:&v45 objects:v52 count:16];
+    if (v38)
     {
-      v40 = v39;
-      v41 = *v48;
+      v39 = v38;
+      v40 = *v46;
       while (2)
       {
-        v42 = 0;
+        v41 = 0;
         do
         {
-          if (*v48 != v41)
+          if (*v46 != v40)
           {
-            objc_enumerationMutation(v38);
+            objc_enumerationMutation(v37);
           }
 
-          v43 = *(*(&v47 + 1) + 8 * v42);
-          v44 = objc_opt_class();
-          if (v44 == objc_opt_class())
+          v42 = objc_opt_class();
+          if (v42 == objc_opt_class())
           {
-            (*(v18 + 2))(v18, v38, 0);
+            (*(v18 + 2))(v18, v37, 0);
 
             v27 = 1;
             goto LABEL_24;
           }
 
-          ++v42;
+          ++v41;
         }
 
-        while (v40 != v42);
-        v40 = [v38 countByEnumeratingWithState:&v47 objects:v54 count:16];
-        if (v40)
+        while (v39 != v41);
+        v39 = [v37 countByEnumeratingWithState:&v45 objects:v52 count:16];
+        if (v39)
         {
           continue;
         }
@@ -472,7 +464,7 @@ LABEL_10:
 
     v27 = 0;
 LABEL_24:
-    v15 = v46;
+    v15 = v44;
   }
 
   else
@@ -482,7 +474,6 @@ LABEL_24:
 
 LABEL_11:
 
-  v36 = *MEMORY[0x1E69E9840];
   return v27;
 }
 

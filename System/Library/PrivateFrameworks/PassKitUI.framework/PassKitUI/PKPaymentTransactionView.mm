@@ -766,15 +766,15 @@ void __57__PKPaymentTransactionView__updateImageViewDynamicColors__block_invoke(
 {
   if (self->_showsAvatarView)
   {
-    [(PKPaymentTransactionView *)self setPrimaryImage:0];
+    v3 = [(PKPaymentTransactionView *)self setPrimaryImage:0];
     if (self->_avatarView)
     {
       return;
     }
 
-    v3 = [objc_alloc(getCNAvatarViewClass_0[0]()) initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
+    v4 = [objc_alloc(getCNAvatarViewClass_0(v3)) initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
     avatarView = self->_avatarView;
-    self->_avatarView = v3;
+    self->_avatarView = v4;
 
     [(CNAvatarView *)self->_avatarView setUserInteractionEnabled:0];
     [(CNAvatarView *)self->_avatarView setAsynchronousRendering:1];
@@ -784,14 +784,14 @@ void __57__PKPaymentTransactionView__updateImageViewDynamicColors__block_invoke(
 
   else
   {
-    v5 = self->_avatarView;
-    if (!v5)
+    v6 = self->_avatarView;
+    if (!v6)
     {
       return;
     }
 
-    [(CNAvatarView *)v5 removeFromSuperview];
-    v6 = self->_avatarView;
+    [(CNAvatarView *)v6 removeFromSuperview];
+    v7 = self->_avatarView;
     self->_avatarView = 0;
   }
 
@@ -904,20 +904,23 @@ void __57__PKPaymentTransactionView__updateImageViewDynamicColors__block_invoke(
   {
     font = [(UILabel *)self->_transactionValueLabel font];
     [font lineHeight];
-    [font capHeight];
-    [font descender];
-    PKFloatRoundToPixel();
     v13 = v12;
+    [font capHeight];
+    v15 = v13 - v14;
+    [font descender];
+    v17.n128_f64[0] = v15 + v16;
+    PKFloatRoundToPixel(v17, v18);
+    v20 = v19;
 
-    v14 = 16.0;
-    v15 = 12.0;
+    v21 = 16.0;
+    v22 = 12.0;
   }
 
   else
   {
     text = [(UILabel *)self->_primaryLabel text];
-    v13 = 0.0;
-    v17 = 0.0;
+    v20 = 0.0;
+    v24 = 0.0;
     if ([text length])
     {
       text2 = [(UILabel *)self->_secondaryLabel text];
@@ -926,338 +929,409 @@ void __57__PKPaymentTransactionView__updateImageViewDynamicColors__block_invoke(
         text3 = [(UILabel *)self->_tertiaryLabel text];
         if ([text3 length])
         {
-          v17 = 0.0;
+          v24 = 0.0;
         }
 
         else
         {
-          v17 = 9.0;
+          v24 = 9.0;
         }
       }
     }
 
-    v14 = v17 + 16.0;
-    v15 = v17 + 12.0;
+    v21 = v24 + 16.0;
+    v22 = v24 + 12.0;
   }
 
   text4 = [(UILabel *)self->_badgeLabel text];
-  v158 = [text4 length];
+  v412 = [text4 length];
 
   isHidden = [(UIImageView *)self->_bonusImageView isHidden];
   isHidden2 = [(UIImageView *)self->_transactionCategoryImageView isHidden];
   if (isHidden2)
   {
-    v21 = *MEMORY[0x1E695F060];
-    v148 = *(MEMORY[0x1E695F060] + 8);
+    v28 = *MEMORY[0x1E695F060];
+    v400 = *(MEMORY[0x1E695F060] + 8);
   }
 
   else
   {
     traitCollection = [(PKPaymentTransactionView *)self traitCollection];
-    v21 = PKTransactionCategoryImageSizeForTraitCollection(traitCollection);
-    v148 = v23;
+    v28 = PKTransactionCategoryImageSizeForTraitCollection(traitCollection);
+    v400 = v30;
   }
 
   memset(&slice, 0, sizeof(slice));
-  v24 = v14;
-  v25 = y + v14;
-  v156 = width;
-  v157 = y;
-  v26 = width + -32.0;
-  v149 = v24;
-  v150 = v15;
-  v27 = height - (v15 + v24);
+  v31 = v21;
+  v32 = y + v21;
+  v410 = width;
+  v411 = y;
+  v33 = width + -32.0;
+  v401 = v31;
+  v402 = v22;
+  v34 = height - (v22 + v31);
   remainder.origin.x = x + 16.0;
-  remainder.origin.y = v25;
-  remainder.size.width = v26;
-  remainder.size.height = v27;
-  v151 = x;
+  remainder.origin.y = v32;
+  remainder.size.width = v33;
+  remainder.size.height = v34;
+  v403 = x;
   if (!_shouldUseStackedLayout)
   {
     text5 = [(UILabel *)self->_tertiaryLabel text];
-    v34 = [text5 length];
+    v50 = [text5 length];
 
-    if (v34)
+    if (v50)
     {
-      PKContentAlignmentMake();
+      v393 = PKContentAlignmentMake();
+    }
+
+    else
+    {
+      v393 = *MEMORY[0x1E69BB7F8];
     }
 
     if (!self->_allowPrimaryStringExpansion)
     {
-      goto LABEL_36;
+      goto LABEL_37;
     }
 
     p_primaryLabel = &self->_primaryLabel;
     text6 = [(UILabel *)self->_primaryLabel text];
     if (!text6)
     {
-      goto LABEL_36;
+      goto LABEL_37;
     }
 
-    v37 = text6;
+    v53 = text6;
     text7 = [(UILabel *)self->_secondaryLabel text];
     if (text7)
     {
-      v39 = text7;
+      v55 = text7;
       text8 = [(UILabel *)self->_tertiaryLabel text];
 
       if (text8)
       {
-LABEL_36:
-        p_primaryLabel = &self->_primaryLabel;
-        v41 = 1;
 LABEL_37:
-        [(UILabel *)*p_primaryLabel setNumberOfLines:v41];
-        v152 = *(MEMORY[0x1E695F058] + 16);
-        v154 = *MEMORY[0x1E695F058];
-        v167.origin = *MEMORY[0x1E695F058];
-        v167.size = v152;
+        p_primaryLabel = &self->_primaryLabel;
+        v57 = 1;
+LABEL_38:
+        [(UILabel *)*p_primaryLabel setNumberOfLines:v57];
+        v404 = *(MEMORY[0x1E695F058] + 16);
+        v407 = *MEMORY[0x1E695F058];
+        v421.origin = *MEMORY[0x1E695F058];
+        v421.size = v404;
         if (self->_avatarView || self->_primaryImage && self->_primaryImageView)
         {
-          v172.origin.x = x + 16.0;
-          v172.origin.y = v25;
-          v172.size.width = v26;
-          v172.size.height = v27;
-          CGRectDivide(v172, &v167, &remainder, 38.0, v9);
+          v426.origin.x = x + 16.0;
+          v426.origin.y = v32;
+          v426.size.width = v33;
+          v426.size.height = v34;
+          CGRectDivide(v426, &v421, &remainder, 38.0, v9);
           CGRectDivide(remainder, &slice, &remainder, 13.0, v9);
-          v26 = remainder.size.width;
-          v27 = remainder.size.height;
+          v33 = remainder.size.width;
+          v34 = remainder.size.height;
         }
 
-        v166.origin = v154;
-        v166.size = v152;
-        [(UIImageView *)self->_disclosureView sizeThatFits:v26, v27];
-        CGRectDivide(remainder, &v166, &remainder, v42, v10);
+        v420.origin = v407;
+        v420.size = v404;
+        [(UIImageView *)self->_disclosureView sizeThatFits:v33, v34];
+        v388 = v59;
+        v389 = *&v58;
+        CGRectDivide(remainder, &v420, &remainder, v58, v10);
         CGRectDivide(remainder, &slice, &remainder, 8.0, v10);
         [(UILabel *)self->_transactionValueLabel sizeThatFits:remainder.size.width, remainder.size.height];
-        v45 = v44;
-        v47 = v46;
-        if (v158)
+        v62 = v61;
+        v64 = v63;
+        if (v412)
         {
           [(UILabel *)self->_badgeLabel sizeThatFits:remainder.size.width, remainder.size.height];
-          v43 = v48 + 10.0;
+          v60 = v65 + 10.0;
           if (self->_hideBadgeBackground)
           {
-            v50 = v49;
+            v67 = v66;
           }
 
           else
           {
-            v50 = 18.0;
+            v67 = 18.0;
           }
 
           if (self->_hideBadgeBackground)
           {
-            v51 = v48;
+            v68 = v65;
           }
 
           else
           {
-            v51 = v48 + 10.0;
+            v68 = v65 + 10.0;
           }
         }
 
         else
         {
-          v51 = *MEMORY[0x1E695F060];
-          v50 = *(MEMORY[0x1E695F060] + 8);
+          v68 = *MEMORY[0x1E695F060];
+          v67 = *(MEMORY[0x1E695F060] + 8);
         }
 
         if (isHidden)
         {
-          v52 = *MEMORY[0x1E695F060];
-          v53 = *(MEMORY[0x1E695F060] + 8);
+          v69 = *MEMORY[0x1E695F060];
+          v70 = *(MEMORY[0x1E695F060] + 8);
         }
 
         else
         {
-          [(UIImageView *)self->_bonusImageView sizeThatFits:remainder.size.width, remainder.size.height, v43];
+          [(UIImageView *)self->_bonusImageView sizeThatFits:remainder.size.width, remainder.size.height, v60];
         }
 
-        v54 = 18.0;
-        if (v50 != 0.0)
+        v71 = 18.0;
+        if (v67 != 0.0)
         {
-          v54 = v50;
+          v71 = v67;
         }
 
-        v142 = v52 + 6.0;
+        v390 = *&v71;
+        v391 = v69 + 6.0;
         if (!isHidden)
         {
-          v53 = v54;
+          v70 = v71;
         }
 
-        v144 = v53;
+        v394 = v70;
         if (!isHidden)
         {
-          v52 = v52 + 6.0;
+          v69 = v69 + 6.0;
         }
 
-        v143 = v51;
-        v55 = fmax(v45, v21 + v51 + v52 + 6.0);
-        v56 = remainder.size.width - v55 + -10.0;
-        v165.origin = v154;
-        v165.size = v152;
-        CGRectDivide(remainder, &v165, &remainder, v55, v10);
-        rect.origin = v154;
-        rect.size = v152;
-        CGRectDivide(remainder, &rect, &remainder, v56, v9);
+        v392 = v68;
+        v72 = fmax(v62, v28 + v68 + v69 + 6.0);
+        v73 = remainder.size.width - v72 + -10.0;
+        v419.origin = v407;
+        v419.size = v404;
+        CGRectDivide(remainder, &v419, &remainder, v72, v10);
+        rect.origin = v407;
+        rect.size = v404;
+        CGRectDivide(remainder, &rect, &remainder, v73, v9);
         [(UILabel *)self->_primaryLabel sizeThatFits:rect.size.width, rect.size.height];
-        v58 = v57;
+        v395 = v74;
+        v76 = v75;
         [(UILabel *)self->_secondaryLabel sizeThatFits:rect.size.width, rect.size.height];
-        v60 = v59;
+        v396 = v77;
+        v79 = v78;
         text9 = [(UILabel *)self->_tertiaryLabel text];
-        v146 = v21;
+        v398 = v28;
         if ([text9 length])
         {
           [(UILabel *)self->_tertiaryLabel sizeThatFits:rect.size.width, rect.size.height];
-          v63 = v62;
+          v82 = v81;
+          v84 = v83;
         }
 
         else
         {
-          v63 = *(MEMORY[0x1E695F060] + 8);
+          v82 = *MEMORY[0x1E695F060];
+          v84 = *(MEMORY[0x1E695F060] + 8);
         }
 
-        v64 = fmax(v58, 0.0);
-        v65 = -0.0;
-        if (v60 > 0.0)
+        v85 = fmax(v76, 0.0);
+        v86 = -0.0;
+        if (v79 > 0.0)
         {
-          v65 = v60;
+          v86 = v79;
         }
 
-        v66 = v64 + v65;
-        if (v63 > 0.0)
+        v87 = v85 + v86;
+        if (v84 > 0.0)
         {
-          v66 = v66 + v63;
+          v87 = v87 + v84;
         }
 
-        v67 = fmax(v66, v47 + fmax(v50, v148));
-        rect.size.height = v67;
-        v68 = v67;
+        v88 = fmax(v87, v64 + fmax(v67, *&v400));
+        rect.size.height = v88;
+        v89 = v88;
         if (!self->_isTemplateLayout)
         {
+          v387 = v82;
           font2 = [(UILabel *)self->_transactionValueLabel font];
           [font2 lineHeight];
-          v71 = v70;
+          v92 = v91;
 
           if (self->_showsDisclosureView)
           {
-            memset(&v163, 0, sizeof(v163));
-            CGRectDivide(v166, &v166, &v163, v71, CGRectMinYEdge);
+            memset(&v417, 0, sizeof(v417));
+            CGRectDivide(v420, &v420, &v417, v92, CGRectMinYEdge);
             disclosureView = self->_disclosureView;
-            PKContentAlignmentMake();
-            PKSizeAlignedInRect();
+            v94 = PKContentAlignmentMake();
+            v95.n128_u64[0] = *&v420.origin.x;
+            v96.n128_u64[0] = *&v420.origin.y;
+            v97.n128_u64[0] = *&v420.size.width;
+            v98.n128_u64[0] = *&v420.size.height;
+            v100.n128_u64[0] = v388;
+            v99.n128_u64[0] = v389;
+            PKSizeAlignedInRect(v94, v99, v100, v95, v96, v97, v98, v101);
             [(UIImageView *)disclosureView setFrame:?];
           }
 
-          CGRectDivide(v165, &slice, &v165, v71, CGRectMinYEdge);
+          CGRectDivide(v419, &slice, &v419, v92, CGRectMinYEdge);
           transactionValueLabel = self->_transactionValueLabel;
-          PKContentAlignmentMake();
-          PKSizeAlignedInRect();
+          v103 = PKContentAlignmentMake();
+          v104.n128_u64[0] = *&slice.origin.x;
+          v105.n128_u64[0] = *&slice.origin.y;
+          v106.n128_u64[0] = *&slice.size.width;
+          v107.n128_u64[0] = *&slice.size.height;
+          v108.n128_f64[0] = v62;
+          v109.n128_f64[0] = v64;
+          PKSizeAlignedInRect(v103, v108, v109, v104, v105, v106, v107, v110);
           [(UILabel *)transactionValueLabel setFrame:?];
-          CGRectDivide(v165, &slice, &v165, 2.0, CGRectMinYEdge);
-          v163.origin = v154;
-          v163.size = v152;
-          CGRectDivide(v165, &v163, &v165, fmax(fmax(v50, v144), v148), CGRectMinYEdge);
-          if (v158)
+          CGRectDivide(v419, &slice, &v419, 2.0, CGRectMinYEdge);
+          v417.origin = v407;
+          v417.size = v404;
+          CGRectDivide(v419, &v417, &v419, fmax(fmax(v67, v394), *&v400), CGRectMinYEdge);
+          if (v412)
           {
-            CGRectDivide(v163, &slice, &v163, v143, v10);
+            CGRectDivide(v417, &slice, &v417, v392, v10);
             badgeLabel = self->_badgeLabel;
-            PKContentAlignmentMake();
-            PKSizeAlignedInRect();
+            v112 = PKContentAlignmentMake();
+            v113.n128_u64[0] = *&slice.origin.x;
+            v114.n128_u64[0] = *&slice.origin.y;
+            v115.n128_u64[0] = *&slice.size.width;
+            v116.n128_u64[0] = *&slice.size.height;
+            v117.n128_f64[0] = v392;
+            v118.n128_f64[0] = v67;
+            PKSizeAlignedInRect(v112, v117, v118, v113, v114, v115, v116, v119);
             [(UILabel *)badgeLabel setFrame:?];
-            CGRectDivide(v163, &slice, &v163, 6.0, v10);
+            CGRectDivide(v417, &slice, &v417, 6.0, v10);
           }
 
+          v82 = v387;
           if ((isHidden & 1) == 0)
           {
-            CGRectDivide(v163, &slice, &v163, v142, v10);
+            CGRectDivide(v417, &slice, &v417, v391, v10);
             bonusImageView = self->_bonusImageView;
-            PKContentAlignmentMake();
-            PKSizeAlignedInRect();
+            v121 = PKContentAlignmentMake();
+            v122.n128_u64[0] = *&slice.origin.x;
+            v123.n128_u64[0] = *&slice.origin.y;
+            v124.n128_u64[0] = *&slice.size.width;
+            v125.n128_u64[0] = *&slice.size.height;
+            v126.n128_f64[0] = v391;
+            v127.n128_u64[0] = v390;
+            PKSizeAlignedInRect(v121, v126, v127, v122, v123, v124, v125, v128);
             [(UIImageView *)bonusImageView setFrame:?];
-            CGRectDivide(v163, &slice, &v163, 6.0, v10);
+            CGRectDivide(v417, &slice, &v417, 6.0, v10);
           }
 
           if ((isHidden2 & 1) == 0)
           {
-            CGRectDivide(v163, &slice, &v163, v146, v10);
+            CGRectDivide(v417, &slice, &v417, v398, v10);
             transactionCategoryImageView = self->_transactionCategoryImageView;
-            PKContentAlignmentMake();
-            PKSizeAlignedInRect();
+            v130 = PKContentAlignmentMake();
+            v131.n128_u64[0] = *&slice.origin.x;
+            v132.n128_u64[0] = *&slice.origin.y;
+            v133.n128_u64[0] = *&slice.size.width;
+            v134.n128_u64[0] = *&slice.size.height;
+            v135.n128_f64[0] = v398;
+            v136.n128_u64[0] = v400;
+            PKSizeAlignedInRect(v130, v135, v136, v131, v132, v133, v134, v137);
             [(UIImageView *)transactionCategoryImageView setFrame:?];
           }
 
-          v68 = rect.size.height;
+          v89 = rect.size.height;
         }
 
-        memset(&v163, 0, sizeof(v163));
-        v77 = rect.origin.y;
-        v78 = rect.origin.x;
-        v79 = rect.size.width;
-        CGRectDivide(*(&v68 - 3), &v163, &rect, v58, CGRectMinYEdge);
+        memset(&v417, 0, sizeof(v417));
+        v138 = rect.origin.y;
+        v139 = rect.size.width;
+        v140 = rect.origin.x;
+        v141 = rect.size.width;
+        CGRectDivide(*(&v89 - 3), &v417, &rect, v76, CGRectMinYEdge);
         if (!self->_isTemplateLayout)
         {
           primaryLabel = self->_primaryLabel;
-          PKContentAlignmentMake();
-          PKSizeAlignedInRect();
+          v143 = PKContentAlignmentMake();
+          v144.n128_u64[0] = *&v417.origin.x;
+          v145.n128_u64[0] = *&v417.origin.y;
+          v146.n128_u64[0] = *&v417.size.width;
+          v147.n128_u64[0] = *&v417.size.height;
+          v148.n128_u64[0] = fmin(v395, v139);
+          v149.n128_f64[0] = v76;
+          PKSizeAlignedInRect(v143, v148, v149, v144, v145, v146, v147, v150);
           [(UILabel *)primaryLabel setFrame:?];
         }
 
-        memset(&v162, 0, sizeof(v162));
-        CGRectDivide(rect, &v162, &rect, v60, CGRectMinYEdge);
+        memset(&v416, 0, sizeof(v416));
+        v151 = rect.size.width;
+        CGRectDivide(rect, &v416, &rect, v79, CGRectMinYEdge);
         if (!self->_isTemplateLayout)
         {
           secondaryLabel = self->_secondaryLabel;
-          PKContentAlignmentMake();
-          PKSizeAlignedInRect();
+          v153 = PKContentAlignmentMake();
+          v154.n128_u64[0] = *&v416.origin.x;
+          v155.n128_u64[0] = *&v416.origin.y;
+          v156.n128_u64[0] = *&v416.size.width;
+          v157.n128_u64[0] = *&v416.size.height;
+          v158.n128_u64[0] = fmin(v396, v151);
+          v159.n128_f64[0] = v79;
+          PKSizeAlignedInRect(v153, v158, v159, v154, v155, v156, v157, v160);
           [(UILabel *)secondaryLabel setFrame:?];
         }
 
-        memset(&v161, 0, sizeof(v161));
-        CGRectDivide(rect, &v161, &rect, v63, CGRectMinYEdge);
-        v82 = v157;
+        memset(&v415, 0, sizeof(v415));
+        v161 = rect.size.width;
+        CGRectDivide(rect, &v415, &rect, v84, CGRectMinYEdge);
+        v169 = v411;
         if (!self->_isTemplateLayout)
         {
           tertiaryLabel = self->_tertiaryLabel;
-          PKContentAlignmentMake();
-          PKSizeAlignedInRect();
+          v171 = PKContentAlignmentMake();
+          v172.n128_u64[0] = *&v415.origin.x;
+          v173.n128_u64[0] = *&v415.origin.y;
+          v174.n128_u64[0] = *&v415.size.width;
+          v175.n128_u64[0] = *&v415.size.height;
+          v176.n128_u64[0] = fmin(v82, v161);
+          v177.n128_f64[0] = v84;
+          PKSizeAlignedInRect(v171, v176, v177, v172, v173, v174, v175, v178);
           [(UILabel *)tertiaryLabel setFrame:?];
         }
 
-        v167.size.height = v67;
+        v421.size.height = v88;
         avatarView = self->_avatarView;
-        v85 = v156;
+        v180 = v410;
         if (avatarView)
         {
-          v86 = v150;
+          v181 = v402;
           if (self->_isTemplateLayout)
           {
-LABEL_88:
-            v87 = v149 + v67;
-            v88 = height;
-            goto LABEL_149;
+LABEL_89:
+            v182 = v401 + v88;
+            v183 = height;
+            goto LABEL_152;
           }
         }
 
         else
         {
-          v86 = v150;
+          v181 = v402;
           if (!self->_primaryImage)
           {
-            goto LABEL_88;
+            goto LABEL_89;
           }
 
           avatarView = self->_primaryImageView;
           if (!avatarView || self->_isTemplateLayout)
           {
-            goto LABEL_88;
+            goto LABEL_89;
           }
         }
 
-        PKSizeAlignedInRect();
+        v164.n128_u64[0] = *&v421.origin.x;
+        v165.n128_u64[0] = *&v421.origin.y;
+        v166.n128_u64[0] = *&v421.size.width;
+        v162.n128_u64[0] = 0x4043000000000000;
+        v163.n128_u64[0] = 0x4043000000000000;
+        v167.n128_f64[0] = v88;
+        PKSizeAlignedInRect(v393, v162, v163, v164, v165, v166, v167, v168);
         [avatarView setFrame:?];
-        goto LABEL_88;
+        goto LABEL_89;
       }
     }
 
@@ -1265,27 +1339,33 @@ LABEL_88:
     {
     }
 
-    v41 = 2;
-    goto LABEL_37;
+    v57 = 2;
+    goto LABEL_38;
   }
 
   PKContentAlignmentMake();
   [(UILabel *)self->_primaryLabel setNumberOfLines:2];
   text10 = [(UILabel *)self->_transactionValueLabel text];
-  v29 = [text10 length];
+  v36 = [text10 length];
 
   if (self->_showsDisclosureView)
   {
-    v171.origin.x = x + 16.0;
-    v171.origin.y = v25;
-    v171.size.width = v26;
-    v171.size.height = v27;
-    CGRectDivide(v171, &slice, &remainder, 25.0, v10);
+    v425.origin.x = x + 16.0;
+    v425.origin.y = v32;
+    v425.size.width = v33;
+    v425.size.height = v34;
+    CGRectDivide(v425, &slice, &remainder, 25.0, v10);
     if (!self->_isTemplateLayout)
     {
-      v30 = self->_disclosureView;
-      PKSizeAlignedInRect();
-      [(UIImageView *)v30 setFrame:?];
+      v44 = self->_disclosureView;
+      v39.n128_u64[0] = *&slice.origin.x;
+      v40.n128_u64[0] = *&slice.origin.y;
+      v41.n128_u64[0] = *&slice.size.width;
+      v42.n128_u64[0] = *&slice.size.height;
+      v37.n128_u64[0] = 25.0;
+      v38.n128_u64[0] = 25.0;
+      PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v37, v38, v39, v40, v41, v42, v43);
+      [(UIImageView *)v44 setFrame:?];
     }
 
     CGRectDivide(remainder, &slice, &remainder, 8.0, v10);
@@ -1293,35 +1373,44 @@ LABEL_88:
 
   if (self->_primaryImage && self->_primaryImageView || self->_avatarView)
   {
-    v145 = v21;
-    if (v29)
+    v397 = v28;
+    if (v36)
     {
       [(UILabel *)self->_transactionValueLabel sizeThatFits:remainder.size.width, remainder.size.height];
-      v32 = v31;
+      v46 = v45;
+      v48 = v47;
     }
 
     else
     {
-      v32 = *MEMORY[0x1E695F060];
+      v46 = *MEMORY[0x1E695F060];
+      v48 = *(MEMORY[0x1E695F060] + 8);
     }
 
     font3 = [(UILabel *)self->_transactionValueLabel font];
     [font3 lineHeight];
-    v91 = v90;
+    v186 = v185;
 
-    memset(&v167, 0, sizeof(v167));
-    CGRectDivide(remainder, &v167, &remainder, v91, CGRectMinYEdge);
+    memset(&v421, 0, sizeof(v421));
+    CGRectDivide(remainder, &v421, &remainder, v186, CGRectMinYEdge);
     if (self->_avatarView)
     {
-      memset(&v166, 0, sizeof(v166));
-      CGRectDivide(v167, &v166, &v167, v91 - v13, v9);
+      v187 = v186 - v20;
+      memset(&v420, 0, sizeof(v420));
+      CGRectDivide(v421, &v420, &v421, v187, v9);
       if (!self->_isTemplateLayout)
       {
         [(CNAvatarView *)self->_avatarView setHidden:0];
         primaryImageView = self->_avatarView;
-LABEL_93:
-        PKContentAlignmentMake();
-        PKSizeAlignedInRect();
+LABEL_94:
+        v189 = PKContentAlignmentMake();
+        v190.n128_u64[0] = *&v420.origin.x;
+        v191.n128_u64[0] = *&v420.origin.y;
+        v192.n128_u64[0] = *&v420.size.width;
+        v193.n128_u64[0] = *&v420.size.height;
+        v194.n128_f64[0] = v187;
+        v195.n128_f64[0] = v187;
+        PKSizeAlignedInRect(v189, v194, v195, v190, v191, v192, v193, v196);
         [primaryImageView setFrame:?];
       }
     }
@@ -1330,254 +1419,374 @@ LABEL_93:
     {
       if (!self->_primaryImage || !self->_primaryImageView)
       {
-        goto LABEL_95;
+        goto LABEL_96;
       }
 
-      memset(&v166, 0, sizeof(v166));
-      CGRectDivide(v167, &v166, &v167, v91 - v13, v9);
+      v187 = v186 - v20;
+      memset(&v420, 0, sizeof(v420));
+      CGRectDivide(v421, &v420, &v421, v187, v9);
       if (!self->_isTemplateLayout)
       {
         [(UIImageView *)self->_primaryImageView setHidden:0];
         primaryImageView = self->_primaryImageView;
-        goto LABEL_93;
+        goto LABEL_94;
       }
     }
 
-    CGRectDivide(v167, &v166, &v167, 13.0, v9);
-LABEL_95:
-    v153 = *(MEMORY[0x1E695F058] + 16);
-    v155 = *MEMORY[0x1E695F058];
-    v166.origin = *MEMORY[0x1E695F058];
-    v166.size = v153;
-    CGRectDivide(v167, &v166, &v167, fmin(v32, v167.size.width), v9);
+    CGRectDivide(v421, &v420, &v421, 13.0, v9);
+LABEL_96:
+    v197 = fmin(v46, v421.size.width);
+    v405 = *(MEMORY[0x1E695F058] + 16);
+    v408 = *MEMORY[0x1E695F058];
+    v420.origin = *MEMORY[0x1E695F058];
+    v420.size = v405;
+    CGRectDivide(v421, &v420, &v421, v197, v9);
     if (!self->_isTemplateLayout)
     {
-      v93 = self->_transactionValueLabel;
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
-      [(UILabel *)v93 setFrame:?];
+      v198 = self->_transactionValueLabel;
+      v199 = PKContentAlignmentMake();
+      v200.n128_u64[0] = *&v420.origin.x;
+      v201.n128_u64[0] = *&v420.origin.y;
+      v202.n128_u64[0] = *&v420.size.width;
+      v203.n128_u64[0] = *&v420.size.height;
+      v204.n128_f64[0] = v197;
+      v205.n128_u64[0] = v48;
+      PKSizeAlignedInRect(v199, v204, v205, v200, v201, v202, v203, v206);
+      [(UILabel *)v198 setFrame:?];
     }
 
-    v165 = v167;
-    rect.origin = v155;
-    rect.size = v153;
-    v94 = *MEMORY[0x1E695F060];
-    v95 = *MEMORY[0x1E695F060];
-    if (v158)
+    v419 = v421;
+    rect.origin = v408;
+    rect.size = v405;
+    v207 = *MEMORY[0x1E695F060];
+    v208 = *(MEMORY[0x1E695F060] + 8);
+    v209 = *&v208;
+    v210 = *MEMORY[0x1E695F060];
+    if (v412)
     {
-      [(UILabel *)self->_badgeLabel sizeThatFits:v167.size.width, v167.size.height];
-      v95 = v96;
+      [(UILabel *)self->_badgeLabel sizeThatFits:v421.size.width, v421.size.height];
+      v210 = v211;
+      v209 = v212;
     }
 
     if ((isHidden & 1) == 0)
     {
-      [(UIImageView *)self->_bonusImageView sizeThatFits:v167.size.width, v167.size.height];
-      v94 = v97;
+      [(UIImageView *)self->_bonusImageView sizeThatFits:v421.size.width, v421.size.height];
+      v207 = v213;
+      v208 = v214;
     }
 
-    v98 = v149 + v91;
-    v99 = v145 + v95 + v94 + 6.0;
-    if (v99 <= v167.size.width)
+    v215 = v401 + v186;
+    v216 = v397 + v210 + v207 + 6.0;
+    if (v216 <= v421.size.width)
     {
-      CGRectDivide(v165, &v165, &rect, v145 + v95 + v94 + 6.0, v10);
+      CGRectDivide(v419, &v419, &rect, v397 + v210 + v207 + 6.0, v10);
     }
 
     else
     {
       CGRectDivide(remainder, &slice, &remainder, 5.0, CGRectMinYEdge);
-      CGRectDivide(remainder, &v165, &remainder, v91, CGRectMinYEdge);
-      CGRectDivide(v165, &v165, &rect, v99, v9);
-      v98 = v98 + v91 + 5.0;
+      CGRectDivide(remainder, &v419, &remainder, v186, CGRectMinYEdge);
+      CGRectDivide(v419, &v419, &rect, v216, v9);
+      v215 = v215 + v186 + 5.0;
     }
 
-    if (v158)
+    if (v412)
     {
-      CGRectDivide(v165, &rect, &v165, v95 + 6.0, v10);
+      CGRectDivide(v419, &rect, &v419, v210 + 6.0, v10);
       if (!self->_isTemplateLayout)
       {
-        PKContentAlignmentMake();
-        PKSizeAlignedInRect();
-        rect.origin.x = v100;
-        rect.origin.y = v101;
-        rect.size.width = v102;
-        rect.size.height = v103;
+        v217 = PKContentAlignmentMake();
+        v218.n128_u64[0] = *&rect.origin.x;
+        v219.n128_u64[0] = *&rect.origin.y;
+        v220.n128_u64[0] = *&rect.size.width;
+        v221.n128_u64[0] = *&rect.size.height;
+        v222.n128_f64[0] = v210;
+        v223.n128_u64[0] = v209;
+        PKSizeAlignedInRect(v217, v222, v223, v218, v219, v220, v221, v224);
+        rect.origin.x = v225;
+        rect.origin.y = v226;
+        rect.size.width = v227;
+        rect.size.height = v228;
         [(UILabel *)self->_badgeLabel setFrame:?];
       }
     }
 
-    v104 = v98;
+    v229 = v215;
     if ((isHidden & 1) == 0)
     {
-      memset(&v163, 0, sizeof(v163));
-      CGRectIsEmpty(rect);
-      CGRectDivide(v165, &v163, &v165, v94, v10);
+      memset(&v417, 0, sizeof(v417));
+      IsEmpty = CGRectIsEmpty(rect);
+      v231 = rect.size.height;
+      CGRectDivide(v419, &v417, &v419, v207, v10);
       if (!self->_isTemplateLayout)
       {
-        PKContentAlignmentMake();
-        PKSizeAlignedInRect();
-        v163.origin.x = v105;
-        v163.origin.y = v106;
-        v163.size.width = v107;
-        v163.size.height = v108;
+        if (IsEmpty)
+        {
+          v231 = v208;
+        }
+
+        v232 = PKContentAlignmentMake();
+        v233.n128_u64[0] = *&v417.origin.x;
+        v234.n128_u64[0] = *&v417.origin.y;
+        v235.n128_u64[0] = *&v417.size.width;
+        v236.n128_u64[0] = *&v417.size.height;
+        v237.n128_f64[0] = v207;
+        v238.n128_f64[0] = v231;
+        PKSizeAlignedInRect(v232, v237, v238, v233, v234, v235, v236, v239);
+        v417.origin.x = v240;
+        v417.origin.y = v241;
+        v417.size.width = v242;
+        v417.size.height = v243;
         [(UIImageView *)self->_bonusImageView setFrame:?];
       }
     }
 
     if ((isHidden2 & 1) == 0)
     {
-      memset(&v163, 0, sizeof(v163));
-      CGRectDivide(v165, &v163, &v165, v145, v10);
+      memset(&v417, 0, sizeof(v417));
+      CGRectDivide(v419, &v417, &v419, v397, v10);
       if (!self->_isTemplateLayout)
       {
-        PKContentAlignmentMake();
-        PKSizeAlignedInRect();
-        v163.origin.x = v109;
-        v163.origin.y = v110;
-        v163.size.width = v111;
-        v163.size.height = v112;
+        v244 = PKContentAlignmentMake();
+        v245.n128_u64[0] = *&v417.origin.x;
+        v246.n128_u64[0] = *&v417.origin.y;
+        v247.n128_u64[0] = *&v417.size.width;
+        v248.n128_u64[0] = *&v417.size.height;
+        v249.n128_f64[0] = v397;
+        v250.n128_u64[0] = v400;
+        PKSizeAlignedInRect(v244, v249, v250, v245, v246, v247, v248, v251);
+        v417.origin.x = v252;
+        v417.origin.y = v253;
+        v417.size.width = v254;
+        v417.size.height = v255;
         [(UIImageView *)self->_transactionCategoryImageView setFrame:?];
       }
     }
 
-    v113 = 1;
-    goto LABEL_119;
+    v256 = 1;
+    goto LABEL_122;
   }
 
-  v113 = 0;
-  v104 = v149;
-LABEL_119:
-  v114 = remainder.size.width;
+  v256 = 0;
+  v229 = v401;
+LABEL_122:
+  v257 = remainder.size.width;
   [(UILabel *)self->_primaryLabel sizeThatFits:remainder.size.width, 3.40282347e38];
-  v116 = v115;
-  [(UILabel *)self->_secondaryLabel sizeThatFits:v114, 3.40282347e38];
-  v118 = v117;
-  [(UILabel *)self->_tertiaryLabel sizeThatFits:v114, 3.40282347e38];
-  v120 = v119;
+  v259 = v258;
+  v261 = v260;
+  [(UILabel *)self->_secondaryLabel sizeThatFits:v257, 3.40282347e38];
+  v406 = v262;
+  v264 = v263;
+  [(UILabel *)self->_tertiaryLabel sizeThatFits:v257, 3.40282347e38];
+  v409 = v265;
+  v267 = v266;
   if (!self->_isTemplateLayout)
   {
-    v121 = self->_primaryLabel;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
-    [(UILabel *)v121 setFrame:?];
+    *&v268 = v229;
+    v269 = remainder.origin.x;
+    v270 = remainder.size.width;
+    v271 = self->_primaryLabel;
+    v272 = PKContentAlignmentMake();
+    v273.n128_u64[0] = fmin(v259, v257);
+    v274.n128_u64[0] = v261;
+    v275.n128_f64[0] = v269;
+    v229 = *&v268;
+    v276.n128_u64[0] = v268;
+    v277.n128_f64[0] = v270;
+    v278.n128_u64[0] = v261;
+    PKSizeAlignedInRect(v272, v273, v274, v275, v276, v277, v278, v279);
+    [(UILabel *)v271 setFrame:?];
   }
 
-  v87 = v104 + v116;
-  if (v118 > 0.0)
+  v182 = v229 + *&v261;
+  if (*&v264 > 0.0)
   {
-    v122 = v87 + 2.0;
+    v280 = v182 + 2.0;
     if (!self->_isTemplateLayout)
     {
-      v123 = self->_secondaryLabel;
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
-      [(UILabel *)v123 setFrame:?];
+      v281 = remainder.origin.x;
+      v282 = remainder.size.width;
+      v283 = self->_secondaryLabel;
+      v284 = PKContentAlignmentMake();
+      v285.n128_u64[0] = fmin(v406, v257);
+      v286.n128_u64[0] = v264;
+      v287.n128_f64[0] = v281;
+      v288.n128_f64[0] = v280;
+      v289.n128_f64[0] = v282;
+      v290.n128_u64[0] = v264;
+      PKSizeAlignedInRect(v284, v285, v286, v287, v288, v289, v290, v291);
+      [(UILabel *)v283 setFrame:?];
     }
 
-    v87 = v122 + v118;
+    v182 = v280 + *&v264;
   }
 
-  v88 = height;
-  v82 = v157;
-  if (v120 > 0.0)
+  v183 = height;
+  v169 = v411;
+  if (*&v267 > 0.0)
   {
-    v124 = v87 + 2.0;
+    v292 = v182 + 2.0;
     if (!self->_isTemplateLayout)
     {
-      v125 = self->_tertiaryLabel;
-      PKContentAlignmentMake();
-      v82 = v157;
-      PKSizeAlignedInRect();
-      [(UILabel *)v125 setFrame:?];
+      v293 = remainder.origin.x;
+      v294 = remainder.size.width;
+      v295 = self->_tertiaryLabel;
+      v296 = PKContentAlignmentMake();
+      v297.n128_u64[0] = fmin(v409, v257);
+      v169 = v411;
+      v298.n128_u64[0] = v267;
+      v299.n128_f64[0] = v293;
+      v300.n128_f64[0] = v292;
+      v301.n128_f64[0] = v294;
+      v302.n128_u64[0] = v267;
+      PKSizeAlignedInRect(v296, v297, v298, v299, v300, v301, v302, v303);
+      [(UILabel *)v295 setFrame:?];
     }
 
-    v87 = v120 + v124;
+    v182 = *&v267 + v292;
   }
 
-  v85 = v156;
-  if ((v113 & 1) == 0)
+  v180 = v410;
+  if ((v256 & 1) == 0)
   {
-    if (v29)
+    if (v36)
     {
-      v126 = v87 + 2.0;
-      [(UILabel *)self->_transactionValueLabel sizeThatFits:v114, 3.40282347e38];
-      v128 = v127;
+      v304 = v182 + 2.0;
+      [(UILabel *)self->_transactionValueLabel sizeThatFits:v257, 3.40282347e38];
+      v307 = v306;
       if (!self->_isTemplateLayout)
       {
-        v129 = self->_transactionValueLabel;
-        PKContentAlignmentMake();
-        v82 = v157;
-        PKSizeAlignedInRect();
-        [(UILabel *)v129 setFrame:?];
+        v308 = remainder.origin.x;
+        v309 = remainder.size.width;
+        v310 = fmin(v305, v257);
+        v311 = self->_transactionValueLabel;
+        v312 = PKContentAlignmentMake();
+        v313.n128_f64[0] = v310;
+        v169 = v411;
+        v314.n128_u64[0] = v307;
+        v315.n128_f64[0] = v308;
+        v316.n128_f64[0] = v304;
+        v317.n128_f64[0] = v309;
+        v318.n128_u64[0] = v307;
+        PKSizeAlignedInRect(v312, v313, v314, v315, v316, v317, v318, v319);
+        [(UILabel *)v311 setFrame:?];
       }
 
-      v87 = v126 + v128;
+      v182 = v304 + *&v307;
     }
 
     if ((isHidden2 & 1) == 0)
     {
-      v130 = v87 + 2.0;
-      [(UIImageView *)self->_transactionCategoryImageView sizeThatFits:v114, 3.40282347e38];
-      v132 = v131;
+      v320 = v182 + 2.0;
+      [(UIImageView *)self->_transactionCategoryImageView sizeThatFits:v257, 3.40282347e38];
+      v323 = v322;
       if (!self->_isTemplateLayout)
       {
-        v133 = self->_transactionCategoryImageView;
-        PKContentAlignmentMake();
-        v82 = v157;
-        PKSizeAlignedInRect();
-        [(UIImageView *)v133 setFrame:?];
+        v324 = v321;
+        v325 = remainder.origin.x;
+        v326 = remainder.size.width;
+        v327 = self->_transactionCategoryImageView;
+        v328 = PKContentAlignmentMake();
+        v329.n128_u64[0] = v324;
+        v330.n128_u64[0] = v323;
+        v331.n128_f64[0] = v325;
+        v332.n128_f64[0] = v320;
+        v333.n128_f64[0] = v326;
+        v169 = v411;
+        v334.n128_u64[0] = v323;
+        PKSizeAlignedInRect(v328, v329, v330, v331, v332, v333, v334, v335);
+        [(UIImageView *)v327 setFrame:?];
       }
 
-      v87 = v130 + v132;
+      v182 = v320 + *&v323;
     }
 
-    if (v158)
+    if (v412)
     {
-      v134 = v87 + 2.0;
-      [(UILabel *)self->_badgeLabel sizeThatFits:v114, 3.40282347e38];
-      v136 = v135;
+      v336 = v182 + 2.0;
+      [(UILabel *)self->_badgeLabel sizeThatFits:v257, 3.40282347e38];
+      v339 = v338;
       if (!self->_isTemplateLayout)
       {
         if (isHidden)
         {
-          v137 = self->_badgeLabel;
-          PKContentAlignmentMake();
+          v340 = remainder.origin.x;
+          v341 = remainder.size.width;
+          v342 = fmin(v337, v257);
+          v343 = self->_badgeLabel;
+          v344 = PKContentAlignmentMake();
+          v346.n128_f64[0] = v342;
+          v347.n128_u64[0] = v339;
+          v348.n128_f64[0] = v340;
+          v349.n128_f64[0] = v336;
+          v350.n128_f64[0] = v341;
+          v351.n128_u64[0] = v339;
         }
 
         else
         {
-          [(UIImageView *)self->_bonusImageView sizeThatFits:v114, 3.40282347e38];
-          v138 = self->_bonusImageView;
-          PKContentAlignmentMake();
-          PKSizeAlignedInRect();
-          [(UIImageView *)v138 setFrame:?];
-          PKContentAlignmentMake();
-          PKSizeAlignedInRect();
-          v137 = self->_badgeLabel;
-          PKContentAlignmentMake();
-          v82 = v157;
+          [(UIImageView *)self->_bonusImageView sizeThatFits:v257, 3.40282347e38];
+          v353 = v352 + 10.0;
+          v354 = remainder.origin.x;
+          v355 = remainder.size.width;
+          v356 = fmin(v352 + 10.0, v257);
+          v357 = self->_bonusImageView;
+          v358 = PKContentAlignmentMake();
+          v359.n128_f64[0] = v356;
+          v360.n128_u64[0] = v339;
+          v361.n128_f64[0] = v354;
+          v362.n128_f64[0] = v336;
+          v363.n128_f64[0] = v355;
+          v364.n128_u64[0] = v339;
+          PKSizeAlignedInRect(v358, v359, v360, v361, v362, v363, v364, v365);
+          [(UIImageView *)v357 setFrame:?];
+          v366 = remainder.origin.x;
+          v367 = remainder.size.width;
+          v368 = PKContentAlignmentMake();
+          v369.n128_f64[0] = v367 - (v353 + 12.0);
+          v370.n128_u64[0] = v339;
+          v371.n128_f64[0] = v366;
+          v372.n128_f64[0] = v336;
+          v373.n128_f64[0] = v367;
+          v374.n128_u64[0] = v339;
+          PKSizeAlignedInRect(v368, v369, v370, v371, v372, v373, v374, v375);
+          v377 = v376;
+          v379 = v378;
+          v381 = v380;
+          v383 = v382;
+          v343 = self->_badgeLabel;
+          v344 = PKContentAlignmentMake();
+          v346.n128_f64[0] = v356;
+          v347.n128_u64[0] = v339;
+          v348.n128_u64[0] = v377;
+          v349.n128_u64[0] = v379;
+          v350.n128_u64[0] = v381;
+          v351.n128_u64[0] = v383;
+          v169 = v411;
         }
 
-        PKSizeAlignedInRect();
-        [(UILabel *)v137 setFrame:?];
+        PKSizeAlignedInRect(v344, v346, v347, v348, v349, v350, v351, v345);
+        [(UILabel *)v343 setFrame:?];
       }
 
-      v87 = v134 + v136;
+      v182 = v336 + *&v339;
     }
 
-    v85 = v156;
+    v180 = v410;
   }
 
-  v86 = v150;
-LABEL_149:
-  v139 = v86 + v87;
-  v173.origin.x = v151;
-  v173.origin.y = v82;
-  v173.size.width = v85;
-  v173.size.height = v88;
-  v140 = CGRectGetWidth(v173);
-  v141 = v139;
-  result.height = v141;
-  result.width = v140;
+  v181 = v402;
+LABEL_152:
+  v384 = v181 + v182;
+  v427.origin.x = v403;
+  v427.origin.y = v169;
+  v427.size.width = v180;
+  v427.size.height = v183;
+  v385 = CGRectGetWidth(v427);
+  v386 = v384;
+  result.height = v386;
+  result.width = v385;
   return result;
 }
 

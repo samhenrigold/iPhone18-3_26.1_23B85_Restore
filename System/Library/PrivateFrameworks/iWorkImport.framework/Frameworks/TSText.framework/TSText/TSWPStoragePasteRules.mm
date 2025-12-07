@@ -157,7 +157,7 @@ LABEL_17:
   {
     v75 = objc_msgSend_destStorage(self, v51, v52);
     v54 = objc_msgSend_dropCapStyleAtCharIndex_(v75, v53, index);
-    IsEquivalentToObject = TSWPAttributeArray::objectIsEquivalentToObject(22, v54, *(v11 + 6));
+    IsEquivalentToObject = TSWPAttributeArray::objectIsEquivalentToObject(0x16uLL, v54, *(v11 + 6));
 
     if ((IsEquivalentToObject & 1) == 0)
     {

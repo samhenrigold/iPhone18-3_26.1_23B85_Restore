@@ -1528,7 +1528,7 @@ void __99__PKApplyController_termsAccepted_termsIdentifier_secondaryIdentifier_a
   }
 }
 
-uint64_t __55__PKApplyController_withdrawApplicationWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
+void *__55__PKApplyController_withdrawApplicationWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 32);
   if (a2)
@@ -1544,7 +1544,7 @@ uint64_t __55__PKApplyController_withdrawApplicationWithCompletion___block_invok
     result = *(a1 + 40);
     if (result)
     {
-      v6 = *(result + 16);
+      v6 = result[2];
 
       return v6();
     }
@@ -2561,7 +2561,7 @@ uint64_t __72__PKApplyController__performAuthenticationLocationBased_withComplet
   v4 = *(a1 + 32);
   if (!a2 || a3)
   {
-    return (*(v4 + 16))(v4, 0);
+    return (*(v4 + 16))(v4, 0, a3);
   }
 
   else
@@ -3654,16 +3654,16 @@ void __60__PKApplyController__getODIAssessmentForSession_completion___block_invo
   }
 }
 
-uint64_t __60__PKApplyController__getODIAssessmentForSession_completion___block_invoke_2(uint64_t a1)
+uint64_t __60__PKApplyController__getODIAssessmentForSession_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v8 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(a1 + 32) serviceIdentifier];
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "The ODI assessment for %@ is not defined.", &v5, 0xCu);
+    v4 = [*(a1 + 32) serviceIdentifier];
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "The ODI assessment for %@ is not defined.", &v6, 0xCu);
   }
 
   return (*(*(a1 + 40) + 16))();
@@ -4007,19 +4007,19 @@ LABEL_6:
   }
 }
 
-uint64_t __64__PKApplyController__performCoreIDVNextStepWithPage_completion___block_invoke(uint64_t a1)
+uint64_t __64__PKApplyController__performCoreIDVNextStepWithPage_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Error: No coreIDV session", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Error: No coreIDV session", v5, 2u);
   }
 
   return (*(*(a1 + 32) + 16))();
 }
 
-void __64__PKApplyController__performCoreIDVNextStepWithPage_completion___block_invoke_165(uint64_t a1, void *a2, uint64_t a3, void *a4)
+void __64__PKApplyController__performCoreIDVNextStepWithPage_completion___block_invoke_165(void *a1, void *a2, uint64_t a3, void *a4)
 {
   v37[1] = *MEMORY[0x1E69E9840];
   v7 = a2;
@@ -4055,8 +4055,8 @@ void __64__PKApplyController__performCoreIDVNextStepWithPage_completion___block_
   block[1] = 3221225472;
   block[2] = __64__PKApplyController__performCoreIDVNextStepWithPage_completion___block_invoke_170;
   block[3] = &unk_1E80176D0;
-  v16 = *(a1 + 32);
-  v17 = *(a1 + 40);
+  v16 = a1[4];
+  v17 = a1[5];
   v21 = v8;
   v22 = v16;
   v23 = v7;
@@ -4067,15 +4067,15 @@ void __64__PKApplyController__performCoreIDVNextStepWithPage_completion___block_
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __64__PKApplyController__performCoreIDVNextStepWithPage_completion___block_invoke_170(uint64_t a1)
+uint64_t __64__PKApplyController__performCoreIDVNextStepWithPage_completion___block_invoke_170(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 32))
   {
-    v2 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Error: performVerification failed", buf, 2u);
+      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Error: performVerification failed", buf, 2u);
     }
 
     return [*(a1 + 40) _handleResponseError:*(a1 + 32) completion:*(a1 + 56)];
@@ -4083,18 +4083,18 @@ uint64_t __64__PKApplyController__performCoreIDVNextStepWithPage_completion___bl
 
   else if (*(a1 + 48))
   {
-    v4 = *(a1 + 40);
+    v5 = *(a1 + 40);
 
-    return [v4 _handleCoreIDVPage:? totalPageCount:? error:? completion:?];
+    return [v5 _handleCoreIDVPage:? totalPageCount:? error:? completion:?];
   }
 
   else
   {
-    v5 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_1BD026000, v5, OS_LOG_TYPE_DEFAULT, "No attributes performing coreIDV share", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_1BD026000, v6, OS_LOG_TYPE_DEFAULT, "No attributes performing coreIDV share", v7, 2u);
     }
 
     return [*(a1 + 40) _performCoreIDVShareWithCompletion:*(a1 + 56)];
@@ -4367,19 +4367,19 @@ uint64_t __64__PKApplyController__performCoreIDVNextStepWithPage_completion___bl
   }
 }
 
-uint64_t __56__PKApplyController__performCoreIDVShareWithCompletion___block_invoke(uint64_t a1)
+uint64_t __56__PKApplyController__performCoreIDVShareWithCompletion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Error: No coreIDV session", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Error: No coreIDV session", v5, 2u);
   }
 
   return (*(*(a1 + 32) + 16))();
 }
 
-void __56__PKApplyController__performCoreIDVShareWithCompletion___block_invoke_181(uint64_t a1, void *a2, void *a3)
+void __56__PKApplyController__performCoreIDVShareWithCompletion___block_invoke_181(void *a1, void *a2, void *a3)
 {
   v28[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -4412,8 +4412,8 @@ void __56__PKApplyController__performCoreIDVShareWithCompletion___block_invoke_1
   v16[3] = &unk_1E8011D78;
   v17 = v5;
   v18 = v6;
-  v13 = *(a1 + 40);
-  v19 = *(a1 + 32);
+  v13 = a1[5];
+  v19 = a1[4];
   v20 = v13;
   v14 = v6;
   v15 = v5;
@@ -4694,45 +4694,45 @@ void __120__PKApplyController__submitDocumentPageWithCoreIDVImageUpload_selected
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __120__PKApplyController__submitDocumentPageWithCoreIDVImageUpload_selectedDocument_frontImageData_backImageData_completion___block_invoke_3(uint64_t a1)
+uint64_t __120__PKApplyController__submitDocumentPageWithCoreIDVImageUpload_selectedDocument_frontImageData_backImageData_completion___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  if (v2)
+  v15 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    v3 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = v2;
-      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Error: coreIDV CK document uploaded failed %@", &v12, 0xCu);
+      v13 = 138412290;
+      v14 = v3;
+      _os_log_impl(&dword_1BD026000, v4, OS_LOG_TYPE_DEFAULT, "Error: coreIDV CK document uploaded failed %@", &v13, 0xCu);
     }
   }
 
   if (!*(a1 + 40))
   {
-    v4 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_1BD026000, v4, OS_LOG_TYPE_DEFAULT, "Error: coreIDV CK document uploaded has no data", &v12, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&dword_1BD026000, v5, OS_LOG_TYPE_DEFAULT, "Error: coreIDV CK document uploaded has no data", &v13, 2u);
     }
   }
 
-  v5 = *(*(*(a1 + 80) + 8) + 40);
-  v6 = [*(*(a1 + 48) + 256) applicationIdentifier];
-  [v5 setApplicationIdentifier:v6];
+  v6 = *(*(*(a1 + 80) + 8) + 40);
+  v7 = [*(*(a1 + 48) + 256) applicationIdentifier];
+  [v6 setApplicationIdentifier:v7];
 
   [*(*(*(a1 + 80) + 8) + 40) setFeatureIdentifier:*(*(a1 + 48) + 216)];
-  v7 = *(*(*(a1 + 80) + 8) + 40);
-  v8 = [*(*(a1 + 48) + 256) applicationBaseURL];
-  [v7 setBaseURL:v8];
+  v8 = *(*(*(a1 + 80) + 8) + 40);
+  v9 = [*(*(a1 + 48) + 256) applicationBaseURL];
+  [v8 setBaseURL:v9];
 
   [*(*(*(a1 + 80) + 8) + 40) setUploadedDocumentData:*(a1 + 40)];
   [*(*(*(a1 + 80) + 8) + 40) setCertificates:*(*(a1 + 48) + 56)];
-  v9 = *(*(*(a1 + 80) + 8) + 40);
-  v10 = [*(a1 + 56) countryCode];
-  [v9 setDocumentCountryCode:v10];
+  v10 = *(*(*(a1 + 80) + 8) + 40);
+  v11 = [*(a1 + 56) countryCode];
+  [v10 setDocumentCountryCode:v11];
 
   [*(*(*(a1 + 80) + 8) + 40) setDocumentType:{objc_msgSend(*(a1 + 56), "documentType")}];
   [*(*(*(a1 + 80) + 8) + 40) setChannel:*(*(a1 + 48) + 232)];
@@ -5323,7 +5323,7 @@ LABEL_21:
           v15 = PKLogFacilityTypeGetObject();
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
-            *v16 = 0;
+            v16[0] = 0;
             _os_log_impl(&dword_1BD026000, v15, OS_LOG_TYPE_DEFAULT, "Error: Verification page has unknown verification type.", v16, 2u);
           }
 
@@ -6249,20 +6249,20 @@ void __38__PKApplyController__acquireAssertion__block_invoke(uint64_t a1, void *
   }
 }
 
-void __38__PKApplyController__acquireAssertion__block_invoke_467(uint64_t a1)
+void __38__PKApplyController__acquireAssertion__block_invoke_467(uint64_t a1, uint64_t a2)
 {
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Executing notification suppression assertion invalidation handler", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Executing notification suppression assertion invalidation handler", v7, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = WeakRetained;
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = *(WeakRetained + 19);
+    v6 = *(WeakRetained + 19);
     *(WeakRetained + 19) = 0;
   }
 }

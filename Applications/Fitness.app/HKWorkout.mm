@@ -414,11 +414,12 @@
 
 - (id)requiredDistanceForIntervalTimeGoalForStepKeyPath:(id)path
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = v5;
   selfCopy = self;
-  v5 = sub_1003AFF4C();
+  v8 = sub_1003AFF4C(v4, v6);
 
-  return v5;
+  return v8;
 }
 
 @end

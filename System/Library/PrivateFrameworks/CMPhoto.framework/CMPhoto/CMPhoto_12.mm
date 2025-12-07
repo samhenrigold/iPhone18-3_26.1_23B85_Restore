@@ -52,21 +52,21 @@ void vega::dicom::DataElement::set_manipulator<vega::manipulators::ValueManipula
 
 void vega::dicom::DataSet::new_element<vega::dictionary::Columns>(vega::dicom::DataSet *a1)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::Columns::tag_mask, &v4);
-  v1 = v4;
-  if (v5)
+  vega::dicom::DataSet::data_element(&v5, a1, &vega::dictionary::Columns::tag_mask);
+  v2 = v5;
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  if (!v1)
+  if (!v2)
   {
     _ZNSt3__115allocate_sharedB8ne200100IN4vega5dicom7ElementINS1_10dictionary7ColumnsEEENS_9allocatorIS6_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
-  std::string::basic_string[abi:ne200100]<0>(&v3, "DataSet::new_element() -- Cannot create new element as it already exists");
-  std::runtime_error::runtime_error(exception, &v3);
+  std::string::basic_string[abi:ne200100]<0>(&v4, "DataSet::new_element() -- Cannot create new element as it already exists");
+  std::runtime_error::runtime_error(exception, &v4);
   exception->__vftable = &unk_1F1917110;
 }
 
@@ -91,7 +91,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void std::vector<unsigned short>::push_back[abi:ne200100](const void **a1, _WORD *a2)
+void std::vector<unsigned short>::push_back[abi:ne200100](const void **a1, unsigned __int16 *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -147,7 +147,7 @@ void std::vector<unsigned short>::push_back[abi:ne200100](const void **a1, _WORD
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 2;
   }
 
   a1[1] = v6;
@@ -155,21 +155,21 @@ void std::vector<unsigned short>::push_back[abi:ne200100](const void **a1, _WORD
 
 void vega::dicom::DataSet::new_element<vega::dictionary::Rows>(vega::dicom::DataSet *a1)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::Rows::tag_mask, &v4);
-  v1 = v4;
-  if (v5)
+  vega::dicom::DataSet::data_element(&v5, a1, &vega::dictionary::Rows::tag_mask);
+  v2 = v5;
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  if (!v1)
+  if (!v2)
   {
     _ZNSt3__115allocate_sharedB8ne200100IN4vega5dicom7ElementINS1_10dictionary4RowsEEENS_9allocatorIS6_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
-  std::string::basic_string[abi:ne200100]<0>(&v3, "DataSet::new_element() -- Cannot create new element as it already exists");
-  std::runtime_error::runtime_error(exception, &v3);
+  std::string::basic_string[abi:ne200100]<0>(&v4, "DataSet::new_element() -- Cannot create new element as it already exists");
+  std::runtime_error::runtime_error(exception, &v4);
   exception->__vftable = &unk_1F1917110;
 }
 
@@ -196,21 +196,21 @@ LABEL_6:
 
 void vega::dicom::DataSet::new_element<vega::dictionary::TransferSyntaxUID>(vega::dicom::DataSet *a1)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::TransferSyntaxUID::tag_mask, &v4);
-  v1 = v4;
-  if (v5)
+  vega::dicom::DataSet::data_element(&v5, a1, &vega::dictionary::TransferSyntaxUID::tag_mask);
+  v2 = v5;
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  if (!v1)
+  if (!v2)
   {
     _ZNSt3__115allocate_sharedB8ne200100IN4vega5dicom7ElementINS1_10dictionary17TransferSyntaxUIDEEENS_9allocatorIS6_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
-  std::string::basic_string[abi:ne200100]<0>(&v3, "DataSet::new_element() -- Cannot create new element as it already exists");
-  std::runtime_error::runtime_error(exception, &v3);
+  std::string::basic_string[abi:ne200100]<0>(&v4, "DataSet::new_element() -- Cannot create new element as it already exists");
+  std::runtime_error::runtime_error(exception, &v4);
   exception->__vftable = &unk_1F1917110;
 }
 
@@ -279,21 +279,21 @@ void vega::dicom::DataElement::set_manipulator<vega::manipulators::UniqueIdentif
 
 void vega::dicom::DataSet::new_element<vega::dictionary::LossyImageCompression>(vega::dicom::DataSet *a1)
 {
-  vega::dicom::DataSet::data_element(a1, "(", &v4);
-  v1 = v4;
-  if (v5)
+  vega::dicom::DataSet::data_element(&v5, a1, "(");
+  v2 = v5;
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  if (!v1)
+  if (!v2)
   {
     _ZNSt3__115allocate_sharedB8ne200100IN4vega5dicom7ElementINS1_10dictionary21LossyImageCompressionEEENS_9allocatorIS6_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
-  std::string::basic_string[abi:ne200100]<0>(&v3, "DataSet::new_element() -- Cannot create new element as it already exists");
-  std::runtime_error::runtime_error(exception, &v3);
+  std::string::basic_string[abi:ne200100]<0>(&v4, "DataSet::new_element() -- Cannot create new element as it already exists");
+  std::runtime_error::runtime_error(exception, &v4);
   exception->__vftable = &unk_1F1917110;
 }
 
@@ -381,8 +381,7 @@ void std::vector<std::string>::push_back[abi:ne200100](uint64_t a1, __int128 *a2
     v6 = *a2;
     *(v4 + 16) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v7 = v4 + 24;
   }
@@ -392,21 +391,21 @@ void std::vector<std::string>::push_back[abi:ne200100](uint64_t a1, __int128 *a2
 
 void vega::dicom::DataSet::new_element<vega::dictionary::BitsAllocated>(vega::dicom::DataSet *a1)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::BitsAllocated::tag_mask, &v4);
-  v1 = v4;
-  if (v5)
+  vega::dicom::DataSet::data_element(&v5, a1, &vega::dictionary::BitsAllocated::tag_mask);
+  v2 = v5;
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  if (!v1)
+  if (!v2)
   {
     _ZNSt3__115allocate_sharedB8ne200100IN4vega5dicom7ElementINS1_10dictionary13BitsAllocatedEEENS_9allocatorIS6_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
-  std::string::basic_string[abi:ne200100]<0>(&v3, "DataSet::new_element() -- Cannot create new element as it already exists");
-  std::runtime_error::runtime_error(exception, &v3);
+  std::string::basic_string[abi:ne200100]<0>(&v4, "DataSet::new_element() -- Cannot create new element as it already exists");
+  std::runtime_error::runtime_error(exception, &v4);
   exception->__vftable = &unk_1F1917110;
 }
 
@@ -433,21 +432,21 @@ LABEL_6:
 
 void vega::dicom::DataSet::new_element<vega::dictionary::BitsStored>(vega::dicom::DataSet *a1)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::BitsStored::tag_mask, &v4);
-  v1 = v4;
-  if (v5)
+  vega::dicom::DataSet::data_element(&v5, a1, &vega::dictionary::BitsStored::tag_mask);
+  v2 = v5;
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  if (!v1)
+  if (!v2)
   {
     _ZNSt3__115allocate_sharedB8ne200100IN4vega5dicom7ElementINS1_10dictionary10BitsStoredEEENS_9allocatorIS6_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
-  std::string::basic_string[abi:ne200100]<0>(&v3, "DataSet::new_element() -- Cannot create new element as it already exists");
-  std::runtime_error::runtime_error(exception, &v3);
+  std::string::basic_string[abi:ne200100]<0>(&v4, "DataSet::new_element() -- Cannot create new element as it already exists");
+  std::runtime_error::runtime_error(exception, &v4);
   exception->__vftable = &unk_1F1917110;
 }
 
@@ -474,21 +473,21 @@ LABEL_6:
 
 void vega::dicom::DataSet::new_element<vega::dictionary::HighBit>(vega::dicom::DataSet *a1)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::HighBit::tag_mask, &v4);
-  v1 = v4;
-  if (v5)
+  vega::dicom::DataSet::data_element(&v5, a1, &vega::dictionary::HighBit::tag_mask);
+  v2 = v5;
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  if (!v1)
+  if (!v2)
   {
     _ZNSt3__115allocate_sharedB8ne200100IN4vega5dicom7ElementINS1_10dictionary7HighBitEEENS_9allocatorIS6_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
-  std::string::basic_string[abi:ne200100]<0>(&v3, "DataSet::new_element() -- Cannot create new element as it already exists");
-  std::runtime_error::runtime_error(exception, &v3);
+  std::string::basic_string[abi:ne200100]<0>(&v4, "DataSet::new_element() -- Cannot create new element as it already exists");
+  std::runtime_error::runtime_error(exception, &v4);
   exception->__vftable = &unk_1F1917110;
 }
 
@@ -515,21 +514,21 @@ LABEL_6:
 
 void vega::dicom::DataSet::new_element<vega::dictionary::SamplesPerPixel>(vega::dicom::DataSet *a1)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::SamplesPerPixel::tag_mask, &v4);
-  v1 = v4;
-  if (v5)
+  vega::dicom::DataSet::data_element(&v5, a1, &vega::dictionary::SamplesPerPixel::tag_mask);
+  v2 = v5;
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  if (!v1)
+  if (!v2)
   {
     _ZNSt3__115allocate_sharedB8ne200100IN4vega5dicom7ElementINS1_10dictionary15SamplesPerPixelEEENS_9allocatorIS6_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
-  std::string::basic_string[abi:ne200100]<0>(&v3, "DataSet::new_element() -- Cannot create new element as it already exists");
-  std::runtime_error::runtime_error(exception, &v3);
+  std::string::basic_string[abi:ne200100]<0>(&v4, "DataSet::new_element() -- Cannot create new element as it already exists");
+  std::runtime_error::runtime_error(exception, &v4);
   exception->__vftable = &unk_1F1917110;
 }
 
@@ -556,21 +555,21 @@ LABEL_6:
 
 void vega::dicom::DataSet::new_element<vega::dictionary::PhotometricInterpretation>(vega::dicom::DataSet *a1)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::PhotometricInterpretation::tag_mask, &v4);
-  v1 = v4;
-  if (v5)
+  vega::dicom::DataSet::data_element(&v5, a1, &vega::dictionary::PhotometricInterpretation::tag_mask);
+  v2 = v5;
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  if (!v1)
+  if (!v2)
   {
     _ZNSt3__115allocate_sharedB8ne200100IN4vega5dicom7ElementINS1_10dictionary25PhotometricInterpretationEEENS_9allocatorIS6_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
-  std::string::basic_string[abi:ne200100]<0>(&v3, "DataSet::new_element() -- Cannot create new element as it already exists");
-  std::runtime_error::runtime_error(exception, &v3);
+  std::string::basic_string[abi:ne200100]<0>(&v4, "DataSet::new_element() -- Cannot create new element as it already exists");
+  std::runtime_error::runtime_error(exception, &v4);
   exception->__vftable = &unk_1F1917110;
 }
 
@@ -597,21 +596,21 @@ LABEL_6:
 
 void vega::dicom::DataSet::new_element<vega::dictionary::PlanarConfiguration>(vega::dicom::DataSet *a1)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::PlanarConfiguration::tag_mask, &v4);
-  v1 = v4;
-  if (v5)
+  vega::dicom::DataSet::data_element(&v5, a1, &vega::dictionary::PlanarConfiguration::tag_mask);
+  v2 = v5;
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  if (!v1)
+  if (!v2)
   {
     _ZNSt3__115allocate_sharedB8ne200100IN4vega5dicom7ElementINS1_10dictionary19PlanarConfigurationEEENS_9allocatorIS6_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
-  std::string::basic_string[abi:ne200100]<0>(&v3, "DataSet::new_element() -- Cannot create new element as it already exists");
-  std::runtime_error::runtime_error(exception, &v3);
+  std::string::basic_string[abi:ne200100]<0>(&v4, "DataSet::new_element() -- Cannot create new element as it already exists");
+  std::runtime_error::runtime_error(exception, &v4);
   exception->__vftable = &unk_1F1917110;
 }
 
@@ -638,21 +637,21 @@ LABEL_6:
 
 void vega::dicom::DataSet::new_element<vega::dictionary::PixelRepresentation>(vega::dicom::DataSet *a1)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::PixelRepresentation::tag_mask, &v4);
-  v1 = v4;
-  if (v5)
+  vega::dicom::DataSet::data_element(&v5, a1, &vega::dictionary::PixelRepresentation::tag_mask);
+  v2 = v5;
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  if (!v1)
+  if (!v2)
   {
     _ZNSt3__115allocate_sharedB8ne200100IN4vega5dicom7ElementINS1_10dictionary19PixelRepresentationEEENS_9allocatorIS6_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
-  std::string::basic_string[abi:ne200100]<0>(&v3, "DataSet::new_element() -- Cannot create new element as it already exists");
-  std::runtime_error::runtime_error(exception, &v3);
+  std::string::basic_string[abi:ne200100]<0>(&v4, "DataSet::new_element() -- Cannot create new element as it already exists");
+  std::runtime_error::runtime_error(exception, &v4);
   exception->__vftable = &unk_1F1917110;
 }
 
@@ -679,21 +678,21 @@ LABEL_6:
 
 void vega::dicom::DataSet::new_element<vega::dictionary::ICCProfile>(vega::dicom::DataSet *a1)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::ICCProfile::tag_mask, &v4);
-  v1 = v4;
-  if (v5)
+  vega::dicom::DataSet::data_element(&v5, a1, &vega::dictionary::ICCProfile::tag_mask);
+  v2 = v5;
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  if (!v1)
+  if (!v2)
   {
     _ZNSt3__115allocate_sharedB8ne200100IN4vega5dicom7ElementINS1_10dictionary10ICCProfileEEENS_9allocatorIS6_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
-  std::string::basic_string[abi:ne200100]<0>(&v3, "DataSet::new_element() -- Cannot create new element as it already exists");
-  std::runtime_error::runtime_error(exception, &v3);
+  std::string::basic_string[abi:ne200100]<0>(&v4, "DataSet::new_element() -- Cannot create new element as it already exists");
+  std::runtime_error::runtime_error(exception, &v4);
   exception->__vftable = &unk_1F1917110;
 }
 
@@ -720,21 +719,21 @@ LABEL_6:
 
 void vega::dicom::DataSet::new_element<vega::dictionary::PixelData_OB>(vega::dicom::DataSet *a1)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::PixelData_OB::tag_mask, &v4);
-  v1 = v4;
-  if (v5)
+  vega::dicom::DataSet::data_element(&v5, a1, &vega::dictionary::PixelData_OB::tag_mask);
+  v2 = v5;
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  if (!v1)
+  if (!v2)
   {
     _ZNSt3__115allocate_sharedB8ne200100IN4vega5dicom7ElementINS1_10dictionary12PixelData_OBEEENS_9allocatorIS6_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
-  std::string::basic_string[abi:ne200100]<0>(&v3, "DataSet::new_element() -- Cannot create new element as it already exists");
-  std::runtime_error::runtime_error(exception, &v3);
+  std::string::basic_string[abi:ne200100]<0>(&v4, "DataSet::new_element() -- Cannot create new element as it already exists");
+  std::runtime_error::runtime_error(exception, &v4);
   exception->__vftable = &unk_1F1917110;
 }
 
@@ -759,53 +758,53 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void vega::vr::US(vega::vr *this)
+void vega::vr::US(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA6B8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA6B8, memory_order_acquire) & 1) == 0)
   {
     vega::vr::US();
   }
 }
 
 {
-  if ((atomic_load_explicit(&qword_1ED6FA760, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA760, memory_order_acquire) & 1) == 0)
   {
     vega::vr::US();
   }
 }
 
 {
-  if ((atomic_load_explicit(&qword_1ED6FA898, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA898, memory_order_acquire) & 1) == 0)
   {
     vega::vr::US();
   }
 }
 
-void vega::vr::FL(vega::vr *this)
+void vega::vr::FL(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA6E0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA6E0, memory_order_acquire) & 1) == 0)
   {
     vega::vr::FL();
   }
 }
 
 {
-  if ((atomic_load_explicit(&qword_1ED6FA808, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA808, memory_order_acquire) & 1) == 0)
   {
     vega::vr::FL();
   }
 }
 
-void vega::vr::FD(vega::vr *this)
+void vega::vr::FD(uint64_t this)
 {
-  if ((atomic_load_explicit(&qword_1ED6FA6E8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA6E8, memory_order_acquire) & 1) == 0)
   {
     vega::vr::FD();
   }
 }
 
 {
-  if ((atomic_load_explicit(&qword_1ED6FA810, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA810, memory_order_acquire) & 1) == 0)
   {
     vega::vr::FD();
   }
@@ -861,16 +860,16 @@ void __destroy_helper_block_ea8_32c65_ZTSNSt3__110shared_ptrIN4vega12manipulator
   }
 }
 
-void vega::vr::AT(vega::vr *this)
+void vega::vr::AT(uint64_t this)
 {
-  if ((atomic_load_explicit(qword_1ED6FA6F0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA6F0, memory_order_acquire) & 1) == 0)
   {
     vega::vr::AT();
   }
 }
 
 {
-  if ((atomic_load_explicit(&qword_1ED6FA7E0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA7E0, memory_order_acquire) & 1) == 0)
   {
     vega::vr::AT();
   }
@@ -1056,7 +1055,7 @@ id _convertToDICOMStringValue(void *a1)
         v7 = *(*(&v10 + 1) + 8 * i);
         if ([v2 length])
         {
-          [v2 appendString:@"\"];
+          [v2 appendString:@"\""];
         }
 
         objc_opt_class();
@@ -1271,18 +1270,19 @@ void std::__destroy_at[abi:ne200100]<vega::dicom::Reader,0>(uint64_t a1)
   }
 }
 
-void _addPropertyToDataSet(void *a1, __int16 a2, uint64_t a3)
+void _addPropertyToDataSet(void *a1, uint64_t a2, uint64_t *a3)
 {
-  v18[17] = *MEMORY[0x1E69E9840];
+  v4 = a2;
+  v20[17] = *MEMORY[0x1E69E9840];
   v5 = a1;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v6 = v5;
-    v16 = 24933;
-    v17 = a2 | 2;
+    v18 = 24933;
+    v19 = v4 | 2;
     std::string::basic_string[abi:ne200100]<0>(&__p, "OB");
-    if (v13 >= 0)
+    if (v15 >= 0)
     {
       p_p = &__p;
     }
@@ -1292,8 +1292,8 @@ void _addPropertyToDataSet(void *a1, __int16 a2, uint64_t a3)
       p_p = __p;
     }
 
-    v14 = *p_p;
-    v15 = p_p[1];
+    v16 = *p_p;
+    v17 = p_p[1];
     std::allocate_shared[abi:ne200100]<vega::dicom::DataElement,std::allocator<vega::dicom::DataElement>,vega::Tag,vega::VR,0>();
   }
 
@@ -1301,10 +1301,10 @@ void _addPropertyToDataSet(void *a1, __int16 a2, uint64_t a3)
   if (objc_opt_isKindOfClass())
   {
     v5;
-    v16 = 24933;
-    v17 = a2 | 3;
+    v18 = 24933;
+    v19 = v4 | 3;
     std::string::basic_string[abi:ne200100]<0>(&__p, "SQ");
-    if (v13 >= 0)
+    if (v15 >= 0)
     {
       v8 = &__p;
     }
@@ -1314,32 +1314,36 @@ void _addPropertyToDataSet(void *a1, __int16 a2, uint64_t a3)
       v8 = __p;
     }
 
-    v14 = *v8;
-    v15 = v8[1];
+    v16 = *v8;
+    v17 = v8[1];
     std::allocate_shared[abi:ne200100]<vega::dicom::DataElement,std::allocator<vega::dicom::DataElement>,vega::Tag,vega::VR,std::shared_ptr<vega::dicom::DataSet> &,0>();
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v9 = *(a3 + 8);
+    v9 = a3[1];
+    v13[0] = *a3;
+    v13[1] = v9;
     if (v9)
     {
       atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
     }
 
-    _addArrayToDataSet(v5, a2);
+    _addArrayToDataSet(v5, v4, v13);
   }
 
-  v18[0] = v5;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
-  v11 = *(a3 + 8);
+  v20[0] = v5;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
+  v11 = a3[1];
+  v12[0] = *a3;
+  v12[1] = v11;
   if (v11)
   {
     atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
   }
 
-  _addArrayToDataSet(v10, a2);
+  _addArrayToDataSet(v10, v4, v12);
 }
 
 void sub_1A59C7544(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *__p, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43)
@@ -1401,7 +1405,7 @@ void *_ZNSt3__120__shared_ptr_emplaceIN4vega5dicom7DataSetENS_9allocatorIS3_EEEC
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_1F1917980;
-  _ZNSt3__112construct_atB8ne200100IN4vega5dicom7DataSetEJEPS3_EEPT_S6_DpOT0_((a1 + 3));
+  _ZNSt3__112construct_atB8ne200100IN4vega5dicom7DataSetEJEPS3_EEPT_S6_DpOT0_(a1 + 3);
   return a1;
 }
 
@@ -1413,22 +1417,22 @@ void std::__shared_ptr_emplace<vega::dicom::DataSet>::~__shared_ptr_emplace(std:
   JUMPOUT(0x1AC552B90);
 }
 
-void std::__shared_ptr_emplace<vega::dicom::DataSet>::__on_zero_shared(uint64_t a1)
+void std::__shared_ptr_emplace<vega::dicom::DataSet>::__on_zero_shared(void *a1)
 {
-  v2 = *(a1 + 96);
+  v2 = a1[12];
   if (v2)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   }
 
-  std::__tree<std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>>>::destroy(a1 + 64, *(a1 + 72));
-  v3 = *(a1 + 56);
+  std::__tree<std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>,std::__map_value_compare<vega::Tag,std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>,std::less<vega::Tag>,true>,std::allocator<std::__value_type<vega::Tag,std::shared_ptr<vega::dicom::DataElement>>>>::destroy((a1 + 8), a1[9]);
+  v3 = a1[7];
   if (v3)
   {
     std::__shared_weak_count::__release_weak(v3);
   }
 
-  v4 = *(a1 + 32);
+  v4 = a1[4];
   if (v4)
   {
 
@@ -1436,7 +1440,7 @@ void std::__shared_ptr_emplace<vega::dicom::DataSet>::__on_zero_shared(uint64_t 
   }
 }
 
-uint64_t _ZNSt3__112construct_atB8ne200100IN4vega5dicom7DataSetEJEPS3_EEPT_S6_DpOT0_(uint64_t a1)
+void *_ZNSt3__112construct_atB8ne200100IN4vega5dicom7DataSetEJEPS3_EEPT_S6_DpOT0_(void *a1)
 {
   v3 = 0;
   v4 = 0;
@@ -1517,28 +1521,28 @@ void vega::dicom::DataElement::set_manipulator<vega::manipulators::OtherByteMani
   }
 }
 
-void _addArrayToDataSet(void *a1, __int16 a2)
+void _addArrayToDataSet(void *a1, __int16 a2, uint64_t *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v6 = a1;
-  v3 = [v6 dicomVRForArray];
-  if (((-[__CFString isEqual:](v3, "isEqual:", @"LT") & 1) != 0 || -[__CFString isEqual:](v3, "isEqual:", @"ST")) && [v6 count] >= 2)
+  v14 = *MEMORY[0x1E69E9840];
+  v7 = a1;
+  v4 = [v7 dicomVRForArray];
+  if (((-[__CFString isEqual:](v4, "isEqual:", @"LT") & 1) != 0 || -[__CFString isEqual:](v4, "isEqual:", @"ST")) && [v7 count] >= 2)
   {
   }
 
-  else if (v3)
+  else if (v4)
   {
-    v4 = 2;
+    v5 = 2;
     goto LABEL_8;
   }
 
-  v3 = @"SQ";
-  v4 = 4;
+  v4 = @"SQ";
+  v5 = 4;
 LABEL_8:
-  v7 = 24933;
-  v8 = v4 | a2;
-  std::string::basic_string[abi:ne200100]<0>(&__p, -[__CFString UTF8String](v3, "UTF8String"));
-  if (v10 >= 0)
+  v8 = 24933;
+  v9 = v5 | a2;
+  std::string::basic_string[abi:ne200100]<0>(&__p, -[__CFString UTF8String](v4, "UTF8String"));
+  if (v11 >= 0)
   {
     p_p = &__p;
   }
@@ -1548,8 +1552,8 @@ LABEL_8:
     p_p = __p;
   }
 
-  v11 = *p_p;
-  v12 = p_p[1];
+  v12 = *p_p;
+  v13 = p_p[1];
   std::allocate_shared[abi:ne200100]<vega::dicom::DataElement,std::allocator<vega::dicom::DataElement>,vega::Tag,vega::VR,0>();
 }
 
@@ -1573,7 +1577,7 @@ void sub_1A59C82A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-const void *std::stringbuf::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+const void *std::stringbuf::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = std::stringbuf::view[abi:ne200100](a1);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -1587,13 +1591,13 @@ const void *std::stringbuf::str[abi:ne200100]@<X0>(uint64_t a1@<X0>, _BYTE *a2@<
     operator new();
   }
 
-  a2[23] = v4;
+  *(a2 + 23) = v4;
   if (v4)
   {
     result = memmove(a2, result, v4);
   }
 
-  a2[v5] = 0;
+  *(a2 + v5) = 0;
   return result;
 }
 
@@ -1606,7 +1610,7 @@ uint64_t vega::dicom::DataElement::validate_manipulator<vega::manipulators::Othe
     exception = __cxa_allocate_exception(0x10uLL);
     std::string::basic_string[abi:ne200100]<0>(&v14, "DataElement::set_manipulator, received manipulator does not support VR ");
     v7 = vega::dicom::DataElement::vr(a1);
-    vega::VR::str(v7, v12);
+    vega::VR::str(v12, v7);
     if ((v13 & 0x80u) == 0)
     {
       v8 = v12;
@@ -1793,7 +1797,7 @@ uint64_t vega::dicom::DataElement::validate_manipulator<vega::manipulators::Long
     exception = __cxa_allocate_exception(0x10uLL);
     std::string::basic_string[abi:ne200100]<0>(&v14, "DataElement::set_manipulator, received manipulator does not support VR ");
     v7 = vega::dicom::DataElement::vr(a1);
-    vega::VR::str(v7, v12);
+    vega::VR::str(v12, v7);
     if ((v13 & 0x80u) == 0)
     {
       v8 = v12;
@@ -1887,7 +1891,7 @@ void vega::manipulators::LongTextManipulator::~LongTextManipulator(void **this)
     operator delete(this[1]);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
@@ -1897,7 +1901,7 @@ void vega::manipulators::LongTextManipulator::~LongTextManipulator(void **this)
     operator delete(this[1]);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
@@ -1905,7 +1909,7 @@ void vega::manipulators::LongTextManipulator::~LongTextManipulator(void **this)
 BOOL vega::manipulators::LongTextManipulator::is_valid_for (vega::manipulators::LongTextManipulator *this, const vega::VR *a2)
 {
   v3 = a2;
-  if ((atomic_load_explicit(&qword_1ED6FA708, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA708, memory_order_acquire) & 1) == 0)
   {
     vega::manipulators::LongTextManipulator::is_valid_for ();
     v3 = a2;
@@ -1942,7 +1946,7 @@ void vega::manipulators::ShortTextManipulator::~ShortTextManipulator(void **this
     operator delete(this[1]);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 }
 
 {
@@ -1952,7 +1956,7 @@ void vega::manipulators::ShortTextManipulator::~ShortTextManipulator(void **this
     operator delete(this[1]);
   }
 
-  CMPhotoGetEncodeAccelerationModeOverride(this);
+  CMPhotoGetEncodeAccelerationModeOverride();
 
   JUMPOUT(0x1AC552B90);
 }
@@ -1960,7 +1964,7 @@ void vega::manipulators::ShortTextManipulator::~ShortTextManipulator(void **this
 BOOL vega::manipulators::ShortTextManipulator::is_valid_for (vega::manipulators::ShortTextManipulator *this, const vega::VR *a2)
 {
   v3 = a2;
-  if ((atomic_load_explicit(qword_1ED6FA710, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED6FA710, memory_order_acquire) & 1) == 0)
   {
     vega::manipulators::ShortTextManipulator::is_valid_for ();
     v3 = a2;
@@ -1978,7 +1982,7 @@ uint64_t vega::dicom::DataElement::validate_manipulator<vega::manipulators::Sing
     exception = __cxa_allocate_exception(0x10uLL);
     std::string::basic_string[abi:ne200100]<0>(&v14, "DataElement::set_manipulator, received manipulator does not support VR ");
     v7 = vega::dicom::DataElement::vr(a1);
-    vega::VR::str(v7, v12);
+    vega::VR::str(v12, v7);
     if ((v13 & 0x80u) == 0)
     {
       v8 = v12;
@@ -2260,7 +2264,7 @@ id _getPropertyFromDataSet(vega::dicom::DataSet **a1, int a2)
   {
     v3 = *a1;
     v53.__r_.__value_.__r.__words[0] = 0xFFFFFF00016165;
-    vega::dicom::DataSet::data_element(v3, &v53, &v57);
+    vega::dicom::DataSet::data_element(&v57, v3, &v53);
     if (!v57)
     {
       goto LABEL_16;
@@ -2373,7 +2377,7 @@ LABEL_16:
   v51 = 0xFFFFFF00036165;
   v52 = 0xFFFFFF00026165;
   v50 = 0xFFFFFF00046165;
-  vega::dicom::DataSet::data_element(*a1, &v52, &v57);
+  vega::dicom::DataSet::data_element(&v57, *a1, &v52);
   if (!v57)
   {
     goto LABEL_42;
@@ -2398,7 +2402,7 @@ LABEL_16:
     }
 
 LABEL_42:
-    vega::dicom::DataSet::data_element(*a1, &v51, &v54);
+    vega::dicom::DataSet::data_element(&v54, *a1, &v51);
     if (v54)
     {
       v21 = v55;
@@ -2421,9 +2425,9 @@ LABEL_47:
           v25 = vega::dicom::DataElement::data_sets(v54);
           memset(&v53, 0, sizeof(v53));
           std::vector<std::shared_ptr<vega::dicom::DataSet>>::__init_with_size[abi:ne200100]<std::shared_ptr<vega::dicom::DataSet>*,std::shared_ptr<vega::dicom::DataSet>*>(&v53, *v25, v25[1], (v25[1] - *v25) >> 4);
-          for (i = v53.__r_.__value_.__r.__words[0]; i != v53.__r_.__value_.__l.__size_; i += 2)
+          for (i = v53.__r_.__value_.__r.__words[0]; i != v53.__r_.__value_.__l.__size_; i += 16)
           {
-            v27 = i[1];
+            v27 = *(i + 8);
             v44 = *i;
             v45 = v27;
             if (v27)
@@ -2456,7 +2460,7 @@ LABEL_47:
       }
     }
 
-    vega::dicom::DataSet::data_element(*a1, &v50, &v42);
+    vega::dicom::DataSet::data_element(&v42, *a1, &v50);
     if (v42)
     {
       v29 = v43;
@@ -2479,9 +2483,9 @@ LABEL_60:
           v33 = vega::dicom::DataElement::data_sets(v42);
           memset(&v53, 0, sizeof(v53));
           std::vector<std::shared_ptr<vega::dicom::DataSet>>::__init_with_size[abi:ne200100]<std::shared_ptr<vega::dicom::DataSet>*,std::shared_ptr<vega::dicom::DataSet>*>(&v53, *v33, v33[1], (v33[1] - *v33) >> 4);
-          for (j = v53.__r_.__value_.__r.__words[0]; j != v53.__r_.__value_.__l.__size_; j += 2)
+          for (j = v53.__r_.__value_.__r.__words[0]; j != v53.__r_.__value_.__l.__size_; j += 16)
           {
-            v35 = j[1];
+            v35 = *(j + 8);
             v39 = *j;
             v40 = v35;
             if (v35)
@@ -2646,21 +2650,21 @@ void *std::dynamic_pointer_cast[abi:ne200100]<vega::manipulators::SingleStringMa
 
 void vega::dicom::DataSet::new_element<vega::dictionary::PrivateElement>(vega::dicom::DataSet *a1)
 {
-  vega::dicom::DataSet::data_element(a1, &vega::dictionary::PrivateElement::tag_mask, &v4);
-  v1 = v4;
-  if (v5)
+  vega::dicom::DataSet::data_element(&v6, a1, &vega::dictionary::PrivateElement::tag_mask);
+  v3 = v6;
+  if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
-  if (!v1)
+  if (!v3)
   {
     std::allocate_shared[abi:ne200100]<vega::dicom::Element<vega::dictionary::PrivateElement>,std::allocator<vega::dicom::Element<vega::dictionary::PrivateElement>>,vega::Tag const&,0>();
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
-  std::string::basic_string[abi:ne200100]<0>(&v3, "DataSet::new_element() -- Cannot create new element as it already exists");
-  std::runtime_error::runtime_error(exception, &v3);
+  std::string::basic_string[abi:ne200100]<0>(&v5, "DataSet::new_element() -- Cannot create new element as it already exists");
+  std::runtime_error::runtime_error(exception, &v5);
   exception->__vftable = &unk_1F1917110;
 }
 
@@ -2685,12 +2689,12 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void std::__shared_ptr_emplace<vega::dicom::Element<vega::dictionary::PrivateElement>>::__shared_ptr_emplace[abi:ne200100]<vega::Tag const&,std::allocator<vega::dicom::Element<vega::dictionary::PrivateElement>>,0>(void *a1)
+void std::__shared_ptr_emplace<vega::dicom::Element<vega::dictionary::PrivateElement>>::__shared_ptr_emplace[abi:ne200100]<vega::Tag const&,std::allocator<vega::dicom::Element<vega::dictionary::PrivateElement>>,0>(void *a1, const vega::Tag *a2)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_1F1916930;
-  vega::dicom::Element<vega::dictionary::PrivateElement>::Element();
+  vega::dicom::Element<vega::dictionary::PrivateElement>::Element((a1 + 3), a2);
 }
 
 void std::__shared_ptr_emplace<vega::dicom::Element<vega::dictionary::PrivateElement>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -2737,7 +2741,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void *std::__shared_ptr_emplace<vega::dicom::DataElement>::__shared_ptr_emplace[abi:ne200100]<vega::Tag const&,vega::VR const&,std::allocator<vega::dicom::DataElement>,0>(void *a1, uint64_t a2, uint64_t a3)
+void *std::__shared_ptr_emplace<vega::dicom::DataElement>::__shared_ptr_emplace[abi:ne200100]<vega::Tag const&,vega::VR const&,std::allocator<vega::dicom::DataElement>,0>(void *a1, vega::Tag *a2, vega::VR *a3)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -2746,7 +2750,7 @@ void *std::__shared_ptr_emplace<vega::dicom::DataElement>::__shared_ptr_emplace[
   return a1;
 }
 
-uint64_t std::construct_at[abi:ne200100]<vega::dicom::DataElement,vega::Tag const&,vega::VR const&,vega::dicom::DataElement*>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t std::construct_at[abi:ne200100]<vega::dicom::DataElement,vega::Tag const&,vega::VR const&,vega::dicom::DataElement*>(uint64_t a1, vega::Tag *a2, vega::VR *a3)
 {
   v5 = 0;
   v6 = 0;
@@ -2769,7 +2773,7 @@ void sub_1A59CA454(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<vega::Byte>::__init_with_size[abi:ne200100]<std::__wrap_iter<vega::Byte*>,std::__wrap_iter<vega::Byte*>>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<vega::Byte>::__init_with_size[abi:ne200100]<std::__wrap_iter<vega::Byte*>,std::__wrap_iter<vega::Byte*>>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -3356,7 +3360,7 @@ void sub_1A59CADD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_DWORD *std::vector<int>::emplace_back<int const&>(const void **a1, _DWORD *a2)
+char *std::vector<int>::emplace_back<int const&>(const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -3390,7 +3394,7 @@ _DWORD *std::vector<int>::emplace_back<int const&>(const void **a1, _DWORD *a2)
 
     v13 = (4 * (v8 >> 2));
     *v13 = *a2;
-    v6 = v13 + 1;
+    v6 = (v13 + 1);
     memcpy(0, v7, v8);
     v14 = *a1;
     *a1 = 0;
@@ -3405,14 +3409,14 @@ _DWORD *std::vector<int>::emplace_back<int const&>(const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
-  return v6 - 1;
+  return v6 - 4;
 }
 
-void *std::vector<long long>::emplace_back<long long const&>(const void **a1, void *a2)
+char *std::vector<long long>::emplace_back<long long const&>(const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -3446,7 +3450,7 @@ void *std::vector<long long>::emplace_back<long long const&>(const void **a1, vo
 
     v13 = (8 * (v8 >> 3));
     *v13 = *a2;
-    v6 = v13 + 1;
+    v6 = (v13 + 1);
     memcpy(0, v7, v8);
     v14 = *a1;
     *a1 = 0;
@@ -3461,11 +3465,11 @@ void *std::vector<long long>::emplace_back<long long const&>(const void **a1, vo
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
-  return v6 - 1;
+  return v6 - 8;
 }
 
 uint64_t vega::dicom::DataElement::validate_manipulator<vega::manipulators::ValueManipulator>(vega::dicom::DataElement *a1, uint64_t a2)
@@ -3477,7 +3481,7 @@ uint64_t vega::dicom::DataElement::validate_manipulator<vega::manipulators::Valu
     exception = __cxa_allocate_exception(0x10uLL);
     std::string::basic_string[abi:ne200100]<0>(&v14, "DataElement::set_manipulator, received manipulator does not support VR ");
     v7 = vega::dicom::DataElement::vr(a1);
-    vega::VR::str(v7, v12);
+    vega::VR::str(v12, v7);
     if ((v13 & 0x80u) == 0)
     {
       v8 = v12;
@@ -3543,7 +3547,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void *std::__shared_ptr_emplace<vega::dicom::DataElement>::__shared_ptr_emplace[abi:ne200100]<vega::Tag,vega::VR,std::allocator<vega::dicom::DataElement>,0>(void *a1, uint64_t a2, uint64_t a3)
+void *std::__shared_ptr_emplace<vega::dicom::DataElement>::__shared_ptr_emplace[abi:ne200100]<vega::Tag,vega::VR,std::allocator<vega::dicom::DataElement>,0>(void *a1, vega::Tag *a2, vega::VR *a3)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -3552,7 +3556,7 @@ void *std::__shared_ptr_emplace<vega::dicom::DataElement>::__shared_ptr_emplace[
   return a1;
 }
 
-uint64_t std::construct_at[abi:ne200100]<vega::dicom::DataElement,vega::Tag,vega::VR,vega::dicom::DataElement*>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t std::construct_at[abi:ne200100]<vega::dicom::DataElement,vega::Tag,vega::VR,vega::dicom::DataElement*>(uint64_t a1, vega::Tag *a2, vega::VR *a3)
 {
   v5 = 0;
   v6 = 0;
@@ -3580,11 +3584,11 @@ void *std::__shared_ptr_emplace<vega::dicom::DataSet>::__shared_ptr_emplace[abi:
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_1F1917980;
-  std::construct_at[abi:ne200100]<vega::dicom::DataSet,std::shared_ptr<vega::dicom::DataElement> &,vega::dicom::DataSet*>((a1 + 3), a2);
+  std::construct_at[abi:ne200100]<vega::dicom::DataSet,std::shared_ptr<vega::dicom::DataElement> &,vega::dicom::DataSet*>(a1 + 3, a2);
   return a1;
 }
 
-uint64_t std::construct_at[abi:ne200100]<vega::dicom::DataSet,std::shared_ptr<vega::dicom::DataElement> &,vega::dicom::DataSet*>(uint64_t a1, uint64_t *a2)
+void *std::construct_at[abi:ne200100]<vega::dicom::DataSet,std::shared_ptr<vega::dicom::DataElement> &,vega::dicom::DataSet*>(void *a1, uint64_t *a2)
 {
   v3 = a2[1];
   v5 = *a2;
@@ -3613,7 +3617,7 @@ void sub_1A59CB3E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__shared_ptr_emplace<vega::dicom::DataElement>::__shared_ptr_emplace[abi:ne200100]<vega::Tag,vega::VR,std::shared_ptr<vega::dicom::DataSet> &,std::allocator<vega::dicom::DataElement>,0>(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *std::__shared_ptr_emplace<vega::dicom::DataElement>::__shared_ptr_emplace[abi:ne200100]<vega::Tag,vega::VR,std::shared_ptr<vega::dicom::DataSet> &,std::allocator<vega::dicom::DataElement>,0>(void *a1, vega::Tag *a2, vega::VR *a3, uint64_t *a4)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -3622,7 +3626,7 @@ void *std::__shared_ptr_emplace<vega::dicom::DataElement>::__shared_ptr_emplace[
   return a1;
 }
 
-uint64_t std::construct_at[abi:ne200100]<vega::dicom::DataElement,vega::Tag,vega::VR,std::shared_ptr<vega::dicom::DataSet> &,vega::dicom::DataElement*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t std::construct_at[abi:ne200100]<vega::dicom::DataElement,vega::Tag,vega::VR,std::shared_ptr<vega::dicom::DataSet> &,vega::dicom::DataElement*>(uint64_t a1, vega::Tag *a2, vega::VR *a3, uint64_t *a4)
 {
   v5 = a4[1];
   v7 = *a4;
@@ -3769,7 +3773,7 @@ uint64_t vega::dicom::DataElement::validate_manipulator<vega::manipulators::Uniq
     exception = __cxa_allocate_exception(0x10uLL);
     std::string::basic_string[abi:ne200100]<0>(&v14, "DataElement::set_manipulator, received manipulator does not support VR ");
     v7 = vega::dicom::DataElement::vr(a1);
-    vega::VR::str(v7, v12);
+    vega::VR::str(v12, v7);
     if ((v13 & 0x80u) == 0)
     {
       v8 = v12;
@@ -4285,7 +4289,7 @@ uint64_t CMPhotoDNGReadRational(unsigned int *a1, int a2)
   return v2 | (v3 << 32);
 }
 
-_WORD *CMPhotoDNGWrite16(_WORD *result, __int16 a2, int a3)
+__int16 *CMPhotoDNGWrite16(__int16 *result, __int16 a2, int a3)
 {
   v3 = __rev16(a2);
   if (!a3)
@@ -4324,10 +4328,11 @@ double *CMPhotoDNGWriteDouble(double *result, int a2, double a3)
 
 uint64_t CMPhotoDNGDecompressRawTile(uint64_t a1, int a2, int a3, int a4, uint64_t a5, unint64_t a6, uint64_t a7, char a8, char a9)
 {
+  v9 = a8;
   if (a9)
   {
 
-    return _jpegXLDecompress(a1, a2, a5, a6, a7, 1278226742);
+    return _jpegXLDecompress(a1, a2, a5, a6, a7, 1278226742, a8);
   }
 
   else
@@ -4404,7 +4409,7 @@ uint64_t CMPhotoDNGDecompressRawTile(uint64_t a1, int a2, int a3, int a4, uint64
       v24 = 0;
       v67 = a7 / 2;
       v25 = 1;
-      v74 = a8;
+      v74 = v9;
       do
       {
         v26 = *(&v77 + v24 + 2);
@@ -4431,7 +4436,7 @@ uint64_t CMPhotoDNGDecompressRawTile(uint64_t a1, int a2, int a3, int a4, uint64
         v34 = v28 + 2;
         v35 = &v78[v27];
         LODWORD(v36) = 256;
-        a8 = v74;
+        v9 = v74;
         do
         {
           v36 = v36 >> 1;
@@ -4530,7 +4535,7 @@ uint64_t CMPhotoDNGDecompressRawTile(uint64_t a1, int a2, int a3, int a4, uint64
 
             while (v38 != v37);
             v30 += v36 * v37;
-            a8 = v74;
+            v9 = v74;
           }
         }
 
@@ -4565,8 +4570,8 @@ uint64_t CMPhotoDNGDecompressRawTile(uint64_t a1, int a2, int a3, int a4, uint64
           if (v57)
           {
             v59 = (a5 + 2 * (v57 - 1) * v67);
-            v60 = *v59 >> a8;
-            v61 = v59[1] >> a8;
+            v60 = *v59 >> v9;
+            v61 = v59[1] >> v9;
           }
 
           else
@@ -4582,9 +4587,9 @@ uint64_t CMPhotoDNGDecompressRawTile(uint64_t a1, int a2, int a3, int a4, uint64
             do
             {
               v60 += _readHuffFast(&v75, 0);
-              *(v63 - 1) = v60 << a8;
-              v61 += _readHuffFast(&v75, 1u);
-              *v63 = v61 << a8;
+              *(v63 - 1) = v60 << v9;
+              v61 += _readHuffFast(&v75, 1);
+              *v63 = v61 << v9;
               v63 += 2;
               v62 += 2;
             }
@@ -4648,7 +4653,7 @@ uint64_t CMPhotoDNGDecompressLinearRawTile(uint64_t a1, int a2, uint64_t a3, uin
   if (a9)
   {
 
-    return _jpegXLDecompress(a1, a2, a3, a4, a5, a6);
+    return _jpegXLDecompress(a1, a2, a3, a4, a5, a6, 0);
   }
 
   else
@@ -4999,13 +5004,13 @@ uint64_t _encodeWriteHuffTable(uint64_t result, char a2)
   return result;
 }
 
-uint64_t _readHuffFast(uint64_t a1, unsigned int a2)
+uint64_t _readHuffFast(_DWORD *a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = a1[4];
   if (v3 >= 8)
   {
-    v8 = *(a1 + 12);
-    v9 = *(a1 + 16);
+    v8 = a1[3];
+    v9 = a1[4];
     LOBYTE(v3) = v3 - 8;
   }
 
@@ -5015,29 +5020,29 @@ uint64_t _readHuffFast(uint64_t a1, unsigned int a2)
     v5 = (*a1 + 1);
     *a1 = v5;
     v6 = *v4;
-    v7 = *(a1 + 8);
-    v8 = v6 | (*(a1 + 12) << 8);
-    *(a1 + 8) = v7 - 1;
-    *(a1 + 12) = v8;
+    v7 = a1[2];
+    v8 = v6 | (a1[3] << 8);
+    a1[2] = v7 - 1;
+    a1[3] = v8;
     if (v6 == 255 && !*v5)
     {
       *a1 = v4 + 2;
-      *(a1 + 8) = v7 - 2;
+      a1[2] = v7 - 2;
     }
 
     v9 = v3 + 8;
-    *(a1 + 16) = v3 + 8;
+    a1[4] = v3 + 8;
   }
 
-  v10 = *(a1 + 4 * a2 + 32);
-  v11 = (*(a1 + 8 * v10 + 112) + 4 * (v8 >> v3));
+  v10 = a1[a2 + 8];
+  v11 = (*&a1[2 * v10 + 28] + 4 * (v8 >> v3));
   v12 = *v11;
   v13 = v11[1];
   result = *(v11 + 1);
   if (v13 == 2)
   {
     v15 = v9 - v12;
-    *(a1 + 16) = v15;
+    a1[4] = v15;
     if (v15 >= result)
     {
       v19 = v8;
@@ -5046,21 +5051,21 @@ uint64_t _readHuffFast(uint64_t a1, unsigned int a2)
     else
     {
       v16 = *a1;
-      v17 = *(a1 + 8);
+      v17 = a1[2];
       do
       {
-        *(a1 + 12) = v8 << 8;
+        a1[3] = v8 << 8;
         *a1 = v16 + 1;
         v18 = *v16;
         v19 = v18 | (v8 << 8);
-        *(a1 + 8) = v17 - 1;
-        *(a1 + 12) = v19;
+        a1[2] = v17 - 1;
+        a1[3] = v19;
         if (v18 == 255)
         {
           v16 += 2;
           *a1 = v16;
           v17 -= 2;
-          *(a1 + 8) = v17;
+          a1[2] = v17;
         }
 
         else
@@ -5070,14 +5075,14 @@ uint64_t _readHuffFast(uint64_t a1, unsigned int a2)
         }
 
         v15 += 8;
-        *(a1 + 16) = v15;
+        a1[4] = v15;
         v8 = v18 | (v8 << 8);
       }
 
       while (v15 < result);
     }
 
-    *(a1 + 16) = v15 - result;
+    a1[4] = v15 - result;
     v34 = -1 << result;
     v35 = (v19 >> (v15 - result)) & ~(-1 << result);
     v36 = v35 >> (result - 1);
@@ -5090,7 +5095,7 @@ uint64_t _readHuffFast(uint64_t a1, unsigned int a2)
 
   else if (v13 == 1)
   {
-    *(a1 + 16) = v9 - v12;
+    a1[4] = v9 - v12;
   }
 
   else
@@ -5099,7 +5104,7 @@ uint64_t _readHuffFast(uint64_t a1, unsigned int a2)
     v21 = 0;
     v22 = 0;
     v23 = 0;
-    v24 = a1 + 16 * v10 + 40;
+    v24 = &a1[4 * v10 + 10];
     while (1)
     {
       Bit = _decodeReadBit(a1);
@@ -5128,8 +5133,8 @@ LABEL_23:
     }
 
     v28 = a1 + 17 * v10 + v23;
-    v29 = *(v28 + 72);
-    if (*(v28 + 72))
+    v29 = v28[72];
+    if (v28[72])
     {
       v30 = 0;
       v31 = 0;
@@ -5261,31 +5266,31 @@ _DWORD *_jxlOutputCallback_0(_DWORD *result, uint64_t a2, uint64_t a3, uint64_t 
     return _jxlOutputCallback_cold_2_0();
   }
 
-  v5 = result[10];
-  switch(v5)
+  v6 = result[10];
+  switch(v6)
   {
     case 1278226742:
-      v6 = 1;
+      v7 = 1;
 LABEL_8:
-      v7 = *(result + 2) * a3 + 2 * a2 * v6;
-      v8 = result[11];
-      if (v8)
+      v8 = *(result + 2) * a3 + 2 * a2 * v7;
+      v9 = result[11];
+      if (v9)
       {
-        if (v5 == 1278226742)
+        if (v6 == 1278226742)
         {
-          v9 = v6 * a4;
-          if (v6 * a4)
+          v10 = v7 * a4;
+          if (v7 * a4)
           {
-            v10 = (*result + v7);
+            v11 = (*result + v8);
             do
             {
-              v11 = *__src;
+              v12 = *__src;
               __src += 2;
-              *v10++ = v11 << v8;
-              --v9;
+              *v11++ = v12 << v9;
+              --v10;
             }
 
-            while (v9);
+            while (v10);
           }
         }
 
@@ -5297,63 +5302,63 @@ LABEL_8:
 
       else
       {
-        v12 = (*result + v7);
+        v13 = (*result + v8);
 
-        return memcpy(v12, __src, 2 * a4 * v6);
+        return memcpy(v13, __src, 2 * a4 * v7);
       }
 
       return result;
     case 1647589490:
-      v6 = 3;
+      v7 = 3;
       goto LABEL_8;
     case 1815491698:
-      v6 = 4;
+      v7 = 4;
       goto LABEL_8;
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294950739, "<<<< CMPhotoDNGCompression >>>>", 1191, v5);
 }
 
-uint64_t _populateTranscodeDescriptionForMainImage(const void *a1, uint64_t a2, uint64_t a3)
+uint64_t _populateTranscodeDescriptionForMainImage(const void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16 = 0;
+  v17 = 0;
   cf = 0;
-  v6 = CFGetAllocator(a1);
+  v7 = CFGetAllocator(a1);
   if (a3 == -1)
   {
     Mutable = 0;
     goto LABEL_6;
   }
 
-  v7 = CFGetAllocator(a1);
-  Mutable = CFDictionaryCreateMutable(v7, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  v8 = CFGetAllocator(a1);
+  Mutable = CFDictionaryCreateMutable(v8, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   if (Mutable)
   {
     TranscodePayloadArray = FigCFDictionarySetCFIndex();
     if (TranscodePayloadArray)
     {
 LABEL_4:
-      v10 = TranscodePayloadArray;
+      v11 = TranscodePayloadArray;
       goto LABEL_17;
     }
 
 LABEL_6:
-    v11 = &off_1F1916A38;
-    v12 = 6;
+    v12 = &off_1F1916A38;
+    v13 = 6;
     while (1)
     {
-      v15 = 0;
-      TranscodePayloadArray = (*(v11 - 1))(a1, a2, Mutable, &v15);
+      v16 = 0;
+      TranscodePayloadArray = (*(v12 - 1))(a1, a2, Mutable, &v16);
       if (TranscodePayloadArray)
       {
         goto LABEL_4;
       }
 
-      if (v15 >= 1)
+      if (v16 >= 1)
       {
-        TranscodePayloadArray = _createTranscodePayloadArray(a1, v6, *(v11 + 2), v15, a2, a3, &cf);
+        TranscodePayloadArray = _createTranscodePayloadArray(a1, v7, *(v12 + 2), v16, a2, a3, &cf);
         if (TranscodePayloadArray)
         {
           goto LABEL_4;
@@ -5367,30 +5372,30 @@ LABEL_6:
         }
       }
 
-      v11 += 3;
-      if (!--v12)
+      v12 += 3;
+      if (!--v13)
       {
-        CMPhotoDecompressionContainerCopyHEIFItemPropertiesForIndexWithOptions(a1, a2, Mutable, &v16);
-        if (v13 || FigCFDictionaryGetCount() < 1)
+        CMPhotoDecompressionContainerCopyHEIFItemPropertiesForIndexWithOptions(a1, a2, Mutable, &v17);
+        if (v14 || FigCFDictionaryGetCount() < 1)
         {
-          v10 = 0;
+          v11 = 0;
           goto LABEL_17;
         }
 
-        TranscodePayloadArray = _createTranscodePayloadArray(a1, v6, 8, 1, a2, a3, &cf);
+        TranscodePayloadArray = _createTranscodePayloadArray(a1, v7, 8, 1, a2, a3, &cf);
         if (!TranscodePayloadArray)
         {
           FigCFDictionarySetValue();
           if (cf)
           {
             CFRelease(cf);
-            v10 = 0;
+            v11 = 0;
             cf = 0;
           }
 
           else
           {
-            v10 = 0;
+            v11 = 0;
           }
 
           goto LABEL_19;
@@ -5401,7 +5406,7 @@ LABEL_6:
     }
   }
 
-  v10 = 4294950305;
+  v11 = 4294950305;
 LABEL_17:
   if (cf)
   {
@@ -5409,9 +5414,9 @@ LABEL_17:
   }
 
 LABEL_19:
-  if (v16)
+  if (v17)
   {
-    CFRelease(v16);
+    CFRelease(v17);
   }
 
   if (Mutable)
@@ -5419,7 +5424,7 @@ LABEL_19:
     CFRelease(Mutable);
   }
 
-  return v10;
+  return v11;
 }
 
 void ___writeTranscodeDescriptionToData_block_invoke(uint64_t a1, CFTypeRef cf)
@@ -5853,14 +5858,14 @@ LABEL_7:
     if (result)
     {
       fig_log_get_emitter();
-      result = FigSignalErrorAtGM();
+      result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v6, v7, v8[1]);
     }
 
     goto LABEL_7;
   }
 
-  unpackCGImageRequestOptions_cold_1(&v6);
-  return v6;
+  unpackCGImageRequestOptions_cold_1(v8);
+  return v8[0];
 }
 
 const void *CMPhotoJPEGDecodeSessionDecodeDataToCVPixelBufferAsynchronously(uint64_t a1, const void *a2, CFDictionaryRef theDict, uint64_t a4)
@@ -5931,7 +5936,7 @@ LABEL_11:
   }
 
   v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = *"";
+  v16[1] = 0x40000000;
   v16[2] = __CMPhotoJPEGDecodeSessionDecodeDataToCVPixelBufferAsynchronously_block_invoke;
   v16[3] = &unk_1E77A32D0;
   v16[6] = a1;
@@ -5961,7 +5966,7 @@ void fjds_runRequestBlockAsynchronously(uint64_t a1, unsigned int a2, const void
   {
     v10 = *(a1 + 72);
     v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = *"";
+    v12[1] = 0x40000000;
     v12[2] = __fjds_runRequestBlockAsynchronously_block_invoke_3;
     v12[3] = &unk_1E77A33E0;
     v12[4] = a3;
@@ -5976,7 +5981,7 @@ LABEL_8:
   {
     v10 = *(a1 + 64);
     block[0] = MEMORY[0x1E69E9820];
-    block[1] = *"";
+    block[1] = 0x40000000;
     block[2] = __fjds_runRequestBlockAsynchronously_block_invoke;
     block[3] = &unk_1E77A33B8;
     block[4] = a3;
@@ -6000,7 +6005,7 @@ LABEL_8:
 
 void __CMPhotoJPEGDecodeSessionDecodeDataToCVPixelBufferAsynchronously_block_invoke(uint64_t a1)
 {
-  v12 = 0;
+  v13 = 0;
   BoolValue_0 = _getBoolValue_0(*(a1 + 40), @"AsyncDecode", 0);
   v3 = *(a1 + 48);
   if (BoolValue_0)
@@ -6008,7 +6013,7 @@ void __CMPhotoJPEGDecodeSessionDecodeDataToCVPixelBufferAsynchronously_block_inv
     if (!*(v3 + 160))
     {
       fig_log_get_emitter();
-      FigSignalErrorAtGM();
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v12, v13, v14);
       goto LABEL_4;
     }
 
@@ -6026,7 +6031,7 @@ void __CMPhotoJPEGDecodeSessionDecodeDataToCVPixelBufferAsynchronously_block_inv
     v11 = 0;
   }
 
-  fjds_createPixelBufferFromJPEGData(v3, v8, v9, v10, &v12, v11);
+  fjds_createPixelBufferFromJPEGData(v3, v8, v9, v10, &v13, v11);
 LABEL_4:
   v4 = *(a1 + 64);
   if (v4)
@@ -6042,7 +6047,7 @@ LABEL_4:
 
   fjds_removeRequestIDFromInflightList(*(a1 + 48), *(a1 + 56));
   v6 = *(a1 + 32);
-  v7 = v12;
+  v7 = v13;
   (*(v6 + 16))();
   if (v7)
   {
@@ -6089,7 +6094,7 @@ LABEL_16:
 LABEL_18:
       global_queue = dispatch_get_global_queue(0, 0);
       v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = *"";
+      v17[1] = 0x40000000;
       v17[2] = __CMPhotoJPEGDecodeSessionDecodeDataToCGImageAsynchronously_block_invoke_2;
       v17[3] = &unk_1E77A3348;
       v17[4] = a4;
@@ -6127,7 +6132,7 @@ LABEL_18:
   }
 
   v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = *"";
+  v19[1] = 0x40000000;
   v19[2] = __CMPhotoJPEGDecodeSessionDecodeDataToCGImageAsynchronously_block_invoke;
   v19[3] = &unk_1E77A3320;
   v19[6] = a1;
@@ -6151,7 +6156,7 @@ void __CMPhotoJPEGDecodeSessionDecodeDataToCGImageAsynchronously_block_invoke(ui
     if (!*(v3 + 160))
     {
       fig_log_get_emitter();
-      PixelBufferFromJPEGData = FigSignalErrorAtGM();
+      PixelBufferFromJPEGData = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", cf, pixelBuffer, v16);
       goto LABEL_4;
     }
 
@@ -6338,7 +6343,7 @@ void fjds_finalize(uint64_t a1)
 
     v16 = *(a1 + 184);
     block[0] = MEMORY[0x1E69E9820];
-    block[1] = *"";
+    block[1] = 0x40000000;
     block[2] = __fjds_finalize_block_invoke;
     block[3] = &__block_descriptor_tmp_64;
     block[4] = a1;
@@ -6475,7 +6480,7 @@ LABEL_5:
     free(v2);
     v7 = *(a1 + 72);
     v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = *"";
+    v9[1] = 0x40000000;
     v9[2] = __fjds_scheduleNextRequest_block_invoke;
     v9[3] = &unk_1E77A3408;
     v9[4] = v6;
@@ -6503,7 +6508,7 @@ void __fjds_runRequestBlockAsynchronously_block_invoke(uint64_t a1)
   v2 = *(a1 + 40);
   v3 = *(v2 + 72);
   v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = *"";
+  v4[1] = 0x40000000;
   v4[2] = __fjds_runRequestBlockAsynchronously_block_invoke_2;
   v4[3] = &unk_1E77A3390;
   v4[4] = *(a1 + 32);
@@ -6539,11 +6544,11 @@ void __fjds_scheduleNextRequest_block_invoke(uint64_t a1)
   CFRelease(v2);
 }
 
-void JPEGCompressionPluginClass_dispose(uint64_t a1)
+void JPEGCompressionPluginClass_dispose(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
-    PluginInstance_Dispose_0(*(a1 + 152));
+    PluginInstance_Dispose_0(*(result + 152));
   }
 }
 
@@ -6551,16 +6556,16 @@ void PluginInstance_Dispose_0(void *a1)
 {
   if (a1)
   {
-    v2 = *(a1 + 1);
+    v2 = a1[1];
     if (v2)
     {
       CFRelease(v2);
-      *(a1 + 1) = 0;
+      a1[1] = 0;
     }
 
-    CMPhotoUnifiedJPEGEncoderDestroy(*(a1 + 3));
-    *(a1 + 3) = 0;
-    v3 = *(a1 + 2);
+    CMPhotoUnifiedJPEGEncoderDestroy(a1[3]);
+    a1[3] = 0;
+    v3 = a1[2];
     if (v3)
     {
       dispatch_release(v3);
@@ -6780,44 +6785,44 @@ uint64_t CMPhotoCopyBackingIOSurfaceFromStorage(uint64_t a1, int a2, void *a3, v
   return 0;
 }
 
-uint64_t VideoQualityControllerClass_setSessionProperties_0(uint64_t a1, uint64_t a2)
+uint64_t VideoQualityControllerClass_setSessionProperties_0(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  v4 = *(a1 + 56);
-  if (*(v4 + 40))
+  v5 = *(a1 + 56);
+  if (*(v5 + 40))
   {
     FigCFDictionarySetFloat();
   }
 
   else
   {
-    CMPhotoCFDictionarySetInt32(a2, @"InitialQPI", *(v4 + 16));
+    CMPhotoCFDictionarySetInt32(a2, @"InitialQPI", *(v5 + 16));
     if (*(a1 + 37))
     {
-      CMPhotoCFDictionarySetInt32(a2, @"InitialQPP", *(v4 + 20) + *(v4 + 16));
+      CMPhotoCFDictionarySetInt32(a2, @"InitialQPP", *(v5 + 20) + *(v5 + 16));
     }
   }
 
-  if (!*(v4 + 40) && (*(v4 + 32) == 1635148593 || *(a1 + 37)))
+  if (!*(v5 + 40) && (*(v5 + 32) == 1635148593 || *(a1 + 37)))
   {
     FigCFDictionarySetInt32();
   }
 
-  v5 = *(v4 + 32);
-  if (v5 == 1752589105)
+  v6 = *(v5 + 32);
+  if (v6 == 1752589105)
   {
-    if (!*(v4 + 28))
+    if (!*(v5 + 28))
     {
       CMPhotoCFDictionarySetInt(a2, *MEMORY[0x1E6983828], 0);
     }
 
-    v7 = *(v4 + 36);
-    v8 = *(v4 + 48);
-    if (v8 && CFDictionaryContainsKey(v8, @"QuantizationScalingMatrixPreset"))
+    v8 = *(v5 + 36);
+    v9 = *(v5 + 48);
+    if (v9 && CFDictionaryContainsKey(v9, @"QuantizationScalingMatrixPreset"))
     {
       CMPhotoCFDictionaryGetIntIfPresent();
     }
 
-    if ((v7 - 1) > 3)
+    if ((v8 - 1) > 3)
     {
       return 0;
     }
@@ -6825,21 +6830,21 @@ uint64_t VideoQualityControllerClass_setSessionProperties_0(uint64_t a1, uint64_
     goto LABEL_21;
   }
 
-  if (v5 != 1635148593)
+  if (v6 != 1635148593)
   {
     return 0;
   }
 
-  v6 = *(v4 + 48);
-  if (!v6 || !CFDictionaryContainsKey(v6, @"QuantizationScalingMatrixPreset") || CMPhotoCFDictionaryGetIntIfPresent())
+  v7 = *(v5 + 48);
+  if (!v7 || !CFDictionaryContainsKey(v7, @"QuantizationScalingMatrixPreset") || CMPhotoCFDictionaryGetIntIfPresent())
   {
 LABEL_21:
     FigCFDictionarySetInt32();
     return 0;
   }
 
-  VideoQualityControllerClass_setSessionProperties_cold_1(&v10);
-  return v10;
+  VideoQualityControllerClass_setSessionProperties_cold_1(&v11);
+  return v11;
 }
 
 void QualityController_dispose(void *a1)
@@ -7014,7 +7019,7 @@ void _destroySequenceGroupReader(uint64_t *a1)
   }
 }
 
-uint64_t CMPhotoCompressionSessionAddSequenceDescriptionToWriter(uint64_t *a1, uint64_t a2, const void *a3, CFDictionaryRef *a4)
+uint64_t CMPhotoCompressionSessionAddSequenceDescriptionToWriter(uint64_t *a1, uint64_t a2, const __CFDictionary *a3, CFDictionaryRef *a4)
 {
   v42 = 0;
   v43 = -1;
@@ -7293,6 +7298,9 @@ uint64_t _createSampleBufferAtCursor(uint64_t a1, CMSampleBufferRef *a2)
 
 uint64_t _addReferenceSequencesDescriptionToWriter(uint64_t *a1, int a2, CFArrayRef theArray, const __CFArray *a4, __int128 *a5, uint64_t a6, const __CFArray *a7)
 {
+  v30 = a6;
+  v31 = a5;
+  HIDWORD(v29) = a2;
   v11 = 0;
   v12 = 0;
   sbuf = 0;
@@ -7310,14 +7318,14 @@ uint64_t _addReferenceSequencesDescriptionToWriter(uint64_t *a1, int a2, CFArray
 
     if (v12 >= Count)
     {
-      v24 = 0;
+      v26 = 0;
       goto LABEL_25;
     }
 
     ValueAtIndex = CFArrayGetValueAtIndex(theArray, v12);
     if (!ValueAtIndex || (v15 = CFGetTypeID(ValueAtIndex), v15 != CFDictionaryGetTypeID()))
     {
-      _addReferenceSequencesDescriptionToWriter_cold_3(&v29);
+      _addReferenceSequencesDescriptionToWriter_cold_3(&v32);
       goto LABEL_24;
     }
 
@@ -7330,26 +7338,26 @@ uint64_t _addReferenceSequencesDescriptionToWriter(uint64_t *a1, int a2, CFArray
 
     if (!a4 || (v17 = idx, idx < 0) || v17 >= CFArrayGetCount(a4))
     {
-      _addReferenceSequencesDescriptionToWriter_cold_2(&v29);
+      _addReferenceSequencesDescriptionToWriter_cold_2(&v32);
 LABEL_24:
-      v24 = v29;
+      v26 = v32;
       goto LABEL_25;
     }
 
     v18 = a7;
     v19 = CFArrayGetValueAtIndex(a4, idx);
-    v31 = 0;
-    v29 = *a5;
-    v30 = *(a5 + 2);
-    v20 = _moveCursorToPresentationTime(v19, &v29, &v31);
+    HIBYTE(v34) = 0;
+    v32 = *v31;
+    v33 = *(v31 + 2);
+    v20 = _moveCursorToPresentationTime(v19, &v32, &v34 + 7);
     if (v20)
     {
       goto LABEL_30;
     }
 
-    if (!v31)
+    if (!HIBYTE(v34))
     {
-      _addReferenceSequencesDescriptionToWriter_cold_1(&v29);
+      _addReferenceSequencesDescriptionToWriter_cold_1(&v32);
       goto LABEL_24;
     }
 
@@ -7368,11 +7376,11 @@ LABEL_24:
 
     FormatDescription = CMSampleBufferGetFormatDescription(sbuf);
     MediaSubType = CMFormatDescriptionGetMediaSubType(FormatDescription);
-    *&v29 = 0;
-    v23 = *a1;
-    if (a2 == 1)
+    *&v32 = 0;
+    v25 = *a1;
+    if (HIDWORD(v29) == 1)
     {
-      v20 = CMPhotoHEIFFileWriterAddThumbnailToImage(v23, 0, a6, MediaSubType, FormatDescription, &v29);
+      CMPhotoHEIFFileWriterAddThumbnailToImage(v25, 0, v30, MediaSubType, FormatDescription, &v32, v23, v24, v28, SHIDWORD(v28), v29, v30, v31, v32, *(&v32 + 1), v33, v34, idx, sbuf, v37, v38, v39, v40);
       if (v20)
       {
         goto LABEL_30;
@@ -7381,18 +7389,18 @@ LABEL_24:
 
     else
     {
-      v20 = CMPhotoHEIFFileWriterAddAuxiliaryImageToImage(v23, 0, a6, MediaSubType, FormatDescription, &v29);
+      CMPhotoHEIFFileWriterAddAuxiliaryImageToImage(v25, 0, v30, MediaSubType, FormatDescription, &v32, v23, v24, v28, SHIDWORD(v28), v29, v30, v31, v32, *(&v32 + 1), v33, v34, idx, sbuf, v37, v38, v39, v40);
       if (v20)
       {
         goto LABEL_30;
       }
     }
 
-    v20 = CMPhotoHEIFFileWriterAddSampleBufferToImage(*a1, 0, v29, v11);
+    v20 = CMPhotoHEIFFileWriterAddSampleBufferToImage(*a1, 0, v32, v11);
     if (v20)
     {
 LABEL_30:
-      v24 = v20;
+      v26 = v20;
       goto LABEL_25;
     }
 
@@ -7401,17 +7409,17 @@ LABEL_30:
     a7 = v18;
   }
 
-  v24 = 4294950306;
+  v26 = 4294950306;
 LABEL_25:
   if (v11)
   {
     CFRelease(v11);
   }
 
-  return v24;
+  return v26;
 }
 
-size_t _addImageToSequence(uint64_t a1, int a2, __int128 *a3, CFDictionaryRef theDict, opaqueCMSampleBuffer *a5, uint64_t a6)
+size_t _addImageToSequence(uint64_t a1, uint64_t a2, __int128 *a3, CFDictionaryRef theDict, opaqueCMSampleBuffer *a5, uint64_t a6)
 {
   if (*(a1 + 104))
   {
@@ -7419,6 +7427,7 @@ size_t _addImageToSequence(uint64_t a1, int a2, __int128 *a3, CFDictionaryRef th
     return block;
   }
 
+  v10 = a2;
   if (theDict)
   {
     v12 = CFDictionaryContainsKey(theDict, @"IncludeAlphaAuxiliaryImageWithOptions") == 0;
@@ -7492,7 +7501,7 @@ size_t _addImageToSequence(uint64_t a1, int a2, __int128 *a3, CFDictionaryRef th
 
         v24 = v21;
         v25 = v22;
-        v16 = _compressX(a1, theDict, a5, 0, 0, 0, 1, a2, &v24, a6);
+        v16 = _compressX(a1, theDict, a5, 0, 0, 0, 1, v10, &v24, a6);
         if (*v14 != 1)
         {
           goto LABEL_19;
@@ -7562,7 +7571,7 @@ LABEL_20:
 
   block = *a3;
   v27 = *(a3 + 2);
-  v16 = _compressX(a1, theDict, a5, 0, 0, 0, 1, a2, &block, a6);
+  v16 = _compressX(a1, theDict, a5, 0, 0, 0, 1, v10, &block, a6);
   if (!v16 && *v14 == 1)
   {
     kdebug_trace();
@@ -7577,7 +7586,7 @@ uint64_t _endImageSequence(uint64_t a1)
   if (*(a1 + 104))
   {
     fig_log_get_emitter();
-    v2 = FigSignalErrorAtGM();
+    v2 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, v6, v7);
   }
 
   else
@@ -7730,8 +7739,9 @@ LABEL_16:
   return v15;
 }
 
-size_t _encodePixelBufferForIndex(unsigned __int8 *cf, int a2, uint64_t a3, const __CFDictionary *a4, void *a5, unsigned int a6, char a7, uint64_t a8, unsigned int *a9, void *a10)
+size_t _encodePixelBufferForIndex(char *cf, uint64_t a2, uint64_t a3, const __CFDictionary *a4, void *a5, int a6, char a7, CFIndex a8, unsigned int *a9, uint64_t *a10)
 {
+  v13 = a2;
   v141 = *MEMORY[0x1E69E9840];
   v106 = a8;
   v139 = a8;
@@ -7787,7 +7797,7 @@ size_t _encodePixelBufferForIndex(unsigned __int8 *cf, int a2, uint64_t a3, cons
   v130 = height;
   v131 = MediaSubType;
   CVPixelBufferRetain(v27);
-  if (!CMPhotoCompressionSessionFormatIsSupportedForImageType(MediaSubType, a2, a6))
+  if (!CMPhotoCompressionSessionFormatIsSupportedForImageType(MediaSubType, v13, a6))
   {
     _encodePixelBufferForIndex_cold_10(__dst);
     v83 = 0;
@@ -7798,7 +7808,7 @@ size_t _encodePixelBufferForIndex(unsigned __int8 *cf, int a2, uint64_t a3, cons
   }
 
   v100 = a7;
-  if (a2 && v17 != TypeID)
+  if (v13 && v17 != TypeID)
   {
     SequenceHandleForImage = CMPhotoHEIFFileWriterGetSequenceHandleForImage(*(cf + 11), a3, 0, &v139);
     if (SequenceHandleForImage)
@@ -7820,14 +7830,14 @@ LABEL_244:
   }
 
   v110 = v106 != -1;
-  SequenceHandleForImage = CMPhotoCompressionSessionParseOptions(cf, a4, a2, v110, __src, x, y, width, height);
+  SequenceHandleForImage = CMPhotoCompressionSessionParseOptions(cf, a4, v13, v110, __src, x, y, width, height);
   if (SequenceHandleForImage)
   {
     goto LABEL_210;
   }
 
   memcpy(__dst, __src, 0x168uLL);
-  v29 = CMPhotoCompressionSessionVerifyOptions(__dst, a2, v105, MediaSubType, v127, v128, v129, v130);
+  v29 = CMPhotoCompressionSessionVerifyOptions(__dst, v13, v105, MediaSubType, v127, v128, v129, v130);
   if (v29 || (v29 = CMPhotoCompressionSessionHandleOrientationAndTransform(cf, __src, v105, &v123, &v127, MediaSubType, &v132, v30), v29))
   {
     v56 = v29;
@@ -7840,7 +7850,7 @@ LABEL_244:
 
   v101 = (HIBYTE(__src[15]) | LOBYTE(__src[16])) != 0;
   v16 = a10;
-  if (v17 != TypeID && !LOBYTE(__src[0]) && (DerivedCodecForImage = CMPhotoCompressionSessionGetDerivedCodecForImage(cf + 11, a2, v139, a3, SDWORD1(__src[0]), MediaSubType, __src + 1), DerivedCodecForImage) || (DerivedCodecForImage = CMPhotoGetDestinationPixelFormatFromOptions(a4, SDWORD1(__src[0]), MediaSubType, &v131), DerivedCodecForImage) || (DerivedCodecForImage = CMPhotoCompressionSessionCreatePluginOptions(__src, allocator, cf[64], cf[65], v110, a2, v131, &v138), DerivedCodecForImage))
+  if (v17 != TypeID && !LOBYTE(__src[0]) && (DerivedCodecForImage = CMPhotoCompressionSessionGetDerivedCodecForImage(cf + 11, v13, v139, a3, SDWORD1(__src[0]), MediaSubType, __src + 1), DerivedCodecForImage) || (DerivedCodecForImage = CMPhotoGetDestinationPixelFormatFromOptions(a4, DWORD1(__src[0]), MediaSubType, &v131), DerivedCodecForImage) || (DerivedCodecForImage = CMPhotoCompressionSessionCreatePluginOptions(__src, allocator, cf[64], cf[65], v110, v13, v131, &v138), DerivedCodecForImage))
   {
     v56 = DerivedCodecForImage;
     v83 = 0;
@@ -7851,7 +7861,7 @@ LABEL_208:
     goto LABEL_184;
   }
 
-  if (a2 != 2)
+  if (v13 != 2)
   {
 LABEL_28:
     v15 = MEMORY[0x1E695FF58];
@@ -8084,7 +8094,7 @@ LABEL_29:
     goto LABEL_205;
   }
 
-  UpdatedQualityParameters = CMPhotoCompressionSessionDetermineEncodeDimensionsAndTiling((cf + 88), a2, a3, a4, a6, *&__src[11], *(&__src[11] + 1), *&__src[12], *(&__src[12] + 1), v136, BYTE8(__src[4]), BYTE9(__src[4]), v110, v105, SDWORD1(__src[0]), v131, &__src[4] + 1, &v124, &__src[5], &v125);
+  UpdatedQualityParameters = CMPhotoCompressionSessionDetermineEncodeDimensionsAndTiling(cf + 11, v13, a3, a4, a6, v136, BYTE8(__src[4]), BYTE9(__src[4]), *&__src[11], *(&__src[11] + 1), *&__src[12], *(&__src[12] + 1), v110, v105, SDWORD1(__src[0]), v131, &__src[4] + 1, &v124, &__src[5], &v125);
   if (UpdatedQualityParameters)
   {
     goto LABEL_204;
@@ -8093,7 +8103,7 @@ LABEL_29:
   v117 = *MEMORY[0x1E695F060];
   v118 = v117;
   __dst[0].i64[0] = 0;
-  UpdatedQualityParameters = CMPhotoCompressionSessionCreatePixelBufferForEncoding(cf, v132, v125, v35, v105, __src, v119, v37, v124, *(&v124 + 1), &v118, &v117, v138, __dst);
+  UpdatedQualityParameters = CMPhotoCompressionSessionCreatePixelBufferForEncoding(cf, v132, v125, v35, v105, __src, v119, v37, v124.i64[0], v124.u64[1], &v118, &v117, v138, __dst);
   if (UpdatedQualityParameters)
   {
     goto LABEL_204;
@@ -8141,7 +8151,7 @@ LABEL_205:
   }
 
 LABEL_46:
-  if (a2)
+  if (v13)
   {
     if (v106 != -1 && (a9[3] & 1) == 0)
     {
@@ -8197,7 +8207,7 @@ LABEL_46:
       {
         if (BYTE2(__src[2]) || (Extensions = CMFormatDescriptionGetExtensions(v137)) == 0)
         {
-          v50 = a2;
+          v50 = v13;
           v51 = cf;
           goto LABEL_66;
         }
@@ -8230,7 +8240,7 @@ LABEL_227:
       v137 = __dst[0].i64[0];
       v48 = TypeID;
       v39 = v40;
-      if (a2)
+      if (v13)
       {
         goto LABEL_60;
       }
@@ -8258,7 +8268,7 @@ LABEL_227:
   }
 
   v137 = v47;
-  if (!a2)
+  if (!v13)
   {
 LABEL_59:
     v143 = CMVideoFormatDescriptionGetCleanAperture(v47, 1u);
@@ -8270,7 +8280,7 @@ LABEL_60:
   TypeID = v48;
   if (BYTE2(__src[2]))
   {
-    v50 = a2;
+    v50 = v13;
     v51 = cf;
     v52 = 0;
 LABEL_66:
@@ -8282,14 +8292,14 @@ LABEL_66:
   v52 = 0;
   if (!Extensions)
   {
-    v50 = a2;
+    v50 = v13;
     v51 = cf;
     v102 = 0;
     goto LABEL_86;
   }
 
 LABEL_85:
-  v50 = a2;
+  v50 = v13;
   v51 = cf;
   v102 = CFRetain(Extensions);
 LABEL_86:
@@ -8689,7 +8699,7 @@ LABEL_156:
   return v56;
 }
 
-void _compressionPluginSequenceFrameEncodeCallback(int a1, int a2, CMSampleBufferRef sbuf, uint64_t a4, char *a5)
+void _compressionPluginSequenceFrameEncodeCallback(int a1, CMTimeFlags a2, CMSampleBufferRef sbuf, uint64_t a4, char *a5)
 {
   v15 = *MEMORY[0x1E69E9840];
   v6 = *a5;
@@ -9164,7 +9174,7 @@ uint64_t __CMPhotoGetXMPLocationFromJFIFByteStream_block_invoke(void *a1, uint64
   }
 }
 
-uint64_t __CMPhotoCopyExtendedXMPPayloadsFromJFIFByteStream_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8)
+uint64_t __CMPhotoCopyExtendedXMPPayloadsFromJFIFByteStream_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, const char *a8)
 {
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
@@ -9203,7 +9213,7 @@ uint64_t __CMPhotoCopyExtendedXMPPayloadsFromJFIFByteStream_block_invoke(uint64_
     else
     {
       fig_log_get_emitter();
-      return FigSignalErrorAtGM();
+      return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v13, value, v15);
     }
   }
 
@@ -9228,7 +9238,7 @@ uint64_t __CMPhotoCopyIPTCFromJFIFByteStream_block_invoke(uint64_t a1, uint64_t 
   return 4294950191;
 }
 
-void *CreateTreeLeaves(void *result, int a2)
+void *CreateTreeLeaves(void *result, unsigned int a2)
 {
   if (a2 >= 1)
   {
@@ -9256,7 +9266,7 @@ void *CreateTreeLeaves(void *result, int a2)
   return result;
 }
 
-uint64_t CreateHuffTree(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
+uint64_t CreateHuffTree(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4)
 {
   if (a2 < 1)
   {

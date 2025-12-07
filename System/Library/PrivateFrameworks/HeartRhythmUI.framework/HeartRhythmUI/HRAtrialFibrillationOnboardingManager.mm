@@ -369,7 +369,7 @@ void __79__HRAtrialFibrillationOnboardingManager__setOnboardingCompletedForCount
   v2 = a2;
   v3 = objc_opt_class();
   v4 = OUTLINED_FUNCTION_0_2(v3);
-  OUTLINED_FUNCTION_1_1(&dword_2521E7000, v5, v6, "%{public}@: Failed to complete IRN onboarding with error: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1_1(&dword_2521E7000, v5, v6, "%{public}@: Failed to complete IRN onboarding with error: %{public}@", v7, v8, v9, v10);
 }
 
 void __83__HRAtrialFibrillationOnboardingManager__wrapUpOnboardingWithNotificationsEnabled___block_invoke_cold_1(uint64_t a1, void *a2)
@@ -377,7 +377,7 @@ void __83__HRAtrialFibrillationOnboardingManager__wrapUpOnboardingWithNotificati
   v2 = a2;
   v3 = objc_opt_class();
   v4 = OUTLINED_FUNCTION_0_2(v3);
-  OUTLINED_FUNCTION_1_1(&dword_2521E7000, v5, v6, "[%{public}@]: Failed to set IRN setting: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1_1(&dword_2521E7000, v5, v6, "[%{public}@]: Failed to set IRN setting: %{public}@", v7, v8, v9, v10);
 }
 
 @end

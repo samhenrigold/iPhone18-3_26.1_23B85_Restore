@@ -116,15 +116,15 @@ uint64_t __getServerConnection_block_invoke()
 id latitudeLongitudeToGeohash(unint64_t a1, double a2, double a3)
 {
   v3 = a1;
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (a1 > 0xC)
   {
     v4 = nplog_obj();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v24 = 134217984;
-      v25 = v3;
-      _os_log_error_impl(&dword_1AE7E2000, v4, OS_LOG_TYPE_ERROR, "Geohash length is too big (%lu), maximum is 12", &v24, 0xCu);
+      v23 = 134217984;
+      v24 = v3;
+      _os_log_error_impl(&dword_1AE7E2000, v4, OS_LOG_TYPE_ERROR, "Geohash length is too big (%lu), maximum is 12", &v23, 0xCu);
     }
 
 LABEL_25:
@@ -192,9 +192,9 @@ LABEL_25:
     v21 = nplog_obj();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v24 = 134217984;
-      v25 = v15;
-      _os_log_error_impl(&dword_1AE7E2000, v21, OS_LOG_TYPE_ERROR, "Failed to allocate %lu bytes for the geohash", &v24, 0xCu);
+      v23 = 134217984;
+      v24 = v15;
+      _os_log_error_impl(&dword_1AE7E2000, v21, OS_LOG_TYPE_ERROR, "Failed to allocate %lu bytes for the geohash", &v23, 0xCu);
     }
 
     goto LABEL_25;
@@ -219,14 +219,13 @@ LABEL_25:
   v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithCString:v17 encoding:4];
   free(v17);
 LABEL_26:
-  v22 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
 
 BOOL geohashToLatitudeLongitude(void *a1, double *a2, double *a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = [v5 UTF8String];
   v7 = 5 * strlen(v6);
@@ -312,16 +311,15 @@ LABEL_9:
   v15 = nplog_obj();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    v24 = v6[v11];
+    v23 = v6[v11];
     *buf = 138412546;
-    v26 = v5;
-    v27 = 1024;
-    v28 = v24;
+    v25 = v5;
+    v26 = 1024;
+    v27 = v23;
     _os_log_error_impl(&dword_1AE7E2000, v15, OS_LOG_TYPE_ERROR, "Invalid character in geohash %@: %c", buf, 0x12u);
   }
 
 LABEL_22:
-  v22 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -2283,9 +2281,9 @@ id get_nsarray_from_xpc_object(void *a1, const char *a2)
   return v4;
 }
 
-void sub_1AE7F36A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE7F36A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3945,41 +3943,41 @@ uint64_t __nplog_large_obj_block_invoke()
 
 void nsp_print_backtrace()
 {
-  v42 = *MEMORY[0x1E69E9840];
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
+  v41 = *MEMORY[0x1E69E9840];
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
-  *v10 = 0u;
+  v14 = 0u;
   v11 = 0u;
-  v0 = backtrace(v10, 128);
-  v1 = backtrace_symbols(v10, v0);
+  v12 = 0u;
+  *v9 = 0u;
+  v10 = 0u;
+  v0 = backtrace(v9, 128);
+  v1 = backtrace_symbols(v9, v0);
   v2 = v1;
   if (v0 >= 1)
   {
@@ -3992,7 +3990,7 @@ void nsp_print_backtrace()
       {
         v6 = *v4;
         *buf = 136315138;
-        v9 = v6;
+        v8 = v6;
         _os_log_error_impl(&dword_1AE7E2000, v5, OS_LOG_TYPE_ERROR, "    %s", buf, 0xCu);
       }
 
@@ -4004,7 +4002,6 @@ void nsp_print_backtrace()
   }
 
   free(v2);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t NSPPrivacyProxySignedConfigurationReadFrom(uint64_t a1, void *a2)
@@ -5854,9 +5851,9 @@ LABEL_34:
   return [a2 hasError] ^ 1;
 }
 
-void sub_1AE8300BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE8300BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

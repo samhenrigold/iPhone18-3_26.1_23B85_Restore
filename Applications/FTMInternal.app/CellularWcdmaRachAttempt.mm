@@ -314,7 +314,6 @@ LABEL_10:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -334,7 +333,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  msgLengthMs = self->_msgLengthMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -349,7 +347,6 @@ LABEL_4:
   }
 
 LABEL_21:
-  numPreambles = self->_numPreambles;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -364,7 +361,6 @@ LABEL_5:
   }
 
 LABEL_22:
-  aichStatus = self->_aichStatus;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -379,7 +375,6 @@ LABEL_6:
   }
 
 LABEL_23:
-  txPwrDbm = self->_txPwrDbm;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -394,7 +389,6 @@ LABEL_7:
   }
 
 LABEL_24:
-  antenna = self->_antenna;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -409,12 +403,10 @@ LABEL_8:
   }
 
 LABEL_25:
-  accbState = self->_accbState;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_9:
-    numSubs = self->_numSubs;
     PBDataWriterWriteUint32Field();
   }
 
@@ -424,17 +416,15 @@ LABEL_10:
     PBDataWriterWriteDataField();
   }
 
-  v6 = self->_has;
-  if ((v6 & 0x100) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x100) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
-    v6 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((v6 & 0x80) != 0)
+  if ((v5 & 0x80) != 0)
   {
-    psPref = self->_psPref;
     PBDataWriterWriteUint32Field();
   }
 }

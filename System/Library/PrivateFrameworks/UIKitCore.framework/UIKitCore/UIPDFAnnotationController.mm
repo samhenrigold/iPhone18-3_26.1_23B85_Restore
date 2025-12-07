@@ -291,7 +291,7 @@
     width = v11;
     height = v13;
     memset(&v25[1], 0, sizeof(CGAffineTransform));
-    [v6 transform];
+    objc_msgSend_transform(v6);
     v25[0] = v25[1];
     if (!CGAffineTransformIsIdentity(v25))
     {
@@ -377,7 +377,7 @@
   width = v11;
   height = v13;
   memset(&v20[1], 0, sizeof(CGAffineTransform));
-  [v6 transform];
+  objc_msgSend_transform(v6);
   v20[0] = v20[1];
   if (!CGAffineTransformIsIdentity(v20))
   {

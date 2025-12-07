@@ -16,9 +16,11 @@
 - (void)loadFlightWithFlightCode:(id)code airlineCode:(id)airlineCode date:(id)date;
 - (void)setDisplayStyle:(unint64_t)style;
 - (void)setFlights:(id)flights selectedFlight:(int64_t)flight selectedLeg:(int64_t)leg;
+- (void)setHighlightCurrentFlightLeg:(BOOL)leg;
 - (void)setNoBackground;
 - (void)setSelectedFlight:(int64_t)flight;
 - (void)setSelectedLeg:(int64_t)leg;
+- (void)setShowInfoPanel:(BOOL)panel;
 - (void)showErrorView;
 - (void)showFlightView;
 - (void)showLoadingView;
@@ -86,7 +88,7 @@
 
 - (FUFlightViewController)initWithSFFlight:(id)flight leg:(int64_t)leg style:(unint64_t)style delegate:(id)delegate
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   flightCopy = flight;
   delegateCopy = delegate;
   v12 = [(FUFlightViewController *)self init];
@@ -98,8 +100,8 @@
     if (flightCopy)
     {
       v14 = MEMORY[0x277D0A9D8];
-      v19[0] = flightCopy;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+      v18[0] = flightCopy;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
       v16 = [v14 convertFlightModel:v15 withError:0];
       [(FUFlightViewController *)v13 setFlights:v16 selectedFlight:0 selectedLeg:leg];
     }
@@ -107,7 +109,6 @@
     [(FUFlightViewController *)v13 commonInit];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -219,10 +220,7 @@ _BYTE *__68__FUFlightViewController_loadFlightWithFlightCode_airlineCode_date___
   if (result[992] == 1)
   {
     [result showLoadingView];
-    v3 = [MEMORY[0x277CBEAA8] date];
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 1000);
-    *(v4 + 1000) = v3;
+    *(*(a1 + 32) + 1000) = [MEMORY[0x277CBEAA8] date];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -269,6 +267,32 @@ uint64_t __68__FUFlightViewController_loadFlightWithFlightCode_airlineCode_date_
   else
   {
     return [*(a1 + 40) setFlights:*(a1 + 48)];
+  }
+}
+
+- (void)setHighlightCurrentFlightLeg:(BOOL)leg
+{
+  legCopy = leg;
+  self->_highlightCurrentFlightLeg = leg;
+  flightView = [(FUFlightViewController *)self flightView];
+
+  if (flightView)
+  {
+    flightView2 = [(FUFlightViewController *)self flightView];
+    [flightView2 setHighlightCurrentFlightLeg:legCopy];
+  }
+}
+
+- (void)setShowInfoPanel:(BOOL)panel
+{
+  panelCopy = panel;
+  self->_showInfoPanel = panel;
+  flightView = [(FUFlightViewController *)self flightView];
+
+  if (flightView)
+  {
+    flightView2 = [(FUFlightViewController *)self flightView];
+    [flightView2 setShowInfoPanel:panelCopy];
   }
 }
 
@@ -469,7 +493,7 @@ void __77__FUFlightViewController_viewWillTransitionToSize_withTransitionCoordin
 
 - (void)addFittingView:(id)view
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   viewCopy = view;
   view = [(FUFlightViewController *)self view];
   [view addSubview:viewCopy];
@@ -477,21 +501,20 @@ void __77__FUFlightViewController_viewWillTransitionToSize_withTransitionCoordin
   [viewCopy setTranslatesAutoresizingMaskIntoConstraints:0];
   view2 = [(FUFlightViewController *)self view];
   v7 = MEMORY[0x277CCAAD0];
-  v17 = @"view";
-  v18[0] = viewCopy;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v16 = @"view";
+  v17[0] = viewCopy;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
   v9 = [v7 constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:0 views:v8];
   [view2 addConstraints:v9];
 
   view3 = [(FUFlightViewController *)self view];
   v11 = MEMORY[0x277CCAAD0];
-  v15 = @"view";
-  v16 = viewCopy;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v14 = @"view";
+  v15 = viewCopy;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
   v13 = [v11 constraintsWithVisualFormat:@"V:|[view]|" options:0 metrics:0 views:v12];
 
   [view3 addConstraints:v13];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fadeLayer:(id)layer visible:(BOOL)visible completionBlock:(id)block

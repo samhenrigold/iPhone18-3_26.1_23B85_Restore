@@ -32,17 +32,18 @@
 + (BOOL)shouldSendAnalyticsEvents
 {
   v2 = NSClassFromString(@"XCTestCase");
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_10001C784();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_10001C784(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "[Settings] Not recording events due to testing context.", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[Settings] Not recording events due to testing context.", v6, 2u);
     }
   }
 
-  return v2 == 0;
+  return v3 == 0;
 }
 
 - (void)axVoiceControlPrefChanged:(BOOL)changed forVehicle:(id)vehicle session:(id)session
@@ -100,16 +101,17 @@
   if ([objc_opt_class() shouldSendAnalyticsEvents])
   {
     v7 = [(CARSettingsAnalytics *)self _analyticsEventNameForEvent:event];
+    v8 = v7;
     if (v7)
     {
-      v8 = sub_10001C784();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_10001C784(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 138412546;
-        v10 = v7;
-        v11 = 2112;
-        v12 = parametersCopy;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[Settings] Sending CA event %@ with %@", &v9, 0x16u);
+        v10 = 138412546;
+        v11 = v8;
+        v12 = 2112;
+        v13 = parametersCopy;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[Settings] Sending CA event %@ with %@", &v10, 0x16u);
       }
 
       AnalyticsSendEvent();
@@ -121,7 +123,7 @@
 {
   if (event)
   {
-    v4 = sub_10001C784();
+    v4 = sub_10001C784(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1000918B8(event, v4);

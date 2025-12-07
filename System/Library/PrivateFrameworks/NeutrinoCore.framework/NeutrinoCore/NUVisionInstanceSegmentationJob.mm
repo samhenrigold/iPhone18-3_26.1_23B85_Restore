@@ -139,7 +139,7 @@ void __126__NUVisionInstanceSegmentationJob__calculateInstancePropertiesForObser
   }
 
   orientation = [outputGeometry orientation];
-  [outputImage extent];
+  objc_msgSend_extent(outputImage);
   v11 = 6;
   if (v10 <= v9)
   {
@@ -196,7 +196,7 @@ LABEL_49:
   }
 
   v19 = idealModelSize;
-  [outputImage extent];
+  objc_msgSend_extent(outputImage);
   if (v20 <= 0.0 || v21 <= 0.0)
   {
     v48 = @"invalid image size";
@@ -369,7 +369,7 @@ LABEL_50:
   v25 = ApplyOrientation(v24, orientation);
 
   v26 = v25;
-  [v26 extent];
+  objc_msgSend_extent(v26);
   v28 = v27;
   v30 = v29;
   v32 = v31;
@@ -398,7 +398,7 @@ LABEL_50:
   v114 = CGRectIntegral(v113);
   v105 = [v39 imageByCroppingToRect:{v114.origin.x, v114.origin.y, v114.size.width, v114.size.height}];
 
-  [v105 extent];
+  objc_msgSend_extent(v105);
   1111970369 = [NUVideoUtilities newPixelBufferOfSize:vcvtpd_s64_f64(v40) format:vcvtpd_s64_f64(v41), 1111970369];
   v42 = [objc_alloc(MEMORY[0x1E695F678]) initWithPixelBuffer:{objc_msgSend(1111970369, "CVPixelBuffer")}];
   [v42 setColorSpace:0];

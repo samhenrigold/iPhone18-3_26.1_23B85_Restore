@@ -39,10 +39,10 @@
 
 - (void)_handleRecognitionCompleted:(__VSRecognition *)completed withResults:(__CFArray *)results error:(__CFError *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (self->_recognition != completed)
   {
-    goto LABEL_51;
+    return;
   }
 
   selfCopy = self;
@@ -70,25 +70,25 @@
     else
     {
       modelIdentifier = 0;
-      v29 = 0;
+      v28 = 0;
       v9 = 0;
       v15 = 0;
       createHandler = 0;
       v17 = 0;
       v18 = 1;
       *&v13 = 138412290;
-      v26 = v13;
+      v25 = v13;
       otherArray = results;
       while (1)
       {
-        v19 = [(__CFArray *)results objectAtIndex:v15, v26];
+        v19 = [(__CFArray *)results objectAtIndex:v15, v25];
         if (*&self->_recognizeFlags)
         {
           v20 = VSGetLogDefault();
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v26;
-            v31 = v19;
+            *buf = v25;
+            v30 = v19;
             _os_log_debug_impl(&dword_272850000, v20, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
@@ -111,8 +111,8 @@
               modelIdentifier = [v19 modelIdentifier];
               if (v15)
               {
-                v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
-                [v29 addObject:v19];
+                v28 = objc_alloc_init(MEMORY[0x277CBEB18]);
+                [v28 addObject:v19];
               }
 
               v9 = 1;
@@ -127,20 +127,20 @@
 
         else if ([objc_msgSend(v19 "modelIdentifier")])
         {
-          if (v29)
+          if (v28)
           {
-            [v29 addObject:v19];
+            [v28 addObject:v19];
           }
 
           ++v17;
         }
 
-        else if (!v29)
+        else if (!v28)
         {
-          v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
-          v33.location = 0;
-          v33.length = v15;
-          CFArrayAppendArray(v29, otherArray, v33);
+          v28 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          v32.location = 0;
+          v32.length = v15;
+          CFArrayAppendArray(v28, otherArray, v32);
         }
 
         if (v14 == v15)
@@ -159,7 +159,7 @@
 
       v11 = v17 == 0;
       error = 0;
-      v10 = v29;
+      v10 = v28;
     }
   }
 
@@ -226,9 +226,6 @@ LABEL_46:
   {
     [(VSRecognitionAction *)self completeWithNextAction:_actionForEmptyResults error:error];
   }
-
-LABEL_51:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleRecognitionStarted:(__VSRecognition *)started
@@ -312,7 +309,7 @@ LABEL_51:
 - (id)perform
 {
   userInfoKeys[1] = *MEMORY[0x277D85DE8];
-  v10 = 0;
+  v9 = 0;
   if (self->_recognition)
   {
     v2 = *MEMORY[0x277CBECE8];
@@ -321,8 +318,8 @@ LABEL_51:
     userInfoKeys[0] = v3;
     v4 = -4003;
 LABEL_3:
-    v10 = CFErrorCreateWithUserInfoKeysAndValues(v2, @"VSErrorDomain", v4, userInfoKeys, &userInfoValues, 1);
-    goto LABEL_4;
+    v9 = CFErrorCreateWithUserInfoKeysAndValues(v2, @"VSErrorDomain", v4, userInfoKeys, &userInfoValues, 1);
+    return v9;
   }
 
   *&self->_recognizeFlags &= ~0x20u;
@@ -331,23 +328,20 @@ LABEL_3:
   if (!recognition)
   {
     v2 = *MEMORY[0x277CBECE8];
-    v9 = *MEMORY[0x277CBEE30];
+    v8 = *MEMORY[0x277CBEE30];
     userInfoValues = @"could not create recognition instance";
-    userInfoKeys[0] = v9;
+    userInfoKeys[0] = v8;
     v4 = -4001;
     goto LABEL_3;
   }
 
-  if (!_VSRecognitionPrepareAndBegin(recognition, 0, &v10))
+  if (!_VSRecognitionPrepareAndBegin(recognition, 0, &v9))
   {
     CFRelease(self->_recognition);
     self->_recognition = 0;
   }
 
-LABEL_4:
-  result = v10;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return v9;
 }
 
 - (void)_configureNewRecognitionInstance
@@ -402,7 +396,6 @@ LABEL_4:
 
 - (__VSRecognition)_createRecognitionInstanceWithCallbacks:(id *)callbacks info:(void *)info
 {
-  v4 = *MEMORY[0x277CBECE8];
   if (self->_modelIdentifier)
   {
     modelIdentifier = self->_modelIdentifier;

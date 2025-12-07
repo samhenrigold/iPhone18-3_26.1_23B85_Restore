@@ -3,7 +3,7 @@
 
 @implementation UITableView
 
-uint64_t __75__UITableView_PKUIUtilities__pkui_groupedStyleDefaultRoundedCornerBehavior__block_invoke(uint64_t a1)
+void *__75__UITableView_PKUIUtilities__pkui_groupedStyleDefaultRoundedCornerBehavior__block_invoke(uint64_t a1)
 {
   if (qword_1EBD6ABE0 != -1)
   {

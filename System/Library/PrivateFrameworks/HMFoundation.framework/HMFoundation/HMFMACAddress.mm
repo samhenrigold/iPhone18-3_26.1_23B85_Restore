@@ -19,22 +19,21 @@
   else
   {
     v8 = objc_autoreleasePoolPush();
-    v9 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = HMFGetOSLogHandle(0, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v10 = HMFGetLogIdentifier(0);
+      v11 = HMFGetLogIdentifier(0);
       *buf = 138543618;
-      v15 = v10;
+      v15 = v11;
       v16 = 2048;
       lengthCopy = length;
-      _os_log_impl(&dword_22ADEC000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to create MAC address with string of invalid length: %lu", buf, 0x16u);
+      _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to create MAC address with string of invalid length: %lu", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     v7 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -52,22 +51,21 @@
   else
   {
     v6 = objc_autoreleasePoolPush();
-    v7 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = HMFGetOSLogHandle(0, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v8 = HMFGetLogIdentifier(0);
+      v9 = HMFGetLogIdentifier(0);
       *buf = 138543618;
-      v13 = v8;
+      v13 = v9;
       v14 = 2112;
       v15 = dataCopy;
-      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to create MAC address with data of invalid length: %@", buf, 0x16u);
+      _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to create MAC address with data of invalid length: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
     v5 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -15,50 +15,50 @@
 
   [boxCopy setAcceptsDrop:{objc_msgSend(attributesCopy, "BOOLForAttribute:withDefault:node:", 2, 0, node.var0)}];
   v12 = [attributesCopy stringForAttribute:65 node:node.var0];
-  [boxCopy setDecelerationRate:TUIBoxDecelerationRateFromString(v12)];
+  [boxCopy setDecelerationRate:{TUIBoxDecelerationRateFromString(v12, v13)}];
 
   [attributesCopy insetsForAttribute:112 node:node.var0];
   [boxCopy setInsets:?];
-  v13 = [attributesCopy objectForAttribute:52 node:node.var0];
-  [boxCopy setColumns:v13];
+  v14 = [attributesCopy objectForAttribute:52 node:node.var0];
+  [boxCopy setColumns:v14];
 
   [boxCopy setMaxColumns:{objc_msgSend(attributesCopy, "unsignedIntegerForAttribute:withDefault:node:", 128, 0x7FFFFFFFFFFFFFFFLL, node.var0)}];
-  v14 = [attributesCopy lengthForAttribute:56 node:node.var0];
-  [boxCopy setColumnWidth:{v14, v15}];
-  v16 = [attributesCopy lengthForAttribute:54 node:node.var0];
-  [boxCopy setColumnSpacing:{v16, v17}];
+  v15 = [attributesCopy lengthForAttribute:56 node:node.var0];
+  [boxCopy setColumnWidth:{v15, v16}];
+  v17 = [attributesCopy lengthForAttribute:54 node:node.var0];
+  [boxCopy setColumnSpacing:{v17, v18}];
   [boxCopy setColumnMultiple:{objc_msgSend(attributesCopy, "unsignedIntegerForAttribute:withDefault:node:", 53, 1, node.var0)}];
-  v18 = [attributesCopy stringForAttribute:120 node:node.var0];
-  [boxCopy setLayoutMode:{+[TUISmartGridBox layoutModeFromString:](TUISmartGridBox, "layoutModeFromString:", v18)}];
+  v19 = [attributesCopy stringForAttribute:120 node:node.var0];
+  [boxCopy setLayoutMode:{+[TUISmartGridBox layoutModeFromString:](TUISmartGridBox, "layoutModeFromString:", v19)}];
 
   if ([boxCopy layoutMode])
   {
-    v19 = 0x7FFFFFFFFFFFFFFFLL;
+    v20 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
   else
   {
-    v19 = 1;
+    v20 = 1;
   }
 
-  [boxCopy setRows:{objc_msgSend(attributesCopy, "unsignedIntegerForAttribute:withDefault:node:", 179, v19, node.var0)}];
-  v20 = [attributesCopy lengthForAttribute:180 node:node.var0];
-  [boxCopy setRowSpacing:{v20, v21}];
+  [boxCopy setRows:{objc_msgSend(attributesCopy, "unsignedIntegerForAttribute:withDefault:node:", 179, v20, node.var0)}];
+  v21 = [attributesCopy lengthForAttribute:180 node:node.var0];
+  [boxCopy setRowSpacing:{v21, v22}];
   environment = [contextCopy environment];
 
-  v23 = 0;
+  v25 = 0;
   if ([environment deviceClass] == &dword_4 + 2)
   {
-    v23 = TUISwooshUseUnboundedScroll() ^ 1;
+    v25 = TUISwooshUseUnboundedScroll(6, v24) ^ 1;
   }
 
-  [boxCopy setPaginated:{objc_msgSend(attributesCopy, "BOOLForAttribute:withDefault:node:", 148, v23, node.var0)}];
+  [boxCopy setPaginated:{objc_msgSend(attributesCopy, "BOOLForAttribute:withDefault:node:", 148, v25, node.var0)}];
   [boxCopy setMaxPages:{objc_msgSend(attributesCopy, "unsignedIntegerForAttribute:withDefault:node:", 130, 0x7FFFFFFFFFFFFFFFLL, node.var0)}];
-  v24 = [attributesCopy stringForAttribute:222 node:node.var0];
-  [boxCopy setVerticalPlacement:{+[TUISmartGridBox verticalPlacementFromString:](TUISmartGridBox, "verticalPlacementFromString:", v24)}];
+  v26 = [attributesCopy stringForAttribute:222 node:node.var0];
+  [boxCopy setVerticalPlacement:{+[TUISmartGridBox verticalPlacementFromString:](TUISmartGridBox, "verticalPlacementFromString:", v26)}];
 
-  v25 = [attributesCopy snapForAttribute:226 node:node.var0];
-  [boxCopy setWidthSnap:v25];
+  v27 = [attributesCopy snapForAttribute:226 node:node.var0];
+  [boxCopy setWidthSnap:v27];
 
   [attributesCopy insetsForAttribute:91 node:node.var0];
   [boxCopy setGradientInsets:?];

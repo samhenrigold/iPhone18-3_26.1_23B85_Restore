@@ -60,7 +60,7 @@
 
 - (id)dictionary
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   [v3 setObject:self->_androidAPILevel forKey:@"android_api_level"];
   [v3 setObject:self->_androidBrand forKey:@"android_brand"];
@@ -70,20 +70,20 @@
   [v3 setObject:self->_androidVersion forKey:@"android_version"];
   [v3 setObject:self->_androidVersionCode forKey:@"android_version_code"];
   [v3 setObject:self->_state forKey:@"state"];
-  v39 = *&self->_messages;
+  v38 = *&self->_messages;
   videos = self->_videos;
-  v41 = *&self->_contacts;
+  v40 = *&self->_contacts;
   bookmarks = self->_bookmarks;
   v4 = *&self->_whatsapp;
-  v43 = *&self->_accounts;
-  v44 = v4;
+  v42 = *&self->_accounts;
+  v43 = v4;
   displaySettings = self->_displaySettings;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:11];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:11];
   v6 = 0x277CCA000uLL;
   if ([v5 count])
   {
     selfCopy = self;
-    v36 = v5;
+    v35 = v5;
     v7 = 0;
     v8 = 0;
     v9 = 0;
@@ -93,8 +93,8 @@
       v11 = [v5 objectAtIndexedSubscript:v9];
       v12 = [v11 count];
       v13 = [v11 size];
-      v37 = v13 >> 30;
-      v38 = [v11 totalElapsedTime] / 0x3CuLL;
+      v36 = v13 >> 30;
+      v37 = [v11 totalElapsedTime] / 0x3CuLL;
       importElapsedTime = [v11 importElapsedTime];
       [importElapsedTime doubleValue];
       v16 = v15 / 60.0;
@@ -108,11 +108,11 @@
       v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@", v10];
       [v3 setObject:v19 forKey:v20];
 
-      v21 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v37];
+      v21 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v36];
       v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_size", v10];
       [v3 setObject:v21 forKey:v22];
 
-      v23 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v38];
+      v23 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v37];
       v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_elapsed_time", v10];
       [v3 setObject:v23 forKey:v24];
 
@@ -125,11 +125,11 @@
       v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_state", v10];
       [v3 setObject:state forKey:v28];
 
-      v5 = v36;
+      v5 = v35;
       ++v9;
     }
 
-    while (v9 < [v36 count]);
+    while (v9 < [v35 count]);
     v29 = v8 >> 30;
     self = selfCopy;
     v6 = 0x277CCA000;
@@ -149,8 +149,6 @@
 
   0x3C = [*(v6 + 2992) numberWithUnsignedLongLong:self->_elapsedTime / 0x3C];
   [v3 setObject:0x3C forKey:@"elapsed_time"];
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

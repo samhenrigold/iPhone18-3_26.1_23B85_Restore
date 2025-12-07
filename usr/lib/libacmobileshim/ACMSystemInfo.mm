@@ -129,9 +129,9 @@
   return v3;
 }
 
-uint64_t __36__ACMSystemInfo_previousVersionUUID__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__36__ACMSystemInfo_previousVersionUUID__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v6 = [objc_msgSend(+[ACMAppleConnectImplComponents components](ACMAppleConnectImplComponents "components")];
+  v6 = [objc_msgSend(+[ACMAppleConnectImplComponents components](ACMAppleConnectImplComponents components];
   result = [objc_msgSend(v6 "provisionedDeviceIdentifier")];
   if (result)
   {

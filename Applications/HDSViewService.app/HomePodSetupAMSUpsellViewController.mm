@@ -1,6 +1,7 @@
 @interface HomePodSetupAMSUpsellViewController
 - (_TtC14HDSViewService35HomePodSetupAMSUpsellViewController)initWithContentView:(id)view;
 - (void)dynamicViewController:(id)controller didResolveWithResult:(id)result error:(id)error;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -10,6 +11,20 @@
 {
   selfCopy = self;
   sub_10005DCC4();
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for HomePodSetupAMSUpsellViewController(0);
+  v4 = v5.receiver;
+  [(HomePodSetupAMSUpsellViewController *)&v5 viewDidAppear:appearCopy];
+  if (swift_unknownObjectWeakLoadStrong())
+  {
+    sub_10007EA04();
+    swift_unknownObjectRelease();
+  }
 }
 
 - (_TtC14HDSViewService35HomePodSetupAMSUpsellViewController)initWithContentView:(id)view

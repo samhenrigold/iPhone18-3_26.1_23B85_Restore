@@ -89,22 +89,7 @@
 
       v7 = v6;
 
-      if (!v7)
-      {
-        goto LABEL_9;
-      }
-
-      handle = [(HMDRemoteAccountMessageDestination *)self handle];
-      handle2 = [(HMDRemoteAccountMessageDestination *)v7 handle];
-      v10 = [handle isEqual:handle2];
-
-      if (!v10)
-      {
-        goto LABEL_9;
-      }
-
-      isMulticast = [(HMDRemoteAccountMessageDestination *)self isMulticast];
-      if (isMulticast == [(HMDRemoteAccountMessageDestination *)v7 isMulticast])
+      if (v7 && (-[HMDRemoteAccountMessageDestination handle](self, "handle"), v8 = objc_claimAutoreleasedReturnValue(), -[HMDRemoteAccountMessageDestination handle](v7, "handle"), v9 = objc_claimAutoreleasedReturnValue(), v10 = [v8 isEqual:v9], v9, v8, v10) && (v11 = -[HMDRemoteAccountMessageDestination isMulticast](self, "isMulticast"), v11 == -[HMDRemoteAccountMessageDestination isMulticast](v7, "isMulticast")))
       {
         deviceCapabilities = [(HMDRemoteAccountMessageDestination *)self deviceCapabilities];
         deviceCapabilities2 = [(HMDRemoteAccountMessageDestination *)v7 deviceCapabilities];
@@ -113,7 +98,6 @@
 
       else
       {
-LABEL_9:
         v12 = 0;
       }
     }
@@ -161,12 +145,12 @@ LABEL_7:
   v14 = [(HMFMessageDestination *)&v25 initWithTarget:targetCopy];
   if (v14)
   {
-    v15 = [handleCopy copy];
+    v15 = objc_msgSend_copy(handleCopy);
     handle = v14->_handle;
     v14->_handle = v15;
 
     v14->_multicast = multicast;
-    v17 = [v13 copy];
+    v17 = objc_msgSend_copy(v13);
     deviceCapabilities = v14->_deviceCapabilities;
     v14->_deviceCapabilities = v17;
   }

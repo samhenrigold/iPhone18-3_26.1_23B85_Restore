@@ -240,17 +240,14 @@
       preferredTipObject = [rootSheet preferredTipObject];
       if (!preferredTipObject)
       {
-        v12 = @"Menu was presented with a tip, but its root sheet had no tip.  This may be an error.  Root sheet: %@";
-        v13 = rootSheet;
-        LOBYTE(v11) = 1;
-        _AXLogWithFacility();
+        _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Menu was presented with a tip, but its root sheet had no tip.  This may be an error.  Root sheet: %@");
         preferredTipObject = 2;
       }
     }
 
-    v9 = [(SCATMenu *)self element:v11];
+    element = [(SCATMenu *)self element];
 
-    if (v9)
+    if (element)
     {
       v10 = 0;
     }
@@ -717,11 +714,7 @@ LABEL_13:
 
       if (unsignedIntegerValue >= v28)
       {
-        v34 = unsignedIntegerValue;
-        v35 = firstObject2;
-        v33 = @"We tried to restore a row %lu that was not in our list of menu rows: %@";
-        LOBYTE(v32) = 1;
-        _AXLogWithFacility();
+        _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"We tried to restore a row %lu that was not in our list of menu rows: %@");
         element = 0;
       }
 
@@ -737,29 +730,29 @@ LABEL_13:
 
       if (v18)
       {
-        v40 = 0u;
-        v41 = 0u;
-        v38 = 0u;
-        v39 = 0u;
+        v36 = 0u;
+        v37 = 0u;
+        v34 = 0u;
+        v35 = 0u;
         currentSheet = [(SCATMenu *)self currentSheet];
         menuItems = [currentSheet menuItems];
 
-        v21 = [menuItems countByEnumeratingWithState:&v38 objects:v42 count:16];
+        v21 = [menuItems countByEnumeratingWithState:&v34 objects:v38 count:16];
         if (v21)
         {
           selfCopy = self;
           optionsCopy = options;
-          v22 = *v39;
+          v22 = *v35;
           while (2)
           {
             for (i = 0; i != v21; i = i + 1)
             {
-              if (*v39 != v22)
+              if (*v35 != v22)
               {
                 objc_enumerationMutation(menuItems);
               }
 
-              v24 = *(*(&v38 + 1) + 8 * i);
+              v24 = *(*(&v34 + 1) + 8 * i);
               identifier = [v24 identifier];
               v26 = [infoCopy objectForKeyedSubscript:@"MenuItemIdentifier"];
               v27 = [identifier isEqualToString:v26];
@@ -771,7 +764,7 @@ LABEL_13:
               }
             }
 
-            v21 = [menuItems countByEnumeratingWithState:&v38 objects:v42 count:16];
+            v21 = [menuItems countByEnumeratingWithState:&v34 objects:v38 count:16];
             if (v21)
             {
               continue;
@@ -795,7 +788,7 @@ LABEL_22:
     }
   }
 
-  [(SCATMenu *)self _updateOptionsIfNeeded:options withResultElement:element, v32, v33, v34, v35];
+  [(SCATMenu *)self _updateOptionsIfNeeded:options withResultElement:element];
 
   return element;
 }

@@ -2,9 +2,11 @@
 - (BOOL)isEqual:(id)equal;
 - (NFFieldNotificationECP2_0)initWithCoder:(id)coder;
 - (NFFieldNotificationECP2_0)initWithDictionary:(id)dictionary;
+- (NFFieldNotificationECP2_0)initWithNotificationType:(unint64_t)type rfTechnology:(unsigned int)technology typeFSystemCode:(unsigned __int16)code creationDate:(id)date cachedBeforeRFReset:(BOOL)reset odaRequired:(BOOL)required terminalMode:(unsigned int)mode terminalType:(unint64_t)self0 terminalSubType:(unsigned __int8)self1 tciArray:(id)self2 openLoopSchemeBitfield:(id)self3 homeKitSchemeDataPayload:(id)self4 readerIdentifier:(id)self5 pairingMode:(unsigned int)self6 terminalTypeData:(id)self7 ignoreRFTechOnIsEqual:(BOOL)self8 userInfo:(id)self9;
 - (id)_parseCHTerminalTypeData:(id)data;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
+- (void)_initCategoryWithType:(unint64_t)type subType:(unsigned __int8)subType;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -556,6 +558,95 @@ LABEL_26:
 LABEL_102:
 
   return v36;
+}
+
+- (NFFieldNotificationECP2_0)initWithNotificationType:(unint64_t)type rfTechnology:(unsigned int)technology typeFSystemCode:(unsigned __int16)code creationDate:(id)date cachedBeforeRFReset:(BOOL)reset odaRequired:(BOOL)required terminalMode:(unsigned int)mode terminalType:(unint64_t)self0 terminalSubType:(unsigned __int8)self1 tciArray:(id)self2 openLoopSchemeBitfield:(id)self3 homeKitSchemeDataPayload:(id)self4 readerIdentifier:(id)self5 pairingMode:(unsigned int)self6 terminalTypeData:(id)self7 ignoreRFTechOnIsEqual:(BOOL)self8 userInfo:(id)self9
+{
+  resetCopy = reset;
+  codeCopy = code;
+  v20 = *&technology;
+  arrayCopy = array;
+  bitfieldCopy = bitfield;
+  payloadCopy = payload;
+  identifierCopy = identifier;
+  dataCopy = data;
+  infoCopy = info;
+  v36.receiver = self;
+  v36.super_class = NFFieldNotificationECP2_0;
+  v25 = [(NFFieldNotification *)&v36 initWithNotificationType:type rfTechnology:v20 typeFSystemCode:codeCopy creationDate:date cachedBeforeRFReset:resetCopy];
+  v26 = v25;
+  if (v25)
+  {
+    v25->_odaRequired = required;
+    v25->_terminalMode = mode;
+    v25->_terminalType = terminalType;
+    v25->_terminalSubType = subType;
+    objc_storeStrong(&v25->_tciArray, array);
+    objc_storeStrong(&v26->_openLoopSchemeBitfield, bitfield);
+    objc_storeStrong(&v26->_homeKitSchemeDataPayload, payload);
+    objc_storeStrong(&v26->_readerIdentifier, identifier);
+    v26->_pairingMode = pairingMode;
+    objc_storeStrong(&v26->_terminalTypeData, data);
+    v26->_ignoreRFTechOnIsEqual = equal;
+    objc_storeStrong(&v26->_userInfo, info);
+    [(NFFieldNotificationECP2_0 *)v26 _initCategoryWithType:terminalType subType:subType];
+    v27 = v26;
+  }
+
+  return v26;
+}
+
+- (void)_initCategoryWithType:(unint64_t)type subType:(unsigned __int8)subType
+{
+  if (type > 2)
+  {
+    switch(type)
+    {
+      case 3uLL:
+        v4 = 6;
+        goto LABEL_6;
+      case 4uLL:
+        v4 = 7;
+        goto LABEL_6;
+      case 5uLL:
+        v4 = 8;
+        goto LABEL_6;
+    }
+
+    goto LABEL_15;
+  }
+
+  if (type)
+  {
+    if (type == 1)
+    {
+      v4 = 4;
+      goto LABEL_6;
+    }
+
+    if (type == 2)
+    {
+      v4 = 5;
+      goto LABEL_6;
+    }
+
+LABEL_15:
+    v4 = 0;
+    goto LABEL_6;
+  }
+
+  if (subType == 2)
+  {
+    v4 = 9;
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+LABEL_6:
+  [(NFFieldNotification *)self setCategory:v4, subType];
 }
 
 - (id)description

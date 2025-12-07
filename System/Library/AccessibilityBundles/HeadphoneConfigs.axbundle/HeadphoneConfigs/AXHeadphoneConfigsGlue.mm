@@ -9,7 +9,7 @@
   if (!_Failover)
   {
     mEMORY[0x29EDBD6E8] = [MEMORY[0x29EDBD6E8] sharedInstance];
-    [mEMORY[0x29EDBD6E8] performValidations:&__block_literal_global withPreValidationHandler:&__block_literal_global_282 postValidationHandler:0 safeCategoryInstallationHandler:&__block_literal_global_291];
+    [mEMORY[0x29EDBD6E8] performValidations:? withPreValidationHandler:? postValidationHandler:? safeCategoryInstallationHandler:?];
 
     _Failover = [objc_allocWithZone(AXHeadphoneConfigsGlue) init];
 
@@ -20,9 +20,9 @@
 uint64_t __55__AXHeadphoneConfigsGlue_accessibilityInitializeBundle__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  [v2 setValidationTargetName:@"HeadphoneConfigs AX"];
-  [v2 setOverrideProcessName:@"HeadphoneConfigs"];
-  [v2 setDebugBuild:0];
+  [v2 setValidationTargetName:?];
+  [v2 setOverrideProcessName:?];
+  [v2 setDebugBuild:?];
 
   return MEMORY[0x2A1C5E698]();
 }
@@ -30,11 +30,11 @@ uint64_t __55__AXHeadphoneConfigsGlue_accessibilityInitializeBundle__block_invok
 void __55__AXHeadphoneConfigsGlue_accessibilityInitializeBundle__block_invoke_3(uint64_t a1, void *a2)
 {
   v2 = a2;
-  [v2 installSafeCategory:@"HPSBatteryStatusViewAccessibility" canInteractWithTargetClass:1];
-  [v2 installSafeCategory:@"HPSSpatialProfileEnrollmentControllerAccessibility" canInteractWithTargetClass:1];
-  [v2 installSafeCategory:@"BTSFitTestControllerAccessibility" canInteractWithTargetClass:1];
-  [v2 installSafeCategory:@"HPSListeningModeControlAccessibility" canInteractWithTargetClass:1];
-  [v2 installSafeCategory:@"HeadphoneAccessoryLabeledSliderAccessibility" canInteractWithTargetClass:1];
+  [v2 installSafeCategory:? canInteractWithTargetClass:?];
+  [v2 installSafeCategory:? canInteractWithTargetClass:?];
+  [v2 installSafeCategory:? canInteractWithTargetClass:?];
+  [v2 installSafeCategory:? canInteractWithTargetClass:?];
+  [v2 installSafeCategory:? canInteractWithTargetClass:?];
 }
 
 @end

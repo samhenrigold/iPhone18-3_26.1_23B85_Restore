@@ -11,50 +11,50 @@
 
 - (MTLTexture)texture
 {
-  v4 = objc_msgSend_entityObject(self, a2, v2, v3);
-  v8 = objc_msgSend_properties(v4, v5, v6, v7);
+  v3 = objc_msgSend_entityObject(self, a2, v2);
+  v6 = objc_msgSend_properties(v3, v4, v5);
 
-  return MEMORY[0x1EEE66B58](v8, sel_clientTexture, v9, v10);
+  return MEMORY[0x1EEE66B58](v6, sel_clientTexture, v7);
 }
 
 - (void)setTexture:(id)texture
 {
-  v5 = objc_msgSend_entityObject(self, a2, texture, v3);
-  v9 = objc_msgSend_properties(v5, v6, v7, v8);
+  v4 = objc_msgSend_entityObject(self, a2, texture);
+  v7 = objc_msgSend_properties(v4, v5, v6);
 
-  MEMORY[0x1EEE66B58](v9, sel_setClientTexture_, texture, v10);
+  MEMORY[0x1EEE66B58](v7, sel_setClientTexture_, texture);
 }
 
 - (CGImage)CGImage
 {
-  v4 = objc_msgSend_entityObject(self, a2, v2, v3);
-  v8 = objc_msgSend_properties(v4, v5, v6, v7);
+  v3 = objc_msgSend_entityObject(self, a2, v2);
+  v6 = objc_msgSend_properties(v3, v4, v5);
 
-  return MEMORY[0x1EEE66B58](v8, sel_clientCGImage, v9, v10);
+  return MEMORY[0x1EEE66B58](v6, sel_clientCGImage, v7);
 }
 
 - (void)setCGImage:(CGImage *)image
 {
-  v5 = objc_msgSend_entityObject(self, a2, image, v3);
-  v9 = objc_msgSend_properties(v5, v6, v7, v8);
+  v4 = objc_msgSend_entityObject(self, a2, image);
+  v7 = objc_msgSend_properties(v4, v5, v6);
 
-  MEMORY[0x1EEE66B58](v9, sel_setClientCGImage_, image, v10);
+  MEMORY[0x1EEE66B58](v7, sel_setClientCGImage_, image);
 }
 
 - (NSString)clientIdentifier
 {
-  v4 = objc_msgSend_entityObject(self, a2, v2, v3);
-  v8 = objc_msgSend_properties(v4, v5, v6, v7);
+  v3 = objc_msgSend_entityObject(self, a2, v2);
+  v6 = objc_msgSend_properties(v3, v4, v5);
 
-  return MEMORY[0x1EEE66B58](v8, sel_clientTextureIdentifier, v9, v10);
+  return MEMORY[0x1EEE66B58](v6, sel_clientTextureIdentifier, v7);
 }
 
 - (void)setClientIdentifier:(id)identifier
 {
-  v5 = objc_msgSend_entityObject(self, a2, identifier, v3);
-  v9 = objc_msgSend_properties(v5, v6, v7, v8);
+  v4 = objc_msgSend_entityObject(self, a2, identifier);
+  v7 = objc_msgSend_properties(v4, v5, v6);
 
-  MEMORY[0x1EEE66B58](v9, sel_setClientTextureIdentifier_, identifier, v10);
+  MEMORY[0x1EEE66B58](v7, sel_setClientTextureIdentifier_, identifier);
 }
 
 @end

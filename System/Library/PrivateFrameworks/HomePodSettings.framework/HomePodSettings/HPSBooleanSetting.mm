@@ -1,10 +1,34 @@
 @interface HPSBooleanSetting
++ (id)settingWithKeyPath:(id)path BOOLeanValue:(BOOL)value;
 - (BOOL)BOOLeanValue;
+- (HPSBooleanSetting)initWithKeyPath:(id)path BOOLeanValue:(BOOL)value;
 - (id)description;
 - (id)homeAdapterLegacySettingValue;
 @end
 
 @implementation HPSBooleanSetting
+
+- (HPSBooleanSetting)initWithKeyPath:(id)path BOOLeanValue:(BOOL)value
+{
+  valueCopy = value;
+  v6 = MEMORY[0x277CCABB0];
+  pathCopy = path;
+  v8 = [v6 numberWithBool:valueCopy];
+  v9 = [(HPSSetting *)self initWithKeyPath:pathCopy value:v8];
+
+  return v9;
+}
+
++ (id)settingWithKeyPath:(id)path BOOLeanValue:(BOOL)value
+{
+  valueCopy = value;
+  v6 = MEMORY[0x277CCABB0];
+  pathCopy = path;
+  v8 = [v6 numberWithBool:valueCopy];
+  v9 = [self settingWithKeyPath:pathCopy value:v8];
+
+  return v9;
+}
 
 - (BOOL)BOOLeanValue
 {

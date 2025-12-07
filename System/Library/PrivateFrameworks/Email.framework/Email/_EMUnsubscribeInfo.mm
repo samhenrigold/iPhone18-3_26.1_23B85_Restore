@@ -9,32 +9,32 @@
 
 - (_EMUnsubscribeInfo)initWithHeaders:(id)headers
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   headersCopy = headers;
   v4 = objc_opt_new();
   listUnsubscribePostContent = [headersCopy listUnsubscribePostContent];
   [(_EMUnsubscribeInfo *)v4 setPostContent:listUnsubscribePostContent];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   listUnsubscribeCommands = [headersCopy listUnsubscribeCommands];
-  v7 = [listUnsubscribeCommands countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [listUnsubscribeCommands countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(listUnsubscribeCommands);
         }
 
-        v10 = [MEMORY[0x1E695DFF8] URLWithString:*(*(&v15 + 1) + 8 * v9)];
+        v10 = [MEMORY[0x1E695DFF8] URLWithString:*(*(&v14 + 1) + 8 * v9)];
         if ([v10 ef_hasScheme:@"mailto"])
         {
           [(_EMUnsubscribeInfo *)v4 setMailtoURL:v10];
@@ -49,14 +49,13 @@
       }
 
       while (v7 != v9);
-      v11 = [listUnsubscribeCommands countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v11 = [listUnsubscribeCommands countByEnumeratingWithState:&v14 objects:v18 count:16];
       v7 = v11;
     }
 
     while (v11);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

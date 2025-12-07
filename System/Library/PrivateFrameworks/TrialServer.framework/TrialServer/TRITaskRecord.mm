@@ -163,99 +163,8 @@ LABEL_5:
 {
   recordCopy = record;
   v5 = recordCopy;
-  if (!recordCopy)
+  if (!recordCopy || (v6 = self->_taskId == 0, [recordCopy taskId], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (taskId = self->_taskId) != 0 && (objc_msgSend(v5, "taskId"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSNumber isEqual:](taskId, "isEqual:", v10), v10, !v11) || (v12 = self->_task == 0, objc_msgSend(v5, "task"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14) || (task = self->_task) != 0 && (objc_msgSend(v5, "task"), v16 = objc_claimAutoreleasedReturnValue(), v17 = -[TRITask isEqual:](task, "isEqual:", v16), v16, !v17) || (v18 = self->_startDate == 0, objc_msgSend(v5, "startDate"), v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 != 0, v19, v18 == v20) || (startDate = self->_startDate) != 0 && (objc_msgSend(v5, "startDate"), v22 = objc_claimAutoreleasedReturnValue(), v23 = -[NSDate isEqual:](startDate, "isEqual:", v22), v22, !v23) || (v24 = self->_dependencies == 0, objc_msgSend(v5, "dependencies"), v25 = objc_claimAutoreleasedReturnValue(), v26 = v25 != 0, v25, v24 == v26) || (dependencies = self->_dependencies) != 0 && (objc_msgSend(v5, "dependencies"), v28 = objc_claimAutoreleasedReturnValue(), v29 = -[NSArray isEqual:](dependencies, "isEqual:", v28), v28, !v29) || (capabilities = self->_capabilities, capabilities != objc_msgSend(v5, "capabilities")) || (v31 = self->_tags == 0, objc_msgSend(v5, "tags"), v32 = objc_claimAutoreleasedReturnValue(), v33 = v32 != 0, v32, v31 == v33))
   {
-    goto LABEL_18;
-  }
-
-  v6 = self->_taskId == 0;
-  taskId = [recordCopy taskId];
-  v8 = taskId != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_18;
-  }
-
-  taskId = self->_taskId;
-  if (taskId)
-  {
-    taskId2 = [v5 taskId];
-    v11 = [(NSNumber *)taskId isEqual:taskId2];
-
-    if (!v11)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  v12 = self->_task == 0;
-  task = [v5 task];
-  v14 = task != 0;
-
-  if (v12 == v14)
-  {
-    goto LABEL_18;
-  }
-
-  task = self->_task;
-  if (task)
-  {
-    task2 = [v5 task];
-    v17 = [(TRITask *)task isEqual:task2];
-
-    if (!v17)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  v18 = self->_startDate == 0;
-  startDate = [v5 startDate];
-  v20 = startDate != 0;
-
-  if (v18 == v20)
-  {
-    goto LABEL_18;
-  }
-
-  startDate = self->_startDate;
-  if (startDate)
-  {
-    startDate2 = [v5 startDate];
-    v23 = [(NSDate *)startDate isEqual:startDate2];
-
-    if (!v23)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  v24 = self->_dependencies == 0;
-  dependencies = [v5 dependencies];
-  v26 = dependencies != 0;
-
-  if (v24 == v26)
-  {
-    goto LABEL_18;
-  }
-
-  dependencies = self->_dependencies;
-  if (dependencies)
-  {
-    dependencies2 = [v5 dependencies];
-    v29 = [(NSArray *)dependencies isEqual:dependencies2];
-
-    if (!v29)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  capabilities = self->_capabilities;
-  if (capabilities != [v5 capabilities] || (v31 = self->_tags == 0, objc_msgSend(v5, "tags"), v32 = objc_claimAutoreleasedReturnValue(), v33 = v32 != 0, v32, v31 == v33))
-  {
-LABEL_18:
     v36 = 0;
   }
 
@@ -307,16 +216,15 @@ LABEL_18:
 
 - (TRITaskRecord)initWithCoder:(id)coder
 {
-  v85[1] = *MEMORY[0x277D85DE8];
+  v84[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"taskId"];
   v6 = v5;
   if (v5)
   {
-    v51 = v5;
+    v50 = v5;
     selfCopy = self;
-    v68 = objc_alloc(MEMORY[0x277CBEB98]);
-    v67 = objc_opt_class();
+    v67 = objc_alloc(MEMORY[0x277CBEB98]);
     v66 = objc_opt_class();
     v65 = objc_opt_class();
     v64 = objc_opt_class();
@@ -331,7 +239,8 @@ LABEL_18:
     v55 = objc_opt_class();
     v54 = objc_opt_class();
     v53 = objc_opt_class();
-    v69 = coderCopy;
+    v52 = objc_opt_class();
+    v68 = coderCopy;
     v7 = objc_opt_class();
     v8 = objc_opt_class();
     v9 = objc_opt_class();
@@ -342,35 +251,35 @@ LABEL_18:
     v14 = objc_opt_class();
     v15 = objc_opt_class();
     v16 = objc_opt_class();
-    v50 = v7;
-    coderCopy = v69;
-    v17 = [v68 initWithObjects:{v67, v66, v65, v64, v63, v62, v61, v60, v59, v58, v57, v56, v55, v54, v53, v50, v8, v9, v10, v11, v12, v13, v14, v15, v16, objc_opt_class(), 0}];
-    v18 = [v69 decodeObjectOfClasses:v17 forKey:@"task"];
+    v49 = v7;
+    coderCopy = v68;
+    v17 = [v67 initWithObjects:{v66, v65, v64, v63, v62, v61, v60, v59, v58, v57, v56, v55, v54, v53, v52, v49, v8, v9, v10, v11, v12, v13, v14, v15, v16, objc_opt_class(), 0}];
+    v18 = [v68 decodeObjectOfClasses:v17 forKey:@"task"];
 
     if (!v18)
     {
-      selfCopy2 = [v69 error];
+      selfCopy2 = [v68 error];
 
       if (selfCopy2)
       {
         v18 = 0;
         selfCopy2 = 0;
-        v6 = v51;
+        v6 = v50;
         self = selfCopy;
 LABEL_34:
 
         goto LABEL_35;
       }
 
-      v82 = *MEMORY[0x277CCA450];
-      v83 = @"Retrieved nil serialized value for nonnull TRITaskRecord.task";
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
+      v81 = *MEMORY[0x277CCA450];
+      v82 = @"Retrieved nil serialized value for nonnull TRITaskRecord.task";
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
       v21 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRITaskRecordOCNTErrorDomain" code:2 userInfo:v19];
-      [v69 failWithError:v21];
+      [v68 failWithError:v21];
       goto LABEL_31;
     }
 
-    v19 = [v69 decodeObjectOfClass:objc_opt_class() forKey:@"startDate"];
+    v19 = [v68 decodeObjectOfClass:objc_opt_class() forKey:@"startDate"];
     if (v19)
     {
       objc_opt_class();
@@ -381,17 +290,17 @@ LABEL_34:
         v22 = objc_opt_class();
         v23 = NSStringFromClass(v22);
         v24 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRITaskRecord key startDate (expected %@, decoded %@)", v21, v23, 0];
-        v80 = *MEMORY[0x277CCA450];
-        v81 = v24;
-        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
+        v79 = *MEMORY[0x277CCA450];
+        v80 = v24;
+        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
         v26 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRITaskRecordOCNTErrorDomain" code:3 userInfo:v25];
-        [v69 failWithError:v26];
+        [v68 failWithError:v26];
 LABEL_24:
 
 LABEL_25:
 LABEL_26:
         selfCopy2 = 0;
-        v6 = v51;
+        v6 = v50;
         self = selfCopy;
         goto LABEL_27;
       }
@@ -399,7 +308,7 @@ LABEL_26:
       goto LABEL_12;
     }
 
-    error = [v69 error];
+    error = [v68 error];
 
     if (!error)
     {
@@ -407,7 +316,7 @@ LABEL_12:
       v29 = objc_alloc(MEMORY[0x277CBEB98]);
       v30 = objc_opt_class();
       v31 = [v29 initWithObjects:{v30, objc_opt_class(), 0}];
-      v21 = [v69 decodeObjectOfClasses:v31 forKey:@"dependencies"];
+      v21 = [v68 decodeObjectOfClasses:v31 forKey:@"dependencies"];
 
       if (v21)
       {
@@ -419,50 +328,50 @@ LABEL_12:
           v38 = objc_opt_class();
           v24 = NSStringFromClass(v38);
           v25 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRITaskRecord key dependencies (expected %@, decoded %@)", v23, v24, 0];
-          v76 = *MEMORY[0x277CCA450];
-          v77 = v25;
-          v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
+          v75 = *MEMORY[0x277CCA450];
+          v76 = v25;
+          v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
           v39 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRITaskRecordOCNTErrorDomain" code:3 userInfo:v26];
-          [v69 failWithError:v39];
+          [v68 failWithError:v39];
 LABEL_23:
 
           goto LABEL_24;
         }
 
-        v32 = [v69 decodeInt64ForKey:@"capabilities"];
+        v32 = [v68 decodeInt64ForKey:@"capabilities"];
         if (v32)
         {
 LABEL_15:
           v33 = objc_alloc(MEMORY[0x277CBEB98]);
           v34 = objc_opt_class();
           v35 = [v33 initWithObjects:{v34, objc_opt_class(), 0}];
-          v23 = [v69 decodeObjectOfClasses:v35 forKey:@"tags"];
+          v23 = [v68 decodeObjectOfClasses:v35 forKey:@"tags"];
 
           if (!v23)
           {
-            error2 = [v69 error];
+            error2 = [v68 error];
 
             self = selfCopy;
             if (!error2)
             {
-              v72 = *MEMORY[0x277CCA450];
-              v73 = @"Retrieved nil serialized value for nonnull TRITaskRecord.tags";
-              v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
-              v46 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRITaskRecordOCNTErrorDomain" code:2 userInfo:v45];
-              [v69 failWithError:v46];
+              v71 = *MEMORY[0x277CCA450];
+              v72 = @"Retrieved nil serialized value for nonnull TRITaskRecord.tags";
+              v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
+              v45 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRITaskRecordOCNTErrorDomain" code:2 userInfo:v44];
+              [v68 failWithError:v45];
             }
 
             v23 = 0;
             selfCopy2 = 0;
-            v6 = v51;
+            v6 = v50;
             goto LABEL_27;
           }
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v6 = v51;
-            self = [(TRITaskRecord *)selfCopy initWithTaskId:v51 task:v18 startDate:v19 dependencies:v21 capabilities:v32 tags:v23];
+            v6 = v50;
+            self = [(TRITaskRecord *)selfCopy initWithTaskId:v50 task:v18 startDate:v19 dependencies:v21 capabilities:v32 tags:v23];
             selfCopy2 = self;
 LABEL_27:
 
@@ -470,31 +379,31 @@ LABEL_32:
             goto LABEL_33;
           }
 
+          v46 = objc_opt_class();
+          v24 = NSStringFromClass(v46);
           v47 = objc_opt_class();
-          v24 = NSStringFromClass(v47);
-          v48 = objc_opt_class();
-          v25 = NSStringFromClass(v48);
+          v25 = NSStringFromClass(v47);
           v26 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRITaskRecord key tags (expected %@, decoded %@)", v24, v25, 0];
-          v70 = *MEMORY[0x277CCA450];
-          v71 = v26;
-          v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
-          v49 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRITaskRecordOCNTErrorDomain" code:3 userInfo:v39];
-          [v69 failWithError:v49];
+          v69 = *MEMORY[0x277CCA450];
+          v70 = v26;
+          v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
+          v48 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRITaskRecordOCNTErrorDomain" code:3 userInfo:v39];
+          [v68 failWithError:v48];
 
           goto LABEL_23;
         }
 
-        error3 = [v69 error];
+        error3 = [v68 error];
 
         if (!error3)
         {
-          if (([v69 containsValueForKey:@"capabilities"] & 1) == 0)
+          if (([v68 containsValueForKey:@"capabilities"] & 1) == 0)
           {
-            v74 = *MEMORY[0x277CCA450];
-            v75 = @"Missing serialized value for TRITaskRecord.capabilities";
-            v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+            v73 = *MEMORY[0x277CCA450];
+            v74 = @"Missing serialized value for TRITaskRecord.capabilities";
+            v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
             v24 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRITaskRecordOCNTErrorDomain" code:1 userInfo:v23];
-            [v69 failWithError:v24];
+            [v68 failWithError:v24];
             goto LABEL_25;
           }
 
@@ -504,15 +413,15 @@ LABEL_32:
 
       else
       {
-        error4 = [v69 error];
+        error4 = [v68 error];
 
         if (!error4)
         {
-          v78 = *MEMORY[0x277CCA450];
-          v79 = @"Retrieved nil serialized value for nonnull TRITaskRecord.dependencies";
-          v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
+          v77 = *MEMORY[0x277CCA450];
+          v78 = @"Retrieved nil serialized value for nonnull TRITaskRecord.dependencies";
+          v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
           v40 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRITaskRecordOCNTErrorDomain" code:2 userInfo:v23];
-          [v69 failWithError:v40];
+          [v68 failWithError:v40];
 
           v21 = 0;
           goto LABEL_26;
@@ -523,14 +432,14 @@ LABEL_32:
 
       selfCopy2 = 0;
 LABEL_31:
-      v6 = v51;
+      v6 = v50;
       self = selfCopy;
       goto LABEL_32;
     }
 
     v19 = 0;
     selfCopy2 = 0;
-    v6 = v51;
+    v6 = v50;
     self = selfCopy;
 LABEL_33:
 
@@ -541,9 +450,9 @@ LABEL_33:
 
   if (!selfCopy2)
   {
-    v84 = *MEMORY[0x277CCA450];
-    v85[0] = @"Retrieved nil serialized value for nonnull TRITaskRecord.taskId";
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v85 forKeys:&v84 count:1];
+    v83 = *MEMORY[0x277CCA450];
+    v84[0] = @"Retrieved nil serialized value for nonnull TRITaskRecord.taskId";
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v84 forKeys:&v83 count:1];
     v19 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRITaskRecordOCNTErrorDomain" code:2 userInfo:v18];
     [coderCopy failWithError:v19];
     goto LABEL_33;
@@ -552,7 +461,6 @@ LABEL_33:
   selfCopy2 = 0;
 LABEL_35:
 
-  v42 = *MEMORY[0x277D85DE8];
   return selfCopy2;
 }
 

@@ -11,7 +11,7 @@
 
 - (void)setToolbarItems:(id)items avoidsKeyboard:(BOOL)keyboard animated:(BOOL)animated
 {
-  sub_188A34624(0, &qword_1ED48E8C0);
+  sub_188A34624(0, &qword_1ED48E8C0, off_1E70E94D0);
   v8 = sub_18A4A7548();
   selfCopy = self;
   sub_188B27DC8(v8, keyboard, animated);
@@ -20,7 +20,7 @@
 - (void)didMoveToWindow
 {
   ObjectType = swift_getObjectType();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA934728, &unk_18A64C610);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v13 - v5;
   v13.receiver = self;

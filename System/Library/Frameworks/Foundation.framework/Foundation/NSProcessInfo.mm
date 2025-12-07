@@ -123,7 +123,7 @@
   }
 }
 
-uint64_t __28__NSProcessInfo_processInfo__block_invoke()
+void *__28__NSProcessInfo_processInfo__block_invoke()
 {
   result = [objc_allocWithZone(NSProcessInfo) init];
   qword_1ED43FA00 = result;
@@ -448,7 +448,7 @@ LABEL_13:
 {
   if (self)
   {
-    [(NSProcessInfo *)self macCatalystVersion];
+    objc_msgSend_macCatalystVersion(self, a2);
   }
 
   if (version->var0 > 0)

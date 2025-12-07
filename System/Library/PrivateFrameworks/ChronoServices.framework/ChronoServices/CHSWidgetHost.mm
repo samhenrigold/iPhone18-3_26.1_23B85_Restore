@@ -91,15 +91,15 @@
     configuration = v14->_configuration;
     v14->_configuration = v19;
 
-    v21 = CHSLogWidgetHosts();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = CHSLogWidgetHosts(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = v14->_loggingIdentifier;
+      v23 = v14->_loggingIdentifier;
       *buf = 138543618;
-      v31 = v22;
+      v31 = v23;
       v32 = 2114;
       v33 = v14;
-      _os_log_impl(&dword_195EB2000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Created: %{public}@", buf, 0x16u);
+      _os_log_impl(&dword_195EB2000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Created: %{public}@", buf, 0x16u);
     }
 
     if (configurationCopy)
@@ -109,15 +109,14 @@
 
     else
     {
-      v23 = [CHSWidgetConfiguration alloc];
-      v24 = objc_alloc_init(CHSWidgetMetricsSpecification);
-      v25 = [(CHSWidgetConfiguration *)v23 initWithContainerDescriptors:MEMORY[0x1E695E0F0] metricsSpecification:v24];
-      v26 = v14->_configuration;
-      v14->_configuration = v25;
+      v24 = [CHSWidgetConfiguration alloc];
+      v25 = objc_alloc_init(CHSWidgetMetricsSpecification);
+      v26 = [(CHSWidgetConfiguration *)v24 initWithContainerDescriptors:MEMORY[0x1E695E0F0] metricsSpecification:v25];
+      v27 = v14->_configuration;
+      v14->_configuration = v26;
     }
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -170,91 +169,83 @@
     configuration = self->_configuration;
     self->_configuration = v6;
 
-    v8 = CHSLogWidgetHosts();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = CHSLogWidgetHosts(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       loggingIdentifier = self->_loggingIdentifier;
       v12 = 138543618;
       v13 = loggingIdentifier;
       v14 = 2114;
       selfCopy = self;
-      _os_log_impl(&dword_195EB2000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Configuration changed: %{public}@", &v12, 0x16u);
+      _os_log_impl(&dword_195EB2000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Configuration changed: %{public}@", &v12, 0x16u);
     }
 
     [(CHSWidgetHost *)self _connectionCreateOrUpdateConfigurations];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activate
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (!self->_invalid)
   {
-    v3 = CHSLogWidgetHosts();
+    v3 = CHSLogWidgetHosts(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       loggingIdentifier = self->_loggingIdentifier;
-      v6 = 138543618;
-      v7 = loggingIdentifier;
-      v8 = 2114;
+      v5 = 138543618;
+      v6 = loggingIdentifier;
+      v7 = 2114;
       selfCopy = self;
-      _os_log_impl(&dword_195EB2000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Activated: %{public}@", &v6, 0x16u);
+      _os_log_impl(&dword_195EB2000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Activated: %{public}@", &v5, 0x16u);
     }
 
     self->_activationState = 1;
     [(CHSWidgetHost *)self _connectionUpdateActivationState];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deactivate
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (!self->_invalid)
   {
-    v3 = CHSLogWidgetHosts();
+    v3 = CHSLogWidgetHosts(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       loggingIdentifier = self->_loggingIdentifier;
-      v6 = 138543618;
-      v7 = loggingIdentifier;
-      v8 = 2114;
+      v5 = 138543618;
+      v6 = loggingIdentifier;
+      v7 = 2114;
       selfCopy = self;
-      _os_log_impl(&dword_195EB2000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Deactivated: %{public}@", &v6, 0x16u);
+      _os_log_impl(&dword_195EB2000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Deactivated: %{public}@", &v5, 0x16u);
     }
 
     self->_activationState = 0;
     [(CHSWidgetHost *)self _connectionUpdateActivationState];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (!self->_invalid)
   {
     self->_invalid = 1;
-    v3 = CHSLogWidgetHosts();
+    v3 = CHSLogWidgetHosts(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       loggingIdentifier = self->_loggingIdentifier;
-      v6 = 138543618;
-      v7 = loggingIdentifier;
-      v8 = 2114;
+      v5 = 138543618;
+      v6 = loggingIdentifier;
+      v7 = 2114;
       selfCopy = self;
-      _os_log_impl(&dword_195EB2000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Invalidated: %{public}@", &v6, 0x16u);
+      _os_log_impl(&dword_195EB2000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Invalidated: %{public}@", &v5, 0x16u);
     }
 
     self->_activationState = 0;
     [(CHSWidgetHost *)self _connectionRemoveHost];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_connectionCopy

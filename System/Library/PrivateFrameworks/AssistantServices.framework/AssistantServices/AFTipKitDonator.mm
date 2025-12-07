@@ -1,14 +1,25 @@
 @interface AFTipKitDonator
 + (void)_donateToTipsWithIdentifier:(id)identifier bundleID:(id)d context:(id)context userInfo:(id)info;
 + (void)donateAnnounceNotificationsInCarPlaySettingsChange:(int64_t)change;
++ (void)donateCallHangUpAvailabilityChanged:(BOOL)changed;
 @end
 
 @implementation AFTipKitDonator
 
++ (void)donateCallHangUpAvailabilityChanged:(BOOL)changed
+{
+  v7[1] = *MEMORY[0x1E69E9840];
+  v6 = @"state";
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:changed];
+  v7[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  [self _donateToTipsWithIdentifier:@"com.apple.siri.call-hang-up.availability.changed" bundleID:@"com.apple.siri" context:0 userInfo:v5];
+}
+
 + (void)donateAnnounceNotificationsInCarPlaySettingsChange:(int64_t)change
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8 = @"AFSiriCarPlayAnnounceEnablementType";
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = @"AFSiriCarPlayAnnounceEnablementType";
   if (change > 4)
   {
     v4 = @"(unknown)";
@@ -20,11 +31,9 @@
   }
 
   v5 = v4;
-  v9[0] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [self _donateToTipsWithIdentifier:@"com.apple.siri.announce.carplay.settings.changed" bundleID:@"com.apple.siri" context:0 userInfo:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_donateToTipsWithIdentifier:(id)identifier bundleID:(id)d context:(id)context userInfo:(id)info

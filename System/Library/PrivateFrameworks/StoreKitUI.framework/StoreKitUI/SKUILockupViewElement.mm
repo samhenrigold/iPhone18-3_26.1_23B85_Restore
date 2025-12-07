@@ -38,7 +38,7 @@
     if ([v14 length])
     {
       lowercaseString = [v14 lowercaseString];
-      v11->_selectable = [lowercaseString isEqualToString:@"true"];
+      v11->_selectable = objc_msgSend_isEqualToString_(lowercaseString);
     }
 
     v16 = [elementCopy getAttribute:@"type"];

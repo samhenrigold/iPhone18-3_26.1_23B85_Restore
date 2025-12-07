@@ -66,19 +66,19 @@ LABEL_4:
   v19 = [(HDConceptIndexEntry *)&v30 init];
   if (v19)
   {
-    v20 = [dCopy copy];
+    v20 = objc_msgSend_copy(dCopy);
     sampleUUID = v19->_sampleUUID;
     v19->_sampleUUID = v20;
 
     v19->_conceptIdentifier = identifier;
     v19->_conceptVersion = version;
-    v22 = [pathCopy copy];
+    v22 = objc_msgSend_copy(pathCopy);
     keyPath = v19->_keyPath;
     v19->_keyPath = v22;
 
     v19->_compoundIndex = index;
     v19->_type = type;
-    v24 = [ontologyVersionCopy copy];
+    v24 = objc_msgSend_copy(ontologyVersionCopy);
     ontologyVersion = v19->_ontologyVersion;
     v19->_ontologyVersion = v24;
   }
@@ -91,10 +91,9 @@ LABEL_4:
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v6 = *&self->_conceptVersion;
-  v7 = [v3 stringWithFormat:@"<%@:%p sampleUUID=%@, conceptIdentifier=%lld, conceptVersion=%lld, keyPath='%@', compoundIndex=%llu, type=%lu, ontologyVersion=%@>", v5, self, self->_sampleUUID, self->_conceptIdentifier, self->_conceptVersion, self->_keyPath, self->_compoundIndex, self->_type, self->_ontologyVersion];
+  v6 = [v3 stringWithFormat:@"<%@:%p sampleUUID=%@, conceptIdentifier=%lld, conceptVersion=%lld, keyPath='%@', compoundIndex=%llu, type=%lu, ontologyVersion=%@>", v5, self, self->_sampleUUID, self->_conceptIdentifier, self->_conceptVersion, self->_keyPath, self->_compoundIndex, self->_type, self->_ontologyVersion];
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

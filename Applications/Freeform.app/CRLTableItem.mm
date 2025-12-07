@@ -37,7 +37,7 @@
   v9 = *(v8 - 8);
   __chkstk_darwin(v8);
   v11 = &v19[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v12 = sub_1005B981C(&qword_1019F6990);
+  v12 = sub_1005B981C(&qword_1019F6990, &qword_10146D2F0);
   __chkstk_darwin(v12 - 8);
   v14 = &v19[-v13];
   if (d)
@@ -55,7 +55,7 @@
   helperCopy = helper;
   selfCopy = self;
   v17 = sub_1011DBBE4(v14, helperCopy);
-  sub_10000CAAC(v14, &qword_1019F6990);
+  sub_10000CAAC(v14, &qword_1019F6990, &qword_10146D2F0);
 
   return v17;
 }
@@ -83,12 +83,12 @@
 
   sub_10067F2E8(v6);
 
-  v7 = sub_1011E328C();
+  sub_1011E328C();
   v8 = sub_10067F2E8(v7);
 
   sub_10079AD4C(v8);
 
-  sub_1005B981C(&qword_1019F5720);
+  sub_1005B981C(&qword_1019F5720, &unk_101474E20);
   v9.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v9.super.isa;
@@ -136,14 +136,14 @@
 
 - (int64_t)rowCount
 {
-  v3 = sub_1005B981C(&unk_101A2C890);
+  v3 = sub_1005B981C(&unk_101A2C890, &qword_101471EB0);
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v15 - v5;
-  v7 = _s15CapsuleDatabaseVMa();
+  v7 = _s15CapsuleDatabaseVMa(0);
   __chkstk_darwin(v7);
   v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for CRLTableItemData();
+  type metadata accessor for CRLTableItemData(0);
   v10 = swift_dynamicCastClassUnconditional();
   v11 = qword_101AD9268;
   swift_beginAccess();
@@ -151,7 +151,7 @@
   selfCopy = self;
   Capsule.root.getter();
   (*(v4 + 8))(v6, v3);
-  sub_1005B981C(&unk_101A2C7D0);
+  sub_1005B981C(&unk_101A2C7D0, &unk_1014D0DC0);
   v13 = CROrderedDictionary.count.getter();
 
   sub_1011F0B80(v9, _s15CapsuleDatabaseVMa);
@@ -169,21 +169,21 @@
 - (double)rowHeightAt:(int64_t)at
 {
   selfCopy = self;
-  v5 = sub_1011E3F2C(at);
+  v6 = sub_1011E3F2C(at, v5);
 
-  return v5;
+  return v6;
 }
 
 - (int64_t)columnCount
 {
-  v3 = sub_1005B981C(&unk_101A2C890);
+  v3 = sub_1005B981C(&unk_101A2C890, &qword_101471EB0);
   v4 = *(v3 - 8);
   __chkstk_darwin(v3);
   v6 = &v15 - v5;
-  v7 = _s15CapsuleDatabaseVMa();
+  v7 = _s15CapsuleDatabaseVMa(0);
   __chkstk_darwin(v7);
   v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for CRLTableItemData();
+  type metadata accessor for CRLTableItemData(0);
   v10 = swift_dynamicCastClassUnconditional();
   v11 = qword_101AD9268;
   swift_beginAccess();
@@ -191,7 +191,7 @@
   selfCopy = self;
   Capsule.root.getter();
   (*(v4 + 8))(v6, v3);
-  sub_1005B981C(&unk_101A2D830);
+  sub_1005B981C(&unk_101A2D830, &qword_101472540);
   v13 = CROrderedDictionary.count.getter();
 
   sub_1011F0B80(v9, _s15CapsuleDatabaseVMa);
@@ -209,9 +209,9 @@
 - (double)columnWidthAt:(int64_t)at
 {
   selfCopy = self;
-  v5 = sub_1011E5BDC(at);
+  v6 = sub_1011E5BDC(at, v5);
 
-  return v5;
+  return v6;
 }
 
 - (Class)repClass
@@ -257,13 +257,13 @@
 {
   v7 = type metadata accessor for UUID();
   __chkstk_darwin(v7 - 8);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   storeCopy = store;
   geometryCopy = geometry;
-  v12 = sub_1011EEF84(storeCopy, v9, geometry);
+  v13 = sub_1011EEF84(storeCopy, v9, geometry, v12);
 
-  return v12;
+  return v13;
 }
 
 @end

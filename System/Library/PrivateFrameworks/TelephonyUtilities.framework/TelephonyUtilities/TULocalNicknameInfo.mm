@@ -48,7 +48,7 @@
 
 - (id)nicknameWithFormatterStyle:(int64_t)style
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v5 = CUTWeakLinkClass();
   if (!v5)
   {
@@ -56,101 +56,101 @@
   }
 
   sharedInstance = [v5 sharedInstance];
-  *&v35 = 0;
-  *(&v35 + 1) = &v35;
-  v36 = 0x3032000000;
-  v37 = __Block_byref_object_copy__0;
-  v38 = __Block_byref_object_dispose__0;
+  *&v37 = 0;
+  *(&v37 + 1) = &v37;
+  v38 = 0x3032000000;
+  v39 = __Block_byref_object_copy__0;
+  v40 = __Block_byref_object_dispose__0;
   personalNickname = [sharedInstance personalNickname];
-  v7 = *(*(&v35 + 1) + 40);
+  v7 = *(*(&v37 + 1) + 40);
   if (!v7)
   {
     v8 = dispatch_semaphore_create(0);
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __50__TULocalNicknameInfo_nicknameWithFormatterStyle___block_invoke;
-    v29[3] = &unk_1E7424CB0;
-    v31 = &v35;
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __50__TULocalNicknameInfo_nicknameWithFormatterStyle___block_invoke;
+    v31[3] = &unk_1E7424CB0;
+    v33 = &v37;
     v9 = v8;
-    v30 = v9;
-    [sharedInstance fetchPersonalNicknameWithCompletion:v29];
+    v32 = v9;
+    [sharedInstance fetchPersonalNicknameWithCompletion:v31];
     v10 = dispatch_time(0, 1000000000);
-    if (dispatch_semaphore_wait(v9, v10))
+    v11 = dispatch_semaphore_wait(v9, v10);
+    if (v11)
     {
-      v11 = TUDefaultLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = TUDefaultLog(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [TULocalNicknameInfo nicknameWithFormatterStyle:v11];
+        [TULocalNicknameInfo nicknameWithFormatterStyle:v12];
       }
     }
 
-    v7 = *(*(&v35 + 1) + 40);
+    v7 = *(*(&v37 + 1) + 40);
   }
 
-  v12 = [(TULocalNicknameInfo *)self formattedDisplayNameForIMNickname:v7 style:style];
-  v13 = TUDefaultLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v13 = [(TULocalNicknameInfo *)self formattedDisplayNameForIMNickname:v7 style:style];
+  v14 = TUDefaultLog(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v34 = v12;
-    _os_log_impl(&dword_1956FD000, v13, OS_LOG_TYPE_DEFAULT, "Local nickame info retrieved from SNaP: %@", buf, 0xCu);
+    v36 = v13;
+    _os_log_impl(&dword_1956FD000, v14, OS_LOG_TYPE_DEFAULT, "Local nickame info retrieved from SNaP: %@", buf, 0xCu);
   }
 
-  _Block_object_dispose(&v35, 8);
-  if (!v12)
+  _Block_object_dispose(&v37, 8);
+  if (!v13)
   {
 LABEL_11:
-    v14 = MEMORY[0x1E695CE28];
+    v15 = MEMORY[0x1E695CE28];
     mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
     bundleIdentifier = [mainBundle bundleIdentifier];
     if (bundleIdentifier)
     {
-      v17 = [v14 tu_contactStoreConfigurationForBundleIdentifier:bundleIdentifier];
+      v18 = [v15 tu_contactStoreConfigurationForBundleIdentifier:bundleIdentifier];
     }
 
     else
     {
-      v18 = TUPreferredFaceTimeBundleIdentifier();
-      v17 = [v14 tu_contactStoreConfigurationForBundleIdentifier:v18];
+      v19 = TUPreferredFaceTimeBundleIdentifier();
+      v18 = [v15 tu_contactStoreConfigurationForBundleIdentifier:v19];
     }
 
-    v19 = [objc_alloc(MEMORY[0x1E695CE18]) initWithConfiguration:v17];
-    v32[0] = *MEMORY[0x1E695C258];
-    v20 = [MEMORY[0x1E695CD80] descriptorForRequiredKeysForStyle:0];
-    v32[1] = v20;
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
-    v28 = 0;
-    v22 = [v19 _crossPlatformUnifiedMeContactWithKeysToFetch:v21 error:&v28];
-    v23 = v28;
+    v20 = [objc_alloc(MEMORY[0x1E695CE18]) initWithConfiguration:v18];
+    v34[0] = *MEMORY[0x1E695C258];
+    v21 = [MEMORY[0x1E695CD80] descriptorForRequiredKeysForStyle:0];
+    v34[1] = v21;
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
+    v30 = 0;
+    v23 = [v20 _crossPlatformUnifiedMeContactWithKeysToFetch:v22 error:&v30];
+    v24 = v30;
 
-    if (v23)
+    if (v24)
     {
-      v24 = TUDefaultLog();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v26 = TUDefaultLog(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        [(TULocalNicknameInfo *)v23 nicknameWithFormatterStyle:v24];
+        [(TULocalNicknameInfo *)v24 nicknameWithFormatterStyle:v26];
       }
 
-      v12 = 0;
+      v13 = 0;
     }
 
     else
     {
-      v12 = TUNameForContactWithFormatterStyle(v22, 1);
+      v27 = TUNameForContactWithFormatterStyle(v23, 1);
+      v13 = v27;
     }
 
-    v25 = TUDefaultLog();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v28 = TUDefaultLog(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v35) = 138412290;
-      *(&v35 + 4) = v12;
-      _os_log_impl(&dword_1956FD000, v25, OS_LOG_TYPE_DEFAULT, "Local nickame info retrieved from MeContact: %@", &v35, 0xCu);
+      LODWORD(v37) = 138412290;
+      *(&v37 + 4) = v13;
+      _os_log_impl(&dword_1956FD000, v28, OS_LOG_TYPE_DEFAULT, "Local nickame info retrieved from MeContact: %@", &v37, 0xCu);
     }
   }
 
-  v26 = *MEMORY[0x1E69E9840];
-
-  return v12;
+  return v13;
 }
 
 void __50__TULocalNicknameInfo_nicknameWithFormatterStyle___block_invoke(uint64_t a1, void *a2)
@@ -187,11 +187,10 @@ void __50__TULocalNicknameInfo_nicknameWithFormatterStyle___block_invoke(uint64_
 
 - (void)nicknameWithFormatterStyle:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch meContact for local nickname info with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1956FD000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch meContact for local nickname info with error: %@", &v2, 0xCu);
 }
 
 @end

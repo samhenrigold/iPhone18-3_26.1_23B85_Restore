@@ -49,7 +49,7 @@
 
 - (void)submitMetric:(id)metric
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   metricCopy = metric;
   accessory = [(HMDAccessoryDiagnosticsMetric *)self accessory];
   if (metricCopy)
@@ -64,15 +64,15 @@
       name = [accessory name];
       identifier = [accessory identifier];
       coreAnalyticsEventDictionary = [(HMDAccessoryDiagnosticMetricEvent *)v6 coreAnalyticsEventDictionary];
-      v17 = 138544130;
-      v18 = v10;
-      v19 = 2114;
-      v20 = name;
-      v21 = 2114;
-      v22 = identifier;
-      v23 = 2114;
-      v24 = coreAnalyticsEventDictionary;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Submitting AccessoryDiagnosticMetric for accessory: %{public}@/%{public}@ - %{public}@", &v17, 0x2Au);
+      v16 = 138544130;
+      v17 = v10;
+      v18 = 2114;
+      v19 = name;
+      v20 = 2114;
+      v21 = identifier;
+      v22 = 2114;
+      v23 = coreAnalyticsEventDictionary;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Submitting AccessoryDiagnosticMetric for accessory: %{public}@/%{public}@ - %{public}@", &v16, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -80,8 +80,6 @@
     logEventSubmitter = [home logEventSubmitter];
     [logEventSubmitter submitLogEvent:v6];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)collectMetric
@@ -121,10 +119,9 @@
 
 void __44__HMDAccessoryDiagnosticsMetric_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v9_101175;
-  logCategory__hmf_once_v9_101175 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v9_101175;
+  logCategory__hmf_once_v9_101175 = v0;
 }
 
 @end

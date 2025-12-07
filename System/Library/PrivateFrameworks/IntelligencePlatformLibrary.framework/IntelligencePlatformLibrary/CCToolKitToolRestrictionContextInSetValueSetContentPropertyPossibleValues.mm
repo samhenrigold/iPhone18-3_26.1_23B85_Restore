@@ -201,9 +201,9 @@ LABEL_21:
       {
         v23 = [CCToolKitToolContentItemClassDescriptor alloc];
         propertyName = CCPBReaderReadDataNoCopy();
-        v36 = 0;
-        v25 = [(CCItemMessage *)v23 initWithData:propertyName error:&v36];
-        v10 = v36;
+        v34 = 0;
+        v25 = [(CCItemMessage *)v23 initWithData:propertyName error:&v34];
+        v10 = v34;
         contentItemClass = self->_contentItemClass;
         self->_contentItemClass = v25;
       }
@@ -218,7 +218,6 @@ LABEL_21:
 
         v28 = objc_opt_class();
         propertyName = NSStringFromClass(v28);
-        v29 = *&v6[*v9];
         v10 = CCSkipFieldErrorForMessage();
       }
 
@@ -242,23 +241,22 @@ LABEL_32:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v34 = 1;
+    v32 = 1;
     goto LABEL_36;
   }
 
 LABEL_33:
-  v30 = objc_opt_class();
-  v31 = NSStringFromClass(v30);
-  v32 = *&v6[*v9];
-  v33 = CCInvalidBufferErrorForMessage();
+  v29 = objc_opt_class();
+  v30 = NSStringFromClass(v29);
+  v31 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_34:
-  v34 = 0;
+  v32 = 0;
 LABEL_36:
 
-  return v34;
+  return v32;
 }
 
 - (CCToolKitToolRestrictionContextInSetValueSetContentPropertyPossibleValues)initWithContentItemClass:(id)class propertyName:(id)name error:(id *)error

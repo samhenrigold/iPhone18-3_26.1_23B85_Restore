@@ -59,7 +59,7 @@
 
 - (void)applicationBadgeChangedNotification:(id)notification
 {
-  v4 = PHDefaultLog();
+  v4 = PHDefaultLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;
@@ -114,7 +114,7 @@
 - (void)programmaticallySelectRowAtIndexPath:(id)path
 {
   pathCopy = path;
-  v4 = PHDefaultLog();
+  v4 = PHDefaultLog(pathCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;
@@ -140,7 +140,7 @@
 - (void)hardwareControlEventNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v15 = 138412290;
@@ -243,7 +243,7 @@
 - (void)updateBadgeString
 {
   badgeString = [(PHCarPlayGenericTableViewController *)self badgeString];
-  v4 = PHDefaultLog();
+  v4 = PHDefaultLog(badgeString);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412546;

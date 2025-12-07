@@ -23,13 +23,13 @@
 - (id)_transformEventForWindow:(id)window;
 - (id)_wheelEventForWindow:(id)window;
 - (uint64_t)_currentNudgePressTypeForWindow:(uint64_t)window;
-- (uint64_t)_resetTouchMapForWindow:(uint64_t)result;
 - (void)_clearTouchesOfView:(uint64_t)view onWindow:;
 - (void)_dispatchAndRemoveStaleEstimationUpdateRecordsWithEventTime:(double)time upToRecord:;
 - (void)_enqueueClearEventsOfRetainedWindow:(void *)window;
 - (void)_registerEstimatedTouches:(void *)touches event:(uint64_t)event forTouchable:;
 - (void)_removeDragEvent:(uint64_t)event;
 - (void)_removeEstimatedTouchRecord:(uint64_t)record;
+- (void)_resetTouchMapForWindow:(void *)result;
 - (void)_sendMotionBegan:(uint64_t)began;
 - (void)_sendMotionCancelled:(uint64_t)cancelled;
 - (void)_sendMotionEnded:(uint64_t)ended;
@@ -164,12 +164,12 @@
     {
       if (Type == 39)
       {
-        if (!_UIEventHIDIsPencilBarrelEvent())
+        if (!_UIEventHIDIsPencilBarrelEvent(a2))
         {
           goto LABEL_63;
         }
 
-        v5 = _UIEventHIDUIWindowForHIDEvent();
+        v5 = _UIEventHIDUIWindowForHIDEvent(a2);
         _eventRoutingScene = [v5 _eventRoutingScene];
         eventCopy7 = event;
         v8 = 13;
@@ -185,11 +185,11 @@
         if (!_UIDynamicButtonFeatureIsEnabled() || !_UIEventHIDIsDynamicButtonEvent(a2))
         {
 LABEL_63:
-          v19 = 0;
+          v20 = 0;
           goto LABEL_64;
         }
 
-        v5 = _UIEventHIDUIWindowForHIDEvent();
+        v5 = _UIEventHIDUIWindowForHIDEvent(a2);
         _eventRoutingScene = [v5 _eventRoutingScene];
         eventCopy7 = event;
         v8 = 16;
@@ -201,7 +201,7 @@ LABEL_63:
       if (Type == 30)
       {
 LABEL_52:
-        v14 = [(UIEventEnvironment *)event _physicalKeyboardEventForHIDEvent:a2];
+        v15 = [(UIEventEnvironment *)event _physicalKeyboardEventForHIDEvent:a2];
         goto LABEL_62;
       }
 
@@ -210,14 +210,14 @@ LABEL_52:
         goto LABEL_28;
       }
 
-      v5 = _UIEventHIDUIWindowForHIDEvent();
+      v5 = _UIEventHIDUIWindowForHIDEvent(a2);
       _eventRoutingScene = [v5 _eventRoutingScene];
       eventCopy7 = event;
       v8 = 8;
     }
 
 LABEL_37:
-    v19 = _UIEventEnvironmentEventOfTypeForEventRoutingUIScene(eventCopy7, v8, _eventRoutingScene);
+    v20 = _UIEventEnvironmentEventOfTypeForEventRoutingUIScene(eventCopy7, v8, _eventRoutingScene);
 
     goto LABEL_64;
   }
@@ -230,7 +230,7 @@ LABEL_37:
       {
         if (_UIEventHIDIsScrollEvent(a2))
         {
-          v5 = _UIEventHIDUIWindowForHIDEvent();
+          v5 = _UIEventHIDUIWindowForHIDEvent(a2);
           _eventRoutingScene = [v5 _eventRoutingScene];
           eventCopy7 = event;
           v8 = 10;
@@ -238,10 +238,10 @@ LABEL_37:
 
         else
         {
-          v18 = BKSHIDEventGetBaseAttributes();
-          [v18 contextID];
+          v19 = BKSHIDEventGetBaseAttributes();
+          [v19 contextID];
 
-          v5 = _UIEventHIDUIWindowForHIDEvent();
+          v5 = _UIEventHIDUIWindowForHIDEvent(a2);
           _eventRoutingScene = [v5 _eventRoutingScene];
           eventCopy7 = event;
           v8 = 7;
@@ -251,11 +251,11 @@ LABEL_37:
       }
 
 LABEL_28:
-      v15 = IOHIDEventGetType();
-      switch(v15)
+      v16 = IOHIDEventGetType();
+      switch(v16)
       {
         case 3:
-          if (_UIEventHIDPressTypeForKeyboardHIDEvent() != -1)
+          if (_UIEventHIDPressTypeForKeyboardHIDEvent(a2) != -1)
           {
             goto LABEL_54;
           }
@@ -268,25 +268,25 @@ LABEL_28:
 LABEL_54:
             if ([UIApp isFrontBoard])
             {
-              v26 = BKSHIDEventGetBaseAttributes();
-              contextID = [v26 contextID];
+              v27 = BKSHIDEventGetBaseAttributes();
+              contextID = [v27 contextID];
 
               if (!contextID)
               {
-                v14 = event[13];
+                v15 = event[13];
                 goto LABEL_62;
               }
             }
 
 LABEL_61:
-            v14 = [UIEventEnvironment _pressesEventForHIDEvent:event];
+            v15 = [(UIEventEnvironment *)event _pressesEventForHIDEvent:a2];
             goto LABEL_62;
           }
 
           break;
         case 17:
-          v16 = _UIEventHIDUIScreenForHIDEvent(a2);
-          _userInterfaceIdiom = [v16 _userInterfaceIdiom];
+          v17 = _UIEventHIDUIScreenForHIDEvent(a2);
+          _userInterfaceIdiom = [v17 _userInterfaceIdiom];
 
           if (_userInterfaceIdiom == 3)
           {
@@ -298,16 +298,16 @@ LABEL_61:
 
       if (IOHIDEventGetType() == 3)
       {
-        v24 = IOHIDEventGetIntegerValue();
-        switch(v24)
+        v25 = IOHIDEventGetIntegerValue();
+        switch(v25)
         {
           case 7:
             goto LABEL_52;
           case 255:
             goto LABEL_52;
           case 12:
-            v25 = IOHIDEventGetIntegerValue();
-            if (v25 == 184 || v25 == 669 || v25 == 430)
+            v26 = IOHIDEventGetIntegerValue();
+            if (v26 == 184 || v26 == 669 || v26 == 430)
             {
               goto LABEL_52;
             }
@@ -332,28 +332,28 @@ LABEL_61:
         v10 = Children;
         if (CFArrayGetCount(Children) >= 1)
         {
-          CFArrayGetValueAtIndex(v10, 0);
-          v11 = BKSHIDEventGetDigitizerAttributes();
-          v12 = _UIEventHIDPathAttributesForChild(v11);
-          locus = [v12 locus];
+          ValueAtIndex = CFArrayGetValueAtIndex(v10, 0);
+          v12 = BKSHIDEventGetDigitizerAttributes();
+          v13 = _UIEventHIDPathAttributesForChild(v12, ValueAtIndex);
+          locus = [v13 locus];
 
           if (locus)
           {
-            v14 = [UIEventEnvironment _dragEventForHIDEvent:event];
+            v15 = [(UIEventEnvironment *)event _dragEventForHIDEvent:a2];
 LABEL_62:
-            v19 = v14;
+            v20 = v15;
             goto LABEL_64;
           }
         }
       }
     }
 
-    if (_UIEventHIDShouldIgnoreEventsExpectedToBecomeDragEvent() && _UIEventHIDExpectedToBecomeDragEvent())
+    if (_UIEventHIDShouldIgnoreEventsExpectedToBecomeDragEvent() && _UIEventHIDExpectedToBecomeDragEvent(a2))
     {
       goto LABEL_63;
     }
 
-    v5 = _UIEventHIDUIWindowForHIDEvent();
+    v5 = _UIEventHIDUIWindowForHIDEvent(a2);
     _eventRoutingScene = [(UIEventEnvironment *)event _findTouchesEventWindowSceneForKeyboardWindowIfNeeded:v5];
     eventCopy7 = event;
     v8 = 0;
@@ -367,17 +367,17 @@ LABEL_62:
 
   if (_UIEventHIDIsTransformEvent(a2))
   {
-    v5 = _UIEventHIDUIWindowForHIDEvent();
+    v5 = _UIEventHIDUIWindowForHIDEvent(a2);
     _eventRoutingScene = [v5 _eventRoutingScene];
     eventCopy7 = event;
     v8 = 14;
     goto LABEL_37;
   }
 
-  v20 = IOHIDEventGetType();
-  if (v20 == 3)
+  v21 = IOHIDEventGetType();
+  if (v21 == 3)
   {
-    if (_UIEventHIDPressTypeForKeyboardHIDEvent() != -1)
+    if (_UIEventHIDPressTypeForKeyboardHIDEvent(a2) != -1)
     {
       goto LABEL_61;
     }
@@ -385,12 +385,12 @@ LABEL_62:
     goto LABEL_63;
   }
 
-  if (v20 != 29)
+  if (v21 != 29)
   {
-    if (v20 == 17)
+    if (v21 == 17)
     {
-      v21 = _UIEventHIDUIScreenForHIDEvent(a2);
-      _userInterfaceIdiom2 = [v21 _userInterfaceIdiom];
+      v22 = _UIEventHIDUIScreenForHIDEvent(a2);
+      _userInterfaceIdiom2 = [v22 _userInterfaceIdiom];
 
       if (_userInterfaceIdiom2 == 3)
       {
@@ -401,16 +401,16 @@ LABEL_62:
     goto LABEL_63;
   }
 
-  v28 = IOHIDEventGetIntegerValue();
-  v19 = 0;
-  if (v28 && v28 != 3)
+  v29 = IOHIDEventGetIntegerValue();
+  v20 = 0;
+  if (v29 && v29 != 3)
   {
     goto LABEL_61;
   }
 
 LABEL_64:
 
-  return v19;
+  return v20;
 }
 
 - (UIDragEvent)_dragEventForHIDEvent:(uint64_t)event
@@ -426,13 +426,13 @@ LABEL_64:
 
     else
     {
-      CFArrayGetValueAtIndex(userIdentifier, 0);
-      v4 = BKSHIDEventGetDigitizerAttributes();
-      v5 = _UIEventHIDPathAttributesForChild(v4);
+      ValueAtIndex = CFArrayGetValueAtIndex(userIdentifier, 0);
+      v6 = BKSHIDEventGetDigitizerAttributes();
+      v7 = _UIEventHIDPathAttributesForChild(v6, ValueAtIndex);
 
-      if ([v5 locus])
+      if ([v7 locus])
       {
-        userIdentifier = [v5 userIdentifier];
+        userIdentifier = [v7 userIdentifier];
       }
 
       else
@@ -442,45 +442,45 @@ LABEL_64:
     }
   }
 
-  v6 = BKSHIDEventGetBaseAttributes();
-  contextID = [v6 contextID];
+  v8 = BKSHIDEventGetBaseAttributes();
+  contextID = [v8 contextID];
 
-  v8 = 0;
+  v10 = 0;
   if (userIdentifier && contextID)
   {
-    v9 = IOHIDEventGetChildren();
-    if (v9 && (v10 = v9, CFArrayGetCount(v9) >= 1))
+    v11 = IOHIDEventGetChildren();
+    if (v11 && (v12 = v11, CFArrayGetCount(v11) >= 1))
     {
-      CFArrayGetValueAtIndex(v10, 0);
-      v11 = BKSHIDEventGetDigitizerAttributes();
-      v12 = _UIEventHIDPathAttributesForChild(v11);
-      locus = [v12 locus];
+      v13 = CFArrayGetValueAtIndex(v12, 0);
+      v14 = BKSHIDEventGetDigitizerAttributes();
+      v15 = _UIEventHIDPathAttributesForChild(v14, v13);
+      locus = [v15 locus];
 
-      v14 = contextID << 32;
+      v17 = contextID << 32;
       if (locus != 4)
       {
-        v14 = 0;
+        v17 = 0;
       }
     }
 
     else
     {
-      v14 = 0;
+      v17 = 0;
     }
 
-    v15 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v14 | userIdentifier];
-    v8 = [*(event + 48) objectForKeyedSubscript:v15];
-    if (!v8)
+    v18 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v17 | userIdentifier];
+    v10 = [*(event + 48) objectForKeyedSubscript:v18];
+    if (!v10)
     {
-      v8 = [[UIDragEvent alloc] initWithDragSessionID:userIdentifier environment:event];
-      if (v8)
+      v10 = [[UIDragEvent alloc] initWithDragSessionID:userIdentifier environment:event];
+      if (v10)
       {
-        [*(event + 48) setObject:v8 forKeyedSubscript:v15];
+        [*(event + 48) setObject:v10 forKeyedSubscript:v18];
       }
     }
   }
 
-  return v8;
+  return v10;
 }
 
 - (id)_physicalKeyboardEventForHIDEvent:(id *)event
@@ -490,16 +490,16 @@ LABEL_64:
   {
     v4 = BKSHIDEventGetBaseAttributes();
     contextID = [v4 contextID];
-    v6 = _UIEventHIDUIWindowForHIDEvent();
+    v6 = _UIEventHIDUIWindowForHIDEvent(a2);
     if (!contextID)
     {
       if ([UIApp isFrontBoard])
       {
         environment = [v4 environment];
         systemEnvironment = [MEMORY[0x1E698E398] systemEnvironment];
-        v9 = [environment isEqual:systemEnvironment];
+        isEqual = objc_msgSend_isEqual_(environment);
 
-        if (v9)
+        if (isEqual)
         {
           v10 = _UIEventHIDUIScreenForHIDEvent(a2);
           v11 = [UIApp _windowForSystemAppButtonEventsForScreen:v10];
@@ -538,52 +538,52 @@ LABEL_64:
 
 - (id)_pressesEventForHIDEvent:(uint64_t)event
 {
-  v2 = _UIEventHIDUIWindowForHIDEvent();
-  v3 = _UIEventHIDPressTypeForKeyboardHIDEvent();
+  v4 = _UIEventHIDUIWindowForHIDEvent(a2);
+  v5 = _UIEventHIDPressTypeForKeyboardHIDEvent(a2);
   isFrontBoard = [UIApp isFrontBoard];
-  if (v3 != 601)
+  if (v5 != 601)
   {
-    v5 = isFrontBoard ^ 1;
-    if ((v3 & 0xFFFFFFFFFFFFFFFELL) != 0x66)
+    v7 = isFrontBoard ^ 1;
+    if ((v5 & 0xFFFFFFFFFFFFFFFELL) != 0x66)
     {
-      v5 = 0;
+      v7 = 0;
     }
 
-    if ((v5 & 1) == 0)
+    if ((v7 & 1) == 0)
     {
       if ([UIApp isFrontBoard])
       {
-        v6 = v2 == 0;
+        v8 = v4 == 0;
       }
 
       else
       {
-        v6 = 0;
+        v8 = 0;
       }
 
-      if (!v6)
+      if (!v8)
       {
         goto LABEL_12;
       }
 
 LABEL_10:
-      v7 = *(event + 104);
+      v9 = *(event + 104);
       goto LABEL_13;
     }
   }
 
-  if (!v2)
+  if (!v4)
   {
     goto LABEL_10;
   }
 
 LABEL_12:
-  _eventRoutingScene = [v2 _eventRoutingScene];
-  v7 = _UIEventEnvironmentEventOfTypeForEventRoutingUIScene(event, 3, _eventRoutingScene);
+  _eventRoutingScene = [v4 _eventRoutingScene];
+  v9 = _UIEventEnvironmentEventOfTypeForEventRoutingUIScene(event, 3, _eventRoutingScene);
 
 LABEL_13:
 
-  return v7;
+  return v9;
 }
 
 - (void)_clearTouchesOfView:(uint64_t)view onWindow:
@@ -854,16 +854,16 @@ void __58__UIEventEnvironment__enqueueClearEventsOfRetainedWindow___block_invoke
   [v19 _removeComponents:v20];
 }
 
-- (uint64_t)_resetTouchMapForWindow:(uint64_t)result
+- (void)_resetTouchMapForWindow:(void *)result
 {
   if (result)
   {
     v3 = result;
-    Mutable = *(result + 176);
+    Mutable = result[22];
     if (!Mutable)
     {
       Mutable = CFDictionaryCreateMutable(0, 0, 0, MEMORY[0x1E695E9E8]);
-      *(v3 + 176) = Mutable;
+      v3[22] = Mutable;
     }
 
     Value = CFDictionaryGetValue(Mutable, key);
@@ -872,7 +872,7 @@ void __58__UIEventEnvironment__enqueueClearEventsOfRetainedWindow___block_invoke
       CFDictionaryRemoveAllValues(Value);
     }
 
-    v6 = *(v3 + 88);
+    v6 = v3[11];
 
     return [v6 removeObject:key];
   }
@@ -1684,7 +1684,7 @@ LABEL_11:
   }
 }
 
-uint64_t __39__UIEventEnvironment_sceneDidActivate___block_invoke(uint64_t a1, void *a2)
+void *__39__UIEventEnvironment_sceneDidActivate___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 canBecomeKeyWindow];
   if (result)
@@ -1696,7 +1696,7 @@ uint64_t __39__UIEventEnvironment_sceneDidActivate___block_invoke(uint64_t a1, v
 
     else
     {
-      return [a2 isInternalWindow] ^ 1;
+      return ([a2 isInternalWindow] ^ 1);
     }
   }
 

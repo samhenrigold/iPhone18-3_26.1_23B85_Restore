@@ -47,15 +47,16 @@
 
 void __66__TSPRXSIMTransferringViewController__maybeEnableOneTimeCodeCheck__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v8 = WeakRetained;
   if (WeakRetained)
   {
     if (v6)
     {
-      obj = _TSLogDomain();
+      obj = _TSLogDomain(WeakRetained);
       if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
       {
         __66__TSPRXSIMTransferringViewController__maybeEnableOneTimeCodeCheck__block_invoke_cold_1(v6, obj);
@@ -64,57 +65,58 @@ void __66__TSPRXSIMTransferringViewController__maybeEnableOneTimeCodeCheck__bloc
 
     else
     {
-      v22 = 0u;
       v23 = 0u;
-      v20 = 0u;
+      v24 = 0u;
       v21 = 0u;
+      v22 = 0u;
       obj = [v5 subscriptions];
-      v8 = [obj countByEnumeratingWithState:&v20 objects:v27 count:16];
-      if (v8)
+      v9 = [obj countByEnumeratingWithState:&v21 objects:v28 count:16];
+      if (v9)
       {
-        v9 = v8;
-        v10 = *v21;
+        v10 = v9;
+        v11 = *v22;
         while (2)
         {
-          for (i = 0; i != v9; ++i)
+          for (i = 0; i != v10; ++i)
           {
-            if (*v21 != v10)
+            if (*v22 != v11)
             {
               objc_enumerationMutation(obj);
             }
 
-            v12 = *(*(&v20 + 1) + 8 * i);
-            v13 = [objc_alloc(MEMORY[0x277CC3620]) initWithBundleType:1];
-            v26[0] = @"PhoneAccountTransfer";
-            v26[1] = @"OneTimeCodeForTransfer";
-            v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
-            v15 = [WeakRetained client];
-            v16 = [v15 copyCarrierBundleValue:v12 keyHierarchy:v14 bundleType:v13 error:0];
+            v13 = *(*(&v21 + 1) + 8 * i);
+            v14 = [objc_alloc(MEMORY[0x277CC3620]) initWithBundleType:1];
+            v27[0] = @"PhoneAccountTransfer";
+            v27[1] = @"OneTimeCodeForTransfer";
+            v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+            v16 = [v8 client];
+            v17 = [v16 copyCarrierBundleValue:v13 keyHierarchy:v15 bundleType:v14 error:0];
 
-            if (v16)
+            if (v17)
             {
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                if ([v16 BOOLValue])
+                v18 = [v17 BOOLValue];
+                if (v18)
                 {
-                  v17 = _TSLogDomain();
-                  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+                  v19 = _TSLogDomain(v18);
+                  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 136315138;
-                    v25 = "[TSPRXSIMTransferringViewController _maybeEnableOneTimeCodeCheck]_block_invoke";
-                    _os_log_impl(&dword_262AA8000, v17, OS_LOG_TYPE_DEFAULT, "start monitor OTP @%s", buf, 0xCu);
+                    v26 = "[TSPRXSIMTransferringViewController _maybeEnableOneTimeCodeCheck]_block_invoke";
+                    _os_log_impl(&dword_262AA8000, v19, OS_LOG_TYPE_DEFAULT, "start monitor OTP @%s", buf, 0xCu);
                   }
 
-                  [WeakRetained _setupOneTimeCodeDetection];
+                  [v8 _setupOneTimeCodeDetection];
                   goto LABEL_21;
                 }
               }
             }
           }
 
-          v9 = [obj countByEnumeratingWithState:&v20 objects:v27 count:16];
-          if (v9)
+          v10 = [obj countByEnumeratingWithState:&v21 objects:v28 count:16];
+          if (v10)
           {
             continue;
           }
@@ -130,14 +132,12 @@ LABEL_21:
 
   else
   {
-    obj = _TSLogDomain();
+    obj = _TSLogDomain(0);
     if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
     {
       __66__TSPRXSIMTransferringViewController__maybeEnableOneTimeCodeCheck__block_invoke_cold_2(obj);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupOneTimeCodeDetection
@@ -180,7 +180,7 @@ void __64__TSPRXSIMTransferringViewController__setupOneTimeCodeDetection__block_
 {
   v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = _TSLogDomain();
+  v4 = _TSLogDomain(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -220,14 +220,14 @@ void __64__TSPRXSIMTransferringViewController__setupOneTimeCodeDetection__block_
   v9 = *v6;
   v10 = [v5 objectForKeyedSubscript:v9];
 
-  v11 = _TSLogDomain();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _TSLogDomain(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     *&buf[4] = v10;
     *&buf[12] = 2080;
     *&buf[14] = "[TSPRXSIMTransferringViewController _setupOneTimeCodeDetection]_block_invoke";
-    _os_log_impl(&dword_262AA8000, v11, OS_LOG_TYPE_DEFAULT, "OTP : %@ @%s", buf, 0x16u);
+    _os_log_impl(&dword_262AA8000, v12, OS_LOG_TYPE_DEFAULT, "OTP : %@ @%s", buf, 0x16u);
   }
 
   if (v10 && [v10 length])
@@ -243,17 +243,14 @@ void __64__TSPRXSIMTransferringViewController__setupOneTimeCodeDetection__block_
 
     objc_destroyWeak(&v15);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-void __64__TSPRXSIMTransferringViewController__setupOneTimeCodeDetection__block_invoke_65(uint64_t a1)
+void __64__TSPRXSIMTransferringViewController__setupOneTimeCodeDetection__block_invoke_65(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x277CCACA8];
-  v3 = *(a1 + 32);
+  v3 = MEMORY[0x277CCACA8];
   v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v5 = [v4 localizedStringForKey:@"PRXCARD_ONE_TIME_CODE_%@" value:&stru_28753DF48 table:@"Localizable"];
-  v6 = [v2 stringWithFormat:v5, *(a1 + 40)];
+  v6 = [v3 stringWithFormat:v5, *(a1 + 40)];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v8 = [WeakRetained placeHolderLabel];
   [v8 setText:v6];
@@ -269,29 +266,27 @@ void __64__TSPRXSIMTransferringViewController__setupOneTimeCodeDetection__block_
 
 void __66__TSPRXSIMTransferringViewController__maybeEnableOneTimeCodeCheck__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = a1;
-  v5 = 2080;
-  v6 = "[TSPRXSIMTransferringViewController _maybeEnableOneTimeCodeCheck]_block_invoke";
-  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]get subscription failed : %@ @%s", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = a1;
+  v4 = 2080;
+  v5 = "[TSPRXSIMTransferringViewController _maybeEnableOneTimeCodeCheck]_block_invoke";
+  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]get subscription failed : %@ @%s", &v2, 0x16u);
 }
 
 void __66__TSPRXSIMTransferringViewController__maybeEnableOneTimeCodeCheck__block_invoke_cold_2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSPRXSIMTransferringViewController _maybeEnableOneTimeCodeCheck]_block_invoke";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]Self doesnt exist @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSPRXSIMTransferringViewController _maybeEnableOneTimeCodeCheck]_block_invoke";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]Self doesnt exist @%s", &v1, 0xCu);
 }
 
 uint64_t __64__TSPRXSIMTransferringViewController__setupOneTimeCodeDetection__block_invoke_cold_1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return __getIMOneTimeCodeAcceleratorClass_block_invoke_cold_1(v0);
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  return __getIMOneTimeCodeAcceleratorClass_block_invoke_cold_1();
 }
 
 @end

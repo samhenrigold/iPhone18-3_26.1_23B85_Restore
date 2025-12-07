@@ -10,9 +10,9 @@
 
 - (unint64_t)MSUniqueID
 {
-  v9 = *MEMORY[0x277D85DE8];
-  memset(&v7, 0, sizeof(v7));
-  CC_MD5_Init(&v7);
+  v8 = *MEMORY[0x277D85DE8];
+  memset(&v6, 0, sizeof(v6));
+  CC_MD5_Init(&v6);
   v2 = [self cStringUsingEncoding:4];
   v3 = strlen(v2);
   if (HIDWORD(v3))
@@ -20,8 +20,8 @@
     __assert_rtn("[NSString(MSStringUtilities) MSUniqueID]", "MSStringUtilities.m", 85, "len <= UINT32_MAX");
   }
 
-  CC_MD5_Update(&v7, v2, v3);
-  CC_MD5_Final(md, &v7);
+  CC_MD5_Update(&v6, v2, v3);
+  CC_MD5_Final(md, &v6);
   v4 = 0;
   result = 0;
   do
@@ -30,7 +30,6 @@
   }
 
   while (v4 != 8);
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 

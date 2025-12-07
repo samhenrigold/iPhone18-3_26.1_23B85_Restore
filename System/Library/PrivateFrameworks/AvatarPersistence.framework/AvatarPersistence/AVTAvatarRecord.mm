@@ -310,7 +310,7 @@ LABEL_20:
 
 - (id)dictionaryRepresentation
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   avatarData = [(AVTAvatarRecord *)self avatarData];
   if (avatarData && (v4 = avatarData, [(AVTAvatarRecord *)self identifier], v5 = objc_claimAutoreleasedReturnValue(), v5, v4, v5))
   {
@@ -318,20 +318,18 @@ LABEL_20:
     avatarData2 = [(AVTAvatarRecord *)self avatarData];
     v8 = [v6 initWithData:avatarData2 encoding:4];
 
-    v13[0] = @"identifier";
+    v12[0] = @"identifier";
     identifier = [(AVTAvatarRecord *)self identifier];
-    v13[1] = @"avatarDataString";
-    v14[0] = identifier;
-    v14[1] = v8;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+    v12[1] = @"avatarDataString";
+    v13[0] = identifier;
+    v13[1] = v8;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
   }
 
   else
   {
     v10 = MEMORY[0x277CBEC10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

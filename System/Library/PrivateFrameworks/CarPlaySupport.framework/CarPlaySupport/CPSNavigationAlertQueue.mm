@@ -381,7 +381,7 @@ uint64_t __84__CPSNavigationAlertQueue_dismissCurrentNavigationAlertAnimated_con
   objc_storeStrong(location, 0);
 }
 
-uint64_t __67__CPSNavigationAlertQueue_applicationStateMonitor_didBecomeActive___block_invoke(uint64_t a1)
+void *__67__CPSNavigationAlertQueue_applicationStateMonitor_didBecomeActive___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _canBeginAnimatingAlert];
   if (result)

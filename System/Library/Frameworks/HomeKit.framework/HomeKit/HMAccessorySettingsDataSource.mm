@@ -56,7 +56,7 @@
 
 void __132__HMAccessorySettingsDataSource_Deprecated__subscribeToAccessorySettingsWithAccessoryIdentifier_keyPaths_options_completionHandler___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -66,22 +66,20 @@ void __132__HMAccessorySettingsDataSource_Deprecated__subscribeToAccessorySettin
     v6 = *(a1 + 40);
     v7 = *(a1 + 48);
     v8 = HMAccessorySettingsDataSourceSubscribeOptionsAsString(*(a1 + 64));
-    v11 = 138544130;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v6;
-    v15 = 2112;
-    v16 = v7;
-    v17 = 2112;
-    v18 = v8;
-    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_ERROR, "%{public}@Deprecated API: Subscribing to accessory settings with accessory identifier: %@ key paths: %@ options: %@", &v11, 0x2Au);
+    v10 = 138544130;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v6;
+    v14 = 2112;
+    v15 = v7;
+    v16 = 2112;
+    v17 = v8;
+    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_ERROR, "%{public}@Deprecated API: Subscribing to accessory settings with accessory identifier: %@ key paths: %@ options: %@", &v10, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v2);
   v9 = [MEMORY[0x1E696ABC0] hmErrorWithCode:52];
   (*(*(a1 + 56) + 16))();
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchAccessorySettingsWithAccessoryIdentifier:(id)identifier keyPaths:(id)paths completionHandler:(id)handler
@@ -107,7 +105,7 @@ void __132__HMAccessorySettingsDataSource_Deprecated__subscribeToAccessorySettin
 
 void __118__HMAccessorySettingsDataSource_Deprecated__fetchAccessorySettingsWithAccessoryIdentifier_keyPaths_completionHandler___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -116,20 +114,18 @@ void __118__HMAccessorySettingsDataSource_Deprecated__fetchAccessorySettingsWith
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
     v7 = *(a1 + 48);
-    v10 = 138543874;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_ERROR, "%{public}@Deprecated API: Fetching accessory settings with accessory identifier: %@ key paths: %@", &v10, 0x20u);
+    v9 = 138543874;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_ERROR, "%{public}@Deprecated API: Fetching accessory settings with accessory identifier: %@ key paths: %@", &v9, 0x20u);
   }
 
   objc_autoreleasePoolPop(v2);
   v8 = [MEMORY[0x1E696ABC0] hmErrorWithCode:23];
   (*(*(a1 + 56) + 16))();
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (HMAccessorySettingsMessengerFactory)messengerFactory
@@ -148,7 +144,7 @@ void __118__HMAccessorySettingsDataSource_Deprecated__fetchAccessorySettingsWith
 
 - (void)dealloc
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -157,22 +153,21 @@ void __118__HMAccessorySettingsDataSource_Deprecated__fetchAccessorySettingsWith
     v6 = HMFGetLogIdentifier();
     delegate = [(HMAccessorySettingsDataSource *)selfCopy delegate];
     *buf = 138543618;
-    v11 = v6;
-    v12 = 2112;
-    v13 = delegate;
+    v10 = v6;
+    v11 = 2112;
+    v12 = delegate;
     _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_INFO, "%{public}@Deallocating. delegate:%@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
-  v9.receiver = selfCopy;
-  v9.super_class = HMAccessorySettingsDataSource;
-  [(HMAccessorySettingsDataSource *)&v9 dealloc];
-  v8 = *MEMORY[0x1E69E9840];
+  v8.receiver = selfCopy;
+  v8.super_class = HMAccessorySettingsDataSource;
+  [(HMAccessorySettingsDataSource *)&v8 dealloc];
 }
 
 - (id)defaultSettingsWithHomeIdentifier:(id)identifier accessoryIdentifier:(id)accessoryIdentifier keyPaths:(id)paths
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   accessoryIdentifierCopy = accessoryIdentifier;
   pathsCopy = paths;
@@ -266,13 +261,13 @@ void __118__HMAccessorySettingsDataSource_Deprecated__fetchAccessorySettingsWith
         if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
           v41 = HMFGetLogIdentifier();
-          v44 = 138543874;
-          v45 = v41;
-          v46 = 2112;
-          v47 = supportedSiriEndPointVersion;
-          v48 = 2112;
-          v49 = v12;
-          _os_log_impl(&dword_19BB39000, v40, OS_LOG_TYPE_ERROR, "%{public}@Failed to get default settings due to unsupported siri endpoint version: %@ for home: %@", &v44, 0x20u);
+          v43 = 138543874;
+          v44 = v41;
+          v45 = 2112;
+          v46 = supportedSiriEndPointVersion;
+          v47 = 2112;
+          v48 = v12;
+          _os_log_impl(&dword_19BB39000, v40, OS_LOG_TYPE_ERROR, "%{public}@Failed to get default settings due to unsupported siri endpoint version: %@ for home: %@", &v43, 0x20u);
         }
 
         objc_autoreleasePoolPop(v38);
@@ -288,11 +283,11 @@ void __118__HMAccessorySettingsDataSource_Deprecated__fetchAccessorySettingsWith
       if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         v37 = HMFGetLogIdentifier();
-        v44 = 138543618;
-        v45 = v37;
-        v46 = 2112;
-        v47 = v12;
-        _os_log_impl(&dword_19BB39000, v36, OS_LOG_TYPE_ERROR, "%{public}@Failed to get default settings due to unknown supported siri endpoint version for home: %@", &v44, 0x16u);
+        v43 = 138543618;
+        v44 = v37;
+        v45 = 2112;
+        v46 = v12;
+        _os_log_impl(&dword_19BB39000, v36, OS_LOG_TYPE_ERROR, "%{public}@Failed to get default settings due to unknown supported siri endpoint version for home: %@", &v43, 0x16u);
       }
 
       objc_autoreleasePoolPop(v34);
@@ -308,25 +303,23 @@ void __118__HMAccessorySettingsDataSource_Deprecated__fetchAccessorySettingsWith
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       v33 = HMFGetLogIdentifier();
-      v44 = 138543618;
-      v45 = v33;
-      v46 = 2112;
-      v47 = identifierCopy;
-      _os_log_impl(&dword_19BB39000, v32, OS_LOG_TYPE_ERROR, "%{public}@Failed to get default settings due to unknown home with identifier: %@", &v44, 0x16u);
+      v43 = 138543618;
+      v44 = v33;
+      v45 = 2112;
+      v46 = identifierCopy;
+      _os_log_impl(&dword_19BB39000, v32, OS_LOG_TYPE_ERROR, "%{public}@Failed to get default settings due to unknown home with identifier: %@", &v43, 0x16u);
     }
 
     objc_autoreleasePoolPop(v30);
     v29 = MEMORY[0x1E695E0F0];
   }
 
-  v42 = *MEMORY[0x1E69E9840];
-
   return v29;
 }
 
 - (id)dataSourceHomeWithHomeIdentifier:(void *)identifier
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (identifier)
   {
@@ -345,9 +338,9 @@ void __118__HMAccessorySettingsDataSource_Deprecated__fetchAccessorySettingsWith
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         v10 = HMFGetLogIdentifier();
-        v13 = 138543362;
-        v14 = v10;
-        _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to data source accessory UUID due to no data source", &v13, 0xCu);
+        v12 = 138543362;
+        v13 = v10;
+        _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to data source accessory UUID due to no data source", &v12, 0xCu);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -360,14 +353,12 @@ void __118__HMAccessorySettingsDataSource_Deprecated__fetchAccessorySettingsWith
     v6 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (void)didReceiveCachedEvent:(id)event topic:(id)topic source:(id)source
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   topicCopy = topic;
   sourceCopy = source;
@@ -388,65 +379,63 @@ void __118__HMAccessorySettingsDataSource_Deprecated__fetchAccessorySettingsWith
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     v16 = HMFGetLogIdentifier();
-    v18 = 138543874;
-    v19 = v16;
-    v20 = 2112;
-    v21 = eventCopy;
-    v22 = 2112;
-    v23 = topicCopy;
-    _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_INFO, "%{public}@Received cached event: %@, topic: %@", &v18, 0x20u);
+    v17 = 138543874;
+    v18 = v16;
+    v19 = 2112;
+    v20 = eventCopy;
+    v21 = 2112;
+    v22 = topicCopy;
+    _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_INFO, "%{public}@Received cached event: %@, topic: %@", &v17, 0x20u);
   }
 
   objc_autoreleasePoolPop(v13);
   [(HMAccessorySettingsDataSource *)selfCopy _didReceiveEvent:eventCopy topic:topicCopy];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_didReceiveEvent:(void *)event topic:
 {
-  v55[1] = *MEMORY[0x1E69E9840];
+  v54[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   eventCopy = event;
   if (self)
   {
     Property = objc_getProperty(self, v6, 56, 1);
     dispatch_assert_queue_V2(Property);
-    v44 = 0;
-    v45 = 0;
     v43 = 0;
-    v9 = HMImmutableSettingChangeEventComponentsFromTopic(eventCopy, &v45, &v44, &v43);
-    v10 = v45;
-    v11 = v44;
-    v12 = v43;
+    v44 = 0;
+    v42 = 0;
+    v9 = HMImmutableSettingChangeEventComponentsFromTopic(eventCopy, &v44, &v43, &v42);
+    v10 = v44;
+    v11 = v43;
+    v12 = v42;
     v13 = v12;
     if (v9)
     {
       v14 = v10;
       v15 = v11;
       *buf = 0;
-      v39 = v5;
+      v38 = v5;
       v16 = [HMImmutableSettingChangeEvent decodeSettingFromEvent:v5 error:buf];
       v17 = *buf;
       [(HMAccessorySettingsDataSource *)self _logModifiedAccessorySetting:v16 error:v17];
       if (v16)
       {
-        v37 = eventCopy;
+        v36 = eventCopy;
         dataSource = [self dataSource];
+        v45 = 0;
         v46 = 0;
-        v47 = 0;
-        v19 = [dataSource accessorySettingsDataSource:self transformHomeUUID:v14 accessoryUUID:v15 toClientHomeIdentifier:&v47 clientAccessoryIdentifier:&v46];
-        v20 = v47;
-        v21 = v46;
+        v19 = [dataSource accessorySettingsDataSource:self transformHomeUUID:v14 accessoryUUID:v15 toClientHomeIdentifier:&v46 clientAccessoryIdentifier:&v45];
+        v20 = v46;
+        v21 = v45;
 
         if (v19)
         {
-          v55[0] = v16;
-          v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:1];
+          v54[0] = v16;
+          v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:1];
           [(HMAccessorySettingsDataSource *)self notifyDelegateDidReceiveSettingsUpdatesForAccessoryWithIdentifier:v21 settings:v22];
         }
 
-        eventCopy = v37;
+        eventCopy = v36;
       }
 
       else
@@ -458,14 +447,14 @@ void __118__HMAccessorySettingsDataSource_Deprecated__fetchAccessorySettingsWith
 
     else
     {
-      v41 = v11;
-      v42 = v10;
-      v40 = v12;
-      v23 = HMImmutableSettingChangeEventComponentsFromMediaSystemTopic(eventCopy, &v42, &v41, &v40);
-      v14 = v42;
+      v40 = v11;
+      v41 = v10;
+      v39 = v12;
+      v23 = HMImmutableSettingChangeEventComponentsFromMediaSystemTopic(eventCopy, &v41, &v40, &v39);
+      v14 = v41;
 
-      v15 = v41;
-      v24 = v40;
+      v15 = v40;
+      v24 = v39;
 
       if (!v23)
       {
@@ -477,12 +466,12 @@ void __118__HMAccessorySettingsDataSource_Deprecated__fetchAccessorySettingsWith
           v35 = HMFGetLogIdentifier();
           *buf = 138544130;
           *&buf[4] = v35;
-          v49 = 2112;
-          v50 = v5;
-          v51 = 2112;
-          v52 = v14;
-          v53 = 2112;
-          v54 = v15;
+          v48 = 2112;
+          v49 = v5;
+          v50 = 2112;
+          v51 = v14;
+          v52 = 2112;
+          v53 = v15;
           _os_log_impl(&dword_19BB39000, v34, OS_LOG_TYPE_ERROR, "%{public}@Received unknown event: %@ home: %@ target: %@", buf, 0x2Au);
         }
 
@@ -494,28 +483,28 @@ void __118__HMAccessorySettingsDataSource_Deprecated__fetchAccessorySettingsWith
       v14 = v14;
       v15 = v15;
       *buf = 0;
-      v39 = v5;
+      v38 = v5;
       v25 = [HMImmutableSettingChangeEvent decodeSettingFromEvent:v5 error:buf];
       v26 = *buf;
       [(HMAccessorySettingsDataSource *)self _logModifiedAccessorySetting:v25 error:v26];
       if (v25)
       {
-        v38 = eventCopy;
+        v37 = eventCopy;
         dataSource2 = [self dataSource];
+        v45 = 0;
         v46 = 0;
-        v47 = 0;
-        v28 = [dataSource2 accessorySettingsDataSource:self transformHomeUUID:v14 mediaSystemUUID:v15 toClientHomeIdentifier:&v47 clientMediaSystemIdentifier:&v46];
-        v29 = v47;
-        v30 = v46;
+        v28 = [dataSource2 accessorySettingsDataSource:self transformHomeUUID:v14 mediaSystemUUID:v15 toClientHomeIdentifier:&v46 clientMediaSystemIdentifier:&v45];
+        v29 = v46;
+        v30 = v45;
 
         if (v28)
         {
-          v55[0] = v25;
-          v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:1];
+          v54[0] = v25;
+          v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:1];
           [(HMAccessorySettingsDataSource *)self notifyDelegateDidReceiveSettingsUpdatesForAccessoryWithIdentifier:v30 settings:v31];
         }
 
-        eventCopy = v38;
+        eventCopy = v37;
       }
 
       else
@@ -527,16 +516,14 @@ void __118__HMAccessorySettingsDataSource_Deprecated__fetchAccessorySettingsWith
       v13 = v24;
     }
 
-    v5 = v39;
+    v5 = v38;
 LABEL_20:
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_logModifiedAccessorySetting:(void *)setting error:
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a2;
   settingCopy = setting;
   v7 = v5;
@@ -566,15 +553,15 @@ LABEL_20:
       languageValues = [v9 languageValues];
       v17 = [v15 numberWithUnsignedInteger:{objc_msgSend(languageValues, "count")}];
       delegate = [selfCopy delegate];
-      v20 = 138544130;
-      v21 = v14;
-      v22 = 2112;
-      v23 = v17;
-      v24 = 2112;
-      v25 = settingCopy;
-      v26 = 2112;
-      v27 = delegate;
-      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_INFO, "%{public}@Modified language list (count):%@, error:%@, delegate:%@", &v20, 0x2Au);
+      v19 = 138544130;
+      v20 = v14;
+      v21 = 2112;
+      v22 = v17;
+      v23 = 2112;
+      v24 = settingCopy;
+      v25 = 2112;
+      v26 = delegate;
+      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_INFO, "%{public}@Modified language list (count):%@, error:%@, delegate:%@", &v19, 0x2Au);
 
 LABEL_9:
     }
@@ -584,25 +571,24 @@ LABEL_9:
   {
     v14 = HMFGetLogIdentifier();
     languageValues = [selfCopy delegate];
-    v20 = 138544130;
-    v21 = v14;
-    v22 = 2112;
-    v23 = v7;
-    v24 = 2112;
-    v25 = settingCopy;
-    v26 = 2112;
-    v27 = languageValues;
-    _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_INFO, "%{public}@Modified setting:%@, error:%@, delegate:%@", &v20, 0x2Au);
+    v19 = 138544130;
+    v20 = v14;
+    v21 = 2112;
+    v22 = v7;
+    v23 = 2112;
+    v24 = settingCopy;
+    v25 = 2112;
+    v26 = languageValues;
+    _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_INFO, "%{public}@Modified setting:%@, error:%@, delegate:%@", &v19, 0x2Au);
     goto LABEL_9;
   }
 
   objc_autoreleasePoolPop(v10);
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyDelegateDidReceiveSettingsUpdatesForAccessoryWithIdentifier:(void *)identifier settings:
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = a2;
   identifierCopy = identifier;
   delegate = [self delegate];
@@ -614,47 +600,44 @@ LABEL_9:
     v11 = HMFGetLogIdentifier();
     v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(identifierCopy, "count")}];
     *buf = 138544130;
-    v25 = v11;
-    v26 = 2112;
-    v27 = v5;
-    v28 = 2112;
-    v29 = v12;
-    v30 = 2112;
-    v31 = delegate;
+    v24 = v11;
+    v25 = 2112;
+    v26 = v5;
+    v27 = 2112;
+    v28 = v12;
+    v29 = 2112;
+    v30 = delegate;
     _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Notifying client of did receive settings updates for accessory with identifier: %@ settings count: %@ delegate: %@", buf, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v8);
   context = [selfCopy context];
   delegateCaller = [context delegateCaller];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __108__HMAccessorySettingsDataSource_notifyDelegateDidReceiveSettingsUpdatesForAccessoryWithIdentifier_settings___block_invoke;
-  v19[3] = &unk_1E754DE30;
-  v20 = delegate;
-  v21 = selfCopy;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __108__HMAccessorySettingsDataSource_notifyDelegateDidReceiveSettingsUpdatesForAccessoryWithIdentifier_settings___block_invoke;
+  v18[3] = &unk_1E754DE30;
+  v19 = delegate;
+  v20 = selfCopy;
   v15 = v5;
-  v22 = v15;
+  v21 = v15;
   v16 = identifierCopy;
-  v23 = v16;
+  v22 = v16;
   v17 = delegate;
-  [delegateCaller invokeBlock:v19];
-
-  v18 = *MEMORY[0x1E69E9840];
+  [delegateCaller invokeBlock:v18];
 }
 
 uint64_t __108__HMAccessorySettingsDataSource_notifyDelegateDidReceiveSettingsUpdatesForAccessoryWithIdentifier_settings___block_invoke(void *a1)
 {
-  v2 = a1[4];
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = a1[4];
-    v5 = a1[5];
-    v6 = a1[6];
-    v7 = a1[7];
+    v3 = a1[4];
+    v4 = a1[5];
+    v5 = a1[6];
+    v6 = a1[7];
 
-    return [v4 accessorySettingsDataSource:v5 didReceiveSettingsUpdatesForAccessoryWithIdentifier:v6 settings:v7];
+    return [v3 accessorySettingsDataSource:v4 didReceiveSettingsUpdatesForAccessoryWithIdentifier:v5 settings:v6];
   }
 
   return result;
@@ -662,7 +645,7 @@ uint64_t __108__HMAccessorySettingsDataSource_notifyDelegateDidReceiveSettingsUp
 
 - (void)didReceiveEvent:(id)event topic:(id)topic
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   topicCopy = topic;
   if (self)
@@ -682,24 +665,22 @@ uint64_t __108__HMAccessorySettingsDataSource_notifyDelegateDidReceiveSettingsUp
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     v13 = HMFGetLogIdentifier();
-    v15 = 138543874;
-    v16 = v13;
-    v17 = 2112;
-    v18 = eventCopy;
-    v19 = 2112;
-    v20 = topicCopy;
-    _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_INFO, "%{public}@Received live event: %@, topic: %@", &v15, 0x20u);
+    v14 = 138543874;
+    v15 = v13;
+    v16 = 2112;
+    v17 = eventCopy;
+    v18 = 2112;
+    v19 = topicCopy;
+    _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_INFO, "%{public}@Received live event: %@, topic: %@", &v14, 0x20u);
   }
 
   objc_autoreleasePoolPop(v10);
   [(HMAccessorySettingsDataSource *)selfCopy _didReceiveEvent:eventCopy topic:topicCopy];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unsubscribeToMediaSystemSettingsWithHomeIdentifier:(id)identifier mediaSystemIdentifier:(id)systemIdentifier keyPaths:(id)paths completionHandler:(id)handler
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   systemIdentifierCopy = systemIdentifier;
   pathsCopy = paths;
@@ -711,13 +692,13 @@ uint64_t __108__HMAccessorySettingsDataSource_notifyDelegateDidReceiveSettingsUp
   {
     v17 = HMFGetLogIdentifier();
     *buf = 138544130;
-    v44 = v17;
-    v45 = 2112;
-    v46 = identifierCopy;
-    v47 = 2112;
-    v48 = systemIdentifierCopy;
-    v49 = 2112;
-    v50 = pathsCopy;
+    v43 = v17;
+    v44 = 2112;
+    v45 = identifierCopy;
+    v46 = 2112;
+    v47 = systemIdentifierCopy;
+    v48 = 2112;
+    v49 = pathsCopy;
     _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_INFO, "%{public}@Unsubscribing to media system settings with home identifier: %@ media system identifier: %@ key paths: %@", buf, 0x2Au);
   }
 
@@ -729,14 +710,14 @@ uint64_t __108__HMAccessorySettingsDataSource_notifyDelegateDidReceiveSettingsUp
     if (v19)
     {
       v20 = v19;
-      v40[0] = MEMORY[0x1E69E9820];
-      v40[1] = 3221225472;
-      v40[2] = __133__HMAccessorySettingsDataSource_unsubscribeToMediaSystemSettingsWithHomeIdentifier_mediaSystemIdentifier_keyPaths_completionHandler___block_invoke;
-      v40[3] = &unk_1E754A350;
-      v41 = v18;
+      v39[0] = MEMORY[0x1E69E9820];
+      v39[1] = 3221225472;
+      v39[2] = __133__HMAccessorySettingsDataSource_unsubscribeToMediaSystemSettingsWithHomeIdentifier_mediaSystemIdentifier_keyPaths_completionHandler___block_invoke;
+      v39[3] = &unk_1E754A350;
+      v40 = v18;
       v21 = v20;
-      v42 = v21;
-      v23 = [pathsCopy na_map:v40];
+      v41 = v21;
+      v23 = [pathsCopy na_map:v39];
       if (selfCopy)
       {
         Property = objc_getProperty(selfCopy, v22, 40, 1);
@@ -747,15 +728,15 @@ uint64_t __108__HMAccessorySettingsDataSource_notifyDelegateDidReceiveSettingsUp
         Property = 0;
       }
 
-      v38[0] = MEMORY[0x1E69E9820];
-      v38[1] = 3221225472;
-      v38[2] = __133__HMAccessorySettingsDataSource_unsubscribeToMediaSystemSettingsWithHomeIdentifier_mediaSystemIdentifier_keyPaths_completionHandler___block_invoke_2;
-      v38[3] = &unk_1E754D870;
-      v38[4] = selfCopy;
-      v39 = handlerCopy;
-      [Property unregisterConsumer:selfCopy topicFilters:v23 completion:v38];
+      v37[0] = MEMORY[0x1E69E9820];
+      v37[1] = 3221225472;
+      v37[2] = __133__HMAccessorySettingsDataSource_unsubscribeToMediaSystemSettingsWithHomeIdentifier_mediaSystemIdentifier_keyPaths_completionHandler___block_invoke_2;
+      v37[3] = &unk_1E754D870;
+      v37[4] = selfCopy;
+      v38 = handlerCopy;
+      [Property unregisterConsumer:selfCopy topicFilters:v23 completion:v37];
 
-      context2 = v41;
+      context2 = v40;
     }
 
     else
@@ -767,9 +748,9 @@ uint64_t __108__HMAccessorySettingsDataSource_notifyDelegateDidReceiveSettingsUp
       {
         v34 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v44 = v34;
-        v45 = 2112;
-        v46 = systemIdentifierCopy;
+        v43 = v34;
+        v44 = 2112;
+        v45 = systemIdentifierCopy;
         _os_log_impl(&dword_19BB39000, v33, OS_LOG_TYPE_ERROR, "%{public}@Failed to unsubscribe media system settings from cache due to unknown media system identifier: %@", buf, 0x16u);
       }
 
@@ -792,9 +773,9 @@ uint64_t __108__HMAccessorySettingsDataSource_notifyDelegateDidReceiveSettingsUp
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v44 = v29;
-      v45 = 2112;
-      v46 = identifierCopy;
+      v43 = v29;
+      v44 = 2112;
+      v45 = identifierCopy;
       _os_log_impl(&dword_19BB39000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to unsubscribe media system settings from cache due to unknown home identifier: %@", buf, 0x16u);
     }
 
@@ -804,8 +785,6 @@ uint64_t __108__HMAccessorySettingsDataSource_notifyDelegateDidReceiveSettingsUp
     delegateCaller2 = [context2 delegateCaller];
     [delegateCaller2 callCompletion:handlerCopy error:v21];
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (id)homeUUIDForIdentifier:(void *)identifier
@@ -866,7 +845,7 @@ uint64_t __108__HMAccessorySettingsDataSource_notifyDelegateDidReceiveSettingsUp
 
 void __133__HMAccessorySettingsDataSource_unsubscribeToMediaSystemSettingsWithHomeIdentifier_mediaSystemIdentifier_keyPaths_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -874,24 +853,22 @@ void __133__HMAccessorySettingsDataSource_unsubscribeToMediaSystemSettingsWithHo
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = HMFGetLogIdentifier();
-    v11 = 138543618;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Unsubscribe topics with result: %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Unsubscribe topics with result: %@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   v8 = [*(a1 + 32) context];
   v9 = [v8 delegateCaller];
   [v9 callCompletion:*(a1 + 40) error:v3];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)subscribeToMediaSystemSettingsWithHomeIdentifier:(id)identifier mediaSystemIdentifier:(id)systemIdentifier keyPaths:(id)paths options:(unint64_t)options completionHandler:(id)handler
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   systemIdentifierCopy = systemIdentifier;
   pathsCopy = paths;
@@ -904,15 +881,15 @@ void __133__HMAccessorySettingsDataSource_unsubscribeToMediaSystemSettingsWithHo
     v19 = HMFGetLogIdentifier();
     v20 = HMAccessorySettingsDataSourceSubscribeOptionsAsString(options);
     *buf = 138544386;
-    v49 = v19;
-    v50 = 2112;
-    v51 = identifierCopy;
-    v52 = 2112;
-    v53 = systemIdentifierCopy;
-    v54 = 2112;
-    v55 = pathsCopy;
-    v56 = 2112;
-    v57 = v20;
+    v48 = v19;
+    v49 = 2112;
+    v50 = identifierCopy;
+    v51 = 2112;
+    v52 = systemIdentifierCopy;
+    v53 = 2112;
+    v54 = pathsCopy;
+    v55 = 2112;
+    v56 = v20;
     _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_INFO, "%{public}@Subscribing to media system settings with home identifier: %@ accessory identifier: %@ key paths: %@ options: %@", buf, 0x34u);
   }
 
@@ -924,14 +901,14 @@ void __133__HMAccessorySettingsDataSource_unsubscribeToMediaSystemSettingsWithHo
     if (v22)
     {
       v23 = v22;
-      v45[0] = MEMORY[0x1E69E9820];
-      v45[1] = 3221225472;
-      v45[2] = __139__HMAccessorySettingsDataSource_subscribeToMediaSystemSettingsWithHomeIdentifier_mediaSystemIdentifier_keyPaths_options_completionHandler___block_invoke;
-      v45[3] = &unk_1E754A350;
-      v46 = v21;
+      v44[0] = MEMORY[0x1E69E9820];
+      v44[1] = 3221225472;
+      v44[2] = __139__HMAccessorySettingsDataSource_subscribeToMediaSystemSettingsWithHomeIdentifier_mediaSystemIdentifier_keyPaths_options_completionHandler___block_invoke;
+      v44[3] = &unk_1E754A350;
+      v45 = v21;
       v24 = v23;
-      v47 = v24;
-      v26 = [pathsCopy na_map:v45];
+      v46 = v24;
+      v26 = [pathsCopy na_map:v44];
       if (selfCopy)
       {
         Property = objc_getProperty(selfCopy, v25, 40, 1);
@@ -942,17 +919,17 @@ void __133__HMAccessorySettingsDataSource_unsubscribeToMediaSystemSettingsWithHo
         Property = 0;
       }
 
-      v42[0] = MEMORY[0x1E69E9820];
-      v42[1] = 3221225472;
-      v42[2] = __139__HMAccessorySettingsDataSource_subscribeToMediaSystemSettingsWithHomeIdentifier_mediaSystemIdentifier_keyPaths_options_completionHandler___block_invoke_2;
-      v42[3] = &unk_1E754A418;
-      v42[4] = selfCopy;
+      v41[0] = MEMORY[0x1E69E9820];
+      v41[1] = 3221225472;
+      v41[2] = __139__HMAccessorySettingsDataSource_subscribeToMediaSystemSettingsWithHomeIdentifier_mediaSystemIdentifier_keyPaths_options_completionHandler___block_invoke_2;
+      v41[3] = &unk_1E754A418;
+      v41[4] = selfCopy;
       v28 = v24;
-      v43 = v28;
-      v44 = handlerCopy;
-      [Property registerConsumer:selfCopy topicFilters:v26 completion:v42];
+      v42 = v28;
+      v43 = handlerCopy;
+      [Property registerConsumer:selfCopy topicFilters:v26 completion:v41];
 
-      context2 = v46;
+      context2 = v45;
     }
 
     else
@@ -964,9 +941,9 @@ void __133__HMAccessorySettingsDataSource_unsubscribeToMediaSystemSettingsWithHo
       {
         v38 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v49 = v38;
-        v50 = 2112;
-        v51 = systemIdentifierCopy;
+        v48 = v38;
+        v49 = 2112;
+        v50 = systemIdentifierCopy;
         _os_log_impl(&dword_19BB39000, v37, OS_LOG_TYPE_ERROR, "%{public}@Failed to subscribe to media system settings due to unknown accessory identifier: %@", buf, 0x16u);
       }
 
@@ -989,9 +966,9 @@ void __133__HMAccessorySettingsDataSource_unsubscribeToMediaSystemSettingsWithHo
     {
       v33 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v49 = v33;
-      v50 = 2112;
-      v51 = identifierCopy;
+      v48 = v33;
+      v49 = 2112;
+      v50 = identifierCopy;
       _os_log_impl(&dword_19BB39000, v32, OS_LOG_TYPE_ERROR, "%{public}@Failed to subscribe to media system settings due to unknown home identifier: %@", buf, 0x16u);
     }
 
@@ -1001,13 +978,11 @@ void __133__HMAccessorySettingsDataSource_unsubscribeToMediaSystemSettingsWithHo
     delegateCaller2 = [context2 delegateCaller];
     [delegateCaller2 callCompletion:handlerCopy error:v28];
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 void __139__HMAccessorySettingsDataSource_subscribeToMediaSystemSettingsWithHomeIdentifier_mediaSystemIdentifier_keyPaths_options_completionHandler___block_invoke_2(id *a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -1020,9 +995,9 @@ void __139__HMAccessorySettingsDataSource_subscribeToMediaSystemSettingsWithHome
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v31 = v11;
-      v32 = 2112;
-      v33 = v6;
+      v30 = v11;
+      v31 = 2112;
+      v32 = v6;
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Subscribe changed topics with error: %@", buf, 0x16u);
     }
 
@@ -1035,9 +1010,9 @@ void __139__HMAccessorySettingsDataSource_subscribeToMediaSystemSettingsWithHome
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v31 = v12;
-      v32 = 2112;
-      v33 = v5;
+      v30 = v12;
+      v31 = 2112;
+      v32 = v5;
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Subscribe changed topics, received cached events %@", buf, 0x16u);
     }
 
@@ -1061,26 +1036,24 @@ void __139__HMAccessorySettingsDataSource_subscribeToMediaSystemSettingsWithHome
       block[3] = &unk_1E754E5E8;
       v16 = a1[5];
       v17 = a1[4];
-      v27 = v16;
-      v28 = v17;
-      v29 = v5;
+      v26 = v16;
+      v27 = v17;
+      v28 = v5;
       dispatch_async(Property, block);
     }
   }
 
   v18 = [a1[4] context];
   v19 = [v18 delegateCaller];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __139__HMAccessorySettingsDataSource_subscribeToMediaSystemSettingsWithHomeIdentifier_mediaSystemIdentifier_keyPaths_options_completionHandler___block_invoke_59;
-  v23[3] = &unk_1E754E458;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __139__HMAccessorySettingsDataSource_subscribeToMediaSystemSettingsWithHomeIdentifier_mediaSystemIdentifier_keyPaths_options_completionHandler___block_invoke_59;
+  v22[3] = &unk_1E754E458;
   v20 = a1[6];
-  v24 = v6;
-  v25 = v20;
+  v23 = v6;
+  v24 = v20;
   v21 = v6;
-  [v19 invokeBlock:v23];
-
-  v22 = *MEMORY[0x1E69E9840];
+  [v19 invokeBlock:v22];
 }
 
 void __139__HMAccessorySettingsDataSource_subscribeToMediaSystemSettingsWithHomeIdentifier_mediaSystemIdentifier_keyPaths_options_completionHandler___block_invoke_54(uint64_t a1)
@@ -1149,7 +1122,7 @@ void __139__HMAccessorySettingsDataSource_subscribeToMediaSystemSettingsWithHome
 
 - (void)resetSubscriptions
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -1157,7 +1130,7 @@ void __139__HMAccessorySettingsDataSource_subscribeToMediaSystemSettingsWithHome
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v12 = v6;
+    v11 = v6;
     _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Unsubscribe from all subscriptions", buf, 0xCu);
   }
 
@@ -1172,18 +1145,17 @@ void __139__HMAccessorySettingsDataSource_subscribeToMediaSystemSettingsWithHome
     Property = 0;
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __51__HMAccessorySettingsDataSource_resetSubscriptions__block_invoke;
-  v10[3] = &unk_1E754E148;
-  v10[4] = selfCopy;
-  [Property unregisterConsumer:selfCopy completion:v10];
-  v9 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __51__HMAccessorySettingsDataSource_resetSubscriptions__block_invoke;
+  v9[3] = &unk_1E754E148;
+  v9[4] = selfCopy;
+  [Property unregisterConsumer:selfCopy completion:v9];
 }
 
 - (void)unsubscribeToAccessorySettingsWithHomeIdentifier:(id)identifier accessoryIdentifier:(id)accessoryIdentifier keyPaths:(id)paths completionHandler:(id)handler
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   accessoryIdentifierCopy = accessoryIdentifier;
   pathsCopy = paths;
@@ -1195,13 +1167,13 @@ void __139__HMAccessorySettingsDataSource_subscribeToMediaSystemSettingsWithHome
   {
     v17 = HMFGetLogIdentifier();
     *buf = 138544130;
-    v39 = v17;
-    v40 = 2112;
-    v41 = identifierCopy;
-    v42 = 2112;
-    v43 = accessoryIdentifierCopy;
-    v44 = 2112;
-    v45 = pathsCopy;
+    v38 = v17;
+    v39 = 2112;
+    v40 = identifierCopy;
+    v41 = 2112;
+    v42 = accessoryIdentifierCopy;
+    v43 = 2112;
+    v44 = pathsCopy;
     _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_INFO, "%{public}@Unsubscribing to accessory settings from cache with home identifier: %@ accessory identifier: %@ key paths: %@", buf, 0x2Au);
   }
 
@@ -1224,13 +1196,13 @@ void __139__HMAccessorySettingsDataSource_subscribeToMediaSystemSettingsWithHome
         Property = 0;
       }
 
-      v36[0] = MEMORY[0x1E69E9820];
-      v36[1] = 3221225472;
-      v36[2] = __129__HMAccessorySettingsDataSource_unsubscribeToAccessorySettingsWithHomeIdentifier_accessoryIdentifier_keyPaths_completionHandler___block_invoke;
-      v36[3] = &unk_1E754D870;
-      v36[4] = selfCopy;
-      v37 = handlerCopy;
-      [Property unregisterConsumer:selfCopy topicFilters:context2 completion:v36];
+      v35[0] = MEMORY[0x1E69E9820];
+      v35[1] = 3221225472;
+      v35[2] = __129__HMAccessorySettingsDataSource_unsubscribeToAccessorySettingsWithHomeIdentifier_accessoryIdentifier_keyPaths_completionHandler___block_invoke;
+      v35[3] = &unk_1E754D870;
+      v35[4] = selfCopy;
+      v36 = handlerCopy;
+      [Property unregisterConsumer:selfCopy topicFilters:context2 completion:v35];
     }
 
     else
@@ -1242,9 +1214,9 @@ void __139__HMAccessorySettingsDataSource_subscribeToMediaSystemSettingsWithHome
       {
         v32 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v39 = v32;
-        v40 = 2112;
-        v41 = accessoryIdentifierCopy;
+        v38 = v32;
+        v39 = 2112;
+        v40 = accessoryIdentifierCopy;
         _os_log_impl(&dword_19BB39000, v31, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch accessory settings from cache due to unknown accessory identifier: %@", buf, 0x16u);
       }
 
@@ -1267,9 +1239,9 @@ void __139__HMAccessorySettingsDataSource_subscribeToMediaSystemSettingsWithHome
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v39 = v27;
-      v40 = 2112;
-      v41 = identifierCopy;
+      v38 = v27;
+      v39 = 2112;
+      v40 = identifierCopy;
       _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch accessory settings from cache due to unknown home identifier: %@", buf, 0x16u);
     }
 
@@ -1279,8 +1251,6 @@ void __139__HMAccessorySettingsDataSource_subscribeToMediaSystemSettingsWithHome
     delegateCaller2 = [context2 delegateCaller];
     [delegateCaller2 callCompletion:handlerCopy error:v20];
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (id)accessoryUUIDForIdentifier:(void *)identifier homeIdentifier:
@@ -1339,7 +1309,7 @@ void __139__HMAccessorySettingsDataSource_subscribeToMediaSystemSettingsWithHome
 
 void __129__HMAccessorySettingsDataSource_unsubscribeToAccessorySettingsWithHomeIdentifier_accessoryIdentifier_keyPaths_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1347,24 +1317,22 @@ void __129__HMAccessorySettingsDataSource_unsubscribeToAccessorySettingsWithHome
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = HMFGetLogIdentifier();
-    v11 = 138543618;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Unsubscribe topics with result: %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Unsubscribe topics with result: %@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   v8 = [*(a1 + 32) context];
   v9 = [v8 delegateCaller];
   [v9 callCompletion:*(a1 + 40) error:v3];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)subscribeToAccessorySettingsWithHomeIdentifier:(id)identifier accessoryIdentifier:(id)accessoryIdentifier keyPaths:(id)paths options:(unint64_t)options completionHandler:(id)handler
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   accessoryIdentifierCopy = accessoryIdentifier;
   pathsCopy = paths;
@@ -1382,11 +1350,11 @@ void __129__HMAccessorySettingsDataSource_unsubscribeToAccessorySettingsWithHome
     *&buf[12] = 2112;
     *&buf[14] = identifierCopy;
     *&buf[22] = 2112;
-    v57 = accessoryIdentifierCopy;
-    *v58 = 2112;
-    *&v58[2] = v19;
-    *&v58[10] = 2112;
-    *&v58[12] = v20;
+    v56 = accessoryIdentifierCopy;
+    *v57 = 2112;
+    *&v57[2] = v19;
+    *&v57[10] = 2112;
+    *&v57[12] = v20;
     _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_INFO, "%{public}@Subscribing to accessory settings from cache with home identifier: %@ accessory identifier: %@ # key paths: %@ options: %@", buf, 0x34u);
   }
 
@@ -1398,16 +1366,16 @@ void __129__HMAccessorySettingsDataSource_unsubscribeToAccessorySettingsWithHome
     if (v22)
     {
       v23 = v22;
-      v54 = accessoryIdentifierCopy;
+      v53 = accessoryIdentifierCopy;
       v24 = v21;
       v25 = v23;
-      v53 = pathsCopy;
+      v52 = pathsCopy;
       v26 = pathsCopy;
       v27 = handlerCopy;
       v28 = v27;
       if (selfCopy)
       {
-        v52 = v27;
+        v51 = v27;
         v29 = objc_autoreleasePoolPush();
         v30 = selfCopy;
         v31 = HMFGetOSLogHandle();
@@ -1420,11 +1388,11 @@ void __129__HMAccessorySettingsDataSource_unsubscribeToAccessorySettingsWithHome
           *&buf[12] = 2112;
           *&buf[14] = v24;
           *&buf[22] = 2112;
-          v57 = v25;
-          *v58 = 2112;
-          *&v58[2] = v26;
-          *&v58[10] = 2112;
-          *&v58[12] = v33;
+          v56 = v25;
+          *v57 = 2112;
+          *&v57[2] = v26;
+          *&v57[10] = 2112;
+          *&v57[12] = v33;
           _os_log_impl(&dword_19BB39000, v31, OS_LOG_TYPE_INFO, "%{public}@Subscribing to accessory settings with home uuid: %@ accessory uuid: %@ key paths: %@ options: %@", buf, 0x34u);
         }
 
@@ -1434,16 +1402,16 @@ void __129__HMAccessorySettingsDataSource_unsubscribeToAccessorySettingsWithHome
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __131__HMAccessorySettingsDataSource_subscribeToAccessorySettingsOnDaemonWithHomeUUID_accessoryUUID_keyPaths_options_completionHandler___block_invoke;
-        v57 = &unk_1E754A418;
-        *v58 = v30;
-        *&v58[8] = v25;
-        v28 = v52;
-        *&v58[16] = v52;
+        v56 = &unk_1E754A418;
+        *v57 = v30;
+        *&v57[8] = v25;
+        v28 = v51;
+        *&v57[16] = v51;
         [Property registerConsumer:v30 topicFilters:v34 completion:buf];
       }
 
-      pathsCopy = v53;
-      accessoryIdentifierCopy = v54;
+      pathsCopy = v52;
+      accessoryIdentifierCopy = v53;
       v37 = handlerCopy;
     }
 
@@ -1495,13 +1463,11 @@ void __129__HMAccessorySettingsDataSource_unsubscribeToAccessorySettingsWithHome
     v37 = handlerCopy;
     [delegateCaller2 callCompletion:handlerCopy error:v25];
   }
-
-  v51 = *MEMORY[0x1E69E9840];
 }
 
 void __131__HMAccessorySettingsDataSource_subscribeToAccessorySettingsOnDaemonWithHomeUUID_accessoryUUID_keyPaths_options_completionHandler___block_invoke(id *a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -1514,9 +1480,9 @@ void __131__HMAccessorySettingsDataSource_subscribeToAccessorySettingsOnDaemonWi
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v31 = v11;
-      v32 = 2112;
-      v33 = v6;
+      v30 = v11;
+      v31 = 2112;
+      v32 = v6;
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Subscribe changed topics with error: %@", buf, 0x16u);
     }
 
@@ -1529,9 +1495,9 @@ void __131__HMAccessorySettingsDataSource_subscribeToAccessorySettingsOnDaemonWi
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v31 = v12;
-      v32 = 2112;
-      v33 = v5;
+      v30 = v12;
+      v31 = 2112;
+      v32 = v5;
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Subscribe changed topics, received cached events %@", buf, 0x16u);
     }
 
@@ -1555,26 +1521,24 @@ void __131__HMAccessorySettingsDataSource_subscribeToAccessorySettingsOnDaemonWi
       block[3] = &unk_1E754E5E8;
       v16 = a1[5];
       v17 = a1[4];
-      v27 = v16;
-      v28 = v17;
-      v29 = v5;
+      v26 = v16;
+      v27 = v17;
+      v28 = v5;
       dispatch_async(Property, block);
     }
   }
 
   v18 = [a1[4] context];
   v19 = [v18 delegateCaller];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __131__HMAccessorySettingsDataSource_subscribeToAccessorySettingsOnDaemonWithHomeUUID_accessoryUUID_keyPaths_options_completionHandler___block_invoke_42;
-  v23[3] = &unk_1E754E458;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __131__HMAccessorySettingsDataSource_subscribeToAccessorySettingsOnDaemonWithHomeUUID_accessoryUUID_keyPaths_options_completionHandler___block_invoke_42;
+  v22[3] = &unk_1E754E458;
   v20 = a1[6];
-  v24 = v6;
-  v25 = v20;
+  v23 = v6;
+  v24 = v20;
   v21 = v6;
-  [v19 invokeBlock:v23];
-
-  v22 = *MEMORY[0x1E69E9840];
+  [v19 invokeBlock:v22];
 }
 
 void __131__HMAccessorySettingsDataSource_subscribeToAccessorySettingsOnDaemonWithHomeUUID_accessoryUUID_keyPaths_options_completionHandler___block_invoke_37(uint64_t a1)
@@ -1618,7 +1582,7 @@ void __131__HMAccessorySettingsDataSource_subscribeToAccessorySettingsOnDaemonWi
 
 - (void)fetchCachedAccessorySettingsWithHomeIdentifier:(id)identifier accessoryIdentifier:(id)accessoryIdentifier keyPaths:(id)paths completionHandler:(id)handler
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   accessoryIdentifierCopy = accessoryIdentifier;
   pathsCopy = paths;
@@ -1630,13 +1594,13 @@ void __131__HMAccessorySettingsDataSource_subscribeToAccessorySettingsOnDaemonWi
   {
     v17 = HMFGetLogIdentifier();
     *buf = 138544130;
-    v50 = v17;
-    v51 = 2112;
-    v52 = identifierCopy;
-    v53 = 2112;
-    v54 = accessoryIdentifierCopy;
-    v55 = 2112;
-    v56 = pathsCopy;
+    v49 = v17;
+    v50 = 2112;
+    v51 = identifierCopy;
+    v52 = 2112;
+    v53 = accessoryIdentifierCopy;
+    v54 = 2112;
+    v55 = pathsCopy;
     _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_INFO, "%{public}@Fetching only cached accessory settings with home identifier: %@ accessory identifier: %@ key paths: %@", buf, 0x2Au);
   }
 
@@ -1663,17 +1627,17 @@ void __131__HMAccessorySettingsDataSource_subscribeToAccessorySettingsOnDaemonWi
       block[2] = __127__HMAccessorySettingsDataSource_fetchCachedAccessorySettingsWithHomeIdentifier_accessoryIdentifier_keyPaths_completionHandler___block_invoke_2;
       block[3] = &unk_1E754A3C8;
       v22 = Property;
-      objc_copyWeak(&v44, buf);
-      v38 = v18;
+      objc_copyWeak(&v43, buf);
+      v37 = v18;
       v23 = v19;
-      v39 = v23;
-      v40 = pathsCopy;
-      v41 = identifierCopy;
-      v42 = accessoryIdentifierCopy;
-      v43 = handlerCopy;
+      v38 = v23;
+      v39 = pathsCopy;
+      v40 = identifierCopy;
+      v41 = accessoryIdentifierCopy;
+      v42 = handlerCopy;
       dispatch_async(v22, block);
 
-      objc_destroyWeak(&v44);
+      objc_destroyWeak(&v43);
       objc_destroyWeak(buf);
     }
 
@@ -1686,21 +1650,21 @@ void __131__HMAccessorySettingsDataSource_subscribeToAccessorySettingsOnDaemonWi
       {
         v33 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v50 = v33;
-        v51 = 2112;
-        v52 = accessoryIdentifierCopy;
+        v49 = v33;
+        v50 = 2112;
+        v51 = accessoryIdentifierCopy;
         _os_log_impl(&dword_19BB39000, v32, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch cached accessory settings due to unknown accessory identifier: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v30);
       context = [(HMAccessorySettingsDataSource *)v31 context];
       delegateCaller = [context delegateCaller];
-      v45[0] = MEMORY[0x1E69E9820];
-      v45[1] = 3221225472;
-      v45[2] = __127__HMAccessorySettingsDataSource_fetchCachedAccessorySettingsWithHomeIdentifier_accessoryIdentifier_keyPaths_completionHandler___block_invoke_30;
-      v45[3] = &unk_1E754E430;
-      v46 = handlerCopy;
-      [delegateCaller invokeBlock:v45];
+      v44[0] = MEMORY[0x1E69E9820];
+      v44[1] = 3221225472;
+      v44[2] = __127__HMAccessorySettingsDataSource_fetchCachedAccessorySettingsWithHomeIdentifier_accessoryIdentifier_keyPaths_completionHandler___block_invoke_30;
+      v44[3] = &unk_1E754E430;
+      v45 = handlerCopy;
+      [delegateCaller invokeBlock:v44];
 
       v23 = 0;
     }
@@ -1715,26 +1679,24 @@ void __131__HMAccessorySettingsDataSource_subscribeToAccessorySettingsOnDaemonWi
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v50 = v27;
-      v51 = 2112;
-      v52 = identifierCopy;
+      v49 = v27;
+      v50 = 2112;
+      v51 = identifierCopy;
       _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch cached accessory settings due to unknown home identifier: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v24);
     context2 = [(HMAccessorySettingsDataSource *)v25 context];
     delegateCaller2 = [context2 delegateCaller];
-    v47[0] = MEMORY[0x1E69E9820];
-    v47[1] = 3221225472;
-    v47[2] = __127__HMAccessorySettingsDataSource_fetchCachedAccessorySettingsWithHomeIdentifier_accessoryIdentifier_keyPaths_completionHandler___block_invoke;
-    v47[3] = &unk_1E754E430;
-    v48 = handlerCopy;
-    [delegateCaller2 invokeBlock:v47];
+    v46[0] = MEMORY[0x1E69E9820];
+    v46[1] = 3221225472;
+    v46[2] = __127__HMAccessorySettingsDataSource_fetchCachedAccessorySettingsWithHomeIdentifier_accessoryIdentifier_keyPaths_completionHandler___block_invoke;
+    v46[3] = &unk_1E754E430;
+    v47 = handlerCopy;
+    [delegateCaller2 invokeBlock:v46];
 
-    v23 = v48;
+    v23 = v47;
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 void __127__HMAccessorySettingsDataSource_fetchCachedAccessorySettingsWithHomeIdentifier_accessoryIdentifier_keyPaths_completionHandler___block_invoke(uint64_t a1)
@@ -1754,7 +1716,7 @@ void __127__HMAccessorySettingsDataSource_fetchCachedAccessorySettingsWithHomeId
 void __127__HMAccessorySettingsDataSource_fetchCachedAccessorySettingsWithHomeIdentifier_accessoryIdentifier_keyPaths_completionHandler___block_invoke_2(uint64_t a1)
 {
   v1 = a1;
-  v74 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 80));
   v4 = WeakRetained;
   if (WeakRetained)
@@ -1781,9 +1743,9 @@ void __127__HMAccessorySettingsDataSource_fetchCachedAccessorySettingsWithHomeId
       *&buf[12] = 2112;
       *&buf[14] = v7;
       *&buf[22] = 2112;
-      v66 = v8;
-      *v67 = 2112;
-      *&v67[2] = v9;
+      v65 = v8;
+      *v66 = 2112;
+      *&v66[2] = v9;
       _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_INFO, "%{public}@Reading accessory settings from cache for home uuid: %@ accessory uuid: %@ key paths: %@", buf, 0x2Au);
     }
 
@@ -1796,8 +1758,8 @@ void __127__HMAccessorySettingsDataSource_fetchCachedAccessorySettingsWithHomeId
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __98__HMAccessorySettingsDataSource_readAccessorySettingsFromCacheForHomeUUID_accessoryUUID_keyPaths___block_invoke;
-      v66 = &unk_1E754A3F0;
-      *v67 = v17;
+      v65 = &unk_1E754A3F0;
+      *v66 = v17;
       v18 = v17;
       [v16 hmf_enumerateKeysAndObjectsWithAutoreleasePoolUsingBlock:buf];
       v19 = [v18 copy];
@@ -1812,16 +1774,16 @@ void __127__HMAccessorySettingsDataSource_fetchCachedAccessorySettingsWithHomeId
       if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
       {
         HMFGetLogIdentifier();
-        v24 = v52 = v21;
+        v24 = v51 = v21;
         *buf = 138543874;
         *&buf[4] = v24;
         *&buf[12] = 2112;
         *&buf[14] = v7;
         *&buf[22] = 2112;
-        v66 = v8;
+        v65 = v8;
         _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_INFO, "%{public}@Found no events in cache for home uuid: %@ accessory uuid: %@", buf, 0x20u);
 
-        v21 = v52;
+        v21 = v51;
       }
 
       objc_autoreleasePoolPop(v21);
@@ -1841,7 +1803,7 @@ void __127__HMAccessorySettingsDataSource_fetchCachedAccessorySettingsWithHomeId
   if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
   {
     v28 = HMFGetLogIdentifier();
-    v52 = v26;
+    v51 = v26;
     v29 = *(v1 + 56);
     v30 = *(v1 + 64);
     v31 = *(v1 + 48);
@@ -1852,49 +1814,49 @@ void __127__HMAccessorySettingsDataSource_fetchCachedAccessorySettingsWithHomeId
     *&buf[12] = 2112;
     *&buf[14] = v29;
     *&buf[22] = 2112;
-    v66 = v30;
-    v26 = v52;
-    *v67 = 2112;
-    *&v67[2] = v31;
-    v68 = 2112;
-    v69 = v32;
-    v70 = 2112;
-    v71 = v33;
-    v72 = 2112;
-    v73 = v19;
+    v65 = v30;
+    v26 = v51;
+    *v66 = 2112;
+    *&v66[2] = v31;
+    v67 = 2112;
+    v68 = v32;
+    v69 = 2112;
+    v70 = v33;
+    v71 = 2112;
+    v72 = v19;
     _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_INFO, "%{public}@Returning cached accessory settings from event store with home identifier: %@ accessory identifier: %@ expected key paths: %@ found (%@/%@) settings: %@", buf, 0x48u);
   }
 
   objc_autoreleasePoolPop(v25);
   v34 = [MEMORY[0x1E695DFA8] setWithArray:*(v1 + 48)];
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
   v35 = v19;
-  v36 = [v35 countByEnumeratingWithState:&v60 objects:v64 count:16];
+  v36 = [v35 countByEnumeratingWithState:&v59 objects:v63 count:16];
   if (v36)
   {
     v37 = v36;
-    v38 = *v61;
+    v38 = *v60;
     do
     {
       v39 = 0;
       do
       {
-        if (*v61 != v38)
+        if (*v60 != v38)
         {
           objc_enumerationMutation(v35);
         }
 
-        v40 = [*(*(&v60 + 1) + 8 * v39) keyPath];
+        v40 = [*(*(&v59 + 1) + 8 * v39) keyPath];
         [v34 removeObject:v40];
 
         ++v39;
       }
 
       while (v37 != v39);
-      v37 = [v35 countByEnumeratingWithState:&v60 objects:v64 count:16];
+      v37 = [v35 countByEnumeratingWithState:&v59 objects:v63 count:16];
     }
 
     while (v37);
@@ -1904,15 +1866,15 @@ void __127__HMAccessorySettingsDataSource_fetchCachedAccessorySettingsWithHomeId
   {
     v41 = [MEMORY[0x1E696ABC0] hmErrorWithCode:2];
     v42 = [MEMORY[0x1E695DF90] dictionary];
-    v57[0] = MEMORY[0x1E69E9820];
-    v57[1] = 3221225472;
-    v57[2] = __127__HMAccessorySettingsDataSource_fetchCachedAccessorySettingsWithHomeIdentifier_accessoryIdentifier_keyPaths_completionHandler___block_invoke_34;
-    v57[3] = &unk_1E754A3A0;
-    v58 = v42;
-    v59 = v41;
+    v56[0] = MEMORY[0x1E69E9820];
+    v56[1] = 3221225472;
+    v56[2] = __127__HMAccessorySettingsDataSource_fetchCachedAccessorySettingsWithHomeIdentifier_accessoryIdentifier_keyPaths_completionHandler___block_invoke_34;
+    v56[3] = &unk_1E754A3A0;
+    v57 = v42;
+    v58 = v41;
     v43 = v41;
     v44 = v42;
-    [v34 na_each:v57];
+    [v34 na_each:v56];
     v45 = [MEMORY[0x1E696ABC0] hmErrorWithCode:52 userInfo:v44];
   }
 
@@ -1923,19 +1885,17 @@ void __127__HMAccessorySettingsDataSource_fetchCachedAccessorySettingsWithHomeId
 
   v46 = [v26 context];
   v47 = [v46 delegateCaller];
-  v53[0] = MEMORY[0x1E69E9820];
-  v53[1] = 3221225472;
-  v53[2] = __127__HMAccessorySettingsDataSource_fetchCachedAccessorySettingsWithHomeIdentifier_accessoryIdentifier_keyPaths_completionHandler___block_invoke_2_36;
-  v53[3] = &unk_1E754E0F8;
+  v52[0] = MEMORY[0x1E69E9820];
+  v52[1] = 3221225472;
+  v52[2] = __127__HMAccessorySettingsDataSource_fetchCachedAccessorySettingsWithHomeIdentifier_accessoryIdentifier_keyPaths_completionHandler___block_invoke_2_36;
+  v52[3] = &unk_1E754E0F8;
   v48 = *(v1 + 72);
-  v55 = v35;
-  v56 = v48;
-  v54 = v45;
+  v54 = v35;
+  v55 = v48;
+  v53 = v45;
   v49 = v35;
   v50 = v45;
-  [v47 invokeBlock:v53];
-
-  v51 = *MEMORY[0x1E69E9840];
+  [v47 invokeBlock:v52];
 }
 
 void __98__HMAccessorySettingsDataSource_readAccessorySettingsFromCacheForHomeUUID_accessoryUUID_keyPaths___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1961,7 +1921,7 @@ void __98__HMAccessorySettingsDataSource_readAccessorySettingsFromCacheForHomeUU
 
 - (void)fetchAccessorySettingsWithHomeIdentifier:(id)identifier accessoryIdentifier:(id)accessoryIdentifier keyPaths:(id)paths completionHandler:(id)handler
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   accessoryIdentifierCopy = accessoryIdentifier;
   pathsCopy = paths;
@@ -1973,13 +1933,13 @@ void __98__HMAccessorySettingsDataSource_readAccessorySettingsFromCacheForHomeUU
   {
     v16 = HMFGetLogIdentifier();
     *buf = 138544130;
-    v45 = v16;
-    v46 = 2112;
-    v47 = identifierCopy;
-    v48 = 2112;
-    v49 = accessoryIdentifierCopy;
-    v50 = 2112;
-    v51 = pathsCopy;
+    v44 = v16;
+    v45 = 2112;
+    v46 = identifierCopy;
+    v47 = 2112;
+    v48 = accessoryIdentifierCopy;
+    v49 = 2112;
+    v50 = pathsCopy;
     _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_INFO, "%{public}@Fetching accessory settings with home identifier: %@ accessory identifier: %@ key paths: %@", buf, 0x2Au);
   }
 
@@ -2017,17 +1977,17 @@ void __98__HMAccessorySettingsDataSource_readAccessorySettingsFromCacheForHomeUU
         context2 = 0;
       }
 
-      v40[0] = MEMORY[0x1E69E9820];
-      v40[1] = 3221225472;
-      v40[2] = __121__HMAccessorySettingsDataSource_fetchAccessorySettingsWithHomeIdentifier_accessoryIdentifier_keyPaths_completionHandler___block_invoke;
-      v40[3] = &unk_1E754A378;
-      v40[4] = selfCopy;
-      v41 = v22;
-      v42 = uuid2;
-      v43 = handlerCopy;
+      v39[0] = MEMORY[0x1E69E9820];
+      v39[1] = 3221225472;
+      v39[2] = __121__HMAccessorySettingsDataSource_fetchAccessorySettingsWithHomeIdentifier_accessoryIdentifier_keyPaths_completionHandler___block_invoke;
+      v39[3] = &unk_1E754A378;
+      v39[4] = selfCopy;
+      v40 = v22;
+      v41 = uuid2;
+      v42 = handlerCopy;
       delegateCaller = uuid2;
       context = v22;
-      [(HMAccessorySettingsMessenger *)context2 sendFetchAccessorySettingsRequestWithAccessoryUUID:delegateCaller keyPaths:pathsCopy completionHandler:v40];
+      [(HMAccessorySettingsMessenger *)context2 sendFetchAccessorySettingsRequestWithAccessoryUUID:delegateCaller keyPaths:pathsCopy completionHandler:v39];
     }
 
     else
@@ -2039,9 +1999,9 @@ void __98__HMAccessorySettingsDataSource_readAccessorySettingsFromCacheForHomeUU
       {
         v37 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v45 = v37;
-        v46 = 2112;
-        v47 = accessoryIdentifierCopy;
+        v44 = v37;
+        v45 = 2112;
+        v46 = accessoryIdentifierCopy;
         _os_log_impl(&dword_19BB39000, v36, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch accessory settings due to unknown accessory identifier: %@", buf, 0x16u);
       }
 
@@ -2062,9 +2022,9 @@ void __98__HMAccessorySettingsDataSource_readAccessorySettingsFromCacheForHomeUU
     {
       v33 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v45 = v33;
-      v46 = 2112;
-      v47 = identifierCopy;
+      v44 = v33;
+      v45 = 2112;
+      v46 = identifierCopy;
       _os_log_impl(&dword_19BB39000, v32, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch accessory settings due to unknown home identifier: %@", buf, 0x16u);
     }
 
@@ -2074,8 +2034,6 @@ void __98__HMAccessorySettingsDataSource_readAccessorySettingsFromCacheForHomeUU
     context = [(HMAccessorySettingsMessenger *)context2 delegateCaller];
     [context callCompletion:handlerCopy error:v19 obj:MEMORY[0x1E695E0F0]];
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 void __121__HMAccessorySettingsDataSource_fetchAccessorySettingsWithHomeIdentifier_accessoryIdentifier_keyPaths_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2112,7 +2070,7 @@ void __121__HMAccessorySettingsDataSource_fetchAccessorySettingsWithHomeIdentifi
 
 void __121__HMAccessorySettingsDataSource_fetchAccessorySettingsWithHomeIdentifier_accessoryIdentifier_keyPaths_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 40);
@@ -2129,11 +2087,11 @@ void __121__HMAccessorySettingsDataSource_fetchAccessorySettingsWithHomeIdentifi
     v8 = *(a1 + 48);
     v9 = *(a1 + 32);
     *buf = 138543874;
-    v39 = v7;
-    v40 = 2112;
-    v41 = v8;
-    v42 = 2112;
-    v43 = v9;
+    v38 = v7;
+    v39 = 2112;
+    v40 = v8;
+    v41 = 2112;
+    v42 = v9;
     v10 = "%{public}@Fetch accessory settings completed with settings: %@ error: %@";
     v11 = v6;
     v12 = OS_LOG_TYPE_ERROR;
@@ -2150,9 +2108,9 @@ void __121__HMAccessorySettingsDataSource_fetchAccessorySettingsWithHomeIdentifi
     v7 = HMFGetLogIdentifier();
     v14 = *(a1 + 48);
     *buf = 138543618;
-    v39 = v7;
-    v40 = 2112;
-    v41 = v14;
+    v38 = v7;
+    v39 = 2112;
+    v40 = v14;
     v10 = "%{public}@Fetch accessory settings completed with settings: %@";
     v11 = v6;
     v12 = OS_LOG_TYPE_INFO;
@@ -2166,26 +2124,26 @@ LABEL_7:
   if ([*(a1 + 48) count])
   {
     v15 = [MEMORY[0x1E695DF70] array];
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
     obj = *(a1 + 48);
-    v16 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v16 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v34;
+      v18 = *v33;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v34 != v18)
+          if (*v33 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = *(*(&v33 + 1) + 8 * i);
+          v20 = *(*(&v32 + 1) + 8 * i);
           v21 = [v20 keyPath];
           v22 = HMImmutableSettingChangeEventTopicFromComponentsHH2(*(a1 + 56), *(a1 + 64), v21);
           v23 = [HMImmutableSettingChangeEvent alloc];
@@ -2197,7 +2155,7 @@ LABEL_7:
           [v15 addObject:v26];
         }
 
-        v17 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v17 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v17);
@@ -2218,8 +2176,6 @@ LABEL_7:
   v29 = [*(a1 + 40) context];
   v30 = [v29 delegateCaller];
   [v30 callCompletion:*(a1 + 72) error:*(a1 + 32) obj:*(a1 + 48)];
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (HMAccessorySettingsDataSourceDelegate)delegate
@@ -2315,12 +2271,11 @@ LABEL_11:
 
 uint64_t __44__HMAccessorySettingsDataSource_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v46;
-  logCategory__hmf_once_v46 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v46;
+  logCategory__hmf_once_v46 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)defaultLanguageValue

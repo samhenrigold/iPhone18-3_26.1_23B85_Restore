@@ -10,21 +10,20 @@
 - (void)awakeFromNib
 {
   selfCopy = self;
-  sub_22825D3E8();
+  sub_22825D3E8(selfCopy);
 }
 
 - (void)_bridgedUpdateConfigurationUsingState:(id)state
 {
   v4 = sub_228391350();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_228391340();
   selfCopy = self;
   sub_22825D5B4();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)touchesBegan:(id)began withEvent:(id)event

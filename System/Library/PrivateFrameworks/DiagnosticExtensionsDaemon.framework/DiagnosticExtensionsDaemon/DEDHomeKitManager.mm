@@ -38,9 +38,7 @@ uint64_t __35__DEDHomeKitManager_sharedInstance__block_invoke(uint64_t a1)
 
   if (!homeKitManager)
   {
-    v4 = [objc_alloc(MEMORY[0x277CD1A90]) initWithOptions:16];
-    homeKitManager = self->_homeKitManager;
-    self->_homeKitManager = v4;
+    self->_homeKitManager = [objc_alloc(MEMORY[0x277CD1A90]) initWithOptions:16];
 
     MEMORY[0x2821F96F8]();
   }

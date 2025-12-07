@@ -28,8 +28,8 @@
 
 - (id)toDict
 {
-  v19[4] = *MEMORY[0x277D85DE8];
-  v18[0] = @"syncableDataType";
+  v18[4] = *MEMORY[0x277D85DE8];
+  v17[0] = @"syncableDataType";
   syncableDataType = [(ICASPartialCloudErrorItemData *)self syncableDataType];
   if (syncableDataType)
   {
@@ -42,8 +42,8 @@
   }
 
   v5 = syncableDataType2;
-  v19[0] = syncableDataType2;
-  v18[1] = @"errorCode";
+  v18[0] = syncableDataType2;
+  v17[1] = @"errorCode";
   errorCode = [(ICASPartialCloudErrorItemData *)self errorCode];
   if (errorCode)
   {
@@ -56,8 +56,8 @@
   }
 
   v8 = errorCode2;
-  v19[1] = errorCode2;
-  v18[2] = @"count";
+  v18[1] = errorCode2;
+  v17[2] = @"count";
   v9 = [(ICASPartialCloudErrorItemData *)self count];
   if (v9)
   {
@@ -70,8 +70,8 @@
   }
 
   v11 = v10;
-  v19[2] = v10;
-  v18[3] = @"errorString";
+  v18[2] = v10;
+  v17[3] = @"errorString";
   errorString = [(ICASPartialCloudErrorItemData *)self errorString];
   if (errorString)
   {
@@ -84,10 +84,8 @@
   }
 
   v14 = errorString2;
-  v19[3] = errorString2;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v18[3] = errorString2;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
 
   return v15;
 }

@@ -19,7 +19,7 @@
   if (v3)
   {
     v4 = +[NSFileManager defaultManager];
-    v5 = off_100970768();
+    v5 = off_100970768(v4);
     v6 = [v4 URLForUbiquityContainerIdentifier:v5];
     iCloudDriveURL = v3->_iCloudDriveURL;
     v3->_iCloudDriveURL = v6;
@@ -92,32 +92,26 @@
   if (!action)
   {
     v4 = SFFilesAppAvailable();
-    v5 = v4;
-    if (v4)
-    {
-      self->_useOpenWithText;
-    }
-
-    v6 = SFLocalizedStringForKey();
-    v7 = [SFAirDropAction alloc];
+    v5 = SFLocalizedStringForKey();
+    v6 = [SFAirDropAction alloc];
     transfer = [(SDAirDropHandler *)self transfer];
     identifier = [transfer identifier];
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
+    v9 = objc_opt_class();
+    v10 = NSStringFromClass(v9);
     singleItemActionTitle = [(SDAirDropHandler *)self singleItemActionTitle];
-    v13 = [v7 initWithTransferIdentifier:identifier actionIdentifier:v11 title:v6 singleItemTitle:singleItemActionTitle type:1];
-    v14 = self->_action;
-    self->_action = v13;
+    v12 = [v6 initWithTransferIdentifier:identifier actionIdentifier:v10 title:v5 singleItemTitle:singleItemActionTitle type:1];
+    v13 = self->_action;
+    self->_action = v12;
 
     objc_initWeak(&location, self);
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_1000D0600;
-    v16[3] = &unk_1008CFBB0;
-    v18 = v5;
-    objc_copyWeak(&v17, &location);
-    [(SFAirDropAction *)self->_action setActionHandler:v16];
-    objc_destroyWeak(&v17);
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_1000D0600;
+    v15[3] = &unk_1008CFBB0;
+    v17 = v4;
+    objc_copyWeak(&v16, &location);
+    [(SFAirDropAction *)self->_action setActionHandler:v15];
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&location);
 
     action = self->_action;

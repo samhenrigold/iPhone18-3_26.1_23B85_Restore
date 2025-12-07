@@ -2060,7 +2060,7 @@ LABEL_12:
   videoController = self->_videoController;
   if (videoController)
   {
-    [(ETVideoController *)videoController writeStartTime];
+    objc_msgSend_writeStartTime(videoController, a2, recording);
   }
 
   [(ETTranscriptDetailCanvasViewController *)self updateVideoUI];

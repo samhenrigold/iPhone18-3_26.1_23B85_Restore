@@ -6,6 +6,7 @@
 - (void)applicationDidEnterBackgroundNotification:(id)notification;
 - (void)applicationWillTerminateNotification:(id)notification;
 - (void)dealloc;
+- (void)handleUserInvitationDecision:(BOOL)decision;
 - (void)presentNextInvitation;
 - (void)start;
 - (void)stop;
@@ -102,6 +103,38 @@
   [(MCNearbyServiceAdvertiser *)advertiser stopAdvertisingPeer];
 }
 
+- (void)handleUserInvitationDecision:(BOOL)decision
+{
+  decisionCopy = decision;
+  if ([(MCAdvertiserAssistant *)self invitationHandlerForPresentedAlert])
+  {
+    if (decisionCopy)
+    {
+      session = [(MCAdvertiserAssistant *)self session];
+    }
+
+    else
+    {
+      session = 0;
+    }
+
+    invitationHandlerForPresentedAlert = [(MCAdvertiserAssistant *)self invitationHandlerForPresentedAlert];
+    invitationHandlerForPresentedAlert[2](invitationHandlerForPresentedAlert, decisionCopy, session);
+    [(MCAdvertiserAssistant *)self setInvitationHandlerForPresentedAlert:0];
+
+    [(MCAdvertiserAssistant *)self presentNextInvitation];
+  }
+
+  else
+  {
+    v7 = mcadvertiser_ui_log(0, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      [MCAdvertiserAssistant handleUserInvitationDecision:v7];
+    }
+  }
+}
+
 - (void)presentNextInvitation
 {
   if (![(MCAdvertiserAssistant *)self alertController]&& ![(MCAdvertiserAssistant *)self invitationHandlerForPresentedAlert])
@@ -189,8 +222,8 @@ uint64_t __46__MCAdvertiserAssistant_presentNextInvitation__block_invoke_4(uint6
 
 - (void)advertiser:(id)advertiser didReceiveInvitationFromPeer:(id)peer withContext:(id)context invitationHandler:(id)handler
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v9 = mcadvertiser_ui_log();
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = mcadvertiser_ui_log(self, a2);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -198,13 +231,12 @@ uint64_t __46__MCAdvertiserAssistant_presentNextInvitation__block_invoke_4(uint6
     _os_log_impl(&dword_239FB7000, v9, OS_LOG_TYPE_DEFAULT, "Advertiser assistant will present invitation from from peer [%@].", buf, 0xCu);
   }
 
-  v11[0] = @"peerID";
-  v11[1] = @"invitationHandler";
-  v12[0] = peer;
-  v12[1] = [handler copy];
-  -[NSMutableArray addObject:](-[MCAdvertiserAssistant invitationsBuffer](self, "invitationsBuffer"), "addObject:", [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2]);
+  v10[0] = @"peerID";
+  v10[1] = @"invitationHandler";
+  v11[0] = peer;
+  v11[1] = [handler copy];
+  -[NSMutableArray addObject:](-[MCAdvertiserAssistant invitationsBuffer](self, "invitationsBuffer"), "addObject:", [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2]);
   [(MCAdvertiserAssistant *)self presentNextInvitation];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applicationDidEnterBackgroundNotification:(id)notification

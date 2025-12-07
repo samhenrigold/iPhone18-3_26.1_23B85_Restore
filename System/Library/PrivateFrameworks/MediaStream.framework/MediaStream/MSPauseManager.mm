@@ -20,25 +20,23 @@
 
 - (void)_timerDidFire:(id)fire
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   userInfo = [fire userInfo];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543362;
-    v10 = userInfo;
+    v9 = userInfo;
     _os_log_debug_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Pause timer UUID %{public}@ expired.", buf, 0xCu);
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __32__MSPauseManager__timerDidFire___block_invoke;
-  v7[3] = &unk_2798A5260;
-  v7[4] = self;
-  v8 = userInfo;
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __32__MSPauseManager__timerDidFire___block_invoke;
+  v6[3] = &unk_2798A5260;
+  v6[4] = self;
+  v7 = userInfo;
   v5 = userInfo;
-  dispatch_async(MEMORY[0x277D85CD0], v7);
-
-  v6 = *MEMORY[0x277D85DE8];
+  dispatch_async(MEMORY[0x277D85CD0], v6);
 }
 
 - (void)_removeTimerUUID:(id)d
@@ -79,7 +77,7 @@
 
 - (void)pingPauseUUID:(id)d
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (dCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
@@ -92,17 +90,17 @@
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v11 = 138543362;
-      v12 = mSMakeUUID;
-      _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Pause manager received an invalid UUID. Making up a new one: %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = mSMakeUUID;
+      _os_log_error_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Pause manager received an invalid UUID. Making up a new one: %{public}@", &v10, 0xCu);
     }
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v11 = 138543362;
-    v12 = mSMakeUUID;
-    _os_log_debug_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Pause timer ping for UUID %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = mSMakeUUID;
+    _os_log_debug_impl(&dword_258743000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Pause timer ping for UUID %{public}@", &v10, 0xCu);
   }
 
   v6 = [(NSMutableDictionary *)self->_UUIDToTimerMap count];
@@ -118,8 +116,6 @@
       [v9 pauseManagerDidPause:self];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addPauseUUID:(id)d
@@ -143,41 +139,40 @@
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   allValues = [(NSMutableDictionary *)self->_UUIDToTimerMap allValues];
-  v4 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v10 + 1) + 8 * v7++) invalidate];
+        [*(*(&v9 + 1) + 8 * v7++) invalidate];
       }
 
       while (v5 != v7);
-      v5 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
-  v9.receiver = self;
-  v9.super_class = MSPauseManager;
-  [(MSPauseManager *)&v9 dealloc];
-  v8 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = MSPauseManager;
+  [(MSPauseManager *)&v8 dealloc];
 }
 
 - (MSPauseManager)init

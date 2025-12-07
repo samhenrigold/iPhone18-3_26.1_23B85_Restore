@@ -190,27 +190,27 @@ void __69__MRPlaybackQueueClient_existingSubscriptionControllerForPlayerPath___b
 
 void __63__MRPlaybackQueueClient__handleApplicationRemovedNotification___block_invoke(void *a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = [*(a1[4] + 8) allKeys];
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * i);
+        v7 = *(*(&v14 + 1) + 8 * i);
         v8 = a1[5];
         v9 = [v7 origin];
         LODWORD(v8) = [v8 isEqual:v9];
@@ -235,13 +235,11 @@ void __63__MRPlaybackQueueClient__handleApplicationRemovedNotification___block_i
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v4);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleOriginRemovedNotification:(id)notification
@@ -262,27 +260,27 @@ void __63__MRPlaybackQueueClient__handleApplicationRemovedNotification___block_i
 
 void __58__MRPlaybackQueueClient__handleOriginRemovedNotification___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = [*(*(a1 + 32) + 8) allKeys];
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         v8 = *(a1 + 40);
         v9 = [v7 origin];
         LODWORD(v8) = [v8 isEqual:v9];
@@ -293,13 +291,11 @@ void __58__MRPlaybackQueueClient__handleOriginRemovedNotification___block_invoke
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithQueue:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

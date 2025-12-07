@@ -31,7 +31,7 @@
 {
   labelCopy = label;
   thresholdWithLabels = [(HMINMSConfiguration *)self thresholdWithLabels];
-  v6 = [thresholdWithLabels objectForKeyedSubscript:labelCopy];
+  v6 = [thresholdWithLabels objectForKeyedSubscript:?];
 
   if (v6)
   {
@@ -52,12 +52,12 @@
 {
   labelCopy = label;
   metricWithLabels = [(HMINMSConfiguration *)self metricWithLabels];
-  v6 = [metricWithLabels objectForKeyedSubscript:labelCopy];
+  v6 = [metricWithLabels objectForKeyedSubscript:?];
 
   if (v6)
   {
     metricWithLabels2 = [(HMINMSConfiguration *)self metricWithLabels];
-    v8 = [metricWithLabels2 objectForKeyedSubscript:labelCopy];
+    v8 = [metricWithLabels2 objectForKeyedSubscript:?];
     intValue = [v8 intValue];
   }
 

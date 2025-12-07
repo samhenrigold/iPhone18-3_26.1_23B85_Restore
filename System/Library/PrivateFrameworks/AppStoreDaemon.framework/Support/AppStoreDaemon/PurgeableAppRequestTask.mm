@@ -39,7 +39,7 @@
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] [%{public}@] Purgeable request with options: %{public}@ client: %{public}@", &v31, 0x2Au);
   }
 
-  v12 = sub_10029869C();
+  v12 = sub_10029869C(CacheDeleteCoordinator);
   v13 = v12;
   if (v12)
   {

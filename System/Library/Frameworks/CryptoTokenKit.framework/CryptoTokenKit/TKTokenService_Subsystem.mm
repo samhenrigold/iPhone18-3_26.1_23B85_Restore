@@ -7,7 +7,7 @@
 
 + (id)initForPlugInKit
 {
-  v3 = TK_LOG_token();
+  v3 = TK_LOG_token(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     +[TKTokenService_Subsystem initForPlugInKit];

@@ -1,37 +1,38 @@
-uint64_t sub_1000015F0()
+uint64_t sub_1000015F0(uint64_t a1)
 {
-  v0 = [sub_100001648() sharedUtilityProvider];
-  if ([v0 currentPreferredTransportMethod])
+  v1 = [sub_100001648(a1) sharedUtilityProvider];
+  v2 = [v1 currentPreferredTransportMethod];
+  if (v2)
   {
-    if ([sub_100001648() relayIsSupported])
+    if ([sub_100001648(v2) relayIsSupported])
     {
-      v1 = 2;
+      v3 = 2;
     }
 
     else
     {
-      v1 = 1;
+      v3 = 1;
     }
   }
 
   else
   {
-    v1 = 0;
+    v3 = 0;
   }
 
-  return v1;
+  return v3;
 }
 
-id sub_100001648()
+id sub_100001648(uint64_t a1)
 {
   if (qword_10001A9A8 != -1)
   {
     sub_100009984();
   }
 
-  v1 = qword_10001A9A0;
+  v2 = qword_10001A9A0;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000168C(id a1)
@@ -39,7 +40,7 @@ void sub_10000168C(id a1)
   qword_10001A9A0 = CUTWeakLinkClass();
   if (!qword_10001A9A0)
   {
-    v1 = sub_100001C24();
+    v1 = sub_100001C24(0);
     if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_100009998(v1);
@@ -47,96 +48,95 @@ void sub_10000168C(id a1)
   }
 }
 
-uint64_t start(uint64_t a1, uint64_t *a2)
+uint64_t start(uint64_t a1, void *a2)
 {
-  v3 = objc_autoreleasePoolPush();
-  v4 = *a2;
+  v2 = objc_autoreleasePoolPush();
   NPHDeriveProgramName();
   NPHSetTmpDirPrefix();
-  v5 = objc_alloc_init(VoicemailCompanionReplication);
-  v6 = [TCSSuggestions alloc];
-  v7 = objc_opt_new();
-  v8 = objc_opt_new();
-  v9 = [v6 initWithContactStore:v7 contacts:v8];
+  v3 = objc_alloc_init(VoicemailCompanionReplication);
+  v4 = [TCSSuggestions alloc];
+  v5 = objc_opt_new();
+  v6 = objc_opt_new();
+  v7 = [v4 initWithContactStore:v5 contacts:v6];
 
-  [v9 setGenerationTimerEnabled:1];
-  [v9 generateNewSuggestionsIfNecessary];
-  v41[0] = v5;
-  v41[1] = v9;
-  v10 = +[NPHCarrierInfoCompanionReplication sharedInstance];
-  v41[2] = v10;
+  [v7 setGenerationTimerEnabled:1];
+  [v7 generateNewSuggestionsIfNecessary];
+  v39[0] = v3;
+  v39[1] = v7;
+  v8 = +[NPHCarrierInfoCompanionReplication sharedInstance];
+  v39[2] = v8;
+  v9 = objc_opt_new();
+  v39[3] = v9;
+  v10 = objc_opt_new();
+  v39[4] = v10;
   v11 = objc_opt_new();
-  v41[3] = v11;
-  v12 = objc_opt_new();
-  v41[4] = v12;
-  v13 = objc_opt_new();
-  v41[5] = v13;
-  v14 = [NSArray arrayWithObjects:v41 count:6];
-  v15 = [NSMutableArray arrayWithArray:v14];
+  v39[5] = v11;
+  v12 = [NSArray arrayWithObjects:v39 count:6];
+  v13 = [NSMutableArray arrayWithArray:v12];
 
-  v16 = +[NSUserDefaults standardUserDefaults];
-  LODWORD(v11) = [v16 BOOLForKey:@"NPHMagicRingbackAutomaton"];
+  v14 = +[NSUserDefaults standardUserDefaults];
+  LODWORD(v9) = [v14 BOOLForKey:@"NPHMagicRingbackAutomaton"];
 
-  if (v11)
+  if (v9)
   {
-    v17 = objc_opt_new();
-    [v15 addObject:v17];
+    v15 = objc_opt_new();
+    [v13 addObject:v15];
   }
 
-  v18 = [NSArray arrayWithArray:v15];
-  v19 = qword_10001A9B0;
-  qword_10001A9B0 = v18;
+  v16 = [NSArray arrayWithArray:v13];
+  v17 = qword_10001A9B0;
+  qword_10001A9B0 = v16;
 
-  v20 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_BOOL(v20, XPC_ACTIVITY_REPEATING, 1);
-  xpc_dictionary_set_int64(v20, XPC_ACTIVITY_DELAY, XPC_ACTIVITY_INTERVAL_1_DAY);
-  xpc_dictionary_set_int64(v20, XPC_ACTIVITY_GRACE_PERIOD, XPC_ACTIVITY_INTERVAL_8_HOURS);
-  xpc_dictionary_set_string(v20, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
+  v18 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_BOOL(v18, XPC_ACTIVITY_REPEATING, 1);
+  xpc_dictionary_set_int64(v18, XPC_ACTIVITY_DELAY, XPC_ACTIVITY_INTERVAL_1_DAY);
+  xpc_dictionary_set_int64(v18, XPC_ACTIVITY_GRACE_PERIOD, XPC_ACTIVITY_INTERVAL_8_HOURS);
+  xpc_dictionary_set_string(v18, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
   handler[0] = _NSConcreteStackBlock;
   handler[1] = 3221225472;
   handler[2] = sub_100001B44;
   handler[3] = &unk_1000145D0;
-  v38 = v9;
-  v21 = v9;
-  xpc_activity_register("com.apple.tincan.generate-suggestions", v20, handler);
+  v36 = v7;
+  v19 = v7;
+  xpc_activity_register("com.apple.tincan.generate-suggestions", v18, handler);
   if (signal(15, 1) == -1)
   {
-    v22 = sub_100001C24();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_100001C24(-1);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = __error();
-      v24 = strerror(*v23);
+      v21 = __error();
+      v22 = strerror(*v21);
       *buf = 136315138;
-      v40 = v24;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Unable to ignore default SIGTERM handler; error:%s", buf, 0xCu);
+      v38 = v22;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Unable to ignore default SIGTERM handler; error:%s", buf, 0xCu);
     }
   }
 
-  v25 = dispatch_queue_create("com.apple.mobilephone.VoicemailCompanionReplication.sigterm", 0);
-  v26 = dispatch_source_create(&_dispatch_source_type_signal, 0xFuLL, 0, v25);
-  v27 = qword_10001A9B8;
-  qword_10001A9B8 = v26;
+  v23 = dispatch_queue_create("com.apple.mobilephone.VoicemailCompanionReplication.sigterm", 0);
+  v24 = dispatch_source_create(&_dispatch_source_type_signal, 0xFuLL, 0, v23);
+  v25 = qword_10001A9B8;
+  qword_10001A9B8 = v24;
 
-  v28 = qword_10001A9B8;
-  v32 = _NSConcreteStackBlock;
-  v33 = 3221225472;
-  v34 = sub_100001BB8;
-  v35 = &unk_1000145F8;
-  v36 = v5;
-  v29 = v5;
-  dispatch_source_set_event_handler(v28, &v32);
+  v26 = qword_10001A9B8;
+  v30 = _NSConcreteStackBlock;
+  v31 = 3221225472;
+  v32 = sub_100001BB8;
+  v33 = &unk_1000145F8;
+  v34 = v3;
+  v27 = v3;
+  dispatch_source_set_event_handler(v26, &v30);
   dispatch_resume(qword_10001A9B8);
 
-  objc_autoreleasePoolPop(v3);
-  v30 = [NSRunLoop currentRunLoop:v32];
-  [v30 run];
+  objc_autoreleasePoolPop(v2);
+  v28 = [NSRunLoop currentRunLoop:v30];
+  [v28 run];
 
   return 0;
 }
 
 id sub_100001B44(uint64_t a1)
 {
-  v2 = sub_100001C24();
+  v2 = sub_100001C24(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -148,7 +148,7 @@ id sub_100001B44(uint64_t a1)
 
 void sub_100001BB8(uint64_t a1)
 {
-  v2 = sub_100001C24();
+  v2 = sub_100001C24(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -159,16 +159,16 @@ void sub_100001BB8(uint64_t a1)
   exit(0);
 }
 
-id sub_100001C24()
+id sub_100001C24(uint64_t a1)
 {
   if (qword_10001A9C8 != -1)
   {
     sub_1000099DC();
   }
 
-  v1 = qword_10001A9C0;
+  v2 = qword_10001A9C0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100001C68(id a1)
@@ -337,7 +337,7 @@ void sub_100004C98(uint64_t a1)
 
 void sub_100004FC4(id a1)
 {
-  v1 = sub_100001C24();
+  v1 = sub_100001C24(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315138;
@@ -531,7 +531,6 @@ uint64_t sub_10000916C(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -587,7 +586,6 @@ uint64_t sub_100009310(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -605,17 +603,17 @@ uint64_t sub_100009358(__int128 *a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_1000093D0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void (*a8)(void))
+uint64_t sub_1000093D0(void *a1, uint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t (*a8)(void))
 {
   a8();
-  sub_1000090FC(a5, v23);
-  sub_1000090FC(v23, &v20);
-  v17[0] = v20;
-  v17[1] = v21;
-  v18 = v22;
-  if (*(&v21 + 1))
+  sub_1000090FC(a5, v22);
+  sub_1000090FC(v22, &v19);
+  v16[0] = v19;
+  v16[1] = v20;
+  v17 = v21;
+  if (*(&v20 + 1))
   {
-    sub_100009358(v17, v19);
+    sub_100009358(v16, v18);
     v10 = _swiftEmptyArrayStorage;
     if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
@@ -630,28 +628,27 @@ uint64_t sub_1000093D0(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
     }
 
     v10[2] = v12 + 1;
-    sub_100009358(v19, &v10[5 * v12 + 4]);
+    sub_100009358(v18, &v10[5 * v12 + 4]);
   }
 
   else
   {
-    sub_1000091B4(v17);
+    sub_1000091B4(v16);
     v10 = _swiftEmptyArrayStorage;
   }
 
-  sub_1000091B4(v23);
+  sub_1000091B4(v22);
   sub_10000921C();
-  v13 = a1[4];
   sub_100009268(a1, a1[3]);
 
   dispatch thunk of CustomStringConvertible.description.getter();
-  v14 = OS_os_log.init(subsystem:category:)();
+  v13 = OS_os_log.init(subsystem:category:)();
   sub_10000916C(&qword_10001A978, &qword_10000DA28);
-  v15 = swift_allocObject();
-  *(v15 + 16) = xmmword_10000DA10;
-  *(v15 + 56) = sub_10000916C(&qword_10001A980, &qword_10000DA30);
-  *(v15 + 64) = sub_1000092AC();
-  *(v15 + 32) = v10;
+  v14 = swift_allocObject();
+  *(v14 + 16) = xmmword_10000DA10;
+  *(v14 + 56) = sub_10000916C(&qword_10001A980, &qword_10000DA30);
+  *(v14 + 64) = sub_1000092AC();
+  *(v14 + 32) = v10;
   os_log(_:dso:log:_:_:)();
 }
 
@@ -746,7 +743,7 @@ void *sub_100009744(void *result, int64_t a2, char a3, void *a4)
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
   if (v5)

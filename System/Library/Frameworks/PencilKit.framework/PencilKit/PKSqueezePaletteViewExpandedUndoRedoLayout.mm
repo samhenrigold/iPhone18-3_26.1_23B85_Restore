@@ -273,13 +273,13 @@
   return round(MidX);
 }
 
-uint64_t __69__PKSqueezePaletteViewExpandedUndoRedoLayout__installHyperInteractor__block_invoke(uint64_t result, double *a2)
+void *__69__PKSqueezePaletteViewExpandedUndoRedoLayout__installHyperInteractor__block_invoke(void *result, double *a2)
 {
-  v3 = *(result + 32);
+  v3 = *(result + 4);
   if (v3)
   {
-    v4 = *(result + 40);
-    [*(result + 32) initialSliderButtonAngle];
+    v4 = *(result + 5);
+    [*(result + 4) initialSliderButtonAngle];
     v6 = v5;
     result = [v3 initialUndoIndex];
     v7 = v6 + (v4 - result) * -0.34906585;
@@ -313,7 +313,7 @@ void __69__PKSqueezePaletteViewExpandedUndoRedoLayout__installHyperInteractor__b
   }
 }
 
-uint64_t __61__PKSqueezePaletteViewExpandedUndoRedoLayout__layoutSubviews__block_invoke(uint64_t a1, double *a2)
+_BYTE *__61__PKSqueezePaletteViewExpandedUndoRedoLayout__layoutSubviews__block_invoke(uint64_t a1, double *a2)
 {
   v3 = *(a1 + 32);
   result = [v3 modelUndoIndex];
@@ -561,7 +561,7 @@ LABEL_4:
       }
 
       paletteView2 = [(PKSqueezePaletteViewExpandedUndoRedoLayout *)self paletteView];
-      [(PKSqueezePaletteView *)paletteView2 updateUIStartAngle:v15 endAngle:v18 clockwise:v19 animated:?];
+      [(PKSqueezePaletteView *)paletteView2 updateUIStartAngle:v18 endAngle:v19 clockwise:v15 animated:?];
 
       ornamentLayer = [(PKSqueezePaletteViewExpandedUndoRedoLayout *)self ornamentLayer];
       if (ornamentLayer)

@@ -5,6 +5,7 @@
 - (id)initForAmbient;
 - (id)initForCameraStyleable;
 - (id)initForPeopleInOrientation:(int64_t)orientation;
+- (id)initForTopPeople:(BOOL)people withDictionary:(id)dictionary orientation:(int64_t)orientation;
 - (id)initForTopPeopleInOrientation:(int64_t)orientation;
 - (void)_commonInitForPeople;
 - (void)updateFilteringContextWithDictionary:(id)dictionary;
@@ -14,31 +15,29 @@
 
 - (id)dictionaryRepresentation
 {
-  v15[5] = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = PGPeopleWallpaperSuggesterFilteringContext;
-  dictionaryRepresentation = [(PGSinglePersonWallpaperAssetSuggesterFilteringContext *)&v13 dictionaryRepresentation];
+  v14[5] = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = PGPeopleWallpaperSuggesterFilteringContext;
+  dictionaryRepresentation = [(PGSinglePersonWallpaperAssetSuggesterFilteringContext *)&v12 dictionaryRepresentation];
   v4 = [dictionaryRepresentation mutableCopy];
 
-  v14[0] = @"PGPeopleWallpaperSuggesterFilteringContextNormalizedDeviationForVeryImportantPersons";
+  v13[0] = @"PGPeopleWallpaperSuggesterFilteringContextNormalizedDeviationForVeryImportantPersons";
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:self->_normalizedDeviationForVeryImportantPersons];
-  v15[0] = v5;
-  v14[1] = @"PGPeopleWallpaperSuggesterFilteringContextNormalizedDeviationForImportantPersons";
+  v14[0] = v5;
+  v13[1] = @"PGPeopleWallpaperSuggesterFilteringContextNormalizedDeviationForImportantPersons";
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:self->_normalizedDeviationForImportantPersons];
-  v15[1] = v6;
-  v14[2] = @"PGPeopleWallpaperSuggesterFilteringContextFavoritePersonsAreVIPs";
+  v14[1] = v6;
+  v13[2] = @"PGPeopleWallpaperSuggesterFilteringContextFavoritePersonsAreVIPs";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:self->_favoritePersonsAreVIPs];
-  v15[2] = v7;
-  v14[3] = @"PGPeopleWallpaperSuggesterFilteringContextMinimumPersonImportance";
+  v14[2] = v7;
+  v13[3] = @"PGPeopleWallpaperSuggesterFilteringContextMinimumPersonImportance";
   v8 = [MEMORY[0x277CCABB0] numberWithInteger:self->_minimumPersonImportance];
-  v15[3] = v8;
-  v14[4] = @"PGPeopleWallpaperSuggesterFilteringContextMinimumNumberOfCandidatesForEligiblePerson";
+  v14[3] = v8;
+  v13[4] = @"PGPeopleWallpaperSuggesterFilteringContextMinimumNumberOfCandidatesForEligiblePerson";
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_minimumNumberOfCandidatesForEligiblePerson];
-  v15[4] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:5];
+  v14[4] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:5];
   [v4 addEntriesFromDictionary:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -82,6 +81,22 @@
   *(result + 18) = self->_minimumPersonImportance;
   *(result + 19) = self->_minimumNumberOfCandidatesForEligiblePerson;
   return result;
+}
+
+- (id)initForTopPeople:(BOOL)people withDictionary:(id)dictionary orientation:(int64_t)orientation
+{
+  peopleCopy = people;
+  dictionaryCopy = dictionary;
+  v12.receiver = self;
+  v12.super_class = PGPeopleWallpaperSuggesterFilteringContext;
+  v9 = [(PGSinglePersonWallpaperAssetSuggesterFilteringContext *)&v12 initForTopPeople:peopleCopy withDictionary:dictionaryCopy orientation:orientation];
+  v10 = v9;
+  if (v9)
+  {
+    [v9 updateFilteringContextWithDictionary:dictionaryCopy];
+  }
+
+  return v10;
 }
 
 - (void)updateFilteringContextWithDictionary:(id)dictionary

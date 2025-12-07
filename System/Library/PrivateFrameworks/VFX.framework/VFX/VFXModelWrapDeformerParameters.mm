@@ -13,10 +13,10 @@
 
 - (VFXModelWrapDeformerParameters)initWithDrivingNode:(__n128)node deformedNode:(__n128)deformedNode bindingMode:(__n128)mode bindingTransform:(uint64_t)transform drivingNodeUVChannel:(uint64_t)channel deformedNodeUVChannel:(uint64_t)vChannel
 {
-  v34.receiver = self;
-  v34.super_class = VFXModelWrapDeformerParameters;
-  v16 = [(VFXModelWrapDeformerParameters *)&v34 init];
-  v20 = v16;
+  v31.receiver = self;
+  v31.super_class = VFXModelWrapDeformerParameters;
+  v16 = [(VFXModelWrapDeformerParameters *)&v31 init];
+  v19 = v16;
   if (v16)
   {
     v16->_isLegacySingleLayerDeformer = 1;
@@ -27,28 +27,28 @@
     *&v16->_anon_a0[48] = mode;
     v16->_legacyDrivingNodeUVChannel = a10;
     v16->_legacyDeformedNodeUVChannel = a11;
-    objc_msgSend_begin(VFXTransaction, v17, v18, v19);
-    objc_msgSend_setAnimationDuration_(VFXTransaction, v21, v22, v23, 0.0);
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = sub_1AF1DF56C;
-    v33[3] = &unk_1E7A7C078;
-    v33[4] = v20;
-    v33[5] = channel;
-    v33[6] = vChannel;
-    objc_msgSend_enqueueCommandForObject_immediateTransactionBlock_(VFXTransaction, v24, vChannel, v33);
-    objc_msgSend_commit(VFXTransaction, v25, v26, v27);
+    objc_msgSend_begin(VFXTransaction, v17, v18);
+    objc_msgSend_setAnimationDuration_(VFXTransaction, v20, v21, 0.0);
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = sub_1AF1DF56C;
+    v30[3] = &unk_1E7A7C078;
+    v30[4] = v19;
+    v30[5] = channel;
+    v30[6] = vChannel;
+    objc_msgSend_enqueueCommandForObject_immediateTransactionBlock_(VFXTransaction, v22, vChannel, v30);
+    objc_msgSend_commit(VFXTransaction, v23, v24);
   }
 
-  return v20;
+  return v19;
 }
 
 - (VFXModelWrapDeformerParameters)initWithInnerLayerNode:(__n128)node outerLayerNode:(__n128)layerNode deformedNode:(__n128)deformedNode bindingMode:(uint64_t)mode bindingTransform:(uint64_t)transform
 {
-  v32.receiver = self;
-  v32.super_class = VFXModelWrapDeformerParameters;
-  v14 = [(VFXModelWrapDeformerParameters *)&v32 init];
-  v18 = v14;
+  v29.receiver = self;
+  v29.super_class = VFXModelWrapDeformerParameters;
+  v14 = [(VFXModelWrapDeformerParameters *)&v29 init];
+  v17 = v14;
   if (v14)
   {
     v14->_bindingMode = a10;
@@ -56,21 +56,21 @@
     *&v14->_anon_a0[16] = node;
     *&v14->_anon_a0[32] = layerNode;
     *&v14->_anon_a0[48] = deformedNode;
-    objc_msgSend_begin(VFXTransaction, v15, v16, v17);
-    objc_msgSend_setAnimationDuration_(VFXTransaction, v19, v20, v21, 0.0);
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = sub_1AF1DF6C8;
-    v31[3] = &unk_1E7A7C0A0;
-    v31[4] = v18;
-    v31[5] = transform;
-    v31[6] = a8;
-    v31[7] = a9;
-    objc_msgSend_enqueueCommandForObject_immediateTransactionBlock_(VFXTransaction, v22, a9, v31);
-    objc_msgSend_commit(VFXTransaction, v23, v24, v25);
+    objc_msgSend_begin(VFXTransaction, v15, v16);
+    objc_msgSend_setAnimationDuration_(VFXTransaction, v18, v19, 0.0);
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = sub_1AF1DF6C8;
+    v28[3] = &unk_1E7A7C0A0;
+    v28[4] = v17;
+    v28[5] = transform;
+    v28[6] = a8;
+    v28[7] = a9;
+    objc_msgSend_enqueueCommandForObject_immediateTransactionBlock_(VFXTransaction, v20, a9, v28);
+    objc_msgSend_commit(VFXTransaction, v21, v22);
   }
 
-  return v18;
+  return v17;
 }
 
 - (void)dealloc
@@ -133,108 +133,108 @@
 
 - (VFXModelWrapDeformerParameters)initWithCoder:(id)coder
 {
-  v54.receiver = self;
-  v54.super_class = VFXModelWrapDeformerParameters;
-  v6 = [(VFXModelWrapDeformerParameters *)&v54 init];
-  if (v6)
+  v44.receiver = self;
+  v44.super_class = VFXModelWrapDeformerParameters;
+  v5 = [(VFXModelWrapDeformerParameters *)&v44 init];
+  if (v5)
   {
-    v6->_vertexCount = objc_msgSend_decodeInt32ForKey_(coder, v4, @"vertexCount", v5);
-    v6->_bindingMode = objc_msgSend_decodeInt32ForKey_(coder, v7, @"bindingMode", v8);
-    v6->_bindingData.pointIndicesStride = objc_msgSend_decodeInt32ForKey_(coder, v9, @"bindingPointIndicesStride", v10);
-    v6->_bindingData.barycentricCoordsStride = objc_msgSend_decodeInt32ForKey_(coder, v11, @"bindingBarycentricCoordsStride", v12);
-    v6->_bindingData.pointIndicesFormat = objc_msgSend_decodeIntegerForKey_(coder, v13, @"bindingPointIndicesFormat", v14);
-    v6->_bindingData.barycentricCoordsFormat = objc_msgSend_decodeIntegerForKey_(coder, v15, @"bindingBarycentricCoordsFormat", v16);
-    vertexCount = v6->_vertexCount;
-    v18 = v6->_bindingData.pointIndicesStride * vertexCount;
-    v19 = v6->_bindingData.barycentricCoordsStride * vertexCount;
-    v6->_bindingData.pointIndices = malloc_type_malloc(v18, 0xBEB32C07uLL);
-    v6->_bindingData.barycentricCoords = malloc_type_malloc(v19, 0x3421AD62uLL);
+    v5->_vertexCount = objc_msgSend_decodeInt32ForKey_(coder, v4, @"vertexCount");
+    v5->_bindingMode = objc_msgSend_decodeInt32ForKey_(coder, v6, @"bindingMode");
+    v5->_bindingData.pointIndicesStride = objc_msgSend_decodeInt32ForKey_(coder, v7, @"bindingPointIndicesStride");
+    v5->_bindingData.barycentricCoordsStride = objc_msgSend_decodeInt32ForKey_(coder, v8, @"bindingBarycentricCoordsStride");
+    v5->_bindingData.pointIndicesFormat = objc_msgSend_decodeIntegerForKey_(coder, v9, @"bindingPointIndicesFormat");
+    v5->_bindingData.barycentricCoordsFormat = objc_msgSend_decodeIntegerForKey_(coder, v10, @"bindingBarycentricCoordsFormat");
+    vertexCount = v5->_vertexCount;
+    v12 = v5->_bindingData.pointIndicesStride * vertexCount;
+    v13 = v5->_bindingData.barycentricCoordsStride * vertexCount;
+    v5->_bindingData.pointIndices = malloc_type_malloc(v12, 0xBEB32C07uLL);
+    v5->_bindingData.barycentricCoords = malloc_type_malloc(v13, 0x3421AD62uLL);
     __n = 0;
-    v21 = objc_msgSend_decodeBytesForKey_returnedLength_(coder, v20, @"bindingPointIndices", &__n);
-    if (__n == v18)
+    v15 = objc_msgSend_decodeBytesForKey_returnedLength_(coder, v14, @"bindingPointIndices", &__n);
+    if (__n == v12)
     {
-      memcpy(v6->_bindingData.pointIndices, v21, v18);
+      memcpy(v5->_bindingData.pointIndices, v15, v12);
     }
 
-    v23 = objc_msgSend_decodeBytesForKey_returnedLength_(coder, v22, @"bindingBarycentricCoords", &__n);
-    if (__n == v19)
+    v17 = objc_msgSend_decodeBytesForKey_returnedLength_(coder, v16, @"bindingBarycentricCoords", &__n);
+    if (__n == v13)
     {
-      memcpy(v6->_bindingData.barycentricCoords, v23, v19);
+      memcpy(v5->_bindingData.barycentricCoords, v17, v13);
     }
 
-    v26 = objc_msgSend_decodeBoolForKey_(coder, v24, @"isLegacySingleLayerDeformer", v25);
-    v6->_isLegacySingleLayerDeformer = v26;
-    if (v26)
+    v19 = objc_msgSend_decodeBoolForKey_(coder, v18, @"isLegacySingleLayerDeformer");
+    v5->_isLegacySingleLayerDeformer = v19;
+    if (v19)
     {
-      v29 = objc_msgSend_decodeInt32ForKey_(coder, v27, @"bindingOffsetsOrTransformsLength", v28);
-      v6->_bindingData.legacyOffsetsOrTransformsLength = v29;
-      v6->_bindingData.legacyOffsetsOrTransforms = malloc_type_malloc(v29, 0x100004052888210uLL);
+      v21 = objc_msgSend_decodeInt32ForKey_(coder, v20, @"bindingOffsetsOrTransformsLength");
+      v5->_bindingData.legacyOffsetsOrTransformsLength = v21;
+      v5->_bindingData.legacyOffsetsOrTransforms = malloc_type_malloc(v21, 0x100004052888210uLL);
       __n = 0;
-      v31 = objc_msgSend_decodeBytesForKey_returnedLength_(coder, v30, @"bindingOffsetsOrTransforms", &__n);
-      v32 = __n;
-      if (__n == v6->_bindingData.legacyOffsetsOrTransformsLength)
+      v23 = objc_msgSend_decodeBytesForKey_returnedLength_(coder, v22, @"bindingOffsetsOrTransforms", &__n);
+      v24 = __n;
+      if (__n == v5->_bindingData.legacyOffsetsOrTransformsLength)
       {
-        v33 = v31;
-        legacyOffsetsOrTransforms = v6->_bindingData.legacyOffsetsOrTransforms;
+        v25 = v23;
+        legacyOffsetsOrTransforms = v5->_bindingData.legacyOffsetsOrTransforms;
 LABEL_20:
-        memcpy(legacyOffsetsOrTransforms, v33, v32);
+        memcpy(legacyOffsetsOrTransforms, v25, v24);
       }
     }
 
     else
     {
-      v35 = objc_msgSend_decodeInt32ForKey_(coder, v27, @"bindingInnerLayerInfluencesLength", v28);
-      v6->_bindingData.innerLayerInfluencesLength = v35;
-      v6->_bindingData.innerLayerInfluences = malloc_type_malloc(v35, 0x100004052888210uLL);
+      v27 = objc_msgSend_decodeInt32ForKey_(coder, v20, @"bindingInnerLayerInfluencesLength");
+      v5->_bindingData.innerLayerInfluencesLength = v27;
+      v5->_bindingData.innerLayerInfluences = malloc_type_malloc(v27, 0x100004052888210uLL);
       __n = 0;
-      v37 = objc_msgSend_decodeBytesForKey_returnedLength_(coder, v36, @"bindingInnerLayerInfluences", &__n);
-      if (__n == v6->_bindingData.innerLayerInfluencesLength)
+      v29 = objc_msgSend_decodeBytesForKey_returnedLength_(coder, v28, @"bindingInnerLayerInfluences", &__n);
+      if (__n == v5->_bindingData.innerLayerInfluencesLength)
       {
-        memcpy(v6->_bindingData.innerLayerInfluences, v37, __n);
+        memcpy(v5->_bindingData.innerLayerInfluences, v29, __n);
       }
 
-      if (v6->_bindingMode == 1)
+      if (v5->_bindingMode == 1)
       {
-        v40 = objc_msgSend_decodeInt32ForKey_(coder, v38, @"bindingSpaceVectorsLength", v39);
-        v6->_bindingData.tnbMatricesLength = v40;
-        v6->_bindingData.innerLayerTNBs = malloc_type_malloc(v40, 0x100004052888210uLL);
-        v6->_bindingData.outerLayerTNBs = malloc_type_malloc(v6->_bindingData.tnbMatricesLength, 0x100004052888210uLL);
+        v31 = objc_msgSend_decodeInt32ForKey_(coder, v30, @"bindingSpaceVectorsLength");
+        v5->_bindingData.tnbMatricesLength = v31;
+        v5->_bindingData.innerLayerTNBs = malloc_type_malloc(v31, 0x100004052888210uLL);
+        v5->_bindingData.outerLayerTNBs = malloc_type_malloc(v5->_bindingData.tnbMatricesLength, 0x100004052888210uLL);
         __n = 0;
-        v42 = objc_msgSend_decodeBytesForKey_returnedLength_(coder, v41, @"bindingInnerTNBs", &__n);
-        if (__n == v6->_bindingData.tnbMatricesLength)
+        v33 = objc_msgSend_decodeBytesForKey_returnedLength_(coder, v32, @"bindingInnerTNBs", &__n);
+        if (__n == v5->_bindingData.tnbMatricesLength)
         {
-          memcpy(v6->_bindingData.innerLayerTNBs, v42, __n);
+          memcpy(v5->_bindingData.innerLayerTNBs, v33, __n);
         }
 
-        v44 = objc_msgSend_decodeBytesForKey_returnedLength_(coder, v43, @"bindingOuterTNBs", &__n);
-        if (__n == v6->_bindingData.tnbMatricesLength)
+        v35 = objc_msgSend_decodeBytesForKey_returnedLength_(coder, v34, @"bindingOuterTNBs", &__n);
+        if (__n == v5->_bindingData.tnbMatricesLength)
         {
-          memcpy(v6->_bindingData.outerLayerTNBs, v44, __n);
+          memcpy(v5->_bindingData.outerLayerTNBs, v35, __n);
         }
 
-        v47 = objc_msgSend_decodeInt32ForKey_(coder, v45, @"bindingOffsetsLength", v46);
-        v6->_bindingData.offsetsLength = v47;
-        v6->_bindingData.innerLayerOffsets = malloc_type_malloc(v47, 0x100004052888210uLL);
-        v6->_bindingData.outerLayerOffsets = malloc_type_malloc(v6->_bindingData.offsetsLength, 0x100004052888210uLL);
-        v49 = objc_msgSend_decodeBytesForKey_returnedLength_(coder, v48, @"bindingInnerOffsets", &__n);
-        if (__n == v6->_bindingData.offsetsLength)
+        v37 = objc_msgSend_decodeInt32ForKey_(coder, v36, @"bindingOffsetsLength");
+        v5->_bindingData.offsetsLength = v37;
+        v5->_bindingData.innerLayerOffsets = malloc_type_malloc(v37, 0x100004052888210uLL);
+        v5->_bindingData.outerLayerOffsets = malloc_type_malloc(v5->_bindingData.offsetsLength, 0x100004052888210uLL);
+        v39 = objc_msgSend_decodeBytesForKey_returnedLength_(coder, v38, @"bindingInnerOffsets", &__n);
+        if (__n == v5->_bindingData.offsetsLength)
         {
-          memcpy(v6->_bindingData.innerLayerOffsets, v49, __n);
+          memcpy(v5->_bindingData.innerLayerOffsets, v39, __n);
         }
 
-        v51 = objc_msgSend_decodeBytesForKey_returnedLength_(coder, v50, @"bindingOuterOffsets", &__n);
-        v32 = __n;
-        if (__n == v6->_bindingData.offsetsLength)
+        v41 = objc_msgSend_decodeBytesForKey_returnedLength_(coder, v40, @"bindingOuterOffsets", &__n);
+        v24 = __n;
+        if (__n == v5->_bindingData.offsetsLength)
         {
-          v33 = v51;
-          legacyOffsetsOrTransforms = v6->_bindingData.outerLayerOffsets;
+          v25 = v41;
+          legacyOffsetsOrTransforms = v5->_bindingData.outerLayerOffsets;
           goto LABEL_20;
         }
       }
     }
   }
 
-  return v6;
+  return v5;
 }
 
 - (void)initParametersIfNeededWithDrivingNodeRef:(__CFXNode *)ref deformedNodeRef:(__CFXNode *)nodeRef
@@ -244,105 +244,105 @@ LABEL_20:
     free(self->_bindingData.pointIndices);
     free(self->_bindingData.barycentricCoords);
     free(self->_bindingData.legacyOffsetsOrTransforms);
-    v7 = sub_1AF1B75A0(ref);
-    v8 = sub_1AF1B2C1C(v7);
-    v9 = sub_1AF1B75A0(nodeRef);
-    v10 = sub_1AF1B2C1C(v9);
-    v11 = sub_1AF1A4CE8(v8, 0);
-    v12 = sub_1AF1A4CE8(v10, 0);
-    v32 = sub_1AF1A4C6C(v8, 0, 0);
-    v31 = sub_1AF1A4C6C(v10, 0, 0);
-    v33 = v12;
-    v13 = sub_1AF1AE6EC(v12);
-    self->_vertexCount = v13;
+    v8 = sub_1AF1B75A0(ref, v7);
+    v10 = sub_1AF1B2C1C(v8, v9);
+    v12 = sub_1AF1B75A0(nodeRef, v11);
+    v14 = sub_1AF1B2C1C(v12, v13);
+    v15 = sub_1AF1A4CE8(v10, 0);
+    v16 = sub_1AF1A4CE8(v14, 0);
+    v40 = sub_1AF1A4C6C(v10, 0, 0);
+    v39 = sub_1AF1A4C6C(v14, 0, 0);
+    v41 = v16;
+    v18 = sub_1AF1AE6EC(v16, v17);
+    self->_vertexCount = v18;
     *&self->_bindingData.barycentricCoordsStride = xmmword_1AFE22040;
-    v30 = malloc_type_malloc(4 * (v13 & 0x7FFFFFFF), 0x1000040BDFB0063uLL);
-    self->_bindingData.barycentricCoords = v30;
-    v34 = v11;
-    v14 = sub_1AF1AE6EC(v11) - 1;
-    v15 = 1;
-    if (v14 > 0xFF)
+    v38 = malloc_type_malloc(4 * (v18 & 0x7FFFFFFF), 0x1000040BDFB0063uLL);
+    self->_bindingData.barycentricCoords = v38;
+    v42 = v15;
+    v20 = sub_1AF1AE6EC(v15, v19) - 1;
+    v21 = 1;
+    if (v20 > 0xFF)
     {
-      v15 = 2;
+      v21 = 2;
     }
 
-    v16 = HIWORD(v14);
-    if (HIWORD(v14))
+    v22 = HIWORD(v20);
+    if (HIWORD(v20))
     {
-      v17 = 4;
-    }
-
-    else
-    {
-      v17 = v15;
-    }
-
-    v18 = 3 << (v14 > 0xFF);
-    if (v16)
-    {
-      v18 = 12;
-    }
-
-    self->_bindingData.pointIndicesStride = v18;
-    v19 = malloc_type_malloc(v18 * self->_vertexCount, 0x4316E93DuLL);
-    self->_bindingData.pointIndices = v19;
-    if (v17 == 1)
-    {
-      v21 = 0;
-      v22 = 2;
-      v20 = v19;
+      v23 = 4;
     }
 
     else
     {
-      v20 = 0;
-      if (v17 == 2)
+      v23 = v21;
+    }
+
+    v24 = 3 << (v20 > 0xFF);
+    if (v22)
+    {
+      v24 = 12;
+    }
+
+    self->_bindingData.pointIndicesStride = v24;
+    v25 = malloc_type_malloc(v24 * self->_vertexCount, 0x4316E93DuLL);
+    self->_bindingData.pointIndices = v25;
+    if (v23 == 1)
+    {
+      v27 = 0;
+      v28 = 2;
+      v26 = v25;
+    }
+
+    else
+    {
+      v26 = 0;
+      if (v23 == 2)
       {
-        v22 = 14;
-        v21 = v19;
+        v28 = 14;
+        v27 = v25;
       }
 
       else
       {
-        v21 = 0;
-        v22 = 38;
+        v27 = 0;
+        v28 = 38;
       }
     }
 
-    self->_bindingData.pointIndicesFormat = v22;
-    if (v16)
+    self->_bindingData.pointIndicesFormat = v28;
+    if (v22)
     {
-      v23 = v19;
+      v29 = v25;
     }
 
     else
     {
-      v23 = 0;
+      v29 = 0;
     }
 
-    v24 = sub_1AF1A4604(v8, 3, self->_legacyDrivingNodeUVChannel, 0);
-    if (!v24)
+    v31 = sub_1AF1A4604(v10, 3, self->_legacyDrivingNodeUVChannel, 0);
+    if (!v31)
     {
-      v25 = sub_1AF0D5194();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+      v32 = sub_1AF0D5194(0, v30);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
       {
-        sub_1AFDE1F6C(v25);
+        sub_1AFDE1F6C(v32);
       }
     }
 
-    v26 = sub_1AF1A4604(v10, 3, self->_legacyDeformedNodeUVChannel, 0);
-    if (!v26)
+    v34 = sub_1AF1A4604(v14, 3, self->_legacyDeformedNodeUVChannel, 0);
+    if (!v34)
     {
-      v27 = sub_1AF0D5194();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+      v35 = sub_1AF0D5194(0, v33);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
       {
-        sub_1AFDE1FF0(v27);
+        sub_1AFDE1FF0(v35);
       }
     }
 
-    v28 = sub_1AF1A4C6C(v8, 3, self->_legacyDrivingNodeUVChannel);
-    v29 = sub_1AF1A4C6C(v10, 3, self->_legacyDeformedNodeUVChannel);
-    sub_1AF1E1A04(self->_bindingMode, self->_vertexCount, v10, v8, v33, v34, v26, v24, *self->_anon_a0, *&self->_anon_a0[16], *&self->_anon_a0[32], *&self->_anon_a0[48], v31, v29, v32, v28, 0, v20, v21, v23, 0, v30, &self->_bindingData.legacyOffsetsOrTransforms, &self->_bindingData.legacyOffsetsOrTransformsLength);
+    v36 = sub_1AF1A4C6C(v10, 3, self->_legacyDrivingNodeUVChannel);
+    v37 = sub_1AF1A4C6C(v14, 3, self->_legacyDeformedNodeUVChannel);
+    sub_1AF1E1A04(self->_bindingMode, self->_vertexCount, v14, v10, v41, v42, v34, v31, *self->_anon_a0, *&self->_anon_a0[16], *&self->_anon_a0[32], *&self->_anon_a0[48], v39, v37, v40, v36, 0, v26, v27, v29, 0, v38, &self->_bindingData.legacyOffsetsOrTransforms, &self->_bindingData.legacyOffsetsOrTransformsLength);
   }
 }
 
@@ -357,117 +357,117 @@ LABEL_20:
     free(self->_bindingData.outerLayerTNBs);
     free(self->_bindingData.innerLayerOffsets);
     free(self->_bindingData.outerLayerOffsets);
-    v9 = sub_1AF1B75A0(ref);
-    v10 = sub_1AF1B2C1C(v9);
-    v11 = sub_1AF1B75A0(nodeRef);
-    v12 = sub_1AF1B2C1C(v11);
-    v13 = sub_1AF1B75A0(deformedNodeRef);
-    v14 = sub_1AF1B2C1C(v13);
-    v41 = sub_1AF1A4CE8(v10, 0);
-    v40 = sub_1AF1A4CE8(v12, 0);
-    v42 = v14;
-    v15 = sub_1AF1A4CE8(v14, 0);
-    v38 = sub_1AF1A4C6C(v10, 0, 0);
-    v37 = sub_1AF1A4C6C(v12, 0, 0);
-    v39 = v15;
-    v16 = sub_1AF1AE6EC(v15);
-    self->_vertexCount = v16;
+    v10 = sub_1AF1B75A0(ref, v9);
+    v12 = sub_1AF1B2C1C(v10, v11);
+    v14 = sub_1AF1B75A0(nodeRef, v13);
+    v16 = sub_1AF1B2C1C(v14, v15);
+    v18 = sub_1AF1B75A0(deformedNodeRef, v17);
+    v20 = sub_1AF1B2C1C(v18, v19);
+    v49 = sub_1AF1A4CE8(v12, 0);
+    v48 = sub_1AF1A4CE8(v16, 0);
+    v50 = v20;
+    v21 = sub_1AF1A4CE8(v20, 0);
+    v46 = sub_1AF1A4C6C(v12, 0, 0);
+    v45 = sub_1AF1A4C6C(v16, 0, 0);
+    v47 = v21;
+    v23 = sub_1AF1AE6EC(v21, v22);
+    self->_vertexCount = v23;
     *&self->_bindingData.barycentricCoordsStride = xmmword_1AFE22050;
-    v17 = malloc_type_malloc(8 * (v16 & 0x7FFFFFFF), 0x100004052888210uLL);
-    v18 = 0;
-    self->_bindingData.barycentricCoords = v17;
-    v19 = 1;
+    v24 = malloc_type_malloc(8 * (v23 & 0x7FFFFFFF), 0x100004052888210uLL);
+    v25 = 0;
+    self->_bindingData.barycentricCoords = v24;
+    v26 = 1;
     do
     {
-      v20 = v19 & 1;
-      if (v19)
+      v27 = v26 & 1;
+      if (v26)
       {
-        v21 = v10;
+        v28 = v12;
       }
 
       else
       {
-        v21 = v12;
+        v28 = v16;
       }
 
-      v22 = sub_1AF1A4CE8(v21, 0);
-      v23 = sub_1AF1AE6EC(v22);
-      v19 = 0;
-      if (v18 <= v23)
+      v29 = sub_1AF1A4CE8(v28, 0);
+      v31 = sub_1AF1AE6EC(v29, v30);
+      v26 = 0;
+      if (v25 <= v31)
       {
-        v18 = v23;
+        v25 = v31;
       }
     }
 
-    while (v20);
-    v24 = v18 - 1;
-    v25 = (v18 - 1) > 0xFF;
-    v26 = 1;
-    if ((v18 - 1) > 0xFF)
+    while (v27);
+    v32 = v25 - 1;
+    v33 = (v25 - 1) > 0xFF;
+    v34 = 1;
+    if ((v25 - 1) > 0xFF)
     {
-      v26 = 2;
+      v34 = 2;
     }
 
-    v27 = HIWORD(v24);
-    if (HIWORD(v24))
+    v35 = HIWORD(v32);
+    if (HIWORD(v32))
     {
-      v28 = 4;
+      v36 = 4;
     }
 
     else
     {
-      v28 = v26;
+      v36 = v34;
     }
 
-    v29 = 3 << v25;
-    if (v27)
+    v37 = 3 << v33;
+    if (v35)
     {
-      v29 = 12;
+      v37 = 12;
     }
 
-    self->_bindingData.pointIndicesStride = v29;
-    v30 = malloc_type_malloc(v29 * self->_vertexCount, 0x9C621D7FuLL);
-    self->_bindingData.pointIndices = v30;
-    if (v28 == 1)
+    self->_bindingData.pointIndicesStride = v37;
+    v38 = malloc_type_malloc(v37 * self->_vertexCount, 0x9C621D7FuLL);
+    self->_bindingData.pointIndices = v38;
+    if (v36 == 1)
     {
-      v32 = 0;
-      v33 = 2;
-      v31 = v30;
+      v40 = 0;
+      v41 = 2;
+      v39 = v38;
     }
 
     else
     {
-      v31 = 0;
-      if (v28 == 2)
+      v39 = 0;
+      if (v36 == 2)
       {
-        v33 = 14;
-        v32 = v30;
+        v41 = 14;
+        v40 = v38;
       }
 
       else
       {
-        v31 = 0;
-        v32 = 0;
-        v33 = 38;
+        v39 = 0;
+        v40 = 0;
+        v41 = 38;
       }
     }
 
-    self->_bindingData.pointIndicesFormat = v33;
-    if (v27)
+    self->_bindingData.pointIndicesFormat = v41;
+    if (v35)
     {
-      v34 = v30;
+      v42 = v38;
     }
 
     else
     {
-      v34 = 0;
+      v42 = 0;
     }
 
-    v35 = 4 * self->_vertexCount;
-    self->_bindingData.innerLayerInfluencesLength = v35;
-    v36 = malloc_type_malloc(v35, 0x100004052888210uLL);
-    self->_bindingData.innerLayerInfluences = v36;
-    sub_1AF1E26A8(self->_bindingMode, self->_vertexCount, v42, v10, v12, v39, v41, v40, *self->_anon_a0, *&self->_anon_a0[16], *&self->_anon_a0[32], *&self->_anon_a0[48], v38, v37, 1, v31, v32, v34, v17, 0, v36, &self->_bindingData.innerLayerTNBs, &self->_bindingData.outerLayerTNBs, &self->_bindingData.tnbMatricesLength, &self->_bindingData.innerLayerOffsets, &self->_bindingData.outerLayerOffsets, &self->_bindingData.offsetsLength);
+    v43 = 4 * self->_vertexCount;
+    self->_bindingData.innerLayerInfluencesLength = v43;
+    v44 = malloc_type_malloc(v43, 0x100004052888210uLL);
+    self->_bindingData.innerLayerInfluences = v44;
+    sub_1AF1E26A8(self->_bindingMode, self->_vertexCount, v50, v12, v16, v47, v49, v48, *self->_anon_a0, *&self->_anon_a0[16], *&self->_anon_a0[32], *&self->_anon_a0[48], v46, v45, 1, v39, v40, v42, v24, 0, v44, &self->_bindingData.innerLayerTNBs, &self->_bindingData.outerLayerTNBs, &self->_bindingData.tnbMatricesLength, &self->_bindingData.innerLayerOffsets, &self->_bindingData.outerLayerOffsets, &self->_bindingData.offsetsLength);
   }
 }
 
@@ -475,51 +475,51 @@ LABEL_20:
 {
   v6 = sub_1AF1A4CE8(mesh0, 0);
   v7 = sub_1AF1A4CE8(mesh1, 0);
-  v8 = sub_1AF1AE6EC(v6);
+  v9 = sub_1AF1AE6EC(v6, v8);
   mesh0Copy = mesh0;
-  v34 = sub_1AF1A4C6C(mesh0, 0, 0);
-  v36 = objc_msgSend_arrayWithCapacity_(MEMORY[0x1E695DF70], v9, 39, v10);
+  v31 = sub_1AF1A4C6C(mesh0, 0, 0);
+  v33 = objc_msgSend_arrayWithCapacity_(MEMORY[0x1E695DF70], v10, 39);
   v11 = *MEMORY[0x1E695E480];
   bytesDeallocator = *MEMORY[0x1E695E488];
   for (i = 1; i != 40; ++i)
   {
-    v15 = malloc_type_malloc(12 * v8, 0x100004052888210uLL);
-    if (v8 >= 1)
+    v14 = malloc_type_malloc(12 * v9, 0x100004052888210uLL);
+    if (v9 >= 1)
     {
-      v16 = 0;
-      v17 = i * 0.025;
-      *&v17 = v17;
-      v37 = vdupq_lane_s32(*&v17, 0);
-      v18 = 2;
-      v19 = 1;
+      v15 = 0;
+      v16 = i * 0.025;
+      *&v16 = v16;
+      v34 = vdupq_lane_s32(*&v16, 0);
+      v17 = 2;
+      v18 = 1;
       do
       {
-        *v20.i64 = sub_1AF1AF084(v6, v16, v13, v14);
-        v38 = v20;
-        *v23.i64 = sub_1AF1AF084(v7, v16, v21, v22);
-        v24 = vmlaq_f32(v38, vsubq_f32(v23, v38), v37);
-        *&v15[4 * v18 - 8] = v24.i32[0];
-        *&v15[4 * v18 - 4] = v24.i32[1];
-        *&v15[4 * v18] = v24.i32[2];
-        v16 = v19;
-        v18 += 3;
+        *v19.i64 = sub_1AF1AF084(v6, v15, v13);
+        v35 = v19;
+        *v21.i64 = sub_1AF1AF084(v7, v15, v20);
+        v22 = vmlaq_f32(v35, vsubq_f32(v21, v35), v34);
+        *&v14[4 * v17 - 8] = v22.i32[0];
+        *&v14[4 * v17 - 4] = v22.i32[1];
+        *&v14[4 * v17] = v22.i32[2];
+        v15 = v18;
+        v17 += 3;
       }
 
-      while (v8 > v19++);
+      while (v9 > v18++);
     }
 
-    v26 = CFDataCreateWithBytesNoCopy(v11, v15, 12 * v8, bytesDeallocator);
-    values = sub_1AF1ADBE4(v26, 0, v8, 3, 1);
-    v27 = CFArrayCreate(v11, &values, 1, MEMORY[0x1E695E9C0]);
-    v39 = v34;
-    v28 = sub_1AF1A516C(mesh0Copy, 0);
-    v29 = sub_1AF27B22C(v27, v28, &v39);
-    objc_msgSend_addObject_(v36, v30, v29, v31);
-    CFRelease(v29);
+    v24 = CFDataCreateWithBytesNoCopy(v11, v14, 12 * v9, bytesDeallocator);
+    values = sub_1AF1ADBE4(v24, 0, v9, 3, 1);
+    v25 = CFArrayCreate(v11, &values, 1, MEMORY[0x1E695E9C0]);
+    v36 = v31;
+    v26 = sub_1AF1A516C(mesh0Copy, 0);
+    v27 = sub_1AF27B22C(v25, v26, &v36);
+    objc_msgSend_addObject_(v33, v28, v27);
     CFRelease(v27);
+    CFRelease(v25);
   }
 
-  return v36;
+  return v33;
 }
 
 @end

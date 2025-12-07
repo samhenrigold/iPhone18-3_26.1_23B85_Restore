@@ -3,6 +3,7 @@
 - (__CVBuffer)temporalBufferForInput:(__CVBuffer *)input frameIndex:(int64_t)index;
 - (int)createRepairSessionWithImageDimension:(id)dimension;
 - (int)createTemporalBuffersWithImageDimension:(id)dimension;
+- (int)mitigateGhostsCurrentFrame:(OpaqueVTDeghostingFrameBuffer *)frame referenceFrames:(__CFArray *)frames destinationBuffer:(__CVBuffer *)buffer deghostingFrameFlags:(unsigned int)flags addtionalFrameOptions:(__CFDictionary *)options outputHander:(id)hander;
 - (void)combineHWWeights:(id *)weights withGPUWeights:(id *)uWeights;
 - (void)dealloc;
 - (void)spatialTemporalRepairThenFuseInplaceYUVInputBuf:(__CVBuffer *)buf frmIdx:(unint64_t)idx frRef0Buf:(__CVBuffer *)ref0Buf frRef1Buf:(__CVBuffer *)ref1Buf metaBuf:(id)metaBuf ref0MetaBuf:(id)ref0MetaBuf ref1MetaBuf:(id)ref1MetaBuf metaBufHW:(id *)self0 info:(id)self1 infoTPlusOrMinus1:(id)self2 infoTPlusOrMinus2:(id)self3 usePastAsRef:(BOOL)self4;
@@ -110,30 +111,31 @@ LABEL_8:
 
 - (int)createRepairSessionWithImageDimension:(id)dimension
 {
+  dimensionCopy = dimension;
   var1 = dimension.var1;
   v6 = [[NSMutableDictionary alloc] initWithCapacity:2];
   [v6 setObject:&off_49FD0 forKey:kVTDeghostingSessionCreationOption_MaximumReferenceFrameDistance];
   if (self->_useGPUHWModel)
   {
     [v6 setObject:&__kCFBooleanTrue forKey:@"FlagHW_GPU"];
-    v7 = __VTDeghostingSessionCreateForRepairingImages(0, v6, *&dimension, var1, &self->_repairSession);
+    LODWORD(dimensionCopy) = __VTDeghostingSessionCreateForRepairingImages(0, v6, dimensionCopy, var1, &self->_repairSession);
   }
 
   else
   {
-    v7 = VTDeghostingSessionCreateForRepairingImages();
+    LODWORD(dimensionCopy) = VTDeghostingSessionCreateForRepairingImages();
     if (self->_repairSession)
     {
       valuePtr = 80;
-      v8 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr);
-      if (v8)
+      v7 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr);
+      if (v7)
       {
-        v9 = v8;
-        v7 = VTSessionSetProperty(self->_repairSession, kVTDeghostingPropertyKey_Priority, v8);
-        CFRelease(v9);
-        if (v7)
+        v8 = v7;
+        dimensionCopy = VTSessionSetProperty(self->_repairSession, kVTDeghostingPropertyKey_Priority, v7);
+        CFRelease(v8);
+        if (dimensionCopy)
         {
-          [MitigationHW createRepairSessionWithImageDimension:];
+          [MitigationHW createRepairSessionWithImageDimension:dimensionCopy];
         }
       }
 
@@ -149,7 +151,7 @@ LABEL_8:
     }
   }
 
-  return v7;
+  return dimensionCopy;
 }
 
 - (void)dealloc
@@ -285,7 +287,7 @@ LABEL_8:
         v36 = [minus1Copy objectForKeyedSubscript:@"MetaData"];
         if (calcTransform)
         {
-          [(CalcHomography *)calcTransform ispHomographyFromMetaInfo:v36];
+          objc_msgSend_ispHomographyFromMetaInfo_(calcTransform);
         }
 
         else
@@ -303,7 +305,7 @@ LABEL_8:
         v38 = [minus2Copy objectForKeyedSubscript:@"MetaData"];
         if (v37)
         {
-          [(CalcHomography *)v37 ispHomographyFromMetaInfo:v38];
+          objc_msgSend_ispHomographyFromMetaInfo_(v37);
         }
 
         else
@@ -470,7 +472,7 @@ LABEL_8:
         }
 
         ref1MetaBufCopy = v83;
-        v67 = createVTDeghostingFrame(v66, (contents3 + 20), *contents3, v108.i8, 0, 0);
+        v67 = createVTDeghostingFrame(v66, (contents3 + 20), *contents3, &v108, 0, 0);
         CFArrayAppendValue(ReferenceFrameArray, v67);
         CFRelease(v67);
         v65 = selfCopy->_greenGhostFrameIndex;
@@ -486,7 +488,7 @@ LABEL_8:
             ref1BufCopy = ref1Buf;
           }
 
-          v69 = createVTDeghostingFrame(ref1BufCopy, (contents4 + 20), *contents4, v105.i8, 0, 0);
+          v69 = createVTDeghostingFrame(ref1BufCopy, (contents4 + 20), *contents4, &v105, 0, 0);
           CFArrayAppendValue(ReferenceFrameArray, v69);
           CFRelease(v69);
           v65 = selfCopy->_greenGhostFrameIndex;
@@ -538,88 +540,40 @@ id __187__MitigationHW_spatialTemporalRepairThenFuseInplaceYUVInputBuf_frmIdx_fr
   releaseReferenceFrames(*(a1 + 48));
   CFRelease(*(a1 + 56));
   kdebug_trace();
-  v2 = *(a1 + 64);
   kdebug_trace();
   result = [*(a1 + 32) reportProcessingTime];
-  v4 = *(a1 + 32);
-  if (*(v4 + 25) == 1)
+  v3 = *(a1 + 32);
+  if (*(v3 + 25) == 1)
   {
-    v5 = *(v4 + 32);
+    v4 = *(v3 + 32);
 
-    return dispatch_semaphore_signal(v5);
+    return dispatch_semaphore_signal(v4);
   }
 
   return result;
 }
 
-- (uint64_t)initWithimageDimensions:tuningParameters:.cold.1()
+- (int)mitigateGhostsCurrentFrame:(OpaqueVTDeghostingFrameBuffer *)frame referenceFrames:(__CFArray *)frames destinationBuffer:(__CVBuffer *)buffer deghostingFrameFlags:(unsigned int)flags addtionalFrameOptions:(__CFDictionary *)options outputHander:(id)hander
 {
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
+  useGPUHWModel = self->_useGPUHWModel;
+  repairSession = self->_repairSession;
+  if (useGPUHWModel)
+  {
+    return __VTDeghostingSessionMitigateGhosts(repairSession, frame, frames, buffer, *&flags, options, hander);
+  }
+
+  else
+  {
+    return _VTDeghostingSessionMitigateGhosts2(repairSession, frame, frames, buffer, *&flags, options, hander);
+  }
 }
 
-- (uint64_t)initWithimageDimensions:tuningParameters:.cold.2()
+- (void)spatialTemporalRepairThenFuseInplaceYUVInputBuf:(__CFArray *)a3 frmIdx:(const void *)a4 frRef0Buf:frRef1Buf:metaBuf:ref0MetaBuf:ref1MetaBuf:metaBufHW:info:infoTPlusOrMinus1:infoTPlusOrMinus2:usePastAsRef:.cold.1(int a1, const void *a2, __CFArray *a3, const void *a4)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithimageDimensions:tuningParameters:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)createTemporalBuffersWithImageDimension:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)createTemporalBuffersWithImageDimension:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)createTemporalBuffersWithImageDimension:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)createRepairSessionWithImageDimension:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)createRepairSessionWithImageDimension:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)createRepairSessionWithImageDimension:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (void)spatialTemporalRepairThenFuseInplaceYUVInputBuf:(__CFArray *)a3 frmIdx:(const void *)a4 frRef0Buf:frRef1Buf:metaBuf:ref0MetaBuf:ref1MetaBuf:metaBufHW:info:infoTPlusOrMinus1:infoTPlusOrMinus2:usePastAsRef:.cold.1(uint64_t a1, const void *a2, __CFArray *a3, const void *a4)
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
+  v8 = a1;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v8, v9, v10, v11, v12, v13, v14, v15);
   CFRelease(a2);
   releaseReferenceFrames(a3);
   CFRelease(a4);

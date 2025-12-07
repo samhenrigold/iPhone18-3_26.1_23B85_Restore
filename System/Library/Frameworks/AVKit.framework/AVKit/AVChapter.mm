@@ -63,7 +63,7 @@
   else
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && ([(AVChapter *)self startTime], v6 = v5, [(AVChapter *)equalCopy startTime], v6 == v7) && ([(AVChapter *)self duration], v9 = v8, [(AVChapter *)equalCopy duration], v9 == v10) && (v11 = [(AVChapter *)self number], v11 == [(AVChapter *)equalCopy number]))
+    if ((objc_opt_isKindOfClass() & 1) != 0 && ([(AVChapter *)self startTime], v6 = v5, [(AVChapter *)equalCopy startTime], v6 == v7) && (objc_msgSend_duration(self), v9 = v8, objc_msgSend_duration(equalCopy), v9 == v10) && (v11 = [(AVChapter *)self number], v11 == [(AVChapter *)equalCopy number]))
     {
       title = [(AVChapter *)self title];
       title2 = [(AVChapter *)equalCopy title];
@@ -101,7 +101,7 @@
   v4 = objc_alloc(objc_opt_class());
   [(AVChapter *)self startTime];
   v6 = v5;
-  [(AVChapter *)self duration];
+  objc_msgSend_duration(self);
   v8 = v7;
   number = [(AVChapter *)self number];
   title = [(AVChapter *)self title];

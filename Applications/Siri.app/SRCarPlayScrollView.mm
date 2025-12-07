@@ -10,7 +10,7 @@
   selfCopy = self;
   sub_100016FCC();
 
-  sub_100093B6C(&qword_10018E9A0);
+  sub_100093B6C(&qword_10018E9A0, &unk_1000F7CF0);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;

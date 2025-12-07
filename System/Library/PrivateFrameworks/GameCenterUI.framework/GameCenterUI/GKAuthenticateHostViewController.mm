@@ -59,7 +59,7 @@ void __57__GKAuthenticateHostViewController_authenticateExtension__block_invoke(
 {
   extensionCopy = extension;
   v5 = MEMORY[0x277CCAAC8];
-  v6 = GKExtensionProtocolSecureCodedClasses();
+  v6 = GKExtensionProtocolSecureCodedClasses(extensionCopy);
   v15 = 0;
   v7 = [v5 unarchivedObjectOfClasses:v6 fromData:extensionCopy error:&v15];
   v8 = v15;

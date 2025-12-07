@@ -698,12 +698,13 @@ void __39__CACDisplayManager_carPlayDidConnect___block_invoke(uint64_t a1, void 
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = CACLogGeneral();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = CACLogGeneral(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __39__CACDisplayManager_carPlayDidConnect___block_invoke_cold_1(v6, v7);
+      __39__CACDisplayManager_carPlayDidConnect___block_invoke_cold_1(v7, v8);
     }
 
     goto LABEL_6;
@@ -711,16 +712,16 @@ void __39__CACDisplayManager_carPlayDidConnect___block_invoke(uint64_t a1, void 
 
   if (v5)
   {
-    v8 = objc_alloc_init(MEMORY[0x277CF9000]);
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __39__CACDisplayManager_carPlayDidConnect___block_invoke_667;
-    v9[3] = &unk_279CEC428;
-    v9[4] = *(a1 + 32);
-    v10 = v5;
-    v11 = v8;
-    v7 = v8;
-    [v7 fetchIconStateForVehicleID:v10 completion:v9];
+    v9 = objc_alloc_init(MEMORY[0x277CF9000]);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __39__CACDisplayManager_carPlayDidConnect___block_invoke_667;
+    v10[3] = &unk_279CEC428;
+    v10[4] = *(a1 + 32);
+    v11 = v5;
+    v12 = v9;
+    v8 = v9;
+    [v8 fetchIconStateForVehicleID:v11 completion:v10];
 
 LABEL_6:
   }
@@ -786,14 +787,15 @@ void __64__CACDisplayManager_willProgrammaticallySelectRange_forElement___block_
     v11 = *v35;
     do
     {
-      for (i = 0; i != v10; ++i)
+      v12 = 0;
+      do
       {
         if (*v35 != v11)
         {
           objc_enumerationMutation(changeCopy);
         }
 
-        [*(*(&v34 + 1) + 8 * i) CGRectValue];
+        [*(*(&v34 + 1) + 8 * v12) CGRectValue];
         v14 = v13;
         v16 = v15;
         v18 = v17;
@@ -826,15 +828,19 @@ void __64__CACDisplayManager_willProgrammaticallySelectRange_forElement___block_
           width = v44.size.width;
           height = v44.size.height;
         }
+
+        ++v12;
       }
 
-      v10 = [changeCopy countByEnumeratingWithState:&v34 objects:v40 count:16];
+      while (v10 != v12);
+      v9 = [changeCopy countByEnumeratingWithState:&v34 objects:v40 count:16];
+      v10 = v9;
     }
 
-    while (v10);
+    while (v9);
   }
 
-  v21 = CACLogGeneral();
+  v21 = CACLogGeneral(v9);
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
     v46.origin.x = x;
@@ -935,7 +941,7 @@ void __64__CACDisplayManager_willProgrammaticallySelectRange_forElement___block_
 
 - (void)displayMessageString:(id)string type:(int64_t)type announcementCompletion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   completionCopy = completion;
   v10 = +[CACDisplayManager sharedManager];
@@ -943,12 +949,12 @@ void __64__CACDisplayManager_willProgrammaticallySelectRange_forElement___block_
 
   if (carPlayConnected)
   {
-    v12 = CACLogGeneral();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = CACLogGeneral(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v21 = 138412290;
-      v22 = stringCopy;
-      _os_log_impl(&dword_26B354000, v12, OS_LOG_TYPE_INFO, "CarPlay Connected with Voice Control display message: %@", &v21, 0xCu);
+      v22 = 138412290;
+      v23 = stringCopy;
+      _os_log_impl(&dword_26B354000, v13, OS_LOG_TYPE_INFO, "CarPlay Connected with Voice Control display message: %@", &v22, 0xCu);
     }
   }
 
@@ -961,18 +967,18 @@ void __64__CACDisplayManager_willProgrammaticallySelectRange_forElement___block_
         [(NSOperationQueue *)self->_messageDisplayOperationQueue cancelAllOperations];
       }
 
-      v13 = [[CACMessageDisplayOperation alloc] initWithMessageString:stringCopy type:type];
+      v14 = [[CACMessageDisplayOperation alloc] initWithMessageString:stringCopy type:type];
       operations = [(NSOperationQueue *)self->_messageDisplayOperationQueue operations];
-      v15 = [operations count];
+      v16 = [operations count];
 
-      if (v15)
+      if (v16)
       {
         operations2 = [(NSOperationQueue *)self->_messageDisplayOperationQueue operations];
         lastObject = [operations2 lastObject];
-        [(CACMessageDisplayOperation *)v13 addDependency:lastObject];
+        [(CACMessageDisplayOperation *)v14 addDependency:lastObject];
       }
 
-      [(NSOperationQueue *)self->_messageDisplayOperationQueue addOperation:v13];
+      [(NSOperationQueue *)self->_messageDisplayOperationQueue addOperation:v14];
       IsVoiceOverRunning = UIAccessibilityIsVoiceOverRunning();
       if (type != 2 && IsVoiceOverRunning)
       {
@@ -4366,7 +4372,7 @@ void __36__CACDisplayManager_hideCorrections__block_invoke(uint64_t a1)
 
 - (void)showLiveRecordingGesturePreview
 {
-  v3 = CACLogGestureRecording();
+  v3 = CACLogGestureRecording(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(CACDisplayManager *)v3 showLiveRecordingGesturePreview];
@@ -4397,12 +4403,12 @@ void __36__CACDisplayManager_hideCorrections__block_invoke(uint64_t a1)
   [gestureLivePreviewPresentationOverlayManager hideAnimated:1 completion:&__block_literal_global_769];
 }
 
-void __52__CACDisplayManager_hideLiveRecordingGesturePreview__block_invoke()
+void __52__CACDisplayManager_hideLiveRecordingGesturePreview__block_invoke(uint64_t a1)
 {
-  v0 = CACLogGestureRecording();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = CACLogGestureRecording(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    __52__CACDisplayManager_hideLiveRecordingGesturePreview__block_invoke_cold_1(v0);
+    __52__CACDisplayManager_hideLiveRecordingGesturePreview__block_invoke_cold_1(v1);
   }
 }
 

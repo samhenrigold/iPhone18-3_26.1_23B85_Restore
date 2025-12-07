@@ -47,19 +47,8 @@
   v9.receiver = self;
   v9.super_class = OBHeaderAccessoryButton;
   [(OBHeaderAccessoryButton *)&v9 traitCollectionDidChange:changeCopy];
-  if (!changeCopy)
+  if (!changeCopy || ([changeCopy preferredContentSizeCategory], v5 = objc_claimAutoreleasedReturnValue(), -[OBHeaderAccessoryButton traitCollection](self, "traitCollection"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "preferredContentSizeCategory"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v5, "isEqualToString:", v7), v7, v6, v5, (v8 & 1) == 0))
   {
-    goto LABEL_3;
-  }
-
-  preferredContentSizeCategory = [changeCopy preferredContentSizeCategory];
-  traitCollection = [(OBHeaderAccessoryButton *)self traitCollection];
-  preferredContentSizeCategory2 = [traitCollection preferredContentSizeCategory];
-  v8 = [preferredContentSizeCategory isEqualToString:preferredContentSizeCategory2];
-
-  if ((v8 & 1) == 0)
-  {
-LABEL_3:
     [(OBHeaderAccessoryButton *)self _updateText];
   }
 }

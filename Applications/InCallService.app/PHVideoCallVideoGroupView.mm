@@ -59,10 +59,10 @@
 {
   [(PHVideoCallVideoGroupView *)self center];
   v4 = v3;
-  [(PHVideoCallVideoGroupView *)self transform];
+  objc_msgSend_transform(self);
   [(PHVideoCallVideoGroupView *)self center];
   v6 = v5;
-  [(PHVideoCallVideoGroupView *)self transform];
+  objc_msgSend_transform(self);
   v7 = v6 + v9;
   v8 = v4 + v10;
   result.y = v7;
@@ -74,13 +74,13 @@
 {
   y = center.y;
   x = center.x;
-  [(PHVideoCallVideoGroupView *)self transform];
+  objc_msgSend_transform(self, a2);
   v6 = v13[24];
-  [(PHVideoCallVideoGroupView *)self transform];
+  objc_msgSend_transform(self);
   v7 = v13[19];
-  [(PHVideoCallVideoGroupView *)self transform];
+  objc_msgSend_transform(self);
   v8 = v13[14];
-  [(PHVideoCallVideoGroupView *)self transform];
+  objc_msgSend_transform(self);
   v9 = v13[9];
   [(PHVideoCallVideoGroupView *)self center];
   v11 = x - v10;
@@ -212,11 +212,11 @@ LABEL_10:
 
   [(PHVideoCallVideoGroupView *)self center];
   v9 = v8;
-  [(PHVideoCallVideoGroupView *)self transform];
+  objc_msgSend_transform(self);
   v10 = v9 + v25 + v23 * 0.300000012;
   [(PHVideoCallVideoGroupView *)self center];
   v12 = v11;
-  [(PHVideoCallVideoGroupView *)self transform];
+  objc_msgSend_transform(self);
   v13.f64[0] = v23;
   v14 = v12 + v24 + *&v22 * 0.300000012;
   *&v13.f64[1] = v22;
@@ -269,10 +269,10 @@ LABEL_10:
       v13 = v12;
       v15 = v14;
 
-      [(PHVideoCallVideoGroupView *)self transform];
-      [(PHVideoCallVideoGroupView *)self transform];
-      [(PHVideoCallVideoGroupView *)self transform];
-      [(PHVideoCallVideoGroupView *)self transform];
+      objc_msgSend_transform(self);
+      objc_msgSend_transform(self);
+      objc_msgSend_transform(self);
+      objc_msgSend_transform(self);
       v20 = v19;
       v21 = v18;
       v22 = v17;
@@ -287,13 +287,13 @@ LABEL_10:
   {
     [(PHVideoCallVideoGroupView *)self transformedCenter];
     [(PHVideoCallVideoGroupView *)self setCenter:?];
-    [(PHVideoCallVideoGroupView *)self transform];
-    v6 = v29;
-    [(PHVideoCallVideoGroupView *)self transform];
+    objc_msgSend_transform(self);
+    v6 = v29[0];
+    objc_msgSend_transform(self);
     v7 = v28;
-    [(PHVideoCallVideoGroupView *)self transform];
+    objc_msgSend_transform(self);
     v8 = v27;
-    [(PHVideoCallVideoGroupView *)self transform];
+    objc_msgSend_transform(self);
     v20 = v6;
     v21 = v7;
     v22 = v8;
@@ -391,13 +391,13 @@ LABEL_10:
   self->_startedThrowAnimation = 0;
   [(PHVideoCallVideoGroupView *)self transformedCenter];
   [(PHVideoCallVideoGroupView *)self setCenter:?];
-  [(PHVideoCallVideoGroupView *)self transform];
+  objc_msgSend_transform(self);
   v5 = v8[24];
-  [(PHVideoCallVideoGroupView *)self transform];
+  objc_msgSend_transform(self);
   v6 = v8[19];
-  [(PHVideoCallVideoGroupView *)self transform];
+  objc_msgSend_transform(self);
   v7 = v8[14];
-  [(PHVideoCallVideoGroupView *)self transform];
+  objc_msgSend_transform(self);
   v8[0] = v5;
   v8[1] = v6;
   v8[2] = v7;

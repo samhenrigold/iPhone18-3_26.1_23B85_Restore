@@ -497,7 +497,7 @@
 
 - (NSData)originatorInfo
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   attributeSet = [(_CSSearchableItemAdapter *)self attributeSet];
   v3 = [attributeSet attributeForKey:@"com.apple.synapse:DocumentAttributes"];
 
@@ -513,17 +513,15 @@
     v5 = fp_current_or_default_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = objc_opt_class();
-      v6 = v10;
-      _os_log_impl(&dword_1AAAE1000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] Found invalid class for originatorInfo, expected NSData, got %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = objc_opt_class();
+      v6 = v9;
+      _os_log_impl(&dword_1AAAE1000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] Found invalid class for originatorInfo, expected NSData, got %@", &v8, 0xCu);
     }
   }
 
   v4 = 0;
 LABEL_8:
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

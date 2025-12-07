@@ -103,47 +103,45 @@ void __113__FCJSONRecordTreeSource_fetchRecordTreeWithRootIDs_branchKeysByRecord
 
 void __113__FCJSONRecordTreeSource_fetchRecordTreeWithRootIDs_branchKeysByRecordType_cachePolicy_edgeCacheHint_completion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         if ([v9 integerValue] == 9)
         {
           v10 = [*(a1 + 32) objectForKeyedSubscript:v9];
-          v12[0] = MEMORY[0x1E69E9820];
-          v12[1] = 3221225472;
-          v12[2] = __113__FCJSONRecordTreeSource_fetchRecordTreeWithRootIDs_branchKeysByRecordType_cachePolicy_edgeCacheHint_completion___block_invoke_4;
-          v12[3] = &unk_1E7C39628;
-          v13 = v3;
-          [v10 enumerateRecordsAndInterestTokensWithBlock:v12];
+          v11[0] = MEMORY[0x1E69E9820];
+          v11[1] = 3221225472;
+          v11[2] = __113__FCJSONRecordTreeSource_fetchRecordTreeWithRootIDs_branchKeysByRecordType_cachePolicy_edgeCacheHint_completion___block_invoke_4;
+          v11[3] = &unk_1E7C39628;
+          v12 = v3;
+          [v10 enumerateRecordsAndInterestTokensWithBlock:v11];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __113__FCJSONRecordTreeSource_fetchRecordTreeWithRootIDs_branchKeysByRecordType_cachePolicy_edgeCacheHint_completion___block_invoke_4(uint64_t a1, void *a2)

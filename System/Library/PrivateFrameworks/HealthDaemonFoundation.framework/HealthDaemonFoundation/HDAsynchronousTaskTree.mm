@@ -92,28 +92,8 @@ void __45__HDAsynchronousTaskTree__lock_beginNextTask__block_invoke_2(uint64_t a
   v2 = *(a1 + 32);
   if (v2)
   {
-    if ((*(v2 + 8) & 1) == 0)
+    if ((*(v2 + 8) & 1) == 0 || (v3 = *(a1 + 40), handler[0] = MEMORY[0x277D85DD0], handler[1] = 3221225472, handler[2] = __45__HDAsynchronousTaskTree__lock_beginNextTask__block_invoke_3, handler[3] = &unk_2796BDD00, v18 = v21, v4 = v3, v5 = *(a1 + 48), v16 = v4, v17 = v5, dispatch_source_set_event_handler(v4, handler), dispatch_resume(*(a1 + 40)), v16, (v2 = *(a1 + 32)) != 0))
     {
-      goto LABEL_4;
-    }
-
-    v3 = *(a1 + 40);
-    handler[0] = MEMORY[0x277D85DD0];
-    handler[1] = 3221225472;
-    handler[2] = __45__HDAsynchronousTaskTree__lock_beginNextTask__block_invoke_3;
-    handler[3] = &unk_2796BDD00;
-    v18 = v21;
-    v4 = v3;
-    v5 = *(a1 + 48);
-    v16 = v4;
-    v17 = v5;
-    dispatch_source_set_event_handler(v4, handler);
-    dispatch_resume(*(a1 + 40));
-
-    v2 = *(a1 + 32);
-    if (v2)
-    {
-LABEL_4:
       v2 = *(v2 + 16);
     }
   }
@@ -137,11 +117,11 @@ LABEL_4:
   _Block_object_dispose(v21, 8);
 }
 
-void __45__HDAsynchronousTaskTree__lock_beginNextTask__block_invoke_3(uint64_t a1)
+void __45__HDAsynchronousTaskTree__lock_beginNextTask__block_invoke_3(uint64_t result, uint64_t a2)
 {
-  if ((atomic_exchange((*(*(a1 + 48) + 8) + 32), 1u) & 1) == 0)
+  if ((atomic_exchange((*(*(result + 48) + 8) + 32), 1u) & 1) == 0)
   {
-    __45__HDAsynchronousTaskTree__lock_beginNextTask__block_invoke_3_cold_1(a1);
+    __45__HDAsynchronousTaskTree__lock_beginNextTask__block_invoke_3_cold_1(result);
   }
 }
 
@@ -171,27 +151,24 @@ uint64_t __45__HDAsynchronousTaskTree__lock_beginNextTask__block_invoke_4(uint64
     [(HDAsynchronousTaskTree *)*(a1 + 32) _completeCurrentTaskWithResult:a2 error:v10];
   }
 
-  return MEMORY[0x2821F9730]();
+  return MEMORY[0x2821F9730](v5);
 }
 
-void __45__HDAsynchronousTaskTree__lock_reportResult___block_invoke(void *a1)
+void __45__HDAsynchronousTaskTree__lock_reportResult___block_invoke(uint64_t a1)
 {
-  v2 = a1[7];
-  v3 = a1[4];
-  v4 = a1[5];
-  (*(a1[6] + 16))();
-  os_unfair_lock_lock((a1[4] + 8));
-  v5 = a1[4];
-  v6 = *(v5 + 16);
-  *(v5 + 16) = 0;
+  (*(*(a1 + 48) + 16))();
+  os_unfair_lock_lock((*(a1 + 32) + 8));
+  v2 = *(a1 + 32);
+  v3 = *(v2 + 16);
+  *(v2 + 16) = 0;
 
-  v7 = a1[4];
-  v8 = *(v7 + 24);
-  *(v7 + 24) = 0;
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 24);
+  *(v4 + 24) = 0;
 
-  v9 = (a1[4] + 8);
+  v6 = (*(a1 + 32) + 8);
 
-  os_unfair_lock_unlock(v9);
+  os_unfair_lock_unlock(v6);
 }
 
 uint64_t __64__HDAsynchronousTaskTree__runPendingCheckpointTasks_completion___block_invoke(uint64_t a1)
@@ -496,42 +473,42 @@ void __63__HDAsynchronousTaskTree__completeCurrentTaskWithResult_error___block_i
 
 - (void)_runPendingCheckpointTasks:(void *)tasks completion:
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   tasksCopy = tasks;
   if (self)
   {
     v7 = objc_alloc_init(HDSynchronousTaskGroup);
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __64__HDAsynchronousTaskTree__runPendingCheckpointTasks_completion___block_invoke;
-    v24[3] = &unk_2796BDDA0;
-    v24[4] = self;
-    v25 = tasksCopy;
-    [(HDSynchronousTaskGroup *)v7 setDidFinish:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __64__HDAsynchronousTaskTree__runPendingCheckpointTasks_completion___block_invoke;
+    v23[3] = &unk_2796BDDA0;
+    v23[4] = self;
+    v24 = tasksCopy;
+    [(HDSynchronousTaskGroup *)v7 setDidFinish:v23];
     [(HDSynchronousTaskGroup *)v7 beginTask];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v17 = v5;
+    v16 = v5;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v19 objects:v25 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v21;
+      v11 = *v20;
       do
       {
         v12 = 0;
         do
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v20 + 1) + 8 * v12);
+          v13 = *(*(&v19 + 1) + 8 * v12);
           if (v13 && *(v13 + 40))
           {
             atomic_store(1u, (self + 41));
@@ -543,7 +520,7 @@ void __63__HDAsynchronousTaskTree__completeCurrentTaskWithResult_error___block_i
             block[3] = &unk_2796BDAC0;
             block[4] = v13;
             block[5] = self;
-            v19 = v7;
+            v18 = v7;
             dispatch_async(v14, block);
           }
 
@@ -551,7 +528,7 @@ void __63__HDAsynchronousTaskTree__completeCurrentTaskWithResult_error___block_i
         }
 
         while (v10 != v12);
-        v15 = [v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
+        v15 = [v8 countByEnumeratingWithState:&v19 objects:v25 count:16];
         v10 = v15;
       }
 
@@ -559,10 +536,8 @@ void __63__HDAsynchronousTaskTree__completeCurrentTaskWithResult_error___block_i
     }
 
     [(HDSynchronousTaskGroup *)v7 finishTask];
-    v5 = v17;
+    v5 = v16;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_lock_reportResult:(uint64_t)result

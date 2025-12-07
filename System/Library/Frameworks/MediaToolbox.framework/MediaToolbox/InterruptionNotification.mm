@@ -64,7 +64,7 @@ void __playerceleste_InterruptionNotification_block_invoke(void *a1)
 
         if (*(a1[6] + 130))
         {
-          playerceleste_notifyImminentRateChange();
+          playerceleste_notifyImminentRateChange(a1[5], 0.0);
           FPSupport_CreateSetRateOptions(*MEMORY[0x1E695E480], 13, &cf);
           FigSimpleMutexLock();
           v11 = *(a1[6] + 80);
@@ -84,7 +84,7 @@ void __playerceleste_InterruptionNotification_block_invoke(void *a1)
           FigSimpleMutexUnlock();
         }
 
-        if (playerceleste_canCallSetConnectionActive())
+        if (playerceleste_canCallSetConnectionActive(a1[5]))
         {
           playerceleste_callSetConnectionActive(a1[5], 0);
         }

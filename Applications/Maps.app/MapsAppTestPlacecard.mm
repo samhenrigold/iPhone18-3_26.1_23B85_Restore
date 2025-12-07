@@ -73,22 +73,22 @@
   switch(scrollTestState)
   {
     case 2uLL:
-      v16 = +[NSNotificationCenter defaultCenter];
+      v17 = +[NSNotificationCenter defaultCenter];
       object = [v5 object];
-      [v16 removeObserver:self name:@"ScrollingFinishedNotification" object:object];
+      [v17 removeObserver:self name:@"ScrollingFinishedNotification" object:object];
       originalDelegate = [(ScrollViewDelegateForwarder *)self->_scrollViewDelegate originalDelegate];
       [object setDelegate:originalDelegate];
 
       scrollViewDelegate = self->_scrollViewDelegate;
       self->_scrollViewDelegate = 0;
 
-      v20 = dispatch_time(0, 20000000);
+      v21 = dispatch_time(0, 20000000);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_1009F0C5C;
       block[3] = &unk_101661B18;
       block[4] = self;
-      dispatch_after(v20, &_dispatch_main_q, block);
+      dispatch_after(v21, &_dispatch_main_q, block);
 
       goto LABEL_11;
     case 1uLL:
@@ -108,23 +108,23 @@ LABEL_8:
       [object2 removeObserver:self name:@"PPTTestTrayLayoutDidUpdateNotification" object:0];
       WeakRetained = objc_loadWeakRetained(&self->_placeViewController);
       view = [WeakRetained view];
-      objc_opt_class();
-      v10 = sub_1009F0B70(view);
+      v10 = objc_opt_class();
+      v11 = sub_1009F0B70(view, v10);
 
-      [object2 addObserver:self selector:"_scrollTest:" name:@"ScrollingFinishedNotification" object:v10];
-      v11 = objc_alloc_init(ScrollViewDelegateForwarder);
-      v12 = self->_scrollViewDelegate;
-      self->_scrollViewDelegate = v11;
+      [object2 addObserver:self selector:"_scrollTest:" name:@"ScrollingFinishedNotification" object:v11];
+      v12 = objc_alloc_init(ScrollViewDelegateForwarder);
+      v13 = self->_scrollViewDelegate;
+      self->_scrollViewDelegate = v12;
 
-      delegate = [v10 delegate];
+      delegate = [v11 delegate];
       [(ScrollViewDelegateForwarder *)self->_scrollViewDelegate setOriginalDelegate:delegate];
 
-      [v10 setDelegate:self->_scrollViewDelegate];
+      [v11 setDelegate:self->_scrollViewDelegate];
       [(MapsAppTestPlacecard *)self startedSubTest:@"scrolling"];
-      [v10 contentSize];
-      v15 = v14;
-      [v10 frame];
-      [v10 setContentOffset:1 animated:{CGPointZero.x, v15 - CGRectGetHeight(v22)}];
+      [v11 contentSize];
+      v16 = v15;
+      [v11 frame];
+      [v11 setContentOffset:1 animated:{CGPointZero.x, v16 - CGRectGetHeight(v23)}];
 
       goto LABEL_8;
   }
@@ -442,8 +442,8 @@ LABEL_9:
 {
   v3 = +[NSNotificationCenter defaultCenter];
   [v3 addObserver:self selector:"_placeCardDidShowForWarmLaunch:" name:MKPlaceViewControllerDidShowNotification object:0];
-  options = [(MapsAppTest *)self options];
-  v5 = [options objectForKeyedSubscript:@"mapItem"];
+  v4 = objc_msgSend_options(self);
+  v5 = [v4 objectForKeyedSubscript:@"mapItem"];
 
   v6 = [[NSData alloc] initWithBase64EncodedString:v5 options:0];
   v7 = [MKMapItem mapItemWithSerializedPlaceData:v6];
@@ -465,8 +465,8 @@ LABEL_9:
 - (void)_testWithLoadedPlacecard
 {
   self->_testWarmLaunch = 1;
-  options = [(MapsAppTest *)self options];
-  v8 = [options objectForKeyedSubscript:@"mapItem"];
+  v3 = objc_msgSend_options(self, a2);
+  v8 = [v3 objectForKeyedSubscript:@"mapItem"];
 
   v4 = [[NSData alloc] initWithBase64EncodedString:v8 options:0];
   v5 = [MKMapItem mapItemWithSerializedPlaceData:v4];
@@ -490,8 +490,8 @@ LABEL_9:
   [v12 addObserver:self selector:"_showCallout:" name:MKBalloonCalloutDidShowNotification object:0];
   [v12 addObserver:self selector:"_showPlaceCard:" name:MKPlaceViewControllerDidShowNotification object:0];
   [v12 addObserver:self selector:"_searchResultDidShow:" name:@"MapsPinsDroppedForSearchResultsNotification" object:0];
-  options = [(MapsAppTest *)self options];
-  v6 = [options objectForKeyedSubscript:@"mapItem"];
+  v5 = objc_msgSend_options(self);
+  v6 = [v5 objectForKeyedSubscript:@"mapItem"];
 
   if (v6)
   {
@@ -500,8 +500,8 @@ LABEL_9:
 
   else
   {
-    options2 = [(MapsAppTest *)self options];
-    v8 = [options2 objectForKeyedSubscript:@"searchString"];
+    v7 = objc_msgSend_options(self);
+    v8 = [v7 objectForKeyedSubscript:@"searchString"];
 
     [(MapsAppTest *)self startedTest];
     v9 = objc_alloc_init(SearchFieldItem);
@@ -543,22 +543,22 @@ LABEL_9:
 LABEL_4:
 LABEL_5:
     [(MapsAppTest *)self setupForVKTest];
-    options = [(MapsAppTest *)self options];
-    [options _mapstest_jumpPoint];
+    v6 = objc_msgSend_options(self);
+    [v6 _mapstest_jumpPoint];
     v8 = v7;
     v10 = v9;
     v12 = v11;
 
-    options2 = [(MapsAppTest *)self options];
-    [options2 _mapstest_pitch];
+    v13 = objc_msgSend_options(self);
+    [v13 _mapstest_pitch];
     v15 = v14;
 
-    options3 = [(MapsAppTest *)self options];
-    [options3 _mapstest_yaw];
+    v16 = objc_msgSend_options(self);
+    [v16 _mapstest_yaw];
     v18 = v17;
 
-    options4 = [(MapsAppTest *)self options];
-    _mapstest_mapType = [options4 _mapstest_mapType];
+    v19 = objc_msgSend_options(self);
+    _mapstest_mapType = [v19 _mapstest_mapType];
 
     [(MapsAppTest *)self switchToMapType:_mapstest_mapType];
     mainVKMapView = [(MapsAppTest *)self mainVKMapView];

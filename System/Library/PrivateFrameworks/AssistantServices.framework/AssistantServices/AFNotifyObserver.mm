@@ -2,6 +2,7 @@
 - (AFNotifyObserver)initWithName:(id)name options:(unint64_t)options queue:(id)queue delegate:(id)delegate;
 - (NSString)description;
 - (unint64_t)state;
+- (void)_handleNotificationWithToken:(int)token;
 - (void)_invalidate;
 - (void)_updateStateWithToken:(int)token;
 - (void)dealloc;
@@ -63,6 +64,22 @@
         [WeakRetained notifyObserver:self didChangeStateFrom:state to:v6];
       }
     }
+  }
+}
+
+- (void)_handleNotificationWithToken:(int)token
+{
+  v3 = *&token;
+  if (*&self->_flags)
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_delegate);
+    [WeakRetained notifyObserver:self didReceiveNotificationWithToken:v3];
+  }
+
+  if (self->_options)
+  {
+
+    [(AFNotifyObserver *)self _updateStateWithToken:v3];
   }
 }
 

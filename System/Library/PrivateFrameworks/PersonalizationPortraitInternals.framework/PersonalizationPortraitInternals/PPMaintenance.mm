@@ -23,680 +23,649 @@
 
 void __49__PPMaintenance_registerMaintenanceTasksInternal__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_self();
-  v3 = xpc_dictionary_create(0, 0, 0);
-  v4 = *MEMORY[0x277D86288];
-  v5 = *MEMORY[0x277D86298];
-  xpc_dictionary_set_int64(v3, *MEMORY[0x277D86288], *MEMORY[0x277D86298]);
+  v1 = objc_opt_self();
+  v2 = xpc_dictionary_create(0, 0, 0);
+  v3 = *MEMORY[0x277D86288];
+  v4 = *MEMORY[0x277D86298];
+  xpc_dictionary_set_int64(v2, *MEMORY[0x277D86288], *MEMORY[0x277D86298]);
   key = *MEMORY[0x277D86340];
   string = *MEMORY[0x277D86348];
-  xpc_dictionary_set_string(v3, *MEMORY[0x277D86340], *MEMORY[0x277D86348]);
-  v126 = *MEMORY[0x277D86230];
-  xpc_dictionary_set_BOOL(v3, *MEMORY[0x277D86230], 0);
-  xpc_dictionary_set_BOOL(v3, *MEMORY[0x277D86378], 1);
-  v127 = *MEMORY[0x277D86280];
-  xpc_dictionary_set_string(v3, *MEMORY[0x277D86280], "com.apple.proactive.PersonalizationPortrait");
-  v132 = *MEMORY[0x277D86278];
-  xpc_dictionary_set_uint64(v3, *MEMORY[0x277D86278], 1uLL);
+  xpc_dictionary_set_string(v2, *MEMORY[0x277D86340], *MEMORY[0x277D86348]);
+  v95 = *MEMORY[0x277D86230];
+  xpc_dictionary_set_BOOL(v2, *MEMORY[0x277D86230], 0);
+  xpc_dictionary_set_BOOL(v2, *MEMORY[0x277D86378], 1);
+  v96 = *MEMORY[0x277D86280];
+  xpc_dictionary_set_string(v2, *MEMORY[0x277D86280], "com.apple.proactive.PersonalizationPortrait");
+  v101 = *MEMORY[0x277D86278];
+  xpc_dictionary_set_uint64(v2, *MEMORY[0x277D86278], 1uLL);
   handler = MEMORY[0x277D85DD0];
-  v146 = 3221225472;
-  v147 = __43__PPMaintenance__registerCoreRoutineImport__block_invoke;
-  v148 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
-  v149 = sel__registerCoreRoutineImport;
-  v150 = v2;
-  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.CoreRoutineImport", v3, &handler);
-  v6 = pp_default_log_handle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v114 = 3221225472;
+  v115 = __43__PPMaintenance__registerCoreRoutineImport__block_invoke;
+  v116 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
+  v117 = sel__registerCoreRoutineImport;
+  v118 = v1;
+  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.CoreRoutineImport", v2, &handler);
+  v5 = pp_default_log_handle();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_23224A000, v6, OS_LOG_TYPE_INFO, "PPMaintenance: registered task CoreRoutineImport", buf, 2u);
+    _os_log_impl(&dword_23224A000, v5, OS_LOG_TYPE_INFO, "PPMaintenance: registered task CoreRoutineImport", buf, 2u);
   }
 
-  v7 = *(a1 + 32);
-  v8 = objc_opt_self();
-  v9 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v9, v4, v5);
-  xpc_dictionary_set_string(v9, key, string);
-  xpc_dictionary_set_BOOL(v9, v126, 0);
-  xpc_dictionary_set_string(v9, v127, "com.apple.proactive.PersonalizationPortrait");
-  xpc_dictionary_set_uint64(v9, v132, 1uLL);
+  v6 = objc_opt_self();
+  v7 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v7, v3, v4);
+  xpc_dictionary_set_string(v7, key, string);
+  xpc_dictionary_set_BOOL(v7, v95, 0);
+  xpc_dictionary_set_string(v7, v96, "com.apple.proactive.PersonalizationPortrait");
+  xpc_dictionary_set_uint64(v7, v101, 1uLL);
   handler = MEMORY[0x277D85DD0];
-  v146 = 3221225472;
-  v147 = __36__PPMaintenance__registerMapsImport__block_invoke;
-  v148 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
-  v149 = sel__registerMapsImport;
-  v150 = v8;
-  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.MapsImport", v9, &handler);
-  v10 = pp_default_log_handle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v114 = 3221225472;
+  v115 = __36__PPMaintenance__registerMapsImport__block_invoke;
+  v116 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
+  v117 = sel__registerMapsImport;
+  v118 = v6;
+  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.MapsImport", v7, &handler);
+  v8 = pp_default_log_handle();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_23224A000, v10, OS_LOG_TYPE_INFO, "PPMaintenance: registered task MapsImport", buf, 2u);
+    _os_log_impl(&dword_23224A000, v8, OS_LOG_TYPE_INFO, "PPMaintenance: registered task MapsImport", buf, 2u);
   }
 
-  v11 = *(a1 + 32);
-  v130 = objc_opt_self();
-  v141 = 0;
-  v142 = &v141;
-  v143 = 0x2020000000;
-  v144 = 1;
+  v99 = objc_opt_self();
+  v109 = 0;
+  v110 = &v109;
+  v111 = 0x2020000000;
+  v112 = 1;
   *buf = MEMORY[0x277D85DD0];
-  v137 = 3221225472;
-  v138 = __41__PPMaintenance__registerHealthKitImport__block_invoke;
-  v139 = &unk_2789792D0;
-  v140 = &v141;
-  v12 = _Block_copy(buf);
-  v13 = pp_maintenance_signpost_handle();
-  v14 = os_signpost_id_generate(v13);
+  v105 = 3221225472;
+  v106 = __41__PPMaintenance__registerHealthKitImport__block_invoke;
+  v107 = &unk_2789792D0;
+  v108 = &v109;
+  v9 = _Block_copy(buf);
+  v10 = pp_maintenance_signpost_handle();
+  v11 = os_signpost_id_generate(v10);
 
-  v15 = pp_maintenance_signpost_handle();
-  v16 = v15;
-  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  v12 = pp_maintenance_signpost_handle();
+  v13 = v12;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LOWORD(handler) = 0;
-    _os_signpost_emit_with_name_impl(&dword_23224A000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v14, "HealthKitDataAvailable", "", &handler, 2u);
+    _os_signpost_emit_with_name_impl(&dword_23224A000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "HealthKitDataAvailable", "", &handler, 2u);
   }
 
-  v12[2](v12);
-  v17 = pp_maintenance_signpost_handle();
-  v18 = v17;
-  value = v5;
-  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  v9[2](v9);
+  v14 = pp_maintenance_signpost_handle();
+  v15 = v14;
+  value = v4;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
   {
     LOWORD(handler) = 0;
-    _os_signpost_emit_with_name_impl(&dword_23224A000, v18, OS_SIGNPOST_INTERVAL_END, v14, "HealthKitDataAvailable", " enableTelemetry=YES ", &handler, 2u);
+    _os_signpost_emit_with_name_impl(&dword_23224A000, v15, OS_SIGNPOST_INTERVAL_END, v11, "HealthKitDataAvailable", " enableTelemetry=YES ", &handler, 2u);
   }
 
-  v19 = MEMORY[0x277D86370];
-  if (*(v142 + 24) == 1)
+  v16 = MEMORY[0x277D86370];
+  if (*(v110 + 24) == 1)
   {
-    v20 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_int64(v20, v4, v5);
-    xpc_dictionary_set_string(v20, key, string);
-    xpc_dictionary_set_BOOL(v20, v126, 0);
-    xpc_dictionary_set_BOOL(v20, *v19, 1);
-    xpc_dictionary_set_string(v20, v127, "com.apple.proactive.PersonalizationPortrait");
-    xpc_dictionary_set_uint64(v20, v132, 1uLL);
+    v17 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_int64(v17, v3, v4);
+    xpc_dictionary_set_string(v17, key, string);
+    xpc_dictionary_set_BOOL(v17, v95, 0);
+    xpc_dictionary_set_BOOL(v17, *v16, 1);
+    xpc_dictionary_set_string(v17, v96, "com.apple.proactive.PersonalizationPortrait");
+    xpc_dictionary_set_uint64(v17, v101, 1uLL);
     handler = MEMORY[0x277D85DD0];
-    v146 = 3221225472;
-    v147 = __41__PPMaintenance__registerHealthKitImport__block_invoke_138;
-    v148 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
-    v149 = sel__registerHealthKitImport;
-    v150 = v130;
-    xpc_activity_register("com.apple.proactive.PersonalizationPortrait.HealthKitImport", v20, &handler);
-    v21 = pp_default_log_handle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v114 = 3221225472;
+    v115 = __41__PPMaintenance__registerHealthKitImport__block_invoke_138;
+    v116 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
+    v117 = sel__registerHealthKitImport;
+    v118 = v99;
+    xpc_activity_register("com.apple.proactive.PersonalizationPortrait.HealthKitImport", v17, &handler);
+    v18 = pp_default_log_handle();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      *v135 = 0;
-      _os_log_impl(&dword_23224A000, v21, OS_LOG_TYPE_INFO, "PPMaintenance: registered task HealthKitImport", v135, 2u);
+      *v103 = 0;
+      _os_log_impl(&dword_23224A000, v18, OS_LOG_TYPE_INFO, "PPMaintenance: registered task HealthKitImport", v103, 2u);
     }
   }
 
-  _Block_object_dispose(&v141, 8);
-  v22 = *(a1 + 32);
-  v23 = objc_opt_self();
-  v24 = MEMORY[0x277D425A0];
-  v25 = +[PPMaintenance singletonWarmupQueue];
-  [v24 runAsyncOnQueue:v25 afterDelaySeconds:&__block_literal_global_129_17299 block:3.0];
+  _Block_object_dispose(&v109, 8);
+  v19 = objc_opt_self();
+  v20 = MEMORY[0x277D425A0];
+  v21 = +[PPMaintenance singletonWarmupQueue];
+  [v20 runAsyncOnQueue:v21 afterDelaySeconds:&__block_literal_global_129_17299 block:3.0];
 
-  v26 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v26, v4, *MEMORY[0x277D862D0]);
-  xpc_dictionary_set_string(v26, key, string);
-  xpc_dictionary_set_BOOL(v26, v126, 0);
-  xpc_dictionary_set_string(v26, v127, "com.apple.proactive.PersonalizationPortrait");
-  xpc_dictionary_set_uint64(v26, v132, 1uLL);
+  v22 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v22, v3, *MEMORY[0x277D862D0]);
+  xpc_dictionary_set_string(v22, key, string);
+  xpc_dictionary_set_BOOL(v22, v95, 0);
+  xpc_dictionary_set_string(v22, v96, "com.apple.proactive.PersonalizationPortrait");
+  xpc_dictionary_set_uint64(v22, v101, 1uLL);
   handler = MEMORY[0x277D85DD0];
-  v146 = 3221225472;
-  v147 = __40__PPMaintenance__registerEventKitImport__block_invoke_2;
-  v148 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
-  v149 = sel__registerEventKitImport;
-  v150 = v23;
-  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.EventKitImport", v26, &handler);
-  v27 = pp_default_log_handle();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+  v114 = 3221225472;
+  v115 = __40__PPMaintenance__registerEventKitImport__block_invoke_2;
+  v116 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
+  v117 = sel__registerEventKitImport;
+  v118 = v19;
+  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.EventKitImport", v22, &handler);
+  v23 = pp_default_log_handle();
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_23224A000, v27, OS_LOG_TYPE_INFO, "PPMaintenance: registered task EventKitImport", buf, 2u);
+    _os_log_impl(&dword_23224A000, v23, OS_LOG_TYPE_INFO, "PPMaintenance: registered task EventKitImport", buf, 2u);
   }
 
-  v28 = *(a1 + 32);
-  v29 = objc_opt_self();
-  v30 = MEMORY[0x277D425A0];
-  v31 = +[PPMaintenance singletonWarmupQueue];
-  [v30 runAsyncOnQueue:v31 afterDelaySeconds:&__block_literal_global_143_17282 block:3.0];
+  v24 = objc_opt_self();
+  v25 = MEMORY[0x277D425A0];
+  v26 = +[PPMaintenance singletonWarmupQueue];
+  [v25 runAsyncOnQueue:v26 afterDelaySeconds:&__block_literal_global_143_17282 block:3.0];
 
-  v32 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v32, v4, v5);
-  xpc_dictionary_set_string(v32, key, string);
-  xpc_dictionary_set_BOOL(v32, v126, 0);
-  xpc_dictionary_set_string(v32, v127, "com.apple.proactive.PersonalizationPortrait");
-  xpc_dictionary_set_uint64(v32, v132, 1uLL);
+  v27 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v27, v3, v4);
+  xpc_dictionary_set_string(v27, key, string);
+  xpc_dictionary_set_BOOL(v27, v95, 0);
+  xpc_dictionary_set_string(v27, v96, "com.apple.proactive.PersonalizationPortrait");
+  xpc_dictionary_set_uint64(v27, v101, 1uLL);
   handler = MEMORY[0x277D85DD0];
-  v146 = 3221225472;
-  v147 = __40__PPMaintenance__registerContactsImport__block_invoke_2;
-  v148 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
-  v149 = sel__registerContactsImport;
-  v150 = v29;
-  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.ContactsImport", v32, &handler);
-  v33 = pp_default_log_handle();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+  v114 = 3221225472;
+  v115 = __40__PPMaintenance__registerContactsImport__block_invoke_2;
+  v116 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
+  v117 = sel__registerContactsImport;
+  v118 = v24;
+  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.ContactsImport", v27, &handler);
+  v28 = pp_default_log_handle();
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_23224A000, v33, OS_LOG_TYPE_INFO, "PPMaintenance: registered task ContactsImport", buf, 2u);
+    _os_log_impl(&dword_23224A000, v28, OS_LOG_TYPE_INFO, "PPMaintenance: registered task ContactsImport", buf, 2u);
   }
 
-  v34 = *(a1 + 32);
   objc_opt_self();
-  v35 = *(a1 + 32);
   objc_opt_self();
-  v36 = *(a1 + 32);
   objc_opt_self();
-  v37 = *(a1 + 32);
   objc_opt_self();
-  v38 = *(a1 + 32);
   objc_opt_self();
-  v39 = v4;
-  v40 = key;
-  v41 = v5;
-  v42 = v126;
-  v43 = v127;
+  v29 = v3;
+  v30 = key;
+  v31 = v4;
+  v32 = v95;
+  v33 = v96;
   if (([MEMORY[0x277D42590] isAudioAccessory] & 1) == 0)
   {
-    v44 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_int64(v44, v39, value);
-    xpc_dictionary_set_string(v44, key, string);
-    xpc_dictionary_set_BOOL(v44, v126, 0);
-    xpc_dictionary_set_string(v44, v127, "com.apple.proactive.PersonalizationPortrait");
-    xpc_dictionary_set_uint64(v44, v132, 1uLL);
-    xpc_activity_register("com.apple.proactive.PersonalizationPortrait.RTCSendLogs", v44, &__block_literal_global_174_17274);
-    v45 = pp_default_log_handle();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+    v34 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_int64(v34, v29, value);
+    xpc_dictionary_set_string(v34, key, string);
+    xpc_dictionary_set_BOOL(v34, v95, 0);
+    xpc_dictionary_set_string(v34, v96, "com.apple.proactive.PersonalizationPortrait");
+    xpc_dictionary_set_uint64(v34, v101, 1uLL);
+    xpc_activity_register("com.apple.proactive.PersonalizationPortrait.RTCSendLogs", v34, &__block_literal_global_174_17274);
+    v35 = pp_default_log_handle();
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
     {
       LOWORD(handler) = 0;
-      _os_log_impl(&dword_23224A000, v45, OS_LOG_TYPE_INFO, "PPMaintenance: registered task RTCSendLogs", &handler, 2u);
+      _os_log_impl(&dword_23224A000, v35, OS_LOG_TYPE_INFO, "PPMaintenance: registered task RTCSendLogs", &handler, 2u);
     }
 
-    v41 = value;
+    v31 = value;
   }
 
-  v46 = *(a1 + 32);
-  v47 = objc_opt_self();
-  v48 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v48, v39, v41);
-  xpc_dictionary_set_string(v48, key, string);
-  xpc_dictionary_set_BOOL(v48, v126, 0);
-  xpc_dictionary_set_string(v48, v127, "com.apple.proactive.PersonalizationPortrait");
-  xpc_dictionary_set_uint64(v48, v132, 1uLL);
+  v36 = objc_opt_self();
+  v37 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v37, v29, v31);
+  xpc_dictionary_set_string(v37, key, string);
+  xpc_dictionary_set_BOOL(v37, v95, 0);
+  xpc_dictionary_set_string(v37, v96, "com.apple.proactive.PersonalizationPortrait");
+  xpc_dictionary_set_uint64(v37, v101, 1uLL);
   handler = MEMORY[0x277D85DD0];
-  v146 = 3221225472;
-  v147 = __45__PPMaintenance__registerDailyMetricsLogging__block_invoke;
-  v148 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
-  v149 = v47;
-  v150 = sel__registerDailyMetricsLogging;
-  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.DailyMetricsLogging", v48, &handler);
-  v49 = pp_default_log_handle();
-  if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+  v114 = 3221225472;
+  v115 = __45__PPMaintenance__registerDailyMetricsLogging__block_invoke;
+  v116 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
+  v117 = v36;
+  v118 = sel__registerDailyMetricsLogging;
+  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.DailyMetricsLogging", v37, &handler);
+  v38 = pp_default_log_handle();
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_23224A000, v49, OS_LOG_TYPE_INFO, "PPMaintenance: registered task DailyMetricsLogging", buf, 2u);
+    _os_log_impl(&dword_23224A000, v38, OS_LOG_TYPE_INFO, "PPMaintenance: registered task DailyMetricsLogging", buf, 2u);
   }
 
-  v50 = *(a1 + 32);
-  v51 = objc_opt_self();
-  v52 = xpc_dictionary_create(0, 0, 0);
-  v53 = *MEMORY[0x277D862C8];
-  xpc_dictionary_set_int64(v52, v39, *MEMORY[0x277D862C8]);
-  xpc_dictionary_set_string(v52, key, string);
-  xpc_dictionary_set_BOOL(v52, v126, 0);
-  xpc_dictionary_set_string(v52, v127, "com.apple.proactive.PersonalizationPortrait");
-  xpc_dictionary_set_uint64(v52, v132, 1uLL);
+  v39 = objc_opt_self();
+  v40 = xpc_dictionary_create(0, 0, 0);
+  v41 = *MEMORY[0x277D862C8];
+  xpc_dictionary_set_int64(v40, v29, *MEMORY[0x277D862C8]);
+  xpc_dictionary_set_string(v40, key, string);
+  xpc_dictionary_set_BOOL(v40, v95, 0);
+  xpc_dictionary_set_string(v40, v96, "com.apple.proactive.PersonalizationPortrait");
+  xpc_dictionary_set_uint64(v40, v101, 1uLL);
   handler = MEMORY[0x277D85DD0];
-  v146 = 3221225472;
-  v147 = __51__PPMaintenance__registerLogNamedEntityFirstSource__block_invoke;
-  v148 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
-  v149 = sel__registerLogNamedEntityFirstSource;
-  v150 = v51;
-  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.LogNamedEntityFirstSource", v52, &handler);
+  v114 = 3221225472;
+  v115 = __51__PPMaintenance__registerLogNamedEntityFirstSource__block_invoke;
+  v116 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
+  v117 = sel__registerLogNamedEntityFirstSource;
+  v118 = v39;
+  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.LogNamedEntityFirstSource", v40, &handler);
+  v42 = pp_default_log_handle();
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_23224A000, v42, OS_LOG_TYPE_INFO, "PPMaintenance: registered task LogNamedEntityFirstSource", buf, 2u);
+  }
+
+  v43 = objc_opt_self();
+  v44 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v44, v29, v41);
+  xpc_dictionary_set_string(v44, key, string);
+  xpc_dictionary_set_BOOL(v44, v95, 0);
+  xpc_dictionary_set_string(v44, v96, "com.apple.proactive.PersonalizationPortrait");
+  xpc_dictionary_set_uint64(v44, v101, 1uLL);
+  handler = MEMORY[0x277D85DD0];
+  v114 = 3221225472;
+  v115 = __45__PPMaintenance__registerLogTopicFirstSource__block_invoke;
+  v116 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
+  v117 = sel__registerLogTopicFirstSource;
+  v118 = v43;
+  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.LogTopicFirstSource", v44, &handler);
+  v45 = pp_default_log_handle();
+  if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_23224A000, v45, OS_LOG_TYPE_INFO, "PPMaintenance: registered task LogTopicFirstSource", buf, 2u);
+  }
+
+  v46 = objc_opt_self();
+  v47 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v47, v29, value);
+  xpc_dictionary_set_string(v47, key, string);
+  xpc_dictionary_set_BOOL(v47, v95, 0);
+  xpc_dictionary_set_string(v47, v96, "com.apple.proactive.PersonalizationPortrait");
+  xpc_dictionary_set_uint64(v47, v101, 1uLL);
+  handler = MEMORY[0x277D85DD0];
+  v114 = 3221225472;
+  v115 = __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke;
+  v116 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
+  v117 = sel__registerLogNamedEntityPerplexity;
+  v118 = v46;
+  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.LogNamedEntityPerplexity", v47, &handler);
+  v48 = pp_default_log_handle();
+  if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_23224A000, v48, OS_LOG_TYPE_INFO, "PPMaintenance: registered task LogNamedEntityPerplexity", buf, 2u);
+  }
+
+  v49 = objc_opt_self();
+  v50 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v50, v29, value);
+  xpc_dictionary_set_string(v50, key, string);
+  xpc_dictionary_set_BOOL(v50, v95, 0);
+  xpc_dictionary_set_string(v50, v96, "com.apple.proactive.PersonalizationPortrait");
+  xpc_dictionary_set_uint64(v50, v101, 1uLL);
+  handler = MEMORY[0x277D85DD0];
+  v114 = 3221225472;
+  v115 = __44__PPMaintenance__registerLogTopicPerplexity__block_invoke;
+  v116 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
+  v117 = sel__registerLogTopicPerplexity;
+  v118 = v49;
+  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.LogTopicPerplexity", v50, &handler);
+  v51 = pp_default_log_handle();
+  if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_23224A000, v51, OS_LOG_TYPE_INFO, "PPMaintenance: registered task LogTopicPerplexity", buf, 2u);
+  }
+
+  v52 = objc_opt_self();
+  v53 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v53, v29, value);
+  xpc_dictionary_set_string(v53, key, string);
+  xpc_dictionary_set_BOOL(v53, v95, 0);
+  xpc_dictionary_set_string(v53, v96, "com.apple.proactive.PersonalizationPortrait");
+  xpc_dictionary_set_uint64(v53, v101, 1uLL);
+  handler = MEMORY[0x277D85DD0];
+  v114 = 3221225472;
+  v115 = __47__PPMaintenance__registerLogLocationPerplexity__block_invoke;
+  v116 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
+  v117 = sel__registerLogLocationPerplexity;
+  v118 = v52;
+  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.LogLocationPerplexity", v53, &handler);
   v54 = pp_default_log_handle();
   if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_23224A000, v54, OS_LOG_TYPE_INFO, "PPMaintenance: registered task LogNamedEntityFirstSource", buf, 2u);
+    _os_log_impl(&dword_23224A000, v54, OS_LOG_TYPE_INFO, "PPMaintenance: registered task LogLocationPerplexity", buf, 2u);
   }
 
-  v55 = *(a1 + 32);
-  v56 = objc_opt_self();
-  v57 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v57, v39, v53);
-  xpc_dictionary_set_string(v57, key, string);
-  xpc_dictionary_set_BOOL(v57, v126, 0);
-  xpc_dictionary_set_string(v57, v127, "com.apple.proactive.PersonalizationPortrait");
-  xpc_dictionary_set_uint64(v57, v132, 1uLL);
+  v55 = objc_opt_self();
+  v56 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v56, v29, value);
+  v57 = string;
+  xpc_dictionary_set_string(v56, key, string);
+  xpc_dictionary_set_BOOL(v56, v95, 0);
+  xpc_dictionary_set_BOOL(v56, *MEMORY[0x277D86390], 1);
+  xpc_dictionary_set_string(v56, v96, "com.apple.proactive.PersonalizationPortrait");
+  xpc_dictionary_set_uint64(v56, v101, 1uLL);
   handler = MEMORY[0x277D85DD0];
-  v146 = 3221225472;
-  v147 = __45__PPMaintenance__registerLogTopicFirstSource__block_invoke;
-  v148 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
-  v149 = sel__registerLogTopicFirstSource;
-  v150 = v56;
-  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.LogTopicFirstSource", v57, &handler);
+  v114 = 3221225472;
+  v115 = __44__PPMaintenance__registerLogSportsFavorites__block_invoke;
+  v116 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
+  v117 = v55;
+  v118 = sel__registerLogSportsFavorites;
+  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.LogSportsFavorites", v56, &handler);
   v58 = pp_default_log_handle();
   if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_23224A000, v58, OS_LOG_TYPE_INFO, "PPMaintenance: registered task LogTopicFirstSource", buf, 2u);
-  }
-
-  v59 = *(a1 + 32);
-  v60 = objc_opt_self();
-  v61 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v61, v39, value);
-  xpc_dictionary_set_string(v61, key, string);
-  xpc_dictionary_set_BOOL(v61, v126, 0);
-  xpc_dictionary_set_string(v61, v127, "com.apple.proactive.PersonalizationPortrait");
-  xpc_dictionary_set_uint64(v61, v132, 1uLL);
-  handler = MEMORY[0x277D85DD0];
-  v146 = 3221225472;
-  v147 = __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke;
-  v148 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
-  v149 = sel__registerLogNamedEntityPerplexity;
-  v150 = v60;
-  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.LogNamedEntityPerplexity", v61, &handler);
-  v62 = pp_default_log_handle();
-  if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_23224A000, v62, OS_LOG_TYPE_INFO, "PPMaintenance: registered task LogNamedEntityPerplexity", buf, 2u);
-  }
-
-  v63 = *(a1 + 32);
-  v64 = objc_opt_self();
-  v65 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v65, v39, value);
-  xpc_dictionary_set_string(v65, key, string);
-  xpc_dictionary_set_BOOL(v65, v126, 0);
-  xpc_dictionary_set_string(v65, v127, "com.apple.proactive.PersonalizationPortrait");
-  xpc_dictionary_set_uint64(v65, v132, 1uLL);
-  handler = MEMORY[0x277D85DD0];
-  v146 = 3221225472;
-  v147 = __44__PPMaintenance__registerLogTopicPerplexity__block_invoke;
-  v148 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
-  v149 = sel__registerLogTopicPerplexity;
-  v150 = v64;
-  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.LogTopicPerplexity", v65, &handler);
-  v66 = pp_default_log_handle();
-  if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_23224A000, v66, OS_LOG_TYPE_INFO, "PPMaintenance: registered task LogTopicPerplexity", buf, 2u);
-  }
-
-  v67 = *(a1 + 32);
-  v68 = objc_opt_self();
-  v69 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v69, v39, value);
-  xpc_dictionary_set_string(v69, key, string);
-  xpc_dictionary_set_BOOL(v69, v126, 0);
-  xpc_dictionary_set_string(v69, v127, "com.apple.proactive.PersonalizationPortrait");
-  xpc_dictionary_set_uint64(v69, v132, 1uLL);
-  handler = MEMORY[0x277D85DD0];
-  v146 = 3221225472;
-  v147 = __47__PPMaintenance__registerLogLocationPerplexity__block_invoke;
-  v148 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
-  v149 = sel__registerLogLocationPerplexity;
-  v150 = v68;
-  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.LogLocationPerplexity", v69, &handler);
-  v70 = pp_default_log_handle();
-  if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_23224A000, v70, OS_LOG_TYPE_INFO, "PPMaintenance: registered task LogLocationPerplexity", buf, 2u);
-  }
-
-  v71 = *(a1 + 32);
-  v72 = objc_opt_self();
-  v73 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v73, v39, value);
-  v74 = string;
-  xpc_dictionary_set_string(v73, key, string);
-  xpc_dictionary_set_BOOL(v73, v126, 0);
-  xpc_dictionary_set_BOOL(v73, *MEMORY[0x277D86390], 1);
-  xpc_dictionary_set_string(v73, v127, "com.apple.proactive.PersonalizationPortrait");
-  xpc_dictionary_set_uint64(v73, v132, 1uLL);
-  handler = MEMORY[0x277D85DD0];
-  v146 = 3221225472;
-  v147 = __44__PPMaintenance__registerLogSportsFavorites__block_invoke;
-  v148 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
-  v149 = v72;
-  v150 = sel__registerLogSportsFavorites;
-  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.LogSportsFavorites", v73, &handler);
-  v75 = pp_default_log_handle();
-  if (os_log_type_enabled(v75, OS_LOG_TYPE_INFO))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_23224A000, v75, OS_LOG_TYPE_INFO, "PPMaintenance: registered task LogSportsFavorites", buf, 2u);
+    _os_log_impl(&dword_23224A000, v58, OS_LOG_TYPE_INFO, "PPMaintenance: registered task LogSportsFavorites", buf, 2u);
   }
 
   +[PPSocialHighlightMetrics registerCTSDataCollection];
-  v76 = *(a1 + 32);
-  v77 = objc_opt_self();
+  v59 = objc_opt_self();
   if (([MEMORY[0x277D42590] isAudioAccessory] & 1) == 0)
   {
-    v78 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_int64(v78, v39, value);
-    xpc_dictionary_set_string(v78, key, string);
-    xpc_dictionary_set_BOOL(v78, v126, 0);
-    xpc_dictionary_set_string(v78, v127, "com.apple.proactive.PersonalizationPortrait");
-    xpc_dictionary_set_uint64(v78, v132, 1uLL);
+    v60 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_int64(v60, v29, value);
+    xpc_dictionary_set_string(v60, key, string);
+    xpc_dictionary_set_BOOL(v60, v95, 0);
+    xpc_dictionary_set_string(v60, v96, "com.apple.proactive.PersonalizationPortrait");
+    xpc_dictionary_set_uint64(v60, v101, 1uLL);
     handler = MEMORY[0x277D85DD0];
-    v146 = 3221225472;
-    v147 = __49__PPMaintenance__registerTTLBasedDonationCleanup__block_invoke;
-    v148 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
-    v149 = sel__registerTTLBasedDonationCleanup;
-    v150 = v77;
-    xpc_activity_register("com.apple.proactive.PersonalizationPortrait.TTLBasedDonationCleanup", v78, &handler);
-    v79 = pp_default_log_handle();
-    if (os_log_type_enabled(v79, OS_LOG_TYPE_INFO))
+    v114 = 3221225472;
+    v115 = __49__PPMaintenance__registerTTLBasedDonationCleanup__block_invoke;
+    v116 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
+    v117 = sel__registerTTLBasedDonationCleanup;
+    v118 = v59;
+    xpc_activity_register("com.apple.proactive.PersonalizationPortrait.TTLBasedDonationCleanup", v60, &handler);
+    v61 = pp_default_log_handle();
+    if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_23224A000, v79, OS_LOG_TYPE_INFO, "PPMaintenance: registered task TTLBasedDonationCleanup", buf, 2u);
+      _os_log_impl(&dword_23224A000, v61, OS_LOG_TYPE_INFO, "PPMaintenance: registered task TTLBasedDonationCleanup", buf, 2u);
     }
   }
 
-  v80 = *(a1 + 32);
-  v81 = objc_opt_self();
+  v62 = objc_opt_self();
   if (([MEMORY[0x277D42590] isAudioAccessory] & 1) == 0)
   {
-    v82 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_int64(v82, v39, value);
-    xpc_dictionary_set_string(v82, key, string);
-    xpc_dictionary_set_BOOL(v82, v126, 0);
-    xpc_dictionary_set_string(v82, v127, "com.apple.proactive.PersonalizationPortrait");
-    xpc_dictionary_set_uint64(v82, v132, 1uLL);
+    v63 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_int64(v63, v29, value);
+    xpc_dictionary_set_string(v63, key, string);
+    xpc_dictionary_set_BOOL(v63, v95, 0);
+    xpc_dictionary_set_string(v63, v96, "com.apple.proactive.PersonalizationPortrait");
+    xpc_dictionary_set_uint64(v63, v101, 1uLL);
     handler = MEMORY[0x277D85DD0];
-    v146 = 3221225472;
-    v147 = __54__PPMaintenance__registerRemotelyDonatedRecordCleanup__block_invoke;
-    v148 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
-    v149 = sel__registerRemotelyDonatedRecordCleanup;
-    v150 = v81;
-    xpc_activity_register("com.apple.proactive.PersonalizationPortrait.RemotelyDonatedRecordCleanup", v82, &handler);
-    v83 = pp_default_log_handle();
-    if (os_log_type_enabled(v83, OS_LOG_TYPE_INFO))
+    v114 = 3221225472;
+    v115 = __54__PPMaintenance__registerRemotelyDonatedRecordCleanup__block_invoke;
+    v116 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
+    v117 = sel__registerRemotelyDonatedRecordCleanup;
+    v118 = v62;
+    xpc_activity_register("com.apple.proactive.PersonalizationPortrait.RemotelyDonatedRecordCleanup", v63, &handler);
+    v64 = pp_default_log_handle();
+    if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_23224A000, v83, OS_LOG_TYPE_INFO, "PPMaintenance: registered task RemotelyDonatedRecordCleanup", buf, 2u);
+      _os_log_impl(&dword_23224A000, v64, OS_LOG_TYPE_INFO, "PPMaintenance: registered task RemotelyDonatedRecordCleanup", buf, 2u);
     }
   }
 
-  v84 = *(a1 + 32);
-  v85 = objc_opt_self();
+  v65 = objc_opt_self();
   if (([MEMORY[0x277D42590] isAudioAccessory] & 1) == 0)
   {
-    v86 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_string(v86, key, string);
-    xpc_dictionary_set_int64(v86, v39, value);
-    xpc_dictionary_set_BOOL(v86, v126, 0);
-    xpc_dictionary_set_string(v86, v127, "com.apple.proactive.PersonalizationPortrait");
-    xpc_dictionary_set_uint64(v86, v132, 1uLL);
+    v66 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_string(v66, key, string);
+    xpc_dictionary_set_int64(v66, v29, value);
+    xpc_dictionary_set_BOOL(v66, v95, 0);
+    xpc_dictionary_set_string(v66, v96, "com.apple.proactive.PersonalizationPortrait");
+    xpc_dictionary_set_uint64(v66, v101, 1uLL);
     handler = MEMORY[0x277D85DD0];
-    v146 = 3221225472;
-    v147 = __62__PPMaintenance__registerTTLBasedDecayedFeedbackCountsCleanup__block_invoke;
-    v148 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
-    v149 = sel__registerTTLBasedDecayedFeedbackCountsCleanup;
-    v150 = v85;
-    xpc_activity_register("com.apple.proactive.PersonalizationPortrait.TTLBasedFeedbackRecordCleanup", v86, &handler);
-    v87 = pp_default_log_handle();
-    if (os_log_type_enabled(v87, OS_LOG_TYPE_INFO))
+    v114 = 3221225472;
+    v115 = __62__PPMaintenance__registerTTLBasedDecayedFeedbackCountsCleanup__block_invoke;
+    v116 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
+    v117 = sel__registerTTLBasedDecayedFeedbackCountsCleanup;
+    v118 = v65;
+    xpc_activity_register("com.apple.proactive.PersonalizationPortrait.TTLBasedFeedbackRecordCleanup", v66, &handler);
+    v67 = pp_default_log_handle();
+    if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_23224A000, v87, OS_LOG_TYPE_INFO, "PPMaintenance: registered task TTLBasedFeedbackRecordCleanup", buf, 2u);
+      _os_log_impl(&dword_23224A000, v67, OS_LOG_TYPE_INFO, "PPMaintenance: registered task TTLBasedFeedbackRecordCleanup", buf, 2u);
     }
   }
 
-  v88 = *(a1 + 32);
-  v89 = objc_opt_self();
+  v68 = objc_opt_self();
   if (([MEMORY[0x277D42590] isAudioAccessory] & 1) == 0)
   {
-    v90 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_string(v90, key, string);
-    xpc_dictionary_set_int64(v90, v39, value);
-    xpc_dictionary_set_BOOL(v90, v126, 0);
-    xpc_dictionary_set_string(v90, v127, "com.apple.proactive.PersonalizationPortrait");
-    xpc_dictionary_set_uint64(v90, v132, 1uLL);
+    v69 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_string(v69, key, string);
+    xpc_dictionary_set_int64(v69, v29, value);
+    xpc_dictionary_set_BOOL(v69, v95, 0);
+    xpc_dictionary_set_string(v69, v96, "com.apple.proactive.PersonalizationPortrait");
+    xpc_dictionary_set_uint64(v69, v101, 1uLL);
     handler = MEMORY[0x277D85DD0];
-    v146 = 3221225472;
-    v147 = __54__PPMaintenance__registerDecayedFeedbackCountsCleanup__block_invoke;
-    v148 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
-    v149 = sel__registerDecayedFeedbackCountsCleanup;
-    v150 = v89;
-    xpc_activity_register("com.apple.proactive.PersonalizationPortrait.DecayedFeedbackCleanup", v90, &handler);
-    v91 = pp_default_log_handle();
-    if (os_log_type_enabled(v91, OS_LOG_TYPE_INFO))
+    v114 = 3221225472;
+    v115 = __54__PPMaintenance__registerDecayedFeedbackCountsCleanup__block_invoke;
+    v116 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
+    v117 = sel__registerDecayedFeedbackCountsCleanup;
+    v118 = v68;
+    xpc_activity_register("com.apple.proactive.PersonalizationPortrait.DecayedFeedbackCleanup", v69, &handler);
+    v70 = pp_default_log_handle();
+    if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_23224A000, v91, OS_LOG_TYPE_INFO, "PPMaintenance: registered task DecayedFeedbackCleanup", buf, 2u);
+      _os_log_impl(&dword_23224A000, v70, OS_LOG_TYPE_INFO, "PPMaintenance: registered task DecayedFeedbackCleanup", buf, 2u);
     }
   }
 
-  v92 = *(a1 + 32);
-  v93 = objc_opt_self();
-  v94 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v94, v39, value);
-  xpc_dictionary_set_string(v94, key, string);
-  xpc_dictionary_set_BOOL(v94, v126, 0);
-  xpc_dictionary_set_string(v94, v127, "com.apple.proactive.PersonalizationPortrait");
-  xpc_dictionary_set_uint64(v94, v132, 1uLL);
+  v71 = objc_opt_self();
+  v72 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v72, v29, value);
+  xpc_dictionary_set_string(v72, key, string);
+  xpc_dictionary_set_BOOL(v72, v95, 0);
+  xpc_dictionary_set_string(v72, v96, "com.apple.proactive.PersonalizationPortrait");
+  xpc_dictionary_set_uint64(v72, v101, 1uLL);
   handler = MEMORY[0x277D85DD0];
-  v146 = 3221225472;
-  v147 = __46__PPMaintenance__registerNamedEntityFiltering__block_invoke;
-  v148 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
-  v149 = sel__registerNamedEntityFiltering;
-  v150 = v93;
-  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.NamedEntityFiltering", v94, &handler);
+  v114 = 3221225472;
+  v115 = __46__PPMaintenance__registerNamedEntityFiltering__block_invoke;
+  v116 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
+  v117 = sel__registerNamedEntityFiltering;
+  v118 = v71;
+  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.NamedEntityFiltering", v72, &handler);
 
-  v95 = *(a1 + 32);
-  v96 = objc_opt_self();
+  v73 = objc_opt_self();
   if (([MEMORY[0x277D42590] isAudioAccessory] & 1) == 0)
   {
-    v97 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_int64(v97, v39, v53);
-    xpc_dictionary_set_string(v97, key, string);
-    xpc_dictionary_set_BOOL(v97, v126, 0);
-    xpc_dictionary_set_BOOL(v97, *MEMORY[0x277D86370], 1);
-    xpc_dictionary_set_string(v97, v127, "com.apple.proactive.PersonalizationPortrait");
-    xpc_dictionary_set_uint64(v97, v132, 1uLL);
+    v74 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_int64(v74, v29, v41);
+    xpc_dictionary_set_string(v74, key, string);
+    xpc_dictionary_set_BOOL(v74, v95, 0);
+    xpc_dictionary_set_BOOL(v74, *MEMORY[0x277D86370], 1);
+    xpc_dictionary_set_string(v74, v96, "com.apple.proactive.PersonalizationPortrait");
+    xpc_dictionary_set_uint64(v74, v101, 1uLL);
     handler = MEMORY[0x277D85DD0];
-    v146 = 3221225472;
-    v147 = __40__PPMaintenance__registerDatabaseVacuum__block_invoke;
-    v148 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
-    v149 = sel__registerDatabaseVacuum;
-    v150 = v96;
-    xpc_activity_register("com.apple.proactive.PersonalizationPortrait.VacuumDatabase", v97, &handler);
-    v98 = pp_default_log_handle();
-    if (os_log_type_enabled(v98, OS_LOG_TYPE_INFO))
+    v114 = 3221225472;
+    v115 = __40__PPMaintenance__registerDatabaseVacuum__block_invoke;
+    v116 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
+    v117 = sel__registerDatabaseVacuum;
+    v118 = v73;
+    xpc_activity_register("com.apple.proactive.PersonalizationPortrait.VacuumDatabase", v74, &handler);
+    v75 = pp_default_log_handle();
+    if (os_log_type_enabled(v75, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_23224A000, v98, OS_LOG_TYPE_INFO, "PPMaintenance: registered task VacuumDatabase", buf, 2u);
+      _os_log_impl(&dword_23224A000, v75, OS_LOG_TYPE_INFO, "PPMaintenance: registered task VacuumDatabase", buf, 2u);
     }
 
-    v74 = string;
-    v42 = v126;
-    v43 = v127;
-    v40 = key;
+    v57 = string;
+    v32 = v95;
+    v33 = v96;
+    v30 = key;
   }
 
-  v99 = *(a1 + 32);
-  v100 = objc_opt_self();
-  v101 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v101, v39, value);
-  xpc_dictionary_set_string(v101, v40, v74);
-  xpc_dictionary_set_BOOL(v101, v42, 0);
-  xpc_dictionary_set_string(v101, v43, "com.apple.proactive.PersonalizationPortrait");
-  xpc_dictionary_set_uint64(v101, v132, 1uLL);
+  v76 = objc_opt_self();
+  v77 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v77, v29, value);
+  xpc_dictionary_set_string(v77, v30, v57);
+  xpc_dictionary_set_BOOL(v77, v32, 0);
+  xpc_dictionary_set_string(v77, v33, "com.apple.proactive.PersonalizationPortrait");
+  xpc_dictionary_set_uint64(v77, v101, 1uLL);
   handler = MEMORY[0x277D85DD0];
-  v146 = 3221225472;
-  v147 = __56__PPMaintenance__registerSocialHighlightFeedbackCleanUp__block_invoke;
-  v148 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
-  v149 = sel__registerSocialHighlightFeedbackCleanUp;
-  v150 = v100;
-  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.SocialHighlightFeedbackCleanUp", v101, &handler);
-  v102 = pp_default_log_handle();
-  if (os_log_type_enabled(v102, OS_LOG_TYPE_INFO))
+  v114 = 3221225472;
+  v115 = __56__PPMaintenance__registerSocialHighlightFeedbackCleanUp__block_invoke;
+  v116 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
+  v117 = sel__registerSocialHighlightFeedbackCleanUp;
+  v118 = v76;
+  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.SocialHighlightFeedbackCleanUp", v77, &handler);
+  v78 = pp_default_log_handle();
+  if (os_log_type_enabled(v78, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_23224A000, v102, OS_LOG_TYPE_INFO, "PPMaintenance: registered task SocialHighlightCleanUp", buf, 2u);
+    _os_log_impl(&dword_23224A000, v78, OS_LOG_TYPE_INFO, "PPMaintenance: registered task SocialHighlightCleanUp", buf, 2u);
   }
 
-  v103 = *(a1 + 32);
   objc_opt_self();
-  v104 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v104, v39, value);
-  xpc_dictionary_set_string(v104, key, string);
-  xpc_dictionary_set_BOOL(v104, v126, 1);
-  xpc_dictionary_set_string(v104, v127, "com.apple.proactive.PersonalizationPortrait");
-  xpc_dictionary_set_uint64(v104, v132, 1uLL);
-  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.SpotlightScoringCache", v104, &__block_literal_global_454);
-  v105 = pp_default_log_handle();
-  if (os_log_type_enabled(v105, OS_LOG_TYPE_INFO))
+  v79 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v79, v29, value);
+  xpc_dictionary_set_string(v79, key, string);
+  xpc_dictionary_set_BOOL(v79, v95, 1);
+  xpc_dictionary_set_string(v79, v96, "com.apple.proactive.PersonalizationPortrait");
+  xpc_dictionary_set_uint64(v79, v101, 1uLL);
+  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.SpotlightScoringCache", v79, &__block_literal_global_454);
+  v80 = pp_default_log_handle();
+  if (os_log_type_enabled(v80, OS_LOG_TYPE_INFO))
   {
     LOWORD(handler) = 0;
-    _os_log_impl(&dword_23224A000, v105, OS_LOG_TYPE_INFO, "PPMaintenance: registered task SpotlightScoringCache", &handler, 2u);
+    _os_log_impl(&dword_23224A000, v80, OS_LOG_TYPE_INFO, "PPMaintenance: registered task SpotlightScoringCache", &handler, 2u);
   }
 
-  v106 = *(a1 + 32);
-  v107 = objc_opt_self();
-  v108 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v108, v39, value);
-  xpc_dictionary_set_string(v108, key, string);
-  xpc_dictionary_set_BOOL(v108, v126, 0);
-  v109 = *MEMORY[0x277D86370];
-  xpc_dictionary_set_BOOL(v108, *MEMORY[0x277D86370], 1);
-  xpc_dictionary_set_string(v108, v127, "com.apple.proactive.PersonalizationPortrait");
-  xpc_dictionary_set_uint64(v108, v132, 1uLL);
+  v81 = objc_opt_self();
+  v82 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v82, v29, value);
+  xpc_dictionary_set_string(v82, key, string);
+  xpc_dictionary_set_BOOL(v82, v95, 0);
+  v83 = *MEMORY[0x277D86370];
+  xpc_dictionary_set_BOOL(v82, *MEMORY[0x277D86370], 1);
+  xpc_dictionary_set_string(v82, v96, "com.apple.proactive.PersonalizationPortrait");
+  xpc_dictionary_set_uint64(v82, v101, 1uLL);
   handler = MEMORY[0x277D85DD0];
-  v146 = 3221225472;
-  v147 = __45__PPMaintenance__registerContactHandlesCache__block_invoke;
-  v148 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
-  v149 = sel__registerContactHandlesCache;
-  v150 = v107;
-  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.ContactHandlesCache", v108, &handler);
-  v110 = pp_default_log_handle();
-  if (os_log_type_enabled(v110, OS_LOG_TYPE_INFO))
+  v114 = 3221225472;
+  v115 = __45__PPMaintenance__registerContactHandlesCache__block_invoke;
+  v116 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
+  v117 = sel__registerContactHandlesCache;
+  v118 = v81;
+  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.ContactHandlesCache", v82, &handler);
+  v84 = pp_default_log_handle();
+  if (os_log_type_enabled(v84, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_23224A000, v110, OS_LOG_TYPE_INFO, "PPMaintenance: registered task ContactHandlesCache", buf, 2u);
+    _os_log_impl(&dword_23224A000, v84, OS_LOG_TYPE_INFO, "PPMaintenance: registered task ContactHandlesCache", buf, 2u);
   }
 
-  v111 = *(a1 + 32);
-  v112 = objc_opt_self();
-  v113 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_string(v113, key, string);
-  xpc_dictionary_set_int64(v113, v39, value);
-  xpc_dictionary_set_BOOL(v113, v126, 0);
-  xpc_dictionary_set_string(v113, v127, "com.apple.proactive.PersonalizationPortrait");
-  xpc_dictionary_set_uint64(v113, v132, 1uLL);
+  v85 = objc_opt_self();
+  v86 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_string(v86, key, string);
+  xpc_dictionary_set_int64(v86, v29, value);
+  xpc_dictionary_set_BOOL(v86, v95, 0);
+  xpc_dictionary_set_string(v86, v96, "com.apple.proactive.PersonalizationPortrait");
+  xpc_dictionary_set_uint64(v86, v101, 1uLL);
   handler = MEMORY[0x277D85DD0];
-  v146 = 3221225472;
-  v147 = __48__PPMaintenance__registerProcessPendingFeedback__block_invoke;
-  v148 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
-  v149 = v112;
-  v150 = sel__registerProcessPendingFeedback;
-  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.FeedbackProcessing", v113, &handler);
-  v114 = pp_default_log_handle();
-  if (os_log_type_enabled(v114, OS_LOG_TYPE_INFO))
+  v114 = 3221225472;
+  v115 = __48__PPMaintenance__registerProcessPendingFeedback__block_invoke;
+  v116 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
+  v117 = v85;
+  v118 = sel__registerProcessPendingFeedback;
+  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.FeedbackProcessing", v86, &handler);
+  v87 = pp_default_log_handle();
+  if (os_log_type_enabled(v87, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_23224A000, v114, OS_LOG_TYPE_INFO, "PPMaintenance: registered task FeedbackProcessing", buf, 2u);
+    _os_log_impl(&dword_23224A000, v87, OS_LOG_TYPE_INFO, "PPMaintenance: registered task FeedbackProcessing", buf, 2u);
   }
 
-  v115 = *(a1 + 32);
-  v116 = objc_opt_self();
-  v117 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_string(v117, key, string);
-  xpc_dictionary_set_int64(v117, v39, value);
-  xpc_dictionary_set_BOOL(v117, v126, 0);
-  xpc_dictionary_set_string(v117, v127, "com.apple.proactive.PersonalizationPortrait");
-  xpc_dictionary_set_uint64(v117, v132, 1uLL);
+  v88 = objc_opt_self();
+  v89 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_string(v89, key, string);
+  xpc_dictionary_set_int64(v89, v29, value);
+  xpc_dictionary_set_BOOL(v89, v95, 0);
+  xpc_dictionary_set_string(v89, v96, "com.apple.proactive.PersonalizationPortrait");
+  xpc_dictionary_set_uint64(v89, v101, 1uLL);
   handler = MEMORY[0x277D85DD0];
-  v146 = 3221225472;
-  v147 = __52__PPMaintenance__registerDecayedFeedbackCountsDecay__block_invoke;
-  v148 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
-  v149 = sel__registerDecayedFeedbackCountsDecay;
-  v150 = v116;
-  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.DecayedFeedbackCountsDecay", v117, &handler);
-  v118 = pp_default_log_handle();
-  if (os_log_type_enabled(v118, OS_LOG_TYPE_INFO))
+  v114 = 3221225472;
+  v115 = __52__PPMaintenance__registerDecayedFeedbackCountsDecay__block_invoke;
+  v116 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
+  v117 = sel__registerDecayedFeedbackCountsDecay;
+  v118 = v88;
+  xpc_activity_register("com.apple.proactive.PersonalizationPortrait.DecayedFeedbackCountsDecay", v89, &handler);
+  v90 = pp_default_log_handle();
+  if (os_log_type_enabled(v90, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_23224A000, v118, OS_LOG_TYPE_INFO, "PPMaintenance: registered task DecayedFeedbackCountsDecay", buf, 2u);
+    _os_log_impl(&dword_23224A000, v90, OS_LOG_TYPE_INFO, "PPMaintenance: registered task DecayedFeedbackCountsDecay", buf, 2u);
   }
 
-  v119 = *(a1 + 32);
   objc_opt_self();
   if (_registerNowPlayingMPRequestResponseController_onceToken != -1)
   {
     dispatch_once(&_registerNowPlayingMPRequestResponseController_onceToken, &__block_literal_global_170_16996);
   }
 
-  v120 = *(a1 + 32);
-  v121 = objc_opt_self();
+  v91 = objc_opt_self();
   if (([MEMORY[0x277D42590] isAudioAccessory] & 1) == 0)
   {
-    v122 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_int64(v122, v39, value);
-    xpc_dictionary_set_string(v122, key, string);
-    xpc_dictionary_set_BOOL(v122, v126, 0);
-    xpc_dictionary_set_BOOL(v122, v109, 1);
-    xpc_dictionary_set_string(v122, v127, "com.apple.proactive.PersonalizationPortrait");
-    xpc_dictionary_set_uint64(v122, v132, 1uLL);
+    v92 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_int64(v92, v29, value);
+    xpc_dictionary_set_string(v92, key, string);
+    xpc_dictionary_set_BOOL(v92, v95, 0);
+    xpc_dictionary_set_BOOL(v92, v83, 1);
+    xpc_dictionary_set_string(v92, v96, "com.apple.proactive.PersonalizationPortrait");
+    xpc_dictionary_set_uint64(v92, v101, 1uLL);
     handler = MEMORY[0x277D85DD0];
-    v146 = 3221225472;
-    v147 = __42__PPMaintenance__registerOptimizeDatabase__block_invoke;
-    v148 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
-    v149 = sel__registerOptimizeDatabase;
-    v150 = v121;
-    xpc_activity_register("com.apple.proactive.PersonalizationPortrait.OptimizeDatabase", v122, &handler);
-    v123 = pp_default_log_handle();
-    if (os_log_type_enabled(v123, OS_LOG_TYPE_INFO))
+    v114 = 3221225472;
+    v115 = __42__PPMaintenance__registerOptimizeDatabase__block_invoke;
+    v116 = &__block_descriptor_48_e33_v16__0__NSObject_OS_xpc_object__8l;
+    v117 = sel__registerOptimizeDatabase;
+    v118 = v91;
+    xpc_activity_register("com.apple.proactive.PersonalizationPortrait.OptimizeDatabase", v92, &handler);
+    v93 = pp_default_log_handle();
+    if (os_log_type_enabled(v93, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_23224A000, v123, OS_LOG_TYPE_INFO, "PPMaintenance: registered task OptimizeDatabase", buf, 2u);
+      _os_log_impl(&dword_23224A000, v93, OS_LOG_TYPE_INFO, "PPMaintenance: registered task OptimizeDatabase", buf, 2u);
     }
   }
 
-  v124 = *(a1 + 32);
   objc_opt_self();
   xpc_activity_unregister("com.apple.proactive.PersonalizationPortrait.SocialHighlightFeedbackSync");
-  v125 = +[PPSettings sharedInstance];
-  [v125 registerDisabledBundleIdPurgeHandler];
+  v94 = +[PPSettings sharedInstance];
+  [v94 registerDisabledBundleIdPurgeHandler];
 
-  v134 = +[PPSettings sharedInstance];
-  [v134 registerCloudKitDisabledBundleIdRewriteHandler];
+  v102 = +[PPSettings sharedInstance];
+  [v102 registerCloudKitDisabledBundleIdRewriteHandler];
 }
 
 void __42__PPMaintenance__registerOptimizeDatabase__block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __42__PPMaintenance__registerOptimizeDatabase__block_invoke_2;
   aBlock[3] = &unk_278975D70;
-  v23 = &v24;
+  v22 = &v23;
   v4 = v3;
-  v22 = v4;
+  v21 = v4;
   v5 = _Block_copy(aBlock);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __42__PPMaintenance__registerOptimizeDatabase__block_invoke_3;
-  v19[3] = &unk_278975D98;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __42__PPMaintenance__registerOptimizeDatabase__block_invoke_3;
+  v18[3] = &unk_278975D98;
   v6 = v5;
-  v20 = v6;
-  v7 = _Block_copy(v19);
+  v19 = v6;
+  v7 = _Block_copy(v18);
   PPPostNotification(kPPMaintenanceJobStartedNotification);
   v8 = pp_maintenance_signpost_handle();
   v9 = os_signpost_id_generate(v8);
@@ -714,13 +683,13 @@ void __42__PPMaintenance__registerOptimizeDatabase__block_invoke(uint64_t a1, vo
   v13 = v12;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    v14 = *(v25 + 24);
+    v14 = *(v24 + 24);
     *buf = 67109120;
-    v29 = v14;
+    v28 = v14;
     _os_signpost_emit_with_name_impl(&dword_23224A000, v13, OS_SIGNPOST_INTERVAL_END, v9, "OptimizeDatabase", " enableTelemetry=YES Deferred=%{signpost.telemetry:number1, Name=Deferred}d", buf, 8u);
   }
 
-  if (*(v25 + 24))
+  if (*(v24 + 24))
   {
     v15 = &kPPMaintenanceJobDeferredNotification;
   }
@@ -731,12 +700,12 @@ void __42__PPMaintenance__registerOptimizeDatabase__block_invoke(uint64_t a1, vo
   }
 
   PPPostNotification(*v15);
-  if (*(v25 + 24) == 1)
+  if (*(v24 + 24) == 1)
   {
     if (!xpc_activity_set_state(v4, 3))
     {
-      v18 = [MEMORY[0x277CCA890] currentHandler];
-      [v18 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:342 description:@"Unexpected failure of deferral"];
+      v17 = [MEMORY[0x277CCA890] currentHandler];
+      [v17 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:342 description:@"Unexpected failure of deferral"];
     }
 
     v16 = pp_default_log_handle();
@@ -747,8 +716,7 @@ void __42__PPMaintenance__registerOptimizeDatabase__block_invoke(uint64_t a1, vo
     }
   }
 
-  _Block_object_dispose(&v24, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v23, 8);
 }
 
 uint64_t __42__PPMaintenance__registerOptimizeDatabase__block_invoke_2(uint64_t a1)
@@ -826,27 +794,27 @@ void __63__PPMaintenance__registerNowPlayingMPRequestResponseController__block_i
 
 void __52__PPMaintenance__registerDecayedFeedbackCountsDecay__block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __52__PPMaintenance__registerDecayedFeedbackCountsDecay__block_invoke_2;
   aBlock[3] = &unk_278975D70;
-  v23 = &v24;
+  v22 = &v23;
   v4 = v3;
-  v22 = v4;
+  v21 = v4;
   v5 = _Block_copy(aBlock);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __52__PPMaintenance__registerDecayedFeedbackCountsDecay__block_invoke_3;
-  v19[3] = &unk_278975D98;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __52__PPMaintenance__registerDecayedFeedbackCountsDecay__block_invoke_3;
+  v18[3] = &unk_278975D98;
   v6 = v5;
-  v20 = v6;
-  v7 = _Block_copy(v19);
+  v19 = v6;
+  v7 = _Block_copy(v18);
   PPPostNotification(kPPMaintenanceJobStartedNotification);
   v8 = pp_maintenance_signpost_handle();
   v9 = os_signpost_id_generate(v8);
@@ -864,13 +832,13 @@ void __52__PPMaintenance__registerDecayedFeedbackCountsDecay__block_invoke(uint6
   v13 = v12;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    v14 = *(v25 + 24);
+    v14 = *(v24 + 24);
     *buf = 67109120;
-    v29 = v14;
+    v28 = v14;
     _os_signpost_emit_with_name_impl(&dword_23224A000, v13, OS_SIGNPOST_INTERVAL_END, v9, "DecayedFeedbackCountsDecay", " enableTelemetry=YES Deferred=%{signpost.telemetry:number1, Name=Deferred}d", buf, 8u);
   }
 
-  if (*(v25 + 24))
+  if (*(v24 + 24))
   {
     v15 = &kPPMaintenanceJobDeferredNotification;
   }
@@ -881,12 +849,12 @@ void __52__PPMaintenance__registerDecayedFeedbackCountsDecay__block_invoke(uint6
   }
 
   PPPostNotification(*v15);
-  if (*(v25 + 24) == 1)
+  if (*(v24 + 24) == 1)
   {
     if (!xpc_activity_set_state(v4, 3))
     {
-      v18 = [MEMORY[0x277CCA890] currentHandler];
-      [v18 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:1239 description:@"Unexpected failure of deferral"];
+      v17 = [MEMORY[0x277CCA890] currentHandler];
+      [v17 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:1239 description:@"Unexpected failure of deferral"];
     }
 
     v16 = pp_default_log_handle();
@@ -897,8 +865,7 @@ void __52__PPMaintenance__registerDecayedFeedbackCountsDecay__block_invoke(uint6
     }
   }
 
-  _Block_object_dispose(&v24, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v23, 8);
 }
 
 uint64_t __52__PPMaintenance__registerDecayedFeedbackCountsDecay__block_invoke_2(uint64_t a1)
@@ -1086,19 +1053,19 @@ void __52__PPMaintenance__registerDecayedFeedbackCountsDecay__block_invoke_3(uin
 
 void __48__PPMaintenance__registerProcessPendingFeedback__block_invoke(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __48__PPMaintenance__registerProcessPendingFeedback__block_invoke_2;
   aBlock[3] = &unk_278975D70;
-  v26 = &v27;
+  v25 = &v26;
   v4 = v3;
-  v25 = v4;
+  v24 = v4;
   v5 = _Block_copy(aBlock);
   PPPostNotification(kPPMaintenanceJobStartedNotification);
   v6 = pp_maintenance_signpost_handle();
@@ -1112,25 +1079,25 @@ void __48__PPMaintenance__registerProcessPendingFeedback__block_invoke(uint64_t 
     _os_signpost_emit_with_name_impl(&dword_23224A000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "FeedbackProcessing", "", buf, 2u);
   }
 
-  v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __48__PPMaintenance__registerProcessPendingFeedback__block_invoke_186;
-  v21 = &unk_278975E68;
-  v23 = *(a1 + 32);
+  v17 = MEMORY[0x277D85DD0];
+  v18 = 3221225472;
+  v19 = __48__PPMaintenance__registerProcessPendingFeedback__block_invoke_186;
+  v20 = &unk_278975E68;
+  v22 = *(a1 + 32);
   v10 = v5;
-  v22 = v10;
-  __48__PPMaintenance__registerProcessPendingFeedback__block_invoke_186(&v18);
+  v21 = v10;
+  __48__PPMaintenance__registerProcessPendingFeedback__block_invoke_186(&v17);
   v11 = pp_maintenance_signpost_handle();
   v12 = v11;
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
-    v13 = *(v28 + 24);
+    v13 = *(v27 + 24);
     *buf = 67109120;
-    v32 = v13;
+    v31 = v13;
     _os_signpost_emit_with_name_impl(&dword_23224A000, v12, OS_SIGNPOST_INTERVAL_END, v7, "FeedbackProcessing", " enableTelemetry=YES Deferred=%{signpost.telemetry:number1, Name=Deferred}d", buf, 8u);
   }
 
-  if (*(v28 + 24))
+  if (*(v27 + 24))
   {
     v14 = &kPPMaintenanceJobDeferredNotification;
   }
@@ -1142,12 +1109,12 @@ void __48__PPMaintenance__registerProcessPendingFeedback__block_invoke(uint64_t 
 
   PPPostNotification(*v14);
 
-  if (*(v28 + 24) == 1)
+  if (*(v27 + 24) == 1)
   {
     if (!xpc_activity_set_state(v4, 3))
     {
-      v17 = [MEMORY[0x277CCA890] currentHandler];
-      [v17 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"PPMaintenance.m" lineNumber:1155 description:@"Unexpected failure of deferral"];
+      v16 = [MEMORY[0x277CCA890] currentHandler];
+      [v16 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"PPMaintenance.m" lineNumber:1155 description:@"Unexpected failure of deferral"];
     }
 
     v15 = pp_default_log_handle();
@@ -1158,8 +1125,7 @@ void __48__PPMaintenance__registerProcessPendingFeedback__block_invoke(uint64_t 
     }
   }
 
-  _Block_object_dispose(&v27, 8);
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v26, 8);
 }
 
 uint64_t __48__PPMaintenance__registerProcessPendingFeedback__block_invoke_2(uint64_t a1)
@@ -1184,36 +1150,35 @@ LABEL_4:
 
 void __48__PPMaintenance__registerProcessPendingFeedback__block_invoke_186(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
-  v2 = *(a1 + 32);
+  v19 = *MEMORY[0x277D85DE8];
+  v1 = *(a1 + 32);
   objc_opt_self();
-  v3 = objc_opt_new();
-  v4 = +[PPConfiguration sharedInstance];
-  [v4 portraitAnalyticsSamplingRate];
-  v17 = 0;
-  v5 = [v3 constructAndSendMessageForSamplingRate:v2 shouldContinueBlock:&v17 error:?];
-  v6 = v17;
-  v18 = v6;
+  v2 = objc_opt_new();
+  v3 = +[PPConfiguration sharedInstance];
+  [v3 portraitAnalyticsSamplingRate];
+  v15 = 0;
+  v4 = [v2 constructAndSendMessageForSamplingRate:v1 shouldContinueBlock:&v15 error:?];
+  v5 = v15;
+  v16 = v5;
 
-  if ((v5 & 1) == 0)
+  if ((v4 & 1) == 0)
   {
-    v7 = pp_default_log_handle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = pp_default_log_handle();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v20 = v6;
-      _os_log_error_impl(&dword_23224A000, v7, OS_LOG_TYPE_ERROR, "PPCollaborativeFilteringSampler: failed to complete: %@", buf, 0xCu);
+      v18 = v5;
+      _os_log_error_impl(&dword_23224A000, v6, OS_LOG_TYPE_ERROR, "PPCollaborativeFilteringSampler: failed to complete: %@", buf, 0xCu);
     }
   }
 
-  if ((v2[2](v2) & 1) == 0)
+  if ((v1[2](v1) & 1) == 0)
   {
-    v14 = pp_default_log_handle();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v13 = pp_default_log_handle();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v15 = "Processing feedback deferred after data collection.";
+      v14 = "Processing feedback deferred after data collection.";
       goto LABEL_19;
     }
 
@@ -1222,42 +1187,42 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v8 = objc_opt_new();
-  v9 = [v8 processPendingFeedbackWithShouldContinueBlock:v2 error:&v18];
+  v7 = objc_opt_new();
+  v8 = [v7 processPendingFeedbackWithShouldContinueBlock:v1 error:&v16];
 
-  if ((v9 & 1) == 0)
+  if ((v8 & 1) == 0)
   {
-    v10 = pp_default_log_handle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = pp_default_log_handle();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v20 = v18;
-      _os_log_error_impl(&dword_23224A000, v10, OS_LOG_TYPE_ERROR, "Feedback processing failed: %@", buf, 0xCu);
+      v18 = v16;
+      _os_log_error_impl(&dword_23224A000, v9, OS_LOG_TYPE_ERROR, "Feedback processing failed: %@", buf, 0xCu);
     }
   }
 
-  if ((v2[2](v2) & 1) == 0)
+  if ((v1[2](v1) & 1) == 0)
   {
-    v11 = pp_default_log_handle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v10 = pp_default_log_handle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23224A000, v11, OS_LOG_TYPE_DEFAULT, "Processing feedback deferred partway through processing.", buf, 2u);
+      _os_log_impl(&dword_23224A000, v10, OS_LOG_TYPE_DEFAULT, "Processing feedback deferred partway through processing.", buf, 2u);
     }
   }
 
-  v12 = objc_opt_new();
-  v13 = [v12 deleteExpiredFeedbackWithShouldContinueBlock:v2];
+  v11 = objc_opt_new();
+  v12 = [v11 deleteExpiredFeedbackWithShouldContinueBlock:v1];
 
-  if ((v13 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
-    v14 = pp_default_log_handle();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v13 = pp_default_log_handle();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v15 = "Processing pending feedback deferred during clean up operations.";
+      v14 = "Processing pending feedback deferred during clean up operations.";
 LABEL_19:
-      _os_log_impl(&dword_23224A000, v14, OS_LOG_TYPE_DEFAULT, v15, buf, 2u);
+      _os_log_impl(&dword_23224A000, v13, OS_LOG_TYPE_DEFAULT, v14, buf, 2u);
       goto LABEL_20;
     }
 
@@ -1265,33 +1230,31 @@ LABEL_19:
   }
 
 LABEL_21:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __45__PPMaintenance__registerContactHandlesCache__block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __45__PPMaintenance__registerContactHandlesCache__block_invoke_2;
   aBlock[3] = &unk_278975D70;
-  v23 = &v24;
+  v22 = &v23;
   v4 = v3;
-  v22 = v4;
+  v21 = v4;
   v5 = _Block_copy(aBlock);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __45__PPMaintenance__registerContactHandlesCache__block_invoke_3;
-  v19[3] = &unk_278975D98;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __45__PPMaintenance__registerContactHandlesCache__block_invoke_3;
+  v18[3] = &unk_278975D98;
   v6 = v5;
-  v20 = v6;
-  v7 = _Block_copy(v19);
+  v19 = v6;
+  v7 = _Block_copy(v18);
   PPPostNotification(kPPMaintenanceJobStartedNotification);
   v8 = pp_maintenance_signpost_handle();
   v9 = os_signpost_id_generate(v8);
@@ -1309,13 +1272,13 @@ void __45__PPMaintenance__registerContactHandlesCache__block_invoke(uint64_t a1,
   v13 = v12;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    v14 = *(v25 + 24);
+    v14 = *(v24 + 24);
     *buf = 67109120;
-    v29 = v14;
+    v28 = v14;
     _os_signpost_emit_with_name_impl(&dword_23224A000, v13, OS_SIGNPOST_INTERVAL_END, v9, "ContactHandlesCache", " enableTelemetry=YES Deferred=%{signpost.telemetry:number1, Name=Deferred}d", buf, 8u);
   }
 
-  if (*(v25 + 24))
+  if (*(v24 + 24))
   {
     v15 = &kPPMaintenanceJobDeferredNotification;
   }
@@ -1326,12 +1289,12 @@ void __45__PPMaintenance__registerContactHandlesCache__block_invoke(uint64_t a1,
   }
 
   PPPostNotification(*v15);
-  if (*(v25 + 24) == 1)
+  if (*(v24 + 24) == 1)
   {
     if (!xpc_activity_set_state(v4, 3))
     {
-      v18 = [MEMORY[0x277CCA890] currentHandler];
-      [v18 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:297 description:@"Unexpected failure of deferral"];
+      v17 = [MEMORY[0x277CCA890] currentHandler];
+      [v17 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:297 description:@"Unexpected failure of deferral"];
     }
 
     v16 = pp_default_log_handle();
@@ -1342,8 +1305,7 @@ void __45__PPMaintenance__registerContactHandlesCache__block_invoke(uint64_t a1,
     }
   }
 
-  _Block_object_dispose(&v24, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v23, 8);
 }
 
 uint64_t __45__PPMaintenance__registerContactHandlesCache__block_invoke_2(uint64_t a1)
@@ -1451,7 +1413,7 @@ LABEL_4:
 
 void __47__PPMaintenance__registerSpotlightScoringCache__block_invoke_455(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (((*(*(a1 + 32) + 16))() & 1) == 0)
   {
     v2 = pp_default_log_handle();
@@ -1464,9 +1426,9 @@ void __47__PPMaintenance__registerSpotlightScoringCache__block_invoke_455(uint64
 
   v3 = +[PPLocalTopicStore defaultStore];
   v4 = *(a1 + 32);
-  v14 = 0;
-  v5 = [v3 computeAndCacheTopicScoresWithShouldContinueBlock:v4 error:&v14];
-  v6 = v14;
+  v13 = 0;
+  v5 = [v3 computeAndCacheTopicScoresWithShouldContinueBlock:v4 error:&v13];
+  v6 = v13;
 
   if (v5)
   {
@@ -1483,49 +1445,47 @@ void __47__PPMaintenance__registerSpotlightScoringCache__block_invoke_455(uint64
     v8 = pp_default_log_handle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v12 = &stru_284759D38;
+      v11 = &stru_284759D38;
       if (!v6)
       {
-        v12 = 0;
+        v11 = 0;
       }
 
       *buf = 138412290;
-      v16 = v12;
+      v15 = v11;
       _os_log_error_impl(&dword_23224A000, v8, OS_LOG_TYPE_ERROR, "PPMaintenance was unable to compute and cache topic scores: %@", buf, 0xCu);
     }
 
     v9 = +[PPLocalTopicStore defaultStore];
-    v13 = v6;
-    [v9 clearTopicScoresCache:&v13];
-    v10 = v13;
+    v12 = v6;
+    [v9 clearTopicScoresCache:&v12];
+    v10 = v12;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __56__PPMaintenance__registerSocialHighlightFeedbackCleanUp__block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __56__PPMaintenance__registerSocialHighlightFeedbackCleanUp__block_invoke_2;
   aBlock[3] = &unk_278975D70;
-  v23 = &v24;
+  v22 = &v23;
   v4 = v3;
-  v22 = v4;
+  v21 = v4;
   v5 = _Block_copy(aBlock);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __56__PPMaintenance__registerSocialHighlightFeedbackCleanUp__block_invoke_3;
-  v19[3] = &unk_278975D98;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __56__PPMaintenance__registerSocialHighlightFeedbackCleanUp__block_invoke_3;
+  v18[3] = &unk_278975D98;
   v6 = v5;
-  v20 = v6;
-  v7 = _Block_copy(v19);
+  v19 = v6;
+  v7 = _Block_copy(v18);
   PPPostNotification(kPPMaintenanceJobStartedNotification);
   v8 = pp_maintenance_signpost_handle();
   v9 = os_signpost_id_generate(v8);
@@ -1543,13 +1503,13 @@ void __56__PPMaintenance__registerSocialHighlightFeedbackCleanUp__block_invoke(u
   v13 = v12;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    v14 = *(v25 + 24);
+    v14 = *(v24 + 24);
     *buf = 67109120;
-    v29 = v14;
+    v28 = v14;
     _os_signpost_emit_with_name_impl(&dword_23224A000, v13, OS_SIGNPOST_INTERVAL_END, v9, "SocialHighlightCleanUp", " enableTelemetry=YES Deferred=%{signpost.telemetry:number1, Name=Deferred}d", buf, 8u);
   }
 
-  if (*(v25 + 24))
+  if (*(v24 + 24))
   {
     v15 = &kPPMaintenanceJobDeferredNotification;
   }
@@ -1560,12 +1520,12 @@ void __56__PPMaintenance__registerSocialHighlightFeedbackCleanUp__block_invoke(u
   }
 
   PPPostNotification(*v15);
-  if (*(v25 + 24) == 1)
+  if (*(v24 + 24) == 1)
   {
     if (!xpc_activity_set_state(v4, 3))
     {
-      v18 = [MEMORY[0x277CCA890] currentHandler];
-      [v18 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:774 description:@"Unexpected failure of deferral"];
+      v17 = [MEMORY[0x277CCA890] currentHandler];
+      [v17 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:774 description:@"Unexpected failure of deferral"];
     }
 
     v16 = pp_default_log_handle();
@@ -1576,8 +1536,7 @@ void __56__PPMaintenance__registerSocialHighlightFeedbackCleanUp__block_invoke(u
     }
   }
 
-  _Block_object_dispose(&v24, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v23, 8);
 }
 
 uint64_t __56__PPMaintenance__registerSocialHighlightFeedbackCleanUp__block_invoke_2(uint64_t a1)
@@ -1611,7 +1570,7 @@ void __56__PPMaintenance__registerSocialHighlightFeedbackCleanUp__block_invoke_3
 
 void __56__PPMaintenance__registerSocialHighlightFeedbackCleanUp__block_invoke_4(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   [PPSocialHighlightMetrics logMetricsForExpiringFeedback:v2];
   v3 = pp_social_highlights_log_handle();
@@ -1619,37 +1578,35 @@ void __56__PPMaintenance__registerSocialHighlightFeedbackCleanUp__block_invoke_4
   {
     v4 = [v2 highlight];
     v5 = [v4 highlightIdentifier];
-    v7 = 138412290;
-    v8 = v5;
-    _os_log_impl(&dword_23224A000, v3, OS_LOG_TYPE_INFO, "PPMaintenance: removed feedback for identifier %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_impl(&dword_23224A000, v3, OS_LOG_TYPE_INFO, "PPMaintenance: removed feedback for identifier %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __40__PPMaintenance__registerDatabaseVacuum__block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __40__PPMaintenance__registerDatabaseVacuum__block_invoke_2;
   aBlock[3] = &unk_278975D70;
-  v23 = &v24;
+  v22 = &v23;
   v4 = v3;
-  v22 = v4;
+  v21 = v4;
   v5 = _Block_copy(aBlock);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __40__PPMaintenance__registerDatabaseVacuum__block_invoke_3;
-  v19[3] = &unk_278975D98;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __40__PPMaintenance__registerDatabaseVacuum__block_invoke_3;
+  v18[3] = &unk_278975D98;
   v6 = v5;
-  v20 = v6;
-  v7 = _Block_copy(v19);
+  v19 = v6;
+  v7 = _Block_copy(v18);
   PPPostNotification(kPPMaintenanceJobStartedNotification);
   v8 = pp_maintenance_signpost_handle();
   v9 = os_signpost_id_generate(v8);
@@ -1667,13 +1624,13 @@ void __40__PPMaintenance__registerDatabaseVacuum__block_invoke(uint64_t a1, void
   v13 = v12;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    v14 = *(v25 + 24);
+    v14 = *(v24 + 24);
     *buf = 67109120;
-    v29 = v14;
+    v28 = v14;
     _os_signpost_emit_with_name_impl(&dword_23224A000, v13, OS_SIGNPOST_INTERVAL_END, v9, "VacuumDatabase", " enableTelemetry=YES Deferred=%{signpost.telemetry:number1, Name=Deferred}d", buf, 8u);
   }
 
-  if (*(v25 + 24))
+  if (*(v24 + 24))
   {
     v15 = &kPPMaintenanceJobDeferredNotification;
   }
@@ -1684,12 +1641,12 @@ void __40__PPMaintenance__registerDatabaseVacuum__block_invoke(uint64_t a1, void
   }
 
   PPPostNotification(*v15);
-  if (*(v25 + 24) == 1)
+  if (*(v24 + 24) == 1)
   {
     if (!xpc_activity_set_state(v4, 3))
     {
-      v18 = [MEMORY[0x277CCA890] currentHandler];
-      [v18 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:388 description:@"Unexpected failure of deferral"];
+      v17 = [MEMORY[0x277CCA890] currentHandler];
+      [v17 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:388 description:@"Unexpected failure of deferral"];
     }
 
     v16 = pp_default_log_handle();
@@ -1700,8 +1657,7 @@ void __40__PPMaintenance__registerDatabaseVacuum__block_invoke(uint64_t a1, void
     }
   }
 
-  _Block_object_dispose(&v24, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v23, 8);
 }
 
 uint64_t __40__PPMaintenance__registerDatabaseVacuum__block_invoke_2(uint64_t a1)
@@ -1765,27 +1721,27 @@ LABEL_9:
 
 void __46__PPMaintenance__registerNamedEntityFiltering__block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __46__PPMaintenance__registerNamedEntityFiltering__block_invoke_2;
   aBlock[3] = &unk_278975D70;
-  v23 = &v24;
+  v22 = &v23;
   v4 = v3;
-  v22 = v4;
+  v21 = v4;
   v5 = _Block_copy(aBlock);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __46__PPMaintenance__registerNamedEntityFiltering__block_invoke_3;
-  v19[3] = &unk_278975D98;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __46__PPMaintenance__registerNamedEntityFiltering__block_invoke_3;
+  v18[3] = &unk_278975D98;
   v6 = v5;
-  v20 = v6;
-  v7 = _Block_copy(v19);
+  v19 = v6;
+  v7 = _Block_copy(v18);
   PPPostNotification(kPPMaintenanceJobStartedNotification);
   v8 = pp_maintenance_signpost_handle();
   v9 = os_signpost_id_generate(v8);
@@ -1803,13 +1759,13 @@ void __46__PPMaintenance__registerNamedEntityFiltering__block_invoke(uint64_t a1
   v13 = v12;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    v14 = *(v25 + 24);
+    v14 = *(v24 + 24);
     *buf = 67109120;
-    v29 = v14;
+    v28 = v14;
     _os_signpost_emit_with_name_impl(&dword_23224A000, v13, OS_SIGNPOST_INTERVAL_END, v9, "NamedEntityFiltering", " enableTelemetry=YES Deferred=%{signpost.telemetry:number1, Name=Deferred}d", buf, 8u);
   }
 
-  if (*(v25 + 24))
+  if (*(v24 + 24))
   {
     v15 = &kPPMaintenanceJobDeferredNotification;
   }
@@ -1820,12 +1776,12 @@ void __46__PPMaintenance__registerNamedEntityFiltering__block_invoke(uint64_t a1
   }
 
   PPPostNotification(*v15);
-  if (*(v25 + 24) == 1)
+  if (*(v24 + 24) == 1)
   {
     if (!xpc_activity_set_state(v4, 3))
     {
-      v18 = [MEMORY[0x277CCA890] currentHandler];
-      [v18 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:674 description:@"Unexpected failure of deferral"];
+      v17 = [MEMORY[0x277CCA890] currentHandler];
+      [v17 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:674 description:@"Unexpected failure of deferral"];
     }
 
     v16 = pp_default_log_handle();
@@ -1836,8 +1792,7 @@ void __46__PPMaintenance__registerNamedEntityFiltering__block_invoke(uint64_t a1
     }
   }
 
-  _Block_object_dispose(&v24, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v23, 8);
 }
 
 uint64_t __46__PPMaintenance__registerNamedEntityFiltering__block_invoke_2(uint64_t a1)
@@ -1885,28 +1840,28 @@ void __46__PPMaintenance__registerNamedEntityFiltering__block_invoke_3(uint64_t 
 
 void __54__PPMaintenance__registerDecayedFeedbackCountsCleanup__block_invoke(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
-  v31 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __54__PPMaintenance__registerDecayedFeedbackCountsCleanup__block_invoke_2;
   aBlock[3] = &unk_278975D70;
-  v27 = &v28;
+  v26 = &v27;
   v4 = v3;
-  v26 = v4;
+  v25 = v4;
   v5 = _Block_copy(aBlock);
-  v19 = MEMORY[0x277D85DD0];
-  v20 = 3221225472;
-  v21 = __54__PPMaintenance__registerDecayedFeedbackCountsCleanup__block_invoke_3;
-  v22 = &unk_278975DE0;
+  v18 = MEMORY[0x277D85DD0];
+  v19 = 3221225472;
+  v20 = __54__PPMaintenance__registerDecayedFeedbackCountsCleanup__block_invoke_3;
+  v21 = &unk_278975DE0;
   v6 = v5;
-  v23 = v6;
-  v24 = &v28;
-  v7 = _Block_copy(&v19);
+  v22 = v6;
+  v23 = &v27;
+  v7 = _Block_copy(&v18);
   PPPostNotification(kPPMaintenanceJobStartedNotification);
   v8 = pp_maintenance_signpost_handle();
   v9 = os_signpost_id_generate(v8);
@@ -1924,13 +1879,13 @@ void __54__PPMaintenance__registerDecayedFeedbackCountsCleanup__block_invoke(uin
   v13 = v12;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    v14 = *(v29 + 24);
+    v14 = *(v28 + 24);
     *buf = 67109120;
-    v33 = v14;
+    v32 = v14;
     _os_signpost_emit_with_name_impl(&dword_23224A000, v13, OS_SIGNPOST_INTERVAL_END, v9, "DecayedFeedbackCleanup", " enableTelemetry=YES Deferred=%{signpost.telemetry:number1, Name=Deferred}d", buf, 8u);
   }
 
-  if (*(v29 + 24))
+  if (*(v28 + 24))
   {
     v15 = &kPPMaintenanceJobDeferredNotification;
   }
@@ -1941,12 +1896,12 @@ void __54__PPMaintenance__registerDecayedFeedbackCountsCleanup__block_invoke(uin
   }
 
   PPPostNotification(*v15);
-  if (*(v29 + 24) == 1)
+  if (*(v28 + 24) == 1)
   {
     if (!xpc_activity_set_state(v4, 3))
     {
-      v18 = [MEMORY[0x277CCA890] currentHandler];
-      [v18 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:1428 description:@"Unexpected failure of deferral"];
+      v17 = [MEMORY[0x277CCA890] currentHandler];
+      [v17 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:1428 description:@"Unexpected failure of deferral"];
     }
 
     v16 = pp_default_log_handle();
@@ -1957,8 +1912,7 @@ void __54__PPMaintenance__registerDecayedFeedbackCountsCleanup__block_invoke(uin
     }
   }
 
-  _Block_object_dispose(&v28, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v27, 8);
 }
 
 uint64_t __54__PPMaintenance__registerDecayedFeedbackCountsCleanup__block_invoke_2(uint64_t a1)
@@ -2131,28 +2085,28 @@ void __54__PPMaintenance__registerDecayedFeedbackCountsCleanup__block_invoke_3(u
 
 void __62__PPMaintenance__registerTTLBasedDecayedFeedbackCountsCleanup__block_invoke(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
-  v31 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __62__PPMaintenance__registerTTLBasedDecayedFeedbackCountsCleanup__block_invoke_2;
   aBlock[3] = &unk_278975D70;
-  v27 = &v28;
+  v26 = &v27;
   v4 = v3;
-  v26 = v4;
+  v25 = v4;
   v5 = _Block_copy(aBlock);
-  v19 = MEMORY[0x277D85DD0];
-  v20 = 3221225472;
-  v21 = __62__PPMaintenance__registerTTLBasedDecayedFeedbackCountsCleanup__block_invoke_3;
-  v22 = &unk_278975DE0;
+  v18 = MEMORY[0x277D85DD0];
+  v19 = 3221225472;
+  v20 = __62__PPMaintenance__registerTTLBasedDecayedFeedbackCountsCleanup__block_invoke_3;
+  v21 = &unk_278975DE0;
   v6 = v5;
-  v23 = v6;
-  v24 = &v28;
-  v7 = _Block_copy(&v19);
+  v22 = v6;
+  v23 = &v27;
+  v7 = _Block_copy(&v18);
   PPPostNotification(kPPMaintenanceJobStartedNotification);
   v8 = pp_maintenance_signpost_handle();
   v9 = os_signpost_id_generate(v8);
@@ -2170,13 +2124,13 @@ void __62__PPMaintenance__registerTTLBasedDecayedFeedbackCountsCleanup__block_in
   v13 = v12;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    v14 = *(v29 + 24);
+    v14 = *(v28 + 24);
     *buf = 67109120;
-    v33 = v14;
+    v32 = v14;
     _os_signpost_emit_with_name_impl(&dword_23224A000, v13, OS_SIGNPOST_INTERVAL_END, v9, "TTLBasedFeedbackRecordCleanup", " enableTelemetry=YES Deferred=%{signpost.telemetry:number1, Name=Deferred}d", buf, 8u);
   }
 
-  if (*(v29 + 24))
+  if (*(v28 + 24))
   {
     v15 = &kPPMaintenanceJobDeferredNotification;
   }
@@ -2187,12 +2141,12 @@ void __62__PPMaintenance__registerTTLBasedDecayedFeedbackCountsCleanup__block_in
   }
 
   PPPostNotification(*v15);
-  if (*(v29 + 24) == 1)
+  if (*(v28 + 24) == 1)
   {
     if (!xpc_activity_set_state(v4, 3))
     {
-      v18 = [MEMORY[0x277CCA890] currentHandler];
-      [v18 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:1319 description:@"Unexpected failure of deferral"];
+      v17 = [MEMORY[0x277CCA890] currentHandler];
+      [v17 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:1319 description:@"Unexpected failure of deferral"];
     }
 
     v16 = pp_default_log_handle();
@@ -2203,8 +2157,7 @@ void __62__PPMaintenance__registerTTLBasedDecayedFeedbackCountsCleanup__block_in
     }
   }
 
-  _Block_object_dispose(&v28, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v27, 8);
 }
 
 uint64_t __62__PPMaintenance__registerTTLBasedDecayedFeedbackCountsCleanup__block_invoke_2(uint64_t a1)
@@ -2370,50 +2323,50 @@ LABEL_26:
 
 void __54__PPMaintenance__registerRemotelyDonatedRecordCleanup__block_invoke(uint64_t a1, void *a2)
 {
-  v46[2] = *MEMORY[0x277D85DE8];
+  v45[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2020000000;
-  v43 = 0;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
+  v42 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __54__PPMaintenance__registerRemotelyDonatedRecordCleanup__block_invoke_2;
   aBlock[3] = &unk_278975D70;
-  v39 = &v40;
+  v38 = &v39;
   v4 = v3;
-  v38 = v4;
+  v37 = v4;
   v5 = _Block_copy(aBlock);
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __54__PPMaintenance__registerRemotelyDonatedRecordCleanup__block_invoke_3;
-  v35[3] = &unk_278975D98;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __54__PPMaintenance__registerRemotelyDonatedRecordCleanup__block_invoke_3;
+  v34[3] = &unk_278975D98;
   v6 = v5;
-  v36 = v6;
-  v7 = _Block_copy(v35);
-  v46[0] = v7;
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __54__PPMaintenance__registerRemotelyDonatedRecordCleanup__block_invoke_164;
-  v33[3] = &unk_278975D98;
+  v35 = v6;
+  v7 = _Block_copy(v34);
+  v45[0] = v7;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __54__PPMaintenance__registerRemotelyDonatedRecordCleanup__block_invoke_164;
+  v32[3] = &unk_278975D98;
   v8 = v6;
-  v34 = v8;
-  v9 = _Block_copy(v33);
-  v46[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
+  v33 = v8;
+  v9 = _Block_copy(v32);
+  v45[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
 
   v11 = objc_opt_new();
   v12 = [v10 _pas_shuffledArrayUsingRng:v11];
 
-  v27 = MEMORY[0x277D85DD0];
-  v28 = 3221225472;
-  v29 = __54__PPMaintenance__registerRemotelyDonatedRecordCleanup__block_invoke_168;
-  v30 = &unk_278977560;
+  v26 = MEMORY[0x277D85DD0];
+  v27 = 3221225472;
+  v28 = __54__PPMaintenance__registerRemotelyDonatedRecordCleanup__block_invoke_168;
+  v29 = &unk_278977560;
   v13 = v12;
-  v31 = v13;
+  v30 = v13;
   v14 = v8;
-  v32 = v14;
-  v15 = _Block_copy(&v27);
+  v31 = v14;
+  v15 = _Block_copy(&v26);
   PPPostNotification(kPPMaintenanceJobStartedNotification);
   v16 = pp_maintenance_signpost_handle();
   v17 = os_signpost_id_generate(v16);
@@ -2431,13 +2384,13 @@ void __54__PPMaintenance__registerRemotelyDonatedRecordCleanup__block_invoke(uin
   v21 = v20;
   if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
   {
-    v22 = *(v41 + 24);
+    v22 = *(v40 + 24);
     *buf = 67109120;
-    v45 = v22;
+    v44 = v22;
     _os_signpost_emit_with_name_impl(&dword_23224A000, v21, OS_SIGNPOST_INTERVAL_END, v17, "RemotelyDonatedRecordCleanup", " enableTelemetry=YES Deferred=%{signpost.telemetry:number1, Name=Deferred}d", buf, 8u);
   }
 
-  if (*(v41 + 24))
+  if (*(v40 + 24))
   {
     v23 = &kPPMaintenanceJobDeferredNotification;
   }
@@ -2448,12 +2401,12 @@ void __54__PPMaintenance__registerRemotelyDonatedRecordCleanup__block_invoke(uin
   }
 
   PPPostNotification(*v23);
-  if (*(v41 + 24) == 1)
+  if (*(v40 + 24) == 1)
   {
     if (!xpc_activity_set_state(v4, 3))
     {
-      v26 = [MEMORY[0x277CCA890] currentHandler];
-      [v26 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:837 description:@"Unexpected failure of deferral"];
+      v25 = [MEMORY[0x277CCA890] currentHandler];
+      [v25 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:837 description:@"Unexpected failure of deferral"];
     }
 
     v24 = pp_default_log_handle();
@@ -2464,8 +2417,7 @@ void __54__PPMaintenance__registerRemotelyDonatedRecordCleanup__block_invoke(uin
     }
   }
 
-  _Block_object_dispose(&v40, 8);
-  v25 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v39, 8);
 }
 
 uint64_t __54__PPMaintenance__registerRemotelyDonatedRecordCleanup__block_invoke_2(uint64_t a1)
@@ -2524,7 +2476,7 @@ void __54__PPMaintenance__registerRemotelyDonatedRecordCleanup__block_invoke_164
 
 void __54__PPMaintenance__registerRemotelyDonatedRecordCleanup__block_invoke_168(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = pp_default_log_handle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -2532,26 +2484,26 @@ void __54__PPMaintenance__registerRemotelyDonatedRecordCleanup__block_invoke_168
     _os_log_impl(&dword_23224A000, v2, OS_LOG_TYPE_DEFAULT, "Portrait maintenance: RemotelyDonatedRecordCleanup: starting", buf, 2u);
   }
 
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
 LABEL_5:
     v7 = 0;
     while (1)
     {
-      if (*v10 != v6)
+      if (*v9 != v6)
       {
         objc_enumerationMutation(v3);
       }
 
-      (*(*(*(&v9 + 1) + 8 * v7) + 16))(*(*(&v9 + 1) + 8 * v7));
+      (*(*(*(&v8 + 1) + 8 * v7) + 16))(*(*(&v8 + 1) + 8 * v7));
       if (!(*(*(a1 + 40) + 16))(*(a1 + 40)))
       {
         break;
@@ -2559,7 +2511,7 @@ LABEL_5:
 
       if (v5 == ++v7)
       {
-        v5 = [v3 countByEnumeratingWithState:&v9 objects:v14 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v8 objects:v13 count:16];
         if (v5)
         {
           goto LABEL_5;
@@ -2581,34 +2533,32 @@ LABEL_11:
       _os_log_impl(&dword_23224A000, v3, OS_LOG_TYPE_DEFAULT, "Portrait maintenance: RemotelyDonatedRecordCleanup: finished", buf, 2u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __49__PPMaintenance__registerTTLBasedDonationCleanup__block_invoke(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
-  v31 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __49__PPMaintenance__registerTTLBasedDonationCleanup__block_invoke_2;
   aBlock[3] = &unk_278975D70;
-  v27 = &v28;
+  v26 = &v27;
   v4 = v3;
-  v26 = v4;
+  v25 = v4;
   v5 = _Block_copy(aBlock);
-  v19 = MEMORY[0x277D85DD0];
-  v20 = 3221225472;
-  v21 = __49__PPMaintenance__registerTTLBasedDonationCleanup__block_invoke_3;
-  v22 = &unk_278975DE0;
+  v18 = MEMORY[0x277D85DD0];
+  v19 = 3221225472;
+  v20 = __49__PPMaintenance__registerTTLBasedDonationCleanup__block_invoke_3;
+  v21 = &unk_278975DE0;
   v6 = v5;
-  v23 = v6;
-  v24 = &v28;
-  v7 = _Block_copy(&v19);
+  v22 = v6;
+  v23 = &v27;
+  v7 = _Block_copy(&v18);
   PPPostNotification(kPPMaintenanceJobStartedNotification);
   v8 = pp_maintenance_signpost_handle();
   v9 = os_signpost_id_generate(v8);
@@ -2626,13 +2576,13 @@ void __49__PPMaintenance__registerTTLBasedDonationCleanup__block_invoke(uint64_t
   v13 = v12;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    v14 = *(v29 + 24);
+    v14 = *(v28 + 24);
     *buf = 67109120;
-    v33 = v14;
+    v32 = v14;
     _os_signpost_emit_with_name_impl(&dword_23224A000, v13, OS_SIGNPOST_INTERVAL_END, v9, "TTLBasedDonationCleanup", " enableTelemetry=YES Deferred=%{signpost.telemetry:number1, Name=Deferred}d", buf, 8u);
   }
 
-  if (*(v29 + 24))
+  if (*(v28 + 24))
   {
     v15 = &kPPMaintenanceJobDeferredNotification;
   }
@@ -2643,12 +2593,12 @@ void __49__PPMaintenance__registerTTLBasedDonationCleanup__block_invoke(uint64_t
   }
 
   PPPostNotification(*v15);
-  if (*(v29 + 24) == 1)
+  if (*(v28 + 24) == 1)
   {
     if (!xpc_activity_set_state(v4, 3))
     {
-      v18 = [MEMORY[0x277CCA890] currentHandler];
-      [v18 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:728 description:@"Unexpected failure of deferral"];
+      v17 = [MEMORY[0x277CCA890] currentHandler];
+      [v17 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:728 description:@"Unexpected failure of deferral"];
     }
 
     v16 = pp_default_log_handle();
@@ -2659,8 +2609,7 @@ void __49__PPMaintenance__registerTTLBasedDonationCleanup__block_invoke(uint64_t
     }
   }
 
-  _Block_object_dispose(&v28, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v27, 8);
 }
 
 uint64_t __49__PPMaintenance__registerTTLBasedDonationCleanup__block_invoke_2(uint64_t a1)
@@ -2685,7 +2634,7 @@ LABEL_4:
 
 void __49__PPMaintenance__registerTTLBasedDonationCleanup__block_invoke_3(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = pp_default_log_handle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -2701,13 +2650,13 @@ void __49__PPMaintenance__registerTTLBasedDonationCleanup__block_invoke_3(uint64
     if (v5)
     {
       *buf = 138412290;
-      v16 = v3;
+      v15 = v3;
       _os_log_impl(&dword_23224A000, v4, OS_LOG_TYPE_DEFAULT, "PPMaintenance: TTLBasedDonationCleanup: using policy: %@", buf, 0xCu);
     }
 
-    v14 = 0;
-    v6 = [v3 applyPolicyWithError:&v14 shouldContinueBlock:*(a1 + 32)];
-    v4 = v14;
+    v13 = 0;
+    v6 = [v3 applyPolicyWithError:&v13 shouldContinueBlock:*(a1 + 32)];
+    v4 = v13;
     v7 = *(*(*(a1 + 40) + 8) + 24);
     v8 = pp_default_log_handle();
     v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
@@ -2738,7 +2687,7 @@ LABEL_17:
     else if (v9)
     {
       *buf = 138412290;
-      v16 = v4;
+      v15 = v4;
       v10 = "PPMaintenance: TTLBasedDonationCleanup: failed with error: %@";
       v11 = v8;
       v12 = 12;
@@ -2755,13 +2704,11 @@ LABEL_17:
   }
 
 LABEL_19:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __44__PPMaintenance__registerLogSportsFavorites__block_invoke(uint64_t a1, void *a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x277D3A578];
   v5 = +[PPConfiguration sharedInstance];
@@ -2777,31 +2724,31 @@ void __44__PPMaintenance__registerLogSportsFavorites__block_invoke(uint64_t a1, 
   if (v6)
   {
 LABEL_4:
-    *v34 = 0;
-    v35 = v34;
-    v36 = 0x2020000000;
-    v37 = 0;
+    *v33 = 0;
+    v34 = v33;
+    v35 = 0x2020000000;
+    v36 = 0;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __44__PPMaintenance__registerLogSportsFavorites__block_invoke_394;
     aBlock[3] = &unk_278975D70;
-    v33 = v34;
+    v32 = v33;
     v7 = v3;
-    v32 = v7;
+    v31 = v7;
     v8 = _Block_copy(aBlock);
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x2020000000;
-    v30 = 1;
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __44__PPMaintenance__registerLogSportsFavorites__block_invoke_2;
-    v23[3] = &unk_278976090;
+    v26 = 0;
+    v27 = &v26;
+    v28 = 0x2020000000;
+    v29 = 1;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __44__PPMaintenance__registerLogSportsFavorites__block_invoke_2;
+    v22[3] = &unk_278976090;
     v9 = v8;
-    v24 = v9;
-    v25 = &v27;
-    v26 = *(a1 + 32);
-    v10 = _Block_copy(v23);
+    v23 = v9;
+    v24 = &v26;
+    v25 = *(a1 + 32);
+    v10 = _Block_copy(v22);
     PPPostNotification(kPPMaintenanceJobStartedNotification);
     v11 = pp_maintenance_signpost_handle();
     v12 = os_signpost_id_generate(v11);
@@ -2819,13 +2766,13 @@ LABEL_4:
     v16 = v15;
     if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
     {
-      v17 = v35[24];
+      v17 = v34[24];
       *buf = 67109120;
-      v39 = v17;
+      v38 = v17;
       _os_signpost_emit_with_name_impl(&dword_23224A000, v16, OS_SIGNPOST_INTERVAL_END, v12, "LogSportsFavorites", " enableTelemetry=YES Deferred=%{signpost.telemetry:number1, Name=Deferred}d", buf, 8u);
     }
 
-    if (v35[24])
+    if (v34[24])
     {
       v18 = &kPPMaintenanceJobDeferredNotification;
     }
@@ -2836,12 +2783,12 @@ LABEL_4:
     }
 
     PPPostNotification(*v18);
-    if ((v28[3] & 1) == 0 && v35[24] == 1)
+    if ((v27[3] & 1) == 0 && v34[24] == 1)
     {
       if (!xpc_activity_set_state(v7, 3))
       {
-        v22 = [MEMORY[0x277CCA890] currentHandler];
-        [v22 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"PPMaintenance.m" lineNumber:2587 description:@"Unexpected failure of deferral"];
+        v21 = [MEMORY[0x277CCA890] currentHandler];
+        [v21 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"PPMaintenance.m" lineNumber:2587 description:@"Unexpected failure of deferral"];
       }
 
       v19 = pp_default_log_handle();
@@ -2852,20 +2799,19 @@ LABEL_4:
       }
     }
 
-    _Block_object_dispose(&v27, 8);
-    _Block_object_dispose(v34, 8);
+    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(v33, 8);
     goto LABEL_24;
   }
 
   v20 = pp_default_log_handle();
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    *v34 = 0;
-    _os_log_impl(&dword_23224A000, v20, OS_LOG_TYPE_DEFAULT, "Portrait maintenance: Sports metrics skipped due to sampling.", v34, 2u);
+    *v33 = 0;
+    _os_log_impl(&dword_23224A000, v20, OS_LOG_TYPE_DEFAULT, "Portrait maintenance: Sports metrics skipped due to sampling.", v33, 2u);
   }
 
 LABEL_24:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __44__PPMaintenance__registerLogSportsFavorites__block_invoke_394(uint64_t a1)
@@ -2890,386 +2836,382 @@ LABEL_4:
 
 void __44__PPMaintenance__registerLogSportsFavorites__block_invoke_2(uint64_t a1)
 {
-  v136 = *MEMORY[0x277D85DE8];
+  v134 = *MEMORY[0x277D85DE8];
   if ((*(*(a1 + 32) + 16))())
   {
-    v2 = *(a1 + 48);
-    v74 = a1;
-    v76 = *(a1 + 32);
+    v72 = a1;
+    v74 = *(a1 + 32);
     objc_opt_self();
     context = objc_autoreleasePoolPush();
-    v3 = pp_default_log_handle();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v2 = pp_default_log_handle();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      *v135 = 0;
-      _os_log_debug_impl(&dword_23224A000, v3, OS_LOG_TYPE_DEBUG, "PPMaintenance: enters _logSportsFavorites", v135, 2u);
+      *v133 = 0;
+      _os_log_debug_impl(&dword_23224A000, v2, OS_LOG_TYPE_DEBUG, "PPMaintenance: enters _logSportsFavorites", v133, 2u);
     }
 
-    v4 = +[PPTrialWrapper sharedInstance];
-    v5 = [v4 trieForFactorName:@"tvAppSportsFavorites.trie" namespaceName:@"PERSONALIZATION_PORTRAIT_TOPICS"];
+    v3 = +[PPTrialWrapper sharedInstance];
+    v4 = [v3 trieForFactorName:@"tvAppSportsFavorites.trie" namespaceName:@"PERSONALIZATION_PORTRAIT_TOPICS"];
 
-    if (v5)
+    if (v4)
     {
-      if (v76[2]())
+      if (v74[2]())
       {
-        v72 = objc_opt_new();
-        v6 = [@"PersonalizationPortrait" copy];
-        [v72 setCaller:v6];
+        v70 = objc_opt_new();
+        v5 = [@"PersonalizationPortrait" copy];
+        [v70 setCaller:v5];
 
-        v7 = dispatch_group_create();
-        dispatch_group_enter(v7);
-        v114 = 0;
-        v115 = &v114;
-        v116 = 0x3032000000;
-        v117 = __Block_byref_object_copy__17081;
-        v118 = __Block_byref_object_dispose__17082;
-        v119 = 0;
-        v111[0] = MEMORY[0x277D85DD0];
-        v111[1] = 3221225472;
-        v111[2] = __35__PPMaintenance__logSportsMetrics___block_invoke;
-        v111[3] = &unk_2789760B8;
-        v113 = &v114;
-        v8 = v7;
-        v112 = v8;
-        [v72 makeRequestWithCompletion:v111];
-        v9 = [MEMORY[0x277D425A0] waitForGroup:v8 timeoutSeconds:8.0];
-        v71 = v8;
-        if ((v76[2]() & 1) == 0)
+        v6 = dispatch_group_create();
+        dispatch_group_enter(v6);
+        v112 = 0;
+        v113 = &v112;
+        v114 = 0x3032000000;
+        v115 = __Block_byref_object_copy__17081;
+        v116 = __Block_byref_object_dispose__17082;
+        v117 = 0;
+        v109[0] = MEMORY[0x277D85DD0];
+        v109[1] = 3221225472;
+        v109[2] = __35__PPMaintenance__logSportsMetrics___block_invoke;
+        v109[3] = &unk_2789760B8;
+        v111 = &v112;
+        v7 = v6;
+        v110 = v7;
+        [v70 makeRequestWithCompletion:v109];
+        v8 = [MEMORY[0x277D425A0] waitForGroup:v7 timeoutSeconds:8.0];
+        v69 = v7;
+        if ((v74[2]() & 1) == 0)
         {
-          v21 = pp_default_log_handle();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+          v20 = pp_default_log_handle();
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
-            *v135 = 0;
-            _os_log_debug_impl(&dword_23224A000, v21, OS_LOG_TYPE_DEBUG, "PPMaintenance: Deferring sports metrics.", v135, 2u);
+            *v133 = 0;
+            _os_log_debug_impl(&dword_23224A000, v20, OS_LOG_TYPE_DEBUG, "PPMaintenance: Deferring sports metrics.", v133, 2u);
           }
 
-          v56 = 0;
+          v55 = 0;
           goto LABEL_61;
         }
 
-        if (v9 == 1 || !v115[5])
+        if (v8 == 1 || !v113[5])
         {
-          v56 = 0;
+          v55 = 0;
 LABEL_62:
 
-          _Block_object_dispose(&v114, 8);
-          v60 = v72;
+          _Block_object_dispose(&v112, 8);
+          v59 = v70;
           goto LABEL_63;
         }
 
-        v10 = objc_alloc(MEMORY[0x277CBEB58]);
-        v11 = [v10 initWithCapacity:{objc_msgSend(v115[5], "count")}];
-        v77 = objc_opt_new();
-        v109 = 0u;
-        v110 = 0u;
+        v9 = objc_alloc(MEMORY[0x277CBEB58]);
+        v10 = [v9 initWithCapacity:{objc_msgSend(v113[5], "count")}];
+        v75 = objc_opt_new();
         v107 = 0u;
         v108 = 0u;
-        v12 = v115[5];
-        v13 = [v12 countByEnumeratingWithState:&v107 objects:v135 count:16];
-        if (v13)
-        {
-          v14 = *v108;
-          do
-          {
-            v15 = 0;
-            do
-            {
-              if (*v108 != v14)
-              {
-                objc_enumerationMutation(v12);
-              }
-
-              v16 = *(*(&v107 + 1) + 8 * v15);
-              v17 = pp_default_log_handle();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
-              {
-                v19 = [v16 ID];
-                v20 = [v16 name];
-                *buf = 138740227;
-                v132 = v19;
-                v133 = 2117;
-                v134 = v20;
-                _os_log_debug_impl(&dword_23224A000, v17, OS_LOG_TYPE_DEBUG, "PPMaintenance: TV app favorite: %{sensitive}@: \t\t %{sensitive}@", buf, 0x16u);
-              }
-
-              v18 = [v16 ID];
-              [v11 addObject:v18];
-
-              ++v15;
-            }
-
-            while (v13 != v15);
-            v13 = [v12 countByEnumeratingWithState:&v107 objects:v135 count:16];
-          }
-
-          while (v13);
-        }
-
         v105 = 0u;
         v106 = 0u;
-        v103 = 0u;
-        v104 = 0u;
-        v21 = v11;
-        v22 = [v21 countByEnumeratingWithState:&v103 objects:buf count:16];
-        if (v22)
+        v11 = v113[5];
+        v12 = [v11 countByEnumeratingWithState:&v105 objects:v133 count:16];
+        if (v12)
         {
-          v23 = *v104;
+          v13 = *v106;
           do
           {
-            for (i = 0; i != v22; ++i)
+            v14 = 0;
+            do
             {
-              if (*v104 != v23)
+              if (*v106 != v13)
               {
-                objc_enumerationMutation(v21);
+                objc_enumerationMutation(v11);
               }
 
-              v25 = [v5 payloadForString:*(*(&v103 + 1) + 8 * i)];
-              if (v25)
+              v15 = *(*(&v105 + 1) + 8 * v14);
+              v16 = pp_default_log_handle();
+              if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
               {
-                v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v25];
-                [v77 addObject:v26];
+                v18 = [v15 ID];
+                v19 = [v15 name];
+                *buf = 138740227;
+                v130 = v18;
+                v131 = 2117;
+                v132 = v19;
+                _os_log_debug_impl(&dword_23224A000, v16, OS_LOG_TYPE_DEBUG, "PPMaintenance: TV app favorite: %{sensitive}@: \t\t %{sensitive}@", buf, 0x16u);
               }
+
+              v17 = [v15 ID];
+              [v10 addObject:v17];
+
+              ++v14;
             }
 
-            v22 = [v21 countByEnumeratingWithState:&v103 objects:buf count:16];
+            while (v12 != v14);
+            v12 = [v11 countByEnumeratingWithState:&v105 objects:v133 count:16];
           }
 
-          while (v22);
+          while (v12);
         }
 
-        v27 = +[PPLocalTopicStore defaultStore];
-        v28 = objc_opt_new();
-        v102 = 0;
-        v70 = [v27 scoresForTopicMapping:@"sirisports" query:v28 error:&v102];
-        v69 = v102;
-
-        if (v70)
+        v103 = 0u;
+        v104 = 0u;
+        v101 = 0u;
+        v102 = 0u;
+        v20 = v10;
+        v21 = [v20 countByEnumeratingWithState:&v101 objects:buf count:16];
+        if (v21)
         {
-          v29 = pp_default_log_handle();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+          v22 = *v102;
+          do
           {
-            LODWORD(v120) = 138739971;
-            *(&v120 + 4) = v70;
-            _os_log_debug_impl(&dword_23224A000, v29, OS_LOG_TYPE_DEBUG, "PPMaintenance: Portrait siri sports predictions:\n%{sensitive}@", &v120, 0xCu);
-          }
-
-          if (v76[2]())
-          {
-            v30 = [v70 keysSortedByValueUsingComparator:&__block_literal_global_410];
-            v31 = objc_opt_new();
-            v73 = v30;
-            v32 = +[PPConfiguration sharedInstance];
-            v67 = [v32 sportsMetricsNumberOfTeamsLogged];
-
-            v33 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"teamFalseNegativesTop%lu", v67];
-            v66 = [v33 _pas_stringBackedByUTF8CString];
-
-            v34 = +[PPConfiguration sharedInstance];
-            LODWORD(v33) = [v34 sportsMetricsNumberOfLeaguesLogged];
-
-            v35 = v33;
-            v36 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"leagueFalseNegativesTop%lu", v33];
-            v65 = [v36 _pas_stringBackedByUTF8CString];
-
-            v37 = objc_opt_new();
-            v98 = 0;
-            v99 = &v98;
-            v100 = 0x2020000000;
-            v101 = [v21 count];
-            v94 = 0;
-            v95 = &v94;
-            v96 = 0x2020000000;
-            v97 = [v21 count];
-            v90 = 0;
-            v91 = &v90;
-            v92 = 0x2020000000;
-            v93 = [v77 count];
-            v86 = 0;
-            v87 = &v86;
-            v88 = 0x2020000000;
-            v89 = [v77 count];
-            *&v120 = MEMORY[0x277D85DD0];
-            *(&v120 + 1) = 3221225472;
-            v121 = __35__PPMaintenance__logSportsMetrics___block_invoke_2;
-            v122 = &unk_2789760E0;
-            v123 = v5;
-            v130 = v67;
-            v38 = v37;
-            v124 = v38;
-            v125 = v70;
-            v126 = v21;
-            v128 = &v98;
-            v129 = &v94;
-            v63 = v31;
-            v127 = v63;
-            [v73 enumerateObjectsUsingBlock:&v120];
-            if (v67)
+            for (i = 0; i != v21; ++i)
             {
-              for (j = 0; j != v67; ++j)
+              if (*v102 != v22)
               {
-                v40 = objc_autoreleasePoolPush();
-                if (j >= [v73 count])
-                {
-                  v41 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"teamScore%lu", j];
-                  v42 = [v41 _pas_stringBackedByUTF8CString];
-                  [v38 setObject:&unk_284784320 forKeyedSubscript:v42];
+                objc_enumerationMutation(v20);
+              }
 
-                  v43 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"teamState%lu", j];
-                  v44 = [v43 _pas_stringBackedByUTF8CString];
-                  [v38 setObject:&unk_284784338 forKeyedSubscript:v44];
-                }
-
-                objc_autoreleasePoolPop(v40);
+              v24 = [v4 payloadForString:*(*(&v101 + 1) + 8 * i)];
+              if (v24)
+              {
+                v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v24];
+                [v75 addObject:v25];
               }
             }
 
-            v68 = [v63 keysSortedByValueUsingComparator:&__block_literal_global_437];
-            v79[0] = MEMORY[0x277D85DD0];
-            v79[1] = 3221225472;
-            v79[2] = __35__PPMaintenance__logSportsMetrics___block_invoke_2_438;
-            v79[3] = &unk_278976108;
-            v85 = v35;
-            v45 = v38;
-            v80 = v45;
-            v64 = v63;
-            v81 = v64;
-            v82 = v77;
-            v83 = &v90;
-            v84 = &v86;
-            [v68 enumerateObjectsUsingBlock:v79];
-            v46 = [v68 count];
-            if (v46 < v35)
+            v21 = [v20 countByEnumeratingWithState:&v101 objects:buf count:16];
+          }
+
+          while (v21);
+        }
+
+        v26 = +[PPLocalTopicStore defaultStore];
+        v27 = objc_opt_new();
+        v100 = 0;
+        v68 = [v26 scoresForTopicMapping:@"sirisports" query:v27 error:&v100];
+        v67 = v100;
+
+        if (v68)
+        {
+          v28 = pp_default_log_handle();
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+          {
+            LODWORD(v118) = 138739971;
+            *(&v118 + 4) = v68;
+            _os_log_debug_impl(&dword_23224A000, v28, OS_LOG_TYPE_DEBUG, "PPMaintenance: Portrait siri sports predictions:\n%{sensitive}@", &v118, 0xCu);
+          }
+
+          if (v74[2]())
+          {
+            v29 = [v68 keysSortedByValueUsingComparator:&__block_literal_global_410];
+            v30 = objc_opt_new();
+            v71 = v29;
+            v31 = +[PPConfiguration sharedInstance];
+            v65 = [v31 sportsMetricsNumberOfTeamsLogged];
+
+            v32 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"teamFalseNegativesTop%lu", v65];
+            v64 = [v32 _pas_stringBackedByUTF8CString];
+
+            v33 = +[PPConfiguration sharedInstance];
+            LODWORD(v32) = [v33 sportsMetricsNumberOfLeaguesLogged];
+
+            v34 = v32;
+            v35 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"leagueFalseNegativesTop%lu", v32];
+            v63 = [v35 _pas_stringBackedByUTF8CString];
+
+            v36 = objc_opt_new();
+            v96 = 0;
+            v97 = &v96;
+            v98 = 0x2020000000;
+            v99 = [v20 count];
+            v92 = 0;
+            v93 = &v92;
+            v94 = 0x2020000000;
+            v95 = [v20 count];
+            v88 = 0;
+            v89 = &v88;
+            v90 = 0x2020000000;
+            v91 = [v75 count];
+            v84 = 0;
+            v85 = &v84;
+            v86 = 0x2020000000;
+            v87 = [v75 count];
+            *&v118 = MEMORY[0x277D85DD0];
+            *(&v118 + 1) = 3221225472;
+            v119 = __35__PPMaintenance__logSportsMetrics___block_invoke_2;
+            v120 = &unk_2789760E0;
+            v121 = v4;
+            v128 = v65;
+            v37 = v36;
+            v122 = v37;
+            v123 = v68;
+            v124 = v20;
+            v126 = &v96;
+            v127 = &v92;
+            v61 = v30;
+            v125 = v61;
+            [v71 enumerateObjectsUsingBlock:&v118];
+            if (v65)
+            {
+              for (j = 0; j != v65; ++j)
+              {
+                v39 = objc_autoreleasePoolPush();
+                if (j >= [v71 count])
+                {
+                  v40 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"teamScore%lu", j];
+                  v41 = [v40 _pas_stringBackedByUTF8CString];
+                  [v37 setObject:&unk_284784320 forKeyedSubscript:v41];
+
+                  v42 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"teamState%lu", j];
+                  v43 = [v42 _pas_stringBackedByUTF8CString];
+                  [v37 setObject:&unk_284784338 forKeyedSubscript:v43];
+                }
+
+                objc_autoreleasePoolPop(v39);
+              }
+            }
+
+            v66 = [v61 keysSortedByValueUsingComparator:&__block_literal_global_437];
+            v77[0] = MEMORY[0x277D85DD0];
+            v77[1] = 3221225472;
+            v77[2] = __35__PPMaintenance__logSportsMetrics___block_invoke_2_438;
+            v77[3] = &unk_278976108;
+            v83 = v34;
+            v44 = v37;
+            v78 = v44;
+            v62 = v61;
+            v79 = v62;
+            v80 = v75;
+            v81 = &v88;
+            v82 = &v84;
+            [v66 enumerateObjectsUsingBlock:v77];
+            v45 = [v66 count];
+            if (v45 < v34)
             {
               do
               {
-                v47 = objc_autoreleasePoolPush();
-                v48 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"leagueScore%lu", v46, v64];
-                v49 = [v48 _pas_stringBackedByUTF8CString];
-                [v45 setObject:&unk_284784320 forKeyedSubscript:v49];
+                v46 = objc_autoreleasePoolPush();
+                v47 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"leagueScore%lu", v45, v62];
+                v48 = [v47 _pas_stringBackedByUTF8CString];
+                [v44 setObject:&unk_284784320 forKeyedSubscript:v48];
 
-                v50 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"leagueState%lu", v46];
-                v51 = [v50 _pas_stringBackedByUTF8CString];
-                [v45 setObject:&unk_284784338 forKeyedSubscript:v51];
+                v49 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"leagueState%lu", v45];
+                v50 = [v49 _pas_stringBackedByUTF8CString];
+                [v44 setObject:&unk_284784338 forKeyedSubscript:v50];
 
-                objc_autoreleasePoolPop(v47);
-                ++v46;
+                objc_autoreleasePoolPop(v46);
+                ++v45;
               }
 
-              while (v35 != v46);
+              while (v34 != v45);
             }
 
-            v52 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v99[3]];
-            [v45 setObject:v52 forKeyedSubscript:@"teamFalseNegativesAll"];
+            v51 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v97[3]];
+            [v44 setObject:v51 forKeyedSubscript:@"teamFalseNegativesAll"];
 
-            v53 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v95[3]];
-            [v45 setObject:v53 forKeyedSubscript:v66];
+            v52 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v93[3]];
+            [v44 setObject:v52 forKeyedSubscript:v64];
 
-            v54 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v91[3]];
-            [v45 setObject:v54 forKeyedSubscript:@"leagueFalseNegativesAll"];
+            v53 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v89[3]];
+            [v44 setObject:v53 forKeyedSubscript:@"leagueFalseNegativesAll"];
 
-            v55 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v87[3]];
-            [v45 setObject:v55 forKeyedSubscript:v65];
+            v54 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v85[3]];
+            [v44 setObject:v54 forKeyedSubscript:v63];
 
-            v56 = v76[2]();
-            if (v56)
+            v55 = v74[2]();
+            if (v55)
             {
-              v57 = +[PPConfiguration sharedInstance];
-              v58 = [v57 sportsMetricsEventName];
-              [PPMetricsDispatcher logPayloadForEvent:v58 payload:v45 inBackground:1];
+              v56 = +[PPConfiguration sharedInstance];
+              v57 = [v56 sportsMetricsEventName];
+              [PPMetricsDispatcher logPayloadForEvent:v57 payload:v44 inBackground:1];
             }
 
             else
             {
-              v57 = pp_default_log_handle();
-              if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
+              v56 = pp_default_log_handle();
+              if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
               {
-                *v78 = 0;
-                _os_log_debug_impl(&dword_23224A000, v57, OS_LOG_TYPE_DEBUG, "PPMaintenance: Deferring sports metrics.", v78, 2u);
+                *v76 = 0;
+                _os_log_debug_impl(&dword_23224A000, v56, OS_LOG_TYPE_DEBUG, "PPMaintenance: Deferring sports metrics.", v76, 2u);
               }
             }
 
-            _Block_object_dispose(&v86, 8);
-            _Block_object_dispose(&v90, 8);
-            _Block_object_dispose(&v94, 8);
-            _Block_object_dispose(&v98, 8);
+            _Block_object_dispose(&v84, 8);
+            _Block_object_dispose(&v88, 8);
+            _Block_object_dispose(&v92, 8);
+            _Block_object_dispose(&v96, 8);
 
-            v61 = v73;
+            v60 = v71;
             goto LABEL_60;
           }
 
-          v61 = pp_default_log_handle();
-          if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
+          v60 = pp_default_log_handle();
+          if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
           {
-            LOWORD(v120) = 0;
-            _os_log_debug_impl(&dword_23224A000, v61, OS_LOG_TYPE_DEBUG, "PPMaintenance: Deferring sports metrics.", &v120, 2u);
+            LOWORD(v118) = 0;
+            _os_log_debug_impl(&dword_23224A000, v60, OS_LOG_TYPE_DEBUG, "PPMaintenance: Deferring sports metrics.", &v118, 2u);
           }
         }
 
         else
         {
-          v61 = pp_default_log_handle();
-          if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+          v60 = pp_default_log_handle();
+          if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
           {
-            LODWORD(v120) = 138412290;
-            *(&v120 + 4) = v69;
-            _os_log_error_impl(&dword_23224A000, v61, OS_LOG_TYPE_ERROR, "PPMaintenance: Failed to get Portrait siri sports predictions:%@", &v120, 0xCu);
+            LODWORD(v118) = 138412290;
+            *(&v118 + 4) = v67;
+            _os_log_error_impl(&dword_23224A000, v60, OS_LOG_TYPE_ERROR, "PPMaintenance: Failed to get Portrait siri sports predictions:%@", &v118, 0xCu);
           }
         }
 
-        v56 = 0;
+        v55 = 0;
 LABEL_60:
 
 LABEL_61:
         goto LABEL_62;
       }
 
-      v60 = pp_default_log_handle();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+      v59 = pp_default_log_handle();
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
       {
-        *v135 = 0;
-        _os_log_debug_impl(&dword_23224A000, v60, OS_LOG_TYPE_DEBUG, "PPMaintenance: Deferring sports metrics.", v135, 2u);
+        *v133 = 0;
+        _os_log_debug_impl(&dword_23224A000, v59, OS_LOG_TYPE_DEBUG, "PPMaintenance: Deferring sports metrics.", v133, 2u);
       }
     }
 
     else
     {
-      v60 = pp_default_log_handle();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+      v59 = pp_default_log_handle();
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
       {
-        *v135 = 0;
-        _os_log_error_impl(&dword_23224A000, v60, OS_LOG_TYPE_ERROR, "PPMaintenance: Failed to load TV app Sports Favorites trie.", v135, 2u);
+        *v133 = 0;
+        _os_log_error_impl(&dword_23224A000, v59, OS_LOG_TYPE_ERROR, "PPMaintenance: Failed to load TV app Sports Favorites trie.", v133, 2u);
       }
     }
 
-    v56 = 0;
+    v55 = 0;
 LABEL_63:
 
     objc_autoreleasePoolPop(context);
-    *(*(*(v74 + 40) + 8) + 24) = v56;
-    goto LABEL_64;
+    *(*(*(v72 + 40) + 8) + 24) = v55;
+    return;
   }
 
-  v59 = pp_default_log_handle();
-  if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
+  v58 = pp_default_log_handle();
+  if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
   {
-    *v135 = 0;
-    _os_log_debug_impl(&dword_23224A000, v59, OS_LOG_TYPE_DEBUG, "PPMaintenance: Deferring sports metrics.", v135, 2u);
+    *v133 = 0;
+    _os_log_debug_impl(&dword_23224A000, v58, OS_LOG_TYPE_DEBUG, "PPMaintenance: Deferring sports metrics.", v133, 2u);
   }
-
-LABEL_64:
-  v62 = *MEMORY[0x277D85DE8];
 }
 
 void __35__PPMaintenance__logSportsMetrics___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = pp_default_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v12) = 0;
-    _os_log_debug_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEBUG, "PPMaintenance: Enters favRequest completion block.", &v12, 2u);
+    LOWORD(v11) = 0;
+    _os_log_debug_impl(&dword_23224A000, v7, OS_LOG_TYPE_DEBUG, "PPMaintenance: Enters favRequest completion block.", &v11, 2u);
   }
 
   if (v5)
@@ -3285,14 +3227,13 @@ void __35__PPMaintenance__logSportsMetrics___block_invoke(uint64_t a1, void *a2,
     v10 = pp_default_log_handle();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = v6;
-      _os_log_error_impl(&dword_23224A000, v10, OS_LOG_TYPE_ERROR, "PPMaintenance: Failed to make WLKFavoritesRequest: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v6;
+      _os_log_error_impl(&dword_23224A000, v10, OS_LOG_TYPE_ERROR, "PPMaintenance: Failed to make WLKFavoritesRequest: %@", &v11, 0xCu);
     }
   }
 
   dispatch_group_leave(*(a1 + 32));
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __35__PPMaintenance__logSportsMetrics___block_invoke_2(uint64_t a1, void *a2, unint64_t a3)
@@ -3408,32 +3349,32 @@ LABEL_9:
 
 void __47__PPMaintenance__registerLogLocationPerplexity__block_invoke(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
-  v35 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __47__PPMaintenance__registerLogLocationPerplexity__block_invoke_2;
   aBlock[3] = &unk_278975D70;
-  v31 = &v32;
+  v30 = &v31;
   v4 = v3;
-  v30 = v4;
+  v29 = v4;
   v5 = _Block_copy(aBlock);
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 1;
-  v19 = MEMORY[0x277D85DD0];
-  v20 = 3221225472;
-  v21 = __47__PPMaintenance__registerLogLocationPerplexity__block_invoke_3;
-  v22 = &unk_278975DE0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 1;
+  v18 = MEMORY[0x277D85DD0];
+  v19 = 3221225472;
+  v20 = __47__PPMaintenance__registerLogLocationPerplexity__block_invoke_3;
+  v21 = &unk_278975DE0;
   v6 = v5;
-  v23 = v6;
-  v24 = &v25;
-  v7 = _Block_copy(&v19);
+  v22 = v6;
+  v23 = &v24;
+  v7 = _Block_copy(&v18);
   PPPostNotification(kPPMaintenanceJobStartedNotification);
   v8 = pp_maintenance_signpost_handle();
   v9 = os_signpost_id_generate(v8);
@@ -3451,13 +3392,13 @@ void __47__PPMaintenance__registerLogLocationPerplexity__block_invoke(uint64_t a
   v13 = v12;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    v14 = *(v33 + 24);
+    v14 = *(v32 + 24);
     *buf = 67109120;
-    v37 = v14;
+    v36 = v14;
     _os_signpost_emit_with_name_impl(&dword_23224A000, v13, OS_SIGNPOST_INTERVAL_END, v9, "LogLocationPerplexity", " enableTelemetry=YES Deferred=%{signpost.telemetry:number1, Name=Deferred}d", buf, 8u);
   }
 
-  if (*(v33 + 24))
+  if (*(v32 + 24))
   {
     v15 = &kPPMaintenanceJobDeferredNotification;
   }
@@ -3468,12 +3409,12 @@ void __47__PPMaintenance__registerLogLocationPerplexity__block_invoke(uint64_t a
   }
 
   PPPostNotification(*v15);
-  if ((v26[3] & 1) == 0 && *(v33 + 24) == 1)
+  if ((v25[3] & 1) == 0 && *(v32 + 24) == 1)
   {
     if (!xpc_activity_set_state(v4, 3))
     {
-      v18 = [MEMORY[0x277CCA890] currentHandler];
-      [v18 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:2537 description:@"Unexpected failure of deferral"];
+      v17 = [MEMORY[0x277CCA890] currentHandler];
+      [v17 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:2537 description:@"Unexpected failure of deferral"];
     }
 
     v16 = pp_default_log_handle();
@@ -3484,10 +3425,8 @@ void __47__PPMaintenance__registerLogLocationPerplexity__block_invoke(uint64_t a
     }
   }
 
-  _Block_object_dispose(&v25, 8);
-  _Block_object_dispose(&v32, 8);
-
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v31, 8);
 }
 
 uint64_t __47__PPMaintenance__registerLogLocationPerplexity__block_invoke_2(uint64_t a1)
@@ -3512,7 +3451,7 @@ LABEL_4:
 
 void __47__PPMaintenance__registerLogLocationPerplexity__block_invoke_3(uint64_t a1)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v2 = pp_default_log_handle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
@@ -3520,17 +3459,17 @@ void __47__PPMaintenance__registerLogLocationPerplexity__block_invoke_3(uint64_t
     _os_log_impl(&dword_23224A000, v2, OS_LOG_TYPE_INFO, "PPMaintenance: beginning logging of daily perplexity location statistics.", &buf, 2u);
   }
 
-  v36 = +[PPLocalLocationStore defaultStore];
+  v35 = +[PPLocalLocationStore defaultStore];
   if ((*(*(a1 + 32) + 16))())
   {
     v3 = objc_opt_new();
     v4 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-86400.0];
     [v3 setToDate:v4];
 
-    v56 = 0;
-    v35 = [v36 locationRecordsWithQuery:v3 error:&v56];
-    v5 = v56;
-    if (!v35)
+    v55 = 0;
+    v34 = [v35 locationRecordsWithQuery:v3 error:&v55];
+    v5 = v55;
+    if (!v34)
     {
       v13 = pp_default_log_handle();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
@@ -3544,9 +3483,9 @@ void __47__PPMaintenance__registerLogLocationPerplexity__block_invoke_3(uint64_t
     }
 
     v6 = objc_alloc(MEMORY[0x277CBEB98]);
-    v7 = [PPLocationClusterID lookupTableWithRecords:v35];
+    v7 = [PPLocationClusterID lookupTableWithRecords:v34];
     v8 = [v7 allKeys];
-    v34 = [v6 initWithArray:v8];
+    v33 = [v6 initWithArray:v8];
 
     if (((*(*(a1 + 32) + 16))() & 1) == 0)
     {
@@ -3560,9 +3499,9 @@ void __47__PPMaintenance__registerLogLocationPerplexity__block_invoke_3(uint64_t
       goto LABEL_36;
     }
 
-    v33 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceNow:-86400.0];
-    v9 = [v36 storage];
-    v32 = [v9 lastDonationTimeForSourcesBeforeDate:v33];
+    v32 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceNow:-86400.0];
+    v9 = [v35 storage];
+    v31 = [v9 lastDonationTimeForSourcesBeforeDate:v32];
 
     if (((*(*(a1 + 32) + 16))() & 1) == 0)
     {
@@ -3581,28 +3520,28 @@ void __47__PPMaintenance__registerLogLocationPerplexity__block_invoke_3(uint64_t
       v10 = objc_opt_new();
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v59 = 0x2020000000;
-      v60 = 0;
+      v58 = 0x2020000000;
+      v59 = 0;
       v11 = objc_opt_new();
-      v55 = v5;
-      v51[0] = MEMORY[0x277D85DD0];
-      v51[1] = 3221225472;
-      v51[2] = __47__PPMaintenance__registerLogLocationPerplexity__block_invoke_383;
-      v51[3] = &unk_278976040;
-      v53 = *(a1 + 32);
+      v54 = v5;
+      v50[0] = MEMORY[0x277D85DD0];
+      v50[1] = 3221225472;
+      v50[2] = __47__PPMaintenance__registerLogLocationPerplexity__block_invoke_383;
+      v50[3] = &unk_278976040;
+      v52 = *(a1 + 32);
       v12 = v10;
-      v52 = v12;
+      v51 = v12;
       p_buf = &buf;
-      [v36 iterRankedLocationsWithQuery:v11 error:&v55 block:v51];
-      obj = v55;
+      [v35 iterRankedLocationsWithQuery:v11 error:&v54 block:v50];
+      obj = v54;
 
       if (((*(*(a1 + 32) + 16))() & 1) == 0)
       {
         v25 = pp_default_log_handle();
         if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
-          *v50 = 0;
-          _os_log_debug_impl(&dword_23224A000, v25, OS_LOG_TYPE_DEBUG, "PPMaintenance: Deferring location perplexity.", v50, 2u);
+          *v49 = 0;
+          _os_log_debug_impl(&dword_23224A000, v25, OS_LOG_TYPE_DEBUG, "PPMaintenance: Deferring location perplexity.", v49, 2u);
         }
 
         _Block_object_dispose(&buf, 8);
@@ -3620,53 +3559,53 @@ void __47__PPMaintenance__registerLogLocationPerplexity__block_invoke_3(uint64_t
       v12 = 0;
     }
 
-    v31 = objc_opt_new();
+    v30 = objc_opt_new();
 
     v16 = objc_opt_new();
     v17 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-86400.0];
-    [v31 setFromDate:v17];
+    [v30 setFromDate:v17];
 
-    [v31 setDeviceFilter:1];
+    [v30 setDeviceFilter:1];
     v18 = objc_opt_new();
-    v49 = v5;
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __47__PPMaintenance__registerLogLocationPerplexity__block_invoke_385;
-    v43[3] = &unk_278976068;
-    v44 = v34;
-    v30 = v18;
-    v45 = v30;
-    v27 = v12;
-    v46 = v27;
-    v47 = v32;
-    v28 = v16;
-    v48 = v28;
-    LOBYTE(v16) = [v36 iterLocationRecordsWithQuery:v31 error:&v49 block:v43];
-    v29 = v49;
+    v48 = v5;
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __47__PPMaintenance__registerLogLocationPerplexity__block_invoke_385;
+    v42[3] = &unk_278976068;
+    v43 = v33;
+    v29 = v18;
+    v44 = v29;
+    v26 = v12;
+    v45 = v26;
+    v46 = v31;
+    v27 = v16;
+    v47 = v27;
+    LOBYTE(v16) = [v35 iterLocationRecordsWithQuery:v30 error:&v48 block:v42];
+    v28 = v48;
 
     *(*(*(a1 + 40) + 8) + 24) = v16;
     if (*(*(*(a1 + 40) + 8) + 24))
     {
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
       v40 = 0u;
-      obja = v30;
-      v19 = [obja countByEnumeratingWithState:&v39 objects:v57 count:16];
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
+      obja = v29;
+      v19 = [obja countByEnumeratingWithState:&v38 objects:v56 count:16];
       if (v19)
       {
-        v20 = *v40;
+        v20 = *v39;
         do
         {
           v21 = 0;
           do
           {
-            if (*v40 != v20)
+            if (*v39 != v20)
             {
               objc_enumerationMutation(obja);
             }
 
-            v22 = *(*(&v39 + 1) + 8 * v21);
+            v22 = *(*(&v38 + 1) + 8 * v21);
             v23 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@.LocationDonationAnalyzed", @"com.apple.proactive.PersonalizationPortrait"];
             [PPMetricsDispatcher logPayloadForEvent:v23 payload:v22 inBackground:1];
 
@@ -3674,7 +3613,7 @@ void __47__PPMaintenance__registerLogLocationPerplexity__block_invoke_3(uint64_t
           }
 
           while (v19 != v21);
-          v19 = [obja countByEnumeratingWithState:&v39 objects:v57 count:16];
+          v19 = [obja countByEnumeratingWithState:&v38 objects:v56 count:16];
         }
 
         while (v19);
@@ -3694,20 +3633,20 @@ void __47__PPMaintenance__registerLogLocationPerplexity__block_invoke_3(uint64_t
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         LODWORD(buf) = 138412290;
-        *(&buf + 4) = v29;
+        *(&buf + 4) = v28;
         _os_log_error_impl(&dword_23224A000, v24, OS_LOG_TYPE_ERROR, "PPMaintenance: Error logging location perplexity: %@", &buf, 0xCu);
       }
     }
 
-    v3 = v31;
-    v5 = v29;
-    v15 = v27;
+    v3 = v30;
+    v5 = v28;
+    v15 = v26;
 LABEL_35:
 
-    v14 = v33;
+    v14 = v32;
 LABEL_36:
 
-    v13 = v34;
+    v13 = v33;
 LABEL_37:
 
     goto LABEL_38;
@@ -3721,8 +3660,6 @@ LABEL_37:
   }
 
 LABEL_38:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __47__PPMaintenance__registerLogLocationPerplexity__block_invoke_383(uint64_t a1, void *a2, _BYTE *a3)
@@ -3753,7 +3690,7 @@ void __47__PPMaintenance__registerLogLocationPerplexity__block_invoke_383(uint64
 
 void __47__PPMaintenance__registerLogLocationPerplexity__block_invoke_385(uint64_t a1, void *a2)
 {
-  v30[6] = *MEMORY[0x277D85DE8];
+  v29[6] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [PPLocationClusterID alloc];
   v5 = [v3 location];
@@ -3761,22 +3698,22 @@ void __47__PPMaintenance__registerLogLocationPerplexity__block_invoke_385(uint64
   v7 = [(PPLocationClusterID *)v4 initWithPlacemark:v6];
 
   LODWORD(v4) = [*(a1 + 32) containsObject:v7];
-  v27 = *(a1 + 40);
+  v26 = *(a1 + 40);
   context = objc_autoreleasePoolPush();
-  v29[0] = @"source";
-  v25 = [v3 source];
-  v24 = [v25 bundleId];
-  v23 = [PPMetricsUtils filterBundleId:?];
-  v30[0] = v23;
-  v29[1] = @"algorithm";
-  v22 = [MEMORY[0x277D3A3F0] describeAlgorithm:{objc_msgSend(v3, "algorithm")}];
-  v30[1] = v22;
-  v29[2] = @"isNew";
-  v21 = [MEMORY[0x277CCABB0] numberWithBool:v4 ^ 1];
-  v30[2] = v21;
-  v29[3] = @"groupId";
-  v20 = [v3 source];
-  v19 = [v20 groupId];
+  v28[0] = @"source";
+  v24 = [v3 source];
+  v23 = [v24 bundleId];
+  v22 = [PPMetricsUtils filterBundleId:?];
+  v29[0] = v22;
+  v28[1] = @"algorithm";
+  v21 = [MEMORY[0x277D3A3F0] describeAlgorithm:{objc_msgSend(v3, "algorithm")}];
+  v29[1] = v21;
+  v28[2] = @"isNew";
+  v20 = [MEMORY[0x277CCABB0] numberWithBool:v4 ^ 1];
+  v29[2] = v20;
+  v28[3] = @"groupId";
+  v19 = [v3 source];
+  v18 = [v19 groupId];
   v8 = [PPMetricsUtils filterGroupIdAllowance:?];
   v9 = v8;
   if (!v8)
@@ -3784,15 +3721,15 @@ void __47__PPMaintenance__registerLogLocationPerplexity__block_invoke_385(uint64
     v9 = objc_opt_new();
   }
 
-  v30[3] = v9;
-  v29[4] = @"isUserCreated";
+  v29[3] = v9;
+  v28[4] = @"isUserCreated";
   v10 = MEMORY[0x277CCABB0];
   v11 = [v3 source];
   v12 = [v11 metadata];
   v13 = [v10 numberWithInt:{objc_msgSend(v12, "flags") & 1}];
-  v30[4] = v13;
-  v29[5] = @"rank";
-  v28 = v7;
+  v29[4] = v13;
+  v28[5] = @"rank";
+  v27 = v7;
   v14 = [*(a1 + 48) objectForKeyedSubscript:v7];
   v15 = v14;
   if (!v14)
@@ -3800,8 +3737,8 @@ void __47__PPMaintenance__registerLogLocationPerplexity__block_invoke_385(uint64
     v15 = objc_opt_new();
   }
 
-  v30[5] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:6];
+  v29[5] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:6];
   if (!v14)
   {
   }
@@ -3811,12 +3748,10 @@ void __47__PPMaintenance__registerLogLocationPerplexity__block_invoke_385(uint64
   }
 
   objc_autoreleasePoolPop(context);
-  [v27 addObject:v16];
+  [v26 addObject:v16];
 
   v17 = [v3 source];
   [PPMaintenance _logDonationIntervalStatsForSource:v17 domain:2 lastDonationTimes:*(a1 + 56) lastBatchDonationTimes:*(a1 + 64)];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_logDonationIntervalStatsForSource:(uint64_t)source domain:(void *)domain lastDonationTimes:(void *)times lastBatchDonationTimes:
@@ -3891,32 +3826,32 @@ LABEL_9:
 
 void __44__PPMaintenance__registerLogTopicPerplexity__block_invoke(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
-  v35 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __44__PPMaintenance__registerLogTopicPerplexity__block_invoke_2;
   aBlock[3] = &unk_278975D70;
-  v31 = &v32;
+  v30 = &v31;
   v4 = v3;
-  v30 = v4;
+  v29 = v4;
   v5 = _Block_copy(aBlock);
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 1;
-  v19 = MEMORY[0x277D85DD0];
-  v20 = 3221225472;
-  v21 = __44__PPMaintenance__registerLogTopicPerplexity__block_invoke_3;
-  v22 = &unk_278975DE0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 1;
+  v18 = MEMORY[0x277D85DD0];
+  v19 = 3221225472;
+  v20 = __44__PPMaintenance__registerLogTopicPerplexity__block_invoke_3;
+  v21 = &unk_278975DE0;
   v6 = v5;
-  v23 = v6;
-  v24 = &v25;
-  v7 = _Block_copy(&v19);
+  v22 = v6;
+  v23 = &v24;
+  v7 = _Block_copy(&v18);
   PPPostNotification(kPPMaintenanceJobStartedNotification);
   v8 = pp_maintenance_signpost_handle();
   v9 = os_signpost_id_generate(v8);
@@ -3934,13 +3869,13 @@ void __44__PPMaintenance__registerLogTopicPerplexity__block_invoke(uint64_t a1, 
   v13 = v12;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    v14 = *(v33 + 24);
+    v14 = *(v32 + 24);
     *buf = 67109120;
-    v37 = v14;
+    v36 = v14;
     _os_signpost_emit_with_name_impl(&dword_23224A000, v13, OS_SIGNPOST_INTERVAL_END, v9, "LogTopicPerplexity", " enableTelemetry=YES Deferred=%{signpost.telemetry:number1, Name=Deferred}d", buf, 8u);
   }
 
-  if (*(v33 + 24))
+  if (*(v32 + 24))
   {
     v15 = &kPPMaintenanceJobDeferredNotification;
   }
@@ -3951,12 +3886,12 @@ void __44__PPMaintenance__registerLogTopicPerplexity__block_invoke(uint64_t a1, 
   }
 
   PPPostNotification(*v15);
-  if ((v26[3] & 1) == 0 && *(v33 + 24) == 1)
+  if ((v25[3] & 1) == 0 && *(v32 + 24) == 1)
   {
     if (!xpc_activity_set_state(v4, 3))
     {
-      v18 = [MEMORY[0x277CCA890] currentHandler];
-      [v18 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:2156 description:@"Unexpected failure of deferral"];
+      v17 = [MEMORY[0x277CCA890] currentHandler];
+      [v17 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:2156 description:@"Unexpected failure of deferral"];
     }
 
     v16 = pp_default_log_handle();
@@ -3967,10 +3902,8 @@ void __44__PPMaintenance__registerLogTopicPerplexity__block_invoke(uint64_t a1, 
     }
   }
 
-  _Block_object_dispose(&v25, 8);
-  _Block_object_dispose(&v32, 8);
-
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v31, 8);
 }
 
 uint64_t __44__PPMaintenance__registerLogTopicPerplexity__block_invoke_2(uint64_t a1)
@@ -3995,7 +3928,7 @@ LABEL_4:
 
 void __44__PPMaintenance__registerLogTopicPerplexity__block_invoke_3(uint64_t a1)
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   v1 = pp_default_log_handle();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
@@ -4003,29 +3936,29 @@ void __44__PPMaintenance__registerLogTopicPerplexity__block_invoke_3(uint64_t a1
     _os_log_impl(&dword_23224A000, v1, OS_LOG_TYPE_INFO, "PPMaintenance: beginning logging of daily perplexity topic statistics.", buf, 2u);
   }
 
-  v39 = +[PPLocalTopicStore defaultStore];
+  v38 = +[PPLocalTopicStore defaultStore];
   if ((*(*(a1 + 32) + 16))())
   {
     oslog = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceNow:-86400.0];
-    v2 = [v39 storage];
-    v37 = [v2 clusterIdentifiersExistingBeforeDate:oslog];
+    v2 = [v38 storage];
+    v36 = [v2 clusterIdentifiersExistingBeforeDate:oslog];
 
     if ((*(*(a1 + 32) + 16))())
     {
       if ((*(*(a1 + 32) + 16))())
       {
-        v35 = objc_opt_new();
-        [v35 setFromDate:oslog];
-        [v35 setDeviceFilter:1];
+        v34 = objc_opt_new();
+        [v34 setFromDate:oslog];
+        [v34 setDeviceFilter:1];
         if ([MEMORY[0x277D3A578] yesWithProbability:0.00999999978])
         {
-          v36 = objc_opt_new();
+          v35 = objc_opt_new();
           v3 = objc_opt_new();
-          v63 = 0;
-          v38 = [v39 rankedTopicsWithQuery:v3 error:&v63];
-          v4 = v63;
+          v62 = 0;
+          v37 = [v38 rankedTopicsWithQuery:v3 error:&v62];
+          v4 = v62;
 
-          if ([v38 count])
+          if ([v37 count])
           {
             v5 = 0;
             while (1)
@@ -4037,13 +3970,13 @@ void __44__PPMaintenance__registerLogTopicPerplexity__block_invoke_3(uint64_t a1
               }
 
               v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v5];
-              v8 = [v38 objectAtIndexedSubscript:v5];
+              v8 = [v37 objectAtIndexedSubscript:v5];
               v9 = [v8 item];
               v10 = [v9 topicIdentifier];
-              [v36 setObject:v7 forKeyedSubscript:v10];
+              [v35 setObject:v7 forKeyedSubscript:v10];
 
               objc_autoreleasePoolPop(v6);
-              if (++v5 >= [v38 count])
+              if (++v5 >= [v37 count])
               {
                 goto LABEL_11;
               }
@@ -4065,59 +3998,59 @@ LABEL_11:
 
         else
         {
-          v36 = 0;
+          v35 = 0;
           v4 = 0;
         }
 
         v11 = objc_opt_new();
         *buf = 0;
-        v58 = buf;
-        v59 = 0x3032000000;
-        v60 = __Block_byref_object_copy__17081;
-        v61 = __Block_byref_object_dispose__17082;
-        v62 = 0;
-        v56 = v4;
-        v50[0] = MEMORY[0x277D85DD0];
-        v50[1] = 3221225472;
-        v50[2] = __44__PPMaintenance__registerLogTopicPerplexity__block_invoke_317;
-        v50[3] = &unk_278975F78;
-        v54 = *(a1 + 32);
-        v51 = v37;
-        v36 = v36;
-        v52 = v36;
-        v38 = v11;
-        v53 = v38;
-        v55 = buf;
-        v12 = [v39 iterTopicRecordsWithQuery:v35 error:&v56 block:v50];
-        v34 = v56;
+        v57 = buf;
+        v58 = 0x3032000000;
+        v59 = __Block_byref_object_copy__17081;
+        v60 = __Block_byref_object_dispose__17082;
+        v61 = 0;
+        v55 = v4;
+        v49[0] = MEMORY[0x277D85DD0];
+        v49[1] = 3221225472;
+        v49[2] = __44__PPMaintenance__registerLogTopicPerplexity__block_invoke_317;
+        v49[3] = &unk_278975F78;
+        v53 = *(a1 + 32);
+        v50 = v36;
+        v35 = v35;
+        v51 = v35;
+        v37 = v11;
+        v52 = v37;
+        v54 = buf;
+        v12 = [v38 iterTopicRecordsWithQuery:v34 error:&v55 block:v49];
+        v33 = v55;
 
         *(*(*(a1 + 40) + 8) + 24) = v12;
         if ((*(*(a1 + 32) + 16))())
         {
-          v48 = 0u;
-          v49 = 0u;
-          v46 = 0u;
           v47 = 0u;
-          obj = v38;
-          v13 = [obj countByEnumeratingWithState:&v46 objects:v73 count:16];
+          v48 = 0u;
+          v45 = 0u;
+          v46 = 0u;
+          obj = v37;
+          v13 = [obj countByEnumeratingWithState:&v45 objects:v72 count:16];
           if (v13)
           {
-            v14 = *v47;
+            v14 = *v46;
             do
             {
               for (i = 0; i != v13; ++i)
               {
-                if (*v47 != v14)
+                if (*v46 != v14)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v16 = *(*(&v46 + 1) + 8 * i);
+                v16 = *(*(&v45 + 1) + 8 * i);
                 v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@.TopicDonationAnalyzed", @"com.apple.proactive.PersonalizationPortrait"];
                 [PPMetricsDispatcher logPayloadForEvent:v17 payload:v16 inBackground:1];
               }
 
-              v13 = [obj countByEnumeratingWithState:&v46 objects:v73 count:16];
+              v13 = [obj countByEnumeratingWithState:&v45 objects:v72 count:16];
             }
 
             while (v13);
@@ -4125,54 +4058,54 @@ LABEL_11:
 
           if (*(*(*(a1 + 40) + 8) + 24))
           {
-            v4 = v34;
-            if (*(v58 + 5))
+            v4 = v33;
+            if (*(v57 + 5))
             {
               v18 = pp_default_log_handle();
               if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
               {
-                LOWORD(v68) = 0;
-                _os_log_impl(&dword_23224A000, v18, OS_LOG_TYPE_INFO, "PPMaintenance: performing sampled logging of user created entity", &v68, 2u);
+                LOWORD(v67) = 0;
+                _os_log_impl(&dword_23224A000, v18, OS_LOG_TYPE_INFO, "PPMaintenance: performing sampled logging of user created entity", &v67, 2u);
               }
 
               v19 = objc_opt_new();
               v20 = objc_autoreleasePoolPush();
               v21 = objc_alloc(MEMORY[0x277CBEB98]);
-              v22 = [v21 initWithObjects:{*(v58 + 5), 0}];
+              v22 = [v21 initWithObjects:{*(v57 + 5), 0}];
               objc_autoreleasePoolPop(v20);
               [v19 setMatchingTopicIds:v22];
 
               [v19 setToDate:oslog];
-              *&v68 = 0;
-              *(&v68 + 1) = &v68;
-              v69 = 0x3032000000;
-              v70 = __Block_byref_object_copy__17081;
-              v71 = __Block_byref_object_dispose__17082;
-              v72 = 0;
-              v44[4] = &v68;
-              v45 = v34;
-              v44[0] = MEMORY[0x277D85DD0];
-              v44[1] = 3221225472;
-              v44[2] = __44__PPMaintenance__registerLogTopicPerplexity__block_invoke_339;
-              v44[3] = &unk_278975FA0;
-              v23 = [v39 iterTopicRecordsWithQuery:v19 error:&v45 block:v44];
-              v4 = v45;
+              *&v67 = 0;
+              *(&v67 + 1) = &v67;
+              v68 = 0x3032000000;
+              v69 = __Block_byref_object_copy__17081;
+              v70 = __Block_byref_object_dispose__17082;
+              v71 = 0;
+              v43[4] = &v67;
+              v44 = v33;
+              v43[0] = MEMORY[0x277D85DD0];
+              v43[1] = 3221225472;
+              v43[2] = __44__PPMaintenance__registerLogTopicPerplexity__block_invoke_339;
+              v43[3] = &unk_278975FA0;
+              v23 = [v38 iterTopicRecordsWithQuery:v19 error:&v44 block:v43];
+              v4 = v44;
 
               if (v23)
               {
-                if (*(*(&v68 + 1) + 40))
+                if (*(*(&v67 + 1) + 40))
                 {
                   v24 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@.UserWroteTopic", @"com.apple.proactive.PersonalizationPortrait"];
                   v25 = objc_autoreleasePoolPush();
-                  v64[0] = @"source";
-                  obja = [*(*(&v68 + 1) + 40) source];
+                  v63[0] = @"source";
+                  obja = [*(*(&v67 + 1) + 40) source];
                   v26 = [obja bundleId];
                   v27 = [PPMetricsUtils filterBundleId:v26];
-                  v64[1] = @"algorithm";
-                  v65[0] = v27;
-                  v28 = [MEMORY[0x277D3A548] describeAlgorithm:{objc_msgSend(*(*(&v68 + 1) + 40), "algorithm")}];
-                  v65[1] = v28;
-                  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:2];
+                  v63[1] = @"algorithm";
+                  v64[0] = v27;
+                  v28 = [MEMORY[0x277D3A548] describeAlgorithm:{objc_msgSend(*(*(&v67 + 1) + 40), "algorithm")}];
+                  v64[1] = v28;
+                  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:v63 count:2];
 
                   objc_autoreleasePoolPop(v25);
                   [PPMetricsDispatcher logPayloadForEvent:v24 payload:v29 inBackground:1];
@@ -4181,8 +4114,8 @@ LABEL_11:
                 v30 = pp_default_log_handle();
                 if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
                 {
-                  *v66 = 0;
-                  _os_log_impl(&dword_23224A000, v30, OS_LOG_TYPE_INFO, "PPMaintenance: completed logging of sampled user created entity", v66, 2u);
+                  *v65 = 0;
+                  _os_log_impl(&dword_23224A000, v30, OS_LOG_TYPE_INFO, "PPMaintenance: completed logging of sampled user created entity", v65, 2u);
                 }
               }
 
@@ -4191,13 +4124,13 @@ LABEL_11:
                 v30 = pp_default_log_handle();
                 if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
                 {
-                  *v66 = 138412290;
-                  v67 = v4;
-                  _os_log_error_impl(&dword_23224A000, v30, OS_LOG_TYPE_ERROR, "PPMaintenance: error logging sampled user creation metrics: %@", v66, 0xCu);
+                  *v65 = 138412290;
+                  v66 = v4;
+                  _os_log_error_impl(&dword_23224A000, v30, OS_LOG_TYPE_ERROR, "PPMaintenance: error logging sampled user creation metrics: %@", v65, 0xCu);
                 }
               }
 
-              _Block_object_dispose(&v68, 8);
+              _Block_object_dispose(&v67, 8);
               if ((v23 & 1) == 0)
               {
                 goto LABEL_51;
@@ -4207,11 +4140,11 @@ LABEL_11:
             v31 = pp_default_log_handle();
             if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
             {
-              LOWORD(v68) = 0;
-              _os_log_impl(&dword_23224A000, v31, OS_LOG_TYPE_INFO, "PPMaintenance: completed logging of daily perplexity topic statistics.", &v68, 2u);
+              LOWORD(v67) = 0;
+              _os_log_impl(&dword_23224A000, v31, OS_LOG_TYPE_INFO, "PPMaintenance: completed logging of daily perplexity topic statistics.", &v67, 2u);
             }
 
-            v34 = v4;
+            v33 = v4;
           }
 
           else
@@ -4219,9 +4152,9 @@ LABEL_11:
             v31 = pp_default_log_handle();
             if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
             {
-              LODWORD(v68) = 138412290;
-              *(&v68 + 4) = v34;
-              _os_log_error_impl(&dword_23224A000, v31, OS_LOG_TYPE_ERROR, "PPMaintenance: Error logging topic perplexity: %@", &v68, 0xCu);
+              LODWORD(v67) = 138412290;
+              *(&v67 + 4) = v33;
+              _os_log_error_impl(&dword_23224A000, v31, OS_LOG_TYPE_ERROR, "PPMaintenance: Error logging topic perplexity: %@", &v67, 0xCu);
             }
           }
         }
@@ -4231,12 +4164,12 @@ LABEL_11:
           v31 = pp_default_log_handle();
           if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v68) = 0;
-            _os_log_impl(&dword_23224A000, v31, OS_LOG_TYPE_DEFAULT, "PPMaintenance: deferring topic donation analysis reporting.", &v68, 2u);
+            LOWORD(v67) = 0;
+            _os_log_impl(&dword_23224A000, v31, OS_LOG_TYPE_DEFAULT, "PPMaintenance: deferring topic donation analysis reporting.", &v67, 2u);
           }
         }
 
-        v4 = v34;
+        v4 = v33;
 LABEL_51:
 
         _Block_object_dispose(buf, 8);
@@ -4277,13 +4210,11 @@ LABEL_53:
   }
 
 LABEL_54:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __44__PPMaintenance__registerLogTopicPerplexity__block_invoke_317(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v38[6] = *MEMORY[0x277D85DE8];
+  v37[6] = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (((*(*(a1 + 56) + 16))() & 1) == 0)
   {
@@ -4296,21 +4227,21 @@ void __44__PPMaintenance__registerLogTopicPerplexity__block_invoke_317(uint64_t 
   v8 = [v7 clusterIdentifier];
   v9 = [v6 containsObject:v8];
 
-  v37[0] = @"source";
-  v35 = [v5 source];
-  v34 = [v35 bundleId];
-  v33 = [PPMetricsUtils filterBundleId:?];
-  v38[0] = v33;
-  v37[1] = @"algorithm";
-  v32 = [MEMORY[0x277D3A548] describeAlgorithm:{objc_msgSend(v5, "algorithm")}];
-  v38[1] = v32;
-  v37[2] = @"isNew";
-  v36 = v9;
-  v31 = [MEMORY[0x277CCABB0] numberWithBool:v9 ^ 1u];
-  v38[2] = v31;
-  v37[3] = @"groupId";
-  v30 = [v5 source];
-  v29 = [v30 groupId];
+  v36[0] = @"source";
+  v34 = [v5 source];
+  v33 = [v34 bundleId];
+  v32 = [PPMetricsUtils filterBundleId:?];
+  v37[0] = v32;
+  v36[1] = @"algorithm";
+  v31 = [MEMORY[0x277D3A548] describeAlgorithm:{objc_msgSend(v5, "algorithm")}];
+  v37[1] = v31;
+  v36[2] = @"isNew";
+  v35 = v9;
+  v30 = [MEMORY[0x277CCABB0] numberWithBool:v9 ^ 1u];
+  v37[2] = v30;
+  v36[3] = @"groupId";
+  v29 = [v5 source];
+  v28 = [v29 groupId];
   v10 = [PPMetricsUtils filterGroupIdAllowance:?];
   v11 = v10;
   if (!v10)
@@ -4318,14 +4249,14 @@ void __44__PPMaintenance__registerLogTopicPerplexity__block_invoke_317(uint64_t 
     v10 = objc_opt_new();
   }
 
-  v38[3] = v10;
-  v37[4] = @"isUserCreated";
+  v37[3] = v10;
+  v36[4] = @"isUserCreated";
   v12 = MEMORY[0x277CCABB0];
   v13 = [v5 source];
   v14 = [v13 metadata];
   v15 = [v12 numberWithInt:{objc_msgSend(v14, "flags") & 1}];
-  v38[4] = v15;
-  v37[5] = @"rank";
+  v37[4] = v15;
+  v36[5] = @"rank";
   v16 = *(a1 + 40);
   v17 = [v5 topic];
   v18 = [v17 topicIdentifier];
@@ -4336,8 +4267,8 @@ void __44__PPMaintenance__registerLogTopicPerplexity__block_invoke_317(uint64_t 
     v20 = objc_opt_new();
   }
 
-  v38[5] = v20;
-  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:6];
+  v37[5] = v20;
+  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:6];
   if (!v19)
   {
   }
@@ -4346,8 +4277,8 @@ void __44__PPMaintenance__registerLogTopicPerplexity__block_invoke_317(uint64_t 
   {
   }
 
-  [*(a1 + 48) addObject:v28];
-  if (v36)
+  [*(a1 + 48) addObject:v27];
+  if (v35)
   {
     v21 = [v5 source];
     v22 = [v21 metadata];
@@ -4374,37 +4305,36 @@ LABEL_14:
 LABEL_15:
 
 LABEL_17:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
-  v35 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_2;
   aBlock[3] = &unk_278975D70;
-  v31 = &v32;
+  v30 = &v31;
   v4 = v3;
-  v30 = v4;
+  v29 = v4;
   v5 = _Block_copy(aBlock);
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 1;
-  v19 = MEMORY[0x277D85DD0];
-  v20 = 3221225472;
-  v21 = __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_3;
-  v22 = &unk_278975DE0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 1;
+  v18 = MEMORY[0x277D85DD0];
+  v19 = 3221225472;
+  v20 = __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_3;
+  v21 = &unk_278975DE0;
   v6 = v5;
-  v23 = v6;
-  v24 = &v25;
-  v7 = _Block_copy(&v19);
+  v22 = v6;
+  v23 = &v24;
+  v7 = _Block_copy(&v18);
   PPPostNotification(kPPMaintenanceJobStartedNotification);
   v8 = pp_maintenance_signpost_handle();
   v9 = os_signpost_id_generate(v8);
@@ -4422,13 +4352,13 @@ void __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke(uint64_
   v13 = v12;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    v14 = *(v33 + 24);
+    v14 = *(v32 + 24);
     *buf = 67109120;
-    v37 = v14;
+    v36 = v14;
     _os_signpost_emit_with_name_impl(&dword_23224A000, v13, OS_SIGNPOST_INTERVAL_END, v9, "LogNamedEntityPerplexity", " enableTelemetry=YES Deferred=%{signpost.telemetry:number1, Name=Deferred}d", buf, 8u);
   }
 
-  if (*(v33 + 24))
+  if (*(v32 + 24))
   {
     v15 = &kPPMaintenanceJobDeferredNotification;
   }
@@ -4439,12 +4369,12 @@ void __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke(uint64_
   }
 
   PPPostNotification(*v15);
-  if ((v26[3] & 1) == 0 && *(v33 + 24) == 1)
+  if ((v25[3] & 1) == 0 && *(v32 + 24) == 1)
   {
     if (!xpc_activity_set_state(v4, 3))
     {
-      v18 = [MEMORY[0x277CCA890] currentHandler];
-      [v18 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:2417 description:@"Unexpected failure of deferral"];
+      v17 = [MEMORY[0x277CCA890] currentHandler];
+      [v17 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:2417 description:@"Unexpected failure of deferral"];
     }
 
     v16 = pp_default_log_handle();
@@ -4455,10 +4385,8 @@ void __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke(uint64_
     }
   }
 
-  _Block_object_dispose(&v25, 8);
-  _Block_object_dispose(&v32, 8);
-
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v31, 8);
 }
 
 uint64_t __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_2(uint64_t a1)
@@ -4483,7 +4411,7 @@ LABEL_4:
 
 void __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_3(uint64_t a1)
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   v2 = pp_default_log_handle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
@@ -4491,12 +4419,12 @@ void __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_3(uint6
     _os_log_impl(&dword_23224A000, v2, OS_LOG_TYPE_INFO, "PPMaintenance: beginning logging of daily perplexity named entity statistics.", buf, 2u);
   }
 
-  v43 = +[PPLocalNamedEntityStore defaultStore];
+  v42 = +[PPLocalNamedEntityStore defaultStore];
   if ((*(*(a1 + 32) + 16))())
   {
     oslog = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceNow:-86400.0];
-    v3 = [v43 storage];
-    v42 = [v3 clusterIdentifiersExistingBeforeDate:oslog];
+    v3 = [v42 storage];
+    v41 = [v3 clusterIdentifiersExistingBeforeDate:oslog];
 
     if (((*(*(a1 + 32) + 16))() & 1) == 0)
     {
@@ -4510,8 +4438,8 @@ void __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_3(uint6
       goto LABEL_46;
     }
 
-    v4 = [v43 storage];
-    v41 = [v4 lastDonationTimeForSourcesBeforeDate:oslog];
+    v4 = [v42 storage];
+    v40 = [v4 lastDonationTimeForSourcesBeforeDate:oslog];
 
     if (((*(*(a1 + 32) + 16))() & 1) == 0)
     {
@@ -4525,37 +4453,37 @@ void __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_3(uint6
       goto LABEL_45;
     }
 
-    v40 = objc_opt_new();
-    [v40 setFromDate:oslog];
-    [v40 setDeviceFilter:1];
     v39 = objc_opt_new();
+    [v39 setFromDate:oslog];
+    [v39 setDeviceFilter:1];
+    v38 = objc_opt_new();
     if ([MEMORY[0x277D3A578] yesWithProbability:0.00999999978])
     {
       v5 = objc_opt_new();
       *buf = 0;
-      v60 = buf;
-      v61 = 0x2020000000;
-      LODWORD(v62) = 0;
+      v59 = buf;
+      v60 = 0x2020000000;
+      LODWORD(v61) = 0;
       v6 = objc_opt_new();
-      v69 = 0;
-      v65[0] = MEMORY[0x277D85DD0];
-      v65[1] = 3221225472;
-      v65[2] = __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_362;
-      v65[3] = &unk_278975FC8;
-      v67 = *(a1 + 32);
-      v38 = v5;
-      v66 = v38;
-      v68 = buf;
-      [v43 iterRankedNamedEntitiesWithQuery:v6 error:&v69 block:v65];
-      v7 = v69;
+      v68 = 0;
+      v64[0] = MEMORY[0x277D85DD0];
+      v64[1] = 3221225472;
+      v64[2] = __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_362;
+      v64[3] = &unk_278975FC8;
+      v66 = *(a1 + 32);
+      v37 = v5;
+      v65 = v37;
+      v67 = buf;
+      [v42 iterRankedNamedEntitiesWithQuery:v6 error:&v68 block:v64];
+      v7 = v68;
 
       if (((*(*(a1 + 32) + 16))() & 1) == 0)
       {
         v31 = pp_default_log_handle();
         if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
         {
-          LOWORD(v75) = 0;
-          _os_log_debug_impl(&dword_23224A000, v31, OS_LOG_TYPE_DEBUG, "PPMaintenance: Deferring entity perplexity.", &v75, 2u);
+          LOWORD(v74) = 0;
+          _os_log_debug_impl(&dword_23224A000, v31, OS_LOG_TYPE_DEBUG, "PPMaintenance: Deferring entity perplexity.", &v74, 2u);
         }
 
         _Block_object_dispose(buf, 8);
@@ -4563,7 +4491,7 @@ void __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_3(uint6
       }
 
       _Block_object_dispose(buf, 8);
-      v8 = v38;
+      v8 = v37;
     }
 
     else
@@ -4573,108 +4501,108 @@ void __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_3(uint6
     }
 
     *buf = 0;
-    v60 = buf;
-    v61 = 0x3032000000;
-    v62 = __Block_byref_object_copy__17081;
-    v63 = __Block_byref_object_dispose__17082;
-    v64 = 0;
+    v59 = buf;
+    v60 = 0x3032000000;
+    v61 = __Block_byref_object_copy__17081;
+    v62 = __Block_byref_object_dispose__17082;
+    v63 = 0;
     v10 = objc_opt_new();
-    v58 = v7;
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_364;
-    v51[3] = &unk_278975FF0;
-    v52 = v42;
-    v37 = v10;
-    v53 = v37;
+    v57 = v7;
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_364;
+    v50[3] = &unk_278975FF0;
+    v51 = v41;
+    v36 = v10;
+    v52 = v36;
     v11 = v8;
-    v54 = v11;
-    v55 = v41;
-    v56 = v39;
-    v57 = buf;
-    LOBYTE(v10) = [v43 iterNamedEntityRecordsWithQuery:v40 error:&v58 block:v51];
-    v38 = v11;
-    v12 = v58;
+    v53 = v11;
+    v54 = v40;
+    v55 = v38;
+    v56 = buf;
+    LOBYTE(v10) = [v42 iterNamedEntityRecordsWithQuery:v39 error:&v57 block:v50];
+    v37 = v11;
+    v12 = v57;
 
     *(*(*(a1 + 40) + 8) + 24) = v10;
     if (*(*(*(a1 + 40) + 8) + 24))
     {
-      if (*(v60 + 5))
+      if (*(v59 + 5))
       {
         v13 = pp_default_log_handle();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v75) = 0;
-          _os_log_impl(&dword_23224A000, v13, OS_LOG_TYPE_INFO, "PPMaintenance: performing sampled logging of user created entity", &v75, 2u);
+          LOWORD(v74) = 0;
+          _os_log_impl(&dword_23224A000, v13, OS_LOG_TYPE_INFO, "PPMaintenance: performing sampled logging of user created entity", &v74, 2u);
         }
 
-        v36 = objc_opt_new();
+        v35 = objc_opt_new();
         v14 = objc_autoreleasePoolPush();
         v15 = objc_alloc(MEMORY[0x277CBEB98]);
-        v16 = [v15 initWithObjects:{*(v60 + 5), 0}];
+        v16 = [v15 initWithObjects:{*(v59 + 5), 0}];
         objc_autoreleasePoolPop(v14);
-        [v36 setMatchingNames:v16];
+        [v35 setMatchingNames:v16];
 
-        [v36 setToDate:oslog];
-        *&v75 = 0;
-        *(&v75 + 1) = &v75;
-        v76 = 0x3032000000;
-        v77 = __Block_byref_object_copy__17081;
-        v78 = __Block_byref_object_dispose__17082;
-        v79 = 0;
-        v49[4] = &v75;
-        v50 = v12;
-        v49[0] = MEMORY[0x277D85DD0];
-        v49[1] = 3221225472;
-        v49[2] = __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_373;
-        v49[3] = &unk_278976018;
-        v35 = [v43 iterNamedEntityRecordsWithQuery:v36 error:&v50 block:v49];
-        v34 = v50;
+        [v35 setToDate:oslog];
+        *&v74 = 0;
+        *(&v74 + 1) = &v74;
+        v75 = 0x3032000000;
+        v76 = __Block_byref_object_copy__17081;
+        v77 = __Block_byref_object_dispose__17082;
+        v78 = 0;
+        v48[4] = &v74;
+        v49 = v12;
+        v48[0] = MEMORY[0x277D85DD0];
+        v48[1] = 3221225472;
+        v48[2] = __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_373;
+        v48[3] = &unk_278976018;
+        v34 = [v42 iterNamedEntityRecordsWithQuery:v35 error:&v49 block:v48];
+        v33 = v49;
 
-        if (v35)
+        if (v34)
         {
-          if (*(*(&v75 + 1) + 40))
+          if (*(*(&v74 + 1) + 40))
           {
             v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@.UserWroteNamedEntity", @"com.apple.proactive.PersonalizationPortrait"];
             v18 = objc_autoreleasePoolPush();
-            v71[0] = @"source";
-            v33 = [*(*(&v75 + 1) + 40) source];
-            v19 = [v33 bundleId];
+            v70[0] = @"source";
+            v32 = [*(*(&v74 + 1) + 40) source];
+            v19 = [v32 bundleId];
             v20 = [PPMetricsUtils filterBundleId:v19];
-            v71[1] = @"algorithm";
-            v72[0] = v20;
-            v21 = [MEMORY[0x277D3A438] describeAlgorithm:{objc_msgSend(*(*(&v75 + 1) + 40), "algorithm")}];
-            v72[1] = v21;
-            v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:2];
+            v70[1] = @"algorithm";
+            v71[0] = v20;
+            v21 = [MEMORY[0x277D3A438] describeAlgorithm:{objc_msgSend(*(*(&v74 + 1) + 40), "algorithm")}];
+            v71[1] = v21;
+            v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v71 forKeys:v70 count:2];
 
             objc_autoreleasePoolPop(v18);
             [PPMetricsDispatcher logPayloadForEvent:v17 payload:v22 inBackground:1];
           }
 
-          v47 = 0u;
-          v48 = 0u;
-          v45 = 0u;
           v46 = 0u;
-          v23 = v37;
-          v24 = [v23 countByEnumeratingWithState:&v45 objects:v70 count:16];
+          v47 = 0u;
+          v44 = 0u;
+          v45 = 0u;
+          v23 = v36;
+          v24 = [v23 countByEnumeratingWithState:&v44 objects:v69 count:16];
           if (v24)
           {
-            v25 = *v46;
+            v25 = *v45;
             do
             {
               for (i = 0; i != v24; ++i)
               {
-                if (*v46 != v25)
+                if (*v45 != v25)
                 {
                   objc_enumerationMutation(v23);
                 }
 
-                v27 = *(*(&v45 + 1) + 8 * i);
+                v27 = *(*(&v44 + 1) + 8 * i);
                 v28 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@.NamedEntityDonationAnalyzed", @"com.apple.proactive.PersonalizationPortrait"];
                 [PPMetricsDispatcher logPayloadForEvent:v28 payload:v27 inBackground:1];
               }
 
-              v24 = [v23 countByEnumeratingWithState:&v45 objects:v70 count:16];
+              v24 = [v23 countByEnumeratingWithState:&v44 objects:v69 count:16];
             }
 
             while (v24);
@@ -4683,8 +4611,8 @@ void __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_3(uint6
           v29 = pp_default_log_handle();
           if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
           {
-            *v73 = 0;
-            _os_log_impl(&dword_23224A000, v29, OS_LOG_TYPE_INFO, "PPMaintenance: completed logging of sampled user created entity", v73, 2u);
+            *v72 = 0;
+            _os_log_impl(&dword_23224A000, v29, OS_LOG_TYPE_INFO, "PPMaintenance: completed logging of sampled user created entity", v72, 2u);
           }
         }
 
@@ -4693,15 +4621,15 @@ void __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_3(uint6
           v29 = pp_default_log_handle();
           if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
-            *v73 = 138412290;
-            v74 = v34;
-            _os_log_error_impl(&dword_23224A000, v29, OS_LOG_TYPE_ERROR, "PPMaintenance: error logging sampled user creation metrics: %@", v73, 0xCu);
+            *v72 = 138412290;
+            v73 = v33;
+            _os_log_error_impl(&dword_23224A000, v29, OS_LOG_TYPE_ERROR, "PPMaintenance: error logging sampled user creation metrics: %@", v72, 0xCu);
           }
         }
 
-        _Block_object_dispose(&v75, 8);
-        v12 = v34;
-        if ((v35 & 1) == 0)
+        _Block_object_dispose(&v74, 8);
+        v12 = v33;
+        if ((v34 & 1) == 0)
         {
           goto LABEL_43;
         }
@@ -4710,8 +4638,8 @@ void __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_3(uint6
       v30 = pp_default_log_handle();
       if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v75) = 0;
-        _os_log_impl(&dword_23224A000, v30, OS_LOG_TYPE_INFO, "PPMaintenance: completed logging of daily perplexity entity statistics.", &v75, 2u);
+        LOWORD(v74) = 0;
+        _os_log_impl(&dword_23224A000, v30, OS_LOG_TYPE_INFO, "PPMaintenance: completed logging of daily perplexity entity statistics.", &v74, 2u);
       }
     }
 
@@ -4720,9 +4648,9 @@ void __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_3(uint6
       v30 = pp_default_log_handle();
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        LODWORD(v75) = 138412290;
-        *(&v75 + 4) = v12;
-        _os_log_error_impl(&dword_23224A000, v30, OS_LOG_TYPE_ERROR, "PPMaintenance: Error logging entity perplexity: %@", &v75, 0xCu);
+        LODWORD(v74) = 138412290;
+        *(&v74 + 4) = v12;
+        _os_log_error_impl(&dword_23224A000, v30, OS_LOG_TYPE_ERROR, "PPMaintenance: Error logging entity perplexity: %@", &v74, 0xCu);
       }
     }
 
@@ -4733,7 +4661,7 @@ LABEL_43:
 LABEL_44:
 
 LABEL_45:
-    v9 = v41;
+    v9 = v40;
 LABEL_46:
 
     goto LABEL_47;
@@ -4747,8 +4675,6 @@ LABEL_46:
   }
 
 LABEL_47:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_362(void *a1, void *a2, _BYTE *a3)
@@ -4776,47 +4702,47 @@ void __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_362(voi
 
 void __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_364(void *a1, void *a2)
 {
-  v49[8] = *MEMORY[0x277D85DE8];
+  v48[8] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = a1[4];
   v5 = [v3 entity];
   v6 = [v5 clusterIdentifier];
   v7 = [v4 containsObject:v6];
 
-  v45 = a1[5];
+  v44 = a1[5];
   context = objc_autoreleasePoolPush();
-  v48[0] = @"source";
-  v43 = [v3 source];
-  v42 = [v43 bundleId];
-  v41 = [PPMetricsUtils filterBundleId:?];
-  v49[0] = v41;
-  v48[1] = @"algorithm";
-  v40 = [MEMORY[0x277D3A438] describeAlgorithm:{objc_msgSend(v3, "algorithm")}];
-  v49[1] = v40;
-  v48[2] = @"category";
+  v47[0] = @"source";
+  v42 = [v3 source];
+  v41 = [v42 bundleId];
+  v40 = [PPMetricsUtils filterBundleId:?];
+  v48[0] = v40;
+  v47[1] = @"algorithm";
+  v39 = [MEMORY[0x277D3A438] describeAlgorithm:{objc_msgSend(v3, "algorithm")}];
+  v48[1] = v39;
+  v47[2] = @"category";
   v8 = MEMORY[0x277D3A420];
-  v39 = [v3 entity];
-  v38 = [v8 describeCategory:{objc_msgSend(v39, "category")}];
-  v49[2] = v38;
-  v48[3] = @"dynamicCategory";
-  v37 = [v3 entity];
-  v36 = [v37 dynamicCategory];
-  v9 = [v36 _pas_stringBackedByUTF8CString];
-  v35 = v9;
+  v38 = [v3 entity];
+  v37 = [v8 describeCategory:{objc_msgSend(v38, "category")}];
+  v48[2] = v37;
+  v47[3] = @"dynamicCategory";
+  v36 = [v3 entity];
+  v35 = [v36 dynamicCategory];
+  v9 = [v35 _pas_stringBackedByUTF8CString];
+  v34 = v9;
   if (!v9)
   {
     v9 = objc_opt_new();
   }
 
-  v30 = v9;
-  v49[3] = v9;
-  v48[4] = @"isNew";
-  v46 = v7;
-  v34 = [MEMORY[0x277CCABB0] numberWithBool:v7 ^ 1u];
-  v49[4] = v34;
-  v48[5] = @"groupId";
-  v33 = [v3 source];
-  v32 = [v33 groupId];
+  v29 = v9;
+  v48[3] = v9;
+  v47[4] = @"isNew";
+  v45 = v7;
+  v33 = [MEMORY[0x277CCABB0] numberWithBool:v7 ^ 1u];
+  v48[4] = v33;
+  v47[5] = @"groupId";
+  v32 = [v3 source];
+  v31 = [v32 groupId];
   v10 = [PPMetricsUtils filterGroupIdAllowance:?];
   v11 = v10;
   if (!v10)
@@ -4824,16 +4750,16 @@ void __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_364(voi
     v10 = objc_opt_new();
   }
 
-  v29 = v10;
-  v49[5] = v10;
-  v48[6] = @"isUserCreated";
+  v28 = v10;
+  v48[5] = v10;
+  v47[6] = @"isUserCreated";
   v12 = MEMORY[0x277CCABB0];
   v13 = [v3 source];
   v14 = [v13 metadata];
   v15 = [v12 numberWithInt:{objc_msgSend(v14, "flags") & 1}];
-  v49[6] = v15;
-  v48[7] = @"rank";
-  v47 = a1;
+  v48[6] = v15;
+  v47[7] = @"rank";
+  v46 = a1;
   v16 = a1[6];
   v17 = [v3 entity];
   v18 = [v17 name];
@@ -4845,8 +4771,8 @@ void __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_364(voi
     v21 = objc_opt_new();
   }
 
-  v49[7] = v21;
-  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:8];
+  v48[7] = v21;
+  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:8];
   if (!v20)
   {
   }
@@ -4855,17 +4781,17 @@ void __50__PPMaintenance__registerLogNamedEntityPerplexity__block_invoke_364(voi
   {
   }
 
-  if (!v35)
+  if (!v34)
   {
   }
 
   objc_autoreleasePoolPop(context);
-  [v45 addObject:v31];
+  [v44 addObject:v30];
 
   v22 = [v3 source];
-  [PPMaintenance _logDonationIntervalStatsForSource:v22 domain:1 lastDonationTimes:v47[7] lastBatchDonationTimes:v47[8]];
+  [PPMaintenance _logDonationIntervalStatsForSource:v22 domain:1 lastDonationTimes:v46[7] lastBatchDonationTimes:v46[8]];
 
-  if (v46)
+  if (v45)
   {
     v23 = [v3 source];
     v24 = [v23 metadata];
@@ -4882,7 +4808,7 @@ LABEL_17:
     {
       v23 = [v3 entity];
       v26 = [v23 name];
-      v27 = *(v47[9] + 8);
+      v27 = *(v46[9] + 8);
       v24 = *(v27 + 40);
       *(v27 + 40) = v26;
       goto LABEL_17;
@@ -4890,33 +4816,31 @@ LABEL_17:
   }
 
 LABEL_18:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __45__PPMaintenance__registerLogTopicFirstSource__block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __45__PPMaintenance__registerLogTopicFirstSource__block_invoke_2;
   aBlock[3] = &unk_278975D70;
-  v20 = &v21;
+  v19 = &v20;
   v3 = v2;
-  v19 = v3;
+  v18 = v3;
   v4 = _Block_copy(aBlock);
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __45__PPMaintenance__registerLogTopicFirstSource__block_invoke_3;
-  v16[3] = &unk_278975D98;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __45__PPMaintenance__registerLogTopicFirstSource__block_invoke_3;
+  v15[3] = &unk_278975D98;
   v5 = v4;
-  v17 = v5;
-  v6 = _Block_copy(v16);
+  v16 = v5;
+  v6 = _Block_copy(v15);
   PPPostNotification(kPPMaintenanceJobStartedNotification);
   v7 = pp_maintenance_signpost_handle();
   v8 = os_signpost_id_generate(v7);
@@ -4934,13 +4858,13 @@ void __45__PPMaintenance__registerLogTopicFirstSource__block_invoke(uint64_t a1,
   v12 = v11;
   if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
-    v13 = *(v22 + 24);
+    v13 = *(v21 + 24);
     *buf = 67109120;
-    v26 = v13;
+    v25 = v13;
     _os_signpost_emit_with_name_impl(&dword_23224A000, v12, OS_SIGNPOST_INTERVAL_END, v8, "LogTopicFirstSource", " enableTelemetry=YES Deferred=%{signpost.telemetry:number1, Name=Deferred}d", buf, 8u);
   }
 
-  if (*(v22 + 24))
+  if (*(v21 + 24))
   {
     v14 = &kPPMaintenanceJobDeferredNotification;
   }
@@ -4952,8 +4876,7 @@ void __45__PPMaintenance__registerLogTopicFirstSource__block_invoke(uint64_t a1,
 
   PPPostNotification(*v14);
 
-  _Block_object_dispose(&v21, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v20, 8);
 }
 
 uint64_t __45__PPMaintenance__registerLogTopicFirstSource__block_invoke_2(uint64_t a1)
@@ -4978,40 +4901,40 @@ LABEL_4:
 
 void __45__PPMaintenance__registerLogTopicFirstSource__block_invoke_3(uint64_t a1)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v2 = +[PPLocalTopicStore defaultStore];
-  v29 = objc_opt_new();
+  v28 = objc_opt_new();
   v3 = [v2 storage];
-  v31 = a1;
+  v30 = a1;
   v4 = [v3 firstDonationSourceCountsWithShouldContinueBlock:*(a1 + 32)];
 
   if (v4)
   {
-    v27 = v4;
-    v28 = v2;
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
+    v26 = v4;
+    v27 = v2;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v36 objects:v44 count:16];
-    v7 = v29;
+    v6 = [v5 countByEnumeratingWithState:&v35 objects:v43 count:16];
+    v7 = v28;
     if (v6)
     {
       v8 = v6;
-      v9 = *v37;
+      v9 = *v36;
       obj = v5;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v37 != v9)
+          if (*v36 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v36 + 1) + 8 * i);
-          if (((*(*(v31 + 32) + 16))() & 1) == 0)
+          v11 = *(*(&v35 + 1) + 8 * i);
+          if (((*(*(v30 + 32) + 16))() & 1) == 0)
           {
             v25 = pp_default_log_handle();
             if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
@@ -5020,31 +4943,31 @@ void __45__PPMaintenance__registerLogTopicFirstSource__block_invoke_3(uint64_t a
               _os_log_impl(&dword_23224A000, v25, OS_LOG_TYPE_DEFAULT, "PPMaintenance: deferring partially completed topic first source logging", buf, 2u);
             }
 
-            v4 = v27;
-            v2 = v28;
+            v4 = v26;
+            v2 = v27;
             v18 = obj;
             goto LABEL_26;
           }
 
           v12 = objc_autoreleasePoolPush();
-          v42[0] = @"source";
+          v41[0] = @"source";
           v13 = [v11 bundleId];
           v14 = [PPMetricsUtils filterBundleId:v13];
-          v43[0] = v14;
-          v42[1] = @"algorithm";
+          v42[0] = v14;
+          v41[1] = @"algorithm";
           v15 = [MEMORY[0x277D3A548] describeAlgorithm:{objc_msgSend(v11, "algorithm")}];
-          v43[1] = v15;
-          v42[2] = @"matchedCount";
+          v42[1] = v15;
+          v41[2] = @"matchedCount";
           v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v11, "count")}];
-          v43[2] = v16;
-          v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:3];
+          v42[2] = v16;
+          v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:3];
 
           objc_autoreleasePoolPop(v12);
-          [v29 addObject:v17];
+          [v28 addObject:v17];
         }
 
         v5 = obj;
-        v8 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
+        v8 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
         if (v8)
         {
           continue;
@@ -5054,44 +4977,44 @@ void __45__PPMaintenance__registerLogTopicFirstSource__block_invoke_3(uint64_t a
       }
     }
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
-    v18 = v29;
-    v19 = [v18 countByEnumeratingWithState:&v32 objects:v41 count:16];
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v18 = v28;
+    v19 = [v18 countByEnumeratingWithState:&v31 objects:v40 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v33;
+      v21 = *v32;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v33 != v21)
+          if (*v32 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v32 + 1) + 8 * j);
+          v23 = *(*(&v31 + 1) + 8 * j);
           v24 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@.TopicInitialDonation", @"com.apple.proactive.PersonalizationPortrait"];
           [PPMetricsDispatcher logPayloadForEvent:v24 payload:v23 inBackground:1];
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v32 objects:v41 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v31 objects:v40 count:16];
       }
 
       while (v20);
-      v2 = v28;
-      v7 = v29;
+      v2 = v27;
+      v7 = v28;
     }
 
     else
     {
-      v2 = v28;
+      v2 = v27;
     }
 
-    v4 = v27;
+    v4 = v26;
   }
 
   else
@@ -5103,37 +5026,35 @@ void __45__PPMaintenance__registerLogTopicFirstSource__block_invoke_3(uint64_t a
       _os_log_impl(&dword_23224A000, v18, OS_LOG_TYPE_DEFAULT, "PPMaintenance: deferring bundle counts work due to nil result", buf, 2u);
     }
 
-    v7 = v29;
+    v7 = v28;
   }
 
 LABEL_26:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __51__PPMaintenance__registerLogNamedEntityFirstSource__block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __51__PPMaintenance__registerLogNamedEntityFirstSource__block_invoke_2;
   aBlock[3] = &unk_278975D70;
-  v20 = &v21;
+  v19 = &v20;
   v3 = v2;
-  v19 = v3;
+  v18 = v3;
   v4 = _Block_copy(aBlock);
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __51__PPMaintenance__registerLogNamedEntityFirstSource__block_invoke_3;
-  v16[3] = &unk_278975D98;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __51__PPMaintenance__registerLogNamedEntityFirstSource__block_invoke_3;
+  v15[3] = &unk_278975D98;
   v5 = v4;
-  v17 = v5;
-  v6 = _Block_copy(v16);
+  v16 = v5;
+  v6 = _Block_copy(v15);
   PPPostNotification(kPPMaintenanceJobStartedNotification);
   v7 = pp_maintenance_signpost_handle();
   v8 = os_signpost_id_generate(v7);
@@ -5151,13 +5072,13 @@ void __51__PPMaintenance__registerLogNamedEntityFirstSource__block_invoke(uint64
   v12 = v11;
   if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
-    v13 = *(v22 + 24);
+    v13 = *(v21 + 24);
     *buf = 67109120;
-    v26 = v13;
+    v25 = v13;
     _os_signpost_emit_with_name_impl(&dword_23224A000, v12, OS_SIGNPOST_INTERVAL_END, v8, "LogNamedEntityFirstSource", " enableTelemetry=YES Deferred=%{signpost.telemetry:number1, Name=Deferred}d", buf, 8u);
   }
 
-  if (*(v22 + 24))
+  if (*(v21 + 24))
   {
     v14 = &kPPMaintenanceJobDeferredNotification;
   }
@@ -5169,8 +5090,7 @@ void __51__PPMaintenance__registerLogNamedEntityFirstSource__block_invoke(uint64
 
   PPPostNotification(*v14);
 
-  _Block_object_dispose(&v21, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v20, 8);
 }
 
 uint64_t __51__PPMaintenance__registerLogNamedEntityFirstSource__block_invoke_2(uint64_t a1)
@@ -5195,40 +5115,40 @@ LABEL_4:
 
 void __51__PPMaintenance__registerLogNamedEntityFirstSource__block_invoke_3(uint64_t a1)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v2 = +[PPLocalNamedEntityStore defaultStore];
-  v29 = objc_opt_new();
+  v28 = objc_opt_new();
   v3 = [v2 storage];
-  v31 = a1;
+  v30 = a1;
   v4 = [v3 firstDonationSourceCountsWithShouldContinueBlock:*(a1 + 32)];
 
   if (v4)
   {
-    v27 = v4;
-    v28 = v2;
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
+    v26 = v4;
+    v27 = v2;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v36 objects:v44 count:16];
-    v7 = v29;
+    v6 = [v5 countByEnumeratingWithState:&v35 objects:v43 count:16];
+    v7 = v28;
     if (v6)
     {
       v8 = v6;
-      v9 = *v37;
+      v9 = *v36;
       obj = v5;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v37 != v9)
+          if (*v36 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v36 + 1) + 8 * i);
-          if (((*(*(v31 + 32) + 16))() & 1) == 0)
+          v11 = *(*(&v35 + 1) + 8 * i);
+          if (((*(*(v30 + 32) + 16))() & 1) == 0)
           {
             v25 = pp_default_log_handle();
             if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
@@ -5237,31 +5157,31 @@ void __51__PPMaintenance__registerLogNamedEntityFirstSource__block_invoke_3(uint
               _os_log_impl(&dword_23224A000, v25, OS_LOG_TYPE_DEFAULT, "PPMaintenance: deferring partially completed entity first source logging", buf, 2u);
             }
 
-            v4 = v27;
-            v2 = v28;
+            v4 = v26;
+            v2 = v27;
             v18 = obj;
             goto LABEL_26;
           }
 
           v12 = objc_autoreleasePoolPush();
-          v42[0] = @"source";
+          v41[0] = @"source";
           v13 = [v11 bundleId];
           v14 = [PPMetricsUtils filterBundleId:v13];
-          v43[0] = v14;
-          v42[1] = @"algorithm";
+          v42[0] = v14;
+          v41[1] = @"algorithm";
           v15 = [MEMORY[0x277D3A438] describeAlgorithm:{objc_msgSend(v11, "algorithm")}];
-          v43[1] = v15;
-          v42[2] = @"matchedCount";
+          v42[1] = v15;
+          v41[2] = @"matchedCount";
           v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v11, "count")}];
-          v43[2] = v16;
-          v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:3];
+          v42[2] = v16;
+          v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:3];
 
           objc_autoreleasePoolPop(v12);
-          [v29 addObject:v17];
+          [v28 addObject:v17];
         }
 
         v5 = obj;
-        v8 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
+        v8 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
         if (v8)
         {
           continue;
@@ -5271,44 +5191,44 @@ void __51__PPMaintenance__registerLogNamedEntityFirstSource__block_invoke_3(uint
       }
     }
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
-    v18 = v29;
-    v19 = [v18 countByEnumeratingWithState:&v32 objects:v41 count:16];
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v18 = v28;
+    v19 = [v18 countByEnumeratingWithState:&v31 objects:v40 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v33;
+      v21 = *v32;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v33 != v21)
+          if (*v32 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v32 + 1) + 8 * j);
+          v23 = *(*(&v31 + 1) + 8 * j);
           v24 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@.NamedEntityInitialDonation", @"com.apple.proactive.PersonalizationPortrait"];
           [PPMetricsDispatcher logPayloadForEvent:v24 payload:v23 inBackground:1];
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v32 objects:v41 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v31 objects:v40 count:16];
       }
 
       while (v20);
-      v2 = v28;
-      v7 = v29;
+      v2 = v27;
+      v7 = v28;
     }
 
     else
     {
-      v2 = v28;
+      v2 = v27;
     }
 
-    v4 = v27;
+    v4 = v26;
   }
 
   else
@@ -5320,44 +5240,42 @@ void __51__PPMaintenance__registerLogNamedEntityFirstSource__block_invoke_3(uint
       _os_log_impl(&dword_23224A000, v18, OS_LOG_TYPE_DEFAULT, "PPMaintenance: deferring bundle counts work due to nil result", buf, 2u);
     }
 
-    v7 = v29;
+    v7 = v28;
   }
 
 LABEL_26:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __45__PPMaintenance__registerDailyMetricsLogging__block_invoke(uint64_t a1, void *a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
-  v34 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __45__PPMaintenance__registerDailyMetricsLogging__block_invoke_2;
   aBlock[3] = &unk_278975D70;
-  v30 = &v31;
+  v29 = &v30;
   v4 = v3;
-  v29 = v4;
+  v28 = v4;
   v5 = _Block_copy(aBlock);
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = 1;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __45__PPMaintenance__registerDailyMetricsLogging__block_invoke_3;
-  v20[3] = &unk_278976090;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 1;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __45__PPMaintenance__registerDailyMetricsLogging__block_invoke_3;
+  v19[3] = &unk_278976090;
   v6 = *(a1 + 32);
-  v22 = &v24;
-  v23 = v6;
+  v21 = &v23;
+  v22 = v6;
   v7 = v5;
-  v21 = v7;
-  v8 = _Block_copy(v20);
+  v20 = v7;
+  v8 = _Block_copy(v19);
   PPPostNotification(kPPMaintenanceJobStartedNotification);
   v9 = pp_maintenance_signpost_handle();
   v10 = os_signpost_id_generate(v9);
@@ -5375,13 +5293,13 @@ void __45__PPMaintenance__registerDailyMetricsLogging__block_invoke(uint64_t a1,
   v14 = v13;
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
-    v15 = *(v32 + 24);
+    v15 = *(v31 + 24);
     *buf = 67109120;
-    v36 = v15;
+    v35 = v15;
     _os_signpost_emit_with_name_impl(&dword_23224A000, v14, OS_SIGNPOST_INTERVAL_END, v10, "DailyMetricsLogging", " enableTelemetry=YES Deferred=%{signpost.telemetry:number1, Name=Deferred}d", buf, 8u);
   }
 
-  if (*(v32 + 24))
+  if (*(v31 + 24))
   {
     v16 = &kPPMaintenanceJobDeferredNotification;
   }
@@ -5392,12 +5310,12 @@ void __45__PPMaintenance__registerDailyMetricsLogging__block_invoke(uint64_t a1,
   }
 
   PPPostNotification(*v16);
-  if ((v25[3] & 1) == 0 && *(v32 + 24) == 1)
+  if ((v24[3] & 1) == 0 && *(v31 + 24) == 1)
   {
     if (!xpc_activity_set_state(v4, 3))
     {
-      v19 = [MEMORY[0x277CCA890] currentHandler];
-      [v19 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"PPMaintenance.m" lineNumber:1969 description:@"Unexpected failure of deferral"];
+      v18 = [MEMORY[0x277CCA890] currentHandler];
+      [v18 handleFailureInMethod:*(a1 + 40) object:*(a1 + 32) file:@"PPMaintenance.m" lineNumber:1969 description:@"Unexpected failure of deferral"];
     }
 
     v17 = pp_default_log_handle();
@@ -5408,10 +5326,8 @@ void __45__PPMaintenance__registerDailyMetricsLogging__block_invoke(uint64_t a1,
     }
   }
 
-  _Block_object_dispose(&v24, 8);
-  _Block_object_dispose(&v31, 8);
-
-  v18 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v30, 8);
 }
 
 uint64_t __45__PPMaintenance__registerDailyMetricsLogging__block_invoke_2(uint64_t a1)
@@ -5436,7 +5352,7 @@ LABEL_4:
 
 void __45__PPMaintenance__registerDailyMetricsLogging__block_invoke_3(uint64_t a1)
 {
-  v45[7] = *MEMORY[0x277D85DE8];
+  v43[7] = *MEMORY[0x277D85DE8];
   v2 = pp_default_log_handle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -5444,115 +5360,114 @@ void __45__PPMaintenance__registerDailyMetricsLogging__block_invoke_3(uint64_t a
     _os_log_impl(&dword_23224A000, v2, OS_LOG_TYPE_DEFAULT, "PPMaintenance running periodic daily metrics logging", buf, 2u);
   }
 
-  v3 = *(a1 + 48);
-  v4 = *(a1 + 32);
-  v5 = objc_opt_self();
-  v6 = pp_default_log_handle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v3 = *(a1 + 32);
+  v4 = objc_opt_self();
+  v5 = pp_default_log_handle();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_23224A000, v6, OS_LOG_TYPE_INFO, "PPMaintenance: beginning daily metrics generation.", buf, 2u);
+    _os_log_impl(&dword_23224A000, v5, OS_LOG_TYPE_INFO, "PPMaintenance: beginning daily metrics generation.", buf, 2u);
   }
 
-  v7 = v4;
+  v6 = v3;
   objc_opt_self();
-  v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@.DeviceStats", @"com.apple.proactive.PersonalizationPortrait"];
+  v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@.DeviceStats", @"com.apple.proactive.PersonalizationPortrait"];
   objc_autoreleasePoolPop(objc_autoreleasePoolPush());
-  [PPMetricsDispatcher logPayloadForEvent:v8 payload:MEMORY[0x277CBEC10] inBackground:1];
+  [PPMetricsDispatcher logPayloadForEvent:v7 payload:MEMORY[0x277CBEC10] inBackground:1];
 
-  if (v7[2](v7))
+  if (v6[2](v6))
   {
-    v30 = a1;
+    v28 = a1;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___block_invoke;
     aBlock[3] = &__block_descriptor_40_e18_B24__0__8___B___16l;
-    aBlock[4] = v5;
-    v9 = _Block_copy(aBlock);
-    v45[0] = v9;
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___block_invoke_2;
-    v41[3] = &__block_descriptor_40_e18_B24__0__8___B___16l;
-    v41[4] = v5;
-    v10 = _Block_copy(v41);
-    v45[1] = v10;
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___block_invoke_3;
-    v40[3] = &__block_descriptor_40_e18_B24__0__8___B___16l;
-    v40[4] = v5;
-    v11 = _Block_copy(v40);
-    v45[2] = v11;
+    aBlock[4] = v4;
+    v8 = _Block_copy(aBlock);
+    v43[0] = v8;
     v39[0] = MEMORY[0x277D85DD0];
     v39[1] = 3221225472;
-    v39[2] = __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___block_invoke_4;
+    v39[2] = __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___block_invoke_2;
     v39[3] = &__block_descriptor_40_e18_B24__0__8___B___16l;
-    v39[4] = v5;
-    v12 = _Block_copy(v39);
-    v45[3] = v12;
+    v39[4] = v4;
+    v9 = _Block_copy(v39);
+    v43[1] = v9;
     v38[0] = MEMORY[0x277D85DD0];
     v38[1] = 3221225472;
-    v38[2] = __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___block_invoke_5;
+    v38[2] = __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___block_invoke_3;
     v38[3] = &__block_descriptor_40_e18_B24__0__8___B___16l;
-    v38[4] = v5;
-    v13 = _Block_copy(v38);
-    v45[4] = v13;
+    v38[4] = v4;
+    v10 = _Block_copy(v38);
+    v43[2] = v10;
     v37[0] = MEMORY[0x277D85DD0];
     v37[1] = 3221225472;
-    v37[2] = __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___block_invoke_6;
+    v37[2] = __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___block_invoke_4;
     v37[3] = &__block_descriptor_40_e18_B24__0__8___B___16l;
-    v37[4] = v5;
-    v14 = _Block_copy(v37);
-    v45[5] = v14;
+    v37[4] = v4;
+    v11 = _Block_copy(v37);
+    v43[3] = v11;
     v36[0] = MEMORY[0x277D85DD0];
     v36[1] = 3221225472;
-    v36[2] = __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___block_invoke_7;
+    v36[2] = __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___block_invoke_5;
     v36[3] = &__block_descriptor_40_e18_B24__0__8___B___16l;
-    v36[4] = v5;
-    v15 = _Block_copy(v36);
-    v45[6] = v15;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:7];
+    v36[4] = v4;
+    v12 = _Block_copy(v36);
+    v43[4] = v12;
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___block_invoke_6;
+    v35[3] = &__block_descriptor_40_e18_B24__0__8___B___16l;
+    v35[4] = v4;
+    v13 = _Block_copy(v35);
+    v43[5] = v13;
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___block_invoke_7;
+    v34[3] = &__block_descriptor_40_e18_B24__0__8___B___16l;
+    v34[4] = v4;
+    v14 = _Block_copy(v34);
+    v43[6] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:7];
 
-    v17 = objc_opt_new();
-    v18 = [v16 _pas_shuffledArrayUsingRng:v17];
+    v16 = objc_opt_new();
+    v17 = [v15 _pas_shuffledArrayUsingRng:v16];
 
-    v34 = 0u;
-    v35 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v19 = v18;
-    v20 = [v19 countByEnumeratingWithState:&v32 objects:buf count:16];
-    if (v20)
+    v30 = 0u;
+    v31 = 0u;
+    v18 = v17;
+    v19 = [v18 countByEnumeratingWithState:&v30 objects:buf count:16];
+    if (v19)
     {
-      v21 = v20;
-      v22 = *v33;
+      v20 = v19;
+      v21 = *v31;
       while (2)
       {
-        for (i = 0; i != v21; ++i)
+        for (i = 0; i != v20; ++i)
         {
-          if (*v33 != v22)
+          if (*v31 != v21)
           {
-            objc_enumerationMutation(v19);
+            objc_enumerationMutation(v18);
           }
 
-          if (!(*(*(*(&v32 + 1) + 8 * i) + 16))() || (v7[2](v7) & 1) == 0)
+          if (!(*(*(*(&v30 + 1) + 8 * i) + 16))() || (v6[2](v6) & 1) == 0)
           {
-            v26 = pp_default_log_handle();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+            v25 = pp_default_log_handle();
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
             {
-              *v31 = 0;
-              _os_log_impl(&dword_23224A000, v26, OS_LOG_TYPE_INFO, "PPMaintenance: deferring daily metrics generation", v31, 2u);
+              *v29 = 0;
+              _os_log_impl(&dword_23224A000, v25, OS_LOG_TYPE_INFO, "PPMaintenance: deferring daily metrics generation", v29, 2u);
             }
 
-            v25 = 0;
-            v24 = v19;
+            v24 = 0;
+            v23 = v18;
             goto LABEL_21;
           }
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v32 objects:buf count:16];
-        if (v21)
+        v20 = [v18 countByEnumeratingWithState:&v30 objects:buf count:16];
+        if (v20)
         {
           continue;
         }
@@ -5561,387 +5476,324 @@ void __45__PPMaintenance__registerDailyMetricsLogging__block_invoke_3(uint64_t a
       }
     }
 
-    v24 = pp_default_log_handle();
-    v25 = 1;
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v23 = pp_default_log_handle();
+    v24 = 1;
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
-      *v31 = 0;
-      _os_log_impl(&dword_23224A000, v24, OS_LOG_TYPE_INFO, "PPMaintenance: completed daily metrics generation.", v31, 2u);
+      *v29 = 0;
+      _os_log_impl(&dword_23224A000, v23, OS_LOG_TYPE_INFO, "PPMaintenance: completed daily metrics generation.", v29, 2u);
     }
 
 LABEL_21:
-    a1 = v30;
+    a1 = v28;
   }
 
   else
   {
-    v25 = 0;
+    v24 = 0;
   }
 
-  v27 = 0;
-  *(*(*(a1 + 40) + 8) + 24) = v25;
+  v26 = 0;
+  *(*(*(a1 + 40) + 8) + 24) = v24;
   if ((*(*(*(a1 + 40) + 8) + 24) & 1) == 0)
   {
-    v28 = pp_default_log_handle();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v27 = pp_default_log_handle();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v44 = v27;
-      _os_log_error_impl(&dword_23224A000, v28, OS_LOG_TYPE_ERROR, "PPMaintenance failed to run periodic metrics logging operations: %@", buf, 0xCu);
+      v42 = v26;
+      _os_log_error_impl(&dword_23224A000, v27, OS_LOG_TYPE_ERROR, "PPMaintenance failed to run periodic metrics logging operations: %@", buf, 0xCu);
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = *(a1 + 32);
-  v5 = a3;
-  objc_opt_self();
-  v6 = pp_default_log_handle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_23224A000, v6, OS_LOG_TYPE_INFO, "PPMaintenance: beginning logging of daily database statistics.", buf, 2u);
-  }
-
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x2020000000;
-  v54 = 0;
-  v7 = +[PPSQLDatabase sharedInstance];
-  v8 = [v7 stats];
-  v9 = [v8 objectForKeyedSubscript:@"version"];
-  v10 = [v9 integerValue];
-
-  v11 = objc_autoreleasePoolPush();
-  v12 = [v8 objectForKeyedSubscript:@"rowCounts"];
-  *buf = MEMORY[0x277D85DD0];
-  v45 = 3221225472;
-  v46 = __69__PPMaintenance__logDailyDatabaseStatisticsWithError_shouldContinue___block_invoke;
-  v47 = &unk_278975EA0;
-  v50 = v10;
-  v13 = v5;
-  v48 = v13;
-  v49 = &v51;
-  [v12 enumerateKeysAndObjectsUsingBlock:buf];
-
-  objc_autoreleasePoolPop(v11);
-  if (v52[3])
-  {
-    goto LABEL_5;
-  }
-
-  v14 = objc_autoreleasePoolPush();
-  v15 = [v8 objectForKeyedSubscript:@"remoteRecordCounts"];
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __69__PPMaintenance__logDailyDatabaseStatisticsWithError_shouldContinue___block_invoke_2;
-  v40[3] = &unk_278975EA0;
-  v43 = v10;
-  v16 = v13;
-  v41 = v16;
-  v42 = &v51;
-  [v15 enumerateKeysAndObjectsUsingBlock:v40];
-
-  objc_autoreleasePoolPop(v14);
-  if (v52[3])
-  {
-LABEL_5:
-    v17 = 0;
-  }
-
-  else
-  {
-    v18 = [v7 checkWithError:a2];
-    v19 = objc_autoreleasePoolPush();
-    v38 = v18;
-    v20 = [v18 objectForKeyedSubscript:@"integrity_check"];
-    v21 = [v20 objectAtIndexedSubscript:0];
-    if ([v21 isEqualToString:@"ok"])
-    {
-      v22 = 0;
-    }
-
-    else
-    {
-      v23 = [v18 objectForKeyedSubscript:@"integrity_check"];
-      v22 = [v23 count];
-    }
-
-    v24 = objc_opt_new();
-    [v24 setSchemaVersion:v10];
-    [v24 setPragmaCheckType:1];
-    v25 = +[PPTrialWrapper sharedInstance];
-    v26 = [v25 concatenatedTreatmentNames];
-    [v24 setActiveTreatments:v26];
-
-    v27 = [MEMORY[0x277D41DA8] sharedInstance];
-    [v27 trackScalarForMessage:v24 updateCount:v22];
-
-    objc_autoreleasePoolPop(v19);
-    v28 = v38;
-    if ((v16[2](v16) & 1) == 0)
-    {
-      goto LABEL_14;
-    }
-
-    v29 = objc_autoreleasePoolPush();
-    v30 = [v38 objectForKeyedSubscript:@"foreign_key_check"];
-    v31 = [v30 count];
-
-    v32 = objc_opt_new();
-    [v32 setSchemaVersion:v10];
-    [v32 setPragmaCheckType:2];
-    v33 = +[PPTrialWrapper sharedInstance];
-    v34 = [v33 concatenatedTreatmentNames];
-    [v32 setActiveTreatments:v34];
-
-    v35 = [MEMORY[0x277D41DA8] sharedInstance];
-    [v35 trackScalarForMessage:v32 updateCount:v31];
-
-    objc_autoreleasePoolPop(v29);
-    v28 = v38;
-    if (v16[2](v16))
-    {
-      v36 = pp_default_log_handle();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
-      {
-        *v39 = 0;
-        _os_log_impl(&dword_23224A000, v36, OS_LOG_TYPE_INFO, "PPMaintenance: completed logging of daily database statistics.", v39, 2u);
-      }
-
-      v17 = 1;
-    }
-
-    else
-    {
-LABEL_14:
-      v17 = 0;
-    }
-  }
-
-  _Block_object_dispose(&v51, 8);
-  return v17;
-}
-
-uint64_t __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
-{
-  v38 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
   v4 = a3;
   objc_opt_self();
   v5 = pp_default_log_handle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_23224A000, v5, OS_LOG_TYPE_INFO, "PPMaintenance: beginning logging of daily named entity statistics.", buf, 2u);
+    _os_log_impl(&dword_23224A000, v5, OS_LOG_TYPE_INFO, "PPMaintenance: beginning logging of daily database statistics.", buf, 2u);
   }
 
-  v6 = +[PPLocalNamedEntityStore defaultStore];
-  v7 = [v6 storage];
-  v8 = [v7 uniqueClusterIdentifierCount];
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x2020000000;
+  v53 = 0;
+  v6 = +[PPSQLDatabase sharedInstance];
+  v7 = [v6 stats];
+  v8 = [v7 objectForKeyedSubscript:@"version"];
+  v9 = [v8 integerValue];
 
-  if (!v4[2](v4))
-  {
-    goto LABEL_12;
-  }
-
-  v9 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@.NamedEntityStoreStats", @"com.apple.proactive.PersonalizationPortrait"];
   v10 = objc_autoreleasePoolPush();
-  v36 = @"uniqueItems";
-  v11 = [MEMORY[0x277CCABB0] numberWithInt:v8];
-  *buf = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v36 count:1];
+  v11 = [v7 objectForKeyedSubscript:@"rowCounts"];
+  *buf = MEMORY[0x277D85DD0];
+  v44 = 3221225472;
+  v45 = __69__PPMaintenance__logDailyDatabaseStatisticsWithError_shouldContinue___block_invoke;
+  v46 = &unk_278975EA0;
+  v49 = v9;
+  v12 = v4;
+  v47 = v12;
+  v48 = &v50;
+  [v11 enumerateKeysAndObjectsUsingBlock:buf];
 
   objc_autoreleasePoolPop(v10);
-  [PPMetricsDispatcher logPayloadForEvent:v9 payload:v12 inBackground:1];
-
-  if (!v4[2](v4))
+  if (v51[3] & 1) != 0 || (v13 = objc_autoreleasePoolPush(), [v7 objectForKeyedSubscript:@"remoteRecordCounts"], v14 = objc_claimAutoreleasedReturnValue(), v39[0] = MEMORY[0x277D85DD0], v39[1] = 3221225472, v39[2] = __69__PPMaintenance__logDailyDatabaseStatisticsWithError_shouldContinue___block_invoke_2, v39[3] = &unk_278975EA0, v42 = v9, v15 = v12, v40 = v15, v41 = &v50, objc_msgSend(v14, "enumerateKeysAndObjectsUsingBlock:", v39), v40, v14, objc_autoreleasePoolPop(v13), (v51[3]))
   {
-LABEL_12:
-    v31 = 0;
+    v16 = 0;
+  }
+
+  else
+  {
+    v17 = [v6 checkWithError:a2];
+    v18 = objc_autoreleasePoolPush();
+    v37 = v17;
+    v19 = [v17 objectForKeyedSubscript:@"integrity_check"];
+    v20 = [v19 objectAtIndexedSubscript:0];
+    if ([v20 isEqualToString:@"ok"])
+    {
+      v21 = 0;
+    }
+
+    else
+    {
+      v22 = [v17 objectForKeyedSubscript:@"integrity_check"];
+      v21 = [v22 count];
+    }
+
+    v23 = objc_opt_new();
+    [v23 setSchemaVersion:v9];
+    [v23 setPragmaCheckType:1];
+    v24 = +[PPTrialWrapper sharedInstance];
+    v25 = [v24 concatenatedTreatmentNames];
+    [v23 setActiveTreatments:v25];
+
+    v26 = [MEMORY[0x277D41DA8] sharedInstance];
+    [v26 trackScalarForMessage:v23 updateCount:v21];
+
+    objc_autoreleasePoolPop(v18);
+    v27 = v37;
+    if (v15[2](v15) & 1) != 0 && (v28 = objc_autoreleasePoolPush(), [v37 objectForKeyedSubscript:@"foreign_key_check"], v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v29, "count"), v29, v31 = objc_opt_new(), objc_msgSend(v31, "setSchemaVersion:", v9), objc_msgSend(v31, "setPragmaCheckType:", 2), +[PPTrialWrapper sharedInstance](PPTrialWrapper, "sharedInstance"), v32 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v32, "concatenatedTreatmentNames"), v33 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v31, "setActiveTreatments:", v33), v33, v32, objc_msgSend(MEMORY[0x277D41DA8], "sharedInstance"), v34 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v34, "trackScalarForMessage:updateCount:", v31, v30), v34, v31, objc_autoreleasePoolPop(v28), v27 = v37, (v15[2](v15)))
+    {
+      v35 = pp_default_log_handle();
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+      {
+        *v38 = 0;
+        _os_log_impl(&dword_23224A000, v35, OS_LOG_TYPE_INFO, "PPMaintenance: completed logging of daily database statistics.", v38, 2u);
+      }
+
+      v16 = 1;
+    }
+
+    else
+    {
+      v16 = 0;
+    }
+  }
+
+  _Block_object_dispose(&v50, 8);
+  return v16;
+}
+
+uint64_t __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
+{
+  v36 = *MEMORY[0x277D85DE8];
+  v3 = a3;
+  objc_opt_self();
+  v4 = pp_default_log_handle();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_23224A000, v4, OS_LOG_TYPE_INFO, "PPMaintenance: beginning logging of daily named entity statistics.", buf, 2u);
+  }
+
+  v5 = +[PPLocalNamedEntityStore defaultStore];
+  v6 = [v5 storage];
+  v7 = [v6 uniqueClusterIdentifierCount];
+
+  if (!v3[2](v3) || (v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@.NamedEntityStoreStats", @"com.apple.proactive.PersonalizationPortrait"], v9 = objc_autoreleasePoolPush(), v34 = @"uniqueItems", objc_msgSend(MEMORY[0x277CCABB0], "numberWithInt:", v7), v10 = objc_claimAutoreleasedReturnValue(), *buf = v10, objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", buf, &v34, 1), v11 = objc_claimAutoreleasedReturnValue(), v10, objc_autoreleasePoolPop(v9), +[PPMetricsDispatcher logPayloadForEvent:payload:inBackground:](PPMetricsDispatcher, "logPayloadForEvent:payload:inBackground:", v8, v11, 1), v11, v8, !v3[2](v3)))
+  {
+    v30 = 0;
     goto LABEL_19;
   }
 
   objc_opt_self();
-  v13 = pp_default_log_handle();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v12 = pp_default_log_handle();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    *v35 = 0;
-    _os_log_impl(&dword_23224A000, v13, OS_LOG_TYPE_INFO, "PPMaintenance: beginning logging of daily differentially private named entity statistics.", v35, 2u);
+    *v33 = 0;
+    _os_log_impl(&dword_23224A000, v12, OS_LOG_TYPE_INFO, "PPMaintenance: beginning logging of daily differentially private named entity statistics.", v33, 2u);
   }
 
-  v14 = objc_alloc(MEMORY[0x277CCACA8]);
-  v15 = [MEMORY[0x277CBEAF8] currentLocale];
-  v16 = [v15 localeIdentifier];
-  v17 = [v14 initWithFormat:@"%@.%@.%@", @"com.apple.PersonalizationPortrait", @"namedEntityDonationSource", v16];
+  v13 = objc_alloc(MEMORY[0x277CCACA8]);
+  v14 = [MEMORY[0x277CBEAF8] currentLocale];
+  v15 = [v14 localeIdentifier];
+  v16 = [v13 initWithFormat:@"%@.%@.%@", @"com.apple.PersonalizationPortrait", @"namedEntityDonationSource", v15];
 
-  v18 = [objc_alloc(MEMORY[0x277D05310]) initWithKey:v17];
-  v19 = +[PPLocalNamedEntityStore defaultStore];
-  v20 = [v19 storage];
-  v21 = [v20 thirdPartyBundleIdsFromToday];
-  v22 = v21;
-  v23 = MEMORY[0x277CBEBF8];
-  if (v21)
+  v17 = [objc_alloc(MEMORY[0x277D05310]) initWithKey:v16];
+  v18 = +[PPLocalNamedEntityStore defaultStore];
+  v19 = [v18 storage];
+  v20 = [v19 thirdPartyBundleIdsFromToday];
+  v21 = v20;
+  v22 = MEMORY[0x277CBEBF8];
+  if (v20)
   {
-    v23 = v21;
+    v22 = v20;
   }
 
-  v24 = v23;
+  v23 = v22;
 
-  v25 = [v18 record:v24];
-  v26 = pp_default_log_handle();
-  v27 = v26;
-  if (v25)
+  v24 = [v17 record:v23];
+  v25 = pp_default_log_handle();
+  v26 = v25;
+  if (v24)
   {
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
-      *v35 = 0;
-      v28 = "PPMaintenance: Successfully logged named entity source bundle identifiers to differential privacy.";
-      v29 = v27;
-      v30 = OS_LOG_TYPE_INFO;
+      *v33 = 0;
+      v27 = "PPMaintenance: Successfully logged named entity source bundle identifiers to differential privacy.";
+      v28 = v26;
+      v29 = OS_LOG_TYPE_INFO;
 LABEL_15:
-      _os_log_impl(&dword_23224A000, v29, v30, v28, v35, 2u);
+      _os_log_impl(&dword_23224A000, v28, v29, v27, v33, 2u);
     }
   }
 
-  else if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
-    *v35 = 0;
-    v28 = "PPMaintenance: unable to log named entity bundle identifiers to differential privacy.";
-    v29 = v27;
-    v30 = OS_LOG_TYPE_DEFAULT;
+    *v33 = 0;
+    v27 = "PPMaintenance: unable to log named entity bundle identifiers to differential privacy.";
+    v28 = v26;
+    v29 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_15;
   }
 
-  v32 = pp_default_log_handle();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+  v31 = pp_default_log_handle();
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
   {
-    *v35 = 0;
-    _os_log_impl(&dword_23224A000, v32, OS_LOG_TYPE_INFO, "PPMaintenance: completed logging of daily named entity statistics.", v35, 2u);
+    *v33 = 0;
+    _os_log_impl(&dword_23224A000, v31, OS_LOG_TYPE_INFO, "PPMaintenance: completed logging of daily named entity statistics.", v33, 2u);
   }
 
-  v31 = 1;
+  v30 = 1;
 LABEL_19:
 
-  v33 = *MEMORY[0x277D85DE8];
-  return v31;
+  return v30;
 }
 
 BOOL __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___block_invoke_3(uint64_t a1, uint64_t *a2, void *a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 32);
-  v5 = a3;
+  v40 = *MEMORY[0x277D85DE8];
+  v4 = a3;
   objc_opt_self();
-  v6 = pp_default_log_handle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v5 = pp_default_log_handle();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_23224A000, v6, OS_LOG_TYPE_INFO, "PPMaintenance: beginning logging of daily location statistics.", buf, 2u);
+    _os_log_impl(&dword_23224A000, v5, OS_LOG_TYPE_INFO, "PPMaintenance: beginning logging of daily location statistics.", buf, 2u);
   }
 
-  v7 = +[PPLocalLocationStore defaultStore];
-  v8 = objc_opt_new();
-  v9 = [v7 locationRecordsWithQuery:v8 error:a2];
+  v6 = +[PPLocalLocationStore defaultStore];
+  v7 = objc_opt_new();
+  v8 = [v6 locationRecordsWithQuery:v7 error:a2];
 
-  v10 = v9 != 0;
-  if (!v9)
+  v9 = v8 != 0;
+  if (!v8)
   {
-    v35 = pp_default_log_handle();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+    v34 = pp_default_log_handle();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      v38 = *a2;
+      v36 = *a2;
       *buf = 138412290;
-      *&buf[4] = v38;
-      _os_log_error_impl(&dword_23224A000, v35, OS_LOG_TYPE_ERROR, "PPMaintenance: error fetching location records: %@", buf, 0xCu);
+      *&buf[4] = v36;
+      _os_log_error_impl(&dword_23224A000, v34, OS_LOG_TYPE_ERROR, "PPMaintenance: error fetching location records: %@", buf, 0xCu);
     }
 
     goto LABEL_16;
   }
 
-  v11 = [PPLocationClusterID lookupTableWithRecords:v9];
-  v12 = [v11 count];
+  v10 = [PPLocationClusterID lookupTableWithRecords:v8];
+  v11 = [v10 count];
 
-  if (v5[2](v5))
+  if (v4[2](v4))
   {
-    v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@.LocationStoreStats", @"com.apple.proactive.PersonalizationPortrait"];
-    v14 = objc_autoreleasePoolPush();
-    v40 = @"uniqueItems";
-    v15 = [MEMORY[0x277CCABB0] numberWithInt:v12];
-    *buf = v15;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v40 count:1];
+    v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@.LocationStoreStats", @"com.apple.proactive.PersonalizationPortrait"];
+    v13 = objc_autoreleasePoolPush();
+    v38 = @"uniqueItems";
+    v14 = [MEMORY[0x277CCABB0] numberWithInt:v11];
+    *buf = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v38 count:1];
 
-    objc_autoreleasePoolPop(v14);
-    [PPMetricsDispatcher logPayloadForEvent:v13 payload:v16 inBackground:1];
+    objc_autoreleasePoolPop(v13);
+    [PPMetricsDispatcher logPayloadForEvent:v12 payload:v15 inBackground:1];
 
-    if (v5[2](v5))
+    if (v4[2](v4))
     {
       objc_opt_self();
-      v17 = pp_default_log_handle();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v16 = pp_default_log_handle();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        *v39 = 0;
-        _os_log_impl(&dword_23224A000, v17, OS_LOG_TYPE_INFO, "PPMaintenance: beginning logging of daily differentially private location statistics.", v39, 2u);
+        *v37 = 0;
+        _os_log_impl(&dword_23224A000, v16, OS_LOG_TYPE_INFO, "PPMaintenance: beginning logging of daily differentially private location statistics.", v37, 2u);
       }
 
-      v18 = objc_alloc(MEMORY[0x277CCACA8]);
-      v19 = [MEMORY[0x277CBEAF8] currentLocale];
-      v20 = [v19 localeIdentifier];
-      v21 = [v18 initWithFormat:@"%@.%@.%@", @"com.apple.PersonalizationPortrait", @"locationDonationSource", v20];
+      v17 = objc_alloc(MEMORY[0x277CCACA8]);
+      v18 = [MEMORY[0x277CBEAF8] currentLocale];
+      v19 = [v18 localeIdentifier];
+      v20 = [v17 initWithFormat:@"%@.%@.%@", @"com.apple.PersonalizationPortrait", @"locationDonationSource", v19];
 
-      v22 = [objc_alloc(MEMORY[0x277D05310]) initWithKey:v21];
-      v23 = +[PPLocalLocationStore defaultStore];
-      v24 = [v23 storage];
-      v25 = [v24 thirdPartyBundleIdsFromToday];
-      v26 = v25;
-      v27 = MEMORY[0x277CBEBF8];
-      if (v25)
+      v21 = [objc_alloc(MEMORY[0x277D05310]) initWithKey:v20];
+      v22 = +[PPLocalLocationStore defaultStore];
+      v23 = [v22 storage];
+      v24 = [v23 thirdPartyBundleIdsFromToday];
+      v25 = v24;
+      v26 = MEMORY[0x277CBEBF8];
+      if (v24)
       {
-        v27 = v25;
+        v26 = v24;
       }
 
-      v28 = v27;
+      v27 = v26;
 
-      v29 = [v22 record:v28];
-      v30 = pp_default_log_handle();
-      v31 = v30;
-      if (v29)
+      v28 = [v21 record:v27];
+      v29 = pp_default_log_handle();
+      v30 = v29;
+      if (v28)
       {
-        if (!os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+        if (!os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
         {
           goto LABEL_21;
         }
 
-        *v39 = 0;
-        v32 = "PPMaintenance: Successfully logged location source bundle identifiers to differential privacy.";
-        v33 = v31;
-        v34 = OS_LOG_TYPE_INFO;
+        *v37 = 0;
+        v31 = "PPMaintenance: Successfully logged location source bundle identifiers to differential privacy.";
+        v32 = v30;
+        v33 = OS_LOG_TYPE_INFO;
       }
 
       else
       {
-        if (!os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        if (!os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_21;
         }
 
-        *v39 = 0;
-        v32 = "PPMaintenance: unable to log location bundle identifiers to differential privacy.";
-        v33 = v31;
-        v34 = OS_LOG_TYPE_DEFAULT;
+        *v37 = 0;
+        v31 = "PPMaintenance: unable to log location bundle identifiers to differential privacy.";
+        v32 = v30;
+        v33 = OS_LOG_TYPE_DEFAULT;
       }
 
-      _os_log_impl(&dword_23224A000, v33, v34, v32, v39, 2u);
+      _os_log_impl(&dword_23224A000, v32, v33, v31, v37, 2u);
 LABEL_21:
 
-      v35 = pp_default_log_handle();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+      v34 = pp_default_log_handle();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
       {
-        *v39 = 0;
-        _os_log_impl(&dword_23224A000, v35, OS_LOG_TYPE_INFO, "PPMaintenance: completed logging of daily location statistics.", v39, 2u);
+        *v37 = 0;
+        _os_log_impl(&dword_23224A000, v34, OS_LOG_TYPE_INFO, "PPMaintenance: completed logging of daily location statistics.", v37, 2u);
       }
 
 LABEL_16:
@@ -5950,341 +5802,321 @@ LABEL_16:
     }
   }
 
-  v10 = 0;
+  v9 = 0;
 LABEL_17:
 
-  v36 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v9;
 }
 
 uint64_t __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___block_invoke_4(uint64_t a1, uint64_t a2, void *a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
+  v36 = *MEMORY[0x277D85DE8];
+  v3 = a3;
+  objc_opt_self();
+  v4 = pp_default_log_handle();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_23224A000, v4, OS_LOG_TYPE_INFO, "PPMaintenance: beginning logging of daily topic statistics.", buf, 2u);
+  }
+
+  v5 = +[PPLocalTopicStore defaultStore];
+  v6 = [v5 storage];
+  v7 = [v6 uniqueClusterIdentifierCount];
+
+  if (!v3[2](v3) || (v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@.TopicStoreStats", @"com.apple.proactive.PersonalizationPortrait"], v9 = objc_autoreleasePoolPush(), v34 = @"uniqueItems", objc_msgSend(MEMORY[0x277CCABB0], "numberWithInt:", v7), v10 = objc_claimAutoreleasedReturnValue(), *buf = v10, objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", buf, &v34, 1), v11 = objc_claimAutoreleasedReturnValue(), v10, objc_autoreleasePoolPop(v9), +[PPMetricsDispatcher logPayloadForEvent:payload:inBackground:](PPMetricsDispatcher, "logPayloadForEvent:payload:inBackground:", v8, v11, 1), v11, v8, !v3[2](v3)))
+  {
+    v30 = 0;
+    goto LABEL_19;
+  }
+
+  objc_opt_self();
+  v12 = pp_default_log_handle();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  {
+    *v33 = 0;
+    _os_log_impl(&dword_23224A000, v12, OS_LOG_TYPE_INFO, "PPMaintenance: beginning logging of daily differentially private topic statistics.", v33, 2u);
+  }
+
+  v13 = objc_alloc(MEMORY[0x277CCACA8]);
+  v14 = [MEMORY[0x277CBEAF8] currentLocale];
+  v15 = [v14 localeIdentifier];
+  v16 = [v13 initWithFormat:@"%@.%@.%@", @"com.apple.PersonalizationPortrait", @"topicDonationSource", v15];
+
+  v17 = [objc_alloc(MEMORY[0x277D05310]) initWithKey:v16];
+  v18 = +[PPLocalTopicStore defaultStore];
+  v19 = [v18 storage];
+  v20 = [v19 thirdPartyBundleIdsFromToday];
+  v21 = v20;
+  v22 = MEMORY[0x277CBEBF8];
+  if (v20)
+  {
+    v22 = v20;
+  }
+
+  v23 = v22;
+
+  v24 = [v17 record:v23];
+  v25 = pp_default_log_handle();
+  v26 = v25;
+  if (v24)
+  {
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    {
+      *v33 = 0;
+      v27 = "PPMaintenance: Successfully logged topic source bundle identifiers to differential privacy.";
+      v28 = v26;
+      v29 = OS_LOG_TYPE_INFO;
+LABEL_15:
+      _os_log_impl(&dword_23224A000, v28, v29, v27, v33, 2u);
+    }
+  }
+
+  else if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  {
+    *v33 = 0;
+    v27 = "PPMaintenance: unable to log topic bundle identifiers to differential privacy.";
+    v28 = v26;
+    v29 = OS_LOG_TYPE_DEFAULT;
+    goto LABEL_15;
+  }
+
+  v31 = pp_default_log_handle();
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+  {
+    *v33 = 0;
+    _os_log_impl(&dword_23224A000, v31, OS_LOG_TYPE_INFO, "PPMaintenance: completed logging of daily topic statistics.", v33, 2u);
+  }
+
+  v30 = 1;
+LABEL_19:
+
+  return v30;
+}
+
+uint64_t __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___block_invoke_5(uint64_t a1, uint64_t a2, void *a3)
+{
+  v92 = *MEMORY[0x277D85DE8];
   v4 = a3;
   objc_opt_self();
   v5 = pp_default_log_handle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_23224A000, v5, OS_LOG_TYPE_INFO, "PPMaintenance: beginning logging of daily topic statistics.", buf, 2u);
+    _os_log_impl(&dword_23224A000, v5, OS_LOG_TYPE_INFO, "PPMaintenance: beginning logging of daily topic engagement statistics.", buf, 2u);
   }
 
-  v6 = +[PPLocalTopicStore defaultStore];
-  v7 = [v6 storage];
-  v8 = [v7 uniqueClusterIdentifierCount];
-
-  if (!v4[2](v4))
-  {
-    goto LABEL_12;
-  }
-
-  v9 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@.TopicStoreStats", @"com.apple.proactive.PersonalizationPortrait"];
-  v10 = objc_autoreleasePoolPush();
-  v36 = @"uniqueItems";
-  v11 = [MEMORY[0x277CCABB0] numberWithInt:v8];
-  *buf = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v36 count:1];
-
-  objc_autoreleasePoolPop(v10);
-  [PPMetricsDispatcher logPayloadForEvent:v9 payload:v12 inBackground:1];
-
-  if (!v4[2](v4))
-  {
-LABEL_12:
-    v31 = 0;
-    goto LABEL_19;
-  }
-
-  objc_opt_self();
-  v13 = pp_default_log_handle();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
-  {
-    *v35 = 0;
-    _os_log_impl(&dword_23224A000, v13, OS_LOG_TYPE_INFO, "PPMaintenance: beginning logging of daily differentially private topic statistics.", v35, 2u);
-  }
-
-  v14 = objc_alloc(MEMORY[0x277CCACA8]);
-  v15 = [MEMORY[0x277CBEAF8] currentLocale];
-  v16 = [v15 localeIdentifier];
-  v17 = [v14 initWithFormat:@"%@.%@.%@", @"com.apple.PersonalizationPortrait", @"topicDonationSource", v16];
-
-  v18 = [objc_alloc(MEMORY[0x277D05310]) initWithKey:v17];
-  v19 = +[PPLocalTopicStore defaultStore];
-  v20 = [v19 storage];
-  v21 = [v20 thirdPartyBundleIdsFromToday];
-  v22 = v21;
-  v23 = MEMORY[0x277CBEBF8];
-  if (v21)
-  {
-    v23 = v21;
-  }
-
-  v24 = v23;
-
-  v25 = [v18 record:v24];
-  v26 = pp_default_log_handle();
-  v27 = v26;
-  if (v25)
-  {
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
-    {
-      *v35 = 0;
-      v28 = "PPMaintenance: Successfully logged topic source bundle identifiers to differential privacy.";
-      v29 = v27;
-      v30 = OS_LOG_TYPE_INFO;
-LABEL_15:
-      _os_log_impl(&dword_23224A000, v29, v30, v28, v35, 2u);
-    }
-  }
-
-  else if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
-  {
-    *v35 = 0;
-    v28 = "PPMaintenance: unable to log topic bundle identifiers to differential privacy.";
-    v29 = v27;
-    v30 = OS_LOG_TYPE_DEFAULT;
-    goto LABEL_15;
-  }
-
-  v32 = pp_default_log_handle();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
-  {
-    *v35 = 0;
-    _os_log_impl(&dword_23224A000, v32, OS_LOG_TYPE_INFO, "PPMaintenance: completed logging of daily topic statistics.", v35, 2u);
-  }
-
-  v31 = 1;
-LABEL_19:
-
-  v33 = *MEMORY[0x277D85DE8];
-  return v31;
-}
-
-uint64_t __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___block_invoke_5(uint64_t a1, uint64_t a2, void *a3)
-{
-  v94 = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 32);
-  v5 = a3;
-  objc_opt_self();
-  v6 = pp_default_log_handle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_23224A000, v6, OS_LOG_TYPE_INFO, "PPMaintenance: beginning logging of daily topic engagement statistics.", buf, 2u);
-  }
-
+  v6 = objc_opt_new();
+  [v6 setLimit:+[PPMaintenance _kValue](PPMaintenance)];
   v7 = objc_opt_new();
-  [v7 setLimit:+[PPMaintenance _kValue]()];
-  v8 = objc_opt_new();
-  v9 = [v8 mappedTopicsPendingFeedbackWithShouldContinueBlock:v5];
+  v8 = [v7 mappedTopicsPendingFeedbackWithShouldContinueBlock:v4];
 
-  if (!v9)
+  if (!v8)
   {
-    v13 = pp_default_log_handle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v12 = pp_default_log_handle();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v53 = "PPMaintenance: unable to fetch topic engagements.";
+      v52 = "PPMaintenance: unable to fetch topic engagements.";
 LABEL_43:
-      _os_log_impl(&dword_23224A000, v13, OS_LOG_TYPE_DEFAULT, v53, buf, 2u);
+      _os_log_impl(&dword_23224A000, v12, OS_LOG_TYPE_DEFAULT, v52, buf, 2u);
     }
 
 LABEL_44:
-    v52 = 0;
+    v51 = 0;
     goto LABEL_52;
   }
 
-  if ((v5[2](v5) & 1) == 0)
+  if ((v4[2](v4) & 1) == 0)
   {
-    v13 = pp_default_log_handle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v12 = pp_default_log_handle();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v53 = "PPMaintenance: deferring topic engagements.";
+      v52 = "PPMaintenance: deferring topic engagements.";
       goto LABEL_43;
     }
 
     goto LABEL_44;
   }
 
-  v10 = objc_alloc(MEMORY[0x277CBEB98]);
-  v11 = [v9 _pas_mappedArrayWithTransform:&__block_literal_global_291];
-  v12 = [v10 initWithArray:v11];
+  v9 = objc_alloc(MEMORY[0x277CBEB98]);
+  v10 = [v8 _pas_mappedArrayWithTransform:&__block_literal_global_291];
+  v11 = [v9 initWithArray:v10];
 
-  v67 = objc_opt_new();
+  v65 = objc_opt_new();
+  v83 = 0u;
+  v84 = 0u;
   v85 = 0u;
   v86 = 0u;
-  v87 = 0u;
-  v88 = 0u;
-  v13 = v12;
-  v14 = [v13 countByEnumeratingWithState:&v85 objects:buf count:16];
-  if (!v14)
+  v12 = v11;
+  v13 = [v12 countByEnumeratingWithState:&v83 objects:buf count:16];
+  if (!v13)
   {
-    v52 = 1;
+    v51 = 1;
     goto LABEL_51;
   }
 
-  v15 = 0x27896F000uLL;
-  v16 = *v86;
-  v64 = v7;
-  v65 = v5;
-  v62 = v13;
-  v63 = v9;
-  v58 = a2;
-  v60 = *v86;
+  v14 = 0x27896F000uLL;
+  v15 = *v84;
+  v62 = v6;
+  v63 = v4;
+  v60 = v12;
+  v61 = v8;
+  v56 = a2;
+  v58 = *v84;
   while (2)
   {
-    v17 = 0;
-    v59 = v14;
+    v16 = 0;
+    v57 = v13;
     do
     {
-      if (*v86 != v16)
+      if (*v84 != v15)
       {
-        objc_enumerationMutation(v13);
+        objc_enumerationMutation(v12);
       }
 
-      v18 = *(*(&v85 + 1) + 8 * v17);
-      if ((v5[2](v5) & 1) == 0)
+      v17 = *(*(&v83 + 1) + 8 * v16);
+      if ((v4[2](v4) & 1) == 0)
       {
-        v55 = pp_default_log_handle();
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+        v54 = pp_default_log_handle();
+        if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
         {
-          *v84 = 0;
-          _os_log_impl(&dword_23224A000, v55, OS_LOG_TYPE_DEFAULT, "PPMaintenance: deferring topic engagements.", v84, 2u);
+          *v82 = 0;
+          _os_log_impl(&dword_23224A000, v54, OS_LOG_TYPE_DEFAULT, "PPMaintenance: deferring topic engagements.", v82, 2u);
         }
 
 LABEL_49:
 
-        v52 = 0;
+        v51 = 0;
         goto LABEL_51;
       }
 
-      v61 = v17;
-      v19 = [*(v15 + 2504) defaultStore];
-      v74 = v18;
-      v20 = [v19 scoresForTopicMapping:v18 query:v7 error:a2];
-      v21 = [v20 allKeys];
+      v59 = v16;
+      v18 = [*(v14 + 2504) defaultStore];
+      v72 = v17;
+      v19 = [v18 scoresForTopicMapping:v17 query:v6 error:a2];
+      v20 = [v19 allKeys];
 
-      if (!v21)
+      if (!v20)
       {
-        v55 = pp_default_log_handle();
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+        v54 = pp_default_log_handle();
+        if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
         {
-          *v84 = 0;
-          _os_log_impl(&dword_23224A000, v55, OS_LOG_TYPE_DEFAULT, "PPMaintenance: unable to fetch ranked items from topic store.", v84, 2u);
+          *v82 = 0;
+          _os_log_impl(&dword_23224A000, v54, OS_LOG_TYPE_DEFAULT, "PPMaintenance: unable to fetch ranked items from topic store.", v82, 2u);
         }
 
 LABEL_48:
-        v7 = v64;
+        v6 = v62;
         goto LABEL_49;
       }
 
-      v66 = v21;
-      v72 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v21];
+      v64 = v20;
+      v70 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v20];
+      v78 = 0u;
+      v79 = 0u;
       v80 = 0u;
       v81 = 0u;
-      v82 = 0u;
-      v83 = 0u;
-      obj = v9;
-      v22 = [obj countByEnumeratingWithState:&v80 objects:v92 count:16];
-      v23 = v74;
-      if (v22)
+      obj = v8;
+      v21 = [obj countByEnumeratingWithState:&v78 objects:v90 count:16];
+      v22 = v72;
+      if (v21)
       {
-        v24 = v22;
-        v75 = *v81;
+        v23 = v21;
+        v73 = *v79;
         while (2)
         {
-          for (i = 0; i != v24; ++i)
+          for (i = 0; i != v23; ++i)
           {
-            if (*v81 != v75)
+            if (*v79 != v73)
             {
               objc_enumerationMutation(obj);
             }
 
-            v26 = *(*(&v80 + 1) + 8 * i);
-            if ((v5[2](v5) & 1) == 0)
+            v25 = *(*(&v78 + 1) + 8 * i);
+            if ((v4[2](v4) & 1) == 0)
             {
-              v54 = pp_default_log_handle();
-              if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+              v53 = pp_default_log_handle();
+              if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
               {
-                *v84 = 0;
-                _os_log_impl(&dword_23224A000, v54, OS_LOG_TYPE_DEFAULT, "PPMaintenance: deferring topic engagements.", v84, 2u);
+                *v82 = 0;
+                _os_log_impl(&dword_23224A000, v53, OS_LOG_TYPE_DEFAULT, "PPMaintenance: deferring topic engagements.", v82, 2u);
               }
 
-              v13 = v62;
-              v9 = v63;
-              v55 = v66;
+              v12 = v60;
+              v8 = v61;
+              v54 = v64;
               goto LABEL_48;
             }
 
-            v27 = [v26 mappingId];
-            v28 = [v27 isEqual:v23];
+            v26 = [v25 mappingId];
+            v27 = [v26 isEqual:v22];
 
-            if (v28)
+            if (v27)
             {
-              v29 = [v26 feedbackItems];
-              v30 = [v29 firstObject];
+              v28 = [v25 feedbackItems];
+              v29 = [v28 firstObject];
 
-              v31 = [v30 itemString];
-              if (v31)
+              v30 = [v29 itemString];
+              if (v30)
               {
-                v32 = v31;
-                v33 = [v30 itemString];
-                v34 = [v72 containsObject:v33];
+                v31 = v30;
+                v32 = [v29 itemString];
+                v33 = [v70 containsObject:v32];
 
-                if (v34)
+                if (v33)
                 {
-                  if ([v30 itemFeedbackType] == 2 || objc_msgSend(v30, "itemFeedbackType") == 1)
+                  if ([v29 itemFeedbackType] == 2 || objc_msgSend(v29, "itemFeedbackType") == 1)
                   {
-                    v70 = 0;
-                    v35 = 0;
-                    v36 = 1;
+                    v68 = 0;
+                    v34 = 0;
+                    v35 = 1;
                   }
 
                   else
                   {
-                    v37 = [v30 itemFeedbackType];
-                    v36 = 0;
-                    v70 = v37 == 5;
-                    v35 = v37 != 5;
+                    v36 = [v29 itemFeedbackType];
+                    v35 = 0;
+                    v68 = v36 == 5;
+                    v34 = v36 != 5;
                   }
 
                   context = objc_autoreleasePoolPush();
-                  v90[0] = @"rank";
-                  v38 = MEMORY[0x277CCABB0];
-                  v69 = [v30 itemString];
-                  v68 = [v38 numberWithUnsignedInteger:{-[NSObject indexOfObject:](v66, "indexOfObject:", v69)}];
-                  v91[0] = v68;
-                  v90[1] = @"domain";
-                  v39 = [PPMetricsUtils stringifyDomain:0];
-                  v91[1] = v39;
-                  v90[2] = @"wasEngaged";
-                  v40 = [MEMORY[0x277CCABB0] numberWithBool:v36];
-                  v91[2] = v40;
-                  v90[3] = @"wasRejected";
-                  v41 = [MEMORY[0x277CCABB0] numberWithBool:v35];
-                  v91[3] = v41;
-                  v90[4] = @"wasOffered";
-                  v42 = [MEMORY[0x277CCABB0] numberWithBool:v70];
-                  v90[5] = @"mappingId";
-                  v91[4] = v42;
-                  v91[5] = v74;
-                  v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v91 forKeys:v90 count:6];
+                  v88[0] = @"rank";
+                  v37 = MEMORY[0x277CCABB0];
+                  v67 = [v29 itemString];
+                  v66 = [v37 numberWithUnsignedInteger:{-[NSObject indexOfObject:](v64, "indexOfObject:", v67)}];
+                  v89[0] = v66;
+                  v88[1] = @"domain";
+                  v38 = [PPMetricsUtils stringifyDomain:0];
+                  v89[1] = v38;
+                  v88[2] = @"wasEngaged";
+                  v39 = [MEMORY[0x277CCABB0] numberWithBool:v35];
+                  v89[2] = v39;
+                  v88[3] = @"wasRejected";
+                  v40 = [MEMORY[0x277CCABB0] numberWithBool:v34];
+                  v89[3] = v40;
+                  v88[4] = @"wasOffered";
+                  v41 = [MEMORY[0x277CCABB0] numberWithBool:v68];
+                  v88[5] = @"mappingId";
+                  v89[4] = v41;
+                  v89[5] = v72;
+                  v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v89 forKeys:v88 count:6];
 
                   objc_autoreleasePoolPop(context);
-                  [v67 addObject:v43];
+                  [v65 addObject:v42];
 
-                  v5 = v65;
+                  v4 = v63;
                 }
               }
 
-              v23 = v74;
+              v22 = v72;
             }
           }
 
-          v24 = [obj countByEnumeratingWithState:&v80 objects:v92 count:16];
-          if (v24)
+          v23 = [obj countByEnumeratingWithState:&v78 objects:v90 count:16];
+          if (v23)
           {
             continue;
           }
@@ -6293,54 +6125,54 @@ LABEL_48:
         }
       }
 
-      v78 = 0u;
-      v79 = 0u;
       v76 = 0u;
       v77 = 0u;
-      v44 = v67;
-      v45 = [v44 countByEnumeratingWithState:&v76 objects:v89 count:16];
-      if (v45)
+      v74 = 0u;
+      v75 = 0u;
+      v43 = v65;
+      v44 = [v43 countByEnumeratingWithState:&v74 objects:v87 count:16];
+      if (v44)
       {
-        v46 = v45;
-        v47 = *v77;
+        v45 = v44;
+        v46 = *v75;
         do
         {
-          for (j = 0; j != v46; ++j)
+          for (j = 0; j != v45; ++j)
           {
-            if (*v77 != v47)
+            if (*v75 != v46)
             {
-              objc_enumerationMutation(v44);
+              objc_enumerationMutation(v43);
             }
 
-            v49 = *(*(&v76 + 1) + 8 * j);
-            v50 = objc_autoreleasePoolPush();
-            v51 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@.EngagedToday", @"com.apple.proactive.PersonalizationPortrait"];
-            [PPMetricsDispatcher logPayloadForEvent:v51 payload:v49 inBackground:1];
+            v48 = *(*(&v74 + 1) + 8 * j);
+            v49 = objc_autoreleasePoolPush();
+            v50 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@.EngagedToday", @"com.apple.proactive.PersonalizationPortrait"];
+            [PPMetricsDispatcher logPayloadForEvent:v50 payload:v48 inBackground:1];
 
-            objc_autoreleasePoolPop(v50);
+            objc_autoreleasePoolPop(v49);
           }
 
-          v46 = [v44 countByEnumeratingWithState:&v76 objects:v89 count:16];
+          v45 = [v43 countByEnumeratingWithState:&v74 objects:v87 count:16];
         }
 
-        while (v46);
+        while (v45);
       }
 
-      v13 = v62;
-      v17 = v61 + 1;
-      a2 = v58;
-      v7 = v64;
-      v5 = v65;
-      v9 = v63;
-      v15 = 0x27896F000;
-      v16 = v60;
+      v12 = v60;
+      v16 = v59 + 1;
+      a2 = v56;
+      v6 = v62;
+      v4 = v63;
+      v8 = v61;
+      v14 = 0x27896F000;
+      v15 = v58;
     }
 
-    while (v61 + 1 != v59);
-    v14 = [v62 countByEnumeratingWithState:&v85 objects:buf count:16];
-    v16 = v60;
-    v52 = 1;
-    if (v14)
+    while (v59 + 1 != v57);
+    v13 = [v60 countByEnumeratingWithState:&v83 objects:buf count:16];
+    v15 = v58;
+    v51 = 1;
+    if (v13)
     {
       continue;
     }
@@ -6351,100 +6183,97 @@ LABEL_48:
 LABEL_51:
 
 LABEL_52:
-  v56 = *MEMORY[0x277D85DE8];
-  return v52;
+  return v51;
 }
 
 uint64_t __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___block_invoke_6(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = *(a1 + 32);
-  v5 = a3;
-  v6 = objc_opt_self();
-  v7 = pp_default_log_handle();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v4 = a3;
+  v5 = objc_opt_self();
+  v6 = pp_default_log_handle();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_23224A000, v7, OS_LOG_TYPE_INFO, "PPMaintenance: beginning logging of daily location engagement statistics.", buf, 2u);
+    _os_log_impl(&dword_23224A000, v6, OS_LOG_TYPE_INFO, "PPMaintenance: beginning logging of daily location engagement statistics.", buf, 2u);
   }
 
-  v8 = objc_opt_new();
-  [v8 setLimit:+[PPMaintenance _kValue]()];
-  v9 = +[PPLocalLocationStore defaultStore];
-  v10 = [v9 rankedLocationsWithQuery:v8 clientProcessName:0 error:a2];
+  v7 = objc_opt_new();
+  [v7 setLimit:+[PPMaintenance _kValue](PPMaintenance)];
+  v8 = +[PPLocalLocationStore defaultStore];
+  v9 = [v8 rankedLocationsWithQuery:v7 clientProcessName:0 error:a2];
 
-  if (v10)
+  if (v9)
   {
-    if (v5[2](v5))
+    if (v4[2](v4))
     {
-      v11 = [v10 _pas_mappedArrayWithTransform:&__block_literal_global_301];
-      v12 = +[PPMaintenance _logEngagementMetricsForDomain:feedback:count:shouldContinue:](v6, 2, v11, [v10 count], v5);
+      v10 = [v9 _pas_mappedArrayWithTransform:&__block_literal_global_301];
+      v11 = +[PPMaintenance _logEngagementMetricsForDomain:feedback:count:shouldContinue:](v5, 2, v10, [v9 count], v4);
     }
 
     else
     {
-      v11 = pp_default_log_handle();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v10 = pp_default_log_handle();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        *v14 = 0;
-        _os_log_impl(&dword_23224A000, v11, OS_LOG_TYPE_INFO, "PPMaintenance: deferring location engagement.", v14, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_23224A000, v10, OS_LOG_TYPE_INFO, "PPMaintenance: deferring location engagement.", v13, 2u);
       }
 
-      v12 = 0;
+      v11 = 0;
     }
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  return v12;
+  return v11;
 }
 
 uint64_t __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___block_invoke_7(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = *(a1 + 32);
-  v5 = a3;
-  v6 = objc_opt_self();
-  v7 = pp_default_log_handle();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v4 = a3;
+  v5 = objc_opt_self();
+  v6 = pp_default_log_handle();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_23224A000, v7, OS_LOG_TYPE_INFO, "PPMaintenance: beginning logging of daily named entity engagement statistics.", buf, 2u);
+    _os_log_impl(&dword_23224A000, v6, OS_LOG_TYPE_INFO, "PPMaintenance: beginning logging of daily named entity engagement statistics.", buf, 2u);
   }
 
-  v8 = objc_opt_new();
-  [v8 setLimit:+[PPMaintenance _kValue]()];
-  v9 = +[PPLocalNamedEntityStore defaultStore];
-  v10 = [v9 rankedNamedEntitiesWithQuery:v8 error:a2];
+  v7 = objc_opt_new();
+  [v7 setLimit:+[PPMaintenance _kValue](PPMaintenance)];
+  v8 = +[PPLocalNamedEntityStore defaultStore];
+  v9 = [v8 rankedNamedEntitiesWithQuery:v7 error:a2];
 
-  if (v10)
+  if (v9)
   {
-    if (v5[2](v5))
+    if (v4[2](v4))
     {
-      v11 = [v10 _pas_mappedArrayWithTransform:&__block_literal_global_298];
-      v12 = +[PPMaintenance _logEngagementMetricsForDomain:feedback:count:shouldContinue:](v6, 1, v11, [v10 count], v5);
+      v10 = [v9 _pas_mappedArrayWithTransform:&__block_literal_global_298];
+      v11 = +[PPMaintenance _logEngagementMetricsForDomain:feedback:count:shouldContinue:](v5, 1, v10, [v9 count], v4);
     }
 
     else
     {
-      v11 = pp_default_log_handle();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v10 = pp_default_log_handle();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        *v14 = 0;
-        _os_log_impl(&dword_23224A000, v11, OS_LOG_TYPE_INFO, "PPMaintenance: deferring entity engagement.", v14, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_23224A000, v10, OS_LOG_TYPE_INFO, "PPMaintenance: deferring entity engagement.", v13, 2u);
       }
 
-      v12 = 0;
+      v11 = 0;
     }
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  return v12;
+  return v11;
 }
 
 + (uint64_t)_kValue
@@ -6460,7 +6289,7 @@ uint64_t __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___blo
 
 + (uint64_t)_logEngagementMetricsForDomain:(void *)domain feedback:(int)feedback count:(void *)count shouldContinue:
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   domainCopy = domain;
   countCopy = count;
   objc_opt_self();
@@ -6468,7 +6297,7 @@ uint64_t __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___blo
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    v44 = a2;
+    v43 = a2;
     _os_log_impl(&dword_23224A000, v10, OS_LOG_TYPE_INFO, "PPMaintenance: beginning logging of daily engagement statistics for domain %d", buf, 8u);
   }
 
@@ -6479,51 +6308,51 @@ uint64_t __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___blo
     {
       v14 = v11 / 5;
       v15 = objc_opt_new();
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __78__PPMaintenance__logEngagementMetricsForDomain_feedback_count_shouldContinue___block_invoke;
-      v35[3] = &unk_278975ED0;
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __78__PPMaintenance__logEngagementMetricsForDomain_feedback_count_shouldContinue___block_invoke;
+      v34[3] = &unk_278975ED0;
       v16 = countCopy;
-      v38 = v16;
-      v41 = a2;
-      v39 = v14;
-      v36 = domainCopy;
+      v37 = v16;
+      v40 = a2;
+      v38 = v14;
+      v35 = domainCopy;
       feedbackCopy = feedback;
       v12 = v15;
-      v37 = v12;
-      [v36 enumerateObjectsUsingBlock:v35];
+      v36 = v12;
+      [v35 enumerateObjectsUsingBlock:v34];
       v17 = countCopy[2](v16);
       v13 = v17;
       if (v17)
       {
-        v27 = a2;
-        v28 = v17;
-        v29 = domainCopy;
-        v33 = 0u;
-        v34 = 0u;
-        v31 = 0u;
+        v26 = a2;
+        v27 = v17;
+        v28 = domainCopy;
         v32 = 0u;
+        v33 = 0u;
+        v30 = 0u;
+        v31 = 0u;
         obj = v12;
-        v18 = [obj countByEnumeratingWithState:&v31 objects:v42 count:16];
+        v18 = [obj countByEnumeratingWithState:&v30 objects:v41 count:16];
         if (v18)
         {
           v19 = v18;
-          v20 = *v32;
+          v20 = *v31;
           do
           {
             for (i = 0; i != v19; ++i)
             {
-              if (*v32 != v20)
+              if (*v31 != v20)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v22 = *(*(&v31 + 1) + 8 * i);
+              v22 = *(*(&v30 + 1) + 8 * i);
               v23 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@.EngagedToday", @"com.apple.proactive.PersonalizationPortrait"];
               [PPMetricsDispatcher logPayloadForEvent:v23 payload:v22 inBackground:1];
             }
 
-            v19 = [obj countByEnumeratingWithState:&v31 objects:v42 count:16];
+            v19 = [obj countByEnumeratingWithState:&v30 objects:v41 count:16];
           }
 
           while (v19);
@@ -6533,12 +6362,12 @@ uint64_t __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___blo
         if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
           *buf = 67109120;
-          v44 = v27;
+          v43 = v26;
           _os_log_impl(&dword_23224A000, v24, OS_LOG_TYPE_INFO, "PPMaintenance: completed logging of daily engagement statistics for domain %d.", buf, 8u);
         }
 
-        domainCopy = v29;
-        v13 = v28;
+        domainCopy = v28;
+        v13 = v27;
       }
 
       else
@@ -6547,7 +6376,7 @@ uint64_t __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___blo
         if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
           *buf = 67109120;
-          v44 = a2;
+          v43 = a2;
           _os_log_impl(&dword_23224A000, v24, OS_LOG_TYPE_INFO, "PPMaintenance: deferring %d engagement before ratio.", buf, 8u);
         }
       }
@@ -6559,7 +6388,7 @@ uint64_t __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___blo
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        v44 = a2;
+        v43 = a2;
         _os_log_impl(&dword_23224A000, v12, OS_LOG_TYPE_DEFAULT, "PPMaintenance: no items found in domain %d", buf, 8u);
       }
 
@@ -6573,72 +6402,71 @@ uint64_t __63__PPMaintenance__logDailyMetricsWithError_shouldContinueBlock___blo
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      v44 = a2;
+      v43 = a2;
       _os_log_impl(&dword_23224A000, v12, OS_LOG_TYPE_INFO, "PPMaintenance: deferring %d engagement after decayed counts.", buf, 8u);
     }
 
     v13 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 void __78__PPMaintenance__logEngagementMetricsForDomain_feedback_count_shouldContinue___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   v7 = a2;
   if ((*(*(a1 + 48) + 16))())
   {
-    v50 = a3;
-    v57 = a3 / *(a1 + 56);
-    if ([*(a1 + 32) count] < v57)
+    v49 = a3;
+    v56 = a3 / *(a1 + 56);
+    if ([*(a1 + 32) count] < v56)
     {
-      v57 = [*(a1 + 32) count] - 1;
+      v56 = [*(a1 + 32) count] - 1;
     }
 
     v8 = *(a1 + 64);
-    v51 = a1;
-    v52 = v7;
-    v56 = *(a1 + 60);
-    v54 = v7;
+    v50 = a1;
+    v51 = v7;
+    v55 = *(a1 + 60);
+    v53 = v7;
     objc_opt_self();
     v9 = objc_autoreleasePoolPush();
     v10 = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{&unk_284784278, &unk_284784290, &unk_2847842A8, &unk_2847842C0, 0}];
     objc_autoreleasePoolPop(v9);
-    v63 = 0u;
-    v64 = 0u;
-    v61 = 0u;
     v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
     obj = v10;
-    v58 = [obj countByEnumeratingWithState:&v61 objects:v73 count:16];
-    if (v58)
+    v57 = [obj countByEnumeratingWithState:&v60 objects:v72 count:16];
+    if (v57)
     {
-      v55 = *v62;
+      v54 = *v61;
       do
       {
-        for (i = 0; i != v58; ++i)
+        for (i = 0; i != v57; ++i)
         {
-          if (*v62 != v55)
+          if (*v61 != v54)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v61 + 1) + 8 * i);
+          v12 = *(*(&v60 + 1) + 8 * i);
           v13 = objc_autoreleasePoolPush();
           v14 = [v12 unsignedIntegerValue];
-          v60 = v13;
+          v59 = v13;
           if (v8 > 2)
           {
             if (v8 == 3)
             {
-              [v54 rejectedExplicitly];
+              [v53 rejectedExplicitly];
               goto LABEL_21;
             }
 
             if (v8 == 4)
             {
-              [v54 rejectedImplicitly];
+              [v53 rejectedImplicitly];
               goto LABEL_21;
             }
           }
@@ -6647,13 +6475,13 @@ void __78__PPMaintenance__logEngagementMetricsForDomain_feedback_count_shouldCon
           {
             if (v8 == 1)
             {
-              [v54 engagedExplicitly];
+              [v53 engagedExplicitly];
               goto LABEL_21;
             }
 
             if (v8 == 2)
             {
-              [v54 engagedImplicitly];
+              [v53 engagedImplicitly];
 LABEL_21:
               v17 = v15;
               goto LABEL_22;
@@ -6664,9 +6492,9 @@ LABEL_21:
           if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109376;
-            v70 = v14;
-            v71 = 1024;
-            v72 = v8;
+            v69 = v14;
+            v70 = 1024;
+            v71 = v8;
             _os_log_impl(&dword_23224A000, v16, OS_LOG_TYPE_DEFAULT, "PPMaintenance: attempted to log engagement metrics with unexpected feedback type %u and portrait domain %u", buf, 0xEu);
           }
 
@@ -6674,56 +6502,56 @@ LABEL_21:
 LABEL_22:
           v18 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@.FeedbackAtK", @"com.apple.proactive.PersonalizationPortrait"];
           context = objc_autoreleasePoolPush();
-          v67[0] = @"k";
-          v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:+[PPMaintenance _kValue]()];
-          v68[0] = v19;
-          v67[1] = @"evaluatedCount";
-          v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v56];
-          v68[1] = v20;
-          v67[2] = @"bucket";
-          v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v57];
-          v68[2] = v21;
-          v67[3] = @"domain";
+          v66[0] = @"k";
+          v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:+[PPMaintenance _kValue](PPMaintenance)];
+          v67[0] = v19;
+          v66[1] = @"evaluatedCount";
+          v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v55];
+          v67[1] = v20;
+          v66[2] = @"bucket";
+          v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v56];
+          v67[2] = v21;
+          v66[3] = @"domain";
           v22 = [PPMetricsUtils stringifyDomain:v8];
-          v68[3] = v22;
-          v67[4] = @"feedbackType";
+          v67[3] = v22;
+          v66[4] = @"feedbackType";
           v23 = [MEMORY[0x277D3A3C0] stringForItemFeedbackType:v14];
-          v68[4] = v23;
-          v67[5] = @"rate";
+          v67[4] = v23;
+          v66[5] = @"rate";
           v24 = [MEMORY[0x277CCABB0] numberWithDouble:v17];
-          v68[5] = v24;
-          [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v67 count:6];
+          v67[5] = v24;
+          [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:6];
           v26 = v25 = v8;
 
           objc_autoreleasePoolPop(context);
           [PPMetricsDispatcher logPayloadForEvent:v18 payload:v26 inBackground:1];
 
           v8 = v25;
-          objc_autoreleasePoolPop(v60);
+          objc_autoreleasePoolPop(v59);
         }
 
-        v58 = [obj countByEnumeratingWithState:&v61 objects:v73 count:16];
+        v57 = [obj countByEnumeratingWithState:&v60 objects:v72 count:16];
       }
 
-      while (v58);
+      while (v57);
     }
 
-    v27 = [v54 latestDate];
+    v27 = [v53 latestDate];
     [v27 timeIntervalSinceNow];
     v29 = v28;
 
-    v7 = v52;
+    v7 = v51;
     if (v29 >= -86400.0)
     {
-      [v54 engagedExplicitly];
+      [v53 engagedExplicitly];
       v31 = v30;
-      [v54 engagedImplicitly];
+      [v53 engagedImplicitly];
       v33 = v31 + v32;
       if (v31 + v32 <= 0.0)
       {
-        [v54 rejectedExplicitly];
+        [v53 rejectedExplicitly];
         v39 = v38;
-        [v54 rejectedImplicitly];
+        [v53 rejectedImplicitly];
         v34 = v39 + v40 > 0.0;
         v35 = v34;
       }
@@ -6734,24 +6562,24 @@ LABEL_22:
         v35 = 1;
       }
 
-      v41 = *(v51 + 40);
+      v41 = *(v50 + 40);
       v42 = objc_autoreleasePoolPush();
-      v65[0] = @"rank";
-      v43 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v50];
-      v66[0] = v43;
-      v65[1] = @"domain";
-      v44 = [PPMetricsUtils stringifyDomain:*(v51 + 64)];
-      v66[1] = v44;
-      v65[2] = @"wasEngaged";
+      v64[0] = @"rank";
+      v43 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v49];
+      v65[0] = v43;
+      v64[1] = @"domain";
+      v44 = [PPMetricsUtils stringifyDomain:*(v50 + 64)];
+      v65[1] = v44;
+      v64[2] = @"wasEngaged";
       v45 = [MEMORY[0x277CCABB0] numberWithBool:v33 > 0.0];
-      v66[2] = v45;
-      v65[3] = @"wasRejected";
+      v65[2] = v45;
+      v64[3] = @"wasRejected";
       v46 = [MEMORY[0x277CCABB0] numberWithBool:v34];
-      v66[3] = v46;
-      v65[4] = @"wasOffered";
+      v65[3] = v46;
+      v64[4] = @"wasOffered";
       v47 = [MEMORY[0x277CCABB0] numberWithBool:v35];
-      v66[4] = v47;
-      v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:5];
+      v65[4] = v47;
+      v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:5];
 
       objc_autoreleasePoolPop(v42);
       [v41 addObject:v48];
@@ -6764,15 +6592,13 @@ LABEL_22:
     if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
     {
       v37 = *(a1 + 64);
-      *v73 = 67109120;
-      v74 = v37;
-      _os_log_impl(&dword_23224A000, v36, OS_LOG_TYPE_INFO, "PPMaintenance: deferring %d engagement in loop.", v73, 8u);
+      *v72 = 67109120;
+      v73 = v37;
+      _os_log_impl(&dword_23224A000, v36, OS_LOG_TYPE_INFO, "PPMaintenance: deferring %d engagement in loop.", v72, 8u);
     }
 
     *a4 = 1;
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 id __79__PPMaintenance__logNamedEntityEngagementMetricsWithError_shouldContinueBlock___block_invoke(uint64_t a1, void *a2)
@@ -6914,20 +6740,18 @@ void __37__PPMaintenance__registerRTCSendLogs__block_invoke()
 
 void __37__PPMaintenance__registerRTCSendLogs__block_invoke_178(uint64_t a1, char a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (v4 || (a2 & 1) == 0)
   {
     v5 = pp_default_log_handle();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138412290;
-      v8 = v4;
-      _os_log_error_impl(&dword_23224A000, v5, OS_LOG_TYPE_ERROR, "PPMaintenance failed to send RTCLogs: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_error_impl(&dword_23224A000, v5, OS_LOG_TYPE_ERROR, "PPMaintenance failed to send RTCLogs: %@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (id)singletonWarmupQueue
@@ -6938,34 +6762,34 @@ void __37__PPMaintenance__registerRTCSendLogs__block_invoke_178(uint64_t a1, cha
     dispatch_once(&singletonWarmupQueue__pasOnceToken7, &__block_literal_global_17295);
   }
 
-  v0 = singletonWarmupQueue__pasExprOnceResult;
+  v1 = singletonWarmupQueue__pasExprOnceResult;
 
-  return v0;
+  return v1;
 }
 
 void __40__PPMaintenance__registerContactsImport__block_invoke_2(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __40__PPMaintenance__registerContactsImport__block_invoke_3;
   aBlock[3] = &unk_278975D70;
-  v24 = &v25;
+  v23 = &v24;
   v4 = v3;
-  v23 = v4;
+  v22 = v4;
   v5 = _Block_copy(aBlock);
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __40__PPMaintenance__registerContactsImport__block_invoke_4;
-  v20[3] = &unk_278975D98;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __40__PPMaintenance__registerContactsImport__block_invoke_4;
+  v19[3] = &unk_278975D98;
   v6 = v5;
-  v21 = v6;
-  v7 = _Block_copy(v20);
+  v20 = v6;
+  v7 = _Block_copy(v19);
   PPPostNotification(kPPMaintenanceJobStartedNotification);
   v8 = pp_maintenance_signpost_handle();
   v9 = os_signpost_id_generate(v8);
@@ -6983,13 +6807,13 @@ void __40__PPMaintenance__registerContactsImport__block_invoke_2(uint64_t a1, vo
   v13 = v12;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    v14 = *(v26 + 24);
+    v14 = *(v25 + 24);
     *buf = 67109120;
-    v30 = v14;
+    v29 = v14;
     _os_signpost_emit_with_name_impl(&dword_23224A000, v13, OS_SIGNPOST_INTERVAL_END, v9, "ContactsImport", " enableTelemetry=YES Deferred=%{signpost.telemetry:number1, Name=Deferred}d", buf, 8u);
   }
 
-  if (*(v26 + 24))
+  if (*(v25 + 24))
   {
     v15 = &kPPMaintenanceJobDeferredNotification;
   }
@@ -7000,12 +6824,12 @@ void __40__PPMaintenance__registerContactsImport__block_invoke_2(uint64_t a1, vo
   }
 
   PPPostNotification(*v15);
-  if (*(v26 + 24) == 1)
+  if (*(v25 + 24) == 1)
   {
     if (!xpc_activity_set_state(v4, 3))
     {
-      v19 = [MEMORY[0x277CCA890] currentHandler];
-      [v19 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:630 description:@"Unexpected failure of deferral"];
+      v18 = [MEMORY[0x277CCA890] currentHandler];
+      [v18 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:630 description:@"Unexpected failure of deferral"];
     }
 
     v16 = pp_default_log_handle();
@@ -7029,8 +6853,7 @@ LABEL_17:
     }
   }
 
-  _Block_object_dispose(&v25, 8);
-  v18 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v24, 8);
 }
 
 uint64_t __40__PPMaintenance__registerContactsImport__block_invoke_3(uint64_t a1)
@@ -7092,27 +6915,27 @@ void __37__PPMaintenance_singletonWarmupQueue__block_invoke()
 
 void __40__PPMaintenance__registerEventKitImport__block_invoke_2(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __40__PPMaintenance__registerEventKitImport__block_invoke_3;
   aBlock[3] = &unk_278975D70;
-  v23 = &v24;
+  v22 = &v23;
   v4 = v3;
-  v22 = v4;
+  v21 = v4;
   v5 = _Block_copy(aBlock);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __40__PPMaintenance__registerEventKitImport__block_invoke_4;
-  v19[3] = &unk_278975D98;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __40__PPMaintenance__registerEventKitImport__block_invoke_4;
+  v18[3] = &unk_278975D98;
   v6 = v5;
-  v20 = v6;
-  v7 = _Block_copy(v19);
+  v19 = v6;
+  v7 = _Block_copy(v18);
   PPPostNotification(kPPMaintenanceJobStartedNotification);
   v8 = pp_maintenance_signpost_handle();
   v9 = os_signpost_id_generate(v8);
@@ -7130,13 +6953,13 @@ void __40__PPMaintenance__registerEventKitImport__block_invoke_2(uint64_t a1, vo
   v13 = v12;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    v14 = *(v25 + 24);
+    v14 = *(v24 + 24);
     *buf = 67109120;
-    v29 = v14;
+    v28 = v14;
     _os_signpost_emit_with_name_impl(&dword_23224A000, v13, OS_SIGNPOST_INTERVAL_END, v9, "EventKitImport", " enableTelemetry=YES Deferred=%{signpost.telemetry:number1, Name=Deferred}d", buf, 8u);
   }
 
-  if (*(v25 + 24))
+  if (*(v24 + 24))
   {
     v15 = &kPPMaintenanceJobDeferredNotification;
   }
@@ -7147,12 +6970,12 @@ void __40__PPMaintenance__registerEventKitImport__block_invoke_2(uint64_t a1, vo
   }
 
   PPPostNotification(*v15);
-  if (*(v25 + 24) == 1)
+  if (*(v24 + 24) == 1)
   {
     if (!xpc_activity_set_state(v4, 3))
     {
-      v18 = [MEMORY[0x277CCA890] currentHandler];
-      [v18 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:525 description:@"Unexpected failure of deferral"];
+      v17 = [MEMORY[0x277CCA890] currentHandler];
+      [v17 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:525 description:@"Unexpected failure of deferral"];
     }
 
     v16 = pp_default_log_handle();
@@ -7163,8 +6986,7 @@ void __40__PPMaintenance__registerEventKitImport__block_invoke_2(uint64_t a1, vo
     }
   }
 
-  _Block_object_dispose(&v24, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v23, 8);
 }
 
 uint64_t __40__PPMaintenance__registerEventKitImport__block_invoke_3(uint64_t a1)
@@ -7217,7 +7039,7 @@ void __40__PPMaintenance__registerEventKitImport__block_invoke()
   [v0 deleteAndReimportAllData];
 }
 
-uint64_t __41__PPMaintenance__registerHealthKitImport__block_invoke(uint64_t a1)
+void *__41__PPMaintenance__registerHealthKitImport__block_invoke(uint64_t a1)
 {
   v6 = 0;
   v7 = &v6;
@@ -7244,27 +7066,27 @@ uint64_t __41__PPMaintenance__registerHealthKitImport__block_invoke(uint64_t a1)
 
 void __41__PPMaintenance__registerHealthKitImport__block_invoke_138(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x2020000000;
-  v27 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x2020000000;
+  v26 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __41__PPMaintenance__registerHealthKitImport__block_invoke_2;
   aBlock[3] = &unk_278975D70;
-  v23 = &v24;
+  v22 = &v23;
   v4 = v3;
-  v22 = v4;
+  v21 = v4;
   v5 = _Block_copy(aBlock);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __41__PPMaintenance__registerHealthKitImport__block_invoke_3;
-  v19[3] = &unk_278975D98;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __41__PPMaintenance__registerHealthKitImport__block_invoke_3;
+  v18[3] = &unk_278975D98;
   v6 = v5;
-  v20 = v6;
-  v7 = _Block_copy(v19);
+  v19 = v6;
+  v7 = _Block_copy(v18);
   PPPostNotification(kPPMaintenanceJobStartedNotification);
   v8 = pp_maintenance_signpost_handle();
   v9 = os_signpost_id_generate(v8);
@@ -7282,13 +7104,13 @@ void __41__PPMaintenance__registerHealthKitImport__block_invoke_138(uint64_t a1,
   v13 = v12;
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
-    v14 = *(v25 + 24);
+    v14 = *(v24 + 24);
     *buf = 67109120;
-    v29 = v14;
+    v28 = v14;
     _os_signpost_emit_with_name_impl(&dword_23224A000, v13, OS_SIGNPOST_INTERVAL_END, v9, "HealthKitImport", " enableTelemetry=YES Deferred=%{signpost.telemetry:number1, Name=Deferred}d", buf, 8u);
   }
 
-  if (*(v25 + 24))
+  if (*(v24 + 24))
   {
     v15 = &kPPMaintenanceJobDeferredNotification;
   }
@@ -7299,12 +7121,12 @@ void __41__PPMaintenance__registerHealthKitImport__block_invoke_138(uint64_t a1,
   }
 
   PPPostNotification(*v15);
-  if (*(v25 + 24) == 1)
+  if (*(v24 + 24) == 1)
   {
     if (!xpc_activity_set_state(v4, 3))
     {
-      v18 = [MEMORY[0x277CCA890] currentHandler];
-      [v18 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:579 description:@"Unexpected failure of deferral"];
+      v17 = [MEMORY[0x277CCA890] currentHandler];
+      [v17 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:579 description:@"Unexpected failure of deferral"];
     }
 
     v16 = pp_default_log_handle();
@@ -7315,8 +7137,7 @@ void __41__PPMaintenance__registerHealthKitImport__block_invoke_138(uint64_t a1,
     }
   }
 
-  _Block_object_dispose(&v24, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v23, 8);
 }
 
 uint64_t __41__PPMaintenance__registerHealthKitImport__block_invoke_2(uint64_t a1)
@@ -7368,19 +7189,19 @@ void __41__PPMaintenance__registerHealthKitImport__block_invoke_3(uint64_t a1)
 
 void __36__PPMaintenance__registerMapsImport__block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __36__PPMaintenance__registerMapsImport__block_invoke_2;
   aBlock[3] = &unk_278975D70;
-  v20 = &v21;
+  v19 = &v20;
   v4 = v3;
-  v19 = v4;
+  v18 = v4;
   v5 = _Block_copy(aBlock);
   PPPostNotification(kPPMaintenanceJobStartedNotification);
   v6 = pp_maintenance_signpost_handle();
@@ -7400,13 +7221,13 @@ void __36__PPMaintenance__registerMapsImport__block_invoke(uint64_t a1, void *a2
   v12 = v11;
   if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
-    v13 = *(v22 + 24);
+    v13 = *(v21 + 24);
     *buf = 67109120;
-    v26 = v13;
+    v25 = v13;
     _os_signpost_emit_with_name_impl(&dword_23224A000, v12, OS_SIGNPOST_INTERVAL_END, v7, "MapsImport", " enableTelemetry=YES Deferred=%{signpost.telemetry:number1, Name=Deferred}d", buf, 8u);
   }
 
-  if (*(v22 + 24))
+  if (*(v21 + 24))
   {
     v14 = &kPPMaintenanceJobDeferredNotification;
   }
@@ -7418,12 +7239,12 @@ void __36__PPMaintenance__registerMapsImport__block_invoke(uint64_t a1, void *a2
 
   PPPostNotification(*v14);
 
-  if (*(v22 + 24) == 1)
+  if (*(v21 + 24) == 1)
   {
     if (!xpc_activity_set_state(v4, 3))
     {
-      v17 = [MEMORY[0x277CCA890] currentHandler];
-      [v17 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:473 description:@"Unexpected failure of deferral"];
+      v16 = [MEMORY[0x277CCA890] currentHandler];
+      [v16 handleFailureInMethod:*(a1 + 32) object:*(a1 + 40) file:@"PPMaintenance.m" lineNumber:473 description:@"Unexpected failure of deferral"];
     }
 
     v15 = pp_default_log_handle();
@@ -7434,8 +7255,7 @@ void __36__PPMaintenance__registerMapsImport__block_invoke(uint64_t a1, void *a2
     }
   }
 
-  _Block_object_dispose(&v21, 8);
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v20, 8);
 }
 
 uint64_t __36__PPMaintenance__registerMapsImport__block_invoke_2(uint64_t a1)
@@ -7554,17 +7374,17 @@ LABEL_4:
 
 void __43__PPMaintenance__registerCoreRoutineImport__block_invoke_3(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v6 = 0;
-  v2 = [PPRoutineSupport importCoreRoutineDataWithError:&v6 shouldContinueBlock:*(a1 + 32)];
-  v3 = v6;
+  v8 = *MEMORY[0x277D85DE8];
+  v5 = 0;
+  v2 = [PPRoutineSupport importCoreRoutineDataWithError:&v5 shouldContinueBlock:*(a1 + 32)];
+  v3 = v5;
   if (!v2)
   {
     v4 = pp_default_log_handle();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v8 = v3;
+      v7 = v3;
       _os_log_error_impl(&dword_23224A000, v4, OS_LOG_TYPE_ERROR, "PPMaintenance: CoreRoutineImport: importCoreRoutineDataWithError failed: %@", buf, 0xCu);
     }
 
@@ -7582,8 +7402,6 @@ void __43__PPMaintenance__registerCoreRoutineImport__block_invoke_3(uint64_t a1)
 
 LABEL_7:
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

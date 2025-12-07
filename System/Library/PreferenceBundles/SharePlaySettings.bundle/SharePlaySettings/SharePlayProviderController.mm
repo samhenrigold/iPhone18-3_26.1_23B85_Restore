@@ -220,30 +220,31 @@
 - (id)mutableProviderForBundleIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v10 = 0;
-  v4 = [[LSApplicationRecord alloc] initWithBundleIdentifier:identifierCopy allowPlaceholder:1 error:&v10];
-  v5 = v10;
+  v12 = 0;
+  v4 = [[LSApplicationRecord alloc] initWithBundleIdentifier:identifierCopy allowPlaceholder:1 error:&v12];
+  v5 = v12;
+  v7 = v5;
   if (v4)
   {
-    v6 = [(SharePlayProvider *)[SharePlayMutableProvider alloc] initWithBundleIdentifier:identifierCopy];
+    v8 = [(SharePlayProvider *)[SharePlayMutableProvider alloc] initWithBundleIdentifier:identifierCopy];
     localizedName = [v4 localizedName];
-    [(SharePlayProvider *)v6 setLocalizedName:localizedName];
+    [(SharePlayProvider *)v8 setLocalizedName:localizedName];
   }
 
   else
   {
-    localizedName = SharePlaySettingsLog();
+    localizedName = SharePlaySettingsLog(v5, v6);
     if (os_log_type_enabled(localizedName, OS_LOG_TYPE_ERROR))
     {
-      sub_5A8C(identifierCopy, v5, localizedName);
+      sub_5A8C(identifierCopy, v7, localizedName);
     }
 
-    v6 = 0;
+    v8 = 0;
   }
 
-  v8 = [(SharePlayMutableProvider *)v6 copy];
+  v10 = [(SharePlayMutableProvider *)v8 copy];
 
-  return v8;
+  return v10;
 }
 
 - (void)updateProviderByBundleIdentifier

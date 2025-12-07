@@ -963,7 +963,7 @@ void CA::CG::AccelQueue::flush_renderer(uint64_t a1, uint64_t a2, uint64_t a3, u
   }
 
   *(a1 + 200) = 0;
-  (*(**(a1 + 168) + 64))(*(a1 + 168), a2, v10);
+  (*(**(a1 + 168) + 64))(*(a1 + 168), a2, v10, a4, a5, a6, a7);
   CA::CG::AccelRenderer::unlock_surface(v11);
   CA::CG::Renderer::end_rendering(v11);
   CA::CG::Renderer::end_rendering(v11);
@@ -1682,23 +1682,24 @@ void sub_183C4AEF4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-char *CA::Render::ImageQueue::show(uint64_t a1, X::Stream *this, int a3, uint64_t a4)
+char *CA::Render::ImageQueue::show(void *a1, X::Stream *this, uint64_t a3, uint64_t a4)
 {
-  result = CAShmemImageQueueShow(this, *(*(a1 + 16) + 24), *(a1 + 444), BYTE1(*(a1 + 12)), a3, a4);
+  v5 = a3;
+  result = CAShmemImageQueueShow(this, *(a1[2] + 24), *(a1 + 111), *(a1 + 3) >> 8, a3, a4);
   if (a4)
   {
     return result;
   }
 
-  v9 = (a3 + 1);
+  v9 = (v5 + 1);
   result = X::Stream::printf(this, "\n%*s", 2 * v9, "");
-  v10 = *(a1 + 24);
+  v10 = a1[3];
   if (v10)
   {
     X::Stream::printf(this, "(currentTexture ");
-    (*(*v10 + 40))(v10, this, (a3 + 1), a4);
+    (*(*v10 + 40))(v10, this, (v5 + 1), a4);
     result = X::Stream::printf(this, ")");
-    v11 = *(a1 + 80);
+    v11 = a1[10];
     if (!v11)
     {
       return result;
@@ -1706,11 +1707,11 @@ char *CA::Render::ImageQueue::show(uint64_t a1, X::Stream *this, int a3, uint64_
 
     X::Stream::printf(this, "\n%*s", 2 * v9, "");
     X::Stream::printf(this, "(currentForwardDMTexture ");
-    (*(*v11 + 40))(v11, this, (a3 + 1), a4);
+    (*(*v11 + 40))(v11, this, (v5 + 1), a4);
     goto LABEL_12;
   }
 
-  v12 = *(a1 + 32);
+  v12 = a1[4];
   if (v12)
   {
     v13 = *(v12 + 24);
@@ -1718,9 +1719,9 @@ char *CA::Render::ImageQueue::show(uint64_t a1, X::Stream *this, int a3, uint64_
     if (v14 && v13 != 0)
     {
       X::Stream::printf(this, "(blendedTextures");
-      X::Stream::printf(this, "\n%*s", 2 * a3 + 4, "");
+      X::Stream::printf(this, "\n%*s", 2 * v5 + 4, "");
       (*(*v14 + 40))(v14, this, v9, a4);
-      X::Stream::printf(this, "\n%*s", 2 * a3 + 4, "");
+      X::Stream::printf(this, "\n%*s", 2 * v5 + 4, "");
       (*(*v13 + 40))(v13, this, v9, a4);
       X::Stream::printf(this, "\n%*s", 2 * v9, "");
 LABEL_12:
@@ -1754,7 +1755,7 @@ uint64_t CA::Render::ImageQueue::retain_scaler_stats(CA::Render::ImageQueue *thi
   return result;
 }
 
-uint64_t CA::Render::ImageQueue::flush_cache(CA::Render::ImageQueue *this)
+CA::CASharedEvent *CA::Render::ImageQueue::flush_cache(CA::Render::ImageQueue *this)
 {
   v2 = *(this + 3);
   if (v2)
@@ -1849,7 +1850,7 @@ uint64_t CA::Render::ImageQueue::flush_cache(CA::Render::ImageQueue *this)
   return result;
 }
 
-uint64_t *X::Ref<CA::CASharedEvent>::operator=(uint64_t *a1, uint64_t *a2)
+atomic_uint **X::Ref<CA::CASharedEvent>::operator=(atomic_uint **a1, atomic_uint **a2)
 {
   v3 = *a1;
   v4 = *a2;
@@ -1863,7 +1864,7 @@ uint64_t *X::Ref<CA::CASharedEvent>::operator=(uint64_t *a1, uint64_t *a2)
 
     if (v4)
     {
-      atomic_fetch_add((v4 + 128), 1u);
+      atomic_fetch_add(v4 + 32, 1u);
     }
 
     *a1 = v4;
@@ -2249,7 +2250,7 @@ char *CA::Render::anonymous namespace::show_image_cache_entry(const void *a1, ui
   return X::Stream::printf(this, "\n");
 }
 
-uint64_t write_attr(uint64_t result, uint64_t *a2, int a3, void *a4)
+void *write_attr(void *result, uint64_t *a2, int a3, void *a4)
 {
   if (a3 == 2)
   {
@@ -2282,7 +2283,7 @@ uint64_t write_attr(uint64_t result, uint64_t *a2, int a3, void *a4)
   return result;
 }
 
-uint64_t copy_dictionary(uint64_t result, uint64_t *a2, int a3, void *a4)
+void *copy_dictionary(void *result, uint64_t *a2, int a3, void *a4)
 {
   if ((a3 - 1) <= 3)
   {
@@ -2360,7 +2361,7 @@ void sub_183C4D244(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CA::CG::MetalContext::get_gpu_registry_id()
+uint64_t CA::CG::MetalContext::get_gpu_registry_id(uint64_t a1)
 {
   Info = CGContextDelegateGetInfo();
   result = (*(*Info + 16))(Info);
@@ -2384,27 +2385,27 @@ uint64_t CA::CG::MetalContext::set_gpu_registry_id(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CGImageRef CA::CG::MetalContext::create_image_by_reference()
+CGImageRef CA::CG::MetalContext::create_image_by_reference(uint64_t a1)
 {
-  v0 = *(CGContextDelegateGetInfo() + 344);
+  v1 = *(CGContextDelegateGetInfo() + 344);
 
-  return CA::CG::MetalDrawable::copy_cgimage_mtl(v0);
+  return CA::CG::MetalDrawable::copy_cgimage_mtl(v1);
 }
 
-CGImageRef CA::CG::MetalContext::create_image()
+CGImageRef CA::CG::MetalContext::create_image(uint64_t a1)
 {
-  v0 = *(CGContextDelegateGetInfo() + 344);
-  v1 = *(v0 + 4);
-  if (v1 > 0x23 || ((0x1FFFFFF2FuLL >> v1) & 1) != 0)
+  v1 = *(CGContextDelegateGetInfo() + 344);
+  v2 = *(v1 + 4);
+  if (v2 > 0x23 || ((0x1FFFFFF2FuLL >> v2) & 1) != 0)
   {
 
-    return CA::CG::MetalDrawable::copy_cgimage(v0);
+    return CA::CG::MetalDrawable::copy_cgimage(v1);
   }
 
   else
   {
 
-    return CA::CG::MetalDrawable::copy_cgimage_mtl(v0);
+    return CA::CG::MetalDrawable::copy_cgimage_mtl(v1);
   }
 }
 
@@ -2418,7 +2419,12 @@ uint64_t CA::CG::MetalContext::create_delegate(uint64_t a1)
   atomic_load(is_suspended);
   v2 = [*(a1 + 16) pixelFormat];
   v3 = (v2 - 70) > 0x2D || ((1 << (v2 - 70)) & 0x200000000C03) == 0;
-  if (!v3 || (v2 - 550) <= 5 && ((1 << (v2 - 38)) & 0x33) != 0)
+  if (v3 && ((v2 - 550) > 5 || ((1 << (v2 - 38)) & 0x33) == 0))
+  {
+    CGPostError("Unsupported Metal texture - %p");
+  }
+
+  else
   {
     v4 = *(a1 + 40);
     if (v4)
@@ -2452,9 +2458,10 @@ uint64_t CA::CG::MetalContext::create_delegate(uint64_t a1)
     {
       operator new();
     }
+
+    CGPostError("Unsupported pixel description - %d color components, %d bits per component, %d bits per pixel, %d bitmap info");
   }
 
-  CGPostError();
   return 0;
 }
 
@@ -2611,13 +2618,13 @@ void CA::CG::AccelContextDelegate<CA::CG::MetalDrawable>::~AccelContextDelegate(
   CA::CG::ContextDelegate::~ContextDelegate(this);
 }
 
-void sub_183C4E998(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, atomic_uint *a9)
+void sub_183C4E998(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, atomic_uint *a9)
 {
   if (a9)
   {
     if (atomic_fetch_add(a9 + 2, 0xFFFFFFFF) == 1)
     {
-      (*(*a9 + 16))(a9);
+      (*(*a9 + 16))(a9, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -2730,13 +2737,13 @@ BOOL setDepthNormalization(CAMeshTransform *a1, NSString *a2)
   return result;
 }
 
-void sub_183C4F144(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, atomic_uint *a10)
+void sub_183C4F144(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, atomic_uint *a10)
 {
   if (a10)
   {
     if (atomic_fetch_add(a10 + 2, 0xFFFFFFFF) == 1)
     {
-      (*(*a10 + 16))(a10);
+      (*(*a10 + 16))(a10, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -4314,16 +4321,16 @@ void CA::OGL::AsynchronousItem::~AsynchronousItem(CA::OGL::AsynchronousItem *thi
       {
         os_unfair_lock_lock(&CA::OGL::surface_cache_lock);
         v6 = 16;
-        v7 = &CA::OGL::surface_cache;
+        v7 = CA::OGL::surface_cache;
         while (*v7)
         {
           ++v7;
           v6 -= 8;
           if (!v6)
           {
-            CA::OGL::release_iosurface(CA::OGL::surface_cache, v5);
+            CA::OGL::release_iosurface(CA::OGL::surface_cache[0], v5);
             v7 = &qword_1EA850750;
-            CA::OGL::surface_cache = qword_1EA850750;
+            CA::OGL::surface_cache[0] = qword_1EA850750;
             break;
           }
         }
@@ -4419,11 +4426,11 @@ void *___ZN2CA3OGL22AsynchronousDispatcher10dispatcherEv_block_invoke()
     *result = 0;
     CA::Render::add_observer(0x18u, 0, CA::OGL::AsynchronousDispatcher::AsynchronousDispatcher(void)::$_0::__invoke, 0, 0);
     v2 = x_thread_create(CA::OGL::AsynchronousDispatcher::thread_body, v1, 1);
-    *(v1 + 24) = v2;
+    v1[3] = v2;
     CA::Render::Server::set_thread_priority(v2, 0xFFFFFFF1);
     result = CAHostTimeWithTime(0.0166666667);
-    *(v1 + 48) = result;
-    *(v1 + 16) = 0;
+    v1[6] = result;
+    *(v1 + 4) = 0;
   }
 
   CA::OGL::AsynchronousDispatcher::dispatcher(void)::dispatcher = v1;
@@ -4467,7 +4474,7 @@ void CA::OGL::AsynchronousDispatcher::thread_body(CA::OGL::AsynchronousDispatche
   *(this + 4) = 0;
 }
 
-unint64_t CA::OGL::AsynchronousDispatcher::start_timer(unint64_t this)
+uint64_t CA::OGL::AsynchronousDispatcher::start_timer(uint64_t this)
 {
   v11 = *MEMORY[0x1E69E9840];
   if (!*(this + 40))
@@ -4583,7 +4590,7 @@ LABEL_31:
 
     os_unfair_lock_lock((v17 + 424));
     v20 = *(v17 + 432);
-    if (!v20 || (v21 = *v20, v22 = v20[1], *v20 == v22))
+    if (!v20 || (v21 = *v20, v22 = *(v20 + 8), *v20 == v22))
     {
       v31 = *(v17 + 584);
       v30 = v16;
@@ -4598,7 +4605,7 @@ LABEL_31:
       v23 = v22 - v21;
       v24 = (v22 - v21) >> 3;
       v25 = v24 & (v24 >> 31);
-      v26 = (v21 + (v23 & 0x7FFFFFFF8) - 8);
+      v26 = &v21[(v23 & 0x7FFFFFFF8) - 8];
       v27 = v24;
       while (1)
       {
@@ -4608,7 +4615,8 @@ LABEL_31:
           break;
         }
 
-        v29 = *v26--;
+        v29 = *v26;
+        v26 -= 8;
         if (v29 > v16)
         {
           v25 = v27 + 1;
@@ -4623,7 +4631,7 @@ LABEL_31:
 
       else
       {
-        v30 = *(v21 + 8 * v25);
+        v30 = *&v21[8 * v25];
         std::vector<unsigned long long>::resize(v20, v25);
       }
     }
@@ -5409,12 +5417,12 @@ char *CA::Render::ReplicatorLayer::show(int a1, X::Stream *this, uint64_t a3, ch
 {
   if (a4)
   {
-    return X::Stream::printf(this, "replicatorLayer %d");
+    return X::Stream::printf(this, "replicatorLayer %d", a3);
   }
 
   else
   {
-    return X::Stream::printf(this, "(replicatorLayer %d)");
+    return X::Stream::printf(this, "(replicatorLayer %d)", a3);
   }
 }
 
@@ -5460,12 +5468,12 @@ char *CA::Render::Shmem::show(int a1, X::Stream *this, uint64_t a3, char a4)
 {
   if (a4)
   {
-    return X::Stream::printf(this, "(shmem %lu)");
+    return X::Stream::printf(this, "(shmem %lu)", a3);
   }
 
   else
   {
-    return X::Stream::printf(this, "(shmem %lu bytes)");
+    return X::Stream::printf(this, "(shmem %lu bytes)", a3);
   }
 }
 
@@ -6297,10 +6305,10 @@ void CA::WindowServer::VirtualServer::remove_vsync_source(CA::WindowServer::Virt
   }
 }
 
-uint64_t CA::WindowServer::VirtualServer::add_vsync_source(uint64_t this, __CFRunLoopSource *a2)
+void *CA::WindowServer::VirtualServer::add_vsync_source(void *this, __CFRunLoopSource *a2)
 {
   v12 = *MEMORY[0x1E69E9840];
-  if (!*(this + 968))
+  if (!this[121])
   {
     v2 = this;
     CA::WindowServer::VirtualServer::add_runloop_source(this, a2);
@@ -6309,9 +6317,9 @@ uint64_t CA::WindowServer::VirtualServer::add_vsync_source(uint64_t this, __CFRu
     v9 = v2;
     v3 = mach_absolute_time();
     v4 = CATimeWithHostTime(v3);
-    v5 = (*(**(v2 + 96) + 760))();
+    v5 = (*(*v2[12] + 760))();
     v6 = CADisplayTimerCreate(CA::WindowServer::VirtualServer::timer_callback, &v9, 0, v4, v5);
-    *(v2 + 968) = v6;
+    v2[121] = v6;
     pthread_mutex_lock((v6 + 16));
     *(v6 + 201) = 1;
     pthread_mutex_unlock((v6 + 16));
@@ -6320,7 +6328,7 @@ uint64_t CA::WindowServer::VirtualServer::add_vsync_source(uint64_t this, __CFRu
       kdebug_trace();
     }
 
-    v7 = *(v2 + 968);
+    v7 = v2[121];
     v8 = (*(*v2 + 424))(v2);
     return CADisplayTimerAddToRunLoop(v7, v8, *MEMORY[0x1E695E8E0]);
   }
@@ -6370,7 +6378,7 @@ void CA::WindowServer::VirtualServer::timer_callback(uint64_t a1, uint64_t a2, u
     CADisplayTimerAlignPhase(a1, &v19, 0);
   }
 
-  v12 = (*(**(a5 + 96) + 776))(*(a5 + 96));
+  v12 = (*(**(a5 + 96) + 776))(*(a5 + 96), a2, a3, a4);
   v13 = CAHostTimeWithTime(v12);
   v17 = v13 * (*(**(a5 + 96) + 784))(*(a5 + 96), v14, v15, v16);
   kdebug_trace();
@@ -6469,7 +6477,7 @@ _DWORD *CA::WindowServer::VirtualServer::set_edr_properties(_DWORD *this, float 
   {
     v5 = this;
     (*(**(this + 12) + 960))(*(this + 12), a3 / a2);
-    v6 = *(v5 + 96);
+    v6 = *(v5 + 12);
     this = CA::WindowServer::Display::initialize_edr_state(v6);
     v7 = *(v6 + 704);
     if (v7)
@@ -6576,8 +6584,9 @@ void sub_183C58100(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-char *CA::Render::Layer::show(char *result, X::Stream *this, unsigned int a3, uint64_t a4)
+char *CA::Render::Layer::show(char *result, X::Stream *this, uint64_t a3, uint64_t a4)
 {
+  v5 = a3;
   v7 = result;
   v167 = *MEMORY[0x1E69E9840];
   if (a3 == 386)
@@ -6640,7 +6649,7 @@ LABEL_4:
 
       X::Stream::printf(this, "(%slayer %s[%.10g %.10g %.10g] [%.10g %.10g %.10g %.10g] [%g %g %g]", v8, v10, *(v7 + 56), *(v7 + 64), v14, *(v7 + 72), *(v7 + 80), *(v7 + 88), *(v7 + 96), v13, v12, v15);
       v17 = *(v7 + 152);
-      v18 = 2 * a3;
+      v18 = 2 * v5;
       if (v17)
       {
         if (*(v17 + 100))
@@ -6697,9 +6706,9 @@ LABEL_4:
 
       if ((a4 & 2) == 0 && *(v7 + 128))
       {
-        X::Stream::printf(this, "\n%*s", 2 * (a3 + 1), "");
+        X::Stream::printf(this, "\n%*s", 2 * (v5 + 1), "");
         X::Stream::printf(this, "(name ");
-        (*(**(v7 + 128) + 40))(*(v7 + 128), this, a3 + 1, a4);
+        (*(**(v7 + 128) + 40))(*(v7 + 128), this, (v5 + 1), a4);
         X::Stream::printf(this, ")");
       }
 
@@ -6935,7 +6944,7 @@ LABEL_78:
               {
 LABEL_101:
                 v57 = *(v42 + 16);
-                if (!v57 || ((v58 = *(v57 + 16), v59 = (v57 + 24), v58 >= 0x10) ? (v60 = v59) : (v60 = &CA::Mat4Impl::mat4_identity_double), CA::Render::show_transform(this, "transform", v60, a3), (v42 = *(v7 + 136)) != 0))
+                if (!v57 || ((v58 = *(v57 + 16), v59 = (v57 + 24), v58 >= 0x10) ? (v60 = v59) : (v60 = &CA::Mat4Impl::mat4_identity_double), CA::Render::show_transform(this, "transform", v60, v5), (v42 = *(v7 + 136)) != 0))
                 {
                   v61 = *(v42 + 24);
                   if (v61)
@@ -6952,7 +6961,7 @@ LABEL_101:
                       v64 = &CA::Mat4Impl::mat4_identity_double;
                     }
 
-                    CA::Render::show_transform(this, "sublayerTransform", v64, a3);
+                    CA::Render::show_transform(this, "sublayerTransform", v64, v5);
                   }
                 }
               }
@@ -7053,9 +7062,9 @@ LABEL_116:
 
             if (*(v67 + 80))
             {
-              X::Stream::printf(this, "\n%*s", 2 * (a3 + 1), "");
+              X::Stream::printf(this, "\n%*s", 2 * (v5 + 1), "");
               X::Stream::printf(this, "(backgroundColor ");
-              (*(**(*(v7 + 136) + 80) + 40))(*(*(v7 + 136) + 80), this, a3 + 1, a4);
+              (*(**(*(v7 + 136) + 80) + 40))(*(*(v7 + 136) + 80), this, (v5 + 1), a4);
               X::Stream::printf(this, ")");
             }
 
@@ -7078,9 +7087,9 @@ LABEL_127:
                 {
                   if (*(v71 + 128))
                   {
-                    X::Stream::printf(this, "\n%*s", 2 * (a3 + 1), "");
+                    X::Stream::printf(this, "\n%*s", 2 * (v5 + 1), "");
                     X::Stream::printf(this, "(borderColor ");
-                    (*(**(*(v7 + 136) + 128) + 40))(*(*(v7 + 136) + 128), this, a3 + 1, a4);
+                    (*(**(*(v7 + 136) + 128) + 40))(*(*(v7 + 136) + 128), this, (v5 + 1), a4);
                     X::Stream::printf(this, ")");
                   }
 
@@ -7150,13 +7159,13 @@ LABEL_127:
             v87 = *(v7 + 136);
             if (v87)
             {
-              if (!*(v87 + 8) || (X::Stream::printf(this, "\n%*s", 2 * (a3 + 1), ""), (*(**(*(v7 + 136) + 8) + 40))(*(*(v7 + 136) + 8), this, a3 + 1, a4), (v87 = *(v7 + 136)) != 0))
+              if (!*(v87 + 8) || (X::Stream::printf(this, "\n%*s", 2 * (v5 + 1), ""), (*(**(*(v7 + 136) + 8) + 40))(*(*(v7 + 136) + 8), this, (v5 + 1), a4), (v87 = *(v7 + 136)) != 0))
               {
                 if (*(v87 + 56))
                 {
-                  X::Stream::printf(this, "\n%*s", 2 * (a3 + 1), "");
+                  X::Stream::printf(this, "\n%*s", 2 * (v5 + 1), "");
                   X::Stream::printf(this, "(cornerContents ");
-                  (*(**(*(v7 + 136) + 56) + 40))(*(*(v7 + 136) + 56), this, a3 + 1, a4);
+                  (*(**(*(v7 + 136) + 56) + 40))(*(*(v7 + 136) + 56), this, (v5 + 1), a4);
                   X::Stream::printf(this, ")");
                 }
               }
@@ -7231,7 +7240,7 @@ LABEL_127:
 
             if (*(v7 + 104))
             {
-              X::Stream::printf(this, "\n%*s", 2 * (a3 + 1), "");
+              X::Stream::printf(this, "\n%*s", 2 * (v5 + 1), "");
               v96 = (*(**(v7 + 104) + 80))(*(v7 + 104));
               if (v96)
               {
@@ -7253,7 +7262,7 @@ LABEL_127:
 
               X::Stream::printf(this, "(contents ");
               X::Stream::printf(this, "%s", v97);
-              (*(**(v7 + 104) + 40))(*(v7 + 104), this, a3 + 1, a4);
+              (*(**(v7 + 104) + 40))(*(v7 + 104), this, (v5 + 1), a4);
               X::Stream::printf(this, ")");
             }
 
@@ -7419,17 +7428,17 @@ LABEL_238:
               if (v111)
               {
                 v112 = v111[4];
-                if (!v112 || (*(v112 + 16) > 5u ? (v115 = *(v112 + 40), v164 = *(v112 + 24), v165 = v115, v114 = *(v112 + 56)) : (v113 = *(MEMORY[0x1E695EFD0] + 16), v164 = *MEMORY[0x1E695EFD0], v165 = v113, v114 = *(MEMORY[0x1E695EFD0] + 32)), v166 = v114, CA::Render::show_affine_transform(this, "contentsTransform", &v164, a3), (v111 = *(v7 + 136)) != 0))
+                if (!v112 || (*(v112 + 16) > 5u ? (v115 = *(v112 + 40), v164 = *(v112 + 24), v165 = v115, v114 = *(v112 + 56)) : (v113 = *(MEMORY[0x1E695EFD0] + 16), v164 = *MEMORY[0x1E695EFD0], v165 = v113, v114 = *(MEMORY[0x1E695EFD0] + 32)), v166 = v114, CA::Render::show_affine_transform(this, "contentsTransform", &v164, v5), (v111 = *(v7 + 136)) != 0))
                 {
-                  if (!v111[5] || (X::Stream::printf(this, "\n%*s", 2 * (a3 + 1), ""), X::Stream::printf(this, "(contentsRect "), (*(**(*(v7 + 136) + 40) + 40))(*(*(v7 + 136) + 40), this, a3 + 1, a4), X::Stream::printf(this, ")"), (v111 = *(v7 + 136)) != 0))
+                  if (!v111[5] || (X::Stream::printf(this, "\n%*s", 2 * (v5 + 1), ""), X::Stream::printf(this, "(contentsRect "), (*(**(*(v7 + 136) + 40) + 40))(*(*(v7 + 136) + 40), this, (v5 + 1), a4), X::Stream::printf(this, ")"), (v111 = *(v7 + 136)) != 0))
                   {
-                    if (!v111[6] || (X::Stream::printf(this, "\n%*s", 2 * (a3 + 1), ""), X::Stream::printf(this, "(contentsCenter "), (*(**(*(v7 + 136) + 48) + 40))(*(*(v7 + 136) + 48), this, a3 + 1, a4), X::Stream::printf(this, ")"), (v111 = *(v7 + 136)) != 0))
+                    if (!v111[6] || (X::Stream::printf(this, "\n%*s", 2 * (v5 + 1), ""), X::Stream::printf(this, "(contentsCenter "), (*(**(*(v7 + 136) + 48) + 40))(*(*(v7 + 136) + 48), this, (v5 + 1), a4), X::Stream::printf(this, ")"), (v111 = *(v7 + 136)) != 0))
                     {
                       if (v111[8])
                       {
-                        X::Stream::printf(this, "\n%*s", 2 * (a3 + 1), "");
+                        X::Stream::printf(this, "\n%*s", 2 * (v5 + 1), "");
                         X::Stream::printf(this, "(cornerContentsCenter ");
-                        (*(**(*(v7 + 136) + 64) + 40))(*(*(v7 + 136) + 64), this, a3 + 1, a4);
+                        (*(**(*(v7 + 136) + 64) + 40))(*(*(v7 + 136) + 64), this, (v5 + 1), a4);
                         X::Stream::printf(this, ")");
                       }
                     }
@@ -7869,9 +7878,9 @@ LABEL_345:
 
                     if (v153 && *(v153 + 120))
                     {
-                      X::Stream::printf(this, "\n%*s", 2 * (a3 + 1), "");
+                      X::Stream::printf(this, "\n%*s", 2 * (v5 + 1), "");
                       X::Stream::printf(this, "(shadowPath ");
-                      (*(**(*(v7 + 136) + 120) + 40))(*(*(v7 + 136) + 120), this, a3 + 1, a4);
+                      (*(**(*(v7 + 136) + 120) + 40))(*(*(v7 + 136) + 120), this, (v5 + 1), a4);
                       X::Stream::printf(this, ")");
                     }
 
@@ -7920,9 +7929,9 @@ LABEL_409:
 LABEL_382:
                       if (*(v7 + 120))
                       {
-                        X::Stream::printf(this, "\n%*s", 2 * (a3 + 1), "");
+                        X::Stream::printf(this, "\n%*s", 2 * (v5 + 1), "");
                         X::Stream::printf(this, "(mask ");
-                        (*(**(v7 + 120) + 40))(*(v7 + 120), this, a3 + 1, a4);
+                        (*(**(v7 + 120) + 40))(*(v7 + 120), this, (v5 + 1), a4);
                         X::Stream::printf(this, ")");
                       }
 
@@ -7941,17 +7950,17 @@ LABEL_382:
                       v159 = *(v7 + 136);
                       if (v159)
                       {
-                        if (!v159[12] || (X::Stream::printf(this, "\n%*s", 2 * (a3 + 1), ""), X::Stream::printf(this, "(filters "), (*(**(*(v7 + 136) + 96) + 40))(*(*(v7 + 136) + 96), this, a3 + 1, a4), X::Stream::printf(this, ")"), (v159 = *(v7 + 136)) != 0))
+                        if (!v159[12] || (X::Stream::printf(this, "\n%*s", 2 * (v5 + 1), ""), X::Stream::printf(this, "(filters "), (*(**(*(v7 + 136) + 96) + 40))(*(*(v7 + 136) + 96), this, (v5 + 1), a4), X::Stream::printf(this, ")"), (v159 = *(v7 + 136)) != 0))
                         {
-                          if (!v159[13] || (X::Stream::printf(this, "\n%*s", 2 * (a3 + 1), ""), X::Stream::printf(this, "(backgroundFilters "), (*(**(*(v7 + 136) + 104) + 40))(*(*(v7 + 136) + 104), this, a3 + 1, a4), X::Stream::printf(this, ")"), (v159 = *(v7 + 136)) != 0))
+                          if (!v159[13] || (X::Stream::printf(this, "\n%*s", 2 * (v5 + 1), ""), X::Stream::printf(this, "(backgroundFilters "), (*(**(*(v7 + 136) + 104) + 40))(*(*(v7 + 136) + 104), this, (v5 + 1), a4), X::Stream::printf(this, ")"), (v159 = *(v7 + 136)) != 0))
                           {
-                            if (!v159[11] || (X::Stream::printf(this, "\n%*s", 2 * (a3 + 1), ""), X::Stream::printf(this, "(compositingFilter "), (*(**(*(v7 + 136) + 88) + 40))(*(*(v7 + 136) + 88), this, a3 + 1, a4), X::Stream::printf(this, ")"), (v159 = *(v7 + 136)) != 0))
+                            if (!v159[11] || (X::Stream::printf(this, "\n%*s", 2 * (v5 + 1), ""), X::Stream::printf(this, "(compositingFilter "), (*(**(*(v7 + 136) + 88) + 40))(*(*(v7 + 136) + 88), this, (v5 + 1), a4), X::Stream::printf(this, ")"), (v159 = *(v7 + 136)) != 0))
                             {
                               if (v159[14])
                               {
-                                X::Stream::printf(this, "\n%*s", 2 * (a3 + 1), "");
+                                X::Stream::printf(this, "\n%*s", 2 * (v5 + 1), "");
                                 X::Stream::printf(this, "(meshTransform ");
-                                (*(**(*(v7 + 136) + 112) + 40))(*(*(v7 + 136) + 112), this, a3 + 1, a4);
+                                (*(**(*(v7 + 136) + 112) + 40))(*(*(v7 + 136) + 112), this, (v5 + 1), a4);
                                 X::Stream::printf(this, ")");
                               }
                             }
@@ -7961,22 +7970,22 @@ LABEL_382:
 
                       if (*(v7 + 144))
                       {
-                        X::Stream::printf(this, "\n%*s", 2 * (a3 + 1), "");
+                        X::Stream::printf(this, "\n%*s", 2 * (v5 + 1), "");
                         X::Stream::printf(this, "(animations ");
-                        (*(**(v7 + 144) + 40))(*(v7 + 144), this, a3 + 1, a4);
+                        (*(**(v7 + 144) + 40))(*(v7 + 144), this, (v5 + 1), a4);
                         X::Stream::printf(this, ")");
                       }
 
                       v160 = *(v7 + 136);
                       if (v160)
                       {
-                        if (!v160[17] || (X::Stream::printf(this, "\n%*s", 2 * (a3 + 1), ""), X::Stream::printf(this, "(modifiers "), (*(**(*(v7 + 136) + 136) + 40))(*(*(v7 + 136) + 136), this, a3 + 1, a4), X::Stream::printf(this, ")"), (v160 = *(v7 + 136)) != 0))
+                        if (!v160[17] || (X::Stream::printf(this, "\n%*s", 2 * (v5 + 1), ""), X::Stream::printf(this, "(modifiers "), (*(**(*(v7 + 136) + 136) + 40))(*(*(v7 + 136) + 136), this, (v5 + 1), a4), X::Stream::printf(this, ")"), (v160 = *(v7 + 136)) != 0))
                         {
                           if (*v160)
                           {
-                            X::Stream::printf(this, "\n%*s", 2 * (a3 + 1), "");
+                            X::Stream::printf(this, "\n%*s", 2 * (v5 + 1), "");
                             X::Stream::printf(this, "(subclass ");
-                            (*(***(v7 + 136) + 40))(**(v7 + 136), this, a3 + 1, a4);
+                            (*(***(v7 + 136) + 40))(**(v7 + 136), this, (v5 + 1), a4);
                             X::Stream::printf(this, ")");
                           }
                         }
@@ -7989,7 +7998,7 @@ LABEL_382:
                         {
                           X::Stream::printf(this, "\n%*s", v18 + 2, "");
                           X::Stream::printf(this, "(sublayers (array");
-                          v162 = a3 + 2;
+                          v162 = (v5 + 2);
                           X::Stream::printf(this, "\n%*s", 2 * v162, "");
                           v163 = "))";
                           goto LABEL_413;
@@ -7998,7 +8007,7 @@ LABEL_382:
 
                       else if (v161)
                       {
-                        v162 = a3 + 1;
+                        v162 = (v5 + 1);
                         X::Stream::printf(this, "\n%*s", 2 * v162, "");
                         X::Stream::printf(this, "(sublayers ");
                         v163 = ")";
@@ -8065,7 +8074,7 @@ LABEL_36:
     }
   }
 
-  return CA::Render::Layer::show_compressed(v7, this, a3, a4);
+  return CA::Render::Layer::show_compressed(v7, this, v5, a4);
 }
 
 uint64_t CA::Render::Layer::show_compressed(uint64_t result, X::Stream *this, int a3, uint64_t a4)
@@ -8606,7 +8615,7 @@ char *CA::Render::print_group_flags(X::Stream *a1, unsigned int a2)
   return X::Stream::printf(a1, "%s)", "]");
 }
 
-char *CA::Render::print_flags(char *this, unint64_t a2, unint64_t a3, const char **a4, unint64_t a5)
+X::Stream *CA::Render::print_flags(X::Stream *this, unint64_t a2, unint64_t a3, const char **a4, unint64_t a5)
 {
   if (a2 | a3)
   {
@@ -8653,11 +8662,11 @@ char *CA::Render::print_flags(char *this, unint64_t a2, unint64_t a3, const char
   return this;
 }
 
-uint64_t CA::Render::Layer::evaluate_container(uint64_t this, const double *a2)
+BOOL CA::Render::Layer::evaluate_container(_BOOL8 this, const double *a2)
 {
   v2 = this;
   v3 = *(this + 12);
-  if ((v3 & 0x1000) != 0 || (this = CA::Render::Layer::is_containerable(this, a2), !this))
+  if ((v3 & 0x1000) != 0 || !(this = CA::Render::Layer::is_containerable(this, a2)))
   {
     v4 = v3 & 0xFFFFF7FF;
   }
@@ -8902,7 +8911,7 @@ LABEL_24:
       v14 = *(v12 + 40);
       float_key = CA::Render::KeyValueArray::get_float_key(v14, 428, 1.0);
       v33 = 0uLL;
-      CA::Render::KeyValueArray::get_float_color_key(v14, 422, &v33);
+      CA::Render::KeyValueArray::get_float_color_key(v14, 0x1A6, &v33);
       LOBYTE(v16) = this[2].i8[4];
       a2 = float_key * ((0.0039216 * v33.f32[3]) * v16);
       if (a2 <= 0.15)
@@ -9200,7 +9209,7 @@ uint64_t CA::Render::Layer::count_layers(uint64_t this, int *a2, int *a3, char a
   v7 = this;
   while (1)
   {
-    if (v4 || (*(v7 + 45) & 4) != 0 || (v8 = *(v7 + 152)) != 0 && (*(v8 + 104) & 0x300000000000) == 0x200000000000)
+    if ((v4 & 1) != 0 || (*(v7 + 45) & 4) != 0 || (v8 = *(v7 + 152)) != 0 && (*(v8 + 104) & 0x300000000000) == 0x200000000000)
     {
       ++*a3;
       v4 = 1;
@@ -9319,7 +9328,7 @@ uint64_t CA::OGL::GlyphCache::flush(float32x4_t **a1, uint64_t a2, uint64_t a3, 
       *(v14 + 8) = v15;
       v16 = v13[9];
       v24[0] = v13 + 9;
-      *(v14 + 16) = *(std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 5, v16) + 5);
+      *(v14 + 16) = *(std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 5, v16, v24) + 5);
       *(v14 + 20) = v13[5];
     }
 
@@ -9378,7 +9387,7 @@ LABEL_15:
 
 uint64_t CA::OGL::GlyphCache::emit_glyphs(CA::OGL::GlyphCache *this, unint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   v8 = *(this + 1);
   if (!v8)
   {
@@ -9468,8 +9477,8 @@ uint64_t CA::OGL::GlyphCache::emit_glyphs(CA::OGL::GlyphCache *this, unint64_t a
 
       v16 = v15;
 LABEL_24:
-      v32 = &v31;
-      *(std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 5, v31) + 5) = v21;
+      v32[0] = &v31;
+      *(std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 5, v31, v32) + 5) = v21;
       v27 = *(this + 3) + v30;
       *(this + 3) = v27;
       v8 = *(this + 1);
@@ -9713,28 +9722,28 @@ void CA::WindowServer::IOMFBServer::adjust_display_timings(CA::WindowServer::IOM
 {
   v3 = *(this + 12);
   os_unfair_lock_lock((v3 + 26304));
-  CA::WindowServer::IOMFBDisplay::initialize_timings(v3);
-  v4 = *(v3 + 26320);
-  if (v4)
+  CA::WindowServer::IOMFBDisplay::initialize_timings(v3, v4);
+  v5 = *(v3 + 26320);
+  if (v5)
   {
-    v5 = atomic_load(v4);
+    v6 = atomic_load(v5);
     if (a2)
     {
-      if ((v5 & 1) != 0 && !*(v3 + 26368))
+      if ((v6 & 1) != 0 && !*(v3 + 26368))
       {
-        v6 = *(v3 + 26352) + a2;
-        *(v3 + 26352) = v6;
+        v7 = *(v3 + 26352) + a2;
+        *(v3 + 26352) = v7;
         *(v3 + 26368) = 8;
-        v7 = atomic_load((*(v3 + 26320) + 64));
-        v8 = v6 - v7;
-        v9 = atomic_load((*(v3 + 26320) + 72));
-        v10 = v8 + v9;
-        v11 = *(v3 + 26320);
-        add = atomic_fetch_add((v11 + 28), 1u);
-        atomic_store(*(v3 + 26352), (v11 + 64));
-        atomic_store(v10, (v11 + 72));
-        atomic_store(*(v3 + 26360), (v11 + 80));
-        atomic_store(add + 2, (v11 + 28));
+        v8 = atomic_load((*(v3 + 26320) + 64));
+        v9 = v7 - v8;
+        v10 = atomic_load((*(v3 + 26320) + 72));
+        v11 = v9 + v10;
+        v12 = *(v3 + 26320);
+        add = atomic_fetch_add((v12 + 28), 1u);
+        atomic_store(*(v3 + 26352), (v12 + 64));
+        atomic_store(v11, (v12 + 72));
+        atomic_store(*(v3 + 26360), (v12 + 80));
+        atomic_store(add + 2, (v12 + 28));
         __dmb(0xBu);
       }
     }

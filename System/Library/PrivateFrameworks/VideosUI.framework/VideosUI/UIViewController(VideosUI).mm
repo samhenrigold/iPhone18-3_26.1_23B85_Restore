@@ -46,9 +46,9 @@
     +[UIViewController(VideosUI) _vui_TVLoadingViewControllerClass];
   }
 
-  v1 = _vui_TVLoadingViewControllerClass___loadingViewClass;
+  v2 = _vui_TVLoadingViewControllerClass___loadingViewClass;
 
-  return v1;
+  return v2;
 }
 
 - (void)vui_presentViewController:()VideosUI animated:completion:

@@ -1,189 +1,3 @@
-uint64_t std::__function::__value_func<float ()(CLDistanceMatrixTemplate<CLSymmetricMatrixStorage<float>> const&,std::pair<unsigned long,unsigned long>,std::pair<unsigned long,unsigned long>,std::pair<unsigned long,unsigned long>)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  return a1;
-}
-
-uint64_t *std::__hash_table<std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<boost::uuids::uuid>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(void *a1, int *a2)
-{
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
-  {
-    goto LABEL_18;
-  }
-
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
-  {
-    v5 = *a2;
-    if (*&v3 <= v2)
-    {
-      v5 = v2 % *&v3;
-    }
-  }
-
-  else
-  {
-    v5 = (*&v3 - 1) & v2;
-  }
-
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v8 = v7[1];
-    if (v8 == v2)
-    {
-      break;
-    }
-
-    if (v4.u32[0] > 1uLL)
-    {
-      if (v8 >= *&v3)
-      {
-        v8 %= *&v3;
-      }
-    }
-
-    else
-    {
-      v8 &= *&v3 - 1;
-    }
-
-    if (v8 != v5)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v7 = *v7;
-    if (!v7)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (*(v7 + 4) != v2)
-  {
-    goto LABEL_17;
-  }
-
-  return v7;
-}
-
-void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,void *>>>::operator()[abi:ne200100](uint64_t a1, void *__p)
-{
-  if (*(a1 + 8) == 1)
-  {
-    v3 = __p[3];
-    if (v3)
-    {
-      __p[4] = v3;
-      operator delete(v3);
-    }
-  }
-
-  else if (!__p)
-  {
-    return;
-  }
-
-  operator delete(__p);
-}
-
-uint64_t *std::__hash_table<std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<boost::uuids::uuid>>>>::find<int>(void *a1, int *a2)
-{
-  v2 = a1[1];
-  if (!*&v2)
-  {
-    return 0;
-  }
-
-  v3 = *a2;
-  v4 = vcnt_s8(v2);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
-  {
-    v5 = *a2;
-    if (*&v2 <= v3)
-    {
-      v5 = v3 % *&v2;
-    }
-  }
-
-  else
-  {
-    v5 = (*&v2 - 1) & v3;
-  }
-
-  v6 = *(*a1 + 8 * v5);
-  if (!v6)
-  {
-    return 0;
-  }
-
-  for (result = *v6; result; result = *result)
-  {
-    v8 = result[1];
-    if (v8 == v3)
-    {
-      if (*(result + 4) == v3)
-      {
-        return result;
-      }
-    }
-
-    else
-    {
-      if (v4.u32[0] > 1uLL)
-      {
-        if (v8 >= *&v2)
-        {
-          v8 %= *&v2;
-        }
-      }
-
-      else
-      {
-        v8 &= *&v2 - 1;
-      }
-
-      if (v8 != v5)
-      {
-        return 0;
-      }
-    }
-  }
-
-  return result;
-}
-
 uint64_t *std::__hash_table<std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<boost::uuids::uuid>>>>::__erase_unique<int>(void *a1, int *a2)
 {
   result = std::__hash_table<std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<boost::uuids::uuid>>>>::find<int>(a1, a2);
@@ -339,96 +153,21 @@ void std::__hash_table<std::__hash_value_type<int,std::vector<boost::uuids::uuid
   }
 }
 
-uint64_t *std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(void *a1, int *a2)
+uint64_t *std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(void *a1, int *a2, _DWORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
-  {
-    goto LABEL_18;
-  }
-
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
-  {
-    v5 = *a2;
-    if (*&v3 <= v2)
-    {
-      v5 = v2 % *&v3;
-    }
-  }
-
-  else
-  {
-    v5 = (*&v3 - 1) & v2;
-  }
-
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v8 = v7[1];
-    if (v8 == v2)
-    {
-      break;
-    }
-
-    if (v4.u32[0] > 1uLL)
-    {
-      if (v8 >= *&v3)
-      {
-        v8 %= *&v3;
-      }
-    }
-
-    else
-    {
-      v8 &= *&v3 - 1;
-    }
-
-    if (v8 != v5)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v7 = *v7;
-    if (!v7)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (*(v7 + 4) != v2)
-  {
-    goto LABEL_17;
-  }
-
-  return v7;
-}
-
-void *std::__hash_table<std::__hash_value_type<std::pair<unsigned long,unsigned long>,float>,std::__unordered_map_hasher<std::pair<unsigned long,unsigned long>,std::__hash_value_type<std::pair<unsigned long,unsigned long>,float>,boost::hash<std::pair<unsigned long,unsigned long>>,std::equal_to<std::pair<unsigned long,unsigned long>>,true>,std::__unordered_map_equal<std::pair<unsigned long,unsigned long>,std::__hash_value_type<std::pair<unsigned long,unsigned long>,float>,std::equal_to<std::pair<unsigned long,unsigned long>>,boost::hash<std::pair<unsigned long,unsigned long>>,true>,std::allocator<std::__hash_value_type<std::pair<unsigned long,unsigned long>,float>>>::__emplace_unique_key_args<std::pair<unsigned long,unsigned long>,std::piecewise_construct_t const&,std::tuple<std::pair<unsigned long,unsigned long>&&>,std::tuple<>>(void *a1, void *a2)
-{
-  v2 = a2[1];
-  v3 = 0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * v2) ^ ((0xC6A4A7935BD1E995 * v2) >> 47))) ^ (0x35A98F4D286A90B9 * ((0xC6A4A7935BD1E995 * *a2) ^ ((0xC6A4A7935BD1E995 * *a2) >> 47)) + 3864292196u)) + 3864292196u;
+  v3 = *a2;
   v4 = a1[1];
   if (!*&v4)
   {
-    goto LABEL_22;
+    goto LABEL_18;
   }
 
   v5 = vcnt_s8(v4);
   v5.i16[0] = vaddlv_u8(v5);
   if (v5.u32[0] > 1uLL)
   {
-    v6 = 0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * v2) ^ ((0xC6A4A7935BD1E995 * v2) >> 47))) ^ (0x35A98F4D286A90B9 * ((0xC6A4A7935BD1E995 * *a2) ^ ((0xC6A4A7935BD1E995 * *a2) >> 47)) + 3864292196u)) + 3864292196u;
-    if (v3 >= *&v4)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
       v6 = v3 % *&v4;
     }
@@ -436,13 +175,13 @@ void *std::__hash_table<std::__hash_value_type<std::pair<unsigned long,unsigned 
 
   else
   {
-    v6 = v3 & (*&v4 - 1);
+    v6 = (*&v4 - 1) & v3;
   }
 
   v7 = *(*a1 + 8 * v6);
   if (!v7 || (v8 = *v7) == 0)
   {
-LABEL_22:
+LABEL_18:
     operator new();
   }
 
@@ -469,78 +208,153 @@ LABEL_22:
 
     if (v9 != v6)
     {
-      goto LABEL_22;
+      goto LABEL_18;
     }
 
-LABEL_21:
+LABEL_17:
     v8 = *v8;
     if (!v8)
     {
-      goto LABEL_22;
+      goto LABEL_18;
     }
   }
 
-  if (v8[2] != *a2 || v8[3] != v2)
+  if (*(v8 + 4) != v3)
   {
-    goto LABEL_21;
+    goto LABEL_17;
   }
 
   return v8;
 }
 
-float ULEndpointPlacementGenerator::getNegativeLogLikelihood3D(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, const float *a13, vDSP_Length a14, uint64_t **a15, char a16)
+void *std::__hash_table<std::__hash_value_type<std::pair<unsigned long,unsigned long>,float>,std::__unordered_map_hasher<std::pair<unsigned long,unsigned long>,std::__hash_value_type<std::pair<unsigned long,unsigned long>,float>,boost::hash<std::pair<unsigned long,unsigned long>>,std::equal_to<std::pair<unsigned long,unsigned long>>,true>,std::__unordered_map_equal<std::pair<unsigned long,unsigned long>,std::__hash_value_type<std::pair<unsigned long,unsigned long>,float>,std::equal_to<std::pair<unsigned long,unsigned long>>,boost::hash<std::pair<unsigned long,unsigned long>>,true>,std::allocator<std::__hash_value_type<std::pair<unsigned long,unsigned long>,float>>>::__emplace_unique_key_args<std::pair<unsigned long,unsigned long>,std::piecewise_construct_t const&,std::tuple<std::pair<unsigned long,unsigned long>&&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, _OWORD **a4)
 {
-  v43[0] = a14;
-  v17 = **a15;
-  v18 = (*a15)[3];
-  v19 = (*a15)[6];
-  ULRFGroupGenerator::getRotatedCovarianceElements(v17, v18, v19, a10, a11, a13, a14, *a15 + 9);
-  v20 = (*a15)[9];
-  MEMORY[0x259CA30C0](a12, 1, a12, 1, v20, 1, a14);
-  v21 = (*a15)[12];
-  v22 = (*a15)[15];
-  v23 = (*a15)[18];
-  v24 = (*a15)[21];
-  v32 = (*a15)[24];
-  ULRFGroupGenerator::getCovarianceInverseElements((*a15)[12], (*a15)[15], (*a15)[18], (*a15)[21], v32, v17, v18, v19, v20, a14, (*a15 + 27));
-  v25 = **a15;
-  v26 = (*a15)[3];
-  v27 = (*a15)[6];
-  MEMORY[0x259CA30E0](a7, 1, a4, 1, v25, 1, a14);
-  MEMORY[0x259CA30B0](v25, 1, a1, 1, v25, 1, a14);
-  MEMORY[0x259CA30E0](a8, 1, a5, 1, v26, 1, a14);
-  MEMORY[0x259CA30B0](v26, 1, a2, 1, v26, 1, a14);
-  MEMORY[0x259CA30E0](a9, 1, a6, 1, v27, 1, a14);
-  MEMORY[0x259CA30B0](v27, 1, a3, 1, v27, 1, a14);
-  v28 = (*a15)[9];
-  ULRFGroupGenerator::getGaussianExponent((*a15)[9], v21, v22, v23, v24, v25, v26, v27, a14, *a15 + 27);
-  v29 = **a15;
-  v30 = (*a15)[3];
-  if (a16)
+  v4 = a2[1];
+  v5 = 0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * v4) ^ ((0xC6A4A7935BD1E995 * v4) >> 47))) ^ (0x35A98F4D286A90B9 * ((0xC6A4A7935BD1E995 * *a2) ^ ((0xC6A4A7935BD1E995 * *a2) >> 47)) + 3864292196u)) + 3864292196u;
+  v6 = a1[1];
+  if (!*&v6)
   {
-    vvlogf(**a15, v32, v43);
-    v42 = -1090519040;
-    MEMORY[0x259CA30D0](v29, 1, &v42, v29, 1, a14);
+    goto LABEL_22;
+  }
+
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
+  {
+    v8 = 0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * v4) ^ ((0xC6A4A7935BD1E995 * v4) >> 47))) ^ (0x35A98F4D286A90B9 * ((0xC6A4A7935BD1E995 * *a2) ^ ((0xC6A4A7935BD1E995 * *a2) >> 47)) + 3864292196u)) + 3864292196u;
+    if (v5 >= *&v6)
+    {
+      v8 = v5 % *&v6;
+    }
   }
 
   else
   {
-    bzero(v29, 4 * a14);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  MEMORY[0x259CA30B0](v28, 1, v29, 1, v30, 1, a14);
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
+  {
+LABEL_22:
+    operator new();
+  }
+
+  while (1)
+  {
+    v11 = v10[1];
+    if (v11 == v5)
+    {
+      break;
+    }
+
+    if (v7.u32[0] > 1uLL)
+    {
+      if (v11 >= *&v6)
+      {
+        v11 %= *&v6;
+      }
+    }
+
+    else
+    {
+      v11 &= *&v6 - 1;
+    }
+
+    if (v11 != v8)
+    {
+      goto LABEL_22;
+    }
+
+LABEL_21:
+    v10 = *v10;
+    if (!v10)
+    {
+      goto LABEL_22;
+    }
+  }
+
+  if (v10[2] != *a2 || v10[3] != v4)
+  {
+    goto LABEL_21;
+  }
+
+  return v10;
+}
+
+float ULEndpointPlacementGenerator::getNegativeLogLikelihood3D(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a12, uint64_t a13, const float *a14, vDSP_Length a15, float ***a16, char a17)
+{
+  v43[0] = a15;
+  v17 = **a16;
+  v18 = (*a16)[3];
+  v19 = (*a16)[6];
+  ULRFGroupGenerator::getRotatedCovarianceElements(v17, v18, v19, a10, a12, a14, a15, *a16 + 9);
+  v20 = (*a16)[9];
+  MEMORY[0x259CA30C0](a13, 1, a13, 1, v20, 1, a15);
+  v21 = (*a16)[12];
+  v22 = (*a16)[15];
+  v23 = (*a16)[18];
+  v24 = (*a16)[21];
+  v32 = (*a16)[24];
+  ULRFGroupGenerator::getCovarianceInverseElements((*a16)[12], (*a16)[15], (*a16)[18], (*a16)[21], v32, v17, v18, v19, v20, a15, (*a16 + 27));
+  v25 = **a16;
+  v26 = (*a16)[3];
+  v27 = (*a16)[6];
+  MEMORY[0x259CA30E0](a7, 1, a4, 1, v25, 1, a15);
+  MEMORY[0x259CA30B0](v25, 1, a1, 1, v25, 1, a15);
+  MEMORY[0x259CA30E0](a8, 1, a5, 1, v26, 1, a15);
+  MEMORY[0x259CA30B0](v26, 1, a2, 1, v26, 1, a15);
+  MEMORY[0x259CA30E0](a9, 1, a6, 1, v27, 1, a15);
+  MEMORY[0x259CA30B0](v27, 1, a3, 1, v27, 1, a15);
+  v28 = (*a16)[9];
+  ULRFGroupGenerator::getGaussianExponent((*a16)[9], v21, v22, v23, v24, v25, v26, v27, a15, *a16 + 27);
+  v29 = **a16;
+  v30 = (*a16)[3];
+  if (a17)
+  {
+    vvlogf(**a16, v32, v43);
+    v42 = -1090519040;
+    MEMORY[0x259CA30D0](v29, 1, &v42, v29, 1, a15);
+  }
+
+  else
+  {
+    bzero(v29, 4 * a15);
+  }
+
+  MEMORY[0x259CA30B0](v28, 1, v29, 1, v30, 1, a15);
   v42 = -1082130432;
-  MEMORY[0x259CA30D0](v30, 1, &v42, v30, 1, a14);
+  MEMORY[0x259CA30D0](v30, 1, &v42, v30, 1, a15);
   __C = 0.0;
-  vDSP_sve(v30, 1, &__C, a14);
+  vDSP_sve(v30, 1, &__C, a15);
   return __C;
 }
 
-void ULEndpointPlacementGenerator::parseConstraints(float32x2_t **a1@<X0>, void *a2@<X1>, void *a3@<X8>)
+void ULEndpointPlacementGenerator::parseConstraints(float32x2_t **a1@<X0>, void *a2@<X1>, uint64_t **a3@<X8>)
 {
   a3[2] = 0;
   a3[1] = 0;
-  *a3 = a3 + 1;
+  *a3 = (a3 + 1);
   v4 = *a1;
   v5 = a1[1];
   if (*a1 != v5)
@@ -580,7 +394,7 @@ void ULEndpointPlacementGenerator::parseConstraints(float32x2_t **a1@<X0>, void 
       if (v8 != v11 && v9 != v10)
       {
         *&v20 = v4[4];
-        v13 = std::__tree<std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>,std::__map_value_compare<boost::uuids::uuid,std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>,std::less<boost::uuids::uuid>,true>,std::allocator<std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>>>::__emplace_unique_key_args<boost::uuids::uuid,std::piecewise_construct_t const&,std::tuple<boost::uuids::uuid const&>,std::tuple<>>(a3, v11);
+        v13 = std::__tree<std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>,std::__map_value_compare<boost::uuids::uuid,std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>,std::less<boost::uuids::uuid>,true>,std::allocator<std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>>>::__emplace_unique_key_args<boost::uuids::uuid,std::piecewise_construct_t const&,std::tuple<boost::uuids::uuid const&>,std::tuple<>>(a3, v11, &std::piecewise_construct, &v20);
         v14 = v8 - 2;
         v15 = std::__hash_table<std::__hash_value_type<boost::uuids::uuid,int>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,int>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,int>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,int>>>::find<boost::uuids::uuid>(a2, v14);
         if (!v15 || (LODWORD(v20) = *(v15 + 8), (v16 = std::__hash_table<std::__hash_value_type<boost::uuids::uuid,int>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,int>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,int>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,int>>>::find<boost::uuids::uuid>(a2, v9)) == 0))
@@ -593,7 +407,7 @@ void ULEndpointPlacementGenerator::parseConstraints(float32x2_t **a1@<X0>, void 
         v21 = v4[3].f32[0];
         std::vector<ULParticle>::push_back[abi:ne200100](v13 + 48, &v20);
         *&v20 = v4[7];
-        v17 = std::__tree<std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>,std::__map_value_compare<boost::uuids::uuid,std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>,std::less<boost::uuids::uuid>,true>,std::allocator<std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>>>::__emplace_unique_key_args<boost::uuids::uuid,std::piecewise_construct_t const&,std::tuple<boost::uuids::uuid const&>,std::tuple<>>(a3, v20);
+        v17 = std::__tree<std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>,std::__map_value_compare<boost::uuids::uuid,std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>,std::less<boost::uuids::uuid>,true>,std::allocator<std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>>>::__emplace_unique_key_args<boost::uuids::uuid,std::piecewise_construct_t const&,std::tuple<boost::uuids::uuid const&>,std::tuple<>>(a3, v20, &std::piecewise_construct, &v20);
         v18 = std::__hash_table<std::__hash_value_type<boost::uuids::uuid,int>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,int>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,int>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,int>>>::find<boost::uuids::uuid>(a2, v9);
         if (!v18 || (LODWORD(v20) = *(v18 + 8), (v19 = std::__hash_table<std::__hash_value_type<boost::uuids::uuid,int>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,int>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,int>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,int>>>::find<boost::uuids::uuid>(a2, v14)) == 0))
         {
@@ -613,7 +427,7 @@ void ULEndpointPlacementGenerator::parseConstraints(float32x2_t **a1@<X0>, void 
   }
 }
 
-float ULEndpointPlacementGenerator::endpointPlacementObjective(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, float a9, float a10, float a11, float a12, float a13, float a14, float a15, float a16, uint64_t a17, uint64_t a18, const float *a19, vDSP_Length a20, uint64_t **a21, uint64_t **a22)
+float ULEndpointPlacementGenerator::endpointPlacementObjective(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, float a9, float a10, float a11, float a12, float a13, float a14, float a15, float a16, uint64_t a17, uint64_t a18, const float *a19, vDSP_Length a20, uint64_t **a21, float ***a22)
 {
   v26 = a21;
   v27 = a22;
@@ -655,10 +469,10 @@ float ULEndpointPlacementGenerator::endpointPlacementObjective(uint64_t a1, uint
 
 void ULEndpointPlacementGenerator::placeEndpoints(void *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, char **a4@<X8>)
 {
-  v168 = *MEMORY[0x277D85DE8];
-  v158 = 0;
+  v167 = *MEMORY[0x277D85DE8];
   v157 = 0;
-  v159 = 0;
+  v156 = 0;
+  v158 = 0;
   if (a1[1] == *a1 || ((v4 = a3, *(a2 + 8) != *a2) ? (v5 = a3[3] == 0) : (v5 = 1), v5))
   {
     *a4 = 0;
@@ -668,19 +482,19 @@ void ULEndpointPlacementGenerator::placeEndpoints(void *a1@<X0>, uint64_t a2@<X1
 
   else
   {
-    ULEndpointPlacementGenerator::parseConstraints(a2, a3, &v155);
-    v7 = v155;
-    if (v155 != v156)
+    ULEndpointPlacementGenerator::parseConstraints(a2, a3, &v154);
+    v7 = v154;
+    if (v154 != v155)
     {
-      v80 = v4;
+      v79 = v4;
       do
       {
-        v166 = *(v7 + 2);
-        v153 = 0;
+        v165 = *(v7 + 2);
         v152 = 0;
-        v154 = 0;
-        std::vector<ULEndpointPlacementGenerator::EndpointConstraint>::__init_with_size[abi:ne200100]<ULEndpointPlacementGenerator::EndpointConstraint*,ULEndpointPlacementGenerator::EndpointConstraint*>(&v152, v7[6], v7[7], 0xCCCCCCCCCCCCCCCDLL * ((v7[7] - v7[6]) >> 2));
-        v8 = std::__hash_table<std::__hash_value_type<boost::uuids::uuid,int>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,int>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,int>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,int>>>::find<boost::uuids::uuid>(v4, &v166);
+        v151 = 0;
+        v153 = 0;
+        std::vector<ULEndpointPlacementGenerator::EndpointConstraint>::__init_with_size[abi:ne200100]<ULEndpointPlacementGenerator::EndpointConstraint*,ULEndpointPlacementGenerator::EndpointConstraint*>(&v151, v7[6], v7[7], 0xCCCCCCCCCCCCCCCDLL * ((v7[7] - v7[6]) >> 2));
+        v8 = std::__hash_table<std::__hash_value_type<boost::uuids::uuid,int>,std::__unordered_map_hasher<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,int>,std::hash<boost::uuids::uuid>,std::equal_to<boost::uuids::uuid>,true>,std::__unordered_map_equal<boost::uuids::uuid,std::__hash_value_type<boost::uuids::uuid,int>,std::equal_to<boost::uuids::uuid>,std::hash<boost::uuids::uuid>,true>,std::allocator<std::__hash_value_type<boost::uuids::uuid,int>>>::find<boost::uuids::uuid>(v4, &v165);
         if (!v8)
         {
           std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -690,9 +504,9 @@ void ULEndpointPlacementGenerator::placeEndpoints(void *a1@<X0>, uint64_t a2@<X1
         v10 = (*a1 + 32 * v9);
         if (*v10 != v9)
         {
-          ULEndpointPlacementGenerator::placeEndpoints(&v88);
+          ULEndpointPlacementGenerator::placeEndpoints(&v87);
 
-          abort_report_np();
+          abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/MicroLocation/MicroLocationDaemon/HomeSlam/Mapper/ULEndpointPlacementGenerator.mm", 350, "placeEndpoints");
           __break(1u);
         }
 
@@ -703,47 +517,47 @@ void ULEndpointPlacementGenerator::placeEndpoints(void *a1@<X0>, uint64_t a2@<X1
         v15 = v10[4];
         v16 = v10[5];
         v17 = v10[3];
-        v150 = 0;
         v149 = 0;
-        v151 = 0;
-        v147 = 0;
-        v146 = 0;
         v148 = 0;
-        v144 = 0;
-        v143 = 0;
+        v150 = 0;
+        v146 = 0;
         v145 = 0;
-        v141 = 0;
-        v140 = 0;
+        v147 = 0;
+        v143 = 0;
         v142 = 0;
-        v138 = 0;
-        v137 = 0;
+        v144 = 0;
+        v140 = 0;
         v139 = 0;
-        v135 = 0;
-        v134 = 0;
+        v141 = 0;
+        v137 = 0;
         v136 = 0;
-        v132 = 0;
-        v131 = 0;
+        v138 = 0;
+        v134 = 0;
         v133 = 0;
-        v129 = 0;
-        v128 = 0;
+        v135 = 0;
+        v131 = 0;
         v130 = 0;
-        v126 = 0;
-        v125 = 0;
+        v132 = 0;
+        v128 = 0;
         v127 = 0;
-        v123 = 0;
-        v122 = 0;
+        v129 = 0;
+        v125 = 0;
         v124 = 0;
-        v121 = v11;
-        v120 = v12;
-        v119 = v17;
-        v118 = v15;
-        v117 = v16;
-        v116 = v13;
-        v115 = v14;
-        v18 = v153;
-        v19 = v152;
-        v20 = v153 - v152;
-        if (v153 == v152)
+        v126 = 0;
+        v122 = 0;
+        v121 = 0;
+        v123 = 0;
+        v120 = v11;
+        v119 = v12;
+        v118 = v17;
+        v117 = v15;
+        v116 = v16;
+        v115 = v13;
+        v114 = v14;
+        v18 = v152;
+        v19 = v151;
+        v20 = v152 - v151;
+        if (v152 == v151)
         {
           v36 = 0;
           v35 = 0;
@@ -765,71 +579,71 @@ void ULEndpointPlacementGenerator::placeEndpoints(void *a1@<X0>, uint64_t a2@<X1
           do
           {
             v21 = *v19;
-            v112[0] = v19[4];
-            v111 = v21;
+            v111[0] = v19[4];
+            v110 = v21;
             v22 = (*a1 + 32 * SDWORD1(v21));
             v23 = v22[1];
-            v88 = *v22;
-            *v89 = v23;
-            std::vector<float>::push_back[abi:ne200100](&v149, &v111 + 2);
-            std::vector<float>::push_back[abi:ne200100](&v146, &v111 + 3);
-            std::vector<float>::push_back[abi:ne200100](&v143, v112);
-            std::vector<float>::push_back[abi:ne200100](&v140, &v88 + 1);
-            std::vector<float>::push_back[abi:ne200100](&v137, &v88 + 2);
-            std::vector<float>::push_back[abi:ne200100](&v134, &v88 + 3);
-            std::vector<float>::push_back[abi:ne200100](&v131, v89);
-            std::vector<float>::push_back[abi:ne200100](&v128, v89 + 1);
-            std::vector<float>::push_back[abi:ne200100](&v125, &v89[1]);
-            std::vector<float>::push_back[abi:ne200100](&v122, &v89[1] + 1);
+            v87 = *v22;
+            *v88 = v23;
+            std::vector<float>::push_back[abi:ne200100](&v148, &v110 + 2);
+            std::vector<float>::push_back[abi:ne200100](&v145, &v110 + 3);
+            std::vector<float>::push_back[abi:ne200100](&v142, v111);
+            std::vector<float>::push_back[abi:ne200100](&v139, &v87 + 1);
+            std::vector<float>::push_back[abi:ne200100](&v136, &v87 + 2);
+            std::vector<float>::push_back[abi:ne200100](&v133, &v87 + 3);
+            std::vector<float>::push_back[abi:ne200100](&v130, v88);
+            std::vector<float>::push_back[abi:ne200100](&v127, v88 + 1);
+            std::vector<float>::push_back[abi:ne200100](&v124, &v88[1]);
+            std::vector<float>::push_back[abi:ne200100](&v121, &v88[1] + 1);
             v19 += 5;
           }
 
           while (v19 != v18);
-          v24 = v121;
-          v25 = v120;
-          v26 = v119;
-          v15 = v118;
-          v16 = v117;
-          v13 = v116;
-          v14 = v115;
-          v27 = v149;
-          v28 = v146;
-          v29 = v143;
-          v30 = v140;
-          v31 = v137;
-          v32 = v134;
-          v33 = v131;
-          v34 = v128;
-          v35 = v125;
-          v36 = v122;
+          v24 = v120;
+          v25 = v119;
+          v26 = v118;
+          v15 = v117;
+          v16 = v116;
+          v13 = v115;
+          v14 = v114;
+          v27 = v148;
+          v28 = v145;
+          v29 = v142;
+          v30 = v139;
+          v31 = v136;
+          v32 = v133;
+          v33 = v130;
+          v34 = v127;
+          v35 = v124;
+          v36 = v121;
         }
 
-        *&v78 = v34;
-        *(&v78 + 1) = v35;
-        EndpointMinimizerFunc::EndpointMinimizerFunc(&v111, v24, v25, v26, v15, v16, v13, v14, v27, v28, v29, v30, v31, v32, v33, v78, v36, 0xCCCCCCCCCCCCCCCDLL * (v20 >> 2));
-        v105[0] = 6;
-        v106 = 0x13727C5ACLL;
-        v109 = 0x140000000ALL;
-        v110 = xmmword_25921C470;
-        v105[1] = HIDWORD(v111);
-        v107 = 786163455;
-        v108 = v112[0];
-        LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::LBFGSBSolver(&v88, v105);
-        v86[0] = 0;
-        v86[1] = 0;
-        cva::MatrixData<float,0ul,0ul,false>::allocate(v86, 3);
-        v87 = 3;
-        v37 = v86[0];
-        *v86[0] = v11;
+        *&v77 = v34;
+        *(&v77 + 1) = v35;
+        EndpointMinimizerFunc::EndpointMinimizerFunc(&v110, v24, v25, v26, v15, v16, v13, v14, v27, v28, v29, v30, v31, v32, v33, v77, v36, 0xCCCCCCCCCCCCCCCDLL * (v20 >> 2));
+        v104[0] = 6;
+        v105 = 0x13727C5ACLL;
+        v108 = 0x140000000ALL;
+        v109 = xmmword_25921C470;
+        v104[1] = HIDWORD(v110);
+        v106 = 786163455;
+        v107 = v111[0];
+        LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::LBFGSBSolver(&v87, v104);
+        v85[0] = 0;
+        v85[1] = 0;
+        cva::MatrixData<float,0ul,0ul,false>::allocate(v85, 3);
+        v86 = 3;
+        v37 = v85[0];
+        *v85[0] = v11;
         v37[1] = v12;
         v37[2] = v17;
-        v38 = v112[1];
-        v84[0] = 0;
-        v84[1] = 0;
-        cva::MatrixData<float,0ul,0ul,false>::allocate(v84, 3);
+        v38 = v111[1];
+        v83[0] = 0;
+        v83[1] = 0;
+        cva::MatrixData<float,0ul,0ul,false>::allocate(v83, 3);
         v39 = 0;
-        v85 = 3;
-        v40 = v84[0] + 8;
+        v84 = 3;
+        v40 = (v83[0] + 8);
         do
         {
           v41 = vdupq_n_s64(v39);
@@ -861,13 +675,13 @@ void ULEndpointPlacementGenerator::placeEndpoints(void *a1@<X0>, uint64_t a2@<X1
         }
 
         while (v39 != 4);
-        v45 = v112[2];
-        v82[0] = 0;
-        v82[1] = 0;
-        cva::MatrixData<float,0ul,0ul,false>::allocate(v82, 3);
+        v45 = v111[2];
+        v81[0] = 0;
+        v81[1] = 0;
+        cva::MatrixData<float,0ul,0ul,false>::allocate(v81, 3);
         v46 = 0;
-        v83 = 3;
-        v47 = v82[0] + 8;
+        v82 = 3;
+        v47 = (v81[0] + 8);
         do
         {
           v48 = vdupq_n_s64(v46);
@@ -900,8 +714,8 @@ void ULEndpointPlacementGenerator::placeEndpoints(void *a1@<X0>, uint64_t a2@<X1
         }
 
         while (v46 != 4);
-        v81 = 0.0;
-        v53 = LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::minimize<EndpointMinimizerFunc>(&v88, &v111, v86, &v81, v82, v84, *v52.i32);
+        v80 = 0.0;
+        v53 = LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::minimize<EndpointMinimizerFunc>(&v87, &v110, v85, &v80, v81, v83, *v52.i32);
         if (onceToken_MicroLocation_Default != -1)
         {
           ULEndpointPlacementGenerator::placeEndpoints();
@@ -913,55 +727,55 @@ void ULEndpointPlacementGenerator::placeEndpoints(void *a1@<X0>, uint64_t a2@<X1
           *buf = 67109376;
           *&buf[4] = v53;
           *&buf[8] = 2048;
-          *&buf[10] = v81;
+          *&buf[10] = v80;
           _os_log_impl(&dword_258FE9000, v54, OS_LOG_TYPE_DEBUG, "#HomeSlam, endpoint minimizer took %u iterations, target function value: %f", buf, 0x12u);
         }
 
-        if (!v87 || (v165 = *v86[0], v87 == 1) || (v164 = *(v86[0] + 1), v87 < 3))
+        if (!v86 || (v164 = *v85[0], v86 == 1) || (v163 = *(v85[0] + 1), v86 < 3))
         {
           __assert_rtn("assert_in_bounds", "matrixmixin.h", 2283, "(i < mixed().elements()) || cva::detail::assertMessage(Index out of bounds!)");
         }
 
-        v163 = *(v86[0] + 2);
-        v162 = 0;
-        v160 = 0;
-        std::vector<float>::vector[abi:ne200100](v161, 1uLL);
-        std::vector<std::vector<float>>::vector[abi:ne200100](buf, 0xDuLL);
-        if (v161[0])
+        v162 = *(v85[0] + 2);
+        v161 = 0;
+        v159 = 0;
+        std::vector<float>::vector[abi:ne200100](v160, 1uLL, &v159);
+        std::vector<std::vector<float>>::vector[abi:ne200100](buf, 0xDuLL, v160);
+        if (v160[0])
         {
-          v161[1] = v161[0];
-          operator delete(v161[0]);
+          v160[1] = v160[0];
+          operator delete(v160[0]);
         }
 
-        NegativeLogLikelihood3D = ULEndpointPlacementGenerator::getNegativeLogLikelihood3D(&v165, &v164, &v163, &v162, &v162, &v162, &v121, &v120, &v119, &v118, &v117, &v116, &v115, 1uLL, buf, 0);
-        v161[0] = buf;
-        std::vector<std::vector<boost::uuids::uuid>>::__destroy_vector::operator()[abi:ne200100](v161);
-        if (v87 <= 2)
+        NegativeLogLikelihood3D = ULEndpointPlacementGenerator::getNegativeLogLikelihood3D(&v164, &v163, &v162, &v161, &v161, &v161, &v120, &v119, &v118, &v117, &v116, &v115, &v114, 1uLL, buf, 0);
+        v160[0] = buf;
+        std::vector<std::vector<boost::uuids::uuid>>::__destroy_vector::operator()[abi:ne200100](v160);
+        if (v86 <= 2)
         {
           __assert_rtn("assert_in_bounds", "matrixmixin.h", 2283, "(i < mixed().elements()) || cva::detail::assertMessage(Index out of bounds!)");
         }
 
-        v57 = *v86[0];
-        v56 = *(v86[0] + 1);
-        v58 = *(v86[0] + 2);
-        *buf = v166;
-        v59 = v158;
+        v57 = *v85[0];
+        v56 = *(v85[0] + 1);
+        v58 = *(v85[0] + 2);
+        *buf = v165;
+        v59 = v157;
         v60 = sqrtf(NegativeLogLikelihood3D + NegativeLogLikelihood3D);
-        if (v158 >= v159)
+        if (v157 >= v158)
         {
-          v62 = 0x2E8BA2E8BA2E8BA3 * ((v158 - v157) >> 2);
+          v62 = 0x2E8BA2E8BA2E8BA3 * ((v157 - v156) >> 2);
           v63 = v62 + 1;
           if ((v62 + 1) > 0x5D1745D1745D174)
           {
             std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
           }
 
-          if (0x5D1745D1745D1746 * ((v159 - v157) >> 2) > v63)
+          if (0x5D1745D1745D1746 * ((v158 - v156) >> 2) > v63)
           {
-            v63 = 0x5D1745D1745D1746 * ((v159 - v157) >> 2);
+            v63 = 0x5D1745D1745D1746 * ((v158 - v156) >> 2);
           }
 
-          if ((0x2E8BA2E8BA2E8BA3 * ((v159 - v157) >> 2)) >= 0x2E8BA2E8BA2E8BALL)
+          if ((0x2E8BA2E8BA2E8BA3 * ((v158 - v156) >> 2)) >= 0x2E8BA2E8BA2E8BALL)
           {
             v64 = 0x5D1745D1745D174;
           }
@@ -973,10 +787,10 @@ void ULEndpointPlacementGenerator::placeEndpoints(void *a1@<X0>, uint64_t a2@<X1
 
           if (v64)
           {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<ULFingerprintPlacement>>(&v157, v64);
+            std::__allocate_at_least[abi:ne200100]<std::allocator<ULFingerprintPlacement>>(&v156, v64);
           }
 
-          v65 = 4 * ((v158 - v157) >> 2);
+          v65 = 4 * ((v157 - v156) >> 2);
           *v65 = v57;
           *(v65 + 4) = v56;
           *(v65 + 8) = v58;
@@ -986,12 +800,12 @@ void ULEndpointPlacementGenerator::placeEndpoints(void *a1@<X0>, uint64_t a2@<X1
           *(v65 + 36) = v9;
           *(v65 + 40) = v60;
           v61 = 44 * v62 + 44;
-          v66 = (v65 - (v158 - v157));
-          memcpy(v66, v157, v158 - v157);
-          v67 = v157;
-          v157 = v66;
-          v158 = v61;
-          v159 = 0;
+          v66 = (v65 - (v157 - v156));
+          memcpy(v66, v156, v157 - v156);
+          v67 = v156;
+          v156 = v66;
+          v157 = v61;
+          v158 = 0;
           if (v67)
           {
             operator delete(v67);
@@ -1000,7 +814,7 @@ void ULEndpointPlacementGenerator::placeEndpoints(void *a1@<X0>, uint64_t a2@<X1
 
         else
         {
-          *v158 = v57;
+          *v157 = v57;
           *(v59 + 1) = v56;
           *(v59 + 2) = v58;
           *(v59 + 12) = *buf;
@@ -1011,102 +825,102 @@ void ULEndpointPlacementGenerator::placeEndpoints(void *a1@<X0>, uint64_t a2@<X1
           v61 = (v59 + 44);
         }
 
-        v158 = v61;
-        free(v82[0]);
-        free(v84[0]);
-        free(v86[0]);
-        free(v104);
+        v157 = v61;
+        free(v81[0]);
+        free(v83[0]);
+        free(v85[0]);
         free(v103);
         free(v102);
         free(v101);
         free(v100);
-        if (v98)
+        free(v99);
+        if (v97)
         {
-          v99 = v98;
-          operator delete(v98);
+          v98 = v97;
+          operator delete(v97);
         }
 
-        free(v97);
-        if (v95)
+        free(v96);
+        if (v94)
         {
-          v96 = v95;
-          operator delete(v95);
+          v95 = v94;
+          operator delete(v94);
         }
 
-        free(v94);
         free(v93);
         free(v92);
         free(v91);
         free(v90);
-        free(v89[0]);
-        *&v88 = &v114;
-        std::vector<std::vector<boost::uuids::uuid>>::__destroy_vector::operator()[abi:ne200100](&v88);
-        *&v88 = &v113;
-        std::vector<std::vector<boost::uuids::uuid>>::__destroy_vector::operator()[abi:ne200100](&v88);
-        if (v122)
+        free(v89);
+        free(v88[0]);
+        *&v87 = &v113;
+        std::vector<std::vector<boost::uuids::uuid>>::__destroy_vector::operator()[abi:ne200100](&v87);
+        *&v87 = &v112;
+        std::vector<std::vector<boost::uuids::uuid>>::__destroy_vector::operator()[abi:ne200100](&v87);
+        if (v121)
         {
-          v123 = v122;
-          operator delete(v122);
+          v122 = v121;
+          operator delete(v121);
         }
 
-        if (v125)
+        if (v124)
         {
-          v126 = v125;
-          operator delete(v125);
+          v125 = v124;
+          operator delete(v124);
         }
 
-        if (v128)
+        if (v127)
         {
-          v129 = v128;
-          operator delete(v128);
+          v128 = v127;
+          operator delete(v127);
         }
 
-        if (v131)
+        if (v130)
         {
-          v132 = v131;
-          operator delete(v131);
+          v131 = v130;
+          operator delete(v130);
         }
 
-        if (v134)
+        if (v133)
         {
-          v135 = v134;
-          operator delete(v134);
+          v134 = v133;
+          operator delete(v133);
         }
 
-        if (v137)
+        if (v136)
         {
-          v138 = v137;
-          operator delete(v137);
+          v137 = v136;
+          operator delete(v136);
         }
 
-        if (v140)
+        if (v139)
         {
-          v141 = v140;
-          operator delete(v140);
+          v140 = v139;
+          operator delete(v139);
         }
 
-        if (v143)
+        if (v142)
         {
-          v144 = v143;
-          operator delete(v143);
+          v143 = v142;
+          operator delete(v142);
         }
 
-        if (v146)
+        if (v145)
         {
-          v147 = v146;
-          operator delete(v146);
+          v146 = v145;
+          operator delete(v145);
         }
 
-        if (v149)
+        if (v148)
         {
-          v150 = v149;
-          operator delete(v149);
+          v149 = v148;
+          operator delete(v148);
         }
 
-        if (v152)
+        if (v151)
         {
-          v153 = v152;
-          operator delete(v152);
+          v152 = v151;
+          operator delete(v151);
         }
 
         v68 = v7[1];
@@ -1134,15 +948,15 @@ void ULEndpointPlacementGenerator::placeEndpoints(void *a1@<X0>, uint64_t a2@<X1
         }
 
         v7 = v69;
-        v4 = v80;
+        v4 = v79;
       }
 
-      while (v69 != v156);
+      while (v69 != v155);
     }
 
-    v70 = v157;
-    v71 = v158;
-    if (v157 == v158)
+    v70 = v156;
+    v71 = v157;
+    if (v156 == v157)
     {
       v72 = a4;
     }
@@ -1166,11 +980,11 @@ void ULEndpointPlacementGenerator::placeEndpoints(void *a1@<X0>, uint64_t a2@<X1
         {
           if (!ULEndpointPlacementGenerator::placeEndpoints(std::vector<ULRFGroupPlacement> const&,std::vector<ULSegment> const&,std::unordered_map<boost::uuids::uuid,int> const&)::$_0::operator()<ULFingerprintPlacement>(i))
           {
-            v76 = *i;
-            v77 = i[1];
+            v75 = *i;
+            v76 = i[1];
             *(v70 + 28) = *(i + 28);
-            *v70 = v76;
-            *(v70 + 1) = v77;
+            *v70 = v75;
+            *(v70 + 1) = v76;
             v70 += 44;
           }
         }
@@ -1178,31 +992,29 @@ void ULEndpointPlacementGenerator::placeEndpoints(void *a1@<X0>, uint64_t a2@<X1
     }
 
 LABEL_96:
-    v73 = v158;
-    if (v70 != v158)
+    v73 = v157;
+    if (v70 != v157)
     {
       v73 = v70;
-      v158 = v70;
+      v157 = v70;
     }
 
-    *v72 = v157;
+    *v72 = v156;
     v72[1] = v73;
-    v72[2] = v159;
-    v159 = 0;
+    v72[2] = v158;
     v158 = 0;
     v157 = 0;
-    std::__tree<std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>,std::__map_value_compare<boost::uuids::uuid,std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>,std::less<boost::uuids::uuid>,true>,std::allocator<std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>>>::destroy(&v155, v156[0]);
-    if (v157)
+    v156 = 0;
+    std::__tree<std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>,std::__map_value_compare<boost::uuids::uuid,std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>,std::less<boost::uuids::uuid>,true>,std::allocator<std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>>>::destroy(&v154, v155[0]);
+    if (v156)
     {
-      v158 = v157;
-      operator delete(v157);
+      v157 = v156;
+      operator delete(v156);
     }
   }
-
-  v74 = *MEMORY[0x277D85DE8];
 }
 
-void sub_259018FE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, uint64_t a44, void *a45)
+void sub_259018FE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, uint64_t a44, char a45)
 {
   free(a36);
   free(a39);
@@ -1297,7 +1109,7 @@ void sub_259018FE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<float>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -1346,15 +1158,15 @@ void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
 }
 
-uint64_t LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::minimize<EndpointMinimizerFunc>(unsigned int **a1, uint64_t a2, unsigned int *a3, float *a4, uint64_t a5, uint64_t a6, float a7)
+uint64_t LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::minimize<EndpointMinimizerFunc>(unsigned int **a1, uint64_t a2, cva::Logger *a3, float *a4, uint64_t a5, uint64_t a6, float a7)
 {
-  v7 = a3[4];
+  v7 = *(a3 + 4);
   if (*(a5 + 16) != v7 || *(a6 + 16) != v7)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -1451,7 +1263,7 @@ uint64_t LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::minimize<E
     return 1;
   }
 
-  v23 = a3[4];
+  v23 = *(a3 + 4);
   if (v23)
   {
     v24 = **a3 * **a3;
@@ -1481,25 +1293,23 @@ uint64_t LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::minimize<E
     return 1;
   }
 
-  v189[0] = 0;
-  v189[1] = 0;
-  cva::MatrixData<float,0ul,0ul,false>::allocate(v189, v7);
-  v190 = v7;
-  v187[0] = 0;
-  v187[1] = 0;
-  v188 = 0;
-  memset(&v186, 0, sizeof(v186));
+  v179[0] = 0;
+  v179[1] = 0;
+  cva::MatrixData<float,0ul,0ul,false>::allocate(v179, v7);
+  v180 = v7;
+  v177[0] = 0;
+  v177[1] = 0;
+  v178 = 0;
+  memset(&v176, 0, sizeof(v176));
   memset(&__p, 0, sizeof(__p));
-  LBFGSpp::Cauchy<float>::get_cauchy_point((a1 + 1), a3, (a1 + 38), v10, v9, v189, v187, &v186, &__p);
-  v30 = v190;
-  if (v190 != a3[4])
+  LBFGSpp::Cauchy<float>::get_cauchy_point((a1 + 1), a3, (a1 + 38), v10, v9, v179, v177, &v176, &__p);
+  v30 = v180;
+  if (v180 != *(a3 + 4))
   {
-    cva::Logger::instance(v29);
-    v31 = *MEMORY[0x277CFD380];
-    v161 = a3[4];
-    cva::Logger::logInCategory();
-    v30 = v190;
-    if (v190 != a3[4])
+    v31 = cva::Logger::instance(v29);
+    cva::Logger::logInCategory(v31, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", v180, 1, *(a3 + 4), 1);
+    v30 = v180;
+    if (v180 != *(a3 + 4))
     {
       goto LABEL_39;
     }
@@ -1507,18 +1317,18 @@ uint64_t LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::minimize<E
 
   if (v30 != *(a1 + 94))
   {
-    if (v189[0] == *v20 || *a3 == *v20)
+    if (v179[0] == *v20 || *a3 == *v20)
     {
-      v191 = 0;
-      v192 = 0;
-      cva::MatrixData<float,0ul,0ul,false>::allocate(&v191, v30);
-      v43 = v190;
-      v44 = v191;
-      if (v190)
+      v181 = 0;
+      v182 = 0;
+      cva::MatrixData<float,0ul,0ul,false>::allocate(&v181, v30);
+      v43 = v180;
+      v44 = v181;
+      if (v180)
       {
         v45 = *a3;
-        v46 = v189[0];
-        v47 = 4 * v190;
+        v46 = v179[0];
+        v47 = 4 * v180;
         do
         {
           v48 = *v46++;
@@ -1529,33 +1339,31 @@ uint64_t LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::minimize<E
         }
 
         while (v47);
-        v44 = v191;
+        v44 = v181;
       }
 
       v51 = a1[45];
       v52 = a1[46];
-      v53 = v192;
+      v53 = v182;
       a1[45] = v44;
       a1[46] = v53;
-      v191 = v51;
-      v192 = v52;
+      v181 = v51;
+      v182 = v52;
       *(a1 + 94) = v43;
-      v193 = 0;
+      v183 = 0;
       free(v51);
       goto LABEL_45;
     }
 
     *(a1 + 94) = v30;
     cva::MatrixData<float,0ul,0ul,false>::reserve((a1 + 45), v30);
-    v30 = v190;
-    if (*(a1 + 94) != v190)
+    v30 = v180;
+    if (*(a1 + 94) != v180)
     {
-      cva::Logger::instance(v41);
-      v42 = *MEMORY[0x277CFD380];
-      v157 = *(a1 + 94);
-      cva::Logger::logInCategory();
+      v42 = cva::Logger::instance(v41);
+      cva::Logger::logInCategory(v42, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 94), 1, v180, 1);
       v30 = *(a1 + 94);
-      if (v30 != v190)
+      if (v30 != v180)
       {
 LABEL_39:
         __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
@@ -1568,7 +1376,7 @@ LABEL_39:
     v32 = *v20;
     v33 = v30;
     v34 = *a3;
-    v35 = v189[0];
+    v35 = v179[0];
     v36 = 4 * v33;
     do
     {
@@ -1584,29 +1392,29 @@ LABEL_39:
 
 LABEL_45:
   cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::normalize<float,void>((a1 + 45));
-  v182 = 0;
-  v183 = 0;
-  cva::MatrixData<float,0ul,0ul,false>::allocate(&v182, v7);
-  v184 = v7;
-  v179 = 0;
-  v180 = 0;
-  cva::MatrixData<float,0ul,0ul,false>::allocate(&v179, v7);
-  v167 = v21;
-  v168 = v7;
-  v181 = v7;
+  v172 = 0;
+  v173 = 0;
+  cva::MatrixData<float,0ul,0ul,false>::allocate(&v172, v7);
+  v174 = v7;
+  v169 = 0;
+  v170 = 0;
+  cva::MatrixData<float,0ul,0ul,false>::allocate(&v169, v7);
+  v157 = v21;
+  v158 = v7;
+  v171 = v7;
   for (i = 1; ; ++i)
   {
     v54 = v20;
     if (v19 != a3)
     {
-      v55 = a3[4];
+      v55 = *(a3 + 4);
       cva::MatrixData<float,0ul,0ul,false>::reserve(v19, v55);
       if (v55)
       {
         memcpy(*v19, *a3, 4 * v55);
       }
 
-      *(a1 + 74) = a3[4];
+      *(a1 + 74) = *(a3 + 4);
     }
 
     v56 = *(a1 + 80);
@@ -1620,21 +1428,19 @@ LABEL_45:
 
     v59 = v19;
     *(a1 + 88) = *(a1 + 80);
-    v60 = cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::dot<cva::Matrix<float,0u,1u,false>>(a1 + 76, v54);
-    v178 = *&v60;
-    v62 = LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::max_step_size(a3, v54, v57, v58);
-    v177 = v62;
-    if (v178 >= 0.0 || (v63 = *a1, v62 <= *(*a1 + 8)))
+    v60.n128_f64[0] = cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::dot<cva::Matrix<float,0u,1u,false>>(a1 + 38, v54);
+    v168 = v60.n128_f32[0];
+    v62 = LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::max_step_size(a3, v54, v57, v58, v60);
+    v167 = v62;
+    if (v168 >= 0.0 || (v63 = *a1, v62 <= *(*a1 + 8)))
     {
-      v64 = v190;
-      if (v190 != a3[4])
+      v64 = v180;
+      if (v180 != *(a3 + 4))
       {
-        cva::Logger::instance(v61);
-        v65 = *MEMORY[0x277CFD380];
-        v162 = a3[4];
-        cva::Logger::logInCategory();
-        v64 = v190;
-        if (v190 != a3[4])
+        v65 = cva::Logger::instance(v61);
+        cva::Logger::logInCategory(v65, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", v180, 1, *(a3 + 4), 1);
+        v64 = v180;
+        if (v180 != *(a3 + 4))
         {
 LABEL_154:
           __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
@@ -1643,18 +1449,18 @@ LABEL_154:
 
       if (v64 != *(a1 + 94))
       {
-        if (v189[0] == *v54 || *a3 == *v54)
+        if (v179[0] == *v54 || *a3 == *v54)
         {
-          v191 = 0;
-          v192 = 0;
-          cva::MatrixData<float,0ul,0ul,false>::allocate(&v191, v64);
-          v75 = v190;
-          v76 = v191;
-          if (v190)
+          v181 = 0;
+          v182 = 0;
+          cva::MatrixData<float,0ul,0ul,false>::allocate(&v181, v64);
+          v75 = v180;
+          v76 = v181;
+          if (v180)
           {
             v77 = *a3;
-            v78 = v189[0];
-            v79 = 4 * v190;
+            v78 = v179[0];
+            v79 = 4 * v180;
             do
             {
               v80 = *v78++;
@@ -1665,33 +1471,31 @@ LABEL_154:
             }
 
             while (v79);
-            v76 = v191;
+            v76 = v181;
           }
 
           v83 = a1[45];
           v84 = a1[46];
-          v85 = v192;
+          v85 = v182;
           a1[45] = v76;
           a1[46] = v85;
-          v191 = v83;
-          v192 = v84;
+          v181 = v83;
+          v182 = v84;
           *(a1 + 94) = v75;
-          v193 = 0;
+          v183 = 0;
           free(v83);
           goto LABEL_71;
         }
 
         *(a1 + 94) = v64;
         cva::MatrixData<float,0ul,0ul,false>::reserve(v54, v64);
-        v64 = v190;
-        if (*(a1 + 94) != v190)
+        v64 = v180;
+        if (*(a1 + 94) != v180)
         {
-          cva::Logger::instance(v73);
-          v74 = *MEMORY[0x277CFD380];
-          v158 = *(a1 + 94);
-          cva::Logger::logInCategory();
+          v74 = cva::Logger::instance(v73);
+          cva::Logger::logInCategory(v74, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 94), 1, v180, 1);
           v64 = *(a1 + 94);
-          if (v64 != v190)
+          if (v64 != v180)
           {
             goto LABEL_154;
           }
@@ -1703,7 +1507,7 @@ LABEL_154:
         v66 = *v54;
         v67 = *a3;
         v68 = 4 * v64;
-        v69 = v189[0];
+        v69 = v179[0];
         do
         {
           v70 = *v69++;
@@ -1720,12 +1524,12 @@ LABEL_71:
       v86 = **a1;
       *(a1 + 2) = v86;
       *(a1 + 3) = 1065353216;
-      *(a1 + 8) = v168;
+      *(a1 + 8) = v158;
       *(a1 + 9) = v86;
-      cva::MatrixData<float,0ul,0ul,false>::reserve((a1 + 2), (v86 * v168));
-      *(a1 + 14) = v168;
+      cva::MatrixData<float,0ul,0ul,false>::reserve((a1 + 2), (v86 * v158));
+      *(a1 + 14) = v158;
       *(a1 + 15) = v86;
-      cva::MatrixData<float,0ul,0ul,false>::reserve((a1 + 5), (v86 * v168));
+      cva::MatrixData<float,0ul,0ul,false>::reserve((a1 + 5), (v86 * v158));
       *(a1 + 20) = v86;
       cva::MatrixData<float,0ul,0ul,false>::reserve((a1 + 8), v86);
       *(a1 + 26) = v86;
@@ -1766,9 +1570,9 @@ LABEL_71:
         while (v89);
       }
 
-      v92 = cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::dot<cva::Matrix<float,0u,1u,false>>(a1 + 76, v54);
-      v178 = *&v92;
-      v62 = LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::max_step_size(a3, v54, v57, v58);
+      v92.n128_f64[0] = cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::dot<cva::Matrix<float,0u,1u,false>>(a1 + 38, v54);
+      v168 = v92.n128_f32[0];
+      v62 = LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::max_step_size(a3, v54, v57, v58, v92);
       v63 = *a1;
     }
 
@@ -1777,11 +1581,11 @@ LABEL_71:
       v62 = *(v63 + 36);
     }
 
-    v177 = v62;
-    v176 = fminf(v62, 1.0);
+    v167 = v62;
+    v166 = fminf(v62, 1.0);
     v19 = v59;
     v20 = v54;
-    LBFGSpp::LineSearchMoreThuente<float>::LineSearch<EndpointMinimizerFunc,LBFGSpp::LBFGSBParam<float>>(a2, v63, v59, v54, &v177, &v176, a4, (a1 + 38), &v178, a3);
+    LBFGSpp::LineSearchMoreThuente<float>::LineSearch<EndpointMinimizerFunc,LBFGSpp::LBFGSBParam<float>>(a2, v63, v59, v54, &v167, &v166, a4, (a1 + 38), &v168, a3);
     v9 = v58;
     v10 = v57;
     v40 = i;
@@ -1793,7 +1597,7 @@ LABEL_71:
       break;
     }
 
-    v96 = a3[4];
+    v96 = *(a3 + 4);
     if (v96)
     {
       v97 = **a3 * **a3;
@@ -1822,9 +1626,9 @@ LABEL_71:
       break;
     }
 
-    if (v167 >= 1)
+    if (v157 >= 1)
     {
-      v101 = i % v167;
+      v101 = i % v157;
       if (*(a1 + 68) <= v101)
       {
         __assert_rtn("assert_in_bounds", "matrixmixin.h", 2283, "(i < mixed().elements()) || cva::detail::assertMessage(Index out of bounds!)");
@@ -1832,7 +1636,7 @@ LABEL_71:
 
       v102 = a1[32];
       v103 = *a4;
-      if (i >= v167)
+      if (i >= v157)
       {
         v104 = *&v102[v101];
         v105 = vabds_f32(v104, v103);
@@ -1865,41 +1669,36 @@ LABEL_71:
 
     if (v96 == *(a1 + 74))
     {
-      v109 = a3[4];
+      v109 = *(a3 + 4);
     }
 
     else
     {
-      cva::Logger::instance(v93);
-      v110 = *MEMORY[0x277CFD380];
-      v163 = *(a1 + 74);
-      v159 = a3[4];
-      v93 = cva::Logger::logInCategory();
-      v109 = a3[4];
+      v110 = cva::Logger::instance(v93);
+      v93 = cva::Logger::logInCategory(v110, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a3 + 4), 1, *(a1 + 74), 1);
+      v109 = *(a3 + 4);
       if (v109 != *(a1 + 74))
       {
         goto LABEL_152;
       }
     }
 
-    if (v109 == v184)
+    if (v109 == v174)
     {
       goto LABEL_105;
     }
 
-    if (*a3 != v182 && *v19 != v182)
+    if (*a3 != v172 && *v19 != v172)
     {
-      v184 = v109;
-      cva::MatrixData<float,0ul,0ul,false>::reserve(&v182, v109);
-      v109 = a3[4];
-      if (v184 != v109)
+      v174 = v109;
+      cva::MatrixData<float,0ul,0ul,false>::reserve(&v172, v109);
+      v109 = *(a3 + 4);
+      if (v174 != v109)
       {
-        cva::Logger::instance(v93);
-        v118 = *MEMORY[0x277CFD380];
-        v164 = a3[4];
-        v93 = cva::Logger::logInCategory();
-        v109 = v184;
-        if (v184 != a3[4])
+        v118 = cva::Logger::instance(v93);
+        v93 = cva::Logger::logInCategory(v118, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", v174, 1, *(a3 + 4), 1);
+        v109 = v174;
+        if (v174 != *(a3 + 4))
         {
 LABEL_152:
           __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
@@ -1909,7 +1708,7 @@ LABEL_152:
 LABEL_105:
       if (v109)
       {
-        v111 = v182;
+        v111 = v172;
         v112 = *v19;
         v113 = 4 * v109;
         v114 = *a3;
@@ -1928,11 +1727,11 @@ LABEL_105:
       goto LABEL_119;
     }
 
-    v191 = 0;
-    v192 = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(&v191, v109);
-    v119 = a3[4];
-    v120 = v191;
+    v181 = 0;
+    v182 = 0;
+    cva::MatrixData<float,0ul,0ul,false>::allocate(&v181, v109);
+    v119 = *(a3 + 4);
+    v120 = v181;
     if (v119)
     {
       v121 = *v19;
@@ -1948,27 +1747,24 @@ LABEL_105:
       }
 
       while (v123);
-      v120 = v191;
+      v120 = v181;
     }
 
-    v127 = v182;
-    v128 = v183;
-    v182 = v120;
-    v183 = v192;
-    v191 = v127;
-    v192 = v128;
-    v184 = v119;
-    v193 = 0;
+    v127 = v172;
+    v128 = v173;
+    v172 = v120;
+    v173 = v182;
+    v181 = v127;
+    v182 = v128;
+    v174 = v119;
+    v183 = 0;
     free(v127);
 LABEL_119:
     v129 = *(a1 + 80);
     if (v129 != *(a1 + 88))
     {
-      cva::Logger::instance(v93);
-      v130 = *MEMORY[0x277CFD380];
-      v165 = *(a1 + 88);
-      v160 = *(a1 + 80);
-      cva::Logger::logInCategory();
+      v130 = cva::Logger::instance(v93);
+      cva::Logger::logInCategory(v130, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 80), 1, *(a1 + 88), 1);
       v129 = *(a1 + 80);
       if (v129 != *(a1 + 88))
       {
@@ -1977,24 +1773,22 @@ LABEL_153:
       }
     }
 
-    if (v129 == v181)
+    if (v129 == v171)
     {
       goto LABEL_122;
     }
 
-    if (a1[38] != v179 && a1[42] != v179)
+    if (a1[38] != v169 && a1[42] != v169)
     {
-      v181 = v129;
-      cva::MatrixData<float,0ul,0ul,false>::reserve(&v179, v129);
+      v171 = v129;
+      cva::MatrixData<float,0ul,0ul,false>::reserve(&v169, v129);
       v129 = *(a1 + 80);
-      if (v181 != v129)
+      if (v171 != v129)
       {
-        cva::Logger::instance(v138);
-        v139 = *MEMORY[0x277CFD380];
-        v166 = *(a1 + 80);
-        cva::Logger::logInCategory();
-        v129 = v181;
-        if (v181 != *(a1 + 80))
+        v139 = cva::Logger::instance(v138);
+        cva::Logger::logInCategory(v139, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", v171, 1, *(a1 + 80), 1);
+        v129 = v171;
+        if (v171 != *(a1 + 80))
         {
           goto LABEL_153;
         }
@@ -2003,7 +1797,7 @@ LABEL_153:
 LABEL_122:
       if (v129)
       {
-        v131 = v179;
+        v131 = v169;
         v132 = a1[42];
         v133 = 4 * v129;
         v134 = a1[38];
@@ -2022,11 +1816,11 @@ LABEL_122:
       goto LABEL_136;
     }
 
-    v191 = 0;
-    v192 = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(&v191, v129);
+    v181 = 0;
+    v182 = 0;
+    cva::MatrixData<float,0ul,0ul,false>::allocate(&v181, v129);
     v140 = *(a1 + 80);
-    v141 = v191;
+    v141 = v181;
     if (v140)
     {
       v142 = a1[42];
@@ -2042,27 +1836,27 @@ LABEL_122:
       }
 
       while (v144);
-      v141 = v191;
+      v141 = v181;
     }
 
-    v148 = v179;
-    v149 = v180;
-    v179 = v141;
-    v180 = v192;
-    v191 = v148;
-    v192 = v149;
-    v181 = v140;
-    v193 = 0;
+    v148 = v169;
+    v149 = v170;
+    v169 = v141;
+    v170 = v182;
+    v181 = v148;
+    v182 = v149;
+    v171 = v140;
+    v183 = 0;
     free(v148);
 LABEL_136:
-    v150 = cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::dot<cva::Matrix<float,0u,1u,false>>(&v182, &v179);
-    if (v181)
+    v150 = cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::dot<cva::Matrix<float,0u,1u,false>>(&v172, &v169);
+    if (v171)
     {
-      v151 = *v179 * *v179;
-      if (v181 != 1)
+      v151 = *v169 * *v169;
+      if (v171 != 1)
       {
-        v152 = (v179 + 4);
-        v153 = 4 * v181 - 4;
+        v152 = (v169 + 4);
+        v153 = 4 * v171 - 4;
         do
         {
           v154 = *v152++;
@@ -2081,38 +1875,38 @@ LABEL_136:
 
     if (*&v150 > (v151 * 0.00000011921))
     {
-      LODWORD(v191) = v184;
-      v192 = v182;
-      v193 = v184;
-      v194 = 0;
-      v172 = v181;
-      v173 = v179;
-      v174 = v181;
-      v175 = 0;
-      LBFGSpp::BFGSMat<float,true>::add_correction(a1 + 2, &v191, &v172);
+      LODWORD(v181) = v174;
+      v182 = v172;
+      v183 = v174;
+      v184 = 0;
+      v162 = v171;
+      v163 = v169;
+      v164 = v171;
+      v165 = 0;
+      LBFGSpp::BFGSMat<float,true>::add_correction(a1 + 2, &v181, &v162);
     }
 
     LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::force_bounds(a3, v57, v9, *&v150);
-    LBFGSpp::Cauchy<float>::get_cauchy_point((a1 + 1), a3, (a1 + 38), v57, v9, v189, v187, &v186, &__p);
-    LBFGSpp::SubspaceMin<float>::subspace_minimize(a1 + 2, a3, v189, a1 + 76, v57, v9, v187, &v186, &__p, (*a1)[6], v20);
+    LBFGSpp::Cauchy<float>::get_cauchy_point((a1 + 1), a3, (a1 + 38), v57, v9, v179, v177, &v176, &__p);
+    LBFGSpp::SubspaceMin<float>::subspace_minimize((a1 + 1), a3, v179, a1 + 38, v57, v9, v177, &v176, &__p, (*a1)[6], v20);
   }
 
-  free(v179);
-  free(v182);
+  free(v169);
+  free(v172);
   if (__p.__begin_)
   {
     __p.__end_ = __p.__begin_;
     operator delete(__p.__begin_);
   }
 
-  if (v186.__begin_)
+  if (v176.__begin_)
   {
-    v186.__end_ = v186.__begin_;
-    operator delete(v186.__begin_);
+    v176.__end_ = v176.__begin_;
+    operator delete(v176.__begin_);
   }
 
-  free(v187[0]);
-  free(v189[0]);
+  free(v177[0]);
+  free(v179[0]);
   return v40;
 }
 
@@ -2164,57 +1958,57 @@ BOOL std::operator==[abi:ne200100]<char,std::char_traits<char>,std::allocator<ch
 
 void ULEndpointPlacementGenerator::spatialClusterFingperprintPlacements(void *a1, int16x4_t a2)
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   if (a1[1] != *a1)
   {
     v2 = a1;
-    CLDistanceMatrixTemplate<CLSymmetricMatrixStorage<float>>::CLDistanceMatrixTemplate<std::vector<ULFingerprintPlacement>,double (*)(ULFingerprintPlacement const&,ULFingerprintPlacement const&)>(&v79, a1, euclideanDistanceBetweenPlacements, a2);
-    ULAlgorithms::createLinkageFunction(1, v89);
-    std::__function::__value_func<float ()(CLDistanceMatrixTemplate<CLSymmetricMatrixStorage<float>> const&,std::pair<unsigned long,unsigned long>,std::pair<unsigned long,unsigned long>,std::pair<unsigned long,unsigned long>)>::__value_func[abi:ne200100](v88, v89);
-    CLHierarchicalClustering::CLHierarchicalClustering(v78, &v79, v88);
-    std::__function::__value_func<float ()(CLDistanceMatrixTemplate<CLSymmetricMatrixStorage<float>> const&,std::pair<unsigned long,unsigned long>,std::pair<unsigned long,unsigned long>,std::pair<unsigned long,unsigned long>)>::~__value_func[abi:ne200100](v88);
+    CLDistanceMatrixTemplate<CLSymmetricMatrixStorage<float>>::CLDistanceMatrixTemplate<std::vector<ULFingerprintPlacement>,double (*)(ULFingerprintPlacement const&,ULFingerprintPlacement const&)>(v78, a1, euclideanDistanceBetweenPlacements, a2);
+    ULAlgorithms::createLinkageFunction(1, v88);
+    std::__function::__value_func<float ()(CLDistanceMatrixTemplate<CLSymmetricMatrixStorage<float>> const&,std::pair<unsigned long,unsigned long>,std::pair<unsigned long,unsigned long>,std::pair<unsigned long,unsigned long>)>::__value_func[abi:ne200100](v87, v88);
+    CLHierarchicalClustering::CLHierarchicalClustering(v77, v78, v87);
+    std::__function::__value_func<float ()(CLDistanceMatrixTemplate<CLSymmetricMatrixStorage<float>> const&,std::pair<unsigned long,unsigned long>,std::pair<unsigned long,unsigned long>,std::pair<unsigned long,unsigned long>)>::~__value_func[abi:ne200100](v87);
+    v74 = 0;
     v75 = 0;
     v76 = 0;
-    v77 = 0;
     p_superclass = ULRapportMonitor.superclass;
     v4 = +[ULDefaultsSingleton shared];
-    v72 = [v4 defaultsDictionary];
+    v71 = [v4 defaultsDictionary];
 
     v5 = 0x277CCA000uLL;
     v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ULHomeSlamSpatialClusterDistanceInMetersVector"];
-    v7 = [v72 objectForKey:v6];
+    v7 = [v71 objectForKey:v6];
     v8 = v7;
     if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
       v9 = v7;
       __src[1] = 0;
-      v83 = 0;
+      v82 = 0;
       __src[0] = 0;
-      v71 = v9;
+      v70 = v9;
       std::vector<double>::reserve(__src, [v9 count]);
-      v69 = v2;
-      v70 = v6;
-      v86 = 0u;
-      v87 = 0u;
-      v84 = 0u;
+      v68 = v2;
+      v69 = v6;
       v85 = 0u;
-      v10 = v71;
-      v11 = [v10 countByEnumeratingWithState:&v84 objects:&v90 count:16];
+      v86 = 0u;
+      v83 = 0u;
+      v84 = 0u;
+      v10 = v70;
+      v11 = [v10 countByEnumeratingWithState:&v83 objects:&v89 count:16];
       if (v11)
       {
-        v12 = *v85;
+        v12 = *v84;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v85 != v12)
+            if (*v84 != v12)
             {
               objc_enumerationMutation(v10);
             }
 
-            [*(*(&v84 + 1) + 8 * i) doubleValue];
+            [*(*(&v83 + 1) + 8 * i) doubleValue];
             v15 = __src[1];
-            if (__src[1] >= v83)
+            if (__src[1] >= v82)
             {
               v17 = __src[0];
               v18 = __src[1] - __src[0];
@@ -2225,8 +2019,8 @@ void ULEndpointPlacementGenerator::spatialClusterFingperprintPlacements(void *a1
                 std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
               }
 
-              v21 = v83 - __src[0];
-              if ((v83 - __src[0]) >> 2 > v20)
+              v21 = v82 - __src[0];
+              if ((v82 - __src[0]) >> 2 > v20)
               {
                 v20 = v21 >> 2;
               }
@@ -2252,7 +2046,7 @@ void ULEndpointPlacementGenerator::spatialClusterFingperprintPlacements(void *a1
               v23 = __src[0];
               __src[0] = 0;
               __src[1] = v16;
-              v83 = 0;
+              v82 = 0;
               if (v23)
               {
                 operator delete(v23);
@@ -2270,7 +2064,7 @@ void ULEndpointPlacementGenerator::spatialClusterFingperprintPlacements(void *a1
             __src[1] = v16;
           }
 
-          v11 = [v10 countByEnumeratingWithState:&v84 objects:&v90 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v83 objects:&v89 count:16];
         }
 
         while (v11);
@@ -2278,32 +2072,32 @@ void ULEndpointPlacementGenerator::spatialClusterFingperprintPlacements(void *a1
 
       p_superclass = (ULRapportMonitor + 8);
       v5 = 0x277CCA000;
-      v2 = v69;
-      v6 = v70;
+      v2 = v68;
+      v6 = v69;
 
       *__p = *__src;
-      v74 = v83;
+      v73 = v82;
     }
 
     else
     {
-      v90 = 0uLL;
-      *&v91 = 0;
-      std::vector<double>::reserve(&v90, 1uLL);
-      v24 = *(&v90 + 1);
-      if (*(&v90 + 1) >= v91)
+      v89 = 0uLL;
+      *&v90 = 0;
+      std::vector<double>::reserve(&v89, 1uLL);
+      v24 = *(&v89 + 1);
+      if (*(&v89 + 1) >= v90)
       {
-        v26 = v90;
-        v27 = *(&v90 + 1) - v90;
-        v28 = (*(&v90 + 1) - v90) >> 3;
+        v26 = v89;
+        v27 = *(&v89 + 1) - v89;
+        v28 = (*(&v89 + 1) - v89) >> 3;
         v29 = v28 + 1;
         if ((v28 + 1) >> 61)
         {
           std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
         }
 
-        v30 = v91 - v90;
-        if ((v91 - v90) >> 2 > v29)
+        v30 = v90 - v89;
+        if ((v90 - v89) >> 2 > v29)
         {
           v29 = v30 >> 2;
         }
@@ -2317,18 +2111,18 @@ void ULEndpointPlacementGenerator::spatialClusterFingperprintPlacements(void *a1
 
         if (v32)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<double>>(&v90, v32);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<double>>(&v89, v32);
         }
 
         v33 = (8 * v28);
-        v34 = &v33[-((*(&v90 + 1) - v90) >> 3)];
+        v34 = &v33[-((*(&v89 + 1) - v89) >> 3)];
         *v33 = 0x4000000000000000;
         v25 = v33 + 1;
         memcpy(v34, v26, v27);
-        v35 = v90;
-        *&v90 = v34;
-        *(&v90 + 1) = v25;
-        *&v91 = 0;
+        v35 = v89;
+        *&v89 = v34;
+        *(&v89 + 1) = v25;
+        *&v90 = 0;
         if (v35)
         {
           operator delete(v35);
@@ -2337,13 +2131,13 @@ void ULEndpointPlacementGenerator::spatialClusterFingperprintPlacements(void *a1
 
       else
       {
-        **(&v90 + 1) = 0x4000000000000000;
+        **(&v89 + 1) = 0x4000000000000000;
         v25 = (v24 + 8);
       }
 
-      __p[0] = v90;
+      __p[0] = v89;
       __p[1] = v25;
-      v74 = v91;
+      v73 = v90;
     }
 
     v36 = [p_superclass + 269 shared];
@@ -2380,38 +2174,38 @@ void ULEndpointPlacementGenerator::spatialClusterFingperprintPlacements(void *a1
 
     v47 = v46;
 
-    CLHierarchicalClustering::getClusterLabels(v78, &v75, __p, v47, 1uLL, v41);
+    CLHierarchicalClustering::getClusterLabels(v77, &v74, __p, v47, 1uLL, v41);
     if (__p[0])
     {
       __p[1] = __p[0];
       operator delete(__p[0]);
     }
 
+    v89 = 0u;
     v90 = 0u;
-    v91 = 0u;
-    v92 = 1065353216;
-    v48 = v75;
-    if (v76 != v75)
+    v91 = 1065353216;
+    v48 = v74;
+    if (v75 != v74)
     {
       v49 = 0;
       v50 = 0;
       do
       {
-        if (!std::__hash_table<std::__hash_value_type<unsigned long,unsigned long>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned long>>>::find<unsigned long>(&v90, &v48[v49]))
+        if (!std::__hash_table<std::__hash_value_type<unsigned long,unsigned long>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned long>>>::find<unsigned long>(&v89, &v48[v49]))
         {
-          *&v84 = v75 + v49;
-          std::__hash_table<std::__hash_value_type<unsigned long,unsigned long>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v90, (v75 + v49))[3] = 0;
+          *&v83 = v74 + v49;
+          std::__hash_table<std::__hash_value_type<unsigned long,unsigned long>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v89, (v74 + v49), &std::piecewise_construct, &v83)[3] = 0;
         }
 
-        *&v84 = v75 + v49;
-        v51 = std::__hash_table<std::__hash_value_type<unsigned long,unsigned long>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v90, (v75 + v49));
+        *&v83 = v74 + v49;
+        v51 = std::__hash_table<std::__hash_value_type<unsigned long,unsigned long>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v89, (v74 + v49), &std::piecewise_construct, &v83);
         ++v51[3];
         ++v50;
-        v48 = v75;
+        v48 = v74;
         v49 += 8;
       }
 
-      while (v50 < (v76 - v75) >> 3);
+      while (v50 < (v75 - v74) >> 3);
     }
 
     v52 = [p_superclass + 269 shared];
@@ -2431,19 +2225,19 @@ void ULEndpointPlacementGenerator::spatialClusterFingperprintPlacements(void *a1
 
     v57 = v56;
 
-    v58 = v75;
-    if (v76 != v75)
+    v58 = v74;
+    if (v75 != v74)
     {
       v59 = 0;
       do
       {
-        *&v84 = &v58[8 * v59];
-        v60 = std::__hash_table<std::__hash_value_type<unsigned long,unsigned long>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v90, v84);
-        v58 = v75;
+        *&v83 = &v58[8 * v59];
+        v60 = std::__hash_table<std::__hash_value_type<unsigned long,unsigned long>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v89, v83, &std::piecewise_construct, &v83);
+        v58 = v74;
         if (v60[3] >= v57)
         {
           v61 = *v2 + 44 * v59;
-          v62 = *(v75 + v59);
+          v62 = *(v74 + v59);
           if ((*(v61 + 32) & 1) == 0)
           {
             *(v61 + 32) = 1;
@@ -2455,12 +2249,12 @@ void ULEndpointPlacementGenerator::spatialClusterFingperprintPlacements(void *a1
         ++v59;
       }
 
-      while (v59 < (v76 - v58) >> 3);
+      while (v59 < (v75 - v58) >> 3);
     }
 
+    v83 = 0u;
     v84 = 0u;
-    v85 = 0u;
-    LODWORD(v86) = 1065353216;
+    LODWORD(v85) = 1065353216;
     v63 = v2[1];
     if (*v2 != v63)
     {
@@ -2470,7 +2264,7 @@ void ULEndpointPlacementGenerator::spatialClusterFingperprintPlacements(void *a1
       {
         if (v65[4] == 1)
         {
-          if (std::__hash_table<std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<boost::uuids::uuid>>>>::find<int>(&v84, v65))
+          if (std::__hash_table<std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<boost::uuids::uuid>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<boost::uuids::uuid>>>>::find<int>(&v83, v65))
           {
             if ((v65[4] & 1) == 0)
             {
@@ -2478,7 +2272,7 @@ void ULEndpointPlacementGenerator::spatialClusterFingperprintPlacements(void *a1
             }
 
             __src[0] = v65;
-            v66 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v84, v65);
+            v66 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v83, v65, &std::piecewise_construct, __src);
           }
 
           else
@@ -2489,14 +2283,14 @@ void ULEndpointPlacementGenerator::spatialClusterFingperprintPlacements(void *a1
             }
 
             __src[0] = v65;
-            *(std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v84, v65) + 5) = v64;
+            *(std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v83, v65, &std::piecewise_construct, __src) + 5) = v64;
             if ((v65[4] & 1) == 0)
             {
               std::__throw_bad_optional_access[abi:ne200100]();
             }
 
             __src[0] = v65;
-            v66 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v84, v65);
+            v66 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v83, v65, &std::piecewise_construct, __src);
             ++v64;
           }
 
@@ -2511,38 +2305,37 @@ void ULEndpointPlacementGenerator::spatialClusterFingperprintPlacements(void *a1
       while (v67 != v63);
     }
 
-    std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(&v84);
-    std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(&v90);
-    if (v75)
+    std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(&v83);
+    std::__hash_table<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::__unordered_map_hasher<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::hash<CLMicroLocationProto::DataType>,std::equal_to<CLMicroLocationProto::DataType>,true>,std::__unordered_map_equal<CLMicroLocationProto::DataType,std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>,std::equal_to<CLMicroLocationProto::DataType>,std::hash<CLMicroLocationProto::DataType>,true>,std::allocator<std::__hash_value_type<CLMicroLocationProto::DataType,CLMicroLocationFingerprint::StartAndEndTimestamps>>>::~__hash_table(&v89);
+    if (v74)
     {
-      v76 = v75;
-      operator delete(v75);
+      v75 = v74;
+      operator delete(v74);
     }
 
-    if (v78[0])
+    if (v77[0])
     {
-      v78[1] = v78[0];
-      operator delete(v78[0]);
+      v77[1] = v77[0];
+      operator delete(v77[0]);
     }
 
-    std::__function::__value_func<float ()(CLDistanceMatrixTemplate<CLSymmetricMatrixStorage<float>> const&,std::pair<unsigned long,unsigned long>,std::pair<unsigned long,unsigned long>,std::pair<unsigned long,unsigned long>)>::~__value_func[abi:ne200100](v89);
-    if (v80)
+    std::__function::__value_func<float ()(CLDistanceMatrixTemplate<CLSymmetricMatrixStorage<float>> const&,std::pair<unsigned long,unsigned long>,std::pair<unsigned long,unsigned long>,std::pair<unsigned long,unsigned long>)>::~__value_func[abi:ne200100](v88);
+    if (v79)
     {
-      v81 = v80;
-      operator delete(v80);
+      v80 = v79;
+      operator delete(v79);
     }
   }
-
-  v68 = *MEMORY[0x277D85DE8];
 }
 
-void sub_25901AA1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43)
+void sub_25901AA1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
 {
-  v47 = *(v45 - 240);
-  if (v47)
+  va_start(va, a42);
+  v46 = *(v44 - 240);
+  if (v46)
   {
-    *(v45 - 232) = v47;
-    operator delete(v47);
+    *(v44 - 232) = v46;
+    operator delete(v46);
   }
 
   if (__p)
@@ -2555,7 +2348,7 @@ void sub_25901AA1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a20);
   }
 
-  std::__function::__value_func<float ()(CLDistanceMatrixTemplate<CLSymmetricMatrixStorage<float>> const&,std::pair<unsigned long,unsigned long>,std::pair<unsigned long,unsigned long>,std::pair<unsigned long,unsigned long>)>::~__value_func[abi:ne200100](&a43);
+  std::__function::__value_func<float ()(CLDistanceMatrixTemplate<CLSymmetricMatrixStorage<float>> const&,std::pair<unsigned long,unsigned long>,std::pair<unsigned long,unsigned long>,std::pair<unsigned long,unsigned long>)>::~__value_func[abi:ne200100](va);
   if (a24)
   {
     operator delete(a24);
@@ -2626,45 +2419,37 @@ void *std::__hash_table<std::__hash_value_type<boost::uuids::uuid,int>,std::__un
     return 0;
   }
 
-  result = *v7;
-  if (*v7)
+  for (result = *v7; result; result = *result)
   {
-    do
+    v9 = result[1];
+    if (v2 == v9)
     {
-      v9 = result[1];
-      if (v2 == v9)
+      if (result[2] == *a2 && result[3] == a2[1])
       {
-        if (result[2] == *a2 && result[3] == a2[1])
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v5.u32[0] > 1uLL)
+      {
+        if (v9 >= *&v4)
         {
-          return result;
+          v9 %= *&v4;
         }
       }
 
       else
       {
-        if (v5.u32[0] > 1uLL)
-        {
-          if (v9 >= *&v4)
-          {
-            v9 %= *&v4;
-          }
-        }
-
-        else
-        {
-          v9 &= *&v4 - 1;
-        }
-
-        if (v9 != v6)
-        {
-          return 0;
-        }
+        v9 &= *&v4 - 1;
       }
 
-      result = *result;
+      if (v9 != v6)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -2705,51 +2490,43 @@ void *std::__hash_table<std::__hash_value_type<boost::uuids::uuid,int>,std::__un
     return 0;
   }
 
-  result = *v7;
-  if (*v7)
+  for (result = *v7; result; result = *result)
   {
-    do
+    v9 = result[1];
+    if (v9 == v2)
     {
-      v9 = result[1];
-      if (v9 == v2)
+      if (result[2] == *a2 && result[3] == a2[1])
       {
-        if (result[2] == *a2 && result[3] == a2[1])
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v5.u32[0] > 1uLL)
+      {
+        if (v9 >= *&v4)
         {
-          return result;
+          v9 %= *&v4;
         }
       }
 
       else
       {
-        if (v5.u32[0] > 1uLL)
-        {
-          if (v9 >= *&v4)
-          {
-            v9 %= *&v4;
-          }
-        }
-
-        else
-        {
-          v9 &= *&v4 - 1;
-        }
-
-        if (v9 != v6)
-        {
-          return 0;
-        }
+        v9 &= *&v4 - 1;
       }
 
-      result = *result;
+      if (v9 != v6)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-uint64_t std::vector<ULEndpointPlacementGenerator::EndpointConstraint>::__init_with_size[abi:ne200100]<ULEndpointPlacementGenerator::EndpointConstraint*,ULEndpointPlacementGenerator::EndpointConstraint*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ULEndpointPlacementGenerator::EndpointConstraint>::__init_with_size[abi:ne200100]<ULEndpointPlacementGenerator::EndpointConstraint*,ULEndpointPlacementGenerator::EndpointConstraint*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2803,8 +2580,8 @@ void EndpointMinimizerFunc::EndpointMinimizerFunc(EndpointMinimizerFunc *this, f
   *(this + 16) = a17;
   *(this + 17) = a18;
   *(this + 9) = 0u;
-  v20 = this + 144;
-  v21 = this + 168;
+  v20 = (this + 144);
+  v21 = (this + 168);
   *(this + 10) = 0u;
   *(this + 11) = 0u;
   do
@@ -2848,11 +2625,11 @@ void sub_25901AF88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t result, uint64_t a2)
+const void **std::vector<std::vector<float>>::push_back[abi:ne200100](const void **result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (v4 >= v5)
   {
     v7 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *result) >> 3);
@@ -2894,8 +2671,8 @@ uint64_t std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t resul
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
     v6 = 24 * v7 + 24;
-    v12 = *(result + 8) - *result;
-    v13 = v11 - v12;
+    v12 = result[1] - *result;
+    v13 = (v11 - v12);
     memcpy((v11 - v12), *result, v12);
     v14 = *v3;
     *v3 = v13;
@@ -2912,14 +2689,14 @@ uint64_t std::vector<std::vector<float>>::push_back[abi:ne200100](uint64_t resul
   else
   {
     *v4 = 0;
-    v4[1] = 0;
-    v4[2] = 0;
+    *(v4 + 1) = 0;
+    *(v4 + 2) = 0;
     *v4 = *a2;
-    v4[2] = *(a2 + 16);
+    *(v4 + 2) = *(a2 + 16);
     *a2 = 0;
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
-    v6 = (v4 + 3);
+    v6 = (v4 + 24);
   }
 
   v3[1] = v6;
@@ -2936,29 +2713,17 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<float>>>(
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<float>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<float>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<CLMicroLocationProto::ConfidenceReason>::__vallocate[abi:ne200100](result, a2);
+    std::vector<CLMicroLocationProto::ConfidenceReason>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<CLMicroLocationProto::ConfidenceReason>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_25901B1C0(_Unwind_Exception *exception_object)
@@ -2973,6 +2738,19 @@ void sub_25901B1C0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
+uint64_t *std::vector<float>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, __int32 *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<CLMicroLocationProto::ConfidenceReason>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
+}
+
 void sub_25901B2EC(_Unwind_Exception *exception_object)
 {
   v3 = *v1;
@@ -2985,20 +2763,20 @@ void sub_25901B2EC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<std::vector<float>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::vector<float>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::vector<float>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::vector<float>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<std::vector<float>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<float>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -3124,15 +2902,15 @@ void std::__tree<std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlac
   }
 }
 
-uint64_t std::__tree<std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>,std::__map_value_compare<boost::uuids::uuid,std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>,std::less<boost::uuids::uuid>,true>,std::allocator<std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>>>::__emplace_unique_key_args<boost::uuids::uuid,std::piecewise_construct_t const&,std::tuple<boost::uuids::uuid const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+uint64_t std::__tree<std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>,std::__map_value_compare<boost::uuids::uuid,std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>,std::less<boost::uuids::uuid>,true>,std::allocator<std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>>>::__emplace_unique_key_args<boost::uuids::uuid,std::piecewise_construct_t const&,std::tuple<boost::uuids::uuid const&>,std::tuple<>>(uint64_t **a1, unint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>,std::__map_value_compare<boost::uuids::uuid,std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>,std::less<boost::uuids::uuid>,true>,std::allocator<std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>>>::__find_equal<boost::uuids::uuid>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>,std::__map_value_compare<boost::uuids::uuid,std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>,std::less<boost::uuids::uuid>,true>,std::allocator<std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>>>::__find_equal<boost::uuids::uuid>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 void *std::__tree<std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>,std::__map_value_compare<boost::uuids::uuid,std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>,std::less<boost::uuids::uuid>,true>,std::allocator<std::__value_type<boost::uuids::uuid,std::vector<ULEndpointPlacementGenerator::EndpointConstraint>>>>::__find_equal<boost::uuids::uuid>(uint64_t a1, void *a2, unint64_t *a3)
@@ -3441,7 +3219,7 @@ float EndpointMinimizerFunc::operator()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a2 + 16) != *(a3 + 16))
   {
-    EndpointMinimizerFunc::operator()();
+    EndpointMinimizerFunc::operator()(a1);
   }
 
   v6 = EndpointMinimizerFunc::targetFuncValue(a1, a2);
@@ -3495,11 +3273,8 @@ float LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::proj_grad_nor
   v8 = *(a1 + 4);
   if (v8 != *(a2 + 16))
   {
-    cva::Logger::instance(a1);
-    v9 = *MEMORY[0x277CFD380];
-    v37 = *(a2 + 16);
-    v36 = *(a1 + 4);
-    cva::Logger::logInCategory();
+    v9 = cva::Logger::instance(a1);
+    cva::Logger::logInCategory(v9, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 4), 1, *(a2 + 16), 1);
     v8 = *(a1 + 4);
     if (v8 != *(a2 + 16))
     {
@@ -3507,17 +3282,17 @@ float LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::proj_grad_nor
     }
   }
 
-  v38[0] = 0;
-  v38[1] = 0;
-  cva::MatrixData<float,0ul,0ul,false>::allocate(v38, v8);
+  v36[0] = 0;
+  v36[1] = 0;
+  cva::MatrixData<float,0ul,0ul,false>::allocate(v36, v8);
   v10 = *(a1 + 4);
-  v39 = v10;
+  v37 = v10;
   if (!v10)
   {
     __assert_rtn("max", "matrixfun.h", 2898, "(0 < mat.ref().elements()) || cva::detail::assertMessage(The minimum of no elements is undefined.)");
   }
 
-  v11 = v38[0];
+  v11 = v36[0];
   v12 = *a2;
   v13 = *a1;
   v14 = 4 * v10;
@@ -3532,7 +3307,7 @@ float LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::proj_grad_nor
   }
 
   while (v15);
-  v19 = v38[0];
+  v19 = v36[0];
   v20 = *(a3 + 16);
   v21 = *a3;
   v22 = *(a4 + 16);
@@ -3574,11 +3349,11 @@ LABEL_22:
 
   while (v23);
   v27 = 0;
-  v28 = v38[0];
+  v28 = v36[0];
   v29 = *a1;
   do
   {
-    v28[v27 / 4] = v28[v27 / 4] - v29[v27 / 4];
+    v28[v27 / 4] = v28[v27 / 4] - *(v29 + v27);
     v27 += 4;
   }
 
@@ -3637,17 +3412,17 @@ void LBFGSpp::Cauchy<float>::get_cauchy_point(uint64_t a1, uint64_t a2, uint64_t
   std::vector<int>::reserve(a8, v16);
   a9->__end_ = a9->__begin_;
   std::vector<int>::reserve(a9, v16);
-  v132[0] = 0;
-  v132[1] = 0;
-  cva::MatrixData<float,0ul,0ul,false>::allocate(v132, v16);
-  v133 = v16;
   v130[0] = 0;
   v130[1] = 0;
   cva::MatrixData<float,0ul,0ul,false>::allocate(v130, v16);
   v131 = v16;
-  memset(&v129, 0, sizeof(v129));
-  std::vector<int>::reserve(&v129, v16);
-  LODWORD(v127[0]) = 0;
+  v128[0] = 0;
+  v128[1] = 0;
+  cva::MatrixData<float,0ul,0ul,false>::allocate(v128, v16);
+  v129 = v16;
+  memset(&v127, 0, sizeof(v127));
+  std::vector<int>::reserve(&v127, v16);
+  LODWORD(v125[0]) = 0;
   if (v16 >= 1)
   {
     v20 = 0;
@@ -3662,13 +3437,13 @@ LABEL_126:
       v21 = *(*a5 + 4 * v20);
       if (*(*a4 + 4 * v20) == v21)
       {
-        if (v133 <= v20)
+        if (v131 <= v20)
         {
           goto LABEL_126;
         }
 
         v22 = 0;
-        v23 = (v132[0] + 4 * v20);
+        v23 = (v130[0] + 4 * v20);
         *v23 = 0.0;
       }
 
@@ -3684,12 +3459,12 @@ LABEL_126:
         {
           if (v24 <= 0.0)
           {
-            if (v133 <= v20)
+            if (v131 <= v20)
             {
               goto LABEL_126;
             }
 
-            v23 = (v132[0] + 4 * v20);
+            v23 = (v130[0] + 4 * v20);
             *v23 = INFINITY;
 LABEL_37:
             if (*(a3 + 16) <= v20)
@@ -3708,7 +3483,7 @@ LABEL_130:
             goto LABEL_126;
           }
 
-          v25 = v133;
+          v25 = v131;
           v21 = *(*a4 + 4 * v20);
         }
 
@@ -3719,7 +3494,7 @@ LABEL_130:
             goto LABEL_126;
           }
 
-          v25 = v133;
+          v25 = v131;
         }
 
         if (v25 <= v20)
@@ -3727,7 +3502,7 @@ LABEL_130:
           goto LABEL_126;
         }
 
-        v23 = (v132[0] + 4 * v20);
+        v23 = (v130[0] + 4 * v20);
         v26 = (*(*a2 + 4 * v20) - v21) / v24;
         *v23 = v26;
         if (v26 != 0.0)
@@ -3740,12 +3515,12 @@ LABEL_130:
 
       v27 = 0.0;
 LABEL_25:
-      if (v131 <= v20)
+      if (v129 <= v20)
       {
         goto LABEL_130;
       }
 
-      *(v130[0] + v20) = v27;
+      *(v128[0] + v20) = v27;
       v28 = v22 ^ 1;
       if (*v23 == INFINITY)
       {
@@ -3761,22 +3536,22 @@ LABEL_25:
 
         else
         {
-          v29 = &v129;
+          v29 = &v127;
         }
 
-        std::vector<int>::push_back[abi:ne200100](&v29->__begin_, v127);
+        std::vector<int>::push_back[abi:ne200100](&v29->__begin_, v125);
       }
 
-      v20 = LODWORD(v127[0]) + 1;
-      LODWORD(v127[0]) = v20;
+      v20 = LODWORD(v125[0]) + 1;
+      LODWORD(v125[0]) = v20;
     }
 
     while (v20 < v16);
   }
 
-  v30 = 126 - 2 * __clz(v129.__end_ - v129.__begin_);
-  v127[0] = v132[0];
-  if (v129.__end_ == v129.__begin_)
+  v30 = 126 - 2 * __clz(v127.__end_ - v127.__begin_);
+  v125[0] = v130[0];
+  if (v127.__end_ == v127.__begin_)
   {
     v31 = 0;
   }
@@ -3786,24 +3561,24 @@ LABEL_25:
     v31 = v30;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,LBFGSpp::ArgSort<float> &,int *,false>(v129.__begin_, v129.__end_, v127, v31, 1);
-  begin = v129.__begin_;
-  v33 = (v129.__end_ - v129.__begin_) >> 2;
+  std::__introsort<std::_ClassicAlgPolicy,LBFGSpp::ArgSort<float> &,int *,false>(v127.__begin_, v127.__end_, v125, v31, 1);
+  begin = v127.__begin_;
+  v33 = (v127.__end_ - v127.__begin_) >> 2;
   v34 = a9->__end_ - a9->__begin_;
-  v113 = v34 >> 2;
+  v111 = v34 >> 2;
   if ((v34 >> 2) > 0 || v33 >= 1)
   {
-    v127[0] = 0;
-    v127[1] = 0;
-    v128 = 0;
-    LBFGSpp::BFGSMat<float,true>::apply_Wtv(a1, v130, v127);
-    if (v131)
+    v125[0] = 0;
+    v125[1] = 0;
+    v126 = 0;
+    LBFGSpp::BFGSMat<float,true>::apply_Wtv(a1, v128, v125);
+    if (v129)
     {
-      v35 = *v130[0] * *v130[0];
-      if (v131 != 1)
+      v35 = *v128[0] * *v128[0];
+      if (v129 != 1)
       {
-        v36 = (v130[0] + 4);
-        v37 = 4 * v131 - 4;
+        v36 = (v128[0] + 4);
+        v37 = 4 * v129 - 4;
         do
         {
           v38 = *v36++;
@@ -3820,12 +3595,12 @@ LABEL_25:
       v35 = 0.0;
     }
 
-    v125[0] = 0;
-    v125[1] = 0;
-    v126 = 0;
-    LBFGSpp::BFGSMat<float,true>::apply_Mv(a1, v127, v125);
+    v123[0] = 0;
+    v123[1] = 0;
+    v124 = 0;
+    LBFGSpp::BFGSMat<float,true>::apply_Mv(a1, v125, v123);
     v39 = *(a1 + 4);
-    v40 = cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::dot<cva::Matrix<float,0u,1u,false>>(v127, v125);
+    v40 = cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::dot<cva::Matrix<float,0u,1u,false>>(v125, v123);
     v41 = *&v40;
     if (v33 < 1)
     {
@@ -3834,39 +3609,37 @@ LABEL_25:
 
     else
     {
-      v42 = *v129.__begin_;
-      if (v133 <= v42)
+      v42 = *v127.__begin_;
+      if (v131 <= v42)
       {
         __assert_rtn("assert_in_bounds", "matrixmixin.h", 2283, "(i < mixed().elements()) || cva::detail::assertMessage(Index out of bounds!)");
       }
 
-      v43 = *(v132[0] + v42);
+      v43 = *(v130[0] + v42);
     }
 
-    v124 = v43;
+    v122 = v43;
     v44 = (2 * *(a1 + 104));
-    v121 = 0;
-    v122 = 0;
-    v45 = cva::MatrixData<float,0ul,0ul,false>::allocate(&v121, v44);
-    v112 = v34;
+    v119 = 0;
+    v120 = 0;
+    v45 = cva::MatrixData<float,0ul,0ul,false>::allocate(&v119, v44);
+    v110 = v34;
     v46 = -v35;
     v47 = -(v41 - (v39 * v35));
-    v48 = v35 / v47;
-    v123 = v44;
+    v48.n128_f32[0] = v35 / v47;
+    v121 = v44;
     if ((v35 / v47) >= v43)
     {
       v51 = 0;
       while (1)
       {
         v52 = *(a7 + 16);
-        if (v52 != v128)
+        if (v52 != v126)
         {
-          cva::Logger::instance(v45);
-          v53 = *MEMORY[0x277CFD380];
-          v110 = *(a7 + 16);
-          cva::Logger::logInCategory();
+          v53 = cva::Logger::instance(v45);
+          cva::Logger::logInCategory(v53, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a7 + 16), 1, v126, 1);
           v52 = *(a7 + 16);
-          if (v52 != v128)
+          if (v52 != v126)
           {
             __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
           }
@@ -3875,22 +3648,22 @@ LABEL_25:
         if (v52)
         {
           v54 = *a7;
-          v55 = v127[0];
+          v55 = v125[0];
           v56 = 4 * v52;
           do
           {
             v57 = *v55++;
-            *v54 = (v43 * v57) + *v54;
-            ++v54;
+            v48.n128_f32[0] = (v43 * v57) + *v54;
+            *v54++ = v48.n128_f32[0];
             v56 -= 4;
           }
 
           while (v56);
         }
 
-        v45 = LBFGSpp::Cauchy<float>::search_greater(v132, &v129, &v124, v51);
+        v45 = LBFGSpp::Cauchy<float>::search_greater(v130, &v127, &v122, v51, v48);
         v49 = v45;
-        if (!v113 && v45 == v33)
+        if (!v111 && v45 == v33)
         {
           break;
         }
@@ -3901,9 +3674,9 @@ LABEL_25:
           v51 = v51;
           do
           {
-            v58 = v129.__begin_[v51];
-            v120 = v58;
-            if (v131 <= v58 || (*(v130[0] + v58) <= 0.0 ? (v59 = *(a4 + 16), v60 = a4) : (v59 = *(a5 + 16), v60 = a5), v59 <= v58 || *(a6 + 16) <= v58))
+            v58 = v127.__begin_[v51];
+            v118 = v58;
+            if (v129 <= v58 || (*(v128[0] + v58) <= 0.0 ? (v59 = *(a4 + 16), v60 = a4) : (v59 = *(a5 + 16), v60 = a5), v59 <= v58 || *(a6 + 16) <= v58))
             {
               __assert_rtn("assert_in_bounds", "matrixmixin.h", 2283, "(i < mixed().elements()) || cva::detail::assertMessage(Index out of bounds!)");
             }
@@ -3915,42 +3688,41 @@ LABEL_25:
               __assert_rtn("assert_in_bounds", "matrixmixin.h", 2283, "(i < mixed().elements()) || cva::detail::assertMessage(Index out of bounds!)");
             }
 
-            v116 = v46;
+            v114 = v46;
             if (*(a3 + 16) <= v58)
             {
               __assert_rtn("assert_in_bounds", "matrixmixin.h", 2283, "(i < mixed().elements()) || cva::detail::assertMessage(Index out of bounds!)");
             }
 
-            v115 = v47;
+            v113 = v47;
             v62 = *(*a2 + 4 * v58);
             v63 = *(*a3 + 4 * v58);
-            LBFGSpp::BFGSMat<float,true>::Wb(a1, v58, &v117);
-            v64 = v121;
-            v65 = v122;
+            LBFGSpp::BFGSMat<float,true>::Wb(a1, v58, &v115);
+            v64 = v119;
+            v65 = v120;
+            v119 = v115;
+            v120 = v116;
+            v115 = v64;
+            v116 = v65;
             v121 = v117;
-            v122 = v118;
-            v117 = v64;
-            v118 = v65;
-            v123 = v119;
-            v119 = 0;
+            v117 = 0;
             free(v64);
-            LBFGSpp::BFGSMat<float,true>::apply_Mv(a1, &v121, v125);
+            LBFGSpp::BFGSMat<float,true>::apply_Mv(a1, &v119, v123);
             v66 = *(a1 + 4);
-            v67 = cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::dot<cva::Matrix<float,0u,1u,false>>(v125, a7);
+            v67 = cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::dot<cva::Matrix<float,0u,1u,false>>(v123, a7);
             v68 = *&v67;
             v69 = *(a1 + 4);
-            v70 = cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::dot<cva::Matrix<float,0u,1u,false>>(v125, v127);
+            v70 = cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::dot<cva::Matrix<float,0u,1u,false>>(v123, v125);
             v71 = *&v70;
-            v73 = cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::dot<cva::Matrix<float,0u,1u,false>>(v125, &v121);
+            v73 = cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::dot<cva::Matrix<float,0u,1u,false>>(v123, &v119);
             v74 = *&v73;
-            v75 = v128;
-            if (v128 != v123)
+            v75 = v126;
+            if (v126 != v121)
             {
-              cva::Logger::instance(v72);
-              v76 = *MEMORY[0x277CFD380];
-              cva::Logger::logInCategory();
-              v75 = v128;
-              if (v128 != v123)
+              v76 = cva::Logger::instance(v72);
+              cva::Logger::logInCategory(v76, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", v126, 1, v121, 1);
+              v75 = v126;
+              if (v126 != v121)
               {
                 __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
               }
@@ -3958,8 +3730,8 @@ LABEL_25:
 
             if (v75)
             {
-              v77 = v127[0];
-              v78 = v121;
+              v77 = v125[0];
+              v78 = v119;
               v79 = 4 * v75;
               do
               {
@@ -3972,35 +3744,35 @@ LABEL_25:
               while (v79);
             }
 
-            if (v131 <= v120)
+            if (v129 <= v118)
             {
               __assert_rtn("assert_in_bounds", "matrixmixin.h", 2283, "(i < mixed().elements()) || cva::detail::assertMessage(Index out of bounds!)");
             }
 
-            *(v130[0] + v120) = 0;
-            std::vector<int>::push_back[abi:ne200100](&a8->__begin_, &v120);
-            v46 = v116 + (((v63 * v63) + ((v63 * v66) * (v61 - v62))) - (v63 * v68));
-            v47 = v115 - ((((v63 + v63) * v71) + (v69 * (v63 * v63))) + ((v63 * v63) * v74));
+            *(v128[0] + v118) = 0;
+            std::vector<int>::push_back[abi:ne200100](&a8->__begin_, &v118);
+            v46 = v114 + (((v63 * v63) + ((v63 * v66) * (v61 - v62))) - (v63 * v68));
+            v47 = v113 - ((((v63 + v63) * v71) + (v69 * (v63 * v63))) + ((v63 * v63) * v74));
             ++v51;
           }
 
           while (v49 != v51);
         }
 
-        v50 = v124;
-        v48 = -v46 / v47;
+        v50 = v122;
+        v48.n128_f32[0] = -v46 / v47;
         if (v49 < v33)
         {
-          v81 = v129.__begin_[v49];
-          if (v133 <= v81)
+          v81 = v127.__begin_[v49];
+          if (v131 <= v81)
           {
             __assert_rtn("assert_in_bounds", "matrixmixin.h", 2283, "(i < mixed().elements()) || cva::detail::assertMessage(Index out of bounds!)");
           }
 
-          v124 = *(v132[0] + v81);
-          v43 = v124 - v50;
+          v122 = *(v130[0] + v81);
+          v43 = v122 - v50;
           v51 = v49;
-          if (v48 >= (v124 - v50))
+          if (v48.n128_f32[0] >= (v122 - v50))
           {
             continue;
           }
@@ -4015,15 +3787,15 @@ LABEL_25:
         v106 = v51;
         do
         {
-          v107 = v129.__begin_[v106];
-          LODWORD(v117) = v107;
-          if (v131 <= v107 || (*(v130[0] + v107) <= 0.0 ? (v108 = *(a4 + 16), v109 = a4) : (v108 = *(a5 + 16), v109 = a5), v108 <= v107 || *(a6 + 16) <= v107))
+          v107 = v127.__begin_[v106];
+          LODWORD(v115) = v107;
+          if (v129 <= v107 || (*(v128[0] + v107) <= 0.0 ? (v108 = *(a4 + 16), v109 = a4) : (v108 = *(a5 + 16), v109 = a5), v108 <= v107 || *(a6 + 16) <= v107))
           {
             __assert_rtn("assert_in_bounds", "matrixmixin.h", 2283, "(i < mixed().elements()) || cva::detail::assertMessage(Index out of bounds!)");
           }
 
           *(*a6 + 4 * v107) = *(*v109 + 4 * v107);
-          std::vector<int>::push_back[abi:ne200100](&a8->__begin_, &v117);
+          std::vector<int>::push_back[abi:ne200100](&a8->__begin_, &v115);
           ++v106;
           --v105;
         }
@@ -4039,12 +3811,12 @@ LABEL_25:
 LABEL_84:
       if (v47 < 0.00000011921)
       {
-        v48 = v46 * -8388600.0;
+        v48.n128_f32[0] = v46 * -8388600.0;
       }
 
-      if (v48 >= 0.0)
+      if (v48.n128_f32[0] >= 0.0)
       {
-        v82 = v48;
+        v82 = v48.n128_f32[0];
       }
 
       else
@@ -4053,14 +3825,12 @@ LABEL_84:
       }
 
       v83 = *(a7 + 16);
-      if (v83 != v128)
+      if (v83 != v126)
       {
-        cva::Logger::instance(v45);
-        v84 = *MEMORY[0x277CFD380];
-        v111 = *(a7 + 16);
-        cva::Logger::logInCategory();
+        v84 = cva::Logger::instance(v45);
+        cva::Logger::logInCategory(v84, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a7 + 16), 1, v126, 1);
         v83 = *(a7 + 16);
-        if (v83 != v128)
+        if (v83 != v126)
         {
           __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
         }
@@ -4070,7 +3840,7 @@ LABEL_84:
       {
         v85 = *a7;
         v86 = v83;
-        v87 = v127[0];
+        v87 = v125[0];
         v88 = 4 * v86;
         do
         {
@@ -4084,16 +3854,16 @@ LABEL_84:
       }
 
       v90 = v50 + v82;
-      if (v113 >= 1)
+      if (v111 >= 1)
       {
         v91 = a9->__begin_;
         v92 = *(a2 + 16);
         v93 = *a2;
-        v94 = v131;
-        v95 = v130[0];
+        v94 = v129;
+        v95 = v128[0];
         v96 = *a6;
-        v97 = (v112 >> 2) & 0x7FFFFFFF;
-        if (v131 >= *(a6 + 16))
+        v97 = (v110 >> 2) & 0x7FFFFFFF;
+        if (v129 >= *(a6 + 16))
         {
           v94 = *(a6 + 16);
         }
@@ -4120,15 +3890,15 @@ LABEL_84:
         v102 = v49;
         do
         {
-          v103 = v129.__begin_[v102];
-          LODWORD(v117) = v103;
-          if (*(a2 + 16) <= v103 || (v131 > v103 ? (v104 = *(a6 + 16) > v103) : (v104 = 0), !v104))
+          v103 = v127.__begin_[v102];
+          LODWORD(v115) = v103;
+          if (*(a2 + 16) <= v103 || (v129 > v103 ? (v104 = *(a6 + 16) > v103) : (v104 = 0), !v104))
           {
             __assert_rtn("assert_in_bounds", "matrixmixin.h", 2283, "(i < mixed().elements()) || cva::detail::assertMessage(Index out of bounds!)");
           }
 
-          *(*a6 + 4 * v103) = *(*a2 + 4 * v103) + (v90 * *(v130[0] + v103));
-          std::vector<int>::push_back[abi:ne200100](&a9->__begin_, &v117);
+          *(*a6 + 4 * v103) = *(*a2 + 4 * v103) + (v90 * *(v128[0] + v103));
+          std::vector<int>::push_back[abi:ne200100](&a9->__begin_, &v115);
           ++v102;
           --v101;
         }
@@ -4137,20 +3907,20 @@ LABEL_84:
       }
     }
 
-    free(v121);
+    free(v119);
+    free(v123[0]);
     free(v125[0]);
-    free(v127[0]);
-    begin = v129.__begin_;
+    begin = v127.__begin_;
   }
 
   if (begin)
   {
-    v129.__end_ = begin;
+    v127.__end_ = begin;
     operator delete(begin);
   }
 
+  free(v128[0]);
   free(v130[0]);
-  free(v132[0]);
 }
 
 void sub_25901CC10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34)
@@ -4203,10 +3973,10 @@ uint64_t cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::normalize
   return result;
 }
 
-double cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::dot<cva::Matrix<float,0u,1u,false>>(unsigned int *a1, _DWORD *a2)
+double cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::dot<cva::Matrix<float,0u,1u,false>>(float **a1, float **a2)
 {
-  v2 = a1[4];
-  if (v2 != a2[4])
+  v2 = *(a1 + 4);
+  if (v2 != *(a2 + 4))
   {
     cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::dot<cva::Matrix<float,0u,1u,false>>();
   }
@@ -4220,9 +3990,9 @@ double cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::dot<cva::Ma
   if (v2 != 1)
   {
     v4 = 4 * v2;
-    v5 = (*a1 + 4);
+    v5 = *a1 + 1;
     v6 = v4 - 4;
-    v7 = (*a2 + 4);
+    v7 = *a2 + 1;
     do
     {
       v8 = *v5++;
@@ -4238,30 +4008,30 @@ double cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::dot<cva::Ma
   return result;
 }
 
-float LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::max_step_size(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+float LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::max_step_size(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, __n128 a5)
 {
-  v4 = *(a1 + 16);
-  if (v4 >= 1)
+  v5 = *(a1 + 16);
+  if (v5 >= 1)
   {
-    v5 = 0;
+    v6 = 0;
     result = INFINITY;
     while (1)
     {
-      if (*(a2 + 16) == v5)
+      if (*(a2 + 16) == v6)
       {
         LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::minimize<EndpointMinimizerFunc>();
       }
 
-      v7 = *(*a2 + 4 * v5);
-      if (v7 > 0.0)
+      v8 = *(*a2 + 4 * v6);
+      if (v8 > 0.0)
       {
         break;
       }
 
-      if (v7 < 0.0)
+      if (v8 < 0.0)
       {
-        v8 = *a3;
-        if (v5 >= *(a3 + 4))
+        v9 = *a3;
+        if (v6 >= *(a3 + 4))
         {
           LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::minimize<EndpointMinimizerFunc>();
         }
@@ -4270,23 +4040,23 @@ float LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::max_step_size
       }
 
 LABEL_11:
-      if (v4 == ++v5)
+      if (v5 == ++v6)
       {
         return result;
       }
     }
 
-    v8 = *a4;
-    if (v5 >= *(a4 + 4))
+    v9 = *a4;
+    if (v6 >= *(a4 + 4))
     {
       LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::minimize<EndpointMinimizerFunc>();
     }
 
 LABEL_9:
-    v9 = (*(v8 + 4 * v5) - *(*a1 + 4 * v5)) / v7;
-    if (v9 < result)
+    v10 = (*(v9 + 4 * v6) - *(*a1 + 4 * v6)) / v8;
+    if (v10 < result)
     {
-      result = v9;
+      result = v10;
     }
 
     goto LABEL_11;
@@ -4295,15 +4065,15 @@ LABEL_9:
   return INFINITY;
 }
 
-void LBFGSpp::LineSearchMoreThuente<float>::LineSearch<EndpointMinimizerFunc,LBFGSpp::LBFGSBParam<float>>(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4, float *a5, float *a6, float *a7, uint64_t a8, float *a9, uint64_t a10)
+void LBFGSpp::LineSearchMoreThuente<float>::LineSearch<EndpointMinimizerFunc,LBFGSpp::LBFGSBParam<float>>(uint64_t a1, uint64_t a2, uint64_t a3, float **a4, float *a5, float *a6, float *a7, uint64_t a8, float *a9, uint64_t a10)
 {
   if (*a6 <= 0.0)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::invalid_argument::invalid_argument[abi:ne200100](exception, "'step' must be positive");
 LABEL_161:
-    v114 = off_2798D4070;
-    v115 = MEMORY[0x277D82610];
+    v113 = off_2798D4070;
+    v114 = MEMORY[0x277D82610];
     goto LABEL_163;
   }
 
@@ -4319,21 +4089,21 @@ LABEL_161:
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::logic_error::logic_error(exception, "the moving direction does not decrease the objective function value");
-    v114 = MEMORY[0x277D82750];
-    v115 = MEMORY[0x277D825D8];
+    v113 = MEMORY[0x277D82750];
+    v114 = MEMORY[0x277D825D8];
 LABEL_163:
-    __cxa_throw(exception, v114, v115);
+    __cxa_throw(exception, v113, v114);
   }
 
   v18 = *a7;
   v19 = *(a2 + 40);
   v20 = *(a2 + 44);
-  v138 = INFINITY;
-  v139 = 0.0;
-  v136 = 2139095040;
-  v137 = 0.0;
-  v135 = v11 * (1.0 - v19);
-  v134 = 2139095040;
+  v129 = 2139095040;
+  v130 = 0.0;
+  v127 = 2139095040;
+  v128 = 0.0;
+  v126 = v11 * (1.0 - v19);
+  v125 = 2139095040;
   v21 = *(a3 + 16);
   __dst[0] = 0;
   __dst[1] = 0;
@@ -4343,31 +4113,28 @@ LABEL_163:
     memcpy(__dst[0], *a3, 4 * v21);
   }
 
-  v133 = *(a3 + 16);
+  v124 = *(a3 + 16);
   v22 = *(a8 + 16);
-  v130[0] = 0;
-  v130[1] = 0;
-  v23 = cva::MatrixData<float,0ul,0ul,false>::allocate(v130, v22);
+  v121[0] = 0;
+  v121[1] = 0;
+  v23 = cva::MatrixData<float,0ul,0ul,false>::allocate(v121, v22);
   if (v22)
   {
-    v23 = memcpy(v130[0], *a8, 4 * v22);
+    v23 = memcpy(v121[0], *a8, 4 * v22);
   }
 
-  v131 = *(a8 + 16);
+  v122 = *(a8 + 16);
   __src[0] = 0;
   __src[1] = 0;
-  v129 = 0;
+  v120 = 0;
   v24 = *a6;
   v25 = *(a3 + 16);
-  if (v25 != a4[4])
+  if (v25 != *(a4 + 4))
   {
-    cva::Logger::instance(v23);
-    v26 = *MEMORY[0x277CFD380];
-    v121 = a4[4];
-    v117 = *(a3 + 16);
-    cva::Logger::logInCategory();
+    v26 = cva::Logger::instance(v23);
+    cva::Logger::logInCategory(v26, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a3 + 16), 1, *(a4 + 4), 1);
     v25 = *(a3 + 16);
-    if (v25 != a4[4])
+    if (v25 != *(a4 + 4))
     {
       goto LABEL_19;
     }
@@ -4383,7 +4150,7 @@ LABEL_163:
     *(a10 + 16) = v25;
     cva::MatrixData<float,0ul,0ul,false>::reserve(a10, v25);
     v25 = *(a3 + 16);
-    if (*(a10 + 16) == v25 || (cva::Logger::instance(v35), v36 = *MEMORY[0x277CFD380], v122 = *(a3 + 16), v118 = *(a10 + 16), cva::Logger::logInCategory(), v25 = *(a10 + 16), v25 == *(a3 + 16)))
+    if (*(a10 + 16) == v25 || (v36 = cva::Logger::instance(v35), cva::Logger::logInCategory(v36, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a10 + 16), 1, *(a3 + 16), 1), v25 = *(a10 + 16), v25 == *(a3 + 16)))
     {
 LABEL_11:
       if (v25)
@@ -4412,11 +4179,11 @@ LABEL_19:
     __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
   }
 
-  v140 = 0;
-  v141 = 0;
-  cva::MatrixData<float,0ul,0ul,false>::allocate(&v140, v25);
+  v131 = 0;
+  v132 = 0;
+  cva::MatrixData<float,0ul,0ul,false>::allocate(&v131, v25);
   v37 = *(a3 + 16);
-  v38 = v140;
+  v38 = v131;
   if (v37)
   {
     v39 = *a4;
@@ -4432,18 +4199,18 @@ LABEL_19:
     }
 
     while (v41);
-    v38 = v140;
+    v38 = v131;
   }
 
   v45 = *a10;
   v46 = *(a10 + 8);
-  v47 = v141;
+  v47 = v132;
   *a10 = v38;
   *(a10 + 8) = v47;
-  v140 = v45;
-  v141 = v46;
+  v131 = v45;
+  v132 = v46;
   *(a10 + 16) = v37;
-  v142 = 0;
+  v133 = 0;
   free(v45);
 LABEL_25:
   *a7 = EndpointMinimizerFunc::operator()(a1, a10, a8);
@@ -4468,81 +4235,80 @@ LABEL_25:
     {
       v58 = (v51 - v18) - (v52 * v49);
       v59 = *&v48 - (*(a2 + 40) * v11);
-      v126 = v59;
-      v127 = v58;
-      if (v58 <= v137)
+      v117 = v59;
+      v118 = v58;
+      if (v58 <= v128)
       {
         break;
       }
 
-      v61 = LBFGSpp::LineSearchMoreThuente<float>::step_selection(&v139, &v138, a6, &v137, &v136, &v127, &v135, &v134, &v126);
-      v62 = *a6;
+      v61 = LBFGSpp::LineSearchMoreThuente<float>::step_selection(&v130, &v129, a6, &v128, &v127, &v118, &v126, &v125, &v117);
       if (v61 <= *(a2 + 32))
       {
-        v63 = (v139 + *a6) * 0.5;
+        v62 = (v130 + *a6) * 0.5;
       }
 
       else
       {
-        v63 = v61;
+        v62 = v61;
       }
 
-      v138 = *a6;
-      v136 = LODWORD(v127);
-      v134 = LODWORD(v126);
+      v129 = *a6;
+      v127 = LODWORD(v118);
+      v125 = LODWORD(v117);
 LABEL_80:
-      if (*a6 == *a5 && v63 >= *a5)
+      if (*a6 == *a5 && v62 >= *a5)
       {
-        v106 = v133;
-        cva::MatrixData<float,0ul,0ul,false>::reserve(__src, v133);
-        if (v106)
+        v105 = v124;
+        cva::MatrixData<float,0ul,0ul,false>::reserve(__src, v124);
+        if (v105)
         {
-          memcpy(__src[0], __dst[0], 4 * v106);
+          memcpy(__src[0], __dst[0], 4 * v105);
         }
 
-        v129 = v133;
+        v120 = v124;
         if (__dst != a10)
         {
-          v107 = *(a10 + 16);
-          cva::MatrixData<float,0ul,0ul,false>::reserve(__dst, v107);
-          if (v107)
+          v106 = *(a10 + 16);
+          cva::MatrixData<float,0ul,0ul,false>::reserve(__dst, v106);
+          if (v106)
           {
-            memcpy(__dst[0], *a10, 4 * v107);
+            memcpy(__dst[0], *a10, 4 * v106);
           }
 
-          v133 = *(a10 + 16);
+          v124 = *(a10 + 16);
         }
 
         if (__src != a10)
         {
-          v108 = v129;
-          cva::MatrixData<float,0ul,0ul,false>::reserve(a10, v129);
-          if (v108)
+          v107 = v120;
+          cva::MatrixData<float,0ul,0ul,false>::reserve(a10, v120);
+          if (v107)
           {
-            memcpy(*a10, __src[0], 4 * v108);
+            memcpy(*a10, __src[0], 4 * v107);
           }
 
-          *(a10 + 16) = v129;
+          *(a10 + 16) = v120;
         }
 
-        v109 = v131;
-        cva::MatrixData<float,0ul,0ul,false>::reserve(__src, v131);
-        if (v109)
+        v108 = v122;
+        cva::MatrixData<float,0ul,0ul,false>::reserve(__src, v122);
+        if (v108)
         {
-          memcpy(__src[0], v130[0], 4 * v109);
+          memcpy(__src[0], v121[0], 4 * v108);
         }
 
-        v129 = v131;
-        if (v130 != a8)
+        v120 = v122;
+        if (v121 != a8)
         {
-          v110 = *(a8 + 16);
-          cva::MatrixData<float,0ul,0ul,false>::reserve(v130, v110);
-          if (v110)
+          v109 = *(a8 + 16);
+          cva::MatrixData<float,0ul,0ul,false>::reserve(v121, v109);
+          if (v109)
           {
-            memcpy(v130[0], *a8, 4 * v110);
+            memcpy(v121[0], *a8, 4 * v109);
           }
 
-          v131 = *(a8 + 16);
+          v122 = *(a8 + 16);
         }
 
         if (__src != a8)
@@ -4553,126 +4319,120 @@ LABEL_80:
         goto LABEL_154;
       }
 
-      *a6 = v63;
-      if (v63 < *(a2 + 32))
+      *a6 = v62;
+      if (v62 < *(a2 + 32))
       {
-        v112 = __cxa_allocate_exception(0x10uLL);
-        MEMORY[0x259CA1C30](v112, "the line search step became smaller than the minimum value allowed");
+        v111 = __cxa_allocate_exception(0x10uLL);
+        MEMORY[0x259CA1C30](v111, "the line search step became smaller than the minimum value allowed");
         goto LABEL_157;
       }
 
-      if (v63 > *(a2 + 36))
+      if (v62 > *(a2 + 36))
       {
-        v112 = __cxa_allocate_exception(0x10uLL);
-        MEMORY[0x259CA1C30](v112, "the line search step became larger than the maximum value allowed");
+        v111 = __cxa_allocate_exception(0x10uLL);
+        MEMORY[0x259CA1C30](v111, "the line search step became larger than the maximum value allowed");
 LABEL_157:
-        __cxa_throw(v112, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+        __cxa_throw(v111, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      v77 = *(a3 + 16);
-      if (v77 != a4[4])
+      v76 = *(a3 + 16);
+      if (v76 != *(a4 + 4))
       {
-        cva::Logger::instance(v60);
-        v78 = *MEMORY[0x277CFD380];
-        v123 = a4[4];
-        v119 = *(a3 + 16);
-        cva::Logger::logInCategory();
-        v77 = *(a3 + 16);
-        if (v77 != a4[4])
+        v77 = cva::Logger::instance(v60);
+        cva::Logger::logInCategory(v77, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a3 + 16), 1, *(a4 + 4), 1);
+        v76 = *(a3 + 16);
+        if (v76 != *(a4 + 4))
         {
 LABEL_158:
           __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
         }
       }
 
-      if (v77 == *(a10 + 16))
+      if (v76 == *(a10 + 16))
       {
         goto LABEL_90;
       }
 
       if (*a3 != *a10 && *a4 != *a10)
       {
-        *(a10 + 16) = v77;
-        cva::MatrixData<float,0ul,0ul,false>::reserve(a10, v77);
-        v77 = *(a3 + 16);
-        if (*(a10 + 16) != v77)
+        *(a10 + 16) = v76;
+        cva::MatrixData<float,0ul,0ul,false>::reserve(a10, v76);
+        v76 = *(a3 + 16);
+        if (*(a10 + 16) != v76)
         {
-          cva::Logger::instance(v86);
-          v87 = *MEMORY[0x277CFD380];
-          v124 = *(a3 + 16);
-          v120 = *(a10 + 16);
-          cva::Logger::logInCategory();
-          v77 = *(a10 + 16);
-          if (v77 != *(a3 + 16))
+          v86 = cva::Logger::instance(v85);
+          cva::Logger::logInCategory(v86, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a10 + 16), 1, *(a3 + 16), 1);
+          v76 = *(a10 + 16);
+          if (v76 != *(a3 + 16))
           {
             goto LABEL_158;
           }
         }
 
 LABEL_90:
-        if (v77)
+        if (v76)
         {
-          v79 = *a10;
-          v80 = *a4;
-          v81 = 4 * v77;
-          v82 = *a3;
+          v78 = *a10;
+          v79 = *a4;
+          v80 = 4 * v76;
+          v81 = *a3;
           do
           {
-            v83 = *v82++;
-            v84 = v83;
-            v85 = *v80++;
-            *v79++ = v84 + (v63 * v85);
-            v81 -= 4;
+            v82 = *v81++;
+            v83 = v82;
+            v84 = *v79++;
+            *v78++ = v83 + (v62 * v84);
+            v80 -= 4;
           }
 
-          while (v81);
+          while (v80);
         }
 
         goto LABEL_104;
       }
 
-      v140 = 0;
-      v141 = 0;
-      cva::MatrixData<float,0ul,0ul,false>::allocate(&v140, v77);
-      v88 = *(a3 + 16);
-      v89 = v140;
-      if (v88)
+      v131 = 0;
+      v132 = 0;
+      cva::MatrixData<float,0ul,0ul,false>::allocate(&v131, v76);
+      v87 = *(a3 + 16);
+      v88 = v131;
+      if (v87)
       {
-        v90 = *a4;
-        v91 = *a3;
-        v92 = 4 * v88;
+        v89 = *a4;
+        v90 = *a3;
+        v91 = 4 * v87;
         do
         {
-          v93 = *v91++;
-          v94 = v93;
-          v95 = *v90++;
-          *v89++ = v94 + (v63 * v95);
-          v92 -= 4;
+          v92 = *v90++;
+          v93 = v92;
+          v94 = *v89++;
+          *v88++ = v93 + (v62 * v94);
+          v91 -= 4;
         }
 
-        while (v92);
-        v89 = v140;
+        while (v91);
+        v88 = v131;
       }
 
-      v96 = *a10;
-      v97 = *(a10 + 8);
-      v98 = v141;
-      *a10 = v89;
-      *(a10 + 8) = v98;
-      v140 = v96;
-      v141 = v97;
-      *(a10 + 16) = v88;
-      v142 = 0;
-      free(v96);
+      v95 = *a10;
+      v96 = *(a10 + 8);
+      v97 = v132;
+      *a10 = v88;
+      *(a10 + 8) = v97;
+      v131 = v95;
+      v132 = v96;
+      *(a10 + 16) = v87;
+      v133 = 0;
+      free(v95);
 LABEL_104:
       *a7 = EndpointMinimizerFunc::operator()(a1, a10, a8);
       v48 = cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::dot<cva::Matrix<float,0u,1u,false>>(a8, a4);
       *a9 = *&v48;
       v51 = *a7;
       v52 = *a6;
-      v99 = fabsf(*&v48);
-      v100 = *a7 > (v18 + (*a6 * v49)) || v99 > v50;
-      if (!v100 || v52 >= *a5 && ((v51 - v18) - (v52 * v49)) <= v137)
+      v98 = fabsf(*&v48);
+      v99 = *a7 > (v18 + (*a6 * v49)) || v98 > v50;
+      if (!v99 || v52 >= *a5 && ((v51 - v18) - (v52 * v49)) <= v128)
       {
         goto LABEL_154;
       }
@@ -4683,66 +4443,66 @@ LABEL_104:
       }
     }
 
-    if ((v59 * (v139 - v52)) <= 0.0)
+    if ((v59 * (v130 - v52)) <= 0.0)
     {
-      v63 = LBFGSpp::LineSearchMoreThuente<float>::step_selection(&v139, &v138, a6, &v137, &v136, &v127, &v135, &v134, &v126);
-      v69 = *a6;
-      v138 = v139;
-      v139 = v69;
-      v136 = LODWORD(v137);
-      v137 = v127;
-      v134 = LODWORD(v135);
-      v135 = v126;
-      v70 = v133;
-      cva::MatrixData<float,0ul,0ul,false>::reserve(__src, v133);
-      if (v70)
+      v62 = LBFGSpp::LineSearchMoreThuente<float>::step_selection(&v130, &v129, a6, &v128, &v127, &v118, &v126, &v125, &v117);
+      v68 = *a6;
+      v129 = LODWORD(v130);
+      v130 = v68;
+      v127 = LODWORD(v128);
+      v128 = v118;
+      v125 = LODWORD(v126);
+      v126 = v117;
+      v69 = v124;
+      cva::MatrixData<float,0ul,0ul,false>::reserve(__src, v124);
+      if (v69)
       {
-        memcpy(__src[0], __dst[0], 4 * v70);
+        memcpy(__src[0], __dst[0], 4 * v69);
       }
 
-      v129 = v133;
+      v120 = v124;
       if (__dst != a10)
       {
-        v71 = *(a10 + 16);
-        cva::MatrixData<float,0ul,0ul,false>::reserve(__dst, v71);
-        if (v71)
+        v70 = *(a10 + 16);
+        cva::MatrixData<float,0ul,0ul,false>::reserve(__dst, v70);
+        if (v70)
         {
-          memcpy(__dst[0], *a10, 4 * v71);
+          memcpy(__dst[0], *a10, 4 * v70);
         }
 
-        v133 = *(a10 + 16);
+        v124 = *(a10 + 16);
       }
 
       if (__src != a10)
       {
-        v72 = v129;
-        cva::MatrixData<float,0ul,0ul,false>::reserve(a10, v129);
-        if (v72)
+        v71 = v120;
+        cva::MatrixData<float,0ul,0ul,false>::reserve(a10, v120);
+        if (v71)
         {
-          memcpy(*a10, __src[0], 4 * v72);
+          memcpy(*a10, __src[0], 4 * v71);
         }
 
-        *(a10 + 16) = v129;
+        *(a10 + 16) = v120;
       }
 
-      v73 = v131;
-      cva::MatrixData<float,0ul,0ul,false>::reserve(__src, v131);
-      if (v73)
+      v72 = v122;
+      cva::MatrixData<float,0ul,0ul,false>::reserve(__src, v122);
+      if (v72)
       {
-        v60 = memcpy(__src[0], v130[0], 4 * v73);
+        v60 = memcpy(__src[0], v121[0], 4 * v72);
       }
 
-      v129 = v131;
-      if (v130 != a8)
+      v120 = v122;
+      if (v121 != a8)
       {
-        v74 = *(a8 + 16);
-        cva::MatrixData<float,0ul,0ul,false>::reserve(v130, v74);
-        if (v74)
+        v73 = *(a8 + 16);
+        cva::MatrixData<float,0ul,0ul,false>::reserve(v121, v73);
+        if (v73)
         {
-          v60 = memcpy(v130[0], *a8, 4 * v74);
+          v60 = memcpy(v121[0], *a8, 4 * v73);
         }
 
-        v131 = *(a8 + 16);
+        v122 = *(a8 + 16);
       }
 
       if (__src == a8)
@@ -4753,69 +4513,69 @@ LABEL_104:
 
     else
     {
-      if ((v52 + ((v52 - v139) * 1.1)) >= *a5)
+      if ((v52 + ((v52 - v130) * 1.1)) >= *a5)
       {
-        v63 = *a5;
+        v62 = *a5;
       }
 
       else
       {
-        v63 = v52 + ((v52 - v139) * 1.1);
+        v62 = v52 + ((v52 - v130) * 1.1);
       }
 
-      v139 = v52;
-      v137 = v58;
-      v135 = v59;
-      v64 = v133;
-      cva::MatrixData<float,0ul,0ul,false>::reserve(__src, v133);
-      if (v64)
+      v130 = v52;
+      v128 = v58;
+      v126 = v59;
+      v63 = v124;
+      cva::MatrixData<float,0ul,0ul,false>::reserve(__src, v124);
+      if (v63)
       {
-        memcpy(__src[0], __dst[0], 4 * v64);
+        memcpy(__src[0], __dst[0], 4 * v63);
       }
 
-      v129 = v133;
+      v120 = v124;
       if (__dst != a10)
       {
-        v65 = *(a10 + 16);
-        cva::MatrixData<float,0ul,0ul,false>::reserve(__dst, v65);
-        if (v65)
+        v64 = *(a10 + 16);
+        cva::MatrixData<float,0ul,0ul,false>::reserve(__dst, v64);
+        if (v64)
         {
-          memcpy(__dst[0], *a10, 4 * v65);
+          memcpy(__dst[0], *a10, 4 * v64);
         }
 
-        v133 = *(a10 + 16);
+        v124 = *(a10 + 16);
       }
 
       if (__src != a10)
       {
-        v66 = v129;
-        cva::MatrixData<float,0ul,0ul,false>::reserve(a10, v129);
-        if (v66)
+        v65 = v120;
+        cva::MatrixData<float,0ul,0ul,false>::reserve(a10, v120);
+        if (v65)
         {
-          memcpy(*a10, __src[0], 4 * v66);
+          memcpy(*a10, __src[0], 4 * v65);
         }
 
-        *(a10 + 16) = v129;
+        *(a10 + 16) = v120;
       }
 
-      v67 = v131;
-      cva::MatrixData<float,0ul,0ul,false>::reserve(__src, v131);
-      if (v67)
+      v66 = v122;
+      cva::MatrixData<float,0ul,0ul,false>::reserve(__src, v122);
+      if (v66)
       {
-        v60 = memcpy(__src[0], v130[0], 4 * v67);
+        v60 = memcpy(__src[0], v121[0], 4 * v66);
       }
 
-      v129 = v131;
-      if (v130 != a8)
+      v120 = v122;
+      if (v121 != a8)
       {
-        v68 = *(a8 + 16);
-        cva::MatrixData<float,0ul,0ul,false>::reserve(v130, v68);
-        if (v68)
+        v67 = *(a8 + 16);
+        cva::MatrixData<float,0ul,0ul,false>::reserve(v121, v67);
+        if (v67)
         {
-          v60 = memcpy(v130[0], *a8, 4 * v68);
+          v60 = memcpy(v121[0], *a8, 4 * v67);
         }
 
-        v131 = *(a8 + 16);
+        v122 = *(a8 + 16);
       }
 
       if (__src == a8)
@@ -4824,14 +4584,14 @@ LABEL_104:
       }
     }
 
-    v75 = v129;
-    cva::MatrixData<float,0ul,0ul,false>::reserve(a8, v129);
-    if (v75)
+    v74 = v120;
+    cva::MatrixData<float,0ul,0ul,false>::reserve(a8, v120);
+    if (v74)
     {
-      v60 = memcpy(*a8, __src[0], 4 * v75);
+      v60 = memcpy(*a8, __src[0], 4 * v74);
     }
 
-    *(a8 + 16) = v129;
+    *(a8 + 16) = v120;
 LABEL_79:
     v56 = *a7;
     v57 = *a9;
@@ -4841,87 +4601,87 @@ LABEL_79:
   v57 = v11;
   v56 = v18;
 LABEL_114:
-  if (((v51 - v18) - (v52 * v49)) > v137)
+  if (((v51 - v18) - (v52 * v49)) > v128)
   {
-    if (v139 <= 0.0)
+    if (v130 <= 0.0)
     {
-      v116 = __cxa_allocate_exception(0x10uLL);
-      MEMORY[0x259CA1C30](v116, "the line search routine is unable to sufficiently decrease the function value");
-      __cxa_throw(v116, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      v115 = __cxa_allocate_exception(0x10uLL);
+      MEMORY[0x259CA1C30](v115, "the line search routine is unable to sufficiently decrease the function value");
+      __cxa_throw(v115, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
 
-    *a6 = v139;
+    *a6 = v130;
     *a7 = v56;
     *a9 = v57;
-    v101 = v133;
-    cva::MatrixData<float,0ul,0ul,false>::reserve(__src, v133);
-    if (v101)
+    v100 = v124;
+    cva::MatrixData<float,0ul,0ul,false>::reserve(__src, v124);
+    if (v100)
     {
-      memcpy(__src[0], __dst[0], 4 * v101);
+      memcpy(__src[0], __dst[0], 4 * v100);
     }
 
-    v129 = v133;
+    v120 = v124;
     if (__dst != a10)
     {
-      v102 = *(a10 + 16);
-      cva::MatrixData<float,0ul,0ul,false>::reserve(__dst, v102);
-      if (v102)
+      v101 = *(a10 + 16);
+      cva::MatrixData<float,0ul,0ul,false>::reserve(__dst, v101);
+      if (v101)
       {
-        memcpy(__dst[0], *a10, 4 * v102);
+        memcpy(__dst[0], *a10, 4 * v101);
       }
 
-      v133 = *(a10 + 16);
+      v124 = *(a10 + 16);
     }
 
     if (__src != a10)
     {
-      v103 = v129;
-      cva::MatrixData<float,0ul,0ul,false>::reserve(a10, v129);
-      if (v103)
+      v102 = v120;
+      cva::MatrixData<float,0ul,0ul,false>::reserve(a10, v120);
+      if (v102)
       {
-        memcpy(*a10, __src[0], 4 * v103);
+        memcpy(*a10, __src[0], 4 * v102);
       }
 
-      *(a10 + 16) = v129;
+      *(a10 + 16) = v120;
     }
 
-    v104 = v131;
-    cva::MatrixData<float,0ul,0ul,false>::reserve(__src, v131);
-    if (v104)
+    v103 = v122;
+    cva::MatrixData<float,0ul,0ul,false>::reserve(__src, v122);
+    if (v103)
     {
-      memcpy(__src[0], v130[0], 4 * v104);
+      memcpy(__src[0], v121[0], 4 * v103);
     }
 
-    v129 = v131;
-    if (v130 != a8)
+    v120 = v122;
+    if (v121 != a8)
     {
-      v105 = *(a8 + 16);
-      cva::MatrixData<float,0ul,0ul,false>::reserve(v130, v105);
-      if (v105)
+      v104 = *(a8 + 16);
+      cva::MatrixData<float,0ul,0ul,false>::reserve(v121, v104);
+      if (v104)
       {
-        memcpy(v130[0], *a8, 4 * v105);
+        memcpy(v121[0], *a8, 4 * v104);
       }
 
-      v131 = *(a8 + 16);
+      v122 = *(a8 + 16);
     }
 
     if (__src != a8)
     {
 LABEL_151:
-      v111 = v129;
-      cva::MatrixData<float,0ul,0ul,false>::reserve(a8, v129);
-      if (v111)
+      v110 = v120;
+      cva::MatrixData<float,0ul,0ul,false>::reserve(a8, v120);
+      if (v110)
       {
-        memcpy(*a8, __src[0], 4 * v111);
+        memcpy(*a8, __src[0], 4 * v110);
       }
 
-      *(a8 + 16) = v129;
+      *(a8 + 16) = v120;
     }
   }
 
 LABEL_154:
   free(__src[0]);
-  free(v130[0]);
+  free(v121[0]);
   free(__dst[0]);
 }
 
@@ -4934,9 +4694,9 @@ void sub_25901DB1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void LBFGSpp::BFGSMat<float,true>::add_correction(int *a1, unsigned int *a2, unsigned int *a3)
+void LBFGSpp::BFGSMat<float,true>::add_correction(int *a1, _DWORD *a2, _DWORD *a3)
 {
-  v136 = *MEMORY[0x277D85DE8];
+  v134 = *MEMORY[0x277D85DE8];
   v3 = a1[27] % *a1;
   if (a1[7] <= v3)
   {
@@ -4944,43 +4704,43 @@ void LBFGSpp::BFGSMat<float,true>::add_correction(int *a1, unsigned int *a2, uns
   }
 
   v6 = *(a1 + 1);
-  LODWORD(v132) = a1[6];
-  v133 = (v6 + 4 * v132 * v3);
-  LODWORD(v134) = v132;
-  HIDWORD(v134) = v132 * v3;
-  cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float const,0u,1u,false>>(&v132, a2);
+  LODWORD(v130) = a1[6];
+  v131 = (v6 + 4 * v130 * v3);
+  LODWORD(v132) = v130;
+  HIDWORD(v132) = v130 * v3;
+  cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float const,0u,1u,false>>(&v130, a2);
   if (a1[13] <= v3)
   {
     LBFGSpp::BFGSMat<float,true>::add_correction();
   }
 
   v7 = *(a1 + 4);
-  LODWORD(v132) = a1[12];
-  v133 = (v7 + 4 * v132 * v3);
-  LODWORD(v134) = v132;
-  HIDWORD(v134) = v132 * v3;
-  cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float const,0u,1u,false>>(&v132, a3);
+  LODWORD(v130) = a1[12];
+  v131 = (v7 + 4 * v130 * v3);
+  LODWORD(v132) = v130;
+  HIDWORD(v132) = v130 * v3;
+  cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float const,0u,1u,false>>(&v130, a3);
   if (a1[7] <= v3)
   {
     LBFGSpp::BFGSMat<float,true>::add_correction();
   }
 
   v8 = *(a1 + 1);
-  LODWORD(v132) = a1[6];
-  v133 = (v8 + 4 * v132 * v3);
-  LODWORD(v134) = v132;
-  HIDWORD(v134) = v132 * v3;
+  LODWORD(v130) = a1[6];
+  v131 = (v8 + 4 * v130 * v3);
+  LODWORD(v132) = v130;
+  HIDWORD(v132) = v130 * v3;
   if (a1[13] <= v3)
   {
     LBFGSpp::BFGSMat<float,true>::add_correction();
   }
 
   v9 = *(a1 + 4);
-  LODWORD(v128) = a1[12];
-  v129 = v9 + 4 * v128 * v3;
-  v130 = v128;
-  v131 = v128 * v3;
-  v10 = cva::MatrixMixin<cva::MatrixRef<float,0u,1u,false>,float,0u,1u>::dot<cva::MatrixRef<float const,0u,1u,false>>(&v132, &v128);
+  LODWORD(v126) = a1[12];
+  v127 = v9 + 4 * v126 * v3;
+  v128 = v126;
+  v129 = v126 * v3;
+  v10 = cva::MatrixMixin<cva::MatrixRef<float,0u,1u,false>,float,0u,1u>::dot<cva::MatrixRef<float const,0u,1u,false>>(&v130, &v126);
   if (a1[18] <= v3)
   {
     LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::minimize<EndpointMinimizerFunc>();
@@ -5042,11 +4802,11 @@ void LBFGSpp::BFGSMat<float,true>::add_correction(int *a1, unsigned int *a2, uns
 
   v22 = a1[6];
   v23 = *(a1 + 1);
-  v123 = __PAIR64__(v18, v22);
-  v124 = v23;
-  v125 = v22;
-  v126 = 0;
-  v127 = &v123;
+  v121 = __PAIR64__(v18, v22);
+  v122 = v23;
+  v123 = v22;
+  v124 = 0;
+  v125 = &v121;
   if (v21 <= v3)
   {
     LBFGSpp::BFGSMat<float,true>::add_correction();
@@ -5057,31 +4817,31 @@ void LBFGSpp::BFGSMat<float,true>::add_correction(int *a1, unsigned int *a2, uns
     LBFGSpp::BFGSMat<float,true>::add_correction();
   }
 
+  v117 = v22;
+  v118 = v23 + 4 * v22 * v3;
   v119 = v22;
-  v120 = v23 + 4 * v22 * v3;
-  v121 = v22;
-  v122 = v22 * v3;
-  v128 = 0;
-  v129 = 0;
-  cva::MatrixData<float,0ul,0ul,false>::allocate(&v128, v18);
-  v130 = *(v127 + 1);
-  v133 = &v127;
-  v134 = &v119;
-  if (*v127 != v119)
+  v120 = v22 * v3;
+  v126 = 0;
+  v127 = 0;
+  cva::MatrixData<float,0ul,0ul,false>::allocate(&v126, v18);
+  v128 = *(v125 + 1);
+  v131 = &v125;
+  v132 = &v117;
+  if (*v125 != v117)
   {
     __assert_rtn("MatrixMultExpr", "matrixmultexpr.h", 100, "((lhs.ref().columns() == rhs.ref().rows())) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
   }
 
-  v135 = 1065353216;
-  cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::MatrixTransposeExpr<cva::MatrixRef<float,0u,0u,false>>,cva::MatrixRef<float,0u,1u,false>>(&v128, &v132);
-  v123 = &v128;
+  v133 = 1065353216;
+  cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::MatrixTransposeExpr<cva::MatrixRef<float,0u,0u,false>>,cva::MatrixRef<float,0u,1u,false>>(&v126, &v130);
+  v121 = &v126;
   v25 = *a1;
   v26 = *a1 + v3;
   v27 = a1[32];
   if (v26 + 1 > v27 || (v28 = a1[26], v28 + v25 > a1[33]))
   {
     v44 = "((row + nRows <= mixed().rows()) && (col + nCols <= mixed().columns())) || cva::detail::assertMessage(Index out of bounds!)";
-    v101 = 2252;
+    v100 = 2252;
     v45 = "matrixmixin.h";
     v24 = "assert_in_bounds";
     goto LABEL_135;
@@ -5090,7 +4850,7 @@ void LBFGSpp::BFGSMat<float,true>::add_correction(int *a1, unsigned int *a2, uns
   if (!v27)
   {
     v44 = "(m_stride >= MatrixRef::rows()) || cva::detail::assertMessage(Invalid stride size, the columns overlap!)";
-    v101 = 428;
+    v100 = 428;
     v45 = "matrixref.h";
     v24 = "MatrixRef";
     goto LABEL_135;
@@ -5099,20 +4859,19 @@ void LBFGSpp::BFGSMat<float,true>::add_correction(int *a1, unsigned int *a2, uns
   v29 = v26 + v27 * v25;
   v30 = *(a1 + 14);
   v31 = &v30[4 * v29];
-  if (v128 == v30)
+  if (v126 == v30)
   {
-    v132 = 0;
-    v133 = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(&v132, v28);
-    LODWORD(v134) = 1;
-    HIDWORD(v134) = v28;
-    cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,1u,false>>>(&v132, &v123);
-    if (__PAIR64__(v28, 1) != v134)
+    v130 = 0;
+    v131 = 0;
+    cva::MatrixData<float,0ul,0ul,false>::allocate(&v130, v28);
+    LODWORD(v132) = 1;
+    HIDWORD(v132) = v28;
+    cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,1u,false>>>(&v130, &v121);
+    if (__PAIR64__(v28, 1) != v132)
     {
-      cva::Logger::instance(v33);
-      v34 = *MEMORY[0x277CFD380];
-      cva::Logger::logInCategory();
-      if (__PAIR64__(v28, 1) != v134)
+      v34 = cva::Logger::instance(v33);
+      cva::Logger::logInCategory(v34, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", 1, v28, v132, HIDWORD(v132));
+      if (__PAIR64__(v28, 1) != v132)
       {
         __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
       }
@@ -5134,10 +4893,10 @@ void LBFGSpp::BFGSMat<float,true>::add_correction(int *a1, unsigned int *a2, uns
       v36 = 0;
     }
 
-    v37 = v132;
+    v37 = v130;
     if (v35 != v36)
     {
-      v38 = v132;
+      v38 = v130;
       do
       {
         v39 = *v38++;
@@ -5153,22 +4912,20 @@ void LBFGSpp::BFGSMat<float,true>::add_correction(int *a1, unsigned int *a2, uns
 
   else
   {
-    if (v28 == v130)
+    if (v28 == v128)
     {
-      v32 = &v128;
+      v32 = &v126;
     }
 
     else
     {
-      cva::Logger::instance(v24);
-      v40 = *MEMORY[0x277CFD380];
-      v118 = *(v123 + 4);
-      v24 = cva::Logger::logInCategory();
-      v32 = v123;
-      if (v28 != *(v123 + 4))
+      v40 = cva::Logger::instance(v24);
+      v24 = cva::Logger::logInCategory(v40, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", 1, v28, 1, *(v121 + 4));
+      v32 = v121;
+      if (v28 != *(v121 + 4))
       {
         v44 = "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)";
-        v101 = 163;
+        v100 = 163;
         v45 = "matrixfun.h";
         v24 = "assert_equal_size";
         goto LABEL_135;
@@ -5208,9 +4965,9 @@ void LBFGSpp::BFGSMat<float,true>::add_correction(int *a1, unsigned int *a2, uns
         }
       }
 
-      v101 = 2269;
+      v100 = 2269;
 LABEL_135:
-      __assert_rtn(v24, v45, v101, v44);
+      __assert_rtn(v24, v45, v100, v44);
     }
   }
 
@@ -5220,36 +4977,35 @@ LABEL_48:
   v48 = a1[32];
   if (v47 + *a1 > v48 || v46 + v3 + 1 > a1[33])
   {
-    v102 = "((row + nRows <= mixed().rows()) && (col + nCols <= mixed().columns())) || cva::detail::assertMessage(Index out of bounds!)";
-    v103 = 2252;
-    v104 = "matrixmixin.h";
-    v105 = "assert_in_bounds";
+    v101 = "((row + nRows <= mixed().rows()) && (col + nCols <= mixed().columns())) || cva::detail::assertMessage(Index out of bounds!)";
+    v102 = 2252;
+    v103 = "matrixmixin.h";
+    v104 = "assert_in_bounds";
     goto LABEL_159;
   }
 
   if (v48 < v47)
   {
-    v102 = "(m_stride >= MatrixRef::rows()) || cva::detail::assertMessage(Invalid stride size, the columns overlap!)";
-    v103 = 428;
-    v104 = "matrixref.h";
-    v105 = "MatrixRef";
+    v101 = "(m_stride >= MatrixRef::rows()) || cva::detail::assertMessage(Invalid stride size, the columns overlap!)";
+    v102 = 428;
+    v103 = "matrixref.h";
+    v104 = "MatrixRef";
     goto LABEL_159;
   }
 
   v49 = *(a1 + 14);
-  if (v47 != v130)
+  if (v47 != v128)
   {
-    cva::Logger::instance(v24);
-    v50 = *MEMORY[0x277CFD380];
-    cva::Logger::logInCategory();
-    if (v47 != v130)
+    v50 = cva::Logger::instance(v24);
+    cva::Logger::logInCategory(v50, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", v47, 1, v128, 1);
+    if (v47 != v128)
     {
-      v102 = "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)";
-      v103 = 163;
-      v104 = "matrixfun.h";
-      v105 = "assert_equal_size";
+      v101 = "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)";
+      v102 = 163;
+      v103 = "matrixfun.h";
+      v104 = "assert_equal_size";
 LABEL_159:
-      __assert_rtn(v105, v104, v103, v102);
+      __assert_rtn(v104, v103, v102, v101);
     }
   }
 
@@ -5274,7 +5030,7 @@ LABEL_159:
   if (v53 != v54)
   {
     v55 = 0;
-    v56 = v128;
+    v56 = v126;
     do
     {
       v57 = *v56++;
@@ -5311,10 +5067,10 @@ LABEL_159:
     v61 = a1[32];
     if (v61 < 2 * v60 || v19 > a1[33])
     {
-      v114 = "((row + nRows <= mixed().rows()) && (col + nCols <= mixed().columns())) || cva::detail::assertMessage(Index out of bounds!)";
-      v115 = 2252;
-      v116 = "matrixmixin.h";
-      v117 = "assert_in_bounds";
+      v113 = "((row + nRows <= mixed().rows()) && (col + nCols <= mixed().columns())) || cva::detail::assertMessage(Index out of bounds!)";
+      v114 = 2252;
+      v115 = "matrixmixin.h";
+      v116 = "assert_in_bounds";
     }
 
     else
@@ -5374,13 +5130,13 @@ LABEL_159:
         goto LABEL_85;
       }
 
-      v114 = "(m_stride >= MatrixRef::rows()) || cva::detail::assertMessage(Invalid stride size, the columns overlap!)";
-      v115 = 428;
-      v116 = "matrixref.h";
-      v117 = "MatrixRef";
+      v113 = "(m_stride >= MatrixRef::rows()) || cva::detail::assertMessage(Invalid stride size, the columns overlap!)";
+      v114 = 428;
+      v115 = "matrixref.h";
+      v116 = "MatrixRef";
     }
 
-    __assert_rtn(v117, v116, v115, v114);
+    __assert_rtn(v116, v115, v114, v113);
   }
 
 LABEL_85:
@@ -5400,36 +5156,36 @@ LABEL_85:
 
       if (v19 > v73)
       {
-        v100 = 2252;
+        v99 = 2252;
         v72 = "assert_in_bounds";
         v69 = "((row + nRows <= mixed().rows()) && (col + nCols <= mixed().columns())) || cva::detail::assertMessage(Index out of bounds!)";
         goto LABEL_133;
       }
 
       v74 = *(a1 + 1);
-      LODWORD(v132) = a1[6];
-      v133 = (v74 + 4 * v132 * v3);
-      LODWORD(v134) = v132;
-      HIDWORD(v134) = v132 * v3;
+      LODWORD(v130) = a1[6];
+      v131 = (v74 + 4 * v130 * v3);
+      LODWORD(v132) = v130;
+      HIDWORD(v132) = v130 * v3;
       if (a1[13] <= v70)
       {
-        v99 = 1091;
+        v98 = 1091;
 LABEL_131:
-        __assert_rtn(v72, "matrixmixin.h", v99, v69);
+        __assert_rtn(v72, "matrixmixin.h", v98, v69);
       }
 
       v75 = *(a1 + 4);
-      LODWORD(v123) = a1[12];
-      v124 = v75 + 4 * v123 * v70;
-      v125 = v123;
-      v126 = v123 * v70;
-      v76 = cva::MatrixMixin<cva::MatrixRef<float,0u,1u,false>,float,0u,1u>::dot<cva::MatrixRef<float const,0u,1u,false>>(&v132, &v123);
+      LODWORD(v121) = a1[12];
+      v122 = v75 + 4 * v121 * v70;
+      v123 = v121;
+      v124 = v121 * v70;
+      v76 = cva::MatrixMixin<cva::MatrixRef<float,0u,1u,false>,float,0u,1u>::dot<cva::MatrixRef<float const,0u,1u,false>>(&v130, &v121);
       v60 = *a1;
       v77 = *a1 + v3;
       v78 = a1[32];
       if (v78 <= v77 || v70 >= a1[33])
       {
-        v99 = 2269;
+        v98 = 2269;
         v72 = "assert_in_bounds";
         v69 = "((row < mixed().rows()) && (col < mixed().columns())) || cva::detail::assertMessage(Index out of bounds!)";
         goto LABEL_131;
@@ -5443,30 +5199,30 @@ LABEL_131:
       }
     }
 
-    v100 = 1091;
+    v99 = 1091;
 LABEL_133:
-    __assert_rtn(v72, "matrixmixin.h", v100, v69);
+    __assert_rtn(v72, "matrixmixin.h", v99, v69);
   }
 
 LABEL_93:
   v79 = a1[32];
   if (2 * v60 > v79 || (v80 = a1[33], 2 * v60 > v80))
   {
-    v106 = "((row + nRows <= mixed().rows()) && (col + nCols <= mixed().columns())) || cva::detail::assertMessage(Index out of bounds!)";
-    v107 = 2252;
-    v108 = "matrixmixin.h";
-    v109 = "assert_in_bounds";
+    v105 = "((row + nRows <= mixed().rows()) && (col + nCols <= mixed().columns())) || cva::detail::assertMessage(Index out of bounds!)";
+    v106 = 2252;
+    v107 = "matrixmixin.h";
+    v108 = "assert_in_bounds";
     goto LABEL_155;
   }
 
   if (v79 < v60)
   {
-    v106 = "(m_stride >= MatrixRef::rows()) || cva::detail::assertMessage(Invalid stride size, the columns overlap!)";
-    v107 = 428;
-    v108 = "matrixref.h";
-    v109 = "MatrixRef";
+    v105 = "(m_stride >= MatrixRef::rows()) || cva::detail::assertMessage(Invalid stride size, the columns overlap!)";
+    v106 = 428;
+    v107 = "matrixref.h";
+    v108 = "MatrixRef";
 LABEL_155:
-    __assert_rtn(v109, v108, v107, v106);
+    __assert_rtn(v108, v107, v106, v105);
   }
 
   v81 = *(a1 + 14);
@@ -5519,32 +5275,32 @@ LABEL_155:
     while (v83 != v84);
   }
 
-  v132 = __PAIR64__(v80, v79);
-  v133 = v81;
-  v134 = v79;
-  LODWORD(v123) = 0;
-  LBFGSpp::BKLDLT<float>::compute((a1 + 34), &v132, 1, &v123);
+  v130 = __PAIR64__(v80, v79);
+  v131 = v81;
+  v132 = v79;
+  LODWORD(v121) = 0;
+  LBFGSpp::BKLDLT<float>::compute(a1 + 17, &v130, 1, &v121);
   v88 = *a1;
   v89 = 2 * *a1;
   v90 = a1[32];
   if (v89 > v90 || v89 > a1[33])
   {
-    v110 = "((row + nRows <= mixed().rows()) && (col + nCols <= mixed().columns())) || cva::detail::assertMessage(Index out of bounds!)";
-    v111 = 2252;
-    v112 = "matrixmixin.h";
-    v113 = "assert_in_bounds";
+    v109 = "((row + nRows <= mixed().rows()) && (col + nCols <= mixed().columns())) || cva::detail::assertMessage(Index out of bounds!)";
+    v110 = 2252;
+    v111 = "matrixmixin.h";
+    v112 = "assert_in_bounds";
     goto LABEL_157;
   }
 
   v91 = v90 - v88;
   if (v90 < v88)
   {
-    v110 = "(m_stride >= MatrixRef::rows()) || cva::detail::assertMessage(Invalid stride size, the columns overlap!)";
-    v111 = 428;
-    v112 = "matrixref.h";
-    v113 = "MatrixRef";
+    v109 = "(m_stride >= MatrixRef::rows()) || cva::detail::assertMessage(Invalid stride size, the columns overlap!)";
+    v110 = 428;
+    v111 = "matrixref.h";
+    v112 = "MatrixRef";
 LABEL_157:
-    __assert_rtn(v113, v112, v111, v110);
+    __assert_rtn(v112, v111, v110, v109);
   }
 
   v92 = v90 * v88;
@@ -5596,8 +5352,7 @@ LABEL_157:
     while (v93 != v94);
   }
 
-  free(v128);
-  v98 = *MEMORY[0x277D85DE8];
+  free(v126);
 }
 
 void sub_25901E610(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, void *a23)
@@ -5607,16 +5362,13 @@ void sub_25901E610(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void LBFGSpp::SubspaceMin<float>::subspace_minimize(float *a1, uint64_t a2, uint64_t a3, _DWORD *a4, uint64_t *a5, uint64_t *a6, uint64_t a7, unsigned int **a8, uint64_t a9, int a10, uint64_t a11)
+void LBFGSpp::SubspaceMin<float>::subspace_minimize(cva::Logger *a1, uint64_t a2, uint64_t a3, float **a4, uint64_t *a5, uint64_t *a6, uint64_t a7, char **a8, char **a9, int a10, uint64_t a11)
 {
   v18 = *(a3 + 16);
   if (v18 != *(a2 + 16))
   {
-    cva::Logger::instance(a1);
-    v19 = *MEMORY[0x277CFD380];
-    v148 = *(a2 + 16);
-    v146 = *(a3 + 16);
-    cva::Logger::logInCategory();
+    v19 = cva::Logger::instance(a1);
+    cva::Logger::logInCategory(v19, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a3 + 16), 1, *(a2 + 16), 1);
     v18 = *(a3 + 16);
     if (v18 != *(a2 + 16))
     {
@@ -5636,11 +5388,8 @@ void LBFGSpp::SubspaceMin<float>::subspace_minimize(float *a1, uint64_t a2, uint
     v18 = *(a3 + 16);
     if (*(a11 + 16) != v18)
     {
-      cva::Logger::instance(v144);
-      v145 = *MEMORY[0x277CFD380];
-      v149 = *(a3 + 16);
-      v147 = *(a11 + 16);
-      cva::Logger::logInCategory();
+      v154 = cva::Logger::instance(v153);
+      cva::Logger::logInCategory(v154, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a11 + 16), 1, *(a3 + 16), 1);
       v18 = *(a11 + 16);
       if (v18 != *(a3 + 16))
       {
@@ -5671,17 +5420,17 @@ LABEL_4:
     goto LABEL_17;
   }
 
-  v184 = 0;
-  v185 = 0;
-  cva::MatrixData<float,0ul,0ul,false>::allocate(&v184, v18);
+  v190 = 0;
+  v191 = 0;
+  cva::MatrixData<float,0ul,0ul,false>::allocate(&v190, v18);
   v29 = *(a3 + 16);
-  v30 = v184;
+  v30 = v190;
   if (v29)
   {
     v31 = *a2;
     v32 = *a3;
     v33 = 4 * v29;
-    v34 = v184;
+    v34 = v190;
     do
     {
       v35 = *v32++;
@@ -5696,59 +5445,60 @@ LABEL_4:
 
   v38 = *a11;
   v39 = *(a11 + 8);
-  v40 = v185;
+  v40 = v191;
   *a11 = v30;
   *(a11 + 8) = v40;
-  v184 = v38;
-  v185 = v39;
+  v190 = v38;
+  v191 = v39;
   *(a11 + 16) = v29;
-  v186 = 0;
+  v192 = 0;
   free(v38);
 LABEL_17:
-  v41 = *(a9 + 8) - *a9;
+  v41 = a9[1] - *a9;
   v42 = v41 >> 2;
   if ((v41 >> 2) >= 1)
   {
-    LBFGSpp::BFGSMat<float,true>::Wb(a1, a9, &v184);
+    LBFGSpp::BFGSMat<float,true>::Wb(a1, a9, &v190);
     v43 = (v41 >> 2) & 0x7FFFFFFF;
-    v182[0] = 0;
-    v182[1] = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(v182, v43);
-    v183 = v42;
-    LBFGSpp::BFGSMat<float,true>::compute_FtBAb(a1, &v184, a9, a8, a7, a11, v182);
-    v180[0] = 0;
-    v180[1] = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(v180, v43);
-    v181 = v42;
-    v178[0] = 0;
-    v178[1] = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(v178, v43);
-    v179 = v42;
+    v188[0] = 0;
+    v188[1] = 0;
+    cva::MatrixData<float,0ul,0ul,false>::allocate(v188, v43);
+    v189 = v42;
+    LBFGSpp::BFGSMat<float,true>::compute_FtBAb(a1, &v190, a9, a8, a7, a11, v188);
+    v186[0] = 0;
+    v186[1] = 0;
+    cva::MatrixData<float,0ul,0ul,false>::allocate(v186, v43);
+    v187 = v42;
+    v184[0] = 0;
+    v184[1] = 0;
+    cva::MatrixData<float,0ul,0ul,false>::allocate(v184, v43);
+    v185 = v42;
     v44 = *a9;
     v45 = *(a5 + 4);
     v46 = *a5;
     v47 = *(a2 + 16);
     v48 = *a2;
-    v49 = v181;
-    v50 = v180[0];
+    v49 = v187;
+    v50 = v186[0];
     v51 = *(a6 + 4);
     v52 = *a6;
-    v53 = v178[0];
-    v54 = a4[4];
-    v55 = v183;
+    v53 = v184[0];
+    v54 = *(a4 + 4);
+    v55 = v189;
     v56 = *a4;
     v57 = v43;
-    v58 = v182[0];
+    v58 = v188[0];
     do
     {
-      v60 = *v44++;
+      v60 = *v44;
+      v44 += 4;
       v59 = v60;
       if (v45 <= v60 || (v47 > v59 ? (v61 = v49 == 0) : (v61 = 1), v61 || (*v50 = *(v46 + 4 * v59) - v48[v59], v51 <= v59) || ((*v53 = *(v52 + 4 * v59) - v48[v59], v54 > v59) ? (v62 = v55 == 0) : (v62 = 1), v62)))
       {
         __assert_rtn("assert_in_bounds", "matrixmixin.h", 2283, "(i < mixed().elements()) || cva::detail::assertMessage(Index out of bounds!)");
       }
 
-      *v58 = *(v56 + 4 * v59) + *v58;
+      *v58 = v56[v59] + *v58;
       ++v58;
       --v55;
       --v49;
@@ -5758,19 +5508,19 @@ LABEL_17:
     }
 
     while (v57);
-    v176[0] = 0;
-    v176[1] = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(v176, v43);
-    v177 = v42;
-    v173 = 0;
-    v174 = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(&v173, v183);
-    v175 = v183;
-    if (v183)
+    v182[0] = 0;
+    v182[1] = 0;
+    cva::MatrixData<float,0ul,0ul,false>::allocate(v182, v43);
+    v183 = v42;
+    v179 = 0;
+    v180 = 0;
+    cva::MatrixData<float,0ul,0ul,false>::allocate(&v179, v189);
+    v181 = v189;
+    if (v189)
     {
-      v63 = v173;
-      v64 = v182[0];
-      v65 = 4 * v183;
+      v63 = v179;
+      v64 = v188[0];
+      v65 = 4 * v189;
       do
       {
         v66 = *v64++;
@@ -5781,607 +5531,568 @@ LABEL_17:
       while (v65);
     }
 
-    LBFGSpp::BFGSMat<float,true>::solve_PtBP(a1, &v184, &v173, v176);
-    free(v173);
-    if (LBFGSpp::SubspaceMin<float>::in_bounds(v176, v180, v178))
+    LBFGSpp::BFGSMat<float,true>::solve_PtBP(a1, &v190, &v179, v182);
+    free(v179);
+    if (LBFGSpp::SubspaceMin<float>::in_bounds(v182, v186, v184, v67))
     {
-      LBFGSpp::SubspaceMin<float>::subvec_assign(a11, a9, v176);
+      LBFGSpp::SubspaceMin<float>::subvec_assign(a11, a9, v182, v68);
     }
 
     else
     {
-      v67 = v177;
-      v173 = 0;
-      v174 = 0;
-      cva::MatrixData<float,0ul,0ul,false>::allocate(&v173, v177);
-      if (v67)
+      v69 = v183;
+      v179 = 0;
+      v180 = 0;
+      cva::MatrixData<float,0ul,0ul,false>::allocate(&v179, v183);
+      if (v69)
       {
-        memcpy(v173, v176[0], 4 * v67);
+        memcpy(v179, v182[0], 4 * v69);
       }
 
-      v175 = v177;
-      v171[0] = 0;
-      v171[1] = 0;
-      cva::MatrixData<float,0ul,0ul,false>::allocate(v171, v43);
-      v172 = v42;
-      bzero(v171[0], 4 * v43);
-      v169[0] = 0;
-      v169[1] = 0;
-      cva::MatrixData<float,0ul,0ul,false>::allocate(v169, v43);
-      v170 = v42;
-      bzero(v169[0], 4 * v43);
-      memset(&v168, 0, sizeof(v168));
-      memset(&v167, 0, sizeof(v167));
-      memset(&v166, 0, sizeof(v166));
-      memset(&v165, 0, sizeof(v165));
-      memset(&v164, 0, sizeof(v164));
-      memset(&v163, 0, sizeof(v163));
-      std::vector<int>::reserve(&v168, v42 / 3uLL);
-      std::vector<int>::reserve(&v165, v42 / 3uLL);
-      std::vector<int>::reserve(&v167, v42 / 3uLL);
-      std::vector<int>::reserve(&v164, v42 / 3uLL);
-      std::vector<int>::reserve(&v166, v43);
-      std::vector<int>::reserve(&v163, v43);
+      v181 = v183;
+      v177[0] = 0;
+      v177[1] = 0;
+      cva::MatrixData<float,0ul,0ul,false>::allocate(v177, v43);
+      v178 = v42;
+      bzero(v177[0], 4 * v43);
+      v175[0] = 0;
+      v175[1] = 0;
+      cva::MatrixData<float,0ul,0ul,false>::allocate(v175, v43);
+      v176 = v42;
+      bzero(v175[0], 4 * v43);
+      memset(&v174, 0, sizeof(v174));
+      memset(&v173, 0, sizeof(v173));
+      memset(&v172, 0, sizeof(v172));
+      memset(&v171, 0, sizeof(v171));
+      memset(&v170, 0, sizeof(v170));
+      memset(&v169, 0, sizeof(v169));
+      std::vector<int>::reserve(&v174, v42 / 3uLL);
+      std::vector<int>::reserve(&v171, v42 / 3uLL);
+      std::vector<int>::reserve(&v173, v42 / 3uLL);
+      std::vector<int>::reserve(&v170, v42 / 3uLL);
+      std::vector<int>::reserve(&v172, v43);
+      std::vector<int>::reserve(&v169, v43);
       if (a10 < 1)
       {
 LABEL_106:
-        v126 = v177;
-        if (v177)
+        v135 = v183;
+        if (v183)
         {
-          v127 = v176[0];
-          v128 = v181;
-          v129 = v180[0];
-          v130 = v179;
-          v131 = v178[0];
+          v136 = v182[0];
+          v137 = v187;
+          v138 = v186[0];
+          v139 = v185;
+          v140 = v184[0];
           do
           {
-            if (!v128)
+            if (!v137)
             {
               goto LABEL_149;
             }
 
-            v132 = *v127;
-            if (*v127 < *v129)
+            v141 = *v136;
+            if (*v136 < *v138)
             {
-              v132 = *v129;
+              v141 = *v138;
             }
 
-            *v127 = v132;
-            if (!v130)
+            *v136 = v141;
+            if (!v139)
             {
 LABEL_149:
               __assert_rtn("assert_in_bounds", "matrixmixin.h", 2283, "(i < mixed().elements()) || cva::detail::assertMessage(Index out of bounds!)");
             }
 
-            v133 = v131 + 1;
-            if (*v131 >= v132)
+            v142 = v140 + 1;
+            if (*v140 >= v141)
             {
-              v131 = v127;
+              v140 = v136;
             }
 
-            *v127++ = *v131;
-            --v130;
-            --v128;
-            ++v129;
-            v131 = v133;
-            --v126;
+            v70.n128_f32[0] = *v140;
+            *v136++ = *v140;
+            --v139;
+            --v137;
+            ++v138;
+            v140 = v142;
+            --v135;
           }
 
-          while (v126);
+          while (v135);
         }
 
-        LBFGSpp::SubspaceMin<float>::subvec_assign(a11, a9, v176);
-        v134 = cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::dot<cva::Matrix<float,0u,1u,false>>(a11, a4);
-        if (*&v134 > -0.00000011921)
+        LBFGSpp::SubspaceMin<float>::subvec_assign(a11, a9, v182, v70);
+        v143.n128_f64[0] = cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::dot<cva::Matrix<float,0u,1u,false>>(a11, a4);
+        if (v143.n128_f32[0] > -0.00000011921)
         {
-          v135 = v177;
-          if (v177)
+          v144 = v183;
+          if (v183)
           {
-            v136 = v176[0];
-            v137 = v181;
-            v138 = v180[0];
-            v139 = v179;
-            v140 = v178[0];
+            v145 = v182[0];
+            v146 = v187;
+            v147 = v186[0];
+            v148 = v185;
+            v149 = v184[0];
             do
             {
-              if (!v137)
+              if (!v146)
               {
                 goto LABEL_150;
               }
 
-              v141 = *v136;
-              if (*v136 < *v138)
+              v150 = *v145;
+              if (*v145 < *v147)
               {
-                v141 = *v138;
+                v150 = *v147;
               }
 
-              *v136 = v141;
-              if (!v139)
+              *v145 = v150;
+              if (!v148)
               {
 LABEL_150:
                 __assert_rtn("assert_in_bounds", "matrixmixin.h", 2283, "(i < mixed().elements()) || cva::detail::assertMessage(Index out of bounds!)");
               }
 
-              v142 = v140 + 1;
-              if (*v140 >= v141)
+              v151 = v149 + 1;
+              if (*v149 >= v150)
               {
-                v140 = v136;
+                v149 = v145;
               }
 
-              *v136++ = *v140;
-              --v139;
-              --v137;
-              ++v138;
-              v140 = v142;
-              --v135;
+              v143.n128_f32[0] = *v149;
+              *v145++ = *v149;
+              --v148;
+              --v146;
+              ++v147;
+              v149 = v151;
+              --v144;
             }
 
-            while (v135);
+            while (v144);
           }
 
-          LBFGSpp::SubspaceMin<float>::subvec_assign(a11, a9, v176);
-          v143 = cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::dot<cva::Matrix<float,0u,1u,false>>(a11, a4);
-          if (*&v143 > -0.00000011921)
+          LBFGSpp::SubspaceMin<float>::subvec_assign(a11, a9, v182, v143);
+          v152.n128_f64[0] = cva::MatrixMixin<cva::Matrix<float,0u,1u,false>,float,0u,1u>::dot<cva::Matrix<float,0u,1u,false>>(a11, a4);
+          if (v152.n128_f32[0] > -0.00000011921)
           {
-            LBFGSpp::SubspaceMin<float>::subvec_assign(a11, a9, &v173);
+            LBFGSpp::SubspaceMin<float>::subvec_assign(a11, a9, &v179, v152);
           }
         }
       }
 
       else
       {
-        v68 = 0;
+        v71 = 0;
         while (1)
         {
-          v69 = 0;
-          v168.__end_ = v168.__begin_;
-          v167.__end_ = v167.__begin_;
-          v166.__end_ = v166.__begin_;
-          v165.__end_ = v165.__begin_;
-          v164.__end_ = v164.__begin_;
-          v163.__end_ = v163.__begin_;
-          LODWORD(v162[0]) = 0;
+          v72 = 0;
+          v174.__end_ = v174.__begin_;
+          v173.__end_ = v173.__begin_;
+          v172.__end_ = v172.__begin_;
+          v171.__end_ = v171.__begin_;
+          v170.__end_ = v170.__begin_;
+          v169.__end_ = v169.__begin_;
+          LODWORD(v168[0]) = 0;
           do
           {
-            LODWORD(v160[0]) = *(*a9 + 4 * v69);
-            if (v181 <= v69)
+            LODWORD(v166[0]) = *&(*a9)[4 * v72];
+            if (v187 <= v72)
             {
               __assert_rtn("assert_in_bounds", "matrixmixin.h", 2283, "(i < mixed().elements()) || cva::detail::assertMessage(Index out of bounds!)");
             }
 
-            if (v179 <= v69 || v177 <= v69)
+            if (v185 <= v72 || v183 <= v72)
             {
 LABEL_146:
               __assert_rtn("assert_in_bounds", "matrixmixin.h", 2283, "(i < mixed().elements()) || cva::detail::assertMessage(Index out of bounds!)");
             }
 
-            v70 = *(v180[0] + v69);
-            v71 = *(v176[0] + v69);
-            if (v71 < v70)
+            v73 = *(v186[0] + v72);
+            v74 = *(v182[0] + v72);
+            if (v74 < v73)
             {
               goto LABEL_54;
             }
 
-            v72 = *(v178[0] + v69);
-            if (v71 != v70)
+            v75 = *(v184[0] + v72);
+            if (v74 != v73)
             {
               goto LABEL_50;
             }
 
-            if (v172 <= v69)
+            if (v178 <= v72)
             {
               goto LABEL_146;
             }
 
-            if (*(v171[0] + v69) >= 0.0)
+            if (*(v177[0] + v72) >= 0.0)
             {
 LABEL_54:
-              std::vector<int>::push_back[abi:ne200100](&v168.__begin_, v160);
-              std::vector<int>::push_back[abi:ne200100](&v165.__begin_, v162);
-              v73 = LODWORD(v162[0]);
-              if (v177 <= LODWORD(v162[0]))
+              std::vector<int>::push_back[abi:ne200100](&v174.__begin_, v166);
+              std::vector<int>::push_back[abi:ne200100](&v171.__begin_, v168);
+              v76 = LODWORD(v168[0]);
+              if (v183 <= LODWORD(v168[0]))
               {
                 goto LABEL_146;
               }
 
-              *(v176[0] + LODWORD(v162[0])) = v70;
-              if (v170 <= v73)
+              *(v182[0] + LODWORD(v168[0])) = v73;
+              if (v176 <= v76)
               {
                 goto LABEL_146;
               }
 
-              v75 = v169[0] + 4 * v73;
+              v78 = v175[0] + 4 * v76;
             }
 
             else
             {
 LABEL_50:
-              if (v71 > v72)
+              if (v74 > v75)
               {
                 goto LABEL_57;
               }
 
-              if (v71 != v72)
+              if (v74 != v75)
               {
                 goto LABEL_51;
               }
 
-              if (v170 <= v69)
+              if (v176 <= v72)
               {
                 goto LABEL_146;
               }
 
-              if (*(v169[0] + v69) >= 0.0)
+              if (*(v175[0] + v72) >= 0.0)
               {
 LABEL_57:
-                std::vector<int>::push_back[abi:ne200100](&v167.__begin_, v160);
-                std::vector<int>::push_back[abi:ne200100](&v164.__begin_, v162);
-                v73 = LODWORD(v162[0]);
-                if (v177 <= LODWORD(v162[0]))
+                std::vector<int>::push_back[abi:ne200100](&v173.__begin_, v166);
+                std::vector<int>::push_back[abi:ne200100](&v170.__begin_, v168);
+                v76 = LODWORD(v168[0]);
+                if (v183 <= LODWORD(v168[0]))
                 {
                   goto LABEL_146;
                 }
 
-                *(v176[0] + LODWORD(v162[0])) = v72;
-                if (v172 <= v73)
+                *(v182[0] + LODWORD(v168[0])) = v75;
+                if (v178 <= v76)
                 {
                   goto LABEL_146;
                 }
 
-                v74 = v171[0];
+                v77 = v177[0];
               }
 
               else
               {
 LABEL_51:
-                std::vector<int>::push_back[abi:ne200100](&v166.__begin_, v160);
-                std::vector<int>::push_back[abi:ne200100](&v163.__begin_, v162);
-                v73 = LODWORD(v162[0]);
-                if (v172 <= LODWORD(v162[0]))
+                std::vector<int>::push_back[abi:ne200100](&v172.__begin_, v166);
+                std::vector<int>::push_back[abi:ne200100](&v169.__begin_, v168);
+                v76 = LODWORD(v168[0]);
+                if (v178 <= LODWORD(v168[0]))
                 {
                   goto LABEL_146;
                 }
 
-                *(v171[0] + LODWORD(v162[0])) = 0;
-                if (v170 <= v73)
+                *(v177[0] + LODWORD(v168[0])) = 0;
+                if (v176 <= v76)
                 {
                   goto LABEL_146;
                 }
 
-                v74 = v169[0];
+                v77 = v175[0];
               }
 
-              v75 = &v74[4 * v73];
+              v78 = &v77[4 * v76];
             }
 
-            *v75 = 0;
-            v69 = v73 + 1;
-            LODWORD(v162[0]) = v69;
+            *v78 = 0;
+            v72 = v76 + 1;
+            LODWORD(v168[0]) = v72;
           }
 
-          while (v69 < v42);
-          LBFGSpp::BFGSMat<float,true>::Wb(a1, &v166.__begin_, v162);
-          v76 = v166.__end_ - v166.__begin_;
-          v77 = (v166.__end_ - v166.__begin_) >> 2;
-          if (v77 >= 1)
+          while (v72 < v42);
+          LBFGSpp::BFGSMat<float,true>::Wb(a1, &v172, v168);
+          v80 = v172.__end_ - v172.__begin_;
+          v81 = (v172.__end_ - v172.__begin_) >> 2;
+          if (v81 >= 1)
           {
-            LBFGSpp::SubspaceMin<float>::subvec(v182, &v163, v160);
-            LBFGSpp::SubspaceMin<float>::subvec(v180, &v165, &v157);
-            LBFGSpp::SubspaceMin<float>::subvec(v178, &v164, v155);
-            v153[0] = 0;
-            v153[1] = 0;
-            cva::MatrixData<float,0ul,0ul,false>::allocate(v153, (v76 >> 2) & 0x7FFFFFFF);
-            v154 = v77;
-            v78 = LBFGSpp::BFGSMat<float,true>::apply_PtBQv(a1, v162, &v168, &v157, v153, 1);
-            if (v78)
+            LBFGSpp::SubspaceMin<float>::subvec(v188, &v169, v166);
+            LBFGSpp::SubspaceMin<float>::subvec(v186, &v171, &v163);
+            LBFGSpp::SubspaceMin<float>::subvec(v184, &v170, v161);
+            v159[0] = 0;
+            v159[1] = 0;
+            cva::MatrixData<float,0ul,0ul,false>::allocate(v159, (v80 >> 2) & 0x7FFFFFFF);
+            v160 = v81;
+            v82 = LBFGSpp::BFGSMat<float,true>::apply_PtBQv(a1, v168, &v174, &v163, v159, 1);
+            if (v82)
             {
-              v79 = v161;
-              if (v161 != v154)
+              v83 = v167;
+              if (v167 != v160)
               {
-                cva::Logger::instance(v78);
-                v80 = *MEMORY[0x277CFD380];
-                cva::Logger::logInCategory();
-                v79 = v161;
-                if (v161 != v154)
+                v84 = cva::Logger::instance(v82);
+                cva::Logger::logInCategory(v84, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", v167, 1, v160, 1);
+                v83 = v167;
+                if (v167 != v160)
                 {
 LABEL_152:
                   __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
                 }
               }
 
-              if (v79)
+              if (v83)
               {
-                v81 = v160[0];
-                v82 = v153[0];
-                v83 = 4 * v79;
+                v85 = v166[0];
+                v86 = v159[0];
+                v87 = 4 * v83;
                 do
                 {
-                  v84 = *v82++;
-                  *v81 = v84 + *v81;
-                  ++v81;
-                  v83 -= 4;
+                  v88 = *v86++;
+                  *v85 = v88 + *v85;
+                  ++v85;
+                  v87 -= 4;
                 }
 
-                while (v83);
+                while (v87);
               }
             }
 
-            v85 = LBFGSpp::BFGSMat<float,true>::apply_PtBQv(a1, v162, &v167, v155, v153, 1);
-            v86 = v161;
-            if (v85)
+            v89 = LBFGSpp::BFGSMat<float,true>::apply_PtBQv(a1, v168, &v173, v161, v159, 1);
+            v90 = v167;
+            if (v89)
             {
-              if (v161 != v154)
+              if (v167 != v160)
               {
-                cva::Logger::instance(v85);
-                v87 = *MEMORY[0x277CFD380];
-                cva::Logger::logInCategory();
-                v86 = v161;
-                if (v161 != v154)
+                v91 = cva::Logger::instance(v89);
+                cva::Logger::logInCategory(v91, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", v167, 1, v160, 1);
+                v90 = v167;
+                if (v167 != v160)
                 {
                   goto LABEL_152;
                 }
               }
 
-              if (v86)
+              if (v90)
               {
-                v88 = v160[0];
-                v89 = v153[0];
-                v90 = 4 * v86;
+                v92 = v166[0];
+                v93 = v159[0];
+                v94 = 4 * v90;
                 do
                 {
-                  v91 = *v89++;
-                  *v88 = v91 + *v88;
-                  ++v88;
-                  v90 -= 4;
+                  v95 = *v93++;
+                  *v92 = v95 + *v92;
+                  ++v92;
+                  v94 -= 4;
                 }
 
-                while (v90);
+                while (v94);
               }
             }
 
-            v151[0] = 0;
-            v151[1] = 0;
-            cva::MatrixData<float,0ul,0ul,false>::allocate(v151, v86);
-            v152 = v161;
-            if (v161)
+            v157[0] = 0;
+            v157[1] = 0;
+            cva::MatrixData<float,0ul,0ul,false>::allocate(v157, v90);
+            v158 = v167;
+            if (v167)
             {
-              v92 = v151[0];
-              v93 = v160[0];
-              v94 = 4 * v161;
+              v96 = v157[0];
+              v97 = v166[0];
+              v98 = 4 * v167;
               do
               {
-                v95 = *v93++;
-                *v92++ = -v95;
-                v94 -= 4;
+                v99 = *v97++;
+                *v96++ = -v99;
+                v98 -= 4;
               }
 
-              while (v94);
+              while (v98);
             }
 
-            LBFGSpp::BFGSMat<float,true>::solve_PtBP(a1, v162, v151, v153);
-            free(v151[0]);
-            LBFGSpp::SubspaceMin<float>::subvec_assign(v176, &v163, v153);
-            free(v153[0]);
-            free(v155[0]);
-            free(v157);
-            free(v160[0]);
+            LBFGSpp::BFGSMat<float,true>::solve_PtBP(a1, v168, v157, v159);
+            free(v157[0]);
+            LBFGSpp::SubspaceMin<float>::subvec_assign(v182, &v169, v159, v100);
+            free(v159[0]);
+            free(v161[0]);
+            free(v163);
+            free(v166[0]);
           }
 
-          v96 = (v168.__end_ - v168.__begin_) >> 2;
-          v97 = (v167.__end_ - v167.__begin_) >> 2;
-          v160[0] = 0;
-          v160[1] = 0;
-          v161 = 0;
-          if (v96 > 0 || v97 >= 1)
+          v101 = (v174.__end_ - v174.__begin_) >> 2;
+          v102 = (v173.__end_ - v173.__begin_) >> 2;
+          v166[0] = 0;
+          v166[1] = 0;
+          v167 = 0;
+          if (v101 > 0 || v102 >= 1)
           {
-            LBFGSpp::BFGSMat<float,true>::apply_WtPv(a1, a9, v176, v160, 0);
-            if (v96 >= 1)
+            LBFGSpp::BFGSMat<float,true>::apply_WtPv(a1, a9, v182, v166, 0);
+            if (v101 >= 1)
             {
-              v157 = 0;
-              v158 = 0;
-              v159 = 0;
-              LODWORD(v155[0]) = -1082130432;
-              LBFGSpp::BFGSMat<float,true>::apply_PtWMv(a1, &v168.__begin_, v160, &v157, v155);
-              LBFGSpp::SubspaceMin<float>::subvec(v182, &v165, v155);
-              v98 = a1[1];
-              LBFGSpp::SubspaceMin<float>::subvec(v176, &v165, v153);
-              v100 = v156;
-              if (v156 != v154)
+              v163 = 0;
+              v164 = 0;
+              v165 = 0;
+              LODWORD(v161[0]) = -1082130432;
+              LBFGSpp::BFGSMat<float,true>::apply_PtWMv(a1, &v174, v166, &v163, v161);
+              LBFGSpp::SubspaceMin<float>::subvec(v188, &v171, v161);
+              v103 = *(a1 + 1);
+              LBFGSpp::SubspaceMin<float>::subvec(v182, &v171, v159);
+              v105 = v162;
+              if (v162 != v160 && (v106 = cva::Logger::instance(v104), v104 = cva::Logger::logInCategory(v106, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", v162, 1, v160, 1), v105 = v162, v162 != v160) || v165 != v105 && (v107 = cva::Logger::instance(v104), cva::Logger::logInCategory(v107, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", v165, 1, v162, 1), v105 = v165, v165 != v162))
               {
-                cva::Logger::instance(v99);
-                v101 = *MEMORY[0x277CFD380];
-                v99 = cva::Logger::logInCategory();
-                v100 = v156;
-                if (v156 != v154)
-                {
-                  goto LABEL_151;
-                }
+                __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
               }
 
-              if (v159 != v100)
+              if (v105)
               {
-                cva::Logger::instance(v99);
-                v102 = *MEMORY[0x277CFD380];
-                cva::Logger::logInCategory();
-                v100 = v159;
-                if (v159 != v156)
-                {
-LABEL_151:
-                  __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
-                }
-              }
-
-              if (v100)
-              {
-                v103 = v157;
-                v104 = v153[0];
-                v105 = 4 * v100;
-                v106 = v155[0];
+                v108 = v163;
+                v109 = v159[0];
+                v110 = 4 * v105;
+                v111 = v161[0];
                 do
                 {
-                  v107 = *v106++;
-                  v108 = v107;
-                  v109 = *v104++;
-                  *v103 = *v103 + (v108 + (v98 * v109));
-                  ++v103;
-                  v105 -= 4;
+                  v112 = *v111++;
+                  v113 = v112;
+                  v114 = *v109++;
+                  *v108 = *v108 + (v113 + (v103 * v114));
+                  ++v108;
+                  v110 -= 4;
                 }
 
-                while (v105);
+                while (v110);
               }
 
-              free(v153[0]);
-              free(v155[0]);
-              LBFGSpp::SubspaceMin<float>::subvec_assign(v171, &v165, &v157);
-              free(v157);
+              free(v159[0]);
+              free(v161[0]);
+              LBFGSpp::SubspaceMin<float>::subvec_assign(v177, &v171, &v163, v115);
+              free(v163);
             }
 
-            if (v97 >= 1)
+            if (v102 >= 1)
             {
-              v157 = 0;
-              v158 = 0;
-              v159 = 0;
-              LODWORD(v155[0]) = -1082130432;
-              LBFGSpp::BFGSMat<float,true>::apply_PtWMv(a1, &v167.__begin_, v160, &v157, v155);
-              LBFGSpp::SubspaceMin<float>::subvec(v182, &v164, v155);
-              v110 = a1[1];
-              LBFGSpp::SubspaceMin<float>::subvec(v176, &v164, v153);
-              v112 = v156;
-              if (v156 != v154)
+              v163 = 0;
+              v164 = 0;
+              v165 = 0;
+              LODWORD(v161[0]) = -1082130432;
+              LBFGSpp::BFGSMat<float,true>::apply_PtWMv(a1, &v173, v166, &v163, v161);
+              LBFGSpp::SubspaceMin<float>::subvec(v188, &v170, v161);
+              v116 = *(a1 + 1);
+              LBFGSpp::SubspaceMin<float>::subvec(v182, &v170, v159);
+              v118 = v162;
+              if (v162 != v160 && (v119 = cva::Logger::instance(v117), v117 = cva::Logger::logInCategory(v119, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", v162, 1, v160, 1), v118 = v162, v162 != v160) || v165 != v118 && (v120 = cva::Logger::instance(v117), cva::Logger::logInCategory(v120, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", v165, 1, v162, 1), v118 = v165, v165 != v162))
               {
-                cva::Logger::instance(v111);
-                v113 = *MEMORY[0x277CFD380];
-                v111 = cva::Logger::logInCategory();
-                v112 = v156;
-                if (v156 != v154)
-                {
-                  goto LABEL_153;
-                }
+                __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
               }
 
-              if (v159 != v112)
+              if (v118)
               {
-                cva::Logger::instance(v111);
-                v114 = *MEMORY[0x277CFD380];
-                cva::Logger::logInCategory();
-                v112 = v159;
-                if (v159 != v156)
-                {
-LABEL_153:
-                  __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
-                }
-              }
-
-              if (v112)
-              {
-                v115 = v157;
-                v116 = v153[0];
-                v117 = 4 * v112;
-                v118 = v155[0];
+                v121 = v163;
+                v122 = v159[0];
+                v123 = 4 * v118;
+                v124 = v161[0];
                 do
                 {
-                  v119 = *v118++;
-                  v120 = v119;
-                  v121 = *v116++;
-                  *v115 = *v115 + (v120 + (v110 * v121));
-                  ++v115;
-                  v117 -= 4;
+                  v125 = *v124++;
+                  v126 = v125;
+                  v127 = *v122++;
+                  *v121 = *v121 + (v126 + (v116 * v127));
+                  ++v121;
+                  v123 -= 4;
                 }
 
-                while (v117);
+                while (v123);
               }
 
-              free(v153[0]);
-              free(v155[0]);
-              v155[0] = 0;
-              v155[1] = 0;
-              cva::MatrixData<float,0ul,0ul,false>::allocate(v155, v159);
-              v156 = v159;
-              if (v159)
+              free(v159[0]);
+              free(v161[0]);
+              v161[0] = 0;
+              v161[1] = 0;
+              cva::MatrixData<float,0ul,0ul,false>::allocate(v161, v165);
+              v162 = v165;
+              if (v165)
               {
-                v122 = v155[0];
-                v123 = v157;
-                v124 = 4 * v159;
+                v129 = v161[0];
+                v130 = v163;
+                v131 = 4 * v165;
                 do
                 {
-                  v125 = *v123++;
-                  *v122++ = -v125;
-                  v124 -= 4;
+                  v132 = *v130++;
+                  v128.n128_f32[0] = -v132;
+                  *v129++ = -v132;
+                  v131 -= 4;
                 }
 
-                while (v124);
+                while (v131);
               }
 
-              LBFGSpp::SubspaceMin<float>::subvec_assign(v169, &v164, v155);
-              free(v155[0]);
-              free(v157);
+              LBFGSpp::SubspaceMin<float>::subvec_assign(v175, &v170, v161, v128);
+              free(v161[0]);
+              free(v163);
             }
           }
 
-          if (LBFGSpp::SubspaceMin<float>::L_converged(&v165, v171) && LBFGSpp::SubspaceMin<float>::L_converged(&v164, v169) && LBFGSpp::SubspaceMin<float>::P_converged(&v163, v176, v180, v178))
+          if (LBFGSpp::SubspaceMin<float>::L_converged(&v171, v177, v79) && LBFGSpp::SubspaceMin<float>::L_converged(&v170, v175, v133) && LBFGSpp::SubspaceMin<float>::P_converged(&v169, v182, v186, v184, v134))
           {
             break;
           }
 
-          free(v160[0]);
-          free(v162[0]);
-          if (++v68 == a10)
+          free(v166[0]);
+          free(v168[0]);
+          if (++v71 == a10)
           {
             goto LABEL_106;
           }
         }
 
-        free(v160[0]);
-        free(v162[0]);
-        LBFGSpp::SubspaceMin<float>::subvec_assign(a11, a9, v176);
+        free(v166[0]);
+        free(v168[0]);
+        LBFGSpp::SubspaceMin<float>::subvec_assign(a11, a9, v182, v155);
       }
 
-      if (v163.__begin_)
+      if (v169.__begin_)
       {
-        v163.__end_ = v163.__begin_;
-        operator delete(v163.__begin_);
+        v169.__end_ = v169.__begin_;
+        operator delete(v169.__begin_);
       }
 
-      if (v164.__begin_)
+      if (v170.__begin_)
       {
-        v164.__end_ = v164.__begin_;
-        operator delete(v164.__begin_);
+        v170.__end_ = v170.__begin_;
+        operator delete(v170.__begin_);
       }
 
-      if (v165.__begin_)
+      if (v171.__begin_)
       {
-        v165.__end_ = v165.__begin_;
-        operator delete(v165.__begin_);
+        v171.__end_ = v171.__begin_;
+        operator delete(v171.__begin_);
       }
 
-      if (v166.__begin_)
+      if (v172.__begin_)
       {
-        v166.__end_ = v166.__begin_;
-        operator delete(v166.__begin_);
+        v172.__end_ = v172.__begin_;
+        operator delete(v172.__begin_);
       }
 
-      if (v167.__begin_)
+      if (v173.__begin_)
       {
-        v167.__end_ = v167.__begin_;
-        operator delete(v167.__begin_);
+        v173.__end_ = v173.__begin_;
+        operator delete(v173.__begin_);
       }
 
-      if (v168.__begin_)
+      if (v174.__begin_)
       {
-        v168.__end_ = v168.__begin_;
-        operator delete(v168.__begin_);
+        v174.__end_ = v174.__begin_;
+        operator delete(v174.__begin_);
       }
 
-      free(v169[0]);
-      free(v171[0]);
-      free(v173);
+      free(v175[0]);
+      free(v177[0]);
+      free(v179);
     }
 
-    free(v176[0]);
-    free(v178[0]);
-    free(v180[0]);
     free(v182[0]);
-    free(v184);
+    free(v184[0]);
+    free(v186[0]);
+    free(v188[0]);
+    free(v190);
   }
 }
 
@@ -6453,7 +6164,7 @@ float EndpointMinimizerFunc::targetFuncValue(uint64_t a1, uint64_t a2)
 {
   if (*(a2 + 16) != 3)
   {
-    EndpointMinimizerFunc::targetFuncValue();
+    EndpointMinimizerFunc::targetFuncValue(a1);
   }
 
   return ULEndpointPlacementGenerator::endpointPlacementObjective(*(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80), *(a1 + 88), *(a1 + 96), *(a1 + 104), *(a1 + 112), **a2, *(*a2 + 4), *(*a2 + 8), *(a1 + 28), *(a1 + 32), *(a1 + 36), *(a1 + 40), *(a1 + 44), *(a1 + 48), *(a1 + 120), *(a1 + 128), *(a1 + 136), (a1 + 144), (a1 + 168));
@@ -6465,7 +6176,6 @@ void std::vector<int>::reserve(std::vector<int> *this, std::vector<int>::size_ty
   {
     if (!(__n >> 62))
     {
-      v2 = this->__end_ - this->__begin_;
       std::__allocate_at_least[abi:ne200100]<std::allocator<CLMicroLocationProto::ConfidenceReason>>(this, __n);
     }
 
@@ -6473,7 +6183,7 @@ void std::vector<int>::reserve(std::vector<int> *this, std::vector<int>::size_ty
   }
 }
 
-void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -6522,7 +6232,7 @@ void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
@@ -6530,7 +6240,7 @@ void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
 
 void LBFGSpp::BFGSMat<float,true>::apply_Wtv(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v6 = (2 * *(a1 + 104));
   *(a3 + 16) = v6;
   cva::MatrixData<float,0ul,0ul,false>::reserve(a3, v6);
@@ -6541,13 +6251,13 @@ void LBFGSpp::BFGSMat<float,true>::apply_Wtv(uint64_t a1, uint64_t a2, uint64_t 
   }
 
   v8 = *(a1 + 32);
-  v22 = *(a1 + 48);
-  v23 = v7;
-  v24 = v8;
-  v25 = v22;
-  v26 = 0;
-  v27 = &v22;
-  if (v22 != *(a2 + 16))
+  v21 = *(a1 + 48);
+  v22 = v7;
+  v23 = v8;
+  v24 = v21;
+  v25 = 0;
+  v26 = &v21;
+  if (v21 != *(a2 + 16))
   {
     LBFGSpp::BFGSMat<float,true>::apply_Wtv();
   }
@@ -6559,14 +6269,14 @@ void LBFGSpp::BFGSMat<float,true>::apply_Wtv(uint64_t a1, uint64_t a2, uint64_t 
   }
 
   v10 = *a3;
-  v18 = v7;
-  v19 = v10;
-  v20 = v9;
-  v21 = 0;
-  v29 = &v27;
-  v30 = a2;
-  v31 = 1065353216;
-  cva::assign<false,false,cva::MatrixRef<float,0u,1u,false>,cva::MatrixTransposeExpr<cva::MatrixRef<float const,0u,0u,false>>,cva::Matrix<float,0u,1u,false>>(&v18, v28);
+  v17 = v7;
+  v18 = v10;
+  v19 = v9;
+  v20 = 0;
+  v28 = &v26;
+  v29 = a2;
+  v30 = 1065353216;
+  cva::assign<false,false,cva::MatrixRef<float,0u,1u,false>,cva::MatrixTransposeExpr<cva::MatrixRef<float const,0u,0u,false>>,cva::Matrix<float,0u,1u,false>>(&v17, v27);
   v11 = *(a1 + 104);
   if (v11 > *(a1 + 28))
   {
@@ -6574,41 +6284,40 @@ void LBFGSpp::BFGSMat<float,true>::apply_Wtv(uint64_t a1, uint64_t a2, uint64_t 
   }
 
   v12 = *(a1 + 8);
-  v22 = *(a1 + 24);
-  v23 = v11;
-  v24 = v12;
-  v25 = v22;
-  v26 = 0;
-  v27 = &v22;
+  v21 = *(a1 + 24);
+  v22 = v11;
+  v23 = v12;
+  v24 = v21;
+  v25 = 0;
+  v26 = &v21;
   v13 = *(a1 + 4);
-  v29 = &v27;
-  v30 = a2;
-  if (v22 != *(a2 + 16))
+  v28 = &v26;
+  v29 = a2;
+  if (v21 != *(a2 + 16))
   {
     LBFGSpp::BFGSMat<float,true>::apply_Wtv();
   }
 
-  v31 = v13;
+  v30 = v13;
   v14 = *(a3 + 16);
-  v18 = v11;
+  v17 = v11;
   v15 = v14 >= v11;
   v16 = v14 - v11;
-  v19 = *a3 + 4 * v16;
-  v20 = v14;
-  v21 = v16;
+  v18 = *a3 + 4 * v16;
+  v19 = v14;
+  v20 = v16;
   if (!v15)
   {
     LBFGSpp::BFGSMat<float,true>::apply_Wtv();
   }
 
-  cva::assign<false,false,cva::MatrixRef<float,0u,1u,false>,cva::MatrixTransposeExpr<cva::MatrixRef<float const,0u,0u,false>>,cva::Matrix<float,0u,1u,false>>(&v18, v28);
-  v17 = *MEMORY[0x277D85DE8];
+  cva::assign<false,false,cva::MatrixRef<float,0u,1u,false>,cva::MatrixTransposeExpr<cva::MatrixRef<float const,0u,0u,false>>,cva::Matrix<float,0u,1u,false>>(&v17, v27);
 }
 
-void LBFGSpp::BFGSMat<float,true>::apply_Mv(unsigned int *a1, char **a2, uint64_t a3)
+void LBFGSpp::BFGSMat<float,true>::apply_Mv(unsigned int *a1, char **a2, char **a3)
 {
   v6 = 2 * a1[26];
-  *(a3 + 16) = v6;
+  *(a3 + 4) = v6;
   cva::MatrixData<float,0ul,0ul,false>::reserve(a3, v6);
   if (a1[26] < 1)
   {
@@ -6617,14 +6326,14 @@ void LBFGSpp::BFGSMat<float,true>::apply_Mv(unsigned int *a1, char **a2, uint64_
 
   v7 = *a1;
   v8 = 2 * *a1;
-  v40[0] = 0;
-  v40[1] = 0;
-  cva::MatrixData<float,0ul,0ul,false>::allocate(v40, v8);
-  v41 = 2 * v7;
-  v9 = v40[0];
+  v41[0] = 0;
+  v41[1] = 0;
+  cva::MatrixData<float,0ul,0ul,false>::allocate(v41, v8);
+  v42 = 2 * v7;
+  v9 = v41[0];
   if (v7)
   {
-    bzero(v40[0], 4 * v8);
+    bzero(v41[0], 4 * v8);
   }
 
   v10 = a1[26];
@@ -6635,146 +6344,146 @@ void LBFGSpp::BFGSMat<float,true>::apply_Mv(unsigned int *a1, char **a2, uint64_
   }
 
   v12 = *a2;
-  v36 = a1[26];
-  v37 = v12;
-  v38 = v11;
-  v39 = 0;
+  v37 = a1[26];
+  v38 = v12;
+  v39 = v11;
+  v40 = 0;
   if (v8 < v10)
   {
     __assert_rtn("assert_in_bounds", "matrixmixin.h", 2252, "((row + nRows <= mixed().rows()) && (col + nCols <= mixed().columns())) || cva::detail::assertMessage(Index out of bounds!)");
   }
 
-  v32 = v10;
-  v33 = v9;
-  v34 = v8;
-  v35 = 0;
-  cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float const,0u,1u,false>>(&v32, &v36);
+  v33 = v10;
+  v34 = v9;
+  v35 = v8;
+  v36 = 0;
+  cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float const,0u,1u,false>>(&v33, &v37);
   v13 = a1[26];
   v14 = *(a2 + 4);
-  v36 = v13;
-  v37 = &(*a2)[4 * (v14 - v13)];
-  v38 = v14;
-  v39 = v14 - v13;
+  v37 = v13;
+  v38 = &(*a2)[4 * (v14 - v13)];
+  v39 = v14;
+  v40 = v14 - v13;
   if (v14 < v13)
   {
     __assert_rtn("MatrixRef", "matrixref.h", 428, "(m_stride >= MatrixRef::rows()) || cva::detail::assertMessage(Invalid stride size, the columns overlap!)");
   }
 
   v15 = *a1;
-  if (v15 + v13 > v41)
+  if (v15 + v13 > v42)
   {
-    v24 = "((row + nRows <= mixed().rows()) && (col + nCols <= mixed().columns())) || cva::detail::assertMessage(Index out of bounds!)";
-    v25 = 2252;
-    v26 = "matrixmixin.h";
-    v27 = "assert_in_bounds";
+    v25 = "((row + nRows <= mixed().rows()) && (col + nCols <= mixed().columns())) || cva::detail::assertMessage(Index out of bounds!)";
+    v26 = 2252;
+    v27 = "matrixmixin.h";
+    v28 = "assert_in_bounds";
     goto LABEL_22;
   }
 
-  v32 = v13;
-  v33 = v40[0] + 4 * v15;
-  v34 = v41;
-  v35 = v15;
-  if (v13 > v41)
+  v33 = v13;
+  v34 = v41[0] + 4 * v15;
+  v35 = v42;
+  v36 = v15;
+  if (v13 > v42)
   {
-    v24 = "(m_stride >= MatrixRef::rows()) || cva::detail::assertMessage(Invalid stride size, the columns overlap!)";
-    v25 = 428;
-    v26 = "matrixref.h";
-    v27 = "MatrixRef";
+    v25 = "(m_stride >= MatrixRef::rows()) || cva::detail::assertMessage(Invalid stride size, the columns overlap!)";
+    v26 = 428;
+    v27 = "matrixref.h";
+    v28 = "MatrixRef";
 LABEL_22:
-    __assert_rtn(v27, v26, v25, v24);
+    __assert_rtn(v28, v27, v26, v25);
   }
 
-  cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float const,0u,1u,false>>(&v32, &v36);
-  v36 = v41;
-  v37 = v40[0];
-  v38 = v41;
-  v39 = 0;
-  LBFGSpp::BKLDLT<float>::solve_inplace((a1 + 34), &v36);
-  v16 = a1[26];
-  if (v41 < v16)
+  cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float const,0u,1u,false>>(&v33, &v37);
+  v37 = v42;
+  v38 = v41[0];
+  v39 = v42;
+  v40 = 0;
+  LBFGSpp::BKLDLT<float>::solve_inplace((a1 + 34), &v37, v16);
+  v17 = a1[26];
+  if (v42 < v17)
   {
     __assert_rtn("assert_in_bounds", "matrixmixin.h", 2252, "((row + nRows <= mixed().rows()) && (col + nCols <= mixed().columns())) || cva::detail::assertMessage(Index out of bounds!)");
   }
 
-  v36 = a1[26];
-  v37 = v40[0];
-  v38 = v41;
-  v39 = 0;
-  v17 = *(a3 + 16);
-  if (v17 < v16)
+  v37 = a1[26];
+  v38 = v41[0];
+  v39 = v42;
+  v40 = 0;
+  v18 = *(a3 + 4);
+  if (v18 < v17)
   {
     __assert_rtn("assert_in_bounds", "matrixmixin.h", 2252, "((row + nRows <= mixed().rows()) && (col + nCols <= mixed().columns())) || cva::detail::assertMessage(Index out of bounds!)");
   }
 
-  v18 = *a3;
-  v32 = v16;
-  v33 = v18;
-  v34 = v17;
-  v35 = 0;
-  cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float,0u,1u,false>>(&v32, &v36);
-  v19 = *a1;
-  v20 = a1[26];
-  if (v20 + v19 > v41)
+  v19 = *a3;
+  v33 = v17;
+  v34 = v19;
+  v35 = v18;
+  v36 = 0;
+  cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float,0u,1u,false>>(&v33, &v37);
+  v20 = *a1;
+  v21 = a1[26];
+  if (v21 + v20 > v42)
   {
-    v28 = "((row + nRows <= mixed().rows()) && (col + nCols <= mixed().columns())) || cva::detail::assertMessage(Index out of bounds!)";
-    v29 = 2252;
-    v30 = "matrixmixin.h";
-    v31 = "assert_in_bounds";
+    v29 = "((row + nRows <= mixed().rows()) && (col + nCols <= mixed().columns())) || cva::detail::assertMessage(Index out of bounds!)";
+    v30 = 2252;
+    v31 = "matrixmixin.h";
+    v32 = "assert_in_bounds";
     goto LABEL_27;
   }
 
-  v36 = a1[26];
-  v37 = v40[0] + 4 * v19;
-  v38 = v41;
-  v39 = v19;
-  if (v20 > v41)
+  v37 = a1[26];
+  v38 = v41[0] + 4 * v20;
+  v39 = v42;
+  v40 = v20;
+  if (v21 > v42)
   {
-    v28 = "(m_stride >= MatrixRef::rows()) || cva::detail::assertMessage(Invalid stride size, the columns overlap!)";
-    v29 = 428;
-    v30 = "matrixref.h";
-    v31 = "MatrixRef";
+    v29 = "(m_stride >= MatrixRef::rows()) || cva::detail::assertMessage(Invalid stride size, the columns overlap!)";
+    v30 = 428;
+    v31 = "matrixref.h";
+    v32 = "MatrixRef";
 LABEL_27:
-    __assert_rtn(v31, v30, v29, v28);
+    __assert_rtn(v32, v31, v30, v29);
   }
 
-  v21 = *(a3 + 16);
-  v32 = v20;
-  v22 = v21 >= v20;
-  v23 = v21 - v20;
-  v33 = (*a3 + 4 * v23);
-  v34 = v21;
-  v35 = v23;
-  if (!v22)
+  v22 = *(a3 + 4);
+  v33 = v21;
+  v23 = v22 >= v21;
+  v24 = v22 - v21;
+  v34 = &(*a3)[4 * v24];
+  v35 = v22;
+  v36 = v24;
+  if (!v23)
   {
     __assert_rtn("MatrixRef", "matrixref.h", 428, "(m_stride >= MatrixRef::rows()) || cva::detail::assertMessage(Invalid stride size, the columns overlap!)");
   }
 
-  cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float,0u,1u,false>>(&v32, &v36);
-  free(v40[0]);
+  cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float,0u,1u,false>>(&v33, &v37);
+  free(v41[0]);
 }
 
-uint64_t LBFGSpp::Cauchy<float>::search_greater(uint64_t a1, void *a2, float *a3, uint64_t a4)
+uint64_t LBFGSpp::Cauchy<float>::search_greater(uint64_t a1, void *a2, float *a3, uint64_t a4, __n128 a5)
 {
-  v4 = (a2[1] - *a2) >> 2;
-  if (v4 > a4)
+  v5 = (a2[1] - *a2) >> 2;
+  if (v5 > a4)
   {
-    v5 = (*a2 + 4 * a4);
+    v6 = (*a2 + 4 * a4);
     while (1)
     {
-      v7 = *v5++;
-      v6 = v7;
-      if (*(a1 + 16) <= v7)
+      v8 = *v6++;
+      v7 = v8;
+      if (*(a1 + 16) <= v8)
       {
         LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::minimize<EndpointMinimizerFunc>();
       }
 
-      if (*(*a1 + 4 * v6) > *a3)
+      if (*(*a1 + 4 * v7) > *a3)
       {
         break;
       }
 
       a4 = (a4 + 1);
-      if (v4 == a4)
+      if (v5 == a4)
       {
         return (a2[1] - *a2) >> 2;
       }
@@ -6884,7 +6593,7 @@ LABEL_13:
   return result;
 }
 
-int *std::__introsort<std::_ClassicAlgPolicy,LBFGSpp::ArgSort<float> &,int *,false>(int *result, int *a2, uint64_t *a3, uint64_t a4, char a5)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,LBFGSpp::ArgSort<float> &,int *,false>(uint64_t result, int *a2, uint64_t *a3, uint64_t a4, char a5)
 {
   v8 = result;
 LABEL_2:
@@ -8171,49 +7880,47 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,LBFGSpp::ArgSort<fl
   return result;
 }
 
-void cva::assign<false,false,cva::MatrixRef<float,0u,1u,false>,cva::MatrixTransposeExpr<cva::MatrixRef<float const,0u,0u,false>>,cva::Matrix<float,0u,1u,false>>(unsigned int *a1, uint64_t a2)
+void cva::assign<false,false,cva::MatrixRef<float,0u,1u,false>,cva::MatrixTransposeExpr<cva::MatrixRef<float const,0u,0u,false>>,cva::Matrix<float,0u,1u,false>>(cva::Logger *a1, uint64_t a2)
 {
-  v4 = *(a1 + 1) - 4 * a1[5];
+  v4 = *(a1 + 1) - 4 * *(a1 + 5);
   v5 = **(a2 + 8);
   if (*(v5 + 8) - 4 * *(v5 + 20) == v4 || **(a2 + 16) == v4)
   {
-    v14 = *(v5 + 4);
-    v27[0] = 0;
-    v27[1] = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(v27, v14);
-    v28 = *(**(a2 + 8) + 4);
-    cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::MatrixTransposeExpr<cva::MatrixRef<float const,0u,0u,false>>,cva::Matrix<float,0u,1u,false>>(v27, a2);
-    v16 = *a1;
-    if (*a1 != v28)
+    v8 = *(v5 + 4);
+    v18[0] = 0;
+    v18[1] = 0;
+    cva::MatrixData<float,0ul,0ul,false>::allocate(v18, v8);
+    v19 = *(**(a2 + 8) + 4);
+    cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::MatrixTransposeExpr<cva::MatrixRef<float const,0u,0u,false>>,cva::Matrix<float,0u,1u,false>>(v18, a2);
+    v10 = *a1;
+    if (*a1 != v19)
     {
-      cva::Logger::instance(v15);
-      v17 = *MEMORY[0x277CFD380];
-      v25 = *a1;
-      cva::Logger::logInCategory();
-      v16 = *a1;
-      if (*a1 != v28)
+      v11 = cva::Logger::instance(v9);
+      cva::Logger::logInCategory(v11, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *a1, 1, v19, 1);
+      v10 = *a1;
+      if (*a1 != v19)
       {
         __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
       }
     }
 
-    v18 = v27[0];
-    if (v16)
+    v12 = v18[0];
+    if (v10)
     {
-      v19 = *(a1 + 1);
-      v20 = 4 * v16;
-      v21 = v27[0];
+      v13 = *(a1 + 1);
+      v14 = 4 * v10;
+      v15 = v18[0];
       do
       {
-        v22 = *v21++;
-        *v19++ = v22;
-        v20 -= 4;
+        v16 = *v15++;
+        *v13++ = v16;
+        v14 -= 4;
       }
 
-      while (v20);
+      while (v14);
     }
 
-    free(v18);
+    free(v12);
   }
 
   else
@@ -8221,11 +7928,8 @@ void cva::assign<false,false,cva::MatrixRef<float,0u,1u,false>,cva::MatrixTransp
     v6 = *a1;
     if (*a1 != *(v5 + 4))
     {
-      cva::Logger::instance(a1);
-      v7 = *MEMORY[0x277CFD380];
-      v26 = *(**(a2 + 8) + 4);
-      v24 = *a1;
-      cva::Logger::logInCategory();
+      v7 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v7, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *a1, 1, *(**(a2 + 8) + 4), 1);
       v6 = *a1;
       v5 = **(a2 + 8);
       if (*a1 != *(v5 + 4))
@@ -8234,63 +7938,51 @@ void cva::assign<false,false,cva::MatrixRef<float,0u,1u,false>,cva::MatrixTransp
       }
     }
 
-    if (*v5 * v6)
+    if (*v5 * v6 && *(*(a2 + 16) + 16))
     {
-      v8 = *(a2 + 16);
-      if (*(v8 + 4))
-      {
-        v9 = *(a2 + 24);
-        v10 = *(v5 + 8);
-        v11 = *(v5 + 16);
-        v12 = *v8;
-        v13 = *(a1 + 1);
-        cva::VecLib<float>::gemv();
-      }
+      cva::VecLib<float>::gemv();
     }
 
     if (v6)
     {
-      v23 = *(a1 + 1);
+      v17 = *(a1 + 1);
 
-      bzero(v23, 4 * v6);
+      bzero(v17, 4 * v6);
     }
   }
 }
 
-void cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::MatrixTransposeExpr<cva::MatrixRef<float const,0u,0u,false>>,cva::Matrix<float,0u,1u,false>>(uint64_t *a1, uint64_t a2)
+void cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::MatrixTransposeExpr<cva::MatrixRef<float const,0u,0u,false>>,cva::Matrix<float,0u,1u,false>>(uint64_t a1, uint64_t a2)
 {
   v4 = **(a2 + 8);
   if (*(v4 + 8) - 4 * *(v4 + 20) == *a1 || **(a2 + 16) == *a1)
   {
-    v13 = *(v4 + 4);
-    v20 = 0;
-    v21 = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(&v20, v13);
-    v22 = *(**(a2 + 8) + 4);
-    cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::MatrixTransposeExpr<cva::MatrixRef<float const,0u,0u,false>>,cva::Matrix<float,0u,1u,false>>(&v20, a2);
-    v14 = *a1;
-    v15 = a1[1];
-    v16 = v21;
-    *a1 = v20;
-    a1[1] = v16;
-    v20 = v14;
-    v21 = v15;
-    *(a1 + 4) = v22;
-    v22 = 0;
-    free(v14);
+    v7 = *(v4 + 4);
+    v12 = 0;
+    v13 = 0;
+    cva::MatrixData<float,0ul,0ul,false>::allocate(&v12, v7);
+    v14 = *(**(a2 + 8) + 4);
+    cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::MatrixTransposeExpr<cva::MatrixRef<float const,0u,0u,false>>,cva::Matrix<float,0u,1u,false>>(&v12, a2);
+    v8 = *a1;
+    v9 = *(a1 + 8);
+    v10 = v13;
+    *a1 = v12;
+    *(a1 + 8) = v10;
+    v12 = v8;
+    v13 = v9;
+    *(a1 + 16) = v14;
+    v14 = 0;
+    free(v8);
   }
 
   else
   {
-    v5 = *(a1 + 4);
+    v5 = *(a1 + 16);
     if (v5 != *(v4 + 4))
     {
-      cva::Logger::instance(a1);
-      v6 = *MEMORY[0x277CFD380];
-      v19 = *(**(a2 + 8) + 4);
-      v18 = *(a1 + 4);
-      cva::Logger::logInCategory();
-      v5 = *(a1 + 4);
+      v6 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v6, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 16), 1, *(**(a2 + 8) + 4), 1);
+      v5 = *(a1 + 16);
       v4 = **(a2 + 8);
       if (v5 != *(v4 + 4))
       {
@@ -8298,30 +7990,21 @@ void cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::MatrixTranspose
       }
     }
 
-    if (*v4 * v5)
+    if (*v4 * v5 && *(*(a2 + 16) + 16))
     {
-      v7 = *(a2 + 16);
-      if (*(v7 + 4))
-      {
-        v8 = *(a2 + 24);
-        v9 = *(v4 + 8);
-        v10 = *(v4 + 16);
-        v11 = *v7;
-        v12 = *a1;
-        cva::VecLib<float>::gemv();
-      }
+      cva::VecLib<float>::gemv();
     }
 
     if (v5)
     {
-      v17 = *a1;
+      v11 = *a1;
 
-      bzero(v17, 4 * v5);
+      bzero(v11, 4 * v5);
     }
   }
 }
 
-unsigned int *cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float const,0u,1u,false>>(unsigned int *a1, unsigned int *a2)
+unsigned int *cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float const,0u,1u,false>>(unsigned int *a1, _DWORD *a2)
 {
   v4 = *(a1 + 1);
   if ((*(a2 + 1) - 4 * a2[5]) != &v4[-a1[5]])
@@ -8329,11 +8012,8 @@ unsigned int *cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float 
     v5 = *a1;
     if (*a1 != *a2)
     {
-      cva::Logger::instance(a1);
-      v6 = *MEMORY[0x277CFD380];
-      v27 = *a2;
-      v25 = *a1;
-      cva::Logger::logInCategory();
+      v6 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v6, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *a1, 1, *a2, 1);
       v5 = *a1;
       if (*a1 != *a2)
       {
@@ -8362,29 +8042,27 @@ unsigned int *cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float 
   }
 
   v11 = *a1;
-  v29[0] = 0;
-  v29[1] = 0;
-  v12 = cva::MatrixData<float,0ul,0ul,false>::allocate(v29, v11);
-  v30 = v11;
+  v25[0] = 0;
+  v25[1] = 0;
+  v12 = cva::MatrixData<float,0ul,0ul,false>::allocate(v25, v11);
+  v26 = v11;
   if (v11 != *a2)
   {
-    cva::Logger::instance(v12);
-    v13 = *MEMORY[0x277CFD380];
-    v28 = *a2;
-    cva::Logger::logInCategory();
-    v11 = v30;
-    if (v30 != *a2)
+    v13 = cva::Logger::instance(v12);
+    cva::Logger::logInCategory(v13, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", v26, 1, *a2, 1);
+    v11 = v26;
+    if (v26 != *a2)
     {
       goto LABEL_22;
     }
   }
 
-  v14 = v29[0];
+  v14 = v25[0];
   if (v11)
   {
     v15 = *(a2 + 1);
     v16 = 4 * v11;
-    v17 = v29[0];
+    v17 = v25[0];
     do
     {
       v18 = *v15++;
@@ -8401,18 +8079,16 @@ unsigned int *cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float 
     goto LABEL_17;
   }
 
-  cva::Logger::instance(v14);
-  v19 = *MEMORY[0x277CFD380];
-  v26 = *a1;
-  cva::Logger::logInCategory();
+  v19 = cva::Logger::instance(v14);
+  cva::Logger::logInCategory(v19, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *a1, 1, v26, 1);
   v11 = *a1;
-  if (v11 != v30)
+  if (v11 != v26)
   {
 LABEL_22:
     __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
   }
 
-  v14 = v29[0];
+  v14 = v25[0];
 LABEL_17:
   if (v11)
   {
@@ -8434,9 +8110,9 @@ LABEL_17:
   return a1;
 }
 
-void LBFGSpp::BKLDLT<float>::solve_inplace(uint64_t a1, uint64_t a2)
+float LBFGSpp::BKLDLT<float>::solve_inplace(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   if ((*(a1 + 104) & 1) == 0)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -8444,49 +8120,49 @@ void LBFGSpp::BKLDLT<float>::solve_inplace(uint64_t a1, uint64_t a2)
     __cxa_throw(exception, MEMORY[0x277D82750], MEMORY[0x277D825D8]);
   }
 
-  v3 = *(a2 + 8);
-  v4 = *a1;
-  v5 = *(a1 + 80);
-  v6 = (*(a1 + 88) - v5) >> 4;
-  if (v6 >= 1)
+  v4 = *(a2 + 8);
+  v5 = *a1;
+  v6 = *(a1 + 80);
+  v7 = (*(a1 + 88) - v6) >> 4;
+  if (v7 >= 1)
   {
-    v7 = (v5 + 8);
-    v8 = v6;
+    v8 = (v6 + 8);
+    v9 = v7;
     do
     {
-      v9 = *(v7 - 1);
-      v10 = *v7;
-      v11 = *(v3 + 4 * v9);
-      *(v3 + 4 * v9) = *(v3 + 4 * *v7);
-      *(v3 + 4 * v10) = v11;
-      v7 += 2;
-      --v8;
+      v10 = *(v8 - 1);
+      v11 = *v8;
+      a3.n128_u32[0] = *(v4 + 4 * v10);
+      *(v4 + 4 * v10) = *(v4 + 4 * *v8);
+      *(v4 + 4 * v11) = a3.n128_u32[0];
+      v8 += 2;
+      --v9;
     }
 
-    while (v8);
+    while (v9);
   }
 
   v12 = *(a1 + 72);
-  if (v12 <= v4 - 1)
+  if (v12 <= v5 - 1)
   {
     LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::minimize<EndpointMinimizerFunc>();
   }
 
   v13 = -3;
-  if (*(*(a1 + 56) + 8 * (v4 - 1)) >= 0)
+  if (*(*(a1 + 56) + 8 * (v5 - 1)) >= 0)
   {
     v13 = -2;
   }
 
-  v14 = v13 + v4;
-  if (v13 + v4 < 0)
+  v14 = v13 + v5;
+  if (v13 + v5 < 0)
   {
-    v23 = v4;
+    v23 = v5;
   }
 
   else
   {
-    v46 = v6;
+    v43 = v7;
     v15 = 0;
     do
     {
@@ -8502,68 +8178,68 @@ void LBFGSpp::BKLDLT<float>::solve_inplace(uint64_t a1, uint64_t a2)
         v19 = *(a1 + 32);
         v20 = *(v19 + 8 * v15) + 8;
         v21 = *(v19 + 8 * (v15 + 1)) + 4;
-        v61 = v18;
-        v62 = v20;
-        v63 = v18;
-        v64 = 0;
-        LODWORD(v20) = *(v3 + 4 * v15);
-        v58 = &v61;
-        v60 = 0;
+        v58 = v18;
         v59 = v20;
-        LODWORD(v51) = v18;
-        v52 = v21;
-        v53 = v18;
-        v54 = 0;
-        LODWORD(v21) = *(v3 + 4 * (v15 + 1));
-        v55 = &v51;
+        v60 = v18;
+        v61 = 0;
+        LODWORD(v20) = *(v4 + 4 * v15);
+        v55 = &v58;
         v57 = 0;
-        v56 = v21;
-        v65 = &v58;
-        v66 = &v55;
-        if (v18 + v15 + 2 > v4)
+        v56 = v20;
+        LODWORD(v48) = v18;
+        v49 = v21;
+        v50 = v18;
+        v51 = 0;
+        LODWORD(v21) = *(v4 + 4 * (v15 + 1));
+        v52 = &v48;
+        v54 = 0;
+        v53 = v21;
+        v62 = &v55;
+        v63 = &v52;
+        if (v18 + v15 + 2 > v5)
         {
           LBFGSpp::BFGSMat<float,true>::add_correction();
         }
 
-        v47 = v18;
-        v48 = v3 + 4 * (v15 + 2);
-        v49 = v4;
-        v50 = v15 + 2;
-        if (v18 > v4)
+        v44 = v18;
+        v45 = v4 + 4 * (v15 + 2);
+        v46 = v5;
+        v47 = v15 + 2;
+        if (v18 > v5)
         {
           LBFGSpp::BFGSMat<float,true>::apply_Wtv();
         }
 
-        cva::assignOp<cva::MatrixRef<float,0u,1u,false>,cva::MatrixBinaryExpr<cva::MatrixScalarExpr<cva::MatrixRef<float const,0u,1u,false>,cva::detail::MulOp>,cva::MatrixScalarExpr<cva::MatrixRef<float const,0u,1u,false>,cva::detail::MulOp>,cva::detail::AddOp>,cva::detail::AssignSubOp<float,float const>>(&v47, &v65);
+        cva::assignOp<cva::MatrixRef<float,0u,1u,false>,cva::MatrixBinaryExpr<cva::MatrixScalarExpr<cva::MatrixRef<float const,0u,1u,false>,cva::detail::MulOp>,cva::MatrixScalarExpr<cva::MatrixRef<float const,0u,1u,false>,cva::detail::MulOp>,cva::detail::AddOp>,cva::detail::AssignSubOp<float,float const>>(&v44, &v62);
         ++v15;
       }
 
       else
       {
         v17 = *(*(a1 + 32) + 8 * v15) + 4;
-        LODWORD(v65) = *a1 + ~v15;
-        v66 = v17;
-        v67 = v16;
-        v68 = 0;
-        LODWORD(v17) = *(v3 + 4 * v15);
-        v51 = &v65;
-        BYTE4(v52) = 0;
-        LODWORD(v52) = v17;
-        if (v15 + 1 + v16 > v4)
+        LODWORD(v62) = *a1 + ~v15;
+        v63 = v17;
+        v64 = v16;
+        v65 = 0;
+        LODWORD(v17) = *(v4 + 4 * v15);
+        v48 = &v62;
+        BYTE4(v49) = 0;
+        LODWORD(v49) = v17;
+        if (v15 + 1 + v16 > v5)
         {
           LBFGSpp::BFGSMat<float,true>::add_correction();
         }
 
-        v61 = v16;
-        v62 = v3 + 4 * (v15 + 1);
-        v63 = v4;
-        v64 = v15 + 1;
-        if (v16 > v4)
+        v58 = v16;
+        v59 = v4 + 4 * (v15 + 1);
+        v60 = v5;
+        v61 = v15 + 1;
+        if (v16 > v5)
         {
           LBFGSpp::BFGSMat<float,true>::apply_Wtv();
         }
 
-        cva::assignOp<cva::MatrixRef<float,0u,1u,false>,cva::MatrixScalarExpr<cva::MatrixRef<float const,0u,1u,false>,cva::detail::MulOp>,cva::detail::AssignSubOp<float,float const>>(&v61, &v51);
+        cva::assignOp<cva::MatrixRef<float,0u,1u,false>,cva::MatrixScalarExpr<cva::MatrixRef<float const,0u,1u,false>,cva::detail::MulOp>,cva::detail::AssignSubOp<float,float const>>(&v58, &v48);
       }
 
       v22 = v15++ < v14;
@@ -8572,7 +8248,7 @@ void LBFGSpp::BKLDLT<float>::solve_inplace(uint64_t a1, uint64_t a2)
     while (v22);
     v23 = *a1;
     v12 = *(a1 + 72);
-    v6 = v46;
+    v7 = v43;
   }
 
   if (v23 >= 1)
@@ -8591,15 +8267,17 @@ void LBFGSpp::BKLDLT<float>::solve_inplace(uint64_t a1, uint64_t a2)
       if ((*(*(a1 + 56) + 8 * v24) & 0x8000000000000000) != 0)
       {
         v28 = v26[1];
-        v29 = *(v3 + 4 * v24);
-        v30 = *(v3 + 4 * (v24 + 1));
-        *(v3 + 4 * (v24 + 1)) = (**(v25 + 8 * (v24 + 1)) * v30) + (v29 * v28);
-        *(v3 + 4 * v24++) = (v28 * v30) + (v29 * v27);
+        v29 = *(v4 + 4 * v24);
+        v30 = *(v4 + 4 * (v24 + 1));
+        a3.n128_f32[0] = (v28 * v30) + (v29 * v27);
+        *(v4 + 4 * (v24 + 1)) = (**(v25 + 8 * (v24 + 1)) * v30) + (v29 * v28);
+        *(v4 + 4 * v24++) = a3.n128_u32[0];
       }
 
       else
       {
-        *(v3 + 4 * v24) = v27 * *(v3 + 4 * v24);
+        a3.n128_f32[0] = v27 * *(v4 + 4 * v24);
+        *(v4 + 4 * v24) = a3.n128_u32[0];
       }
 
       ++v24;
@@ -8626,27 +8304,28 @@ void LBFGSpp::BKLDLT<float>::solve_inplace(uint64_t a1, uint64_t a2)
     {
       v33 = *a1 + ~v32;
       v34 = v32 + 1;
-      if (v32 + 1 + v33 > v4)
+      if (v32 + 1 + v33 > v5)
       {
         LBFGSpp::BFGSMat<float,true>::add_correction();
       }
 
       v35 = *(*(a1 + 32) + 8 * v32);
-      LODWORD(v65) = *a1 + ~v32;
-      v66 = (v3 + 4 * v34);
-      v67 = v4;
-      v68 = v32 + 1;
-      if (v33 > v4)
+      LODWORD(v62) = *a1 + ~v32;
+      v63 = (v4 + 4 * v34);
+      v64 = v5;
+      v65 = v32 + 1;
+      if (v33 > v5)
       {
         LBFGSpp::BFGSMat<float,true>::apply_Wtv();
       }
 
-      v61 = v33;
-      v62 = v35 + 4;
-      v63 = v33;
-      v64 = 0;
-      v36 = cva::MatrixMixin<cva::MatrixRef<float,0u,1u,false>,float,0u,1u>::dot<cva::MatrixRef<float const,0u,1u,false>>(&v65, &v61);
-      *(v3 + 4 * v32) = *(v3 + 4 * v32) - *&v36;
+      v58 = v33;
+      v59 = v35 + 4;
+      v60 = v33;
+      v61 = 0;
+      a3.n128_f64[0] = cva::MatrixMixin<cva::MatrixRef<float,0u,1u,false>,float,0u,1u>::dot<cva::MatrixRef<float const,0u,1u,false>>(&v62, &v58);
+      a3.n128_f32[0] = *(v4 + 4 * v32) - a3.n128_f32[0];
+      *(v4 + 4 * v32) = a3.n128_u32[0];
       if (*(a1 + 72) <= v32)
       {
         LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::minimize<EndpointMinimizerFunc>();
@@ -8655,17 +8334,18 @@ void LBFGSpp::BKLDLT<float>::solve_inplace(uint64_t a1, uint64_t a2)
       if ((*(*(a1 + 56) + 8 * v32) & 0x8000000000000000) != 0)
       {
         --v32;
-        v37 = *(*(a1 + 32) + 8 * v32) + 8;
-        LODWORD(v65) = v33;
-        v66 = (v3 + 4 * v34);
-        v67 = v4;
-        v68 = v34;
-        v61 = v33;
-        v62 = v37;
-        v63 = v33;
-        v64 = 0;
-        v38 = cva::MatrixMixin<cva::MatrixRef<float,0u,1u,false>,float,0u,1u>::dot<cva::MatrixRef<float const,0u,1u,false>>(&v65, &v61);
-        *(v3 + 4 * v32) = *(v3 + 4 * v32) - *&v38;
+        v36 = *(*(a1 + 32) + 8 * v32) + 8;
+        LODWORD(v62) = v33;
+        v63 = (v4 + 4 * v34);
+        v64 = v5;
+        v65 = v34;
+        v58 = v33;
+        v59 = v36;
+        v60 = v33;
+        v61 = 0;
+        a3.n128_f64[0] = cva::MatrixMixin<cva::MatrixRef<float,0u,1u,false>,float,0u,1u>::dot<cva::MatrixRef<float const,0u,1u,false>>(&v62, &v58);
+        a3.n128_f32[0] = *(v4 + 4 * v32) - a3.n128_f32[0];
+        *(v4 + 4 * v32) = a3.n128_u32[0];
       }
 
       v22 = v32-- <= 0;
@@ -8674,25 +8354,25 @@ void LBFGSpp::BKLDLT<float>::solve_inplace(uint64_t a1, uint64_t a2)
     while (!v22);
   }
 
-  if (v6 >= 1)
+  if (v7 >= 1)
   {
-    v39 = v6 + 1;
-    v40 = (*(a1 + 80) + 16 * v6 - 8);
+    v37 = v7 + 1;
+    v38 = (*(a1 + 80) + 16 * v7 - 8);
     do
     {
-      v41 = *(v40 - 1);
-      v42 = *v40;
-      v43 = *(v3 + 4 * v41);
-      *(v3 + 4 * v41) = *(v3 + 4 * *v40);
-      *(v3 + 4 * v42) = v43;
-      --v39;
-      v40 -= 2;
+      v39 = *(v38 - 1);
+      v40 = *v38;
+      a3.n128_u32[0] = *(v4 + 4 * v39);
+      *(v4 + 4 * v39) = *(v4 + 4 * *v38);
+      *(v4 + 4 * v40) = a3.n128_u32[0];
+      --v37;
+      v38 -= 2;
     }
 
-    while (v39 > 1);
+    while (v37 > 1);
   }
 
-  v44 = *MEMORY[0x277D85DE8];
+  return a3.n128_f32[0];
 }
 
 double cva::MatrixMixin<cva::MatrixRef<float,0u,1u,false>,float,0u,1u>::dot<cva::MatrixRef<float const,0u,1u,false>>(unsigned int *a1, uint64_t a2)
@@ -8739,18 +8419,18 @@ void cva::assignOp<cva::MatrixRef<float,0u,1u,false>,cva::MatrixScalarExpr<cva::
   if ((*(*a2 + 8) - 4 * *(*a2 + 20)) == &v4[-a1[5]])
   {
     v11 = *v5;
-    v27[0] = 0;
-    v27[1] = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(v27, v11);
+    v24[0] = 0;
+    v24[1] = 0;
+    cva::MatrixData<float,0ul,0ul,false>::allocate(v24, v11);
     v12 = *a2;
     v13 = **a2;
-    v28 = v13;
-    v14 = v27[0];
+    v25 = v13;
+    v14 = v24[0];
     if (v13)
     {
-      v15 = *(v12 + 1);
+      v15 = *(v12 + 8);
       v16 = 4 * v13;
-      v17 = v27[0];
+      v17 = v24[0];
       do
       {
         v18 = *v15++;
@@ -8763,17 +8443,15 @@ void cva::assignOp<cva::MatrixRef<float,0u,1u,false>,cva::MatrixScalarExpr<cva::
 
     if (*a1 != v13)
     {
-      cva::Logger::instance(v14);
-      v19 = *MEMORY[0x277CFD380];
-      v25 = *a1;
-      cva::Logger::logInCategory();
+      v19 = cva::Logger::instance(v14);
+      cva::Logger::logInCategory(v19, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *a1, 1, v25, 1);
       v13 = *a1;
-      if (v13 != v28)
+      if (v13 != v25)
       {
         __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
       }
 
-      v14 = v27[0];
+      v14 = v24[0];
     }
 
     if (v13)
@@ -8800,11 +8478,8 @@ void cva::assignOp<cva::MatrixRef<float,0u,1u,false>,cva::MatrixScalarExpr<cva::
     v6 = *a1;
     if (*a1 != *v5)
     {
-      cva::Logger::instance(a1);
-      v7 = *MEMORY[0x277CFD380];
-      v26 = **a2;
-      v24 = *a1;
-      cva::Logger::logInCategory();
+      v7 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v7, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *a1, 1, **a2, 1);
       v6 = *a1;
       v5 = *a2;
       if (*a1 != **a2)
@@ -8832,30 +8507,30 @@ void cva::assignOp<cva::MatrixRef<float,0u,1u,false>,cva::MatrixScalarExpr<cva::
   }
 }
 
-void cva::assignOp<cva::MatrixRef<float,0u,1u,false>,cva::MatrixBinaryExpr<cva::MatrixScalarExpr<cva::MatrixRef<float const,0u,1u,false>,cva::detail::MulOp>,cva::MatrixScalarExpr<cva::MatrixRef<float const,0u,1u,false>,cva::detail::MulOp>,cva::detail::AddOp>,cva::detail::AssignSubOp<float,float const>>(unsigned int *a1, float **a2)
+void cva::assignOp<cva::MatrixRef<float,0u,1u,false>,cva::MatrixBinaryExpr<cva::MatrixScalarExpr<cva::MatrixRef<float const,0u,1u,false>,cva::detail::MulOp>,cva::MatrixScalarExpr<cva::MatrixRef<float const,0u,1u,false>,cva::detail::MulOp>,cva::detail::AddOp>,cva::detail::AssignSubOp<float,float const>>(unsigned int *a1, unsigned int ***a2)
 {
   v4 = *(a1 + 1);
   v5 = &v4[-a1[5]];
   v6 = *a2;
   v7 = **a2;
-  if ((*(v7 + 1) - 4 * v7[5]) == v5 || (*(*a2[1] + 8) - 4 * *(*a2[1] + 20)) == v5)
+  if ((*(v7 + 1) - 4 * v7[5]) == v5 || (*(*a2[1] + 1) - 4 * (*a2[1])[5]) == v5)
   {
     v18 = *v7;
-    v39[0] = 0;
-    v39[1] = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(v39, v18);
+    v36[0] = 0;
+    v36[1] = 0;
+    cva::MatrixData<float,0ul,0ul,false>::allocate(v36, v18);
     v19 = *a2;
     v20 = **a2;
     v21 = *v20;
-    v40 = v21;
-    v22 = v39[0];
+    v37 = v21;
+    v22 = v36[0];
     if (v21)
     {
       v23 = a2[1];
       v24 = *(*v23 + 8);
       v25 = *(v20 + 1);
       v26 = 4 * v21;
-      v27 = v39[0];
+      v27 = v36[0];
       do
       {
         v28 = *v25++;
@@ -8870,17 +8545,15 @@ void cva::assignOp<cva::MatrixRef<float,0u,1u,false>,cva::MatrixBinaryExpr<cva::
 
     if (*a1 != v21)
     {
-      cva::Logger::instance(v22);
-      v31 = *MEMORY[0x277CFD380];
-      v37 = *a1;
-      cva::Logger::logInCategory();
+      v31 = cva::Logger::instance(v22);
+      cva::Logger::logInCategory(v31, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *a1, 1, v37, 1);
       v21 = *a1;
-      if (v21 != v40)
+      if (v21 != v37)
       {
         __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
       }
 
-      v22 = v39[0];
+      v22 = v36[0];
     }
 
     if (v21)
@@ -8907,11 +8580,8 @@ void cva::assignOp<cva::MatrixRef<float,0u,1u,false>,cva::MatrixBinaryExpr<cva::
     v8 = *a1;
     if (*a1 != *v7)
     {
-      cva::Logger::instance(a1);
-      v9 = *MEMORY[0x277CFD380];
-      v38 = ***a2;
-      v36 = *a1;
-      cva::Logger::logInCategory();
+      v9 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v9, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *a1, 1, ***a2, 1);
       v8 = *a1;
       v6 = *a2;
       v7 = **a2;
@@ -8945,7 +8615,7 @@ void cva::assignOp<cva::MatrixRef<float,0u,1u,false>,cva::MatrixBinaryExpr<cva::
   }
 }
 
-unsigned int *cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float,0u,1u,false>>(unsigned int *a1, unsigned int *a2)
+unsigned int *cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float,0u,1u,false>>(unsigned int *a1, _DWORD *a2)
 {
   v4 = *(a1 + 1);
   if ((*(a2 + 1) - 4 * a2[5]) != &v4[-a1[5]])
@@ -8953,11 +8623,8 @@ unsigned int *cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float,
     v5 = *a1;
     if (*a1 != *a2)
     {
-      cva::Logger::instance(a1);
-      v6 = *MEMORY[0x277CFD380];
-      v27 = *a2;
-      v25 = *a1;
-      cva::Logger::logInCategory();
+      v6 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v6, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *a1, 1, *a2, 1);
       v5 = *a1;
       if (*a1 != *a2)
       {
@@ -8986,29 +8653,27 @@ unsigned int *cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float,
   }
 
   v11 = *a1;
-  v29[0] = 0;
-  v29[1] = 0;
-  v12 = cva::MatrixData<float,0ul,0ul,false>::allocate(v29, v11);
-  v30 = v11;
+  v25[0] = 0;
+  v25[1] = 0;
+  v12 = cva::MatrixData<float,0ul,0ul,false>::allocate(v25, v11);
+  v26 = v11;
   if (v11 != *a2)
   {
-    cva::Logger::instance(v12);
-    v13 = *MEMORY[0x277CFD380];
-    v28 = *a2;
-    cva::Logger::logInCategory();
-    v11 = v30;
-    if (v30 != *a2)
+    v13 = cva::Logger::instance(v12);
+    cva::Logger::logInCategory(v13, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", v26, 1, *a2, 1);
+    v11 = v26;
+    if (v26 != *a2)
     {
       goto LABEL_22;
     }
   }
 
-  v14 = v29[0];
+  v14 = v25[0];
   if (v11)
   {
     v15 = *(a2 + 1);
     v16 = 4 * v11;
-    v17 = v29[0];
+    v17 = v25[0];
     do
     {
       v18 = *v15++;
@@ -9025,18 +8690,16 @@ unsigned int *cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float,
     goto LABEL_17;
   }
 
-  cva::Logger::instance(v14);
-  v19 = *MEMORY[0x277CFD380];
-  v26 = *a1;
-  cva::Logger::logInCategory();
+  v19 = cva::Logger::instance(v14);
+  cva::Logger::logInCategory(v19, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *a1, 1, v26, 1);
   v11 = *a1;
-  if (v11 != v30)
+  if (v11 != v26)
   {
 LABEL_22:
     __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
   }
 
-  v14 = v29[0];
+  v14 = v25[0];
 LABEL_17:
   if (v11)
   {
@@ -9235,7 +8898,7 @@ float LBFGSpp::LineSearchMoreThuente<float>::cubic_minimizer(float *a1, float *a
   return result;
 }
 
-void LBFGSpp::BKLDLT<float>::compute(uint64_t a1, unsigned int *a2, int a3, float *a4)
+void LBFGSpp::BKLDLT<float>::compute(uint64_t *a1, unsigned int *a2, uint64_t a3, float *a4)
 {
   v5 = *a2;
   v6 = a2[1];
@@ -9247,13 +8910,14 @@ void LBFGSpp::BKLDLT<float>::compute(uint64_t a1, unsigned int *a2, int a3, floa
     __cxa_throw(exception, off_2798D4070, MEMORY[0x277D82610]);
   }
 
-  *(a1 + 72) = v5;
-  cva::MatrixData<long,0ul,0ul,false>::reserve(a1 + 56, v5);
+  v8 = a3;
+  *(a1 + 18) = v5;
+  cva::MatrixData<long,0ul,0ul,false>::reserve((a1 + 7), v5);
   v10 = *a1;
   if (*a1 >= 1)
   {
     v11 = 0;
-    v12 = *(a1 + 72);
+    v12 = *(a1 + 18);
     do
     {
       if (v12 == v11)
@@ -9261,7 +8925,7 @@ void LBFGSpp::BKLDLT<float>::compute(uint64_t a1, unsigned int *a2, int a3, floa
         LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::minimize<EndpointMinimizerFunc>();
       }
 
-      *(*(a1 + 56) + 8 * v11) = v11;
+      *(a1[7] + 8 * v11) = v11;
       ++v11;
       v10 = *a1;
     }
@@ -9269,99 +8933,97 @@ void LBFGSpp::BKLDLT<float>::compute(uint64_t a1, unsigned int *a2, int a3, floa
     while (*a1 > v11);
   }
 
-  *(a1 + 88) = *(a1 + 80);
+  a1[11] = a1[10];
   v13 = (v10 + v10 * v10) / 2;
-  *(a1 + 24) = v13;
-  cva::MatrixData<float,0ul,0ul,false>::reserve(a1 + 8, v13);
+  *(a1 + 6) = v13;
+  cva::MatrixData<float,0ul,0ul,false>::reserve((a1 + 1), v13);
   LBFGSpp::BKLDLT<float>::compute_pointer(a1);
-  LBFGSpp::BKLDLT<float>::copy_data(a1, a2, a3, a4);
-  v20 = 1059319931;
-  v14 = *a1;
+  v14.n128_f32[0] = LBFGSpp::BKLDLT<float>::copy_data(a1, a2, v8, a4);
+  v21 = 1059319931;
+  v15 = *a1;
   if (*a1 <= 1)
   {
-    v15 = 0;
+    v16 = 0;
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
     do
     {
-      if (LBFGSpp::BKLDLT<float>::permutate_mat(a1, v15, &v20))
+      if (LBFGSpp::BKLDLT<float>::permutate_mat(a1, v16, &v21))
       {
-        v16 = LBFGSpp::BKLDLT<float>::gaussian_elimination_1x1(a1, v15);
-        *(a1 + 108) = v16;
+        v17 = LBFGSpp::BKLDLT<float>::gaussian_elimination_1x1(a1, v16);
+        *(a1 + 27) = v17;
       }
 
       else
       {
-        v16 = LBFGSpp::BKLDLT<float>::gaussian_elimination_2x2(a1, v15);
-        *(a1 + 108) = v16;
-        ++v15;
+        v17 = LBFGSpp::BKLDLT<float>::gaussian_elimination_2x2(a1, v16);
+        *(a1 + 27) = v17;
+        ++v16;
       }
 
-      v14 = *a1;
-      if (v16)
+      v15 = *a1;
+      if (v17)
       {
         break;
       }
 
-      ++v15;
+      ++v16;
     }
 
-    while (v15 < (v14 - 1));
+    while (v16 < v15 - 1);
   }
 
-  if (v15 == v14 - 1)
+  if (v16 == v15 - 1)
   {
-    v17 = *(*(a1 + 32) + 8 * v15);
-    v18 = *v17;
-    if (*v17 == 0.0)
+    v18 = *(a1[4] + 8 * v16);
+    v19 = *v18;
+    if (*v18 == 0.0)
     {
-      *(a1 + 108) = 2;
+      *(a1 + 27) = 2;
     }
 
-    *v17 = 1.0 / v18;
+    v14.n128_f32[0] = 1.0 / v19;
+    *v18 = v14.n128_f32[0];
   }
 
-  LBFGSpp::BKLDLT<float>::compress_permutation(a1);
+  LBFGSpp::BKLDLT<float>::compress_permutation(a1, v14);
   *(a1 + 104) = 1;
 }
 
-void cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::MatrixTransposeExpr<cva::MatrixRef<float,0u,0u,false>>,cva::MatrixRef<float,0u,1u,false>>(uint64_t *a1, uint64_t a2)
+void cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::MatrixTransposeExpr<cva::MatrixRef<float,0u,0u,false>>,cva::MatrixRef<float,0u,1u,false>>(uint64_t a1, uint64_t a2)
 {
   v4 = **(a2 + 8);
   if (*(v4 + 8) - 4 * *(v4 + 20) == *a1 || *(*(a2 + 16) + 8) - 4 * *(*(a2 + 16) + 20) == *a1)
   {
-    v13 = *(v4 + 4);
-    v20 = 0;
-    v21 = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(&v20, v13);
-    v22 = *(**(a2 + 8) + 4);
-    cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::MatrixTransposeExpr<cva::MatrixRef<float,0u,0u,false>>,cva::MatrixRef<float,0u,1u,false>>(&v20, a2);
-    v14 = *a1;
-    v15 = a1[1];
-    v16 = v21;
-    *a1 = v20;
-    a1[1] = v16;
-    v20 = v14;
-    v21 = v15;
-    *(a1 + 4) = v22;
-    v22 = 0;
-    free(v14);
+    v7 = *(v4 + 4);
+    v12 = 0;
+    v13 = 0;
+    cva::MatrixData<float,0ul,0ul,false>::allocate(&v12, v7);
+    v14 = *(**(a2 + 8) + 4);
+    cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::MatrixTransposeExpr<cva::MatrixRef<float,0u,0u,false>>,cva::MatrixRef<float,0u,1u,false>>(&v12, a2);
+    v8 = *a1;
+    v9 = *(a1 + 8);
+    v10 = v13;
+    *a1 = v12;
+    *(a1 + 8) = v10;
+    v12 = v8;
+    v13 = v9;
+    *(a1 + 16) = v14;
+    v14 = 0;
+    free(v8);
   }
 
   else
   {
-    v5 = *(a1 + 4);
+    v5 = *(a1 + 16);
     if (v5 != *(v4 + 4))
     {
-      cva::Logger::instance(a1);
-      v6 = *MEMORY[0x277CFD380];
-      v19 = *(**(a2 + 8) + 4);
-      v18 = *(a1 + 4);
-      cva::Logger::logInCategory();
-      v5 = *(a1 + 4);
+      v6 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v6, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 16), 1, *(**(a2 + 8) + 4), 1);
+      v5 = *(a1 + 16);
       v4 = **(a2 + 8);
       if (v5 != *(v4 + 4))
       {
@@ -9369,40 +9031,27 @@ void cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::MatrixTranspose
       }
     }
 
-    if (*v4 * v5)
+    if (*v4 * v5 && **(a2 + 16))
     {
-      v7 = *(a2 + 16);
-      if (*v7)
-      {
-        v8 = *(v4 + 8);
-        v9 = *(v4 + 16);
-        v10 = *(v7 + 8);
-        v11 = *(a2 + 24);
-        v12 = *a1;
-        cva::VecLib<float>::gemv();
-      }
+      cva::VecLib<float>::gemv();
     }
 
     if (v5)
     {
-      v17 = *a1;
+      v11 = *a1;
 
-      bzero(v17, 4 * v5);
+      bzero(v11, 4 * v5);
     }
   }
 }
 
-float cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,1u,false>>>(unsigned int *a1, uint64_t **a2)
+float cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,0u,1u,false>>>(cva::Logger *a1, uint64_t **a2)
 {
-  if (a1[4] != 1 || (v4 = *a2, v5 = a1[5], v5 != *(*a2 + 4)))
+  if (*(a1 + 4) != 1 || (v4 = *a2, v5 = *(a1 + 5), v5 != *(*a2 + 4)))
   {
-    cva::Logger::instance(a1);
-    v6 = *MEMORY[0x277CFD380];
-    v14 = *(*a2 + 4);
-    v12 = a1[4];
-    v13 = a1[5];
-    cva::Logger::logInCategory();
-    if (a1[4] != 1 || (v4 = *a2, v5 = a1[5], v5 != *(*a2 + 4)))
+    v6 = cva::Logger::instance(a1);
+    cva::Logger::logInCategory(v6, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *(a1 + 4), *(a1 + 5), 1, *(*a2 + 4));
+    if (*(a1 + 4) != 1 || (v4 = *a2, v5 = *(a1 + 5), v5 != *(*a2 + 4)))
     {
       LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::proj_grad_norm();
     }
@@ -9624,14 +9273,15 @@ uint64_t LBFGSpp::BKLDLT<float>::permutate_mat(void *a1, uint64_t a2, float *a3)
   }
 
   LBFGSpp::BKLDLT<float>::find_sigma(a1, a2, v12, &v30);
-  if ((v14 * v15) >= (v10 * (v10 * *a3)))
+  if ((v14 * v15.n128_f32[0]) >= (v10 * (v10 * *a3)))
   {
     return 1;
   }
 
-  if (v14 >= (v15 * *a3))
+  v15.n128_f32[0] = v15.n128_f32[0] * *a3;
+  if (v14 >= v15.n128_f32[0])
   {
-    LBFGSpp::BKLDLT<float>::pivoting_1x1(a1, v4, v12);
+    LBFGSpp::BKLDLT<float>::pivoting_1x1(a1, v4, v12, v15);
     result = 1;
     if (v4 >= 1 && v12 != v4)
     {
@@ -9654,7 +9304,7 @@ uint64_t LBFGSpp::BKLDLT<float>::permutate_mat(void *a1, uint64_t a2, float *a3)
   else
   {
     v30 = v4;
-    LBFGSpp::BKLDLT<float>::pivoting_2x2(a1, v4, v12, v4);
+    LBFGSpp::BKLDLT<float>::pivoting_2x2(a1, v4, v12, v4, v15);
     if (v4 >= 1 && v30 != v4)
     {
       v17 = a1[4];
@@ -9759,7 +9409,7 @@ uint64_t LBFGSpp::BKLDLT<float>::gaussian_elimination_1x1(void *a1, uint64_t a2)
 
 uint64_t LBFGSpp::BKLDLT<float>::gaussian_elimination_2x2(uint64_t *a1, uint64_t a2)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v2 = a1[4] + 8 * a2;
   v4 = *v2;
   v3 = *(v2 + 8);
@@ -9767,148 +9417,410 @@ uint64_t LBFGSpp::BKLDLT<float>::gaussian_elimination_2x2(uint64_t *a1, uint64_t
   v6 = (v5 * *v3) - (*(*v2 + 4) * *(*v2 + 4));
   if (v6 == 0.0)
   {
-    result = 2;
+    return 2;
+  }
+
+  *v4 = *v3;
+  *v3 = v5;
+  *v4 = *v4 / v6;
+  *v3 = *v3 / v6;
+  v10 = v3 + 1;
+  v4[1] = -v4[1] / v6;
+  v11 = *a1;
+  v12 = *a1 - a2;
+  v13 = v12 - 2;
+  v44[0] = 0;
+  v44[1] = 0;
+  cva::MatrixData<float,0ul,0ul,false>::allocate(v44, 2 * ((v12 - 2) & 0x7FFFFFFF));
+  v45 = v12 - 2;
+  v37 = v12 - 2;
+  v38 = v4 + 2;
+  v39 = v12 - 2;
+  v40 = 0;
+  v14 = *v4;
+  v41 = &v37;
+  v43 = 0;
+  v42 = v14;
+  v30 = v12 - 2;
+  v31 = (v3 + 1);
+  v32 = v12 - 2;
+  v33 = 0;
+  v15 = v4[1];
+  v34 = &v30;
+  v36 = 0;
+  v35 = v15;
+  v46 = &v41;
+  v47 = &v34;
+  v26 = v12 - 2;
+  v27 = v44[0];
+  v28 = v12 - 2;
+  v29 = 0;
+  cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixScalarExpr<cva::MatrixRef<float,0u,1u,false>,cva::detail::MulOp>,cva::MatrixScalarExpr<cva::MatrixRef<float,0u,1u,false>,cva::detail::MulOp>,cva::detail::AddOp>>(&v26, &v46);
+  v37 = v12 - 2;
+  v38 = v4 + 2;
+  v39 = v12 - 2;
+  v40 = 0;
+  v16 = v4[1];
+  v41 = &v37;
+  v43 = 0;
+  v42 = v16;
+  v30 = v12 - 2;
+  v31 = (v3 + 1);
+  v32 = v12 - 2;
+  v33 = 0;
+  v17 = *v3;
+  v34 = &v30;
+  v36 = 0;
+  v35 = v17;
+  v46 = &v41;
+  v47 = &v34;
+  v26 = v45;
+  v27 = v44[0] + 4 * v45;
+  v28 = v45;
+  v29 = v45;
+  v18 = cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixScalarExpr<cva::MatrixRef<float,0u,1u,false>,cva::detail::MulOp>,cva::MatrixScalarExpr<cva::MatrixRef<float,0u,1u,false>,cva::detail::MulOp>,cva::detail::AddOp>>(&v26, &v46);
+  if (v12 >= 3)
+  {
+    v19 = 0;
+    v20 = v11 - a2 - 2;
+    v21 = a2 - v11 + 2;
+    do
+    {
+      v37 = v20;
+      v38 = (v44[0] + 4 * v21 + 4 * v19 + 4 * v45);
+      v39 = v45;
+      v40 = v21 + v19 + v45;
+      if (v45 < v20)
+      {
+        __assert_rtn("MatrixRef", "matrixref.h", 428, "(m_stride >= MatrixRef::rows()) || cva::detail::assertMessage(Invalid stride size, the columns overlap!)");
+      }
+
+      v22 = v4[v19 + 2];
+      v41 = &v37;
+      v43 = 0;
+      v42 = v22;
+      v30 = v20;
+      v31 = v44[0] + 8 * v45 + 4 * v21 + 4 * v19;
+      v32 = v45;
+      v33 = v21 + v19 + 2 * v45;
+      v23 = v10[v19];
+      v34 = &v30;
+      v36 = 0;
+      v35 = v23;
+      if (v20 != v37)
+      {
+        v24 = cva::Logger::instance(v18);
+        cva::Logger::logInCategory(v24, 1, *MEMORY[0x277CFD380], "%u x %u <-> %u x %u\n", *v41, 1, *v34, 1);
+        if (*v41 != *v34)
+        {
+          __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
+        }
+      }
+
+      v46 = &v41;
+      v47 = &v34;
+      v25 = *(a1[4] + 8 * a2 + 16 + 8 * v19);
+      v26 = v20;
+      v27 = v25;
+      v28 = v20;
+      v29 = 0;
+      cva::assignOp<cva::MatrixRef<float,0u,1u,false>,cva::MatrixBinaryExpr<cva::MatrixScalarExpr<cva::MatrixRef<float,0u,1u,false>,cva::detail::MulOp>,cva::MatrixScalarExpr<cva::MatrixRef<float,0u,1u,false>,cva::detail::MulOp>,cva::detail::AddOp>,cva::detail::AssignSubOp<float,float const>>(&v26, &v46);
+      ++v19;
+      --v20;
+    }
+
+    while (v13 != v19);
+  }
+
+  LODWORD(v46) = v45;
+  v47 = v44[0];
+  v48 = v45;
+  v49 = 0;
+  v37 = v13;
+  v38 = v4 + 2;
+  v39 = v13;
+  v40 = 0;
+  cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float,0u,1u,false>>(&v37, &v46);
+  LODWORD(v46) = v45;
+  v47 = (v44[0] + 4 * v45);
+  v48 = v45;
+  v49 = v45;
+  v37 = v13;
+  v38 = v10;
+  v39 = v13;
+  v40 = 0;
+  cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float,0u,1u,false>>(&v37, &v46);
+  free(v44[0]);
+  return 0;
+}
+
+void LBFGSpp::BKLDLT<float>::compress_permutation(uint64_t a1, __n128 a2)
+{
+  v2 = *a1;
+  if (*a1 >= 1)
+  {
+    v4 = 0;
+    do
+    {
+      if (*(a1 + 72) <= v4)
+      {
+        LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::minimize<EndpointMinimizerFunc>();
+      }
+
+      v5 = *(*(a1 + 56) + 8 * v4);
+      v6 = v5 ^ (v5 >> 63);
+      if (v4 != v6)
+      {
+        v8 = *(a1 + 88);
+        v7 = *(a1 + 96);
+        if (v8 >= v7)
+        {
+          v10 = *(a1 + 80);
+          v11 = v8 - v10;
+          v12 = (v8 - v10) >> 4;
+          v13 = v12 + 1;
+          if ((v12 + 1) >> 60)
+          {
+            std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
+          }
+
+          v14 = v7 - v10;
+          if (v14 >> 3 > v13)
+          {
+            v13 = v14 >> 3;
+          }
+
+          if (v14 >= 0x7FFFFFFFFFFFFFF0)
+          {
+            v15 = 0xFFFFFFFFFFFFFFFLL;
+          }
+
+          else
+          {
+            v15 = v13;
+          }
+
+          if (v15)
+          {
+            std::__allocate_at_least[abi:ne200100]<std::allocator<boost::uuids::uuid>>(a1 + 80, v15);
+          }
+
+          v16 = v12;
+          v17 = (16 * v12);
+          *v17 = v4;
+          v17[1] = v6;
+          v9 = 16 * v12 + 16;
+          v18 = &v17[-2 * v16];
+          memcpy(v18, v10, v11);
+          v19 = *(a1 + 80);
+          *(a1 + 80) = v18;
+          *(a1 + 88) = v9;
+          *(a1 + 96) = 0;
+          if (v19)
+          {
+            operator delete(v19);
+          }
+        }
+
+        else
+        {
+          *v8 = v4;
+          *(v8 + 1) = v6;
+          v9 = (v8 + 16);
+        }
+
+        *(a1 + 88) = v9;
+        v2 = *a1;
+      }
+
+      ++v4;
+    }
+
+    while (v4 < v2);
+  }
+}
+
+void cva::MatrixData<long,0ul,0ul,false>::reserve(uint64_t a1, unint64_t a2)
+{
+  if (a2)
+  {
+    if (*(a1 + 8) < a2)
+    {
+      free(*a1);
+      *a1 = 0;
+
+      cva::MatrixData<long,0ul,0ul,false>::allocate(a1, a2);
+    }
   }
 
   else
   {
-    *v4 = *v3;
-    *v3 = v5;
-    *v4 = *v4 / v6;
-    *v3 = *v3 / v6;
-    v10 = v3 + 1;
-    v4[1] = -v4[1] / v6;
-    v11 = *a1;
-    v12 = *a1 - a2;
-    v13 = v12 - 2;
-    v47[0] = 0;
-    v47[1] = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(v47, 2 * ((v12 - 2) & 0x7FFFFFFF));
-    v48 = v12 - 2;
-    v40 = v12 - 2;
-    v41 = v4 + 2;
-    v42 = v12 - 2;
-    v43 = 0;
-    v14 = *v4;
-    v44 = &v40;
-    v46 = 0;
-    v45 = v14;
-    v33 = v12 - 2;
-    v34 = (v3 + 1);
-    v35 = v12 - 2;
-    v36 = 0;
-    v15 = v4[1];
-    v37 = &v33;
-    v39 = 0;
-    v38 = v15;
-    v49 = &v44;
-    v50 = &v37;
-    v29 = v12 - 2;
-    v30 = v47[0];
-    v31 = v12 - 2;
-    v32 = 0;
-    cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixScalarExpr<cva::MatrixRef<float,0u,1u,false>,cva::detail::MulOp>,cva::MatrixScalarExpr<cva::MatrixRef<float,0u,1u,false>,cva::detail::MulOp>,cva::detail::AddOp>>(&v29, &v49);
-    v40 = v12 - 2;
-    v41 = v4 + 2;
-    v42 = v12 - 2;
-    v43 = 0;
-    v16 = v4[1];
-    v44 = &v40;
-    v46 = 0;
-    v45 = v16;
-    v33 = v12 - 2;
-    v34 = (v3 + 1);
-    v35 = v12 - 2;
-    v36 = 0;
-    v17 = *v3;
-    v37 = &v33;
-    v39 = 0;
-    v38 = v17;
-    v49 = &v44;
-    v50 = &v37;
-    v29 = v48;
-    v30 = v47[0] + 4 * v48;
-    v31 = v48;
-    v32 = v48;
-    v18 = cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixScalarExpr<cva::MatrixRef<float,0u,1u,false>,cva::detail::MulOp>,cva::MatrixScalarExpr<cva::MatrixRef<float,0u,1u,false>,cva::detail::MulOp>,cva::detail::AddOp>>(&v29, &v49);
-    if (v12 >= 3)
-    {
-      v19 = 0;
-      v20 = v11 - a2 - 2;
-      v21 = a2 - v11 + 2;
-      do
-      {
-        v40 = v20;
-        v41 = (v47[0] + 4 * v21 + 4 * v19 + 4 * v48);
-        v42 = v48;
-        v43 = v21 + v19 + v48;
-        if (v48 < v20)
-        {
-          __assert_rtn("MatrixRef", "matrixref.h", 428, "(m_stride >= MatrixRef::rows()) || cva::detail::assertMessage(Invalid stride size, the columns overlap!)");
-        }
+    free(*a1);
+    *a1 = 0;
+    *(a1 + 8) = 0;
+  }
+}
 
-        v22 = v4[v19 + 2];
-        v44 = &v40;
-        v46 = 0;
-        v45 = v22;
-        v33 = v20;
-        v34 = v47[0] + 8 * v48 + 4 * v21 + 4 * v19;
-        v35 = v48;
-        v36 = v21 + v19 + 2 * v48;
-        v23 = v10[v19];
-        v37 = &v33;
-        v39 = 0;
-        v38 = v23;
-        if (v20 != v40)
-        {
-          cva::Logger::instance(v18);
-          v24 = *MEMORY[0x277CFD380];
-          v28 = *v37;
-          v27 = *v44;
-          cva::Logger::logInCategory();
-          if (*v44 != *v37)
-          {
-            __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
-          }
-        }
-
-        v49 = &v44;
-        v50 = &v37;
-        v25 = *(a1[4] + 8 * a2 + 16 + 8 * v19);
-        v29 = v20;
-        v30 = v25;
-        v31 = v20;
-        v32 = 0;
-        cva::assignOp<cva::MatrixRef<float,0u,1u,false>,cva::MatrixBinaryExpr<cva::MatrixScalarExpr<cva::MatrixRef<float,0u,1u,false>,cva::detail::MulOp>,cva::MatrixScalarExpr<cva::MatrixRef<float,0u,1u,false>,cva::detail::MulOp>,cva::detail::AddOp>,cva::detail::AssignSubOp<float,float const>>(&v29, &v49);
-        ++v19;
-        --v20;
-      }
-
-      while (v13 != v19);
-    }
-
-    LODWORD(v49) = v48;
-    v50 = v47[0];
-    v51 = v48;
-    v52 = 0;
-    v40 = v13;
-    v41 = v4 + 2;
-    v42 = v13;
-    v43 = 0;
-    cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float,0u,1u,false>>(&v40, &v49);
-    LODWORD(v49) = v48;
-    v50 = (v47[0] + 4 * v48);
-    v51 = v48;
-    v52 = v48;
-    v40 = v13;
-    v41 = v10;
-    v42 = v13;
-    v43 = 0;
-    cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float,0u,1u,false>>(&v40, &v49);
-    free(v47[0]);
-    result = 0;
+uint64_t cva::MatrixData<long,0ul,0ul,false>::allocate(void **a1, uint64_t a2)
+{
+  if (*a1)
+  {
+    cva::MatrixData<float,0ul,0ul,false>::allocate();
   }
 
-  v26 = *MEMORY[0x277D85DE8];
+  v3 = (8 * a2 + 31) & 0xFFFFFFFFFFFFFFE0;
+  a1[1] = (v3 >> 3);
+  memptr = 0;
+  result = malloc_type_posix_memalign(&memptr, 0x20uLL, v3, 0xE1AC2527uLL);
+  v5 = memptr;
+  *a1 = memptr;
+  if (!v5)
+  {
+    cva::MatrixData<float,0ul,0ul,false>::allocate();
+  }
+
+  return result;
+}
+
+void std::vector<float *>::reserve(void *a1, unint64_t a2)
+{
+  if (a2 > (a1[2] - *a1) >> 3)
+  {
+    if (!(a2 >> 61))
+    {
+      std::__allocate_at_least[abi:ne200100]<std::allocator<float *>>(a1, a2);
+    }
+
+    std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
+  }
+}
+
+void std::__allocate_at_least[abi:ne200100]<std::allocator<float *>>(uint64_t a1, unint64_t a2)
+{
+  if (!(a2 >> 61))
+  {
+    operator new();
+  }
+
+  std::__throw_bad_array_new_length[abi:ne200100]();
+}
+
+uint64_t LBFGSpp::BKLDLT<float>::find_lambda(uint64_t result, uint64_t a2, void *a3)
+{
+  v3 = *(result + 32);
+  v4 = *(v3 + 8 * a2);
+  v5 = *(v3 + 8 * (a2 + 1));
+  *a3 = a2 + 1;
+  v6 = fabsf(*(v4 + 4));
+  if (v4 + 8 < v5)
+  {
+    v7 = 8;
+    do
+    {
+      v8 = fabsf(*(v4 + v7));
+      if (v6 < v8)
+      {
+        *a3 = a2 + (v7 >> 2);
+        v6 = v8;
+      }
+
+      v7 += 4;
+    }
+
+    while (v4 + v7 < v5);
+  }
+
+  return result;
+}
+
+void *LBFGSpp::BKLDLT<float>::find_sigma(void *result, uint64_t a2, uint64_t a3, void *a4)
+{
+  v7 = result;
+  v8 = -1.0;
+  if (*result - 1 > a3)
+  {
+    result = LBFGSpp::BKLDLT<float>::find_lambda(result, a3, a4);
+  }
+
+  v9 = a3 - a2;
+  if (a3 > a2)
+  {
+    v10 = v7[4];
+    do
+    {
+      v11 = fabsf(*(*(v10 + 8 * a2) + 4 * v9));
+      if (v8 < v11)
+      {
+        *a4 = a2;
+        v8 = v11;
+      }
+
+      ++a2;
+      --v9;
+    }
+
+    while (v9);
+  }
+
+  return result;
+}
+
+uint64_t LBFGSpp::BKLDLT<float>::pivoting_1x1(uint64_t result, uint64_t a2, uint64_t a3, __n128 a4)
+{
+  if (a3 == a2)
+  {
+    a3 = a2;
+    if (*(result + 72) <= a2)
+    {
+      LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::minimize<EndpointMinimizerFunc>();
+    }
+  }
+
+  else
+  {
+    v4 = *(result + 32);
+    v5 = *(v4 + 8 * a2);
+    v6 = *(v4 + 8 * a3);
+    v7 = *v5;
+    *v5 = *v6;
+    *v6 = v7;
+    v8 = &v5[a3 - a2 + 1];
+    v9 = *(v4 + 8 * (a2 + 1));
+    if (v8 != v9)
+    {
+      v10 = v6 + 1;
+      do
+      {
+        v11 = *v8;
+        *v8++ = *v10;
+        *v10++ = v11;
+      }
+
+      while (v8 != v9);
+    }
+
+    if (a2 + 1 < a3)
+    {
+      v12 = ~a2 + a3;
+      v13 = (v4 + 8 * a2 + 8);
+      v14 = v5 + 1;
+      do
+      {
+        v15 = *v13++;
+        v16 = *v14;
+        *v14++ = *(v15 + 4 * v12);
+        *(v15 + 4 * v12--) = v16;
+      }
+
+      while (v12);
+    }
+
+    if (*(result + 72) <= a2)
+    {
+      LBFGSpp::LBFGSBSolver<float,LBFGSpp::LineSearchMoreThuente>::minimize<EndpointMinimizerFunc>();
+    }
+  }
+
+  *(*(result + 56) + 8 * a2) = a3;
   return result;
 }

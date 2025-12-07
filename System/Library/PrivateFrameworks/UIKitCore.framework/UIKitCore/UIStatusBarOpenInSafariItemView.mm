@@ -57,9 +57,9 @@
     if ([v15 count])
     {
       v16 = [v15 objectAtIndexedSubscript:0];
-      v17 = [v16 isEqualToString:@"www"];
+      isEqualToString = objc_msgSend_isEqualToString_(v16);
 
-      if (v17)
+      if (isEqualToString)
       {
         [v15 removeObjectAtIndex:0];
       }
@@ -99,7 +99,7 @@
   }
 
   destinationText = [(UIStatusBarOpenInSafariItemView *)self destinationText];
-  v23 = [destinationText isEqualToString:v21];
+  v23 = objc_msgSend_isEqualToString_(destinationText);
 
   if ((v23 & 1) == 0)
   {

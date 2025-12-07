@@ -71,7 +71,7 @@
 - (void)scene:(id)scene didReceiveActions:(id)actions forExtension:(Class)extension
 {
   sceneCopy = scene;
-  v6 = FBLogSceneClient();
+  v6 = FBLogSceneClient(sceneCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [FBSPseudoSceneUpdater scene:sceneCopy didReceiveActions:? forExtension:?];
@@ -121,7 +121,7 @@
 {
   sceneCopy = scene;
   invocationCopy = invocation;
-  v7 = FBLogSceneClient();
+  v7 = FBLogSceneClient(invocationCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [FBSPseudoSceneUpdater scene:sceneCopy sendInvocation:?];
@@ -325,13 +325,17 @@
 - (void)scene:(void *)a1 didReceiveActions:forExtension:.cold.1(void *a1)
 {
   v1 = [a1 loggingIdentifier];
-  OUTLINED_FUNCTION_0_3(&dword_1A2DBB000, v2, v3, "[%{public}@] Pseudo scenes do not support sending actions.", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_3(&dword_1A2DBB000, v2, v3, "[%{public}@] Pseudo scenes do not support sending actions.", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)scene:(void *)a1 sendInvocation:.cold.1(void *a1)
 {
   v1 = [a1 loggingIdentifier];
-  OUTLINED_FUNCTION_0_3(&dword_1A2DBB000, v2, v3, "[%{public}@] Pseudo scenes do not support sending invocations.", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_3(&dword_1A2DBB000, v2, v3, "[%{public}@] Pseudo scenes do not support sending invocations.", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

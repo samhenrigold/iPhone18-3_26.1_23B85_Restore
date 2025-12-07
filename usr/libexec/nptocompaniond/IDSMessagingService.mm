@@ -17,7 +17,7 @@
 
 - (void)service:(id)service account:(id)account incomingResourceAtURL:(id)l metadata:(id)metadata fromID:(id)d context:(id)context
 {
-  v14 = sub_100004180(&qword_100098D90);
+  v14 = sub_100004180(&qword_100098D90, &qword_100070678);
   __chkstk_darwin(v14 - 8);
   v16 = &v24 - v15;
   if (l)
@@ -55,7 +55,7 @@
 
   sub_10002FB74(serviceCopy, v16, metadata, v19, d, contextCopy);
 
-  sub_100009BA4(v16, &qword_100098D90);
+  sub_100009BA4(v16, &qword_100098D90, &qword_100070678);
 }
 
 - (void)service:(id)service account:(id)account incomingUnhandledProtobuf:(id)protobuf fromID:(id)d context:(id)context

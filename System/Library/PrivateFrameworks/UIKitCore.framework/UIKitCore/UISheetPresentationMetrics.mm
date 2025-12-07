@@ -6,8 +6,8 @@
 void __46___UISheetPresentationMetrics__defaultMetrics__block_invoke()
 {
   v0 = [[_UISheetPresentationMetrics alloc] _init];
-  v1 = _MergedGlobals_15_7;
-  _MergedGlobals_15_7 = v0;
+  v1 = _MergedGlobals_15_7[0];
+  _MergedGlobals_15_7[0] = v0;
 }
 
 void __67___UISheetPresentationMetrics_transitionSpringParametersHighSpeed___block_invoke()

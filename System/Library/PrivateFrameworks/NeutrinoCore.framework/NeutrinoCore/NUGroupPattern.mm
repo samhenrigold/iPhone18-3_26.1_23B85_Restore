@@ -60,7 +60,7 @@
   return v9 == 0;
 }
 
-uint64_t __39__NUGroupPattern_match_location_count___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__39__NUGroupPattern_match_location_count___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v8 = 0;
   result = [a2 match:a1[4] location:a1[7] count:&v8];

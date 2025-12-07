@@ -15,77 +15,66 @@
 
 - (TTSSubstitution)init
 {
-  v19.receiver = self;
-  v19.super_class = TTSSubstitution;
-  v6 = [(TTSSubstitution *)&v19 init];
-  if (v6)
+  v6.receiver = self;
+  v6.super_class = TTSSubstitution;
+  v2 = [(TTSSubstitution *)&v6 init];
+  if (v2)
   {
-    v7 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], v2, v3, v4, v5);
-    objc_msgSend_setUuid_(v6, v8, v7, v9, v10);
+    uUID = [MEMORY[0x1E696AFB0] UUID];
+    [(TTSSubstitution *)v2 setUuid:uUID];
 
-    objc_msgSend_setIgnoreCase_(v6, v11, 1, v12, v13);
-    objc_msgSend_setAppliesToAllApps_(v6, v14, 1, v15, v16);
-    v17 = v6;
+    [(TTSSubstitution *)v2 setIgnoreCase:1];
+    [(TTSSubstitution *)v2 setAppliesToAllApps:1];
+    v4 = v2;
   }
 
-  return v6;
+  return v2;
 }
 
 - (TTSSubstitution)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v106.receiver = self;
-  v106.super_class = TTSSubstitution;
-  v5 = [(TTSSubstitution *)&v106 init];
+  v26.receiver = self;
+  v26.super_class = TTSSubstitution;
+  v5 = [(TTSSubstitution *)&v26 init];
   if (v5)
   {
-    v6 = objc_opt_class();
-    v9 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v7, v6, @"originalString", v8);
-    objc_msgSend_setOriginalString_(v5, v10, v9, v11, v12);
+    v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"originalString"];
+    [(TTSSubstitution *)v5 setOriginalString:v6];
 
-    v13 = objc_opt_class();
-    v16 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v14, v13, @"replacementString", v15);
-    objc_msgSend_setReplacementString_(v5, v17, v16, v18, v19);
+    v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"replacementString"];
+    [(TTSSubstitution *)v5 setReplacementString:v7];
 
-    v20 = objc_opt_class();
-    v23 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v21, v20, @"phonemes", v22);
-    objc_msgSend_setPhonemes_(v5, v24, v23, v25, v26);
+    v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"phonemes"];
+    [(TTSSubstitution *)v5 setPhonemes:v8];
 
-    v27 = MEMORY[0x1E695DFD8];
-    v28 = objc_opt_class();
-    v29 = objc_opt_class();
-    v33 = objc_msgSend_setWithObjects_(v27, v30, v28, v31, v32, v29, 0);
-    v36 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v34, v33, @"languages", v35);
-    objc_msgSend_setLanguages_(v5, v37, v36, v38, v39);
+    v9 = MEMORY[0x1E695DFD8];
+    v10 = objc_opt_class();
+    v11 = [v9 setWithObjects:{v10, objc_opt_class(), 0}];
+    v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"languages"];
+    [(TTSSubstitution *)v5 setLanguages:v12];
 
-    v40 = MEMORY[0x1E695DFD8];
-    v41 = objc_opt_class();
-    v42 = objc_opt_class();
-    v46 = objc_msgSend_setWithObjects_(v40, v43, v41, v44, v45, v42, 0);
-    v49 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v47, v46, @"voiceIds", v48);
-    objc_msgSend_setVoiceIds_(v5, v50, v49, v51, v52);
+    v13 = MEMORY[0x1E695DFD8];
+    v14 = objc_opt_class();
+    v15 = [v13 setWithObjects:{v14, objc_opt_class(), 0}];
+    v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"voiceIds"];
+    [(TTSSubstitution *)v5 setVoiceIds:v16];
 
-    v53 = MEMORY[0x1E695DFD8];
-    v54 = objc_opt_class();
-    v55 = objc_opt_class();
-    v59 = objc_msgSend_setWithObjects_(v53, v56, v54, v57, v58, v55, 0);
-    v62 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v60, v59, @"bundleIdentifiers", v61);
-    objc_msgSend_setBundleIdentifiers_(v5, v63, v62, v64, v65);
+    v17 = MEMORY[0x1E695DFD8];
+    v18 = objc_opt_class();
+    v19 = [v17 setWithObjects:{v18, objc_opt_class(), 0}];
+    v20 = [coderCopy decodeObjectOfClasses:v19 forKey:@"bundleIdentifiers"];
+    [(TTSSubstitution *)v5 setBundleIdentifiers:v20];
 
-    v69 = objc_msgSend_decodeBoolForKey_(coderCopy, v66, @"active", v67, v68);
-    objc_msgSend_setActive_(v5, v70, v69, v71, v72);
-    v76 = objc_msgSend_decodeBoolForKey_(coderCopy, v73, @"ignoreCase", v74, v75);
-    objc_msgSend_setIgnoreCase_(v5, v77, v76, v78, v79);
-    v83 = objc_msgSend_decodeBoolForKey_(coderCopy, v80, @"appliesToAllApps", v81, v82);
-    objc_msgSend_setAppliesToAllApps_(v5, v84, v83, v85, v86);
-    v87 = objc_opt_class();
-    v90 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v88, v87, @"uuid", v89);
-    objc_msgSend_setUuid_(v5, v91, v90, v92, v93);
+    -[TTSSubstitution setActive:](v5, "setActive:", [coderCopy decodeBoolForKey:@"active"]);
+    -[TTSSubstitution setIgnoreCase:](v5, "setIgnoreCase:", [coderCopy decodeBoolForKey:@"ignoreCase"]);
+    -[TTSSubstitution setAppliesToAllApps:](v5, "setAppliesToAllApps:", [coderCopy decodeBoolForKey:@"appliesToAllApps"]);
+    v21 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"uuid"];
+    [(TTSSubstitution *)v5 setUuid:v21];
 
-    v94 = objc_opt_class();
-    v97 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v95, v94, @"replacementRange", v96);
-    v102 = objc_msgSend_rangeValue(v97, v98, v99, v100, v101);
-    objc_msgSend_setReplacementRange_(v5, v103, v102, v103, v104);
+    v22 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"replacementRange"];
+    rangeValue = [v22 rangeValue];
+    [(TTSSubstitution *)v5 setReplacementRange:rangeValue, v24];
   }
 
   return v5;
@@ -94,121 +83,112 @@
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  v9 = objc_msgSend_originalString(self, v5, v6, v7, v8);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v10, v9, @"originalString", v11);
+  originalString = [(TTSSubstitution *)self originalString];
+  [coderCopy encodeObject:originalString forKey:@"originalString"];
 
-  v16 = objc_msgSend_replacementString(self, v12, v13, v14, v15);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v17, v16, @"replacementString", v18);
+  replacementString = [(TTSSubstitution *)self replacementString];
+  [coderCopy encodeObject:replacementString forKey:@"replacementString"];
 
-  v23 = objc_msgSend_phonemes(self, v19, v20, v21, v22);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v24, v23, @"phonemes", v25);
+  phonemes = [(TTSSubstitution *)self phonemes];
+  [coderCopy encodeObject:phonemes forKey:@"phonemes"];
 
-  v30 = objc_msgSend_languages(self, v26, v27, v28, v29);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v31, v30, @"languages", v32);
+  languages = [(TTSSubstitution *)self languages];
+  [coderCopy encodeObject:languages forKey:@"languages"];
 
-  v37 = objc_msgSend_voiceIds(self, v33, v34, v35, v36);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v38, v37, @"voiceIds", v39);
+  voiceIds = [(TTSSubstitution *)self voiceIds];
+  [coderCopy encodeObject:voiceIds forKey:@"voiceIds"];
 
-  v44 = objc_msgSend_bundleIdentifiers(self, v40, v41, v42, v43);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v45, v44, @"bundleIdentifiers", v46);
+  bundleIdentifiers = [(TTSSubstitution *)self bundleIdentifiers];
+  [coderCopy encodeObject:bundleIdentifiers forKey:@"bundleIdentifiers"];
 
-  v51 = objc_msgSend_active(self, v47, v48, v49, v50);
-  objc_msgSend_encodeBool_forKey_(coderCopy, v52, v51, @"active", v53);
-  v58 = objc_msgSend_ignoreCase(self, v54, v55, v56, v57);
-  objc_msgSend_encodeBool_forKey_(coderCopy, v59, v58, @"ignoreCase", v60);
-  v65 = objc_msgSend_appliesToAllApps(self, v61, v62, v63, v64);
-  objc_msgSend_encodeBool_forKey_(coderCopy, v66, v65, @"appliesToAllApps", v67);
-  v72 = objc_msgSend_uuid(self, v68, v69, v70, v71);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v73, v72, @"uuid", v74);
+  [coderCopy encodeBool:-[TTSSubstitution active](self forKey:{"active"), @"active"}];
+  [coderCopy encodeBool:-[TTSSubstitution ignoreCase](self forKey:{"ignoreCase"), @"ignoreCase"}];
+  [coderCopy encodeBool:-[TTSSubstitution appliesToAllApps](self forKey:{"appliesToAllApps"), @"appliesToAllApps"}];
+  uuid = [(TTSSubstitution *)self uuid];
+  [coderCopy encodeObject:uuid forKey:@"uuid"];
 
-  v75 = MEMORY[0x1E696B098];
-  v80 = objc_msgSend_replacementRange(self, v76, v77, v78, v79);
-  v85 = objc_msgSend_valueWithRange_(v75, v81, v80, v81, v82);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v83, v85, @"replacementRange", v84);
+  v12 = MEMORY[0x1E696B098];
+  replacementRange = [(TTSSubstitution *)self replacementRange];
+  v15 = [v12 valueWithRange:{replacementRange, v14}];
+  [coderCopy encodeObject:v15 forKey:@"replacementRange"];
 }
 
 - (void)dealloc
 {
-  objc_msgSend_setUuid_(self, a2, 0, v2, v3);
-  objc_msgSend_setOriginalString_(self, v5, 0, v6, v7);
-  objc_msgSend_setReplacementString_(self, v8, 0, v9, v10);
-  objc_msgSend_setPhonemes_(self, v11, 0, v12, v13);
-  objc_msgSend_setLanguages_(self, v14, 0, v15, v16);
-  objc_msgSend_setVoiceIds_(self, v17, 0, v18, v19);
-  objc_msgSend_setBundleIdentifiers_(self, v20, 0, v21, v22);
-  objc_msgSend_setReplacementRange_(self, v23, 0x7FFFFFFFFFFFFFFFLL, 0, v24);
-  v25.receiver = self;
-  v25.super_class = TTSSubstitution;
-  [(TTSSubstitution *)&v25 dealloc];
+  [(TTSSubstitution *)self setUuid:0];
+  [(TTSSubstitution *)self setOriginalString:0];
+  [(TTSSubstitution *)self setReplacementString:0];
+  [(TTSSubstitution *)self setPhonemes:0];
+  [(TTSSubstitution *)self setLanguages:0];
+  [(TTSSubstitution *)self setVoiceIds:0];
+  [(TTSSubstitution *)self setBundleIdentifiers:0];
+  [(TTSSubstitution *)self setReplacementRange:0x7FFFFFFFFFFFFFFFLL, 0];
+  v3.receiver = self;
+  v3.super_class = TTSSubstitution;
+  [(TTSSubstitution *)&v3 dealloc];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v6 = objc_msgSend_allocWithZone_(TTSSubstitution, a2, zone, v3, v4);
-  v11 = objc_msgSend_init(v6, v7, v8, v9, v10);
-  v16 = objc_msgSend_originalString(self, v12, v13, v14, v15);
-  objc_msgSend_setOriginalString_(v11, v17, v16, v18, v19);
+  v4 = [[TTSSubstitution allocWithZone:?]];
+  originalString = [(TTSSubstitution *)self originalString];
+  [(TTSSubstitution *)v4 setOriginalString:originalString];
 
-  v24 = objc_msgSend_replacementString(self, v20, v21, v22, v23);
-  objc_msgSend_setReplacementString_(v11, v25, v24, v26, v27);
+  replacementString = [(TTSSubstitution *)self replacementString];
+  [(TTSSubstitution *)v4 setReplacementString:replacementString];
 
-  v32 = objc_msgSend_phonemes(self, v28, v29, v30, v31);
-  objc_msgSend_setPhonemes_(v11, v33, v32, v34, v35);
+  phonemes = [(TTSSubstitution *)self phonemes];
+  [(TTSSubstitution *)v4 setPhonemes:phonemes];
 
-  v40 = objc_msgSend_languages(self, v36, v37, v38, v39);
-  objc_msgSend_setLanguages_(v11, v41, v40, v42, v43);
+  languages = [(TTSSubstitution *)self languages];
+  [(TTSSubstitution *)v4 setLanguages:languages];
 
-  v48 = objc_msgSend_ignoreCase(self, v44, v45, v46, v47);
-  objc_msgSend_setIgnoreCase_(v11, v49, v48, v50, v51);
-  v56 = objc_msgSend_active(self, v52, v53, v54, v55);
-  objc_msgSend_setActive_(v11, v57, v56, v58, v59);
-  v64 = objc_msgSend_bundleIdentifiers(self, v60, v61, v62, v63);
-  objc_msgSend_setBundleIdentifiers_(v11, v65, v64, v66, v67);
+  [(TTSSubstitution *)v4 setIgnoreCase:[(TTSSubstitution *)self ignoreCase]];
+  [(TTSSubstitution *)v4 setActive:[(TTSSubstitution *)self active]];
+  bundleIdentifiers = [(TTSSubstitution *)self bundleIdentifiers];
+  [(TTSSubstitution *)v4 setBundleIdentifiers:bundleIdentifiers];
 
-  v72 = objc_msgSend_appliesToAllApps(self, v68, v69, v70, v71);
-  objc_msgSend_setAppliesToAllApps_(v11, v73, v72, v74, v75);
-  v80 = objc_msgSend_voiceIds(self, v76, v77, v78, v79);
-  objc_msgSend_setVoiceIds_(v11, v81, v80, v82, v83);
+  [(TTSSubstitution *)v4 setAppliesToAllApps:[(TTSSubstitution *)self appliesToAllApps]];
+  voiceIds = [(TTSSubstitution *)self voiceIds];
+  [(TTSSubstitution *)v4 setVoiceIds:voiceIds];
 
-  v88 = objc_msgSend_replacementRange(self, v84, v85, v86, v87);
-  objc_msgSend_setReplacementRange_(v11, v89, v88, v89, v90);
-  return v11;
+  replacementRange = [(TTSSubstitution *)self replacementRange];
+  [(TTSSubstitution *)v4 setReplacementRange:replacementRange, v12];
+  return v4;
 }
 
 - (void)setReplacementString:(id)string
 {
-  v6 = objc_msgSend_copy(string, a2, string, v3, v4);
+  v4 = [string copy];
   replacementString = self->_replacementString;
-  self->_replacementString = v6;
+  self->_replacementString = v4;
 
-  v12 = objc_msgSend_alphanumericCharacterSet(MEMORY[0x1E696AB08], v8, v9, v10, v11);
-  v61 = objc_msgSend_invertedSet(v12, v13, v14, v15, v16);
+  alphanumericCharacterSet = [MEMORY[0x1E696AB08] alphanumericCharacterSet];
+  invertedSet = [alphanumericCharacterSet invertedSet];
 
-  v20 = objc_msgSend_stringByTrimmingCharactersInSet_(self->_replacementString, v17, v61, v18, v19);
-  v25 = objc_msgSend_length(v20, v21, v22, v23, v24);
+  v7 = [(NSString *)self->_replacementString stringByTrimmingCharactersInSet:invertedSet];
+  v8 = [v7 length];
 
-  if (!v25)
+  if (!v8)
   {
     self->_isReplacementTextAllPunctuation = 1;
   }
 
-  if (objc_msgSend_length(self->_replacementString, v26, v27, v28, v29))
+  if ([(NSString *)self->_replacementString length])
   {
-    v33 = objc_msgSend_substringToIndex_(self->_replacementString, v30, 1, v31, v32);
-    v34 = self->_replacementString;
-    v39 = objc_msgSend_length(v34, v35, v36, v37, v38);
-    v43 = objc_msgSend_substringFromIndex_(v34, v40, v39 - 1, v41, v42);
-    v47 = objc_msgSend_stringByTrimmingCharactersInSet_(v33, v44, v61, v45, v46);
-    if (objc_msgSend_length(v47, v48, v49, v50, v51))
+    v9 = [(NSString *)self->_replacementString substringToIndex:1];
+    v10 = [(NSString *)self->_replacementString substringFromIndex:[(NSString *)self->_replacementString length]- 1];
+    v11 = [v9 stringByTrimmingCharactersInSet:invertedSet];
+    if ([v11 length])
     {
     }
 
     else
     {
-      v55 = objc_msgSend_stringByTrimmingCharactersInSet_(v43, v52, v61, v53, v54);
-      v60 = objc_msgSend_length(v55, v56, v57, v58, v59);
+      v12 = [v10 stringByTrimmingCharactersInSet:invertedSet];
+      v13 = [v12 length];
 
-      if (!v60)
+      if (!v13)
       {
         self->_isReplacementTextSurroundedByPunctuation = 1;
       }
@@ -227,40 +207,40 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v9 = objc_msgSend_uuid(self, v5, v6, v7, v8);
-    v14 = objc_msgSend_uuid(equalCopy, v10, v11, v12, v13);
-    isEqual = objc_msgSend_isEqual_(v9, v15, v14, v16, v17);
+    uuid = [(TTSSubstitution *)self uuid];
+    uuid2 = [equalCopy uuid];
+    v7 = [uuid isEqual:uuid2];
   }
 
   else
   {
-    isEqual = 0;
+    v7 = 0;
   }
 
-  return isEqual;
+  return v7;
 }
 
 - (unint64_t)hash
 {
-  v5 = objc_msgSend_uuid(self, a2, v2, v3, v4);
-  v10 = objc_msgSend_hash(v5, v6, v7, v8, v9);
+  uuid = [(TTSSubstitution *)self uuid];
+  v3 = [uuid hash];
 
-  return v10;
+  return v3;
 }
 
 - (id)description
 {
   v3 = MEMORY[0x1E696AEC0];
-  v30.receiver = self;
-  v30.super_class = TTSSubstitution;
-  v4 = [(TTSSubstitution *)&v30 description];
-  v9 = objc_msgSend_originalString(self, v5, v6, v7, v8);
-  v14 = objc_msgSend_replacementString(self, v10, v11, v12, v13);
-  v19 = objc_msgSend_phonemes(self, v15, v16, v17, v18);
-  v24 = objc_msgSend_languages(self, v20, v21, v22, v23);
-  v28 = objc_msgSend_stringWithFormat_(v3, v25, @"%@: Original: %@, Replacement: %@, Phonemes: %@, Languages: %@", v26, v27, v4, v9, v14, v19, v24);
+  v11.receiver = self;
+  v11.super_class = TTSSubstitution;
+  v4 = [(TTSSubstitution *)&v11 description];
+  originalString = [(TTSSubstitution *)self originalString];
+  replacementString = [(TTSSubstitution *)self replacementString];
+  phonemes = [(TTSSubstitution *)self phonemes];
+  languages = [(TTSSubstitution *)self languages];
+  v9 = [v3 stringWithFormat:@"%@: Original: %@, Replacement: %@, Phonemes: %@, Languages: %@", v4, originalString, replacementString, phonemes, languages];
 
-  return v28;
+  return v9;
 }
 
 - (_NSRange)replacementRange

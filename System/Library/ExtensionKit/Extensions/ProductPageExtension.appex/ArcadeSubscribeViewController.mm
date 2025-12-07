@@ -158,7 +158,7 @@
 
   sub_10035041C();
 
-  sub_10000CFBC(v6, &unk_1009434C0);
+  sub_10000CFBC(v6, &unk_1009434C0, &qword_100783F60);
 }
 
 - (_TtC20ProductPageExtension29ArcadeSubscribeViewController)initWithNibName:(id)name bundle:(id)bundle

@@ -151,17 +151,15 @@ LABEL_34:
 
 void __45__UIDevice_SFAdditions__sf_screenClassString__block_invoke()
 {
-  v3[4] = *MEMORY[0x277D85DE8];
-  v3[0] = @"main-screen-width";
-  v3[1] = @"main-screen-height";
-  v3[2] = @"main-screen-scale";
-  v3[3] = @"main-screen-pitch";
-  [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:4];
+  v2[4] = *MEMORY[0x277D85DE8];
+  v2[0] = @"main-screen-width";
+  v2[1] = @"main-screen-height";
+  v2[2] = @"main-screen-scale";
+  v2[3] = @"main-screen-pitch";
+  [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:4];
   v0 = MGCopyMultipleAnswers();
   v1 = sf_screenClassString_screenClass;
   sf_screenClassString_screenClass = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __38__UIDevice_SFAdditions__sf_regionCode__block_invoke()

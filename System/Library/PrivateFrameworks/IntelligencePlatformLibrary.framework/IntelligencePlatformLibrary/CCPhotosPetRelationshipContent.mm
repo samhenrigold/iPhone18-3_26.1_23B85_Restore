@@ -252,7 +252,6 @@ LABEL_42:
       NSStringFromClass(v37);
       errorCopy = error;
       v40 = v39 = dataCopy;
-      v41 = *&v7[*v10];
       v11 = CCSkipFieldErrorForMessage();
 
       dataCopy = v39;
@@ -272,22 +271,21 @@ LABEL_42:
 LABEL_55:
     if (!*&v7[*v10])
     {
-      v45 = 1;
+      v43 = 1;
       goto LABEL_59;
     }
 
 LABEL_56:
-    v42 = objc_opt_class();
-    v11 = NSStringFromClass(v42);
-    v43 = *&v7[*v10];
-    v44 = CCInvalidBufferErrorForMessage();
+    v41 = objc_opt_class();
+    v11 = NSStringFromClass(v41);
+    v42 = CCInvalidBufferErrorForMessage();
     CCSetError();
   }
 
-  v45 = 0;
+  v43 = 0;
 LABEL_59:
 
-  return v45;
+  return v43;
 }
 
 - (CCPhotosPetRelationshipContent)initWithIsUsersPet:(id)pet type:(unsigned int)type error:(id *)error

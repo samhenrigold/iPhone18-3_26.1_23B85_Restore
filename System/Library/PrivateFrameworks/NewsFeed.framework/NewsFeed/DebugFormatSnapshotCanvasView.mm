@@ -75,7 +75,7 @@
   recognizerCopy = recognizer;
   gestureRecognizerCopy = gestureRecognizer;
   selfCopy = self;
-  v9 = sub_1D71F89D8();
+  v9 = sub_1D71F89D8(recognizerCopy, gestureRecognizerCopy);
 
   return v9 & 1;
 }

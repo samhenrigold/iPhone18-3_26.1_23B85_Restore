@@ -12,8 +12,7 @@
 - (void)stopMediaPlaybackWithCompletionHandler:(id)handler
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
+  MEMORY[0x28223BE20](v5 - 8, v6);
   v8 = &v14 - v7;
   v9 = _Block_copy(handler);
   v10 = swift_allocObject();
@@ -38,8 +37,7 @@
 - (void)resetPlaybackControllerWithCompletionHandler:(id)handler
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
+  MEMORY[0x28223BE20](v5 - 8, v6);
   v8 = &v14 - v7;
   v9 = _Block_copy(handler);
   v10 = swift_allocObject();
@@ -65,8 +63,7 @@
 {
   v4 = v3;
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
+  MEMORY[0x28223BE20](v7 - 8, v8);
   v10 = &v17 - v9;
   v11 = _Block_copy(prewarm);
   v12 = _Block_copy(v4);
@@ -93,8 +90,7 @@
 - (void)prepareMediaPlaybackWithCompletionHandler:(id)handler
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
+  MEMORY[0x28223BE20](v5 - 8, v6);
   v8 = &v14 - v7;
   v9 = _Block_copy(handler);
   v10 = swift_allocObject();
@@ -119,8 +115,7 @@
 - (void)startMediaPlaybackWithCompletionHandler:(id)handler
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
+  MEMORY[0x28223BE20](v5 - 8, v6);
   v8 = &v14 - v7;
   v9 = _Block_copy(handler);
   v10 = swift_allocObject();
@@ -145,8 +140,7 @@
 - (void)ppt_setupMediaConfigurationFor:(FIUIWorkoutActivityType *)for completionHandler:(id)handler
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
+  MEMORY[0x28223BE20](v7 - 8, v8);
   v10 = &v17 - v9;
   v11 = _Block_copy(handler);
   v12 = swift_allocObject();

@@ -2,7 +2,7 @@
 - (BOOL)isAuthenticated;
 - (BOOL)isAuthenticatedCached;
 - (_SBFContinuityUnlockAuthenticationStatusProvider)initWithMobileKeyBag:(id)bag underlyingProvider:(id)provider;
-- (uint64_t)_isContinuityUnlocked;
+- (id)_isContinuityUnlocked;
 @end
 
 @implementation _SBFContinuityUnlockAuthenticationStatusProvider
@@ -48,11 +48,11 @@
   return [(SBFMobileKeyBag *)keybag isContinuityUnlocked];
 }
 
-- (uint64_t)_isContinuityUnlocked
+- (id)_isContinuityUnlocked
 {
   if (result)
   {
-    return [*(result + 8) isContinuityUnlocked];
+    return [result[1] isContinuityUnlocked];
   }
 
   return result;

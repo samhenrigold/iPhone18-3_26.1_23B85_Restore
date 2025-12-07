@@ -26,9 +26,11 @@
 
 uint64_t __35__WBReadingList_defaultReadingList__block_invoke(uint64_t a1)
 {
-  defaultReadingList_wbReadingList = [objc_alloc(*(a1 + 32)) _init];
+  v1 = [objc_alloc(*(a1 + 32)) _init];
+  v2 = defaultReadingList_wbReadingList;
+  defaultReadingList_wbReadingList = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (WBReadingList)init

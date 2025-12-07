@@ -44,7 +44,7 @@
 
 + (id)createWithReason:(id)reason
 {
-  sub_1A7CC7FFC(&qword_1EB2B4A98);
+  sub_1A7CC7FFC(&qword_1EB2B4A98, &unk_1A7E41930);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_1A7E418E0;
   *(v4 + 32) = reason;
@@ -76,10 +76,10 @@
 
 + (id)createWithReasonString:(id)string
 {
-  sub_1A7E22290();
-  v3 = sub_1A7CD6D24();
+  v3 = sub_1A7E22290();
+  v5 = sub_1A7CD6D24(v3, v4);
 
-  return v3;
+  return v5;
 }
 
 - (NSString)reasonString

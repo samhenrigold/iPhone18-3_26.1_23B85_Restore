@@ -25,7 +25,7 @@ void __132__SAIntentGroupProcessIntent_INSExtensionService___handleIntentWithExt
 
 uint64_t __132__SAIntentGroupProcessIntent_INSExtensionService___handleIntentWithExtensionProxy_onQueue_processIntentCompleted_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = +[INSAnalytics sharedAnalytics];
   v3 = [*(a1 + 32) ins_afAnalyticsContext];
   [v2 logEventWithType:641 context:v3 contextNoCopy:1];
@@ -35,11 +35,11 @@ uint64_t __132__SAIntentGroupProcessIntent_INSExtensionService___handleIntentWit
   if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_INFO))
   {
     v6 = *(a1 + 40);
-    v23 = 136315394;
-    v24 = "[SAIntentGroupProcessIntent(INSExtensionService) _handleIntentWithExtensionProxy:onQueue:processIntentCompleted:completionHandler:]_block_invoke_2";
-    v25 = 2112;
-    v26 = v6;
-    _os_log_impl(&dword_25553C000, v5, OS_LOG_TYPE_INFO, "%s HandleIntent completed with response %@", &v23, 0x16u);
+    v20 = 136315394;
+    v21 = "[SAIntentGroupProcessIntent(INSExtensionService) _handleIntentWithExtensionProxy:onQueue:processIntentCompleted:completionHandler:]_block_invoke_2";
+    v22 = 2112;
+    v23 = v6;
+    _os_log_impl(&dword_25553C000, v5, OS_LOG_TYPE_INFO, "%s HandleIntent completed with response %@", &v20, 0x16u);
     v5 = *v4;
   }
 
@@ -51,13 +51,13 @@ uint64_t __132__SAIntentGroupProcessIntent_INSExtensionService___handleIntentWit
       v8 = v5;
       v9 = [v7 errorCode];
       v10 = [*(a1 + 48) underlyingError];
-      v23 = 136315650;
-      v24 = "[SAIntentGroupProcessIntent(INSExtensionService) _handleIntentWithExtensionProxy:onQueue:processIntentCompleted:completionHandler:]_block_invoke";
-      v25 = 2048;
-      v26 = v9;
-      v27 = 2112;
-      v28 = v10;
-      _os_log_error_impl(&dword_25553C000, v8, OS_LOG_TYPE_ERROR, "%s HandleIntent error. errorCode: %lu underlyingError: %@", &v23, 0x20u);
+      v20 = 136315650;
+      v21 = "[SAIntentGroupProcessIntent(INSExtensionService) _handleIntentWithExtensionProxy:onQueue:processIntentCompleted:completionHandler:]_block_invoke";
+      v22 = 2048;
+      v23 = v9;
+      v24 = 2112;
+      v25 = v10;
+      _os_log_error_impl(&dword_25553C000, v8, OS_LOG_TYPE_ERROR, "%s HandleIntent error. errorCode: %lu underlyingError: %@", &v20, 0x20u);
     }
   }
 
@@ -65,9 +65,9 @@ uint64_t __132__SAIntentGroupProcessIntent_INSExtensionService___handleIntentWit
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v23 = 136315138;
-      v24 = "[SAIntentGroupProcessIntent(INSExtensionService) _handleIntentWithExtensionProxy:onQueue:processIntentCompleted:completionHandler:]_block_invoke";
-      _os_log_impl(&dword_25553C000, v5, OS_LOG_TYPE_INFO, "%s HandleIntent successful.", &v23, 0xCu);
+      v20 = 136315138;
+      v21 = "[SAIntentGroupProcessIntent(INSExtensionService) _handleIntentWithExtensionProxy:onQueue:processIntentCompleted:completionHandler:]_block_invoke";
+      _os_log_impl(&dword_25553C000, v5, OS_LOG_TYPE_INFO, "%s HandleIntent successful.", &v20, 0xCu);
     }
 
     v11 = *(a1 + 56);
@@ -88,22 +88,18 @@ uint64_t __132__SAIntentGroupProcessIntent_INSExtensionService___handleIntentWit
       v16 = [v15 data];
       [v14 setData:v16];
 
-      v17 = *(a1 + 40);
       objc_opt_class();
-      v18 = INIntentSchemaGetIntentResponseDescriptionWithFacadeClass();
-      v19 = [v18 type];
+      v17 = INIntentSchemaGetIntentResponseDescriptionWithFacadeClass();
+      v18 = [v17 type];
 
-      [v14 setTypeName:v19];
+      [v14 setTypeName:v18];
       [v12 setIntentResponse:v14];
     }
 
     [v11 setHandleIntentCompleted:v12];
   }
 
-  v20 = *(a1 + 56);
-  result = (*(*(a1 + 64) + 16))();
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 64) + 16))();
 }
 
 void __133__SAIntentGroupProcessIntent_INSExtensionService___confirmIntentWithExtensionProxy_onQueue_processIntentCompleted_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -130,7 +126,7 @@ void __133__SAIntentGroupProcessIntent_INSExtensionService___confirmIntentWithEx
 
 void __133__SAIntentGroupProcessIntent_INSExtensionService___confirmIntentWithExtensionProxy_onQueue_processIntentCompleted_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = +[INSAnalytics sharedAnalytics];
   v3 = [*(a1 + 32) ins_afAnalyticsContext];
   [v2 logEventWithType:639 context:v3 contextNoCopy:1];
@@ -140,11 +136,11 @@ void __133__SAIntentGroupProcessIntent_INSExtensionService___confirmIntentWithEx
   if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_INFO))
   {
     v6 = *(a1 + 40);
-    v27 = 136315394;
-    v28 = "[SAIntentGroupProcessIntent(INSExtensionService) _confirmIntentWithExtensionProxy:onQueue:processIntentCompleted:completionHandler:]_block_invoke_2";
-    v29 = 2112;
-    v30 = v6;
-    _os_log_impl(&dword_25553C000, v5, OS_LOG_TYPE_INFO, "%s ConfirmIntent completed with response %@", &v27, 0x16u);
+    v24 = 136315394;
+    v25 = "[SAIntentGroupProcessIntent(INSExtensionService) _confirmIntentWithExtensionProxy:onQueue:processIntentCompleted:completionHandler:]_block_invoke_2";
+    v26 = 2112;
+    v27 = v6;
+    _os_log_impl(&dword_25553C000, v5, OS_LOG_TYPE_INFO, "%s ConfirmIntent completed with response %@", &v24, 0x16u);
   }
 
   v7 = objc_alloc_init(MEMORY[0x277D473B0]);
@@ -160,61 +156,59 @@ void __133__SAIntentGroupProcessIntent_INSExtensionService___confirmIntentWithEx
   else
   {
     v9 = objc_alloc_init(MEMORY[0x277D47418]);
-    v10 = *(a1 + 40);
     objc_opt_class();
-    v11 = INIntentSchemaGetIntentResponseDescriptionWithFacadeClass();
-    v12 = [v11 type];
+    v10 = INIntentSchemaGetIntentResponseDescriptionWithFacadeClass();
+    v11 = [v10 type];
 
-    [v9 setTypeName:v12];
-    v13 = [*(a1 + 40) backingStore];
-    v14 = [v13 data];
-    [v9 setData:v14];
+    [v9 setTypeName:v11];
+    v12 = [*(a1 + 40) backingStore];
+    v13 = [v12 data];
+    [v9 setData:v13];
 
     [v7 setIntentResponse:v9];
   }
 
-  v15 = *(a1 + 48);
-  if (v15)
+  v14 = *(a1 + 48);
+  if (v14)
   {
-    v16 = *v4;
+    v15 = *v4;
     if (os_log_type_enabled(*v4, OS_LOG_TYPE_ERROR))
     {
-      v17 = v16;
-      v18 = [v15 errorCode];
-      v19 = [*(a1 + 48) underlyingError];
-      v27 = 136315650;
-      v28 = "[SAIntentGroupProcessIntent(INSExtensionService) _confirmIntentWithExtensionProxy:onQueue:processIntentCompleted:completionHandler:]_block_invoke";
-      v29 = 2048;
-      v30 = v18;
-      v31 = 2112;
-      v32 = v19;
-      _os_log_error_impl(&dword_25553C000, v17, OS_LOG_TYPE_ERROR, "%s ConfirmIntent error. errorCode: %lu underlyingError: %@", &v27, 0x20u);
+      v16 = v15;
+      v17 = [v14 errorCode];
+      v18 = [*(a1 + 48) underlyingError];
+      v24 = 136315650;
+      v25 = "[SAIntentGroupProcessIntent(INSExtensionService) _confirmIntentWithExtensionProxy:onQueue:processIntentCompleted:completionHandler:]_block_invoke";
+      v26 = 2048;
+      v27 = v17;
+      v28 = 2112;
+      v29 = v18;
+      _os_log_error_impl(&dword_25553C000, v16, OS_LOG_TYPE_ERROR, "%s ConfirmIntent error. errorCode: %lu underlyingError: %@", &v24, 0x20u);
     }
 
 LABEL_17:
-    v25 = *(a1 + 56);
     (*(*(a1 + 80) + 16))();
     goto LABEL_18;
   }
 
   [*(a1 + 56) setConfirmIntentCompleted:v7];
-  v20 = *v4;
+  v19 = *v4;
   if (os_log_type_enabled(*v4, OS_LOG_TYPE_INFO))
   {
-    v21 = *(a1 + 32);
-    v22 = v20;
-    v23 = [v21 shouldRunHandleIntent];
-    v24 = @"NO";
-    if (v23)
+    v20 = *(a1 + 32);
+    v21 = v19;
+    v22 = [v20 shouldRunHandleIntent];
+    v23 = @"NO";
+    if (v22)
     {
-      v24 = @"YES";
+      v23 = @"YES";
     }
 
-    v27 = 136315394;
-    v28 = "[SAIntentGroupProcessIntent(INSExtensionService) _confirmIntentWithExtensionProxy:onQueue:processIntentCompleted:completionHandler:]_block_invoke";
-    v29 = 2112;
-    v30 = v24;
-    _os_log_impl(&dword_25553C000, v22, OS_LOG_TYPE_INFO, "%s ConfirmIntent successful. ShouldRunHandleIntent = %@", &v27, 0x16u);
+    v24 = 136315394;
+    v25 = "[SAIntentGroupProcessIntent(INSExtensionService) _confirmIntentWithExtensionProxy:onQueue:processIntentCompleted:completionHandler:]_block_invoke";
+    v26 = 2112;
+    v27 = v23;
+    _os_log_impl(&dword_25553C000, v21, OS_LOG_TYPE_INFO, "%s ConfirmIntent successful. ShouldRunHandleIntent = %@", &v24, 0x16u);
   }
 
   if (![*(a1 + 32) shouldRunHandleIntent] || objc_msgSend(*(a1 + 40), "_intentResponseCode") != 1 && objc_msgSend(*(a1 + 40), "_intentResponseCode") != 4)
@@ -224,13 +218,11 @@ LABEL_17:
 
   [*(a1 + 32) _handleIntentWithExtensionProxy:*(a1 + 64) onQueue:*(a1 + 72) processIntentCompleted:*(a1 + 56) completionHandler:*(a1 + 80)];
 LABEL_18:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __138__SAIntentGroupProcessIntent_INSExtensionService___resolveIntentSlotsWithExtensionProxy_onQueue_processIntentCompleted_completionHandler___block_invoke(id *a1, char a2, void *a3, void *a4)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v9 = +[INSAnalytics sharedAnalytics];
@@ -241,38 +233,36 @@ void __138__SAIntentGroupProcessIntent_INSExtensionService___resolveIntentSlotsW
   if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v28 = "[SAIntentGroupProcessIntent(INSExtensionService) _resolveIntentSlotsWithExtensionProxy:onQueue:processIntentCompleted:completionHandler:]_block_invoke";
-    v29 = 2112;
-    v30 = v7;
+    v27 = "[SAIntentGroupProcessIntent(INSExtensionService) _resolveIntentSlotsWithExtensionProxy:onQueue:processIntentCompleted:completionHandler:]_block_invoke";
+    v28 = 2112;
+    v29 = v7;
     _os_log_impl(&dword_25553C000, v11, OS_LOG_TYPE_INFO, "%s BatchSlotResolution completed in extensionProxy with updatedIntent %@", buf, 0x16u);
   }
 
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __138__SAIntentGroupProcessIntent_INSExtensionService___resolveIntentSlotsWithExtensionProxy_onQueue_processIntentCompleted_completionHandler___block_invoke_5;
-  v18[3] = &unk_2797EA7F8;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __138__SAIntentGroupProcessIntent_INSExtensionService___resolveIntentSlotsWithExtensionProxy_onQueue_processIntentCompleted_completionHandler___block_invoke_5;
+  v17[3] = &unk_2797EA7F8;
   v12 = a1[5];
   v13 = a1[6];
   v14 = a1[4];
-  v19 = v13;
-  v20 = v14;
-  v21 = v7;
-  v22 = v8;
-  v26 = a2;
-  v23 = a1[7];
-  v24 = a1[5];
-  v25 = a1[8];
+  v18 = v13;
+  v19 = v14;
+  v20 = v7;
+  v21 = v8;
+  v25 = a2;
+  v22 = a1[7];
+  v23 = a1[5];
+  v24 = a1[8];
   v15 = v8;
   v16 = v7;
-  dispatch_async(v12, v18);
-
-  v17 = *MEMORY[0x277D85DE8];
+  dispatch_async(v12, v17);
 }
 
 uint64_t __138__SAIntentGroupProcessIntent_INSExtensionService___resolveIntentSlotsWithExtensionProxy_onQueue_processIntentCompleted_completionHandler___block_invoke_5(uint64_t a1)
 {
   v1 = a1;
-  v55 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = objc_alloc_init(MEMORY[0x277D47398]);
   [v3 setSlotResolutionMap:0];
@@ -282,8 +272,8 @@ uint64_t __138__SAIntentGroupProcessIntent_INSExtensionService___resolveIntentSl
 
   v6 = [*(v1 + 40) ins_isJSONPayload];
   v7 = *(v1 + 48);
-  v39 = v3;
-  v40 = v2;
+  v37 = v3;
+  v38 = v2;
   if (v6)
   {
     v8 = INSJSONEncodedIntent(v7);
@@ -299,29 +289,29 @@ uint64_t __138__SAIntentGroupProcessIntent_INSExtensionService___resolveIntentSl
   }
 
   v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v42 = 0u;
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
-  v47 = 0u;
   obj = [*(v1 + 56) allKeys];
-  v12 = [obj countByEnumeratingWithState:&v44 objects:v54 count:16];
+  v12 = [obj countByEnumeratingWithState:&v42 objects:v52 count:16];
   v13 = MEMORY[0x277CD38C8];
-  v43 = v12;
+  v41 = v12;
   if (v12)
   {
-    v14 = *v45;
-    v41 = v1;
+    v14 = *v43;
+    v39 = v1;
     do
     {
       v15 = 0;
       do
       {
-        if (*v45 != v14)
+        if (*v43 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v44 + 1) + 8 * v15);
+        v16 = *(*(&v42 + 1) + 8 * v15);
         v17 = objc_alloc_init(MEMORY[0x277D473A0]);
         [v17 setKeyPath:v16];
         v18 = [*(v1 + 56) objectForKeyedSubscript:v16];
@@ -355,30 +345,30 @@ uint64_t __138__SAIntentGroupProcessIntent_INSExtensionService___resolveIntentSl
           v29 = v13;
           v31 = v30 = v11;
           *buf = 136315650;
-          v49 = "[SAIntentGroupProcessIntent(INSExtensionService) _resolveIntentSlotsWithExtensionProxy:onQueue:processIntentCompleted:completionHandler:]_block_invoke";
+          v47 = "[SAIntentGroupProcessIntent(INSExtensionService) _resolveIntentSlotsWithExtensionProxy:onQueue:processIntentCompleted:completionHandler:]_block_invoke";
+          v48 = 2112;
+          v49 = v16;
           v50 = 2112;
-          v51 = v16;
-          v52 = 2112;
-          v53 = v31;
+          v51 = v31;
 
           v11 = v30;
           v13 = v29;
           v14 = v28;
-          v1 = v41;
+          v1 = v39;
         }
 
         ++v15;
       }
 
-      while (v43 != v15);
-      v43 = [obj countByEnumeratingWithState:&v44 objects:v54 count:16];
+      while (v41 != v15);
+      v41 = [obj countByEnumeratingWithState:&v42 objects:v52 count:16];
     }
 
-    while (v43);
+    while (v41);
   }
 
-  [v39 setStepResults:v11];
-  [v40 setBatchSlotResolutionResult:v39];
+  [v37 setStepResults:v11];
+  [v38 setBatchSlotResolutionResult:v37];
 
   v32 = *(v1 + 88);
   v33 = *v13;
@@ -388,14 +378,14 @@ uint64_t __138__SAIntentGroupProcessIntent_INSExtensionService___resolveIntentSl
     if (v34)
     {
       *buf = 136315138;
-      v49 = "[SAIntentGroupProcessIntent(INSExtensionService) _resolveIntentSlotsWithExtensionProxy:onQueue:processIntentCompleted:completionHandler:]_block_invoke";
+      v47 = "[SAIntentGroupProcessIntent(INSExtensionService) _resolveIntentSlotsWithExtensionProxy:onQueue:processIntentCompleted:completionHandler:]_block_invoke";
       _os_log_impl(&dword_25553C000, v33, OS_LOG_TYPE_INFO, "%s All slots were resolved successfully. Moving to Confirm.", buf, 0xCu);
     }
 
     v35 = [*(v1 + 64) _connection];
     [v35 setIntent:*(v1 + 48)];
 
-    result = [*(v1 + 40) _confirmIntentWithExtensionProxy:*(v1 + 64) onQueue:*(v1 + 72) processIntentCompleted:*(v1 + 32) completionHandler:*(v1 + 80)];
+    return [*(v1 + 40) _confirmIntentWithExtensionProxy:*(v1 + 64) onQueue:*(v1 + 72) processIntentCompleted:*(v1 + 32) completionHandler:*(v1 + 80)];
   }
 
   else
@@ -403,16 +393,12 @@ uint64_t __138__SAIntentGroupProcessIntent_INSExtensionService___resolveIntentSl
     if (v34)
     {
       *buf = 136315138;
-      v49 = "[SAIntentGroupProcessIntent(INSExtensionService) _resolveIntentSlotsWithExtensionProxy:onQueue:processIntentCompleted:completionHandler:]_block_invoke";
+      v47 = "[SAIntentGroupProcessIntent(INSExtensionService) _resolveIntentSlotsWithExtensionProxy:onQueue:processIntentCompleted:completionHandler:]_block_invoke";
       _os_log_impl(&dword_25553C000, v33, OS_LOG_TYPE_INFO, "%s BatchSlotResolution needs dialog. Calling completion.", buf, 0xCu);
     }
 
-    v37 = *(v1 + 32);
-    result = (*(*(v1 + 80) + 16))();
+    return (*(*(v1 + 80) + 16))();
   }
-
-  v38 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void __109__SAIntentGroupProcessIntent_INSExtensionService__ins_sendIntent_toExtensionProxy_onQueue_completionHandler___block_invoke(uint64_t a1)
@@ -424,13 +410,13 @@ void __109__SAIntentGroupProcessIntent_INSExtensionService__ins_sendIntent_toExt
 
 void __109__SAIntentGroupProcessIntent_INSExtensionService__ins_sendIntent_toExtensionProxy_onQueue_completionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CD38C8];
   if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v14 = "[SAIntentGroupProcessIntent(INSExtensionService) ins_sendIntent:toExtensionProxy:onQueue:completionHandler:]_block_invoke";
+    v13 = "[SAIntentGroupProcessIntent(INSExtensionService) ins_sendIntent:toExtensionProxy:onQueue:completionHandler:]_block_invoke";
     _os_log_impl(&dword_25553C000, v4, OS_LOG_TYPE_INFO, "%s BatchSlotResolution complete.", buf, 0xCu);
   }
 
@@ -448,8 +434,6 @@ void __109__SAIntentGroupProcessIntent_INSExtensionService__ins_sendIntent_toExt
   v10 = [*(a1 + 40) ins_afAnalyticsContext];
   v11 = IFMergeDictionaries();
   [v8 logEventWithType:v9 context:v11 contextNoCopy:{1, v7, 0}];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

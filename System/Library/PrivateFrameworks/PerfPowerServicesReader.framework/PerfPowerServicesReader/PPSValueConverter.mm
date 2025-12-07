@@ -163,30 +163,30 @@ LABEL_6:
 
 - (id)_convertEvent:(id)event
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   eventCopy = event;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   metricKeys = [eventCopy metricKeys];
   v6 = [metricKeys copy];
 
   obj = v6;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         metrics = [eventCopy metrics];
         v12 = [metrics objectForKeyedSubscript:v10];
 
@@ -200,13 +200,11 @@ LABEL_6:
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return eventCopy;
 }
@@ -221,21 +219,21 @@ LABEL_6:
   {
     unit = [v10 unit];
     unit2 = [v9 unit];
-    v18 = 0;
-    v13 = PPSConvertValueWithPPSUnit(valueCopy, unit, unit2, &v18);
-    v14 = v18;
+    v19 = 0;
+    v13 = PPSConvertValueWithPPSUnit(valueCopy, unit, unit2, &v19);
+    v14 = v19;
 
     if (v13)
     {
-      v15 = v13;
+      v16 = v13;
     }
 
     else if (v14)
     {
-      v16 = PPSReaderLog();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = PPSReaderLog(v15);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        [PPSValueConverter _convertValue:metricCopy atTimestamp:v14 usingMetric:v16];
+        [PPSValueConverter _convertValue:metricCopy atTimestamp:v14 usingMetric:v17];
       }
     }
   }
@@ -260,7 +258,7 @@ LABEL_6:
   v44 = *MEMORY[0x277D85DE8];
   if (!self->_sortedTimelineIntervals)
   {
-    v5 = PPSReaderLog();
+    v5 = PPSReaderLog(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       [PPSValueConverter _shouldConvertAtTimestamp:v5];
@@ -274,7 +272,7 @@ LABEL_6:
 
   if ([(NSMutableDictionary *)self->_timeline count]< 2)
   {
-    goto LABEL_17;
+    return 0;
   }
 
   lastObject = [(NSArray *)self->_sortedTimelineIntervals lastObject];
@@ -282,86 +280,81 @@ LABEL_6:
   [startDate timeIntervalSince1970];
   v12 = v11 > timestamp;
 
-  if (v12)
+  if (!v12)
   {
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
-    v34 = 0u;
-    v13 = self->_sortedTimelineIntervals;
-    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v33 objects:v43 count:16];
-    if (v14)
+    return 0;
+  }
+
+  v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v13 = self->_sortedTimelineIntervals;
+  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v33 objects:v43 count:16];
+  if (v14)
+  {
+    v15 = *v34;
+    while (2)
     {
-      v15 = *v34;
-      while (2)
+      for (i = 0; i != v14; ++i)
       {
-        for (i = 0; i != v14; ++i)
+        if (*v34 != v15)
         {
-          if (*v34 != v15)
+          objc_enumerationMutation(v13);
+        }
+
+        v17 = *(*(&v33 + 1) + 8 * i);
+        _latestInterval = [(PPSValueConverter *)self _latestInterval];
+        v19 = v17 == _latestInterval;
+
+        if (!v19)
+        {
+          v20 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:timestamp];
+          v21 = [v17 containsDate:v20];
+
+          if (v21)
           {
-            objc_enumerationMutation(v13);
-          }
-
-          v17 = *(*(&v33 + 1) + 8 * i);
-          _latestInterval = [(PPSValueConverter *)self _latestInterval];
-          v19 = v17 == _latestInterval;
-
-          if (!v19)
-          {
-            v20 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:timestamp];
-            v21 = [v17 containsDate:v20];
-
-            if (v21)
+            v24 = PPSReaderLog(v22);
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
             {
-              v23 = PPSReaderLog();
-              if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
-              {
-                startDate2 = [v17 startDate];
-                [startDate2 timeIntervalSince1970];
-                v30 = v29;
-                endDate = [v17 endDate];
-                [endDate timeIntervalSince1970];
-                *buf = 134218496;
-                v38 = v30;
-                v39 = 2048;
-                v40 = v32;
-                v41 = 2048;
-                timestampCopy = timestamp;
-                _os_log_debug_impl(&dword_25E225000, v23, OS_LOG_TYPE_DEBUG, "Selecting build interval [%f, %f] for timestamp '%f' as active conversion region!", buf, 0x20u);
-              }
-
-              v24 = [(NSMutableDictionary *)self->_timeline objectForKeyedSubscript:v17];
-              selectedHistory = self->_selectedHistory;
-              self->_selectedHistory = v24;
-
-              v22 = 1;
-              goto LABEL_21;
+              startDate2 = [v17 startDate];
+              [startDate2 timeIntervalSince1970];
+              v30 = v29;
+              endDate = [v17 endDate];
+              [endDate timeIntervalSince1970];
+              *buf = 134218496;
+              v38 = v30;
+              v39 = 2048;
+              v40 = v32;
+              v41 = 2048;
+              timestampCopy = timestamp;
+              _os_log_debug_impl(&dword_25E225000, v24, OS_LOG_TYPE_DEBUG, "Selecting build interval [%f, %f] for timestamp '%f' as active conversion region!", buf, 0x20u);
             }
+
+            v25 = [(NSMutableDictionary *)self->_timeline objectForKeyedSubscript:v17];
+            selectedHistory = self->_selectedHistory;
+            self->_selectedHistory = v25;
+
+            v23 = 1;
+            goto LABEL_21;
           }
         }
-
-        v14 = [(NSArray *)v13 countByEnumeratingWithState:&v33 objects:v43 count:16];
-        if (v14)
-        {
-          continue;
-        }
-
-        break;
       }
+
+      v14 = [(NSArray *)v13 countByEnumeratingWithState:&v33 objects:v43 count:16];
+      if (v14)
+      {
+        continue;
+      }
+
+      break;
     }
+  }
 
-    v22 = 0;
+  v23 = 0;
 LABEL_21:
-  }
 
-  else
-  {
-LABEL_17:
-    v22 = 0;
-  }
-
-  v26 = *MEMORY[0x277D85DE8];
-  return v22;
+  return v23;
 }
 
 - (BOOL)_shouldConvertEvent:(id)event
@@ -375,13 +368,12 @@ LABEL_17:
 
 - (void)_convertValue:(uint64_t)a1 atTimestamp:(uint64_t)a2 usingMetric:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_25E225000, log, OS_LOG_TYPE_ERROR, "Error while performing value conversion for metric name '%@' = %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_25E225000, log, OS_LOG_TYPE_ERROR, "Error while performing value conversion for metric name '%@' = %@", &v3, 0x16u);
 }
 
 @end

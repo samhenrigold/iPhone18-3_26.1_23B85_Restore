@@ -28,23 +28,21 @@
 
 - (void)handleNotificationsChangedNotification:(id)notification
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   inboxNotificationMonitor = [(CALNCalendarAppBadgeUpdater *)self inboxNotificationMonitor];
   eventNotificationCount = [inboxNotificationMonitor eventNotificationCount];
 
   v6 = +[CALNLogSubsystem calendar];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10[0] = 67240192;
-    v10[1] = eventNotificationCount;
-    _os_log_impl(&dword_242909000, v6, OS_LOG_TYPE_DEFAULT, "Update calendar app badge count to %{public}d", v10, 8u);
+    v9[0] = 67240192;
+    v9[1] = eventNotificationCount;
+    _os_log_impl(&dword_242909000, v6, OS_LOG_TYPE_DEFAULT, "Update calendar app badge count to %{public}d", v9, 8u);
   }
 
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:eventNotificationCount];
   applicationState = [(CALNCalendarAppBadgeUpdater *)self applicationState];
   [applicationState setBadgeValue:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

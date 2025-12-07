@@ -27,19 +27,17 @@
 
 - (NSDictionary)deviceContext
 {
-  v10[3] = *MEMORY[0x29EDCA608];
-  v9[0] = @"ICDevicePrimaryIdentifier";
+  v9[3] = *MEMORY[0x29EDCA608];
+  v8[0] = @"ICDevicePrimaryIdentifier";
   primaryIdentifierString = [(ICRemoteCameraDeviceProxy *)self primaryIdentifierString];
-  v10[0] = primaryIdentifierString;
-  v9[1] = @"ICDeviceHandle";
+  v9[0] = primaryIdentifierString;
+  v8[1] = @"ICDeviceHandle";
   uuidString = [(ICRemoteCameraDeviceProxy *)self uuidString];
-  v10[1] = uuidString;
-  v9[2] = @"ICDeviceName";
+  v9[1] = uuidString;
+  v8[2] = @"ICDeviceName";
   localizedName = [(ICRemoteCameraDeviceProxy *)self localizedName];
-  v10[2] = localizedName;
-  v6 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x29EDCA608];
+  v9[2] = localizedName;
+  v6 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }

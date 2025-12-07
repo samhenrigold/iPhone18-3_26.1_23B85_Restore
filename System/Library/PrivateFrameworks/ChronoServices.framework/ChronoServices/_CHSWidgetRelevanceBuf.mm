@@ -273,23 +273,14 @@ LABEL_21:
 
 - (BOOL)verifyUTF8Fields
 {
-  ptr = self->_ptr;
-  v4 = &ptr[-*ptr->var0];
-  if (*v4->var0 >= 5u)
+  v3 = &self->_ptr[-*self->_ptr];
+  if (*v3->var0 >= 5u && *v3[4].var0 && !AFBIsValidUTF8())
   {
-    v5 = *v4[4].var0;
-    if (v5)
-    {
-      v6 = *ptr[v5].var0;
-      if (!AFBIsValidUTF8())
-      {
-        return 0;
-      }
-    }
+    return 0;
   }
 
   intentReference = [(_CHSWidgetRelevanceBuf *)self intentReference];
-  v8 = intentReference;
+  v5 = intentReference;
   if (intentReference)
   {
     verifyUTF8Fields = [intentReference verifyUTF8Fields];

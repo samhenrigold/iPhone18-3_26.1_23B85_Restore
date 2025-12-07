@@ -37,7 +37,7 @@
 
 - (void)_collect
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   buildPayload = [(LAAnalytics *)self buildPayload];
   eventName = [(LAAnalytics *)self eventName];
   v5 = buildPayload;
@@ -67,16 +67,14 @@
 
       eventName2 = [(LAAnalytics *)self eventName];
       *buf = 136446722;
-      v14 = v10;
-      v15 = 2114;
-      v16 = eventName2;
-      v17 = 2112;
-      v18 = v5;
+      v13 = v10;
+      v14 = 2114;
+      v15 = eventName2;
+      v16 = 2112;
+      v17 = v5;
       _os_log_impl(&dword_238B7F000, v8, intValue, "%{public}s analytics event %{public}@: %@", buf, 0x20u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)persistInStorage:(id)storage

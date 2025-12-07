@@ -289,11 +289,11 @@ void __58__PXPhotosMetadataFetcher__queue_oidsForFacts_allowFetch___block_invoke
 
   if (fetchedObjectIDsSet)
   {
-    [fetchedObjectIDsSet assetCounts];
+    objc_msgSend_assetCounts(fetchedObjectIDsSet);
     v12 = v88;
     v13 = v89;
     v14 = v90;
-    [fetchedObjectIDsSet guestAssetCounts];
+    objc_msgSend_guestAssetCounts(fetchedObjectIDsSet);
     v58 = v89;
     v15 = 1;
     v56 = v88;

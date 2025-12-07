@@ -37,12 +37,11 @@ uint64_t __47__AVTStickerShaderModifier_shaderModifierCache__block_invoke()
 
 + (id)shaderModifierFromDictionary:(id)dictionary assetsPath:(id)path
 {
-  v51 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   pathCopy = path;
-  v8 = [dictionaryCopy objectForKey:@"modifier"];
-  v43 = [self entryPointForModifierName:v8];
-  v9 = [dictionaryCopy objectForKeyedSubscript:@"node"];
+  v8 = [dictionaryCopy objectForKey:?];
+  v41 = [self entryPointForModifierName:?];
+  v9 = [dictionaryCopy objectForKeyedSubscript:?];
   v10 = v9;
   if (v9)
   {
@@ -51,95 +50,86 @@ uint64_t __47__AVTStickerShaderModifier_shaderModifierCache__block_invoke()
 
   else
   {
-    v11 = [dictionaryCopy objectForKeyedSubscript:@"geometry"];
+    v11 = [dictionaryCopy objectForKeyedSubscript:?];
   }
 
   v12 = v11;
 
   v13 = v12;
   objc_opt_class();
-  v45 = v13;
+  v43 = v13;
   if (objc_opt_isKindOfClass())
   {
-    v45 = [v13 componentsJoinedByString:@"|"];
+    v43 = [v13 componentsJoinedByString:?];
   }
 
-  v14 = [dictionaryCopy objectForKey:@"forceDoubleSided"];
-  v42 = v14;
+  v14 = [dictionaryCopy objectForKey:?];
+  v40 = v14;
   if (v14)
   {
-    bOOLValue = [v14 BOOLValue];
-  }
-
-  else
-  {
-    bOOLValue = 0;
+    [v14 BOOLValue];
   }
 
   shaderModifierCache = [self shaderModifierCache];
-  v16 = [dictionaryCopy objectForKey:@"file"];
-  v17 = [pathCopy stringByAppendingPathComponent:v16];
+  v16 = [dictionaryCopy objectForKey:?];
+  v17 = [pathCopy stringByAppendingPathComponent:?];
   v18 = MEMORY[0x1E696AEC0];
-  v44 = v17;
+  v42 = v17;
   v19 = [MEMORY[0x1E695DFF8] fileURLWithPath:? isDirectory:?];
   standardizedURL = [v19 standardizedURL];
   absoluteString = [standardizedURL absoluteString];
-  v22 = [v18 stringWithFormat:@"%@.%@.%@", absoluteString, v8, v45];
+  v22 = [v18 stringWithFormat:absoluteString, v8, v43];
 
-  v41 = v16;
+  v39 = v16;
   if (!v16)
   {
     v24 = 0;
-    goto LABEL_28;
+    goto LABEL_27;
   }
 
-  v23 = [shaderModifierCache objectForKey:v22];
+  v23 = [shaderModifierCache objectForKey:?];
   if (v23)
   {
-    v40 = 0;
+    v38 = 0;
   }
 
   else
   {
-    v40 = [MEMORY[0x1E696AEC0] stringWithContentsOfFile:v44 encoding:4 error:0];
-    if (!v40)
+    v38 = [MEMORY[0x1E696AEC0] stringWithContentsOfFile:? encoding:? error:?];
+    if (!v38)
     {
       v24 = 0;
-      goto LABEL_28;
+      goto LABEL_27;
     }
   }
 
-  v39 = v22;
-  v36 = v13;
-  v37 = v8;
+  v37 = v22;
+  v35 = v13;
+  v36 = v8;
   array = [MEMORY[0x1E695DF70] array];
-  v26 = [dictionaryCopy objectForKey:@"properties"];
-  v46 = 0u;
-  v47 = 0u;
-  v48 = 0u;
-  v49 = 0u;
-  v27 = [v26 countByEnumeratingWithState:&v46 objects:v50 count:16];
+  v26 = [dictionaryCopy objectForKey:?];
+  v27 = [v26 countByEnumeratingWithState:? objects:? count:?];
   if (v27)
   {
     v28 = v27;
-    v29 = *v47;
+    v29 = MEMORY[0];
     do
     {
-      for (i = 0; i != v28; ++i)
+      for (i = 0; i != v28; i = (i + 1))
       {
-        if (*v47 != v29)
+        if (MEMORY[0] != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        v31 = [AVTStickerShaderModifierProperty shaderModifierPropertyFromDictionary:*(*(&v46 + 1) + 8 * i) assetsPath:pathCopy];
+        v31 = [AVTStickerShaderModifierProperty shaderModifierPropertyFromDictionary:"shaderModifierPropertyFromDictionary:assetsPath:" assetsPath:?];
         if (v31)
         {
-          [array addObject:v31];
+          [array addObject:?];
         }
       }
 
-      v28 = [v26 countByEnumeratingWithState:&v46 objects:v50 count:16];
+      v28 = [v26 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v28);
@@ -149,31 +139,29 @@ uint64_t __47__AVTStickerShaderModifier_shaderModifierCache__block_invoke()
   if (v23)
   {
     v24 = v32;
-    v13 = v36;
-    v16 = v41;
+    v13 = v35;
+    v16 = v39;
     if ([array count])
     {
-      v24 = [(AVTStickerShaderModifier *)v32 cloneWithProperties:array];
+      v24 = [(AVTStickerShaderModifier *)v32 cloneWithProperties:?];
     }
   }
 
   else
   {
-    v13 = v36;
-    v24 = [[AVTStickerShaderModifier alloc] initWithEntryPoint:v43 nodeNames:v36 data:v40 properties:array forceDoubleSided:bOOLValue];
-    [(AVTStickerShaderModifier *)v24 setDictionary:dictionaryCopy];
-    [shaderModifierCache setObject:v24 forKey:v39];
-    v16 = v41;
+    v13 = v35;
+    v24 = [AVTStickerShaderModifier initWithEntryPoint:"initWithEntryPoint:nodeNames:data:properties:forceDoubleSided:" nodeNames:? data:? properties:? forceDoubleSided:?];
+    [(AVTStickerShaderModifier *)v24 setDictionary:?];
+    [shaderModifierCache setObject:? forKey:?];
+    v16 = v39;
   }
 
   lastPathComponent = [v16 lastPathComponent];
-  v24->_isCropShaderModifier = [lastPathComponent isEqualToString:@"crop_at_worldPosY.metal"];
+  v24->_isCropShaderModifier = [lastPathComponent isEqualToString:?];
 
-  v8 = v37;
-  v22 = v39;
-LABEL_28:
-
-  v34 = *MEMORY[0x1E69E9840];
+  v8 = v36;
+  v22 = v37;
+LABEL_27:
 
   return v24;
 }
@@ -181,21 +169,21 @@ LABEL_28:
 + (id)entryPointForModifierName:(id)name
 {
   nameCopy = name;
-  v4 = [nameCopy isEqualToString:@"fragment"];
+  v4 = [nameCopy isEqualToString:?];
   v5 = MEMORY[0x1E69DF3B0];
   if ((v4 & 1) == 0)
   {
-    if ([nameCopy isEqualToString:@"surface"])
+    if ([nameCopy isEqualToString:?])
     {
       v5 = MEMORY[0x1E69DF3C0];
     }
 
-    else if ([nameCopy isEqualToString:@"vertex"])
+    else if ([nameCopy isEqualToString:?])
     {
       v5 = MEMORY[0x1E69DF3C8];
     }
 
-    else if ([nameCopy isEqualToString:@"lightingModel"])
+    else if ([nameCopy isEqualToString:?])
     {
       v5 = MEMORY[0x1E69DF3B8];
     }
@@ -211,9 +199,9 @@ LABEL_28:
 {
   dataCopy = data;
   v4 = dataCopy;
-  if (([dataCopy containsString:@"// ==== STICKER SHADER MODIFIER START ===="] & 1) == 0)
+  if (([dataCopy containsString:?] & 1) == 0)
   {
-    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"\n%@\n%@\n%@\n", @"// ==== STICKER SHADER MODIFIER START ====", dataCopy, @"// ==== STICKER SHADER MODIFIER END ===="];
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"// ==== STICKER SHADER MODIFIER START ====", dataCopy, @"// ==== STICKER SHADER MODIFIER END ===="];
   }
 
   return v4;
@@ -248,72 +236,66 @@ LABEL_28:
   entryPoint = [(AVTStickerShaderModifier *)self entryPoint];
   nodeNames = [(AVTStickerShaderModifier *)self nodeNames];
   data = [(AVTStickerShaderModifier *)self data];
-  v9 = [(AVTStickerShaderModifier *)v5 initWithEntryPoint:entryPoint nodeNames:nodeNames data:data properties:propertiesCopy forceDoubleSided:[(AVTStickerShaderModifier *)self forceDoubleSided]];
+  [(AVTStickerShaderModifier *)self forceDoubleSided];
+  v9 = [AVTStickerShaderModifier initWithEntryPoint:v5 nodeNames:"initWithEntryPoint:nodeNames:data:properties:forceDoubleSided:" data:? properties:? forceDoubleSided:?];
 
   return v9;
 }
 
 - (void)applyToMaterial:(id)material options:(id)options reversionContext:(id)context
 {
-  v32[1] = *MEMORY[0x1E69E9840];
   materialCopy = material;
   optionsCopy = options;
   contextCopy = context;
   if (!self->_isCropShaderModifier || [optionsCopy useLegacyCorrectClippingImplementation])
   {
     shaderModifiers = [materialCopy shaderModifiers];
-    v12 = [shaderModifiers objectForKeyedSubscript:self->_entryPoint];
-    if (([v12 containsString:self->_data] & 1) == 0)
+    v12 = [shaderModifiers objectForKeyedSubscript:?];
+    if (([v12 containsString:?] & 1) == 0)
     {
       v13 = AVTMergeShaderModifiersForEntryPoint(v12, 0, self->_data, 0);
       if (v13)
       {
-        [contextCopy saveShaderModifiers:shaderModifiers forMaterial:materialCopy];
+        [contextCopy saveShaderModifiers:? forMaterial:?];
         if ([shaderModifiers count])
         {
           v14 = [shaderModifiers mutableCopy];
-          [v14 setObject:v13 forKeyedSubscript:self->_entryPoint];
+          [v14 setObject:? forKeyedSubscript:?];
         }
 
         else
         {
-          entryPoint = self->_entryPoint;
-          v32[0] = v13;
-          v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&entryPoint count:1];
+          v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
         }
 
-        [materialCopy setShaderModifiers:v14];
+        [materialCopy setShaderModifiers:?];
       }
     }
 
-    v25 = optionsCopy;
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
-    v27 = 0u;
+    v24 = optionsCopy;
     properties = [(AVTStickerShaderModifier *)self properties];
-    v16 = [properties countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v16 = [properties countByEnumeratingWithState:? objects:? count:?];
     if (v16)
     {
       v17 = v16;
-      v18 = *v27;
+      v18 = MEMORY[0];
       do
       {
-        for (i = 0; i != v17; ++i)
+        for (i = 0; i != v17; i = (i + 1))
         {
-          if (*v27 != v18)
+          if (MEMORY[0] != v18)
           {
             objc_enumerationMutation(properties);
           }
 
-          v20 = *(*(&v26 + 1) + 8 * i);
+          v20 = *(8 * i);
           name = [v20 name];
-          [contextCopy saveCustomMaterialPropertyNamed:name forMaterial:materialCopy];
+          [contextCopy saveCustomMaterialPropertyNamed:? forMaterial:?];
           effectiveValue = [v20 effectiveValue];
-          [materialCopy setValue:effectiveValue forKey:name];
+          [materialCopy setValue:? forKey:?];
         }
 
-        v17 = [properties countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v17 = [properties countByEnumeratingWithState:? objects:? count:?];
       }
 
       while (v17);
@@ -321,92 +303,72 @@ LABEL_28:
 
     if (-[AVTStickerShaderModifier forceDoubleSided](self, "forceDoubleSided") && ([materialCopy isDoubleSided] & 1) == 0)
     {
-      [contextCopy saveSingleSidedForMaterial:materialCopy];
-      [materialCopy setDoubleSided:1];
+      [contextCopy saveSingleSidedForMaterial:?];
+      [materialCopy setDoubleSided:?];
     }
 
-    optionsCopy = v25;
+    optionsCopy = v24;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)applyToAllMaterialsOfNode:(id)node options:(id)options reversionContext:(id)context
 {
-  v22 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   contextCopy = context;
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
   model = [node model];
   materials = [model materials];
 
-  v12 = [materials countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v12 = [materials countByEnumeratingWithState:? objects:? count:?];
   if (v12)
   {
     v13 = v12;
-    v14 = *v18;
+    v14 = MEMORY[0];
     do
     {
-      v15 = 0;
-      do
+      for (i = 0; i != v13; i = (i + 1))
       {
-        if (*v18 != v14)
+        if (MEMORY[0] != v14)
         {
           objc_enumerationMutation(materials);
         }
 
-        [(AVTStickerShaderModifier *)self applyToMaterial:*(*(&v17 + 1) + 8 * v15++) options:optionsCopy reversionContext:contextCopy];
+        [AVTStickerShaderModifier applyToMaterial:"applyToMaterial:options:reversionContext:" options:? reversionContext:?];
       }
 
-      while (v13 != v15);
-      v13 = [materials countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v13 = [materials countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)applyToMatchedMaterialsOfAvatar:(id)avatar inHierarchy:(id)hierarchy options:(id)options reversionContext:(id)context
 {
-  v23 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   contextCopy = context;
-  v12 = [avatar nodesMatchingStickerPattern:self->_nodeNames inHierarchy:hierarchy options:2 includingDerivedNodes:0];
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v13)
+  v11 = [avatar nodesMatchingStickerPattern:? inHierarchy:? options:? includingDerivedNodes:?];
+  v12 = [v11 countByEnumeratingWithState:0 objects:? count:?];
+  if (v12)
   {
-    v14 = v13;
-    v15 = *v19;
+    v13 = v12;
+    v14 = MEMORY[0];
     do
     {
-      v16 = 0;
-      do
+      for (i = 0; i != v13; i = (i + 1))
       {
-        if (*v19 != v15)
+        if (MEMORY[0] != v14)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v11);
         }
 
-        [(AVTStickerShaderModifier *)self applyToAllMaterialsOfNode:*(*(&v18 + 1) + 8 * v16++) options:optionsCopy reversionContext:contextCopy];
+        [AVTStickerShaderModifier applyToAllMaterialsOfNode:"applyToAllMaterialsOfNode:options:reversionContext:" options:? reversionContext:?];
       }
 
-      while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v13 = [v11 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v14);
+    while (v13);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dictionaryWithTargetPath:(id)path
@@ -423,7 +385,7 @@ LABEL_28:
   v4 = objc_opt_class();
   nodeNames = [(AVTStickerShaderModifier *)self nodeNames];
   entryPoint = [(AVTStickerShaderModifier *)self entryPoint];
-  v7 = [v3 stringWithFormat:@"<%@ %p | %@ %@>", v4, self, nodeNames, entryPoint];
+  v7 = [v3 stringWithFormat:v4, self, nodeNames, entryPoint];
 
   return v7;
 }

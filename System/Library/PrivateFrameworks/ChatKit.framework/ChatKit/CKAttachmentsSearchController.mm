@@ -95,7 +95,7 @@ LABEL_12:
 
 + (id)sectionTitle
 {
-  v2 = CKFrameworkBundle();
+  v2 = CKFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"SEARCH_ATTACHMENTS_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
   return v3;
@@ -111,7 +111,7 @@ LABEL_12:
 
 + (id)indexingString
 {
-  v2 = CKFrameworkBundle();
+  v2 = CKFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ATTACHMENTS_INDEXING_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
 
   return v3;
@@ -174,26 +174,26 @@ LABEL_12:
     v14 = [viewCopy dequeueReusableSupplementaryViewOfKind:v12 withReuseIdentifier:v13 forIndexPath:pathCopy];
 
     v15 = MEMORY[0x1E696AEC0];
-    v16 = CKFrameworkBundle();
-    v17 = [v16 localizedStringForKey:@"SEE_ALL_ATTACHMENTS_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-    v18 = [v15 stringWithFormat:v17];
+    v17 = CKFrameworkBundle(v16);
+    v18 = [v17 localizedStringForKey:@"SEE_ALL_ATTACHMENTS_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v19 = [v15 stringWithFormat:v18];
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection == 1)
     {
-      v21 = @"\u200F";
+      v22 = @"\u200F";
     }
 
     else
     {
-      v21 = @"\u200E";
+      v22 = @"\u200E";
     }
 
-    v22 = [(__CFString *)v21 stringByAppendingString:v18];
+    v23 = [(__CFString *)v22 stringByAppendingString:v19];
 
-    [v14 setTitle:v22];
+    [v14 setTitle:v23];
     sectionIdentifier = [objc_opt_class() sectionIdentifier];
     [v14 setSectionIdentifier:sectionIdentifier];
   }
@@ -320,7 +320,7 @@ LABEL_6:
 
 void __58__CKAttachmentsSearchController_handleSelectionForResult___block_invoke(uint64_t a1, void *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -331,14 +331,14 @@ void __58__CKAttachmentsSearchController_handleSelectionForResult___block_invoke
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v5 = v2;
+        v11 = v2;
         _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_DEBUG, "Failed to import URL: %@", buf, 0xCu);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      _CKLog();
+      _CKLog(0x19u, @"Failed to import URL: %@", v4, v5, v6, v7, v8, v9, v2);
     }
   }
 }

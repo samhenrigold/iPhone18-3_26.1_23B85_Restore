@@ -198,7 +198,7 @@ LABEL_10:
   if (self->_fileLength > 0x2F)
   {
     filePointer = self->_filePointer;
-    v5 = (filePointer + 32);
+    v5 = filePointer + 32;
     if (*(filePointer + 4) == 0x42415446534F4B52 || *v5 == 0x62617466736F6B72)
     {
       v6 = [NSData dataWithBytes:v5 length:8];
@@ -260,7 +260,7 @@ LABEL_10:
           v2 = os_log_create("com.apple.accessoryupdater.ftab", "parsing");
           if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
           {
-            [(MantaFTABFile *)v15 parseFileData];
+            [MantaFTABFile parseFileData];
           }
 
           goto LABEL_26;
@@ -291,7 +291,7 @@ LABEL_10:
       v2 = os_log_create("com.apple.accessoryupdater.ftab", "parsing");
       if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
-        [(MantaFTABFile *)v5 parseFileData];
+        [MantaFTABFile parseFileData];
       }
     }
   }
@@ -604,9 +604,7 @@ LABEL_15:
   fileHandleWriteDestination = self->_fileHandleWriteDestination;
   self->_fileHandleWriteDestination = 0;
 
-  v4 = +[NSMutableData data];
-  dataWriteDestination = self->_dataWriteDestination;
-  self->_dataWriteDestination = v4;
+  self->_dataWriteDestination = +[NSMutableData data];
 
   _objc_release_x1();
 }
@@ -968,12 +966,9 @@ LABEL_32:
 
 - (void)parseFileData
 {
-  v6 = *self;
-  v7 = self[1];
-  v8 = self[2];
-  v9 = self[3];
-  OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x24u);
+  OUTLINED_FUNCTION_5_0();
+  OUTLINED_FUNCTION_1_5();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 - (void)addSubfileWithTagName:contentsOfURL:.cold.1()
@@ -987,28 +982,28 @@ LABEL_32:
 {
   v1 = [a1 path];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_0_5(&_mh_execute_header, v2, v3, "Unable to delete file at %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_5(&_mh_execute_header, v2, v3, "Unable to delete file at %@", v4, v5, v6, v7);
 }
 
 - (void)createFileHandleForWritingToURL:(void *)a1 .cold.2(void *a1)
 {
   v1 = [a1 path];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_0_5(&_mh_execute_header, v2, v3, "Unable to create file at %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_5(&_mh_execute_header, v2, v3, "Unable to create file at %@", v4, v5, v6, v7);
 }
 
 - (void)writeToDestination
 {
   v1 = [self tag];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_0_5(&_mh_execute_header, v2, v3, "Failed to write '%@'", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_5(&_mh_execute_header, v2, v3, "Failed to write '%@'", v4, v5, v6, v7);
 }
 
 - (void)writeToURL:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 absoluteString];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_0_5(&_mh_execute_header, v2, v3, "Failed to open file handle for writing to '%@'", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_5(&_mh_execute_header, v2, v3, "Failed to open file handle for writing to '%@'", v4, v5, v6, v7);
 }
 
 @end

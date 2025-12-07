@@ -17,7 +17,7 @@
 
 - (void)configureGlobalHeaderLayout:(id)layout dataSource:(id)source spec:(id)spec
 {
-  type metadata accessor for PhotosDynamicHeaderLayout();
+  type metadata accessor for PhotosDynamicHeaderLayout(0, a2);
   v8 = swift_dynamicCastClass();
   if (v8)
   {

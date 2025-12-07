@@ -97,7 +97,7 @@ uint64_t __41__DNDSContactProvider_sharedContactStore__block_invoke()
 
 - (id)_bestMatchForContact:(id)contact inContacts:(id)contacts
 {
-  v109 = *MEMORY[0x277D85DE8];
+  v108 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   contactsCopy = contacts;
   v7 = DNDSLogSettings;
@@ -105,44 +105,44 @@ uint64_t __41__DNDSContactProvider_sharedContactStore__block_invoke()
   {
     v8 = v7;
     *buf = 134349314;
-    v106 = [contactsCopy count];
-    v107 = 2112;
-    v108 = contactCopy;
+    v105 = [contactsCopy count];
+    v106 = 2112;
+    v107 = contactCopy;
     _os_log_impl(&dword_24912E000, v8, OS_LOG_TYPE_DEFAULT, "Scoring %{public}llu matches for contact %@", buf, 0x16u);
   }
 
-  v98 = 0u;
-  v99 = 0u;
-  v96 = 0u;
   v97 = 0u;
+  v98 = 0u;
+  v95 = 0u;
+  v96 = 0u;
   obj = contactsCopy;
-  v76 = [obj countByEnumeratingWithState:&v96 objects:v104 count:16];
-  if (!v76)
+  v75 = [obj countByEnumeratingWithState:&v95 objects:v103 count:16];
+  if (!v75)
   {
-    v75 = 0;
-    v77 = 0;
+    v74 = 0;
+    v76 = 0;
     goto LABEL_70;
   }
 
-  v77 = 0;
-  v74 = *v97;
-  v75 = 0;
+  v76 = 0;
+  v73 = *v96;
+  v74 = 0;
   *&v9 = 134349056;
-  v72 = v9;
-  v79 = contactCopy;
+  v71 = v9;
+  v78 = contactCopy;
   do
   {
     v10 = 0;
     do
     {
-      if (*v97 != v74)
+      if (*v96 != v73)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v96 + 1) + 8 * v10);
+      v11 = *(*(&v95 + 1) + 8 * v10);
       givenName = [v11 givenName];
-      v78 = v10;
+      v77 = v10;
       if ([givenName length])
       {
         firstName = [contactCopy firstName];
@@ -216,124 +216,124 @@ LABEL_23:
 
 LABEL_28:
       v41 = [MEMORY[0x277CBEB58] set];
+      v91 = 0u;
       v92 = 0u;
       v93 = 0u;
       v94 = 0u;
-      v95 = 0u;
       emailAddresses = [v11 emailAddresses];
-      v43 = [emailAddresses countByEnumeratingWithState:&v92 objects:v103 count:16];
+      v43 = [emailAddresses countByEnumeratingWithState:&v91 objects:v102 count:16];
       if (v43)
       {
         v44 = v43;
-        v45 = *v93;
+        v45 = *v92;
         do
         {
           for (i = 0; i != v44; ++i)
           {
-            if (*v93 != v45)
+            if (*v92 != v45)
             {
               objc_enumerationMutation(emailAddresses);
             }
 
-            value = [*(*(&v92 + 1) + 8 * i) value];
+            value = [*(*(&v91 + 1) + 8 * i) value];
             [v41 addObject:value];
           }
 
-          v44 = [emailAddresses countByEnumeratingWithState:&v92 objects:v103 count:16];
+          v44 = [emailAddresses countByEnumeratingWithState:&v91 objects:v102 count:16];
         }
 
         while (v44);
       }
 
-      v90 = 0u;
-      v91 = 0u;
-      v88 = 0u;
       v89 = 0u;
-      emailAddresses2 = [v79 emailAddresses];
-      v49 = [emailAddresses2 countByEnumeratingWithState:&v88 objects:v102 count:16];
+      v90 = 0u;
+      v87 = 0u;
+      v88 = 0u;
+      emailAddresses2 = [v78 emailAddresses];
+      v49 = [emailAddresses2 countByEnumeratingWithState:&v87 objects:v101 count:16];
       if (v49)
       {
         v50 = v49;
-        v51 = *v89;
+        v51 = *v88;
         do
         {
           for (j = 0; j != v50; ++j)
           {
-            if (*v89 != v51)
+            if (*v88 != v51)
             {
               objc_enumerationMutation(emailAddresses2);
             }
 
-            if ([v41 containsObject:*(*(&v88 + 1) + 8 * j)])
+            if ([v41 containsObject:*(*(&v87 + 1) + 8 * j)])
             {
               v19 += 10;
             }
           }
 
-          v50 = [emailAddresses2 countByEnumeratingWithState:&v88 objects:v102 count:16];
+          v50 = [emailAddresses2 countByEnumeratingWithState:&v87 objects:v101 count:16];
         }
 
         while (v50);
       }
 
       v53 = [MEMORY[0x277CBEB58] set];
+      v83 = 0u;
       v84 = 0u;
       v85 = 0u;
       v86 = 0u;
-      v87 = 0u;
       phoneNumbers = [v11 phoneNumbers];
-      v55 = [phoneNumbers countByEnumeratingWithState:&v84 objects:v101 count:16];
+      v55 = [phoneNumbers countByEnumeratingWithState:&v83 objects:v100 count:16];
       if (v55)
       {
         v56 = v55;
-        v57 = *v85;
+        v57 = *v84;
         do
         {
           for (k = 0; k != v56; ++k)
           {
-            if (*v85 != v57)
+            if (*v84 != v57)
             {
               objc_enumerationMutation(phoneNumbers);
             }
 
-            value2 = [*(*(&v84 + 1) + 8 * k) value];
+            value2 = [*(*(&v83 + 1) + 8 * k) value];
             stringValue = [value2 stringValue];
             [v53 addObject:stringValue];
           }
 
-          v56 = [phoneNumbers countByEnumeratingWithState:&v84 objects:v101 count:16];
+          v56 = [phoneNumbers countByEnumeratingWithState:&v83 objects:v100 count:16];
         }
 
         while (v56);
       }
 
-      v82 = 0u;
-      v83 = 0u;
-      v80 = 0u;
       v81 = 0u;
-      contactCopy = v79;
-      phoneNumbers2 = [v79 phoneNumbers];
-      v62 = [phoneNumbers2 countByEnumeratingWithState:&v80 objects:v100 count:16];
+      v82 = 0u;
+      v79 = 0u;
+      v80 = 0u;
+      contactCopy = v78;
+      phoneNumbers2 = [v78 phoneNumbers];
+      v62 = [phoneNumbers2 countByEnumeratingWithState:&v79 objects:v99 count:16];
       if (v62)
       {
         v63 = v62;
-        v64 = *v81;
+        v64 = *v80;
         do
         {
           for (m = 0; m != v63; ++m)
           {
-            if (*v81 != v64)
+            if (*v80 != v64)
             {
               objc_enumerationMutation(phoneNumbers2);
             }
 
-            if ([v53 containsObject:*(*(&v80 + 1) + 8 * m)])
+            if ([v53 containsObject:*(*(&v79 + 1) + 8 * m)])
             {
               v19 += 10;
             }
           }
 
-          v63 = [phoneNumbers2 countByEnumeratingWithState:&v80 objects:v100 count:16];
+          v63 = [phoneNumbers2 countByEnumeratingWithState:&v79 objects:v99 count:16];
         }
 
         while (v63);
@@ -343,60 +343,57 @@ LABEL_28:
       if (os_log_type_enabled(DNDSLogSettings, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v106 = v11;
-        v107 = 2050;
-        v108 = v19;
+        v105 = v11;
+        v106 = 2050;
+        v107 = v19;
         _os_log_impl(&dword_24912E000, v66, OS_LOG_TYPE_DEFAULT, "Contact %@ scored %{public}llu", buf, 0x16u);
       }
 
-      if (v19 > v77)
+      if (v19 > v76)
       {
         v67 = DNDSLogSettings;
         if (os_log_type_enabled(DNDSLogSettings, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v72;
-          v106 = v19;
+          *buf = v71;
+          v105 = v19;
           _os_log_impl(&dword_24912E000, v67, OS_LOG_TYPE_DEFAULT, "New high score: %{public}llu", buf, 0xCu);
         }
 
         v68 = v11;
 
-        v75 = v68;
-        v77 = v19;
+        v74 = v68;
+        v76 = v19;
       }
 
-      v10 = v78 + 1;
+      v10 = v77 + 1;
     }
 
-    while (v78 + 1 != v76);
-    v76 = [obj countByEnumeratingWithState:&v96 objects:v104 count:16];
+    while (v77 + 1 != v75);
+    v75 = [obj countByEnumeratingWithState:&v95 objects:v103 count:16];
   }
 
-  while (v76);
+  while (v75);
 LABEL_70:
 
   v69 = DNDSLogSettings;
   if (os_log_type_enabled(DNDSLogSettings, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v106 = v75;
-    v107 = 2050;
-    v108 = v77;
+    v105 = v74;
+    v106 = 2050;
+    v107 = v76;
     _os_log_impl(&dword_24912E000, v69, OS_LOG_TYPE_DEFAULT, "Contact %@ has the high score %{public}llu", buf, 0x16u);
   }
 
-  v70 = *MEMORY[0x277D85DE8];
-
-  return v75;
+  return v74;
 }
 
 - (void)contactForContact:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24912E000, a2, OS_LOG_TYPE_ERROR, "Could not fetch a contact for contact: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24912E000, a2, OS_LOG_TYPE_ERROR, "Could not fetch a contact for contact: %@", &v2, 0xCu);
 }
 
 @end

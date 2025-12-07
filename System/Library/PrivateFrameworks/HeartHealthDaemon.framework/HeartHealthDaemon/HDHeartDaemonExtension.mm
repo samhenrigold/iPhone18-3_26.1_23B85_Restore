@@ -40,7 +40,6 @@
   v5 = HDMigrateHeartRateNotificationsUserDefaultsIfNecessary(self->_heartNotificationsUserDefaults);
   if ([v5 count])
   {
-    v6 = *MEMORY[0x277CCE458];
     HKSynchronizeNanoPreferencesUserDefaults();
   }
 

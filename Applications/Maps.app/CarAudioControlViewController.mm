@@ -20,9 +20,9 @@
 - (_TtC4Maps29CarAudioControlViewController)initWithDelegate:(id)delegate
 {
   swift_unknownObjectRetain();
-  v3 = sub_10046E794();
+  v4 = sub_10046E794(delegate);
   swift_unknownObjectRelease();
-  return v3;
+  return v4;
 }
 
 - (void)viewWillAppear:(BOOL)appear

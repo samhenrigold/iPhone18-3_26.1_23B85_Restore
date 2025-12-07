@@ -183,7 +183,6 @@ LABEL_18:
 
   if (editedContent)
   {
-    editedContent = self->_editedContent;
     PBDataWriterWriteStringField();
   }
 
@@ -197,12 +196,11 @@ LABEL_18:
 
   messageIdentifier = [(_INPBEditMessageIntent *)self messageIdentifier];
 
-  v9 = toCopy;
+  v8 = toCopy;
   if (messageIdentifier)
   {
-    messageIdentifier = self->_messageIdentifier;
     PBDataWriterWriteStringField();
-    v9 = toCopy;
+    v8 = toCopy;
   }
 }
 

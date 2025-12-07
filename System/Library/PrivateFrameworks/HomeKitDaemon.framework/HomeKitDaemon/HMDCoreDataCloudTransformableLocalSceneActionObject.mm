@@ -6,7 +6,7 @@
 
 + (BOOL)exportUpdateWithObjectID:(id)d updatedProperties:(id)properties additionalUpdates:(id)updates context:(id)context
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   propertiesCopy = properties;
   updatesCopy = updates;
@@ -17,18 +17,18 @@
 
   if (v16)
   {
-    v38[0] = @"actionSet";
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
-    v30 = 0;
-    v18 = [contextCopy hmd_fetchExistingObjectWithID:dCopy propertiesToFetch:v17 error:&v30];
-    v19 = v30;
+    v37[0] = @"actionSet";
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
+    v29 = 0;
+    v18 = [contextCopy hmd_fetchExistingObjectWithID:dCopy propertiesToFetch:v17 error:&v29];
+    v19 = v29;
 
     if (v18)
     {
       actionSet = [v18 actionSet];
       objectID = [actionSet objectID];
-      v37 = @"actions_";
-      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
+      v36 = @"actions_";
+      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
       [self addToUpdates:updatesCopy objectID:objectID properties:v22];
     }
 
@@ -42,16 +42,16 @@
         v26 = HMFGetLogIdentifier();
         v27 = @"not found";
         *buf = 138543874;
-        v32 = v26;
+        v31 = v26;
         if (v19)
         {
           v27 = v19;
         }
 
-        v33 = 2114;
-        v34 = dCopy;
-        v35 = 2114;
-        v36 = v27;
+        v32 = 2114;
+        v33 = dCopy;
+        v34 = 2114;
+        v35 = v27;
         _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch object with objectID %{public}@: %{public}@", buf, 0x20u);
       }
 
@@ -59,7 +59,6 @@
     }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

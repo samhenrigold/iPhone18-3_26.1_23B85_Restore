@@ -18,7 +18,7 @@
 - (id)tailInsertionContentItemIDForTargetContentItemID:(id)d;
 - (int64_t)displayItemCount;
 - (int64_t)preferredUpcomingItemCount;
-- (uint64_t)canPreviousItemFromContentItemID:reason:;
+- (uint64_t)canPreviousItemFromContentItemID:(uint64_t)d reason:;
 - (void)canReuseQueue:(id)queue completion:(id)completion;
 - (void)clearUpNextAfterContentItemID:(id)d;
 - (void)currentItemDidChangeFromContentItemID:(id)d toContentItemID:(id)iD;
@@ -43,7 +43,7 @@
   return v3;
 }
 
-- (uint64_t)canPreviousItemFromContentItemID:reason:
+- (uint64_t)canPreviousItemFromContentItemID:(uint64_t)d reason:
 {
   sub_1C6016940();
 
@@ -76,7 +76,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1C5D16144(host);
+  sub_1C5D16144(host, selfCopy);
 }
 
 - (_MPCQueueControllerBehaviorPodcasts)initWithCoder:(id)coder
@@ -252,7 +252,7 @@
 {
   sub_1C6016940();
   selfCopy = self;
-  LOBYTE(position) = QueueControllerBehaviorPodcasts.isSupportedInsertionPosition(_:fromContentItemID:reason:)(position);
+  LOBYTE(position) = QueueControllerBehaviorPodcasts.isSupportedInsertionPosition(_:fromContentItemID:reason:)(position, v8, v9, v10, v11);
 
   return position & 1;
 }

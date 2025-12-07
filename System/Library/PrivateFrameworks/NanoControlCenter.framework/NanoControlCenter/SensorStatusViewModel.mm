@@ -113,7 +113,11 @@
   }
 
   selfCopy = self;
-  SensorStatusViewModel.layoutMargins.setter(top, left, bottom, right);
+  v8.n128_f64[0] = top;
+  v9.n128_f64[0] = left;
+  v10.n128_f64[0] = bottom;
+  v11.n128_f64[0] = right;
+  SensorStatusViewModel.layoutMargins.setter(v8, v9, v10, v11);
 }
 
 - (double)_batteryLevel

@@ -1,4 +1,5 @@
 @interface OSDCameraCenter
++ (BOOL)syncCameras:(id)cameras slave:(id)slave skipSlaveFrames:(BOOL)frames enableSlaveOutput:(BOOL)output error:(id *)error;
 + (id)sharedCenter;
 - (id)_backCamera:(id *)camera;
 - (id)_frontCameraWithDevice:(id)device error:(id *)error;
@@ -20,6 +21,38 @@
   v3 = qword_1000160F8;
 
   return v3;
+}
+
++ (BOOL)syncCameras:(id)cameras slave:(id)slave skipSlaveFrames:(BOOL)frames enableSlaveOutput:(BOOL)output error:(id *)error
+{
+  outputCopy = output;
+  framesCopy = frames;
+  camerasCopy = cameras;
+  slaveCopy = slave;
+  if ([camerasCopy implementorActive:error] && objc_msgSend(slaveCopy, "implementorActive:", error) && (objc_msgSend(camerasCopy, "cameraImp"), v13 = objc_claimAutoreleasedReturnValue(), v14 = +[OSDCamera checkProtocol:obj:error:](OSDCamera, "checkProtocol:obj:error:", &OBJC_PROTOCOL____OSDCameraSyncInterface, v13, error), v13, v14))
+  {
+    cameraImp = [camerasCopy cameraImp];
+    cameraImp2 = [slaveCopy cameraImp];
+    v17 = [OSDCamera checkProtocol:&OBJC_PROTOCOL____OSDCameraSyncInterface obj:cameraImp2 error:error];
+
+    if (v17)
+    {
+      cameraImp3 = [slaveCopy cameraImp];
+      v19 = [cameraImp syncSlave:cameraImp3 skipFrames:framesCopy enableOutput:outputCopy error:error];
+    }
+
+    else
+    {
+      v19 = 0;
+    }
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  return v19;
 }
 
 - (id)cameraForSource:(unint64_t)source error:(id *)error

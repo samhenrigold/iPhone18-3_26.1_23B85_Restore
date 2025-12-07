@@ -8,9 +8,9 @@
 
 - (_CLRangingPeerDistanceInternal)initWithPeer:(id)peer date:(id)date distanceMeters:(id)meters accuracyMeters:(id)accuracyMeters initiator:(BOOL)initiator shouldUnlock:(BOOL)unlock
 {
-  v21.receiver = self;
-  v21.super_class = _CLRangingPeerDistanceInternal;
-  v14 = [(_CLRangingPeerDistanceInternal *)&v21 init];
+  v33.receiver = self;
+  v33.super_class = _CLRangingPeerDistanceInternal;
+  v14 = [(_CLRangingPeerDistanceInternal *)&v33 init];
   v15 = v14;
   if (v14)
   {
@@ -18,28 +18,28 @@
     if (peer != peer)
     {
 
-      v15->_peer = [peer copy];
+      v15->_peer = objc_msgSend_copy(peer, v17, v18, v19);
     }
 
     date = v15->_date;
     if (date != date)
     {
 
-      v15->_date = [date copy];
+      v15->_date = objc_msgSend_copy(date, v21, v22, v23);
     }
 
     distanceMeters = v15->_distanceMeters;
     if (distanceMeters != meters)
     {
 
-      v15->_distanceMeters = [meters copy];
+      v15->_distanceMeters = objc_msgSend_copy(meters, v25, v26, v27);
     }
 
     accuracyMeters = v15->_accuracyMeters;
     if (accuracyMeters != accuracyMeters)
     {
 
-      v15->_accuracyMeters = [accuracyMeters copy];
+      v15->_accuracyMeters = objc_msgSend_copy(accuracyMeters, v29, v30, v31);
     }
 
     v15->_initiator = initiator;
@@ -64,7 +64,8 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [objc_opt_class() allocWithZone:zone];
+  v5 = objc_opt_class();
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
   peer = self->_peer;
   date = self->_date;
   distanceMeters = self->_distanceMeters;
@@ -72,7 +73,7 @@
   initiator = self->_initiator;
   shouldUnlock = self->_shouldUnlock;
 
-  return [v4 initWithPeer:peer date:date distanceMeters:distanceMeters accuracyMeters:accuracyMeters initiator:initiator shouldUnlock:shouldUnlock];
+  return objc_msgSend_initWithPeer_date_distanceMeters_accuracyMeters_initiator_shouldUnlock_(v8, v9, peer, date, distanceMeters, accuracyMeters, initiator, shouldUnlock);
 }
 
 @end

@@ -114,7 +114,7 @@
 
 - (void)_didReceiveContainerContents:(id)contents context:(id)context
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   contentsCopy = contents;
   contextCopy = context;
   selfCopy = self;
@@ -125,26 +125,26 @@
   v11 = [allObjects copy];
 
   objc_sync_exit(selfCopy);
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v12 = v11;
-  v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v13)
   {
-    v14 = *v20;
+    v14 = *v19;
     do
     {
       v15 = 0;
       do
       {
-        if (*v20 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(v12);
         }
 
-        v16 = *(*(&v19 + 1) + 8 * v15);
+        v16 = *(*(&v18 + 1) + 8 * v15);
         _container = [(MSPQuerySource *)selfCopy _container];
         [v16 _didChangeSourceWithNewState:v9 context:contextCopy inContainer:_container];
 
@@ -152,18 +152,16 @@
       }
 
       while (v13 != v15);
-      v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v13);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didChangeSourceWithNewState:(id)state context:(id)context inContainer:(id)container
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   contextCopy = context;
   containerCopy = container;
@@ -175,36 +173,34 @@
   v14 = [allObjects copy];
 
   objc_sync_exit(selfCopy);
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v15 = v14;
-  v16 = [v15 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v16)
   {
-    v17 = *v21;
+    v17 = *v20;
     do
     {
       v18 = 0;
       do
       {
-        if (*v21 != v17)
+        if (*v20 != v17)
         {
           objc_enumerationMutation(v15);
         }
 
-        [*(*(&v20 + 1) + 8 * v18++) _didChangeSourceWithNewState:v12 context:contextCopy inContainer:{containerCopy, v20}];
+        [*(*(&v19 + 1) + 8 * v18++) _didChangeSourceWithNewState:v12 context:contextCopy inContainer:{containerCopy, v19}];
       }
 
       while (v16 != v18);
-      v16 = [v15 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v16);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)sourceByMappingContentsUsingBlock:(id)block

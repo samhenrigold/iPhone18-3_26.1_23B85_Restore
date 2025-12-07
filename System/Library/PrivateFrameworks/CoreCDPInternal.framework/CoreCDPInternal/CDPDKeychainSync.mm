@@ -2,6 +2,7 @@
 + (id)_defaultUserVisibleViewSet;
 + (id)keyChainSync;
 + (id)keyChainSyncWithProxy:(id)proxy sosCircleProxy:(id)circleProxy context:(id)context;
+- (BOOL)_setKeychainSyncState:(BOOL)state error:(id *)error;
 - (BOOL)isUserVisibleKeychainSyncAvailable;
 - (BOOL)isUserVisibleKeychainSyncEnabled;
 - (CDPDKeychainSync)initWithCircleProxy:(id)proxy sosCircleProxy:(id)circleProxy context:(id)context;
@@ -12,6 +13,7 @@
 - (void)_setUserVisibleKeychainSyncEnabled:(BOOL)enabled withCompletion:(id)completion;
 - (void)isUserVisibleKeychainSyncEnabled;
 - (void)removeNonViewAwarePeersFromCircleWithCompletion:(id)completion;
+- (void)setUserVisibleKeychainSyncEnabled:(BOOL)enabled withCompletion:(id)completion;
 - (void)updateKeychainSyncStateIfNeededWithCompletion:(id)completion;
 @end
 
@@ -80,7 +82,7 @@
 
 - (BOOL)isUserVisibleKeychainSyncAvailable
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   syncPolicy = [(CDPDKeychainSync *)self syncPolicy];
   keychainSyncAllowedByMDM = [syncPolicy keychainSyncAllowedByMDM];
 
@@ -116,18 +118,17 @@
       v10 = @"ALLOWED";
     }
 
-    v13 = 138543362;
-    v14 = v10;
-    _os_log_impl(&dword_24510B000, v9, OS_LOG_TYPE_DEFAULT, "isUserVisibleKeychainSyncAllowed: sync is currently %{public}@", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = v10;
+    _os_log_impl(&dword_24510B000, v9, OS_LOG_TYPE_DEFAULT, "isUserVisibleKeychainSyncAllowed: sync is currently %{public}@", &v12, 0xCu);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return keychainSyncAllowedByMDM;
 }
 
 - (BOOL)isUserVisibleKeychainSyncEnabled
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if ([(CDPDKeychainSync *)self _isThisDeviceInCircle])
   {
     if ([MEMORY[0x277CFD560] deferSOSFromSignIn] && objc_msgSend(MEMORY[0x277CFD560], "sosCompatibilityEnabled") && (-[CDPDKeychainSync sosCircleProxy](self, "sosCircleProxy"), v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "cdpContext"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "isSOSCompatibilityOptInNeeded"), v4, v3, v5))
@@ -139,13 +140,13 @@
       }
 
       sosCircleProxy = self->_sosCircleProxy;
-      v24 = 0;
-      v8 = [(CDPDCircleProxy *)sosCircleProxy viewMemberForAllUserFacingViews:&v24];
-      v9 = v24;
-      circleProxy = self->_circleProxy;
       v23 = 0;
-      v11 = [(CDPDCircleProxy *)circleProxy fetchUserControllableViewsSyncingEnabled:&v23];
-      v12 = v23;
+      v8 = [(CDPDCircleProxy *)sosCircleProxy viewMemberForAllUserFacingViews:&v23];
+      v9 = v23;
+      circleProxy = self->_circleProxy;
+      v22 = 0;
+      v11 = [(CDPDCircleProxy *)circleProxy fetchUserControllableViewsSyncingEnabled:&v22];
+      v12 = v22;
       if (v9)
       {
         v13 = _CDPLogSystem();
@@ -169,10 +170,10 @@
       {
         *buf = 138412802;
         selfCopy = self;
-        v27 = 1024;
-        v28 = v8;
-        v29 = 1024;
-        v30 = v11;
+        v26 = 1024;
+        v27 = v8;
+        v28 = 1024;
+        v29 = v11;
         _os_log_debug_impl(&dword_24510B000, v15, OS_LOG_TYPE_DEBUG, "%@: SOS compatible mode is on: sosViewEnabled=%{BOOL}d and otViewEnabled=%{BOOL}d", buf, 0x18u);
       }
 
@@ -182,9 +183,9 @@
     else
     {
       v17 = self->_circleProxy;
-      v22 = 0;
-      v16 = [(CDPDCircleProxy *)v17 fetchUserControllableViewsSyncingEnabled:&v22];
-      v9 = v22;
+      v21 = 0;
+      v16 = [(CDPDCircleProxy *)v17 fetchUserControllableViewsSyncingEnabled:&v21];
+      v9 = v21;
       v18 = _CDPLogSystem();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
@@ -213,7 +214,6 @@
     v16 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -346,6 +346,22 @@ LABEL_19:
 LABEL_15:
 }
 
+- (void)setUserVisibleKeychainSyncEnabled:(BOOL)enabled withCompletion:(id)completion
+{
+  enabledCopy = enabled;
+  completionCopy = completion;
+  aBlock[0] = MEMORY[0x277D85DD0];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __69__CDPDKeychainSync_setUserVisibleKeychainSyncEnabled_withCompletion___block_invoke;
+  aBlock[3] = &unk_278E24B38;
+  v11 = enabledCopy;
+  aBlock[4] = self;
+  v10 = completionCopy;
+  v7 = completionCopy;
+  v8 = _Block_copy(aBlock);
+  [(CDPDKeychainSync *)self _setUserVisibleKeychainSyncEnabled:enabledCopy withCompletion:v8];
+}
+
 uint64_t __69__CDPDKeychainSync_setUserVisibleKeychainSyncEnabled_withCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
@@ -369,7 +385,7 @@ uint64_t __69__CDPDKeychainSync_setUserVisibleKeychainSyncEnabled_withCompletion
 - (void)_setUserVisibleKeychainSyncEnabled:(BOOL)enabled withCompletion:(id)completion
 {
   enabledCopy = enabled;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = @"disable";
   if (enabledCopy)
@@ -382,7 +398,7 @@ uint64_t __69__CDPDKeychainSync_setUserVisibleKeychainSyncEnabled_withCompletion
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v27 = v8;
+    v26 = v8;
     _os_log_impl(&dword_24510B000, v9, OS_LOG_TYPE_DEFAULT, "_setUserVisibleKeychainSyncEnabled: Attempting to %{public}@ user-visible keychain sync.", buf, 0xCu);
   }
 
@@ -392,11 +408,11 @@ uint64_t __69__CDPDKeychainSync_setUserVisibleKeychainSyncEnabled_withCompletion
   aBlock[2] = __70__CDPDKeychainSync__setUserVisibleKeychainSyncEnabled_withCompletion___block_invoke;
   aBlock[3] = &unk_278E25438;
   v11 = v8;
-  v23 = v11;
+  v22 = v11;
   v12 = v10;
-  v24 = v12;
+  v23 = v12;
   v13 = completionCopy;
-  v25 = v13;
+  v24 = v13;
   v14 = _Block_copy(aBlock);
   if (enabledCopy && ![(CDPDKeychainSync *)self isUserVisibleKeychainSyncAvailable])
   {
@@ -420,7 +436,7 @@ uint64_t __69__CDPDKeychainSync_setUserVisibleKeychainSyncEnabled_withCompletion
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v27 = v11;
+      v26 = v11;
       _os_log_impl(&dword_24510B000, v15, OS_LOG_TYPE_DEFAULT, "_setUserVisibleKeychainSyncEnabled: No need to %{public}@ user-visible keychain because we are alraedy in that state.", buf, 0xCu);
     }
 
@@ -432,22 +448,20 @@ uint64_t __69__CDPDKeychainSync_setUserVisibleKeychainSyncEnabled_withCompletion
 
   else
   {
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __70__CDPDKeychainSync__setUserVisibleKeychainSyncEnabled_withCompletion___block_invoke_110;
-    v19[3] = &unk_278E260D0;
-    v19[4] = self;
-    v20 = v14;
-    v21 = enabledCopy;
-    [CDPAuthenticationHelper silentAuthenticationForPrimaryAccountWithCompletion:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __70__CDPDKeychainSync__setUserVisibleKeychainSyncEnabled_withCompletion___block_invoke_110;
+    v18[3] = &unk_278E260D0;
+    v18[4] = self;
+    v19 = v14;
+    v20 = enabledCopy;
+    [CDPAuthenticationHelper silentAuthenticationForPrimaryAccountWithCompletion:v18];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __70__CDPDKeychainSync__setUserVisibleKeychainSyncEnabled_withCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = _CDPLogSystem();
   v7 = v6;
@@ -456,9 +470,9 @@ void __70__CDPDKeychainSync__setUserVisibleKeychainSyncEnabled_withCompletion___
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 32);
-      v11 = 138543362;
-      v12 = v8;
-      _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "_setUserVisibleKeychainSyncEnabled: Sucessfully managed to %{public}@ user-visible keychain", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v8;
+      _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "_setUserVisibleKeychainSyncEnabled: Sucessfully managed to %{public}@ user-visible keychain", &v10, 0xCu);
     }
   }
 
@@ -472,8 +486,6 @@ void __70__CDPDKeychainSync__setUserVisibleKeychainSyncEnabled_withCompletion___
   {
     (*(v9 + 16))(v9, a2, v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __70__CDPDKeychainSync__setUserVisibleKeychainSyncEnabled_withCompletion___block_invoke_110(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -481,37 +493,36 @@ void __70__CDPDKeychainSync__setUserVisibleKeychainSyncEnabled_withCompletion___
   v3 = *(a1 + 32);
   if (a3)
   {
-    v4 = *(a1 + 40);
-    v5 = *(a1 + 32);
+    v4 = *(a1 + 32);
 
-    [v5 _processAuthFailure:? completion:?];
+    [v4 _processAuthFailure:? completion:?];
   }
 
   else
   {
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __70__CDPDKeychainSync__setUserVisibleKeychainSyncEnabled_withCompletion___block_invoke_2;
-    v6[3] = &unk_278E24B38;
-    v6[4] = v3;
-    v8 = *(a1 + 48);
-    v7 = *(a1 + 40);
-    [v3 _preflightCircleStatusWithCompletion:v6];
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = __70__CDPDKeychainSync__setUserVisibleKeychainSyncEnabled_withCompletion___block_invoke_2;
+    v5[3] = &unk_278E24B38;
+    v5[4] = v3;
+    v7 = *(a1 + 48);
+    v6 = *(a1 + 40);
+    [v3 _preflightCircleStatusWithCompletion:v5];
   }
 }
 
 void __70__CDPDKeychainSync__setUserVisibleKeychainSyncEnabled_withCompletion___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
     v6 = *(a1 + 32);
     v7 = *(a1 + 48);
-    v23 = 0;
-    v8 = [v6 _setKeychainSyncState:v7 error:&v23];
-    v9 = v23;
-    v22[1] = 0;
+    v22 = 0;
+    v8 = [v6 _setKeychainSyncState:v7 error:&v22];
+    v9 = v22;
+    v21[1] = 0;
     if (![MEMORY[0x277CFD560] deferSOSFromSignIn] || !SOSCCFetchCompatibilityMode())
     {
       goto LABEL_13;
@@ -519,9 +530,9 @@ void __70__CDPDKeychainSync__setUserVisibleKeychainSyncEnabled_withCompletion___
 
     v10 = *(*(a1 + 32) + 16);
     v11 = *(a1 + 48);
-    v22[0] = 0;
-    v12 = [v10 setUserControllableViewsSyncStatus:v11 error:v22];
-    v13 = v22[0];
+    v21[0] = 0;
+    v12 = [v10 setUserControllableViewsSyncStatus:v11 error:v21];
+    v13 = v21[0];
     v14 = _CDPLogSystem();
     v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
     if (v12)
@@ -540,7 +551,7 @@ LABEL_11:
     else if (v15)
     {
       *buf = 138412290;
-      v25 = v13;
+      v24 = v13;
       v16 = "Failed to enable SOS views: %@";
       v17 = v14;
       v18 = 12;
@@ -564,8 +575,6 @@ LABEL_13:
   }
 
 LABEL_16:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processAuthFailure:(id)failure completion:(id)completion
@@ -631,6 +640,37 @@ LABEL_10:
   }
 }
 
+- (BOOL)_setKeychainSyncState:(BOOL)state error:(id *)error
+{
+  stateCopy = state;
+  v21 = *MEMORY[0x277D85DE8];
+  circleProxy = self->_circleProxy;
+  v14 = 0;
+  v7 = [(CDPDCircleProxy *)circleProxy setUserControllableViewsSyncStatus:state error:&v14];
+  v8 = v14;
+  v9 = _CDPLogSystem();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  {
+    v12 = [MEMORY[0x277CCABB0] numberWithBool:stateCopy];
+    v13 = [MEMORY[0x277CCABB0] numberWithBool:v7];
+    *buf = 138412802;
+    v16 = v12;
+    v17 = 2112;
+    v18 = v13;
+    v19 = 2112;
+    v20 = v8;
+    _os_log_debug_impl(&dword_24510B000, v9, OS_LOG_TYPE_DEBUG, "Calling setUserControllableViewsSyncStatus with enable=%@ returned success=%@ error: %@", buf, 0x20u);
+  }
+
+  if (error)
+  {
+    v10 = v8;
+    *error = v8;
+  }
+
+  return v7;
+}
+
 - (void)removeNonViewAwarePeersFromCircleWithCompletion:(id)completion
 {
   completionCopy = completion;
@@ -658,7 +698,6 @@ LABEL_10:
 
 uint64_t __46__CDPDKeychainSync__defaultUserVisibleViewSet__block_invoke()
 {
-  v0 = *MEMORY[0x277CDBE88];
   _defaultUserVisibleViewSet_defaultViewSet = [MEMORY[0x277CBEB98] setWithObjects:{*MEMORY[0x277CDBEA8], *MEMORY[0x277CDBE88], *MEMORY[0x277CDBEA0], *MEMORY[0x277CDBE98], 0}];
 
   return MEMORY[0x2821F96F8]();
@@ -666,29 +705,27 @@ uint64_t __46__CDPDKeychainSync__defaultUserVisibleViewSet__block_invoke()
 
 - (void)isUserVisibleKeychainSyncEnabled
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_0_2(&dword_24510B000, v0, v1, "%@: viewMemberForAllUserFacingViews when checking all SOS user facing views are enabled finished with error:%@");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  selfCopy = self;
+  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "%@: isUserVisibleKeychainSyncEnabled: sosCompatibilityEnabled=YES SOSCompatibilityTypeOptInNeeded=YES", &v2, 0xCu);
 }
 
 void __70__CDPDKeychainSync__setUserVisibleKeychainSyncEnabled_withCompletion___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = *(a1 + 32);
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_0_2(&dword_24510B000, a2, a3, "_setUserVisibleKeychainSyncEnabled: Failed to %{public}@ user-visible keychain with error: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138543618;
+  *&v3[4] = *(a1 + 32);
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_0_2(&dword_24510B000, a2, a3, "_setUserVisibleKeychainSyncEnabled: Failed to %{public}@ user-visible keychain with error: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 - (void)_processAuthFailure:(uint64_t)a1 completion:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "CDP State repair is needed because the account is iCDP enabled but HSA2 silent auth failed with error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "CDP State repair is needed because the account is iCDP enabled but HSA2 silent auth failed with error %@", &v2, 0xCu);
 }
 
 @end

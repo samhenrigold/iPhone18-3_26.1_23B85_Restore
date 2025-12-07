@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)eventTypeAsString:(int)string;
 - (int)StringAsEventType:(id)type;
 - (int)eventType;
 - (unint64_t)hash;
@@ -121,6 +122,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)eventTypeAsString:(int)string
+{
+  if (string >= 7)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE33120[string];
+  }
 }
 
 - (int)StringAsEventType:(id)type
@@ -314,13 +328,11 @@ LABEL_9:
     goto LABEL_3;
   }
 
-  newBSSID = self->_newBSSID;
   PBDataWriterWriteBOOLField();
   *&has = self->_has;
   if ((*&has & 8) != 0)
   {
 LABEL_3:
-    changedChannel = self->_changedChannel;
     PBDataWriterWriteBOOLField();
     *&has = self->_has;
   }
@@ -328,7 +340,6 @@ LABEL_3:
 LABEL_4:
   if ((*&has & 0x10) != 0)
   {
-    changedDNSPrimary = self->_changedDNSPrimary;
     PBDataWriterWriteBOOLField();
     *&has = self->_has;
     if ((*&has & 0x20) == 0)
@@ -348,7 +359,6 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  changedDNSSecondary = self->_changedDNSSecondary;
   PBDataWriterWriteBOOLField();
   *&has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -363,7 +373,6 @@ LABEL_7:
   }
 
 LABEL_13:
-  changedMAC = self->_changedMAC;
   PBDataWriterWriteBOOLField();
   *&has = self->_has;
   if ((*&has & 1) == 0)
@@ -375,7 +384,6 @@ LABEL_8:
     }
 
 LABEL_15:
-    eventType = self->_eventType;
     PBDataWriterWriteInt32Field();
     if ((*&self->_has & 2) == 0)
     {
@@ -386,7 +394,6 @@ LABEL_15:
   }
 
 LABEL_14:
-  timestamp = self->_timestamp;
   PBDataWriterWriteUint64Field();
   *&has = self->_has;
   if ((*&has & 4) != 0)
@@ -401,7 +408,6 @@ LABEL_9:
   }
 
 LABEL_16:
-  additionalInfo = self->_additionalInfo;
 
   PBDataWriterWriteUint32Field();
 }
@@ -639,7 +645,6 @@ LABEL_9:
       goto LABEL_56;
     }
 
-    v7 = *(equal + 28);
     if (self->_newBSSID)
     {
       if ((*(equal + 28) & 1) == 0)
@@ -666,7 +671,6 @@ LABEL_9:
       goto LABEL_56;
     }
 
-    v8 = *(equal + 24);
     if (self->_changedChannel)
     {
       if ((*(equal + 24) & 1) == 0)
@@ -693,7 +697,6 @@ LABEL_9:
       goto LABEL_56;
     }
 
-    v9 = *(equal + 25);
     if (self->_changedDNSPrimary)
     {
       if ((*(equal + 25) & 1) == 0)
@@ -720,7 +723,6 @@ LABEL_9:
       goto LABEL_56;
     }
 
-    v10 = *(equal + 26);
     if (self->_changedDNSSecondary)
     {
       if ((*(equal + 26) & 1) == 0)
@@ -744,7 +746,6 @@ LABEL_9:
   {
     if ((*(equal + 32) & 0x40) != 0)
     {
-      v11 = *(equal + 27);
       if (self->_changedMAC)
       {
         if ((*(equal + 27) & 1) == 0)

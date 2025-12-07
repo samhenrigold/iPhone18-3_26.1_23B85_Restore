@@ -32,19 +32,18 @@ LABEL_2:
 
 - (id)featureNames
 {
-  v5[10] = *MEMORY[0x277D85DE8];
-  v5[0] = @"ImportSourceUnknown";
-  v5[1] = @"ImportSourceBackCamera";
-  v5[2] = @"ImportSourceFrontCamera";
-  v5[3] = @"ImportSourcePhotoKit";
-  v5[4] = @"ImportSourceCameraConnectionKit";
-  v5[5] = @"ImportSourcePhotosApp";
-  v5[6] = @"ImportSourceLegacy";
-  v5[7] = @"ImportSourceMomentShare";
-  v5[8] = @"ImportSourcePhotoKitInternal";
-  v5[9] = @"ImportSourceLegacyInternal";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:10];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[10] = *MEMORY[0x277D85DE8];
+  v4[0] = @"ImportSourceUnknown";
+  v4[1] = @"ImportSourceBackCamera";
+  v4[2] = @"ImportSourceFrontCamera";
+  v4[3] = @"ImportSourcePhotoKit";
+  v4[4] = @"ImportSourceCameraConnectionKit";
+  v4[5] = @"ImportSourcePhotosApp";
+  v4[6] = @"ImportSourceLegacy";
+  v4[7] = @"ImportSourceMomentShare";
+  v4[8] = @"ImportSourcePhotoKitInternal";
+  v4[9] = @"ImportSourceLegacyInternal";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:10];
 
   return v2;
 }

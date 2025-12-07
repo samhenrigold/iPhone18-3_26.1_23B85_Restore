@@ -65,10 +65,11 @@
   v6 = (self + OBJC_IVAR___HUAccessoryEventPickerViewController_filter);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_20CEC8164(v7);
+  sub_20CEC8164(v7, v8);
 }
 
 - (HUAccessoryEventPickerViewController)initWithEventBuilderItem:(id)item triggerBuilder:(id)builder mode:(unint64_t)mode source:(unint64_t)source delegate:(id)delegate
@@ -76,7 +77,7 @@
   itemCopy = item;
   builderCopy = builder;
   swift_unknownObjectRetain();
-  return AccessoryEventPickerViewController.init(eventBuilderItem:triggerBuilder:mode:source:delegate:)(itemCopy, builderCopy, mode, source);
+  return AccessoryEventPickerViewController.init(eventBuilderItem:triggerBuilder:mode:source:delegate:)(itemCopy, builderCopy, mode, source, delegate);
 }
 
 - (void)viewDidLoad
@@ -108,7 +109,7 @@
 {
   moduleCopy = module;
   selfCopy = self;
-  v6 = sub_20D1129E0();
+  v6 = sub_20D1129E0(moduleCopy);
 
   return v6;
 }
@@ -127,7 +128,7 @@
   swift_unknownObjectRelease();
   sub_20D111F9C();
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (id)listContentConfigurationForSupplementaryElementOfKind:(id)kind atIndexPath:(id)path

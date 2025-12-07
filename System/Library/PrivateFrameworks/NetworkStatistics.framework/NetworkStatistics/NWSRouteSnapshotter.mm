@@ -8,30 +8,30 @@
 
 - (id)snapshot
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v20 = 0;
-  memset(v19, 0, sizeof(v19));
-  memset(&v18[1], 0, 128);
-  v15 = 0;
-  v16 = 0;
-  v17 = 1007;
-  v18[0] = [(NWSSnapshotter *)self kernelSourceRef];
+  v23 = *MEMORY[0x277D85DE8];
+  v22 = 0;
+  memset(v21, 0, sizeof(v21));
+  memset(&v20[1], 0, 128);
+  v17 = 0;
+  v18 = 0;
+  v19 = 1007;
+  v20[0] = [(NWSSnapshotter *)self kernelSourceRef];
   snapshotSource = [(NWSSnapshotter *)self snapshotSource];
-  v4 = [snapshotSource send:&v16 length:24 err:&v15];
+  v4 = [snapshotSource send:&v18 length:24 err:&v17];
 
   if (v4 != 24)
   {
-    v9 = NStatGetLog();
-    v7 = v9;
+    v11 = NStatGetLog(v5);
+    v9 = v11;
     if (v4 < 0)
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [(NWSRouteSnapshotter *)&v15 snapshot];
+        [NWSRouteSnapshotter snapshot];
       }
     }
 
-    else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    else if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [NWSRouteSnapshotter snapshot];
     }
@@ -40,21 +40,21 @@
   }
 
   snapshotSource2 = [(NWSSnapshotter *)self snapshotSource];
-  v6 = [snapshotSource2 recv:&v16 length:272 err:&v15];
+  v7 = [snapshotSource2 recv:&v18 length:272 err:&v17];
 
-  if (v6 <= 271)
+  if (v7 <= 271)
   {
-    v7 = NStatGetLog();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
-    if (v6 < 0)
+    v9 = NStatGetLog(v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+    if (v7 < 0)
     {
-      if (v8)
+      if (v10)
       {
-        [(NWSRouteSnapshotter *)&v15 snapshot];
+        [NWSRouteSnapshotter snapshot];
       }
     }
 
-    else if (v8)
+    else if (v10)
     {
       [NWSRouteSnapshotter snapshot];
     }
@@ -64,284 +64,280 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  if (v17 != 10006)
+  if (v19 != 10006)
   {
-    if (v17 == 2)
+    if (v19 == 2)
     {
-      v7 = NStatGetLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v9 = NStatGetLog(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        [(NWSRouteSnapshotter *)v7 snapshot];
+        [(NWSRouteSnapshotter *)v9 snapshot];
       }
     }
 
     else
     {
-      v7 = NStatGetLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = NStatGetLog(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        [(NWSRouteSnapshotter *)&v17 snapshot];
+        [NWSRouteSnapshotter snapshot];
       }
     }
 
     goto LABEL_21;
   }
 
-  v10 = v18[0];
-  if (v10 == [(NWSSnapshotter *)self kernelSourceRef])
+  v12 = v20[0];
+  kernelSourceRef = [(NWSSnapshotter *)self kernelSourceRef];
+  if (v12 == kernelSourceRef)
   {
-    v11 = [[NWSRouteSnapshot alloc] initWithCounts:&v18[2] routeDescriptor:v19 sourceIdent:[(NWSSnapshotter *)self kernelSourceRef] seqno:0];
+    v14 = [[NWSRouteSnapshot alloc] initWithCounts:&v20[2] routeDescriptor:v21 sourceIdent:[(NWSSnapshotter *)self kernelSourceRef] seqno:0];
     goto LABEL_23;
   }
 
-  v14 = NStatGetLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v16 = NStatGetLog(kernelSourceRef);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    [(NWSRouteSnapshotter *)v18 snapshot];
+    [(NWSRouteSnapshotter *)v20 snapshot];
   }
 
 LABEL_22:
-  v11 = 0;
+  v14 = 0;
 LABEL_23:
-  v12 = *MEMORY[0x277D85DE8];
 
-  return v11;
+  return v14;
 }
 
 - (NWSRouteSnapshotter)initWithSource:(id)source dest:(id)dest mask:(id)mask ifindex:(int)ifindex
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   destCopy = dest;
   maskCopy = mask;
-  v27.receiver = self;
-  v27.super_class = NWSRouteSnapshotter;
-  v13 = [(NWSRouteSnapshotter *)&v27 init];
+  v28.receiver = self;
+  v28.super_class = NWSRouteSnapshotter;
+  v13 = [(NWSRouteSnapshotter *)&v28 init];
+  v14 = v13;
   if (!v13)
   {
     goto LABEL_34;
   }
 
-  v29 = 0;
-  memset(v28, 0, sizeof(v28));
-  if (destCopy && [destCopy length] >= 0x10 && objc_msgSend(destCopy, "length") < 0x1D)
+  v30 = 0;
+  memset(v29, 0, sizeof(v29));
+  if (destCopy)
   {
-    if (maskCopy && ([destCopy length] < 0x10 || objc_msgSend(destCopy, "length") >= 0x1D))
+    v13 = [destCopy length];
+    if (v13 >= 0x10)
     {
-      v14 = NStatGetLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v13 = [destCopy length];
+      if (v13 < 0x1D)
       {
-        [NWSRouteSnapshotter initWithSource:maskCopy dest:? mask:? ifindex:?];
-      }
-
-      goto LABEL_7;
-    }
-
-    *&v28[0] = v28;
-    *(&v28[0] + 1) = 1001;
-    *&v28[1] = 1;
-    memset(&v28[1] + 8, 0, 56);
-    LODWORD(v29) = ifindex;
-    [destCopy getBytes:&v28[1] + 8 length:28];
-    if (maskCopy)
-    {
-      [maskCopy getBytes:&v28[3] + 4 length:28];
-    }
-
-    v26 = 0;
-    v16 = [sourceCopy send:v28 length:84 err:&v26];
-    if (v16 != 84)
-    {
-      v20 = v16;
-      v21 = NStatGetLog();
-      v14 = v21;
-      if (v20 < 0)
-      {
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        if (maskCopy)
         {
-          [(NWSRouteSnapshotter *)&v26 snapshot];
-        }
-      }
-
-      else if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
-      {
-        [NWSRouteSnapshotter initWithSource:dest:mask:ifindex:];
-      }
-
-      goto LABEL_7;
-    }
-
-    v17 = [sourceCopy recv:v28 length:88 err:&v26];
-    if (v17 <= 31)
-    {
-      v18 = v17;
-      v14 = NStatGetLog();
-      v19 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
-      if (v18 < 0)
-      {
-        if (v19)
-        {
-          [NWSRouteSnapshotter initWithSource:? dest:? mask:? ifindex:?];
-        }
-      }
-
-      else if (v19)
-      {
-        [NWSRouteSnapshotter initWithSource:dest:mask:ifindex:];
-      }
-
-      goto LABEL_7;
-    }
-
-    if (DWORD2(v28[0]) != 10001)
-    {
-      if (DWORD2(v28[0]) == 1)
-      {
-        v22 = v28[1];
-        v14 = NStatGetLog();
-        v23 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
-        if (v22 == 2)
-        {
-          if (v23)
+          v17 = [destCopy length];
+          if (v17 < 0x10 || (v17 = [destCopy length], v17 >= 0x1D))
           {
-            [NWSRouteSnapshotter initWithSource:dest:mask:ifindex:];
+            v15 = NStatGetLog(v17);
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+            {
+              [NWSRouteSnapshotter initWithSource:maskCopy dest:? mask:? ifindex:?];
+            }
+
+            goto LABEL_7;
           }
         }
 
-        else if (v23)
+        *&v29[0] = v29;
+        *(&v29[0] + 1) = 1001;
+        *&v29[1] = 1;
+        memset(&v29[1] + 8, 0, 56);
+        LODWORD(v30) = ifindex;
+        [destCopy getBytes:&v29[1] + 8 length:28];
+        if (maskCopy)
         {
-          [NWSRouteSnapshotter initWithSource:dest:mask:ifindex:];
+          [maskCopy getBytes:&v29[3] + 4 length:28];
         }
-      }
 
-      else
-      {
-        v14 = NStatGetLog();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v27 = 0;
+        v18 = [sourceCopy send:v29 length:84 err:&v27];
+        if (v18 != 84)
         {
-          [NWSRouteSnapshotter initWithSource:? dest:? mask:? ifindex:?];
+          v22 = v18;
+          v23 = NStatGetLog(v18);
+          v15 = v23;
+          if (v22 < 0)
+          {
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+            {
+              [NWSRouteSnapshotter snapshot];
+            }
+          }
+
+          else if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+          {
+            [NWSRouteSnapshotter initWithSource:dest:mask:ifindex:];
+          }
+
+          goto LABEL_7;
         }
-      }
 
-      goto LABEL_7;
-    }
+        v19 = [sourceCopy recv:v29 length:88 err:&v27];
+        if (v19 <= 31)
+        {
+          v20 = v19;
+          v15 = NStatGetLog(v19);
+          v21 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
+          if (v20 < 0)
+          {
+            if (v21)
+            {
+              [NWSRouteSnapshotter initWithSource:dest:mask:ifindex:];
+            }
+          }
 
-    if (*&v28[0] != v28)
-    {
-      v14 = NStatGetLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-      {
-        [NWSRouteSnapshotter initWithSource:v28 dest:v28 mask:v14 ifindex:?];
-      }
+          else if (v21)
+          {
+            [NWSRouteSnapshotter initWithSource:dest:mask:ifindex:];
+          }
 
-      goto LABEL_7;
-    }
+          goto LABEL_7;
+        }
 
-    [(NWSSnapshotter *)v13 setKernelSourceRef:*&v28[1]];
-    [(NWSSnapshotter *)v13 setSnapshotSource:sourceCopy];
+        if (DWORD2(v29[0]) != 10001)
+        {
+          if (DWORD2(v29[0]) == 1)
+          {
+            v24 = v29[1];
+            v15 = NStatGetLog(v19);
+            v25 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
+            if (v24 == 2)
+            {
+              if (v25)
+              {
+                [NWSRouteSnapshotter initWithSource:dest:mask:ifindex:];
+              }
+            }
+
+            else if (v25)
+            {
+              [NWSRouteSnapshotter initWithSource:dest:mask:ifindex:];
+            }
+          }
+
+          else
+          {
+            v15 = NStatGetLog(v19);
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+            {
+              [NWSRouteSnapshotter initWithSource:dest:mask:ifindex:];
+            }
+          }
+
+          goto LABEL_7;
+        }
+
+        if (*&v29[0] != v29)
+        {
+          v15 = NStatGetLog(v19);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          {
+            [NWSRouteSnapshotter initWithSource:v29 dest:v29 mask:v15 ifindex:?];
+          }
+
+          goto LABEL_7;
+        }
+
+        [(NWSSnapshotter *)v14 setKernelSourceRef:*&v29[1]];
+        [(NWSSnapshotter *)v14 setSnapshotSource:sourceCopy];
 LABEL_34:
-    v15 = v13;
-    goto LABEL_35;
+        v16 = v14;
+        goto LABEL_35;
+      }
+    }
   }
 
-  v14 = NStatGetLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v15 = NStatGetLog(v13);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     [NWSRouteSnapshotter initWithSource:destCopy dest:destCopy == 0 mask:? ifindex:?];
   }
 
 LABEL_7:
 
-  v15 = 0;
+  v16 = 0;
 LABEL_35:
 
-  v24 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v16;
 }
 
 - (void)snapshot
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5(self);
+  OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 - (void)initWithSource:(void *)a1 dest:mask:ifindex:.cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 length];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithSource:dest:mask:ifindex:.cold.2()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = 84;
-  _os_log_debug_impl(&dword_25BA3A000, v0, OS_LOG_TYPE_DEBUG, "sent %ld out of %lu", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 84;
+  _os_log_debug_impl(&dword_25BA3A000, v0, OS_LOG_TYPE_DEBUG, "sent %ld out of %lu", v1, 0x16u);
 }
 
 - (void)initWithSource:dest:mask:ifindex:.cold.4()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 - (void)initWithSource:(os_log_t)log dest:mask:ifindex:.cold.6(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5 = 134218240;
-  v6 = v3;
-  v7 = 2048;
-  v8 = a2;
-  _os_log_error_impl(&dword_25BA3A000, log, OS_LOG_TYPE_ERROR, "received wrong context, received %llu expected %lu", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218240;
+  v5 = v3;
+  v6 = 2048;
+  v7 = a2;
+  _os_log_error_impl(&dword_25BA3A000, log, OS_LOG_TYPE_ERROR, "received wrong context, received %llu expected %lu", &v4, 0x16u);
 }
 
-- (void)initWithSource:(unsigned int *)a1 dest:mask:ifindex:.cold.7(unsigned int *a1)
+- (void)initWithSource:dest:mask:ifindex:.cold.7()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xEu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
 - (void)initWithSource:dest:mask:ifindex:.cold.8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-- (void)initWithSource:(unsigned int *)a1 dest:mask:ifindex:.cold.9(unsigned int *a1)
+- (void)initWithSource:dest:mask:ifindex:.cold.9()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5(a1);
+  OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 - (void)initWithSource:(void *)a1 dest:(char)a2 mask:ifindex:.cold.10(void *a1, char a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if ((a2 & 1) == 0)
   {
     [a1 length];
@@ -350,7 +346,6 @@ LABEL_35:
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

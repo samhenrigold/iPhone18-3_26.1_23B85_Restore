@@ -76,19 +76,19 @@
         return;
       }
 
-      v6 = PKOBKHeaderTitleFont();
+      v6 = PKOBKHeaderTitleFont(self);
       [(PKTableHeaderView *)self setTitleFont:v6];
 
       v7 = PKOBKHeaderTitleTextColor();
       [(PKTableHeaderView *)self setTitleTextColor:v7];
 
-      v8 = PKOBKHeaderSubtitleFont();
-      [(PKTableHeaderView *)self setSubtitleFont:v8];
+      v9 = PKOBKHeaderSubtitleFont(v8);
+      [(PKTableHeaderView *)self setSubtitleFont:v9];
 
-      v9 = PKOBKHeaderSubtitleTextColor();
-      [(PKTableHeaderView *)self setSubtitleTextColor:v9];
+      v11 = PKOBKHeaderSubtitleTextColor(v10);
+      [(PKTableHeaderView *)self setSubtitleTextColor:v11];
 
-      v10 = PKOBKTextAlignment();
+      v12 = PKOBKTextAlignment();
       goto LABEL_13;
     }
   }
@@ -114,10 +114,10 @@
   [(PKTableHeaderView *)self setTitleTextColor:0];
   [(PKTableHeaderView *)self setSubtitleFont:0];
   [(PKTableHeaderView *)self setSubtitleTextColor:0];
-  v10 = 1;
+  v12 = 1;
 LABEL_13:
 
-  [(PKTableHeaderView *)self setAlignment:v10];
+  [(PKTableHeaderView *)self setAlignment:v12];
 }
 
 - (void)setActionTitle:(id)title
@@ -243,10 +243,13 @@ void __42__PKTableHeaderView_configureActionButton__block_invoke(uint64_t a1, vo
   if (width == *MEMORY[0x1E695F060] && height == *(MEMORY[0x1E695F060] + 8))
   {
     [snapshotCopy size];
-    PKFloatRoundToPixel();
-    width = v12;
-    PKFloatRoundToPixel();
-    height = v13;
+    v13 = v12.n128_f64[0];
+    v15.n128_f64[0] = v14 * 0.38;
+    PKFloatRoundToPixel(v15, v12);
+    width = v16;
+    v17.n128_f64[0] = v13 * 0.38;
+    PKFloatRoundToPixel(v17, v18);
+    height = v19;
   }
 
   [(UIImageView *)self->_imageView setContentMode:1];
@@ -255,8 +258,8 @@ void __42__PKTableHeaderView_configureActionButton__block_invoke(uint64_t a1, vo
   if (cornersCopy)
   {
     layer = [(UIImageView *)self->_imageView layer];
-    v15 = [MEMORY[0x1E69DC888] colorWithWhite:0.0 alpha:0.1];
-    [v15 CGColor];
+    v21 = [MEMORY[0x1E69DC888] colorWithWhite:0.0 alpha:0.1];
+    [v21 CGColor];
     PKPaymentStyleApplyCorners();
   }
 }

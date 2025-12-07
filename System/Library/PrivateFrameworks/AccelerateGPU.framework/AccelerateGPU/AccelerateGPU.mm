@@ -9,7 +9,7 @@ id *gpuImageBufferCreate(id *a1, uint64_t a2, void *a3, void *a4, unint64_t a5, 
 
   else
   {
-    v13 = [v9 minimumLinearTextureAlignmentForPixelFormat:70];
+    v13 = [v9 minimumLinearTextureAlignmentForPixelFormat:70, a4, a5];
     v10 = (v13 + (a6 >> 3) * a4 - 1) / v13 * v13;
     v11 = [*a1 newBufferWithLength:v10 * a3 options:0];
   }
@@ -976,53 +976,53 @@ uint64_t gpuImagePiecewiseGamma_PlanarF(uint64_t a1, uint64_t *a2, void *a3, uin
 
 uint64_t gpuImageHistogramCalculation_ARGB8888(uint64_t a1, uint64_t a2, void *a3)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v6 = objc_autoreleasePoolPush();
   v7 = *(a1 + 16);
   v8 = *(v7 + 16);
   v9 = a3[1];
   if (v9 != *a3 + 2048 || (v10 = a3[2], v10 != v9 + 2048))
   {
+    v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
 LABEL_4:
     v11 = [*v7 newBufferWithBytesNoCopy:? length:? options:? deallocator:?];
-    v12 = v45;
-    *&v45 = v11;
+    v12 = v44;
+    *&v44 = v11;
 
     v13 = [**(a1 + 16) newBufferWithBytesNoCopy:a3[1] length:2048 options:0x100000 deallocator:0];
-    v14 = *(&v45 + 1);
-    *(&v45 + 1) = v13;
+    v14 = *(&v44 + 1);
+    *(&v44 + 1) = v13;
 
     v15 = [**(a1 + 16) newBufferWithBytesNoCopy:a3[2] length:2048 options:0x100000 deallocator:0];
-    v16 = v46;
-    *&v46 = v15;
+    v16 = v45;
+    *&v45 = v15;
 
     v17 = [**(a1 + 16) newBufferWithBytesNoCopy:a3[3] length:2048 options:0x100000 deallocator:0];
     v18 = 0;
-    v19 = *(&v46 + 1);
-    *(&v46 + 1) = v17;
+    v19 = *(&v45 + 1);
+    *(&v45 + 1) = v17;
     goto LABEL_5;
   }
 
-  v35 = a3[3];
+  v34 = a3[3];
+  v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
-  if (v35 != v10 + 2048)
+  if (v34 != v10 + 2048)
   {
     goto LABEL_4;
   }
 
-  v36 = [*v7 newBufferWithBytesNoCopy:? length:? options:? deallocator:?];
-  v19 = v45;
-  *&v45 = v36;
+  v35 = [*v7 newBufferWithBytesNoCopy:? length:? options:? deallocator:?];
+  v19 = v44;
+  *&v44 = v35;
   v18 = 1;
 LABEL_5:
 
   v20 = *(a1 + 8);
   v21 = *(a2 + 8);
-  v40 = *(a2 + 16);
-  v41 = v21;
+  v39 = *(a2 + 16);
+  v40 = v21;
   v22 = *(a2 + 24);
   v24 = v21 + 15;
   v23 = v21 < -15;
@@ -1032,76 +1032,75 @@ LABEL_5:
     v25 = v24;
   }
 
-  v42 = *(a2 + 24);
-  v43 = v25 >> 4;
-  v44 = (v25 >> 4) * v22;
+  v41 = *(a2 + 24);
+  v42 = v25 >> 4;
+  v43 = (v25 >> 4) * v22;
   v26 = [**(a1 + 16) newBufferWithLength:4096 options:32];
   [v20 setComputePipelineState:*(*(*(a1 + 16) + 16) + 8)];
   [v20 setBuffer:v26 offset:0 atIndex:0];
-  *v39 = vdupq_n_s64(1uLL);
-  *&v39[16] = 1;
-  v37 = xmmword_23D6FC3C0;
-  v38 = 1;
-  [v20 dispatchThreadgroups:v39 threadsPerThreadgroup:&v37];
+  *v38 = vdupq_n_s64(1uLL);
+  *&v38[16] = 1;
+  v36 = xmmword_23D6FC3C0;
+  v37 = 1;
+  [v20 dispatchThreadgroups:v38 threadsPerThreadgroup:&v36];
   [v20 setComputePipelineState:*v8];
   [v20 setBuffer:*a2 offset:0 atIndex:0];
   [v20 setBuffer:v26 offset:0 atIndex:1];
   [v20 setBuffer:v26 offset:1024 atIndex:2];
   [v20 setBuffer:v26 offset:2048 atIndex:3];
   [v20 setBuffer:v26 offset:3072 atIndex:4];
-  [v20 setBytes:&v40 length:24 atIndex:5];
+  [v20 setBytes:&v39 length:24 atIndex:5];
   [v20 setThreadgroupMemoryLength:4096 atIndex:0];
-  v27 = v40 + 510;
-  if (v40 >= -255)
+  v27 = v39 + 510;
+  if (v39 >= -255)
   {
-    v27 = v40 + 255;
+    v27 = v39 + 255;
   }
 
   v28 = v27 >> 8;
-  v29 = v41 + 30;
-  if (v41 >= -15)
+  v29 = v40 + 30;
+  if (v40 >= -15)
   {
-    v29 = v41 + 15;
+    v29 = v40 + 15;
   }
 
-  *v39 = v28;
-  *&v39[8] = v29 >> 4;
-  *&v39[16] = 1;
-  v37 = xmmword_23D6FC3C0;
-  v38 = 1;
-  [v20 dispatchThreadgroups:v39 threadsPerThreadgroup:&v37];
+  *v38 = v28;
+  *&v38[8] = v29 >> 4;
+  *&v38[16] = 1;
+  v36 = xmmword_23D6FC3C0;
+  v37 = 1;
+  [v20 dispatchThreadgroups:v38 threadsPerThreadgroup:&v36];
   [v20 setComputePipelineState:*(*(*(a1 + 16) + 16) + 16)];
   [v20 setBuffer:v26 offset:0 atIndex:0];
-  [v20 setBuffer:v45 offset:0 atIndex:1];
+  [v20 setBuffer:v44 offset:0 atIndex:1];
   if (v18)
   {
-    [v20 setBuffer:v45 offset:2048 atIndex:2];
-    [v20 setBuffer:v45 offset:4096 atIndex:3];
-    v30 = v45;
+    [v20 setBuffer:v44 offset:2048 atIndex:2];
+    [v20 setBuffer:v44 offset:4096 atIndex:3];
+    v30 = v44;
     v31 = 6144;
   }
 
   else
   {
-    [v20 setBuffer:*(&v45 + 1) offset:0 atIndex:2];
-    [v20 setBuffer:v46 offset:0 atIndex:3];
+    [v20 setBuffer:*(&v44 + 1) offset:0 atIndex:2];
+    [v20 setBuffer:v45 offset:0 atIndex:3];
     v31 = 0;
-    v30 = *(&v46 + 1);
+    v30 = *(&v45 + 1);
   }
 
   [v20 setBuffer:v30 offset:v31 atIndex:4];
-  *v39 = 4;
-  *&v39[8] = vdupq_n_s64(1uLL);
-  v37 = xmmword_23D6FC3C0;
-  v38 = 1;
-  [v20 dispatchThreadgroups:v39 threadsPerThreadgroup:&v37];
+  *v38 = 4;
+  *&v38[8] = vdupq_n_s64(1uLL);
+  v36 = xmmword_23D6FC3C0;
+  v37 = 1;
+  [v20 dispatchThreadgroups:v38 threadsPerThreadgroup:&v36];
 
   for (i = 24; i != -8; i -= 8)
   {
   }
 
   objc_autoreleasePoolPop(v6);
-  v33 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1238,8 +1237,11 @@ id gpuGetLibrary(void *a1)
   return v7;
 }
 
-uint64_t gpuImageTentConvolve_ARGB8888(uint64_t a1, void *a2, void *a3, __int16 a4, __int16 a5, unsigned int a6, unsigned int a7, int *a8, unsigned int a9)
+uint64_t gpuImageTentConvolve_ARGB8888(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned int a7, int *a8, unsigned int a9)
 {
+  v11 = a6;
+  v12 = a5;
+  v13 = a4;
   if (a6 < 2)
   {
     v18 = 0;
@@ -1254,17 +1256,17 @@ uint64_t gpuImageTentConvolve_ARGB8888(uint64_t a1, void *a2, void *a3, __int16 
     }
 
     v18 = v17;
-    v19 = ((a6 >> 1) + 1);
+    v19 = ((v11 >> 1) + 1);
     v20 = v19;
     if (v20 >= 1)
     {
       v21 = 0;
-      v22 = a6 - 1;
+      v22 = v11 - 1;
       do
       {
         v23 = ((v21 + 1.0) / v19) / v19;
-        v17[v21] = v23;
-        v17[v22] = v23;
+        *(v17 + v21) = v23;
+        *(v17 + v22) = v23;
         ++v21;
         --v22;
       }
@@ -1288,8 +1290,8 @@ uint64_t gpuImageTentConvolve_ARGB8888(uint64_t a1, void *a2, void *a3, __int16 
         do
         {
           v30 = ((v28 + 1.0) / v26) / v26;
-          v24[v28] = v30;
-          v24[v29] = v30;
+          *(v24 + v28) = v30;
+          *(v24 + v29) = v30;
           ++v28;
           --v29;
         }
@@ -1305,7 +1307,7 @@ uint64_t gpuImageTentConvolve_ARGB8888(uint64_t a1, void *a2, void *a3, __int16 
 
   v25 = 0;
 LABEL_15:
-  v31 = gpuImageSeparableConvolution_ARGB8888(a1, a2, a3, a4, a5, v18, a6, v25, a7, a8, a9);
+  v31 = gpuImageSeparableConvolution_ARGB8888(a1, a2, a3, v13, v12, v18, v11, v25, a7, a8, a9);
   if (v18)
   {
     free(v18);
@@ -1339,8 +1341,11 @@ void gpuImagePremultiplyUnpremultiply(void *a1, void *a2, void *a3, uint64_t a4)
   objc_autoreleasePoolPop(v9);
 }
 
-uint64_t gpuImageConvolution_ARGB8888(uint64_t a1, void *a2, void *a3, __int16 a4, __int16 a5, float *a6, unsigned int a7, unsigned int a8, int *a9, unsigned int a10)
+uint64_t gpuImageConvolution_ARGB8888(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, unsigned int a8, int *a9, unsigned int a10)
 {
+  v11 = a7;
+  v13 = a5;
+  v14 = a4;
   if (a9)
   {
     v18 = *a9;
@@ -1352,7 +1357,7 @@ uint64_t gpuImageConvolution_ARGB8888(uint64_t a1, void *a2, void *a3, __int16 a
   }
 
   context = objc_autoreleasePoolPush();
-  if (a7 == 1 && a8 == 1)
+  if (v11 == 1 && a8 == 1)
   {
     [*(a1 + 8) endEncoding];
     v19 = [*a1 blitCommandEncoder];
@@ -1367,7 +1372,7 @@ LABEL_7:
     return 0;
   }
 
-  if (a7 == 1)
+  if (v11 == 1)
   {
     v23 = 0;
   }
@@ -1420,7 +1425,7 @@ LABEL_7:
         }
       }
 
-      v31 = a7 == 3 && a8 == 3;
+      v31 = v11 == 3 && a8 == 3;
       v32 = !v31;
       v43 = v32;
       v33 = 248;
@@ -1464,14 +1469,14 @@ LABEL_7:
       }
 
       v55 = vrev32_s16(vmovn_s32(vuzp1q_s32(*(a2 + 1), *(a3 + 1))));
-      v56 = a4;
-      v57 = a5;
+      v56 = v14;
+      v57 = v13;
       v40 = a3[3];
       v58 = a2[3];
       v59 = v40;
       v63 = v18;
       v62 = v18 == 0;
-      v60 = a7 >> 1;
+      v60 = v11 >> 1;
       v61 = a8 >> 1;
       [v47 setComputePipelineState:v39];
       if (v48)
@@ -1486,13 +1491,13 @@ LABEL_7:
         [v47 setBuffer:*a3 offset:0 atIndex:1];
       }
 
-      [v47 setBytes:v36 length:4 * a8 * a7 atIndex:2];
+      [v47 setBytes:v36 length:4 * a8 * v11 atIndex:2];
       [v47 setBytes:&v55 length:32 atIndex:3];
       if (v48)
       {
         if (v43)
         {
-          [v47 setThreadgroupMemoryLength:4 * a8 * a7 atIndex:0];
+          [v47 setThreadgroupMemoryLength:4 * a8 * v11 atIndex:0];
         }
 
         v52 = (v55.u16[2] + 63) >> 6;
@@ -1521,12 +1526,12 @@ LABEL_7:
     a6 = 0;
   }
 
-  v24 = gpuImageSeparableConvolution_ARGB8888(a1, a2, a3, a4, a5, v23, a7, a6, a8, a9, a10);
+  v24 = gpuImageSeparableConvolution_ARGB8888(a1, a2, a3, v14, v13, v23, v11, a6, a8, a9, a10);
   objc_autoreleasePoolPop(context);
   return v24;
 }
 
-uint64_t gpuImageSeparableConvolution_ARGB8888(uint64_t a1, void *a2, void *a3, __int16 a4, __int16 a5, float *a6, unsigned int a7, float *a8, unsigned int a9, int *a10, unsigned int a11)
+uint64_t gpuImageSeparableConvolution_ARGB8888(uint64_t a1, void *a2, void *a3, __int16 a4, __int16 a5, unint64_t a6, unsigned int a7, unint64_t a8, unsigned int a9, int *a10, unsigned int a11)
 {
   if (a10)
   {
@@ -1743,10 +1748,14 @@ LABEL_46:
           return 0;
         }
 
-        for (i = 0; i != a9; ++i)
+        v29 = 0;
+        do
         {
-          *&v28[i * 4] = v19 * a8[i];
+          *&v28[v29] = v19 * *(a8 + v29);
+          v29 += 4;
         }
+
+        while (4 * a9 != v29);
       }
 
       v61 = 0;
@@ -1773,11 +1782,11 @@ LABEL_44:
           v31 = 0;
           do
           {
-            *&v30[v31 * 4] = v18 * a6[v31];
-            ++v31;
+            *&v30[v31] = v18 * *(a6 + v31);
+            v31 += 4;
           }
 
-          while (a7 != v31);
+          while (4 * a7 != v31);
         }
 
         goto LABEL_44;

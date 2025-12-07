@@ -24,10 +24,11 @@ void sub_10000118C(void *a1, void *a2, void *a3)
   }
 }
 
-void sub_1000012D0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000012D0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_1000012EC(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -35,6 +36,27 @@ void sub_1000012EC(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   va_start(va, a4);
 
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
+}
+
+void sub_10000130C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBFileProviderExtension init]";
+  sub_1000012D0(&_mh_execute_header, &_os_log_default, a3, "%s starting", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100001388(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBFileProviderExtension clusterDomainItemsOrError:]";
+  sub_1000012D0(&_mh_execute_header, &_os_log_default, a3, "%s _hasManagerOrError err", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100001404(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_1000012D0(&_mh_execute_header, a2, a3, "[clusterDomainItemsOrError] clusterPrefix (%@)", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100001470(uint64_t a1, uint64_t a2, NSObject *a3)
@@ -61,4 +83,11 @@ void sub_1000014F8(uint64_t a1, uint64_t a2, NSObject *a3)
   *&v4[14] = v3;
   *&v4[22] = 2112;
   sub_1000012EC(&_mh_execute_header, a2, a3, "%s: %s error: %@", *v4, *&v4[8], *&v4[16], a2);
+}
+
+void sub_10000159C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[SMBFileProviderExtension clusterDomainItemsOrError:]";
+  sub_1000012D0(&_mh_execute_header, a1, a3, "%s no domain defined", a5, a6, a7, a8, v8, DWORD2(v8));
 }

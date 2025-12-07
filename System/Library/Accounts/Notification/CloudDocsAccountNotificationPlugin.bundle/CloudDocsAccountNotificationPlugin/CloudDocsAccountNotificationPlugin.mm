@@ -185,10 +185,11 @@ void sub_2D00(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void sub_2D20(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_2D20(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, 0x90u, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, 0x90u, a4, va, 0x16u);
 }
 
 void sub_2D4C(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -249,34 +250,31 @@ uint64_t sub_2EEC(uint64_t result)
   return result;
 }
 
-void sub_2F3C(uint64_t a1)
+void sub_2F3C(uint64_t *a1)
 {
   if (a1)
   {
-    v2 = *a1;
+    v1 = *a1;
     if (*a1)
     {
-      v3 = *(a1 + 8);
-      v4 = *(a1 + 16);
-      v5 = brc_bread_crumbs();
-      v6 = *(a1 + 20);
-      v7 = brc_default_log();
-      v8 = v7;
-      if (v2)
+      v2 = brc_bread_crumbs();
+      v3 = brc_default_log();
+      v4 = v3;
+      if (v1)
       {
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
         {
-          sub_36A4(v5, v2, v8);
+          sub_36A4(v2, v1, v4);
         }
       }
 
-      else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        v9 = 134218242;
-        v10 = v2;
-        v11 = 2112;
-        v12 = v5;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "[INFO] ┗%llx %@", &v9, 0x16u);
+        v5 = 134218242;
+        v6 = v1;
+        v7 = 2112;
+        v8 = v2;
+        _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "[INFO] ┗%llx %@", &v5, 0x16u);
       }
     }
   }
@@ -304,19 +302,12 @@ void sub_31AC(uint64_t a1, NSObject *a2)
   _os_log_debug_impl(&dword_0, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] account save failed: ignoring%@", &v2, 0xCu);
 }
 
-void sub_3224(uint64_t *a1)
-{
-  v1 = *a1;
-  sub_2CE8();
-  sub_2D00(&dword_0, v2, v3, "[DEBUG] ┏%llx jetsaming apps%@");
-}
-
 void sub_3390()
 {
   sub_2D40();
   v1 = [v0 error];
   sub_2CD4();
-  sub_2D20(&dword_0, v2, v3, "[ERROR] Rescheduling jobs pending cellular failed with error: %@%@", v4, v5, v6, v7, v8);
+  sub_2D20(&dword_0, v2, v3, "[ERROR] Rescheduling jobs pending cellular failed with error: %@%@", v4, v5, v6, v7);
 }
 
 void sub_3420()
@@ -324,7 +315,7 @@ void sub_3420()
   sub_2D40();
   v1 = [v0 error];
   sub_2CD4();
-  sub_2D20(&dword_0, v2, v3, "[ERROR] Failed to invalidate account cache: %@%@", v4, v5, v6, v7, v8);
+  sub_2D20(&dword_0, v2, v3, "[ERROR] Failed to invalidate account cache: %@%@", v4, v5, v6, v7);
 }
 
 void sub_34B0()
@@ -332,14 +323,7 @@ void sub_34B0()
   sub_2D40();
   v1 = [v0 error];
   sub_2CD4();
-  sub_2D20(&dword_0, v2, v3, "[ERROR] userVerifiedTermsWithReply error: %@%@", v4, v5, v6, v7, v8);
-}
-
-void sub_3540(uint64_t *a1)
-{
-  v1 = *a1;
-  sub_2CE8();
-  sub_2D00(&dword_0, v2, v3, "[DEBUG] ┏%llx deleting migration default%@");
+  sub_2D20(&dword_0, v2, v3, "[ERROR] userVerifiedTermsWithReply error: %@%@", v4, v5, v6, v7);
 }
 
 void sub_3618(uint64_t a1, NSObject *a2)

@@ -63,7 +63,7 @@ BOOL __93___UIKBRTFingerDetection_fingerIdsRelatedToTouchWithIdentifier_sinceTim
   return v4;
 }
 
-uint64_t __102___UIKBRTFingerDetection__linkTouchesInArray_withIndexes_opposingHandIndexes_unassignedIndexes_thumb___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__102___UIKBRTFingerDetection__linkTouchesInArray_withIndexes_opposingHandIndexes_unassignedIndexes_thumb___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 location];
   if (a3)
@@ -238,7 +238,7 @@ void *__54___UIKBRTFingerDetection__updateTouchInfoForFingerID___block_invoke_9(
   return [v12 addIndex:a3];
 }
 
-uint64_t __54___UIKBRTFingerDetection__updateTouchInfoForFingerID___block_invoke_10(uint64_t a1, void *a2, uint64_t a3)
+void *__54___UIKBRTFingerDetection__updateTouchInfoForFingerID___block_invoke_10(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 location];
   if (v6 >= *(a1 + 48))

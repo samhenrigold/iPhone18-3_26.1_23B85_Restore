@@ -26,7 +26,7 @@
 
 - (BOOL)_cacheRenditionProperties
 {
-  v3 = _LookupStructuredThemeProvider(self->_storageRef, a2);
+  v3 = _LookupStructuredThemeProvider();
   self->_signature = [v3 copyLookupKeySignatureForKey:{-[CUIRenditionKey keyList](self->_key, "keyList")}];
   self->_distilledInVersion = [v3 distilledInCoreUIVersion];
   return 1;
@@ -48,7 +48,7 @@
 
 - (NSString)appearance
 {
-  v3 = _LookupStructuredThemeProvider(self->_storageRef, a2);
+  v3 = _LookupStructuredThemeProvider();
   v4 = [v3 nameForAppearanceIdentifier:{-[CUIRenditionKey themeAppearance](-[CUINamedLookup renditionKey](self, "renditionKey"), "themeAppearance")}];
   if ([(NSString *)v4 length])
   {
@@ -60,9 +60,9 @@
 
 - (CUINamedLookup)initWithName:(id)name usingRenditionKey:(id)key fromTheme:(unint64_t)theme
 {
-  v16.receiver = self;
-  v16.super_class = CUINamedLookup;
-  v8 = [(CUINamedLookup *)&v16 init];
+  v10.receiver = self;
+  v10.super_class = CUINamedLookup;
+  v8 = [(CUINamedLookup *)&v10 init];
   if (v8)
   {
     v8->_name = [name copy];
@@ -75,8 +75,7 @@
 
     else
     {
-      [(CUINamedLookup *)v8 key];
-      _CUILog(4, "CoreUI: unable to locate asset '%@' key:%@ releasing", v9, v10, v11, v12, v13, v14, name);
+      _CUILog(4, "CoreUI: unable to locate asset '%@' key:%@ releasing", name, [(CUINamedLookup *)v8 key]);
 
       return 0;
     }
@@ -106,7 +105,7 @@
 
 - (id)_renditionForSpecificKey:(id)key
 {
-  v5 = _LookupStructuredThemeProvider(self->_storageRef, a2);
+  v5 = _LookupStructuredThemeProvider();
   keyList = [key keyList];
   signature = self->_signature;
 

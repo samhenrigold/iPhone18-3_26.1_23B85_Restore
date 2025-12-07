@@ -1,7662 +1,64 @@
-uint64_t sub_22989631C(uint64_t a1, int a2)
+BOOL isTVOSDevice()
 {
-  v3 = v2;
-  v6 = sub_22A4DB7DC();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
-  v10 = &v38 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = *v3;
-  if (*(*v3 + 24) > a1)
-  {
-    v12 = *(*v3 + 24);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D8820B0, &qword_22A586CB0);
-  v43 = a2;
-  result = sub_22A4DE3EC();
-  v14 = result;
-  if (*(v11 + 16))
-  {
-    v47 = v10;
-    v39 = v3;
-    v15 = 0;
-    v16 = (v11 + 64);
-    v17 = 1 << *(v11 + 32);
-    if (v17 < 64)
-    {
-      v18 = ~(-1 << v17);
-    }
-
-    else
-    {
-      v18 = -1;
-    }
-
-    v19 = v18 & *(v11 + 64);
-    v20 = (v17 + 63) >> 6;
-    v40 = (v7 + 16);
-    v41 = v11;
-    v42 = v7;
-    v44 = (v7 + 32);
-    v21 = result + 64;
-    while (v19)
-    {
-      v23 = __clz(__rbit64(v19));
-      v19 &= v19 - 1;
-LABEL_17:
-      v26 = v23 | (v15 << 6);
-      v27 = *(v11 + 48);
-      v46 = *(v42 + 72);
-      v28 = v27 + v46 * v26;
-      if (v43)
-      {
-        (*v44)(v47, v28, v6);
-        v45 = *(*(v11 + 56) + 8 * v26);
-      }
-
-      else
-      {
-        (*v40)(v47, v28, v6);
-        v45 = *(*(v11 + 56) + 8 * v26);
-      }
-
-      v29 = *(v14 + 40);
-      sub_229893410(&qword_281403880, MEMORY[0x277CC95F0]);
-      result = sub_22A4DD4EC();
-      v30 = -1 << *(v14 + 32);
-      v31 = result & ~v30;
-      v32 = v31 >> 6;
-      if (((-1 << v31) & ~*(v21 + 8 * (v31 >> 6))) == 0)
-      {
-        v33 = 0;
-        v34 = (63 - v30) >> 6;
-        while (++v32 != v34 || (v33 & 1) == 0)
-        {
-          v35 = v32 == v34;
-          if (v32 == v34)
-          {
-            v32 = 0;
-          }
-
-          v33 |= v35;
-          v36 = *(v21 + 8 * v32);
-          if (v36 != -1)
-          {
-            v22 = __clz(__rbit64(~v36)) + (v32 << 6);
-            goto LABEL_9;
-          }
-        }
-
-LABEL_38:
-        __break(1u);
-        return result;
-      }
-
-      v22 = __clz(__rbit64((-1 << v31) & ~*(v21 + 8 * (v31 >> 6)))) | v31 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v21 + ((v22 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v22;
-      result = (*v44)(*(v14 + 48) + v46 * v22, v47, v6);
-      *(*(v14 + 56) + 8 * v22) = v45;
-      ++*(v14 + 16);
-      v11 = v41;
-    }
-
-    v24 = v15;
-    while (1)
-    {
-      v15 = v24 + 1;
-      if (__OFADD__(v24, 1))
-      {
-        __break(1u);
-        goto LABEL_38;
-      }
-
-      if (v15 >= v20)
-      {
-        break;
-      }
-
-      v25 = v16[v15];
-      ++v24;
-      if (v25)
-      {
-        v23 = __clz(__rbit64(v25));
-        v19 = (v25 - 1) & v25;
-        goto LABEL_17;
-      }
-    }
-
-    if ((v43 & 1) == 0)
-    {
-
-      v3 = v39;
-      goto LABEL_36;
-    }
-
-    v37 = 1 << *(v11 + 32);
-    v3 = v39;
-    if (v37 >= 64)
-    {
-      bzero(v16, ((v37 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-    }
-
-    else
-    {
-      *v16 = -1 << v37;
-    }
-
-    *(v11 + 16) = 0;
-  }
-
-LABEL_36:
-  *v3 = v14;
-  return result;
-}
-
-uint64_t sub_2298966F8(uint64_t a1, char a2)
-{
-  v3 = v2;
-  v5 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v6 = *(*v2 + 24);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D8820A0, &qword_22A586CA0);
-  v34 = a2;
-  result = sub_22A4DE3EC();
-  v8 = result;
-  if (*(v5 + 16))
-  {
-    v33 = v3;
-    v9 = 0;
-    v10 = (v5 + 64);
-    v11 = 1 << *(v5 + 32);
-    if (v11 < 64)
-    {
-      v12 = ~(-1 << v11);
-    }
-
-    else
-    {
-      v12 = -1;
-    }
-
-    v13 = v12 & *(v5 + 64);
-    v14 = (v11 + 63) >> 6;
-    v15 = result + 64;
-    while (v13)
-    {
-      v17 = __clz(__rbit64(v13));
-      v13 &= v13 - 1;
-LABEL_17:
-      v20 = v17 | (v9 << 6);
-      v21 = *(*(v5 + 48) + 8 * v20);
-      v22 = *(*(v5 + 56) + 8 * v20);
-      if ((v34 & 1) == 0)
-      {
-        v23 = v22;
-      }
-
-      v24 = *(v8 + 40);
-      sub_22A4DE77C();
-      MEMORY[0x22AAD1960](v21);
-      result = sub_22A4DE7BC();
-      v25 = -1 << *(v8 + 32);
-      v26 = result & ~v25;
-      v27 = v26 >> 6;
-      if (((-1 << v26) & ~*(v15 + 8 * (v26 >> 6))) == 0)
-      {
-        v28 = 0;
-        v29 = (63 - v25) >> 6;
-        while (++v27 != v29 || (v28 & 1) == 0)
-        {
-          v30 = v27 == v29;
-          if (v27 == v29)
-          {
-            v27 = 0;
-          }
-
-          v28 |= v30;
-          v31 = *(v15 + 8 * v27);
-          if (v31 != -1)
-          {
-            v16 = __clz(__rbit64(~v31)) + (v27 << 6);
-            goto LABEL_9;
-          }
-        }
-
-LABEL_37:
-        __break(1u);
-        return result;
-      }
-
-      v16 = __clz(__rbit64((-1 << v26) & ~*(v15 + 8 * (v26 >> 6)))) | v26 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v15 + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v16;
-      *(*(v8 + 48) + 8 * v16) = v21;
-      *(*(v8 + 56) + 8 * v16) = v22;
-      ++*(v8 + 16);
-    }
-
-    v18 = v9;
-    while (1)
-    {
-      v9 = v18 + 1;
-      if (__OFADD__(v18, 1))
-      {
-        __break(1u);
-        goto LABEL_37;
-      }
-
-      if (v9 >= v14)
-      {
-        break;
-      }
-
-      v19 = v10[v9];
-      ++v18;
-      if (v19)
-      {
-        v17 = __clz(__rbit64(v19));
-        v13 = (v19 - 1) & v19;
-        goto LABEL_17;
-      }
-    }
-
-    if ((v34 & 1) == 0)
-    {
-
-      v3 = v33;
-      goto LABEL_35;
-    }
-
-    v32 = 1 << *(v5 + 32);
-    v3 = v33;
-    if (v32 >= 64)
-    {
-      bzero((v5 + 64), ((v32 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-    }
-
-    else
-    {
-      *v10 = -1 << v32;
-    }
-
-    *(v5 + 16) = 0;
-  }
-
-LABEL_35:
-  *v3 = v8;
-  return result;
-}
-
-uint64_t sub_229896984(uint64_t a1, char a2)
-{
-  v3 = v2;
-  v5 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v6 = *(*v2 + 24);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D8820A8, &qword_22A586CA8);
-  v34 = a2;
-  result = sub_22A4DE3EC();
-  v8 = result;
-  if (*(v5 + 16))
-  {
-    v33 = v3;
-    v9 = 0;
-    v10 = (v5 + 64);
-    v11 = 1 << *(v5 + 32);
-    if (v11 < 64)
-    {
-      v12 = ~(-1 << v11);
-    }
-
-    else
-    {
-      v12 = -1;
-    }
-
-    v13 = v12 & *(v5 + 64);
-    v14 = (v11 + 63) >> 6;
-    v15 = result + 64;
-    while (v13)
-    {
-      v17 = __clz(__rbit64(v13));
-      v13 &= v13 - 1;
-LABEL_17:
-      v20 = v17 | (v9 << 6);
-      v21 = *(*(v5 + 48) + 8 * v20);
-      v22 = *(*(v5 + 56) + 8 * v20);
-      if ((v34 & 1) == 0)
-      {
-        v23 = v22;
-      }
-
-      v24 = *(v8 + 40);
-      sub_22A4DE77C();
-      MEMORY[0x22AAD1960](v21);
-      result = sub_22A4DE7BC();
-      v25 = -1 << *(v8 + 32);
-      v26 = result & ~v25;
-      v27 = v26 >> 6;
-      if (((-1 << v26) & ~*(v15 + 8 * (v26 >> 6))) == 0)
-      {
-        v28 = 0;
-        v29 = (63 - v25) >> 6;
-        while (++v27 != v29 || (v28 & 1) == 0)
-        {
-          v30 = v27 == v29;
-          if (v27 == v29)
-          {
-            v27 = 0;
-          }
-
-          v28 |= v30;
-          v31 = *(v15 + 8 * v27);
-          if (v31 != -1)
-          {
-            v16 = __clz(__rbit64(~v31)) + (v27 << 6);
-            goto LABEL_9;
-          }
-        }
-
-LABEL_37:
-        __break(1u);
-        return result;
-      }
-
-      v16 = __clz(__rbit64((-1 << v26) & ~*(v15 + 8 * (v26 >> 6)))) | v26 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v15 + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v16;
-      *(*(v8 + 48) + 8 * v16) = v21;
-      *(*(v8 + 56) + 8 * v16) = v22;
-      ++*(v8 + 16);
-    }
-
-    v18 = v9;
-    while (1)
-    {
-      v9 = v18 + 1;
-      if (__OFADD__(v18, 1))
-      {
-        __break(1u);
-        goto LABEL_37;
-      }
-
-      if (v9 >= v14)
-      {
-        break;
-      }
-
-      v19 = v10[v9];
-      ++v18;
-      if (v19)
-      {
-        v17 = __clz(__rbit64(v19));
-        v13 = (v19 - 1) & v19;
-        goto LABEL_17;
-      }
-    }
-
-    if ((v34 & 1) == 0)
-    {
-
-      v3 = v33;
-      goto LABEL_35;
-    }
-
-    v32 = 1 << *(v5 + 32);
-    v3 = v33;
-    if (v32 >= 64)
-    {
-      bzero((v5 + 64), ((v32 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-    }
-
-    else
-    {
-      *v10 = -1 << v32;
-    }
-
-    *(v5 + 16) = 0;
-  }
-
-LABEL_35:
-  *v3 = v8;
-  return result;
-}
-
-uint64_t sub_229896C24(uint64_t a1, char a2, uint64_t *a3, uint64_t *a4)
-{
-  v5 = v4;
-  v7 = *v4;
-  if (*(*v4 + 24) > a1)
-  {
-    v8 = *(*v4 + 24);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
-  result = sub_22A4DE3EC();
-  v10 = result;
-  if (*(v7 + 16))
-  {
-    v35 = v5;
-    v11 = 0;
-    v12 = (v7 + 64);
-    v13 = 1 << *(v7 + 32);
-    if (v13 < 64)
-    {
-      v14 = ~(-1 << v13);
-    }
-
-    else
-    {
-      v14 = -1;
-    }
-
-    v15 = v14 & *(v7 + 64);
-    v16 = (v13 + 63) >> 6;
-    v17 = result + 64;
-    while (v15)
-    {
-      v19 = __clz(__rbit64(v15));
-      v15 &= v15 - 1;
-LABEL_17:
-      v22 = v19 | (v11 << 6);
-      v23 = *(*(v7 + 48) + 8 * v22);
-      v24 = *(*(v7 + 56) + v22);
-      if ((a2 & 1) == 0)
-      {
-        v25 = v23;
-      }
-
-      v26 = *(v10 + 40);
-      result = sub_22A4DDECC();
-      v27 = -1 << *(v10 + 32);
-      v28 = result & ~v27;
-      v29 = v28 >> 6;
-      if (((-1 << v28) & ~*(v17 + 8 * (v28 >> 6))) == 0)
-      {
-        v30 = 0;
-        v31 = (63 - v27) >> 6;
-        while (++v29 != v31 || (v30 & 1) == 0)
-        {
-          v32 = v29 == v31;
-          if (v29 == v31)
-          {
-            v29 = 0;
-          }
-
-          v30 |= v32;
-          v33 = *(v17 + 8 * v29);
-          if (v33 != -1)
-          {
-            v18 = __clz(__rbit64(~v33)) + (v29 << 6);
-            goto LABEL_9;
-          }
-        }
-
-LABEL_37:
-        __break(1u);
-        return result;
-      }
-
-      v18 = __clz(__rbit64((-1 << v28) & ~*(v17 + 8 * (v28 >> 6)))) | v28 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v17 + ((v18 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v18;
-      *(*(v10 + 48) + 8 * v18) = v23;
-      *(*(v10 + 56) + v18) = v24;
-      ++*(v10 + 16);
-    }
-
-    v20 = v11;
-    while (1)
-    {
-      v11 = v20 + 1;
-      if (__OFADD__(v20, 1))
-      {
-        __break(1u);
-        goto LABEL_37;
-      }
-
-      if (v11 >= v16)
-      {
-        break;
-      }
-
-      v21 = v12[v11];
-      ++v20;
-      if (v21)
-      {
-        v19 = __clz(__rbit64(v21));
-        v15 = (v21 - 1) & v21;
-        goto LABEL_17;
-      }
-    }
-
-    if (a2)
-    {
-      v34 = 1 << *(v7 + 32);
-      if (v34 >= 64)
-      {
-        bzero((v7 + 64), ((v34 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-      }
-
-      else
-      {
-        *v12 = -1 << v34;
-      }
-
-      *(v7 + 16) = 0;
-    }
-
-    v5 = v35;
-  }
-
-  else
-  {
-  }
-
-  *v5 = v10;
-  return result;
-}
-
-uint64_t sub_229896EA8(uint64_t a1, char a2, uint64_t *a3, uint64_t *a4, void (*a5)(uint64_t, _BYTE *))
-{
-  v6 = v5;
-  v8 = *v5;
-  if (*(*v5 + 24) > a1)
-  {
-    v9 = *(*v5 + 24);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
-  v39 = a2;
-  result = sub_22A4DE3EC();
-  v11 = result;
-  if (*(v8 + 16))
-  {
-    v38 = v6;
-    v12 = 0;
-    v13 = (v8 + 64);
-    v14 = 1 << *(v8 + 32);
-    if (v14 < 64)
-    {
-      v15 = ~(-1 << v14);
-    }
-
-    else
-    {
-      v15 = -1;
-    }
-
-    v16 = v15 & *(v8 + 64);
-    v17 = (v14 + 63) >> 6;
-    v18 = result + 64;
-    while (v16)
-    {
-      v21 = __clz(__rbit64(v16));
-      v16 &= v16 - 1;
-LABEL_17:
-      v24 = v21 | (v12 << 6);
-      v25 = (*(v8 + 48) + 16 * v24);
-      v26 = *v25;
-      v27 = v25[1];
-      v28 = *(v8 + 56) + 40 * v24;
-      if (v39)
-      {
-        a5(v28, v41);
-      }
-
-      else
-      {
-        sub_22957F1C4(v28, v41);
-      }
-
-      v29 = *(v11 + 40);
-      sub_22A4DE77C();
-      sub_22A4DD6BC();
-      result = sub_22A4DE7BC();
-      v30 = -1 << *(v11 + 32);
-      v31 = result & ~v30;
-      v32 = v31 >> 6;
-      if (((-1 << v31) & ~*(v18 + 8 * (v31 >> 6))) == 0)
-      {
-        v33 = 0;
-        v34 = (63 - v30) >> 6;
-        while (++v32 != v34 || (v33 & 1) == 0)
-        {
-          v35 = v32 == v34;
-          if (v32 == v34)
-          {
-            v32 = 0;
-          }
-
-          v33 |= v35;
-          v36 = *(v18 + 8 * v32);
-          if (v36 != -1)
-          {
-            v19 = __clz(__rbit64(~v36)) + (v32 << 6);
-            goto LABEL_9;
-          }
-        }
-
-LABEL_38:
-        __break(1u);
-        return result;
-      }
-
-      v19 = __clz(__rbit64((-1 << v31) & ~*(v18 + 8 * (v31 >> 6)))) | v31 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v18 + ((v19 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v19;
-      v20 = (*(v11 + 48) + 16 * v19);
-      *v20 = v26;
-      v20[1] = v27;
-      result = (a5)(v41, *(v11 + 56) + 40 * v19);
-      ++*(v11 + 16);
-    }
-
-    v22 = v12;
-    while (1)
-    {
-      v12 = v22 + 1;
-      if (__OFADD__(v22, 1))
-      {
-        __break(1u);
-        goto LABEL_38;
-      }
-
-      if (v12 >= v17)
-      {
-        break;
-      }
-
-      v23 = v13[v12];
-      ++v22;
-      if (v23)
-      {
-        v21 = __clz(__rbit64(v23));
-        v16 = (v23 - 1) & v23;
-        goto LABEL_17;
-      }
-    }
-
-    if ((v39 & 1) == 0)
-    {
-
-      v6 = v38;
-      goto LABEL_36;
-    }
-
-    v37 = 1 << *(v8 + 32);
-    v6 = v38;
-    if (v37 >= 64)
-    {
-      bzero((v8 + 64), ((v37 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-    }
-
-    else
-    {
-      *v13 = -1 << v37;
-    }
-
-    *(v8 + 16) = 0;
-  }
-
-LABEL_36:
-  *v6 = v11;
-  return result;
-}
-
-uint64_t sub_229897178(uint64_t a1, char a2)
-{
-  v3 = v2;
-  v5 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v6 = *(*v2 + 24);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D87CDD0, &qword_22A577C50);
-  v38 = a2;
-  result = sub_22A4DE3EC();
-  v8 = result;
-  if (*(v5 + 16))
-  {
-    v36 = v3;
-    v37 = v5;
-    v9 = 0;
-    v10 = (v5 + 64);
-    v11 = 1 << *(v5 + 32);
-    if (v11 < 64)
-    {
-      v12 = ~(-1 << v11);
-    }
-
-    else
-    {
-      v12 = -1;
-    }
-
-    v13 = v12 & *(v5 + 64);
-    v14 = (v11 + 63) >> 6;
-    v15 = result + 64;
-    while (v13)
-    {
-      v18 = __clz(__rbit64(v13));
-      v13 &= v13 - 1;
-LABEL_17:
-      v21 = v18 | (v9 << 6);
-      v22 = (*(v5 + 48) + 16 * v21);
-      v23 = *v22;
-      v24 = v22[1];
-      v25 = *(*(v5 + 56) + 8 * v21);
-      if ((v38 & 1) == 0)
-      {
-        v26 = v22[1];
-
-        swift_unknownObjectRetain();
-      }
-
-      v27 = *(v8 + 40);
-      sub_22A4DE77C();
-      sub_22A4DD6BC();
-      result = sub_22A4DE7BC();
-      v28 = -1 << *(v8 + 32);
-      v29 = result & ~v28;
-      v30 = v29 >> 6;
-      if (((-1 << v29) & ~*(v15 + 8 * (v29 >> 6))) == 0)
-      {
-        v31 = 0;
-        v32 = (63 - v28) >> 6;
-        while (++v30 != v32 || (v31 & 1) == 0)
-        {
-          v33 = v30 == v32;
-          if (v30 == v32)
-          {
-            v30 = 0;
-          }
-
-          v31 |= v33;
-          v34 = *(v15 + 8 * v30);
-          if (v34 != -1)
-          {
-            v16 = __clz(__rbit64(~v34)) + (v30 << 6);
-            goto LABEL_9;
-          }
-        }
-
-LABEL_37:
-        __break(1u);
-        return result;
-      }
-
-      v16 = __clz(__rbit64((-1 << v29) & ~*(v15 + 8 * (v29 >> 6)))) | v29 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v15 + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v16;
-      v17 = (*(v8 + 48) + 16 * v16);
-      *v17 = v23;
-      v17[1] = v24;
-      *(*(v8 + 56) + 8 * v16) = v25;
-      ++*(v8 + 16);
-      v5 = v37;
-    }
-
-    v19 = v9;
-    while (1)
-    {
-      v9 = v19 + 1;
-      if (__OFADD__(v19, 1))
-      {
-        __break(1u);
-        goto LABEL_37;
-      }
-
-      if (v9 >= v14)
-      {
-        break;
-      }
-
-      v20 = v10[v9];
-      ++v19;
-      if (v20)
-      {
-        v18 = __clz(__rbit64(v20));
-        v13 = (v20 - 1) & v20;
-        goto LABEL_17;
-      }
-    }
-
-    if ((v38 & 1) == 0)
-    {
-
-      v3 = v36;
-      goto LABEL_35;
-    }
-
-    v35 = 1 << *(v5 + 32);
-    v3 = v36;
-    if (v35 >= 64)
-    {
-      bzero(v10, ((v35 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-    }
-
-    else
-    {
-      *v10 = -1 << v35;
-    }
-
-    *(v5 + 16) = 0;
-  }
-
-LABEL_35:
-  *v3 = v8;
-  return result;
-}
-
-uint64_t sub_229897420(uint64_t a1, char a2)
-{
-  v3 = v2;
-  v5 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v6 = *(*v2 + 24);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D882070, &qword_22A586C60);
-  v38 = a2;
-  result = sub_22A4DE3EC();
-  v8 = result;
-  if (*(v5 + 16))
-  {
-    v36 = v3;
-    v37 = v5;
-    v9 = 0;
-    v10 = (v5 + 64);
-    v11 = 1 << *(v5 + 32);
-    if (v11 < 64)
-    {
-      v12 = ~(-1 << v11);
-    }
-
-    else
-    {
-      v12 = -1;
-    }
-
-    v13 = v12 & *(v5 + 64);
-    v14 = (v11 + 63) >> 6;
-    v15 = result + 64;
-    while (v13)
-    {
-      v18 = __clz(__rbit64(v13));
-      v13 &= v13 - 1;
-LABEL_17:
-      v21 = v18 | (v9 << 6);
-      v22 = (*(v5 + 48) + 16 * v21);
-      v23 = *v22;
-      v24 = v22[1];
-      v25 = *(*(v5 + 56) + v21);
-      if ((v38 & 1) == 0)
-      {
-        v26 = v22[1];
-      }
-
-      v27 = *(v8 + 40);
-      sub_22A4DE77C();
-      sub_22A4DD6BC();
-      result = sub_22A4DE7BC();
-      v28 = -1 << *(v8 + 32);
-      v29 = result & ~v28;
-      v30 = v29 >> 6;
-      if (((-1 << v29) & ~*(v15 + 8 * (v29 >> 6))) == 0)
-      {
-        v31 = 0;
-        v32 = (63 - v28) >> 6;
-        while (++v30 != v32 || (v31 & 1) == 0)
-        {
-          v33 = v30 == v32;
-          if (v30 == v32)
-          {
-            v30 = 0;
-          }
-
-          v31 |= v33;
-          v34 = *(v15 + 8 * v30);
-          if (v34 != -1)
-          {
-            v16 = __clz(__rbit64(~v34)) + (v30 << 6);
-            goto LABEL_9;
-          }
-        }
-
-LABEL_37:
-        __break(1u);
-        return result;
-      }
-
-      v16 = __clz(__rbit64((-1 << v29) & ~*(v15 + 8 * (v29 >> 6)))) | v29 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v15 + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v16;
-      v17 = (*(v8 + 48) + 16 * v16);
-      *v17 = v23;
-      v17[1] = v24;
-      *(*(v8 + 56) + v16) = v25;
-      ++*(v8 + 16);
-      v5 = v37;
-    }
-
-    v19 = v9;
-    while (1)
-    {
-      v9 = v19 + 1;
-      if (__OFADD__(v19, 1))
-      {
-        __break(1u);
-        goto LABEL_37;
-      }
-
-      if (v9 >= v14)
-      {
-        break;
-      }
-
-      v20 = v10[v9];
-      ++v19;
-      if (v20)
-      {
-        v18 = __clz(__rbit64(v20));
-        v13 = (v20 - 1) & v20;
-        goto LABEL_17;
-      }
-    }
-
-    if ((v38 & 1) == 0)
-    {
-
-      v3 = v36;
-      goto LABEL_35;
-    }
-
-    v35 = 1 << *(v5 + 32);
-    v3 = v36;
-    if (v35 >= 64)
-    {
-      bzero(v10, ((v35 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-    }
-
-    else
-    {
-      *v10 = -1 << v35;
-    }
-
-    *(v5 + 16) = 0;
-  }
-
-LABEL_35:
-  *v3 = v8;
-  return result;
-}
-
-uint64_t sub_2298976C0(uint64_t a1, char a2)
-{
-  v3 = v2;
-  v5 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v6 = *(*v2 + 24);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D882078, &unk_22A586C68);
-  v40 = a2;
-  result = sub_22A4DE3EC();
-  v8 = result;
-  if (*(v5 + 16))
-  {
-    v38 = v3;
-    v39 = v5;
-    v9 = 0;
-    v10 = (v5 + 64);
-    v11 = 1 << *(v5 + 32);
-    if (v11 < 64)
-    {
-      v12 = ~(-1 << v11);
-    }
-
-    else
-    {
-      v12 = -1;
-    }
-
-    v13 = v12 & *(v5 + 64);
-    v14 = (v11 + 63) >> 6;
-    v15 = result + 64;
-    while (v13)
-    {
-      v20 = __clz(__rbit64(v13));
-      v13 &= v13 - 1;
-LABEL_17:
-      v23 = 16 * (v20 | (v9 << 6));
-      v24 = (*(v5 + 48) + v23);
-      v25 = *v24;
-      v26 = v24[1];
-      v27 = (*(v5 + 56) + v23);
-      v28 = v27[1];
-      v41 = *v27;
-      if ((v40 & 1) == 0)
-      {
-      }
-
-      v29 = *(v8 + 40);
-      sub_22A4DE77C();
-      sub_22A4DD6BC();
-      result = sub_22A4DE7BC();
-      v30 = -1 << *(v8 + 32);
-      v31 = result & ~v30;
-      v32 = v31 >> 6;
-      if (((-1 << v31) & ~*(v15 + 8 * (v31 >> 6))) == 0)
-      {
-        v33 = 0;
-        v34 = (63 - v30) >> 6;
-        while (++v32 != v34 || (v33 & 1) == 0)
-        {
-          v35 = v32 == v34;
-          if (v32 == v34)
-          {
-            v32 = 0;
-          }
-
-          v33 |= v35;
-          v36 = *(v15 + 8 * v32);
-          if (v36 != -1)
-          {
-            v16 = __clz(__rbit64(~v36)) + (v32 << 6);
-            goto LABEL_9;
-          }
-        }
-
-LABEL_37:
-        __break(1u);
-        return result;
-      }
-
-      v16 = __clz(__rbit64((-1 << v31) & ~*(v15 + 8 * (v31 >> 6)))) | v31 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v15 + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v16;
-      v17 = 16 * v16;
-      v18 = (*(v8 + 48) + v17);
-      *v18 = v25;
-      v18[1] = v26;
-      v19 = (*(v8 + 56) + v17);
-      *v19 = v41;
-      v19[1] = v28;
-      ++*(v8 + 16);
-      v5 = v39;
-    }
-
-    v21 = v9;
-    while (1)
-    {
-      v9 = v21 + 1;
-      if (__OFADD__(v21, 1))
-      {
-        __break(1u);
-        goto LABEL_37;
-      }
-
-      if (v9 >= v14)
-      {
-        break;
-      }
-
-      v22 = v10[v9];
-      ++v21;
-      if (v22)
-      {
-        v20 = __clz(__rbit64(v22));
-        v13 = (v22 - 1) & v22;
-        goto LABEL_17;
-      }
-    }
-
-    if ((v40 & 1) == 0)
-    {
-
-      v3 = v38;
-      goto LABEL_35;
-    }
-
-    v37 = 1 << *(v5 + 32);
-    v3 = v38;
-    if (v37 >= 64)
-    {
-      bzero(v10, ((v37 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-    }
-
-    else
-    {
-      *v10 = -1 << v37;
-    }
-
-    *(v5 + 16) = 0;
-  }
-
-LABEL_35:
-  *v3 = v8;
-  return result;
-}
-
-uint64_t sub_229897980(uint64_t a1, int a2)
-{
-  v3 = v2;
-  v6 = type metadata accessor for HomePassData(0);
-  v43 = *(v6 - 8);
-  v7 = *(v43 + 64);
-  MEMORY[0x28223BE20](v6 - 8);
-  v45 = &v41 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = *v3;
-  if (*(*v3 + 24) > a1)
-  {
-    v10 = *(*v3 + 24);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D882060, &unk_22A586C50);
-  v44 = a2;
-  result = sub_22A4DE3EC();
-  v12 = result;
-  if (*(v9 + 16))
-  {
-    v41 = v3;
-    v42 = v9;
-    v13 = 0;
-    v14 = (v9 + 64);
-    v15 = 1 << *(v9 + 32);
-    if (v15 < 64)
-    {
-      v16 = ~(-1 << v15);
-    }
-
-    else
-    {
-      v16 = -1;
-    }
-
-    v17 = v16 & *(v9 + 64);
-    v18 = (v15 + 63) >> 6;
-    v19 = result + 64;
-    while (v17)
-    {
-      v22 = __clz(__rbit64(v17));
-      v17 &= v17 - 1;
-LABEL_17:
-      v25 = v22 | (v13 << 6);
-      v26 = *(v9 + 56);
-      v27 = (*(v9 + 48) + 16 * v25);
-      v28 = *v27;
-      v29 = v27[1];
-      v30 = *(v43 + 72);
-      v31 = v26 + v30 * v25;
-      if (v44)
-      {
-        sub_22989B1E4(v31, v45, type metadata accessor for HomePassData);
-      }
-
-      else
-      {
-        sub_22989B24C(v31, v45, type metadata accessor for HomePassData);
-      }
-
-      v32 = *(v12 + 40);
-      sub_22A4DE77C();
-      sub_22A4DD6BC();
-      result = sub_22A4DE7BC();
-      v33 = -1 << *(v12 + 32);
-      v34 = result & ~v33;
-      v35 = v34 >> 6;
-      if (((-1 << v34) & ~*(v19 + 8 * (v34 >> 6))) == 0)
-      {
-        v36 = 0;
-        v37 = (63 - v33) >> 6;
-        while (++v35 != v37 || (v36 & 1) == 0)
-        {
-          v38 = v35 == v37;
-          if (v35 == v37)
-          {
-            v35 = 0;
-          }
-
-          v36 |= v38;
-          v39 = *(v19 + 8 * v35);
-          if (v39 != -1)
-          {
-            v20 = __clz(__rbit64(~v39)) + (v35 << 6);
-            goto LABEL_9;
-          }
-        }
-
-LABEL_38:
-        __break(1u);
-        return result;
-      }
-
-      v20 = __clz(__rbit64((-1 << v34) & ~*(v19 + 8 * (v34 >> 6)))) | v34 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v19 + ((v20 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v20;
-      v21 = (*(v12 + 48) + 16 * v20);
-      *v21 = v28;
-      v21[1] = v29;
-      result = sub_22989B1E4(v45, *(v12 + 56) + v30 * v20, type metadata accessor for HomePassData);
-      ++*(v12 + 16);
-      v9 = v42;
-    }
-
-    v23 = v13;
-    while (1)
-    {
-      v13 = v23 + 1;
-      if (__OFADD__(v23, 1))
-      {
-        __break(1u);
-        goto LABEL_38;
-      }
-
-      if (v13 >= v18)
-      {
-        break;
-      }
-
-      v24 = v14[v13];
-      ++v23;
-      if (v24)
-      {
-        v22 = __clz(__rbit64(v24));
-        v17 = (v24 - 1) & v24;
-        goto LABEL_17;
-      }
-    }
-
-    if ((v44 & 1) == 0)
-    {
-
-      v3 = v41;
-      goto LABEL_36;
-    }
-
-    v40 = 1 << *(v9 + 32);
-    v3 = v41;
-    if (v40 >= 64)
-    {
-      bzero(v14, ((v40 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
-    }
-
-    else
-    {
-      *v14 = -1 << v40;
-    }
-
-    *(v9 + 16) = 0;
-  }
-
-LABEL_36:
-  *v3 = v12;
-  return result;
-}
-
-void *sub_229897D70(uint64_t *a1, uint64_t *a2, void (*a3)(_BYTE *, uint64_t))
-{
-  v4 = v3;
-  __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
-  v5 = *v3;
-  v6 = sub_22A4DE3DC();
-  v7 = v6;
-  if (*(v5 + 16))
-  {
-    v27 = v4;
-    result = (v6 + 64);
-    v9 = ((1 << *(v7 + 32)) + 63) >> 6;
-    if (v7 != v5 || result >= v5 + 64 + 8 * v9)
-    {
-      result = memmove(result, (v5 + 64), 8 * v9);
-    }
-
-    v11 = 0;
-    *(v7 + 16) = *(v5 + 16);
-    v12 = 1 << *(v5 + 32);
-    v13 = *(v5 + 64);
-    v14 = -1;
-    if (v12 < 64)
-    {
-      v14 = ~(-1 << v12);
-    }
-
-    v15 = v14 & v13;
-    v16 = (v12 + 63) >> 6;
-    if ((v14 & v13) != 0)
-    {
-      do
-      {
-        v17 = __clz(__rbit64(v15));
-        v15 &= v15 - 1;
-LABEL_17:
-        v20 = v17 | (v11 << 6);
-        v21 = 16 * v20;
-        v22 = (*(v5 + 48) + 16 * v20);
-        v23 = *v22;
-        v24 = v22[1];
-        v25 = 32 * v20;
-        sub_2295404B0(*(v5 + 56) + 32 * v20, v29);
-        v26 = (*(v7 + 48) + v21);
-        *v26 = v23;
-        v26[1] = v24;
-        a3(v29, *(v7 + 56) + v25);
-      }
-
-      while (v15);
-    }
-
-    v18 = v11;
-    while (1)
-    {
-      v11 = v18 + 1;
-      if (__OFADD__(v18, 1))
-      {
-        break;
-      }
-
-      if (v11 >= v16)
-      {
-
-        v4 = v27;
-        goto LABEL_21;
-      }
-
-      v19 = *(v5 + 64 + 8 * v11);
-      ++v18;
-      if (v19)
-      {
-        v17 = __clz(__rbit64(v19));
-        v15 = (v19 - 1) & v19;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-
-LABEL_21:
-    *v4 = v7;
-  }
-
-  return result;
-}
-
-char *sub_229897F38()
-{
-  v1 = v0;
-  v2 = _s13PresenceStateOMa();
-  v38 = *(v2 - 8);
-  v3 = *(v38 + 64);
-  MEMORY[0x28223BE20](v2 - 8);
-  v37 = &v30 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v36 = sub_22A4DB7DC();
-  v39 = *(v36 - 8);
-  v5 = *(v39 + 64);
-  MEMORY[0x28223BE20](v36);
-  v35 = &v30 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D882080, &unk_22A586C78);
-  v7 = *v0;
-  v8 = sub_22A4DE3DC();
-  v9 = v8;
-  if (*(v7 + 16))
-  {
-    result = (v8 + 64);
-    v11 = (v7 + 64);
-    v12 = ((1 << *(v9 + 32)) + 63) >> 6;
-    v31 = v1;
-    v32 = v7 + 64;
-    if (v9 != v7 || result >= &v11[8 * v12])
-    {
-      result = memmove(result, v11, 8 * v12);
-    }
-
-    v13 = 0;
-    v14 = *(v7 + 16);
-    v40 = v9;
-    *(v9 + 16) = v14;
-    v15 = 1 << *(v7 + 32);
-    v16 = -1;
-    if (v15 < 64)
-    {
-      v16 = ~(-1 << v15);
-    }
-
-    v17 = v16 & *(v7 + 64);
-    v18 = (v15 + 63) >> 6;
-    v33 = v39 + 32;
-    v34 = v39 + 16;
-    v19 = v35;
-    if (v17)
-    {
-      do
-      {
-        v20 = __clz(__rbit64(v17));
-        v41 = (v17 - 1) & v17;
-LABEL_14:
-        v23 = v20 | (v13 << 6);
-        v24 = v39;
-        v25 = *(v39 + 72) * v23;
-        v26 = v36;
-        (*(v39 + 16))(v19, *(v7 + 48) + v25, v36);
-        v27 = v37;
-        v28 = *(v38 + 72) * v23;
-        sub_22989B24C(*(v7 + 56) + v28, v37, _s13PresenceStateOMa);
-        v29 = v40;
-        (*(v24 + 32))(*(v40 + 48) + v25, v19, v26);
-        result = sub_22989B1E4(v27, *(v29 + 56) + v28, _s13PresenceStateOMa);
-        v17 = v41;
-      }
-
-      while (v41);
-    }
-
-    v21 = v13;
-    v9 = v40;
-    while (1)
-    {
-      v13 = v21 + 1;
-      if (__OFADD__(v21, 1))
-      {
-        break;
-      }
-
-      if (v13 >= v18)
-      {
-
-        v1 = v31;
-        goto LABEL_18;
-      }
-
-      v22 = *(v32 + 8 * v13);
-      ++v21;
-      if (v22)
-      {
-        v20 = __clz(__rbit64(v22));
-        v41 = (v22 - 1) & v22;
-        goto LABEL_14;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-
-LABEL_18:
-    *v1 = v9;
-  }
-
-  return result;
-}
-
-char *sub_229898264()
-{
-  v1 = v0;
-  v2 = _s28DefaultRoomPresencePublisherC8ObserverVMa();
-  v38 = *(v2 - 8);
-  v3 = *(v38 + 64);
-  MEMORY[0x28223BE20](v2 - 8);
-  v37 = &v30 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v36 = sub_22A4DB7DC();
-  v39 = *(v36 - 8);
-  v5 = *(v39 + 64);
-  MEMORY[0x28223BE20](v36);
-  v35 = &v30 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D882088, &qword_22A586C88);
-  v7 = *v0;
-  v8 = sub_22A4DE3DC();
-  v9 = v8;
-  if (*(v7 + 16))
-  {
-    result = (v8 + 64);
-    v11 = (v7 + 64);
-    v12 = ((1 << *(v9 + 32)) + 63) >> 6;
-    v31 = v1;
-    v32 = v7 + 64;
-    if (v9 != v7 || result >= &v11[8 * v12])
-    {
-      result = memmove(result, v11, 8 * v12);
-    }
-
-    v13 = 0;
-    v14 = *(v7 + 16);
-    v40 = v9;
-    *(v9 + 16) = v14;
-    v15 = 1 << *(v7 + 32);
-    v16 = -1;
-    if (v15 < 64)
-    {
-      v16 = ~(-1 << v15);
-    }
-
-    v17 = v16 & *(v7 + 64);
-    v18 = (v15 + 63) >> 6;
-    v33 = v39 + 32;
-    v34 = v39 + 16;
-    v19 = v35;
-    if (v17)
-    {
-      do
-      {
-        v20 = __clz(__rbit64(v17));
-        v41 = (v17 - 1) & v17;
-LABEL_14:
-        v23 = v20 | (v13 << 6);
-        v24 = v39;
-        v25 = *(v39 + 72) * v23;
-        v26 = v36;
-        (*(v39 + 16))(v19, *(v7 + 48) + v25, v36);
-        v27 = v37;
-        v28 = *(v38 + 72) * v23;
-        sub_22989B24C(*(v7 + 56) + v28, v37, _s28DefaultRoomPresencePublisherC8ObserverVMa);
-        v29 = v40;
-        (*(v24 + 32))(*(v40 + 48) + v25, v19, v26);
-        result = sub_22989B1E4(v27, *(v29 + 56) + v28, _s28DefaultRoomPresencePublisherC8ObserverVMa);
-        v17 = v41;
-      }
-
-      while (v41);
-    }
-
-    v21 = v13;
-    v9 = v40;
-    while (1)
-    {
-      v13 = v21 + 1;
-      if (__OFADD__(v21, 1))
-      {
-        break;
-      }
-
-      if (v13 >= v18)
-      {
-
-        v1 = v31;
-        goto LABEL_18;
-      }
-
-      v22 = *(v32 + 8 * v13);
-      ++v21;
-      if (v22)
-      {
-        v20 = __clz(__rbit64(v22));
-        v41 = (v22 - 1) & v22;
-        goto LABEL_14;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-
-LABEL_18:
-    *v1 = v9;
-  }
-
-  return result;
-}
-
-char *sub_229898590()
-{
-  v1 = v0;
-  v2 = sub_22A4DB7DC();
-  v3 = *(v2 - 8);
-  v43 = v2;
-  v44 = v3;
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
-  v42 = &v35 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D882110, &qword_22A57DD30);
-  v6 = *v0;
-  v7 = sub_22A4DE3DC();
-  v8 = v7;
-  if (*(v6 + 16))
-  {
-    result = (v7 + 64);
-    v10 = (v6 + 64);
-    v11 = ((1 << *(v8 + 32)) + 63) >> 6;
-    v36 = v1;
-    v37 = v6 + 64;
-    if (v8 != v6 || result >= &v10[8 * v11])
-    {
-      result = memmove(result, v10, 8 * v11);
-    }
-
-    v12 = 0;
-    v13 = *(v6 + 16);
-    v45 = v8;
-    *(v8 + 16) = v13;
-    v14 = 1 << *(v6 + 32);
-    v15 = -1;
-    if (v14 < 64)
-    {
-      v15 = ~(-1 << v14);
-    }
-
-    v16 = v15 & *(v6 + 64);
-    v17 = (v14 + 63) >> 6;
-    v38 = v44 + 32;
-    v39 = v44 + 16;
-    v40 = v17;
-    v41 = v6;
-    if (v16)
-    {
-      do
-      {
-        v18 = __clz(__rbit64(v16));
-        v46 = (v16 - 1) & v16;
-LABEL_14:
-        v21 = v18 | (v12 << 6);
-        v23 = v43;
-        v22 = v44;
-        v24 = *(v44 + 72) * v21;
-        v25 = v42;
-        (*(v44 + 16))(v42, *(v6 + 48) + v24, v43);
-        v26 = *(v6 + 56);
-        v27 = 24 * v21;
-        v28 = (v26 + 24 * v21);
-        v29 = *v28;
-        v30 = v28[1];
-        v31 = v28[2];
-        v32 = v45;
-        (*(v22 + 32))(*(v45 + 48) + v24, v25, v23);
-        v33 = (*(v32 + 56) + v27);
-        v6 = v41;
-        *v33 = v29;
-        v33[1] = v30;
-        v33[2] = v31;
-        v34 = v31;
-
-        v17 = v40;
-        v16 = v46;
-      }
-
-      while (v46);
-    }
-
-    v19 = v12;
-    v8 = v45;
-    while (1)
-    {
-      v12 = v19 + 1;
-      if (__OFADD__(v19, 1))
-      {
-        break;
-      }
-
-      if (v12 >= v17)
-      {
-
-        v1 = v36;
-        goto LABEL_18;
-      }
-
-      v20 = *(v37 + 8 * v12);
-      ++v19;
-      if (v20)
-      {
-        v18 = __clz(__rbit64(v20));
-        v46 = (v20 - 1) & v20;
-        goto LABEL_14;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-
-LABEL_18:
-    *v1 = v8;
-  }
-
-  return result;
-}
-
-char *sub_229898834()
-{
-  v1 = v0;
-  v36 = sub_22A4DBB4C();
-  v38 = *(v36 - 8);
-  v2 = *(v38 + 64);
-  MEMORY[0x28223BE20](v36);
-  v35 = &v30 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D882108, &unk_22A586D00);
-  v4 = *v0;
-  v5 = sub_22A4DE3DC();
-  v6 = v5;
-  if (*(v4 + 16))
-  {
-    result = (v5 + 64);
-    v8 = (v4 + 64);
-    v9 = ((1 << *(v6 + 32)) + 63) >> 6;
-    v31 = v1;
-    v32 = v4 + 64;
-    if (v6 != v4 || result >= &v8[8 * v9])
-    {
-      result = memmove(result, v8, 8 * v9);
-    }
-
-    v10 = 0;
-    v11 = *(v4 + 16);
-    v37 = v6;
-    *(v6 + 16) = v11;
-    v12 = 1 << *(v4 + 32);
-    v13 = -1;
-    if (v12 < 64)
-    {
-      v13 = ~(-1 << v12);
-    }
-
-    v14 = v13 & *(v4 + 64);
-    v15 = (v12 + 63) >> 6;
-    v33 = v38 + 32;
-    v34 = v38 + 16;
-    if (v14)
-    {
-      do
-      {
-        v16 = __clz(__rbit64(v14));
-        v39 = (v14 - 1) & v14;
-LABEL_14:
-        v19 = v16 | (v10 << 6);
-        v20 = 16 * v19;
-        v21 = (*(v4 + 48) + 16 * v19);
-        v22 = *v21;
-        v23 = v21[1];
-        v24 = v38;
-        v25 = *(v38 + 72) * v19;
-        v26 = v35;
-        v27 = v36;
-        (*(v38 + 16))(v35, *(v4 + 56) + v25, v36);
-        v28 = v37;
-        v29 = (*(v37 + 48) + v20);
-        *v29 = v22;
-        v29[1] = v23;
-        (*(v24 + 32))(*(v28 + 56) + v25, v26, v27);
-
-        v14 = v39;
-      }
-
-      while (v39);
-    }
-
-    v17 = v10;
-    while (1)
-    {
-      v10 = v17 + 1;
-      if (__OFADD__(v17, 1))
-      {
-        break;
-      }
-
-      if (v10 >= v15)
-      {
-
-        v1 = v31;
-        v6 = v37;
-        goto LABEL_18;
-      }
-
-      v18 = *(v32 + 8 * v10);
-      ++v17;
-      if (v18)
-      {
-        v16 = __clz(__rbit64(v18));
-        v39 = (v18 - 1) & v18;
-        goto LABEL_14;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-
-LABEL_18:
-    *v1 = v6;
-  }
-
-  return result;
-}
-
-id sub_229898ADC(uint64_t *a1, uint64_t *a2)
-{
-  v3 = v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
-  v4 = *v2;
-  v5 = sub_22A4DE3DC();
-  v6 = v5;
-  if (*(v4 + 16))
-  {
-    result = (v5 + 64);
-    v8 = ((1 << *(v6 + 32)) + 63) >> 6;
-    if (v6 != v4 || result >= v4 + 64 + 8 * v8)
-    {
-      result = memmove(result, (v4 + 64), 8 * v8);
-    }
-
-    v10 = 0;
-    *(v6 + 16) = *(v4 + 16);
-    v11 = 1 << *(v4 + 32);
-    v12 = *(v4 + 64);
-    v13 = -1;
-    if (v11 < 64)
-    {
-      v13 = ~(-1 << v11);
-    }
-
-    v14 = v13 & v12;
-    v15 = (v11 + 63) >> 6;
-    if ((v13 & v12) != 0)
-    {
-      do
-      {
-        v16 = __clz(__rbit64(v14));
-        v14 &= v14 - 1;
-LABEL_17:
-        v19 = v16 | (v10 << 6);
-        v20 = (*(v4 + 48) + 16 * v19);
-        v21 = v20[1];
-        v22 = *(*(v4 + 56) + 8 * v19);
-        v23 = (*(v6 + 48) + 16 * v19);
-        *v23 = *v20;
-        v23[1] = v21;
-        *(*(v6 + 56) + 8 * v19) = v22;
-
-        result = v22;
-      }
-
-      while (v14);
-    }
-
-    v17 = v10;
-    while (1)
-    {
-      v10 = v17 + 1;
-      if (__OFADD__(v17, 1))
-      {
-        break;
-      }
-
-      if (v10 >= v15)
-      {
-        goto LABEL_19;
-      }
-
-      v18 = *(v4 + 64 + 8 * v10);
-      ++v17;
-      if (v18)
-      {
-        v16 = __clz(__rbit64(v18));
-        v14 = (v18 - 1) & v18;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_19:
-
-    *v3 = v6;
-  }
-
-  return result;
-}
-
-char *sub_229898C38()
-{
-  v1 = v0;
-  v34 = sub_22A4DB7DC();
-  v36 = *(v34 - 8);
-  v2 = *(v36 + 64);
-  MEMORY[0x28223BE20](v34);
-  v33 = &v28 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D8820E8, &unk_22A586CF0);
-  v4 = *v0;
-  v5 = sub_22A4DE3DC();
-  v6 = v5;
-  if (*(v4 + 16))
-  {
-    result = (v5 + 64);
-    v8 = (v4 + 64);
-    v9 = ((1 << *(v6 + 32)) + 63) >> 6;
-    v29 = v1;
-    v30 = v4 + 64;
-    if (v6 != v4 || result >= &v8[8 * v9])
-    {
-      result = memmove(result, v8, 8 * v9);
-    }
-
-    v10 = 0;
-    v11 = *(v4 + 16);
-    v35 = v6;
-    *(v6 + 16) = v11;
-    v12 = 1 << *(v4 + 32);
-    v13 = -1;
-    if (v12 < 64)
-    {
-      v13 = ~(-1 << v12);
-    }
-
-    v14 = v13 & *(v4 + 64);
-    v15 = (v12 + 63) >> 6;
-    v31 = v36 + 32;
-    v32 = v36 + 16;
-    if (v14)
-    {
-      do
-      {
-        v16 = __clz(__rbit64(v14));
-        v37 = (v14 - 1) & v14;
-LABEL_14:
-        v19 = v16 | (v10 << 6);
-        v20 = v36;
-        v21 = *(v36 + 72) * v19;
-        v23 = v33;
-        v22 = v34;
-        (*(v36 + 16))(v33, *(v4 + 48) + v21, v34);
-        v24 = *(*(v4 + 56) + 8 * v19);
-        v25 = v4;
-        v26 = v35;
-        (*(v20 + 32))(*(v35 + 48) + v21, v23, v22);
-        v27 = *(v26 + 56);
-        v4 = v25;
-        *(v27 + 8 * v19) = v24;
-
-        v14 = v37;
-      }
-
-      while (v37);
-    }
-
-    v17 = v10;
-    while (1)
-    {
-      v10 = v17 + 1;
-      if (__OFADD__(v17, 1))
-      {
-        break;
-      }
-
-      if (v10 >= v15)
-      {
-
-        v1 = v29;
-        v6 = v35;
-        goto LABEL_18;
-      }
-
-      v18 = *(v30 + 8 * v10);
-      ++v17;
-      if (v18)
-      {
-        v16 = __clz(__rbit64(v18));
-        v37 = (v18 - 1) & v18;
-        goto LABEL_14;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-
-LABEL_18:
-    *v1 = v6;
-  }
-
-  return result;
-}
-
-void *sub_229898EB8()
-{
-  v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D880938, &qword_22A586CE0);
-  v2 = *v0;
-  v3 = sub_22A4DE3DC();
-  v4 = v3;
-  if (*(v2 + 16))
-  {
-    result = (v3 + 64);
-    v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 64 + 8 * v6)
-    {
-      result = memmove(result, (v2 + 64), 8 * v6);
-    }
-
-    v8 = 0;
-    *(v4 + 16) = *(v2 + 16);
-    v9 = 1 << *(v2 + 32);
-    v10 = *(v2 + 64);
-    v11 = -1;
-    if (v9 < 64)
-    {
-      v11 = ~(-1 << v9);
-    }
-
-    v12 = v11 & v10;
-    v13 = (v9 + 63) >> 6;
-    if ((v11 & v10) != 0)
-    {
-      do
-      {
-        v14 = __clz(__rbit64(v12));
-        v12 &= v12 - 1;
-LABEL_17:
-        v17 = v14 | (v8 << 6);
-        v18 = *(*(v2 + 48) + 8 * v17);
-        v19 = *(*(v2 + 56) + 8 * v17);
-        *(*(v4 + 48) + 8 * v17) = v18;
-        *(*(v4 + 56) + 8 * v17) = v19;
-        v20 = v18;
-        result = swift_unknownObjectRetain();
-      }
-
-      while (v12);
-    }
-
-    v15 = v8;
-    while (1)
-    {
-      v8 = v15 + 1;
-      if (__OFADD__(v15, 1))
-      {
-        break;
-      }
-
-      if (v8 >= v13)
-      {
-        goto LABEL_19;
-      }
-
-      v16 = *(v2 + 64 + 8 * v8);
-      ++v15;
-      if (v16)
-      {
-        v14 = __clz(__rbit64(v16));
-        v12 = (v16 - 1) & v16;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_19:
-
-    *v1 = v4;
-  }
-
-  return result;
-}
-
-char *sub_229899030()
-{
-  v1 = v0;
-  v32 = sub_22A4DB7DC();
-  v34 = *(v32 - 8);
-  v2 = *(v34 + 64);
-  MEMORY[0x28223BE20](v32);
-  v31 = &v26 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D8820E0, &qword_22A586CE8);
-  v4 = *v0;
-  v5 = sub_22A4DE3DC();
-  v6 = v5;
-  if (*(v4 + 16))
-  {
-    result = (v5 + 64);
-    v8 = (v4 + 64);
-    v9 = ((1 << *(v6 + 32)) + 63) >> 6;
-    v27 = v1;
-    v28 = v4 + 64;
-    if (v6 != v4 || result >= &v8[8 * v9])
-    {
-      result = memmove(result, v8, 8 * v9);
-    }
-
-    v10 = 0;
-    v11 = *(v4 + 16);
-    v33 = v6;
-    *(v6 + 16) = v11;
-    v12 = 1 << *(v4 + 32);
-    v13 = -1;
-    if (v12 < 64)
-    {
-      v13 = ~(-1 << v12);
-    }
-
-    v14 = v13 & *(v4 + 64);
-    v15 = (v12 + 63) >> 6;
-    v29 = v34 + 32;
-    v30 = v34 + 16;
-    if (v14)
-    {
-      do
-      {
-        v16 = __clz(__rbit64(v14));
-        v35 = (v14 - 1) & v14;
-LABEL_14:
-        v19 = v16 | (v10 << 6);
-        v20 = v34;
-        v21 = *(v34 + 72) * v19;
-        v23 = v31;
-        v22 = v32;
-        (*(v34 + 16))(v31, *(v4 + 48) + v21, v32);
-        v24 = *(*(v4 + 56) + v19);
-        v25 = v33;
-        result = (*(v20 + 32))(*(v33 + 48) + v21, v23, v22);
-        *(*(v25 + 56) + v19) = v24;
-        v14 = v35;
-      }
-
-      while (v35);
-    }
-
-    v17 = v10;
-    while (1)
-    {
-      v10 = v17 + 1;
-      if (__OFADD__(v17, 1))
-      {
-        break;
-      }
-
-      if (v10 >= v15)
-      {
-
-        v1 = v27;
-        v6 = v33;
-        goto LABEL_18;
-      }
-
-      v18 = *(v28 + 8 * v10);
-      ++v17;
-      if (v18)
-      {
-        v16 = __clz(__rbit64(v18));
-        v35 = (v18 - 1) & v18;
-        goto LABEL_14;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-
-LABEL_18:
-    *v1 = v6;
-  }
-
-  return result;
-}
-
-void *sub_2298992A0()
-{
-  v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D8820C8, &qword_22A586CC8);
-  v2 = *v0;
-  v3 = sub_22A4DE3DC();
-  v4 = v3;
-  if (*(v2 + 16))
-  {
-    result = (v3 + 64);
-    v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 64 + 8 * v6)
-    {
-      result = memmove(result, (v2 + 64), 8 * v6);
-    }
-
-    v8 = 0;
-    *(v4 + 16) = *(v2 + 16);
-    v9 = 1 << *(v2 + 32);
-    v10 = *(v2 + 64);
-    v11 = -1;
-    if (v9 < 64)
-    {
-      v11 = ~(-1 << v9);
-    }
-
-    v12 = v11 & v10;
-    v13 = (v9 + 63) >> 6;
-    if ((v11 & v10) != 0)
-    {
-      do
-      {
-        v14 = __clz(__rbit64(v12));
-        v12 &= v12 - 1;
-LABEL_17:
-        v17 = v14 | (v8 << 6);
-        v18 = (*(v2 + 48) + 16 * v17);
-        v19 = v18[1];
-        v20 = *(*(v2 + 56) + 8 * v17);
-        v21 = (*(v4 + 48) + 16 * v17);
-        *v21 = *v18;
-        v21[1] = v19;
-        *(*(v4 + 56) + 8 * v17) = v20;
-      }
-
-      while (v12);
-    }
-
-    v15 = v8;
-    while (1)
-    {
-      v8 = v15 + 1;
-      if (__OFADD__(v15, 1))
-      {
-        break;
-      }
-
-      if (v8 >= v13)
-      {
-        goto LABEL_19;
-      }
-
-      v16 = *(v2 + 64 + 8 * v8);
-      ++v15;
-      if (v16)
-      {
-        v14 = __clz(__rbit64(v16));
-        v12 = (v16 - 1) & v16;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_19:
-
-    *v1 = v4;
-  }
-
-  return result;
-}
-
-void *sub_229899410()
-{
-  v1 = v0;
-  v31 = sub_22A4DB7DC();
-  v33 = *(v31 - 8);
-  v2 = *(v33 + 64);
-  MEMORY[0x28223BE20](v31);
-  v30 = &v26 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D882118, qword_22A586D10);
-  v4 = *v0;
-  v5 = sub_22A4DE3DC();
-  v6 = v5;
-  if (*(v4 + 16))
-  {
-    v26 = v1;
-    result = (v5 + 64);
-    v8 = ((1 << *(v6 + 32)) + 63) >> 6;
-    if (v6 != v4 || result >= v4 + 64 + 8 * v8)
-    {
-      result = memmove(result, (v4 + 64), 8 * v8);
-    }
-
-    v9 = 0;
-    v10 = *(v4 + 16);
-    v32 = v6;
-    *(v6 + 16) = v10;
-    v11 = 1 << *(v4 + 32);
-    v12 = -1;
-    if (v11 < 64)
-    {
-      v12 = ~(-1 << v11);
-    }
-
-    v13 = v12 & *(v4 + 64);
-    v14 = (v11 + 63) >> 6;
-    v29 = v33 + 16;
-    v27 = v4 + 64;
-    for (i = v33 + 32; v13; result = swift_unknownObjectRetain())
-    {
-      v15 = __clz(__rbit64(v13));
-      v13 &= v13 - 1;
-LABEL_14:
-      v18 = v15 | (v9 << 6);
-      v19 = v33;
-      v20 = *(v33 + 72) * v18;
-      v21 = v30;
-      v22 = v31;
-      (*(v33 + 16))(v30, *(v4 + 48) + v20, v31);
-      v18 *= 16;
-      v23 = v32;
-      v24 = *(v32 + 48);
-      v25 = *(v19 + 32);
-      v34 = *(*(v4 + 56) + v18);
-      v25(v24 + v20, v21, v22);
-      *(*(v23 + 56) + v18) = v34;
-    }
-
-    v16 = v9;
-    while (1)
-    {
-      v9 = v16 + 1;
-      if (__OFADD__(v16, 1))
-      {
-        break;
-      }
-
-      if (v9 >= v14)
-      {
-
-        v1 = v26;
-        v6 = v32;
-        goto LABEL_18;
-      }
-
-      v17 = *(v27 + 8 * v9);
-      ++v16;
-      if (v17)
-      {
-        v15 = __clz(__rbit64(v17));
-        v13 = (v17 - 1) & v17;
-        goto LABEL_14;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-
-LABEL_18:
-    *v1 = v6;
-  }
-
-  return result;
-}
-
-char *sub_229899690()
-{
-  v1 = v0;
-  v2 = sub_22A4DB7DC();
-  v3 = *(v2 - 8);
-  v39 = v2;
-  v40 = v3;
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
-  v38 = &v33 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D87CDE0, &unk_22A577C60);
-  v6 = *v0;
-  v7 = sub_22A4DE3DC();
-  v8 = v7;
-  if (*(v6 + 16))
-  {
-    result = (v7 + 64);
-    v10 = (v6 + 64);
-    v11 = ((1 << *(v8 + 32)) + 63) >> 6;
-    v33 = v1;
-    v34 = v6 + 64;
-    if (v8 != v6 || result >= &v10[8 * v11])
-    {
-      result = memmove(result, v10, 8 * v11);
-    }
-
-    v12 = 0;
-    v13 = *(v6 + 16);
-    v41 = v8;
-    *(v8 + 16) = v13;
-    v14 = 1 << *(v6 + 32);
-    v15 = -1;
-    if (v14 < 64)
-    {
-      v15 = ~(-1 << v14);
-    }
-
-    v16 = v15 & *(v6 + 64);
-    v17 = (v14 + 63) >> 6;
-    v35 = v40 + 32;
-    v36 = v40 + 16;
-    v37 = v6;
-    if (v16)
-    {
-      do
-      {
-        v18 = __clz(__rbit64(v16));
-        v42 = (v16 - 1) & v16;
-LABEL_14:
-        v21 = v18 | (v12 << 6);
-        v22 = v39;
-        v23 = v40;
-        v24 = *(v40 + 72) * v21;
-        v25 = v38;
-        (*(v40 + 16))(v38, *(v6 + 48) + v24, v39);
-        v26 = *(v6 + 56);
-        v27 = 16 * v21;
-        v28 = v26 + 16 * v21;
-        v29 = *v28;
-        v30 = *(v28 + 8);
-        v31 = v41;
-        (*(v23 + 32))(*(v41 + 48) + v24, v25, v22);
-        v32 = *(v31 + 56) + v27;
-        v6 = v37;
-        *v32 = v29;
-        *(v32 + 8) = v30;
-        result = sub_229792944(v29, v30);
-        v16 = v42;
-      }
-
-      while (v42);
-    }
-
-    v19 = v12;
-    v8 = v41;
-    while (1)
-    {
-      v12 = v19 + 1;
-      if (__OFADD__(v19, 1))
-      {
-        break;
-      }
-
-      if (v12 >= v17)
-      {
-
-        v1 = v33;
-        goto LABEL_18;
-      }
-
-      v20 = *(v34 + 8 * v12);
-      ++v19;
-      if (v20)
-      {
-        v18 = __clz(__rbit64(v20));
-        v42 = (v20 - 1) & v20;
-        goto LABEL_14;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-
-LABEL_18:
-    *v1 = v8;
-  }
-
-  return result;
-}
-
-void *sub_229899924()
-{
-  v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D8820B8, &unk_22A586CB8);
-  v2 = *v0;
-  v3 = sub_22A4DE3DC();
-  v4 = v3;
-  if (*(v2 + 16))
-  {
-    result = (v3 + 64);
-    v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 64 + 8 * v6)
-    {
-      result = memmove(result, (v2 + 64), 8 * v6);
-    }
-
-    v8 = 0;
-    *(v4 + 16) = *(v2 + 16);
-    v9 = 1 << *(v2 + 32);
-    v10 = *(v2 + 64);
-    v11 = -1;
-    if (v9 < 64)
-    {
-      v11 = ~(-1 << v9);
-    }
-
-    v12 = v11 & v10;
-    v13 = (v9 + 63) >> 6;
-    if ((v11 & v10) != 0)
-    {
-      do
-      {
-        v14 = __clz(__rbit64(v12));
-        v12 &= v12 - 1;
-LABEL_17:
-        v17 = v14 | (v8 << 6);
-        v18 = *(*(v2 + 48) + 8 * v17);
-        v19 = *(*(v2 + 56) + 8 * v17);
-        *(*(v4 + 48) + 8 * v17) = v18;
-        *(*(v4 + 56) + 8 * v17) = v19;
-        v20 = v18;
-      }
-
-      while (v12);
-    }
-
-    v15 = v8;
-    while (1)
-    {
-      v8 = v15 + 1;
-      if (__OFADD__(v15, 1))
-      {
-        break;
-      }
-
-      if (v8 >= v13)
-      {
-        goto LABEL_19;
-      }
-
-      v16 = *(v2 + 64 + 8 * v8);
-      ++v15;
-      if (v16)
-      {
-        v14 = __clz(__rbit64(v16));
-        v12 = (v16 - 1) & v16;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_19:
-
-    *v1 = v4;
-  }
-
-  return result;
-}
-
-char *sub_229899A88()
-{
-  v1 = v0;
-  v32 = sub_22A4DB7DC();
-  v34 = *(v32 - 8);
-  v2 = *(v34 + 64);
-  MEMORY[0x28223BE20](v32);
-  v31 = &v26 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D8820B0, &qword_22A586CB0);
-  v4 = *v0;
-  v5 = sub_22A4DE3DC();
-  v6 = v5;
-  if (*(v4 + 16))
-  {
-    result = (v5 + 64);
-    v8 = (v4 + 64);
-    v9 = ((1 << *(v6 + 32)) + 63) >> 6;
-    v27 = v1;
-    v28 = v4 + 64;
-    if (v6 != v4 || result >= &v8[8 * v9])
-    {
-      result = memmove(result, v8, 8 * v9);
-    }
-
-    v10 = 0;
-    v11 = *(v4 + 16);
-    v33 = v6;
-    *(v6 + 16) = v11;
-    v12 = 1 << *(v4 + 32);
-    v13 = -1;
-    if (v12 < 64)
-    {
-      v13 = ~(-1 << v12);
-    }
-
-    v14 = v13 & *(v4 + 64);
-    v15 = (v12 + 63) >> 6;
-    v29 = v34 + 32;
-    v30 = v34 + 16;
-    if (v14)
-    {
-      do
-      {
-        v16 = __clz(__rbit64(v14));
-        v35 = (v14 - 1) & v14;
-LABEL_14:
-        v19 = v16 | (v10 << 6);
-        v20 = v34;
-        v21 = *(v34 + 72) * v19;
-        v23 = v31;
-        v22 = v32;
-        (*(v34 + 16))(v31, *(v4 + 48) + v21, v32);
-        v24 = *(*(v4 + 56) + 8 * v19);
-        v25 = v33;
-        (*(v20 + 32))(*(v33 + 48) + v21, v23, v22);
-        *(*(v25 + 56) + 8 * v19) = v24;
-        result = v24;
-        v14 = v35;
-      }
-
-      while (v35);
-    }
-
-    v17 = v10;
-    while (1)
-    {
-      v10 = v17 + 1;
-      if (__OFADD__(v17, 1))
-      {
-        break;
-      }
-
-      if (v10 >= v15)
-      {
-
-        v1 = v27;
-        v6 = v33;
-        goto LABEL_18;
-      }
-
-      v18 = *(v28 + 8 * v10);
-      ++v17;
-      if (v18)
-      {
-        v16 = __clz(__rbit64(v18));
-        v35 = (v18 - 1) & v18;
-        goto LABEL_14;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-
-LABEL_18:
-    *v1 = v6;
-  }
-
-  return result;
-}
-
-id sub_229899CFC()
-{
-  v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D8820A0, &qword_22A586CA0);
-  v2 = *v0;
-  v3 = sub_22A4DE3DC();
-  v4 = v3;
-  if (*(v2 + 16))
-  {
-    result = (v3 + 64);
-    v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 64 + 8 * v6)
-    {
-      result = memmove(result, (v2 + 64), 8 * v6);
-    }
-
-    v8 = 0;
-    *(v4 + 16) = *(v2 + 16);
-    v9 = 1 << *(v2 + 32);
-    v10 = *(v2 + 64);
-    v11 = -1;
-    if (v9 < 64)
-    {
-      v11 = ~(-1 << v9);
-    }
-
-    v12 = v11 & v10;
-    v13 = (v9 + 63) >> 6;
-    if ((v11 & v10) != 0)
-    {
-      do
-      {
-        v14 = __clz(__rbit64(v12));
-        v12 &= v12 - 1;
-LABEL_17:
-        v17 = v14 | (v8 << 6);
-        v18 = *(*(v2 + 56) + 8 * v17);
-        *(*(v4 + 48) + 8 * v17) = *(*(v2 + 48) + 8 * v17);
-        *(*(v4 + 56) + 8 * v17) = v18;
-        result = v18;
-      }
-
-      while (v12);
-    }
-
-    v15 = v8;
-    while (1)
-    {
-      v8 = v15 + 1;
-      if (__OFADD__(v15, 1))
-      {
-        break;
-      }
-
-      if (v8 >= v13)
-      {
-        goto LABEL_19;
-      }
-
-      v16 = *(v2 + 64 + 8 * v8);
-      ++v15;
-      if (v16)
-      {
-        v14 = __clz(__rbit64(v16));
-        v12 = (v16 - 1) & v16;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_19:
-
-    *v1 = v4;
-  }
-
-  return result;
-}
-
-id sub_229899E58()
-{
-  v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D8820A8, &qword_22A586CA8);
-  v2 = *v0;
-  v3 = sub_22A4DE3DC();
-  v4 = v3;
-  if (*(v2 + 16))
-  {
-    result = (v3 + 64);
-    v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 64 + 8 * v6)
-    {
-      result = memmove(result, (v2 + 64), 8 * v6);
-    }
-
-    v8 = 0;
-    *(v4 + 16) = *(v2 + 16);
-    v9 = 1 << *(v2 + 32);
-    v10 = *(v2 + 64);
-    v11 = -1;
-    if (v9 < 64)
-    {
-      v11 = ~(-1 << v9);
-    }
-
-    v12 = v11 & v10;
-    v13 = (v9 + 63) >> 6;
-    if ((v11 & v10) != 0)
-    {
-      do
-      {
-        v14 = __clz(__rbit64(v12));
-        v12 &= v12 - 1;
-LABEL_17:
-        v17 = v14 | (v8 << 6);
-        v18 = *(*(v2 + 56) + 8 * v17);
-        *(*(v4 + 48) + 8 * v17) = *(*(v2 + 48) + 8 * v17);
-        *(*(v4 + 56) + 8 * v17) = v18;
-        result = v18;
-      }
-
-      while (v12);
-    }
-
-    v15 = v8;
-    while (1)
-    {
-      v8 = v15 + 1;
-      if (__OFADD__(v15, 1))
-      {
-        break;
-      }
-
-      if (v8 >= v13)
-      {
-        goto LABEL_19;
-      }
-
-      v16 = *(v2 + 64 + 8 * v8);
-      ++v15;
-      if (v16)
-      {
-        v14 = __clz(__rbit64(v16));
-        v12 = (v16 - 1) & v16;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_19:
-
-    *v1 = v4;
-  }
-
-  return result;
-}
-
-id sub_229899FC8(uint64_t *a1, uint64_t *a2)
-{
-  v3 = v2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
-  v4 = *v2;
-  v5 = sub_22A4DE3DC();
-  v6 = v5;
-  if (*(v4 + 16))
-  {
-    result = (v5 + 64);
-    v8 = ((1 << *(v6 + 32)) + 63) >> 6;
-    if (v6 != v4 || result >= v4 + 64 + 8 * v8)
-    {
-      result = memmove(result, (v4 + 64), 8 * v8);
-    }
-
-    v10 = 0;
-    *(v6 + 16) = *(v4 + 16);
-    v11 = 1 << *(v4 + 32);
-    v12 = *(v4 + 64);
-    v13 = -1;
-    if (v11 < 64)
-    {
-      v13 = ~(-1 << v11);
-    }
-
-    v14 = v13 & v12;
-    v15 = (v11 + 63) >> 6;
-    if ((v13 & v12) != 0)
-    {
-      do
-      {
-        v16 = __clz(__rbit64(v14));
-        v14 &= v14 - 1;
-LABEL_17:
-        v19 = v16 | (v10 << 6);
-        v20 = *(*(v4 + 48) + 8 * v19);
-        v21 = *(*(v4 + 56) + v19);
-        *(*(v6 + 48) + 8 * v19) = v20;
-        *(*(v6 + 56) + v19) = v21;
-        result = v20;
-      }
-
-      while (v14);
-    }
-
-    v17 = v10;
-    while (1)
-    {
-      v10 = v17 + 1;
-      if (__OFADD__(v17, 1))
-      {
-        break;
-      }
-
-      if (v10 >= v15)
-      {
-        goto LABEL_19;
-      }
-
-      v18 = *(v4 + 64 + 8 * v10);
-      ++v17;
-      if (v18)
-      {
-        v16 = __clz(__rbit64(v18));
-        v14 = (v18 - 1) & v18;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_19:
-
-    *v3 = v6;
-  }
-
-  return result;
-}
-
-void *sub_22989A13C(uint64_t *a1, uint64_t *a2, void (*a3)(_BYTE *, uint64_t))
-{
-  v4 = v3;
-  __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
-  v5 = *v3;
-  v6 = sub_22A4DE3DC();
-  v7 = v6;
-  if (*(v5 + 16))
-  {
-    v27 = v4;
-    result = (v6 + 64);
-    v9 = ((1 << *(v7 + 32)) + 63) >> 6;
-    if (v7 != v5 || result >= v5 + 64 + 8 * v9)
-    {
-      result = memmove(result, (v5 + 64), 8 * v9);
-    }
-
-    v11 = 0;
-    *(v7 + 16) = *(v5 + 16);
-    v12 = 1 << *(v5 + 32);
-    v13 = *(v5 + 64);
-    v14 = -1;
-    if (v12 < 64)
-    {
-      v14 = ~(-1 << v12);
-    }
-
-    v15 = v14 & v13;
-    v16 = (v12 + 63) >> 6;
-    if ((v14 & v13) != 0)
-    {
-      do
-      {
-        v17 = __clz(__rbit64(v15));
-        v15 &= v15 - 1;
-LABEL_17:
-        v20 = v17 | (v11 << 6);
-        v21 = 16 * v20;
-        v22 = (*(v5 + 48) + 16 * v20);
-        v23 = *v22;
-        v24 = v22[1];
-        v25 = 40 * v20;
-        sub_22957F1C4(*(v5 + 56) + 40 * v20, v29);
-        v26 = (*(v7 + 48) + v21);
-        *v26 = v23;
-        v26[1] = v24;
-        a3(v29, *(v7 + 56) + v25);
-      }
-
-      while (v15);
-    }
-
-    v18 = v11;
-    while (1)
-    {
-      v11 = v18 + 1;
-      if (__OFADD__(v18, 1))
-      {
-        break;
-      }
-
-      if (v11 >= v16)
-      {
-
-        v4 = v27;
-        goto LABEL_21;
-      }
-
-      v19 = *(v5 + 64 + 8 * v11);
-      ++v18;
-      if (v19)
-      {
-        v17 = __clz(__rbit64(v19));
-        v15 = (v19 - 1) & v19;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-
-LABEL_21:
-    *v4 = v7;
-  }
-
-  return result;
-}
-
-void *sub_22989A2E0()
-{
-  v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D87CDD0, &qword_22A577C50);
-  v2 = *v0;
-  v3 = sub_22A4DE3DC();
-  v4 = v3;
-  if (*(v2 + 16))
-  {
-    result = (v3 + 64);
-    v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 64 + 8 * v6)
-    {
-      result = memmove(result, (v2 + 64), 8 * v6);
-    }
-
-    v8 = 0;
-    *(v4 + 16) = *(v2 + 16);
-    v9 = 1 << *(v2 + 32);
-    v10 = *(v2 + 64);
-    v11 = -1;
-    if (v9 < 64)
-    {
-      v11 = ~(-1 << v9);
-    }
-
-    v12 = v11 & v10;
-    v13 = (v9 + 63) >> 6;
-    if ((v11 & v10) != 0)
-    {
-      do
-      {
-        v14 = __clz(__rbit64(v12));
-        v12 &= v12 - 1;
-LABEL_17:
-        v17 = v14 | (v8 << 6);
-        v18 = (*(v2 + 48) + 16 * v17);
-        v19 = v18[1];
-        v20 = *(*(v2 + 56) + 8 * v17);
-        v21 = (*(v4 + 48) + 16 * v17);
-        *v21 = *v18;
-        v21[1] = v19;
-        *(*(v4 + 56) + 8 * v17) = v20;
-
-        result = swift_unknownObjectRetain();
-      }
-
-      while (v12);
-    }
-
-    v15 = v8;
-    while (1)
-    {
-      v8 = v15 + 1;
-      if (__OFADD__(v15, 1))
-      {
-        break;
-      }
-
-      if (v8 >= v13)
-      {
-        goto LABEL_19;
-      }
-
-      v16 = *(v2 + 64 + 8 * v8);
-      ++v15;
-      if (v16)
-      {
-        v14 = __clz(__rbit64(v16));
-        v12 = (v16 - 1) & v16;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_19:
-
-    *v1 = v4;
-  }
-
-  return result;
-}
-
-void *sub_22989A450()
-{
-  v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D882078, &unk_22A586C68);
-  v2 = *v0;
-  v3 = sub_22A4DE3DC();
-  v4 = v3;
-  if (*(v2 + 16))
-  {
-    result = (v3 + 64);
-    v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 64 + 8 * v6)
-    {
-      result = memmove(result, (v2 + 64), 8 * v6);
-    }
-
-    v8 = 0;
-    *(v4 + 16) = *(v2 + 16);
-    v9 = 1 << *(v2 + 32);
-    v10 = *(v2 + 64);
-    v11 = -1;
-    if (v9 < 64)
-    {
-      v11 = ~(-1 << v9);
-    }
-
-    v12 = v11 & v10;
-    v13 = (v9 + 63) >> 6;
-    if ((v11 & v10) != 0)
-    {
-      do
-      {
-        v14 = __clz(__rbit64(v12));
-        v12 &= v12 - 1;
-LABEL_17:
-        v17 = 16 * (v14 | (v8 << 6));
-        v18 = (*(v2 + 48) + v17);
-        v20 = *v18;
-        v19 = v18[1];
-        v21 = (*(v2 + 56) + v17);
-        v22 = *v21;
-        v23 = v21[1];
-        v24 = (*(v4 + 48) + v17);
-        *v24 = v20;
-        v24[1] = v19;
-        v25 = (*(v4 + 56) + v17);
-        *v25 = v22;
-        v25[1] = v23;
-      }
-
-      while (v12);
-    }
-
-    v15 = v8;
-    while (1)
-    {
-      v8 = v15 + 1;
-      if (__OFADD__(v15, 1))
-      {
-        break;
-      }
-
-      if (v8 >= v13)
-      {
-        goto LABEL_19;
-      }
-
-      v16 = *(v2 + 64 + 8 * v8);
-      ++v15;
-      if (v16)
-      {
-        v14 = __clz(__rbit64(v16));
-        v12 = (v16 - 1) & v16;
-        goto LABEL_17;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_19:
-
-    *v1 = v4;
-  }
-
-  return result;
-}
-
-void *sub_22989A5C8()
-{
-  v1 = v0;
-  v2 = type metadata accessor for HomePassData(0);
-  v32 = *(v2 - 8);
-  v3 = *(v32 + 64);
-  MEMORY[0x28223BE20](v2 - 8);
-  v31 = &v30 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D882060, &unk_22A586C50);
-  v5 = *v0;
-  v6 = sub_22A4DE3DC();
-  v7 = v6;
-  if (*(v5 + 16))
-  {
-    v30 = v1;
-    result = (v6 + 64);
-    v9 = v5 + 64;
-    v10 = ((1 << *(v7 + 32)) + 63) >> 6;
-    if (v7 != v5 || result >= v9 + 8 * v10)
-    {
-      result = memmove(result, (v5 + 64), 8 * v10);
-    }
-
-    v11 = 0;
-    v12 = *(v5 + 16);
-    v33 = v7;
-    *(v7 + 16) = v12;
-    v13 = 1 << *(v5 + 32);
-    v14 = *(v5 + 64);
-    v15 = -1;
-    if (v13 < 64)
-    {
-      v15 = ~(-1 << v13);
-    }
-
-    v16 = v15 & v14;
-    v17 = (v13 + 63) >> 6;
-    if ((v15 & v14) != 0)
-    {
-      do
-      {
-        v18 = __clz(__rbit64(v16));
-        v16 &= v16 - 1;
-LABEL_14:
-        v21 = v18 | (v11 << 6);
-        v22 = 16 * v21;
-        v23 = (*(v5 + 48) + 16 * v21);
-        v24 = *v23;
-        v25 = v23[1];
-        v26 = v31;
-        v27 = *(v32 + 72) * v21;
-        sub_22989B24C(*(v5 + 56) + v27, v31, type metadata accessor for HomePassData);
-        v28 = v33;
-        v29 = (*(v33 + 48) + v22);
-        *v29 = v24;
-        v29[1] = v25;
-        sub_22989B1E4(v26, *(v28 + 56) + v27, type metadata accessor for HomePassData);
-      }
-
-      while (v16);
-    }
-
-    v19 = v11;
-    while (1)
-    {
-      v11 = v19 + 1;
-      if (__OFADD__(v19, 1))
-      {
-        break;
-      }
-
-      if (v11 >= v17)
-      {
-
-        v1 = v30;
-        v7 = v33;
-        goto LABEL_18;
-      }
-
-      v20 = *(v9 + 8 * v11);
-      ++v19;
-      if (v20)
-      {
-        v18 = __clz(__rbit64(v20));
-        v16 = (v20 - 1) & v20;
-        goto LABEL_14;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-
-LABEL_18:
-    *v1 = v7;
-  }
-
-  return result;
-}
-
-uint64_t sub_22989A820(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, void *a6)
-{
-  v10 = MEMORY[0x277D837D0];
-  v32 = MEMORY[0x277D837D0];
-  v33 = &off_283CDFC68;
-  *&v31 = a1;
-  *(&v31 + 1) = a2;
-  v11 = *a6;
-  v13 = sub_229543DBC(a3, a4);
-  v14 = v11[2];
-  v15 = (v12 & 1) == 0;
-  v16 = v14 + v15;
-  if (__OFADD__(v14, v15))
-  {
-    __break(1u);
-    goto LABEL_14;
-  }
-
-  v17 = v12;
-  v18 = v11[3];
-  if (v18 >= v16 && (a5 & 1) != 0)
-  {
-LABEL_7:
-    v19 = *a6;
-    if (v17)
-    {
-LABEL_8:
-      v20 = (v19[7] + 40 * v13);
-      __swift_destroy_boxed_opaque_existential_0(v20);
-      return sub_229557188(&v31, v20);
-    }
-
-    goto LABEL_11;
-  }
-
-  if (v18 >= v16 && (a5 & 1) == 0)
-  {
-    sub_22989A13C(&qword_27D882010, &qword_22A586BF0, sub_229557188);
-    goto LABEL_7;
-  }
-
-  sub_229896EA8(v16, a5 & 1, &qword_27D882010, &qword_22A586BF0, sub_229557188);
-  v22 = *a6;
-  v23 = sub_229543DBC(a3, a4);
-  if ((v17 & 1) != (v24 & 1))
-  {
-LABEL_14:
-    result = sub_22A4DE67C();
-    __break(1u);
-    return result;
-  }
-
-  v13 = v23;
-  v19 = *a6;
-  if (v17)
-  {
-    goto LABEL_8;
-  }
-
-LABEL_11:
-  v25 = __swift_mutable_project_boxed_opaque_existential_0(&v31, v10);
-  v26 = *(*(v10 - 8) + 64);
-  MEMORY[0x28223BE20](v25);
-  v28 = (&v30 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0));
-  (*(v29 + 16))(v28);
-  sub_22989AE80(v13, a3, a4, *v28, v28[1], v19);
-
-  return __swift_destroy_boxed_opaque_existential_0(&v31);
-}
-
-uint64_t sub_22989AA58(int a1, uint64_t a2, uint64_t a3, char a4, void *a5)
-{
-  LODWORD(v24) = a1;
-  v25 = MEMORY[0x277D84CC0];
-  v26 = &off_283CDFC58;
-  v9 = *a5;
-  v11 = sub_229543DBC(a2, a3);
-  v12 = v9[2];
-  v13 = (v10 & 1) == 0;
-  v14 = v12 + v13;
-  if (__OFADD__(v12, v13))
-  {
-    __break(1u);
-    goto LABEL_14;
-  }
-
-  v15 = v10;
-  v16 = v9[3];
-  if (v16 >= v14 && (a4 & 1) != 0)
-  {
-LABEL_7:
-    v17 = *a5;
-    if (v15)
-    {
-LABEL_8:
-      v18 = (v17[7] + 40 * v11);
-      __swift_destroy_boxed_opaque_existential_0(v18);
-      return sub_229557188(&v24, v18);
-    }
-
-    goto LABEL_11;
-  }
-
-  if (v16 >= v14 && (a4 & 1) == 0)
-  {
-    sub_22989A13C(&qword_27D882010, &qword_22A586BF0, sub_229557188);
-    goto LABEL_7;
-  }
-
-  sub_229896EA8(v14, a4 & 1, &qword_27D882010, &qword_22A586BF0, sub_229557188);
-  v20 = *a5;
-  v21 = sub_229543DBC(a2, a3);
-  if ((v15 & 1) != (v22 & 1))
-  {
-LABEL_14:
-    result = sub_22A4DE67C();
-    __break(1u);
-    return result;
-  }
-
-  v11 = v21;
-  v17 = *a5;
-  if (v15)
-  {
-    goto LABEL_8;
-  }
-
-LABEL_11:
-  v23 = __swift_mutable_project_boxed_opaque_existential_0(&v24, MEMORY[0x277D84CC0]);
-  sub_22989AF10(v11, a2, a3, *v23, v17);
-
-  return __swift_destroy_boxed_opaque_existential_0(&v24);
-}
-
-uint64_t sub_22989AC04(uint64_t a1, uint64_t a2, uint64_t a3, char a4, void *a5, uint64_t a6, uint64_t a7)
-{
-  v37 = a6;
-  v38 = a7;
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(&v36);
-  (*(*(a6 - 8) + 32))(boxed_opaque_existential_1, a1, a6);
-  v15 = *a5;
-  v17 = sub_229543DBC(a2, a3);
-  v18 = v15[2];
-  v19 = (v16 & 1) == 0;
-  v20 = v18 + v19;
-  if (__OFADD__(v18, v19))
-  {
-    __break(1u);
-    goto LABEL_14;
-  }
-
-  v21 = v16;
-  v22 = v15[3];
-  if (v22 >= v20 && (a4 & 1) != 0)
-  {
-LABEL_7:
-    v23 = *a5;
-    if (v21)
-    {
-LABEL_8:
-      v24 = (v23[7] + 40 * v17);
-      __swift_destroy_boxed_opaque_existential_0(v24);
-      return sub_229557188(&v36, v24);
-    }
-
-    goto LABEL_11;
-  }
-
-  if (v22 >= v20 && (a4 & 1) == 0)
-  {
-    sub_22989A13C(&qword_27D882010, &qword_22A586BF0, sub_229557188);
-    goto LABEL_7;
-  }
-
-  sub_229896EA8(v20, a4 & 1, &qword_27D882010, &qword_22A586BF0, sub_229557188);
-  v26 = *a5;
-  v27 = sub_229543DBC(a2, a3);
-  if ((v21 & 1) != (v28 & 1))
-  {
-LABEL_14:
-    result = sub_22A4DE67C();
-    __break(1u);
-    return result;
-  }
-
-  v17 = v27;
-  v23 = *a5;
-  if (v21)
-  {
-    goto LABEL_8;
-  }
-
-LABEL_11:
-  v29 = v37;
-  v30 = __swift_mutable_project_boxed_opaque_existential_0(&v36, v37);
-  v31 = *(*(v29 - 8) + 64);
-  MEMORY[0x28223BE20](v30);
-  v33 = &v35 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v34 + 16))(v33);
-  sub_22989AFA0(v17, a2, a3, v33, v23, a6, a7);
-
-  return __swift_destroy_boxed_opaque_existential_0(&v36);
-}
-
-uint64_t sub_22989AE80(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
-{
-  v13 = MEMORY[0x277D837D0];
-  v14 = &off_283CDFC68;
-  *&v12 = a4;
-  *(&v12 + 1) = a5;
-  a6[(a1 >> 6) + 8] |= 1 << a1;
-  v7 = (a6[6] + 16 * a1);
-  *v7 = a2;
-  v7[1] = a3;
-  result = sub_229557188(&v12, a6[7] + 40 * a1);
-  v9 = a6[2];
-  v10 = __OFADD__(v9, 1);
-  v11 = v9 + 1;
-  if (v10)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    a6[2] = v11;
-  }
-
-  return result;
-}
-
-uint64_t sub_22989AF10(unint64_t a1, uint64_t a2, uint64_t a3, int a4, void *a5)
-{
-  LODWORD(v11) = a4;
-  v12 = MEMORY[0x277D84CC0];
-  v13 = &off_283CDFC58;
-  a5[(a1 >> 6) + 8] |= 1 << a1;
-  v6 = (a5[6] + 16 * a1);
-  *v6 = a2;
-  v6[1] = a3;
-  result = sub_229557188(&v11, a5[7] + 40 * a1);
-  v8 = a5[2];
-  v9 = __OFADD__(v8, 1);
-  v10 = v8 + 1;
-  if (v9)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    a5[2] = v10;
-  }
-
-  return result;
-}
-
-uint64_t sub_22989AFA0(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7)
-{
-  v20 = a6;
-  v21 = a7;
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(&v19);
-  (*(*(a6 - 8) + 32))(boxed_opaque_existential_1, a4, a6);
-  a5[(a1 >> 6) + 8] |= 1 << a1;
-  v14 = (a5[6] + 16 * a1);
-  *v14 = a2;
-  v14[1] = a3;
-  result = sub_229557188(&v19, a5[7] + 40 * a1);
-  v16 = a5[2];
-  v17 = __OFADD__(v16, 1);
-  v18 = v16 + 1;
-  if (v17)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    a5[2] = v18;
-  }
-
-  return result;
-}
-
-uint64_t sub_22989B078(uint64_t a1)
-{
-  v4 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D881FF0, &qword_22A57A380) - 8);
-  v5 = (*(v4 + 80) + 40) & ~*(v4 + 80);
-  v6 = v1[2];
-  v7 = v1[3];
-  v8 = v1[4];
-  v9 = swift_task_alloc();
-  *(v2 + 16) = v9;
-  *v9 = v2;
-  v9[1] = sub_229569B30;
-
-  return sub_229892570(a1, v6, v7, v8, v1 + v5);
-}
-
-uint64_t sub_22989B17C(uint64_t a1, uint64_t (*a2)(void))
-{
-  v3 = a2(0);
-  (*(*(v3 - 8) + 8))(a1, v3);
-  return a1;
-}
-
-uint64_t sub_22989B1E4(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
-{
-  v5 = a3(0);
-  (*(*(v5 - 8) + 32))(a2, a1, v5);
-  return a2;
-}
-
-uint64_t sub_22989B24C(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
-{
-  v5 = a3(0);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
-  return a2;
-}
-
-void sub_22989B2B4(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v4 = v3;
-  v8 = [v4 scheduleRules];
-  sub_22989B4A0();
-  v9 = sub_22A4DD83C();
-
-  if (v9 >> 62)
-  {
-    v10 = sub_22A4DE0EC();
-  }
-
-  else
-  {
-    v10 = *((v9 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  }
-
-  if (v10 == 1)
-  {
-    v11 = [v4 scheduleRules];
-    v12 = sub_22A4DD83C();
-
-    if ((v12 & 0xC000000000000001) != 0)
-    {
-      v13 = MEMORY[0x22AAD13F0](0, v12);
-    }
-
-    else
-    {
-      if (!*((v12 & 0xFFFFFFFFFFFFFF8) + 0x10))
-      {
-        __break(1u);
-        return;
-      }
-
-      v13 = *(v12 + 32);
-    }
-
-    v16 = v13;
-
-    sub_22965882C(a1, a2, a3);
-  }
-
-  else
-  {
-    v14 = sub_22A4DB74C();
-    v15 = *(*(v14 - 8) + 56);
-
-    v15(a3, 1, 1, v14);
-  }
-}
-
-unint64_t sub_22989B4A0()
-{
-  result = qword_27D87CD80;
-  if (!qword_27D87CD80)
-  {
-    objc_opt_self();
-    result = swift_getObjCClassMetadata();
-    atomic_store(result, &qword_27D87CD80);
-  }
-
-  return result;
-}
-
-id sub_22989B52C()
-{
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for HindsightCloudShareManagerEnergyKitDataSource();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
-}
-
-uint64_t sub_22989B8C4(uint64_t a1, uint64_t a2)
-{
-  v3[13] = a2;
-  v3[14] = v2;
-  v3[12] = a1;
-  v4 = sub_22A4DB7DC();
-  v3[15] = v4;
-  v5 = *(v4 - 8);
-  v3[16] = v5;
-  v6 = *(v5 + 64) + 15;
-  v3[17] = swift_task_alloc();
-
-  return MEMORY[0x2822009F8](sub_22989B988, 0, 0);
-}
-
-uint64_t sub_22989B988()
-{
-  v1 = [*(v0 + 112) home];
-  if (v1 && (v2 = v1, v3 = [v1 administratorHandler], *(v0 + 144) = v3, v2, v3))
-  {
-    v4 = *(v0 + 128);
-    v5 = *(v0 + 136);
-    v6 = *(v0 + 120);
-    v8 = *(v0 + 96);
-    v7 = *(v0 + 104);
-    v23 = *MEMORY[0x277CD0CB0];
-    v9 = [*(v0 + 112) messageTargetUUID];
-    sub_22A4DB79C();
-
-    v10 = objc_allocWithZone(MEMORY[0x277D0F820]);
-    v11 = sub_22A4DB77C();
-    v12 = [v10 initWithTarget_];
-    *(v0 + 152) = v12;
-
-    (*(v4 + 8))(v5, v6);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D87D080, &qword_22A57CF50);
-    inited = swift_initStackObject();
-    *(inited + 16) = xmmword_22A576180;
-    v14 = *MEMORY[0x277CD0D30];
-    *(inited + 32) = sub_22A4DD5EC();
-    *(inited + 72) = MEMORY[0x277D837D0];
-    *(inited + 40) = v15;
-    *(inited + 48) = v8;
-    *(inited + 56) = v7;
-
-    v16 = sub_22956AC5C(inited);
-    *(v0 + 160) = v16;
-    swift_setDeallocating();
-    sub_2295ED9B4(inited + 32);
-    v17 = swift_task_alloc();
-    *(v0 + 168) = v17;
-    *v17 = v0;
-    v17[1] = sub_22989BC50;
-
-    return sub_2297983DC(v23, v12, v16);
-  }
-
-  else
-  {
-    v19 = objc_opt_self();
-    v20 = sub_22A4DD5AC();
-    [v19 hmErrorWithCode:3 description:v20 reason:0 suggestion:0 underlyingError:0];
-
-    swift_willThrow();
-    v21 = *(v0 + 136);
-
-    v22 = *(v0 + 8);
-
-    return v22();
-  }
-}
-
-uint64_t sub_22989BC50()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 168);
-  v8 = *v1;
-  *(*v1 + 176) = v0;
-
-  if (v0)
-  {
-    v4 = sub_22989BDDC;
-  }
-
-  else
-  {
-    v6 = *(v2 + 152);
-    v5 = *(v2 + 160);
-
-    v4 = sub_22989BD70;
-  }
-
-  return MEMORY[0x2822009F8](v4, 0, 0);
-}
-
-uint64_t sub_22989BD70()
-{
-  v1 = *(v0 + 136);
-
-  v2 = *(v0 + 8);
-
-  return v2();
-}
-
-uint64_t sub_22989BDDC()
-{
-  v2 = v0[19];
-  v1 = v0[20];
-  v3 = v0[18];
-
-  v4 = v0[22];
-  v5 = v0[17];
-
-  v6 = v0[1];
-
-  return v6();
-}
-
-uint64_t sub_22989BE54(uint64_t a1)
-{
-  __swift_project_boxed_opaque_existential_0((a1 + 32), *(a1 + 56));
-  sub_229562F68(0, &qword_27D8821B0, off_2786660D0);
-  sub_22A4DD83C();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D8821A0, &qword_22A586DA0);
-  return sub_22A4DD8FC();
-}
-
-uint64_t sub_22989BED4(uint64_t a1)
-{
-  v3 = swift_task_alloc();
-  *(v1 + 16) = v3;
-  *v3 = v1;
-  v3[1] = sub_2297088A4;
-
-  return (sub_22989C8CC)(a1);
-}
-
-void sub_22989BF80()
-{
-  sub_229562F68(0, &unk_27D87E490, off_2786660B8);
-  sub_22989C864();
-  v1 = sub_22A4DDB5C();
-  [v0 stateObserverStoppedMonitoringCharacteristics_];
-}
-
-id sub_22989C050()
-{
-  v1 = v0;
-  v2 = sub_22A4DB77C();
-  v3 = [v1 accessoryWithUUID_];
-
-  if (v3)
-  {
-    objc_opt_self();
-    v4 = swift_dynamicCastObjCClass();
-    if (v4)
-    {
-      v5 = [v4 mediaProfile];
-
-      return v5;
-    }
-  }
-
-  return 0;
-}
-
-id sub_22989C0EC()
-{
-  result = [v0 isCurrentDevicePrimaryResident];
-  if (result)
-  {
-    result = [v0 actionSetStateSubscriptionManager];
-    if (result)
-    {
-      v2 = result;
-      v3 = sub_22A4DB77C();
-      v4 = [v2 isMonitoringActionSet_];
-      swift_unknownObjectRelease();
-
-      return v4;
-    }
-  }
-
-  return result;
-}
-
-id sub_22989C17C()
-{
-  v1 = v0;
-  v2 = sub_22A4DB77C();
-  v3 = [v1 actionSetWithUUID_];
-
-  return v3;
-}
-
-void sub_22989C1D4()
-{
-  v1 = [v0 uuid];
-  sub_22A4DB79C();
-}
-
-id sub_22989C234()
-{
-  v1 = [v0 workQueue];
+  v0 = [MEMORY[0x277D0F8E8] productInfo];
+  v1 = [v0 productPlatform] == 4;
 
   return v1;
 }
 
-id sub_22989C26C()
+uint64_t _overrideBoolValue(BOOL *a1, uint64_t a2)
 {
-  v0 = objc_opt_self();
-  v1 = sub_22A4DB77C();
-  v2 = [v0 matterDeviceControllerWithUUID_];
-
-  return v2;
-}
-
-id sub_22989C2CC()
-{
-  v16 = sub_22A4DB7DC();
-  v1 = *(v16 - 8);
-  v2 = *(v1 + 64);
-  MEMORY[0x28223BE20](v16);
-  v4 = &v16 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  result = [v0 actionSets];
-  if (!result)
-  {
-    goto LABEL_17;
-  }
-
-  v6 = result;
-  sub_229562F68(0, &qword_281401C20, off_278666020);
-  v7 = sub_22A4DD83C();
-
-  if (v7 >> 62)
-  {
-    v8 = sub_22A4DE0EC();
-    if (v8)
-    {
-      goto LABEL_4;
-    }
-
-LABEL_14:
-
-    return MEMORY[0x277D84F90];
-  }
-
-  v8 = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  if (!v8)
-  {
-    goto LABEL_14;
-  }
-
-LABEL_4:
-  v17 = MEMORY[0x277D84F90];
-  result = sub_22958345C(0, v8 & ~(v8 >> 63), 0);
-  if ((v8 & 0x8000000000000000) == 0)
-  {
-    v9 = 0;
-    v10 = v17;
-    do
-    {
-      if ((v7 & 0xC000000000000001) != 0)
-      {
-        v11 = MEMORY[0x22AAD13F0](v9, v7);
-      }
-
-      else
-      {
-        v11 = *(v7 + 8 * v9 + 32);
-      }
-
-      v12 = v11;
-      v13 = [v11 uuid];
-      sub_22A4DB79C();
-
-      v17 = v10;
-      v15 = *(v10 + 16);
-      v14 = *(v10 + 24);
-      if (v15 >= v14 >> 1)
-      {
-        sub_22958345C(v14 > 1, v15 + 1, 1);
-        v10 = v17;
-      }
-
-      ++v9;
-      *(v10 + 16) = v15 + 1;
-      (*(v1 + 32))(v10 + ((*(v1 + 80) + 32) & ~*(v1 + 80)) + *(v1 + 72) * v15, v4, v16);
-    }
-
-    while (v8 != v9);
-
-    return v10;
-  }
-
-  __break(1u);
-LABEL_17:
-  __break(1u);
+  result = CFPrefs_GetInt64();
+  *a1 = result != 0;
   return result;
 }
 
-void sub_22989C520(uint64_t a1, SEL *a2)
+BOOL isHomePod()
 {
-  v4 = v2;
-  v5 = sub_22A4DB77C();
-  v11 = [v4 accessoryWithUUID_];
+  v0 = [MEMORY[0x277D0F8E8] productInfo];
+  v1 = [v0 productClass] == 6;
 
-  if (v11)
-  {
-    objc_opt_self();
-    v6 = swift_dynamicCastObjCClass();
-    if (v6)
-    {
-      v7 = v6;
-      v8 = [v4 mediaStateSubscriber];
-      v9 = sub_22A4DD5AC();
-      [v8 *a2];
-
-      v10 = v9;
-    }
-
-    else
-    {
-      v10 = v11;
-    }
-  }
-}
-
-id sub_22989C638(void *a1, char a2)
-{
-  v3 = v2;
-  v6 = sub_22A4DB7DC();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
-  v10 = &v22 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D87C350, &qword_22A576E40);
-  v11 = swift_allocObject();
-  *(v11 + 16) = xmmword_22A576190;
-  v12 = [a1 uuid];
-  sub_22A4DB79C();
-
-  v13 = objc_allocWithZone(HMDActionSetResponse);
-  v14 = sub_22A4DB77C();
-  v15 = [v13 initWithActionSetUUID:v14 state:a2 & 1];
-
-  v16 = *(v7 + 8);
-  v16(v10, v6);
-  *(v11 + 32) = v15;
-  type metadata accessor for HMDActionSetResponse(0);
-  v17 = sub_22A4DD81C();
-
-  [v3 notifyRemoteUsersOfChangedActionSetResponses_];
-
-  result = [v3 actionSetStateSubscriptionManager];
-  if (result)
-  {
-    v19 = result;
-    v20 = [a1 uuid];
-    sub_22A4DB79C();
-
-    v21 = sub_22A4DB77C();
-    v16(v10, v6);
-    [v19 actionSetStateDidChange:v21 state:a2 & 1];
-
-    return swift_unknownObjectRelease();
-  }
-
-  return result;
-}
-
-unint64_t sub_22989C864()
-{
-  result = qword_27D87D580;
-  if (!qword_27D87D580)
-  {
-    sub_229562F68(255, &unk_27D87E490, off_2786660B8);
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_27D87D580);
-  }
-
-  return result;
-}
-
-uint64_t sub_22989C8CC(uint64_t a1)
-{
-  v2[19] = a1;
-  v2[20] = v1;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D8821A0, &qword_22A586DA0);
-  v2[21] = v3;
-  v4 = *(v3 - 8);
-  v2[22] = v4;
-  v5 = *(v4 + 64) + 15;
-  v2[23] = swift_task_alloc();
-
-  return MEMORY[0x2822009F8](sub_22989C998, 0, 0);
-}
-
-uint64_t sub_22989C998()
-{
-  v1 = v0;
-  v2 = v0 + 2;
-  v3 = v0 + 10;
-  v4 = v0 + 18;
-  v6 = v0[22];
-  v5 = v0[23];
-  v7 = v0[21];
-  v8 = v1[19];
-  v12 = v1[20];
-  sub_229562F68(0, &unk_27D87E490, off_2786660B8);
-  sub_22989C864();
-  v9 = sub_22A4DDB5C();
-  v1[24] = v9;
-  v1[2] = v1;
-  v1[7] = v4;
-  v1[3] = sub_22989CB8C;
-  swift_continuation_init();
-  v1[17] = v7;
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v1 + 14);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D8821A8, &qword_22A586DA8);
-  sub_22A4DD8DC();
-  (*(v6 + 32))(boxed_opaque_existential_1, v5, v7);
-  v1[10] = MEMORY[0x277D85DD0];
-  v1[11] = 1107296256;
-  v1[12] = sub_22989BE54;
-  v1[13] = &block_descriptor_48;
-  [v12 stateObserverStartedMonitoringCharacteristics:v9 completionHandler:v3];
-  (*(v6 + 8))(boxed_opaque_existential_1, v7);
-
-  return MEMORY[0x282200938](v2);
-}
-
-uint64_t sub_22989CB8C()
-{
-  v1 = *v0;
-  v3 = *v0;
-
-  return MEMORY[0x2822009F8](sub_22989CC6C, 0, 0);
-}
-
-uint64_t sub_22989CC6C()
-{
-  v1 = *(v0 + 184);
-  v2 = *(v0 + 144);
-
-  v3 = *(v0 + 8);
-
-  return v3(v2);
-}
-
-uint64_t sub_22989CCDC(uint64_t a1, uint64_t a2)
-{
-  v3[13] = a2;
-  v3[14] = v2;
-  v3[12] = a1;
-  v4 = sub_22A4DB7DC();
-  v3[15] = v4;
-  v5 = *(v4 - 8);
-  v3[16] = v5;
-  v6 = *(v5 + 64) + 15;
-  v3[17] = swift_task_alloc();
-
-  return MEMORY[0x2822009F8](sub_22989CDA0, 0, 0);
-}
-
-uint64_t sub_22989CDA0()
-{
-  v1 = [*(v0 + 112) home];
-  if (v1 && (v2 = v1, v3 = [v1 administratorHandler], *(v0 + 144) = v3, v2, v3))
-  {
-    v4 = *(v0 + 128);
-    v5 = *(v0 + 136);
-    v6 = *(v0 + 112);
-    v7 = *(v0 + 120);
-    v9 = *(v0 + 96);
-    v8 = *(v0 + 104);
-    v10 = *MEMORY[0x277CD2538];
-    *(v0 + 152) = *MEMORY[0x277CD2538];
-    v25 = v10;
-    v11 = [v6 messageTargetUUID];
-    sub_22A4DB79C();
-
-    v12 = objc_allocWithZone(MEMORY[0x277D0F820]);
-    v13 = sub_22A4DB77C();
-    v14 = [v12 initWithTarget_];
-    *(v0 + 160) = v14;
-
-    (*(v4 + 8))(v5, v7);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D87D080, &qword_22A57CF50);
-    inited = swift_initStackObject();
-    *(inited + 16) = xmmword_22A576180;
-    v16 = *MEMORY[0x277CD2040];
-    *(inited + 32) = sub_22A4DD5EC();
-    *(inited + 72) = MEMORY[0x277D837D0];
-    *(inited + 40) = v17;
-    *(inited + 48) = v9;
-    *(inited + 56) = v8;
-
-    v18 = sub_22956AC5C(inited);
-    *(v0 + 168) = v18;
-    swift_setDeallocating();
-    sub_2295ED9B4(inited + 32);
-    v19 = swift_task_alloc();
-    *(v0 + 176) = v19;
-    *v19 = v0;
-    v19[1] = sub_22989D074;
-
-    return sub_2297983DC(v25, v14, v18);
-  }
-
-  else
-  {
-    v21 = objc_opt_self();
-    v22 = sub_22A4DD5AC();
-    [v21 hmErrorWithCode:3 description:v22 reason:0 suggestion:0 underlyingError:0];
-
-    swift_willThrow();
-    v23 = *(v0 + 136);
-
-    v24 = *(v0 + 8);
-
-    return v24();
-  }
-}
-
-uint64_t sub_22989D074()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 176);
-  v9 = *v1;
-  *(*v1 + 184) = v0;
-
-  if (v0)
-  {
-    v4 = sub_22989D19C;
-  }
-
-  else
-  {
-    v6 = v2[20];
-    v5 = v2[21];
-    v7 = v2[19];
-
-    v4 = sub_22989BD70;
-  }
-
-  return MEMORY[0x2822009F8](v4, 0, 0);
-}
-
-uint64_t sub_22989D19C()
-{
-  v2 = v0[20];
-  v1 = v0[21];
-  v4 = v0[18];
-  v3 = v0[19];
-
-  v5 = v0[23];
-  v6 = v0[17];
-
-  v7 = v0[1];
-
-  return v7();
-}
-
-uint64_t sub_22989D234(uint64_t a1, void *a2, void *a3, void *a4, void *a5, uint64_t a6)
-{
-  *(v6 + 48) = a5;
-  *(v6 + 56) = a1;
-  *(v6 + 16) = 0;
-  *(v6 + 24) = a2;
-  *(v6 + 32) = a3;
-  *(v6 + 40) = a4;
-  *(v6 + 88) = type metadata accessor for DefaultDaemonMissingItemHandler();
-  *(v6 + 96) = &off_283CE81C0;
-  *(v6 + 64) = a6;
-  v12 = a2;
-  v13 = a3;
-  v14 = a4;
-  v15 = a5;
-
-  return v6;
-}
-
-uint64_t sub_22989D2C4(uint64_t a1, uint64_t a2)
-{
-  _s8IdentityCMa();
-  v4 = swift_allocObject();
-  *(v4 + 16) = a1;
-  *(v4 + 24) = a2;
-  *(v4 + 32) = 0;
-  *(v4 + 36) = 0;
-  type metadata accessor for DefaultDaemonMissingItemHandler();
-  v5 = swift_allocObject();
-  *(v5 + 16) = 0;
-  type metadata accessor for Registry();
-  swift_allocObject();
-
-  v6 = sub_22989D234(v4, 0, 0, 0, 0, v5);
-
-  return v6;
-}
-
-void sub_22989DFB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
-{
-  _Block_object_dispose(&a30, 8);
-  _Block_object_dispose(&a34, 8);
-  _Block_object_dispose((v34 - 192), 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_22989E760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void significantTimeDidChangeNotification(uint64_t a1, void *a2, uint64_t a3)
-{
-  v13 = *MEMORY[0x277D85DE8];
-  v4 = a2;
-  v5 = objc_autoreleasePoolPush();
-  v6 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
-  {
-    v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = a3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@System time changed %@", &v9, 0x16u);
-  }
-
-  objc_autoreleasePoolPop(v5);
-  [v4 _handleSignificantTimeChange];
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void sub_2298A0E8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2298A49E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
-{
-  objc_destroyWeak((v15 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__342(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_2298AA6C0(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 48));
-  objc_destroyWeak((v2 - 56));
-  _Unwind_Resume(a1);
-}
-
-void sub_2298AC78C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
-{
-  _Block_object_dispose(&a39, 8);
-  _Block_object_dispose((v39 - 176), 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__881(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_2298B0FE0(_Unwind_Exception *a1)
-{
-  v3 = v2;
-  os_unfair_lock_unlock((v1 + v3));
-  _Unwind_Resume(a1);
-}
-
-void sub_2298B10E4(_Unwind_Exception *a1)
-{
-  v3 = v2;
-  os_unfair_lock_unlock((v1 + v3));
-  _Unwind_Resume(a1);
-}
-
-void sub_2298C08DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2298C0D34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2298C11A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void __HMDShortcutActionInitializeWithSerializedShortcut(void *a1, void *a2)
-{
-  v3 = a1;
-  v4 = a2;
-  if (v4)
-  {
-    objc_storeStrong(v3 + 3, a2);
-    if (WorkflowKitLibraryCore())
-    {
-      v18 = 0;
-      v19 = &v18;
-      v20 = 0x2050000000;
-      v5 = getWFHomeWorkflowClass_softClass;
-      v21 = getWFHomeWorkflowClass_softClass;
-      if (!getWFHomeWorkflowClass_softClass)
-      {
-        v13 = MEMORY[0x277D85DD0];
-        v14 = 3221225472;
-        v15 = __getWFHomeWorkflowClass_block_invoke;
-        v16 = &unk_278686CC0;
-        v17 = &v18;
-        __getWFHomeWorkflowClass_block_invoke(&v13);
-        v5 = v19[3];
-      }
-
-      v6 = v5;
-      _Block_object_dispose(&v18, 8);
-      v7 = [[v5 alloc] initWithData:v4];
-      v8 = v3[4];
-      v3[4] = v7;
-
-      v18 = 0;
-      v19 = &v18;
-      v20 = 0x2050000000;
-      v9 = getWFHomeWorkflowControllerClass_softClass;
-      v21 = getWFHomeWorkflowControllerClass_softClass;
-      if (!getWFHomeWorkflowControllerClass_softClass)
-      {
-        v13 = MEMORY[0x277D85DD0];
-        v14 = 3221225472;
-        v15 = __getWFHomeWorkflowControllerClass_block_invoke;
-        v16 = &unk_278686CC0;
-        v17 = &v18;
-        __getWFHomeWorkflowControllerClass_block_invoke(&v13);
-        v9 = v19[3];
-      }
-
-      v10 = v9;
-      _Block_object_dispose(&v18, 8);
-      v11 = [[v9 alloc] initWithWorkflow:v3[4]];
-      v12 = v3[5];
-      v3[5] = v11;
-    }
-  }
-}
-
-void sub_2298C2068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t WorkflowKitLibraryCore()
-{
-  v2 = *MEMORY[0x277D85DE8];
-  if (!WorkflowKitLibraryCore_frameworkLibrary)
-  {
-    WorkflowKitLibraryCore_frameworkLibrary = _sl_dlopen();
-  }
-
-  result = WorkflowKitLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-Class __getWFHomeWorkflowClass_block_invoke(uint64_t a1)
-{
-  WorkflowKitLibrary();
-  result = objc_getClass("WFHomeWorkflow");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  if (*(*(*(a1 + 32) + 8) + 24))
-  {
-    getWFHomeWorkflowClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  }
-
-  else
-  {
-    v3 = abort_report_np();
-    return __getWFHomeWorkflowControllerClass_block_invoke(v3);
-  }
-
-  return result;
-}
-
-void __getWFHomeWorkflowControllerClass_block_invoke(uint64_t a1)
-{
-  WorkflowKitLibrary();
-  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("WFHomeWorkflowController");
-  if (*(*(*(a1 + 32) + 8) + 24))
-  {
-    getWFHomeWorkflowControllerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  }
-
-  else
-  {
-    abort_report_np();
-    WorkflowKitLibrary();
-  }
-}
-
-void WorkflowKitLibrary()
-{
-  if (!WorkflowKitLibraryCore())
-  {
-    v0 = abort_report_np();
-    free(v0);
-  }
-}
-
-uint64_t __WorkflowKitLibraryCore_block_invoke(uint64_t a1)
-{
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  result = _sl_dlopen();
-  WorkflowKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_2298C59C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
-{
-  objc_destroyWeak((v15 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_2298D94D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
-{
-  objc_destroyWeak((v17 + 48));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_2298D9828(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
-{
-  objc_destroyWeak((v17 + 48));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_2298DB840(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
-{
-  objc_destroyWeak((v17 + 48));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_2298DBB90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
-{
-  objc_destroyWeak((v17 + 48));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_2298DBEE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
-{
-  objc_destroyWeak((v17 + 48));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_2298F30E0(_Unwind_Exception *a1)
-{
-  v3 = v2;
-  os_unfair_lock_unlock((v1 + v3));
-  _Unwind_Resume(a1);
-}
-
-void sub_2298F316C(_Unwind_Exception *a1)
-{
-  v3 = v2;
-  os_unfair_lock_unlock((v1 + v3));
-  _Unwind_Resume(a1);
-}
-
-void sub_2298F7F8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__5874(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-id arrayToString(void *a1, void *a2)
-{
-  v24 = *MEMORY[0x277D85DE8];
-  v3 = a1;
-  v4 = a2;
-  v5 = [MEMORY[0x277CCAB68] string];
-  v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"\n %@ [", v4];
-  [v5 appendString:v6];
-
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v7 = v3;
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v8)
-  {
-    v9 = v8;
-    v10 = *v20;
-    do
-    {
-      for (i = 0; i != v9; ++i)
-      {
-        if (*v20 != v10)
-        {
-          objc_enumerationMutation(v7);
-        }
-
-        v12 = MEMORY[0x277CCACA8];
-        v13 = [*(*(&v19 + 1) + 8 * i) descriptionWithIndent:v4];
-        v14 = [v12 stringWithFormat:@" %@", v13];
-        [v5 appendString:v14];
-      }
-
-      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
-    }
-
-    while (v9);
-  }
-
-  v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"\n %@ ]", v4];
-  [v5 appendString:v15];
-
-  v16 = [v5 copy];
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v16;
-}
-
-BOOL checkForParseResult(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
-{
-  v13 = &a10;
-  if (!a9)
-  {
-    return 0;
-  }
-
-  v10 = 0;
-  while (a1 - 1 != v10)
-  {
-    v11 = v13++;
-    ++v10;
-    if (!*v11)
-    {
-      return v10 >= a1;
-    }
-  }
-
-  return 1;
+  return v1;
 }
 
-void __languageChanged()
+void _overrideNumberArray(void **a1, uint64_t a2)
 {
-  v0 = +[HMDMainDriver driver];
-  [v0 localeChanged];
-}
-
-void sub_22991FEC0(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 80));
-  objc_destroyWeak((v2 - 72));
-  _Unwind_Resume(a1);
-}
-
-void sub_2299206A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
-{
-  objc_destroyWeak((v17 + 48));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229924DEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
-{
-  objc_destroyWeak((v15 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_22992F188(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 48));
-  objc_destroyWeak((v2 - 48));
-  _Unwind_Resume(a1);
-}
-
-void sub_22992F690(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id location)
-{
-  objc_destroyWeak(&a17);
-  objc_destroyWeak(&a23);
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_22992FD2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
-{
-  objc_destroyWeak((v15 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_2299301B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id location)
-{
-  objc_destroyWeak((v22 + 48));
-  objc_destroyWeak(&a21);
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_2299309CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
-{
-  objc_destroyWeak((v15 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229930E4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id location)
-{
-  objc_destroyWeak((v22 + 48));
-  objc_destroyWeak(&a21);
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_2299329FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__10242(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_229932EEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_229933528(_Unwind_Exception *a1)
-{
-  _Block_object_dispose((v1 - 208), 8);
-  _Block_object_dispose((v1 - 160), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2299343EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
-{
-  va_start(va, a17);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 144), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_229934A4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
-{
-  objc_destroyWeak((v17 + 48));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229934DD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
-{
-  objc_destroyWeak((v17 + 56));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-__CFString *HMDRemoteLoginAccountTypeAsString(uint64_t a1)
-{
-  if (a1)
-  {
-    v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unknown HMDRemoteLoginAccountType %tu", a1];
-  }
-
-  else
-  {
-    v2 = @"HMDRemoteLoginAccountTypeITunes";
-  }
-
-  return v2;
-}
-
-void sub_229943D80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__13008(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_22994A804(_Unwind_Exception *a1)
-{
-  v3 = v2;
-  os_unfair_lock_unlock((v1 + v3));
-  _Unwind_Resume(a1);
-}
-
-void addLogEventsToResponse(void *a1, void *a2, void *a3)
-{
-  v8 = a1;
-  v5 = a2;
-  v6 = a3;
-  v7 = [v6 objectForKeyedSubscript:v8];
-  if (!v7)
-  {
-    v7 = [MEMORY[0x277CBEB18] array];
-    [v6 setObject:v7 forKeyedSubscript:v8];
-  }
-
-  [v7 addObjectsFromArray:v5];
-}
-
-uint64_t HMDRemoteEventRouterProtoConnectResponseReadFrom(void *a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
-    do
-    {
-      if ([a2 hasError])
-      {
-        break;
-      }
-
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        LOBYTE(v16[0]) = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:v16 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v16[0] & 0x7F) << v5;
-        if ((v16[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        break;
-      }
-
-      if ((v12 >> 3) == 2)
-      {
-        v13 = objc_alloc_init(MEMORY[0x277D174E0]);
-        [a1 addCachedEvents:v13];
-        v16[0] = 0;
-        v16[1] = 0;
-        if (!PBReaderPlaceMark() || !HMEProtoEventInfoReadFrom())
-        {
-
-          return 0;
-        }
-
-        PBReaderRecallMark();
-      }
-
-      else if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-      v14 = [a2 position];
-    }
-
-    while (v14 < [a2 length]);
-  }
-
-  return [a2 hasError] ^ 1;
-}
-
-void sub_22994E848(_Unwind_Exception *a1)
-{
-  v3 = v2;
-  os_unfair_lock_unlock((v1 + v3));
-  _Unwind_Resume(a1);
-}
-
-void sub_22994E948(_Unwind_Exception *a1)
-{
-  v3 = v2;
-  os_unfair_lock_unlock((v1 + v3));
-  _Unwind_Resume(a1);
-}
-
-void sub_2299565F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_229958250(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
-{
-  _Block_object_dispose(&a41, 8);
-  _Block_object_dispose((v41 - 176), 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__14759(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-id reportContextFromMessage(void *a1)
-{
-  v1 = a1;
-  v2 = [v1 messagePayload];
-  v3 = [v2 hmf_stringForKey:*MEMORY[0x277CD0500]];
-
-  v4 = [v1 messagePayload];
-  v5 = [v4 hmf_dataForKey:*MEMORY[0x277CD0510]];
-
-  if (v3)
-  {
-    v6 = v5 == 0;
-  }
-
-  else
-  {
-    v6 = 1;
-  }
-
-  if (v6)
-  {
-    v11 = 0;
-  }
-
-  else
-  {
-    v7 = [MEMORY[0x277CD1C88] reportContextWithDomain:v3 requestInfo:v5];
-    v8 = [v1 messagePayload];
-    v9 = [v8 hmf_numberForKey:*MEMORY[0x277CD0508]];
-    [v9 floatValue];
-    [v7 setReportTimeout:v10];
-
-    v11 = [v7 copy];
-  }
-
-  return v11;
-}
-
-void sub_229962080(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
-{
-  objc_destroyWeak((v16 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229962C20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location)
-{
-  objc_destroyWeak((v18 + 48));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229962F5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
-{
-  objc_destroyWeak((v15 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229964260(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location)
-{
-  objc_destroyWeak((v18 + 48));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void __transactionHomeSettingsUpdated(void *a1, void *a2, void *a3)
-{
-  v18 = a1;
-  v5 = a2;
-  v6 = a3;
-  v7 = [v6 transactionResult];
-  v8 = [v5 setProperties];
-  if ([v8 containsObject:@"automaticSoftwareUpdateEnabled"])
-  {
-    v9 = [v18 isAutomaticSoftwareUpdateEnabled];
-    v10 = [v5 automaticSoftwareUpdateEnabled];
-    v11 = [v10 BOOLValue];
-
-    if (v9 != v11)
-    {
-      v12 = [v5 automaticSoftwareUpdateEnabled];
-      [v18 setAutomaticSoftwareUpdateEnabled:{objc_msgSend(v12, "BOOLValue")}];
-
-      [v7 markChanged];
-    }
-  }
-
-  else
-  {
-  }
-
-  v13 = [v5 setProperties];
-  if ([v13 containsObject:@"automaticThirdPartyAccessorySoftwareUpdateEnabled"])
-  {
-    v14 = [v18 isAutomaticThirdPartyAccessorySoftwareUpdateEnabled];
-    v15 = [v5 automaticThirdPartyAccessorySoftwareUpdateEnabled];
-    v16 = [v15 BOOLValue];
-
-    if (v14 != v16)
-    {
-      v17 = [v5 automaticThirdPartyAccessorySoftwareUpdateEnabled];
-      [v18 setAutomaticThirdPartyAccessorySoftwareUpdateEnabled:{objc_msgSend(v17, "BOOLValue")}];
-
-      [v7 markChanged];
-    }
-  }
-
-  else
-  {
-  }
-
-  [v6 respondWithPayload:0];
-}
-
-void __transactionHomeMediaSettingsUpdated(void *a1, void *a2, void *a3)
-{
-  v23 = a1;
-  v5 = a2;
-  v6 = a3;
-  v7 = [v6 transactionResult];
-  v8 = [v5 setProperties];
-  if ([v8 containsObject:@"minimumMediaUserPrivilege"])
-  {
-    v9 = [v23 minimumMediaUserPrivilege];
-    v10 = [v5 minimumMediaUserPrivilege];
-    v11 = [v10 unsignedIntegerValue];
-
-    if (v9 != v11)
-    {
-      v12 = [v5 minimumMediaUserPrivilege];
-      [v23 setMinimumMediaUserPrivilege:{objc_msgSend(v12, "unsignedIntegerValue")}];
-
-      [v7 markChanged];
-    }
-  }
-
-  else
-  {
-  }
-
-  v13 = [v5 setProperties];
-  if ([v13 containsObject:@"mediaPeerToPeerEnabled"])
-  {
-    v14 = [v23 isMediaPeerToPeerEnabled];
-    v15 = [v5 mediaPeerToPeerEnabled];
-    v16 = [v15 BOOLValue];
-
-    if (v14 != v16)
-    {
-      v17 = [v5 mediaPeerToPeerEnabled];
-      [v23 setMediaPeerToPeerEnabled:{objc_msgSend(v17, "BOOLValue")}];
-
-      [v7 markChanged];
-    }
-  }
-
-  else
-  {
-  }
-
-  v18 = [v5 setProperties];
-  if ([v18 containsObject:@"mediaPassword"])
-  {
-    v19 = [v23 mediaPassword];
-    v20 = [v5 mediaPassword];
-    v21 = HMFEqualObjects();
-
-    if ((v21 & 1) == 0)
-    {
-      v22 = [v5 mediaPassword];
-      [v23 setMediaPassword:v22];
-
-      [v7 markChanged];
-    }
-  }
-
-  else
-  {
-  }
-
-  [v6 respondWithPayload:0];
-}
-
-void __updateAccountHandleForCurrentUser(void *a1, void *a2)
-{
-  v33 = *MEMORY[0x277D85DE8];
-  v3 = a1;
-  v4 = a2;
-  v5 = [v3 workQueue];
-  dispatch_assert_queue_V2(v5);
-
-  v6 = [v4 primaryHandle];
-  if (v6)
-  {
-    v7 = [v3 currentUser];
-    v8 = v7;
-    if (v7)
-    {
-      v9 = [v7 accountHandle];
-      v10 = HMFEqualObjects();
-
-      if (!v10)
-      {
-        v22 = [v8 newModelWithChangeType:2];
-        [v22 setAccountHandle:v6];
-        v23 = +[HMDAccountHandleFormatter defaultFormatter];
-        v24 = [v23 stringForObjectValue:v6];
-
-        [v22 setUserID:v24];
-        v25 = [v3 backingStore];
-        v26 = +[HMDBackingStoreTransactionOptions defaultXPCOptions];
-        v27 = [v25 transaction:@"HMDAppleAccountManagerAccountUpdatedNotification" options:v26];
-
-        [v27 add:v22 withMessage:0];
-        v29[0] = MEMORY[0x277D85DD0];
-        v29[1] = 3221225472;
-        v29[2] = ____updateAccountHandleForCurrentUser_block_invoke;
-        v29[3] = &unk_27868A250;
-        v30 = v3;
-        [v27 run:v29];
-
-        goto LABEL_14;
-      }
-
-      v11 = objc_autoreleasePoolPush();
-      v12 = v3;
-      v13 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
-      {
-        v14 = HMFGetLogIdentifier();
-        *buf = 138543362;
-        v32 = v14;
-        v15 = "%{public}@Home's current user has an unchanged account handle";
-        v16 = v13;
-        v17 = OS_LOG_TYPE_DEBUG;
-LABEL_11:
-        _os_log_impl(&dword_229538000, v16, v17, v15, buf, 0xCu);
-      }
-    }
-
-    else
-    {
-      v11 = objc_autoreleasePoolPush();
-      v12 = v3;
-      v13 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
-      {
-        v14 = HMFGetLogIdentifier();
-        *buf = 138543362;
-        v32 = v14;
-        v15 = "%{public}@Home does not yet have a current user, cannot update account handle";
-        v16 = v13;
-        v17 = OS_LOG_TYPE_INFO;
-        goto LABEL_11;
-      }
-    }
-
-    objc_autoreleasePoolPop(v11);
-LABEL_14:
-
-    goto LABEL_15;
-  }
-
-  v18 = objc_autoreleasePoolPush();
-  v19 = v3;
-  v20 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
-  {
-    v21 = HMFGetLogIdentifier();
-    *buf = 138543362;
-    v32 = v21;
-    _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Cannot update home current user account handle because primary handle cannot be determined", buf, 0xCu);
-  }
-
-  objc_autoreleasePoolPop(v18);
-LABEL_15:
-
-  v28 = *MEMORY[0x277D85DE8];
-}
-
-void ____updateAccountHandleForCurrentUser_block_invoke(uint64_t a1, void *a2)
-{
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  if (v3)
-  {
-    v4 = objc_autoreleasePoolPush();
-    v5 = *(a1 + 32);
-    v6 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      v7 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to change account handle for current user: %@", &v11, 0x16u);
-    }
-
-    objc_autoreleasePoolPop(v4);
-  }
-
-  else
-  {
-    v8 = [*(a1 + 32) homeManager];
-    if ([*(a1 + 32) isOwnerUser] && objc_msgSend(*(a1 + 32), "isCurrentDevicePrimaryResident"))
-    {
-      v9 = [v8 homeOwnerCloudShareManager];
-      [v9 updateSharedOwnerAccountHandleForHome:*(a1 + 32)];
-    }
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-void sub_22996FF9C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location)
-{
-  objc_destroyWeak(&a19);
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_2299705BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
-{
-  objc_destroyWeak((v15 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_2299735A4(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 56));
-  objc_destroyWeak((v2 - 240));
-  _Unwind_Resume(a1);
-}
-
-void sub_229976860(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id location)
-{
-  objc_destroyWeak(&a21);
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229989618(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
-{
-  objc_destroyWeak((v15 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-id __decodeAndVerifyCurrentUser(void *a1, void *a2)
-{
-  v22 = *MEMORY[0x277D85DE8];
-  v3 = a1;
-  v4 = a2;
-  v5 = [v4 uuidForKey:@"kUserUUIDKey"];
-  if (v5)
-  {
-    v6 = [v3 currentUser];
-    v7 = [v6 uuid];
-    v8 = [v7 hmf_isEqualToUUID:v5];
-
-    if (v8)
-    {
-      v9 = v6;
-    }
-
-    else
-    {
-      v11 = objc_autoreleasePoolPush();
-      v12 = v3;
-      v13 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-      {
-        v14 = HMFGetLogIdentifier();
-        v18 = 138543618;
-        v19 = v14;
-        v20 = 2112;
-        v21 = v5;
-        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Specified user identifier does not match current user: %@", &v18, 0x16u);
-      }
-
-      objc_autoreleasePoolPop(v11);
-      v15 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
-      [v4 respondWithError:v15];
-
-      v9 = 0;
-    }
-  }
-
-  else
-  {
-    v10 = [MEMORY[0x277CCA9B8] hmErrorWithCode:27];
-    [v4 respondWithError:v10];
-
-    v9 = 0;
-  }
-
   v16 = *MEMORY[0x277D85DE8];
-
-  return v9;
-}
-
-void sub_22998CF60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
-{
-  objc_destroyWeak((v16 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_22998DBC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location)
-{
-  objc_destroyWeak((v19 + 48));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_22998E25C(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 40));
-  objc_destroyWeak((v2 - 144));
-  _Unwind_Resume(a1);
-}
-
-void sub_22998ECA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, id location)
-{
-  objc_destroyWeak((v31 + 48));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229991E0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, id location)
-{
-  objc_destroyWeak((v23 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229992144(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
-{
-  objc_destroyWeak((v15 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-id HMDSecureAccessErrorCodeForMessage(void *a1, uint64_t a2)
-{
-  v3 = a1;
-  if ([v3 isEntitledForSPIAccess])
-  {
-    v4 = 2003;
-  }
-
-  else
-  {
-    v5 = [v3 isInternal];
-    if (a2 == 1)
-    {
-      v6 = 1;
-    }
-
-    else
-    {
-      v6 = v5;
-    }
-
-    if (v6)
-    {
-      v4 = 2003;
-    }
-
-    else
-    {
-      v4 = 10;
-    }
-  }
-
-  v7 = MEMORY[0x277CCA9B8];
-  if (+[HMDDeviceCapabilities supportsDeviceLock])
-  {
-    v8 = 82;
-  }
-
-  else
-  {
-    v8 = v4;
-  }
-
-  v9 = [v7 hmErrorWithCode:v8];
-
-  return v9;
-}
-
-void sub_229996EBC(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 64));
-  objc_destroyWeak((v2 - 80));
-  _Unwind_Resume(a1);
-}
-
-void sub_229997344(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 48));
-  objc_destroyWeak((v1 + 40));
-  objc_destroyWeak((v2 - 48));
-  objc_destroyWeak((v2 - 40));
-  _Unwind_Resume(a1);
-}
-
-void sub_22999864C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, id location)
-{
-  objc_destroyWeak((v35 + 56));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229998AEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location)
-{
-  objc_destroyWeak((v19 + 56));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229999140(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 80));
-  objc_destroyWeak((v2 - 104));
-  _Unwind_Resume(a1);
-}
-
-void sub_22999A344(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location)
-{
-  objc_destroyWeak((v18 + 56));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_22999AB20(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 72));
-  objc_destroyWeak((v2 - 72));
-  _Unwind_Resume(a1);
-}
-
-void sub_22999B100(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 64));
-  objc_destroyWeak((v2 - 240));
-  _Unwind_Resume(a1);
-}
-
-void sub_22999F68C(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 40));
-  objc_destroyWeak(&STACK[0x320]);
-  _Unwind_Resume(a1);
-}
-
-void sub_2299A4184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void __authenticateAcceptedOutgoingInvitation(void *a1, void *a2, void *a3, void *a4, void *a5)
-{
-  v65 = *MEMORY[0x277D85DE8];
-  val = a1;
-  v9 = a2;
-  v38 = a3;
-  v37 = a4;
-  v40 = a5;
-  v10 = [v9 user];
-  v39 = [v10 accountHandle];
-
-  if (v39)
-  {
-    v11 = +[HMDAccountRegistry sharedRegistry];
-    v42 = [v11 accountForHandle:v38];
-
-    v36 = [MEMORY[0x277CBEB58] setWithCapacity:2];
-    if (!v37 || ([v38 isEqual:v37] & 1) != 0 || (objc_msgSend(v39, "isEqual:", v37) & 1) != 0)
-    {
-      v12 = objc_autoreleasePoolPush();
-      v13 = val;
-      v14 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
-      {
-        v15 = HMFGetLogIdentifier();
-        *buf = 138543362;
-        *&buf[4] = v15;
-        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Preferred handle by the shared user is the same as the handle the invitation was sent to or the response was received from", buf, 0xCu);
-      }
-
-      objc_autoreleasePoolPop(v12);
-    }
-
-    else
-    {
-      v32 = objc_autoreleasePoolPush();
-      v33 = val;
-      v34 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
-      {
-        v35 = HMFGetLogIdentifier();
-        *buf = 138543618;
-        *&buf[4] = v35;
-        *&buf[12] = 2112;
-        *&buf[14] = v37;
-        _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_INFO, "%{public}@Authenticating the preferred handle: %@", buf, 0x16u);
-      }
-
-      objc_autoreleasePoolPop(v32);
-      [v36 addObject:v37];
-    }
-
-    if ([v36 hmf_isEmpty])
-    {
-      v16 = objc_autoreleasePoolPush();
-      v17 = val;
-      v18 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
-      {
-        v19 = HMFGetLogIdentifier();
-        *buf = 138543362;
-        *&buf[4] = v19;
-        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@Authenticated invitation without resolving", buf, 0xCu);
-      }
-
-      objc_autoreleasePoolPop(v16);
-      if (v40)
-      {
-        v40[2](v40, 0);
-      }
-    }
-
-    else
-    {
-      *buf = 0;
-      *&buf[8] = buf;
-      *&buf[16] = 0x3032000000;
-      v62 = __Block_byref_object_copy__14759;
-      v63 = __Block_byref_object_dispose__14760;
-      v64 = 0;
-      v24 = dispatch_group_create();
-      v56 = 0u;
-      v57 = 0u;
-      v58 = 0u;
-      v59 = 0u;
-      obj = v36;
-      v25 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
-      if (v25)
-      {
-        v26 = *v57;
-        do
-        {
-          for (i = 0; i != v25; ++i)
-          {
-            if (*v57 != v26)
-            {
-              objc_enumerationMutation(obj);
-            }
-
-            v28 = *(*(&v56 + 1) + 8 * i);
-            dispatch_group_enter(v24);
-            objc_initWeak(&location, val);
-            v29 = +[HMDAccountRegistry sharedRegistry];
-            v49[0] = MEMORY[0x277D85DD0];
-            v49[1] = 3221225472;
-            v49[2] = ____authenticateAcceptedOutgoingInvitation_block_invoke;
-            v49[3] = &unk_278670AD0;
-            objc_copyWeak(&v54, &location);
-            v50 = v24;
-            v51 = v28;
-            v53 = buf;
-            v52 = v42;
-            [v29 _resolveAccountForHandle:v28 completionHandler:v49];
-
-            objc_destroyWeak(&v54);
-            objc_destroyWeak(&location);
-          }
-
-          v25 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
-        }
-
-        while (v25);
-      }
-
-      v30 = [val workQueue];
-      block[0] = MEMORY[0x277D85DD0];
-      block[1] = 3221225472;
-      block[2] = ____authenticateAcceptedOutgoingInvitation_block_invoke_5173;
-      block[3] = &unk_278682E60;
-      v48 = buf;
-      v46 = val;
-      v47 = v40;
-      dispatch_group_notify(v24, v30, block);
-
-      _Block_object_dispose(buf, 8);
-    }
-  }
-
-  else
-  {
-    v20 = objc_autoreleasePoolPush();
-    v21 = val;
-    v22 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
-    {
-      v23 = HMFGetLogIdentifier();
-      *buf = 138543362;
-      *&buf[4] = v23;
-      _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Invalid invitee destination", buf, 0xCu);
-    }
-
-    objc_autoreleasePoolPop(v20);
-    if (v40)
-    {
-      v43 = [MEMORY[0x277CCA9B8] hmErrorWithCode:3];
-      (v40)[2](v40, v43);
-    }
-  }
-
-  v31 = *MEMORY[0x277D85DE8];
-}
-
-void ____authenticateAcceptedOutgoingInvitation_block_invoke(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a2;
-  v6 = a3;
-  WeakRetained = objc_loadWeakRetained((a1 + 64));
-  v8 = WeakRetained;
-  if (WeakRetained)
-  {
-    v9 = [WeakRetained workQueue];
-    block[0] = MEMORY[0x277D85DD0];
-    block[1] = 3221225472;
-    block[2] = ____authenticateAcceptedOutgoingInvitation_block_invoke_2;
-    block[3] = &unk_278684B90;
-    v13 = v6;
-    v10 = v8;
-    v11 = *(a1 + 40);
-    v14 = v10;
-    v15 = v11;
-    v19 = *(a1 + 56);
-    v16 = v5;
-    v17 = *(a1 + 48);
-    v18 = *(a1 + 32);
-    dispatch_async(v9, block);
-  }
-
-  else
-  {
-    dispatch_group_leave(*(a1 + 32));
-  }
-}
-
-uint64_t ____authenticateAcceptedOutgoingInvitation_block_invoke_5173(uint64_t a1)
-{
-  v15 = *MEMORY[0x277D85DE8];
-  v2 = *(*(*(a1 + 48) + 8) + 40);
-  v3 = objc_autoreleasePoolPush();
-  v4 = *(a1 + 32);
-  v5 = HMFGetOSLogHandle();
-  v6 = v5;
-  if (v2)
-  {
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_7;
-    }
-
-    v7 = HMFGetLogIdentifier();
-    v13 = 138543362;
-    v14 = v7;
-    v8 = "%{public}@Failed to authenticate invitation";
-    v9 = v6;
-    v10 = OS_LOG_TYPE_ERROR;
-  }
-
-  else
-  {
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_7;
-    }
-
-    v7 = HMFGetLogIdentifier();
-    v13 = 138543362;
-    v14 = v7;
-    v8 = "%{public}@Authenticated invitation after resolving";
-    v9 = v6;
-    v10 = OS_LOG_TYPE_DEFAULT;
-  }
-
-  _os_log_impl(&dword_229538000, v9, v10, v8, &v13, 0xCu);
-
-LABEL_7:
-  objc_autoreleasePoolPop(v3);
-  result = *(a1 + 40);
-  if (result)
-  {
-    result = (*(result + 16))(result, *(*(*(a1 + 48) + 8) + 40));
-  }
-
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void ____authenticateAcceptedOutgoingInvitation_block_invoke_2(uint64_t a1)
-{
-  v31 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 32))
-  {
-    v2 = objc_autoreleasePoolPush();
-    v3 = *(a1 + 40);
-    v4 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      v5 = HMFGetLogIdentifier();
-      v6 = [*(a1 + 48) shortDescription];
-      v7 = *(*(*(a1 + 80) + 8) + 40);
-      v25 = 138543874;
-      v26 = v5;
-      v27 = 2112;
-      v28 = v6;
-      v29 = 2112;
-      v30 = v7;
-      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_ERROR, "%{public}@Failed to resolve handle, %@, with error: %@", &v25, 0x20u);
-    }
-
-    objc_autoreleasePoolPop(v2);
-    v8 = *(*(a1 + 80) + 8);
-    v10 = *(v8 + 40);
-    v9 = (v8 + 40);
-    if (!v10)
-    {
-      objc_storeStrong(v9, *(a1 + 32));
-    }
-  }
-
-  else
-  {
-    v11 = [*(a1 + 56) isEqual:*(a1 + 64)];
-    v12 = objc_autoreleasePoolPush();
-    v13 = *(a1 + 40);
-    v14 = HMFGetOSLogHandle();
-    v15 = v14;
-    if (v11)
-    {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
-      {
-        v16 = HMFGetLogIdentifier();
-        v17 = [*(a1 + 48) shortDescription];
-        v25 = 138543618;
-        v26 = v16;
-        v27 = 2112;
-        v28 = v17;
-        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Authenticated handle: %@", &v25, 0x16u);
-      }
-
-      objc_autoreleasePoolPop(v12);
-    }
-
-    else
-    {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-      {
-        v18 = HMFGetLogIdentifier();
-        v19 = [*(a1 + 64) shortDescription];
-        v20 = [*(a1 + 56) shortDescription];
-        v25 = 138543874;
-        v26 = v18;
-        v27 = 2112;
-        v28 = v19;
-        v29 = 2112;
-        v30 = v20;
-        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Invitation response received from account, %@, expected: %@", &v25, 0x20u);
-      }
-
-      objc_autoreleasePoolPop(v12);
-      if (!*(*(*(a1 + 80) + 8) + 40))
-      {
-        v21 = [MEMORY[0x277CCA9B8] hmErrorWithCode:55];
-        v22 = *(*(a1 + 80) + 8);
-        v23 = *(v22 + 40);
-        *(v22 + 40) = v21;
-      }
-    }
-  }
-
-  dispatch_group_leave(*(a1 + 72));
-  v24 = *MEMORY[0x277D85DE8];
-}
-
-void sub_2299A8E28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, id location, char a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, char a59)
-{
-  objc_destroyWeak((v59 + 40));
-  _HMFThreadLocalAsyncContextPop();
-  objc_destroyWeak(&location);
-  _Block_object_dispose(&a51, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2299A9274(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v2 + 48));
-  objc_destroyWeak((v1 + 48));
-  _Unwind_Resume(a1);
-}
-
-void sub_2299ABB7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, id a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, id location)
-{
-  objc_destroyWeak((v62 + 56));
-  objc_destroyWeak(&a61);
-  objc_destroyWeak(&location);
-  objc_destroyWeak(&a38);
-  objc_destroyWeak(&a46);
-  _Unwind_Resume(a1);
-}
-
-void sub_2299AD02C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
-{
-  objc_destroyWeak((v16 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_2299AE678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2299AEDC4(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 48));
-  objc_destroyWeak((v2 - 40));
-  _Unwind_Resume(a1);
-}
-
-void sub_2299B4A38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, id location)
-{
-  objc_destroyWeak(&a29);
-  objc_destroyWeak(&a35);
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_2299B65C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61, uint64_t a62, uint64_t a63)
-{
-  _Block_object_dispose(&a61, 8);
-  _Block_object_dispose(&a65, 8);
-  _HMFThreadLocalAsyncContextPop();
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_2299B811C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, id a17)
-{
-  objc_destroyWeak((v17 + 48));
-  objc_destroyWeak((v17 + 40));
-  objc_destroyWeak(&location);
-  objc_destroyWeak(&a17);
-  _Unwind_Resume(a1);
-}
-
-void sub_2299BDE20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
-{
-  objc_destroyWeak((v16 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_2299BFAD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36)
-{
-  objc_destroyWeak(&a36);
-  objc_destroyWeak((v36 - 152));
-  _Unwind_Resume(a1);
-}
-
-void sub_2299C06F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
-{
-  objc_destroyWeak((v16 + 48));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_2299C4184(_Unwind_Exception *a1)
-{
-  __HMFActivityScopeLeave();
-  __HMFActivityScopeLeave();
-  _Unwind_Resume(a1);
-}
-
-void sub_2299CA5DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42)
-{
-  _Block_object_dispose(&a42, 8);
-  __HMFActivityScopeLeave();
-  _Unwind_Resume(a1);
-}
-
-void sub_2299CD314(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 40));
-  objc_destroyWeak((v2 - 40));
-  _Unwind_Resume(a1);
-}
-
-void __handleAccessoryReachabilityRegistration(void *a1, void *a2, int a3)
-{
-  v137 = *MEMORY[0x277D85DE8];
-  v5 = a1;
-  v6 = a2;
-  v7 = [v5 workQueue];
-  dispatch_assert_queue_V2(v7);
-
-  v104 = v6;
-  if (![v6 isRemote] || (objc_msgSend(v6, "isSecureRemote") & 1) != 0)
-  {
-    v100 = *MEMORY[0x277CD0640];
-    v8 = [v6 stringForKey:?];
-    v9 = [v5 uuid];
-    v10 = [v9 UUIDString];
-    v102 = v8;
-    LOBYTE(v8) = [v8 isEqualToString:v10];
-
-    if (v8)
-    {
-      v103 = 0;
-    }
-
-    else
-    {
-      v11 = objc_autoreleasePoolPush();
-      v12 = v5;
-      v13 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
-      {
-        v14 = HMFGetLogIdentifier();
-        v15 = [v12 uuid];
-        [v15 UUIDString];
-        v17 = v16 = v5;
-        *buf = 138543874;
-        v132 = v14;
-        v133 = 2112;
-        v134 = v102;
-        v135 = 2112;
-        v136 = v17;
-        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Home does not match, received: %@, current: %@", buf, 0x20u);
-
-        v5 = v16;
-      }
-
-      objc_autoreleasePoolPop(v11);
-      v103 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCFD28] code:2 userInfo:0];
-    }
-
-    v18 = [v104 responseHandler];
-
-    if (v18)
-    {
-      v19 = [v104 responseHandler];
-      (v19)[2](v19, v103, 0);
-    }
-
-    v20 = objc_autoreleasePoolPush();
-    v21 = v5;
-    v22 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
-    {
-      v23 = HMFGetLogIdentifier();
-      *buf = 138543618;
-      v132 = v23;
-      v133 = 2112;
-      v134 = v21;
-      _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Registering for remote reachability for home: %@", buf, 0x16u);
-    }
-
-    objc_autoreleasePoolPop(v20);
-    v101 = [v104 remoteSourceID];
-    v24 = [HMDDevice deviceWithDestination:?];
-    v25 = v24;
-    if (a3)
-    {
-      v99 = v24;
-      v97 = v5;
-      v26 = [v104 messagePayload];
-      v96 = *MEMORY[0x277CCE7A8];
-      v27 = [v26 hmf_arrayForKey:?];
-
-      v105 = v21;
-      if (!v27)
-      {
-        v28 = [MEMORY[0x277CBEB18] array];
-        v120 = 0u;
-        v121 = 0u;
-        v122 = 0u;
-        v123 = 0u;
-        v29 = [v21 accessories];
-        v30 = [v29 copy];
-
-        v31 = [v30 countByEnumeratingWithState:&v120 objects:v130 count:16];
-        if (v31)
-        {
-          v32 = v31;
-          v33 = *v121;
-          p_vtable = HMDModernTransportDeviceReachabilityObserver.vtable;
-          do
-          {
-            v35 = 0;
-            v110 = v32;
-            do
-            {
-              if (*v121 != v33)
-              {
-                objc_enumerationMutation(v30);
-              }
-
-              v36 = *(*(&v120 + 1) + 8 * v35);
-              objc_opt_class();
-              isKindOfClass = objc_opt_isKindOfClass();
-
-              if ((isKindOfClass & 1) != 0 && v36)
-              {
-                v38 = objc_autoreleasePoolPush();
-                v39 = v21;
-                v40 = HMFGetOSLogHandle();
-                if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
-                {
-                  HMFGetLogIdentifier();
-                  v41 = v33;
-                  v42 = p_vtable;
-                  v43 = v30;
-                  v45 = v44 = v28;
-                  *buf = 138543618;
-                  v132 = v45;
-                  v133 = 2112;
-                  v134 = v36;
-                  _os_log_impl(&dword_229538000, v40, OS_LOG_TYPE_INFO, "%{public}@Not including native matter accessory in reachability registration as this is controlled by MTRDevice. accessory=%@", buf, 0x16u);
-
-                  v28 = v44;
-                  v30 = v43;
-                  p_vtable = v42;
-                  v33 = v41;
-                  v32 = v110;
-                }
-
-                objc_autoreleasePoolPop(v38);
-                v21 = v105;
-              }
-
-              else
-              {
-                v46 = [v36 uuid];
-                v47 = [v46 UUIDString];
-                [v28 addObject:v47];
-              }
-
-              ++v35;
-            }
-
-            while (v32 != v35);
-            v32 = [v30 countByEnumeratingWithState:&v120 objects:v130 count:16];
-          }
-
-          while (v32);
-        }
-
-        v27 = v28;
-        v48 = objc_autoreleasePoolPush();
-        v49 = v21;
-        v50 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
-        {
-          v51 = HMFGetLogIdentifier();
-          *buf = 138543618;
-          v132 = v51;
-          v133 = 2112;
-          v134 = v27;
-          _os_log_impl(&dword_229538000, v50, OS_LOG_TYPE_INFO, "%{public}@Registering for reachability notification for all accessories: %@", buf, 0x16u);
-        }
-
-        objc_autoreleasePoolPop(v48);
-      }
-
-      v98 = [v21 homeManager];
-      v107 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v27, "count")}];
-      v116 = 0u;
-      v117 = 0u;
-      v118 = 0u;
-      v119 = 0u;
-      obj = v27;
-      v111 = [obj countByEnumeratingWithState:&v116 objects:v129 count:16];
-      if (v111)
-      {
-        v109 = *v117;
-        do
-        {
-          for (i = 0; i != v111; ++i)
-          {
-            if (*v117 != v109)
-            {
-              objc_enumerationMutation(obj);
-            }
-
-            v53 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:*(*(&v116 + 1) + 8 * i)];
-            if (v53)
-            {
-              v114 = 0u;
-              v115 = 0u;
-              v112 = 0u;
-              v113 = 0u;
-              v54 = [v21 accessories];
-              v55 = [v54 copy];
-
-              v56 = [v55 countByEnumeratingWithState:&v112 objects:v128 count:16];
-              if (v56)
-              {
-                v57 = v56;
-                v58 = *v113;
-                while (2)
-                {
-                  for (j = 0; j != v57; ++j)
-                  {
-                    if (*v113 != v58)
-                    {
-                      objc_enumerationMutation(v55);
-                    }
-
-                    v60 = *(*(&v112 + 1) + 8 * j);
-                    v61 = [v60 uuid];
-                    v62 = [v61 isEqual:v53];
-
-                    if (v62)
-                    {
-                      v63 = [v60 isReachable];
-                      v64 = objc_autoreleasePoolPush();
-                      v65 = v21;
-                      v66 = HMFGetOSLogHandle();
-                      if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
-                      {
-                        HMFGetLogIdentifier();
-                        v67 = v106 = v64;
-                        v68 = [v60 uuid];
-                        v69 = [v68 UUIDString];
-                        *buf = 138543874;
-                        v132 = v67;
-                        v133 = 2112;
-                        v134 = v69;
-                        v135 = 1024;
-                        LODWORD(v136) = v63;
-                        _os_log_impl(&dword_229538000, v66, OS_LOG_TYPE_INFO, "%{public}@Updating reachability for accessory: %@ to: %d", buf, 0x1Cu);
-
-                        v21 = v105;
-                        v64 = v106;
-                      }
-
-                      objc_autoreleasePoolPop(v64);
-                      v70 = [v60 uuid];
-                      v71 = [v70 UUIDString];
-                      v126 = v71;
-                      v72 = [MEMORY[0x277CCABB0] numberWithBool:v63];
-                      v127 = v72;
-                      v73 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v127 forKeys:&v126 count:1];
-                      [v107 addObject:v73];
-
-                      goto LABEL_48;
-                    }
-                  }
-
-                  v57 = [v55 countByEnumeratingWithState:&v112 objects:v128 count:16];
-                  if (v57)
-                  {
-                    continue;
-                  }
-
-                  break;
-                }
-              }
-
-LABEL_48:
-            }
-          }
-
-          v111 = [obj countByEnumeratingWithState:&v116 objects:v129 count:16];
-        }
-
-        while (v111);
-      }
-
-      v5 = v97;
-      v74 = v101;
-      v25 = v99;
-      if (v101 && v99)
-      {
-        [v21 _registerDeviceForReachabilityNotification:v99 accessoryList:obj];
-        v75 = objc_autoreleasePoolPush();
-        v76 = v21;
-        v77 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
-        {
-          v78 = HMFGetLogIdentifier();
-          *buf = 138543618;
-          v132 = v78;
-          v133 = 2112;
-          v134 = v101;
-          _os_log_impl(&dword_229538000, v77, OS_LOG_TYPE_INFO, "%{public}@Sending current reachability to destination:%@", buf, 0x16u);
-        }
-
-        objc_autoreleasePoolPop(v75);
-        v124[0] = v96;
-        v79 = [v107 copy];
-        v124[1] = v100;
-        v125[0] = v79;
-        v80 = [v76 uuid];
-        v81 = [v80 UUIDString];
-        v125[1] = v81;
-        v82 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v125 forKeys:v124 count:2];
-
-        v83 = [HMDRemoteMessage messageWithName:@"kRemoteReachabilityChangedNotificationKey" identifier:0 messagePayload:v82];
-        v84 = [v98 messageDispatcher];
-        v85 = [v76 uuid];
-        v86 = [v99 remoteDestinationString];
-        v87 = [v76 workQueue];
-        [v84 sendSecureMessage:v83 target:v85 userID:0 destination:v86 responseQueue:v87 responseHandler:0];
-
-        v74 = v101;
-        v25 = v99;
-      }
-    }
-
-    else
-    {
-      [v21 _deregisterDeviceForReachabilityNotification:v24];
-      v74 = v101;
-    }
-
-    v88 = v102;
-    goto LABEL_59;
-  }
-
-  v90 = objc_autoreleasePoolPush();
-  v91 = v5;
-  v92 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
-  {
-    v93 = HMFGetLogIdentifier();
-    *buf = 138543618;
-    v132 = v93;
-    v133 = 2112;
-    v134 = v104;
-    _os_log_impl(&dword_229538000, v92, OS_LOG_TYPE_DEFAULT, "%{public}@Message not supported: %@", buf, 0x16u);
-  }
-
-  objc_autoreleasePoolPop(v90);
-  v94 = [v104 responseHandler];
-
-  if (v94)
-  {
-    v95 = [MEMORY[0x277CCA9B8] hmErrorWithCode:17];
-    v88 = [v104 responseHandler];
-    v103 = v95;
-    v88[2](v88, v95, 0);
-LABEL_59:
-  }
-
-  v89 = *MEMORY[0x277D85DE8];
-}
-
-void sub_2299D2004(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id location)
-{
-  objc_destroyWeak(&a23);
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_2299DCF90(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 40));
-  objc_destroyWeak((v2 - 160));
-  _Unwind_Resume(a1);
-}
-
-id __createAccessoryBrowserAddAccessoryCompletionHandler(id val, void *a2, void *a3, void *a4, void *a5)
-{
-  objc_initWeak(&location, val);
-  v9 = a2;
-  v10 = a3;
-  v11 = a4;
-  v12 = a5;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = ____createAccessoryBrowserAddAccessoryCompletionHandler_block_invoke;
-  v19[3] = &unk_278670AA8;
-  v20 = v9;
-  v21 = v11;
-  v22 = v12;
-  v13 = v12;
-  v14 = v11;
-  v15 = v9;
-  objc_copyWeak(&v24, &location);
-  v23 = v10;
-  v16 = v10;
-  v17 = _Block_copy(v19);
-
-  objc_destroyWeak(&v24);
-  objc_destroyWeak(&location);
-
-  return v17;
-}
-
-void ____createAccessoryBrowserAddAccessoryCompletionHandler_block_invoke(id *a1, void *a2, void *a3, uint64_t a4, unsigned int a5, unsigned int a6, void *a7, void *a8)
-{
-  v91 = *MEMORY[0x277D85DE8];
-  v12 = a2;
-  v70 = a3;
-  v13 = a7;
-  v68 = a8;
-  v14 = [a1[4] accessoryUUID];
-
-  if (v70 && !v14)
-  {
-    [a1[4] setAccessoryUUID:v70];
-  }
-
-  [a1[5] pairedToServer:v12 certificationStatus:a4 addedViaWAC:a5 legacyWAC:a6];
-  [a1[5] setAuthenticationMethod:{objc_msgSend(v12, "authMethod")}];
-  v15 = objc_alloc(MEMORY[0x277D0F770]);
-  v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s(), %s:%ld", "HMDAccessoryBrowserAddAccessoryCompletionHandler __createAccessoryBrowserAddAccessoryCompletionHandler(HMDHome *__weak, HMSetupAccessoryDescription *__strong, HMDUnpairedHAPAccessoryConfiguration *__strong, HMDAccessoryPairingEvent *__strong, HMFMessage *__strong)_block_invoke", "/Library/Caches/com.apple.xbs/Sources/HomeKit_executables/Sources/homed/Home/HMDHome.m", 11629];
-  v17 = [a1[6] activity];
-  v80 = [v15 initWithName:v16 parent:v17];
-
-  WeakRetained = objc_loadWeakRetained(a1 + 8);
-  [WeakRetained unsetFabricForPairing];
-  if (!v13 && WeakRetained)
-  {
-    v19 = [WeakRetained workQueue];
-    block[0] = MEMORY[0x277D85DD0];
-    block[1] = 3221225472;
-    block[2] = ____createAccessoryBrowserAddAccessoryCompletionHandler_block_invoke_5155;
-    block[3] = &unk_278670A80;
-    v72 = v80;
-    v73 = WeakRetained;
-    v74 = a1[4];
-    v75 = a1[7];
-    v76 = a1[5];
-    v77 = v12;
-    v79 = a4;
-    v78 = a1[6];
-    dispatch_async(v19, block);
-
-    v20 = 0;
-    v21 = v72;
-    goto LABEL_37;
-  }
-
-  if (!WeakRetained)
-  {
-    v22 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
-
-    v13 = v22;
-  }
-
-  v21 = [a1[5] vendorDetailsForReporting];
-  v23 = v13;
-  v20 = v23;
-  v24 = v23;
-  if (WeakRetained)
-  {
-    v24 = v23;
-    if ([v23 code] == 2010)
-    {
-      v25 = [WeakRetained threadNetworkID];
-
-      if (v25)
-      {
-        v26 = 2009;
-      }
-
-      else
-      {
-        v26 = 2010;
-      }
-
-      v24 = [MEMORY[0x277CCA9B8] hmPrivateErrorWithCode:v26];
-    }
-  }
-
-  v27 = objc_autoreleasePoolPush();
-  v28 = WeakRetained;
-  v29 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
-  {
-    v30 = HMFGetLogIdentifier();
-    *buf = 138544386;
-    v82 = v30;
-    v83 = 2112;
-    v84 = v70;
-    v85 = 2112;
-    v86 = v20;
-    v87 = 2112;
-    v88 = v24;
-    v89 = 2112;
-    v90 = v68;
-    _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_INFO, "%{public}@Add accessory completion handler for accessory uuid %@ error %@ mapped error %@ context %@", buf, 0x34u);
-  }
-
-  objc_autoreleasePoolPop(v27);
-  if ([a1[5] isMatterAccessory] && objc_msgSend(a1[5], "isAddOperation"))
-  {
-    if (!v68)
-    {
-      context = objc_autoreleasePoolPush();
-      v31 = v28;
-      v32 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
-      {
-        v33 = HMFGetLogIdentifier();
-        *buf = 138543362;
-        v82 = v33;
-        _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Matter pairing end context is nil", buf, 0xCu);
-      }
-
-      objc_autoreleasePoolPop(context);
-    }
-
-    if (![v68 isCancelled])
-    {
-      notifyMatterMetricPairingEnded(v28, v68);
-      goto LABEL_29;
-    }
-
-    v34 = v28;
-    v62 = v68;
-    contexta = objc_autoreleasePoolPush();
-    v35 = v34;
-    v36 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
-    {
-      v37 = HMFGetLogIdentifier();
-      *buf = 138543618;
-      v82 = v37;
-      v83 = 2112;
-      v84 = v62;
-      _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_INFO, "%{public}@Notifying matter metric pairing cancelled %@", buf, 0x16u);
-    }
-
-    objc_autoreleasePoolPop(contexta);
-    contextb = [MEMORY[0x277CBEB38] dictionary];
-    [contextb setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"HMDMatterAccessoryPairingSubmitKey"];
-    v38 = [v62 error];
-    [contextb setObject:v38 forKeyedSubscript:@"HMDMatterAccessoryPairingFailureErrorKey"];
-
-    v39 = [v62 sourceErrorDomain];
-    [contextb setObject:v39 forKeyedSubscript:@"HMDMatterAccessoryPairingSourceErrorDomain"];
-
-    v40 = [MEMORY[0x277CCAB98] defaultCenter];
-    v41 = [contextb copy];
-    [v40 postNotificationName:@"HMDMatterAccessoryUpdatePairingMetricNotification" object:0 userInfo:v41];
-  }
-
-  else
-  {
-    v35 = [v28 logEventSubmitter];
-    [v35 submitLogEvent:a1[5] error:v24];
-  }
-
-LABEL_29:
-  v42 = objc_autoreleasePoolPush();
-  v43 = v28;
-  v44 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
-  {
-    v45 = HMFGetLogIdentifier();
-    v46 = a1[4];
-    *buf = 138543874;
-    v82 = v45;
-    v83 = 2112;
-    v84 = v46;
-    v85 = 2112;
-    v86 = v24;
-    _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_DEBUG, "%{public}@Failed to add accessory %@ with error: %@", buf, 0x20u);
-  }
-
-  objc_autoreleasePoolPop(v42);
-  v47 = v80;
-  [v12 category];
-
-  [v21 model];
-  [v21 manufacturer];
-
-  [v21 firmwareVersion];
-  [a1[5] linkType];
-  v48 = HAPLinkTypeDescription();
-  v49 = HMFBooleanToString();
-  v50 = HMFBooleanToString();
-  v51 = [MEMORY[0x277CCABB0] numberWithInteger:a4];
-  [v24 domain];
-
-  [v24 code];
-  [a1[5] isThreadAccessory];
-  v52 = HMFBooleanToString();
-  [a1[5] accessorySupportsWoL];
-  v53 = HMFBooleanToString();
-
-  v54 = [a1[6] responseHandler];
-
-  if (v54)
-  {
-    v55 = [a1[6] responseHandler];
-    (v55)[2](v55, v24, 0);
-  }
-
-  if (WeakRetained)
-  {
-    [v43 _removePendingAccessoryAdd:a1[4]];
-    v56 = [v43 accessoryBrowser];
-    [v56 removePairingInformationForAccessoryServer:v12];
-
-    v57 = [a1[7] networkCredential];
-    v58 = [v57 clientIdentifier];
-
-    if (v58)
-    {
-      v59 = [a1[7] networkCredential];
-      v60 = [v59 clientIdentifier];
-      [v43 _removeClientConfigurationWithIdentifier:v60];
-    }
-  }
-
-LABEL_37:
-  __HMFActivityScopeLeave();
-
-  v61 = *MEMORY[0x277D85DE8];
-}
-
-void ____createAccessoryBrowserAddAccessoryCompletionHandler_block_invoke_5155(uint64_t a1)
-{
-  [*(a1 + 32) begin];
-  v2 = *(a1 + 32);
-  [*(a1 + 40) _accessoryPairingDidComplete:*(a1 + 48) configuration:*(a1 + 56) pairingEvent:*(a1 + 64) accessoryServer:*(a1 + 72) certificationStatus:*(a1 + 88) requestMessage:*(a1 + 80)];
-  __HMFActivityScopeLeave();
-}
-
-id HMDHomeCreateAddAccessoryProgressHandler(void *a1, void *a2, void *a3)
-{
-  v5 = a1;
-  v6 = a2;
-  v7 = a3;
-  objc_initWeak(&location, v5);
-  aBlock[0] = MEMORY[0x277D85DD0];
-  aBlock[1] = 3221225472;
-  aBlock[2] = __HMDHomeCreateAddAccessoryProgressHandler_block_invoke;
-  aBlock[3] = &unk_27866FC60;
-  v14 = v5;
-  v8 = v5;
-  objc_copyWeak(&v17, &location);
-  v15 = v6;
-  v16 = v7;
-  v9 = v7;
-  v10 = v6;
-  v11 = _Block_copy(aBlock);
-
-  objc_destroyWeak(&v17);
-  objc_destroyWeak(&location);
-
-  return v11;
-}
-
-void __HMDHomeCreateAddAccessoryProgressHandler_block_invoke(id *a1, uint64_t a2, void *a3)
-{
-  v86 = *MEMORY[0x277D85DE8];
-  v5 = a3;
-  v6 = objc_autoreleasePoolPush();
-  v7 = a1[4];
-  v8 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
-  {
-    v9 = HMFGetLogIdentifier();
-    v10 = HMSetupAccessoryProgressAsString();
-    *buf = 138543618;
-    v83 = v9;
-    v84 = 2112;
-    v85 = v10;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Progress Handler called with progress: %@", buf, 0x16u);
-  }
-
-  objc_autoreleasePoolPop(v6);
-  WeakRetained = objc_loadWeakRetained(a1 + 7);
-  if (WeakRetained)
-  {
-    v79 = [v5 accessoryUUID];
-    if (v79 || ([a1[5] addRequestIdentifier], v12 = objc_claimAutoreleasedReturnValue(), v12, v12))
-    {
-      v78 = a1;
-      v13 = objc_autoreleasePoolPush();
-      v76 = WeakRetained;
-      v14 = WeakRetained;
-      v15 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
-      {
-        v16 = HMFGetLogIdentifier();
-        v17 = HMSetupAccessoryProgressAsString();
-        *buf = 138543618;
-        v83 = v16;
-        v84 = 2112;
-        v85 = v17;
-        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Posting accessory pairing state progress notification to %@", buf, 0x16u);
-      }
-
-      objc_autoreleasePoolPop(v13);
-      v18 = [MEMORY[0x277CCAB98] defaultCenter];
-      v80[0] = @"HMDSetupAccessoryProgressStateKey";
-      v19 = [MEMORY[0x277CCABB0] numberWithInteger:a2];
-      v81[0] = v19;
-      v80[1] = @"HMDAccessoryProgressStateNotificationKey";
-      v20 = HMSetupAccessoryProgressAsString();
-      v81[1] = v20;
-      v80[2] = @"HMDAccessoryProgressStateTimeNotificationKey";
-      v21 = [MEMORY[0x277CBEAA8] date];
-      v81[2] = v21;
-      v80[3] = @"HMDAccessoryProgressStateforAccessoryKey";
-      if (v79)
-      {
-        [v79 UUIDString];
-      }
-
-      else
-      {
-        v75 = [v78[5] addRequestIdentifier];
-        [v75 UUIDString];
-      }
-      v22 = ;
-      v81[3] = v22;
-      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v81 forKeys:v80 count:4];
-      [v18 postNotificationName:@"HMDAccessoryProgressStateUpdateNotification" object:v14 userInfo:v23];
-
-      if (!v79)
-      {
-
-        v22 = v75;
-      }
-
-      WeakRetained = v76;
-      a1 = v78;
-    }
-
-    v24 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v25 = [MEMORY[0x277CCABB0] numberWithInteger:a2];
-    [v24 setObject:v25 forKeyedSubscript:*MEMORY[0x277CD2020]];
-
-    v26 = [v5 accessoryName];
-
-    if (v26)
-    {
-      v27 = [v5 accessoryName];
-      [v24 setObject:v27 forKeyedSubscript:*MEMORY[0x277CD1FC8]];
-    }
-
-    v28 = [v5 accessoryUUID];
-
-    if (v28)
-    {
-      v29 = [v5 accessoryUUID];
-      v30 = [v29 UUIDString];
-      [v24 setObject:v30 forKeyedSubscript:*MEMORY[0x277CCF0B0]];
-    }
-
-    v31 = [v5 manufacturerName];
-
-    if (v31)
-    {
-      v32 = [v5 manufacturerName];
-      [v24 setObject:v32 forKeyedSubscript:@"kAccessoryInfoManufacturerKey"];
-    }
-
-    v33 = [v5 category];
-
-    if (v33)
-    {
-      v34 = [v5 category];
-      v35 = encodeRootObjectForIncomingXPCMessage(v34, 0);
-      [v24 setObject:v35 forKeyedSubscript:@"kAccessoryCategory"];
-    }
-
-    if ([v5 certificationStatus])
-    {
-      v36 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v5, "certificationStatus")}];
-      [v24 setObject:v36 forKeyedSubscript:@"kAccessoryCertificationStatusKey"];
-    }
-
-    v37 = [v5 commissioneeInfo];
-
-    if (v37)
-    {
-      v38 = [v5 commissioneeInfo];
-      v39 = encodeRootObjectForIncomingXPCMessage(v38, 0);
-      [v24 setObject:v39 forKeyedSubscript:*MEMORY[0x277CCFDA0]];
-    }
-
-    v40 = [v5 systemCommissionerUUID];
-
-    if (v40)
-    {
-      v41 = [v5 systemCommissionerUUID];
-      v42 = [v41 UUIDString];
-      [v24 setObject:v42 forKeyedSubscript:*MEMORY[0x277CCFDC0]];
-    }
-
-    if (a2 == 9)
-    {
-      v48 = [WeakRetained wiFiRouterAccessories];
-      v44 = [v48 firstObject];
-
-      if (v44)
-      {
-        v49 = [v44 uuid];
-        v50 = [v49 UUIDString];
-        [v24 setObject:v50 forKeyedSubscript:*MEMORY[0x277CD04F8]];
-      }
-
-      else
-      {
-        v51 = objc_autoreleasePoolPush();
-        v52 = WeakRetained;
-        v53 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
-        {
-          v54 = HMFGetLogIdentifier();
-          v55 = HMSetupAccessoryProgressAsString();
-          *buf = 138543618;
-          v83 = v54;
-          v84 = 2112;
-          v85 = v55;
-          _os_log_impl(&dword_229538000, v53, OS_LOG_TYPE_INFO, "%{public}@Progress is %@ but no accessory being replaced", buf, 0x16u);
-        }
-
-        objc_autoreleasePoolPop(v51);
-        v44 = 0;
-      }
-    }
-
-    else
-    {
-      if (a2 != 8)
-      {
-        goto LABEL_47;
-      }
-
-      v43 = [v5 productData];
-
-      if (!v43)
-      {
-        goto LABEL_47;
-      }
-
-      v44 = +[HMDVendorDataManager sharedVendorDataManager];
-      v45 = [v5 productData];
-      v46 = [v44 vendorModelEntryForProductData:v45];
-
-      v47 = [a1[5] addRequestIdentifier];
-      if (v47)
-      {
-
-LABEL_48:
-        goto LABEL_49;
-      }
-
-      v56 = [a1[5] appIdentifier];
-      v57 = [v46 appBundleID];
-      v58 = [v56 isEqual:v57];
-
-      if (v58)
-      {
-        goto LABEL_48;
-      }
-
-      v59 = [v46 appStoreID];
-      if (v59 && (v60 = v59, [v46 appBundleID], v61 = objc_claimAutoreleasedReturnValue(), v61, v60, v61))
-      {
-        v62 = [v46 appStoreID];
-        [v24 setObject:v62 forKeyedSubscript:@"kAccessoryVendorInfoStoreIDKey"];
-
-        v63 = [v46 appBundleID];
-        [v24 setObject:v63 forKeyedSubscript:@"kAccessoryVendorInfoBundleIDKey"];
-      }
-
-      else
-      {
-        v64 = objc_autoreleasePoolPush();
-        v77 = WeakRetained;
-        v65 = WeakRetained;
-        v66 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
-        {
-          v67 = HMFGetLogIdentifier();
-          v68 = [v5 productData];
-          *buf = 138543618;
-          v83 = v67;
-          v84 = 2112;
-          v85 = v68;
-          _os_log_impl(&dword_229538000, v66, OS_LOG_TYPE_DEBUG, "%{public}@No appID/bundleID found for productData: %@", buf, 0x16u);
-        }
-
-        objc_autoreleasePoolPop(v64);
-        WeakRetained = v77;
-      }
-    }
-
-LABEL_47:
-    v69 = MEMORY[0x277D0F848];
-    v70 = *MEMORY[0x277CD2068];
-    v71 = [WeakRetained messageDestination];
-    v44 = [v69 messageWithName:v70 destination:v71 payload:v24];
-
-    v72 = [a1[6] identifier];
-    [v44 setIdentifier:v72];
-
-    [v44 setRequiresSPIEntitlement];
-    v73 = [a1[6] transport];
-    [v44 setTransport:v73];
-
-    v46 = [WeakRetained msgDispatcher];
-    [v46 sendMessage:v44 completionHandler:0];
-    goto LABEL_48;
-  }
-
-LABEL_49:
-
-  v74 = *MEMORY[0x277D85DE8];
-}
-
-void sub_2299E16B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
-{
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a23, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_2299E4128(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, id location)
-{
-  objc_destroyWeak((v23 + 64));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_2299E8280(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
-{
-  objc_destroyWeak((v15 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-uint64_t _mediaSystemsContainsAccessory(void *a1, void *a2)
-{
-  v3 = a2;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = ___mediaSystemsContainsAccessory_block_invoke;
-  v7[3] = &unk_278675410;
-  v8 = v3;
-  v4 = v3;
-  v5 = [a1 na_any:v7];
-
-  return v5;
-}
-
-uint64_t _mediaSystemContainsAccessory(void *a1, void *a2)
-{
-  v3 = a2;
-  v4 = [a1 components];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = ___mediaSystemContainsAccessory_block_invoke;
-  v8[3] = &unk_278670A58;
-  v9 = v3;
-  v5 = v3;
-  v6 = [v4 na_any:v8];
-
-  return v6;
-}
-
-uint64_t ___mediaSystemContainsAccessory_block_invoke(uint64_t a1, void *a2)
-{
-  v3 = [a2 accessory];
-  v4 = [v3 uuid];
-  v5 = [*(a1 + 32) uuid];
-  v6 = [v4 hmf_isEqualToUUID:v5];
-
-  return v6;
-}
-
-void sub_2299F6AA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location)
-{
-  objc_destroyWeak((v19 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_2299F76DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location)
-{
-  objc_destroyWeak((v19 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_2299FF400(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, id location)
-{
-  objc_destroyWeak((v23 + 56));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229A0BAC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, id location)
-{
-  objc_destroyWeak(&a51);
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229A12D08(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 - 176));
-  objc_destroyWeak((v1 - 168));
-  _Unwind_Resume(a1);
-}
-
-void __notifyRegisteredIdentityRemoved(void *a1, void *a2)
-{
-  v29 = *MEMORY[0x277D85DE8];
-  v3 = a1;
-  v4 = a2;
-  v5 = v4;
-  if (v3 && v4)
-  {
-    v6 = objc_autoreleasePoolPush();
-    v7 = v3;
-    v8 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
-    {
-      v9 = HMFGetLogIdentifier();
-      v25 = 138543618;
-      v26 = v9;
-      v27 = 2112;
-      v28 = v5;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Notifying of removed identity: %@", &v25, 0x16u);
-    }
-
-    objc_autoreleasePoolPop(v6);
-    v10 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:3];
-    v11 = [v5 identity];
-    [v10 setObject:v11 forKeyedSubscript:@"HMDIdentityNotificationKey"];
-
-    v12 = v5;
-    objc_opt_class();
-    isKindOfClass = objc_opt_isKindOfClass();
-    if (isKindOfClass)
-    {
-      v14 = v12;
-    }
-
-    else
-    {
-      v14 = 0;
-    }
-
-    v15 = v14;
-
-    if (isKindOfClass)
-    {
-      v16 = [v12 device];
-      [v10 setObject:v16 forKeyedSubscript:@"HMDDeviceNotificationKey"];
-    }
-
-    v17 = v12;
-    objc_opt_class();
-    v18 = objc_opt_isKindOfClass();
-    if (v18)
-    {
-      v19 = v17;
-    }
-
-    else
-    {
-      v19 = 0;
-    }
-
-    v20 = v19;
-
-    if (v18)
-    {
-      v21 = [v17 account];
-      [v10 setObject:v21 forKeyedSubscript:@"HMDAccountNotificationKey"];
-    }
-
-    v22 = [MEMORY[0x277CCAB98] defaultCenter];
-    v23 = [v10 copy];
-    [v22 postNotificationName:@"HMDIdentityRegistryRemovedIdentity" object:v7 userInfo:v23];
-  }
-
-  v24 = *MEMORY[0x277D85DE8];
-}
-
-void __removeRegisteredObjectForRegisteredIdentity(void *a1, void *a2, void *a3)
-{
-  v5 = a1;
-  v6 = a2;
-  v7 = a3;
-  v8 = v7;
-  if (v5 && v6 && v7)
-  {
-    v9 = [v5 lock];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = ____removeRegisteredObjectForRegisteredIdentity_block_invoke;
-    v10[3] = &unk_27868A010;
-    v11 = v6;
-    v12 = v8;
-    v13 = v5;
-    [v9 performBlock:v10];
-  }
-}
-
-void ____removeRegisteredObjectForRegisteredIdentity_block_invoke(uint64_t a1)
-{
-  v15 = *MEMORY[0x277D85DE8];
-  v2 = [*(a1 + 32) registeredObjects];
-  [v2 removeObject:*(a1 + 40)];
-
-  v3 = [*(a1 + 32) registeredObjects];
-  v4 = [v3 hmf_isEmpty];
-
-  if (v4)
-  {
-    v5 = objc_autoreleasePoolPush();
-    v6 = *(a1 + 48);
-    v7 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-    {
-      v8 = HMFGetLogIdentifier();
-      v9 = *(a1 + 32);
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v9;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Removing registered identity, %@", &v11, 0x16u);
-    }
-
-    objc_autoreleasePoolPop(v5);
-    [*(*(a1 + 48) + 8) removeObject:*(a1 + 32)];
-    __notifyRegisteredIdentityRemoved(*(a1 + 48), *(a1 + 32));
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-id __registeredIdentitiesForIdentity(void *a1, void *a2)
-{
-  v23 = *MEMORY[0x277D85DE8];
-  v3 = a1;
-  v4 = a2;
-  v5 = v4;
-  v6 = 0;
-  if (v3 && v4)
-  {
-    v7 = [MEMORY[0x277CBEB18] array];
-    v18 = 0u;
-    v19 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    v8 = v3[1];
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
-    if (v9)
-    {
-      v10 = v9;
-      v11 = *v19;
-      do
-      {
-        for (i = 0; i != v10; ++i)
-        {
-          if (*v19 != v11)
-          {
-            objc_enumerationMutation(v8);
-          }
-
-          v13 = *(*(&v18 + 1) + 8 * i);
-          v14 = [v13 identity];
-          v15 = [v14 isEqual:v5];
-
-          if (v15)
-          {
-            [v7 addObject:v13];
-          }
-        }
-
-        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
-      }
-
-      while (v10);
-    }
-
-    v6 = [v7 copy];
-  }
-
-  v16 = *MEMORY[0x277D85DE8];
-
-  return v6;
-}
-
-void __notifyRegisteredIdentityAdded(void *a1, void *a2)
-{
-  v29 = *MEMORY[0x277D85DE8];
-  v3 = a1;
-  v4 = a2;
-  v5 = v4;
-  if (v3 && v4)
-  {
-    v6 = objc_autoreleasePoolPush();
-    v7 = v3;
-    v8 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
-    {
-      v9 = HMFGetLogIdentifier();
-      v25 = 138543618;
-      v26 = v9;
-      v27 = 2112;
-      v28 = v5;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Notifying of added identity: %@", &v25, 0x16u);
-    }
-
-    objc_autoreleasePoolPop(v6);
-    v10 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:3];
-    v11 = [v5 identity];
-    [v10 setObject:v11 forKeyedSubscript:@"HMDIdentityNotificationKey"];
-
-    v12 = v5;
-    objc_opt_class();
-    isKindOfClass = objc_opt_isKindOfClass();
-    if (isKindOfClass)
-    {
-      v14 = v12;
-    }
-
-    else
-    {
-      v14 = 0;
-    }
-
-    v15 = v14;
-
-    if (isKindOfClass)
-    {
-      v16 = [v12 device];
-      [v10 setObject:v16 forKeyedSubscript:@"HMDDeviceNotificationKey"];
-    }
-
-    v17 = v12;
-    objc_opt_class();
-    v18 = objc_opt_isKindOfClass();
-    if (v18)
-    {
-      v19 = v17;
-    }
-
-    else
-    {
-      v19 = 0;
-    }
-
-    v20 = v19;
-
-    if (v18)
-    {
-      v21 = [v17 account];
-      [v10 setObject:v21 forKeyedSubscript:@"HMDAccountNotificationKey"];
-    }
-
-    v22 = [MEMORY[0x277CCAB98] defaultCenter];
-    v23 = [v10 copy];
-    [v22 postNotificationName:@"HMDIdentityRegistryAddedIdentity" object:v7 userInfo:v23];
-  }
-
-  v24 = *MEMORY[0x277D85DE8];
-}
-
-void __registerObjectForRegisteredIdentity(void *a1, void *a2, void *a3)
-{
-  v5 = a1;
-  v6 = a2;
-  v7 = a3;
-  v8 = v7;
-  if (v5 && v6 && v7)
-  {
-    v9 = objc_autoreleasePoolPush();
-    v10 = [v6 registeredObjects];
-    v11 = [v10 containsObject:v8];
-
-    if ((v11 & 1) == 0)
-    {
-      objc_initWeak(&location, v5);
-      objc_initWeak(&v22, v8);
-      objc_initWeak(&from, v6);
-      v14 = MEMORY[0x277D85DD0];
-      v15 = 3221225472;
-      v16 = ____registerObjectForRegisteredIdentity_block_invoke;
-      v17 = &unk_27867F3D0;
-      objc_copyWeak(&v18, &location);
-      objc_copyWeak(&v19, &from);
-      objc_copyWeak(&v20, &v22);
-      [v8 setDeallocationBlock:&v14];
-      v12 = [v8 observedObject];
-
-      if (v12)
-      {
-        v13 = [v6 registeredObjects];
-        [v13 addObject:v8];
-      }
-
-      else
-      {
-        __removeRegisteredObjectForRegisteredIdentity(v5, v6, v8);
-      }
-
-      objc_destroyWeak(&v20);
-      objc_destroyWeak(&v19);
-      objc_destroyWeak(&v18);
-      objc_destroyWeak(&from);
-      objc_destroyWeak(&v22);
-      objc_destroyWeak(&location);
-    }
-
-    objc_autoreleasePoolPop(v9);
-  }
-}
-
-void sub_229A1A630(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, id a17)
-{
-  objc_destroyWeak(v17 + 6);
-  objc_destroyWeak(v17 + 5);
-  objc_destroyWeak(v17 + 4);
-  objc_destroyWeak(&location);
-  objc_destroyWeak(&a17);
-  objc_destroyWeak((v18 - 56));
-  _Unwind_Resume(a1);
-}
-
-void ____registerObjectForRegisteredIdentity_block_invoke(id *a1)
-{
-  v15 = *MEMORY[0x277D85DE8];
-  WeakRetained = objc_loadWeakRetained(a1 + 4);
-  v3 = objc_loadWeakRetained(a1 + 5);
-  v4 = objc_loadWeakRetained(a1 + 6);
-  v5 = v4;
-  if (WeakRetained && v3 && v4)
-  {
-    v6 = objc_autoreleasePoolPush();
-    v7 = WeakRetained;
-    v8 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
-    {
-      v9 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v9;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Registered object deallocated, removing object from identity: %@", &v11, 0x16u);
-    }
-
-    objc_autoreleasePoolPop(v6);
-    __removeRegisteredObjectForRegisteredIdentity(v7, v3, v5);
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-void sub_229A1AD60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__15589(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_229A1B0D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_229A1B3FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_229A1B740(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_229A1BCBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_229A1C038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_229A1D6E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-id toManyRelationship(void *a1, void *a2)
-{
-  v2 = objectValue(a1, 2, a2);
-  v3 = v2;
-  if (v2)
-  {
-    v4 = v2;
-  }
-
-  return v3;
-}
-
-id objectValue(void *a1, uint64_t a2, void *a3)
-{
-  v5 = a3;
-  v6 = [a1 objectAtIndexedSubscript:a2];
-  v7 = [v6 objectForKeyedSubscript:v5];
-
-  return v7;
-}
-
-void pruneArrayOfRefs(void *a1, void *a2)
-{
-  v10 = a1;
-  v3 = a2;
-  v4 = [v10 count];
-  if (v4)
-  {
-    v5 = v4;
-    v6 = 0;
-    do
-    {
-      v7 = [v10 objectAtIndexedSubscript:v6];
-      v8 = [v7 objectForKeyedSubscript:@"modelID"];
-      v9 = [v3 containsObject:v8];
-
-      if (v9)
-      {
-        [v10 removeObjectAtIndex:v6];
-        --v5;
-      }
-
-      else
-      {
-        ++v6;
-      }
-    }
-
-    while (v6 < v5);
-  }
-}
-
-void sub_229A242F4(_Unwind_Exception *a1)
-{
-  v3 = v2;
-  os_unfair_lock_unlock((v1 + v3));
-  _Unwind_Resume(a1);
-}
-
-void sub_229A24DC8(_Unwind_Exception *a1)
-{
-  v3 = v2;
-  os_unfair_lock_unlock((v1 + v3));
-  _Unwind_Resume(a1);
-}
-
-void sub_229A24E4C(_Unwind_Exception *a1)
-{
-  v3 = v2;
-  os_unfair_lock_unlock((v1 + v3));
-  _Unwind_Resume(a1);
-}
-
-void sub_229A25068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va, a8);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__17315(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_229A29420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_229A2E9D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id location)
-{
-  objc_destroyWeak((v29 + 88));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229A32144(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
-{
-  objc_destroyWeak((v16 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229A35588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__18771(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_229A39AF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location)
-{
-  objc_destroyWeak(&a24);
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__19541(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_229A3B334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, id location)
-{
-  objc_destroyWeak(&location);
-  _Block_object_dispose(&STACK[0x250], 8);
-  _Unwind_Resume(a1);
-}
-
-id actionResultForAction(void *a1)
-{
-  v1 = MEMORY[0x277D47338];
-  v2 = a1;
-  v3 = objc_alloc_init(v1);
-  v4 = [v2 aceId];
-
-  [v3 setRequestActionId:v4];
-
-  return v3;
-}
-
-uint64_t isActivationCharacteristicType(void *a1)
-{
-  v1 = a1;
-  if ([v1 isEqual:*MEMORY[0x277CCF9F0]])
-  {
-    v2 = 1;
-  }
-
-  else
-  {
-    v2 = [v1 isEqual:*MEMORY[0x277CCF748]];
-  }
-
-  return v2;
-}
-
-uint64_t isOutcomeSuccess(void *a1)
-{
-  v1 = a1;
-  if ([v1 isEqualToString:*MEMORY[0x277D47E50]] & 1) != 0 || (objc_msgSend(v1, "isEqualToString:", *MEMORY[0x277D47DB0]) & 1) != 0 || (objc_msgSend(v1, "isEqualToString:", *MEMORY[0x277D47DB8]) & 1) != 0 || (objc_msgSend(v1, "isEqualToString:", *MEMORY[0x277D47E40]))
-  {
-    v2 = 1;
-  }
-
-  else
-  {
-    v2 = [v1 isEqualToString:*MEMORY[0x277D47E38]];
-  }
-
-  return v2;
-}
-
-void sub_229A40CE0(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 - 208));
-  _Block_object_dispose((v1 - 176), 8);
-  _Unwind_Resume(a1);
-}
-
-id getActivationCharacteristicFromServiceIfAny(void *a1)
-{
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = 0;
+  CFArrayGetTypeID();
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v1 = [a1 characteristics];
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v2)
+  v3 = CFPrefs_CopyTypedValue();
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v15 count:16];
+  if (v4)
   {
-    v3 = *v11;
+    v5 = v4;
+    v6 = *v11;
     while (2)
     {
-      for (i = 0; i != v2; i = i + 1)
+      v7 = 0;
+      do
       {
-        if (*v11 != v3)
+        if (*v11 != v6)
         {
-          objc_enumerationMutation(v1);
+          objc_enumerationMutation(v3);
         }
 
-        v5 = *(*(&v10 + 1) + 8 * i);
-        v6 = [v5 type];
-        v7 = isActivationCharacteristicType(v6);
-
-        if (v7)
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v2 = v5;
+          v9 = v3;
           goto LABEL_11;
         }
+
+        ++v7;
       }
 
-      v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
-      if (v2)
+      while (v5 != v7);
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v15 count:16];
+      if (v5)
       {
         continue;
       }
@@ -7665,622 +67,5148 @@ id getActivationCharacteristicFromServiceIfAny(void *a1)
     }
   }
 
+  v8 = v3;
+  v9 = *a1;
+  *a1 = v8;
 LABEL_11:
-
-  v8 = *MEMORY[0x277D85DE8];
-
-  return v2;
 }
 
-void sub_229A43974(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+void _overrideNumber(id *a1, uint64_t a2)
 {
-  objc_destroyWeak((v15 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
+  CFNumberGetTypeID();
+  v3 = CFPrefs_CopyTypedValue();
+  objc_storeStrong(a1, v3);
 }
 
-void sub_229A45474(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, id location)
+void _overrideNSString(id *a1, uint64_t a2)
 {
-  objc_destroyWeak((v49 + 80));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
+  CFStringGetTypeID();
+  v3 = CFPrefs_CopyTypedValue();
+  objc_storeStrong(a1, v3);
 }
 
-void sub_229A46A14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, id location)
+BOOL isAppleTV()
 {
-  objc_destroyWeak(&location);
-  _Block_object_dispose(&STACK[0x230], 8);
-  _Unwind_Resume(a1);
+  v0 = [MEMORY[0x277D0F8E8] productInfo];
+  v1 = [v0 productClass] == 4;
+
+  return v1;
 }
 
-void sub_229A4882C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, id location)
+BOOL isMac()
 {
-  objc_destroyWeak((v23 + 64));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
+  v0 = [MEMORY[0x277D0F8E8] productInfo];
+  v1 = [v0 productPlatform] == 1;
+
+  return v1;
 }
 
-uint64_t isTemperatureAttribute(void *a1)
+uint64_t isCharacteristicHeartBeat(void *a1, void *a2)
 {
-  v1 = a1;
-  if ([v1 isEqualToString:*MEMORY[0x277D480B0]] & 1) != 0 || (objc_msgSend(v1, "isEqualToString:", *MEMORY[0x277D47F60]) & 1) != 0 || (objc_msgSend(v1, "isEqualToString:", *MEMORY[0x277D47FA8]) & 1) != 0 || (objc_msgSend(v1, "isEqualToString:", *MEMORY[0x277D47F68]))
+  v3 = a2;
+  if ([a1 isEqualToString:@"00000239-0000-1000-8000-0026BB765291"])
   {
-    v2 = 1;
+    v4 = [v3 isEqualToString:@"0000024A-0000-1000-8000-0026BB765291"];
   }
 
   else
   {
-    v2 = [v1 isEqualToString:*MEMORY[0x277D47FB8]];
+    v4 = 0;
+  }
+
+  return v4;
+}
+
+uint64_t isBTLECapableDevice()
+{
+  v0 = [MEMORY[0x277D0F910] systemInfo];
+  v1 = [v0 supportsBLE];
+
+  return v1;
+}
+
+id demoModeV2Status()
+{
+  v0 = MEMORY[0x277CCACA8];
+  isDemoModeV2Active();
+  v1 = HMFBooleanToString();
+  isDemoModeV2Locked();
+  v2 = HMFBooleanToString();
+  isCloudKitRequiredForDemoModeV2();
+  v3 = HMFBooleanToString();
+  isDemoModeV2MadeForDemoBundle();
+  v4 = HMFBooleanToString();
+  v5 = getDemoModeV2Type();
+  v6 = [v0 stringWithFormat:@"[DemoModeV2: Active: %@, Locked: %@, CK: %@, MadeForBundle: %@, Type: %@]", v1, v2, v3, v4, v5];
+
+  return v6;
+}
+
+uint64_t isDemoModeV2Locked()
+{
+  v0 = CFPreferencesCopyValue(@"lockDemoModeV2", @"com.apple.homed", @"mobile", *MEMORY[0x277CBF030]);
+  v1 = [v0 BOOLValue];
+
+  return v1;
+}
+
+uint64_t isCloudKitRequiredForDemoModeV2()
+{
+  v0 = CFPreferencesCopyValue(@"demoModeRequiresCloudKit", @"com.apple.homed", @"mobile", *MEMORY[0x277CBF030]);
+  v1 = [v0 BOOLValue];
+
+  return v1;
+}
+
+uint64_t isDemoModeV2MadeForDemoBundle()
+{
+  v0 = CFPreferencesCopyValue(@"HomeUtilDemoModeMadeForDemoBundleKey", @"com.apple.homed", @"mobile", *MEMORY[0x277CBF030]);
+  v1 = [v0 BOOLValue];
+
+  return v1;
+}
+
+void __demoModeV2Types_block_invoke()
+{
+  v2[3] = *MEMORY[0x277D85DE8];
+  v2[0] = @"retail";
+  v2[1] = @"press";
+  v2[2] = @"test";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:3];
+  v1 = demoModeV2Types_demoModeV2Types;
+  demoModeV2Types_demoModeV2Types = v0;
+}
+
+uint64_t isRetailDemoModeV2Enabled()
+{
+  v0 = getDemoModeV2Type();
+  v1 = [v0 isEqualToString:@"retail"];
+
+  return v1;
+}
+
+uint64_t shouldLoadDemoModeFromBackup()
+{
+  if (isDemoModeV2Locked())
+  {
+    return 1;
+  }
+
+  v1 = CFPreferencesCopyValue(@"loadDemoModeV2Backup", @"com.apple.homed", @"mobile", *MEMORY[0x277CBF030]);
+  v2 = [v1 BOOLValue];
+
+  return v2;
+}
+
+BOOL isiPadDevice()
+{
+  v0 = [MEMORY[0x277D0F8E8] productInfo];
+  v1 = [v0 productClass] == 3;
+
+  return v1;
+}
+
+BOOL isiPhoneDevice()
+{
+  v0 = [MEMORY[0x277D0F8E8] productInfo];
+  v1 = [v0 productClass] == 1;
+
+  return v1;
+}
+
+uint64_t productClass()
+{
+  v0 = [MEMORY[0x277D0F8E8] productInfo];
+  v1 = [v0 productClass];
+
+  return v1;
+}
+
+id deviceName()
+{
+  v0 = [MEMORY[0x277D0F910] systemInfo];
+  v1 = [v0 name];
+
+  return v1;
+}
+
+__CFString *getDeviceClass()
+{
+  if (isAppleTV())
+  {
+    v0 = @"kDeviceClassTypeResident";
+  }
+
+  else
+  {
+    v0 = @"kDeviceClassTypeTransient";
+  }
+
+  return v0;
+}
+
+BOOL isPasscodeEnabledOnThisDevice()
+{
+  v12 = *MEMORY[0x277D85DE8];
+  if (+[HMDDeviceCapabilities supportsDeviceLock])
+  {
+    v0 = MKBGetDeviceLockState();
+    v1 = objc_autoreleasePoolPush();
+    v2 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    {
+      v3 = HMFGetLogIdentifier();
+      v8 = 138543618;
+      v9 = v3;
+      v10 = 2048;
+      v11 = v0;
+      _os_log_impl(&dword_229538000, v2, OS_LOG_TYPE_INFO, "%{public}@Device lock state (passcode): %ld", &v8, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v1);
+    return v0 != 3;
+  }
+
+  else
+  {
+    v5 = objc_autoreleasePoolPush();
+    v6 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    {
+      v7 = HMFGetLogIdentifier();
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Device does not support device lock (passcode).", &v8, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v5);
+    return 0;
+  }
+}
+
+double getDiscoveryBackoffPeriod()
+{
+  v0 = [MEMORY[0x277D0F8D0] sharedPreferences];
+  v1 = [v0 preferenceForKey:@"DiscoveryBackoffInSeconds"];
+  v2 = [v1 numberValue];
+  [v2 doubleValue];
+  v4 = v3;
+
+  return v4;
+}
+
+id getBLEAccessoryCachePath()
+{
+  v28[1] = *MEMORY[0x277D85DE8];
+  v0 = [MEMORY[0x277CCAA00] defaultManager];
+  v1 = v0;
+  v20 = 0;
+  if (storeDirectoryPath)
+  {
+    if (!bleAccessoryCachePath || ([v0 fileExistsAtPath:bleAccessoryCachePath isDirectory:&v20] & 1) == 0)
+    {
+      v27 = *MEMORY[0x277CCA180];
+      v28[0] = &unk_283E72740;
+      v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+      v3 = [storeDirectoryPath stringByAppendingString:@"/BLECache"];
+      v4 = bleAccessoryCachePath;
+      bleAccessoryCachePath = v3;
+
+      v19 = 0;
+      v5 = [v1 createDirectoryAtPath:bleAccessoryCachePath withIntermediateDirectories:1 attributes:v2 error:&v19];
+      v6 = v19;
+      v7 = v6;
+      v20 = v5;
+      if (v5)
+      {
+        v18 = v6;
+        [v1 setAttributes:v2 ofItemAtPath:bleAccessoryCachePath error:&v18];
+        v8 = v18;
+
+        v7 = v8;
+      }
+
+      else
+      {
+        v13 = objc_autoreleasePoolPush();
+        v14 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        {
+          v15 = HMFGetLogIdentifier();
+          *buf = 138543874;
+          v22 = v15;
+          v23 = 2112;
+          v24 = bleAccessoryCachePath;
+          v25 = 2112;
+          v26 = v7;
+          _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Could not create BLE Cache directory path %@ - error %@", buf, 0x20u);
+        }
+
+        objc_autoreleasePoolPop(v13);
+      }
+    }
+  }
+
+  else
+  {
+    v9 = objc_autoreleasePoolPush();
+    v10 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      v11 = HMFGetLogIdentifier();
+      *buf = 138543618;
+      v22 = v11;
+      v23 = 2112;
+      v24 = storeDirectoryPath;
+      v12 = storeDirectoryPath;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Store Directory not initialized: %@", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v9);
+  }
+
+  v16 = bleAccessoryCachePath;
+
+  return v16;
+}
+
+id getImagesPath()
+{
+  v0 = HMDCreateHomeKitDaemonCacheDirectory();
+  v1 = [v0 stringByAppendingString:@"/Snapshots"];
+
+  return v1;
+}
+
+id getBulletinImagesPath()
+{
+  v0 = HMDCreateHomeKitDaemonCacheDirectory();
+  v1 = [v0 stringByAppendingString:@"/BulletinSnapshots"];
+
+  return v1;
+}
+
+BOOL compareCharacteristicValue(void *a1, void *a2, uint64_t a3, void *a4)
+{
+  v53 = *MEMORY[0x277D85DE8];
+  v7 = a1;
+  v8 = a2;
+  v9 = a4;
+  if (!v7 || !v8)
+  {
+    v13 = (v7 | v8) == 0;
+    goto LABEL_59;
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v10 = v8;
+      v11 = v7;
+      v12 = *[v10 objCType] == 102 || *objc_msgSend(v10, "objCType") == 100;
+      if (*[v11 objCType] == 102 || (*objc_msgSend(v11, "objCType") == 100 ? (v14 = 1) : (v14 = v12), v14 == 1))
+      {
+        [v10 doubleValue];
+        v16 = v15;
+        [v11 doubleValue];
+        v18 = v17;
+        v19 = 0.00999999978;
+        if (v9)
+        {
+          [v9 doubleValue];
+          if (fabs(v20) >= 2.22044605e-16)
+          {
+            [v9 doubleValue];
+            v19 = v21;
+          }
+        }
+
+        context = objc_autoreleasePoolPush();
+        v22 = HMFGetOSLogHandle();
+        v23 = (v16 * (1.0 / v19));
+        v24 = (v18 * (1.0 / v19));
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+        {
+          v25 = HMFGetLogIdentifier();
+          *buf = 138544642;
+          v42 = v25;
+          v43 = 2048;
+          v44 = v16;
+          v45 = 2048;
+          v46 = (v16 * (1.0 / v19));
+          v47 = 2048;
+          v48 = v18;
+          v49 = 2048;
+          v50 = (v18 * (1.0 / v19));
+          v51 = 2048;
+          v52 = v19;
+          _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Saved double value: %lf (%ld), current double value: %lf (%ld), step value: %lf", buf, 0x3Eu);
+        }
+
+        objc_autoreleasePoolPop(context);
+        if (a3 > 2)
+        {
+          if (a3 == 3)
+          {
+            v13 = v24 >= v23;
+            goto LABEL_58;
+          }
+
+          if (a3 == 5)
+          {
+            v13 = v24 != v23;
+            goto LABEL_58;
+          }
+        }
+
+        else
+        {
+          switch(a3)
+          {
+            case 0:
+              v13 = v24 < v23;
+              goto LABEL_58;
+            case 1:
+              v13 = v24 <= v23;
+              goto LABEL_58;
+            case 2:
+              v13 = v24 > v23;
+LABEL_58:
+
+              goto LABEL_59;
+          }
+        }
+
+        v13 = v24 == v23;
+        goto LABEL_58;
+      }
+    }
+  }
+
+  if (objc_opt_respondsToSelector() & 1) != 0 && (objc_opt_respondsToSelector())
+  {
+    v26 = [v7 compare:v8];
+    if (a3 > 2)
+    {
+      if (a3 != 3)
+      {
+        if (a3 == 5)
+        {
+          v13 = v26 != 0;
+LABEL_52:
+          v35 = objc_autoreleasePoolPush();
+          v36 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+          {
+            v37 = HMFGetLogIdentifier();
+            v38 = HMFBooleanToString();
+            *buf = 138544386;
+            v42 = v37;
+            v43 = 2112;
+            v44 = *&v7;
+            v45 = 2048;
+            v46 = a3;
+            v47 = 2112;
+            v48 = *&v8;
+            v49 = 2112;
+            v50 = v38;
+            _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_INFO, "%{public}@Comparing characteristic value %@ (op:%tu) %@, result: %@", buf, 0x34u);
+          }
+
+          objc_autoreleasePoolPop(v35);
+          goto LABEL_59;
+        }
+
+LABEL_41:
+        v27 = v26 == 0;
+        goto LABEL_44;
+      }
+
+      v34 = v26 >= 2;
+    }
+
+    else
+    {
+      if (!a3)
+      {
+        v27 = v26 == -1;
+LABEL_44:
+        v13 = v27;
+        goto LABEL_52;
+      }
+
+      if (a3 != 1)
+      {
+        if (a3 == 2)
+        {
+          v27 = v26 == 1;
+          goto LABEL_44;
+        }
+
+        goto LABEL_41;
+      }
+
+      v34 = v26 + 1 >= 2;
+    }
+
+    v13 = !v34;
+    goto LABEL_52;
+  }
+
+  v28 = objc_autoreleasePoolPush();
+  v29 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+  {
+    v30 = HMFGetLogIdentifier();
+    v31 = objc_opt_class();
+    v32 = v31;
+    *buf = 138543874;
+    v42 = v30;
+    v43 = 2112;
+    v44 = *&v31;
+    v45 = 2112;
+    v46 = objc_opt_class();
+    v33 = v46;
+  }
+
+  objc_autoreleasePoolPop(v28);
+  v13 = 0;
+LABEL_59:
+
+  return v13;
+}
+
+id spiClientIdentifierForUUID(void *a1)
+{
+  v1 = a1;
+  v2 = +[HMDProcessInfo privateClientIdentifierSalt];
+  v3 = [MEMORY[0x277CCAD78] hm_deriveUUIDFromBaseUUID:v1 identifierSalt:v2];
+
+  return v3;
+}
+
+id spiClientIdentifierForUUIDAndSalts(void *a1, void *a2)
+{
+  v3 = a2;
+  v4 = a1;
+  v5 = +[HMDProcessInfo privateClientIdentifierSalt];
+  v6 = [MEMORY[0x277CCAD78] hm_deriveUUIDFromBaseUUID:v4 identifierSalt:v5 withSalts:v3];
+
+  return v6;
+}
+
+uint64_t shouldLogPrivateInformation()
+{
+  v0 = [MEMORY[0x277D0F8D0] sharedPreferences];
+  v1 = [v0 preferenceForKey:@"shouldLogPrivateInformation"];
+  v2 = [v1 BOOLValue];
+
+  return v2;
+}
+
+uint64_t isEqualDeepCompare(void *a1, void *a2)
+{
+  v35 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v4 = a2;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v5 = [v3 count];
+      if (v5 == [v4 count])
+      {
+        v31 = 0u;
+        v32 = 0u;
+        v29 = 0u;
+        v30 = 0u;
+        v6 = v3;
+        v7 = [v6 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        if (v7)
+        {
+          v8 = v7;
+          v9 = *v30;
+          while (2)
+          {
+            for (i = 0; i != v8; ++i)
+            {
+              if (*v30 != v9)
+              {
+                objc_enumerationMutation(v6);
+              }
+
+              v11 = *(*(&v29 + 1) + 8 * i);
+              v12 = [v6 objectForKey:v11];
+              v13 = [v4 objectForKey:v11];
+              if (!v13 || !isEqualDeepCompare(v12, v13))
+              {
+
+                goto LABEL_34;
+              }
+            }
+
+            v8 = [v6 countByEnumeratingWithState:&v29 objects:v34 count:16];
+            v14 = 1;
+            if (v8)
+            {
+              continue;
+            }
+
+            goto LABEL_35;
+          }
+        }
+
+LABEL_25:
+        v14 = 1;
+LABEL_35:
+
+        goto LABEL_36;
+      }
+
+LABEL_31:
+      v14 = 0;
+      goto LABEL_36;
+    }
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v15 = [v3 count];
+      if (v15 == [v4 count])
+      {
+        v27 = 0u;
+        v28 = 0u;
+        v25 = 0u;
+        v26 = 0u;
+        v6 = v3;
+        v16 = [v6 countByEnumeratingWithState:&v25 objects:v33 count:16];
+        if (v16)
+        {
+          v17 = v16;
+          v18 = 0;
+          v19 = *v26;
+          while (2)
+          {
+            for (j = 0; j != v17; ++j)
+            {
+              if (*v26 != v19)
+              {
+                objc_enumerationMutation(v6);
+              }
+
+              v21 = *(*(&v25 + 1) + 8 * j);
+              v22 = [v4 objectAtIndex:{v18, v25}];
+              LODWORD(v21) = isEqualDeepCompare(v21, v22);
+
+              if (!v21)
+              {
+LABEL_34:
+                v14 = 0;
+                goto LABEL_35;
+              }
+
+              ++v18;
+            }
+
+            v17 = [v6 countByEnumeratingWithState:&v25 objects:v33 count:16];
+            if (v17)
+            {
+              continue;
+            }
+
+            break;
+          }
+        }
+
+        goto LABEL_25;
+      }
+
+      goto LABEL_31;
+    }
+  }
+
+  if (objc_opt_respondsToSelector())
+  {
+    if (v3 == v4)
+    {
+      v14 = 1;
+      goto LABEL_36;
+    }
+
+    v23 = [v3 isBackingStorageEqual:v4];
+  }
+
+  else
+  {
+    v23 = HMFEqualObjects();
+  }
+
+  v14 = v23;
+LABEL_36:
+
+  return v14;
+}
+
+HMDHomeKitVersion *fixHomeKitVersion(void *a1)
+{
+  v1 = a1;
+  if ([v1 minorVersion] >= 0xA && objc_msgSend(v1, "minorVersion"))
+  {
+    v2 = +[HMDHomeKitVersion version10];
+    if ([v1 isAtLeastVersion:v2])
+    {
+      v3 = v1;
+    }
+
+    else
+    {
+      v5 = round(log10([v1 minorVersion]));
+      v3 = -[HMDHomeKitVersion initWithMajorVersion:minorVersion:updateVersion:]([HMDHomeKitVersion alloc], "initWithMajorVersion:minorVersion:updateVersion:", [v1 majorVersion], llround(objc_msgSend(v1, "minorVersion") / __exp10(v5)), objc_msgSend(v1, "updateVersion"));
+    }
+
+    v4 = v3;
+  }
+
+  else
+  {
+    v4 = v1;
+  }
+
+  return v4;
+}
+
+id generateWiFiUniquePreSharedKey()
+{
+  v11 = *MEMORY[0x277D85DE8];
+  v0 = SecPasswordGenerate();
+  v1 = v0;
+  if (v0)
+  {
+    v2 = v0;
+  }
+
+  else
+  {
+    v3 = objc_autoreleasePoolPush();
+    v4 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      v5 = HMFGetLogIdentifier();
+      *buf = 138543618;
+      v8 = v5;
+      v9 = 2112;
+      v10 = 0;
+      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_ERROR, "%{public}@Failed to generate WiFi Pre-Shared Key with error: %@", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v3);
+  }
+
+  return v1;
+}
+
+void *accessoryToEncodeForXPCTransportForAccessory(void *a1)
+{
+  v1 = a1;
+  v2 = [v1 hostAccessory];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v3 = v2;
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  v4 = v3;
+
+  if (v4)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = v1;
+  }
+
+  v6 = v5;
+
+  return v5;
+}
+
+BOOL shouldSkipRemoteAccessoryNotificationRegistration(void *a1)
+{
+  v1 = a1;
+  v2 = [v1 isCurrentDeviceAvailableResident] && (!isAppleTV() || objc_msgSend(v1, "isCurrentDeviceConfirmedPrimaryResident"));
+
+  return v2;
+}
+
+uint64_t shouldSkipLocalAccessoryNotificationRegistration(void *a1, void *a2, void *a3, void *a4)
+{
+  v7 = a1;
+  v8 = a2;
+  v9 = a4;
+  if ([a3 hmf_isEmpty])
+  {
+    goto LABEL_2;
+  }
+
+  v11 = [v7 localCapabilitiesDataSource];
+  if ([v11 isResidentCapable])
+  {
+    if ([v7 isCurrentDevicePrimaryResident])
+    {
+
+      goto LABEL_14;
+    }
+
+    v14 = [v9 hasPrefix:@"com.apple.HomeKitDaemon.Local"];
+
+    if (v14)
+    {
+      goto LABEL_14;
+    }
+  }
+
+  else
+  {
+  }
+
+  v12 = [v7 enabledResidents];
+  v13 = [v12 count];
+
+  if (!v13)
+  {
+    goto LABEL_14;
+  }
+
+  if (([v9 isEqual:@"com.apple.HomeKitDaemon.bulletinNotificationManager"] & 1) == 0 && (objc_msgSend(v9, "isEqual:", @"com.apple.HomeKitDaemon.bulletinBoard") & 1) == 0)
+  {
+    if (![v8 hasBTLELink] || (objc_msgSend(v8, "reachableTransports") & 2) == 0)
+    {
+      v10 = [v8 isSecureSessionEstablished] ^ 1;
+      goto LABEL_15;
+    }
+
+LABEL_14:
+    v10 = 0;
+    goto LABEL_15;
+  }
+
+LABEL_2:
+  v10 = 1;
+LABEL_15:
+
+  return v10;
+}
+
+uint64_t shouldDisconnectOnIdleForAccessory(void *a1)
+{
+  v1 = a1;
+  v2 = [v1 home];
+  v3 = isPersistedConnectionRequiredForAccessory(v1);
+
+  if (v3)
+  {
+    v4 = 0;
+  }
+
+  else
+  {
+    v4 = [v2 isCurrentDevicePrimaryResident] ^ 1;
+  }
+
+  return v4;
+}
+
+uint64_t isPersistedConnectionRequiredForAccessory(void *a1)
+{
+  v32 = *MEMORY[0x277D85DE8];
+  v1 = a1;
+  v2 = [v1 home];
+  if (![v2 isCurrentDevicePrimaryResident])
+  {
+    *&buf = 0;
+    *(&buf + 1) = &buf;
+    v28 = 0x3032000000;
+    v29 = __Block_byref_object_copy__82538;
+    v30 = __Block_byref_object_dispose__82539;
+    v31 = 0;
+    aBlock[0] = MEMORY[0x277D85DD0];
+    aBlock[1] = 3221225472;
+    aBlock[2] = __isPersistedConnectionRequiredForAccessory_block_invoke;
+    aBlock[3] = &unk_278676888;
+    p_buf = &buf;
+    v7 = v1;
+    v21 = v7;
+    v8 = _Block_copy(aBlock);
+    if ([v2 isCurrentDeviceAvailableResident])
+    {
+      v16 = 0;
+      v17 = &v16;
+      v18 = 0x2020000000;
+      v19 = 0;
+      v9 = v8[2](v8);
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __isPersistedConnectionRequiredForAccessory_block_invoke_3;
+      v15[3] = &unk_2786768B0;
+      v15[4] = &v16;
+      [v9 hmf_enumerateWithAutoreleasePoolUsingBlock:v15];
+
+      if (*(v17 + 24) == 1)
+      {
+        v10 = objc_autoreleasePoolPush();
+        v11 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+        {
+          v12 = HMFGetLogIdentifier();
+          v13 = [v7 shortDescription];
+          *v23 = 138543618;
+          v24 = v12;
+          v25 = 2112;
+          v26 = v13;
+          _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Require persisted connection for Siri Remote accessory %@ for all residents", v23, 0x16u);
+        }
+
+        objc_autoreleasePoolPop(v10);
+        _Block_object_dispose(&v16, 8);
+        v6 = 1;
+        goto LABEL_12;
+      }
+
+      _Block_object_dispose(&v16, 8);
+    }
+
+    v6 = 0;
+LABEL_12:
+
+    _Block_object_dispose(&buf, 8);
+    goto LABEL_13;
+  }
+
+  v3 = objc_autoreleasePoolPush();
+  v4 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    v5 = HMFGetLogIdentifier();
+    LODWORD(buf) = 138543362;
+    *(&buf + 4) = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Current device is primary resident, always require persisted connection with accessories", &buf, 0xCu);
+  }
+
+  objc_autoreleasePoolPop(v3);
+  v6 = 1;
+LABEL_13:
+
+  return v6;
+}
+
+void sub_229CEEEC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(&a15, 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+id __isPersistedConnectionRequiredForAccessory_block_invoke(uint64_t a1)
+{
+  v1 = *(*(*(a1 + 40) + 8) + 40);
+  if (v1)
+  {
+    v2 = v1;
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CBEB58] setWithObject:*(a1 + 32)];
+    v5 = [*(a1 + 32) identifiersForBridgedAccessories];
+    v11 = MEMORY[0x277D85DD0];
+    v12 = 3221225472;
+    v13 = __isPersistedConnectionRequiredForAccessory_block_invoke_2;
+    v14 = &unk_278676860;
+    v15 = *(a1 + 32);
+    v16 = v4;
+    v6 = v4;
+    [v5 hmf_enumerateWithAutoreleasePoolUsingBlock:&v11];
+
+    v7 = objc_msgSend_copy(v6, v11, v12, v13, v14);
+    v8 = *(*(a1 + 40) + 8);
+    v9 = *(v8 + 40);
+    *(v8 + 40) = v7;
+
+    v2 = *(*(*(a1 + 40) + 8) + 40);
   }
 
   return v2;
 }
 
-uint64_t temperatureConversionIsNeeded(void *a1)
+void *__isPersistedConnectionRequiredForAccessory_block_invoke_3(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v1 = a1;
-  v2 = v1;
-  if (!v1)
-  {
-    if (isMetricLocale_onceToken != -1)
-    {
-      dispatch_once(&isMetricLocale_onceToken, &__block_literal_global_198641);
-    }
-
-    if (isMetricLocale_isMetricLocale != 1)
-    {
-      goto LABEL_3;
-    }
-
-LABEL_7:
-    v3 = 0;
-    goto LABEL_8;
-  }
-
-  if (([v1 isEqualToString:*MEMORY[0x277D48390]] & 1) == 0)
-  {
-    goto LABEL_7;
-  }
-
-LABEL_3:
-  v3 = 1;
-LABEL_8:
-
-  return v3;
-}
-
-void sub_229A4FB24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, id location)
-{
-  objc_destroyWeak((v37 + 48));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229A50980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__19997(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
+  result = [a2 supportsTargetController];
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  *a3 = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-void sub_229A5554C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void __isPersistedConnectionRequiredForAccessory_block_invoke_2(uint64_t a1, void *a2)
 {
-  va_start(va, a17);
-  _Block_object_dispose(va, 8);
+  v3 = *(a1 + 32);
+  v4 = a2;
+  v5 = [v3 home];
+  v6 = [v5 accessoryWithUUID:v4];
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v7 = v6;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v9 = v7;
+
+  v8 = v9;
+  if (v9)
+  {
+    [*(a1 + 40) addObject:v9];
+    v8 = v9;
+  }
+}
+
+void __shouldEnableInternalDebugInterfaces_block_invoke(uint64_t a1)
+{
+  if (isInternalBuild())
+  {
+    v2 = [MEMORY[0x277D0F8D0] sharedPreferences];
+    v1 = [v2 preferenceForKey:@"shouldEnableInternalDebugInterfaces"];
+    shouldEnableInternalDebugInterfaces__hmf_once_v49 = [v1 BOOLValue];
+  }
+
+  else
+  {
+    shouldEnableInternalDebugInterfaces__hmf_once_v49 = 0;
+  }
+}
+
+uint64_t getCKContainer()
+{
+  v0 = @"com.apple.homekit.config";
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __getCKContainer_block_invoke;
+  block[3] = &unk_27868A728;
+  v5 = @"com.apple.homekit.config";
+  if (getCKContainer_onceToken != -1)
+  {
+    dispatch_once(&getCKContainer_onceToken, block);
+  }
+
+  v1 = getCKContainer_container;
+  v2 = getCKContainer_container;
+
+  return v1;
+}
+
+void __getCKContainer_block_invoke(uint64_t a1)
+{
+  v3 = [objc_alloc(MEMORY[0x277CBC220]) initWithContainerIdentifier:*(a1 + 32) environment:cloudKitContainerEnvironment];
+  v1 = [objc_alloc(MEMORY[0x277CBC218]) initWithContainerID:v3];
+  v2 = getCKContainer_container;
+  getCKContainer_container = v1;
+}
+
+id shortHAPTypeDescription(void *a1)
+{
+  v1 = a1;
+  v2 = *MEMORY[0x277CFE988];
+  if ([v1 hasSuffix:*MEMORY[0x277CFE988]])
+  {
+    v3 = [v1 substringToIndex:{objc_msgSend(v1, "length") - objc_msgSend(v2, "length")}];
+
+    v1 = v3;
+  }
+
+  return v1;
+}
+
+id listOfUUIDsFromManagedObjectSet(void *a1)
+{
+  v1 = [a1 allObjects];
+  v2 = [v1 na_map:&__block_literal_global_792];
+
+  return v2;
+}
+
+uint64_t isThisDeviceDesignatedFMFDevice()
+{
+  v0 = +[HMDFMFHandlerFactory sharedHandler];
+  v1 = [v0 isThisDesignatedFMFDevice];
+
+  return v1;
+}
+
+void setPrimaryPreference(void *a1, uint64_t a2)
+{
+  v2 = a2;
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v4 = @"hmd.preferred.primary.homeutil";
+  v5 = objc_autoreleasePoolPush();
+  v6 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = HMFGetLogIdentifier();
+    v8 = HMFBooleanToString();
+    v10 = 138544130;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v3;
+    v14 = 2112;
+    v15 = v8;
+    v16 = 2112;
+    v17 = @"hmd.preferred.primary.homeutil";
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Setting preferred primary: %@, isOneTime: %@, applicationKey: %@", &v10, 0x2Au);
+  }
+
+  objc_autoreleasePoolPop(v5);
+  CFPreferencesSetAppValue(@"hmd.preferred.primary", v3, @"hmd.preferred.primary.homeutil");
+  if (v2)
+  {
+    v9 = MEMORY[0x277CBEC38];
+  }
+
+  else
+  {
+    v9 = MEMORY[0x277CBEC28];
+  }
+
+  CFPreferencesSetAppValue(@"hmd.preferred.primary.one.time", v9, @"hmd.preferred.primary.homeutil");
+}
+
+void clearPrimaryPreference(uint64_t a1)
+{
+  v1 = a1;
+  v16 = *MEMORY[0x277D85DE8];
+  v2 = @"hmd.preferred.primary.homeutil";
+  v3 = objc_autoreleasePoolPush();
+  v4 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = HMFGetLogIdentifier();
+    v6 = HMFBooleanToString();
+    v10 = 138543874;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v6;
+    v14 = 2112;
+    v15 = @"hmd.preferred.primary.homeutil";
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Clearing preferred primary with requireOneTime: %@ ...withApplication: %@", &v10, 0x20u);
+  }
+
+  objc_autoreleasePoolPop(v3);
+  v7 = CFPreferencesCopyAppValue(@"hmd.preferred.primary.one.time", @"hmd.preferred.primary.homeutil");
+  v8 = v7;
+  if (v7)
+  {
+    v9 = [v7 BOOLValue];
+    if (!v1 || v9)
+    {
+      CFPreferencesSetAppValue(@"hmd.preferred.primary", 0, @"hmd.preferred.primary.homeutil");
+    }
+  }
+}
+
+uint64_t isTransientCloudKitError(void *a1)
+{
+  v1 = a1;
+  v2 = [v1 domain];
+  v3 = [v2 isEqualToString:*MEMORY[0x277CBBF50]];
+
+  if (v3)
+  {
+    v4 = [v1 code];
+    if (v4 <= 0x17)
+    {
+      v5 = 0x8000D8u >> v4;
+    }
+
+    else
+    {
+      v5 = 0;
+    }
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  return v5 & 1;
+}
+
+void __isFirstLaunchAfterBoot_block_invoke()
+{
+  v21 = *MEMORY[0x277D85DE8];
+  v0 = determineHomeKitDaemonRootStorePath();
+  v1 = v0;
+  if (v0)
+  {
+    v2 = [v0 stringByAppendingPathComponent:@"lastBootUuid"];
+    *v19 = 0u;
+    memset(v20, 0, sizeof(v20));
+    v16 = 37;
+    v3 = sysctlbyname("kern.bootsessionuuid", v19, &v16, 0, 0);
+    if (v3)
+    {
+      if (v3 == -1)
+      {
+        __error();
+        _os_assumes_log();
+      }
+
+      v4 = objc_autoreleasePoolPush();
+      v5 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        v6 = HMFGetLogIdentifier();
+        *buf = 138543362;
+        v18 = v6;
+        _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_ERROR, "%{public}@Failed to get kern.bootsessionuuid", buf, 0xCu);
+      }
+
+      objc_autoreleasePoolPop(v4);
+      isFirstLaunchAfterBoot_firstLaunchAfterBoot = 1;
+    }
+
+    else
+    {
+      v10 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v2 encoding:4 error:0];
+      if (!v10)
+      {
+        v11 = objc_autoreleasePoolPush();
+        v12 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        {
+          v13 = HMFGetLogIdentifier();
+          *buf = 138543362;
+          v18 = v13;
+          _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Failed to load existing boot uuid", buf, 0xCu);
+        }
+
+        objc_autoreleasePoolPop(v11);
+      }
+
+      v14 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:v19];
+      v15 = 1;
+      [v14 writeToFile:v2 atomically:1 encoding:4 error:0];
+      if (v10)
+      {
+        v15 = [v14 isEqualToString:v10] ^ 1;
+      }
+
+      isFirstLaunchAfterBoot_firstLaunchAfterBoot = v15;
+    }
+  }
+
+  else
+  {
+    v7 = objc_autoreleasePoolPush();
+    v8 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      v9 = HMFGetLogIdentifier();
+      *v19 = 138543362;
+      *&v19[4] = v9;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get HomeKit daemon root store path!", v19, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v7);
+    isFirstLaunchAfterBoot_firstLaunchAfterBoot = 1;
+  }
+}
+
+uint64_t HMDTruncatedHash(void *a1)
+{
+  v4 = 0;
+  v1 = [a1 hm_generateSHA256];
+  [v1 getBytes:&v4 length:8];
+  v2 = v4;
+
+  return v2;
+}
+
+void sub_229CF04F8(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v1 + 48));
+  objc_destroyWeak((v2 - 40));
   _Unwind_Resume(a1);
 }
 
-void sub_229A556FC(_Unwind_Exception *a1)
+void sub_229CF2294(_Unwind_Exception *a1)
 {
   v3 = v2;
   os_unfair_lock_unlock((v1 + v3));
   _Unwind_Resume(a1);
 }
 
-__CFString *HMDUserSettingsBackingStoreControllerRunStateAsString(unint64_t a1)
+__CFString *HMDMatterAccessoryPairingStepAsString(unint64_t a1)
 {
-  if (a1 >= 3)
+  if (a1 >= 0x1C)
   {
-    v2 = MEMORY[0x277CCACA8];
-    v3 = [MEMORY[0x277CCABB0] numberWithInteger:a1];
-    v1 = [v2 stringWithFormat:@"Unknown state %@", v3];
+    v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Undefined HMDMatterAccessoryPairingStep %tu", a1];
   }
 
   else
   {
-    v1 = off_278671290[a1];
+    v2 = off_2786769C8[a1];
   }
 
-  return v1;
+  return v2;
 }
 
-void sub_229A5F258(_Unwind_Exception *a1)
+void __callResolveBlocks(void *a1, void *a2, void *a3)
+{
+  v20 = *MEMORY[0x277D85DE8];
+  v5 = a1;
+  v6 = a2;
+  v7 = a3;
+  v8 = [v5 underlyingQueue];
+  dispatch_assert_queue_V2(v8);
+
+  if (v5 && v6 | v7)
+  {
+    v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v9 = [v5 resolveBlocks];
+    v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v10)
+    {
+      v11 = v10;
+      v12 = *v16;
+      do
+      {
+        v13 = 0;
+        do
+        {
+          if (*v16 != v12)
+          {
+            objc_enumerationMutation(v9);
+          }
+
+          (*(*(*(&v15 + 1) + 8 * v13++) + 16))();
+        }
+
+        while (v11 != v13);
+        v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      }
+
+      while (v11);
+    }
+
+    v14 = [v5 resolveBlocks];
+    [v14 removeAllObjects];
+  }
+}
+
+void sub_229CF7894(_Unwind_Exception *a1)
 {
   objc_destroyWeak((v1 + 40));
-  objc_destroyWeak((v2 + 48));
-  objc_destroyWeak((v3 - 120));
-  _Block_object_dispose((v3 - 112), 8);
+  objc_destroyWeak((v2 - 40));
   _Unwind_Resume(a1);
 }
 
-void sub_229A602E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+uint64_t _isNetworkIntefaceActive(void *a1)
 {
-  objc_destroyWeak((v15 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
+  v20 = *MEMORY[0x277D85DE8];
+  v1 = a1;
+  v2 = socket(2, 2, 0);
+  if (v2 < 0 && (!*__error() || *__error()))
+  {
+    goto LABEL_25;
+  }
+
+  v11 = 0;
+  getifaddrs(&v11);
+  v4 = v11;
+  if (!v11)
+  {
+    if (v2 < 0)
+    {
+      goto LABEL_25;
+    }
+
+    goto LABEL_22;
+  }
+
+  do
+  {
+    if ((v4->ifa_flags & 8) == 0)
+    {
+      ifa_name = v4->ifa_name;
+      if (ifa_name)
+      {
+        if (!SocketGetInterfaceInfo())
+        {
+          if (gLogCategory_HMDPowerManager <= 20 && (gLogCategory_HMDPowerManager != -1 || _LogCategory_Initialize()))
+          {
+            LogPrintF(&gLogCategory_HMDPowerManager, "BOOL _isNetworkIntefaceActive(void *)", 20, "Network interface %'-7s (%s): %s\n", v4->ifa_name, "?", "active");
+          }
+
+          v5 = objc_autoreleasePoolPush();
+          v6 = v1;
+          v7 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+          {
+            v8 = HMFGetLogIdentifier();
+            v9 = v4->ifa_name;
+            *buf = 138544130;
+            v13 = v8;
+            v14 = 2080;
+            v15 = v9;
+            v16 = 2080;
+            v17 = "?";
+            v18 = 2080;
+            v19 = "active";
+            _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Network interface %s (%s): %s\n", buf, 0x2Au);
+          }
+
+          objc_autoreleasePoolPop(v5);
+        }
+      }
+    }
+
+    v4 = v4->ifa_next;
+  }
+
+  while (v4);
+  if (v11)
+  {
+    MEMORY[0x22AAD3AA0](v11, ifa_name);
+  }
+
+  if ((v2 & 0x80000000) == 0)
+  {
+LABEL_22:
+    if (close(v2) && *__error())
+    {
+      __error();
+    }
+  }
+
+LABEL_25:
+
+  return 0;
 }
 
-void sub_229A60F1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void _handleNetworkInterfaceChanged(uint64_t a1, uint64_t a2, void *a3)
 {
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = a3;
+  [v3 setNetworkInterfaceActive:_isNetworkIntefaceActive(v3)];
+  if (gLogCategory_HMDPowerManager <= 30 && (gLogCategory_HMDPowerManager != -1 || _LogCategory_Initialize()))
+  {
+    v4 = [v3 networkInterfaceActive];
+    v5 = "no";
+    if (v4)
+    {
+      v5 = "yes";
+    }
+
+    LogPrintF(&gLogCategory_HMDPowerManager, "void _handleNetworkInterfaceChanged(SCDynamicStoreRef, CFArrayRef, void *)", 30, "Network changed. Network interface active: %s\n", v5);
+  }
+
+  v6 = objc_autoreleasePoolPush();
+  v7 = v3;
+  v8 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  {
+    v9 = HMFGetLogIdentifier();
+    v10 = [v7 networkInterfaceActive];
+    v11 = "no";
+    if (v10)
+    {
+      v11 = "yes";
+    }
+
+    *buf = 138543618;
+    v13 = v9;
+    v14 = 2080;
+    v15 = v11;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Network changed. Network interface active: %s\n", buf, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v6);
+  [v7 _update];
 }
 
-uint64_t __Block_byref_object_copy__21464(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_229A615E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location)
-{
-  objc_destroyWeak((v18 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229A62644(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
-{
-  objc_destroyWeak((v17 + 48));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229A69CF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_229A6A024(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
-{
-  objc_destroyWeak((v14 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229A6A7A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_229A6B6E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
-{
-  objc_destroyWeak((v17 + 48));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229A6C400(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
-{
-  objc_destroyWeak((v14 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229A75ACC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__23380(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_229A79778(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_229A7B3B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__23780(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-uint64_t __Block_byref_object_copy__23924(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_229A7EE28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_229A7F470(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, char a19)
-{
-  objc_destroyWeak((v19 + 56));
-  objc_destroyWeak(&location);
-  _Block_object_dispose(&a19, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_229A7FFEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_229A80CA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
-{
-  objc_destroyWeak((v17 + 48));
-  objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_229A813EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id location, char a29)
-{
-  objc_destroyWeak(&location);
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 176), 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__24946(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_229A8A778(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+void sub_229CFB07C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
 {
   objc_destroyWeak((v15 + 32));
   objc_destroyWeak(&location);
   _Unwind_Resume(a1);
 }
 
-void sub_229A8B074(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location)
+void sub_229CFB8E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id location)
+{
+  objc_destroyWeak(v28);
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229CFBB70(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229CFCE60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__85229(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_229CFD594(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+id _parseTargetList(void *a1, void *a2)
+{
+  v2 = a1;
+  if ([v2 length])
+  {
+    [v2 bytes];
+    [v2 length];
+      ;
+    }
+  }
+
+  return 0;
+}
+
+id _parseTargetButtonConfiguration(void *a1, void **a2)
+{
+  v2 = a1;
+  v3 = [MEMORY[0x277CBEB18] array];
+  [v2 bytes];
+  [v2 length];
+    ;
+  }
+
+  v4 = objc_msgSend_copy(v3);
+
+  return v4;
+}
+
+unint64_t targetConfigurationTLVSize(void *a1, void *a2)
+{
+  v25 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v4 = a2;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v5 = [v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v21;
+    v8 = 32;
+    do
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v21 != v7)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        v10 = *(*(&v20 + 1) + 8 * i);
+        v11 = v8 + 12;
+        v12 = [v10 name];
+        v13 = [v12 UTF8String];
+
+        if (v13)
+        {
+          v14 = strlen(v13);
+          if (v14 >= 0x80)
+          {
+            v15 = 128;
+          }
+
+          else
+          {
+            v15 = v14;
+          }
+
+          v11 += v15;
+        }
+
+        v16 = [v10 buttonConfiguration];
+        if ([v16 count])
+        {
+          v17 = [v10 buttonConfiguration];
+          v18 = buttonConfigurationTLVSize(v17);
+        }
+
+        else
+        {
+          v18 = buttonConfigurationTLVSize(v4);
+        }
+
+        v8 = v18 + v11;
+      }
+
+      v6 = [v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    }
+
+    while (v6);
+  }
+
+  else
+  {
+    v8 = 32;
+  }
+
+  return v8 + 2 * (v8 / 0xFF);
+}
+
+uint64_t __addButtonConfigurationTLV(uint64_t a1, void *a2)
+{
+  v40 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  if ([v2 count])
+  {
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v19 = 0u;
+    buttonConfigurationTLVSize(v2);
+    TLV8BufferInit();
+    v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
+    v3 = v2;
+    v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    if (v4)
+    {
+      v5 = v4;
+      v6 = *v15;
+LABEL_4:
+      v7 = 0;
+      while (1)
+      {
+        if (*v15 != v6)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        v8 = *(*(&v14 + 1) + 8 * v7);
+        [v8 identifier];
+        v9 = TLV8BufferAppend();
+        if (v9)
+        {
+          break;
+        }
+
+        [v8 type];
+        v9 = TLV8BufferAppend();
+        if (v9)
+        {
+          break;
+        }
+
+        v10 = [v8 name];
+        v11 = [v10 UTF8String];
+
+        if (v11)
+        {
+          strlen(v11);
+          v9 = TLV8BufferAppend();
+          if (v9)
+          {
+            break;
+          }
+        }
+
+        if (v5 == ++v7)
+        {
+          v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          if (v5)
+          {
+            goto LABEL_4;
+          }
+
+          goto LABEL_13;
+        }
+      }
+    }
+
+    else
+    {
+LABEL_13:
+
+      v3 = [MEMORY[0x277CBEA90] dataWithBytes:v19 length:?];
+      [v3 bytes];
+      [v3 length];
+      v9 = TLV8BufferAppend();
+    }
+
+    v12 = v9;
+
+    TLV8BufferFree();
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
+}
+
+unint64_t buttonConfigurationTLVSize(void *a1)
+{
+  v17 = *MEMORY[0x277D85DE8];
+  v1 = a1;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v2 = [v1 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v2)
+  {
+    v3 = v2;
+    v4 = *v13;
+    v5 = 32;
+    do
+    {
+      for (i = 0; i != v3; ++i)
+      {
+        if (*v13 != v4)
+        {
+          objc_enumerationMutation(v1);
+        }
+
+        v5 += 9;
+        v7 = [*(*(&v12 + 1) + 8 * i) name];
+        v8 = [v7 UTF8String];
+
+        if (v8)
+        {
+          v9 = strlen(v8);
+          if (v9 >= 0x80)
+          {
+            v10 = 128;
+          }
+
+          else
+          {
+            v10 = v9;
+          }
+
+          v5 += v10;
+        }
+      }
+
+      v3 = [v1 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v3);
+  }
+
+  else
+  {
+    v5 = 32;
+  }
+
+  return v5 + 2 * (v5 / 0xFF);
+}
+
+void sub_229D050AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
+{
+  objc_destroyWeak((v17 + 48));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__85560(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_229D05C10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
+{
+  objc_destroyWeak((v17 + 48));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229D07A78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229D08354(_Unwind_Exception *a1)
+{
+  v3 = v2;
+  os_unfair_lock_unlock((v1 + v3));
+  _Unwind_Resume(a1);
+}
+
+void sub_229D083E0(_Unwind_Exception *a1)
+{
+  v3 = v2;
+  os_unfair_lock_unlock((v1 + v3));
+  _Unwind_Resume(a1);
+}
+
+void sub_229D0846C(_Unwind_Exception *a1)
+{
+  v3 = v2;
+  os_unfair_lock_unlock((v1 + v3));
+  _Unwind_Resume(a1);
+}
+
+id readDataFromCKRecordOptionalAssetField(uint64_t a1)
+{
+  v1 = MEMORY[0x28223BE20](a1);
+  v3 = v2;
+  v5 = v4;
+  v37 = *MEMORY[0x277D85DE8];
+  v6 = v1;
+  v7 = v5;
+  v8 = filePathFromCKRecordOptionalAssetField(v6, v7);
+  v9 = v8;
+  if (!v8)
+  {
+    v18 = 0;
+    goto LABEL_25;
+  }
+
+  v10 = createInputStreamWithFilePath(v8, 0);
+  v11 = v10;
+  if (v10)
+  {
+    v12 = v10;
+    v13 = [MEMORY[0x277CBEB28] data];
+    [v12 open];
+    v14 = [v12 read:v36 maxLength:4096];
+    if (v14 < 1)
+    {
+LABEL_12:
+      [v12 close];
+      if ((v14 & 0x8000000000000000) == 0)
+      {
+        v18 = objc_msgSend_copy(v13);
+LABEL_23:
+
+        goto LABEL_24;
+      }
+
+      v19 = objc_autoreleasePoolPush();
+      v20 = objc_opt_class();
+      v21 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      {
+        v22 = HMFGetLogIdentifier();
+        [v12 streamError];
+        v23 = v30 = v19;
+        *buf = 138543618;
+        v33 = v22;
+        v34 = 2112;
+        v35 = v23;
+        _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Error reading data from input stream: %@", buf, 0x16u);
+
+        v19 = v30;
+      }
+
+      v24 = v19;
+    }
+
+    else
+    {
+      while (1)
+      {
+        if (v3)
+        {
+          v15 = [v13 length];
+          v16 = __CFADD__(v14, v15);
+          v17 = v16 << 63 >> 63;
+          if (v17 != v16 || v17 < 0 || v14 + v15 > v3)
+          {
+            break;
+          }
+        }
+
+        [v13 appendBytes:v36 length:v14];
+        v14 = [v12 read:v36 maxLength:4096];
+        if (v14 <= 0)
+        {
+          goto LABEL_12;
+        }
+      }
+
+      [v12 close];
+      v25 = objc_autoreleasePoolPush();
+      v26 = objc_opt_class();
+      v27 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      {
+        HMFGetLogIdentifier();
+        v28 = v31 = v25;
+        *buf = 138543618;
+        v33 = v28;
+        v34 = 2048;
+        v35 = v3;
+        _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Data from input stream has exceeded the maximum %lu bytes allowed", buf, 0x16u);
+
+        v25 = v31;
+      }
+
+      v24 = v25;
+    }
+
+    objc_autoreleasePoolPop(v24);
+    v18 = 0;
+    goto LABEL_23;
+  }
+
+  v18 = 0;
+LABEL_24:
+
+LABEL_25:
+
+  return v18;
+}
+
+id dataFromCKRecordRequiredField(void *a1, void *a2, void *a3)
+{
+  v42 = *MEMORY[0x277D85DE8];
+  v5 = a1;
+  v6 = a2;
+  v7 = [v5 objectForKeyedSubscript:v6];
+  v8 = v7;
+  if (v7)
+  {
+    v9 = v7;
+    objc_opt_class();
+    v10 = objc_opt_isKindOfClass() & 1;
+    if (v10)
+    {
+      v11 = v9;
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+
+    v12 = v11;
+
+    v13 = objc_autoreleasePoolPush();
+    v14 = objc_opt_class();
+    v15 = HMFGetOSLogHandle();
+    v16 = v15;
+    if (v10)
+    {
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      {
+        v17 = HMFGetLogIdentifier();
+        v18 = [v5 recordID];
+        [v18 hmbDescription];
+        v19 = v32 = v12;
+        *buf = 138543874;
+        v35 = v17;
+        v36 = 2112;
+        v37 = v6;
+        v38 = 2112;
+        v39 = v19;
+        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Reading '%@' NSData for record %@", buf, 0x20u);
+
+        v12 = v32;
+      }
+
+      objc_autoreleasePoolPop(v13);
+      v20 = v9;
+    }
+
+    else
+    {
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        HMFGetLogIdentifier();
+        v27 = v31 = v13;
+        v28 = [v5 recordID];
+        [v28 hmbDescription];
+        v29 = v33 = v12;
+        *buf = 138544130;
+        v35 = v27;
+        v36 = 2112;
+        v37 = v6;
+        v38 = 2112;
+        v39 = v29;
+        v40 = 2112;
+        v41 = v9;
+        _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@'%@' field is not a NSData on record %@: %@", buf, 0x2Au);
+
+        v12 = v33;
+        v13 = v31;
+      }
+
+      objc_autoreleasePoolPop(v13);
+      if (a3)
+      {
+        [MEMORY[0x277CCA9B8] hmErrorWithCode:43];
+        *a3 = v20 = 0;
+      }
+
+      else
+      {
+        v20 = 0;
+      }
+    }
+  }
+
+  else
+  {
+    v21 = objc_autoreleasePoolPush();
+    v22 = objc_opt_class();
+    v23 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    {
+      v24 = HMFGetLogIdentifier();
+      v25 = [v5 recordID];
+      v26 = [v25 hmbDescription];
+      *buf = 138543874;
+      v35 = v24;
+      v36 = 2112;
+      v37 = v6;
+      v38 = 2112;
+      v39 = v26;
+      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Field '%@' does not exist on record %@", buf, 0x20u);
+    }
+
+    objc_autoreleasePoolPop(v21);
+    if (a3)
+    {
+      [MEMORY[0x277CCA9B8] hmErrorWithCode:43];
+      *a3 = v20 = 0;
+    }
+
+    else
+    {
+      v20 = 0;
+    }
+  }
+
+  return v20;
+}
+
+id filePathFromCKRecordOptionalAssetField(void *a1, void *a2)
+{
+  v37 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v4 = a2;
+  v5 = [v3 objectForKeyedSubscript:v4];
+  v6 = v5;
+  if (v5)
+  {
+    v7 = v5;
+    objc_opt_class();
+    v8 = objc_opt_isKindOfClass() & 1;
+    if (v8)
+    {
+      v9 = v7;
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+
+    v10 = v9;
+
+    v11 = objc_autoreleasePoolPush();
+    v12 = objc_opt_class();
+    v13 = HMFGetOSLogHandle();
+    v14 = v13;
+    if (v8)
+    {
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      {
+        HMFGetLogIdentifier();
+        v15 = v26 = v11;
+        v25 = [v3 recordID];
+        v16 = [v25 hmbDescription];
+        [v7 fileURL];
+        v17 = v27 = v10;
+        v18 = [v17 path];
+        *buf = 138544130;
+        v30 = v15;
+        v31 = 2112;
+        v32 = v4;
+        v33 = 2112;
+        v34 = v16;
+        v35 = 2112;
+        v36 = v18;
+        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Reading '%@' CKAsset for record %@ from %@", buf, 0x2Au);
+
+        v10 = v27;
+        v11 = v26;
+      }
+
+      objc_autoreleasePoolPop(v11);
+      v19 = [v7 fileURL];
+      v20 = [v19 path];
+    }
+
+    else
+    {
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        v21 = HMFGetLogIdentifier();
+        [v3 recordID];
+        v22 = v28 = v10;
+        v23 = [v22 hmbDescription];
+        *buf = 138544130;
+        v30 = v21;
+        v31 = 2112;
+        v32 = v4;
+        v33 = 2112;
+        v34 = v23;
+        v35 = 2112;
+        v36 = v7;
+        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@'%@' field is not a CKAsset on record %@: %@", buf, 0x2Au);
+
+        v10 = v28;
+      }
+
+      objc_autoreleasePoolPop(v11);
+      v20 = 0;
+    }
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  return v20;
+}
+
+id createInputStreamWithFilePath(void *a1, void *a2)
+{
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v4 = [MEMORY[0x277CBEAE0] inputStreamWithFileAtPath:v3];
+  v5 = v4;
+  if (v4)
+  {
+    v6 = v4;
+  }
+
+  else
+  {
+    v7 = objc_autoreleasePoolPush();
+    v8 = objc_opt_class();
+    v9 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      v10 = HMFGetLogIdentifier();
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v3;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to create input stream for file at path: %@", &v12, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v7);
+    if (a2)
+    {
+      *a2 = [MEMORY[0x277CCA9B8] hmErrorWithCode:52];
+    }
+  }
+
+  return v5;
+}
+
+id stringFromCKRecord(void *a1, void *a2, void *a3, uint64_t a4, void *a5)
+{
+  v54 = *MEMORY[0x277D85DE8];
+  v8 = a1;
+  v9 = a2;
+  v10 = a3;
+  if (!v10 || (readDataFromCKRecordOptionalAssetField(v8), (v11 = objc_claimAutoreleasedReturnValue()) == 0) || (v12 = v11, v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v11 encoding:4], v12, !v13))
+  {
+    v14 = v8;
+    v15 = v9;
+    v16 = [v14 objectForKeyedSubscript:v15];
+    v17 = v16;
+    if (v16)
+    {
+      v44 = a5;
+      v18 = v16;
+      objc_opt_class();
+      v19 = objc_opt_isKindOfClass() & 1;
+      v20 = v19 ? v18 : 0;
+      v39 = v20;
+
+      context = objc_autoreleasePoolPush();
+      v21 = objc_opt_class();
+      v22 = HMFGetOSLogHandle();
+      v23 = v22;
+      if (v19)
+      {
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+        {
+          v36 = HMFGetLogIdentifier();
+          [v14 recordID];
+          v24 = v41 = v9;
+          [v24 hmbDescription];
+          *buf = 138543874;
+          v47 = v36;
+          v48 = 2112;
+          v49 = v15;
+          v51 = v50 = 2112;
+          v25 = v51;
+          _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_DEBUG, "%{public}@Reading '%@' NSString for record %@", buf, 0x20u);
+
+          v9 = v41;
+        }
+
+        objc_autoreleasePoolPop(context);
+        v13 = v18;
+        a5 = v44;
+      }
+
+      else
+      {
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        {
+          v32 = HMFGetLogIdentifier();
+          v37 = [v14 recordID];
+          [v37 hmbDescription];
+          v33 = v43 = v9;
+          *buf = 138544130;
+          v47 = v32;
+          v48 = 2112;
+          v49 = v15;
+          v50 = 2112;
+          v51 = v33;
+          v52 = 2112;
+          v53 = v18;
+          _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@'%@' field is not a NSData on record %@: %@", buf, 0x2Au);
+
+          v9 = v43;
+        }
+
+        objc_autoreleasePoolPop(context);
+        a5 = v44;
+        if (v44)
+        {
+          [MEMORY[0x277CCA9B8] hmErrorWithCode:43];
+          *v44 = v13 = 0;
+        }
+
+        else
+        {
+          v13 = 0;
+        }
+      }
+    }
+
+    else
+    {
+      v42 = v9;
+      v26 = objc_autoreleasePoolPush();
+      v27 = objc_opt_class();
+      v28 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      {
+        HMFGetLogIdentifier();
+        v29 = v45 = a5;
+        v30 = [v14 recordID];
+        [v30 hmbDescription];
+        v31 = v40 = v26;
+        *buf = 138543874;
+        v47 = v29;
+        v48 = 2112;
+        v49 = v15;
+        v50 = 2112;
+        v51 = v31;
+        _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Field '%@' does not exist on record %@", buf, 0x20u);
+
+        v26 = v40;
+        a5 = v45;
+      }
+
+      objc_autoreleasePoolPop(v26);
+      if (a5)
+      {
+        [MEMORY[0x277CCA9B8] hmErrorWithCode:43];
+        *a5 = v13 = 0;
+      }
+
+      else
+      {
+        v13 = 0;
+      }
+
+      v9 = v42;
+    }
+
+    if (!v13)
+    {
+      goto LABEL_29;
+    }
+  }
+
+  if ([v13 length])
+  {
+    v13 = v13;
+    v34 = v13;
+    goto LABEL_30;
+  }
+
+  if (a5)
+  {
+    [MEMORY[0x277CCA9B8] hmErrorWithCode:51];
+    *a5 = v34 = 0;
+  }
+
+  else
+  {
+LABEL_29:
+    v34 = 0;
+  }
+
+LABEL_30:
+
+  return v34;
+}
+
+uint64_t significantEventReasonFromVideoAnalyzerEventClass(void *a1)
+{
+  v10 = *MEMORY[0x277D85DE8];
+  if ([a1 isEqual:objc_opt_class()] & 1) != 0 || (objc_msgSend(a1, "isEqual:", objc_opt_class()))
+  {
+    return 2;
+  }
+
+  if ([a1 isEqual:objc_opt_class()])
+  {
+    return 3;
+  }
+
+  if ([a1 isEqual:objc_opt_class()])
+  {
+    return 4;
+  }
+
+  if ([a1 isEqual:objc_opt_class()])
+  {
+    return 5;
+  }
+
+  if (([a1 isEqual:objc_opt_class()] & 1) == 0)
+  {
+    v3 = objc_autoreleasePoolPush();
+    v4 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      v5 = HMFGetLogIdentifier();
+      v6 = 138543618;
+      v7 = v5;
+      v8 = 2112;
+      v9 = a1;
+      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_ERROR, "%{public}@Unknown video analyzer event class: %@", &v6, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v3);
+  }
+
+  return 1;
+}
+
+void sub_229D10AD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__86488(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void __HMDNetworkRouterWANRulesFromHostNames_block_invoke(uint64_t a1, void *a2)
+{
+  if (*(a1 + 32))
+  {
+    v4 = [[HMDNetworkRouterWANICMPRule alloc] initWithHostDNSName:a2 hostIPStart:0 hostIPEnd:0 icmpTypes:*(a1 + 32)];
+  }
+
+  else
+  {
+    v4 = [[HMDNetworkRouterWANPortRule alloc] initWithProtocol:*(a1 + 40) hostDNSName:a2 hostIPStart:0 hostIPEnd:0 hostPortStart:*(a1 + 48) hostPortEnd:*(a1 + 56)];
+  }
+
+  v5 = v4;
+
+  [*(a1 + 64) addObject:v5];
+}
+
+void __HMDNetworkRouterWANRulesFromAddresses_block_invoke(uint64_t a1, uint64_t a2)
+{
+  v5 = [HMDNetworkRouterIPAddress ipAddressFromRuleAddress:a2 allowWildcard:1];
+  if (*(a1 + 32))
+  {
+    v3 = [[HMDNetworkRouterWANICMPRule alloc] initWithHostDNSName:0 hostIPStart:v5 hostIPEnd:0 icmpTypes:*(a1 + 32)];
+  }
+
+  else
+  {
+    v3 = [[HMDNetworkRouterWANPortRule alloc] initWithProtocol:*(a1 + 40) hostDNSName:0 hostIPStart:v5 hostIPEnd:0 hostPortStart:*(a1 + 48) hostPortEnd:*(a1 + 56)];
+  }
+
+  v4 = v3;
+  [*(a1 + 64) addObject:v3];
+}
+
+HMDNetworkRouterLANIdentifierList *createIdentifierListFromLANRule(void *a1)
+{
+  v1 = MEMORY[0x277CFEC98];
+  v2 = a1;
+  v3 = [[v1 alloc] initWithValue:&unk_283E72800];
+  v4 = [MEMORY[0x277CBEB18] arrayWithObject:v3];
+  v5 = [v2 areConnectionsWithOtherAccessoriesAllowed];
+
+  if (v5)
+  {
+    v6 = [objc_alloc(MEMORY[0x277CFEC98]) initWithValue:&unk_283E72848];
+    [v4 addObject:v6];
+  }
+
+  v7 = [[HMDNetworkRouterLANIdentifierList alloc] initWithIdentifiers:v4];
+
+  return v7;
+}
+
+void sub_229D155EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229D1756C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location)
+{
+  objc_destroyWeak((v18 + 64));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229D1822C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
+{
+  objc_destroyWeak((v17 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229D1876C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
+{
+  objc_destroyWeak((v17 + 48));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229D18D08(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v1 + 32));
+  objc_destroyWeak((v2 - 24));
+  _Unwind_Resume(a1);
+}
+
+void sub_229D1CF78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+uint64_t arraysEqualIgnoringOrder(void *a1, void *a2)
+{
+  v3 = a1;
+  v4 = a2;
+  v5 = [v3 count];
+  if (v5 == [v4 count])
+  {
+    v6 = [MEMORY[0x277CBEB98] setWithArray:v3];
+    v7 = [MEMORY[0x277CBEB98] setWithArray:v4];
+    v8 = [v6 isEqualToSet:v7];
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  return v8;
+}
+
+__CFString *HMDSleepConfigurationOperationStatusAsString(unint64_t a1)
+{
+  if (a1 >= 4)
+  {
+    v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unknown HMDSleepConfigurationOperationStatus %ld", a1];
+  }
+
+  else
+  {
+    v2 = off_278676FD8[a1];
+  }
+
+  return v2;
+}
+
+__CFString *HMDSleepConfigurationOperationTypeAsString(uint64_t a1)
+{
+  if ((a1 - 1) >= 4)
+  {
+    v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unknown HMDSleepConfigurationOperationType %ld", a1];
+  }
+
+  else
+  {
+    v2 = off_278676FF8[a1 - 1];
+  }
+
+  return v2;
+}
+
+uint64_t isAccessoryInDefaultGroup(void *a1)
+{
+  v1 = a1;
+  v2 = [v1 defaultNetworkProtectionGroupUUID];
+  if (v2)
+  {
+    v3 = [v1 networkProtectionGroupUUID];
+    v4 = [v2 isEqual:v3];
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  return v4;
+}
+
+uint64_t __HMDAccountAddHandle(void *a1, void *a2)
+{
+  v19 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v4 = a2;
+  if (v3 && (os_unfair_lock_assert_owner(v3 + 4), ([*(v3 + 3) containsObject:v4] & 1) == 0))
+  {
+    v6 = [*(v3 + 3) mutableCopy];
+    [v6 addObject:v4];
+    v7 = objc_msgSend_copy(v6);
+    v8 = *(v3 + 3);
+    *(v3 + 3) = v7;
+
+    v9 = objc_autoreleasePoolPush();
+    v10 = v3;
+    v11 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    {
+      v12 = HMFGetLogIdentifier();
+      v15 = 138543618;
+      v16 = v12;
+      v17 = 2112;
+      v18 = v4;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Registering account handle: %@", &v15, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v9);
+    v13 = +[HMDAccountRegistry sharedRegistry];
+    [v13 addHandle:v4 toAccount:v10];
+
+    v5 = 1;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  return v5;
+}
+
+void __HMDAccountDidUpdateHandles(void *a1)
+{
+  v9 = *MEMORY[0x277D85DE8];
+  v1 = a1;
+  if (v1)
+  {
+    v2 = objc_autoreleasePoolPush();
+    v3 = v1;
+    v4 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    {
+      v5 = HMFGetLogIdentifier();
+      v7 = 138543362;
+      v8 = v5;
+      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Handles updated", &v7, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v2);
+    v6 = [MEMORY[0x277CCAB98] defaultCenter];
+    [v6 postNotificationName:@"HMDAccountHandlesUpdatedNotification" object:v3];
+  }
+}
+
+uint64_t __HMDAccountAddDevice(void *a1, void *a2)
+{
+  v3 = a1;
+  v4 = a2;
+  v5 = v4;
+  v6 = 0;
+  if (v3 && v4)
+  {
+    os_unfair_lock_assert_owner(v3 + 4);
+    if ([*(v3 + 4) containsObject:v5])
+    {
+      v6 = 0;
+    }
+
+    else
+    {
+      [*(v3 + 4) addObject:v5];
+      v6 = 1;
+    }
+  }
+
+  return v6;
+}
+
+void __HMDAccountDidAddDevice(void *a1, void *a2)
+{
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v4 = a2;
+  v5 = v4;
+  if (v3 && v4)
+  {
+    os_unfair_lock_assert_not_owner(v3 + 4);
+    v6 = objc_autoreleasePoolPush();
+    v7 = v3;
+    v8 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    {
+      v9 = HMFGetLogIdentifier();
+      *buf = 138543618;
+      v15 = v9;
+      v16 = 2112;
+      v17 = v5;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Device added: %@", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v6);
+    v10 = [MEMORY[0x277CCAB98] defaultCenter];
+    v12 = @"HMDDeviceNotificationKey";
+    v13 = v5;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+    [v10 postNotificationName:@"HMDAccountAddedDeviceNotification" object:v7 userInfo:v11];
+  }
+}
+
+id __HMDAccountRemoveHandle(void *a1, void *a2)
+{
+  v3 = a1;
+  if (v3)
+  {
+    v4 = a2;
+    os_unfair_lock_assert_owner(v3 + 4);
+    v5 = [*(v3 + 3) member:v4];
+
+    if (v5)
+    {
+      v6 = [*(v3 + 3) mutableCopy];
+      [v6 removeObject:v5];
+      v7 = objc_msgSend_copy(v6);
+      v8 = *(v3 + 3);
+      *(v3 + 3) = v7;
+    }
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  return v5;
+}
+
+id __HMDAccountRemoveDevice(void *a1, void *a2)
+{
+  v3 = a1;
+  if (v3)
+  {
+    v4 = a2;
+    os_unfair_lock_assert_owner(v3 + 4);
+    v5 = [*(v3 + 4) member:v4];
+
+    if (v5)
+    {
+      [*(v3 + 4) removeObject:v5];
+    }
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  return v5;
+}
+
+void __HMDAccountDidRemoveDevice(void *a1, void *a2)
+{
+  v17 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v4 = a2;
+  if (v3)
+  {
+    os_unfair_lock_assert_not_owner(v3 + 4);
+    v5 = objc_autoreleasePoolPush();
+    v6 = v3;
+    v7 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    {
+      v8 = HMFGetLogIdentifier();
+      *buf = 138543618;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v4;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Device removed: %@", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v5);
+    v9 = [MEMORY[0x277CCAB98] defaultCenter];
+    v11 = @"HMDDeviceNotificationKey";
+    v12 = v4;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+    [v9 postNotificationName:@"HMDAccountRemovedDeviceNotification" object:v6 userInfo:v10];
+  }
+}
+
+void sub_229D3FE14(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v1 + 40));
+  objc_destroyWeak((v2 - 112));
+  _Unwind_Resume(a1);
+}
+
+BOOL __lookupDeviceForRemoteCommands(void *a1, void *a2)
+{
+  v24 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v4 = v3;
+  if (a2)
+  {
+    v5 = [v3 accessory];
+    v6 = [v5 home];
+    if (v6)
+    {
+      v7 = v4;
+      v8 = [v7 accessory];
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        v9 = v8;
+      }
+
+      else
+      {
+        v9 = 0;
+      }
+
+      v10 = v9;
+
+      v11 = [v10 device];
+      v12 = v11 != 0;
+      if (v11)
+      {
+        context = objc_autoreleasePoolPush();
+        v19 = v7;
+        v13 = v7;
+        v14 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+        {
+          v17 = HMFGetLogIdentifier();
+          *buf = 138543618;
+          v21 = v17;
+          v22 = 2112;
+          v23 = v11;
+          _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Routing the command to the device backing the media accessory %@", buf, 0x16u);
+        }
+
+        objc_autoreleasePoolPop(context);
+        v15 = v11;
+        *a2 = v11;
+        v7 = v19;
+      }
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
+}
+
+void sub_229D40354(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location)
 {
   objc_destroyWeak((v19 + 40));
   objc_destroyWeak(&location);
   _Unwind_Resume(a1);
 }
 
-void sub_229A8CBE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
+void sub_229D43A00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  objc_destroyWeak((v17 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229A8D044(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, id location)
-{
-  objc_destroyWeak((v23 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229A8E058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __Block_byref_object_copy__26011(uint64_t result, uint64_t a2)
+uint64_t __Block_byref_object_copy__93296(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
   *(a2 + 40) = 0;
   return result;
 }
 
-void notifyObservers(void *a1, void *a2, uint64_t a3, uint64_t a4)
+void sub_229D47114(_Unwind_Exception *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v7 = a1;
-  v8 = a2;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v9)
-  {
-    v10 = v9;
-    v11 = *v15;
-    do
-    {
-      v12 = 0;
-      do
-      {
-        if (*v15 != v11)
-        {
-          objc_enumerationMutation(v7);
-        }
-
-        [*(*(&v14 + 1) + 8 * v12++) updatedCounter:v8 fromOldValue:a3 toNewValue:a4];
-      }
-
-      while (v10 != v12);
-      v10 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
-    }
-
-    while (v10);
-  }
-
-  v13 = *MEMORY[0x277D85DE8];
-}
-
-void sub_229A9F630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 64), 8);
+  objc_destroyWeak((v3 + 40));
+  objc_destroyWeak((v1 + 40));
+  objc_destroyWeak((v2 + 40));
+  objc_destroyWeak((v4 - 112));
   _Unwind_Resume(a1);
 }
 
-uint64_t __Block_byref_object_copy__27212(uint64_t result, uint64_t a2)
+void sub_229D483A0(_Unwind_Exception *a1)
 {
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_229AA0224(_Unwind_Exception *a1)
-{
-  v3 = v2;
-  os_unfair_lock_unlock((v1 + v3));
+  objc_destroyWeak((v1 + 32));
+  objc_destroyWeak((v3 + 32));
+  objc_destroyWeak((v2 + 32));
+  objc_destroyWeak((v4 - 56));
   _Unwind_Resume(a1);
 }
 
-void sub_229AA2AEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
+void sub_229D49F54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
 {
   objc_destroyWeak((v14 + 32));
   objc_destroyWeak(&location);
   _Unwind_Resume(a1);
 }
 
-void sub_229AA34CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, id location)
+__CFString *HMDLowPowerModeStateMachineDescription(unint64_t a1)
 {
-  objc_destroyWeak((v23 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-id HMDExtendedTypeDateFormatter()
-{
-  if (HMDExtendedTypeDateFormatter_once != -1)
+  if (a1 >= 5)
   {
-    dispatch_once(&HMDExtendedTypeDateFormatter_once, &__block_literal_global_27646);
+    v2 = MEMORY[0x277CCACA8];
+    v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1];
+    v1 = [v2 stringWithFormat:@"Unknown (%@)", v3];
   }
 
-  v1 = HMDExtendedTypeDateFormatter_formatter;
+  else
+  {
+    v1 = off_278677710[a1];
+  }
 
   return v1;
 }
 
-uint64_t __HMDExtendedTypeDateFormatter_block_invoke()
+id findMatchingCharacteristic(void *a1, void *a2)
 {
-  v0 = objc_alloc_init(MEMORY[0x277CCAA68]);
-  v1 = HMDExtendedTypeDateFormatter_formatter;
-  HMDExtendedTypeDateFormatter_formatter = v0;
+  v3 = a1;
+  v4 = @"00000221-0000-1000-8000-0026BB765291";
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __findMatchingCharacteristic_block_invoke;
+  v9[3] = &unk_2786776F0;
+  v10 = v3;
+  v11 = @"00000221-0000-1000-8000-0026BB765291";
+  v5 = @"00000221-0000-1000-8000-0026BB765291";
+  v6 = v3;
+  v7 = [a2 hmf_objectPassingTest:v9];
 
-  v2 = [MEMORY[0x277CBEBB0] timeZoneForSecondsFromGMT:0];
-  [HMDExtendedTypeDateFormatter_formatter setTimeZone:v2];
-
-  v3 = HMDExtendedTypeDateFormatter_formatter;
-
-  return [v3 setFormatOptions:3955];
+  return v7;
 }
 
-uint64_t HMDUserActivityType6StateEventAsString(uint64_t a1, uint64_t a2)
+uint64_t __findMatchingCharacteristic_block_invoke(uint64_t a1, void *a2)
 {
-  if ((a1 - 1) > 2)
+  v3 = a2;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
   {
-    v4 = @"Unknown";
+    v4 = v3;
   }
 
   else
   {
-    v4 = off_2786719D0[a1 - 1];
+    v4 = 0;
   }
 
-  if ((a2 - 1) > 4)
+  v5 = v4;
+  v6 = v5;
+  if (v5)
   {
-    v5 = @"Other";
+    v7 = [v5 type];
+    if ([v7 isEqualToString:*(a1 + 32)])
+    {
+      v8 = [v6 service];
+      v9 = objc_msgSend_serviceType(v8);
+      v10 = [v9 isEqualToString:*(a1 + 40)];
+    }
+
+    else
+    {
+      v10 = 0;
+    }
   }
 
   else
   {
-    v5 = off_2786719E8[a2 - 1];
+    v10 = 0;
   }
 
-  return [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@", v4, v5, v2, v3];
+  return v10;
 }
 
-void sub_229AABA54(_Unwind_Exception *a1)
+id deserializeObject(objc_class *a1, void *a2)
+{
+  v22 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v4 = v3;
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  v5 = v4;
+
+  if (v5 && [(objc_class *)a1 conformsToProtocol:&unk_283EB7020])
+  {
+    v6 = objc_alloc_init(a1);
+    v15 = 0;
+    v7 = [v6 parseFromData:v5 error:&v15];
+    v8 = v15;
+    if (v8 || !v6 || (v7 & 1) == 0)
+    {
+      v9 = objc_autoreleasePoolPush();
+      v10 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        v11 = HMFGetLogIdentifier();
+        v12 = NSStringFromClass(a1);
+        *buf = 138543874;
+        v17 = v11;
+        v18 = 2112;
+        v19 = v12;
+        v20 = 2112;
+        v21 = v8;
+        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to create an object of class: %@ with error: %@", buf, 0x20u);
+      }
+
+      objc_autoreleasePoolPop(v9);
+      goto LABEL_15;
+    }
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (objc_opt_isKindOfClass())
+  {
+    v6 = v6;
+    v13 = v6;
+    goto LABEL_16;
+  }
+
+LABEL_15:
+  v13 = 0;
+LABEL_16:
+
+  return v13;
+}
+
+id HMDLowPowerModeOperationStatusDescription(unint64_t a1)
+{
+  v1 = HMDSleepConfigurationOperationStatusAsString(a1);
+  v2 = [v1 stringByReplacingOccurrencesOfString:@"HMDSleepConfigurationOperationStatus" withString:&stru_283CF9D50];
+
+  return v2;
+}
+
+id HMDLowPowerModeOperationTypeDescription(uint64_t a1)
+{
+  v1 = HMDSleepConfigurationOperationTypeAsString(a1);
+  v2 = [v1 stringByReplacingOccurrencesOfString:@"HMDSleepConfigurationOperationType" withString:&stru_283CF9D50];
+
+  return v2;
+}
+
+void sub_229D4D71C(_Unwind_Exception *a1)
 {
   objc_destroyWeak((v1 + 40));
   objc_destroyWeak((v2 - 40));
   _Unwind_Resume(a1);
 }
 
-void sub_229AADF88(_Unwind_Exception *a1)
+id HMDLowPowerModeWoWLANInfoForSupportedSleepConfiguration(void *a1)
 {
-  objc_destroyWeak((v1 + 40));
-  objc_destroyWeak((v2 - 40));
-  _Unwind_Resume(a1);
-}
-
-void sub_229AB087C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
-{
-  _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__28761(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_229AB2610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_229AB3168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
-{
-  va_start(va, a10);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_229AB59E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_229ABA64C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-id HMDLocalizedStringForKey(void *a1)
-{
+  v32 = *MEMORY[0x277D85DE8];
   v1 = a1;
-  v2 = objc_autoreleasePoolPush();
-  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  if (!isAppleTV())
+  v24 = [MEMORY[0x277CBEB18] array];
+  v2 = [v1 version];
+  v3 = [v2 value];
+  v4 = [v3 unsignedCharValue];
+
+  [v1 supportedWoLPacketConfigurations];
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  obj = v30 = 0u;
+  v5 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  if (v5)
   {
-    goto LABEL_4;
-  }
+    v6 = v5;
+    v23 = v1;
+    v26 = 0;
+    v7 = *v28;
+    do
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v28 != v7)
+        {
+          objc_enumerationMutation(obj);
+        }
 
-  v4 = [v1 stringByAppendingString:@"_APPLETV"];
-  v5 = [v3 localizedStringForKey:v4 value:@"HMDDefaultLocalizedStringValue" table:@"HomeKitDaemon"];
-  if ([v5 isEqualToString:@"HMDDefaultLocalizedStringValue"])
-  {
+        v9 = *(*(&v27 + 1) + 8 * i);
+        v10 = [v9 wakePacketType];
+        v11 = [v10 value];
 
-LABEL_4:
-    v5 = [v3 localizedStringForKey:v1 value:&stru_283CF9D50 table:@"HomeKitDaemon"];
-    goto LABEL_6;
-  }
+        v12 = [v9 wakeDestinationPort];
+        v13 = [v12 value];
+        v14 = [v13 unsignedShortValue];
 
-LABEL_6:
-  objc_autoreleasePoolPop(v2);
+        v15 = [v9 wakeDestinationAddress];
+        v16 = [v9 wakeType];
+        v17 = [v16 value];
 
-  return v5;
-}
+        v18 = [v9 wakePattern];
+        v19 = [[HMFWoWLANInfo alloc] initWithWakeVersion:v4 wakePort:v14 wakeAddress:v15 wakeType:v17 wakePacketType:v11 wakePattern:v18];
+        v20 = v19;
+        if (v19)
+        {
+          if (v26 || [(HMFWoWLANInfo *)v19 wakeType]!= 2)
+          {
+            [v24 addObject:v20];
+          }
 
-id HMDLocalizedStringForKeyWithCount(void *a1, uint64_t a2)
-{
-  if (a2 == 1)
-  {
-    v2 = @"_SINGULAR";
+          else
+          {
+            v26 = v20;
+          }
+        }
+      }
+
+      v6 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+    }
+
+    while (v6);
+    v21 = v26;
+    if (v26)
+    {
+      [v24 insertObject:v26 atIndex:0];
+    }
+
+    v1 = v23;
   }
 
   else
   {
-    v2 = @"_PLURAL";
+    v21 = 0;
   }
 
-  v3 = [a1 stringByAppendingString:v2];
-  v4 = HMDLocalizedStringForKey(v3);
-
-  return v4;
+  return v24;
 }
 
-void sub_229ABD34C(_Unwind_Exception *a1)
+void sub_229D4E9B0(_Unwind_Exception *a1)
 {
-  objc_destroyWeak((v1 + 48));
-  objc_destroyWeak((v2 - 128));
+  objc_destroyWeak((v1 + 40));
+  objc_destroyWeak((v2 - 40));
   _Unwind_Resume(a1);
 }
 
-uint64_t __Block_byref_object_copy__30152(uint64_t result, uint64_t a2)
+void sub_229D4EB48(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v1 + 32));
+  objc_destroyWeak((v2 - 24));
+  _Unwind_Resume(a1);
+}
+
+void sub_229D4F6A8(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v1 + 32));
+  objc_destroyWeak((v2 - 24));
+  _Unwind_Resume(a1);
+}
+
+void sub_229D50560(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v2 + 40));
+  objc_destroyWeak((v1 + 48));
+  objc_destroyWeak((v3 - 88));
+  _Unwind_Resume(a1);
+}
+
+void __HMDLowPowerModeUUIDFromAccessory_block_invoke()
+{
+  v0 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"CB66A944-B172-4D2F-A5B4-DCF2F9CFB9D4"];
+  v1 = HMDLowPowerModeUUIDFromAccessory_namespace;
+  HMDLowPowerModeUUIDFromAccessory_namespace = v0;
+}
+
+void sub_229D52C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+{
+  va_start(va, a24);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__94354(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
   *(a2 + 40) = 0;
   return result;
 }
 
-void sub_229AC3978(_Unwind_Exception *a1)
+void sub_229D53060(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229D53338(_Unwind_Exception *a1)
 {
   v3 = v2;
   os_unfair_lock_unlock((v1 + v3));
   _Unwind_Resume(a1);
 }
 
-uint64_t HMHomeActivityStateFromTruncatedString(void *a1)
+void sub_229D533C4(_Unwind_Exception *a1)
+{
+  v3 = v2;
+  os_unfair_lock_unlock((v1 + v3));
+  _Unwind_Resume(a1);
+}
+
+HMCContext *__contextWithContextName(void *a1, void *a2)
+{
+  v3 = a2;
+  v4 = a1;
+  v5 = [v4 newManagedObjectContext];
+  v6 = [v4 coordinator];
+
+  [v5 setPersistentStoreCoordinator:v6];
+  [v5 setName:v3];
+
+  v7 = +[HMDCoreDataContextTransactionAuthor firstPartyContextAuthor];
+  v8 = [v7 string];
+  [v5 setTransactionAuthor:v8];
+
+  [v5 setMergePolicy:*MEMORY[0x277CBE1C8]];
+  v9 = [HMCContext alloc];
+  v10 = objc_alloc_init(HMCPartition);
+  v11 = [(HMCContext *)v9 initWithContext:v5 partition:v10];
+
+  return v11;
+}
+
+uint64_t reasonFromResetSyncNotification(void *a1)
+{
+  v1 = [a1 userInfo];
+  v2 = [v1 objectForKeyedSubscript:*MEMORY[0x277CBE138]];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v3 = v2;
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  v4 = v3;
+
+  v5 = [v4 unsignedIntegerValue];
+  return v5;
+}
+
+__CFString *stringFromResetSyncReason(uint64_t a1)
+{
+  if ((a1 - 1) >= 7)
+  {
+    v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unknown: %lu", a1];
+  }
+
+  else
+  {
+    v2 = off_2786779E8[a1 - 1];
+  }
+
+  return v2;
+}
+
+uint64_t isHH2MigrationInProgress()
+{
+  v0 = +[HMDHH2MigratorRecord singleRecord];
+  v1 = [v0 isMigrationInProgress];
+
+  return v1;
+}
+
+void sub_229D569E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
+  va_copy(va2, va1);
+  v11 = va_arg(va2, void);
+  v13 = va_arg(va2, void);
+  v14 = va_arg(va2, void);
+  v15 = va_arg(va2, void);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Block_object_dispose(va2, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229D58030(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__94783(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_229D5C420(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229D5C760(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229D5CA90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229D5CDD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229D5D0FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+id entityFromObject(void *a1, int a2)
+{
+  v100 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v4 = objc_alloc_init(MEMORY[0x277D47358]);
+  v5 = [v3 objectForKeyedSubscript:@"objectName"];
+  [v4 setName:v5];
+
+  v6 = [v3 objectForKeyedSubscript:@"objectType"];
+  [v4 setEntityType:v6];
+
+  v7 = MEMORY[0x277CBEBC0];
+  v8 = [v3 objectForKeyedSubscript:@"objectIdentifier"];
+  v9 = [v7 URLWithString:v8];
+  [v4 setIdentifier:v9];
+
+  if (a2)
+  {
+    v10 = [v3 hmf_arrayForKey:@"objectRelatedIdentifiers"];
+    if ([v10 count])
+    {
+      v11 = hmd_urlsFromStrings(v10);
+      [v4 setRelatedEntityIdentifiers:v11];
+    }
+  }
+
+  v12 = [v3 objectForKeyedSubscript:@"objectHome"];
+
+  if (v12)
+  {
+    v13 = [v3 objectForKeyedSubscript:@"objectHome"];
+    [v4 setHome:v13];
+
+    if (a2)
+    {
+      v14 = MEMORY[0x277CBEBC0];
+      v15 = [v3 objectForKeyedSubscript:@"objectHomeIdentifier"];
+      v16 = [v14 URLWithString:v15];
+      [v4 setHomeIdentifier:v16];
+    }
+  }
+
+  v17 = [v3 objectForKeyedSubscript:@"objectRoom"];
+
+  if (v17)
+  {
+    v18 = [v3 objectForKeyedSubscript:@"objectRoom"];
+    [v4 setRoom:v18];
+
+    if (!a2)
+    {
+      goto LABEL_20;
+    }
+
+    v19 = MEMORY[0x277CBEBC0];
+    v20 = [v3 objectForKeyedSubscript:@"objectRoomIdentifier"];
+    v21 = [v19 URLWithString:v20];
+    [v4 setRoomIdentifier:v21];
+  }
+
+  else if (!a2)
+  {
+    goto LABEL_20;
+  }
+
+  v22 = [v3 objectForKeyedSubscript:@"objectZones"];
+
+  if (v22)
+  {
+    v23 = [v3 hmf_arrayForKey:@"objectZones"];
+    v24 = [v23 firstObject];
+    [v4 setZone:v24];
+
+    v25 = [v3 hmf_arrayForKey:@"objectZoneIdentifiers"];
+    if ([v25 count])
+    {
+      v26 = hmd_urlsFromStrings(v25);
+      [v4 setZoneIdentifiers:v26];
+    }
+  }
+
+  v27 = [v3 objectForKeyedSubscript:@"objectAccessoryPrimaryServiceIdentifier"];
+
+  if (v27)
+  {
+    v28 = MEMORY[0x277CBEBC0];
+    v29 = [v3 objectForKeyedSubscript:@"objectAccessoryPrimaryServiceIdentifier"];
+    v30 = [v28 URLWithString:v29];
+    [v4 setPrimaryServiceIdentifier:v30];
+  }
+
+  v31 = [v3 objectForKeyedSubscript:@"objectAccessory"];
+
+  if (v31)
+  {
+    v32 = [v3 objectForKeyedSubscript:@"objectAccessory"];
+    [v4 setAccessory:v32];
+
+    v33 = MEMORY[0x277CBEBC0];
+    v34 = [v3 objectForKeyedSubscript:@"objectAccessoryIdentifier"];
+    v35 = [v33 URLWithString:v34];
+    [v4 setAccessoryIdentifier:v35];
+  }
+
+LABEL_20:
+  v36 = [v3 objectForKeyedSubscript:@"objectType"];
+  v37 = [v36 isEqualToString:*MEMORY[0x277D48168]];
+
+  if (v37)
+  {
+    v38 = [v3 objectForKeyedSubscript:@"objectSceneType"];
+    v39 = mapToSiriSceneType(v38);
+    [v4 setSceneType:v39];
+
+    v40 = [v3 objectForKeyedSubscript:@"objectStatus"];
+    [v4 setStatus:v40];
+
+    v41 = [v3 objectForKeyedSubscript:@"objectSceneActions"];
+    [v4 setSceneActions:v41];
+  }
+
+  v42 = +[HMDHAPMetadata getSharedInstance];
+  v43 = [v3 objectForKeyedSubscript:@"objectServiceType"];
+  v44 = [v3 objectForKeyedSubscript:@"objectServiceSubType"];
+  v92 = v42;
+  if (!v43)
+  {
+LABEL_41:
+    if (!a2)
+    {
+      goto LABEL_44;
+    }
+
+    goto LABEL_42;
+  }
+
+  if (([v43 isEqual:*MEMORY[0x277D48350]] & 1) == 0 && (objc_msgSend(v43, "isEqual:", *MEMORY[0x277D48270]) & 1) == 0 && !objc_msgSend(v43, "isEqual:", *MEMORY[0x277D48258]))
+  {
+    if ([v43 isEqualToString:*MEMORY[0x277D482E0]])
+    {
+      v50 = v4;
+      v51 = v43;
+    }
+
+    else
+    {
+      v52 = [v42 mapToAssistantServiceName:v43];
+      [v4 setServiceType:v52];
+
+      v53 = objc_msgSend_serviceType(v4);
+
+      if (v53)
+      {
+        goto LABEL_39;
+      }
+
+      v51 = *MEMORY[0x277D48298];
+      v50 = v4;
+    }
+
+    [v50 setServiceType:v51];
+LABEL_39:
+    if (v44)
+    {
+      [v4 setServiceSubType:v44];
+    }
+
+    goto LABEL_41;
+  }
+
+  [v4 setServiceType:v43];
+  if (v44)
+  {
+    [v4 setServiceSubType:v44];
+  }
+
+  if (a2)
+  {
+    v45 = getAttributeForMediaProfile(v4);
+    [v4 setAttributes:v45];
+
+    v46 = [v3 objectForKeyedSubscript:@"objectReference"];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v47 = v46;
+    }
+
+    else
+    {
+      v47 = 0;
+    }
+
+    v48 = v47;
+
+    v49 = [v48 isCurrentAccessory];
+    v42 = v92;
+    if (v49)
+    {
+      [v4 setCurrentDevice:MEMORY[0x277CBEC38]];
+    }
+
+LABEL_42:
+    v54 = [v3 objectForKeyedSubscript:@"objectHashedRouteUID"];
+
+    if (v54)
+    {
+      v55 = [v3 objectForKeyedSubscript:@"objectHashedRouteUID"];
+      [v4 setHashedRouteUID:v55];
+    }
+  }
+
+LABEL_44:
+  v56 = [v3 objectForKeyedSubscript:@"objectCharacteristics"];
+  v57 = v56;
+  if (a2 && v56)
+  {
+    v85 = v44;
+    v86 = v43;
+    v87 = a2;
+    v88 = v3;
+    v89 = v4;
+    v58 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v56, "count")}];
+    v42 = v92;
+    v91 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v57, "count")}];
+    v95 = 0u;
+    v96 = 0u;
+    v97 = 0u;
+    v98 = 0u;
+    v83 = v57;
+    obj = v57;
+    v59 = [obj countByEnumeratingWithState:&v95 objects:v99 count:16];
+    if (v59)
+    {
+      v60 = v59;
+      v61 = *v96;
+      do
+      {
+        for (i = 0; i != v60; ++i)
+        {
+          if (*v96 != v61)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v63 = *(*(&v95 + 1) + 8 * i);
+          v64 = [v42 mapToAssistantCharacteristicName:{v63, v83}];
+          if (v64)
+          {
+            v65 = [v42 mapReadCharacteristicFromAssistantName:v64];
+            v66 = [v42 getAliasedCharacteristicTypes:v65];
+            if (([v58 containsObject:v64] & 1) == 0 && ((objc_msgSend(v65, "isEqualToString:", v63) & 1) != 0 || objc_msgSend(v66, "containsObject:", v63)))
+            {
+              [v58 addObject:v64];
+            }
+
+            v67 = [v42 mapWriteCharacteristicFromAssistantName:v64];
+            v68 = [v42 getAliasedCharacteristicTypes:v67];
+
+            if (([v91 containsObject:v64] & 1) == 0 && ((objc_msgSend(v67, "isEqual:", v63) & 1) != 0 || objc_msgSend(v68, "containsObject:", v63)) && (HMFEqualObjects() & 1) == 0)
+            {
+              [v91 addObject:v64];
+            }
+
+            v42 = v92;
+          }
+        }
+
+        v60 = [obj countByEnumeratingWithState:&v95 objects:v99 count:16];
+      }
+
+      while (v60);
+    }
+
+    v43 = v86;
+    v3 = v88;
+    v4 = v89;
+    if ([v86 isEqualToString:*MEMORY[0x277CD0EA0]])
+    {
+      v69 = [v88 objectForKeyedSubscript:@"objectReference"];
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        v70 = v69;
+      }
+
+      else
+      {
+        v70 = 0;
+      }
+
+      v71 = v70;
+
+      v72 = [v71 accessory];
+      v73 = [v72 lightProfiles];
+      v93[0] = MEMORY[0x277D85DD0];
+      v93[1] = 3221225472;
+      v93[2] = __entityFromObject_block_invoke;
+      v93[3] = &unk_2786782C8;
+      v94 = v71;
+      v74 = v71;
+      v75 = [v73 na_firstObjectPassingTest:v93];
+
+      v76 = [v75 settings];
+      LOBYTE(v73) = [v76 supportedFeatures];
+
+      if (v73)
+      {
+        [v58 addObject:*MEMORY[0x277D47EC8]];
+      }
+
+      v42 = v92;
+    }
+
+    a2 = v87;
+    v44 = v85;
+    if ([v58 count])
+    {
+      [v89 setAttributes:v58];
+      if ([v91 count])
+      {
+        [v89 setTargetAttributes:v91];
+      }
+    }
+
+    v57 = v84;
+  }
+
+  if (a2)
+  {
+    v77 = [v3 objectForKey:@"objectGroups"];
+
+    if (v77)
+    {
+      v78 = [v3 hmf_arrayForKey:@"objectGroups"];
+      v79 = [v78 firstObject];
+      [v4 setServiceGroup:v79];
+
+      v80 = [v3 hmf_arrayForKey:@"objectGroupIdentifiers"];
+      if ([v80 count])
+      {
+        v81 = hmd_urlsFromStrings(v80);
+        [v4 setServiceGroupIdentifiers:v81];
+      }
+
+      v42 = v92;
+    }
+  }
+
+  return v4;
+}
+
+id hmd_urlsFromStrings(void *a1)
+{
+  v32 = *MEMORY[0x277D85DE8];
+  v1 = a1;
+  v2 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v1, "count")}];
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v3 = v1;
+  v4 = [v3 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  if (v4)
+  {
+    v6 = v4;
+    v7 = *v24;
+    v8 = 0x277CBE000uLL;
+    *&v5 = 138543618;
+    v21 = v5;
+    do
+    {
+      v9 = 0;
+      v22 = v6;
+      do
+      {
+        if (*v24 != v7)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        v10 = *(*(&v23 + 1) + 8 * v9);
+        v11 = [*(v8 + 3008) URLWithString:{v10, v21}];
+        if (v11)
+        {
+          [v2 addObject:v11];
+        }
+
+        else
+        {
+          v12 = objc_autoreleasePoolPush();
+          v13 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          {
+            HMFGetLogIdentifier();
+            v14 = v7;
+            v15 = v8;
+            v16 = v2;
+            v18 = v17 = v3;
+            *buf = v21;
+            v28 = v18;
+            v29 = 2112;
+            v30 = v10;
+            _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unable to map NSString '%@' to NSURL", buf, 0x16u);
+
+            v3 = v17;
+            v2 = v16;
+            v8 = v15;
+            v7 = v14;
+            v6 = v22;
+          }
+
+          objc_autoreleasePoolPop(v12);
+        }
+
+        ++v9;
+      }
+
+      while (v6 != v9);
+      v6 = [v3 countByEnumeratingWithState:&v23 objects:v31 count:16];
+    }
+
+    while (v6);
+  }
+
+  v19 = objc_msgSend_copy(v2);
+
+  return v19;
+}
+
+id mapToSiriSceneType(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"Home"])
+  v2 = *MEMORY[0x277D481B8];
+  if ([v1 isEqualToString:*MEMORY[0x277CCF1B0]])
   {
-    v2 = 1;
+    v3 = MEMORY[0x277D48198];
   }
 
-  else if ([v1 isEqualToString:@"Away"])
+  else if ([v1 isEqualToString:*MEMORY[0x277CCF198]])
   {
-    v2 = 2;
+    v3 = MEMORY[0x277D481A0];
   }
 
-  else if ([v1 isEqualToString:@"Vacation"])
+  else if ([v1 isEqualToString:*MEMORY[0x277CCF180]])
   {
-    v2 = 4;
+    v3 = MEMORY[0x277D481A8];
   }
 
-  else if ([v1 isEqualToString:@"ComingHome"])
+  else
   {
-    v2 = 6;
+    if (![v1 isEqualToString:*MEMORY[0x277CCF188]])
+    {
+      goto LABEL_10;
+    }
+
+    v3 = MEMORY[0x277D481B0];
   }
 
-  else if ([v1 isEqualToString:@"ComingHomeFromVacation"])
+  v4 = *v3;
+
+  v2 = v4;
+LABEL_10:
+
+  return v2;
+}
+
+id getAttributeForMediaProfile(void *a1)
+{
+  v1 = a1;
+  if (getAttributeForMediaProfile_onceToken != -1)
   {
-    v2 = 7;
+    dispatch_once(&getAttributeForMediaProfile_onceToken, &__block_literal_global_96713);
+  }
+
+  v2 = objc_msgSend_serviceType(v1);
+  v3 = [v1 serviceSubType];
+  if (v2)
+  {
+    v4 = [v1 entityType];
+    v5 = [v4 isEqualToString:*MEMORY[0x277D48170]];
+
+    if (v5)
+    {
+      if ([v2 isEqualToString:*MEMORY[0x277D48270]])
+      {
+        v6 = &getAttributeForMediaProfile_atvAttributes;
+LABEL_15:
+        v8 = *v6;
+        goto LABEL_17;
+      }
+
+      v7 = *MEMORY[0x277D48350];
+      if ([v2 isEqualToString:*MEMORY[0x277D48350]] && (objc_msgSend(v3, "isEqualToString:", *MEMORY[0x277D48200]) & 1) != 0)
+      {
+        v6 = &getAttributeForMediaProfile_homePodAttributes;
+        goto LABEL_15;
+      }
+
+      if ([v2 isEqualToString:*MEMORY[0x277D48258]] && (objc_msgSend(v3, "isEqualToString:", *MEMORY[0x277D481C0]) & 1) != 0 || objc_msgSend(v2, "isEqualToString:", v7) && objc_msgSend(v3, "isEqualToString:", *MEMORY[0x277D481C0]))
+      {
+        v6 = &getAttributeForMediaProfile_thirdPartyAttributes;
+        goto LABEL_15;
+      }
+    }
+  }
+
+  v8 = 0;
+LABEL_17:
+
+  return v8;
+}
+
+uint64_t __entityFromObject_block_invoke(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 32);
+  v3 = [a2 service];
+  v4 = [v2 isEqual:v3];
+
+  return v4;
+}
+
+void __getAttributeForMediaProfile_block_invoke()
+{
+  v9[2] = *MEMORY[0x277D85DE8];
+  v0 = *MEMORY[0x277D48000];
+  v9[0] = *MEMORY[0x277D48048];
+  v9[1] = v0;
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+  v2 = getAttributeForMediaProfile_atvAttributes;
+  getAttributeForMediaProfile_atvAttributes = v1;
+
+  v8 = v0;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:1];
+  v4 = getAttributeForMediaProfile_homePodAttributes;
+  getAttributeForMediaProfile_homePodAttributes = v3;
+
+  v7 = v0;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:1];
+  v6 = getAttributeForMediaProfile_thirdPartyAttributes;
+  getAttributeForMediaProfile_thirdPartyAttributes = v5;
+}
+
+id entityForService(void *a1, void *a2, void *a3, int a4)
+{
+  v28 = *MEMORY[0x277D85DE8];
+  v7 = a1;
+  v8 = a2;
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v9 = a3;
+  v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v21 = a4;
+    v22 = v8;
+    v12 = *v24;
+    while (2)
+    {
+      for (i = 0; i != v11; ++i)
+      {
+        if (*v24 != v12)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        v14 = *(*(&v23 + 1) + 8 * i);
+        v15 = [v14 objectForKeyedSubscript:@"objectIdentifier"];
+        v16 = [v7 urlString];
+        v17 = [v16 isEqual:v15];
+
+        if (v17)
+        {
+          v19 = entityFromObject(v14, v21);
+          v18 = v19;
+          v8 = v22;
+          if (v22)
+          {
+            [v19 setServiceType:v22];
+          }
+
+          goto LABEL_14;
+        }
+      }
+
+      v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      if (v11)
+      {
+        continue;
+      }
+
+      break;
+    }
+
+    v18 = 0;
+    v8 = v22;
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+LABEL_14:
+
+  return v18;
+}
+
+id entityForMediaProfile(void *a1, void *a2, int a3)
+{
+  v23 = *MEMORY[0x277D85DE8];
+  v5 = a1;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v6 = a2;
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v17 = a3;
+    v9 = *v19;
+    while (2)
+    {
+      for (i = 0; i != v8; ++i)
+      {
+        if (*v19 != v9)
+        {
+          objc_enumerationMutation(v6);
+        }
+
+        v11 = *(*(&v18 + 1) + 8 * i);
+        v12 = [v11 objectForKeyedSubscript:@"objectIdentifier"];
+        v13 = [v5 urlString];
+        v14 = [v13 isEqual:v12];
+
+        if (v14)
+        {
+          v15 = entityFromObject(v11, v17);
+
+          goto LABEL_11;
+        }
+      }
+
+      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      if (v8)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v15 = 0;
+LABEL_11:
+
+  return v15;
+}
+
+void __HMDHomeDataCopyProperties(void *a1, void *a2, uint64_t a3)
+{
+  v5 = a2;
+  v52 = a1;
+  v6 = [v5 homes];
+  v7 = [v6 copyWithZone:a3];
+  v8 = v52[2];
+  v52[2] = v7;
+
+  v9 = [v5 accessories];
+  v10 = [v9 copyWithZone:a3];
+  v11 = v52[3];
+  v52[3] = v10;
+
+  v12 = [v5 primaryHomeUUID];
+  v13 = [v12 copyWithZone:a3];
+  v14 = v52[4];
+  v52[4] = v13;
+
+  v15 = [v5 lastCurrentHomeUUID];
+  v16 = [v15 copyWithZone:a3];
+  v17 = v52[5];
+  v52[5] = v16;
+
+  v52[7] = [v5 schemaVersion];
+  v52[6] = [v5 dataVersion];
+  v52[8] = [v5 recoveryVersion];
+  v18 = [v5 dataTag];
+  v19 = [v18 copyWithZone:a3];
+  v20 = v52[9];
+  v52[9] = v19;
+
+  v21 = [v5 UUIDsOfRemovedHomes];
+  v22 = [v21 copyWithZone:a3];
+  v23 = v52[10];
+  v52[10] = v22;
+
+  v24 = [v5 cloudZones];
+  v25 = [v24 copyWithZone:a3];
+  v26 = v52[11];
+  v52[11] = v25;
+
+  v27 = [v5 incomingInvitations];
+  v28 = [v27 copyWithZone:a3];
+  v29 = v52[12];
+  v52[12] = v28;
+
+  v30 = [v5 currentDevice];
+  v31 = [v30 copyWithZone:a3];
+  v32 = v52[13];
+  v52[13] = v31;
+
+  v33 = [v5 pendingReasonSaved];
+  v34 = [v33 copyWithZone:a3];
+  v35 = v52[14];
+  v52[14] = v34;
+
+  v36 = [v5 pendingUserManagementOperations];
+  v37 = [v36 copyWithZone:a3];
+  v38 = v52[15];
+  v52[15] = v37;
+
+  v39 = [v5 unprocessedOperationIdentifiers];
+  v40 = [v39 copyWithZone:a3];
+  v41 = v52[16];
+  v52[16] = v40;
+
+  v42 = [v5 applicationData];
+  v43 = [v42 copyWithZone:a3];
+  v44 = v52[17];
+  v52[17] = v43;
+
+  v52[18] = [v5 residentEnabledState];
+  v45 = [v5 account];
+  v46 = v52[19];
+  v52[19] = v45;
+
+  v47 = [v5 remoteAccounts];
+  v48 = [v47 copyWithZone:a3];
+  v49 = v52[20];
+  v52[20] = v48;
+
+  v50 = [v5 primaryAccountHandle];
+  v51 = v52[21];
+  v52[21] = v50;
+
+  LOBYTE(a3) = [v5 accessAllowedWhenLocked];
+  *(v52 + 8) = a3;
+}
+
+void sub_229D70964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__97636(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_229D77300(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v22 - 176), 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__98321(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_229D77C98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229D785CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229D804AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__99142(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_229D80F84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229D814D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229D82CB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__99442(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+id anonymizeUnknownVendorString(void *a1)
+{
+  v1 = a1;
+  if (v1)
+  {
+    if (anonymizeUnknownVendorString_onceToken != -1)
+    {
+      dispatch_once(&anonymizeUnknownVendorString_onceToken, &__block_literal_global_100998);
+    }
+
+    if (([anonymizeUnknownVendorString_allowedNames containsObject:v1] & 1) != 0 || objc_msgSend(v1, "length") <= 2)
+    {
+      v3 = v1;
+    }
+
+    else
+    {
+      v2 = [v1 substringToIndex:2];
+      v3 = [@"unknown: " stringByAppendingString:v2];
+    }
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  return v3;
+}
+
+void __anonymizeUnknownVendorString_block_invoke()
+{
+  v0 = anonymizeUnknownVendorString_allowedNames;
+  anonymizeUnknownVendorString_allowedNames = &unk_283E758A8;
+}
+
+uint64_t HMDManagedObjectClassIsBSORepresentable(uint64_t a1)
+{
+  if (HMDManagedObjectClassIsBSORepresentable__hmf_once_t2 != -1)
+  {
+    dispatch_once(&HMDManagedObjectClassIsBSORepresentable__hmf_once_t2, &__block_literal_global_47_101531);
+  }
+
+  v2 = HMDManagedObjectClassIsBSORepresentable__hmf_once_v3;
+
+  return [v2 classConforms:a1];
+}
+
+void __HMDManagedObjectClassIsBSORepresentable_block_invoke()
+{
+  v0 = [[HMCConformanceCache alloc] initWithProtocol:&unk_283E89CB8];
+  v1 = HMDManagedObjectClassIsBSORepresentable__hmf_once_v3;
+  HMDManagedObjectClassIsBSORepresentable__hmf_once_v3 = v0;
+}
+
+void sub_229DA0BC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+{
+  va_start(va, a24);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t HMDModelClassIsCDRepresentable(uint64_t a1)
+{
+  if (HMDModelClassIsCDRepresentable__hmf_once_t0 != -1)
+  {
+    dispatch_once(&HMDModelClassIsCDRepresentable__hmf_once_t0, &__block_literal_global_101541);
+  }
+
+  v2 = HMDModelClassIsCDRepresentable__hmf_once_v1;
+
+  return [v2 classConforms:a1];
+}
+
+uint64_t __Block_byref_object_copy__101538(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void __HMDModelClassIsCDRepresentable_block_invoke()
+{
+  v0 = [[HMCConformanceCache alloc] initWithProtocol:&unk_283E8B828];
+  v1 = HMDModelClassIsCDRepresentable__hmf_once_v1;
+  HMDModelClassIsCDRepresentable__hmf_once_v1 = v0;
+}
+
+void *HMDCastIfManagedObjectBSORepresentable(void *a1)
+{
+  v1 = a1;
+  if (v1)
+  {
+    v2 = objc_opt_class();
+    if (HMDManagedObjectClassIsBSORepresentable(v2))
+    {
+      v3 = v1;
+    }
+
+    else
+    {
+      v3 = 0;
+    }
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  v4 = v3;
+
+  return v3;
+}
+
+void *HMDCastIfModelCDRepresentable(void *a1)
+{
+  v1 = a1;
+  if (v1)
+  {
+    v2 = objc_opt_class();
+    if (HMDModelClassIsCDRepresentable(v2))
+    {
+      v3 = v1;
+    }
+
+    else
+    {
+      v3 = 0;
+    }
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  v4 = v3;
+
+  return v3;
+}
+
+uint64_t __Block_byref_object_copy__102567(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void ___legacyMultiUserSettings_block_invoke(uint64_t a1, void *a2, void *a3)
+{
+  v13 = a2;
+  v5 = a3;
+  v6 = objc_alloc_init(HMDAnalyticsMultiUserSettingsValueByKeyPath);
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v7 = v13;
+    if ([v7 isEqualToString:@"private.root.home.dismissedUserSplitMediaAccountWarning"])
+    {
+      v8 = 2;
+    }
+
+    else if ([v7 isEqualToString:@"private.root.home.dismissedIdentifyVoiceOnboarding"])
+    {
+      v8 = 4;
+    }
+
+    else if ([v7 isEqualToString:@"private.root.home.dismissedTVViewingProfileOnboarding"])
+    {
+      v8 = 6;
+    }
+
+    else if ([v7 isEqualToString:@"private.root.home.dismissedTVViewingProfileSetupBanner"])
+    {
+      v8 = 7;
+    }
+
+    else if ([v7 isEqualToString:@"private.root.home.dismissedCameraRecordingOnboarding"])
+    {
+      v8 = 8;
+    }
+
+    else if ([v7 isEqualToString:@"private.root.home.dismissedCameraRecordingSetupBanner"])
+    {
+      v8 = 9;
+    }
+
+    else if ([v7 isEqualToString:@"shared.root.siri.identifyVoice"])
+    {
+      v8 = 10;
+    }
+
+    else if ([v7 isEqualToString:@"shared.root.music.playbackInfluencesForYou"])
+    {
+      v8 = 11;
+    }
+
+    else
+    {
+      v8 = [v7 isEqualToString:@"private.root.home.dismissedIdentifyVoiceSetupBanner"] ? 5 : 0;
+    }
+
+    [(HMDAnalyticsMultiUserSettingsValueByKeyPath *)v6 setType:v8];
+    if ([(HMDAnalyticsMultiUserSettingsValueByKeyPath *)v6 type])
+    {
+      v9 = v5;
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        v10 = v9;
+      }
+
+      else
+      {
+        v10 = 0;
+      }
+
+      v11 = v10;
+
+      v12 = [v11 longLongValue];
+      [(HMDAnalyticsMultiUserSettingsValueByKeyPath *)v6 setMultiUserSettingsValueInteger:v12];
+      [*(*(*(a1 + 32) + 8) + 40) addObject:v6];
+    }
+  }
+}
+
+void sub_229DAD5CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
+{
+  objc_destroyWeak((v16 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229DAFD24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v16 - 64), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229DB3200(_Unwind_Exception *a1)
+{
+  v3 = v2;
+  os_unfair_lock_unlock((v1 + v3));
+  _Unwind_Resume(a1);
+}
+
+void sub_229DB33C0(_Unwind_Exception *a1)
+{
+  v3 = v2;
+  os_unfair_lock_unlock((v1 + v3));
+  _Unwind_Resume(a1);
+}
+
+void sub_229DB493C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, id location, id a24)
+{
+  objc_destroyWeak((v24 + 40));
+  objc_destroyWeak((v24 + 32));
+  objc_destroyWeak((v25 + 40));
+  objc_destroyWeak((v25 + 32));
+  objc_destroyWeak(&location);
+  objc_destroyWeak(&a24);
+  _Unwind_Resume(a1);
+}
+
+void __HMDCompanionManagerUpdateWithConnectedDevices(void *a1, void *a2)
+{
+  v40 = *MEMORY[0x277D85DE8];
+  v29 = a1;
+  v30 = a2;
+  if (v29)
+  {
+    v3 = objc_autoreleasePoolPush();
+    v4 = v29;
+    v5 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    {
+      v6 = HMFGetLogIdentifier();
+      *buf = 138543618;
+      v37 = v6;
+      v38 = 2112;
+      v39 = v30;
+      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Updating connected devices: %@", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v3);
+    v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v7 = v30;
+    v8 = [(HMDDevice *)v7 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    if (v8)
+    {
+      v9 = *v32;
+      while (2)
+      {
+        for (i = 0; i != v8; ++i)
+        {
+          if (*v32 != v9)
+          {
+            objc_enumerationMutation(v7);
+          }
+
+          v11 = *(*(&v31 + 1) + 8 * i);
+          if ([HMDCompanionManager isCompatibleCompanionDevice:v11, v29])
+          {
+            v12 = [HMDDevice alloc];
+            v13 = [(os_unfair_lock_s *)v4 service];
+            v14 = [(HMDDevice *)v12 initWithService:v13 device:v11];
+
+            if (v14)
+            {
+              v19 = objc_autoreleasePoolPush();
+              v20 = v4;
+              v21 = HMFGetOSLogHandle();
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+              {
+                v22 = HMFGetLogIdentifier();
+                *buf = 138543618;
+                v37 = v22;
+                v38 = 2112;
+                v39 = v14;
+                _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Found connected companion device: %@", buf, 0x16u);
+              }
+
+              objc_autoreleasePoolPop(v19);
+              goto LABEL_19;
+            }
+          }
+        }
+
+        v8 = [(HMDDevice *)v7 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        if (v8)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+
+    v15 = objc_autoreleasePoolPush();
+    v16 = v4;
+    v17 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    {
+      v18 = HMFGetLogIdentifier();
+      *buf = 138543362;
+      v37 = v18;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@No connected companion found", buf, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v15);
+    v14 = 0;
+LABEL_19:
+    os_unfair_lock_lock_with_options();
+    if (HMFEqualObjects())
+    {
+      os_unfair_lock_unlock(v4 + 2);
+    }
+
+    else
+    {
+      v23 = objc_autoreleasePoolPush();
+      v24 = v4;
+      v25 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      {
+        v26 = HMFGetLogIdentifier();
+        v27 = [(HMDDevice *)v14 shortDescription];
+        *buf = 138543618;
+        v37 = v26;
+        v38 = 2112;
+        v39 = v27;
+        _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@Updated companion to: %@", buf, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v23);
+      objc_storeStrong(v24 + 3, v14);
+      os_unfair_lock_unlock(v4 + 2);
+      v28 = [MEMORY[0x277CCAB98] defaultCenter];
+      [v28 postNotificationName:@"HMDCompanionManagerUpdatedCompanionNotification" object:v24];
+    }
+  }
+}
+
+void __run(void *a1)
+{
+  v1 = a1;
+  v2 = v1[20];
+  if (v2 > 2)
+  {
+    switch(v2)
+    {
+      case 3:
+        v3 = v1;
+        [v1 _configureDevice];
+        break;
+      case 5:
+        v3 = v1;
+        [v1 _waitForPostWACMatch];
+        break;
+      case 6:
+        v3 = v1;
+        [v1 _postWACMatchTimeout];
+        break;
+      default:
+        goto LABEL_14;
+    }
+
+    goto LABEL_13;
+  }
+
+  if (!v2)
+  {
+    v1[20] = 1;
+    goto LABEL_12;
+  }
+
+  if (v2 == 1)
+  {
+LABEL_12:
+    v3 = v1;
+    [v1 _requestUserPermission];
+LABEL_13:
+    v1 = v3;
+  }
+
+LABEL_14:
+}
+
+void __callCompletion(void *a1, void *a2, void *a3, uint64_t a4)
+{
+  v21 = *MEMORY[0x277D85DE8];
+  v7 = a1;
+  v8 = a2;
+  v9 = a3;
+  [v7[19] cancel];
+  v10 = v7[19];
+  v7[19] = 0;
+
+  v11 = v7[21];
+  v7[21] = 0;
+
+  if (v7[18])
+  {
+    v12 = objc_autoreleasePoolPush();
+    v13 = v7;
+    v14 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    {
+      v15 = HMFGetLogIdentifier();
+      v17 = 138543618;
+      v18 = v15;
+      v19 = 2080;
+      v20 = a4;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Calling completion from %s", &v17, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v12);
+    (*(v13[18] + 2))();
+    v16 = v13[18];
+    v13[18] = 0;
+  }
+}
+
+__CFString *StringFromHMDResidentLocation(uint64_t a1)
+{
+  switch(a1)
+  {
+    case 100:
+      v2 = @"Unknown";
+
+      break;
+    case 200:
+      v2 = @"Away";
+
+      break;
+    case 300:
+      v2 = @"AtHome";
+
+      break;
+    default:
+      v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unknown type: %lu", a1];
+
+      break;
+  }
+
+  return v2;
+}
+
+void sub_229DC84A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229DCA6A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+__CFString *StringForResidentStatusChannelDomain(uint64_t a1)
+{
+  if (a1)
+  {
+    if (a1 == 1)
+    {
+      v2 = @"ss";
+    }
+
+    else
+    {
+      v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unknown domain: %lu", a1];
+    }
+  }
+
+  else
+  {
+    v2 = @"ns";
+  }
+
+  return v2;
+}
+
+void sub_229DCB6C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
+{
+  objc_destroyWeak((v17 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229DCBCD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229DCC088(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229DCC640(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location)
+{
+  objc_destroyWeak((v18 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229DCFD18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
+{
+  objc_destroyWeak((v16 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229DD023C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
+{
+  objc_destroyWeak((v16 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+id HMDSWAuthFeaturesToString(char a1)
+{
+  if (a1)
+  {
+    v2 = [@"<" stringByAppendingString:@" HAP"];
+    if ((a1 & 2) == 0)
+    {
+      goto LABEL_6;
+    }
+
+    goto LABEL_5;
+  }
+
+  v2 = @"<";
+  if ((a1 & 2) != 0)
+  {
+LABEL_5:
+    v3 = [(__CFString *)v2 stringByAppendingString:@" HAPAirPlay2"];
+
+    v2 = v3;
+  }
+
+LABEL_6:
+  v4 = [(__CFString *)v2 stringByAppendingString:@" >"];
+
+  return v4;
+}
+
+void sub_229DD11B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
+{
+  objc_destroyWeak((v16 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+id mirrorLegacyZone(void *a1, int a2, void *a3, void *a4, void *a5, uint64_t a6)
+{
+  v11 = a1;
+  v12 = a4;
+  v13 = a5;
+  v14 = MEMORY[0x277D170E8];
+  v15 = a3;
+  v16 = objc_alloc_init(v14);
+  if (a2)
+  {
+    [v11 openOrCreatePrivateZoneWithID:v15 configuration:v16 delegate:0 error:a6];
+  }
+
+  else
+  {
+    [v11 openExistingPrivateZoneWithID:v15 configuration:v16 delegate:0 error:a6];
+  }
+  v17 = ;
+
+  if (v17)
+  {
+    v18 = [HMDLegacyModelContainer alloc];
+    v19 = +[HMDHomeKitVersion currentVersion];
+    v20 = +[HMDHomeKitVersion currentVersion];
+    v21 = [(HMDLegacyModelContainer *)v18 initWithDataVersion:v19 legacyDataVersion:v20 pairingIdentity:v12];
+
+    v22 = objc_alloc_init(MEMORY[0x277D170F8]);
+    [v22 setCreateIfNeeded:1];
+    [v22 setDelegate:v13];
+    [v22 setModelContainer:v21];
+    v23 = [v11 localDatabase];
+    v24 = [v23 openZoneWithMirror:v17 configuration:v22 error:a6];
+  }
+
+  else
+  {
+    v24 = 0;
+  }
+
+  return v24;
+}
+
+id DateFromEpochInterval(void *a1)
+{
+  if (a1)
+  {
+    v2 = MEMORY[0x277CBEAA8];
+    [a1 doubleValue];
+    a1 = [v2 dateWithTimeIntervalSince1970:?];
+    v1 = vars8;
+  }
+
+  return a1;
+}
+
+void sub_229DE269C(_Unwind_Exception *a1)
+{
+  v3 = v2;
+  os_unfair_lock_unlock((v1 + v3));
+  _Unwind_Resume(a1);
+}
+
+void notifyMatterMetricPairingStep(void *a1, unint64_t a2)
+{
+  v17 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v4 = objc_autoreleasePoolPush();
+  v5 = v3;
+  v6 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  {
+    v7 = HMFGetLogIdentifier();
+    v8 = HMDMatterAccessoryPairingStepAsString(a2);
+    v13 = 138543618;
+    v14 = v7;
+    v15 = 2112;
+    v16 = v8;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Notifying matter metric pairing step %@", &v13, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v4);
+  v9 = [MEMORY[0x277CBEB38] dictionary];
+  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a2];
+  [v9 setObject:v10 forKeyedSubscript:@"HMDMatterAccessoryPairingStepKey"];
+
+  v11 = [MEMORY[0x277CCAB98] defaultCenter];
+  v12 = objc_msgSend_copy(v9);
+  [v11 postNotificationName:@"HMDMatterAccessoryUpdatePairingMetricNotification" object:0 userInfo:v12];
+}
+
+void notifyMatterMetricPairingEnded(void *a1, void *a2)
+{
+  v22 = *MEMORY[0x277D85DE8];
+  v3 = MEMORY[0x277CCAB98];
+  v4 = a2;
+  v5 = a1;
+  v17 = [v3 defaultCenter];
+  v6 = v5;
+  v7 = v4;
+  v8 = objc_autoreleasePoolPush();
+  v9 = v6;
+  v10 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  {
+    v11 = HMFGetLogIdentifier();
+    *buf = 138543618;
+    v19 = v11;
+    v20 = 2112;
+    v21 = v7;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Notifying matter metric pairing ended %@", buf, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v8);
+  v12 = [MEMORY[0x277CBEB38] dictionary];
+  [v12 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"HMDMatterAccessoryPairingSubmitKey"];
+  v13 = [v7 step];
+  [v12 setObject:v13 forKeyedSubscript:@"HMDMatterAccessoryPairingStepKey"];
+
+  v14 = [v7 error];
+  [v12 setObject:v14 forKeyedSubscript:@"HMDMatterAccessoryPairingFailureErrorKey"];
+
+  v15 = [v7 sourceErrorDomain];
+  [v12 setObject:v15 forKeyedSubscript:@"HMDMatterAccessoryPairingSourceErrorDomain"];
+
+  v16 = objc_msgSend_copy(v12);
+  [v17 postNotificationName:@"HMDMatterAccessoryUpdatePairingMetricNotification" object:0 userInfo:v16];
+}
+
+void sub_229DEB780(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229DEDAD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__112221(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_229DEEBF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229DF12E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id location)
+{
+  objc_destroyWeak((v21 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229DF3C2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, id location, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
+{
+  va_start(va, a40);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__112780(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+id mediaForArray(void *a1)
+{
+  v1 = a1;
+  if ([v1 count])
+  {
+    if ([v1 count] == 1)
+    {
+      v2 = [v1 firstObject];
+    }
+
+    else
+    {
+      v3 = [v1 sortedArrayUsingComparator:&__block_literal_global_113201];
+      v4 = [v3 count];
+      v5 = [v3 count] >> 1;
+      if (v4)
+      {
+        v2 = [v3 objectAtIndexedSubscript:v5];
+      }
+
+      else
+      {
+        v6 = MEMORY[0x277CCABB0];
+        v7 = [v3 objectAtIndexedSubscript:v5];
+        v8 = [v7 integerValue];
+        v9 = [v3 objectAtIndexedSubscript:v5 - 1];
+        v2 = [v6 numberWithInteger:{(objc_msgSend(v9, "integerValue") + v8) / 2}];
+      }
+    }
+  }
+
+  else
+  {
+    v2 = &unk_283E72B30;
+  }
+
+  return v2;
+}
+
+void sub_229DF76CC(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v1 + 40));
+  objc_destroyWeak((v2 - 40));
+  _Unwind_Resume(a1);
+}
+
+void sub_229DFADF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
+{
+  objc_destroyWeak((v17 + 48));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229DFDD44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location, id a16)
+{
+  objc_destroyWeak((v16 + 40));
+  objc_destroyWeak((v16 + 32));
+  objc_destroyWeak(&location);
+  objc_destroyWeak(&a16);
+  _Unwind_Resume(a1);
+}
+
+void BFSTraverseGroupWithBlock(void *a1, void *a2)
+{
+  v32 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v4 = a2;
+  v5 = 0x277CBE000uLL;
+  v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v20 = v3;
+  [v6 addObject:v3];
+  for (; [v6 count]; v5 = 0x277CBE000)
+  {
+    v7 = v6;
+    v6 = objc_alloc_init(*(v5 + 2840));
+    v26 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    obj = v7;
+    v8 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+    if (v8)
+    {
+      v9 = v8;
+      v10 = *v27;
+      while (2)
+      {
+        v11 = 0;
+        do
+        {
+          if (*v27 != v10)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v12 = *(*(&v26 + 1) + 8 * v11);
+          v22 = 0u;
+          v23 = 0u;
+          v24 = 0u;
+          v25 = 0u;
+          v13 = [v12 groups];
+          v14 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
+          if (v14)
+          {
+            v15 = v14;
+            v16 = *v23;
+            do
+            {
+              v17 = 0;
+              do
+              {
+                if (*v23 != v16)
+                {
+                  objc_enumerationMutation(v13);
+                }
+
+                [v6 addObject:*(*(&v22 + 1) + 8 * v17++)];
+              }
+
+              while (v15 != v17);
+              v15 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            }
+
+            while (v15);
+          }
+
+          v18 = [v12 settings];
+          v19 = v4[2](v4, v12, v18);
+
+          if (!v19)
+          {
+
+            goto LABEL_20;
+          }
+
+          ++v11;
+        }
+
+        while (v11 != v9);
+        v9 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+        if (v9)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+  }
+
+LABEL_20:
+}
+
+uint64_t isReconfigurationPossible(void *a1)
+{
+  v1 = a1;
+  if ([v1 supportsWiFiReconfiguration])
+  {
+    v2 = [v1 isReachable];
   }
 
   else
@@ -8291,1204 +5219,3769 @@ uint64_t HMHomeActivityStateFromTruncatedString(void *a1)
   return v2;
 }
 
-uint64_t __HMDActionSetAddActionWithModel(void *a1, void *a2, void *a3, void *a4)
+id __modelIdentifierForURI(void *a1, void *a2)
 {
-  v7 = a1;
-  v8 = a2;
-  v9 = a3;
-  if (v7)
-  {
-    v10 = [v8 backedObjectWithParent:v7 error:a4];
-    if (v10)
-    {
-      objc_opt_class();
-      isKindOfClass = objc_opt_isKindOfClass();
-      if (isKindOfClass)
-      {
-        v12 = v10;
-      }
-
-      else
-      {
-        v12 = 0;
-      }
-
-      v13 = v12;
-      if (isKindOfClass)
-      {
-        [v7 _handleAddNewAction:v10 message:v9];
-      }
-
-      else if (a4)
-      {
-        *a4 = [MEMORY[0x277CCA9B8] hmErrorWithCode:22];
-      }
-    }
-
-    else
-    {
-      isKindOfClass = 0;
-    }
-  }
-
-  else if (a4)
-  {
-    [MEMORY[0x277CCA9B8] hmErrorWithCode:20];
-    *a4 = isKindOfClass = 0;
-  }
-
-  else
-  {
-    isKindOfClass = 0;
-  }
-
-  return isKindOfClass & 1;
-}
-
-void sub_229AC6B64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, id location, char a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46)
-{
-  objc_destroyWeak(&location);
-  _Block_object_dispose(&a40, 8);
-  _Block_object_dispose(&a46, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__31300(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_229AC72F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, id location, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48)
-{
-  _Block_object_dispose(&a42, 8);
-  _Block_object_dispose(&a48, 8);
-  __HMFActivityScopeLeave();
-  _Unwind_Resume(a1);
-}
-
-void sub_229AC79A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50)
-{
-  _Block_object_dispose(&a44, 8);
-  _Block_object_dispose(&a50, 8);
-  __HMFActivityScopeLeave();
-  _Unwind_Resume(a1);
-}
-
-void sub_229AC812C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, id location, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50)
-{
-  objc_destroyWeak(&location);
-  _Block_object_dispose(&a44, 8);
-  _Block_object_dispose(&a50, 8);
-  __HMFActivityScopeLeave();
-  _Unwind_Resume(a1);
-}
-
-void sub_229AC8ACC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43)
-{
-  objc_destroyWeak((v43 + 56));
-  objc_destroyWeak(&location);
-  __HMFActivityScopeLeave();
-  _Unwind_Resume(a1);
-}
-
-void sub_229AD905C(_Unwind_Exception *a1)
-{
-  v3 = v2;
-  os_unfair_lock_unlock((v1 + v3));
-  _Unwind_Resume(a1);
-}
-
-void sub_229AD90F0(_Unwind_Exception *a1)
-{
-  v3 = v2;
-  os_unfair_lock_unlock((v1 + v3));
-  _Unwind_Resume(a1);
-}
-
-void sub_229AD9184(_Unwind_Exception *a1)
-{
-  v3 = v2;
-  os_unfair_lock_unlock((v1 + v3));
-  _Unwind_Resume(a1);
-}
-
-void sub_229AD9520(_Unwind_Exception *a1)
-{
-  v3 = v2;
-  os_unfair_lock_unlock((v1 + v3));
-  _Unwind_Resume(a1);
-}
-
-void sub_229ADA250(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 56));
-  objc_destroyWeak((v2 - 56));
-  _Unwind_Resume(a1);
-}
-
-void sub_229ADB050(_Unwind_Exception *a1)
-{
-  v3 = v2;
-  os_unfair_lock_unlock((v1 + v3));
-  _Unwind_Resume(a1);
-}
-
-void sub_229ADC34C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__32138(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_229ADF778(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id location)
-{
-  objc_destroyWeak((v28 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__33336(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_229AE77E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, id location)
-{
-  objc_destroyWeak((v27 + 48));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229AE7DE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
-{
-  objc_destroyWeak((v17 + 48));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229AE87EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
-{
-  objc_destroyWeak((v15 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229AE9C3C(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v2 + 32));
-  objc_destroyWeak((v1 + 32));
-  objc_destroyWeak((v3 - 56));
-  _Unwind_Resume(a1);
-}
-
-void sub_229AEAF9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__34240(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-uint64_t __parseGlobalDestination(void *a1, void *a2, void *a3, void *a4, void *a5)
-{
-  v9 = a1;
-  v10 = v9;
-  if (v9)
-  {
-    v11 = v9;
-    v12 = [v11 rangeOfString:@"/"];
-    v13 = v11;
-    if (v12 != 0x7FFFFFFFFFFFFFFFLL)
-    {
-      v13 = [v11 substringToIndex:v12];
-    }
-
-    if ([v13 containsString:@"self-token:"])
-    {
-      v14 = [v13 mutableCopy];
-      [v14 replaceOccurrencesOfString:@"self-token:" withString:@"token:" options:1 range:{0, objc_msgSend(v14, "length")}];
-      v15 = [v14 copy];
-
-      v13 = v15;
-    }
-
-    if (([v13 hasPrefix:@"token:"] & 1) == 0)
-    {
-      if (a5)
-      {
-        [MEMORY[0x277CCA9B8] hmErrorWithCode:19 description:@"Invalid destination." reason:@"Missing token prefix." suggestion:0];
-        *a5 = v23 = 0;
-LABEL_28:
-
-        goto LABEL_29;
-      }
-
-LABEL_27:
-      v23 = 0;
-      goto LABEL_28;
-    }
-
-    if (a2)
-    {
-      v16 = objc_alloc(MEMORY[0x277CCAD78]);
-      v17 = +[_HMDDeviceHandle identifierNamespace];
-      v18 = [v13 dataUsingEncoding:4];
-      *a2 = [v16 initWithNamespace:v17 data:v18];
-    }
-
-    v19 = [v13 substringFromIndex:{objc_msgSend(@"token:", "length")}];
-    if ([v19 length])
-    {
-      v20 = objc_alloc(MEMORY[0x277CBEA90]);
-      v21 = [v20 hmf_initWithHexadecimalString:v19 options:0];
-
-      if (v21)
-      {
-        if (a3)
-        {
-          v22 = v21;
-          *a3 = v21;
-        }
-
-        if (a4)
-        {
-          *a4 = [HMDAccountHandle accountHandleForDestination:v11];
-        }
-
-        v23 = 1;
-        goto LABEL_28;
-      }
-
-      if (!a5)
-      {
-        goto LABEL_26;
-      }
-
-      v24 = MEMORY[0x277CCA9B8];
-      v25 = @"Invalid token string.";
-      v26 = 3;
-    }
-
-    else
-    {
-      if (!a5)
-      {
-LABEL_26:
-
-        goto LABEL_27;
-      }
-
-      v24 = MEMORY[0x277CCA9B8];
-      v25 = @"Missing token string.";
-      v26 = 19;
-    }
-
-    *a5 = [v24 hmErrorWithCode:v26 description:@"Invalid destination." reason:v25 suggestion:0];
-    goto LABEL_26;
-  }
-
-  if (a5)
-  {
-    [MEMORY[0x277CCA9B8] hmErrorWithCode:20];
-    *a5 = v23 = 0;
-  }
-
-  else
-  {
-    v23 = 0;
-  }
-
-LABEL_29:
-
-  return v23;
-}
-
-id __parseLocalDestination(void *a1, void *a2)
-{
+  v14[2] = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v4 = v3;
-  if (!v3)
+  v4 = a2;
+  if (__modelIdentifierForURI_onceToken != -1)
   {
-    if (a2)
-    {
-      v9 = [MEMORY[0x277CCA9B8] hmErrorWithCode:20];
-LABEL_10:
-      v7 = 0;
-      *a2 = v9;
-      goto LABEL_18;
-    }
-
-LABEL_11:
-    v7 = 0;
-    goto LABEL_18;
+    dispatch_once(&__modelIdentifierForURI_onceToken, &__block_literal_global_475_115604);
   }
 
-  if (([v3 hasPrefix:@"device:"] & 1) == 0)
+  v5 = MEMORY[0x277CCAD78];
+  if (v4)
   {
-    if (a2)
-    {
-      v9 = [MEMORY[0x277CCA9B8] hmErrorWithCode:19 description:@"Invalid destination." reason:@"Missing local device prefix." suggestion:0];
-      goto LABEL_10;
-    }
-
-    goto LABEL_11;
-  }
-
-  v5 = [v4 substringFromIndex:{objc_msgSend(@"device:", "length")}];
-  if ([v5 length])
-  {
-    v6 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v5];
-    v7 = v6;
-    if (v6)
-    {
-      v8 = v6;
-    }
-
-    else if (a2)
-    {
-      *a2 = [MEMORY[0x277CCA9B8] hmErrorWithCode:19 description:@"Invalid destination." reason:@"Invalid device identifier" suggestion:0];
-    }
-  }
-
-  else if (a2)
-  {
-    [MEMORY[0x277CCA9B8] hmErrorWithCode:19 description:@"Invalid destination." reason:@"Missing device identifier." suggestion:0];
-    *a2 = v7 = 0;
+    v6 = __modelIdentifierForURI_namespace;
+    v7 = [v4 UUIDString];
+    v14[0] = v7;
+    v8 = [v3 prefixedURI];
+    v14[1] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+    v10 = [v5 hm_deriveUUIDFromBaseUUID:v6 withSalts:v9];
   }
 
   else
   {
-    v7 = 0;
+    v11 = objc_alloc(MEMORY[0x277CCAD78]);
+    v12 = __modelIdentifierForURI_namespace;
+    v7 = [v3 prefixedURI];
+    v8 = [v7 dataUsingEncoding:4];
+    v10 = [v11 initWithNamespace:v12 data:v8];
   }
 
-LABEL_18:
-
-  return v7;
+  return v10;
 }
 
-void sub_229AF8610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, id a38)
+void ____modelIdentifierForURI_block_invoke()
 {
-  objc_destroyWeak(&a38);
-  objc_destroyWeak((v38 - 184));
+  v0 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"F48EA8E5-696C-4EA4-B767-16D13368CB16"];
+  v1 = __modelIdentifierForURI_namespace;
+  __modelIdentifierForURI_namespace = v0;
+}
+
+void sub_229E0E358(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-__CFString *HMDCloudShareTrustManagerConfigureStateAsString(unint64_t a1)
+uint64_t __Block_byref_object_copy__115632(uint64_t result, uint64_t a2)
 {
-  if (a1 >= 4)
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void ____identifierForURI_block_invoke()
+{
+  v0 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"297A1FDB-8A3E-443F-A8A8-1F3360785587"];
+  v1 = __identifierForURI_namespace;
+  __identifierForURI_namespace = v0;
+}
+
+void sub_229E182FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
+{
+  objc_destroyWeak((v16 + 48));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+id Siri_log()
+{
+  if (Siri_log__hmf_once_t0 != -1)
   {
-    v2 = MEMORY[0x277CCACA8];
-    v3 = [MEMORY[0x277CCABB0] numberWithInteger:a1];
-    v1 = [v2 stringWithFormat:@"Unknown state %@", v3];
+    dispatch_once(&Siri_log__hmf_once_t0, &__block_literal_global_118186);
   }
 
-  else
-  {
-    v1 = off_278672800[a1];
-  }
+  v1 = Siri_log__hmf_once_v1;
 
   return v1;
 }
 
-void ____managedObjectClassFromProtocol_block_invoke()
+void sub_229E301D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  v0 = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
-  v1 = __managedObjectClassFromProtocol__hmf_once_v8;
-  __managedObjectClassFromProtocol__hmf_once_v8 = v0;
-}
-
-void sub_229B07B7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __Block_byref_object_copy__38060(uint64_t result, uint64_t a2)
+uint64_t __Block_byref_object_copy__119069(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
   *(a2 + 40) = 0;
   return result;
 }
 
-void sub_229B07E58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void __computeInDegrees(void *a1, void *a2)
 {
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_229B0BEC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_229B0DC30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_229B13724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__39842(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void __sendChangeNotifications(void *a1, void *a2, uint64_t a3)
-{
-  v5 = a1;
-  v6 = a2;
-  v7 = +[HMDAppleAccountManager sharedManager];
-  v8 = [v7 account];
-
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = ____sendChangeNotifications_block_invoke;
-  v11[3] = &unk_278672AE8;
-  v13 = v8;
-  v14 = a3;
-  v12 = v5;
-  v9 = v8;
-  v10 = v5;
-  [v6 hmf_enumerateWithAutoreleasePoolUsingBlock:v11];
-}
-
-void ____sendChangeNotifications_block_invoke(uint64_t a1, void *a2)
-{
-  v26[1] = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  if ([v3 isObjectType:&unk_283EF7428] && *(a1 + 48) != 2)
+  v28 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v4 = a2;
+  v5 = [v3 keyEnumerator];
+  v6 = [v5 nextObject];
+  if (v6)
   {
-    v4 = *(a1 + 32);
-    v5 = [v3 modelID];
-    v6 = [v4 deviceForIdentifier:v5];
-
-    if (v6)
-    {
-      logAndPostNotification(@"HMDDeviceUpdatedNotification", v6, 0);
-    }
-  }
-
-  if ([v3 isObjectType:&unk_283F64610])
-  {
-    v7 = [*(a1 + 32) accounts];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = ____sendChangeNotifications_block_invoke_2;
-    v21[3] = &unk_2786861F8;
-    v22 = v3;
-    [v7 hmf_enumerateWithAutoreleasePoolUsingBlock:v21];
-  }
-
-  if ([v3 isObjectType:&unk_283E8EE20])
-  {
-    v8 = [v3 modelID];
-    v9 = [*(a1 + 40) modelIdentifier];
-    v10 = [v8 isEqual:v9];
-
-    if ((v10 & 1) == 0)
-    {
-      v11 = [*(a1 + 32) accounts];
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = ____sendChangeNotifications_block_invoke_4;
-      v19[3] = &unk_278672AC0;
-      v20 = v3;
-      v12 = [v11 na_firstObjectPassingTest:v19];
-
-      if (!v12)
-      {
-LABEL_17:
-
-        goto LABEL_18;
-      }
-
-      v13 = *(a1 + 48);
-      if (v13 == 2)
-      {
-        v15 = [MEMORY[0x277CCAB98] defaultCenter];
-        v16 = *(a1 + 32);
-        v23 = @"HMDAccountNotificationKey";
-        v24 = v12;
-        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-        [v15 postNotificationName:@"HMDAccountRegistryRemovedAccountNotification" object:v16 userInfo:v17];
-      }
-
-      else
-      {
-        if (v13 != 1)
-        {
-LABEL_16:
-
-          goto LABEL_17;
-        }
-
-        v14 = *(a1 + 32);
-        v25 = @"HMDAccountNotificationKey";
-        v26[0] = v12;
-        v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
-        logAndPostNotification(@"HMDAccountRegistryAddedAccountNotification", v14, v15);
-      }
-
-      goto LABEL_16;
-    }
-  }
-
-LABEL_18:
-
-  v18 = *MEMORY[0x277D85DE8];
-}
-
-void ____sendChangeNotifications_block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
-{
-  v6 = a2;
-  v7 = [v6 handles];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = ____sendChangeNotifications_block_invoke_3;
-  v9[3] = &unk_278672A98;
-  v10 = *(a1 + 32);
-  v11 = v6;
-  v12 = a4;
-  v8 = v6;
-  [v7 hmf_enumerateWithAutoreleasePoolUsingBlock:v9];
-}
-
-uint64_t ____sendChangeNotifications_block_invoke_4(uint64_t a1, void *a2)
-{
-  v3 = [a2 modelIdentifier];
-  v4 = [*(a1 + 32) modelID];
-  v5 = [v3 isEqual:v4];
-
-  return v5;
-}
-
-void ____sendChangeNotifications_block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
-{
-  v6 = [a2 modelIdentifier];
-  v7 = [*(a1 + 32) modelID];
-  v8 = [v6 isEqual:v7];
-
-  if (v8)
-  {
-    logAndPostNotification(@"HMDAccountHandlesUpdatedNotification", *(a1 + 40), 0);
-    **(a1 + 48) = 1;
-    *a4 = 1;
-  }
-}
-
-void sub_229B145C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location)
-{
-  objc_destroyWeak((v19 + 64));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229B154D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
-{
-  objc_destroyWeak((v17 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void __HMDAppleAccountSettingsPostUpdatedNotification(void *a1)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  if (v1)
-  {
-    v2 = objc_autoreleasePoolPush();
-    v3 = v1;
-    v4 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
-    {
-      v5 = HMFGetLogIdentifier();
-      v8 = 138543362;
-      v9 = v5;
-      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Notifying of updated Apple account settings", &v8, 0xCu);
-    }
-
-    objc_autoreleasePoolPop(v2);
-    v6 = [MEMORY[0x277CCAB98] defaultCenter];
-    [v6 postNotificationName:@"HMDAppleAccountSettingsUpdatedNotification" object:v3];
-  }
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void sub_229B182FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
-{
-  objc_destroyWeak((v17 + 48));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229B18BE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location)
-{
-  objc_destroyWeak((v19 + 64));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void __legacyWatchOSCategoryMap_block_invoke()
-{
-  v24[1] = *MEMORY[0x277D85DE8];
-  if (BulletinDistributorCompanionLibraryCore())
-  {
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x2020000000;
-    v0 = getBLTBulletinContextKeyWatchLegacyMapKeySymbolLoc_ptr;
-    v18 = getBLTBulletinContextKeyWatchLegacyMapKeySymbolLoc_ptr;
-    if (!getBLTBulletinContextKeyWatchLegacyMapKeySymbolLoc_ptr)
-    {
-      v1 = BulletinDistributorCompanionLibrary();
-      v16[3] = dlsym(v1, "BLTBulletinContextKeyWatchLegacyMapKey");
-      getBLTBulletinContextKeyWatchLegacyMapKeySymbolLoc_ptr = v16[3];
-      v0 = v16[3];
-    }
-
-    _Block_object_dispose(&v15, 8);
-    if (!v0)
-    {
-      goto LABEL_12;
-    }
-
-    v2 = *v0;
-    v23 = v2;
-    v3 = [&unk_283E72020 stringValue];
-    v21 = v3;
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x2020000000;
-    v4 = getBLTWatchLegacyMapCategoryIDKeySymbolLoc_ptr;
-    v18 = getBLTWatchLegacyMapCategoryIDKeySymbolLoc_ptr;
-    if (!getBLTWatchLegacyMapCategoryIDKeySymbolLoc_ptr)
-    {
-      v5 = BulletinDistributorCompanionLibrary();
-      v16[3] = dlsym(v5, "BLTWatchLegacyMapCategoryIDKey");
-      getBLTWatchLegacyMapCategoryIDKeySymbolLoc_ptr = v16[3];
-      v4 = v16[3];
-    }
-
-    _Block_object_dispose(&v15, 8);
-    if (!v4)
-    {
-LABEL_12:
-      dlerror();
-      abort_report_np();
-      __break(1u);
-    }
-
-    v19 = *v4;
-    v20 = MEMORY[0x277CBEBF8];
-    v6 = MEMORY[0x277CBEAC0];
-    v7 = v19;
-    v8 = [v6 dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-    v22 = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-    v24[0] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
-    v11 = legacyWatchOSCategoryMap_legacyWatchOSCategoryMap;
-    legacyWatchOSCategoryMap_legacyWatchOSCategoryMap = v10;
-
-    v12 = *MEMORY[0x277D85DE8];
-  }
-
-  else
-  {
-    v13 = legacyWatchOSCategoryMap_legacyWatchOSCategoryMap;
-    legacyWatchOSCategoryMap_legacyWatchOSCategoryMap = MEMORY[0x277CBEC10];
-    v14 = *MEMORY[0x277D85DE8];
-  }
-}
-
-void sub_229B1DBEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va, a8);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t BulletinDistributorCompanionLibraryCore()
-{
-  v2 = *MEMORY[0x277D85DE8];
-  if (!BulletinDistributorCompanionLibraryCore_frameworkLibrary)
-  {
-    BulletinDistributorCompanionLibraryCore_frameworkLibrary = _sl_dlopen();
-  }
-
-  result = BulletinDistributorCompanionLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void *__getBLTBulletinContextKeyWatchLegacyMapKeySymbolLoc_block_invoke(uint64_t a1)
-{
-  v2 = BulletinDistributorCompanionLibrary();
-  result = dlsym(v2, "BLTBulletinContextKeyWatchLegacyMapKey");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getBLTBulletinContextKeyWatchLegacyMapKeySymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-uint64_t BulletinDistributorCompanionLibrary()
-{
-  v0 = BulletinDistributorCompanionLibraryCore();
-  if (!v0)
-  {
-    v2 = abort_report_np();
-    free(v2);
-  }
-
-  return v0;
-}
-
-void *__getBLTWatchLegacyMapCategoryIDKeySymbolLoc_block_invoke(uint64_t a1)
-{
-  v2 = BulletinDistributorCompanionLibrary();
-  result = dlsym(v2, "BLTWatchLegacyMapCategoryIDKey");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  getBLTWatchLegacyMapCategoryIDKeySymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-uint64_t __BulletinDistributorCompanionLibraryCore_block_invoke(uint64_t a1)
-{
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  result = _sl_dlopen();
-  BulletinDistributorCompanionLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_229B2A088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_229B2A43C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
-{
-  objc_destroyWeak((v17 + 48));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_229B2ACA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
-{
-  objc_destroyWeak((v17 + 48));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-id _NCSchedulerDateWithMultiple(void *a1, void *a2, void *a3, uint64_t a4)
-{
-  v7 = a3;
-  v8 = MEMORY[0x277CBEAB8];
-  v9 = a2;
-  v10 = a1;
-  v11 = objc_alloc_init(v8);
-  if (v11)
-  {
-    v12 = [v7 era];
-    if (v12 == 0x7FFFFFFFFFFFFFFFLL)
-    {
-      v13 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v13 = v12 * a4;
-    }
-
-    [v11 setEra:v13];
-    v14 = [v7 year];
-    if (v14 == 0x7FFFFFFFFFFFFFFFLL)
-    {
-      v15 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v15 = v14 * a4;
-    }
-
-    [v11 setYear:v15];
-    v16 = [v7 month];
-    if (v16 == 0x7FFFFFFFFFFFFFFFLL)
-    {
-      v17 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v17 = v16 * a4;
-    }
-
-    [v11 setMonth:v17];
-    v18 = [v7 day];
-    if (v18 == 0x7FFFFFFFFFFFFFFFLL)
-    {
-      v19 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v19 = v18 * a4;
-    }
-
-    [v11 setDay:v19];
-    v20 = [v7 hour];
-    if (v20 == 0x7FFFFFFFFFFFFFFFLL)
-    {
-      v21 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v21 = v20 * a4;
-    }
-
-    [v11 setHour:v21];
-    v22 = [v7 minute];
-    if (v22 == 0x7FFFFFFFFFFFFFFFLL)
-    {
-      v23 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v23 = v22 * a4;
-    }
-
-    [v11 setMinute:v23];
-    v24 = [v7 second];
-    if (v24 == 0x7FFFFFFFFFFFFFFFLL)
-    {
-      v25 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v25 = v24 * a4;
-    }
-
-    [v11 setSecond:v25];
-    v26 = [v7 weekday];
-    if (v26 == 0x7FFFFFFFFFFFFFFFLL)
-    {
-      v27 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v27 = v26 * a4;
-    }
-
-    [v11 setWeekday:v27];
-    v28 = [v7 weekdayOrdinal];
-    if (v28 == 0x7FFFFFFFFFFFFFFFLL)
-    {
-      v29 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v29 = v28 * a4;
-    }
-
-    [v11 setWeekdayOrdinal:v29];
-    v30 = [v7 quarter];
-    if (v30 == 0x7FFFFFFFFFFFFFFFLL)
-    {
-      v31 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v31 = v30 * a4;
-    }
-
-    [v11 setQuarter:v31];
-    v32 = [v7 weekOfMonth];
-    if (v32 == 0x7FFFFFFFFFFFFFFFLL)
-    {
-      v33 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v33 = v32 * a4;
-    }
-
-    [v11 setWeekOfMonth:v33];
-    v34 = [v7 weekOfYear];
-    if (v34 == 0x7FFFFFFFFFFFFFFFLL)
-    {
-      v35 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v35 = v34 * a4;
-    }
-
-    [v11 setWeekOfYear:v35];
-    v36 = [v7 yearForWeekOfYear];
-    if (v36 == 0x7FFFFFFFFFFFFFFFLL)
-    {
-      v37 = 0x7FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v37 = v36 * a4;
-    }
-
-    [v11 setYearForWeekOfYear:v37];
-  }
-
-  v38 = [v9 dateByAddingComponents:v11 toDate:v10 options:0];
-
-  return v38;
-}
-
-void sub_229B38F04(_Unwind_Exception *a1)
-{
-  objc_destroyWeak((v1 + 40));
-  objc_destroyWeak((v2 - 40));
-  _Unwind_Resume(a1);
-}
-
-void sub_229B4151C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t HMDRemoteEventRouterProtoChangeRegistrationsMessageReadFrom(void *a1, void *a2)
-{
-  v4 = [a2 position];
-  if (v4 < [a2 length])
-  {
+    v7 = v6;
     do
     {
-      if ([a2 hasError])
-      {
-        return [a2 hasError] ^ 1;
-      }
+      [v4 setObject:&unk_283E72BA8 forKey:v7];
+      v8 = [v5 nextObject];
 
-      v5 = 0;
-      v6 = 0;
-      v7 = 0;
-      while (1)
-      {
-        LOBYTE(v17[0]) = 0;
-        v8 = [a2 position] + 1;
-        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
-        {
-          v10 = [a2 data];
-          [v10 getBytes:v17 range:{objc_msgSend(a2, "position"), 1}];
-
-          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-        }
-
-        else
-        {
-          [a2 _setError];
-        }
-
-        v7 |= (v17[0] & 0x7F) << v5;
-        if ((v17[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v5 += 7;
-        if (v6++ >= 9)
-        {
-          v12 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v12 = [a2 hasError] ? 0 : v7;
-LABEL_15:
-      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
-      {
-        return [a2 hasError] ^ 1;
-      }
-
-      v13 = v12 >> 3;
-      if ((v12 >> 3) > 4)
-      {
-        if (v13 == 5)
-        {
-          v14 = objc_alloc_init(HMDRemoteEventRouterProtoTopic);
-          [a1 addTopicAdditions:v14];
-          goto LABEL_30;
-        }
-
-        if (v13 == 6)
-        {
-          v14 = objc_alloc_init(HMDRemoteEventRouterProtoTopic);
-          [a1 addTopicRemovals:v14];
-LABEL_30:
-          v17[0] = 0;
-          v17[1] = 0;
-          if (!PBReaderPlaceMark() || !HMDRemoteEventRouterProtoTopicReadFrom(v14, a2))
-          {
-
-            return 0;
-          }
-
-          PBReaderRecallMark();
-LABEL_33:
-
-          goto LABEL_34;
-        }
-      }
-
-      else
-      {
-        if (v13 == 3)
-        {
-          v14 = PBReaderReadString();
-          if (v14)
-          {
-            [a1 addTopicFilterAdditions:v14];
-          }
-
-          goto LABEL_33;
-        }
-
-        if (v13 == 4)
-        {
-          v14 = PBReaderReadString();
-          if (v14)
-          {
-            [a1 addTopicFilterRemovals:v14];
-          }
-
-          goto LABEL_33;
-        }
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_34:
-      v15 = [a2 position];
+      v7 = v8;
     }
 
-    while (v15 < [a2 length]);
+    while (v8);
   }
 
-  return [a2 hasError] ^ 1;
+  v21 = v3;
+  v22 = [v3 objectEnumerator];
+  v9 = [v22 nextObject];
+  if (v9)
+  {
+    v10 = v9;
+    do
+    {
+      v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
+      v11 = v10;
+      v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      if (v12)
+      {
+        v13 = v12;
+        v14 = *v24;
+        do
+        {
+          v15 = 0;
+          do
+          {
+            if (*v24 != v14)
+            {
+              objc_enumerationMutation(v11);
+            }
+
+            v16 = *(*(&v23 + 1) + 8 * v15);
+            v17 = v4;
+            v18 = v16;
+            v19 = [v17 objectForKey:v18];
+            v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v19, "unsignedIntValue") + 1}];
+            [v17 setObject:v20 forKey:v18];
+
+            ++v15;
+          }
+
+          while (v13 != v15);
+          v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        }
+
+        while (v13);
+      }
+
+      v10 = [v22 nextObject];
+    }
+
+    while (v10);
+  }
 }
 
-void sub_229B441B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
+void __decrementInDegree(void *a1, void *a2)
 {
-  objc_destroyWeak((v17 + 48));
-  objc_destroyWeak(&location);
+  v3 = a2;
+  v4 = a1;
+  v5 = [v4 objectForKey:v3];
+  v6 = [v5 unsignedIntValue];
+
+  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:(v6 - 1)];
+  [v4 setObject:v7 forKey:v3];
+}
+
+void sub_229E35DE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_229B454AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
+void sub_229E369C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
 {
   objc_destroyWeak((v14 + 32));
   objc_destroyWeak(&location);
   _Unwind_Resume(a1);
 }
 
-uint64_t HMDUserActivityHomeAwayStateFromPresenceRegion(void *a1, void *a2)
+void sub_229E37A24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v3 = a1;
-  v4 = a2;
-  if ([v4 value] == 1)
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__119625(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_229E39608(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
+{
+  objc_destroyWeak((v17 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229E3A240(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, id location)
+{
+  objc_destroyWeak((v25 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229E3BE4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__121125(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_229E3C768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229E3D0F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229E3D9F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229E3E420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229E3EF50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229E3FCAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+id parseMediaSourceDisplayOrder(void *a1)
+{
+  v17 = *MEMORY[0x277D85DE8];
+  v1 = a1;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
   {
-    v5 = [v3 value];
-    if (v5 >= 3)
+    v2 = v1;
+  }
+
+  else
+  {
+    v2 = 0;
+  }
+
+  v3 = v2;
+
+  if ([v3 length])
+  {
+    [v3 bytes];
+    [v3 length];
+    v4 = [MEMORY[0x277CBEB18] array];
+    *&v5 = 138543618;
+    v12 = v5;
+    do
     {
-      v10 = objc_autoreleasePoolPush();
-      v11 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+      Next = TLV8GetNext();
+    }
+
+    while (!Next);
+    if (Next != -6727)
+    {
+      v7 = objc_autoreleasePoolPush();
+      v8 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v12 = HMFGetLogIdentifier();
-        v13 = [v3 number];
-        v16 = 138543618;
-        v17 = v12;
-        v18 = 2112;
-        v19 = v13;
-        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_FAULT, "%{public}@Cannot map presence region status to home away state: %@", &v16, 0x16u);
+        v9 = HMFGetLogIdentifier();
+        *buf = v12;
+        v14 = v9;
+        v15 = 2112;
+        v16 = v3;
+        _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@TLV parsing failed - %@ - dropping", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v10);
-      v6 = 0;
+      objc_autoreleasePoolPop(v7);
+      v4 = 0;
+    }
+
+    v10 = objc_msgSend_copy(v4, v12);
+  }
+
+  else
+  {
+    v10 = MEMORY[0x277CBEBF8];
+  }
+
+  return v10;
+}
+
+void sub_229E43454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
+{
+  va_start(va, a31);
+  _Block_object_dispose((v31 - 192), 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__121531(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_229E4949C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229E4B364(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location)
+{
+  objc_destroyWeak((v20 + 72));
+  objc_destroyWeak(&location);
+  _Block_object_dispose((v21 - 128), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229E4C7EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, ...)
+{
+  va_start(va, a45);
+  _Block_object_dispose(&a35, 8);
+  _Block_object_dispose(&a40, 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229E4E4A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229E4F010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229E5C314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__123763(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+uint64_t HMDRemoteEventRouterProtoDisconnectMessageReadFrom(void *a1)
+{
+  while (1)
+  {
+    v2 = [a1 position];
+    if (v2 >= [a1 length] || (objc_msgSend(a1, "hasError") & 1) != 0)
+    {
+      break;
+    }
+
+    v3 = 0;
+    v4 = 0;
+    v5 = 0;
+    while (1)
+    {
+      v12 = 0;
+      v6 = [a1 position] + 1;
+      if (v6 >= [a1 position] && (v7 = objc_msgSend(a1, "position") + 1, v7 <= objc_msgSend(a1, "length")))
+      {
+        v8 = [a1 data];
+        [v8 getBytes:&v12 range:{objc_msgSend(a1, "position"), 1}];
+
+        [a1 setPosition:{objc_msgSend(a1, "position") + 1}];
+      }
+
+      else
+      {
+        [a1 _setError];
+      }
+
+      v5 |= (v12 & 0x7F) << v3;
+      if ((v12 & 0x80) == 0)
+      {
+        break;
+      }
+
+      v3 += 7;
+      if (v4++ >= 9)
+      {
+        v10 = 0;
+        goto LABEL_15;
+      }
+    }
+
+    v10 = [a1 hasError] ? 0 : v5;
+LABEL_15:
+    if (([a1 hasError] & 1) != 0 || (v10 & 7) == 4)
+    {
+      break;
+    }
+
+    if ((PBReaderSkipValueWithTag() & 1) == 0)
+    {
+      return 0;
+    }
+  }
+
+  return [a1 hasError] ^ 1;
+}
+
+void sub_229E6284C(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v1 + 32));
+  objc_destroyWeak((v2 - 128));
+  _Unwind_Resume(a1);
+}
+
+void sub_229E65D60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id location)
+{
+  objc_destroyWeak((v21 + 48));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229E66B94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, id location)
+{
+  objc_destroyWeak((v13 + 72));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229E731F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__126661(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_229E75820(_Unwind_Exception *a1)
+{
+  v3 = v2;
+  os_unfair_lock_unlock((v1 + v3));
+  _Unwind_Resume(a1);
+}
+
+void sub_229E758FC(_Unwind_Exception *a1)
+{
+  v3 = v2;
+  os_unfair_lock_unlock((v1 + v3));
+  _Unwind_Resume(a1);
+}
+
+void sub_229E7DC58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location)
+{
+  objc_destroyWeak((v20 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229E7E140(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location)
+{
+  objc_destroyWeak((v18 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+uint64_t getAccessoryFirmwareUpdateActiveTransport(void *a1)
+{
+  v1 = a1;
+  if ([v1 isReachable])
+  {
+    if ([v1 isThreadTheCurrentlyActiveTransport])
+    {
+      v2 = 4;
+    }
+
+    else if ([v1 hasBTLELink])
+    {
+      v2 = 3;
+    }
+
+    else if ([v1 hasIPLink])
+    {
+      v2 = 2;
     }
 
     else
     {
-      v6 = v5 + 1;
+      v2 = 1;
     }
   }
 
   else
   {
-    v7 = objc_autoreleasePoolPush();
-    v8 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v2 = 1;
+  }
+
+  return v2;
+}
+
+void sub_229E83B28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__128142(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_229E845D4(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v1 + 40));
+  objc_destroyWeak((v2 - 40));
+  _Unwind_Resume(a1);
+}
+
+void sub_229E84BCC(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v1 + 40));
+  objc_destroyWeak((v2 - 40));
+  _Unwind_Resume(a1);
+}
+
+void sub_229E8581C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void __disconnectFromEndpoint(void *a1)
+{
+  v13 = *MEMORY[0x277D85DE8];
+  v1 = a1;
+  v2 = v1;
+  if (v1)
+  {
+    v3 = [v1 externalDevice];
+    v4 = v3;
+    if (v3 && [v3 connectionState] != 3)
     {
-      v9 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v9;
-      v18 = 2112;
-      v19 = v4;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@No authorization to determine home away state: %@", &v16, 0x16u);
+      v5 = objc_autoreleasePoolPush();
+      v6 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      {
+        v7 = HMFGetLogIdentifier();
+        v9 = 138543618;
+        v10 = v7;
+        v11 = 2112;
+        v12 = v2;
+        _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Resetting the connection state callback for endpoint %@", &v9, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v5);
+      v8 = dispatch_get_global_queue(0, 0);
+      [v4 setConnectionStateCallback:0 withQueue:v8];
+
+      [v4 disconnect:0];
+    }
+  }
+}
+
+void sub_229E8657C(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v1 + 40));
+  objc_destroyWeak((v2 - 40));
+  _Unwind_Resume(a1);
+}
+
+void sub_229E8743C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va1, a20);
+  va_start(va, a20);
+  v22 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Block_object_dispose((v20 - 160), 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__128851(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+__CFString *AVCVideoCodecTypeAsString(uint64_t a1)
+{
+  if (a1)
+  {
+    if (a1 == 1)
+    {
+      v2 = @"kAVCCodecTypeHEVC";
     }
 
-    objc_autoreleasePoolPop(v7);
+    else
+    {
+      v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unknown AVC video codec type (%ld)", a1];
+    }
+  }
+
+  else
+  {
+    v2 = @"kAVCCodecTypeH264";
+  }
+
+  return v2;
+}
+
+__CFString *AVCCipherSuiteAsString(unint64_t a1)
+{
+  if (a1 >= 6)
+  {
+    v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unknown AVC cipher suite (%ld)", a1];
+  }
+
+  else
+  {
+    v2 = off_278679F78[a1];
+  }
+
+  return v2;
+}
+
+void sub_229E901D0(_Unwind_Exception *a1)
+{
+  v3 = v2;
+  os_unfair_lock_unlock((v1 + v3));
+  _Unwind_Resume(a1);
+}
+
+void sub_229E90260(_Unwind_Exception *a1)
+{
+  v3 = v2;
+  os_unfair_lock_unlock((v1 + v3));
+  _Unwind_Resume(a1);
+}
+
+void sub_229E93D30(_Unwind_Exception *a1)
+{
+  v3 = v2;
+  os_unfair_lock_unlock((v1 + v3));
+  _Unwind_Resume(a1);
+}
+
+uint64_t __shouldAcceptMessage(void *a1, void *a2)
+{
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v4 = a2;
+  v5 = [v3 accessory];
+  if ([v5 isCurrentAccessory] & 1) != 0 || (objc_msgSend(v5, "supportsFirmwareUpdate"))
+  {
     v6 = 1;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v8 = objc_autoreleasePoolPush();
+    v9 = v3;
+    v10 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    {
+      v11 = HMFGetLogIdentifier();
+      v14 = 138543362;
+      v15 = v11;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Cannot update state for other accessory", &v14, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v8);
+    v6 = [v4 responseHandler];
+
+    if (v6)
+    {
+      v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:10];
+      v13 = [v4 responseHandler];
+      (v13)[2](v13, v12, 0);
+
+      v6 = 0;
+    }
+  }
+
   return v6;
+}
+
+void __registerDocumentationMetadata(void *a1, void *a2)
+{
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v4 = a2;
+  if (v3)
+  {
+    v5 = [v3 dataSource];
+    v6 = [v5 notificationCenterForSoftwareUpdate:v3];
+    [v6 removeObserver:v3 name:@"HMDSoftwareUpdateDocumentationAssetStateUpdatedNotification" object:0];
+    if (v4)
+    {
+      v7 = objc_autoreleasePoolPush();
+      v8 = v3;
+      v9 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      {
+        v10 = HMFGetLogIdentifier();
+        v14 = 138543618;
+        v15 = v10;
+        v16 = 2112;
+        v17 = v4;
+        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Registering documentation metadata: %@", &v14, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v7);
+      v11 = +[HMDSoftwareUpdateDocumentationManager sharedManager];
+      [v11 registerDocumentationMetadata:v4];
+
+      v12 = +[HMDSoftwareUpdateDocumentationManager sharedManager];
+      v13 = [v12 assetForDocumentationMetadata:v4];
+
+      [v6 addObserver:v8 selector:sel__handleDocumentationStateNotification_ name:@"HMDSoftwareUpdateDocumentationAssetStateUpdatedNotification" object:v13];
+    }
+  }
+}
+
+void __unregisterDocumentationMetadata(void *a1, void *a2)
+{
+  v17 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v4 = a2;
+  v5 = v4;
+  if (v3 && v4)
+  {
+    v6 = [v3 dataSource];
+    v7 = [v6 notificationCenterForSoftwareUpdate:v3];
+    [v7 removeObserver:v3 name:@"HMDSoftwareUpdateDocumentationAssetStateUpdatedNotification" object:0];
+    v8 = objc_autoreleasePoolPush();
+    v9 = v3;
+    v10 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    {
+      v11 = HMFGetLogIdentifier();
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v5;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Unregistering documentation metadata: %@", &v13, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v8);
+    v12 = +[HMDSoftwareUpdateDocumentationManager sharedManager];
+    [v12 unregisterDocumentationMetadata:v5];
+  }
+}
+
+void sub_229E984DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location)
+{
+  objc_destroyWeak((v19 + 56));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229E9A588(_Unwind_Exception *a1)
+{
+  v3 = v2;
+  os_unfair_lock_unlock((v1 + v3));
+  _Unwind_Resume(a1);
+}
+
+void sub_229E9A614(_Unwind_Exception *a1)
+{
+  v3 = v2;
+  os_unfair_lock_unlock((v1 + v3));
+  _Unwind_Resume(a1);
+}
+
+void sub_229E9D6C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229E9FD9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__132266(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_229EA00C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229EA03DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229EA0694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229EA247C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229EA2794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229EA2AAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229EA2D68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+__CFString *HMDStringFromDataStreamBulkSendResponsePayloadStatus(uint64_t a1)
+{
+  if (a1 - 1) < 9 && ((0x11Bu >> (a1 - 1)))
+  {
+    v2 = off_27867A0C8[(a1 - 1)];
+  }
+
+  else
+  {
+    v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"<unknown status: %d>", a1];
+  }
+
+  return v2;
+}
+
+__CFString *HMDStringFromDataStreamMessageStatus(uint64_t a1)
+{
+  if (a1 >= 7)
+  {
+    v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"<unknown status: %d>", a1];
+  }
+
+  else
+  {
+    v2 = off_27867A110[a1];
+  }
+
+  return v2;
+}
+
+void sub_229EA923C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229EA9A44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, id location)
+{
+  objc_destroyWeak((v39 + 56));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229EAB0AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
+{
+  objc_destroyWeak((v16 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229EAB680(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location)
+{
+  objc_destroyWeak((v26 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229EACAF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229EACD20(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v1 + 40));
+  objc_destroyWeak((v2 - 40));
+  _Unwind_Resume(a1);
+}
+
+void sub_229EAD194(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location)
+{
+  objc_destroyWeak((v26 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229EB4848(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location)
+{
+  objc_destroyWeak((v20 + 48));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229EB9474(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
+{
+  objc_destroyWeak((v16 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+id failedActionResultFor(void *a1)
+{
+  v1 = MEMORY[0x277D47338];
+  v2 = a1;
+  v3 = objc_alloc_init(v1);
+  v4 = [v2 actions];
+  v5 = [v4 firstObject];
+  v6 = [v5 aceId];
+  [v3 setRequestActionId:v6];
+
+  [v3 setOutcome:*MEMORY[0x277D47DE0]];
+  v7 = [v2 actions];
+  v8 = [v7 firstObject];
+  v9 = [v8 value];
+  [v3 setResultValue:v9];
+
+  v10 = [v2 actions];
+
+  v11 = [v10 firstObject];
+  v12 = [v11 attribute];
+  [v3 setResultAttribute:v12];
+
+  return v3;
+}
+
+void __mapToFailureActionOutcome_block_invoke()
+{
+  v6[3] = *MEMORY[0x277D85DE8];
+  v0 = *MEMORY[0x277D47DE8];
+  v1 = *MEMORY[0x277D480F8];
+  v5[0] = *MEMORY[0x277D480D8];
+  v5[1] = v1;
+  v2 = *MEMORY[0x277D47E18];
+  v6[0] = v0;
+  v6[1] = v2;
+  v5[2] = *MEMORY[0x277D48120];
+  v6[2] = *MEMORY[0x277D47E28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:3];
+  v4 = mapToFailureActionOutcome_outcomeMap;
+  mapToFailureActionOutcome_outcomeMap = v3;
+}
+
+void sub_229EBACF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void __updateAccessoryInformation(void *a1, void *a2)
+{
+  v84 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v4 = a2;
+  v5 = objc_autoreleasePoolPush();
+  v6 = v3;
+  v7 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    v8 = HMFGetLogIdentifier();
+    v82 = 138543362;
+    v83 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating accessory information", &v82, 0xCu);
+  }
+
+  objc_autoreleasePoolPop(v5);
+  v9 = [v4 outputDevice];
+  v10 = [v9 av_OutputDevice];
+
+  if (v10)
+  {
+    v11 = [v6 transactionWithObjectChangeType:2];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v12 = v11;
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+
+    v13 = v12;
+
+    v14 = [v6 category];
+    v15 = [v14 categoryType];
+    v16 = *MEMORY[0x277CCE8C8];
+    v17 = [v15 isEqual:*MEMORY[0x277CCE8C8]];
+
+    if (v17)
+    {
+      v18 = [v4 category];
+      if (v18)
+      {
+        v19 = v18;
+        v20 = [v4 category];
+        v21 = [v20 categoryType];
+        v22 = [v21 isEqual:v16];
+
+        if ((v22 & 1) == 0)
+        {
+          v23 = +[HMDHAPMetadata getSharedInstance];
+          v24 = [v4 category];
+          v25 = [v24 categoryType];
+          v26 = [v23 categoryForType:v25];
+
+          if (v26)
+          {
+            v27 = objc_autoreleasePoolPush();
+            v28 = v6;
+            v29 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+            {
+              v30 = HMFGetLogIdentifier();
+              v82 = 138543362;
+              v83 = v30;
+              _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_INFO, "%{public}@Updating category", &v82, 0xCu);
+            }
+
+            objc_autoreleasePoolPop(v27);
+            v31 = [v26 identifier];
+            [v13 setAccessoryCategory:v31];
+          }
+        }
+      }
+    }
+
+    v32 = [v10 modelID];
+    if (v32 && (v33 = v32, [v10 modelID], v34 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "model"), v35 = objc_claimAutoreleasedReturnValue(), v36 = HMFEqualObjects(), v35, v34, v33, (v36 & 1) == 0))
+    {
+      v38 = objc_autoreleasePoolPush();
+      v39 = v6;
+      v40 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+      {
+        v41 = HMFGetLogIdentifier();
+        v82 = 138543362;
+        v83 = v41;
+        _os_log_impl(&dword_229538000, v40, OS_LOG_TYPE_INFO, "%{public}@Updating model", &v82, 0xCu);
+      }
+
+      objc_autoreleasePoolPop(v38);
+      v42 = [v10 modelID];
+      [v13 setModel:v42];
+
+      v37 = 1;
+    }
+
+    else
+    {
+      v37 = 0;
+    }
+
+    v43 = [v10 manufacturer];
+    if (v43)
+    {
+      v44 = v43;
+      v45 = [v10 manufacturer];
+      v46 = [v6 manufacturer];
+      v47 = HMFEqualObjects();
+
+      if ((v47 & 1) == 0)
+      {
+        v48 = objc_autoreleasePoolPush();
+        v49 = v6;
+        v50 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
+        {
+          v51 = HMFGetLogIdentifier();
+          v82 = 138543362;
+          v83 = v51;
+          _os_log_impl(&dword_229538000, v50, OS_LOG_TYPE_INFO, "%{public}@Updating manufacturer", &v82, 0xCu);
+        }
+
+        objc_autoreleasePoolPop(v48);
+        v52 = [v10 manufacturer];
+        [v13 setManufacturer:v52];
+
+        v37 = 1;
+      }
+    }
+
+    v53 = [v10 serialNumber];
+    if (v53)
+    {
+      v54 = v53;
+      v55 = [v10 serialNumber];
+      v56 = [v6 serialNumber];
+      v57 = HMFEqualObjects();
+
+      if ((v57 & 1) == 0)
+      {
+        v58 = objc_autoreleasePoolPush();
+        v59 = v6;
+        v60 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
+        {
+          v61 = HMFGetLogIdentifier();
+          v82 = 138543362;
+          v83 = v61;
+          _os_log_impl(&dword_229538000, v60, OS_LOG_TYPE_INFO, "%{public}@Updating serial number", &v82, 0xCu);
+        }
+
+        objc_autoreleasePoolPop(v58);
+        v62 = [v10 serialNumber];
+        [v13 setSerialNumber:v62];
+
+        v37 = 1;
+      }
+    }
+
+    v63 = [v10 firmwareVersion];
+
+    if (v63)
+    {
+      v64 = [HMDAccessoryVersion alloc];
+      v65 = [v10 firmwareVersion];
+      v66 = [(HMDAccessoryVersion *)v64 initWithString:v65];
+
+      v67 = [v6 firmwareVersion];
+      v68 = HMFEqualObjects();
+
+      if (v68)
+      {
+
+        if ((v37 & 1) == 0)
+        {
+LABEL_43:
+
+          goto LABEL_44;
+        }
+      }
+
+      else
+      {
+        v69 = objc_autoreleasePoolPush();
+        v70 = v6;
+        v71 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
+        {
+          v72 = HMFGetLogIdentifier();
+          v82 = 138543362;
+          v83 = v72;
+          _os_log_impl(&dword_229538000, v71, OS_LOG_TYPE_INFO, "%{public}@Updating firmware version", &v82, 0xCu);
+        }
+
+        objc_autoreleasePoolPop(v69);
+        v73 = [v10 firmwareVersion];
+        [v13 setFirmwareVersion:v73];
+      }
+    }
+
+    else if (!v37)
+    {
+      goto LABEL_43;
+    }
+
+    v74 = objc_autoreleasePoolPush();
+    v75 = v6;
+    v76 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
+    {
+      v77 = HMFGetLogIdentifier();
+      v82 = 138543362;
+      v83 = v77;
+      _os_log_impl(&dword_229538000, v76, OS_LOG_TYPE_DEFAULT, "%{public}@Updated accessory information", &v82, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v74);
+    v78 = [v75 home];
+    v79 = [v78 backingStore];
+    v80 = +[HMDBackingStoreTransactionOptions defaultXPCOptions];
+    v81 = [v79 transaction:@"Update Accessory Information" options:v80];
+
+    [v81 add:v13 withMessage:0];
+    [v81 run];
+
+    goto LABEL_43;
+  }
+
+LABEL_44:
+}
+
+id __configurationFromAdvertisement(void *a1, void *a2)
+{
+  v38 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v4 = a2;
+  if (v3)
+  {
+    v5 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:3];
+    v6 = [v4 name];
+    v7 = [v3 name];
+    v8 = HMFEqualObjects();
+
+    if ((v8 & 1) == 0)
+    {
+      v9 = objc_autoreleasePoolPush();
+      v10 = v3;
+      v11 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      {
+        v12 = HMFGetLogIdentifier();
+        v13 = [v4 name];
+        *buf = 138543618;
+        v35 = v12;
+        v36 = 2112;
+        v37 = v13;
+        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Detected that the accessory name, %@, is out of sync", buf, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v9);
+      v14 = [v10 name];
+      [v5 setObject:v14 forKeyedSubscript:@"name"];
+    }
+
+    v15 = [v3 home];
+    v16 = [v15 mediaPassword];
+    v17 = [v3 password];
+    v18 = HMFEqualObjects();
+
+    if ((v18 & 1) == 0)
+    {
+      v19 = objc_autoreleasePoolPush();
+      v20 = v3;
+      v21 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      {
+        v22 = HMFGetLogIdentifier();
+        *buf = 138543362;
+        v35 = v22;
+        _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@Detected that the accessory password is out of sync", buf, 0xCu);
+      }
+
+      objc_autoreleasePoolPop(v19);
+      if (v16)
+      {
+        v23 = v16;
+      }
+
+      else
+      {
+        v23 = &stru_283CF9D50;
+      }
+
+      [v5 setObject:v23 forKeyedSubscript:@"password"];
+    }
+
+    v24 = [v15 minimumMediaUserPrivilege];
+    if ([v3 minimumUserPriviledge] != v24)
+    {
+      v25 = objc_autoreleasePoolPush();
+      v26 = v3;
+      v27 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      {
+        v28 = HMFGetLogIdentifier();
+        [v26 minimumUserPriviledge];
+        HMUserPrivilegeToString();
+        v29 = v33 = v25;
+        *buf = 138543618;
+        v35 = v28;
+        v36 = 2112;
+        v37 = v29;
+        _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@Detected that the accessory minimum user privilege, %@, is out of sync", buf, 0x16u);
+
+        v25 = v33;
+      }
+
+      objc_autoreleasePoolPop(v25);
+      v30 = [MEMORY[0x277CCABB0] numberWithInteger:v24];
+      [v5 setObject:v30 forKeyedSubscript:@"privilege"];
+    }
+
+    v31 = objc_msgSend_copy(v5);
+  }
+
+  else
+  {
+    v31 = 0;
+  }
+
+  return v31;
+}
+
+void __updateConfiguration(void *a1, void *a2, void *a3)
+{
+  v42 = *MEMORY[0x277D85DE8];
+  v5 = a1;
+  v6 = a2;
+  v7 = a3;
+  v8 = objc_autoreleasePoolPush();
+  if (v5)
+  {
+    v9 = v5;
+    v10 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    {
+      v11 = HMFGetLogIdentifier();
+      *buf = 138543618;
+      v39 = v11;
+      v40 = 2112;
+      v41 = v6;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating configuration to: %@", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v8);
+    v12 = [v9 home];
+    v13 = [v12 isOwnerUser];
+
+    if (v13)
+    {
+      v14 = [v9 advertisement];
+      v15 = [v14 outputDevice];
+      v16 = [v15 av_OutputDevice];
+
+      if (v16)
+      {
+        aBlock[0] = MEMORY[0x277D85DD0];
+        aBlock[1] = 3221225472;
+        aBlock[2] = ____updateConfiguration_block_invoke;
+        aBlock[3] = &unk_27867A560;
+        v36 = v6;
+        v17 = v9;
+        v37 = v17;
+        v18 = _Block_copy(aBlock);
+        objc_initWeak(buf, v17);
+        v19 = __outputDeviceConfigurationOptions();
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = ____updateConfiguration_block_invoke_221;
+        v31[3] = &unk_27867A4F0;
+        v32 = v14;
+        objc_copyWeak(&v34, buf);
+        v33 = v7;
+        [v16 configureUsingBlock:v18 options:v19 completionHandler:v31];
+
+        objc_destroyWeak(&v34);
+        objc_destroyWeak(buf);
+
+        v20 = v36;
+      }
+
+      else
+      {
+        v27 = objc_autoreleasePoolPush();
+        v28 = v9;
+        v29 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+        {
+          v30 = HMFGetLogIdentifier();
+          *buf = 138543362;
+          v39 = v30;
+          _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_INFO, "%{public}@Missing output device", buf, 0xCu);
+        }
+
+        objc_autoreleasePoolPop(v27);
+        __startConfigurationRetryTimer(v28);
+        v20 = [MEMORY[0x277CCA9B8] hmErrorWithCode:4];
+        (*(v7 + 2))(v7, v20);
+      }
+    }
+
+    else
+    {
+      v23 = objc_autoreleasePoolPush();
+      v24 = v9;
+      v25 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      {
+        v26 = HMFGetLogIdentifier();
+        *buf = 138543362;
+        v39 = v26;
+        _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Only owner can update configuration", buf, 0xCu);
+      }
+
+      objc_autoreleasePoolPop(v23);
+      v14 = [MEMORY[0x277CCA9B8] hmErrorWithCode:17];
+      (*(v7 + 2))(v7, v14);
+    }
+  }
+
+  else
+  {
+    v21 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      v22 = HMFGetLogIdentifier();
+      *buf = 138543362;
+      v39 = v22;
+      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Missing required paramter", buf, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v8);
+    v14 = [MEMORY[0x277CCA9B8] hmErrorWithCode:3];
+    (*(v7 + 2))(v7, v14);
+  }
+}
+
+void sub_229EBBEF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, id location)
+{
+  objc_destroyWeak((v23 + 48));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void __stopConfigurationRetryTimer(void *a1)
+{
+  v1 = a1;
+  v2 = v1;
+  if (v1)
+  {
+    v3 = [v1 workQueue];
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = ____stopConfigurationRetryTimer_block_invoke;
+    block[3] = &unk_27868A728;
+    v5 = v2;
+    dispatch_async(v3, block);
+  }
+}
+
+void ____stopConfigurationRetryTimer_block_invoke(uint64_t a1)
+{
+  v12 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) configurationRetryTimer];
+
+  if (v2)
+  {
+    v3 = objc_autoreleasePoolPush();
+    v4 = *(a1 + 32);
+    v5 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    {
+      v6 = HMFGetLogIdentifier();
+      v10 = 138543362;
+      v11 = v6;
+      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping configuration retry timer", &v10, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v3);
+    v7 = [*(a1 + 32) configurationRetryTimer];
+    [v7 suspend];
+
+    v8 = *(a1 + 32);
+    v9 = *(v8 + 504);
+    *(v8 + 504) = 0;
+  }
+}
+
+void __startConfigurationRetryTimer(void *a1)
+{
+  v1 = a1;
+  v2 = v1;
+  if (v1)
+  {
+    v3 = [v1 workQueue];
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = ____startConfigurationRetryTimer_block_invoke;
+    block[3] = &unk_27868A728;
+    v5 = v2;
+    dispatch_async(v3, block);
+  }
+}
+
+void ____updateConfiguration_block_invoke(uint64_t a1, void *a2)
+{
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  v4 = [*(a1 + 32) hmf_stringForKey:@"name"];
+  if (v4)
+  {
+    [v3 setDeviceName:v4];
+  }
+
+  v5 = [*(a1 + 32) hmf_stringForKey:@"password"];
+  if (v5)
+  {
+    [v3 setDevicePassword:v5];
+  }
+
+  v6 = [*(a1 + 32) hmf_numberForKey:@"privilege"];
+  v7 = v6;
+  if (v6)
+  {
+    [v3 startAutomaticallyAllowingConnectionsFromPeersInHomeGroupAndRejectOtherConnections:{objc_msgSend(v6, "integerValue") != 0}];
+  }
+
+  v8 = objc_autoreleasePoolPush();
+  v9 = *(a1 + 40);
+  v10 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  {
+    v11 = HMFGetLogIdentifier();
+    v12 = 138543618;
+    v13 = v11;
+    v14 = 2112;
+    v15 = v3;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Configuring with configuration: %@", &v12, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v8);
+}
+
+id __outputDeviceConfigurationOptions()
+{
+  v3[1] = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277CB8660];
+  v3[0] = MEMORY[0x277CBEC38];
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:&v2 count:1];
+
+  return v0;
+}
+
+void ____updateConfiguration_block_invoke_221(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5)
+{
+  v33 = *MEMORY[0x277D85DE8];
+  v8 = a3;
+  v9 = a4;
+  v10 = a5;
+  WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v12 = objc_autoreleasePoolPush();
+  v13 = WeakRetained;
+  v14 = HMFGetOSLogHandle();
+  v15 = v14;
+  if (v8)
+  {
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    {
+      v16 = HMFGetLogIdentifier();
+      *buf = 138543362;
+      *&buf[4] = v16;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Successfully updated configuration", buf, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v12);
+    __stopConfigurationRetryTimer(v13);
+    v17 = 0;
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      v18 = HMFGetLogIdentifier();
+      *buf = 138543874;
+      *&buf[4] = v18;
+      *&buf[12] = 2112;
+      *&buf[14] = v10;
+      *&buf[22] = 2112;
+      v30 = v9;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to update configuration with error: %@, cancellationReason: %@", buf, 0x20u);
+    }
+
+    objc_autoreleasePoolPop(v12);
+    v17 = [MEMORY[0x277CCA9B8] hmErrorWithCode:54 description:@"Communication failure" reason:@"Failed to set configuration." suggestion:0 underlyingError:v10];
+    __startConfigurationRetryTimer(v13);
+  }
+
+  v19 = *(a1 + 40);
+  if (!v19)
+  {
+LABEL_11:
+    if (v8)
+    {
+      v21 = v13;
+      v22 = v8;
+      if (v21)
+      {
+        v23 = v22;
+        v24 = [v21 workQueue];
+        *buf = MEMORY[0x277D85DD0];
+        *&buf[8] = 3221225472;
+        *&buf[16] = ____updateWithCurrentConfiguration_block_invoke;
+        v30 = &unk_27868A750;
+        v31 = v21;
+        v32 = v23;
+        dispatch_async(v24, buf);
+      }
+
+      goto LABEL_16;
+    }
+
+    goto LABEL_17;
+  }
+
+  if (v13)
+  {
+    v20 = [v13 workQueue];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = ____updateConfiguration_block_invoke_222;
+    v26[3] = &unk_27868A7A0;
+    v28 = *(a1 + 40);
+    v27 = v17;
+    dispatch_async(v20, v26);
+
+    goto LABEL_11;
+  }
+
+  (*(v19 + 16))(v19, v17);
+  if (v8)
+  {
+    v25 = v8;
+LABEL_16:
+  }
+
+LABEL_17:
+}
+
+void ____updateWithCurrentConfiguration_block_invoke(uint64_t a1)
+{
+  v46 = *MEMORY[0x277D85DE8];
+  v2 = objc_autoreleasePoolPush();
+  v3 = *(a1 + 32);
+  v4 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  {
+    v5 = HMFGetLogIdentifier();
+    v6 = *(a1 + 40);
+    v42 = 138543618;
+    v43 = v5;
+    v44 = 2112;
+    v45 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Updating with configuration: %@", &v42, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v2);
+  v7 = [*(a1 + 40) devicePassword];
+  if (![v7 length])
+  {
+
+    v7 = 0;
+  }
+
+  v8 = [*(a1 + 32) password];
+  v9 = HMFEqualObjects();
+
+  if ((v9 & 1) == 0)
+  {
+    v10 = objc_autoreleasePoolPush();
+    v11 = *(a1 + 32);
+    v12 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    {
+      v13 = HMFGetLogIdentifier();
+      v42 = 138543362;
+      v43 = v13;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Caching updated password", &v42, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v10);
+    v14 = *(a1 + 32);
+    if (v14)
+    {
+      v15 = v14;
+      v16 = v7;
+      v17 = [v15 transactionWithObjectChangeType:2];
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        v18 = v17;
+      }
+
+      else
+      {
+        v18 = 0;
+      }
+
+      v19 = v18;
+
+      [v19 setPassword:v16];
+      v20 = [v15 home];
+
+      v21 = [v20 backingStore];
+      v22 = +[HMDBackingStoreTransactionOptions defaultXPCOptions];
+      v23 = [v21 transaction:@"Update Password" options:v22];
+
+      [v23 add:v19 withMessage:0];
+      [v23 run];
+    }
+  }
+
+  v24 = [*(a1 + 40) onlyAllowsConnectionsFromPeersInHomeGroup];
+  v25 = [*(a1 + 32) minimumUserPriviledge];
+  if (v25 >= 1)
+  {
+    v26 = 1;
+  }
+
+  else
+  {
+    v26 = v25;
+  }
+
+  if (v26 != v24)
+  {
+    v27 = objc_autoreleasePoolPush();
+    v28 = *(a1 + 32);
+    v29 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+    {
+      v30 = HMFGetLogIdentifier();
+      v42 = 138543362;
+      v43 = v30;
+      _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_INFO, "%{public}@Caching updated user minimum privilege", &v42, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v27);
+    v31 = *(a1 + 32);
+    if (v31)
+    {
+      v32 = v24;
+      v33 = v31;
+      v34 = [v33 transactionWithObjectChangeType:2];
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        v35 = v34;
+      }
+
+      else
+      {
+        v35 = 0;
+      }
+
+      v36 = v35;
+
+      v37 = [MEMORY[0x277CCABB0] numberWithInteger:v32];
+      [v36 setMinimumUserPriviledge:v37];
+
+      v38 = [v33 home];
+
+      v39 = [v38 backingStore];
+      v40 = +[HMDBackingStoreTransactionOptions defaultXPCOptions];
+      v41 = [v39 transaction:@"Update Minimum User Privilege" options:v40];
+
+      [v41 add:v36 withMessage:0];
+      [v41 run];
+    }
+  }
+}
+
+void ____startConfigurationRetryTimer_block_invoke(uint64_t a1)
+{
+  v2 = [*(a1 + 32) configurationRetryTimer];
+  if (!v2)
+  {
+    v3 = [MEMORY[0x277D0F8D0] sharedPreferences];
+    v4 = [v3 preferenceForKey:@"airPlayConfigurationRetryMinimum"];
+
+    v5 = [MEMORY[0x277D0F8D0] sharedPreferences];
+    v6 = [v5 preferenceForKey:@"airPlayConfigurationRetryMaximum"];
+
+    v7 = [MEMORY[0x277D0F8D0] sharedPreferences];
+    v8 = [v7 preferenceForKey:@"airPlayConfigurationRetryFactor"];
+
+    v9 = objc_alloc(MEMORY[0x277D0F7B0]);
+    v10 = [v4 numberValue];
+    [v10 doubleValue];
+    v12 = v11;
+    v13 = [v6 numberValue];
+    [v13 doubleValue];
+    v15 = v14;
+    v16 = [v8 numberValue];
+    obja = [v9 initWithMinimumTimeInterval:objc_msgSend(v16 maximumTimeInterval:"integerValue") exponentialFactor:0 options:{v12, v15}];
+
+    [obja setDelegate:*(a1 + 32)];
+    objc_storeStrong((*(a1 + 32) + 504), obja);
+
+    v2 = obja;
+  }
+
+  obj = v2;
+  [v2 resume];
+}
+
+void sub_229EBD184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__136270(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_229EBD590(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
+{
+  objc_destroyWeak((v17 + 48));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229EBDC24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, id location)
+{
+  objc_destroyWeak((v23 + 56));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229EBE6CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, id location)
+{
+  objc_destroyWeak((v23 + 56));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229EBEFB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id location)
+{
+  objc_destroyWeak((v21 + 48));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229EBFC18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id location)
+{
+  objc_destroyWeak((v10 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void ____updatePassword_block_invoke(uint64_t a1, void *a2)
+{
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = objc_autoreleasePoolPush();
+  v6 = WeakRetained;
+  v7 = HMFGetOSLogHandle();
+  v8 = v7;
+  if (v3)
+  {
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = HMFGetLogIdentifier();
+      v14 = 138543618;
+      v15 = v9;
+      v16 = 2112;
+      v17 = v3;
+      v10 = "%{public}@Failed to update password with error: %@";
+      v11 = v8;
+      v12 = OS_LOG_TYPE_DEFAULT;
+      v13 = 22;
+LABEL_6:
+      _os_log_impl(&dword_229538000, v11, v12, v10, &v14, v13);
+    }
+  }
+
+  else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    v9 = HMFGetLogIdentifier();
+    v14 = 138543362;
+    v15 = v9;
+    v10 = "%{public}@Successfully updated password";
+    v11 = v8;
+    v12 = OS_LOG_TYPE_INFO;
+    v13 = 12;
+    goto LABEL_6;
+  }
+
+  objc_autoreleasePoolPop(v5);
+}
+
+void sub_229EC0060(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id location)
+{
+  objc_destroyWeak((v10 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void ____updateMinimumUserPrivilege_block_invoke(uint64_t a1, void *a2)
+{
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = objc_autoreleasePoolPush();
+  v6 = WeakRetained;
+  v7 = HMFGetOSLogHandle();
+  v8 = v7;
+  if (v3)
+  {
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = HMFGetLogIdentifier();
+      v14 = 138543618;
+      v15 = v9;
+      v16 = 2112;
+      v17 = v3;
+      v10 = "%{public}@Failed to minimum user privilege with error: %@";
+      v11 = v8;
+      v12 = OS_LOG_TYPE_DEFAULT;
+      v13 = 22;
+LABEL_6:
+      _os_log_impl(&dword_229538000, v11, v12, v10, &v14, v13);
+    }
+  }
+
+  else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    v9 = HMFGetLogIdentifier();
+    v14 = 138543362;
+    v15 = v9;
+    v10 = "%{public}@Successfully updated minimum user privilege";
+    v11 = v8;
+    v12 = OS_LOG_TYPE_INFO;
+    v13 = 12;
+    goto LABEL_6;
+  }
+
+  objc_autoreleasePoolPop(v5);
+}
+
+void sub_229EC0484(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, id location)
+{
+  objc_destroyWeak((v12 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void ____updateName_block_invoke(uint64_t a1, void *a2)
+{
+  v18 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = objc_autoreleasePoolPush();
+  v6 = WeakRetained;
+  v7 = HMFGetOSLogHandle();
+  v8 = v7;
+  if (v3)
+  {
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = HMFGetLogIdentifier();
+      v14 = 138543618;
+      v15 = v9;
+      v16 = 2112;
+      v17 = v3;
+      v10 = "%{public}@Failed to update name with error: %@";
+      v11 = v8;
+      v12 = OS_LOG_TYPE_DEFAULT;
+      v13 = 22;
+LABEL_6:
+      _os_log_impl(&dword_229538000, v11, v12, v10, &v14, v13);
+    }
+  }
+
+  else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    v9 = HMFGetLogIdentifier();
+    v14 = 138543362;
+    v15 = v9;
+    v10 = "%{public}@Successfully updated name";
+    v11 = v8;
+    v12 = OS_LOG_TYPE_INFO;
+    v13 = 12;
+    goto LABEL_6;
+  }
+
+  objc_autoreleasePoolPop(v5);
+}
+
+void sub_229EC08C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
+{
+  objc_destroyWeak((v17 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+__CFString *HMDCameraRecordingMediaContainerTypeAsString(uint64_t a1)
+{
+  if (a1)
+  {
+    v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unknown HMDCameraRecordingMediaContainerType %ld", a1];
+  }
+
+  else
+  {
+    v2 = @"HMDCameraRecordingMediaContainerTypeFragmentedMP4";
+  }
+
+  return v2;
+}
+
+id HMDCameraRecordingEventTriggerOptionsAsString(char a1)
+{
+  v2 = [MEMORY[0x277CBEB18] array];
+  v3 = v2;
+  if (a1)
+  {
+    [v2 addObject:@"HMDCameraRecordingEventTriggerOptionsMotion"];
+  }
+
+  if ((a1 & 2) != 0)
+  {
+    [v3 addObject:@"HMDCameraRecordingEventTriggerOptionsDoorbell"];
+  }
+
+  v4 = MEMORY[0x277CCACA8];
+  v5 = [v3 componentsJoinedByString:{@", "}];
+  v6 = [v4 stringWithFormat:@"[%@]", v5];
+
+  return v6;
+}
+
+id mapButtonConfigurationForTVReceiver(void *a1)
+{
+  v18 = *MEMORY[0x277D85DE8];
+  v1 = a1;
+  v2 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v1, "count")}];
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v3 = v1;
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v14;
+    do
+    {
+      for (i = 0; i != v5; ++i)
+      {
+        if (*v14 != v6)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        v8 = *(*(&v13 + 1) + 8 * i);
+        v9 = [v8 type] - 1;
+        if (v9 <= 0xB && ((0xCFFu >> v9) & 1) != 0)
+        {
+          v10 = -[THAButton initWithType:identifier:]([THAButton alloc], "initWithType:identifier:", qword_22A587980[v9], [v8 identifier]);
+          [v2 addObject:v10];
+        }
+      }
+
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    }
+
+    while (v5);
+  }
+
+  v11 = objc_msgSend_copy(v2);
+
+  return v11;
+}
+
+void sub_229EC8FA0(_Unwind_Exception *a1)
+{
+  v3 = v2;
+  os_unfair_lock_unlock((v1 + v3));
+  _Unwind_Resume(a1);
+}
+
+void sub_229EC902C(_Unwind_Exception *a1)
+{
+  v3 = v2;
+  os_unfair_lock_unlock((v1 + v3));
+  _Unwind_Resume(a1);
+}
+
+void sub_229EC9138(_Unwind_Exception *a1)
+{
+  v3 = v2;
+  os_unfair_lock_unlock((v1 + v3));
+  _Unwind_Resume(a1);
+}
+
+void sub_229ECA698(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+id __findUserWithUUID(void *a1, void *a2)
+{
+  v3 = MEMORY[0x277CCAD78];
+  v4 = a2;
+  v5 = a1;
+  v6 = [[v3 alloc] initWithUUIDString:v5];
+
+  v7 = [v4 userWithUUID:v6];
+
+  return v7;
+}
+
+id HMDCKRecordIDSafeCharacters()
+{
+  if (HMDCKRecordIDSafeCharacters__hmf_once_t0 != -1)
+  {
+    dispatch_once(&HMDCKRecordIDSafeCharacters__hmf_once_t0, &__block_literal_global_27_137340);
+  }
+
+  v1 = HMDCKRecordIDSafeCharacters__hmf_once_v1;
+
+  return v1;
+}
+
+void __HMDCKRecordIDSafeCharacters_block_invoke()
+{
+  v0 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890._-"];
+  v1 = HMDCKRecordIDSafeCharacters__hmf_once_v1;
+  HMDCKRecordIDSafeCharacters__hmf_once_v1 = v0;
+}
+
+void __HMDCKRecordIDEncodedCharacters_block_invoke()
+{
+  v0 = HMDCKRecordIDSafeCharacters();
+  v1 = [v0 mutableCopy];
+
+  [v1 addCharactersInString:@"%0123456789abcdefABCDEF"];
+  v2 = objc_msgSend_copy(v1);
+
+  v3 = HMDCKRecordIDEncodedCharacters__hmf_once_v3;
+  HMDCKRecordIDEncodedCharacters__hmf_once_v3 = v2;
+}
+
+void sub_229ECF4D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__137406(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_229ED1B74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229ED212C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229ED3B44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229EDACD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__138770(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_229EDBE00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229EDCB80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__138955(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_229EDCF08(_Unwind_Exception *a1)
+{
+  v3 = v2;
+  os_unfair_lock_unlock((v1 + v3));
+  _Unwind_Resume(a1);
+}
+
+void sub_229EDCF78(_Unwind_Exception *a1)
+{
+  v3 = v2;
+  os_unfair_lock_unlock((v1 + v3));
+  _Unwind_Resume(a1);
+}
+
+void sub_229EDCFE8(_Unwind_Exception *a1)
+{
+  v3 = v2;
+  os_unfair_lock_unlock((v1 + v3));
+  _Unwind_Resume(a1);
+}
+
+void sub_229EDE3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  os_unfair_lock_unlock((v13 + v14));
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229EDE6B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  os_unfair_lock_unlock((v13 + v14));
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_229EDEA90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
+{
+  objc_destroyWeak((v16 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229EE02C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t isNameValidWithVoiceShortcut(void *a1)
+{
+  v19 = *MEMORY[0x277D85DE8];
+  v1 = a1;
+  v2 = [MEMORY[0x277D0F8E8] productInfo];
+  v3 = [v2 productClass];
+
+  if (v3 == 6)
+  {
+    v4 = objc_autoreleasePoolPush();
+    v5 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = HMFGetLogIdentifier();
+      LODWORD(buf) = 138543362;
+      *(&buf + 4) = v6;
+      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@siriactiond does not run on HomePod", &buf, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v4);
+    v7 = 1;
+  }
+
+  else
+  {
+    v8 = dispatch_group_create();
+    dispatch_group_enter(v8);
+    *&buf = 0;
+    *(&buf + 1) = &buf;
+    v17 = 0x2020000000;
+    v18 = 1;
+    v9 = [MEMORY[0x277D79D98] standardClient];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __isNameValidWithVoiceShortcut_block_invoke;
+    v13[3] = &unk_27867AA00;
+    p_buf = &buf;
+    v10 = v8;
+    v14 = v10;
+    [v9 getVoiceShortcutWithPhrase:v1 completion:v13];
+
+    v11 = dispatch_time(0, 5000000000);
+    dispatch_group_wait(v10, v11);
+    v7 = *(*(&buf + 1) + 24);
+
+    _Block_object_dispose(&buf, 8);
+  }
+
+  return v7 & 1;
+}
+
+void sub_229EE33F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void __isNameValidWithVoiceShortcut_block_invoke(uint64_t a1, uint64_t a2)
+{
+  if (a2)
+  {
+    *(*(*(a1 + 40) + 8) + 24) = 0;
+  }
+
+  dispatch_group_leave(*(a1 + 32));
+}
+
+HMDCUWiFiDeviceWrapper *__wrapCUWiFiDevice(void *a1, void *a2)
+{
+  v3 = a2;
+  v4 = a1;
+  v5 = [HMDCUWiFiDeviceWrapper alloc];
+  v6 = v4[1];
+
+  v7 = [(HMDCUWiFiDeviceWrapper *)v5 initWithCUWiFiDevice:v3 dispatchQueue:v6];
+
+  return v7;
+}
+
+void sub_229EE5B2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
+{
+  va_start(va, location);
+  objc_destroyWeak((v16 + 48));
+  objc_destroyWeak(&location);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__139507(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_229EE7030(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v5 + 32));
+  objc_destroyWeak((v4 + 32));
+  objc_destroyWeak((v3 + 32));
+  objc_destroyWeak((v2 + 32));
+  objc_destroyWeak((v1 + 32));
+  objc_destroyWeak((v6 - 152));
+  _Unwind_Resume(a1);
+}
+
+void ____start_block_invoke(uint64_t a1, void *a2)
+{
+  v25 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  if (WeakRetained)
+  {
+    v5 = objc_autoreleasePoolPush();
+    v6 = WeakRetained;
+    v7 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      v8 = HMFGetLogIdentifier();
+      *buf = 138543618;
+      v22 = v8;
+      v23 = 2112;
+      v24 = v3;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Found device %@", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v5);
+    v9 = [v6 delegate];
+    if (v9)
+    {
+      v10 = __wrapCUWiFiDevice(v6, v3);
+      v11 = objc_autoreleasePoolPush();
+      v12 = v6;
+      v13 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      {
+        v14 = HMFGetLogIdentifier();
+        *buf = 138543618;
+        v22 = v14;
+        v23 = 2112;
+        v24 = v10;
+        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Device %@", buf, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v11);
+      v15 = [v12 delegateQueue];
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = ____start_block_invoke_145;
+      block[3] = &unk_27868A010;
+      v18 = v9;
+      v19 = v12;
+      v20 = v10;
+      v16 = v10;
+      dispatch_async(v15, block);
+    }
+  }
+}
+
+void ____start_block_invoke_2(uint64_t a1, void *a2)
+{
+  v25 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  if (WeakRetained)
+  {
+    v5 = objc_autoreleasePoolPush();
+    v6 = WeakRetained;
+    v7 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      v8 = HMFGetLogIdentifier();
+      v9 = [v3 ssid];
+      v10 = [v3 identifier];
+      *buf = 138543874;
+      v20 = v8;
+      v21 = 2112;
+      v22 = v9;
+      v23 = 2112;
+      v24 = v10;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Lost device %@: (%@)", buf, 0x20u);
+    }
+
+    objc_autoreleasePoolPop(v5);
+    v11 = [v6 delegate];
+    if (v11)
+    {
+      v12 = __wrapCUWiFiDevice(v6, v3);
+      v13 = [v6 delegateQueue];
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = ____start_block_invoke_147;
+      block[3] = &unk_27868A010;
+      v16 = v11;
+      v17 = v6;
+      v18 = v12;
+      v14 = v12;
+      dispatch_async(v13, block);
+    }
+  }
+}
+
+void ____start_block_invoke_2_148(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
+  if (WeakRetained)
+  {
+    v6 = [WeakRetained delegate];
+    if (v6)
+    {
+      v7 = __wrapCUWiFiDevice(v5, v3);
+      v8 = [v5 delegateQueue];
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = ____start_block_invoke_3;
+      block[3] = &unk_27868A010;
+      v11 = v6;
+      v12 = v5;
+      v13 = v7;
+      v9 = v7;
+      dispatch_async(v8, block);
+    }
+  }
+}
+
+void ____start_block_invoke_4(uint64_t a1, void *a2)
+{
+  v19 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  if (WeakRetained)
+  {
+    v5 = objc_autoreleasePoolPush();
+    v6 = WeakRetained;
+    v7 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      v8 = HMFGetLogIdentifier();
+      *buf = 138543618;
+      v16 = v8;
+      v17 = 2112;
+      v18 = v3;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Error %@", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v5);
+    v9 = [v6 delegate];
+    if (v9)
+    {
+      v10 = [v6 delegateQueue];
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = ____start_block_invoke_150;
+      block[3] = &unk_27868A010;
+      v12 = v9;
+      v13 = v6;
+      v14 = v3;
+      dispatch_async(v10, block);
+    }
+
+    [v6[2] invalidate];
+  }
+}
+
+void ____start_block_invoke_2_152(uint64_t a1)
+{
+  v14 = *MEMORY[0x277D85DE8];
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  if (WeakRetained)
+  {
+    v2 = objc_autoreleasePoolPush();
+    v3 = WeakRetained;
+    v4 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    {
+      v5 = HMFGetLogIdentifier();
+      *buf = 138543362;
+      v13 = v5;
+      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@CUWiFiScanner invalidated", buf, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v2);
+    v6 = v3[2];
+    v3[2] = 0;
+  }
+
+  v7 = [WeakRetained delegate];
+  if (v7)
+  {
+    v8 = [WeakRetained delegateQueue];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = ____start_block_invoke_153;
+    v9[3] = &unk_27868A750;
+    v10 = v7;
+    v11 = WeakRetained;
+    dispatch_async(v8, v9);
+  }
+}
+
+void sub_229EEF8B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__140286(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_229EF0DD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, id location, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+{
+  objc_destroyWeak(&a22);
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229EF2254(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location, id a16)
+{
+  objc_destroyWeak(&a14);
+  objc_destroyWeak(&a13);
+  objc_destroyWeak(&location);
+  objc_destroyWeak(&a16);
+  _Unwind_Resume(a1);
+}
+
+void sub_229EFA40C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __conformanceCheck(void *a1, uint64_t a2, char a3)
+{
+  v5 = a1;
+  os_unfair_lock_lock_with_options();
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__142089;
+  v16 = __Block_byref_object_dispose__142090;
+  v17 = [*(v5 + 3) objectForKey:a2];
+  v6 = v13[5];
+  if (!v6 || (a3 & 1) != 0)
+  {
+    v8 = *(v5 + 2);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = ____conformanceCheck_block_invoke;
+    v11[3] = &unk_27867ACA8;
+    v11[4] = &v12;
+    v11[5] = a2;
+    [v8 hmf_enumerateWithAutoreleasePoolUsingBlock:v11];
+    [*(v5 + 3) setObject:v13[5] forKey:a2];
+    v7 = [v13[5] BOOLValue];
+  }
+
+  else
+  {
+    v7 = [v6 BOOLValue];
+  }
+
+  v9 = v7;
+  _Block_object_dispose(&v12, 8);
+
+  os_unfair_lock_unlock(v5 + 2);
+  return v9;
+}
+
+uint64_t __Block_byref_object_copy__142089(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void ____conformanceCheck_block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+{
+  v5 = [*(a1 + 40) conformsToProtocol:a2];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:v5];
+  v7 = *(*(a1 + 32) + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v6;
+
+  if (v5)
+  {
+    *a3 = 1;
+  }
+}
+
+void sub_229EFC7C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id location)
+{
+  objc_destroyWeak((v21 + 56));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229EFCB04(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v1 + 56));
+  objc_destroyWeak((v2 - 56));
+  _Unwind_Resume(a1);
+}
+
+void sub_229EFF2C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
+{
+  objc_destroyWeak((v16 + 48));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void __bootstrapSupportedStereoPairVersions(void *a1)
+{
+  v25 = *MEMORY[0x277D85DE8];
+  v1 = a1;
+  v2 = [v1 identifier];
+  v3 = _mediaRouteIdentifier;
+  if (([v2 isEqual:v3] & 1) == 0)
+  {
+    v4 = [v1 supportedStereoPairVersions];
+
+    if (v4)
+    {
+      goto LABEL_5;
+    }
+
+    v5 = [v1 softwareVersion];
+    v6 = v5;
+    if (v5)
+    {
+      v2 = v5;
+    }
+
+    else
+    {
+      v7 = [v1 device];
+      v8 = [v7 productInfo];
+      v2 = [v8 softwareVersion];
+    }
+
+    if ([v1 isHomePod])
+    {
+      v9 = 0;
+      if (v2)
+      {
+LABEL_11:
+        objc_msgSend_operatingSystemVersion(v2);
+        goto LABEL_14;
+      }
+    }
+
+    else
+    {
+      v10 = [v1 device];
+      v11 = [v10 productInfo];
+      v9 = [v11 productClass] != 6;
+
+      if (v2)
+      {
+        goto LABEL_11;
+      }
+    }
+
+    buf = 0uLL;
+    v24 = 0;
+LABEL_14:
+    v19 = *MEMORY[0x277D0F228];
+    v21 = *(MEMORY[0x277D0F228] + 16);
+    v12 = HMFOperatingSystemVersionCompare();
+    if (v2)
+    {
+      objc_msgSend_operatingSystemVersion(v2, v19, v21);
+    }
+
+    else
+    {
+      buf = 0uLL;
+      v24 = 0;
+    }
+
+    v20 = *MEMORY[0x277D0F390];
+    v22 = *(MEMORY[0x277D0F390] + 16);
+    v13 = HMFOperatingSystemVersionCompare();
+    v14 = v12 != 1 || v9;
+    if ((v14 & 1) == 0 && v13 != 1)
+    {
+      v15 = objc_autoreleasePoolPush();
+      v16 = v1;
+      v17 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      {
+        v18 = HMFGetLogIdentifier();
+        LODWORD(buf) = 138543362;
+        *(&buf + 4) = v18;
+        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Bootstrapping stereo pair version to V1", &buf, 0xCu);
+      }
+
+      objc_autoreleasePoolPop(v15);
+      [v16 setSupportedStereoPairVersions:{1, v20, v22}];
+    }
+
+    goto LABEL_3;
+  }
+
+LABEL_3:
+LABEL_5:
+}
+
+void __HMDAppleMediaAccessoryHandleUpdatedDevice(void *a1, void *a2)
+{
+  v21 = *MEMORY[0x277D85DE8];
+  v3 = a1;
+  v4 = a2;
+  v5 = objc_autoreleasePoolPush();
+  v6 = v3;
+  v7 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = HMFGetLogIdentifier();
+    v17 = 138543618;
+    v18 = v8;
+    v19 = 2112;
+    v20 = v4;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Device updated to: %@", &v17, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v5);
+  v9 = [v6 notificationCenter];
+  [v9 removeObserver:v6 name:@"HMDDeviceUpdatedNotification" object:0];
+
+  if (v4)
+  {
+    [v6 startMonitoringReachability];
+    v10 = [v6 symptomsHandler];
+    [v10 handleAccessoryDeviceUpdated];
+
+    v11 = [v6 identifier];
+    v12 = [v6 deviceMediaRouteIdentifierFactory];
+    v13 = v12[2]();
+    v14 = [v11 isEqual:v13];
+
+    if (v14)
+    {
+      v15 = [v6 notificationCenter];
+      [v15 addObserver:v6 selector:sel_handleCurrentDeviceUpdated_ name:@"HMDDeviceUpdatedNotification" object:v4];
+
+      if ([v6 shouldUpdateWithDevice:v4 initialConfiguration:0])
+      {
+        [v6 updateWithDevice:v4];
+      }
+    }
+
+    __bootstrapSupportedStereoPairVersions(v6);
+    v16 = [v6 notificationCenter];
+    [v16 postNotificationName:@"HMDAppleMediaAccessoryDeviceUpdatedNotification" object:v6];
+  }
+
+  [v6 updateReachabilityOfCurrentDevice];
+}
+
+void sub_229F04C20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy__143014(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void __transactionAccessoryUpdated_143016(void *a1, void *a2, void *a3)
+{
+  v179 = *MEMORY[0x277D85DE8];
+  v5 = a1;
+  v6 = a2;
+  v158 = a3;
+  v7 = [v158 transactionResult];
+  v8 = __HMDAppleMediaAccessoryGetDeviceController(v5);
+  v9 = [v6 deviceUUID];
+
+  if (v9)
+  {
+    if ([v5 isCurrentAccessory])
+    {
+      if (!v8)
+      {
+        v10 = objc_autoreleasePoolPush();
+        v11 = v5;
+        v12 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        {
+          v13 = HMFGetLogIdentifier();
+          *buf = 138543362;
+          v172 = v13;
+          _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Setting up device controller for ourselves", buf, 0xCu);
+        }
+
+        objc_autoreleasePoolPop(v10);
+        v14 = [v11 dependencyFactory];
+        v8 = [v14 deviceController];
+
+        [v11 setDeviceController:v8];
+        [v8 setDelegate:v11];
+        v15 = [v8 device];
+        __HMDAppleMediaAccessoryHandleUpdatedDevice(v11, v15);
+
+        [v7 markChanged];
+      }
+    }
+
+    else
+    {
+      v16 = objc_alloc(MEMORY[0x277CCAD78]);
+      v17 = [v6 deviceUUID];
+      v18 = [v16 initWithUUIDString:v17];
+
+      v19 = [v8 identifier];
+      v20 = [v18 hmf_isEqualToUUID:v19];
+
+      if (v20)
+      {
+        v21 = v8;
+      }
+
+      else
+      {
+        v22 = objc_autoreleasePoolPush();
+        v23 = v5;
+        v24 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        {
+          v25 = HMFGetLogIdentifier();
+          v26 = [v18 UUIDString];
+          *buf = 138543618;
+          v172 = v25;
+          v173 = 2112;
+          v174 = v26;
+          _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@Updating the underlying device with identifier: %@", buf, 0x16u);
+        }
+
+        objc_autoreleasePoolPop(v22);
+        v27 = [v23 dependencyFactory];
+        v21 = [v27 deviceControllerWithDeviceIdentifier:v18];
+
+        [v23 setDeviceController:v21];
+        [v21 setDelegate:v23];
+        v28 = [v21 device];
+        __HMDAppleMediaAccessoryHandleUpdatedDevice(v23, v28);
+
+        [v7 markChanged];
+      }
+
+      v8 = v21;
+    }
+  }
+
+  v29 = [v6 device];
+
+  if (v29)
+  {
+    v30 = [v6 device];
+    v31 = [v5 device];
+    v32 = v30 == v31;
+
+    if (!v32)
+    {
+      v33 = [v5 device];
+
+      if (v33)
+      {
+        v167 = 0u;
+        v168 = 0u;
+        v165 = 0u;
+        v166 = 0u;
+        v34 = [v5 device];
+        v35 = [v34 backingStoreObjectsWithChangeType:0 version:4];
+
+        v36 = [v35 countByEnumeratingWithState:&v165 objects:v178 count:16];
+        if (v36)
+        {
+          v37 = *v166;
+          do
+          {
+            for (i = 0; i != v36; ++i)
+            {
+              if (*v166 != v37)
+              {
+                objc_enumerationMutation(v35);
+              }
+
+              [*(*(&v165 + 1) + 8 * i) dumpDebug:@" LOCAL: "];
+            }
+
+            v36 = [v35 countByEnumeratingWithState:&v165 objects:v178 count:16];
+          }
+
+          while (v36);
+        }
+      }
+
+      v39 = [v6 device];
+
+      if (v39)
+      {
+        v163 = 0u;
+        v164 = 0u;
+        v161 = 0u;
+        v162 = 0u;
+        v40 = [v6 device];
+        v41 = [v40 backingStoreObjectsWithChangeType:0 version:4];
+
+        v42 = [v41 countByEnumeratingWithState:&v161 objects:v177 count:16];
+        if (v42)
+        {
+          v43 = *v162;
+          do
+          {
+            for (j = 0; j != v42; ++j)
+            {
+              if (*v162 != v43)
+              {
+                objc_enumerationMutation(v41);
+              }
+
+              [*(*(&v161 + 1) + 8 * j) dumpDebug:@"REMOTE: "];
+            }
+
+            v42 = [v41 countByEnumeratingWithState:&v161 objects:v177 count:16];
+          }
+
+          while (v42);
+        }
+      }
+    }
+
+    if (!v8)
+    {
+      v45 = [v5 dependencyFactory];
+      v46 = [v6 device];
+      v8 = [v45 deviceControllerWithDevice:v46];
+
+      [v5 setDeviceController:v8];
+      [v8 setDelegate:v5];
+      v47 = [v8 device];
+      __HMDAppleMediaAccessoryHandleUpdatedDevice(v5, v47);
+    }
+
+    v48 = [v6 device];
+    v49 = [v5 device];
+    v50 = v48 == v49;
+
+    if (v50)
+    {
+      goto LABEL_38;
+    }
+
+    v51 = [v5 device];
+    v52 = [v6 device];
+    v53 = [v51 isBackingStorageEqual:v52];
+
+    if ((v53 & 1) == 0)
+    {
+      v54 = [v6 device];
+      [v8 updateWithDevice:v54 completionHandler:0];
+
+LABEL_38:
+      [v7 markChanged];
+    }
+  }
+
+  v55 = [v6 deviceAddress];
+  if (v55)
+  {
+    v56 = [v5 deviceAddress];
+    v57 = HMFEqualObjects();
+
+    if ((v57 & 1) == 0)
+    {
+      v58 = objc_autoreleasePoolPush();
+      v59 = v5;
+      v60 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+      {
+        v61 = HMFGetLogIdentifier();
+        *buf = 138543618;
+        v172 = v61;
+        v173 = 2112;
+        v174 = v55;
+        _os_log_impl(&dword_229538000, v60, OS_LOG_TYPE_DEFAULT, "%{public}@Updating deviceAddress %@", buf, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v58);
+      [v59 setDeviceAddress:v55];
+      if (!v8)
+      {
+        v62 = [v59 dependencyFactory];
+        v63 = [v62 deviceWithAddress:v55];
+
+        if (v63)
+        {
+          v64 = [v59 dependencyFactory];
+          v8 = [v64 deviceControllerWithDevice:v63];
+
+          [v59 setDeviceController:v8];
+          [v8 setDelegate:v59];
+          v65 = [v8 device];
+          __HMDAppleMediaAccessoryHandleUpdatedDevice(v59, v65);
+        }
+
+        else
+        {
+          v8 = 0;
+        }
+      }
+
+      [v7 markChanged];
+    }
+  }
+
+  v66 = [v6 deviceIRKData];
+  if (v66)
+  {
+    v67 = [v6 deviceIRKData];
+    v68 = [v5 deviceIRK];
+    v69 = HMFEqualObjects();
+
+    if ((v69 & 1) == 0)
+    {
+      v70 = objc_autoreleasePoolPush();
+      v71 = v5;
+      v72 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
+      {
+        v73 = HMFGetLogIdentifier();
+        v74 = [v6 deviceIRKData];
+        *buf = 138543618;
+        v172 = v73;
+        v173 = 2112;
+        v174 = v74;
+        _os_log_impl(&dword_229538000, v72, OS_LOG_TYPE_DEFAULT, "%{public}@Updating deviceIRK %@", buf, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v70);
+      v75 = [v6 deviceIRKData];
+      [v71 setDeviceIRK:v75];
+
+      [v7 markChanged];
+    }
+  }
+
+  v76 = [v6 pairingIdentity];
+
+  if (v76)
+  {
+    v77 = [v6 pairingIdentity];
+    [v5 handleTransactionUpdatedPublicPairingIdentity:v77 result:v7];
+
+    v78 = *(v5 + 64);
+    if (os_signpost_enabled(v78))
+    {
+      v79 = v78;
+      v80 = [v5 uuid];
+      *buf = 138412290;
+      v172 = v80;
+      _os_signpost_emit_with_name_impl(&dword_229538000, v79, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UpdatePublicPairingIdentify", "accessoryUUID=%{signpost.description:attribute}@ ", buf, 0xCu);
+    }
+  }
+
+  v81 = [v6 softwareVersion];
+
+  if (v81)
+  {
+    v82 = [v6 softwareVersion];
+    v83 = [v5 softwareVersion];
+    v84 = [v82 isEqual:v83];
+
+    if ((v84 & 1) == 0)
+    {
+      v85 = objc_autoreleasePoolPush();
+      v86 = v5;
+      v87 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
+      {
+        v88 = HMFGetLogIdentifier();
+        v89 = [v6 softwareVersion];
+        *buf = 138543618;
+        v172 = v88;
+        v173 = 2112;
+        v174 = v89;
+        _os_log_impl(&dword_229538000, v87, OS_LOG_TYPE_DEFAULT, "%{public}@Updated software version: %@", buf, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v85);
+      v90 = [v6 softwareVersion];
+      [v86 setSoftwareVersion:v90];
+
+      [v7 markChanged];
+      if ([v86 isCurrentAccessory])
+      {
+        v91 = [v86 softwareVersion];
+        v92 = [MEMORY[0x277D0F8E8] productInfo];
+        v93 = [v92 softwareVersion];
+        v94 = HMFEqualObjects();
+
+        if ((v94 & 1) == 0)
+        {
+          v95 = objc_autoreleasePoolPush();
+          v96 = v86;
+          v97 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
+          {
+            v98 = HMFGetLogIdentifier();
+            v99 = [v96 softwareVersion];
+            v100 = [MEMORY[0x277D0F8E8] productInfo];
+            v101 = [v100 softwareVersion];
+            *buf = 138543874;
+            v172 = v98;
+            v173 = 2112;
+            v174 = v99;
+            v175 = 2112;
+            v176 = v101;
+            _os_log_impl(&dword_229538000, v97, OS_LOG_TYPE_DEFAULT, "%{public}@Stored software version is incorrect (%@), updating to: (%@)", buf, 0x20u);
+          }
+
+          objc_autoreleasePoolPop(v95);
+          v102 = [MEMORY[0x277D0F8E8] productInfo];
+          v103 = [v102 softwareVersion];
+          [v96 _updateSoftwareVersion:v103];
+        }
+      }
+    }
+  }
+
+  v104 = [v6 variant];
+  if (v104)
+  {
+    v105 = [v6 variant];
+    v106 = [v105 unsignedIntegerValue];
+    LOBYTE(v106) = v106 == [v5 variant];
+
+    if ((v106 & 1) == 0)
+    {
+      v107 = [v6 variant];
+      [v5 setVariant:{objc_msgSend(v107, "unsignedIntegerValue")}];
+
+      v108 = objc_autoreleasePoolPush();
+      v109 = v5;
+      v110 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v110, OS_LOG_TYPE_DEFAULT))
+      {
+        v111 = HMFGetLogIdentifier();
+        v112 = [v109 variant];
+        *buf = 138543618;
+        v172 = v111;
+        v173 = 2048;
+        v174 = v112;
+        _os_log_impl(&dword_229538000, v110, OS_LOG_TYPE_DEFAULT, "%{public}@Updated accessory variant: 0x%tx", buf, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v108);
+      v113 = v109[64];
+      if (os_signpost_enabled(v113))
+      {
+        v114 = v113;
+        v115 = [v109 uuid];
+        *buf = 138412290;
+        v172 = v115;
+        _os_signpost_emit_with_name_impl(&dword_229538000, v114, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "updatedAccessoryVariant", "accessoryUUID=%{signpost.description:attribute}@ ", buf, 0xCu);
+      }
+
+      [v7 markChanged];
+    }
+  }
+
+  if ([v6 propertyWasSet:@"accessoryCapabilities"])
+  {
+    v116 = objc_alloc(MEMORY[0x277CD1678]);
+    v117 = [v6 accessoryCapabilities];
+    v118 = [v116 initWithProtoData:v117];
+
+    if (v118)
+    {
+      os_unfair_recursive_lock_lock_with_options();
+      v119 = *(v5 + 71);
+      if (v119 && ([v119 isEqual:v118] & 1) != 0)
+      {
+        os_unfair_recursive_lock_unlock();
+      }
+
+      else
+      {
+        objc_storeStrong(v5 + 71, v118);
+        v120 = [v6 accessoryCapabilities];
+        v121 = *(v5 + 72);
+        *(v5 + 72) = v120;
+
+        os_unfair_recursive_lock_unlock();
+        v122 = objc_autoreleasePoolPush();
+        v123 = v5;
+        v124 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v124, OS_LOG_TYPE_DEFAULT))
+        {
+          v125 = HMFGetLogIdentifier();
+          *buf = 138543618;
+          v172 = v125;
+          v173 = 2112;
+          v174 = v118;
+          _os_log_impl(&dword_229538000, v124, OS_LOG_TYPE_DEFAULT, "%{public}@Updated accessory capabilities %@", buf, 0x16u);
+        }
+
+        objc_autoreleasePoolPop(v122);
+        v126 = v123[64];
+        if (os_signpost_enabled(v126))
+        {
+          v127 = v126;
+          v128 = [v123 uuid];
+          *buf = 138412290;
+          v172 = v128;
+          _os_signpost_emit_with_name_impl(&dword_229538000, v127, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UpdatedAccessoryCapabilities", "accessoryUUID=%{signpost.description:attribute}@ ", buf, 0xCu);
+        }
+
+        [v7 markChanged];
+        v129 = [v123 notificationCenter];
+        v169[0] = @"accessoryUUID";
+        v130 = [v123 uuid];
+        v169[1] = @"accessoryCapabilities";
+        v170[0] = v130;
+        v170[1] = v118;
+        v131 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v170 forKeys:v169 count:2];
+        [v129 postNotificationName:@"HMDAppleMediaAccessoryCapabilitiesUpdatedNotification" object:v123 userInfo:v131];
+      }
+    }
+  }
+
+  if ([v6 propertyWasSet:@"idsIdentifier"])
+  {
+    v132 = [v5 idsIdentifier];
+    v133 = [v6 idsIdentifier];
+    v134 = [v132 hmf_isEqualToUUID:v133];
+
+    if (v134)
+    {
+      v135 = [v6 idsIdentifier];
+      [v5 setIdsIdentifier:v135];
+
+      v136 = *(v5 + 64);
+      if (os_signpost_enabled(v136))
+      {
+        v137 = v136;
+        v138 = [v5 uuid];
+        *buf = 138412290;
+        v172 = v138;
+        _os_signpost_emit_with_name_impl(&dword_229538000, v137, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "UpdatedAccessoryIDS", "accessoryUUID=%{signpost.description:attribute}@ ", buf, 0xCu);
+      }
+
+      [v7 markChanged];
+    }
+  }
+
+  if ([v6 propertyWasSet:@"supportedStereoPairVersions"])
+  {
+    v139 = [v6 supportedStereoPairVersions];
+    v140 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v5, "supportedStereoPairVersions")}];
+    v141 = [v139 isEqual:v140];
+
+    if ((v141 & 1) == 0)
+    {
+      v142 = objc_autoreleasePoolPush();
+      v143 = v5;
+      v144 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v144, OS_LOG_TYPE_DEFAULT))
+      {
+        v145 = HMFGetLogIdentifier();
+        v146 = [v6 supportedStereoPairVersions];
+        *buf = 138543618;
+        v172 = v145;
+        v173 = 2112;
+        v174 = v146;
+        _os_log_impl(&dword_229538000, v144, OS_LOG_TYPE_DEFAULT, "%{public}@Updated supported stereo pair versions: %@", buf, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v142);
+      v147 = [v6 supportedStereoPairVersions];
+      [v143 setSupportedStereoPairVersions:{objc_msgSend(v147, "unsignedIntegerValue")}];
+
+      [v7 markChanged];
+    }
+  }
+
+  v159[0] = MEMORY[0x277D85DD0];
+  v159[1] = 3221225472;
+  v159[2] = ____transactionAccessoryUpdated_block_invoke_143032;
+  v159[3] = &unk_278682310;
+  v148 = v7;
+  v160 = v148;
+  [v5 transactionAccessoryUpdatedForPreferredMediaUser:v6 completionHandler:v159];
+  if ([v6 propertyWasSet:@"productColor"])
+  {
+    v149 = [v6 productColor];
+    v150 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v5, "productColor")}];
+    v151 = [v149 isEqual:v150];
+
+    if ((v151 & 1) == 0)
+    {
+      v152 = objc_autoreleasePoolPush();
+      v153 = v5;
+      v154 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v154, OS_LOG_TYPE_DEFAULT))
+      {
+        v155 = HMFGetLogIdentifier();
+        v156 = [v6 productColor];
+        *buf = 138543618;
+        v172 = v155;
+        v173 = 2112;
+        v174 = v156;
+        _os_log_impl(&dword_229538000, v154, OS_LOG_TYPE_DEFAULT, "%{public}@Updated product color: %@", buf, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v152);
+      v157 = [v6 productColor];
+      [v153 setProductColor:{objc_msgSend(v157, "unsignedIntegerValue")}];
+
+      [v148 markChanged];
+    }
+  }
+
+  [v158 respondWithPayload:0];
+}
+
+id *____transactionAccessoryUpdated_block_invoke_143032(id *result, int a2)
+{
+  if (a2)
+  {
+    return [result[4] markChanged];
+  }
+
+  return result;
+}
+
+void sub_229F06D28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229F07C4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
+{
+  objc_destroyWeak((v17 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229F0842C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_229F09CD8(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v1 + 48));
+  objc_destroyWeak((v2 - 56));
+  _Unwind_Resume(a1);
+}
+
+void sub_229F0A9D8(_Unwind_Exception *a1)
+{
+  objc_destroyWeak((v1 + 48));
+  objc_destroyWeak((v2 - 80));
+  _Unwind_Resume(a1);
+}
+
+void sub_229F0B480(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, id location)
+{
+  objc_destroyWeak((v23 + 56));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+id getMCProfileConnectionClass()
+{
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2050000000;
+  v0 = getMCProfileConnectionClass_softClass;
+  v7 = getMCProfileConnectionClass_softClass;
+  if (!getMCProfileConnectionClass_softClass)
+  {
+    v3[0] = MEMORY[0x277D85DD0];
+    v3[1] = 3221225472;
+    v3[2] = __getMCProfileConnectionClass_block_invoke;
+    v3[3] = &unk_278686CC0;
+    v3[4] = &v4;
+    __getMCProfileConnectionClass_block_invoke(v3);
+    v0 = v5[3];
+  }
+
+  v1 = v0;
+  _Block_object_dispose(&v4, 8);
+
+  return v1;
+}
+
+void sub_229F0F330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+Class __getMCProfileConnectionClass_block_invoke(uint64_t a1)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
+  if (!ManagedConfigurationLibraryCore_frameworkLibrary)
+  {
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __ManagedConfigurationLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_27867AF48;
+    v6 = 0;
+    ManagedConfigurationLibraryCore_frameworkLibrary = _sl_dlopen();
+    v2 = v4[0];
+    if (ManagedConfigurationLibraryCore_frameworkLibrary)
+    {
+      if (!v4[0])
+      {
+        goto LABEL_4;
+      }
+    }
+
+    else
+    {
+      v2 = abort_report_np("%s", v4[0]);
+    }
+
+    free(v2);
+  }
+
+LABEL_4:
+  result = objc_getClass("MCProfileConnection");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    abort_report_np("Unable to find class %s", "MCProfileConnection");
+  }
+
+  getMCProfileConnectionClass_softClass = *(*(*(a1 + 32) + 8) + 24);
+  return result;
+}
+
+uint64_t __ManagedConfigurationLibraryCore_block_invoke(uint64_t a1)
+{
+  result = _sl_dlopen();
+  ManagedConfigurationLibraryCore_frameworkLibrary = result;
+  return result;
+}
+
+void sub_229F0FE6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v15 + 40));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+id addressesFromWANRule(void *a1)
+{
+  v16[1] = *MEMORY[0x277D85DE8];
+  v1 = [a1 subject];
+  v2 = [v1 hostnames];
+
+  if (v2)
+  {
+    v3 = [v1 hostnames];
+    goto LABEL_8;
+  }
+
+  v4 = [v1 addresses];
+
+  if (v4)
+  {
+    v5 = [v1 addresses];
+    v6 = [v5 na_map:&__block_literal_global_70];
+LABEL_7:
+    v3 = v6;
+
+    goto LABEL_8;
+  }
+
+  v7 = [v1 addressRange];
+
+  if (v7)
+  {
+    v8 = MEMORY[0x277CCACA8];
+    v9 = [v1 addressRange];
+    v10 = [v9 addressStart];
+    v11 = [v10 addressString];
+    v12 = [v1 addressRange];
+    v13 = [v12 addressEnd];
+    v14 = [v13 addressString];
+    v5 = [v8 stringWithFormat:@"%@ - %@", v11, v14];
+
+    v16[0] = v5;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    goto LABEL_7;
+  }
+
+  v3 = MEMORY[0x277CBEBF8];
+LABEL_8:
+
+  return v3;
+}
+
+id wanRuleFromJSONRule(void *a1)
+{
+  v20 = *MEMORY[0x277D85DE8];
+  v1 = a1;
+  v2 = MEMORY[0x277CCAAA0];
+  v3 = [v1 dataUsingEncoding:4];
+  v15 = 0;
+  v4 = [v2 JSONObjectWithData:v3 options:0 error:&v15];
+  v5 = v15;
+
+  v6 = v4;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v7 = v6;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v8 = v7;
+
+  if (v8)
+  {
+    v9 = [HMDNetworkRouterFirewallRuleWAN createWithJSONDictionary:v8 error:0];
+    if (v9)
+    {
+      goto LABEL_12;
+    }
+
+    v10 = objc_autoreleasePoolPush();
+    v11 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      v12 = HMFGetLogIdentifier();
+      *buf = 138543618;
+      v17 = v12;
+      v18 = 2112;
+      v19 = v8;
+      v13 = "%{public}@Failed to convert dictionary %@ to HMDNetworkRouterFirewallRuleWAN";
+LABEL_10:
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, v13, buf, 0x16u);
+    }
+  }
+
+  else
+  {
+    v10 = objc_autoreleasePoolPush();
+    v11 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      v12 = HMFGetLogIdentifier();
+      *buf = 138543618;
+      v17 = v12;
+      v18 = 2112;
+      v19 = v1;
+      v13 = "%{public}@Failed to convert JSON string %@ to dictionary";
+      goto LABEL_10;
+    }
+  }
+
+  objc_autoreleasePoolPop(v10);
+  v9 = 0;
+LABEL_12:
+
+  return v9;
 }

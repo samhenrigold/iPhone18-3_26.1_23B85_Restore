@@ -489,134 +489,141 @@ LABEL_22:
   if (protoCopy)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v5 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v6 = __atxlog_handle_notification_management(isKindOfClass);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [ATXNotificationDeliverySuggestion initWithProto:];
+        [ATXNotificationDeliverySuggestion initWithProto:?];
       }
 
       selfCopy = 0;
       goto LABEL_27;
     }
 
-    v5 = protoCopy;
-    if (([v5 hasUuid]& 1) != 0)
+    v6 = protoCopy;
+    hasUuid = [v6 hasUuid];
+    if (hasUuid)
     {
-      if (([v5 hasScope]& 1) != 0)
+      hasScope = [v6 hasScope];
+      if (hasScope)
       {
-        if (([v5 hasEntityIdentifier]& 1) != 0)
+        hasEntityIdentifier = [v6 hasEntityIdentifier];
+        if (hasEntityIdentifier)
         {
-          if (([v5 hasTimestamp]& 1) != 0)
+          hasTimestamp = [v6 hasTimestamp];
+          if (hasTimestamp)
           {
-            if (([v5 hasOneofNotificationDeliverySuggestion]& 1) != 0)
+            hasOneofNotificationDeliverySuggestion = [v6 hasOneofNotificationDeliverySuggestion];
+            if (hasOneofNotificationDeliverySuggestion)
             {
-              v6 = objc_alloc(MEMORY[0x1E696AFB0]);
-              uuid = [v5 uuid];
-              v8 = [v6 initWithUUIDString:uuid];
+              v12 = objc_alloc(MEMORY[0x1E696AFB0]);
+              uuid = [v6 uuid];
+              v14 = [v12 initWithUUIDString:uuid];
 
-              if (!v8)
+              if (!v14)
               {
-                v10 = __atxlog_handle_notification_management();
-                if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+                v17 = __atxlog_handle_notification_management(v15);
+                if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
                 {
-                  [ATXNotificationDeliverySuggestion initWithProto:];
+                  [ATXNotificationDeliverySuggestion initWithProto:?];
                 }
 
                 selfCopy = 0;
                 goto LABEL_44;
               }
 
-              v9 = MEMORY[0x1E695DF00];
-              [v5 timestamp];
-              v10 = [v9 dateWithTimeIntervalSinceReferenceDate:?];
-              if ([v5 hasTriggerNotificationUUID])
+              v16 = MEMORY[0x1E695DF00];
+              [v6 timestamp];
+              v17 = [v16 dateWithTimeIntervalSinceReferenceDate:?];
+              if ([v6 hasTriggerNotificationUUID])
               {
-                v11 = objc_alloc(MEMORY[0x1E696AFB0]);
-                triggerNotificationUUID = [v5 triggerNotificationUUID];
-                v13 = [v11 initWithUUIDString:triggerNotificationUUID];
+                v18 = objc_alloc(MEMORY[0x1E696AFB0]);
+                triggerNotificationUUID = [v6 triggerNotificationUUID];
+                v20 = [v18 initWithUUIDString:triggerNotificationUUID];
               }
 
               else
               {
-                v13 = 0;
+                v20 = 0;
               }
 
-              if ([v5 hasSmartPause])
+              if ([v6 hasSmartPause])
               {
-                v16 = [ATXNotificationSmartPauseSuggestion alloc];
-                smartPause = [v5 smartPause];
-                entityIdentifier3 = [(ATXNotificationSmartPauseSuggestion *)v16 initWithProto:smartPause];
+                v23 = [ATXNotificationSmartPauseSuggestion alloc];
+                smartPause = [v6 smartPause];
+                entityIdentifier3 = [(ATXNotificationSmartPauseSuggestion *)v23 initWithProto:smartPause];
 
-                scope = [v5 scope];
-                entityIdentifier = [v5 entityIdentifier];
-                v21 = [(ATXNotificationDeliverySuggestion *)self initWithSmartPauseSuggestion:entityIdentifier3 uuid:v8 scope:scope entityIdentifier:entityIdentifier timestamp:v10 triggerNotificationUUID:v13];
+                scope = [v6 scope];
+                entityIdentifier = [v6 entityIdentifier];
+                v28 = [(ATXNotificationDeliverySuggestion *)self initWithSmartPauseSuggestion:entityIdentifier3 uuid:v14 scope:scope entityIdentifier:entityIdentifier timestamp:v17 triggerNotificationUUID:v20];
                 goto LABEL_35;
               }
 
-              if ([v5 hasQuieting])
+              if ([v6 hasQuieting])
               {
-                scope2 = [v5 scope];
-                entityIdentifier2 = [v5 entityIdentifier];
-                v24 = [(ATXNotificationDeliverySuggestion *)self initQuietingSuggestionWithUUID:v8 scope:scope2 entityIdentifier:entityIdentifier2 timestamp:v10 triggerNotificationUUID:v13];
+                scope2 = [v6 scope];
+                entityIdentifier2 = [v6 entityIdentifier];
+                v31 = [(ATXNotificationDeliverySuggestion *)self initQuietingSuggestionWithUUID:v14 scope:scope2 entityIdentifier:entityIdentifier2 timestamp:v17 triggerNotificationUUID:v20];
               }
 
               else
               {
-                if (![v5 hasPromoting])
+                if (![v6 hasPromoting])
                 {
-                  if (![v5 hasInterruptionManagerTuning])
+                  if (![v6 hasInterruptionManagerTuning])
                   {
-                    if ([v5 hasSendToDigest])
+                    if ([v6 hasSendToDigest])
                     {
-                      entityIdentifier3 = [v5 entityIdentifier];
-                      v29 = [(ATXNotificationDeliverySuggestion *)self initSendToDigestSuggestionWithUUID:v8 bundleID:entityIdentifier3 timestamp:v10 triggerNotificationUUID:v13];
+                      entityIdentifier3 = [v6 entityIdentifier];
+                      v36 = [(ATXNotificationDeliverySuggestion *)self initSendToDigestSuggestionWithUUID:v14 bundleID:entityIdentifier3 timestamp:v17 triggerNotificationUUID:v20];
                     }
 
-                    else if ([v5 hasUrgencyTuning])
+                    else if ([v6 hasUrgencyTuning])
                     {
-                      entityIdentifier3 = [v5 entityIdentifier];
-                      v29 = [(ATXNotificationDeliverySuggestion *)self initUrgencyTuningSuggestionWithUUID:v8 bundleID:entityIdentifier3 timestamp:v10 triggerNotificationUUID:v13];
+                      entityIdentifier3 = [v6 entityIdentifier];
+                      v36 = [(ATXNotificationDeliverySuggestion *)self initUrgencyTuningSuggestionWithUUID:v14 bundleID:entityIdentifier3 timestamp:v17 triggerNotificationUUID:v20];
                     }
 
-                    else if ([v5 hasSendMessagesToDigest])
+                    else if ([v6 hasSendMessagesToDigest])
                     {
-                      entityIdentifier3 = [v5 entityIdentifier];
-                      v29 = [(ATXNotificationDeliverySuggestion *)self initSendToMessagesDigestSuggestionWithUUID:v8 bundleID:entityIdentifier3 timestamp:v10 triggerNotificationUUID:v13];
+                      entityIdentifier3 = [v6 entityIdentifier];
+                      v36 = [(ATXNotificationDeliverySuggestion *)self initSendToMessagesDigestSuggestionWithUUID:v14 bundleID:entityIdentifier3 timestamp:v17 triggerNotificationUUID:v20];
                     }
 
                     else
                     {
-                      if (![v5 hasTurnOffNotificationsForApp])
+                      hasTurnOffNotificationsForApp = [v6 hasTurnOffNotificationsForApp];
+                      if (!hasTurnOffNotificationsForApp)
                       {
-                        v30 = __atxlog_handle_notifications();
-                        if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
+                        v38 = __atxlog_handle_notifications(hasTurnOffNotificationsForApp);
+                        if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
                         {
-                          [ATXNotificationDeliverySuggestion initWithProto:];
+                          [ATXNotificationDeliverySuggestion initWithProto:?];
                         }
 
                         selfCopy = 0;
                         goto LABEL_43;
                       }
 
-                      entityIdentifier3 = [v5 entityIdentifier];
-                      v29 = [(ATXNotificationDeliverySuggestion *)self initTurnOffNotificationsForAppSuggestionWithUUID:v8 bundleID:entityIdentifier3 timestamp:v10 triggerNotificationUUID:v13];
+                      entityIdentifier3 = [v6 entityIdentifier];
+                      v36 = [(ATXNotificationDeliverySuggestion *)self initTurnOffNotificationsForAppSuggestionWithUUID:v14 bundleID:entityIdentifier3 timestamp:v17 triggerNotificationUUID:v20];
                     }
 
-                    self = v29;
+                    self = v36;
                     goto LABEL_36;
                   }
 
-                  v26 = [ATXInterruptionManagerTuningSuggestion alloc];
-                  interruptionManagerTuning = [v5 interruptionManagerTuning];
-                  entityIdentifier3 = [(ATXInterruptionManagerTuningSuggestion *)v26 initWithProto:interruptionManagerTuning];
+                  v33 = [ATXInterruptionManagerTuningSuggestion alloc];
+                  interruptionManagerTuning = [v6 interruptionManagerTuning];
+                  entityIdentifier3 = [(ATXInterruptionManagerTuningSuggestion *)v33 initWithProto:interruptionManagerTuning];
 
-                  scope3 = [v5 scope];
-                  entityIdentifier = [v5 entityIdentifier];
-                  v21 = [(ATXNotificationDeliverySuggestion *)self initWithInterruptionManagerTuningSuggestion:entityIdentifier3 scope:scope3 entityIdentifier:entityIdentifier uuid:v8 timestamp:v10 triggerNotificationUUID:v13];
+                  scope3 = [v6 scope];
+                  entityIdentifier = [v6 entityIdentifier];
+                  v28 = [(ATXNotificationDeliverySuggestion *)self initWithInterruptionManagerTuningSuggestion:entityIdentifier3 scope:scope3 entityIdentifier:entityIdentifier uuid:v14 timestamp:v17 triggerNotificationUUID:v20];
 LABEL_35:
-                  self = v21;
+                  self = v28;
 
 LABEL_36:
 LABEL_42:
@@ -627,59 +634,59 @@ LABEL_44:
                   goto LABEL_26;
                 }
 
-                scope4 = [v5 scope];
-                entityIdentifier2 = [v5 entityIdentifier];
-                v24 = [(ATXNotificationDeliverySuggestion *)self initPromotingSuggestionWithUUID:v8 scope:scope4 entityIdentifier:entityIdentifier2 timestamp:v10 triggerNotificationUUID:v13];
+                scope4 = [v6 scope];
+                entityIdentifier2 = [v6 entityIdentifier];
+                v31 = [(ATXNotificationDeliverySuggestion *)self initPromotingSuggestionWithUUID:v14 scope:scope4 entityIdentifier:entityIdentifier2 timestamp:v17 triggerNotificationUUID:v20];
               }
 
-              self = v24;
+              self = v31;
 
               goto LABEL_42;
             }
 
-            v8 = __atxlog_handle_notification_management();
-            if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+            v14 = __atxlog_handle_notification_management(hasOneofNotificationDeliverySuggestion);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
             {
-              [ATXNotificationDeliverySuggestion initWithProto:];
+              [ATXNotificationDeliverySuggestion initWithProto:?];
             }
           }
 
           else
           {
-            v8 = __atxlog_handle_notification_management();
-            if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+            v14 = __atxlog_handle_notification_management(hasTimestamp);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
             {
-              [ATXNotificationDeliverySuggestion initWithProto:];
+              [ATXNotificationDeliverySuggestion initWithProto:?];
             }
           }
         }
 
         else
         {
-          v8 = __atxlog_handle_notification_management();
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+          v14 = __atxlog_handle_notification_management(hasEntityIdentifier);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
           {
-            [ATXNotificationDeliverySuggestion initWithProto:];
+            [ATXNotificationDeliverySuggestion initWithProto:?];
           }
         }
       }
 
       else
       {
-        v8 = __atxlog_handle_notification_management();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+        v14 = __atxlog_handle_notification_management(hasScope);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
         {
-          [ATXNotificationDeliverySuggestion initWithProto:];
+          [ATXNotificationDeliverySuggestion initWithProto:?];
         }
       }
     }
 
     else
     {
-      v8 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      v14 = __atxlog_handle_notification_management(hasUuid);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
-        [ATXNotificationDeliverySuggestion initWithProto:];
+        [ATXNotificationDeliverySuggestion initWithProto:?];
       }
     }
 
@@ -725,7 +732,7 @@ LABEL_28:
         {
 LABEL_47:
           v3 = v3;
-          v13 = v3;
+          v15 = v3;
           goto LABEL_48;
         }
 
@@ -750,15 +757,16 @@ LABEL_33:
       {
         p_subObject = &self->_subObject;
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
           proto = [*p_subObject proto];
           [v3 setSmartPause:proto];
           goto LABEL_33;
         }
 
-        v18 = __atxlog_handle_notifications();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+        v24 = __atxlog_handle_notifications(isKindOfClass);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
         {
           [ATXNotificationDeliverySuggestion proto];
         }
@@ -774,17 +782,18 @@ LABEL_33:
     {
       if (subtype == 5)
       {
-        v16 = &self->_subObject;
+        v20 = &self->_subObject;
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        v21 = objc_opt_isKindOfClass();
+        if (v21)
         {
-          proto = [*v16 proto];
+          proto = [*v20 proto];
           [v3 setInterruptionManagerTuning:proto];
           goto LABEL_33;
         }
 
-        v18 = __atxlog_handle_notifications();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+        v24 = __atxlog_handle_notifications(v21);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
         {
           [ATXNotificationDeliverySuggestion proto];
         }
@@ -796,15 +805,16 @@ LABEL_33:
       {
         v9 = &self->_subObject;
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        v10 = objc_opt_isKindOfClass();
+        if (v10)
         {
           proto = [*v9 proto];
           [v3 setUrgencyTuning:proto];
           goto LABEL_33;
         }
 
-        v18 = __atxlog_handle_notifications();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+        v24 = __atxlog_handle_notifications(v10);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
         {
           [ATXNotificationDeliverySuggestion proto];
         }
@@ -815,17 +825,18 @@ LABEL_46:
         goto LABEL_47;
       }
 
-      v14 = &self->_subObject;
+      v16 = &self->_subObject;
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      v17 = objc_opt_isKindOfClass();
+      if (v17)
       {
-        proto = [*v14 proto];
+        proto = [*v16 proto];
         [v3 setSendToDigest:proto];
         goto LABEL_33;
       }
 
-      v18 = __atxlog_handle_notifications();
-      if (!os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+      v24 = __atxlog_handle_notifications(v17);
+      if (!os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
       {
         goto LABEL_46;
       }
@@ -837,17 +848,18 @@ LABEL_45:
 
     if (subtype == 8)
     {
-      v17 = &self->_subObject;
+      v22 = &self->_subObject;
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      v23 = objc_opt_isKindOfClass();
+      if (v23)
       {
-        proto = [*v17 proto];
+        proto = [*v22 proto];
         [v3 setSendMessagesToDigest:proto];
         goto LABEL_33;
       }
 
-      v18 = __atxlog_handle_notifications();
-      if (!os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+      v24 = __atxlog_handle_notifications(v23);
+      if (!os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
       {
         goto LABEL_46;
       }
@@ -857,17 +869,18 @@ LABEL_45:
 
     if (subtype == 9)
     {
-      v15 = &self->_subObject;
+      v18 = &self->_subObject;
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      v19 = objc_opt_isKindOfClass();
+      if (v19)
       {
-        proto = [*v15 proto];
+        proto = [*v18 proto];
         [v3 setTurnOffNotificationsForApp:proto];
         goto LABEL_33;
       }
 
-      v18 = __atxlog_handle_notifications();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+      v24 = __atxlog_handle_notifications(v19);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
       {
         [ATXNotificationDeliverySuggestion proto];
       }
@@ -881,16 +894,16 @@ LABEL_45:
     }
   }
 
-  v12 = __atxlog_handle_notifications();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v14 = __atxlog_handle_notifications(triggerNotificationUUID);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     [(ATXNotificationDeliverySuggestion *)p_subtype proto];
   }
 
-  v13 = 0;
+  v15 = 0;
 LABEL_48:
 
-  return v13;
+  return v15;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -925,13 +938,13 @@ LABEL_48:
         {
 LABEL_45:
           v5 = v5;
-          v10 = v5;
+          v12 = v5;
           goto LABEL_46;
         }
 
-        v8 = [(ATXNotificationDeliverySuggestion *)v4 initQuietingSuggestionWithUUID:self->_uuid scope:self->_scope entityIdentifier:self->_entityIdentifier timestamp:self->_timestamp triggerNotificationUUID:self->_triggerNotificationUUID];
+        v9 = [(ATXNotificationDeliverySuggestion *)v4 initQuietingSuggestionWithUUID:self->_uuid scope:self->_scope entityIdentifier:self->_entityIdentifier timestamp:self->_timestamp triggerNotificationUUID:self->_triggerNotificationUUID];
 LABEL_31:
-        v5 = v8;
+        v5 = v9;
         goto LABEL_45;
       }
     }
@@ -940,21 +953,22 @@ LABEL_31:
     {
       if (subtype == 2)
       {
-        v8 = [(ATXNotificationDeliverySuggestion *)v4 initPromotingSuggestionWithUUID:self->_uuid scope:self->_scope entityIdentifier:self->_entityIdentifier timestamp:self->_timestamp triggerNotificationUUID:self->_triggerNotificationUUID];
+        v9 = [(ATXNotificationDeliverySuggestion *)v4 initPromotingSuggestionWithUUID:self->_uuid scope:self->_scope entityIdentifier:self->_entityIdentifier timestamp:self->_timestamp triggerNotificationUUID:self->_triggerNotificationUUID];
         goto LABEL_31;
       }
 
       if (subtype != 3)
       {
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
-          v8 = [v5 initWithSmartPauseSuggestion:self->_subObject uuid:self->_uuid scope:self->_scope entityIdentifier:self->_entityIdentifier timestamp:self->_timestamp triggerNotificationUUID:self->_triggerNotificationUUID];
+          v9 = [v5 initWithSmartPauseSuggestion:self->_subObject uuid:self->_uuid scope:self->_scope entityIdentifier:self->_entityIdentifier timestamp:self->_timestamp triggerNotificationUUID:self->_triggerNotificationUUID];
           goto LABEL_31;
         }
 
-        v11 = __atxlog_handle_notifications();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+        v17 = __atxlog_handle_notifications(isKindOfClass);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
         {
           [ATXNotificationDeliverySuggestion proto];
         }
@@ -971,14 +985,15 @@ LABEL_31:
       if (subtype == 5)
       {
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        v15 = objc_opt_isKindOfClass();
+        if (v15)
         {
-          v8 = [v5 initWithInterruptionManagerTuningSuggestion:self->_subObject scope:self->_scope entityIdentifier:self->_entityIdentifier uuid:self->_uuid timestamp:self->_timestamp triggerNotificationUUID:self->_triggerNotificationUUID];
+          v9 = [v5 initWithInterruptionManagerTuningSuggestion:self->_subObject scope:self->_scope entityIdentifier:self->_entityIdentifier uuid:self->_uuid timestamp:self->_timestamp triggerNotificationUUID:self->_triggerNotificationUUID];
           goto LABEL_31;
         }
 
-        v11 = __atxlog_handle_notifications();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+        v17 = __atxlog_handle_notifications(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
         {
           [ATXNotificationDeliverySuggestion proto];
         }
@@ -987,14 +1002,15 @@ LABEL_31:
       else if (subtype == 6)
       {
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        v13 = objc_opt_isKindOfClass();
+        if (v13)
         {
-          v8 = [v5 initSendToDigestSuggestionWithUUID:self->_uuid bundleID:self->_entityIdentifier timestamp:self->_timestamp triggerNotificationUUID:self->_triggerNotificationUUID];
+          v9 = [v5 initSendToDigestSuggestionWithUUID:self->_uuid bundleID:self->_entityIdentifier timestamp:self->_timestamp triggerNotificationUUID:self->_triggerNotificationUUID];
           goto LABEL_31;
         }
 
-        v11 = __atxlog_handle_notifications();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+        v17 = __atxlog_handle_notifications(v13);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
         {
           [ATXNotificationDeliverySuggestion proto];
         }
@@ -1003,14 +1019,15 @@ LABEL_31:
       else
       {
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        v8 = objc_opt_isKindOfClass();
+        if (v8)
         {
-          v8 = [v5 initUrgencyTuningSuggestionWithUUID:self->_uuid bundleID:self->_entityIdentifier timestamp:self->_timestamp triggerNotificationUUID:self->_triggerNotificationUUID];
+          v9 = [v5 initUrgencyTuningSuggestionWithUUID:self->_uuid bundleID:self->_entityIdentifier timestamp:self->_timestamp triggerNotificationUUID:self->_triggerNotificationUUID];
           goto LABEL_31;
         }
 
-        v11 = __atxlog_handle_notifications();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+        v17 = __atxlog_handle_notifications(v8);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
         {
           [ATXNotificationDeliverySuggestion proto];
         }
@@ -1025,14 +1042,15 @@ LABEL_44:
     if (subtype == 8)
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      v16 = objc_opt_isKindOfClass();
+      if (v16)
       {
-        v8 = [v5 initSendToMessagesDigestSuggestionWithUUID:self->_uuid bundleID:self->_entityIdentifier timestamp:self->_timestamp triggerNotificationUUID:self->_triggerNotificationUUID];
+        v9 = [v5 initSendToMessagesDigestSuggestionWithUUID:self->_uuid bundleID:self->_entityIdentifier timestamp:self->_timestamp triggerNotificationUUID:self->_triggerNotificationUUID];
         goto LABEL_31;
       }
 
-      v11 = __atxlog_handle_notifications();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+      v17 = __atxlog_handle_notifications(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
       {
         [ATXNotificationDeliverySuggestion copyWithZone:];
       }
@@ -1043,14 +1061,15 @@ LABEL_44:
     if (subtype == 9)
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      v14 = objc_opt_isKindOfClass();
+      if (v14)
       {
-        v8 = [v5 initTurnOffNotificationsForAppSuggestionWithUUID:self->_uuid bundleID:self->_entityIdentifier timestamp:self->_timestamp triggerNotificationUUID:self->_triggerNotificationUUID];
+        v9 = [v5 initTurnOffNotificationsForAppSuggestionWithUUID:self->_uuid bundleID:self->_entityIdentifier timestamp:self->_timestamp triggerNotificationUUID:self->_triggerNotificationUUID];
         goto LABEL_31;
       }
 
-      v11 = __atxlog_handle_notifications();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+      v17 = __atxlog_handle_notifications(v14);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
       {
         [ATXNotificationDeliverySuggestion copyWithZone:];
       }
@@ -1064,16 +1083,16 @@ LABEL_44:
     }
   }
 
-  v9 = __atxlog_handle_notifications();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v11 = __atxlog_handle_notifications(v4);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     [(ATXNotificationDeliverySuggestion *)p_subtype proto];
   }
 
-  v10 = 0;
+  v12 = 0;
 LABEL_46:
 
-  return v10;
+  return v12;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version
@@ -1119,76 +1138,76 @@ LABEL_46:
   return v4;
 }
 
-- (void)initWithProto:.cold.1()
+- (void)initWithProto:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)initWithProto:.cold.2()
+- (void)initWithProto:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)initWithProto:.cold.3()
+- (void)initWithProto:(uint64_t)a1 .cold.3(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)initWithProto:.cold.4()
+- (void)initWithProto:(uint64_t)a1 .cold.4(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)initWithProto:.cold.5()
+- (void)initWithProto:(uint64_t)a1 .cold.5(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)initWithProto:.cold.6()
+- (void)initWithProto:(uint64_t)a1 .cold.6(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)initWithProto:.cold.7()
+- (void)initWithProto:(uint64_t)a1 .cold.7(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)initWithProto:.cold.8()
+- (void)initWithProto:(uint64_t)a1 .cold.8(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 - (void)proto

@@ -25,7 +25,7 @@
 
 - (_GCDevicePhysicalInputGroup)initWithPhysicalInputs:(id)inputs
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   inputsCopy = inputs;
   if (!inputsCopy)
   {
@@ -37,19 +37,19 @@
     [(_GCDevicePhysicalInputGroup *)a2 initWithPhysicalInputs:?];
   }
 
-  v31.receiver = self;
-  v31.super_class = _GCDevicePhysicalInputGroup;
-  v5 = [(_GCDevicePhysicalInputGroup *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = _GCDevicePhysicalInputGroup;
+  v5 = [(_GCDevicePhysicalInputGroup *)&v30 init];
   if ([inputsCopy count] == 1)
   {
     firstObject = [inputsCopy firstObject];
     [firstObject setDataSource:v5];
 
     v7 = [MEMORY[0x1E695DFD8] set];
-    v33 = v7;
+    v32 = v7;
     firstObject2 = [inputsCopy firstObject];
-    v34[0] = firstObject2;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v33[0] = firstObject2;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     physicalInputs = v5->_physicalInputs;
     v5->_physicalInputs = v9;
   }
@@ -57,26 +57,26 @@
   else
   {
     v7 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(inputsCopy, "count")}];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     v11 = inputsCopy;
-    v12 = [v11 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v26 objects:v31 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v28;
+      v14 = *v27;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v28 != v14)
+          if (*v27 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v27 + 1) + 8 * i);
+          v16 = *(*(&v26 + 1) + 8 * i);
           attributes = [(_GCDevicePhysicalInputBase *)v16 attributes];
           v18 = [v7 objectForKey:attributes];
 
@@ -89,7 +89,7 @@
           [v16 setDataSource:v5];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
       while (v13);
@@ -114,7 +114,6 @@
   objc_opt_class();
   v5->_isSnapshot = (objc_opt_isKindOfClass() & 1) == 0;
 
-  v24 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -358,32 +357,31 @@
 {
   if (self)
   {
-    v2 = *(self + 16);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       allValues = [*(self + 8) allValues];
       allValues2 = [allValues gc_arrayByTransformingElementsUsingBlock:&__block_literal_global_192];
 
-      v5 = [_GCDevicePhysicalInputGroup alloc];
+      v4 = [_GCDevicePhysicalInputGroup alloc];
     }
 
     else
     {
-      v6 = [_GCDevicePhysicalInputGroup alloc];
+      v5 = [_GCDevicePhysicalInputGroup alloc];
       allValues2 = [*(self + 8) allValues];
-      v5 = v6;
+      v4 = v5;
     }
 
-    v7 = [(_GCDevicePhysicalInputGroup *)v5 initWithPhysicalInputs:allValues2];
+    v6 = [(_GCDevicePhysicalInputGroup *)v4 initWithPhysicalInputs:allValues2];
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  return v7;
+  return v6;
 }
 
 - (void)handleGamepadEvent:(void *)event

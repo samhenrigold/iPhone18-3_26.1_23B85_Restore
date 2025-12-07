@@ -41,15 +41,21 @@
         shouldLog = [mEMORY[0x1E69D4938] shouldLog];
         if ([mEMORY[0x1E69D4938] shouldLogToDisk])
         {
-          v7 = shouldLog | 2;
+          LODWORD(v7) = shouldLog | 2;
         }
 
         else
         {
-          v7 = shouldLog;
+          LODWORD(v7) = shouldLog;
         }
 
-        if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_FAULT))
+        oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
+        {
+          v7 = v7;
+        }
+
+        else
         {
           v7 &= 2u;
         }
@@ -60,20 +66,18 @@
           v15 = objc_opt_class();
           v16 = 2114;
           v17 = objc_opt_class();
-          LODWORD(v13) = 22;
-          v12 = &v14;
-          v8 = _os_log_send_and_compose_impl();
-          if (v8)
+          v9 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1C21AF000, oSLogObject, 17, "%{public}@: Initialized with an invalid object: %{public}@", &v14, 22);
+          if (v9)
           {
-            v9 = v8;
-            v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v14, v13}];
-            free(v9);
-            v12 = v10;
+            v10 = v9;
+            v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
+            free(v10);
+            v13 = v11;
             SSFileLog();
           }
         }
 
-        [MEMORY[0x1E69E2F88] throwException:{@"Invalid argument", v12}];
+        [MEMORY[0x1E69E2F88] throwException:{@"Invalid argument", v13}];
         object = 0;
       }
     }

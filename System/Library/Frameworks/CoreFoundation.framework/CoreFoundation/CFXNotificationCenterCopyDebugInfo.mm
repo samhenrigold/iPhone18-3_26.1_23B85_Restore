@@ -5,7 +5,7 @@
 
 void ___CFXNotificationCenterCopyDebugInfo_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   CFStringAppend(*(a1 + 32), @"{\n");
   CFStringAppendFormat(*(a1 + 32), 0, @"    token = %llx\n", *(a2 + 48));
   CFStringAppendFormat(*(a1 + 32), 0, @"    name = %@\n", *a2);
@@ -41,12 +41,12 @@ void ___CFXNotificationCenterCopyDebugInfo_block_invoke(uint64_t a1, uint64_t a2
       v9 = 0;
     }
 
-    memset(&v14, 0, sizeof(v14));
-    dladdr(v9, &v14);
+    memset(&v13, 0, sizeof(v13));
+    dladdr(v9, &v13);
     v11 = *(a1 + 32);
-    if (v14.dli_sname)
+    if (v13.dli_sname)
     {
-      CFStringAppendFormat(v11, 0, @"    block = %s (%p)\n", v14.dli_sname, v8);
+      CFStringAppendFormat(v11, 0, @"    block = %s (%p)\n", v13.dli_sname, v8);
     }
 
     else
@@ -64,13 +64,13 @@ void ___CFXNotificationCenterCopyDebugInfo_block_invoke(uint64_t a1, uint64_t a2
 
   else if ((v5 & 0x80000) != 0)
   {
-    memset(&v14, 0, sizeof(v14));
-    dladdr(*(a2 + 32), &v14);
+    memset(&v13, 0, sizeof(v13));
+    dladdr(*(a2 + 32), &v13);
     v6 = *(a1 + 32);
     v7 = *(a2 + 32);
-    if (v14.dli_sname)
+    if (v13.dli_sname)
     {
-      CFStringAppendFormat(v6, 0, @"    callback = %s (%p)\n", v14.dli_sname, v7);
+      CFStringAppendFormat(v6, 0, @"    callback = %s (%p)\n", v13.dli_sname, v7);
     }
 
     else
@@ -80,7 +80,6 @@ void ___CFXNotificationCenterCopyDebugInfo_block_invoke(uint64_t a1, uint64_t a2
   }
 
   CFStringAppend(*(a1 + 32), @"}\n");
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -1,8 +1,15 @@
 @interface CellularCdmaCellInfo
 - (BOOL)isEqual:(id)equal;
+- (id)bandAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)gwRatAsString:(int)string;
+- (id)gwSrvStatusAsString:(int)string;
+- (id)hdrSrvStatusAsString:(int)string;
+- (id)hybridActiveBandAsString:(int)string;
+- (id)ratAsString:(int)string;
+- (id)srvStatusAsString:(int)string;
 - (int)StringAsBand:(id)band;
 - (int)StringAsGwRat:(id)rat;
 - (int)StringAsGwSrvStatus:(id)status;
@@ -71,6 +78,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFEFFFF | v3);
+}
+
+- (id)ratAsString:(int)string
+{
+  if (string < 0x10 && ((0x9FFFu >> string) & 1) != 0)
+  {
+    v4 = *(&off_100318CB8 + string);
+  }
+
+  else
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsRat:(id)rat
@@ -180,6 +202,79 @@
   }
 
   self->_has = (*&self->_has & 0xFFFDFFFF | v3);
+}
+
+- (id)srvStatusAsString:(int)string
+{
+  if (string <= 2)
+  {
+    if (string > 0)
+    {
+      if (string == 1)
+      {
+        v4 = @"SYS_SRV_STATUS_LIMITED";
+      }
+
+      else
+      {
+        v4 = @"SYS_SRV_STATUS_SRV";
+      }
+    }
+
+    else if (string == -1)
+    {
+      v4 = @"SYS_SRV_STATUS_NONE";
+    }
+
+    else
+    {
+      if (string)
+      {
+LABEL_38:
+        v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"SYS_SRV_STATUS_NO_SRV";
+    }
+  }
+
+  else if (string <= 4)
+  {
+    if (string == 3)
+    {
+      v4 = @"SYS_SRV_STATUS_LIMITED_REGIONAL";
+    }
+
+    else
+    {
+      v4 = @"SYS_SRV_STATUS_PWR_SAVE";
+    }
+  }
+
+  else
+  {
+    switch(string)
+    {
+      case 5:
+        v4 = @"SYS_SRV_STATUS_MAX";
+
+        break;
+      case 100:
+        v4 = @"SYS_SRV_STATUS_LOW_POWER_MODE";
+
+        break;
+      case 101:
+        v4 = @"SYS_SRV_STATUS_CMAS_ONLY_MODE";
+
+        return v4;
+      default:
+        goto LABEL_38;
+    }
+  }
+
+  return v4;
 }
 
 - (int)StringAsSrvStatus:(id)status
@@ -309,6 +404,331 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFFD | v3);
+}
+
+- (id)bandAsString:(int)string
+{
+  v4 = @"SYS_BAND_BC0";
+  switch(string)
+  {
+    case 0:
+      goto LABEL_234;
+    case 1:
+      v4 = @"SYS_BAND_BC1";
+
+      break;
+    case 3:
+      v4 = @"SYS_BAND_BC3";
+
+      break;
+    case 4:
+      v4 = @"SYS_BAND_BC4";
+
+      break;
+    case 5:
+      v4 = @"SYS_BAND_BC5";
+
+      break;
+    case 6:
+      v4 = @"SYS_BAND_BC6";
+
+      break;
+    case 7:
+      v4 = @"SYS_BAND_BC7";
+
+      break;
+    case 8:
+      v4 = @"SYS_BAND_BC8";
+
+      break;
+    case 9:
+      v4 = @"SYS_BAND_BC9";
+
+      break;
+    case 10:
+      v4 = @"SYS_BAND_BC10";
+
+      break;
+    case 11:
+      v4 = @"SYS_BAND_BC11";
+
+      break;
+    case 12:
+      v4 = @"SYS_BAND_BC12";
+
+      break;
+    case 13:
+      v4 = @"SYS_BAND_BC13";
+
+      break;
+    case 14:
+      v4 = @"SYS_BAND_BC14";
+
+      break;
+    case 15:
+      v4 = @"SYS_BAND_BC15";
+
+      break;
+    case 16:
+      v4 = @"SYS_BAND_BC16";
+
+      break;
+    case 17:
+      v4 = @"SYS_BAND_BC17";
+
+      break;
+    case 18:
+      v4 = @"SYS_BAND_BC18";
+
+      break;
+    case 19:
+      v4 = @"SYS_BAND_BC19";
+
+      break;
+    case 40:
+      v4 = @"SYS_BAND_GSM_450";
+
+      break;
+    case 41:
+      v4 = @"SYS_BAND_GSM_480";
+
+      break;
+    case 42:
+      v4 = @"SYS_BAND_GSM_750";
+
+      break;
+    case 43:
+      v4 = @"SYS_BAND_GSM_850";
+
+      break;
+    case 44:
+      v4 = @"SYS_BAND_GSM_EGSM_900";
+
+      break;
+    case 45:
+      v4 = @"SYS_BAND_GSM_PGSM_900";
+
+      break;
+    case 46:
+      v4 = @"SYS_BAND_GSM_RGSM_900";
+
+      break;
+    case 47:
+      v4 = @"SYS_BAND_GSM_DCS_1800";
+
+      break;
+    case 48:
+      v4 = @"SYS_BAND_GSM_PCS_1900";
+
+      break;
+    case 80:
+      v4 = @"SYS_BAND_WCDMA_I_IMT_2000";
+
+      break;
+    case 81:
+      v4 = @"SYS_BAND_WCDMA_II_PCS_1900";
+
+      break;
+    case 82:
+      v4 = @"SYS_BAND_WCDMA_III_1700";
+
+      break;
+    case 83:
+      v4 = @"SYS_BAND_WCDMA_IV_1700";
+
+      break;
+    case 84:
+      v4 = @"SYS_BAND_WCDMA_V_850";
+
+      break;
+    case 85:
+      v4 = @"SYS_BAND_WCDMA_VI_800";
+
+      break;
+    case 86:
+      v4 = @"SYS_BAND_WCDMA_VII_2600";
+
+      break;
+    case 87:
+      v4 = @"SYS_BAND_WCDMA_VIII_900";
+
+      break;
+    case 88:
+      v4 = @"SYS_BAND_WCDMA_IX_1700";
+
+      break;
+    case 90:
+      v4 = @"SYS_BAND_WCDMA_XI_1500";
+
+      break;
+    case 91:
+      v4 = @"SYS_BAND_WCDMA_XIX_850";
+
+      break;
+    case 120:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND1";
+
+      break;
+    case 121:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND2";
+
+      break;
+    case 122:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND3";
+
+      break;
+    case 123:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND4";
+
+      break;
+    case 124:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND5";
+
+      break;
+    case 125:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND6";
+
+      break;
+    case 126:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND7";
+
+      break;
+    case 127:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND8";
+
+      break;
+    case 128:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND9";
+
+      break;
+    case 129:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND10";
+
+      break;
+    case 130:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND11";
+
+      break;
+    case 131:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND12";
+
+      break;
+    case 132:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND13";
+
+      break;
+    case 133:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND14";
+
+      break;
+    case 136:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND17";
+
+      break;
+    case 137:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND18";
+
+      break;
+    case 138:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND19";
+
+      break;
+    case 139:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND20";
+
+      break;
+    case 140:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND21";
+
+      break;
+    case 143:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND24";
+
+      break;
+    case 144:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND25";
+
+      break;
+    case 145:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND26";
+
+      break;
+    case 152:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND33";
+
+      break;
+    case 153:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND34";
+
+      break;
+    case 154:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND35";
+
+      break;
+    case 155:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND36";
+
+      break;
+    case 156:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND37";
+
+      break;
+    case 157:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND38";
+
+      break;
+    case 158:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND39";
+
+      break;
+    case 159:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND40";
+
+      break;
+    case 160:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND41";
+
+      break;
+    case 161:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND42";
+
+      break;
+    case 162:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND43";
+
+      break;
+    case 163:
+      v4 = @"SYS_BAND_UMTS_BAND1";
+
+      break;
+    case 164:
+      v4 = @"SYS_BAND_UMTS_BAND2";
+
+      break;
+    case 165:
+      v4 = @"SYS_BAND_UMTS_BAND3";
+
+      break;
+    case 166:
+      v4 = @"SYS_BAND_UMTS_BAND4";
+
+      break;
+    case 167:
+      v4 = @"SYS_BAND_UMTS_BAND5";
+
+      break;
+    case 168:
+      v4 = @"SYS_BAND_UMTS_BAND6";
+
+      break;
+    default:
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_234:
+
+      break;
+  }
+
+  return v4;
 }
 
 - (int)StringAsBand:(id)band
@@ -785,6 +1205,79 @@
   self->_has = (*&self->_has & 0xFFFFFF7F | v3);
 }
 
+- (id)hdrSrvStatusAsString:(int)string
+{
+  if (string <= 2)
+  {
+    if (string > 0)
+    {
+      if (string == 1)
+      {
+        v4 = @"SYS_SRV_STATUS_LIMITED";
+      }
+
+      else
+      {
+        v4 = @"SYS_SRV_STATUS_SRV";
+      }
+    }
+
+    else if (string == -1)
+    {
+      v4 = @"SYS_SRV_STATUS_NONE";
+    }
+
+    else
+    {
+      if (string)
+      {
+LABEL_38:
+        v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"SYS_SRV_STATUS_NO_SRV";
+    }
+  }
+
+  else if (string <= 4)
+  {
+    if (string == 3)
+    {
+      v4 = @"SYS_SRV_STATUS_LIMITED_REGIONAL";
+    }
+
+    else
+    {
+      v4 = @"SYS_SRV_STATUS_PWR_SAVE";
+    }
+  }
+
+  else
+  {
+    switch(string)
+    {
+      case 5:
+        v4 = @"SYS_SRV_STATUS_MAX";
+
+        break;
+      case 100:
+        v4 = @"SYS_SRV_STATUS_LOW_POWER_MODE";
+
+        break;
+      case 101:
+        v4 = @"SYS_SRV_STATUS_CMAS_ONLY_MODE";
+
+        return v4;
+      default:
+        goto LABEL_38;
+    }
+  }
+
+  return v4;
+}
+
 - (int)StringAsHdrSrvStatus:(id)status
 {
   statusCopy = status;
@@ -882,6 +1375,331 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFEFF | v3);
+}
+
+- (id)hybridActiveBandAsString:(int)string
+{
+  v4 = @"SYS_BAND_BC0";
+  switch(string)
+  {
+    case 0:
+      goto LABEL_234;
+    case 1:
+      v4 = @"SYS_BAND_BC1";
+
+      break;
+    case 3:
+      v4 = @"SYS_BAND_BC3";
+
+      break;
+    case 4:
+      v4 = @"SYS_BAND_BC4";
+
+      break;
+    case 5:
+      v4 = @"SYS_BAND_BC5";
+
+      break;
+    case 6:
+      v4 = @"SYS_BAND_BC6";
+
+      break;
+    case 7:
+      v4 = @"SYS_BAND_BC7";
+
+      break;
+    case 8:
+      v4 = @"SYS_BAND_BC8";
+
+      break;
+    case 9:
+      v4 = @"SYS_BAND_BC9";
+
+      break;
+    case 10:
+      v4 = @"SYS_BAND_BC10";
+
+      break;
+    case 11:
+      v4 = @"SYS_BAND_BC11";
+
+      break;
+    case 12:
+      v4 = @"SYS_BAND_BC12";
+
+      break;
+    case 13:
+      v4 = @"SYS_BAND_BC13";
+
+      break;
+    case 14:
+      v4 = @"SYS_BAND_BC14";
+
+      break;
+    case 15:
+      v4 = @"SYS_BAND_BC15";
+
+      break;
+    case 16:
+      v4 = @"SYS_BAND_BC16";
+
+      break;
+    case 17:
+      v4 = @"SYS_BAND_BC17";
+
+      break;
+    case 18:
+      v4 = @"SYS_BAND_BC18";
+
+      break;
+    case 19:
+      v4 = @"SYS_BAND_BC19";
+
+      break;
+    case 40:
+      v4 = @"SYS_BAND_GSM_450";
+
+      break;
+    case 41:
+      v4 = @"SYS_BAND_GSM_480";
+
+      break;
+    case 42:
+      v4 = @"SYS_BAND_GSM_750";
+
+      break;
+    case 43:
+      v4 = @"SYS_BAND_GSM_850";
+
+      break;
+    case 44:
+      v4 = @"SYS_BAND_GSM_EGSM_900";
+
+      break;
+    case 45:
+      v4 = @"SYS_BAND_GSM_PGSM_900";
+
+      break;
+    case 46:
+      v4 = @"SYS_BAND_GSM_RGSM_900";
+
+      break;
+    case 47:
+      v4 = @"SYS_BAND_GSM_DCS_1800";
+
+      break;
+    case 48:
+      v4 = @"SYS_BAND_GSM_PCS_1900";
+
+      break;
+    case 80:
+      v4 = @"SYS_BAND_WCDMA_I_IMT_2000";
+
+      break;
+    case 81:
+      v4 = @"SYS_BAND_WCDMA_II_PCS_1900";
+
+      break;
+    case 82:
+      v4 = @"SYS_BAND_WCDMA_III_1700";
+
+      break;
+    case 83:
+      v4 = @"SYS_BAND_WCDMA_IV_1700";
+
+      break;
+    case 84:
+      v4 = @"SYS_BAND_WCDMA_V_850";
+
+      break;
+    case 85:
+      v4 = @"SYS_BAND_WCDMA_VI_800";
+
+      break;
+    case 86:
+      v4 = @"SYS_BAND_WCDMA_VII_2600";
+
+      break;
+    case 87:
+      v4 = @"SYS_BAND_WCDMA_VIII_900";
+
+      break;
+    case 88:
+      v4 = @"SYS_BAND_WCDMA_IX_1700";
+
+      break;
+    case 90:
+      v4 = @"SYS_BAND_WCDMA_XI_1500";
+
+      break;
+    case 91:
+      v4 = @"SYS_BAND_WCDMA_XIX_850";
+
+      break;
+    case 120:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND1";
+
+      break;
+    case 121:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND2";
+
+      break;
+    case 122:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND3";
+
+      break;
+    case 123:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND4";
+
+      break;
+    case 124:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND5";
+
+      break;
+    case 125:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND6";
+
+      break;
+    case 126:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND7";
+
+      break;
+    case 127:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND8";
+
+      break;
+    case 128:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND9";
+
+      break;
+    case 129:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND10";
+
+      break;
+    case 130:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND11";
+
+      break;
+    case 131:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND12";
+
+      break;
+    case 132:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND13";
+
+      break;
+    case 133:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND14";
+
+      break;
+    case 136:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND17";
+
+      break;
+    case 137:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND18";
+
+      break;
+    case 138:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND19";
+
+      break;
+    case 139:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND20";
+
+      break;
+    case 140:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND21";
+
+      break;
+    case 143:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND24";
+
+      break;
+    case 144:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND25";
+
+      break;
+    case 145:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND26";
+
+      break;
+    case 152:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND33";
+
+      break;
+    case 153:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND34";
+
+      break;
+    case 154:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND35";
+
+      break;
+    case 155:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND36";
+
+      break;
+    case 156:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND37";
+
+      break;
+    case 157:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND38";
+
+      break;
+    case 158:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND39";
+
+      break;
+    case 159:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND40";
+
+      break;
+    case 160:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND41";
+
+      break;
+    case 161:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND42";
+
+      break;
+    case 162:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND43";
+
+      break;
+    case 163:
+      v4 = @"SYS_BAND_UMTS_BAND1";
+
+      break;
+    case 164:
+      v4 = @"SYS_BAND_UMTS_BAND2";
+
+      break;
+    case 165:
+      v4 = @"SYS_BAND_UMTS_BAND3";
+
+      break;
+    case 166:
+      v4 = @"SYS_BAND_UMTS_BAND4";
+
+      break;
+    case 167:
+      v4 = @"SYS_BAND_UMTS_BAND5";
+
+      break;
+    case 168:
+      v4 = @"SYS_BAND_UMTS_BAND6";
+
+      break;
+    default:
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_234:
+
+      break;
+  }
+
+  return v4;
 }
 
 - (int)StringAsHybridActiveBand:(id)band
@@ -1328,6 +2146,21 @@
   self->_has = (*&self->_has & 0xFFFFFFEF | v3);
 }
 
+- (id)gwRatAsString:(int)string
+{
+  if (string < 0x10 && ((0x9FFFu >> string) & 1) != 0)
+  {
+    v4 = *(&off_100318CB8 + string);
+  }
+
+  else
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsGwRat:(id)rat
 {
   ratCopy = rat;
@@ -1435,6 +2268,79 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFDF | v3);
+}
+
+- (id)gwSrvStatusAsString:(int)string
+{
+  if (string <= 2)
+  {
+    if (string > 0)
+    {
+      if (string == 1)
+      {
+        v4 = @"SYS_SRV_STATUS_LIMITED";
+      }
+
+      else
+      {
+        v4 = @"SYS_SRV_STATUS_SRV";
+      }
+    }
+
+    else if (string == -1)
+    {
+      v4 = @"SYS_SRV_STATUS_NONE";
+    }
+
+    else
+    {
+      if (string)
+      {
+LABEL_38:
+        v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"SYS_SRV_STATUS_NO_SRV";
+    }
+  }
+
+  else if (string <= 4)
+  {
+    if (string == 3)
+    {
+      v4 = @"SYS_SRV_STATUS_LIMITED_REGIONAL";
+    }
+
+    else
+    {
+      v4 = @"SYS_SRV_STATUS_PWR_SAVE";
+    }
+  }
+
+  else
+  {
+    switch(string)
+    {
+      case 5:
+        v4 = @"SYS_SRV_STATUS_MAX";
+
+        break;
+      case 100:
+        v4 = @"SYS_SRV_STATUS_LOW_POWER_MODE";
+
+        break;
+      case 101:
+        v4 = @"SYS_SRV_STATUS_CMAS_ONLY_MODE";
+
+        return v4;
+      default:
+        goto LABEL_38;
+    }
+  }
+
+  return v4;
 }
 
 - (int)StringAsGwSrvStatus:(id)status
@@ -2605,12 +3511,11 @@ LABEL_26:
 {
   toCopy = to;
   has = self->_has;
-  v28 = toCopy;
+  v7 = toCopy;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v28;
+    toCopy = v7;
     has = self->_has;
     if ((*&has & 0x10000) == 0)
     {
@@ -2629,9 +3534,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  rat = self->_rat;
   PBDataWriterWriteInt32Field();
-  toCopy = v28;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x20000) == 0)
   {
@@ -2645,9 +3549,8 @@ LABEL_4:
   }
 
 LABEL_33:
-  srvStatus = self->_srvStatus;
   PBDataWriterWriteInt32Field();
-  toCopy = v28;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x1000) == 0)
   {
@@ -2661,9 +3564,8 @@ LABEL_5:
   }
 
 LABEL_34:
-  mcc = self->_mcc;
   PBDataWriterWriteUint32Field();
-  toCopy = v28;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x40000) == 0)
   {
@@ -2677,9 +3579,8 @@ LABEL_6:
   }
 
 LABEL_35:
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
-  toCopy = v28;
+  toCopy = v7;
   has = self->_has;
   if ((*&has & 0x800) == 0)
   {
@@ -2693,35 +3594,32 @@ LABEL_7:
   }
 
 LABEL_36:
-  is95Sid = self->_is95Sid;
   PBDataWriterWriteUint32Field();
-  toCopy = v28;
+  toCopy = v7;
   if ((*&self->_has & 0x400) != 0)
   {
 LABEL_8:
-    is95Nid = self->_is95Nid;
     PBDataWriterWriteUint32Field();
-    toCopy = v28;
+    toCopy = v7;
   }
 
 LABEL_9:
   if (self->_sectorId)
   {
     PBDataWriterWriteDataField();
-    toCopy = v28;
+    toCopy = v7;
   }
 
-  v7 = self->_has;
-  if ((*&v7 & 2) != 0)
+  v6 = self->_has;
+  if ((*&v6 & 2) != 0)
   {
-    band = self->_band;
     PBDataWriterWriteInt32Field();
-    toCopy = v28;
-    v7 = self->_has;
-    if ((*&v7 & 8) == 0)
+    toCopy = v7;
+    v6 = self->_has;
+    if ((*&v6 & 8) == 0)
     {
 LABEL_13:
-      if ((*&v7 & 4) == 0)
+      if ((*&v6 & 4) == 0)
       {
         goto LABEL_14;
       }
@@ -2730,19 +3628,18 @@ LABEL_13:
     }
   }
 
-  else if ((*&v7 & 8) == 0)
+  else if ((*&v6 & 8) == 0)
   {
     goto LABEL_13;
   }
 
-  channel = self->_channel;
   PBDataWriterWriteUint32Field();
-  toCopy = v28;
-  v7 = self->_has;
-  if ((*&v7 & 4) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 4) == 0)
   {
 LABEL_14:
-    if ((*&v7 & 0x80000) == 0)
+    if ((*&v6 & 0x80000) == 0)
     {
       goto LABEL_15;
     }
@@ -2751,14 +3648,13 @@ LABEL_14:
   }
 
 LABEL_40:
-  baseId = self->_baseId;
   PBDataWriterWriteUint32Field();
-  toCopy = v28;
-  v7 = self->_has;
-  if ((*&v7 & 0x80000) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x80000) == 0)
   {
 LABEL_15:
-    if ((*&v7 & 0x80) == 0)
+    if ((*&v6 & 0x80) == 0)
     {
       goto LABEL_16;
     }
@@ -2767,14 +3663,13 @@ LABEL_15:
   }
 
 LABEL_41:
-  zoneId = self->_zoneId;
   PBDataWriterWriteUint32Field();
-  toCopy = v28;
-  v7 = self->_has;
-  if ((*&v7 & 0x80) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x80) == 0)
   {
 LABEL_16:
-    if ((*&v7 & 0x100000) == 0)
+    if ((*&v6 & 0x100000) == 0)
     {
       goto LABEL_17;
     }
@@ -2783,14 +3678,13 @@ LABEL_16:
   }
 
 LABEL_42:
-  hdrSrvStatus = self->_hdrSrvStatus;
   PBDataWriterWriteInt32Field();
-  toCopy = v28;
-  v7 = self->_has;
-  if ((*&v7 & 0x100000) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x100000) == 0)
   {
 LABEL_17:
-    if ((*&v7 & 0x100) == 0)
+    if ((*&v6 & 0x100) == 0)
     {
       goto LABEL_18;
     }
@@ -2799,14 +3693,13 @@ LABEL_17:
   }
 
 LABEL_43:
-  hdrHybrid = self->_hdrHybrid;
   PBDataWriterWriteBOOLField();
-  toCopy = v28;
-  v7 = self->_has;
-  if ((*&v7 & 0x100) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x100) == 0)
   {
 LABEL_18:
-    if ((*&v7 & 0x200) == 0)
+    if ((*&v6 & 0x200) == 0)
     {
       goto LABEL_19;
     }
@@ -2815,14 +3708,13 @@ LABEL_18:
   }
 
 LABEL_44:
-  hybridActiveBand = self->_hybridActiveBand;
   PBDataWriterWriteInt32Field();
-  toCopy = v28;
-  v7 = self->_has;
-  if ((*&v7 & 0x200) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x200) == 0)
   {
 LABEL_19:
-    if ((*&v7 & 0x40) == 0)
+    if ((*&v6 & 0x40) == 0)
     {
       goto LABEL_20;
     }
@@ -2831,14 +3723,13 @@ LABEL_19:
   }
 
 LABEL_45:
-  hybridActiveChannel = self->_hybridActiveChannel;
   PBDataWriterWriteUint32Field();
-  toCopy = v28;
-  v7 = self->_has;
-  if ((*&v7 & 0x40) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x40) == 0)
   {
 LABEL_20:
-    if ((*&v7 & 0x4000) == 0)
+    if ((*&v6 & 0x4000) == 0)
     {
       goto LABEL_21;
     }
@@ -2847,14 +3738,13 @@ LABEL_20:
   }
 
 LABEL_46:
-  hdrPilotPn = self->_hdrPilotPn;
   PBDataWriterWriteUint32Field();
-  toCopy = v28;
-  v7 = self->_has;
-  if ((*&v7 & 0x4000) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x4000) == 0)
   {
 LABEL_21:
-    if ((*&v7 & 0x10) == 0)
+    if ((*&v6 & 0x10) == 0)
     {
       goto LABEL_22;
     }
@@ -2863,14 +3753,13 @@ LABEL_21:
   }
 
 LABEL_47:
-  pilotPn = self->_pilotPn;
   PBDataWriterWriteUint32Field();
-  toCopy = v28;
-  v7 = self->_has;
-  if ((*&v7 & 0x10) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x10) == 0)
   {
 LABEL_22:
-    if ((*&v7 & 0x20) == 0)
+    if ((*&v6 & 0x20) == 0)
     {
       goto LABEL_23;
     }
@@ -2879,14 +3768,13 @@ LABEL_22:
   }
 
 LABEL_48:
-  gwRat = self->_gwRat;
   PBDataWriterWriteInt32Field();
-  toCopy = v28;
-  v7 = self->_has;
-  if ((*&v7 & 0x20) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x20) == 0)
   {
 LABEL_23:
-    if ((*&v7 & 0x2000) == 0)
+    if ((*&v6 & 0x2000) == 0)
     {
       goto LABEL_24;
     }
@@ -2895,14 +3783,13 @@ LABEL_23:
   }
 
 LABEL_49:
-  gwSrvStatus = self->_gwSrvStatus;
   PBDataWriterWriteInt32Field();
-  toCopy = v28;
-  v7 = self->_has;
-  if ((*&v7 & 0x2000) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((*&v6 & 0x2000) == 0)
   {
 LABEL_24:
-    if ((*&v7 & 0x8000) == 0)
+    if ((*&v6 & 0x8000) == 0)
     {
       goto LABEL_26;
     }
@@ -2911,22 +3798,20 @@ LABEL_24:
   }
 
 LABEL_50:
-  numSubs = self->_numSubs;
   PBDataWriterWriteUint32Field();
-  toCopy = v28;
+  toCopy = v7;
   if ((*&self->_has & 0x8000) != 0)
   {
 LABEL_25:
-    psPref = self->_psPref;
     PBDataWriterWriteUint32Field();
-    toCopy = v28;
+    toCopy = v7;
   }
 
 LABEL_26:
   if (self->_plmn)
   {
     PBDataWriterWriteDataField();
-    toCopy = v28;
+    toCopy = v7;
   }
 }
 
@@ -3730,7 +4615,7 @@ LABEL_24:
     }
 
 LABEL_115:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_116;
   }
 
@@ -3739,7 +4624,6 @@ LABEL_115:
     goto LABEL_115;
   }
 
-  v9 = *(equalCopy + 108);
   if (self->_hdrHybrid)
   {
     if ((*(equalCopy + 108) & 1) == 0)
@@ -3861,17 +4745,17 @@ LABEL_67:
   plmn = self->_plmn;
   if (plmn | *(equalCopy + 9))
   {
-    v11 = [(NSData *)plmn isEqual:?];
+    v10 = [(NSData *)plmn isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v10 = 1;
   }
 
 LABEL_116:
 
-  return v11;
+  return v10;
 }
 
 - (unint64_t)hash

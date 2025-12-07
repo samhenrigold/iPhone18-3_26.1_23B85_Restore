@@ -49,35 +49,35 @@
 {
   nameCopy = name;
   v4 = nameCopy;
-  if (nameCopy && [nameCopy length])
+  if (nameCopy && (v5 = [nameCopy length]) != 0)
   {
-    v5 = MEMORY[0x1E696AEC0];
-    v6 = CKFrameworkBundle();
-    v7 = [v6 localizedStringForKey:@"FILTERED_BY_APP_NAME" value:&stru_1F04268F8 table:@"ChatKit"];
-    v8 = [v5 stringWithFormat:v7, v4];
+    v6 = MEMORY[0x1E696AEC0];
+    v7 = CKFrameworkBundle(v5);
+    v8 = [v7 localizedStringForKey:@"FILTERED_BY_APP_NAME" value:&stru_1F04268F8 table:@"ChatKit"];
+    v9 = [v6 stringWithFormat:v8, v4];
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection == 1)
     {
-      v11 = @"\u200F";
+      v12 = @"\u200F";
     }
 
     else
     {
-      v11 = @"\u200E";
+      v12 = @"\u200E";
     }
 
-    v12 = [(__CFString *)v11 stringByAppendingString:v8];
+    v13 = [(__CFString *)v12 stringByAppendingString:v9];
   }
 
   else
   {
-    v12 = &stru_1F04268F8;
+    v13 = &stru_1F04268F8;
   }
 
-  return v12;
+  return v13;
 }
 
 @end

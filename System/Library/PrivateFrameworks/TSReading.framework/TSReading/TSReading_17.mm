@@ -1,3 +1,33 @@
+BOOL TSTTableHasRowShownInRange(_WORD *a1, unint64_t a2)
+{
+  if (!a1[42])
+  {
+    return 1;
+  }
+
+  v2 = a2;
+  v4 = HIWORD(a2);
+  if (!a1[44] && !a1[46])
+  {
+    v5 = [MEMORY[0x277D6C290] currentHandler];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BOOL TSTTableHasRowShownInRange(TSTTableModel *, TSTCellRange)"}];
+    [v5 handleFailureInFunction:v6 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTTableModel.mm"), 3603, @"Either mNumberOfUserHiddenRows or mNumberOfFilteredRows should be larger than 0 when mNumberOfHiddenRows is larger than 0"}];
+  }
+
+  v7 = v4 + v2;
+  do
+  {
+    v8 = v7 > v2;
+    if (v7 <= v2)
+    {
+      break;
+    }
+  }
+
+  while (TSTHidingActionForRow(a1, v2++));
+  return v8;
+}
+
 BOOL TSTTableHasColumnHiddenForActionInRange(uint64_t a1, unint64_t a2, int a3)
 {
   if (!*(a1 + 86))
@@ -32,7 +62,7 @@ BOOL TSTTableHasColumnHiddenForActionInRange(uint64_t a1, unint64_t a2, int a3)
   return v11;
 }
 
-uint64_t TSTTableHasColumnShownInRange(uint64_t a1, unint64_t a2)
+BOOL TSTTableHasColumnShownInRange(uint64_t a1, unint64_t a2)
 {
   if (!*(a1 + 86))
   {
@@ -68,13 +98,13 @@ uint64_t TSTTableHasColumnShownInRange(uint64_t a1, unint64_t a2)
 
 uint64_t TSTTableHasCellRangeHidden(_WORD *a1, unint64_t a2)
 {
-  if (!a1[43] && !a1[42])
+  if (!*(a1 + 21))
   {
     return 0;
   }
 
   v4 = HIDWORD(a2);
-  if (!a1[45] && !a1[44] && !a1[46])
+  if (!*(a1 + 22) && !a1[46])
   {
     v5 = [MEMORY[0x277D6C290] currentHandler];
     v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"BOOL TSTTableHasCellRangeHidden(TSTTableModel *, TSTCellRange)"}];
@@ -99,7 +129,7 @@ uint64_t TSTTableHasCellRangeHidden(_WORD *a1, unint64_t a2)
       }
     }
 
-LABEL_13:
+LABEL_12:
     LOBYTE(v7) = v7 + 1;
     if (v8 <= v7)
     {
@@ -117,7 +147,7 @@ LABEL_13:
 
     if ((HIWORD(a2) + a2) <= ++v9)
     {
-      goto LABEL_13;
+      goto LABEL_12;
     }
   }
 }
@@ -127,7 +157,7 @@ __CFString *TSTTableStringForCellAtCellID(uint64_t a1, __CFString *a2, int a3)
   if (a2)
   {
 
-    return NSStringFromNativeTSTCell(a2);
+    return NSStringFromNativeTSTCell(a2, a2);
   }
 
   else
@@ -141,9 +171,9 @@ __CFString *TSTTableStringForCellAtCellID(uint64_t a1, __CFString *a2, int a3)
     if (v5[2] << 8 != 768)
     {
       v11 = [[TSTCell alloc] initWithStorageRef:v5 dataStore:*(a1 + 48)];
-      v12 = NSStringFromNativeTSTCell(v11);
+      v13 = NSStringFromNativeTSTCell(v11, v12);
 
-      return v12;
+      return v13;
     }
 
     if ((v5[4] & 0x10) == 0)
@@ -171,7 +201,7 @@ __CFString *TSTTableStringForCellAtCellID(uint64_t a1, __CFString *a2, int a3)
   }
 }
 
-uint64_t TSTTableGetFontColorForCell(uint64_t *a1, uint64_t a2, unsigned int a3)
+id TSTTableGetFontColorForCell(void *a1, uint64_t a2, int a3)
 {
   if (!a2 || (TextStyleAtCellID = *(a2 + 56)) == 0)
   {
@@ -323,7 +353,7 @@ uint64_t TSTTableGetFooterRowsFill(void *a1)
   return [v1 valueForProperty:898];
 }
 
-uint64_t TSTTableGetRowFill(uint64_t *a1, uint64_t a2)
+uint64_t TSTTableGetRowFill(void *a1, uint64_t a2)
 {
   v4 = 0;
   CellStyleAtRow = TSTTableGetCellStyleAtRow(a1, a2, &v4);
@@ -338,7 +368,7 @@ uint64_t TSTTableGetRowFill(uint64_t *a1, uint64_t a2)
   }
 }
 
-uint64_t TSTTableGetColumnFill(uint64_t *a1, uint64_t a2)
+uint64_t TSTTableGetColumnFill(void *a1, uint64_t a2)
 {
   v4 = 0;
   CellStyleAtColumn = TSTTableGetCellStyleAtColumn(a1, a2, &v4);
@@ -353,7 +383,7 @@ uint64_t TSTTableGetColumnFill(uint64_t *a1, uint64_t a2)
   }
 }
 
-id TSTTableGetDefaultHorizontalBorderStroke(TSTTableModel *a1)
+uint64_t TSTTableGetDefaultHorizontalBorderStroke(TSTTableModel *a1)
 {
   if (![(TSSStyle *)[(TSTTableModel *)a1 tableStyle] intValueForProperty:796])
   {
@@ -365,7 +395,7 @@ id TSTTableGetDefaultHorizontalBorderStroke(TSTTableModel *a1)
   return [(TSSStyle *)v2 valueForProperty:771];
 }
 
-id TSTTableGetDefaultVerticalBorderStroke(TSTTableModel *a1)
+uint64_t TSTTableGetDefaultVerticalBorderStroke(TSTTableModel *a1)
 {
   if (![(TSSStyle *)[(TSTTableModel *)a1 tableStyle] intValueForProperty:796])
   {
@@ -527,7 +557,7 @@ uint64_t TSTTableGetDefaultFooterRowSeparatorStroke(void *a1)
   return [v1 valueForProperty:783];
 }
 
-void *TSTTableGetDefaultStrokesForColumn(uint64_t *a1, uint64_t a2, void *a3, void *a4)
+void *TSTTableGetDefaultStrokesForColumn(void *a1, uint64_t a2, void *a3, void *a4)
 {
   if (a3)
   {
@@ -566,7 +596,7 @@ void *TSTTableGetDefaultStrokesForColumn(uint64_t *a1, uint64_t a2, void *a3, vo
   return result;
 }
 
-void *TSTTableGetDefaultStrokesForRow(uint64_t *a1, uint64_t a2, void *a3, void *a4)
+void *TSTTableGetDefaultStrokesForRow(void *a1, uint64_t a2, void *a3, void *a4)
 {
   if (a3)
   {
@@ -605,7 +635,7 @@ void *TSTTableGetDefaultStrokesForRow(uint64_t *a1, uint64_t a2, void *a3, void 
   return result;
 }
 
-uint64_t p_setStrokeResult(uint64_t a1, int a2, void *a3, uint64_t *a4)
+void *p_setStrokeResult(uint64_t a1, int a2, void *a3, void *a4)
 {
   v6 = [a3 valueForProperty:a1];
   result = [MEMORY[0x277CBEB68] null];
@@ -630,14 +660,14 @@ LABEL_6:
   return result;
 }
 
-uint64_t TSTTableGetStrokesForCellID(uint64_t a1, unsigned int a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t a7)
+void *TSTTableGetStrokesForCellID(uint64_t a1, unsigned int a2, void *a3, void *a4, uint64_t *a5, void *a6, uint64_t a7)
 {
   v14 = TSTTableDataStoreMergeRangeAtCellID(*(a1 + 48), a2);
 
   return TSTTableGetStrokesForCellIDWithMergeRange(a1, a2, v14, a3, a4, a5, a6, a7);
 }
 
-uint64_t TSTTableGetStrokesForCellIDWithMergeRange(uint64_t a1, int a2, unint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t a8)
+void *TSTTableGetStrokesForCellIDWithMergeRange(uint64_t a1, int a2, unint64_t a3, void *a4, void *a5, uint64_t *a6, void *a7, uint64_t a8)
 {
   result = [MEMORY[0x277CBEB68] null];
   if (a8)
@@ -978,10 +1008,10 @@ LABEL_13:
         return 1;
       }
 
-      v9 = v4[-1].n128_f64[0];
+      v9 = *(v4 - 2);
       v10 = (v5 + v7);
       v11 = (v5 + v7 + 16);
-      v12 = v4 - v5 - v7;
+      v12 = &v4[-v5 - v7];
       v13 = v12 - 16;
       if (v11 != v4)
       {
@@ -998,17 +1028,18 @@ LABEL_13:
 
 LABEL_11:
     v14 = *this;
-    v15 = v4->n128_u64 - *this;
-    if (v4[-1].n128_f64[0] <= a3)
+    v15 = &v4[-*this];
+    if (*(v4 - 2) <= a3)
     {
       if (v15 == 160)
       {
-        *(this + 1) = --v4;
+        *(this + 1) = v4 - 16;
+        v4 -= 16;
       }
 
-      while (v14 < v4 && v14->n128_f64[0] > a3)
+      while (v14 < v4 && *v14 > a3)
       {
-        ++v14;
+        v14 += 16;
       }
 
       std::vector<TSTWidthHeightCache_Private::WHCWidthBucket>::insert(this, v14, &v17);
@@ -1027,7 +1058,7 @@ LABEL_11:
   return result;
 }
 
-__n128 *std::vector<TSTWidthHeightCache_Private::WHCWidthBucket>::insert(void *a1, __n128 *__src, __n128 *a3)
+char *std::vector<TSTWidthHeightCache_Private::WHCWidthBucket>::insert(void *a1, char *__src, __n128 *a3)
 {
   v4 = __src;
   v6 = a1[1];
@@ -1035,13 +1066,13 @@ __n128 *std::vector<TSTWidthHeightCache_Private::WHCWidthBucket>::insert(void *a
   if (v6 >= v7)
   {
     v10 = *a1;
-    v11 = ((v6 - *a1) >> 4) + 1;
+    v11 = (&v6[-*a1] >> 4) + 1;
     if (v11 >> 60)
     {
       std::string::__throw_length_error[abi:nn200100]();
     }
 
-    v12 = __src - v10;
+    v12 = &__src[-v10];
     v13 = v7 - v10;
     if (v13 >> 3 > v11)
     {
@@ -1097,12 +1128,12 @@ __n128 *std::vector<TSTWidthHeightCache_Private::WHCWidthBucket>::insert(void *a
   else if (__src == v6)
   {
     *v6 = *a3;
-    a1[1] = v6 + 1;
+    a1[1] = v6 + 16;
   }
 
   else
   {
-    v8 = __src + 1;
+    v8 = __src + 16;
     if (v6 < 0x10)
     {
       v9 = a1[1];
@@ -1110,8 +1141,8 @@ __n128 *std::vector<TSTWidthHeightCache_Private::WHCWidthBucket>::insert(void *a
 
     else
     {
-      v9 = v6 + 1;
-      *v6 = v6[-1];
+      v9 = (v6 + 16);
+      *v6 = *(v6 - 1);
     }
 
     a1[1] = v9;
@@ -1129,9 +1160,9 @@ __n128 *std::vector<TSTWidthHeightCache_Private::WHCWidthBucket>::insert(void *a
     }
 
     v25 = &a3[v24];
-    v26 = v25->n128_u64[0];
-    v4->n128_u32[2] = v25->n128_u32[2];
-    v4->n128_u64[0] = v26;
+    v26 = *v25;
+    *(v4 + 2) = *(v25 + 2);
+    *v4 = v26;
   }
 
   return v4;
@@ -1321,8 +1352,9 @@ double TSTWidthHeightCache_Private::WHCRow::getMaxHeight(TSTWidthHeightCache_Pri
   return result;
 }
 
-uint64_t TSTWidthHeightCache_Private::WHCRow::setHeight(TSTWidthHeightCache_Private::WHCRow *this, unsigned int a2, double a3)
+uint64_t TSTWidthHeightCache_Private::WHCRow::setHeight(TSTWidthHeightCache_Private::WHCRow *this, uint64_t a2, double a3)
 {
+  v4 = a2;
   v6 = TSTWidthHeightCache_NibArray::NibArray<8u>::get(this, a2);
   if ((v6 - 16) <= 0xFFFFFFFD)
   {
@@ -1368,7 +1400,7 @@ uint64_t TSTWidthHeightCache_Private::WHCRow::setHeight(TSTWidthHeightCache_Priv
       *(this + 17) = v8 + v12;
     }
 
-    TSTWidthHeightCache_NibArray::NibArray<8u>::set(this, a2, 15);
+    TSTWidthHeightCache_NibArray::NibArray<8u>::set(this, v4, 15);
   }
 
   v14 = *(this + 16);
@@ -1405,7 +1437,7 @@ uint64_t TSTWidthHeightCache_Private::WHCRow::setHeight(TSTWidthHeightCache_Priv
       *(v13 + 8) = 256;
       *(this + 17) = v13 + 16;
       v15 = this;
-      v16 = a2;
+      v16 = v4;
       v17 = 0;
       goto LABEL_43;
     }
@@ -1423,18 +1455,19 @@ uint64_t TSTWidthHeightCache_Private::WHCRow::setHeight(TSTWidthHeightCache_Priv
     else
     {
       v19 = *(this + 16);
-      while (v19->n128_f64[0] > a3)
+      while (*v19 > a3)
       {
-        if (++v19 >= v13)
+        v19 += 16;
+        if (v19 >= v13)
         {
           goto LABEL_29;
         }
       }
 
-      if (v19->n128_f64[0] == a3)
+      if (*v19 == a3)
       {
-        TSTWidthHeightCache_NibArray::NibArray<8u>::set(this, a2, v19->n128_i8[8]);
-        ++v19->n128_u8[9];
+        TSTWidthHeightCache_NibArray::NibArray<8u>::set(this, v4, v19[8]);
+        ++v19[9];
         return 1;
       }
 
@@ -1445,10 +1478,10 @@ uint64_t TSTWidthHeightCache_Private::WHCRow::setHeight(TSTWidthHeightCache_Priv
         v28 = v27 - 16;
         if (v19 == (v27 - 16))
         {
-          TSTWidthHeightCache_NibArray::NibArray<8u>::set(this, a2, v19->n128_i8[8]);
-          v19->n128_f64[0] = a3;
+          TSTWidthHeightCache_NibArray::NibArray<8u>::set(this, v4, v19[8]);
+          *v19 = a3;
           v20 = 1;
-          v19->n128_u8[9] = 1;
+          v19[9] = 1;
           return v20;
         }
 
@@ -1482,7 +1515,7 @@ LABEL_29:
       v20 = 1;
       v30.n128_u8[9] = 1;
       std::vector<TSTWidthHeightCache_Private::WHCHeightBucket>::insert(this + 16, v19, &v30);
-      TSTWidthHeightCache_NibArray::NibArray<8u>::set(this, a2, v21);
+      TSTWidthHeightCache_NibArray::NibArray<8u>::set(this, v4, v21);
       return v20;
     }
 
@@ -1493,7 +1526,7 @@ LABEL_32:
   if (v13 - v14 == 224)
   {
     v15 = this;
-    v16 = a2;
+    v16 = v4;
     v17 = 14;
 LABEL_43:
     TSTWidthHeightCache_NibArray::NibArray<8u>::set(v15, v16, v17);
@@ -1507,7 +1540,7 @@ LABEL_43:
   }
 
 LABEL_27:
-  TSTWidthHeightCache_NibArray::NibArray<8u>::set(this, a2, 14);
+  TSTWidthHeightCache_NibArray::NibArray<8u>::set(this, v4, 14);
   return 0;
 }
 
@@ -1524,7 +1557,7 @@ uint64_t TSTWidthHeightCache_NibArray::NibArray<8u>::get(uint64_t a1, unsigned i
   return (*(a1 + (v2 >> 1)) >> (4 * (v2 & 1))) & 0xF;
 }
 
-uint64_t TSTWidthHeightCache_NibArray::NibArray<8u>::set(uint64_t result, unsigned int a2, char a3)
+_BYTE *TSTWidthHeightCache_NibArray::NibArray<8u>::set(_BYTE *result, unsigned int a2, char a3)
 {
   v4 = a2;
   v5 = result;
@@ -1535,11 +1568,11 @@ uint64_t TSTWidthHeightCache_NibArray::NibArray<8u>::set(uint64_t result, unsign
     result = [v6 handleFailureInFunction:v7 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTWidthHeightCache_NibArray.h"), 50, @"setting an element past the end of the nibble array."}];
   }
 
-  *(v5 + (v4 >> 1)) = (0xF0u >> (4 * (v4 & 1))) & *(v5 + (v4 >> 1)) | ((a3 & 0xF) << (4 * (v4 & 1)));
+  v5[v4 >> 1] = (0xF0u >> (4 * (v4 & 1))) & v5[v4 >> 1] | ((a3 & 0xF) << (4 * (v4 & 1)));
   return result;
 }
 
-uint64_t TSTWidthHeightCache_NibArray::NibArray<8u>::setValueToValue(uint64_t a1, int a2, char a3, uint64_t a4, unsigned int a5)
+uint64_t TSTWidthHeightCache_NibArray::NibArray<8u>::setValueToValue(_BYTE *a1, int a2, char a3, uint64_t a4, unsigned int a5)
 {
   if (a5 >= 0x101)
   {
@@ -1581,7 +1614,7 @@ uint64_t TSTWidthHeightCache_NibArray::NibArray<8u>::setValueToValue(uint64_t a1
   return a4;
 }
 
-__n128 *std::vector<TSTWidthHeightCache_Private::WHCHeightBucket>::insert(void *a1, __n128 *__src, __n128 *a3)
+char *std::vector<TSTWidthHeightCache_Private::WHCHeightBucket>::insert(void *a1, char *__src, __n128 *a3)
 {
   v4 = __src;
   v6 = a1[1];
@@ -1589,13 +1622,13 @@ __n128 *std::vector<TSTWidthHeightCache_Private::WHCHeightBucket>::insert(void *
   if (v6 >= v7)
   {
     v10 = *a1;
-    v11 = ((v6 - *a1) >> 4) + 1;
+    v11 = (&v6[-*a1] >> 4) + 1;
     if (v11 >> 60)
     {
       std::string::__throw_length_error[abi:nn200100]();
     }
 
-    v12 = __src - v10;
+    v12 = &__src[-v10];
     v13 = v7 - v10;
     if (v13 >> 3 > v11)
     {
@@ -1651,12 +1684,12 @@ __n128 *std::vector<TSTWidthHeightCache_Private::WHCHeightBucket>::insert(void *
   else if (__src == v6)
   {
     *v6 = *a3;
-    a1[1] = v6 + 1;
+    a1[1] = v6 + 16;
   }
 
   else
   {
-    v8 = __src + 1;
+    v8 = __src + 16;
     if (v6 < 0x10)
     {
       v9 = a1[1];
@@ -1664,8 +1697,8 @@ __n128 *std::vector<TSTWidthHeightCache_Private::WHCHeightBucket>::insert(void *
 
     else
     {
-      v9 = v6 + 1;
-      *v6 = v6[-1];
+      v9 = v6 + 16;
+      *v6 = *(v6 - 1);
     }
 
     a1[1] = v9;
@@ -1675,8 +1708,8 @@ __n128 *std::vector<TSTWidthHeightCache_Private::WHCHeightBucket>::insert(void *
     }
 
     v23 = a3->n128_u64[0];
-    v4->n128_u16[4] = a3->n128_u16[4];
-    v4->n128_u64[0] = v23;
+    *(v4 + 4) = a3->n128_u16[4];
+    *v4 = v23;
   }
 
   return v4;
@@ -1760,18 +1793,18 @@ LABEL_16:
       }
     }
 
-    v7 = v4[16];
-    v6 = v4[17];
+    v7 = *(v4 + 128);
+    v6 = *(v4 + 136);
     if (v7 != v6)
     {
-      v8 = v4[16];
+      v8 = *(v4 + 128);
       while (v8[8] != this)
       {
         v8 += 16;
         v7 += 16;
         if (v8 == v6)
         {
-          v7 = v4[17];
+          v7 = *(v4 + 136);
           break;
         }
       }
@@ -1786,14 +1819,14 @@ LABEL_16:
         abort();
       }
 
-      v4[19] &= ~(1 << this);
+      *(v4 + 152) &= ~(1 << this);
       v10 = v6 - (v7 + 16);
       if (v6 != v7 + 16)
       {
         memmove(v7, v7 + 16, v10 - 6);
       }
 
-      v4[17] = &v7[v10];
+      *(v4 + 136) = &v7[v10];
     }
 
 LABEL_15:
@@ -1830,18 +1863,18 @@ LABEL_16:
       }
     }
 
-    v7 = v5[16];
-    v6 = v5[17];
+    v7 = *(v5 + 128);
+    v6 = *(v5 + 136);
     if (v7 != v6)
     {
-      v8 = v5[16];
+      v8 = *(v5 + 128);
       while (v8[8] != this)
       {
         v8 += 16;
         v7 += 16;
         if (v8 == v6)
         {
-          v7 = v5[17];
+          v7 = *(v5 + 136);
           break;
         }
       }
@@ -1856,14 +1889,14 @@ LABEL_16:
         abort();
       }
 
-      v5[19] &= ~(1 << this);
+      *(v5 + 152) &= ~(1 << this);
       v10 = v6 - (v7 + 16);
       if (v6 != v7 + 16)
       {
         memmove(v7, v7 + 16, v10 - 6);
       }
 
-      v5[17] = &v7[v10];
+      *(v5 + 136) = &v7[v10];
     }
 
 LABEL_15:
@@ -1874,7 +1907,7 @@ LABEL_15:
   return this;
 }
 
-void *TSTWidthHeightCache_NibArray::NibArray<8u>::move(uint64_t a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5)
+void *TSTWidthHeightCache_NibArray::NibArray<8u>::move(unsigned __int8 *a1, unsigned int a2, unsigned int a3, unsigned int a4, unsigned int a5)
 {
   v8 = a2;
   v9 = a1;
@@ -1989,11 +2022,13 @@ void *TSTWidthHeightCache_NibArray::NibArray<8u>::move(uint64_t a1, unsigned int
   return result;
 }
 
-uint64_t TSTWidthHeightCache_NibArray::NibArray<8u>::insert(uint64_t result, int a2, unsigned int a3, char a4)
+_BYTE *TSTWidthHeightCache_NibArray::NibArray<8u>::insert(_BYTE *result, int a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
+  v5 = a3;
   v7 = result;
   v8 = a3 + a2;
-  if (a3 + a2 > 0xFF)
+  if ((a3 + a2) > 0xFF)
   {
     v9 = [MEMORY[0x277D6C290] currentHandler];
     v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTWidthHeightCache_NibArray::NibArray<8>::insert(uint, uint, uint8_t) [log2NumElements = 8]"}];
@@ -2029,14 +2064,14 @@ uint64_t TSTWidthHeightCache_NibArray::NibArray<8u>::insert(uint64_t result, int
 
     else
     {
-      memmove((result + (v8 >> 1)), (result + (a3 >> 1)), (256 - v8) >> 1);
+      memmove(&result[v8 >> 1], &result[a3 >> 1], (256 - v8) >> 1);
     }
   }
 
-  return TSTWidthHeightCache_NibArray::NibArray<8u>::setRange(v7, a3, v8, a4);
+  return TSTWidthHeightCache_NibArray::NibArray<8u>::setRange(v7, v5, v8, v4);
 }
 
-void *std::vector<TSTWidthHeightCache_Private::WHCCol>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<TSTWidthHeightCache_Private::WHCCol>::reserve(uint64_t *result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 5)
   {
@@ -2051,9 +2086,9 @@ void *std::vector<TSTWidthHeightCache_Private::WHCCol>::reserve(void *result, un
   return result;
 }
 
-void sub_26C9D1478(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C9D1478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<TSTWidthHeightCache_Private::WHCCol>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2099,7 +2134,7 @@ void std::vector<TSTWidthHeightCache_Private::WHCCol>::resize(uint64_t *a1, unin
   }
 }
 
-void std::vector<TSTWidthHeightCache_Private::WHCRow>::resize(void *a1, unint64_t a2)
+void std::vector<TSTWidthHeightCache_Private::WHCRow>::resize(unint64_t *a1, unint64_t a2)
 {
   v3 = a1[1];
   v4 = 0xCF3CF3CF3CF3CF3DLL * ((v3 - *a1) >> 3);
@@ -2360,9 +2395,9 @@ LABEL_15:
   return v4;
 }
 
-void sub_26C9D2214(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C9D2214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<TSTWidthHeightCache_Private::WHCCol>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2474,7 +2509,7 @@ char *std::vector<double>::insert(void *a1, char *__src, unint64_t a3, char *a4)
       }
 
       v28 += 2;
-      v31 += 2;
+      v31 += 16;
     }
 
     while (((v17 + 1) & 0xFFFFFFFFFFFFFFFELL) != v28);
@@ -2735,28 +2770,35 @@ LABEL_15:
   return v4;
 }
 
-void sub_26C9D2938(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C9D2938(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<TSTWidthHeightCache_Private::WHCRow>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_26C9D2B54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14)
+void sub_26C9D2B54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, char *a14)
 {
   a14 = &a10;
   std::vector<TSTWidthHeightCache_Private::WHCRow>::__destroy_vector::operator()[abi:nn200100](&a14);
   _Unwind_Resume(a1);
 }
 
-void sub_26C9D2D6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, void **a16)
+void sub_26C9D2D6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, char *a16)
 {
   a16 = &a12;
   std::vector<TSTWidthHeightCache_Private::WHCCol>::__destroy_vector::operator()[abi:nn200100](&a16);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<TSTWidthHeightCache_Private::WHCRow>::reserve(void *result, unint64_t a2)
+void sub_26C9D3A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t *std::vector<TSTWidthHeightCache_Private::WHCRow>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0xCF3CF3CF3CF3CF3DLL * ((result[2] - *result) >> 3) < a2)
   {
@@ -2771,9 +2813,9 @@ void *std::vector<TSTWidthHeightCache_Private::WHCRow>::reserve(void *result, un
   return result;
 }
 
-void sub_26C9D3E28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C9D3E28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<TSTWidthHeightCache_Private::WHCRow>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2814,7 +2856,7 @@ void std::__fill_n_BOOL[abi:nn200100]<false,std::__bitset<1ul,14ul>>(uint64_t a1
   }
 }
 
-__n128 std::__split_buffer<TSTWidthHeightCache_Private::WHCWidthBucket>::emplace_back<TSTWidthHeightCache_Private::WHCWidthBucket const&>(__n128 **a1, __n128 *a2)
+__n128 std::__split_buffer<TSTWidthHeightCache_Private::WHCWidthBucket>::emplace_back<TSTWidthHeightCache_Private::WHCWidthBucket const&>(unint64_t *a1, __n128 *a2)
 {
   v4 = a1[2];
   if (v4 == a1[3])
@@ -2847,17 +2889,17 @@ __n128 std::__split_buffer<TSTWidthHeightCache_Private::WHCWidthBucket>::emplace
     }
 
     v4 = (v9 + v10);
-    a1[1] = &v5[v7];
-    a1[2] = (v9 + v10);
+    a1[1] = v5[v7].n128_u64;
+    a1[2] = v9->n128_u64 + v10;
   }
 
   result = *a2;
   *v4 = *a2;
-  ++a1[2];
+  a1[2] += 16;
   return result;
 }
 
-__n128 std::__split_buffer<TSTWidthHeightCache_Private::WHCHeightBucket>::emplace_back<TSTWidthHeightCache_Private::WHCHeightBucket>(__n128 **a1, __n128 *a2)
+__n128 std::__split_buffer<TSTWidthHeightCache_Private::WHCHeightBucket>::emplace_back<TSTWidthHeightCache_Private::WHCHeightBucket>(unint64_t *a1, __n128 *a2)
 {
   v4 = a1[2];
   if (v4 == a1[3])
@@ -2890,17 +2932,17 @@ __n128 std::__split_buffer<TSTWidthHeightCache_Private::WHCHeightBucket>::emplac
     }
 
     v4 = (v9 + v10);
-    a1[1] = &v5[v7];
-    a1[2] = (v9 + v10);
+    a1[1] = v5[v7].n128_u64;
+    a1[2] = v9->n128_u64 + v10;
   }
 
   result = *a2;
   *v4 = *a2;
-  ++a1[2];
+  a1[2] += 16;
   return result;
 }
 
-uint64_t TSTWidthHeightCache_NibArray::NibArray<8u>::setRange(uint64_t result, unsigned int a2, unsigned int a3, char a4)
+_BYTE *TSTWidthHeightCache_NibArray::NibArray<8u>::setRange(_BYTE *result, unsigned int a2, unsigned int a3, char a4)
 {
   LOBYTE(v6) = a2;
   v7 = result;
@@ -2952,7 +2994,7 @@ void std::__allocate_at_least[abi:nn200100]<std::allocator<TSTWidthHeightCache_P
   std::string::__throw_length_error[abi:nn200100]();
 }
 
-void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<TSTWidthHeightCache_Private::WHCCol>,TSTWidthHeightCache_Private::WHCCol*>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<TSTWidthHeightCache_Private::WHCCol>,TSTWidthHeightCache_Private::WHCCol*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (a2 != a3)
   {
@@ -2981,21 +3023,21 @@ void std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<TSTWid
   }
 }
 
-void *std::vector<TSTWidthHeightCache_Private::WHCWidthBucket>::vector[abi:nn200100](void *result, void *a2)
+uint64_t *std::vector<TSTWidthHeightCache_Private::WHCWidthBucket>::vector[abi:nn200100](uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<TSTWidthHeightCache_Private::WHCWidthBucket>::__vallocate[abi:nn200100](result, (v2 - *a2) >> 4);
+    std::vector<TSTWidthHeightCache_Private::WHCWidthBucket>::__vallocate[abi:nn200100](a1, (v2 - *a2) >> 4);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<TSTWidthHeightCache_Private::WHCWidthBucket>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<TSTWidthHeightCache_Private::WHCWidthBucket>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -3132,17 +3174,17 @@ uint64_t *std::vector<TSTWidthHeightCache_Private::WHCCol>::__append(uint64_t *r
   return result;
 }
 
-void sub_26C9D4744(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C9D4744(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<TSTWidthHeightCache_Private::WHCCol>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void std::vector<TSTWidthHeightCache_Private::WHCRow>::__append(uint64_t a1, unint64_t a2)
+void std::vector<TSTWidthHeightCache_Private::WHCRow>::__append(unint64_t *a1, unint64_t a2)
 {
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
+  v5 = a1[1];
+  v4 = a1[2];
   if (0xCF3CF3CF3CF3CF3DLL * ((v4 - v5) >> 3) >= a2)
   {
 
@@ -3184,13 +3226,13 @@ void std::vector<TSTWidthHeightCache_Private::WHCRow>::__append(uint64_t a1, uni
     v15 = 168 * v6;
     v16 = 168 * v6;
     std::__split_buffer<TSTWidthHeightCache_Private::WHCRow>::__construct_at_end(&v14, a2);
-    v10 = *(a1 + 8);
+    v10 = a1[1];
     v11 = v15 + *a1 - v10;
     std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<TSTWidthHeightCache_Private::WHCRow>,TSTWidthHeightCache_Private::WHCRow*>(a1, *a1, v10, v11);
     v12 = *a1;
     *a1 = v11;
-    v13 = *(a1 + 16);
-    *(a1 + 8) = v16;
+    v13 = a1[2];
+    *(a1 + 1) = v16;
     *&v16 = v12;
     *(&v16 + 1) = v13;
     v14 = v12;
@@ -3199,9 +3241,9 @@ void std::vector<TSTWidthHeightCache_Private::WHCRow>::__append(uint64_t a1, uni
   }
 }
 
-void sub_26C9D48B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C9D48B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<TSTWidthHeightCache_Private::WHCRow>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3406,7 +3448,7 @@ uint64_t std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<TSTW
   return v5;
 }
 
-void *std::vector<TSTWidthHeightCache_Private::WHCWidthBucket>::__assign_with_size[abi:nn200100]<TSTWidthHeightCache_Private::WHCWidthBucket*,TSTWidthHeightCache_Private::WHCWidthBucket*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<TSTWidthHeightCache_Private::WHCWidthBucket>::__assign_with_size[abi:nn200100]<TSTWidthHeightCache_Private::WHCWidthBucket*,TSTWidthHeightCache_Private::WHCWidthBucket*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -3469,13 +3511,13 @@ void *std::vector<TSTWidthHeightCache_Private::WHCWidthBucket>::__assign_with_si
       v11 = v6[1];
     }
 
-    v14 = a3 - v13;
+    v14 = (a3 - v13);
     if (a3 != v13)
     {
-      result = memmove(v11, v13, v14 - 4);
+      result = memmove(v11, v13, (v14 - 4));
     }
 
-    v15 = &v11[v14];
+    v15 = &v14[v11];
   }
 
   v6[1] = v15;
@@ -3527,28 +3569,28 @@ uint64_t std::vector<TSTWidthHeightCache_Private::WHCCol>::__move_range(uint64_t
   return std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:nn200100]<TSTWidthHeightCache_Private::WHCCol *,TSTWidthHeightCache_Private::WHCCol *,TSTWidthHeightCache_Private::WHCCol *>(&v12, a2, v7, v6);
 }
 
-uint64_t std::vector<TSTWidthHeightCache_Private::WHCCol>::__swap_out_circular_buffer(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t std::vector<TSTWidthHeightCache_Private::WHCCol>::__swap_out_circular_buffer(uint64_t *a1, void *a2, uint64_t a3)
 {
-  v6 = *(a2 + 8);
-  std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<TSTWidthHeightCache_Private::WHCCol>,TSTWidthHeightCache_Private::WHCCol*>(a1, a3, a1[1], *(a2 + 16));
+  v6 = a2[1];
+  std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<TSTWidthHeightCache_Private::WHCCol>,TSTWidthHeightCache_Private::WHCCol*>(a1, a3, a1[1], a2[2]);
   v7 = *a1;
-  v8 = *(a2 + 8);
-  *(a2 + 16) += a1[1] - a3;
+  v8 = a2[1];
+  a2[2] += a1[1] - a3;
   a1[1] = a3;
   v9 = (v8 + v7 - a3);
   std::__uninitialized_allocator_relocate[abi:nn200100]<std::allocator<TSTWidthHeightCache_Private::WHCCol>,TSTWidthHeightCache_Private::WHCCol*>(a1, v7, a3, v9);
-  *(a2 + 8) = v9;
+  a2[1] = v9;
   v10 = *a1;
   a1[1] = *a1;
-  *a1 = *(a2 + 8);
-  *(a2 + 8) = v10;
+  *a1 = a2[1];
+  a2[1] = v10;
   v11 = a1[1];
-  a1[1] = *(a2 + 16);
-  *(a2 + 16) = v11;
+  a1[1] = a2[2];
+  a2[2] = v11;
   v12 = a1[2];
-  a1[2] = *(a2 + 24);
-  *(a2 + 24) = v12;
-  *a2 = *(a2 + 8);
+  a1[2] = a2[3];
+  a2[3] = v12;
+  *a2 = a2[1];
   return v6;
 }
 
@@ -3586,36 +3628,36 @@ void std::vector<TSTWidthHeightCache_Private::WHCRow>::__move_range(uint64_t a1,
 
   else
   {
-    v6 = (a2 + v4 - a4);
+    v6 = a2 + v4 - a4;
     v7 = *(a1 + 8);
     do
     {
       v8 = *v6;
-      v9 = v6[1];
-      v10 = v6[3];
-      *(v7 + 32) = v6[2];
+      v9 = *(v6 + 16);
+      v10 = *(v6 + 48);
+      *(v7 + 32) = *(v6 + 32);
       *(v7 + 48) = v10;
       *v7 = v8;
       *(v7 + 16) = v9;
-      v11 = v6[4];
-      v12 = v6[5];
-      v13 = v6[7];
-      *(v7 + 96) = v6[6];
+      v11 = *(v6 + 64);
+      v12 = *(v6 + 80);
+      v13 = *(v6 + 112);
+      *(v7 + 96) = *(v6 + 96);
       *(v7 + 112) = v13;
       *(v7 + 64) = v11;
       *(v7 + 80) = v12;
       *(v7 + 136) = 0;
       *(v7 + 144) = 0;
       *(v7 + 128) = 0;
-      *(v7 + 128) = v6[8];
-      *(v7 + 144) = *(v6 + 18);
-      *(v6 + 16) = 0;
-      *(v6 + 17) = 0;
-      *(v6 + 18) = 0;
-      v14 = *(v6 + 19);
+      *(v7 + 128) = *(v6 + 128);
+      *(v7 + 144) = *(v6 + 144);
+      *(v6 + 128) = 0;
+      *(v6 + 136) = 0;
+      *(v6 + 144) = 0;
+      v14 = *(v6 + 152);
       *(v7 + 160) = *(v6 + 160);
       *(v7 + 152) = v14;
-      v6 = (v6 + 168);
+      v6 += 168;
       v7 += 168;
     }
 
@@ -3680,21 +3722,21 @@ uint64_t std::vector<TSTWidthHeightCache_Private::WHCRow>::__swap_out_circular_b
   return v6;
 }
 
-void *std::vector<TSTWidthHeightCache_Private::WHCHeightBucket>::vector[abi:nn200100](void *result, void *a2)
+uint64_t *std::vector<TSTWidthHeightCache_Private::WHCHeightBucket>::vector[abi:nn200100](uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<TSTWidthHeightCache_Private::WHCHeightBucket>::__vallocate[abi:nn200100](result, (v2 - *a2) >> 4);
+    std::vector<TSTWidthHeightCache_Private::WHCHeightBucket>::__vallocate[abi:nn200100](a1, (v2 - *a2) >> 4);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<TSTWidthHeightCache_Private::WHCHeightBucket>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<TSTWidthHeightCache_Private::WHCHeightBucket>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -3704,7 +3746,7 @@ void std::vector<TSTWidthHeightCache_Private::WHCHeightBucket>::__vallocate[abi:
   std::string::__throw_length_error[abi:nn200100]();
 }
 
-void *std::vector<TSTWidthHeightCache_Private::WHCHeightBucket>::__assign_with_size[abi:nn200100]<TSTWidthHeightCache_Private::WHCHeightBucket*,TSTWidthHeightCache_Private::WHCHeightBucket*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<TSTWidthHeightCache_Private::WHCHeightBucket>::__assign_with_size[abi:nn200100]<TSTWidthHeightCache_Private::WHCHeightBucket*,TSTWidthHeightCache_Private::WHCHeightBucket*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -3767,13 +3809,13 @@ void *std::vector<TSTWidthHeightCache_Private::WHCHeightBucket>::__assign_with_s
       v11 = v6[1];
     }
 
-    v14 = a3 - v13;
+    v14 = (a3 - v13);
     if (a3 != v13)
     {
-      result = memmove(v11, v13, v14 - 6);
+      result = memmove(v11, v13, (v14 - 6));
     }
 
-    v15 = &v11[v14];
+    v15 = &v14[v11];
   }
 
   v6[1] = v15;
@@ -3871,7 +3913,7 @@ void std::vector<TSTWidthHeightCache_Private::WHCRow>::__assign_with_size[abi:nn
   }
 }
 
-void *std::vector<TSTWidthHeightCache_Private::WHCRow>::__construct_at_end<std::__wrap_iter<TSTWidthHeightCache_Private::WHCRow*>,std::__wrap_iter<TSTWidthHeightCache_Private::WHCRow*>>(void *result, uint64_t a2, uint64_t a3)
+uint64_t *std::vector<TSTWidthHeightCache_Private::WHCRow>::__construct_at_end<std::__wrap_iter<TSTWidthHeightCache_Private::WHCRow*>,std::__wrap_iter<TSTWidthHeightCache_Private::WHCRow*>>(uint64_t *result, uint64_t a2, uint64_t a3)
 {
   v3 = result;
   if (a2 == a3)
@@ -3927,7 +3969,7 @@ void std::vector<TSTWidthHeightCache_Private::WHCRow>::__vdeallocate(uint64_t *a
   }
 }
 
-void std::vector<TSTWidthHeightCache_Private::WHCRow>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<TSTWidthHeightCache_Private::WHCRow>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x186186186186187)
   {
@@ -4124,7 +4166,7 @@ void std::vector<TSTWidthHeightCache_Private::WHCCol>::__assign_with_size[abi:nn
   }
 }
 
-void *std::vector<TSTWidthHeightCache_Private::WHCCol>::__construct_at_end<std::__wrap_iter<TSTWidthHeightCache_Private::WHCCol*>,std::__wrap_iter<TSTWidthHeightCache_Private::WHCCol*>>(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t *std::vector<TSTWidthHeightCache_Private::WHCCol>::__construct_at_end<std::__wrap_iter<TSTWidthHeightCache_Private::WHCCol*>,std::__wrap_iter<TSTWidthHeightCache_Private::WHCCol*>>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == a3)
   {
@@ -4162,7 +4204,7 @@ void std::vector<TSTWidthHeightCache_Private::WHCCol>::__vdeallocate(uint64_t *a
   }
 }
 
-void std::vector<TSTWidthHeightCache_Private::WHCCol>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<TSTWidthHeightCache_Private::WHCCol>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -4314,8 +4356,9 @@ LABEL_32:
   return result;
 }
 
-unint64_t TSTAnimationSetKind(uint64_t a1, int a2)
+unint64_t TSTAnimationSetKind(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   *(a1 + 16) = a2;
   result = TSTAnimationGetStageCountForChunkStyle([*(a1 + 8) tableModel], a2);
   *(a1 + 60) = 0;
@@ -4330,7 +4373,7 @@ unint64_t TSTAnimationSetKind(uint64_t a1, int a2)
   *(a1 + 64) = 0x10000;
   v7 = (a1 + 58);
   v8 = (a1 + 59);
-  switch(a2)
+  switch(v2)
   {
     case 2:
       goto LABEL_17;
@@ -5246,198 +5289,198 @@ UInt8 *TSTTableTileRowInfoCellStorageRefAtTileColumnIndex(uint64_t a1, unsigned 
   }
 }
 
-void TSTTableTileRowInfoSetCell(TSTTableTileRowInfo *a1, unsigned int a2, void *a3)
+void TSTTableTileRowInfoSetCell(TSTTableTileRowInfo *result, unsigned int a2, void *a3)
 {
-  v5 = a1->mStorageOffsets[a2];
+  v5 = result->mStorageOffsets[a2];
   if (a3)
   {
-    [(TSPContainedObject *)a1 willModify];
+    [(TSPContainedObject *)result willModify];
     if (v5 == 0xFFFF)
     {
-      v23 = TSTCellStorageHeaderFlagsForCell(a3);
-      v24 = TSTCellStorageFormatFlagsForCell(a3);
-      v26 = TSTCellStorageSizeForHeaderFlags(v23, v24, v25);
-      v27 = v26;
-      v28 = a1->mBufferSize + v26;
-      mStorageBuffer = a1->mStorageBuffer;
-      if (v28)
+      v24 = TSTCellStorageHeaderFlagsForCell(a3);
+      v26 = TSTCellStorageFormatFlagsForCell(a3, v25);
+      v28 = TSTCellStorageSizeForHeaderFlags(v24, v26, v27);
+      v29 = v28;
+      v30 = result->mBufferSize + v28;
+      mStorageBuffer = result->mStorageBuffer;
+      if (v30)
       {
-        v30 = mStorageBuffer == 0;
+        v32 = mStorageBuffer == 0;
       }
 
       else
       {
-        v30 = 0;
+        v32 = 0;
       }
 
-      if (v30)
+      if (v32)
       {
         mStorageBuffer = CFDataCreateMutable(*MEMORY[0x277CBECE8], 0);
-        a1->mStorageBuffer = mStorageBuffer;
+        result->mStorageBuffer = mStorageBuffer;
       }
 
-      if (CFDataGetLength(mStorageBuffer) < v28)
+      if (CFDataGetLength(mStorageBuffer) < v30)
       {
-        CFDataSetLength(a1->mStorageBuffer, v28);
-        a1->mBufferSize = v28;
+        CFDataSetLength(result->mStorageBuffer, v30);
+        result->mBufferSize = v30;
       }
 
-      MutableBytePtr = CFDataGetMutableBytePtr(a1->mStorageBuffer);
-      v32 = p_OffsetForInsert(a1, a2, MutableBytePtr);
-      v33 = v32;
-      if (!a1->mMaxTileColumnIndexValid)
+      MutableBytePtr = CFDataGetMutableBytePtr(result->mStorageBuffer);
+      v34 = p_OffsetForInsert(result, a2, MutableBytePtr);
+      v35 = v34;
+      if (!result->mMaxTileColumnIndexValid)
       {
-        a1->mMaxTileColumnIndex = -1;
-        v34 = 254;
-        while (a1->mStorageOffsets[v34] == -1)
+        result->mMaxTileColumnIndex = -1;
+        v36 = 254;
+        while (result->mStorageOffsets[v36] == -1)
         {
-          if (--v34 == -1)
+          if (--v36 == -1)
           {
             goto LABEL_33;
           }
         }
 
-        a1->mMaxTileColumnIndex = v34;
+        result->mMaxTileColumnIndex = v36;
 LABEL_33:
-        a1->mMaxTileColumnIndexValid = 1;
+        result->mMaxTileColumnIndexValid = 1;
       }
 
-      mMaxTileColumnIndex = a1->mMaxTileColumnIndex;
-      if (a1->mCellCount)
+      mMaxTileColumnIndex = result->mMaxTileColumnIndex;
+      if (result->mCellCount)
       {
-        v36 = mMaxTileColumnIndex > a2;
+        v38 = mMaxTileColumnIndex > a2;
       }
 
       else
       {
-        v36 = 0;
+        v38 = 0;
       }
 
-      if (v36)
+      if (v38)
       {
-        v37 = v32;
-        memmove(&MutableBytePtr[v32 + v27], &MutableBytePtr[v32], a1->mBufferSize - ((v27 & ~(v27 >> 31)) + v32));
-        v38 = a2 + 1;
+        v39 = v34;
+        memmove(&MutableBytePtr[v34 + v29], &MutableBytePtr[v34], result->mBufferSize - ((v29 & ~(v29 >> 31)) + v34));
+        v40 = a2 + 1;
         do
         {
-          v39 = a1->mStorageOffsets[v38];
-          if (v39 != 0xFFFF)
+          v41 = result->mStorageOffsets[v40];
+          if (v41 != 0xFFFF)
           {
-            a1->mStorageOffsets[v38] = v39 + v27;
+            result->mStorageOffsets[v40] = v41 + v29;
           }
 
-          ++v38;
+          ++v40;
         }
 
-        while (mMaxTileColumnIndex >= v38);
+        while (mMaxTileColumnIndex >= v40);
       }
 
       else
       {
-        v37 = v32;
+        v39 = v34;
       }
 
-      TSTCellWriteStorageRef(a3, &MutableBytePtr[v37]);
-      a1->mStorageOffsets[a2] = v33;
-      ++a1->mCellCount;
-      if (a1->mMaxTileColumnIndexValid)
+      TSTCellWriteStorageRef(a3, &MutableBytePtr[v39]);
+      result->mStorageOffsets[a2] = v35;
+      ++result->mCellCount;
+      if (result->mMaxTileColumnIndexValid)
       {
-        v40 = a1->mMaxTileColumnIndex;
-        if (v40 == 255 || v40 < a2)
+        v42 = result->mMaxTileColumnIndex;
+        if (v42 == 255 || v42 < a2)
         {
-          a1->mMaxTileColumnIndex = a2;
+          result->mMaxTileColumnIndex = a2;
         }
       }
     }
 
     else
     {
-      v7 = CFDataGetMutableBytePtr(a1->mStorageBuffer);
-      v8 = a1->mStorageOffsets[a2];
+      v7 = CFDataGetMutableBytePtr(result->mStorageBuffer);
+      v8 = result->mStorageOffsets[a2];
       v9 = &v7[v8];
       TSTCellStorageVersionAssert(&v7[v8]);
       v10 = TSTCellStorageHeaderFlagsForStorage(&v7[v8]);
       v11 = TSTCellStorageFormatFlagsForStorage(&v7[v8]);
       v13 = TSTCellStorageSizeForHeaderFlags(v10, v11, v12);
       v14 = TSTCellStorageHeaderFlagsForCell(a3);
-      v15 = TSTCellStorageFormatFlagsForCell(a3);
-      v17 = TSTCellStorageSizeForHeaderFlags(v14, v15, v16);
-      v18 = v17 - v13;
-      if (v17 != v13)
+      v16 = TSTCellStorageFormatFlagsForCell(a3, v15);
+      v18 = TSTCellStorageSizeForHeaderFlags(v14, v16, v17);
+      v19 = v18 - v13;
+      if (v18 != v13)
       {
-        v19 = v18;
-        if (v18 >= 1)
+        v20 = v19;
+        if (v19 >= 1)
         {
-          v20 = a1->mBufferSize + v18;
-          Mutable = a1->mStorageBuffer;
+          v21 = result->mBufferSize + v19;
+          Mutable = result->mStorageBuffer;
           if (!Mutable)
           {
             Mutable = CFDataCreateMutable(*MEMORY[0x277CBECE8], 0);
-            a1->mStorageBuffer = Mutable;
+            result->mStorageBuffer = Mutable;
           }
 
-          if (CFDataGetLength(Mutable) < v20)
+          if (CFDataGetLength(Mutable) < v21)
           {
-            CFDataSetLength(a1->mStorageBuffer, v20);
-            a1->mBufferSize = v20;
+            CFDataSetLength(result->mStorageBuffer, v21);
+            result->mBufferSize = v21;
           }
 
-          v7 = CFDataGetMutableBytePtr(a1->mStorageBuffer);
+          v7 = CFDataGetMutableBytePtr(result->mStorageBuffer);
         }
 
-        if (!a1->mMaxTileColumnIndexValid)
+        if (!result->mMaxTileColumnIndexValid)
         {
-          a1->mMaxTileColumnIndex = -1;
-          v22 = 254;
-          while (a1->mStorageOffsets[v22] == -1)
+          result->mMaxTileColumnIndex = -1;
+          v23 = 254;
+          while (result->mStorageOffsets[v23] == -1)
           {
-            if (--v22 == -1)
+            if (--v23 == -1)
             {
               goto LABEL_51;
             }
           }
 
-          a1->mMaxTileColumnIndex = v22;
+          result->mMaxTileColumnIndex = v23;
 LABEL_51:
-          a1->mMaxTileColumnIndexValid = 1;
+          result->mMaxTileColumnIndexValid = 1;
         }
 
-        v42 = a1->mMaxTileColumnIndex;
-        if (v42 > a2)
+        v44 = result->mMaxTileColumnIndex;
+        if (v44 > a2)
         {
-          memmove(&v7[(v13 + v8) + v19], &v7[(v13 + v8)], a1->mBufferSize - ((v19 & ~(v19 >> 31)) + (v13 + v8)));
-          v43 = a2 + 1;
+          memmove(&v7[(v13 + v8) + v20], &v7[(v13 + v8)], result->mBufferSize - ((v20 & ~(v20 >> 31)) + (v13 + v8)));
+          v45 = a2 + 1;
           do
           {
-            v44 = a1->mStorageOffsets[v43];
-            if (v44 != 0xFFFF)
+            v46 = result->mStorageOffsets[v45];
+            if (v46 != 0xFFFF)
             {
-              a1->mStorageOffsets[v43] = v44 + v19;
+              result->mStorageOffsets[v45] = v46 + v20;
             }
 
-            ++v43;
+            ++v45;
           }
 
-          while (v42 >= v43);
+          while (v44 >= v45);
         }
 
-        if (v19 < 0)
+        if (v20 < 0)
         {
-          v45 = a1->mBufferSize + v19;
-          v46 = a1->mStorageBuffer;
-          if (v45 >= 1 && v46 == 0)
+          v47 = result->mBufferSize + v20;
+          v48 = result->mStorageBuffer;
+          if (v47 >= 1 && v48 == 0)
           {
-            v46 = CFDataCreateMutable(*MEMORY[0x277CBECE8], 0);
-            a1->mStorageBuffer = v46;
+            v48 = CFDataCreateMutable(*MEMORY[0x277CBECE8], 0);
+            result->mStorageBuffer = v48;
           }
 
-          if (CFDataGetLength(v46) < v45)
+          if (CFDataGetLength(v48) < v47)
           {
-            CFDataSetLength(a1->mStorageBuffer, v45);
-            a1->mBufferSize = v45;
+            CFDataSetLength(result->mStorageBuffer, v47);
+            result->mBufferSize = v47;
           }
 
-          v7 = CFDataGetMutableBytePtr(a1->mStorageBuffer);
+          v7 = CFDataGetMutableBytePtr(result->mStorageBuffer);
         }
 
         v9 = &v7[v8];
@@ -5450,7 +5493,7 @@ LABEL_51:
   else if (v5 != 0xFFFF)
   {
 
-    p_RemoveCell(a1, a2);
+    p_RemoveCell(result, a2);
   }
 }
 
@@ -5526,7 +5569,7 @@ LABEL_8:
   }
 }
 
-uint64_t TSTTableTileRowInfoInsertColumns(_BYTE *a1, char a2, int a3, char a4)
+void *TSTTableTileRowInfoInsertColumns(_BYTE *a1, char a2, unsigned int a3, char a4)
 {
   result = [a1 willModify];
   v9 = (a4 ^ 1) + a2;
@@ -5795,7 +5838,7 @@ LABEL_12:
             }
 
             v48 += 2;
-            ++v49;
+            v49 += 2;
             --v47;
           }
 
@@ -5874,33 +5917,33 @@ void SFUtility::ObjcSharedPtr<NSObject>::reset(void **a1, void *a2)
   }
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,SFUtility::ObjcSharedPtr<NSObject>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,SFUtility::ObjcSharedPtr<NSObject>>,TSTIntHasher,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,SFUtility::ObjcSharedPtr<NSObject>>,std::equal_to<unsigned int>,TSTIntHasher,true>,std::allocator<std::__hash_value_type<unsigned int,SFUtility::ObjcSharedPtr<NSObject>>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int const,SFUtility::ObjcSharedPtr<NSObject>>>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,SFUtility::ObjcSharedPtr<NSObject>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,SFUtility::ObjcSharedPtr<NSObject>>,TSTIntHasher,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,SFUtility::ObjcSharedPtr<NSObject>>,std::equal_to<unsigned int>,TSTIntHasher,true>,std::allocator<std::__hash_value_type<unsigned int,SFUtility::ObjcSharedPtr<NSObject>>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int const,SFUtility::ObjcSharedPtr<NSObject>>>(void *a1, unsigned int *a2, uint64_t a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % v3.i32[0];
+      v6 = v3 % v4.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v6 = (v4.i32[0] - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -5908,49 +5951,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void sub_26C9DC788(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26C9DC788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<long long const,NSMutableArray * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<long long const,NSMutableArray * {__strong}>,void *>>>>::~unique_ptr[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -5987,7 +6030,7 @@ void std::__hash_table<std::__hash_value_type<unsigned int,SFUtility::ObjcShared
   }
 }
 
-double TSTTableBadgeCheckboxFrame(double a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5, uint64_t a6, int a7, void *a8, uint64_t a9)
+double TSTTableBadgeCheckboxFrame(double a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9)
 {
   v25 = 0.0;
   v15 = p_TSTTableBadgeCheckboxImageForScale(a7, &v25, a1);
@@ -6025,7 +6068,7 @@ double TSTTableBadgeCheckboxFrame(double a1, CGFloat a2, CGFloat a3, CGFloat a4,
   return MidX - v20 * 0.5;
 }
 
-uint64_t p_TSTTableBadgeCheckboxImageForScale(int a1, double *a2, double a3)
+void *p_TSTTableBadgeCheckboxImageForScale(uint64_t a1, double *a2, double a3)
 {
   if (a1)
   {
@@ -6034,14 +6077,14 @@ uint64_t p_TSTTableBadgeCheckboxImageForScale(int a1, double *a2, double a3)
       if (a3 <= 1.0)
       {
         v5 = MEMORY[0x277D6C2F8];
-        v6 = TSTBundle();
+        v6 = TSTBundle(a1, a2);
         v7 = @"TSTiOSCheckboxChecked12";
       }
 
       else
       {
         v5 = MEMORY[0x277D6C2F8];
-        v6 = TSTBundle();
+        v6 = TSTBundle(a1, a2);
         if (a3 <= 1.5)
         {
           v7 = @"TSTiOSCheckboxChecked18";
@@ -6057,7 +6100,7 @@ uint64_t p_TSTTableBadgeCheckboxImageForScale(int a1, double *a2, double a3)
     else
     {
       v5 = MEMORY[0x277D6C2F8];
-      v6 = TSTBundle();
+      v6 = TSTBundle(a1, a2);
       v7 = @"TSTiOSCheckboxChecked6";
     }
   }
@@ -6067,14 +6110,14 @@ uint64_t p_TSTTableBadgeCheckboxImageForScale(int a1, double *a2, double a3)
     if (a3 <= 1.0)
     {
       v5 = MEMORY[0x277D6C2F8];
-      v6 = TSTBundle();
+      v6 = TSTBundle(a1, a2);
       v7 = @"TSTiOSCheckboxUnchecked12";
     }
 
     else
     {
       v5 = MEMORY[0x277D6C2F8];
-      v6 = TSTBundle();
+      v6 = TSTBundle(a1, a2);
       if (a3 <= 1.5)
       {
         v7 = @"TSTiOSCheckboxUnchecked18";
@@ -6090,7 +6133,7 @@ uint64_t p_TSTTableBadgeCheckboxImageForScale(int a1, double *a2, double a3)
   else
   {
     v5 = MEMORY[0x277D6C2F8];
-    v6 = TSTBundle();
+    v6 = TSTBundle(a1, a2);
     v7 = @"TSTiOSCheckboxUnchecked6";
   }
 
@@ -6128,10 +6171,11 @@ BOOL TSTTableBadgeIsDrawingControlCell(_BOOL8 result)
   return result;
 }
 
-void TSTTableBadgeDrawCellControl(uint64_t a1, CGContext *a2, uint64_t a3, unsigned int a4, double a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9)
+void TSTTableBadgeDrawCellControl(uint64_t a1, CGContext *a2, uint64_t a3, uint64_t a4, double a5, CGFloat a6, CGFloat a7, CGFloat a8, CGFloat a9)
 {
   if (a3)
   {
+    v9 = a4;
     v17 = a1;
     v18 = *(a3 + 104);
     if ((v18 - 263) >= 5)
@@ -6145,7 +6189,7 @@ void TSTTableBadgeDrawCellControl(uint64_t a1, CGContext *a2, uint64_t a3, unsig
     v21 = *(a3 + 9);
     if (v18 == 267)
     {
-      FontColorForCell = TSTTableGetFontColorForCell([v17 tableModel], a3, a4);
+      FontColorForCell = TSTTableGetFontColorForCell([v17 tableModel], a3, v9);
       v27 = 0.0;
       if (v21 == 2)
       {
@@ -6235,131 +6279,136 @@ void TSTTableBadgeDrawCellControl(uint64_t a1, CGContext *a2, uint64_t a3, unsig
   }
 }
 
-void TSTTableBadgeCellErrorIndicatorFrame(double a1, double a2, double a3, double a4)
+void TSTTableBadgeCellErrorIndicatorFrame(uint64_t a1, double a2, double a3, double a4, double a5)
 {
-  v4 = fmin(a3, a4) * 0.899999976;
-  v5 = 2.0;
-  if (v4 >= 2.0)
+  v5 = fmin(a4, a5) * 0.899999976;
+  v6 = 2.0;
+  if (v5 >= 2.0)
   {
-    if (v4 >= 4.0)
+    v7 = 2.0;
+    if (v5 >= 4.0)
     {
-      v5 = 4.0;
-      if (v4 >= 8.0)
+      v6 = 4.0;
+      v7 = 4.0;
+      if (v5 >= 8.0)
       {
-        v5 = 8.0;
-        if (v4 >= 16.0)
+        v6 = 8.0;
+        v7 = 8.0;
+        if (v5 >= 16.0)
         {
-          v5 = 16.0;
-          if (v4 >= 32.0)
+          v6 = 16.0;
+          v7 = 16.0;
+          if (v5 >= 32.0)
           {
-            v5 = 32.0;
+            v6 = 32.0;
+            v7 = 32.0;
           }
         }
       }
     }
 
-    v6 = a1 + a3 * 0.5 - v5 * 0.5;
-    TSDRoundedSize();
-    TSDFlooredPoint(v6);
+    v8 = a2 + a4 * 0.5 - v6 * 0.5;
+    TSDRoundedSize(a1, v6, v7);
+    TSDFlooredPoint(v8);
   }
 }
 
 void TSTTableBadgeDrawCellErrorIndicator(CGContext *a1, double a2, double a3, double a4, double a5, double a6)
 {
-  TSTTableBadgeCellErrorIndicatorFrame(a3, a4, a5, a6);
-  tx = v13;
-  v15 = v14;
-  v16 = v12;
-  v18 = v17;
+  TSTTableBadgeCellErrorIndicatorFrame(a1, a3, a4, a5, a6);
+  tx = v15;
+  v17 = v16;
+  v18 = v14;
+  v20 = v19;
   if (a2 <= 1.0)
   {
-    v19 = v12;
+    v21 = v14;
     if (a2 <= 0.5)
     {
-      v19 = v12 * 0.5;
+      v21 = v14 * 0.5;
     }
   }
 
   else
   {
-    v19 = v12 + v12;
+    v21 = v14 + v14;
   }
 
-  v20 = p_TSTTableBadgeErrorIndicatorImageForSize(v19);
+  v22 = p_TSTTableBadgeErrorIndicatorImageForSize(v12, v13, v21);
   CGContextSaveGState(a1);
-  v24.origin.x = a3;
-  v24.origin.y = a4;
-  v24.size.width = a5;
-  v24.size.height = a6;
-  CGContextClipToRect(a1, v24);
-  CGContextTranslateCTM(a1, tx, v15 + v18);
-  memset(&v23, 0, sizeof(v23));
-  CGContextGetCTM(&v23, a1);
-  v23.tx = ceil(v23.tx) - v23.tx;
-  v23.ty = v23.ty - ceil(v23.ty);
-  CGContextTranslateCTM(a1, v23.tx, v23.ty);
+  v26.origin.x = a3;
+  v26.origin.y = a4;
+  v26.size.width = a5;
+  v26.size.height = a6;
+  CGContextClipToRect(a1, v26);
+  CGContextTranslateCTM(a1, tx, v17 + v20);
+  memset(&v25, 0, sizeof(v25));
+  CGContextGetCTM(&v25, a1);
+  v25.tx = ceil(v25.tx) - v25.tx;
+  v25.ty = v25.ty - ceil(v25.ty);
+  CGContextTranslateCTM(a1, v25.tx, v25.ty);
   CGContextScaleCTM(a1, 1.0, -1.0);
-  v21 = [v20 CGImageForSize:a1 inContext:0 orLayer:{v16, v18}];
-  v25.origin.x = TSDRectWithSize();
-  CGContextDrawImage(a1, v25, v21);
+  v23 = [v22 CGImageForSize:a1 inContext:0 orLayer:{v18, v20}];
+  v27.origin.x = TSDRectWithSize();
+  CGContextDrawImage(a1, v27, v23);
   CGContextRestoreGState(a1);
 }
 
-uint64_t p_TSTTableBadgeErrorIndicatorImageForSize(double a1)
+uint64_t p_TSTTableBadgeErrorIndicatorImageForSize(uint64_t a1, uint64_t a2, double a3)
 {
-  if (a1 >= 4.0)
+  if (a3 >= 4.0)
   {
-    if (a1 >= 8.0)
+    if (a3 >= 8.0)
     {
-      if (a1 >= 16.0)
+      if (a3 >= 16.0)
       {
-        if (a1 >= 32.0)
+        if (a3 >= 32.0)
         {
-          v2 = MEMORY[0x277D6C2F8];
-          v3 = TSTBundle();
-          if (a1 >= 64.0)
+          v4 = MEMORY[0x277D6C2F8];
+          v5 = TSTBundle(a1, a2);
+          if (a3 >= 64.0)
           {
-            v4 = @"TSTErrorMessageIcon-64";
+            v6 = @"TSTErrorMessageIcon-64";
           }
 
           else
           {
-            v4 = @"TSTErrorMessageIcon-32";
+            v6 = @"TSTErrorMessageIcon-32";
           }
         }
 
         else
         {
-          v2 = MEMORY[0x277D6C2F8];
-          v3 = TSTBundle();
-          v4 = @"TSTErrorMessageIcon-16";
+          v4 = MEMORY[0x277D6C2F8];
+          v5 = TSTBundle(a1, a2);
+          v6 = @"TSTErrorMessageIcon-16";
         }
       }
 
       else
       {
-        v2 = MEMORY[0x277D6C2F8];
-        v3 = TSTBundle();
-        v4 = @"TSTErrorMessageIcon-8";
+        v4 = MEMORY[0x277D6C2F8];
+        v5 = TSTBundle(a1, a2);
+        v6 = @"TSTErrorMessageIcon-8";
       }
     }
 
     else
     {
-      v2 = MEMORY[0x277D6C2F8];
-      v3 = TSTBundle();
-      v4 = @"TSTErrorMessageIcon-4";
+      v4 = MEMORY[0x277D6C2F8];
+      v5 = TSTBundle(a1, a2);
+      v6 = @"TSTErrorMessageIcon-4";
     }
   }
 
   else
   {
-    v2 = MEMORY[0x277D6C2F8];
-    v3 = TSTBundle();
-    v4 = @"TSTErrorMessageIcon-2";
+    v4 = MEMORY[0x277D6C2F8];
+    v5 = TSTBundle(a1, a2);
+    v6 = @"TSTErrorMessageIcon-2";
   }
 
-  return [v2 imageNamed:v4 inBundle:v3];
+  return [v4 imageNamed:v6 inBundle:v5];
 }
 
 CGPath *newTSTTableBadgeCellCommentBadgePath(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4)
@@ -6545,7 +6594,7 @@ void TSTTableBadgeDrawCellOverflowIndicator(CGContext *a1, double a2, CGFloat a3
   }
 }
 
-double TSTTableBadgeCheckboxSizeForScale(int a1, double a2, double a3)
+double TSTTableBadgeCheckboxSizeForScale(uint64_t a1, double a2, double a3)
 {
   v9 = 0.0;
   v4 = [p_TSTTableBadgeCheckboxImageForScale(a1 &v9];
@@ -6661,7 +6710,7 @@ void TSTTableBadgeDrawVerticalShadow(CGContext *a1, int a2, double a3, CGFloat a
   while (v18);
 }
 
-uint64_t TSTTableBadgeContentsCenterInfoInit(uint64_t result, double a2, double a3, double a4, double a5, double a6, double a7)
+double *TSTTableBadgeContentsCenterInfoInit(double *result, double a2, double a3, double a4, double a5, double a6, double a7)
 {
   v13 = result;
   if (!result)
@@ -6687,7 +6736,7 @@ uint64_t TSTTableDataStoreHeaderInfoForColumn(uint64_t a1, uint64_t a2, uint64_t
   return [v7 headerForKey:a2 willModify:a3 createIfNotThere:a4];
 }
 
-uint64_t privateRemoveIndexedItemsFromStorage(uint64_t result, uint64_t a2, int a3)
+void *privateRemoveIndexedItemsFromStorage(void *result, uint64_t a2, int a3)
 {
   if (a3)
   {
@@ -6706,12 +6755,12 @@ uint64_t privateRemoveIndexedItemsFromStorage(uint64_t result, uint64_t a2, int 
   return result;
 }
 
-uint64_t TSTTableDataStoreRemoveRowHeadersAtIndex(uint64_t result, uint64_t a2, int a3)
+void *TSTTableDataStoreRemoveRowHeadersAtIndex(void *result, uint64_t a2, int a3)
 {
   if (a3)
   {
     v3 = a2;
-    v4 = *(result + 40);
+    v4 = result[5];
     v5 = a3 + a2;
     do
     {
@@ -6732,7 +6781,7 @@ uint64_t TSTTableDataStoreShiftColumnHeaderIndexes(TSTTableDataStore *a1, uint64
   return [v5 shiftKeysAtIndex:a2 amount:a3];
 }
 
-uint64_t TSTTableDataStoreRemoveColumnHeadersAtIndex(uint64_t a1, uint64_t a2, int a3)
+void *TSTTableDataStoreRemoveColumnHeadersAtIndex(uint64_t a1, uint64_t a2, int a3)
 {
   result = [*(a1 + 48) object];
   if (a3)
@@ -6751,7 +6800,7 @@ uint64_t TSTTableDataStoreRemoveColumnHeadersAtIndex(uint64_t a1, uint64_t a2, i
   return result;
 }
 
-uint64_t TSTDataStoreDecrementColumnCellCount(uint64_t result, TSTTableHeaderInfo *a2)
+_DWORD *TSTDataStoreDecrementColumnCellCount(_DWORD *result, TSTTableHeaderInfo *a2)
 {
   v3 = result;
   mNumberOfCells = a2->mNumberOfCells;
@@ -6766,16 +6815,16 @@ uint64_t TSTDataStoreDecrementColumnCellCount(uint64_t result, TSTTableHeaderInf
   a2->mNumberOfCells = mNumberOfCells - 1;
   if (*(v3 + 156) == 1)
   {
-    v7 = *(v3 + 152);
+    v7 = v3[38];
     if (!v7)
     {
       v8 = [MEMORY[0x277D6C290] currentHandler];
       v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTDataStoreDecrementColumnCellCount(TSTTableDataStore *, TSTTableHeaderInfo *)"}];
       result = [v8 handleFailureInFunction:v9 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTTableDataStore.mm"), 124, @"Can't drive cell count below zero!"}];
-      v7 = *(v3 + 152);
+      v7 = v3[38];
     }
 
-    *(v3 + 152) = v7 - 1;
+    v3[38] = v7 - 1;
   }
 
   return result;
@@ -6806,9 +6855,9 @@ void TSTDataStoreDecrementRowCellCount(TSTTableDataStore *a1, TSTTableHeaderInfo
   a2->mNumberOfCells = mNumberOfCells - 1;
 }
 
-uint64_t TSTTableDataStoreDecrementCellCounts(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t TSTTableDataStoreDecrementCellCounts(id *a1, uint64_t a2, uint64_t a3)
 {
-  v6 = [*(a1 + 40) headerForKey:a3 willModify:1 createIfNotThere:1];
+  v6 = [a1[5] headerForKey:a3 willModify:1 createIfNotThere:1];
   v7 = v6;
   if (!v6)
   {
@@ -6820,14 +6869,14 @@ uint64_t TSTTableDataStoreDecrementCellCounts(uint64_t a1, uint64_t a2, uint64_t
   TSTDataStoreDecrementRowCellCount(v6, v7);
   if (v7->mSize == 0.0 && !v7->mNumberOfCells && !v7->mCellStyle && !v7->mTextStyle && !v7->mHidingState)
   {
-    [*(a1 + 40) removeHeaderForKey:a3];
+    [a1[5] removeHeaderForKey:a3];
   }
 
-  v10 = [objc_msgSend(*(a1 + 48) "object")];
+  v10 = [objc_msgSend(a1[6] "object")];
   TSTDataStoreDecrementColumnCellCount(a1, v10);
   if (v10->mSize == 0.0 && !v10->mNumberOfCells && !v10->mCellStyle && !v10->mTextStyle && !v10->mHidingState)
   {
-    [objc_msgSend(*(a1 + 48) "object")];
+    [objc_msgSend(a1[6] "object")];
   }
 
   return 0;
@@ -6867,7 +6916,7 @@ uint64_t TSTTableDataStoreNumberOfPopulatedCells(uint64_t a1)
   return *(a1 + 152);
 }
 
-uint64_t p_findEmptyTiles(uint64_t result, unsigned int a2, void *a3)
+void *p_findEmptyTiles(void *result, unsigned int a2, void *a3)
 {
   if (result)
   {
@@ -6884,7 +6933,7 @@ uint64_t p_findEmptyTiles(uint64_t result, unsigned int a2, void *a3)
   return result;
 }
 
-id TSTDataStoreGetTileForRow(TSTTableDataStore *a1, unsigned int a2, unsigned __int16 *a3)
+uint64_t TSTDataStoreGetTileForRow(TSTTableDataStore *a1, unsigned int a2, unsigned __int16 *a3)
 {
   v4 = TSTTableRBTreeStripIDForCellIndex(&a1->mRowTileIndex->var0, a2, a3);
   mTileStorage = a1->mTileStorage;
@@ -6892,7 +6941,7 @@ id TSTDataStoreGetTileForRow(TSTTableDataStore *a1, unsigned int a2, unsigned __
   return [(TSTTileIDKeyDict *)mTileStorage tileForID:v4];
 }
 
-uint64_t p_TileForRowIndex(uint64_t a1, unsigned int a2, unsigned __int16 *a3, unsigned int *a4)
+void *p_TileForRowIndex(uint64_t a1, unsigned int a2, unsigned __int16 *a3, unsigned int *a4)
 {
   v6 = TSTTableRBTreeStripIDForCellIndex(*(a1 + 24), a2, a3);
   result = [*(a1 + 32) tileForID:v6];
@@ -6907,7 +6956,7 @@ uint64_t p_TileForRowIndex(uint64_t a1, unsigned int a2, unsigned __int16 *a3, u
   return result;
 }
 
-id TSTDataStoreGetTileAtOrAfterRow(TSTTableDataStore *a1, unsigned int a2, unsigned __int16 *a3)
+uint64_t TSTDataStoreGetTileAtOrAfterRow(TSTTableDataStore *a1, unsigned int a2, unsigned __int16 *a3)
 {
   v6 = TSTTableRBFirstNodeGreaterThanOrEqualTo(&a1->mRowTileIndex->var0, a2);
   if (a2 && v6 == &TSTTableRBTreeNil)
@@ -6979,7 +7028,7 @@ UInt8 *TSTTableDataStoreCellStorageRefAtCellID(uint64_t a1, int a2)
   return TSTTableTileGetCellStorageRef(v3, BYTE2(a2), (a2 - v7));
 }
 
-uint64_t TSTTableDataStoreGetCellStyleAtCellID(uint64_t a1, int a2, uint64_t *a3)
+uint64_t TSTTableDataStoreGetCellStyleAtCellID(uint64_t a1, int a2, void *a3)
 {
   if (a3)
   {
@@ -7195,7 +7244,7 @@ LABEL_12:
   return result;
 }
 
-__n128 p_TSTCellFormatForFormatFlag@<Q0>(void *a1@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+__n128 p_TSTCellFormatForFormatFlag@<Q0>(void *a1@<X0>, const char *a2@<X1>, __int128 *a3@<X8>)
 {
   if (a2 > 7)
   {
@@ -7230,7 +7279,7 @@ __n128 p_TSTCellFormatForFormatFlag@<Q0>(void *a1@<X0>, int a2@<W1>, uint64_t a3
     {
       switch(a2)
       {
-        case 32:
+        case 0x20:
           if (a1)
           {
             v3 = a1[29];
@@ -7241,7 +7290,7 @@ __n128 p_TSTCellFormatForFormatFlag@<Q0>(void *a1@<X0>, int a2@<W1>, uint64_t a3
           }
 
           break;
-        case 64:
+        case 0x40:
           if (a1)
           {
             v3 = a1[31];
@@ -7252,14 +7301,14 @@ __n128 p_TSTCellFormatForFormatFlag@<Q0>(void *a1@<X0>, int a2@<W1>, uint64_t a3
           }
 
           break;
-        case 128:
+        case 0x80:
           if (a1)
           {
             v3 = a1[33];
             if (v3)
             {
 LABEL_8:
-              [v3 getFormatStruct];
+              objc_msgSend_getFormatStruct(v3);
               return result;
             }
           }
@@ -7298,10 +7347,10 @@ LABEL_8:
     }
 
 LABEL_38:
-    *(a3 + 32) = 0;
+    *(a3 + 4) = 0;
     result.n128_u64[0] = TSUInvalidFormat;
     *a3 = TSUInvalidFormat;
-    *(a3 + 16) = *algn_26CA67B90;
+    a3[1] = *algn_26CA67B90;
     return result;
   }
 
@@ -7335,8 +7384,8 @@ LABEL_38:
   result = *v5;
   v6 = v5[1];
   *a3 = *v5;
-  *(a3 + 16) = v6;
-  *(a3 + 32) = *(v5 + 4);
+  a3[1] = v6;
+  *(a3 + 4) = *(v5 + 4);
   return result;
 }
 
@@ -8276,7 +8325,7 @@ void *TSTTableDataStorePopulateCustomFormat(void *result, uint64_t a2, double a3
   return result;
 }
 
-void TSTTableDataStoreResolveCellDataIDs(id *a1, uint64_t a2)
+void TSTTableDataStoreResolveCellDataIDs(id *result, uint64_t a2)
 {
   v42 = *MEMORY[0x277D85DE8];
   if (a2)
@@ -8291,7 +8340,7 @@ void TSTTableDataStoreResolveCellDataIDs(id *a1, uint64_t a2)
         [v5 handleFailureInFunction:v6 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/tables/TSTTableDataStore.mm"), 1481, @"String cell has bad string!"}];
       }
 
-      StringForKey = TSTTableDataListGetStringForKey([a1[8] object], v4);
+      StringForKey = TSTTableDataListGetStringForKey([result[8] object], v4);
       v8 = *(a2 + 8);
       if ((v8 & 0xFF00) == 0)
       {
@@ -8330,21 +8379,21 @@ void TSTTableDataStoreResolveCellDataIDs(id *a1, uint64_t a2)
     v15 = *(a2 + 64);
     if (v15)
     {
-      RichTextPayloadForKey = TSTTableDataListGetRichTextPayloadForKey([a1[12] object], v15);
+      RichTextPayloadForKey = TSTTableDataListGetRichTextPayloadForKey([result[12] object], v15);
       TSTCellSetRichTextPayloadClearingIDConvertToPlaintext(a2, RichTextPayloadForKey, 0, 1);
     }
 
     v17 = *(a2 + 80);
     if (v17)
     {
-      CommentStorageForKey = TSTTableDataListGetCommentStorageForKey([a1[15] object], v17);
+      CommentStorageForKey = TSTTableDataListGetCommentStorageForKey([result[15] object], v17);
       TSTCellSetCommentStorageClearingID(a2, CommentStorageForKey, 0);
     }
 
     v19 = *(a2 + 32);
     if (v19)
     {
-      StyleForKey = TSTTableDataListGetStyleForKey([a1[9] object], v19);
+      StyleForKey = TSTTableDataListGetStyleForKey([result[9] object], v19);
       v21 = *(a2 + 40);
       if (v21 != StyleForKey)
       {
@@ -8357,7 +8406,7 @@ void TSTTableDataStoreResolveCellDataIDs(id *a1, uint64_t a2)
     v23 = *(a2 + 48);
     if (v23)
     {
-      v24 = TSTTableDataListGetStyleForKey([a1[9] object], v23);
+      v24 = TSTTableDataListGetStyleForKey([result[9] object], v23);
       v25 = *(a2 + 56);
       if (v25 != v24)
       {
@@ -8382,7 +8431,7 @@ void TSTTableDataStoreResolveCellDataIDs(id *a1, uint64_t a2)
         v31 = *(a2 + 152);
         if (v31)
         {
-          [v31 getFormatStruct];
+          objc_msgSend_getFormatStruct(v31);
           v32 = v37;
           if (v28 == v37)
           {
@@ -8983,10 +9032,11 @@ void p_moveColumnsInTile(unsigned __int16 a1, unsigned int a2, unsigned __int8 *
   TSTTableTileMoveColumns(v4, v5, v6, v7);
 }
 
-void TSTTableDataStoreMoveColumns(void *a1, unsigned int a2, unsigned int a3, int a4)
+void TSTTableDataStoreMoveColumns(void *a1, unsigned int a2, unsigned int a3, uint64_t a4)
 {
+  v4 = a4;
   [a1 willModify];
-  if (a3 > a2 && a4 + a2 > a3)
+  if (a3 > a2 && v4 + a2 > a3)
   {
     v7 = [MEMORY[0x277D6C290] currentHandler];
     v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void TSTTableDataStoreMoveColumns(TSTTableDataStore *, TSUColumnIndex, TSUColumnIndex, TSUColumnRowCount)"}];
@@ -9045,7 +9095,7 @@ void TSTTableDataStoreSwapRows(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-uint64_t TSTTableDataStoreGetReorganizeValuesForColumn(uint64_t a1, char a2, uint64_t a3)
+unsigned __int16 *TSTTableDataStoreGetReorganizeValuesForColumn(uint64_t a1, char a2, uint64_t a3)
 {
   v4 = a1;
   v5 = a2;
@@ -9053,7 +9103,7 @@ uint64_t TSTTableDataStoreGetReorganizeValuesForColumn(uint64_t a1, char a2, uin
   return TSTTableRBTreeApply(*(a1 + 24), p_ReorganizeValuesForTile, &v4);
 }
 
-uint64_t p_ReorganizeValuesForTile(unsigned int a1, unsigned int a2, _BYTE *a3)
+void *p_ReorganizeValuesForTile(unsigned int a1, unsigned int a2, _BYTE *a3)
 {
   v96 = *MEMORY[0x277D85DE8];
   v5 = [*(*a3 + 32) tileForID:a2];
@@ -9444,7 +9494,7 @@ LABEL_78:
         }
 
 LABEL_79:
-        ++v10;
+        v10 = v10 + 1;
       }
 
       while (v7 != v10);
@@ -9466,7 +9516,7 @@ uint64_t privateDumpTile(uint64_t a1, unsigned int a2, id *a3)
   return [v5 debugDump];
 }
 
-uint64_t p_validateTileCB(unsigned __int16 a1, unsigned int a2, id *a3)
+void *p_validateTileCB(unsigned __int16 a1, unsigned int a2, id *a3)
 {
   result = [a3[4] tileForID:a2];
   if (!result)
@@ -9530,7 +9580,7 @@ _BYTE *privateCollectColumnCellCountsInTile(uint64_t a1, void *a2, uint64_t a3)
 
         v11 = 0;
         v12 = 0;
-        v13 = *(v10 + 540);
+        v13 = v10[540];
         do
         {
           result = TSTTableTileRowInfoCellStorageRefAtTileColumnIndex(v10, v11);
@@ -9555,7 +9605,7 @@ _BYTE *privateCollectColumnCellCountsInTile(uint64_t a1, void *a2, uint64_t a3)
   return result;
 }
 
-uint64_t privateValidateColumnCellCounts(TSTTableDataStore *a1)
+unsigned __int16 *privateValidateColumnCellCounts(TSTTableDataStore *a1)
 {
   v8 = *MEMORY[0x277D85DE8];
   memset(v7, 0, 510);
@@ -9566,7 +9616,7 @@ uint64_t privateValidateColumnCellCounts(TSTTableDataStore *a1)
     if (result)
     {
       v4 = result;
-      if (*(v7 + i) != *(result + 34))
+      if (*(v7 + i) != result[17])
       {
         v5 = [MEMORY[0x277D6C290] currentHandler];
         v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void privateValidateColumnCellCounts(TSTTableDataStore *)"];
@@ -9585,14 +9635,14 @@ uint64_t TSTTableDataStoreAddString(uint64_t a1, uint64_t a2)
   return TSTTableDataListAddString(v3, a2);
 }
 
-uint64_t TSTTableDataStoreGetStringForKey(uint64_t a1, uint64_t a2)
+void *TSTTableDataStoreGetStringForKey(uint64_t a1, uint64_t a2)
 {
   v3 = [*(a1 + 64) object];
 
   return TSTTableDataListGetStringForKey(v3, a2);
 }
 
-uint64_t TSTTableDataStoreAddStringReferenceForKey(uint64_t a1, uint64_t a2)
+_DWORD *TSTTableDataStoreAddStringReferenceForKey(uint64_t a1, uint64_t a2)
 {
   v3 = [*(a1 + 64) object];
 
@@ -9718,66 +9768,4 @@ uint64_t TSTTableDataStoreCopyAPasteboardCustomFormatToDoc(uint64_t a1, void *a2
   }
 
   return [v6 addCustomFormat:v7 withOldKey:a3];
-}
-
-uint64_t TSTTableDataStoreAddConditionalStyle(uint64_t a1, uint64_t a2)
-{
-  v3 = [*(a1 + 56) object];
-
-  return TSTTableDataListAddConditionalStyleSet(v3, a2);
-}
-
-uint64_t TSTTableDataStoreConditionalStyleForKey(uint64_t a1, uint64_t a2)
-{
-  v3 = [*(a1 + 56) object];
-
-  return TSTTableDataListGetConditionalStyleSetForKey(v3, a2);
-}
-
-uint64_t TSTTableDataStoreConditionalStyleRefCountForKey(uint64_t a1, uint64_t a2)
-{
-  v3 = [*(a1 + 56) object];
-
-  return TSTTableDataListRefCountForKey(v3, a2);
-}
-
-uint64_t *std::__tree<std::__value_type<unsigned int,SFUtility::ObjcSharedPtr<NSObject>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,SFUtility::ObjcSharedPtr<NSObject>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,SFUtility::ObjcSharedPtr<NSObject>>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int const,SFUtility::ObjcSharedPtr<NSObject>>>(uint64_t a1, unsigned int *a2)
-{
-  v2 = *(a1 + 8);
-  if (!v2)
-  {
-LABEL_8:
-    operator new();
-  }
-
-  v3 = *a2;
-  while (1)
-  {
-    while (1)
-    {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
-      {
-        break;
-      }
-
-      v2 = *v4;
-      if (!*v4)
-      {
-        goto LABEL_8;
-      }
-    }
-
-    if (v5 >= v3)
-    {
-      return v4;
-    }
-
-    v2 = v4[1];
-    if (!v2)
-    {
-      goto LABEL_8;
-    }
-  }
 }

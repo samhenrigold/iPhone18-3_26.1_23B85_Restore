@@ -6,7 +6,7 @@
 
 - (int64_t)parseSessionInfo:(id)info
 {
-  v124 = *MEMORY[0x1E69E9840];
+  v282 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   Value = 0;
   if (infoCopy && @"qat")
@@ -18,102 +18,102 @@
   self->_allocateType = unsignedIntValue;
   if (unsignedIntValue - 5 > 0xFFFFFFFB)
   {
-    v9 = 0;
+    v18 = 0;
     if (infoCopy && @"qsat")
     {
-      v9 = CFDictionaryGetValue(infoCopy, @"qsat");
+      v18 = CFDictionaryGetValue(infoCopy, @"qsat");
     }
 
-    [v9 doubleValue];
-    self->_allocateTime = v10;
-    if (v10 <= 0.0)
+    [v18 doubleValue];
+    self->_allocateTime = v19;
+    if (v19 <= 0.0)
     {
-      v21 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v30 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v21, OS_LOG_TYPE_DEFAULT, "failed to get allocate-time from sessionInfo.", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v30, OS_LOG_TYPE_DEFAULT, "failed to get allocate-time from sessionInfo.", buf, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"GL", @"IDS", @"failed to get allocate-time from sessionInfo.");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"failed to get allocate-time from sessionInfo.", v31, v32, v33, v34, v35, v249);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get allocate-time from sessionInfo.");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get allocate-time from sessionInfo.", v36, v37, v38, v39, v251);
           }
         }
       }
 
-      v8 = 28;
+      v17 = 28;
     }
 
-    else if (infoCopy && @"U" && (v11 = CFDictionaryGetValue(infoCopy, @"U"), (v115 = v11) != 0))
+    else if (infoCopy && @"U" && (v20 = CFDictionaryGetValue(infoCopy, @"U"), (v273 = v20) != 0))
     {
-      objc_storeStrong(&self->_allocateRequestID, v11);
-      if (@"qrsi" && (v12 = CFDictionaryGetValue(infoCopy, @"qrsi"), (v13 = v12) != 0))
+      objc_storeStrong(&self->_allocateRequestID, v20);
+      if (@"qrsi" && (v21 = CFDictionaryGetValue(infoCopy, @"qrsi"), (v22 = v21) != 0))
       {
-        v113 = v13;
-        objc_storeStrong(&self->_relaySessionID, v12);
-        if (@"qrst" && (v14 = CFDictionaryGetValue(infoCopy, @"qrst"), (v15 = v14) != 0))
+        v271 = v22;
+        objc_storeStrong(&self->_relaySessionID, v21);
+        if (@"qrst" && (v23 = CFDictionaryGetValue(infoCopy, @"qrst"), (v24 = v23) != 0))
         {
-          v110 = v15;
-          objc_storeStrong(&self->_relaySessionToken, v14);
-          if (@"qrsk" && (v16 = CFDictionaryGetValue(infoCopy, @"qrsk"), (v17 = v16) != 0))
+          v268 = v24;
+          objc_storeStrong(&self->_relaySessionToken, v23);
+          if (@"qrsk" && (v25 = CFDictionaryGetValue(infoCopy, @"qrsk"), (v26 = v25) != 0))
           {
-            v109 = v17;
-            objc_storeStrong(&self->_relaySessionKey, v16);
-            if (@"qr-software-id" && (v18 = CFDictionaryGetValue(infoCopy, @"qr-software-id"), (v19 = v18) != 0))
+            v267 = v26;
+            objc_storeStrong(&self->_relaySessionKey, v25);
+            if (@"qr-software-id" && (v27 = CFDictionaryGetValue(infoCopy, @"qr-software-id"), (v28 = v27) != 0))
             {
-              v108 = v19;
-              objc_storeStrong(&self->_softwareData, v18);
+              v266 = v28;
+              objc_storeStrong(&self->_softwareData, v27);
               if (@"qrp")
               {
-                v20 = CFDictionaryGetValue(infoCopy, @"qrp");
+                v29 = CFDictionaryGetValue(infoCopy, @"qrp");
               }
 
               else
               {
-                v20 = 0;
+                v29 = 0;
               }
 
-              unsignedShortValue = [v20 unsignedShortValue];
+              unsignedShortValue = [v29 unsignedShortValue];
               if (unsignedShortValue)
               {
-                v120 = -1431655766;
-                if (@"qrip" && (v29 = unsignedShortValue, (v30 = CFDictionaryGetValue(infoCopy, @"qrip")) != 0))
+                v278 = -1431655766;
+                if (@"qrip" && (v92 = unsignedShortValue, (v93 = CFDictionaryGetValue(infoCopy, @"qrip")) != 0))
                 {
-                  v106 = v30;
-                  [v30 getBytes:&v120 length:4];
+                  v264 = v93;
+                  [v93 getBytes:&v278 length:4];
                   *&self->_serverAddress.ss_len = 528;
-                  *&self->_serverAddress.__ss_pad1[2] = v120;
-                  v31 = __rev16(v29);
-                  *self->_serverAddress.__ss_pad1 = v31;
+                  *&self->_serverAddress.__ss_pad1[2] = v278;
+                  v94 = __rev16(v92);
+                  *self->_serverAddress.__ss_pad1 = v94;
                   if (@"qipp")
                   {
-                    v32 = CFDictionaryGetValue(infoCopy, @"qipp");
+                    v95 = CFDictionaryGetValue(infoCopy, @"qipp");
                   }
 
                   else
                   {
-                    v32 = 0;
+                    v95 = 0;
                   }
 
-                  self->_ipPreference = [v32 unsignedCharValue];
+                  self->_ipPreference = [v95 unsignedCharValue];
                   if (@"qrhpp")
                   {
-                    v35 = CFDictionaryGetValue(infoCopy, @"qrhpp");
+                    v116 = CFDictionaryGetValue(infoCopy, @"qrhpp");
                   }
 
                   else
                   {
-                    v35 = 0;
+                    v116 = 0;
                   }
 
-                  unsignedShortValue2 = [v35 unsignedShortValue];
-                  v37 = unsignedShortValue2;
+                  unsignedShortValue2 = [v116 unsignedShortValue];
+                  v118 = unsignedShortValue2;
                   *&self->_highPriorityServerAddressIPv6.__ss_pad2[8] = 0;
                   *self->_highPriorityServerAddressIPv6.__ss_pad2 = 0;
                   *&self->_highPriorityServerAddressIPv6.ss_len = 0u;
@@ -121,98 +121,96 @@
                   if (unsignedShortValue2)
                   {
                     *&self->_highPriorityServerAddress.ss_len = 528;
-                    *&self->_highPriorityServerAddress.__ss_pad1[2] = v120;
+                    *&self->_highPriorityServerAddress.__ss_pad1[2] = v278;
                     *self->_highPriorityServerAddress.__ss_pad1 = __rev16(unsignedShortValue2);
                   }
 
                   else
                   {
-                    v38 = OSLogHandleForTransportCategory();
-                    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+                    v119 = OSLogHandleForTransportCategory();
+                    if (os_log_type_enabled(v119, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 0;
-                      _os_log_impl(&dword_1A7AD9000, v38, OS_LOG_TYPE_DEFAULT, "failed to get high priority relay-port from sessionInfo.", buf, 2u);
+                      _os_log_impl(&dword_1A7AD9000, v119, OS_LOG_TYPE_DEFAULT, "failed to get high priority relay-port from sessionInfo.", buf, 2u);
                     }
 
                     if (os_log_shim_legacy_logging_enabled())
                     {
                       if (_IDSShouldLogTransport())
                       {
-                        _IDSLogTransport(@"GL", @"IDS", @"failed to get high priority relay-port from sessionInfo.");
-                        if (_IDSShouldLog())
+                        _IDSLogTransport(@"GL", @"IDS", @"failed to get high priority relay-port from sessionInfo.", v120, v121, v122, v123, v124, v249);
+                        if (_IDSShouldLog(0))
                         {
-                          _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get high priority relay-port from sessionInfo.");
+                          _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get high priority relay-port from sessionInfo.", v125, v126, v127, v128, v249);
                         }
                       }
                     }
                   }
 
-                  if (@"qrip6" && (v39 = CFDictionaryGetValue(infoCopy, @"qrip6")) != 0)
+                  if (@"qrip6" && (v129 = CFDictionaryGetValue(infoCopy, @"qrip6")) != 0)
                   {
-                    v107 = v39;
-                    if ([v39 length] == 16)
+                    v265 = v129;
+                    if ([v129 length] == 16)
                     {
                       *&self->_serverAddressIPv6.ss_len = 0;
                       self->_serverAddressIPv6.__ss_align = 0;
                       *&self->_serverAddressIPv6.__ss_pad2[8] = 0;
                       *self->_serverAddressIPv6.__ss_pad2 = 0;
                       *&self->_serverAddressIPv6.ss_len = 7708;
-                      *self->_serverAddressIPv6.__ss_pad1 = v31;
-                      v40 = v107;
-                      *&self->_serverAddressIPv6.__ss_align = *[v107 bytes];
-                      v41 = OSLogHandleForTransportCategory();
-                      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+                      *self->_serverAddressIPv6.__ss_pad1 = v94;
+                      v130 = v265;
+                      *&self->_serverAddressIPv6.__ss_align = *[v265 bytes];
+                      v131 = OSLogHandleForTransportCategory();
+                      if (os_log_type_enabled(v131, OS_LOG_TYPE_DEFAULT))
                       {
-                        v42 = *self->_serverAddressIPv6.__ss_pad1;
+                        v132 = *self->_serverAddressIPv6.__ss_pad1;
                         *buf = 67109120;
-                        LODWORD(v123) = v42;
-                        _os_log_impl(&dword_1A7AD9000, v41, OS_LOG_TYPE_DEFAULT, "QR IPv6 port number: %d", buf, 8u);
+                        LODWORD(v281) = v132;
+                        _os_log_impl(&dword_1A7AD9000, v131, OS_LOG_TYPE_DEFAULT, "QR IPv6 port number: %d", buf, 8u);
                       }
 
                       if (os_log_shim_legacy_logging_enabled())
                       {
                         if (_IDSShouldLogTransport())
                         {
-                          v103 = *self->_serverAddressIPv6.__ss_pad1;
-                          _IDSLogTransport(@"GL", @"IDS", @"QR IPv6 port number: %d");
-                          if (_IDSShouldLog())
+                          _IDSLogTransport(@"GL", @"IDS", @"QR IPv6 port number: %d", v133, v134, v135, v136, v137, *self->_serverAddressIPv6.__ss_pad1);
+                          if (_IDSShouldLog(0))
                           {
-                            v103 = *self->_serverAddressIPv6.__ss_pad1;
-                            _IDSLogV(0, @"IDSFoundation", @"GL", @"QR IPv6 port number: %d");
+                            _IDSLogV(0, @"IDSFoundation", @"GL", @"QR IPv6 port number: %d", v138, v139, v140, v141, *self->_serverAddressIPv6.__ss_pad1);
                           }
                         }
                       }
 
-                      if (v37)
+                      if (v118)
                       {
                         *&self->_highPriorityServerAddressIPv6.ss_len = 7708;
-                        *self->_highPriorityServerAddressIPv6.__ss_pad1 = __rev16(v37);
-                        v43 = v107;
-                        *&self->_highPriorityServerAddressIPv6.__ss_align = *[v107 bytes];
+                        *self->_highPriorityServerAddressIPv6.__ss_pad1 = __rev16(v118);
+                        v142 = v265;
+                        *&self->_highPriorityServerAddressIPv6.__ss_align = *[v265 bytes];
                       }
                     }
 
                     else
                     {
-                      v51 = OSLogHandleForTransportCategory();
-                      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+                      v177 = OSLogHandleForTransportCategory();
+                      if (os_log_type_enabled(v177, OS_LOG_TYPE_DEFAULT))
                       {
-                        v52 = [v107 length];
+                        v178 = [v265 length];
                         *buf = 134217984;
-                        v123 = v52;
-                        _os_log_impl(&dword_1A7AD9000, v51, OS_LOG_TYPE_DEFAULT, "QR IPv6 address length is: %lu != 16", buf, 0xCu);
+                        v281 = v178;
+                        _os_log_impl(&dword_1A7AD9000, v177, OS_LOG_TYPE_DEFAULT, "QR IPv6 address length is: %lu != 16", buf, 0xCu);
                       }
 
                       if (os_log_shim_legacy_logging_enabled())
                       {
                         if (_IDSShouldLogTransport())
                         {
-                          v103 = [v107 length];
-                          _IDSLogTransport(@"GL", @"IDS", @"QR IPv6 address length is: %lu != 16");
-                          if (_IDSShouldLog())
+                          v179 = [v265 length];
+                          _IDSLogTransport(@"GL", @"IDS", @"QR IPv6 address length is: %lu != 16", v180, v181, v182, v183, v184, v179);
+                          if (_IDSShouldLog(0))
                           {
-                            v103 = [v107 length];
-                            _IDSLogV(0, @"IDSFoundation", @"GL", @"QR IPv6 address length is: %lu != 16");
+                            v185 = [v265 length];
+                            _IDSLogV(0, @"IDSFoundation", @"GL", @"QR IPv6 address length is: %lu != 16", v186, v187, v188, v189, v185);
                           }
                         }
                       }
@@ -221,670 +219,670 @@
 
                   else
                   {
-                    v44 = OSLogHandleForTransportCategory();
-                    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+                    v143 = OSLogHandleForTransportCategory();
+                    if (os_log_type_enabled(v143, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 0;
-                      _os_log_impl(&dword_1A7AD9000, v44, OS_LOG_TYPE_DEFAULT, "No IPV6 relay-address from sessionInfo.", buf, 2u);
+                      _os_log_impl(&dword_1A7AD9000, v143, OS_LOG_TYPE_DEFAULT, "No IPV6 relay-address from sessionInfo.", buf, 2u);
                     }
 
                     if (os_log_shim_legacy_logging_enabled())
                     {
                       if (_IDSShouldLogTransport())
                       {
-                        _IDSLogTransport(@"GL", @"IDS", @"No IPV6 relay-address from sessionInfo.");
-                        if (_IDSShouldLog())
+                        _IDSLogTransport(@"GL", @"IDS", @"No IPV6 relay-address from sessionInfo.", v144, v145, v146, v147, v148, v249);
+                        if (_IDSShouldLog(0))
                         {
-                          _IDSLogV(0, @"IDSFoundation", @"GL", @"No IPV6 relay-address from sessionInfo.");
+                          _IDSLogV(0, @"IDSFoundation", @"GL", @"No IPV6 relay-address from sessionInfo.", v149, v150, v151, v152, v249);
                         }
                       }
                     }
 
-                    v107 = 0;
+                    v265 = 0;
                   }
 
                   if (@"qv")
                   {
-                    v45 = CFDictionaryGetValue(infoCopy, @"qv");
+                    v153 = CFDictionaryGetValue(infoCopy, @"qv");
                   }
 
                   else
                   {
-                    v45 = 0;
+                    v153 = 0;
                   }
 
-                  unsignedCharValue = [v45 unsignedCharValue];
+                  unsignedCharValue = [v153 unsignedCharValue];
                   if (unsignedCharValue)
                   {
                     self->_protocolVersion = unsignedCharValue;
-                    if (@"qids" && (v47 = CFDictionaryGetValue(infoCopy, @"qids"), (v104 = v47) != 0))
+                    if (@"qids" && (v155 = CFDictionaryGetValue(infoCopy, @"qids"), (v262 = v155) != 0))
                     {
-                      objc_storeStrong(&self->_idsSessionID, v47);
+                      objc_storeStrong(&self->_idsSessionID, v155);
                       if (@"qrpr")
                       {
-                        v48 = CFDictionaryGetValue(infoCopy, @"qrpr");
+                        v156 = CFDictionaryGetValue(infoCopy, @"qrpr");
                       }
 
                       else
                       {
-                        v48 = 0;
+                        v156 = 0;
                       }
 
-                      self->_relayServerProviderType = [v48 unsignedIntValue];
-                      v53 = @"qrep";
+                      self->_relayServerProviderType = [v156 unsignedIntValue];
+                      v190 = @"qrep";
                       if (@"qrep")
                       {
-                        v53 = CFDictionaryGetValue(infoCopy, @"qrep");
+                        v190 = CFDictionaryGetValue(infoCopy, @"qrep");
                       }
 
-                      objc_storeStrong(&self->_reportingDataBlob, v53);
+                      objc_storeStrong(&self->_reportingDataBlob, v190);
                       if (@"qri")
                       {
-                        v54 = CFDictionaryGetValue(infoCopy, @"qri");
+                        v191 = CFDictionaryGetValue(infoCopy, @"qri");
                       }
 
                       else
                       {
-                        v54 = 0;
+                        v191 = 0;
                       }
 
-                      self->_participantID = [v54 unsignedLongLongValue];
+                      self->_participantID = [v191 unsignedLongLongValue];
                       if (@"IsInitiator")
                       {
-                        v55 = CFDictionaryGetValue(infoCopy, @"IsInitiator");
+                        v192 = CFDictionaryGetValue(infoCopy, @"IsInitiator");
                       }
 
                       else
                       {
-                        v55 = 0;
+                        v192 = 0;
                       }
 
-                      self->_isInitiator = [v55 BOOLValue];
+                      self->_isInitiator = [v192 BOOLValue];
                       if (@"link-protocol")
                       {
-                        v56 = CFDictionaryGetValue(infoCopy, @"link-protocol");
+                        v193 = CFDictionaryGetValue(infoCopy, @"link-protocol");
                       }
 
                       else
                       {
-                        v56 = 0;
+                        v193 = 0;
                       }
 
-                      self->_linkProtocol = [v56 intValue];
+                      self->_linkProtocol = [v193 intValue];
                       if (@"ls")
                       {
-                        v57 = CFDictionaryGetValue(infoCopy, @"ls");
+                        v194 = CFDictionaryGetValue(infoCopy, @"ls");
                       }
 
                       else
                       {
-                        v57 = 0;
+                        v194 = 0;
                       }
 
-                      self->_linkSuggestion = [v57 unsignedCharValue];
+                      self->_linkSuggestion = [v194 unsignedCharValue];
                       if (@"lc")
                       {
-                        v58 = CFDictionaryGetValue(infoCopy, @"lc");
+                        v195 = CFDictionaryGetValue(infoCopy, @"lc");
                       }
 
                       else
                       {
-                        v58 = 0;
+                        v195 = 0;
                       }
 
-                      self->_linkScore = [v58 unsignedCharValue];
+                      self->_linkScore = [v195 unsignedCharValue];
                       if (@"und2")
                       {
-                        v59 = CFDictionaryGetValue(infoCopy, @"und2");
+                        v196 = CFDictionaryGetValue(infoCopy, @"und2");
                       }
 
                       else
                       {
-                        v59 = 0;
+                        v196 = 0;
                       }
 
-                      self->_uplinkNackDisabled = [v59 BOOLValue];
+                      self->_uplinkNackDisabled = [v196 BOOLValue];
                       if (@"h2fdv2")
                       {
-                        v60 = CFDictionaryGetValue(infoCopy, @"h2fdv2");
+                        v197 = CFDictionaryGetValue(infoCopy, @"h2fdv2");
                       }
 
                       else
                       {
-                        v60 = 0;
+                        v197 = 0;
                       }
 
-                      self->_h2FallbackDisabled = [v60 BOOLValue];
+                      self->_h2FallbackDisabled = [v197 BOOLValue];
                       if (@"tled")
                       {
-                        v61 = CFDictionaryGetValue(infoCopy, @"tled");
+                        v198 = CFDictionaryGetValue(infoCopy, @"tled");
                       }
 
                       else
                       {
-                        v61 = 0;
+                        v198 = 0;
                       }
 
-                      self->_transportLayerEncryptionDisabled = [v61 BOOLValue];
+                      self->_transportLayerEncryptionDisabled = [v198 BOOLValue];
                       if (@"ipdd")
                       {
-                        v62 = CFDictionaryGetValue(infoCopy, @"ipdd");
+                        v199 = CFDictionaryGetValue(infoCopy, @"ipdd");
                       }
 
                       else
                       {
-                        v62 = 0;
+                        v199 = 0;
                       }
 
-                      self->_ipDiscoveryDisabled = [v62 BOOLValue];
-                      v63 = @"qrexp";
+                      self->_ipDiscoveryDisabled = [v199 BOOLValue];
+                      v200 = @"qrexp";
                       if (@"qrexp")
                       {
-                        v63 = CFDictionaryGetValue(infoCopy, @"qrexp");
+                        v200 = CFDictionaryGetValue(infoCopy, @"qrexp");
                       }
 
-                      objc_storeStrong(&self->_qrSessionExperiments, v63);
-                      v64 = @"qptp";
+                      objc_storeStrong(&self->_qrSessionExperiments, v200);
+                      v201 = @"qptp";
                       if (@"qptp")
                       {
-                        v64 = CFDictionaryGetValue(infoCopy, @"qptp");
+                        v201 = CFDictionaryGetValue(infoCopy, @"qptp");
                       }
 
-                      objc_storeStrong(&self->_pskTransportParameters, v64);
-                      v65 = @"qph3";
+                      objc_storeStrong(&self->_pskTransportParameters, v201);
+                      v202 = @"qph3";
                       if (@"qph3")
                       {
-                        v65 = CFDictionaryGetValue(infoCopy, @"qph3");
+                        v202 = CFDictionaryGetValue(infoCopy, @"qph3");
                       }
 
-                      objc_storeStrong(&self->_pskH3Settings, v65);
+                      objc_storeStrong(&self->_pskH3Settings, v202);
                       if (@"x-internal")
                       {
-                        v66 = CFDictionaryGetValue(infoCopy, @"x-internal");
+                        v203 = CFDictionaryGetValue(infoCopy, @"x-internal");
                       }
 
                       else
                       {
-                        v66 = 0;
+                        v203 = 0;
                       }
 
-                      self->_isInternal = [v66 BOOLValue];
+                      self->_isInternal = [v203 BOOLValue];
                       if (@"idscel")
                       {
-                        v67 = CFDictionaryGetValue(infoCopy, @"idscel");
+                        v204 = CFDictionaryGetValue(infoCopy, @"idscel");
                       }
 
                       else
                       {
-                        v67 = 0;
+                        v204 = 0;
                       }
 
-                      self->_ftPowerOptimizationEnabled = [v67 BOOLValue];
+                      self->_ftPowerOptimizationEnabled = [v204 BOOLValue];
                       if (@"qal")
                       {
-                        v68 = CFDictionaryGetValue(infoCopy, @"qal");
+                        v205 = CFDictionaryGetValue(infoCopy, @"qal");
                       }
 
                       else
                       {
-                        v68 = 0;
+                        v205 = 0;
                       }
 
-                      v105 = v68;
-                      v69 = objc_alloc_init(MEMORY[0x1E695DF70]);
-                      [v69 addObjectsFromArray:v105];
+                      v263 = v205;
+                      v206 = objc_alloc_init(MEMORY[0x1E695DF70]);
+                      [v206 addObjectsFromArray:v263];
                       array = [MEMORY[0x1E695DF70] array];
-                      v118 = 0u;
-                      v119 = 0u;
-                      v116 = 0u;
-                      v117 = 0u;
-                      obj = v69;
-                      v70 = 0;
-                      v71 = [obj countByEnumeratingWithState:&v116 objects:v121 count:16];
-                      if (v71)
+                      v276 = 0u;
+                      v277 = 0u;
+                      v274 = 0u;
+                      v275 = 0u;
+                      obj = v206;
+                      v207 = 0;
+                      v208 = [obj countByEnumeratingWithState:&v274 objects:v279 count:16];
+                      if (v208)
                       {
-                        v114 = *v117;
+                        v272 = *v275;
                         do
                         {
-                          for (i = 0; i != v71; ++i)
+                          for (i = 0; i != v208; ++i)
                           {
-                            if (*v117 != v114)
+                            if (*v275 != v272)
                             {
                               objc_enumerationMutation(obj);
                             }
 
-                            v73 = 0;
-                            v74 = *(*(&v116 + 1) + 8 * i);
-                            if (@"qri" && v74)
+                            v210 = 0;
+                            v211 = *(*(&v274 + 1) + 8 * i);
+                            if (@"qri" && v211)
                             {
-                              v73 = CFDictionaryGetValue(*(*(&v116 + 1) + 8 * i), @"qri");
+                              v210 = CFDictionaryGetValue(*(*(&v274 + 1) + 8 * i), @"qri");
                             }
 
-                            v75 = v73;
-                            v76 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(v75, "unsignedLongLongValue")}];
-                            if (!v70)
+                            v212 = v210;
+                            v213 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(v212, "unsignedLongLongValue")}];
+                            if (!v207)
                             {
-                              v70 = objc_alloc_init(MEMORY[0x1E695DF70]);
+                              v207 = objc_alloc_init(MEMORY[0x1E695DF70]);
                             }
 
-                            if (v70 && v76)
+                            if (v207 && v213)
                             {
-                              CFArrayAppendValue(v70, v76);
+                              CFArrayAppendValue(v207, v213);
                             }
 
-                            if ([v75 unsignedLongLongValue] == self->_participantID)
+                            if ([v212 unsignedLongLongValue] == self->_participantID)
                             {
-                              v77 = 0;
-                              if (v74 && @"tP")
+                              v214 = 0;
+                              if (v211 && @"tP")
                               {
-                                v77 = CFDictionaryGetValue(v74, @"tP");
+                                v214 = CFDictionaryGetValue(v211, @"tP");
                               }
 
-                              v78 = v77;
+                              v215 = v214;
                               self->_isPseudoParticipant = MEMORY[0x1AC563170]();
                             }
 
-                            v79 = [(__CFDictionary *)v74 objectForKeyedSubscript:@"t"];
-                            if (v79)
+                            v216 = [(__CFDictionary *)v211 objectForKeyedSubscript:@"t"];
+                            if (v216)
                             {
-                              v80 = [IDSPushToken pushTokenWithData:v79];
-                              [array addObject:v80];
+                              v217 = [IDSPushToken pushTokenWithData:v216];
+                              [array addObject:v217];
                             }
                           }
 
-                          v71 = [obj countByEnumeratingWithState:&v116 objects:v121 count:16];
+                          v208 = [obj countByEnumeratingWithState:&v274 objects:v279 count:16];
                         }
 
-                        while (v71);
+                        while (v208);
                       }
 
                       objc_storeStrong(&self->_allocatedPushTokens, array);
-                      if (v70 || self->_allocateType != 3)
+                      if (v207 || self->_allocateType != 3)
                       {
-                        objc_storeStrong(&self->_allParticipantIDs, v70);
-                        v82 = [(__CFArray *)v70 description];
+                        objc_storeStrong(&self->_allParticipantIDs, v207);
+                        v228 = [(__CFArray *)v207 description];
                         cut_dispatch_log_queue();
                         if (@"default-local-device-cbuuid")
                         {
-                          v83 = CFDictionaryGetValue(infoCopy, @"default-local-device-cbuuid");
+                          v229 = CFDictionaryGetValue(infoCopy, @"default-local-device-cbuuid");
                         }
 
                         else
                         {
-                          v83 = 0;
+                          v229 = 0;
                         }
 
-                        v84 = v83;
-                        v85 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v84];
+                        v230 = v229;
+                        v231 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v230];
                         defaultDeviceLocalCBUUID = self->_defaultDeviceLocalCBUUID;
-                        self->_defaultDeviceLocalCBUUID = v85;
+                        self->_defaultDeviceLocalCBUUID = v231;
 
                         if (@"default-remote-device-cbuuid")
                         {
-                          v87 = CFDictionaryGetValue(infoCopy, @"default-remote-device-cbuuid");
+                          v233 = CFDictionaryGetValue(infoCopy, @"default-remote-device-cbuuid");
                         }
 
                         else
                         {
-                          v87 = 0;
+                          v233 = 0;
                         }
 
-                        v88 = v87;
-                        v89 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v88];
+                        v234 = v233;
+                        v235 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v234];
                         defaultDeviceRemoteCBUUID = self->_defaultDeviceRemoteCBUUID;
-                        self->_defaultDeviceRemoteCBUUID = v89;
+                        self->_defaultDeviceRemoteCBUUID = v235;
 
-                        v91 = @"qgid";
+                        v237 = @"qgid";
                         if (@"qgid")
                         {
-                          v91 = CFDictionaryGetValue(infoCopy, @"qgid");
+                          v237 = CFDictionaryGetValue(infoCopy, @"qgid");
                         }
 
-                        objc_storeStrong(&self->_groupID, v91);
-                        v92 = @"qsgid";
+                        objc_storeStrong(&self->_groupID, v237);
+                        v238 = @"qsgid";
                         if (@"qsgid")
                         {
-                          v92 = CFDictionaryGetValue(infoCopy, @"qsgid");
+                          v238 = CFDictionaryGetValue(infoCopy, @"qsgid");
                         }
 
-                        objc_storeStrong(&self->_stableGroupID, v92);
-                        v93 = @"stream-info-published-streams";
+                        objc_storeStrong(&self->_stableGroupID, v238);
+                        v239 = @"stream-info-published-streams";
                         if (@"stream-info-published-streams")
                         {
-                          v93 = CFDictionaryGetValue(infoCopy, @"stream-info-published-streams");
+                          v239 = CFDictionaryGetValue(infoCopy, @"stream-info-published-streams");
                         }
 
-                        objc_storeStrong(&self->_publishedStreams, v93);
-                        v94 = @"stream-info-subscribed-streams";
+                        objc_storeStrong(&self->_publishedStreams, v239);
+                        v240 = @"stream-info-subscribed-streams";
                         if (@"stream-info-subscribed-streams")
                         {
-                          v94 = CFDictionaryGetValue(infoCopy, @"stream-info-subscribed-streams");
+                          v240 = CFDictionaryGetValue(infoCopy, @"stream-info-subscribed-streams");
                         }
 
-                        objc_storeStrong(&self->_subscribedStreams, v94);
+                        objc_storeStrong(&self->_subscribedStreams, v240);
                         if (@"stream-info-generation-counter")
                         {
-                          v95 = CFDictionaryGetValue(infoCopy, @"stream-info-generation-counter");
+                          v241 = CFDictionaryGetValue(infoCopy, @"stream-info-generation-counter");
                         }
 
                         else
                         {
-                          v95 = 0;
+                          v241 = 0;
                         }
 
-                        self->_generationCounter = [v95 unsignedIntValue];
+                        self->_generationCounter = [v241 unsignedIntValue];
                         if (@"stream-info-max-concurrent-streams")
                         {
-                          v96 = CFDictionaryGetValue(infoCopy, @"stream-info-max-concurrent-streams");
+                          v242 = CFDictionaryGetValue(infoCopy, @"stream-info-max-concurrent-streams");
                         }
 
                         else
                         {
-                          v96 = 0;
+                          v242 = 0;
                         }
 
-                        self->_maxConcurrentStreams = [v96 unsignedIntValue];
-                        v97 = @"participant-data-key";
+                        self->_maxConcurrentStreams = [v242 unsignedIntValue];
+                        v243 = @"participant-data-key";
                         if (@"participant-data-key")
                         {
-                          v97 = CFDictionaryGetValue(infoCopy, @"participant-data-key");
+                          v243 = CFDictionaryGetValue(infoCopy, @"participant-data-key");
                         }
 
-                        objc_storeStrong(&self->_avcDataBlob, v97);
-                        v98 = @"quic-exchange-provider-key";
+                        objc_storeStrong(&self->_avcDataBlob, v243);
+                        v244 = @"quic-exchange-provider-key";
                         if (@"quic-exchange-provider-key")
                         {
-                          v98 = CFDictionaryGetValue(infoCopy, @"quic-exchange-provider-key");
+                          v244 = CFDictionaryGetValue(infoCopy, @"quic-exchange-provider-key");
                         }
 
-                        objc_storeStrong(&self->_quicMaterialExchangeProvider, v98);
+                        objc_storeStrong(&self->_quicMaterialExchangeProvider, v244);
                         if (@"gl-option-session-is-user-participant-initiated")
                         {
-                          v99 = CFDictionaryGetValue(infoCopy, @"gl-option-session-is-user-participant-initiated");
+                          v245 = CFDictionaryGetValue(infoCopy, @"gl-option-session-is-user-participant-initiated");
                         }
 
                         else
                         {
-                          v99 = 0;
+                          v245 = 0;
                         }
 
-                        self->_sessionIsNonUserParticipantInitiated = [v99 unsignedIntValue] != 0;
+                        self->_sessionIsNonUserParticipantInitiated = [v245 unsignedIntValue] != 0;
                         if (@"gl-option-session-hand-off-over-qr-enabled")
                         {
-                          v100 = CFDictionaryGetValue(infoCopy, @"gl-option-session-hand-off-over-qr-enabled");
+                          v246 = CFDictionaryGetValue(infoCopy, @"gl-option-session-hand-off-over-qr-enabled");
                         }
 
                         else
                         {
-                          v100 = 0;
+                          v246 = 0;
                         }
 
-                        self->_handOffOverQREnabled = [v100 BOOLValue];
+                        self->_handOffOverQREnabled = [v246 BOOLValue];
                         if (@"gl-option-call-type")
                         {
-                          v101 = CFDictionaryGetValue(infoCopy, @"gl-option-call-type");
+                          v247 = CFDictionaryGetValue(infoCopy, @"gl-option-call-type");
                         }
 
                         else
                         {
-                          v101 = 0;
+                          v247 = 0;
                         }
 
-                        self->_callType = [v101 unsignedIntValue];
+                        self->_callType = [v247 unsignedIntValue];
 
-                        v8 = 0;
+                        v17 = 0;
                       }
 
                       else
                       {
-                        v81 = OSLogHandleForTransportCategory();
-                        if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
+                        v218 = OSLogHandleForTransportCategory();
+                        if (os_log_type_enabled(v218, OS_LOG_TYPE_DEFAULT))
                         {
                           *buf = 0;
-                          _os_log_impl(&dword_1A7AD9000, v81, OS_LOG_TYPE_DEFAULT, "failed to get recipient participant-id list.", buf, 2u);
+                          _os_log_impl(&dword_1A7AD9000, v218, OS_LOG_TYPE_DEFAULT, "failed to get recipient participant-id list.", buf, 2u);
                         }
 
                         if (os_log_shim_legacy_logging_enabled())
                         {
                           if (_IDSShouldLogTransport())
                           {
-                            _IDSLogTransport(@"GL", @"IDS", @"failed to get recipient participant-id list.");
-                            if (_IDSShouldLog())
+                            _IDSLogTransport(@"GL", @"IDS", @"failed to get recipient participant-id list.", v219, v220, v221, v222, v223, v249);
+                            if (_IDSShouldLog(0))
                             {
-                              _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get recipient participant-id list.");
+                              _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get recipient participant-id list.", v224, v225, v226, v227, v261);
                             }
                           }
                         }
 
-                        v8 = 31;
+                        v17 = 31;
                       }
                     }
 
                     else
                     {
-                      v49 = OSLogHandleForTransportCategory();
-                      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+                      v157 = OSLogHandleForTransportCategory();
+                      if (os_log_type_enabled(v157, OS_LOG_TYPE_DEFAULT))
                       {
                         *buf = 0;
-                        _os_log_impl(&dword_1A7AD9000, v49, OS_LOG_TYPE_DEFAULT, "failed to get ids-session-id from sessionInfo.", buf, 2u);
+                        _os_log_impl(&dword_1A7AD9000, v157, OS_LOG_TYPE_DEFAULT, "failed to get ids-session-id from sessionInfo.", buf, 2u);
                       }
 
                       if (os_log_shim_legacy_logging_enabled())
                       {
                         if (_IDSShouldLogTransport())
                         {
-                          _IDSLogTransport(@"GL", @"IDS", @"failed to get ids-session-id from sessionInfo.");
-                          if (_IDSShouldLog())
+                          _IDSLogTransport(@"GL", @"IDS", @"failed to get ids-session-id from sessionInfo.", v158, v159, v160, v161, v162, v249);
+                          if (_IDSShouldLog(0))
                           {
-                            _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get ids-session-id from sessionInfo.");
+                            _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get ids-session-id from sessionInfo.", v163, v164, v165, v166, v259);
                           }
                         }
                       }
 
-                      v8 = 25;
+                      v17 = 25;
                     }
                   }
 
                   else
                   {
-                    v50 = OSLogHandleForTransportCategory();
-                    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+                    v167 = OSLogHandleForTransportCategory();
+                    if (os_log_type_enabled(v167, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 0;
-                      _os_log_impl(&dword_1A7AD9000, v50, OS_LOG_TYPE_DEFAULT, "invalid QR protocol version.", buf, 2u);
+                      _os_log_impl(&dword_1A7AD9000, v167, OS_LOG_TYPE_DEFAULT, "invalid QR protocol version.", buf, 2u);
                     }
 
                     if (os_log_shim_legacy_logging_enabled())
                     {
                       if (_IDSShouldLogTransport())
                       {
-                        _IDSLogTransport(@"GL", @"IDS", @"invalid QR protocol version.");
-                        if (_IDSShouldLog())
+                        _IDSLogTransport(@"GL", @"IDS", @"invalid QR protocol version.", v168, v169, v170, v171, v172, v249);
+                        if (_IDSShouldLog(0))
                         {
-                          _IDSLogV(0, @"IDSFoundation", @"GL", @"invalid QR protocol version.");
+                          _IDSLogV(0, @"IDSFoundation", @"GL", @"invalid QR protocol version.", v173, v174, v175, v176, v260);
                         }
                       }
                     }
 
-                    v8 = 13;
+                    v17 = 13;
                   }
                 }
 
                 else
                 {
-                  v33 = OSLogHandleForTransportCategory();
-                  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+                  v96 = OSLogHandleForTransportCategory();
+                  if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 0;
-                    _os_log_impl(&dword_1A7AD9000, v33, OS_LOG_TYPE_DEFAULT, "failed to get relay-address from sessionInfo.", buf, 2u);
+                    _os_log_impl(&dword_1A7AD9000, v96, OS_LOG_TYPE_DEFAULT, "failed to get relay-address from sessionInfo.", buf, 2u);
                   }
 
                   if (os_log_shim_legacy_logging_enabled())
                   {
                     if (_IDSShouldLogTransport())
                     {
-                      _IDSLogTransport(@"GL", @"IDS", @"failed to get relay-address from sessionInfo.");
-                      if (_IDSShouldLog())
+                      _IDSLogTransport(@"GL", @"IDS", @"failed to get relay-address from sessionInfo.", v97, v98, v99, v100, v101, v249);
+                      if (_IDSShouldLog(0))
                       {
-                        _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get relay-address from sessionInfo.");
+                        _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get relay-address from sessionInfo.", v102, v103, v104, v105, v257);
                       }
                     }
                   }
 
-                  v8 = 4;
+                  v17 = 4;
                 }
               }
 
               else
               {
-                v34 = OSLogHandleForTransportCategory();
-                if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+                v106 = OSLogHandleForTransportCategory();
+                if (os_log_type_enabled(v106, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_1A7AD9000, v34, OS_LOG_TYPE_DEFAULT, "failed to get relay-port from sessionInfo.", buf, 2u);
+                  _os_log_impl(&dword_1A7AD9000, v106, OS_LOG_TYPE_DEFAULT, "failed to get relay-port from sessionInfo.", buf, 2u);
                 }
 
                 if (os_log_shim_legacy_logging_enabled())
                 {
                   if (_IDSShouldLogTransport())
                   {
-                    _IDSLogTransport(@"GL", @"IDS", @"failed to get relay-port from sessionInfo.");
-                    if (_IDSShouldLog())
+                    _IDSLogTransport(@"GL", @"IDS", @"failed to get relay-port from sessionInfo.", v107, v108, v109, v110, v111, v249);
+                    if (_IDSShouldLog(0))
                     {
-                      _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get relay-port from sessionInfo.");
+                      _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get relay-port from sessionInfo.", v112, v113, v114, v115, v258);
                     }
                   }
                 }
 
-                v8 = 5;
+                v17 = 5;
               }
 
-              v27 = v108;
+              v90 = v266;
             }
 
             else
             {
-              v26 = OSLogHandleForTransportCategory();
-              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+              v80 = OSLogHandleForTransportCategory();
+              if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&dword_1A7AD9000, v26, OS_LOG_TYPE_DEFAULT, "failed to get software-data from sessionInfo.", buf, 2u);
+                _os_log_impl(&dword_1A7AD9000, v80, OS_LOG_TYPE_DEFAULT, "failed to get software-data from sessionInfo.", buf, 2u);
               }
 
               if (os_log_shim_legacy_logging_enabled())
               {
                 if (_IDSShouldLogTransport())
                 {
-                  _IDSLogTransport(@"GL", @"IDS", @"failed to get software-data from sessionInfo.");
-                  if (_IDSShouldLog())
+                  _IDSLogTransport(@"GL", @"IDS", @"failed to get software-data from sessionInfo.", v81, v82, v83, v84, v85, v249);
+                  if (_IDSShouldLog(0))
                   {
-                    _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get software-data from sessionInfo.");
+                    _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get software-data from sessionInfo.", v86, v87, v88, v89, v256);
                   }
                 }
               }
 
-              v27 = 0;
-              v8 = 29;
+              v90 = 0;
+              v17 = 29;
             }
           }
 
           else
           {
-            v25 = OSLogHandleForTransportCategory();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+            v70 = OSLogHandleForTransportCategory();
+            if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_1A7AD9000, v25, OS_LOG_TYPE_DEFAULT, "failed to get relay-session-key from sessionInfo.", buf, 2u);
+              _os_log_impl(&dword_1A7AD9000, v70, OS_LOG_TYPE_DEFAULT, "failed to get relay-session-key from sessionInfo.", buf, 2u);
             }
 
             if (os_log_shim_legacy_logging_enabled())
             {
               if (_IDSShouldLogTransport())
               {
-                _IDSLogTransport(@"GL", @"IDS", @"failed to get relay-session-key from sessionInfo.");
-                if (_IDSShouldLog())
+                _IDSLogTransport(@"GL", @"IDS", @"failed to get relay-session-key from sessionInfo.", v71, v72, v73, v74, v75, v249);
+                if (_IDSShouldLog(0))
                 {
-                  _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get relay-session-key from sessionInfo.");
+                  _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get relay-session-key from sessionInfo.", v76, v77, v78, v79, v255);
                 }
               }
             }
 
-            v8 = 3;
+            v17 = 3;
           }
         }
 
         else
         {
-          v24 = OSLogHandleForTransportCategory();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v60 = OSLogHandleForTransportCategory();
+          if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1A7AD9000, v24, OS_LOG_TYPE_DEFAULT, "failed to get relay-session-token from sessionInfo.", buf, 2u);
+            _os_log_impl(&dword_1A7AD9000, v60, OS_LOG_TYPE_DEFAULT, "failed to get relay-session-token from sessionInfo.", buf, 2u);
           }
 
           if (os_log_shim_legacy_logging_enabled())
           {
             if (_IDSShouldLogTransport())
             {
-              _IDSLogTransport(@"GL", @"IDS", @"failed to get relay-session-token from sessionInfo.");
-              if (_IDSShouldLog())
+              _IDSLogTransport(@"GL", @"IDS", @"failed to get relay-session-token from sessionInfo.", v61, v62, v63, v64, v65, v249);
+              if (_IDSShouldLog(0))
               {
-                _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get relay-session-token from sessionInfo.");
+                _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get relay-session-token from sessionInfo.", v66, v67, v68, v69, v254);
               }
             }
           }
 
-          v8 = 2;
+          v17 = 2;
         }
       }
 
       else
       {
-        v23 = OSLogHandleForTransportCategory();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v50 = OSLogHandleForTransportCategory();
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1A7AD9000, v23, OS_LOG_TYPE_DEFAULT, "failed to get relay-session-id from sessionInfo.", buf, 2u);
+          _os_log_impl(&dword_1A7AD9000, v50, OS_LOG_TYPE_DEFAULT, "failed to get relay-session-id from sessionInfo.", buf, 2u);
         }
 
         if (os_log_shim_legacy_logging_enabled())
         {
           if (_IDSShouldLogTransport())
           {
-            _IDSLogTransport(@"GL", @"IDS", @"failed to get relay-session-id from sessionInfo.");
-            if (_IDSShouldLog())
+            _IDSLogTransport(@"GL", @"IDS", @"failed to get relay-session-id from sessionInfo.", v51, v52, v53, v54, v55, v249);
+            if (_IDSShouldLog(0))
             {
-              _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get relay-session-id from sessionInfo.");
+              _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get relay-session-id from sessionInfo.", v56, v57, v58, v59, v253);
             }
           }
         }
 
-        v8 = 1;
+        v17 = 1;
       }
     }
 
     else
     {
-      v22 = OSLogHandleForTransportCategory();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v40 = OSLogHandleForTransportCategory();
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A7AD9000, v22, OS_LOG_TYPE_DEFAULT, "failed to get allocate-request-id from sessionInfo.", buf, 2u);
+        _os_log_impl(&dword_1A7AD9000, v40, OS_LOG_TYPE_DEFAULT, "failed to get allocate-request-id from sessionInfo.", buf, 2u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (_IDSShouldLogTransport())
         {
-          _IDSLogTransport(@"GL", @"IDS", @"failed to get allocate-request-id from sessionInfo.");
-          if (_IDSShouldLog())
+          _IDSLogTransport(@"GL", @"IDS", @"failed to get allocate-request-id from sessionInfo.", v41, v42, v43, v44, v45, v249);
+          if (_IDSShouldLog(0))
           {
-            _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get allocate-request-id from sessionInfo.");
+            _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get allocate-request-id from sessionInfo.", v46, v47, v48, v49, v252);
           }
         }
       }
 
-      v8 = 12;
+      v17 = 12;
     }
   }
 
@@ -901,18 +899,18 @@
     {
       if (_IDSShouldLogTransport())
       {
-        _IDSLogTransport(@"GL", @"IDS", @"failed to get allocate-type from sessionInfo.");
-        if (_IDSShouldLog())
+        _IDSLogTransport(@"GL", @"IDS", @"failed to get allocate-type from sessionInfo.", v8, v9, v10, v11, v12, v249);
+        if (_IDSShouldLog(0))
         {
-          _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get allocate-type from sessionInfo.");
+          _IDSLogV(0, @"IDSFoundation", @"GL", @"failed to get allocate-type from sessionInfo.", v13, v14, v15, v16, v250);
         }
       }
     }
 
-    v8 = 27;
+    v17 = 27;
   }
 
-  return v8;
+  return v17;
 }
 
 @end

@@ -17,6 +17,8 @@
 - (void)setViewModel:(id)model;
 - (void)updateSearchResultsForSearchController:(id)controller;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)willDismissSearchController:(id)controller;
 - (void)willTransitionToTraitCollection:(id)collection withTransitionCoordinator:(id)coordinator;
 @end
@@ -86,7 +88,7 @@
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_10001E970(v8);
+  sub_10001E970(v8, v9);
 }
 
 - (void)dealloc
@@ -120,6 +122,36 @@
 {
   selfCopy = self;
   sub_10001C470();
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for CollectionListViewController();
+  v4 = v6.receiver;
+  [(TPSAppViewController *)&v6 viewWillAppear:appearCopy];
+  defaultCenter = [objc_opt_self() defaultCenter];
+  [defaultCenter addObserver:v4 selector:"applicationWillEnterForeground" name:UIApplicationWillEnterForegroundNotification object:0];
+  [defaultCenter addObserver:v4 selector:"applicationWillEnterBackground" name:UIApplicationDidEnterBackgroundNotification object:0];
+
+  v4[OBJC_IVAR___CollectionListViewController_canIncreaseViewCount] = 1;
+  [v4 analyticsIncreaseCountViewForCollectionsViewDelay:TPSAnalyticsViewMethodViewAppear];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for CollectionListViewController();
+  v4 = v6.receiver;
+  [(TPSAppViewController *)&v6 viewWillDisappear:disappearCopy];
+  v4[OBJC_IVAR___CollectionListViewController_canIncreaseViewCount] = 0;
+  defaultCenter = [objc_opt_self() defaultCenter];
+  [defaultCenter removeObserver:v4 name:UIApplicationWillEnterForegroundNotification object:0];
+  [defaultCenter removeObserver:v4 name:UIApplicationDidEnterBackgroundNotification object:0];
+
+  [v4 cancelAnalyticsIncreaseCountViewForCollectionsViewDelay];
 }
 
 - (void)willTransitionToTraitCollection:(id)collection withTransitionCoordinator:(id)coordinator

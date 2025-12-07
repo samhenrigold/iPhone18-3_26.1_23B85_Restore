@@ -31,28 +31,27 @@ uint64_t __32__CRXUSystemInfo_sharedInstance__block_invoke(uint64_t a1)
 
 - (CRXUSystemInfo)init
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = CRXUSystemInfo;
-  v2 = [(CRXUSystemInfo *)&v7 init];
+  v8 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = CRXUSystemInfo;
+  v2 = [(CRXUSystemInfo *)&v6 init];
   if (v2)
   {
-    memset(&v8, 0, 512);
-    if (uname(&v8))
+    memset(&v7, 0, 512);
+    if (uname(&v7))
     {
       v3 = @"Unknown";
     }
 
     else
     {
-      v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:v8.machine];
+      v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:v7.machine];
     }
 
     modelName = v2->_modelName;
     v2->_modelName = &v3->isa;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

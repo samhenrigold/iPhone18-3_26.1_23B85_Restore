@@ -51,7 +51,7 @@ void __37__NTKVisitManager_sharedVisitManager__block_invoke()
 
 - (id)startVisitUpdatesWithIdentifier:(id)identifier handler:(id)handler
 {
-  OUTLINED_FUNCTION_1_6();
+  OUTLINED_FUNCTION_1_6(self);
   OUTLINED_FUNCTION_0_7();
   NSRequestConcreteImplementation();
   return &stru_284110E98;
@@ -59,7 +59,7 @@ void __37__NTKVisitManager_sharedVisitManager__block_invoke()
 
 - (void)stopVisitUpdatesForToken:(id)token
 {
-  OUTLINED_FUNCTION_1_6();
+  OUTLINED_FUNCTION_1_6(self);
   OUTLINED_FUNCTION_0_7();
 
   NSRequestConcreteImplementation();
@@ -67,7 +67,7 @@ void __37__NTKVisitManager_sharedVisitManager__block_invoke()
 
 - (id)currentVisit
 {
-  OUTLINED_FUNCTION_1_6();
+  OUTLINED_FUNCTION_1_6(self);
   OUTLINED_FUNCTION_0_7();
   NSRequestConcreteImplementation();
   v2 = objc_opt_class();
@@ -77,7 +77,7 @@ void __37__NTKVisitManager_sharedVisitManager__block_invoke()
 
 - (id)previousVisit
 {
-  OUTLINED_FUNCTION_1_6();
+  OUTLINED_FUNCTION_1_6(self);
   OUTLINED_FUNCTION_0_7();
   NSRequestConcreteImplementation();
   v2 = objc_opt_class();

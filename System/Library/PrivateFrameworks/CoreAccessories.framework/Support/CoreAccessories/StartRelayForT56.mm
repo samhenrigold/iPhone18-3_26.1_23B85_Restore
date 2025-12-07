@@ -3,7 +3,7 @@
 
 @implementation StartRelayForT56
 
-uint64_t __mfi4Auth_relay_StartRelayForT56_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL __mfi4Auth_relay_StartRelayForT56_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogObjects && gNumLogObjects >= 56)
   {

@@ -55,38 +55,36 @@ uint64_t __50__AUNotificationSettingsController_sharedInstance__block_invoke()
 
 - (id)allSectionInfoIdentifiers
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
   allSectionInfo = [(BBSettingsGateway *)self->_gateway allSectionInfo];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [allSectionInfo countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [allSectionInfo countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(allSectionInfo);
         }
 
-        sectionID = [*(*(&v12 + 1) + 8 * i) sectionID];
+        sectionID = [*(*(&v11 + 1) + 8 * i) sectionID];
         [v3 addObject:sectionID];
       }
 
-      v6 = [allSectionInfo countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [allSectionInfo countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

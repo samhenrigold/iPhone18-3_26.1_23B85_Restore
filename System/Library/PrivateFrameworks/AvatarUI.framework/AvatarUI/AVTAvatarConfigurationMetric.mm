@@ -53,7 +53,7 @@ uint64_t __45__AVTAvatarConfigurationMetric_defaultMetric__block_invoke()
   return v8;
 }
 
-uint64_t __74__AVTAvatarConfigurationMetric_distanceFromConfiguration_toConfiguration___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__74__AVTAvatarConfigurationMetric_distanceFromConfiguration_toConfiguration___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = [*(a1 + 40) impactForSettingKind:{a2, a3}];
   *(*(*(a1 + 32) + 8) + 24) += 1 << (6 * result);

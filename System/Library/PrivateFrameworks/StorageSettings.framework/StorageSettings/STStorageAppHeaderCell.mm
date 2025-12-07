@@ -55,11 +55,11 @@
 
 - (STStorageAppHeaderCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier specifier:(id)specifier
 {
-  v43[5] = *MEMORY[0x277D85DE8];
+  v41[5] = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
-  v41.receiver = self;
-  v41.super_class = STStorageAppHeaderCell;
-  v9 = [(PSTableCell *)&v41 initWithStyle:style reuseIdentifier:identifier specifier:specifierCopy];
+  v39.receiver = self;
+  v39.super_class = STStorageAppHeaderCell;
+  v9 = [(PSTableCell *)&v39 initWithStyle:style reuseIdentifier:identifier specifier:specifierCopy];
   v10 = v9;
   if (v9)
   {
@@ -76,7 +76,7 @@
     titleLabel = v10->_titleLabel;
     v10->_titleLabel = v19;
 
-    v40 = v12;
+    v38 = v12;
     [(UILabel *)v10->_titleLabel setFont:v12];
     [(UILabel *)v10->_titleLabel setTranslatesAutoresizingMaskIntoConstraints:0];
     [(UILabel *)v10->_titleLabel setAccessibilityIdentifier:@"Title"];
@@ -135,38 +135,36 @@
     [(UIImageView *)v10->_cloudIconView setTintColor:systemGray2Color];
 
     [contentView addSubview:v10->_cloudIconView];
-    v33 = v10->_titleLabel;
     if (v10->_infoHidden)
     {
-      v42[0] = v10->_titleLabel;
-      v42[1] = v10->_vendorLabel;
-      v42[2] = v10->_appIconView;
-      v42[3] = v10->_cloudIconView;
-      v34 = MEMORY[0x277CBEA60];
-      v35 = v42;
-      v36 = 4;
+      v40[0] = v10->_titleLabel;
+      v40[1] = v10->_vendorLabel;
+      v40[2] = v10->_appIconView;
+      v40[3] = v10->_cloudIconView;
+      v33 = MEMORY[0x277CBEA60];
+      v34 = v40;
+      v35 = 4;
     }
 
     else
     {
-      v43[0] = v10->_titleLabel;
-      v43[1] = v10->_infoLabel;
-      v43[2] = v10->_vendorLabel;
-      v43[3] = v10->_appIconView;
-      v43[4] = v10->_cloudIconView;
-      v34 = MEMORY[0x277CBEA60];
-      v35 = v43;
-      v36 = 5;
+      v41[0] = v10->_titleLabel;
+      v41[1] = v10->_infoLabel;
+      v41[2] = v10->_vendorLabel;
+      v41[3] = v10->_appIconView;
+      v41[4] = v10->_cloudIconView;
+      v33 = MEMORY[0x277CBEA60];
+      v34 = v41;
+      v35 = 5;
     }
 
-    v37 = [v34 arrayWithObjects:v35 count:{v36, 1257}];
-    [contentView setAccessibilityElements:v37];
+    v36 = [v33 arrayWithObjects:v34 count:{v35, 1257}];
+    [contentView setAccessibilityElements:v36];
 
     [(STStorageAppHeaderCell *)v10 setNeedsUpdateConstraints];
     [(STStorageAppHeaderCell *)v10 refreshCellContentsWithSpecifier:specifierCopy];
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -175,15 +173,14 @@
   titleLabel = self->_titleLabel;
   if (self->_infoHidden)
   {
-    vendorLabel = self->_vendorLabel;
-    _NSDictionaryOfVariableBindings(&cfstr_TitlelabelVend.isa, titleLabel, vendorLabel, self->_appIconView, self->_cloudIconView, 0);
+    _NSDictionaryOfVariableBindings(&cfstr_TitlelabelVend.isa, titleLabel, self->_vendorLabel, self->_appIconView, self->_cloudIconView, 0);
   }
 
   else
   {
     _NSDictionaryOfVariableBindings(&cfstr_TitlelabelInfo.isa, titleLabel, self->_infoLabel, self->_vendorLabel, self->_appIconView, self->_cloudIconView, 0);
   }
-  v5 = ;
+  v4 = ;
   if ([(NSMutableArray *)self->_constraints count])
   {
     [MEMORY[0x277CCAAD0] deactivateConstraints:self->_constraints];
@@ -193,65 +190,65 @@
   constraints = self->_constraints;
   self->_constraints = array;
 
-  v8 = self->_constraints;
-  v9 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"H:|-15-[_appIconView(==58)]" options:0 metrics:0 views:v5];
-  [(NSMutableArray *)v8 addObjectsFromArray:v9];
+  v7 = self->_constraints;
+  v8 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"H:|-15-[_appIconView(==58)]" options:0 metrics:0 views:v4];
+  [(NSMutableArray *)v7 addObjectsFromArray:v8];
 
-  v10 = self->_constraints;
-  v11 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:|-16-[_appIconView(==58)]-(>=16)-|" options:0 metrics:0 views:v5];
-  [(NSMutableArray *)v10 addObjectsFromArray:v11];
+  v9 = self->_constraints;
+  v10 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:|-16-[_appIconView(==58)]-(>=16)-|" options:0 metrics:0 views:v4];
+  [(NSMutableArray *)v9 addObjectsFromArray:v10];
 
   if (self->_isDemoted)
   {
-    v12 = @"H:|-84-[_cloudIconView(==22)]-5-[_titleLabel]-(>=15)-|";
+    v11 = @"H:|-84-[_cloudIconView(==22)]-5-[_titleLabel]-(>=15)-|";
   }
 
   else
   {
-    v12 = @"H:|-84-[_titleLabel]-15-|";
+    v11 = @"H:|-84-[_titleLabel]-15-|";
   }
 
-  v13 = self->_constraints;
-  v14 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:v12 options:0 metrics:0 views:v5];
-  [(NSMutableArray *)v13 addObjectsFromArray:v14];
+  v12 = self->_constraints;
+  v13 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:v11 options:0 metrics:0 views:v4];
+  [(NSMutableArray *)v12 addObjectsFromArray:v13];
 
-  v15 = self->_constraints;
+  v14 = self->_constraints;
   if (self->_infoHidden)
   {
-    v16 = @"V:|-16-[_titleLabel]-2-[_vendorLabel]-(>=16)-|";
+    v15 = @"V:|-16-[_titleLabel]-2-[_vendorLabel]-(>=16)-|";
   }
 
   else
   {
-    v16 = @"V:|-16-[_titleLabel]-2-[_infoLabel]-2-[_vendorLabel]-(>=16)-|";
+    v15 = @"V:|-16-[_titleLabel]-2-[_infoLabel]-2-[_vendorLabel]-(>=16)-|";
   }
 
-  v17 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:v16 options:0 metrics:0 views:v5];
-  [(NSMutableArray *)v15 addObjectsFromArray:v17];
+  v16 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:v15 options:0 metrics:0 views:v4];
+  [(NSMutableArray *)v14 addObjectsFromArray:v16];
 
-  v18 = self->_constraints;
-  v19 = [MEMORY[0x277CCAAD0] constraintWithItem:self->_cloudIconView attribute:12 relatedBy:0 toItem:self->_titleLabel attribute:12 multiplier:1.0 constant:0.0];
-  [(NSMutableArray *)v18 addObject:v19];
+  v17 = self->_constraints;
+  v18 = [MEMORY[0x277CCAAD0] constraintWithItem:self->_cloudIconView attribute:12 relatedBy:0 toItem:self->_titleLabel attribute:12 multiplier:1.0 constant:0.0];
+  [(NSMutableArray *)v17 addObject:v18];
 
-  v20 = self->_constraints;
-  v21 = [MEMORY[0x277CCAAD0] constraintWithItem:self->_cloudIconView attribute:8 relatedBy:0 toItem:0 attribute:0 multiplier:0.0 constant:22.0];
-  [(NSMutableArray *)v20 addObject:v21];
+  v19 = self->_constraints;
+  v20 = [MEMORY[0x277CCAAD0] constraintWithItem:self->_cloudIconView attribute:8 relatedBy:0 toItem:0 attribute:0 multiplier:0.0 constant:22.0];
+  [(NSMutableArray *)v19 addObject:v20];
 
   if (!self->_infoHidden)
   {
-    v22 = self->_constraints;
-    v23 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"H:|-84-[_infoLabel]-15-|" options:0 metrics:0 views:v5];
-    [(NSMutableArray *)v22 addObjectsFromArray:v23];
+    v21 = self->_constraints;
+    v22 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"H:|-84-[_infoLabel]-15-|" options:0 metrics:0 views:v4];
+    [(NSMutableArray *)v21 addObjectsFromArray:v22];
   }
 
-  v24 = self->_constraints;
-  v25 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"H:|-84-[_vendorLabel]-15-|" options:0 metrics:0 views:v5];
-  [(NSMutableArray *)v24 addObjectsFromArray:v25];
+  v23 = self->_constraints;
+  v24 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"H:|-84-[_vendorLabel]-15-|" options:0 metrics:0 views:v4];
+  [(NSMutableArray *)v23 addObjectsFromArray:v24];
 
   [MEMORY[0x277CCAAD0] activateConstraints:self->_constraints];
-  v26.receiver = self;
-  v26.super_class = STStorageAppHeaderCell;
-  [(STStorageAppHeaderCell *)&v26 updateConstraints];
+  v25.receiver = self;
+  v25.super_class = STStorageAppHeaderCell;
+  [(STStorageAppHeaderCell *)&v25 updateConstraints];
 }
 
 - (void)refreshCellContentsWithSpecifier:(id)specifier

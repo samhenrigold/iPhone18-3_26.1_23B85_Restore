@@ -1,7 +1,117 @@
+uint64_t sub_10012C108(unint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+{
+  a4[(a1 >> 6) + 8] |= 1 << a1;
+  v8 = a4[6];
+  v9 = type metadata accessor for UUID();
+  result = (*(*(v9 - 8) + 32))(v8 + *(*(v9 - 8) + 72) * a1, a2, v9);
+  *(a4[7] + 8 * a1) = a3;
+  v11 = a4[2];
+  v12 = __OFADD__(v11, 1);
+  v13 = v11 + 1;
+  if (v12)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    a4[2] = v13;
+  }
+
+  return result;
+}
+
+void *sub_10012C1C0()
+{
+  v1 = v0;
+  sub_1000CE6B8(&unk_10190BAD0, &unk_1011E7B70);
+  v2 = *v0;
+  v3 = static _DictionaryStorage.copy(original:)();
+  v4 = v3;
+  if (*(v2 + 16))
+  {
+    result = (v3 + 64);
+    v6 = ((1 << *(v4 + 32)) + 63) >> 6;
+    if (v4 != v2 || result >= v2 + 64 + 8 * v6)
+    {
+      result = memmove(result, (v2 + 64), 8 * v6);
+    }
+
+    v8 = 0;
+    *(v4 + 16) = *(v2 + 16);
+    v9 = 1 << *(v2 + 32);
+    v10 = *(v2 + 64);
+    v11 = -1;
+    if (v9 < 64)
+    {
+      v11 = ~(-1 << v9);
+    }
+
+    v12 = v11 & v10;
+    v13 = (v9 + 63) >> 6;
+    if ((v11 & v10) != 0)
+    {
+      do
+      {
+        v14 = __clz(__rbit64(v12));
+        v12 &= v12 - 1;
+LABEL_17:
+        v17 = v14 | (v8 << 6);
+        v18 = *(*(v2 + 48) + 8 * v17);
+        v19 = (*(v2 + 56) + 16 * v17);
+        v20 = *v19;
+        v21 = v19[1];
+        *(*(v4 + 48) + 8 * v17) = v18;
+        v22 = (*(v4 + 56) + 16 * v17);
+        *v22 = v20;
+        v22[1] = v21;
+        v23 = v18;
+      }
+
+      while (v12);
+    }
+
+    v15 = v8;
+    while (1)
+    {
+      v8 = v15 + 1;
+      if (__OFADD__(v15, 1))
+      {
+        break;
+      }
+
+      if (v8 >= v13)
+      {
+        goto LABEL_19;
+      }
+
+      v16 = *(v2 + 64 + 8 * v8);
+      ++v15;
+      if (v16)
+      {
+        v14 = __clz(__rbit64(v16));
+        v12 = (v16 - 1) & v16;
+        goto LABEL_17;
+      }
+    }
+
+    __break(1u);
+  }
+
+  else
+  {
+LABEL_19:
+
+    *v1 = v4;
+  }
+
+  return result;
+}
+
 void *sub_10012C330()
 {
   v1 = v0;
-  sub_1000CE6B8(&qword_10190BB30);
+  sub_1000CE6B8(&qword_10190BB30, &qword_1011E7BE0);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -90,7 +200,7 @@ LABEL_19:
 void *sub_10012C4D4()
 {
   v1 = v0;
-  sub_1000CE6B8(&unk_10190BA60);
+  sub_1000CE6B8(&unk_10190BA60, &unk_1011E7B10);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -177,7 +287,7 @@ LABEL_19:
 void *sub_10012C644()
 {
   v1 = v0;
-  sub_1000CE6B8(&qword_10190BAF8);
+  sub_1000CE6B8(&qword_10190BAF8, &qword_1011E7BA0);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -258,7 +368,7 @@ LABEL_19:
 id sub_10012C7B4()
 {
   v1 = v0;
-  sub_1000CE6B8(&unk_10190BB00);
+  sub_1000CE6B8(&unk_10190BB00, &qword_1011E7BA8);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -340,7 +450,7 @@ LABEL_19:
 id sub_10012C924()
 {
   v1 = v0;
-  sub_1000CE6B8(&unk_10190BA88);
+  sub_1000CE6B8(&unk_10190BA88, &unk_1011E7B50);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -424,7 +534,7 @@ LABEL_19:
 id sub_10012CA88()
 {
   v1 = v0;
-  sub_1000CE6B8(&unk_1019080E0);
+  sub_1000CE6B8(&unk_1019080E0, &unk_1011E2DE0);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -506,7 +616,7 @@ LABEL_19:
 id sub_10012CBF8()
 {
   v1 = v0;
-  sub_1000CE6B8(&qword_101908178);
+  sub_1000CE6B8(&qword_101908178, &qword_1011E7BB0);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -589,7 +699,7 @@ LABEL_19:
 void *sub_10012CD7C()
 {
   v1 = v0;
-  sub_1000CE6B8(&qword_101908188);
+  sub_1000CE6B8(&qword_101908188, &qword_1011E7BC0);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -687,7 +797,7 @@ LABEL_19:
 id sub_10012CF50()
 {
   v1 = v0;
-  sub_1000CE6B8(&unk_10190BB20);
+  sub_1000CE6B8(&unk_10190BB20, qword_1011E7BC8);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -775,7 +885,7 @@ LABEL_19:
 void *sub_10012D0D0()
 {
   v1 = v0;
-  sub_1000CE6B8(&qword_101908288);
+  sub_1000CE6B8(&qword_101908288, &qword_1011E2E70);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -879,7 +989,7 @@ LABEL_21:
 id sub_10012D2B4()
 {
   v1 = v0;
-  sub_1000CE6B8(&unk_10190BB50);
+  sub_1000CE6B8(&unk_10190BB50, &unk_1011E7BF0);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -963,7 +1073,7 @@ LABEL_19:
 void *sub_10012D414()
 {
   v1 = v0;
-  sub_1000CE6B8(&qword_101908280);
+  sub_1000CE6B8(&qword_101908280, &qword_1011E2E68);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -1052,7 +1162,7 @@ char *sub_10012D598()
   v35 = *(v33 - 8);
   __chkstk_darwin(v33);
   v32 = &v27 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1000CE6B8(&qword_1019081B0);
+  sub_1000CE6B8(&qword_1019081B0, &qword_1011E2E58);
   v3 = *v0;
   v4 = static _DictionaryStorage.copy(original:)();
   v5 = v4;
@@ -1153,7 +1263,7 @@ LABEL_18:
 id sub_10012D818()
 {
   v1 = v0;
-  sub_1000CE6B8(&qword_101908100);
+  sub_1000CE6B8(&qword_101908100, &qword_1011E2E00);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -1250,7 +1360,7 @@ char *sub_10012D99C()
   v37 = *(v35 - 8);
   __chkstk_darwin(v35);
   v34 = &v29 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1000CE6B8(&qword_10190BAF0);
+  sub_1000CE6B8(&qword_10190BAF0, &unk_1011E7B90);
   v3 = *v0;
   v4 = static _DictionaryStorage.copy(original:)();
   v5 = v4;
@@ -1350,71 +1460,71 @@ LABEL_18:
   return result;
 }
 
-id sub_10012DC30(uint64_t *a1)
+id sub_10012DC30(uint64_t *a1, uint64_t *a2)
 {
-  v2 = v1;
-  sub_1000CE6B8(a1);
-  v3 = *v1;
-  v4 = static _DictionaryStorage.copy(original:)();
-  v5 = v4;
-  if (*(v3 + 16))
+  v3 = v2;
+  sub_1000CE6B8(a1, a2);
+  v4 = *v2;
+  v5 = static _DictionaryStorage.copy(original:)();
+  v6 = v5;
+  if (*(v4 + 16))
   {
-    result = (v4 + 64);
-    v7 = ((1 << *(v5 + 32)) + 63) >> 6;
-    if (v5 != v3 || result >= v3 + 64 + 8 * v7)
+    result = (v5 + 64);
+    v8 = ((1 << *(v6 + 32)) + 63) >> 6;
+    if (v6 != v4 || result >= v4 + 64 + 8 * v8)
     {
-      result = memmove(result, (v3 + 64), 8 * v7);
+      result = memmove(result, (v4 + 64), 8 * v8);
     }
 
-    v9 = 0;
-    *(v5 + 16) = *(v3 + 16);
-    v10 = 1 << *(v3 + 32);
-    v11 = *(v3 + 64);
-    v12 = -1;
-    if (v10 < 64)
+    v10 = 0;
+    *(v6 + 16) = *(v4 + 16);
+    v11 = 1 << *(v4 + 32);
+    v12 = *(v4 + 64);
+    v13 = -1;
+    if (v11 < 64)
     {
-      v12 = ~(-1 << v10);
+      v13 = ~(-1 << v11);
     }
 
-    v13 = v12 & v11;
-    v14 = (v10 + 63) >> 6;
-    if ((v12 & v11) != 0)
+    v14 = v13 & v12;
+    v15 = (v11 + 63) >> 6;
+    if ((v13 & v12) != 0)
     {
       do
       {
-        v15 = __clz(__rbit64(v13));
-        v13 &= v13 - 1;
+        v16 = __clz(__rbit64(v14));
+        v14 &= v14 - 1;
 LABEL_17:
-        v18 = v15 | (v9 << 6);
-        v19 = *(*(v3 + 56) + 8 * v18);
-        *(*(v5 + 48) + 8 * v18) = *(*(v3 + 48) + 8 * v18);
-        *(*(v5 + 56) + 8 * v18) = v19;
-        result = v19;
+        v19 = v16 | (v10 << 6);
+        v20 = *(*(v4 + 56) + 8 * v19);
+        *(*(v6 + 48) + 8 * v19) = *(*(v4 + 48) + 8 * v19);
+        *(*(v6 + 56) + 8 * v19) = v20;
+        result = v20;
       }
 
-      while (v13);
+      while (v14);
     }
 
-    v16 = v9;
+    v17 = v10;
     while (1)
     {
-      v9 = v16 + 1;
-      if (__OFADD__(v16, 1))
+      v10 = v17 + 1;
+      if (__OFADD__(v17, 1))
       {
         break;
       }
 
-      if (v9 >= v14)
+      if (v10 >= v15)
       {
         goto LABEL_19;
       }
 
-      v17 = *(v3 + 64 + 8 * v9);
-      ++v16;
-      if (v17)
+      v18 = *(v4 + 64 + 8 * v10);
+      ++v17;
+      if (v18)
       {
-        v15 = __clz(__rbit64(v17));
-        v13 = (v17 - 1) & v17;
+        v16 = __clz(__rbit64(v18));
+        v14 = (v18 - 1) & v18;
         goto LABEL_17;
       }
     }
@@ -1426,80 +1536,80 @@ LABEL_17:
   {
 LABEL_19:
 
-    *v2 = v5;
+    *v3 = v6;
   }
 
   return result;
 }
 
-void *sub_10012DD90(uint64_t *a1)
+void *sub_10012DD90(uint64_t *a1, uint64_t *a2)
 {
-  v2 = v1;
-  sub_1000CE6B8(a1);
-  v3 = *v1;
-  v4 = static _DictionaryStorage.copy(original:)();
-  v5 = v4;
-  if (*(v3 + 16))
+  v3 = v2;
+  sub_1000CE6B8(a1, a2);
+  v4 = *v2;
+  v5 = static _DictionaryStorage.copy(original:)();
+  v6 = v5;
+  if (*(v4 + 16))
   {
-    result = (v4 + 64);
-    v7 = ((1 << *(v5 + 32)) + 63) >> 6;
-    if (v5 != v3 || result >= v3 + 64 + 8 * v7)
+    result = (v5 + 64);
+    v8 = ((1 << *(v6 + 32)) + 63) >> 6;
+    if (v6 != v4 || result >= v4 + 64 + 8 * v8)
     {
-      result = memmove(result, (v3 + 64), 8 * v7);
+      result = memmove(result, (v4 + 64), 8 * v8);
     }
 
-    v9 = 0;
-    *(v5 + 16) = *(v3 + 16);
-    v10 = 1 << *(v3 + 32);
-    v11 = *(v3 + 64);
-    v12 = -1;
-    if (v10 < 64)
+    v10 = 0;
+    *(v6 + 16) = *(v4 + 16);
+    v11 = 1 << *(v4 + 32);
+    v12 = *(v4 + 64);
+    v13 = -1;
+    if (v11 < 64)
     {
-      v12 = ~(-1 << v10);
+      v13 = ~(-1 << v11);
     }
 
-    v13 = v12 & v11;
-    v14 = (v10 + 63) >> 6;
-    if ((v12 & v11) != 0)
+    v14 = v13 & v12;
+    v15 = (v11 + 63) >> 6;
+    if ((v13 & v12) != 0)
     {
       do
       {
-        v15 = __clz(__rbit64(v13));
-        v13 &= v13 - 1;
+        v16 = __clz(__rbit64(v14));
+        v14 &= v14 - 1;
 LABEL_17:
-        v18 = v15 | (v9 << 6);
-        v19 = (*(v3 + 48) + 16 * v18);
-        v20 = v19[1];
-        v21 = *(*(v3 + 56) + 8 * v18);
-        v22 = (*(v5 + 48) + 16 * v18);
-        *v22 = *v19;
-        v22[1] = v20;
-        *(*(v5 + 56) + 8 * v18) = v21;
+        v19 = v16 | (v10 << 6);
+        v20 = (*(v4 + 48) + 16 * v19);
+        v21 = v20[1];
+        v22 = *(*(v4 + 56) + 8 * v19);
+        v23 = (*(v6 + 48) + 16 * v19);
+        *v23 = *v20;
+        v23[1] = v21;
+        *(*(v6 + 56) + 8 * v19) = v22;
       }
 
-      while (v13);
+      while (v14);
     }
 
-    v16 = v9;
+    v17 = v10;
     while (1)
     {
-      v9 = v16 + 1;
-      if (__OFADD__(v16, 1))
+      v10 = v17 + 1;
+      if (__OFADD__(v17, 1))
       {
         break;
       }
 
-      if (v9 >= v14)
+      if (v10 >= v15)
       {
         goto LABEL_19;
       }
 
-      v17 = *(v3 + 64 + 8 * v9);
-      ++v16;
-      if (v17)
+      v18 = *(v4 + 64 + 8 * v10);
+      ++v17;
+      if (v18)
       {
-        v15 = __clz(__rbit64(v17));
-        v13 = (v17 - 1) & v17;
+        v16 = __clz(__rbit64(v18));
+        v14 = (v18 - 1) & v18;
         goto LABEL_17;
       }
     }
@@ -1511,7 +1621,7 @@ LABEL_17:
   {
 LABEL_19:
 
-    *v2 = v5;
+    *v3 = v6;
   }
 
   return result;
@@ -1524,7 +1634,7 @@ id sub_10012DEF0()
   v24 = *(v2 - 8);
   __chkstk_darwin(v2 - 8);
   v4 = &v23 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1000CE6B8(&unk_10190BAC0);
+  sub_1000CE6B8(&unk_10190BAC0, &qword_1011E2DD8);
   v5 = *v0;
   v6 = static _DictionaryStorage.copy(original:)();
   v7 = v6;
@@ -1616,7 +1726,7 @@ char *sub_10012E118()
   v35 = *(v33 - 8);
   __chkstk_darwin(v33);
   v32 = &v27 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1000CE6B8(&qword_10190BA98);
+  sub_1000CE6B8(&qword_10190BA98, &qword_1011E7B60);
   v3 = *v0;
   v4 = static _DictionaryStorage.copy(original:)();
   v5 = v4;
@@ -1714,76 +1824,76 @@ LABEL_18:
   return result;
 }
 
-id sub_10012E398(uint64_t *a1)
+id sub_10012E398(uint64_t *a1, uint64_t *a2)
 {
-  v2 = v1;
-  sub_1000CE6B8(a1);
-  v3 = *v1;
-  v4 = static _DictionaryStorage.copy(original:)();
-  v5 = v4;
-  if (*(v3 + 16))
+  v3 = v2;
+  sub_1000CE6B8(a1, a2);
+  v4 = *v2;
+  v5 = static _DictionaryStorage.copy(original:)();
+  v6 = v5;
+  if (*(v4 + 16))
   {
-    result = (v4 + 64);
-    v7 = ((1 << *(v5 + 32)) + 63) >> 6;
-    if (v5 != v3 || result >= v3 + 64 + 8 * v7)
+    result = (v5 + 64);
+    v8 = ((1 << *(v6 + 32)) + 63) >> 6;
+    if (v6 != v4 || result >= v4 + 64 + 8 * v8)
     {
-      result = memmove(result, (v3 + 64), 8 * v7);
+      result = memmove(result, (v4 + 64), 8 * v8);
     }
 
-    v9 = 0;
-    *(v5 + 16) = *(v3 + 16);
-    v10 = 1 << *(v3 + 32);
-    v11 = *(v3 + 64);
-    v12 = -1;
-    if (v10 < 64)
+    v10 = 0;
+    *(v6 + 16) = *(v4 + 16);
+    v11 = 1 << *(v4 + 32);
+    v12 = *(v4 + 64);
+    v13 = -1;
+    if (v11 < 64)
     {
-      v12 = ~(-1 << v10);
+      v13 = ~(-1 << v11);
     }
 
-    v13 = v12 & v11;
-    v14 = (v10 + 63) >> 6;
-    if ((v12 & v11) != 0)
+    v14 = v13 & v12;
+    v15 = (v11 + 63) >> 6;
+    if ((v13 & v12) != 0)
     {
       do
       {
-        v15 = __clz(__rbit64(v13));
-        v13 &= v13 - 1;
+        v16 = __clz(__rbit64(v14));
+        v14 &= v14 - 1;
 LABEL_17:
-        v18 = v15 | (v9 << 6);
-        v19 = (*(v3 + 48) + 16 * v18);
-        v20 = v19[1];
-        v21 = *(*(v3 + 56) + 8 * v18);
-        v22 = (*(v5 + 48) + 16 * v18);
-        *v22 = *v19;
-        v22[1] = v20;
-        *(*(v5 + 56) + 8 * v18) = v21;
+        v19 = v16 | (v10 << 6);
+        v20 = (*(v4 + 48) + 16 * v19);
+        v21 = v20[1];
+        v22 = *(*(v4 + 56) + 8 * v19);
+        v23 = (*(v6 + 48) + 16 * v19);
+        *v23 = *v20;
+        v23[1] = v21;
+        *(*(v6 + 56) + 8 * v19) = v22;
 
-        result = v21;
+        result = v22;
       }
 
-      while (v13);
+      while (v14);
     }
 
-    v16 = v9;
+    v17 = v10;
     while (1)
     {
-      v9 = v16 + 1;
-      if (__OFADD__(v16, 1))
+      v10 = v17 + 1;
+      if (__OFADD__(v17, 1))
       {
         break;
       }
 
-      if (v9 >= v14)
+      if (v10 >= v15)
       {
         goto LABEL_19;
       }
 
-      v17 = *(v3 + 64 + 8 * v9);
-      ++v16;
-      if (v17)
+      v18 = *(v4 + 64 + 8 * v10);
+      ++v17;
+      if (v18)
       {
-        v15 = __clz(__rbit64(v17));
-        v13 = (v17 - 1) & v17;
+        v16 = __clz(__rbit64(v18));
+        v14 = (v18 - 1) & v18;
         goto LABEL_17;
       }
     }
@@ -1795,96 +1905,96 @@ LABEL_17:
   {
 LABEL_19:
 
-    *v2 = v5;
+    *v3 = v6;
   }
 
   return result;
 }
 
-id sub_10012E4F4(uint64_t *a1)
+id sub_10012E4F4(uint64_t *a1, uint64_t *a2)
 {
-  v3 = v1;
-  v33 = type metadata accessor for UUID();
-  v35 = *(v33 - 8);
-  __chkstk_darwin(v33);
-  v32 = &v27 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1000CE6B8(a1);
-  v5 = *v1;
-  v6 = static _DictionaryStorage.copy(original:)();
-  v7 = v6;
-  if (*(v5 + 16))
+  v5 = v2;
+  v35 = type metadata accessor for UUID();
+  v37 = *(v35 - 8);
+  __chkstk_darwin(v35);
+  v34 = &v29 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1000CE6B8(a1, a2);
+  v7 = *v2;
+  v8 = static _DictionaryStorage.copy(original:)();
+  v9 = v8;
+  if (*(v7 + 16))
   {
-    result = (v6 + 64);
-    v9 = ((1 << *(v7 + 32)) + 63) >> 6;
-    v28 = v3;
-    v29 = (v5 + 64);
-    if (v7 != v5 || result >= v5 + 64 + 8 * v9)
+    result = (v8 + 64);
+    v11 = ((1 << *(v9 + 32)) + 63) >> 6;
+    v30 = v5;
+    v31 = (v7 + 64);
+    if (v9 != v7 || result >= v7 + 64 + 8 * v11)
     {
-      result = memmove(result, v29, 8 * v9);
+      result = memmove(result, v31, 8 * v11);
     }
 
-    v11 = 0;
-    v12 = *(v5 + 16);
-    v34 = v7;
-    *(v7 + 16) = v12;
-    v13 = 1 << *(v5 + 32);
-    v14 = -1;
-    if (v13 < 64)
+    v13 = 0;
+    v14 = *(v7 + 16);
+    v36 = v9;
+    *(v9 + 16) = v14;
+    v15 = 1 << *(v7 + 32);
+    v16 = -1;
+    if (v15 < 64)
     {
-      v14 = ~(-1 << v13);
+      v16 = ~(-1 << v15);
     }
 
-    v15 = v14 & *(v5 + 64);
-    v16 = (v13 + 63) >> 6;
-    v30 = v35 + 32;
-    v31 = v35 + 16;
-    v17 = v7;
-    if (v15)
+    v17 = v16 & *(v7 + 64);
+    v18 = (v15 + 63) >> 6;
+    v32 = v37 + 32;
+    v33 = v37 + 16;
+    v19 = v9;
+    if (v17)
     {
       do
       {
-        v18 = __clz(__rbit64(v15));
-        v36 = (v15 - 1) & v15;
+        v20 = __clz(__rbit64(v17));
+        v38 = (v17 - 1) & v17;
 LABEL_17:
-        v21 = v18 | (v11 << 6);
-        v22 = v35;
-        v23 = *(v35 + 72) * v21;
-        v25 = v32;
-        v24 = v33;
-        (*(v35 + 16))(v32, *(v5 + 48) + v23, v33);
-        v26 = *(*(v5 + 56) + 8 * v21);
-        (*(v22 + 32))(*(v17 + 48) + v23, v25, v24);
-        *(*(v17 + 56) + 8 * v21) = v26;
-        result = v26;
-        v15 = v36;
+        v23 = v20 | (v13 << 6);
+        v24 = v37;
+        v25 = *(v37 + 72) * v23;
+        v27 = v34;
+        v26 = v35;
+        (*(v37 + 16))(v34, *(v7 + 48) + v25, v35);
+        v28 = *(*(v7 + 56) + 8 * v23);
+        (*(v24 + 32))(*(v19 + 48) + v25, v27, v26);
+        *(*(v19 + 56) + 8 * v23) = v28;
+        result = v28;
+        v17 = v38;
       }
 
-      while (v36);
+      while (v38);
     }
 
-    v19 = v11;
+    v21 = v13;
     while (1)
     {
-      v11 = v19 + 1;
-      if (__OFADD__(v19, 1))
+      v13 = v21 + 1;
+      if (__OFADD__(v21, 1))
       {
         break;
       }
 
-      if (v11 >= v16)
+      if (v13 >= v18)
       {
 
-        v3 = v28;
-        v7 = v34;
+        v5 = v30;
+        v9 = v36;
         goto LABEL_21;
       }
 
-      v20 = *(v29 + v11);
-      ++v19;
-      if (v20)
+      v22 = *(v31 + v13);
+      ++v21;
+      if (v22)
       {
-        v18 = __clz(__rbit64(v20));
-        v36 = (v20 - 1) & v20;
+        v20 = __clz(__rbit64(v22));
+        v38 = (v22 - 1) & v22;
         goto LABEL_17;
       }
     }
@@ -1896,7 +2006,7 @@ LABEL_17:
   {
 
 LABEL_21:
-    *v3 = v7;
+    *v5 = v9;
   }
 
   return result;
@@ -1905,7 +2015,7 @@ LABEL_21:
 id sub_10012E768()
 {
   v1 = v0;
-  sub_1000CE6B8(&qword_10190BA80);
+  sub_1000CE6B8(&qword_10190BA80, &unk_1011E7B40);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -1989,7 +2099,7 @@ LABEL_19:
 void *sub_10012E8C8()
 {
   v1 = v0;
-  sub_1000CE6B8(&qword_10190BA78);
+  sub_1000CE6B8(&qword_10190BA78, &unk_1011E7B30);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -2070,7 +2180,7 @@ LABEL_19:
 void *sub_10012EA24()
 {
   v1 = v0;
-  sub_1000CE6B8(&qword_10190BA70);
+  sub_1000CE6B8(&qword_10190BA70, &qword_1011E7B28);
   v2 = *v0;
   v3 = static _DictionaryStorage.copy(original:)();
   v4 = v3;
@@ -2178,7 +2288,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t (*sub_10012EC14(uint64_t (*result)(), unint64_t a2, uint64_t a3))()
+void (*sub_10012EC14(void (*result)(id *a1), unint64_t a2, uint64_t a3))(id *a1)
 {
   v3 = result;
   if ((a3 & 0xC000000000000001) != 0)
@@ -2287,7 +2397,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t sub_10012EEA4(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_10012EEA4(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2309,21 +2419,21 @@ uint64_t sub_10012EEEC(uint64_t a1, uint64_t a2)
 
 uint64_t sub_10012EFAC(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1000CE6B8(&unk_10190BB60);
+  v4 = sub_1000CE6B8(&unk_10190BB60, &unk_1011E7C00);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
-void sub_10012F070()
+void sub_10012F070(uint64_t a1)
 {
   sub_10012F7E8(319, &qword_10190BC00, &type metadata accessor for Optional);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_10012F7E8(319, &qword_10190BC08, &type metadata accessor for Environment);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_checkMetadataState();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -2857,10 +2967,10 @@ uint64_t sub_10012F88C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
   v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_1000CE6B8(&qword_10190BC28);
+  v9 = sub_1000CE6B8(&qword_10190BC28, &unk_1011E7D30);
   __chkstk_darwin(v9);
   v11 = &v15 - v10;
-  sub_1000D2DFC(v2 + *(a1 + 40), &v15 - v10, &qword_10190BC28);
+  sub_1000D2DFC(v2 + *(a1 + 40), &v15 - v10, &qword_10190BC28, &unk_1011E7D30);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v12 = type metadata accessor for ContentSizeCategory();
@@ -2882,7 +2992,7 @@ uint64_t sub_10012F88C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_10012FA90@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = sub_1000CE6B8(&qword_10190BC20);
+  v5 = sub_1000CE6B8(&qword_10190BC20, &qword_1011E7D28);
   __chkstk_darwin(v5 - 8);
   v54 = &v48 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v7);
@@ -2897,7 +3007,7 @@ uint64_t sub_10012FA90@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   __chkstk_darwin(v17);
   v19 = &v48 - v18;
   v21 = v20;
-  sub_1000D2DFC(v2, v9, &qword_10190BC20);
+  sub_1000D2DFC(v2, v9, &qword_10190BC20, &qword_1011E7D28);
   v22 = v21[6];
   v23 = v22(v9, 1, v10);
   v56 = a1;
@@ -2957,7 +3067,7 @@ LABEL_8:
 LABEL_9:
   v34 = v56;
   v35 = v54;
-  sub_1000D2DFC(v2 + *(v56 + 36), v54, &qword_10190BC20);
+  sub_1000D2DFC(v2 + *(v56 + 36), v54, &qword_10190BC20, &qword_1011E7D28);
   if (v22(v35, 1, v10) != 1)
   {
     v57 = a2;
@@ -3006,34 +3116,34 @@ LABEL_9:
 
 uint64_t sub_10012FEDC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v20 = a2;
-  v19 = type metadata accessor for ContentSizeCategory();
-  v3 = *(v19 - 8);
-  __chkstk_darwin(v19);
-  v5 = v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18[1] = *(a1 + 16);
-  sub_1000D6664(&qword_10190BC10);
+  v19 = a2;
+  v18 = type metadata accessor for ContentSizeCategory();
+  v3 = *(v18 - 8);
+  __chkstk_darwin(v18);
+  v5 = v17 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17[1] = *(a1 + 16);
+  sub_1000D6664(&qword_10190BC10, &qword_1011E7CF0);
   v6 = type metadata accessor for ModifiedContent();
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
-  v9 = v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v10);
-  v12 = v18 - v11;
+  v12 = v17 - v11;
   swift_getKeyPath();
   sub_10012FA90(a1, v5);
   v13 = *(a1 + 24);
   View.environment<A>(_:_:)();
 
-  (*(v3 + 8))(v5, v19);
+  (*(v3 + 8))(v5, v18);
   v14 = sub_100130140();
-  v21 = v13;
-  v22 = v14;
-  WitnessTable = swift_getWitnessTable();
-  sub_10010ADFC(v9, v6, WitnessTable);
-  v16 = *(v7 + 8);
-  v16(v9, v6);
-  sub_10010ADFC(v12, v6, WitnessTable);
-  return (v16)(v12, v6);
+  v20 = v13;
+  v21 = v14;
+  swift_getWitnessTable();
+  sub_10010ADFC();
+  v15 = *(v7 + 8);
+  v15(v9, v6);
+  sub_10010ADFC();
+  return (v15)(v12, v6);
 }
 
 unint64_t sub_100130140()
@@ -3041,7 +3151,7 @@ unint64_t sub_100130140()
   result = qword_10190BC18;
   if (!qword_10190BC18)
   {
-    sub_1000D6664(&qword_10190BC10);
+    sub_1000D6664(&qword_10190BC10, &qword_1011E7CF0);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10190BC18);
   }
@@ -3051,7 +3161,7 @@ unint64_t sub_100130140()
 
 uint64_t sub_1001301A4(uint64_t a1)
 {
-  v2 = sub_1000CE6B8(&qword_10190BC20);
+  v2 = sub_1000CE6B8(&qword_10190BC20, &qword_1011E7D28);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -3143,7 +3253,7 @@ char *sub_100130348(void *a1)
 {
   v2 = v1;
   ObjectType = swift_getObjectType();
-  v5 = sub_1000CE6B8(&unk_10190BA50);
+  v5 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v5 - 8);
   v7 = &v18[-v6];
   v8 = &v1[OBJC_IVAR____TtC4Maps35HomeOutlineLibrarySectionController_visitedPlacesCellState];
@@ -3153,7 +3263,7 @@ char *sub_100130348(void *a1)
   v9 = swift_allocObject();
   swift_defaultActor_initialize();
   *&v2[OBJC_IVAR____TtC4Maps35HomeOutlineLibrarySectionController_visitedPlacesCellStateProvider] = v9;
-  type metadata accessor for LibraryRecentsDataProvider();
+  type metadata accessor for LibraryRecentsDataProvider(0);
   swift_allocObject();
   *&v2[OBJC_IVAR____TtC4Maps35HomeOutlineLibrarySectionController_libraryRecentsDataProvider] = sub_10049B968();
   v23.receiver = v2;
@@ -3189,7 +3299,7 @@ char *sub_100130348(void *a1)
 
 void *sub_100130618()
 {
-  sub_1000CE6B8(&qword_10190BCD8);
+  sub_1000CE6B8(&qword_10190BCD8, &qword_1011FD2D0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1011E7D60;
   *(inited + 32) = 0;
@@ -3599,14 +3709,14 @@ uint64_t sub_1001319A0@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_100131A20()
+uint64_t sub_100131A20(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
   sub_100131CA8();
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 }
 
-uint64_t sub_100131AC0(uint64_t a1)
+id sub_100131AC0(uint64_t a1)
 {
   sub_10004E374(a1, v4);
   type metadata accessor for LibraryListSavedItemManagementItem();
@@ -3670,7 +3780,7 @@ unint64_t sub_100131CA8()
   result = qword_10190BCE0;
   if (!qword_10190BCE0)
   {
-    type metadata accessor for LibraryRecentsDataProvider();
+    type metadata accessor for LibraryRecentsDataProvider(255);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10190BCE0);
   }
@@ -4156,7 +4266,7 @@ void sub_100132B94(uint64_t a1, void *a2, void *a3)
 
 uint64_t sub_100132D94@<X0>(uint64_t *a1@<X8>)
 {
-  type metadata accessor for TransitLineDisambiguationViewModel();
+  type metadata accessor for TransitLineDisambiguationViewModel(0);
 
   State.init(wrappedValue:)();
   KeyPath = swift_getKeyPath();
@@ -4196,13 +4306,13 @@ uint64_t sub_100132E44()
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 }
 
-void sub_1001330A0(uint64_t a1, void *a2, unint64_t a3)
+void sub_1001330A0(uint64_t a1, void *a2, unint64_t a3, uint64_t a4)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v6 = Strong;
+    v7 = Strong;
     sub_100133110(a2, a3);
   }
 }
@@ -4230,31 +4340,32 @@ LABEL_9:
   v8 = *(v2 + OBJC_IVAR____TtC4Maps48TransitLineDisambiguationContaineeViewController_onLineSelection);
   if (v8)
   {
+    v9 = *(v2 + OBJC_IVAR____TtC4Maps48TransitLineDisambiguationContaineeViewController_onLineSelection + 8);
 
     v8(v2, a1);
 
-    sub_1000588AC(v8);
+    sub_1000588AC(v8, v9);
   }
 }
 
-void sub_10013324C()
+void sub_10013324C(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = objc_opt_self();
-    v3 = v1;
-    v4 = [v2 sharedService];
-    if (v4)
+    v3 = Strong;
+    v4 = objc_opt_self();
+    v5 = v3;
+    v6 = [v4 sharedService];
+    if (v6)
     {
-      v5 = v4;
-      [v4 captureUserAction:4 onTarget:638 eventValue:0];
+      v7 = v6;
+      [v6 captureUserAction:4 onTarget:638 eventValue:0];
 
-      v6.receiver = v3;
-      v6.super_class = type metadata accessor for TransitLineDisambiguationContaineeViewController();
-      objc_msgSendSuper2(&v6, "handleDismissAction:", v3);
+      v8.receiver = v5;
+      v8.super_class = type metadata accessor for TransitLineDisambiguationContaineeViewController();
+      objc_msgSendSuper2(&v8, "handleDismissAction:", v5);
     }
 
     else
@@ -4264,30 +4375,31 @@ void sub_10013324C()
   }
 }
 
-void sub_100133314(uint64_t a1, uint64_t a2)
+void sub_100133314(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v4 = Strong;
-    v5 = *(Strong + OBJC_IVAR____TtC4Maps48TransitLineDisambiguationContaineeViewController_onRefinementError);
-    if (v5)
+    v5 = Strong;
+    v6 = *(Strong + OBJC_IVAR____TtC4Maps48TransitLineDisambiguationContaineeViewController_onRefinementError);
+    if (v6)
     {
+      v7 = *(Strong + OBJC_IVAR____TtC4Maps48TransitLineDisambiguationContaineeViewController_onRefinementError + 8);
 
-      v5(v4, a2);
-      sub_1000588AC(v5);
+      v6(v5, a2);
+      sub_1000588AC(v6, v7);
     }
   }
 }
 
 uint64_t sub_1001335C0()
 {
-  sub_1000588AC(*(v0 + OBJC_IVAR____TtC4Maps48TransitLineDisambiguationContaineeViewController_onLineSelection));
-  sub_1000588AC(*(v0 + OBJC_IVAR____TtC4Maps48TransitLineDisambiguationContaineeViewController_onRefinementError));
+  sub_1000588AC(*(v0 + OBJC_IVAR____TtC4Maps48TransitLineDisambiguationContaineeViewController_onLineSelection), *(v0 + OBJC_IVAR____TtC4Maps48TransitLineDisambiguationContaineeViewController_onLineSelection + 8));
+  sub_1000588AC(*(v0 + OBJC_IVAR____TtC4Maps48TransitLineDisambiguationContaineeViewController_onRefinementError), *(v0 + OBJC_IVAR____TtC4Maps48TransitLineDisambiguationContaineeViewController_onRefinementError + 8));
 }
 
-uint64_t sub_1001336C0@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_1001336C0@<X0>(uint64_t *a1@<X0>, uint64_t (**a2)()@<X8>)
 {
   v3 = *a1;
   swift_getKeyPath();
@@ -4312,32 +4424,33 @@ uint64_t sub_1001336C0@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 
   *a2 = v7;
   a2[1] = v6;
-  return sub_1000CD9D4(v4);
+  return sub_1000CD9D4(v4, v5);
 }
 
-uint64_t sub_10013377C(uint64_t *a1)
+uint64_t sub_10013377C(uint64_t *a1, uint64_t *a2)
 {
-  v1 = *a1;
-  v2 = a1[1];
+  v2 = *a1;
+  v3 = a1[1];
   if (*a1)
   {
-    v3 = swift_allocObject();
-    *(v3 + 16) = v1;
-    *(v3 + 24) = v2;
-    v4 = sub_100118948;
+    v4 = swift_allocObject();
+    *(v4 + 16) = v2;
+    *(v4 + 24) = v3;
+    v5 = sub_100118948;
   }
 
   else
   {
+    v5 = 0;
     v4 = 0;
   }
 
   KeyPath = swift_getKeyPath();
   __chkstk_darwin(KeyPath);
-  sub_1000CD9D4(v1);
+  sub_1000CD9D4(v2, v3);
   sub_100133D98();
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
-  sub_1000588AC(v4);
+  sub_1000588AC(v5, v4);
 }
 
 uint64_t sub_1001338A8@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
@@ -4365,35 +4478,36 @@ uint64_t sub_1001338A8@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 
   *a2 = v7;
   a2[1] = v6;
-  return sub_1000CD9D4(v4);
+  return sub_1000CD9D4(v4, v5);
 }
 
-uint64_t sub_100133964(uint64_t *a1)
+uint64_t sub_100133964(uint64_t *a1, uint64_t *a2)
 {
-  v1 = *a1;
-  v2 = a1[1];
+  v2 = *a1;
+  v3 = a1[1];
   if (*a1)
   {
-    v3 = swift_allocObject();
-    *(v3 + 16) = v1;
-    *(v3 + 24) = v2;
-    v4 = sub_1000D882C;
+    v4 = swift_allocObject();
+    *(v4 + 16) = v2;
+    *(v4 + 24) = v3;
+    v5 = sub_1000D882C;
   }
 
   else
   {
+    v5 = 0;
     v4 = 0;
   }
 
   KeyPath = swift_getKeyPath();
   __chkstk_darwin(KeyPath);
-  sub_1000CD9D4(v1);
+  sub_1000CD9D4(v2, v3);
   sub_100133D98();
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
-  sub_1000588AC(v4);
+  sub_1000588AC(v5, v4);
 }
 
-uint64_t sub_100133A90@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_100133A90@<X0>(uint64_t *a1@<X0>, uint64_t (**a2)()@<X8>)
 {
   v3 = *a1;
   swift_getKeyPath();
@@ -4418,32 +4532,33 @@ uint64_t sub_100133A90@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 
   *a2 = v7;
   a2[1] = v6;
-  return sub_1000CD9D4(v4);
+  return sub_1000CD9D4(v4, v5);
 }
 
-uint64_t sub_100133B4C(uint64_t *a1)
+uint64_t sub_100133B4C(uint64_t *a1, uint64_t *a2)
 {
-  v1 = *a1;
-  v2 = a1[1];
+  v2 = *a1;
+  v3 = a1[1];
   if (*a1)
   {
-    v3 = swift_allocObject();
-    *(v3 + 16) = v1;
-    *(v3 + 24) = v2;
-    v4 = sub_100100EB8;
+    v4 = swift_allocObject();
+    *(v4 + 16) = v2;
+    *(v4 + 24) = v3;
+    v5 = sub_100100EB8;
   }
 
   else
   {
+    v5 = 0;
     v4 = 0;
   }
 
   KeyPath = swift_getKeyPath();
   __chkstk_darwin(KeyPath);
-  sub_1000CD9D4(v1);
+  sub_1000CD9D4(v2, v3);
   sub_100133D98();
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
-  sub_1000588AC(v4);
+  sub_1000588AC(v5, v4);
 }
 
 id sub_100133C78(void *a1)
@@ -4459,7 +4574,7 @@ id sub_100133C78(void *a1)
   *v7 = 0;
   *(v7 + 1) = 0;
   *&v2[v5] = a1;
-  type metadata accessor for TransitLineDisambiguationViewModel();
+  type metadata accessor for TransitLineDisambiguationViewModel(0);
   swift_allocObject();
   v8 = a1;
   *&v2[OBJC_IVAR____TtC4Maps48TransitLineDisambiguationContaineeViewController_viewModel] = sub_10041AFF8(a1);
@@ -4485,7 +4600,7 @@ unint64_t sub_100133D98()
   result = qword_10190BD50;
   if (!qword_10190BD50)
   {
-    type metadata accessor for TransitLineDisambiguationViewModel();
+    type metadata accessor for TransitLineDisambiguationViewModel(255);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10190BD50);
   }
@@ -4493,19 +4608,19 @@ unint64_t sub_100133D98()
   return result;
 }
 
-void sub_100133E64(uint64_t a1)
+void sub_100133E64(uint64_t a1, uint64_t a2)
 {
-  v3 = *(v1 + 16);
-  v4 = _convertErrorToNSError(_:)();
-  (*(v3 + 16))(v3, a1, v4);
+  v4 = *(v2 + 16);
+  v5 = _convertErrorToNSError(_:)();
+  (*(v4 + 16))(v4, a1, v5);
 }
 
-id sub_10013405C()
+id sub_10013405C(uint64_t a1, uint64_t a2, void *a3)
 {
 
-  v0 = String._bridgeToObjectiveC()();
+  v3 = String._bridgeToObjectiveC()();
 
-  return v0;
+  return v3;
 }
 
 uint64_t sub_1001340C4(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -4603,7 +4718,7 @@ void sub_100134644(void *a1)
   if (a1)
   {
     sub_1000F1178();
-    sub_100135BF0(&qword_10190DE60, sub_1000F1178);
+    sub_100135BF0(&qword_10190DE60, sub_1000F1178, &protocol conformance descriptor for UIImage);
   }
 
   dispatch thunk of ListCellViewModel.imageProvider.setter();
@@ -4633,11 +4748,11 @@ uint64_t sub_1001348EC()
   v4 = &v8 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (*(v0 + OBJC_IVAR____TtC4Maps19NavTrayWaypointCell_etaString + 8))
   {
-    sub_1000CE6B8(&unk_1019157F0);
+    sub_1000CE6B8(&unk_1019157F0, qword_1011E4FB0);
     v5 = swift_allocObject();
     v8 = xmmword_1011E1D30;
     *(v5 + 16) = xmmword_1011E1D30;
-    sub_1000CE6B8(&qword_10190A070);
+    sub_1000CE6B8(&qword_10190A070, &unk_1011E78E0);
     type metadata accessor for RichTextViewModel();
     v6 = swift_allocObject();
     *(v6 + 16) = v8;
@@ -4663,7 +4778,7 @@ id sub_100134C50(uint64_t a1, uint64_t a2, uint64_t a3)
   v27 = a2;
   v28 = a3;
   v29 = a1;
-  v5 = sub_1000CE6B8(&qword_10190BDF8);
+  v5 = sub_1000CE6B8(&qword_10190BDF8, &unk_1011E81B0);
   v30 = *(v5 - 8);
   __chkstk_darwin(v5);
   v7 = &v27 - v6;
@@ -4673,7 +4788,7 @@ id sub_100134C50(uint64_t a1, uint64_t a2, uint64_t a3)
   v11 = &v27 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = type metadata accessor for UUID();
   __chkstk_darwin(v12 - 8);
-  v13 = sub_1000CE6B8(&unk_10190D5B0);
+  v13 = sub_1000CE6B8(&unk_10190D5B0, &unk_1011E6660);
   __chkstk_darwin(v13 - 8);
   v15 = &v27 - v14;
   v16 = OBJC_IVAR____TtC4Maps19NavTrayWaypointCell_model;
@@ -4714,7 +4829,7 @@ id sub_100134C50(uint64_t a1, uint64_t a2, uint64_t a3)
     v22 = 0;
   }
 
-  v23 = type metadata accessor for NavTrayWaypointCell();
+  v23 = type metadata accessor for NavTrayWaypointCell(0);
   v31.receiver = v4;
   v31.super_class = v23;
   v24 = objc_msgSendSuper2(&v31, "initWithStyle:reuseIdentifier:", v29, v22, v27);
@@ -4726,7 +4841,7 @@ id sub_100134C50(uint64_t a1, uint64_t a2, uint64_t a3)
 
   static Edge.Set.all.getter();
   *(&v36 + 1) = v5;
-  v37 = sub_1000414C8(&qword_101922B00, &qword_10190BDF8);
+  v37 = sub_1000414C8(&qword_101922B00, &qword_10190BDF8, &unk_1011E81B0, &protocol conformance descriptor for UIHostingConfiguration<A, B>);
   sub_10001A848(&v35);
   UIHostingConfiguration.margins(_:_:)();
   (*(v30 + 8))(v7, v5);
@@ -4735,15 +4850,15 @@ id sub_100134C50(uint64_t a1, uint64_t a2, uint64_t a3)
   return v25;
 }
 
-uint64_t sub_100135104@<X0>(uint64_t *a1@<X8>)
+char *sub_100135104@<X0>(uint64_t *a2@<X8>)
 {
-  v2 = type metadata accessor for NavigationCell();
-  v3 = *(v2 - 8);
-  __chkstk_darwin(v2);
-  v5 = v17 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = sub_1000CE6B8(&qword_10190BE00);
-  __chkstk_darwin(v6);
-  v8 = v17 - v7;
+  v3 = type metadata accessor for NavigationCell();
+  v4 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v6 = &v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = sub_1000CE6B8(&qword_10190BE00, &qword_1011E81C0);
+  __chkstk_darwin(v7);
+  v9 = &v18 - v8;
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (!Strong)
@@ -4755,28 +4870,28 @@ uint64_t sub_100135104@<X0>(uint64_t *a1@<X8>)
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
-    v11 = result;
-    v12 = *(result + OBJC_IVAR____TtC4Maps19NavTrayWaypointCell_model);
+    v12 = result;
+    v13 = *&result[OBJC_IVAR____TtC4Maps19NavTrayWaypointCell_model];
 
-    v17[7] = type metadata accessor for ListCellViewModel();
-    v17[8] = sub_100135BF0(&qword_10190B068, &type metadata accessor for ListCellViewModel);
-    v17[4] = v12;
+    v20 = type metadata accessor for ListCellViewModel();
+    v21 = sub_100135BF0(&qword_10190B068, &type metadata accessor for ListCellViewModel, &protocol conformance descriptor for ListCellViewModel);
+    v19 = v13;
     NavigationCell.init(model:tapHandler:)();
     KeyPath = swift_getKeyPath();
-    v14 = swift_allocObject();
+    v15 = swift_allocObject();
     swift_beginAccess();
-    v15 = swift_unknownObjectWeakLoadStrong();
+    v16 = swift_unknownObjectWeakLoadStrong();
     swift_unknownObjectWeakInit();
 
-    (*(v3 + 32))(v8, v5, v2);
-    v16 = &v8[*(v6 + 36)];
-    *v16 = KeyPath;
-    v16[1] = sub_100135B00;
-    v16[2] = v14;
+    (*(v4 + 32))(v9, v6, v3);
+    v17 = &v9[*(v7 + 36)];
+    *v17 = KeyPath;
+    v17[1] = sub_100135B00;
+    v17[2] = v15;
     sub_100135B08();
 LABEL_4:
     result = AnyView.init<A>(_:)();
-    *a1 = result;
+    *a2 = result;
     return result;
   }
 
@@ -4784,25 +4899,25 @@ LABEL_4:
   return result;
 }
 
-void sub_10013539C(uint64_t a1)
+void sub_10013539C(uint64_t a1, uint64_t a2)
 {
-  v2 = type metadata accessor for AccessoryType();
-  v3 = *(v2 - 8);
-  __chkstk_darwin(v2);
-  v5 = &v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for AccessoryType();
+  v4 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v7 = Strong;
-    (*(v3 + 16))(v5, a1, v2);
-    v8 = (*(v3 + 88))(v5, v2);
-    if (v8 == enum case for AccessoryType.call(_:))
+    v8 = Strong;
+    (*(v4 + 16))(v6, a1, v3);
+    v9 = (*(v4 + 88))(v6, v3);
+    if (v9 == enum case for AccessoryType.call(_:))
     {
-      v9 = swift_unknownObjectWeakLoadStrong();
-      if (v9)
+      v10 = swift_unknownObjectWeakLoadStrong();
+      if (v10)
       {
-        [v9 pressedPhoneCallOnCell:v7];
+        [v10 pressedPhoneCallOnCell:v8];
 LABEL_8:
 
         swift_unknownObjectRelease();
@@ -4812,17 +4927,17 @@ LABEL_8:
 
     else
     {
-      if (v8 != enum case for AccessoryType.delete(_:))
+      if (v9 != enum case for AccessoryType.delete(_:))
       {
         _assertionFailure(_:_:file:line:flags:)();
         __break(1u);
         return;
       }
 
-      v10 = swift_unknownObjectWeakLoadStrong();
-      if (v10)
+      v11 = swift_unknownObjectWeakLoadStrong();
+      if (v11)
       {
-        [v10 pressedDeleteOnCell:v7];
+        [v11 pressedDeleteOnCell:v8];
         goto LABEL_8;
       }
     }
@@ -4833,7 +4948,7 @@ uint64_t sub_1001355D0(char a1, char a2)
 {
   if (a1)
   {
-    sub_1000CE6B8(&unk_10190D580);
+    sub_1000CE6B8(&unk_10190D580, &unk_1011E9400);
     v4 = type metadata accessor for TrailingAccessoryViewModel();
     v5 = *(v4 - 8);
     v6 = *(v5 + 72);
@@ -4857,7 +4972,7 @@ uint64_t sub_1001355D0(char a1, char a2)
 
   else if (a2)
   {
-    sub_1000CE6B8(&unk_10190D580);
+    sub_1000CE6B8(&unk_10190D580, &unk_1011E9400);
     v10 = type metadata accessor for TrailingAccessoryViewModel();
     v11 = *(v10 - 8);
     v12 = (*(v11 + 80) + 32) & ~*(v11 + 80);
@@ -4872,11 +4987,11 @@ uint64_t sub_1001355D0(char a1, char a2)
 id sub_1001358A4()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for NavTrayWaypointCell();
+  v2.super_class = type metadata accessor for NavTrayWaypointCell(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-uint64_t type metadata accessor for NavTrayWaypointCell()
+uint64_t type metadata accessor for NavTrayWaypointCell(uint64_t a1)
 {
   result = qword_10190BDE8;
   if (!qword_10190BDE8)
@@ -4887,10 +5002,10 @@ uint64_t type metadata accessor for NavTrayWaypointCell()
   return result;
 }
 
-uint64_t sub_100135A34()
+uint64_t sub_100135A34(uint64_t a1)
 {
   result = type metadata accessor for TrailingAccessoryViewModel();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -4907,9 +5022,9 @@ unint64_t sub_100135B08()
   result = qword_10190BE08;
   if (!qword_10190BE08)
   {
-    sub_1000D6664(&qword_10190BE00);
-    sub_100135BF0(&qword_10190A030, &type metadata accessor for NavigationCell);
-    sub_1000414C8(&unk_10190D690, &qword_10190BE10);
+    sub_1000D6664(&qword_10190BE00, &qword_1011E81C0);
+    sub_100135BF0(&qword_10190A030, &type metadata accessor for NavigationCell, &protocol conformance descriptor for NavigationCell);
+    sub_1000414C8(&unk_10190D690, &qword_10190BE10, &qword_1011EBB00, &protocol conformance descriptor for _EnvironmentKeyWritingModifier<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10190BE08);
   }
@@ -4917,7 +5032,7 @@ unint64_t sub_100135B08()
   return result;
 }
 
-uint64_t sub_100135BF0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_100135BF0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -4938,7 +5053,7 @@ void sub_100135C38()
   v4 = v14 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v5 = type metadata accessor for UUID();
   __chkstk_darwin(v5 - 8);
-  v6 = sub_1000CE6B8(&unk_10190D5B0);
+  v6 = sub_1000CE6B8(&unk_10190D5B0, &unk_1011E6660);
   __chkstk_darwin(v6 - 8);
   v8 = v14 - v7;
   v9 = OBJC_IVAR____TtC4Maps19NavTrayWaypointCell_model;
@@ -4975,7 +5090,7 @@ void sub_10013603C()
 {
   v1 = *(v0 + OBJC_IVAR____TtC4Maps16PlaceCardContext_cardStack);
   swift_beginAccess();
-  v2 = *(v1 + 16);
+  v2 = v1[2];
   if (*(v2 + 2))
   {
     swift_beginAccess();
@@ -4998,15 +5113,16 @@ LABEL_4:
         v4 = v3 - 1;
         v5 = *&v2[8 * v4 + 32];
         *(v2 + 2) = v4;
-        *(v1 + 16) = v2;
+        v1[2] = v2;
         swift_endAccess();
 
-        v6 = *(v1 + 40);
+        v6 = v1[5];
         if (v6)
         {
+          v7 = v1[6];
 
           v6(v1);
-          sub_1000588AC(v6);
+          sub_1000588AC(v6, v7);
         }
 
         return;
@@ -5113,46 +5229,46 @@ uint64_t sub_100136244(uint64_t result, unsigned int a2, unsigned int a3)
 
 uint64_t sub_1001362C4@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v44 = a2;
-  v5 = sub_1000CE6B8(&qword_10190BC20);
+  v45 = a2;
+  v5 = sub_1000CE6B8(&qword_10190BC20, &qword_1011E7D28);
   __chkstk_darwin(v5 - 8);
-  v7 = &v40[-v6];
-  v8 = sub_1000CE6B8(&qword_10190BE18);
+  v7 = &v41[-v6];
+  v8 = sub_1000CE6B8(&qword_10190BE18, &qword_1011E8290);
   __chkstk_darwin(v8);
-  v10 = &v40[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v10 = &v41[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
   __chkstk_darwin(v11);
-  v45 = &v40[-v12];
-  v13 = sub_1000CE6B8(&qword_10190BE20);
+  v46 = &v41[-v12];
+  v13 = sub_1000CE6B8(&qword_10190BE20, &qword_1011E8298);
   __chkstk_darwin(v13);
-  v15 = &v40[-v14];
-  v16 = sub_1000CE6B8(&qword_10190BE28);
+  v15 = &v41[-v14];
+  v16 = sub_1000CE6B8(&qword_10190BE28, &qword_1011E82A0);
   __chkstk_darwin(v16);
-  v18 = &v40[-v17];
-  v19 = sub_1000CE6B8(&qword_10190BE30);
+  v18 = &v41[-v17];
+  v19 = sub_1000CE6B8(&qword_10190BE30, &qword_1011E82A8);
   __chkstk_darwin(v19);
-  v22 = &v40[-v21];
+  v22 = &v41[-v21];
   if (a1)
   {
     v23 = a1[OBJC_IVAR____TtC4Maps29PlaceSummaryViewModelTemplate_useCase];
-    v46 = v20;
-    v47 = a3;
+    v47 = v20;
+    v48 = a3;
     if (v23 == 1)
     {
-      v44 = v13;
+      v45 = v13;
       type metadata accessor for PlaceSummaryViewModelTemplate(0);
-      sub_10013B828(&qword_10190BE38, type metadata accessor for PlaceSummaryViewModelTemplate);
+      sub_10013B828(&qword_10190BE38, type metadata accessor for PlaceSummaryViewModelTemplate, &unk_1011F2770);
       v24 = a1;
       v25 = EnvironmentObject.init()();
-      v42 = v26;
-      v43 = v25;
+      v43 = v26;
+      v44 = v25;
       v27 = v24[OBJC_IVAR____TtC4Maps29PlaceSummaryViewModelTemplate_searchAlongRoute];
 
       if (v27 == 1)
       {
-        v41 = enum case for ContentSizeCategory.extraLarge(_:);
+        v42 = enum case for ContentSizeCategory.extraLarge(_:);
         v28 = type metadata accessor for ContentSizeCategory();
         v29 = *(v28 - 8);
-        (*(v29 + 104))(v7, v41, v28);
+        (*(v29 + 104))(v7, v42, v28);
         (*(v29 + 56))(v7, 0, 1, v28);
       }
 
@@ -5162,65 +5278,67 @@ uint64_t sub_1001362C4@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t
         (*(*(v28 - 8) + 56))(v7, 1, 1, v28);
       }
 
-      sub_1000F11C4(v7, v10, &qword_10190BC20);
-      v35 = v8[9];
+      sub_1000F11C4(v7, v10, &qword_10190BC20, &qword_1011E7D28);
+      v36 = v8[9];
       type metadata accessor for ContentSizeCategory();
-      (*(*(v28 - 8) + 56))(&v10[v35], 1, 1, v28);
+      (*(*(v28 - 8) + 56))(&v10[v36], 1, 1, v28);
       *&v10[v8[10]] = swift_getKeyPath();
-      sub_1000CE6B8(&qword_10190BC28);
+      sub_1000CE6B8(&qword_10190BC28, &unk_1011E7D30);
       swift_storeEnumTagMultiPayload();
-      v36 = &v10[v8[11]];
-      v37 = v42;
-      *v36 = v43;
-      v36[1] = v37;
-      v38 = v45;
-      sub_1000F11C4(v10, v45, &qword_10190BE18);
-      sub_1000D2DFC(v38, v18, &qword_10190BE18);
+      v37 = &v10[v8[11]];
+      v38 = v43;
+      *v37 = v44;
+      v37[1] = v38;
+      v39 = v46;
+      sub_1000F11C4(v10, v46, &qword_10190BE18, &qword_1011E8290);
+      sub_1000D2DFC(v39, v18, &qword_10190BE18, &qword_1011E8290);
       swift_storeEnumTagMultiPayload();
       sub_100136A90();
-      sub_1000414C8(&qword_10190BE48, &qword_10190BE18);
+      sub_1000414C8(&qword_10190BE48, &qword_10190BE18, &qword_1011E8290, &unk_1011E7CA0);
       _ConditionalContent<>.init(storage:)();
-      sub_1000D2DFC(v22, v15, &qword_10190BE30);
+      sub_1000D2DFC(v22, v15, &qword_10190BE30, &qword_1011E82A8);
       swift_storeEnumTagMultiPayload();
-      sub_1000CE6B8(&qword_10190BE50);
+      sub_1000CE6B8(&qword_10190BE50, &qword_1011E82E8);
       sub_100136AE4();
-      sub_1000414C8(&qword_10190BE60, &qword_10190BE50);
+      sub_1000414C8(&qword_10190BE60, &qword_10190BE50, &qword_1011E82E8, &protocol conformance descriptor for TupleView<A>);
       _ConditionalContent<>.init(storage:)();
-      sub_100024F64(v22, &qword_10190BE30);
-      v33 = v38;
+      sub_100024F64(v22, &qword_10190BE30, &qword_1011E82A8);
+      v33 = v39;
       v34 = &qword_10190BE18;
-      return sub_100024F64(v33, v34);
+      v35 = &qword_1011E8290;
+      return sub_100024F64(v33, v34, v35);
     }
 
     if (v23 == 2)
     {
       type metadata accessor for PlaceSummaryViewModelTemplate(0);
-      sub_10013B828(&qword_10190BE38, type metadata accessor for PlaceSummaryViewModelTemplate);
+      sub_10013B828(&qword_10190BE38, type metadata accessor for PlaceSummaryViewModelTemplate, &unk_1011F2770);
       v30 = EnvironmentObject.init()();
       *v18 = v30;
       v18[1] = v31;
       swift_storeEnumTagMultiPayload();
       sub_100136A90();
-      sub_1000414C8(&qword_10190BE48, &qword_10190BE18);
+      sub_1000414C8(&qword_10190BE48, &qword_10190BE18, &qword_1011E8290, &unk_1011E7CA0);
       v32 = v30;
       _ConditionalContent<>.init(storage:)();
-      sub_1000D2DFC(v22, v15, &qword_10190BE30);
+      sub_1000D2DFC(v22, v15, &qword_10190BE30, &qword_1011E82A8);
       swift_storeEnumTagMultiPayload();
-      sub_1000CE6B8(&qword_10190BE50);
+      sub_1000CE6B8(&qword_10190BE50, &qword_1011E82E8);
       sub_100136AE4();
-      sub_1000414C8(&qword_10190BE60, &qword_10190BE50);
+      sub_1000414C8(&qword_10190BE60, &qword_10190BE50, &qword_1011E82E8, &protocol conformance descriptor for TupleView<A>);
       _ConditionalContent<>.init(storage:)();
 
       v33 = v22;
       v34 = &qword_10190BE30;
-      return sub_100024F64(v33, v34);
+      v35 = &qword_1011E82A8;
+      return sub_100024F64(v33, v34, v35);
     }
   }
 
   else
   {
     type metadata accessor for PlaceSummaryViewModelTemplate(0);
-    sub_10013B828(&qword_10190BE38, type metadata accessor for PlaceSummaryViewModelTemplate);
+    sub_10013B828(&qword_10190BE38, type metadata accessor for PlaceSummaryViewModelTemplate, &unk_1011F2770);
     EnvironmentObject.error()();
     __break(1u);
   }
@@ -5247,9 +5365,9 @@ unint64_t sub_100136AE4()
   result = qword_10190BE58;
   if (!qword_10190BE58)
   {
-    sub_1000D6664(&qword_10190BE30);
+    sub_1000D6664(&qword_10190BE30, &qword_1011E82A8);
     sub_100136A90();
-    sub_1000414C8(&qword_10190BE48, &qword_10190BE18);
+    sub_1000414C8(&qword_10190BE48, &qword_10190BE18, &qword_1011E8290, &unk_1011E7CA0);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10190BE58);
   }
@@ -5317,9 +5435,9 @@ unint64_t sub_100136C68()
   result = qword_10190BE68;
   if (!qword_10190BE68)
   {
-    sub_1000D6664(&qword_10190BE70);
+    sub_1000D6664(&qword_10190BE70, qword_1011E8330);
     sub_100136AE4();
-    sub_1000414C8(&qword_10190BE60, &qword_10190BE50);
+    sub_1000414C8(&qword_10190BE60, &qword_10190BE50, &qword_1011E82E8, &protocol conformance descriptor for TupleView<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10190BE68);
   }
@@ -5329,428 +5447,429 @@ unint64_t sub_100136C68()
 
 uint64_t sub_100136D3C@<X0>(void *a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
 {
-  v147 = a2;
-  v5 = sub_1000CE6B8(&qword_10190D6F0);
-  v163 = *(v5 - 8);
+  v148 = a2;
+  v5 = sub_1000CE6B8(&qword_10190D6F0, &qword_1011F5F30);
+  v164 = *(v5 - 8);
   __chkstk_darwin(v5);
-  v140 = &v137 - v6;
-  v7 = sub_1000CE6B8(&qword_10190BE78);
+  v141 = &v138 - v6;
+  v7 = sub_1000CE6B8(&qword_10190BE78, &qword_1011E83E0);
   __chkstk_darwin(v7 - 8);
-  v9 = &v137 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v138 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v10);
-  v165 = &v137 - v11;
-  v145 = sub_1000CE6B8(&qword_10190BE80);
-  v144 = *(v145 - 8);
-  __chkstk_darwin(v145);
-  v137 = &v137 - v12;
-  v151 = sub_1000CE6B8(&qword_10190BE88);
-  v13 = *(v151 - 8);
-  __chkstk_darwin(v151);
-  v139 = &v137 - v14;
-  v143 = type metadata accessor for PlaceSummaryViewModelLine(0);
-  v15 = *(v143 - 8);
-  __chkstk_darwin(v143);
-  v138 = &v137 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = sub_1000CE6B8(&qword_10190BE90);
-  __chkstk_darwin(v17 - 8);
-  v154 = &v137 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v19);
-  v21 = &v137 - v20;
-  v22 = sub_1000CE6B8(&qword_10190BE98);
-  __chkstk_darwin(v22 - 8);
-  v153 = &v137 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v24);
-  v173 = &v137 - v25;
-  v141 = sub_1000CE6B8(&qword_10190BEA0);
-  __chkstk_darwin(v141);
-  v149 = &v137 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v27);
-  v172 = (&v137 - v28);
-  v148 = sub_1000CE6B8(&qword_10190BEA8);
-  __chkstk_darwin(v148);
-  v174 = (&v137 - v29);
-  v150 = sub_1000CE6B8(&qword_10190BEB0);
-  __chkstk_darwin(v150);
-  v155 = &v137 - v30;
-  v152 = sub_1000CE6B8(&qword_10190BEB8);
+  v166 = &v138 - v11;
+  v146 = sub_1000CE6B8(&qword_10190BE80, &qword_1011E83E8);
+  v145 = *(v146 - 8);
+  __chkstk_darwin(v146);
+  v138 = &v138 - v12;
+  v152 = sub_1000CE6B8(&qword_10190BE88, &qword_1011E83F0);
+  v13 = *(v152 - 8);
   __chkstk_darwin(v152);
-  v157 = &v137 - v31;
-  v156 = sub_1000CE6B8(&qword_10190BEC0);
-  __chkstk_darwin(v156);
-  v160 = &v137 - v32;
-  v159 = sub_1000CE6B8(&qword_10190BEC8);
-  __chkstk_darwin(v159);
-  v162 = &v137 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v140 = &v138 - v14;
+  v144 = type metadata accessor for PlaceSummaryViewModelLine(0);
+  v15 = *(v144 - 8);
+  __chkstk_darwin(v144);
+  v139 = &v138 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = sub_1000CE6B8(&qword_10190BE90, &qword_1011E83F8);
+  __chkstk_darwin(v17 - 8);
+  v155 = &v138 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v19);
+  v21 = &v138 - v20;
+  v22 = sub_1000CE6B8(&qword_10190BE98, &qword_1011E8400);
+  __chkstk_darwin(v22 - 8);
+  v154 = &v138 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v24);
+  v174 = &v138 - v25;
+  v142 = sub_1000CE6B8(&qword_10190BEA0, &qword_1011E8408);
+  __chkstk_darwin(v142);
+  v150 = &v138 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v27);
+  v173 = (&v138 - v28);
+  v149 = sub_1000CE6B8(&qword_10190BEA8, &qword_1011E8410);
+  __chkstk_darwin(v149);
+  v175 = (&v138 - v29);
+  v151 = sub_1000CE6B8(&qword_10190BEB0, &qword_1011E8418);
+  __chkstk_darwin(v151);
+  v156 = &v138 - v30;
+  v153 = sub_1000CE6B8(&qword_10190BEB8, &qword_1011E8420);
+  __chkstk_darwin(v153);
+  v158 = &v138 - v31;
+  v157 = sub_1000CE6B8(&qword_10190BEC0, &qword_1011E8428);
+  __chkstk_darwin(v157);
+  v161 = &v138 - v32;
+  v160 = sub_1000CE6B8(&qword_10190BEC8, &qword_1011E8430);
+  __chkstk_darwin(v160);
+  v163 = &v138 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v34);
-  v158 = &v137 - v35;
+  v159 = &v138 - v35;
   __chkstk_darwin(v36);
-  v161 = &v137 - v37;
-  v38 = sub_1000CE6B8(&qword_10190BED0);
+  v162 = &v138 - v37;
+  v38 = sub_1000CE6B8(&qword_10190BED0, &qword_1011E8438);
   __chkstk_darwin(v38 - 8);
-  v40 = &v137 - ((v39 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v40 = &v138 - ((v39 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v41);
-  v43 = &v137 - v42;
+  v43 = &v138 - v42;
   if (!a1)
   {
     type metadata accessor for PlaceSummaryViewModelTemplate(0);
-    sub_10013B828(&qword_10190BE38, type metadata accessor for PlaceSummaryViewModelTemplate);
+    sub_10013B828(&qword_10190BE38, type metadata accessor for PlaceSummaryViewModelTemplate, &unk_1011F2770);
     result = EnvironmentObject.error()();
     __break(1u);
     return result;
   }
 
-  v146 = v13;
-  v164 = v5;
-  v166 = v9;
-  v167 = a3;
+  v147 = v13;
+  v165 = v5;
+  v167 = v9;
+  v168 = a3;
   v44 = a1;
-  v170 = sub_10021C698(1);
+  sub_10021C698(1);
+  v171 = v45;
   sub_10021C924(v43);
   IsEnabled_SearchAndDiscovery = MapsFeature_IsEnabled_SearchAndDiscovery();
-  v168 = v44;
-  v169 = v43;
-  v171 = IsEnabled_SearchAndDiscovery;
+  v169 = v44;
+  v170 = v43;
+  v172 = IsEnabled_SearchAndDiscovery;
   if (IsEnabled_SearchAndDiscovery)
   {
-    v46 = OBJC_IVAR____TtC4Maps29PlaceSummaryViewModelTemplate_metrics;
-    v47 = *&v44[OBJC_IVAR____TtC4Maps29PlaceSummaryViewModelTemplate_metrics];
-    v48 = v47;
+    v47 = OBJC_IVAR____TtC4Maps29PlaceSummaryViewModelTemplate_metrics;
+    v48 = *&v44[OBJC_IVAR____TtC4Maps29PlaceSummaryViewModelTemplate_metrics];
+    v49 = v48;
 
-    v49 = v21;
-    if (v47)
+    v50 = v21;
+    if (v48)
     {
 
-      v50 = *&v44[v46];
-      v51 = v50;
+      v51 = *&v44[v47];
+      v52 = v51;
 
-      if (!v50 || (v52 = v51[OBJC_IVAR____TtC4Maps19PlaceSummaryMetrics_showPlatter], v51, (v52 & 1) != 0))
+      if (!v51 || (v53 = v52[OBJC_IVAR____TtC4Maps19PlaceSummaryMetrics_showPlatter], v52, (v53 & 1) != 0))
       {
         swift_getKeyPath();
         swift_getKeyPath();
-        v44 = v168;
+        v44 = v169;
         static Published.subscript.getter();
 
-        v53 = v175 * 0.203562341;
+        v54 = v176 * 0.203562341;
 LABEL_11:
-        v43 = v169;
+        v43 = v170;
         goto LABEL_12;
       }
 
-      v44 = v168;
+      v44 = v169;
     }
 
     else
     {
     }
 
-    v53 = 64.0;
+    v54 = 64.0;
     goto LABEL_11;
   }
 
-  v53 = 64.0;
-  v49 = v21;
+  v54 = 64.0;
+  v50 = v21;
 LABEL_12:
-  v54 = *&v44[OBJC_IVAR____TtC4Maps29PlaceSummaryViewModelTemplate_metrics];
-  v55 = v54;
+  v55 = *&v44[OBJC_IVAR____TtC4Maps29PlaceSummaryViewModelTemplate_metrics];
+  v56 = v55;
 
-  if (v54)
+  if (v55)
   {
-    v142 = v55[OBJC_IVAR____TtC4Maps19PlaceSummaryMetrics_showsDivider];
+    v143 = v56[OBJC_IVAR____TtC4Maps19PlaceSummaryMetrics_showsDivider];
   }
 
   else
   {
-    v142 = 0;
+    v143 = 0;
   }
 
-  v56 = static HorizontalAlignment.leading.getter();
-  v57 = v174;
-  *v174 = v56;
-  v57[1] = 0x4030000000000000;
-  *(v57 + 16) = 0;
-  v58 = static VerticalAlignment.center.getter();
-  v59 = v172;
-  *v172 = v58;
-  v59[1] = 0;
-  *(v59 + 16) = 0;
-  v60 = v59 + *(sub_1000CE6B8(&qword_10190BED8) + 44);
-  v61 = v171;
-  v62 = v170;
-  sub_100137DC8(a1, v147, v171, v43, v170, v60, v53);
-  v63 = v59 + *(v141 + 36);
-  *v63 = 0xD000000000000018;
-  *(v63 + 1) = 0x800000010121E040;
-  v63[16] = 9;
-  v64 = v173;
-  if ((v61 & 1) != 0 || !*(v62 + 16))
+  v57 = static HorizontalAlignment.leading.getter();
+  v58 = v175;
+  *v175 = v57;
+  v58[1] = 0x4030000000000000;
+  *(v58 + 16) = 0;
+  v59 = static VerticalAlignment.center.getter();
+  v60 = v173;
+  *v173 = v59;
+  v60[1] = 0;
+  *(v60 + 16) = 0;
+  v61 = v60 + *(sub_1000CE6B8(&qword_10190BED8, &qword_1011E8440) + 44);
+  v62 = v172;
+  v63 = v171;
+  sub_100137DC8(a1, v148, v172, v43, v171, v61, v54);
+  v64 = v60 + *(v142 + 36);
+  *v64 = 0xD000000000000018;
+  *(v64 + 1) = 0x800000010121E040;
+  v64[16] = 9;
+  v65 = v174;
+  if ((v62 & 1) != 0 || !*(v63 + 16))
   {
-    v66 = 1;
-  }
-
-  else
-  {
-    v65 = v137;
-    sub_100139804(v62, v137);
-    sub_1000F11C4(v65, v64, &qword_10190BE80);
-    v66 = 0;
-  }
-
-  (*(v144 + 56))(v64, v66, 1, v145);
-  sub_1000D2DFC(v43, v40, &qword_10190BED0);
-  if ((*(v15 + 48))(v40, 1, v143) == 1)
-  {
-    sub_100024F64(v40, &qword_10190BED0);
     v67 = 1;
-    v68 = v151;
   }
 
   else
   {
-    v69 = v138;
-    sub_10013BDC0(v40, v138, type metadata accessor for PlaceSummaryViewModelLine);
-    v70 = v139;
-    sub_10013B870(v69, v139, type metadata accessor for PlaceSummaryViewModelLine);
-    *(v70 + *(_s4LineVMa(0) + 20)) = 0;
-    sub_10013B8D8(v69, type metadata accessor for PlaceSummaryViewModelLine);
-    v68 = v151;
-    v71 = v70 + *(v151 + 36);
-    *v71 = 0xD000000000000011;
-    *(v71 + 8) = 0x800000010121E080;
-    *(v71 + 16) = 9;
-    sub_1000F11C4(v70, v49, &qword_10190BE88);
+    v66 = v138;
+    sub_100139804(v63, v138);
+    sub_1000F11C4(v66, v65, &qword_10190BE80, &qword_1011E83E8);
     v67 = 0;
   }
 
-  (*(v146 + 56))(v49, v67, 1, v68);
-  v72 = sub_1000CE6B8(&qword_10190BEE0);
-  v73 = v174 + *(v72 + 44);
-  v74 = v172;
-  v75 = v149;
-  sub_1000D2DFC(v172, v149, &qword_10190BEA0);
-  v76 = v153;
-  sub_1000D2DFC(v64, v153, &qword_10190BE98);
-  v77 = v154;
-  sub_1000D2DFC(v49, v154, &qword_10190BE90);
-  sub_1000D2DFC(v75, v73, &qword_10190BEA0);
-  v78 = sub_1000CE6B8(&qword_10190BEE8);
-  sub_1000D2DFC(v76, v73 + *(v78 + 48), &qword_10190BE98);
-  sub_1000D2DFC(v77, v73 + *(v78 + 64), &qword_10190BE90);
-  sub_100024F64(v49, &qword_10190BE90);
-  sub_100024F64(v173, &qword_10190BE98);
-  sub_100024F64(v74, &qword_10190BEA0);
-  sub_100024F64(v77, &qword_10190BE90);
-  sub_100024F64(v76, &qword_10190BE98);
-  sub_100024F64(v75, &qword_10190BEA0);
-
-  v79 = v174;
-  v80 = v174 + *(v148 + 36);
-  *v80 = 0xD000000000000014;
-  *(v80 + 1) = 0x800000010121E060;
-  v80[16] = 9;
-  LOBYTE(v73) = static Edge.Set.horizontal.getter();
-  v81 = v142;
-  EdgeInsets.init(_all:)();
-  v83 = v82;
-  v85 = v84;
-  v87 = v86;
-  v89 = v88;
-  v90 = v155;
-  sub_1000F11C4(v79, v155, &qword_10190BEA8);
-  v91 = v90 + *(v150 + 36);
-  *v91 = v73;
-  *(v91 + 8) = v83;
-  *(v91 + 16) = v85;
-  *(v91 + 24) = v87;
-  *(v91 + 32) = v89;
-  *(v91 + 40) = 0;
-  LOBYTE(v73) = static Edge.Set.top.getter();
-  EdgeInsets.init(_all:)();
-  v93 = v92;
-  v95 = v94;
-  v97 = v96;
-  v99 = v98;
-  v100 = v90;
-  v101 = v157;
-  sub_1000F11C4(v100, v157, &qword_10190BEB0);
-  v102 = v101 + *(v152 + 36);
-  *v102 = v73;
-  *(v102 + 8) = v93;
-  *(v102 + 16) = v95;
-  *(v102 + 24) = v97;
-  *(v102 + 32) = v99;
-  *(v102 + 40) = 0;
-  LOBYTE(v73) = static Edge.Set.bottom.getter();
-  EdgeInsets.init(_all:)();
-  v104 = v103;
-  v106 = v105;
-  v108 = v107;
-  v110 = v109;
-  v111 = v101;
-  v112 = v160;
-  sub_1000F11C4(v111, v160, &qword_10190BEB8);
-  v113 = v112 + *(v156 + 36);
-  *v113 = v73;
-  *(v113 + 8) = v104;
-  *(v113 + 16) = v106;
-  *(v113 + 24) = v108;
-  *(v113 + 32) = v110;
-  *(v113 + 40) = 0;
-  v114 = v168;
-  v115 = *&v168[OBJC_IVAR____TtC4Maps29PlaceSummaryViewModelTemplate_backgroundColor];
-
-  if (!v115)
+  (*(v145 + 56))(v65, v67, 1, v146);
+  sub_1000D2DFC(v43, v40, &qword_10190BED0, &qword_1011E8438);
+  if ((*(v15 + 48))(v40, 1, v144) == 1)
   {
-    v115 = static Color.clear.getter();
-  }
-
-  v116 = static Edge.Set.all.getter();
-  v117 = v112;
-  v118 = v158;
-  sub_1000F11C4(v117, v158, &qword_10190BEC0);
-  v119 = v118 + *(v159 + 36);
-  *v119 = v115;
-  *(v119 + 8) = v116;
-  v120 = v161;
-  sub_1000F11C4(v118, v161, &qword_10190BEC8);
-  v121 = v164;
-  v122 = v165;
-  v123 = v169;
-  if (v81)
-  {
-    v124 = v140;
-    Divider.init()();
-    v125 = static Edge.Set.leading.getter();
-    EdgeInsets.init(_all:)();
-    v126 = v124 + *(v121 + 36);
-    *v126 = v125;
-    *(v126 + 8) = v127;
-    *(v126 + 16) = v128;
-    *(v126 + 24) = v129;
-    *(v126 + 32) = v130;
-    *(v126 + 40) = 0;
-    sub_1000F11C4(v124, v122, &qword_10190D6F0);
-    v131 = 0;
+    sub_100024F64(v40, &qword_10190BED0, &qword_1011E8438);
+    v68 = 1;
+    v69 = v152;
   }
 
   else
   {
-    v131 = 1;
+    v70 = v139;
+    sub_10013BDC0(v40, v139, type metadata accessor for PlaceSummaryViewModelLine);
+    v71 = v140;
+    sub_10013B870(v70, v140, type metadata accessor for PlaceSummaryViewModelLine);
+    *(v71 + *(_s4LineVMa(0) + 20)) = 0;
+    sub_10013B8D8(v70, type metadata accessor for PlaceSummaryViewModelLine);
+    v69 = v152;
+    v72 = v71 + *(v152 + 36);
+    *v72 = 0xD000000000000011;
+    *(v72 + 8) = 0x800000010121E080;
+    *(v72 + 16) = 9;
+    sub_1000F11C4(v71, v50, &qword_10190BE88, &qword_1011E83F0);
+    v68 = 0;
   }
 
-  (*(v163 + 56))(v122, v131, 1, v121);
-  v132 = v162;
-  sub_1000D2DFC(v120, v162, &qword_10190BEC8);
-  v133 = v166;
-  sub_1000D2DFC(v122, v166, &qword_10190BE78);
+  (*(v147 + 56))(v50, v68, 1, v69);
+  v73 = sub_1000CE6B8(&qword_10190BEE0, &qword_1011E8448);
+  v74 = v175 + *(v73 + 44);
+  v75 = v173;
+  v76 = v150;
+  sub_1000D2DFC(v173, v150, &qword_10190BEA0, &qword_1011E8408);
+  v77 = v154;
+  sub_1000D2DFC(v65, v154, &qword_10190BE98, &qword_1011E8400);
+  v78 = v155;
+  sub_1000D2DFC(v50, v155, &qword_10190BE90, &qword_1011E83F8);
+  sub_1000D2DFC(v76, v74, &qword_10190BEA0, &qword_1011E8408);
+  v79 = sub_1000CE6B8(&qword_10190BEE8, &qword_1011E8450);
+  sub_1000D2DFC(v77, v74 + *(v79 + 48), &qword_10190BE98, &qword_1011E8400);
+  sub_1000D2DFC(v78, v74 + *(v79 + 64), &qword_10190BE90, &qword_1011E83F8);
+  sub_100024F64(v50, &qword_10190BE90, &qword_1011E83F8);
+  sub_100024F64(v174, &qword_10190BE98, &qword_1011E8400);
+  sub_100024F64(v75, &qword_10190BEA0, &qword_1011E8408);
+  sub_100024F64(v78, &qword_10190BE90, &qword_1011E83F8);
+  sub_100024F64(v77, &qword_10190BE98, &qword_1011E8400);
+  sub_100024F64(v76, &qword_10190BEA0, &qword_1011E8408);
+
+  v80 = v175;
+  v81 = v175 + *(v149 + 36);
+  *v81 = 0xD000000000000014;
+  *(v81 + 1) = 0x800000010121E060;
+  v81[16] = 9;
+  LOBYTE(v74) = static Edge.Set.horizontal.getter();
+  v82 = v143;
+  EdgeInsets.init(_all:)();
+  v84 = v83;
+  v86 = v85;
+  v88 = v87;
+  v90 = v89;
+  v91 = v156;
+  sub_1000F11C4(v80, v156, &qword_10190BEA8, &qword_1011E8410);
+  v92 = v91 + *(v151 + 36);
+  *v92 = v74;
+  *(v92 + 8) = v84;
+  *(v92 + 16) = v86;
+  *(v92 + 24) = v88;
+  *(v92 + 32) = v90;
+  *(v92 + 40) = 0;
+  LOBYTE(v74) = static Edge.Set.top.getter();
+  EdgeInsets.init(_all:)();
+  v94 = v93;
+  v96 = v95;
+  v98 = v97;
+  v100 = v99;
+  v101 = v91;
+  v102 = v158;
+  sub_1000F11C4(v101, v158, &qword_10190BEB0, &qword_1011E8418);
+  v103 = v102 + *(v153 + 36);
+  *v103 = v74;
+  *(v103 + 8) = v94;
+  *(v103 + 16) = v96;
+  *(v103 + 24) = v98;
+  *(v103 + 32) = v100;
+  *(v103 + 40) = 0;
+  LOBYTE(v74) = static Edge.Set.bottom.getter();
+  EdgeInsets.init(_all:)();
+  v105 = v104;
+  v107 = v106;
+  v109 = v108;
+  v111 = v110;
+  v112 = v102;
+  v113 = v161;
+  sub_1000F11C4(v112, v161, &qword_10190BEB8, &qword_1011E8420);
+  v114 = v113 + *(v157 + 36);
+  *v114 = v74;
+  *(v114 + 8) = v105;
+  *(v114 + 16) = v107;
+  *(v114 + 24) = v109;
+  *(v114 + 32) = v111;
+  *(v114 + 40) = 0;
+  v115 = v169;
+  v116 = *&v169[OBJC_IVAR____TtC4Maps29PlaceSummaryViewModelTemplate_backgroundColor];
+
+  if (!v116)
+  {
+    v116 = static Color.clear.getter();
+  }
+
+  v117 = static Edge.Set.all.getter();
+  v118 = v113;
+  v119 = v159;
+  sub_1000F11C4(v118, v159, &qword_10190BEC0, &qword_1011E8428);
+  v120 = v119 + *(v160 + 36);
+  *v120 = v116;
+  *(v120 + 8) = v117;
+  v121 = v162;
+  sub_1000F11C4(v119, v162, &qword_10190BEC8, &qword_1011E8430);
+  v122 = v165;
+  v123 = v166;
+  v124 = v170;
+  if (v82)
+  {
+    v125 = v141;
+    Divider.init()();
+    v126 = static Edge.Set.leading.getter();
+    EdgeInsets.init(_all:)();
+    v127 = v125 + *(v122 + 36);
+    *v127 = v126;
+    *(v127 + 8) = v128;
+    *(v127 + 16) = v129;
+    *(v127 + 24) = v130;
+    *(v127 + 32) = v131;
+    *(v127 + 40) = 0;
+    sub_1000F11C4(v125, v123, &qword_10190D6F0, &qword_1011F5F30);
+    v132 = 0;
+  }
+
+  else
+  {
+    v132 = 1;
+  }
+
+  (*(v164 + 56))(v123, v132, 1, v122);
+  v133 = v163;
+  sub_1000D2DFC(v121, v163, &qword_10190BEC8, &qword_1011E8430);
   v134 = v167;
-  sub_1000D2DFC(v132, v167, &qword_10190BEC8);
-  v135 = sub_1000CE6B8(&qword_10190BEF0);
-  sub_1000D2DFC(v133, v134 + *(v135 + 48), &qword_10190BE78);
-  sub_100024F64(v122, &qword_10190BE78);
-  sub_100024F64(v120, &qword_10190BEC8);
-  sub_100024F64(v133, &qword_10190BE78);
-  sub_100024F64(v132, &qword_10190BEC8);
-  return sub_100024F64(v123, &qword_10190BED0);
+  sub_1000D2DFC(v123, v167, &qword_10190BE78, &qword_1011E83E0);
+  v135 = v168;
+  sub_1000D2DFC(v133, v168, &qword_10190BEC8, &qword_1011E8430);
+  v136 = sub_1000CE6B8(&qword_10190BEF0, qword_1011E8458);
+  sub_1000D2DFC(v134, v135 + *(v136 + 48), &qword_10190BE78, &qword_1011E83E0);
+  sub_100024F64(v123, &qword_10190BE78, &qword_1011E83E0);
+  sub_100024F64(v121, &qword_10190BEC8, &qword_1011E8430);
+  sub_100024F64(v134, &qword_10190BE78, &qword_1011E83E0);
+  sub_100024F64(v133, &qword_10190BEC8, &qword_1011E8430);
+  return sub_100024F64(v124, &qword_10190BED0, &qword_1011E8438);
 }
 
 uint64_t sub_100137DC8@<X0>(void *a1@<X0>, void *a2@<X1>, int a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>, double a7@<D0>)
 {
-  v200 = a4;
-  v212 = a3;
-  v206 = a2;
-  v191 = sub_1000CE6B8(&qword_10190BF38);
-  __chkstk_darwin(v191);
-  v12 = &v176 - v11;
-  v186 = sub_1000CE6B8(&qword_10190BF40);
-  __chkstk_darwin(v186);
-  v188 = &v176 - v13;
-  v14 = sub_1000CE6B8(&qword_10190BF48);
+  v202 = a4;
+  v214 = a3;
+  v208 = a2;
+  v193 = sub_1000CE6B8(&qword_10190BF38, &qword_1011E84D8);
+  __chkstk_darwin(v193);
+  v12 = &v178 - v11;
+  v188 = sub_1000CE6B8(&qword_10190BF40, &qword_1011E84E0);
+  __chkstk_darwin(v188);
+  v190 = &v178 - v13;
+  v14 = sub_1000CE6B8(&qword_10190BF48, &qword_1011E84E8);
   __chkstk_darwin(v14);
-  v189 = &v176 - v15;
-  v187 = sub_1000CE6B8(&qword_10190BF50);
-  __chkstk_darwin(v187);
-  v184 = &v176 - v16;
-  v17 = sub_1000CE6B8(&qword_10190BF58);
-  v207 = *(v17 - 8);
-  v208 = v17;
+  v191 = &v178 - v15;
+  v189 = sub_1000CE6B8(&qword_10190BF50, &qword_1011E84F0);
+  __chkstk_darwin(v189);
+  v186 = &v178 - v16;
+  v17 = sub_1000CE6B8(&qword_10190BF58, &qword_1011E84F8);
+  v209 = *(v17 - 8);
+  v210 = v17;
   __chkstk_darwin(v17);
-  v19 = &v176 - v18;
-  v20 = sub_1000CE6B8(&qword_10190BF60);
+  v19 = &v178 - v18;
+  v20 = sub_1000CE6B8(&qword_10190BF60, &qword_1011E8500);
   __chkstk_darwin(v20 - 8);
-  v22 = &v176 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = &v178 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v23);
-  v214 = &v176 - v24;
-  v25 = sub_1000CE6B8(&qword_10190BE80);
-  v202 = *(v25 - 8);
-  v203 = v25;
+  v216 = &v178 - v24;
+  v25 = sub_1000CE6B8(&qword_10190BE80, &qword_1011E83E8);
+  v204 = *(v25 - 8);
+  v205 = v25;
   __chkstk_darwin(v25);
-  v185 = &v176 - v26;
-  v27 = sub_1000CE6B8(&qword_10190BE98);
+  v187 = &v178 - v26;
+  v27 = sub_1000CE6B8(&qword_10190BE98, &qword_1011E8400);
   __chkstk_darwin(v27 - 8);
-  v205 = &v176 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v207 = &v178 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v29);
-  v213 = &v176 - v30;
-  v31 = sub_1000CE6B8(&qword_10190BED0);
-  v195 = *(v31 - 8);
-  v196 = *(v195 + 64);
+  v215 = &v178 - v30;
+  v31 = sub_1000CE6B8(&qword_10190BED0, &qword_1011E8438);
+  v197 = *(v31 - 8);
+  v198 = *(v197 + 64);
   __chkstk_darwin(v31 - 8);
-  v197 = &v176 - v32;
-  v201 = sub_1000CE6B8(&qword_10190BF68);
-  v199 = *(v201 - 8);
-  __chkstk_darwin(v201);
-  v198 = &v176 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v199 = &v178 - v32;
+  v203 = sub_1000CE6B8(&qword_10190BF68, &qword_1011E8508);
+  v201 = *(v203 - 8);
+  __chkstk_darwin(v203);
+  v200 = &v178 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v34);
-  v215 = &v176 - v35;
-  v36 = sub_1000CE6B8(&qword_10190BF70);
+  v217 = &v178 - v35;
+  v36 = sub_1000CE6B8(&qword_10190BF70, &qword_1011E8510);
   __chkstk_darwin(v36 - 8);
-  v209 = &v176 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v211 = &v178 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v38);
-  v217 = (&v176 - v39);
+  v219 = (&v178 - v39);
   __chkstk_darwin(v40);
-  v216 = &v176 - v41;
+  v218 = &v178 - v41;
   if (a1)
   {
     swift_getKeyPath();
     swift_getKeyPath();
-    v204 = a1;
+    v206 = a1;
     v42 = a1;
     static Published.subscript.getter();
 
-    v43 = v247;
-    v210 = v22;
-    v211 = a6;
-    v193 = v19;
-    v194 = v12;
-    v192 = v14;
-    v190 = a5;
-    if ((~v247 & 0xF000000000000007) != 0)
+    v43 = v249;
+    v212 = v22;
+    v213 = a6;
+    v195 = v19;
+    v196 = v12;
+    v194 = v14;
+    v192 = a5;
+    if ((~v249 & 0xF000000000000007) != 0)
     {
-      sub_10013BAE8(v247);
+      sub_10013BAE8(v249);
       static Alignment.center.getter();
       _FrameLayout.init(width:height:alignment:)();
-      v44 = v260;
-      v45 = v261;
-      v46 = v262;
-      v47 = v263;
-      v181 = v265;
-      v182 = v264;
+      v44 = v262;
+      v45 = v263;
+      v46 = v264;
+      v47 = v265;
+      v183 = v267;
+      v184 = v266;
       v48 = static Edge.Set.leading.getter();
       EdgeInsets.init(_all:)();
-      v179 = v50;
-      v180 = v49;
-      v177 = v52;
-      v178 = v51;
-      LOBYTE(v234) = v45;
-      LOBYTE(v232[0]) = v47;
-      LOBYTE(v219) = 0;
+      v181 = v50;
+      v182 = v49;
+      v179 = v52;
+      v180 = v51;
+      LOBYTE(v236) = v45;
+      LOBYTE(v234[0]) = v47;
+      LOBYTE(v221) = 0;
       v53 = static Edge.Set.trailing.getter();
       EdgeInsets.init(_all:)();
       v55 = v54;
       v57 = v56;
       v59 = v58;
-      v183 = a7;
+      v185 = a7;
       v61 = v60;
-      LOBYTE(v247) = 0;
+      LOBYTE(v249) = 0;
       v62 = static Edge.Set.vertical.getter();
       EdgeInsets.init(_all:)();
       v64 = v63;
@@ -5758,392 +5877,396 @@ uint64_t sub_100137DC8@<X0>(void *a1@<X0>, void *a2@<X1>, int a3@<W2>, uint64_t 
       v68 = v67;
       v70 = v69;
       sub_10013BD74(v43);
-      *&v234 = v43;
-      *(&v234 + 1) = v44;
-      LOBYTE(v235) = v45;
-      *(&v235 + 1) = v46;
-      LOBYTE(v236) = v47;
-      *(&v236 + 1) = v182;
-      *&v237 = v181;
-      BYTE8(v237) = v48;
-      *&v238 = v180;
-      *(&v238 + 1) = v179;
-      *&v239 = v178;
-      *(&v239 + 1) = v177;
-      LOBYTE(v240) = 0;
-      BYTE8(v240) = v53;
-      *&v241 = v55;
-      *(&v241 + 1) = v57;
-      *&v242 = v59;
-      *(&v242 + 1) = v61;
-      LOBYTE(v243) = 0;
-      BYTE8(v243) = v62;
-      *&v244 = v64;
-      *(&v244 + 1) = v66;
-      *&v245 = v68;
-      *(&v245 + 1) = v70;
-      v246 = 0;
-      UIView.annotateView(with:)(&v234);
-      v257 = v244;
-      v258 = v245;
+      *&v236 = v43;
+      *(&v236 + 1) = v44;
+      LOBYTE(v237) = v45;
+      *(&v237 + 1) = v46;
+      LOBYTE(v238) = v47;
+      *(&v238 + 1) = v184;
+      *&v239 = v183;
+      BYTE8(v239) = v48;
+      *&v240 = v182;
+      *(&v240 + 1) = v181;
+      *&v241 = v180;
+      *(&v241 + 1) = v179;
+      LOBYTE(v242) = 0;
+      BYTE8(v242) = v53;
+      *&v243 = v55;
+      *(&v243 + 1) = v57;
+      *&v244 = v59;
+      *(&v244 + 1) = v61;
+      LOBYTE(v245) = 0;
+      BYTE8(v245) = v62;
+      *&v246 = v64;
+      *(&v246 + 1) = v66;
+      *&v247 = v68;
+      *(&v247 + 1) = v70;
+      v248 = 0;
+      UIView.annotateView(with:)(&v236);
       v259 = v246;
-      v253 = v240;
-      v254 = v241;
-      v256 = v243;
+      v260 = v247;
+      v261 = v248;
       v255 = v242;
+      v256 = v243;
+      v258 = v245;
+      v257 = v244;
+      v251 = v238;
+      v252 = v239;
+      v254 = v241;
+      v253 = v240;
       v249 = v236;
       v250 = v237;
-      v252 = v239;
-      v251 = v238;
-      v247 = v234;
-      v248 = v235;
     }
 
     else
     {
-      sub_10013B938(&v247);
+      sub_10013B938(&v249);
     }
 
     v71 = static HorizontalAlignment.leading.getter();
-    v72 = v212;
+    v72 = v214;
     v73 = 0x4000000000000000;
-    if (v212)
+    if (v214)
     {
       v73 = 0x3FF0000000000000;
     }
 
-    v74 = v217;
-    *v217 = v71;
+    v74 = v219;
+    *v219 = v71;
     v74[1] = v73;
     *(v74 + 16) = 0;
     v75 = v42;
-    v76 = sub_10021C698(0);
+    sub_10021C698(0);
+    v77 = v76;
 
-    *&v234 = v76;
-    v77 = v197;
-    sub_1000D2DFC(v200, v197, &qword_10190BED0);
-    v78 = (*(v195 + 80) + 16) & ~*(v195 + 80);
-    v79 = (v196 + v78 + 7) & 0xFFFFFFFFFFFFFFF8;
-    v80 = swift_allocObject();
-    sub_1000F11C4(v77, v80 + v78, &qword_10190BED0);
-    v81 = (v80 + v79);
-    v82 = v206;
-    *v81 = v204;
-    v81[1] = v82;
-    v206 = v75;
-    sub_1000CE6B8(&qword_10190BF10);
+    *&v236 = v77;
+    v78 = v199;
+    sub_1000D2DFC(v202, v199, &qword_10190BED0, &qword_1011E8438);
+    v79 = (*(v197 + 80) + 16) & ~*(v197 + 80);
+    v80 = (v198 + v79 + 7) & 0xFFFFFFFFFFFFFFF8;
+    v81 = swift_allocObject();
+    sub_1000F11C4(v78, v81 + v79, &qword_10190BED0, &qword_1011E8438);
+    v82 = (v81 + v80);
+    v83 = v208;
+    *v82 = v206;
+    v82[1] = v83;
+    v208 = v75;
+    sub_1000CE6B8(&qword_10190BF10, &qword_1011E84D0);
     type metadata accessor for UUID();
-    sub_1000CE6B8(&qword_10190BF78);
-    sub_1000414C8(&qword_10190BF18, &qword_10190BF10);
+    sub_1000CE6B8(&qword_10190BF78, &qword_1011E8560);
+    sub_1000414C8(&qword_10190BF18, &qword_10190BF10, &qword_1011E84D0, &protocol conformance descriptor for [A]);
     sub_10013BA34();
-    sub_10013B828(&qword_10190BF28, type metadata accessor for PlaceSummaryViewModelLine);
+    sub_10013B828(&qword_10190BF28, type metadata accessor for PlaceSummaryViewModelLine, &unk_1011F21F8);
     ForEach<>.init(_:content:)();
-    if ((v72 & 1) != 0 && *(v190 + 16))
+    if ((v72 & 1) != 0 && *(v192 + 16))
     {
-      v83 = v185;
-      sub_100139804(v190, v185);
-      sub_1000F11C4(v83, v213, &qword_10190BE80);
-      v84 = 0;
+      v84 = v187;
+      sub_100139804(v192, v187);
+      sub_1000F11C4(v84, v215, &qword_10190BE80, &qword_1011E83E8);
+      v85 = 0;
     }
 
     else
     {
-      v84 = 1;
+      v85 = 1;
     }
 
-    v85 = v213;
-    (*(v202 + 56))(v213, v84, 1, v203);
-    v86 = sub_1000CE6B8(&qword_10190BF88);
-    v87 = v217 + *(v86 + 44);
-    v89 = v198;
-    v88 = v199;
-    v90 = *(v199 + 16);
-    v91 = v215;
-    v92 = v201;
-    v90(v198, v215, v201);
-    v93 = v205;
-    sub_1000D2DFC(v85, v205, &qword_10190BE98);
-    v90(v87, v89, v92);
-    v94 = sub_1000CE6B8(&qword_10190BF90);
-    sub_1000D2DFC(v93, &v87[*(v94 + 48)], &qword_10190BE98);
-    sub_100024F64(v85, &qword_10190BE98);
-    v95 = *(v88 + 8);
-    v95(v91, v92);
-    sub_100024F64(v93, &qword_10190BE98);
-    v95(v89, v92);
-    sub_1000F11C4(v217, v216, &qword_10190BF70);
+    v86 = v215;
+    (*(v204 + 56))(v215, v85, 1, v205);
+    v87 = sub_1000CE6B8(&qword_10190BF88, &qword_1011E8568);
+    v88 = v219 + *(v87 + 44);
+    v90 = v200;
+    v89 = v201;
+    v91 = *(v201 + 16);
+    v92 = v217;
+    v93 = v203;
+    v91(v200, v217, v203);
+    v94 = v207;
+    sub_1000D2DFC(v86, v207, &qword_10190BE98, &qword_1011E8400);
+    v91(v88, v90, v93);
+    v95 = sub_1000CE6B8(&qword_10190BF90, &qword_1011E8570);
+    sub_1000D2DFC(v94, &v88[*(v95 + 48)], &qword_10190BE98, &qword_1011E8400);
+    sub_100024F64(v86, &qword_10190BE98, &qword_1011E8400);
+    v96 = *(v89 + 8);
+    v96(v92, v93);
+    sub_100024F64(v94, &qword_10190BE98, &qword_1011E8400);
+    v96(v90, v93);
+    sub_1000F11C4(v219, v218, &qword_10190BF70, &qword_1011E8510);
     swift_getKeyPath();
     swift_getKeyPath();
-    v96 = v206;
+    v97 = v208;
     static Published.subscript.getter();
 
-    v97 = 1;
-    v98 = v234;
-    if ((~v234 & 0xF000000000000007) != 0)
+    v98 = 1;
+    v99 = v236;
+    if ((~v236 & 0xF000000000000007) != 0)
     {
-      v99 = v234 >> 61;
-      if ((v234 >> 61) - 1 < 2)
+      v100 = v236 >> 61;
+      if ((v236 >> 61) - 1 < 2)
       {
-        sub_10013BAE8(v234);
+        sub_10013BAE8(v236);
         static Alignment.center.getter();
         _FrameLayout.init(width:height:alignment:)();
-        v126 = v266;
-        v127 = v267;
         v128 = v268;
         v129 = v269;
         v130 = v270;
         v131 = v271;
-        v132 = static Edge.Set.leading.getter();
+        v132 = v272;
+        v133 = v273;
+        v134 = static Edge.Set.leading.getter();
         EdgeInsets.init(_all:)();
-        LOBYTE(v232[0]) = v127;
-        LOBYTE(v219) = v129;
-        v218 = 0;
-        *&v234 = v98;
-        *(&v234 + 1) = v126;
-        LOBYTE(v235) = v127;
-        *(&v235 + 1) = v128;
-        LOBYTE(v236) = v129;
-        *(&v236 + 1) = v130;
-        *&v237 = v131;
-        BYTE8(v237) = v132;
-        *&v238 = v133;
-        *(&v238 + 1) = v134;
-        *&v239 = v135;
-        *(&v239 + 1) = v136;
-        LOBYTE(v240) = 0;
-        v137 = v239;
-        v138 = v188;
-        *(v188 + 4) = v238;
-        *(v138 + 5) = v137;
-        v138[96] = 0;
-        v139 = v235;
-        *v138 = v234;
-        *(v138 + 1) = v139;
-        v140 = v237;
-        *(v138 + 2) = v236;
-        *(v138 + 3) = v140;
+        LOBYTE(v234[0]) = v129;
+        LOBYTE(v221) = v131;
+        v220 = 0;
+        *&v236 = v99;
+        *(&v236 + 1) = v128;
+        LOBYTE(v237) = v129;
+        *(&v237 + 1) = v130;
+        LOBYTE(v238) = v131;
+        *(&v238 + 1) = v132;
+        *&v239 = v133;
+        BYTE8(v239) = v134;
+        *&v240 = v135;
+        *(&v240 + 1) = v136;
+        *&v241 = v137;
+        *(&v241 + 1) = v138;
+        LOBYTE(v242) = 0;
+        v139 = v241;
+        v140 = v190;
+        *(v190 + 4) = v240;
+        *(v140 + 5) = v139;
+        v140[96] = 0;
+        v141 = v237;
+        *v140 = v236;
+        *(v140 + 1) = v141;
+        v142 = v239;
+        *(v140 + 2) = v238;
+        *(v140 + 3) = v142;
         swift_storeEnumTagMultiPayload();
-        sub_1000D2DFC(&v234, v232, &qword_10190BFA8);
-        sub_1000CE6B8(&qword_10190BFA8);
-        sub_10013C044(&qword_10190BFB8, &qword_10190BF50, &unk_1011E84F0, sub_10013BC04);
-        sub_10013C044(&qword_10190BFF0, &qword_10190BFA8, &unk_1011E85D0, sub_10013BCBC);
-        v141 = v189;
+        sub_1000D2DFC(&v236, v234, &qword_10190BFA8, &qword_1011E85D0);
+        sub_1000CE6B8(&qword_10190BFA8, &qword_1011E85D0);
+        sub_10013C044(&qword_10190BFB8, &qword_10190BF50, &qword_1011E84F0, sub_10013BC04);
+        sub_10013C044(&qword_10190BFF0, &qword_10190BFA8, &qword_1011E85D0, sub_10013BCBC);
+        v143 = v191;
         _ConditionalContent<>.init(storage:)();
-        sub_1000D2DFC(v141, v194, &qword_10190BF48);
+        sub_1000D2DFC(v143, v196, &qword_10190BF48, &qword_1011E84E8);
         swift_storeEnumTagMultiPayload();
         sub_10013BB20();
-        v123 = v193;
+        v124 = v195;
         _ConditionalContent<>.init(storage:)();
-        sub_10013BD74(v98);
-        sub_100024F64(&v234, &qword_10190BFA8);
-        v124 = v141;
-        v125 = &qword_10190BF48;
+        sub_10013BD74(v99);
+        sub_100024F64(&v236, &qword_10190BFA8, &qword_1011E85D0);
+        v125 = v143;
+        v126 = &qword_10190BF48;
+        v127 = &qword_1011E84E8;
       }
 
-      else if (v99 != 3 && v99)
+      else if (v100 != 3 && v100)
       {
-        sub_10013BAE8(v234);
+        sub_10013BAE8(v236);
         static Alignment.center.getter();
         _FrameLayout.init(width:height:alignment:)();
-        v142 = v266;
-        v143 = v267;
         v144 = v268;
         v145 = v269;
         v146 = v270;
         v147 = v271;
-        v148 = static Edge.Set.leading.getter();
+        v148 = v272;
+        v149 = v273;
+        v150 = static Edge.Set.leading.getter();
         EdgeInsets.init(_all:)();
-        LOBYTE(v232[0]) = v143;
-        LOBYTE(v219) = v145;
-        v218 = 0;
-        *&v234 = v98;
-        *(&v234 + 1) = v142;
-        LOBYTE(v235) = v143;
-        *(&v235 + 1) = v144;
-        LOBYTE(v236) = v145;
-        *(&v236 + 1) = v146;
-        *&v237 = v147;
-        BYTE8(v237) = v148;
-        *&v238 = v149;
-        *(&v238 + 1) = v150;
-        *&v239 = v151;
-        *(&v239 + 1) = v152;
-        LOBYTE(v240) = 0;
-        v153 = v239;
-        v154 = v194;
-        *(v194 + 4) = v238;
-        *(v154 + 80) = v153;
-        *(v154 + 96) = 0;
-        v155 = v235;
-        *v154 = v234;
-        *(v154 + 16) = v155;
-        v156 = v237;
-        *(v154 + 32) = v236;
-        *(v154 + 48) = v156;
+        LOBYTE(v234[0]) = v145;
+        LOBYTE(v221) = v147;
+        v220 = 0;
+        *&v236 = v99;
+        *(&v236 + 1) = v144;
+        LOBYTE(v237) = v145;
+        *(&v237 + 1) = v146;
+        LOBYTE(v238) = v147;
+        *(&v238 + 1) = v148;
+        *&v239 = v149;
+        BYTE8(v239) = v150;
+        *&v240 = v151;
+        *(&v240 + 1) = v152;
+        *&v241 = v153;
+        *(&v241 + 1) = v154;
+        LOBYTE(v242) = 0;
+        v155 = v241;
+        v156 = v196;
+        *(v196 + 4) = v240;
+        *(v156 + 80) = v155;
+        *(v156 + 96) = 0;
+        v157 = v237;
+        *v156 = v236;
+        *(v156 + 16) = v157;
+        v158 = v239;
+        *(v156 + 32) = v238;
+        *(v156 + 48) = v158;
         swift_storeEnumTagMultiPayload();
-        sub_1000D2DFC(&v234, v232, &qword_10190BFA8);
-        sub_1000CE6B8(&qword_10190BFA8);
+        sub_1000D2DFC(&v236, v234, &qword_10190BFA8, &qword_1011E85D0);
+        sub_1000CE6B8(&qword_10190BFA8, &qword_1011E85D0);
         sub_10013BB20();
-        sub_10013C044(&qword_10190BFF0, &qword_10190BFA8, &unk_1011E85D0, sub_10013BCBC);
-        v123 = v193;
+        sub_10013C044(&qword_10190BFF0, &qword_10190BFA8, &qword_1011E85D0, sub_10013BCBC);
+        v124 = v195;
         _ConditionalContent<>.init(storage:)();
-        sub_10013BD74(v98);
-        v124 = &v234;
-        v125 = &qword_10190BFA8;
+        sub_10013BD74(v99);
+        v125 = &v236;
+        v126 = &qword_10190BFA8;
+        v127 = &qword_1011E85D0;
       }
 
       else
       {
-        sub_10013BAE8(v234);
+        sub_10013BAE8(v236);
         static Alignment.center.getter();
         _FrameLayout.init(width:height:alignment:)();
-        v217 = v266;
-        LODWORD(v215) = v267;
-        v100 = v268;
-        v101 = v269;
-        v102 = v270;
-        v103 = v271;
-        v104 = sub_1000CE6B8(&qword_10190BFC8);
-        v105 = v184;
-        v106 = &v184[*(v104 + 36)];
-        v107 = *(type metadata accessor for RoundedRectangle() + 20);
-        v108 = enum case for RoundedCornerStyle.continuous(_:);
-        v109 = type metadata accessor for RoundedCornerStyle();
-        (*(*(v109 - 8) + 104))(&v106[v107], v108, v109);
+        v219 = v268;
+        LODWORD(v217) = v269;
+        v101 = v270;
+        v102 = v271;
+        v103 = v272;
+        v104 = v273;
+        v105 = sub_1000CE6B8(&qword_10190BFC8, &qword_1011E85D8);
+        v106 = v186;
+        v107 = &v186[*(v105 + 36)];
+        v108 = *(type metadata accessor for RoundedRectangle() + 20);
+        v109 = enum case for RoundedCornerStyle.continuous(_:);
+        v110 = type metadata accessor for RoundedCornerStyle();
+        (*(*(v110 - 8) + 104))(&v107[v108], v109, v110);
         __asm { FMOV            V0.2D, #6.0 }
 
-        *v106 = _Q0;
-        *&v106[*(sub_1000CE6B8(&qword_10191E590) + 36)] = 256;
-        v115 = v217;
-        *v105 = v98;
-        *(v105 + 8) = v115;
-        *(v105 + 16) = v215;
-        *(v105 + 24) = v100;
-        *(v105 + 32) = v101;
-        *(v105 + 40) = v102;
-        *(v105 + 48) = v103;
-        LOBYTE(v108) = static Edge.Set.leading.getter();
+        *v107 = _Q0;
+        *&v107[*(sub_1000CE6B8(&qword_10191E590, &qword_1011E85F0) + 36)] = 256;
+        v116 = v219;
+        *v106 = v99;
+        *(v106 + 8) = v116;
+        *(v106 + 16) = v217;
+        *(v106 + 24) = v101;
+        *(v106 + 32) = v102;
+        *(v106 + 40) = v103;
+        *(v106 + 48) = v104;
+        LOBYTE(v109) = static Edge.Set.leading.getter();
         EdgeInsets.init(_all:)();
-        v116 = v188;
-        v117 = v105 + *(v187 + 36);
-        *v117 = v108;
-        *(v117 + 8) = v118;
-        *(v117 + 16) = v119;
-        *(v117 + 24) = v120;
-        *(v117 + 32) = v121;
-        *(v117 + 40) = 0;
-        sub_1000D2DFC(v105, v116, &qword_10190BF50);
+        v117 = v190;
+        v118 = v106 + *(v189 + 36);
+        *v118 = v109;
+        *(v118 + 8) = v119;
+        *(v118 + 16) = v120;
+        *(v118 + 24) = v121;
+        *(v118 + 32) = v122;
+        *(v118 + 40) = 0;
+        sub_1000D2DFC(v106, v117, &qword_10190BF50, &qword_1011E84F0);
         swift_storeEnumTagMultiPayload();
-        sub_1000CE6B8(&qword_10190BFA8);
-        sub_10013C044(&qword_10190BFB8, &qword_10190BF50, &unk_1011E84F0, sub_10013BC04);
-        sub_10013C044(&qword_10190BFF0, &qword_10190BFA8, &unk_1011E85D0, sub_10013BCBC);
-        v122 = v189;
+        sub_1000CE6B8(&qword_10190BFA8, &qword_1011E85D0);
+        sub_10013C044(&qword_10190BFB8, &qword_10190BF50, &qword_1011E84F0, sub_10013BC04);
+        sub_10013C044(&qword_10190BFF0, &qword_10190BFA8, &qword_1011E85D0, sub_10013BCBC);
+        v123 = v191;
         _ConditionalContent<>.init(storage:)();
-        sub_1000D2DFC(v122, v194, &qword_10190BF48);
+        sub_1000D2DFC(v123, v196, &qword_10190BF48, &qword_1011E84E8);
         swift_storeEnumTagMultiPayload();
         sub_10013BB20();
-        v123 = v193;
+        v124 = v195;
         _ConditionalContent<>.init(storage:)();
-        sub_10013BD74(v98);
-        sub_100024F64(v122, &qword_10190BF48);
-        v124 = v105;
-        v125 = &qword_10190BF50;
+        sub_10013BD74(v99);
+        sub_100024F64(v123, &qword_10190BF48, &qword_1011E84E8);
+        v125 = v106;
+        v126 = &qword_10190BF50;
+        v127 = &qword_1011E84F0;
       }
 
-      sub_100024F64(v124, v125);
-      sub_1000F11C4(v123, v214, &qword_10190BF58);
-      v97 = 0;
+      sub_100024F64(v125, v126, v127);
+      sub_1000F11C4(v124, v216, &qword_10190BF58, &qword_1011E84F8);
+      v98 = 0;
     }
 
-    v157 = v214;
-    (*(v207 + 56))(v214, v97, 1, v208);
-    v229 = v257;
-    v230 = v258;
+    v159 = v216;
+    (*(v209 + 56))(v216, v98, 1, v210);
     v231 = v259;
-    v225 = v253;
-    v226 = v254;
+    v232 = v260;
+    v233 = v261;
     v227 = v255;
     v228 = v256;
-    v221 = v249;
-    v222 = v250;
+    v229 = v257;
+    v230 = v258;
     v223 = v251;
     v224 = v252;
-    v219 = v247;
-    v220 = v248;
-    v158 = v216;
-    v159 = v209;
-    sub_1000D2DFC(v216, v209, &qword_10190BF70);
-    v160 = v210;
-    sub_1000D2DFC(v157, v210, &qword_10190BF60);
-    v161 = v230;
-    v232[10] = v229;
-    v232[11] = v230;
-    v162 = v225;
-    v163 = v226;
-    v232[6] = v225;
-    v232[7] = v226;
-    v165 = v227;
-    v164 = v228;
-    v232[8] = v227;
-    v232[9] = v228;
-    v166 = v221;
-    v167 = v222;
-    v232[2] = v221;
-    v232[3] = v222;
-    v169 = v223;
-    v168 = v224;
-    v232[4] = v223;
-    v232[5] = v224;
-    v171 = v219;
-    v170 = v220;
-    v232[0] = v219;
-    v232[1] = v220;
-    v172 = v211;
-    *(v211 + 160) = v229;
-    *(v172 + 176) = v161;
-    *(v172 + 96) = v162;
-    *(v172 + 112) = v163;
-    *(v172 + 128) = v165;
-    *(v172 + 144) = v164;
-    *(v172 + 32) = v166;
-    *(v172 + 48) = v167;
-    *(v172 + 64) = v169;
-    *(v172 + 80) = v168;
-    v233 = v231;
-    *(v172 + 192) = v231;
-    *v172 = v171;
-    *(v172 + 16) = v170;
-    v173 = sub_1000CE6B8(&qword_10190BF98);
-    sub_1000D2DFC(v159, v172 + v173[12], &qword_10190BF70);
-    v174 = v172 + v173[16];
-    *v174 = 0;
-    *(v174 + 8) = 0;
-    sub_1000D2DFC(v160, v172 + v173[20], &qword_10190BF60);
-    sub_1000D2DFC(v232, &v234, &qword_10190BFA0);
-    sub_100024F64(v157, &qword_10190BF60);
-    sub_100024F64(v158, &qword_10190BF70);
-    sub_100024F64(v160, &qword_10190BF60);
-    sub_100024F64(v159, &qword_10190BF70);
-    v244 = v229;
-    v245 = v230;
+    v225 = v253;
+    v226 = v254;
+    v221 = v249;
+    v222 = v250;
+    v160 = v218;
+    v161 = v211;
+    sub_1000D2DFC(v218, v211, &qword_10190BF70, &qword_1011E8510);
+    v162 = v212;
+    sub_1000D2DFC(v159, v212, &qword_10190BF60, &qword_1011E8500);
+    v163 = v232;
+    v234[10] = v231;
+    v234[11] = v232;
+    v164 = v227;
+    v165 = v228;
+    v234[6] = v227;
+    v234[7] = v228;
+    v167 = v229;
+    v166 = v230;
+    v234[8] = v229;
+    v234[9] = v230;
+    v168 = v223;
+    v169 = v224;
+    v234[2] = v223;
+    v234[3] = v224;
+    v171 = v225;
+    v170 = v226;
+    v234[4] = v225;
+    v234[5] = v226;
+    v173 = v221;
+    v172 = v222;
+    v234[0] = v221;
+    v234[1] = v222;
+    v174 = v213;
+    *(v213 + 160) = v231;
+    *(v174 + 176) = v163;
+    *(v174 + 96) = v164;
+    *(v174 + 112) = v165;
+    *(v174 + 128) = v167;
+    *(v174 + 144) = v166;
+    *(v174 + 32) = v168;
+    *(v174 + 48) = v169;
+    *(v174 + 64) = v171;
+    *(v174 + 80) = v170;
+    v235 = v233;
+    *(v174 + 192) = v233;
+    *v174 = v173;
+    *(v174 + 16) = v172;
+    v175 = sub_1000CE6B8(&qword_10190BF98, &qword_1011E85C0);
+    sub_1000D2DFC(v161, v174 + v175[12], &qword_10190BF70, &qword_1011E8510);
+    v176 = v174 + v175[16];
+    *v176 = 0;
+    *(v176 + 8) = 0;
+    sub_1000D2DFC(v162, v174 + v175[20], &qword_10190BF60, &qword_1011E8500);
+    sub_1000D2DFC(v234, &v236, &qword_10190BFA0, &qword_1011E85C8);
+    sub_100024F64(v159, &qword_10190BF60, &qword_1011E8500);
+    sub_100024F64(v160, &qword_10190BF70, &qword_1011E8510);
+    sub_100024F64(v162, &qword_10190BF60, &qword_1011E8500);
+    sub_100024F64(v161, &qword_10190BF70, &qword_1011E8510);
     v246 = v231;
-    v240 = v225;
-    v241 = v226;
+    v247 = v232;
+    v248 = v233;
     v242 = v227;
     v243 = v228;
-    v236 = v221;
-    v237 = v222;
+    v244 = v229;
+    v245 = v230;
     v238 = v223;
     v239 = v224;
-    v234 = v219;
-    v235 = v220;
-    return sub_100024F64(&v234, &qword_10190BFA0);
+    v240 = v225;
+    v241 = v226;
+    v236 = v221;
+    v237 = v222;
+    return sub_100024F64(&v236, &qword_10190BFA0, &qword_1011E85C8);
   }
 
   else
   {
     type metadata accessor for PlaceSummaryViewModelTemplate(0);
-    sub_10013B828(&qword_10190BE38, type metadata accessor for PlaceSummaryViewModelTemplate);
+    sub_10013B828(&qword_10190BE38, type metadata accessor for PlaceSummaryViewModelTemplate, &unk_1011F2770);
     result = EnvironmentObject.error()();
     __break(1u);
   }
@@ -6153,177 +6276,179 @@ uint64_t sub_100137DC8@<X0>(void *a1@<X0>, void *a2@<X1>, int a3@<W2>, uint64_t 
 
 uint64_t sub_1001391B8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v43 = a4;
-  v45 = a3;
-  v47 = a2;
-  v50 = a5;
+  v44 = a4;
+  v46 = a3;
+  v48 = a2;
+  v51 = a5;
   v6 = _s4LineVMa(0);
-  v48 = *(v6 - 8);
-  v49 = v6;
+  v49 = *(v6 - 8);
+  v50 = v6;
   __chkstk_darwin(v6);
-  v44 = &v43 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v45 = &v44 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = type metadata accessor for PlaceSummaryViewModelLine(0);
   v9 = *(v8 - 1);
   __chkstk_darwin(v8);
-  v11 = &v43 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = sub_1000CE6B8(&qword_10190BFF8);
+  v11 = &v44 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = sub_1000CE6B8(&qword_10190BFF8, &qword_1011E85F8);
   v13 = v12 - 8;
   __chkstk_darwin(v12);
-  v15 = &v43 - v14;
-  v16 = sub_1000CE6B8(&qword_10190BED0);
+  v15 = &v44 - v14;
+  v16 = sub_1000CE6B8(&qword_10190BED0, &qword_1011E8438);
   __chkstk_darwin(v16 - 8);
-  v18 = &v43 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = &v44 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v19);
-  v21 = &v43 - v20;
-  v46 = a1;
-  sub_10013B870(a1, &v43 - v20, type metadata accessor for PlaceSummaryViewModelLine);
+  v21 = &v44 - v20;
+  v47 = a1;
+  sub_10013B870(a1, &v44 - v20, type metadata accessor for PlaceSummaryViewModelLine);
   (*(v9 + 56))(v21, 0, 1, v8);
   v22 = *(v13 + 56);
-  sub_1000D2DFC(v47, v15, &qword_10190BED0);
-  sub_1000D2DFC(v21, &v15[v22], &qword_10190BED0);
+  sub_1000D2DFC(v48, v15, &qword_10190BED0, &qword_1011E8438);
+  sub_1000D2DFC(v21, &v15[v22], &qword_10190BED0, &qword_1011E8438);
   v23 = *(v9 + 48);
   if (v23(v15, 1, v8) == 1)
   {
-    sub_100024F64(v21, &qword_10190BED0);
+    sub_100024F64(v21, &qword_10190BED0, &qword_1011E8438);
     if (v23(&v15[v22], 1, v8) == 1)
     {
-      sub_100024F64(v15, &qword_10190BED0);
+      sub_100024F64(v15, &qword_10190BED0, &qword_1011E8438);
       goto LABEL_17;
     }
 
     goto LABEL_6;
   }
 
-  sub_1000D2DFC(v15, v18, &qword_10190BED0);
+  sub_1000D2DFC(v15, v18, &qword_10190BED0, &qword_1011E8438);
   if (v23(&v15[v22], 1, v8) == 1)
   {
-    sub_100024F64(v21, &qword_10190BED0);
+    sub_100024F64(v21, &qword_10190BED0, &qword_1011E8438);
     sub_10013B8D8(v18, type metadata accessor for PlaceSummaryViewModelLine);
 LABEL_6:
     v24 = &qword_10190BFF8;
+    v25 = &qword_1011E85F8;
 LABEL_14:
-    sub_100024F64(v15, v24);
+    sub_100024F64(v15, v24, v25);
     goto LABEL_15;
   }
 
   sub_10013BDC0(&v15[v22], v11, type metadata accessor for PlaceSummaryViewModelLine);
   if ((static UUID.== infix(_:_:)() & 1) == 0)
   {
-    sub_100024F64(v21, &qword_10190BED0);
+    sub_100024F64(v21, &qword_10190BED0, &qword_1011E8438);
 LABEL_13:
     sub_10013B8D8(v11, type metadata accessor for PlaceSummaryViewModelLine);
     sub_10013B8D8(v18, type metadata accessor for PlaceSummaryViewModelLine);
     v24 = &qword_10190BED0;
+    v25 = &qword_1011E8438;
     goto LABEL_14;
   }
 
-  v25 = sub_1001EFFD8(*&v18[v8[5]], *&v11[v8[5]]);
-  sub_100024F64(v21, &qword_10190BED0);
-  if ((v25 & 1) == 0 || v18[v8[6]] != v11[v8[6]])
+  v26 = sub_1001EFFD8(*&v18[v8[5]], *&v11[v8[5]]);
+  sub_100024F64(v21, &qword_10190BED0, &qword_1011E8438);
+  if ((v26 & 1) == 0 || v18[v8[6]] != v11[v8[6]])
   {
     goto LABEL_13;
   }
 
-  v26 = v8[7];
-  v27 = v18[v26];
-  v28 = v11[v26];
+  v27 = v8[7];
+  v28 = v18[v27];
+  v29 = v11[v27];
   sub_10013B8D8(v11, type metadata accessor for PlaceSummaryViewModelLine);
   sub_10013B8D8(v18, type metadata accessor for PlaceSummaryViewModelLine);
-  sub_100024F64(v15, &qword_10190BED0);
-  if (v27 == v28)
+  sub_100024F64(v15, &qword_10190BED0, &qword_1011E8438);
+  if (v28 == v29)
   {
     goto LABEL_17;
   }
 
 LABEL_15:
-  v29 = v45;
-  if (v45)
+  v30 = v46;
+  if (v46)
   {
     swift_getKeyPath();
     swift_getKeyPath();
-    v30 = v29;
+    v31 = v30;
     static Published.subscript.getter();
 
-    v31 = v51;
-    __chkstk_darwin(v32);
-    v33 = v46;
-    *(&v43 - 2) = v46;
-    v34 = sub_100525204(sub_10013C390, (&v43 - 4), v31);
-    LOBYTE(v30) = v35;
+    v32 = v52;
+    __chkstk_darwin(v33);
+    v34 = v47;
+    *(&v44 - 2) = v47;
+    v35 = sub_100525204(sub_10013C390, (&v44 - 4), v32);
+    LOBYTE(v31) = v36;
 
-    if ((v30 & 1) == 0)
+    if ((v31 & 1) == 0)
     {
-      v39 = v44;
-      sub_10013B870(v33, v44, type metadata accessor for PlaceSummaryViewModelLine);
-      v40 = v49;
-      *(v39 + *(v49 + 20)) = v34 == 0;
+      v40 = v45;
+      sub_10013B870(v34, v45, type metadata accessor for PlaceSummaryViewModelLine);
       v41 = v50;
-      sub_10013BDC0(v39, v50, _s4LineVMa);
-      v38 = v40;
-      v37 = v41;
-      v36 = 0;
-      return (*(v48 + 56))(v37, v36, 1, v38);
+      *(v40 + *(v50 + 20)) = v35 == 0;
+      v42 = v51;
+      sub_10013BDC0(v40, v51, _s4LineVMa);
+      v39 = v41;
+      v38 = v42;
+      v37 = 0;
+      return (*(v49 + 56))(v38, v37, 1, v39);
     }
 
 LABEL_17:
-    v36 = 1;
-    v38 = v49;
-    v37 = v50;
-    return (*(v48 + 56))(v37, v36, 1, v38);
+    v37 = 1;
+    v39 = v50;
+    v38 = v51;
+    return (*(v49 + 56))(v38, v37, 1, v39);
   }
 
   type metadata accessor for PlaceSummaryViewModelTemplate(0);
-  sub_10013B828(&qword_10190BE38, type metadata accessor for PlaceSummaryViewModelTemplate);
+  sub_10013B828(&qword_10190BE38, type metadata accessor for PlaceSummaryViewModelTemplate, &unk_1011F2770);
   result = EnvironmentObject.error()();
   __break(1u);
   return result;
 }
 
-uint64_t sub_100139804@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_100139804@<X0>(uint64_t a1@<X0>, uint64_t a3@<X8>)
 {
-  v4 = sub_1000CE6B8(&qword_10190BEF8);
-  __chkstk_darwin(v4);
-  v6 = v15 - v5;
-  v7 = sub_1000CE6B8(&qword_10190BF00);
-  __chkstk_darwin(v7);
-  v9 = v15 - v8;
-  v10 = _s4LineVMa(0);
-  __chkstk_darwin(v10);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = sub_1000CE6B8(&qword_10190BEF8, &qword_1011E84B8);
+  __chkstk_darwin(v5);
+  v7 = v16 - v6;
+  v8 = sub_1000CE6B8(&qword_10190BF00, &qword_1011E84C0);
+  __chkstk_darwin(v8);
+  v10 = v16 - v9;
+  v11 = _s4LineVMa(0);
+  __chkstk_darwin(v11);
+  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (*(a1 + 16) == 1)
   {
-    v13 = *(type metadata accessor for PlaceSummaryViewModelLine(0) - 8);
-    sub_10013B870(a1 + ((*(v13 + 80) + 32) & ~*(v13 + 80)), v12, type metadata accessor for PlaceSummaryViewModelLine);
-    v12[*(v10 + 20)] = 0;
-    sub_10013B870(v12, v9, _s4LineVMa);
+    v14 = *(type metadata accessor for PlaceSummaryViewModelLine(0) - 8);
+    sub_10013B870(a1 + ((*(v14 + 80) + 32) & ~*(v14 + 80)), v13, type metadata accessor for PlaceSummaryViewModelLine);
+    v13[*(v11 + 20)] = 0;
+    sub_10013B870(v13, v10, _s4LineVMa);
     swift_storeEnumTagMultiPayload();
-    sub_10013B828(&qword_10190BF20, _s4LineVMa);
-    sub_1000414C8(&qword_10190BF30, &qword_10190BEF8);
+    sub_10013B828(&qword_10190BF20, _s4LineVMa, &unk_1011ECA08);
+    sub_1000414C8(&qword_10190BF30, &qword_10190BEF8, &qword_1011E84B8, &protocol conformance descriptor for VStack<A>);
     _ConditionalContent<>.init(storage:)();
-    return sub_10013B8D8(v12, _s4LineVMa);
+    return sub_10013B8D8(v13, _s4LineVMa);
   }
 
   else
   {
-    *v6 = static HorizontalAlignment.leading.getter();
-    *(v6 + 1) = 0x4000000000000000;
-    v6[16] = 0;
-    sub_1000CE6B8(&qword_10190BF08);
-    v15[2] = v4;
-    v15[3] = a1;
+    *v7 = static HorizontalAlignment.leading.getter();
+    *(v7 + 1) = 0x4000000000000000;
+    v7[16] = 0;
+    sub_1000CE6B8(&qword_10190BF08, &qword_1011E84C8);
+    v16[2] = v5;
+    v16[3] = a1;
 
-    sub_1000CE6B8(&qword_10190BF10);
+    sub_1000CE6B8(&qword_10190BF10, &qword_1011E84D0);
     type metadata accessor for UUID();
-    v15[1] = a2;
-    sub_1000414C8(&qword_10190BF18, &qword_10190BF10);
-    sub_10013B828(&qword_10190BF20, _s4LineVMa);
-    sub_10013B828(&qword_10190BF28, type metadata accessor for PlaceSummaryViewModelLine);
+    v16[1] = a3;
+    sub_1000414C8(&qword_10190BF18, &qword_10190BF10, &qword_1011E84D0, &protocol conformance descriptor for [A]);
+    sub_10013B828(&qword_10190BF20, _s4LineVMa, &unk_1011ECA08);
+    sub_10013B828(&qword_10190BF28, type metadata accessor for PlaceSummaryViewModelLine, &unk_1011F21F8);
     ForEach<>.init(_:content:)();
-    sub_1000D2DFC(v6, v9, &qword_10190BEF8);
+    sub_1000D2DFC(v7, v10, &qword_10190BEF8, &qword_1011E84B8);
     swift_storeEnumTagMultiPayload();
-    sub_1000414C8(&qword_10190BF30, &qword_10190BEF8);
+    sub_1000414C8(&qword_10190BF30, &qword_10190BEF8, &qword_1011E84B8, &protocol conformance descriptor for VStack<A>);
     _ConditionalContent<>.init(storage:)();
-    return sub_100024F64(v6, &qword_10190BEF8);
+    return sub_100024F64(v7, &qword_10190BEF8, &qword_1011E84B8);
   }
 }
 
@@ -6337,68 +6462,69 @@ uint64_t sub_100139C30@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_100139C84@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v6 = sub_1000CE6B8(&qword_10190C000);
+  v6 = sub_1000CE6B8(&qword_10190C000, &qword_1011E8648);
   __chkstk_darwin(v6 - 8);
-  v8 = &v24 - v7;
-  v9 = sub_1000CE6B8(&qword_10190C008);
+  v8 = &v25 - v7;
+  v9 = sub_1000CE6B8(&qword_10190C008, &qword_1011E8650);
   __chkstk_darwin(v9);
-  v11 = &v24 - v10;
+  v11 = &v25 - v10;
   if (!a1)
   {
     type metadata accessor for PlaceSummaryViewModelTemplate(0);
-    sub_10013B828(&qword_10190BE38, type metadata accessor for PlaceSummaryViewModelTemplate);
+    sub_10013B828(&qword_10190BE38, type metadata accessor for PlaceSummaryViewModelTemplate, &unk_1011F2770);
     result = EnvironmentObject.error()();
     __break(1u);
     return result;
   }
 
   v12 = a1;
-  v13 = sub_10021C698(1);
-  v14 = *&v12[OBJC_IVAR____TtC4Maps29PlaceSummaryViewModelTemplate_actionButtons + 8];
+  sub_10021C698(1);
+  v14 = v13;
+  v15 = *&v12[OBJC_IVAR____TtC4Maps29PlaceSummaryViewModelTemplate_actionButtons + 8];
 
-  if (v14)
+  if (v15)
   {
   }
 
   else
   {
-    v15 = *&v12[OBJC_IVAR____TtC4Maps29PlaceSummaryViewModelTemplate_refinementButtons];
+    v16 = *&v12[OBJC_IVAR____TtC4Maps29PlaceSummaryViewModelTemplate_refinementButtons];
 
-    if (!v15)
+    if (!v16)
     {
-      v16 = 0;
+      v17 = 0;
       goto LABEL_7;
     }
   }
 
-  v16 = 1;
+  v17 = 1;
 LABEL_7:
-  v17 = static HorizontalAlignment.leading.getter();
-  v18 = 0x4010000000000000;
-  if (!*(v13 + 16))
+  v18 = static HorizontalAlignment.leading.getter();
+  v19 = 0x4010000000000000;
+  if (!*(v14 + 16))
   {
-    v18 = 0x4020000000000000;
+    v19 = 0x4020000000000000;
   }
 
-  *v8 = v17;
-  *(v8 + 1) = v18;
+  *v8 = v18;
+  *(v8 + 1) = v19;
   v8[16] = 0;
-  v19 = sub_1000CE6B8(&qword_10190C010);
-  sub_100139F48(a1, a2, v13, v16, &v8[*(v19 + 44)]);
+  v20 = sub_1000CE6B8(&qword_10190C010, &qword_1011E8658);
+  sub_100139F48(a1, a2, v14, v17, &v8[*(v20 + 44)]);
 
-  v20 = static Edge.Set.horizontal.getter();
-  sub_1000F11C4(v8, v11, &qword_10190C000);
-  v21 = &v11[*(v9 + 36)];
-  *v21 = v20;
-  *(v21 + 8) = 0u;
-  *(v21 + 24) = 0u;
-  v21[40] = 1;
-  sub_1000F11C4(v11, a3, &qword_10190C008);
-  result = sub_1000CE6B8(&qword_10190C018);
-  v23 = a3 + *(result + 36);
-  *v23 = 0xD00000000000001ALL;
-  *(v23 + 8) = 0x800000010121E0A0;
-  *(v23 + 16) = 9;
+  v21 = static Edge.Set.horizontal.getter();
+  sub_1000F11C4(v8, v11, &qword_10190C000, &qword_1011E8648);
+  v22 = &v11[*(v9 + 36)];
+  *v22 = v21;
+  *(v22 + 8) = 0u;
+  *(v22 + 24) = 0u;
+  v22[40] = 1;
+  sub_1000F11C4(v11, a3, &qword_10190C008, &qword_1011E8650);
+  result = sub_1000CE6B8(&qword_10190C018, &qword_1011E8660);
+  v24 = a3 + *(result + 36);
+  *v24 = 0xD00000000000001ALL;
+  *(v24 + 8) = 0x800000010121E0A0;
+  *(v24 + 16) = 9;
   return result;
 }
 
@@ -6406,13 +6532,13 @@ uint64_t sub_100139F48@<X0>(char *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, i
 {
   v174 = a3;
   v177 = a5;
-  v8 = sub_1000CE6B8(&qword_10190BEF8);
+  v8 = sub_1000CE6B8(&qword_10190BEF8, &qword_1011E84B8);
   __chkstk_darwin(v8 - 8);
   v10 = v168 - v9;
-  v169 = sub_1000CE6B8(&qword_10190C020);
+  v169 = sub_1000CE6B8(&qword_10190C020, &qword_1011E8668);
   __chkstk_darwin(v169);
   v173 = v168 - v11;
-  v12 = sub_1000CE6B8(&qword_10190C028);
+  v12 = sub_1000CE6B8(&qword_10190C028, &qword_1011E8670);
   v13 = *(v12 - 8);
   v175 = v12;
   v176 = v13;
@@ -6420,16 +6546,16 @@ uint64_t sub_100139F48@<X0>(char *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, i
   v171 = v168 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v15);
   v170 = v168 - v16;
-  v17 = sub_1000CE6B8(&qword_10190C030);
+  v17 = sub_1000CE6B8(&qword_10190C030, &qword_1011E8678);
   __chkstk_darwin(v17 - 8);
   v178 = v168 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v19);
   v181 = v168 - v20;
-  v21 = sub_1000CE6B8(&qword_10190C038);
+  v21 = sub_1000CE6B8(&qword_10190C038, &qword_1011E8680);
   v22 = v21 - 8;
   __chkstk_darwin(v21);
   v24 = v168 - v23;
-  v25 = sub_1000CE6B8(&qword_10190C040);
+  v25 = sub_1000CE6B8(&qword_10190C040, &qword_1011E8688);
   v26 = v25 - 8;
   __chkstk_darwin(v25);
   v182 = v168 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -6440,7 +6566,7 @@ uint64_t sub_100139F48@<X0>(char *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, i
   *v24 = static VerticalAlignment.center.getter();
   *(v24 + 1) = 0;
   v24[16] = 0;
-  v34 = &v24[*(sub_1000CE6B8(&qword_10190C048) + 44)];
+  v34 = &v24[*(sub_1000CE6B8(&qword_10190C048, &qword_1011E8690) + 44)];
   v179 = a1;
   v168[1] = a2;
   v35 = a2;
@@ -6463,7 +6589,7 @@ uint64_t sub_100139F48@<X0>(char *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, i
   v46 = v45;
   v48 = v47;
   v50 = v49;
-  sub_1000F11C4(v24, v30, &qword_10190C038);
+  sub_1000F11C4(v24, v30, &qword_10190C038, &qword_1011E8680);
   v51 = &v30[*(v26 + 44)];
   *v51 = a1;
   *(v51 + 1) = v44;
@@ -6472,21 +6598,21 @@ uint64_t sub_100139F48@<X0>(char *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, i
   *(v51 + 4) = v50;
   v51[40] = 0;
   v180 = v33;
-  sub_1000F11C4(v30, v33, &qword_10190C040);
+  sub_1000F11C4(v30, v33, &qword_10190C040, &qword_1011E8688);
   if (v42)
   {
     *v10 = static HorizontalAlignment.leading.getter();
     *(v10 + 1) = 0x4000000000000000;
     v10[16] = 0;
-    sub_1000CE6B8(&qword_10190BF08);
+    sub_1000CE6B8(&qword_10190BF08, &qword_1011E84C8);
     *&v229 = v36;
 
-    sub_1000CE6B8(&qword_10190BF10);
+    sub_1000CE6B8(&qword_10190BF10, &qword_1011E84D0);
     type metadata accessor for UUID();
     _s4LineVMa(0);
-    sub_1000414C8(&qword_10190BF18, &qword_10190BF10);
-    sub_10013B828(&qword_10190BF20, _s4LineVMa);
-    sub_10013B828(&qword_10190BF28, type metadata accessor for PlaceSummaryViewModelLine);
+    sub_1000414C8(&qword_10190BF18, &qword_10190BF10, &qword_1011E84D0, &protocol conformance descriptor for [A]);
+    sub_10013B828(&qword_10190BF20, _s4LineVMa, &unk_1011ECA08);
+    sub_10013B828(&qword_10190BF28, type metadata accessor for PlaceSummaryViewModelLine, &unk_1011F21F8);
     ForEach<>.init(_:content:)();
     v52 = static Edge.Set.bottom.getter();
     EdgeInsets.init(_all:)();
@@ -6495,7 +6621,7 @@ uint64_t sub_100139F48@<X0>(char *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, i
     v58 = v57;
     v60 = v59;
     v61 = v173;
-    sub_1000F11C4(v10, v173, &qword_10190BEF8);
+    sub_1000F11C4(v10, v173, &qword_10190BEF8, &qword_1011E84B8);
     v62 = v61 + *(v169 + 36);
     *v62 = v52;
     *(v62 + 8) = v54;
@@ -6510,7 +6636,7 @@ uint64_t sub_100139F48@<X0>(char *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, i
     v69 = v68;
     v71 = v70;
     v72 = v171;
-    sub_1000F11C4(v61, v171, &qword_10190C020);
+    sub_1000F11C4(v61, v171, &qword_10190C020, &qword_1011E8668);
     v73 = v175;
     v74 = v72 + *(v175 + 36);
     *v74 = v63;
@@ -6521,9 +6647,9 @@ uint64_t sub_100139F48@<X0>(char *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, i
     *(v74 + 40) = 0;
     v75 = v72;
     v76 = v170;
-    sub_1000F11C4(v75, v170, &qword_10190C028);
+    sub_1000F11C4(v75, v170, &qword_10190C028, &qword_1011E8670);
     v77 = v181;
-    sub_1000F11C4(v76, v181, &qword_10190C028);
+    sub_1000F11C4(v76, v181, &qword_10190C028, &qword_1011E8670);
     v78 = 0;
     v79 = v73;
   }
@@ -6695,10 +6821,10 @@ uint64_t sub_100139F48@<X0>(char *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, i
     v213 = v201;
     v214 = v202;
     v215 = v203;
-    sub_1000CE6B8(&qword_10190C068);
-    sub_1000CE6B8(&qword_10190C070);
-    sub_10013C044(&qword_10190C078, &qword_10190C068, &unk_1011E86D8, sub_10013BE7C);
-    sub_10013C044(&qword_10190C098, &qword_10190C070, &unk_1011E86E0, sub_10013BF00);
+    sub_1000CE6B8(&qword_10190C068, &qword_1011E86D8);
+    sub_1000CE6B8(&qword_10190C070, &qword_1011E86E0);
+    sub_10013C044(&qword_10190C078, &qword_10190C068, &qword_1011E86D8, sub_10013BE7C);
+    sub_10013C044(&qword_10190C098, &qword_10190C070, &qword_1011E86E0, sub_10013BF00);
     _ConditionalContent<>.init(storage:)();
     v216 = v194;
     v217 = v195;
@@ -6719,10 +6845,10 @@ uint64_t sub_100139F48@<X0>(char *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, i
     v225 = v215;
 LABEL_13:
     v142 = v182;
-    sub_1000D2DFC(v180, v182, &qword_10190C040);
+    sub_1000D2DFC(v180, v182, &qword_10190C040, &qword_1011E8688);
     v143 = v181;
     v144 = v178;
-    sub_1000D2DFC(v181, v178, &qword_10190C030);
+    sub_1000D2DFC(v181, v178, &qword_10190C030, &qword_1011E8678);
     v197 = v237;
     v198 = v238;
     v199[0] = v239[0];
@@ -6744,9 +6870,9 @@ LABEL_13:
     v185 = v224;
     v186 = v225;
     v145 = v177;
-    sub_1000D2DFC(v142, v177, &qword_10190C040);
-    v146 = sub_1000CE6B8(&qword_10190C050);
-    sub_1000D2DFC(v144, v145 + v146[12], &qword_10190C030);
+    sub_1000D2DFC(v142, v177, &qword_10190C040, &qword_1011E8688);
+    v146 = sub_1000CE6B8(&qword_10190C050, &qword_1011E8698);
+    sub_1000D2DFC(v144, v145 + v146[12], &qword_10190C030, &qword_1011E8678);
     v147 = v146[16];
     v149 = v197;
     v148 = v198;
@@ -6807,10 +6933,10 @@ LABEL_13:
     v159[5] = v161;
     v159[6] = v162;
     v159[4] = v160;
-    sub_1000D2DFC(&v200, &v212, &qword_10190C058);
-    sub_1000D2DFC(v208, &v212, &qword_10190C060);
-    sub_100024F64(v143, &qword_10190C030);
-    sub_100024F64(v180, &qword_10190C040);
+    sub_1000D2DFC(&v200, &v212, &qword_10190C058, &qword_1011E86A0);
+    sub_1000D2DFC(v208, &v212, &qword_10190C060, &qword_1011E86A8);
+    sub_100024F64(v143, &qword_10190C030, &qword_1011E8678);
+    sub_100024F64(v180, &qword_10190C040, &qword_1011E8688);
     v210[4] = v187;
     v210[5] = v188;
     v211[0] = v189[0];
@@ -6819,7 +6945,7 @@ LABEL_13:
     v210[1] = v184;
     v210[2] = v185;
     v210[3] = v186;
-    sub_100024F64(v210, &qword_10190C060);
+    sub_100024F64(v210, &qword_10190C060, &qword_1011E86A8);
     v219 = v197;
     v220 = v198;
     v221[0] = v199[0];
@@ -6832,13 +6958,13 @@ LABEL_13:
     v213 = v191;
     v214 = v192;
     v215 = v193;
-    sub_100024F64(&v212, &qword_10190C058);
-    sub_100024F64(v144, &qword_10190C030);
-    return sub_100024F64(v182, &qword_10190C040);
+    sub_100024F64(&v212, &qword_10190C058, &qword_1011E86A0);
+    sub_100024F64(v144, &qword_10190C030, &qword_1011E8678);
+    return sub_100024F64(v182, &qword_10190C040, &qword_1011E8688);
   }
 
   type metadata accessor for PlaceSummaryViewModelTemplate(0);
-  sub_10013B828(&qword_10190BE38, type metadata accessor for PlaceSummaryViewModelTemplate);
+  sub_10013B828(&qword_10190BE38, type metadata accessor for PlaceSummaryViewModelTemplate, &unk_1011F2770);
   result = EnvironmentObject.error()();
   __break(1u);
   return result;
@@ -6846,220 +6972,221 @@ LABEL_13:
 
 uint64_t sub_10013ADC4@<X0>(void *a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>)
 {
-  v6 = sub_1000CE6B8(&qword_10190C0B8);
+  v6 = sub_1000CE6B8(&qword_10190C0B8, &qword_1011E8788);
   __chkstk_darwin(v6 - 8);
   __chkstk_darwin(v7);
-  v69 = (&v64 - v9);
+  v70 = (&v65 - v9);
   if (a1)
   {
-    v66 = a2;
-    v67 = a3;
-    v68 = v8;
+    v67 = a2;
+    v68 = a3;
+    v69 = v8;
     swift_getKeyPath();
     swift_getKeyPath();
+    v66 = a1;
     v65 = a1;
-    v64 = a1;
     static Published.subscript.getter();
 
-    v10 = v91;
-    if ((~v91 & 0xF000000000000007) != 0)
+    v10 = v92;
+    if ((~v92 & 0xF000000000000007) != 0)
     {
-      sub_10013BAE8(v91);
+      sub_10013BAE8(v92);
       static Alignment.center.getter();
       _FrameLayout.init(width:height:alignment:)();
-      v22 = v98;
-      v23 = v99;
-      v24 = v100;
-      v25 = v101;
-      v26 = v102;
-      v27 = v103;
+      v22 = v99;
+      v23 = v100;
+      v24 = v101;
+      v25 = v102;
+      v26 = v103;
+      v27 = v104;
       v28 = static Edge.Set.trailing.getter();
       EdgeInsets.init(_all:)();
-      LOBYTE(v84) = v25;
-      *&v77 = v10;
-      *(&v77 + 1) = v22;
-      LOBYTE(v78) = v23;
-      *(&v78 + 1) = v24;
-      LOBYTE(v79) = v25;
-      *(&v79 + 1) = v26;
-      *&v80 = v27;
-      BYTE8(v80) = v28;
-      *&v81 = v29;
-      *(&v81 + 1) = v30;
-      *&v82 = v31;
-      *(&v82 + 1) = v32;
-      LOBYTE(v83) = 0;
-      v95 = v81;
+      LOBYTE(v85) = v25;
+      *&v78 = v10;
+      *(&v78 + 1) = v22;
+      LOBYTE(v79) = v23;
+      *(&v79 + 1) = v24;
+      LOBYTE(v80) = v25;
+      *(&v80 + 1) = v26;
+      *&v81 = v27;
+      BYTE8(v81) = v28;
+      *&v82 = v29;
+      *(&v82 + 1) = v30;
+      *&v83 = v31;
+      *(&v83 + 1) = v32;
+      LOBYTE(v84) = 0;
       v96 = v82;
-      v97 = 0;
-      v91 = v77;
+      v97 = v83;
+      v98 = 0;
       v92 = v78;
       v93 = v79;
       v94 = v80;
-      LOBYTE(v70) = 0;
-      sub_1000D2DFC(&v77, &v84, &qword_10190C0C0);
-      sub_1000CE6B8(&qword_10190C0C0);
-      sub_1000CE6B8(&qword_10190C0C8);
-      sub_10013C044(&qword_10190C0D0, &qword_10190C0C0, &unk_1011E8790, sub_10013BF8C);
-      sub_10013C044(&qword_10190C0F8, &qword_10190C0C8, &unk_1011E8798, sub_10013C0C8);
+      v95 = v81;
+      LOBYTE(v71) = 0;
+      sub_1000D2DFC(&v78, &v85, &qword_10190C0C0, &qword_1011E8790);
+      sub_1000CE6B8(&qword_10190C0C0, &qword_1011E8790);
+      sub_1000CE6B8(&qword_10190C0C8, &qword_1011E8798);
+      sub_10013C044(&qword_10190C0D0, &qword_10190C0C0, &qword_1011E8790, sub_10013BF8C);
+      sub_10013C044(&qword_10190C0F8, &qword_10190C0C8, &qword_1011E8798, sub_10013C0C8);
       _ConditionalContent<>.init(storage:)();
       sub_10013BD74(v10);
-      sub_100024F64(&v77, &qword_10190C0C0);
-      v95 = v88;
+      sub_100024F64(&v78, &qword_10190C0C0, &qword_1011E8790);
       v96 = v89;
       v97 = v90;
-      v91 = v84;
+      v98 = v91;
       v92 = v85;
       v93 = v86;
       v94 = v87;
+      v95 = v88;
     }
 
     else
     {
       static Alignment.center.getter();
       _FrameLayout.init(width:height:alignment:)();
-      v11 = v98;
-      v12 = v99;
-      v13 = v100;
-      v14 = v101;
-      v15 = v102;
-      v16 = v103;
+      v11 = v99;
+      v12 = v100;
+      v13 = v101;
+      v14 = v102;
+      v15 = v103;
+      v16 = v104;
       v17 = static Edge.Set.trailing.getter();
       EdgeInsets.init(_all:)();
-      LOBYTE(v91) = v12;
-      LOBYTE(v77) = 1;
-      *&v84 = v11;
-      BYTE8(v84) = v12;
-      *&v85 = v13;
-      BYTE8(v85) = v14;
-      *&v86 = v15;
-      *(&v86 + 1) = v16;
-      LOBYTE(v87) = v17;
-      *(&v87 + 1) = v18;
-      *&v88 = v19;
-      *(&v88 + 1) = v20;
-      *&v89 = v21;
-      BYTE8(v89) = 0;
-      HIBYTE(v90) = 1;
-      sub_1000CE6B8(&qword_10190C0C0);
-      sub_1000CE6B8(&qword_10190C0C8);
-      sub_10013C044(&qword_10190C0D0, &qword_10190C0C0, &unk_1011E8790, sub_10013BF8C);
-      sub_10013C044(&qword_10190C0F8, &qword_10190C0C8, &unk_1011E8798, sub_10013C0C8);
+      LOBYTE(v92) = v12;
+      LOBYTE(v78) = 1;
+      *&v85 = v11;
+      BYTE8(v85) = v12;
+      *&v86 = v13;
+      BYTE8(v86) = v14;
+      *&v87 = v15;
+      *(&v87 + 1) = v16;
+      LOBYTE(v88) = v17;
+      *(&v88 + 1) = v18;
+      *&v89 = v19;
+      *(&v89 + 1) = v20;
+      *&v90 = v21;
+      BYTE8(v90) = 0;
+      HIBYTE(v91) = 1;
+      sub_1000CE6B8(&qword_10190C0C0, &qword_1011E8790);
+      sub_1000CE6B8(&qword_10190C0C8, &qword_1011E8798);
+      sub_10013C044(&qword_10190C0D0, &qword_10190C0C0, &qword_1011E8790, sub_10013BF8C);
+      sub_10013C044(&qword_10190C0F8, &qword_10190C0C8, &qword_1011E8798, sub_10013C0C8);
       _ConditionalContent<>.init(storage:)();
     }
 
     v33 = static HorizontalAlignment.leading.getter();
-    v34 = v69;
-    *v69 = v33;
+    v34 = v70;
+    *v70 = v33;
     v34[1] = 0x4000000000000000;
     *(v34 + 16) = 0;
-    sub_1000CE6B8(&qword_10190C118);
-    v35 = v64;
-    v36 = sub_10021C698(0);
+    sub_1000CE6B8(&qword_10190C118, &qword_1011E87B8);
+    v35 = v65;
+    sub_10021C698(0);
+    v37 = v36;
 
-    *&v84 = v36;
-    v37 = swift_allocObject();
-    v38 = v66;
-    *(v37 + 16) = v65;
-    *(v37 + 24) = v38;
-    v39 = v35;
-    sub_1000CE6B8(&qword_10190BF10);
+    *&v85 = v37;
+    v38 = swift_allocObject();
+    v39 = v67;
+    *(v38 + 16) = v66;
+    *(v38 + 24) = v39;
+    v40 = v35;
+    sub_1000CE6B8(&qword_10190BF10, &qword_1011E84D0);
     type metadata accessor for UUID();
-    sub_1000CE6B8(&qword_10190BF78);
-    sub_1000414C8(&qword_10190BF18, &qword_10190BF10);
+    sub_1000CE6B8(&qword_10190BF78, &qword_1011E8560);
+    sub_1000414C8(&qword_10190BF18, &qword_10190BF10, &qword_1011E84D0, &protocol conformance descriptor for [A]);
     sub_10013BA34();
-    sub_10013B828(&qword_10190BF28, type metadata accessor for PlaceSummaryViewModelLine);
+    sub_10013B828(&qword_10190BF28, type metadata accessor for PlaceSummaryViewModelLine, &unk_1011F21F8);
     ForEach<>.init(_:content:)();
     swift_getKeyPath();
     swift_getKeyPath();
     static Published.subscript.getter();
 
-    v40 = v84;
-    v41 = 0xF000000000000007;
-    if ((~v84 & 0xF000000000000007) != 0)
+    v41 = v85;
+    v42 = 0xF000000000000007;
+    if ((~v85 & 0xF000000000000007) != 0)
     {
-      v46 = static Edge.Set.trailing.getter();
+      v47 = static Edge.Set.trailing.getter();
       EdgeInsets.init(_all:)();
-      v66 = v47;
-      v43 = v48;
+      v67 = v48;
       v44 = v49;
       v45 = v50;
-      v42 = v46;
-      v41 = v40;
+      v46 = v51;
+      v43 = v47;
+      v42 = v41;
     }
 
     else
     {
-      v42 = 0;
-      v66 = 0;
       v43 = 0;
+      v67 = 0;
       v44 = 0;
       v45 = 0;
+      v46 = 0;
     }
 
-    v74 = v95;
     v75 = v96;
     v76 = v97;
-    v70 = v91;
+    v77 = v98;
     v71 = v92;
     v72 = v93;
     v73 = v94;
-    v51 = v68;
+    v74 = v95;
     v52 = v69;
-    sub_1000D2DFC(v69, v68, &qword_10190C0B8);
-    v53 = v74;
+    v53 = v70;
+    sub_1000D2DFC(v70, v69, &qword_10190C0B8, &qword_1011E8788);
     v54 = v75;
-    v81 = v74;
-    v82 = v75;
     v55 = v76;
+    v82 = v75;
     v83 = v76;
-    v56 = v71;
-    v77 = v70;
+    v56 = v77;
+    v84 = v77;
+    v57 = v72;
     v78 = v71;
-    v58 = v72;
-    v57 = v73;
     v79 = v72;
+    v59 = v73;
+    v58 = v74;
     v80 = v73;
-    v59 = v67;
-    *v67 = v70;
-    v59[1] = v56;
-    *(v59 + 48) = v55;
-    v59[2] = v58;
-    v59[3] = v57;
-    v59[4] = v53;
-    v59[5] = v54;
-    v60 = sub_1000CE6B8(&qword_10190C120);
-    sub_1000D2DFC(v51, v59 + v60[12], &qword_10190C0B8);
-    v61 = v59 + v60[16];
-    *v61 = 0;
-    v61[8] = 0;
-    v62 = v59 + v60[20];
-    *v62 = v41;
-    *(v62 + 1) = v42;
-    *(v62 + 2) = v66;
-    *(v62 + 3) = v43;
-    *(v62 + 4) = v44;
-    *(v62 + 5) = v45;
-    v62[48] = 0;
-    sub_1000D2DFC(&v77, &v84, &qword_10190C128);
-    sub_10013C1B0(v41);
-    sub_100024F64(v52, &qword_10190C0B8);
-    sub_10013BD74(v41);
-    sub_100024F64(v51, &qword_10190C0B8);
-    v88 = v74;
+    v81 = v74;
+    v60 = v68;
+    *v68 = v71;
+    v60[1] = v57;
+    *(v60 + 48) = v56;
+    v60[2] = v59;
+    v60[3] = v58;
+    v60[4] = v54;
+    v60[5] = v55;
+    v61 = sub_1000CE6B8(&qword_10190C120, &qword_1011E87C0);
+    sub_1000D2DFC(v52, v60 + v61[12], &qword_10190C0B8, &qword_1011E8788);
+    v62 = v60 + v61[16];
+    *v62 = 0;
+    v62[8] = 0;
+    v63 = v60 + v61[20];
+    *v63 = v42;
+    *(v63 + 1) = v43;
+    *(v63 + 2) = v67;
+    *(v63 + 3) = v44;
+    *(v63 + 4) = v45;
+    *(v63 + 5) = v46;
+    v63[48] = 0;
+    sub_1000D2DFC(&v78, &v85, &qword_10190C128, &qword_1011E87C8);
+    sub_10013C1B0(v42);
+    sub_100024F64(v53, &qword_10190C0B8, &qword_1011E8788);
+    sub_10013BD74(v42);
+    sub_100024F64(v52, &qword_10190C0B8, &qword_1011E8788);
     v89 = v75;
     v90 = v76;
-    v84 = v70;
+    v91 = v77;
     v85 = v71;
     v86 = v72;
     v87 = v73;
-    return sub_100024F64(&v84, &qword_10190C128);
+    v88 = v74;
+    return sub_100024F64(&v85, &qword_10190C128, &qword_1011E87C8);
   }
 
   else
   {
     type metadata accessor for PlaceSummaryViewModelTemplate(0);
-    sub_10013B828(&qword_10190BE38, type metadata accessor for PlaceSummaryViewModelTemplate);
+    sub_10013B828(&qword_10190BE38, type metadata accessor for PlaceSummaryViewModelTemplate, &unk_1011F2770);
     result = EnvironmentObject.error()();
     __break(1u);
   }
@@ -7067,45 +7194,45 @@ uint64_t sub_10013ADC4@<X0>(void *a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>)
   return result;
 }
 
-uint64_t sub_10013B5B4@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+uint64_t sub_10013B5B4@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a4@<X8>)
 {
-  v6 = _s4LineVMa(0);
-  v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
-  v9 = v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = _s4LineVMa(0);
+  v8 = *(v7 - 8);
+  __chkstk_darwin(v7);
+  v10 = v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (a2)
   {
     swift_getKeyPath();
     swift_getKeyPath();
-    v10 = a2;
+    v11 = a2;
     static Published.subscript.getter();
 
-    v11 = v18[1];
-    __chkstk_darwin(v12);
-    v18[-2] = a1;
-    v13 = sub_100525204(sub_10013C1C4, &v18[-4], v11);
-    v15 = v14;
+    v12 = v19[1];
+    __chkstk_darwin(v13);
+    v19[-2] = a1;
+    v14 = sub_100525204(sub_10013C1C4, &v19[-4], v12);
+    v16 = v15;
 
-    if (v15)
+    if (v16)
     {
-      v16 = 1;
+      v17 = 1;
     }
 
     else
     {
-      sub_10013B870(a1, v9, type metadata accessor for PlaceSummaryViewModelLine);
-      v9[*(v6 + 20)] = v13 == 0;
-      sub_10013BDC0(v9, a3, _s4LineVMa);
-      v16 = 0;
+      sub_10013B870(a1, v10, type metadata accessor for PlaceSummaryViewModelLine);
+      v10[*(v7 + 20)] = v14 == 0;
+      sub_10013BDC0(v10, a4, _s4LineVMa);
+      v17 = 0;
     }
 
-    return (*(v7 + 56))(a3, v16, 1, v6);
+    return (*(v8 + 56))(a4, v17, 1, v7);
   }
 
   else
   {
     type metadata accessor for PlaceSummaryViewModelTemplate(0);
-    sub_10013B828(&qword_10190BE38, type metadata accessor for PlaceSummaryViewModelTemplate);
+    sub_10013B828(&qword_10190BE38, type metadata accessor for PlaceSummaryViewModelTemplate, &unk_1011F2770);
     result = EnvironmentObject.error()();
     __break(1u);
   }
@@ -7113,7 +7240,7 @@ uint64_t sub_10013B5B4@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
   return result;
 }
 
-uint64_t sub_10013B828(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_10013B828(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -7161,7 +7288,7 @@ double sub_10013B938(uint64_t a1)
 
 uint64_t sub_10013B978@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = *(sub_1000CE6B8(&qword_10190BED0) - 8);
+  v5 = *(sub_1000CE6B8(&qword_10190BED0, &qword_1011E8438) - 8);
   v6 = (*(v5 + 80) + 16) & ~*(v5 + 80);
   v7 = v2 + ((*(v5 + 64) + v6 + 7) & 0xFFFFFFFFFFFFFFF8);
   v8 = *v7;
@@ -7175,8 +7302,8 @@ unint64_t sub_10013BA34()
   result = qword_10190BF80;
   if (!qword_10190BF80)
   {
-    sub_1000D6664(&qword_10190BF78);
-    sub_10013B828(&qword_10190BF20, _s4LineVMa);
+    sub_1000D6664(&qword_10190BF78, &qword_1011E8560);
+    sub_10013B828(&qword_10190BF20, _s4LineVMa, &unk_1011ECA08);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10190BF80);
   }
@@ -7207,9 +7334,9 @@ unint64_t sub_10013BB20()
   result = qword_10190BFB0;
   if (!qword_10190BFB0)
   {
-    sub_1000D6664(&qword_10190BF48);
-    sub_10013C044(&qword_10190BFB8, &qword_10190BF50, &unk_1011E84F0, sub_10013BC04);
-    sub_10013C044(&qword_10190BFF0, &qword_10190BFA8, &unk_1011E85D0, sub_10013BCBC);
+    sub_1000D6664(&qword_10190BF48, &qword_1011E84E8);
+    sub_10013C044(&qword_10190BFB8, &qword_10190BF50, &qword_1011E84F0, sub_10013BC04);
+    sub_10013C044(&qword_10190BFF0, &qword_10190BFA8, &qword_1011E85D0, sub_10013BCBC);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10190BFB0);
   }
@@ -7222,9 +7349,9 @@ unint64_t sub_10013BC04()
   result = qword_10190BFC0;
   if (!qword_10190BFC0)
   {
-    sub_1000D6664(&qword_10190BFC8);
+    sub_1000D6664(&qword_10190BFC8, &qword_1011E85D8);
     sub_10013BCBC();
-    sub_1000414C8(&unk_10190F590, &qword_10191E590);
+    sub_1000414C8(&unk_10190F590, &qword_10191E590, &qword_1011E85F0, &protocol conformance descriptor for _ClipEffect<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10190BFC0);
   }
@@ -7237,8 +7364,8 @@ unint64_t sub_10013BCBC()
   result = qword_10190BFD0;
   if (!qword_10190BFD0)
   {
-    sub_1000D6664(&qword_10190BFD8);
-    sub_1000414C8(&qword_10190BFE0, &qword_10190BFE8);
+    sub_1000D6664(&qword_10190BFD8, &qword_1011E85E0);
+    sub_1000414C8(&qword_10190BFE0, &qword_10190BFE8, &qword_1011E85E8, &unk_1011EC9B8);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10190BFD0);
   }
@@ -7246,7 +7373,7 @@ unint64_t sub_10013BCBC()
   return result;
 }
 
-unint64_t sub_10013BD74(unint64_t result)
+uint64_t sub_10013BD74(uint64_t result)
 {
   if ((~result & 0xF000000000000007) != 0)
   {
@@ -7343,8 +7470,8 @@ unint64_t sub_10013BF8C()
   result = qword_10190C0D8;
   if (!qword_10190C0D8)
   {
-    sub_1000D6664(&qword_10190C0E0);
-    sub_1000414C8(&qword_10190C0E8, &qword_10190C0F0);
+    sub_1000D6664(&qword_10190C0E0, &qword_1011E87A0);
+    sub_1000414C8(&qword_10190C0E8, &qword_10190C0F0, &qword_1011E87A8, &unk_1011EC9B8);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10190C0D8);
   }
@@ -7352,12 +7479,12 @@ unint64_t sub_10013BF8C()
   return result;
 }
 
-uint64_t sub_10013C044(unint64_t *a1, uint64_t *a2, uint64_t a3, void (*a4)(void))
+uint64_t sub_10013C044(unint64_t *a1, uint64_t *a2, uint64_t *a3, void (*a4)(void))
 {
   result = *a1;
   if (!result)
   {
-    sub_1000D6664(a2);
+    sub_1000D6664(a2, a3);
     a4();
     result = swift_getWitnessTable();
     atomic_store(result, a1);
@@ -7371,7 +7498,7 @@ unint64_t sub_10013C0C8()
   result = qword_10190C100;
   if (!qword_10190C100)
   {
-    sub_1000D6664(&qword_10190C108);
+    sub_1000D6664(&qword_10190C108, &qword_1011E87B0);
     sub_10013C154();
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10190C100);
@@ -7407,7 +7534,7 @@ unint64_t sub_10013C1F4()
   result = qword_10190C140;
   if (!qword_10190C140)
   {
-    sub_1000D6664(&qword_10190C018);
+    sub_1000D6664(&qword_10190C018, &qword_1011E8660);
     sub_10013C280();
     sub_10013C338();
     result = swift_getWitnessTable();
@@ -7422,8 +7549,8 @@ unint64_t sub_10013C280()
   result = qword_10190C148;
   if (!qword_10190C148)
   {
-    sub_1000D6664(&qword_10190C008);
-    sub_1000414C8(&qword_10190C150, &qword_10190C000);
+    sub_1000D6664(&qword_10190C008, &qword_1011E8650);
+    sub_1000414C8(&qword_10190C150, &qword_10190C000, &qword_1011E8648, &protocol conformance descriptor for VStack<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10190C148);
   }
@@ -7501,33 +7628,33 @@ id sub_10013C604()
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-void sub_10013C6DC()
+void sub_10013C6DC(uint64_t a1)
 {
-  sub_10013C774();
-  if (v0 <= 0x3F)
+  sub_10013C774(319);
+  if (v1 <= 0x3F)
   {
     swift_updateClassMetadata2();
   }
 }
 
-void sub_10013C774()
+void sub_10013C774(uint64_t a1)
 {
   if (!qword_10190C1A0)
   {
-    sub_1000D6664(&qword_10191A3A0);
-    v0 = type metadata accessor for Published();
-    if (!v1)
+    sub_1000D6664(&qword_10191A3A0, &qword_1011E87F8);
+    v1 = type metadata accessor for Published();
+    if (!v2)
     {
-      atomic_store(v0, &qword_10190C1A0);
+      atomic_store(v1, &qword_10190C1A0);
     }
   }
 }
 
-uint64_t sub_10013C7D8@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_10013C7D8@<X0>(uint64_t *a2@<X8>)
 {
   type metadata accessor for RefinementsBarViewModel(0);
   result = ObservableObject<>.objectWillChange.getter();
-  *a1 = result;
+  *a2 = result;
   return result;
 }
 
@@ -7552,31 +7679,31 @@ uint64_t sub_10013C8F4()
 {
 
   v1 = OBJC_IVAR____TtC4Maps35RefinementsMultiSelectCellViewModel__isSelected;
-  v2 = sub_1000CE6B8(&unk_101918B30);
+  v2 = sub_1000CE6B8(&unk_101918B30, &qword_1011E8A50);
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
 
   return swift_deallocClassInstance();
 }
 
-void sub_10013C9F4()
+void sub_10013C9F4(uint64_t a1)
 {
   sub_10013CC28(319, &qword_10190C1E8, &type metadata for Bool, &type metadata accessor for Published);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     swift_updateClassMetadata2();
   }
 }
 
-void sub_10013CB24()
+void sub_10013CB24(uint64_t a1)
 {
   type metadata accessor for UUID();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_10013CC28(319, &unk_10190C328, &type metadata for RefinementsBarButtonViewModel.Submenu, &type metadata accessor for Optional);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_10013CC28(319, qword_10190FC10, &type metadata for Int, &type metadata accessor for Optional);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -7668,18 +7795,18 @@ unint64_t sub_10013CD2C()
   return result;
 }
 
-uint64_t sub_10013CD84@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_10013CD84@<X0>(uint64_t *a2@<X8>)
 {
   type metadata accessor for RefinementsMultiSelectCellViewModel(0);
   result = ObservableObject<>.objectWillChange.getter();
-  *a1 = result;
+  *a2 = result;
   return result;
 }
 
-uint64_t sub_10013CE0C()
+uint64_t sub_10013CE0C(uint64_t a1)
 {
   result = type metadata accessor for UUID();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -7953,7 +8080,7 @@ void sub_10013D434()
   v12.super_class = v5;
 
   v9 = objc_msgSendSuper2(&v12, "init");
-  sub_1000CE6B8(&qword_101908400);
+  sub_1000CE6B8(&qword_101908400, &qword_1011E2ED0);
   v10 = swift_allocObject();
   *(v10 + 16) = xmmword_1011E47B0;
   *(v10 + 32) = v9;
@@ -8248,7 +8375,7 @@ LABEL_21:
   return sub_10005EFF0(v6, v25);
 }
 
-uint64_t sub_10013DC58(uint64_t result, uint64_t a2, uint64_t a3, void (*a4)(uint64_t, uint64_t))
+uint64_t *sub_10013DC58(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t))
 {
   v5 = v4[2];
   v6 = v4[3] >> 1;
@@ -8359,7 +8486,7 @@ LABEL_39:
 
     sub_10013D7D0();
     swift_arrayInitWithCopy();
-    result = (a4)(v34 + 8 * a2, a3);
+    result = a4(v34 + 8 * a2, a3);
     v25 = v24 + v32;
     if (__OFADD__(v24, v32))
     {
@@ -8576,7 +8703,7 @@ uint64_t sub_10013E230@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   v124 = &v103 - v11;
   __chkstk_darwin(v12);
   v116 = &v103 - v13;
-  v123 = sub_1000CE6B8(&qword_10190C688);
+  v123 = sub_1000CE6B8(&qword_10190C688, &qword_1011E8E28);
   __chkstk_darwin(v123);
   v127 = &v103 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v15);
@@ -8589,7 +8716,7 @@ uint64_t sub_10013E230@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   v147 = *(v142 - 8);
   __chkstk_darwin(v142);
   v141 = &v103 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = sub_1000CE6B8(&qword_10190A518);
+  v20 = sub_1000CE6B8(&qword_10190A518, &qword_1011E5760);
   __chkstk_darwin(v20 - 8);
   v112 = &v103 - v21;
   v145 = type metadata accessor for CenteredCardHeaderContentViewModel();
@@ -8598,7 +8725,7 @@ uint64_t sub_10013E230@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   v113 = &v103 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v23);
   v143 = &v103 - v24;
-  v25 = sub_1000CE6B8(&unk_101910FC0);
+  v25 = sub_1000CE6B8(&unk_101910FC0, &unk_1011EBBE0);
   __chkstk_darwin(v25 - 8);
   v120 = &v103 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v27);
@@ -8610,7 +8737,7 @@ uint64_t sub_10013E230@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   __chkstk_darwin(v34);
   v36 = &v103 - v35;
   __chkstk_darwin(v37);
-  v137 = (&v103 - v38);
+  v137 = &v103 - v38;
   v140 = type metadata accessor for CardHeaderTextViewModel();
   v139 = *(v140 - 8);
   __chkstk_darwin(v140);
@@ -8746,7 +8873,7 @@ uint64_t sub_10013E230@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   v72(v124, enum case for CardHeaderExpansionState.Docked(_:), v74);
   v72(v125, v70, v74);
   sub_100142228(v62, v149);
-  sub_1000CE6B8(&qword_10190C690);
+  sub_1000CE6B8(&qword_10190C690, &qword_1011E8E30);
   sub_100142A98();
   v79 = v148;
   CenteredCardHeaderContent.init(viewModel:expansionProgress:editableTitle:leadingButtonsWidthBinding:trailingButtonsWidthBinding:ornamentViewVisibilityRange:submitHandler:ornamentViewBuilder:)();
@@ -8767,7 +8894,7 @@ uint64_t sub_10013E230@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   v85(v86, 0, 1, v49);
   static HorizontalAlignment.center.getter();
   CardHeaderTextViewModel.init(title:titleAXID:subtitle:subtitleAXID:interactiveSubtitle:interactiveSubtitleAXID:alignment:interactiveTitleTapHandler:interactiveSubtitleTapHandler:)();
-  sub_1000CE6B8(&qword_10191D770);
+  sub_1000CE6B8(&qword_10191D770, &qword_1011E52E0);
   type metadata accessor for CardButtonViewModel();
   *(swift_allocObject() + 16) = xmmword_1011E1D30;
   v87 = swift_allocObject();
@@ -8792,30 +8919,30 @@ uint64_t sub_10013E230@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   v93 = v130;
   CenteredCardHeaderNavigation.init(viewModel:leadingButtonsWidthBinding:trailingButtonsWidthBinding:)();
   v94 = v127;
-  sub_1000D2DFC(v148, v127, &qword_10190C688);
+  sub_1000D2DFC(v148, v127, &qword_10190C688, &qword_1011E8E28);
   v95 = v133;
   v96 = *(v133 + 16);
   v97 = v132;
   v98 = v134;
   v96(v132, v93, v134);
   v99 = v131;
-  sub_1000D2DFC(v94, v131, &qword_10190C688);
-  v100 = sub_1000CE6B8(&qword_10190C6D8);
+  sub_1000D2DFC(v94, v131, &qword_10190C688, &qword_1011E8E28);
+  v100 = sub_1000CE6B8(&qword_10190C6D8, &qword_1011E8E58);
   v96((v99 + *(v100 + 48)), v97, v98);
   v101 = *(v95 + 8);
   v101(v93, v98);
   (*(v92 + 8))(v91, v146);
-  sub_100024F64(v148, &qword_10190C688);
+  sub_100024F64(v148, &qword_10190C688, &qword_1011E8E28);
   (*(v144 + 8))(v143, v145);
   (*(v139 + 8))(v138, v140);
   v101(v97, v98);
-  return sub_100024F64(v94, &qword_10190C688);
+  return sub_100024F64(v94, &qword_10190C688, &qword_1011E8E28);
 }
 
 uint64_t sub_10013F45C@<X0>(uint64_t a1@<X8>)
 {
   sub_10013F4DC(a1);
-  v2 = sub_1000CE6B8(&qword_10190C690);
+  v2 = sub_1000CE6B8(&qword_10190C690, &qword_1011E8E30);
   v3 = *(*(v2 - 8) + 56);
 
   return v3(a1, 0, 1, v2);
@@ -8823,46 +8950,46 @@ uint64_t sub_10013F45C@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_10013F4DC@<X0>(uint64_t a1@<X8>)
 {
-  v50 = a1;
-  v46 = sub_1000CE6B8(&qword_10190C6E0);
-  __chkstk_darwin(v46);
-  v3 = v40 - v2;
-  v45 = sub_1000CE6B8(&qword_10190C6C8);
-  __chkstk_darwin(v45);
-  v5 = v40 - v4;
-  v47 = sub_1000CE6B8(&qword_10190C6B8);
+  v51 = a1;
+  v47 = sub_1000CE6B8(&qword_10190C6E0, &qword_1011E8E60);
   __chkstk_darwin(v47);
-  v7 = v40 - v6;
-  v49 = sub_1000CE6B8(&qword_10190C6A8);
-  __chkstk_darwin(v49);
-  v48 = v40 - v8;
-  v9 = sub_1000CE6B8(&qword_10190C6E8);
+  v3 = v41 - v2;
+  v46 = sub_1000CE6B8(&qword_10190C6C8, &unk_1011E8E48);
+  __chkstk_darwin(v46);
+  v5 = v41 - v4;
+  v48 = sub_1000CE6B8(&qword_10190C6B8, &qword_1011E8E40);
+  __chkstk_darwin(v48);
+  v7 = v41 - v6;
+  v50 = sub_1000CE6B8(&qword_10190C6A8, &qword_1011E8E38);
+  __chkstk_darwin(v50);
+  v49 = v41 - v8;
+  v9 = sub_1000CE6B8(&qword_10190C6E8, &qword_1011E8E68);
   __chkstk_darwin(v9);
-  v11 = v40 - v10;
+  v11 = v41 - v10;
   v12 = type metadata accessor for Image.ResizingMode();
   v13 = *(v12 - 8);
   __chkstk_darwin(v12);
-  v15 = v40 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = sub_1000CE6B8(&qword_10190C588);
+  v15 = v41 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = sub_1000CE6B8(&qword_10190C588, &qword_1011E8D10);
   __chkstk_darwin(v16);
   v18 = v1[1];
   if (v18)
   {
-    v42 = v3;
-    v43 = v16;
-    v44 = v9;
-    v41 = v11;
+    v43 = v3;
+    v44 = v16;
+    v45 = v9;
+    v42 = v11;
     v20 = v1[3];
     v19 = v1[4];
-    v40[1] = v20;
+    v41[1] = v20;
     if (v19)
     {
       v21 = *v1;
       v22 = v1[2];
       v23 = v18;
-      *(&v54 + 1) = sub_1000F1178();
-      *&v55 = sub_100142CF0(&qword_10190DE60, sub_1000F1178);
-      *&v53 = v19;
+      *(&v55 + 1) = sub_1000F1178();
+      *&v56 = sub_100142CF0(&qword_10190DE60, sub_1000F1178, &protocol conformance descriptor for UIImage);
+      *&v54 = v19;
       v24 = v19;
       sub_100142614(v21, v23, v22, v20, v19);
       static Alignment.center.getter();
@@ -8871,88 +8998,89 @@ uint64_t sub_10013F4DC@<X0>(uint64_t a1@<X8>)
       static MapsDesignConstants.Sizes.userProfileImageSize.getter();
       static Alignment.center.getter();
       _FrameLayout.init(width:height:alignment:)();
-      v25 = &v5[*(v45 + 36)];
-      v26 = v54;
-      *v25 = v53;
+      v25 = &v5[*(v46 + 36)];
+      v26 = v55;
+      *v25 = v54;
       *(v25 + 1) = v26;
-      *(v25 + 2) = v55;
-      v61 = 0x67616D4972657355;
-      v62 = 0xE900000000000065;
+      *(v25 + 2) = v56;
+      v62 = 0x67616D4972657355;
+      v63 = 0xE900000000000065;
       v27._countAndFlagsBits = 2003134806;
       v27._object = 0xE400000000000000;
       String.append(_:)(v27);
       sub_100142C34();
       View.accessibilityIdentifier(_:)();
 
-      sub_100024F64(v5, &qword_10190C6C8);
-      sub_1000D2DFC(v7, v42, &qword_10190C6B8);
+      sub_100024F64(v5, &qword_10190C6C8, &unk_1011E8E48);
+      sub_1000D2DFC(v7, v43, &qword_10190C6B8, &qword_1011E8E40);
       swift_storeEnumTagMultiPayload();
-      sub_10014247C(&qword_10190C6B0, &qword_10190C6B8, &unk_1011E8E40, sub_100142C34);
-      sub_10014247C(&qword_10190C5D0, &qword_10190C588, &unk_1011E8D10, sub_1001422B4);
-      v28 = v48;
+      sub_10014247C(&qword_10190C6B0, &qword_10190C6B8, &qword_1011E8E40, sub_100142C34);
+      sub_10014247C(&qword_10190C5D0, &qword_10190C588, &qword_1011E8D10, sub_1001422B4);
+      v28 = v49;
       _ConditionalContent<>.init(storage:)();
 
-      sub_100024F64(v7, &qword_10190C6B8);
+      sub_100024F64(v7, &qword_10190C6B8, &qword_1011E8E40);
     }
 
     else
     {
-      v34 = v40 - v17;
+      v35 = v41 - v17;
 
       Image.init(systemName:)();
       (*(v13 + 104))(v15, enum case for Image.ResizingMode.stretch(_:), v12);
-      v35 = Image.resizable(capInsets:resizingMode:)();
+      v36 = Image.resizable(capInsets:resizingMode:)();
 
       (*(v13 + 8))(v15, v12);
-      v36 = [objc_opt_self() secondaryLabelColor];
-      v37 = Color.init(uiColor:)();
+      v37 = [objc_opt_self() secondaryLabelColor];
+      v38 = Color.init(uiColor:)();
       static MapsDesignConstants.Sizes.userProfileImageSize.getter();
       static MapsDesignConstants.Sizes.userProfileImageSize.getter();
       static Alignment.center.getter();
       _FrameLayout.init(width:height:alignment:)();
-      v60 = v62;
-      v58 = v64;
-      *&v53 = v35;
-      *(&v53 + 1) = v37;
-      *&v54 = v61;
-      BYTE8(v54) = v62;
-      *(&v54 + 9) = *v59;
-      HIDWORD(v54) = *&v59[3];
-      *&v55 = v63;
-      BYTE8(v55) = v64;
-      *(&v55 + 9) = *v57;
-      HIDWORD(v55) = *&v57[3];
-      v56 = v65;
-      v51 = 0x67616D4972657355;
-      v52 = 0xE900000000000065;
-      v38._countAndFlagsBits = 2003134806;
-      v38._object = 0xE400000000000000;
-      String.append(_:)(v38);
-      sub_1000CE6B8(&qword_10190C598);
+      v61 = v63;
+      v59 = v65;
+      *&v54 = v36;
+      *(&v54 + 1) = v38;
+      *&v55 = v62;
+      BYTE8(v55) = v63;
+      *(&v55 + 9) = *v60;
+      HIDWORD(v55) = *&v60[3];
+      *&v56 = v64;
+      BYTE8(v56) = v65;
+      *(&v56 + 9) = *v58;
+      HIDWORD(v56) = *&v58[3];
+      v57 = v66;
+      v52 = 0x67616D4972657355;
+      v53 = 0xE900000000000065;
+      v39._countAndFlagsBits = 2003134806;
+      v39._object = 0xE400000000000000;
+      String.append(_:)(v39);
+      sub_1000CE6B8(&qword_10190C598, &qword_1011E8D20);
       sub_1001422B4();
       View.accessibilityIdentifier(_:)();
 
-      sub_1000D2DFC(v34, v42, &qword_10190C588);
+      sub_1000D2DFC(v35, v43, &qword_10190C588, &qword_1011E8D10);
       swift_storeEnumTagMultiPayload();
-      sub_10014247C(&qword_10190C6B0, &qword_10190C6B8, &unk_1011E8E40, sub_100142C34);
-      sub_10014247C(&qword_10190C5D0, &qword_10190C588, &unk_1011E8D10, sub_1001422B4);
-      v28 = v48;
+      sub_10014247C(&qword_10190C6B0, &qword_10190C6B8, &qword_1011E8E40, sub_100142C34);
+      sub_10014247C(&qword_10190C5D0, &qword_10190C588, &qword_1011E8D10, sub_1001422B4);
+      v28 = v49;
       _ConditionalContent<>.init(storage:)();
-      sub_100024F64(v34, &qword_10190C588);
+      sub_100024F64(v35, &qword_10190C588, &qword_1011E8D10);
       v24 = 0;
     }
 
     v33 = &qword_10190C6A8;
-    sub_1000D2DFC(v28, v41, &qword_10190C6A8);
+    v34 = &qword_1011E8E38;
+    sub_1000D2DFC(v28, v42, &qword_10190C6A8, &qword_1011E8E38);
     swift_storeEnumTagMultiPayload();
-    sub_10014247C(&qword_10190C5D0, &qword_10190C588, &unk_1011E8D10, sub_1001422B4);
+    sub_10014247C(&qword_10190C5D0, &qword_10190C588, &qword_1011E8D10, sub_1001422B4);
     sub_100142B50();
     _ConditionalContent<>.init(storage:)();
   }
 
   else
   {
-    v28 = v40 - v17;
+    v28 = v41 - v17;
     Image.init(systemName:)();
     (*(v13 + 104))(v15, enum case for Image.ResizingMode.stretch(_:), v12);
     v29 = Image.resizable(capInsets:resizingMode:)();
@@ -8964,47 +9092,48 @@ uint64_t sub_10013F4DC@<X0>(uint64_t a1@<X8>)
     static MapsDesignConstants.Sizes.userProfileImageSize.getter();
     static Alignment.center.getter();
     _FrameLayout.init(width:height:alignment:)();
-    v60 = v62;
-    v58 = v64;
-    *&v53 = v29;
-    *(&v53 + 1) = v31;
-    *&v54 = v61;
-    BYTE8(v54) = v62;
-    *(&v54 + 9) = *v59;
-    HIDWORD(v54) = *&v59[3];
-    *&v55 = v63;
-    BYTE8(v55) = v64;
-    *(&v55 + 9) = *v57;
-    HIDWORD(v55) = *&v57[3];
-    v56 = v65;
-    v51 = 0x67616D4972657355;
-    v52 = 0xE900000000000065;
+    v61 = v63;
+    v59 = v65;
+    *&v54 = v29;
+    *(&v54 + 1) = v31;
+    *&v55 = v62;
+    BYTE8(v55) = v63;
+    *(&v55 + 9) = *v60;
+    HIDWORD(v55) = *&v60[3];
+    *&v56 = v64;
+    BYTE8(v56) = v65;
+    *(&v56 + 9) = *v58;
+    HIDWORD(v56) = *&v58[3];
+    v57 = v66;
+    v52 = 0x67616D4972657355;
+    v53 = 0xE900000000000065;
     v32._countAndFlagsBits = 2003134806;
     v32._object = 0xE400000000000000;
     String.append(_:)(v32);
-    sub_1000CE6B8(&qword_10190C598);
+    sub_1000CE6B8(&qword_10190C598, &qword_1011E8D20);
     sub_1001422B4();
     View.accessibilityIdentifier(_:)();
 
     v33 = &qword_10190C588;
-    sub_1000D2DFC(v28, v11, &qword_10190C588);
+    v34 = &qword_1011E8D10;
+    sub_1000D2DFC(v28, v11, &qword_10190C588, &qword_1011E8D10);
     swift_storeEnumTagMultiPayload();
-    sub_10014247C(&qword_10190C5D0, &qword_10190C588, &unk_1011E8D10, sub_1001422B4);
+    sub_10014247C(&qword_10190C5D0, &qword_10190C588, &qword_1011E8D10, sub_1001422B4);
     sub_100142B50();
     _ConditionalContent<>.init(storage:)();
   }
 
-  return sub_100024F64(v28, v33);
+  return sub_100024F64(v28, v33, v34);
 }
 
 uint64_t sub_10013FFF8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = sub_1000CE6B8(&qword_10190C538);
+  v4 = sub_1000CE6B8(&qword_10190C538, &qword_1011E8CC8);
   __chkstk_darwin(v4 - 8);
   v6 = &v26[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
   __chkstk_darwin(v7);
   v9 = &v26[-v8];
-  v10 = sub_1000CE6B8(&qword_10190C540);
+  v10 = sub_1000CE6B8(&qword_10190C540, &qword_1011E8CD0);
   __chkstk_darwin(v10 - 8);
   v12 = &v26[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
   __chkstk_darwin(v13);
@@ -9014,7 +9143,7 @@ uint64_t sub_10013FFF8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   *v15 = v16;
   *(v15 + 1) = v17;
   v15[16] = 0;
-  v18 = sub_1000CE6B8(&qword_10190C548);
+  v18 = sub_1000CE6B8(&qword_10190C548, &qword_1011E8CD8);
   sub_1001402D4(a1, &v15[*(v18 + 44)]);
   v19 = swift_allocObject();
   v20 = *(a1 + 80);
@@ -9035,47 +9164,47 @@ uint64_t sub_10013FFF8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   sub_100142260();
   View.accessibilityIdentifier(_:)();
 
-  sub_1000D2DFC(v15, v12, &qword_10190C540);
-  sub_1000D2DFC(v9, v6, &qword_10190C538);
-  sub_1000D2DFC(v12, a2, &qword_10190C540);
-  v23 = sub_1000CE6B8(&qword_10190C558);
+  sub_1000D2DFC(v15, v12, &qword_10190C540, &qword_1011E8CD0);
+  sub_1000D2DFC(v9, v6, &qword_10190C538, &qword_1011E8CC8);
+  sub_1000D2DFC(v12, a2, &qword_10190C540, &qword_1011E8CD0);
+  v23 = sub_1000CE6B8(&qword_10190C558, &qword_1011E8CE0);
   v24 = a2 + *(v23 + 48);
   *v24 = 0;
   *(v24 + 8) = 1;
-  sub_1000D2DFC(v6, a2 + *(v23 + 64), &qword_10190C538);
-  sub_100024F64(v9, &qword_10190C538);
-  sub_100024F64(v15, &qword_10190C540);
-  sub_100024F64(v6, &qword_10190C538);
-  return sub_100024F64(v12, &qword_10190C540);
+  sub_1000D2DFC(v6, a2 + *(v23 + 64), &qword_10190C538, &qword_1011E8CC8);
+  sub_100024F64(v9, &qword_10190C538, &qword_1011E8CC8);
+  sub_100024F64(v15, &qword_10190C540, &qword_1011E8CD0);
+  sub_100024F64(v6, &qword_10190C538, &qword_1011E8CC8);
+  return sub_100024F64(v12, &qword_10190C540, &qword_1011E8CD0);
 }
 
 uint64_t sub_1001402D4@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
-  v70 = sub_1000CE6B8(&qword_10190C560);
+  v70 = sub_1000CE6B8(&qword_10190C560, &qword_1011E8CE8);
   __chkstk_darwin(v70);
   v71 = v56 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v5);
   v65 = (v56 - v6);
-  v62 = sub_1000CE6B8(&qword_10190C568);
+  v62 = sub_1000CE6B8(&qword_10190C568, &qword_1011E8CF0);
   __chkstk_darwin(v62);
   v59 = v56 - v7;
-  v60 = sub_1000CE6B8(&qword_10190C570);
+  v60 = sub_1000CE6B8(&qword_10190C570, &qword_1011E8CF8);
   __chkstk_darwin(v60);
   v61 = v56 - v8;
-  v9 = sub_1000CE6B8(&qword_10190C578);
+  v9 = sub_1000CE6B8(&qword_10190C578, &qword_1011E8D00);
   __chkstk_darwin(v9);
   v63 = v56 - v10;
-  v66 = sub_1000CE6B8(&qword_10190C580);
+  v66 = sub_1000CE6B8(&qword_10190C580, &qword_1011E8D08);
   __chkstk_darwin(v66);
   v12 = v56 - v11;
   v13 = type metadata accessor for Image.ResizingMode();
   v14 = *(v13 - 8);
   __chkstk_darwin(v13);
   v16 = v56 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = sub_1000CE6B8(&qword_10190C588);
+  v17 = sub_1000CE6B8(&qword_10190C588, &qword_1011E8D10);
   __chkstk_darwin(v17);
   v19 = v56 - v18;
-  v20 = sub_1000CE6B8(&qword_10190C590);
+  v20 = sub_1000CE6B8(&qword_10190C590, &qword_1011E8D18);
   __chkstk_darwin(v20 - 8);
   v69 = v56 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v22);
@@ -9117,19 +9246,19 @@ uint64_t sub_1001402D4@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
       v33._countAndFlagsBits = 2003134806;
       v33._object = 0xE400000000000000;
       String.append(_:)(v33);
-      sub_1000CE6B8(&qword_10190C5C8);
+      sub_1000CE6B8(&qword_10190C5C8, &qword_1012005E0);
       sub_1001423F8();
       v34 = v59;
       View.accessibilityIdentifier(_:)();
 
-      sub_1000D2DFC(v34, v61, &qword_10190C568);
+      sub_1000D2DFC(v34, v61, &qword_10190C568, &qword_1011E8CF0);
       swift_storeEnumTagMultiPayload();
-      sub_10014247C(&qword_10190C5C0, &qword_10190C568, &unk_1011E8CF0, sub_1001423F8);
-      sub_10014247C(&qword_10190C5D0, &qword_10190C588, &unk_1011E8D10, sub_1001422B4);
+      sub_10014247C(&qword_10190C5C0, &qword_10190C568, &qword_1011E8CF0, sub_1001423F8);
+      sub_10014247C(&qword_10190C5D0, &qword_10190C588, &qword_1011E8D10, sub_1001422B4);
       v35 = v63;
       _ConditionalContent<>.init(storage:)();
 
-      sub_100024F64(v34, &qword_10190C568);
+      sub_100024F64(v34, &qword_10190C568, &qword_1011E8CF0);
     }
 
     else
@@ -9165,28 +9294,28 @@ uint64_t sub_1001402D4@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
       v47._countAndFlagsBits = 2003134806;
       v47._object = 0xE400000000000000;
       String.append(_:)(v47);
-      sub_1000CE6B8(&qword_10190C598);
+      sub_1000CE6B8(&qword_10190C598, &qword_1011E8D20);
       sub_1001422B4();
       View.accessibilityIdentifier(_:)();
 
-      sub_1000D2DFC(v43, v61, &qword_10190C588);
+      sub_1000D2DFC(v43, v61, &qword_10190C588, &qword_1011E8D10);
       swift_storeEnumTagMultiPayload();
-      sub_10014247C(&qword_10190C5C0, &qword_10190C568, &unk_1011E8CF0, sub_1001423F8);
-      sub_10014247C(&qword_10190C5D0, &qword_10190C588, &unk_1011E8D10, sub_1001422B4);
+      sub_10014247C(&qword_10190C5C0, &qword_10190C568, &qword_1011E8CF0, sub_1001423F8);
+      sub_10014247C(&qword_10190C5D0, &qword_10190C588, &qword_1011E8D10, sub_1001422B4);
       v35 = v63;
       _ConditionalContent<>.init(storage:)();
-      sub_100024F64(v43, &qword_10190C588);
+      sub_100024F64(v43, &qword_10190C588, &qword_1011E8D10);
       v31 = 0;
     }
 
-    sub_1000D2DFC(v35, v67, &qword_10190C578);
+    sub_1000D2DFC(v35, v67, &qword_10190C578, &qword_1011E8D00);
     swift_storeEnumTagMultiPayload();
-    sub_10014247C(&qword_10190C5D0, &qword_10190C588, &unk_1011E8D10, sub_1001422B4);
+    sub_10014247C(&qword_10190C5D0, &qword_10190C588, &qword_1011E8D10, sub_1001422B4);
     sub_100142530();
     v41 = v57;
     _ConditionalContent<>.init(storage:)();
 
-    sub_100024F64(v35, &qword_10190C578);
+    sub_100024F64(v35, &qword_10190C578, &qword_1011E8D00);
     v42 = v72;
     v40 = v58;
   }
@@ -9220,17 +9349,17 @@ uint64_t sub_1001402D4@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
     v39._countAndFlagsBits = 2003134806;
     v39._object = 0xE400000000000000;
     String.append(_:)(v39);
-    sub_1000CE6B8(&qword_10190C598);
+    sub_1000CE6B8(&qword_10190C598, &qword_1011E8D20);
     sub_1001422B4();
     v40 = a1;
     View.accessibilityIdentifier(_:)();
 
-    sub_1000D2DFC(v19, v67, &qword_10190C588);
+    sub_1000D2DFC(v19, v67, &qword_10190C588, &qword_1011E8D10);
     swift_storeEnumTagMultiPayload();
-    sub_10014247C(&qword_10190C5D0, &qword_10190C588, &unk_1011E8D10, sub_1001422B4);
+    sub_10014247C(&qword_10190C5D0, &qword_10190C588, &qword_1011E8D10, sub_1001422B4);
     sub_100142530();
     _ConditionalContent<>.init(storage:)();
-    sub_100024F64(v19, &qword_10190C588);
+    sub_100024F64(v19, &qword_10190C588, &qword_1011E8D10);
     v41 = v24;
     v42 = v72;
   }
@@ -9240,37 +9369,37 @@ uint64_t sub_1001402D4@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   *v65 = v48;
   *(v49 + 8) = 0;
   *(v49 + 16) = 0;
-  v50 = sub_1000CE6B8(&qword_10190C5E0);
+  v50 = sub_1000CE6B8(&qword_10190C5E0, &qword_1011E8D40);
   sub_100141034(v40, v49 + *(v50 + 44));
   v51 = v49 + *(v70 + 36);
   *v51 = xmmword_1011E8B60;
   *(v51 + 16) = 12;
   v52 = v69;
-  sub_1000D2DFC(v41, v69, &qword_10190C590);
+  sub_1000D2DFC(v41, v69, &qword_10190C590, &qword_1011E8D18);
   v53 = v71;
-  sub_1000D2DFC(v49, v71, &qword_10190C560);
-  sub_1000D2DFC(v52, v42, &qword_10190C590);
-  v54 = sub_1000CE6B8(&qword_10190C5E8);
-  sub_1000D2DFC(v53, v42 + *(v54 + 48), &qword_10190C560);
-  sub_100024F64(v49, &qword_10190C560);
-  sub_100024F64(v41, &qword_10190C590);
-  sub_100024F64(v53, &qword_10190C560);
-  return sub_100024F64(v52, &qword_10190C590);
+  sub_1000D2DFC(v49, v71, &qword_10190C560, &qword_1011E8CE8);
+  sub_1000D2DFC(v52, v42, &qword_10190C590, &qword_1011E8D18);
+  v54 = sub_1000CE6B8(&qword_10190C5E8, &qword_1011E8D48);
+  sub_1000D2DFC(v53, v42 + *(v54 + 48), &qword_10190C560, &qword_1011E8CE8);
+  sub_100024F64(v49, &qword_10190C560, &qword_1011E8CE8);
+  sub_100024F64(v41, &qword_10190C590, &qword_1011E8D18);
+  sub_100024F64(v53, &qword_10190C560, &qword_1011E8CE8);
+  return sub_100024F64(v52, &qword_10190C590, &qword_1011E8D18);
 }
 
 uint64_t sub_100141034@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
   v50 = a2;
-  v49 = sub_1000CE6B8(&qword_10190C5F0);
+  v49 = sub_1000CE6B8(&qword_10190C5F0, &qword_1011E8D50);
   __chkstk_darwin(v49);
   v51 = &v43 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v4);
   v6 = &v43 - v5;
-  v46 = sub_1000CE6B8(&qword_10190C5F8);
+  v46 = sub_1000CE6B8(&qword_10190C5F8, &qword_1011E8D58);
   v45 = *(v46 - 8);
   __chkstk_darwin(v46);
   v8 = &v43 - v7;
-  v9 = sub_1000CE6B8(&qword_10190C600);
+  v9 = sub_1000CE6B8(&qword_10190C600, &qword_1011E8D60);
   __chkstk_darwin(v9 - 8);
   v48 = &v43 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v11);
@@ -9321,7 +9450,7 @@ uint64_t sub_100141034@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   *(&v55 + 1) = v27;
   v56 = v26;
 
-  v28 = sub_1000CE6B8(&qword_10190C608);
+  v28 = sub_1000CE6B8(&qword_10190C608, &qword_1011E8DC8);
   v29 = sub_1001426C4();
   View.fontWeight(_:)();
   v57[2] = v54;
@@ -9329,7 +9458,7 @@ uint64_t sub_100141034@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   v58 = v56;
   v57[0] = v52;
   v57[1] = v53;
-  sub_100024F64(v57, &qword_10190C608);
+  sub_100024F64(v57, &qword_10190C608, &qword_1011E8DC8);
   *&v52 = 0x656D614E72657355;
   *(&v52 + 1) = 0xE800000000000000;
   v30._countAndFlagsBits = 0x6C6562614CLL;
@@ -9345,7 +9474,7 @@ uint64_t sub_100141034@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   (*(v45 + 8))(v8, v32);
   sub_1001415BC(a1, v6);
   v33 = swift_getKeyPath();
-  v34 = &v6[*(sub_1000CE6B8(&qword_10190C630) + 36)];
+  v34 = &v6[*(sub_1000CE6B8(&qword_10190C630, &qword_1011E8DE8) + 36)];
   *v34 = v33;
   *(v34 + 1) = 1;
   v34[16] = 0;
@@ -9355,41 +9484,41 @@ uint64_t sub_100141034@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   *v36 = v35;
   v36[1] = v37;
   v38 = v48;
-  sub_1000D2DFC(v31, v48, &qword_10190C600);
+  sub_1000D2DFC(v31, v48, &qword_10190C600, &qword_1011E8D60);
   v39 = v51;
-  sub_1000D2DFC(v6, v51, &qword_10190C5F0);
+  sub_1000D2DFC(v6, v51, &qword_10190C5F0, &qword_1011E8D50);
   v40 = v50;
-  sub_1000D2DFC(v38, v50, &qword_10190C600);
-  v41 = sub_1000CE6B8(&qword_10190C638);
-  sub_1000D2DFC(v39, v40 + *(v41 + 48), &qword_10190C5F0);
+  sub_1000D2DFC(v38, v50, &qword_10190C600, &qword_1011E8D60);
+  v41 = sub_1000CE6B8(&qword_10190C638, &unk_1011E8DF0);
+  sub_1000D2DFC(v39, v40 + *(v41 + 48), &qword_10190C5F0, &qword_1011E8D50);
 
-  sub_100024F64(v6, &qword_10190C5F0);
-  sub_100024F64(v31, &qword_10190C600);
-  sub_100024F64(v39, &qword_10190C5F0);
-  return sub_100024F64(v38, &qword_10190C600);
+  sub_100024F64(v6, &qword_10190C5F0, &qword_1011E8D50);
+  sub_100024F64(v31, &qword_10190C600, &qword_1011E8D60);
+  sub_100024F64(v39, &qword_10190C5F0, &qword_1011E8D50);
+  return sub_100024F64(v38, &qword_10190C600, &qword_1011E8D60);
 }
 
 uint64_t sub_1001415BC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v58 = a2;
-  v3 = sub_1000CE6B8(&qword_10191DF90);
+  v3 = sub_1000CE6B8(&qword_10191DF90, &qword_1011EF890);
   __chkstk_darwin(v3);
   v54 = &v49 - v4;
-  v56 = sub_1000CE6B8(&qword_10190C640);
+  v56 = sub_1000CE6B8(&qword_10190C640, &unk_1011E8E00);
   __chkstk_darwin(v56);
   v6 = &v49 - v5;
   v7 = type metadata accessor for PlainButtonStyle();
   v53 = *(v7 - 8);
   __chkstk_darwin(v7);
   v9 = &v49 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_1000CE6B8(&qword_10191D8F0);
+  v10 = sub_1000CE6B8(&qword_10191D8F0, &qword_1011FA5C0);
   v11 = *(v10 - 8);
   __chkstk_darwin(v10);
   v13 = &v49 - v12;
-  v14 = sub_1000CE6B8(&qword_10190C648);
+  v14 = sub_1000CE6B8(&qword_10190C648, &qword_1011E8E10);
   __chkstk_darwin(v14);
   v16 = &v49 - v15;
-  v17 = sub_1000CE6B8(&qword_10190C650);
+  v17 = sub_1000CE6B8(&qword_10190C650, &qword_1011E8E18);
   __chkstk_darwin(v17);
   v19 = &v49 - v18;
   v20 = *(a1 + 8);
@@ -9426,12 +9555,12 @@ uint64_t sub_1001415BC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     View.accessibilityIdentifier(_:)();
     sub_1000F0A40(v29, v31, v33 & 1);
 
-    sub_1000D2DFC(v37, v6, &qword_10191DF90);
+    sub_1000D2DFC(v37, v6, &qword_10191DF90, &qword_1011EF890);
     swift_storeEnumTagMultiPayload();
-    sub_10014247C(&qword_10190C658, &qword_10190C650, &unk_1011E8E18, sub_100142834);
+    sub_10014247C(&qword_10190C658, &qword_10190C650, &qword_1011E8E18, sub_100142834);
     sub_1001429AC();
     _ConditionalContent<>.init(storage:)();
-    return sub_100024F64(v37, &qword_10191DF90);
+    return sub_100024F64(v37, &qword_10191DF90, &qword_1011EF890);
   }
 
   else
@@ -9469,8 +9598,8 @@ uint64_t sub_1001415BC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     Button<>.init<A>(_:action:)();
     v45 = v49;
     PlainButtonStyle.init()();
-    sub_1000414C8(&qword_10190C668, &qword_10191D8F0);
-    sub_100142CF0(&qword_10190C670, &type metadata accessor for PlainButtonStyle);
+    sub_1000414C8(&qword_10190C668, &qword_10191D8F0, &qword_1011FA5C0, &protocol conformance descriptor for Button<A>);
+    sub_100142CF0(&qword_10190C670, &type metadata accessor for PlainButtonStyle, &protocol conformance descriptor for PlainButtonStyle);
     v46 = v52;
     View.buttonStyle<A>(_:)();
     (*(v53 + 8))(v45, v46);
@@ -9485,13 +9614,13 @@ uint64_t sub_1001415BC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
     v48 = v51;
     View.accessibilityIdentifier(_:)();
 
-    sub_100024F64(v16, &qword_10190C648);
-    sub_1000D2DFC(v48, v54, &qword_10190C650);
+    sub_100024F64(v16, &qword_10190C648, &qword_1011E8E10);
+    sub_1000D2DFC(v48, v54, &qword_10190C650, &qword_1011E8E18);
     swift_storeEnumTagMultiPayload();
-    sub_10014247C(&qword_10190C658, &qword_10190C650, &unk_1011E8E18, sub_100142834);
+    sub_10014247C(&qword_10190C658, &qword_10190C650, &qword_1011E8E18, sub_100142834);
     sub_1001429AC();
     _ConditionalContent<>.init(storage:)();
-    return sub_100024F64(v48, &qword_10190C650);
+    return sub_100024F64(v48, &qword_10190C650, &qword_1011E8E18);
   }
 }
 
@@ -9499,7 +9628,7 @@ uint64_t sub_100141D94@<X0>(uint64_t *a1@<X1>, uint64_t *a2@<X8>)
 {
   *a2 = static Alignment.top.getter();
   a2[1] = v4;
-  v5 = sub_1000CE6B8(&qword_10190C680);
+  v5 = sub_1000CE6B8(&qword_10190C680, &qword_1011E8E20);
   return sub_10013E230(a1, a2 + *(v5 + 44));
 }
 
@@ -9508,17 +9637,17 @@ uint64_t sub_100141DE4@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
   *a2 = static VerticalAlignment.top.getter();
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
-  v4 = sub_1000CE6B8(&qword_10190C530);
+  v4 = sub_1000CE6B8(&qword_10190C530, &qword_1011E8CC0);
   return sub_10013FFF8(a1, a2 + *(v4 + 44));
 }
 
 uint64_t sub_100141E38()
 {
   Solarium.init()();
-  sub_1000CE6B8(&qword_10190C510);
-  sub_1000CE6B8(&qword_10190C518);
-  sub_1000414C8(&qword_10190C520, &qword_10190C510);
-  sub_1000414C8(&qword_10190C528, &qword_10190C518);
+  sub_1000CE6B8(&qword_10190C510, &qword_1011E8CB0);
+  sub_1000CE6B8(&qword_10190C518, &qword_1011E8CB8);
+  sub_1000414C8(&qword_10190C520, &qword_10190C510, &qword_1011E8CB0, &protocol conformance descriptor for ZStack<A>);
+  sub_1000414C8(&qword_10190C528, &qword_10190C518, &qword_1011E8CB8, &protocol conformance descriptor for HStack<A>);
   return View.staticIf<A, B, C>(_:then:else:)();
 }
 
@@ -9531,8 +9660,8 @@ double sub_100141FA4()
   result = 36.0;
   xmmword_10195FB40 = xmmword_1011E8B70;
   qword_10195FB50 = v0;
-  qword_10195FB58 = v2;
-  qword_10195FB60 = v3;
+  *&xmmword_10195FB58 = v2;
+  *(&xmmword_10195FB58 + 1) = v3;
   return result;
 }
 
@@ -9699,136 +9828,6 @@ double sub_100142198(uint64_t a1, int a2)
   else if (a2)
   {
     *(a1 + 8) = (a2 - 1);
-  }
-
-  return result;
-}
-
-unint64_t sub_100142260()
-{
-  result = qword_10190C550;
-  if (!qword_10190C550)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_10190C550);
-  }
-
-  return result;
-}
-
-unint64_t sub_1001422B4()
-{
-  result = qword_10190C5A0;
-  if (!qword_10190C5A0)
-  {
-    sub_1000D6664(&qword_10190C598);
-    sub_100142340();
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_10190C5A0);
-  }
-
-  return result;
-}
-
-unint64_t sub_100142340()
-{
-  result = qword_10190C5A8;
-  if (!qword_10190C5A8)
-  {
-    sub_1000D6664(&qword_10190C5B0);
-    sub_1000414C8(&unk_1019105B0, &qword_10190C5B8);
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_10190C5A8);
-  }
-
-  return result;
-}
-
-unint64_t sub_1001423F8()
-{
-  result = qword_1019106A0;
-  if (!qword_1019106A0)
-  {
-    sub_1000D6664(&qword_10190C5C8);
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_1019106A0);
-  }
-
-  return result;
-}
-
-uint64_t sub_10014247C(unint64_t *a1, uint64_t *a2, uint64_t a3, void (*a4)(void))
-{
-  result = *a1;
-  if (!result)
-  {
-    sub_1000D6664(a2);
-    a4();
-    sub_100142CF0(&qword_101909FE0, &type metadata accessor for AccessibilityAttachmentModifier);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-unint64_t sub_100142530()
-{
-  result = qword_10190C5D8;
-  if (!qword_10190C5D8)
-  {
-    sub_1000D6664(&qword_10190C578);
-    sub_10014247C(&qword_10190C5C0, &qword_10190C568, &unk_1011E8CF0, sub_1001423F8);
-    sub_10014247C(&qword_10190C5D0, &qword_10190C588, &unk_1011E8D10, sub_1001422B4);
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_10190C5D8);
-  }
-
-  return result;
-}
-
-uint64_t sub_100142614(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
-{
-  if (a2)
-  {
-    v5 = a5;
-  }
-
-  return result;
-}
-
-uint64_t sub_100142660@<X0>(uint64_t a1@<X8>)
-{
-  result = EnvironmentValues.lineLimit.getter();
-  *a1 = result;
-  *(a1 + 8) = v3 & 1;
-  return result;
-}
-
-unint64_t sub_1001426C4()
-{
-  result = qword_10190C610;
-  if (!qword_10190C610)
-  {
-    sub_1000D6664(&qword_10190C608);
-    sub_10014277C();
-    sub_1000414C8(&qword_10190C628, &qword_10190FF20);
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_10190C610);
-  }
-
-  return result;
-}
-
-unint64_t sub_10014277C()
-{
-  result = qword_10190C618;
-  if (!qword_10190C618)
-  {
-    sub_1000D6664(&unk_10190FE90);
-    sub_1000414C8(&unk_10190FEA0, &qword_10190C620);
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_10190C618);
   }
 
   return result;

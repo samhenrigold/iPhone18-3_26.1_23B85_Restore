@@ -18,10 +18,10 @@
 
 - (WeatherImageLoader)init
 {
-  v45 = *MEMORY[0x277D85DE8];
-  v40.receiver = self;
-  v40.super_class = WeatherImageLoader;
-  v2 = [(WeatherImageLoader *)&v40 init];
+  v44 = *MEMORY[0x277D85DE8];
+  v39.receiver = self;
+  v39.super_class = WeatherImageLoader;
+  v2 = [(WeatherImageLoader *)&v39 init];
   if (v2)
   {
     v3 = +[WeatherPreferences sharedPreferences];
@@ -45,16 +45,16 @@
 
       v13 = _WAWeatherIconCachePath();
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v39 = 0;
-      [defaultManager removeItemAtPath:v13 error:&v39];
-      v15 = v39;
+      v38 = 0;
+      [defaultManager removeItemAtPath:v13 error:&v38];
+      v15 = v38;
       v16 = WALogForCategory(0);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v42 = v13;
-        v43 = 2112;
-        v44 = v15;
+        v41 = v13;
+        v42 = 2112;
+        v43 = v15;
         _os_log_impl(&dword_272ACF000, v16, OS_LOG_TYPE_DEFAULT, "Removed: %@ Error: %@", buf, 0x16u);
       }
 
@@ -62,16 +62,16 @@
       userCachesDirectory3 = [mEMORY[0x277D75128]4 userCachesDirectory];
       v19 = [userCachesDirectory3 stringByAppendingPathComponent:@"Weather/Labels"];
 
-      v38 = 0;
-      [defaultManager removeItemAtPath:v19 error:&v38];
-      v20 = v38;
+      v37 = 0;
+      [defaultManager removeItemAtPath:v19 error:&v37];
+      v20 = v37;
       v21 = WALogForCategory(0);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v42 = v19;
-        v43 = 2112;
-        v44 = v20;
+        v41 = v19;
+        v42 = 2112;
+        v43 = v20;
         _os_log_impl(&dword_272ACF000, v21, OS_LOG_TYPE_DEFAULT, "Removed: %@ Error: %@", buf, 0x16u);
       }
 
@@ -100,7 +100,7 @@ LABEL_13:
         v2->_conditionImagesCache = v34;
 
         [(NSCache *)v2->_conditionImagesCache setEvictsObjectsWhenApplicationEntersBackground:0];
-        goto LABEL_14;
+        return v2;
       }
     }
 
@@ -118,8 +118,6 @@ LABEL_13:
     goto LABEL_13;
   }
 
-LABEL_14:
-  v36 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -285,7 +283,7 @@ LABEL_13:
   height = size.height;
   width = size.width;
   namedCopy = named;
-  v16 = WASmallWeatherIconsMap();
+  v16 = WASmallWeatherIconsMap(namedCopy);
   v17 = [v16 objectForKey:namedCopy];
 
   v18 = [v17 objectForKey:@"WeatherMapColors"];
@@ -392,8 +390,8 @@ LABEL_13:
 
 void __93__WeatherImageLoader_conditionImageNamed_size_cloudAligned_stroke_strokeAlpha_lighterColors___block_invoke(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v25 = a2;
+  v29 = *MEMORY[0x277D85DE8];
+  v23 = a2;
   if (*(a1 + 104) == 1)
   {
     v3 = MEMORY[0x277D755B8];
@@ -408,49 +406,46 @@ void __93__WeatherImageLoader_conditionImageNamed_size_cloudAligned_stroke_strok
     [v7 drawPDFInRect:{*(a1 + 72), *(a1 + 80), *(a1 + 88), *(a1 + 96)}];
   }
 
-  v28 = 0u;
-  v29 = 0u;
   v26 = 0u;
   v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v9 = *(a1 + 40);
-  v10 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v27;
+    v12 = *v25;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v27 != v12)
+        if (*v25 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v26 + 1) + 8 * i);
+        v14 = *(*(&v24 + 1) + 8 * i);
         v15 = MEMORY[0x277D755B8];
-        v16 = *(a1 + 32);
-        v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", v16, v14];
-        v18 = [*(a1 + 56) conditionImageBundle];
-        v19 = [v15 imageNamed:v17 inBundle:v18];
-        v20 = [v19 imageWithRenderingMode:2];
-        v21 = *(*(a1 + 48) + 8);
-        v22 = *(v21 + 40);
-        *(v21 + 40) = v20;
+        v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", *(a1 + 32), v14];
+        v17 = [*(a1 + 56) conditionImageBundle];
+        v18 = [v15 imageNamed:v16 inBundle:v17];
+        v19 = [v18 imageWithRenderingMode:2];
+        v20 = *(*(a1 + 48) + 8);
+        v21 = *(v20 + 40);
+        *(v20 + 40) = v19;
 
-        v23 = [*(a1 + 56) colorForImageColor:v14 lighter:*(a1 + 105)];
-        [v23 set];
+        v22 = [*(a1 + 56) colorForImageColor:v14 lighter:*(a1 + 105)];
+        [v22 set];
 
         [*(*(*(a1 + 48) + 8) + 40) drawPDFInRect:{*(a1 + 72), *(a1 + 80), *(a1 + 88), *(a1 + 96)}];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v11);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 + (id)colorForImageColor:(id)color lighter:(BOOL)lighter

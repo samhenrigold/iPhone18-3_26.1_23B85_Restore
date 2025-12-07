@@ -22,6 +22,7 @@
 - (id)_timeZonesForComponents:(id)components options:(int)options;
 - (id)parsingErrors;
 - (id)systemCalendarForDate:(id)date options:(int)options;
+- (id)systemDateForDate:(id)date options:(int)options;
 - (id)systemTimeZoneForDate:(id)date;
 - (int)method;
 - (void)_addComponent:(id)component withUIDGenerator:(id)generator;
@@ -31,6 +32,7 @@
 - (void)fixComponent;
 - (void)fixEntities;
 - (void)fixPropertiesInheritance;
+- (void)setComponents:(id)components options:(int)options;
 - (void)setComponents:(id)components timeZones:(BOOL)zones;
 - (void)setMethod:(int)method;
 - (void)setX_apple_calendar_color:(id)x_apple_calendar_color;
@@ -40,30 +42,30 @@
 
 + (id)calendarWithKnownTimeZones
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   knownTimeZoneNames = [MEMORY[0x277CBEBB0] knownTimeZoneNames];
-  v3 = [knownTimeZoneNames countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [knownTimeZoneNames countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(knownTimeZoneNames);
         }
 
-        v7 = [ICSTimeZone timeZoneWithSystemTimeZoneName:*(*(&v14 + 1) + 8 * i)];
+        v7 = [ICSTimeZone timeZoneWithSystemTimeZoneName:*(*(&v13 + 1) + 8 * i)];
       }
 
-      v4 = [knownTimeZoneNames countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [knownTimeZoneNames countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
@@ -74,8 +76,6 @@
   allValues = [_sCache allValues];
   v11 = [v9 arrayWithArray:allValues];
   [(ICSCalendar *)v8 setComponents:v11];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -440,7 +440,7 @@
 
   if (isKindOfClass)
   {
-    tzid = [MEMORY[0x277CBEBB0] timeZoneWithName:@"UTC"];
+    tzid = objc_msgSend_timeZoneWithName_(MEMORY[0x277CBEBB0]);
   }
 
   else
@@ -459,7 +459,7 @@
       {
         v11 = MEMORY[0x277CBEBB0];
         tzid3 = [dateCopy tzid];
-        tzid = [v11 timeZoneWithName:tzid3];
+        tzid = objc_msgSend_timeZoneWithName_(v11);
       }
     }
   }
@@ -482,90 +482,155 @@
 
   else if (options == 1)
   {
-    v11 = [MEMORY[0x277CBEBB0] timeZoneWithName:@"UTC"];
+    v11 = objc_msgSend_timeZoneWithName_(MEMORY[0x277CBEBB0]);
     [v9 setTimeZone:v11];
   }
 
   return v9;
 }
 
+- (id)systemDateForDate:(id)date options:(int)options
+{
+  v4 = *&options;
+  dateCopy = date;
+  v7 = dateCopy;
+  if (dateCopy)
+  {
+    components = [dateCopy components];
+    v9 = [(ICSCalendar *)self systemTimeZoneForDate:v7];
+    name = [v9 name];
+    if (name)
+    {
+      v11 = 0;
+    }
+
+    else
+    {
+      v11 = v4 == 1;
+    }
+
+    if (v11)
+    {
+      v12 = @"UTC";
+    }
+
+    else
+    {
+      v12 = name;
+    }
+
+    currentThread = [MEMORY[0x277CCACC8] currentThread];
+    threadDictionary = [currentThread threadDictionary];
+
+    dictionary = [threadDictionary objectForKey:@"ICSCachedCalendars"];
+    if (!dictionary)
+    {
+      dictionary = [MEMORY[0x277CBEB38] dictionary];
+      [threadDictionary setValue:dictionary forKey:@"ICSCachedCalendars"];
+    }
+
+    v16 = [dictionary objectForKey:v12];
+    if (!v16)
+    {
+      v17 = [(ICSCalendar *)self systemCalendarForDate:v7 options:v4];
+      v16 = v17;
+      if (v12)
+      {
+        if (v17)
+        {
+          [dictionary setObject:v17 forKey:v12];
+        }
+      }
+    }
+
+    v18 = [v16 dateFromComponents:components];
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  return v18;
+}
+
 - (void)_addTimeZonesInComponent:(id)component toSet:(id)set
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   componentCopy = component;
   setCopy = set;
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   components = [componentCopy components];
-  v9 = [components countByEnumeratingWithState:&v39 objects:v45 count:16];
+  v9 = [components countByEnumeratingWithState:&v38 objects:v44 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v40;
+    v11 = *v39;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v40 != v11)
+        if (*v39 != v11)
         {
           objc_enumerationMutation(components);
         }
 
-        [(ICSCalendar *)self _addTimeZonesInComponent:*(*(&v39 + 1) + 8 * i) toSet:setCopy];
+        [(ICSCalendar *)self _addTimeZonesInComponent:*(*(&v38 + 1) + 8 * i) toSet:setCopy];
       }
 
-      v10 = [components countByEnumeratingWithState:&v39 objects:v45 count:16];
+      v10 = [components countByEnumeratingWithState:&v38 objects:v44 count:16];
     }
 
     while (v10);
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
-  v27 = componentCopy;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v26 = componentCopy;
   properties = [componentCopy properties];
   allValues = [properties allValues];
 
-  v29 = [allValues countByEnumeratingWithState:&v35 objects:v44 count:16];
-  if (v29)
+  v28 = [allValues countByEnumeratingWithState:&v34 objects:v43 count:16];
+  if (v28)
   {
-    v28 = *v36;
+    v27 = *v35;
     do
     {
       v15 = 0;
       do
       {
-        if (*v36 != v28)
+        if (*v35 != v27)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v30 = v15;
-        v16 = *(*(&v35 + 1) + 8 * v15);
+        v29 = v15;
+        v16 = *(*(&v34 + 1) + 8 * v15);
+        v30 = 0u;
         v31 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v34 = 0u;
         v17 = v16;
-        v18 = [v17 countByEnumeratingWithState:&v31 objects:v43 count:16];
+        v18 = [v17 countByEnumeratingWithState:&v30 objects:v42 count:16];
         if (v18)
         {
           v19 = v18;
-          v20 = *v32;
+          v20 = *v31;
           do
           {
             for (j = 0; j != v19; ++j)
             {
-              if (*v32 != v20)
+              if (*v31 != v20)
               {
                 objc_enumerationMutation(v17);
               }
 
-              v22 = *(*(&v31 + 1) + 8 * j);
+              v22 = *(*(&v30 + 1) + 8 * j);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -584,102 +649,100 @@
               }
             }
 
-            v19 = [v17 countByEnumeratingWithState:&v31 objects:v43 count:16];
+            v19 = [v17 countByEnumeratingWithState:&v30 objects:v42 count:16];
           }
 
           while (v19);
         }
 
-        v15 = v30 + 1;
+        v15 = v29 + 1;
       }
 
-      while (v30 + 1 != v29);
-      v29 = [allValues countByEnumeratingWithState:&v35 objects:v44 count:16];
+      while (v29 + 1 != v28);
+      v28 = [allValues countByEnumeratingWithState:&v34 objects:v43 count:16];
     }
 
-    while (v29);
+    while (v28);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addTimeZonesInComponent:(id)component toDictionary:(id)dictionary
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   componentCopy = component;
   dictionaryCopy = dictionary;
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   components = [componentCopy components];
-  v9 = [components countByEnumeratingWithState:&v41 objects:v47 count:16];
+  v9 = [components countByEnumeratingWithState:&v40 objects:v46 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v42;
+    v11 = *v41;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v42 != v11)
+        if (*v41 != v11)
         {
           objc_enumerationMutation(components);
         }
 
-        [(ICSCalendar *)self _addTimeZonesInComponent:*(*(&v41 + 1) + 8 * i) toDictionary:dictionaryCopy];
+        [(ICSCalendar *)self _addTimeZonesInComponent:*(*(&v40 + 1) + 8 * i) toDictionary:dictionaryCopy];
       }
 
-      v10 = [components countByEnumeratingWithState:&v41 objects:v47 count:16];
+      v10 = [components countByEnumeratingWithState:&v40 objects:v46 count:16];
     }
 
     while (v10);
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
-  v29 = componentCopy;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v28 = componentCopy;
   properties = [componentCopy properties];
   allValues = [properties allValues];
 
-  v31 = [allValues countByEnumeratingWithState:&v37 objects:v46 count:16];
-  if (v31)
+  v30 = [allValues countByEnumeratingWithState:&v36 objects:v45 count:16];
+  if (v30)
   {
-    v30 = *v38;
+    v29 = *v37;
     do
     {
       v15 = 0;
       do
       {
-        if (*v38 != v30)
+        if (*v37 != v29)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v32 = v15;
-        v16 = *(*(&v37 + 1) + 8 * v15);
+        v31 = v15;
+        v16 = *(*(&v36 + 1) + 8 * v15);
+        v32 = 0u;
         v33 = 0u;
         v34 = 0u;
         v35 = 0u;
-        v36 = 0u;
         v17 = v16;
-        v18 = [v17 countByEnumeratingWithState:&v33 objects:v45 count:16];
+        v18 = [v17 countByEnumeratingWithState:&v32 objects:v44 count:16];
         if (v18)
         {
           v19 = v18;
-          v20 = *v34;
+          v20 = *v33;
           do
           {
             for (j = 0; j != v19; ++j)
             {
-              if (*v34 != v20)
+              if (*v33 != v20)
               {
                 objc_enumerationMutation(v17);
               }
 
-              v22 = *(*(&v33 + 1) + 8 * j);
+              v22 = *(*(&v32 + 1) + 8 * j);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -703,28 +766,26 @@
               }
             }
 
-            v19 = [v17 countByEnumeratingWithState:&v33 objects:v45 count:16];
+            v19 = [v17 countByEnumeratingWithState:&v32 objects:v44 count:16];
           }
 
           while (v19);
         }
 
-        v15 = v32 + 1;
+        v15 = v31 + 1;
       }
 
-      while (v32 + 1 != v31);
-      v31 = [allValues countByEnumeratingWithState:&v37 objects:v46 count:16];
+      while (v31 + 1 != v30);
+      v30 = [allValues countByEnumeratingWithState:&v36 objects:v45 count:16];
     }
 
-    while (v31);
+    while (v30);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_timeZonesForComponents:(id)components options:(int)options
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   componentsCopy = components;
   array = [MEMORY[0x277CBEB18] array];
   v7 = objc_alloc(MEMORY[0x277CBEA80]);
@@ -736,45 +797,45 @@
   optionsCopy = options;
   if ((options - 1) <= 1)
   {
-    v28 = v10;
-    v29 = v8;
+    v26 = v10;
+    v27 = v8;
     v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v40 = 0u;
+    v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v30 = componentsCopy;
+    v28 = componentsCopy;
     v13 = componentsCopy;
-    v14 = [v13 countByEnumeratingWithState:&v42 objects:v47 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v40 objects:v45 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v43;
+      v16 = *v41;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v43 != v16)
+          if (*v41 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          [(ICSCalendar *)self _addTimeZonesInComponent:*(*(&v42 + 1) + 8 * i) toDictionary:v12, v28, v29];
+          [(ICSCalendar *)self _addTimeZonesInComponent:*(*(&v40 + 1) + 8 * i) toDictionary:v12, v26, v27];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v42 objects:v47 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v40 objects:v45 count:16];
       }
 
       while (v15);
     }
 
-    v40 = 0u;
-    v41 = 0u;
     v38 = 0u;
     v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     obj = [v12 allKeys];
-    v37 = [obj countByEnumeratingWithState:&v38 objects:v46 count:16];
-    if (v37)
+    v35 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
+    if (v35)
     {
       if (optionsCopy == 1)
       {
@@ -786,50 +847,47 @@
         v18 = -1;
       }
 
-      v34 = v18;
-      v35 = *v39;
-      v36 = v11;
+      v32 = v18;
+      v33 = *v37;
+      v34 = v11;
       do
       {
-        for (j = 0; j != v37; ++j)
+        for (j = 0; j != v35; ++j)
         {
-          if (*v39 != v35)
+          if (*v37 != v33)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = *(*(&v38 + 1) + 8 * j);
-          v21 = [v12 objectForKey:{v20, v28, v29}];
-          if ([(ICSDateValue *)v11 compare:v21]== -1)
+          v20 = [v12 objectForKey:{*(*(&v36 + 1) + 8 * j), v26, v27}];
+          if ([(ICSDateValue *)v11 compare:v20]== -1)
           {
-            v22 = v11;
+            v21 = v11;
 
-            v21 = v22;
+            v20 = v21;
           }
 
-          v23 = -[ICSDateTimeValue initWithYear:month:day:hour:minute:second:]([ICSDateTimeValue alloc], "initWithYear:month:day:hour:minute:second:", [v21 year] + v34, objc_msgSend(v21, "month"), objc_msgSend(v21, "day"), objc_msgSend(v21, "hour"), objc_msgSend(v21, "minute"), objc_msgSend(v21, "second"));
-          v24 = [MEMORY[0x277CBEBB0] timeZoneWithName:v20];
-          if (v24)
+          v22 = -[ICSDateTimeValue initWithYear:month:day:hour:minute:second:]([ICSDateTimeValue alloc], "initWithYear:month:day:hour:minute:second:", [v20 year] + v32, objc_msgSend(v20, "month"), objc_msgSend(v20, "day"), objc_msgSend(v20, "hour"), objc_msgSend(v20, "minute"), objc_msgSend(v20, "second"));
+          v23 = objc_msgSend_timeZoneWithName_(MEMORY[0x277CBEBB0]);
+          if (v23)
           {
-            v25 = [[ICSTimeZone alloc] initWithSystemTimeZone:v24 fromDate:v23 options:optionsCopy];
-            [array addObject:v25];
+            v24 = [[ICSTimeZone alloc] initWithSystemTimeZone:v23 fromDate:v22 options:optionsCopy];
+            [array addObject:v24];
           }
 
-          v11 = v36;
+          v11 = v34;
         }
 
-        v37 = [obj countByEnumeratingWithState:&v38 objects:v46 count:16];
+        v35 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
       }
 
-      while (v37);
+      while (v35);
     }
 
-    v8 = v29;
-    componentsCopy = v30;
-    v10 = v28;
+    v8 = v27;
+    componentsCopy = v28;
+    v10 = v26;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -949,6 +1007,58 @@ LABEL_20:
   [(ICSCalendar *)self setComponents:components options:v4];
 }
 
+- (void)setComponents:(id)components options:(int)options
+{
+  v4 = *&options;
+  v20 = *MEMORY[0x277D85DE8];
+  componentsCopy = components;
+  array = [MEMORY[0x277CBEB18] array];
+  if (v4)
+  {
+    v8 = [(ICSCalendar *)self _timeZonesForComponents:componentsCopy options:v4];
+    [array addObjectsFromArray:v8];
+  }
+
+  [array addObjectsFromArray:componentsCopy];
+  v18.receiver = self;
+  v18.super_class = ICSCalendar;
+  [(ICSComponent *)&v18 setComponents:array];
+  [(NSMutableSet *)self->_keys removeAllObjects];
+  [(NSMutableDictionary *)self->_masters removeAllObjects];
+  [(NSMutableDictionary *)self->_occurrences removeAllObjects];
+  [(NSMutableDictionary *)self->_timezones removeAllObjects];
+  [(NSMutableArray *)self->_parsingErrors removeAllObjects];
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v9 = array;
+  v10 = [v9 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v15;
+    do
+    {
+      v13 = 0;
+      do
+      {
+        if (*v15 != v12)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        [(ICSCalendar *)self _addComponent:*(*(&v14 + 1) + 8 * v13++) withUIDGenerator:0, v14];
+      }
+
+      while (v11 != v13);
+      v11 = [v9 countByEnumeratingWithState:&v14 objects:v19 count:16];
+    }
+
+    while (v11);
+  }
+}
+
 - (void)addComponent:(id)component withUIDGenerator:(id)generator
 {
   v8.receiver = self;
@@ -968,64 +1078,62 @@ LABEL_20:
 
 - (void)fixPropertiesInheritance
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   componentKeys = [(ICSCalendar *)self componentKeys];
-  v4 = [componentKeys countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v4 = [componentKeys countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v21;
+    v6 = *v20;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(componentKeys);
         }
 
-        v8 = *(*(&v20 + 1) + 8 * i);
+        v8 = *(*(&v19 + 1) + 8 * i);
         v9 = [(ICSCalendar *)self componentForKey:v8];
         v10 = [(ICSCalendar *)self componentOccurrencesForKey:v8];
+        v15 = 0u;
         v16 = 0u;
         v17 = 0u;
         v18 = 0u;
-        v19 = 0u;
-        v11 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v17;
+          v13 = *v16;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v17 != v13)
+              if (*v16 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              [*(*(&v16 + 1) + 8 * j) fixPropertiesInheritance:v9];
+              [*(*(&v15 + 1) + 8 * j) fixPropertiesInheritance:v9];
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
           }
 
           while (v12);
         }
       }
 
-      v5 = [componentKeys countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v5 = [componentKeys countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v5);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fixComponent
@@ -1050,39 +1158,37 @@ LABEL_20:
 
 - (void)fixEntities
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [(ICSCalendar *)self fixComponent];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   components = [(ICSComponent *)self components];
-  v4 = [components countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [components countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(components);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) fixComponent];
+        [*(*(&v8 + 1) + 8 * v7++) fixComponent];
       }
 
       while (v5 != v7);
-      v5 = [components countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [components countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

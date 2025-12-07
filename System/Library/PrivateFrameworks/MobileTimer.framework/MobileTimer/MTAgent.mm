@@ -61,32 +61,31 @@ uint64_t __16__MTAgent_agent__block_invoke()
 
 - (void)initCommon
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   date = [MEMORY[0x1E695DF00] date];
   launchDate = self->_launchDate;
   self->_launchDate = date;
 
-  self->_isHorseman = MTIsHorseman();
-  v5 = +[MTScheduler serialSchedulerWithName:priority:](MTScheduler, "serialSchedulerWithName:priority:", @"com.apple.MTAgent", +[MTScheduler defaultPriority]);
+  self->_isHorseman = MTIsHorseman(v5, v6);
+  v7 = +[MTScheduler serialSchedulerWithName:priority:](MTScheduler, "serialSchedulerWithName:priority:", @"com.apple.MTAgent", +[MTScheduler defaultPriority]);
   serializer = self->_serializer;
-  self->_serializer = v5;
+  self->_serializer = v7;
 
-  v7 = MTLogForCategory(1);
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v9 = MTLogForCategory(1);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ has launched", buf, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ has launched", buf, 0xCu);
   }
 
-  v8 = self->_serializer;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __21__MTAgent_initCommon__block_invoke;
-  v10[3] = &unk_1E7B0C9D8;
-  v10[4] = self;
-  [(NAScheduler *)v8 performBlock:v10];
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = self->_serializer;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __21__MTAgent_initCommon__block_invoke;
+  v11[3] = &unk_1E7B0C9D8;
+  v11[4] = self;
+  [(NAScheduler *)v10 performBlock:v11];
 }
 
 uint64_t __21__MTAgent_initCommon__block_invoke(uint64_t a1)
@@ -115,18 +114,11 @@ uint64_t __21__MTAgent_initCommon__block_invoke(uint64_t a1)
 
 - (void)_setupNotificationCenter
 {
-  v3 = off_1E7B0B908;
-  if (!self->_isHorseman)
-  {
-    v3 = off_1E7B0BBF8;
-  }
-
-  v4 = *v3;
-  v5 = objc_opt_new();
+  v3 = objc_opt_new();
   notificationCenter = self->_notificationCenter;
-  self->_notificationCenter = v5;
+  self->_notificationCenter = v3;
 
-  MEMORY[0x1EEE66BB8](v5, notificationCenter);
+  MEMORY[0x1EEE66BB8](v3, notificationCenter);
 }
 
 - (void)_setupStopwatches
@@ -251,13 +243,13 @@ uint64_t __21__MTAgent_initCommon__block_invoke(uint64_t a1)
 
 - (void)_setupSessions
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
+    v8 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ setting up activity coordinator", &v9, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ setting up activity coordinator", &v8, 0xCu);
   }
 
   v4 = [[MTActivityCoordinator alloc] initWithStorage:self->_timerStorage alarmStorage:self->_alarmStorage notificationCenter:self->_notificationCenter];
@@ -267,8 +259,6 @@ uint64_t __21__MTAgent_initCommon__block_invoke(uint64_t a1)
   v6 = [[MTSessionServer alloc] initWithCoordinator:self->_activityCoordinator];
   sessionServer = self->_sessionServer;
   self->_sessionServer = v6;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupAnalytics
@@ -356,15 +346,15 @@ uint64_t __21__MTAgent_initCommon__block_invoke(uint64_t a1)
   [(NAScheduler *)serializer performBlock:v3];
 }
 
-uint64_t __27__MTAgent_restoreDidFinish__block_invoke(uint64_t a1)
+void *__27__MTAgent_restoreDidFinish__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v17 = v3;
+    v16 = v3;
     _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ system is ready", buf, 0xCu);
   }
 
@@ -387,20 +377,20 @@ uint64_t __27__MTAgent_restoreDidFinish__block_invoke(uint64_t a1)
   [*(v4 + 192) registerAnalyticsDelegate:*(v4 + 88)];
   v6 = *(a1 + 32);
   v7 = *(v6 + 128);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __27__MTAgent_restoreDidFinish__block_invoke_39;
-  v15[3] = &unk_1E7B0C9D8;
-  v15[4] = v6;
-  [v7 registerStoreLoadCompletion:v15];
-  v8 = *(a1 + 32);
-  v9 = *(v8 + 160);
   v14[0] = MEMORY[0x1E69E9820];
   v14[1] = 3221225472;
-  v14[2] = __27__MTAgent_restoreDidFinish__block_invoke_2;
+  v14[2] = __27__MTAgent_restoreDidFinish__block_invoke_39;
   v14[3] = &unk_1E7B0C9D8;
-  v14[4] = v8;
-  [v9 registerStoreLoadCompletion:v14];
+  v14[4] = v6;
+  [v7 registerStoreLoadCompletion:v14];
+  v8 = *(a1 + 32);
+  v9 = *(v8 + 160);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __27__MTAgent_restoreDidFinish__block_invoke_2;
+  v13[3] = &unk_1E7B0C9D8;
+  v13[4] = v8;
+  [v9 registerStoreLoadCompletion:v13];
   v10 = *(a1 + 32);
   if ((*(v10 + 8) & 1) == 0)
   {
@@ -434,7 +424,7 @@ uint64_t __27__MTAgent_restoreDidFinish__block_invoke(uint64_t a1)
     [*(v12 + 104) startListening];
     [*(*(a1 + 32) + 136) startListening];
     [*(*(a1 + 32) + 176) startListening];
-    result = [*(*(a1 + 32) + 184) startListening];
+    return [*(*(a1 + 32) + 184) startListening];
   }
 
   else
@@ -442,7 +432,6 @@ uint64_t __27__MTAgent_restoreDidFinish__block_invoke(uint64_t a1)
     *(v12 + 9) = 1;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -532,7 +521,7 @@ uint64_t __24__MTAgent_handleF5Reset__block_invoke(uint64_t a1)
 
 - (void)handleMigrationFinish
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -542,13 +531,12 @@ uint64_t __24__MTAgent_handleF5Reset__block_invoke(uint64_t a1)
   }
 
   serializer = self->_serializer;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __32__MTAgent_handleMigrationFinish__block_invoke;
-  v6[3] = &unk_1E7B0C9D8;
-  v6[4] = self;
-  [(NAScheduler *)serializer performBlock:v6];
-  v5 = *MEMORY[0x1E69E9840];
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __32__MTAgent_handleMigrationFinish__block_invoke;
+  v5[3] = &unk_1E7B0C9D8;
+  v5[4] = self;
+  [(NAScheduler *)serializer performBlock:v5];
 }
 
 uint64_t __32__MTAgent_handleMigrationFinish__block_invoke(uint64_t a1)
@@ -653,7 +641,7 @@ uint64_t __32__MTAgent_handleMigrationFinish__block_invoke(uint64_t a1)
 
 - (void)printDiagnostics
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -687,7 +675,7 @@ uint64_t __32__MTAgent_handleMigrationFinish__block_invoke(uint64_t a1)
   {
     v8 = objc_opt_class();
     *buf = 138543362;
-    v28 = v8;
+    v27 = v8;
     _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "-----%{public}@-----", buf, 0xCu);
   }
 
@@ -696,35 +684,35 @@ uint64_t __32__MTAgent_handleMigrationFinish__block_invoke(uint64_t a1)
   {
     launchDate = [(MTAgent *)self launchDate];
     *buf = 138543362;
-    v28 = launchDate;
+    v27 = launchDate;
     _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_DEFAULT, "Launched: %{public}@", buf, 0xCu);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   _diagnosticProviders = [(MTAgent *)self _diagnosticProviders];
-  v12 = [_diagnosticProviders countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v12 = [_diagnosticProviders countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v23;
+    v14 = *v22;
     do
     {
       v15 = 0;
       do
       {
-        if (*v23 != v14)
+        if (*v22 != v14)
         {
           objc_enumerationMutation(_diagnosticProviders);
         }
 
-        [*(*(&v22 + 1) + 8 * v15++) printDiagnostics];
+        [*(*(&v21 + 1) + 8 * v15++) printDiagnostics];
       }
 
       while (v13 != v15);
-      v13 = [_diagnosticProviders countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v13 = [_diagnosticProviders countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v13);
@@ -764,37 +752,35 @@ uint64_t __32__MTAgent_handleMigrationFinish__block_invoke(uint64_t a1)
     *buf = 0;
     _os_log_impl(&dword_1B1F9F000, v20, OS_LOG_TYPE_DEFAULT, "", buf, 2u);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)gatherDiagnostics
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   launchDate = [(MTAgent *)self launchDate];
   [v3 setObject:launchDate forKeyedSubscript:@"Launched"];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   _diagnosticProviders = [(MTAgent *)self _diagnosticProviders];
-  v6 = [_diagnosticProviders countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [_diagnosticProviders countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(_diagnosticProviders);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           gatherDiagnostics = [v10 gatherDiagnostics];
@@ -802,20 +788,18 @@ uint64_t __32__MTAgent_handleMigrationFinish__block_invoke(uint64_t a1)
         }
       }
 
-      v7 = [_diagnosticProviders countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [_diagnosticProviders countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (void)_removeUserDefaultsDataIfNecessary:(id)necessary
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (([necessary isEqualToString:@"com.apple.mobiletimer"] & 1) != 0 || !necessary && (+[MTApplicationWorkspaceObserver sharedWorkspaceObserver](MTApplicationWorkspaceObserver, "sharedWorkspaceObserver"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isApplicationInstalledForBundleIdentifier:", @"com.apple.mobiletimer"), v7, (v8 & 1) == 0))
   {
     v5 = MTLogForCategory(4);
@@ -827,15 +811,13 @@ uint64_t __32__MTAgent_handleMigrationFinish__block_invoke(uint64_t a1)
     }
 
     serializer = [(MTAgent *)self serializer];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __46__MTAgent__removeUserDefaultsDataIfNecessary___block_invoke;
-    v10[3] = &unk_1E7B0C9D8;
-    v10[4] = self;
-    [serializer performBlock:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __46__MTAgent__removeUserDefaultsDataIfNecessary___block_invoke;
+    v9[3] = &unk_1E7B0C9D8;
+    v9[4] = self;
+    [serializer performBlock:v9];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeUserDefaultsData

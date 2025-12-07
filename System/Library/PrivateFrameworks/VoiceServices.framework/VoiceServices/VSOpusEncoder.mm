@@ -164,10 +164,10 @@ LABEL_13:
 
 - (VSOpusEncoder)initWithSourceASBD:(AudioStreamBasicDescription *)d
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v22.receiver = self;
-  v22.super_class = VSOpusEncoder;
-  v4 = [(VSOpusEncoder *)&v22 init];
+  v24 = *MEMORY[0x277D85DE8];
+  v21.receiver = self;
+  v21.super_class = VSOpusEncoder;
+  v4 = [(VSOpusEncoder *)&v21 init];
   if (v4)
   {
     v5 = [objc_alloc(MEMORY[0x277CB83A8]) initWithStreamDescription:d];
@@ -187,9 +187,9 @@ LABEL_13:
       v11 = VSGetLogDefault();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v21 = v4->_converter;
+        v20 = v4->_converter;
         *buf = 138412290;
-        v24 = v21;
+        v23 = v20;
         _os_log_error_impl(&dword_272850000, v11, OS_LOG_TYPE_ERROR, "converter.maximumOutputPacketSize is 0. Falling back to maximumPacketSize 1024. Converter is %@", buf, 0xCu);
       }
 
@@ -219,7 +219,6 @@ LABEL_13:
     v4->_outputBuffer = v17;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

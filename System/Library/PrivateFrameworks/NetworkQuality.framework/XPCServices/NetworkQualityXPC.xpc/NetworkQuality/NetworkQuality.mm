@@ -1,4 +1,4 @@
-void sub_100000D78()
+void sub_100000D78(uint64_t result, uint64_t a2)
 {
   if (qword_100008728 != -1)
   {
@@ -135,57 +135,57 @@ void sub_100001580(uint64_t a1, NSObject *a2, void *a3, int a4)
   {
     if (changes)
     {
-      sub_100000D78();
-      v14 = qword_100008730;
+      sub_100000D78(changes, v9);
+      v17 = qword_100008730;
       if (os_log_type_enabled(qword_100008730, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 136315394;
-        v17 = "[NetworkQualityXPC findLocalMeasurementEndpoints:]_block_invoke";
-        v18 = 1024;
-        v19 = 94;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%s:%u - nw_browse_result_change_identical, returning", &v16, 0x12u);
+        v19 = 136315394;
+        v20 = "[NetworkQualityXPC findLocalMeasurementEndpoints:]_block_invoke";
+        v21 = 1024;
+        v22 = 94;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%s:%u - nw_browse_result_change_identical, returning", &v19, 0x12u);
       }
     }
 
     else
     {
-      v9 = nw_browse_result_copy_endpoint(v7);
-      sub_100000D78();
-      v10 = qword_100008730;
+      v10 = nw_browse_result_copy_endpoint(v7);
+      sub_100000D78(v10, v11);
+      v12 = qword_100008730;
       if (os_log_type_enabled(qword_100008730, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 136315650;
-        v17 = "[NetworkQualityXPC findLocalMeasurementEndpoints:]_block_invoke";
-        v18 = 1024;
-        v19 = 99;
-        v20 = 2112;
-        v21 = v9;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s:%u - Adding %@", &v16, 0x1Cu);
+        v19 = 136315650;
+        v20 = "[NetworkQualityXPC findLocalMeasurementEndpoints:]_block_invoke";
+        v21 = 1024;
+        v22 = 99;
+        v23 = 2112;
+        v24 = v10;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s:%u - Adding %@", &v19, 0x1Cu);
       }
 
-      bonjour_service_name = nw_endpoint_get_bonjour_service_name(v9);
+      bonjour_service_name = nw_endpoint_get_bonjour_service_name(v10);
       if (bonjour_service_name)
       {
-        v12 = [NSString stringWithUTF8String:bonjour_service_name];
-        if (([v12 isEqualToString:*(a1 + 40)] & 1) == 0)
+        v15 = [NSString stringWithUTF8String:bonjour_service_name];
+        if (([v15 isEqualToString:*(a1 + 40)] & 1) == 0)
         {
-          [*(a1 + 48) addObject:v12];
+          [*(a1 + 48) addObject:v15];
         }
       }
 
       else
       {
-        sub_100000D78();
-        v15 = qword_100008730;
+        sub_100000D78(0, v14);
+        v18 = qword_100008730;
         if (os_log_type_enabled(qword_100008730, OS_LOG_TYPE_DEFAULT))
         {
-          v16 = 136315650;
-          v17 = "[NetworkQualityXPC findLocalMeasurementEndpoints:]_block_invoke";
-          v18 = 1024;
-          v19 = 103;
-          v20 = 2112;
-          v21 = v9;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%s:%u - NULL service_name for %@", &v16, 0x1Cu);
+          v19 = 136315650;
+          v20 = "[NetworkQualityXPC findLocalMeasurementEndpoints:]_block_invoke";
+          v21 = 1024;
+          v22 = 103;
+          v23 = 2112;
+          v24 = v10;
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%s:%u - NULL service_name for %@", &v19, 0x1Cu);
         }
       }
 
@@ -198,15 +198,15 @@ void sub_100001580(uint64_t a1, NSObject *a2, void *a3, int a4)
 
   else
   {
-    sub_100000D78();
-    v13 = qword_100008730;
+    sub_100000D78(0, v9);
+    v16 = qword_100008730;
     if (os_log_type_enabled(qword_100008730, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 136315394;
-      v17 = "[NetworkQualityXPC findLocalMeasurementEndpoints:]_block_invoke_2";
-      v18 = 1024;
-      v19 = 89;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%s:%u - nw_browse_result_change_invalid, returning", &v16, 0x12u);
+      v19 = 136315394;
+      v20 = "[NetworkQualityXPC findLocalMeasurementEndpoints:]_block_invoke_2";
+      v21 = 1024;
+      v22 = 89;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%s:%u - nw_browse_result_change_invalid, returning", &v19, 0x12u);
     }
 
     dispatch_semaphore_signal(*(a1 + 32));

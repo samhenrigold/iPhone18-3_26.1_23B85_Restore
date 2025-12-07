@@ -737,27 +737,27 @@ LABEL_10:
 
   if ([pointsCopy count])
   {
-    v12 = 0;
-    v13 = &v12;
-    v14 = 0x2050000000;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2050000000;
     v7 = getHKAudiogramSampleClass_softClass;
-    v15 = getHKAudiogramSampleClass_softClass;
+    v19 = getHKAudiogramSampleClass_softClass;
     if (!getHKAudiogramSampleClass_softClass)
     {
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = __getHKAudiogramSampleClass_block_invoke;
-      v11[3] = &unk_278CEC150;
-      v11[4] = &v12;
-      __getHKAudiogramSampleClass_block_invoke(v11);
-      v7 = v13[3];
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __getHKAudiogramSampleClass_block_invoke;
+      v15[3] = &unk_278CEC150;
+      v15[4] = &v16;
+      __getHKAudiogramSampleClass_block_invoke(v15);
+      v7 = v17[3];
     }
 
     v8 = v7;
-    _Block_object_dispose(&v12, 8);
-    v9 = metadataForHKAudiogramSample();
-    v10 = [v7 audiogramSampleWithSensitivityPoints:pointsCopy startDate:getPickedDate endDate:getPickedDate metadata:v9];
-    [(AIAudiogramIndividualFrequencyInputViewController *)self setAudiogram:v10];
+    _Block_object_dispose(&v16, 8);
+    v13 = metadataForHKAudiogramSample(v9, v10, v11, v12);
+    v14 = [v7 audiogramSampleWithSensitivityPoints:pointsCopy startDate:getPickedDate endDate:getPickedDate metadata:v13];
+    [(AIAudiogramIndividualFrequencyInputViewController *)self setAudiogram:v14];
   }
 
   else

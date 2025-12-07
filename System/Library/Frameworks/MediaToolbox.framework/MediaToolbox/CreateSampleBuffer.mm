@@ -49,7 +49,7 @@ double __remoteSampleCursor_CreateSampleBuffer_block_invoke(uint64_t a1, CMBlock
   return result;
 }
 
-uint64_t __remoteSampleCursor_CreateSampleBuffer_block_invoke_2(int a1, CMBlockBufferRef theBuffer)
+uint64_t __remoteSampleCursor_CreateSampleBuffer_block_invoke_2(uint64_t a1, CMBlockBufferRef theBuffer)
 {
   lengthAtOffsetOut = 0;
   dataPointerOut = 0;

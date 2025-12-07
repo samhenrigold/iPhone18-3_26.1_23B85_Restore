@@ -132,7 +132,7 @@
   completionCopy = completion;
   dCopy = d;
   v7 = MRGetSharedService();
-  v8 = MRGroupSessionSubsystemGetNotificationQueue();
+  v8 = MRGroupSessionSubsystemGetNotificationQueue(v7);
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 3221225472;
   v10[2] = __104__MRPlaybackQueueParticipant_fetchPlaybackQueueParticipantIdentifierForLocalAccountWithDSID_completion___block_invoke;
@@ -180,7 +180,7 @@ void __104__MRPlaybackQueueParticipant_fetchPlaybackQueueParticipantIdentifierFo
 
 void __90__MRPlaybackQueueParticipant_fetchParticipantsWithRequest_forPlayerPath_queue_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (![v5 isResolved])
@@ -196,17 +196,17 @@ void __90__MRPlaybackQueueParticipant_fetchParticipantsWithRequest_forPlayerPath
     }
 
     v17 = *(a1 + 32);
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __90__MRPlaybackQueueParticipant_fetchParticipantsWithRequest_forPlayerPath_queue_completion___block_invoke_22;
-    v19[3] = &unk_1E769AC18;
-    v22 = *(a1 + 56);
-    v20 = v6;
-    v21 = Error;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __90__MRPlaybackQueueParticipant_fetchParticipantsWithRequest_forPlayerPath_queue_completion___block_invoke_22;
+    v18[3] = &unk_1E769AC18;
+    v21 = *(a1 + 56);
+    v19 = v6;
+    v20 = Error;
     v11 = Error;
-    dispatch_async(v17, v19);
+    dispatch_async(v17, v18);
 
-    v14 = v22;
+    v14 = v21;
 LABEL_11:
 
     goto LABEL_12;
@@ -222,24 +222,24 @@ LABEL_11:
     {
       v10 = *(a1 + 40);
       *buf = 138412546;
-      v29 = v10;
-      v30 = 2112;
-      v31 = v5;
+      v28 = v10;
+      v29 = 2112;
+      v30 = v5;
       _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "[MRPlaybackQueueParticipantRequest]<%@> for playerPath: %@", buf, 0x16u);
     }
 
     v11 = MRGetSharedService();
     v12 = *(a1 + 32);
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __90__MRPlaybackQueueParticipant_fetchParticipantsWithRequest_forPlayerPath_queue_completion___block_invoke_20;
-    v23[3] = &unk_1E769E2A8;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __90__MRPlaybackQueueParticipant_fetchParticipantsWithRequest_forPlayerPath_queue_completion___block_invoke_20;
+    v22[3] = &unk_1E769E2A8;
     v13 = *(a1 + 48);
-    v24 = *(a1 + 40);
-    v25 = *(a1 + 56);
-    [v11 fetchParticipantsWithRequest:v13 playerPath:v5 queue:v12 completion:v23];
+    v23 = *(a1 + 40);
+    v24 = *(a1 + 56);
+    [v11 fetchParticipantsWithRequest:v13 playerPath:v5 queue:v12 completion:v22];
 
-    v14 = v24;
+    v14 = v23;
     goto LABEL_11;
   }
 
@@ -248,17 +248,15 @@ LABEL_11:
   block[1] = 3221225472;
   block[2] = __90__MRPlaybackQueueParticipant_fetchParticipantsWithRequest_forPlayerPath_queue_completion___block_invoke_2;
   block[3] = &unk_1E769AD58;
-  v27 = *(a1 + 56);
+  v26 = *(a1 + 56);
   dispatch_async(v16, block);
-  v11 = v27;
+  v11 = v26;
 LABEL_12:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __90__MRPlaybackQueueParticipant_fetchParticipantsWithRequest_forPlayerPath_queue_completion___block_invoke_20(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = _MRLogForCategory(0xCuLL);
@@ -275,15 +273,14 @@ void __90__MRPlaybackQueueParticipant_fetchParticipantsWithRequest_forPlayerPath
       v9 = v5;
     }
 
-    v11 = 138412546;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "[MRPlaybackQueueParticipantRequest]<%@> Response: %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "[MRPlaybackQueueParticipantRequest]<%@> Response: %@", &v10, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __90__MRPlaybackQueueParticipant_fetchParticipantsWithRequest_forPlayerPath_queue_completion___block_invoke_22(void *a1)
@@ -300,7 +297,7 @@ uint64_t __90__MRPlaybackQueueParticipant_fetchParticipantsWithRequest_forPlayer
 
 + (id)expectedIdentifierForUserIdentity:(id)identity withRandomData:(id)data
 {
-  v70[0] = *MEMORY[0x1E69E9840];
+  v69[0] = *MEMORY[0x1E69E9840];
   identityCopy = identity;
   dataCopy = data;
   identifier = [identityCopy identifier];
@@ -313,26 +310,26 @@ uint64_t __90__MRPlaybackQueueParticipant_fetchParticipantsWithRequest_forPlayer
   }
 
   v10 = v8;
-  memset(v64, 0, sizeof(v64));
-  CC_SHA1_Init(v64);
+  memset(v63, 0, sizeof(v63));
+  CC_SHA1_Init(v63);
   v11 = v10;
-  CC_SHA1_Update(v64, [v11 UTF8String], objc_msgSend(v11, "length"));
+  CC_SHA1_Update(v63, [v11 UTF8String], objc_msgSend(v11, "length"));
 
-  memset(&v65[8], 0, 64);
-  *v65 = 4001;
-  CC_SHA1_Final(&v65[8], v64);
-  v66[0] = *v65;
-  v66[1] = *&v65[16];
-  v66[2] = *&v65[32];
-  v66[3] = *&v65[48];
-  v67 = *&v65[64];
-  if (*v65 > 3999)
+  memset(&v64[8], 0, 64);
+  *v64 = 4001;
+  CC_SHA1_Final(&v64[8], v63);
+  v65[0] = *v64;
+  v65[1] = *&v64[16];
+  v65[2] = *&v64[32];
+  v65[3] = *&v64[48];
+  v66 = *&v64[64];
+  if (*v64 > 3999)
   {
-    if (*v65 > 4255)
+    if (*v64 > 4255)
     {
-      if (*v65 == 4256)
+      if (*v64 == 4256)
       {
-        v52 = v66 + 8;
+        v52 = v65 + 8;
         v53 = malloc_type_calloc(0x40uLL, 1uLL, 0x100004077774924uLL);
         v54 = v53;
         for (i = 0; i != 64; i += 2)
@@ -350,12 +347,12 @@ uint64_t __90__MRPlaybackQueueParticipant_fetchParticipantsWithRequest_forPlayer
 
       else
       {
-        if (*v65 != 4512)
+        if (*v64 != 4512)
         {
           goto LABEL_52;
         }
 
-        v31 = v66 + 8;
+        v31 = v65 + 8;
         v32 = malloc_type_calloc(0x80uLL, 1uLL, 0x100004077774924uLL);
         v33 = v32;
         for (j = 0; j != 128; j += 2)
@@ -372,9 +369,9 @@ uint64_t __90__MRPlaybackQueueParticipant_fetchParticipantsWithRequest_forPlayer
       }
     }
 
-    else if (*v65 == 4000)
+    else if (*v64 == 4000)
     {
-      v42 = v66 + 8;
+      v42 = v65 + 8;
       v43 = malloc_type_calloc(0x20uLL, 1uLL, 0x100004077774924uLL);
       v44 = v43;
       for (k = 0; k != 32; k += 2)
@@ -392,12 +389,12 @@ uint64_t __90__MRPlaybackQueueParticipant_fetchParticipantsWithRequest_forPlayer
 
     else
     {
-      if (*v65 != 4001)
+      if (*v64 != 4001)
       {
         goto LABEL_52;
       }
 
-      v18 = v66 + 8;
+      v18 = v65 + 8;
       v19 = malloc_type_calloc(0x28uLL, 1uLL, 0x100004077774924uLL);
       v20 = v19;
       for (m = 0; m != 40; m += 2)
@@ -414,23 +411,23 @@ uint64_t __90__MRPlaybackQueueParticipant_fetchParticipantsWithRequest_forPlayer
     }
 
 LABEL_47:
-    v58 = [v24 initWithBytesNoCopy:v25 length:v26 encoding:4 freeWhenDone:{1, 4001, *v64}];
+    v58 = [v24 initWithBytesNoCopy:v25 length:v26 encoding:4 freeWhenDone:{1, 4001, *v63}];
 LABEL_48:
     v59 = v58;
     goto LABEL_49;
   }
 
-  if (*v65 > 2999)
+  if (*v64 > 2999)
   {
-    if (*v65 == 3000)
+    if (*v64 == 3000)
     {
-      LODWORD(v68[0]) = bswap32(DWORD2(v66[0]));
+      LODWORD(v67[0]) = bswap32(DWORD2(v65[0]));
       v48 = malloc_type_calloc(8uLL, 1uLL, 0x100004077774924uLL);
       v49 = 0;
       v50 = v48 + 1;
       do
       {
-        v51 = *(v68 + v49);
+        v51 = *(v67 + v49);
         *(v50 - 1) = MSVFastHexStringFromBytes_hexCharacters_0[v51 >> 4];
         *v50 = MSVFastHexStringFromBytes_hexCharacters_0[v51 & 0xF];
         v50 += 2;
@@ -445,18 +442,18 @@ LABEL_48:
 
     else
     {
-      if (*v65 != 3001)
+      if (*v64 != 3001)
       {
         goto LABEL_52;
       }
 
-      v68[0] = bswap64(*(&v66[0] + 1));
+      v67[0] = bswap64(*(&v65[0] + 1));
       v27 = malloc_type_calloc(0x10uLL, 1uLL, 0x100004077774924uLL);
       v28 = 0;
       v29 = v27 + 1;
       do
       {
-        v30 = *(v68 + v28);
+        v30 = *(v67 + v28);
         *(v29 - 1) = MSVFastHexStringFromBytes_hexCharacters_0[v30 >> 4];
         *v29 = MSVFastHexStringFromBytes_hexCharacters_0[v30 & 0xF];
         v29 += 2;
@@ -472,13 +469,13 @@ LABEL_48:
     goto LABEL_47;
   }
 
-  if (*v65 == 1000)
+  if (*v64 == 1000)
   {
-    v37 = *(&v66[0] + 1);
-    if (*(&v66[0] + 1))
+    v37 = *(&v65[0] + 1);
+    if (*(&v65[0] + 1))
     {
-      v38 = &v69;
-      quot = *(&v66[0] + 1);
+      v38 = &v68;
+      quot = *(&v65[0] + 1);
       do
       {
         v40 = lldiv(quot, 10);
@@ -507,7 +504,7 @@ LABEL_48:
         ++v38;
       }
 
-      v16 = v70 - v38;
+      v16 = v69 - v38;
       v17 = v38;
       goto LABEL_56;
     }
@@ -515,19 +512,19 @@ LABEL_48:
     goto LABEL_53;
   }
 
-  if (*v65 != 2000)
+  if (*v64 != 2000)
   {
 LABEL_52:
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v63 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString * _Nonnull _MSVHashGetDigest(MSVHash)"];
-    [currentHandler handleFailureInFunction:v63 file:@"MSVHasher+Algorithms.h" lineNumber:356 description:@"Cannot obtain digest from unknown hasher algorithm"];
+    v62 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString * _Nonnull _MSVHashGetDigest(MSVHash)"];
+    [currentHandler handleFailureInFunction:v62 file:@"MSVHasher+Algorithms.h" lineNumber:356 description:@"Cannot obtain digest from unknown hasher algorithm"];
 
     v59 = &stru_1F1513E38;
     goto LABEL_49;
   }
 
-  v12 = DWORD2(v66[0]);
-  if (DWORD2(v66[0]))
+  v12 = DWORD2(v65[0]);
+  if (DWORD2(v65[0]))
   {
     v13 = 0;
     do
@@ -544,12 +541,12 @@ LABEL_52:
         v15 = -v14.rem;
       }
 
-      *(&v69 + v13--) = v15 + 48;
+      *(&v68 + v13--) = v15 + 48;
     }
 
     while (v14.quot);
     v16 = -v13;
-    v17 = v70 + v13;
+    v17 = v69 + v13;
 LABEL_56:
     v58 = CFStringCreateWithBytes(0, v17, v16, 0x8000100u, 0);
     goto LABEL_48;
@@ -558,8 +555,6 @@ LABEL_56:
 LABEL_53:
   v59 = @"0";
 LABEL_49:
-
-  v60 = *MEMORY[0x1E69E9840];
 
   return v59;
 }

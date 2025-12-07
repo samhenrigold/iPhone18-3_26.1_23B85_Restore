@@ -15,16 +15,12 @@
     return 0;
   }
 
-  trie = self->_trie;
   if (CFBurstTrieContainsUTF8String())
   {
     return 0;
   }
 
-  else
-  {
-    return 0;
-  }
+  return 0;
 }
 
 - (unsigned)payloadForString:(id)string range:(_NSRange)range
@@ -37,61 +33,57 @@
 
 - (unsigned)payloadForString:(id)string
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   stringCopy = string;
-  v8 = objc_msgSend_length(stringCopy, v5, v6, v7);
+  v7 = objc_msgSend_length(stringCopy, v4, v5, v6);
   if (CFStringGetCStringPtr(stringCopy, 0x600u))
   {
-    trie = self->_trie;
-LABEL_3:
-    CFBurstTrieContainsUTF8String();
-    goto LABEL_4;
+    goto LABEL_2;
   }
 
-  if (v8 <= 0xFF)
+  if (v7 <= 0xFF)
   {
-    v39 = 0;
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
+    v34 = 0;
     v32 = 0u;
-    v29 = 0u;
+    v33 = 0u;
     v30 = 0u;
-    v27 = 0u;
+    v31 = 0u;
     v28 = 0u;
-    v25 = 0u;
+    v29 = 0u;
     v26 = 0u;
-    v23 = 0u;
+    v27 = 0u;
     v24 = 0u;
-    v21 = 0u;
+    v25 = 0u;
     v22 = 0u;
-    v19 = 0u;
+    v23 = 0u;
     v20 = 0u;
-    v17 = 0u;
+    v21 = 0u;
     v18 = 0u;
-    *__s = 0u;
+    v19 = 0u;
     v16 = 0u;
-    if (objc_msgSend_getCString_maxLength_encoding_(stringCopy, v9, __s, 385, 4))
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
+    *__s = 0u;
+    v11 = 0u;
+    if (objc_msgSend_getCString_maxLength_encoding_(stringCopy, v8, __s, 385, 4))
     {
-      v13 = self->_trie;
       strlen(__s);
+LABEL_2:
+      CFBurstTrieContainsUTF8String();
       goto LABEL_3;
     }
   }
 
   if (stringCopy)
   {
-    v14 = self->_trie;
     CFBurstTrieContains();
   }
 
-LABEL_4:
+LABEL_3:
 
-  v11 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -109,23 +101,23 @@ LABEL_4:
 
 - (GDCFBurstTrie)initWithPath:(id)path
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (!pathCopy)
   {
-    v14 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v5, v6, v7);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v14, v15, a2, self, @"GDCFBurstTrie.m", 32, @"Invalid parameter not satisfying: %@", @"path");
+    v13 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v5, v6, v7);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v13, v14, a2, self, @"GDCFBurstTrie.m", 32, @"Invalid parameter not satisfying: %@", @"path");
   }
 
-  v16.receiver = self;
-  v16.super_class = GDCFBurstTrie;
-  v9 = [(GDCFBurstTrie *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = GDCFBurstTrie;
+  v9 = [(GDCFBurstTrie *)&v15 init];
   if (v9 && (v10 = CFBurstTrieCreateFromFile(), (v9->_trie = v10) == 0))
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = pathCopy;
+      v17 = pathCopy;
       _os_log_error_impl(&dword_1C43F8000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Could not open trie: %@", buf, 0xCu);
     }
 
@@ -137,7 +129,6 @@ LABEL_4:
     v11 = v9;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

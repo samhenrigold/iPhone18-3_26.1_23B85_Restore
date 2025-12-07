@@ -1,4 +1,4 @@
-uint64_t _compressAuxImage(const __CFAllocator *a1, uint64_t a2, __CFArray *a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(uint64_t, uint64_t, CFTypeRef *, const __CFDictionary **, char *, CFTypeRef *, __CVBuffer **, CFTypeRef *, CFTypeRef *), uint64_t a7, __CFData *a8)
+uint64_t _compressAuxImage(const __CFAllocator *a1, uint64_t a2, __CFArray *a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(uint64_t, uint64_t, CFTypeRef *, const __CFDictionary **, int *, CFTypeRef *, __CVBuffer **, CFTypeRef *, CFTypeRef *), uint64_t a7, __CFData *a8)
 {
   v50 = 0;
   v51[0] = 0;
@@ -11,7 +11,7 @@ uint64_t _compressAuxImage(const __CFAllocator *a1, uint64_t a2, __CFArray *a3, 
   cf = 0;
   v42 = 0;
   HIDWORD(v41) = 0;
-  v13 = a6(a4, a7, v51, &v50, &v41 + 4, &v48, &v49, &cf, &v43);
+  v13 = a6(a4, a7, v51, &v50, &v41 + 1, &v48, &v49, &cf, &v43);
   if (v13)
   {
     v31 = v13;
@@ -87,7 +87,7 @@ LABEL_14:
   CMPhotoCFDictionarySetInt32(v18, @"Subsampling", 6);
   v39 = 0u;
   v40 = 0u;
-  v19 = CMPhotoUnifiedJPEGEncoderEncode(a2, v18, v49, a5, &v39, 1, 1, a8);
+  v19 = CMPhotoUnifiedJPEGEncoderEncode(a2, v18, v49, a5, &v39, 1, 1, a8, &v47);
   if (v19)
   {
 LABEL_43:
@@ -361,16 +361,16 @@ LABEL_14:
 
 uint64_t _scannerCallbackRestartMarker(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5)
 {
-  v5 = *(a5 + 64);
-  if (!v5)
+  v6 = *(a5 + 64);
+  if (!v6)
   {
     goto LABEL_4;
   }
 
-  v6 = *(a5 + 72);
-  if (*(a5 + 40) > v6)
+  v7 = *(a5 + 72);
+  if (*(a5 + 40) > v7)
   {
-    *(v5 + 4 * v6) = *(a5 + 32) + a3;
+    *(v6 + 4 * v7) = *(a5 + 32) + a3;
     ++*(a5 + 72);
 LABEL_4:
     if (!*(a5 + 9))
@@ -378,9 +378,9 @@ LABEL_4:
       return 0;
     }
 
-    v7 = *(a5 + 10);
-    sourceBytes = v7 | 0xD0;
-    *(a5 + 10) = (v7 + 1) & 7;
+    v8 = *(a5 + 10);
+    sourceBytes = v8 | 0xD0;
+    *(a5 + 10) = (v8 + 1) & 7;
     if (*a5)
     {
       return CMBlockBufferReplaceDataBytes(&sourceBytes, *a5, a2 + 1, 1uLL);
@@ -392,9 +392,9 @@ LABEL_4:
     }
   }
 
-  fig_log_get_emitter();
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294950304, "<<<< CMPhotoUnifiedJPEGEncoder >>>>", 1374, v5);
 }
 
 uint64_t __CMPhotoUnifiedJPEGEncoderWriteAROTTableToPtr_block_invoke(void *a1, size_t __n, void *__src)
@@ -420,79 +420,79 @@ uint64_t __CMPhotoUnifiedJPEGEncoderWriteAROTTableToPtr_block_invoke(void *a1, s
   return result;
 }
 
-uint64_t CMPhotoUnifiedJPEGEncoderEncode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64x2_t *a5, uint64_t a6, uint64_t a7, __CFData *a8)
+uint64_t CMPhotoUnifiedJPEGEncoderEncode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64x2_t *a5, uint64_t a6, uint64_t a7, __CFData *a8, uint64_t a9)
 {
-  v8 = a5[1];
-  v10[0] = *a5;
-  v10[1] = v8;
-  return _encodeBuffer(a1, a2, a3, a4, v10, a6, a7, a8, v10[0], 0, 0, CMPhotoRectZero_0, a8);
+  v9 = a5[1];
+  v11[0] = *a5;
+  v11[1] = v9;
+  return _encodeBuffer(a1, a2, a3, a4, v11, a6, a7, a8, v11[0], v9, 0, 0, CMPhotoRectZero_0, a8);
 }
 
-uint64_t _encodeBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64x2_t a9, unint64_t *a10, uint64_t a11, CMSampleBufferRef *a12, __CFData *a13)
+uint64_t _encodeBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64x2_t a9, uint64x2_t a10, CMSampleBufferRef *a12, uint64_t a13, CMSampleBufferRef *arg20, __CFData *a14)
 {
-  v13 = MEMORY[0x1EEE9AC00]();
-  v190 = v19;
+  v14 = MEMORY[0x1EEE9AC00](a1);
+  v198 = v20;
   sbuf = 0;
-  v221 = 0;
-  v219 = 0u;
+  v229 = 0;
+  v227 = 0u;
+  v228 = 0u;
+  v225 = 0u;
+  v226 = 0u;
+  v223 = 0u;
+  v224 = 0u;
+  v222 = 0;
   v220 = 0u;
-  v217 = 0u;
+  v221 = 0u;
   v218 = 0u;
-  v215 = 0u;
+  v219 = 0u;
   v216 = 0u;
-  v214 = 0;
+  v217 = 0u;
+  v214 = 0u;
+  v215 = 0u;
   v212 = 0u;
   v213 = 0u;
   v210 = 0u;
   v211 = 0u;
-  v208 = 0u;
+  *v208 = 0u;
   v209 = 0u;
-  v206 = 0u;
-  v207 = 0u;
-  v204 = 0u;
-  v205 = 0u;
-  v202 = 0u;
-  v203 = 0u;
-  *v200 = 0u;
-  v201 = 0u;
-  if ((a12 == 0) != (a13 != 0))
+  if ((arg20 == 0) != (a14 != 0))
   {
     _encodeBuffer_cold_12();
     Capabilities = 0;
     goto LABEL_460;
   }
 
-  v20 = v18;
-  v21 = v17;
-  v22 = v14;
-  v198 = v13;
-  pixelBuffer = v15;
-  v191 = v16;
-  v23 = a11;
+  v21 = v19;
+  v22 = v18;
+  v23 = v15;
+  v206 = v14;
+  pixelBuffer = v16;
+  v199 = v17;
+  v24 = a13;
   if (*MEMORY[0x1E695FF58] == 1)
   {
     kdebug_trace();
-    v23 = a11;
+    v24 = a13;
   }
 
-  v24 = v21[1];
-  v196 = *v21;
-  v26 = v21[2];
-  v25 = v21[3];
-  v27 = *a10;
-  v28 = a10[1];
-  v29 = a10[2];
-  v30 = a10[3];
-  *&v202 = v23;
-  LOWORD(v201) = 257;
-  DWORD2(v202) = -1;
-  HIDWORD(v201) = v20;
-  v200[0] = 5;
-  *(&v201 + 4) = 0x10000000101;
-  *&v200[2] = 8;
+  v25 = v22[1];
+  v204 = *v22;
+  v27 = v22[2];
+  v26 = v22[3];
+  v28 = *a12;
+  v29 = a12[1];
+  v30 = a12[2];
+  v31 = a12[3];
+  *&v210 = v24;
+  LOWORD(v209) = 257;
+  DWORD2(v210) = -1;
+  HIDWORD(v209) = v21;
+  v208[0] = 5;
+  *(&v209 + 4) = 0x10000000101;
+  *&v208[2] = 8;
   PixelFormatType = CVPixelBufferGetPixelFormatType(pixelBuffer);
-  CMPhotoGetDestinationPixelFormatFromOptionsJPEG(v22, PixelFormatType, &v200[2], v200, 0);
-  if (v22)
+  CMPhotoGetDestinationPixelFormatFromOptionsJPEG(v23, PixelFormatType, &v208[2], v208, 0);
+  if (v23)
   {
     CMPhotoCFDictionaryGetBooleanIfPresent();
     CMPhotoCFDictionaryGetBooleanIfPresent();
@@ -501,22 +501,22 @@ uint64_t _encodeBuffer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     CMPhotoCFDictionaryGetBooleanIfPresent();
     CMPhotoCFDictionaryGetBooleanIfPresent();
     CMPhotoCFDictionaryGetBooleanIfPresent();
-    CMPhotoCFDictionaryGetSizeIfPresent(v22, @"BitDepth", &v200[2]);
+    CMPhotoCFDictionaryGetSizeIfPresent(v23, @"BitDepth", &v208[2]);
   }
 
-  v32 = v196;
-  if (v27 | v28 || v29 | v30)
+  v33 = v204;
+  if (v28 | v29 || v30 | v31)
   {
-    if (v196 | v24 || v26 | v25)
+    if (v204 | v25 || v27 | v26)
     {
-      if (v26 != v29 || (v29 = v26, v45 = v25 == v30, v30 = v25, !v45))
+      if (v27 != v30 || (v30 = v27, v46 = v26 == v31, v31 = v26, !v46))
       {
-        _encodeBuffer_cold_5(&v239);
+        _encodeBuffer_cold_5(&v247);
 LABEL_157:
-        Capabilities = v239;
-        v61 = v191;
-        v63 = v198;
-        v62 = pixelBuffer;
+        Capabilities = v247;
+        v62 = v199;
+        v64 = v206;
+        v63 = pixelBuffer;
         goto LABEL_107;
       }
     }
@@ -524,279 +524,279 @@ LABEL_157:
     else
     {
       CMPhotoGetPixelBufferCLAPAsRect(pixelBuffer);
-      if (v29 != vcvtad_u64_f64(v34) || v30 != vcvtad_u64_f64(v33))
+      if (v30 != vcvtad_u64_f64(v35) || v31 != vcvtad_u64_f64(v34))
       {
-        _encodeBuffer_cold_1(&v239);
+        _encodeBuffer_cold_1(&v247);
         goto LABEL_157;
       }
 
-      v32 = v196;
+      v33 = v204;
     }
 
-    v35 = 0;
-    v36 = v30 + v28;
-    if (a9.i64[0] >= v29 + v27)
-    {
-      v37 = v29 + v27;
-    }
-
-    else
-    {
-      v37 = a9.i64[0];
-    }
-
-    if (a9.i64[1] >= v36)
+    v36 = 0;
+    v37 = v29 + v31;
+    if (a10.i64[0] >= v30 + v28)
     {
       v38 = v30 + v28;
     }
 
     else
     {
-      v38 = a9.u64[1];
+      v38 = a10.i64[0];
     }
 
-    v39 = v37 - v27;
-    if (v37 <= v27)
+    if (a10.i64[1] >= v37)
     {
-      v40 = 0;
-      v41 = 0;
-      v42 = 0;
+      v39 = v29 + v31;
     }
 
     else
     {
-      v40 = 0;
+      v39 = a10.i64[1];
+    }
+
+    v40 = &v38[-v28];
+    if (v38 <= v28)
+    {
       v41 = 0;
       v42 = 0;
-      v43 = v38 > v28;
-      v44 = v38 - v28;
-      if (v43)
+      v43 = 0;
+    }
+
+    else
+    {
+      v41 = 0;
+      v42 = 0;
+      v43 = 0;
+      v44 = v39 > v29;
+      v45 = (v39 - v29);
+      if (v44)
       {
-        v35 = v44;
-        v40 = v39;
-        v41 = v28;
-        v42 = v27;
+        v36 = v45;
+        v41 = v40;
+        v42 = v29;
+        v43 = v28;
       }
     }
 
-    if (v27 != v42 || v28 != v41 || v29 != v40 || v30 != v35)
+    if (v28 != v43 || v29 != v42 || v30 != v41 || v31 != v36)
     {
-      _encodeBuffer_cold_4(&v239);
+      _encodeBuffer_cold_4(&v247);
       goto LABEL_157;
     }
 
-    LOBYTE(v201) = (v27 | v28) == 0;
-    v45 = v29 + v27 == a9.i64[0] && v36 == a9.i64[1];
-    v46 = v45;
-    BYTE1(v201) = v46;
-    if (v27 | v28)
+    LOBYTE(v209) = (v28 | v29) == 0;
+    v46 = (v30 + v28) == a10.i64[0] && v37 == a10.i64[1];
+    v47 = v46;
+    BYTE1(v209) = v47;
+    if (v28 | v29)
     {
-      v48 = v200[0] == 5 || v200[0] == 2;
-      v49 = v48;
-      v50 = 7;
-      if (v48)
+      v49 = v208[0] == 5 || v208[0] == 2;
+      v50 = v49;
+      v51 = 7;
+      if (v49)
       {
-        v50 = 15;
+        v51 = 15;
       }
 
-      if ((v50 & v28) != 0)
+      if ((v51 & v29) != 0)
       {
-        _encodeBuffer_cold_2(&v239);
+        _encodeBuffer_cold_2(&v247);
         goto LABEL_157;
       }
 
-      v47 = 0;
-      v45 = v49 == 0;
-      v51 = 3;
-      if (!v45)
+      v48 = 0;
+      v46 = v50 == 0;
+      v52 = 3;
+      if (!v46)
       {
-        v51 = 4;
+        v52 = 4;
       }
 
-      DWORD2(v202) = (v28 >> v51) - 1;
+      DWORD2(v210) = (v29 >> v52) - 1;
     }
 
     else
     {
-      v47 = v46 ^ 1;
+      v48 = v47 ^ 1;
     }
 
-    BYTE3(v201) = v47;
+    BYTE3(v209) = v48;
   }
 
-  if (v32 | v24 || v26 | v25)
+  if (v33 | v25 || v27 | v26)
   {
-    *&v205 = v32;
-    *(&v205 + 1) = v24;
-    v206.i64[0] = v26;
-    v206.i64[1] = v25;
-    v52 = v32;
-    v53.f64[0] = CMPhotoGetPixelBufferCLAPAsRect(pixelBuffer);
-    v53.f64[1] = v54;
-    v56.f64[1] = v55;
-    v203 = vcvtq_u64_f64(vrndaq_f64(v53));
-    v204 = vcvtq_u64_f64(vrndaq_f64(v56));
-    v239 = v52;
-    v240 = v24;
-    v241.i64[0] = v26;
-    v241.i64[1] = v25;
-    CMPhotoApplyCropCMPhotoRectToRect(&v203, &v239);
+    *&v213 = v33;
+    *(&v213 + 1) = v25;
+    v214.i64[0] = v27;
+    v214.i64[1] = v26;
+    v53 = v33;
+    v54.f64[0] = CMPhotoGetPixelBufferCLAPAsRect(pixelBuffer);
+    v54.f64[1] = v55;
+    v57.f64[1] = v56;
+    v211 = vcvtq_u64_f64(vrndaq_f64(v54));
+    v212 = vcvtq_u64_f64(vrndaq_f64(v57));
+    v247 = v53;
+    v248 = v25;
+    v249.i64[0] = v27;
+    v249.i64[1] = v26;
+    CMPhotoApplyCropCMPhotoRectToRect(&v211, &v247);
   }
 
   else
   {
-    v57.f64[0] = CMPhotoGetPixelBufferCLAPAsRect(pixelBuffer);
-    v57.f64[1] = v60;
-    v203 = vcvtq_u64_f64(vrndaq_f64(v57));
-    v204.i64[0] = vcvtad_u64_f64(v58);
-    v204.i64[1] = vcvtad_u64_f64(v59);
-    v205 = 0uLL;
-    v206 = v204;
+    v58.f64[0] = CMPhotoGetPixelBufferCLAPAsRect(pixelBuffer);
+    v58.f64[1] = v61;
+    v211 = vcvtq_u64_f64(vrndaq_f64(v58));
+    v212.i64[0] = vcvtad_u64_f64(v59);
+    v212.i64[1] = vcvtad_u64_f64(v60);
+    v213 = 0uLL;
+    v214 = v212;
   }
 
-  v61 = v191;
-  if (*&a9 == 0)
+  v62 = v199;
+  if (*&a10 == 0)
   {
-    v207 = v204;
+    v215 = v212;
   }
 
   else
   {
-    v207 = a9;
+    v215 = a10;
   }
 
-  v63 = v198;
-  v62 = pixelBuffer;
+  v64 = v206;
+  v63 = pixelBuffer;
   LODWORD(lengthAtOffsetOut[0]) = 4;
-  if (!v22 || !CMPhotoCFDictionaryGetIntIfPresent())
+  if (!v23 || !CMPhotoCFDictionaryGetIntIfPresent())
   {
-    if (v207.i64[1] * v207.i64[0] < 0xF42400uLL)
+    if (v215.i64[1] * v215.i64[0] < 0xF42400uLL)
     {
-      v66 = 5;
+      v67 = 5;
     }
 
     else
     {
-      v66 = 0;
+      v67 = 0;
     }
 
-    Int = CMPhotoCFNumberCreateInt(v66);
+    Int = CMPhotoCFNumberCreateInt(v67);
     goto LABEL_67;
   }
 
-  Value = CFDictionaryGetValue(v22, @"QualityControllerParameters");
+  Value = CFDictionaryGetValue(v23, @"QualityControllerParameters");
   if (Value)
   {
     Int = CFRetain(Value);
 LABEL_67:
-    v67 = Int;
+    v68 = Int;
     goto LABEL_68;
   }
 
-  v67 = 0;
+  v68 = 0;
 LABEL_68:
-  v68 = CMPhotoJPEGQualityControllerParse(*v198, v206.i64[0], v206.i64[1], v200[0], *&v200[2], lengthAtOffsetOut[0], v67, v190, &v208);
-  if (v68)
+  v69 = CMPhotoJPEGQualityControllerParse(*v206, v214.i64[0], v214.i64[1], v208[0], *&v208[2], lengthAtOffsetOut[0], v68, v198, &v216);
+  if (v69)
   {
-    Capabilities = v68;
+    Capabilities = v69;
     goto LABEL_105;
   }
 
-  v69 = BYTE4(v210);
-  v70 = v190;
-  if (BYTE4(v210))
+  v70 = BYTE4(v218);
+  v71 = v198;
+  if (BYTE4(v218))
   {
-    if (v190 == 2)
+    if (v198 == 2)
     {
-      _encodeBuffer_cold_3(&v239);
-      Capabilities = v239;
+      _encodeBuffer_cold_3(&v247);
+      Capabilities = v247;
       goto LABEL_105;
     }
 
-    v70 = 1;
+    v71 = 1;
   }
 
-  if (v201)
+  if (v209)
   {
-    v71 = *(v198 + 64);
-    if (v71)
+    v72 = *(v206 + 64);
+    if (v72)
     {
-      *(v198 + 64) = 0;
-      free(v71);
-      v69 = BYTE4(v210);
+      *(v206 + 64) = 0;
+      free(v72);
+      v70 = BYTE4(v218);
     }
 
-    *(v198 + 64) = 0;
-    *(v198 + 32) = 0u;
-    *(v198 + 48) = 0u;
-    v73 = v207.i64[1] * v207.i64[0] > 0x2DC6BFuLL && v69 == 0;
-    *(v198 + 32) = v73;
-    if (v70 == 1)
+    *(v206 + 64) = 0;
+    *(v206 + 32) = 0u;
+    *(v206 + 48) = 0u;
+    v74 = v215.i64[1] * v215.i64[0] > 0x2DC6BFuLL && v70 == 0;
+    *(v206 + 32) = v74;
+    if (v71 == 1)
     {
       Capabilities = 0;
     }
 
     else
     {
-      LOBYTE(v239) = 0;
-      _isHWAvailableHelper(&v239, 0);
-      LOBYTE(v227) = 0;
-      if (v239)
+      LOBYTE(v247) = 0;
+      _isHWAvailableHelper(&v247, 0);
+      LOBYTE(v235) = 0;
+      if (v247)
       {
-        Capabilities = CMPhotoParavirtualizedGuestJPEGHardwareGetCapabilities(0, 0, 0, 0, &v227, 0);
+        Capabilities = CMPhotoParavirtualizedGuestJPEGHardwareGetCapabilities(0, 0, 0, 0, &v235, 0);
         if (Capabilities)
         {
-          v75 = 0;
+          v76 = 0;
         }
 
         else
         {
-          v75 = v227;
+          v76 = v235;
         }
       }
 
       else
       {
-        v75 = JPEGDeviceInterface_supportsRSTLogging();
+        v76 = JPEGDeviceInterface_supportsRSTLogging();
         Capabilities = 0;
       }
 
-      v73 = *(v198 + 32) & v75;
-      *(v198 + 32) = v73;
+      v74 = *(v206 + 32) & v76;
+      *(v206 + 32) = v74;
     }
 
-    if (v73)
+    if (v74)
     {
-      v76 = v200[0] == 5 || v200[0] == 2;
-      v77 = -8;
-      if (v76)
+      v77 = v208[0] == 5 || v208[0] == 2;
+      v78 = -8;
+      if (v77)
       {
-        v77 = -16;
+        v78 = -16;
       }
 
-      v78 = 8;
-      if (v76)
+      v79 = 8;
+      if (v77)
       {
-        v78 = 16;
+        v79 = 16;
       }
 
-      v79 = 3;
-      if (v76)
+      v80 = 3;
+      if (v77)
       {
-        v79 = 4;
+        v80 = 4;
       }
 
-      v80 = (v78 + v207.i64[1] + (v77 | -v207.i64[1])) >> v79;
-      *(v198 + 56) = v80 - 1;
-      if (v80 == 1)
+      v81 = (v79 + v215.i64[1] + (v78 | -v215.i64[1])) >> v80;
+      *(v206 + 56) = v81 - 1;
+      if (v81 == 1)
       {
         Capabilities = 4294950304;
         goto LABEL_105;
       }
 
-      v81 = malloc_type_calloc(v80 - 1, 4uLL, 0x100004052888210uLL);
-      *(v198 + 64) = v81;
-      if (!v81)
+      v82 = malloc_type_calloc(v81 - 1, 4uLL, 0x100004052888210uLL);
+      *(v206 + 64) = v82;
+      if (!v82)
       {
         Capabilities = 4294950305;
         goto LABEL_105;
@@ -809,25 +809,25 @@ LABEL_68:
     Capabilities = 0;
   }
 
-  if (v191 || v70 == 1)
+  if (v199 || v71 == 1)
   {
-    BYTE2(v201) = 0;
+    BYTE2(v209) = 0;
   }
 
-  else if (v70)
+  else if (v71)
   {
-    BYTE2(v201) = 1;
+    BYTE2(v209) = 1;
   }
 
   else
   {
-    BYTE2(v201) = _isHWAvailableHelper(0, 0);
+    BYTE2(v209) = _isHWAvailableHelper(0, 0);
   }
 
 LABEL_105:
-  if (v67)
+  if (v68)
   {
-    CFRelease(v67);
+    CFRelease(v68);
   }
 
 LABEL_107:
@@ -841,15 +841,15 @@ LABEL_107:
     goto LABEL_460;
   }
 
-  if (v20 == 1 && v211)
+  if (v21 == 1 && v219)
   {
-    _encodeBuffer_cold_11(&v239);
+    _encodeBuffer_cold_11(&v247);
     goto LABEL_482;
   }
 
-  CVPixelBufferGetPixelFormatType(v62);
-  CMPhotoGetPixelBufferSize(v62);
-  if (!BYTE2(v201))
+  CVPixelBufferGetPixelFormatType(v63);
+  CMPhotoGetPixelBufferSize(v63);
+  if (!BYTE2(v209))
   {
     goto LABEL_390;
   }
@@ -859,101 +859,101 @@ LABEL_107:
     kdebug_trace();
   }
 
-  v234 = 0;
+  v242 = 0;
   dataPointerOut = 0;
-  v269[0] = 0;
+  v277[0] = 0;
+  v241 = 0;
+  v239 = 0u;
+  v240 = 0u;
+  v237 = 0u;
+  v238 = 0u;
+  v235 = 0u;
+  v236 = 0u;
+  v234 = 0;
   v233 = 0;
-  v231 = 0u;
-  v232 = 0u;
-  v229 = 0u;
-  v230 = 0u;
-  v227 = 0u;
-  v228 = 0u;
-  v226 = 0;
-  v225 = 0;
-  v224 = 0;
-  if (!_isHWAvailableHelper(&v225, &v224))
+  v232 = 0;
+  if (!_isHWAvailableHelper(&v233, &v232))
   {
-    _encodeBuffer_cold_9(&v239);
-    v82 = 0;
+    _encodeBuffer_cold_9(&v247);
+    v83 = 0;
 LABEL_480:
-    v186 = 0;
+    v194 = 0;
     cf = 0;
-    v185 = 0;
-    Capabilities = v239;
+    v193 = 0;
+    Capabilities = v247;
     goto LABEL_343;
   }
 
-  if (*&v200[2] != 8 && (!JPEGDeviceInterface_supports12bitsFormat() || *&v200[2] != 12))
+  if (*&v208[2] != 8 && (!JPEGDeviceInterface_supports12bitsFormat() || *&v208[2] != 12))
   {
     fig_log_get_emitter();
-    Capabilities = FigSignalErrorAtGM();
-    v82 = 0;
-    v186 = 0;
+    Capabilities = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v190, v191, v192);
+    v83 = 0;
+    v194 = 0;
     cf = 0;
-    v185 = 0;
+    v193 = 0;
     goto LABEL_343;
   }
 
-  v82 = 0;
-  v189 = *(v63 + 24);
-  if (!v189 && !v225)
+  v83 = 0;
+  v197 = *(v64 + 24);
+  if (!v197 && !v233)
   {
-    v82 = JPEGDeviceInterface_openDriverConnection();
-    v189 = v82;
-    if (!v82)
+    v83 = JPEGDeviceInterface_openDriverConnection();
+    v197 = v83;
+    if (!v83)
     {
-      _encodeBuffer_cold_6(&v239);
+      _encodeBuffer_cold_6(&v247);
       goto LABEL_480;
     }
   }
 
-  v195 = v203.u64[1];
-  v197 = v203.i64[0];
-  v193 = v204.u64[1];
-  v194 = v204.i64[0];
-  v83 = CVPixelBufferGetPixelFormatType(v62);
-  v223 = 0;
-  IsNon601YCbCr = CMPhotoPixelBufferIsNon601YCbCr(v62, &v223);
-  v85 = v200[0];
-  v86 = *&v200[2];
-  if (*&v200[2] == 12)
+  v203 = v211.u64[1];
+  v205 = v211.i64[0];
+  v201 = v212.u64[1];
+  v202 = v212.i64[0];
+  v84 = CVPixelBufferGetPixelFormatType(v63);
+  v231 = 0;
+  IsNon601YCbCr = CMPhotoPixelBufferIsNon601YCbCr(v63, &v231);
+  v86 = v208[0];
+  v87 = *&v208[2];
+  if (*&v208[2] == 12)
   {
     if (!JPEGDeviceInterface_supports12bitsFormat())
     {
       goto LABEL_237;
     }
 
-    if (v83 > 1882468913)
+    if (v84 > 1882468913)
     {
-      if (v83 <= 2016686639)
+      if (v84 <= 2016686639)
       {
-        if (v83 > 1952854575)
+        if (v84 > 1952854575)
         {
-          if (v83 > 1953903151)
+          if (v84 > 1953903151)
           {
-            if (v83 == 1953903152)
+            if (v84 == 1953903152)
             {
               goto LABEL_216;
             }
 
-            if (v83 != 1953903154)
+            if (v84 != 1953903154)
             {
-              v93 = 1953903668;
+              v94 = 1953903668;
               goto LABEL_204;
             }
           }
 
           else
           {
-            if (v83 == 1952854576)
+            if (v84 == 1952854576)
             {
               goto LABEL_216;
             }
 
-            if (v83 != 1952854578)
+            if (v84 != 1952854578)
             {
-              v93 = 1952855092;
+              v94 = 1952855092;
               goto LABEL_204;
             }
           }
@@ -961,65 +961,65 @@ LABEL_480:
           goto LABEL_226;
         }
 
-        if (v83 <= 1885745711)
+        if (v84 <= 1885745711)
         {
-          if (v83 == 1882468914)
+          if (v84 == 1882468914)
           {
             goto LABEL_226;
           }
 
-          v90 = 1882469428;
+          v91 = 1882469428;
         }
 
         else
         {
-          if (v83 == 1885745712)
+          if (v84 == 1885745712)
           {
             goto LABEL_216;
           }
 
-          if (v83 == 1885745714)
+          if (v84 == 1885745714)
           {
             goto LABEL_226;
           }
 
-          v90 = 1885746228;
+          v91 = 1885746228;
         }
       }
 
       else
       {
-        if (v83 > 2088265263)
+        if (v84 > 2088265263)
         {
-          if (v83 <= 2088269359)
+          if (v84 <= 2088269359)
           {
-            if (v83 == 2088265264)
+            if (v84 == 2088265264)
             {
               goto LABEL_216;
             }
 
-            if (v83 != 2088265266)
+            if (v84 != 2088265266)
             {
-              v93 = 2088265268;
+              v94 = 2088265268;
               goto LABEL_204;
             }
 
             goto LABEL_226;
           }
 
-          if (v83 == 2088269364)
+          if (v84 == 2088269364)
           {
             goto LABEL_205;
           }
 
-          if (v83 == 2088269362)
+          if (v84 == 2088269362)
           {
             goto LABEL_226;
           }
 
-          v96 = 2088269360;
+          v97 = 2088269360;
 LABEL_215:
-          if (v83 != v96)
+          if (v84 != v97)
           {
             goto LABEL_237;
           }
@@ -1027,59 +1027,59 @@ LABEL_215:
           goto LABEL_216;
         }
 
-        if (v83 > 2019963439)
+        if (v84 > 2019963439)
         {
-          if (v83 == 2019963440)
+          if (v84 == 2019963440)
           {
             goto LABEL_216;
           }
 
-          if (v83 == 2019963442)
+          if (v84 == 2019963442)
           {
             goto LABEL_226;
           }
 
-          v90 = 2019963956;
+          v91 = 2019963956;
         }
 
         else
         {
-          if (v83 == 2016686640)
+          if (v84 == 2016686640)
           {
             goto LABEL_216;
           }
 
-          if (v83 == 2016686642)
+          if (v84 == 2016686642)
           {
             goto LABEL_226;
           }
 
-          v90 = 2016687156;
+          v91 = 2016687156;
         }
       }
 
-      if (v83 == v90)
+      if (v84 == v91)
       {
-        v95 = v85 == 1 || v85 == 6;
+        v96 = v86 == 1 || v86 == 6;
         goto LABEL_227;
       }
 
       goto LABEL_237;
     }
 
-    if (v83 > 762869295)
+    if (v84 > 762869295)
     {
-      if (v83 <= 796423727)
+      if (v84 <= 796423727)
       {
-        if (v83 <= 796419631)
+        if (v84 <= 796419631)
         {
-          if (v83 != 762869296)
+          if (v84 != 762869296)
           {
-            if (v83 != 762869298)
+            if (v84 != 762869298)
             {
-              v89 = 30260;
+              v90 = 30260;
 LABEL_196:
-              v93 = v89 | 0x2D780000;
+              v94 = v90 | 0x2D780000;
               goto LABEL_204;
             }
 
@@ -1087,72 +1087,72 @@ LABEL_196:
           }
 
 LABEL_216:
-          v95 = v85 == 5;
+          v96 = v86 == 5;
           goto LABEL_227;
         }
 
-        if (v83 == 796419632)
+        if (v84 == 796419632)
         {
           goto LABEL_216;
         }
 
-        if (v83 != 796419634)
+        if (v84 != 796419634)
         {
-          v94 = 26164;
+          v95 = 26164;
           goto LABEL_203;
         }
 
         goto LABEL_226;
       }
 
-      if (v83 <= 1278226735)
+      if (v84 <= 1278226735)
       {
-        if (v83 == 796423728)
+        if (v84 == 796423728)
         {
           goto LABEL_216;
         }
 
-        if (v83 != 796423730)
+        if (v84 != 796423730)
         {
-          v94 = 30260;
+          v95 = 30260;
 LABEL_203:
-          v93 = v94 | 0x2F780000;
+          v94 = v95 | 0x2F780000;
 LABEL_204:
-          if (v83 == v93)
+          if (v84 == v94)
           {
 LABEL_205:
-            v95 = v85 == 1;
+            v96 = v86 == 1;
             goto LABEL_227;
           }
 
 LABEL_237:
-          v86 = *&v200[2];
+          v87 = *&v208[2];
           goto LABEL_238;
         }
 
 LABEL_226:
-        v95 = v85 == 3;
+        v96 = v86 == 3;
 LABEL_227:
-        v88 = v95;
+        v89 = v96;
         goto LABEL_230;
       }
 
-      if (v83 != 1278226736 && v83 != 1278226738)
+      if (v84 != 1278226736 && v84 != 1278226738)
       {
-        v96 = 1882468912;
+        v97 = 1882468912;
         goto LABEL_215;
       }
 
 LABEL_219:
-      v95 = v85 == 6;
+      v96 = v86 == 6;
       goto LABEL_227;
     }
 
-    if (v83 <= 645428783)
+    if (v84 <= 645428783)
     {
-      if (v83 <= 645424687)
+      if (v84 <= 645424687)
       {
-        if (v83 != 642527536 && v83 != 642527538)
+        if (v84 != 642527536 && v84 != 642527538)
         {
           goto LABEL_237;
         }
@@ -1160,28 +1160,28 @@ LABEL_219:
         goto LABEL_219;
       }
 
-      if (v83 == 645424688)
+      if (v84 == 645424688)
       {
         goto LABEL_216;
       }
 
-      if (v83 == 645424690)
+      if (v84 == 645424690)
       {
         goto LABEL_226;
       }
 
-      v92 = 26164;
+      v93 = 26164;
     }
 
     else
     {
-      if (v83 > 762865199)
+      if (v84 > 762865199)
       {
-        if (v83 != 762865200)
+        if (v84 != 762865200)
         {
-          if (v83 != 762865202)
+          if (v84 != 762865202)
           {
-            v89 = 26164;
+            v90 = 26164;
             goto LABEL_196;
           }
 
@@ -1191,27 +1191,27 @@ LABEL_219:
         goto LABEL_216;
       }
 
-      if (v83 == 645428784)
+      if (v84 == 645428784)
       {
         goto LABEL_216;
       }
 
-      if (v83 == 645428786)
+      if (v84 == 645428786)
       {
         goto LABEL_226;
       }
 
-      v92 = 30260;
+      v93 = 30260;
     }
 
-    v93 = v92 | 0x26780000;
+    v94 = v93 | 0x26780000;
     goto LABEL_204;
   }
 
-  if (*&v200[2] == 8)
+  if (*&v208[2] == 8)
   {
-    UncompressedPixelFormatFromCompressedPixelFormat = CMPhotoGetUncompressedPixelFormatFromCompressedPixelFormat(v83);
-    v88 = 1;
+    UncompressedPixelFormatFromCompressedPixelFormat = CMPhotoGetUncompressedPixelFormatFromCompressedPixelFormat(v84);
+    v89 = 1;
     if (UncompressedPixelFormatFromCompressedPixelFormat > 1111970368)
     {
       if (UncompressedPixelFormatFromCompressedPixelFormat > 1380401728)
@@ -1234,7 +1234,7 @@ LABEL_219:
         goto LABEL_230;
       }
 
-      v91 = 1278226488;
+      v92 = 1278226488;
     }
 
     else
@@ -1243,7 +1243,7 @@ LABEL_219:
       {
         if (UncompressedPixelFormatFromCompressedPixelFormat == 875704422)
         {
-          v88 = v85 - 5 < 2;
+          v89 = v86 - 5 < 2;
           goto LABEL_230;
         }
 
@@ -1255,17 +1255,17 @@ LABEL_219:
           }
 
 LABEL_230:
-          if (v88 && (v197 & 1) == 0 && (v195 & 1) == 0 && !IsNon601YCbCr)
+          if (v89 && (v205 & 1) == 0 && (v203 & 1) == 0 && !IsNon601YCbCr)
           {
-            IOSurface = CVPixelBufferGetIOSurface(v62);
+            IOSurface = CVPixelBufferGetIOSurface(v63);
             if (IOSurface)
             {
-              v269[0] = CFRetain(IOSurface);
-              v63 = v198;
-              if (v269[0])
+              v277[0] = CFRetain(IOSurface);
+              v64 = v206;
+              if (v277[0])
               {
-                v185 = 0;
-                v186 = 0;
+                v193 = 0;
+                v194 = 0;
                 cf = 0;
                 goto LABEL_273;
               }
@@ -1273,22 +1273,22 @@ LABEL_230:
 
             else
             {
-              v269[0] = 0;
-              v63 = v198;
+              v277[0] = 0;
+              v64 = v206;
             }
 
-            ImageSurfaceWrappingPixelBuffer = CMPhotoCreateImageSurfaceWrappingPixelBuffer(v62, &v225 + 1, v269);
+            ImageSurfaceWrappingPixelBuffer = CMPhotoCreateImageSurfaceWrappingPixelBuffer(v63, &v233 + 1, v277);
             cf = 0;
-            if (!v269[0])
+            if (!v277[0])
             {
               Capabilities = ImageSurfaceWrappingPixelBuffer;
-              v185 = 0;
-              v186 = 0;
+              v193 = 0;
+              v194 = 0;
               goto LABEL_343;
             }
 
-            v185 = 0;
-            v186 = 0;
+            v193 = 0;
+            v194 = 0;
             goto LABEL_273;
           }
 
@@ -1296,13 +1296,13 @@ LABEL_230:
         }
 
 LABEL_147:
-        if (v85 > 6)
+        if (v86 > 6)
         {
           goto LABEL_237;
         }
 
-        v88 = 1;
-        if (((1 << v85) & 0x68) == 0)
+        v89 = 1;
+        if (((1 << v86) & 0x68) == 0)
         {
           goto LABEL_237;
         }
@@ -1315,127 +1315,127 @@ LABEL_147:
         goto LABEL_230;
       }
 
-      v91 = 642527288;
+      v92 = 642527288;
     }
 
-    if (UncompressedPixelFormatFromCompressedPixelFormat != v91 || v85 != 6)
+    if (UncompressedPixelFormatFromCompressedPixelFormat != v92 || v86 != 6)
     {
       goto LABEL_237;
     }
 
-    v88 = JPEGDeviceInterface_supports12bitsFormat() != 0;
+    v89 = JPEGDeviceInterface_supports12bitsFormat() != 0;
     goto LABEL_230;
   }
 
 LABEL_238:
-  if (v86 == 8 || !JPEGDeviceInterface_supports12bitsFormat())
+  if (v87 == 8 || !JPEGDeviceInterface_supports12bitsFormat())
   {
-    if (v200[0] <= 2)
+    if (v208[0] <= 2)
     {
-      v63 = v198;
-      if (v200[0] == 1)
+      v64 = v206;
+      if (v208[0] == 1)
       {
-        v101 = 875836518;
+        v104 = 875836518;
         goto LABEL_263;
       }
     }
 
     else
     {
-      v63 = v198;
-      if ((v200[0] - 3) < 2)
+      v64 = v206;
+      if ((v208[0] - 3) < 2)
       {
-        v101 = 875704934;
+        v104 = 875704934;
         goto LABEL_263;
       }
 
-      if (v200[0] == 6)
+      if (v208[0] == 6)
       {
         if (JPEGDeviceInterface_supports12bitsFormat())
         {
-          v101 = 1278226488;
+          v104 = 1278226488;
         }
 
         else
         {
-          v101 = 875704422;
+          v104 = 875704422;
         }
 
         goto LABEL_263;
       }
     }
 
-    v101 = 875704422;
+    v104 = 875704422;
     goto LABEL_263;
   }
 
-  v63 = v198;
-  if (*&v200[2] != 12)
+  v64 = v206;
+  if (*&v208[2] != 12)
   {
-    v101 = 0;
+    v104 = 0;
     goto LABEL_263;
   }
 
-  BitDepthForPixelFormat = CMPhotoGetBitDepthForPixelFormat(v83);
-  v99 = v200[0] - 1;
+  BitDepthForPixelFormat = CMPhotoGetBitDepthForPixelFormat(v84);
+  v102 = v208[0] - 1;
   if (BitDepthForPixelFormat > 0xA)
   {
-    if (v99 < 6)
+    if (v102 < 6)
     {
-      v100 = &unk_1A5ABB9F8;
+      v103 = &unk_1A5ABB9F8;
       goto LABEL_260;
     }
 
-    v101 = 1952854576;
+    v104 = 1952854576;
   }
 
   else
   {
-    if (v99 < 6)
+    if (v102 < 6)
     {
-      v100 = &unk_1A5ABB9E0;
+      v103 = &unk_1A5ABB9E0;
 LABEL_260:
-      v101 = v100[v99];
+      v104 = v103[v102];
       goto LABEL_263;
     }
 
-    v101 = 2019963440;
+    v104 = 2019963440;
   }
 
 LABEL_263:
-  if (!BYTE5(v201))
+  if (!BYTE5(v209))
   {
-    _encodeBuffer_cold_8(&v239);
+    _encodeBuffer_cold_8(&v247);
     goto LABEL_480;
   }
 
-  ScaleAndRotateOptionsWithHWIfNeeded = CMPhotoCreateScaleAndRotateOptionsWithHWIfNeeded(0, 1, BYTE6(v201), BYTE7(v201), BYTE8(v201));
+  ScaleAndRotateOptionsWithHWIfNeeded = CMPhotoCreateScaleAndRotateOptionsWithHWIfNeeded(0, 1, BYTE6(v209), BYTE7(v209), BYTE8(v209));
   if (ScaleAndRotateOptionsWithHWIfNeeded)
   {
-    v104 = ScaleAndRotateOptionsWithHWIfNeeded;
-    CMPhotoCFDictionarySetInt(ScaleAndRotateOptionsWithHWIfNeeded, @"DestinationPixelFormat", v101);
-    CMPhotoCFDictionarySetBoolean(v104, @"ExactDimensions", 0);
-    CMPhotoCFDictionarySetSize(v104, @"RowAlignment", 64);
-    v270.origin.x = v205;
-    v270.origin.y = *(&v205 + 1);
-    v270.size.width = v206.u64[0];
-    v270.size.height = v206.u64[1];
-    DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v270);
+    v107 = ScaleAndRotateOptionsWithHWIfNeeded;
+    CMPhotoCFDictionarySetInt(ScaleAndRotateOptionsWithHWIfNeeded, @"DestinationPixelFormat", v104);
+    CMPhotoCFDictionarySetBoolean(v107, @"ExactDimensions", 0);
+    CMPhotoCFDictionarySetSize(v107, @"RowAlignment", 64);
+    v278.origin.x = v213;
+    v278.origin.y = *(&v213 + 1);
+    v278.size.width = v214.u64[0];
+    v278.size.height = v214.u64[1];
+    DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v278);
     if (DictionaryRepresentation)
     {
-      CFDictionarySetValue(v104, @"SourceCropRectDictionary", DictionaryRepresentation);
+      CFDictionarySetValue(v107, @"SourceCropRectDictionary", DictionaryRepresentation);
     }
 
-    v186 = DictionaryRepresentation;
-    v106 = CMPhotoColorTripletCreateDictionaryRepresentation(0, 1);
-    if (v106)
+    v194 = DictionaryRepresentation;
+    v109 = CMPhotoColorTripletCreateDictionaryRepresentation(0, 1);
+    if (v109)
     {
-      CFDictionarySetValue(v104, @"DestinationColorTripletDictionary", v106);
+      CFDictionarySetValue(v107, @"DestinationColorTripletDictionary", v109);
     }
 
-    v185 = v106;
-    cf = v104;
-    MemorySurface = CMPhotoScaleAndRotateSessionTransformImage(*(v63 + 16), v62, v104, &v226);
+    v193 = v109;
+    cf = v107;
+    MemorySurface = CMPhotoScaleAndRotateSessionTransformImage(*(v64 + 16), v63, v107, &v234);
     if (MemorySurface)
     {
 LABEL_468:
@@ -1443,218 +1443,218 @@ LABEL_468:
       goto LABEL_343;
     }
 
-    v108 = CVPixelBufferGetIOSurface(v226);
-    if (v108)
+    v111 = CVPixelBufferGetIOSurface(v234);
+    if (v111)
     {
-      v269[0] = CFRetain(v108);
-      if (v269[0])
+      v277[0] = CFRetain(v111);
+      if (v277[0])
       {
-        PixelBufferCLAPAsRect = CMPhotoGetPixelBufferCLAPAsRect(v226);
-        v195 = vcvtad_u64_f64(v110);
-        v197 = vcvtad_u64_f64(PixelBufferCLAPAsRect);
-        v193 = vcvtad_u64_f64(v112);
-        v194 = vcvtad_u64_f64(v111);
+        PixelBufferCLAPAsRect = CMPhotoGetPixelBufferCLAPAsRect(v234);
+        v203 = vcvtad_u64_f64(v113);
+        v205 = vcvtad_u64_f64(PixelBufferCLAPAsRect);
+        v201 = vcvtad_u64_f64(v115);
+        v202 = vcvtad_u64_f64(v114);
 LABEL_273:
-        v113 = (*(&v210 + 1) + *MEMORY[0x1E69E9AC8] - 1) & -*MEMORY[0x1E69E9AC8];
-        if (v113 <= 0x8000)
+        v116 = (*(&v218 + 1) + *MEMORY[0x1E69E9AC8] - 1) & -*MEMORY[0x1E69E9AC8];
+        if (v116 <= 0x8000)
         {
-          v113 = 0x8000;
+          v116 = 0x8000;
         }
 
-        if (v211)
+        if (v219)
         {
-          v114 = v211;
-        }
-
-        else
-        {
-          v114 = v113;
-        }
-
-        if (BYTE10(v201))
-        {
-          v115 = (v63 + 8);
+          v117 = v219;
         }
 
         else
         {
-          v115 = &kFigPhotoSurfacePoolOneShot;
+          v117 = v116;
         }
 
-        v188 = *v115;
-        MemorySurface = CMPhotoSurfacePoolCreateMemorySurface(*v115, v114, 1, &dataPointerOut);
+        if (BYTE10(v209))
+        {
+          v118 = (v64 + 8);
+        }
+
+        else
+        {
+          v118 = &kFigPhotoSurfacePoolOneShot;
+        }
+
+        v196 = *v118;
+        MemorySurface = CMPhotoSurfacePoolCreateMemorySurface(*v118, v117, 1, &dataPointerOut, v99, v100);
         if (!MemorySurface)
         {
-          if ((v200[0] - 1) > 5)
+          if ((v208[0] - 1) > 5)
           {
-            v192 = 0;
+            v200 = 0;
           }
 
           else
           {
-            v192 = dword_1A5ABBA10[v200[0] - 1];
+            v200 = dword_1A5ABBA10[v208[0] - 1];
           }
 
           IOSurfaceBindAccel();
-          IOSurfaceLock(v269[0], 5u, 0);
-          IOSurfaceUnlock(v269[0], 5u, 0);
-          v116 = 1;
+          IOSurfaceLock(v277[0], 5u, 0);
+          IOSurfaceUnlock(v277[0], 5u, 0);
+          v119 = 1;
           while (1)
           {
-            v117 = BYTE4(v201) != 0;
-            if (BYTE4(v201))
+            v120 = BYTE4(v209) != 0;
+            if (BYTE4(v209))
             {
-              v118 = 17;
+              v121 = 17;
             }
 
             else
             {
-              v118 = 16;
+              v121 = 16;
             }
 
-            if (BYTE9(v201))
+            if (BYTE9(v209))
             {
-              v117 = v118;
+              v120 = v121;
             }
 
-            v119 = !*(v63 + 32) || v201 == 0;
-            v120 = !v119 && BYTE1(v201) != 0;
-            v121 = v117 | 8;
-            v122 = dataPointerOut;
-            v123 = v269[0];
-            v124 = v202;
-            v126 = *(&v212 + 1);
-            v125 = v213;
-            if (v225)
+            v122 = !*(v64 + 32) || v209 == 0;
+            v123 = !v122 && BYTE1(v209) != 0;
+            v124 = v120 | 8;
+            v125 = dataPointerOut;
+            v126 = v277[0];
+            v127 = v210;
+            v129 = *(&v220 + 1);
+            v128 = v221;
+            if (v233)
             {
-              v127 = CMPhotoParavirtualizedGuestJPEGHardwareEncode(v269[0], dataPointerOut, v202, v194, v193, v197, v195, v192, v121, v120, *(&v212 + 1), v213, v224);
-              v63 = v198;
-              v62 = pixelBuffer;
+              v130 = CMPhotoParavirtualizedGuestJPEGHardwareEncode(v277[0], dataPointerOut, v210, v202, v201, v205, v203, v200, v124, v123, *(&v220 + 1), v221, v232);
+              v64 = v206;
+              v63 = pixelBuffer;
             }
 
             else
             {
-              bzero(&v240, 0xD98uLL);
+              bzero(&v248, 0xD98uLL);
               bzero(lengthAtOffsetOut, 0xDA0uLL);
-              LODWORD(v247) = v124;
-              LODWORD(v239) = IOSurfaceGetID(v123);
-              HIDWORD(v239) = IOSurfaceGetAllocSize(v123);
-              v241.i32[1] = v194;
-              v243 = __PAIR64__(v192, v195);
-              v242 = __PAIR64__(v197, v121);
-              v241.i64[1] = v193;
-              v249 = 1;
-              v250 = v120;
-              v128 = v126[2];
-              v129 = v126[3];
-              v130 = v126[1];
-              v251 = *v126;
-              v254 = v129;
-              v253 = v128;
-              v252 = v130;
-              v131 = v126[6];
-              v132 = v126[7];
-              v133 = v126[5];
-              v255 = v126[4];
-              v258 = v132;
-              v257 = v131;
-              v256 = v133;
-              v134 = v125[3];
-              v136 = *v125;
-              v135 = v125[1];
-              v261 = v125[2];
-              v262 = v134;
-              v259 = v136;
-              v260 = v135;
-              v137 = v125[7];
-              v139 = v125[4];
-              v138 = v125[5];
-              v265 = v125[6];
-              v266 = v137;
-              v263 = v139;
-              v264 = v138;
-              PixelFormat = IOSurfaceGetPixelFormat(v123);
+              LODWORD(v255) = v127;
+              LODWORD(v247) = IOSurfaceGetID(v126);
+              HIDWORD(v247) = IOSurfaceGetAllocSize(v126);
+              v249.i32[1] = v202;
+              v251 = __PAIR64__(v200, v203);
+              v250 = __PAIR64__(v205, v124);
+              v249.i64[1] = v201;
+              v257 = 1;
+              v258 = v123;
+              v131 = v129[2];
+              v132 = v129[3];
+              v133 = v129[1];
+              v259 = *v129;
+              v262 = v132;
+              v261 = v131;
+              v260 = v133;
+              v134 = v129[6];
+              v135 = v129[7];
+              v136 = v129[5];
+              v263 = v129[4];
+              v266 = v135;
+              v265 = v134;
+              v264 = v136;
+              v137 = v128[3];
+              v139 = *v128;
+              v138 = v128[1];
+              v269 = v128[2];
+              v270 = v137;
+              v267 = v139;
+              v268 = v138;
+              v140 = v128[7];
+              v142 = v128[4];
+              v141 = v128[5];
+              v273 = v128[6];
+              v274 = v140;
+              v271 = v142;
+              v272 = v141;
+              PixelFormat = IOSurfaceGetPixelFormat(v126);
               if (CMPhotoPixelFormatContainsYCbCr(PixelFormat))
               {
-                v267 = CMPhotoPixelFormatIsFullRange(PixelFormat) == 0;
+                v275 = CMPhotoPixelFormatIsFullRange(PixelFormat) == 0;
               }
 
-              LODWORD(v240) = IOSurfaceGetID(v122);
-              HIDWORD(v240) = IOSurfaceGetAllocSize(v122);
-              v63 = v198;
-              v62 = pixelBuffer;
+              LODWORD(v248) = IOSurfaceGetID(v125);
+              HIDWORD(v248) = IOSurfaceGetAllocSize(v125);
+              v64 = v206;
+              v63 = pixelBuffer;
               if (*MEMORY[0x1E695FF58] == 1)
               {
                 kdebug_trace();
               }
 
-              v127 = JPEGDeviceInterface_encodeJPEG2024(v189, &v239, lengthAtOffsetOut);
+              v130 = JPEGDeviceInterface_encodeJPEG2024(v197, &v247, lengthAtOffsetOut);
               if (*MEMORY[0x1E695FF58] == 1)
               {
                 kdebug_trace();
               }
 
-              if (!v127)
+              if (!v130)
               {
-                v234 = v236;
+                v242 = v244;
               }
             }
 
-            if (v127 != -536870168)
+            if (v130 != -536870168)
             {
               break;
             }
 
-            if (HIDWORD(v201))
+            if (HIDWORD(v209))
             {
-              if (HIDWORD(v201) == 2)
+              if (HIDWORD(v209) == 2)
               {
                 goto LABEL_337;
               }
 
-              if (v211)
+              if (v219)
               {
-                v151 = 0;
+                v156 = 0;
                 Capabilities = 4294950306;
                 goto LABEL_339;
               }
 
               AllocSize = IOSurfaceGetAllocSize(dataPointerOut);
-              v142 = 2;
-              if (*&v200[2] > 8uLL)
+              v145 = 2;
+              if (*&v208[2] > 8uLL)
               {
-                v142 = 3;
+                v145 = 3;
               }
 
-              v143 = *MEMORY[0x1E69E9AC8] - 1;
-              v144 = -*MEMORY[0x1E69E9AC8];
-              v145 = (v143 + v206.i64[1] * v206.i64[0] * v142) & v144;
-              if (v145 <= 0x8000)
+              v146 = *MEMORY[0x1E69E9AC8] - 1;
+              v147 = -*MEMORY[0x1E69E9AC8];
+              v148 = (v146 + v214.i64[1] * v214.i64[0] * v145) & v147;
+              if (v148 <= 0x8000)
               {
-                v145 = 0x8000;
+                v148 = 0x8000;
               }
 
-              if (v145 >= (3 * AllocSize) >> 1)
+              if (v148 >= (3 * AllocSize) >> 1)
               {
-                v145 = (3 * AllocSize) >> 1;
+                v148 = (3 * AllocSize) >> 1;
               }
 
-              v146 = (v145 + v143) & v144;
-              if (v146 <= 0x8000)
+              v149 = (v148 + v146) & v147;
+              if (v149 <= 0x8000)
               {
-                v147 = 0x8000;
+                v150 = 0x8000;
               }
 
               else
               {
-                v147 = v146;
+                v150 = v149;
               }
 
-              if (v147 <= AllocSize)
+              if (v150 <= AllocSize)
               {
-                _encodeBuffer_cold_7(&v239);
-                v151 = 0;
-                Capabilities = v239;
+                _encodeBuffer_cold_7(&v247);
+                v156 = 0;
+                Capabilities = v247;
                 goto LABEL_339;
               }
 
@@ -1665,68 +1665,68 @@ LABEL_273:
                 dataPointerOut = 0;
               }
 
-              v148 = CMPhotoSurfacePoolCreateMemorySurface(v188, v147, 1, &dataPointerOut);
-              if (v148)
+              v153 = CMPhotoSurfacePoolCreateMemorySurface(v196, v150, 1, &dataPointerOut, v151, v152);
+              if (v153)
               {
 LABEL_338:
-                Capabilities = v148;
-                v151 = 0;
+                Capabilities = v153;
+                v156 = 0;
                 goto LABEL_339;
               }
             }
 
             else
             {
-              v148 = CMPhotoJPEGQualityControllerDecrementQuality(&v208, &v227);
-              if (v148)
+              v153 = CMPhotoJPEGQualityControllerDecrementQuality(&v216, &v235);
+              if (v153)
               {
                 goto LABEL_338;
               }
 
-              CMPhotoJPEGQualitySettingsReleaseStorage(&v208);
-              v212 = v231;
-              v213 = v232;
-              v214 = v233;
-              v208 = v227;
-              v209 = v228;
-              v210 = v229;
-              v211 = v230;
-              v227 = 0u;
-              v228 = 0u;
-              v229 = 0u;
-              v230 = 0u;
-              v231 = 0u;
-              v232 = 0u;
-              v233 = 0;
+              CMPhotoJPEGQualitySettingsReleaseStorage(&v216);
+              v220 = v239;
+              v221 = v240;
+              v222 = v241;
+              v216 = v235;
+              v217 = v236;
+              v218 = v237;
+              v219 = v238;
+              v235 = 0u;
+              v236 = 0u;
+              v237 = 0u;
+              v238 = 0u;
+              v239 = 0u;
+              v240 = 0u;
+              v241 = 0;
             }
 
-            if (++v116 == 11)
+            if (++v119 == 11)
             {
-              v116 = 10;
+              v119 = 10;
               goto LABEL_330;
             }
           }
 
-          if (v127)
+          if (v130)
           {
 LABEL_337:
-            v151 = 0;
+            v156 = 0;
             Capabilities = 4294950302;
 LABEL_339:
-            v82 = v82;
+            v83 = v83;
             goto LABEL_340;
           }
 
 LABEL_330:
-          v82 = v82;
-          if (v234)
+          v83 = v83;
+          if (v242)
           {
-            SampleBufferWrappingIOSurface = CMPhotoCreateSampleBufferWrappingIOSurface(*v63, dataPointerOut, 0, v234, SBYTE10(v201), 1u);
+            SampleBufferWrappingIOSurface = CMPhotoCreateSampleBufferWrappingIOSurface(*v64, dataPointerOut, 0, v242, SBYTE10(v209), 1u);
             if (SampleBufferWrappingIOSurface)
             {
-              v150 = SampleBufferWrappingIOSurface;
-              _attachSizeHintIfNeeded(v200, v234, SampleBufferWrappingIOSurface);
-              v151 = IOSurfaceGetAllocSize(dataPointerOut);
+              v155 = SampleBufferWrappingIOSurface;
+              _attachSizeHintIfNeeded(v208, v242, SampleBufferWrappingIOSurface);
+              v156 = IOSurfaceGetAllocSize(dataPointerOut);
               if (dataPointerOut)
               {
                 CFRelease(dataPointerOut);
@@ -1734,42 +1734,42 @@ LABEL_330:
               }
 
               Capabilities = 0;
-              *(v63 + 73) = 1;
-              sbuf = v150;
+              *(v64 + 73) = 1;
+              sbuf = v155;
             }
 
             else
             {
-              v151 = 0;
+              v156 = 0;
               Capabilities = 4294950305;
             }
           }
 
           else
           {
-            v151 = 0;
+            v156 = 0;
             Capabilities = 4294950304;
           }
 
 LABEL_340:
-          if (BYTE11(v201))
+          if (BYTE11(v209))
           {
-            v239 = MEMORY[0x1E69E9820];
-            v240 = *"";
-            v241.i64[0] = ___encodeHW_block_invoke;
-            v241.i64[1] = &__block_descriptor_tmp_16_0;
-            v242 = v200;
-            v243 = v197;
-            v244 = v195;
-            v245 = v194;
-            v246 = v193;
-            v247 = v151;
-            v248 = v116;
-            v249 = v234;
+            v247 = MEMORY[0x1E69E9820];
+            v248 = 0x40000000;
+            v249.i64[0] = ___encodeHW_block_invoke;
+            v249.i64[1] = &__block_descriptor_tmp_16_0;
+            v250 = v208;
+            v251 = v205;
+            v252 = v203;
+            v253 = v202;
+            v254 = v201;
+            v255 = v156;
+            v256 = v119;
+            v257 = v242;
             analytics_send_event_lazy();
           }
 
-          v61 = v191;
+          v62 = v199;
           goto LABEL_343;
         }
 
@@ -1779,35 +1779,35 @@ LABEL_340:
 
     else
     {
-      v269[0] = 0;
+      v277[0] = 0;
     }
   }
 
   else
   {
-    v186 = 0;
+    v194 = 0;
     cf = 0;
-    v185 = 0;
+    v193 = 0;
   }
 
   Capabilities = 4294950305;
 LABEL_343:
-  if (HIBYTE(v225))
+  if (HIBYTE(v233))
   {
-    CVPixelBufferUnlockBaseAddress(v62, 1uLL);
-    HIBYTE(v225) = 0;
+    CVPixelBufferUnlockBaseAddress(v63, 1uLL);
+    HIBYTE(v233) = 0;
   }
 
-  CMPhotoJPEGQualitySettingsReleaseStorage(&v227);
-  JPEGDeviceInterface_closeDriverConnection(v82);
-  if (v269[0])
+  CMPhotoJPEGQualitySettingsReleaseStorage(&v235);
+  JPEGDeviceInterface_closeDriverConnection(v83);
+  if (v277[0])
   {
-    CFRelease(v269[0]);
+    CFRelease(v277[0]);
   }
 
-  if (v226)
+  if (v234)
   {
-    CFRelease(v226);
+    CFRelease(v234);
   }
 
   if (dataPointerOut)
@@ -1824,14 +1824,14 @@ LABEL_343:
     CFRelease(cf);
   }
 
-  if (v186)
+  if (v194)
   {
-    CFRelease(v186);
+    CFRelease(v194);
   }
 
-  if (v185)
+  if (v193)
   {
-    CFRelease(v185);
+    CFRelease(v193);
   }
 
   if (*MEMORY[0x1E695FF58] == 1)
@@ -1839,14 +1839,14 @@ LABEL_343:
     kdebug_trace();
   }
 
-  if (a13 && !Capabilities)
+  if (a14 && !Capabilities)
   {
-    v152 = sbuf;
+    v157 = sbuf;
     DataBuffer = CMSampleBufferGetDataBuffer(sbuf);
     if (!DataBuffer)
     {
       Capabilities = 4294950304;
-      if (!v152)
+      if (!v157)
       {
         goto LABEL_462;
       }
@@ -1854,31 +1854,31 @@ LABEL_343:
       goto LABEL_461;
     }
 
-    v154 = DataBuffer;
+    v159 = DataBuffer;
     if (*MEMORY[0x1E695FF58] == 1)
     {
       kdebug_trace();
     }
 
-    *&v227 = 0;
-    DataLength = CMBlockBufferGetDataLength(v154);
-    if (DWORD2(v202) + 8 <= 0)
+    *&v235 = 0;
+    DataLength = CMBlockBufferGetDataLength(v159);
+    if (DWORD2(v210) + 8 <= 0)
     {
-      v156 = -(-(DWORD2(v202) + 8) & 7);
+      v161 = -(-(DWORD2(v210) + 8) & 7);
     }
 
     else
     {
-      LOBYTE(v156) = (BYTE8(v202) + 8) & 7;
+      LOBYTE(v161) = (BYTE8(v210) + 8) & 7;
     }
 
-    if (v201)
+    if (v209)
     {
-      ++DWORD2(v202);
-      if (!BYTE3(v201) && BYTE1(v201) && v156 == 7)
+      ++DWORD2(v210);
+      if (!BYTE3(v209) && BYTE1(v209) && v161 == 7)
       {
         Capabilities = CMByteStreamAppendBlockBuffer();
-        v62 = pixelBuffer;
+        v63 = pixelBuffer;
 LABEL_386:
         if (*MEMORY[0x1E695FF58] == 1)
         {
@@ -1891,7 +1891,7 @@ LABEL_386:
         }
 
 LABEL_389:
-        if (BYTE2(v201))
+        if (BYTE2(v209))
         {
           goto LABEL_411;
         }
@@ -1900,57 +1900,57 @@ LABEL_389:
       }
     }
 
-    v269[0] = 0;
-    v157 = *(*(CMBaseObjectGetVTable() + 16) + 24);
-    if (v157)
+    v277[0] = 0;
+    v162 = *(*(CMBaseObjectGetVTable() + 16) + 24);
+    if (v162)
     {
-      v158 = v157(a13, 0, v269);
-      if (!v158)
+      v163 = v162(a14, 0, v277);
+      if (!v163)
       {
-        v159 = v201;
-        if (v201)
+        v164 = v209;
+        if (v209)
         {
-          v160 = 1;
+          v165 = 1;
         }
 
         else
         {
-          v160 = v156 == 7;
+          v165 = v161 == 7;
         }
 
-        v161 = !v160;
-        v241 = 0uLL;
-        v240 = 0;
-        v239 = v154;
-        v162 = !v160 || *(v63 + 32) != 0;
-        LOBYTE(v240) = v162;
-        BYTE1(v240) = v161;
-        BYTE2(v240) = v156;
-        BYTE3(v240) = BYTE1(v201) == 0;
-        BYTE4(v240) = v201 == 0;
-        if (BYTE3(v201))
+        v166 = !v165;
+        v249 = 0uLL;
+        v248 = 0;
+        v247 = v159;
+        v167 = !v165 || *(v64 + 32) != 0;
+        LOBYTE(v248) = v167;
+        BYTE1(v248) = v166;
+        BYTE2(v248) = v161;
+        BYTE3(v248) = BYTE1(v209) == 0;
+        BYTE4(v248) = v209 == 0;
+        if (BYTE3(v209))
         {
-          v241 = v207;
+          v249 = v215;
         }
 
         else
         {
-          v241 = 0uLL;
+          v249 = 0uLL;
         }
 
-        v62 = pixelBuffer;
-        v168 = *(v63 + 56);
-        v242 = (v269[0] - *(v63 + 48));
-        v243 = v168;
-        v245 = 0;
-        v244 = 0;
-        v246 = *(v63 + 64);
-        v247 = SDWORD2(v202);
-        if (BYTE1(v201))
+        v63 = pixelBuffer;
+        v173 = *(v64 + 56);
+        v250 = (v277[0] - *(v64 + 48));
+        v251 = v173;
+        v253 = 0;
+        v252 = 0;
+        v254 = *(v64 + 64);
+        v255 = SDWORD2(v210);
+        if (BYTE1(v209))
         {
-          v169 = 0;
-          v245 = DataLength;
-          if (BYTE3(v201))
+          v174 = 0;
+          v253 = DataLength;
+          if (BYTE3(v209))
           {
             goto LABEL_433;
           }
@@ -1960,123 +1960,123 @@ LABEL_389:
         {
           lengthAtOffsetOut[0] = 0;
           dataPointerOut = 0;
-          DataPointer = CMBlockBufferGetDataPointer(v154, DataLength - 2, lengthAtOffsetOut, 0, &dataPointerOut);
-          v169 = 1;
+          DataPointer = CMBlockBufferGetDataPointer(v159, DataLength - 2, lengthAtOffsetOut, 0, &dataPointerOut);
+          v174 = 1;
           if (!DataPointer && lengthAtOffsetOut[0] >= 2)
           {
             if (*dataPointerOut == 255 && dataPointerOut[1] == 217)
             {
-              v169 = 0;
-              v245 = DataLength - 2;
-              BYTE3(v240) = 0;
+              v174 = 0;
+              v253 = DataLength - 2;
+              BYTE3(v248) = 0;
             }
 
             else
             {
-              v169 = 1;
+              v174 = 1;
             }
           }
 
-          v159 = v201;
-          if (BYTE3(v201))
+          v164 = v209;
+          if (BYTE3(v209))
           {
             goto LABEL_433;
           }
         }
 
-        if (v159)
+        if (v164)
         {
-          if (((v169 | v162) & 1) == 0)
+          if (((v174 | v167) & 1) == 0)
           {
             goto LABEL_443;
           }
 
-          if (!v169)
+          if (!v174)
           {
-            v171 = 0;
+            v176 = 0;
             goto LABEL_434;
           }
         }
 
 LABEL_433:
-        v171 = _scannerCallbackMarker;
+        v176 = _scannerCallbackMarker;
 LABEL_434:
-        if (v162)
+        if (v167)
         {
-          v172 = _scannerCallbackRestartMarker;
+          v177 = _scannerCallbackRestartMarker;
         }
 
         else
         {
-          v172 = 0;
+          v177 = 0;
         }
 
-        v173 = CMPhotoJFIFScannerCreate(v171, &v239, v172, &v239, &v227);
-        if (v173)
+        v178 = CMPhotoJFIFScannerCreate(v176, &v247, v177, &v247, &v235);
+        if (v178)
         {
           goto LABEL_463;
         }
 
         if (DataLength)
         {
-          v174 = 0;
-          v175 = DataLength;
+          v179 = 0;
+          v180 = DataLength;
           do
           {
             lengthAtOffsetOut[0] = 0;
             dataPointerOut = 0;
-            v173 = CMBlockBufferGetDataPointer(v154, v174, &dataPointerOut, 0, lengthAtOffsetOut);
-            if (v173)
+            v178 = CMBlockBufferGetDataPointer(v159, v179, &dataPointerOut, 0, lengthAtOffsetOut);
+            if (v178)
             {
               goto LABEL_463;
             }
 
-            CMPhotoJFIFScannerRun(v227, lengthAtOffsetOut[0], dataPointerOut);
-            if (v173)
+            CMPhotoJFIFScannerRun(v235, lengthAtOffsetOut[0], dataPointerOut);
+            if (v178)
             {
               goto LABEL_463;
             }
 
-            v174 += dataPointerOut;
-            v175 -= dataPointerOut;
+            v179 += dataPointerOut;
+            v180 -= dataPointerOut;
           }
 
-          while (v175);
+          while (v180);
         }
 
 LABEL_443:
-        if (!*(v63 + 32) || !v201)
+        if (!*(v64 + 32) || !v209)
         {
 LABEL_445:
           Capabilities = CMByteStreamAppendBlockBuffer();
-          if (!Capabilities && *(v63 + 32) && BYTE1(v201))
+          if (!Capabilities && *(v64 + 32) && BYTE1(v209))
           {
             dataPointerOut = 0;
-            v176 = *(v63 + 40);
-            v177 = *(v63 + 56);
-            v178 = *(v63 + 64);
-            v179 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-            if (v179)
+            v181 = *(v64 + 40);
+            v182 = *(v64 + 56);
+            v183 = *(v64 + 64);
+            v184 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+            if (v184)
             {
-              v180 = v179(a13, 4 * v177, v176, v178, &dataPointerOut);
-              if (dataPointerOut == (4 * v177))
+              v185 = v184(a14, 4 * v182, v181, v183, &dataPointerOut);
+              if (dataPointerOut == (4 * v182))
               {
-                v181 = 0;
+                v186 = 0;
               }
 
               else
               {
-                v181 = -16992;
+                v186 = -16992;
               }
 
-              if (v180)
+              if (v185)
               {
-                Capabilities = v180;
+                Capabilities = v185;
               }
 
               else
               {
-                Capabilities = v181;
+                Capabilities = v186;
               }
             }
 
@@ -2089,28 +2089,28 @@ LABEL_445:
           goto LABEL_385;
         }
 
-        *(v63 + 48) = v244;
+        *(v64 + 48) = v252;
         dataPointerOut = 0;
-        v182 = *(v63 + 56);
-        v183 = *(v63 + 64);
+        v187 = *(v64 + 56);
+        v188 = *(v64 + 64);
         lengthAtOffsetOut[0] = MEMORY[0x1E69E9820];
-        lengthAtOffsetOut[1] = *"";
-        v236 = ___postProcessStripToStream_block_invoke;
-        v237 = &__block_descriptor_tmp_17_0;
-        v238 = a13;
-        v173 = _writeRestartMarkerSegmentWithHandler(1, 1, v182, v183, (v63 + 40), &dataPointerOut, lengthAtOffsetOut);
-        if (!v173)
+        lengthAtOffsetOut[1] = 0x40000000;
+        v244 = ___postProcessStripToStream_block_invoke;
+        v245 = &__block_descriptor_tmp_17_0;
+        v246 = a14;
+        v178 = _writeRestartMarkerSegmentWithHandler(1, 1, v187, v188, (v64 + 40), &dataPointerOut, lengthAtOffsetOut);
+        if (!v178)
         {
-          *(v63 + 48) = &dataPointerOut[*(v63 + 48) - 2];
+          *(v64 + 48) = &dataPointerOut[*(v64 + 48) - 2];
           goto LABEL_445;
         }
 
 LABEL_463:
-        Capabilities = v173;
+        Capabilities = v178;
         goto LABEL_385;
       }
 
-      Capabilities = v158;
+      Capabilities = v163;
     }
 
     else
@@ -2118,25 +2118,25 @@ LABEL_463:
       Capabilities = 4294954514;
     }
 
-    v62 = pixelBuffer;
+    v63 = pixelBuffer;
 LABEL_385:
-    CMPhotoJFIFScannerDispose(v227);
+    CMPhotoJFIFScannerDispose(v235);
     goto LABEL_386;
   }
 
-  if (v190 || !Capabilities)
+  if (v198 || !Capabilities)
   {
     goto LABEL_389;
   }
 
-  BYTE2(v201) = 0;
+  BYTE2(v209) = 0;
 LABEL_390:
   if (*MEMORY[0x1E695FF58] == 1)
   {
     kdebug_trace();
   }
 
-  Capabilities = _encodeSW(v63, v62, v200, v61, &sbuf, a13);
+  Capabilities = _encodeSW(v64, v63, v208, v62, &sbuf, a14);
   if (*MEMORY[0x1E695FF58] == 1)
   {
     kdebug_trace();
@@ -2147,54 +2147,54 @@ LABEL_390:
     goto LABEL_460;
   }
 
-  v163 = sbuf;
+  v168 = sbuf;
   if (sbuf)
   {
     TotalSampleSize = CMSampleBufferGetTotalSampleSize(sbuf);
     Capabilities = 0;
-    if (v211)
+    if (v219)
     {
-      v165 = TotalSampleSize;
-      if (TotalSampleSize > v211)
+      v170 = TotalSampleSize;
+      if (TotalSampleSize > v219)
       {
-        if (!v20)
+        if (!v21)
         {
           while (1)
           {
-            if (v163)
+            if (v168)
             {
-              CFRelease(v163);
+              CFRelease(v168);
               sbuf = 0;
             }
 
-            v166 = CMPhotoJPEGQualityControllerDecrementByteBudgetQualityGivenSize(&v208, v165, 1, &v215);
-            if (v166)
+            v171 = CMPhotoJPEGQualityControllerDecrementByteBudgetQualityGivenSize(&v216, v170, 1, &v223);
+            if (v171)
             {
               break;
             }
 
-            CMPhotoJPEGQualitySettingsReleaseStorage(&v208);
-            v212 = v219;
-            v213 = v220;
-            v214 = v221;
-            v208 = v215;
-            v209 = v216;
-            v210 = v217;
-            v211 = v218;
-            v215 = 0u;
-            v216 = 0u;
-            v217 = 0u;
-            v218 = 0u;
-            v219 = 0u;
-            v220 = 0u;
-            v221 = 0;
-            DWORD2(v202) = -1;
+            CMPhotoJPEGQualitySettingsReleaseStorage(&v216);
+            v220 = v227;
+            v221 = v228;
+            v222 = v229;
+            v216 = v223;
+            v217 = v224;
+            v218 = v225;
+            v219 = v226;
+            v223 = 0u;
+            v224 = 0u;
+            v225 = 0u;
+            v226 = 0u;
+            v227 = 0u;
+            v228 = 0u;
+            v229 = 0;
+            DWORD2(v210) = -1;
             if (*MEMORY[0x1E695FF58] == 1)
             {
               kdebug_trace();
             }
 
-            Capabilities = _encodeSW(v63, v62, v200, v61, &sbuf, a13);
+            Capabilities = _encodeSW(v64, v63, v208, v62, &sbuf, a14);
             if (*MEMORY[0x1E695FF58] == 1)
             {
               kdebug_trace();
@@ -2205,12 +2205,12 @@ LABEL_390:
               goto LABEL_460;
             }
 
-            v163 = sbuf;
-            v167 = CMSampleBufferGetTotalSampleSize(sbuf);
-            if (v211)
+            v168 = sbuf;
+            v172 = CMSampleBufferGetTotalSampleSize(sbuf);
+            if (v219)
             {
-              v165 = v167;
-              if (v167 > v211)
+              v170 = v172;
+              if (v172 > v219)
               {
                 continue;
               }
@@ -2219,13 +2219,13 @@ LABEL_390:
             goto LABEL_411;
           }
 
-          Capabilities = v166;
+          Capabilities = v171;
           goto LABEL_460;
         }
 
-        _encodeBuffer_cold_10(&v239);
+        _encodeBuffer_cold_10(&v247);
 LABEL_482:
-        Capabilities = v239;
+        Capabilities = v247;
         goto LABEL_460;
       }
     }
@@ -2237,45 +2237,54 @@ LABEL_482:
   }
 
 LABEL_411:
-  if (a12)
+  if (arg20)
   {
-    *a12 = sbuf;
+    *arg20 = sbuf;
     goto LABEL_462;
   }
 
 LABEL_460:
-  v152 = sbuf;
+  v157 = sbuf;
   if (sbuf)
   {
 LABEL_461:
-    CFRelease(v152);
+    CFRelease(v157);
   }
 
 LABEL_462:
-  CMPhotoJPEGQualitySettingsReleaseStorage(&v208);
-  CMPhotoJPEGQualitySettingsReleaseStorage(&v215);
+  CMPhotoJPEGQualitySettingsReleaseStorage(&v216);
+  CMPhotoJPEGQualitySettingsReleaseStorage(&v223);
   return Capabilities;
 }
 
-uint64_t CMPhotoUnifiedJPEGEncoderEncodeStripToStream(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _OWORD *a5, uint64_t a6, unint64_t *a7, uint64_t a8, uint64x2_t *a9, __CFData *a10)
+uint64_t CMPhotoUnifiedJPEGEncoderEncodeStripToStream(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _OWORD *a5, uint64_t a6, CMSampleBufferRef *a7, uint64_t a8, uint64x2_t *a9, __CFData *a10)
 {
-  if (!a6 || *a9 == 0 && *&a9[1] == 0)
+  if (a6)
   {
-    fig_log_get_emitter();
+    if (*a9 != 0 || *&a9[1] != 0)
+    {
+      v11 = a5[1];
+      v18[0] = *a5;
+      v18[1] = v11;
+      v12 = a9[1];
+      v17[0] = *a9;
+      v17[1] = v12;
+      return _encodeBuffer(a1, a2, a3, a4, v18, 1, a6, a8, v17[0], v12, a7, a8, v17, a10);
+    }
 
-    return FigSignalErrorAtGM();
+    emitter = fig_log_get_emitter();
+    v15 = v10;
+    v16 = 1997;
   }
 
   else
   {
-    v10 = a5[1];
-    v14[0] = *a5;
-    v14[1] = v10;
-    v11 = a9[1];
-    v13[0] = *a9;
-    v13[1] = v11;
-    return _encodeBuffer(a1, a2, a3, a4, v14, 1, a6, a8, v13[0], a7, a8, v13, a10);
+    emitter = fig_log_get_emitter();
+    v15 = v10;
+    v16 = 1994;
   }
+
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294950306, "<<<< CMPhotoUnifiedJPEGEncoder >>>>", v16, v15);
 }
 
 uint64_t CMPhotoUnifiedJPEGEncoderDidUseHW(uint64_t result)
@@ -2291,7 +2300,7 @@ uint64_t CMPhotoUnifiedJPEGEncoderDidUseHW(uint64_t result)
 uint64_t _isHWAvailableHelper(_BYTE *a1, uint64_t a2)
 {
   block[0] = MEMORY[0x1E69E9820];
-  block[1] = *"";
+  block[1] = 0x40000000;
   block[2] = ___isHWAvailableHelper_block_invoke_0;
   block[3] = &__block_descriptor_tmp_6_0;
   block[4] = a2;
@@ -2315,12 +2324,12 @@ LABEL_3:
   return _isHWAvailableHelper_sHWAvailable_0;
 }
 
-uint64_t _encodeSW(uint64_t a1, __CVBuffer *a2, uint64_t a3, int a4, CFTypeRef *a5, __CFData *a6)
+uint64_t _encodeSW(uint64_t a1, __CVBuffer *a2, int *a3, int a4, CFTypeRef *a5, __CFData *a6)
 {
   v103 = *MEMORY[0x1E69E9840];
   v95 = 0;
   cf = 0;
-  if (a6 && *(a3 + 176))
+  if (a6 && *(a3 + 22))
   {
     _encodeSW_cold_2(bytes);
     v14 = 0;
@@ -2364,7 +2373,7 @@ LABEL_13:
       v24 = a2;
       PixelFormatType = CVPixelBufferGetPixelFormatType(a2);
       v84 = PixelFormatType;
-      v26 = *(a3 + 8);
+      v26 = *(a3 + 1);
       v27 = *a3;
       UncompressedUnpackedPixelFormatFromCompressedPackedPixelFormat = CMPhotoGetUncompressedUnpackedPixelFormatFromCompressedPackedPixelFormat(PixelFormatType);
       v29 = UncompressedUnpackedPixelFormatFromCompressedPackedPixelFormat;
@@ -2397,10 +2406,10 @@ LABEL_13:
         CMPhotoGetYUVPixelFormatForParameters(v31, v26, 1, 0, 0, 0, 1, &v84);
       }
 
-      v33 = *(a3 + 48);
-      v32 = *(a3 + 56);
-      v19 = *(a3 + 64);
-      v34 = *(a3 + 72);
+      v33 = *(a3 + 6);
+      v32 = *(a3 + 7);
+      v19 = *(a3 + 8);
+      v34 = *(a3 + 9);
       v83 = 0;
       IsNon601YCbCr = CMPhotoPixelBufferIsNon601YCbCr(v24, &v83);
       if (v84 == PixelFormatType && !IsNon601YCbCr)
@@ -2427,10 +2436,10 @@ LABEL_13:
           CMPhotoCFDictionarySetInt(v19, @"DestinationPixelFormat", v84);
           CMPhotoCFDictionarySetBoolean(v19, @"ExactDimensions", 0);
           CMPhotoCFDictionarySetSize(v19, @"RowAlignment", 64);
-          v105.origin.x = *(a3 + 80);
-          v105.origin.y = *(a3 + 88);
-          v105.size.width = *(a3 + 96);
-          v105.size.height = *(a3 + 104);
+          v105.origin.x = *(a3 + 10);
+          v105.origin.y = *(a3 + 11);
+          v105.size.width = *(a3 + 12);
+          v105.size.height = *(a3 + 13);
           DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v105);
           if (DictionaryRepresentation)
           {
@@ -2531,7 +2540,7 @@ LABEL_57:
                     if (!*(a3 + 16))
                     {
                       bytes[0] = -1;
-                      v67 = *(a3 + 40);
+                      v67 = a3[10];
                       v65 = -v67 < 0;
                       v66 = -v67 & 7;
                       LOBYTE(v67) = v67 & 7;
@@ -2550,11 +2559,11 @@ LABEL_57:
 
                       if (*(a1 + 32))
                       {
-                        *(*(a1 + 64) + 4 * *(a3 + 40)) = v93 - *(a1 + 48) - 2;
+                        *(*(a1 + 64) + 4 * a3[10]) = v93 - *(a1 + 48) - 2;
                       }
                     }
 
-                    ++*(a3 + 40);
+                    ++a3[10];
                     if (!*(a1 + 32))
                     {
                       goto LABEL_70;
@@ -2577,7 +2586,7 @@ LABEL_83:
                         v55 = *(a1 + 56);
                         v56 = *(a1 + 64);
                         v76[0] = MEMORY[0x1E69E9820];
-                        v76[1] = *"";
+                        v76[1] = 0x40000000;
                         v76[2] = ___encodeSW_block_invoke;
                         v76[3] = &__block_descriptor_tmp_18;
                         v76[4] = v54;
@@ -2727,8 +2736,8 @@ LABEL_134:
                 goto LABEL_135;
               }
 
-              v45 = *(a3 + 208);
-              v46 = *(a3 + 216);
+              v45 = *(a3 + 26);
+              v46 = *(a3 + 27);
               if (v45 == v46)
               {
                 v47 = 128;
@@ -2749,8 +2758,8 @@ LABEL_134:
                 v99 = v48 + 64;
                 do
                 {
-                  *(*bytes + v49) = *(*(a3 + 200) + 2 * v49);
-                  v98[v49] = *(*(a3 + 208) + 2 * v49);
+                  *(*bytes + v49) = *(*(a3 + 25) + 2 * v49);
+                  v98[v49] = *(*(a3 + 26) + 2 * v49);
                   ++v49;
                 }
 
@@ -2761,7 +2770,7 @@ LABEL_134:
                   v99 = v48 + 128;
                   do
                   {
-                    v99[v50] = *(*(a3 + 216) + 2 * v50);
+                    v99[v50] = *(*(a3 + 27) + 2 * v50);
                     ++v50;
                   }
 
@@ -2999,7 +3008,7 @@ xpc_object_t ___encodeHW_block_invoke(uint64_t a1)
   return empty;
 }
 
-uint64_t ___postProcessStripToStream_block_invoke(uint64_t a1, uint64_t a2)
+uint64_t ___postProcessStripToStream_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   LODWORD(result) = CMByteStreamAppend();
   if (a2)
@@ -3028,7 +3037,7 @@ uint64_t SlimXEncodeF32Row(unsigned int **a1, int a2)
   *(a1 + 24) = v7 - 32;
   if (v7 <= 31)
   {
-    v10 = a1[11] + (v6 >> (32 - v7));
+    v10 = (a1[11] + (v6 >> (32 - v7)));
     a1[11] = v10;
     v11 = a1[2];
     if (a1[3] - v11 <= 7)
@@ -3085,7 +3094,7 @@ LABEL_62:
         *(a1 + 24) = v23 - v15;
         if (v23 - v15 < 0)
         {
-          v28 = v9 + (v16 >> (v15 - v23));
+          v28 = (v9 + (v16 >> (v15 - v23)));
           a1[11] = v28;
           v29 = a1[2];
           if (a1[3] - v29 <= 7)
@@ -3119,7 +3128,7 @@ LABEL_62:
         *(a1 + 24) = v8 - 3;
         if (v8 < 3)
         {
-          v33 = v9 + (v19 >> (3 - v8));
+          v33 = (v9 + (v19 >> (3 - v8)));
           a1[11] = v33;
           v34 = a1[2];
           if (a1[3] - v34 <= 7)
@@ -3144,7 +3153,7 @@ LABEL_62:
         *(a1 + 24) = v17 + v26 - 31;
         if ((v17 + v26 - 31) < 0)
         {
-          v38 = v27 + (v37 >> (31 - (v17 + v26)));
+          v38 = (v27 + (v37 >> (31 - (v17 + v26))));
           a1[11] = v38;
           v39 = a1[2];
           if (a1[3] - v39 <= 7)
@@ -3178,7 +3187,7 @@ LABEL_62:
         {
           if (v8 < 4)
           {
-            v45 = v9 + (0xEuLL >> (4 - v8));
+            v45 = (v9 + (0xEuLL >> (4 - v8)));
             a1[11] = v45;
             v46 = a1[2];
             if (a1[3] - v46 <= 7)
@@ -3202,7 +3211,7 @@ LABEL_62:
           *(a1 + 24) = v21 - v20;
           if (v21 - v20 < 0)
           {
-            v51 = v32 + (v16 >> (v20 - v21));
+            v51 = (v32 + (v16 >> (v20 - v21)));
             a1[11] = v51;
             v52 = a1[2];
             if (a1[3] - v52 <= 7)
@@ -3234,7 +3243,7 @@ LABEL_62:
         {
           if (v8 < 4)
           {
-            v41 = v9 + (0xFuLL >> (4 - v8));
+            v41 = (v9 + (0xFuLL >> (4 - v8)));
             a1[11] = v41;
             v42 = a1[2];
             if (a1[3] - v42 <= 7)
@@ -3260,7 +3269,7 @@ LABEL_62:
           *(a1 + 24) = v21 - 32;
           if (v21 < 32)
           {
-            v48 = v22 + (v44 >> (32 - v21));
+            v48 = (v22 + (v44 >> (32 - v21)));
             a1[11] = v48;
             v49 = a1[2];
             if (a1[3] - v49 <= 7)
@@ -3778,100 +3787,100 @@ __n128 CMPhotoVideoQualityControllerGetPoolingKey@<Q0>(uint64_t a1@<X0>, uint64_
 
 uint64_t CMPhotoGetHEVCNALULocationAndSizeFromType(uint64_t a1, unint64_t a2, int a3, void *a4, unint64_t *a5)
 {
-  v5 = a3 != 80;
+  v6 = a3 != 80;
   if (a3 == 78)
   {
-    v5 = 0;
+    v6 = 0;
   }
 
   if (a3 == 2)
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  v6 = 0;
+  v7 = 0;
   if (a2)
   {
-    v7 = 0;
-    v8 = (a1 + 1);
-    v9 = -1;
-    v10 = 1;
+    v8 = 0;
+    v9 = (a1 + 1);
+    v10 = -1;
+    v11 = 1;
     for (i = a2; i; --i)
     {
-      v12 = *(v8 - 1) | (v9 << 8);
-      v6 += v7 & 1;
-      if ((v12 & 0xFFFFFF) == 1)
+      v13 = *(v9 - 1) | (v10 << 8);
+      v7 += v8 & 1;
+      if ((v13 & 0xFFFFFF) == 1)
       {
-        if (v10 >= a2)
+        if (v11 >= a2)
         {
 
-          return FigSignalErrorAtGM();
+          return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 4294950299, "(Fig)", 55, v5);
         }
 
-        v13 = v9 << 8;
-        v14 = *v8 & 0x7E;
-        v16 = v14 == 38 || v14 == 40;
-        v18 = v14 == 78 || v14 == 80;
-        v19 = a3 == 2 && v18;
-        v20 = a3 != 1 && v19;
+        v14 = v10 << 8;
+        v15 = *v9 & 0x7E;
+        v17 = v15 == 38 || v15 == 40;
+        v19 = v15 == 78 || v15 == 80;
+        v20 = a3 == 2 && v19;
+        v21 = a3 != 1 && v20;
         if (a3 != 1)
         {
-          v16 = v19;
+          v17 = v20;
         }
 
-        if ((v7 & 1) != 0 && !v20)
+        if ((v8 & 1) != 0 && !v21)
         {
-          if (v6 <= 3)
+          if (v7 <= 3)
           {
-            CMPhotoGetHEVCNALULocationAndSizeFromType_cold_1(&v23);
-            return v23;
+            CMPhotoGetHEVCNALULocationAndSizeFromType_cold_1(&v24);
+            return v24;
           }
 
-          v22 = -4;
-          if (HIBYTE(v13))
+          v23 = -4;
+          if (HIBYTE(v14))
           {
-            v22 = -3;
+            v23 = -3;
           }
 
-          v6 += v22;
+          v7 += v23;
           break;
         }
 
-        if (!((v14 != a3) & ~v16 | v7 & 1))
+        if (!((v15 != a3) & ~v17 | v8 & 1))
         {
-          v6 = 0;
-          *a4 = v8;
-          v7 = 1;
+          v7 = 0;
+          *a4 = v9;
+          v8 = 1;
         }
       }
 
-      ++v8;
-      ++v10;
-      v9 = v12;
+      ++v9;
+      ++v11;
+      v10 = v13;
     }
+  }
+
+  if (v7)
+  {
+    v6 = 0;
   }
 
   if (v6)
   {
-    v5 = 0;
-  }
-
-  if (v5)
-  {
-    CMPhotoGetHEVCNALULocationAndSizeFromType_cold_2(&v24);
-    return v24;
+    CMPhotoGetHEVCNALULocationAndSizeFromType_cold_2(&v25);
+    return v25;
   }
 
   else
   {
     result = 0;
-    *a5 = v6;
+    *a5 = v7;
   }
 
   return result;
 }
 
-uint64_t CMPhotoAsyncDispatcherGetTypeID()
+uint64_t CMPhotoAsyncDispatcherGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (_MergedGlobals_9 != -1)
   {
@@ -4022,9 +4031,9 @@ LABEL_13:
   return v5;
 }
 
-void sub_1A59BA910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1A59BA910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4054,7 +4063,7 @@ id ___waitForIndexToComplete_block_invoke(void *a1)
   return v2;
 }
 
-uint64_t ___addToFunnel_block_invoke(void *a1)
+void *___addToFunnel_block_invoke(void *a1)
 {
   v2 = a1[5];
   v3 = *(a1[6] + 80);
@@ -4139,15 +4148,15 @@ uint64_t CMPhotoJPEGCreateJPEGFromSbuf(opaqueCMSampleBuffer *a1, const __CFDicti
 
 uint64_t _createJPEGFromCVPixelBuffer(unsigned int a1, __CVBuffer *a2, const __CFDictionary *a3, void *a4, uint64_t *a5, IOSurfaceRef *a6, _DWORD *a7)
 {
-  v191 = 0;
-  v189 = 0u;
+  v195 = 0;
+  v193 = 0u;
+  v194 = 0u;
+  v191 = 0u;
+  v192 = 0u;
   v190 = 0u;
+  v189 = 0;
+  memset(v188, 0, sizeof(v188));
   v187 = 0u;
-  v188 = 0u;
-  v186 = 0u;
-  v185 = 0;
-  memset(v184, 0, sizeof(v184));
-  v183 = 0u;
   buffer = 0;
   cf = 0;
   v12 = *(MEMORY[0x1E695F058] + 16);
@@ -4165,28 +4174,28 @@ uint64_t _createJPEGFromCVPixelBuffer(unsigned int a1, __CVBuffer *a2, const __C
 
   if (!a2)
   {
-    _createJPEGFromCVPixelBuffer_cold_17(&v196);
+    _createJPEGFromCVPixelBuffer_cold_17(&v200);
 LABEL_452:
     LODWORD(a7) = 0;
 LABEL_454:
-    x_low = LODWORD(v196.origin.x);
+    x_low = LODWORD(v200.origin.x);
     goto LABEL_431;
   }
 
   if (!a6)
   {
-    _createJPEGFromCVPixelBuffer_cold_16(&v196);
+    _createJPEGFromCVPixelBuffer_cold_16(&v200);
     goto LABEL_452;
   }
 
   if (!a7)
   {
-    _createJPEGFromCVPixelBuffer_cold_15(&v196);
+    _createJPEGFromCVPixelBuffer_cold_15(&v200);
     goto LABEL_454;
   }
 
   BoolValue = _getBoolValue(a3, @"JPEGSoftwareEncode", 0);
-  v172 = a7;
+  v176 = a7;
   if (a3 && (Value = CFDictionaryGetValue(a3, @"JPEGSoftwareEncode")) != 0)
   {
     v14 = CFGetTypeID(Value);
@@ -4258,26 +4267,26 @@ LABEL_34:
 LABEL_40:
   v22 = 327689;
   theDict = a3;
-  v169 = v15;
-  v173 = 0;
+  v173 = v15;
+  v177 = 0;
   if (!a3)
   {
-    v176 = v18;
+    v180 = v18;
     BytePtr = 0;
-    v179 = 0;
+    v183 = 0;
     v29 = 0;
     v30 = -1;
-    v162 = 1;
-    v163 = 0;
-    v164 = 1;
+    v166 = 1;
+    v167 = 0;
+    v168 = 1;
     v31 = 1;
-    v158 = 0;
-    v159 = @"SurfacePoolOneShot";
+    v162 = 0;
+    v163 = @"SurfacePoolOneShot";
     IntValue = -1;
     goto LABEL_99;
   }
 
-  v175 = v20;
+  v179 = v20;
   v23 = _getBoolValue(a3, @"JPEGHighSpeedEncode", 1);
   v24 = CFDictionaryGetValue(a3, @"JPEGSurfacePool");
   if (v24)
@@ -4287,10 +4296,10 @@ LABEL_40:
     v27 = 1;
     if (v26 != CMPhotoSurfacePoolGetTypeID() && v25 != @"SurfacePoolOneShot")
     {
-      _createJPEGFromCVPixelBuffer_cold_1(&v196);
+      _createJPEGFromCVPixelBuffer_cold_1(&v200);
 LABEL_480:
       LODWORD(a7) = 0;
-      x_low = LODWORD(v196.origin.x);
+      x_low = LODWORD(v200.origin.x);
       goto LABEL_431;
     }
   }
@@ -4301,16 +4310,16 @@ LABEL_480:
     v25 = @"SurfacePoolOneShot";
   }
 
-  v159 = v25;
+  v163 = v25;
   v32 = CFDictionaryGetValue(a3, @"JPEGScaleAndRotateSession");
   if (v32)
   {
     v33 = v32;
     v34 = CFGetTypeID(v32);
-    v173 = v33;
+    v177 = v33;
     if (v34 != CMPhotoScaleAndRotateSessionGetTypeID())
     {
-      _createJPEGFromCVPixelBuffer_cold_2(&v196);
+      _createJPEGFromCVPixelBuffer_cold_2(&v200);
       goto LABEL_480;
     }
   }
@@ -4322,21 +4331,21 @@ LABEL_480:
     v36 = CFGetTypeID(v35);
     if (v36 != IOSurfaceGetTypeID())
     {
-      _createJPEGFromCVPixelBuffer_cold_3(&v196);
+      _createJPEGFromCVPixelBuffer_cold_3(&v200);
       goto LABEL_480;
     }
   }
 
-  LODWORD(v158) = v27;
+  LODWORD(v162) = v27;
   v37 = a4;
   v38 = CFDictionaryGetValue(a3, @"JPEGCustomLumaQuantTable");
   v39 = v38;
-  v164 = v23;
+  v168 = v23;
   if (v38 && (v40 = CFGetTypeID(v38), v40 == CFDataGetTypeID()))
   {
     if (CFDataGetLength(v39) != 64)
     {
-      _createJPEGFromCVPixelBuffer_cold_4(&v196);
+      _createJPEGFromCVPixelBuffer_cold_4(&v200);
       goto LABEL_480;
     }
 
@@ -4362,13 +4371,13 @@ LABEL_480:
     }
 
 LABEL_455:
-    _createJPEGFromCVPixelBuffer_cold_6(&v196);
+    _createJPEGFromCVPixelBuffer_cold_6(&v200);
     goto LABEL_480;
   }
 
   if (CFDataGetLength(v42) != 64)
   {
-    _createJPEGFromCVPixelBuffer_cold_5(&v196);
+    _createJPEGFromCVPixelBuffer_cold_5(&v200);
     goto LABEL_480;
   }
 
@@ -4504,36 +4513,36 @@ LABEL_78:
     v56 = v54.height;
     if (CGRectIsEmpty(*&v53.x))
     {
-      _createJPEGFromCVPixelBuffer_cold_8(&v196);
+      _createJPEGFromCVPixelBuffer_cold_8(&v200);
       goto LABEL_480;
     }
 
     v57 = CVPixelBufferGetWidth(pixelBuffer);
-    v200.size.height = CVPixelBufferGetHeight(pixelBuffer);
+    v204.size.height = CVPixelBufferGetHeight(pixelBuffer);
     v59 = rect.size.width;
     v58 = rect.size.height;
-    v200.origin.x = 0.0;
-    v200.origin.y = 0.0;
-    v200.size.width = v57;
-    v201 = CGRectIntersection(rect, v200);
-    if (!CGRectEqualToRect(rect, v201))
+    v204.origin.x = 0.0;
+    v204.origin.y = 0.0;
+    v204.size.width = v57;
+    v205 = CGRectIntersection(rect, v204);
+    if (!CGRectEqualToRect(rect, v205))
     {
-      _createJPEGFromCVPixelBuffer_cold_7(&v196);
+      _createJPEGFromCVPixelBuffer_cold_7(&v200);
       goto LABEL_480;
     }
 
     Height = v58;
     Width = v59;
-    v179 = 1;
+    v183 = 1;
   }
 
   else
   {
-    v179 = 0;
+    v183 = 0;
   }
 
   a4 = v37;
-  v60 = _getIntValue(a3, @"JPEGSubsampling", v175);
+  v60 = _getIntValue(a3, @"JPEGSubsampling", v179);
   if (v60 > 421)
   {
     if (v60 == 444)
@@ -4549,7 +4558,7 @@ LABEL_78:
     }
 
 LABEL_91:
-    v176 = 0;
+    v180 = 0;
     goto LABEL_95;
   }
 
@@ -4566,22 +4575,22 @@ LABEL_91:
 
   v61 = 3;
 LABEL_94:
-  v176 = v61;
+  v180 = v61;
 LABEL_95:
-  v169 = _getBoolValue(a3, @"JPEGSoftwareFallback", v169);
+  v173 = _getBoolValue(a3, @"JPEGSoftwareFallback", v173);
   v31 = _getBoolValue(a3, @"JPEGAllowHardwareEvenCrop", 1);
-  HIDWORD(v158) = _getBoolValue(a3, @"JPEGUse601YCbCrMatrix", 0);
-  v162 = _getBoolValue(a3, @"JPEGIncreaseRoundingPoint", 1);
-  v163 = _getBoolValue(a3, @"JPEGEnableCompressedSurfacePooling", 0);
+  HIDWORD(v162) = _getBoolValue(a3, @"JPEGUse601YCbCrMatrix", 0);
+  v166 = _getBoolValue(a3, @"JPEGIncreaseRoundingPoint", 1);
+  v167 = _getBoolValue(a3, @"JPEGEnableCompressedSurfacePooling", 0);
   v62 = _getIntValue(a3, @"JPEGDestinationSurfaceSize", 0xFFFFFFFFLL);
   v30 = v62;
   if (v62 != -1)
   {
     v63 = BoolValue;
-    v64 = v172;
+    v64 = v176;
     if (v62 <= 0)
     {
-      _createJPEGFromCVPixelBuffer_cold_9(&v196);
+      _createJPEGFromCVPixelBuffer_cold_9(&v200);
       goto LABEL_480;
     }
 
@@ -4595,7 +4604,7 @@ LABEL_95:
 
 LABEL_99:
   v63 = BoolValue;
-  v64 = v172;
+  v64 = v176;
   if (BoolValue)
   {
 LABEL_98:
@@ -4608,7 +4617,7 @@ LABEL_98:
   }
 
 LABEL_100:
-  v156 = v29;
+  v160 = v29;
   if (v17 > 875704933)
   {
     if (v17 > 1380401728)
@@ -4720,15 +4729,15 @@ LABEL_132:
     {
       if (JPEGDeviceInterface_supportsAppleInterchangeFormats())
       {
-        v94 = 1;
+        v96 = 1;
       }
 
       else
       {
-        v94 = v31 == 0;
+        v96 = v31 == 0;
       }
 
-      v76 = !v94;
+      v76 = !v96;
     }
 
     v77 = 3758097095;
@@ -4758,7 +4767,7 @@ LABEL_132:
         {
           if (v17 != 2084075056)
           {
-            v95 = 1999843442;
+            v97 = 1999843442;
             goto LABEL_300;
           }
 
@@ -4766,11 +4775,11 @@ LABEL_132:
         }
 
 LABEL_318:
-        if (v176)
+        if (v180)
         {
-          if (v176 != 2)
+          if (v180 != 2)
           {
-            if (v176 != 1 || !(((Width & 1) == 0) | v76 & 1))
+            if (v180 != 1 || !(((Width & 1) == 0) | v76 & 1))
             {
               goto LABEL_339;
             }
@@ -4782,9 +4791,9 @@ LABEL_318:
 
           if (v17 == 1999843442)
           {
-            v114 = JPEGDeviceInterface_supportsAppleInterchangeFormats();
+            v116 = JPEGDeviceInterface_supportsAppleInterchangeFormats();
             v63 = BoolValue;
-            if (!v114)
+            if (!v116)
             {
               LODWORD(a7) = 0;
               v77 = 3758097095;
@@ -4851,7 +4860,7 @@ LABEL_338:
         goto LABEL_318;
       }
 
-      v95 = 875836534;
+      v97 = 875836534;
       goto LABEL_300;
     }
 
@@ -4861,7 +4870,7 @@ LABEL_338:
       {
         if (v17 == 846624121)
         {
-          if (v176 >= 2)
+          if (v180 >= 2)
           {
             LODWORD(a7) = 0;
             goto LABEL_340;
@@ -4872,7 +4881,7 @@ LABEL_338:
           goto LABEL_338;
         }
 
-        v96 = 875704438;
+        v98 = 875704438;
       }
 
       else
@@ -4880,15 +4889,15 @@ LABEL_338:
         if (v17 == 758674992)
         {
 LABEL_308:
-          if (v176)
+          if (v180)
           {
             goto LABEL_339;
           }
 
-          v112 = (Width & 1 | Height & 1) == 0;
+          v114 = (Width & 1 | Height & 1) == 0;
 LABEL_310:
-          v113 = v112;
-          if (((v113 | v76) & 1) == 0)
+          v115 = v114;
+          if (((v115 | v76) & 1) == 0)
           {
             goto LABEL_339;
           }
@@ -4896,7 +4905,7 @@ LABEL_310:
           goto LABEL_327;
         }
 
-        v96 = 792229424;
+        v98 = 792229424;
       }
     }
 
@@ -4908,26 +4917,26 @@ LABEL_310:
         {
 LABEL_302:
           v65 = 2037741158;
-          v67 = v176;
-          if (v176 == 1)
+          v67 = v180;
+          if (v180 == 1)
           {
             v68 = 0;
             v66 = 1;
             goto LABEL_332;
           }
 
-          if (v176)
+          if (v180)
           {
             goto LABEL_339;
           }
 
-          v112 = (Width & 1) == 0;
+          v114 = (Width & 1) == 0;
           goto LABEL_310;
         }
 
-        v95 = 641234484;
+        v97 = 641234484;
 LABEL_300:
-        if (v17 != v95)
+        if (v17 != v97)
         {
           goto LABEL_339;
         }
@@ -4940,10 +4949,10 @@ LABEL_300:
         goto LABEL_318;
       }
 
-      v96 = 641234480;
+      v98 = 641234480;
     }
 
-    if (v17 != v96)
+    if (v17 != v98)
     {
       goto LABEL_339;
     }
@@ -4960,7 +4969,7 @@ LABEL_135:
 LABEL_136:
   v63 = BoolValue;
 LABEL_137:
-  v29 = v156;
+  v29 = v160;
 LABEL_138:
   if (v67 | v63)
   {
@@ -5036,7 +5045,7 @@ LABEL_219:
   }
 
 LABEL_157:
-  if (v176 <= v78 || v176 == 4)
+  if (v180 <= v78 || v180 == 4)
   {
     v77 = 0;
   }
@@ -5051,7 +5060,7 @@ LABEL_163:
   {
     LODWORD(a7) = 0;
 LABEL_170:
-    v64 = v172;
+    v64 = v176;
     goto LABEL_290;
   }
 
@@ -5062,13 +5071,13 @@ LABEL_170:
 
   if ((v66 | v69) != 1)
   {
-    v157 = 0;
+    v161 = 0;
     v84 = pixelBuffer;
     goto LABEL_181;
   }
 
   v81 = v65;
-  if (v179)
+  if (v183)
   {
     v82 = rect.size.width;
     v83 = rect.size.height;
@@ -5083,14 +5092,14 @@ LABEL_170:
   v86 = v82;
   if (a4 && CVPixelBufferGetWidth(a4) == v86 && CVPixelBufferGetHeight(a4) == v83 && CVPixelBufferGetIOSurface(a4))
   {
-    v157 = 0;
+    v161 = 0;
     cf = a4;
   }
 
   else
   {
-    v157 = 1;
-    if (CMPhotoSurfacePoolCreatePixelBuffer(v159, v81, v86, v83, 1, 0, 0, 0, 0, 0, &cf))
+    v161 = 1;
+    if (CMPhotoSurfacePoolCreatePixelBuffer(v163, v81, v86, v83, 1, 0, 0, 0, 0, 0, &cf))
     {
       LODWORD(a7) = 0;
       v77 = 3758097084;
@@ -5098,70 +5107,70 @@ LABEL_170:
     }
   }
 
-  if (CMPhotoScaleAndRotateSessionTransformForMaxSideLength(v173, pixelBuffer, 1u, 1u, v81, HIDWORD(v158) != 0, 0, 0, 0, 0, 0, 1u, &cf))
+  if (CMPhotoScaleAndRotateSessionTransformForMaxSideLength(v177, pixelBuffer, 1u, 1u, v81, HIDWORD(v162) != 0, 0, 0, 0, 0, 0, 1u, &cf))
   {
     v77 = 3758097084;
-    LODWORD(a7) = v157;
+    LODWORD(a7) = v161;
 LABEL_475:
-    v64 = v172;
+    v64 = v176;
     goto LABEL_340;
   }
 
-  v179 = 0;
+  v183 = 0;
   v84 = cf;
 LABEL_181:
   IOSurface = CVPixelBufferGetIOSurface(v84);
   if (v29)
   {
-    if (!v163)
+    if (!v167)
     {
       buffer = CFRetain(v29);
       goto LABEL_242;
     }
 
-    _createJPEGFromCVPixelBuffer_cold_10(&v196);
-    x_low = LODWORD(v196.origin.x);
+    _createJPEGFromCVPixelBuffer_cold_10(&v200);
+    x_low = LODWORD(v200.origin.x);
 LABEL_482:
-    LODWORD(a7) = v157;
+    LODWORD(a7) = v161;
     goto LABEL_431;
   }
 
   if (v30 < 1)
   {
-    v89 = 2 * Height * Width;
+    v91 = 2 * Height * Width;
     if (BytePtr)
     {
       if (*BytePtr == 1)
       {
-        v90 = 0;
+        v92 = 0;
         do
         {
-          v91 = v90;
-          if (v90 == 63)
+          v93 = v92;
+          if (v92 == 63)
           {
             break;
           }
 
-          v92 = BytePtr[++v90];
+          v94 = BytePtr[++v92];
         }
 
-        while (v92 == 1);
-        v93 = v91 > 0x3E;
+        while (v94 == 1);
+        v95 = v93 > 0x3E;
       }
 
       else
       {
-        v93 = 0;
+        v95 = 0;
       }
 
-      if (v176 == 2)
+      if (v180 == 2)
       {
-        v93 = 1;
+        v95 = 1;
       }
 
-      if (!v93)
+      if (!v95)
       {
-        v89 = (3 * Height * Width) >> 1;
+        v91 = (3 * Height * Width) >> 1;
       }
     }
 
@@ -5169,41 +5178,41 @@ LABEL_482:
     {
       if (v22 == 9)
       {
-        v97 = HIWORD(v22);
+        v99 = HIWORD(v22);
       }
 
       else
       {
-        v97 = v22;
+        v99 = v22;
       }
 
-      if (v97 != 6)
+      if (v99 != 6)
       {
-        v89 /= 3uLL;
+        v91 /= 3uLL;
       }
     }
 
-    v98 = (v89 + *MEMORY[0x1E69E9AC8] - 1) & -*MEMORY[0x1E69E9AC8];
-    if (v98 <= 0x8000)
+    v100 = (v91 + *MEMORY[0x1E69E9AC8] - 1) & -*MEMORY[0x1E69E9AC8];
+    if (v100 <= 0x8000)
     {
-      v88 = 0x8000;
+      v90 = 0x8000;
     }
 
     else
     {
-      v88 = v98;
+      v90 = v100;
     }
   }
 
   else
   {
-    v88 = v30;
+    v90 = v30;
   }
 
-  if (!v163)
+  if (!v167)
   {
-    v100 = CMPhotoSurfacePoolCreateMemorySurface(@"SurfacePoolOneShot", v88, 2, &buffer);
-    if (!v100)
+    v102 = CMPhotoSurfacePoolCreateMemorySurface(@"SurfacePoolOneShot", v90, 2, &buffer, v87, v88);
+    if (!v102)
     {
       IOSurfaceDecrementUseCount(buffer);
       goto LABEL_242;
@@ -5212,35 +5221,35 @@ LABEL_482:
     goto LABEL_481;
   }
 
-  if (v158)
+  if (v162)
   {
-    v99 = v159;
+    v101 = v163;
   }
 
   else
   {
-    v99 = 0;
+    v101 = 0;
   }
 
-  v100 = CMPhotoSurfacePoolCreateMemorySurface(v99, v88, 2, &buffer);
-  if (v100)
+  v102 = CMPhotoSurfacePoolCreateMemorySurface(v101, v90, 2, &buffer, v87, v88);
+  if (v102)
   {
 LABEL_481:
-    x_low = v100;
+    x_low = v102;
     goto LABEL_482;
   }
 
 LABEL_242:
-  v174 = a1;
+  v178 = a1;
   if (!a1)
   {
-    v174 = JPEGDeviceInterface_openDriverConnection();
-    if (!v174)
+    v178 = JPEGDeviceInterface_openDriverConnection();
+    if (!v178)
     {
-      _createJPEGFromCVPixelBuffer_cold_11(&v196);
-      v77 = LODWORD(v196.origin.x);
+      _createJPEGFromCVPixelBuffer_cold_11(&v200);
+      v77 = LODWORD(v200.origin.x);
       v63 = BoolValue;
-      LODWORD(a7) = v157;
+      LODWORD(a7) = v161;
       goto LABEL_170;
     }
   }
@@ -5250,16 +5259,16 @@ LABEL_242:
     IOSurfaceBindAccel();
   }
 
-  v101 = v29;
-  v160 = a6;
-  v102 = 1;
+  v103 = v29;
+  v164 = a6;
+  v104 = 1;
   if ((IntValue & 0x80000000) == 0 && !BytePtr)
   {
     if (IntValue > 943009906)
     {
       if (IntValue == 943009907)
       {
-        v102 = 0;
+        v104 = 0;
         BytePtr = &unk_1A5ABBB44;
         goto LABEL_262;
       }
@@ -5268,7 +5277,7 @@ LABEL_242:
       {
         if (IntValue == 959459443)
         {
-          v102 = 0;
+          v104 = 0;
           BytePtr = &unk_1A5ABBB84;
           goto LABEL_262;
         }
@@ -5276,7 +5285,7 @@ LABEL_242:
         goto LABEL_259;
       }
 
-      v102 = 0;
+      v104 = 0;
       BytePtr = &unk_1A5ABBBC4;
     }
 
@@ -5284,7 +5293,7 @@ LABEL_242:
     {
       if (IntValue == 926232686)
       {
-        v102 = 0;
+        v104 = 0;
         BytePtr = &sAppleQualityQMArray_Luma;
         goto LABEL_262;
       }
@@ -5293,7 +5302,7 @@ LABEL_242:
       {
         if (IntValue == 942814579)
         {
-          v102 = 0;
+          v104 = 0;
           BytePtr = &unk_1A5ABBB04;
           goto LABEL_262;
         }
@@ -5303,7 +5312,7 @@ LABEL_259:
         goto LABEL_262;
       }
 
-      v102 = 0;
+      v104 = 0;
       BytePtr = &unk_1A5ABBAC4;
     }
   }
@@ -5311,67 +5320,67 @@ LABEL_259:
 LABEL_262:
   if (BytePtr)
   {
-    v103 = v102 ^ 1;
+    v105 = v104 ^ 1;
   }
 
   else
   {
-    v103 = 1;
+    v105 = 1;
   }
 
-  if (v164)
+  if (v168)
   {
-    v104 = 17;
-  }
-
-  else
-  {
-    v104 = 16;
-  }
-
-  if (v162)
-  {
-    v105 = v104;
+    v106 = 17;
   }
 
   else
   {
-    v105 = v164 != 0;
+    v106 = 16;
+  }
+
+  if (v166)
+  {
+    v107 = v106;
+  }
+
+  else
+  {
+    v107 = v168 != 0;
   }
 
   while (1)
   {
-    LODWORD(v186) = IOSurfaceGetID(IOSurface);
-    DWORD2(v186) = IOSurfaceGetID(buffer);
-    DWORD1(v186) = IOSurfaceGetAllocSize(IOSurface);
-    HIDWORD(v186) = IOSurfaceGetAllocSize(buffer);
-    *(&v187 + 4) = __PAIR64__(Height, Width);
-    if (v179)
+    LODWORD(v190) = IOSurfaceGetID(IOSurface);
+    DWORD2(v190) = IOSurfaceGetID(buffer);
+    DWORD1(v190) = IOSurfaceGetAllocSize(IOSurface);
+    HIDWORD(v190) = IOSurfaceGetAllocSize(buffer);
+    *(&v191 + 4) = __PAIR64__(Height, Width);
+    if (v183)
     {
-      *(&v188 + 4) = vmovn_s64(vcvtq_u64_f64(rect.origin));
+      *(&v192 + 4) = vmovn_s64(vcvtq_u64_f64(rect.origin));
     }
 
-    HIDWORD(v187) = v22;
-    LODWORD(v188) = v105;
-    HIDWORD(v191) = 1;
-    HIDWORD(v188) = v176;
+    HIDWORD(v191) = v22;
+    LODWORD(v192) = v107;
+    HIDWORD(v195) = 1;
+    HIDWORD(v192) = v180;
     if (*MEMORY[0x1E695FF58] == 1)
     {
       kdebug_trace();
     }
 
-    v77 = JPEGDeviceInterface_encodeJPEG();
+    v77 = JPEGDeviceInterface_encodeJPEG(v178);
     if (*MEMORY[0x1E695FF58] == 1)
     {
-      v106 = v22;
-      v107 = v77;
+      v108 = v22;
+      v109 = v77;
       kdebug_trace();
-      v77 = v107;
-      v22 = v106;
+      v77 = v109;
+      v22 = v108;
     }
 
-    v108 = v77 == -536870168 ? v103 : 0;
-    if (v101 || !v108)
+    v110 = v77 == -536870168 ? v105 : 0;
+    if (v103 || !v110)
     {
       break;
     }
@@ -5393,14 +5402,14 @@ LABEL_262:
     }
   }
 
-  v64 = v172;
-  a6 = v160;
-  LODWORD(a7) = v157;
+  v64 = v176;
+  a6 = v164;
+  LODWORD(a7) = v161;
   if (!a1)
   {
-    v109 = v77;
-    JPEGDeviceInterface_closeDriverConnection(v174);
-    v77 = v109;
+    v111 = v77;
+    JPEGDeviceInterface_closeDriverConnection(v178);
+    v77 = v111;
   }
 
   v63 = BoolValue;
@@ -5408,7 +5417,7 @@ LABEL_290:
   if (v63 | v77)
   {
 LABEL_340:
-    if (!v169 && !BoolValue)
+    if (!v173 && !BoolValue)
     {
       x_low = v77;
       *a6 = 0;
@@ -5427,333 +5436,333 @@ LABEL_340:
       kdebug_trace();
     }
 
-    v198 = 0;
-    v197 = 0;
-    v115 = *(MEMORY[0x1E695F050] + 16);
-    v196.origin = *MEMORY[0x1E695F050];
-    v196.size = v115;
+    v202 = 0;
+    v201 = 0;
+    v117 = *(MEMORY[0x1E695F050] + 16);
+    v200.origin = *MEMORY[0x1E695F050];
+    v200.size = v117;
     if (!theDict)
     {
-      v120 = 0;
-      v119 = 5;
-      v117 = 0.85;
+      v122 = 0;
+      v121 = 5;
+      v119 = 0.85;
       goto LABEL_379;
     }
 
-    v116 = *MEMORY[0x1E696D338];
+    v118 = *MEMORY[0x1E696D338];
     if (CFDictionaryGetValue(theDict, *MEMORY[0x1E696D338]))
     {
-      v117 = _getFloatValue(theDict, v116, 0.85);
-      v118 = v117;
-      if (v117 >= 0.05)
+      v119 = _getFloatValue(theDict, v118, 0.85);
+      v120 = v119;
+      if (v119 >= 0.05)
       {
-        if (v118 >= 0.26)
+        if (v120 >= 0.26)
         {
-          if (v118 >= 0.31)
+          if (v120 >= 0.31)
           {
-            if (v118 >= 0.6)
+            if (v120 >= 0.6)
             {
-              v119 = 4;
-              if (v118 >= 0.76 && v118 >= 0.83)
+              v121 = 4;
+              if (v120 >= 0.76 && v120 >= 0.83)
               {
-                if (v118 >= 0.99)
+                if (v120 >= 0.99)
                 {
-                  v119 = 6;
+                  v121 = 6;
                 }
 
                 else
                 {
-                  v119 = 5;
+                  v121 = 5;
                 }
               }
             }
 
             else
             {
-              v119 = 3;
+              v121 = 3;
             }
           }
 
           else
           {
-            v119 = 2;
+            v121 = 2;
           }
         }
 
         else
         {
-          v119 = 1;
+          v121 = 1;
         }
       }
 
       else
       {
-        v119 = 0;
+        v121 = 0;
       }
     }
 
     else
     {
-      v119 = 5;
-      v117 = 0.85;
+      v121 = 5;
+      v119 = 0.85;
     }
 
-    v121 = _getIntValue(theDict, @"JPEGSubsampling", 420);
-    if (v121 > 421)
+    v123 = _getIntValue(theDict, @"JPEGSubsampling", 420);
+    if (v123 > 421)
     {
-      if (v121 != 444)
+      if (v123 != 444)
       {
-        if (v121 == 422)
+        if (v123 == 422)
         {
-          v120 = 1;
+          v122 = 1;
           goto LABEL_377;
         }
 
         goto LABEL_374;
       }
 
-      v120 = 2;
+      v122 = 2;
     }
 
     else
     {
-      if (v121 != 400)
+      if (v123 != 400)
       {
-        if (v121 == 411)
+        if (v123 == 411)
         {
-          v120 = 3;
+          v122 = 3;
           goto LABEL_377;
         }
 
 LABEL_374:
-        v120 = 0;
+        v122 = 0;
         goto LABEL_377;
       }
 
-      v120 = 4;
+      v122 = 4;
     }
 
 LABEL_377:
-    v122 = CFDictionaryGetValue(theDict, @"JPEGSourceCropRect");
-    if (v122)
+    v124 = CFDictionaryGetValue(theDict, @"JPEGSourceCropRect");
+    if (v124)
     {
-      CGRectMakeWithDictionaryRepresentation(v122, &v196);
+      CGRectMakeWithDictionaryRepresentation(v124, &v200);
     }
 
 LABEL_379:
-    v123 = CVPixelBufferGetPixelFormatType(pixelBuffer);
-    v124 = v123;
-    v161 = a6;
-    if (v123 == 1111970369 || v123 == 24)
+    v125 = CVPixelBufferGetPixelFormatType(pixelBuffer);
+    v126 = v125;
+    v165 = a6;
+    if (v125 == 1111970369 || v125 == 24)
     {
-      v125 = CVPixelBufferRetain(pixelBuffer);
-      v126 = 0;
-      v198 = v125;
+      v127 = CVPixelBufferRetain(pixelBuffer);
+      v128 = 0;
+      v202 = v127;
     }
 
     else
     {
       Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-      v126 = Mutable;
+      v128 = Mutable;
       if (!Mutable)
       {
-        v140 = 0;
-        v132 = 0;
-        v137 = 0;
-        v141 = 0;
-        v148 = 0;
-        v151 = 0;
+        v142 = 0;
+        v134 = 0;
+        v139 = 0;
+        v143 = 0;
+        v152 = 0;
+        v155 = 0;
         x_low = 4294950305;
         goto LABEL_410;
       }
 
       CMPhotoCFDictionarySetInt(Mutable, @"DestinationPixelFormat", 1111970369);
-      v128 = CMPhotoScaleAndRotateSessionTransformImage(0, pixelBuffer, v126, &v198);
-      if (v128)
+      v130 = CMPhotoScaleAndRotateSessionTransformImage(0, pixelBuffer, v128, &v202);
+      if (v130)
       {
-        x_low = v128;
-        v140 = 0;
+        x_low = v130;
+        v142 = 0;
         goto LABEL_487;
       }
 
-      v125 = v198;
+      v127 = v202;
     }
 
-    v129 = CVPixelBufferGetWidth(v125);
-    v130 = CVPixelBufferGetHeight(v198);
-    BytesPerRow = CVPixelBufferGetBytesPerRow(v198);
-    v132 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F1C0]);
-    if (v132)
+    v131 = CVPixelBufferGetWidth(v127);
+    v132 = CVPixelBufferGetHeight(v202);
+    BytesPerRow = CVPixelBufferGetBytesPerRow(v202);
+    v134 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F1C0]);
+    if (v134)
     {
-      v133 = v119;
-      CVPixelBufferLockBaseAddress(v198, 1uLL);
-      v134 = v198;
-      BaseAddress = CVPixelBufferGetBaseAddress(v198);
-      DataSize = CVPixelBufferGetDataSize(v198);
-      v137 = CGDataProviderCreateWithData(v134, BaseAddress, DataSize, _unlockAndReleasePixelBuffer);
-      if (v137)
+      v135 = v121;
+      CVPixelBufferLockBaseAddress(v202, 1uLL);
+      v136 = v202;
+      BaseAddress = CVPixelBufferGetBaseAddress(v202);
+      DataSize = CVPixelBufferGetDataSize(v202);
+      v139 = CGDataProviderCreateWithData(v136, BaseAddress, DataSize, _unlockAndReleasePixelBuffer);
+      if (v139)
       {
-        v198 = 0;
-        if (v124 == 24)
+        v202 = 0;
+        if (v126 == 24)
         {
-          v138 = 0;
+          v140 = 0;
         }
 
         else
         {
-          v138 = 8198;
+          v140 = 8198;
         }
 
-        if (v124 == 24)
+        if (v126 == 24)
         {
-          v139 = 24;
+          v141 = 24;
         }
 
         else
         {
-          v139 = 32;
+          v141 = 32;
         }
 
-        v140 = CGImageCreate(v129, v130, 8uLL, v139, BytesPerRow, v132, v138, v137, 0, 0, kCGRenderingIntentDefault);
-        if (v140)
+        v142 = CGImageCreate(v131, v132, 8uLL, v141, BytesPerRow, v134, v140, v139, 0, 0, kCGRenderingIntentDefault);
+        if (v142)
         {
-          CGDataProviderRelease(v137);
-          CFRelease(v132);
-          if (CGRectIsNull(v196))
+          CGDataProviderRelease(v139);
+          CFRelease(v134);
+          if (CGRectIsNull(v200))
           {
 LABEL_397:
-            v142 = CVPixelBufferGetWidth(pixelBuffer);
-            v143 = 2 * v142 * CVPixelBufferGetHeight(pixelBuffer);
-            if (v133 != 6)
+            v144 = CVPixelBufferGetWidth(pixelBuffer);
+            v147 = 2 * v144 * CVPixelBufferGetHeight(pixelBuffer);
+            if (v135 != 6)
             {
-              v143 /= 3uLL;
+              v147 /= 3uLL;
             }
 
-            v144 = (*MEMORY[0x1E69E9AC8] + v143 - 1) & -*MEMORY[0x1E69E9AC8];
-            if (v144 <= 0x8000)
+            v148 = (*MEMORY[0x1E69E9AC8] + v147 - 1) & -*MEMORY[0x1E69E9AC8];
+            if (v148 <= 0x8000)
             {
-              v145 = 0x8000;
+              v149 = 0x8000;
             }
 
             else
             {
-              v145 = v144;
+              v149 = v148;
             }
 
-            v146 = CMPhotoSurfacePoolCreateMemorySurface(@"SurfacePoolOneShot", v145, 2, &v197);
-            if (!v146)
+            v150 = CMPhotoSurfacePoolCreateMemorySurface(@"SurfacePoolOneShot", v149, 2, &v201, v145, v146);
+            if (!v150)
             {
-              IOSurfaceDecrementUseCount(v197);
-              info = v197;
-              v194 = 0;
-              AllocSize = IOSurfaceGetAllocSize(v197);
+              IOSurfaceDecrementUseCount(v201);
+              info = v201;
+              v198 = 0;
+              AllocSize = IOSurfaceGetAllocSize(v201);
               cbks = xmmword_1F1916530;
-              v147 = CGDataConsumerCreate(&info, &cbks);
-              v141 = v147;
-              if (v147)
+              v151 = CGDataConsumerCreate(&info, &cbks);
+              v143 = v151;
+              if (v151)
               {
-                v148 = CGImageDestinationCreateWithDataConsumer(v147, @"public.jpeg", 1uLL, 0);
-                if (v148)
+                v152 = CGImageDestinationCreateWithDataConsumer(v151, @"public.jpeg", 1uLL, 0);
+                if (v152)
                 {
-                  v149 = *MEMORY[0x1E695E480];
-                  v150 = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-                  v151 = v150;
-                  if (v150)
+                  v153 = *MEMORY[0x1E695E480];
+                  v154 = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+                  v155 = v154;
+                  if (v154)
                   {
-                    CFDictionaryAddValue(v150, *MEMORY[0x1E696D370], *MEMORY[0x1E695E4C0]);
-                    v152 = *MEMORY[0x1E696D338];
-                    *valuePtr = v117;
-                    v153 = CFNumberCreate(0, kCFNumberFloatType, valuePtr);
-                    CFDictionarySetValue(v151, v152, v153);
-                    CFRelease(v153);
-                    LODWORD(v152) = dword_1A5ABBD84[v120];
-                    LODWORD(v153) = dword_1A5ABBD98[v120];
-                    v154 = CFDictionaryCreateMutable(v149, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-                    CFDictionaryAddValue(v151, *MEMORY[0x1E696DE20], v154);
-                    CMPhotoCFDictionarySetInt(v154, *MEMORY[0x1E696DE10], v152);
-                    CMPhotoCFDictionarySetInt(v154, *MEMORY[0x1E696DE18], v153);
-                    if (v154)
+                    CFDictionaryAddValue(v154, *MEMORY[0x1E696D370], *MEMORY[0x1E695E4C0]);
+                    v156 = *MEMORY[0x1E696D338];
+                    *valuePtr = v119;
+                    v157 = CFNumberCreate(0, kCFNumberFloatType, valuePtr);
+                    CFDictionarySetValue(v155, v156, v157);
+                    CFRelease(v157);
+                    LODWORD(v156) = dword_1A5ABBD84[v122];
+                    LODWORD(v157) = dword_1A5ABBD98[v122];
+                    v158 = CFDictionaryCreateMutable(v153, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+                    CFDictionaryAddValue(v155, *MEMORY[0x1E696DE20], v158);
+                    CMPhotoCFDictionarySetInt(v158, *MEMORY[0x1E696DE10], v156);
+                    CMPhotoCFDictionarySetInt(v158, *MEMORY[0x1E696DE18], v157);
+                    if (v158)
                     {
-                      CFRelease(v154);
+                      CFRelease(v158);
                     }
 
-                    CGImageDestinationAddImage(v148, v140, v151);
-                    if (CGImageDestinationFinalize(v148))
+                    CGImageDestinationAddImage(v152, v142, v155);
+                    if (CGImageDestinationFinalize(v152))
                     {
                       x_low = 0;
-                      v132 = 0;
-                      v137 = 0;
-                      *v161 = v197;
-                      v197 = 0;
-                      *v172 = v194;
+                      v134 = 0;
+                      v139 = 0;
+                      *v165 = v201;
+                      v201 = 0;
+                      *v176 = v198;
                     }
 
                     else
                     {
                       _createJPEGFromCVPixelBuffer_cold_13(valuePtr);
-                      v132 = 0;
-                      v137 = 0;
+                      v134 = 0;
+                      v139 = 0;
                       x_low = valuePtr[0];
                     }
 
                     goto LABEL_410;
                   }
 
-                  v132 = 0;
-                  v137 = 0;
+                  v134 = 0;
+                  v139 = 0;
                   goto LABEL_470;
                 }
 
-                v132 = 0;
-                v137 = 0;
+                v134 = 0;
+                v139 = 0;
 LABEL_469:
-                v151 = 0;
+                v155 = 0;
 LABEL_470:
                 x_low = 4294954510;
 LABEL_410:
-                if (v198)
+                if (v202)
                 {
-                  CFRelease(v198);
+                  CFRelease(v202);
                 }
 
-                if (v197)
+                if (v201)
                 {
-                  CFRelease(v197);
+                  CFRelease(v201);
                 }
 
-                if (v140)
+                if (v142)
                 {
-                  CFRelease(v140);
+                  CFRelease(v142);
                 }
 
-                if (v132)
+                if (v134)
                 {
-                  CFRelease(v132);
+                  CFRelease(v134);
                 }
 
-                if (v137)
+                if (v139)
                 {
-                  CFRelease(v137);
+                  CFRelease(v139);
                 }
 
-                if (v141)
+                if (v143)
                 {
-                  CFRelease(v141);
+                  CFRelease(v143);
                 }
 
-                if (v148)
+                if (v152)
                 {
-                  CFRelease(v148);
+                  CFRelease(v152);
                 }
 
-                if (v151)
+                if (v155)
                 {
-                  CFRelease(v151);
+                  CFRelease(v155);
                 }
 
-                if (v126)
+                if (v128)
                 {
-                  CFRelease(v126);
+                  CFRelease(v128);
                 }
 
                 if (*MEMORY[0x1E695FF58] == 1)
@@ -5765,75 +5774,75 @@ LABEL_410:
                 goto LABEL_431;
               }
 
-              v132 = 0;
-              v137 = 0;
+              v134 = 0;
+              v139 = 0;
 LABEL_467:
-              v148 = 0;
+              v152 = 0;
               goto LABEL_469;
             }
 
-            x_low = v146;
+            x_low = v150;
 LABEL_487:
-            v132 = 0;
-            v137 = 0;
-            v141 = 0;
-            v148 = 0;
-            v151 = 0;
+            v134 = 0;
+            v139 = 0;
+            v143 = 0;
+            v152 = 0;
+            v155 = 0;
             goto LABEL_410;
           }
 
-          v141 = CGImageCreateWithImageInRect(v140, v196);
-          if (v141)
+          v143 = CGImageCreateWithImageInRect(v142, v200);
+          if (v143)
           {
-            CFRelease(v140);
-            v140 = v141;
+            CFRelease(v142);
+            v142 = v143;
             goto LABEL_397;
           }
 
           _createJPEGFromCVPixelBuffer_cold_12(&info);
-          v132 = 0;
-          v137 = 0;
+          v134 = 0;
+          v139 = 0;
         }
 
         else
         {
           _createJPEGFromCVPixelBuffer_cold_14(&info);
-          v141 = 0;
+          v143 = 0;
         }
 
-        v148 = 0;
-        v151 = 0;
+        v152 = 0;
+        v155 = 0;
         x_low = info;
         goto LABEL_410;
       }
 
-      CVPixelBufferUnlockBaseAddress(v198, 1uLL);
-      v140 = 0;
+      CVPixelBufferUnlockBaseAddress(v202, 1uLL);
+      v142 = 0;
     }
 
     else
     {
-      v140 = 0;
-      v137 = 0;
+      v142 = 0;
+      v139 = 0;
     }
 
-    v141 = 0;
+    v143 = 0;
     goto LABEL_467;
   }
 
   *a6 = buffer;
   buffer = 0;
-  *v64 = v184[0];
+  *v64 = v188[0];
   if (!a5)
   {
     x_low = 0;
     goto LABEL_433;
   }
 
-  v110 = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  if (v110)
+  v112 = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  if (v112)
   {
-    _createJPEGFromCVPixelBuffer_cold_18(v22, v110, v184, a5);
+    _createJPEGFromCVPixelBuffer_cold_18(v22, v112, v188, a5);
   }
 
   x_low = 0;
@@ -5857,7 +5866,7 @@ LABEL_433:
   return x_low;
 }
 
-__CFArray *CMPhotoJPEGCreateJPEGNativePixelFormatArray()
+CFMutableArrayRef CMPhotoJPEGCreateJPEGNativePixelFormatArray()
 {
   Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
   _appendPixelFormatValue(Mutable, 875704422);
@@ -5882,7 +5891,7 @@ void _appendPixelFormatValue(__CFArray *a1, int a2)
   CFRelease(v3);
 }
 
-__CFArray *CMPhotoJPEGCreateJPEGNativeSubsamplingArray()
+CFMutableArrayRef CMPhotoJPEGCreateJPEGNativeSubsamplingArray()
 {
   Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
   _appendIntValue(Mutable, 0);
@@ -5994,7 +6003,7 @@ size_t _putBytes(uint64_t a1, const void *a2, size_t a3)
   return a3;
 }
 
-uint64_t CMPhotoGetPreferredHEIFTileSizeForImageSize(unint64_t a1, unint64_t a2, int a3)
+unint64_t CMPhotoGetPreferredHEIFTileSizeForImageSize(unint64_t a1, unint64_t a2, int a3)
 {
   v3 = a2 > 0x1800 || a1 > 0x1800;
   v4 = a1 * a2;
@@ -6023,7 +6032,7 @@ uint64_t CMPhotoGetPreferredHEIFTileSizeForImageSize(unint64_t a1, unint64_t a2,
   return v8;
 }
 
-uint64_t CMPhotoGetPreferredDNGTileSizeForImageSize(unint64_t a1, unint64_t a2, int a3)
+unint64_t CMPhotoGetPreferredDNGTileSizeForImageSize(unint64_t a1, unint64_t a2, int a3)
 {
   v3 = a2 > 0x1800 || a1 > 0x1800;
   v4 = a1 * a2;
@@ -6068,7 +6077,7 @@ LABEL_22:
   }
 }
 
-uint64_t CMPhotoSetDefaultTilingOptionForCodec(int a1, unint64_t a2, unint64_t a3, int a4, uint64_t *a5)
+uint64_t CMPhotoSetDefaultTilingOptionForCodec(int a1, unint64_t a2, uint64_t a3, int a4, unint64_t *a5)
 {
   PreferredHEIFTileSizeForImageSize = a2;
   if (a1 != 1936484717)
@@ -6104,10 +6113,10 @@ LABEL_12:
     *a6 = 0;
     if (!a8)
     {
-      goto LABEL_30;
+      goto LABEL_31;
     }
 
-    goto LABEL_29;
+    goto LABEL_30;
   }
 
   PreferredHEIFTileSizeForImageSize = CMPhotoGetPreferredHEIFTileSizeForImageSize(a2, a3, a4);
@@ -6118,7 +6127,7 @@ LABEL_12:
   }
 
 LABEL_3:
-  v36 = a6;
+  v42 = a6;
   v20 = CFGetTypeID(Value);
   if (v20 == CFBooleanGetTypeID())
   {
@@ -6143,9 +6152,9 @@ LABEL_3:
       v22 = 0;
     }
 
-LABEL_27:
-    v27 = v36;
-    goto LABEL_28;
+LABEL_28:
+    v27 = v42;
+    goto LABEL_29;
   }
 
   v26 = CFGetTypeID(Value);
@@ -6155,15 +6164,16 @@ LABEL_27:
     size.height = 0.0;
     if (CGSizeMakeWithDictionaryRepresentation(Value, &size))
     {
-      v27 = v36;
+      v27 = v42;
       if (a5 == 1936484717)
       {
-LABEL_17:
-        fig_log_get_emitter();
-        return FigSignalErrorAtGM();
+        v28 = 386;
+LABEL_18:
+        emitter = fig_log_get_emitter();
+        return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294950306, "(Fig)", v28);
       }
 
-      v31 = xmmword_1A5ABBDB0;
+      v36 = xmmword_1A5ABBDB0;
       point = xmmword_1A5ABBDB0;
       PreferredHEIFTileSizeForImageSize = vcvtad_u64_f64(size.width);
       v19 = vcvtad_u64_f64(size.height);
@@ -6176,8 +6186,8 @@ LABEL_17:
       {
         if (v17)
         {
-          v33 = CFGetTypeID(v17);
-          if (v33 == CFDictionaryGetTypeID())
+          v38 = CFGetTypeID(v17);
+          if (v38 == CFDictionaryGetTypeID())
           {
             CGPointMakeWithDictionaryRepresentation(v17, &point);
             x = point.x;
@@ -6190,8 +6200,8 @@ LABEL_17:
             y = 64.0;
           }
 
-          v27 = v36;
-          v31 = xmmword_1A5ABBDB0;
+          v27 = v42;
+          v36 = xmmword_1A5ABBDB0;
         }
 
         else
@@ -6202,36 +6212,61 @@ LABEL_17:
 
         if (x <= 0.0 || y <= 0.0)
         {
-          point = v31;
+          point = v36;
           x = 128.0;
           y = 64.0;
         }
 
-        if (a2 != PreferredHEIFTileSizeForImageSize && (PreferredHEIFTileSizeForImageSize < 0x80 || PreferredHEIFTileSizeForImageSize % x) || a3 != v19 && (v19 < 0x40 || v19 % y))
+        if (a2 != PreferredHEIFTileSizeForImageSize)
         {
-          goto LABEL_17;
+          if (PreferredHEIFTileSizeForImageSize < 0x80)
+          {
+            v28 = 421;
+            goto LABEL_18;
+          }
+
+          if (PreferredHEIFTileSizeForImageSize % x)
+          {
+            v28 = 422;
+            goto LABEL_18;
+          }
+        }
+
+        if (a3 != v19)
+        {
+          if (v19 < 0x40)
+          {
+            v28 = 425;
+            goto LABEL_18;
+          }
+
+          if (v19 % y)
+          {
+            v28 = 426;
+            goto LABEL_18;
+          }
         }
 
         v24 = 1;
       }
 
       v22 = 0;
-LABEL_28:
+LABEL_29:
       *v27 = 1;
       *a7 = v24;
       if (!a8)
       {
-        goto LABEL_30;
+        goto LABEL_31;
       }
 
-      goto LABEL_29;
+      goto LABEL_30;
     }
 
     v22 = 0;
-    *v36 = 0;
+    *v42 = 0;
     if (!a8)
     {
-LABEL_30:
+LABEL_31:
       result = 0;
       if (a9)
       {
@@ -6242,18 +6277,24 @@ LABEL_30:
       return result;
     }
 
-LABEL_29:
+LABEL_30:
     *a8 = PreferredHEIFTileSizeForImageSize;
     a8[1] = v19;
-    goto LABEL_30;
+    goto LABEL_31;
   }
 
-  v28 = CFGetTypeID(Value);
-  if (v28 == CFNumberGetTypeID() && a5 == 1936484717)
+  v31 = CFGetTypeID(Value);
+  if (v31 == CFNumberGetTypeID())
   {
-    LODWORD(size.width) = 0;
-    if (CFNumberGetValue(Value, kCFNumberIntType, &size))
+    if (a5 == 1936484717)
     {
+      LODWORD(size.width) = 0;
+      if (!CFNumberGetValue(Value, kCFNumberIntType, &size))
+      {
+        v41 = fig_log_get_emitter();
+        return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v41, 4294950306, "(Fig)", 457);
+      }
+
       if (SLODWORD(size.width) < 2)
       {
         v22 = 0;
@@ -6277,16 +6318,22 @@ LABEL_29:
         v24 = 1;
       }
 
-      goto LABEL_27;
+      goto LABEL_28;
     }
 
-    fig_log_get_emitter();
-    return FigSignalErrorAtGM();
+    v33 = fig_log_get_emitter();
+    v34 = v43;
+    v35 = 468;
   }
 
-  fig_log_get_emitter();
+  else
+  {
+    v33 = fig_log_get_emitter();
+    v34 = v43;
+    v35 = 473;
+  }
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v33, 4294950306, "(Fig)", v35, v34);
 }
 
 uint64_t CMPhotoGetTwoPassCropRects(uint64_t a1, unint64_t *a2, unint64_t a3, unint64_t a4, unint64_t *a5, unint64_t *a6)
@@ -6444,7 +6491,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t _calculateTileLengthForImageLengthBasedOnRestrictions(unint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t _calculateTileLengthForImageLengthBasedOnRestrictions(unint64_t a1, unint64_t a2, unint64_t a3)
 {
   v3 = (a1 >> 3) / a2 * a2;
   if (v3 > a3)
@@ -6527,7 +6574,7 @@ void __AppleDicomAddDICOMPropertiesToDataSet_block_invoke(uint64_t a1, void *a2,
   _addKeyValueToDataSet(v9, v5, v10);
 }
 
-void _addKeyValueToDataSet(uint64_t a1, void *a2, void *a3)
+void _addKeyValueToDataSet(uint64_t *a1, void *a2, void *a3)
 {
   v4 = a2;
   v5 = a3;
@@ -6564,7 +6611,7 @@ void sub_1A59BE09C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-BOOL AppleDicomElementHasApplePrivateOwner(vega::dicom::File **a1)
+uint64_t AppleDicomElementHasApplePrivateOwner(vega::dicom::File **a1)
 {
   v1 = vega::dicom::File::data_set(*a1);
   v2 = *v1;
@@ -6574,7 +6621,7 @@ BOOL AppleDicomElementHasApplePrivateOwner(vega::dicom::File **a1)
     atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  if (v2 && (vega::dictionary::Page::private_owner(v2, &v8), v9))
+  if (v2 && (vega::dictionary::Page::private_owner(&v8, v2), v9))
   {
     v4 = std::__shared_weak_count::lock(v9);
     if (v4)
@@ -6594,8 +6641,8 @@ BOOL AppleDicomElementHasApplePrivateOwner(vega::dicom::File **a1)
 
     if (v5)
     {
-      EncodeAccelerationModeOverride = CMPhotoGetEncodeAccelerationModeOverride(v5);
-      v5 = std::string::compare(EncodeAccelerationModeOverride, "Apple Extension") == 0;
+      CMPhotoGetEncodeAccelerationModeOverride();
+      v5 = std::string::compare(v6, "Apple Extension") == 0;
     }
 
     if (v4)
@@ -7989,7 +8036,7 @@ NSMutableDictionary *AppleDicomGetImagePropertiesFromDicomProperties(void *a1)
           v95 = 0u;
           v92 = 0u;
           v93 = 0u;
-          v52 = [(objc_object *)v90 componentsSeparatedByString:@"\"];
+          v52 = [(objc_object *)v90 componentsSeparatedByString:@"\""];
           v53 = [v52 countByEnumeratingWithState:&v92 objects:v115 count:16];
           if (v53)
           {
@@ -8155,11 +8202,11 @@ id _getStringWithSeparatorsInserted(void *a1, void *a2)
   return v4;
 }
 
-void AppleDicomAddMetadataPayloadsToDataSet(void *a1, uint64_t a2)
+void AppleDicomAddMetadataPayloadsToDataSet(void *a1, vega::dicom::DataSet **a2)
 {
   v12 = *MEMORY[0x1E69E9840];
   a1;
-  v3 = *(a2 + 8);
+  v3 = a2[1];
   v6[0] = *a2;
   v6[1] = v3;
   if (v3)
@@ -8212,7 +8259,7 @@ uint64_t _registerApplePrivateGroup(vega::dicom::DataSet **a1)
     v4 = *a1;
     LOWORD(v16.__r_.__value_.__l.__data_) = 24933;
     *&v16.__r_.__value_.__s.__data_[2] = i;
-    vega::dicom::DataSet::data_element(v4, &v16, &v17);
+    vega::dicom::DataSet::data_element(&v17, v4, &v16);
     v5 = v17;
     if (!v17)
     {
@@ -8318,33 +8365,33 @@ void sub_1A59C28B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void _addSingleStringToDataSet(void *a1, __int16 a2)
+void _addSingleStringToDataSet(void *a1, __int16 a2, uint64_t *a3)
 {
-  v8 = 24933;
-  v9 = a2;
+  v9 = 24933;
+  v10 = a2;
   if ([a1 lengthOfBytesUsingEncoding:4] <= 0x3E8)
   {
-    v2 = "ST";
+    v3 = "ST";
   }
 
   else
   {
-    v2 = "LT";
+    v3 = "LT";
   }
 
-  std::string::basic_string[abi:ne200100]<0>(__p, v2);
-  if (v5 >= 0)
+  std::string::basic_string[abi:ne200100]<0>(__p, v3);
+  if (v6 >= 0)
   {
-    v3 = __p;
+    v4 = __p;
   }
 
   else
   {
-    v3 = __p[0];
+    v4 = __p[0];
   }
 
-  v6 = *v3;
-  v7 = *(v3 + 1);
+  v7 = *v4;
+  v8 = *(v4 + 1);
   std::allocate_shared[abi:ne200100]<vega::dicom::DataElement,std::allocator<vega::dicom::DataElement>,vega::Tag,vega::VR,0>();
 }
 
@@ -8363,7 +8410,7 @@ id AppleDicomGetMetadataPayloadsFromDataSet(vega::dicom::DataSet **a1)
 {
   v2 = [MEMORY[0x1E695DF70] array];
   v51 = 0xFFFFFF00056165;
-  vega::dicom::DataSet::data_element(*a1, &v51, &v49);
+  vega::dicom::DataSet::data_element(&v49, *a1, &v51);
   if (v49)
   {
     v3 = v50;
@@ -8379,7 +8426,7 @@ id AppleDicomGetMetadataPayloadsFromDataSet(vega::dicom::DataSet **a1)
     if (v3)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-      if (!v5)
+      if ((v5 & 1) == 0)
       {
         goto LABEL_51;
       }
@@ -8410,9 +8457,9 @@ LABEL_50:
     while (1)
     {
       v8 = [MEMORY[0x1E695DF90] dictionary];
-      vega::dicom::DataSet::data_element(*v7, &v47, &v40);
-      vega::dicom::DataSet::data_element(*v7, &v46, &v38);
-      vega::dicom::DataSet::data_element(*v7, &v45, &v36);
+      vega::dicom::DataSet::data_element(&v40, *v7, &v47);
+      vega::dicom::DataSet::data_element(&v38, *v7, &v46);
+      vega::dicom::DataSet::data_element(&v36, *v7, &v45);
       if (v40)
       {
         v9 = v41;
@@ -8428,7 +8475,7 @@ LABEL_50:
         if (v9)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-          if (!v11)
+          if ((v11 & 1) == 0)
           {
             goto LABEL_43;
           }
@@ -8473,7 +8520,7 @@ LABEL_50:
         if (v14)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v14);
-          if (!v16)
+          if ((v16 & 1) == 0)
           {
             goto LABEL_43;
           }
@@ -8510,7 +8557,7 @@ LABEL_27:
             if (v19)
             {
               std::__shared_weak_count::__release_shared[abi:ne200100](v19);
-              if (!v21)
+              if ((v21 & 1) == 0)
               {
                 goto LABEL_42;
               }
@@ -8630,7 +8677,7 @@ void sub_1A59C2F28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t AppleDicomAddAuxiliaryImageToDataSet(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, void *a8, void *a9, void *a10, void *a11)
+uint64_t AppleDicomAddAuxiliaryImageToDataSet(uint64_t a1, int a2, uint64_t a3, uint64_t a4, __int16 a5, int a6, unsigned int a7, void *a8, void *a9, void *a10, void *a11)
 {
   v24 = a8;
   v22 = a9;
@@ -8640,7 +8687,7 @@ uint64_t AppleDicomAddAuxiliaryImageToDataSet(uint64_t a1, uint64_t a2, uint64_t
   if (*a1 && a3 && a4 && (a6 == 6 || a6 == 3) && v24 && v15)
   {
     v30[0] = 0xFFFFFF00096165;
-    vega::dicom::DataSet::data_element(v16, v30, &v28);
+    vega::dicom::DataSet::data_element(&v28, v16, v30);
     if (v28)
     {
       v17 = v29;
@@ -8656,7 +8703,7 @@ uint64_t AppleDicomAddAuxiliaryImageToDataSet(uint64_t a1, uint64_t a2, uint64_t
       if (v17)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v17);
-        if (!v19)
+        if ((v19 & 1) == 0)
         {
 LABEL_20:
           std::allocate_shared[abi:ne200100]<vega::dicom::DataSet,std::allocator<vega::dicom::DataSet>,std::shared_ptr<vega::dicom::DataElement> &,0>();

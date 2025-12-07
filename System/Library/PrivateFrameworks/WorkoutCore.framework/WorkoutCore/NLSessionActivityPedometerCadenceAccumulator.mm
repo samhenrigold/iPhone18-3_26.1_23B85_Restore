@@ -132,7 +132,6 @@ void __93__NLSessionActivityPedometerCadenceAccumulator_startAccumulatingWithSta
   objc_storeStrong(v23, 0);
   objc_storeStrong(&v24, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 double __93__NLSessionActivityPedometerCadenceAccumulator_startAccumulatingWithStartDate_updateHandler___block_invoke_295(uint64_t a1)

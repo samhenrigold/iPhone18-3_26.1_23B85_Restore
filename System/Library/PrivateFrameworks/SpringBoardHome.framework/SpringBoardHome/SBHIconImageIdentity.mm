@@ -160,7 +160,7 @@
   iconIdentifier = [(SBHIconImageIdentity *)self iconIdentifier];
   [formatterCopy appendString:iconIdentifier withName:@"iconIdentifier" skipIfEmpty:0];
 
-  [(SBHIconImageIdentity *)self iconImageInfo];
+  objc_msgSend_iconImageInfo(self);
   v9 = SBHStringForIconImageInfo(v5, v6, v7, v8);
   [formatterCopy appendString:v9 withName:@"iconImageInfo" skipIfEmpty:0];
 

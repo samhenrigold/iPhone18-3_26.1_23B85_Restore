@@ -71,10 +71,10 @@
 
 - (id)readValueAndPopulateStandardResults
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v24.receiver = self;
-  v24.super_class = HFHomePodAlarmControlItem;
-  readValueAndPopulateStandardResults = [(HFControlItem *)&v24 readValueAndPopulateStandardResults];
+  v28 = *MEMORY[0x277D85DE8];
+  v23.receiver = self;
+  v23.super_class = HFHomePodAlarmControlItem;
+  readValueAndPopulateStandardResults = [(HFControlItem *)&v23 readValueAndPopulateStandardResults];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   [dictionary setObject:&unk_2825237F0 forKeyedSubscript:@"controlItemPurpose"];
   mediaProfileContainer = [(HFHomePodAlarmControlItem *)self mediaProfileContainer];
@@ -108,9 +108,9 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109376;
-      v26 = isAdapterReady;
-      v27 = 1024;
-      v28 = isAdapterReady ^ 1;
+      v25 = isAdapterReady;
+      v26 = 1024;
+      v27 = isAdapterReady ^ 1;
       _os_log_debug_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_DEBUG, "mobileTimerAdapter isAdapterReady = %{BOOL}d Alarm QC will be hidden = %{BOOL}d", buf, 0xEu);
     }
 
@@ -125,15 +125,13 @@
 
   [dictionary setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"actionRequiresDeviceUnlock"];
   [dictionary na_safeSetObject:v11 forKey:@"dependentHomeKitObjects"];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __64__HFHomePodAlarmControlItem_readValueAndPopulateStandardResults__block_invoke;
-  v22[3] = &unk_277DF3FD0;
-  v23 = dictionary;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __64__HFHomePodAlarmControlItem_readValueAndPopulateStandardResults__block_invoke;
+  v21[3] = &unk_277DF3FD0;
+  v22 = dictionary;
   v18 = dictionary;
-  v19 = [readValueAndPopulateStandardResults flatMap:v22];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = [readValueAndPopulateStandardResults flatMap:v21];
 
   return v19;
 }

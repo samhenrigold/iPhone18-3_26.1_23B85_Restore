@@ -46,7 +46,7 @@
 
 - (BOOL)removeLocalDataForZone:(id)zone error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -55,9 +55,9 @@
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v29 = v10;
-    v30 = 2112;
-    v31 = zoneCopy;
+    v28 = v10;
+    v29 = 2112;
+    v30 = zoneCopy;
     _os_log_impl(&dword_22AD27000, v9, OS_LOG_TYPE_INFO, "%{public}@Removing local data for zone: %@", buf, 0x16u);
   }
 
@@ -70,9 +70,9 @@
   }
 
   os_unfair_lock_lock_with_options();
-  v27 = 0;
-  v13 = [zoneCopy destroyWithError:&v27];
-  v14 = v27;
+  v26 = 0;
+  v13 = [zoneCopy destroyWithError:&v26];
+  v14 = v26;
   openZonesByZoneID = [(HMBLocalDatabase *)selfCopy openZonesByZoneID];
   zoneID2 = [zoneCopy zoneID];
   token = [zoneID2 token];
@@ -89,9 +89,9 @@
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v22;
-      v30 = 2112;
-      v31 = zoneCopy;
+      v28 = v22;
+      v29 = 2112;
+      v30 = zoneCopy;
       _os_log_impl(&dword_22AD27000, v21, OS_LOG_TYPE_INFO, "%{public}@Successfully removed local data for zone: %@", buf, 0x16u);
     }
 
@@ -104,11 +104,11 @@
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v29 = v23;
-      v30 = 2112;
-      v31 = zoneCopy;
-      v32 = 2112;
-      v33 = v14;
+      v28 = v23;
+      v29 = 2112;
+      v30 = zoneCopy;
+      v31 = 2112;
+      v32 = v14;
       _os_log_impl(&dword_22AD27000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove local data for zone %@: %@", buf, 0x20u);
     }
 
@@ -120,13 +120,12 @@
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (id)removeZone:(id)zone
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -135,9 +134,9 @@
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v21 = v8;
-    v22 = 2112;
-    v23 = zoneCopy;
+    v20 = v8;
+    v21 = 2112;
+    v22 = zoneCopy;
     _os_log_impl(&dword_22AD27000, v7, OS_LOG_TYPE_INFO, "%{public}@Removing local zone: %@", buf, 0x16u);
   }
 
@@ -152,9 +151,9 @@
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v21 = v13;
-      v22 = 2112;
-      v23 = mirror;
+      v20 = v13;
+      v21 = 2112;
+      v22 = mirror;
       _os_log_impl(&dword_22AD27000, v12, OS_LOG_TYPE_INFO, "%{public}@Removing local zone mirror: %@", buf, 0x16u);
     }
 
@@ -164,9 +163,9 @@
 
   else
   {
-    v19 = 0;
-    v15 = [(HMBLocalDatabase *)selfCopy removeLocalDataForZone:zoneCopy error:&v19];
-    v16 = v19;
+    v18 = 0;
+    v15 = [(HMBLocalDatabase *)selfCopy removeLocalDataForZone:zoneCopy error:&v18];
+    v16 = v18;
     if (v15)
     {
       [MEMORY[0x277D2C900] futureWithNoResult];
@@ -178,8 +177,6 @@
     }
     destroy = ;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return destroy;
 }
@@ -258,7 +255,7 @@ LABEL_7:
 
 - (id)_openZoneWithZoneID:(id)d mirror:(id)mirror configuration:(id)configuration existingLocalZone:(id)zone error:(id *)error
 {
-  v94 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
   dCopy = d;
   mirrorCopy = mirror;
   configurationCopy = configuration;
@@ -323,22 +320,22 @@ LABEL_41:
   }
 
   selfCopy3 = self;
-  v70 = dCopy;
+  v69 = dCopy;
   os_unfair_lock_assert_owner(&self->_lock);
-  v84 = 0;
-  v85 = &v84;
-  v86 = 0x3032000000;
-  v87 = __Block_byref_object_copy__3415;
-  v88 = __Block_byref_object_dispose__3416;
-  v89 = 0;
-  v71 = selfCopy3;
+  v83 = 0;
+  v84 = &v83;
+  v85 = 0x3032000000;
+  v86 = __Block_byref_object_copy__3415;
+  v87 = __Block_byref_object_dispose__3416;
+  v88 = 0;
+  v70 = selfCopy3;
   local = [(HMBLocalDatabase *)selfCopy3 local];
-  v83[0] = MEMORY[0x277D85DD0];
-  v83[1] = 3221225472;
-  v83[2] = ____fetchStoreInfo_block_invoke;
-  v83[3] = &unk_2786E1A10;
-  v83[4] = &v84;
-  v23 = [local sqlBlockWithActivity:0 block:v83];
+  v82[0] = MEMORY[0x277D85DD0];
+  v82[1] = 3221225472;
+  v82[2] = ____fetchStoreInfo_block_invoke;
+  v82[3] = &unk_2786E1A10;
+  v82[4] = &v83;
+  v23 = [local sqlBlockWithActivity:0 block:v82];
 
   if (v23)
   {
@@ -347,26 +344,26 @@ LABEL_41:
 
   else
   {
-    token2 = [v70 token];
-    v81 = 0u;
-    v82 = 0u;
-    v79 = 0u;
+    token2 = [v69 token];
     v80 = 0u;
-    v28 = v85[5];
-    v24 = [v28 countByEnumeratingWithState:&v79 objects:buf count:16];
+    v81 = 0u;
+    v78 = 0u;
+    v79 = 0u;
+    v28 = v84[5];
+    v24 = [v28 countByEnumeratingWithState:&v78 objects:buf count:16];
     if (v24)
     {
-      v29 = *v80;
+      v29 = *v79;
       while (2)
       {
         for (i = 0; i != v24; i = (i + 1))
         {
-          if (*v80 != v29)
+          if (*v79 != v29)
           {
             objc_enumerationMutation(v28);
           }
 
-          v31 = *(*(&v79 + 1) + 8 * i);
+          v31 = *(*(&v78 + 1) + 8 * i);
           identifier = [v31 identifier];
           token3 = [identifier token];
           v34 = [token3 isEqual:token2];
@@ -378,7 +375,7 @@ LABEL_41:
           }
         }
 
-        v24 = [v28 countByEnumeratingWithState:&v79 objects:buf count:16];
+        v24 = [v28 countByEnumeratingWithState:&v78 objects:buf count:16];
         if (v24)
         {
           continue;
@@ -391,12 +388,12 @@ LABEL_41:
 LABEL_26:
   }
 
-  _Block_object_dispose(&v84, 8);
+  _Block_object_dispose(&v83, 8);
   if (v24)
   {
 LABEL_28:
     v35 = objc_autoreleasePoolPush();
-    v36 = v71;
+    v36 = v70;
     if (zoneCopy)
     {
       v37 = HMFGetOSLogHandle();
@@ -424,7 +421,7 @@ LABEL_28:
         *buf = 138543618;
         *&buf[4] = v51;
         *&buf[12] = 2112;
-        *&buf[14] = v70;
+        *&buf[14] = v69;
         _os_log_impl(&dword_22AD27000, v50, OS_LOG_TYPE_INFO, "%{public}@Creating new HMBLocalZone instance with ID: %@", buf, 0x16u);
       }
 
@@ -448,7 +445,7 @@ LABEL_28:
   if ([configurationCopy createIfNeeded])
   {
     v40 = objc_autoreleasePoolPush();
-    v41 = v71;
+    v41 = v70;
     v42 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
     {
@@ -456,13 +453,13 @@ LABEL_28:
       *buf = 138543618;
       *&buf[4] = v43;
       *&buf[12] = 2112;
-      *&buf[14] = v70;
+      *&buf[14] = v69;
       _os_log_impl(&dword_22AD27000, v42, OS_LOG_TYPE_INFO, "%{public}@Creating new state for local zone with ID: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v40);
-    v78 = 0;
-    v44 = v70;
+    v77 = 0;
+    v44 = v69;
     v45 = v41;
     os_unfair_lock_assert_owner(&selfCopy->_lock);
     v46 = objc_alloc_init(HMBLocalSQLContextRowZone);
@@ -471,12 +468,12 @@ LABEL_28:
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = ____createZone_block_invoke;
-    v91 = &unk_2786E1B00;
+    v90 = &unk_2786E1B00;
     v48 = v46;
-    v92 = v48;
+    v91 = v48;
     v49 = v44;
-    v93 = v49;
-    [local2 sqlBlockWithActivity:0 error:&v78 block:buf];
+    v92 = v49;
+    [local2 sqlBlockWithActivity:0 error:&v77 block:buf];
 
     if ([(HMBLocalSQLContextRowZone *)v48 zoneRow])
     {
@@ -489,29 +486,29 @@ LABEL_28:
       v24 = 0;
     }
 
-    v64 = v78;
-    delegate = v64;
+    v63 = v77;
+    delegate = v63;
     if (!v24)
     {
-      v65 = objc_autoreleasePoolPush();
-      v66 = v45;
-      v67 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+      v64 = objc_autoreleasePoolPush();
+      v65 = v45;
+      v66 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
-        v68 = HMFGetLogIdentifier();
+        v67 = HMFGetLogIdentifier();
         *buf = 138543874;
-        *&buf[4] = v68;
+        *&buf[4] = v67;
         *&buf[12] = 2112;
         *&buf[14] = v49;
         *&buf[22] = 2112;
-        v91 = delegate;
-        _os_log_impl(&dword_22AD27000, v67, OS_LOG_TYPE_ERROR, "%{public}@Failed to create new state for local zone with ID %@: %@", buf, 0x20u);
+        v90 = delegate;
+        _os_log_impl(&dword_22AD27000, v66, OS_LOG_TYPE_ERROR, "%{public}@Failed to create new state for local zone with ID %@: %@", buf, 0x20u);
       }
 
-      objc_autoreleasePoolPop(v65);
+      objc_autoreleasePoolPop(v64);
       if (error)
       {
-        v69 = delegate;
+        v68 = delegate;
         v13 = 0;
         v20 = 0;
         *error = delegate;
@@ -534,56 +531,55 @@ LABEL_28:
     *error = [MEMORY[0x277CCA9B8] hmfErrorWithCode:2];
   }
 
-  v59 = objc_autoreleasePoolPush();
-  v60 = v71;
-  v61 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+  v58 = objc_autoreleasePoolPush();
+  v59 = v70;
+  v60 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
   {
-    v62 = HMFGetLogIdentifier();
-    name = [v70 name];
+    v61 = HMFGetLogIdentifier();
+    name = [v69 name];
     *buf = 138543618;
-    *&buf[4] = v62;
+    *&buf[4] = v61;
     *&buf[12] = 2112;
     *&buf[14] = name;
-    _os_log_impl(&dword_22AD27000, v61, OS_LOG_TYPE_ERROR, "%{public}@Unable to open local zone that does not already exist and can't be created: %@", buf, 0x16u);
+    _os_log_impl(&dword_22AD27000, v60, OS_LOG_TYPE_ERROR, "%{public}@Unable to open local zone that does not already exist and can't be created: %@", buf, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v59);
+  objc_autoreleasePoolPop(v58);
   v13 = 0;
   v20 = 0;
 LABEL_42:
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v57 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
 
 - (id)fetchZonesWithError:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__3415;
-  v31 = __Block_byref_object_dispose__3416;
-  v32 = 0;
+  v33 = *MEMORY[0x277D85DE8];
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__3415;
+  v30 = __Block_byref_object_dispose__3416;
+  v31 = 0;
   local = [(HMBLocalDatabase *)self local];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __40__HMBLocalDatabase_fetchZonesWithError___block_invoke;
-  v26[3] = &unk_2786E1A10;
-  v26[4] = &v27;
-  v20 = [local sqlBlockWithActivity:0 block:v26];
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __40__HMBLocalDatabase_fetchZonesWithError___block_invoke;
+  v25[3] = &unk_2786E1A10;
+  v25[4] = &v26;
+  v19 = [local sqlBlockWithActivity:0 block:v25];
 
-  if (v20)
+  if (v19)
   {
     if (error)
     {
-      v5 = v20;
+      v5 = v19;
       v6 = 0;
-      v7 = v20;
-      *error = v20;
+      v7 = v19;
+      *error = v19;
       goto LABEL_14;
     }
 
@@ -592,26 +588,26 @@ LABEL_42:
 
   else
   {
-    v6 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v28[5], "count")}];
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
+    v6 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v27[5], "count")}];
     v23 = 0u;
-    obj = v28[5];
-    v8 = [obj countByEnumeratingWithState:&v22 objects:v33 count:16];
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    obj = v27[5];
+    v8 = [obj countByEnumeratingWithState:&v21 objects:v32 count:16];
     if (v8)
     {
-      v9 = *v23;
+      v9 = *v22;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v23 != v9)
+          if (*v22 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v22 + 1) + 8 * i);
+          v11 = *(*(&v21 + 1) + 8 * i);
           v12 = [HMBLocalZoneIDRow alloc];
           identifier = [v11 identifier];
           name = [identifier name];
@@ -621,18 +617,17 @@ LABEL_42:
           [v6 addObject:v17];
         }
 
-        v8 = [obj countByEnumeratingWithState:&v22 objects:v33 count:16];
+        v8 = [obj countByEnumeratingWithState:&v21 objects:v32 count:16];
       }
 
       while (v8);
     }
   }
 
-  v7 = v20;
+  v7 = v19;
 LABEL_14:
 
-  _Block_object_dispose(&v27, 8);
-  v18 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v26, 8);
 
   return v6;
 }
@@ -652,7 +647,7 @@ id __40__HMBLocalDatabase_fetchZonesWithError___block_invoke(uint64_t a1, void *
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -660,15 +655,14 @@ id __40__HMBLocalDatabase_fetchZonesWithError___block_invoke(uint64_t a1, void *
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v10 = v6;
+    v9 = v6;
     _os_log_impl(&dword_22AD27000, v5, OS_LOG_TYPE_INFO, "%{public}@Deallocating HMBLocalDatabase", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
-  v8.receiver = selfCopy;
-  v8.super_class = HMBLocalDatabase;
-  [(HMBLocalDatabase *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = selfCopy;
+  v7.super_class = HMBLocalDatabase;
+  [(HMBLocalDatabase *)&v7 dealloc];
 }
 
 - (HMBLocalDatabase)initWithLocalSQLContext:(id)context configuration:(id)configuration
@@ -686,12 +680,12 @@ id __40__HMBLocalDatabase_fetchZonesWithError___block_invoke(uint64_t a1, void *
   {
 LABEL_7:
     v21 = _HMFPreconditionFailure();
-    return __58__HMBLocalDatabase_initWithLocalSQLContext_configuration___block_invoke(v21);
+    return __58__HMBLocalDatabase_initWithLocalSQLContext_configuration___block_invoke(v21, v22, v23, v24, v25, v26);
   }
 
-  v22.receiver = self;
-  v22.super_class = HMBLocalDatabase;
-  v10 = [(HMBLocalDatabase *)&v22 init];
+  v27.receiver = self;
+  v27.super_class = HMBLocalDatabase;
+  v10 = [(HMBLocalDatabase *)&v27 init];
   if (v10)
   {
     v11 = objc_alloc_init(MEMORY[0x277CCABD8]);
@@ -734,7 +728,7 @@ HMBLocalZone *__58__HMBLocalDatabase_initWithLocalSQLContext_configuration___blo
 
 - (HMBLocalDatabase)initWithDatastorePath:(id)path configuration:(id)configuration error:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   configurationCopy = configuration;
   if (!pathCopy)
@@ -750,9 +744,9 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v21 = 0;
-  v11 = [HMBLocalSQLContext openWithURL:pathCopy error:&v21];
-  v12 = v21;
+  v20 = 0;
+  v11 = [HMBLocalSQLContext openWithURL:pathCopy error:&v20];
+  v12 = v20;
   if (v11)
   {
     selfCopy = [(HMBLocalDatabase *)self initWithLocalSQLContext:v11 configuration:v10];
@@ -768,9 +762,9 @@ LABEL_12:
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v23 = v17;
-      v24 = 2112;
-      v25 = v12;
+      v22 = v17;
+      v23 = 2112;
+      v24 = v12;
       _os_log_impl(&dword_22AD27000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to open SQL context for HMBLocalDatabase initialization: %@", buf, 0x16u);
     }
 
@@ -788,7 +782,6 @@ LABEL_12:
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -806,12 +799,11 @@ LABEL_12:
 
 uint64_t __31__HMBLocalDatabase_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v21_3450;
-  logCategory__hmf_once_v21_3450 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v21_3450;
+  logCategory__hmf_once_v21_3450 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

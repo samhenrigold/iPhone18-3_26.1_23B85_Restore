@@ -2380,6 +2380,13 @@ void __37__CUIKEditingContext__doManualDelete__block_invoke_cold_1(uint64_t a1)
   OUTLINED_FUNCTION_1_1(&dword_1CAB19000, v1, v2, "Error removing account %{public}@: %@", v3, DWORD2(v3));
 }
 
+void __37__CUIKEditingContext__doManualDelete__block_invoke_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_5(&dword_1CAB19000, a2, a3, "Successfully removed subscribed calendar account %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)_requestSaveAndSpanDecisionIfNeededForAction:.cold.1()
 {
   OUTLINED_FUNCTION_1();

@@ -152,7 +152,7 @@
   return array;
 }
 
-unint64_t __45__NSLookupMatch_matchesInString_types_range___block_invoke(uint64_t a1, void *a2, uint64_t a3, BOOL *a4)
+void *__45__NSLookupMatch_matchesInString_types_range___block_invoke(uint64_t a1, void *a2, uint64_t a3, BOOL *a4)
 {
   if (*(a1 + 48))
   {

@@ -43,26 +43,24 @@
 
 - (id)buildDescriptions
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   freeFormDescription = [(SPUISFreeFormResultBuilder *)self freeFormDescription];
 
   if (freeFormDescription)
   {
     v4 = objc_opt_class();
     freeFormDescription2 = [(SPUISFreeFormResultBuilder *)self freeFormDescription];
-    v11[0] = freeFormDescription2;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = freeFormDescription2;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     buildDescriptions = [v4 richTextsFromStrings:v6];
   }
 
   else
   {
-    v10.receiver = self;
-    v10.super_class = SPUISFreeFormResultBuilder;
-    buildDescriptions = [(SPUISResultBuilder *)&v10 buildDescriptions];
+    v9.receiver = self;
+    v9.super_class = SPUISFreeFormResultBuilder;
+    buildDescriptions = [(SPUISResultBuilder *)&v9 buildDescriptions];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return buildDescriptions;
 }

@@ -50,19 +50,19 @@
 
 - (int64_t)userElection
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
+  v26 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
   _syncQueue = [(PKHostPlugIn *)self _syncQueue];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = sub_1C6894FFC;
-  v12[3] = &unk_1E827F150;
-  v12[4] = self;
-  v12[5] = &v13;
-  dispatch_sync(_syncQueue, v12);
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = sub_1C6894FFC;
+  v11[3] = &unk_1E827F150;
+  v11[4] = self;
+  v11[5] = &v12;
+  dispatch_sync(_syncQueue, v11);
 
   v4 = pklog_handle_for_category(10);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -70,56 +70,55 @@
     uuid = [(PKPlugInCore *)self uuid];
     identifier = [(PKPlugInCore *)self identifier];
     version = [(PKPlugInCore *)self version];
-    v11 = v14[3];
+    v10 = v13[3];
     *buf = 138544386;
-    v18 = uuid;
-    v19 = 2112;
-    v20 = identifier;
-    v21 = 2112;
-    v22 = version;
-    v23 = 2080;
-    v24 = "[PKHostPlugIn userElection]";
-    v25 = 2048;
-    v26 = v11;
+    v17 = uuid;
+    v18 = 2112;
+    v19 = identifier;
+    v20 = 2112;
+    v21 = version;
+    v22 = 2080;
+    v23 = "[PKHostPlugIn userElection]";
+    v24 = 2048;
+    v25 = v10;
     _os_log_debug_impl(&dword_1C6892000, v4, OS_LOG_TYPE_DEBUG, "[u %{public}@] [%@(%@)] %s: %ld", buf, 0x34u);
   }
 
-  v5 = v14[3];
-  _Block_object_dispose(&v13, 8);
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = v13[3];
+  _Block_object_dispose(&v12, 8);
   return v5;
 }
 
 - (void)_validatePersona
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   if ([(PKPlugInCore *)self usesHostPersona])
   {
     current_persona = voucher_get_current_persona();
     if (current_persona != -1)
     {
-      v43 = 0u;
-      memset(v44, 0, sizeof(v44));
-      v41 = 0u;
       v42 = 0u;
-      v39 = 0u;
+      memset(v43, 0, sizeof(v43));
       v40 = 0u;
-      v37 = 0u;
+      v41 = 0u;
       v38 = 0u;
-      v35 = 0u;
+      v39 = 0u;
       v36 = 0u;
-      v33 = 0u;
+      v37 = 0u;
       v34 = 0u;
-      v31 = 0u;
+      v35 = 0u;
       v32 = 0u;
-      v29 = 0u;
+      v33 = 0u;
       v30 = 0u;
-      v27 = 0u;
+      v31 = 0u;
       v28 = 0u;
-      v25 = 0u;
+      v29 = 0u;
       v26 = 0u;
+      v27 = 0u;
       v24 = 0u;
-      LODWORD(v24) = 1;
+      v25 = 0u;
+      v23 = 0u;
+      LODWORD(v23) = 1;
       v4 = current_persona;
       if ((kpersona_info() & 0x80000000) != 0)
       {
@@ -131,25 +130,25 @@
           multipleInstanceUUID = [(PKHostPlugIn *)self multipleInstanceUUID];
           identifier = [(PKPlugInCore *)self identifier];
           version = [(PKPlugInCore *)self version];
-          v12 = 138544642;
-          v13 = uuid;
-          v14 = 2114;
-          v15 = multipleInstanceUUID;
-          v16 = 2112;
-          v17 = identifier;
-          v18 = 2112;
-          v19 = version;
-          v20 = 1024;
-          v21 = v4;
-          v22 = 2080;
-          v23 = strerror(v6);
-          _os_log_error_impl(&dword_1C6892000, v5, OS_LOG_TYPE_ERROR, "[u %{public}@:m %{public}@] [%@(%@)] Could not get current persona info for id:%d with error:%s", &v12, 0x3Au);
+          v11 = 138544642;
+          v12 = uuid;
+          v13 = 2114;
+          v14 = multipleInstanceUUID;
+          v15 = 2112;
+          v16 = identifier;
+          v17 = 2112;
+          v18 = version;
+          v19 = 1024;
+          v20 = v4;
+          v21 = 2080;
+          v22 = strerror(v6);
+          _os_log_error_impl(&dword_1C6892000, v5, OS_LOG_TYPE_ERROR, "[u %{public}@:m %{public}@] [%@(%@)] Could not get current persona info for id:%d with error:%s", &v11, 0x3Au);
         }
 
         goto LABEL_10;
       }
 
-      if (DWORD2(v24) != 2 && DWORD2(v24) != 5)
+      if (DWORD2(v23) != 2 && DWORD2(v23) != 5)
       {
         v5 = pklog_handle_for_category(13);
         if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
@@ -161,8 +160,6 @@ LABEL_10:
       }
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (PKHostPlugIn)initWithForm:(id)form host:(id)host
@@ -242,7 +239,7 @@ LABEL_10:
 
 - (void)setUserElection:(int64_t)election
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = pklog_handle_for_category(10);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -250,31 +247,29 @@ LABEL_10:
     identifier = [(PKPlugInCore *)self identifier];
     version = [(PKPlugInCore *)self version];
     *buf = 138544386;
-    v14 = uuid;
-    v15 = 2112;
-    v16 = identifier;
-    v17 = 2112;
-    v18 = version;
-    v19 = 2080;
-    v20 = "[PKHostPlugIn setUserElection:]";
-    v21 = 2048;
+    v13 = uuid;
+    v14 = 2112;
+    v15 = identifier;
+    v16 = 2112;
+    v17 = version;
+    v18 = 2080;
+    v19 = "[PKHostPlugIn setUserElection:]";
+    v20 = 2048;
     electionCopy = election;
     _os_log_impl(&dword_1C6892000, v5, OS_LOG_TYPE_DEFAULT, "[u %{public}@] [%@(%@)] %s: %ld", buf, 0x34u);
   }
 
   _syncQueue = [(PKHostPlugIn *)self _syncQueue];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = sub_1C68984F8;
-  v12[3] = &unk_1E827F178;
-  v12[4] = self;
-  v12[5] = election;
-  dispatch_sync(_syncQueue, v12);
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = sub_1C68984F8;
+  v11[3] = &unk_1E827F178;
+  v11[4] = self;
+  v11[5] = election;
+  dispatch_sync(_syncQueue, v11);
 
   host = [(PKHostPlugIn *)self host];
   [host setElection:election forPlugIn:self];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (NSDictionary)extensionState
@@ -413,7 +408,7 @@ LABEL_10:
 
 - (void)beginUsingRequest:(id)request withSubsystemOptions:(id)options completion:(id)completion
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   optionsCopy = options;
   completionCopy = completion;
@@ -429,22 +424,22 @@ LABEL_10:
     identifier = [(PKPlugInCore *)self identifier];
     uuid = [(PKPlugInCore *)self uuid];
     *buf = 138478339;
-    v36 = identifier;
-    v37 = 2114;
-    v38 = uuid;
-    v39 = 1026;
-    v40 = v11;
+    v35 = identifier;
+    v36 = 2114;
+    v37 = uuid;
+    v38 = 1026;
+    v39 = v11;
     _os_signpost_emit_with_name_impl(&dword_1C6892000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v13, "HostBeginUsing", " identifier=%{private, signpost.description:attribute}@  uuid=%{public, signpost.description:attribute}@  priority=%{public, signpost.description:attribute}d ", buf, 0x1Cu);
   }
 
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = sub_1C6898F68;
-  v32[3] = &unk_1E827F1F0;
-  v33 = completionCopy;
-  v34 = v13;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = sub_1C6898F68;
+  v31[3] = &unk_1E827F1F0;
+  v32 = completionCopy;
+  v33 = v13;
   v18 = completionCopy;
-  v19 = MEMORY[0x1C6960190](v32);
+  v19 = MEMORY[0x1C6960190](v31);
   v20 = _CFXPCCreateXPCObjectFromCFObject();
   v21 = v20;
   if (optionsCopy && !v20)
@@ -457,25 +452,23 @@ LABEL_10:
   }
 
   _startQueue = [(PKHostPlugIn *)self _startQueue];
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = sub_1C6899050;
-  v28[3] = &unk_1E827F218;
-  v28[4] = self;
-  v29 = requestCopy;
-  v30 = v21;
-  v31 = v19;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = sub_1C6899050;
+  v27[3] = &unk_1E827F218;
+  v27[4] = self;
+  v28 = requestCopy;
+  v29 = v21;
+  v30 = v19;
   v24 = v19;
   v25 = v21;
   v26 = requestCopy;
-  dispatch_async(_startQueue, v28);
-
-  v27 = *MEMORY[0x1E69E9840];
+  dispatch_async(_startQueue, v27);
 }
 
 - (BOOL)beginUsingRequest:(id)request withSubsystemOptions:(id)options error:(id *)error
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   optionsCopy = options;
   [(PKHostPlugIn *)self _validatePersona];
@@ -494,7 +487,7 @@ LABEL_10:
     *&buf[12] = 2114;
     *&buf[14] = uuid;
     *&buf[22] = 1026;
-    LODWORD(v36) = v10;
+    LODWORD(v35) = v10;
     _os_signpost_emit_with_name_impl(&dword_1C6892000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v12, "HostBeginUsing", " identifier=%{private, signpost.description:attribute}@  uuid=%{public, signpost.description:attribute}@  priority=%{public, signpost.description:attribute}d ", buf, 0x1Cu);
   }
 
@@ -512,21 +505,21 @@ LABEL_10:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v36 = sub_1C6893694;
-  v37 = sub_1C689454C;
-  v38 = 0;
+  v35 = sub_1C6893694;
+  v36 = sub_1C689454C;
+  v37 = 0;
   _startQueue = [(PKHostPlugIn *)self _startQueue];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = sub_1C68993C8;
-  v29[3] = &unk_1E827F268;
-  v29[4] = self;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = sub_1C68993C8;
+  v28[3] = &unk_1E827F268;
+  v28[4] = self;
   v21 = requestCopy;
-  v30 = v21;
+  v29 = v21;
   v22 = v18;
-  v31 = v22;
-  v32 = buf;
-  dispatch_sync(_startQueue, v29);
+  v30 = v22;
+  v31 = buf;
+  dispatch_sync(_startQueue, v28);
 
   v23 = *(*&buf[8] + 40);
   if (error && v23)
@@ -539,19 +532,18 @@ LABEL_10:
   v26 = v25;
   if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
   {
-    *v33 = 67240192;
-    v34 = v23 == 0;
-    _os_signpost_emit_with_name_impl(&dword_1C6892000, v26, OS_SIGNPOST_INTERVAL_END, v12, "HostBeginUsing", " success=%{public, signpost.description:attribute}d ", v33, 8u);
+    *v32 = 67240192;
+    v33 = v23 == 0;
+    _os_signpost_emit_with_name_impl(&dword_1C6892000, v26, OS_SIGNPOST_INTERVAL_END, v12, "HostBeginUsing", " success=%{public, signpost.description:attribute}d ", v32, 8u);
   }
 
   _Block_object_dispose(buf, 8);
-  v27 = *MEMORY[0x1E69E9840];
   return v23 == 0;
 }
 
 - (void)addRequestUUID:(id)d
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
@@ -565,17 +557,17 @@ LABEL_10:
       multipleInstanceUUID = [(PKHostPlugIn *)self multipleInstanceUUID];
       identifier = [(PKPlugInCore *)self identifier];
       version = [(PKPlugInCore *)self version];
-      v20 = 138544386;
-      *v21 = uuid;
-      *&v21[8] = 2114;
-      *&v21[10] = multipleInstanceUUID;
-      *&v21[18] = 2112;
-      v22 = identifier;
-      *v23 = 2112;
-      *&v23[2] = version;
-      *&v23[10] = 2112;
-      *&v23[12] = dCopy;
-      _os_log_impl(&dword_1C6892000, v6, OS_LOG_TYPE_INFO, "[u %{public}@:m %{public}@] [%@(%@)] adding request: %@", &v20, 0x34u);
+      *v19 = 138544386;
+      *&v19[4] = uuid;
+      *&v19[12] = 2114;
+      *&v19[14] = multipleInstanceUUID;
+      *&v19[22] = 2112;
+      v20 = identifier;
+      *v21 = 2112;
+      *&v21[2] = version;
+      *&v21[10] = 2112;
+      *&v21[12] = dCopy;
+      _os_log_impl(&dword_1C6892000, v6, OS_LOG_TYPE_INFO, "[u %{public}@:m %{public}@] [%@(%@)] adding request: %@", v19, 0x34u);
     }
 
     requests = [(PKHostPlugIn *)self requests];
@@ -584,17 +576,15 @@ LABEL_10:
     v12 = pklog_handle_for_category(7);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      sub_1C68B3BB4(self, v12, v13, v14, v15, v16, v17, v18, v20, *&v21[4], *&v21[12], v22, *v23, *&v23[8], *&v23[16], v24, v25, v26, v27, v28, v29, v30, v31, v32);
+      sub_1C68B3BB4(self, v12, v13, v14, v15, v16, v17, v18, *v19, *&v19[8], *&v19[16], v20, *v21, *&v21[8], *&v21[16], v22, v23, v24, v25, v26, v27, v28, v29, v30);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startPlugInRequest:(id)request synchronously:(BOOL)synchronously subsystemOptions:(id)options completion:(id)completion
 {
   synchronouslyCopy = synchronously;
-  v153[1] = *MEMORY[0x1E69E9840];
+  v152[1] = *MEMORY[0x1E69E9840];
   requestCopy = request;
   optionsCopy = options;
   completionCopy = completion;
@@ -617,10 +607,10 @@ LABEL_10:
   uuid = [requestCopy uuid];
   launchPersona = [requestCopy launchPersona];
   host = [(PKHostPlugIn *)self host];
-  v113 = 0;
-  v114 = &v113;
-  v115 = 0x2020000000;
-  v116 = 0;
+  v112 = 0;
+  v113 = &v112;
+  v114 = 0x2020000000;
+  v115 = 0;
   _syncQueue = [(PKHostPlugIn *)self _syncQueue];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -628,13 +618,13 @@ LABEL_10:
   block[3] = &unk_1E827F290;
   block[4] = self;
   v23 = uuid;
-  v110 = v23;
+  v109 = v23;
   v24 = completionCopy;
-  v111 = v24;
-  v112 = &v113;
+  v110 = v24;
+  v111 = &v112;
   dispatch_sync(_syncQueue, block);
 
-  if (*(v114 + 24) == 1)
+  if (*(v113 + 24) == 1)
   {
     diagnose = pklog_handle_for_category(7);
     if (os_signpost_enabled(diagnose))
@@ -670,40 +660,40 @@ LABEL_10:
       *&buf[14] = multipleInstanceUUID;
       *&buf[22] = 2112;
       *&buf[24] = identifier3;
-      LOWORD(v136[0]) = 2112;
-      *(v136 + 2) = version;
+      LOWORD(v135[0]) = 2112;
+      *(v135 + 2) = version;
       _os_log_debug_impl(&dword_1C6892000, v30, OS_LOG_TYPE_DEBUG, "[u %{public}@:m %{public}@] [%@(%@)] suspending startQueue", buf, 0x2Au);
     }
 
     _startQueue2 = [(PKHostPlugIn *)self _startQueue];
     dispatch_suspend(_startQueue2);
 
-    v107[0] = 0;
-    v107[1] = v107;
-    v107[2] = 0x3032000000;
-    v107[3] = sub_1C6893694;
-    v107[4] = sub_1C689454C;
-    v108 = 0;
+    v106[0] = 0;
+    v106[1] = v106;
+    v106[2] = 0x3032000000;
+    v106[3] = sub_1C6893694;
+    v106[4] = sub_1C689454C;
+    v107 = 0;
     objc_initWeak(&location, self);
-    v101[0] = MEMORY[0x1E69E9820];
-    v101[1] = 3221225472;
-    v101[2] = sub_1C689A64C;
-    v101[3] = &unk_1E827F2B8;
-    objc_copyWeak(&v105, &location);
-    v76 = host;
-    v102 = v76;
-    v103 = v24;
-    v104 = v107;
-    v80 = MEMORY[0x1C6960190](v101);
+    v100[0] = MEMORY[0x1E69E9820];
+    v100[1] = 3221225472;
+    v100[2] = sub_1C689A64C;
+    v100[3] = &unk_1E827F2B8;
+    objc_copyWeak(&v104, &location);
+    v75 = host;
+    v101 = v75;
+    v102 = v24;
+    v103 = v106;
+    v79 = MEMORY[0x1C6960190](v100);
     [(PKHostPlugIn *)self setTerminating:0];
-    v32 = [v76 activatePlugIn:self];
-    v82 = v32;
+    v32 = [v75 activatePlugIn:self];
+    v81 = v32;
     if (v32 == self)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
       [currentHandler handleFailureInMethod:a2 object:self file:@"PKHostPlugIn.m" lineNumber:521 description:{@"inactive/activating self %@ not in active dictionary", self}];
 
-      if (v82)
+      if (v81)
       {
         goto LABEL_14;
       }
@@ -719,78 +709,79 @@ LABEL_14:
         multipleInstanceUUID2 = [(PKHostPlugIn *)self multipleInstanceUUID];
         identifier4 = [(PKPlugInCore *)self identifier];
         version2 = [(PKPlugInCore *)self version];
-        uuid5 = [(PKPlugInCore *)v82 uuid];
-        multipleInstanceUUID3 = [(PKHostPlugIn *)v82 multipleInstanceUUID];
-        identifier5 = [(PKPlugInCore *)v82 identifier];
-        version3 = [(PKPlugInCore *)v82 version];
+        uuid5 = [(PKPlugInCore *)v81 uuid];
+        multipleInstanceUUID3 = [(PKHostPlugIn *)v81 multipleInstanceUUID];
+        identifier5 = [(PKPlugInCore *)v81 identifier];
+        version3 = [(PKPlugInCore *)v81 version];
         *buf = 138545154;
         *&buf[4] = uuid4;
         *&buf[12] = 2114;
         *&buf[14] = multipleInstanceUUID2;
         *&buf[22] = 2112;
         *&buf[24] = identifier4;
-        LOWORD(v136[0]) = 2112;
-        *(v136 + 2) = version2;
-        HIWORD(v136[2]) = 2114;
-        *&v136[3] = uuid5;
-        LOWORD(v136[5]) = 2114;
-        *(&v136[5] + 2) = multipleInstanceUUID3;
-        HIWORD(v136[7]) = 2112;
-        v137[0] = identifier5;
-        LOWORD(v137[1]) = 2112;
-        *(&v137[1] + 2) = version3;
+        LOWORD(v135[0]) = 2112;
+        *(v135 + 2) = version2;
+        HIWORD(v135[2]) = 2114;
+        *&v135[3] = uuid5;
+        LOWORD(v135[5]) = 2114;
+        *(&v135[5] + 2) = multipleInstanceUUID3;
+        HIWORD(v135[7]) = 2112;
+        v136[0] = identifier5;
+        LOWORD(v136[1]) = 2112;
+        *(&v136[1] + 2) = version3;
         _os_log_error_impl(&dword_1C6892000, v33, OS_LOG_TYPE_ERROR, "[u %{public}@:m %{public}@] [%@(%@)] Failed to start plugin; different plugin with same identifier already active: [u %{public}@:m %{public}@] [%@(%@)] ", buf, 0x52u);
       }
 
-      v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"other version in use: %@", v82];
+      v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"other version in use: %@", v81];
       v35 = pkError(16, v34);
-      (v80)[2](v80, v35, 0);
+      (v79)[2](v79, v35, 0);
 
 LABEL_28:
-      objc_destroyWeak(&v105);
+      objc_destroyWeak(&v104);
       objc_destroyWeak(&location);
-      _Block_object_dispose(v107, 8);
+      _Block_object_dispose(v106, 8);
 
       goto LABEL_29;
     }
 
     _syncQueue2 = [(PKHostPlugIn *)self _syncQueue];
-    v100[0] = MEMORY[0x1E69E9820];
-    v100[1] = 3221225472;
-    v100[2] = sub_1C689A948;
-    v100[3] = &unk_1E827F1C8;
-    v100[4] = self;
-    dispatch_sync(_syncQueue2, v100);
+    v99[0] = MEMORY[0x1E69E9820];
+    v99[1] = 3221225472;
+    v99[2] = sub_1C689A948;
+    v99[3] = &unk_1E827F1C8;
+    v99[4] = self;
+    dispatch_sync(_syncQueue2, v99);
 
     MEMORY[0x1C6960710]();
-    v75 = launchPersona;
-    v153[0] = self;
-    v73 = [MEMORY[0x1E695DEC8] arrayWithObjects:v153 count:1];
-    v151 = 0u;
-    memset(v152, 0, sizeof(v152));
-    v149 = 0u;
+    v74 = launchPersona;
+    v152[0] = self;
+    v72 = [MEMORY[0x1E695DEC8] arrayWithObjects:v152 count:1];
     v150 = 0u;
-    v147 = 0u;
+    memset(v151, 0, sizeof(v151));
     v148 = 0u;
-    v145 = 0u;
+    v149 = 0u;
     v146 = 0u;
-    v143 = 0u;
+    v147 = 0u;
     v144 = 0u;
-    v141 = 0u;
+    v145 = 0u;
     v142 = 0u;
-    v139 = 0u;
+    v143 = 0u;
     v140 = 0u;
+    v141 = 0u;
     v138 = 0u;
-    memset(v137, 0, sizeof(v137));
+    v139 = 0u;
+    v137 = 0u;
     memset(v136, 0, sizeof(v136));
+    memset(v135, 0, sizeof(v135));
     memset(buf, 0, sizeof(buf));
+    v97 = 0;
     v98 = 0;
-    v99 = 0;
     current_persona = voucher_get_current_persona();
     v46 = current_persona;
     memset(buf, 0, sizeof(buf));
+    memset(v135, 0, sizeof(v135));
     memset(v136, 0, sizeof(v136));
-    memset(v137, 0, sizeof(v137));
+    v137 = 0u;
     v138 = 0u;
     v139 = 0u;
     v140 = 0u;
@@ -804,39 +795,38 @@ LABEL_28:
     v148 = 0u;
     v149 = 0u;
     v150 = 0u;
-    v151 = 0u;
-    memset(v152, 0, sizeof(v152));
+    memset(v151, 0, sizeof(v151));
     *buf = 1;
-    pklog_get_persona_type_and_name(current_persona, buf, &v99, &v98);
+    pklog_get_persona_type_and_name(current_persona, buf, &v98, &v97);
     v47 = pklog_handle_for_category(7);
     if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
     {
-      v68 = v46;
+      v67 = v46;
       uuid6 = [(PKPlugInCore *)self uuid];
       multipleInstanceUUID4 = [(PKHostPlugIn *)self multipleInstanceUUID];
       identifier6 = [(PKPlugInCore *)self identifier];
       version4 = [(PKPlugInCore *)self version];
       v50 = geteuid();
       v51 = getuid();
-      *v117 = 138545410;
-      v118 = uuid6;
-      v119 = 2114;
-      v120 = multipleInstanceUUID4;
-      v121 = 2112;
-      v122 = identifier6;
-      v123 = 2112;
-      v124 = version4;
-      v125 = 1024;
-      v126 = v50;
-      v127 = 1024;
-      v128 = v51;
-      v129 = 1024;
-      v130 = v68;
-      v131 = 2080;
-      v132 = v99;
-      v133 = 2080;
-      v134 = v98;
-      _os_log_impl(&dword_1C6892000, v47, OS_LOG_TYPE_DEFAULT, "[u %{public}@:m %{public}@] [%@(%@)] Ready plugins sent as euid = %d, uid = %d, personaid = %d, type = %s, name = %s", v117, 0x50u);
+      *v116 = 138545410;
+      v117 = uuid6;
+      v118 = 2114;
+      v119 = multipleInstanceUUID4;
+      v120 = 2112;
+      v121 = identifier6;
+      v122 = 2112;
+      v123 = version4;
+      v124 = 1024;
+      v125 = v50;
+      v126 = 1024;
+      v127 = v51;
+      v128 = 1024;
+      v129 = v67;
+      v130 = 2080;
+      v131 = v98;
+      v132 = 2080;
+      v133 = v97;
+      _os_log_impl(&dword_1C6892000, v47, OS_LOG_TYPE_DEFAULT, "[u %{public}@:m %{public}@] [%@(%@)] Ready plugins sent as euid = %d, uid = %d, personaid = %d, type = %s, name = %s", v116, 0x50u);
     }
 
     v52 = pklog_handle_for_category(7);
@@ -875,23 +865,23 @@ LABEL_28:
 
     environment = [(PKHostPlugIn *)self environment];
     sandboxProfile = [(PKHostPlugIn *)self sandboxProfile];
-    v89[0] = MEMORY[0x1E69E9820];
-    v89[1] = 3221225472;
-    v89[2] = sub_1C689A954;
-    v89[3] = &unk_1E827F3D0;
-    v96 = v53;
-    v89[4] = self;
-    v94 = v80;
-    v90 = v76;
-    v95 = v107;
-    v79 = v60;
-    v91 = v79;
-    v66 = v73;
-    v92 = v66;
-    v97 = synchronouslyCopy;
-    v93 = v23;
-    launchPersona = v75;
-    [v90 readyPlugIns:v66 synchronously:synchronouslyCopy environment:environment languages:v63 persona:v75 sandbox:sandboxProfile ready:v89];
+    v88[0] = MEMORY[0x1E69E9820];
+    v88[1] = 3221225472;
+    v88[2] = sub_1C689A954;
+    v88[3] = &unk_1E827F3D0;
+    v95 = v53;
+    v88[4] = self;
+    v93 = v79;
+    v89 = v75;
+    v94 = v106;
+    v78 = v60;
+    v90 = v78;
+    v66 = v72;
+    v91 = v66;
+    v96 = synchronouslyCopy;
+    v92 = v23;
+    launchPersona = v74;
+    [v89 readyPlugIns:v66 synchronously:synchronouslyCopy environment:environment languages:v63 persona:v74 sandbox:sandboxProfile ready:v88];
 
     goto LABEL_28;
   }
@@ -909,23 +899,22 @@ LABEL_28:
     *&buf[14] = multipleInstanceUUID5;
     *&buf[22] = 2112;
     *&buf[24] = identifier8;
-    LOWORD(v136[0]) = 2112;
-    *(v136 + 2) = version5;
-    HIWORD(v136[2]) = 2112;
-    *&v136[3] = diagnose;
+    LOWORD(v135[0]) = 2112;
+    *(v135 + 2) = version5;
+    HIWORD(v135[2]) = 2112;
+    *&v135[3] = diagnose;
     _os_log_error_impl(&dword_1C6892000, v29, OS_LOG_TYPE_ERROR, "[u %{public}@:m %{public}@] [%@(%@)] Failed to start plugin; failed pre-screen: %@", buf, 0x34u);
   }
 
   (*(v24 + 2))(v24, diagnose);
 LABEL_29:
 
-  _Block_object_dispose(&v113, 8);
-  v67 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v112, 8);
 }
 
 - (void)preparePlugInUsingService:(id)service completion:(id)completion
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   completionCopy = completion;
   queuedHostProtocol = [(PKHostPlugIn *)self queuedHostProtocol];
@@ -979,27 +968,27 @@ LABEL_29:
       isRBManaged = [(PKPlugInCore *)self isRBManaged];
       v35 = "non-";
       *buf = 138544130;
-      v42 = uuid2;
-      v43 = 2112;
-      v44 = identifier2;
+      v41 = uuid2;
+      v42 = 2112;
+      v43 = identifier2;
       if (isRBManaged)
       {
         v35 = &unk_1C68BC22E;
       }
 
-      v45 = 2112;
-      v46 = version;
-      v47 = 2080;
-      v48 = v35;
+      v44 = 2112;
+      v45 = version;
+      v46 = 2080;
+      v47 = v35;
       _os_log_impl(&dword_1C6892000, v30, OS_LOG_TYPE_DEFAULT, "[u %{public}@] [%@(%@)] Sending prepareUsing to %smanaged extension; this should launch it if not already running.", buf, 0x2Au);
     }
 
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = sub_1C689D46C;
-    v37[3] = &unk_1E827F420;
-    v38 = completionCopy;
-    [serviceCopy prepareUsing:v23 reply:v37];
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = sub_1C689D46C;
+    v36[3] = &unk_1E827F420;
+    v37 = completionCopy;
+    [serviceCopy prepareUsing:v23 reply:v36];
   }
 
   else if (hubProtocolVersion == 1)
@@ -1012,31 +1001,29 @@ LABEL_29:
       identifier3 = [(PKPlugInCore *)self identifier];
       version2 = [(PKPlugInCore *)self version];
       *buf = 138544130;
-      v42 = uuid3;
-      v43 = 2114;
-      v44 = multipleInstanceUUID;
-      v45 = 2112;
-      v46 = identifier3;
-      v47 = 2112;
-      v48 = version2;
+      v41 = uuid3;
+      v42 = 2114;
+      v43 = multipleInstanceUUID;
+      v44 = 2112;
+      v45 = identifier3;
+      v46 = 2112;
+      v47 = version2;
       _os_log_impl(&dword_1C6892000, v17, OS_LOG_TYPE_DEFAULT, "[u %{public}@:m %{public}@] [%@(%@)] Sending legacy prepareUsingPlugIn to extension; this should launch it if not already running.", buf, 0x2Au);
     }
 
     identifier4 = [(PKPlugInCore *)self identifier];
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = sub_1C689D3D8;
-    v39[3] = &unk_1E827F3F8;
-    v40 = completionCopy;
-    [serviceCopy prepareUsingPlugIn:identifier4 hostProtocol:queuedHostProtocol reply:v39];
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = sub_1C689D3D8;
+    v38[3] = &unk_1E827F3F8;
+    v39 = completionCopy;
+    [serviceCopy prepareUsingPlugIn:identifier4 hostProtocol:queuedHostProtocol reply:v38];
   }
 
   else
   {
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:{@"unexpected hub protocol version:%ld", -[PKPlugInCore hubProtocolVersion](self, "hubProtocolVersion")}];
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setBootstrapWithSubsystemOptions:(id)options
@@ -1064,21 +1051,21 @@ LABEL_29:
 
 - (BOOL)loadExtensions:(id)extensions error:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   extensionsCopy = extensions;
   v6 = extensionsCopy;
   if (extensionsCopy && [extensionsCopy count])
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
-    v23 = v6;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v22 = v6;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v8)
     {
-      v9 = *v25;
+      v9 = *v24;
       do
       {
         v10 = 0;
@@ -1094,12 +1081,12 @@ LABEL_29:
 
         do
         {
-          if (*v25 != v9)
+          if (*v24 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v14 = *(*(&v24 + 1) + 8 * v10);
+          v14 = *(*(&v23 + 1) + 8 * v10);
           v15 = [PKSandboxExtension alloc];
           external = [(PKPlugInCore *)self external];
           sandbox = [external sandbox];
@@ -1131,16 +1118,15 @@ LABEL_29:
         }
 
         while (v11 != v10);
-        v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v8);
     }
 
-    v6 = v23;
+    v6 = v22;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -1156,7 +1142,7 @@ LABEL_29:
 
 - (BOOL)useBundle:(id)bundle error:(id *)error
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   bundleCopy = bundle;
   discoveryExtensions = [(PKHostPlugIn *)self discoveryExtensions];
   if (discoveryExtensions)
@@ -1186,8 +1172,8 @@ LABEL_29:
 
       if (v13)
       {
-        v26[0] = v13;
-        uuid = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
+        v25[0] = v13;
+        uuid = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
         LOBYTE(error) = [(PKHostPlugIn *)self loadExtensions:uuid error:error];
       }
 
@@ -1225,7 +1211,6 @@ LABEL_16:
   LOBYTE(error) = 1;
 LABEL_17:
 
-  v23 = *MEMORY[0x1E69E9840];
   return error;
 }
 
@@ -1283,12 +1268,12 @@ LABEL_17:
 
 - (void)unwind:(unint64_t)unwind force:(BOOL)force
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   if (!force)
   {
     if ([(PKHostPlugIn *)self state]!= 1)
     {
-      goto LABEL_32;
+      return;
     }
 
     if (!force && ![(PKHostPlugIn *)self useCount])
@@ -1308,7 +1293,7 @@ LABEL_17:
       {
 LABEL_31:
 
-        goto LABEL_32;
+        return;
       }
 
       uuid = [(PKPlugInCore *)self uuid];
@@ -1316,14 +1301,14 @@ LABEL_31:
       identifier = [(PKPlugInCore *)self identifier];
       version = [(PKPlugInCore *)self version];
       *buf = 138544386;
-      v43 = uuid;
-      v44 = 2114;
-      v45 = multipleInstanceUUID;
-      v46 = 2112;
-      v47 = identifier;
-      v48 = 2112;
-      v49 = version;
-      v50 = 1024;
+      v42 = uuid;
+      v43 = 2114;
+      v44 = multipleInstanceUUID;
+      v45 = 2112;
+      v46 = identifier;
+      v47 = 2112;
+      v48 = version;
+      v49 = 1024;
       useCount = [(PKHostPlugIn *)self useCount];
       _os_log_impl(&dword_1C6892000, v7, OS_LOG_TYPE_INFO, "[u %{public}@:m %{public}@] [%@(%@)] plugin still active after removing one ref count, remaining = %u", buf, 0x30u);
       goto LABEL_23;
@@ -1338,13 +1323,13 @@ LABEL_31:
     identifier2 = [(PKPlugInCore *)self identifier];
     version2 = [(PKPlugInCore *)self version];
     *buf = 138544130;
-    v43 = uuid2;
-    v44 = 2114;
-    v45 = multipleInstanceUUID2;
-    v46 = 2112;
-    v47 = identifier2;
-    v48 = 2112;
-    v49 = version2;
+    v42 = uuid2;
+    v43 = 2114;
+    v44 = multipleInstanceUUID2;
+    v45 = 2112;
+    v46 = identifier2;
+    v47 = 2112;
+    v48 = version2;
     _os_log_impl(&dword_1C6892000, v12, OS_LOG_TYPE_DEFAULT, "[u %{public}@:m %{public}@] [%@(%@)] all extension sessions ended", buf, 0x2Au);
   }
 
@@ -1359,15 +1344,15 @@ LABEL_31:
   }
 
   [(PKHostPlugIn *)self changeState:unwind];
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   sandboxExtensions = [(PKHostPlugIn *)self sandboxExtensions];
-  v20 = [sandboxExtensions countByEnumeratingWithState:&v38 objects:v52 count:16];
+  v20 = [sandboxExtensions countByEnumeratingWithState:&v37 objects:v51 count:16];
   if (v20)
   {
-    v21 = *v39;
+    v21 = *v38;
     do
     {
       v22 = 0;
@@ -1383,16 +1368,16 @@ LABEL_31:
 
       do
       {
-        if (*v39 != v21)
+        if (*v38 != v21)
         {
           objc_enumerationMutation(sandboxExtensions);
         }
 
-        [*(*(&v38 + 1) + 8 * v22++) expel];
+        [*(*(&v37 + 1) + 8 * v22++) expel];
       }
 
       while (v23 != v22);
-      v20 = [sandboxExtensions countByEnumeratingWithState:&v38 objects:v52 count:16];
+      v20 = [sandboxExtensions countByEnumeratingWithState:&v37 objects:v51 count:16];
     }
 
     while (v20);
@@ -1420,9 +1405,9 @@ LABEL_31:
     external = [(PKPlugInCore *)self external];
     v30 = [(PKManager *)v28 initWithExternalProviders:external];
     v31 = [(PKPlugInCore *)self url];
-    v37 = 0;
-    v32 = [(PKManager *)v30 terminatePlugInAtURL:v31 withError:&v37];
-    v7 = v37;
+    v36 = 0;
+    v32 = [(PKManager *)v30 terminatePlugInAtURL:v31 withError:&v36];
+    v7 = v36;
 
     v33 = pklog_handle_for_category(7);
     uuid = v33;
@@ -1448,26 +1433,23 @@ LABEL_30:
     version = [(PKPlugInCore *)self identifier];
     version3 = [(PKPlugInCore *)self version];
     *buf = 138544130;
-    v43 = multipleInstanceUUID;
-    v44 = 2114;
-    v45 = identifier;
-    v46 = 2112;
-    v47 = version;
-    v48 = 2112;
-    v49 = version3;
+    v42 = multipleInstanceUUID;
+    v43 = 2114;
+    v44 = identifier;
+    v45 = 2112;
+    v46 = version;
+    v47 = 2112;
+    v48 = version3;
     _os_log_impl(&dword_1C6892000, uuid, OS_LOG_TYPE_DEFAULT, "[u %{public}@:m %{public}@] [%@(%@)] terminated multi-persona plugin", buf, 0x2Au);
 
 LABEL_23:
     goto LABEL_30;
   }
-
-LABEL_32:
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)changeState:(unint64_t)state
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   _syncQueue = [(PKHostPlugIn *)self _syncQueue];
   dispatch_assert_queue_V2(_syncQueue);
 
@@ -1479,14 +1461,14 @@ LABEL_32:
     identifier = [(PKPlugInCore *)self identifier];
     version = [(PKPlugInCore *)self version];
     *buf = 138544386;
-    v17 = uuid;
-    v18 = 2114;
-    v19 = multipleInstanceUUID;
-    v20 = 2112;
-    v21 = identifier;
-    v22 = 2112;
-    v23 = version;
-    v24 = 2048;
+    v16 = uuid;
+    v17 = 2114;
+    v18 = multipleInstanceUUID;
+    v19 = 2112;
+    v20 = identifier;
+    v21 = 2112;
+    v22 = version;
+    v23 = 2048;
     stateCopy = state;
     _os_log_impl(&dword_1C6892000, v6, OS_LOG_TYPE_INFO, "[u %{public}@:m %{public}@] [%@(%@)] state := %lu", buf, 0x34u);
   }
@@ -1498,17 +1480,15 @@ LABEL_32:
     if (notificationBlock)
     {
       _replyQueue = [(PKHostPlugIn *)self _replyQueue];
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = sub_1C689E700;
-      v14[3] = &unk_1E827F490;
-      v14[4] = self;
-      v15 = notificationBlock;
-      dispatch_async(_replyQueue, v14);
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = sub_1C689E700;
+      v13[3] = &unk_1E827F490;
+      v13[4] = self;
+      v14 = notificationBlock;
+      dispatch_async(_replyQueue, v13);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (PKPlugIn)supersededBy

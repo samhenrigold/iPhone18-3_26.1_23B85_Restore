@@ -146,7 +146,6 @@ LABEL_10:
 
   if ([(_INPBUncompressFileIntentResponse *)self hasSuccess])
   {
-    success = self->_success;
     PBDataWriterWriteBOOLField();
   }
 }

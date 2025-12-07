@@ -49,7 +49,7 @@
 - (void)shouldShowWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v4 = sharedWorkQueue();
+  v4 = sharedWorkQueue(completionCopy);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __47__DSFaceIDController_shouldShowWithCompletion___block_invoke;
@@ -376,15 +376,15 @@ void __43__DSFaceIDController_beginFaceIDEnrollment__block_invoke_2_402(uint64_t
 
 - (void)pearlEnrollController:(id)controller finishedEnrollWithError:(id)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   errorCopy = error;
   v8 = DSLogBiometrics;
   if (os_log_type_enabled(DSLogBiometrics, OS_LOG_TYPE_INFO))
   {
-    v20 = 138543362;
-    v21 = errorCopy;
-    _os_log_impl(&dword_248C7E000, v8, OS_LOG_TYPE_INFO, "Enroll finished with error: %{public}@", &v20, 0xCu);
+    v19 = 138543362;
+    v20 = errorCopy;
+    _os_log_impl(&dword_248C7E000, v8, OS_LOG_TYPE_INFO, "Enroll finished with error: %{public}@", &v19, 0xCu);
   }
 
   if (!errorCopy)
@@ -452,8 +452,6 @@ LABEL_17:
 
   [(DSFaceIDController *)self _didTapCancelButton];
 LABEL_19:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didTapCancelButton
@@ -466,7 +464,7 @@ LABEL_19:
 
 - (void)startRatchetEvalInPresentationContext:(id)context
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v18[4] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CD4860];
   contextCopy = context;
   v6 = objc_alloc_init(v4);
@@ -477,31 +475,29 @@ LABEL_19:
   deepLinkForCurrentFlowAndPane = [delegate deepLinkForCurrentFlowAndPane];
 
   v10 = MEMORY[0x277CD4858];
-  v18[0] = &unk_285BB9268;
+  v17[0] = &unk_285BB9268;
   v11 = DSUIDTOLocStringForKey(@"RATCHET_REASON_FACEID");
-  v19[0] = v11;
-  v18[1] = &unk_285BB9280;
+  v18[0] = v11;
+  v17[1] = &unk_285BB9280;
   v12 = DSUIDTOLocStringForKey(@"RATCHET_ENDED_DETAIL_FACEID");
-  v19[1] = v12;
-  v18[2] = &unk_285BB9298;
+  v18[1] = v12;
+  v17[2] = &unk_285BB9298;
   v13 = [MEMORY[0x277CBEBC0] URLWithString:deepLinkForCurrentFlowAndPane];
-  v18[3] = &unk_285BB92B0;
-  v19[2] = v13;
-  v19[3] = contextCopy;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
+  v17[3] = &unk_285BB92B0;
+  v18[2] = v13;
+  v18[3] = contextCopy;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
   v15 = [v10 makeViewControllerWithOptions:v14 configuration:v6];
   ratchetVC = self->_ratchetVC;
   self->_ratchetVC = v15;
 
   [(LARatchetViewController *)self->_ratchetVC setDelegate:self];
   [(LARatchetViewController *)self->_ratchetVC evaluateAndShowViewController];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ratchetViewController:(id)controller didFinishWithResult:(id)result error:(id)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   errorCopy = error;
   resultCopy = result;
@@ -515,8 +511,8 @@ LABEL_19:
     block[2] = __70__DSFaceIDController_ratchetViewController_didFinishWithResult_error___block_invoke;
     block[3] = &unk_278F752F8;
     block[4] = self;
-    v25 = delegate;
-    v26 = controllerCopy;
+    v24 = delegate;
+    v25 = controllerCopy;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 
@@ -531,7 +527,7 @@ LABEL_19:
       if (os_log_type_enabled(DSLogBiometrics, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v28 = errorCopy;
+        v27 = errorCopy;
         _os_log_impl(&dword_248C7E000, v16, OS_LOG_TYPE_INFO, "FaceID Change Ratchet not armed. Reason: %@", buf, 0xCu);
       }
 
@@ -561,8 +557,6 @@ LABEL_19:
       [delegate exitFlowForRatchetWait];
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __70__DSFaceIDController_ratchetViewController_didFinishWithResult_error___block_invoke(uint64_t a1)
@@ -590,13 +584,12 @@ void __70__DSFaceIDController_ratchetViewController_didFinishWithResult_error___
 
 void __43__DSFaceIDController_beginFaceIDEnrollment__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[DSFaceIDController beginFaceIDEnrollment]_block_invoke_3";
-  v5 = 2114;
-  v6 = a1;
-  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "%s: Encountered error '%{public}@' when trying to authenticate", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[DSFaceIDController beginFaceIDEnrollment]_block_invoke_3";
+  v4 = 2114;
+  v5 = a1;
+  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "%s: Encountered error '%{public}@' when trying to authenticate", &v2, 0x16u);
 }
 
 @end

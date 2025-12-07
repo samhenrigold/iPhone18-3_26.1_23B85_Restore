@@ -220,7 +220,7 @@ void __62__AccessibilitySupportOverrides_setDifferentiateWithoutColor___block_in
 
 - (void)_addFilter:(id)filter
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   filterCopy = filter;
   nSClassFromString(&cfstr_Uiapplication.isa) = [NSClassFromString(&cfstr_Uiapplication.isa) sharedApplication];
   keyWindow = [nSClassFromString(&cfstr_Uiapplication.isa) keyWindow];
@@ -230,13 +230,13 @@ void __62__AccessibilitySupportOverrides_setDifferentiateWithoutColor___block_in
   if (filters)
   {
     v8 = filters;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __44__AccessibilitySupportOverrides__addFilter___block_invoke;
-    v12[3] = &unk_1E6F453E8;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __44__AccessibilitySupportOverrides__addFilter___block_invoke;
+    v11[3] = &unk_1E6F453E8;
     v9 = filterCopy;
-    v13 = v9;
-    if ([v8 indexOfObjectPassingTest:v12] == 0x7FFFFFFFFFFFFFFFLL)
+    v12 = v9;
+    if ([v8 indexOfObjectPassingTest:v11] == 0x7FFFFFFFFFFFFFFFLL)
     {
       v10 = [v8 arrayByAddingObject:v9];
 
@@ -246,13 +246,11 @@ void __62__AccessibilitySupportOverrides_setDifferentiateWithoutColor___block_in
 
   else
   {
-    v14[0] = filterCopy;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+    v13[0] = filterCopy;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
   }
 
   [layer setValue:v8 forKey:@"filters"];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __44__AccessibilitySupportOverrides__addFilter___block_invoke(uint64_t a1, void *a2)

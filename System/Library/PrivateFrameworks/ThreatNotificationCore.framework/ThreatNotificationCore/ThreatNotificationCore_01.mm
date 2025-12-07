@@ -5,19 +5,19 @@ uint64_t outlined init with take of Date?(uint64_t a1, uint64_t a2, uint64_t *a3
   return a2;
 }
 
-void type metadata completion function for TNCFollowUpAction()
+void type metadata completion function for TNCFollowUpAction(uint64_t a1)
 {
   type metadata accessor for String?(319, &lazy cache variable for type metadata for String?);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for URL?(319, &lazy cache variable for type metadata for URL?, MEMORY[0x277CC9260], MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for [AnyHashable : Any]?(319, &lazy cache variable for type metadata for [AnyHashable : Any]?, &_sSDys11AnyHashableVypGMd, &_sSDys11AnyHashableVypGMR);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         type metadata accessor for String?(319, &lazy cache variable for type metadata for Data?);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
         }
@@ -26,19 +26,19 @@ void type metadata completion function for TNCFollowUpAction()
   }
 }
 
-void type metadata completion function for TNCFollowUpNotification()
+void type metadata completion function for TNCFollowUpNotification(uint64_t a1)
 {
   type metadata accessor for String?(319, &lazy cache variable for type metadata for String?);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for URL?(319, &lazy cache variable for type metadata for TNCFollowUpAction?, type metadata accessor for TNCFollowUpAction, MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for String?(319, &lazy cache variable for type metadata for Double?);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         type metadata accessor for [AnyHashable : Any]?(319, &lazy cache variable for type metadata for Set<String>?, &_sShySSGMd, &_sShySSGMR);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
         }
@@ -72,22 +72,22 @@ void type metadata accessor for String?(uint64_t a1, unint64_t *a2)
   }
 }
 
-void type metadata completion function for TNCFollowUpItem()
+void type metadata completion function for TNCFollowUpItem(uint64_t a1)
 {
   type metadata accessor for String?(319, &lazy cache variable for type metadata for String?);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for URL?(319, &lazy cache variable for type metadata for Date?, MEMORY[0x277CC9578], MEMORY[0x277D83D88]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for [AnyHashable : Any]?(319, &lazy cache variable for type metadata for [AnyHashable : Any]?, &_sSDys11AnyHashableVypGMd, &_sSDys11AnyHashableVypGMR);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         type metadata accessor for URL?(319, &lazy cache variable for type metadata for [TNCFollowUpAction], type metadata accessor for TNCFollowUpAction, MEMORY[0x277D83940]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           type metadata accessor for URL?(319, &lazy cache variable for type metadata for TNCFollowUpNotification?, type metadata accessor for TNCFollowUpNotification, MEMORY[0x277D83D88]);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             swift_cvw_initStructMetadataWithLayoutString();
           }
@@ -97,26 +97,26 @@ void type metadata completion function for TNCFollowUpItem()
   }
 }
 
-uint64_t outlined consume of Set<FLNotificationOptions>.Index._Variant(uint64_t a1, uint64_t a2, char a3)
+uint64_t outlined consume of Set<FLNotificationOptions>.Index._Variant(uint64_t result, uint64_t a2, char a3)
 {
   if (a3)
   {
   }
 
-  return result;
+  return v3;
 }
 
-uint64_t outlined consume of Data?(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data?(uint64_t result, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return outlined consume of Data._Representation(a1, a2);
+    return outlined consume of Data._Representation(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
-uint64_t lazy protocol witness table accessor for type FLNotificationOptions and conformance FLNotificationOptions(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type FLNotificationOptions and conformance FLNotificationOptions(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -154,18 +154,17 @@ uint64_t TNCDeviceInfoProvider.isInternalBuild.getter()
 {
   v0 = type metadata accessor for String.Encoding();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   MEMORY[0x28223BE20](v0);
-  v4 = v7 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7[0] = 0xD00000000000001ELL;
-  v7[1] = 0x800000022002BD70;
+  v3 = v6 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6[0] = 0xD00000000000001ELL;
+  v6[1] = 0x800000022002BD70;
   static String.Encoding.utf8.getter();
   lazy protocol witness table accessor for type String and conformance String();
   StringProtocol.cString(using:)();
-  (*(v1 + 8))(v4, v0);
-  v5 = os_variant_allows_internal_security_policies();
+  (*(v1 + 8))(v3, v0);
+  v4 = os_variant_allows_internal_security_policies();
 
-  return v5;
+  return v4;
 }
 
 unint64_t lazy protocol witness table accessor for type String and conformance String()

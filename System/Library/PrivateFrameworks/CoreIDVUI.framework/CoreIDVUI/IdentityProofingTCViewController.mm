@@ -44,16 +44,22 @@
 - (void)remoteUIController:(id)controller didPresentObjectModel:(id)model modally:(BOOL)modally
 {
   v5 = *(&self->super.super.super.isa + OBJC_IVAR____TtC9CoreIDVUI32IdentityProofingTCViewController_onAppearance);
-  selfCopy = self;
   if (v5)
   {
-    v7 = sub_245771BB4(v5);
-    v5(v7);
-    sub_245771C34(v5);
+    v6 = *(&self->super.super._responderFlags + OBJC_IVAR____TtC9CoreIDVUI32IdentityProofingTCViewController_onAppearance);
+    selfCopy = self;
+    v8 = sub_245771BB4(v5, v6);
+    v5(v8);
+    sub_245771C34(v5, v6);
   }
 
-  sub_24590E3D4();
-  sub_2458977A8();
+  else
+  {
+    selfCopy2 = self;
+  }
+
+  v10 = sub_24590E3D4();
+  sub_2458977A8(v10, v11, 0, 0);
 }
 
 @end

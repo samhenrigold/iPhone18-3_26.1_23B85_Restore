@@ -5,10 +5,10 @@
 
 uint64_t __69___UIButtonBarButtonVisualProviderIOS__configureImageOrTitleCompact___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 title];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 title];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 uint64_t __60___UIButtonBarButtonVisualProviderIOS__setupAlternateTitles__block_invoke(uint64_t a1, void *a2, void *a3)

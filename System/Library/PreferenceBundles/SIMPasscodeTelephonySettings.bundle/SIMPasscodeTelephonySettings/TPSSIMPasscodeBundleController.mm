@@ -89,65 +89,66 @@
   supportedSubscriptions = self->_supportedSubscriptions;
   if (!supportedSubscriptions)
   {
-    v23.receiver = self;
-    v23.super_class = TPSSIMPasscodeBundleController;
-    subscriptions = [(TPSSIMPasscodeBundleController *)&v23 subscriptions];
+    v25.receiver = self;
+    v25.super_class = TPSSIMPasscodeBundleController;
+    subscriptions = [(TPSSIMPasscodeBundleController *)&v25 subscriptions];
     v5 = +[NSMutableOrderedSet orderedSetWithCapacity:](NSMutableOrderedSet, "orderedSetWithCapacity:", [subscriptions count]);
-    v19 = 0u;
-    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v6 = subscriptions;
-    v7 = [v6 countByEnumeratingWithState:&v19 objects:v28 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v21 objects:v30 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v20;
+      v9 = *v22;
       do
       {
         for (i = 0; i != v8; i = i + 1)
         {
-          if (*v20 != v9)
+          if (*v22 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v19 + 1) + 8 * i);
+          v11 = *(*(&v21 + 1) + 8 * i);
           if (([v11 isSimHidden] & 1) == 0)
           {
             telephonyController = [(TPSSIMPasscodeBundleController *)self telephonyController];
             telephonyClient = [telephonyController telephonyClient];
             v14 = [telephonyClient shouldAllowSimLockFor:v11];
 
-            if ([v14 BOOLValue])
+            bOOLValue = [v14 BOOLValue];
+            if (bOOLValue)
             {
               [v5 addObject:v11];
             }
 
             else
             {
-              v15 = TPSSIMPasscodeLog();
-              if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+              v17 = TPSSIMPasscodeLog(bOOLValue, v16);
+              if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
-                v25 = v14;
-                v26 = 2112;
-                v27 = v11;
-                _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "SIM Lock is not allowed (%@); excluding subscription %@.", buf, 0x16u);
+                v27 = v14;
+                v28 = 2112;
+                v29 = v11;
+                _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "SIM Lock is not allowed (%@); excluding subscription %@.", buf, 0x16u);
               }
             }
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v19 objects:v28 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v21 objects:v30 count:16];
       }
 
       while (v8);
     }
 
-    v16 = [v5 copy];
-    v17 = self->_supportedSubscriptions;
-    self->_supportedSubscriptions = v16;
+    v18 = [v5 copy];
+    v19 = self->_supportedSubscriptions;
+    self->_supportedSubscriptions = v18;
 
     supportedSubscriptions = self->_supportedSubscriptions;
   }

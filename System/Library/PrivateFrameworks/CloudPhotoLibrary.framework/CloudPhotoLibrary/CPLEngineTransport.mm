@@ -84,6 +84,7 @@
 - (id)resourcesDownloadTaskWithCompletionHandler:(id)handler;
 - (id)scopeNameForTransportScope:(id)scope;
 - (id)sendFeedbackTaskForMessages:(id)messages completionHandler:(id)handler;
+- (id)setupTaskUpdateDisabledFeatures:(BOOL)features completionHandler:(id)handler;
 - (id)sharedLibraryServerRampTaskWithCompletionHandler:(id)handler;
 - (id)simpleDescriptionForScopeListSyncAnchor:(id)anchor;
 - (id)simpleDescriptionForSyncAnchor:(id)anchor;
@@ -96,6 +97,8 @@
 - (id)updateTransportScope:(id)scope scope:(id)a4 scopeChange:(id)change completionHandler:(id)handler;
 - (id)uploadBatchTaskForBatch:(id)batch scope:(id)scope targetMapping:(id)mapping transportScopeMapping:(id)scopeMapping progressHandler:(id)handler completionHandler:(id)completionHandler;
 - (id)uploadComputeStates:(id)states scope:(id)scope sharedScope:(id)sharedScope targetMapping:(id)mapping transportScopeMapping:(id)scopeMapping knownRecords:(id)records completionHandler:(id)handler;
+- (void)cancelBlockedTasksIncludingBackground:(BOOL)background;
+- (void)closeAndDeactivate:(BOOL)deactivate completionHandler:(id)handler;
 - (void)dropPersistedInitialSyncSession;
 - (void)findPersistedInitialSyncSession:(id)session completionHandler:(id)handler;
 - (void)getBackgroundSchedulingStatusDictionaryWithCompletionHandler:(id)handler;
@@ -108,6 +111,7 @@
 - (void)noteClientIsInBackground;
 - (void)noteClientIsInForeground;
 - (void)openWithCompletionHandler:(id)handler;
+- (void)setShouldOverride:(BOOL)override forSystemBudgets:(unint64_t)budgets;
 - (void)upgradeFlags:(id)flags fromTransportScope:(id)scope;
 @end
 
@@ -466,7 +470,7 @@
 
 - (CPLFingerprintContext)fingerprintContext
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   platformObject = [(CPLEngineTransport *)self platformObject];
   fingerprintContext = [platformObject fingerprintContext];
 
@@ -474,25 +478,23 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v8 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v7 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v9 = NSStringFromSelector(a2);
+        v8 = NSStringFromSelector(a2);
         *buf = 138412290;
-        v14 = v9;
-        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_ERROR, "Trying to access %@ while it has not been set yet", buf, 0xCu);
+        v13 = v8;
+        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_ERROR, "Trying to access %@ while it has not been set yet", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineTransport.m"];
-    v12 = NSStringFromSelector(a2);
-    [currentHandler handleFailureInMethod:a2 object:self file:v11 lineNumber:532 description:{@"Trying to access %@ while it has not been set yet", v12}];
+    v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineTransport.m"];
+    v11 = NSStringFromSelector(a2);
+    [currentHandler handleFailureInMethod:a2 object:self file:v10 lineNumber:532 description:{@"Trying to access %@ while it has not been set yet", v11}];
 
     abort();
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return fingerprintContext;
 }
@@ -603,6 +605,14 @@
   return componentName;
 }
 
+- (void)closeAndDeactivate:(BOOL)deactivate completionHandler:(id)handler
+{
+  deactivateCopy = deactivate;
+  handlerCopy = handler;
+  platformObject = [(CPLEngineTransport *)self platformObject];
+  [platformObject closeAndDeactivate:deactivateCopy completionHandler:handlerCopy];
+}
+
 - (void)openWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -664,6 +674,13 @@
   return v6;
 }
 
+- (void)cancelBlockedTasksIncludingBackground:(BOOL)background
+{
+  backgroundCopy = background;
+  platformObject = [(CPLEngineTransport *)self platformObject];
+  [platformObject cancelBlockedTasksIncludingBackground:backgroundCopy];
+}
+
 - (void)noteClientIsEndingSignificantWork
 {
   platformObject = [(CPLEngineTransport *)self platformObject];
@@ -682,9 +699,19 @@
   }
 }
 
+- (void)setShouldOverride:(BOOL)override forSystemBudgets:(unint64_t)budgets
+{
+  overrideCopy = override;
+  platformObject = [(CPLEngineTransport *)self platformObject];
+  if (objc_opt_respondsToSelector())
+  {
+    [platformObject setShouldOverride:overrideCopy forSystemBudgets:budgets];
+  }
+}
+
 - (void)getSystemBudgetsWithCompletionHandler:(id)handler
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   platformObject = [(CPLEngineTransport *)self platformObject];
   if (objc_opt_respondsToSelector())
@@ -695,16 +722,14 @@
   else
   {
     v6 = MEMORY[0x1E696ABC0];
-    v11 = *MEMORY[0x1E696A578];
+    v10 = *MEMORY[0x1E696A578];
     v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"getSystemBudgetsWithCompletionHandler is not implemented"];
-    v12[0] = v7;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v11[0] = v7;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v9 = [v6 errorWithDomain:@"CloudPhotoLibraryErrorDomain" code:255 userInfo:v8];
 
     handlerCopy[2](handlerCopy, 0, v9);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)getProposedStagingScopeIdentifier:(id *)identifier stagingTransportScope:(id *)scope forScope:(id)forScope transportScope:(id)transportScope transportUserIdentifier:(id)userIdentifier
@@ -1149,6 +1174,16 @@ uint64_t __122__CPLEngineTransport_uploadBatchTaskForBatch_scope_targetMapping_t
   return v15;
 }
 
+- (id)setupTaskUpdateDisabledFeatures:(BOOL)features completionHandler:(id)handler
+{
+  featuresCopy = features;
+  handlerCopy = handler;
+  platformObject = [(CPLEngineTransport *)self platformObject];
+  v8 = [platformObject setupTaskUpdateDisabledFeatures:featuresCopy completionHandler:handlerCopy];
+
+  return v8;
+}
+
 - (void)getBackgroundSchedulingStatusDictionaryWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -1228,11 +1263,11 @@ uint64_t __122__CPLEngineTransport_uploadBatchTaskForBatch_scope_targetMapping_t
 
 - (CPLEngineTransport)initWithEngineLibrary:(id)library
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   libraryCopy = library;
-  v18.receiver = self;
-  v18.super_class = CPLEngineTransport;
-  v6 = [(CPLEngineTransport *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = CPLEngineTransport;
+  v6 = [(CPLEngineTransport *)&v17 init];
   v7 = v6;
   if (v6)
   {
@@ -1246,26 +1281,25 @@ uint64_t __122__CPLEngineTransport_uploadBatchTaskForBatch_scope_targetMapping_t
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v13 = __CPLGenericOSLogDomain();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v12 = __CPLGenericOSLogDomain();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          v14 = objc_opt_class();
+          v13 = objc_opt_class();
           *buf = 138412290;
-          v20 = v14;
-          v15 = v14;
-          _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_ERROR, "No platform object specified for %@", buf, 0xCu);
+          v19 = v13;
+          v14 = v13;
+          _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "No platform object specified for %@", buf, 0xCu);
         }
       }
 
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineTransport.m"];
-      [currentHandler handleFailureInMethod:a2 object:v7 file:v17 lineNumber:25 description:{@"No platform object specified for %@", objc_opt_class()}];
+      v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLEngineTransport.m"];
+      [currentHandler handleFailureInMethod:a2 object:v7 file:v16 lineNumber:25 description:{@"No platform object specified for %@", objc_opt_class()}];
 
       abort();
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

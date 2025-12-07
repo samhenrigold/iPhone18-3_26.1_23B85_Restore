@@ -31,30 +31,28 @@
 
 - (void)start
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v10.receiver = self;
-  v10.super_class = LNFetchOptionsDefaultValueConnectionOperation;
-  [(LNConnectionOperation *)&v10 start];
+  v12 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = LNFetchOptionsDefaultValueConnectionOperation;
+  [(LNConnectionOperation *)&v9 start];
   v3 = getLNLogCategoryConnection();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     action = [(LNFetchOptionsDefaultValueConnectionOperation *)self action];
     identifier = [action identifier];
     *buf = 138412290;
-    v12 = identifier;
+    v11 = identifier;
     _os_log_impl(&dword_19763D000, v3, OS_LOG_TYPE_INFO, "Fetching options default values for action %@", buf, 0xCu);
   }
 
   connectionInterface = [(LNInterfaceConnectionOperation *)self connectionInterface];
   action2 = [(LNFetchOptionsDefaultValueConnectionOperation *)self action];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __54__LNFetchOptionsDefaultValueConnectionOperation_start__block_invoke;
-  v9[3] = &unk_1E74B1958;
-  v9[4] = self;
-  [connectionInterface fetchOptionsDefaultValuesForAction:action2 completionHandler:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __54__LNFetchOptionsDefaultValueConnectionOperation_start__block_invoke;
+  v8[3] = &unk_1E74B1958;
+  v8[4] = self;
+  [connectionInterface fetchOptionsDefaultValuesForAction:action2 completionHandler:v8];
 }
 
 void __54__LNFetchOptionsDefaultValueConnectionOperation_start__block_invoke(uint64_t a1, void *a2, void *a3)

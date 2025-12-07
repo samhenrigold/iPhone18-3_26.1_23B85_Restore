@@ -2,6 +2,7 @@
 - (BOOL)isPopoverCombo:(id)combo withIndex:(int64_t)index;
 - (BOOL)isTapKey:(id)key;
 - (TypistKeyboardAmharic)initWithCoder:(id)coder;
+- (id)decomposeAmharicChar:(unsigned __int16)char;
 - (id)decomposeAmharicStrings:(id)strings;
 - (id)generateKeystrokeStream:(id)stream;
 - (id)init:(id)init options:(id)options;
@@ -38,30 +39,30 @@
 
 - (BOOL)isTapKey:(id)key
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   keyCopy = key;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   keyPlanes = [(TypistKeyboard *)self keyPlanes];
   allKeys = [keyPlanes allKeys];
 
-  v7 = [allKeys countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v22;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
+        v11 = *(*(&v21 + 1) + 8 * i);
         keyPlanes2 = [(TypistKeyboard *)self keyPlanes];
         v13 = [keyPlanes2 objectForKeyedSubscript:v11];
         v14 = [v13 objectForKeyedSubscript:keyCopy];
@@ -78,7 +79,7 @@
         }
       }
 
-      v8 = [allKeys countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v8)
       {
         continue;
@@ -91,7 +92,6 @@
   v15 = 0;
 LABEL_11:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -170,6 +170,42 @@ LABEL_9:
 LABEL_13:
 
   return v10;
+}
+
+- (id)decomposeAmharicChar:(unsigned __int16)char
+{
+  charCopy = char;
+  v11 = char & 0xFFF8;
+  0xFFF8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%C", char & 0xFFF8];
+  LOBYTE(self) = [(TypistKeyboardAmharic *)self isTapKey:0xFFF8];
+
+  if (self)
+  {
+    v6 = charCopy & 7;
+    if (v6 > 2)
+    {
+      v12 = [@"⇧" characterAtIndex:0];
+      v13 = v6 | 0x12A0;
+      v7 = MEMORY[0x277CCACA8];
+      v8 = 3;
+    }
+
+    else
+    {
+      v12 = v6 | 0x12A0;
+      v7 = MEMORY[0x277CCACA8];
+      v8 = 2;
+    }
+
+    charCopy = [v7 stringWithCharacters:&v11 length:v8];
+  }
+
+  else
+  {
+    charCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%C", charCopy];
+  }
+
+  return charCopy;
 }
 
 - (id)generateKeystrokeStream:(id)stream

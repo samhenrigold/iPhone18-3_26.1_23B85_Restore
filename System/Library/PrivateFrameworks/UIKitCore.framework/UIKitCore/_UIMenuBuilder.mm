@@ -89,7 +89,7 @@
   selfCopy = self;
   sub_188FC56E0();
 
-  sub_188A34624(0, &qword_1EA931248);
+  sub_188A34624(0, &qword_1EA931248, off_1E70E9ED0);
   v3 = sub_18A4A7518();
 
   return v3;
@@ -165,14 +165,14 @@
 
   v8 = sub_188FC62EC(action, v10);
 
-  sub_188A3F5FC(v10, &qword_1EA934050);
+  sub_188A3F5FC(v10, &qword_1EA934050, qword_18A64CA10);
 
   return v8;
 }
 
 - (void)replaceMenuForIdentifier:(id)identifier withMenu:(id)menu
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA933EB0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA933EB0, &unk_18A64BA50);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_18A64B710;
   *(inited + 32) = menu;
@@ -214,26 +214,26 @@
     selfCopy2 = self;
   }
 
-  sub_188A34624(0, &qword_1ED48FC30);
+  sub_188A34624(0, &qword_1ED48FC30, off_1E70EA170);
   v12 = sub_18A4A7548();
 
   sub_188FC751C(action, v13, v12);
 
-  sub_188A3F5FC(v13, &qword_1EA934050);
+  sub_188A3F5FC(v13, &qword_1EA934050, qword_18A64CA10);
 }
 
 - (void)removeMenuForIdentifier:(id)identifier
 {
   identifierCopy = identifier;
   selfCopy = self;
-  sub_188FC87DC(identifier, 0);
+  sub_188FC87DC(identifier, 0, v6);
 }
 
 - (void)removeActionForIdentifier:(id)identifier
 {
   identifierCopy = identifier;
   selfCopy = self;
-  sub_188FC87DC(identifier, 1u);
+  sub_188FC87DC(identifier, 1, v6);
 }
 
 - (void)removeCommandForAction:(SEL)action propertyList:(id)list
@@ -254,7 +254,7 @@
 
   sub_188FC8FFC(action, v8);
 
-  sub_188A3F5FC(v8, &qword_1EA934050);
+  sub_188A3F5FC(v8, &qword_1EA934050, qword_18A64CA10);
 }
 
 - (_UIMenuBuilder)init

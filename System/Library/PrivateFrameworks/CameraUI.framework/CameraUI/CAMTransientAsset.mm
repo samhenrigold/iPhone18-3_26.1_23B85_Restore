@@ -136,7 +136,7 @@
     v7->_mediaSubtypes = [assetCopy mediaSubtypes];
     v7->_pixelWidth = [assetCopy pixelWidth];
     v7->_pixelHeight = [assetCopy pixelHeight];
-    [assetCopy duration];
+    objc_msgSend_duration(assetCopy);
     v7->_duration = v8;
     creationDate = [assetCopy creationDate];
     creationDate = v7->_creationDate;
@@ -150,10 +150,10 @@
     v7->_canPlayPhotoIris = [assetCopy canPlayPhotoIris];
     if (assetCopy)
     {
-      [assetCopy photoIrisStillDisplayTime];
+      objc_msgSend_photoIrisStillDisplayTime(assetCopy);
       *&v7->_photoIrisStillDisplayTime.value = v17;
       v7->_photoIrisStillDisplayTime.epoch = v18;
-      [assetCopy photoIrisVideoDuration];
+      objc_msgSend_photoIrisVideoDuration(assetCopy);
     }
 
     else
@@ -219,10 +219,10 @@
     self->_isPhotoIrisPlaceholder = 1;
     if (convertibleCopy)
     {
-      [convertibleCopy irisStillDisplayTime];
+      objc_msgSend_irisStillDisplayTime(convertibleCopy);
       *&self->_photoIrisStillDisplayTime.value = v21;
       self->_photoIrisStillDisplayTime.epoch = v22;
-      [convertibleCopy duration];
+      objc_msgSend_duration(convertibleCopy);
     }
 
     else
@@ -275,7 +275,7 @@
       [firstObject naturalSize];
       v23 = v22;
       v25 = v24;
-      [firstObject preferredTransform];
+      objc_msgSend_preferredTransform(firstObject);
       v33.origin.x = v20;
       v33.origin.y = v21;
       v33.size.width = v23;
@@ -311,7 +311,7 @@
   {
     if (convertibleCopy)
     {
-      [convertibleCopy duration];
+      objc_msgSend_duration(convertibleCopy);
     }
 
     else

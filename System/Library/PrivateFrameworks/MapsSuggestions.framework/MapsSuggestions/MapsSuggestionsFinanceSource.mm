@@ -36,7 +36,7 @@
   selfCopy = self;
   sub_1C51401B8(v7, v6);
   v10 = v9;
-  sub_1C513EDF0(v7);
+  sub_1C513EDF0(v7, v6);
 
   return v10;
 }

@@ -1,376 +1,25 @@
-uint64_t sub_14AE4(unsigned __int8 *a1)
-{
-  v1 = a1[1];
-  if (v1 != 2 && (v1 & 1) != 0)
-  {
-    return 0;
-  }
-
-  v3 = *a1;
-  if (v3 == 2 || (v3 & 1) == 0)
-  {
-    return a1[33];
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t sub_14B1C()
-{
-  if (qword_24458 != -1)
-  {
-    swift_once();
-  }
-
-  v0 = qword_24460;
-  v24 = qword_25C80;
-
-  if (v0 != -1)
-  {
-    swift_once();
-  }
-
-  v23 = qword_25C88;
-  sub_3578(&qword_24D70, &qword_1CE08);
-  v1 = *(sub_1B5A4() - 8);
-  v2 = *(v1 + 72);
-  v3 = (*(v1 + 80) + 32) & ~*(v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_1BF10;
-
-  sub_1B5C4();
-  sub_3578(&qword_24D48, &qword_1CDF0);
-  v5 = sub_1B4D4();
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 72);
-  v8 = (*(v6 + 80) + 32) & ~*(v6 + 80);
-  v9 = swift_allocObject();
-  *(v9 + 16) = xmmword_1BF10;
-  v10 = enum case for SiriHintsMode.display(_:);
-  v11 = sub_1B414();
-  (*(*(v11 - 8) + 104))(v9 + v8, v10, v11);
-  (*(v6 + 104))(v9 + v8, enum case for DeliveryVehicle.siriHints(_:), v5);
-  qword_25E20 = 0;
-  unk_25E10 = 0u;
-  unk_25E00 = 0u;
-  sub_3578(&qword_24D40, &qword_1CDE8);
-  v12 = (type metadata accessor for SignalDefinition() - 8);
-  v13 = *(*v12 + 72);
-  v14 = (*(*v12 + 80) + 32) & ~*(*v12 + 80);
-  v15 = swift_allocObject();
-  *(v15 + 16) = xmmword_1BF10;
-  v16 = (v15 + v14);
-  v17 = v12[7];
-  *(v15 + v14 + v17) = v9;
-  v18 = enum case for SignalContextProperties.deliveryVehicle(_:);
-  v19 = sub_1B624();
-  v20 = *(v19 - 8);
-  (*(v20 + 104))(&v16[v17], v18, v19);
-  (*(v20 + 56))(&v16[v17], 0, 1, v19);
-  v21 = &v16[v12[8]];
-  *(v21 + 4) = 0;
-  *v21 = 0u;
-  *(v21 + 1) = 0u;
-  *v16 = &_swiftEmptyArrayStorage;
-  qword_25D68 = 0xD00000000000001CLL;
-  unk_25D70 = 0x800000000001D660;
-  qword_25D78 = 0xD000000000000056;
-  qword_25D80 = 0x800000000001D430;
-  unk_25D88 = v24;
-  qword_25D90 = v23;
-  unk_25D98 = v15;
-  qword_25DA0 = 0x6E69666661736964;
-  qword_25DA8 = 0xEB00000000797469;
-  unk_25DB0 = 0xD000000000000010;
-  qword_25DB8 = 0x800000000001D490;
-  word_25DC0 = 257;
-  qword_25DC8 = 0;
-  unk_25DD0 = 0;
-  qword_25DD8 = &off_20C70;
-  unk_25DE0 = v4;
-  qword_25DE8 = v9;
-  unk_25DF0 = variable initialization expression of AudioSuggestionsExecutionParameters.supportsAffinityIntent;
-  qword_25DF8 = 0;
-  qword_25E28 = &_swiftEmptyArrayStorage;
-  unk_25E30 = &_swiftEmptyArrayStorage;
-}
-
-uint64_t sub_14FA8()
-{
-  v0 = sub_1B4D4();
-  v1 = *(v0 - 8);
-  v2 = v1[8];
-  __chkstk_darwin(v0);
-  v4 = &v25 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (qword_24450 != -1)
-  {
-    swift_once();
-  }
-
-  v5 = qword_24460;
-  v30 = qword_25C78;
-
-  if (v5 != -1)
-  {
-    swift_once();
-  }
-
-  v28 = 0x800000000001D640;
-  v29 = 0x800000000001D430;
-  v6 = qword_25C88;
-  v7 = enum case for DeliveryVehicle.siriHelp(_:);
-  v8 = v1[13];
-  v8(v4, enum case for DeliveryVehicle.siriHelp(_:), v0);
-
-  v26 = sub_D9B8(2, v4);
-  v10 = v1[1];
-  v9 = v1 + 1;
-  v10(v4, v0);
-  v27 = 0x800000000001D490;
-  sub_3578(&qword_24D48, &qword_1CDF0);
-  v11 = v9[8];
-  v12 = (*(v9 + 72) + 32) & ~*(v9 + 72);
-  v13 = swift_allocObject();
-  v25 = xmmword_1BF10;
-  *(v13 + 16) = xmmword_1BF10;
-  v8((v13 + v12), v7, v0);
-  qword_25EF0 = 0;
-  unk_25EE0 = 0u;
-  unk_25ED0 = 0u;
-  sub_3578(&qword_24D40, &qword_1CDE8);
-  v14 = (type metadata accessor for SignalDefinition() - 8);
-  v15 = *(*v14 + 72);
-  v16 = (*(*v14 + 80) + 32) & ~*(*v14 + 80);
-  v17 = swift_allocObject();
-  *(v17 + 16) = v25;
-  v18 = (v17 + v16);
-  v19 = v14[7];
-  *(v17 + v16 + v19) = v13;
-  v20 = enum case for SignalContextProperties.deliveryVehicle(_:);
-  v21 = sub_1B624();
-  v22 = *(v21 - 8);
-  (*(v22 + 104))(&v18[v19], v20, v21);
-  (*(v22 + 56))(&v18[v19], 0, 1, v21);
-  v23 = &v18[v14[8]];
-  *(v23 + 4) = 0;
-  *v23 = 0u;
-  *(v23 + 1) = 0u;
-  *v18 = v26;
-  qword_25E38 = 0xD000000000000015;
-  qword_25E40 = v28;
-  unk_25E48 = 0xD000000000000056;
-  qword_25E50 = v29;
-  unk_25E58 = v30;
-  qword_25E60 = v6;
-  unk_25E68 = v17;
-  qword_25E70 = 2036427888;
-  qword_25E78 = 0xE400000000000000;
-  unk_25E80 = 0xD000000000000010;
-  qword_25E88 = v27;
-  word_25E90 = 258;
-  xmmword_25E98 = 0u;
-  unk_25EA8 = 0u;
-  qword_25EB8 = v13;
-  unk_25EC0 = variable initialization expression of ArtistNameParameterBuilder.parameterName;
-  qword_25EC8 = 0;
-  qword_25EF8 = &_swiftEmptyArrayStorage;
-  unk_25F00 = &_swiftEmptyArrayStorage;
-}
-
-double sub_1539C()
-{
-  v0 = sub_1B394();
-  v54 = *(v0 - 8);
-  v55 = v0;
-  v1 = *(v54 + 64);
-  __chkstk_darwin(v0);
-  v53 = &v40 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v3 = sub_3578(&qword_24670, &qword_1C100);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = (&v40 - v5);
-  if (qword_24458 != -1)
-  {
-    swift_once();
-  }
-
-  v7 = qword_24460;
-  v52 = qword_25C80;
-
-  if (v7 != -1)
-  {
-    swift_once();
-  }
-
-  v50 = 0x800000000001D620;
-  v51 = 0x800000000001D430;
-  v48 = qword_25C88;
-  sub_3578(&qword_24D40, &qword_1CDE8);
-  v8 = (type metadata accessor for SignalDefinition() - 8);
-  v9 = *v8;
-  *&v61 = *(*v8 + 72);
-  v10 = (*(v9 + 80) + 32) & ~*(v9 + 80);
-  v11 = swift_allocObject();
-  v58 = xmmword_1C490;
-  v49 = v11;
-  *(v11 + 16) = xmmword_1C490;
-  v12 = (v11 + v10);
-
-  v45 = sub_DE94(3);
-  v60 = sub_3578(&qword_24D48, &qword_1CDF0);
-  v56 = sub_1B4D4();
-  v13 = *(v56 - 8);
-  v14 = *(v13 + 72);
-  v59 = *(v13 + 80);
-  v15 = (v59 + 32) & ~v59;
-  v46 = 2 * v14;
-  v44 = v14;
-  v16 = swift_allocObject();
-  *(v16 + 16) = v58;
-  v47 = enum case for DeliveryVehicle.assistantSuggestions(_:);
-  v17 = *(v13 + 104);
-  v57 = v17;
-  v17(v16 + v15);
-  LODWORD(v58) = enum case for DeliveryVehicle.siriHelp(_:);
-  v17(v16 + v15 + v14);
-  *v6 = v16;
-  v18 = enum case for SignalContextProperties.deliveryVehicle(_:);
-  v43 = enum case for SignalContextProperties.deliveryVehicle(_:);
-  v19 = sub_1B624();
-  v20 = *(v19 - 8);
-  v42 = *(v20 + 104);
-  v42(v6, v18, v19);
-  v41 = *(v20 + 56);
-  v41(v6, 0, 1, v19);
-  v21 = v12 + v8[8];
-  *(v21 + 4) = 0;
-  *v21 = 0u;
-  *(v21 + 1) = 0u;
-  *v12 = v45;
-  sub_1AC78(v6, v12 + v8[7]);
-  v22 = (v12 + v61);
-  v45 = sub_E06C(3);
-  v23 = v44;
-  v24 = swift_allocObject();
-  v61 = xmmword_1BF10;
-  *(v24 + 16) = xmmword_1BF10;
-  v57(v24 + v15, v58, v56);
-  *v6 = v24;
-  v42(v6, v43, v19);
-  v41(v6, 0, 1, v19);
-  v25 = v22 + v8[8];
-  *(v25 + 4) = 0;
-  *v25 = 0u;
-  *(v25 + 1) = 0u;
-  *v22 = v45;
-  sub_1AC78(v6, v22 + v8[7]);
-  v26 = v46;
-  v27 = swift_allocObject();
-  *(v27 + 16) = xmmword_1C5F0;
-  v28 = v27 + v15;
-  v29 = v27 + v15;
-  v31 = v56;
-  v30 = v57;
-  v57(v29, v58, v56);
-  v30(v28 + v23, enum case for DeliveryVehicle.siriAutoComplete(_:), v31);
-  v30(v28 + v26, v47, v31);
-  sub_47E0(0, &qword_24D50, INPlayMediaIntent_ptr);
-  *(&v63 + 1) = sub_1B444();
-  v64 = &protocol witness table for SiriSuggestions.IntentMatch;
-  sub_35C0(&v62);
-  sub_1B434();
-  sub_3578(&qword_24D58, &qword_1CDF8);
-  v32 = swift_allocObject();
-  *(v32 + 16) = v61;
-  *(v32 + 56) = &type metadata for PodcastNameParameterBuilder;
-  *(v32 + 64) = &off_213F8;
-  *(v32 + 32) = 3;
-  sub_3578(&qword_24D60, &qword_1CE00);
-  v33 = swift_allocObject();
-  *(v33 + 16) = v61;
-  v34 = v53;
-  sub_1B384();
-  PartyMusicSubscriber = type metadata accessor for FirstPartyMusicSubscriber();
-  v36 = swift_allocObject();
-  v37 = v55;
-  v36[5] = v55;
-  v36[6] = &protocol witness table for SubscriptionProvider;
-  v38 = sub_35C0(v36 + 2);
-  (*(v54 + 32))(v38, v34, v37);
-  *(v33 + 56) = PartyMusicSubscriber;
-  *(v33 + 64) = sub_1B024(&qword_24D68, type metadata accessor for FirstPartyMusicSubscriber);
-  *(v33 + 32) = v36;
-  qword_25F08 = 0xD00000000000001DLL;
-  qword_25F10 = v50;
-  qword_25F18 = 0xD000000000000056;
-  qword_25F20 = v51;
-  qword_25F28 = v52;
-  qword_25F30 = v48;
-  unk_25F38 = v49;
-  strcpy(&qword_25F40, "playAPodcast");
-  BYTE5(qword_25F48) = 0;
-  HIWORD(qword_25F48) = -5120;
-  unk_25F50 = 0xD000000000000010;
-  qword_25F58 = 0x800000000001D490;
-  word_25F60 = 259;
-  xmmword_25F68 = 0u;
-  unk_25F78 = 0u;
-  result = *&v63;
-  *&algn_25FA0[16] = v63;
-  qword_25F88 = v27;
-  unk_25F90 = variable initialization expression of ArtistNameParameterBuilder.parameterName;
-  qword_25F98 = 0;
-  *algn_25FA0 = v62;
-  qword_25FC0 = v64;
-  unk_25FC8 = v32;
-  qword_25FD0 = v33;
-  return result;
-}
-
-uint64_t sub_15B60()
-{
-  if (sub_12250(&off_20F20))
-  {
-    v0 = sub_12068() ^ 1;
-  }
-
-  else
-  {
-    v0 = 0;
-  }
-
-  return v0 & 1;
-}
-
 double sub_15BA4()
 {
   v0 = sub_1B394();
-  v73 = *(v0 - 8);
-  v74 = v0;
-  v1 = *(v73 + 64);
+  v65 = *(v0 - 8);
+  v66 = v0;
   __chkstk_darwin(v0);
-  v72 = &v66 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v3 = sub_3578(&qword_24670, &qword_1C100);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v69 = (&v66 - v5);
-  v70 = sub_1B4D4();
-  v68 = *(v70 - 8);
-  v6 = *(v68 + 64);
-  __chkstk_darwin(v70);
-  v67 = &v66 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_1B464();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = __chkstk_darwin(v8);
-  *&v84 = &v66 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = __chkstk_darwin(v11);
-  v15 = &v66 - v14;
-  __chkstk_darwin(v13);
-  v17 = &v66 - v16;
+  v64 = &v58 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = sub_3578(&qword_24670, &qword_1C100);
+  __chkstk_darwin(v2 - 8);
+  v61 = (&v58 - v3);
+  v62 = sub_1B4D4();
+  v60 = *(v62 - 8);
+  __chkstk_darwin(v62);
+  v59 = &v58 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = sub_1B464();
+  v6 = *(v5 - 8);
+  v7 = __chkstk_darwin(v5);
+  *&v76 = &v58 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = __chkstk_darwin(v7);
+  v11 = &v58 - v10;
+  __chkstk_darwin(v9);
+  v13 = &v58 - v12;
   if (qword_24458 != -1)
   {
     goto LABEL_18;
@@ -378,78 +27,78 @@ double sub_15BA4()
 
   while (1)
   {
-    v18 = qword_24460;
-    v71 = qword_25C80;
+    v14 = qword_24460;
+    v63 = qword_25C80;
 
-    if (v18 != -1)
+    if (v14 != -1)
     {
       swift_once();
     }
 
-    v19 = *(qword_25C88 + 16);
+    v15 = *(qword_25C88 + 16);
 
-    v83 = v19;
-    if (!v19)
+    v75 = v15;
+    if (!v15)
     {
       break;
     }
 
-    v21 = 0;
-    v81 = v9 + 16;
-    LODWORD(v80) = enum case for DeviceType.mac(_:);
-    v78 = (v9 + 32);
-    v79 = v9 + 104;
-    v85 = &_swiftEmptyArrayStorage;
-    v76 = v17;
-    v77 = v15;
-    v82 = v20;
-    v75 = v9 + 8;
-    while (v21 < *(v20 + 16))
+    v17 = 0;
+    v73 = v6 + 16;
+    LODWORD(v72) = enum case for DeviceType.mac(_:);
+    v70 = (v6 + 32);
+    v71 = v6 + 104;
+    v77 = _swiftEmptyArrayStorage;
+    v68 = v13;
+    v69 = v11;
+    v74 = v16;
+    v67 = v6 + 8;
+    while (v17 < *(v16 + 16))
     {
-      v22 = (*(v9 + 80) + 32) & ~*(v9 + 80);
-      v23 = *(v9 + 72);
-      (*(v9 + 16))(v17, v20 + v22 + v23 * v21, v8);
-      (*(v9 + 104))(v15, v80, v8);
-      sub_1B024(&qword_24D78, &type metadata accessor for DeviceType);
-      v24 = sub_1B8C4();
-      v25 = *(v9 + 8);
-      v25(v15, v8);
-      if (v24)
+      v18 = (*(v6 + 80) + 32) & ~*(v6 + 80);
+      v19 = *(v6 + 72);
+      (*(v6 + 16))(v13, v16 + v18 + v19 * v17, v5);
+      (*(v6 + 104))(v11, v72, v5);
+      sub_1B024(&qword_24D78, &type metadata accessor for DeviceType, &protocol conformance descriptor for DeviceType);
+      v20 = sub_1B8C4();
+      v21 = *(v6 + 8);
+      v21(v11, v5);
+      if (v20)
       {
-        v25(v17, v8);
+        v21(v13, v5);
       }
 
       else
       {
-        v26 = *v78;
-        (*v78)(v84, v17, v8);
-        v27 = v85;
+        v22 = *v70;
+        (*v70)(v76, v13, v5);
+        v23 = v77;
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        *&v86 = v27;
+        *&v78 = v23;
         if ((isUniquelyReferenced_nonNull_native & 1) == 0)
         {
-          sub_1A314(0, v27[2] + 1, 1);
-          v27 = v86;
+          sub_1A314(0, v23[2] + 1, 1);
+          v23 = v78;
         }
 
-        v30 = v27[2];
-        v29 = v27[3];
-        if (v30 >= v29 >> 1)
+        v26 = v23[2];
+        v25 = v23[3];
+        if (v26 >= v25 >> 1)
         {
-          sub_1A314(v29 > 1, v30 + 1, 1);
-          v27 = v86;
+          sub_1A314((v25 > 1), v26 + 1, 1);
+          v23 = v78;
         }
 
-        v85 = v27;
-        v27[2] = v30 + 1;
-        v26(v27 + v22 + v30 * v23, v84, v8);
-        v17 = v76;
-        v15 = v77;
+        v77 = v23;
+        v23[2] = v26 + 1;
+        v22(v23 + v18 + v26 * v19, v76, v5);
+        v13 = v68;
+        v11 = v69;
       }
 
-      ++v21;
-      v20 = v82;
-      if (v83 == v21)
+      ++v17;
+      v16 = v74;
+      if (v75 == v17)
       {
         goto LABEL_16;
       }
@@ -460,114 +109,111 @@ LABEL_18:
     swift_once();
   }
 
-  v85 = &_swiftEmptyArrayStorage;
+  v77 = _swiftEmptyArrayStorage;
 LABEL_16:
 
-  v82 = 0x800000000001D5F0;
-  v83 = 0x800000000001D430;
+  v74 = 0x800000000001D5F0;
+  v75 = 0x800000000001D430;
   sub_3578(&qword_24D40, &qword_1CDE8);
-  v31 = (type metadata accessor for SignalDefinition() - 8);
-  v32 = *(*v31 + 72);
-  v33 = (*(*v31 + 80) + 32) & ~*(*v31 + 80);
-  v34 = swift_allocObject();
-  v84 = xmmword_1BF10;
-  v81 = v34;
-  *(v34 + 16) = xmmword_1BF10;
-  v35 = (v34 + v33);
-  v36 = enum case for DeliveryVehicle.assistantSuggestions(_:);
-  v37 = v68;
-  v38 = *(v68 + 104);
-  v39 = v67;
-  LODWORD(v79) = enum case for DeliveryVehicle.assistantSuggestions(_:);
-  v40 = v70;
-  (v38)(v67, enum case for DeliveryVehicle.assistantSuggestions(_:), v70);
-  v78 = v38;
-  v80 = sub_D9B8(4, v39);
-  v41 = *(v37 + 8);
-  v37 += 8;
-  v41(v39, v40);
-  v42 = sub_3578(&qword_24D48, &qword_1CDF0);
-  v76 = *(v37 + 64);
-  v77 = v42;
-  v43 = (*(v37 + 72) + 32) & ~*(v37 + 72);
-  v44 = swift_allocObject();
-  *(v44 + 16) = v84;
-  (v38)(v44 + v43, v36, v40);
-  v45 = v69;
-  *v69 = v44;
-  v46 = enum case for SignalContextProperties.deliveryVehicle(_:);
-  v47 = sub_1B624();
-  v48 = *(v47 - 8);
-  (*(v48 + 104))(v45, v46, v47);
-  (*(v48 + 56))(v45, 0, 1, v47);
-  v49 = v35 + v31[8];
-  *(v49 + 4) = 0;
-  *v49 = 0u;
-  *(v49 + 1) = 0u;
-  *v35 = v80;
-  sub_1AC78(v45, v35 + v31[7]);
-  v80 = 0x800000000001CF50;
+  v27 = (type metadata accessor for SignalDefinition(0) - 8);
+  v28 = (*(*v27 + 80) + 32) & ~*(*v27 + 80);
+  v29 = swift_allocObject();
+  v76 = xmmword_1BF10;
+  v73 = v29;
+  *(v29 + 16) = xmmword_1BF10;
+  v30 = (v29 + v28);
+  v31 = enum case for DeliveryVehicle.assistantSuggestions(_:);
+  v32 = v60;
+  v33 = *(v60 + 104);
+  v34 = v59;
+  LODWORD(v71) = enum case for DeliveryVehicle.assistantSuggestions(_:);
+  v35 = v62;
+  (v33)(v59, enum case for DeliveryVehicle.assistantSuggestions(_:), v62);
+  v70 = v33;
+  v72 = sub_D9B8(4u, v34);
+  v36 = *(v32 + 8);
+  v32 += 8;
+  v36(v34, v35);
+  v37 = sub_3578(&qword_24D48, &qword_1CDF0);
+  v68 = *(v32 + 64);
+  v69 = v37;
+  v38 = (*(v32 + 72) + 32) & ~*(v32 + 72);
+  v39 = swift_allocObject();
+  *(v39 + 16) = v76;
+  (v33)(v39 + v38, v31, v35);
+  v40 = v61;
+  *v61 = v39;
+  v41 = enum case for SignalContextProperties.deliveryVehicle(_:);
+  v42 = sub_1B624();
+  v43 = *(v42 - 8);
+  (*(v43 + 104))(v40, v41, v42);
+  (*(v43 + 56))(v40, 0, 1, v42);
+  v44 = v30 + v27[8];
+  *(v44 + 4) = 0;
+  *v44 = 0u;
+  *(v44 + 1) = 0u;
+  *v30 = v72;
+  sub_1AC78(v40, v30 + v27[7]);
+  v72 = 0x800000000001CF50;
   sub_3578(&qword_24D70, &qword_1CE08);
-  v50 = *(sub_1B5A4() - 8);
-  v51 = *(v50 + 72);
-  v52 = (*(v50 + 80) + 32) & ~*(v50 + 80);
-  v53 = swift_allocObject();
-  *(v53 + 16) = v84;
+  sub_1B5A4();
+  v45 = swift_allocObject();
+  *(v45 + 16) = v76;
   sub_1B5C4();
-  v54 = v76;
-  v55 = swift_allocObject();
-  *(v55 + 16) = xmmword_1C490;
-  v56 = enum case for SiriHintsMode.display(_:);
-  v57 = sub_1B414();
-  (*(*(v57 - 8) + 104))(v55 + v43, v56, v57);
-  v58 = v78;
-  (v78)(v55 + v43, enum case for DeliveryVehicle.siriHints(_:), v40);
-  (v58)(&v54[v55 + v43], v79, v40);
+  v46 = v68;
+  v47 = swift_allocObject();
+  *(v47 + 16) = xmmword_1C490;
+  v48 = enum case for SiriHintsMode.display(_:);
+  v49 = sub_1B414();
+  (*(*(v49 - 8) + 104))(v47 + v38, v48, v49);
+  v50 = v70;
+  (v70)(v47 + v38, enum case for DeliveryVehicle.siriHints(_:), v35);
+  (v50)(&v46[v47 + v38], v71, v35);
   sub_47E0(0, &qword_24D50, INPlayMediaIntent_ptr);
-  *(&v87 + 1) = sub_1B444();
-  v88 = &protocol witness table for SiriSuggestions.IntentMatch;
-  sub_35C0(&v86);
+  *(&v79 + 1) = sub_1B444();
+  v80 = &protocol witness table for SiriSuggestions.IntentMatch;
+  sub_35C0(&v78);
   sub_1B434();
   sub_3578(&qword_24D60, &qword_1CE00);
-  v59 = swift_allocObject();
-  *(v59 + 16) = v84;
-  v60 = v72;
+  v51 = swift_allocObject();
+  *(v51 + 16) = v76;
+  v52 = v64;
   sub_1B384();
   PartyMusicSubscriber = type metadata accessor for FirstPartyMusicSubscriber();
-  v62 = swift_allocObject();
-  v63 = v74;
-  v62[5] = v74;
-  v62[6] = &protocol witness table for SubscriptionProvider;
-  v64 = sub_35C0(v62 + 2);
-  (*(v73 + 32))(v64, v60, v63);
-  *(v59 + 56) = PartyMusicSubscriber;
-  *(v59 + 64) = sub_1B024(&qword_24D68, type metadata accessor for FirstPartyMusicSubscriber);
-  *(v59 + 32) = v62;
+  v54 = swift_allocObject();
+  v55 = v66;
+  v54[5] = v66;
+  v54[6] = &protocol witness table for SubscriptionProvider;
+  v56 = sub_35C0(v54 + 2);
+  (*(v65 + 32))(v56, v52, v55);
+  *(v51 + 56) = PartyMusicSubscriber;
+  *(v51 + 64) = sub_1B024(&qword_24D68, type metadata accessor for FirstPartyMusicSubscriber, &protocol conformance descriptor for FirstPartyMusicSubscriber);
+  *(v51 + 32) = v54;
   qword_25FD8 = 0xD000000000000021;
-  unk_25FE0 = v82;
+  unk_25FE0 = v74;
   qword_25FE8 = 0xD000000000000056;
-  qword_25FF0 = v83;
-  unk_25FF8 = v71;
-  qword_26000 = v85;
-  unk_26008 = v81;
+  qword_25FF0 = v75;
+  unk_25FF8 = v63;
+  qword_26000 = v77;
+  unk_26008 = v73;
   qword_26010 = 0xD000000000000010;
-  unk_26018 = v80;
+  unk_26018 = v72;
   qword_26020 = 0xD000000000000010;
   unk_26028 = 0x800000000001D490;
   word_26030 = 260;
   qword_26038 = 0;
   unk_26040 = 0;
   qword_26048 = &off_20CA8;
-  unk_26050 = v53;
-  result = *&v87;
-  unk_26080 = v87;
-  qword_26058 = v55;
+  unk_26050 = v45;
+  result = *&v79;
+  unk_26080 = v79;
+  qword_26058 = v47;
   unk_26060 = variable initialization expression of ArtistNameParameterBuilder.parameterName;
   qword_26068 = 0;
-  unk_26070 = v86;
-  qword_26090 = v88;
-  qword_26098 = &_swiftEmptyArrayStorage;
-  unk_260A0 = v59;
+  unk_26070 = v78;
+  qword_26090 = v80;
+  qword_26098 = _swiftEmptyArrayStorage;
+  unk_260A0 = v51;
   return result;
 }
 
@@ -575,91 +221,89 @@ uint64_t sub_16610()
 {
   v0 = sub_1B4D4();
   v1 = *(v0 - 8);
-  v2 = v1[8];
   __chkstk_darwin(v0);
-  v4 = &v27 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = &v25 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (qword_24458 != -1)
   {
     swift_once();
   }
 
-  v5 = qword_25C80;
-  v6 = qword_24460;
+  v4 = qword_25C80;
+  v5 = qword_24460;
 
-  if (v6 != -1)
+  if (v5 != -1)
   {
     swift_once();
   }
 
-  v30 = 0x800000000001D5D0;
-  v31 = 0x800000000001D430;
-  v7 = qword_25C88;
-  v8 = enum case for DeliveryVehicle.siriHelp(_:);
-  v9 = v1[13];
-  v9(v4, enum case for DeliveryVehicle.siriHelp(_:), v0);
+  v28 = 0x800000000001D5D0;
+  v29 = 0x800000000001D430;
+  v6 = qword_25C88;
+  v7 = enum case for DeliveryVehicle.siriHelp(_:);
+  v8 = *(v1 + 104);
+  v8(v3, enum case for DeliveryVehicle.siriHelp(_:), v0);
 
-  v27 = sub_D9B8(5, v4);
-  v11 = v1[1];
-  v10 = v1 + 1;
-  v11(v4, v0);
-  v28 = 0x800000000001D490;
-  v29 = 0x800000000001D4B0;
+  v25 = sub_D9B8(5u, v3);
+  v10 = *(v1 + 8);
+  v9 = v1 + 8;
+  v10(v3, v0);
+  v26 = 0x800000000001D490;
+  v27 = 0x800000000001D4B0;
   sub_3578(&qword_24D48, &qword_1CDF0);
-  v12 = v10[8];
-  v13 = (*(v10 + 72) + 32) & ~*(v10 + 72);
-  v14 = swift_allocObject();
-  *(v14 + 16) = xmmword_1C490;
-  v15 = v14 + v13;
-  v9(v15, v8, v0);
-  v9((v15 + v12), enum case for DeliveryVehicle.siriAutoComplete(_:), v0);
+  v11 = *(v9 + 64);
+  v12 = (*(v9 + 72) + 32) & ~*(v9 + 72);
+  v13 = swift_allocObject();
+  *(v13 + 16) = xmmword_1C490;
+  v14 = v13 + v12;
+  v8(v14, v7, v0);
+  v8((v14 + v11), enum case for DeliveryVehicle.siriAutoComplete(_:), v0);
   sub_47E0(0, &qword_24D50, INPlayMediaIntent_ptr);
-  *(&v33 + 1) = sub_1B444();
-  v34 = &protocol witness table for SiriSuggestions.IntentMatch;
-  sub_35C0(&v32);
+  *(&v31 + 1) = sub_1B444();
+  v32 = &protocol witness table for SiriSuggestions.IntentMatch;
+  sub_35C0(&v30);
   sub_1B434();
   sub_3578(&qword_24D40, &qword_1CDE8);
-  v16 = (type metadata accessor for SignalDefinition() - 8);
-  v17 = *(*v16 + 72);
-  v18 = (*(*v16 + 80) + 32) & ~*(*v16 + 80);
-  v19 = swift_allocObject();
-  *(v19 + 16) = xmmword_1BF10;
-  v20 = (v19 + v18);
-  v21 = v16[7];
-  *(v19 + v18 + v21) = v14;
-  v22 = enum case for SignalContextProperties.deliveryVehicle(_:);
-  v23 = sub_1B624();
-  v24 = *(v23 - 8);
-  (*(v24 + 104))(&v20[v21], v22, v23);
-  (*(v24 + 56))(&v20[v21], 0, 1, v23);
-  v25 = &v20[v16[8]];
-  *(v25 + 4) = 0;
-  *v25 = 0u;
-  *(v25 + 1) = 0u;
-  *v20 = v27;
+  v15 = (type metadata accessor for SignalDefinition(0) - 8);
+  v16 = (*(*v15 + 80) + 32) & ~*(*v15 + 80);
+  v17 = swift_allocObject();
+  *(v17 + 16) = xmmword_1BF10;
+  v18 = (v17 + v16);
+  v19 = v15[7];
+  *(v17 + v16 + v19) = v13;
+  v20 = enum case for SignalContextProperties.deliveryVehicle(_:);
+  v21 = sub_1B624();
+  v22 = *(v21 - 8);
+  (*(v22 + 104))(&v18[v19], v20, v21);
+  (*(v22 + 56))(&v18[v19], 0, 1, v21);
+  v23 = &v18[v15[8]];
+  *(v23 + 4) = 0;
+  *v23 = 0u;
+  *(v23 + 1) = 0u;
+  *v18 = v25;
   qword_260A8 = 0xD00000000000001ALL;
-  qword_260B0 = v30;
+  qword_260B0 = v28;
   unk_260B8 = 0xD000000000000056;
-  qword_260C0 = v31;
-  unk_260C8 = v5;
-  qword_260D0 = v7;
-  unk_260D8 = v19;
+  qword_260C0 = v29;
+  unk_260C8 = v4;
+  qword_260D0 = v6;
+  unk_260D8 = v17;
   qword_260E0 = 0x6973754D79616C70;
   qword_260E8 = 0xE900000000000063;
   unk_260F0 = 0xD000000000000010;
-  qword_260F8 = v28;
+  qword_260F8 = v26;
   word_26100 = 261;
   qword_26108 = 0xD000000000000011;
-  unk_26110 = v29;
+  unk_26110 = v27;
   qword_26118 = 0;
   unk_26120 = 0;
-  unk_26150 = v33;
-  qword_26128 = v14;
+  unk_26150 = v31;
+  qword_26128 = v13;
   unk_26130 = variable initialization expression of ArtistNameParameterBuilder.parameterName;
   qword_26138 = 0;
-  unk_26140 = v32;
-  qword_26160 = v34;
-  unk_26168 = &_swiftEmptyArrayStorage;
-  qword_26170 = &_swiftEmptyArrayStorage;
+  unk_26140 = v30;
+  qword_26160 = v32;
+  unk_26168 = _swiftEmptyArrayStorage;
+  qword_26170 = _swiftEmptyArrayStorage;
 }
 
 uint64_t sub_16AB8(void *a1)
@@ -693,120 +337,117 @@ uint64_t sub_16B88()
 {
   v0 = sub_1B394();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin(v0);
-  v4 = &v35 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_1B4D4();
-  v6 = *(v5 - 8);
-  v7 = v6[8];
-  __chkstk_darwin(v5);
-  v9 = &v35 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = &v32 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_1B4D4();
+  v5 = *(v4 - 8);
+  __chkstk_darwin(v4);
+  v7 = &v32 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (qword_24458 != -1)
   {
     swift_once();
   }
 
-  v10 = qword_24460;
-  v42 = qword_25C80;
+  v8 = qword_24460;
+  v39 = qword_25C80;
 
-  if (v10 != -1)
+  if (v8 != -1)
   {
     swift_once();
   }
 
-  v40 = 0x800000000001D510;
-  v41 = 0x800000000001D430;
-  v39 = qword_25C88;
-  v11 = enum case for DeliveryVehicle.siriHelp(_:);
-  v12 = v6[13];
-  v12(v9, enum case for DeliveryVehicle.siriHelp(_:), v5);
+  v37 = 0x800000000001D510;
+  v38 = 0x800000000001D430;
+  v36 = qword_25C88;
+  v9 = enum case for DeliveryVehicle.siriHelp(_:);
+  v10 = *(v5 + 104);
+  v10(v7, enum case for DeliveryVehicle.siriHelp(_:), v4);
 
-  v36 = sub_D9B8(6, v9);
-  v14 = v6[1];
-  v13 = v6 + 1;
-  v14(v9, v5);
-  v37 = 0x800000000001D490;
-  v38 = 0x800000000001D4B0;
+  v33 = sub_D9B8(6u, v7);
+  v12 = *(v5 + 8);
+  v11 = v5 + 8;
+  v12(v7, v4);
+  v34 = 0x800000000001D490;
+  v35 = 0x800000000001D4B0;
   sub_3578(&qword_24D48, &qword_1CDF0);
-  v15 = v13[8];
-  v16 = (*(v13 + 72) + 32) & ~*(v13 + 72);
-  v17 = swift_allocObject();
-  v35 = xmmword_1C490;
-  *(v17 + 16) = xmmword_1C490;
-  v18 = v17 + v16;
-  v12(v18, v11, v5);
-  v12((v18 + v15), enum case for DeliveryVehicle.siriAutoComplete(_:), v5);
+  v13 = *(v11 + 64);
+  v14 = (*(v11 + 72) + 32) & ~*(v11 + 72);
+  v15 = swift_allocObject();
+  v32 = xmmword_1C490;
+  *(v15 + 16) = xmmword_1C490;
+  v16 = v15 + v14;
+  v10(v16, v9, v4);
+  v10((v16 + v13), enum case for DeliveryVehicle.siriAutoComplete(_:), v4);
   sub_47E0(0, &qword_24D50, INPlayMediaIntent_ptr);
-  *(&v44 + 1) = sub_1B444();
-  v45 = &protocol witness table for SiriSuggestions.IntentMatch;
-  sub_35C0(&v43);
+  *(&v41 + 1) = sub_1B444();
+  v42 = &protocol witness table for SiriSuggestions.IntentMatch;
+  sub_35C0(&v40);
   sub_1B434();
   sub_3578(&qword_24D58, &qword_1CDF8);
-  v19 = swift_allocObject();
-  *(v19 + 16) = v35;
-  *(v19 + 56) = &type metadata for SongNameParameterBuilder;
-  *(v19 + 64) = &off_21320;
-  *(v19 + 32) = 256;
-  *(v19 + 96) = &type metadata for ArtistNameParameterBuilder;
-  *(v19 + 104) = &off_21428;
-  *(v19 + 72) = 1;
+  v17 = swift_allocObject();
+  *(v17 + 16) = v32;
+  *(v17 + 56) = &type metadata for SongNameParameterBuilder;
+  *(v17 + 64) = &off_21320;
+  *(v17 + 32) = 256;
+  *(v17 + 96) = &type metadata for ArtistNameParameterBuilder;
+  *(v17 + 104) = &off_21428;
+  *(v17 + 72) = 1;
   sub_3578(&qword_24D60, &qword_1CE00);
-  v20 = swift_allocObject();
-  v35 = xmmword_1BF10;
-  *(v20 + 16) = xmmword_1BF10;
+  v18 = swift_allocObject();
+  v32 = xmmword_1BF10;
+  *(v18 + 16) = xmmword_1BF10;
   sub_1B384();
   PartyMusicSubscriber = type metadata accessor for FirstPartyMusicSubscriber();
-  v22 = swift_allocObject();
-  v22[5] = v0;
-  v22[6] = &protocol witness table for SubscriptionProvider;
-  v23 = sub_35C0(v22 + 2);
-  (*(v1 + 32))(v23, v4, v0);
-  *(v20 + 56) = PartyMusicSubscriber;
-  *(v20 + 64) = sub_1B024(&qword_24D68, type metadata accessor for FirstPartyMusicSubscriber);
-  *(v20 + 32) = v22;
+  v20 = swift_allocObject();
+  v20[5] = v0;
+  v20[6] = &protocol witness table for SubscriptionProvider;
+  v21 = sub_35C0(v20 + 2);
+  (*(v1 + 32))(v21, v3, v0);
+  *(v18 + 56) = PartyMusicSubscriber;
+  *(v18 + 64) = sub_1B024(&qword_24D68, type metadata accessor for FirstPartyMusicSubscriber, &protocol conformance descriptor for FirstPartyMusicSubscriber);
+  *(v18 + 32) = v20;
   sub_3578(&qword_24D40, &qword_1CDE8);
-  v24 = (type metadata accessor for SignalDefinition() - 8);
-  v25 = *(*v24 + 72);
-  v26 = (*(*v24 + 80) + 32) & ~*(*v24 + 80);
-  v27 = swift_allocObject();
-  *(v27 + 16) = v35;
-  v28 = (v27 + v26);
-  v29 = v24[7];
-  *&v28[v29] = v17;
-  v30 = enum case for SignalContextProperties.deliveryVehicle(_:);
-  v31 = sub_1B624();
-  v32 = *(v31 - 8);
-  (*(v32 + 104))(&v28[v29], v30, v31);
-  (*(v32 + 56))(&v28[v29], 0, 1, v31);
-  v33 = &v28[v24[8]];
-  *(v33 + 4) = 0;
-  *v33 = 0u;
-  *(v33 + 1) = 0u;
-  *v28 = v36;
+  v22 = (type metadata accessor for SignalDefinition(0) - 8);
+  v23 = (*(*v22 + 80) + 32) & ~*(*v22 + 80);
+  v24 = swift_allocObject();
+  *(v24 + 16) = v32;
+  v25 = (v24 + v23);
+  v26 = v22[7];
+  *&v25[v26] = v15;
+  v27 = enum case for SignalContextProperties.deliveryVehicle(_:);
+  v28 = sub_1B624();
+  v29 = *(v28 - 8);
+  (*(v29 + 104))(&v25[v26], v27, v28);
+  (*(v29 + 56))(&v25[v26], 0, 1, v28);
+  v30 = &v25[v22[8]];
+  *(v30 + 4) = 0;
+  *v30 = 0u;
+  *(v30 + 1) = 0u;
+  *v25 = v33;
   qword_26178 = 0xD000000000000019;
-  qword_26180 = v40;
+  qword_26180 = v37;
   unk_26188 = 0xD000000000000056;
-  qword_26190 = v41;
-  unk_26198 = v42;
-  qword_261A0 = v39;
-  unk_261A8 = v27;
+  qword_26190 = v38;
+  unk_26198 = v39;
+  qword_261A0 = v36;
+  unk_261A8 = v24;
   qword_261B0 = 0x5979425879616C70;
   qword_261B8 = 0xE800000000000000;
   unk_261C0 = 0xD000000000000010;
-  qword_261C8 = v37;
+  qword_261C8 = v34;
   word_261D0 = 262;
   qword_261D8 = 0xD000000000000011;
-  unk_261E0 = v38;
+  unk_261E0 = v35;
   qword_261E8 = 0;
   unk_261F0 = 0;
-  unk_26220 = v44;
-  qword_261F8 = v17;
+  unk_26220 = v41;
+  qword_261F8 = v15;
   unk_26200 = variable initialization expression of ArtistNameParameterBuilder.parameterName;
   qword_26208 = 0;
-  unk_26210 = v43;
-  qword_26230 = v45;
-  unk_26238 = v19;
-  qword_26240 = v20;
+  unk_26210 = v40;
+  qword_26230 = v42;
+  unk_26238 = v17;
+  qword_26240 = v18;
 }
 
 uint64_t sub_171CC()
@@ -826,114 +467,108 @@ uint64_t sub_1720C()
 {
   v0 = sub_1B394();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin(v0);
-  v4 = &v34 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_1B4D4();
-  v6 = *(v5 - 8);
-  v7 = v6[8];
-  __chkstk_darwin(v5);
-  v9 = &v34 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = &v28 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_1B4D4();
+  v5 = *(v4 - 8);
+  __chkstk_darwin(v4);
+  v7 = &v28 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (qword_24450 != -1)
   {
     swift_once();
   }
 
-  v10 = qword_24460;
-  v41 = qword_25C78;
+  v8 = qword_24460;
+  v35 = qword_25C78;
 
-  if (v10 != -1)
+  if (v8 != -1)
   {
     swift_once();
   }
 
-  v39 = 0x800000000001D4F0;
-  v40 = 0x800000000001D430;
-  v38 = qword_25C88;
-  v11 = enum case for DeliveryVehicle.siriHelp(_:);
-  v12 = v6[13];
-  v12(v9, enum case for DeliveryVehicle.siriHelp(_:), v5);
+  v33 = 0x800000000001D4F0;
+  v34 = 0x800000000001D430;
+  v32 = qword_25C88;
+  v9 = enum case for DeliveryVehicle.siriHelp(_:);
+  v10 = *(v5 + 104);
+  v10(v7, enum case for DeliveryVehicle.siriHelp(_:), v4);
 
-  v35 = sub_D9B8(7, v9);
-  v14 = v6[1];
-  v13 = v6 + 1;
-  v14(v9, v5);
-  v36 = 0x800000000001D490;
-  v37 = 0x800000000001D4B0;
+  v29 = sub_D9B8(7u, v7);
+  (*(v5 + 8))(v7, v4);
+  v30 = 0x800000000001D490;
+  v31 = 0x800000000001D4B0;
   sub_3578(&qword_24D48, &qword_1CDF0);
-  v15 = v13[8];
-  v16 = (*(v13 + 72) + 32) & ~*(v13 + 72);
-  v17 = swift_allocObject();
-  v42 = xmmword_1BF10;
-  *(v17 + 16) = xmmword_1BF10;
-  v12((v17 + v16), v11, v5);
+  v11 = (*(v5 + 80) + 32) & ~*(v5 + 80);
+  v12 = swift_allocObject();
+  v36 = xmmword_1BF10;
+  *(v12 + 16) = xmmword_1BF10;
+  v10((v12 + v11), v9, v4);
   sub_47E0(0, &qword_24D50, INPlayMediaIntent_ptr);
-  *(&v44 + 1) = sub_1B444();
-  v45 = &protocol witness table for SiriSuggestions.IntentMatch;
-  sub_35C0(&v43);
+  *(&v38 + 1) = sub_1B444();
+  v39 = &protocol witness table for SiriSuggestions.IntentMatch;
+  sub_35C0(&v37);
   sub_1B434();
   sub_3578(&qword_24D58, &qword_1CDF8);
-  v18 = swift_allocObject();
-  *(v18 + 16) = v42;
-  *(v18 + 56) = &type metadata for ArtistNameParameterBuilder;
-  *(v18 + 64) = &off_21428;
-  *(v18 + 32) = 257;
+  v13 = swift_allocObject();
+  *(v13 + 16) = v36;
+  *(v13 + 56) = &type metadata for ArtistNameParameterBuilder;
+  *(v13 + 64) = &off_21428;
+  *(v13 + 32) = 257;
   sub_3578(&qword_24D60, &qword_1CE00);
-  v19 = swift_allocObject();
-  *(v19 + 16) = v42;
+  v14 = swift_allocObject();
+  *(v14 + 16) = v36;
   sub_1B384();
   PartyMusicSubscriber = type metadata accessor for FirstPartyMusicSubscriber();
-  v21 = swift_allocObject();
-  v21[5] = v0;
-  v21[6] = &protocol witness table for SubscriptionProvider;
-  v22 = sub_35C0(v21 + 2);
-  (*(v1 + 32))(v22, v4, v0);
-  *(v19 + 56) = PartyMusicSubscriber;
-  *(v19 + 64) = sub_1B024(&qword_24D68, type metadata accessor for FirstPartyMusicSubscriber);
-  *(v19 + 32) = v21;
+  v16 = swift_allocObject();
+  v16[5] = v0;
+  v16[6] = &protocol witness table for SubscriptionProvider;
+  v17 = sub_35C0(v16 + 2);
+  (*(v1 + 32))(v17, v3, v0);
+  *(v14 + 56) = PartyMusicSubscriber;
+  *(v14 + 64) = sub_1B024(&qword_24D68, type metadata accessor for FirstPartyMusicSubscriber, &protocol conformance descriptor for FirstPartyMusicSubscriber);
+  *(v14 + 32) = v16;
   sub_3578(&qword_24D40, &qword_1CDE8);
-  v23 = (type metadata accessor for SignalDefinition() - 8);
-  v24 = *(*v23 + 72);
-  v25 = (*(*v23 + 80) + 32) & ~*(*v23 + 80);
-  v26 = swift_allocObject();
-  *(v26 + 16) = v42;
-  v27 = (v26 + v25);
-  v28 = v23[7];
-  *&v27[v28] = v17;
-  v29 = enum case for SignalContextProperties.deliveryVehicle(_:);
-  v30 = sub_1B624();
-  v31 = *(v30 - 8);
-  (*(v31 + 104))(&v27[v28], v29, v30);
-  (*(v31 + 56))(&v27[v28], 0, 1, v30);
-  v32 = &v27[v23[8]];
-  *(v32 + 4) = 0;
-  *v32 = 0u;
-  *(v32 + 1) = 0u;
-  *v27 = v35;
+  v18 = (type metadata accessor for SignalDefinition(0) - 8);
+  v19 = (*(*v18 + 80) + 32) & ~*(*v18 + 80);
+  v20 = swift_allocObject();
+  *(v20 + 16) = v36;
+  v21 = (v20 + v19);
+  v22 = v18[7];
+  *&v21[v22] = v12;
+  v23 = enum case for SignalContextProperties.deliveryVehicle(_:);
+  v24 = sub_1B624();
+  v25 = *(v24 - 8);
+  (*(v25 + 104))(&v21[v22], v23, v24);
+  (*(v25 + 56))(&v21[v22], 0, 1, v24);
+  v26 = &v21[v18[8]];
+  *(v26 + 4) = 0;
+  *v26 = 0u;
+  *(v26 + 1) = 0u;
+  *v21 = v29;
   qword_26248 = 0xD00000000000001BLL;
-  qword_26250 = v39;
+  qword_26250 = v33;
   unk_26258 = 0xD000000000000056;
-  qword_26260 = v40;
-  unk_26268 = v41;
-  qword_26270 = v38;
-  unk_26278 = v26;
+  qword_26260 = v34;
+  unk_26268 = v35;
+  qword_26270 = v32;
+  unk_26278 = v20;
   qword_26280 = 0x6974724179616C70;
   qword_26288 = 0xEA00000000007473;
   unk_26290 = 0xD000000000000010;
-  qword_26298 = v36;
+  qword_26298 = v30;
   word_262A0 = 263;
   qword_262A8 = 0xD000000000000011;
-  unk_262B0 = v37;
+  unk_262B0 = v31;
   qword_262B8 = 0;
   unk_262C0 = 0;
-  *&algn_262E0[16] = v44;
-  qword_262C8 = v17;
+  *&algn_262E0[16] = v38;
+  qword_262C8 = v12;
   unk_262D0 = variable initialization expression of ArtistNameParameterBuilder.parameterName;
   qword_262D8 = 0;
-  *algn_262E0 = v43;
-  qword_26300 = v45;
-  unk_26308 = v18;
-  qword_26310 = v19;
+  *algn_262E0 = v37;
+  qword_26300 = v39;
+  unk_26308 = v13;
+  qword_26310 = v14;
 }
 
 unint64_t sub_1780C()
@@ -952,167 +587,165 @@ unint64_t sub_1780C()
 double sub_1784C()
 {
   v0 = sub_1B394();
-  v68 = *(v0 - 8);
-  v69 = v0;
-  v1 = *(v68 + 64);
+  v66 = *(v0 - 8);
+  v67 = v0;
   __chkstk_darwin(v0);
-  v67 = &v51 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v3 = sub_3578(&qword_24670, &qword_1C100);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = (&v51 - v5);
+  v65 = &v49 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = sub_3578(&qword_24670, &qword_1C100);
+  __chkstk_darwin(v2 - 8);
+  v4 = (&v49 - v3);
   if (qword_24458 != -1)
   {
     swift_once();
   }
 
-  v7 = qword_24460;
-  v66 = qword_25C80;
+  v5 = qword_24460;
+  v64 = qword_25C80;
 
-  if (v7 != -1)
+  if (v5 != -1)
   {
     swift_once();
   }
 
-  v64 = 0x800000000001D4D0;
-  v65 = 0x800000000001D430;
-  v62 = qword_25C88;
+  v62 = 0x800000000001D4D0;
+  v63 = 0x800000000001D430;
+  v60 = qword_25C88;
   sub_3578(&qword_24D40, &qword_1CDE8);
-  v8 = type metadata accessor for SignalDefinition();
-  v9 = *(v8 - 8);
-  *&v71 = *(v9 + 72);
-  v10 = v8 - 8;
-  v11 = (*(v9 + 80) + 32) & ~*(v9 + 80);
-  v12 = swift_allocObject();
-  v61 = xmmword_1C490;
-  v63 = v12;
-  *(v12 + 16) = xmmword_1C490;
-  v13 = (v12 + v11);
+  v6 = type metadata accessor for SignalDefinition(0);
+  v7 = *(v6 - 8);
+  *&v69 = *(v7 + 72);
+  v8 = v6 - 8;
+  v9 = (*(v7 + 80) + 32) & ~*(v7 + 80);
+  v10 = swift_allocObject();
+  v59 = xmmword_1C490;
+  v61 = v10;
+  *(v10 + 16) = xmmword_1C490;
+  v11 = (v10 + v9);
 
-  v59 = sub_DE94(8);
-  v58 = sub_3578(&qword_24D48, &qword_1CDF0);
-  v73 = sub_1B4D4();
-  v14 = *(v73 - 8);
-  v15 = *(v14 + 72);
-  v72 = *(v14 + 80);
-  v16 = (v72 + 32) & ~v72;
-  v70 = v16;
-  v60 = 2 * v15;
-  v17 = swift_allocObject();
-  *(v17 + 16) = v61;
-  v18 = v17 + v16;
-  LODWORD(v61) = enum case for DeliveryVehicle.assistantSuggestions(_:);
-  v19 = *(v14 + 104);
-  v56 = v19;
-  (v19)(v18);
-  v57 = enum case for DeliveryVehicle.siriHelp(_:);
-  v52 = v15;
-  (v19)(v18 + v15);
-  *v6 = v17;
-  v20 = enum case for SignalContextProperties.deliveryVehicle(_:);
-  v55 = enum case for SignalContextProperties.deliveryVehicle(_:);
-  v21 = sub_1B624();
-  v22 = *(v21 - 8);
-  v54 = *(v22 + 104);
-  v54(v6, v20, v21);
-  v53 = *(v22 + 56);
-  v53(v6, 0, 1, v21);
-  v23 = *(v10 + 32);
-  v51 = v10;
-  v24 = (v13 + v23);
-  v24[3] = type metadata accessor for PlayRadioAssistantConfigurator();
-  v24[4] = sub_1B024(&qword_24C70, type metadata accessor for PlayRadioAssistantConfigurator);
-  v25 = sub_35C0(v24);
-  *v25 = 0x6964615279616C70;
-  v25[1] = 0xE90000000000006FLL;
-  v26 = enum case for ActionIdentifier.suggestionId(_:);
-  v27 = sub_1B504();
-  (*(*(v27 - 8) + 104))(v25, v26, v27);
-  *v13 = v59;
-  sub_1AC78(v6, v13 + *(v10 + 28));
-  v28 = (v13 + v71);
-  v59 = sub_E06C(8);
-  v29 = v70;
-  v30 = swift_allocObject();
-  v71 = xmmword_1BF10;
-  *(v30 + 16) = xmmword_1BF10;
-  v31 = v30 + v29;
-  v32 = v57;
-  v33 = v56;
-  v56(v31, v57, v73);
-  *v6 = v30;
-  v54(v6, v55, v21);
-  v53(v6, 0, 1, v21);
-  v34 = v51;
-  v35 = v28 + *(v51 + 32);
-  *(v35 + 4) = 0;
-  *v35 = 0u;
-  *(v35 + 1) = 0u;
-  *v28 = v59;
-  sub_1AC78(v6, v28 + *(v34 + 28));
-  v59 = 0x800000000001D4B0;
-  v36 = v60;
-  v37 = v52;
-  v38 = v70;
-  v39 = swift_allocObject();
-  *(v39 + 16) = xmmword_1C5F0;
-  v40 = v39 + v38;
-  v41 = v32;
-  v42 = v73;
-  v33(v40, v41, v73);
-  v33(v40 + v37, enum case for DeliveryVehicle.siriAutoComplete(_:), v42);
-  v33(v40 + v36, v61, v42);
+  v57 = sub_DE94(8);
+  v56 = sub_3578(&qword_24D48, &qword_1CDF0);
+  v71 = sub_1B4D4();
+  v12 = *(v71 - 8);
+  v13 = *(v12 + 72);
+  v70 = *(v12 + 80);
+  v14 = (v70 + 32) & ~v70;
+  v68 = v14;
+  v58 = 2 * v13;
+  v15 = swift_allocObject();
+  *(v15 + 16) = v59;
+  v16 = v15 + v14;
+  LODWORD(v59) = enum case for DeliveryVehicle.assistantSuggestions(_:);
+  v17 = *(v12 + 104);
+  v54 = v17;
+  (v17)(v16);
+  v55 = enum case for DeliveryVehicle.siriHelp(_:);
+  v50 = v13;
+  (v17)(v16 + v13);
+  *v4 = v15;
+  v18 = enum case for SignalContextProperties.deliveryVehicle(_:);
+  v53 = enum case for SignalContextProperties.deliveryVehicle(_:);
+  v19 = sub_1B624();
+  v20 = *(v19 - 8);
+  v52 = *(v20 + 104);
+  v52(v4, v18, v19);
+  v51 = *(v20 + 56);
+  v51(v4, 0, 1, v19);
+  v21 = *(v8 + 32);
+  v49 = v8;
+  v22 = (v11 + v21);
+  v22[3] = type metadata accessor for PlayRadioAssistantConfigurator(0);
+  v22[4] = sub_1B024(&qword_24C70, type metadata accessor for PlayRadioAssistantConfigurator, &unk_1CAD8);
+  v23 = sub_35C0(v22);
+  *v23 = 0x6964615279616C70;
+  v23[1] = 0xE90000000000006FLL;
+  v24 = enum case for ActionIdentifier.suggestionId(_:);
+  v25 = sub_1B504();
+  (*(*(v25 - 8) + 104))(v23, v24, v25);
+  *v11 = v57;
+  sub_1AC78(v4, v11 + *(v8 + 28));
+  v26 = (v11 + v69);
+  v57 = sub_E06C(8);
+  v27 = v68;
+  v28 = swift_allocObject();
+  v69 = xmmword_1BF10;
+  *(v28 + 16) = xmmword_1BF10;
+  v29 = v28 + v27;
+  v30 = v55;
+  v31 = v54;
+  v54(v29, v55, v71);
+  *v4 = v28;
+  v52(v4, v53, v19);
+  v51(v4, 0, 1, v19);
+  v32 = v49;
+  v33 = v26 + *(v49 + 32);
+  *(v33 + 4) = 0;
+  *v33 = 0u;
+  *(v33 + 1) = 0u;
+  *v26 = v57;
+  sub_1AC78(v4, v26 + *(v32 + 28));
+  v57 = 0x800000000001D4B0;
+  v34 = v58;
+  v35 = v50;
+  v36 = v68;
+  v37 = swift_allocObject();
+  *(v37 + 16) = xmmword_1C5F0;
+  v38 = v37 + v36;
+  v39 = v30;
+  v40 = v71;
+  v31(v38, v39, v71);
+  v31(v38 + v35, enum case for DeliveryVehicle.siriAutoComplete(_:), v40);
+  v31(v38 + v34, v59, v40);
   sub_47E0(0, &qword_24D50, INPlayMediaIntent_ptr);
-  *(&v75 + 1) = sub_1B444();
-  v76 = &protocol witness table for SiriSuggestions.IntentMatch;
-  sub_35C0(&v74);
+  *(&v73 + 1) = sub_1B444();
+  v74 = &protocol witness table for SiriSuggestions.IntentMatch;
+  sub_35C0(&v72);
   sub_1B434();
   sub_3578(&qword_24D58, &qword_1CDF8);
-  v43 = swift_allocObject();
-  *(v43 + 16) = v71;
-  *(v43 + 56) = &type metadata for RadioNameParameterBuilder;
-  *(v43 + 64) = &off_217D8;
-  *(v43 + 32) = 258;
+  v41 = swift_allocObject();
+  *(v41 + 16) = v69;
+  *(v41 + 56) = &type metadata for RadioNameParameterBuilder;
+  *(v41 + 64) = &off_217D8;
+  *(v41 + 32) = 258;
   sub_3578(&qword_24D60, &qword_1CE00);
-  v44 = swift_allocObject();
-  *(v44 + 16) = v71;
-  v45 = v67;
+  v42 = swift_allocObject();
+  *(v42 + 16) = v69;
+  v43 = v65;
   sub_1B384();
   PartyMusicSubscriber = type metadata accessor for FirstPartyMusicSubscriber();
-  v47 = swift_allocObject();
-  v48 = v69;
-  v47[5] = v69;
-  v47[6] = &protocol witness table for SubscriptionProvider;
-  v49 = sub_35C0(v47 + 2);
-  (*(v68 + 32))(v49, v45, v48);
-  *(v44 + 56) = PartyMusicSubscriber;
-  *(v44 + 64) = sub_1B024(&qword_24D68, type metadata accessor for FirstPartyMusicSubscriber);
-  *(v44 + 32) = v47;
+  v45 = swift_allocObject();
+  v46 = v67;
+  v45[5] = v67;
+  v45[6] = &protocol witness table for SubscriptionProvider;
+  v47 = sub_35C0(v45 + 2);
+  (*(v66 + 32))(v47, v43, v46);
+  *(v42 + 56) = PartyMusicSubscriber;
+  *(v42 + 64) = sub_1B024(&qword_24D68, type metadata accessor for FirstPartyMusicSubscriber, &protocol conformance descriptor for FirstPartyMusicSubscriber);
+  *(v42 + 32) = v45;
   qword_26318 = 0xD00000000000001ALL;
-  qword_26320 = v64;
+  qword_26320 = v62;
   unk_26328 = 0xD000000000000056;
-  qword_26330 = v65;
-  unk_26338 = v66;
-  qword_26340 = v62;
-  unk_26348 = v63;
+  qword_26330 = v63;
+  unk_26338 = v64;
+  qword_26340 = v60;
+  unk_26348 = v61;
   qword_26350 = 0x6964615279616C70;
   qword_26358 = 0xE90000000000006FLL;
   unk_26360 = 0xD000000000000010;
   qword_26368 = 0x800000000001D490;
   word_26370 = 264;
   qword_26378 = 0xD000000000000011;
-  unk_26380 = v59;
+  unk_26380 = v57;
   qword_26388 = 0;
   unk_26390 = 0;
-  result = *&v75;
-  unk_263C0 = v75;
-  qword_26398 = v39;
+  result = *&v73;
+  unk_263C0 = v73;
+  qword_26398 = v37;
   unk_263A0 = variable initialization expression of ArtistNameParameterBuilder.parameterName;
   qword_263A8 = 0;
-  unk_263B0 = v74;
-  qword_263D0 = v76;
-  unk_263D8 = v43;
-  qword_263E0 = v44;
+  unk_263B0 = v72;
+  qword_263D0 = v74;
+  unk_263D8 = v41;
+  qword_263E0 = v42;
   return result;
 }
 
@@ -1134,154 +767,152 @@ uint64_t sub_18108()
 double sub_1815C()
 {
   v0 = sub_1B394();
-  v70 = *(v0 - 8);
-  v71 = v0;
-  v1 = *(v70 + 64);
+  v68 = *(v0 - 8);
+  v69 = v0;
   __chkstk_darwin(v0);
-  v69 = &v52 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v3 = sub_3578(&qword_24670, &qword_1C100);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = (&v52 - v5);
+  v67 = &v50 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = sub_3578(&qword_24670, &qword_1C100);
+  __chkstk_darwin(v2 - 8);
+  v4 = (&v50 - v3);
   if (qword_24458 != -1)
   {
     swift_once();
   }
 
-  v7 = qword_24460;
-  v68 = qword_25C80;
+  v5 = qword_24460;
+  v66 = qword_25C80;
 
-  if (v7 != -1)
+  if (v5 != -1)
   {
     swift_once();
   }
 
-  v66 = 0x800000000001D410;
-  v67 = 0x800000000001D430;
-  v64 = qword_25C88;
+  v64 = 0x800000000001D410;
+  v65 = 0x800000000001D430;
+  v62 = qword_25C88;
   sub_3578(&qword_24D40, &qword_1CDE8);
-  v8 = type metadata accessor for SignalDefinition();
-  v9 = *(v8 - 8);
-  v61 = *(v9 + 72);
-  v10 = v8 - 8;
-  v11 = (*(v9 + 80) + 32) & ~*(v9 + 80);
-  v12 = swift_allocObject();
-  v75 = xmmword_1C490;
-  v65 = v12;
-  *(v12 + 16) = xmmword_1C490;
-  v13 = v12 + v11;
+  v6 = type metadata accessor for SignalDefinition(0);
+  v7 = *(v6 - 8);
+  v59 = *(v7 + 72);
+  v8 = v6 - 8;
+  v9 = (*(v7 + 80) + 32) & ~*(v7 + 80);
+  v10 = swift_allocObject();
+  v73 = xmmword_1C490;
+  v63 = v10;
+  *(v10 + 16) = xmmword_1C490;
+  v11 = (v10 + v9);
 
-  *&v60 = sub_DE94(9);
-  v59 = sub_3578(&qword_24D48, &qword_1CDF0);
-  v74 = sub_1B4D4();
-  v14 = *(v74 - 8);
-  v15 = *(v14 + 72);
-  v16 = *(v14 + 80);
-  v17 = (v16 + 32) & ~v16;
-  v72 = v17;
-  v73 = v16;
-  v62 = 2 * v15;
-  v18 = swift_allocObject();
-  *(v18 + 16) = v75;
-  v19 = v18 + v17;
-  v63 = enum case for DeliveryVehicle.assistantSuggestions(_:);
-  v20 = *(v14 + 104);
-  v57 = v20;
-  (v20)(v19);
-  v58 = enum case for DeliveryVehicle.siriHelp(_:);
-  v53 = v15;
-  (v20)(v19 + v15);
-  *v6 = v18;
-  v21 = enum case for SignalContextProperties.deliveryVehicle(_:);
-  v56 = enum case for SignalContextProperties.deliveryVehicle(_:);
-  v22 = sub_1B624();
-  v23 = *(v22 - 8);
-  v55 = *(v23 + 104);
-  v55(v6, v21, v22);
-  v54 = *(v23 + 56);
-  v54(v6, 0, 1, v22);
-  v24 = *(v10 + 32);
-  v52 = v10;
-  v25 = (v13 + v24);
-  v25[3] = type metadata accessor for PlayPlaylistAssistantConfigurator();
-  v25[4] = sub_1B024(&qword_24AF8, type metadata accessor for PlayPlaylistAssistantConfigurator);
-  v26 = sub_35C0(v25);
-  strcpy(v26, "playPlaylist");
-  *(v26 + 13) = 0;
-  *(v26 + 7) = -5120;
-  v27 = enum case for ActionIdentifier.suggestionId(_:);
-  v28 = sub_1B504();
-  (*(*(v28 - 8) + 104))(v26, v27, v28);
-  *v13 = v60;
-  sub_1AC78(v6, v13 + *(v10 + 28));
-  v29 = &v61[v13];
-  v61 = sub_E06C(9);
-  v30 = v72;
-  v31 = swift_allocObject();
-  v60 = xmmword_1BF10;
-  *(v31 + 16) = xmmword_1BF10;
-  v32 = v31 + v30;
-  v33 = v58;
-  v34 = v57;
-  v57(v32, v58, v74);
-  *v6 = v31;
-  v55(v6, v56, v22);
-  v54(v6, 0, 1, v22);
-  v35 = v52;
-  v36 = &v29[*(v52 + 32)];
-  *(v36 + 4) = 0;
-  *v36 = 0u;
-  *(v36 + 1) = 0u;
-  *v29 = v61;
-  sub_1AC78(v6, &v29[*(v35 + 28)]);
-  v61 = 0x800000000001D4B0;
-  v37 = v62;
-  v38 = v53;
-  v39 = v72;
-  v40 = swift_allocObject();
-  *(v40 + 16) = xmmword_1C5F0;
-  v41 = v40 + v39;
-  v42 = v33;
-  v43 = v74;
-  v34(v41, v42, v74);
-  v34(v41 + v38, enum case for DeliveryVehicle.siriAutoComplete(_:), v43);
-  v34(v41 + v37, v63, v43);
+  *&v58 = sub_DE94(9);
+  v57 = sub_3578(&qword_24D48, &qword_1CDF0);
+  v72 = sub_1B4D4();
+  v12 = *(v72 - 8);
+  v13 = *(v12 + 72);
+  v14 = *(v12 + 80);
+  v15 = (v14 + 32) & ~v14;
+  v70 = v15;
+  v71 = v14;
+  v60 = 2 * v13;
+  v16 = swift_allocObject();
+  *(v16 + 16) = v73;
+  v17 = v16 + v15;
+  v61 = enum case for DeliveryVehicle.assistantSuggestions(_:);
+  v18 = *(v12 + 104);
+  v55 = v18;
+  (v18)(v17);
+  v56 = enum case for DeliveryVehicle.siriHelp(_:);
+  v51 = v13;
+  (v18)(v17 + v13);
+  *v4 = v16;
+  v19 = enum case for SignalContextProperties.deliveryVehicle(_:);
+  v54 = enum case for SignalContextProperties.deliveryVehicle(_:);
+  v20 = sub_1B624();
+  v21 = *(v20 - 8);
+  v53 = *(v21 + 104);
+  v53(v4, v19, v20);
+  v52 = *(v21 + 56);
+  v52(v4, 0, 1, v20);
+  v22 = *(v8 + 32);
+  v50 = v8;
+  v23 = (v11 + v22);
+  v23[3] = type metadata accessor for PlayPlaylistAssistantConfigurator(0);
+  v23[4] = sub_1B024(&qword_24AF8, type metadata accessor for PlayPlaylistAssistantConfigurator, &unk_1C820);
+  v24 = sub_35C0(v23);
+  strcpy(v24, "playPlaylist");
+  *(v24 + 13) = 0;
+  *(v24 + 7) = -5120;
+  v25 = enum case for ActionIdentifier.suggestionId(_:);
+  v26 = sub_1B504();
+  (*(*(v26 - 8) + 104))(v24, v25, v26);
+  *v11 = v58;
+  sub_1AC78(v4, v11 + *(v8 + 28));
+  v27 = (v59 + v11);
+  v59 = sub_E06C(9);
+  v28 = v70;
+  v29 = swift_allocObject();
+  v58 = xmmword_1BF10;
+  *(v29 + 16) = xmmword_1BF10;
+  v30 = v29 + v28;
+  v31 = v56;
+  v32 = v55;
+  v55(v30, v56, v72);
+  *v4 = v29;
+  v53(v4, v54, v20);
+  v52(v4, 0, 1, v20);
+  v33 = v50;
+  v34 = v27 + *(v50 + 32);
+  *(v34 + 4) = 0;
+  *v34 = 0u;
+  *(v34 + 1) = 0u;
+  *v27 = v59;
+  sub_1AC78(v4, v27 + *(v33 + 28));
+  v59 = 0x800000000001D4B0;
+  v35 = v60;
+  v36 = v51;
+  v37 = v70;
+  v38 = swift_allocObject();
+  *(v38 + 16) = xmmword_1C5F0;
+  v39 = v38 + v37;
+  v40 = v31;
+  v41 = v72;
+  v32(v39, v40, v72);
+  v32(v39 + v36, enum case for DeliveryVehicle.siriAutoComplete(_:), v41);
+  v32(v39 + v35, v61, v41);
   sub_47E0(0, &qword_24D50, INPlayMediaIntent_ptr);
-  *(&v77 + 1) = sub_1B444();
-  v78 = &protocol witness table for SiriSuggestions.IntentMatch;
-  sub_35C0(&v76);
+  *(&v75 + 1) = sub_1B444();
+  v76 = &protocol witness table for SiriSuggestions.IntentMatch;
+  sub_35C0(&v74);
   sub_1B434();
   sub_3578(&qword_24D58, &qword_1CDF8);
-  v44 = swift_allocObject();
-  *(v44 + 16) = v75;
-  *(v44 + 56) = &type metadata for PlaylistNameParameterBuilder;
-  *(v44 + 64) = &off_21698;
-  *(v44 + 32) = 260;
-  *(v44 + 96) = &type metadata for PlaylistTypeParameterBuilder;
-  *(v44 + 104) = &off_215E8;
-  *(v44 + 72) = 5;
+  v42 = swift_allocObject();
+  *(v42 + 16) = v73;
+  *(v42 + 56) = &type metadata for PlaylistNameParameterBuilder;
+  *(v42 + 64) = &off_21698;
+  *(v42 + 32) = 260;
+  *(v42 + 96) = &type metadata for PlaylistTypeParameterBuilder;
+  *(v42 + 104) = &off_215E8;
+  *(v42 + 72) = 5;
   sub_3578(&qword_24D60, &qword_1CE00);
-  v45 = swift_allocObject();
-  *(v45 + 16) = v60;
-  v46 = v69;
+  v43 = swift_allocObject();
+  *(v43 + 16) = v58;
+  v44 = v67;
   sub_1B384();
   PartyMusicSubscriber = type metadata accessor for FirstPartyMusicSubscriber();
-  v48 = swift_allocObject();
-  v49 = v71;
-  v48[5] = v71;
-  v48[6] = &protocol witness table for SubscriptionProvider;
-  v50 = sub_35C0(v48 + 2);
-  (*(v70 + 32))(v50, v46, v49);
-  *(v45 + 56) = PartyMusicSubscriber;
-  *(v45 + 64) = sub_1B024(&qword_24D68, type metadata accessor for FirstPartyMusicSubscriber);
-  *(v45 + 32) = v48;
+  v46 = swift_allocObject();
+  v47 = v69;
+  v46[5] = v69;
+  v46[6] = &protocol witness table for SubscriptionProvider;
+  v48 = sub_35C0(v46 + 2);
+  (*(v68 + 32))(v48, v44, v47);
+  *(v43 + 56) = PartyMusicSubscriber;
+  *(v43 + 64) = sub_1B024(&qword_24D68, type metadata accessor for FirstPartyMusicSubscriber, &protocol conformance descriptor for FirstPartyMusicSubscriber);
+  *(v43 + 32) = v46;
   qword_263E8 = 0xD00000000000001DLL;
-  qword_263F0 = v66;
+  qword_263F0 = v64;
   unk_263F8 = 0xD000000000000056;
-  qword_26400 = v67;
-  unk_26408 = v68;
-  qword_26410 = v64;
-  unk_26418 = v65;
+  qword_26400 = v65;
+  unk_26408 = v66;
+  qword_26410 = v62;
+  unk_26418 = v63;
   strcpy(&qword_26420, "playPlaylist");
   BYTE5(qword_26428) = 0;
   HIWORD(qword_26428) = -5120;
@@ -1289,18 +920,18 @@ double sub_1815C()
   qword_26438 = 0x800000000001D490;
   word_26440 = 265;
   qword_26448 = 0xD000000000000011;
-  unk_26450 = v61;
+  unk_26450 = v59;
   qword_26458 = 0;
   unk_26460 = 0;
-  result = *&v77;
-  unk_26490 = v77;
-  qword_26468 = v40;
+  result = *&v75;
+  unk_26490 = v75;
+  qword_26468 = v38;
   unk_26470 = variable initialization expression of ArtistNameParameterBuilder.parameterName;
   qword_26478 = 0;
-  unk_26480 = v76;
-  qword_264A0 = v78;
-  unk_264A8 = v44;
-  qword_264B0 = v45;
+  unk_26480 = v74;
+  qword_264A0 = v76;
+  unk_264A8 = v42;
+  qword_264B0 = v43;
   return result;
 }
 
@@ -1322,18 +953,16 @@ uint64_t sub_18A24()
 uint64_t sub_18A70()
 {
   v0 = sub_1B4D4();
-  v45 = *(v0 - 8);
-  v46 = v0;
-  v1 = *(v45 + 64);
+  v42 = *(v0 - 8);
+  v43 = v0;
   __chkstk_darwin(v0);
-  v44 = &v44 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v3 = sub_1B334();
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = __chkstk_darwin(v3);
-  v54 = &v44 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v9 = &v44 - v8;
+  v41 = &v41 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = sub_1B334();
+  v3 = *(v2 - 8);
+  v4 = __chkstk_darwin(v2);
+  v51 = &v41 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v7 = &v41 - v6;
   if (qword_24458 != -1)
   {
     goto LABEL_17;
@@ -1341,73 +970,73 @@ uint64_t sub_18A70()
 
   while (1)
   {
-    v10 = *(qword_25C80 + 16);
+    v8 = *(qword_25C80 + 16);
 
-    v12 = &_swiftEmptyArrayStorage;
-    v53 = v10;
-    if (!v10)
+    v10 = _swiftEmptyArrayStorage;
+    v50 = v8;
+    if (!v8)
     {
       break;
     }
 
-    v13 = 0;
-    v50 = (v4 + 32);
-    v51 = v4 + 16;
-    v47 = (v4 + 8);
-    v48 = v4;
-    v49 = v3;
-    v52 = v11;
-    while (v13 < *(v11 + 16))
+    v11 = 0;
+    v47 = (v3 + 32);
+    v48 = v3 + 16;
+    v44 = (v3 + 8);
+    v45 = v3;
+    v46 = v2;
+    v49 = v9;
+    while (v11 < *(v9 + 16))
     {
-      v56 = (*(v4 + 80) + 32) & ~*(v4 + 80);
-      v57 = v12;
-      v55 = *(v4 + 72);
-      (*(v4 + 16))(v9, v11 + v56 + v55 * v13, v3);
-      *&v58 = sub_1B324();
-      *(&v58 + 1) = v14;
-      __chkstk_darwin(v58);
-      *(&v44 - 2) = &v58;
-      v15 = v3;
-      v16 = sub_11C60(sub_1ACE8, (&v44 - 4), &off_20CF8);
+      v53 = (*(v3 + 80) + 32) & ~*(v3 + 80);
+      v54 = v10;
+      v52 = *(v3 + 72);
+      (*(v3 + 16))(v7, v9 + v53 + v52 * v11, v2);
+      *&v55 = sub_1B324();
+      *(&v55 + 1) = v12;
+      __chkstk_darwin(v55);
+      *(&v41 - 2) = &v55;
+      v13 = v2;
+      v14 = sub_11C60(sub_1ACE8, (&v41 - 4), &off_20CF8);
       swift_arrayDestroy();
 
-      if (v16)
+      if (v14)
       {
-        (*v47)(v9, v15);
-        v12 = v57;
-        v3 = v15;
+        (*v44)(v7, v13);
+        v10 = v54;
+        v2 = v13;
       }
 
       else
       {
-        v17 = *v50;
-        (*v50)(v54, v9, v15);
-        v12 = v57;
+        v15 = *v47;
+        (*v47)(v51, v7, v13);
+        v10 = v54;
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        v61 = v12;
+        v58 = v10;
         if ((isUniquelyReferenced_nonNull_native & 1) == 0)
         {
-          sub_1A358(0, v12[2] + 1, 1);
-          v12 = v61;
+          sub_1A358(0, v10[2] + 1, 1);
+          v10 = v58;
         }
 
-        v20 = v12[2];
-        v19 = v12[3];
-        if (v20 >= v19 >> 1)
+        v18 = v10[2];
+        v17 = v10[3];
+        if (v18 >= v17 >> 1)
         {
-          sub_1A358(v19 > 1, v20 + 1, 1);
-          v12 = v61;
+          sub_1A358((v17 > 1), v18 + 1, 1);
+          v10 = v58;
         }
 
-        v12[2] = v20 + 1;
-        v3 = v49;
-        v17(v12 + v56 + v20 * v55, v54, v49);
-        v4 = v48;
+        v10[2] = v18 + 1;
+        v2 = v46;
+        v15(v10 + v53 + v18 * v52, v51, v46);
+        v3 = v45;
       }
 
-      ++v13;
-      v11 = v52;
-      if (v53 == v13)
+      ++v11;
+      v9 = v49;
+      if (v50 == v11)
       {
         goto LABEL_13;
       }
@@ -1419,82 +1048,81 @@ LABEL_17:
   }
 
 LABEL_13:
-  v57 = v12;
+  v54 = v10;
 
   if (qword_24460 != -1)
   {
     swift_once();
   }
 
-  v55 = 0x800000000001D5B0;
-  v56 = 0x800000000001D430;
-  v21 = qword_25C88;
-  v22 = enum case for DeliveryVehicle.siriHelp(_:);
-  v24 = v44;
-  v23 = v45;
-  v25 = *(v45 + 104);
-  v26 = v46;
-  v25(v44, enum case for DeliveryVehicle.siriHelp(_:), v46);
+  v52 = 0x800000000001D5B0;
+  v53 = 0x800000000001D430;
+  v19 = qword_25C88;
+  v20 = enum case for DeliveryVehicle.siriHelp(_:);
+  v22 = v41;
+  v21 = v42;
+  v23 = *(v42 + 104);
+  v24 = v43;
+  v23(v41, enum case for DeliveryVehicle.siriHelp(_:), v43);
 
-  v27 = sub_D9B8(10, v24);
-  v28 = *(v23 + 8);
-  v23 += 8;
-  v28(v24, v26);
-  v54 = 0x800000000001D490;
+  v25 = sub_D9B8(0xAu, v22);
+  v26 = *(v21 + 8);
+  v21 += 8;
+  v26(v22, v24);
+  v51 = 0x800000000001D490;
   sub_3578(&qword_24D48, &qword_1CDF0);
-  v29 = *(v23 + 64);
-  v30 = (*(v23 + 72) + 32) & ~*(v23 + 72);
-  v31 = swift_allocObject();
-  *(v31 + 16) = xmmword_1C490;
-  v32 = v31 + v30;
-  v25(v32, v22, v26);
-  v25((v32 + v29), enum case for DeliveryVehicle.siriAutoComplete(_:), v26);
+  v27 = *(v21 + 64);
+  v28 = (*(v21 + 72) + 32) & ~*(v21 + 72);
+  v29 = swift_allocObject();
+  *(v29 + 16) = xmmword_1C490;
+  v30 = v29 + v28;
+  v23(v30, v20, v24);
+  v23((v30 + v27), enum case for DeliveryVehicle.siriAutoComplete(_:), v24);
   sub_47E0(0, &qword_24D50, INPlayMediaIntent_ptr);
-  *(&v59 + 1) = sub_1B444();
-  v60 = &protocol witness table for SiriSuggestions.IntentMatch;
-  sub_35C0(&v58);
+  *(&v56 + 1) = sub_1B444();
+  v57 = &protocol witness table for SiriSuggestions.IntentMatch;
+  sub_35C0(&v55);
   sub_1B434();
   sub_3578(&qword_24D40, &qword_1CDE8);
-  v33 = (type metadata accessor for SignalDefinition() - 8);
-  v34 = *(*v33 + 72);
-  v35 = (*(*v33 + 80) + 32) & ~*(*v33 + 80);
-  v36 = swift_allocObject();
-  *(v36 + 16) = xmmword_1BF10;
-  v37 = (v36 + v35);
-  v38 = v33[7];
-  *&v37[v38] = v31;
-  v39 = enum case for SignalContextProperties.deliveryVehicle(_:);
-  v40 = sub_1B624();
-  v41 = *(v40 - 8);
-  (*(v41 + 104))(&v37[v38], v39, v40);
-  (*(v41 + 56))(&v37[v38], 0, 1, v40);
-  v42 = &v37[v33[8]];
-  *(v42 + 4) = 0;
-  *v42 = 0u;
-  *(v42 + 1) = 0u;
-  *v37 = v27;
+  v31 = (type metadata accessor for SignalDefinition(0) - 8);
+  v32 = (*(*v31 + 80) + 32) & ~*(*v31 + 80);
+  v33 = swift_allocObject();
+  *(v33 + 16) = xmmword_1BF10;
+  v34 = (v33 + v32);
+  v35 = v31[7];
+  *&v34[v35] = v29;
+  v36 = enum case for SignalContextProperties.deliveryVehicle(_:);
+  v37 = sub_1B624();
+  v38 = *(v37 - 8);
+  (*(v38 + 104))(&v34[v35], v36, v37);
+  (*(v38 + 56))(&v34[v35], 0, 1, v37);
+  v39 = &v34[v31[8]];
+  *(v39 + 4) = 0;
+  *v39 = 0u;
+  *(v39 + 1) = 0u;
+  *v34 = v25;
   qword_264B8 = 0xD00000000000001CLL;
-  unk_264C0 = v55;
+  unk_264C0 = v52;
   qword_264C8 = 0xD000000000000056;
-  qword_264D0 = v56;
-  unk_264D8 = v57;
-  qword_264E0 = v21;
-  unk_264E8 = v36;
+  qword_264D0 = v53;
+  unk_264D8 = v54;
+  qword_264E0 = v19;
+  unk_264E8 = v33;
   qword_264F0 = 0x4E65685479616C70;
   qword_264F8 = 0xEB00000000737765;
   unk_26500 = 0xD000000000000010;
-  qword_26508 = v54;
+  qword_26508 = v51;
   word_26510 = 266;
   xmmword_26518 = 0u;
   unk_26528 = 0u;
-  qword_26538 = v31;
+  qword_26538 = v29;
   unk_26540 = variable initialization expression of ArtistNameParameterBuilder.parameterName;
   qword_26548 = 0;
-  unk_26560 = v59;
-  unk_26550 = v58;
-  qword_26570 = v60;
-  qword_26578 = &_swiftEmptyArrayStorage;
-  unk_26580 = &_swiftEmptyArrayStorage;
+  unk_26560 = v56;
+  unk_26550 = v55;
+  qword_26570 = v57;
+  qword_26578 = _swiftEmptyArrayStorage;
+  unk_26580 = _swiftEmptyArrayStorage;
 }
 
 unint64_t sub_191A4()
@@ -1518,62 +1146,58 @@ uint64_t sub_191E4()
   }
 
   v0 = qword_24460;
-  v24 = qword_25C80;
+  v19 = qword_25C80;
 
   if (v0 != -1)
   {
     swift_once();
   }
 
-  v23 = qword_25C88;
+  v18 = qword_25C88;
   sub_3578(&qword_24D70, &qword_1CE08);
-  v1 = *(sub_1B5A4() - 8);
-  v2 = *(v1 + 72);
-  v3 = (*(v1 + 80) + 32) & ~*(v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_1BF10;
+  sub_1B5A4();
+  v1 = swift_allocObject();
+  *(v1 + 16) = xmmword_1BF10;
 
   sub_1B5C4();
   sub_3578(&qword_24D48, &qword_1CDF0);
-  v5 = sub_1B4D4();
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 72);
-  v8 = (*(v6 + 80) + 32) & ~*(v6 + 80);
-  v9 = swift_allocObject();
-  *(v9 + 16) = xmmword_1BF10;
-  v10 = enum case for SiriHintsMode.display(_:);
-  v11 = sub_1B414();
-  (*(*(v11 - 8) + 104))(v9 + v8, v10, v11);
-  (*(v6 + 104))(v9 + v8, enum case for DeliveryVehicle.siriHints(_:), v5);
+  v2 = sub_1B4D4();
+  v3 = *(v2 - 8);
+  v4 = (*(v3 + 80) + 32) & ~*(v3 + 80);
+  v5 = swift_allocObject();
+  *(v5 + 16) = xmmword_1BF10;
+  v6 = enum case for SiriHintsMode.display(_:);
+  v7 = sub_1B414();
+  (*(*(v7 - 8) + 104))(v5 + v4, v6, v7);
+  (*(v3 + 104))(v5 + v4, enum case for DeliveryVehicle.siriHints(_:), v2);
   qword_26640 = 0;
   *&algn_26620[16] = 0u;
   *algn_26620 = 0u;
   sub_3578(&qword_24D40, &qword_1CDE8);
-  v12 = (type metadata accessor for SignalDefinition() - 8);
-  v13 = *(*v12 + 72);
-  v14 = (*(*v12 + 80) + 32) & ~*(*v12 + 80);
-  v15 = swift_allocObject();
-  *(v15 + 16) = xmmword_1BF10;
-  v16 = (v15 + v14);
-  v17 = v12[7];
-  *(v15 + v14 + v17) = v9;
-  v18 = enum case for SignalContextProperties.deliveryVehicle(_:);
-  v19 = sub_1B624();
-  v20 = *(v19 - 8);
-  (*(v20 + 104))(&v16[v17], v18, v19);
-  (*(v20 + 56))(&v16[v17], 0, 1, v19);
-  v21 = &v16[v12[8]];
-  *(v21 + 4) = 0;
-  *v21 = 0u;
-  *(v21 + 1) = 0u;
-  *v16 = &_swiftEmptyArrayStorage;
+  v8 = (type metadata accessor for SignalDefinition(0) - 8);
+  v9 = (*(*v8 + 80) + 32) & ~*(*v8 + 80);
+  v10 = swift_allocObject();
+  *(v10 + 16) = xmmword_1BF10;
+  v11 = (v10 + v9);
+  v12 = v8[7];
+  *(v10 + v9 + v12) = v5;
+  v13 = enum case for SignalContextProperties.deliveryVehicle(_:);
+  v14 = sub_1B624();
+  v15 = *(v14 - 8);
+  (*(v15 + 104))(&v11[v12], v13, v14);
+  (*(v15 + 56))(&v11[v12], 0, 1, v14);
+  v16 = &v11[v8[8]];
+  *(v16 + 4) = 0;
+  *v16 = 0u;
+  *(v16 + 1) = 0u;
+  *v11 = _swiftEmptyArrayStorage;
   qword_26588 = 0xD000000000000016;
   unk_26590 = 0x800000000001D590;
   qword_26598 = 0xD000000000000056;
   qword_265A0 = 0x800000000001D430;
-  unk_265A8 = v24;
-  qword_265B0 = v23;
-  unk_265B8 = v15;
+  unk_265A8 = v19;
+  qword_265B0 = v18;
+  unk_265B8 = v10;
   qword_265C0 = 0x6572616873;
   qword_265C8 = 0xE500000000000000;
   unk_265D0 = 0xD000000000000010;
@@ -1582,12 +1206,12 @@ uint64_t sub_191E4()
   qword_265E8 = 0;
   unk_265F0 = 0;
   qword_265F8 = &off_20D68;
-  unk_26600 = v4;
-  qword_26608 = v9;
+  unk_26600 = v1;
+  qword_26608 = v5;
   unk_26610 = variable initialization expression of AudioSuggestionsExecutionParameters.supportsAffinityIntent;
   qword_26618 = 0;
-  qword_26648 = &_swiftEmptyArrayStorage;
-  unk_26650 = &_swiftEmptyArrayStorage;
+  qword_26648 = _swiftEmptyArrayStorage;
+  unk_26650 = _swiftEmptyArrayStorage;
 }
 
 uint64_t sub_19664()
@@ -1598,62 +1222,58 @@ uint64_t sub_19664()
   }
 
   v0 = qword_24460;
-  v24 = qword_25C80;
+  v19 = qword_25C80;
 
   if (v0 != -1)
   {
     swift_once();
   }
 
-  v23 = qword_25C88;
+  v18 = qword_25C88;
   sub_3578(&qword_24D70, &qword_1CE08);
-  v1 = *(sub_1B5A4() - 8);
-  v2 = *(v1 + 72);
-  v3 = (*(v1 + 80) + 32) & ~*(v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_1BF10;
+  sub_1B5A4();
+  v1 = swift_allocObject();
+  *(v1 + 16) = xmmword_1BF10;
 
   sub_1B5C4();
   sub_3578(&qword_24D48, &qword_1CDF0);
-  v5 = sub_1B4D4();
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 72);
-  v8 = (*(v6 + 80) + 32) & ~*(v6 + 80);
-  v9 = swift_allocObject();
-  *(v9 + 16) = xmmword_1BF10;
-  v10 = enum case for SiriHintsMode.display(_:);
-  v11 = sub_1B414();
-  (*(*(v11 - 8) + 104))(v9 + v8, v10, v11);
-  (*(v6 + 104))(v9 + v8, enum case for DeliveryVehicle.siriHints(_:), v5);
+  v2 = sub_1B4D4();
+  v3 = *(v2 - 8);
+  v4 = (*(v3 + 80) + 32) & ~*(v3 + 80);
+  v5 = swift_allocObject();
+  *(v5 + 16) = xmmword_1BF10;
+  v6 = enum case for SiriHintsMode.display(_:);
+  v7 = sub_1B414();
+  (*(*(v7 - 8) + 104))(v5 + v4, v6, v7);
+  (*(v3 + 104))(v5 + v4, enum case for DeliveryVehicle.siriHints(_:), v2);
   qword_26710 = 0;
   unk_26700 = 0u;
   unk_266F0 = 0u;
   sub_3578(&qword_24D40, &qword_1CDE8);
-  v12 = (type metadata accessor for SignalDefinition() - 8);
-  v13 = *(*v12 + 72);
-  v14 = (*(*v12 + 80) + 32) & ~*(*v12 + 80);
-  v15 = swift_allocObject();
-  *(v15 + 16) = xmmword_1BF10;
-  v16 = (v15 + v14);
-  v17 = v12[7];
-  *(v15 + v14 + v17) = v9;
-  v18 = enum case for SignalContextProperties.deliveryVehicle(_:);
-  v19 = sub_1B624();
-  v20 = *(v19 - 8);
-  (*(v20 + 104))(&v16[v17], v18, v19);
-  (*(v20 + 56))(&v16[v17], 0, 1, v19);
-  v21 = &v16[v12[8]];
-  *(v21 + 4) = 0;
-  *v21 = 0u;
-  *(v21 + 1) = 0u;
-  *v16 = &_swiftEmptyArrayStorage;
+  v8 = (type metadata accessor for SignalDefinition(0) - 8);
+  v9 = (*(*v8 + 80) + 32) & ~*(*v8 + 80);
+  v10 = swift_allocObject();
+  *(v10 + 16) = xmmword_1BF10;
+  v11 = (v10 + v9);
+  v12 = v8[7];
+  *(v10 + v9 + v12) = v5;
+  v13 = enum case for SignalContextProperties.deliveryVehicle(_:);
+  v14 = sub_1B624();
+  v15 = *(v14 - 8);
+  (*(v15 + 104))(&v11[v12], v13, v14);
+  (*(v15 + 56))(&v11[v12], 0, 1, v14);
+  v16 = &v11[v8[8]];
+  *(v16 + 4) = 0;
+  *v16 = 0u;
+  *(v16 + 1) = 0u;
+  *v11 = _swiftEmptyArrayStorage;
   qword_26658 = 0xD000000000000018;
   unk_26660 = 0x800000000001D570;
   qword_26668 = 0xD000000000000056;
   qword_26670 = 0x800000000001D430;
-  unk_26678 = v24;
-  qword_26680 = v23;
-  unk_26688 = v15;
+  unk_26678 = v19;
+  qword_26680 = v18;
+  unk_26688 = v10;
   qword_26690 = 0x656C6666756873;
   qword_26698 = 0xE700000000000000;
   unk_266A0 = 0xD000000000000010;
@@ -1662,12 +1282,12 @@ uint64_t sub_19664()
   qword_266B8 = 0;
   unk_266C0 = 0;
   qword_266C8 = &off_20DA0;
-  unk_266D0 = v4;
-  qword_266D8 = v9;
+  unk_266D0 = v1;
+  qword_266D8 = v5;
   unk_266E0 = sub_19AE8;
   qword_266E8 = 0;
-  qword_26718 = &_swiftEmptyArrayStorage;
-  unk_26720 = &_swiftEmptyArrayStorage;
+  qword_26718 = _swiftEmptyArrayStorage;
+  unk_26720 = _swiftEmptyArrayStorage;
 }
 
 uint64_t sub_19AE8(uint64_t a1)
@@ -1691,87 +1311,85 @@ uint64_t sub_19B18()
 {
   v0 = sub_1B4D4();
   v1 = *(v0 - 8);
-  v2 = v1[8];
   __chkstk_darwin(v0);
-  v4 = &v27 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = &v25 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (qword_24458 != -1)
   {
     swift_once();
   }
 
-  v5 = qword_24460;
-  v32 = qword_25C80;
+  v4 = qword_24460;
+  v30 = qword_25C80;
 
-  if (v5 != -1)
+  if (v4 != -1)
   {
     swift_once();
   }
 
-  v30 = 0x800000000001D530;
-  v31 = 0x800000000001D430;
-  v29 = qword_25C88;
-  v6 = enum case for DeliveryVehicle.siriHelp(_:);
-  v7 = v1[13];
-  v7(v4, enum case for DeliveryVehicle.siriHelp(_:), v0);
+  v28 = 0x800000000001D530;
+  v29 = 0x800000000001D430;
+  v27 = qword_25C88;
+  v5 = enum case for DeliveryVehicle.siriHelp(_:);
+  v6 = *(v1 + 104);
+  v6(v3, enum case for DeliveryVehicle.siriHelp(_:), v0);
 
-  v27 = sub_D9B8(13, v4);
-  v9 = v1[1];
-  v8 = v1 + 1;
-  v9(v4, v0);
-  v28 = 0x800000000001D490;
+  v25 = sub_D9B8(0xDu, v3);
+  v8 = *(v1 + 8);
+  v7 = v1 + 8;
+  v8(v3, v0);
+  v26 = 0x800000000001D490;
   sub_3578(&qword_24D48, &qword_1CDF0);
-  v10 = v8[8];
-  v11 = (*(v8 + 72) + 32) & ~*(v8 + 72);
-  v12 = swift_allocObject();
-  *(v12 + 16) = xmmword_1C490;
-  v13 = v12 + v11;
-  v7(v13, v6, v0);
-  v7((v13 + v10), enum case for DeliveryVehicle.siriAutoComplete(_:), v0);
-  v14 = sub_1B424();
-  qword_267D8 = v14;
+  v9 = *(v7 + 64);
+  v10 = (*(v7 + 72) + 32) & ~*(v7 + 72);
+  v11 = swift_allocObject();
+  *(v11 + 16) = xmmword_1C490;
+  v12 = v11 + v10;
+  v6(v12, v5, v0);
+  v6((v12 + v9), enum case for DeliveryVehicle.siriAutoComplete(_:), v0);
+  v13 = sub_1B424();
+  qword_267D8 = v13;
   unk_267E0 = &protocol witness table for SiriSuggestions.IntentType;
-  v15 = sub_35C0(qword_267C0);
-  *v15 = 0xD000000000000014;
-  v15[1] = 0x800000000001D550;
-  (*(*(v14 - 8) + 104))();
+  v14 = sub_35C0(qword_267C0);
+  *v14 = 0xD000000000000014;
+  v14[1] = 0x800000000001D550;
+  (*(*(v13 - 8) + 104))();
   sub_3578(&qword_24D40, &qword_1CDE8);
-  v16 = (type metadata accessor for SignalDefinition() - 8);
-  v17 = *(*v16 + 72);
-  v18 = (*(*v16 + 80) + 32) & ~*(*v16 + 80);
-  v19 = swift_allocObject();
-  *(v19 + 16) = xmmword_1BF10;
-  v20 = (v19 + v18);
-  v21 = v16[7];
-  *(v19 + v18 + v21) = v12;
-  v22 = enum case for SignalContextProperties.deliveryVehicle(_:);
-  v23 = sub_1B624();
-  v24 = *(v23 - 8);
-  (*(v24 + 104))(&v20[v21], v22, v23);
-  (*(v24 + 56))(&v20[v21], 0, 1, v23);
-  v25 = &v20[v16[8]];
-  *(v25 + 4) = 0;
-  *v25 = 0u;
-  *(v25 + 1) = 0u;
-  *v20 = v27;
+  v15 = (type metadata accessor for SignalDefinition(0) - 8);
+  v16 = (*(*v15 + 80) + 32) & ~*(*v15 + 80);
+  v17 = swift_allocObject();
+  *(v17 + 16) = xmmword_1BF10;
+  v18 = (v17 + v16);
+  v19 = v15[7];
+  *(v17 + v16 + v19) = v11;
+  v20 = enum case for SignalContextProperties.deliveryVehicle(_:);
+  v21 = sub_1B624();
+  v22 = *(v21 - 8);
+  (*(v22 + 104))(&v18[v19], v20, v21);
+  (*(v22 + 56))(&v18[v19], 0, 1, v21);
+  v23 = &v18[v15[8]];
+  *(v23 + 4) = 0;
+  *v23 = 0u;
+  *(v23 + 1) = 0u;
+  *v18 = v25;
   qword_26728 = 0xD00000000000001FLL;
-  unk_26730 = v30;
+  unk_26730 = v28;
   qword_26738 = 0xD000000000000056;
-  qword_26740 = v31;
-  unk_26748 = v32;
-  qword_26750 = v29;
-  unk_26758 = v19;
+  qword_26740 = v29;
+  unk_26748 = v30;
+  qword_26750 = v27;
+  unk_26758 = v17;
   strcpy(&qword_26760, "whatSongIsThis");
   HIBYTE(qword_26768) = -18;
   unk_26770 = 0xD000000000000010;
-  qword_26778 = v28;
+  qword_26778 = v26;
   word_26780 = 269;
   xmmword_26788 = 0u;
   unk_26798 = 0u;
-  qword_267A8 = v12;
+  qword_267A8 = v11;
   unk_267B0 = variable initialization expression of ArtistNameParameterBuilder.parameterName;
   qword_267B8 = 0;
-  qword_267E8 = &_swiftEmptyArrayStorage;
-  unk_267F0 = &_swiftEmptyArrayStorage;
+  qword_267E8 = _swiftEmptyArrayStorage;
+  unk_267F0 = _swiftEmptyArrayStorage;
 }
 
 uint64_t sub_19FCC(uint64_t a1)
@@ -2065,28 +1683,28 @@ unint64_t sub_1A294(uint64_t a1, void *a2)
   return 0xD00000000000001ALL;
 }
 
-size_t sub_1A314(size_t a1, int64_t a2, char a3)
+void *sub_1A314(void *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_1A3BC(a1, a2, a3, *v3, &qword_24BD0, &unk_1C9D0, &type metadata accessor for DeviceType);
   *v3 = result;
   return result;
 }
 
-size_t sub_1A358(size_t a1, int64_t a2, char a3)
+void *sub_1A358(void *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_1A3BC(a1, a2, a3, *v3, &qword_24BD8, &unk_1CE10, &type metadata accessor for Locale);
   *v3 = result;
   return result;
 }
 
-char *sub_1A39C(char *a1, int64_t a2, char a3)
+char *sub_1A39C(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_1A598(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-size_t sub_1A3BC(size_t result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(void))
+void *sub_1A3BC(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(void))
 {
   v9 = result;
   if (a3)
@@ -2128,7 +1746,7 @@ LABEL_30:
 
   if (!v13)
   {
-    v17 = &_swiftEmptyArrayStorage;
+    v17 = _swiftEmptyArrayStorage;
     goto LABEL_19;
   }
 
@@ -2146,7 +1764,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v16 == 0x8000000000000000 && v15 == -1)
+  if ((result - v16) == 0x8000000000000000 && v15 == -1)
   {
     goto LABEL_29;
   }
@@ -2228,7 +1846,7 @@ char *sub_1A598(char *result, int64_t a2, char a3, char *a4)
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
   v12 = v10 + 32;
@@ -2496,7 +2114,7 @@ uint64_t sub_1AC78(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_1ACE8(void *a1)
+uint64_t sub_1ACE8(uint64_t *a1)
 {
   v2 = *(v1 + 16);
   if (*a1 == *v2 && a1[1] == v2[1])
@@ -2518,27 +2136,12 @@ uint64_t sub_1AD40(uint64_t a1)
   if (v12)
   {
     v3 = 0;
-    v4 = &_swiftEmptyArrayStorage;
+    v4 = _swiftEmptyArrayStorage;
     v5 = result + 32;
     while (v3 < *(v2 + 16))
     {
       sub_34C0(v5, v26);
-      if (!v27)
-      {
-        goto LABEL_3;
-      }
-
-      sub_3578(&qword_24D80, &qword_1CE20);
-      v6 = swift_allocObject();
-      *(v6 + 16) = xmmword_1BF10;
-      *(v6 + 32) = a1;
-
-      sub_3578(&qword_24D88, &qword_1CE28);
-      sub_1AFC0();
-      sub_1B024(&qword_24D98, type metadata accessor for INMediaItemType);
-      v7 = sub_1B974();
-
-      if (v7)
+      if (v27 && (sub_3578(&qword_24D80, &qword_1CE20), v6 = swift_allocObject(), *(v6 + 16) = xmmword_1BF10, *(v6 + 32) = a1, , sub_3578(&qword_24D88, &qword_1CE28), sub_1AFC0(), sub_1B024(&qword_24D98, type metadata accessor for INMediaItemType, &unk_1BFB4), v7 = sub_1B974(), , , (v7 & 1) != 0))
       {
         v23 = v30;
         v24 = v31;
@@ -2588,7 +2191,6 @@ uint64_t sub_1AD40(uint64_t a1)
 
       else
       {
-LABEL_3:
         result = sub_3524(v26);
       }
 
@@ -2605,7 +2207,7 @@ LABEL_3:
 
   else
   {
-    v4 = &_swiftEmptyArrayStorage;
+    v4 = _swiftEmptyArrayStorage;
 LABEL_14:
 
     return v4;
@@ -2627,7 +2229,7 @@ unint64_t sub_1AFC0()
   return result;
 }
 
-uint64_t sub_1B024(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1B024(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2640,7 +2242,7 @@ uint64_t sub_1B024(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_1B06C(uint64_t a1, void *a2)
+unint64_t sub_1B06C(uint64_t a1, void *a2)
 {
   v6._countAndFlagsBits = a1;
   v3._rawValue = &off_21040;
@@ -2658,7 +2260,7 @@ uint64_t sub_1B06C(uint64_t a1, void *a2)
   }
 }
 
-uint64_t sub_1B0B8(uint64_t a1, void *a2)
+unint64_t sub_1B0B8(uint64_t a1, void *a2)
 {
   v6._countAndFlagsBits = a1;
   v3._rawValue = &off_211B0;

@@ -69,16 +69,16 @@ void __35__ASDSkannerService_defaultService__block_invoke()
 
 void __55__ASDSkannerService_fetchStoriesWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __55__ASDSkannerService_fetchStoriesWithCompletionHandler___block_invoke_2;
-    v9[3] = &unk_1E7CDB730;
-    v10 = *(a1 + 32);
-    v6 = [a2 remoteObjectProxyWithErrorHandler:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __55__ASDSkannerService_fetchStoriesWithCompletionHandler___block_invoke_2;
+    v8[3] = &unk_1E7CDB730;
+    v9 = *(a1 + 32);
+    v6 = [a2 remoteObjectProxyWithErrorHandler:v8];
     [v6 fetchStoriesWithCompletionHandler:*(a1 + 32)];
   }
 
@@ -88,30 +88,27 @@ void __55__ASDSkannerService_fetchStoriesWithCompletionHandler___block_invoke(ui
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v12 = v5;
+      v11 = v5;
       _os_log_error_impl(&dword_1B8220000, v7, OS_LOG_TYPE_ERROR, "Error getting skanner service: %{public}@", buf, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __55__ASDSkannerService_fetchStoriesWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(33);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "Error getting remote proxy for skanner service: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "Error getting remote proxy for skanner service: %{public}@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

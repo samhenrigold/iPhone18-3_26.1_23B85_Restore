@@ -61,8 +61,7 @@
   [(TVRUIStandardTouchProcessor *)self setVirtualBoundingBox:*MEMORY[0x277CBF398], *(MEMORY[0x277CBF398] + 8), *(MEMORY[0x277CBF398] + 16), *(MEMORY[0x277CBF398] + 24)];
   [(TVRUIStandardTouchProcessor *)self setPreviousVelocity:0.0];
   [(TVRUIStandardTouchProcessor *)self setPreviousTimestamp:0.0];
-  [(TVRUIStandardTouchProcessor *)self setTouchCnt:0];
-  v13 = _TVRUIViewControllerLog();
+  v13 = _TVRUIViewControllerLog([(TVRUIStandardTouchProcessor *)self setTouchCnt:0]);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [TVRUIStandardTouchProcessor touchesBegan:touchesCopy touches:v13 withEvent:?];
@@ -326,55 +325,56 @@ LABEL_19:
 
 - (void)touchesEnded:(id)ended touches:(id)touches withEvent:(id)event
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   touchesCopy = touches;
-  v7 = _TVRUIViewControllerLog();
+  v7 = _TVRUIViewControllerLog(touchesCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v41 = touchesCopy;
+    v42 = touchesCopy;
     _os_log_impl(&dword_26CFEB000, v7, OS_LOG_TYPE_DEFAULT, "TouchesEnded: touches: %@", buf, 0xCu);
   }
 
   [(TVRUIStandardTouchProcessor *)self virtualBoundingBox];
-  if (CGRectIsNull(v43))
+  if (CGRectIsNull(v44))
   {
-    v36 = 0u;
     v37 = 0u;
-    v34 = 0u;
+    v38 = 0u;
     v35 = 0u;
+    v36 = 0u;
     v8 = touchesCopy;
-    v9 = [v8 countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v35 objects:v40 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v35;
+      v11 = *v36;
       while (2)
       {
         v12 = 0;
         do
         {
-          if (*v35 != v11)
+          if (*v36 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          if ([*(*(&v34 + 1) + 8 * v12) tapCount])
+          tapCount = [*(*(&v35 + 1) + 8 * v12) tapCount];
+          if (tapCount)
           {
-            v24 = _TVRUIViewControllerLog();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+            v25 = _TVRUIViewControllerLog(tapCount);
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
             {
-              [TVRUIStandardTouchProcessor touchesEnded:v24 touches:? withEvent:?];
+              [TVRUIStandardTouchProcessor touchesEnded:v25 touches:? withEvent:?];
             }
 
             eventDelegate = [(TVRUIStandardTouchProcessor *)self eventDelegate];
             if (eventDelegate)
             {
-              v26 = eventDelegate;
+              v27 = eventDelegate;
               eventDelegate2 = [(TVRUIStandardTouchProcessor *)self eventDelegate];
-              v28 = objc_opt_respondsToSelector();
+              v29 = objc_opt_respondsToSelector();
 
-              if (v28)
+              if (v29)
               {
                 [(TVRUIStandardTouchProcessor *)self _sendSelectButtonPressBegan];
                 [(TVRUIStandardTouchProcessor *)self _sendSelectButtonPressEnded];
@@ -397,7 +397,7 @@ LABEL_19:
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v35 objects:v40 count:16];
         if (v10)
         {
           continue;
@@ -409,51 +409,51 @@ LABEL_19:
   }
 
   endedTouches = [(TVRUIStandardTouchProcessor *)self endedTouches];
-  v14 = [endedTouches count];
+  v15 = [endedTouches count];
 
-  if (v14)
+  if (v15)
   {
-    v15 = [MEMORY[0x277CBEB58] set];
-    v29 = 0u;
+    v16 = [MEMORY[0x277CBEB58] set];
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v16 = touchesCopy;
-    v17 = [v16 countByEnumeratingWithState:&v29 objects:v38 count:16];
-    if (v17)
+    v33 = 0u;
+    v17 = touchesCopy;
+    v18 = [v17 countByEnumeratingWithState:&v30 objects:v39 count:16];
+    if (v18)
     {
-      v18 = v17;
-      v19 = *v30;
+      v19 = v18;
+      v20 = *v31;
       do
       {
-        v20 = 0;
+        v21 = 0;
         do
         {
-          if (*v30 != v19)
+          if (*v31 != v20)
           {
-            objc_enumerationMutation(v16);
+            objc_enumerationMutation(v17);
           }
 
-          v21 = *(*(&v29 + 1) + 8 * v20);
+          v22 = *(*(&v30 + 1) + 8 * v21);
           endedTouches2 = [(TVRUIStandardTouchProcessor *)self endedTouches];
-          v23 = [endedTouches2 containsObject:v21];
+          v24 = [endedTouches2 containsObject:v22];
 
-          if ((v23 & 1) == 0)
+          if ((v24 & 1) == 0)
           {
-            [v15 addObject:v21];
+            [v16 addObject:v22];
           }
 
-          ++v20;
+          ++v21;
         }
 
-        while (v18 != v20);
-        v18 = [v16 countByEnumeratingWithState:&v29 objects:v38 count:16];
+        while (v19 != v21);
+        v19 = [v17 countByEnumeratingWithState:&v30 objects:v39 count:16];
       }
 
-      while (v18);
+      while (v19);
     }
 
-    [(TVRUIStandardTouchProcessor *)self _processTouches:v15];
+    [(TVRUIStandardTouchProcessor *)self _processTouches:v16];
   }
 
   else
@@ -775,7 +775,7 @@ LABEL_19:
   gestureCopy = gesture;
   if ([gestureCopy state] == 3)
   {
-    v5 = _TVRUIViewControllerLog();
+    v5 = _TVRUIViewControllerLog(3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;

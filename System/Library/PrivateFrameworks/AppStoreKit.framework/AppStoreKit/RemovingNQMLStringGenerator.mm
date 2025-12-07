@@ -12,7 +12,7 @@
   parserCopy = parser;
   occurredCopy = occurred;
   selfCopy = self;
-  sub_1E13E40A8();
+  sub_1E13E40A8(occurredCopy);
 }
 
 - (void)parser:(id)parser didFindCharacters:(id)characters

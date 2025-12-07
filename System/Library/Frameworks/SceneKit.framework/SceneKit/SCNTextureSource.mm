@@ -22,7 +22,7 @@
 
 - (__C3DRendererContext)rendererContextForTextureSourceWithEngineContext:(__C3DEngineContext *)context
 {
-  RendererContextGL = C3DEngineContextGetRendererContextGL(context);
+  RendererContextGL = C3DEngineContextGetRendererContextGL(context, a2);
   if ([(SCNTextureSource *)self prefersGL3]|| !RendererContextGL)
   {
     if (C3DTextureSourceGetSharedRendererContext_onceToken != -1)
@@ -38,7 +38,7 @@
 
 - (__C3DTexture)textureWithEngineContext:(__C3DEngineContext *)context textureSampler:(__C3DTextureSampler *)sampler nextFrameTime:(double *)time
 {
-  v6 = scn_default_log();
+  v6 = scn_default_log(self, a2);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [SCNTextureSource textureWithEngineContext:a2 textureSampler:? nextFrameTime:?];
@@ -49,7 +49,7 @@
 
 - (__C3DTexture)_textureWithEngineContext:(__C3DEngineContext *)context textureSampler:(__C3DTextureSampler *)sampler nextFrameTime:(double *)time
 {
-  v6 = scn_default_log();
+  v6 = scn_default_log(self, a2);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [SCNTextureSource textureWithEngineContext:a2 textureSampler:? nextFrameTime:?];
@@ -60,7 +60,7 @@
 
 - (double)textureSize
 {
-  v3 = scn_default_log();
+  v3 = scn_default_log(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [SCNTextureSource textureWithEngineContext:a2 textureSampler:? nextFrameTime:?];
@@ -73,12 +73,12 @@
 
 - (id)metalTextureWithEngineContext:(__C3DEngineContext *)context textureSampler:(__C3DTextureSampler *)sampler nextFrameTime:(double *)time status:(id *)status
 {
-  if (!C3DEngineContextGetRenderContext(context))
+  if (!C3DEngineContextGetRenderContext(context, a2))
   {
-    v10 = scn_default_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = scn_default_log(0, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      [(SCNTextureSource *)v10 metalTextureWithEngineContext:v11 textureSampler:v12 nextFrameTime:v13 status:v14, v15, v16, v17];
+      [(SCNTextureSource *)v11 metalTextureWithEngineContext:v12 textureSampler:v13 nextFrameTime:v14 status:v15, v16, v17, v18];
     }
   }
 
@@ -89,7 +89,8 @@
 
   else
   {
-    [MEMORY[0x277CD9388] setCurrentContext:{C3DRendererContextGetGLContext(-[SCNTextureSource rendererContextForTextureSourceWithEngineContext:](self, "rendererContextForTextureSourceWithEngineContext:", context))}];
+    v20 = [(SCNTextureSource *)self rendererContextForTextureSourceWithEngineContext:context];
+    [MEMORY[0x277CD9388] setCurrentContext:{C3DRendererContextGetGLContext(v20, v21)}];
     result = [(SCNTextureSource *)self _textureWithEngineContext:context textureSampler:sampler nextFrameTime:time];
     if (!result)
     {
@@ -103,26 +104,26 @@
   result = [(SCNTextureSource *)self MTLTextureCache];
   if (!result)
   {
-    RenderContext = C3DEngineContextGetRenderContext(context);
+    RenderContext = C3DEngineContextGetRenderContext(context, v23);
     device = [(SCNMTLRenderContext *)RenderContext device];
     [(SCNTextureSource *)self textureSize];
-    v26 = v22;
+    v30 = v26;
     if (C3DLinearRenderingIsEnabled())
     {
-      v23 = 71;
+      v27 = 71;
     }
 
     else
     {
-      v23 = 70;
+      v27 = 70;
     }
 
-    v24 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:v23 width:*&v26 height:*(&v26 + 1) mipmapped:0, v26];
-    [v24 setStorageMode:2 * (IOSurface == 0)];
-    [v24 setUsage:1];
-    v25 = [device newTextureWithDescriptor:v24 iosurface:IOSurface plane:0];
-    [(SCNTextureSource *)self setMTLTextureCache:v25];
-    return v25;
+    v28 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:v27 width:*&v30 height:*(&v30 + 1) mipmapped:0, v30];
+    [v28 setStorageMode:2 * (IOSurface == 0)];
+    [v28 setUsage:1];
+    v29 = [device newTextureWithDescriptor:v28 iosurface:IOSurface plane:0];
+    [(SCNTextureSource *)self setMTLTextureCache:v29];
+    return v29;
   }
 
   return result;
@@ -130,7 +131,7 @@
 
 - (void)renderWithEngineContext:(__C3DEngineContext *)context textureSampler:(__C3DTextureSampler *)sampler nextFrameTime:(double *)time
 {
-  v6 = scn_default_log();
+  v6 = scn_default_log(self, a2);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [SCNTextureSource textureWithEngineContext:a2 textureSampler:? nextFrameTime:?];
@@ -139,7 +140,7 @@
 
 - (void)cleanup:(__C3DRendererContext *)cleanup
 {
-  v4 = scn_default_log();
+  v4 = scn_default_log(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [SCNTextureSource textureWithEngineContext:a2 textureSampler:? nextFrameTime:?];
@@ -170,7 +171,14 @@
 {
   NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_7();
-  OUTLINED_FUNCTION_1_7(&dword_21BEF7000, v1, v2, "Error: SCNTextureSource abstract method invoked %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_1_7(&dword_21BEF7000, v1, v2, "Error: SCNTextureSource abstract method invoked %@", v3, v4, v5, v6);
+}
+
+- (void)metalTextureWithEngineContext:(uint64_t)a3 textureSampler:(uint64_t)a4 nextFrameTime:(uint64_t)a5 status:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "C3DEngineContextGetRenderContext(engineContext)";
+  OUTLINED_FUNCTION_0(&dword_21BEF7000, a1, a3, "Assertion '%s' failed. Null argument", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

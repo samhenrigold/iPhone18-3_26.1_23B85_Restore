@@ -358,14 +358,15 @@ uint64_t __82__SBPowerDownViewController_showPowerDownFindMyAlertWithProceed_can
   return 1;
 }
 
-uint64_t __94__SBPowerDownViewController_passcodeEntryTransientOverlayViewController_authenticatePasscode___block_invoke(uint64_t a1, int a2)
+void *__94__SBPowerDownViewController_passcodeEntryTransientOverlayViewController_authenticatePasscode___block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v10 = *MEMORY[0x277D85DE8];
   v4 = SBLogCommon();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = @"no";
-    if (a2)
+    if (v2)
     {
       v5 = @"yes";
     }
@@ -376,7 +377,7 @@ uint64_t __94__SBPowerDownViewController_passcodeEntryTransientOverlayViewContro
   }
 
   v6 = *(a1 + 32);
-  if (a2)
+  if (v2)
   {
     [v6 setUserWantsFindMySuppressed:1];
     [*(*(a1 + 32) + 1416) didSuppressFindMy];

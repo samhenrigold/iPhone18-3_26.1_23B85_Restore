@@ -64,10 +64,11 @@
 - (CRLTextRepAccessibility)crlaxParentTextRep
 {
   crlaxParentInteractiveCanvasController = [(CRLWPSmartFieldAccessibility *)self crlaxParentInteractiveCanvasController];
-  if (CRLAccessibilityShouldPerformValidationChecks() && !crlaxParentInteractiveCanvasController)
+  ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(crlaxParentInteractiveCanvasController, v4);
+  if (ShouldPerformValidationChecks && !crlaxParentInteractiveCanvasController)
   {
-    ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-    if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Can't find interactive canvas controller even though we're asked for the parent text rep of an attachment.", v5, v6, v7, v8, v9, v32))
+    ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+    if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Can't find interactive canvas controller even though we're asked for the parent text rep of an attachment.", v7, v8, v9, v10, v11, v34))
     {
 LABEL_31:
       abort();
@@ -79,99 +80,99 @@ LABEL_31:
   if (!crlaxParentInteractiveCanvasController)
   {
 LABEL_24:
-    v16 = 0;
+    v18 = 0;
     goto LABEL_28;
   }
 
-  v38 = 0;
+  v40 = 0;
   crlaxTarget = [(CRLWPSmartFieldAccessibility *)self crlaxTarget];
   parentStorage = [crlaxTarget parentStorage];
 
-  v12 = objc_opt_class();
-  v13 = __CRLAccessibilityCastAsSafeCategory(v12, parentStorage, 1, &v38);
-  if (v38 == 1)
+  v14 = objc_opt_class();
+  v15 = __CRLAccessibilityCastAsSafeCategory(v14, parentStorage, 1, &v40);
+  if (v40 == 1)
   {
     goto LABEL_31;
   }
 
-  v14 = v13;
+  v16 = v15;
 
   crlaxFieldRange = [(CRLWPSmartFieldAccessibility *)self crlaxFieldRange];
-  v16 = 0;
-  if (v14)
+  v18 = 0;
+  if (v16)
   {
-    v17 = crlaxFieldRange;
+    v19 = crlaxFieldRange;
     if (crlaxFieldRange != 0x7FFFFFFFFFFFFFFFLL)
     {
-      v33 = v14;
-      [crlaxParentInteractiveCanvasController crlaxTextRepsForStorage:v14];
-      v34 = 0u;
-      v35 = 0u;
+      v35 = v16;
+      [crlaxParentInteractiveCanvasController crlaxTextRepsForStorage:v16];
       v36 = 0u;
-      v18 = v37 = 0u;
-      v19 = [v18 countByEnumeratingWithState:&v34 objects:v39 count:16];
-      if (v19)
+      v37 = 0u;
+      v38 = 0u;
+      v20 = v39 = 0u;
+      v21 = [v20 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      if (v21)
       {
-        v20 = v19;
-        v16 = 0;
-        v21 = *v35;
+        v22 = v21;
+        v18 = 0;
+        v23 = *v37;
         do
         {
-          v22 = 0;
-          v23 = v16;
+          v24 = 0;
+          v25 = v18;
           do
           {
-            if (*v35 != v21)
+            if (*v37 != v23)
             {
-              objc_enumerationMutation(v18);
+              objc_enumerationMutation(v20);
             }
 
-            v24 = *(*(&v34 + 1) + 8 * v22);
-            v38 = 0;
-            v25 = v24;
-            v26 = objc_opt_class();
-            v27 = __CRLAccessibilityCastAsSafeCategory(v26, v25, 1, &v38);
-            if (v38 == 1)
+            v26 = *(*(&v36 + 1) + 8 * v24);
+            v40 = 0;
+            v27 = v26;
+            v28 = objc_opt_class();
+            v29 = __CRLAccessibilityCastAsSafeCategory(v28, v27, 1, &v40);
+            if (v40 == 1)
             {
               goto LABEL_31;
             }
 
-            v16 = v27;
+            v18 = v29;
 
-            if (v16)
+            if (v18)
             {
-              crlaxStorageRangeOfRep = [v16 crlaxStorageRangeOfRep];
-              if (v17 >= crlaxStorageRangeOfRep && v17 - crlaxStorageRangeOfRep < v29)
+              crlaxStorageRangeOfRep = [v18 crlaxStorageRangeOfRep];
+              if (v19 >= crlaxStorageRangeOfRep && v19 - crlaxStorageRangeOfRep < v31)
               {
                 goto LABEL_26;
               }
             }
 
-            v22 = v22 + 1;
-            v23 = v16;
+            v24 = v24 + 1;
+            v25 = v18;
           }
 
-          while (v20 != v22);
-          v20 = [v18 countByEnumeratingWithState:&v34 objects:v39 count:16];
+          while (v22 != v24);
+          v22 = [v20 countByEnumeratingWithState:&v36 objects:v41 count:16];
         }
 
-        while (v20);
+        while (v22);
       }
 
       else
       {
-        v16 = 0;
+        v18 = 0;
       }
 
 LABEL_26:
 
-      v14 = v33;
+      v16 = v35;
     }
   }
 
 LABEL_28:
 
-  return v16;
+  return v18;
 }
 
 @end

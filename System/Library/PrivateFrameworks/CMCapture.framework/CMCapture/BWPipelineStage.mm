@@ -7,7 +7,7 @@
 + (void)_currentPipelineStage;
 - (id)_serviceQueuedMessages;
 - (id)description;
-- (void)_initWithName:(int)name priority:(OS_os_workgroup *)priority workgroup:(int)workgroup discardsLateSampleData:;
+- (void)_initWithName:(uint64_t)name priority:(OS_os_workgroup *)priority workgroup:(int)workgroup discardsLateSampleData:;
 - (void)dealloc;
 - (void)sendMessage:(id)message toInput:(id)input;
 - (void)sendMessagesToInput:(id)input messageProvider:(id)provider;
@@ -23,9 +23,9 @@
     +[BWPipelineStage _setCurrentPipelineStage:];
   }
 
-  v0 = _getCurrentPipelineStageKey_key;
+  v1 = _getCurrentPipelineStageKey_key;
 
-  return pthread_getspecific(v0);
+  return pthread_getspecific(v1);
 }
 
 - (id)_serviceQueuedMessages
@@ -58,7 +58,7 @@
 
 + (BWPipelineStage)pipelineStageWithName:(id)name priority:(unsigned int)priority
 {
-  v4 = [[BWPipelineStage alloc] _initWithName:name priority:priority workgroup:0 discardsLateSampleData:0];
+  v4 = [[BWPipelineStage alloc] _initWithName:name priority:*&priority workgroup:0 discardsLateSampleData:0];
 
   return v4;
 }
@@ -211,7 +211,7 @@ LABEL_12:
   return pthread_setspecific(v3, a2);
 }
 
-- (void)_initWithName:(int)name priority:(OS_os_workgroup *)priority workgroup:(int)workgroup discardsLateSampleData:
+- (void)_initWithName:(uint64_t)name priority:(OS_os_workgroup *)priority workgroup:(int)workgroup discardsLateSampleData:
 {
   if (!self)
   {
@@ -224,13 +224,14 @@ LABEL_12:
     return 0;
   }
 
+  nameCopy = name;
   v14.receiver = self;
   v14.super_class = BWPipelineStage;
   v9 = objc_msgSendSuper2(&v14, sel_init);
   if (v9)
   {
     v9[5] = [a2 copy];
-    *(v9 + 12) = name;
+    *(v9 + 12) = nameCopy;
     v10 = [a2 cStringUsingEncoding:4];
     v11 = v10;
     if (priority)
@@ -262,21 +263,21 @@ LABEL_12:
 
 + (BWPipelineStage)pipelineStageWithName:(id)name priority:(unsigned int)priority discardsLateSampleData:(BOOL)data
 {
-  v5 = [[BWPipelineStage alloc] _initWithName:name priority:priority workgroup:0 discardsLateSampleData:data];
+  v5 = [[BWPipelineStage alloc] _initWithName:name priority:*&priority workgroup:0 discardsLateSampleData:data];
 
   return v5;
 }
 
 + (BWPipelineStage)pipelineStageWithName:(id)name priority:(unsigned int)priority workgroup:(id)workgroup
 {
-  v5 = [[BWPipelineStage alloc] _initWithName:name priority:priority workgroup:workgroup discardsLateSampleData:0];
+  v5 = [[BWPipelineStage alloc] _initWithName:name priority:*&priority workgroup:workgroup discardsLateSampleData:0];
 
   return v5;
 }
 
 + (BWPipelineStage)pipelineStageWithName:(id)name priority:(unsigned int)priority workgroup:(id)workgroup discardsLateSampleData:(BOOL)data
 {
-  v6 = [[BWPipelineStage alloc] _initWithName:name priority:priority workgroup:workgroup discardsLateSampleData:data];
+  v6 = [[BWPipelineStage alloc] _initWithName:name priority:*&priority workgroup:workgroup discardsLateSampleData:data];
 
   return v6;
 }

@@ -25,7 +25,7 @@
     availability = objc_msgSendSuper2(&v7, sel_init);
     if (availability)
     {
-      v4 = [v3 copy];
+      v4 = objc_msgSend_copy(v3);
       v5 = availability[1];
       availability[1] = v4;
     }

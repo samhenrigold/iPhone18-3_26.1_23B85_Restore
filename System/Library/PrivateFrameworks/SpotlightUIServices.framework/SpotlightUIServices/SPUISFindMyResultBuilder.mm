@@ -64,17 +64,15 @@
 
 - (id)buildInlineCard
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   buildHorizontallyScrollingCardSection = [(SPUISFindMyResultBuilder *)self buildHorizontallyScrollingCardSection];
   v3 = objc_opt_new();
   if (buildHorizontallyScrollingCardSection)
   {
-    v7[0] = buildHorizontallyScrollingCardSection;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+    v6[0] = buildHorizontallyScrollingCardSection;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
     [v3 setCardSections:v4];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

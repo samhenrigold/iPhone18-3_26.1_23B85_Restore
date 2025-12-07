@@ -59,18 +59,12 @@
 
 - (void)writeTo:(id)to
 {
-  name = self->_name;
   toCopy = to;
   PBDataWriterWriteStringField();
-  bundleIdentifier = self->_bundleIdentifier;
   PBDataWriterWriteStringField();
-  bundleVersion = self->_bundleVersion;
   PBDataWriterWriteStringField();
-  staticSizeInBytes = self->_staticSizeInBytes;
   PBDataWriterWriteUint64Field();
-  dynamicSizeInBytes = self->_dynamicSizeInBytes;
   PBDataWriterWriteUint64Field();
-  sharedSizeInBytes = self->_sharedSizeInBytes;
   PBDataWriterWriteUint64Field();
 }
 

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)playbackStateAsString:(int)string;
 - (int)StringAsPlaybackState:(id)state;
 - (int)playbackState;
 - (unint64_t)hash;
@@ -42,35 +43,50 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)playbackStateAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E769B7F8[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsPlaybackState:(id)state
 {
   stateCopy = state;
-  if ([stateCopy isEqualToString:@"Unknown"])
+  if (objc_msgSend_isEqualToString_(stateCopy))
   {
     v4 = 0;
   }
 
-  else if ([stateCopy isEqualToString:@"Playing"])
+  else if (objc_msgSend_isEqualToString_(stateCopy))
   {
     v4 = 1;
   }
 
-  else if ([stateCopy isEqualToString:@"Paused"])
+  else if (objc_msgSend_isEqualToString_(stateCopy))
   {
     v4 = 2;
   }
 
-  else if ([stateCopy isEqualToString:@"Stopped"])
+  else if (objc_msgSend_isEqualToString_(stateCopy))
   {
     v4 = 3;
   }
 
-  else if ([stateCopy isEqualToString:@"Interrupted"])
+  else if (objc_msgSend_isEqualToString_(stateCopy))
   {
     v4 = 4;
   }
 
-  else if ([stateCopy isEqualToString:@"Seeking"])
+  else if (objc_msgSend_isEqualToString_(stateCopy))
   {
     v4 = 5;
   }
@@ -180,67 +196,65 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_nowPlayingInfo)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_supportedCommands)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_playbackQueue)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_displayID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_displayName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    playbackState = self->_playbackState;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_playbackQueueCapabilities)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_playerPath)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_request)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    playbackStateTimestamp = self->_playbackStateTimestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -412,7 +426,6 @@
     }
   }
 
-  v10 = *(equalCopy + 88);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 88) & 2) == 0 || self->_playbackState != *(equalCopy + 14))
@@ -424,7 +437,7 @@
   else if ((*(equalCopy + 88) & 2) != 0)
   {
 LABEL_27:
-    v14 = 0;
+    v13 = 0;
     goto LABEL_28;
   }
 
@@ -452,7 +465,7 @@ LABEL_27:
     }
   }
 
-  v14 = (*(equalCopy + 88) & 1) == 0;
+  v13 = (*(equalCopy + 88) & 1) == 0;
   if (*&self->_has)
   {
     if ((*(equalCopy + 88) & 1) == 0 || self->_playbackStateTimestamp != *(equalCopy + 1))
@@ -460,12 +473,12 @@ LABEL_27:
       goto LABEL_27;
     }
 
-    v14 = 1;
+    v13 = 1;
   }
 
 LABEL_28:
 
-  return v14;
+  return v13;
 }
 
 - (unint64_t)hash

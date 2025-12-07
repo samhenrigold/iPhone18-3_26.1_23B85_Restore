@@ -1,4 +1,4 @@
-float mlir::copyElementsAttrData<unsigned int>(uint64_t a1, uint64_t a2, int *a3)
+float mlir::copyElementsAttrData<unsigned int>(void *a1, uint64_t a2, int32x4_t *a3)
 {
   v143[5] = *MEMORY[0x277D85DE8];
   v140 = a1;
@@ -125,7 +125,7 @@ LABEL_29:
           v27 = i;
         }
 
-        a3[i] = RawData[v27];
+        a3->i32[i] = RawData[v27];
       }
 
       return *v22.i32;
@@ -147,7 +147,7 @@ LABEL_39:
           v29 = j;
         }
 
-        a3[j] = RawData[v29];
+        a3->i32[j] = RawData[v29];
       }
 
       return *v22.i32;
@@ -161,7 +161,7 @@ LABEL_52:
       {
         v32 = 0;
         v30 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-        v33 = a3 + 1;
+        v33 = &a3->i32[1];
         do
         {
           if (isSplat)
@@ -208,7 +208,7 @@ LABEL_52:
           v132 = v30;
         }
 
-        a3[v30++] = *&RawData[2 * v132];
+        a3->i32[v30++] = *&RawData[2 * v132];
 LABEL_221:
         ;
       }
@@ -225,7 +225,7 @@ LABEL_58:
       {
         v39 = 0;
         v31 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-        v40 = a3 + 1;
+        v40 = &a3->i32[1];
         do
         {
           if (isSplat)
@@ -272,7 +272,7 @@ LABEL_58:
           v133 = v31;
         }
 
-        a3[v31++] = *&RawData[2 * v133];
+        a3->i32[v31++] = *&RawData[2 * v133];
 LABEL_227:
         ;
       }
@@ -297,7 +297,7 @@ LABEL_73:
           v38 = k;
         }
 
-        a3[k] = *&RawData[4 * v38];
+        a3->i32[k] = *&RawData[4 * v38];
       }
 
       return *v22.i32;
@@ -319,7 +319,7 @@ LABEL_92:
           v45 = m;
         }
 
-        a3[m] = *&RawData[4 * v45];
+        a3->i32[m] = *&RawData[4 * v45];
       }
 
       return *v22.i32;
@@ -327,7 +327,7 @@ LABEL_92:
 
     if (mlir::Type::isUnsignedInteger(&ElementType, 64) || mlir::Type::isInteger(&ElementType, 64))
     {
-      *a3 = *RawData;
+      a3->i32[0] = *RawData;
       return *v22.i32;
     }
 
@@ -339,7 +339,7 @@ LABEL_113:
       {
         v61 = 0;
         v48 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-        v62 = (a3 + 1);
+        v62 = &a3->u32[1];
         do
         {
           if (isSplat)
@@ -388,7 +388,7 @@ LABEL_113:
         }
 
         v22.i16[0] = *&RawData[2 * v134];
-        a3[v48++] = *v22.i16;
+        a3->i32[v48++] = *v22.i16;
 LABEL_233:
         ;
       }
@@ -405,7 +405,7 @@ LABEL_125:
       {
         v78 = 0;
         v60 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-        v79 = (a3 + 1);
+        v79 = &a3->u32[1];
         do
         {
           if (isSplat)
@@ -454,7 +454,7 @@ LABEL_125:
         }
 
         v22.i32[0] = *&RawData[4 * v135];
-        a3[v60++] = *v22.i32;
+        a3->i32[v60++] = *v22.i32;
 LABEL_239:
         ;
       }
@@ -466,7 +466,7 @@ LABEL_239:
     if (mlir::Type::isF64(&ElementType))
     {
       v22.i64[0] = *RawData;
-      *a3 = *RawData;
+      a3->i32[0] = *RawData;
       return *v22.i32;
     }
 
@@ -559,7 +559,7 @@ LABEL_27:
     {
       v46 = NumElements & 0x7FFFFFFFFFFFFFF8;
       v49 = (RawData + 32);
-      v50 = (a3 + 4);
+      v50 = a3 + 1;
       v51 = NumElements & 0x7FFFFFFFFFFFFFF8;
       do
       {
@@ -589,7 +589,7 @@ LABEL_27:
 
     v56 = &RawData[8 * v46];
     v57 = NumElements - v46;
-    v58 = &a3[v46];
+    v58 = &a3->i32[v46];
     do
     {
       v59 = *v56;
@@ -613,7 +613,7 @@ LABEL_27:
     {
       v47 = NumElements & 0x7FFFFFFFFFFFFFF8;
       v66 = (RawData + 32);
-      v67 = (a3 + 4);
+      v67 = a3 + 1;
       v68 = NumElements & 0x7FFFFFFFFFFFFFF8;
       do
       {
@@ -643,7 +643,7 @@ LABEL_27:
 
     v73 = &RawData[8 * v47];
     v74 = NumElements - v47;
-    v75 = &a3[v47];
+    v75 = &a3->i32[v47];
     do
     {
       v76 = *v73;
@@ -687,7 +687,7 @@ LABEL_27:
     {
       v77 = NumElements & 0x7FFFFFFFFFFFFFF8;
       v93 = (RawData + 32);
-      v94 = (a3 + 4);
+      v94 = a3 + 1;
       v95 = NumElements & 0x7FFFFFFFFFFFFFF8;
       do
       {
@@ -717,7 +717,7 @@ LABEL_27:
 
     v100 = &RawData[8 * v77];
     v101 = NumElements - v77;
-    v102 = &a3[v77];
+    v102 = &a3->i32[v77];
     do
     {
       v103 = *v100++;
@@ -737,7 +737,7 @@ LABEL_163:
     {
       mlir::Type::getIntOrFloatBitWidth(&ElementType);
       IntOrFloatBitWidth = mlir::Type::getIntOrFloatBitWidth(&ElementType);
-      mlir::detail::unpackQuantizedData<unsigned int>(RawData, v4, a3, NumElements, IntOrFloatBitWidth);
+      mlir::detail::unpackQuantizedData<unsigned int>(RawData, v4, a3->i32, NumElements, IntOrFloatBitWidth);
       return *v22.i32;
     }
 
@@ -751,7 +751,7 @@ LABEL_163:
 
     if (isSplat)
     {
-      if (NumElements < 4 || v142[0] + 1 > a3 && v142[0] < &a3[NumElements])
+      if (NumElements < 4 || v142[0] + 1 > a3 && v142[0] < a3 + 4 * NumElements)
       {
         v85 = 0;
         goto LABEL_170;
@@ -764,7 +764,7 @@ LABEL_163:
         v110 = vmovl_s8(v109);
         v22 = vmovl_high_s16(v110);
         v111 = vmovl_s16(*v110.i8);
-        v112 = (a3 + 16);
+        v112 = a3 + 4;
         v113 = NumElements & 0x7FFFFFFFFFFFFFE0;
         do
         {
@@ -790,7 +790,7 @@ LABEL_163:
         {
 LABEL_170:
           v86 = NumElements - v85;
-          v87 = &a3[v85];
+          v87 = &a3->i32[v85];
           do
           {
             *v87++ = *v84;
@@ -810,7 +810,7 @@ LABEL_170:
       v114 = v85;
       v85 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
       v22 = vshrq_n_s32(vshlq_n_s32(vmovl_u16(vdup_n_s16(*v84)), 0x18uLL), 0x18uLL);
-      v115 = &a3[v114];
+      v115 = (a3 + 4 * v114);
       v116 = v114 - (NumElements & 0x7FFFFFFFFFFFFFFCLL);
       do
       {
@@ -833,7 +833,7 @@ LABEL_195:
       return *v22.i32;
     }
 
-    if (NumElements < 4 || v142[0] + NumElements > a3 && v142[0] < &a3[NumElements])
+    if (NumElements < 4 || v142[0] + NumElements > a3 && v142[0] < a3 + 4 * NumElements)
     {
       v104 = 0;
       goto LABEL_193;
@@ -843,7 +843,7 @@ LABEL_195:
     {
       v104 = NumElements & 0x7FFFFFFFFFFFFFE0;
       v117 = (v142[0] + 16);
-      v118 = (a3 + 16);
+      v118 = a3 + 4;
       v119 = NumElements & 0x7FFFFFFFFFFFFFE0;
       do
       {
@@ -879,7 +879,7 @@ LABEL_195:
 LABEL_193:
         v105 = &v84[v104];
         v106 = NumElements - v104;
-        v107 = &a3[v104];
+        v107 = &a3->i32[v104];
         do
         {
           v108 = *v105++;
@@ -900,7 +900,7 @@ LABEL_193:
     v127 = v104;
     v104 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
     v128 = &v84[v127];
-    v129 = &a3[v127];
+    v129 = (a3 + 4 * v127);
     v130 = v127 - (NumElements & 0x7FFFFFFFFFFFFFFCLL);
     do
     {
@@ -957,8 +957,8 @@ LABEL_161:
       v22.i16[0] = *&RawData[2 * v91];
       v22.i16[2] = *&RawData[2 * v92];
       *v22.i8 = vcvt_u32_f32(vshl_n_s32(*v22.i8, 0x10uLL));
-      *v90 = v22.i64[0];
-      v90 += 2;
+      v90->i64[0] = v22.i64[0];
+      v90 = (v90 + 8);
       v89 += 2;
     }
 
@@ -980,7 +980,7 @@ LABEL_161:
     }
 
     v22.i32[0] = *&RawData[2 * v136] << 16;
-    a3[v83++] = *v22.i32;
+    a3->i32[v83++] = *v22.i32;
 LABEL_245:
     ;
   }
@@ -989,7 +989,7 @@ LABEL_245:
   return *v22.i32;
 }
 
-float mlir::copyElementsAttrData<int>(uint64_t a1, uint64_t a2, int *a3)
+float mlir::copyElementsAttrData<int>(void *a1, uint64_t a2, int32x4_t *a3)
 {
   v143[5] = *MEMORY[0x277D85DE8];
   v140 = a1;
@@ -1116,7 +1116,7 @@ LABEL_29:
           v27 = i;
         }
 
-        a3[i] = RawData[v27];
+        a3->i32[i] = RawData[v27];
       }
 
       return *v22.i32;
@@ -1138,7 +1138,7 @@ LABEL_39:
           v29 = j;
         }
 
-        a3[j] = RawData[v29];
+        a3->i32[j] = RawData[v29];
       }
 
       return *v22.i32;
@@ -1152,7 +1152,7 @@ LABEL_52:
       {
         v32 = 0;
         v30 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-        v33 = a3 + 1;
+        v33 = &a3->i32[1];
         do
         {
           if (isSplat)
@@ -1199,7 +1199,7 @@ LABEL_52:
           v132 = v30;
         }
 
-        a3[v30++] = *&RawData[2 * v132];
+        a3->i32[v30++] = *&RawData[2 * v132];
 LABEL_221:
         ;
       }
@@ -1216,7 +1216,7 @@ LABEL_58:
       {
         v39 = 0;
         v31 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-        v40 = a3 + 1;
+        v40 = &a3->i32[1];
         do
         {
           if (isSplat)
@@ -1263,7 +1263,7 @@ LABEL_58:
           v133 = v31;
         }
 
-        a3[v31++] = *&RawData[2 * v133];
+        a3->i32[v31++] = *&RawData[2 * v133];
 LABEL_227:
         ;
       }
@@ -1288,7 +1288,7 @@ LABEL_73:
           v38 = k;
         }
 
-        a3[k] = *&RawData[4 * v38];
+        a3->i32[k] = *&RawData[4 * v38];
       }
 
       return *v22.i32;
@@ -1310,7 +1310,7 @@ LABEL_92:
           v45 = m;
         }
 
-        a3[m] = *&RawData[4 * v45];
+        a3->i32[m] = *&RawData[4 * v45];
       }
 
       return *v22.i32;
@@ -1318,7 +1318,7 @@ LABEL_92:
 
     if (mlir::Type::isUnsignedInteger(&ElementType, 64) || mlir::Type::isInteger(&ElementType, 64))
     {
-      *a3 = *RawData;
+      a3->i32[0] = *RawData;
       return *v22.i32;
     }
 
@@ -1330,7 +1330,7 @@ LABEL_113:
       {
         v61 = 0;
         v48 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-        v62 = a3 + 1;
+        v62 = &a3->i32[1];
         do
         {
           if (isSplat)
@@ -1379,7 +1379,7 @@ LABEL_113:
         }
 
         v22.i16[0] = *&RawData[2 * v134];
-        a3[v48++] = *v22.i16;
+        a3->i32[v48++] = *v22.i16;
 LABEL_233:
         ;
       }
@@ -1396,7 +1396,7 @@ LABEL_125:
       {
         v78 = 0;
         v60 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-        v79 = a3 + 1;
+        v79 = &a3->i32[1];
         do
         {
           if (isSplat)
@@ -1445,7 +1445,7 @@ LABEL_125:
         }
 
         v22.i32[0] = *&RawData[4 * v135];
-        a3[v60++] = *v22.i32;
+        a3->i32[v60++] = *v22.i32;
 LABEL_239:
         ;
       }
@@ -1457,7 +1457,7 @@ LABEL_239:
     if (mlir::Type::isF64(&ElementType))
     {
       v22.i64[0] = *RawData;
-      *a3 = *RawData;
+      a3->i32[0] = *RawData;
       return *v22.i32;
     }
 
@@ -1550,7 +1550,7 @@ LABEL_27:
     {
       v46 = NumElements & 0x7FFFFFFFFFFFFFF8;
       v49 = (RawData + 32);
-      v50 = (a3 + 4);
+      v50 = a3 + 1;
       v51 = NumElements & 0x7FFFFFFFFFFFFFF8;
       do
       {
@@ -1580,7 +1580,7 @@ LABEL_27:
 
     v56 = &RawData[8 * v46];
     v57 = NumElements - v46;
-    v58 = &a3[v46];
+    v58 = &a3->i32[v46];
     do
     {
       v59 = *v56;
@@ -1604,7 +1604,7 @@ LABEL_27:
     {
       v47 = NumElements & 0x7FFFFFFFFFFFFFF8;
       v66 = (RawData + 32);
-      v67 = (a3 + 4);
+      v67 = a3 + 1;
       v68 = NumElements & 0x7FFFFFFFFFFFFFF8;
       do
       {
@@ -1634,7 +1634,7 @@ LABEL_27:
 
     v73 = &RawData[8 * v47];
     v74 = NumElements - v47;
-    v75 = &a3[v47];
+    v75 = &a3->i32[v47];
     do
     {
       v76 = *v73;
@@ -1678,7 +1678,7 @@ LABEL_27:
     {
       v77 = NumElements & 0x7FFFFFFFFFFFFFF8;
       v93 = (RawData + 32);
-      v94 = (a3 + 4);
+      v94 = a3 + 1;
       v95 = NumElements & 0x7FFFFFFFFFFFFFF8;
       do
       {
@@ -1708,7 +1708,7 @@ LABEL_27:
 
     v100 = &RawData[8 * v77];
     v101 = NumElements - v77;
-    v102 = &a3[v77];
+    v102 = &a3->i32[v77];
     do
     {
       v103 = *v100++;
@@ -1728,7 +1728,7 @@ LABEL_163:
     {
       mlir::Type::getIntOrFloatBitWidth(&ElementType);
       IntOrFloatBitWidth = mlir::Type::getIntOrFloatBitWidth(&ElementType);
-      mlir::detail::unpackQuantizedData<int>(RawData, v4, a3, NumElements, IntOrFloatBitWidth);
+      mlir::detail::unpackQuantizedData<int>(RawData, v4, a3->i32, NumElements, IntOrFloatBitWidth);
       return *v22.i32;
     }
 
@@ -1742,7 +1742,7 @@ LABEL_163:
 
     if (isSplat)
     {
-      if (NumElements < 4 || v142[0] + 1 > a3 && v142[0] < &a3[NumElements])
+      if (NumElements < 4 || v142[0] + 1 > a3 && v142[0] < a3 + 4 * NumElements)
       {
         v85 = 0;
         goto LABEL_170;
@@ -1755,19 +1755,19 @@ LABEL_163:
         v110 = vmovl_s8(v109);
         v22 = vmovl_high_s16(v110);
         v111 = vmovl_s16(*v110.i8);
-        v112 = (a3 + 16);
+        i32 = a3[4].i32;
         v113 = NumElements & 0x7FFFFFFFFFFFFFE0;
         do
         {
-          v112[-4] = v111;
-          v112[-3] = v22;
-          v112[-2] = v111;
-          v112[-1] = v22;
-          *v112 = v111;
-          v112[1] = v22;
-          v112[2] = v111;
-          v112[3] = v22;
-          v112 += 8;
+          *(i32 - 4) = v111;
+          *(i32 - 3) = v22;
+          *(i32 - 2) = v111;
+          *(i32 - 1) = v22;
+          *i32 = v111;
+          *(i32 + 1) = v22;
+          *(i32 + 2) = v111;
+          *(i32 + 3) = v22;
+          i32 += 32;
           v113 -= 32;
         }
 
@@ -1781,7 +1781,7 @@ LABEL_163:
         {
 LABEL_170:
           v86 = NumElements - v85;
-          v87 = &a3[v85];
+          v87 = &a3->i32[v85];
           do
           {
             *v87++ = *v84;
@@ -1801,11 +1801,12 @@ LABEL_170:
       v114 = v85;
       v85 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
       v22 = vshrq_n_s32(vshlq_n_s32(vmovl_u16(vdup_n_s16(*v84)), 0x18uLL), 0x18uLL);
-      v115 = &a3[v114];
+      v115 = &a3->i32[v114];
       v116 = v114 - (NumElements & 0x7FFFFFFFFFFFFFFCLL);
       do
       {
-        *v115++ = v22;
+        *v115 = v22;
+        v115 += 4;
         v116 += 4;
       }
 
@@ -1824,7 +1825,7 @@ LABEL_195:
       return *v22.i32;
     }
 
-    if (NumElements < 4 || v142[0] + NumElements > a3 && v142[0] < &a3[NumElements])
+    if (NumElements < 4 || v142[0] + NumElements > a3 && v142[0] < a3 + 4 * NumElements)
     {
       v104 = 0;
       goto LABEL_193;
@@ -1834,7 +1835,7 @@ LABEL_195:
     {
       v104 = NumElements & 0x7FFFFFFFFFFFFFE0;
       v117 = (v142[0] + 16);
-      v118 = (a3 + 16);
+      v118 = a3[4].i32;
       v119 = NumElements & 0x7FFFFFFFFFFFFFE0;
       do
       {
@@ -1843,18 +1844,18 @@ LABEL_195:
         v122 = vmovl_s8(*v120.i8);
         v123 = vmovl_high_s8(v120);
         v124 = vmovl_s8(*v117);
-        v118[-2] = vmovl_s16(*v123.i8);
-        v118[-1] = vmovl_high_s16(v123);
+        *(v118 - 2) = vmovl_s16(*v123.i8);
+        *(v118 - 1) = vmovl_high_s16(v123);
         v125 = vmovl_high_s8(v121);
         v126 = vmovl_s16(*v125.i8);
-        v118[-4] = vmovl_s16(*v122.i8);
-        v118[-3] = vmovl_high_s16(v122);
+        *(v118 - 4) = vmovl_s16(*v122.i8);
+        *(v118 - 3) = vmovl_high_s16(v122);
         v22 = vmovl_high_s16(v125);
-        v118[2] = v126;
-        v118[3] = v22;
+        *(v118 + 2) = v126;
+        *(v118 + 3) = v22;
         *v118 = vmovl_s16(*v124.i8);
-        v118[1] = vmovl_high_s16(v124);
-        v118 += 8;
+        *(v118 + 1) = vmovl_high_s16(v124);
+        v118 += 32;
         v117 += 4;
         v119 -= 32;
       }
@@ -1870,7 +1871,7 @@ LABEL_195:
 LABEL_193:
         v105 = &v84[v104];
         v106 = NumElements - v104;
-        v107 = &a3[v104];
+        v107 = &a3->i32[v104];
         do
         {
           v108 = *v105++;
@@ -1891,7 +1892,7 @@ LABEL_193:
     v127 = v104;
     v104 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
     v128 = &v84[v127];
-    v129 = &a3[v127];
+    v129 = &a3->i32[v127];
     v130 = v127 - (NumElements & 0x7FFFFFFFFFFFFFFCLL);
     do
     {
@@ -1899,7 +1900,8 @@ LABEL_193:
       v128 += 4;
       v22.i32[0] = v131;
       v22 = vmovl_s16(*&vmovl_s8(*v22.i8));
-      *v129++ = v22;
+      *v129 = v22;
+      v129 += 4;
       v130 += 4;
     }
 
@@ -1971,7 +1973,7 @@ LABEL_161:
     }
 
     v22.i32[0] = *&RawData[2 * v136] << 16;
-    a3[v83++] = *v22.i32;
+    a3->i32[v83++] = *v22.i32;
 LABEL_245:
     ;
   }
@@ -1980,1123 +1982,7 @@ LABEL_245:
   return *v22.i32;
 }
 
-float mlir::copyElementsAttrData<unsigned long long>(uint64_t a1, uint64_t a2, int32x4_t *a3)
-{
-  v163[5] = *MEMORY[0x277D85DE8];
-  v160 = a1;
-  v161 = a2;
-  Type = mlir::ElementsAttr::getType(&v160);
-  if (!Type)
-  {
-    goto LABEL_14;
-  }
-
-  v7 = *Type;
-  {
-    RawData = Type;
-    mlir::mps::serialization::ExtractOp::inferReturnTypes();
-    Type = RawData;
-    v8 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v9 = *(v7 + 8);
-    v10 = *(v7 + 16);
-    if (v10)
-    {
-      goto LABEL_4;
-    }
-
-LABEL_14:
-    v17 = 0;
-    goto LABEL_15;
-  }
-
-  v8 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-  v9 = *(v7 + 8);
-  v10 = *(v7 + 16);
-  if (!v10)
-  {
-    goto LABEL_14;
-  }
-
-LABEL_4:
-  v11 = v9;
-  v12 = v10;
-  do
-  {
-    v13 = v12 >> 1;
-    v14 = &v11[2 * (v12 >> 1)];
-    v16 = *v14;
-    v15 = v14 + 2;
-    v12 += ~(v12 >> 1);
-    if (v16 < v8)
-    {
-      v11 = v15;
-    }
-
-    else
-    {
-      v12 = v13;
-    }
-  }
-
-  while (v12);
-  if (v11 == &v9[2 * v10] || *v11 != v8)
-  {
-    goto LABEL_14;
-  }
-
-  v17 = v11[1];
-LABEL_15:
-  v159[0] = Type;
-  v159[1] = v17;
-  ElementType = mlir::ShapedType::getElementType(v159);
-  isSplat = mlir::ElementsAttr::isSplat(&v160);
-  v19 = v160;
-  if (mlir::DenseElementsAttr::classof(v160))
-  {
-    v20 = v19;
-  }
-
-  else
-  {
-    v20 = 0;
-  }
-
-  v162[0] = v20;
-  if (!v20)
-  {
-    if (*(*v19 + 136) == &mlir::detail::TypeIDResolver<mlir::mps::MPSBufferTensorAttr,void>::id)
-    {
-      v24 = v19;
-    }
-
-    else
-    {
-      v24 = 0;
-    }
-
-    v162[0] = v24;
-    if (v24)
-    {
-      RawData = mlir::mps::MPSBufferTensorAttr::getRawData(v162);
-      v4 = v25;
-      if ((isSplat & 1) == 0)
-      {
-        goto LABEL_27;
-      }
-    }
-
-    else if ((isSplat & 1) == 0)
-    {
-      goto LABEL_27;
-    }
-
-LABEL_20:
-    if (mlir::Type::isUnsignedInteger(&ElementType, 8))
-    {
-      NumElements = 1;
-LABEL_29:
-      for (i = 0; i != NumElements; ++i)
-      {
-        if (isSplat)
-        {
-          v27 = 0;
-        }
-
-        else
-        {
-          v27 = i;
-        }
-
-        a3->i64[i] = RawData[v27];
-      }
-
-      return *v22.i32;
-    }
-
-    if (mlir::Type::isInteger(&ElementType, 8))
-    {
-      NumElements = 1;
-LABEL_39:
-      for (j = 0; j != NumElements; ++j)
-      {
-        if (isSplat)
-        {
-          v29 = 0;
-        }
-
-        else
-        {
-          v29 = j;
-        }
-
-        a3->i64[j] = RawData[v29];
-      }
-
-      return *v22.i32;
-    }
-
-    if (mlir::Type::isUnsignedInteger(&ElementType, 16))
-    {
-      NumElements = 1;
-LABEL_52:
-      if (NumElements >= 2)
-      {
-        v32 = 0;
-        v30 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-        v33 = &a3->i64[1];
-        do
-        {
-          if (isSplat)
-          {
-            v34 = 0;
-          }
-
-          else
-          {
-            v34 = v32;
-          }
-
-          if (isSplat)
-          {
-            v35 = 0;
-          }
-
-          else
-          {
-            v35 = v32 + 1;
-          }
-
-          v36 = *&RawData[2 * v35];
-          *(v33 - 1) = *&RawData[2 * v34];
-          *v33 = v36;
-          v33 += 2;
-          v32 += 2;
-        }
-
-        while (v32 != v30);
-        goto LABEL_231;
-      }
-
-      v30 = 0;
-      do
-      {
-        if (isSplat)
-        {
-          v150 = 0;
-        }
-
-        else
-        {
-          v150 = v30;
-        }
-
-        a3->i64[v30++] = *&RawData[2 * v150];
-LABEL_231:
-        ;
-      }
-
-      while (NumElements != v30);
-      return *v22.i32;
-    }
-
-    if (mlir::Type::isInteger(&ElementType, 16))
-    {
-      NumElements = 1;
-LABEL_58:
-      if (NumElements >= 2)
-      {
-        v38 = 0;
-        v31 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-        v39 = &a3->i64[1];
-        do
-        {
-          if (isSplat)
-          {
-            v40 = 0;
-          }
-
-          else
-          {
-            v40 = v38;
-          }
-
-          if (isSplat)
-          {
-            v41 = 0;
-          }
-
-          else
-          {
-            v41 = v38 + 1;
-          }
-
-          v42 = *&RawData[2 * v41];
-          *(v39 - 1) = *&RawData[2 * v40];
-          *v39 = v42;
-          v39 += 2;
-          v38 += 2;
-        }
-
-        while (v38 != v31);
-        goto LABEL_237;
-      }
-
-      v31 = 0;
-      do
-      {
-        if (isSplat)
-        {
-          v151 = 0;
-        }
-
-        else
-        {
-          v151 = v31;
-        }
-
-        a3->i64[v31++] = *&RawData[2 * v151];
-LABEL_237:
-        ;
-      }
-
-      while (NumElements != v31);
-      return *v22.i32;
-    }
-
-    if (mlir::Type::isUnsignedInteger(&ElementType, 32))
-    {
-      NumElements = 1;
-LABEL_73:
-      if (NumElements >= 2)
-      {
-        v44 = 0;
-        v37 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-        v45 = &a3->i64[1];
-        do
-        {
-          if (isSplat)
-          {
-            v46 = 0;
-          }
-
-          else
-          {
-            v46 = v44;
-          }
-
-          if (isSplat)
-          {
-            v47 = 0;
-          }
-
-          else
-          {
-            v47 = v44 + 1;
-          }
-
-          v48 = *&RawData[4 * v47];
-          *(v45 - 1) = *&RawData[4 * v46];
-          *v45 = v48;
-          v45 += 2;
-          v44 += 2;
-        }
-
-        while (v44 != v37);
-        goto LABEL_243;
-      }
-
-      v37 = 0;
-      do
-      {
-        if (isSplat)
-        {
-          v152 = 0;
-        }
-
-        else
-        {
-          v152 = v37;
-        }
-
-        a3->i64[v37++] = *&RawData[4 * v152];
-LABEL_243:
-        ;
-      }
-
-      while (NumElements != v37);
-      return *v22.i32;
-    }
-
-    if (mlir::Type::isInteger(&ElementType, 32))
-    {
-      NumElements = 1;
-LABEL_88:
-      if (NumElements >= 2)
-      {
-        v59 = 0;
-        v43 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-        v60 = &a3->i64[1];
-        do
-        {
-          if (isSplat)
-          {
-            v61 = 0;
-          }
-
-          else
-          {
-            v61 = v59;
-          }
-
-          if (isSplat)
-          {
-            v62 = 0;
-          }
-
-          else
-          {
-            v62 = v59 + 1;
-          }
-
-          v63 = *&RawData[4 * v62];
-          *(v60 - 1) = *&RawData[4 * v61];
-          *v60 = v63;
-          v60 += 2;
-          v59 += 2;
-        }
-
-        while (v59 != v43);
-        goto LABEL_249;
-      }
-
-      v43 = 0;
-      do
-      {
-        if (isSplat)
-        {
-          v153 = 0;
-        }
-
-        else
-        {
-          v153 = v43;
-        }
-
-        a3->i64[v43++] = *&RawData[4 * v153];
-LABEL_249:
-        ;
-      }
-
-      while (NumElements != v43);
-      return *v22.i32;
-    }
-
-    if (mlir::Type::isUnsignedInteger(&ElementType, 64) || mlir::Type::isInteger(&ElementType, 64))
-    {
-      a3->i64[0] = *RawData;
-      return *v22.i32;
-    }
-
-    if (mlir::Type::isF16(&ElementType))
-    {
-      NumElements = 1;
-LABEL_135:
-      if (NumElements >= 2)
-      {
-        v76 = 0;
-        v74 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-        v77 = &a3->u64[1];
-        do
-        {
-          if (isSplat)
-          {
-            v78 = 0;
-          }
-
-          else
-          {
-            v78 = v76;
-          }
-
-          if (isSplat)
-          {
-            v79 = 0;
-          }
-
-          else
-          {
-            v79 = v76 + 1;
-          }
-
-          v22.i16[0] = *&RawData[2 * v78];
-          v80 = *&RawData[2 * v79];
-          *(v77 - 1) = *v22.i16;
-          *v77 = v80;
-          v77 += 2;
-          v76 += 2;
-        }
-
-        while (v76 != v74);
-        goto LABEL_255;
-      }
-
-      v74 = 0;
-      do
-      {
-        if (isSplat)
-        {
-          v154 = 0;
-        }
-
-        else
-        {
-          v154 = v74;
-        }
-
-        v22.i16[0] = *&RawData[2 * v154];
-        a3->i64[v74++] = *v22.i16;
-LABEL_255:
-        ;
-      }
-
-      while (NumElements != v74);
-      return *v22.i32;
-    }
-
-    if (mlir::Type::isF32(&ElementType))
-    {
-      NumElements = 1;
-LABEL_141:
-      if (NumElements >= 2)
-      {
-        v82 = 0;
-        v75 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-        v83 = &a3->u64[1];
-        do
-        {
-          if (isSplat)
-          {
-            v84 = 0;
-          }
-
-          else
-          {
-            v84 = v82;
-          }
-
-          if (isSplat)
-          {
-            v85 = 0;
-          }
-
-          else
-          {
-            v85 = v82 + 1;
-          }
-
-          v22.i32[0] = *&RawData[4 * v84];
-          v86 = *&RawData[4 * v85];
-          *(v83 - 1) = *v22.i32;
-          *v83 = v86;
-          v83 += 2;
-          v82 += 2;
-        }
-
-        while (v82 != v75);
-        goto LABEL_261;
-      }
-
-      v75 = 0;
-      do
-      {
-        if (isSplat)
-        {
-          v155 = 0;
-        }
-
-        else
-        {
-          v155 = v75;
-        }
-
-        v22.i32[0] = *&RawData[4 * v155];
-        a3->i64[v75++] = *v22.i32;
-LABEL_261:
-        ;
-      }
-
-      while (NumElements != v75);
-      return *v22.i32;
-    }
-
-    if (mlir::Type::isF64(&ElementType))
-    {
-      v22.i64[0] = *RawData;
-      a3->i64[0] = *RawData;
-      return *v22.i32;
-    }
-
-    NumElements = 1;
-    if (!mlir::Type::isBF16(&ElementType))
-    {
-      goto LABEL_173;
-    }
-
-    goto LABEL_171;
-  }
-
-  RawData = mlir::DenseElementsAttr::getRawData(v162);
-  v4 = v21;
-  if (isSplat)
-  {
-    goto LABEL_20;
-  }
-
-LABEL_27:
-  NumElements = mlir::ElementsAttr::getNumElements(v160, v161);
-  if (mlir::Type::isUnsignedInteger(&ElementType, 8))
-  {
-    if (NumElements < 1)
-    {
-      return *v22.i32;
-    }
-
-    goto LABEL_29;
-  }
-
-  if (mlir::Type::isInteger(&ElementType, 8))
-  {
-    if (NumElements < 1)
-    {
-      return *v22.i32;
-    }
-
-    goto LABEL_39;
-  }
-
-  if (mlir::Type::isUnsignedInteger(&ElementType, 16))
-  {
-    if (NumElements < 1)
-    {
-      return *v22.i32;
-    }
-
-    goto LABEL_52;
-  }
-
-  if (mlir::Type::isInteger(&ElementType, 16))
-  {
-    if (NumElements < 1)
-    {
-      return *v22.i32;
-    }
-
-    goto LABEL_58;
-  }
-
-  if (mlir::Type::isUnsignedInteger(&ElementType, 32))
-  {
-    if (NumElements < 1)
-    {
-      return *v22.i32;
-    }
-
-    goto LABEL_73;
-  }
-
-  if (mlir::Type::isInteger(&ElementType, 32))
-  {
-    if (NumElements < 1)
-    {
-      return *v22.i32;
-    }
-
-    goto LABEL_88;
-  }
-
-  if (mlir::Type::isUnsignedInteger(&ElementType, 64))
-  {
-    if (NumElements >= 1)
-    {
-      v49 = 0;
-      if (NumElements < 4)
-      {
-        goto LABEL_109;
-      }
-
-      if ((a3 - RawData) <= 0x1F)
-      {
-        goto LABEL_109;
-      }
-
-      v49 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
-      v50 = (RawData + 16);
-      v51 = a3 + 1;
-      v52 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
-      do
-      {
-        v22 = v50[-1];
-        v53 = *v50;
-        v51[-1] = v22;
-        *v51 = v53;
-        v50 += 2;
-        v51 += 2;
-        v52 -= 4;
-      }
-
-      while (v52);
-      if (NumElements != v49)
-      {
-LABEL_109:
-        v54 = v49;
-        v55 = &RawData[8 * v49];
-        v56 = NumElements - v49;
-        v57 = &a3->i64[v54];
-        do
-        {
-          v58 = *v55;
-          v55 += 8;
-          *v57++ = v58;
-          --v56;
-        }
-
-        while (v56);
-      }
-    }
-
-    return *v22.i32;
-  }
-
-  if (mlir::Type::isInteger(&ElementType, 64))
-  {
-    if (NumElements >= 1)
-    {
-      v64 = 0;
-      if (NumElements < 4)
-      {
-        goto LABEL_128;
-      }
-
-      if ((a3 - RawData) <= 0x1F)
-      {
-        goto LABEL_128;
-      }
-
-      v64 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
-      v65 = (RawData + 16);
-      v66 = a3 + 1;
-      v67 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
-      do
-      {
-        v22 = v65[-1];
-        v68 = *v65;
-        v66[-1] = v22;
-        *v66 = v68;
-        v65 += 2;
-        v66 += 2;
-        v67 -= 4;
-      }
-
-      while (v67);
-      if (NumElements != v64)
-      {
-LABEL_128:
-        v69 = v64;
-        v70 = &RawData[8 * v64];
-        v71 = NumElements - v64;
-        v72 = &a3->i64[v69];
-        do
-        {
-          v73 = *v70;
-          v70 += 8;
-          *v72++ = v73;
-          --v71;
-        }
-
-        while (v71);
-      }
-    }
-
-    return *v22.i32;
-  }
-
-  if (mlir::Type::isF16(&ElementType))
-  {
-    if (NumElements < 1)
-    {
-      return *v22.i32;
-    }
-
-    goto LABEL_135;
-  }
-
-  if (mlir::Type::isF32(&ElementType))
-  {
-    if (NumElements < 1)
-    {
-      return *v22.i32;
-    }
-
-    goto LABEL_141;
-  }
-
-  if (mlir::Type::isF64(&ElementType))
-  {
-    if (NumElements < 1)
-    {
-      return *v22.i32;
-    }
-
-    if (NumElements > 3)
-    {
-      v81 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
-      v98 = (RawData + 16);
-      v99 = &a3[1];
-      v100 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
-      do
-      {
-        v22 = vcvtq_u64_f64(v98[-1]);
-        v101 = vcvtq_u64_f64(*v98);
-        v99[-1] = v22;
-        *v99 = v101;
-        v98 += 2;
-        v99 += 2;
-        v100 -= 4;
-      }
-
-      while (v100);
-      if (NumElements == v81)
-      {
-        return *v22.i32;
-      }
-    }
-
-    else
-    {
-      v81 = 0;
-    }
-
-    v102 = v81;
-    v103 = &RawData[8 * v81];
-    v104 = NumElements - v81;
-    v105 = &a3->i64[v102];
-    do
-    {
-      v106 = *v103++;
-      v22.i32[0] = LODWORD(v106);
-      *v105++ = v106;
-      --v104;
-    }
-
-    while (v104);
-    return *v22.i32;
-  }
-
-  if (!mlir::Type::isBF16(&ElementType))
-  {
-LABEL_173:
-    if (!mlir::Type::isInteger(&ElementType, 1))
-    {
-      mlir::Type::getIntOrFloatBitWidth(&ElementType);
-      IntOrFloatBitWidth = mlir::Type::getIntOrFloatBitWidth(&ElementType);
-      mlir::detail::unpackQuantizedData<unsigned long long>(RawData, v4, a3, NumElements, IntOrFloatBitWidth);
-      return *v22.i32;
-    }
-
-    llvm::SmallVector<char,40u>::SmallVector(v162, NumElements);
-    mlir::detail::unpackBooleanData(RawData, v4, v162[0], v162[1]);
-    v88 = v162[0];
-    if (NumElements < 1)
-    {
-      goto LABEL_205;
-    }
-
-    if (isSplat)
-    {
-      if (NumElements < 4 || v162[0] + 1 > a3 && v162[0] < a3 + 8 * NumElements)
-      {
-        v89 = 0;
-        goto LABEL_180;
-      }
-
-      if (NumElements >= 0x10)
-      {
-        v89 = NumElements & 0x7FFFFFFFFFFFFFF0;
-        v112 = vld1_dup_s8(v162[0]);
-        v113 = vmovl_s8(v112);
-        v114 = vmovl_high_s16(v113);
-        v115.i64[0] = v114.i32[2];
-        v115.i64[1] = v114.i32[3];
-        v22 = v115;
-        v115.i64[0] = v114.i32[0];
-        v115.i64[1] = v114.i32[1];
-        v116 = v115;
-        v117 = vmovl_s16(*v113.i8);
-        v115.i64[0] = v117.i32[2];
-        v115.i64[1] = v117.i32[3];
-        v118 = v115;
-        v115.i64[0] = v117.i32[0];
-        v115.i64[1] = v117.i32[1];
-        v119 = v115;
-        v120 = NumElements & 0x7FFFFFFFFFFFFFF0;
-        v121 = a3;
-        do
-        {
-          *v121 = v119;
-          v121[1] = v118;
-          v121[2] = v116;
-          v121[3] = v22;
-          v121[4] = v119;
-          v121[5] = v118;
-          v121[6] = v116;
-          v121[7] = v22;
-          v121 += 8;
-          v120 -= 16;
-        }
-
-        while (v120);
-        if (NumElements == v89)
-        {
-          goto LABEL_205;
-        }
-
-        if ((NumElements & 0xC) == 0)
-        {
-LABEL_180:
-          v90 = NumElements - v89;
-          v91 = &a3->i64[v89];
-          do
-          {
-            *v91++ = *v88;
-            --v90;
-          }
-
-          while (v90);
-          goto LABEL_205;
-        }
-      }
-
-      else
-      {
-        v89 = 0;
-      }
-
-      v122 = v89;
-      v123 = vdup_n_s32(*v88);
-      v89 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
-      v124.i64[0] = v123.u32[0];
-      v124.i64[1] = v123.u32[1];
-      v22 = vshrq_n_s64(vshlq_n_s64(v124, 0x38uLL), 0x38uLL);
-      v125 = (a3 + 8 * v122);
-      v126 = v122 - (NumElements & 0x7FFFFFFFFFFFFFFCLL);
-      do
-      {
-        *v125 = v22;
-        v125[1] = v22;
-        v125 += 2;
-        v126 += 4;
-      }
-
-      while (v126);
-      if (NumElements != v89)
-      {
-        goto LABEL_180;
-      }
-
-LABEL_205:
-      if (v88 != v163)
-      {
-        free(v88);
-      }
-
-      return *v22.i32;
-    }
-
-    if (NumElements < 4 || v162[0] + NumElements > a3 && v162[0] < a3 + 8 * NumElements)
-    {
-      v107 = 0;
-      goto LABEL_203;
-    }
-
-    if (NumElements >= 0x10)
-    {
-      v107 = NumElements & 0x7FFFFFFFFFFFFFF0;
-      v127 = NumElements & 0x7FFFFFFFFFFFFFF0;
-      v128 = a3;
-      v129 = v162[0];
-      do
-      {
-        v130 = *v129++;
-        v131 = vmovl_s8(*v130.i8);
-        v132 = vmovl_s16(*v131.i8);
-        v133.i64[0] = v132.i32[0];
-        v133.i64[1] = v132.i32[1];
-        v134 = v133;
-        v135 = vmovl_high_s16(v131);
-        v133.i64[0] = v135.i32[0];
-        v133.i64[1] = v135.i32[1];
-        v136 = v133;
-        v137 = vmovl_high_s8(v130);
-        v138 = vmovl_high_s16(v137);
-        v133.i64[0] = v138.i32[0];
-        v133.i64[1] = v138.i32[1];
-        v139 = v133;
-        v133.i64[0] = v138.i32[2];
-        v133.i64[1] = v138.i32[3];
-        v128[6] = v139;
-        v128[7] = v133;
-        v22 = vmovl_s16(*v137.i8);
-        v133.i64[0] = v22.i32[0];
-        v133.i64[1] = v22.i32[1];
-        v140 = v133;
-        v133.i64[0] = v135.i32[2];
-        v133.i64[1] = v135.i32[3];
-        v141 = v133;
-        v133.i64[0] = v22.i32[2];
-        v133.i64[1] = v22.i32[3];
-        v128[4] = v140;
-        v128[5] = v133;
-        v128[2] = v136;
-        v128[3] = v141;
-        v133.i64[0] = v132.i32[2];
-        v133.i64[1] = v132.i32[3];
-        v22.i64[0] = v132.i32[2];
-        *v128 = v134;
-        v128[1] = v133;
-        v128 += 8;
-        v127 -= 16;
-      }
-
-      while (v127);
-      if (NumElements == v107)
-      {
-        goto LABEL_205;
-      }
-
-      if ((NumElements & 0xC) == 0)
-      {
-LABEL_203:
-        v108 = &v88[v107];
-        v109 = NumElements - v107;
-        v110 = &a3->i64[v107];
-        do
-        {
-          v111 = *v108++;
-          *v110++ = v111;
-          --v109;
-        }
-
-        while (v109);
-        goto LABEL_205;
-      }
-    }
-
-    else
-    {
-      v107 = 0;
-    }
-
-    v142 = v107;
-    v107 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
-    v143 = &v88[v142];
-    v144 = (a3 + 8 * v142);
-    v145 = v142 - (NumElements & 0x7FFFFFFFFFFFFFFCLL);
-    do
-    {
-      v146 = *v143;
-      v143 += 4;
-      v22.i32[0] = v146;
-      v147 = vmovl_u16(*&vmovl_u8(*v22.i8));
-      v148.i64[0] = v147.u32[0];
-      v148.i64[1] = v147.u32[1];
-      v149 = vshrq_n_s64(vshlq_n_s64(v148, 0x38uLL), 0x38uLL);
-      v148.i64[0] = v147.u32[2];
-      v148.i64[1] = v147.u32[3];
-      v22 = vshrq_n_s64(vshlq_n_s64(v148, 0x38uLL), 0x38uLL);
-      *v144 = v149;
-      v144[1] = v22;
-      v144 += 2;
-      v145 += 4;
-    }
-
-    while (v145);
-    if (NumElements == v107)
-    {
-      goto LABEL_205;
-    }
-
-    goto LABEL_203;
-  }
-
-  if (NumElements < 1)
-  {
-    return *v22.i32;
-  }
-
-LABEL_171:
-  if (NumElements >= 2)
-  {
-    v93 = 0;
-    v87 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-    v94 = &a3->u64[1];
-    do
-    {
-      if (isSplat)
-      {
-        v95 = 0;
-      }
-
-      else
-      {
-        v95 = v93;
-      }
-
-      if (isSplat)
-      {
-        v96 = 0;
-      }
-
-      else
-      {
-        v96 = v93 + 1;
-      }
-
-      v22.i32[0] = *&RawData[2 * v95] << 16;
-      v97 = COERCE_FLOAT(*&RawData[2 * v96] << 16);
-      *(v94 - 1) = *v22.i32;
-      *v94 = v97;
-      v94 += 2;
-      v93 += 2;
-    }
-
-    while (v93 != v87);
-    goto LABEL_267;
-  }
-
-  v87 = 0;
-  do
-  {
-    if (isSplat)
-    {
-      v156 = 0;
-    }
-
-    else
-    {
-      v156 = v87;
-    }
-
-    v22.i32[0] = *&RawData[2 * v156] << 16;
-    a3->i64[v87++] = *v22.i32;
-LABEL_267:
-    ;
-  }
-
-  while (NumElements != v87);
-  return *v22.i32;
-}
-
-float mlir::copyElementsAttrData<long long>(uint64_t a1, uint64_t a2, int32x4_t *a3)
+float mlir::copyElementsAttrData<unsigned long long>(void *a1, uint64_t a2, int32x4_t *a3)
 {
   v163[5] = *MEMORY[0x277D85DE8];
   v160 = a1;
@@ -3867,7 +2753,1123 @@ LABEL_128:
     {
       v81 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
       v98 = (RawData + 16);
-      v99 = &a3[1];
+      v99 = a3 + 1;
+      v100 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
+      do
+      {
+        v22 = vcvtq_u64_f64(v98[-1]);
+        v101 = vcvtq_u64_f64(*v98);
+        v99[-1] = v22;
+        *v99 = v101;
+        v98 += 2;
+        v99 += 2;
+        v100 -= 4;
+      }
+
+      while (v100);
+      if (NumElements == v81)
+      {
+        return *v22.i32;
+      }
+    }
+
+    else
+    {
+      v81 = 0;
+    }
+
+    v102 = v81;
+    v103 = &RawData[8 * v81];
+    v104 = NumElements - v81;
+    v105 = &a3->i64[v102];
+    do
+    {
+      v106 = *v103++;
+      v22.i32[0] = LODWORD(v106);
+      *v105++ = v106;
+      --v104;
+    }
+
+    while (v104);
+    return *v22.i32;
+  }
+
+  if (!mlir::Type::isBF16(&ElementType))
+  {
+LABEL_173:
+    if (!mlir::Type::isInteger(&ElementType, 1))
+    {
+      mlir::Type::getIntOrFloatBitWidth(&ElementType);
+      IntOrFloatBitWidth = mlir::Type::getIntOrFloatBitWidth(&ElementType);
+      mlir::detail::unpackQuantizedData<unsigned long long>(RawData, v4, a3, NumElements, IntOrFloatBitWidth);
+      return *v22.i32;
+    }
+
+    llvm::SmallVector<char,40u>::SmallVector(v162, NumElements);
+    mlir::detail::unpackBooleanData(RawData, v4, v162[0], v162[1]);
+    v88 = v162[0];
+    if (NumElements < 1)
+    {
+      goto LABEL_205;
+    }
+
+    if (isSplat)
+    {
+      if (NumElements < 4 || v162[0] + 1 > a3 && v162[0] < a3 + 8 * NumElements)
+      {
+        v89 = 0;
+        goto LABEL_180;
+      }
+
+      if (NumElements >= 0x10)
+      {
+        v89 = NumElements & 0x7FFFFFFFFFFFFFF0;
+        v112 = vld1_dup_s8(v162[0]);
+        v113 = vmovl_s8(v112);
+        v114 = vmovl_high_s16(v113);
+        v115.i64[0] = v114.i32[2];
+        v115.i64[1] = v114.i32[3];
+        v22 = v115;
+        v115.i64[0] = v114.i32[0];
+        v115.i64[1] = v114.i32[1];
+        v116 = v115;
+        v117 = vmovl_s16(*v113.i8);
+        v115.i64[0] = v117.i32[2];
+        v115.i64[1] = v117.i32[3];
+        v118 = v115;
+        v115.i64[0] = v117.i32[0];
+        v115.i64[1] = v117.i32[1];
+        v119 = v115;
+        v120 = NumElements & 0x7FFFFFFFFFFFFFF0;
+        v121 = a3;
+        do
+        {
+          *v121 = v119;
+          v121[1] = v118;
+          v121[2] = v116;
+          v121[3] = v22;
+          v121[4] = v119;
+          v121[5] = v118;
+          v121[6] = v116;
+          v121[7] = v22;
+          v121 += 8;
+          v120 -= 16;
+        }
+
+        while (v120);
+        if (NumElements == v89)
+        {
+          goto LABEL_205;
+        }
+
+        if ((NumElements & 0xC) == 0)
+        {
+LABEL_180:
+          v90 = NumElements - v89;
+          v91 = &a3->i64[v89];
+          do
+          {
+            *v91++ = *v88;
+            --v90;
+          }
+
+          while (v90);
+          goto LABEL_205;
+        }
+      }
+
+      else
+      {
+        v89 = 0;
+      }
+
+      v122 = v89;
+      v123 = vdup_n_s32(*v88);
+      v89 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
+      v124.i64[0] = v123.u32[0];
+      v124.i64[1] = v123.u32[1];
+      v22 = vshrq_n_s64(vshlq_n_s64(v124, 0x38uLL), 0x38uLL);
+      v125 = (a3 + 8 * v122);
+      v126 = v122 - (NumElements & 0x7FFFFFFFFFFFFFFCLL);
+      do
+      {
+        *v125 = v22;
+        v125[1] = v22;
+        v125 += 2;
+        v126 += 4;
+      }
+
+      while (v126);
+      if (NumElements != v89)
+      {
+        goto LABEL_180;
+      }
+
+LABEL_205:
+      if (v88 != v163)
+      {
+        free(v88);
+      }
+
+      return *v22.i32;
+    }
+
+    if (NumElements < 4 || v162[0] + NumElements > a3 && v162[0] < a3 + 8 * NumElements)
+    {
+      v107 = 0;
+      goto LABEL_203;
+    }
+
+    if (NumElements >= 0x10)
+    {
+      v107 = NumElements & 0x7FFFFFFFFFFFFFF0;
+      v127 = NumElements & 0x7FFFFFFFFFFFFFF0;
+      v128 = a3;
+      v129 = v162[0];
+      do
+      {
+        v130 = *v129++;
+        v131 = vmovl_s8(*v130.i8);
+        v132 = vmovl_s16(*v131.i8);
+        v133.i64[0] = v132.i32[0];
+        v133.i64[1] = v132.i32[1];
+        v134 = v133;
+        v135 = vmovl_high_s16(v131);
+        v133.i64[0] = v135.i32[0];
+        v133.i64[1] = v135.i32[1];
+        v136 = v133;
+        v137 = vmovl_high_s8(v130);
+        v138 = vmovl_high_s16(v137);
+        v133.i64[0] = v138.i32[0];
+        v133.i64[1] = v138.i32[1];
+        v139 = v133;
+        v133.i64[0] = v138.i32[2];
+        v133.i64[1] = v138.i32[3];
+        v128[6] = v139;
+        v128[7] = v133;
+        v22 = vmovl_s16(*v137.i8);
+        v133.i64[0] = v22.i32[0];
+        v133.i64[1] = v22.i32[1];
+        v140 = v133;
+        v133.i64[0] = v135.i32[2];
+        v133.i64[1] = v135.i32[3];
+        v141 = v133;
+        v133.i64[0] = v22.i32[2];
+        v133.i64[1] = v22.i32[3];
+        v128[4] = v140;
+        v128[5] = v133;
+        v128[2] = v136;
+        v128[3] = v141;
+        v133.i64[0] = v132.i32[2];
+        v133.i64[1] = v132.i32[3];
+        v22.i64[0] = v132.i32[2];
+        *v128 = v134;
+        v128[1] = v133;
+        v128 += 8;
+        v127 -= 16;
+      }
+
+      while (v127);
+      if (NumElements == v107)
+      {
+        goto LABEL_205;
+      }
+
+      if ((NumElements & 0xC) == 0)
+      {
+LABEL_203:
+        v108 = &v88[v107];
+        v109 = NumElements - v107;
+        v110 = &a3->i64[v107];
+        do
+        {
+          v111 = *v108++;
+          *v110++ = v111;
+          --v109;
+        }
+
+        while (v109);
+        goto LABEL_205;
+      }
+    }
+
+    else
+    {
+      v107 = 0;
+    }
+
+    v142 = v107;
+    v107 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
+    v143 = &v88[v142];
+    v144 = (a3 + 8 * v142);
+    v145 = v142 - (NumElements & 0x7FFFFFFFFFFFFFFCLL);
+    do
+    {
+      v146 = *v143;
+      v143 += 4;
+      v22.i32[0] = v146;
+      v147 = vmovl_u16(*&vmovl_u8(*v22.i8));
+      v148.i64[0] = v147.u32[0];
+      v148.i64[1] = v147.u32[1];
+      v149 = vshrq_n_s64(vshlq_n_s64(v148, 0x38uLL), 0x38uLL);
+      v148.i64[0] = v147.u32[2];
+      v148.i64[1] = v147.u32[3];
+      v22 = vshrq_n_s64(vshlq_n_s64(v148, 0x38uLL), 0x38uLL);
+      *v144 = v149;
+      v144[1] = v22;
+      v144 += 2;
+      v145 += 4;
+    }
+
+    while (v145);
+    if (NumElements == v107)
+    {
+      goto LABEL_205;
+    }
+
+    goto LABEL_203;
+  }
+
+  if (NumElements < 1)
+  {
+    return *v22.i32;
+  }
+
+LABEL_171:
+  if (NumElements >= 2)
+  {
+    v93 = 0;
+    v87 = NumElements & 0x7FFFFFFFFFFFFFFELL;
+    v94 = &a3->i64[1];
+    do
+    {
+      if (isSplat)
+      {
+        v95 = 0;
+      }
+
+      else
+      {
+        v95 = v93;
+      }
+
+      if (isSplat)
+      {
+        v96 = 0;
+      }
+
+      else
+      {
+        v96 = v93 + 1;
+      }
+
+      v22.i32[0] = *&RawData[2 * v95] << 16;
+      v97 = COERCE_FLOAT(*&RawData[2 * v96] << 16);
+      *(v94 - 1) = *v22.i32;
+      *v94 = v97;
+      v94 += 2;
+      v93 += 2;
+    }
+
+    while (v93 != v87);
+    goto LABEL_267;
+  }
+
+  v87 = 0;
+  do
+  {
+    if (isSplat)
+    {
+      v156 = 0;
+    }
+
+    else
+    {
+      v156 = v87;
+    }
+
+    v22.i32[0] = *&RawData[2 * v156] << 16;
+    a3->i64[v87++] = *v22.i32;
+LABEL_267:
+    ;
+  }
+
+  while (NumElements != v87);
+  return *v22.i32;
+}
+
+float mlir::copyElementsAttrData<long long>(void *a1, uint64_t a2, int32x4_t *a3)
+{
+  v163[5] = *MEMORY[0x277D85DE8];
+  v160 = a1;
+  v161 = a2;
+  Type = mlir::ElementsAttr::getType(&v160);
+  if (!Type)
+  {
+    goto LABEL_14;
+  }
+
+  v7 = *Type;
+  {
+    RawData = Type;
+    mlir::mps::serialization::ExtractOp::inferReturnTypes();
+    Type = RawData;
+    v8 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
+    v9 = *(v7 + 8);
+    v10 = *(v7 + 16);
+    if (v10)
+    {
+      goto LABEL_4;
+    }
+
+LABEL_14:
+    v17 = 0;
+    goto LABEL_15;
+  }
+
+  v8 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
+  v9 = *(v7 + 8);
+  v10 = *(v7 + 16);
+  if (!v10)
+  {
+    goto LABEL_14;
+  }
+
+LABEL_4:
+  v11 = v9;
+  v12 = v10;
+  do
+  {
+    v13 = v12 >> 1;
+    v14 = &v11[2 * (v12 >> 1)];
+    v16 = *v14;
+    v15 = v14 + 2;
+    v12 += ~(v12 >> 1);
+    if (v16 < v8)
+    {
+      v11 = v15;
+    }
+
+    else
+    {
+      v12 = v13;
+    }
+  }
+
+  while (v12);
+  if (v11 == &v9[2 * v10] || *v11 != v8)
+  {
+    goto LABEL_14;
+  }
+
+  v17 = v11[1];
+LABEL_15:
+  v159[0] = Type;
+  v159[1] = v17;
+  ElementType = mlir::ShapedType::getElementType(v159);
+  isSplat = mlir::ElementsAttr::isSplat(&v160);
+  v19 = v160;
+  if (mlir::DenseElementsAttr::classof(v160))
+  {
+    v20 = v19;
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  v162[0] = v20;
+  if (!v20)
+  {
+    if (*(*v19 + 136) == &mlir::detail::TypeIDResolver<mlir::mps::MPSBufferTensorAttr,void>::id)
+    {
+      v24 = v19;
+    }
+
+    else
+    {
+      v24 = 0;
+    }
+
+    v162[0] = v24;
+    if (v24)
+    {
+      RawData = mlir::mps::MPSBufferTensorAttr::getRawData(v162);
+      v4 = v25;
+      if ((isSplat & 1) == 0)
+      {
+        goto LABEL_27;
+      }
+    }
+
+    else if ((isSplat & 1) == 0)
+    {
+      goto LABEL_27;
+    }
+
+LABEL_20:
+    if (mlir::Type::isUnsignedInteger(&ElementType, 8))
+    {
+      NumElements = 1;
+LABEL_29:
+      for (i = 0; i != NumElements; ++i)
+      {
+        if (isSplat)
+        {
+          v27 = 0;
+        }
+
+        else
+        {
+          v27 = i;
+        }
+
+        a3->i64[i] = RawData[v27];
+      }
+
+      return *v22.i32;
+    }
+
+    if (mlir::Type::isInteger(&ElementType, 8))
+    {
+      NumElements = 1;
+LABEL_39:
+      for (j = 0; j != NumElements; ++j)
+      {
+        if (isSplat)
+        {
+          v29 = 0;
+        }
+
+        else
+        {
+          v29 = j;
+        }
+
+        a3->i64[j] = RawData[v29];
+      }
+
+      return *v22.i32;
+    }
+
+    if (mlir::Type::isUnsignedInteger(&ElementType, 16))
+    {
+      NumElements = 1;
+LABEL_52:
+      if (NumElements >= 2)
+      {
+        v32 = 0;
+        v30 = NumElements & 0x7FFFFFFFFFFFFFFELL;
+        v33 = &a3->i64[1];
+        do
+        {
+          if (isSplat)
+          {
+            v34 = 0;
+          }
+
+          else
+          {
+            v34 = v32;
+          }
+
+          if (isSplat)
+          {
+            v35 = 0;
+          }
+
+          else
+          {
+            v35 = v32 + 1;
+          }
+
+          v36 = *&RawData[2 * v35];
+          *(v33 - 1) = *&RawData[2 * v34];
+          *v33 = v36;
+          v33 += 2;
+          v32 += 2;
+        }
+
+        while (v32 != v30);
+        goto LABEL_231;
+      }
+
+      v30 = 0;
+      do
+      {
+        if (isSplat)
+        {
+          v150 = 0;
+        }
+
+        else
+        {
+          v150 = v30;
+        }
+
+        a3->i64[v30++] = *&RawData[2 * v150];
+LABEL_231:
+        ;
+      }
+
+      while (NumElements != v30);
+      return *v22.i32;
+    }
+
+    if (mlir::Type::isInteger(&ElementType, 16))
+    {
+      NumElements = 1;
+LABEL_58:
+      if (NumElements >= 2)
+      {
+        v38 = 0;
+        v31 = NumElements & 0x7FFFFFFFFFFFFFFELL;
+        v39 = &a3->i64[1];
+        do
+        {
+          if (isSplat)
+          {
+            v40 = 0;
+          }
+
+          else
+          {
+            v40 = v38;
+          }
+
+          if (isSplat)
+          {
+            v41 = 0;
+          }
+
+          else
+          {
+            v41 = v38 + 1;
+          }
+
+          v42 = *&RawData[2 * v41];
+          *(v39 - 1) = *&RawData[2 * v40];
+          *v39 = v42;
+          v39 += 2;
+          v38 += 2;
+        }
+
+        while (v38 != v31);
+        goto LABEL_237;
+      }
+
+      v31 = 0;
+      do
+      {
+        if (isSplat)
+        {
+          v151 = 0;
+        }
+
+        else
+        {
+          v151 = v31;
+        }
+
+        a3->i64[v31++] = *&RawData[2 * v151];
+LABEL_237:
+        ;
+      }
+
+      while (NumElements != v31);
+      return *v22.i32;
+    }
+
+    if (mlir::Type::isUnsignedInteger(&ElementType, 32))
+    {
+      NumElements = 1;
+LABEL_73:
+      if (NumElements >= 2)
+      {
+        v44 = 0;
+        v37 = NumElements & 0x7FFFFFFFFFFFFFFELL;
+        v45 = &a3->i64[1];
+        do
+        {
+          if (isSplat)
+          {
+            v46 = 0;
+          }
+
+          else
+          {
+            v46 = v44;
+          }
+
+          if (isSplat)
+          {
+            v47 = 0;
+          }
+
+          else
+          {
+            v47 = v44 + 1;
+          }
+
+          v48 = *&RawData[4 * v47];
+          *(v45 - 1) = *&RawData[4 * v46];
+          *v45 = v48;
+          v45 += 2;
+          v44 += 2;
+        }
+
+        while (v44 != v37);
+        goto LABEL_243;
+      }
+
+      v37 = 0;
+      do
+      {
+        if (isSplat)
+        {
+          v152 = 0;
+        }
+
+        else
+        {
+          v152 = v37;
+        }
+
+        a3->i64[v37++] = *&RawData[4 * v152];
+LABEL_243:
+        ;
+      }
+
+      while (NumElements != v37);
+      return *v22.i32;
+    }
+
+    if (mlir::Type::isInteger(&ElementType, 32))
+    {
+      NumElements = 1;
+LABEL_88:
+      if (NumElements >= 2)
+      {
+        v59 = 0;
+        v43 = NumElements & 0x7FFFFFFFFFFFFFFELL;
+        v60 = &a3->i64[1];
+        do
+        {
+          if (isSplat)
+          {
+            v61 = 0;
+          }
+
+          else
+          {
+            v61 = v59;
+          }
+
+          if (isSplat)
+          {
+            v62 = 0;
+          }
+
+          else
+          {
+            v62 = v59 + 1;
+          }
+
+          v63 = *&RawData[4 * v62];
+          *(v60 - 1) = *&RawData[4 * v61];
+          *v60 = v63;
+          v60 += 2;
+          v59 += 2;
+        }
+
+        while (v59 != v43);
+        goto LABEL_249;
+      }
+
+      v43 = 0;
+      do
+      {
+        if (isSplat)
+        {
+          v153 = 0;
+        }
+
+        else
+        {
+          v153 = v43;
+        }
+
+        a3->i64[v43++] = *&RawData[4 * v153];
+LABEL_249:
+        ;
+      }
+
+      while (NumElements != v43);
+      return *v22.i32;
+    }
+
+    if (mlir::Type::isUnsignedInteger(&ElementType, 64) || mlir::Type::isInteger(&ElementType, 64))
+    {
+      a3->i64[0] = *RawData;
+      return *v22.i32;
+    }
+
+    if (mlir::Type::isF16(&ElementType))
+    {
+      NumElements = 1;
+LABEL_135:
+      if (NumElements >= 2)
+      {
+        v76 = 0;
+        v74 = NumElements & 0x7FFFFFFFFFFFFFFELL;
+        v77 = &a3->i64[1];
+        do
+        {
+          if (isSplat)
+          {
+            v78 = 0;
+          }
+
+          else
+          {
+            v78 = v76;
+          }
+
+          if (isSplat)
+          {
+            v79 = 0;
+          }
+
+          else
+          {
+            v79 = v76 + 1;
+          }
+
+          v22.i16[0] = *&RawData[2 * v78];
+          v80 = *&RawData[2 * v79];
+          *(v77 - 1) = *v22.i16;
+          *v77 = v80;
+          v77 += 2;
+          v76 += 2;
+        }
+
+        while (v76 != v74);
+        goto LABEL_255;
+      }
+
+      v74 = 0;
+      do
+      {
+        if (isSplat)
+        {
+          v154 = 0;
+        }
+
+        else
+        {
+          v154 = v74;
+        }
+
+        v22.i16[0] = *&RawData[2 * v154];
+        a3->i64[v74++] = *v22.i16;
+LABEL_255:
+        ;
+      }
+
+      while (NumElements != v74);
+      return *v22.i32;
+    }
+
+    if (mlir::Type::isF32(&ElementType))
+    {
+      NumElements = 1;
+LABEL_141:
+      if (NumElements >= 2)
+      {
+        v82 = 0;
+        v75 = NumElements & 0x7FFFFFFFFFFFFFFELL;
+        v83 = &a3->i64[1];
+        do
+        {
+          if (isSplat)
+          {
+            v84 = 0;
+          }
+
+          else
+          {
+            v84 = v82;
+          }
+
+          if (isSplat)
+          {
+            v85 = 0;
+          }
+
+          else
+          {
+            v85 = v82 + 1;
+          }
+
+          v22.i32[0] = *&RawData[4 * v84];
+          v86 = *&RawData[4 * v85];
+          *(v83 - 1) = *v22.i32;
+          *v83 = v86;
+          v83 += 2;
+          v82 += 2;
+        }
+
+        while (v82 != v75);
+        goto LABEL_261;
+      }
+
+      v75 = 0;
+      do
+      {
+        if (isSplat)
+        {
+          v155 = 0;
+        }
+
+        else
+        {
+          v155 = v75;
+        }
+
+        v22.i32[0] = *&RawData[4 * v155];
+        a3->i64[v75++] = *v22.i32;
+LABEL_261:
+        ;
+      }
+
+      while (NumElements != v75);
+      return *v22.i32;
+    }
+
+    if (mlir::Type::isF64(&ElementType))
+    {
+      v22.i64[0] = *RawData;
+      a3->i64[0] = *RawData;
+      return *v22.i32;
+    }
+
+    NumElements = 1;
+    if (!mlir::Type::isBF16(&ElementType))
+    {
+      goto LABEL_173;
+    }
+
+    goto LABEL_171;
+  }
+
+  RawData = mlir::DenseElementsAttr::getRawData(v162);
+  v4 = v21;
+  if (isSplat)
+  {
+    goto LABEL_20;
+  }
+
+LABEL_27:
+  NumElements = mlir::ElementsAttr::getNumElements(v160, v161);
+  if (mlir::Type::isUnsignedInteger(&ElementType, 8))
+  {
+    if (NumElements < 1)
+    {
+      return *v22.i32;
+    }
+
+    goto LABEL_29;
+  }
+
+  if (mlir::Type::isInteger(&ElementType, 8))
+  {
+    if (NumElements < 1)
+    {
+      return *v22.i32;
+    }
+
+    goto LABEL_39;
+  }
+
+  if (mlir::Type::isUnsignedInteger(&ElementType, 16))
+  {
+    if (NumElements < 1)
+    {
+      return *v22.i32;
+    }
+
+    goto LABEL_52;
+  }
+
+  if (mlir::Type::isInteger(&ElementType, 16))
+  {
+    if (NumElements < 1)
+    {
+      return *v22.i32;
+    }
+
+    goto LABEL_58;
+  }
+
+  if (mlir::Type::isUnsignedInteger(&ElementType, 32))
+  {
+    if (NumElements < 1)
+    {
+      return *v22.i32;
+    }
+
+    goto LABEL_73;
+  }
+
+  if (mlir::Type::isInteger(&ElementType, 32))
+  {
+    if (NumElements < 1)
+    {
+      return *v22.i32;
+    }
+
+    goto LABEL_88;
+  }
+
+  if (mlir::Type::isUnsignedInteger(&ElementType, 64))
+  {
+    if (NumElements >= 1)
+    {
+      v49 = 0;
+      if (NumElements < 4)
+      {
+        goto LABEL_109;
+      }
+
+      if ((a3 - RawData) <= 0x1F)
+      {
+        goto LABEL_109;
+      }
+
+      v49 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
+      v50 = (RawData + 16);
+      v51 = a3 + 1;
+      v52 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
+      do
+      {
+        v22 = v50[-1];
+        v53 = *v50;
+        v51[-1] = v22;
+        *v51 = v53;
+        v50 += 2;
+        v51 += 2;
+        v52 -= 4;
+      }
+
+      while (v52);
+      if (NumElements != v49)
+      {
+LABEL_109:
+        v54 = v49;
+        v55 = &RawData[8 * v49];
+        v56 = NumElements - v49;
+        v57 = &a3->i64[v54];
+        do
+        {
+          v58 = *v55;
+          v55 += 8;
+          *v57++ = v58;
+          --v56;
+        }
+
+        while (v56);
+      }
+    }
+
+    return *v22.i32;
+  }
+
+  if (mlir::Type::isInteger(&ElementType, 64))
+  {
+    if (NumElements >= 1)
+    {
+      v64 = 0;
+      if (NumElements < 4)
+      {
+        goto LABEL_128;
+      }
+
+      if ((a3 - RawData) <= 0x1F)
+      {
+        goto LABEL_128;
+      }
+
+      v64 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
+      v65 = (RawData + 16);
+      v66 = a3 + 1;
+      v67 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
+      do
+      {
+        v22 = v65[-1];
+        v68 = *v65;
+        v66[-1] = v22;
+        *v66 = v68;
+        v65 += 2;
+        v66 += 2;
+        v67 -= 4;
+      }
+
+      while (v67);
+      if (NumElements != v64)
+      {
+LABEL_128:
+        v69 = v64;
+        v70 = &RawData[8 * v64];
+        v71 = NumElements - v64;
+        v72 = &a3->i64[v69];
+        do
+        {
+          v73 = *v70;
+          v70 += 8;
+          *v72++ = v73;
+          --v71;
+        }
+
+        while (v71);
+      }
+    }
+
+    return *v22.i32;
+  }
+
+  if (mlir::Type::isF16(&ElementType))
+  {
+    if (NumElements < 1)
+    {
+      return *v22.i32;
+    }
+
+    goto LABEL_135;
+  }
+
+  if (mlir::Type::isF32(&ElementType))
+  {
+    if (NumElements < 1)
+    {
+      return *v22.i32;
+    }
+
+    goto LABEL_141;
+  }
+
+  if (mlir::Type::isF64(&ElementType))
+  {
+    if (NumElements < 1)
+    {
+      return *v22.i32;
+    }
+
+    if (NumElements > 3)
+    {
+      v81 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
+      v98 = (RawData + 16);
+      v99 = a3 + 1;
       v100 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
       do
       {
@@ -4212,7 +4214,7 @@ LABEL_267:
   return *v22.i32;
 }
 
-__int16 mlir::copyElementsAttrData<half>@<H0>(uint64_t a1@<X0>, uint64_t a2@<X1>, short float *a3@<X2>)
+__int16 mlir::copyElementsAttrData<half>@<H0>(void *a1@<X0>, uint64_t a2@<X1>, short float *a3@<X2>)
 {
   v154[5] = *MEMORY[0x277D85DE8];
   v151 = a1;
@@ -5432,7 +5434,7 @@ LABEL_289:
   return _Q0.i16[0];
 }
 
-void mlir::copyElementsAttrData<__emulated_bf16>(uint64_t a1, uint64_t a2, _WORD *a3)
+void mlir::copyElementsAttrData<__emulated_bf16>(unsigned __int8 *a1, uint64_t a2, _WORD *a3)
 {
   v95[5] = *MEMORY[0x277D85DE8];
   v92 = a1;
@@ -6184,7 +6186,7 @@ LABEL_89:
   }
 }
 
-float32_t mlir::copyElementsAttrData<float>(uint64_t a1, uint64_t a2, float *a3)
+float32_t mlir::copyElementsAttrData<float>(void *a1, uint64_t a2, float32x4_t *a3)
 {
   v152[5] = *MEMORY[0x277D85DE8];
   v149 = a1;
@@ -6384,16 +6386,16 @@ LABEL_27:
 
         v67 = NumElements & 0x7FFFFFFFFFFFFFF8;
         v68 = (RawData + 16);
-        v69 = (a3 + 4);
+        f32 = a3[1].f32;
         v70 = NumElements & 0x7FFFFFFFFFFFFFF8;
         do
         {
           _Q0 = v68[-1];
           v71 = *v68;
-          v69[-1] = _Q0;
-          *v69 = v71;
+          *(f32 - 1) = _Q0;
+          *f32 = v71;
           v68 += 2;
-          v69 += 2;
+          f32 += 8;
           v70 -= 8;
         }
 
@@ -6404,7 +6406,7 @@ LABEL_153:
           v72 = v67;
           v73 = &RawData[4 * v67];
           v74 = NumElements - v67;
-          v75 = &a3[v72];
+          v75 = &a3->f32[v72];
           do
           {
             v76 = *v73;
@@ -6438,7 +6440,7 @@ LABEL_187:
       {
         mlir::Type::getIntOrFloatBitWidth(&ElementType);
         IntOrFloatBitWidth = mlir::Type::getIntOrFloatBitWidth(&ElementType);
-        mlir::detail::unpackQuantizedData<float>(RawData, v4, a3, NumElements, IntOrFloatBitWidth);
+        mlir::detail::unpackQuantizedData<float>(RawData, v4, a3->f32, NumElements, IntOrFloatBitWidth);
         return _Q0.f32[0];
       }
 
@@ -6452,7 +6454,7 @@ LABEL_187:
 
       if (isSplat)
       {
-        if (NumElements < 4 || v151[0] + 1 > a3 && v151[0] < &a3[NumElements])
+        if (NumElements < 4 || v151[0] + 1 > a3 && v151[0] < &a3->f32[NumElements])
         {
           v97 = 0;
           goto LABEL_194;
@@ -6468,10 +6470,10 @@ LABEL_187:
           do
           {
             *v124 = _Q0;
-            v124[1] = _Q0;
-            v124[2] = _Q0;
-            v124[3] = _Q0;
-            v124 += 4;
+            *(v124 + 1) = _Q0;
+            *(v124 + 2) = _Q0;
+            *(v124 + 3) = _Q0;
+            v124 += 16;
             v123 -= 16;
           }
 
@@ -6485,7 +6487,7 @@ LABEL_187:
           {
 LABEL_194:
             v98 = NumElements - v97;
-            v99 = &a3[v97];
+            v99 = &a3->f32[v97];
             do
             {
               _Q0.i8[0] = *v96;
@@ -6508,11 +6510,12 @@ LABEL_194:
         v125 = v97;
         v97 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
         _Q0 = vcvtq_f32_s32(vmovl_s16(vshr_n_s16(vshl_n_s16(vdup_n_s16(*v96), 8uLL), 8uLL)));
-        v126 = &a3[v125];
+        v126 = &a3->f32[v125];
         v127 = v125 - (NumElements & 0x7FFFFFFFFFFFFFFCLL);
         do
         {
-          *v126++ = _Q0;
+          *v126 = _Q0;
+          v126 += 4;
           v127 += 4;
         }
 
@@ -6531,7 +6534,7 @@ LABEL_206:
         return _Q0.f32[0];
       }
 
-      if (NumElements < 4 || v151[0] + NumElements > a3 && v151[0] < &a3[NumElements])
+      if (NumElements < 4 || v151[0] + NumElements > a3 && v151[0] < &a3->f32[NumElements])
       {
         v101 = 0;
         goto LABEL_204;
@@ -6567,7 +6570,7 @@ LABEL_206:
 LABEL_204:
           v102 = &v96[v101];
           v103 = NumElements - v101;
-          v104 = &a3[v101];
+          v104 = &a3->f32[v101];
           do
           {
             v105 = *v102++;
@@ -6589,7 +6592,7 @@ LABEL_204:
       v132 = v101;
       v101 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
       v133 = &v96[v132];
-      v134 = &a3[v132];
+      v134 = &a3->f32[v132];
       v135 = v132 - (NumElements & 0x7FFFFFFFFFFFFFFCLL);
       _Q0.i32[0] = 0xFFFFFF;
       do
@@ -6597,7 +6600,8 @@ LABEL_204:
         v136 = *v133++;
         v95.i32[0] = v136;
         v95 = vcvtq_n_f32_s32(vqtbl1q_s8(v95, xmmword_257374300), 0x18uLL);
-        *v134++ = v95;
+        *v134 = v95;
+        v134 += 4;
         v135 += 4;
       }
 
@@ -6625,7 +6629,7 @@ LABEL_204:
     {
       v89 = NumElements & 0x7FFFFFFFFFFFFFF0;
       v106 = (RawData + 16);
-      v107 = (a3 + 8);
+      v107 = a3[2].f32;
       v108 = NumElements & 0x7FFFFFFFFFFFFFF0;
       do
       {
@@ -6637,11 +6641,11 @@ LABEL_204:
         v112 = vshll_n_s16(*v106, 0x10uLL);
         __asm { SHLL2           V1.4S, V1.8H, #0x10 }
 
-        v107[-2] = v111;
-        v107[-1] = _Q0;
+        *(v107 - 2) = v111;
+        *(v107 - 1) = _Q0;
         *v107 = v112;
-        v107[1] = _Q1;
-        v107 += 4;
+        *(v107 + 1) = _Q1;
+        v107 += 16;
         v106 += 4;
         v108 -= 16;
       }
@@ -6657,7 +6661,7 @@ LABEL_204:
 LABEL_215:
         v118 = &RawData[2 * v89];
         v119 = NumElements - v89;
-        v120 = &a3[v89];
+        v120 = &a3->f32[v89];
         do
         {
           v121 = *v118;
@@ -6679,13 +6683,14 @@ LABEL_215:
     v113 = v89;
     v89 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
     v114 = &RawData[2 * v113];
-    v115 = &a3[v113];
+    v115 = &a3->f32[v113];
     v116 = v113 - (NumElements & 0x7FFFFFFFFFFFFFFCLL);
     do
     {
       v117 = *v114++;
       _Q0 = vshll_n_s16(v117, 0x10uLL);
-      *v115++ = _Q0;
+      *v115 = _Q0;
+      v115 += 4;
       v116 += 4;
     }
 
@@ -6743,7 +6748,7 @@ LABEL_29:
 
       _Q0.i8[0] = RawData[v27];
       _Q0.f32[0] = _Q0.u32[0];
-      a3[i] = _Q0.f32[0];
+      a3->i32[i] = _Q0.i32[0];
     }
 
     return _Q0.f32[0];
@@ -6768,7 +6773,7 @@ LABEL_39:
       _Q0.i8[0] = RawData[v29];
       _Q0.i64[0] = vmovl_s16(*&vmovl_s8(*_Q0.f32)).u64[0];
       _Q0.f32[0] = _Q0.i32[0];
-      a3[j] = _Q0.f32[0];
+      a3->i32[j] = _Q0.i32[0];
     }
 
     return _Q0.f32[0];
@@ -6782,7 +6787,7 @@ LABEL_52:
     {
       v34 = 0;
       v31 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-      v35 = a3 + 1;
+      v35 = &a3->f32[1];
       do
       {
         if (isSplat)
@@ -6834,7 +6839,7 @@ LABEL_52:
 
       _Q0.i16[0] = *&RawData[2 * v137];
       _Q0.f32[0] = _Q0.u32[0];
-      a3[v31++] = _Q0.f32[0];
+      a3->i32[v31++] = _Q0.i32[0];
 LABEL_242:
       ;
     }
@@ -6851,7 +6856,7 @@ LABEL_58:
     {
       v39 = 0;
       v33 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-      v40 = a3 + 1;
+      v40 = &a3->f32[1];
       do
       {
         if (isSplat)
@@ -6880,8 +6885,8 @@ LABEL_58:
         v32.i16[0] = *&RawData[2 * v42];
         v32 = vmovl_s16(v32).u64[0];
         *v32.i32 = v32.i32[0];
-        *(v40 - 1) = _Q0.i32[0];
-        *v40 = v32.i32[0];
+        *(v40 - 1) = _Q0.f32[0];
+        *v40 = *v32.i32;
         v40 += 2;
         v39 += 2;
       }
@@ -6906,7 +6911,7 @@ LABEL_58:
       _Q0.i16[0] = *&RawData[2 * v138];
       _Q0.i64[0] = vmovl_s16(*_Q0.f32).u64[0];
       _Q0.f32[0] = _Q0.i32[0];
-      a3[v33++] = _Q0.f32[0];
+      a3->i32[v33++] = _Q0.i32[0];
 LABEL_248:
       ;
     }
@@ -6923,7 +6928,7 @@ LABEL_73:
     {
       v44 = 0;
       v38 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-      v45 = a3 + 1;
+      v45 = &a3->f32[1];
       do
       {
         if (isSplat)
@@ -6972,7 +6977,7 @@ LABEL_73:
       }
 
       _Q0.f32[0] = *&RawData[4 * v139];
-      a3[v38++] = _Q0.f32[0];
+      a3->i32[v38++] = _Q0.i32[0];
 LABEL_254:
       ;
     }
@@ -6989,7 +6994,7 @@ LABEL_88:
     {
       v50 = 0;
       v43 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-      v51 = a3 + 1;
+      v51 = &a3->f32[1];
       do
       {
         if (isSplat)
@@ -7038,7 +7043,7 @@ LABEL_88:
       }
 
       _Q0.f32[0] = *&RawData[4 * v140];
-      a3[v43++] = _Q0.f32[0];
+      a3->i32[v43++] = _Q0.i32[0];
 LABEL_260:
       ;
     }
@@ -7055,7 +7060,7 @@ LABEL_103:
     {
       v56 = 0;
       v49 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-      v57 = a3 + 1;
+      v57 = &a3->f32[1];
       do
       {
         if (isSplat)
@@ -7104,7 +7109,7 @@ LABEL_103:
       }
 
       _Q0.f32[0] = *&RawData[8 * v141];
-      a3[v49++] = _Q0.f32[0];
+      a3->f32[v49++] = _Q0.f32[0];
 LABEL_266:
       ;
     }
@@ -7121,7 +7126,7 @@ LABEL_118:
     {
       v62 = 0;
       v55 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-      v63 = a3 + 1;
+      v63 = &a3->f32[1];
       do
       {
         if (isSplat)
@@ -7170,7 +7175,7 @@ LABEL_118:
       }
 
       _Q0.f32[0] = *&RawData[8 * v142];
-      a3[v55++] = _Q0.f32[0];
+      a3->f32[v55++] = _Q0.f32[0];
 LABEL_272:
       ;
     }
@@ -7187,7 +7192,7 @@ LABEL_133:
     {
       v77 = 0;
       v61 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-      v78 = a3 + 1;
+      v78 = &a3->f32[1];
       do
       {
         if (isSplat)
@@ -7218,7 +7223,7 @@ LABEL_133:
           FCVT            S1, H1
         }
 
-        *(v78 - 1) = _Q0.i32[0];
+        *(v78 - 1) = _Q0.f32[0];
         *v78 = _S1;
         v78 += 2;
         v77 += 2;
@@ -7244,7 +7249,7 @@ LABEL_133:
       _H0 = *&RawData[2 * v143];
       __asm { FCVT            S0, H0 }
 
-      a3[v61++] = _Q0.f32[0];
+      a3->i32[v61++] = _Q0.i32[0];
 LABEL_278:
       ;
     }
@@ -7256,7 +7261,7 @@ LABEL_278:
   if (mlir::Type::isF32(&ElementType))
   {
     _Q0.i32[0] = *RawData;
-    *a3 = *RawData;
+    a3->i32[0] = *RawData;
     return _Q0.f32[0];
   }
 
@@ -7264,7 +7269,7 @@ LABEL_278:
   {
     if (mlir::Type::isBF16(&ElementType))
     {
-      *a3 = *RawData << 16;
+      a3->i32[0] = *RawData << 16;
       return _Q0.f32[0];
     }
 
@@ -7278,7 +7283,7 @@ LABEL_169:
   {
     v90 = 0;
     v88 = NumElements & 0x7FFFFFFFFFFFFFFELL;
-    v91 = a3 + 1;
+    v91 = &a3->f32[1];
     do
     {
       if (isSplat)
@@ -7327,7 +7332,7 @@ LABEL_169:
     }
 
     _Q0.f32[0] = *&RawData[8 * v145];
-    a3[v88++] = _Q0.f32[0];
+    a3->i32[v88++] = _Q0.i32[0];
 LABEL_284:
     ;
   }
@@ -7336,7 +7341,7 @@ LABEL_284:
   return _Q0.f32[0];
 }
 
-float64_t mlir::copyElementsAttrData<double>(uint64_t a1, uint64_t a2, double *a3)
+float64_t mlir::copyElementsAttrData<double>(void *a1, uint64_t a2, double *a3)
 {
   v181[5] = *MEMORY[0x277D85DE8];
   v178 = a1;
@@ -8279,14 +8284,14 @@ LABEL_186:
         do
         {
           *v124 = v122;
-          v124[1] = v119;
-          v124[2] = v117;
-          v124[3] = _Q0;
-          v124[4] = v122;
-          v124[5] = v119;
-          v124[6] = v117;
-          v124[7] = _Q0;
-          v124 += 8;
+          *(v124 + 1) = v119;
+          *(v124 + 2) = v117;
+          *(v124 + 3) = _Q0;
+          *(v124 + 4) = v122;
+          *(v124 + 5) = v119;
+          *(v124 + 6) = v117;
+          *(v124 + 7) = _Q0;
+          v124 += 16;
           v123 -= 16;
         }
 
@@ -8409,17 +8414,17 @@ LABEL_212:
         v155 = vshr_n_s32(vshl_n_s32(v153, 0x18uLL), 0x18uLL);
         v137.i64[0] = v155.i32[0];
         v137.i64[1] = v155.i32[1];
-        v131[2] = v154;
-        v131[3] = vcvtq_f64_s64(v137);
+        *(v131 + 2) = v154;
+        *(v131 + 3) = vcvtq_f64_s64(v137);
         v137.i64[0] = v150.i32[0];
         v137.i64[1] = v150.i32[1];
         *v131 = v148;
-        v131[1] = vcvtq_f64_s64(v137);
-        v131[6] = v144;
-        v131[7] = v146;
-        v131[4] = _Q0;
-        v131[5] = vcvtq_f64_s64(v140);
-        v131 += 8;
+        *(v131 + 1) = vcvtq_f64_s64(v137);
+        *(v131 + 6) = v144;
+        *(v131 + 7) = v146;
+        *(v131 + 4) = _Q0;
+        *(v131 + 5) = vcvtq_f64_s64(v140);
+        v131 += 16;
         v130 -= 16;
       }
 
@@ -8523,7 +8528,8 @@ LABEL_184:
       LOWORD(_Q0.f64[0]) = *&RawData[2 * v103];
       WORD2(_Q0.f64[0]) = *&RawData[2 * v104];
       _Q0 = vcvtq_f64_f32(vshl_n_s32(*&_Q0.f64[0], 0x10uLL));
-      *v102++ = _Q0;
+      *v102 = _Q0;
+      v102 += 2;
       v101 += 2;
     }
 
@@ -8554,7 +8560,7 @@ LABEL_286:
   return _Q0.f64[0];
 }
 
-void mlir::copyElementsAttrData<char>(uint64_t a1, uint64_t a2, unsigned __int8 *a3)
+void mlir::copyElementsAttrData<char>(void *a1, uint64_t a2, int8x16_t *a3)
 {
   v117[5] = *MEMORY[0x277D85DE8];
   v114 = a1;
@@ -8714,7 +8720,7 @@ LABEL_27:
         return;
       }
 
-      if (NumElements < 8 || &RawData[8 * NumElements] > a3 && &a3[NumElements] > RawData)
+      if (NumElements < 8 || &RawData[8 * NumElements] > a3 && &a3->i8[NumElements] > RawData)
       {
         v37 = 0;
         goto LABEL_97;
@@ -8724,7 +8730,7 @@ LABEL_27:
       {
         v37 = NumElements & 0x7FFFFFFFFFFFFFE0;
         v56 = (RawData + 128);
-        v57 = a3 + 16;
+        v57 = &a3[1];
         v58 = NumElements & 0x7FFFFFFFFFFFFFE0;
         do
         {
@@ -8735,7 +8741,7 @@ LABEL_27:
           *(v57 - 1) = v59;
           *v57 = v60;
           v56 += 4;
-          v57 += 2;
+          v57 += 32;
           v58 -= 32;
         }
 
@@ -8750,7 +8756,7 @@ LABEL_27:
 LABEL_97:
           v38 = &RawData[8 * v37];
           v39 = NumElements - v37;
-          v40 = &a3[v37];
+          v40 = &a3->u8[v37];
           do
           {
             v41 = *v38;
@@ -8772,7 +8778,7 @@ LABEL_97:
       v61 = v37;
       v37 = NumElements & 0x7FFFFFFFFFFFFFF8;
       v62 = &RawData[8 * v61];
-      v63 = &a3[v61];
+      v63 = &a3->u8[v61];
       v64 = v61 - (NumElements & 0x7FFFFFFFFFFFFFF8);
       do
       {
@@ -8798,7 +8804,7 @@ LABEL_97:
         return;
       }
 
-      if (NumElements < 8 || &RawData[8 * NumElements] > a3 && &a3[NumElements] > RawData)
+      if (NumElements < 8 || &RawData[8 * NumElements] > a3 && &a3->i8[NumElements] > RawData)
       {
         v42 = 0;
         goto LABEL_106;
@@ -8808,7 +8814,7 @@ LABEL_97:
       {
         v42 = NumElements & 0x7FFFFFFFFFFFFFE0;
         v70 = (RawData + 128);
-        v71 = a3 + 16;
+        v71 = &a3[1];
         v72 = NumElements & 0x7FFFFFFFFFFFFFE0;
         do
         {
@@ -8819,7 +8825,7 @@ LABEL_97:
           *(v71 - 1) = v73;
           *v71 = v74;
           v70 += 4;
-          v71 += 2;
+          v71 += 32;
           v72 -= 32;
         }
 
@@ -8834,7 +8840,7 @@ LABEL_97:
 LABEL_106:
           v43 = &RawData[8 * v42];
           v44 = NumElements - v42;
-          v45 = &a3[v42];
+          v45 = &a3->u8[v42];
           do
           {
             v46 = *v43;
@@ -8856,7 +8862,7 @@ LABEL_106:
       v75 = v42;
       v42 = NumElements & 0x7FFFFFFFFFFFFFF8;
       v76 = &RawData[8 * v75];
-      v77 = &a3[v75];
+      v77 = &a3->u8[v75];
       v78 = v75 - (NumElements & 0x7FFFFFFFFFFFFFF8);
       do
       {
@@ -8920,7 +8926,7 @@ LABEL_156:
           v66 = i;
         }
 
-        a3[i] = COERCE_FLOAT(*&RawData[2 * v66] << 16);
+        a3->i8[i] = COERCE_FLOAT(*&RawData[2 * v66] << 16);
       }
 
       return;
@@ -8931,7 +8937,7 @@ LABEL_156:
       return;
     }
 
-    if (NumElements < 4 || &RawData[8 * NumElements] > a3 && &a3[NumElements] > RawData)
+    if (NumElements < 4 || &RawData[8 * NumElements] > a3 && &a3->i8[NumElements] > RawData)
     {
       v51 = 0;
       goto LABEL_139;
@@ -8961,7 +8967,7 @@ LABEL_156:
 LABEL_139:
         v52 = &RawData[8 * v51];
         v53 = NumElements - v51;
-        v54 = &a3[v51];
+        v54 = &a3->u8[v51];
         do
         {
           v55 = *v52++;
@@ -8982,7 +8988,7 @@ LABEL_139:
     v84 = v51;
     v51 = NumElements & 0x7FFFFFFFFFFFFFFCLL;
     v85 = &RawData[8 * v84];
-    v86 = &a3[v84];
+    v86 = &a3->u8[v84];
     v87 = v84 - (NumElements & 0x7FFFFFFFFFFFFFFCLL);
     do
     {
@@ -9047,7 +9053,7 @@ LABEL_29:
         v26 = j;
       }
 
-      a3[j] = RawData[v26];
+      a3->i8[j] = RawData[v26];
     }
 
     return;
@@ -9069,7 +9075,7 @@ LABEL_39:
         v28 = k;
       }
 
-      a3[k] = RawData[v28];
+      a3->i8[k] = RawData[v28];
     }
 
     return;
@@ -9091,7 +9097,7 @@ LABEL_52:
         v30 = m;
       }
 
-      a3[m] = *&RawData[2 * v30];
+      a3->i8[m] = *&RawData[2 * v30];
     }
 
     return;
@@ -9113,7 +9119,7 @@ LABEL_62:
         v32 = n;
       }
 
-      a3[n] = *&RawData[2 * v32];
+      a3->i8[n] = *&RawData[2 * v32];
     }
 
     return;
@@ -9135,7 +9141,7 @@ LABEL_72:
         v34 = ii;
       }
 
-      a3[ii] = *&RawData[4 * v34];
+      a3->i8[ii] = *&RawData[4 * v34];
     }
 
     return;
@@ -9157,7 +9163,7 @@ LABEL_82:
         v36 = jj;
       }
 
-      a3[jj] = *&RawData[4 * v36];
+      a3->i8[jj] = *&RawData[4 * v36];
     }
 
     return;
@@ -9165,7 +9171,7 @@ LABEL_82:
 
   if (mlir::Type::isUnsignedInteger(&ElementType, 64) || mlir::Type::isInteger(&ElementType, 64))
   {
-    *a3 = *RawData;
+    a3->i8[0] = *RawData;
     return;
   }
 
@@ -9185,7 +9191,7 @@ LABEL_113:
         v48 = kk;
       }
 
-      a3[kk] = *&RawData[2 * v48];
+      a3->i8[kk] = *&RawData[2 * v48];
     }
 
     return;
@@ -9207,7 +9213,7 @@ LABEL_123:
         v50 = mm;
       }
 
-      a3[mm] = *&RawData[4 * v50];
+      a3->i8[mm] = *&RawData[4 * v50];
     }
 
     return;
@@ -9215,7 +9221,7 @@ LABEL_123:
 
   if (mlir::Type::isF64(&ElementType))
   {
-    *a3 = *RawData;
+    a3->i8[0] = *RawData;
     return;
   }
 
@@ -9254,7 +9260,7 @@ LABEL_162:
     {
       v80 = NumElements & 0x7FFFFFFFFFFFFFE0;
       v99 = (v116[0] + 16);
-      v100 = a3 + 16;
+      v100 = &a3[1];
       v101 = NumElements & 0x7FFFFFFFFFFFFFE0;
       do
       {
@@ -9262,7 +9268,7 @@ LABEL_162:
         *(v100 - 1) = *(v99 - 1);
         *v100 = v102;
         v99 += 2;
-        v100 += 2;
+        v100 += 32;
         v101 -= 32;
       }
 
@@ -9277,7 +9283,7 @@ LABEL_162:
 LABEL_209:
         v108 = &v67[v80];
         v109 = NumElements - v80;
-        v110 = &a3[v80];
+        v110 = &a3->u8[v80];
         do
         {
           v111 = *v108++;
@@ -9298,7 +9304,7 @@ LABEL_209:
     v103 = v80;
     v80 = NumElements & 0x7FFFFFFFFFFFFFF8;
     v104 = &v67[v103];
-    v105 = &a3[v103];
+    v105 = &a3->u8[v103];
     v106 = v103 - (NumElements & 0x7FFFFFFFFFFFFFF8);
     do
     {
@@ -9329,13 +9335,13 @@ LABEL_209:
   {
     v69 = NumElements & 0x7FFFFFFFFFFFFFE0;
     v90 = vdupq_n_s8(v68);
-    v91 = (a3 + 16);
+    v91 = &a3[1];
     v92 = NumElements & 0x7FFFFFFFFFFFFFE0;
     do
     {
-      v91[-1] = v90;
+      *(v91 - 1) = v90;
       *v91 = v90;
-      v91 += 2;
+      v91 += 32;
       v92 -= 32;
     }
 
@@ -9349,7 +9355,7 @@ LABEL_209:
     {
 LABEL_199:
       v97 = NumElements - v69;
-      v98 = &a3[v69];
+      v98 = &a3->u8[v69];
       do
       {
         *v98++ = v68;
@@ -9369,11 +9375,12 @@ LABEL_199:
   v93 = v69;
   v69 = NumElements & 0x7FFFFFFFFFFFFFF8;
   v94 = vdup_n_s8(v68);
-  v95 = &a3[v93];
+  v95 = &a3->u8[v93];
   v96 = v93 - (NumElements & 0x7FFFFFFFFFFFFFF8);
   do
   {
-    *v95++ = v94;
+    *v95 = v94;
+    v95 += 8;
     v96 += 8;
   }
 
@@ -9462,7 +9469,7 @@ _BYTE *mlir::detail::packBooleanData(_BYTE *result, unint64_t a2, char *a3, uint
   return result;
 }
 
-void mlir::copyElementsAttrData<complex_support::complex_fp<float,(void *)0>>(uint64_t a1, uint64_t a2, unint64_t a3)
+void mlir::copyElementsAttrData<complex_support::complex_fp<float,(void *)0>>(unsigned __int8 *a1, uint64_t a2, unint64_t a3)
 {
   v105[5] = *MEMORY[0x277D85DE8];
   v102 = a1;

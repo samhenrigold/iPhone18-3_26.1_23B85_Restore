@@ -101,75 +101,75 @@
   v35 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   dCopy = d;
-  LKRegisterLoginKitLogging();
+  LKRegisterLoginKitLogging(dCopy, v8);
   v31.receiver = self;
   v31.super_class = LKClassGroup;
-  v8 = [(LKClassGroup *)&v31 init];
-  if (v8)
+  v9 = [(LKClassGroup *)&v31 init];
+  if (v9)
   {
-    v9 = [dictionaryCopy objectForKey:@"Name"];
-    classGroupName = v8->_classGroupName;
-    v25 = v8;
-    v8->_classGroupName = v9;
+    v10 = [dictionaryCopy objectForKey:@"Name"];
+    classGroupName = v9->_classGroupName;
+    v25 = v9;
+    v9->_classGroupName = v10;
 
-    v11 = objc_opt_new();
+    v12 = objc_opt_new();
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v26 = dictionaryCopy;
-    v12 = [dictionaryCopy objectForKeyedSubscript:@"GroupBeaconIDs"];
-    v13 = [v12 countByEnumeratingWithState:&v27 objects:v34 count:16];
-    if (!v13)
+    v13 = [dictionaryCopy objectForKeyedSubscript:@"GroupBeaconIDs"];
+    v14 = [v13 countByEnumeratingWithState:&v27 objects:v34 count:16];
+    if (!v14)
     {
       goto LABEL_14;
     }
 
-    v14 = v13;
-    v15 = *v28;
+    v15 = v14;
+    v16 = *v28;
     while (1)
     {
-      for (i = 0; i != v14; ++i)
+      for (i = 0; i != v15; ++i)
       {
-        if (*v28 != v15)
+        if (*v28 != v16)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v13);
         }
 
-        v17 = *(*(&v27 + 1) + 8 * i);
-        v18 = [dCopy objectForKey:{v17, v25}];
-        if (v18)
+        v18 = *(*(&v27 + 1) + 8 * i);
+        v19 = [dCopy objectForKey:{v18, v25}];
+        if (v19)
         {
-          v19 = [dCopy objectForKey:v17];
-          [(NSArray *)v11 addObject:v19];
+          v20 = [dCopy objectForKey:v18];
+          [(NSArray *)v12 addObject:v20];
         }
 
         else
         {
-          v20 = LKLogParsing;
+          v21 = LKLogParsing;
           if (!os_log_type_enabled(LKLogParsing, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_12;
           }
 
-          v19 = v20;
-          stringValue = [v17 stringValue];
+          v20 = v21;
+          stringValue = [v18 stringValue];
           *buf = 138412290;
           v33 = stringValue;
-          _os_log_impl(&dword_25618F000, v19, OS_LOG_TYPE_DEFAULT, "Ignoring the classID %@ because there is no class with that id.", buf, 0xCu);
+          _os_log_impl(&dword_25618F000, v20, OS_LOG_TYPE_DEFAULT, "Ignoring the classID %@ because there is no class with that id.", buf, 0xCu);
         }
 
 LABEL_12:
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v27 objects:v34 count:16];
-      if (!v14)
+      v15 = [v13 countByEnumeratingWithState:&v27 objects:v34 count:16];
+      if (!v15)
       {
 LABEL_14:
 
-        v8 = v25;
+        v9 = v25;
         classes = v25->_classes;
-        v25->_classes = v11;
+        v25->_classes = v12;
 
         dictionaryCopy = v26;
         break;
@@ -177,8 +177,7 @@ LABEL_14:
     }
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v9;
 }
 
 @end

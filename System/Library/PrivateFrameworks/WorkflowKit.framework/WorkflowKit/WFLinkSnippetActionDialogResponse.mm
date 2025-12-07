@@ -1,5 +1,6 @@
 @interface WFLinkSnippetActionDialogResponse
 - (WFLinkSnippetActionDialogResponse)initWithBSXPCCoder:(id)coder;
+- (WFLinkSnippetActionDialogResponse)initWithCancelled:(BOOL)cancelled;
 - (WFLinkSnippetActionDialogResponse)initWithCoder:(id)coder;
 - (WFLinkSnippetActionDialogResponse)initWithRequestedOpenURL:(id)l;
 - (WFLinkSnippetActionDialogResponse)initWithResult:(id)result;
@@ -63,6 +64,13 @@
   }
 
   return v5;
+}
+
+- (WFLinkSnippetActionDialogResponse)initWithCancelled:(BOOL)cancelled
+{
+  v4.receiver = self;
+  v4.super_class = WFLinkSnippetActionDialogResponse;
+  return [(WFLinkSnippetDialogResponse *)&v4 initWithCancelled:cancelled];
 }
 
 - (WFLinkSnippetActionDialogResponse)initWithRequestedOpenURL:(id)l

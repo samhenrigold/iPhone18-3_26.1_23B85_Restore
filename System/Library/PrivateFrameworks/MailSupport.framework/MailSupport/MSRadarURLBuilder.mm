@@ -90,57 +90,54 @@
 
 + (id)_componentInfoDictionaryFromComponent:(int64_t)component
 {
-  v11[3] = *MEMORY[0x277D85DE8];
+  v10[3] = *MEMORY[0x277D85DE8];
   switch(component)
   {
     case 27:
-      v10[0] = @"sRadarComponentIDKey";
-      v10[1] = @"sRadarComponentNameKey";
-      v11[0] = @"352566";
-      v11[1] = @"Mail Search Backend";
-      v10[2] = @"sRadarComponentVersionKey";
-      v11[2] = @"iOS";
-      _blackPearlComponentInfo = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
+      v9[0] = @"sRadarComponentIDKey";
+      v9[1] = @"sRadarComponentNameKey";
+      v10[0] = @"352566";
+      v10[1] = @"Mail Search Backend";
+      v9[2] = @"sRadarComponentVersionKey";
+      v10[2] = @"iOS";
+      _blackPearlComponentInfo = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
       break;
     case 28:
-      v8[0] = @"sRadarComponentIDKey";
-      v8[1] = @"sRadarComponentNameKey";
-      v9[0] = @"462765";
-      v9[1] = @"Mail MIME";
-      v8[2] = @"sRadarComponentVersionKey";
-      v9[2] = @"iOS";
-      _blackPearlComponentInfo = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
+      v7[0] = @"sRadarComponentIDKey";
+      v7[1] = @"sRadarComponentNameKey";
+      v8[0] = @"462765";
+      v8[1] = @"Mail MIME";
+      v7[2] = @"sRadarComponentVersionKey";
+      v8[2] = @"iOS";
+      _blackPearlComponentInfo = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
       break;
     case 29:
       _blackPearlComponentInfo = [self _blackPearlComponentInfo];
       break;
     default:
-      v6[0] = @"sRadarComponentNameKey";
-      v6[1] = @"sRadarComponentIDKey";
-      v7[0] = @"Mail (New Bugs)";
-      v7[1] = @"224209";
-      v6[2] = @"sRadarComponentVersionKey";
-      v7[2] = @"iOS";
-      _blackPearlComponentInfo = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
+      v5[0] = @"sRadarComponentNameKey";
+      v5[1] = @"sRadarComponentIDKey";
+      v6[0] = @"Mail (New Bugs)";
+      v6[1] = @"224209";
+      v5[2] = @"sRadarComponentVersionKey";
+      v6[2] = @"iOS";
+      _blackPearlComponentInfo = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:3];
       break;
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return _blackPearlComponentInfo;
 }
 
 + (id)_blackPearlComponentInfo
 {
-  v6[3] = *MEMORY[0x277D85DE8];
-  v5[0] = @"sRadarComponentNameKey";
-  v5[1] = @"sRadarComponentIDKey";
-  v6[0] = @"Black Pearl";
-  v6[1] = @"1596667";
-  v5[2] = @"sRadarComponentVersionKey";
-  v6[2] = @"Feedback";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:3];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
+  v4[0] = @"sRadarComponentNameKey";
+  v4[1] = @"sRadarComponentIDKey";
+  v5[0] = @"Black Pearl";
+  v5[1] = @"1596667";
+  v4[2] = @"sRadarComponentVersionKey";
+  v5[2] = @"Feedback";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:3];
 
   return v2;
 }
@@ -177,7 +174,7 @@
 
 + (id)radarURLWithBuilder:(id)builder
 {
-  v47[7] = *MEMORY[0x277D85DE8];
+  v46[7] = *MEMORY[0x277D85DE8];
   builderCopy = builder;
   if (!builderCopy)
   {
@@ -207,33 +204,33 @@
     [v5 setRadarDescription:radarDescription];
   }
 
-  v45 = [self stringFromRadarClassification:{objc_msgSend(v5, "classification")}];
-  v43 = [self stringFromRadarReproducibility:{objc_msgSend(v5, "reproducibility")}];
-  v35 = [self _componentInfoDictionaryFromComponent:{objc_msgSend(v5, "component")}];
-  v41 = [v35 objectForKeyedSubscript:@"sRadarComponentNameKey"];
-  v44 = [v35 objectForKeyedSubscript:@"sRadarComponentIDKey"];
+  v44 = [self stringFromRadarClassification:{objc_msgSend(v5, "classification")}];
+  v42 = [self stringFromRadarReproducibility:{objc_msgSend(v5, "reproducibility")}];
+  v34 = [self _componentInfoDictionaryFromComponent:{objc_msgSend(v5, "component")}];
+  v40 = [v34 objectForKeyedSubscript:@"sRadarComponentNameKey"];
+  v43 = [v34 objectForKeyedSubscript:@"sRadarComponentIDKey"];
   selfCopy = self;
-  v42 = [v35 objectForKeyedSubscript:@"sRadarComponentVersionKey"];
+  v41 = [v34 objectForKeyedSubscript:@"sRadarComponentVersionKey"];
   v9 = MEMORY[0x277CBEB18];
   v10 = MEMORY[0x277CCAD18];
   title = [v5 title];
-  v39 = [v10 queryItemWithName:@"Title" value:?];
-  v47[0] = v39;
+  v38 = [v10 queryItemWithName:@"Title" value:?];
+  v46[0] = v38;
   v11 = MEMORY[0x277CCAD18];
   radarDescription2 = [v5 radarDescription];
-  v37 = [v11 queryItemWithName:@"Description" value:?];
-  v47[1] = v37;
-  v12 = [MEMORY[0x277CCAD18] queryItemWithName:@"ComponentID" value:v44];
-  v47[2] = v12;
-  v13 = [MEMORY[0x277CCAD18] queryItemWithName:@"Classification" value:v45];
-  v47[3] = v13;
-  v14 = [MEMORY[0x277CCAD18] queryItemWithName:@"Reproducibility" value:v43];
-  v47[4] = v14;
-  v15 = [MEMORY[0x277CCAD18] queryItemWithName:@"ComponentName" value:v41];
-  v47[5] = v15;
-  v16 = [MEMORY[0x277CCAD18] queryItemWithName:@"ComponentVersion" value:v42];
-  v47[6] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:7];
+  v36 = [v11 queryItemWithName:@"Description" value:?];
+  v46[1] = v36;
+  v12 = [MEMORY[0x277CCAD18] queryItemWithName:@"ComponentID" value:v43];
+  v46[2] = v12;
+  v13 = [MEMORY[0x277CCAD18] queryItemWithName:@"Classification" value:v44];
+  v46[3] = v13;
+  v14 = [MEMORY[0x277CCAD18] queryItemWithName:@"Reproducibility" value:v42];
+  v46[4] = v14;
+  v15 = [MEMORY[0x277CCAD18] queryItemWithName:@"ComponentName" value:v40];
+  v46[5] = v15;
+  v16 = [MEMORY[0x277CCAD18] queryItemWithName:@"ComponentVersion" value:v41];
+  v46[6] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:7];
   v18 = [v9 arrayWithArray:v17];
 
   attachmentPath = [v5 attachmentPath];
@@ -277,8 +274,6 @@
   [v18 addObject:v30];
 
   v31 = [selfCopy _URLFromQueryItems:v18 builder:v5];
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v31;
 }

@@ -532,9 +532,9 @@ LABEL_25:
   }
 
   semanticKey = [semanticCopy semanticKey];
-  v7 = [@"seats" isEqualToString:semanticKey];
+  isEqualToString = objc_msgSend_isEqualToString_(@"seats");
 
-  if (!v7)
+  if (!isEqualToString)
   {
     goto LABEL_18;
   }

@@ -93,17 +93,17 @@ void __51__WBSPasswordPatternMatcher__keyboardsByIdentifier__block_invoke()
 
   if (!_keyboardsByIdentifier_keyboardsByIdentifier)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v6 = WBS_LOG_CHANNEL_PREFIXPasswords(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      __51__WBSPasswordPatternMatcher__keyboardsByIdentifier__block_invoke_cold_1(v4);
+      __51__WBSPasswordPatternMatcher__keyboardsByIdentifier__block_invoke_cold_1(v6);
     }
   }
 }
 
 - (unint64_t)_directionFromHexCoordinate:(id)coordinate to:(id)to
 {
-  v23[2] = *MEMORY[0x1E69E9840];
+  v22[2] = *MEMORY[0x1E69E9840];
   toCopy = to;
   coordinateCopy = coordinate;
   v7 = [toCopy objectAtIndexedSubscript:0];
@@ -125,13 +125,12 @@ void __51__WBSPasswordPatternMatcher__keyboardsByIdentifier__block_invoke()
   v15 = integerValue - integerValue2;
   v16 = _directionFromHexCoordinate_to__directions;
   v17 = [MEMORY[0x1E696AD98] numberWithInteger:v15];
-  v23[0] = v17;
+  v22[0] = v17;
   v18 = [MEMORY[0x1E696AD98] numberWithInteger:integerValue3 - integerValue4];
-  v23[1] = v18;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
+  v22[1] = v18;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
   v20 = [v16 indexOfObject:v19];
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -276,7 +275,7 @@ void __70__WBSPasswordPatternMatcher__keyboardLayoutPatternMatchesForPassword___
 {
   length = range.length;
   location = range.location;
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   keyboardCopy = keyboard;
   v14 = [password substringWithRange:{location, length}];
@@ -284,9 +283,9 @@ void __70__WBSPasswordPatternMatcher__keyboardLayoutPatternMatchesForPassword___
 
   v16 = [v15 count];
   v17 = pow(6.0, ([v14 length] - 1)) * v16;
-  v25 = @"KeyboardLayout";
-  v26[0] = identifierCopy;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+  v24 = @"KeyboardLayout";
+  v25[0] = identifierCopy;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
   v19 = [v18 mutableCopy];
 
   if (count)
@@ -299,8 +298,6 @@ void __70__WBSPasswordPatternMatcher__keyboardLayoutPatternMatchesForPassword___
   }
 
   v22 = [[WBSPasswordPatternMatch alloc] initWithType:1 matchedSubstring:v14 range:location guessesRequired:length userInfo:v19, v17];
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v22;
 }
@@ -409,10 +406,10 @@ void __62__WBSPasswordPatternMatcher__obviousSequenceStartCharacterSet__block_in
 
 - (id)_wordListMatchesForPassword:(id)password withWordListCollection:(id)collection
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   passwordCopy = password;
   collectionCopy = collection;
-  v33 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v32 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   _commonlySubstitutedCharacterSet = [(WBSPasswordPatternMatcher *)self _commonlySubstitutedCharacterSet];
   v8 = [passwordCopy length];
   lowercaseString = [passwordCopy lowercaseString];
@@ -433,33 +430,33 @@ void __62__WBSPasswordPatternMatcher__obviousSequenceStartCharacterSet__block_in
     while (v11 < [passwordCopy length]);
   }
 
-  v32 = v10;
-  v34 = passwordCopy;
+  v31 = v10;
+  v33 = passwordCopy;
   selfCopy = self;
-  v37 = _commonlySubstitutedCharacterSet;
+  v36 = _commonlySubstitutedCharacterSet;
   v12 = [(WBSPasswordPatternMatcher *)self _passwordVariationsWithoutCommonCharacterSubstitutions:lowercaseString];
   v13 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   obj = v12;
-  v14 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+  v14 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v47;
+    v16 = *v46;
     do
     {
       v17 = 0;
       do
       {
-        if (*v47 != v16)
+        if (*v46 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v46 + 1) + 8 * v17);
+        v18 = *(*(&v45 + 1) + 8 * v17);
         v19 = objc_alloc_init(MEMORY[0x1E696AD50]);
         if (v8)
         {
@@ -479,98 +476,95 @@ void __62__WBSPasswordPatternMatcher__obviousSequenceStartCharacterSet__block_in
       }
 
       while (v17 != v15);
-      v15 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+      v15 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
     }
 
     while (v15);
   }
 
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __80__WBSPasswordPatternMatcher__wordListMatchesForPassword_withWordListCollection___block_invoke;
-  v39[3] = &unk_1E7CF3730;
-  v40 = obj;
-  v41 = collectionCopy;
-  v42 = v13;
-  v43 = v34;
-  v44 = v32;
-  v22 = v33;
-  v45 = v22;
-  v23 = v32;
-  v24 = v34;
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __80__WBSPasswordPatternMatcher__wordListMatchesForPassword_withWordListCollection___block_invoke;
+  v38[3] = &unk_1E7CF3730;
+  v39 = obj;
+  v40 = collectionCopy;
+  v41 = v13;
+  v42 = v33;
+  v43 = v31;
+  v22 = v32;
+  v44 = v22;
+  v23 = v31;
+  v24 = v33;
   v25 = v13;
   v26 = collectionCopy;
   v27 = obj;
-  [(WBSPasswordPatternMatcher *)selfCopy _enumerateGraphemeClusterSubrangesOfString:v24 withMinimumLength:3 usingBlock:v39];
-  v28 = v45;
+  [(WBSPasswordPatternMatcher *)selfCopy _enumerateGraphemeClusterSubrangesOfString:v24 withMinimumLength:3 usingBlock:v38];
+  v28 = v44;
   v29 = v22;
 
-  v30 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 void __80__WBSPasswordPatternMatcher__wordListMatchesForPassword_withWordListCollection___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = *(a1 + 32);
-  v6 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v6 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v26;
+    v8 = *v25;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v26 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v25 + 1) + 8 * i);
+        v10 = *(*(&v24 + 1) + 8 * i);
         v11 = [v10 substringWithRange:{a2, a3}];
-        v16[0] = MEMORY[0x1E69E9820];
-        v16[1] = 3221225472;
-        v16[2] = __80__WBSPasswordPatternMatcher__wordListMatchesForPassword_withWordListCollection___block_invoke_2;
-        v16[3] = &unk_1E7CF3708;
+        v15[0] = MEMORY[0x1E69E9820];
+        v15[1] = 3221225472;
+        v15[2] = __80__WBSPasswordPatternMatcher__wordListMatchesForPassword_withWordListCollection___block_invoke_2;
+        v15[3] = &unk_1E7CF3708;
         v12 = *(a1 + 40);
-        v17 = *(a1 + 48);
-        v18 = v10;
-        v23 = a2;
-        v24 = a3;
-        v19 = *(a1 + 56);
-        v20 = *(a1 + 64);
-        v21 = v11;
-        v22 = *(a1 + 72);
+        v16 = *(a1 + 48);
+        v17 = v10;
+        v22 = a2;
+        v23 = a3;
+        v18 = *(a1 + 56);
+        v19 = *(a1 + 64);
+        v20 = v11;
+        v21 = *(a1 + 72);
         v13 = v11;
-        [v12 enumerateEntriesForString:v13 withBlock:v16];
+        [v12 enumerateEntriesForString:v13 withBlock:v15];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v7 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __80__WBSPasswordPatternMatcher__wordListMatchesForPassword_withWordListCollection___block_invoke_2(uint64_t a1, void *a2)
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 guessesRequired];
-  v19[0] = @"WordListGuessesRequired";
+  v18[0] = @"WordListGuessesRequired";
   v5 = [MEMORY[0x1E696AD98] numberWithDouble:v4];
-  v20[0] = v5;
-  v19[1] = @"WordListIdentifier";
+  v19[0] = v5;
+  v18[1] = @"WordListIdentifier";
   v6 = [v3 wordListIdentifier];
-  v20[1] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v19[1] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
   v8 = [v7 mutableCopy];
 
   LODWORD(v5) = [v3 isSensitive];
@@ -600,8 +594,6 @@ void __80__WBSPasswordPatternMatcher__wordListMatchesForPassword_withWordListCol
 
   v17 = [[WBSPasswordPatternMatch alloc] initWithType:3 matchedSubstring:*(a1 + 64) range:*(a1 + 80) guessesRequired:*(a1 + 88) userInfo:v8, v4];
   [*(a1 + 72) addObject:v17];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_commonlySubstitutedCharactersMap
@@ -649,106 +641,104 @@ void __61__WBSPasswordPatternMatcher__commonlySubstitutedCharacterSet__block_inv
 
 void __61__WBSPasswordPatternMatcher__commonlySubstitutedCharacterSet__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v4 = a3;
   [_commonlySubstitutedCharacterSet_commonlySubstitutedCharacterSet addCharactersInString:a2];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [_commonlySubstitutedCharacterSet_commonlySubstitutedCharacterSet addCharactersInString:{*(*(&v11 + 1) + 8 * v9++), v11}];
+        [_commonlySubstitutedCharacterSet_commonlySubstitutedCharacterSet addCharactersInString:{*(*(&v10 + 1) + 8 * v9++), v10}];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_passwordVariationsWithoutCommonCharacterSubstitutions:(id)substitutions
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   substitutionsCopy = substitutions;
   _commonlySubstitutedCharactersMap = [(WBSPasswordPatternMatcher *)self _commonlySubstitutedCharactersMap];
   v5 = [substitutionsCopy length];
   v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{&stru_1F3064D08, 0}];
-  v26 = v5;
+  v25 = v5;
   if (v5)
   {
     v7 = 0;
-    v25 = substitutionsCopy;
+    v24 = substitutionsCopy;
     while (1)
     {
       v8 = v6;
       v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v28 = v7;
-      v29 = [substitutionsCopy substringWithRange:{v7, 1}];
-      v31 = [_commonlySubstitutedCharactersMap objectForKeyedSubscript:?];
+      v27 = v7;
+      v28 = [substitutionsCopy substringWithRange:{v7, 1}];
+      v30 = [_commonlySubstitutedCharactersMap objectForKeyedSubscript:?];
+      v35 = 0u;
       v36 = 0u;
       v37 = 0u;
       v38 = 0u;
-      v39 = 0u;
       v9 = v8;
-      v10 = [v9 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v35 objects:v40 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v37;
+        v12 = *v36;
         obj = v9;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v37 != v12)
+            if (*v36 != v12)
             {
               objc_enumerationMutation(obj);
             }
 
-            v14 = *(*(&v36 + 1) + 8 * i);
+            v14 = *(*(&v35 + 1) + 8 * i);
+            v31 = 0u;
             v32 = 0u;
             v33 = 0u;
             v34 = 0u;
-            v35 = 0u;
-            v15 = v31;
-            v16 = [v15 countByEnumeratingWithState:&v32 objects:v40 count:16];
+            v15 = v30;
+            v16 = [v15 countByEnumeratingWithState:&v31 objects:v39 count:16];
             if (v16)
             {
               v17 = v16;
-              v18 = *v33;
+              v18 = *v32;
               do
               {
                 for (j = 0; j != v17; ++j)
                 {
-                  if (*v33 != v18)
+                  if (*v32 != v18)
                   {
                     objc_enumerationMutation(v15);
                   }
 
-                  v20 = [v14 stringByAppendingString:*(*(&v32 + 1) + 8 * j)];
+                  v20 = [v14 stringByAppendingString:*(*(&v31 + 1) + 8 * j)];
                   [v6 addObject:v20];
                 }
 
-                v17 = [v15 countByEnumeratingWithState:&v32 objects:v40 count:16];
+                v17 = [v15 countByEnumeratingWithState:&v31 objects:v39 count:16];
               }
 
               while (v17);
@@ -756,13 +746,13 @@ void __61__WBSPasswordPatternMatcher__commonlySubstitutedCharacterSet__block_inv
 
             if (![v15 count])
             {
-              v21 = [v14 stringByAppendingString:v29];
+              v21 = [v14 stringByAppendingString:v28];
               [v6 addObject:v21];
             }
           }
 
           v9 = obj;
-          v11 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+          v11 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
         }
 
         while (v11);
@@ -773,16 +763,16 @@ void __61__WBSPasswordPatternMatcher__commonlySubstitutedCharacterSet__block_inv
         break;
       }
 
-      v7 = v28 + 1;
-      substitutionsCopy = v25;
-      if (v28 + 1 == v26)
+      v7 = v27 + 1;
+      substitutionsCopy = v24;
+      if (v27 + 1 == v25)
       {
         goto LABEL_21;
       }
     }
 
-    substitutionsCopy = v25;
-    v22 = [MEMORY[0x1E695DFD8] setWithObject:v25];
+    substitutionsCopy = v24;
+    v22 = [MEMORY[0x1E695DFD8] setWithObject:v24];
   }
 
   else
@@ -792,8 +782,6 @@ LABEL_21:
     v22 = [MEMORY[0x1E695DFD8] setWithArray:v6];
     v9 = v6;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v22;
 }
@@ -849,34 +837,34 @@ LABEL_21:
 
 - (id)_repetitionMatchesForPassword:(id)password withMatches:(id)matches
 {
-  v38[2] = *MEMORY[0x1E69E9840];
+  v37[2] = *MEMORY[0x1E69E9840];
   passwordCopy = password;
   matchesCopy = matches;
-  v35 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v34 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v6 = [passwordCopy length];
-  v30 = v6 - 1;
+  v29 = v6 - 1;
   if (v6 != 1)
   {
     v7 = v6;
     v8 = 0;
     v9 = v6;
-    v32 = v6;
+    v31 = v6;
     do
     {
-      v31 = v9;
+      v30 = v9;
       v10 = v9 >> 1;
       if (v9 >> 1 <= 1)
       {
         v10 = 1;
       }
 
-      v36 = v10;
+      v35 = v10;
       if ((v7 - v8) >= 2)
       {
         v11 = 1;
         do
         {
-          v12 = [passwordCopy substringWithRange:{v8, v11, v30}];
+          v12 = [passwordCopy substringWithRange:{v8, v11, v29}];
           v13 = v8 + v11;
           if (v8 + v11 <= (v7 - v11))
           {
@@ -909,63 +897,61 @@ LABEL_21:
               v20 = v18 * v14;
               v21 = v14 * v11;
               v22 = [passwordCopy substringWithRange:{v8, v14 * v11}];
-              v37[0] = @"BaseGuesses";
+              v36[0] = @"BaseGuesses";
               v23 = [MEMORY[0x1E696AD98] numberWithDouble:v19];
-              v37[1] = @"RepetitionCount";
-              v38[0] = v23;
+              v36[1] = @"RepetitionCount";
+              v37[0] = v23;
               v24 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v14];
-              v38[1] = v24;
-              v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:2];
+              v37[1] = v24;
+              v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:2];
 
               v26 = [[WBSPasswordPatternMatch alloc] initWithType:4 matchedSubstring:v22 range:v8 guessesRequired:v21 userInfo:v25, v20];
-              [v35 addObject:v26];
+              [v34 addObject:v26];
 
-              v7 = v32;
+              v7 = v31;
             }
           }
         }
 
-        while (v11++ != v36);
+        while (v11++ != v35);
       }
 
       ++v8;
-      v9 = v31 - 1;
+      v9 = v30 - 1;
     }
 
-    while (v8 != v30);
+    while (v8 != v29);
   }
 
-  v28 = *MEMORY[0x1E69E9840];
-
-  return v35;
+  return v34;
 }
 
 - (id)_patternWithFewestGuessesRequiredWithRange:(_NSRange)range patternMatches:(id)matches
 {
   length = range.length;
   location = range.location;
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   matchesCopy = matches;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v7 = [matchesCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v7 = [matchesCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(matchesCopy);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
+        v12 = *(*(&v20 + 1) + 8 * i);
         if (location == [v12 range] && length == v13)
         {
           if (!v9 || ([v9 guessesRequired], v16 = v15, objc_msgSend(v12, "guessesRequired"), v16 > v17))
@@ -977,7 +963,7 @@ LABEL_21:
         }
       }
 
-      v8 = [matchesCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [matchesCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v8);
@@ -987,8 +973,6 @@ LABEL_21:
   {
     v9 = 0;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -1141,12 +1125,12 @@ LABEL_12:
 
 void __80__WBSPasswordPatternMatcher__wordListMatchesForPasscode_withWordListCollection___block_invoke(uint64_t a1, void *a2)
 {
-  v13[1] = *MEMORY[0x1E69E9840];
-  v12 = @"WordListIdentifier";
+  v12[1] = *MEMORY[0x1E69E9840];
+  v11 = @"WordListIdentifier";
   v3 = a2;
   v4 = [v3 wordListIdentifier];
-  v13[0] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v12[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
 
   v6 = [WBSPasswordPatternMatch alloc];
   v7 = *(a1 + 32);
@@ -1155,8 +1139,6 @@ void __80__WBSPasswordPatternMatcher__wordListMatchesForPasscode_withWordListCol
 
   v10 = [(WBSPasswordPatternMatch *)v6 initWithType:3 matchedSubstring:v7 range:0 guessesRequired:v8 userInfo:v5, v9];
   [*(a1 + 40) addObject:v10];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

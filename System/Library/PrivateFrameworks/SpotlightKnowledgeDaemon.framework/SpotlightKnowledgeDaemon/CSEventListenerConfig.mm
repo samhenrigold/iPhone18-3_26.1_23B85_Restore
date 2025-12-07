@@ -47,7 +47,7 @@ LABEL_8:
 
 - (BOOL)supportsContentType:(id)type
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   includeContentTypes = [(CSEventListenerConfig *)self includeContentTypes];
   if ([includeContentTypes count])
@@ -71,26 +71,26 @@ LABEL_8:
       {
         if (([(NSMutableSet *)self->_negativeSet containsObject:typeCopy]& 1) == 0)
         {
-          v33 = 0u;
-          v34 = 0u;
-          v31 = 0u;
           v32 = 0u;
+          v33 = 0u;
+          v30 = 0u;
+          v31 = 0u;
           includeContentTypes2 = [(CSEventListenerConfig *)self includeContentTypes];
-          v10 = [includeContentTypes2 countByEnumeratingWithState:&v31 objects:v36 count:16];
+          v10 = [includeContentTypes2 countByEnumeratingWithState:&v30 objects:v35 count:16];
           if (v10)
           {
             v11 = v10;
-            v12 = *v32;
+            v12 = *v31;
             while (2)
             {
               for (i = 0; i != v11; ++i)
               {
-                if (*v32 != v12)
+                if (*v31 != v12)
                 {
                   objc_enumerationMutation(includeContentTypes2);
                 }
 
-                if (UTTypeConformsTo(typeCopy, *(*(&v31 + 1) + 8 * i)))
+                if (UTTypeConformsTo(typeCopy, *(*(&v30 + 1) + 8 * i)))
                 {
                   positiveSet = self->_positiveSet;
                   if (!positiveSet)
@@ -109,7 +109,7 @@ LABEL_8:
                 }
               }
 
-              v11 = [includeContentTypes2 countByEnumeratingWithState:&v31 objects:v36 count:16];
+              v11 = [includeContentTypes2 countByEnumeratingWithState:&v30 objects:v35 count:16];
               if (v11)
               {
                 continue;
@@ -119,33 +119,33 @@ LABEL_8:
             }
           }
 
-          v29 = 0u;
-          v30 = 0u;
-          v27 = 0u;
           v28 = 0u;
+          v29 = 0u;
+          v26 = 0u;
+          v27 = 0u;
           excludeContentTypes2 = [(CSEventListenerConfig *)self excludeContentTypes];
-          v15 = [excludeContentTypes2 countByEnumeratingWithState:&v27 objects:v35 count:16];
+          v15 = [excludeContentTypes2 countByEnumeratingWithState:&v26 objects:v34 count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v28;
+            v17 = *v27;
             while (2)
             {
               for (j = 0; j != v16; ++j)
               {
-                if (*v28 != v17)
+                if (*v27 != v17)
                 {
                   objc_enumerationMutation(excludeContentTypes2);
                 }
 
-                if (UTTypeConformsTo(typeCopy, *(*(&v27 + 1) + 8 * j)))
+                if (UTTypeConformsTo(typeCopy, *(*(&v26 + 1) + 8 * j)))
                 {
                   negativeSet = self->_negativeSet;
                   if (!negativeSet)
                   {
-                    v25 = objc_alloc_init(MEMORY[0x277CBEB58]);
-                    v26 = self->_negativeSet;
-                    self->_negativeSet = v25;
+                    v24 = objc_alloc_init(MEMORY[0x277CBEB58]);
+                    v25 = self->_negativeSet;
+                    self->_negativeSet = v24;
 
                     negativeSet = self->_negativeSet;
                   }
@@ -156,7 +156,7 @@ LABEL_8:
                 }
               }
 
-              v16 = [excludeContentTypes2 countByEnumeratingWithState:&v27 objects:v35 count:16];
+              v16 = [excludeContentTypes2 countByEnumeratingWithState:&v26 objects:v34 count:16];
               if (v16)
               {
                 continue;
@@ -177,7 +177,6 @@ LABEL_9:
 
 LABEL_30:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

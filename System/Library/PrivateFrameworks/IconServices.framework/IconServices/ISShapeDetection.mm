@@ -130,7 +130,7 @@
     UcharSampleOpacity_xy = ISSegmentationSamples_readUcharSampleOpacity_xy(&v67, v11++, samples / 2);
     if (UcharSampleOpacity_xy >= 0xFD)
     {
-      v15 = v11 - 1;
+      v15 = (v11 - 1);
       goto LABEL_11;
     }
   }
@@ -417,17 +417,17 @@ LABEL_83:
         {
           v67 = *v8;
           v68 = *(v8 + 16);
-          v57 = validateCorner(&v67, v63 - v55, v63, v65, v65 + v55, v63 - v55, v65 + v55, (v55 + v56) + 1.75, v55 + -5.25);
+          v57 = validateCorner(&v67, (v63 - v55), v63, v65, v65 + v55, v63 - v55, v65 + v55, (v55 + v56) + 1.75, v55 + -5.25);
           if (v57)
           {
             v67 = *v8;
             v68 = *(v8 + 16);
-            v57 = validateCorner(&v67, v15, v15 + v55, v62 - v55, v62, v15 + v55, v62 - v55, (v55 + v56) + 1.75, v55 + -5.25);
+            v57 = validateCorner(&v67, v15, v15 + v55, (v62 - v55), v62, v15 + v55, v62 - v55, (v55 + v56) + 1.75, v55 + -5.25);
             if (v57)
             {
               v67 = *v8;
               v68 = *(v8 + 16);
-              LOBYTE(v57) = validateCorner(&v67, v63 - v55, v63, v62 - v55, v62, v63 - v55, v62 - v55, (v55 + v56) + 1.75, v55 + -5.25);
+              LOBYTE(v57) = validateCorner(&v67, (v63 - v55), v63, (v62 - v55), v62, v63 - v55, v62 - v55, (v55 + v56) + 1.75, v55 + -5.25);
             }
           }
         }

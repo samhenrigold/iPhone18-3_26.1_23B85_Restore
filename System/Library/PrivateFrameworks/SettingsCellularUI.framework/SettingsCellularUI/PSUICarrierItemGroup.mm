@@ -4,6 +4,7 @@
 - (PSListController)listController;
 - (PSUICarrierItemGroup)initWithListController:(id)controller groupSpecifier:(id)specifier;
 - (PSUICarrierItemGroup)initWithListController:(id)controller groupSpecifier:(id)specifier planManager:(id)manager ctPlanManager:(id)planManager showCarrierItems:(BOOL)items;
+- (PSUICarrierItemGroup)initWithListController:(id)controller groupSpecifier:(id)specifier showCarrierItems:(BOOL)items;
 - (id)addCellularPlanSpecifier;
 - (id)specifiers;
 - (id)specifiersForCarrierItems;
@@ -26,6 +27,18 @@
   v10 = [(PSUICarrierItemGroup *)self initWithListController:controllerCopy groupSpecifier:specifierCopy planManager:v8 ctPlanManager:mEMORY[0x277CF96D8] showCarrierItems:1];
 
   return v10;
+}
+
+- (PSUICarrierItemGroup)initWithListController:(id)controller groupSpecifier:(id)specifier showCarrierItems:(BOOL)items
+{
+  itemsCopy = items;
+  specifierCopy = specifier;
+  controllerCopy = controller;
+  v10 = +[PSUICellularPlanManagerCache sharedInstance];
+  mEMORY[0x277CF96D8] = [MEMORY[0x277CF96D8] sharedManager];
+  v12 = [(PSUICarrierItemGroup *)self initWithListController:controllerCopy groupSpecifier:specifierCopy planManager:v10 ctPlanManager:mEMORY[0x277CF96D8] showCarrierItems:itemsCopy];
+
+  return v12;
 }
 
 - (PSUICarrierItemGroup)initWithListController:(id)controller groupSpecifier:(id)specifier planManager:(id)manager ctPlanManager:(id)planManager showCarrierItems:(BOOL)items
@@ -93,44 +106,44 @@
     specifiersForCarrierItems2 = [(PSUICarrierItemGroup *)self specifiersForCarrierItems];
     [v11 addObjectsFromArray:specifiersForCarrierItems2];
 
-    if ([getCLLocationManagerClass_2() locationServicesEnabled])
+    if ([getCLLocationManagerClass_2(v13 v14)])
     {
-      v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v14 = [v13 localizedStringForKey:@"CARRIER_ITEM_FOOTER" value:&stru_287733598 table:@"Cellular"];
+      v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v16 = [v15 localizedStringForKey:@"CARRIER_ITEM_FOOTER" value:&stru_287733598 table:@"Cellular"];
 
       isCarrierItemBeingFetched = [(PSUICellularPlanManagerCache *)self->_cellularPlanManagerCache isCarrierItemBeingFetched];
-      v16 = MEMORY[0x277D3FAD8];
+      v18 = MEMORY[0x277D3FAD8];
       if (isCarrierItemBeingFetched)
       {
-        v17 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:&stru_287733598 target:self set:0 get:0 detail:0 cell:13 edit:0];
-        [v17 setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
-        [v17 setProperty:objc_opt_class() forKey:*MEMORY[0x277D3FE58]];
+        v19 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:&stru_287733598 target:self set:0 get:0 detail:0 cell:13 edit:0];
+        [v19 setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
+        [v19 setProperty:objc_opt_class() forKey:*MEMORY[0x277D3FE58]];
       }
 
       else
       {
-        v22 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v23 = [v22 localizedStringForKey:@"CARRIER_ITEM" value:&stru_287733598 table:@"Cellular"];
-        v17 = [v16 preferenceSpecifierNamed:v23 target:self set:0 get:0 detail:0 cell:13 edit:0];
+        v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v25 = [v24 localizedStringForKey:@"CARRIER_ITEM" value:&stru_287733598 table:@"Cellular"];
+        v19 = [v18 preferenceSpecifierNamed:v25 target:self set:0 get:0 detail:0 cell:13 edit:0];
 
         if (![v11 count])
         {
           getLogger = [(PSUICarrierItemGroup *)self getLogger];
           if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
           {
-            *v28 = 0;
-            _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "No carrier item(s) is available in this location", v28, 2u);
+            *v30 = 0;
+            _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "No carrier item(s) is available in this location", v30, 2u);
           }
 
-          [v17 setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
-          v25 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-          v26 = [v25 localizedStringForKey:@"NO_CARRIER_ITEM_FOOTER" value:&stru_287733598 table:@"Cellular"];
+          [v19 setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
+          v27 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+          v28 = [v27 localizedStringForKey:@"NO_CARRIER_ITEM_FOOTER" value:&stru_287733598 table:@"Cellular"];
 
-          v14 = v26;
+          v16 = v28;
         }
       }
 
-      [(PSSpecifier *)self->_groupSpecifier setProperty:v14 forKey:*MEMORY[0x277D3FF88]];
+      [(PSSpecifier *)self->_groupSpecifier setProperty:v16 forKey:*MEMORY[0x277D3FF88]];
     }
 
     else
@@ -142,17 +155,17 @@
         _os_log_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEFAULT, "Location Services is off", buf, 2u);
       }
 
-      v19 = MEMORY[0x277D3FAD8];
-      v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v21 = [v20 localizedStringForKey:@"CARRIER_ITEM" value:&stru_287733598 table:@"Cellular"];
-      v17 = [v19 preferenceSpecifierNamed:v21 target:self set:0 get:0 detail:0 cell:13 edit:0];
+      v21 = MEMORY[0x277D3FAD8];
+      v22 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v23 = [v22 localizedStringForKey:@"CARRIER_ITEM" value:&stru_287733598 table:@"Cellular"];
+      v19 = [v21 preferenceSpecifierNamed:v23 target:self set:0 get:0 detail:0 cell:13 edit:0];
 
-      [v17 setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
+      [v19 setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
       [(PSUICarrierItemGroup *)self _addLocationFooterIfNecessary];
     }
 
-    [v3 addObject:v17];
-    [v17 setButtonAction:sel_carrierItemOptionPressed_];
+    [v3 addObject:v19];
+    [v19 setButtonAction:sel_carrierItemOptionPressed_];
   }
 
   return v3;
@@ -215,33 +228,33 @@ LABEL_9:
 
 - (id)specifiersForCarrierItems
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   currentDevice = [MEMORY[0x277D75418] currentDevice];
   userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
   if ((userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) == 1 && [(PSUICellularPlanManagerCache *)self->_cellularPlanManagerCache isCarrierItemFlowSupported])
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     obj = [(PSUICellularPlanManagerCache *)self->_cellularPlanManagerCache carrierItems];
-    v6 = [obj countByEnumeratingWithState:&v18 objects:v24 count:16];
+    v6 = [obj countByEnumeratingWithState:&v17 objects:v23 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v19;
+      v8 = *v18;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v19 != v8)
+          if (*v18 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v18 + 1) + 8 * i);
+          v10 = *(*(&v17 + 1) + 8 * i);
           v11 = MEMORY[0x277D3FAD8];
           name = [v10 name];
           v13 = [v11 preferenceSpecifierNamed:name target:self set:0 get:0 detail:0 cell:3 edit:0];
@@ -251,7 +264,7 @@ LABEL_9:
           [v3 addObject:v13];
         }
 
-        v7 = [obj countByEnumeratingWithState:&v18 objects:v24 count:16];
+        v7 = [obj countByEnumeratingWithState:&v17 objects:v23 count:16];
       }
 
       while (v7);
@@ -261,26 +274,24 @@ LABEL_9:
     if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v23 = v3;
+      v22 = v3;
       _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Carrier Group specifiers:  %@", buf, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (void)carrierItemPressed:(id)pressed
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   pressedCopy = pressed;
   userInfo = [pressedCopy userInfo];
   getLogger = [(PSUICarrierItemGroup *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v31 = userInfo;
+    v30 = userInfo;
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
   }
 
@@ -296,25 +307,25 @@ LABEL_9:
     v16 = MEMORY[0x277D750F8];
     v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v18 = [v17 localizedStringForKey:@"CONTINUE" value:&stru_287733598 table:@"Cellular"];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __43__PSUICarrierItemGroup_carrierItemPressed___block_invoke;
-    v27[3] = &unk_279BAAC40;
-    v27[4] = self;
-    v28 = userInfo;
-    v29 = pressedCopy;
-    v19 = [v16 actionWithTitle:v18 style:0 handler:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __43__PSUICarrierItemGroup_carrierItemPressed___block_invoke;
+    v26[3] = &unk_279BAAC40;
+    v26[4] = self;
+    v27 = userInfo;
+    v28 = pressedCopy;
+    v19 = [v16 actionWithTitle:v18 style:0 handler:v26];
 
     [plan addAction:v19];
     v20 = MEMORY[0x277D750F8];
     v21 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v22 = [v21 localizedStringForKey:@"CANCEL" value:&stru_287733598 table:@"Cellular"];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __43__PSUICarrierItemGroup_carrierItemPressed___block_invoke_63;
-    v26[3] = &unk_279BA9E70;
-    v26[4] = self;
-    v23 = [v20 actionWithTitle:v22 style:1 handler:v26];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __43__PSUICarrierItemGroup_carrierItemPressed___block_invoke_63;
+    v25[3] = &unk_279BA9E70;
+    v25[4] = self;
+    v23 = [v20 actionWithTitle:v22 style:1 handler:v25];
 
     [plan addAction:v23];
     listController = [(PSUICarrierItemGroup *)self listController];
@@ -326,8 +337,6 @@ LABEL_9:
     plan = [userInfo plan];
     [(PSUICarrierItemGroup *)self _handleAddCarrierItem:plan specifier:pressedCopy];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __43__PSUICarrierItemGroup_carrierItemPressed___block_invoke(uint64_t a1)
@@ -356,7 +365,7 @@ void __43__PSUICarrierItemGroup_carrierItemPressed___block_invoke_63(uint64_t a1
 
 - (void)_handleAddCarrierItem:(id)item specifier:(id)specifier
 {
-  v29[2] = *MEMORY[0x277D85DE8];
+  v28[2] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   v7 = MEMORY[0x277D750E8];
   specifierCopy = specifier;
@@ -369,18 +378,18 @@ void __43__PSUICarrierItemGroup_carrierItemPressed___block_invoke_63(uint64_t a1
   view = [WeakRetained view];
   [view setUserInteractionEnabled:0];
 
-  v28[0] = *MEMORY[0x277D49548];
+  v27[0] = *MEMORY[0x277D49548];
   v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:17];
-  v28[1] = *MEMORY[0x277D49580];
-  v29[0] = v13;
-  v29[1] = itemCopy;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+  v27[1] = *MEMORY[0x277D49580];
+  v28[0] = v13;
+  v28[1] = itemCopy;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
 
   getLogger = [(PSUICarrierItemGroup *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v27 = v14;
+    v26 = v14;
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "launching flow with options: %@", buf, 0xCu);
   }
 
@@ -391,18 +400,16 @@ void __43__PSUICarrierItemGroup_carrierItemPressed___block_invoke_63(uint64_t a1
   [(TSSIMSetupFlow *)self->_flow setDelegate:self];
   v18 = self->_flow;
   v19 = objc_loadWeakRetained(&self->_listController);
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __56__PSUICarrierItemGroup__handleAddCarrierItem_specifier___block_invoke;
-  v23[3] = &unk_279BAAC68;
-  v23[4] = self;
-  v24 = v9;
-  v25 = v10;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __56__PSUICarrierItemGroup__handleAddCarrierItem_specifier___block_invoke;
+  v22[3] = &unk_279BAAC68;
+  v22[4] = self;
+  v23 = v9;
+  v24 = v10;
   v20 = v10;
   v21 = v9;
-  [(TSSIMSetupFlow *)v18 showFirstViewControllerWithHostController:v19 completion:v23];
-
-  v22 = *MEMORY[0x277D85DE8];
+  [(TSSIMSetupFlow *)v18 showFirstViewControllerWithHostController:v19 completion:v22];
 }
 
 void __56__PSUICarrierItemGroup__handleAddCarrierItem_specifier___block_invoke(id *a1)
@@ -440,8 +447,9 @@ void __56__PSUICarrierItemGroup__handleAddCarrierItem_specifier___block_invoke_2
 - (void)_addLocationFooterIfNecessary
 {
   v3 = _os_feature_enabled_impl();
-  locationServicesEnabled = [getCLLocationManagerClass_2() locationServicesEnabled];
-  if (locationServicesEnabled && [(PSUICarrierItemGroup *)self isCellNetworkSearchAuthorized])
+  v4 = v3;
+  v6 = [getCLLocationManagerClass_2(v3 v5)];
+  if (v6 && [(PSUICarrierItemGroup *)self isCellNetworkSearchAuthorized])
   {
     groupSpecifier = +[PSUICellularPlanManagerCache sharedInstance];
     if ([groupSpecifier isActivationCodeFlowSupported])
@@ -458,9 +466,9 @@ void __56__PSUICarrierItemGroup__handleAddCarrierItem_specifier___block_invoke_2
         }
 
         groupSpecifier = [(PSUICarrierItemGroup *)self groupSpecifier];
-        v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v9 = [v8 localizedStringForKey:@"CELLULAR_SETUP_DATA_COLLECTION_DISCLOSURE" value:&stru_287733598 table:@"Cellular"];
-        [groupSpecifier setProperty:v9 forKey:*MEMORY[0x277D3FF88]];
+        v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v11 = [v10 localizedStringForKey:@"CELLULAR_SETUP_DATA_COLLECTION_DISCLOSURE" value:&stru_287733598 table:@"Cellular"];
+        [groupSpecifier setProperty:v11 forKey:*MEMORY[0x277D3FF88]];
       }
 
       else
@@ -478,74 +486,74 @@ void __56__PSUICarrierItemGroup__handleAddCarrierItem_specifier___block_invoke_2
       _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Cellular: Location Services off", buf, 2u);
     }
 
-    if (locationServicesEnabled)
+    if (v6)
     {
-      v11 = @"prefs:root=Privacy&path=LOCATION/SYSTEM_SERVICES";
+      v13 = @"prefs:root=Privacy&path=LOCATION/SYSTEM_SERVICES";
     }
 
     else
     {
-      v11 = @"prefs:root=Privacy&path=LOCATION";
+      v13 = @"prefs:root=Privacy&path=LOCATION";
     }
 
-    v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v13 = [v12 localizedStringForKey:@"TURN_ON_LOCATION_SERVICES_FAUX_CARD_SCANNER_FOOTER_HYPERLINK_SUBSTRING" value:&stru_287733598 table:@"Cellular"];
+    v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v15 = [v14 localizedStringForKey:@"TURN_ON_LOCATION_SERVICES_FAUX_CARD_SCANNER_FOOTER_HYPERLINK_SUBSTRING" value:&stru_287733598 table:@"Cellular"];
 
-    if (v3)
+    if (v4)
     {
-      v14 = @"TURN_ON_LOCATION_SERVICES_FAUX_CARD_SCANNER_FOOTER_NEW_UI_%@";
+      v16 = @"TURN_ON_LOCATION_SERVICES_FAUX_CARD_SCANNER_FOOTER_NEW_UI_%@";
     }
 
     else
     {
-      v14 = @"TURN_ON_LOCATION_SERVICES_FAUX_CARD_SCANNER_FOOTER_%@";
+      v16 = @"TURN_ON_LOCATION_SERVICES_FAUX_CARD_SCANNER_FOOTER_%@";
     }
 
-    v15 = MEMORY[0x277CCACA8];
-    v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v17 = [v16 localizedStringForKey:v14 value:&stru_287733598 table:@"Cellular"];
-    v18 = [v15 stringWithFormat:v17, v13];
+    v17 = MEMORY[0x277CCACA8];
+    v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v19 = [v18 localizedStringForKey:v16 value:&stru_287733598 table:@"Cellular"];
+    v20 = [v17 stringWithFormat:v19, v15];
 
     groupSpecifier2 = [(PSUICarrierItemGroup *)self groupSpecifier];
-    v20 = objc_opt_class();
-    v21 = NSStringFromClass(v20);
-    [groupSpecifier2 setProperty:v21 forKey:*MEMORY[0x277D3FF48]];
+    v22 = objc_opt_class();
+    v23 = NSStringFromClass(v22);
+    [groupSpecifier2 setProperty:v23 forKey:*MEMORY[0x277D3FF48]];
 
     groupSpecifier3 = [(PSUICarrierItemGroup *)self groupSpecifier];
-    [groupSpecifier3 setProperty:v18 forKey:*MEMORY[0x277D3FF70]];
+    [groupSpecifier3 setProperty:v20 forKey:*MEMORY[0x277D3FF70]];
 
     groupSpecifier4 = [(PSUICarrierItemGroup *)self groupSpecifier];
-    v34.location = [v18 rangeOfString:v13];
-    v24 = NSStringFromRange(v34);
-    [groupSpecifier4 setProperty:v24 forKey:*MEMORY[0x277D3FF58]];
+    v36.location = [v20 rangeOfString:v15];
+    v26 = NSStringFromRange(v36);
+    [groupSpecifier4 setProperty:v26 forKey:*MEMORY[0x277D3FF58]];
 
     groupSpecifier5 = [(PSUICarrierItemGroup *)self groupSpecifier];
-    v26 = [MEMORY[0x277CBEBC0] URLWithString:v11];
-    [groupSpecifier5 setProperty:v26 forKey:*MEMORY[0x277D3FF78]];
+    v28 = [MEMORY[0x277CBEBC0] URLWithString:v13];
+    [groupSpecifier5 setProperty:v28 forKey:*MEMORY[0x277D3FF78]];
 
     groupSpecifier6 = [(PSUICarrierItemGroup *)self groupSpecifier];
-    v28 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
-    [groupSpecifier6 setProperty:v28 forKey:*MEMORY[0x277D3FF68]];
+    v30 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
+    [groupSpecifier6 setProperty:v30 forKey:*MEMORY[0x277D3FF68]];
 
     groupSpecifier7 = [(PSUICarrierItemGroup *)self groupSpecifier];
     [groupSpecifier7 setProperty:@"turnOnLocationServicesPressed:" forKey:*MEMORY[0x277D3FF50]];
 
     groupSpecifier8 = [(PSUICarrierItemGroup *)self groupSpecifier];
-    [groupSpecifier8 setProperty:v18 forKey:*MEMORY[0x277D3FF88]];
+    [groupSpecifier8 setProperty:v20 forKey:*MEMORY[0x277D3FF88]];
   }
 }
 
 - (void)turnOnLocationServicesPressed:(id)pressed
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   pressedCopy = pressed;
   getLogger = [(PSUICarrierItemGroup *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEBUG))
   {
-    v13 = [pressedCopy URL];
-    v14 = 138412290;
-    v15 = v13;
-    _os_log_debug_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEBUG, "%@", &v14, 0xCu);
+    v12 = [pressedCopy URL];
+    v13 = 138412290;
+    v14 = v12;
+    _os_log_debug_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEBUG, "%@", &v13, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_listController);
@@ -561,8 +569,6 @@ void __56__PSUICarrierItemGroup__handleAddCarrierItem_specifier___block_invoke_2
   defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
   v11 = [pressedCopy URL];
   [defaultWorkspace openSensitiveURL:v11 withOptions:0];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)simSetupFlowCompleted:(unint64_t)completed
@@ -625,33 +631,33 @@ void __46__PSUICarrierItemGroup_simSetupFlowCompleted___block_invoke(uint64_t a1
 
 - (BOOL)isCellNetworkSearchAuthorized
 {
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
   v2 = getCLCopyAppsUsingLocationSymbolLoc_ptr_2;
-  v12 = getCLCopyAppsUsingLocationSymbolLoc_ptr_2;
+  v14 = getCLCopyAppsUsingLocationSymbolLoc_ptr_2;
   if (!getCLCopyAppsUsingLocationSymbolLoc_ptr_2)
   {
     v3 = CoreLocationLibrary_2();
-    v10[3] = dlsym(v3, "CLCopyAppsUsingLocation");
-    getCLCopyAppsUsingLocationSymbolLoc_ptr_2 = v10[3];
-    v2 = v10[3];
+    v12[3] = dlsym(v3, "CLCopyAppsUsingLocation");
+    getCLCopyAppsUsingLocationSymbolLoc_ptr_2 = v12[3];
+    v2 = v12[3];
   }
 
-  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(&v11, 8);
   if (!v2)
   {
-    dlerror();
-    v8 = abort_report_np();
-    _Block_object_dispose(&v9, 8);
-    _Unwind_Resume(v8);
+    v9 = dlerror();
+    v10 = abort_report_np("%s", v9);
+    _Block_object_dispose(&v11, 8);
+    _Unwind_Resume(v10);
   }
 
   v4 = v2();
   v5 = [v4 objectForKey:@"/System/Library/Frameworks/CoreTelephony.framework"];
-  v6 = [getCLLocationManagerClass_2() isEntityAuthorizedForLocationDictionary:v5];
+  v7 = [getCLLocationManagerClass_2(v5 v6)];
 
-  return v6;
+  return v7;
 }
 
 - (PSListController)listController

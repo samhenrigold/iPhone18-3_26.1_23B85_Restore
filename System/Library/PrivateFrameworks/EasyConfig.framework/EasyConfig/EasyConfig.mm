@@ -97,30 +97,28 @@ LABEL_7:
 
 uint64_t EasyConfigCreateTLVfromDictionary(const __CFDictionary *a1, uint64_t a2, _DWORD *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   memset(context, 0, 512);
   DataBuffer_Init();
-  v8 = 0;
+  v7 = 0;
   CFDictionaryApplyFunction(a1, _EasyConfigCreateTLVfromDictionaryApplier, context);
-  if (!v8)
+  if (!v7)
   {
-    v8 = DataBuffer_Detach();
+    v7 = DataBuffer_Detach();
   }
 
   DataBuffer_Free();
   if (a3)
   {
-    *a3 = v8;
+    *a3 = v7;
   }
 
-  result = 0;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 uint64_t _EasyConfigCreateTLVfromDictionaryApplier(uint64_t result, const __CFString *cf, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (!*(a3 + 568))
   {
     v5 = result;
@@ -148,7 +146,7 @@ LABEL_26:
         result = DataBuffer_AppendIE();
 LABEL_27:
         *(a3 + 568) = result;
-        goto LABEL_28;
+        return result;
       }
 
       if (v6 == CFNumberGetTypeID())
@@ -166,7 +164,7 @@ LABEL_27:
 
       if (*MEMORY[0x277D02990] <= 50 && (*MEMORY[0x277D02990] != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(MEMORY[0x277D02990], "void _EasyConfigCreateTLVfromDictionaryApplier(const void *, const void *, void *)", 50, "### Bad EasyConfig type for key '%@': %@\n", v5, cf);
       }
 
 LABEL_33:
@@ -184,13 +182,13 @@ LABEL_33:
       Count = CFArrayGetCount(cf);
       if (Count >= 1)
       {
-        v9 = Count;
-        v10 = 0;
+        v8 = Count;
+        v9 = 0;
         while (1)
         {
-          ValueAtIndex = CFArrayGetValueAtIndex(cf, v10);
-          v12 = CFGetTypeID(ValueAtIndex);
-          if (v12 != CFStringGetTypeID())
+          ValueAtIndex = CFArrayGetValueAtIndex(cf, v9);
+          v11 = CFGetTypeID(ValueAtIndex);
+          if (v11 != CFStringGetTypeID())
           {
             goto LABEL_33;
           }
@@ -202,7 +200,7 @@ LABEL_33:
           }
 
           result = DataBuffer_AppendIE();
-          if (!result && v9 != ++v10)
+          if (!result && v8 != ++v9)
           {
             continue;
           }
@@ -223,14 +221,12 @@ LABEL_33:
         }
       }
 
-      LogPrintF();
+      LogPrintF(MEMORY[0x277D02990], "void _EasyConfigCreateTLVfromDictionaryApplier(const void *, const void *, void *)", 50, "### Ignoring unsupported EasyConfig key '%@'\n", v5);
     }
 
     result = 0;
     goto LABEL_27;
   }
 
-LABEL_28:
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }

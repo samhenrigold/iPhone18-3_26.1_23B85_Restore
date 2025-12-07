@@ -326,11 +326,11 @@ LABEL_13:
 - (id)contactForIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v20 = identifierCopy;
+    v21 = identifierCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Retrieving contact matching the specified contact identifier (%@).", buf, 0xCu);
   }
 
@@ -338,16 +338,20 @@ LABEL_13:
   if (contactStore)
   {
     contactKeyDescriptors = [(ICSCallAnnouncement *)self contactKeyDescriptors];
-    v18 = 0;
-    v8 = [contactStore unifiedContactWithIdentifier:identifierCopy keysToFetch:contactKeyDescriptors error:&v18];
-    v9 = v18;
+    v19 = 0;
+    v8 = [contactStore unifiedContactWithIdentifier:identifierCopy keysToFetch:contactKeyDescriptors error:&v19];
+    v9 = v19;
 
-    if (v9 && [v9 code] != 200)
+    if (v9)
     {
-      v10 = sub_100004F84();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      code = [v9 code];
+      if (code != 200)
       {
-        sub_100256F80(v9, v10, v11, v12, v13, v14, v15, v16);
+        v11 = sub_100004F84(code);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        {
+          sub_100256F80(v9, v11, v12, v13, v14, v15, v16, v17);
+        }
       }
     }
   }
@@ -364,90 +368,93 @@ LABEL_13:
 {
   dCopy = d;
   codeCopy = code;
-  v8 = sub_100004F84();
+  v8 = sub_100004F84(codeCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v33 = dCopy;
-    v34 = 2112;
-    v35 = codeCopy;
+    v35 = dCopy;
+    v36 = 2112;
+    v37 = codeCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Retrieving contact matching the specified identifier (%@) and ISO country code (%@).", buf, 0x16u);
   }
 
   contactStore = [(ICSCallAnnouncement *)self contactStore];
   if (!contactStore)
   {
-    v11 = 0;
+    v12 = 0;
     goto LABEL_26;
   }
 
   if (![dCopy destinationIdIsEmailAddress])
   {
-    if (![dCopy destinationIdIsPhoneNumber])
+    destinationIdIsPhoneNumber = [dCopy destinationIdIsPhoneNumber];
+    if (!destinationIdIsPhoneNumber)
     {
       goto LABEL_22;
     }
 
-    if (![codeCopy length] || (objc_msgSend(codeCopy, "lowercaseString"), v12 = objc_claimAutoreleasedReturnValue(), +[CNPhoneNumber phoneNumberWithDigits:countryCode:](CNPhoneNumber, "phoneNumberWithDigits:countryCode:", dCopy, v12), v13 = objc_claimAutoreleasedReturnValue(), v12, !v13))
+    if (![codeCopy length] || (objc_msgSend(codeCopy, "lowercaseString"), v13 = objc_claimAutoreleasedReturnValue(), +[CNPhoneNumber phoneNumberWithDigits:countryCode:](CNPhoneNumber, "phoneNumberWithDigits:countryCode:", dCopy, v13), v14 = objc_claimAutoreleasedReturnValue(), v13, !v14))
     {
-      v13 = [CNPhoneNumber phoneNumberWithStringValue:dCopy];
+      v14 = [CNPhoneNumber phoneNumberWithStringValue:dCopy];
     }
 
-    v10 = [CNContact predicateForContactsMatchingPhoneNumber:v13];
+    v11 = [CNContact predicateForContactsMatchingPhoneNumber:v14];
 
-    if (!v10)
+    if (!v11)
     {
       goto LABEL_22;
     }
 
 LABEL_13:
     contactKeyDescriptors = [(ICSCallAnnouncement *)self contactKeyDescriptors];
-    v31 = 0;
-    v11 = [contactStore unifiedContactsMatchingPredicate:v10 keysToFetch:contactKeyDescriptors error:&v31];
-    v15 = v31;
+    v33 = 0;
+    v12 = [contactStore unifiedContactsMatchingPredicate:v11 keysToFetch:contactKeyDescriptors error:&v33];
+    v16 = v33;
 
-    if (![v11 count])
+    v17 = [v12 count];
+    if (!v17)
     {
-      v16 = sub_100004F84();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = sub_100004F84(0);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v33 = v10;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Did not find any contacts matching the predicate (%@).", buf, 0xCu);
+        v35 = v11;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Did not find any contacts matching the predicate (%@).", buf, 0xCu);
       }
     }
 
-    if (v15)
+    if (v16)
     {
-      v17 = sub_100004F84();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v19 = sub_100004F84(v17);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        sub_100256F80(v15, v17, v18, v19, v20, v21, v22, v23);
+        sub_100256F80(v16, v19, v20, v21, v22, v23, v24, v25);
       }
     }
 
     goto LABEL_25;
   }
 
-  v10 = [CNContact predicateForContactsMatchingEmailAddress:dCopy];
-  if (v10)
+  destinationIdIsPhoneNumber = [CNContact predicateForContactsMatchingEmailAddress:dCopy];
+  v11 = destinationIdIsPhoneNumber;
+  if (destinationIdIsPhoneNumber)
   {
     goto LABEL_13;
   }
 
 LABEL_22:
-  v10 = sub_100004F84();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = sub_100004F84(destinationIdIsPhoneNumber);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    sub_100256FEC(dCopy, v10, v24, v25, v26, v27, v28, v29);
+    sub_100256FEC(dCopy, v11, v26, v27, v28, v29, v30, v31);
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_25:
 
 LABEL_26:
 
-  return v11;
+  return v12;
 }
 
 @end

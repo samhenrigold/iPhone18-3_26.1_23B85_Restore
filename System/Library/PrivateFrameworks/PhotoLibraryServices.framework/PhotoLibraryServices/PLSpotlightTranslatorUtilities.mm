@@ -208,7 +208,7 @@ void __74__PLSpotlightTranslatorUtilities_spotlightAudioClassificationsFromScene
   taxonomyCopy = taxonomy;
   mapCopy = map;
   v12 = objc_opt_new();
-  if ([scenesCopy count])
+  if (objc_msgSend_count(scenesCopy))
   {
     v15 = MEMORY[0x1E69E9820];
     v16 = 3221225472;
@@ -320,7 +320,7 @@ void __104__PLSpotlightTranslatorUtilities_spotlightScenesFromScenes_sceneTaxono
   v16 = [fullName stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet2];
 
   v17 = [v13 length];
-  v18 = [v16 isEqualToString:v13];
+  isEqualToString = objc_msgSend_isEqualToString_(v16);
   v19 = v17 == 0;
   if (v19)
   {
@@ -333,7 +333,7 @@ void __104__PLSpotlightTranslatorUtilities_spotlightScenesFromScenes_sceneTaxono
   }
 
   v21 = v20;
-  if ((v19 | v18))
+  if ((v19 | isEqualToString))
   {
     v22 = 0;
   }

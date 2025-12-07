@@ -58,7 +58,7 @@
 
 - (void)_audioSessionInterruption:(id)interruption
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   userInfo = [interruption userInfo];
   v5 = [userInfo objectForKey:*MEMORY[0x1E698D588]];
   integerValue = [v5 integerValue];
@@ -72,7 +72,7 @@
     {
       v10 = [userInfo objectForKey:*MEMORY[0x1E698D570]];
       *buf = 138412290;
-      v24 = v10;
+      v23 = v10;
       _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_INFO, "ⓧ Media services were interrupted - %@", buf, 0xCu);
     }
 
@@ -86,32 +86,30 @@
       v14 = MEMORY[0x1E696ABC0];
       v15 = @"MNAudioSystemError";
       v16 = [userInfo objectForKey:{*v9, *MEMORY[0x1E696AA08]}];
-      v22 = v16;
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+      v21 = v16;
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
       v18 = [v14 errorWithDomain:@"MNAudioSystemError" code:0 userInfo:v17];
 
       delegate2 = [(MNSoundEffectResourceController *)self delegate];
       [delegate2 soundEffectResourceController:self wasInterruptedWhilePlayingIndicator:indicatorID withError:v18];
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)audioPlayerDecodeErrorDidOccur:(id)occur error:(id)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   occurCopy = occur;
   errorCopy = error;
   v8 = GetAudioLogForMNSoundEffectResourceControllerCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v20 = "[MNSoundEffectResourceController audioPlayerDecodeErrorDidOccur:error:]";
-    v21 = 2112;
-    v22 = occurCopy;
-    v23 = 2112;
-    v24 = errorCopy;
+    v19 = "[MNSoundEffectResourceController audioPlayerDecodeErrorDidOccur:error:]";
+    v20 = 2112;
+    v21 = occurCopy;
+    v22 = 2112;
+    v23 = errorCopy;
     _os_log_impl(&dword_1D311E000, v8, OS_LOG_TYPE_INFO, "ⓧ %s : %@ : %@", buf, 0x20u);
   }
 
@@ -122,33 +120,31 @@
   {
     v11 = MEMORY[0x1E696ABC0];
     v12 = @"MNAudioSystemError";
-    v17 = *MEMORY[0x1E696AA08];
-    v18 = errorCopy;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x1E696AA08];
+    v17 = errorCopy;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
     v14 = [v11 errorWithDomain:@"MNAudioSystemError" code:3702 userInfo:v13];
 
     delegate2 = [(MNSoundEffectResourceController *)self delegate];
     [delegate2 soundEffectResourceController:self didFailWhilePlayingIndicator:self->_indicatorID withError:v14];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)audioPlayerDidFinishPlaying:(id)playing successfully:(BOOL)successfully
 {
   successfullyCopy = successfully;
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   playingCopy = playing;
   v7 = GetAudioLogForMNSoundEffectResourceControllerCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v16 = 136315650;
-    v17 = "[MNSoundEffectResourceController audioPlayerDidFinishPlaying:successfully:]";
-    v18 = 2112;
-    v19 = playingCopy;
-    v20 = 1024;
-    v21 = successfullyCopy;
-    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_INFO, "ⓧ %s : %@ : %d", &v16, 0x1Cu);
+    v15 = 136315650;
+    v16 = "[MNSoundEffectResourceController audioPlayerDidFinishPlaying:successfully:]";
+    v17 = 2112;
+    v18 = playingCopy;
+    v19 = 1024;
+    v20 = successfullyCopy;
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_INFO, "ⓧ %s : %@ : %d", &v15, 0x1Cu);
   }
 
   delegate = [(MNSoundEffectResourceController *)self delegate];
@@ -180,13 +176,11 @@ LABEL_8:
       goto LABEL_8;
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_playerForFileName:(id)name andExtension:(id)extension
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   extensionCopy = extension;
   if ([nameCopy length] && objc_msgSend(extensionCopy, "length"))
@@ -194,20 +188,20 @@ LABEL_8:
     _navigationBundle = [MEMORY[0x1E696AAE8] _navigationBundle];
     v8 = [_navigationBundle URLForResource:nameCopy withExtension:extensionCopy];
 
-    v15 = 0;
-    v9 = [objc_alloc(MEMORY[0x1E6958448]) initWithContentsOfURL:v8 error:&v15];
-    v10 = v15;
+    v14 = 0;
+    v9 = [objc_alloc(MEMORY[0x1E6958448]) initWithContentsOfURL:v8 error:&v14];
+    v10 = v14;
     if (v10)
     {
       v11 = GetAudioLogForMNSoundEffectResourceControllerCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v17 = nameCopy;
-        v18 = 2112;
-        v19 = extensionCopy;
-        v20 = 2112;
-        v21 = v10;
+        v16 = nameCopy;
+        v17 = 2112;
+        v18 = extensionCopy;
+        v19 = 2112;
+        v20 = v10;
         _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_ERROR, "⒳    Error creating player for %@.%@ - %@", buf, 0x20u);
       }
 
@@ -224,8 +218,6 @@ LABEL_8:
   {
     v12 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -253,16 +245,16 @@ LABEL_8:
 
 - (BOOL)playSound:(unint64_t)sound andReport:(id *)report
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (sound < 3)
   {
     [(MNSoundEffectResourceController *)self stop];
     v10 = GetAudioLogForMNSoundEffectResourceControllerCategory();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v22 = 134217984;
+      v21 = 134217984;
       soundCopy2 = sound;
-      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_INFO, "Ⓧ Attempting to start playing id %lu", &v22, 0xCu);
+      _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_INFO, "Ⓧ Attempting to start playing id %lu", &v21, 0xCu);
     }
 
     if (sound == 2)
@@ -292,8 +284,8 @@ LABEL_8:
     {
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v22) = 0;
-        _os_log_impl(&dword_1D311E000, v14, OS_LOG_TYPE_INFO, "Ⓧ    Playback was successfully started", &v22, 2u);
+        LOWORD(v21) = 0;
+        _os_log_impl(&dword_1D311E000, v14, OS_LOG_TYPE_INFO, "Ⓧ    Playback was successfully started", &v21, 2u);
       }
 
       self->_indicatorID = sound;
@@ -313,9 +305,9 @@ LABEL_8:
     {
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v22 = 134217984;
+        v21 = 134217984;
         soundCopy2 = sound;
-        _os_log_impl(&dword_1D311E000, v14, OS_LOG_TYPE_ERROR, "⒳    Error trying to play id %lu (this is a problem in AVAudioPlayer)", &v22, 0xCu);
+        _os_log_impl(&dword_1D311E000, v14, OS_LOG_TYPE_ERROR, "⒳    Error trying to play id %lu (this is a problem in AVAudioPlayer)", &v21, 0xCu);
       }
 
       if (!report)
@@ -330,7 +322,7 @@ LABEL_8:
     }
 
 LABEL_23:
-    goto LABEL_24;
+    return play;
   }
 
   if (report)
@@ -340,10 +332,7 @@ LABEL_23:
     *report = [v5 errorWithDomain:@"MNAudioSystemError" code:3500 userInfo:0];
   }
 
-  play = 0;
-LABEL_24:
-  v20 = *MEMORY[0x1E69E9840];
-  return play;
+  return 0;
 }
 
 - (BOOL)playing

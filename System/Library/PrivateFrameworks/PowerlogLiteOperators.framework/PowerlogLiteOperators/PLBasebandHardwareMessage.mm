@@ -2,11 +2,15 @@
 - (BOOL)parseData:(id)data;
 - (PLBasebandHardwareMessage)initWithData:(id)data;
 - (id)convertToObjectArray:(unsigned int *)array ofSize:(unsigned int)size;
+- (id)convertToObjectArrayPercentage:(unsigned int *)percentage ofSize:(unsigned int)size;
 - (id)convertUint16ArrayToNSArray:(unsigned __int16 *)array ofSize:(unsigned int)size;
 - (id)convertUint32ArrayToNSArray:(unsigned int *)array ofSize:(unsigned int)size;
+- (id)convertUint32ArrayToNSArray:(unsigned int *)array ofSize:(unsigned int)size andFill:(unsigned int)fill;
 - (id)convertUint64ArrayToNSArray:(unint64_t *)array ofSize:(unsigned int)size;
 - (id)convertUint8ArrayToNSArray:(char *)array ofSize:(unsigned int)size;
 - (unsigned)sumHardwareStat:(unsigned int *)stat ofSize:(unsigned int)size;
+- (void)formatArray:(unsigned int *)array ofSize:(unsigned int)size inString:(id)string inReverse:(BOOL)reverse;
+- (void)formatArray:(unsigned int *)array ofSize:(unsigned int)size withMultiplier:(float)multiplier inString:(id)string inReverse:(BOOL)reverse;
 - (void)logHeaderWithLogger:(id)logger;
 - (void)logModemAppWithLogger:(id)logger;
 - (void)logPeripheralsWithLogger:(id)logger;
@@ -25,28 +29,8 @@
   v9.super_class = PLBasebandHardwareMessage;
   v5 = [(PLBasebandMessage *)&v9 initWithData:dataCopy];
   v6 = v5;
-  if (!v5)
+  if (!v5 || ([(PLBasebandHardwareMessage *)v5 setHeader:0], [(PLBasebandHardwareMessage *)v6 setSystem:0], [(PLBasebandHardwareMessage *)v6 setArmPerf:0], [(PLBasebandHardwareMessage *)v6 setMdsp:0], [(PLBasebandHardwareMessage *)v6 setMdm:0], [(PLBasebandHardwareMessage *)v6 setAdsp:0], [(PLBasebandHardwareMessage *)v6 setAdm:0], [(PLBasebandHardwareMessage *)v6 setGps:0], [(PLBasebandHardwareMessage *)v6 setUsb:0], [(PLBasebandHardwareMessage *)v6 setUart:0], [(PLBasebandHardwareMessage *)v6 setSpi:0], [(PLBasebandHardwareMessage *)v6 setRx:0], [(PLBasebandHardwareMessage *)v6 setTx:0], v7 = 0, [(PLBasebandHardwareMessage *)v6 parseData:dataCopy]))
   {
-    goto LABEL_3;
-  }
-
-  [(PLBasebandHardwareMessage *)v5 setHeader:0];
-  [(PLBasebandHardwareMessage *)v6 setSystem:0];
-  [(PLBasebandHardwareMessage *)v6 setArmPerf:0];
-  [(PLBasebandHardwareMessage *)v6 setMdsp:0];
-  [(PLBasebandHardwareMessage *)v6 setMdm:0];
-  [(PLBasebandHardwareMessage *)v6 setAdsp:0];
-  [(PLBasebandHardwareMessage *)v6 setAdm:0];
-  [(PLBasebandHardwareMessage *)v6 setGps:0];
-  [(PLBasebandHardwareMessage *)v6 setUsb:0];
-  [(PLBasebandHardwareMessage *)v6 setUart:0];
-  [(PLBasebandHardwareMessage *)v6 setSpi:0];
-  [(PLBasebandHardwareMessage *)v6 setRx:0];
-  [(PLBasebandHardwareMessage *)v6 setTx:0];
-  v7 = 0;
-  if ([(PLBasebandHardwareMessage *)v6 parseData:dataCopy])
-  {
-LABEL_3:
     v7 = v6;
   }
 
@@ -55,7 +39,7 @@ LABEL_3:
 
 - (BOOL)parseData:(id)data
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   bytes = [dataCopy bytes];
   [(PLBasebandHardwareMessage *)self setHeader:bytes + 13];
@@ -105,26 +89,25 @@ LABEL_3:
     v8 = PLLogCommon();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v12 = 134218498;
-      v13 = v6 - [dataCopy bytes];
-      v14 = 2048;
-      v15 = [dataCopy length];
-      v16 = 2080;
-      v17 = "[PLBasebandHardwareMessage parseData:]";
-      _os_log_error_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_ERROR, "Expected data length %lu but got %lu in %s", &v12, 0x20u);
+      v11 = 134218498;
+      v12 = v6 - [dataCopy bytes];
+      v13 = 2048;
+      v14 = [dataCopy length];
+      v15 = 2080;
+      v16 = "[PLBasebandHardwareMessage parseData:]";
+      _os_log_error_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_ERROR, "Expected data length %lu but got %lu in %s", &v11, 0x20u);
     }
   }
 
   v9 = 0;
 LABEL_16:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)logWithLogger:(id)logger
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   [(PLBasebandHardwareMessage *)self logRawWithLogger:0];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
@@ -152,7 +135,7 @@ LABEL_16:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v26 = v5;
+        v25 = v5;
         _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -178,14 +161,14 @@ LABEL_16:
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v15 = objc_opt_class();
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __43__PLBasebandHardwareMessage_logWithLogger___block_invoke_375;
-    v23[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v23[4] = v15;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __43__PLBasebandHardwareMessage_logWithLogger___block_invoke_375;
+    v22[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v22[4] = v15;
     if (qword_2811F8040 != -1)
     {
-      dispatch_once(&qword_2811F8040, v23);
+      dispatch_once(&qword_2811F8040, v22);
     }
 
     if (byte_2811F8021 == 1)
@@ -201,23 +184,21 @@ LABEL_16:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v26 = v16;
+        v25 = v16;
         _os_log_debug_impl(&dword_21A4C6000, v21, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __43__PLBasebandHardwareMessage_logWithLogger___block_invoke(uint64_t a1)
+void *__43__PLBasebandHardwareMessage_logWithLogger___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_114 = result;
   return result;
 }
 
-uint64_t __43__PLBasebandHardwareMessage_logWithLogger___block_invoke_375(uint64_t a1)
+void *__43__PLBasebandHardwareMessage_logWithLogger___block_invoke_375(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F8021 = result;
@@ -233,16 +214,16 @@ uint64_t __43__PLBasebandHardwareMessage_logWithLogger___block_invoke_375(uint64
 
 - (void)logHeaderWithLogger:(id)logger
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   loggerCopy = logger;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v5 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v19 = 3221225472;
-    v20 = __49__PLBasebandHardwareMessage_logHeaderWithLogger___block_invoke;
-    v21 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v22 = v5;
+    v18 = 3221225472;
+    v19 = __49__PLBasebandHardwareMessage_logHeaderWithLogger___block_invoke;
+    v20 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v21 = v5;
     if (qword_2811F8048 != -1)
     {
       dispatch_once(&qword_2811F8048, &block);
@@ -250,7 +231,7 @@ uint64_t __43__PLBasebandHardwareMessage_logWithLogger___block_invoke_375(uint64
 
     if (byte_2811F8022 == 1)
     {
-      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBasebandHardwareMessage logHeaderWithLogger:]", block, v19, v20, v21, v22];
+      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBasebandHardwareMessage logHeaderWithLogger:]", block, v18, v19, v20, v21];
       v7 = MEMORY[0x277D3F178];
       v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/PLBasebandHardwareMessage.m"];
       lastPathComponent = [v8 lastPathComponent];
@@ -261,7 +242,7 @@ uint64_t __43__PLBasebandHardwareMessage_logWithLogger___block_invoke_375(uint64
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v24 = v6;
+        v23 = v6;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -277,11 +258,9 @@ uint64_t __43__PLBasebandHardwareMessage_logWithLogger___block_invoke_375(uint64
 
   v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[PLBasebandHardwareMessage revision](self, "revision")}];
   [v13 setBbHwRev:v16];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __49__PLBasebandHardwareMessage_logHeaderWithLogger___block_invoke(uint64_t a1)
+void *__49__PLBasebandHardwareMessage_logHeaderWithLogger___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F8022 = result;
@@ -290,7 +269,7 @@ uint64_t __49__PLBasebandHardwareMessage_logHeaderWithLogger___block_invoke(uint
 
 - (void)logProcessorWithLogger:(id)logger
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   loggerCopy = logger;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
@@ -318,7 +297,7 @@ uint64_t __49__PLBasebandHardwareMessage_logHeaderWithLogger___block_invoke(uint
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v32 = v6;
+        v31 = v6;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -339,14 +318,14 @@ LABEL_10:
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v14 = objc_opt_class();
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __52__PLBasebandHardwareMessage_logProcessorWithLogger___block_invoke_387;
-    v29[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v29[4] = v14;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __52__PLBasebandHardwareMessage_logProcessorWithLogger___block_invoke_387;
+    v28[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v28[4] = v14;
     if (qword_2811F8058 != -1)
     {
-      dispatch_once(&qword_2811F8058, v29);
+      dispatch_once(&qword_2811F8058, v28);
     }
 
     if (byte_2811F8024 == 1)
@@ -362,7 +341,7 @@ LABEL_10:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v32 = v13;
+        v31 = v13;
         _os_log_debug_impl(&dword_21A4C6000, v19, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
@@ -384,14 +363,14 @@ LABEL_20:
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v21 = objc_opt_class();
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __52__PLBasebandHardwareMessage_logProcessorWithLogger___block_invoke_393;
-    v28[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v28[4] = v21;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __52__PLBasebandHardwareMessage_logProcessorWithLogger___block_invoke_393;
+    v27[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v27[4] = v21;
     if (qword_2811F8060 != -1)
     {
-      dispatch_once(&qword_2811F8060, v28);
+      dispatch_once(&qword_2811F8060, v27);
     }
 
     if (byte_2811F8025 == 1)
@@ -407,7 +386,7 @@ LABEL_20:
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v32 = v20;
+        v31 = v20;
         _os_log_debug_impl(&dword_21A4C6000, v26, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
@@ -417,25 +396,23 @@ LABEL_20:
 
 LABEL_28:
   [v12 setType:@"BB HW Log"];
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __52__PLBasebandHardwareMessage_logProcessorWithLogger___block_invoke(uint64_t a1)
+void *__52__PLBasebandHardwareMessage_logProcessorWithLogger___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F8023 = result;
   return result;
 }
 
-uint64_t __52__PLBasebandHardwareMessage_logProcessorWithLogger___block_invoke_387(uint64_t a1)
+void *__52__PLBasebandHardwareMessage_logProcessorWithLogger___block_invoke_387(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F8024 = result;
   return result;
 }
 
-uint64_t __52__PLBasebandHardwareMessage_logProcessorWithLogger___block_invoke_393(uint64_t a1)
+void *__52__PLBasebandHardwareMessage_logProcessorWithLogger___block_invoke_393(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F8025 = result;
@@ -444,16 +421,16 @@ uint64_t __52__PLBasebandHardwareMessage_logProcessorWithLogger___block_invoke_3
 
 - (void)logModemAppWithLogger:(id)logger
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   loggerCopy = logger;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v5 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v23 = 3221225472;
-    v24 = __51__PLBasebandHardwareMessage_logModemAppWithLogger___block_invoke;
-    v25 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v26 = v5;
+    v22 = 3221225472;
+    v23 = __51__PLBasebandHardwareMessage_logModemAppWithLogger___block_invoke;
+    v24 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v25 = v5;
     if (qword_2811F8068 != -1)
     {
       dispatch_once(&qword_2811F8068, &block);
@@ -461,7 +438,7 @@ uint64_t __52__PLBasebandHardwareMessage_logProcessorWithLogger___block_invoke_3
 
     if (byte_2811F8026 == 1)
     {
-      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBasebandHardwareMessage logModemAppWithLogger:]", block, v23, v24, v25, v26];
+      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLBasebandHardwareMessage logModemAppWithLogger:]", block, v22, v23, v24, v25];
       v7 = MEMORY[0x277D3F178];
       v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/PLBasebandHardwareMessage.m"];
       lastPathComponent = [v8 lastPathComponent];
@@ -472,7 +449,7 @@ uint64_t __52__PLBasebandHardwareMessage_logProcessorWithLogger___block_invoke_3
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v28 = v6;
+        v27 = v6;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -536,11 +513,9 @@ uint64_t __52__PLBasebandHardwareMessage_logProcessorWithLogger___block_invoke_3
   }
 
   [v12 setType:@"BB HW Modem/App"];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __51__PLBasebandHardwareMessage_logModemAppWithLogger___block_invoke(uint64_t a1)
+void *__51__PLBasebandHardwareMessage_logModemAppWithLogger___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F8026 = result;
@@ -549,7 +524,7 @@ uint64_t __51__PLBasebandHardwareMessage_logModemAppWithLogger___block_invoke(ui
 
 - (void)logPeripheralsWithLogger:(id)logger
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   loggerCopy = logger;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
@@ -577,7 +552,7 @@ uint64_t __51__PLBasebandHardwareMessage_logModemAppWithLogger___block_invoke(ui
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v28 = v6;
+        v27 = v6;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -631,14 +606,14 @@ uint64_t __51__PLBasebandHardwareMessage_logModemAppWithLogger___block_invoke(ui
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v17 = objc_opt_class();
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __54__PLBasebandHardwareMessage_logPeripheralsWithLogger___block_invoke_426;
-    v25[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v25[4] = v17;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __54__PLBasebandHardwareMessage_logPeripheralsWithLogger___block_invoke_426;
+    v24[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v24[4] = v17;
     if (qword_2811F8078 != -1)
     {
-      dispatch_once(&qword_2811F8078, v25);
+      dispatch_once(&qword_2811F8078, v24);
     }
 
     if (byte_2811F8028 == 1)
@@ -654,23 +629,21 @@ uint64_t __51__PLBasebandHardwareMessage_logModemAppWithLogger___block_invoke(ui
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v28 = v18;
+        v27 = v18;
         _os_log_debug_impl(&dword_21A4C6000, v23, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __54__PLBasebandHardwareMessage_logPeripheralsWithLogger___block_invoke(uint64_t a1)
+void *__54__PLBasebandHardwareMessage_logPeripheralsWithLogger___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F8027 = result;
   return result;
 }
 
-uint64_t __54__PLBasebandHardwareMessage_logPeripheralsWithLogger___block_invoke_426(uint64_t a1)
+void *__54__PLBasebandHardwareMessage_logPeripheralsWithLogger___block_invoke_426(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F8028 = result;
@@ -679,7 +652,7 @@ uint64_t __54__PLBasebandHardwareMessage_logPeripheralsWithLogger___block_invoke
 
 - (void)logRFWithLogger2:(id)logger2
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   logger2Copy = logger2;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
@@ -759,14 +732,14 @@ uint64_t __54__PLBasebandHardwareMessage_logPeripheralsWithLogger___block_invoke
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v29 = objc_opt_class();
-      v47[0] = MEMORY[0x277D85DD0];
-      v47[1] = 3221225472;
-      v47[2] = __46__PLBasebandHardwareMessage_logRFWithLogger2___block_invoke_438;
-      v47[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v47[4] = v29;
+      v46[0] = MEMORY[0x277D85DD0];
+      v46[1] = 3221225472;
+      v46[2] = __46__PLBasebandHardwareMessage_logRFWithLogger2___block_invoke_438;
+      v46[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v46[4] = v29;
       if (qword_2811F8090 != -1)
       {
-        dispatch_once(&qword_2811F8090, v47);
+        dispatch_once(&qword_2811F8090, v46);
       }
 
       if (byte_2811F802B == 1)
@@ -781,9 +754,9 @@ uint64_t __54__PLBasebandHardwareMessage_logPeripheralsWithLogger___block_invoke
         v35 = PLLogCommon();
         if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
         {
-          *v50 = 138412290;
-          v51 = v30;
-          _os_log_debug_impl(&dword_21A4C6000, v35, OS_LOG_TYPE_DEBUG, "%@", v50, 0xCu);
+          *v49 = 138412290;
+          v50 = v30;
+          _os_log_debug_impl(&dword_21A4C6000, v35, OS_LOG_TYPE_DEBUG, "%@", v49, 0xCu);
         }
       }
     }
@@ -799,14 +772,14 @@ uint64_t __54__PLBasebandHardwareMessage_logPeripheralsWithLogger___block_invoke
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v39 = objc_opt_class();
-      v48[0] = MEMORY[0x277D85DD0];
-      v48[1] = 3221225472;
-      v48[2] = __46__PLBasebandHardwareMessage_logRFWithLogger2___block_invoke_432;
-      v48[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v48[4] = v39;
+      v47[0] = MEMORY[0x277D85DD0];
+      v47[1] = 3221225472;
+      v47[2] = __46__PLBasebandHardwareMessage_logRFWithLogger2___block_invoke_432;
+      v47[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v47[4] = v39;
       if (qword_2811F8088 != -1)
       {
-        dispatch_once(&qword_2811F8088, v48);
+        dispatch_once(&qword_2811F8088, v47);
       }
 
       if (byte_2811F802A == 1)
@@ -831,34 +804,107 @@ uint64_t __54__PLBasebandHardwareMessage_logPeripheralsWithLogger___block_invoke
     [(PLBBMavLogMsg *)v13 appendToError:@"Error: BB HW RF <RAT> is expected but not present"];
     [(PLBBMavLogMsg *)v13 logEventBackwardMavBBHwOtherPerRAT];
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __46__PLBasebandHardwareMessage_logRFWithLogger2___block_invoke(uint64_t a1)
+void *__46__PLBasebandHardwareMessage_logRFWithLogger2___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F8029 = result;
   return result;
 }
 
-uint64_t __46__PLBasebandHardwareMessage_logRFWithLogger2___block_invoke_432(uint64_t a1)
+void *__46__PLBasebandHardwareMessage_logRFWithLogger2___block_invoke_432(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F802A = result;
   return result;
 }
 
-uint64_t __46__PLBasebandHardwareMessage_logRFWithLogger2___block_invoke_438(uint64_t a1)
+void *__46__PLBasebandHardwareMessage_logRFWithLogger2___block_invoke_438(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F802B = result;
   return result;
 }
 
+- (void)formatArray:(unsigned int *)array ofSize:(unsigned int)size inString:(id)string inReverse:(BOOL)reverse
+{
+  reverseCopy = reverse;
+  v7 = *&size;
+  stringCopy = string;
+  *&v10 = 100.0 / [(PLBasebandHardwareMessage *)self logDuration];
+  [(PLBasebandHardwareMessage *)self formatArray:array ofSize:v7 withMultiplier:stringCopy inString:reverseCopy inReverse:v10];
+}
+
+- (void)formatArray:(unsigned int *)array ofSize:(unsigned int)size withMultiplier:(float)multiplier inString:(id)string inReverse:(BOOL)reverse
+{
+  reverseCopy = reverse;
+  multiplierCopy = multiplier;
+  v9 = *&size;
+  stringCopy = string;
+  if ((LODWORD(multiplier) & 0x7FFFFFFFu) >= 0x7F800000)
+  {
+    multiplierCopy = 0.0;
+  }
+
+  v13 = [(PLBasebandHardwareMessage *)self convertToObjectArray:array ofSize:v9];
+  if (v13)
+  {
+    [stringCopy appendString:@"["];
+    if ([v13 count])
+    {
+      v14 = 0;
+      v15 = @"%];";
+      do
+      {
+        if (v14)
+        {
+          [stringCopy appendString:{@", "}];
+        }
+
+        v16 = v14;
+        if (reverseCopy)
+        {
+          v16 = [v13 count] + ~v14;
+        }
+
+        v17 = [v13 objectAtIndexedSubscript:v16];
+        [v17 floatValue];
+        v19 = multiplierCopy * v18;
+
+        if (v19 >= 0.01)
+        {
+          [stringCopy appendFormat:@"%.02f", v19];
+        }
+
+        else
+        {
+          [stringCopy appendString:{@"0", v19}];
+        }
+
+        ++v14;
+      }
+
+      while (v14 < [v13 count]);
+    }
+
+    else
+    {
+      v15 = @"%];";
+    }
+  }
+
+  else
+  {
+    v15 = @"[Array Length > FORMAT_ARRAY_MAX_LENGTH]";
+  }
+
+  [stringCopy appendString:v15];
+}
+
 - (id)convertUint8ArrayToNSArray:(char *)array ofSize:(unsigned int)size
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v6 = objc_opt_class();
@@ -885,7 +931,7 @@ uint64_t __46__PLBasebandHardwareMessage_logRFWithLogger2___block_invoke_438(uin
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v30 = v7;
+        v29 = v7;
         _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -913,14 +959,14 @@ uint64_t __46__PLBasebandHardwareMessage_logRFWithLogger2___block_invoke_438(uin
     if ([MEMORY[0x277D3F180] debugEnabled])
     {
       v18 = objc_opt_class();
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __63__PLBasebandHardwareMessage_convertUint8ArrayToNSArray_ofSize___block_invoke_469;
-      v27[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v27[4] = v18;
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __63__PLBasebandHardwareMessage_convertUint8ArrayToNSArray_ofSize___block_invoke_469;
+      v26[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v26[4] = v18;
       if (qword_2811F80A0 != -1)
       {
-        dispatch_once(&qword_2811F80A0, v27);
+        dispatch_once(&qword_2811F80A0, v26);
       }
 
       if (byte_2811F802D == 1)
@@ -936,7 +982,7 @@ uint64_t __46__PLBasebandHardwareMessage_logRFWithLogger2___block_invoke_438(uin
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v30 = v19;
+          v29 = v19;
           _os_log_debug_impl(&dword_21A4C6000, v24, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -945,19 +991,17 @@ uint64_t __46__PLBasebandHardwareMessage_logRFWithLogger2___block_invoke_438(uin
     v17 = MEMORY[0x277CBEBF8];
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
-uint64_t __63__PLBasebandHardwareMessage_convertUint8ArrayToNSArray_ofSize___block_invoke(uint64_t a1)
+void *__63__PLBasebandHardwareMessage_convertUint8ArrayToNSArray_ofSize___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F802C = result;
   return result;
 }
 
-uint64_t __63__PLBasebandHardwareMessage_convertUint8ArrayToNSArray_ofSize___block_invoke_469(uint64_t a1)
+void *__63__PLBasebandHardwareMessage_convertUint8ArrayToNSArray_ofSize___block_invoke_469(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F802D = result;
@@ -966,7 +1010,7 @@ uint64_t __63__PLBasebandHardwareMessage_convertUint8ArrayToNSArray_ofSize___blo
 
 - (id)convertUint16ArrayToNSArray:(unsigned __int16 *)array ofSize:(unsigned int)size
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (array && size)
   {
@@ -1012,7 +1056,7 @@ uint64_t __63__PLBasebandHardwareMessage_convertUint8ArrayToNSArray_ofSize___blo
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v22 = v12;
+          v21 = v12;
           _os_log_debug_impl(&dword_21A4C6000, v17, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -1021,12 +1065,10 @@ uint64_t __63__PLBasebandHardwareMessage_convertUint8ArrayToNSArray_ofSize___blo
     v10 = MEMORY[0x277CBEBF8];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
-uint64_t __64__PLBasebandHardwareMessage_convertUint16ArrayToNSArray_ofSize___block_invoke(uint64_t a1)
+void *__64__PLBasebandHardwareMessage_convertUint16ArrayToNSArray_ofSize___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F802E = result;
@@ -1035,7 +1077,7 @@ uint64_t __64__PLBasebandHardwareMessage_convertUint16ArrayToNSArray_ofSize___bl
 
 - (id)convertUint32ArrayToNSArray:(unsigned int *)array ofSize:(unsigned int)size
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (array && size)
   {
@@ -1081,7 +1123,7 @@ uint64_t __64__PLBasebandHardwareMessage_convertUint16ArrayToNSArray_ofSize___bl
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v22 = v12;
+          v21 = v12;
           _os_log_debug_impl(&dword_21A4C6000, v17, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -1090,12 +1132,10 @@ uint64_t __64__PLBasebandHardwareMessage_convertUint16ArrayToNSArray_ofSize___bl
     v10 = MEMORY[0x277CBEBF8];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
-uint64_t __64__PLBasebandHardwareMessage_convertUint32ArrayToNSArray_ofSize___block_invoke(uint64_t a1)
+void *__64__PLBasebandHardwareMessage_convertUint32ArrayToNSArray_ofSize___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F802F = result;
@@ -1104,7 +1144,7 @@ uint64_t __64__PLBasebandHardwareMessage_convertUint32ArrayToNSArray_ofSize___bl
 
 - (id)convertUint64ArrayToNSArray:(unint64_t *)array ofSize:(unsigned int)size
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (array && size)
   {
@@ -1150,7 +1190,7 @@ uint64_t __64__PLBasebandHardwareMessage_convertUint32ArrayToNSArray_ofSize___bl
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v22 = v12;
+          v21 = v12;
           _os_log_debug_impl(&dword_21A4C6000, v17, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
@@ -1159,21 +1199,77 @@ uint64_t __64__PLBasebandHardwareMessage_convertUint32ArrayToNSArray_ofSize___bl
     v10 = MEMORY[0x277CBEBF8];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
-uint64_t __64__PLBasebandHardwareMessage_convertUint64ArrayToNSArray_ofSize___block_invoke(uint64_t a1)
+void *__64__PLBasebandHardwareMessage_convertUint64ArrayToNSArray_ofSize___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F8030 = result;
   return result;
 }
 
+- (id)convertUint32ArrayToNSArray:(unsigned int *)array ofSize:(unsigned int)size andFill:(unsigned int)fill
+{
+  v6 = [(PLBasebandHardwareMessage *)self convertUint32ArrayToNSArray:array ofSize:*&size];
+  v7 = [v6 mutableCopy];
+
+  if (fill)
+  {
+    fillCopy = fill;
+    do
+    {
+      [v7 addObject:&unk_282C13278];
+      --fillCopy;
+    }
+
+    while (fillCopy);
+  }
+
+  return v7;
+}
+
+- (id)convertToObjectArrayPercentage:(unsigned int *)percentage ofSize:(unsigned int)size
+{
+  v4 = *&size;
+  v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v8 = [(PLBasebandHardwareMessage *)self convertToObjectArray:percentage ofSize:v4];
+  logDuration = [(PLBasebandHardwareMessage *)self logDuration];
+  if ((100.0 / logDuration) == INFINITY)
+  {
+    v10 = 0.0;
+  }
+
+  else
+  {
+    v10 = 100.0 / logDuration;
+  }
+
+  if ([v8 count])
+  {
+    v11 = 0;
+    do
+    {
+      v12 = [v8 objectAtIndexedSubscript:v11];
+      [v12 floatValue];
+      v14 = v10 * v13;
+
+      *&v15 = v14;
+      v16 = [MEMORY[0x277CCABB0] numberWithFloat:v15];
+      [v7 addObject:v16];
+
+      ++v11;
+    }
+
+    while (v11 < [v8 count]);
+  }
+
+  return v7;
+}
+
 - (id)convertToObjectArray:(unsigned int *)array ofSize:(unsigned int)size
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (size <= 0x18)
   {
@@ -1181,7 +1277,7 @@ uint64_t __64__PLBasebandHardwareMessage_convertUint64ArrayToNSArray_ofSize___bl
     if (size)
     {
       sizeCopy = size;
-      v8 = &v13;
+      v8 = &v12;
       do
       {
         v9 = *v8++;
@@ -1201,8 +1297,6 @@ uint64_t __64__PLBasebandHardwareMessage_convertUint64ArrayToNSArray_ofSize___bl
   {
     v6 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

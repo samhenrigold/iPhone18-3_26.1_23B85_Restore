@@ -41,8 +41,6 @@
   v2 = [(MTSwitchCellAccessibility_temp *)self safeValueForKey:@"toggle"];
   [v2 accessibilityTraits];
 
-  v3 = *MEMORY[0x29EDBDBD0];
-
   return _AXTraitsRemoveTrait();
 }
 

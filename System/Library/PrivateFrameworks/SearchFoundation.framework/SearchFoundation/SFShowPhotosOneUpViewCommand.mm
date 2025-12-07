@@ -13,11 +13,11 @@
 
 - (SFShowPhotosOneUpViewCommand)initWithProtobuf:(id)protobuf
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v45.receiver = self;
-  v45.super_class = SFShowPhotosOneUpViewCommand;
-  v5 = [(SFShowPhotosOneUpViewCommand *)&v45 init];
+  v44.receiver = self;
+  v44.super_class = SFShowPhotosOneUpViewCommand;
+  v5 = [(SFShowPhotosOneUpViewCommand *)&v44 init];
   if (v5)
   {
     photosLibraryImage = [protobufCopy photosLibraryImage];
@@ -51,33 +51,33 @@
       v15 = 0;
     }
 
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     matchedScenes2 = [protobufCopy matchedScenes];
-    v17 = [matchedScenes2 countByEnumeratingWithState:&v41 objects:v47 count:16];
+    v17 = [matchedScenes2 countByEnumeratingWithState:&v40 objects:v46 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v42;
+      v19 = *v41;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v42 != v19)
+          if (*v41 != v19)
           {
             objc_enumerationMutation(matchedScenes2);
           }
 
-          v21 = [[SFScene alloc] initWithProtobuf:*(*(&v41 + 1) + 8 * i)];
+          v21 = [[SFScene alloc] initWithProtobuf:*(*(&v40 + 1) + 8 * i)];
           if (v21)
           {
             [v15 addObject:v21];
           }
         }
 
-        v18 = [matchedScenes2 countByEnumeratingWithState:&v41 objects:v47 count:16];
+        v18 = [matchedScenes2 countByEnumeratingWithState:&v40 objects:v46 count:16];
       }
 
       while (v18);
@@ -95,33 +95,33 @@
       v23 = 0;
     }
 
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     matchedPeoples2 = [protobufCopy matchedPeoples];
-    v25 = [matchedPeoples2 countByEnumeratingWithState:&v37 objects:v46 count:16];
+    v25 = [matchedPeoples2 countByEnumeratingWithState:&v36 objects:v45 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v38;
+      v27 = *v37;
       do
       {
         for (j = 0; j != v26; ++j)
         {
-          if (*v38 != v27)
+          if (*v37 != v27)
           {
             objc_enumerationMutation(matchedPeoples2);
           }
 
-          v29 = [[SFPerson alloc] initWithProtobuf:*(*(&v37 + 1) + 8 * j)];
+          v29 = [[SFPerson alloc] initWithProtobuf:*(*(&v36 + 1) + 8 * j)];
           if (v29)
           {
             [v23 addObject:v29];
           }
         }
 
-        v26 = [matchedPeoples2 countByEnumeratingWithState:&v37 objects:v46 count:16];
+        v26 = [matchedPeoples2 countByEnumeratingWithState:&v36 objects:v45 count:16];
       }
 
       while (v26);
@@ -141,7 +141,6 @@
     v34 = v5;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

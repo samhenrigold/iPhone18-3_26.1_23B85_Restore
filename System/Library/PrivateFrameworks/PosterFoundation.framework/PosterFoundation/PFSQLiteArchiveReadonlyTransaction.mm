@@ -39,21 +39,21 @@ uint64_t __100___PFSQLiteArchiveReadonlyTransaction_setupObjectDescriptorForClas
 
 BOOL __100___PFSQLiteArchiveReadonlyTransaction_setupObjectDescriptorForClass_expectedObjectDescriptor_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2, void *a3)
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v6 = sqlite3_column_text(a2, 1);
   v7 = sqlite3_column_int(a2, 3) == 1;
   v8 = sqlite3_column_int(a2, 5) == 1;
   v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytesNoCopy:v6 length:strlen(v6) encoding:4 freeWhenDone:0];
   v10 = [*(a1 + 32) columns];
-  v18 = MEMORY[0x1E69E9820];
-  v19 = 3221225472;
-  v20 = __100___PFSQLiteArchiveReadonlyTransaction_setupObjectDescriptorForClass_expectedObjectDescriptor_error___block_invoke_3;
-  v21 = &unk_1E8189310;
+  v17 = MEMORY[0x1E69E9820];
+  v18 = 3221225472;
+  v19 = __100___PFSQLiteArchiveReadonlyTransaction_setupObjectDescriptorForClass_expectedObjectDescriptor_error___block_invoke_3;
+  v20 = &unk_1E8189310;
   v11 = v9;
-  v22 = v11;
-  v23 = v7;
-  v24 = v8;
-  v12 = [v10 bs_firstObjectPassingTest:&v18];
+  v21 = v11;
+  v22 = v7;
+  v23 = v8;
+  v12 = [v10 bs_firstObjectPassingTest:&v17];
 
   if (v12)
   {
@@ -63,14 +63,13 @@ BOOL __100___PFSQLiteArchiveReadonlyTransaction_setupObjectDescriptorForClass_ex
   else
   {
     v13 = MEMORY[0x1E696ABC0];
-    v25 = *MEMORY[0x1E696A588];
-    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"No matching column found for %@", v11, v18, v19, v20, v21];
-    v26[0] = v14;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = *MEMORY[0x1E696A588];
+    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"No matching column found for %@", v11, v17, v18, v19, v20];
+    v25[0] = v14;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     *a3 = [v13 errorWithDomain:@"PFSQLiteArchiver" code:-3 userInfo:v15];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v12 != 0;
 }
 
@@ -160,38 +159,38 @@ uint64_t __101___PFSQLiteArchiveReadonlyTransaction_unarchiveObjectsOfClass_pred
 
 uint64_t __99___PFSQLiteArchiveReadonlyTransaction_objectsOfClass_column_predicate_limitOffset_orderedBy_error___block_invoke(uint64_t a1, sqlite3 *a2, void *a3)
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   v6 = [*(a1 + 32) setupObjectDescriptorForClass:*(a1 + 80) expectedObjectDescriptor:0 error:a3];
   if (v6)
   {
     v7 = objc_opt_new();
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __99___PFSQLiteArchiveReadonlyTransaction_objectsOfClass_column_predicate_limitOffset_orderedBy_error___block_invoke_2;
-    v29[3] = &unk_1E8189338;
-    v30 = *(a1 + 40);
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __99___PFSQLiteArchiveReadonlyTransaction_objectsOfClass_column_predicate_limitOffset_orderedBy_error___block_invoke_2;
+    v28[3] = &unk_1E8189338;
+    v29 = *(a1 + 40);
     v8 = v7;
-    v31 = v8;
-    v25 = MEMORY[0x1C691C400](v29);
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __99___PFSQLiteArchiveReadonlyTransaction_objectsOfClass_column_predicate_limitOffset_orderedBy_error___block_invoke_3;
-    v27[3] = &unk_1E81893B0;
+    v30 = v8;
+    v24 = MEMORY[0x1C691C400](v28);
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __99___PFSQLiteArchiveReadonlyTransaction_objectsOfClass_column_predicate_limitOffset_orderedBy_error___block_invoke_3;
+    v26[3] = &unk_1E81893B0;
     v9 = v8;
-    v28 = v9;
-    v10 = MEMORY[0x1C691C400](v27);
-    v32[0] = *(a1 + 40);
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:1];
+    v27 = v9;
+    v10 = MEMORY[0x1C691C400](v26);
+    v31[0] = *(a1 + 40);
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
     [v6 tableName];
     v13 = v12 = a2;
     v14 = *(a1 + 48);
     v15 = *(a1 + 56);
     v16 = *(a1 + 64);
-    v26 = 0;
-    v17 = [PFSQLiteQueryFactory generateSelectStatementForColumns:v11 table:v13 predicate:v14 limitOffset:v15 orderedBy:v16 bindings:&v26];
-    v18 = MEMORY[0x1C691C400](v26);
+    v25 = 0;
+    v17 = [PFSQLiteQueryFactory generateSelectStatementForColumns:v11 table:v13 predicate:v14 limitOffset:v15 orderedBy:v16 bindings:&v25];
+    v18 = MEMORY[0x1C691C400](v25);
 
-    v19 = PFSQLite_prepare_and_stepThrough_withBlock(v12, v17, 3, 100000, *(*(a1 + 32) + 32), v18, v10, v25, a3);
+    v19 = PFSQLite_prepare_and_stepThrough_withBlock(v12, v17, 3, 100000, *(*(a1 + 32) + 32), v18, v10, v24, a3);
     if (v19)
     {
       v20 = [v9 copy];
@@ -206,7 +205,6 @@ uint64_t __99___PFSQLiteArchiveReadonlyTransaction_objectsOfClass_column_predica
     v19 = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -232,12 +230,11 @@ uint64_t __99___PFSQLiteArchiveReadonlyTransaction_objectsOfClass_column_predica
   return 1;
 }
 
-void __61___PFSQLiteArchiveReadonlyTransaction__accessDatabase_error___block_invoke_cold_1(uint64_t a1)
+void __61___PFSQLiteArchiveReadonlyTransaction__accessDatabase_error___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1C269D000, v1, v2, "Exception thrown for database during tx '%@': %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C269D000, v0, v1, "Exception thrown for database during tx '%@': %{public}@");
 }
 
 @end

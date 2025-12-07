@@ -15,10 +15,10 @@
   }
 
   selfCopy = self;
-  sub_24B0D75C0();
-  v5 = v4;
+  sub_24B0D75C0(selfCopy, v4, v5);
+  v7 = v6;
 
-  return v5;
+  return v7;
 }
 
 @end

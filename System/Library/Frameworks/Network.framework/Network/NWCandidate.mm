@@ -179,7 +179,7 @@ void __29__NWCandidate_startEvaluator__block_invoke(uint64_t a1, void *a2)
   v19 = __nwlog_obj();
   *buf = 136446210;
   v31 = "[NWCandidate initCandidate:forManager:evaluator:]";
-  v20 = _os_log_send_and_compose_impl();
+  v20 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v19, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v27 = 0;

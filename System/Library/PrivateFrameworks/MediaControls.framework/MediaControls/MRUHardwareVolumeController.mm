@@ -47,19 +47,19 @@ uint64_t __45__MRUHardwareVolumeController_sharedInstance__block_invoke()
 
 - (id)requestControlsForVolumeDataSource:(id)source reason:(id)reason
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   sourceCopy = source;
   reasonCopy = reason;
   v8 = [[MRUHardwareVolumeAssertion alloc] initWithHardwareVolumeController:self volumeDataSource:sourceCopy reason:reasonCopy];
 
-  v9 = MCLogCategoryVolume();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = MCLogCategoryVolume(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543618;
-    v13 = sourceCopy;
-    v14 = 2114;
-    v15 = v8;
-    _os_log_impl(&dword_1A20FC000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ requesting control for: %{public}@", &v12, 0x16u);
+    v13 = 138543618;
+    v14 = sourceCopy;
+    v15 = 2114;
+    v16 = v8;
+    _os_log_impl(&dword_1A20FC000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ requesting control for: %{public}@", &v13, 0x16u);
   }
 
   assertions = [(MRUHardwareVolumeController *)self assertions];
@@ -74,7 +74,7 @@ uint64_t __45__MRUHardwareVolumeController_sharedInstance__block_invoke()
 {
   v14 = *MEMORY[0x1E69E9840];
   assertionCopy = assertion;
-  v5 = MCLogCategoryVolume();
+  v5 = MCLogCategoryVolume(assertionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 138543618;
@@ -96,31 +96,32 @@ uint64_t __45__MRUHardwareVolumeController_sharedInstance__block_invoke()
 
 - (void)updateControlsForAssertion:(id)assertion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   assertionCopy = assertion;
   [(MRUHardwareVolumeController *)self relinquishHardwareVolumeButtons];
   volumeDataSource = [assertionCopy volumeDataSource];
-  if ([volumeDataSource applicationShouldOverrideHardwareVolumeBehavior])
+  applicationShouldOverrideHardwareVolumeBehavior = [volumeDataSource applicationShouldOverrideHardwareVolumeBehavior];
+  if (applicationShouldOverrideHardwareVolumeBehavior)
   {
-    v6 = MCLogCategoryVolume();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = MCLogCategoryVolume(applicationShouldOverrideHardwareVolumeBehavior);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v16 = objc_opt_class();
-      v17 = 2114;
-      v18 = assertionCopy;
-      _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ creating consumers for: %{public}@", buf, 0x16u);
+      v17 = objc_opt_class();
+      v18 = 2114;
+      v19 = assertionCopy;
+      _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ creating consumers for: %{public}@", buf, 0x16u);
     }
 
-    v7 = [[MRUHardwareVolumeDataSource alloc] initWithVolumeDataSource:volumeDataSource];
+    v8 = [[MRUHardwareVolumeDataSource alloc] initWithVolumeDataSource:volumeDataSource];
     mEMORY[0x1E69D4220] = [MEMORY[0x1E69D4220] sharedInstance];
-    v9 = [mEMORY[0x1E69D4220] beginConsumingPressesForButtonKind:4 eventConsumer:v7 priority:0];
+    v10 = [mEMORY[0x1E69D4220] beginConsumingPressesForButtonKind:4 eventConsumer:v8 priority:0];
     mEMORY[0x1E69D4220]2 = [MEMORY[0x1E69D4220] sharedInstance];
-    v11 = [mEMORY[0x1E69D4220]2 beginConsumingPressesForButtonKind:3 eventConsumer:v7 priority:0];
-    v14[1] = v11;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
+    v12 = [mEMORY[0x1E69D4220]2 beginConsumingPressesForButtonKind:3 eventConsumer:v8 priority:0];
+    v15[1] = v12;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
     invalidators = self->_invalidators;
-    self->_invalidators = v12;
+    self->_invalidators = v13;
   }
 }
 

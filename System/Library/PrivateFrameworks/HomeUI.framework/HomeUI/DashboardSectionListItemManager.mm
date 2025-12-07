@@ -34,7 +34,7 @@
   selfCopy = self;
   sub_20CF88D68(homeCopy);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81AF70);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81AF70, &unk_20D5BCEC0);
   v6 = sub_20D567A58();
 
   return v6;
@@ -42,13 +42,13 @@
 
 - (id)_buildSectionsWithDisplayedItems:(id)items
 {
-  sub_20CECF940(0, &qword_281120AC0);
+  sub_20CECF940(0, &qword_281120AC0, 0x277D14748);
   sub_20CEF99B4();
   v4 = sub_20D567D08();
   selfCopy = self;
   sub_20CF894FC(v4);
 
-  sub_20CECF940(0, &unk_28111FFD0);
+  sub_20CECF940(0, &unk_28111FFD0, 0x277D14778);
   v6 = sub_20D567A58();
 
   return v6;
@@ -56,15 +56,15 @@
 
 - (id)_itemsToHideInSet:(id)set
 {
-  sub_20CECF940(0, &qword_281120AC0);
+  sub_20CECF940(0, &qword_281120AC0, 0x277D14748);
   sub_20CEF99B4();
-  sub_20D567D08();
+  v4 = sub_20D567D08();
   selfCopy = self;
-  sub_20CF8971C();
+  sub_20CF8971C(v4);
 
-  v5 = sub_20D567CD8();
+  v6 = sub_20D567CD8();
 
-  return v5;
+  return v6;
 }
 
 - (_TtC6HomeUI31DashboardSectionListItemManager)initWithDelegate:(id)delegate sourceItem:(id)item

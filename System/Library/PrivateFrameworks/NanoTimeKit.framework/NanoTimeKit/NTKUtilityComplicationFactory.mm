@@ -194,7 +194,7 @@
     return 0;
   }
 
-  v5 = NTKUtilityComplicationCircularTypes();
+  v5 = NTKUtilityComplicationCircularTypes(self);
   LOBYTE(type) = [v5 containsIndex:type];
 
   if (type)
@@ -294,7 +294,7 @@ LABEL_11:
       v24 = NTKUtilityComplicationCurvedBuffer(device4);
 
       device5 = [(NTKUtilityComplicationFactory *)self device];
-      NTKUtilityComplicationCurvedCenterSize();
+      NTKUtilityComplicationCurvedCenterSize(device5);
       v27 = v26;
 
       v59.origin.x = v16;
@@ -308,7 +308,7 @@ LABEL_11:
       v60.size.height = v22;
       Width = CGRectGetWidth(v60);
       device6 = [(NTKUtilityComplicationFactory *)self device];
-      v31 = (Width - NTKUtilityComplicationCurvedCenterSize()) * -0.5;
+      v31 = (Width - NTKUtilityComplicationCurvedCenterSize(device6)) * -0.5;
 
       device7 = [(NTKUtilityComplicationFactory *)self device];
       v33 = NTKUtilityComplicationBottomCenterCurvedRadius(device7);

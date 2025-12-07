@@ -163,37 +163,37 @@ LABEL_13:
     [metadataCopy gravity];
   }
 
-  [(DeskCamRenderingSession *)self->_renderingSession registerGravity:v15];
+  v17 = [(DeskCamRenderingSession *)self->_renderingSession registerGravity:v15];
   if (self->_outputType)
   {
     [(DeskCamRenderingSession *)self->_renderingSession registerOutputType:?];
-    v17 = [(DeskCamRenderingSession *)self->_renderingSession processBuffer:buffer outputPixelBuffer:pixelBuffer];
-    if (v17)
+    v18 = [(DeskCamRenderingSession *)self->_renderingSession processBuffer:buffer outputPixelBuffer:pixelBuffer];
+    if (v18)
     {
-      v31 = v17;
+      v32 = v18;
       [DeskCamSession processPixelBuffer:withMetadata:outputPixelBuffer:];
     }
 
     else
     {
       [(DeskCamRenderingSession *)self->_renderingSession trapezoid];
-      *&self->_anon_40[4] = v18;
-      *&self->_anon_40[12] = v19;
-      *&self->_anon_40[20] = v20;
-      *&self->_anon_40[28] = v21;
+      *&self->_anon_40[4] = v19;
+      *&self->_anon_40[12] = v20;
+      *&self->_anon_40[20] = v21;
+      *&self->_anon_40[28] = v22;
       [(DeskCamRenderingSession *)self->_renderingSession transformMatrix];
-      *&self->_anon_60[12] = v22;
-      *&self->_anon_60[4] = v23;
-      *&self->_anon_60[28] = v24;
-      *&self->_anon_60[20] = v25;
-      *&self->_anon_60[44] = v26;
-      *&self->_anon_60[36] = v27;
+      *&self->_anon_60[12] = v23;
+      *&self->_anon_60[4] = v24;
+      *&self->_anon_60[28] = v25;
+      *&self->_anon_60[20] = v26;
+      *&self->_anon_60[44] = v27;
+      *&self->_anon_60[36] = v28;
       self->_focusPoint[3] = [(DeskCamRenderingSession *)self->_renderingSession transformIsValid];
       [(DeskCamRenderingSession *)self->_renderingSession focusPoint];
-      *&self->_exifOrientation = v28;
+      *&self->_exifOrientation = v29;
       LODWORD(self->_autoZoomValue) = [(DeskCamRenderingSession *)self->_renderingSession exifOrientation];
       [(DeskCamRenderingSession *)self->_renderingSession autoZoomValue];
-      LODWORD(self->_delegate) = v29;
+      LODWORD(self->_delegate) = v30;
       *(&self->_autoZoomValue + 5) = [(DeskCamRenderingSession *)self->_renderingSession autoZoomSupported];
       if ([(DeskCamRenderingSession *)self->_renderingSession gravityVectorUpdated])
       {
@@ -201,17 +201,17 @@ LABEL_13:
         [delegate deskViewTrapezoidDidUpdate];
       }
 
-      v31 = 0;
+      v32 = 0;
     }
   }
 
   else
   {
-    [DeskCamSession processPixelBuffer:withMetadata:outputPixelBuffer:];
-    v31 = -1;
+    [DeskCamSession processPixelBuffer:v17 withMetadata:? outputPixelBuffer:?];
+    v32 = -1;
   }
 
-  return v31;
+  return v32;
 }
 
 - (DeskCamSessionDelegate)delegate
@@ -219,41 +219,6 @@ LABEL_13:
   WeakRetained = objc_loadWeakRetained(&self[1].super.isa);
 
   return WeakRetained;
-}
-
-- (uint64_t)initWithOutputDimensions:portType:deviceModelName:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithOutputDimensions:portType:deviceModelName:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithOutputDimensions:portType:deviceModelName:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithOutputDimensions:portType:deviceModelName:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)processPixelBuffer:withMetadata:outputPixelBuffer:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  return FigDebugAssert3();
 }
 
 @end

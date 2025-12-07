@@ -5,44 +5,48 @@
 - (void)_setBackingState:(id)state;
 - (void)_swapContentsWithVector:(id)vector;
 - (void)addAllClockValuesFromVector:(id)vector;
+- (void)addClockValuesInIndexSet:(id)set withAttribute:(unsigned __int16)attribute forSiteIdentifier:(id)identifier;
 - (void)clockVector_checkInvariantsAgainstClockValues:(id)values withSiteIdentifier:(id)identifier ofType:(unsigned __int8)type;
 - (void)clockVector_checkInvariantsAgainstVector:(id)vector;
+- (void)clockVector_intersectVector:(id)vector withExpansionState:(unsigned __int8)state;
 - (void)clockVector_maintainInvariants;
+- (void)clockVector_minusVector:(id)vector withExpansionState:(unsigned __int8)state;
 - (void)intersectAttributedVector:(id)vector;
 - (void)intersectVector:(id)vector;
 - (void)minusVector:(id)vector;
+- (void)minusVector:(id)vector forAttribute:(unsigned __int16)attribute;
 @end
 
 @implementation CKDistributedTimestampMutableAttributedVector
 
 - (void)clockVector_maintainInvariants
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   objc_msgSend_allModifiers(selfCopy, v3, v4);
+  v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
-  obj = v37 = 0u;
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v5, &v36, v40, 16);
+  v35 = 0u;
+  obj = v36 = 0u;
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v5, &v35, v39, 16);
   if (v6)
   {
-    v7 = *v37;
+    v7 = *v36;
     do
     {
       v8 = 0;
       do
       {
-        if (*v37 != v7)
+        if (*v36 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v36 + 1) + 8 * v8);
+        v9 = *(*(&v35 + 1) + 8 * v8);
         v10 = objc_autoreleasePoolPush();
-        v35 = 0;
-        v13 = objc_msgSend_clockVector__winningLWWTimestampForModifier_winningAttribute_(selfCopy, v11, v9, &v35);
+        v34 = 0;
+        v13 = objc_msgSend_clockVector__winningLWWTimestampForModifier_winningAttribute_(selfCopy, v11, v9, &v34);
         if (v13)
         {
           v14 = objc_msgSend_vectorFilteredByModifier_(selfCopy, v12, v9);
@@ -54,7 +58,7 @@
             v21 = MEMORY[0x1E696AC90];
             v24 = objc_msgSend_clockValue(v13, v22, v23);
             v26 = objc_msgSend_indexSetWithIndex_(v21, v25, v24);
-            v27 = v35;
+            v27 = v34;
             v30 = objc_msgSend_siteIdentifierObject(v13, v28, v29);
             objc_msgSend_addClockValuesInIndexSet_withAttribute_forSiteIdentifier_(selfCopy, v31, v26, v27, v30);
           }
@@ -65,14 +69,13 @@
       }
 
       while (v6 != v8);
-      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v32, &v36, v40, 16);
+      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v32, &v35, v39, 16);
     }
 
     while (v6);
   }
 
   objc_sync_exit(selfCopy);
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_maintainInvariants
@@ -195,6 +198,21 @@
   objc_sync_exit(selfCopy);
 }
 
+- (void)minusVector:(id)vector forAttribute:(unsigned __int16)attribute
+{
+  attributeCopy = attribute;
+  vectorCopy = vector;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v9 = objc_msgSend_mutableAttributeToSparseVector(selfCopy, v7, v8);
+  v11 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x1E696AD98], v10, attributeCopy);
+  v13 = objc_msgSend_objectForKeyedSubscript_(v9, v12, v11);
+  objc_msgSend_minusVector_(v13, v14, vectorCopy);
+
+  objc_msgSend__maintainInvariants(selfCopy, v15, v16);
+  objc_sync_exit(selfCopy);
+}
+
 - (void)intersectAttributedVector:(id)vector
 {
   vectorCopy = vector;
@@ -213,6 +231,44 @@
 
   objc_sync_exit(v10);
   objc_msgSend__maintainInvariants(selfCopy, v12, v13);
+  objc_sync_exit(selfCopy);
+}
+
+- (void)addClockValuesInIndexSet:(id)set withAttribute:(unsigned __int16)attribute forSiteIdentifier:(id)identifier
+{
+  attributeCopy = attribute;
+  setCopy = set;
+  identifierCopy = identifier;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v13 = objc_msgSend_mutableAttributeToSparseVector(selfCopy, v11, v12);
+  v34 = MEMORY[0x1E69E9820];
+  v35 = 3221225472;
+  v36 = sub_18855A374;
+  v37 = &unk_1E70BD4B8;
+  v14 = setCopy;
+  v38 = v14;
+  v15 = identifierCopy;
+  v39 = v15;
+  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v13, v16, &v34);
+
+  v19 = objc_msgSend_mutableAttributeToSparseVector(selfCopy, v17, v18, v34, v35, v36, v37);
+  v21 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x1E696AD98], v20, attributeCopy);
+  v23 = objc_msgSend_objectForKeyedSubscript_(v19, v22, v21);
+
+  if (!v23)
+  {
+    v25 = objc_opt_new();
+    v28 = objc_msgSend_mutableAttributeToSparseVector(selfCopy, v26, v27);
+    v30 = objc_msgSend_numberWithUnsignedShort_(MEMORY[0x1E696AD98], v29, attributeCopy);
+    objc_msgSend_setObject_forKeyedSubscript_(v28, v31, v25, v30);
+
+    v23 = v25;
+  }
+
+  objc_msgSend_addClockValuesInIndexSet_forSiteIdentifier_(v23, v24, v14, v15);
+  objc_msgSend__maintainInvariants(selfCopy, v32, v33);
+
   objc_sync_exit(selfCopy);
 }
 
@@ -239,41 +295,93 @@
   objc_sync_exit(selfCopy);
 }
 
+- (void)clockVector_intersectVector:(id)vector withExpansionState:(unsigned __int8)state
+{
+  stateCopy = state;
+  vectorCopy = vector;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  obj = vectorCopy;
+  objc_sync_enter(obj);
+  objc_msgSend_clockVector_checkInvariantsAgainstVector_(selfCopy, v8, obj);
+  v11 = objc_msgSend_allSiteIdentifiers(obj, v9, v10);
+  v13 = objc_msgSend_clockVector_vectorFillingInImplicitClockValuesUsingSiteIdentifiers_withExpansionState_(selfCopy, v12, v11, stateCopy);
+  v16 = objc_msgSend_mutableCopy(v13, v14, v15);
+
+  v19 = objc_msgSend_allSiteIdentifiers(selfCopy, v17, v18);
+  v21 = objc_msgSend_clockVector_vectorFillingInImplicitClockValuesUsingSiteIdentifiers_withExpansionState_(obj, v20, v19, stateCopy);
+
+  v24 = objc_msgSend_vectorWithoutAttributes(v21, v22, v23);
+  objc_msgSend_intersectVector_(v16, v25, v24);
+
+  objc_msgSend__swapContentsWithVector_(selfCopy, v26, v16);
+  objc_sync_exit(obj);
+
+  objc_msgSend_clockVector_maintainInvariants(selfCopy, v27, v28);
+  objc_sync_exit(selfCopy);
+}
+
+- (void)clockVector_minusVector:(id)vector withExpansionState:(unsigned __int8)state
+{
+  stateCopy = state;
+  vectorCopy = vector;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  obj = vectorCopy;
+  objc_sync_enter(obj);
+  objc_msgSend_clockVector_checkInvariantsAgainstVector_(selfCopy, v8, obj);
+  v11 = objc_msgSend_allSiteIdentifiers(obj, v9, v10);
+  v13 = objc_msgSend_clockVector_vectorFillingInImplicitClockValuesUsingSiteIdentifiers_withExpansionState_(selfCopy, v12, v11, stateCopy);
+  v16 = objc_msgSend_mutableCopy(v13, v14, v15);
+
+  v19 = objc_msgSend_allSiteIdentifiers(selfCopy, v17, v18);
+  v21 = objc_msgSend_clockVector_vectorFillingInImplicitClockValuesUsingSiteIdentifiers_withExpansionState_(obj, v20, v19, stateCopy);
+
+  v24 = objc_msgSend_vectorWithoutAttributes(v21, v22, v23);
+  objc_msgSend_minusVector_(v16, v25, v24);
+
+  objc_msgSend__swapContentsWithVector_(selfCopy, v26, v16);
+  objc_sync_exit(obj);
+
+  objc_msgSend_clockVector_maintainInvariants(selfCopy, v27, v28);
+  objc_sync_exit(selfCopy);
+}
+
 - (void)clockVector_checkInvariantsAgainstVector:(id)vector
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   vectorCopy = vector;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v6 = vectorCopy;
   objc_sync_enter(v6);
   obj = v6;
-  v44 = selfCopy;
-  v46 = objc_msgSend_allModifiers(selfCopy, v7, v8);
-  v47 = objc_msgSend_allModifiers(v6, v9, v10);
-  v45 = objc_msgSend_mutableCopy(v46, v11, v12);
-  objc_msgSend_intersectSet_(v45, v13, v47);
+  v43 = selfCopy;
+  v45 = objc_msgSend_allModifiers(selfCopy, v7, v8);
+  v46 = objc_msgSend_allModifiers(v6, v9, v10);
+  v44 = objc_msgSend_mutableCopy(v45, v11, v12);
+  objc_msgSend_intersectSet_(v44, v13, v46);
   v16 = objc_msgSend_clockVector_clockTypesForAllModifiers(selfCopy, v14, v15);
   v19 = objc_msgSend_clockVector_clockTypesForAllModifiers(v6, v17, v18);
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
-  v20 = v45;
-  v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v49, v53, 16);
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  v20 = v44;
+  v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v48, v52, 16);
   if (v23)
   {
-    v24 = *v50;
+    v24 = *v49;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v50 != v24)
+        if (*v49 != v24)
         {
           objc_enumerationMutation(v20);
         }
 
-        v26 = *(*(&v49 + 1) + 8 * i);
+        v26 = *(*(&v48 + 1) + 8 * i);
         v27 = objc_msgSend_objectForKeyedSubscript_(v16, v22, v26);
         v29 = objc_msgSend_objectForKeyedSubscript_(v19, v28, v26);
         v32 = v29;
@@ -299,16 +407,14 @@
         }
       }
 
-      v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v22, &v49, v53, 16);
+      v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v22, &v48, v52, 16);
     }
 
     while (v23);
   }
 
   objc_sync_exit(obj);
-  objc_sync_exit(v44);
-
-  v43 = *MEMORY[0x1E69E9840];
+  objc_sync_exit(v43);
 }
 
 - (void)clockVector_checkInvariantsAgainstClockValues:(id)values withSiteIdentifier:(id)identifier ofType:(unsigned __int8)type

@@ -81,39 +81,39 @@
   objectCopy = object;
   objc_initWeak(&location, self);
   v13 = [SBSLockScreenContentAction alloc];
-  v21 = MEMORY[0x1E69E9820];
-  v22 = 3221225472;
-  v23 = __95__SBSLockScreenContentAssertion__acquireAssertionWithType_slot_identifier_configurationObject___block_invoke;
-  v24 = &unk_1E735EE28;
-  objc_copyWeak(v28, &location);
-  v28[1] = type;
+  v22 = MEMORY[0x1E69E9820];
+  v23 = 3221225472;
+  v24 = __95__SBSLockScreenContentAssertion__acquireAssertionWithType_slot_identifier_configurationObject___block_invoke;
+  v25 = &unk_1E735EE28;
+  objc_copyWeak(v29, &location);
+  v29[1] = type;
   v14 = slotCopy;
-  v25 = v14;
+  v26 = v14;
   v15 = identifierCopy;
-  v26 = v15;
+  v27 = v15;
   v16 = objectCopy;
-  v27 = v16;
-  v17 = [(SBSLockScreenContentAction *)v13 initWithType:type slot:v14 identifier:v15 configurationObject:v16 handler:&v21];
+  v28 = v16;
+  v17 = [(SBSLockScreenContentAction *)v13 initWithType:type slot:v14 identifier:v15 configurationObject:v16 handler:&v22];
   action = self->_action;
   self->_action = v17;
 
   if (self->_action)
   {
-    v19 = [MEMORY[0x1E695DFD8] setWithObject:{v21, v22, v23, v24, v25, v26}];
+    v20 = [MEMORY[0x1E695DFD8] setWithObject:{v22, v23, v24, v25, v26, v27}];
     mEMORY[0x1E699FCA0] = [MEMORY[0x1E699FCA0] sharedService];
-    [mEMORY[0x1E699FCA0] sendActions:v19 withResult:0];
+    [mEMORY[0x1E699FCA0] sendActions:v20 withResult:0];
   }
 
   else
   {
-    v19 = SBLogDashBoard();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = SBLogDashBoard(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [SBSLockScreenContentAssertion _acquireAssertionWithType:v14 slot:v15 identifier:v19 configurationObject:?];
+      [SBSLockScreenContentAssertion _acquireAssertionWithType:v14 slot:v15 identifier:v20 configurationObject:?];
     }
   }
 
-  objc_destroyWeak(v28);
+  objc_destroyWeak(v29);
   objc_destroyWeak(&location);
 }
 
@@ -151,7 +151,7 @@ void __95__SBSLockScreenContentAssertion__acquireAssertionWithType_slot_identifi
 
   if ((v11 & 1) == 0)
   {
-    v9 = SBLogDashBoard();
+    v9 = SBLogDashBoard(v12);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __95__SBSLockScreenContentAssertion__acquireAssertionWithType_slot_identifier_configurationObject___block_invoke_cold_1(v5, v9);
@@ -160,11 +160,11 @@ void __95__SBSLockScreenContentAssertion__acquireAssertionWithType_slot_identifi
 LABEL_10:
   }
 
-  v12 = [WeakRetained _errorHandler];
-  v13 = v12;
-  if (v12)
+  v13 = [WeakRetained _errorHandler];
+  v14 = v13;
+  if (v13)
   {
-    (*(v12 + 16))(v12, v5);
+    (*(v13 + 16))(v13, v5);
   }
 
 LABEL_14:

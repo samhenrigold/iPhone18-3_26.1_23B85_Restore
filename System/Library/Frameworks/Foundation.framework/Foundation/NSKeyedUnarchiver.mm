@@ -49,7 +49,7 @@
 - (int32_t)decodeInt32ForKey:(NSString *)key;
 - (int64_t)decodeInt64ForKey:(NSString *)key;
 - (int64_t)versionForClassName:(id)name;
-- (uint64_t)_validatePropertyListClass:(uint64_t)class forKey:;
+- (uint64_t)_validatePropertyListClass:(__CFString *)class forKey:;
 - (unint64_t)_decodeCollectionOfClass:(void *)class allowedClasses:(__CFString *)classes forKey:;
 - (void)_allowDecodingCyclesInSecureMode;
 - (void)_enableStrictSecureDecodingMode;
@@ -1455,7 +1455,7 @@ LABEL_12:
   return v13;
 }
 
-- (uint64_t)_validatePropertyListClass:(uint64_t)class forKey:
+- (uint64_t)_validatePropertyListClass:(__CFString *)class forKey:
 {
   v27 = *MEMORY[0x1E69E9840];
   if (result)

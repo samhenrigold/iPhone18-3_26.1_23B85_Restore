@@ -109,10 +109,11 @@
 
 - (void)sync:(id)sync
 {
-  v5 = _Block_copy(sync);
+  v4 = _Block_copy(sync);
+  v6[2] = v4;
   selfCopy = self;
-  sub_1003349C4(sub_10021BF3C);
-  _Block_release(v5);
+  sub_1003349C4(sub_10021BF3C, v6);
+  _Block_release(v4);
 }
 
 @end

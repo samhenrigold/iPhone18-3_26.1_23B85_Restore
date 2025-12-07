@@ -26,33 +26,34 @@
   lCopy = l;
   configurationCopy = configuration;
   queueCopy = queue;
-  v25.receiver = self;
-  v25.super_class = OspreyGRPCChannel;
-  v11 = [(OspreyGRPCChannel *)&v25 init];
+  v31.receiver = self;
+  v31.super_class = OspreyGRPCChannel;
+  v11 = [(OspreyGRPCChannel *)&v31 init];
+  v13 = v11;
   if (v11)
   {
-    OspreyLoggingInit();
+    OspreyLoggingInit(v11, v12);
     if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_DEBUG))
     {
       [OspreyGRPCChannel initWithURL:configuration:queue:];
     }
 
-    v12 = [lCopy copy];
-    baseURL = v11->_baseURL;
-    v11->_baseURL = v12;
+    v14 = [lCopy copy];
+    baseURL = v13->_baseURL;
+    v13->_baseURL = v14;
 
-    objc_storeStrong(&v11->_queue, queue);
-    v14 = objc_alloc_init(MEMORY[0x277CCABD8]);
-    [v14 setUnderlyingQueue:v11->_queue];
-    if (OspreyIsEntitledForMPTCP())
+    objc_storeStrong(&v13->_queue, queue);
+    v16 = objc_alloc_init(MEMORY[0x277CCABD8]);
+    v17 = [v16 setUnderlyingQueue:v13->_queue];
+    if (OspreyIsEntitledForMPTCP(v17, v18))
     {
       [configurationCopy set_allowsMultipathTCP:1];
-      [configurationCopy set_multipathAlternatePort:5228];
-      OspreyLoggingInit();
-      v15 = OspreyLogContextGRPC;
+      v19 = [configurationCopy set_multipathAlternatePort:5228];
+      OspreyLoggingInit(v19, v20);
+      v21 = OspreyLogContextGRPC;
       if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_DEBUG))
       {
-        [OspreyGRPCChannel initWithURL:configurationCopy configuration:v15 queue:?];
+        [OspreyGRPCChannel initWithURL:configurationCopy configuration:v21 queue:?];
       }
     }
 
@@ -62,24 +63,24 @@
     }
 
     [configurationCopy set_allowsTLSFalseStart:1];
-    v16 = [MEMORY[0x277CCAD30] sessionWithConfiguration:configurationCopy delegate:v11 delegateQueue:v14];
-    session = v11->_session;
-    v11->_session = v16;
+    v22 = [MEMORY[0x277CCAD30] sessionWithConfiguration:configurationCopy delegate:v13 delegateQueue:v16];
+    session = v13->_session;
+    v13->_session = v22;
 
     strongToStrongObjectsMapTable = [MEMORY[0x277CCAB00] strongToStrongObjectsMapTable];
-    taskToContext = v11->_taskToContext;
-    v11->_taskToContext = strongToStrongObjectsMapTable;
+    taskToContext = v13->_taskToContext;
+    v13->_taskToContext = strongToStrongObjectsMapTable;
 
-    v20 = objc_alloc_init(OspreyMessageWriter);
-    messageWriter = v11->_messageWriter;
-    v11->_messageWriter = v20;
+    v26 = objc_alloc_init(OspreyMessageWriter);
+    messageWriter = v13->_messageWriter;
+    v13->_messageWriter = v26;
 
-    v22 = objc_alloc_init(AbsintheAuthenticationDurations);
-    absintheDurations = v11->_absintheDurations;
-    v11->_absintheDurations = v22;
+    v28 = objc_alloc_init(AbsintheAuthenticationDurations);
+    absintheDurations = v13->_absintheDurations;
+    v13->_absintheDurations = v28;
   }
 
-  return v11;
+  return v13;
 }
 
 - (void)dealloc
@@ -92,24 +93,16 @@
 
 - (void)close
 {
-  OspreyLoggingInit();
-  if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_DEBUG))
-  {
-    [OspreyGRPCChannel close];
-  }
-
-  [(NSURLSession *)self->_session finishTasksAndInvalidate];
+  v6 = 136315394;
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_1_5(&dword_25DDE6000, v0, v1, "%s session: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)cancel
 {
-  OspreyLoggingInit();
-  if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_DEBUG))
-  {
-    [OspreyGRPCChannel cancel];
-  }
-
-  [(NSURLSession *)self->_session invalidateAndCancel];
+  v6 = 136315394;
+  OUTLINED_FUNCTION_2();
+  OUTLINED_FUNCTION_1_5(&dword_25DDE6000, v0, v1, "%s session: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)setAbsintheTimestampForKey:(id)key
@@ -274,31 +267,31 @@ uint64_t __77__OspreyGRPCChannel_clientStreamingRequest_responseHandler_streamin
 
 - (void)bidirectionalStreamingRequest:(id)request streamingContext:(id)context
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   contextCopy = context;
-  OspreyLoggingInit();
-  v8 = OspreyLogContextGRPC;
+  OspreyLoggingInit(contextCopy, v8);
+  v9 = OspreyLogContextGRPC;
   if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_INFO))
   {
     baseURL = self->_baseURL;
-    v10 = v8;
+    v11 = v9;
     methodName = [requestCopy methodName];
-    v14 = 136315650;
-    v15 = "[OspreyGRPCChannel bidirectionalStreamingRequest:streamingContext:]";
-    v16 = 2112;
-    v17 = baseURL;
-    v18 = 2112;
-    v19 = methodName;
-    _os_log_impl(&dword_25DDE6000, v10, OS_LOG_TYPE_INFO, "%s baseURL: %@, method: %@", &v14, 0x20u);
+    v15 = 136315650;
+    v16 = "[OspreyGRPCChannel bidirectionalStreamingRequest:streamingContext:]";
+    v17 = 2112;
+    v18 = baseURL;
+    v19 = 2112;
+    v20 = methodName;
+    _os_log_impl(&dword_25DDE6000, v11, OS_LOG_TYPE_INFO, "%s baseURL: %@, method: %@", &v15, 0x20u);
   }
 
-  v12 = [requestCopy grpcRequestWithBaseURL:self->_baseURL];
-  [contextCopy bindToUrlRequest:v12];
-  v13 = [(NSURLSession *)self->_session dataTaskWithRequest:v12];
-  [(NSMapTable *)self->_taskToContext setObject:contextCopy forKey:v13];
+  v13 = [requestCopy grpcRequestWithBaseURL:self->_baseURL];
+  [contextCopy bindToUrlRequest:v13];
+  v14 = [(NSURLSession *)self->_session dataTaskWithRequest:v13];
+  [(NSMapTable *)self->_taskToContext setObject:contextCopy forKey:v14];
 
-  [(OspreyGRPCChannel *)self _startTask:v13];
+  [(OspreyGRPCChannel *)self _startTask:v14];
 }
 
 - (void)preconnect
@@ -313,65 +306,66 @@ void __31__OspreyGRPCChannel_preconnect__block_invoke(uint64_t a1, void *a2, voi
   v6 = a2;
   v7 = a3;
   v8 = a4;
+  v10 = v8;
   if (v8)
   {
-    OspreyLoggingInit();
-    v9 = OspreyLogContextGRPC;
+    OspreyLoggingInit(v8, v9);
+    v11 = OspreyLogContextGRPC;
     if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_DEBUG))
     {
-      __31__OspreyGRPCChannel_preconnect__block_invoke_cold_1(v9, v8);
+      __31__OspreyGRPCChannel_preconnect__block_invoke_cold_1(v11, v10);
     }
   }
 
   else
   {
-    OspreyLoggingInit();
-    v10 = OspreyLogContextGRPC;
-    v11 = os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_DEBUG);
+    OspreyLoggingInit(0, v9);
+    v12 = OspreyLogContextGRPC;
+    v13 = os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_DEBUG);
     if (v7)
     {
-      if (v11)
+      if (v13)
       {
-        __31__OspreyGRPCChannel_preconnect__block_invoke_cold_2(v10);
+        __31__OspreyGRPCChannel_preconnect__block_invoke_cold_2(v12);
       }
     }
 
-    else if (v11)
+    else if (v13)
     {
-      __31__OspreyGRPCChannel_preconnect__block_invoke_cold_3(v10);
+      __31__OspreyGRPCChannel_preconnect__block_invoke_cold_3(v12);
     }
   }
 }
 
 - (void)URLSession:(id)session task:(id)task didFinishCollectingMetrics:(id)metrics
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
-  OspreyLoggingInit();
-  v7 = OspreyLogContextGRPC;
+  OspreyLoggingInit(metricsCopy, v7);
+  v8 = OspreyLogContextGRPC;
   if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_INFO))
   {
-    v13 = 136315394;
-    v14 = "[OspreyGRPCChannel URLSession:task:didFinishCollectingMetrics:]";
-    v15 = 2112;
-    v16 = metricsCopy;
-    _os_log_impl(&dword_25DDE6000, v7, OS_LOG_TYPE_INFO, "%s Successfully collected metrics %@", &v13, 0x16u);
+    v14 = 136315394;
+    v15 = "[OspreyGRPCChannel URLSession:task:didFinishCollectingMetrics:]";
+    v16 = 2112;
+    v17 = metricsCopy;
+    _os_log_impl(&dword_25DDE6000, v8, OS_LOG_TYPE_INFO, "%s Successfully collected metrics %@", &v14, 0x16u);
   }
 
   if (metricsCopy)
   {
-    v8 = [[OspreyConnectionMetrics alloc] initWithMetrics:metricsCopy];
+    v9 = [[OspreyConnectionMetrics alloc] initWithMetrics:metricsCopy];
     absintheDurations = [(OspreyGRPCChannel *)self absintheDurations];
-    connectionMethod = [(OspreyConnectionMetrics *)v8 connectionMethod];
+    connectionMethod = [(OspreyConnectionMetrics *)v9 connectionMethod];
     [absintheDurations setAbsintheConnectionMethodWith:connectionMethod];
 
-    v11 = +[OspreyAnalytics reporter];
-    [v11 reportConnectionMetrics:v8];
+    v12 = +[OspreyAnalytics reporter];
+    [v12 reportConnectionMetrics:v9];
 
     connectionMetricsHandler = self->_connectionMetricsHandler;
     if (connectionMetricsHandler)
     {
-      connectionMetricsHandler[2](connectionMetricsHandler, v8);
+      connectionMetricsHandler[2](connectionMetricsHandler, v9);
     }
   }
 }
@@ -393,7 +387,7 @@ void __31__OspreyGRPCChannel_preconnect__block_invoke(uint64_t a1, void *a2, voi
   v10 = [originalRequest URL];
 
   v11 = [(NSMapTable *)self->_taskToContext objectForKey:taskCopy];
-  OspreyLoggingInit();
+  OspreyLoggingInit(v11, v12);
   if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_DEBUG))
   {
     [OspreyGRPCChannel URLSession:task:didCompleteWithError:];
@@ -408,8 +402,8 @@ void __31__OspreyGRPCChannel_preconnect__block_invoke(uint64_t a1, void *a2, voi
   if (errorCopy)
   {
 LABEL_3:
-    v12 = +[OspreyAnalytics reporter];
-    [v12 reportError:errorCopy forURL:v10];
+    v13 = +[OspreyAnalytics reporter];
+    [v13 reportError:errorCopy forURL:v10];
   }
 
 LABEL_4:
@@ -427,30 +421,30 @@ LABEL_4:
   authenticationMethod = [protectionSpace authenticationMethod];
   v12 = [authenticationMethod isEqualToString:*MEMORY[0x277CCA720]];
 
-  OspreyLoggingInit();
-  v13 = OspreyLogContextGRPC;
-  v14 = os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_DEBUG);
+  OspreyLoggingInit(v13, v14);
+  v15 = OspreyLogContextGRPC;
+  v16 = os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_DEBUG);
   if (v12)
   {
-    if (v14)
+    if (v16)
     {
       [OspreyGRPCChannel URLSession:didReceiveChallenge:completionHandler:];
     }
 
-    v15 = 0;
+    v17 = 0;
   }
 
   else
   {
-    if (v14)
+    if (v16)
     {
-      [OspreyGRPCChannel URLSession:challengeCopy didReceiveChallenge:v13 completionHandler:protectionSpace];
+      [OspreyGRPCChannel URLSession:challengeCopy didReceiveChallenge:v15 completionHandler:protectionSpace];
     }
 
-    v15 = 1;
+    v17 = 1;
   }
 
-  handlerCopy[2](handlerCopy, v15, 0);
+  handlerCopy[2](handlerCopy, v17, 0);
 }
 
 - (void)URLSession:(id)session dataTask:(id)task didReceiveResponse:(id)response completionHandler:(id)handler
@@ -458,27 +452,27 @@ LABEL_4:
   taskCopy = task;
   responseCopy = response;
   handlerCopy = handler;
-  OspreyLoggingInit();
+  OspreyLoggingInit(handlerCopy, v12);
   if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_DEBUG))
   {
     [OspreyGRPCChannel URLSession:dataTask:didReceiveResponse:completionHandler:];
   }
 
   dispatch_assert_queue_V2(self->_queue);
-  v12 = responseCopy;
-  statusCode = [v12 statusCode];
-  allHeaderFields = [v12 allHeaderFields];
-  v15 = [allHeaderFields objectForKey:@"grpc-status"];
-  longLongValue = [v15 longLongValue];
+  v13 = responseCopy;
+  statusCode = [v13 statusCode];
+  allHeaderFields = [v13 allHeaderFields];
+  v16 = [allHeaderFields objectForKey:@"grpc-status"];
+  longLongValue = [v16 longLongValue];
 
-  v17 = +[OspreyAnalytics reporter];
-  v18 = [v12 URL];
-  [v17 reportHttpStatus:statusCode grpcStatus:longLongValue forURL:v18];
+  v18 = +[OspreyAnalytics reporter];
+  v19 = [v13 URL];
+  [v18 reportHttpStatus:statusCode grpcStatus:longLongValue forURL:v19];
 
   if (statusCode != 200)
   {
-    v20 = [MEMORY[0x277CCAA40] localizedStringForStatusCode:statusCode];
-    OspreyLoggingInit();
+    v23 = [MEMORY[0x277CCAA40] localizedStringForStatusCode:statusCode];
+    OspreyLoggingInit(v23, v26);
     if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_ERROR))
     {
       [OspreyGRPCChannel URLSession:dataTask:didReceiveResponse:completionHandler:];
@@ -489,10 +483,10 @@ LABEL_4:
 
   if (longLongValue)
   {
-    allHeaderFields2 = [v12 allHeaderFields];
-    v20 = [allHeaderFields2 objectForKey:@"grpc-message"];
+    allHeaderFields2 = [v13 allHeaderFields];
+    v23 = [allHeaderFields2 objectForKey:@"grpc-message"];
 
-    OspreyLoggingInit();
+    OspreyLoggingInit(v24, v25);
     if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_ERROR))
     {
       [OspreyGRPCChannel URLSession:dataTask:didReceiveResponse:completionHandler:];
@@ -500,20 +494,20 @@ LABEL_4:
 
     statusCode = -1011;
 LABEL_10:
-    v21 = MEMORY[0x277CCA9B8];
-    v22 = *MEMORY[0x277CCA738];
-    allHeaderFields3 = [v12 allHeaderFields];
-    v24 = [v21 errorWithDomain:v22 code:statusCode userInfo:allHeaderFields3];
+    v27 = MEMORY[0x277CCA9B8];
+    v28 = *MEMORY[0x277CCA738];
+    allHeaderFields3 = [v13 allHeaderFields];
+    v30 = [v27 errorWithDomain:v28 code:statusCode userInfo:allHeaderFields3];
 
-    v25 = [(NSMapTable *)self->_taskToContext objectForKey:taskCopy];
-    [v25 completeWithError:v24];
+    v31 = [(NSMapTable *)self->_taskToContext objectForKey:taskCopy];
+    [v31 completeWithError:v30];
     [(NSMapTable *)self->_taskToContext removeObjectForKey:taskCopy];
     handlerCopy[2](handlerCopy, 0);
 
     goto LABEL_11;
   }
 
-  OspreyLoggingInit();
+  OspreyLoggingInit(v20, v21);
   if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_DEBUG))
   {
     [OspreyGRPCChannel URLSession:dataTask:didReceiveResponse:completionHandler:];
@@ -528,14 +522,21 @@ LABEL_11:
   taskCopy = task;
   dataCopy = data;
   dispatch_assert_queue_V2(self->_queue);
-  OspreyLoggingInit();
+  OspreyLoggingInit(v9, v10);
   if (os_log_type_enabled(OspreyLogContextGRPC, OS_LOG_TYPE_DEBUG))
   {
     [OspreyGRPCChannel URLSession:dataTask:didReceiveData:];
   }
 
-  v9 = [(NSMapTable *)self->_taskToContext objectForKey:taskCopy];
-  [v9 handleResponseData:dataCopy];
+  v11 = [(NSMapTable *)self->_taskToContext objectForKey:taskCopy];
+  [v11 handleResponseData:dataCopy];
+}
+
+- (void)initWithURL:configuration:queue:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1_5(&dword_25DDE6000, v0, v1, "%s Initializing Osprey GRPC channel and NSURLSession -- %@", v2, v3, v4, v5, v6);
 }
 
 - (void)initWithURL:(void *)a1 configuration:(void *)a2 queue:.cold.2(void *a1, void *a2)
@@ -579,6 +580,13 @@ void __31__OspreyGRPCChannel_preconnect__block_invoke_cold_3(os_log_t log)
   _os_log_debug_impl(&dword_25DDE6000, log, OS_LOG_TYPE_DEBUG, "%s Preconnection successful!", &v1, 0xCu);
 }
 
+- (void)URLSession:task:didCompleteWithError:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1_5(&dword_25DDE6000, v0, v1, "%s Completed with error: %@", v2, v3, v4, v5, v6);
+}
+
 - (void)URLSession:(uint64_t)a1 didReceiveChallenge:(void *)a2 completionHandler:(void *)a3 .cold.1(uint64_t a1, void *a2, void *a3)
 {
   v13 = *MEMORY[0x277D85DE8];
@@ -591,6 +599,20 @@ void __31__OspreyGRPCChannel_preconnect__block_invoke_cold_3(os_log_t log)
   v11 = 2112;
   v12 = v6;
   _os_log_debug_impl(&dword_25DDE6000, v5, OS_LOG_TYPE_DEBUG, "%s Using default handling for challenge %@ with authenticationMethod %@", &v7, 0x20u);
+}
+
+- (void)URLSession:didReceiveChallenge:completionHandler:.cold.2()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1_5(&dword_25DDE6000, v0, v1, "%s Got challenge %@", v2, v3, v4, v5, v6);
+}
+
+- (void)URLSession:dataTask:didReceiveResponse:completionHandler:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1_5(&dword_25DDE6000, v0, v1, "%s %@", v2, v3, v4, v5, v6);
 }
 
 - (void)URLSession:dataTask:didReceiveResponse:completionHandler:.cold.2()

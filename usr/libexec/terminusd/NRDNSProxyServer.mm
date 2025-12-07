@@ -28,24 +28,23 @@
   {
     if (!self->super._started)
     {
-      v9.receiver = self;
-      v9.super_class = NRDNSProxyServer;
-      [(NRDNSProxy *)&v9 start];
+      v8.receiver = self;
+      v8.super_class = NRDNSProxyServer;
+      [(NRDNSProxy *)&v8 start];
       if (self->super._state - 1 >= 2)
       {
         if (self->super._dnsProtocol)
         {
-          nrUUID = self->super._nrUUID;
-          v4 = _NRCopyLogObjectForNRUUID();
+          v3 = _NRCopyLogObjectForNRUUID();
           IsLevelEnabled = _NRLogIsLevelEnabled();
 
           if (IsLevelEnabled)
           {
-            v6 = self->super._nrUUID;
-            v7 = _NRCopyLogObjectForNRUUID();
+            v5 = self->super._nrUUID;
+            v6 = _NRCopyLogObjectForNRUUID();
             dnsProtocol = self->super._dnsProtocol;
 
-            _NRLogWithArgs();
+            _NRLogWithArgs(v6, 17, "unsupported dns protocol %u", dnsProtocol);
           }
 
           sub_100023B5C(self, 4);
@@ -61,9 +60,9 @@
 
   else
   {
-    v9.receiver = 0;
-    v9.super_class = NRDNSProxyServer;
-    [(NRDNSProxy *)&v9 start];
+    v8.receiver = 0;
+    v8.super_class = NRDNSProxyServer;
+    [(NRDNSProxy *)&v8 start];
   }
 }
 

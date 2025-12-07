@@ -205,11 +205,12 @@ LABEL_13:
     v7 = [[_GCIPCRemoteProcess alloc] initWithConnection:connectionCopy];
     [(NSMutableSet *)self->_clients addObject:v7];
     [v7 addObserver:self forKeyPath:@"connections" options:1 context:0];
-    [(GameControllerDaemon *)self refreshClientTransaction];
-    if (sub_1000013D8())
+    refreshClientTransaction = [(GameControllerDaemon *)self refreshClientTransaction];
+    v10 = sub_1000013D8(refreshClientTransaction, v9);
+    if (v10)
     {
-      v9 = sub_1000015D0();
-      sub_100002C74(v9);
+      v12 = sub_1000015D0(v10);
+      sub_100002C74(v12);
     }
   }
 
@@ -221,32 +222,34 @@ LABEL_13:
 - (void)refreshClientTransaction
 {
   v3 = self->_clients;
-  objc_sync_enter(v3);
-  if (sub_1000013D8())
+  v4 = objc_sync_enter(v3);
+  v6 = sub_1000013D8(v4, v5);
+  if (v6)
   {
-    v6 = sub_1000015D0();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v12 = sub_1000015D0(v6);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v7 = [(NSMutableSet *)self->_clients count];
+      v13 = [(NSMutableSet *)self->_clients count];
       activeDevicesCount = self->_activeDevicesCount;
-      v10 = 134218240;
-      v11 = v7;
-      v12 = 2048;
-      v13 = activeDevicesCount;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "refreshClientTransaction - %lu clients and %lu active devices", &v10, 0x16u);
+      v16 = 134218240;
+      v17 = v13;
+      v18 = 2048;
+      v19 = activeDevicesCount;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "refreshClientTransaction - %lu clients and %lu active devices", &v16, 0x16u);
     }
   }
 
-  if ([(NSMutableSet *)self->_clients count]&& self->_activeDevicesCount)
+  v7 = [(NSMutableSet *)self->_clients count];
+  if (v7 && self->_activeDevicesCount)
   {
     if (self->_clientTransaction)
     {
       goto LABEL_8;
     }
 
-    v4 = os_transaction_create();
+    v9 = os_transaction_create();
     clientTransaction = self->_clientTransaction;
-    self->_clientTransaction = v4;
+    self->_clientTransaction = v9;
   }
 
   else
@@ -256,10 +259,11 @@ LABEL_13:
   }
 
 LABEL_8:
-  if (sub_1000013D8())
+  v11 = sub_1000013D8(v7, v8);
+  if (v11)
   {
-    v9 = sub_1000015D0();
-    sub_100002D0C(v9, 56, self);
+    v15 = sub_1000015D0(v11);
+    sub_100002D0C(v15);
   }
 
   objc_sync_exit(v3);
@@ -274,11 +278,12 @@ LABEL_8:
   if (![changeCopy count])
   {
     [clientCopy removeObserver:self forKeyPath:@"connections" context:0];
-    [(NSMutableSet *)self->_clients removeObject:clientCopy];
-    if (sub_1000013D8())
+    v9 = [(NSMutableSet *)self->_clients removeObject:clientCopy];
+    v11 = sub_1000013D8(v9, v10);
+    if (v11)
     {
-      v9 = sub_1000015D0();
-      sub_100002DB4(v9);
+      v12 = sub_1000015D0(v11);
+      sub_100002DB4(v12);
     }
   }
 
@@ -289,11 +294,11 @@ LABEL_8:
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
   connectionCopy = connection;
-  v20.opaque[0] = 0;
-  v20.opaque[1] = 0;
+  v22.opaque[0] = 0;
+  v22.opaque[1] = 0;
   v6 = _os_activity_create(&_mh_execute_header, "Incoming Connection", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
-  os_activity_scope_enter(v6, &v20);
-  v7 = [(GameControllerDaemon *)self clientForConnection:connectionCopy, v20.opaque[0], v20.opaque[1]];
+  os_activity_scope_enter(v6, &v22);
+  v7 = [(GameControllerDaemon *)self clientForConnection:connectionCopy, v22.opaque[0], v22.opaque[1]];
   serviceName = [connectionCopy serviceName];
   v9 = [serviceName isEqualToString:@"com.apple.GameController.gamecontrollerd.app"];
 
@@ -334,14 +339,14 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  if (sub_1000013D8())
+  if (sub_1000013D8(v20, v21))
   {
     sub_100002E4C(connectionCopy);
   }
 
   v13 = 0;
 LABEL_6:
-  os_activity_scope_leave(&v20);
+  os_activity_scope_leave(&v22);
 
   return v13;
 }
@@ -350,36 +355,36 @@ LABEL_6:
 {
   connectionCopy = connection;
   serverCopy = server;
-  if (sub_1000013D8())
+  if (sub_1000013D8(serverCopy, v7))
   {
     sub_100002F00(connectionCopy);
   }
 
-  v7 = [[_GCDriverClientConnection alloc] initWithConnection:connectionCopy fromProcess:serverCopy];
+  v8 = [[_GCDriverClientConnection alloc] initWithConnection:connectionCopy fromProcess:serverCopy];
 
-  v8 = +[_GCControllerManagerServer sharedInstance];
-  v9 = [v8 acceptIncomingDriverConnection:v7];
+  v9 = +[_GCControllerManagerServer sharedInstance];
+  v10 = [v9 acceptIncomingDriverConnection:v8];
 
-  return v9;
+  return v10;
 }
 
 - (BOOL)acceptNewConnection:(id)connection fromGCEnabledApp:(id)app
 {
   connectionCopy = connection;
   appCopy = app;
-  if (sub_1000013D8())
+  if (sub_1000013D8(appCopy, v7))
   {
     sub_100002FB4(connectionCopy);
   }
 
-  v7 = [[_GCAppClientConnection alloc] initWithConnection:connectionCopy fromProcess:appCopy];
-  [appCopy addConnection:v7];
+  v8 = [[_GCAppClientConnection alloc] initWithConnection:connectionCopy fromProcess:appCopy];
+  [appCopy addConnection:v8];
 
-  v8 = +[_GCControllerManagerServer sharedInstance];
-  v9 = [_GCAppClientProxy clientProxyWithConnection:v7 server:v8];
+  v9 = +[_GCControllerManagerServer sharedInstance];
+  v10 = [_GCAppClientProxy clientProxyWithConnection:v8 server:v9];
 
-  [v7 setServer:v9];
-  [v7 resume];
+  [v8 setServer:v10];
+  [v8 resume];
 
   return 1;
 }

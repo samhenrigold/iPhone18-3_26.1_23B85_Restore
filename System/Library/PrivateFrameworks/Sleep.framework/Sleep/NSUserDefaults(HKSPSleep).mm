@@ -71,7 +71,7 @@
 
   if (hksp_sleepdUserDefaults == self)
   {
-    v5 = @"com.apple.sleepd";
+    v6 = @"com.apple.sleepd";
   }
 
   else
@@ -80,7 +80,7 @@
 
     if (hksp_internalUserDefaults == self)
     {
-      v5 = @"com.apple.internal.sleep";
+      v6 = @"com.apple.internal.sleep";
     }
 
     else
@@ -94,11 +94,11 @@
         return;
       }
 
-      v5 = @"com.apple.sleep.analytics";
+      v6 = @"com.apple.sleep.analytics";
     }
   }
 
-  [self removePersistentDomainForName:v5];
+  [self removePersistentDomainForName:v6];
 }
 
 + (id)hksp_internalUserDefaults

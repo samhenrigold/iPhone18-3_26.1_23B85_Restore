@@ -819,44 +819,45 @@ void __31__PKPassGroupView__layoutStack__block_invoke(uint64_t a1, void *a2, uni
 - (UIEdgeInsets)alignmentRectInsets
 {
   _shouldReverseLayoutDirection = [(PKPassGroupView *)self _shouldReverseLayoutDirection];
-  PKFloatRoundToPixel();
-  v5 = v4;
+  v4.n128_u64[0] = 4.0;
+  PKFloatRoundToPixel(v4, v5);
+  v7 = v6;
   _willShowPageControl = [(PKPassGroupView *)self _willShowPageControl];
-  v7 = 0.0;
+  v9 = 0.0;
   if (_willShowPageControl)
   {
-    v8 = 12.0;
+    v10 = 12.0;
   }
 
   else
   {
-    v8 = 0.0;
+    v10 = 0.0;
   }
 
   if (_shouldReverseLayoutDirection)
   {
-    v9 = 8.0 - v5;
+    v11 = 8.0 - v7;
   }
 
   else
   {
-    v9 = v5;
+    v11 = v7;
   }
 
   if (_shouldReverseLayoutDirection)
   {
-    v10 = v5;
+    v12 = v7;
   }
 
   else
   {
-    v10 = 8.0 - v5;
+    v12 = 8.0 - v7;
   }
 
-  result.right = v10;
-  result.bottom = v8;
-  result.left = v9;
-  result.top = v7;
+  result.right = v12;
+  result.bottom = v10;
+  result.left = v11;
+  result.top = v9;
   return result;
 }
 
@@ -1384,28 +1385,34 @@ void __62__PKPassGroupView_updateToStackWithProgress_originalPosition___block_in
   separationCopy = separation;
   viewCopy = view;
   [viewCopy bounds];
-  PKSizeAlignedInRect();
-  v10 = v9;
-  v12 = v11;
-  v14 = v13;
+  v10.n128_u64[0] = v9;
+  v12.n128_u64[0] = v11;
+  v13.n128_u64[0] = *&self->_layoutState.bounds.origin.x;
+  v14.n128_u64[0] = *&self->_layoutState.bounds.origin.y;
+  v15.n128_u64[0] = *&self->_layoutState.bounds.size.width;
+  v16.n128_u64[0] = *&self->_layoutState.bounds.size.height;
+  PKSizeAlignedInRect(1, v10, v12, v13, v14, v15, v16, v17);
+  v20 = v19;
+  v22 = v21;
+  v24 = v23;
   if (separationCopy)
   {
-    v15 = v8 + index * 6.0;
+    v25 = v18 + index * 6.0;
   }
 
   else
   {
-    v15 = v8;
+    v25 = v18;
   }
 
   [viewCopy anchorPoint];
-  v17 = v16;
-  v19 = v18;
+  v27 = v26;
+  v29 = v28;
 
-  v20 = v10 + v17 * v12;
-  v21 = v15 + v19 * v14;
-  result.y = v21;
-  result.x = v20;
+  v30 = v20 + v27 * v22;
+  v31 = v25 + v29 * v24;
+  result.y = v31;
+  result.x = v30;
   return result;
 }
 
@@ -1693,19 +1700,19 @@ LABEL_20:
   [(PKPassGroupView *)self _enumeratePassViewsInStackOrderWithHandler:v12];
 }
 
-uint64_t __45__PKPassGroupView_applyContentModesAnimated___block_invoke(uint64_t result, uint64_t a2, unint64_t a3)
+char *__45__PKPassGroupView_applyContentModesAnimated___block_invoke(char *result, uint64_t a2, unint64_t a3)
 {
   if (a2)
   {
-    v3 = *(result + 40);
-    v4 = a3 - v3 < *(result + 48) && a3 >= v3;
+    v3 = *(result + 5);
+    v4 = a3 - v3 < *(result + 6) && a3 >= v3;
     v5 = 64;
     if (v4)
     {
       v5 = 56;
     }
 
-    return [*(result + 32) _applyContentMode:*(result + v5) toPassView:a2 animated:*(result + 72)];
+    return [*(result + 4) _applyContentMode:*&result[v5] toPassView:a2 animated:result[72]];
   }
 
   return result;
@@ -2486,12 +2493,12 @@ void __46__PKPassGroupView_beginSuppressingPageControl__block_invoke_3(uint64_t 
     p_layoutState = &self->_layoutState;
     if ((*(&self->_layoutState + 16) & 0x40) != 0)
     {
-      v39 = 0;
+      v81 = 0;
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
-      [WeakRetained groupViewModalReferenceScale:self isValid:&v39];
+      [WeakRetained groupViewModalReferenceScale:self isValid:&v81];
       v9 = v8;
 
-      if (v39 == 1)
+      if (v81 == 1)
       {
         self->_modalReferenceScale = v9;
       }
@@ -2521,37 +2528,57 @@ void __46__PKPassGroupView_beginSuppressingPageControl__block_invoke_3(uint64_t 
     }
 
     [(UIPageControl *)self->_pageControl frame];
+    v13 = v12;
+    v15 = v14;
+    v17 = v16;
+    v19 = v18;
     [(UIPageControl *)self->_pageControl sizeThatFits:1.79769313e308, 1.79769313e308];
+    v21 = v20;
+    v23 = v22;
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __51__PKPassGroupView__updatePageControlFrameAnimated___block_invoke;
     aBlock[3] = &unk_1E8025560;
-    v38 = animatedCopy;
+    v80 = animatedCopy;
     aBlock[4] = self;
-    v12 = _Block_copy(aBlock);
+    v24 = _Block_copy(aBlock);
     superview2 = [(PKPassView *)self->_frontmostPassView superview];
 
     if (superview2)
     {
       [(PKPassGroupView *)self center];
-      v35 = v15;
-      v36 = v14;
+      v77 = v34;
+      v78 = v33;
       [(PKPassGroupView *)self anchorPoint];
-      v17 = v16;
-      v19 = v18;
+      v36 = v35;
+      v38 = v37;
       [(PKPassGroupView *)self bounds];
-      v21 = v20;
-      v23 = v22;
+      v40 = v39;
+      v76 = v41;
+      v43 = v42;
+      v45 = v44;
       [(PKPassView *)self->_frontmostPassView frameOfVisibleFace];
       [(PKPassGroupView *)self convertRect:self->_frontmostPassView fromView:?];
-      PKFloatRoundToPixel();
-      PKSizeAlignedInRect();
-      v25 = v24;
-      v27 = v26;
-      PKFloatRoundToPixel();
-      v29 = v36 - v17 * v21 + v28;
-      PKFloatRoundToPixel();
-      v31.n128_f64[0] = v35 - v19 * v23 + v30;
+      v47 = v46.n128_f64[0];
+      v49.n128_f64[0] = v48 * self->_modalReferenceScale;
+      PKFloatRoundToPixel(v49, v46);
+      v51.n128_f64[0] = v47 + v50 + 3.0;
+      v52.n128_u64[0] = v21;
+      v53.n128_u64[0] = v23;
+      v54.n128_f64[0] = v40;
+      v55.n128_f64[0] = v43;
+      v56.n128_u64[0] = v23;
+      PKSizeAlignedInRect(1, v52, v53, v54, v51, v55, v56, v57);
+      v59 = v58;
+      v61 = v60;
+      v63 = v62;
+      v64.n128_f64[0] = v77;
+      v66.n128_f64[0] = v65 - v40;
+      PKFloatRoundToPixel(v66, v64);
+      v68 = v78 - v36 * v43 + v67;
+      v69.n128_f64[0] = v59 - v76;
+      PKFloatRoundToPixel(v69, v70);
+      v72.n128_f64[0] = v77 - v38 * v45 + v71;
     }
 
     else
@@ -2563,13 +2590,19 @@ LABEL_16:
         return;
       }
 
-      PKSizeAlignedInRect();
-      v29 = v32;
-      v25 = v33;
-      v27 = v34;
+      v26.n128_u64[0] = v21;
+      v27.n128_u64[0] = v23;
+      v28.n128_u64[0] = v13;
+      v29.n128_u64[0] = v15;
+      v30.n128_u64[0] = v17;
+      v31.n128_u64[0] = v19;
+      PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v26, v27, v28, v29, v30, v31, v32);
+      v68 = v73;
+      v61 = v74;
+      v63 = v75;
     }
 
-    (*(v12 + 2))(v12, self->_pageControl, v29, v31, v25, v27);
+    (*(v24 + 2))(v24, self->_pageControl, v68, v72, v61, v63);
     goto LABEL_16;
   }
 }

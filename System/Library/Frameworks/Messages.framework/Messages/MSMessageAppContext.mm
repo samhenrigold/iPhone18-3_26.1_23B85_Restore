@@ -80,20 +80,20 @@ void __77___MSMessageAppContext__becomeActiveWithConversationState_presentationS
   }
 }
 
-void __37___MSMessageAppContext__resignActive__block_invoke(uint64_t a1)
+void __37___MSMessageAppContext__resignActive__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = ms_traceLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = ms_traceLog(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __37___MSMessageAppContext__resignActive__block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __37___MSMessageAppContext__resignActive__block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
-  v10 = *(*(a1 + 32) + 48);
-  if (v10)
+  v11 = *(*(a1 + 32) + 48);
+  if (v11)
   {
     if (objc_opt_respondsToSelector())
     {
-      [*(a1 + 40) willResignActiveWithConversation:v10];
+      [*(a1 + 40) willResignActiveWithConversation:v11];
     }
 
     if (objc_opt_respondsToSelector())
@@ -101,38 +101,38 @@ void __37___MSMessageAppContext__resignActive__block_invoke(uint64_t a1)
       [*(a1 + 40) setActiveConversation:0];
     }
 
-    v11 = *(a1 + 32);
-    v12 = *(v11 + 48);
-    *(v11 + 48) = 0;
+    v12 = *(a1 + 32);
+    v13 = *(v12 + 48);
+    *(v12 + 48) = 0;
 
     if (objc_opt_respondsToSelector())
     {
-      [*(a1 + 40) didResignActiveWithConversation:v10];
+      [*(a1 + 40) didResignActiveWithConversation:v11];
     }
   }
 }
 
-void __84___MSMessageAppContext__canSendMessage_conversationState_associatedText_completion___block_invoke(uint64_t a1)
+void __84___MSMessageAppContext__canSendMessage_conversationState_associatedText_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = ms_traceLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = ms_traceLog(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __84___MSMessageAppContext__canSendMessage_conversationState_associatedText_completion___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __84___MSMessageAppContext__canSendMessage_conversationState_associatedText_completion___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
-  v10 = [*(a1 + 32) updatedConversationForConversationState:*(a1 + 40)];
-  v11 = [*(a1 + 32) viewController];
+  v11 = [*(a1 + 32) updatedConversationForConversationState:*(a1 + 40)];
+  v12 = [*(a1 + 32) viewController];
   if (objc_opt_respondsToSelector())
   {
-    v12 = *(a1 + 48);
-    v13 = *(a1 + 56);
-    v14 = MEMORY[0x1E69E9820];
-    v15 = 3221225472;
-    v16 = __84___MSMessageAppContext__canSendMessage_conversationState_associatedText_completion___block_invoke_83;
-    v17 = &unk_1E83A2D10;
-    v19 = *(a1 + 64);
-    v18 = *(a1 + 48);
-    [v11 _validateMessageForSending:v12 conversation:v10 associatedText:v13 completionHandler:&v14];
+    v13 = *(a1 + 48);
+    v14 = *(a1 + 56);
+    v15 = MEMORY[0x1E69E9820];
+    v16 = 3221225472;
+    v17 = __84___MSMessageAppContext__canSendMessage_conversationState_associatedText_completion___block_invoke_83;
+    v18 = &unk_1E83A2D10;
+    v20 = *(a1 + 64);
+    v19 = *(a1 + 48);
+    [v12 _validateMessageForSending:v13 conversation:v11 associatedText:v14 completionHandler:&v15];
   }
 
   else
@@ -143,23 +143,23 @@ void __84___MSMessageAppContext__canSendMessage_conversationState_associatedText
   [*(a1 + 32) _releaseKeepAliveContext];
 }
 
-void __68___MSMessageAppContext__conversationDidChangeWithConversationState___block_invoke(uint64_t a1)
+void __68___MSMessageAppContext__conversationDidChangeWithConversationState___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = ms_traceLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = ms_traceLog(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __68___MSMessageAppContext__conversationDidChangeWithConversationState___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __68___MSMessageAppContext__conversationDidChangeWithConversationState___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
-  v10 = [*(a1 + 32) updatedConversationForConversationState:*(a1 + 40)];
-  if (*(*(a1 + 32) + 48) != v10)
+  v11 = [*(a1 + 32) updatedConversationForConversationState:*(a1 + 40)];
+  if (*(*(a1 + 32) + 48) != v11)
   {
     if (objc_opt_respondsToSelector())
     {
-      [*(a1 + 48) setActiveConversation:v10];
+      [*(a1 + 48) setActiveConversation:v11];
     }
 
-    objc_storeStrong((*(a1 + 32) + 48), v10);
+    objc_storeStrong((*(a1 + 32) + 48), v11);
   }
 }
 
@@ -172,97 +172,97 @@ void __88___MSMessageAppContext__requestContentSizeThatFits_presentationStyle_co
   (*(v2 + 16))(v2);
 }
 
-void __67___MSMessageAppContext__presentationWillChangeToPresentationState___block_invoke(uint64_t a1)
+void __67___MSMessageAppContext__presentationWillChangeToPresentationState___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = ms_traceLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = ms_traceLog(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __67___MSMessageAppContext__presentationWillChangeToPresentationState___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __67___MSMessageAppContext__presentationWillChangeToPresentationState___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
-  v10 = [*(a1 + 32) viewController];
-  if (!v10)
+  v11 = [*(a1 + 32) viewController];
+  if (!v11)
   {
-    v10 = [*(a1 + 32) stickerViewController];
+    v11 = [*(a1 + 32) stickerViewController];
   }
 
   if (objc_opt_respondsToSelector())
   {
-    [v10 willTransitionToPresentationStyle:{objc_msgSend(*(a1 + 40), "presentationStyle")}];
+    [v11 willTransitionToPresentationStyle:{objc_msgSend(*(a1 + 40), "presentationStyle")}];
   }
 }
 
-void __66___MSMessageAppContext__presentationDidChangeToPresentationState___block_invoke(uint64_t a1)
+void __66___MSMessageAppContext__presentationDidChangeToPresentationState___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = ms_traceLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = ms_traceLog(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __66___MSMessageAppContext__presentationDidChangeToPresentationState___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __66___MSMessageAppContext__presentationDidChangeToPresentationState___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
-  v10 = [*(a1 + 32) viewController];
-  if (!v10)
+  v11 = [*(a1 + 32) viewController];
+  if (!v11)
   {
-    v10 = [*(a1 + 32) stickerViewController];
+    v11 = [*(a1 + 32) stickerViewController];
   }
 
   [*(a1 + 32) setPresentationStyle:{objc_msgSend(*(a1 + 40), "presentationStyle")}];
   if (objc_opt_respondsToSelector())
   {
-    [v10 didTransitionToPresentationStyle:{objc_msgSend(*(a1 + 32), "presentationStyle")}];
+    [v11 didTransitionToPresentationStyle:{objc_msgSend(*(a1 + 32), "presentationStyle")}];
   }
 }
 
-void __60___MSMessageAppContext__didUpdateMessage_conversationState___block_invoke(uint64_t a1)
+void __60___MSMessageAppContext__didUpdateMessage_conversationState___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = ms_traceLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = ms_traceLog(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __60___MSMessageAppContext__didUpdateMessage_conversationState___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __60___MSMessageAppContext__didUpdateMessage_conversationState___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
-  v10 = [*(a1 + 32) updatedConversationForConversationState:*(a1 + 40)];
-  v11 = [*(a1 + 32) viewController];
+  v11 = [*(a1 + 32) updatedConversationForConversationState:*(a1 + 40)];
+  v12 = [*(a1 + 32) viewController];
   if (objc_opt_respondsToSelector())
   {
-    [v11 _didUpdateMessage:*(a1 + 48) conversation:v10];
+    [v12 _didUpdateMessage:*(a1 + 48) conversation:v11];
   }
 }
 
-void __61___MSMessageAppContext__didReceiveMessage_conversationState___block_invoke(uint64_t a1)
+void __61___MSMessageAppContext__didReceiveMessage_conversationState___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = ms_traceLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = ms_traceLog(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __61___MSMessageAppContext__didReceiveMessage_conversationState___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __61___MSMessageAppContext__didReceiveMessage_conversationState___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
-  v10 = [*(a1 + 32) updatedConversationForConversationState:*(a1 + 40)];
-  v11 = [*(a1 + 32) viewController];
+  v11 = [*(a1 + 32) updatedConversationForConversationState:*(a1 + 40)];
+  v12 = [*(a1 + 32) viewController];
   if (objc_opt_respondsToSelector())
   {
-    [v11 didReceiveMessage:*(a1 + 48) conversation:v10];
+    [v12 didReceiveMessage:*(a1 + 48) conversation:v11];
   }
 }
 
-void __66___MSMessageAppContext__didStartSendingMessage_conversationState___block_invoke(uint64_t a1)
+void __66___MSMessageAppContext__didStartSendingMessage_conversationState___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = ms_traceLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = ms_traceLog(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __66___MSMessageAppContext__didStartSendingMessage_conversationState___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __66___MSMessageAppContext__didStartSendingMessage_conversationState___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
-  v10 = [*(a1 + 32) updatedConversationForConversationState:*(a1 + 40)];
-  v11 = [*(a1 + 32) viewController];
+  v11 = [*(a1 + 32) updatedConversationForConversationState:*(a1 + 40)];
+  v12 = [*(a1 + 32) viewController];
   if (objc_opt_respondsToSelector())
   {
-    if (v10)
+    if (v11)
     {
-      v12 = *(a1 + 48);
-      if (v12)
+      v13 = *(a1 + 48);
+      if (v13)
       {
-        [v11 didStartSendingMessage:v12 conversation:v10];
+        [v12 didStartSendingMessage:v13 conversation:v11];
       }
     }
   }
@@ -270,24 +270,24 @@ void __66___MSMessageAppContext__didStartSendingMessage_conversationState___bloc
   [*(a1 + 32) _releaseKeepAliveContext];
 }
 
-void __67___MSMessageAppContext__didCancelSendingMessage_conversationState___block_invoke(uint64_t a1)
+void __67___MSMessageAppContext__didCancelSendingMessage_conversationState___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = ms_traceLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = ms_traceLog(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __67___MSMessageAppContext__didCancelSendingMessage_conversationState___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __67___MSMessageAppContext__didCancelSendingMessage_conversationState___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
-  v10 = [*(a1 + 32) updatedConversationForConversationState:*(a1 + 40)];
-  v11 = [*(a1 + 32) viewController];
+  v11 = [*(a1 + 32) updatedConversationForConversationState:*(a1 + 40)];
+  v12 = [*(a1 + 32) viewController];
   if (objc_opt_respondsToSelector())
   {
-    if (v10)
+    if (v11)
     {
-      v12 = *(a1 + 48);
-      if (v12)
+      v13 = *(a1 + 48);
+      if (v13)
       {
-        [v11 didCancelSendingMessage:v12 conversation:v10];
+        [v12 didCancelSendingMessage:v13 conversation:v11];
       }
     }
   }
@@ -295,36 +295,36 @@ void __67___MSMessageAppContext__didCancelSendingMessage_conversationState___blo
   [*(a1 + 32) _releaseKeepAliveContext];
 }
 
-void __81___MSMessageAppContext__didSelectGPAsset_sandboxExtension_recipeData_completion___block_invoke(id *a1)
+void __81___MSMessageAppContext__didSelectGPAsset_sandboxExtension_recipeData_completion___block_invoke(id *a1, uint64_t a2)
 {
-  v2 = ms_traceLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = ms_traceLog(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __81___MSMessageAppContext__didSelectGPAsset_sandboxExtension_recipeData_completion___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __81___MSMessageAppContext__didSelectGPAsset_sandboxExtension_recipeData_completion___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
-  v10 = [a1[4] viewController];
+  v11 = [a1[4] viewController];
   if ((objc_opt_respondsToSelector() & 1) != 0 && (a1[5] || a1[6]))
   {
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __81___MSMessageAppContext__didSelectGPAsset_sandboxExtension_recipeData_completion___block_invoke_99;
     block[3] = &unk_1E83A2D38;
-    v11 = &v27;
-    v27 = v10;
     v12 = &v28;
-    v13 = &v28 + 1;
-    v14 = &v29;
-    v15 = a1[5];
-    v16 = a1[7];
-    v17 = a1[6];
-    v18 = a1[8];
-    *&v19 = v17;
-    *(&v19 + 1) = v18;
-    *&v20 = v15;
-    *(&v20 + 1) = v16;
-    v28 = v20;
-    v29 = v19;
+    v28 = v11;
+    v13 = &v29;
+    v14 = &v29 + 1;
+    v15 = &v30;
+    v16 = a1[5];
+    v17 = a1[7];
+    v18 = a1[6];
+    v19 = a1[8];
+    *&v20 = v18;
+    *(&v20 + 1) = v19;
+    *&v21 = v16;
+    *(&v21 + 1) = v17;
+    v29 = v21;
+    v30 = v20;
     dispatch_async(MEMORY[0x1E69E96A0], block);
 
 LABEL_11:
@@ -333,19 +333,19 @@ LABEL_11:
 
   if ((objc_opt_respondsToSelector() & 1) != 0 && (a1[5] || a1[6]))
   {
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __81___MSMessageAppContext__didSelectGPAsset_sandboxExtension_recipeData_completion___block_invoke_2;
-    v21[3] = &unk_1E83A2D88;
-    v11 = &v22;
-    v22 = v10;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __81___MSMessageAppContext__didSelectGPAsset_sandboxExtension_recipeData_completion___block_invoke_2;
+    v22[3] = &unk_1E83A2D88;
     v12 = &v23;
-    v23 = a1[5];
+    v23 = v11;
     v13 = &v24;
-    v24 = a1[6];
+    v24 = a1[5];
     v14 = &v25;
-    v25 = a1[8];
-    dispatch_async(MEMORY[0x1E69E96A0], v21);
+    v25 = a1[6];
+    v15 = &v26;
+    v26 = a1[8];
+    dispatch_async(MEMORY[0x1E69E96A0], v22);
     goto LABEL_11;
   }
 
@@ -357,7 +357,7 @@ void __60___MSMessageAppContext__requestSnapshotThatFits_completion___block_invo
 {
   v20 = *MEMORY[0x1E69E9840];
   v2 = [a1[4] viewController];
-  v3 = ms_defaultLog();
+  v3 = ms_defaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [v2 view];
@@ -404,7 +404,7 @@ void __60___MSMessageAppContext__requestSnapshotThatFits_completion___block_invo
 {
   v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = ms_defaultLog();
+  v4 = ms_defaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     [*(a1 + 32) CGSizeValue];
@@ -436,18 +436,18 @@ void __49___MSMessageAppContext__requestMessageTintColor___block_invoke(uint64_t
   (*(*(a1 + 40) + 16))();
 }
 
-void __73___MSMessageAppContext__handleTextInputPayload_withPayloadID_completion___block_invoke(uint64_t a1)
+void __73___MSMessageAppContext__handleTextInputPayload_withPayloadID_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = ms_traceLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = ms_traceLog(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __73___MSMessageAppContext__handleTextInputPayload_withPayloadID_completion___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __73___MSMessageAppContext__handleTextInputPayload_withPayloadID_completion___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
-  v10 = [*(a1 + 32) viewController];
+  v11 = [*(a1 + 32) viewController];
   if (objc_opt_respondsToSelector())
   {
-    [v10 _handleTextInputPayload:*(a1 + 40) withPayloadID:*(a1 + 48)];
+    [v11 _handleTextInputPayload:*(a1 + 40) withPayloadID:*(a1 + 48)];
   }
 
   (*(*(a1 + 56) + 16))();
@@ -458,8 +458,7 @@ void __61___MSMessageAppContext__didRemoveAssetArchiveWithIdentifier___block_inv
   v2 = [*(a1 + 32) viewController];
   if (objc_opt_respondsToSelector())
   {
-    [v2 _didRemoveAssetArchiveWithIdentifier:*(a1 + 40)];
-    v3 = ms_defaultLog();
+    v3 = ms_defaultLog([v2 _didRemoveAssetArchiveWithIdentifier:*(a1 + 40)]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v4 = 0;
@@ -470,23 +469,23 @@ void __61___MSMessageAppContext__didRemoveAssetArchiveWithIdentifier___block_inv
   [*(a1 + 32) _releaseKeepAliveContext];
 }
 
-void __69___MSMessageAppContext__prepareForPresentationWithCompletionHandler___block_invoke(uint64_t a1)
+void __69___MSMessageAppContext__prepareForPresentationWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = ms_traceLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = ms_traceLog(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __69___MSMessageAppContext__prepareForPresentationWithCompletionHandler___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __69___MSMessageAppContext__prepareForPresentationWithCompletionHandler___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
-  v10 = [*(a1 + 32) viewController];
+  v11 = [*(a1 + 32) viewController];
   if (objc_opt_respondsToSelector())
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __69___MSMessageAppContext__prepareForPresentationWithCompletionHandler___block_invoke_110;
-    v11[3] = &unk_1E83A2DD8;
-    v12 = *(a1 + 40);
-    [v10 _prepareForPresentationWithCompletionHandler:v11];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __69___MSMessageAppContext__prepareForPresentationWithCompletionHandler___block_invoke_110;
+    v12[3] = &unk_1E83A2DD8;
+    v13 = *(a1 + 40);
+    [v11 _prepareForPresentationWithCompletionHandler:v12];
   }
 
   else
@@ -495,19 +494,110 @@ void __69___MSMessageAppContext__prepareForPresentationWithCompletionHandler___b
   }
 }
 
-void __45___MSMessageAppContext__volumeButtonPressed___block_invoke(uint64_t a1)
+void __45___MSMessageAppContext__volumeButtonPressed___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = ms_traceLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = ms_traceLog(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __45___MSMessageAppContext__volumeButtonPressed___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __45___MSMessageAppContext__volumeButtonPressed___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
   }
 
-  v10 = [*(a1 + 32) viewController];
+  v11 = [*(a1 + 32) viewController];
   if (objc_opt_respondsToSelector())
   {
-    [v10 _volumeButtonPressed:*(a1 + 40)];
+    [v11 _volumeButtonPressed:*(a1 + 40)];
   }
+}
+
+void __37___MSMessageAppContext__resignActive__block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_MSMessageAppContext _resignActive]_block_invoke";
+  OUTLINED_FUNCTION_0_1(&dword_1CADE6000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __84___MSMessageAppContext__canSendMessage_conversationState_associatedText_completion___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_MSMessageAppContext _canSendMessage:conversationState:associatedText:completion:]_block_invoke";
+  OUTLINED_FUNCTION_0_1(&dword_1CADE6000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __68___MSMessageAppContext__conversationDidChangeWithConversationState___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_MSMessageAppContext _conversationDidChangeWithConversationState:]_block_invoke";
+  OUTLINED_FUNCTION_0_1(&dword_1CADE6000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __67___MSMessageAppContext__presentationWillChangeToPresentationState___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_MSMessageAppContext _presentationWillChangeToPresentationState:]_block_invoke";
+  OUTLINED_FUNCTION_0_1(&dword_1CADE6000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __66___MSMessageAppContext__presentationDidChangeToPresentationState___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_MSMessageAppContext _presentationDidChangeToPresentationState:]_block_invoke";
+  OUTLINED_FUNCTION_0_1(&dword_1CADE6000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __60___MSMessageAppContext__didUpdateMessage_conversationState___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_MSMessageAppContext _didUpdateMessage:conversationState:]_block_invoke";
+  OUTLINED_FUNCTION_0_1(&dword_1CADE6000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __61___MSMessageAppContext__didReceiveMessage_conversationState___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_MSMessageAppContext _didReceiveMessage:conversationState:]_block_invoke";
+  OUTLINED_FUNCTION_0_1(&dword_1CADE6000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __66___MSMessageAppContext__didStartSendingMessage_conversationState___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_MSMessageAppContext _didStartSendingMessage:conversationState:]_block_invoke";
+  OUTLINED_FUNCTION_0_1(&dword_1CADE6000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __67___MSMessageAppContext__didCancelSendingMessage_conversationState___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_MSMessageAppContext _didCancelSendingMessage:conversationState:]_block_invoke";
+  OUTLINED_FUNCTION_0_1(&dword_1CADE6000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __81___MSMessageAppContext__didSelectGPAsset_sandboxExtension_recipeData_completion___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_MSMessageAppContext _didSelectGPAsset:sandboxExtension:recipeData:completion:]_block_invoke";
+  OUTLINED_FUNCTION_0_1(&dword_1CADE6000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __73___MSMessageAppContext__handleTextInputPayload_withPayloadID_completion___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_MSMessageAppContext _handleTextInputPayload:withPayloadID:completion:]_block_invoke";
+  OUTLINED_FUNCTION_0_1(&dword_1CADE6000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __69___MSMessageAppContext__prepareForPresentationWithCompletionHandler___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_MSMessageAppContext _prepareForPresentationWithCompletionHandler:]_block_invoke";
+  OUTLINED_FUNCTION_0_1(&dword_1CADE6000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __45___MSMessageAppContext__volumeButtonPressed___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_MSMessageAppContext _volumeButtonPressed:]_block_invoke";
+  OUTLINED_FUNCTION_0_1(&dword_1CADE6000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

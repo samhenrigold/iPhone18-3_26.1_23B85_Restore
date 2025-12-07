@@ -35,7 +35,7 @@
 
 void __48__SKStoreReviewController_requestReviewInScene___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   v5 = v3 == MEMORY[0x1E69E9E20] || v3 == MEMORY[0x1E69E9E18];
@@ -54,19 +54,19 @@ void __48__SKStoreReviewController_requestReviewInScene___block_invoke(uint64_t 
       block[2] = __48__SKStoreReviewController_requestReviewInScene___block_invoke_2;
       block[3] = &unk_1E7B27B80;
       v16 = *(a1 + 32);
-      v21 = *(a1 + 40);
-      v19 = v16;
-      v20 = v13;
+      v20 = *(a1 + 40);
+      v18 = v16;
+      v19 = v13;
       v6 = v13;
       dispatch_async(MEMORY[0x1E69E96A0], block);
 
-      goto LABEL_19;
+      goto LABEL_20;
     }
 
     v6 = v7;
     if (!v7)
     {
-      goto LABEL_20;
+      goto LABEL_21;
     }
 
 LABEL_10:
@@ -74,43 +74,47 @@ LABEL_10:
     v8 = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = v8 | 2;
+      LODWORD(v9) = v8 | 2;
     }
 
     else
     {
-      v9 = v8;
+      LODWORD(v9) = v8;
     }
 
     v10 = [v7 OSLogObject];
-    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
 
     if (v9)
     {
-      v22 = 138412546;
-      v23 = objc_opt_class();
-      v24 = 2112;
-      v25 = v6;
-      v11 = v23;
-      LODWORD(v17) = 22;
-      v12 = _os_log_send_and_compose_impl();
+      v21 = 138412546;
+      v22 = objc_opt_class();
+      v23 = 2112;
+      v24 = v6;
+      v11 = v22;
+      v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1B23EF000, v10, 16, "[%@]: Request review error: %@", &v21, 22);
 
       if (!v12)
       {
-LABEL_19:
+LABEL_20:
 
-        goto LABEL_20;
+        goto LABEL_21;
       }
 
-      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v22, v17}];
+      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
       free(v12);
       SSFileLog();
     }
 
-    goto LABEL_19;
+    goto LABEL_20;
   }
 
   v6 = SSError();
@@ -119,7 +123,7 @@ LABEL_19:
     goto LABEL_10;
   }
 
-LABEL_20:
+LABEL_21:
 }
 
 void __48__SKStoreReviewController_requestReviewInScene___block_invoke_2(id *a1)
@@ -148,53 +152,57 @@ void __48__SKStoreReviewController_requestReviewInScene___block_invoke_2(id *a1)
 
 void __48__SKStoreReviewController_requestReviewInScene___block_invoke_3(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = [MEMORY[0x1E69D4938] sharedConfig];
   v4 = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = v4 | 2;
+    LODWORD(v5) = v4 | 2;
   }
 
   else
   {
-    v5 = v4;
+    LODWORD(v5) = v4;
   }
 
   v6 = [v3 OSLogObject];
-  if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
-  *v10 = 138412546;
-  *&v10[4] = objc_opt_class();
-  *&v10[12] = 2112;
-  *&v10[14] = v2;
-  v7 = *&v10[4];
-  LODWORD(v9) = 22;
-  v8 = _os_log_send_and_compose_impl();
+  v9 = 138412546;
+  v10 = objc_opt_class();
+  v11 = 2112;
+  v12 = v2;
+  v7 = v10;
+  v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1B23EF000, v6, 16, "[%@]: StoreKit service XPC error: %@", &v9, 22);
 
   if (v8)
   {
-    v6 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, v10, v9, *v10, *&v10[16], v11}];
+    v6 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
     free(v8);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 }
 
-uint64_t __48__SKStoreReviewController_requestReviewInScene___block_invoke_23(uint64_t result, int a2)
+id *__48__SKStoreReviewController_requestReviewInScene___block_invoke_23(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 48) requestReviewViaDirectInjectionFlowInScene:*(result + 32) requestToken:*(result + 40)];
+    return [result[6] requestReviewViaDirectInjectionFlowInScene:result[4] requestToken:result[5]];
   }
 
   return result;
@@ -202,53 +210,57 @@ uint64_t __48__SKStoreReviewController_requestReviewInScene___block_invoke_23(ui
 
 + (void)requestReviewViaDirectInjectionFlowInScene:(id)scene requestToken:(id)token
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   sceneCopy = scene;
   tokenCopy = token;
   mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
   shouldLog = [mEMORY[0x1E69D4938] shouldLog];
   if ([mEMORY[0x1E69D4938] shouldLogToDisk])
   {
-    v10 = shouldLog | 2;
+    LODWORD(v10) = shouldLog | 2;
   }
 
   else
   {
-    v10 = shouldLog;
+    LODWORD(v10) = shouldLog;
   }
 
   oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v10 = v10;
+  }
+
+  else
   {
     v10 &= 2u;
   }
 
   if (!v10)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
-  v21 = 138412290;
-  v22 = objc_opt_class();
-  v12 = v22;
-  LODWORD(v16) = 12;
-  v13 = _os_log_send_and_compose_impl();
+  v20 = 138412290;
+  v21 = objc_opt_class();
+  v12 = v21;
+  v13 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1B23EF000, oSLogObject, 1, "[%@]: Using old direct-injection review-request flow", &v20, 12);
 
   if (v13)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v21, v16}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
     free(v13);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __83__SKStoreReviewController_requestReviewViaDirectInjectionFlowInScene_requestToken___block_invoke;
   block[3] = &unk_1E7B27B80;
-  v19 = tokenCopy;
+  v18 = tokenCopy;
   selfCopy = self;
-  v18 = sceneCopy;
+  v17 = sceneCopy;
   v14 = tokenCopy;
   v15 = sceneCopy;
   dispatch_async(MEMORY[0x1E69E96A0], block);
@@ -256,7 +268,7 @@ LABEL_9:
 
 void __83__SKStoreReviewController_requestReviewViaDirectInjectionFlowInScene_requestToken___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (([*(a1 + 48) _isValidScene:*(a1 + 32)] & 1) == 0)
   {
     v4 = [MEMORY[0x1E69D4938] sharedConfig];
@@ -285,10 +297,9 @@ void __83__SKStoreReviewController_requestReviewViaDirectInjectionFlowInScene_re
     if (v8)
     {
       v9 = *(a1 + 32);
-      v13 = 138412290;
-      v14 = v9;
-      LODWORD(v11) = 12;
-      v10 = _os_log_send_and_compose_impl();
+      v12 = 138412290;
+      v13 = v9;
+      v10 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_1B23EF000, v7, 16, "Cannot display review request for unattached or disconnected scene: %@", &v12, 12);
 
       if (!v10)
       {
@@ -297,7 +308,7 @@ LABEL_15:
         return;
       }
 
-      v7 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v13, v11}];
+      v7 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
       free(v10);
       SSFileLog();
     }
@@ -308,11 +319,11 @@ LABEL_15:
   v2 = [MEMORY[0x1E69DC668] sharedApplication];
   [v2 sendAction:sel_resignFirstResponder to:0 from:0 forEvent:0];
 
-  v12 = [[SKStoreReviewViewController alloc] initWithReviewRequestToken:*(a1 + 40) scene:*(a1 + 32)];
+  v11 = [[SKStoreReviewViewController alloc] initWithReviewRequestToken:*(a1 + 40) scene:*(a1 + 32)];
   v3 = [(UIApplicationRotationFollowingWindow *)[SKStoreReviewPresentationWindow alloc] initWithWindowScene:*(a1 + 32)];
   [(SKStoreReviewPresentationWindow *)v3 setHidden:0];
-  [(SKStoreReviewViewController *)v12 setPresentationWindow:v3];
-  [(SKStoreReviewPresentationWindow *)v3 presentViewController:v12 animated:1 completion:0];
+  [(SKStoreReviewViewController *)v11 setPresentationWindow:v3];
+  [(SKStoreReviewPresentationWindow *)v3 presentViewController:v11 animated:1 completion:0];
 }
 
 + (BOOL)_isValidScene:(id)scene

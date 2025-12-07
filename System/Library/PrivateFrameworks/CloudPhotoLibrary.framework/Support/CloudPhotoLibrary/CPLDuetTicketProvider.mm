@@ -342,25 +342,25 @@ LABEL_6:
 
   if (overrideCopy)
   {
-    v11 = unsignedIntegerValue | budgets;
+    v12 = unsignedIntegerValue | budgets;
   }
 
   else
   {
-    v11 = unsignedIntegerValue & ~budgets;
+    v12 = unsignedIntegerValue & ~budgets;
   }
 
-  if (v11 == unsignedIntegerValue)
+  if (v12 == unsignedIntegerValue)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v12 = sub_10006E74C();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_10006E74C(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = [CPLEngineSystemMonitor descriptionForBudgets:unsignedIntegerValue];
-        v20 = 138412290;
-        v21 = v13;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Overriding system budgets is kept at %@", &v20, 0xCu);
+        v14 = [CPLEngineSystemMonitor descriptionForBudgets:unsignedIntegerValue];
+        v21 = 138412290;
+        v22 = v14;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Overriding system budgets is kept at %@", &v21, 0xCu);
       }
     }
   }
@@ -369,23 +369,23 @@ LABEL_6:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v14 = sub_10006E74C();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_10006E74C(v11);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = [CPLEngineSystemMonitor descriptionForBudgets:unsignedIntegerValue];
-        v16 = [CPLEngineSystemMonitor descriptionForBudgets:v11];
-        v20 = 138412546;
-        v21 = v15;
-        v22 = 2112;
-        v23 = v16;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Overriding system budgets changed from (%@) to (%@)", &v20, 0x16u);
+        v16 = [CPLEngineSystemMonitor descriptionForBudgets:unsignedIntegerValue];
+        v17 = [CPLEngineSystemMonitor descriptionForBudgets:v12];
+        v21 = 138412546;
+        v22 = v16;
+        v23 = 2112;
+        v24 = v17;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Overriding system budgets changed from (%@) to (%@)", &v21, 0x16u);
       }
     }
 
-    v17 = [NSNumber numberWithUnsignedInteger:v11];
-    v18 = self->_duetOverrideContext;
+    v18 = [NSNumber numberWithUnsignedInteger:v12];
+    v19 = self->_duetOverrideContext;
     _budgetOverrideKeyPath2 = [(CPLDuetTicketProvider *)self _budgetOverrideKeyPath];
-    [(_CDClientContext *)v18 setObject:v17 forKeyedSubscript:_budgetOverrideKeyPath2];
+    [(_CDClientContext *)v19 setObject:v18 forKeyedSubscript:_budgetOverrideKeyPath2];
 
     [(NSMutableSet *)self->_budgetDelegates enumerateObjectsUsingBlock:&stru_100275560];
   }

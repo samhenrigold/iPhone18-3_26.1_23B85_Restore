@@ -8,8 +8,8 @@
 - (id)_stringFromQuantityType:(void *)type;
 - (id)preferredUnitForType:(id)type error:(id *)error;
 - (id)unitPreferencesDictionaryForTypes:(id)types version:(int64_t)version authorizationOracle:(id)oracle error:(id *)error;
-- (uint64_t)_lock_notifyObserversWithUnitPreferences;
 - (void)_localeDidChange:(id)change;
+- (void)_lock_notifyObserversWithUnitPreferences;
 - (void)_lock_setUnit:(void *)unit forType:;
 - (void)dealloc;
 - (void)setPreferredUnitToDefaultIfNotSetForType:(id)type;
@@ -56,29 +56,29 @@
 
 - (id)unitPreferencesDictionaryForTypes:(id)types version:(int64_t)version authorizationOracle:(id)oracle error:(id *)error
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   oracleCopy = oracle;
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   v10 = typesCopy;
-  v11 = [v10 countByEnumeratingWithState:&v50 objects:v56 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v49 objects:v55 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v51;
+    v13 = *v50;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v51 != v13)
+        if (*v50 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v50 + 1) + 8 * i);
+        v15 = *(*(&v49 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -89,7 +89,7 @@
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v50 objects:v56 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v49 objects:v55 count:16];
       if (v12)
       {
         continue;
@@ -109,9 +109,9 @@
     goto LABEL_21;
   }
 
-  v54 = 0;
-  v20 = [v17 isAuthorizationStatusDeterminedForTypes:v16 error:&v54];
-  v21 = v54;
+  v53 = 0;
+  v20 = [v17 isAuthorizationStatusDeterminedForTypes:v16 error:&v53];
+  v21 = v53;
   v22 = v21;
   if (v20)
   {
@@ -155,41 +155,41 @@ LABEL_21:
   }
 
   os_unfair_lock_lock(&self->_lock);
-  v41 = v10;
-  v42 = oracleCopy;
+  v40 = v10;
+  v41 = oracleCopy;
   if (self)
   {
     versionedUnitPreferences = self->_versionedUnitPreferences;
     if (versionedUnitPreferences)
     {
-      v43 = versionedUnitPreferences;
+      v42 = versionedUnitPreferences;
 LABEL_27:
       currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
       v24 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v45 = 0u;
       v46 = 0u;
       v47 = 0u;
       v48 = 0u;
-      v49 = 0u;
       v31 = v16;
-      v32 = [v31 countByEnumeratingWithState:&v46 objects:v55 count:16];
+      v32 = [v31 countByEnumeratingWithState:&v45 objects:v54 count:16];
       if (v32)
       {
         v33 = v32;
-        v34 = *v47;
+        v34 = *v46;
         do
         {
           for (j = 0; j != v33; ++j)
           {
-            if (*v47 != v34)
+            if (*v46 != v34)
             {
               objc_enumerationMutation(v31);
             }
 
-            v36 = *(*(&v46 + 1) + 8 * j);
+            v36 = *(*(&v45 + 1) + 8 * j);
             v37 = [v23 objectForKey:v36];
             if ([v37 canRead])
             {
-              [(HDUnitPreferencesManager *)self _lock_unitForType:v36 versionedUnitPreferences:v43 version:version locale:currentLocale];
+              [(HDUnitPreferencesManager *)self _lock_unitForType:v36 versionedUnitPreferences:v42 version:version locale:currentLocale];
             }
 
             else
@@ -200,7 +200,7 @@ LABEL_27:
             [v24 setObject:v38 forKeyedSubscript:v36];
           }
 
-          v33 = [v31 countByEnumeratingWithState:&v46 objects:v55 count:16];
+          v33 = [v31 countByEnumeratingWithState:&v45 objects:v54 count:16];
         }
 
         while (v33);
@@ -214,23 +214,21 @@ LABEL_27:
     v29 = self->_versionedUnitPreferences;
     self->_versionedUnitPreferences = v28;
 
-    v43 = self->_versionedUnitPreferences;
-    if (v43)
+    v42 = self->_versionedUnitPreferences;
+    if (v42)
     {
       goto LABEL_27;
     }
   }
 
-  v43 = 0;
+  v42 = 0;
   v24 = 0;
 LABEL_38:
   os_unfair_lock_unlock(&selfCopy2->_lock);
 
-  v10 = v41;
-  oracleCopy = v42;
+  v10 = v40;
+  oracleCopy = v41;
 LABEL_39:
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -294,10 +292,9 @@ LABEL_7:
 
 - (void)_lock_setUnit:(void *)unit forType:
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   if (!self)
   {
-    v32 = *MEMORY[0x277D85DE8];
     return;
   }
 
@@ -340,24 +337,24 @@ LABEL_7:
   v15 = *(self + 16);
   *(self + 16) = v8;
 
-  v35 = v5;
-  v33 = v6;
-  v34 = [HDUnitPreferencesManager _stringFromQuantityType:v6];
+  v33 = v5;
+  v31 = v6;
+  v32 = [HDUnitPreferencesManager _stringFromQuantityType:v6];
   v16 = 0;
   for (i = 0; i != 3; ++i)
   {
     v18 = [(HDUnitPreferencesManager *)self _domainForVersion:?];
     v19 = [*(v9 + 2992) numberWithInteger:i];
-    v20 = [v35 objectForKeyedSubscript:v19];
+    v20 = [v33 objectForKeyedSubscript:v19];
 
     if (v20)
     {
       [v20 unitString];
       v22 = v21 = v9;
       WeakRetained = objc_loadWeakRetained((self + 8));
-      v37 = v16;
-      v24 = [(HDKeyValueEntity *)HDProtectedKeyValueEntity setString:v22 forKey:v34 domain:v18 category:104 profile:WeakRetained error:&v37];
-      v25 = v37;
+      v35 = v16;
+      v24 = [(HDKeyValueEntity *)HDProtectedKeyValueEntity setString:v22 forKey:v32 domain:v18 category:104 profile:WeakRetained error:&v35];
+      v25 = v35;
 
       v9 = v21;
       v16 = v25;
@@ -370,9 +367,9 @@ LABEL_7:
     else
     {
       v26 = objc_loadWeakRetained((self + 8));
-      v36 = v16;
-      v27 = [(HDKeyValueEntity *)HDProtectedKeyValueEntity setString:0 forKey:v34 domain:v18 category:104 profile:v26 error:&v36];
-      v28 = v36;
+      v34 = v16;
+      v27 = [(HDKeyValueEntity *)HDProtectedKeyValueEntity setString:0 forKey:v32 domain:v18 category:104 profile:v26 error:&v34];
+      v28 = v34;
 
       v16 = v28;
       if (v27)
@@ -387,9 +384,9 @@ LABEL_7:
     {
       v30 = objc_opt_class();
       *buf = 138543618;
-      v39 = v30;
-      v40 = 2114;
-      v41 = v16;
+      v37 = v30;
+      v38 = 2114;
+      v39 = v16;
       _os_log_error_impl(&dword_228986000, v29, OS_LOG_TYPE_ERROR, "%{public}@: Error persisting unit preferences: %{public}@", buf, 0x16u);
     }
 
@@ -397,7 +394,6 @@ LABEL_16:
   }
 
   [(HDUnitPreferencesManager *)self _lock_notifyObserversWithUnitPreferences];
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)removePreferredUnitForType:(id)type error:(id *)error
@@ -456,7 +452,7 @@ LABEL_16:
 
 - (void)setPreferredUnitToDefaultIfNotSetForType:(id)type
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -470,26 +466,26 @@ LABEL_16:
       v7 = typeCopy;
       if (self)
       {
-        v19 = 0u;
-        v20 = 0u;
-        v17 = 0u;
         v18 = 0u;
+        v19 = 0u;
+        v16 = 0u;
+        v17 = 0u;
         v6 = v6;
-        v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v18;
+          v10 = *v17;
           while (2)
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v18 != v10)
+              if (*v17 != v10)
               {
                 objc_enumerationMutation(v6);
               }
 
-              v12 = [*(*(&v17 + 1) + 8 * i) objectForKey:v7];
+              v12 = [*(*(&v16 + 1) + 8 * i) objectForKey:v7];
 
               if (v12)
               {
@@ -498,7 +494,7 @@ LABEL_16:
               }
             }
 
-            v9 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+            v9 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
             if (v9)
             {
               continue;
@@ -518,13 +514,11 @@ LABEL_16:
 LABEL_15:
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_lock_generateVersionedUnitPreferencesWithError:(uint64_t)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (!error)
   {
     v17 = 0;
@@ -536,10 +530,10 @@ LABEL_15:
   while (1)
   {
     v5 = [(HDUnitPreferencesManager *)error _domainForVersion:v4];
-    v23 = 0;
+    v22 = 0;
     v6 = v5;
     WeakRetained = objc_loadWeakRetained((error + 8));
-    v8 = [(HDKeyValueEntity *)HDProtectedKeyValueEntity allValuesForDomain:v6 category:104 profile:WeakRetained error:&v23];
+    v8 = [(HDKeyValueEntity *)HDProtectedKeyValueEntity allValuesForDomain:v6 category:104 profile:WeakRetained error:&v22];
 
     if (v8)
     {
@@ -549,13 +543,13 @@ LABEL_15:
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __77__HDUnitPreferencesManager__unitPreferencesDictionaryFromKeyValueDictionary___block_invoke;
-      v25 = &unk_27861AE68;
+      v24 = &unk_27861AE68;
       errorCopy = error;
       v12 = v11;
-      v27 = v12;
+      v26 = v12;
       [v10 enumerateKeysAndObjectsUsingBlock:buf];
 
-      v13 = v27;
+      v13 = v26;
       v14 = v12;
     }
 
@@ -564,7 +558,7 @@ LABEL_15:
       v14 = 0;
     }
 
-    v15 = v23;
+    v15 = v22;
     v16 = v15;
     if (!v14)
     {
@@ -576,7 +570,7 @@ LABEL_9:
 
     if (++v4 == 3)
     {
-      v17 = [v3 copy];
+      v17 = objc_msgSend_copy(v3);
       goto LABEL_17;
     }
   }
@@ -595,7 +589,7 @@ LABEL_9:
     *&buf[12] = 2114;
     *&buf[14] = v6;
     *&buf[22] = 2114;
-    v25 = v16;
+    v24 = v16;
     _os_log_error_impl(&dword_228986000, v18, OS_LOG_TYPE_ERROR, "%{public}@: Received error when getting unit preferences for domain %{public}@: %{public}@", buf, 0x20u);
   }
 
@@ -614,7 +608,6 @@ LABEL_9:
 LABEL_17:
 
 LABEL_18:
-  v20 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -641,11 +634,11 @@ LABEL_18:
   os_unfair_lock_unlock(&self->_lock);
 }
 
-- (uint64_t)_lock_notifyObserversWithUnitPreferences
+- (void)_lock_notifyObserversWithUnitPreferences
 {
   if (result)
   {
-    v1 = *(result + 24);
+    v1 = result[3];
     v2[0] = MEMORY[0x277D85DD0];
     v2[1] = 3221225472;
     v2[2] = __68__HDUnitPreferencesManager__lock_notifyObserversWithUnitPreferences__block_invoke;
@@ -673,7 +666,7 @@ BOOL __67__HDUnitPreferencesManager__lock_removePreferredUnitForType_error___blo
 {
   v5 = 0;
   v6 = 0;
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   while (1)
   {
     v7 = [(HDUnitPreferencesManager *)*(a1 + 32) _domainForVersion:v6];
@@ -689,8 +682,7 @@ BOOL __67__HDUnitPreferencesManager__lock_removePreferredUnitForType_error___blo
     v5 = v6++ > 1;
     if (v6 == 3)
     {
-      v5 = 1;
-      goto LABEL_8;
+      return 1;
     }
   }
 
@@ -698,18 +690,15 @@ BOOL __67__HDUnitPreferencesManager__lock_removePreferredUnitForType_error___blo
   v11 = HKLogInfrastructure();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    v14 = *(a1 + 32);
-    v15 = objc_opt_class();
-    v16 = *a3;
-    v17 = 138543618;
-    v18 = v15;
-    v19 = 2114;
-    v20 = v16;
-    _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "%{public}@: Error removing unit preferences: %{public}@", &v17, 0x16u);
+    v13 = objc_opt_class();
+    v14 = *a3;
+    v15 = 138543618;
+    v16 = v13;
+    v17 = 2114;
+    v18 = v14;
+    _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "%{public}@: Error removing unit preferences: %{public}@", &v15, 0x16u);
   }
 
-LABEL_8:
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -736,8 +725,8 @@ LABEL_4:
 
 void __77__HDUnitPreferencesManager__unitPreferencesDictionaryFromKeyValueDictionary___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v19 = a2;
+  v24 = *MEMORY[0x277D85DE8];
+  v18 = a2;
   v5 = a3;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -745,7 +734,7 @@ void __77__HDUnitPreferencesManager__unitPreferencesDictionaryFromKeyValueDictio
     if (*(a1 + 32))
     {
       v6 = MEMORY[0x277CCAC80];
-      v7 = v19;
+      v7 = v18;
       v8 = [[v6 alloc] initWithString:v7];
 
       *buf = -1;
@@ -782,13 +771,13 @@ LABEL_14:
               v16 = HKLogInfrastructure();
               if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
               {
-                v18 = objc_opt_class();
+                v17 = objc_opt_class();
                 *buf = 138543874;
-                *&buf[4] = v18;
-                v21 = 2112;
-                v22 = v11;
-                v23 = 2112;
-                v24 = v12;
+                *&buf[4] = v17;
+                v20 = 2112;
+                v21 = v11;
+                v22 = 2112;
+                v23 = v12;
                 _os_log_debug_impl(&dword_228986000, v16, OS_LOG_TYPE_DEBUG, "%{public}@: Unit string (%@) not compatible with quantity type (%@)", buf, 0x20u);
               }
             }
@@ -807,8 +796,6 @@ LABEL_14:
     v12 = 0;
 LABEL_19:
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_localeDidChange:(id)change

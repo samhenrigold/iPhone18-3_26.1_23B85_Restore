@@ -63,7 +63,7 @@ void __50__SBSystemActionBannerTransitionAnimator_settings__block_invoke()
   if ([(BNBannerTransitionAnimator *)self isPresenting])
   {
     transitionView2 = [transitionCopy transitionView];
-    [transitionView2 frame];
+    objc_msgSend_frame(transitionView2);
     v10 = v9;
     v12 = v11;
     v13 = *MEMORY[0x277CBF348];

@@ -77,24 +77,28 @@
 
 - (id)description
 {
-  NSAppendPrintF();
-  v3 = 0;
+  v12 = 0;
+  NSAppendPrintF(&v12, "-- BTVCLinkAgent --\n");
+  v3 = v12;
   v4 = v3;
-  if (self->_bleBTVCLinkAdvertiser)
+  bleBTVCLinkAdvertiser = self->_bleBTVCLinkAdvertiser;
+  if (bleBTVCLinkAdvertiser)
   {
-    v8 = v3;
-    NSAppendPrintF();
-    v5 = v8;
+    v11 = v3;
+    NSAppendPrintF(&v11, "BLE Advertiser:   %@\n", bleBTVCLinkAdvertiser);
+    v6 = v11;
 
-    v4 = v5;
+    v4 = v6;
   }
 
   if (self->_bleBTVCLinkScanner)
   {
-    NSAppendPrintF();
-    v6 = v4;
+    bleBTVCLinkScanner = self->_bleBTVCLinkScanner;
+    v10 = v4;
+    NSAppendPrintF(&v10, "BLE Scanner:      %@\n", bleBTVCLinkScanner);
+    v7 = v10;
 
-    v4 = v6;
+    v4 = v7;
   }
 
   return v4;

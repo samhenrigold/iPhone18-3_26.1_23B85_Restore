@@ -71,8 +71,8 @@
 
 - (void)_setupAccessibility
 {
-  sharedSystemShellSwitcher = [off_10058B1E0() sharedSystemShellSwitcher];
-  [sharedSystemShellSwitcher signalSiriAvailability];
+  v2 = [off_10058B1E0(self a2)];
+  [v2 signalSiriAvailability];
 }
 
 - (void)scheduleUnlockedWork:(id)work
@@ -326,7 +326,7 @@
 - (void)_daemonDidLaunchWithContext:(id)context
 {
   AFLogInitIfNeeded();
-  v4 = sub_10021532C();
+  v4 = sub_10021532C(0);
   v5 = qword_100590558;
   qword_100590558 = v4;
 
@@ -415,9 +415,11 @@ LABEL_12:
 {
   if ((AFIsHorseman() & 1) == 0)
   {
-    self->_pommesSearchServiceLauncher = objc_alloc_init(PommesSearchServiceLauncher);
+    v3 = objc_alloc_init(PommesSearchServiceLauncher);
+    pommesSearchServiceLauncher = self->_pommesSearchServiceLauncher;
+    self->_pommesSearchServiceLauncher = v3;
 
-    _objc_release_x1();
+    _objc_release_x1(v3, pommesSearchServiceLauncher);
   }
 }
 
@@ -473,7 +475,7 @@ LABEL_12:
 
 - (void)_setupPairedSync
 {
-  v3 = [off_10058B1D8() syncCoordinatorWithServiceName:@"com.apple.pairedsync.siri"];
+  v3 = [off_10058B1D8(self a2)];
   [v3 setDelegate:self];
 }
 
@@ -1255,7 +1257,7 @@ LABEL_27:
   error = 0;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else

@@ -10,6 +10,7 @@
 - (void)connectToUseCase:(unsigned int)case endpoint:(id)endpoint;
 - (void)createClientReaper;
 - (void)requestAudio:(unsigned int)audio atTime:(unint64_t)time atSample:(unint64_t)sample with:(id)with;
+- (void)setAudioAvailabilityCallback:(unsigned int)callback usingXPC:(id)c with:(id)with;
 - (void)setAudioLapseCallback:(unsigned int)callback usingXPC:(id)c with:(id)with;
 - (void)setMClientMap:(shared_ptr<SiphonClientMap>)map;
 - (void)setMSiphon:(shared_ptr<IsolatedCoreAudioSiphon>)siphon;
@@ -99,23 +100,20 @@
 
 - (void)requestAudio:(unsigned int)audio atTime:(unint64_t)time atSample:(unint64_t)sample with:(id)with
 {
-  v11 = *MEMORY[0x277D85DE8];
   withCopy = with;
-  [(IsolatedCoreAudioXPCSiphon *)self mSiphon];
-  (*(**(v9 + 16) + 40))(*(v9 + 16));
-  if (v10)
+  objc_msgSend_mSiphon(self);
+  (*(**(v8 + 16) + 40))(*(v8 + 16));
+  if (v9)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
 
   withCopy[2](withCopy, 0);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopIO:(unsigned int)o with:(id)with
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   withCopy = with;
   v7.i32[0] = bswap32(o);
   v8 = vzip1_s8(v7, v7);
@@ -124,9 +122,9 @@
   v10.i64[0] = 0x5F0000005FLL;
   v10.i64[1] = 0x5F0000005FLL;
   v11 = vbsl_s8(vmovn_s32(vcgtq_u32(v10, vsraq_n_s32(v9, vshlq_n_s32(vmovl_u16(v8), 0x18uLL), 0x18uLL))), v8, 0x2E002E002E002ELL);
-  v30 = 4;
-  LODWORD(v29) = vuzp1_s8(v11, v8).u32[0];
-  BYTE4(v29) = 0;
+  v29 = 4;
+  LODWORD(v28) = vuzp1_s8(v11, v8).u32[0];
+  BYTE4(v28) = 0;
   v12 = sIsolatedCoreAudioSiphonLog();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
@@ -135,13 +133,13 @@
     *&buf[12] = 1024;
     *&buf[14] = 182;
     *&buf[18] = 2080;
-    *&buf[20] = &v29;
+    *&buf[20] = &v28;
     _os_log_impl(&dword_255576000, v12, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s called Stop IO", buf, 0x1Cu);
   }
 
-  [(IsolatedCoreAudioXPCSiphon *)self mSiphon];
-  v13 = *v27;
-  std::mutex::lock((*v27 + 32));
+  objc_msgSend_mSiphon(self);
+  v13 = *v26;
+  std::mutex::lock((*v26 + 32));
   SiphonClientMap::disableAvailabilityCallbacksForClient(*(v13 + 8), o);
   SiphonClientMap::disableLapseHandlingForClient(*(v13 + 8), o);
   v14 = *(v13 + 8) + 16;
@@ -191,7 +189,7 @@
   if (v19)
   {
     v21 = v19;
-    v32 = 4;
+    v31 = 4;
     LODWORD(__p[0]) = vuzp1_s8(v11, v20).u32[0];
     BYTE4(__p[0]) = 0;
     v22 = sIsolatedCoreAudioSiphonLog();
@@ -211,13 +209,13 @@
     *&buf[8] = 0x40000000;
     *&buf[16] = ___ZN10applesauce8dispatch2v19sync_implIZN14SiphonIOClient22drainAvailabilityQueueEvE3__0EEvP16dispatch_queue_sOT_NSt3__117integral_constantIbLb1EEE_block_invoke;
     *&buf[24] = &__block_descriptor_tmp_469;
-    v35 = &v33;
+    v34 = &v32;
     dispatch_sync(v23, buf);
     v24 = sIsolatedCoreAudioSiphonLog();
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       v25 = __p;
-      if (v32 < 0)
+      if (v31 < 0)
       {
         v25 = __p[0];
       }
@@ -231,30 +229,28 @@
       _os_log_impl(&dword_255576000, v24, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Synchronous StopIO Complete for %s client", buf, 0x1Cu);
     }
 
-    if (v32 < 0)
+    if (v31 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
   std::mutex::unlock((v13 + 32));
-  if (v28)
+  if (v27)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v27);
   }
 
   withCopy[2](withCopy, 0);
-  if (v30 < 0)
+  if (v29 < 0)
   {
-    operator delete(v29);
+    operator delete(v28);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startIO:(unsigned int)o targetTime:(unint64_t)time with:(id)with
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   withCopy = with;
   v9.i32[0] = bswap32(o);
   v10 = vzip1_s8(v9, v9);
@@ -263,28 +259,28 @@
   v12.i64[0] = 0x5F0000005FLL;
   v12.i64[1] = 0x5F0000005FLL;
   v13 = vbsl_s8(vmovn_s32(vcgtq_u32(v12, vsraq_n_s32(v11, vshlq_n_s32(vmovl_u16(v10), 0x18uLL), 0x18uLL))), v10, 0x2E002E002E002ELL);
-  v28 = 4;
+  v27 = 4;
   LODWORD(__p) = vuzp1_s8(v13, v10).u32[0];
   BYTE4(__p) = 0;
   v14 = sIsolatedCoreAudioSiphonLog();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v34 = "IsolatedCoreAudioXPCSiphon.mm";
-    v35 = 1024;
-    v36 = 164;
-    v37 = 2080;
+    v33 = "IsolatedCoreAudioXPCSiphon.mm";
+    v34 = 1024;
+    v35 = 164;
+    v36 = 2080;
     p_p = &__p;
     _os_log_impl(&dword_255576000, v14, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s called Start IO", buf, 0x1Cu);
   }
 
-  [(IsolatedCoreAudioXPCSiphon *)self mSiphon];
-  v15 = v25;
-  atomic_store(1u, (v25 + 32));
+  objc_msgSend_mSiphon(self);
+  v15 = v24;
+  atomic_store(1u, (v24 + 32));
   v16 = *v15;
   v16[37] = time;
-  v31 = v16 + 12;
-  v32 = 1;
+  v30 = v16 + 12;
+  v31 = 1;
   std::__shared_mutex_base::lock((v16 + 12));
   std::mutex::lock((v16 + 4));
   SiphonClientMap::enableAvailabilityCallbacksForClient(v16[1], o);
@@ -308,9 +304,9 @@ LABEL_7:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v34 = "IsolatedCoreAudioClientMultiplexer.cpp";
-      v35 = 1024;
-      v36 = 109;
+      v33 = "IsolatedCoreAudioClientMultiplexer.cpp";
+      v34 = 1024;
+      v35 = 109;
       _os_log_impl(&dword_255576000, v19, OS_LOG_TYPE_DEFAULT, "%25s:%-5d IsolatedCoreAudioClientMultiplexer::startIOIfNoClientsAreRunning IO already running", buf, 0x12u);
     }
 
@@ -327,61 +323,59 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v22 = sIsolatedCoreAudioSiphonLog();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  v21 = sIsolatedCoreAudioSiphonLog();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315650;
-    v34 = "IsolatedCoreAudioClientMultiplexer.cpp";
-    v35 = 1024;
-    v36 = 104;
-    v37 = 1024;
+    v33 = "IsolatedCoreAudioClientMultiplexer.cpp";
+    v34 = 1024;
+    v35 = 104;
+    v36 = 1024;
     LODWORD(p_p) = v20;
-    _os_log_impl(&dword_255576000, v22, OS_LOG_TYPE_ERROR, "%25s:%-5d IsolatedCoreAudioClientMultiplexer::startIOIfNoClientsAreRunning IO failed to start with status %d", buf, 0x18u);
+    _os_log_impl(&dword_255576000, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d IsolatedCoreAudioClientMultiplexer::startIOIfNoClientsAreRunning IO failed to start with status %d", buf, 0x18u);
   }
 
-  v30 = 4;
-  LODWORD(v29) = vuzp1_s8(v13, v23).u32[0];
-  BYTE4(v29) = 0;
-  v24 = sIsolatedCoreAudioSiphonLog();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+  v29 = 4;
+  LODWORD(v28) = vuzp1_s8(v13, v22).u32[0];
+  BYTE4(v28) = 0;
+  v23 = sIsolatedCoreAudioSiphonLog();
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315906;
-    v34 = "IsolatedCoreAudioClientMultiplexer.cpp";
-    v35 = 1024;
-    v36 = 164;
-    v37 = 2080;
-    p_p = &v29;
-    v39 = 1024;
-    v40 = v20;
-    _os_log_impl(&dword_255576000, v24, OS_LOG_TYPE_ERROR, "%25s:%-5d IsolatedCoreAudioClientMultiplexer::startSharedIO failed to start for use case %s with status %d", buf, 0x22u);
+    v33 = "IsolatedCoreAudioClientMultiplexer.cpp";
+    v34 = 1024;
+    v35 = 164;
+    v36 = 2080;
+    p_p = &v28;
+    v38 = 1024;
+    v39 = v20;
+    _os_log_impl(&dword_255576000, v23, OS_LOG_TYPE_ERROR, "%25s:%-5d IsolatedCoreAudioClientMultiplexer::startSharedIO failed to start for use case %s with status %d", buf, 0x22u);
   }
 
   SiphonClientMap::disableAvailabilityCallbacksForClient(v16[1], o);
-  if (v30 < 0)
+  if (v29 < 0)
   {
-    operator delete(v29);
+    operator delete(v28);
   }
 
 LABEL_10:
   std::mutex::unlock((v16 + 4));
   std::__shared_mutex_base::unlock((v16 + 12));
-  if (v26)
+  if (v25)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
   }
 
   withCopy[2](withCopy, v20);
-  if (v28 < 0)
+  if (v27 < 0)
   {
     operator delete(__p);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startIO:(unsigned int)o with:(id)with
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   withCopy = with;
   v7.i32[0] = bswap32(o);
   v8 = vzip1_s8(v7, v7);
@@ -390,28 +384,28 @@ LABEL_10:
   v10.i64[0] = 0x5F0000005FLL;
   v10.i64[1] = 0x5F0000005FLL;
   v11 = vbsl_s8(vmovn_s32(vcgtq_u32(v10, vsraq_n_s32(v9, vshlq_n_s32(vmovl_u16(v8), 0x18uLL), 0x18uLL))), v8, 0x2E002E002E002ELL);
-  v27 = 4;
+  v26 = 4;
   LODWORD(__p) = vuzp1_s8(v11, v8).u32[0];
   BYTE4(__p) = 0;
   v12 = sIsolatedCoreAudioSiphonLog();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v33 = "IsolatedCoreAudioXPCSiphon.mm";
-    v34 = 1024;
-    v35 = 146;
-    v36 = 2080;
+    v32 = "IsolatedCoreAudioXPCSiphon.mm";
+    v33 = 1024;
+    v34 = 146;
+    v35 = 2080;
     p_p = &__p;
     _os_log_impl(&dword_255576000, v12, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s called Start IO", buf, 0x1Cu);
   }
 
-  [(IsolatedCoreAudioXPCSiphon *)self mSiphon];
-  v13 = v24;
-  atomic_store(1u, (v24 + 32));
+  objc_msgSend_mSiphon(self);
+  v13 = v23;
+  atomic_store(1u, (v23 + 32));
   v14 = *v13;
   v15 = (*v13 + 96);
-  v30 = v15;
-  v31 = 1;
+  v29 = v15;
+  v30 = 1;
   std::__shared_mutex_base::lock(v15);
   std::mutex::lock((v14 + 32));
   SiphonClientMap::enableAvailabilityCallbacksForClient(*(v14 + 8), o);
@@ -435,9 +429,9 @@ LABEL_7:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v33 = "IsolatedCoreAudioClientMultiplexer.cpp";
-      v34 = 1024;
-      v35 = 85;
+      v32 = "IsolatedCoreAudioClientMultiplexer.cpp";
+      v33 = 1024;
+      v34 = 85;
       _os_log_impl(&dword_255576000, v18, OS_LOG_TYPE_DEFAULT, "%25s:%-5d IsolatedCoreAudioClientMultiplexer::startIOIfNoClientsAreRunning IO already running", buf, 0x12u);
     }
 
@@ -454,74 +448,171 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v21 = sIsolatedCoreAudioSiphonLog();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  v20 = sIsolatedCoreAudioSiphonLog();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315650;
-    v33 = "IsolatedCoreAudioClientMultiplexer.cpp";
-    v34 = 1024;
-    v35 = 80;
-    v36 = 1024;
+    v32 = "IsolatedCoreAudioClientMultiplexer.cpp";
+    v33 = 1024;
+    v34 = 80;
+    v35 = 1024;
     LODWORD(p_p) = v19;
-    _os_log_impl(&dword_255576000, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d IsolatedCoreAudioClientMultiplexer::startIOIfNoClientsAreRunning IO failed to start with status %d", buf, 0x18u);
+    _os_log_impl(&dword_255576000, v20, OS_LOG_TYPE_ERROR, "%25s:%-5d IsolatedCoreAudioClientMultiplexer::startIOIfNoClientsAreRunning IO failed to start with status %d", buf, 0x18u);
   }
 
-  v29 = 4;
-  LODWORD(v28) = vuzp1_s8(v11, v22).u32[0];
-  BYTE4(v28) = 0;
-  v23 = sIsolatedCoreAudioSiphonLog();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+  v28 = 4;
+  LODWORD(v27) = vuzp1_s8(v11, v21).u32[0];
+  BYTE4(v27) = 0;
+  v22 = sIsolatedCoreAudioSiphonLog();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315906;
-    v33 = "IsolatedCoreAudioClientMultiplexer.cpp";
-    v34 = 1024;
-    v35 = 140;
-    v36 = 2080;
-    p_p = &v28;
-    v38 = 1024;
-    v39 = v19;
-    _os_log_impl(&dword_255576000, v23, OS_LOG_TYPE_ERROR, "%25s:%-5d IsolatedCoreAudioClientMultiplexer::startSharedIO failed to start for use case %s with status %d", buf, 0x22u);
+    v32 = "IsolatedCoreAudioClientMultiplexer.cpp";
+    v33 = 1024;
+    v34 = 140;
+    v35 = 2080;
+    p_p = &v27;
+    v37 = 1024;
+    v38 = v19;
+    _os_log_impl(&dword_255576000, v22, OS_LOG_TYPE_ERROR, "%25s:%-5d IsolatedCoreAudioClientMultiplexer::startSharedIO failed to start for use case %s with status %d", buf, 0x22u);
   }
 
   SiphonClientMap::disableAvailabilityCallbacksForClient(*(v14 + 8), o);
-  if (v29 < 0)
+  if (v28 < 0)
   {
-    operator delete(v28);
+    operator delete(v27);
   }
 
 LABEL_10:
   std::mutex::unlock((v14 + 32));
   std::__shared_mutex_base::unlock(v15);
-  if (v25)
+  if (v24)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
   }
 
   withCopy[2](withCopy, v19);
-  if (v27 < 0)
+  if (v26 < 0)
   {
     operator delete(__p);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAudioLapseCallback:(unsigned int)callback usingXPC:(id)c with:(id)with
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   withCopy = with;
   v6 = sIsolatedCoreAudioSiphonLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "IsolatedCoreAudioXPCSiphon.mm";
-    v10 = 1024;
-    v11 = 138;
-    _os_log_impl(&dword_255576000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d setAudioLapseCallback called", &v8, 0x12u);
+    v7 = 136315394;
+    v8 = "IsolatedCoreAudioXPCSiphon.mm";
+    v9 = 1024;
+    v10 = 138;
+    _os_log_impl(&dword_255576000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d setAudioLapseCallback called", &v7, 0x12u);
   }
 
   withCopy[2](withCopy, 0);
-  v7 = *MEMORY[0x277D85DE8];
+}
+
+- (void)setAudioAvailabilityCallback:(unsigned int)callback usingXPC:(id)c with:(id)with
+{
+  v6 = *&callback;
+  v25 = *MEMORY[0x277D85DE8];
+  cCopy = c;
+  withCopy = with;
+  v10 = sIsolatedCoreAudioSiphonLog();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    buf[0] = 136315394;
+    *&buf[1] = "IsolatedCoreAudioXPCSiphon.mm";
+    v23 = 1024;
+    LODWORD(v24) = 120;
+    _os_log_impl(&dword_255576000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d setAudioAvailabilityCallback called", buf, 0x12u);
+  }
+
+  v19 = cCopy;
+  [(IsolatedCoreAudioXPCSiphon *)self connectToUseCase:v6 endpoint:cCopy];
+  currentConnection = [MEMORY[0x277CCAE80] currentConnection];
+  getProcessID = [currentConnection getProcessID];
+  objc_msgSend_mClientMap(self);
+  v13 = v20[1];
+  if (!v13)
+  {
+    goto LABEL_20;
+  }
+
+  v14 = vcnt_s8(v13);
+  v14.i16[0] = vaddlv_u8(v14);
+  if (v14.u32[0] > 1uLL)
+  {
+    v15 = v6;
+    if (v13 <= v6)
+    {
+      v15 = v6 % v13;
+    }
+  }
+
+  else
+  {
+    v15 = (v13 - 1) & v6;
+  }
+
+  v16 = *(*v20 + 8 * v15);
+  if (!v16 || (v17 = *v16) == 0)
+  {
+LABEL_20:
+    operator new();
+  }
+
+  while (1)
+  {
+    v18 = v17[1];
+    if (v18 == v6)
+    {
+      break;
+    }
+
+    if (v14.u32[0] > 1uLL)
+    {
+      if (v18 >= v13)
+      {
+        v18 %= v13;
+      }
+    }
+
+    else
+    {
+      v18 &= v13 - 1;
+    }
+
+    if (v18 != v15)
+    {
+      goto LABEL_20;
+    }
+
+LABEL_19:
+    v17 = *v17;
+    if (!v17)
+    {
+      goto LABEL_20;
+    }
+  }
+
+  if (*(v17 + 4) != v6)
+  {
+    goto LABEL_19;
+  }
+
+  *(v17[3] + 32) = getProcessID;
+  if (v21)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+  }
+
+  [(IsolatedCoreAudioClientNSXPCListenerDelegate *)self setUseCaseIDForCurrentConnection:v6];
+
+  withCopy[2](withCopy, 0);
 }
 
 - (void)connectToUseCase:(unsigned int)case endpoint:(id)endpoint
@@ -535,7 +626,7 @@ LABEL_10:
   [v7 setInvalidationHandler:&__block_literal_global_26];
   [v7 activate];
   v9 = [v7 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_30];
-  [(IsolatedCoreAudioXPCSiphon *)self mClientMap];
+  objc_msgSend_mClientMap(self);
   v10 = v17[1];
   if (!v10)
   {
@@ -616,59 +707,53 @@ LABEL_16:
 
 void __56__IsolatedCoreAudioXPCSiphon_connectToUseCase_endpoint___block_invoke_27(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sIsolatedCoreAudioSiphonLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     v4 = [v2 localizedDescription];
     v5 = [v2 localizedFailureReason];
-    v7 = 136316162;
-    v8 = "IsolatedCoreAudioXPCSiphon.mm";
-    v9 = 1024;
-    v10 = 109;
-    v11 = 2112;
-    v12 = @"Error on remote object proxy";
-    v13 = 2112;
-    v14 = v4;
-    v15 = 2112;
-    v16 = v5;
-    _os_log_impl(&dword_255576000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d %@: %@ %@\n", &v7, 0x30u);
+    v6 = 136316162;
+    v7 = "IsolatedCoreAudioXPCSiphon.mm";
+    v8 = 1024;
+    v9 = 109;
+    v10 = 2112;
+    v11 = @"Error on remote object proxy";
+    v12 = 2112;
+    v13 = v4;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_impl(&dword_255576000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d %@: %@ %@\n", &v6, 0x30u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __56__IsolatedCoreAudioXPCSiphon_connectToUseCase_endpoint___block_invoke_24()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v0 = sIsolatedCoreAudioSiphonLog();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
-    v2 = 136315394;
-    v3 = "IsolatedCoreAudioXPCSiphon.mm";
-    v4 = 1024;
-    v5 = 104;
-    _os_log_impl(&dword_255576000, v0, OS_LOG_TYPE_ERROR, "%25s:%-5d Reverse connection invalidated", &v2, 0x12u);
+    v1 = 136315394;
+    v2 = "IsolatedCoreAudioXPCSiphon.mm";
+    v3 = 1024;
+    v4 = 104;
+    _os_log_impl(&dword_255576000, v0, OS_LOG_TYPE_ERROR, "%25s:%-5d Reverse connection invalidated", &v1, 0x12u);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void __56__IsolatedCoreAudioXPCSiphon_connectToUseCase_endpoint___block_invoke()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v0 = sIsolatedCoreAudioSiphonLog();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
-    v2 = 136315394;
-    v3 = "IsolatedCoreAudioXPCSiphon.mm";
-    v4 = 1024;
-    v5 = 103;
-    _os_log_impl(&dword_255576000, v0, OS_LOG_TYPE_ERROR, "%25s:%-5d Reverse connection interrupted", &v2, 0x12u);
+    v1 = 136315394;
+    v2 = "IsolatedCoreAudioXPCSiphon.mm";
+    v3 = 1024;
+    v4 = 103;
+    _os_log_impl(&dword_255576000, v0, OS_LOG_TYPE_ERROR, "%25s:%-5d Reverse connection interrupted", &v1, 0x12u);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createClientReaper
@@ -701,11 +786,11 @@ void __56__IsolatedCoreAudioXPCSiphon_connectToUseCase_endpoint___block_invoke()
 - (IsolatedCoreAudioXPCSiphon)initWithClientMap:(shared_ptr<SiphonClientMap>)map andServer:(shared_ptr<ClientLocalServer>)server
 {
   ptr = map.__ptr_;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_286779C98];
-  v14.receiver = self;
-  v14.super_class = IsolatedCoreAudioXPCSiphon;
-  v7 = [(IsolatedCoreAudioClientNSXPCListenerDelegate *)&v14 initWithInterface:v6 andEntitlement:@"com.apple.private.isolated.audio.coreaudioclient.shareddsp"];
+  v13.receiver = self;
+  v13.super_class = IsolatedCoreAudioXPCSiphon;
+  v7 = [(IsolatedCoreAudioClientNSXPCListenerDelegate *)&v13 initWithInterface:v6 andEntitlement:@"com.apple.private.isolated.audio.coreaudioclient.shareddsp"];
 
   if (v7)
   {
@@ -714,40 +799,39 @@ void __56__IsolatedCoreAudioXPCSiphon_connectToUseCase_endpoint___block_invoke()
     {
       buf[0] = 136315394;
       *&buf[1] = "IsolatedCoreAudioXPCSiphon.mm";
-      v16 = 1024;
-      v17 = 74;
+      v15 = 1024;
+      v16 = 74;
       _os_log_impl(&dword_255576000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Hello Siphon Tests", buf, 0x12u);
     }
 
     v9 = *(ptr + 1);
-    v12 = *ptr;
-    v13 = v9;
+    v11 = *ptr;
+    v12 = v9;
     if (v9)
     {
       atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    [(IsolatedCoreAudioXPCSiphon *)v7 setMClientMap:&v12];
-    if (v13)
+    [(IsolatedCoreAudioXPCSiphon *)v7 setMClientMap:&v11];
+    if (v12)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v12);
     }
 
-    [(IsolatedCoreAudioXPCSiphon *)v7 mClientMap];
+    objc_msgSend_mClientMap(v7);
     operator new();
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (IsolatedCoreAudioXPCSiphon)init
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_286779C98];
-  v10.receiver = self;
-  v10.super_class = IsolatedCoreAudioXPCSiphon;
-  v4 = [(IsolatedCoreAudioClientNSXPCListenerDelegate *)&v10 initWithInterface:v3 andEntitlement:@"com.apple.private.isolated.audio.coreaudioclient.shareddsp"];
+  v9.receiver = self;
+  v9.super_class = IsolatedCoreAudioXPCSiphon;
+  v4 = [(IsolatedCoreAudioClientNSXPCListenerDelegate *)&v9 initWithInterface:v3 andEntitlement:@"com.apple.private.isolated.audio.coreaudioclient.shareddsp"];
 
   if (v4)
   {
@@ -761,18 +845,17 @@ void __56__IsolatedCoreAudioXPCSiphon_connectToUseCase_endpoint___block_invoke()
       _os_log_impl(&dword_255576000, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Hello Siphon", buf, 0x12u);
     }
 
-    +[IsolatedCoreAudioXPCSiphon initClientMap];
-    [(IsolatedCoreAudioXPCSiphon *)v4 setMClientMap:v8];
-    if (v9)
+    objc_msgSend_initClientMap(IsolatedCoreAudioXPCSiphon);
+    [(IsolatedCoreAudioXPCSiphon *)v4 setMClientMap:v7];
+    if (v8)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
     }
 
-    [(IsolatedCoreAudioXPCSiphon *)v4 mClientMap];
+    objc_msgSend_mClientMap(v4);
     operator new();
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

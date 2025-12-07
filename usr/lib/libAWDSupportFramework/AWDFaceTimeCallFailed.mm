@@ -1039,7 +1039,6 @@ LABEL_42:
   has = self->_has;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x1000) == 0)
@@ -1059,7 +1058,6 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  endedReason = self->_endedReason;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -1074,7 +1072,6 @@ LABEL_6:
   }
 
 LABEL_45:
-  genericError = self->_genericError;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x4000000000) == 0)
@@ -1089,7 +1086,6 @@ LABEL_7:
   }
 
 LABEL_46:
-  viceroyError = self->_viceroyError;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -1104,7 +1100,6 @@ LABEL_8:
   }
 
 LABEL_47:
-  gameKitError = self->_gameKitError;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000000) == 0)
@@ -1119,7 +1114,6 @@ LABEL_9:
   }
 
 LABEL_48:
-  messageDeliveryError = self->_messageDeliveryError;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -1134,7 +1128,6 @@ LABEL_10:
   }
 
 LABEL_49:
-  conferenceMiscError = self->_conferenceMiscError;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100000000) == 0)
@@ -1149,7 +1142,6 @@ LABEL_11:
   }
 
 LABEL_50:
-  registrationError = self->_registrationError;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400000000) == 0)
@@ -1164,7 +1156,6 @@ LABEL_12:
   }
 
 LABEL_51:
-  relayError = self->_relayError;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -1179,7 +1170,6 @@ LABEL_13:
   }
 
 LABEL_52:
-  invitationServiceError = self->_invitationServiceError;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -1194,7 +1184,6 @@ LABEL_14:
   }
 
 LABEL_53:
-  callDuration = self->_callDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -1209,7 +1198,6 @@ LABEL_15:
   }
 
 LABEL_54:
-  diagnosticPingMin = self->_diagnosticPingMin;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -1224,7 +1212,6 @@ LABEL_16:
   }
 
 LABEL_55:
-  diagnosticPingAvg = self->_diagnosticPingAvg;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -1239,7 +1226,6 @@ LABEL_17:
   }
 
 LABEL_56:
-  diagnosticPingMax = self->_diagnosticPingMax;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -1254,7 +1240,6 @@ LABEL_18:
   }
 
 LABEL_57:
-  diagnosticPingPacketLoss = self->_diagnosticPingPacketLoss;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800000) == 0)
@@ -1269,7 +1254,6 @@ LABEL_19:
   }
 
 LABEL_58:
-  isNetworkEnabled = self->_isNetworkEnabled;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -1284,7 +1268,6 @@ LABEL_20:
   }
 
 LABEL_59:
-  isNetworkActive = self->_isNetworkActive;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000000) == 0)
@@ -1299,7 +1282,6 @@ LABEL_21:
   }
 
 LABEL_60:
-  isNetworkReachable = self->_isNetworkReachable;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000000) == 0)
@@ -1314,7 +1296,6 @@ LABEL_22:
   }
 
 LABEL_61:
-  networkCheckResult = self->_networkCheckResult;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -1329,7 +1310,6 @@ LABEL_23:
   }
 
 LABEL_62:
-  frontCameraCaptureDuration = self->_frontCameraCaptureDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -1344,7 +1324,6 @@ LABEL_24:
   }
 
 LABEL_63:
-  backCameraCaptureDuration = self->_backCameraCaptureDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -1359,7 +1338,6 @@ LABEL_25:
   }
 
 LABEL_64:
-  dataRate = self->_dataRate;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -1374,7 +1352,6 @@ LABEL_26:
   }
 
 LABEL_65:
-  gksError = self->_gksError;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1389,7 +1366,6 @@ LABEL_27:
   }
 
 LABEL_66:
-  connectDuration = self->_connectDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000000000) == 0)
@@ -1404,7 +1380,6 @@ LABEL_28:
   }
 
 LABEL_67:
-  remoteNetworkConnection = self->_remoteNetworkConnection;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000000) == 0)
@@ -1419,7 +1394,6 @@ LABEL_29:
   }
 
 LABEL_68:
-  localNetworkConnection = self->_localNetworkConnection;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -1434,7 +1408,6 @@ LABEL_30:
   }
 
 LABEL_69:
-  connectionType = self->_connectionType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000000000) == 0)
@@ -1449,7 +1422,6 @@ LABEL_31:
   }
 
 LABEL_70:
-  usesRelay = self->_usesRelay;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -1464,7 +1436,6 @@ LABEL_32:
   }
 
 LABEL_71:
-  currentNatType = self->_currentNatType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800000000) == 0)
@@ -1479,7 +1450,6 @@ LABEL_33:
   }
 
 LABEL_72:
-  remoteNatType = self->_remoteNatType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200000000) == 0)
@@ -1494,7 +1464,6 @@ LABEL_34:
   }
 
 LABEL_73:
-  relayConnectDuration = self->_relayConnectDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200000) == 0)
@@ -1509,7 +1478,6 @@ LABEL_35:
   }
 
 LABEL_74:
-  isInitiator = self->_isInitiator;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000000) == 0)
@@ -1524,7 +1492,6 @@ LABEL_36:
   }
 
 LABEL_75:
-  isVideoInterrupted = self->_isVideoInterrupted;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -1539,7 +1506,6 @@ LABEL_37:
   }
 
 LABEL_76:
-  isAudioInterrupted = self->_isAudioInterrupted;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -1554,7 +1520,6 @@ LABEL_38:
   }
 
 LABEL_77:
-  isCallUpgrade = self->_isCallUpgrade;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000000) == 0)
@@ -1569,7 +1534,6 @@ LABEL_39:
   }
 
 LABEL_78:
-  linkQuality = self->_linkQuality;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1581,7 +1545,6 @@ LABEL_40:
     }
 
 LABEL_80:
-    isVideo = self->_isVideo;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 0x80000000) == 0)
     {
@@ -1592,7 +1555,6 @@ LABEL_80:
   }
 
 LABEL_79:
-  gksReturnCode = self->_gksReturnCode;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x2000000) != 0)
@@ -1607,7 +1569,6 @@ LABEL_41:
   }
 
 LABEL_81:
-  onLockScreen = self->_onLockScreen;
 
   PBDataWriterWriteUint32Field();
 }

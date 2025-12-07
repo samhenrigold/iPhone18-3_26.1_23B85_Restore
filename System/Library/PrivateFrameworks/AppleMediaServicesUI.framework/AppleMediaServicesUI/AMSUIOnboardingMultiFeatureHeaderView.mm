@@ -14,11 +14,11 @@
 
 - (AMSUIOnboardingMultiFeatureHeaderView)initWithFeatures:(id)features
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   featuresCopy = features;
-  v35.receiver = self;
-  v35.super_class = AMSUIOnboardingMultiFeatureHeaderView;
-  v5 = [(AMSUIOnboardingMultiFeatureHeaderView *)&v35 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
+  v34.receiver = self;
+  v34.super_class = AMSUIOnboardingMultiFeatureHeaderView;
+  v5 = [(AMSUIOnboardingMultiFeatureHeaderView *)&v34 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
   if (v5)
   {
     v6 = objc_alloc_init(MEMORY[0x1E69DCC10]);
@@ -53,33 +53,33 @@
     [titleLabel setFont:v16];
 
     v18 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     v19 = featuresCopy;
-    v20 = [v19 countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v32;
+      v22 = *v31;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v32 != v22)
+          if (*v31 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v31 + 1) + 8 * i);
+          v24 = *(*(&v30 + 1) + 8 * i);
           v25 = [AMSUIOnboardingFeatureView alloc];
-          v26 = [(AMSUIOnboardingFeatureView *)v25 initWithFeature:v24, v31];
+          v26 = [(AMSUIOnboardingFeatureView *)v25 initWithFeature:v24, v30];
           [v18 addObject:v26];
           [(AMSUIOnboardingMultiFeatureHeaderView *)v5 addSubview:v26];
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v21);
@@ -93,16 +93,15 @@
     [(AMSUIOnboardingMultiFeatureHeaderView *)v5 setShowsHorizontalScrollIndicator:0];
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (void)layoutSubviews
 {
-  v46 = *MEMORY[0x1E69E9840];
-  v44.receiver = self;
-  v44.super_class = AMSUIOnboardingMultiFeatureHeaderView;
-  [(AMSUIOnboardingMultiFeatureHeaderView *)&v44 layoutSubviews];
+  v45 = *MEMORY[0x1E69E9840];
+  v43.receiver = self;
+  v43.super_class = AMSUIOnboardingMultiFeatureHeaderView;
+  [(AMSUIOnboardingMultiFeatureHeaderView *)&v43 layoutSubviews];
   if ([(AMSUIOnboardingMultiFeatureHeaderView *)self isPresentedInFormSheet])
   {
     v3 = 0.0;
@@ -117,14 +116,14 @@
   *&v4 = v3 + v4 + 140.0;
   v5 = floorf(*&v4);
   [(AMSUIOnboardingMultiFeatureHeaderView *)self bounds];
-  Width = CGRectGetWidth(v47);
+  Width = CGRectGetWidth(v46);
   titleLabel = [(AMSUIOnboardingMultiFeatureHeaderView *)self titleLabel];
   [titleLabel sizeThatFits:{Width, 3.40282347e38}];
   v9 = v8;
   v11 = v10;
 
   [(AMSUIOnboardingMultiFeatureHeaderView *)self bounds];
-  v12 = CGRectGetMidX(v48) + v9 * -0.5;
+  v12 = CGRectGetMidX(v47) + v9 * -0.5;
   v13 = floorf(v12);
   titleLabel2 = [(AMSUIOnboardingMultiFeatureHeaderView *)self titleLabel];
   [titleLabel2 _firstBaselineOffsetFromTop];
@@ -134,35 +133,35 @@
 
   titleLabel4 = [(AMSUIOnboardingMultiFeatureHeaderView *)self titleLabel];
   [titleLabel4 frame];
-  MaxY = CGRectGetMaxY(v49);
+  MaxY = CGRectGetMaxY(v48);
   titleLabel5 = [(AMSUIOnboardingMultiFeatureHeaderView *)self titleLabel];
   [titleLabel5 _baselineOffsetFromBottom];
   v22 = v21;
 
   v23 = [MEMORY[0x1E69DD250] userInterfaceLayoutDirectionForSemanticContentAttribute:{-[AMSUIOnboardingMultiFeatureHeaderView semanticContentAttribute](self, "semanticContentAttribute")}];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   featureViews = [(AMSUIOnboardingMultiFeatureHeaderView *)self featureViews];
-  v25 = [featureViews countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v25 = [featureViews countByEnumeratingWithState:&v39 objects:v44 count:16];
   if (v25)
   {
     v26 = v25;
     v27 = MaxY - v22 + 50.0;
     v28 = ceilf(v27);
-    v29 = *v41;
+    v29 = *v40;
     do
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v41 != v29)
+        if (*v40 != v29)
         {
           objc_enumerationMutation(featureViews);
         }
 
         v31 = v28;
-        v32 = *(*(&v40 + 1) + 8 * i);
+        v32 = *(*(&v39 + 1) + 8 * i);
         [v32 sizeThatFits:{Width, 3.40282347e38}];
         v35 = v34;
         v36 = Width - v34;
@@ -173,19 +172,17 @@
 
         [v32 setFrame:{v36, v31, v35, v33}];
         [v32 frame];
-        v37 = CGRectGetMaxY(v50);
+        v37 = CGRectGetMaxY(v49);
         [v32 baselineOffsetFromBottom];
         *&v38 = v37 - v38 + 36.0;
         v28 = ceilf(*&v38);
       }
 
-      v26 = [featureViews countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v26 = [featureViews countByEnumeratingWithState:&v39 objects:v44 count:16];
     }
 
     while (v26);
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (void)adjustedContentInsetDidChange

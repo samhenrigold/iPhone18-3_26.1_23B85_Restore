@@ -44,9 +44,11 @@
 
 uint64_t __59__SBFAlwaysOnLiveRenderingAssertionProvider_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance = objc_alloc_init(SBFAlwaysOnLiveRenderingAssertionProvider);
+  v0 = objc_alloc_init(SBFAlwaysOnLiveRenderingAssertionProvider);
+  v1 = sharedInstance_sharedInstance;
+  sharedInstance_sharedInstance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (BLSBacklightStateObservable)backlight
@@ -97,10 +99,10 @@ uint64_t __59__SBFAlwaysOnLiveRenderingAssertionProvider_sharedInstance__block_i
   if (v14)
   {
     v15 = v14;
-    v16 = SBLogLiveRendering();
+    v16 = SBLogLiveRendering(v14);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      [SBFAlwaysOnLiveRenderingAssertionProvider _acquireLiveRenderingAssertionForScene:identifier:reason:attributes:];
+      [SBFAlwaysOnLiveRenderingAssertionProvider _acquireLiveRenderingAssertionForScene:v15 identifier:? reason:? attributes:?];
     }
   }
 
@@ -111,20 +113,20 @@ uint64_t __59__SBFAlwaysOnLiveRenderingAssertionProvider_sharedInstance__block_i
     assertionProvider = [(SBFAlwaysOnLiveRenderingAssertionProvider *)self assertionProvider];
     v15 = [(SBFAlwaysOnLiveRenderingAssertionManager *)v17 initWithBacklight:backlight assertionProvider:assertionProvider attributesProvider:attributesCopy];
 
-    v20 = SBLogLiveRendering();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v21 = SBLogLiveRendering(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
-      [SBFAlwaysOnLiveRenderingAssertionProvider _acquireLiveRenderingAssertionForScene:identifier:reason:attributes:];
+      [SBFAlwaysOnLiveRenderingAssertionProvider _acquireLiveRenderingAssertionForScene:v15 identifier:? reason:? attributes:?];
     }
 
     [(SBFAlwaysOnLiveRenderingAssertionProvider *)self _setAssertionManager:v15 forScene:sceneCopy];
   }
 
-  v21 = [(SBFAlwaysOnLiveRenderingAssertionManager *)v15 acquireLiveRenderingAssertionWithReason:reasonCopy];
+  v22 = [(SBFAlwaysOnLiveRenderingAssertionManager *)v15 acquireLiveRenderingAssertionWithReason:reasonCopy];
 
-  [(SBFAlwaysOnLiveRenderingAssertionWeakCollection *)self->_assertions addAssertion:v21];
+  [(SBFAlwaysOnLiveRenderingAssertionWeakCollection *)self->_assertions addAssertion:v22];
 
-  return v21;
+  return v22;
 }
 
 - (void)invalidateAllAssertions
@@ -145,20 +147,20 @@ uint64_t __59__SBFAlwaysOnLiveRenderingAssertionProvider_sharedInstance__block_i
   return v6;
 }
 
-- (void)_acquireLiveRenderingAssertionForScene:identifier:reason:attributes:.cold.1()
+- (void)_acquireLiveRenderingAssertionForScene:(uint64_t)a1 identifier:reason:attributes:.cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_2(&dword_1BEA11000, v2, v3, "Reusing <%@; %p> for scene: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_2(&dword_1BEA11000, v3, v4, "Reusing <%@; %p> for scene: %@", v5, v6, v7, v8);
 }
 
-- (void)_acquireLiveRenderingAssertionForScene:identifier:reason:attributes:.cold.2()
+- (void)_acquireLiveRenderingAssertionForScene:(uint64_t)a1 identifier:reason:attributes:.cold.2(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_2(&dword_1BEA11000, v2, v3, "Created <%@; %p> for scene: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_2(&dword_1BEA11000, v3, v4, "Created <%@; %p> for scene: %@", v5, v6, v7, v8);
 }
 
 @end

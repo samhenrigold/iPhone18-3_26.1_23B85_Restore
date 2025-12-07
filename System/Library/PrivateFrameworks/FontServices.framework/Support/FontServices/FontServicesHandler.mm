@@ -47,7 +47,7 @@
   v9 = v8;
   if (v8)
   {
-    [v8 auditToken];
+    objc_msgSend_auditToken(v8);
   }
 
   else
@@ -101,7 +101,7 @@
     v6 = v5;
     if (v5)
     {
-      [v5 auditToken];
+      objc_msgSend_auditToken(v5);
     }
 
     else
@@ -241,7 +241,7 @@ LABEL_44:
           server = selfCopy->_server;
           if (clientConnection)
           {
-            [(NSXPCConnection *)clientConnection auditToken];
+            objc_msgSend_auditToken(clientConnection);
           }
 
           else
@@ -264,7 +264,7 @@ LABEL_44:
             v51 = selfCopy->_server;
             if (v50)
             {
-              [(NSXPCConnection *)v50 auditToken];
+              objc_msgSend_auditToken(v50);
             }
 
             else
@@ -393,7 +393,6 @@ LABEL_61:
 {
   invocationCopy = invocation;
   [invocationCopy selector];
-  server = self->_server;
   if (objc_opt_respondsToSelector())
   {
     [invocationCopy invokeWithTarget:self->_server];
@@ -401,9 +400,9 @@ LABEL_61:
 
   else
   {
-    v6.receiver = self;
-    v6.super_class = FontServicesHandler;
-    [(FontServicesHandler *)&v6 forwardInvocation:invocationCopy];
+    v5.receiver = self;
+    v5.super_class = FontServicesHandler;
+    [(FontServicesHandler *)&v5 forwardInvocation:invocationCopy];
   }
 }
 
@@ -437,7 +436,7 @@ LABEL_61:
   v9 = v8;
   if (v8)
   {
-    [v8 auditToken];
+    objc_msgSend_auditToken(v8);
   }
 
   else

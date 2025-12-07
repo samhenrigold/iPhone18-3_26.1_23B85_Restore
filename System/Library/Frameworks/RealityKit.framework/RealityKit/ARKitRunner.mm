@@ -33,15 +33,15 @@
 - (_TtC10RealityKitP33_98DEB876138878DC696D4005FE1B9B4811ARKitRunner)init
 {
   v3 = OBJC_IVAR____TtC10RealityKitP33_98DEB876138878DC696D4005FE1B9B4811ARKitRunner_lock;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13ManagedBufferCyytSo16os_unfair_lock_sVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13ManagedBufferCyytSo16os_unfair_lock_sVGMd, &_ss13ManagedBufferCyytSo16os_unfair_lock_sVGMR);
   v4 = swift_allocObject();
   *(v4 + 4) = 0;
   *(&self->super.isa + v3) = v4;
   v5 = OBJC_IVAR____TtC10RealityKitP33_98DEB876138878DC696D4005FE1B9B4811ARKitRunner_continuation;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySC11ARErrorCodeLeVSgs5NeverOGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySC11ARErrorCodeLeVSgs5NeverOGMd, &_sScCySC11ARErrorCodeLeVSgs5NeverOGMR);
   (*(*(v6 - 8) + 56))(self + v5, 1, 1, v6);
   v8.receiver = self;
-  v8.super_class = type metadata accessor for ARKitRunner();
+  v8.super_class = type metadata accessor for ARKitRunner(0);
   return [(ARKitRunner *)&v8 init];
 }
 

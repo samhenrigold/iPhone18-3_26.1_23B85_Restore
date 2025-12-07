@@ -9,9 +9,9 @@
 
 - (SBSCaptureButtonRestrictionService)init
 {
-  v28.receiver = self;
-  v28.super_class = SBSCaptureButtonRestrictionService;
-  v3 = [(SBSCaptureButtonRestrictionService *)&v28 init];
+  v29.receiver = self;
+  v29.super_class = SBSCaptureButtonRestrictionService;
+  v3 = [(SBSCaptureButtonRestrictionService *)&v29 init];
   if (v3)
   {
     mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
@@ -26,43 +26,43 @@
     v3->_isValid = 1;
     objc_initWeak(&location, v3);
     v7 = MEMORY[0x1E698E658];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __42__SBSCaptureButtonRestrictionService_init__block_invoke;
-    v25[3] = &unk_1E735F778;
-    objc_copyWeak(&v26, &location);
-    v8 = [v7 assertionWithIdentifier:@"CaptureButtonInhibitAction" stateDidChangeHandler:v25];
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __42__SBSCaptureButtonRestrictionService_init__block_invoke;
+    v26[3] = &unk_1E735F778;
+    objc_copyWeak(&v27, &location);
+    v8 = [v7 assertionWithIdentifier:@"CaptureButtonInhibitAction" stateDidChangeHandler:v26];
     inhibitActionAssertion = v3->_inhibitActionAssertion;
     v3->_inhibitActionAssertion = v8;
 
     v10 = v3->_inhibitActionAssertion;
-    v11 = SBLogCameraCaptureRestriction();
-    [(BSCompoundAssertion *)v10 setLog:v11];
+    v12 = SBLogCameraCaptureRestriction(v11);
+    [(BSCompoundAssertion *)v10 setLog:v12];
 
-    v12 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v13 = BSDispatchQueueCreateWithQualityOfService();
+    v13 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v14 = BSDispatchQueueCreateWithQualityOfService();
     connectionQueue = v3->_connectionQueue;
-    v3->_connectionQueue = v13;
+    v3->_connectionQueue = v14;
 
-    v15 = MEMORY[0x1E698F498];
+    v16 = MEMORY[0x1E698F498];
     defaultShellMachName = [MEMORY[0x1E698F498] defaultShellMachName];
-    v17 = +[SBSCaptureButtonRestrictionServiceSpecification identifier];
-    v18 = [v15 endpointForMachName:defaultShellMachName service:v17 instance:0];
+    v18 = +[SBSCaptureButtonRestrictionServiceSpecification identifier];
+    v19 = [v16 endpointForMachName:defaultShellMachName service:v18 instance:0];
 
-    v19 = [MEMORY[0x1E698F490] connectionWithEndpoint:v18];
+    v20 = [MEMORY[0x1E698F490] connectionWithEndpoint:v19];
     connection = v3->_connection;
-    v3->_connection = v19;
+    v3->_connection = v20;
 
-    v21 = v3->_connection;
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __42__SBSCaptureButtonRestrictionService_init__block_invoke_2;
-    v23[3] = &unk_1E735ED88;
-    v24 = v3;
-    [(BSServiceConnection *)v21 configureConnection:v23];
+    v22 = v3->_connection;
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __42__SBSCaptureButtonRestrictionService_init__block_invoke_2;
+    v24[3] = &unk_1E735ED88;
+    v25 = v3;
+    [(BSServiceConnection *)v22 configureConnection:v24];
     [(BSServiceConnection *)v3->_connection activate];
 
-    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(&location);
   }
 
@@ -108,19 +108,19 @@ void __42__SBSCaptureButtonRestrictionService_init__block_invoke_2(uint64_t a1, 
   [v5 setInterruptionHandler:&__block_literal_global_21];
 }
 
-void __42__SBSCaptureButtonRestrictionService_init__block_invoke_3()
+void __42__SBSCaptureButtonRestrictionService_init__block_invoke_3(uint64_t a1)
 {
-  v0 = SBLogCameraCaptureRestriction();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = SBLogCameraCaptureRestriction(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __42__SBSCaptureButtonRestrictionService_init__block_invoke_3_cold_1(v0);
+    __42__SBSCaptureButtonRestrictionService_init__block_invoke_3_cold_1(v1);
   }
 }
 
 void __42__SBSCaptureButtonRestrictionService_init__block_invoke_19(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = SBLogCameraCaptureRestriction();
+  v3 = SBLogCameraCaptureRestriction(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __42__SBSCaptureButtonRestrictionService_init__block_invoke_19_cold_1(v3);

@@ -1,956 +1,19 @@
-void sub_25A436D90(_Unwind_Exception *a1)
+void sub_25A4380A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator((v1 - 192));
-  *(v1 - 192) = v1 - 112;
-  std::vector<mlx::core::ContiguousIterator>::__destroy_vector::operator()[abi:ne200100](v3);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__func<std::__bind<mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>,std::allocator<std::__bind<mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>>,void ()(void)>::~__func(uint64_t a1)
-{
-  *a1 = &unk_286BF62C8;
-  mlx::core::array::~array((a1 + 96));
-  v5 = (a1 + 72);
-  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v5);
-  mlx::core::array::~array((a1 + 56));
-  v2 = *(a1 + 32);
-  if (v2)
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
   {
-    *(a1 + 40) = v2;
-    operator delete(v2);
+    *(v31 - 128) = v33;
+    operator delete(v33);
   }
 
-  v3 = *(a1 + 8);
-  if (v3)
-  {
-    *(a1 + 16) = v3;
-    operator delete(v3);
-  }
-
-  return a1;
-}
-
-{
-  *a1 = &unk_286BF62C8;
-  mlx::core::array::~array((a1 + 96));
-  v5 = (a1 + 72);
-  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v5);
-  mlx::core::array::~array((a1 + 56));
-  v2 = *(a1 + 32);
-  if (v2)
-  {
-    *(a1 + 40) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(a1 + 8);
-  if (v3)
-  {
-    *(a1 + 16) = v3;
-    operator delete(v3);
-  }
-
-  return MEMORY[0x25F851760](a1, 0x10B1C40C2F501AALL);
-}
-
-void *std::__function::__func<std::__bind<mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>,std::allocator<std::__bind<mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>>,void ()(void)>::__clone(uint64_t a1, uint64_t a2)
-{
-  *a2 = &unk_286BF62C8;
-  result = std::__bind<mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>::__bind((a2 + 8), (a1 + 8));
-  *(a2 + 116) = 0;
-  *(a2 + 113) = 0;
-  return result;
-}
-
-void std::__function::__func<std::__bind<mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>,std::allocator<std::__bind<mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>>,void ()(void)>::destroy(uint64_t a1)
-{
-  mlx::core::array::~array((a1 + 96));
-  v4 = (a1 + 72);
-  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v4);
-  mlx::core::array::~array((a1 + 56));
-  v2 = *(a1 + 32);
-  if (v2)
-  {
-    *(a1 + 40) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(a1 + 8);
-  if (v3)
-  {
-    *(a1 + 16) = v3;
-    operator delete(v3);
-  }
-}
-
-void std::__function::__func<std::__bind<mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>,std::allocator<std::__bind<mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>>,void ()(void)>::destroy_deallocate(uint64_t a1)
-{
-  mlx::core::array::~array((a1 + 96));
-  v4 = (a1 + 72);
-  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v4);
-  mlx::core::array::~array((a1 + 56));
-  v2 = *(a1 + 32);
-  if (v2)
-  {
-    *(a1 + 40) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(a1 + 8);
-  if (v3)
-  {
-    *(a1 + 16) = v3;
-    operator delete(v3);
-  }
-
-  operator delete(a1);
-}
-
-uint64_t std::__function::__func<std::__bind<mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>,std::allocator<std::__bind<mlx::core::Gather::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>>,void ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t mlx::core::cpu::CommandEncoder::dispatch<mlx::core::GatherAxis::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>(mlx::core::GatherAxis::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0 &&)::{lambda(void)#1}::~dispatch(uint64_t a1)
-{
-  mlx::core::array::~array((a1 + 56));
-  mlx::core::array::~array((a1 + 40));
-  mlx::core::array::~array((a1 + 24));
-  return a1;
-}
-
-void *_ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_10GatherAxis8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__0JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEED1Ev(void *a1)
-{
-  *a1 = &unk_286BF63C0;
-  v2 = (a1 + 4);
-  mlx::core::array::~array((a1 + 8));
-  mlx::core::array::~array((a1 + 6));
-  mlx::core::array::~array(v2);
-  return a1;
-}
-
-void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_10GatherAxis8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__0JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEED0Ev(void *a1)
-{
-  *a1 = &unk_286BF63C0;
-  v2 = (a1 + 4);
-  mlx::core::array::~array((a1 + 8));
-  mlx::core::array::~array((a1 + 6));
-  mlx::core::array::~array(v2);
-
-  JUMPOUT(0x25F851760);
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_10GatherAxis8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__0JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEE7__cloneEPNS0_6__baseISO_EE(uint64_t result, uint64_t a2)
-{
-  *a2 = &unk_286BF63C0;
-  v2 = *(result + 8);
-  *(a2 + 16) = *(result + 16);
-  *(a2 + 8) = v2;
-  *(a2 + 24) = *(result + 24);
-  v3 = *(result + 40);
-  *(a2 + 32) = *(result + 32);
-  *(a2 + 40) = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4 = *(result + 56);
-  *(a2 + 48) = *(result + 48);
-  *(a2 + 56) = v4;
-  if (v4)
-  {
-    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v5 = *(result + 72);
-  *(a2 + 64) = *(result + 64);
-  *(a2 + 72) = v5;
-  if (v5)
-  {
-    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_10GatherAxis8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__0JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEE7destroyEv(uint64_t a1)
-{
-  mlx::core::array::~array((a1 + 64));
-  mlx::core::array::~array((a1 + 48));
-
-  mlx::core::array::~array((a1 + 32));
-}
-
-void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_10GatherAxis8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__0JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEE18destroy_deallocateEv(uint64_t a1)
-{
-  mlx::core::array::~array((a1 + 64));
-  mlx::core::array::~array((a1 + 48));
-  mlx::core::array::~array((a1 + 32));
-
-  operator delete(a1);
-}
-
-void _ZNSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_10GatherAxis8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__0JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEEclEv(uint64_t a1)
-{
-  std::__bind<mlx::core::GatherAxis::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>::operator()[abi:ne200100]<>((a1 + 24));
-  v2 = mlx::core::scheduler::scheduler(v1);
-
-  mlx::core::scheduler::Scheduler::notify_task_completion(v2);
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN3mlx4core3cpu14CommandEncoder8dispatchIZNS3_10GatherAxis8eval_cpuERKNS_6vectorINS3_5arrayENS_9allocatorIS9_EEEERS9_E3__0JEEEvOT_DpOT0_EUlvE_NSA_ISM_EEFvvEE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void std::__bind<mlx::core::GatherAxis::eval_cpu(std::vector<mlx::core::array> const&,mlx::core::array&)::$_0>::operator()[abi:ne200100]<>(int *a1)
-{
-  v2 = (a1 + 6);
-  v3 = *(*(a1 + 3) + 56);
-  if (v3 > 4)
-  {
-    if (v3 > 6)
-    {
-      if (v3 == 7)
-      {
-        v32 = (a1 + 2);
-        v35 = *a1;
-        v33 = (a1 + 10);
-        v34 = v35;
-
-        mlx::core::dispatch_gather_axis<int>(v32, v2, v33, v34);
-      }
-
-      else
-      {
-        if (v3 != 8)
-        {
-          goto LABEL_34;
-        }
-
-        v16 = (a1 + 2);
-        v19 = *a1;
-        v17 = (a1 + 10);
-        v18 = v19;
-
-        mlx::core::dispatch_gather_axis<long long>(v16, v2, v17, v18);
-      }
-    }
-
-    else if (v3 == 5)
-    {
-      v24 = (a1 + 2);
-      v27 = *a1;
-      v25 = (a1 + 10);
-      v26 = v27;
-
-      mlx::core::dispatch_gather_axis<signed char>(v24, v2, v25, v26);
-    }
-
-    else
-    {
-      v8 = (a1 + 2);
-      v11 = *a1;
-      v9 = (a1 + 10);
-      v10 = v11;
-
-      mlx::core::dispatch_gather_axis<short>(v8, v2, v9, v10);
-    }
-  }
-
-  else if (v3 > 2)
-  {
-    if (v3 == 3)
-    {
-      v28 = (a1 + 2);
-      v31 = *a1;
-      v29 = (a1 + 10);
-      v30 = v31;
-
-      mlx::core::dispatch_gather_axis<unsigned int>(v28, v2, v29, v30);
-    }
-
-    else
-    {
-      v12 = (a1 + 2);
-      v15 = *a1;
-      v13 = (a1 + 10);
-      v14 = v15;
-
-      mlx::core::dispatch_gather_axis<unsigned long long>(v12, v2, v13, v14);
-    }
-  }
-
-  else
-  {
-    if (v3 != 1)
-    {
-      if (v3 == 2)
-      {
-        v4 = (a1 + 2);
-        v7 = *a1;
-        v5 = (a1 + 10);
-        v6 = v7;
-
-        mlx::core::dispatch_gather_axis<unsigned short>(v4, v2, v5, v6);
-        return;
-      }
-
-LABEL_34:
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "[GatherAxis::eval_cpu] Cannot gather with indices type.");
-      __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-    }
-
-    v20 = (a1 + 2);
-    v23 = *a1;
-    v21 = (a1 + 10);
-    v22 = v23;
-
-    mlx::core::dispatch_gather_axis<unsigned char>(v20, v2, v21, v22);
-  }
-}
-
-void mlx::core::dispatch_gather_axis<unsigned char>(mlx::core::array *a1, mlx::core::array *a2, mlx::core::array *a3, int a4)
-{
-  switch(*(*a3 + 56))
-  {
-    case 0:
-      mlx::core::gather_axis<BOOL,unsigned char>(a1, a2, a3, a4);
-      break;
-    case 1:
-    case 5:
-      mlx::core::gather_axis<unsigned char,unsigned char>(a1, a2, a3, a4);
-      break;
-    case 2:
-    case 6:
-    case 0xC:
-      mlx::core::gather_axis<unsigned short,unsigned char>(a1, a2, a3, a4);
-      break;
-    case 3:
-    case 7:
-      mlx::core::gather_axis<unsigned int,unsigned char>(a1, a2, a3, a4);
-      break;
-    case 4:
-    case 8:
-      mlx::core::gather_axis<unsigned long long,unsigned char>(a1, a2, a3, a4);
-      break;
-    case 9:
-      mlx::core::gather_axis<half,unsigned char>(a1, a2, a3, a4);
-      break;
-    case 0xA:
-      mlx::core::gather_axis<float,unsigned char>(a1, a2, a3, a4);
-      break;
-    case 0xB:
-      mlx::core::gather_axis<double,unsigned char>(a1, a2, a3, a4);
-      break;
-    case 0xD:
-      mlx::core::gather_axis<mlx::core::complex64_t,unsigned char>(a1, a2, a3, a4);
-      break;
-    default:
-      return;
-  }
-}
-
-void mlx::core::dispatch_gather_axis<unsigned short>(mlx::core::array *a1, mlx::core::array *a2, mlx::core::array *a3, int a4)
-{
-  switch(*(*a3 + 56))
-  {
-    case 0:
-      mlx::core::gather_axis<BOOL,unsigned short>(a1, a2, a3, a4);
-      break;
-    case 1:
-    case 5:
-      mlx::core::gather_axis<unsigned char,unsigned short>(a1, a2, a3, a4);
-      break;
-    case 2:
-    case 6:
-    case 0xC:
-      mlx::core::gather_axis<unsigned short,unsigned short>(a1, a2, a3, a4);
-      break;
-    case 3:
-    case 7:
-      mlx::core::gather_axis<unsigned int,unsigned short>(a1, a2, a3, a4);
-      break;
-    case 4:
-    case 8:
-      mlx::core::gather_axis<unsigned long long,unsigned short>(a1, a2, a3, a4);
-      break;
-    case 9:
-      mlx::core::gather_axis<half,unsigned short>(a1, a2, a3, a4);
-      break;
-    case 0xA:
-      mlx::core::gather_axis<float,unsigned short>(a1, a2, a3, a4);
-      break;
-    case 0xB:
-      mlx::core::gather_axis<double,unsigned short>(a1, a2, a3, a4);
-      break;
-    case 0xD:
-      mlx::core::gather_axis<mlx::core::complex64_t,unsigned short>(a1, a2, a3, a4);
-      break;
-    default:
-      return;
-  }
-}
-
-void mlx::core::dispatch_gather_axis<unsigned int>(mlx::core::array *a1, mlx::core::array *a2, mlx::core::array *a3, int a4)
-{
-  switch(*(*a3 + 56))
-  {
-    case 0:
-      mlx::core::gather_axis<BOOL,unsigned int>(a1, a2, a3, a4);
-      break;
-    case 1:
-    case 5:
-      mlx::core::gather_axis<unsigned char,unsigned int>(a1, a2, a3, a4);
-      break;
-    case 2:
-    case 6:
-    case 0xC:
-      mlx::core::gather_axis<unsigned short,unsigned int>(a1, a2, a3, a4);
-      break;
-    case 3:
-    case 7:
-      mlx::core::gather_axis<unsigned int,unsigned int>(a1, a2, a3, a4);
-      break;
-    case 4:
-    case 8:
-      mlx::core::gather_axis<unsigned long long,unsigned int>(a1, a2, a3, a4);
-      break;
-    case 9:
-      mlx::core::gather_axis<half,unsigned int>(a1, a2, a3, a4);
-      break;
-    case 0xA:
-      mlx::core::gather_axis<float,unsigned int>(a1, a2, a3, a4);
-      break;
-    case 0xB:
-      mlx::core::gather_axis<double,unsigned int>(a1, a2, a3, a4);
-      break;
-    case 0xD:
-      mlx::core::gather_axis<mlx::core::complex64_t,unsigned int>(a1, a2, a3, a4);
-      break;
-    default:
-      return;
-  }
-}
-
-void mlx::core::dispatch_gather_axis<unsigned long long>(mlx::core::array *a1, mlx::core::array *a2, mlx::core::array *a3, int a4)
-{
-  switch(*(*a3 + 56))
-  {
-    case 0:
-      mlx::core::gather_axis<BOOL,unsigned long long>(a1, a2, a3, a4);
-      break;
-    case 1:
-    case 5:
-      mlx::core::gather_axis<unsigned char,unsigned long long>(a1, a2, a3, a4);
-      break;
-    case 2:
-    case 6:
-    case 0xC:
-      mlx::core::gather_axis<unsigned short,unsigned long long>(a1, a2, a3, a4);
-      break;
-    case 3:
-    case 7:
-      mlx::core::gather_axis<unsigned int,unsigned long long>(a1, a2, a3, a4);
-      break;
-    case 4:
-    case 8:
-      mlx::core::gather_axis<unsigned long long,unsigned long long>(a1, a2, a3, a4);
-      break;
-    case 9:
-      mlx::core::gather_axis<half,unsigned long long>(a1, a2, a3, a4);
-      break;
-    case 0xA:
-      mlx::core::gather_axis<float,unsigned long long>(a1, a2, a3, a4);
-      break;
-    case 0xB:
-      mlx::core::gather_axis<double,unsigned long long>(a1, a2, a3, a4);
-      break;
-    case 0xD:
-      mlx::core::gather_axis<mlx::core::complex64_t,unsigned long long>(a1, a2, a3, a4);
-      break;
-    default:
-      return;
-  }
-}
-
-void mlx::core::dispatch_gather_axis<signed char>(mlx::core::array *a1, mlx::core::array *a2, mlx::core::array *a3, int a4)
-{
-  switch(*(*a3 + 56))
-  {
-    case 0:
-      mlx::core::gather_axis<BOOL,signed char>(a1, a2, a3, a4);
-      break;
-    case 1:
-    case 5:
-      mlx::core::gather_axis<unsigned char,signed char>(a1, a2, a3, a4);
-      break;
-    case 2:
-    case 6:
-    case 0xC:
-      mlx::core::gather_axis<unsigned short,signed char>(a1, a2, a3, a4);
-      break;
-    case 3:
-    case 7:
-      mlx::core::gather_axis<unsigned int,signed char>(a1, a2, a3, a4);
-      break;
-    case 4:
-    case 8:
-      mlx::core::gather_axis<unsigned long long,signed char>(a1, a2, a3, a4);
-      break;
-    case 9:
-      mlx::core::gather_axis<half,signed char>(a1, a2, a3, a4);
-      break;
-    case 0xA:
-      mlx::core::gather_axis<float,signed char>(a1, a2, a3, a4);
-      break;
-    case 0xB:
-      mlx::core::gather_axis<double,signed char>(a1, a2, a3, a4);
-      break;
-    case 0xD:
-      mlx::core::gather_axis<mlx::core::complex64_t,signed char>(a1, a2, a3, a4);
-      break;
-    default:
-      return;
-  }
-}
-
-void mlx::core::dispatch_gather_axis<short>(mlx::core::array *a1, mlx::core::array *a2, mlx::core::array *a3, int a4)
-{
-  switch(*(*a3 + 56))
-  {
-    case 0:
-      mlx::core::gather_axis<BOOL,short>(a1, a2, a3, a4);
-      break;
-    case 1:
-    case 5:
-      mlx::core::gather_axis<unsigned char,short>(a1, a2, a3, a4);
-      break;
-    case 2:
-    case 6:
-    case 0xC:
-      mlx::core::gather_axis<unsigned short,short>(a1, a2, a3, a4);
-      break;
-    case 3:
-    case 7:
-      mlx::core::gather_axis<unsigned int,short>(a1, a2, a3, a4);
-      break;
-    case 4:
-    case 8:
-      mlx::core::gather_axis<unsigned long long,short>(a1, a2, a3, a4);
-      break;
-    case 9:
-      mlx::core::gather_axis<half,short>(a1, a2, a3, a4);
-      break;
-    case 0xA:
-      mlx::core::gather_axis<float,short>(a1, a2, a3, a4);
-      break;
-    case 0xB:
-      mlx::core::gather_axis<double,short>(a1, a2, a3, a4);
-      break;
-    case 0xD:
-      mlx::core::gather_axis<mlx::core::complex64_t,short>(a1, a2, a3, a4);
-      break;
-    default:
-      return;
-  }
-}
-
-void mlx::core::dispatch_gather_axis<int>(mlx::core::array *a1, mlx::core::array *a2, mlx::core::array *a3, int a4)
-{
-  switch(*(*a3 + 56))
-  {
-    case 0:
-      mlx::core::gather_axis<BOOL,int>(a1, a2, a3, a4);
-      break;
-    case 1:
-    case 5:
-      mlx::core::gather_axis<unsigned char,int>(a1, a2, a3, a4);
-      break;
-    case 2:
-    case 6:
-    case 0xC:
-      mlx::core::gather_axis<unsigned short,int>(a1, a2, a3, a4);
-      break;
-    case 3:
-    case 7:
-      mlx::core::gather_axis<unsigned int,int>(a1, a2, a3, a4);
-      break;
-    case 4:
-    case 8:
-      mlx::core::gather_axis<unsigned long long,int>(a1, a2, a3, a4);
-      break;
-    case 9:
-      mlx::core::gather_axis<half,int>(a1, a2, a3, a4);
-      break;
-    case 0xA:
-      mlx::core::gather_axis<float,int>(a1, a2, a3, a4);
-      break;
-    case 0xB:
-      mlx::core::gather_axis<double,int>(a1, a2, a3, a4);
-      break;
-    case 0xD:
-      mlx::core::gather_axis<mlx::core::complex64_t,int>(a1, a2, a3, a4);
-      break;
-    default:
-      return;
-  }
-}
-
-void mlx::core::dispatch_gather_axis<long long>(mlx::core::array *a1, mlx::core::array *a2, mlx::core::array *a3, int a4)
-{
-  switch(*(*a3 + 56))
-  {
-    case 0:
-      mlx::core::gather_axis<BOOL,long long>(a1, a2, a3, a4);
-      break;
-    case 1:
-    case 5:
-      mlx::core::gather_axis<unsigned char,long long>(a1, a2, a3, a4);
-      break;
-    case 2:
-    case 6:
-    case 0xC:
-      mlx::core::gather_axis<unsigned short,long long>(a1, a2, a3, a4);
-      break;
-    case 3:
-    case 7:
-      mlx::core::gather_axis<unsigned int,long long>(a1, a2, a3, a4);
-      break;
-    case 4:
-    case 8:
-      mlx::core::gather_axis<unsigned long long,long long>(a1, a2, a3, a4);
-      break;
-    case 9:
-      mlx::core::gather_axis<half,long long>(a1, a2, a3, a4);
-      break;
-    case 0xA:
-      mlx::core::gather_axis<float,long long>(a1, a2, a3, a4);
-      break;
-    case 0xB:
-      mlx::core::gather_axis<double,long long>(a1, a2, a3, a4);
-      break;
-    case 0xD:
-      mlx::core::gather_axis<mlx::core::complex64_t,long long>(a1, a2, a3, a4);
-      break;
-    default:
-      return;
-  }
-}
-
-void mlx::core::gather_axis<BOOL,unsigned char>(mlx::core::array *a1, mlx::core::array *a2, mlx::core::array *a3, int a4)
-{
-  v8 = *a2;
-  v93 = 0;
-  v94 = 0;
-  v92 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v92, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v92[8 * a4];
-  v10 = v93 - (v9 + 8);
-  if (v93 != v9 + 8)
-  {
-    memmove(&v92[8 * a4], v9 + 8, v93 - (v9 + 8));
-  }
-
-  v93 = &v9[v10];
-  v11 = *a2;
-  v90 = 0;
-  v91 = 0;
-  v89 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v89, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v89[4 * a4];
-  v13 = v90 - (v12 + 4);
-  if (v90 != v12 + 4)
-  {
-    memmove(&v89[4 * a4], v12 + 4, v90 - (v12 + 4));
-  }
-
-  v90 = &v12[v13];
-  mlx::core::ContiguousIterator::ContiguousIterator(&v82, &v89, &v92, ((*(*a1 + 8) - **a1) >> 2) - 1);
-  if (&v92 != (*a1 + 24))
-  {
-    std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v92, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
-  }
-
-  v14 = 8 * a4;
-  v15 = &v92[v14];
-  v16 = v93 - &v92[v14 + 8];
-  if (v93 != &v92[v14 + 8])
-  {
-    memmove(&v92[v14], &v92[v14 + 8], v93 - (v15 + 8));
-  }
-
-  v93 = &v15[v16];
-  mlx::core::ContiguousIterator::ContiguousIterator(&v75, &v89, &v92, ((*(*a1 + 8) - **a1) >> 2) - 1);
-  v72 = *(*a1 + 152);
-  v73 = *(*a2 + 152);
-  v67 = *(*a3 + 152);
-  v17 = mlx::core::array::strides(a2, a4);
-  v18 = mlx::core::array::strides(a1, a4);
-  v19 = mlx::core::array::strides(a3, a4);
-  v20 = mlx::core::array::shape(a2, a4);
-  mlx::core::array::shape(a1, a4);
-  if (a4 < 1)
-  {
-    v22 = 1;
-  }
-
-  else
-  {
-    v21 = 0;
-    v22 = 1;
-    do
-    {
-      v22 *= mlx::core::array::shape(a2, v21++);
-    }
-
-    while (a4 != v21);
-  }
-
-  v23 = a4 + 1;
-  v24 = *(*a2 + 8) - **a2;
-  v25 = 1;
-  while (v23 < v24 >> 2)
-  {
-    v25 *= mlx::core::array::shape(a2, v23++);
-    v24 = *(*a2 + 8) - **a2;
-  }
-
-  if (v22)
-  {
-    v26 = 0;
-    v27 = v82;
-    v28 = (v84 - v83) >> 2;
-    v74 = (((v84 - v83) << 30) - 0x100000000) >> 32;
-    v29 = v83 + 4 * v74;
-    v30 = v75;
-    v31 = (v77 - v76) >> 2;
-    v32 = (((v77 - v76) << 30) - 0x100000000) >> 32;
-    v33 = v76 + 4 * v32;
-    v34 = 4 * (v28 & 0x7FFFFFFF);
-    v69 = v83 - 8;
-    v35 = 4 * (v31 & 0x7FFFFFFF);
-    v68 = v76 - 8;
-    v65 = v22;
-    do
-    {
-      v66 = v26;
-      if (v25)
-      {
-        v36 = 0;
-        v37 = v85;
-        v38 = v87 + 4 * v74;
-        v39 = v78;
-        v70 = __p;
-        v71 = v87;
-        v40 = __p + 4 * v32;
-        v41 = v67;
-        do
-        {
-          if (v20 >= 1)
-          {
-            v42 = (v73 + v27);
-            v43 = v20;
-            v44 = v41;
-            do
-            {
-              *v44 = *(v72 + v30 + v18 * *v42);
-              v44 += v19;
-              v42 += v17;
-              --v43;
-            }
-
-            while (v43);
-          }
-
-          if (v28)
-          {
-            v45 = *v38;
-            if (v28 >= 2 && v45 == *v29 - 1)
-            {
-              v46 = v71;
-              v47 = v69;
-              v48 = (v28 & 0x7FFFFFFF) - 1;
-              v49 = v29;
-              v50 = v38;
-              v51 = v74;
-              do
-              {
-                v52 = v48;
-                *v50 = 0;
-                v27 -= v37[v51] * (*v49 - 1);
-                v82 = v27;
-                --v48;
-                v50 = &v46[v34 - 8];
-                v45 = *v50;
-                v46 -= 4;
-                if (v52 < 2)
-                {
-                  break;
-                }
-
-                v49 = &v47[v34];
-                v53 = *&v47[4 * (v28 & 0x7FFFFFFF)] - 1;
-                v47 -= 4;
-                v51 = v48;
-              }
-
-              while (v45 == v53);
-              v54 = &v46[v34 - 4];
-            }
-
-            else
-            {
-              v48 = v74;
-              v54 = v38;
-            }
-
-            *v54 = v45 + 1;
-            v27 += v37[v48];
-            v82 = v27;
-          }
-
-          if (v31)
-          {
-            v55 = *v40;
-            if (v31 >= 2 && v55 == *v33 - 1)
-            {
-              v56 = v70;
-              v57 = v68;
-              v58 = (v31 & 0x7FFFFFFF) - 1;
-              v59 = v33;
-              v60 = v40;
-              v61 = v32;
-              do
-              {
-                v62 = v58;
-                *v60 = 0;
-                v30 -= v39[v61] * (*v59 - 1);
-                v75 = v30;
-                --v58;
-                v60 = &v56[v35 - 8];
-                v55 = *v60;
-                v56 -= 4;
-                if (v62 < 2)
-                {
-                  break;
-                }
-
-                v59 = &v57[v35];
-                v63 = *&v57[4 * (v31 & 0x7FFFFFFF)] - 1;
-                v57 -= 4;
-                v61 = v58;
-              }
-
-              while (v55 == v63);
-              v64 = &v56[v35 - 4];
-            }
-
-            else
-            {
-              v58 = v32;
-              v64 = v40;
-            }
-
-            *v64 = v55 + 1;
-            v30 += v39[v58];
-            v75 = v30;
-          }
-
-          ++v36;
-          ++v41;
-        }
-
-        while (v36 != v25);
-      }
-
-      v67 += v25 * v20;
-      v26 = v66 + 1;
-    }
-
-    while (v66 + 1 != v65);
-  }
-
-  if (__p)
-  {
-    v81 = __p;
-    operator delete(__p);
-  }
-
-  if (v78)
-  {
-    v79 = v78;
-    operator delete(v78);
-  }
-
-  if (v76)
-  {
-    v77 = v76;
-    operator delete(v76);
-  }
-
-  if (v87)
-  {
-    v88 = v87;
-    operator delete(v87);
-  }
-
-  if (v85)
-  {
-    v86 = v85;
-    operator delete(v85);
-  }
-
-  if (v83)
-  {
-    v84 = v83;
-    operator delete(v83);
-  }
-
-  if (v89)
-  {
-    v90 = v89;
-    operator delete(v89);
-  }
-
-  if (v92)
-  {
-    v93 = v92;
-    operator delete(v92);
-  }
-}
-
-void sub_25A4380A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
-{
-  mlx::core::ContiguousIterator::~ContiguousIterator(&a32);
-  v34 = *(v32 - 136);
+  v34 = *(v31 - 112);
   if (v34)
   {
-    *(v32 - 128) = v34;
+    *(v31 - 104) = v34;
     operator delete(v34);
-  }
-
-  v35 = *(v32 - 112);
-  if (v35)
-  {
-    *(v32 - 104) = v35;
-    operator delete(v35);
   }
 
   _Unwind_Resume(a1);
@@ -962,43 +25,43 @@ void mlx::core::gather_axis<unsigned char,unsigned char>(mlx::core::array *a1, m
   v85 = 0;
   v86 = 0;
   v84 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v84, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v84[8 * a4];
-  v10 = v85 - (v9 + 8);
-  if (v85 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v84, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v84[a4];
+  v10 = v85 - (v9 + 1);
+  if (v85 != v9 + 1)
   {
-    memmove(&v84[8 * a4], v9 + 8, v85 - (v9 + 8));
+    memmove(&v84[a4], v9 + 1, v85 - (v9 + 1));
   }
 
-  v85 = &v9[v10];
+  v85 = (v9 + v10);
   v11 = *a2;
   v82 = 0;
   v83 = 0;
   v81 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v81, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v81[4 * a4];
-  v13 = v82 - (v12 + 4);
-  if (v82 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v81, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v81[a4];
+  v13 = v82 - (v12 + 1);
+  if (v82 != v12 + 1)
   {
-    memmove(&v81[4 * a4], v12 + 4, v82 - (v12 + 4));
+    memmove(&v81[a4], v12 + 1, v82 - (v12 + 1));
   }
 
-  v82 = &v12[v13];
+  v82 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v74, &v81, &v84, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v84 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v84, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v84[v14];
-  v16 = v85 - &v84[v14 + 8];
-  if (v85 != &v84[v14 + 8])
+  v16 = v85 - &v84[v14 + 1];
+  if (v85 != &v84[v14 + 1])
   {
-    memmove(&v84[v14], &v84[v14 + 8], v85 - (v15 + 8));
+    memmove(&v84[v14], &v84[v14 + 1], v85 - (v15 + 1));
   }
 
-  v85 = &v15[v16];
+  v85 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v67, &v81, &v84, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v17 = *(*a2 + 152);
   v18 = *(*a1 + 152);
@@ -1027,7 +90,7 @@ void mlx::core::gather_axis<unsigned char,unsigned char>(mlx::core::array *a1, m
   }
 
   v25 = a4 + 1;
-  for (i = 1; v25 < ((*v65)[1] - **v65) >> 2; ++v25)
+  for (i = 1; v25 < (*(*v65 + 8) - **v65) >> 2; ++v25)
   {
     i *= mlx::core::array::shape(v65, v25);
   }
@@ -1220,22 +283,22 @@ void mlx::core::gather_axis<unsigned char,unsigned char>(mlx::core::array *a1, m
   }
 }
 
-void sub_25A438630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_25A438630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
-  v16 = *(v14 - 136);
-  if (v16)
+  v23 = *(v21 - 136);
+  if (v23)
   {
-    *(v14 - 128) = v16;
-    operator delete(v16);
+    *(v21 - 128) = v23;
+    operator delete(v23);
   }
 
-  v17 = *(v14 - 112);
-  if (v17)
+  v24 = *(v21 - 112);
+  if (v24)
   {
-    *(v14 - 104) = v17;
-    operator delete(v17);
+    *(v21 - 104) = v24;
+    operator delete(v24);
   }
 
   _Unwind_Resume(a1);
@@ -1247,43 +310,43 @@ void mlx::core::gather_axis<unsigned short,unsigned char>(mlx::core::array *a1, 
   v94 = 0;
   v95 = 0;
   v93 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v93, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v93[8 * a4];
-  v10 = v94 - (v9 + 8);
-  if (v94 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v93, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v93[a4];
+  v10 = v94 - (v9 + 1);
+  if (v94 != v9 + 1)
   {
-    memmove(&v93[8 * a4], v9 + 8, v94 - (v9 + 8));
+    memmove(&v93[a4], v9 + 1, v94 - (v9 + 1));
   }
 
-  v94 = &v9[v10];
+  v94 = (v9 + v10);
   v11 = *a2;
   v91 = 0;
   v92 = 0;
   v90 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v90, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v90[4 * a4];
-  v13 = v91 - (v12 + 4);
-  if (v91 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v90, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v90[a4];
+  v13 = v91 - (v12 + 1);
+  if (v91 != v12 + 1)
   {
-    memmove(&v90[4 * a4], v12 + 4, v91 - (v12 + 4));
+    memmove(&v90[a4], v12 + 1, v91 - (v12 + 1));
   }
 
-  v91 = &v12[v13];
+  v91 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v83, &v90, &v93, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v93 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v93, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v93[v14];
-  v16 = v94 - &v93[v14 + 8];
-  if (v94 != &v93[v14 + 8])
+  v16 = v94 - &v93[v14 + 1];
+  if (v94 != &v93[v14 + 1])
   {
-    memmove(&v93[v14], &v93[v14 + 8], v94 - (v15 + 8));
+    memmove(&v93[v14], &v93[v14 + 1], v94 - (v15 + 1));
   }
 
-  v94 = &v15[v16];
+  v94 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v76, &v90, &v93, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v73 = *(*a1 + 152);
   v74 = *(*a2 + 152);
@@ -1524,21 +587,22 @@ void mlx::core::gather_axis<unsigned short,unsigned char>(mlx::core::array *a1, 
   }
 }
 
-void sub_25A438C18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_25A438C18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator(&a32);
-  v34 = *(v32 - 136);
-  if (v34)
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
   {
-    *(v32 - 128) = v34;
-    operator delete(v34);
+    *(v31 - 128) = v33;
+    operator delete(v33);
   }
 
-  v35 = *(v32 - 112);
-  if (v35)
+  v34 = *(v31 - 112);
+  if (v34)
   {
-    *(v32 - 104) = v35;
-    operator delete(v35);
+    *(v31 - 104) = v34;
+    operator delete(v34);
   }
 
   _Unwind_Resume(a1);
@@ -1550,43 +614,43 @@ void mlx::core::gather_axis<unsigned int,unsigned char>(mlx::core::array *a1, ml
   v94 = 0;
   v95 = 0;
   v93 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v93, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v93[8 * a4];
-  v10 = v94 - (v9 + 8);
-  if (v94 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v93, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v93[a4];
+  v10 = v94 - (v9 + 1);
+  if (v94 != v9 + 1)
   {
-    memmove(&v93[8 * a4], v9 + 8, v94 - (v9 + 8));
+    memmove(&v93[a4], v9 + 1, v94 - (v9 + 1));
   }
 
-  v94 = &v9[v10];
+  v94 = (v9 + v10);
   v11 = *a2;
   v91 = 0;
   v92 = 0;
   v90 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v90, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v90[4 * a4];
-  v13 = v91 - (v12 + 4);
-  if (v91 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v90, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v90[a4];
+  v13 = v91 - (v12 + 1);
+  if (v91 != v12 + 1)
   {
-    memmove(&v90[4 * a4], v12 + 4, v91 - (v12 + 4));
+    memmove(&v90[a4], v12 + 1, v91 - (v12 + 1));
   }
 
-  v91 = &v12[v13];
+  v91 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v83, &v90, &v93, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v93 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v93, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v93[v14];
-  v16 = v94 - &v93[v14 + 8];
-  if (v94 != &v93[v14 + 8])
+  v16 = v94 - &v93[v14 + 1];
+  if (v94 != &v93[v14 + 1])
   {
-    memmove(&v93[v14], &v93[v14 + 8], v94 - (v15 + 8));
+    memmove(&v93[v14], &v93[v14 + 1], v94 - (v15 + 1));
   }
 
-  v94 = &v15[v16];
+  v94 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v76, &v90, &v93, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v73 = *(*a1 + 152);
   v74 = *(*a2 + 152);
@@ -1827,21 +891,22 @@ void mlx::core::gather_axis<unsigned int,unsigned char>(mlx::core::array *a1, ml
   }
 }
 
-void sub_25A439200(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_25A439200(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator(&a32);
-  v34 = *(v32 - 136);
-  if (v34)
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
   {
-    *(v32 - 128) = v34;
-    operator delete(v34);
+    *(v31 - 128) = v33;
+    operator delete(v33);
   }
 
-  v35 = *(v32 - 112);
-  if (v35)
+  v34 = *(v31 - 112);
+  if (v34)
   {
-    *(v32 - 104) = v35;
-    operator delete(v35);
+    *(v31 - 104) = v34;
+    operator delete(v34);
   }
 
   _Unwind_Resume(a1);
@@ -1853,43 +918,43 @@ void mlx::core::gather_axis<unsigned long long,unsigned char>(mlx::core::array *
   v94 = 0;
   v95 = 0;
   v93 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v93, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v93[8 * a4];
-  v10 = v94 - (v9 + 8);
-  if (v94 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v93, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v93[a4];
+  v10 = v94 - (v9 + 1);
+  if (v94 != v9 + 1)
   {
-    memmove(&v93[8 * a4], v9 + 8, v94 - (v9 + 8));
+    memmove(&v93[a4], v9 + 1, v94 - (v9 + 1));
   }
 
-  v94 = &v9[v10];
+  v94 = (v9 + v10);
   v11 = *a2;
   v91 = 0;
   v92 = 0;
   v90 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v90, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v90[4 * a4];
-  v13 = v91 - (v12 + 4);
-  if (v91 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v90, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v90[a4];
+  v13 = v91 - (v12 + 1);
+  if (v91 != v12 + 1)
   {
-    memmove(&v90[4 * a4], v12 + 4, v91 - (v12 + 4));
+    memmove(&v90[a4], v12 + 1, v91 - (v12 + 1));
   }
 
-  v91 = &v12[v13];
+  v91 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v83, &v90, &v93, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v93 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v93, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v93[v14];
-  v16 = v94 - &v93[v14 + 8];
-  if (v94 != &v93[v14 + 8])
+  v16 = v94 - &v93[v14 + 1];
+  if (v94 != &v93[v14 + 1])
   {
-    memmove(&v93[v14], &v93[v14 + 8], v94 - (v15 + 8));
+    memmove(&v93[v14], &v93[v14 + 1], v94 - (v15 + 1));
   }
 
-  v94 = &v15[v16];
+  v94 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v76, &v90, &v93, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v75 = *(*a2 + 152);
   v17 = *(*a1 + 152);
@@ -2128,21 +1193,22 @@ void mlx::core::gather_axis<unsigned long long,unsigned char>(mlx::core::array *
   }
 }
 
-void sub_25A4397E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_25A4397E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator(&a32);
-  v34 = *(v32 - 136);
-  if (v34)
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
   {
-    *(v32 - 128) = v34;
-    operator delete(v34);
+    *(v31 - 128) = v33;
+    operator delete(v33);
   }
 
-  v35 = *(v32 - 112);
-  if (v35)
+  v34 = *(v31 - 112);
+  if (v34)
   {
-    *(v32 - 104) = v35;
-    operator delete(v35);
+    *(v31 - 104) = v34;
+    operator delete(v34);
   }
 
   _Unwind_Resume(a1);
@@ -2154,43 +1220,43 @@ void mlx::core::gather_axis<half,unsigned char>(mlx::core::array *a1, mlx::core:
   v94 = 0;
   v95 = 0;
   v93 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v93, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v93[8 * a4];
-  v10 = v94 - (v9 + 8);
-  if (v94 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v93, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v93[a4];
+  v10 = v94 - (v9 + 1);
+  if (v94 != v9 + 1)
   {
-    memmove(&v93[8 * a4], v9 + 8, v94 - (v9 + 8));
+    memmove(&v93[a4], v9 + 1, v94 - (v9 + 1));
   }
 
-  v94 = &v9[v10];
+  v94 = (v9 + v10);
   v11 = *a2;
   v91 = 0;
   v92 = 0;
   v90 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v90, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v90[4 * a4];
-  v13 = v91 - (v12 + 4);
-  if (v91 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v90, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v90[a4];
+  v13 = v91 - (v12 + 1);
+  if (v91 != v12 + 1)
   {
-    memmove(&v90[4 * a4], v12 + 4, v91 - (v12 + 4));
+    memmove(&v90[a4], v12 + 1, v91 - (v12 + 1));
   }
 
-  v91 = &v12[v13];
+  v91 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v83, &v90, &v93, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v93 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v93, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v93[v14];
-  v16 = v94 - &v93[v14 + 8];
-  if (v94 != &v93[v14 + 8])
+  v16 = v94 - &v93[v14 + 1];
+  if (v94 != &v93[v14 + 1])
   {
-    memmove(&v93[v14], &v93[v14 + 8], v94 - (v15 + 8));
+    memmove(&v93[v14], &v93[v14 + 1], v94 - (v15 + 1));
   }
 
-  v94 = &v15[v16];
+  v94 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v76, &v90, &v93, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v73 = *(*a1 + 152);
   v74 = *(*a2 + 152);
@@ -2431,21 +1497,22 @@ void mlx::core::gather_axis<half,unsigned char>(mlx::core::array *a1, mlx::core:
   }
 }
 
-void sub_25A439DCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_25A439DCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator(&a32);
-  v34 = *(v32 - 136);
-  if (v34)
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
   {
-    *(v32 - 128) = v34;
-    operator delete(v34);
+    *(v31 - 128) = v33;
+    operator delete(v33);
   }
 
-  v35 = *(v32 - 112);
-  if (v35)
+  v34 = *(v31 - 112);
+  if (v34)
   {
-    *(v32 - 104) = v35;
-    operator delete(v35);
+    *(v31 - 104) = v34;
+    operator delete(v34);
   }
 
   _Unwind_Resume(a1);
@@ -2457,43 +1524,43 @@ void mlx::core::gather_axis<float,unsigned char>(mlx::core::array *a1, mlx::core
   v94 = 0;
   v95 = 0;
   v93 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v93, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v93[8 * a4];
-  v10 = v94 - (v9 + 8);
-  if (v94 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v93, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v93[a4];
+  v10 = v94 - (v9 + 1);
+  if (v94 != v9 + 1)
   {
-    memmove(&v93[8 * a4], v9 + 8, v94 - (v9 + 8));
+    memmove(&v93[a4], v9 + 1, v94 - (v9 + 1));
   }
 
-  v94 = &v9[v10];
+  v94 = (v9 + v10);
   v11 = *a2;
   v91 = 0;
   v92 = 0;
   v90 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v90, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v90[4 * a4];
-  v13 = v91 - (v12 + 4);
-  if (v91 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v90, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v90[a4];
+  v13 = v91 - (v12 + 1);
+  if (v91 != v12 + 1)
   {
-    memmove(&v90[4 * a4], v12 + 4, v91 - (v12 + 4));
+    memmove(&v90[a4], v12 + 1, v91 - (v12 + 1));
   }
 
-  v91 = &v12[v13];
+  v91 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v83, &v90, &v93, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v93 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v93, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v93[v14];
-  v16 = v94 - &v93[v14 + 8];
-  if (v94 != &v93[v14 + 8])
+  v16 = v94 - &v93[v14 + 1];
+  if (v94 != &v93[v14 + 1])
   {
-    memmove(&v93[v14], &v93[v14 + 8], v94 - (v15 + 8));
+    memmove(&v93[v14], &v93[v14 + 1], v94 - (v15 + 1));
   }
 
-  v94 = &v15[v16];
+  v94 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v76, &v90, &v93, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v73 = *(*a1 + 152);
   v74 = *(*a2 + 152);
@@ -2734,21 +1801,22 @@ void mlx::core::gather_axis<float,unsigned char>(mlx::core::array *a1, mlx::core
   }
 }
 
-void sub_25A43A3B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_25A43A3B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator(&a32);
-  v34 = *(v32 - 136);
-  if (v34)
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
   {
-    *(v32 - 128) = v34;
-    operator delete(v34);
+    *(v31 - 128) = v33;
+    operator delete(v33);
   }
 
-  v35 = *(v32 - 112);
-  if (v35)
+  v34 = *(v31 - 112);
+  if (v34)
   {
-    *(v32 - 104) = v35;
-    operator delete(v35);
+    *(v31 - 104) = v34;
+    operator delete(v34);
   }
 
   _Unwind_Resume(a1);
@@ -2760,43 +1828,43 @@ void mlx::core::gather_axis<double,unsigned char>(mlx::core::array *a1, mlx::cor
   v94 = 0;
   v95 = 0;
   v93 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v93, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v93[8 * a4];
-  v10 = v94 - (v9 + 8);
-  if (v94 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v93, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v93[a4];
+  v10 = v94 - (v9 + 1);
+  if (v94 != v9 + 1)
   {
-    memmove(&v93[8 * a4], v9 + 8, v94 - (v9 + 8));
+    memmove(&v93[a4], v9 + 1, v94 - (v9 + 1));
   }
 
-  v94 = &v9[v10];
+  v94 = (v9 + v10);
   v11 = *a2;
   v91 = 0;
   v92 = 0;
   v90 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v90, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v90[4 * a4];
-  v13 = v91 - (v12 + 4);
-  if (v91 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v90, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v90[a4];
+  v13 = v91 - (v12 + 1);
+  if (v91 != v12 + 1)
   {
-    memmove(&v90[4 * a4], v12 + 4, v91 - (v12 + 4));
+    memmove(&v90[a4], v12 + 1, v91 - (v12 + 1));
   }
 
-  v91 = &v12[v13];
+  v91 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v83, &v90, &v93, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v93 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v93, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v93[v14];
-  v16 = v94 - &v93[v14 + 8];
-  if (v94 != &v93[v14 + 8])
+  v16 = v94 - &v93[v14 + 1];
+  if (v94 != &v93[v14 + 1])
   {
-    memmove(&v93[v14], &v93[v14 + 8], v94 - (v15 + 8));
+    memmove(&v93[v14], &v93[v14 + 1], v94 - (v15 + 1));
   }
 
-  v94 = &v15[v16];
+  v94 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v76, &v90, &v93, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v73 = *(*a1 + 152);
   v74 = *(*a2 + 152);
@@ -3037,21 +2105,22 @@ void mlx::core::gather_axis<double,unsigned char>(mlx::core::array *a1, mlx::cor
   }
 }
 
-void sub_25A43A99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_25A43A99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator(&a32);
-  v34 = *(v32 - 136);
-  if (v34)
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
   {
-    *(v32 - 128) = v34;
-    operator delete(v34);
+    *(v31 - 128) = v33;
+    operator delete(v33);
   }
 
-  v35 = *(v32 - 112);
-  if (v35)
+  v34 = *(v31 - 112);
+  if (v34)
   {
-    *(v32 - 104) = v35;
-    operator delete(v35);
+    *(v31 - 104) = v34;
+    operator delete(v34);
   }
 
   _Unwind_Resume(a1);
@@ -3063,43 +2132,43 @@ void mlx::core::gather_axis<mlx::core::complex64_t,unsigned char>(mlx::core::arr
   v86 = 0;
   v87 = 0;
   v85 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v85, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v85[8 * a4];
-  v10 = v86 - (v9 + 8);
-  if (v86 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v85, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v85[a4];
+  v10 = v86 - (v9 + 1);
+  if (v86 != v9 + 1)
   {
-    memmove(&v85[8 * a4], v9 + 8, v86 - (v9 + 8));
+    memmove(&v85[a4], v9 + 1, v86 - (v9 + 1));
   }
 
-  v86 = &v9[v10];
+  v86 = (v9 + v10);
   v11 = *a2;
   v83 = 0;
   v84 = 0;
   v82 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v82, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v82[4 * a4];
-  v13 = v83 - (v12 + 4);
-  if (v83 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v82, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v82[a4];
+  v13 = v83 - (v12 + 1);
+  if (v83 != v12 + 1)
   {
-    memmove(&v82[4 * a4], v12 + 4, v83 - (v12 + 4));
+    memmove(&v82[a4], v12 + 1, v83 - (v12 + 1));
   }
 
-  v83 = &v12[v13];
+  v83 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v75, &v82, &v85, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v85 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v85, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v85[v14];
-  v16 = v86 - &v85[v14 + 8];
-  if (v86 != &v85[v14 + 8])
+  v16 = v86 - &v85[v14 + 1];
+  if (v86 != &v85[v14 + 1])
   {
-    memmove(&v85[v14], &v85[v14 + 8], v86 - (v15 + 8));
+    memmove(&v85[v14], &v85[v14 + 1], v86 - (v15 + 1));
   }
 
-  v86 = &v15[v16];
+  v86 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v68, &v82, &v85, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v17 = *(*a2 + 152);
   v18 = *(*a1 + 152);
@@ -3324,22 +2393,22 @@ void mlx::core::gather_axis<mlx::core::complex64_t,unsigned char>(mlx::core::arr
   }
 }
 
-void sub_25A43AF18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A43AF18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
-  v14 = *(v12 - 136);
-  if (v14)
+  v21 = *(v19 - 136);
+  if (v21)
   {
-    *(v12 - 128) = v14;
-    operator delete(v14);
+    *(v19 - 128) = v21;
+    operator delete(v21);
   }
 
-  v15 = *(v12 - 112);
-  if (v15)
+  v22 = *(v19 - 112);
+  if (v22)
   {
-    *(v12 - 104) = v15;
-    operator delete(v15);
+    *(v19 - 104) = v22;
+    operator delete(v22);
   }
 
   _Unwind_Resume(a1);
@@ -3351,43 +2420,43 @@ void mlx::core::gather_axis<BOOL,unsigned short>(mlx::core::array *a1, mlx::core
   v94 = 0;
   v95 = 0;
   v93 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v93, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v93[8 * a4];
-  v10 = v94 - (v9 + 8);
-  if (v94 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v93, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v93[a4];
+  v10 = v94 - (v9 + 1);
+  if (v94 != v9 + 1)
   {
-    memmove(&v93[8 * a4], v9 + 8, v94 - (v9 + 8));
+    memmove(&v93[a4], v9 + 1, v94 - (v9 + 1));
   }
 
-  v94 = &v9[v10];
+  v94 = (v9 + v10);
   v11 = *a2;
   v91 = 0;
   v92 = 0;
   v90 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v90, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v90[4 * a4];
-  v13 = v91 - (v12 + 4);
-  if (v91 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v90, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v90[a4];
+  v13 = v91 - (v12 + 1);
+  if (v91 != v12 + 1)
   {
-    memmove(&v90[4 * a4], v12 + 4, v91 - (v12 + 4));
+    memmove(&v90[a4], v12 + 1, v91 - (v12 + 1));
   }
 
-  v91 = &v12[v13];
+  v91 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v83, &v90, &v93, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v93 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v93, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v93[v14];
-  v16 = v94 - &v93[v14 + 8];
-  if (v94 != &v93[v14 + 8])
+  v16 = v94 - &v93[v14 + 1];
+  if (v94 != &v93[v14 + 1])
   {
-    memmove(&v93[v14], &v93[v14 + 8], v94 - (v15 + 8));
+    memmove(&v93[v14], &v93[v14 + 1], v94 - (v15 + 1));
   }
 
-  v94 = &v15[v16];
+  v94 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v76, &v90, &v93, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v73 = *(*a1 + 152);
   v74 = *(*a2 + 152);
@@ -3628,21 +2697,22 @@ void mlx::core::gather_axis<BOOL,unsigned short>(mlx::core::array *a1, mlx::core
   }
 }
 
-void sub_25A43B500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_25A43B500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator(&a32);
-  v34 = *(v32 - 136);
-  if (v34)
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
   {
-    *(v32 - 128) = v34;
-    operator delete(v34);
+    *(v31 - 128) = v33;
+    operator delete(v33);
   }
 
-  v35 = *(v32 - 112);
-  if (v35)
+  v34 = *(v31 - 112);
+  if (v34)
   {
-    *(v32 - 104) = v35;
-    operator delete(v35);
+    *(v31 - 104) = v34;
+    operator delete(v34);
   }
 
   _Unwind_Resume(a1);
@@ -3654,43 +2724,43 @@ void mlx::core::gather_axis<unsigned char,unsigned short>(mlx::core::array *a1, 
   v86 = 0;
   v87 = 0;
   v85 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v85, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v85[8 * a4];
-  v10 = v86 - (v9 + 8);
-  if (v86 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v85, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v85[a4];
+  v10 = v86 - (v9 + 1);
+  if (v86 != v9 + 1)
   {
-    memmove(&v85[8 * a4], v9 + 8, v86 - (v9 + 8));
+    memmove(&v85[a4], v9 + 1, v86 - (v9 + 1));
   }
 
-  v86 = &v9[v10];
+  v86 = (v9 + v10);
   v11 = *a2;
   v83 = 0;
   v84 = 0;
   v82 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v82, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v82[4 * a4];
-  v13 = v83 - (v12 + 4);
-  if (v83 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v82, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v82[a4];
+  v13 = v83 - (v12 + 1);
+  if (v83 != v12 + 1)
   {
-    memmove(&v82[4 * a4], v12 + 4, v83 - (v12 + 4));
+    memmove(&v82[a4], v12 + 1, v83 - (v12 + 1));
   }
 
-  v83 = &v12[v13];
+  v83 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v75, &v82, &v85, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v85 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v85, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v85[v14];
-  v16 = v86 - &v85[v14 + 8];
-  if (v86 != &v85[v14 + 8])
+  v16 = v86 - &v85[v14 + 1];
+  if (v86 != &v85[v14 + 1])
   {
-    memmove(&v85[v14], &v85[v14 + 8], v86 - (v15 + 8));
+    memmove(&v85[v14], &v85[v14 + 1], v86 - (v15 + 1));
   }
 
-  v86 = &v15[v16];
+  v86 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v68, &v82, &v85, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v17 = *(*a2 + 152);
   v18 = *(*a1 + 152);
@@ -3915,22 +2985,22 @@ void mlx::core::gather_axis<unsigned char,unsigned short>(mlx::core::array *a1, 
   }
 }
 
-void sub_25A43BA78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A43BA78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
-  v14 = *(v12 - 136);
-  if (v14)
+  v21 = *(v19 - 136);
+  if (v21)
   {
-    *(v12 - 128) = v14;
-    operator delete(v14);
+    *(v19 - 128) = v21;
+    operator delete(v21);
   }
 
-  v15 = *(v12 - 112);
-  if (v15)
+  v22 = *(v19 - 112);
+  if (v22)
   {
-    *(v12 - 104) = v15;
-    operator delete(v15);
+    *(v19 - 104) = v22;
+    operator delete(v22);
   }
 
   _Unwind_Resume(a1);
@@ -3942,43 +3012,43 @@ void mlx::core::gather_axis<unsigned short,unsigned short>(mlx::core::array *a1,
   v95 = 0;
   v96 = 0;
   v94 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v94[8 * a4];
-  v10 = v95 - (v9 + 8);
-  if (v95 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v94[a4];
+  v10 = v95 - (v9 + 1);
+  if (v95 != v9 + 1)
   {
-    memmove(&v94[8 * a4], v9 + 8, v95 - (v9 + 8));
+    memmove(&v94[a4], v9 + 1, v95 - (v9 + 1));
   }
 
-  v95 = &v9[v10];
+  v95 = (v9 + v10);
   v11 = *a2;
   v92 = 0;
   v93 = 0;
   v91 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v91[4 * a4];
-  v13 = v92 - (v12 + 4);
-  if (v92 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v91[a4];
+  v13 = v92 - (v12 + 1);
+  if (v92 != v12 + 1)
   {
-    memmove(&v91[4 * a4], v12 + 4, v92 - (v12 + 4));
+    memmove(&v91[a4], v12 + 1, v92 - (v12 + 1));
   }
 
-  v92 = &v12[v13];
+  v92 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v84, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v94 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v94, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v94[v14];
-  v16 = v95 - &v94[v14 + 8];
-  if (v95 != &v94[v14 + 8])
+  v16 = v95 - &v94[v14 + 1];
+  if (v95 != &v94[v14 + 1])
   {
-    memmove(&v94[v14], &v94[v14 + 8], v95 - (v15 + 8));
+    memmove(&v94[v14], &v94[v14 + 1], v95 - (v15 + 1));
   }
 
-  v95 = &v15[v16];
+  v95 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v77, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v74 = *(*a1 + 152);
   v75 = *(*a2 + 152);
@@ -4220,21 +3290,22 @@ void mlx::core::gather_axis<unsigned short,unsigned short>(mlx::core::array *a1,
   }
 }
 
-void sub_25A43C064(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_25A43C064(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator(&a32);
-  v34 = *(v32 - 136);
-  if (v34)
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
   {
-    *(v32 - 128) = v34;
-    operator delete(v34);
+    *(v31 - 128) = v33;
+    operator delete(v33);
   }
 
-  v35 = *(v32 - 112);
-  if (v35)
+  v34 = *(v31 - 112);
+  if (v34)
   {
-    *(v32 - 104) = v35;
-    operator delete(v35);
+    *(v31 - 104) = v34;
+    operator delete(v34);
   }
 
   _Unwind_Resume(a1);
@@ -4246,43 +3317,43 @@ void mlx::core::gather_axis<unsigned int,unsigned short>(mlx::core::array *a1, m
   v95 = 0;
   v96 = 0;
   v94 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v94[8 * a4];
-  v10 = v95 - (v9 + 8);
-  if (v95 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v94[a4];
+  v10 = v95 - (v9 + 1);
+  if (v95 != v9 + 1)
   {
-    memmove(&v94[8 * a4], v9 + 8, v95 - (v9 + 8));
+    memmove(&v94[a4], v9 + 1, v95 - (v9 + 1));
   }
 
-  v95 = &v9[v10];
+  v95 = (v9 + v10);
   v11 = *a2;
   v92 = 0;
   v93 = 0;
   v91 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v91[4 * a4];
-  v13 = v92 - (v12 + 4);
-  if (v92 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v91[a4];
+  v13 = v92 - (v12 + 1);
+  if (v92 != v12 + 1)
   {
-    memmove(&v91[4 * a4], v12 + 4, v92 - (v12 + 4));
+    memmove(&v91[a4], v12 + 1, v92 - (v12 + 1));
   }
 
-  v92 = &v12[v13];
+  v92 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v84, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v94 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v94, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v94[v14];
-  v16 = v95 - &v94[v14 + 8];
-  if (v95 != &v94[v14 + 8])
+  v16 = v95 - &v94[v14 + 1];
+  if (v95 != &v94[v14 + 1])
   {
-    memmove(&v94[v14], &v94[v14 + 8], v95 - (v15 + 8));
+    memmove(&v94[v14], &v94[v14 + 1], v95 - (v15 + 1));
   }
 
-  v95 = &v15[v16];
+  v95 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v77, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v74 = *(*a1 + 152);
   v75 = *(*a2 + 152);
@@ -4524,21 +3595,22 @@ void mlx::core::gather_axis<unsigned int,unsigned short>(mlx::core::array *a1, m
   }
 }
 
-void sub_25A43C650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_25A43C650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator(&a32);
-  v34 = *(v32 - 136);
-  if (v34)
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
   {
-    *(v32 - 128) = v34;
-    operator delete(v34);
+    *(v31 - 128) = v33;
+    operator delete(v33);
   }
 
-  v35 = *(v32 - 112);
-  if (v35)
+  v34 = *(v31 - 112);
+  if (v34)
   {
-    *(v32 - 104) = v35;
-    operator delete(v35);
+    *(v31 - 104) = v34;
+    operator delete(v34);
   }
 
   _Unwind_Resume(a1);
@@ -4550,43 +3622,43 @@ void mlx::core::gather_axis<unsigned long long,unsigned short>(mlx::core::array 
   v95 = 0;
   v96 = 0;
   v94 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v94[8 * a4];
-  v10 = v95 - (v9 + 8);
-  if (v95 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v94[a4];
+  v10 = v95 - (v9 + 1);
+  if (v95 != v9 + 1)
   {
-    memmove(&v94[8 * a4], v9 + 8, v95 - (v9 + 8));
+    memmove(&v94[a4], v9 + 1, v95 - (v9 + 1));
   }
 
-  v95 = &v9[v10];
+  v95 = (v9 + v10);
   v11 = *a2;
   v92 = 0;
   v93 = 0;
   v91 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v91[4 * a4];
-  v13 = v92 - (v12 + 4);
-  if (v92 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v91[a4];
+  v13 = v92 - (v12 + 1);
+  if (v92 != v12 + 1)
   {
-    memmove(&v91[4 * a4], v12 + 4, v92 - (v12 + 4));
+    memmove(&v91[a4], v12 + 1, v92 - (v12 + 1));
   }
 
-  v92 = &v12[v13];
+  v92 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v84, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v94 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v94, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v94[v14];
-  v16 = v95 - &v94[v14 + 8];
-  if (v95 != &v94[v14 + 8])
+  v16 = v95 - &v94[v14 + 1];
+  if (v95 != &v94[v14 + 1])
   {
-    memmove(&v94[v14], &v94[v14 + 8], v95 - (v15 + 8));
+    memmove(&v94[v14], &v94[v14 + 1], v95 - (v15 + 1));
   }
 
-  v95 = &v15[v16];
+  v95 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v77, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v76 = *(*a2 + 152);
   v17 = *(*a1 + 152);
@@ -4826,21 +3898,22 @@ void mlx::core::gather_axis<unsigned long long,unsigned short>(mlx::core::array 
   }
 }
 
-void sub_25A43CC38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_25A43CC38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator(&a32);
-  v34 = *(v32 - 136);
-  if (v34)
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
   {
-    *(v32 - 128) = v34;
-    operator delete(v34);
+    *(v31 - 128) = v33;
+    operator delete(v33);
   }
 
-  v35 = *(v32 - 112);
-  if (v35)
+  v34 = *(v31 - 112);
+  if (v34)
   {
-    *(v32 - 104) = v35;
-    operator delete(v35);
+    *(v31 - 104) = v34;
+    operator delete(v34);
   }
 
   _Unwind_Resume(a1);
@@ -4852,43 +3925,43 @@ void mlx::core::gather_axis<half,unsigned short>(mlx::core::array *a1, mlx::core
   v95 = 0;
   v96 = 0;
   v94 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v94[8 * a4];
-  v10 = v95 - (v9 + 8);
-  if (v95 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v94[a4];
+  v10 = v95 - (v9 + 1);
+  if (v95 != v9 + 1)
   {
-    memmove(&v94[8 * a4], v9 + 8, v95 - (v9 + 8));
+    memmove(&v94[a4], v9 + 1, v95 - (v9 + 1));
   }
 
-  v95 = &v9[v10];
+  v95 = (v9 + v10);
   v11 = *a2;
   v92 = 0;
   v93 = 0;
   v91 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v91[4 * a4];
-  v13 = v92 - (v12 + 4);
-  if (v92 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v91[a4];
+  v13 = v92 - (v12 + 1);
+  if (v92 != v12 + 1)
   {
-    memmove(&v91[4 * a4], v12 + 4, v92 - (v12 + 4));
+    memmove(&v91[a4], v12 + 1, v92 - (v12 + 1));
   }
 
-  v92 = &v12[v13];
+  v92 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v84, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v94 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v94, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v94[v14];
-  v16 = v95 - &v94[v14 + 8];
-  if (v95 != &v94[v14 + 8])
+  v16 = v95 - &v94[v14 + 1];
+  if (v95 != &v94[v14 + 1])
   {
-    memmove(&v94[v14], &v94[v14 + 8], v95 - (v15 + 8));
+    memmove(&v94[v14], &v94[v14 + 1], v95 - (v15 + 1));
   }
 
-  v95 = &v15[v16];
+  v95 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v77, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v74 = *(*a1 + 152);
   v75 = *(*a2 + 152);
@@ -5130,21 +4203,22 @@ void mlx::core::gather_axis<half,unsigned short>(mlx::core::array *a1, mlx::core
   }
 }
 
-void sub_25A43D224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_25A43D224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator(&a32);
-  v34 = *(v32 - 136);
-  if (v34)
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
   {
-    *(v32 - 128) = v34;
-    operator delete(v34);
+    *(v31 - 128) = v33;
+    operator delete(v33);
   }
 
-  v35 = *(v32 - 112);
-  if (v35)
+  v34 = *(v31 - 112);
+  if (v34)
   {
-    *(v32 - 104) = v35;
-    operator delete(v35);
+    *(v31 - 104) = v34;
+    operator delete(v34);
   }
 
   _Unwind_Resume(a1);
@@ -5156,43 +4230,43 @@ void mlx::core::gather_axis<float,unsigned short>(mlx::core::array *a1, mlx::cor
   v95 = 0;
   v96 = 0;
   v94 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v94[8 * a4];
-  v10 = v95 - (v9 + 8);
-  if (v95 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v94[a4];
+  v10 = v95 - (v9 + 1);
+  if (v95 != v9 + 1)
   {
-    memmove(&v94[8 * a4], v9 + 8, v95 - (v9 + 8));
+    memmove(&v94[a4], v9 + 1, v95 - (v9 + 1));
   }
 
-  v95 = &v9[v10];
+  v95 = (v9 + v10);
   v11 = *a2;
   v92 = 0;
   v93 = 0;
   v91 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v91[4 * a4];
-  v13 = v92 - (v12 + 4);
-  if (v92 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v91[a4];
+  v13 = v92 - (v12 + 1);
+  if (v92 != v12 + 1)
   {
-    memmove(&v91[4 * a4], v12 + 4, v92 - (v12 + 4));
+    memmove(&v91[a4], v12 + 1, v92 - (v12 + 1));
   }
 
-  v92 = &v12[v13];
+  v92 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v84, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v94 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v94, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v94[v14];
-  v16 = v95 - &v94[v14 + 8];
-  if (v95 != &v94[v14 + 8])
+  v16 = v95 - &v94[v14 + 1];
+  if (v95 != &v94[v14 + 1])
   {
-    memmove(&v94[v14], &v94[v14 + 8], v95 - (v15 + 8));
+    memmove(&v94[v14], &v94[v14 + 1], v95 - (v15 + 1));
   }
 
-  v95 = &v15[v16];
+  v95 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v77, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v74 = *(*a1 + 152);
   v75 = *(*a2 + 152);
@@ -5434,21 +4508,22 @@ void mlx::core::gather_axis<float,unsigned short>(mlx::core::array *a1, mlx::cor
   }
 }
 
-void sub_25A43D810(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_25A43D810(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator(&a32);
-  v34 = *(v32 - 136);
-  if (v34)
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
   {
-    *(v32 - 128) = v34;
-    operator delete(v34);
+    *(v31 - 128) = v33;
+    operator delete(v33);
   }
 
-  v35 = *(v32 - 112);
-  if (v35)
+  v34 = *(v31 - 112);
+  if (v34)
   {
-    *(v32 - 104) = v35;
-    operator delete(v35);
+    *(v31 - 104) = v34;
+    operator delete(v34);
   }
 
   _Unwind_Resume(a1);
@@ -5460,43 +4535,43 @@ void mlx::core::gather_axis<double,unsigned short>(mlx::core::array *a1, mlx::co
   v95 = 0;
   v96 = 0;
   v94 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v94[8 * a4];
-  v10 = v95 - (v9 + 8);
-  if (v95 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v94[a4];
+  v10 = v95 - (v9 + 1);
+  if (v95 != v9 + 1)
   {
-    memmove(&v94[8 * a4], v9 + 8, v95 - (v9 + 8));
+    memmove(&v94[a4], v9 + 1, v95 - (v9 + 1));
   }
 
-  v95 = &v9[v10];
+  v95 = (v9 + v10);
   v11 = *a2;
   v92 = 0;
   v93 = 0;
   v91 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v91[4 * a4];
-  v13 = v92 - (v12 + 4);
-  if (v92 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v91[a4];
+  v13 = v92 - (v12 + 1);
+  if (v92 != v12 + 1)
   {
-    memmove(&v91[4 * a4], v12 + 4, v92 - (v12 + 4));
+    memmove(&v91[a4], v12 + 1, v92 - (v12 + 1));
   }
 
-  v92 = &v12[v13];
+  v92 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v84, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v94 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v94, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v94[v14];
-  v16 = v95 - &v94[v14 + 8];
-  if (v95 != &v94[v14 + 8])
+  v16 = v95 - &v94[v14 + 1];
+  if (v95 != &v94[v14 + 1])
   {
-    memmove(&v94[v14], &v94[v14 + 8], v95 - (v15 + 8));
+    memmove(&v94[v14], &v94[v14 + 1], v95 - (v15 + 1));
   }
 
-  v95 = &v15[v16];
+  v95 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v77, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v74 = *(*a1 + 152);
   v75 = *(*a2 + 152);
@@ -5738,21 +4813,22 @@ void mlx::core::gather_axis<double,unsigned short>(mlx::core::array *a1, mlx::co
   }
 }
 
-void sub_25A43DDFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_25A43DDFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator(&a32);
-  v34 = *(v32 - 136);
-  if (v34)
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
   {
-    *(v32 - 128) = v34;
-    operator delete(v34);
+    *(v31 - 128) = v33;
+    operator delete(v33);
   }
 
-  v35 = *(v32 - 112);
-  if (v35)
+  v34 = *(v31 - 112);
+  if (v34)
   {
-    *(v32 - 104) = v35;
-    operator delete(v35);
+    *(v31 - 104) = v34;
+    operator delete(v34);
   }
 
   _Unwind_Resume(a1);
@@ -5764,43 +4840,43 @@ void mlx::core::gather_axis<mlx::core::complex64_t,unsigned short>(mlx::core::ar
   v87 = 0;
   v88 = 0;
   v86 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v86, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v86[8 * a4];
-  v10 = v87 - (v9 + 8);
-  if (v87 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v86, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v86[a4];
+  v10 = v87 - (v9 + 1);
+  if (v87 != v9 + 1)
   {
-    memmove(&v86[8 * a4], v9 + 8, v87 - (v9 + 8));
+    memmove(&v86[a4], v9 + 1, v87 - (v9 + 1));
   }
 
-  v87 = &v9[v10];
+  v87 = (v9 + v10);
   v11 = *a2;
   v84 = 0;
   v85 = 0;
   v83 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v83, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v83[4 * a4];
-  v13 = v84 - (v12 + 4);
-  if (v84 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v83, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v83[a4];
+  v13 = v84 - (v12 + 1);
+  if (v84 != v12 + 1)
   {
-    memmove(&v83[4 * a4], v12 + 4, v84 - (v12 + 4));
+    memmove(&v83[a4], v12 + 1, v84 - (v12 + 1));
   }
 
-  v84 = &v12[v13];
+  v84 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v76, &v83, &v86, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v86 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v86, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v86[v14];
-  v16 = v87 - &v86[v14 + 8];
-  if (v87 != &v86[v14 + 8])
+  v16 = v87 - &v86[v14 + 1];
+  if (v87 != &v86[v14 + 1])
   {
-    memmove(&v86[v14], &v86[v14 + 8], v87 - (v15 + 8));
+    memmove(&v86[v14], &v86[v14 + 1], v87 - (v15 + 1));
   }
 
-  v87 = &v15[v16];
+  v87 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v69, &v83, &v86, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v17 = *(*a2 + 152);
   v18 = *(*a1 + 152);
@@ -6026,22 +5102,22 @@ void mlx::core::gather_axis<mlx::core::complex64_t,unsigned short>(mlx::core::ar
   }
 }
 
-void sub_25A43E380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A43E380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
-  v14 = *(v12 - 136);
-  if (v14)
+  v21 = *(v19 - 136);
+  if (v21)
   {
-    *(v12 - 128) = v14;
-    operator delete(v14);
+    *(v19 - 128) = v21;
+    operator delete(v21);
   }
 
-  v15 = *(v12 - 112);
-  if (v15)
+  v22 = *(v19 - 112);
+  if (v22)
   {
-    *(v12 - 104) = v15;
-    operator delete(v15);
+    *(v19 - 104) = v22;
+    operator delete(v22);
   }
 
   _Unwind_Resume(a1);
@@ -6053,43 +5129,43 @@ void mlx::core::gather_axis<BOOL,unsigned int>(mlx::core::array *a1, mlx::core::
   v94 = 0;
   v95 = 0;
   v93 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v93, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v93[8 * a4];
-  v10 = v94 - (v9 + 8);
-  if (v94 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v93, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v93[a4];
+  v10 = v94 - (v9 + 1);
+  if (v94 != v9 + 1)
   {
-    memmove(&v93[8 * a4], v9 + 8, v94 - (v9 + 8));
+    memmove(&v93[a4], v9 + 1, v94 - (v9 + 1));
   }
 
-  v94 = &v9[v10];
+  v94 = (v9 + v10);
   v11 = *a2;
   v91 = 0;
   v92 = 0;
   v90 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v90, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v90[4 * a4];
-  v13 = v91 - (v12 + 4);
-  if (v91 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v90, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v90[a4];
+  v13 = v91 - (v12 + 1);
+  if (v91 != v12 + 1)
   {
-    memmove(&v90[4 * a4], v12 + 4, v91 - (v12 + 4));
+    memmove(&v90[a4], v12 + 1, v91 - (v12 + 1));
   }
 
-  v91 = &v12[v13];
+  v91 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v83, &v90, &v93, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v93 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v93, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v93[v14];
-  v16 = v94 - &v93[v14 + 8];
-  if (v94 != &v93[v14 + 8])
+  v16 = v94 - &v93[v14 + 1];
+  if (v94 != &v93[v14 + 1])
   {
-    memmove(&v93[v14], &v93[v14 + 8], v94 - (v15 + 8));
+    memmove(&v93[v14], &v93[v14 + 1], v94 - (v15 + 1));
   }
 
-  v94 = &v15[v16];
+  v94 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v76, &v90, &v93, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v73 = *(*a1 + 152);
   v74 = *(*a2 + 152);
@@ -6330,21 +5406,22 @@ void mlx::core::gather_axis<BOOL,unsigned int>(mlx::core::array *a1, mlx::core::
   }
 }
 
-void sub_25A43E968(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_25A43E968(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator(&a32);
-  v34 = *(v32 - 136);
-  if (v34)
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
   {
-    *(v32 - 128) = v34;
-    operator delete(v34);
+    *(v31 - 128) = v33;
+    operator delete(v33);
   }
 
-  v35 = *(v32 - 112);
-  if (v35)
+  v34 = *(v31 - 112);
+  if (v34)
   {
-    *(v32 - 104) = v35;
-    operator delete(v35);
+    *(v31 - 104) = v34;
+    operator delete(v34);
   }
 
   _Unwind_Resume(a1);
@@ -6356,43 +5433,43 @@ void mlx::core::gather_axis<unsigned char,unsigned int>(mlx::core::array *a1, ml
   v86 = 0;
   v87 = 0;
   v85 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v85, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v85[8 * a4];
-  v10 = v86 - (v9 + 8);
-  if (v86 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v85, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v85[a4];
+  v10 = v86 - (v9 + 1);
+  if (v86 != v9 + 1)
   {
-    memmove(&v85[8 * a4], v9 + 8, v86 - (v9 + 8));
+    memmove(&v85[a4], v9 + 1, v86 - (v9 + 1));
   }
 
-  v86 = &v9[v10];
+  v86 = (v9 + v10);
   v11 = *a2;
   v83 = 0;
   v84 = 0;
   v82 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v82, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v82[4 * a4];
-  v13 = v83 - (v12 + 4);
-  if (v83 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v82, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v82[a4];
+  v13 = v83 - (v12 + 1);
+  if (v83 != v12 + 1)
   {
-    memmove(&v82[4 * a4], v12 + 4, v83 - (v12 + 4));
+    memmove(&v82[a4], v12 + 1, v83 - (v12 + 1));
   }
 
-  v83 = &v12[v13];
+  v83 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v75, &v82, &v85, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v85 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v85, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v85[v14];
-  v16 = v86 - &v85[v14 + 8];
-  if (v86 != &v85[v14 + 8])
+  v16 = v86 - &v85[v14 + 1];
+  if (v86 != &v85[v14 + 1])
   {
-    memmove(&v85[v14], &v85[v14 + 8], v86 - (v15 + 8));
+    memmove(&v85[v14], &v85[v14 + 1], v86 - (v15 + 1));
   }
 
-  v86 = &v15[v16];
+  v86 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v68, &v82, &v85, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v17 = *(*a2 + 152);
   v18 = *(*a1 + 152);
@@ -6617,22 +5694,22 @@ void mlx::core::gather_axis<unsigned char,unsigned int>(mlx::core::array *a1, ml
   }
 }
 
-void sub_25A43EEE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A43EEE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
-  v14 = *(v12 - 136);
-  if (v14)
+  v21 = *(v19 - 136);
+  if (v21)
   {
-    *(v12 - 128) = v14;
-    operator delete(v14);
+    *(v19 - 128) = v21;
+    operator delete(v21);
   }
 
-  v15 = *(v12 - 112);
-  if (v15)
+  v22 = *(v19 - 112);
+  if (v22)
   {
-    *(v12 - 104) = v15;
-    operator delete(v15);
+    *(v19 - 104) = v22;
+    operator delete(v22);
   }
 
   _Unwind_Resume(a1);
@@ -6644,43 +5721,43 @@ void mlx::core::gather_axis<unsigned short,unsigned int>(mlx::core::array *a1, m
   v95 = 0;
   v96 = 0;
   v94 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v94[8 * a4];
-  v10 = v95 - (v9 + 8);
-  if (v95 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v94[a4];
+  v10 = v95 - (v9 + 1);
+  if (v95 != v9 + 1)
   {
-    memmove(&v94[8 * a4], v9 + 8, v95 - (v9 + 8));
+    memmove(&v94[a4], v9 + 1, v95 - (v9 + 1));
   }
 
-  v95 = &v9[v10];
+  v95 = (v9 + v10);
   v11 = *a2;
   v92 = 0;
   v93 = 0;
   v91 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v91[4 * a4];
-  v13 = v92 - (v12 + 4);
-  if (v92 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v91[a4];
+  v13 = v92 - (v12 + 1);
+  if (v92 != v12 + 1)
   {
-    memmove(&v91[4 * a4], v12 + 4, v92 - (v12 + 4));
+    memmove(&v91[a4], v12 + 1, v92 - (v12 + 1));
   }
 
-  v92 = &v12[v13];
+  v92 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v84, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v94 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v94, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v94[v14];
-  v16 = v95 - &v94[v14 + 8];
-  if (v95 != &v94[v14 + 8])
+  v16 = v95 - &v94[v14 + 1];
+  if (v95 != &v94[v14 + 1])
   {
-    memmove(&v94[v14], &v94[v14 + 8], v95 - (v15 + 8));
+    memmove(&v94[v14], &v94[v14 + 1], v95 - (v15 + 1));
   }
 
-  v95 = &v15[v16];
+  v95 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v77, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v74 = *(*a1 + 152);
   v75 = *(*a2 + 152);
@@ -6922,21 +5999,22 @@ void mlx::core::gather_axis<unsigned short,unsigned int>(mlx::core::array *a1, m
   }
 }
 
-void sub_25A43F4CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_25A43F4CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator(&a32);
-  v34 = *(v32 - 136);
-  if (v34)
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
   {
-    *(v32 - 128) = v34;
-    operator delete(v34);
+    *(v31 - 128) = v33;
+    operator delete(v33);
   }
 
-  v35 = *(v32 - 112);
-  if (v35)
+  v34 = *(v31 - 112);
+  if (v34)
   {
-    *(v32 - 104) = v35;
-    operator delete(v35);
+    *(v31 - 104) = v34;
+    operator delete(v34);
   }
 
   _Unwind_Resume(a1);
@@ -6948,43 +6026,43 @@ void mlx::core::gather_axis<unsigned int,unsigned int>(mlx::core::array *a1, mlx
   v95 = 0;
   v96 = 0;
   v94 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v94[8 * a4];
-  v10 = v95 - (v9 + 8);
-  if (v95 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v94[a4];
+  v10 = v95 - (v9 + 1);
+  if (v95 != v9 + 1)
   {
-    memmove(&v94[8 * a4], v9 + 8, v95 - (v9 + 8));
+    memmove(&v94[a4], v9 + 1, v95 - (v9 + 1));
   }
 
-  v95 = &v9[v10];
+  v95 = (v9 + v10);
   v11 = *a2;
   v92 = 0;
   v93 = 0;
   v91 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v91[4 * a4];
-  v13 = v92 - (v12 + 4);
-  if (v92 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v91[a4];
+  v13 = v92 - (v12 + 1);
+  if (v92 != v12 + 1)
   {
-    memmove(&v91[4 * a4], v12 + 4, v92 - (v12 + 4));
+    memmove(&v91[a4], v12 + 1, v92 - (v12 + 1));
   }
 
-  v92 = &v12[v13];
+  v92 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v84, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v94 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v94, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v94[v14];
-  v16 = v95 - &v94[v14 + 8];
-  if (v95 != &v94[v14 + 8])
+  v16 = v95 - &v94[v14 + 1];
+  if (v95 != &v94[v14 + 1])
   {
-    memmove(&v94[v14], &v94[v14 + 8], v95 - (v15 + 8));
+    memmove(&v94[v14], &v94[v14 + 1], v95 - (v15 + 1));
   }
 
-  v95 = &v15[v16];
+  v95 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v77, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v74 = *(*a1 + 152);
   v75 = *(*a2 + 152);
@@ -7226,21 +6304,22 @@ void mlx::core::gather_axis<unsigned int,unsigned int>(mlx::core::array *a1, mlx
   }
 }
 
-void sub_25A43FAB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_25A43FAB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator(&a32);
-  v34 = *(v32 - 136);
-  if (v34)
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
   {
-    *(v32 - 128) = v34;
-    operator delete(v34);
+    *(v31 - 128) = v33;
+    operator delete(v33);
   }
 
-  v35 = *(v32 - 112);
-  if (v35)
+  v34 = *(v31 - 112);
+  if (v34)
   {
-    *(v32 - 104) = v35;
-    operator delete(v35);
+    *(v31 - 104) = v34;
+    operator delete(v34);
   }
 
   _Unwind_Resume(a1);
@@ -7252,43 +6331,43 @@ void mlx::core::gather_axis<unsigned long long,unsigned int>(mlx::core::array *a
   v95 = 0;
   v96 = 0;
   v94 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v94[8 * a4];
-  v10 = v95 - (v9 + 8);
-  if (v95 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v94[a4];
+  v10 = v95 - (v9 + 1);
+  if (v95 != v9 + 1)
   {
-    memmove(&v94[8 * a4], v9 + 8, v95 - (v9 + 8));
+    memmove(&v94[a4], v9 + 1, v95 - (v9 + 1));
   }
 
-  v95 = &v9[v10];
+  v95 = (v9 + v10);
   v11 = *a2;
   v92 = 0;
   v93 = 0;
   v91 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v91[4 * a4];
-  v13 = v92 - (v12 + 4);
-  if (v92 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v91[a4];
+  v13 = v92 - (v12 + 1);
+  if (v92 != v12 + 1)
   {
-    memmove(&v91[4 * a4], v12 + 4, v92 - (v12 + 4));
+    memmove(&v91[a4], v12 + 1, v92 - (v12 + 1));
   }
 
-  v92 = &v12[v13];
+  v92 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v84, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v94 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v94, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v94[v14];
-  v16 = v95 - &v94[v14 + 8];
-  if (v95 != &v94[v14 + 8])
+  v16 = v95 - &v94[v14 + 1];
+  if (v95 != &v94[v14 + 1])
   {
-    memmove(&v94[v14], &v94[v14 + 8], v95 - (v15 + 8));
+    memmove(&v94[v14], &v94[v14 + 1], v95 - (v15 + 1));
   }
 
-  v95 = &v15[v16];
+  v95 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v77, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v76 = *(*a2 + 152);
   v17 = *(*a1 + 152);
@@ -7528,21 +6607,22 @@ void mlx::core::gather_axis<unsigned long long,unsigned int>(mlx::core::array *a
   }
 }
 
-void sub_25A4400A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_25A4400A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator(&a32);
-  v34 = *(v32 - 136);
-  if (v34)
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
   {
-    *(v32 - 128) = v34;
-    operator delete(v34);
+    *(v31 - 128) = v33;
+    operator delete(v33);
   }
 
-  v35 = *(v32 - 112);
-  if (v35)
+  v34 = *(v31 - 112);
+  if (v34)
   {
-    *(v32 - 104) = v35;
-    operator delete(v35);
+    *(v31 - 104) = v34;
+    operator delete(v34);
   }
 
   _Unwind_Resume(a1);
@@ -7554,43 +6634,43 @@ void mlx::core::gather_axis<half,unsigned int>(mlx::core::array *a1, mlx::core::
   v95 = 0;
   v96 = 0;
   v94 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v94[8 * a4];
-  v10 = v95 - (v9 + 8);
-  if (v95 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v94[a4];
+  v10 = v95 - (v9 + 1);
+  if (v95 != v9 + 1)
   {
-    memmove(&v94[8 * a4], v9 + 8, v95 - (v9 + 8));
+    memmove(&v94[a4], v9 + 1, v95 - (v9 + 1));
   }
 
-  v95 = &v9[v10];
+  v95 = (v9 + v10);
   v11 = *a2;
   v92 = 0;
   v93 = 0;
   v91 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v91[4 * a4];
-  v13 = v92 - (v12 + 4);
-  if (v92 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v91[a4];
+  v13 = v92 - (v12 + 1);
+  if (v92 != v12 + 1)
   {
-    memmove(&v91[4 * a4], v12 + 4, v92 - (v12 + 4));
+    memmove(&v91[a4], v12 + 1, v92 - (v12 + 1));
   }
 
-  v92 = &v12[v13];
+  v92 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v84, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v94 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v94, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v94[v14];
-  v16 = v95 - &v94[v14 + 8];
-  if (v95 != &v94[v14 + 8])
+  v16 = v95 - &v94[v14 + 1];
+  if (v95 != &v94[v14 + 1])
   {
-    memmove(&v94[v14], &v94[v14 + 8], v95 - (v15 + 8));
+    memmove(&v94[v14], &v94[v14 + 1], v95 - (v15 + 1));
   }
 
-  v95 = &v15[v16];
+  v95 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v77, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v74 = *(*a1 + 152);
   v75 = *(*a2 + 152);
@@ -7832,21 +6912,22 @@ void mlx::core::gather_axis<half,unsigned int>(mlx::core::array *a1, mlx::core::
   }
 }
 
-void sub_25A44068C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_25A44068C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator(&a32);
-  v34 = *(v32 - 136);
-  if (v34)
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
   {
-    *(v32 - 128) = v34;
-    operator delete(v34);
+    *(v31 - 128) = v33;
+    operator delete(v33);
   }
 
-  v35 = *(v32 - 112);
-  if (v35)
+  v34 = *(v31 - 112);
+  if (v34)
   {
-    *(v32 - 104) = v35;
-    operator delete(v35);
+    *(v31 - 104) = v34;
+    operator delete(v34);
   }
 
   _Unwind_Resume(a1);
@@ -7858,43 +6939,43 @@ void mlx::core::gather_axis<float,unsigned int>(mlx::core::array *a1, mlx::core:
   v95 = 0;
   v96 = 0;
   v94 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v94[8 * a4];
-  v10 = v95 - (v9 + 8);
-  if (v95 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v94[a4];
+  v10 = v95 - (v9 + 1);
+  if (v95 != v9 + 1)
   {
-    memmove(&v94[8 * a4], v9 + 8, v95 - (v9 + 8));
+    memmove(&v94[a4], v9 + 1, v95 - (v9 + 1));
   }
 
-  v95 = &v9[v10];
+  v95 = (v9 + v10);
   v11 = *a2;
   v92 = 0;
   v93 = 0;
   v91 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v91[4 * a4];
-  v13 = v92 - (v12 + 4);
-  if (v92 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v91[a4];
+  v13 = v92 - (v12 + 1);
+  if (v92 != v12 + 1)
   {
-    memmove(&v91[4 * a4], v12 + 4, v92 - (v12 + 4));
+    memmove(&v91[a4], v12 + 1, v92 - (v12 + 1));
   }
 
-  v92 = &v12[v13];
+  v92 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v84, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v94 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v94, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v94[v14];
-  v16 = v95 - &v94[v14 + 8];
-  if (v95 != &v94[v14 + 8])
+  v16 = v95 - &v94[v14 + 1];
+  if (v95 != &v94[v14 + 1])
   {
-    memmove(&v94[v14], &v94[v14 + 8], v95 - (v15 + 8));
+    memmove(&v94[v14], &v94[v14 + 1], v95 - (v15 + 1));
   }
 
-  v95 = &v15[v16];
+  v95 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v77, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v74 = *(*a1 + 152);
   v75 = *(*a2 + 152);
@@ -8136,21 +7217,22 @@ void mlx::core::gather_axis<float,unsigned int>(mlx::core::array *a1, mlx::core:
   }
 }
 
-void sub_25A440C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_25A440C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator(&a32);
-  v34 = *(v32 - 136);
-  if (v34)
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
   {
-    *(v32 - 128) = v34;
-    operator delete(v34);
+    *(v31 - 128) = v33;
+    operator delete(v33);
   }
 
-  v35 = *(v32 - 112);
-  if (v35)
+  v34 = *(v31 - 112);
+  if (v34)
   {
-    *(v32 - 104) = v35;
-    operator delete(v35);
+    *(v31 - 104) = v34;
+    operator delete(v34);
   }
 
   _Unwind_Resume(a1);
@@ -8162,43 +7244,43 @@ void mlx::core::gather_axis<double,unsigned int>(mlx::core::array *a1, mlx::core
   v95 = 0;
   v96 = 0;
   v94 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v94[8 * a4];
-  v10 = v95 - (v9 + 8);
-  if (v95 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v94[a4];
+  v10 = v95 - (v9 + 1);
+  if (v95 != v9 + 1)
   {
-    memmove(&v94[8 * a4], v9 + 8, v95 - (v9 + 8));
+    memmove(&v94[a4], v9 + 1, v95 - (v9 + 1));
   }
 
-  v95 = &v9[v10];
+  v95 = (v9 + v10);
   v11 = *a2;
   v92 = 0;
   v93 = 0;
   v91 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v91[4 * a4];
-  v13 = v92 - (v12 + 4);
-  if (v92 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v91[a4];
+  v13 = v92 - (v12 + 1);
+  if (v92 != v12 + 1)
   {
-    memmove(&v91[4 * a4], v12 + 4, v92 - (v12 + 4));
+    memmove(&v91[a4], v12 + 1, v92 - (v12 + 1));
   }
 
-  v92 = &v12[v13];
+  v92 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v84, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v94 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v94, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v94[v14];
-  v16 = v95 - &v94[v14 + 8];
-  if (v95 != &v94[v14 + 8])
+  v16 = v95 - &v94[v14 + 1];
+  if (v95 != &v94[v14 + 1])
   {
-    memmove(&v94[v14], &v94[v14 + 8], v95 - (v15 + 8));
+    memmove(&v94[v14], &v94[v14 + 1], v95 - (v15 + 1));
   }
 
-  v95 = &v15[v16];
+  v95 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v77, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v74 = *(*a1 + 152);
   v75 = *(*a2 + 152);
@@ -8440,21 +7522,22 @@ void mlx::core::gather_axis<double,unsigned int>(mlx::core::array *a1, mlx::core
   }
 }
 
-void sub_25A441264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_25A441264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator(&a32);
-  v34 = *(v32 - 136);
-  if (v34)
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
   {
-    *(v32 - 128) = v34;
-    operator delete(v34);
+    *(v31 - 128) = v33;
+    operator delete(v33);
   }
 
-  v35 = *(v32 - 112);
-  if (v35)
+  v34 = *(v31 - 112);
+  if (v34)
   {
-    *(v32 - 104) = v35;
-    operator delete(v35);
+    *(v31 - 104) = v34;
+    operator delete(v34);
   }
 
   _Unwind_Resume(a1);
@@ -8466,43 +7549,43 @@ void mlx::core::gather_axis<mlx::core::complex64_t,unsigned int>(mlx::core::arra
   v87 = 0;
   v88 = 0;
   v86 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v86, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v86[8 * a4];
-  v10 = v87 - (v9 + 8);
-  if (v87 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v86, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v86[a4];
+  v10 = v87 - (v9 + 1);
+  if (v87 != v9 + 1)
   {
-    memmove(&v86[8 * a4], v9 + 8, v87 - (v9 + 8));
+    memmove(&v86[a4], v9 + 1, v87 - (v9 + 1));
   }
 
-  v87 = &v9[v10];
+  v87 = (v9 + v10);
   v11 = *a2;
   v84 = 0;
   v85 = 0;
   v83 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v83, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v83[4 * a4];
-  v13 = v84 - (v12 + 4);
-  if (v84 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v83, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v83[a4];
+  v13 = v84 - (v12 + 1);
+  if (v84 != v12 + 1)
   {
-    memmove(&v83[4 * a4], v12 + 4, v84 - (v12 + 4));
+    memmove(&v83[a4], v12 + 1, v84 - (v12 + 1));
   }
 
-  v84 = &v12[v13];
+  v84 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v76, &v83, &v86, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v86 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v86, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v86[v14];
-  v16 = v87 - &v86[v14 + 8];
-  if (v87 != &v86[v14 + 8])
+  v16 = v87 - &v86[v14 + 1];
+  if (v87 != &v86[v14 + 1])
   {
-    memmove(&v86[v14], &v86[v14 + 8], v87 - (v15 + 8));
+    memmove(&v86[v14], &v86[v14 + 1], v87 - (v15 + 1));
   }
 
-  v87 = &v15[v16];
+  v87 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v69, &v83, &v86, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v17 = *(*a2 + 152);
   v18 = *(*a1 + 152);
@@ -8728,22 +7811,22 @@ void mlx::core::gather_axis<mlx::core::complex64_t,unsigned int>(mlx::core::arra
   }
 }
 
-void sub_25A4417E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A4417E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
-  v14 = *(v12 - 136);
-  if (v14)
+  v21 = *(v19 - 136);
+  if (v21)
   {
-    *(v12 - 128) = v14;
-    operator delete(v14);
+    *(v19 - 128) = v21;
+    operator delete(v21);
   }
 
-  v15 = *(v12 - 112);
-  if (v15)
+  v22 = *(v19 - 112);
+  if (v22)
   {
-    *(v12 - 104) = v15;
-    operator delete(v15);
+    *(v19 - 104) = v22;
+    operator delete(v22);
   }
 
   _Unwind_Resume(a1);
@@ -8755,43 +7838,43 @@ void mlx::core::gather_axis<BOOL,unsigned long long>(mlx::core::array *a1, mlx::
   v94 = 0;
   v95 = 0;
   v93 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v93, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v93[8 * a4];
-  v10 = v94 - (v9 + 8);
-  if (v94 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v93, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v93[a4];
+  v10 = v94 - (v9 + 1);
+  if (v94 != v9 + 1)
   {
-    memmove(&v93[8 * a4], v9 + 8, v94 - (v9 + 8));
+    memmove(&v93[a4], v9 + 1, v94 - (v9 + 1));
   }
 
-  v94 = &v9[v10];
+  v94 = (v9 + v10);
   v11 = *a2;
   v91 = 0;
   v92 = 0;
   v90 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v90, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v90[4 * a4];
-  v13 = v91 - (v12 + 4);
-  if (v91 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v90, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v90[a4];
+  v13 = v91 - (v12 + 1);
+  if (v91 != v12 + 1)
   {
-    memmove(&v90[4 * a4], v12 + 4, v91 - (v12 + 4));
+    memmove(&v90[a4], v12 + 1, v91 - (v12 + 1));
   }
 
-  v91 = &v12[v13];
+  v91 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v83, &v90, &v93, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v93 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v93, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v93[v14];
-  v16 = v94 - &v93[v14 + 8];
-  if (v94 != &v93[v14 + 8])
+  v16 = v94 - &v93[v14 + 1];
+  if (v94 != &v93[v14 + 1])
   {
-    memmove(&v93[v14], &v93[v14 + 8], v94 - (v15 + 8));
+    memmove(&v93[v14], &v93[v14 + 1], v94 - (v15 + 1));
   }
 
-  v94 = &v15[v16];
+  v94 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v76, &v90, &v93, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v73 = *(*a1 + 152);
   v74 = *(*a2 + 152);
@@ -9032,21 +8115,22 @@ void mlx::core::gather_axis<BOOL,unsigned long long>(mlx::core::array *a1, mlx::
   }
 }
 
-void sub_25A441DD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_25A441DD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator(&a32);
-  v34 = *(v32 - 136);
-  if (v34)
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
   {
-    *(v32 - 128) = v34;
-    operator delete(v34);
+    *(v31 - 128) = v33;
+    operator delete(v33);
   }
 
-  v35 = *(v32 - 112);
-  if (v35)
+  v34 = *(v31 - 112);
+  if (v34)
   {
-    *(v32 - 104) = v35;
-    operator delete(v35);
+    *(v31 - 104) = v34;
+    operator delete(v34);
   }
 
   _Unwind_Resume(a1);
@@ -9058,43 +8142,43 @@ void mlx::core::gather_axis<unsigned char,unsigned long long>(mlx::core::array *
   v86 = 0;
   v87 = 0;
   v85 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v85, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v85[8 * a4];
-  v10 = v86 - (v9 + 8);
-  if (v86 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v85, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v85[a4];
+  v10 = v86 - (v9 + 1);
+  if (v86 != v9 + 1)
   {
-    memmove(&v85[8 * a4], v9 + 8, v86 - (v9 + 8));
+    memmove(&v85[a4], v9 + 1, v86 - (v9 + 1));
   }
 
-  v86 = &v9[v10];
+  v86 = (v9 + v10);
   v11 = *a2;
   v83 = 0;
   v84 = 0;
   v82 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v82, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v82[4 * a4];
-  v13 = v83 - (v12 + 4);
-  if (v83 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v82, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v82[a4];
+  v13 = v83 - (v12 + 1);
+  if (v83 != v12 + 1)
   {
-    memmove(&v82[4 * a4], v12 + 4, v83 - (v12 + 4));
+    memmove(&v82[a4], v12 + 1, v83 - (v12 + 1));
   }
 
-  v83 = &v12[v13];
+  v83 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v75, &v82, &v85, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v85 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v85, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v85[v14];
-  v16 = v86 - &v85[v14 + 8];
-  if (v86 != &v85[v14 + 8])
+  v16 = v86 - &v85[v14 + 1];
+  if (v86 != &v85[v14 + 1])
   {
-    memmove(&v85[v14], &v85[v14 + 8], v86 - (v15 + 8));
+    memmove(&v85[v14], &v85[v14 + 1], v86 - (v15 + 1));
   }
 
-  v86 = &v15[v16];
+  v86 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v68, &v82, &v85, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v17 = *(*a2 + 152);
   v18 = *(*a1 + 152);
@@ -9319,22 +8403,22 @@ void mlx::core::gather_axis<unsigned char,unsigned long long>(mlx::core::array *
   }
 }
 
-void sub_25A442348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_25A442348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   mlx::core::ContiguousIterator::~ContiguousIterator(va);
-  v14 = *(v12 - 136);
-  if (v14)
+  v21 = *(v19 - 136);
+  if (v21)
   {
-    *(v12 - 128) = v14;
-    operator delete(v14);
+    *(v19 - 128) = v21;
+    operator delete(v21);
   }
 
-  v15 = *(v12 - 112);
-  if (v15)
+  v22 = *(v19 - 112);
+  if (v22)
   {
-    *(v12 - 104) = v15;
-    operator delete(v15);
+    *(v19 - 104) = v22;
+    operator delete(v22);
   }
 
   _Unwind_Resume(a1);
@@ -9346,43 +8430,43 @@ void mlx::core::gather_axis<unsigned short,unsigned long long>(mlx::core::array 
   v95 = 0;
   v96 = 0;
   v94 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v94[8 * a4];
-  v10 = v95 - (v9 + 8);
-  if (v95 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v94[a4];
+  v10 = v95 - (v9 + 1);
+  if (v95 != v9 + 1)
   {
-    memmove(&v94[8 * a4], v9 + 8, v95 - (v9 + 8));
+    memmove(&v94[a4], v9 + 1, v95 - (v9 + 1));
   }
 
-  v95 = &v9[v10];
+  v95 = (v9 + v10);
   v11 = *a2;
   v92 = 0;
   v93 = 0;
   v91 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v91[4 * a4];
-  v13 = v92 - (v12 + 4);
-  if (v92 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v91[a4];
+  v13 = v92 - (v12 + 1);
+  if (v92 != v12 + 1)
   {
-    memmove(&v91[4 * a4], v12 + 4, v92 - (v12 + 4));
+    memmove(&v91[a4], v12 + 1, v92 - (v12 + 1));
   }
 
-  v92 = &v12[v13];
+  v92 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v84, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v94 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v94, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v94[v14];
-  v16 = v95 - &v94[v14 + 8];
-  if (v95 != &v94[v14 + 8])
+  v16 = v95 - &v94[v14 + 1];
+  if (v95 != &v94[v14 + 1])
   {
-    memmove(&v94[v14], &v94[v14 + 8], v95 - (v15 + 8));
+    memmove(&v94[v14], &v94[v14 + 1], v95 - (v15 + 1));
   }
 
-  v95 = &v15[v16];
+  v95 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v77, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v74 = *(*a1 + 152);
   v75 = *(*a2 + 152);
@@ -9624,21 +8708,22 @@ void mlx::core::gather_axis<unsigned short,unsigned long long>(mlx::core::array 
   }
 }
 
-void sub_25A442934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_25A442934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator(&a32);
-  v34 = *(v32 - 136);
-  if (v34)
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
   {
-    *(v32 - 128) = v34;
-    operator delete(v34);
+    *(v31 - 128) = v33;
+    operator delete(v33);
   }
 
-  v35 = *(v32 - 112);
-  if (v35)
+  v34 = *(v31 - 112);
+  if (v34)
   {
-    *(v32 - 104) = v35;
-    operator delete(v35);
+    *(v31 - 104) = v34;
+    operator delete(v34);
   }
 
   _Unwind_Resume(a1);
@@ -9650,43 +8735,43 @@ void mlx::core::gather_axis<unsigned int,unsigned long long>(mlx::core::array *a
   v95 = 0;
   v96 = 0;
   v94 = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, v8[3], v8[4], (v8[4] - v8[3]) >> 3);
-  v9 = &v94[8 * a4];
-  v10 = v95 - (v9 + 8);
-  if (v95 != v9 + 8)
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v94[a4];
+  v10 = v95 - (v9 + 1);
+  if (v95 != v9 + 1)
   {
-    memmove(&v94[8 * a4], v9 + 8, v95 - (v9 + 8));
+    memmove(&v94[a4], v9 + 1, v95 - (v9 + 1));
   }
 
-  v95 = &v9[v10];
+  v95 = (v9 + v10);
   v11 = *a2;
   v92 = 0;
   v93 = 0;
   v91 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, v11[1], (v11[1] - *v11) >> 2);
-  v12 = &v91[4 * a4];
-  v13 = v92 - (v12 + 4);
-  if (v92 != v12 + 4)
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v91[a4];
+  v13 = v92 - (v12 + 1);
+  if (v92 != v12 + 1)
   {
-    memmove(&v91[4 * a4], v12 + 4, v92 - (v12 + 4));
+    memmove(&v91[a4], v12 + 1, v92 - (v12 + 1));
   }
 
-  v92 = &v12[v13];
+  v92 = (v12 + v13);
   mlx::core::ContiguousIterator::ContiguousIterator(&v84, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   if (&v94 != (*a1 + 24))
   {
     std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v94, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
   }
 
-  v14 = 8 * a4;
+  v14 = a4;
   v15 = &v94[v14];
-  v16 = v95 - &v94[v14 + 8];
-  if (v95 != &v94[v14 + 8])
+  v16 = v95 - &v94[v14 + 1];
+  if (v95 != &v94[v14 + 1])
   {
-    memmove(&v94[v14], &v94[v14 + 8], v95 - (v15 + 8));
+    memmove(&v94[v14], &v94[v14 + 1], v95 - (v15 + 1));
   }
 
-  v95 = &v15[v16];
+  v95 = (v15 + v16);
   mlx::core::ContiguousIterator::ContiguousIterator(&v77, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
   v74 = *(*a1 + 152);
   v75 = *(*a2 + 152);
@@ -9928,22 +9013,1220 @@ void mlx::core::gather_axis<unsigned int,unsigned long long>(mlx::core::array *a
   }
 }
 
-void sub_25A442F20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_25A442F20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
-  mlx::core::ContiguousIterator::~ContiguousIterator(&a32);
-  v34 = *(v32 - 136);
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
+  {
+    *(v31 - 128) = v33;
+    operator delete(v33);
+  }
+
+  v34 = *(v31 - 112);
   if (v34)
   {
-    *(v32 - 128) = v34;
+    *(v31 - 104) = v34;
     operator delete(v34);
   }
 
-  v35 = *(v32 - 112);
-  if (v35)
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::gather_axis<unsigned long long,unsigned long long>(mlx::core::array *a1, mlx::core::array *a2, mlx::core::array *a3, int a4)
+{
+  v8 = *a2;
+  v95 = 0;
+  v96 = 0;
+  v94 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v94[a4];
+  v10 = v95 - (v9 + 1);
+  if (v95 != v9 + 1)
   {
-    *(v32 - 104) = v35;
-    operator delete(v35);
+    memmove(&v94[a4], v9 + 1, v95 - (v9 + 1));
+  }
+
+  v95 = (v9 + v10);
+  v11 = *a2;
+  v92 = 0;
+  v93 = 0;
+  v91 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v91[a4];
+  v13 = v92 - (v12 + 1);
+  if (v92 != v12 + 1)
+  {
+    memmove(&v91[a4], v12 + 1, v92 - (v12 + 1));
+  }
+
+  v92 = (v12 + v13);
+  mlx::core::ContiguousIterator::ContiguousIterator(&v84, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
+  if (&v94 != (*a1 + 24))
+  {
+    std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v94, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
+  }
+
+  v14 = a4;
+  v15 = &v94[v14];
+  v16 = v95 - &v94[v14 + 1];
+  if (v95 != &v94[v14 + 1])
+  {
+    memmove(&v94[v14], &v94[v14 + 1], v95 - (v15 + 1));
+  }
+
+  v95 = (v15 + v16);
+  mlx::core::ContiguousIterator::ContiguousIterator(&v77, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
+  v76 = *(*a2 + 152);
+  v17 = *(*a1 + 152);
+  v70 = *(*a3 + 152);
+  v18 = mlx::core::array::strides(a2, a4);
+  v19 = mlx::core::array::strides(a1, a4);
+  v20 = mlx::core::array::strides(a3, a4);
+  v21 = mlx::core::array::shape(a2, a4);
+  mlx::core::array::shape(a1, a4);
+  if (a4 < 1)
+  {
+    v23 = 1;
+  }
+
+  else
+  {
+    v22 = 0;
+    v23 = 1;
+    do
+    {
+      v23 *= mlx::core::array::shape(a2, v22++);
+    }
+
+    while (a4 != v22);
+  }
+
+  v24 = a4 + 1;
+  v25 = *(*a2 + 8) - **a2;
+  v26 = 1;
+  while (v24 < v25 >> 2)
+  {
+    v26 *= mlx::core::array::shape(a2, v24++);
+    v25 = *(*a2 + 8) - **a2;
+  }
+
+  if (v23)
+  {
+    v27 = 0;
+    v28 = (v86 - v85) >> 2;
+    v75 = (((v86 - v85) << 30) - 0x100000000) >> 32;
+    v29 = v85 + 4 * v75;
+    v30 = (v79 - v78) >> 2;
+    v31 = (((v79 - v78) << 30) - 0x100000000) >> 32;
+    v32 = v78 + 4 * v31;
+    v68 = v23;
+    v33 = 8 * v20;
+    v34 = 8 * v18;
+    v35 = 4 * (v28 & 0x7FFFFFFF);
+    v72 = v85 - 8;
+    v36 = 4 * (v30 & 0x7FFFFFFF);
+    v71 = v78 - 8;
+    do
+    {
+      v69 = v27;
+      if (v26)
+      {
+        v37 = 0;
+        v38 = v87;
+        v39 = v89 + 4 * v75;
+        v40 = v80;
+        v73 = __p;
+        v74 = v89;
+        v41 = __p + 4 * v31;
+        v42 = v70;
+        do
+        {
+          v43 = v21;
+          v44 = v76;
+          v45 = v42;
+          if (v21 >= 1)
+          {
+            do
+            {
+              *v45 = *(v17 + 8 * v77 + 8 * *(v44 + 8 * v84) * v19);
+              v45 = (v45 + v33);
+              v44 += v34;
+              --v43;
+            }
+
+            while (v43);
+          }
+
+          if (v28)
+          {
+            v46 = *v39;
+            v47 = v84;
+            if (v28 >= 2 && v46 == *v29 - 1)
+            {
+              v49 = v74;
+              v48 = v75;
+              v50 = v72;
+              v51 = (v28 & 0x7FFFFFFF) - 1;
+              v52 = v29;
+              v53 = v39;
+              do
+              {
+                v54 = v51;
+                *v53 = 0;
+                v47 -= v38[v48] * (*v52 - 1);
+                v84 = v47;
+                --v51;
+                v53 = &v49[v35 - 8];
+                v46 = *v53;
+                v49 -= 4;
+                if (v54 < 2)
+                {
+                  break;
+                }
+
+                v52 = &v50[v35];
+                v55 = *&v50[4 * (v28 & 0x7FFFFFFF)] - 1;
+                v50 -= 4;
+                v48 = v51;
+              }
+
+              while (v46 == v55);
+              v56 = &v49[v35 - 4];
+            }
+
+            else
+            {
+              v51 = v75;
+              v56 = v39;
+            }
+
+            *v56 = v46 + 1;
+            v84 = v38[v51] + v47;
+          }
+
+          if (v30)
+          {
+            v57 = *v41;
+            v58 = v77;
+            if (v30 >= 2 && v57 == *v32 - 1)
+            {
+              v59 = v73;
+              v60 = v71;
+              v61 = (v30 & 0x7FFFFFFF) - 1;
+              v62 = v32;
+              v63 = v41;
+              v64 = v31;
+              do
+              {
+                v65 = v61;
+                *v63 = 0;
+                v58 -= v40[v64] * (*v62 - 1);
+                v77 = v58;
+                --v61;
+                v63 = &v59[v36 - 8];
+                v57 = *v63;
+                v59 -= 4;
+                if (v65 < 2)
+                {
+                  break;
+                }
+
+                v62 = &v60[v36];
+                v66 = *&v60[4 * (v30 & 0x7FFFFFFF)] - 1;
+                v60 -= 4;
+                v64 = v61;
+              }
+
+              while (v57 == v66);
+              v67 = &v59[v36 - 4];
+            }
+
+            else
+            {
+              v61 = v31;
+              v67 = v41;
+            }
+
+            *v67 = v57 + 1;
+            v77 = v40[v61] + v58;
+          }
+
+          ++v37;
+          ++v42;
+        }
+
+        while (v37 != v26);
+      }
+
+      v27 = v69 + 1;
+      v70 += v26 * v21;
+    }
+
+    while (v69 + 1 != v68);
+  }
+
+  if (__p)
+  {
+    v83 = __p;
+    operator delete(__p);
+  }
+
+  if (v80)
+  {
+    v81 = v80;
+    operator delete(v80);
+  }
+
+  if (v78)
+  {
+    v79 = v78;
+    operator delete(v78);
+  }
+
+  if (v89)
+  {
+    v90 = v89;
+    operator delete(v89);
+  }
+
+  if (v87)
+  {
+    v88 = v87;
+    operator delete(v87);
+  }
+
+  if (v85)
+  {
+    v86 = v85;
+    operator delete(v85);
+  }
+
+  if (v91)
+  {
+    v92 = v91;
+    operator delete(v91);
+  }
+
+  if (v94)
+  {
+    v95 = v94;
+    operator delete(v94);
+  }
+}
+
+void sub_25A443508(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
+{
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
+  {
+    *(v31 - 128) = v33;
+    operator delete(v33);
+  }
+
+  v34 = *(v31 - 112);
+  if (v34)
+  {
+    *(v31 - 104) = v34;
+    operator delete(v34);
   }
 
   _Unwind_Resume(a1);
+}
+
+void mlx::core::gather_axis<half,unsigned long long>(mlx::core::array *a1, mlx::core::array *a2, mlx::core::array *a3, int a4)
+{
+  v8 = *a2;
+  v95 = 0;
+  v96 = 0;
+  v94 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v94[a4];
+  v10 = v95 - (v9 + 1);
+  if (v95 != v9 + 1)
+  {
+    memmove(&v94[a4], v9 + 1, v95 - (v9 + 1));
+  }
+
+  v95 = (v9 + v10);
+  v11 = *a2;
+  v92 = 0;
+  v93 = 0;
+  v91 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v91[a4];
+  v13 = v92 - (v12 + 1);
+  if (v92 != v12 + 1)
+  {
+    memmove(&v91[a4], v12 + 1, v92 - (v12 + 1));
+  }
+
+  v92 = (v12 + v13);
+  mlx::core::ContiguousIterator::ContiguousIterator(&v84, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
+  if (&v94 != (*a1 + 24))
+  {
+    std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v94, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
+  }
+
+  v14 = a4;
+  v15 = &v94[v14];
+  v16 = v95 - &v94[v14 + 1];
+  if (v95 != &v94[v14 + 1])
+  {
+    memmove(&v94[v14], &v94[v14 + 1], v95 - (v15 + 1));
+  }
+
+  v95 = (v15 + v16);
+  mlx::core::ContiguousIterator::ContiguousIterator(&v77, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
+  v74 = *(*a1 + 152);
+  v75 = *(*a2 + 152);
+  v69 = *(*a3 + 152);
+  v17 = mlx::core::array::strides(a2, a4);
+  v18 = mlx::core::array::strides(a1, a4);
+  v19 = mlx::core::array::strides(a3, a4);
+  v20 = mlx::core::array::shape(a2, a4);
+  mlx::core::array::shape(a1, a4);
+  if (a4 < 1)
+  {
+    v22 = 1;
+  }
+
+  else
+  {
+    v21 = 0;
+    v22 = 1;
+    do
+    {
+      v22 *= mlx::core::array::shape(a2, v21++);
+    }
+
+    while (a4 != v21);
+  }
+
+  v23 = a4 + 1;
+  v24 = *(*a2 + 8) - **a2;
+  v25 = 1;
+  while (v23 < v24 >> 2)
+  {
+    v25 *= mlx::core::array::shape(a2, v23++);
+    v24 = *(*a2 + 8) - **a2;
+  }
+
+  if (v22)
+  {
+    v26 = 0;
+    v27 = v84;
+    v28 = (v86 - v85) >> 2;
+    v76 = (((v86 - v85) << 30) - 0x100000000) >> 32;
+    v29 = v85 + 4 * v76;
+    v30 = v77;
+    v31 = (v79 - v78) >> 2;
+    v32 = (((v79 - v78) << 30) - 0x100000000) >> 32;
+    v33 = v78 + 4 * v32;
+    v67 = v22;
+    v34 = 2 * v19;
+    v35 = 8 * v17;
+    v36 = 4 * (v28 & 0x7FFFFFFF);
+    v71 = v85 - 8;
+    v37 = 4 * (v31 & 0x7FFFFFFF);
+    v70 = v78 - 8;
+    do
+    {
+      v68 = v26;
+      if (v25)
+      {
+        v38 = 0;
+        v39 = v87;
+        v40 = v89 + 4 * v76;
+        v41 = v80;
+        v72 = __p;
+        v73 = v89;
+        v42 = __p + 4 * v32;
+        v43 = v69;
+        do
+        {
+          if (v20 >= 1)
+          {
+            v44 = (v75 + 8 * v27);
+            v45 = v20;
+            v46 = v43;
+            do
+            {
+              *v46 = *(v74 + 2 * v30 + 2 * *v44 * v18);
+              v46 = (v46 + v34);
+              v44 = (v44 + v35);
+              --v45;
+            }
+
+            while (v45);
+          }
+
+          if (v28)
+          {
+            v47 = *v40;
+            if (v28 >= 2 && v47 == *v29 - 1)
+            {
+              v48 = v73;
+              v49 = v71;
+              v50 = (v28 & 0x7FFFFFFF) - 1;
+              v51 = v29;
+              v52 = v40;
+              v53 = v76;
+              do
+              {
+                v54 = v50;
+                *v52 = 0;
+                v27 -= v39[v53] * (*v51 - 1);
+                v84 = v27;
+                --v50;
+                v52 = &v48[v36 - 8];
+                v47 = *v52;
+                v48 -= 4;
+                if (v54 < 2)
+                {
+                  break;
+                }
+
+                v51 = &v49[v36];
+                v55 = *&v49[4 * (v28 & 0x7FFFFFFF)] - 1;
+                v49 -= 4;
+                v53 = v50;
+              }
+
+              while (v47 == v55);
+              v56 = &v48[v36 - 4];
+            }
+
+            else
+            {
+              v50 = v76;
+              v56 = v40;
+            }
+
+            *v56 = v47 + 1;
+            v27 += v39[v50];
+            v84 = v27;
+          }
+
+          if (v31)
+          {
+            v57 = *v42;
+            if (v31 >= 2 && v57 == *v33 - 1)
+            {
+              v58 = v72;
+              v59 = v70;
+              v60 = (v31 & 0x7FFFFFFF) - 1;
+              v61 = v33;
+              v62 = v42;
+              v63 = v32;
+              do
+              {
+                v64 = v60;
+                *v62 = 0;
+                v30 -= v41[v63] * (*v61 - 1);
+                v77 = v30;
+                --v60;
+                v62 = &v58[v37 - 8];
+                v57 = *v62;
+                v58 -= 4;
+                if (v64 < 2)
+                {
+                  break;
+                }
+
+                v61 = &v59[v37];
+                v65 = *&v59[4 * (v31 & 0x7FFFFFFF)] - 1;
+                v59 -= 4;
+                v63 = v60;
+              }
+
+              while (v57 == v65);
+              v66 = &v58[v37 - 4];
+            }
+
+            else
+            {
+              v60 = v32;
+              v66 = v42;
+            }
+
+            *v66 = v57 + 1;
+            v30 += v41[v60];
+            v77 = v30;
+          }
+
+          ++v38;
+          ++v43;
+        }
+
+        while (v38 != v25);
+      }
+
+      v26 = v68 + 1;
+      v69 += v25 * v20;
+    }
+
+    while (v68 + 1 != v67);
+  }
+
+  if (__p)
+  {
+    v83 = __p;
+    operator delete(__p);
+  }
+
+  if (v80)
+  {
+    v81 = v80;
+    operator delete(v80);
+  }
+
+  if (v78)
+  {
+    v79 = v78;
+    operator delete(v78);
+  }
+
+  if (v89)
+  {
+    v90 = v89;
+    operator delete(v89);
+  }
+
+  if (v87)
+  {
+    v88 = v87;
+    operator delete(v87);
+  }
+
+  if (v85)
+  {
+    v86 = v85;
+    operator delete(v85);
+  }
+
+  if (v91)
+  {
+    v92 = v91;
+    operator delete(v91);
+  }
+
+  if (v94)
+  {
+    v95 = v94;
+    operator delete(v94);
+  }
+}
+
+void sub_25A443AF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
+{
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
+  {
+    *(v31 - 128) = v33;
+    operator delete(v33);
+  }
+
+  v34 = *(v31 - 112);
+  if (v34)
+  {
+    *(v31 - 104) = v34;
+    operator delete(v34);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::gather_axis<float,unsigned long long>(mlx::core::array *a1, mlx::core::array *a2, mlx::core::array *a3, int a4)
+{
+  v8 = *a2;
+  v95 = 0;
+  v96 = 0;
+  v94 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v94[a4];
+  v10 = v95 - (v9 + 1);
+  if (v95 != v9 + 1)
+  {
+    memmove(&v94[a4], v9 + 1, v95 - (v9 + 1));
+  }
+
+  v95 = (v9 + v10);
+  v11 = *a2;
+  v92 = 0;
+  v93 = 0;
+  v91 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v91[a4];
+  v13 = v92 - (v12 + 1);
+  if (v92 != v12 + 1)
+  {
+    memmove(&v91[a4], v12 + 1, v92 - (v12 + 1));
+  }
+
+  v92 = (v12 + v13);
+  mlx::core::ContiguousIterator::ContiguousIterator(&v84, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
+  if (&v94 != (*a1 + 24))
+  {
+    std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v94, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
+  }
+
+  v14 = a4;
+  v15 = &v94[v14];
+  v16 = v95 - &v94[v14 + 1];
+  if (v95 != &v94[v14 + 1])
+  {
+    memmove(&v94[v14], &v94[v14 + 1], v95 - (v15 + 1));
+  }
+
+  v95 = (v15 + v16);
+  mlx::core::ContiguousIterator::ContiguousIterator(&v77, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
+  v74 = *(*a1 + 152);
+  v75 = *(*a2 + 152);
+  v69 = *(*a3 + 152);
+  v17 = mlx::core::array::strides(a2, a4);
+  v18 = mlx::core::array::strides(a1, a4);
+  v19 = mlx::core::array::strides(a3, a4);
+  v20 = mlx::core::array::shape(a2, a4);
+  mlx::core::array::shape(a1, a4);
+  if (a4 < 1)
+  {
+    v22 = 1;
+  }
+
+  else
+  {
+    v21 = 0;
+    v22 = 1;
+    do
+    {
+      v22 *= mlx::core::array::shape(a2, v21++);
+    }
+
+    while (a4 != v21);
+  }
+
+  v23 = a4 + 1;
+  v24 = *(*a2 + 8) - **a2;
+  v25 = 1;
+  while (v23 < v24 >> 2)
+  {
+    v25 *= mlx::core::array::shape(a2, v23++);
+    v24 = *(*a2 + 8) - **a2;
+  }
+
+  if (v22)
+  {
+    v26 = 0;
+    v27 = v84;
+    v28 = (v86 - v85) >> 2;
+    v76 = (((v86 - v85) << 30) - 0x100000000) >> 32;
+    v29 = v85 + 4 * v76;
+    v30 = v77;
+    v31 = (v79 - v78) >> 2;
+    v32 = (((v79 - v78) << 30) - 0x100000000) >> 32;
+    v33 = v78 + 4 * v32;
+    v67 = v22;
+    v34 = 4 * v19;
+    v35 = 8 * v17;
+    v36 = 4 * (v28 & 0x7FFFFFFF);
+    v71 = v85 - 8;
+    v37 = 4 * (v31 & 0x7FFFFFFF);
+    v70 = v78 - 8;
+    do
+    {
+      v68 = v26;
+      if (v25)
+      {
+        v38 = 0;
+        v39 = v87;
+        v40 = v89 + 4 * v76;
+        v41 = v80;
+        v72 = __p;
+        v73 = v89;
+        v42 = __p + 4 * v32;
+        v43 = v69;
+        do
+        {
+          if (v20 >= 1)
+          {
+            v44 = (v75 + 8 * v27);
+            v45 = v20;
+            v46 = v43;
+            do
+            {
+              *v46 = *(v74 + 4 * v30 + 4 * *v44 * v18);
+              v46 = (v46 + v34);
+              v44 = (v44 + v35);
+              --v45;
+            }
+
+            while (v45);
+          }
+
+          if (v28)
+          {
+            v47 = *v40;
+            if (v28 >= 2 && v47 == *v29 - 1)
+            {
+              v48 = v73;
+              v49 = v71;
+              v50 = (v28 & 0x7FFFFFFF) - 1;
+              v51 = v29;
+              v52 = v40;
+              v53 = v76;
+              do
+              {
+                v54 = v50;
+                *v52 = 0;
+                v27 -= v39[v53] * (*v51 - 1);
+                v84 = v27;
+                --v50;
+                v52 = &v48[v36 - 8];
+                v47 = *v52;
+                v48 -= 4;
+                if (v54 < 2)
+                {
+                  break;
+                }
+
+                v51 = &v49[v36];
+                v55 = *&v49[4 * (v28 & 0x7FFFFFFF)] - 1;
+                v49 -= 4;
+                v53 = v50;
+              }
+
+              while (v47 == v55);
+              v56 = &v48[v36 - 4];
+            }
+
+            else
+            {
+              v50 = v76;
+              v56 = v40;
+            }
+
+            *v56 = v47 + 1;
+            v27 += v39[v50];
+            v84 = v27;
+          }
+
+          if (v31)
+          {
+            v57 = *v42;
+            if (v31 >= 2 && v57 == *v33 - 1)
+            {
+              v58 = v72;
+              v59 = v70;
+              v60 = (v31 & 0x7FFFFFFF) - 1;
+              v61 = v33;
+              v62 = v42;
+              v63 = v32;
+              do
+              {
+                v64 = v60;
+                *v62 = 0;
+                v30 -= v41[v63] * (*v61 - 1);
+                v77 = v30;
+                --v60;
+                v62 = &v58[v37 - 8];
+                v57 = *v62;
+                v58 -= 4;
+                if (v64 < 2)
+                {
+                  break;
+                }
+
+                v61 = &v59[v37];
+                v65 = *&v59[4 * (v31 & 0x7FFFFFFF)] - 1;
+                v59 -= 4;
+                v63 = v60;
+              }
+
+              while (v57 == v65);
+              v66 = &v58[v37 - 4];
+            }
+
+            else
+            {
+              v60 = v32;
+              v66 = v42;
+            }
+
+            *v66 = v57 + 1;
+            v30 += v41[v60];
+            v77 = v30;
+          }
+
+          ++v38;
+          ++v43;
+        }
+
+        while (v38 != v25);
+      }
+
+      v26 = v68 + 1;
+      v69 += v25 * v20;
+    }
+
+    while (v68 + 1 != v67);
+  }
+
+  if (__p)
+  {
+    v83 = __p;
+    operator delete(__p);
+  }
+
+  if (v80)
+  {
+    v81 = v80;
+    operator delete(v80);
+  }
+
+  if (v78)
+  {
+    v79 = v78;
+    operator delete(v78);
+  }
+
+  if (v89)
+  {
+    v90 = v89;
+    operator delete(v89);
+  }
+
+  if (v87)
+  {
+    v88 = v87;
+    operator delete(v87);
+  }
+
+  if (v85)
+  {
+    v86 = v85;
+    operator delete(v85);
+  }
+
+  if (v91)
+  {
+    v92 = v91;
+    operator delete(v91);
+  }
+
+  if (v94)
+  {
+    v95 = v94;
+    operator delete(v94);
+  }
+}
+
+void sub_25A4440E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
+{
+  va_start(va, a31);
+  mlx::core::ContiguousIterator::~ContiguousIterator(va);
+  v33 = *(v31 - 136);
+  if (v33)
+  {
+    *(v31 - 128) = v33;
+    operator delete(v33);
+  }
+
+  v34 = *(v31 - 112);
+  if (v34)
+  {
+    *(v31 - 104) = v34;
+    operator delete(v34);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::gather_axis<double,unsigned long long>(mlx::core::array *a1, mlx::core::array *a2, mlx::core::array *a3, int a4)
+{
+  v8 = *a2;
+  v95 = 0;
+  v96 = 0;
+  v94 = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v94, *(v8 + 24), *(v8 + 32), (*(v8 + 32) - *(v8 + 24)) >> 3);
+  v9 = &v94[a4];
+  v10 = v95 - (v9 + 1);
+  if (v95 != v9 + 1)
+  {
+    memmove(&v94[a4], v9 + 1, v95 - (v9 + 1));
+  }
+
+  v95 = (v9 + v10);
+  v11 = *a2;
+  v92 = 0;
+  v93 = 0;
+  v91 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v91, *v11, *(v11 + 8), (*(v11 + 8) - *v11) >> 2);
+  v12 = &v91[a4];
+  v13 = v92 - (v12 + 1);
+  if (v92 != v12 + 1)
+  {
+    memmove(&v91[a4], v12 + 1, v92 - (v12 + 1));
+  }
+
+  v92 = (v12 + v13);
+  mlx::core::ContiguousIterator::ContiguousIterator(&v84, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
+  if (&v94 != (*a1 + 24))
+  {
+    std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(&v94, *(*a1 + 24), *(*a1 + 32), (*(*a1 + 32) - *(*a1 + 24)) >> 3);
+  }
+
+  v14 = a4;
+  v15 = &v94[v14];
+  v16 = v95 - &v94[v14 + 1];
+  if (v95 != &v94[v14 + 1])
+  {
+    memmove(&v94[v14], &v94[v14 + 1], v95 - (v15 + 1));
+  }
+
+  v95 = (v15 + v16);
+  mlx::core::ContiguousIterator::ContiguousIterator(&v77, &v91, &v94, ((*(*a1 + 8) - **a1) >> 2) - 1);
+  v74 = *(*a1 + 152);
+  v75 = *(*a2 + 152);
+  v69 = *(*a3 + 152);
+  v17 = mlx::core::array::strides(a2, a4);
+  v18 = mlx::core::array::strides(a1, a4);
+  v19 = mlx::core::array::strides(a3, a4);
+  v20 = mlx::core::array::shape(a2, a4);
+  mlx::core::array::shape(a1, a4);
+  if (a4 < 1)
+  {
+    v22 = 1;
+  }
+
+  else
+  {
+    v21 = 0;
+    v22 = 1;
+    do
+    {
+      v22 *= mlx::core::array::shape(a2, v21++);
+    }
+
+    while (a4 != v21);
+  }
+
+  v23 = a4 + 1;
+  v24 = *(*a2 + 8) - **a2;
+  v25 = 1;
+  while (v23 < v24 >> 2)
+  {
+    v25 *= mlx::core::array::shape(a2, v23++);
+    v24 = *(*a2 + 8) - **a2;
+  }
+
+  if (v22)
+  {
+    v26 = 0;
+    v27 = v84;
+    v28 = (v86 - v85) >> 2;
+    v76 = (((v86 - v85) << 30) - 0x100000000) >> 32;
+    v29 = v85 + 4 * v76;
+    v30 = v77;
+    v31 = (v79 - v78) >> 2;
+    v32 = (((v79 - v78) << 30) - 0x100000000) >> 32;
+    v33 = v78 + 4 * v32;
+    v67 = v22;
+    v34 = 8 * v19;
+    v35 = 8 * v17;
+    v36 = 4 * (v28 & 0x7FFFFFFF);
+    v71 = v85 - 8;
+    v37 = 4 * (v31 & 0x7FFFFFFF);
+    v70 = v78 - 8;
+    do
+    {
+      v68 = v26;
+      if (v25)
+      {
+        v38 = 0;
+        v39 = v87;
+        v40 = v89 + 4 * v76;
+        v41 = v80;
+        v72 = __p;
+        v73 = v89;
+        v42 = __p + 4 * v32;
+        v43 = v69;
+        do
+        {
+          if (v20 >= 1)
+          {
+            v44 = (v75 + 8 * v27);
+            v45 = v20;
+            v46 = v43;
+            do
+            {
+              *v46 = *(v74 + 8 * v30 + 8 * *v44 * v18);
+              v46 = (v46 + v34);
+              v44 = (v44 + v35);
+              --v45;
+            }
+
+            while (v45);
+          }
+
+          if (v28)
+          {
+            v47 = *v40;
+            if (v28 >= 2 && v47 == *v29 - 1)
+            {
+              v48 = v73;
+              v49 = v71;
+              v50 = (v28 & 0x7FFFFFFF) - 1;
+              v51 = v29;
+              v52 = v40;
+              v53 = v76;
+              do
+              {
+                v54 = v50;
+                *v52 = 0;
+                v27 -= v39[v53] * (*v51 - 1);
+                v84 = v27;
+                --v50;
+                v52 = &v48[v36 - 8];
+                v47 = *v52;
+                v48 -= 4;
+                if (v54 < 2)
+                {
+                  break;
+                }
+
+                v51 = &v49[v36];
+                v55 = *&v49[4 * (v28 & 0x7FFFFFFF)] - 1;
+                v49 -= 4;
+                v53 = v50;
+              }
+
+              while (v47 == v55);
+              v56 = &v48[v36 - 4];
+            }
+
+            else
+            {
+              v50 = v76;
+              v56 = v40;
+            }
+
+            *v56 = v47 + 1;
+            v27 += v39[v50];
+            v84 = v27;
+          }
+
+          if (v31)
+          {
+            v57 = *v42;
+            if (v31 >= 2 && v57 == *v33 - 1)
+            {
+              v58 = v72;
+              v59 = v70;
+              v60 = (v31 & 0x7FFFFFFF) - 1;
+              v61 = v33;
+              v62 = v42;
+              v63 = v32;
+              do
+              {
+                v64 = v60;
+                *v62 = 0;
+                v30 -= v41[v63] * (*v61 - 1);
+                v77 = v30;
+                --v60;
+                v62 = &v58[v37 - 8];
+                v57 = *v62;
+                v58 -= 4;
+                if (v64 < 2)
+                {
+                  break;
+                }
+
+                v61 = &v59[v37];
+                v65 = *&v59[4 * (v31 & 0x7FFFFFFF)] - 1;
+                v59 -= 4;
+                v63 = v60;
+              }
+
+              while (v57 == v65);
+              v66 = &v58[v37 - 4];
+            }
+
+            else
+            {
+              v60 = v32;
+              v66 = v42;
+            }
+
+            *v66 = v57 + 1;
+            v30 += v41[v60];
+            v77 = v30;
+          }
+
+          ++v38;
+          ++v43;
+        }
+
+        while (v38 != v25);
+      }
+
+      v26 = v68 + 1;
+      v69 += v25 * v20;
+    }
+
+    while (v68 + 1 != v67);
+  }
+
+  if (__p)
+  {
+    v83 = __p;
+    operator delete(__p);
+  }
+
+  if (v80)
+  {
+    v81 = v80;
+    operator delete(v80);
+  }
+
+  if (v78)
+  {
+    v79 = v78;
+    operator delete(v78);
+  }
+
+  if (v89)
+  {
+    v90 = v89;
+    operator delete(v89);
+  }
+
+  if (v87)
+  {
+    v88 = v87;
+    operator delete(v87);
+  }
+
+  if (v85)
+  {
+    v86 = v85;
+    operator delete(v85);
+  }
+
+  if (v91)
+  {
+    v92 = v91;
+    operator delete(v91);
+  }
+
+  if (v94)
+  {
+    v95 = v94;
+    operator delete(v94);
+  }
 }

@@ -96,27 +96,27 @@
 
 - (BOOL)isFirstLayer
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [(MLCLayer *)self sourceTensors];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v2 = v15 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v2 = v14 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        parentLayers = [*(*(&v12 + 1) + 8 * i) parentLayers];
+        parentLayers = [*(*(&v11 + 1) + 8 * i) parentLayers];
         v8 = [parentLayers count];
 
         if (v8)
@@ -126,7 +126,7 @@
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v4)
       {
         continue;
@@ -139,33 +139,32 @@
   v9 = 1;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)isLastLayer
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [(MLCLayer *)self resultTensors];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v2 = v15 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v2 = v14 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        childLayers = [*(*(&v12 + 1) + 8 * i) childLayers];
+        childLayers = [*(*(&v11 + 1) + 8 * i) childLayers];
         v8 = [childLayers count];
 
         if (v8)
@@ -175,7 +174,7 @@ LABEL_11:
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v4)
       {
         continue;
@@ -188,7 +187,6 @@ LABEL_11:
   v9 = 1;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -1248,29 +1246,26 @@ LABEL_47:
 
 - (void)getDeviceForTraining
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(self);
-  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: no device specified.  The training graph that this layer is associated with may not have been compiled", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: no device specified.  The training graph that this layer is associated with may not have been compiled", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)getDeviceForInference
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(self);
-  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: no device specified.  The inference graph that this layer is associated with may not have been compiled", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: no device specified.  The inference graph that this layer is associated with may not have been compiled", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)setIsDebuggingEnabled:(const char *)a1 isPrivate:.cold.1(const char *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
-  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: isDebuggingEnabled cannot be set once layer has been compiled", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: isDebuggingEnabled cannot be set once layer has been compiled", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

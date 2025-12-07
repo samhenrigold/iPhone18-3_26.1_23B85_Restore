@@ -79,9 +79,8 @@
 {
   v6 = sub_29E74EEE8();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x2A1C7C4A8](v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_29E7544C8();
   sub_29E7544B8();
   sub_29E754468();
@@ -93,20 +92,19 @@
   sub_29E74EEA8();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_29E691CEC(viewCopy);
+  v12 = sub_29E691CEC(viewCopy);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v13;
+  return v12;
 }
 
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path
 {
   v8 = sub_29E74EEE8();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x2A1C7C4A8](v8);
-  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_29E7544C8();
   sub_29E7544B8();
   sub_29E754468();
@@ -119,18 +117,17 @@
   viewCopy = view;
   cellCopy = cell;
   selfCopy = self;
-  sub_29E693950();
+  sub_29E693950(cellCopy);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
   v6 = sub_29E74EEE8();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x2A1C7C4A8](v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_29E7544C8();
   sub_29E7544B8();
   sub_29E754468();
@@ -144,7 +141,7 @@
   selfCopy = self;
   sub_29E6921E0(viewCopy);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (_TtC20SleepHealthAppPlugin35SleepInternalSettingsViewController)initWithStyle:(int64_t)style

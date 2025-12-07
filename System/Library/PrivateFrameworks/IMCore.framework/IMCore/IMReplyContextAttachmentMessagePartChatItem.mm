@@ -11,15 +11,15 @@
   obj = d;
   parentItemCopy = parentItem;
   dCopy = d;
-  v28.receiver = self;
-  v28.super_class = IMReplyContextAttachmentMessagePartChatItem;
-  context = [(IMAttachmentMessagePartChatItem *)&v28 _initWithItem:itemCopy text:text index:index messagePartRange:range.location transferGUID:range.length chatContext:iD, context];
+  v25.receiver = self;
+  v25.super_class = IMReplyContextAttachmentMessagePartChatItem;
+  context = [(IMAttachmentMessagePartChatItem *)&v25 _initWithItem:itemCopy text:text index:index messagePartRange:range.location transferGUID:range.length chatContext:iD, context];
   if (context)
   {
-    v21 = objc_msgSend_guid(itemCopy, v18, v19);
-    v22 = sub_1A83AC604();
+    guid = [itemCopy guid];
+    v20 = sub_1A83AC604();
 
-    objc_msgSend__setGUID_(context, v23, v22);
+    [context _setGUID:v20];
     objc_storeStrong(context + 29, parentItem);
     *(context + 224) = me;
     objc_storeStrong(context + 30, obj);
@@ -35,15 +35,15 @@
   parentItemCopy = parentItem;
   dCopy = d;
   dCopy2 = d;
-  v30.receiver = self;
-  v30.super_class = IMReplyContextAttachmentMessagePartChatItem;
-  items = [(IMAttachmentMessagePartChatItem *)&v30 _initWithItem:itemCopy text:text index:index messagePartRange:range.location transferGUID:range.length chatContext:iD visibleAssociatedMessageChatItems:context, items];
+  v27.receiver = self;
+  v27.super_class = IMReplyContextAttachmentMessagePartChatItem;
+  items = [(IMAttachmentMessagePartChatItem *)&v27 _initWithItem:itemCopy text:text index:index messagePartRange:range.location transferGUID:range.length chatContext:iD visibleAssociatedMessageChatItems:context, items];
   if (items)
   {
-    v21 = objc_msgSend_guid(itemCopy, v18, v19);
-    v22 = sub_1A83AC604();
+    guid = [itemCopy guid];
+    v20 = sub_1A83AC604();
 
-    objc_msgSend__setGUID_(items, v23, v22);
+    [items _setGUID:v20];
     objc_storeStrong(items + 29, obj);
     *(items + 224) = me;
     objc_storeStrong(items + 30, dCopy);

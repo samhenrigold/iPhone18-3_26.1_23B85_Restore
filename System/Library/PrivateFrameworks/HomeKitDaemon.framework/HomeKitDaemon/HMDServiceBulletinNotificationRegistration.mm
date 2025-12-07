@@ -10,29 +10,27 @@
 
 - (id)attributeDescriptions
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14.receiver = self;
-  v14.super_class = HMDServiceBulletinNotificationRegistration;
-  attributeDescriptions = [(HMDBulletinNotificationRegistration *)&v14 attributeDescriptions];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = HMDServiceBulletinNotificationRegistration;
+  attributeDescriptions = [(HMDBulletinNotificationRegistration *)&v13 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   accessoryUUID = [(HMDServiceBulletinNotificationRegistration *)self accessoryUUID];
   v6 = [v4 initWithName:@"accessoryUUID" value:accessoryUUID];
-  v15[0] = v6;
+  v14[0] = v6;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   serviceInstanceID = [(HMDServiceBulletinNotificationRegistration *)self serviceInstanceID];
   v9 = [v7 initWithName:@"serviceInstanceID" value:serviceInstanceID];
-  v15[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   v11 = [attributeDescriptions arrayByAddingObjectsFromArray:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (HMDServiceBulletinNotificationRegistration)initWithCoder:(id)coder
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [[HMDBulletinNotificationRegistration alloc] initWithCoder:coderCopy];
   if (v5)
@@ -57,11 +55,11 @@
         if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           v15 = HMFGetLogIdentifier();
-          v18 = 138543618;
-          v19 = v15;
-          v20 = 2112;
-          v21 = 0;
-          _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded serviceInstanceID: %@", &v18, 0x16u);
+          v17 = 138543618;
+          v18 = v15;
+          v19 = 2112;
+          v20 = 0;
+          _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded serviceInstanceID: %@", &v17, 0x16u);
         }
 
         objc_autoreleasePoolPop(v13);
@@ -77,11 +75,11 @@
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         v12 = HMFGetLogIdentifier();
-        v18 = 138543618;
-        v19 = v12;
-        v20 = 2112;
-        v21 = 0;
-        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded accessoryUUID: %@", &v18, 0x16u);
+        v17 = 138543618;
+        v18 = v12;
+        v19 = 2112;
+        v20 = 0;
+        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded accessoryUUID: %@", &v17, 0x16u);
       }
 
       objc_autoreleasePoolPop(v10);
@@ -94,7 +92,6 @@
     selfCopy = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -175,11 +172,11 @@ LABEL_7:
   v12 = [(HMDBulletinNotificationRegistration *)&v20 initWithConditions:conditionsCopy];
   if (v12)
   {
-    v13 = [dCopy copy];
+    v13 = objc_msgSend_copy(dCopy);
     accessoryUUID = v12->_accessoryUUID;
     v12->_accessoryUUID = v13;
 
-    v15 = [iDCopy copy];
+    v15 = objc_msgSend_copy(iDCopy);
     serviceInstanceID = v12->_serviceInstanceID;
     v12->_serviceInstanceID = v15;
   }

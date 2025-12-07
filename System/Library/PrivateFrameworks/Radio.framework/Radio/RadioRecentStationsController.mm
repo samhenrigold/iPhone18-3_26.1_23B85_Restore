@@ -67,10 +67,7 @@
 
 uint64_t __58__RadioRecentStationsController__newRecentStationsRequest__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 24) firstObject];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 24) firstObject];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -116,7 +113,7 @@ void __67__RadioRecentStationsController__postStationsDidChangeNotification__blo
 
 - (void)_handleRecentStationsResponse:(id)response fromRequest:(id)request pendingRecentStations:(id)stations isInitialCacheLoad:(BOOL)load
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   requestCopy = request;
   stationsCopy = stations;
@@ -124,51 +121,51 @@ void __67__RadioRecentStationsController__postStationsDidChangeNotification__blo
   if (responseCopy)
   {
     selfCopy = self;
-    v31 = stationsCopy;
+    v30 = stationsCopy;
     [responseCopy stationGroups];
+    v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
-    obj = v49 = 0u;
-    v34 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
-    v32 = requestCopy;
+    obj = v48 = 0u;
+    v33 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+    v31 = requestCopy;
     v14 = 0;
     v15 = 0;
-    if (v34)
+    if (v33)
     {
-      v33 = *v47;
+      v32 = *v46;
       do
       {
-        for (i = 0; i != v34; ++i)
+        for (i = 0; i != v33; ++i)
         {
-          if (*v47 != v33)
+          if (*v46 != v32)
           {
             objc_enumerationMutation(obj);
           }
 
-          v36 = *(*(&v46 + 1) + 8 * i);
-          v37 = v14;
-          stationDictionaries = [v36 stationDictionaries];
+          v35 = *(*(&v45 + 1) + 8 * i);
+          v36 = v14;
+          stationDictionaries = [v35 stationDictionaries];
+          v41 = 0u;
           v42 = 0u;
           v43 = 0u;
           v44 = 0u;
-          v45 = 0u;
-          v18 = [stationDictionaries countByEnumeratingWithState:&v42 objects:v50 count:16];
+          v18 = [stationDictionaries countByEnumeratingWithState:&v41 objects:v49 count:16];
           if (v18)
           {
             v19 = v18;
             v20 = 0;
-            v21 = *v43;
+            v21 = *v42;
             do
             {
               for (j = 0; j != v19; ++j)
               {
-                if (*v43 != v21)
+                if (*v42 != v21)
                 {
                   objc_enumerationMutation(stationDictionaries);
                 }
 
-                v23 = *(*(&v42 + 1) + 8 * j);
+                v23 = *(*(&v41 + 1) + 8 * j);
                 if (!v15)
                 {
                   v15 = +[RadioModel backgroundModel];
@@ -186,7 +183,7 @@ void __67__RadioRecentStationsController__postStationsDidChangeNotification__blo
                 }
               }
 
-              v19 = [stationDictionaries countByEnumeratingWithState:&v42 objects:v50 count:16];
+              v19 = [stationDictionaries countByEnumeratingWithState:&v41 objects:v49 count:16];
             }
 
             while (v19);
@@ -197,15 +194,15 @@ void __67__RadioRecentStationsController__postStationsDidChangeNotification__blo
             v20 = 0;
           }
 
-          v14 = v37;
-          if (!v37)
+          v14 = v36;
+          if (!v36)
           {
             v14 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(obj, "count")}];
           }
 
           v25 = objc_alloc_init(RadioMutableRecentStationsGroup);
-          -[RadioMutableRecentStationsGroup setActive:](v25, "setActive:", [v36 isActive]);
-          localizedTitle = [v36 localizedTitle];
+          -[RadioMutableRecentStationsGroup setActive:](v25, "setActive:", [v35 isActive]);
+          localizedTitle = [v35 localizedTitle];
           [(RadioMutableRecentStationsGroup *)v25 setLocalizedTitle:localizedTitle];
 
           [(RadioMutableRecentStationsGroup *)v25 setStations:v20];
@@ -220,10 +217,10 @@ void __67__RadioRecentStationsController__postStationsDidChangeNotification__blo
           }
         }
 
-        v34 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
+        v33 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
       }
 
-      while (v34);
+      while (v33);
     }
 
     accessQueue = selfCopy->_accessQueue;
@@ -233,21 +230,19 @@ void __67__RadioRecentStationsController__postStationsDidChangeNotification__blo
     block[3] = &unk_279AEAA18;
     block[4] = selfCopy;
     loadCopy = load;
-    v13 = v31;
-    v39 = v31;
-    v40 = v14;
+    v13 = v30;
+    v38 = v30;
+    v39 = v14;
     v28 = v14;
     dispatch_barrier_async(accessQueue, block);
 
-    requestCopy = v32;
+    requestCopy = v31;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 id *__116__RadioRecentStationsController__handleRecentStationsResponse_fromRequest_pendingRecentStations_isInitialCacheLoad___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if ((*(v2 + 16) & 1) == 0 && (*(a1 + 56) & 1) == 0)
   {
@@ -255,76 +250,76 @@ id *__116__RadioRecentStationsController__handleRecentStationsResponse_fromReque
     v2 = *(a1 + 32);
   }
 
-  if (*(v2 + 24))
+  if (!*(v2 + 24))
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v3 = *(a1 + 40);
-    v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v4)
+LABEL_18:
+    v13 = *(v2 + 32);
+    result = (v2 + 32);
+    v12 = *(a1 + 48);
+    if (v13 == v12)
     {
-      v5 = v4;
-      v6 = 0;
-      v7 = *v16;
-      do
-      {
-        for (i = 0; i != v5; ++i)
-        {
-          if (*v16 != v7)
-          {
-            objc_enumerationMutation(v3);
-          }
-
-          v9 = [*(*(a1 + 32) + 24) indexOfObject:{*(*(&v15 + 1) + 8 * i), v15}];
-          if (v9 != 0x7FFFFFFFFFFFFFFFLL)
-          {
-            [*(*(a1 + 32) + 24) removeObjectAtIndex:v9];
-            v6 = 1;
-          }
-        }
-
-        v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
-      }
-
-      while (v5);
-
-      v10 = *(a1 + 32);
-      result = (v10 + 32);
-      v12 = *(a1 + 48);
-      if (*(v10 + 32) == v12)
-      {
-        if ((v6 & 1) == 0)
-        {
-          goto LABEL_21;
-        }
-
-        goto LABEL_20;
-      }
-
-LABEL_19:
-      objc_storeStrong(result, v12);
-      v10 = *(a1 + 32);
-LABEL_20:
-      *(v10 + 17) = 0;
-      result = [*(a1 + 32) _postStationsDidChangeNotification];
-      goto LABEL_21;
+      return result;
     }
 
-    v2 = *(a1 + 32);
-  }
-
-  v13 = *(v2 + 32);
-  result = (v2 + 32);
-  v12 = *(a1 + 48);
-  if (v13 != v12)
-  {
     goto LABEL_19;
   }
 
-LABEL_21:
-  v14 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v3 = *(a1 + 40);
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (!v4)
+  {
+
+    v2 = *(a1 + 32);
+    goto LABEL_18;
+  }
+
+  v5 = v4;
+  v6 = 0;
+  v7 = *v15;
+  do
+  {
+    for (i = 0; i != v5; ++i)
+    {
+      if (*v15 != v7)
+      {
+        objc_enumerationMutation(v3);
+      }
+
+      v9 = [*(*(a1 + 32) + 24) indexOfObject:{*(*(&v14 + 1) + 8 * i), v14}];
+      if (v9 != 0x7FFFFFFFFFFFFFFFLL)
+      {
+        [*(*(a1 + 32) + 24) removeObjectAtIndex:v9];
+        v6 = 1;
+      }
+    }
+
+    v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  }
+
+  while (v5);
+
+  v10 = *(a1 + 32);
+  result = (v10 + 32);
+  v12 = *(a1 + 48);
+  if (*(v10 + 32) != v12)
+  {
+LABEL_19:
+    objc_storeStrong(result, v12);
+    v10 = *(a1 + 32);
+    goto LABEL_20;
+  }
+
+  if (v6)
+  {
+LABEL_20:
+    *(v10 + 17) = 0;
+    return [*(a1 + 32) _postStationsDidChangeNotification];
+  }
+
   return result;
 }
 
@@ -596,28 +591,28 @@ void __70__RadioRecentStationsController_insertPendingRecentStationDictionary___
 
 - (NSArray)stations
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   stationGroups = [(RadioRecentStationsController *)self stationGroups];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v3 = [stationGroups countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [stationGroups countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(stationGroups);
         }
 
-        stations = [*(*(&v11 + 1) + 8 * i) stations];
+        stations = [*(*(&v10 + 1) + 8 * i) stations];
         if ([stations count])
         {
           if (!v5)
@@ -629,7 +624,7 @@ void __70__RadioRecentStationsController_insertPendingRecentStationDictionary___
         }
       }
 
-      v4 = [stationGroups countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [stationGroups countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
@@ -639,8 +634,6 @@ void __70__RadioRecentStationsController_insertPendingRecentStationDictionary___
   {
     v5 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

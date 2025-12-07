@@ -8,21 +8,15 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = objc_msgSend_allocWithZone_(MDLAnimationBindComponent, a2, zone);
-  v7 = objc_msgSend_init(v4, v5, v6);
-  objc_msgSend_setSkeleton_(v7, v8, self->_skeleton);
-  objc_msgSend_setJointAnimation_(v7, v9, self->_jointAnimation);
-  v16 = *&self[3].super.isa;
-  v17 = *&self[3]._jointAnimation;
-  v18 = *&self[4].super.isa;
-  v19 = *&self[4]._jointAnimation;
-  v10 = *&self[1]._jointAnimation;
+  v13 = objc_msgSend_allocWithZone_(MDLAnimationBindComponent, a2, zone, v3, v8, v9, v10, v11, v4, v5, v6, v7);
+  v25 = objc_msgSend_init(v13, v14, v15, v16, v21, v22, v23, v24, v17, v18, v19, v20);
+  objc_msgSend_setSkeleton_(v25, v26, self->_skeleton, v27, v32, v33, v34, v35, v28, v29, v30, v31);
+  objc_msgSend_setJointAnimation_(v25, v36, self->_jointAnimation, v37, v42, v43, v44, v45, v38, v39, v40, v41);
+  v46 = *&self[1]._jointAnimation;
   var10[0] = *&self[1].super.isa;
-  var10[1] = v10;
-  v14 = *&self[2].super.isa;
-  v15 = *&self[2]._jointAnimation;
-  objc_msgSend_setGeometryBindTransform_(v7, v11, var10);
-  return v7;
+  var10[1] = v46;
+  objc_msgSend_setGeometryBindTransform_(v25, v47, var10, v48, *&self[2].super.isa, *&self[2]._jointAnimation, v53, v54, v49, v50, v51, v52);
+  return v25;
 }
 
 - (__n128)geometryBindTransform

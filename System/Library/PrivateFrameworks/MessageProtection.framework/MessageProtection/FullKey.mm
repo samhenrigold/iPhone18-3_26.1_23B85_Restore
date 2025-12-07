@@ -56,7 +56,7 @@
 
       else
       {
-        v13 = MessageProtectionLog();
+        v13 = MessageProtectionLog(0);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
         {
           [FullKey initWithKey:v9 error:v13];
@@ -91,10 +91,10 @@
       goto LABEL_4;
     }
 
-    v13 = MessageProtectionLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v14 = MessageProtectionLog(keystore);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      [FullKey initWithProtobufferData:dataCopy error:v13];
+      [FullKey initWithProtobufferData:dataCopy error:v14];
     }
 
 LABEL_13:
@@ -103,12 +103,13 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  if (([dataCopy hasKeyData] & 1) == 0)
+  hasKeyData = [dataCopy hasKeyData];
+  if ((hasKeyData & 1) == 0)
   {
-    v13 = MessageProtectionLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = MessageProtectionLog(hasKeyData);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [FullKey initWithProtobufferData:v13 error:?];
+      [FullKey initWithProtobufferData:v14 error:?];
     }
 
     goto LABEL_13;
@@ -155,20 +156,20 @@ LABEL_14:
 
 - (FullKey)initWithKeychainTag:(id)tag error:(id *)error
 {
-  v27[4] = *MEMORY[0x277D85DE8];
+  v26[4] = *MEMORY[0x277D85DE8];
   tagCopy = tag;
   v8 = *MEMORY[0x277CDC238];
   v9 = *MEMORY[0x277CDC120];
-  v26[0] = *MEMORY[0x277CDC228];
-  v26[1] = v9;
-  v27[0] = v8;
-  v27[1] = @"com.apple.messageprotection";
+  v25[0] = *MEMORY[0x277CDC228];
+  v25[1] = v9;
+  v26[0] = v8;
+  v26[1] = @"com.apple.messageprotection";
   v10 = *MEMORY[0x277CDC558];
-  v26[2] = *MEMORY[0x277CDBF20];
-  v26[3] = v10;
-  v27[2] = tagCopy;
-  v27[3] = MEMORY[0x277CBEC38];
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
+  v25[2] = *MEMORY[0x277CDBF20];
+  v25[3] = v10;
+  v26[2] = tagCopy;
+  v26[3] = MEMORY[0x277CBEC38];
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:4];
   result = 0;
   v12 = SecItemCopyMatching(v11, &result);
   if (v12)
@@ -184,9 +185,9 @@ LABEL_14:
     v16 = [[SecKeyP256Private alloc] initWithData:v15 error:error];
     if (v16)
     {
-      v24.receiver = self;
-      v24.super_class = FullKey;
-      v17 = [(FullKey *)&v24 init];
+      v23.receiver = self;
+      v23.super_class = FullKey;
+      v17 = [(FullKey *)&v23 init];
       v18 = v17;
       if (v17)
       {
@@ -210,7 +211,6 @@ LABEL_14:
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -261,21 +261,19 @@ LABEL_14:
 
 - (void)initWithKey:(uint64_t)a1 error:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 8);
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_fault_impl(&dword_22B404000, a2, OS_LOG_TYPE_FAULT, "Unsupported key store: %d", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_fault_impl(&dword_22B404000, a2, OS_LOG_TYPE_FAULT, "Unsupported key store: %d", v3, 8u);
 }
 
 - (void)initWithProtobufferData:(void *)a1 error:(NSObject *)a2 .cold.2(void *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109120;
-  v4[1] = [a1 keystore];
-  _os_log_fault_impl(&dword_22B404000, a2, OS_LOG_TYPE_FAULT, "Unsupported key store: %d", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = [a1 keystore];
+  _os_log_fault_impl(&dword_22B404000, a2, OS_LOG_TYPE_FAULT, "Unsupported key store: %d", v3, 8u);
 }
 
 @end

@@ -91,33 +91,33 @@
 
 - (id)assetTypesForLocaleIdentifier:(id)identifier
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   lt_localeIdentifier = [identifier lt_localeIdentifier];
   v5 = MEMORY[0x277CBEB58];
   _defaultAssetType = [(_LTDASRConfigurationModel *)self _defaultAssetType];
-  v26 = [v5 setWithObject:_defaultAssetType];
+  v25 = [v5 setWithObject:_defaultAssetType];
 
   _taskHintMap = [(_LTDASRConfigurationModel *)self _taskHintMap];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   allKeys = [_taskHintMap allKeys];
-  v9 = [allKeys countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v9 = [allKeys countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v28;
+    v11 = *v27;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v28 != v11)
+        if (*v27 != v11)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v13 = *(*(&v27 + 1) + 8 * i);
+        v13 = *(*(&v26 + 1) + 8 * i);
         v14 = [_taskHintMap objectForKeyedSubscript:v13];
         v15 = [v14 objectForKeyedSubscript:@"SupportedLocales"];
 
@@ -169,19 +169,17 @@
 
           v22 = v21;
 
-          [v26 addObject:v22];
+          [v25 addObject:v22];
         }
       }
 
-      v10 = [allKeys countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v10 = [allKeys countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v10);
   }
 
-  allObjects = [v26 allObjects];
-
-  v24 = *MEMORY[0x277D85DE8];
+  allObjects = [v25 allObjects];
 
   return allObjects;
 }

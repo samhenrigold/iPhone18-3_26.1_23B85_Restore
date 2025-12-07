@@ -4,6 +4,7 @@
 - (CAFUIInputDeviceButtonEventCharacteristic)uiInputDeviceButtonEventCharacteristic;
 - (id)name;
 - (unsigned)uiInputDeviceButtonEvent;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -101,6 +102,33 @@
   uIInputDeviceButtonEventValue = [uiInputDeviceButtonEventCharacteristic uIInputDeviceButtonEventValue];
 
   return uIInputDeviceButtonEventValue;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if (![characteristicType isEqual:@"0x0000000047000003"])
+  {
+    goto LABEL_4;
+  }
+
+  uniqueIdentifier = [updateCopy uniqueIdentifier];
+  uiInputDeviceButtonEventCharacteristic = [(CAFUIInputDeviceButton *)self uiInputDeviceButtonEventCharacteristic];
+  uniqueIdentifier2 = [uiInputDeviceButtonEventCharacteristic uniqueIdentifier];
+  v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+  if (v11)
+  {
+    characteristicType = [(CAFService *)self observers];
+    [characteristicType uiInputDeviceButtonService:self didUpdateUiInputDeviceButtonEvent:{-[CAFUIInputDeviceButton uiInputDeviceButtonEvent](self, "uiInputDeviceButtonEvent")}];
+LABEL_4:
+  }
+
+  v12.receiver = self;
+  v12.super_class = CAFUIInputDeviceButton;
+  [(CAFUIInputDevice *)&v12 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForUIInputDeviceButtonEvent

@@ -57,24 +57,24 @@
 
 - (void)presentAuthorizationWithContext:(id)context forProcess:(id)process completionHandler:(id)handler
 {
-  v49[1] = *MEMORY[0x1E69E9840];
+  v50[1] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   processCopy = process;
   handlerCopy = handler;
-  v45 = 0;
-  v11 = [(ASCAuthorizationPresenter *)self _isPresentationContextValid:contextCopy error:&v45];
-  v12 = v45;
+  v46 = 0;
+  v11 = [(ASCAuthorizationPresenter *)self _isPresentationContextValid:contextCopy error:&v46];
+  v12 = v46;
   if (v11)
   {
-    v44 = v12;
-    v13 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:contextCopy requiringSecureCoding:1 error:&v44];
-    v14 = v44;
+    v45 = v12;
+    v13 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:contextCopy requiringSecureCoding:1 error:&v45];
+    v14 = v45;
 
     if (v13)
     {
-      v15 = _Block_copy(handlerCopy);
+      v17 = _Block_copy(handlerCopy);
       credentialResultHandler = self->_credentialResultHandler;
-      self->_credentialResultHandler = v15;
+      self->_credentialResultHandler = v17;
 
       anonymousListener = [MEMORY[0x1E696B0D8] anonymousListener];
       remoteListener = self->_remoteListener;
@@ -82,82 +82,81 @@
 
       [(NSXPCListener *)self->_remoteListener setDelegate:self];
       [(NSXPCListener *)self->_remoteListener resume];
-      v48 = @"ASCAuthorizationPresentationContextData";
-      v49[0] = v13;
-      v42 = v13;
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:&v48 count:1];
-      v20 = objc_alloc(MEMORY[0x1E69D42A0]);
-      v21 = [v20 initWithServiceName:authenticationServicesViewServiceBundleIdentifier viewControllerClassName:@"ASViewServiceViewController"];
-      v22 = objc_opt_new();
+      v49 = @"ASCAuthorizationPresentationContextData";
+      v50[0] = v13;
+      v43 = v13;
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:&v49 count:1];
+      v22 = objc_alloc(MEMORY[0x1E69D42A0]);
+      v23 = [v22 initWithServiceName:authenticationServicesViewServiceBundleIdentifier viewControllerClassName:@"ASViewServiceViewController"];
+      v24 = objc_opt_new();
       endpoint = [(NSXPCListener *)self->_remoteListener endpoint];
       _endpoint = [endpoint _endpoint];
-      [v22 setXpcEndpoint:_endpoint];
+      [v24 setXpcEndpoint:_endpoint];
 
-      [v22 setUserInfo:v19];
-      v43 = v21;
-      v25 = [MEMORY[0x1E69D42B8] newHandleWithDefinition:v21 configurationContext:v22];
+      [v24 setUserInfo:v21];
+      v44 = v23;
+      v27 = [MEMORY[0x1E69D42B8] newHandleWithDefinition:v23 configurationContext:v24];
       remoteAlertHandle = self->_remoteAlertHandle;
-      self->_remoteAlertHandle = v25;
+      self->_remoteAlertHandle = v27;
 
-      v27 = self->_remoteAlertHandle;
-      v28 = objc_opt_respondsToSelector();
-      v29 = self->_remoteAlertHandle;
-      if (v28)
+      v29 = objc_opt_respondsToSelector();
+      v30 = self->_remoteAlertHandle;
+      if (v29)
       {
-        [(SBSRemoteAlertHandle *)v29 registerObserver:self];
+        [(SBSRemoteAlertHandle *)v30 registerObserver:self];
       }
 
       else
       {
-        [(SBSRemoteAlertHandle *)v29 addObserver:self];
+        [(SBSRemoteAlertHandle *)v30 addObserver:self];
       }
 
-      v31 = MKBGetDeviceLockState();
-      v13 = v42;
-      if (v31 && v31 != 3)
+      v32 = MKBGetDeviceLockState();
+      v13 = v43;
+      if (v32 && v32 != 3)
       {
-        v36 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        v38 = WBS_LOG_CHANNEL_PREFIXAuthorization(v32, v33);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
           [ASCAuthorizationPresenter presentAuthorizationWithContext:forProcess:completionHandler:];
         }
 
-        v37 = MEMORY[0x1E696ABC0];
-        v46 = *MEMORY[0x1E696A588];
-        v47 = @"Device must be unlocked to perform request.";
-        v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v47 forKeys:&v46 count:{1, v19}];
-        v38 = [v37 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v32];
-        [(ASCAuthorizationPresenter *)self _invalidateWithError:v38];
+        v39 = MEMORY[0x1E696ABC0];
+        v47 = *MEMORY[0x1E696A588];
+        v48 = @"Device must be unlocked to perform request.";
+        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v47 count:{1, v21}];
+        v40 = [v39 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v34];
+        [(ASCAuthorizationPresenter *)self _invalidateWithError:v40];
 
-        v19 = v41;
+        v21 = v42;
       }
 
       else
       {
-        v32 = objc_opt_new();
+        v34 = objc_opt_new();
         if (processCopy)
         {
-          v33 = [MEMORY[0x1E69D42D8] predicateForProcess:processCopy];
+          v35 = [MEMORY[0x1E69D42D8] predicateForProcess:processCopy];
           [contextCopy windowSceneIdentifier];
-          v34 = v40 = v19;
-          [v33 setScenePersistentIdentifier:v34];
+          v36 = v41 = v21;
+          [v35 setScenePersistentIdentifier:v36];
 
-          v35 = [objc_alloc(MEMORY[0x1E69D42C0]) initWithTargetPredicate:v33];
-          [v32 setPresentationTarget:v35];
+          v37 = [objc_alloc(MEMORY[0x1E69D42C0]) initWithTargetPredicate:v35];
+          [v34 setPresentationTarget:v37];
 
-          v19 = v40;
+          v21 = v41;
         }
 
-        [(SBSRemoteAlertHandle *)self->_remoteAlertHandle activateWithContext:v32];
+        [(SBSRemoteAlertHandle *)self->_remoteAlertHandle activateWithContext:v34];
       }
     }
 
     else
     {
-      v30 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v31 = WBS_LOG_CHANNEL_PREFIXAuthorization(v15, v16);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        [ASCAuthorizationPresenter presentAuthorizationWithContext:v30 forProcess:? completionHandler:?];
+        [ASCAuthorizationPresenter presentAuthorizationWithContext:v31 forProcess:? completionHandler:?];
       }
 
       (*(handlerCopy + 2))(handlerCopy, 0, v14);
@@ -169,8 +168,6 @@
     (*(handlerCopy + 2))(handlerCopy, 0, v12);
     v14 = v12;
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (void)presentError:(id)error forService:(id)service completionHandler:(id)handler
@@ -286,16 +283,16 @@ void *__53__ASCAuthorizationPresenter_presentPINEntryInterface__block_invoke(uin
   dispatch_async(interfaceUpdateQueue, v4);
 }
 
-uint64_t __70__ASCAuthorizationPresenter_presentNewPINEntryInterfaceWithMinLength___block_invoke(uint64_t result)
+void *__70__ASCAuthorizationPresenter_presentNewPINEntryInterfaceWithMinLength___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (*(v1 + 48))
   {
-    return [*(v1 + 48) presentNewPINEntryInterfaceWithMinLength:*(result + 40)];
+    return [*(v1 + 48) presentNewPINEntryInterfaceWithMinLength:result[5]];
   }
 
   *(v1 + 73) = 1;
-  *(*(result + 32) + 80) = *(result + 40);
+  *(result[4] + 80) = result[5];
   return result;
 }
 
@@ -315,20 +312,20 @@ uint64_t __70__ASCAuthorizationPresenter_presentNewPINEntryInterfaceWithMinLengt
 
     else
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v12 = WBS_LOG_CHANNEL_PREFIXAuthorization(code, v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [ASCAuthorizationPresenter updateInterfaceForUserVisibleError:v9];
+        [ASCAuthorizationPresenter updateInterfaceForUserVisibleError:v12];
       }
     }
   }
 
   else
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v11 = WBS_LOG_CHANNEL_PREFIXAuthorization(v7, v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [ASCAuthorizationPresenter updateInterfaceForUserVisibleError:v8];
+      [ASCAuthorizationPresenter updateInterfaceForUserVisibleError:v11];
     }
   }
 }
@@ -365,54 +362,55 @@ uint64_t __70__ASCAuthorizationPresenter_presentNewPINEntryInterfaceWithMinLengt
   v8 = connectionCopy;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else
   {
     *location = 0u;
-    v21 = 0u;
+    v25 = 0u;
   }
 
   HasEntitlement = WBSAuditTokenHasEntitlement();
+  v11 = HasEntitlement;
   if (HasEntitlement)
   {
     objc_storeStrong(&self->_viewServiceConnection, connection);
-    v10 = +[ASCAuthorizationPresenterHostInterface xpcInterface];
-    [(NSXPCConnection *)self->_viewServiceConnection setExportedInterface:v10];
+    v12 = +[ASCAuthorizationPresenterHostInterface xpcInterface];
+    [(NSXPCConnection *)self->_viewServiceConnection setExportedInterface:v12];
 
     [(NSXPCConnection *)self->_viewServiceConnection setExportedObject:self];
-    v11 = +[ASCViewServiceInterface xpcInterface];
-    [(NSXPCConnection *)self->_viewServiceConnection setRemoteObjectInterface:v11];
+    v13 = +[ASCViewServiceInterface xpcInterface];
+    [(NSXPCConnection *)self->_viewServiceConnection setRemoteObjectInterface:v13];
 
     objc_initWeak(location, self);
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __64__ASCAuthorizationPresenter_listener_shouldAcceptNewConnection___block_invoke;
-    v18[3] = &unk_1E8160160;
-    objc_copyWeak(&v19, location);
-    [(NSXPCConnection *)self->_viewServiceConnection setInvalidationHandler:v18];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __64__ASCAuthorizationPresenter_listener_shouldAcceptNewConnection___block_invoke;
+    v22[3] = &unk_1E8160160;
+    objc_copyWeak(&v23, location);
+    [(NSXPCConnection *)self->_viewServiceConnection setInvalidationHandler:v22];
     [(NSXPCConnection *)self->_viewServiceConnection resume];
-    v12 = [(NSXPCConnection *)self->_viewServiceConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_5];
+    v14 = [(NSXPCConnection *)self->_viewServiceConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_5];
     viewServiceProxy = self->_viewServiceProxy;
-    self->_viewServiceProxy = v12;
+    self->_viewServiceProxy = v14;
 
-    [(ASCAuthorizationPresenter *)self _performQueuedUpdatesIfNecessary];
-    v14 = WBS_LOG_CHANNEL_PREFIXServiceLifecycle();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    _performQueuedUpdatesIfNecessary = [(ASCAuthorizationPresenter *)self _performQueuedUpdatesIfNecessary];
+    v18 = WBS_LOG_CHANNEL_PREFIXServiceLifecycle(_performQueuedUpdatesIfNecessary, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      *v17 = 0;
-      _os_log_impl(&dword_1C20AD000, v14, OS_LOG_TYPE_DEFAULT, "Accepting connection", v17, 2u);
+      *v21 = 0;
+      _os_log_impl(&dword_1C20AD000, v18, OS_LOG_TYPE_DEFAULT, "Accepting connection", v21, 2u);
     }
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(location);
   }
 
   else
   {
-    v15 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v19 = WBS_LOG_CHANNEL_PREFIXAuthorization(HasEntitlement, v10);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [ASCAuthorizationPresenter listener:shouldAcceptNewConnection:];
     }
@@ -420,7 +418,7 @@ uint64_t __70__ASCAuthorizationPresenter_presentNewPINEntryInterfaceWithMinLengt
     [(SBSRemoteAlertHandle *)self->_remoteAlertHandle invalidate];
   }
 
-  return HasEntitlement;
+  return v11;
 }
 
 void __64__ASCAuthorizationPresenter_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
@@ -436,10 +434,10 @@ void __64__ASCAuthorizationPresenter_listener_shouldAcceptNewConnection___block_
   }
 }
 
-void __64__ASCAuthorizationPresenter_listener_shouldAcceptNewConnection___block_invoke_2()
+void __64__ASCAuthorizationPresenter_listener_shouldAcceptNewConnection___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __64__ASCAuthorizationPresenter_listener_shouldAcceptNewConnection___block_invoke_2_cold_1();
   }
@@ -447,7 +445,7 @@ void __64__ASCAuthorizationPresenter_listener_shouldAcceptNewConnection___block_
 
 - (BOOL)_isPresentationContextValid:(id)valid error:(id *)error
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   validCopy = valid;
   if (([validCopy requestTypes] & 0x200) != 0)
   {
@@ -461,11 +459,11 @@ LABEL_12:
       }
 
       v9 = MEMORY[0x1E696ABC0];
-      v18 = *MEMORY[0x1E696A588];
-      v19[0] = @"Account Registration requests cannot be used with other types of requests.";
+      v17 = *MEMORY[0x1E696A588];
+      v18[0] = @"Account Registration requests cannot be used with other types of requests.";
       v10 = MEMORY[0x1E695DF20];
-      v11 = v19;
-      v12 = &v18;
+      v11 = v18;
+      v12 = &v17;
 LABEL_11:
       v13 = [v10 dictionaryWithObjects:v11 forKeys:v12 count:1];
       *error = [v9 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v13];
@@ -490,17 +488,16 @@ LABEL_8:
   if (error && (requestTypes & 0xFFFFFFFFFFFFFFABLL) != 0)
   {
     v9 = MEMORY[0x1E696ABC0];
-    v16 = *MEMORY[0x1E696A588];
-    v17 = @"Registration requests cannot be used with other types of requests.";
+    v15 = *MEMORY[0x1E696A588];
+    v16 = @"Registration requests cannot be used with other types of requests.";
     v10 = MEMORY[0x1E695DF20];
-    v11 = &v17;
-    v12 = &v16;
+    v11 = &v16;
+    v12 = &v15;
     goto LABEL_11;
   }
 
 LABEL_13:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -652,7 +649,7 @@ void *__56__ASCAuthorizationPresenter_cableClientWillAuthenticate__block_invoke(
 
 - (void)remoteAlertHandleDidDeactivate:(id)deactivate
 {
-  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization();
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [ASCAuthorizationPresenter remoteAlertHandleDidDeactivate:];
@@ -666,48 +663,48 @@ void *__56__ASCAuthorizationPresenter_cableClientWillAuthenticate__block_invoke(
 {
   errorCopy = error;
   v6 = [(ASCAuthorizationPresenter *)self _isErrorDueToNewAlertHandleRequest:errorCopy];
-  v7 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  v8 = v7;
-  if (v6)
+  v7 = v6;
+  v9 = WBS_LOG_CHANNEL_PREFIXAuthorization(v6, v8);
+  v10 = v9;
+  if (v7)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      *v11 = 0;
-      v9 = 2;
-      _os_log_impl(&dword_1C20AD000, v8, OS_LOG_TYPE_INFO, "Alert handle deactivated by new request.", v11, 2u);
+      *v13 = 0;
+      v11 = 2;
+      _os_log_impl(&dword_1C20AD000, v10, OS_LOG_TYPE_INFO, "Alert handle deactivated by new request.", v13, 2u);
     }
 
     else
     {
-      v9 = 2;
+      v11 = 2;
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [ASCAuthorizationPresenter remoteAlertHandle:v8 didInvalidateWithError:?];
+      [ASCAuthorizationPresenter remoteAlertHandle:v10 didInvalidateWithError:?];
     }
 
-    v9 = 1;
+    v11 = 1;
   }
 
-  v10 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:v9 userInfo:0];
-  [(ASCAuthorizationPresenter *)self _invalidateWithError:v10];
+  v12 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:v11 userInfo:0];
+  [(ASCAuthorizationPresenter *)self _invalidateWithError:v12];
 }
 
 - (BOOL)_isErrorDueToNewAlertHandleRequest:(id)request
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8 = *MEMORY[0x1E69D4468];
-  v9[0] = &unk_1F41ABC10;
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69D4468];
+  v8[0] = &unk_1F41ABC10;
   v3 = MEMORY[0x1E695DF20];
   requestCopy = request;
-  v5 = [v3 dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v5 = [v3 dictionaryWithObjects:v8 forKeys:&v7 count:1];
   LOBYTE(v3) = [requestCopy safari_matchesErrorDomainsAndCodes:v5];
 
-  v6 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -755,7 +752,7 @@ void *__56__ASCAuthorizationPresenter_cableClientWillAuthenticate__block_invoke(
 
 - (void)initializeClientToViewServiceConnection
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXServiceLifecycle();
+  v2 = WBS_LOG_CHANNEL_PREFIXServiceLifecycle(self, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -776,11 +773,11 @@ void *__56__ASCAuthorizationPresenter_cableClientWillAuthenticate__block_invoke(
   processCopy = process;
   identifierCopy = identifier;
   handlerCopy = handler;
-  auditToken = [processCopy auditToken];
-  v12 = auditToken;
-  if (auditToken)
+  v11 = objc_msgSend_auditToken(processCopy);
+  v12 = v11;
+  if (v11)
   {
-    [auditToken realToken];
+    objc_msgSend_realToken(v11);
   }
 
   else
@@ -794,7 +791,7 @@ void *__56__ASCAuthorizationPresenter_cableClientWillAuthenticate__block_invoke(
   v46 = 0;
   v14 = [v13 safari_bundleIdentifierFromApplicationIdentifier:&v46];
   v15 = v46;
-  v16 = v15;
+  v17 = v15;
   if (v14)
   {
     v44 = v15;
@@ -805,27 +802,26 @@ void *__56__ASCAuthorizationPresenter_cableClientWillAuthenticate__block_invoke(
 
     [(NSXPCListener *)self->_remoteListener setDelegate:self];
     [(NSXPCListener *)self->_remoteListener resume];
-    v19 = _Block_copy(handlerCopy);
+    v20 = _Block_copy(handlerCopy);
     presentExportFlowResultHandler = self->_presentExportFlowResultHandler;
-    self->_presentExportFlowResultHandler = v19;
+    self->_presentExportFlowResultHandler = v20;
 
     v51 = @"ASCAuthorizationCredentialExchangeExporterBundleID";
     v52[0] = v14;
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:&v51 count:1];
-    v22 = objc_alloc(MEMORY[0x1E69D42A0]);
-    v23 = [v22 initWithServiceName:authenticationServicesViewServiceBundleIdentifier viewControllerClassName:@"ASViewServiceViewController"];
-    v24 = objc_opt_new();
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:&v51 count:1];
+    v23 = objc_alloc(MEMORY[0x1E69D42A0]);
+    v24 = [v23 initWithServiceName:authenticationServicesViewServiceBundleIdentifier viewControllerClassName:@"ASViewServiceViewController"];
+    v25 = objc_opt_new();
     endpoint = [(NSXPCListener *)self->_remoteListener endpoint];
     _endpoint = [endpoint _endpoint];
-    [v24 setXpcEndpoint:_endpoint];
+    [v25 setXpcEndpoint:_endpoint];
 
-    v43 = v21;
-    [v24 setUserInfo:v21];
-    v27 = [MEMORY[0x1E69D42B8] newHandleWithDefinition:v23 configurationContext:v24];
+    v43 = v22;
+    [v25 setUserInfo:v22];
+    v28 = [MEMORY[0x1E69D42B8] newHandleWithDefinition:v24 configurationContext:v25];
     remoteAlertHandle = self->_remoteAlertHandle;
-    self->_remoteAlertHandle = v27;
+    self->_remoteAlertHandle = v28;
 
-    v29 = self->_remoteAlertHandle;
     v30 = objc_opt_respondsToSelector();
     v31 = self->_remoteAlertHandle;
     if (v30)
@@ -841,56 +837,54 @@ void *__56__ASCAuthorizationPresenter_cableClientWillAuthenticate__block_invoke(
     v33 = MKBGetDeviceLockState();
     if (v33 && v33 != 3)
     {
-      v39 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      v40 = WBS_LOG_CHANNEL_PREFIXAuthorization(v33, v34);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         [ASCAuthorizationPresenter presentExportFlowForProcess:windowSceneIdentifier:completionHandler:];
       }
 
-      v40 = MEMORY[0x1E696ABC0];
+      v41 = MEMORY[0x1E696ABC0];
       v49 = *MEMORY[0x1E696A588];
       v50 = @"Device must be unlocked to perform request.";
-      v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
-      v34 = [v40 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v41];
+      v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+      v35 = [v41 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v42];
 
-      (*(handlerCopy + 2))(handlerCopy, 0, v34);
-      [(ASCAuthorizationPresenter *)self _invalidateWithError:v34];
+      (*(handlerCopy + 2))(handlerCopy, 0, v35);
+      [(ASCAuthorizationPresenter *)self _invalidateWithError:v35];
     }
 
     else
     {
-      v34 = objc_opt_new();
+      v35 = objc_opt_new();
       if (processCopy)
       {
-        v35 = [MEMORY[0x1E69D42D8] predicateForProcess:processCopy];
-        [v35 setScenePersistentIdentifier:v45];
-        v36 = [objc_alloc(MEMORY[0x1E69D42C0]) initWithTargetPredicate:v35];
-        [v34 setPresentationTarget:v36];
+        v36 = [MEMORY[0x1E69D42D8] predicateForProcess:processCopy];
+        [v36 setScenePersistentIdentifier:v45];
+        v37 = [objc_alloc(MEMORY[0x1E69D42C0]) initWithTargetPredicate:v36];
+        [v35 setPresentationTarget:v37];
       }
 
-      [(SBSRemoteAlertHandle *)self->_remoteAlertHandle activateWithContext:v34];
-      v37 = _Block_copy(handlerCopy);
-      v38 = self->_presentExportFlowResultHandler;
-      self->_presentExportFlowResultHandler = v37;
+      [(SBSRemoteAlertHandle *)self->_remoteAlertHandle activateWithContext:v35];
+      v38 = _Block_copy(handlerCopy);
+      v39 = self->_presentExportFlowResultHandler;
+      self->_presentExportFlowResultHandler = v38;
     }
 
     identifierCopy = v45;
 
-    v16 = v44;
+    v17 = v44;
   }
 
   else
   {
-    v32 = WBS_LOG_CHANNEL_PREFIXAuthorization();
+    v32 = WBS_LOG_CHANNEL_PREFIXAuthorization(v15, v16);
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       [ASCAuthorizationPresenter presentExportFlowForProcess:windowSceneIdentifier:completionHandler:];
     }
 
-    (*(handlerCopy + 2))(handlerCopy, 0, v16);
+    (*(handlerCopy + 2))(handlerCopy, 0, v17);
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)userSelectedImportingDestinationWithBundleIdentfier:(id)identfier
@@ -905,7 +899,7 @@ void *__56__ASCAuthorizationPresenter_cableClientWillAuthenticate__block_invoke(
 
   else
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXAuthorization();
+    v6 = WBS_LOG_CHANNEL_PREFIXAuthorization(0, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       [ASCAuthorizationPresenter userSelectedImportingDestinationWithBundleIdentfier:];
@@ -950,46 +944,34 @@ void *__56__ASCAuthorizationPresenter_cableClientWillAuthenticate__block_invoke(
 
 - (void)presentAuthorizationWithContext:(void *)a1 forProcess:completionHandler:.cold.2(void *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Failed to get context data for presentation with error: %{private}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Failed to get context data for presentation with error: %{private}@", v6, v7, v8, v9);
 }
 
 - (void)updateInterfaceForUserVisibleError:(void *)a1 .cold.1(void *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() domain];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Asked to present unsupported error: %{public}@.", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Asked to present unsupported error: %{public}@.", v6, v7, v8, v9);
 }
 
 - (void)updateInterfaceForUserVisibleError:(void *)a1 .cold.2(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = a1;
   [OUTLINED_FUNCTION_1() code];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v3, v4, "Asked to display error with unrecognized code: %ld", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v3, v4, "Asked to display error with unrecognized code: %ld", v5, v6, v7, v8);
 }
 
 - (void)remoteAlertHandle:(void *)a1 didInvalidateWithError:.cold.1(void *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Alert handle invalidated with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Alert handle invalidated with error: %{public}@", v6, v7, v8, v9);
 }
 
 @end

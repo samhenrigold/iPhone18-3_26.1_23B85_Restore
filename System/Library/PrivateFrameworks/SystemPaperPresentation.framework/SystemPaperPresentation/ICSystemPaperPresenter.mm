@@ -9,17 +9,15 @@
 
 + (void)initialize
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   if (objc_opt_class() == self)
   {
     standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-    v5 = @"ICEnableSystemPaperExtension";
-    v6[0] = MEMORY[0x277CBEC38];
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+    v4 = @"ICEnableSystemPaperExtension";
+    v5[0] = MEMORY[0x277CBEC38];
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
     [standardUserDefaults registerDefaults:v3];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (void)presentSystemPaperWithUserActivityData:(id)data presentingViewController:(id)controller completion:(id)completion
@@ -100,7 +98,7 @@
   }
 }
 
-uint64_t __101__ICSystemPaperPresenter_presentSystemPaperWithUserActivityData_presentingViewController_completion___block_invoke(uint64_t a1)
+uint64_t (**__101__ICSystemPaperPresenter_presentSystemPaperWithUserActivityData_presentingViewController_completion___block_invoke(uint64_t a1))(void)
 {
   v1 = *(*(*(a1 + 48) + 8) + 40);
   if (v1)
@@ -111,7 +109,7 @@ uint64_t __101__ICSystemPaperPresenter_presentSystemPaperWithUserActivityData_pr
   result = *(a1 + 40);
   if (result)
   {
-    return (*(result + 16))();
+    return result[2]();
   }
 
   return result;
@@ -163,24 +161,24 @@ LABEL_3:
       }
     }
 
-    v15 = v12;
+    v16 = v12;
 
-    if (!v15)
+    if (!v16)
     {
       goto LABEL_12;
     }
 
-    v16 = [objc_alloc(MEMORY[0x277CC5E78]) initWithExtensionIdentity:v15];
-    [v16 setBeginHostingImmediately:1];
-    v17 = objc_alloc_init(MEMORY[0x277D75D18]);
+    v17 = [objc_alloc(MEMORY[0x277CC5E78]) initWithExtensionIdentity:v16];
+    [v17 setBeginHostingImmediately:1];
+    v18 = objc_alloc_init(MEMORY[0x277D75D18]);
     systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
-    [v17 setBackgroundColor:systemBackgroundColor];
+    [v18 setBackgroundColor:systemBackgroundColor];
 
-    v19 = [[ICSystemPaperExtensionHostViewController alloc] initWithConfiguration:v16];
-    [(_EXHostViewController *)v19 setPlaceholderView:v17];
-    v20 = dataCopy;
-    [(ICSystemPaperExtensionHostViewController *)v19 setUserActivityData:dataCopy];
-    [(ICSystemPaperExtensionHostViewController *)v19 setStartHostingBlock:completionCopy];
+    v20 = [[ICSystemPaperExtensionHostViewController alloc] initWithConfiguration:v17];
+    [(_EXHostViewController *)v20 setPlaceholderView:v18];
+    v21 = dataCopy;
+    [(ICSystemPaperExtensionHostViewController *)v20 setUserActivityData:dataCopy];
+    [(ICSystemPaperExtensionHostViewController *)v20 setStartHostingBlock:completionCopy];
   }
 
   else
@@ -188,19 +186,17 @@ LABEL_3:
 LABEL_9:
 
 LABEL_12:
-    v15 = ICSystemPaperExtensionLog();
-    v20 = dataCopy;
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = ICSystemPaperExtensionLog(v15);
+    v21 = dataCopy;
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       +[ICSystemPaperPresenter makeExtensionHostViewControllerWithUserActivityData:completion:];
     }
 
-    v19 = 0;
+    v20 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
-  return v19;
+  return v20;
 }
 
 - (ICSystemPaperPresenter)init

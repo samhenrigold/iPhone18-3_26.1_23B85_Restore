@@ -249,12 +249,11 @@ uint64_t __87__MOPersonalizedReflectionPromptManager__generateReflectionBundlesW
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(*(*(a1 + 40) + 8) + 40) count];
-    v6 = 134217984;
-    v7 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "generateReflectionBundlesWithBundles, output bundles count,  %lu", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = v3;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "generateReflectionBundlesWithBundles, output bundles count,  %lu", &v5, 0xCu);
   }
 
-  v4 = *(*(*(a1 + 40) + 8) + 40);
   return (*(*(a1 + 32) + 16))();
 }
 

@@ -127,7 +127,7 @@ void __83__NEFilterDataExtensionProviderContext_fetchCurrentRulesForFlow_complet
 
 - (void)handleClientMessage:(id)message filloutReply:(id)reply completionHandler:(id)handler
 {
-  v238 = *MEMORY[0x1E69E9840];
+  v237 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   replyCopy = reply;
   handlerCopy = handler;
@@ -161,9 +161,9 @@ void __83__NEFilterDataExtensionProviderContext_fetchCurrentRulesForFlow_complet
             goto LABEL_258;
           }
 
-          v212 = handlerCopy;
-          *v226 = 0u;
-          v227 = 0u;
+          v211 = handlerCopy;
+          *v225 = 0u;
+          v226 = 0u;
           uuid = xpc_dictionary_get_uuid(v14, "flow-uuid");
           if (!uuid)
           {
@@ -180,12 +180,12 @@ void __83__NEFilterDataExtensionProviderContext_fetchCurrentRulesForFlow_complet
           }
 
           v18 = uuid;
-          v196 = v16;
-          v202 = v15;
+          v195 = v16;
+          v201 = v15;
           uint64 = xpc_dictionary_get_uint64(v14, "ip-protocol");
           v20 = xpc_dictionary_get_uint64(v14, "client-pid");
           v21 = xpc_dictionary_get_uint64(v14, "client-e-pid");
-          v193 = xpc_dictionary_get_uint64(v14, "connection-direction");
+          v192 = xpc_dictionary_get_uint64(v14, "connection-direction");
           memset(out, 0, 37);
           uuid_unparse(v18, out);
           memset(dst, 0, sizeof(dst));
@@ -195,32 +195,32 @@ void __83__NEFilterDataExtensionProviderContext_fetchCurrentRulesForFlow_complet
             uuid_copy(dst, v22);
           }
 
-          memset(v234, 0, sizeof(v234));
+          memset(v233, 0, sizeof(v233));
           v23 = xpc_dictionary_get_uuid(v14, "client-e-proc-uuid");
           if (v23)
           {
-            uuid_copy(v234, v23);
+            uuid_copy(v233, v23);
           }
 
           length = 0;
-          *&v222.sa_len = 0;
-          *&v222.sa_data[6] = 0;
-          v224 = 0;
+          *&v221.sa_len = 0;
+          *&v221.sa_data[6] = 0;
           v223 = 0;
+          v222 = 0;
           if (xpc_dictionary_get_data(v14, "local-addr", &length) && length <= 0x1C)
           {
             __memcpy_chk();
           }
 
-          *&v219.sa_len = 0;
-          *&v219.sa_data[6] = 0;
-          v221 = 0;
+          *&v218.sa_len = 0;
+          *&v218.sa_data[6] = 0;
           v220 = 0;
+          v219 = 0;
           v24 = 0;
           if (xpc_dictionary_get_data(v14, "remote-addr", &length) && length <= 0x1C)
           {
             __memcpy_chk();
-            if (v219.sa_family == 30)
+            if (v218.sa_family == 30)
             {
               v25 = 30;
             }
@@ -244,12 +244,12 @@ void __83__NEFilterDataExtensionProviderContext_fetchCurrentRulesForFlow_complet
           }
 
           newValue = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v18];
-          v27 = [[NEFilterSocketFlow alloc] initWithSocketFamily:v24 socketType:v26 socketProtocol:uint64 pid:v20 epid:v21 uuid:dst euuid:v234 socketID:-1];
+          v27 = [[NEFilterSocketFlow alloc] initWithSocketFamily:v24 socketType:v26 socketProtocol:uint64 pid:v20 epid:v21 uuid:dst euuid:v233 socketID:-1];
           if (!v27)
           {
             v141 = ne_log_obj();
-            v16 = v196;
-            v15 = v202;
+            v16 = v195;
+            v15 = v201;
             if (os_log_type_enabled(v141, OS_LOG_TYPE_ERROR))
             {
               LODWORD(aBlock[0]) = 138412290;
@@ -257,27 +257,27 @@ void __83__NEFilterDataExtensionProviderContext_fetchCurrentRulesForFlow_complet
               _os_log_error_impl(&dword_1BA83C000, v141, OS_LOG_TYPE_ERROR, "New flow %@ rejected because flow creation failed", aBlock, 0xCu);
             }
 
-            xpc_dictionary_set_int64(v202, "error", 1);
-            xpc_dictionary_set_uuid(v202, "flow-uuid", v18);
-            v196[2](v196);
-            handlerCopy = v212;
+            xpc_dictionary_set_int64(v201, "error", 1);
+            xpc_dictionary_set_uuid(v201, "flow-uuid", v18);
+            v195[2](v195);
+            handlerCopy = v211;
             goto LABEL_257;
           }
 
-          v218 = 0;
-          data = xpc_dictionary_get_data(v14, "crypto-signature", &v218);
-          v16 = v196;
-          v15 = v202;
-          if (data && v218)
+          v217 = 0;
+          data = xpc_dictionary_get_data(v14, "crypto-signature", &v217);
+          v16 = v195;
+          v15 = v201;
+          if (data && v217)
           {
             v30 = data;
             v31 = objc_alloc(MEMORY[0x1E695DEF0]);
-            v32 = [v31 initWithBytes:v30 length:v218];
+            v32 = [v31 initWithBytes:v30 length:v217];
             [v27 setCrypto_signature:v32];
           }
 
           objc_setProperty_atomic_copy(v27, v29, newValue, 128);
-          if (v193)
+          if (v192)
           {
             v33 = 2;
           }
@@ -289,7 +289,7 @@ void __83__NEFilterDataExtensionProviderContext_fetchCurrentRulesForFlow_complet
 
           [v27 setDirection:v33];
           xpc_dictionary_get_audit_token();
-          v34 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v226 length:32];
+          v34 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v225 length:32];
           [v27 setSourceAppAuditToken:v34];
 
           sourceAppAuditToken = [v27 sourceAppAuditToken];
@@ -299,7 +299,7 @@ void __83__NEFilterDataExtensionProviderContext_fetchCurrentRulesForFlow_complet
           objc_setProperty_atomic(v27, v37, v36, 144);
 
           string = xpc_dictionary_get_string(v14, "source-app-bundle-id");
-          handlerCopy = v212;
+          handlerCopy = v211;
           if (string)
           {
             string = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@".%s", string];
@@ -308,7 +308,7 @@ void __83__NEFilterDataExtensionProviderContext_fetchCurrentRulesForFlow_complet
             v27[13] = 1;
           }
 
-          v194 = v27;
+          v193 = v27;
           v40 = xpc_dictionary_get_string(v14, "url");
           if (v40)
           {
@@ -316,19 +316,19 @@ void __83__NEFilterDataExtensionProviderContext_fetchCurrentRulesForFlow_complet
             v42 = objc_alloc(MEMORY[0x1E695DFF8]);
             v43 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v41];
             v44 = [v42 initWithString:v43];
-            [v194 setURL:v44];
+            [v193 setURL:v44];
           }
 
           v45 = xpc_dictionary_get_string(v14, "remote-hostname");
-          v27 = v194;
+          v27 = v193;
           if (v45)
           {
             v46 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithCString:v45 encoding:4];
-            [v194 setRemoteHostname:v46];
+            [v193 setRemoteHostname:v46];
           }
 
-          [(NEFilterSocketFlow *)v194 setLocalAddress:?];
-          [(NEFilterSocketFlow *)v194 setRemoteAddress:?];
+          [(NEFilterSocketFlow *)v193 setLocalAddress:?];
+          [(NEFilterSocketFlow *)v193 setRemoteAddress:?];
           channelFlows = self->_channelFlows;
           if (!channelFlows)
           {
@@ -339,23 +339,23 @@ void __83__NEFilterDataExtensionProviderContext_fetchCurrentRulesForFlow_complet
             channelFlows = self->_channelFlows;
           }
 
-          [(NSMutableDictionary *)channelFlows setObject:v194 forKey:newValue];
-          v191 = newValue;
-          if (!v191)
+          [(NSMutableDictionary *)channelFlows setObject:v193 forKey:newValue];
+          v190 = newValue;
+          if (!v190)
           {
-            v188 = ne_log_obj();
-            if (os_log_type_enabled(v188, OS_LOG_TYPE_FAULT))
+            v187 = ne_log_obj();
+            if (os_log_type_enabled(v187, OS_LOG_TYPE_FAULT))
             {
               LODWORD(aBlock[0]) = 136315138;
               *(aBlock + 4) = "[NEFilterDataExtensionProviderContext blessClient:]";
-              _os_log_fault_impl(&dword_1BA83C000, v188, OS_LOG_TYPE_FAULT, "%s called with null clientUUID", aBlock, 0xCu);
+              _os_log_fault_impl(&dword_1BA83C000, v187, OS_LOG_TYPE_FAULT, "%s called with null clientUUID", aBlock, 0xCu);
             }
 
 LABEL_255:
-            handlerCopy = v212;
-            v16 = v196;
-            v15 = v202;
-            v27 = v194;
+            handlerCopy = v211;
+            v16 = v195;
+            v15 = v201;
+            v27 = v193;
             goto LABEL_256;
           }
 
@@ -365,10 +365,10 @@ LABEL_255:
             handle = dispatch_source_get_handle(source);
             if ((handle & 0x80000000) == 0)
             {
-              *&v229 = 0;
+              *&v228 = 0;
               *aBlock = xmmword_1BAA4E530;
               *&aBlock[2] = 0uLL;
-              [v191 getUUIDBytes:&aBlock[3]];
+              [v190 getUUIDBytes:&aBlock[3]];
               v52 = 0;
               while (1)
               {
@@ -381,23 +381,23 @@ LABEL_255:
                     v55 = *v54;
                     if (*v54 != 35)
                     {
-                      v184 = ne_log_obj();
-                      v185 = v184;
+                      v183 = ne_log_obj();
+                      v184 = v183;
                       if (v55 == 2)
                       {
-                        if (os_log_type_enabled(v184, OS_LOG_TYPE_DEBUG))
+                        if (os_log_type_enabled(v183, OS_LOG_TYPE_DEBUG))
                         {
                           *buf = 0;
-                          _os_log_debug_impl(&dword_1BA83C000, v185, OS_LOG_TYPE_DEBUG, "No socket flow to bless, ignore", buf, 2u);
+                          _os_log_debug_impl(&dword_1BA83C000, v184, OS_LOG_TYPE_DEBUG, "No socket flow to bless, ignore", buf, 2u);
                         }
                       }
 
-                      else if (os_log_type_enabled(v184, OS_LOG_TYPE_ERROR))
+                      else if (os_log_type_enabled(v183, OS_LOG_TYPE_ERROR))
                       {
-                        v186 = strerror(v55);
+                        v185 = strerror(v55);
                         *buf = 136315138;
-                        v237 = v186;
-                        _os_log_error_impl(&dword_1BA83C000, v185, OS_LOG_TYPE_ERROR, "Write operation on the control socket failed while blessing the socket (%s)", buf, 0xCu);
+                        v236 = v185;
+                        _os_log_error_impl(&dword_1BA83C000, v184, OS_LOG_TYPE_ERROR, "Write operation on the control socket failed while blessing the socket (%s)", buf, 0xCu);
                       }
 
                       goto LABEL_255;
@@ -417,21 +417,21 @@ LABEL_255:
               }
             }
 
-            v147 = ne_log_obj();
-            if (!os_log_type_enabled(v147, OS_LOG_TYPE_ERROR))
+            v146 = ne_log_obj();
+            if (!os_log_type_enabled(v146, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_243;
             }
 
             LODWORD(aBlock[0]) = 138412290;
-            *(aBlock + 4) = v191;
-            v148 = "Failed to find control socket to bless client %@";
+            *(aBlock + 4) = v190;
+            v147 = "Failed to find control socket to bless client %@";
           }
 
           else
           {
-            v147 = ne_log_obj();
-            if (!os_log_type_enabled(v147, OS_LOG_TYPE_ERROR))
+            v146 = ne_log_obj();
+            if (!os_log_type_enabled(v146, OS_LOG_TYPE_ERROR))
             {
 LABEL_243:
 
@@ -444,11 +444,11 @@ LABEL_258:
             }
 
             LODWORD(aBlock[0]) = 138412290;
-            *(aBlock + 4) = v191;
-            v148 = "Failed to find control socket source to bless client %@";
+            *(aBlock + 4) = v190;
+            v147 = "Failed to find control socket source to bless client %@";
           }
 
-          _os_log_error_impl(&dword_1BA83C000, v147, OS_LOG_TYPE_ERROR, v148, aBlock, 0xCu);
+          _os_log_error_impl(&dword_1BA83C000, v146, OS_LOG_TYPE_ERROR, v147, aBlock, 0xCu);
           goto LABEL_243;
         }
 
@@ -484,8 +484,8 @@ LABEL_258:
               v109 = os_log_type_enabled(v108, OS_LOG_TYPE_DEBUG);
               if (v107)
               {
-                v205 = v101;
-                v217 = handlerCopy;
+                v204 = v101;
+                v216 = handlerCopy;
                 if (v109)
                 {
                   LODWORD(aBlock[0]) = 138412290;
@@ -501,24 +501,24 @@ LABEL_258:
                 *&out[24] = &unk_1E7F07540;
                 *&out[32] = _principalObject;
                 v111 = v107;
-                v233 = v111;
-                v200 = _principalObject;
+                v232 = v111;
+                v199 = _principalObject;
                 v112 = _Block_copy(out);
                 aBlock[0] = MEMORY[0x1E69E9820];
                 aBlock[1] = 3221225472;
                 aBlock[2] = __96__NEFilterDataExtensionProviderContext_handleRemediationMessage_filloutReply_completionHandler___block_invoke_2;
                 aBlock[3] = &unk_1E7F07658;
                 v113 = v111;
-                *&v229 = v113;
-                *(&v229 + 1) = self;
-                v230 = v102;
-                v231 = v103;
+                *&v228 = v113;
+                *(&v228 + 1) = self;
+                v229 = v102;
+                v230 = v103;
                 v114 = _Block_copy(aBlock);
                 v115 = [[NEFilterDataSavedMessageHandler alloc] initWithGetVerdictBlock:v112 handleVerdictBlock:v114];
                 [(NEFilterDataSavedMessageHandler *)v115 enqueueWithFlow:v113 context:self];
 
-                handlerCopy = v217;
-                v101 = v205;
+                handlerCopy = v216;
+                v101 = v204;
               }
 
               else
@@ -600,7 +600,7 @@ LABEL_187:
           v80 = [(NSMutableDictionary *)self->_browserFlows objectForKey:v78];
           if (v80)
           {
-            v215 = handlerCopy;
+            v214 = handlerCopy;
             v121 = xpc_dictionary_get_int64(v14, "direction");
             [v80 setInBytes:{xpc_dictionary_get_uint64(v14, "byte-count-inbound")}];
             [v80 setOutBytes:{xpc_dictionary_get_uint64(v14, "byte-count-outbound")}];
@@ -695,21 +695,21 @@ LABEL_251:
       if (self)
       {
         newValuec = v91;
-        v216 = handlerCopy;
-        v226[0] = 0;
+        v215 = handlerCopy;
+        v225[0] = 0;
         memset(aBlock, 0, sizeof(aBlock));
         v93 = xpc_dictionary_get_uuid(v14, "flow-uuid");
         v94 = xpc_dictionary_get_int64(v14, "direction");
         v95 = xpc_dictionary_get_string(v14, "url");
         v96 = xpc_dictionary_get_string(v14, "parent-url");
         v97 = xpc_dictionary_get_string(v14, "source-app-bundle-id");
-        v192 = xpc_dictionary_get_uint64(v14, "source-app-pid");
-        v190 = xpc_dictionary_get_uint64(v14, "source-pid");
-        *v195 = xpc_dictionary_get_uint64(v14, "socket-identifier");
+        v191 = xpc_dictionary_get_uint64(v14, "source-app-pid");
+        v189 = xpc_dictionary_get_uint64(v14, "source-pid");
+        *v194 = xpc_dictionary_get_uint64(v14, "socket-identifier");
         v98 = xpc_dictionary_get_uint64(v14, "connection-direction");
         if (v93 && (v94 - 3) > 0xFFFFFFFFFFFFFFFDLL)
         {
-          v189 = v98;
+          v188 = v98;
           if (v95)
           {
             v99 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v95];
@@ -731,10 +731,10 @@ LABEL_251:
 
           if (v96)
           {
-            v150 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v96];
-            if (v150)
+            v149 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v96];
+            if (v149)
             {
-              v96 = [MEMORY[0x1E695DFF8] URLWithString:v150];
+              v96 = [MEMORY[0x1E695DFF8] URLWithString:v149];
             }
 
             else
@@ -745,127 +745,127 @@ LABEL_251:
 
           if (v97)
           {
-            v206 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@".%s", v97];
+            v205 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@".%s", v97];
           }
 
           else
           {
-            v206 = 0;
+            v205 = 0;
           }
 
-          v151 = [NEFilterBrowserFlow alloc];
-          v201 = v96;
-          if (v151 && (*out = v151, *&out[8] = NEFilterBrowserFlow, (v152 = objc_msgSendSuper2(out, sel_initWithURL_sourceAppIdentifier_, v100, v206)) != 0))
+          v150 = [NEFilterBrowserFlow alloc];
+          v200 = v96;
+          if (v150 && (*out = v150, *&out[8] = NEFilterBrowserFlow, (v151 = objc_msgSendSuper2(out, sel_initWithURL_sourceAppIdentifier_, v100, v205)) != 0))
           {
-            v153 = v152;
-            objc_storeStrong(v152 + 21, v96);
-            v154 = v153[19];
-            v153[19] = 0;
+            v152 = v151;
+            objc_storeStrong(v151 + 21, v96);
+            v153 = v152[19];
+            v152[19] = 0;
 
-            v155 = v153[20];
-            v153[20] = 0;
+            v154 = v152[20];
+            v152[20] = 0;
 
-            *(v153 + 13) = v206 != 0;
+            *(v152 + 13) = v205 != 0;
             *out = 0;
-            v156 = xpc_dictionary_get_data(v14, "crypto-signature", out);
-            if (v156 && *out)
+            v155 = xpc_dictionary_get_data(v14, "crypto-signature", out);
+            if (v155 && *out)
             {
-              v157 = v156;
-              v158 = objc_alloc(MEMORY[0x1E695DEF0]);
-              v159 = [v158 initWithBytes:v157 length:*out];
-              [v153 setCrypto_signature:v159];
+              v156 = v155;
+              v157 = objc_alloc(MEMORY[0x1E695DEF0]);
+              v158 = [v157 initWithBytes:v156 length:*out];
+              [v152 setCrypto_signature:v158];
             }
 
-            v160 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v93];
-            objc_setProperty_atomic_copy(v153, v161, v160, 128);
+            v159 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v93];
+            objc_setProperty_atomic_copy(v152, v160, v159, 128);
 
-            [v153 setEpid:v192];
-            [v153 setPid:v190];
-            if (v189)
+            [v152 setEpid:v191];
+            [v152 setPid:v189];
+            if (v188)
             {
-              v162 = 2;
+              v161 = 2;
             }
 
             else
             {
-              v162 = 1;
+              v161 = 1;
             }
 
-            [v153 setDirection:v162];
+            [v152 setDirection:v161];
             xpc_dictionary_get_audit_token();
-            v163 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:aBlock length:32];
-            [v153 setSourceAppAuditToken:v163];
+            v162 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:aBlock length:32];
+            [v152 setSourceAppAuditToken:v162];
 
-            v164 = xpc_dictionary_get_remote_connection(v14);
-            objc_setProperty_atomic(v153, v165, v164, 144);
+            v163 = xpc_dictionary_get_remote_connection(v14);
+            objc_setProperty_atomic(v152, v164, v163, 144);
 
-            v166 = xpc_dictionary_get_data(v14, "url-request", v226);
-            if (v166)
+            v165 = xpc_dictionary_get_data(v14, "url-request", v225);
+            if (v165)
             {
-              v167 = [MEMORY[0x1E695DEF0] dataWithBytes:v166 length:v226[0]];
-              if (v167)
+              v166 = [MEMORY[0x1E695DEF0] dataWithBytes:v165 length:v225[0]];
+              if (v166)
               {
-                v168 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v167 error:0];
-                v169 = [v168 decodeObjectOfClass:objc_opt_class() forKey:@"URL_Request"];
-                [v153 setRequest:v169];
+                v167 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v166 error:0];
+                v168 = [v167 decodeObjectOfClass:objc_opt_class() forKey:@"URL_Request"];
+                [v152 setRequest:v168];
 
-                [v168 finishDecoding];
+                [v167 finishDecoding];
               }
             }
 
-            v170 = xpc_dictionary_get_data(v14, "url-response", v226);
-            if (v170)
+            v169 = xpc_dictionary_get_data(v14, "url-response", v225);
+            if (v169)
             {
-              v171 = [MEMORY[0x1E695DEF0] dataWithBytes:v170 length:v226[0]];
-              if (v171)
+              v170 = [MEMORY[0x1E695DEF0] dataWithBytes:v169 length:v225[0]];
+              if (v170)
               {
-                v172 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v171 error:0];
-                v173 = [v172 decodeObjectOfClass:objc_opt_class() forKey:@"URL_Response"];
-                [v153 setResponse:v173];
+                v171 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v170 error:0];
+                v172 = [v171 decodeObjectOfClass:objc_opt_class() forKey:@"URL_Response"];
+                [v152 setResponse:v172];
 
-                [v172 finishDecoding];
+                [v171 finishDecoding];
               }
             }
 
-            if (*v195)
+            if (*v194)
             {
               socketExceptions = [(NEFilterDataExtensionProviderContext *)self socketExceptions];
-              v175 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*v195];
-              [socketExceptions addObject:v175];
+              v174 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*v194];
+              [socketExceptions addObject:v174];
             }
 
             browserFlows = self->_browserFlows;
             if (!browserFlows)
             {
               dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-              v178 = self->_browserFlows;
+              v177 = self->_browserFlows;
               self->_browserFlows = dictionary2;
 
               browserFlows = self->_browserFlows;
             }
 
-            v179 = browserFlows;
-            v181 = objc_getProperty(v153, v180, 128, 1);
-            [(NSMutableDictionary *)v179 setObject:v153 forKeyedSubscript:v181];
+            v178 = browserFlows;
+            v180 = objc_getProperty(v152, v179, 128, 1);
+            [(NSMutableDictionary *)v178 setObject:v152 forKeyedSubscript:v180];
 
             v91 = newValuec;
-            [(NEFilterDataExtensionProviderContext *)self handleNewFlow:v153 reply:newValuec controlSocket:-1 completionHandler:v92];
+            [(NEFilterDataExtensionProviderContext *)self handleNewFlow:v152 reply:newValuec controlSocket:-1 completionHandler:v92];
           }
 
           else
           {
 
-            v182 = ne_log_obj();
-            if (os_log_type_enabled(v182, OS_LOG_TYPE_ERROR))
+            v181 = ne_log_obj();
+            if (os_log_type_enabled(v181, OS_LOG_TYPE_ERROR))
             {
               *out = 0;
-              _os_log_error_impl(&dword_1BA83C000, v182, OS_LOG_TYPE_ERROR, "browserFlow: New flow rejected because flow object creation failed", out, 2u);
+              _os_log_error_impl(&dword_1BA83C000, v181, OS_LOG_TYPE_ERROR, "browserFlow: New flow rejected because flow object creation failed", out, 2u);
             }
 
             v91 = newValuec;
             xpc_dictionary_set_int64(newValuec, "error", 1);
             v92[2](v92);
-            v153 = 0;
+            v152 = 0;
           }
         }
 
@@ -883,7 +883,7 @@ LABEL_251:
           v92[2](v92);
         }
 
-        handlerCopy = v216;
+        handlerCopy = v215;
       }
 
       goto LABEL_196;
@@ -967,7 +967,7 @@ LABEL_260:
       if (v63 && *out)
       {
         v64 = v63;
-        v203 = v62;
+        v202 = v62;
         aBlock[0] = 0;
         v65 = xpc_dictionary_get_data(v14, "url-request", aBlock);
         if (v65)
@@ -975,16 +975,16 @@ LABEL_260:
           v66 = [MEMORY[0x1E695DEF0] dataWithBytes:v65 length:aBlock[0]];
           if (v66)
           {
-            v197 = v64;
+            v196 = v64;
             v67 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v66 error:0];
             [v67 decodeObjectOfClass:objc_opt_class() forKey:@"URL_Request"];
-            v68 = v213 = handlerCopy;
+            v68 = v212 = handlerCopy;
             [v61 setRequest:v68];
 
-            handlerCopy = v213;
+            handlerCopy = v212;
             [v67 finishDecoding];
 
-            v64 = v197;
+            v64 = v196;
           }
         }
 
@@ -994,32 +994,32 @@ LABEL_260:
           v70 = [MEMORY[0x1E695DEF0] dataWithBytes:v69 length:aBlock[0]];
           if (v70)
           {
-            v198 = v64;
+            v197 = v64;
             v71 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v70 error:0];
             [v71 decodeObjectOfClass:objc_opt_class() forKey:@"URL_Response"];
-            v72 = v214 = handlerCopy;
+            v72 = v213 = handlerCopy;
             [v61 setResponse:v72];
 
-            handlerCopy = v214;
+            handlerCopy = v213;
             [v71 finishDecoding];
 
-            v64 = v198;
+            v64 = v197;
           }
         }
 
         v73 = xpc_dictionary_get_uint64(v14, "data-start-offset");
         v74 = [MEMORY[0x1E695DEF0] dataWithBytes:v64 length:*out];
-        [(NEFilterDataExtensionProviderContext *)self handleData:v74 offset:v73 forFlow:v61 direction:v203 reply:v56 controlSocket:-1 completionHandler:v57];
+        [(NEFilterDataExtensionProviderContext *)self handleData:v74 offset:v73 forFlow:v61 direction:v202 reply:v56 controlSocket:-1 completionHandler:v57];
 
         goto LABEL_204;
       }
 
-      v149 = ne_log_obj();
-      if (os_log_type_enabled(v149, OS_LOG_TYPE_DEBUG))
+      v148 = ne_log_obj();
+      if (os_log_type_enabled(v148, OS_LOG_TYPE_DEBUG))
       {
         LODWORD(aBlock[0]) = 138412290;
         *(aBlock + 4) = newValuea;
-        _os_log_debug_impl(&dword_1BA83C000, v149, OS_LOG_TYPE_DEBUG, "browserFlow: Add data message rejected, invalid data parameter %@", aBlock, 0xCu);
+        _os_log_debug_impl(&dword_1BA83C000, v148, OS_LOG_TYPE_DEBUG, "browserFlow: Add data message rejected, invalid data parameter %@", aBlock, 0xCu);
       }
 
       v143 = v56;
@@ -1120,7 +1120,7 @@ LABEL_150:
         }
 
         v78 = v77;
-        v199 = v76;
+        v198 = v76;
         if (v76 == 8)
         {
           v79 = 2;
@@ -1134,34 +1134,34 @@ LABEL_150:
         v80 = [(NSMutableDictionary *)self->_channelFlows objectForKey:v77];
         if (v80)
         {
-          *&v222.sa_len = 0;
+          *&v221.sa_len = 0;
           memset(out, 0, 28);
-          if (xpc_dictionary_get_data(v14, "local-addr", &v222.sa_len) && *&v222.sa_len <= 0x1CuLL)
+          if (xpc_dictionary_get_data(v14, "local-addr", &v221.sa_len) && *&v221.sa_len <= 0x1CuLL)
           {
             __memcpy_chk();
             [(NEFilterSocketFlow *)v80 setLocalAddress:out];
           }
 
-          v204 = v79;
-          v215 = handlerCopy;
-          v226[0] = 0;
-          v226[1] = 0;
-          DWORD2(v227) = 0;
-          *&v227 = 0;
-          if (xpc_dictionary_get_data(v14, "remote-addr", &v222.sa_len) && *&v222.sa_len <= 0x1CuLL)
+          v203 = v79;
+          v214 = handlerCopy;
+          v225[0] = 0;
+          v225[1] = 0;
+          DWORD2(v226) = 0;
+          *&v226 = 0;
+          if (xpc_dictionary_get_data(v14, "remote-addr", &v221.sa_len) && *&v221.sa_len <= 0x1CuLL)
           {
             __memcpy_chk();
-            [(NEFilterSocketFlow *)v80 setRemoteAddress:v226];
+            [(NEFilterSocketFlow *)v80 setRemoteAddress:v225];
           }
 
           newValueb = v56;
-          *&v219.sa_len = 0;
-          v81 = xpc_dictionary_get_data(v14, "crypto-signature", &v219.sa_len);
-          if (v81 && *&v219.sa_len)
+          *&v218.sa_len = 0;
+          v81 = xpc_dictionary_get_data(v14, "crypto-signature", &v218.sa_len);
+          if (v81 && *&v218.sa_len)
           {
             v82 = v81;
             v83 = objc_alloc(MEMORY[0x1E695DEF0]);
-            v84 = [v83 initWithBytes:v82 length:*&v219.sa_len];
+            v84 = [v83 initWithBytes:v82 length:*&v218.sa_len];
             [v80 setCrypto_signature:v84];
           }
 
@@ -1173,29 +1173,29 @@ LABEL_150:
           v89 = ne_log_obj();
           if (os_log_type_enabled(v89, OS_LOG_TYPE_DEBUG))
           {
-            v183 = "out";
+            v182 = "out";
             LODWORD(aBlock[0]) = 136315906;
-            if (v199 == 8)
+            if (v198 == 8)
             {
-              v183 = "in";
+              v182 = "in";
             }
 
-            *(aBlock + 4) = v183;
+            *(aBlock + 4) = v182;
             WORD2(aBlock[1]) = 2112;
             *(&aBlock[1] + 6) = v78;
             HIWORD(aBlock[2]) = 2048;
             aBlock[3] = v85;
-            LOWORD(v229) = 2048;
-            *(&v229 + 2) = *dst;
+            LOWORD(v228) = 2048;
+            *(&v228 + 2) = *dst;
             _os_log_debug_impl(&dword_1BA83C000, v89, OS_LOG_TYPE_DEBUG, "Received %sbound data for %@ (offset %lld, dataLen %zu)", aBlock, 0x2Au);
           }
 
           v90 = v85;
           v56 = newValueb;
-          [(NEFilterDataExtensionProviderContext *)self handleData:v88 offset:v90 forFlow:v80 direction:v204 reply:newValueb controlSocket:-1 completionHandler:v57];
+          [(NEFilterDataExtensionProviderContext *)self handleData:v88 offset:v90 forFlow:v80 direction:v203 reply:newValueb controlSocket:-1 completionHandler:v57];
 
 LABEL_130:
-          handlerCopy = v215;
+          handlerCopy = v214;
 LABEL_192:
 
 LABEL_193:
@@ -1222,7 +1222,7 @@ LABEL_193:
 
       LODWORD(aBlock[0]) = 136315138;
       *(aBlock + 4) = "[NEFilterDataExtensionProviderContext handleChannelMessageMoreData:filloutReply:completionHandler:]";
-      v187 = "%s called with null completionHandler";
+      v186 = "%s called with null completionHandler";
     }
 
     else
@@ -1235,10 +1235,10 @@ LABEL_193:
 
       LODWORD(aBlock[0]) = 136315138;
       *(aBlock + 4) = "[NEFilterDataExtensionProviderContext handleChannelMessageMoreData:filloutReply:completionHandler:]";
-      v187 = "%s called with null message";
+      v186 = "%s called with null message";
     }
 
-    _os_log_fault_impl(&dword_1BA83C000, v78, OS_LOG_TYPE_FAULT, v187, aBlock, 0xCu);
+    _os_log_fault_impl(&dword_1BA83C000, v78, OS_LOG_TYPE_FAULT, v186, aBlock, 0xCu);
     goto LABEL_193;
   }
 
@@ -1264,10 +1264,10 @@ LABEL_193:
         aBlock[2] = __103__NEFilterDataExtensionProviderContext_handleChannelMessageStatsReport_filloutReply_completionHandler___block_invoke;
         aBlock[3] = &unk_1E7F076A0;
         v118 = v14;
-        *&v229 = self;
-        *(&v229 + 1) = v118;
+        *&v228 = self;
+        *(&v228 + 1) = v118;
         xpc_array_apply(v56, aBlock);
-        v119 = *(&v229 + 1);
+        v119 = *(&v228 + 1);
       }
 
       else
@@ -1295,13 +1295,11 @@ LABEL_77:
   }
 
 LABEL_197:
-
-  v146 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleChannelMessageFlowFinish:(void *)finish filloutReply:(void *)reply completionHandler:
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v7 = a2;
   finishCopy = finish;
   replyCopy = reply;
@@ -1362,16 +1360,16 @@ LABEL_197:
         v22 = ne_log_obj();
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
-          v24 = "in";
+          v23 = "in";
           if (int64 == 9)
           {
-            v24 = "out";
+            v23 = "out";
           }
 
           *buf = 136315394;
-          v27 = v24;
-          v28 = 2112;
-          v29 = v12;
+          v26 = v23;
+          v27 = 2112;
+          v28 = v12;
           _os_log_debug_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_DEBUG, "Received finished %sbound data for %@", buf, 0x16u);
         }
 
@@ -1383,7 +1381,7 @@ LABEL_197:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v27 = v12;
+        v26 = v12;
         _os_log_debug_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_DEBUG, "Finished flow for %@", buf, 0xCu);
       }
 
@@ -1396,7 +1394,7 @@ LABEL_197:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v27 = v12;
+        v26 = v12;
         _os_log_debug_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_DEBUG, "Finished data message rejected, no flow found for %@", buf, 0xCu);
       }
 
@@ -1412,13 +1410,11 @@ LABEL_28:
 
 LABEL_29:
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __103__NEFilterDataExtensionProviderContext_handleChannelMessageStatsReport_filloutReply_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = v4;
   if (v4 && MEMORY[0x1BFAFC5E0](v4) == MEMORY[0x1E69E9E80])
@@ -1446,8 +1442,8 @@ uint64_t __103__NEFilterDataExtensionProviderContext_handleChannelMessageStatsRe
         length = 0;
         *&buf.sa_len = 0;
         *&buf.sa_data[6] = 0;
+        v16 = 0;
         v17 = 0;
-        v18 = 0;
         if (xpc_dictionary_get_data(v5, "local-addr", &length) && length <= 0x1C)
         {
           __memcpy_chk();
@@ -1484,7 +1480,6 @@ uint64_t __103__NEFilterDataExtensionProviderContext_handleChannelMessageStatsRe
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -1527,7 +1522,7 @@ uint64_t __103__NEFilterDataExtensionProviderContext_handleChannelMessageStatsRe
 
 - (void)reportFlow:(void *)flow forVerdict:(uint64_t)verdict event:
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v7 = a2;
   flowCopy = flow;
   v9 = flowCopy;
@@ -1557,16 +1552,14 @@ uint64_t __103__NEFilterDataExtensionProviderContext_handleChannelMessageStatsRe
       v12 = ne_log_obj();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v16 = 138412546;
-        v17 = v9;
-        v18 = 2048;
+        v15 = 138412546;
+        v16 = v9;
+        v17 = 2048;
         verdictCopy = verdict;
-        _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, "Failed to get an action for verdict (%@), cannot generate flow report with type %ld", &v16, 0x16u);
+        _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, "Failed to get an action for verdict (%@), cannot generate flow report with type %ld", &v15, 0x16u);
       }
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)closeChannelFlow:(id *)flow
@@ -1628,7 +1621,7 @@ uint64_t __103__NEFilterDataExtensionProviderContext_handleChannelMessageStatsRe
 
 id __114__NEFilterDataExtensionProviderContext_handleDataCompleteForFlow_direction_reply_controlSocket_completionHandler___block_invoke(uint64_t a1, const char *a2)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 56);
   Property = *(a1 + 32);
   if (Property)
@@ -1655,32 +1648,32 @@ id __114__NEFilterDataExtensionProviderContext_handleDataCompleteForFlow_directi
   {
     if (*(a1 + 56) == 2)
     {
-      v24 = @"Inbound";
+      v23 = @"Inbound";
     }
 
     else
     {
-      v24 = @"Outbound";
+      v23 = @"Outbound";
     }
 
-    v25 = [*(a1 + 32) identifier];
-    v27 = [v25 UUIDString];
-    v28 = *(a1 + 32);
-    if (v28)
+    v24 = [*(a1 + 32) identifier];
+    v26 = [v24 UUIDString];
+    v27 = *(a1 + 32);
+    if (v27)
     {
-      v28 = objc_getProperty(v28, v26, 112, 1);
+      v27 = objc_getProperty(v27, v25, 112, 1);
     }
 
-    v29 = v28;
-    v30 = 138413058;
-    v31 = v24;
-    v32 = 2112;
-    v33 = v27;
-    v34 = 2048;
-    v35 = v8;
-    v36 = 1024;
-    v37 = [v29 shouldReport];
-    _os_log_debug_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEBUG, "%@ handleDataCompleteForFlow - for flow %@ passOffset %llu shouldReport %d", &v30, 0x26u);
+    v28 = v27;
+    v29 = 138413058;
+    v30 = v23;
+    v31 = 2112;
+    v32 = v26;
+    v33 = 2048;
+    v34 = v8;
+    v35 = 1024;
+    v36 = [v28 shouldReport];
+    _os_log_debug_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEBUG, "%@ handleDataCompleteForFlow - for flow %@ passOffset %llu shouldReport %d", &v29, 0x26u);
   }
 
   v11 = *(a1 + 56);
@@ -1748,14 +1741,12 @@ LABEL_20:
     v21 = ;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-
   return v21;
 }
 
 void __114__NEFilterDataExtensionProviderContext_handleDataCompleteForFlow_direction_reply_controlSocket_completionHandler___block_invoke_135(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (nelog_is_debug_logging_enabled())
   {
@@ -1764,22 +1755,22 @@ void __114__NEFilterDataExtensionProviderContext_handleDataCompleteForFlow_direc
     {
       if (*(a1 + 64) == 2)
       {
-        v12 = @"Inbound";
+        v11 = @"Inbound";
       }
 
       else
       {
-        v12 = @"Outbound";
+        v11 = @"Outbound";
       }
 
-      v13 = [*(a1 + 32) identifierString];
-      v14 = 138412802;
-      v15 = v12;
-      v16 = 2112;
-      v17 = v13;
-      v18 = 2112;
-      v19 = v3;
-      _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "%@ data complete verdict for flow %@: %@", &v14, 0x20u);
+      v12 = [*(a1 + 32) identifierString];
+      v13 = 138412802;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v12;
+      v17 = 2112;
+      v18 = v3;
+      _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "%@ data complete verdict for flow %@: %@", &v13, 0x20u);
     }
   }
 
@@ -1811,8 +1802,6 @@ void __114__NEFilterDataExtensionProviderContext_handleDataCompleteForFlow_direc
   {
     (*(v10 + 16))();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)closeFlow:(id *)flow
@@ -2104,7 +2093,7 @@ LABEL_20:
 
 void __114__NEFilterDataExtensionProviderContext_handleData_offset_forFlow_direction_reply_controlSocket_completionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (nelog_is_debug_logging_enabled())
   {
@@ -2113,22 +2102,22 @@ void __114__NEFilterDataExtensionProviderContext_handleData_offset_forFlow_direc
     {
       if (*(a1 + 64) == 2)
       {
-        v12 = @"Inbound";
+        v11 = @"Inbound";
       }
 
       else
       {
-        v12 = @"Outbound";
+        v11 = @"Outbound";
       }
 
-      v13 = [*(a1 + 32) identifierString];
-      v14 = 138412802;
-      v15 = v12;
-      v16 = 2112;
-      v17 = v13;
-      v18 = 2112;
-      v19 = v3;
-      _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "%@ data verdict for flow %@: %@", &v14, 0x20u);
+      v12 = [*(a1 + 32) identifierString];
+      v13 = 138412802;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v12;
+      v17 = 2112;
+      v18 = v3;
+      _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "%@ data verdict for flow %@: %@", &v13, 0x20u);
     }
   }
 
@@ -2160,8 +2149,6 @@ void __114__NEFilterDataExtensionProviderContext_handleData_offset_forFlow_direc
   {
     (*(v10 + 16))();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleNewFlow:(void *)flow reply:(int)reply controlSocket:(void *)socket completionHandler:
@@ -2208,15 +2195,15 @@ void __92__NEFilterDataExtensionProviderContext_handleNewFlow_reply_controlSocke
 
 void __92__NEFilterDataExtensionProviderContext_handleNewFlow_reply_controlSocket_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (nelog_is_debug_logging_enabled())
   {
     v2 = ne_log_obj();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      v14 = *(a1 + 32);
+      v13 = *(a1 + 32);
       *buf = 138412290;
-      v24 = v14;
+      v23 = v13;
       _os_log_debug_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEBUG, "Handling new flow: %@", buf, 0xCu);
     }
   }
@@ -2226,48 +2213,46 @@ void __92__NEFilterDataExtensionProviderContext_handleNewFlow_reply_controlSocke
   aBlock[1] = 3221225472;
   aBlock[2] = __92__NEFilterDataExtensionProviderContext_handleNewFlow_reply_controlSocket_completionHandler___block_invoke_127;
   aBlock[3] = &unk_1E7F07540;
-  v21 = v3;
-  v22 = *(a1 + 32);
+  v20 = v3;
+  v21 = *(a1 + 32);
   v4 = v3;
   v5 = _Block_copy(aBlock);
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __92__NEFilterDataExtensionProviderContext_handleNewFlow_reply_controlSocket_completionHandler___block_invoke_2_128;
-  v16[3] = &unk_1E7F07568;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __92__NEFilterDataExtensionProviderContext_handleNewFlow_reply_controlSocket_completionHandler___block_invoke_2_128;
+  v15[3] = &unk_1E7F07568;
   v6 = *(a1 + 32);
   v7 = *(a1 + 48);
-  v19 = *(a1 + 64);
-  v15 = *(a1 + 40);
+  v18 = *(a1 + 64);
+  v14 = *(a1 + 40);
   v8 = *(a1 + 56);
-  *&v9 = v15;
+  *&v9 = v14;
   *(&v9 + 1) = v8;
   *&v10 = v6;
   *(&v10 + 1) = v7;
-  v17 = v10;
-  v18 = v9;
-  v11 = _Block_copy(v16);
+  v16 = v10;
+  v17 = v9;
+  v11 = _Block_copy(v15);
   v12 = [[NEFilterDataSavedMessageHandler alloc] initWithGetVerdictBlock:v5 handleVerdictBlock:v11];
   [(NEFilterDataSavedMessageHandler *)v12 enqueueWithFlow:*(a1 + 40) context:?];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __92__NEFilterDataExtensionProviderContext_handleNewFlow_reply_controlSocket_completionHandler___block_invoke_2_128(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (nelog_is_debug_logging_enabled())
   {
     v4 = ne_log_obj();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v7 = [*(a1 + 32) identifier];
-      v8 = [v7 UUIDString];
-      v9 = 138412546;
-      v10 = v8;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "New flow verdict for %@: %@", &v9, 0x16u);
+      v6 = [*(a1 + 32) identifier];
+      v7 = [v6 UUIDString];
+      v8 = 138412546;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "New flow verdict for %@: %@", &v8, 0x16u);
     }
   }
 
@@ -2286,25 +2271,23 @@ void __92__NEFilterDataExtensionProviderContext_handleNewFlow_reply_controlSocke
   {
     (*(v5 + 16))();
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __96__NEFilterDataExtensionProviderContext_handleRemediationMessage_filloutReply_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (nelog_is_debug_logging_enabled())
   {
     v4 = ne_log_obj();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v6 = [*(a1 + 32) identifierString];
-      v7 = 138412546;
-      v8 = v6;
-      v9 = 2112;
-      v10 = v3;
-      _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "Remediation verdict for %@: %@", &v7, 0x16u);
+      v5 = [*(a1 + 32) identifierString];
+      v6 = 138412546;
+      v7 = v5;
+      v8 = 2112;
+      v9 = v3;
+      _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "Remediation verdict for %@: %@", &v6, 0x16u);
     }
   }
 
@@ -2321,8 +2304,6 @@ void __96__NEFilterDataExtensionProviderContext_handleRemediationMessage_fillout
 
   [(NEFilterDataExtensionProviderContext *)*(a1 + 40) closeBrowserFilterFlow:?];
   (*(*(a1 + 56) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)socketExceptions
@@ -2391,7 +2372,7 @@ LABEL_6:
 
 void __76__NEFilterDataExtensionProviderContext_updateFlow_withVerdict_forDirection___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v2 = [(NEFilterDataExtensionProviderContext *)*(a1 + 32) findFlowWithFlow:?];
   if (!v2)
   {
@@ -2403,7 +2384,7 @@ void __76__NEFilterDataExtensionProviderContext_updateFlow_withVerdict_forDirect
 
     v10 = [*(a1 + 40) identifierString];
     *buf = 138412290;
-    v21 = v10;
+    v20 = v10;
     v11 = "Cannot update the verdict for flow %@ which does not exist";
 LABEL_8:
     _os_log_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEFAULT, v11, buf, 0xCu);
@@ -2422,7 +2403,7 @@ LABEL_8:
 
     v10 = [v2 identifierString];
     *buf = 138412290;
-    v21 = v10;
+    v20 = v10;
     v11 = "Cannot update the verdict for flow %@ which is not a socket flow";
     goto LABEL_8;
   }
@@ -2431,27 +2412,25 @@ LABEL_8:
   aBlock[1] = 3221225472;
   aBlock[2] = __76__NEFilterDataExtensionProviderContext_updateFlow_withVerdict_forDirection___block_invoke_119;
   aBlock[3] = &unk_1E7F074C8;
-  v19 = *(a1 + 48);
+  v18 = *(a1 + 48);
   v3 = _Block_copy(aBlock);
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __76__NEFilterDataExtensionProviderContext_updateFlow_withVerdict_forDirection___block_invoke_2;
-  v13[3] = &unk_1E7F074F0;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __76__NEFilterDataExtensionProviderContext_updateFlow_withVerdict_forDirection___block_invoke_2;
+  v12[3] = &unk_1E7F074F0;
   v4 = v2;
-  v14 = v4;
+  v13 = v4;
   v5 = *(a1 + 48);
   v6 = *(a1 + 32);
-  v15 = v5;
-  v16 = v6;
-  v17 = *(a1 + 56);
-  v7 = _Block_copy(v13);
+  v14 = v5;
+  v15 = v6;
+  v16 = *(a1 + 56);
+  v7 = _Block_copy(v12);
   v8 = [[NEFilterDataSavedMessageHandler alloc] initWithGetVerdictBlock:v3 handleVerdictBlock:v7];
   [(NEFilterDataSavedMessageHandler *)v8 enqueueWithFlow:v4 context:*(a1 + 32)];
 
-  v9 = v19;
+  v9 = v18;
 LABEL_9:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)findFlowWithFlow:(uint64_t)flow
@@ -2527,20 +2506,20 @@ LABEL_16:
 
 void __76__NEFilterDataExtensionProviderContext_updateFlow_withVerdict_forDirection___block_invoke_2(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (nelog_is_debug_logging_enabled())
   {
     v4 = ne_log_obj();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v29 = [*(a1 + 32) identifierString];
-      v30 = *(a1 + 40);
-      v31 = 138412546;
-      v32 = v29;
-      v33 = 2112;
-      v34 = v30;
-      _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "Provider set data verdict for flow %@: %@", &v31, 0x16u);
+      v28 = [*(a1 + 32) identifierString];
+      v29 = *(a1 + 40);
+      v30 = 138412546;
+      v31 = v28;
+      v32 = 2112;
+      v33 = v29;
+      _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "Provider set data verdict for flow %@: %@", &v30, 0x16u);
     }
   }
 
@@ -2566,8 +2545,8 @@ LABEL_33:
       }
 
       v24 = [*(a1 + 32) identifierString];
-      v31 = 138412290;
-      v32 = v24;
+      v30 = 138412290;
+      v31 = v24;
       v25 = "Failed to find control socket to update verdict for flow %@";
     }
 
@@ -2580,12 +2559,12 @@ LABEL_33:
       }
 
       v24 = [*(a1 + 32) identifierString];
-      v31 = 138412290;
-      v32 = v24;
+      v30 = 138412290;
+      v31 = v24;
       v25 = "Failed to find control socket source to update verdict for flow %@";
     }
 
-    _os_log_error_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_ERROR, v25, &v31, 0xCu);
+    _os_log_error_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_ERROR, v25, &v30, 0xCu);
 
     goto LABEL_33;
   }
@@ -2612,11 +2591,11 @@ LABEL_12:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       v26 = [*(a1 + 32) identifierString];
-      v31 = 138412290;
-      v32 = v26;
+      v30 = 138412290;
+      v31 = v26;
       v27 = "Cannot update the verdict for flow %@ because a NEFilterNewFlowVerdict has not yet been provided for this flow";
 LABEL_38:
-      _os_log_error_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_ERROR, v27, &v31, 0xCu);
+      _os_log_error_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_ERROR, v27, &v30, 0xCu);
     }
 
 LABEL_34:
@@ -2644,8 +2623,8 @@ LABEL_34:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       v26 = [*(a1 + 32) identifierString];
-      v31 = 138412290;
-      v32 = v26;
+      v30 = 138412290;
+      v31 = v26;
       v27 = "Flow %@ does not have a connection to update its verdict";
       goto LABEL_38;
     }
@@ -2688,8 +2667,6 @@ LABEL_22:
   }
 
 LABEL_35:
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resumeFlow:(id)flow withVerdict:(id)verdict
@@ -2734,7 +2711,7 @@ LABEL_8:
 
 void __63__NEFilterDataExtensionProviderContext_resumeFlow_withVerdict___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = [(NEFilterDataExtensionProviderContext *)*(a1 + 32) findFlowWithFlow:?];
   v4 = v2;
   if (!v2)
@@ -2743,9 +2720,9 @@ void __63__NEFilterDataExtensionProviderContext_resumeFlow_withVerdict___block_i
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v21 = [*(a1 + 40) identifierString];
-      v26 = 138412290;
-      v27 = v21;
-      _os_log_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEFAULT, "Ignoring resume command for flow %@ which does not exist", &v26, 0xCu);
+      v25 = 138412290;
+      v26 = v21;
+      _os_log_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEFAULT, "Ignoring resume command for flow %@ which does not exist", &v25, 0xCu);
     }
 
     goto LABEL_15;
@@ -2804,13 +2781,12 @@ LABEL_15:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     v20 = [v4 identifierString];
-    v26 = 138412290;
-    v27 = v20;
-    _os_log_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_DEFAULT, "Ignoring resume command for flow %@ which is not paused", &v26, 0xCu);
+    v25 = 138412290;
+    v26 = v20;
+    _os_log_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_DEFAULT, "Ignoring resume command for flow %@ which is not paused", &v25, 0xCu);
   }
 
 LABEL_16:
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)applySettings:(id)settings completionHandler:(id)handler
@@ -2968,21 +2944,21 @@ void __85__NEFilterDataExtensionProviderContext_fetchProviderConnectionWithCompl
 
 void __66__NEFilterDataExtensionProviderContext_acceptNewClientConnection___block_invoke(uint64_t a1, void *a2)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3 && MEMORY[0x1BFAFC5E0](v3) == MEMORY[0x1E69E9E80])
   {
     reply = xpc_dictionary_create_reply(v4);
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __66__NEFilterDataExtensionProviderContext_acceptNewClientConnection___block_invoke_2;
-    v30[3] = &unk_1E7F0A0E8;
-    v31 = reply;
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __66__NEFilterDataExtensionProviderContext_acceptNewClientConnection___block_invoke_2;
+    v29[3] = &unk_1E7F0A0E8;
+    v30 = reply;
     v28 = *(a1 + 32);
-    v32 = *(a1 + 40);
+    v31 = *(a1 + 40);
     v6 = reply;
-    [v28 handleClientMessage:v4 filloutReply:v6 completionHandler:v30];
+    [v28 handleClientMessage:v4 filloutReply:v6 completionHandler:v29];
   }
 
   else
@@ -2992,29 +2968,29 @@ void __66__NEFilterDataExtensionProviderContext_acceptNewClientConnection___bloc
     if (v5)
     {
       [v5[18] allValues];
+      v36 = 0u;
       v37 = 0u;
       v38 = 0u;
-      v39 = 0u;
-      v7 = v40 = 0u;
-      v8 = [v7 countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v7 = v39 = 0u;
+      v8 = [v7 countByEnumeratingWithState:&v36 objects:v41 count:16];
       if (v8)
       {
         v10 = v8;
-        v11 = *v38;
+        v11 = *v37;
         do
         {
           v12 = 0;
           do
           {
-            if (*v38 != v11)
+            if (*v37 != v11)
             {
               objc_enumerationMutation(v7);
             }
 
-            v13 = *(*(&v37 + 1) + 8 * v12);
+            v13 = *(*(&v36 + 1) + 8 * v12);
             if (v13)
             {
-              Property = objc_getProperty(*(*(&v37 + 1) + 8 * v12), v9, 144, 1);
+              Property = objc_getProperty(*(*(&v36 + 1) + 8 * v12), v9, 144, 1);
             }
 
             else
@@ -3033,7 +3009,7 @@ void __66__NEFilterDataExtensionProviderContext_acceptNewClientConnection___bloc
           }
 
           while (v10 != v12);
-          v16 = [v7 countByEnumeratingWithState:&v37 objects:v42 count:16];
+          v16 = [v7 countByEnumeratingWithState:&v36 objects:v41 count:16];
           v10 = v16;
         }
 
@@ -3041,29 +3017,29 @@ void __66__NEFilterDataExtensionProviderContext_acceptNewClientConnection___bloc
       }
 
       [v5[20] allValues];
+      v32 = 0u;
       v33 = 0u;
       v34 = 0u;
-      v35 = 0u;
-      v17 = v36 = 0u;
-      v18 = [v17 countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v17 = v35 = 0u;
+      v18 = [v17 countByEnumeratingWithState:&v32 objects:v40 count:16];
       if (v18)
       {
         v20 = v18;
-        v21 = *v34;
+        v21 = *v33;
         do
         {
           v22 = 0;
           do
           {
-            if (*v34 != v21)
+            if (*v33 != v21)
             {
               objc_enumerationMutation(v17);
             }
 
-            v23 = *(*(&v33 + 1) + 8 * v22);
+            v23 = *(*(&v32 + 1) + 8 * v22);
             if (v23)
             {
-              v24 = objc_getProperty(*(*(&v33 + 1) + 8 * v22), v19, 144, 1);
+              v24 = objc_getProperty(*(*(&v32 + 1) + 8 * v22), v19, 144, 1);
             }
 
             else
@@ -3082,7 +3058,7 @@ void __66__NEFilterDataExtensionProviderContext_acceptNewClientConnection___bloc
           }
 
           while (v20 != v22);
-          v26 = [v17 countByEnumeratingWithState:&v33 objects:v41 count:16];
+          v26 = [v17 countByEnumeratingWithState:&v32 objects:v40 count:16];
           v20 = v26;
         }
 
@@ -3097,8 +3073,6 @@ void __66__NEFilterDataExtensionProviderContext_acceptNewClientConnection___bloc
       xpc_connection_cancel(v6);
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void __66__NEFilterDataExtensionProviderContext_acceptNewClientConnection___block_invoke_2(uint64_t a1)
@@ -3112,7 +3086,7 @@ void __66__NEFilterDataExtensionProviderContext_acceptNewClientConnection___bloc
 
 - (void)providerControlSocketFileHandle:(id)handle
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = dup([handle fileDescriptor]);
   if (self)
   {
@@ -3126,45 +3100,44 @@ void __66__NEFilterDataExtensionProviderContext_acceptNewClientConnection___bloc
         HIDWORD(handler[0]) = v5;
         _os_log_error_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_ERROR, "Invalid controlSocket value: %d", handler, 8u);
       }
-
-      goto LABEL_7;
     }
 
-    dictionary = [MEMORY[0x1E695DF90] dictionary];
-    socketFlows = self->_socketFlows;
-    self->_socketFlows = dictionary;
-
-    queue = [(NEFilterExtensionProviderContext *)self queue];
-    v9 = dispatch_source_create(MEMORY[0x1E69E96F8], v5, 0, queue);
-
-    if (v9)
+    else
     {
+      dictionary = [MEMORY[0x1E695DF90] dictionary];
+      socketFlows = self->_socketFlows;
+      self->_socketFlows = dictionary;
+
+      queue = [(NEFilterExtensionProviderContext *)self queue];
+      v9 = dispatch_source_create(MEMORY[0x1E69E96F8], v5, 0, queue);
+
+      if (!v9)
+      {
+        return;
+      }
+
       handler[0] = MEMORY[0x1E69E9820];
       handler[1] = 3221225472;
       handler[2] = __75__NEFilterDataExtensionProviderContext_setupSocketSourceWithControlSocket___block_invoke;
       handler[3] = &unk_1E7F0A0E8;
       v10 = v9;
-      v19 = v10;
+      v18 = v10;
       selfCopy = self;
       dispatch_source_set_cancel_handler(v10, handler);
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __75__NEFilterDataExtensionProviderContext_setupSocketSourceWithControlSocket___block_invoke_124;
-      v15[3] = &unk_1E7F0A0E8;
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __75__NEFilterDataExtensionProviderContext_setupSocketSourceWithControlSocket___block_invoke_124;
+      v14[3] = &unk_1E7F0A0E8;
       v11 = v10;
-      v16 = v11;
+      v15 = v11;
       selfCopy2 = self;
-      dispatch_source_set_event_handler(v11, v15);
+      dispatch_source_set_event_handler(v11, v14);
       dispatch_resume(v11);
       source = self->_source;
       self->_source = v11;
       v13 = v11;
-
-LABEL_7:
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __75__NEFilterDataExtensionProviderContext_setupSocketSourceWithControlSocket___block_invoke(uint64_t a1)
@@ -3188,15 +3161,15 @@ void __75__NEFilterDataExtensionProviderContext_setupSocketSourceWithControlSock
 void __75__NEFilterDataExtensionProviderContext_setupSocketSourceWithControlSocket___block_invoke_124(uint64_t a1)
 {
   v1 = MEMORY[0x1EEE9AC00](a1);
-  v116 = *MEMORY[0x1E69E9840];
+  v115 = *MEMORY[0x1E69E9840];
   handle = dispatch_source_get_handle(*(v1 + 32));
   v3 = *(v1 + 40);
   if (v3)
   {
     v4 = handle;
-    v105 = 4;
+    v104 = 4;
     size = 0;
-    if (getsockopt(handle, 0xFFFF, 4128, &size, &v105))
+    if (getsockopt(handle, 0xFFFF, 4128, &size, &v104))
     {
       v5 = ne_log_obj();
       if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
@@ -3207,27 +3180,27 @@ LABEL_5:
         v6 = 0;
 LABEL_6:
 
-        goto LABEL_7;
+        return;
       }
 
-      v31 = __error();
-      v32 = strerror(*v31);
-      *v114 = 136315138;
-      v115 = v32;
-      v33 = "Could not get packet size. Received error: %s";
-      v34 = v114;
-      v35 = v5;
-      v36 = 12;
+      v30 = __error();
+      v31 = strerror(*v30);
+      *v113 = 136315138;
+      v114 = v31;
+      v32 = "Could not get packet size. Received error: %s";
+      v33 = v113;
+      v34 = v5;
+      v35 = 12;
 LABEL_42:
-      _os_log_error_impl(&dword_1BA83C000, v35, OS_LOG_TYPE_ERROR, v33, v34, v36);
+      _os_log_error_impl(&dword_1BA83C000, v34, OS_LOG_TYPE_ERROR, v32, v33, v35);
       goto LABEL_4;
     }
 
-    v8 = size;
+    v7 = size;
     if (size < 10241)
     {
-      v12 = v114;
-      v13 = 10240;
+      v11 = v113;
+      v12 = 10240;
     }
 
     else
@@ -3236,51 +3209,51 @@ LABEL_42:
       {
         while (1)
         {
-          v9 = v8 >= 10240 ? 10240 : v8;
-          v10 = recv(v4, v114, v9, 0);
-          if (!v10)
+          v8 = v7 >= 10240 ? 10240 : v7;
+          v9 = recv(v4, v113, v8, 0);
+          if (!v9)
           {
             break;
           }
 
-          if (v10 == -1)
+          if (v9 == -1)
           {
-            v38 = ne_log_obj();
-            if (!os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+            v37 = ne_log_obj();
+            if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_49;
             }
 
-            v39 = __error();
-            v40 = strerror(*v39);
+            v38 = __error();
+            v39 = strerror(*v38);
             *buf = 136315138;
-            *&buf[4] = v40;
-            v41 = "data purge: recv() failed: %s";
-            v42 = v38;
-            v43 = 12;
+            *&buf[4] = v39;
+            v40 = "data purge: recv() failed: %s";
+            v41 = v37;
+            v42 = 12;
             goto LABEL_105;
           }
 
-          v11 = v10 >= v8 || v8 - v10 <= 0;
-          LODWORD(v8) = v8 - v10;
-          if (v11)
+          v10 = v9 >= v7 || v7 - v9 <= 0;
+          LODWORD(v7) = v7 - v9;
+          if (v10)
           {
             goto LABEL_50;
           }
         }
 
-        v38 = ne_log_obj();
-        if (!os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        v37 = ne_log_obj();
+        if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_49;
         }
 
         *buf = 0;
-        v41 = "data purge: no data to read";
-        v42 = v38;
-        v43 = 2;
+        v40 = "data purge: no data to read";
+        v41 = v37;
+        v42 = 2;
 LABEL_105:
-        _os_log_error_impl(&dword_1BA83C000, v42, OS_LOG_TYPE_ERROR, v41, buf, v43);
+        _os_log_error_impl(&dword_1BA83C000, v41, OS_LOG_TYPE_ERROR, v40, buf, v42);
 LABEL_49:
 
 LABEL_50:
@@ -3292,77 +3265,77 @@ LABEL_50:
 
         *buf = 67109120;
         *&buf[4] = size;
-        v33 = "Received data too large, %d bytes from kernel content filter";
-        v34 = buf;
-        v35 = v5;
-        v36 = 8;
+        v32 = "Received data too large, %d bytes from kernel content filter";
+        v33 = buf;
+        v34 = v5;
+        v35 = 8;
         goto LABEL_42;
       }
 
-      v12 = malloc_type_malloc(size, 0x100004077774924uLL);
-      v13 = v8;
-      if (!v12)
+      v11 = malloc_type_malloc(size, 0x100004077774924uLL);
+      v12 = v7;
+      if (!v11)
       {
-        v37 = ne_log_obj();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+        v36 = ne_log_obj();
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          *&buf[4] = v8;
-          _os_log_error_impl(&dword_1BA83C000, v37, OS_LOG_TYPE_ERROR, "Failed to alloc large receive buffer of size %d", buf, 8u);
+          *&buf[4] = v7;
+          _os_log_error_impl(&dword_1BA83C000, v36, OS_LOG_TYPE_ERROR, "Failed to alloc large receive buffer of size %d", buf, 8u);
         }
 
         goto LABEL_5;
       }
     }
 
-    v14 = recv(v4, v12, v13, 0);
-    if (v14 == -1)
+    v13 = recv(v4, v11, v12, 0);
+    if (v13 == -1)
     {
-      v15 = ne_log_obj();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v14 = ne_log_obj();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v18 = __error();
-        v19 = strerror(*v18);
+        v17 = __error();
+        v18 = strerror(*v17);
         *buf = 136315138;
-        *&buf[4] = v19;
-        v17 = "recv() failed: %s";
-        v20 = v15;
-        v21 = 12;
+        *&buf[4] = v18;
+        v16 = "recv() failed: %s";
+        v19 = v14;
+        v20 = 12;
 LABEL_36:
-        _os_log_error_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_ERROR, v17, buf, v21);
+        _os_log_error_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_ERROR, v16, buf, v20);
         goto LABEL_37;
       }
 
       goto LABEL_37;
     }
 
-    if (*v12 <= 0x17)
+    if (*v11 <= 0x17)
     {
-      v15 = ne_log_obj();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v14 = ne_log_obj();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v16 = *v12;
+        v15 = *v11;
         *buf = 67109120;
-        *&buf[4] = v16;
-        v17 = "Received message of invalid length %d from kernel content filter";
+        *&buf[4] = v15;
+        v16 = "Received message of invalid length %d from kernel content filter";
 LABEL_35:
-        v20 = v15;
-        v21 = 8;
+        v19 = v14;
+        v20 = 8;
         goto LABEL_36;
       }
 
       goto LABEL_37;
     }
 
-    if (v12[2] != 1)
+    if (v11[2] != 1)
     {
-      v15 = ne_log_obj();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v14 = ne_log_obj();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v30 = v12[2];
+        v29 = v11[2];
         *buf = 67109120;
-        *&buf[4] = v30;
-        v17 = "Received unexpected message of type %d from kernel content filter";
+        *&buf[4] = v29;
+        v16 = "Received unexpected message of type %d from kernel content filter";
         goto LABEL_35;
       }
 
@@ -3372,188 +3345,188 @@ LABEL_37:
       goto LABEL_38;
     }
 
-    v22 = v14;
-    v23 = *(v12 + 2);
-    v24 = MEMORY[0x1E696AD98];
-    v25 = *(v3 + 152);
-    v26 = [v24 numberWithUnsignedLongLong:v23];
-    v6 = [v25 objectForKey:v26];
+    v21 = v13;
+    v22 = *(v11 + 2);
+    v23 = MEMORY[0x1E696AD98];
+    v24 = *(v3 + 152);
+    v25 = [v23 numberWithUnsignedLongLong:v22];
+    v6 = [v24 objectForKey:v25];
 
-    v27 = [(NEFilterDataExtensionProviderContext *)v3 socketExceptions];
-    v28 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v23];
-    v29 = [v27 containsObject:v28];
+    v26 = [(NEFilterDataExtensionProviderContext *)v3 socketExceptions];
+    v27 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v22];
+    v28 = [v26 containsObject:v27];
 
-    if (v29)
+    if (v28)
     {
-      [NEFilterSocketFlow writeMessageWithControlSocket:v4 drop:0 socketID:v23 inboundPassOffset:-1 inboundPeekOffset:0 outboundPassOffset:-1 outboundPeekOffset:0 statsReportFrequency:0];
+      [NEFilterSocketFlow writeMessageWithControlSocket:v4 drop:0 socketID:v22 inboundPassOffset:-1 inboundPeekOffset:0 outboundPassOffset:-1 outboundPeekOffset:0 statsReportFrequency:0];
 LABEL_32:
-      [(NEFilterDataExtensionProviderContext *)v3 closeSocketFlow:v6 socketID:v23];
+      [(NEFilterDataExtensionProviderContext *)v3 closeSocketFlow:v6 socketID:v22];
       goto LABEL_38;
     }
 
-    v44 = v12[3];
-    if (v44 > 4)
+    v43 = v11[3];
+    if (v43 > 4)
     {
-      if ((v44 - 5) < 2)
+      if ((v43 - 5) < 2)
       {
         if (v6)
         {
-          if (v44 == 5)
+          if (v43 == 5)
           {
-            v46 = 1;
+            v45 = 1;
           }
 
           else
           {
-            v46 = 2;
+            v45 = 2;
           }
 
-          [(NEFilterDataExtensionProviderContext *)v3 handleDataCompleteForFlow:v6 direction:v46 reply:0 controlSocket:v4 completionHandler:0];
+          [(NEFilterDataExtensionProviderContext *)v3 handleDataCompleteForFlow:v6 direction:v45 reply:0 controlSocket:v4 completionHandler:0];
 LABEL_38:
-          if (v8 >= 10241 && v12)
+          if (v7 >= 10241 && v11)
           {
-            free(v12);
+            free(v11);
           }
 
           goto LABEL_6;
         }
 
-        v15 = ne_log_obj();
-        if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+        v14 = ne_log_obj();
+        if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
           goto LABEL_37;
         }
 
-        v75 = "Inbound";
-        if (v44 == 5)
+        v74 = "Inbound";
+        if (v43 == 5)
         {
-          v75 = "Outbound";
+          v74 = "Outbound";
         }
 
         *buf = 136315394;
-        *&buf[4] = v75;
+        *&buf[4] = v74;
         *&buf[12] = 2048;
-        *&buf[14] = v23;
-        v74 = "%s disconnect message rejected, no flow found for sockid %llu";
-        v76 = v15;
-        v77 = 22;
+        *&buf[14] = v22;
+        v73 = "%s disconnect message rejected, no flow found for sockid %llu";
+        v75 = v14;
+        v76 = 22;
 LABEL_124:
-        _os_log_debug_impl(&dword_1BA83C000, v76, OS_LOG_TYPE_DEBUG, v74, buf, v77);
+        _os_log_debug_impl(&dword_1BA83C000, v75, OS_LOG_TYPE_DEBUG, v73, buf, v76);
         goto LABEL_37;
       }
 
-      if (v44 == 7)
+      if (v43 == 7)
       {
-        v57 = ne_log_obj();
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
+        v56 = ne_log_obj();
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134217984;
-          *&buf[4] = v22;
-          _os_log_debug_impl(&dword_1BA83C000, v57, OS_LOG_TYPE_DEBUG, "Socket Stats Report - Received stats report size %zd", buf, 0xCu);
+          *&buf[4] = v21;
+          _os_log_debug_impl(&dword_1BA83C000, v56, OS_LOG_TYPE_DEBUG, "Socket Stats Report - Received stats report size %zd", buf, 0xCu);
         }
 
-        if (v22 > 31)
+        if (v21 > 31)
         {
-          v78 = v12[6];
-          v79 = ne_log_obj();
-          v80 = v79;
-          if (!v78)
+          v77 = v11[6];
+          v78 = ne_log_obj();
+          v79 = v78;
+          if (!v77)
           {
-            if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_1BA83C000, v80, OS_LOG_TYPE_ERROR, "Socket Stats Report - Received 0 flow stats in stats report", buf, 2u);
+              _os_log_error_impl(&dword_1BA83C000, v79, OS_LOG_TYPE_ERROR, "Socket Stats Report - Received 0 flow stats in stats report", buf, 2u);
             }
 
             goto LABEL_38;
           }
 
-          if (os_log_type_enabled(v79, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
           {
             *buf = 67109120;
-            *&buf[4] = v78;
-            _os_log_debug_impl(&dword_1BA83C000, v80, OS_LOG_TYPE_DEBUG, "Socket Stats Report - Received stats report for %d flows", buf, 8u);
+            *&buf[4] = v77;
+            _os_log_debug_impl(&dword_1BA83C000, v79, OS_LOG_TYPE_DEBUG, "Socket Stats Report - Received stats report for %d flows", buf, 8u);
           }
 
-          v81 = 56 * v78 + 32;
-          if (v81 <= v22 && *v12 >= v81)
+          v80 = 56 * v77 + 32;
+          if (v80 <= v21 && *v11 >= v80)
           {
-            if (v78 >= 1)
+            if (v77 >= 1)
             {
-              v91 = (v12 + 14);
+              v90 = (v11 + 14);
               do
               {
-                v92 = *&v91[-2].sa_data[6];
-                if (v92)
+                v91 = *&v90[-2].sa_data[6];
+                if (v91)
                 {
-                  v93 = MEMORY[0x1E696AD98];
-                  v94 = *(v3 + 152);
-                  v95 = [v93 numberWithUnsignedLongLong:v92];
-                  v96 = [v94 objectForKey:v95];
+                  v92 = MEMORY[0x1E696AD98];
+                  v93 = *(v3 + 152);
+                  v94 = [v92 numberWithUnsignedLongLong:v91];
+                  v95 = [v93 objectForKey:v94];
 
-                  if (v96)
+                  if (v95)
                   {
-                    [v96 setInBytes:*&v91[-1].sa_len];
-                    [v96 setOutBytes:*&v91[-1].sa_data[6]];
-                    [(NEFilterSocketFlow *)v96 setLocalAddress:v91];
+                    [v95 setInBytes:*&v90[-1].sa_len];
+                    [v95 setOutBytes:*&v90[-1].sa_data[6]];
+                    [(NEFilterSocketFlow *)v95 setLocalAddress:v90];
                     if (nelog_is_debug_logging_enabled())
                     {
-                      v97 = ne_log_obj();
-                      if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
+                      v96 = ne_log_obj();
+                      if (os_log_type_enabled(v96, OS_LOG_TYPE_DEBUG))
                       {
                         *buf = 138412290;
-                        *&buf[4] = v96;
-                        _os_log_debug_impl(&dword_1BA83C000, v97, OS_LOG_TYPE_DEBUG, "Socket Stats Report - flow stats updated for %@", buf, 0xCu);
+                        *&buf[4] = v95;
+                        _os_log_debug_impl(&dword_1BA83C000, v96, OS_LOG_TYPE_DEBUG, "Socket Stats Report - flow stats updated for %@", buf, 0xCu);
                       }
                     }
 
-                    [(NEFilterDataExtensionProviderContext *)v3 reportFlowStats:v96];
+                    [(NEFilterDataExtensionProviderContext *)v3 reportFlowStats:v95];
                   }
 
                   else
                   {
-                    v98 = ne_log_obj();
-                    if (os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+                    v97 = ne_log_obj();
+                    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
                     {
                       *buf = 134217984;
-                      *&buf[4] = v92;
-                      _os_log_debug_impl(&dword_1BA83C000, v98, OS_LOG_TYPE_DEBUG, "Socket Stats Report - No flow found for sockID %llu", buf, 0xCu);
+                      *&buf[4] = v91;
+                      _os_log_debug_impl(&dword_1BA83C000, v97, OS_LOG_TYPE_DEBUG, "Socket Stats Report - No flow found for sockID %llu", buf, 0xCu);
                     }
                   }
                 }
 
-                v91 = (v91 + 56);
-                --v78;
+                v90 = (v90 + 56);
+                --v77;
               }
 
-              while (v78);
+              while (v77);
             }
 
             goto LABEL_38;
           }
 
-          v58 = ne_log_obj();
-          if (!os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+          v57 = ne_log_obj();
+          if (!os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_87;
           }
 
-          v82 = *v12;
+          v81 = *v11;
           *buf = 134218496;
-          *&buf[4] = v22;
+          *&buf[4] = v21;
           *&buf[12] = 1024;
-          *&buf[14] = v82;
+          *&buf[14] = v81;
           *&buf[18] = 1024;
-          *&buf[20] = 56 * v78 + 32;
-          v59 = "Socket Stats Report - Received wrong msg size in stats report: bytesRead %zd msg_len %d - expected size %d";
-          v60 = v58;
-          v61 = 24;
+          *&buf[20] = 56 * v77 + 32;
+          v58 = "Socket Stats Report - Received wrong msg size in stats report: bytesRead %zd msg_len %d - expected size %d";
+          v59 = v57;
+          v60 = 24;
         }
 
         else
         {
-          v58 = ne_log_obj();
-          if (!os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+          v57 = ne_log_obj();
+          if (!os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
           {
 LABEL_87:
 
@@ -3561,93 +3534,93 @@ LABEL_87:
           }
 
           *buf = 134217984;
-          *&buf[4] = v22;
-          v59 = "Socket Stats Report - Received msg size is too small (%zd) for stats report";
-          v60 = v58;
-          v61 = 12;
+          *&buf[4] = v21;
+          v58 = "Socket Stats Report - Received msg size is too small (%zd) for stats report";
+          v59 = v57;
+          v60 = 12;
         }
 
 LABEL_159:
-        _os_log_error_impl(&dword_1BA83C000, v60, OS_LOG_TYPE_ERROR, v59, buf, v61);
+        _os_log_error_impl(&dword_1BA83C000, v59, OS_LOG_TYPE_ERROR, v58, buf, v60);
         goto LABEL_87;
       }
     }
 
     else
     {
-      if ((v44 - 3) < 2)
+      if ((v43 - 3) < 2)
       {
         if (v6)
         {
-          if (v44 == 3)
+          if (v43 == 3)
           {
-            v47 = (v12 + 6);
+            v46 = (v11 + 6);
           }
 
           else
           {
-            v47 = (v12 + 13);
+            v46 = (v11 + 13);
           }
 
-          if (v44 == 3)
+          if (v43 == 3)
           {
-            v48 = (v12 + 13);
+            v47 = (v11 + 13);
           }
 
           else
           {
-            v48 = (v12 + 6);
+            v47 = (v11 + 6);
           }
 
-          [(NEFilterSocketFlow *)v6 setLocalAddress:v47];
-          [(NEFilterSocketFlow *)v6 setRemoteAddress:v48];
-          if (v12[32])
+          [(NEFilterSocketFlow *)v6 setLocalAddress:v46];
+          [(NEFilterSocketFlow *)v6 setRemoteAddress:v47];
+          if (v11[32])
           {
-            v49 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v12 + 24 length:v12[32]];
-            [v6 setCrypto_signature:v49];
+            v48 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v11 + 24 length:v11[32]];
+            [v6 setCrypto_signature:v48];
           }
 
-          v51 = *(v12 + 10);
-          v50 = *(v12 + 11);
-          v52 = v50 - v51;
-          if (v50 <= v51)
+          v50 = *(v11 + 10);
+          v49 = *(v11 + 11);
+          v51 = v49 - v50;
+          if (v49 <= v50)
           {
-            v55 = ne_log_obj();
-            if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+            v54 = ne_log_obj();
+            if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
             {
-              if (v12[3] == 3)
+              if (v11[3] == 3)
               {
-                v100 = "OUT";
+                v99 = "OUT";
               }
 
               else
               {
-                v100 = "IN";
+                v99 = "IN";
               }
 
               *buf = 136315138;
-              *&buf[4] = v100;
-              _os_log_error_impl(&dword_1BA83C000, v55, OS_LOG_TYPE_ERROR, "Received invalid DATA %s message", buf, 0xCu);
+              *&buf[4] = v99;
+              _os_log_error_impl(&dword_1BA83C000, v54, OS_LOG_TYPE_ERROR, "Received invalid DATA %s message", buf, 0xCu);
             }
 
-            v56 = v12;
+            v55 = v11;
           }
 
           else
           {
-            v53 = v12 + 44;
+            v52 = v11 + 44;
             if ([v6 socketProtocol] != 17 && objc_msgSend(v6, "socketProtocol") != 6)
             {
-              v12[43] = v12[33] & 1;
-              v53 = v12 + 43;
-              v52 += 4;
+              v11[43] = v11[33] & 1;
+              v52 = v11 + 43;
+              v51 += 4;
             }
 
-            v54 = objc_alloc(MEMORY[0x1E695DEF0]);
-            if (v8 < 10241)
+            v53 = objc_alloc(MEMORY[0x1E695DEF0]);
+            if (v7 < 10241)
             {
-              v55 = [v54 initWithBytes:v53 length:v52];
-              v56 = v12;
+              v54 = [v53 initWithBytes:v52 length:v51];
+              v55 = v11;
             }
 
             else
@@ -3655,203 +3628,200 @@ LABEL_159:
               *buf = MEMORY[0x1E69E9820];
               *&buf[8] = 3221225472;
               *&buf[16] = __74__NEFilterDataExtensionProviderContext_handleSocketSourceEventWithSocket___block_invoke;
-              v112 = &__block_descriptor_40_e12_v24__0_v8Q16l;
-              v113 = v12;
-              v55 = [v54 initWithBytesNoCopy:v53 length:v52 deallocator:buf];
-              v56 = 0;
+              v111 = &__block_descriptor_40_e12_v24__0_v8Q16l;
+              v112 = v11;
+              v54 = [v53 initWithBytesNoCopy:v52 length:v51 deallocator:buf];
+              v55 = 0;
             }
 
-            if (v12[3] == 3)
+            if (v11[3] == 3)
             {
-              v83 = 1;
+              v82 = 1;
             }
 
             else
             {
-              v83 = 2;
+              v82 = 2;
             }
 
-            v84 = *(v12 + 10);
-            if ([v6 epid] != v12[34])
+            v83 = *(v11 + 10);
+            if ([v6 epid] != v11[34])
             {
-              v103 = v84;
-              v104 = v83;
+              v102 = v83;
+              v103 = v82;
               [v6 setEpid:?];
-              [v6 setPid:v12[34]];
-              v85 = +[NEProcessInfo copyUUIDsForPID:](NEProcessInfo, "copyUUIDsForPID:", [v6 epid]);
-              v86 = v85;
-              if (v85 && [v85 count])
+              [v6 setPid:v11[34]];
+              v84 = +[NEProcessInfo copyUUIDsForPID:](NEProcessInfo, "copyUUIDsForPID:", [v6 epid]);
+              v85 = v84;
+              if (v84 && [v84 count])
               {
-                v87 = [v86 firstObject];
-                [v6 setUuid:v87];
-                [v6 setEuuid:v87];
+                v86 = [v85 firstObject];
+                [v6 setUuid:v86];
+                [v6 setEuuid:v86];
               }
 
               [v6 pid];
-              v88 = NECopySigningIdentifierForPIDwithAuditToken();
-              if (v88)
+              v87 = NECopySigningIdentifierForPIDwithAuditToken();
+              if (v87)
               {
-                [v6 setSourceAppIdentifier:v88];
-                v89 = ne_log_obj();
-                if (os_log_type_enabled(v89, OS_LOG_TYPE_DEBUG))
+                [v6 setSourceAppIdentifier:v87];
+                v88 = ne_log_obj();
+                if (os_log_type_enabled(v88, OS_LOG_TYPE_DEBUG))
                 {
-                  v102 = [v6 sourceAppIdentifier];
-                  v101 = [v6 pid];
+                  v101 = [v6 sourceAppIdentifier];
+                  v100 = [v6 pid];
                   size_4 = 138412546;
-                  v108 = v102;
-                  v109 = 1024;
-                  v110 = v101;
-                  _os_log_debug_impl(&dword_1BA83C000, v89, OS_LOG_TYPE_DEBUG, "Updating bundleID %@ for pid %d", &size_4, 0x12u);
+                  v107 = v101;
+                  v108 = 1024;
+                  v109 = v100;
+                  _os_log_debug_impl(&dword_1BA83C000, v88, OS_LOG_TYPE_DEBUG, "Updating bundleID %@ for pid %d", &size_4, 0x12u);
                 }
               }
 
-              v90 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v12 + 35 length:32];
-              [v6 setSourceAppAuditToken:v90];
+              v89 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v11 + 35 length:32];
+              [v6 setSourceAppAuditToken:v89];
 
-              v83 = v104;
-              v84 = v103;
+              v82 = v103;
+              v83 = v102;
             }
 
-            [(NEFilterDataExtensionProviderContext *)v3 handleData:v55 offset:v84 forFlow:v6 direction:v83 reply:0 controlSocket:v4 completionHandler:0];
+            [(NEFilterDataExtensionProviderContext *)v3 handleData:v54 offset:v83 forFlow:v6 direction:v82 reply:0 controlSocket:v4 completionHandler:0];
           }
 
-          v12 = v56;
+          v11 = v55;
           goto LABEL_38;
         }
 
-        v15 = ne_log_obj();
-        if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+        v14 = ne_log_obj();
+        if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
           goto LABEL_37;
         }
 
         *buf = 134217984;
-        *&buf[4] = v23;
-        v74 = "Data message rejected, no flow found for sockid %llu";
+        *&buf[4] = v22;
+        v73 = "Data message rejected, no flow found for sockid %llu";
 LABEL_123:
-        v76 = v15;
-        v77 = 12;
+        v75 = v14;
+        v76 = 12;
         goto LABEL_124;
       }
 
-      if (v44 == 1)
+      if (v43 == 1)
       {
-        [(NEFilterDataExtensionProviderContext *)v3 closeSocketFlow:v6 socketID:v23];
-        v62 = [[NEFilterSocketFlow alloc] initWithSocketFamily:v12[7] socketType:v12[8] socketProtocol:v12[10] pid:v12[11] epid:(v12 + 13) uuid:(v12 + 17) euuid:v23 socketID:?];
-        [v62 setRpid:v12[12]];
-        v63 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v12 + 21];
-        [v62 setRuuid:v63];
+        [(NEFilterDataExtensionProviderContext *)v3 closeSocketFlow:v6 socketID:v22];
+        v61 = [[NEFilterSocketFlow alloc] initWithSocketFamily:v11[7] socketType:v11[8] socketProtocol:v11[10] pid:v11[11] epid:(v11 + 13) uuid:(v11 + 17) euuid:v22 socketID:?];
+        [v61 setRpid:v11[12]];
+        v62 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v11 + 21];
+        [v61 setRuuid:v62];
 
-        if (v62)
+        if (v61)
         {
-          if (v12[39] == 1)
+          if (v11[39] == 1)
           {
-            v64 = 2;
+            v63 = 2;
           }
 
           else
           {
-            v64 = 1;
+            v63 = 1;
           }
 
-          if (v12[39] == 1)
+          if (v11[39] == 1)
           {
-            v65 = (v12 + 25);
+            v64 = (v11 + 25);
           }
 
           else
           {
-            v65 = (v12 + 32);
+            v64 = (v11 + 32);
           }
 
-          if (v12[39] == 1)
+          if (v11[39] == 1)
           {
-            v66 = (v12 + 32);
+            v65 = (v11 + 32);
           }
 
           else
           {
-            v66 = (v12 + 25);
+            v65 = (v11 + 25);
           }
 
-          [v62 setDirection:v64];
-          [(NEFilterSocketFlow *)v62 setLocalAddress:v65];
-          [(NEFilterSocketFlow *)v62 setRemoteAddress:v66];
-          v67 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v12 + 40 length:32];
-          [v62 setSourceAppAuditToken:v67];
+          [v61 setDirection:v63];
+          [(NEFilterSocketFlow *)v61 setLocalAddress:v64];
+          [(NEFilterSocketFlow *)v61 setRemoteAddress:v65];
+          v66 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v11 + 40 length:32];
+          [v61 setSourceAppAuditToken:v66];
 
-          v68 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v12 + 48 length:32];
-          [v62 setSourceProcessAuditToken:v68];
+          v67 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v11 + 48 length:32];
+          [v61 setSourceProcessAuditToken:v67];
 
-          if (*(v12 + 260))
+          if (*(v11 + 260))
           {
-            v69 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithCString:v12 + 65 encoding:4];
-            [v62 setRemoteHostname:v69];
+            v68 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithCString:v11 + 65 encoding:4];
+            [v61 setRemoteHostname:v68];
           }
 
-          if (v12[64])
+          if (v11[64])
           {
-            v70 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v12 + 56 length:v12[64]];
-            [v62 setCrypto_signature:v70];
+            v69 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v11 + 56 length:v11[64]];
+            [v61 setCrypto_signature:v69];
           }
 
-          v71 = MEMORY[0x1E696AD98];
-          v72 = *(v3 + 152);
-          v73 = [v71 numberWithUnsignedLongLong:v23];
-          [v72 setObject:v62 forKey:v73];
+          v70 = MEMORY[0x1E696AD98];
+          v71 = *(v3 + 152);
+          v72 = [v70 numberWithUnsignedLongLong:v22];
+          [v71 setObject:v61 forKey:v72];
 
-          [(NEFilterDataExtensionProviderContext *)v3 handleNewFlow:v62 reply:0 controlSocket:v4 completionHandler:0];
+          [(NEFilterDataExtensionProviderContext *)v3 handleNewFlow:v61 reply:0 controlSocket:v4 completionHandler:0];
         }
 
         goto LABEL_38;
       }
 
-      if (v44 == 2)
+      if (v43 == 2)
       {
         if (v6)
         {
-          [v6 setInBytes:*(v12 + 10)];
-          [v6 setOutBytes:*(v12 + 11)];
+          [v6 setInBytes:*(v11 + 10)];
+          [v6 setOutBytes:*(v11 + 11)];
           [(NEFilterSocketFlow *)v6 setLocalAddress:?];
-          if (v12[39])
+          if (v11[39])
           {
-            v45 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v12 + 31 length:v12[39]];
-            [v6 setCrypto_signature:v45];
+            v44 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v11 + 31 length:v11[39]];
+            [v6 setCrypto_signature:v44];
           }
 
           goto LABEL_32;
         }
 
-        v15 = ne_log_obj();
-        if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+        v14 = ne_log_obj();
+        if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
           goto LABEL_37;
         }
 
         *buf = 134217984;
-        *&buf[4] = v23;
-        v74 = "Closed message rejected, no flow found for sockid %llu";
+        *&buf[4] = v22;
+        v73 = "Closed message rejected, no flow found for sockid %llu";
         goto LABEL_123;
       }
     }
 
-    v58 = ne_log_obj();
-    if (!os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+    v57 = ne_log_obj();
+    if (!os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_87;
     }
 
-    v99 = v12[3];
+    v98 = v11[3];
     *buf = 67109120;
-    *&buf[4] = v99;
-    v59 = "Received unexpected message operation %d from kernel content filter";
-    v60 = v58;
-    v61 = 8;
+    *&buf[4] = v98;
+    v58 = "Received unexpected message operation %d from kernel content filter";
+    v59 = v57;
+    v60 = 8;
     goto LABEL_159;
   }
-
-LABEL_7:
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopWithReason:(int)reason
@@ -3868,7 +3838,7 @@ LABEL_7:
 
 void __55__NEFilterDataExtensionProviderContext_stopWithReason___block_invoke(uint64_t a1)
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -3881,26 +3851,26 @@ void __55__NEFilterDataExtensionProviderContext_stopWithReason___block_invoke(ui
   }
 
   [v3 allValues];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
-  v4 = v48 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v45 objects:v54 count:16];
+  v4 = v47 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v44 objects:v53 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v46;
+    v8 = *v45;
     do
     {
       v9 = 0;
       do
       {
-        if (*v46 != v8)
+        if (*v45 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v45 + 1) + 8 * v9);
+        v10 = *(*(&v44 + 1) + 8 * v9);
         if (v10)
         {
           objc_setProperty_atomic(v10, v6, 0, 144);
@@ -3910,7 +3880,7 @@ void __55__NEFilterDataExtensionProviderContext_stopWithReason___block_invoke(ui
       }
 
       while (v7 != v9);
-      v7 = [v4 countByEnumeratingWithState:&v45 objects:v54 count:16];
+      v7 = [v4 countByEnumeratingWithState:&v44 objects:v53 count:16];
     }
 
     while (v7);
@@ -3940,26 +3910,26 @@ void __55__NEFilterDataExtensionProviderContext_stopWithReason___block_invoke(ui
   }
 
   [v14 allValues];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
-  v15 = v44 = 0u;
-  v16 = [v15 countByEnumeratingWithState:&v41 objects:v53 count:16];
+  v15 = v43 = 0u;
+  v16 = [v15 countByEnumeratingWithState:&v40 objects:v52 count:16];
   if (v16)
   {
     v18 = v16;
-    v19 = *v42;
+    v19 = *v41;
     do
     {
       v20 = 0;
       do
       {
-        if (*v42 != v19)
+        if (*v41 != v19)
         {
           objc_enumerationMutation(v15);
         }
 
-        v21 = *(*(&v41 + 1) + 8 * v20);
+        v21 = *(*(&v40 + 1) + 8 * v20);
         if (v21)
         {
           objc_setProperty_atomic(v21, v17, 0, 144);
@@ -3969,7 +3939,7 @@ void __55__NEFilterDataExtensionProviderContext_stopWithReason___block_invoke(ui
       }
 
       while (v18 != v20);
-      v18 = [v15 countByEnumeratingWithState:&v41 objects:v53 count:16];
+      v18 = [v15 countByEnumeratingWithState:&v40 objects:v52 count:16];
     }
 
     while (v18);
@@ -4002,31 +3972,31 @@ void __55__NEFilterDataExtensionProviderContext_stopWithReason___block_invoke(ui
   v26 = *(a1 + 32);
   if (v26)
   {
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     v27 = *(v26 + 184);
-    v28 = [v27 countByEnumeratingWithState:&v49 objects:v55 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v48 objects:v54 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v50;
+      v30 = *v49;
       do
       {
         v31 = 0;
         do
         {
-          if (*v50 != v30)
+          if (*v49 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
-          xpc_connection_cancel(*(*(&v49 + 1) + 8 * v31++));
+          xpc_connection_cancel(*(*(&v48 + 1) + 8 * v31++));
         }
 
         while (v29 != v31);
-        v29 = [v27 countByEnumeratingWithState:&v49 objects:v55 count:16];
+        v29 = [v27 countByEnumeratingWithState:&v48 objects:v54 count:16];
       }
 
       while (v29);
@@ -4060,16 +4030,14 @@ void __55__NEFilterDataExtensionProviderContext_stopWithReason___block_invoke(ui
   }
 
   v38 = *(a1 + 40);
-  v40.receiver = *(a1 + 32);
-  v40.super_class = NEFilterDataExtensionProviderContext;
-  objc_msgSendSuper2(&v40, sel_stopWithReason_, v38);
-
-  v39 = *MEMORY[0x1E69E9840];
+  v39.receiver = *(a1 + 32);
+  v39.super_class = NEFilterDataExtensionProviderContext;
+  objc_msgSendSuper2(&v39, sel_stopWithReason_, v38);
 }
 
 - (void)startFilterWithOptions:(id)options completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   handlerCopy = handler;
   if (self)
@@ -4113,9 +4081,9 @@ void __55__NEFilterDataExtensionProviderContext_stopWithReason___block_invoke(ui
   }
 
   _principalObject = [(NEExtensionProviderContext *)self _principalObject];
-  v20.receiver = self;
-  v20.super_class = NEFilterDataExtensionProviderContext;
-  [(NEFilterExtensionProviderContext *)&v20 startFilterWithOptions:optionsCopy completionHandler:handlerCopy];
+  v19.receiver = self;
+  v19.super_class = NEFilterDataExtensionProviderContext;
+  [(NEFilterExtensionProviderContext *)&v19 startFilterWithOptions:optionsCopy completionHandler:handlerCopy];
   objc_initWeak(&location, self);
   v15 = ne_log_obj();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
@@ -4125,16 +4093,14 @@ void __55__NEFilterDataExtensionProviderContext_stopWithReason___block_invoke(ui
     _os_log_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_DEFAULT, "%@: Calling startFilterWithCompletionHandler", buf, 0xCu);
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __81__NEFilterDataExtensionProviderContext_startFilterWithOptions_completionHandler___block_invoke;
-  v17[3] = &unk_1E7F0A2A0;
-  objc_copyWeak(&v18, &location);
-  [_principalObject startFilterWithCompletionHandler:v17];
-  objc_destroyWeak(&v18);
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __81__NEFilterDataExtensionProviderContext_startFilterWithOptions_completionHandler___block_invoke;
+  v16[3] = &unk_1E7F0A2A0;
+  objc_copyWeak(&v17, &location);
+  [_principalObject startFilterWithCompletionHandler:v16];
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __81__NEFilterDataExtensionProviderContext_startFilterWithOptions_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -4182,9 +4148,11 @@ void __81__NEFilterDataExtensionProviderContext_startFilterWithOptions_completio
 
 uint64_t __71__NEFilterDataExtensionProviderContext__extensionAuxiliaryHostProtocol__block_invoke()
 {
-  _extensionAuxiliaryHostProtocol_protocol_4178 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C2A60];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C2A60];
+  v1 = _extensionAuxiliaryHostProtocol_protocol_4178;
+  _extensionAuxiliaryHostProtocol_protocol_4178 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)_extensionAuxiliaryVendorProtocol
@@ -4201,9 +4169,11 @@ uint64_t __71__NEFilterDataExtensionProviderContext__extensionAuxiliaryHostProto
 
 uint64_t __73__NEFilterDataExtensionProviderContext__extensionAuxiliaryVendorProtocol__block_invoke()
 {
-  _extensionAuxiliaryVendorProtocol_protocol_4183 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C2910];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C2910];
+  v1 = _extensionAuxiliaryVendorProtocol_protocol_4183;
+  _extensionAuxiliaryVendorProtocol_protocol_4183 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

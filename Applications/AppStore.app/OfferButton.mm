@@ -34,18 +34,18 @@
   y = frame.origin.y;
   x = frame.origin.x;
   ObjectType = swift_getObjectType();
-  v19.receiver = self;
-  v19.super_class = ObjectType;
+  v21.receiver = self;
+  v21.super_class = ObjectType;
   selfCopy = self;
-  [(OfferButton *)&v19 frame];
+  [(OfferButton *)&v21 frame];
   v11 = v10;
   v13 = v12;
   v15 = v14;
   v17 = v16;
-  v18.receiver = selfCopy;
-  v18.super_class = ObjectType;
-  [(OfferButton *)&v18 setFrame:x, y, width, height];
-  sub_1000F4A10(v11, v13, v15, v17);
+  v20.receiver = selfCopy;
+  v20.super_class = ObjectType;
+  height = [(OfferButton *)&v20 setFrame:x, y, width, height];
+  sub_1000F4A10(v11, v13, v15, v17, height, v19);
 }
 
 - (void)dealloc
@@ -63,17 +63,17 @@
 
 - (void)didMoveToSuperview
 {
-  v3.receiver = self;
-  v3.super_class = swift_getObjectType();
-  v2 = v3.receiver;
-  [(OfferButton *)&v3 didMoveToSuperview];
-  sub_1000F65D4();
+  v5.receiver = self;
+  v5.super_class = swift_getObjectType();
+  v2 = v5.receiver;
+  didMoveToSuperview = [(OfferButton *)&v5 didMoveToSuperview];
+  sub_1000F65D4(didMoveToSuperview, v4);
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1000F6788();
+  sub_1000F6788(selfCopy, v2);
 }
 
 - (void)invalidateIntrinsicContentSize
@@ -128,7 +128,7 @@
   sub_10002C0AC(v4 + v5, v7);
   sub_10002A400(v7, v7[3]);
   [v4 bounds];
-  sub_1000F78C4(&qword_1009741F0, v6, type metadata accessor for OfferButton);
+  sub_1000F78C4(&qword_1009741F0, v6, type metadata accessor for OfferButton, &unk_1007B5D98);
   dispatch thunk of OfferButtonConfiguration.layout<A>(button:in:disableAnimations:)();
 
   sub_100007000(v7);
@@ -144,7 +144,7 @@
   swift_beginAccess();
   sub_10002C0AC(v2 + v3, v5);
   sub_10002A400(v5, v5[3]);
-  sub_1000F78C4(&qword_1009741F0, v4, type metadata accessor for OfferButton);
+  sub_1000F78C4(&qword_1009741F0, v4, type metadata accessor for OfferButton, &unk_1007B5D98);
   dispatch thunk of OfferButtonConfiguration.reapply<A>(colorsTo:)();
 
   sub_100007000(v5);
@@ -154,17 +154,17 @@
 {
   enabledCopy = enabled;
   ObjectType = swift_getObjectType();
-  v8.receiver = self;
-  v8.super_class = ObjectType;
+  v9.receiver = self;
+  v9.super_class = ObjectType;
   selfCopy = self;
-  if ([(OfferButton *)&v8 isEnabled]!= enabledCopy)
+  if ([(OfferButton *)&v9 isEnabled]!= enabledCopy)
   {
-    sub_1000F6E50(enabledCopy);
+    sub_1000F6E50(enabledCopy, v7);
   }
 
-  v7.receiver = selfCopy;
-  v7.super_class = ObjectType;
-  [(OfferButton *)&v7 setEnabled:enabledCopy];
+  v8.receiver = selfCopy;
+  v8.super_class = ObjectType;
+  [(OfferButton *)&v8 setEnabled:enabledCopy];
 }
 
 - (_TtC8AppStore11OfferButton)initWithFrame:(CGRect)frame

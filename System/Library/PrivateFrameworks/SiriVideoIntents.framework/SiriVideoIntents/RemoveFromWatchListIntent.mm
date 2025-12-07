@@ -25,14 +25,15 @@
 
 - (RemoveFromWatchListIntent)initWithDomain:(id)domain verb:(id)verb parametersByName:(id)name
 {
-  sub_269854A94();
+  v6 = sub_269854A94();
+  v8 = v7;
   sub_269854A94();
   if (name)
   {
     sub_2698549E4();
   }
 
-  return RemoveFromWatchListIntent.init(domain:verb:parametersByName:)();
+  return RemoveFromWatchListIntent.init(domain:verb:parametersByName:)(v6, v8);
 }
 
 @end

@@ -425,7 +425,7 @@ LABEL_6:
   v9 = v5 - v4;
   v10 = &v4[-*(v1 + 8)];
   JSON5Scanner.JSONPartialMapData.resizeIfNecessary(with:)(*(v1 + 8), *(v1 + 16), v6);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_18121D6B0;
   v12 = 8;
@@ -924,7 +924,7 @@ LABEL_94:
     goto LABEL_108;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_18121D6C0;
   *(inited + 32) = 6;
@@ -1293,7 +1293,7 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
   v4 = v0[1];
   v5 = v1 - v4;
   JSON5Scanner.JSONPartialMapData.resizeIfNecessary(with:)(v4, v0[2], v2);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_18121D6B0;
   *(inited + 32) = 1;
@@ -1548,7 +1548,7 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
   v5 = v33 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = type metadata accessor for Unicode.Scalar.Properties();
   v7 = *(v6 - 8);
-  v8 = MEMORY[0x1EEE9AC00](v6);
+  MEMORY[0x1EEE9AC00](v6);
   v10 = v33 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = v0[3];
   v11 = v0[4];
@@ -1700,7 +1700,7 @@ unint64_t JSON5Scanner.DocumentReader.peekU32()(unint64_t result, uint64_t a2, u
 
     if ((a4 - a3) > 5)
     {
-      v5 = (a3 + 2);
+      v5 = a3 + 2;
       v6 = result + a2 - (a3 + 2);
       if (((&a3[-result + 2] | v6) & 0x8000000000000000) == 0)
       {
@@ -1812,7 +1812,7 @@ LABEL_26:
     goto LABEL_25;
   }
 
-  v5 = (a3 + 2);
+  v5 = a3 + 2;
   v32 = result + a2 - (a3 + 2);
   if (((&a3[-result + 2] | v32) & 0x8000000000000000) != 0)
   {
@@ -2183,9 +2183,9 @@ LABEL_9:
   return v5;
 }
 
-uint64_t static JSON5Scanner.stringValue(from:fullSource:)(unint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
+uint64_t static JSON5Scanner.stringValue(from:fullSource:)(unsigned __int8 *a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
-  v8 = (a1 + a2);
+  v8 = &a1[a2];
   v9 = a1;
   if (a2 >= 1)
   {
@@ -3052,7 +3052,7 @@ unint64_t specialized JSON5Scanner.DocumentReader.skipUTF8StringTillEndOfUnquote
   return v2;
 }
 
-unint64_t specialized static JSON5Scanner.parseEscapeSequence(from:into:fullSource:)(unint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, uint64_t a5)
+uint64_t specialized static JSON5Scanner.parseEscapeSequence(from:into:fullSource:)(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, uint64_t a5)
 {
   if (a2)
   {
@@ -3109,7 +3109,7 @@ LABEL_36:
           v17 = a2;
         }
 
-        return specialized static JSONScanner.parseUnicodeSequence(from:into:fullSource:allowNulls:)(v5 + v17, a2 - v17, a3, a4, a5, 0);
+        return specialized static JSONScanner.parseUnicodeSequence(from:into:fullSource:allowNulls:)((v5 + v17), a2 - v17, a3, a4, a5, 0);
       case 120:
         if (a2 >= 1)
         {
@@ -3245,7 +3245,7 @@ LABEL_41:
   return result;
 }
 
-unint64_t specialized static JSON5Scanner._slowpath_stringValue(from:appendingTo:fullSource:)(unint64_t a1, uint64_t a2, uint64_t *a3, unint64_t a4, uint64_t a5)
+unsigned __int8 *specialized static JSON5Scanner._slowpath_stringValue(from:appendingTo:fullSource:)(unint64_t a1, uint64_t a2, uint64_t *a3, unint64_t a4, uint64_t a5)
 {
   if (a2 >= 1)
   {
@@ -3300,7 +3300,7 @@ LABEL_20:
 
       MEMORY[0x1865CB0E0](v14);
 
-      result = (v12 + 1);
+      result = v12 + 1;
       v17 = v10 - (v12 + 1);
       if (((&v12[-a1 + 1] | v17) & 0x8000000000000000) != 0)
       {
@@ -3536,7 +3536,7 @@ unsigned __int8 *specialized static JSON5Scanner.validateLeadingDecimal(from:ful
   return swift_willThrow();
 }
 
-unsigned __int8 *specialized static JSON5Scanner.prevalidateJSONNumber(from:fullSource:)(unsigned __int8 *__s1, uint64_t a2, unint64_t a3, uint64_t a4)
+char *specialized static JSON5Scanner.prevalidateJSONNumber(from:fullSource:)(char *__s1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
   if (!a2)
   {
@@ -3663,8 +3663,8 @@ LABEL_31:
         goto LABEL_31;
       }
 
-      v13 = v8 + 1;
-      v12 = v8 + 2;
+      v13 = (v8 + 1);
+      v12 = (v8 + 2);
       goto LABEL_7;
     }
 
@@ -3738,7 +3738,7 @@ LABEL_51:
   return __s1;
 }
 
-const char *specialized static JSON5Scanner.validateNumber(from:fullSource:)@<X0>(const char *result@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+unsigned __int8 *specialized static JSON5Scanner.validateNumber(from:fullSource:)@<X0>(unsigned __int8 *result@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
   if (a2 < 1)
   {
@@ -4136,11 +4136,11 @@ unint64_t _sSd7exactlySdSgx_tcSzRzlufCs6UInt64V_Tt0g5Tm(unint64_t result)
   return result;
 }
 
-uint64_t _sSo9NSDecimala10FoundationE7exactlyABSgx_tcSzRzlufCs5Int64V_Tt0g5(uint64_t result)
+unint64_t _sSo9NSDecimala10FoundationE7exactlyABSgx_tcSzRzlufCs5Int64V_Tt0g5(unint64_t result)
 {
   if (result)
   {
-    if (result >= 0)
+    if ((result & 0x8000000000000000) == 0)
     {
       v1 = result;
     }
@@ -4223,7 +4223,7 @@ unint64_t _sSo9NSDecimala10FoundationE7exactlyABSgx_tcSzRzlufCs6UInt64V_Tt0g5(un
   return result;
 }
 
-uint64_t specialized _parseJSON5Integer<A>(_:isHex:)(unsigned __int8 *a1, uint64_t a2, char a3, uint64_t (*a4)(unsigned __int8 *, uint64_t, uint64_t), uint64_t (*a5)(unsigned __int8 *, uint64_t, uint64_t))
+uint64_t specialized _parseJSON5Integer<A>(_:isHex:)(unsigned __int8 *a1, uint64_t a2, char a3, uint64_t (*a4)(unsigned __int8 *, uint64_t, uint64_t), uint64_t (*a5)(unsigned __int8 *, uint64_t, uint64_t, uint64_t (*)(unsigned __int8 *, uint64_t, uint64_t)))
 {
   if (!a2)
   {
@@ -4260,7 +4260,7 @@ LABEL_6:
 LABEL_11:
   if ((a3 & 1) == 0)
   {
-    return a5(a1, a2, v6);
+    return a5(a1, a2, v6, a4);
   }
 
   v8 = 2;
@@ -4308,7 +4308,7 @@ LABEL_6:
 LABEL_11:
   if ((a3 & 1) == 0)
   {
-    return a5(a1, a2, v6);
+    return a5(a1, a2, v6, a4);
   }
 
   v8 = 2;
@@ -4380,6 +4380,62 @@ LABEL_11:
 {
   if (!a2)
   {
+    LOWORD(v7) = 0;
+    v8 = 1;
+    return v7 | (v8 << 16);
+  }
+
+  v3 = *a1;
+  if (v3 == 43)
+  {
+    v4 = 0;
+    goto LABEL_6;
+  }
+
+  if (v3 == 45)
+  {
+    v4 = 1;
+LABEL_6:
+    if (a2 >= 1)
+    {
+      v5 = 1;
+    }
+
+    else
+    {
+      v5 = a2;
+    }
+
+    a1 += v5;
+    a2 -= v5;
+    goto LABEL_11;
+  }
+
+  v4 = 0;
+LABEL_11:
+  if (a3)
+  {
+    v6 = 2;
+    if (a2 < 2)
+    {
+      v6 = a2;
+    }
+
+    v7 = specialized _parseHexIntegerDigits<A>(_:isNegative:)(&a1[v6], a2 - v6, v4);
+  }
+
+  else
+  {
+    v7 = specialized _parseIntegerDigits<A>(_:isNegative:)(a1, a2, v4);
+  }
+
+  v8 = HIWORD(v7) & 1;
+  return v7 | (v8 << 16);
+}
+
+{
+  if (!a2)
+  {
     LOBYTE(v7) = 0;
     v8 = 1;
     return v7 | (v8 << 8);
@@ -4433,7 +4489,6 @@ LABEL_11:
   return v7 | (v8 << 8);
 }
 
-uint64_t specialized _parseJSON5Integer<A>(_:isHex:)(_BYTE *a1, uint64_t a2, char a3)
 {
   if (!a2)
   {
@@ -4490,63 +4545,7 @@ LABEL_11:
   return v7 | (v8 << 16);
 }
 
-{
-  if (!a2)
-  {
-    LOWORD(v7) = 0;
-    v8 = 1;
-    return v7 | (v8 << 16);
-  }
-
-  v3 = *a1;
-  if (v3 == 43)
-  {
-    v4 = 0;
-    goto LABEL_6;
-  }
-
-  if (v3 == 45)
-  {
-    v4 = 1;
-LABEL_6:
-    if (a2 >= 1)
-    {
-      v5 = 1;
-    }
-
-    else
-    {
-      v5 = a2;
-    }
-
-    a1 += v5;
-    a2 -= v5;
-    goto LABEL_11;
-  }
-
-  v4 = 0;
-LABEL_11:
-  if (a3)
-  {
-    v6 = 2;
-    if (a2 < 2)
-    {
-      v6 = a2;
-    }
-
-    v7 = specialized _parseHexIntegerDigits<A>(_:isNegative:)(&a1[v6], a2 - v6, v4);
-  }
-
-  else
-  {
-    v7 = specialized _parseIntegerDigits<A>(_:isNegative:)(a1, a2, v4);
-  }
-
-  v8 = HIWORD(v7) & 1;
-  return v7 | (v8 << 16);
-}
-
-unint64_t specialized _parseJSON5Integer<A>(_:isHex:)(unsigned __int8 *a1, uint64_t a2, char a3, uint64_t (*a4)(unsigned __int8 *, uint64_t, uint64_t), uint64_t (*a5)(unsigned __int8 *, uint64_t, uint64_t))
+unint64_t specialized _parseJSON5Integer<A>(_:isHex:)(unsigned __int8 *a1, uint64_t a2, char a3, uint64_t (*a4)(unsigned __int8 *, uint64_t, uint64_t), uint64_t (*a5)(unsigned __int8 *, uint64_t, uint64_t, uint64_t (*)(unsigned __int8 *, uint64_t, uint64_t)))
 {
   if (!a2)
   {
@@ -4572,7 +4571,7 @@ unint64_t specialized _parseJSON5Integer<A>(_:isHex:)(unsigned __int8 *a1, uint6
       }
 
 LABEL_14:
-      v9 = a5(a1, a2, v6);
+      v9 = a5(a1, a2, v6, a4);
       v10 = HIDWORD(v9) & 1;
       return v9 | (v10 << 32);
     }
@@ -5298,12 +5297,12 @@ uint64_t JSONDecoder.dataDecodingStrategy.getter@<X0>(unint64_t *a1@<X8>)
   *a1 = v5;
   a1[1] = v6;
   v7 = *(v1 + v3);
-  sub_1807A98E4(v5);
+  sub_1807A98E4(v5, v6);
 
   os_unfair_lock_unlock(v7 + 4);
 }
 
-void (*JSONDecoder.dataDecodingStrategy.modify(uint64_t *a1))(unint64_t **a1)
+void (*JSONDecoder.dataDecodingStrategy.modify(unint64_t **a1))(unint64_t **a1)
 {
   if (MEMORY[0x1E69E7D08])
   {
@@ -5318,8 +5317,8 @@ void (*JSONDecoder.dataDecodingStrategy.modify(uint64_t *a1))(unint64_t **a1)
   v4 = v3;
   *a1 = v3;
   v5 = OBJC_IVAR____TtC10Foundation13__JSONDecoder_optionsLock;
-  *(v3 + 16) = v1;
-  *(v3 + 24) = v5;
+  v3[2] = v1;
+  v3[3] = v5;
   v6 = *(v1 + v5);
 
   os_unfair_lock_lock(v6 + 4);
@@ -5331,7 +5330,7 @@ void (*JSONDecoder.dataDecodingStrategy.modify(uint64_t *a1))(unint64_t **a1)
   v10 = *(v8 + 32);
   *v4 = v9;
   v4[1] = v10;
-  sub_1807A98E4(v9);
+  sub_1807A98E4(v9, v10);
   return JSONDecoder.dataDecodingStrategy.modify;
 }
 
@@ -5344,15 +5343,16 @@ void JSONDecoder.dataDecodingStrategy.modify(unint64_t **a1)
   v5 = v4 + (*a1)[4];
   v6 = **a1;
   v7 = *(v5 + 24);
+  v8 = *(v5 + 32);
   *(v5 + 24) = v6;
   *(v5 + 32) = v3;
-  sub_1807A98E4(v6);
-  sub_1807A5C7C(v7);
-  v8 = *(v4 + v2);
+  sub_1807A98E4(v6, v3);
+  sub_1807A5C7C(v7, v8);
+  v9 = *(v4 + v2);
 
-  os_unfair_lock_unlock(v8 + 4);
+  os_unfair_lock_unlock(v9 + 4);
 
-  sub_1807A5C7C(*v1);
+  sub_1807A5C7C(*v1, v1[1]);
 
   free(v1);
 }
@@ -5372,7 +5372,7 @@ uint64_t key path setter for JSONDecoder.nonConformingFloatDecodingStrategy : JS
   v10[4] = v5;
   v10[5] = v6;
   v8 = *(*v7 + 160);
-  outlined copy of JSONDecoder.NonConformingFloatDecodingStrategy(v10[0], v2);
+  outlined copy of JSONDecoder.NonConformingFloatDecodingStrategy(v10[0], v2, v3, v4, v5, v6);
   return v8(v10);
 }
 
@@ -5396,21 +5396,19 @@ uint64_t JSONDecoder.nonConformingFloatDecodingStrategy.getter@<X0>(uint64_t *a1
   a1[4] = v9;
   a1[5] = v10;
   v11 = *(v1 + v3);
-  outlined copy of JSONDecoder.NonConformingFloatDecodingStrategy(v5, v6);
+  outlined copy of JSONDecoder.NonConformingFloatDecodingStrategy(v5, v6, v7, v8, v9, v10);
 
   os_unfair_lock_unlock(v11 + 4);
 }
 
-uint64_t outlined copy of JSONDecoder.NonConformingFloatDecodingStrategy(uint64_t a1, uint64_t a2)
+void outlined copy of JSONDecoder.NonConformingFloatDecodingStrategy(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (a2)
   {
   }
-
-  return result;
 }
 
-void (*JSONDecoder.nonConformingFloatDecodingStrategy.modify(uint64_t *a1))(uint64_t **a1)
+void (*JSONDecoder.nonConformingFloatDecodingStrategy.modify(uint64_t **a1))(uint64_t **a1)
 {
   if (MEMORY[0x1E69E7D08])
   {
@@ -5425,8 +5423,8 @@ void (*JSONDecoder.nonConformingFloatDecodingStrategy.modify(uint64_t *a1))(uint
   v4 = v3;
   *a1 = v3;
   v5 = OBJC_IVAR____TtC10Foundation13__JSONDecoder_optionsLock;
-  *(v3 + 48) = v1;
-  *(v3 + 56) = v5;
+  v3[6] = v1;
+  v3[7] = v5;
   v6 = *(v1 + v5);
 
   os_unfair_lock_lock(v6 + 4);
@@ -5446,7 +5444,7 @@ void (*JSONDecoder.nonConformingFloatDecodingStrategy.modify(uint64_t *a1))(uint
   v4[3] = v12;
   v4[4] = v13;
   v4[5] = v14;
-  outlined copy of JSONDecoder.NonConformingFloatDecodingStrategy(v9, v10);
+  outlined copy of JSONDecoder.NonConformingFloatDecodingStrategy(v9, v10, v11, v12, v13, v14);
   return JSONDecoder.nonConformingFloatDecodingStrategy.modify;
 }
 
@@ -5464,19 +5462,23 @@ void JSONDecoder.nonConformingFloatDecodingStrategy.modify(uint64_t **a1)
   v10 = v1[4];
   v11 = v5[5];
   v12 = v5[6];
+  v13 = v5[7];
+  v14 = v5[8];
+  v15 = v5[9];
+  v16 = v5[10];
   v5[5] = v6;
   v5[6] = v7;
   v5[7] = v8;
   v5[8] = v9;
   v5[9] = v10;
   v5[10] = v3;
-  outlined copy of JSONDecoder.NonConformingFloatDecodingStrategy(v6, v7);
-  outlined consume of JSONDecoder.NonConformingFloatDecodingStrategy(v11, v12);
-  v13 = *(v4 + v2);
+  outlined copy of JSONDecoder.NonConformingFloatDecodingStrategy(v6, v7, v8, v9, v10, v3);
+  outlined consume of JSONDecoder.NonConformingFloatDecodingStrategy(v11, v12, v13, v14, v15, v16);
+  v17 = *(v4 + v2);
 
-  os_unfair_lock_unlock(v13 + 4);
+  os_unfair_lock_unlock(v17 + 4);
 
-  outlined consume of JSONDecoder.NonConformingFloatDecodingStrategy(*v1, v1[1]);
+  outlined consume of JSONDecoder.NonConformingFloatDecodingStrategy(*v1, v1[1], v1[2], v1[3], v1[4], v1[5]);
 
   free(v1);
 }
@@ -5493,12 +5495,12 @@ uint64_t JSONDecoder.keyDecodingStrategy.getter@<X0>(unint64_t *a1@<X8>)
   *a1 = v5;
   a1[1] = v6;
   v7 = *(v1 + v3);
-  sub_1807A98E4(v5);
+  sub_1807A98E4(v5, v6);
 
   os_unfair_lock_unlock(v7 + 4);
 }
 
-void (*JSONDecoder.keyDecodingStrategy.modify(uint64_t *a1))(unint64_t **a1)
+void (*JSONDecoder.keyDecodingStrategy.modify(unint64_t **a1))(unint64_t **a1)
 {
   if (MEMORY[0x1E69E7D08])
   {
@@ -5513,8 +5515,8 @@ void (*JSONDecoder.keyDecodingStrategy.modify(uint64_t *a1))(unint64_t **a1)
   v4 = v3;
   *a1 = v3;
   v5 = OBJC_IVAR____TtC10Foundation13__JSONDecoder_optionsLock;
-  *(v3 + 16) = v1;
-  *(v3 + 24) = v5;
+  v3[2] = v1;
+  v3[3] = v5;
   v6 = *(v1 + v5);
 
   os_unfair_lock_lock(v6 + 4);
@@ -5526,7 +5528,7 @@ void (*JSONDecoder.keyDecodingStrategy.modify(uint64_t *a1))(unint64_t **a1)
   v10 = *(v8 + 96);
   *v4 = v9;
   v4[1] = v10;
-  sub_1807A98E4(v9);
+  sub_1807A98E4(v9, v10);
   return JSONDecoder.keyDecodingStrategy.modify;
 }
 
@@ -5539,15 +5541,16 @@ void JSONDecoder.keyDecodingStrategy.modify(unint64_t **a1)
   v5 = v4 + (*a1)[4];
   v6 = **a1;
   v7 = *(v5 + 88);
+  v8 = *(v5 + 96);
   *(v5 + 88) = v6;
   *(v5 + 96) = v3;
-  sub_1807A98E4(v6);
-  sub_1807A5C7C(v7);
-  v8 = *(v4 + v2);
+  sub_1807A98E4(v6, v3);
+  sub_1807A5C7C(v7, v8);
+  v9 = *(v4 + v2);
 
-  os_unfair_lock_unlock(v8 + 4);
+  os_unfair_lock_unlock(v9 + 4);
 
-  sub_1807A5C7C(*v1);
+  sub_1807A5C7C(*v1, v1[1]);
 
   free(v1);
 }
@@ -5563,12 +5566,13 @@ uint64_t JSONDecoder.keyDecodingStrategy.setter(uint64_t *a1)
 
   v6 = v1 + OBJC_IVAR____TtC10Foundation13__JSONDecoder_options;
   v7 = *(v1 + OBJC_IVAR____TtC10Foundation13__JSONDecoder_options + 88);
+  v8 = *(v1 + OBJC_IVAR____TtC10Foundation13__JSONDecoder_options + 96);
   *(v6 + 88) = v2;
   *(v6 + 96) = v3;
-  sub_1807A5C7C(v7);
-  v8 = *(v1 + v4);
+  sub_1807A5C7C(v7, v8);
+  v9 = *(v1 + v4);
 
-  os_unfair_lock_unlock(v8 + 4);
+  os_unfair_lock_unlock(v9 + 4);
 }
 
 uint64_t JSONDecoder.userInfo.setter(uint64_t a1)
@@ -5672,7 +5676,7 @@ LABEL_29:
   }
 
   v49 = v18;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCys17CodingUserInfoKeyVs8Sendable_pGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCys17CodingUserInfoKeyVs8Sendable_pGMd, &_ss18_DictionaryStorageCys17CodingUserInfoKeyVs8Sendable_pGMR);
   v28 = static _DictionaryStorage.copy(original:)();
   v24 = v28;
   if (!*(v17 + 16))
@@ -5820,7 +5824,7 @@ void JSONDecoder.assumesTopLevelDictionary.modify(uint64_t *a1, char a2)
     v12 = *(v2 + 424);
     if (!*(v2 + 216))
     {
-      outlined destroy of TermOfAddress?(v2 + 192, &_ss8Sendable_pSgMd);
+      outlined destroy of TermOfAddress?(v2 + 192, &_ss8Sendable_pSgMd, &_ss8Sendable_pSgMR);
       v45 = specialized __RawDictionaryStorage.find<A>(_:)(v12);
       if (v46)
       {
@@ -5834,7 +5838,7 @@ void JSONDecoder.assumesTopLevelDictionary.modify(uint64_t *a1, char a2)
 
         else
         {
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCys17CodingUserInfoKeyVs8Sendable_pGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCys17CodingUserInfoKeyVs8Sendable_pGMd, &_ss18_DictionaryStorageCys17CodingUserInfoKeyVs8Sendable_pGMR);
           v121 = static _DictionaryStorage.copy(original:)();
           v50 = v121;
           v122 = *(v49 + 16);
@@ -5925,7 +5929,7 @@ LABEL_108:
         *(v2 + 272) = 0u;
       }
 
-      outlined destroy of TermOfAddress?(v2 + 256, &_ss8Sendable_pSgMd);
+      outlined destroy of TermOfAddress?(v2 + 256, &_ss8Sendable_pSgMd, &_ss8Sendable_pSgMR);
       goto LABEL_35;
     }
 
@@ -5964,7 +5968,7 @@ LABEL_29:
       else
       {
         v139 = v15;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCys17CodingUserInfoKeyVs8Sendable_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCys17CodingUserInfoKeyVs8Sendable_pGMd, &_ss18_DictionaryStorageCys17CodingUserInfoKeyVs8Sendable_pGMR);
         v89 = static _DictionaryStorage.copy(original:)();
         v22 = v89;
         v90 = v148[2];
@@ -6079,7 +6083,7 @@ LABEL_74:
     v68 = &v137 - ((v67 + 15) & 0xFFFFFFFFFFFFFFF0);
     (*(v69 + 16))(v68, v66);
     specialized _NativeDictionary._insert(at:key:value:)(v64, v63, *v68, v22);
-    __swift_destroy_boxed_opaque_existential_1(v2 + 320);
+    __swift_destroy_boxed_opaque_existential_1((v2 + 320));
     goto LABEL_29;
   }
 
@@ -6092,7 +6096,7 @@ LABEL_74:
   v12 = *(v2 + 408);
   if (!*(v2 + 24))
   {
-    outlined destroy of TermOfAddress?(v2, &_ss8Sendable_pSgMd);
+    outlined destroy of TermOfAddress?(v2, &_ss8Sendable_pSgMd, &_ss8Sendable_pSgMR);
     v35 = specialized __RawDictionaryStorage.find<A>(_:)(v12);
     if (v36)
     {
@@ -6106,7 +6110,7 @@ LABEL_74:
 
       else
       {
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCys17CodingUserInfoKeyVs8Sendable_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCys17CodingUserInfoKeyVs8Sendable_pGMd, &_ss18_DictionaryStorageCys17CodingUserInfoKeyVs8Sendable_pGMR);
         v105 = static _DictionaryStorage.copy(original:)();
         v40 = v105;
         v106 = *(v39 + 16);
@@ -6197,7 +6201,7 @@ LABEL_91:
       *(v2 + 80) = 0u;
     }
 
-    outlined destroy of TermOfAddress?(v2 + 64, &_ss8Sendable_pSgMd);
+    outlined destroy of TermOfAddress?(v2 + 64, &_ss8Sendable_pSgMd, &_ss8Sendable_pSgMR);
     goto LABEL_35;
   }
 
@@ -6217,7 +6221,7 @@ LABEL_37:
     __break(1u);
 LABEL_38:
     v139 = v15;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCys17CodingUserInfoKeyVs8Sendable_pGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCys17CodingUserInfoKeyVs8Sendable_pGMd, &_ss18_DictionaryStorageCys17CodingUserInfoKeyVs8Sendable_pGMR);
     v73 = static _DictionaryStorage.copy(original:)();
     v22 = v73;
     v74 = v14[2];
@@ -6358,7 +6362,7 @@ LABEL_24:
     v60 = &v137 - ((v59 + 15) & 0xFFFFFFFFFFFFFFF0);
     (*(v61 + 16))(v60, v58);
     specialized _NativeDictionary._insert(at:key:value:)(v56, v55, *v60, v22);
-    __swift_destroy_boxed_opaque_existential_1(v2 + 128);
+    __swift_destroy_boxed_opaque_existential_1((v2 + 128));
     goto LABEL_25;
   }
 
@@ -6373,19 +6377,26 @@ uint64_t JSONDecoder.deinit()
   v2 = type metadata accessor for CodingUserInfoKey();
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
   v3 = *(v0 + OBJC_IVAR____TtC10Foundation13__JSONDecoder_options + 24);
-  v4 = *(v0 + OBJC_IVAR____TtC10Foundation13__JSONDecoder_options + 40);
-  v5 = *(v0 + OBJC_IVAR____TtC10Foundation13__JSONDecoder_options + 48);
-  v6 = *(v0 + OBJC_IVAR____TtC10Foundation13__JSONDecoder_options + 88);
+  v4 = *(v0 + OBJC_IVAR____TtC10Foundation13__JSONDecoder_options + 32);
+  v5 = *(v0 + OBJC_IVAR____TtC10Foundation13__JSONDecoder_options + 40);
+  v6 = *(v0 + OBJC_IVAR____TtC10Foundation13__JSONDecoder_options + 48);
+  v7 = *(v0 + OBJC_IVAR____TtC10Foundation13__JSONDecoder_options + 56);
+  v8 = *(v0 + OBJC_IVAR____TtC10Foundation13__JSONDecoder_options + 64);
+  v9 = *(v0 + OBJC_IVAR____TtC10Foundation13__JSONDecoder_options + 72);
+  v10 = *(v0 + OBJC_IVAR____TtC10Foundation13__JSONDecoder_options + 80);
+  v11 = *(v0 + OBJC_IVAR____TtC10Foundation13__JSONDecoder_options + 88);
+  v13 = *(v0 + OBJC_IVAR____TtC10Foundation13__JSONDecoder_options + 96);
   outlined consume of JSONDecoder.DateDecodingStrategy(*(v0 + OBJC_IVAR____TtC10Foundation13__JSONDecoder_options), *(v0 + OBJC_IVAR____TtC10Foundation13__JSONDecoder_options + 8), *(v0 + OBJC_IVAR____TtC10Foundation13__JSONDecoder_options + 16));
-  sub_1807A5C7C(v3);
-  outlined consume of JSONDecoder.NonConformingFloatDecodingStrategy(v4, v5);
-  sub_1807A5C7C(v6);
+  sub_1807A5C7C(v3, v4);
+  outlined consume of JSONDecoder.NonConformingFloatDecodingStrategy(v5, v6, v7, v8, v9, v10);
+  sub_1807A5C7C(v11, v13);
 
   return v0;
 }
 
-uint64_t specialized JSONDecoderImpl.unwrapURL<A>(from:for:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned __int8 a3@<W2>, unint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, char a8@<W7>, uint64_t *a9@<X8>)
+uint64_t specialized JSONDecoderImpl.unwrapURL<A>(from:for:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, unsigned __int8 a3@<W2>, unint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t *a9@<X8>)
 {
+  v10 = a8;
   v16 = (a3 & 0xE0) == 0xA0 && (a2 | a1) == 0;
   if (v16 && a3 == 160)
   {
@@ -6394,9 +6405,9 @@ uint64_t specialized JSONDecoderImpl.unwrapURL<A>(from:for:_:)@<X0>(uint64_t a1@
     v25 = v24;
     *v24 = &type metadata for URL;
     _CodingPathNode.path.getter(a4);
-    if (a8 != -1)
+    if (v10 != -1)
     {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
       v26 = a5;
       inited = swift_initStackObject();
       *(inited + 16) = xmmword_181218E20;
@@ -6407,12 +6418,12 @@ uint64_t specialized JSONDecoderImpl.unwrapURL<A>(from:for:_:)@<X0>(uint64_t a1@
       *(v28 + 16) = v26;
       *(v28 + 24) = a6;
       *(v28 + 32) = a7;
-      *(v28 + 40) = a8;
-      outlined copy of _CodingKey(v26, a6, a7, a8);
+      *(v28 + 40) = v10;
+      outlined copy of _CodingKey(v26, a6, a7, v10);
       specialized Array.append<A>(contentsOf:)(inited);
     }
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
     _StringGuts.grow(_:)(55);
     MEMORY[0x1865CB0E0](0xD000000000000019, 0x8000000181481E50);
     MEMORY[0x1865CB0E0](5001813, 0xE300000000000000);
@@ -6455,7 +6466,7 @@ uint64_t specialized JSONDecoderImpl.unwrapURL<A>(from:for:_:)@<X0>(uint64_t a1@
 
     v30 = v22[1];
 
-    if (v30(v20, v19, v21, v22))
+    if (v30(v20, v19))
     {
       v31 = (v22[56])(v21, v22);
       v33 = v32;
@@ -6470,9 +6481,9 @@ uint64_t specialized JSONDecoderImpl.unwrapURL<A>(from:for:_:)@<X0>(uint64_t a1@
     swift_allocError();
     v25 = v34;
     _CodingPathNode.path.getter(a4);
-    if (a8 != -1)
+    if (v10 != -1)
     {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
       v35 = swift_initStackObject();
       *(v35 + 16) = xmmword_181218E20;
       *(v35 + 56) = &type metadata for _CodingKey;
@@ -6482,8 +6493,8 @@ uint64_t specialized JSONDecoderImpl.unwrapURL<A>(from:for:_:)@<X0>(uint64_t a1@
       *(v36 + 16) = v38;
       *(v36 + 24) = v39;
       *(v36 + 32) = v40;
-      *(v36 + 40) = a8;
-      outlined copy of _CodingKey(v38, v39, v40, a8);
+      *(v36 + 40) = v10;
+      outlined copy of _CodingKey(v38, v39, v40, v10);
       specialized Array.append<A>(contentsOf:)(v35);
     }
 
@@ -6527,7 +6538,7 @@ uint64_t specialized JSONDecoderImpl.unwrapDecimal<A>(from:for:_:)(uint64_t a1, 
       _CodingPathNode.path.getter(a4);
       if (a8 != -1)
       {
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         inited = swift_initStackObject();
         *(inited + 16) = xmmword_181218E20;
         *(inited + 56) = &type metadata for _CodingKey;
@@ -6542,7 +6553,7 @@ uint64_t specialized JSONDecoderImpl.unwrapDecimal<A>(from:for:_:)(uint64_t a1, 
         specialized Array.append<A>(contentsOf:)(inited);
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       _StringGuts.grow(_:)(55);
       MEMORY[0x1865CB0E0](0xD000000000000019, 0x8000000181481E50);
       MEMORY[0x1865CB0E0](0x616D69636544534ELL, 0xE90000000000006CLL);
@@ -6560,7 +6571,7 @@ uint64_t specialized JSONDecoderImpl.unwrapDecimal<A>(from:for:_:)(uint64_t a1, 
       _CodingPathNode.path.getter(a4);
       if (a8 != -1)
       {
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         v26 = swift_initStackObject();
         *(v26 + 16) = xmmword_181218E20;
         *(v26 + 56) = &type metadata for _CodingKey;
@@ -6575,7 +6586,7 @@ uint64_t specialized JSONDecoderImpl.unwrapDecimal<A>(from:for:_:)(uint64_t a1, 
         specialized Array.append<A>(contentsOf:)(v26);
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       DecodingError.Context.init(codingPath:debugDescription:underlyingError:)();
       v24 = MEMORY[0x1E69E6AF8];
     }
@@ -6666,7 +6677,7 @@ uint64_t JSONDecoderImpl.unwrapDecimal<A>(from:for:_:)(uint64_t a1, uint64_t a2,
         v56 = v63;
         v55(v63, v22, a6);
         v57 = _CodingPathNode.path.getter(v73);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         inited = swift_initStackObject();
         *(inited + 16) = xmmword_181218E20;
         v59 = v65;
@@ -6682,7 +6693,7 @@ uint64_t JSONDecoderImpl.unwrapDecimal<A>(from:for:_:)(uint64_t a1, uint64_t a2,
         (*(v31 + 8))(v25, v33);
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       v71 = 0;
       v72 = 0xE000000000000000;
       _StringGuts.grow(_:)(55);
@@ -6717,7 +6728,7 @@ uint64_t JSONDecoderImpl.unwrapDecimal<A>(from:for:_:)(uint64_t a1, uint64_t a2,
       {
         (*(v41 + 32))(v12, v16, a6);
         v50 = _CodingPathNode.path.getter(v73);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         v51 = v40;
         v52 = swift_initStackObject();
         *(v52 + 16) = xmmword_181218E20;
@@ -6732,7 +6743,7 @@ uint64_t JSONDecoderImpl.unwrapDecimal<A>(from:for:_:)(uint64_t a1, uint64_t a2,
         (*(v38 + 8))(v19, v51);
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       DecodingError.Context.init(codingPath:debugDescription:underlyingError:)();
       (*(*(v70 - 8) + 104))(v37, *MEMORY[0x1E69E6AF8]);
     }
@@ -6799,7 +6810,8 @@ void closure #1 in JSONDecoderImpl.unwrapDecimal<A>(from:for:_:)(char *__s1@<X0>
 
     if ((v14 & 0x100) != 0)
     {
-      *&v44[4] = 0uLL;
+      *&v44[4] = 0;
+      *&v44[12] = 0;
       _So9NSDecimala__exponent_setter(0, v44);
       _So9NSDecimala__length_setter(0, v44);
       _So9NSDecimala__isNegative_setter(1, v44);
@@ -6811,7 +6823,7 @@ void closure #1 in JSONDecoderImpl.unwrapDecimal<A>(from:for:_:)(char *__s1@<X0>
     }
 
     v26 = v13;
-    if (__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation10BufferViewVys5UInt8VGMd) == MEMORY[0x1E69E6108])
+    if (__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation10BufferViewVys5UInt8VGMd, &_s10Foundation10BufferViewVys5UInt8VGMR) == MEMORY[0x1E69E6108])
     {
       specialized static NSDecimal._decimal<A>(from:decimalSeparator:matchEntireString:)(__s1, a2, 0x2EuLL, 0xE100000000000000, 1, v45);
       v23 = v45[1];
@@ -6848,7 +6860,7 @@ LABEL_28:
 
     else
     {
-      specialized static NSDecimal._decimal<A>(from:decimalSeparator:matchEntireString:)(__s1, a2, 46, 0xE100000000000000, 1, v47);
+      specialized static NSDecimal._decimal<A>(from:decimalSeparator:matchEntireString:)(__s1, a2, 0x2EuLL, 0xE100000000000000, 1, v47);
       v23 = v47[1];
       v22 = v47[2];
       v24 = v47[0];
@@ -6869,7 +6881,7 @@ LABEL_28:
   }
 
   v21 = v20;
-  if (__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation10BufferViewVys5UInt8VGMd) == MEMORY[0x1E69E6108])
+  if (__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation10BufferViewVys5UInt8VGMd, &_s10Foundation10BufferViewVys5UInt8VGMR) == MEMORY[0x1E69E6108])
   {
     specialized static NSDecimal._decimal<A>(from:decimalSeparator:matchEntireString:)(__s1, a2, 0x2EuLL, 0xE100000000000000, 1, v51);
     v23 = v51[1];
@@ -6922,7 +6934,7 @@ LABEL_29:
 
   else
   {
-    specialized static NSDecimal._decimal<A>(from:decimalSeparator:matchEntireString:)(__s1, a2, 46, 0xE100000000000000, 1, v53);
+    specialized static NSDecimal._decimal<A>(from:decimalSeparator:matchEntireString:)(__s1, a2, 0x2EuLL, 0xE100000000000000, 1, v53);
     v23 = v53[1];
     v22 = v53[2];
     v24 = v53[0];
@@ -6939,7 +6951,7 @@ LABEL_31:
   *(a7 + 16) = v22;
 }
 
-uint64_t specialized closure #1 in closure #2 in JSONDecoderImpl.unwrapFloatingPoint<A, B>(from:as:for:_:)(void *__s1, size_t __n, uint64_t *a3, uint64_t *a4, uint64_t *a5)
+uint64_t specialized closure #1 in closure #2 in JSONDecoderImpl.unwrapFloatingPoint<A, B>(from:as:for:_:)(void *__s1, size_t __n, uint64_t *a3, uint64_t a4, uint64_t a5)
 {
   v9 = *a3;
   v10 = a3[1];
@@ -6963,10 +6975,10 @@ uint64_t specialized closure #1 in closure #2 in JSONDecoderImpl.unwrapFloatingP
 
       else
       {
-        v29 = _StringObject.sharedUTF8.getter();
-        v31 = v30;
-        v11 = v29;
-        if (v31 != __n)
+        v9 = _StringObject.sharedUTF8.getter();
+        v30 = v29;
+        v11 = v9;
+        if (v30 != __n)
         {
           goto LABEL_11;
         }
@@ -6980,7 +6992,7 @@ uint64_t specialized closure #1 in closure #2 in JSONDecoderImpl.unwrapFloatingP
       __break(1u);
 LABEL_7:
       v12 = a3;
-      v13 = static String._copying(_:)();
+      v13 = static String._copying(_:)(v9, v10);
       v15 = v14;
 
       v9 = v13;
@@ -6992,11 +7004,11 @@ LABEL_7:
     while ((v15 & 0x2000000000000000) == 0);
   }
 
-  v38 = v9;
-  v39 = v10 & 0xFFFFFFFFFFFFFFLL;
+  v37 = v9;
+  v38 = v10 & 0xFFFFFFFFFFFFFFLL;
   if ((HIBYTE(v10) & 0xF) == __n)
   {
-    v11 = &v38;
+    v11 = &v37;
 LABEL_10:
     if (!memcmp(__s1, v11, __n))
     {
@@ -7006,15 +7018,15 @@ LABEL_10:
 
 LABEL_11:
   v16 = *a4;
-  v17 = a4[1];
+  v17 = *(a4 + 8);
   if ((v17 & 0x1000000000000000) != 0)
   {
-    v20 = static String._copying(_:)();
+    v20 = static String._copying(_:)(v16, *(a4 + 8));
     v22 = v21;
 
     v16 = v20;
     *a4 = v20;
-    a4[1] = v22;
+    *(a4 + 8) = v22;
     v17 = v22;
     if ((v22 & 0x2000000000000000) == 0)
     {
@@ -7022,14 +7034,14 @@ LABEL_11:
     }
 
 LABEL_19:
-    v38 = v16;
-    v39 = v17 & 0xFFFFFFFFFFFFFFLL;
+    v37 = v16;
+    v38 = v17 & 0xFFFFFFFFFFFFFFLL;
     if ((HIBYTE(v17) & 0xF) != __n)
     {
       goto LABEL_22;
     }
 
-    v18 = &v38;
+    v18 = &v37;
     goto LABEL_21;
   }
 
@@ -7050,10 +7062,10 @@ LABEL_13:
 
   else
   {
-    v32 = _StringObject.sharedUTF8.getter();
-    v34 = v33;
-    v18 = v32;
-    if (v34 != __n)
+    v31 = _StringObject.sharedUTF8.getter();
+    v33 = v32;
+    v18 = v31;
+    if (v33 != __n)
     {
       goto LABEL_22;
     }
@@ -7073,15 +7085,15 @@ LABEL_21:
 
 LABEL_22:
   v23 = *a5;
-  v24 = a5[1];
+  v24 = *(a5 + 8);
   if ((v24 & 0x1000000000000000) != 0)
   {
-    v26 = static String._copying(_:)();
+    v26 = static String._copying(_:)(v23, *(a5 + 8));
     v28 = v27;
 
     v23 = v26;
     *a5 = v26;
-    a5[1] = v28;
+    *(a5 + 8) = v28;
     v24 = v28;
     if ((v28 & 0x2000000000000000) == 0)
     {
@@ -7089,14 +7101,14 @@ LABEL_22:
     }
 
 LABEL_30:
-    v38 = v23;
-    v39 = v24 & 0xFFFFFFFFFFFFFFLL;
+    v37 = v23;
+    v38 = v24 & 0xFFFFFFFFFFFFFFLL;
     if ((HIBYTE(v24) & 0xF) != __n)
     {
       return 0;
     }
 
-    v25 = &v38;
+    v25 = &v37;
     goto LABEL_32;
   }
 
@@ -7117,10 +7129,10 @@ LABEL_24:
 
   else
   {
-    v35 = _StringObject.sharedUTF8.getter();
-    v37 = v36;
-    v25 = v35;
-    if (v37 != __n)
+    v34 = _StringObject.sharedUTF8.getter();
+    v36 = v35;
+    v25 = v34;
+    if (v36 != __n)
     {
       return 0;
     }
@@ -7141,7 +7153,7 @@ LABEL_32:
   return 0;
 }
 
-unint64_t specialized closure #1 in closure #2 in JSONDecoderImpl.unwrapFloatingPoint<A, B>(from:as:for:_:)(void *__s1, size_t __n, uint64_t *a3, uint64_t *a4, uint64_t *a5)
+unint64_t specialized closure #1 in closure #2 in JSONDecoderImpl.unwrapFloatingPoint<A, B>(from:as:for:_:)(void *__s1, size_t __n, uint64_t *a3, uint64_t a4, uint64_t a5)
 {
   v9 = *a3;
   v10 = a3[1];
@@ -7165,10 +7177,10 @@ unint64_t specialized closure #1 in closure #2 in JSONDecoderImpl.unwrapFloating
 
       else
       {
-        v31 = _StringObject.sharedUTF8.getter();
-        v33 = v32;
-        v11 = v31;
-        if (v33 != __n)
+        v9 = _StringObject.sharedUTF8.getter();
+        v32 = v31;
+        v11 = v9;
+        if (v32 != __n)
         {
           goto LABEL_11;
         }
@@ -7182,7 +7194,7 @@ unint64_t specialized closure #1 in closure #2 in JSONDecoderImpl.unwrapFloating
       __break(1u);
 LABEL_7:
       v12 = a3;
-      v13 = static String._copying(_:)();
+      v13 = static String._copying(_:)(v9, v10);
       v15 = v14;
 
       v9 = v13;
@@ -7194,11 +7206,11 @@ LABEL_7:
     while ((v15 & 0x2000000000000000) == 0);
   }
 
-  v40 = v9;
-  v41 = v10 & 0xFFFFFFFFFFFFFFLL;
+  v39 = v9;
+  v40 = v10 & 0xFFFFFFFFFFFFFFLL;
   if ((HIBYTE(v10) & 0xF) == __n)
   {
-    v11 = &v40;
+    v11 = &v39;
 LABEL_10:
     if (!memcmp(__s1, v11, __n))
     {
@@ -7208,7 +7220,7 @@ LABEL_10:
 
 LABEL_11:
   v16 = *a4;
-  v17 = a4[1];
+  v17 = *(a4 + 8);
   if ((v17 & 0x1000000000000000) == 0)
   {
     if ((v17 & 0x2000000000000000) == 0)
@@ -7217,23 +7229,23 @@ LABEL_11:
     }
 
 LABEL_19:
-    v40 = v16;
-    v41 = v17 & 0xFFFFFFFFFFFFFFLL;
+    v39 = v16;
+    v40 = v17 & 0xFFFFFFFFFFFFFFLL;
     if ((HIBYTE(v17) & 0xF) != __n)
     {
       goto LABEL_22;
     }
 
-    v18 = &v40;
+    v18 = &v39;
     goto LABEL_21;
   }
 
-  v21 = static String._copying(_:)();
+  v21 = static String._copying(_:)(v16, *(a4 + 8));
   v23 = v22;
 
   v16 = v21;
   *a4 = v21;
-  a4[1] = v23;
+  *(a4 + 8) = v23;
   v17 = v23;
   if ((v23 & 0x2000000000000000) != 0)
   {
@@ -7252,10 +7264,10 @@ LABEL_13:
 
   else
   {
-    v34 = _StringObject.sharedUTF8.getter();
-    v36 = v35;
-    v18 = v34;
-    if (v36 != __n)
+    v33 = _StringObject.sharedUTF8.getter();
+    v35 = v34;
+    v18 = v33;
+    if (v35 != __n)
     {
       goto LABEL_22;
     }
@@ -7274,15 +7286,15 @@ LABEL_28:
 
 LABEL_22:
     v24 = *a5;
-    v25 = a5[1];
+    v25 = *(a5 + 8);
     if ((v25 & 0x1000000000000000) != 0)
     {
-      v27 = static String._copying(_:)();
+      v27 = static String._copying(_:)(v24, *(a5 + 8));
       v29 = v28;
 
       v24 = v27;
       *a5 = v27;
-      a5[1] = v29;
+      *(a5 + 8) = v29;
       v25 = v29;
       if ((v29 & 0x2000000000000000) == 0)
       {
@@ -7298,10 +7310,10 @@ LABEL_24:
 
         else
         {
-          v37 = _StringObject.sharedUTF8.getter();
-          v39 = v38;
-          v26 = v37;
-          if (v39 == __n)
+          v36 = _StringObject.sharedUTF8.getter();
+          v38 = v37;
+          v26 = v36;
+          if (v38 == __n)
           {
 LABEL_26:
             if (!v26)
@@ -7326,11 +7338,11 @@ LABEL_33:
       goto LABEL_24;
     }
 
-    v40 = v24;
-    v41 = v25 & 0xFFFFFFFFFFFFFFLL;
+    v39 = v24;
+    v40 = v25 & 0xFFFFFFFFFFFFFFLL;
     if ((HIBYTE(v25) & 0xF) == __n)
     {
-      v26 = &v40;
+      v26 = &v39;
 LABEL_32:
       if (!memcmp(__s1, v26, __n))
       {
@@ -7350,7 +7362,7 @@ LABEL_17:
   v19 = 0;
   v20 = 2139095040;
 LABEL_34:
-  LOBYTE(v40) = v19;
+  LOBYTE(v39) = v19;
   return v20 | (v19 << 32);
 }
 
@@ -7436,7 +7448,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         (*(v33 + 32))(v67, v21, a6);
         v57 = v33;
         v58 = _CodingPathNode.path.getter(v77);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         inited = swift_initStackObject();
         *(inited + 16) = xmmword_181218E20;
         v60 = v73;
@@ -7451,7 +7463,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         (*(v29 + 8))(v27, v32);
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       v75 = 0;
       v76 = 0xE000000000000000;
       _StringGuts.grow(_:)(55);
@@ -7484,7 +7496,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         (*(v38 + 32))(v11, v15, a6);
         v49 = v38;
         v50 = _CodingPathNode.path.getter(v77);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         v51 = swift_initStackObject();
         *(v51 + 16) = xmmword_181218E20;
         v52 = v73;
@@ -7542,7 +7554,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         v64 = 0x676E697274732061;
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       MEMORY[0x1865CB0E0](v64, v63);
 
       MEMORY[0x1865CB0E0](0x64616574736E6920, 0xE90000000000002ELL);
@@ -7637,7 +7649,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         (*(v33 + 32))(v67, v21, a6);
         v57 = v33;
         v58 = _CodingPathNode.path.getter(v77);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         inited = swift_initStackObject();
         *(inited + 16) = xmmword_181218E20;
         v60 = v73;
@@ -7652,7 +7664,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         (*(v29 + 8))(v27, v32);
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       v75 = 0;
       v76 = 0xE000000000000000;
       _StringGuts.grow(_:)(55);
@@ -7685,7 +7697,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         (*(v38 + 32))(v11, v15, a6);
         v49 = v38;
         v50 = _CodingPathNode.path.getter(v77);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys9CodingKey_pGMd, &_ss23_ContiguousArrayStorageCys9CodingKey_pGMR);
         v51 = swift_initStackObject();
         *(v51 + 16) = xmmword_181218E20;
         v52 = v73;
@@ -7743,7 +7755,7 @@ unint64_t *specialized JSONDecoderImpl.unwrapFixedWidthInteger<A, B>(from:as:for
         v64 = 0x676E697274732061;
       }
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       MEMORY[0x1865CB0E0](v64, v63);
 
       MEMORY[0x1865CB0E0](0x64616574736E6920, 0xE90000000000002ELL);
@@ -8505,7 +8517,7 @@ LABEL_49:
   return result;
 }
 
-unint64_t _ss17FixedWidthIntegerP10FoundationEyxSgSo9NSDecimalacfCSi_Tt1g5Tm(unint64_t a1, unint64_t a2, unsigned int a3)
+uint64_t _ss17FixedWidthIntegerP10FoundationEyxSgSo9NSDecimalacfCSi_Tt1g5Tm(unint64_t a1, unint64_t a2, unsigned int a3)
 {
   v3 = a3;
   v31[0] = a1;
@@ -8737,7 +8749,7 @@ LABEL_45:
   return result;
 }
 
-uint64_t _ss17FixedWidthIntegerP10FoundationEyxSgSo9NSDecimalacfCs6Int128V_Tt1g5(unint64_t a1, unint64_t a2, unsigned int a3)
+unint64_t _ss17FixedWidthIntegerP10FoundationEyxSgSo9NSDecimalacfCs6Int128V_Tt1g5(unint64_t a1, unint64_t a2, unsigned int a3)
 {
   v3 = a3;
   v32[0] = a1;

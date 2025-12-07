@@ -3910,7 +3910,7 @@ LABEL_75:
   return 0;
 }
 
-void *mlir::mps::TensorDataLayoutAttr::print(mlir::mps::TensorDataLayoutAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::mps::TensorDataLayoutAttr::print(mlir::mps::TensorDataLayoutAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -4050,8 +4050,8 @@ LABEL_27:
   }
 
   result = (*(*a2 + 16))(a2);
-  v13 = result[4];
-  if (result[3] == v13)
+  v13 = *(result + 4);
+  if (*(result + 3) == v13)
   {
 
     return llvm::raw_ostream::write(result, ">", 1uLL);
@@ -4060,7 +4060,7 @@ LABEL_27:
   else
   {
     *v13 = 62;
-    ++result[4];
+    ++*(result + 4);
   }
 
   return result;
@@ -4695,7 +4695,7 @@ LABEL_55:
   return 0;
 }
 
-void *mlir::mps::ReductionModeAttr::print(mlir::mps::ReductionModeAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::mps::ReductionModeAttr::print(mlir::mps::ReductionModeAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -4788,8 +4788,8 @@ LABEL_18:
   }
 
   result = (*(*a2 + 16))(a2);
-  v13 = result[4];
-  if (result[3] == v13)
+  v13 = *(result + 4);
+  if (*(result + 3) == v13)
   {
 
     return llvm::raw_ostream::write(result, ">", 1uLL);
@@ -4798,7 +4798,7 @@ LABEL_18:
   else
   {
     *v13 = 62;
-    ++result[4];
+    ++*(result + 4);
   }
 
   return result;
@@ -5274,7 +5274,7 @@ LABEL_80:
   return 0;
 }
 
-void *mlir::mps::DeviceHintAttr::print(mlir::mps::DeviceHintAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::mps::DeviceHintAttr::print(mlir::mps::DeviceHintAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -5351,8 +5351,8 @@ LABEL_14:
   }
 
   result = (*(*a2 + 16))(a2);
-  v13 = result[4];
-  if (result[3] == v13)
+  v13 = *(result + 4);
+  if (*(result + 3) == v13)
   {
 
     return llvm::raw_ostream::write(result, ">", 1uLL);
@@ -5361,7 +5361,7 @@ LABEL_14:
   else
   {
     *v13 = 62;
-    ++result[4];
+    ++*(result + 4);
   }
 
   return result;
@@ -6058,7 +6058,7 @@ LABEL_59:
   return 0;
 }
 
-void *mlir::mps::ScatterModeAttr::print(mlir::mps::ScatterModeAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::mps::ScatterModeAttr::print(mlir::mps::ScatterModeAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -6161,8 +6161,8 @@ LABEL_20:
   }
 
   result = (*(*a2 + 16))(a2);
-  v13 = result[4];
-  if (result[3] == v13)
+  v13 = *(result + 4);
+  if (*(result + 3) == v13)
   {
 
     return llvm::raw_ostream::write(result, ">", 1uLL);
@@ -6171,7 +6171,7 @@ LABEL_20:
   else
   {
     *v13 = 62;
-    ++result[4];
+    ++*(result + 4);
   }
 
   return result;
@@ -6728,7 +6728,7 @@ LABEL_88:
   return 0;
 }
 
-void *mlir::mps::PaddingModeAttr::print(mlir::mps::PaddingModeAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::mps::PaddingModeAttr::print(mlir::mps::PaddingModeAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -6809,8 +6809,8 @@ LABEL_13:
   }
 
   result = (*(*a2 + 16))(a2);
-  v13 = result[4];
-  if (result[3] == v13)
+  v13 = *(result + 4);
+  if (*(result + 3) == v13)
   {
 
     return llvm::raw_ostream::write(result, ">", 1uLL);
@@ -6819,7 +6819,7 @@ LABEL_13:
   else
   {
     *v13 = 62;
-    ++result[4];
+    ++*(result + 4);
   }
 
   return result;
@@ -7229,7 +7229,7 @@ LABEL_69:
   return 0;
 }
 
-void *mlir::mps::SamplingModeAttr::print(mlir::mps::SamplingModeAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::mps::SamplingModeAttr::print(mlir::mps::SamplingModeAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -7305,8 +7305,8 @@ void *mlir::mps::SamplingModeAttr::print(mlir::mps::SamplingModeAttr *this, mlir
   }
 
   result = (*(*a2 + 16))(a2);
-  v15 = result[4];
-  if (result[3] == v15)
+  v15 = *(result + 4);
+  if (*(result + 3) == v15)
   {
 
     return llvm::raw_ostream::write(result, ">", 1uLL);
@@ -7315,7 +7315,7 @@ void *mlir::mps::SamplingModeAttr::print(mlir::mps::SamplingModeAttr *this, mlir
   else
   {
     *v15 = 62;
-    ++result[4];
+    ++*(result + 4);
   }
 
   return result;
@@ -7950,7 +7950,7 @@ LABEL_55:
   return 0;
 }
 
-void *mlir::mps::NearestRoundingModeAttr::print(mlir::mps::NearestRoundingModeAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::mps::NearestRoundingModeAttr::print(mlir::mps::NearestRoundingModeAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -8047,8 +8047,8 @@ LABEL_17:
   }
 
   result = (*(*a2 + 16))(a2);
-  v13 = result[4];
-  if (result[3] == v13)
+  v13 = *(result + 4);
+  if (*(result + 3) == v13)
   {
 
     return llvm::raw_ostream::write(result, ">", 1uLL);
@@ -8057,7 +8057,7 @@ LABEL_17:
   else
   {
     *v13 = 62;
-    ++result[4];
+    ++*(result + 4);
   }
 
   return result;
@@ -8533,7 +8533,7 @@ LABEL_80:
   return 0;
 }
 
-void *mlir::mps::SparseTensorStorageAttr::print(mlir::mps::SparseTensorStorageAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::mps::SparseTensorStorageAttr::print(mlir::mps::SparseTensorStorageAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -8610,8 +8610,8 @@ LABEL_14:
   }
 
   result = (*(*a2 + 16))(a2);
-  v13 = result[4];
-  if (result[3] == v13)
+  v13 = *(result + 4);
+  if (*(result + 3) == v13)
   {
 
     return llvm::raw_ostream::write(result, ">", 1uLL);
@@ -8620,7 +8620,7 @@ LABEL_14:
   else
   {
     *v13 = 62;
-    ++result[4];
+    ++*(result + 4);
   }
 
   return result;
@@ -9503,7 +9503,7 @@ LABEL_71:
   return 0;
 }
 
-void *mlir::mps::MetalPixelFormatAttr::print(mlir::mps::MetalPixelFormatAttr *this, mlir::AsmPrinter *a2)
+llvm::raw_ostream *mlir::mps::MetalPixelFormatAttr::print(mlir::mps::MetalPixelFormatAttr *this, mlir::AsmPrinter *a2)
 {
   mlir::Attribute::getContext(this);
   v4 = (*(*a2 + 16))(a2);
@@ -9633,8 +9633,8 @@ LABEL_25:
   }
 
   result = (*(*a2 + 16))(a2);
-  v13 = result[4];
-  if (result[3] == v13)
+  v13 = *(result + 4);
+  if (*(result + 3) == v13)
   {
 
     return llvm::raw_ostream::write(result, ">", 1uLL);
@@ -9643,7 +9643,7 @@ LABEL_25:
   else
   {
     *v13 = 62;
-    ++result[4];
+    ++*(result + 4);
   }
 
   return result;

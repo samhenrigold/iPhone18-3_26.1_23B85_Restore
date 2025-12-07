@@ -1,9 +1,9 @@
 @interface IMDCKAbstractSyncController
-- (BOOL)_fetchedAllChangesFromCloudKit;
 - (IMDCKAbstractSyncControllerDelegate)delegate;
 - (IMDCKSyncState)syncState;
 - (id)latestSyncToken;
 - (id)syncStateDebuggingInfo:(id)info;
+- (void)countRecordOnRead:(BOOL)read didSucceed:(BOOL)succeed;
 - (void)deleteSyncToken;
 - (void)resetRecordCounts;
 - (void)setBroadcastedSyncStateStateToFinished;
@@ -74,6 +74,30 @@
   [(IMDCKAbstractSyncController *)self setRecordsWriteFailed:0];
 }
 
+- (void)countRecordOnRead:(BOOL)read didSucceed:(BOOL)succeed
+{
+  if (read)
+  {
+    v5 = [(IMDCKAbstractSyncController *)self recordsRead:read]+ 1;
+
+    [(IMDCKAbstractSyncController *)self setRecordsRead:v5];
+  }
+
+  else if (succeed)
+  {
+    v6 = [(IMDCKAbstractSyncController *)self recordsWriteFailed]+ 1;
+
+    [(IMDCKAbstractSyncController *)self setRecordsWriteFailed:v6];
+  }
+
+  else
+  {
+    v7 = [(IMDCKAbstractSyncController *)self recordsWritten]+ 1;
+
+    [(IMDCKAbstractSyncController *)self setRecordsWritten:v7];
+  }
+}
+
 - (void)setBroadcastedSyncStateStateToFinished
 {
   syncState = [(IMDCKAbstractSyncController *)self syncState];
@@ -138,13 +162,6 @@
     delegate2 = [(IMDCKAbstractSyncController *)self delegate];
     [delegate2 syncController:self syncBatchCompleted:completed];
   }
-}
-
-- (BOOL)_fetchedAllChangesFromCloudKit
-{
-  v2 = *MEMORY[0x277D19A08];
-  v3 = *MEMORY[0x277D19750];
-  return IMGetDomainBoolForKey();
 }
 
 - (IMDCKAbstractSyncControllerDelegate)delegate

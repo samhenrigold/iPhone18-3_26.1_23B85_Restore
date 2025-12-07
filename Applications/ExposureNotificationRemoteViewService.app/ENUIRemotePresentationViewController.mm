@@ -2,7 +2,9 @@
 - (ENUIRemotePresentationViewController)init;
 - (id)_viewControllerToShowForPresentationRequest:(id)request;
 - (void)_finishWithError:(id)error;
+- (void)_handleKeyReleaseDecision:(BOOL)decision completion:(id)completion;
 - (void)_handleOnboardingResult:(int64_t)result completion:(id)completion;
+- (void)_handlePreApprovalDecision:(BOOL)decision completion:(id)completion;
 - (void)dealloc;
 - (void)setPresentationRequest:(id)request;
 - (void)show;
@@ -202,6 +204,40 @@ LABEL_14:
   v9[0] = _NSConcreteStackBlock;
   v9[1] = 3221225472;
   v9[2] = sub_100001978;
+  v9[3] = &unk_100004238;
+  v9[4] = self;
+  v10 = completionCopy;
+  v8 = completionCopy;
+  [(ENUIRemotePresentationViewController *)self _performAfterActivation:v9];
+}
+
+- (void)_handleKeyReleaseDecision:(BOOL)decision completion:(id)completion
+{
+  decisionCopy = decision;
+  completionCopy = completion;
+  presentationRequest = [(ENUIRemotePresentationViewController *)self presentationRequest];
+  [presentationRequest keyReleaseRequestCompletedWithDecision:decisionCopy];
+
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_100001B08;
+  v9[3] = &unk_100004238;
+  v9[4] = self;
+  v10 = completionCopy;
+  v8 = completionCopy;
+  [(ENUIRemotePresentationViewController *)self _performAfterActivation:v9];
+}
+
+- (void)_handlePreApprovalDecision:(BOOL)decision completion:(id)completion
+{
+  decisionCopy = decision;
+  completionCopy = completion;
+  presentationRequest = [(ENUIRemotePresentationViewController *)self presentationRequest];
+  [presentationRequest preApprovalRequestCompletedWithDecision:decisionCopy];
+
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_100001C98;
   v9[3] = &unk_100004238;
   v9[4] = self;
   v10 = completionCopy;

@@ -39,7 +39,7 @@
 
     if (!uniqueIdentifier)
     {
-      goto LABEL_27;
+      goto LABEL_28;
     }
   }
 
@@ -58,28 +58,28 @@
       [v9 setObject:guid forKey:@"guid"];
     }
 
-    v48 = 0;
-    v12 = [(KeybagSyncOperation *)self _newBodyDataWithBodyPlist:v9 error:&v48];
-    v13 = v48;
+    v47 = 0;
+    v12 = [(KeybagSyncOperation *)self _newBodyDataWithBodyPlist:v9 error:&v47];
+    v13 = v47;
     if (!v12)
     {
       v28 = 0;
-LABEL_40:
+LABEL_42:
 
-      goto LABEL_41;
+      goto LABEL_43;
     }
 
     v14 = objc_alloc_init(ISStoreURLOperation);
     v15 = +[DaemonProtocolDataProvider provider];
     [v15 setShouldProcessProtocol:0];
-    v46 = v15;
+    v45 = v15;
     [v14 setDataProvider:v15];
     v16 = [(KeybagSyncOperation *)self _newRequestPropertiesWithBodyData:v12];
     [v16 setURLBagKey:@"view-software-updates"];
-    v43 = v16;
+    v42 = v16;
     [v14 setRequestProperties:v16];
-    v45 = v14;
-    v42 = [[SSAuthenticationContext alloc] initWithAccountIdentifier:uniqueIdentifier];
+    v44 = v14;
+    v41 = [[SSAuthenticationContext alloc] initWithAccountIdentifier:uniqueIdentifier];
     [v14 setAuthenticationContext:?];
     v17 = +[SSLogConfig sharedDaemonConfig];
     if (!v17)
@@ -87,32 +87,35 @@ LABEL_40:
       v17 = +[SSLogConfig sharedConfig];
     }
 
-    v44 = uniqueIdentifier;
-    shouldLog = [v17 shouldLog];
+    v43 = uniqueIdentifier;
+    LODWORD(v18) = [v17 shouldLog];
     if ([v17 shouldLogToDisk])
     {
-      shouldLog |= 2u;
+      LODWORD(v18) = v18 | 2;
     }
 
     oSLogObject = [v17 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
     {
-      shouldLog &= 2u;
+      v18 = v18;
     }
 
-    if (shouldLog)
+    else
+    {
+      v18 &= 2u;
+    }
+
+    if (v18)
     {
       v20 = objc_opt_class();
-      v49 = 138412290;
-      v50 = v20;
+      v48 = 138412290;
+      v49 = v20;
       v21 = v9;
       v22 = v8;
       v23 = v12;
       v24 = guid;
       v25 = v20;
-      LODWORD(v40) = 12;
-      v39 = &v49;
-      v26 = _os_log_send_and_compose_impl();
+      v26 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Running operation", &v48, 12);
 
       guid = v24;
       v12 = v23;
@@ -121,21 +124,21 @@ LABEL_40:
 
       if (!v26)
       {
-LABEL_18:
+LABEL_19:
 
-        v47 = v13;
-        v27 = v45;
-        v28 = [(KeybagSyncOperation *)self runSubOperation:v45 returningError:&v47];
-        v29 = v47;
+        v46 = v13;
+        v27 = v44;
+        v28 = [(KeybagSyncOperation *)self runSubOperation:v44 returningError:&v46];
+        v29 = v46;
 
-        uniqueIdentifier = v44;
+        uniqueIdentifier = v43;
         if (v28)
         {
-          output = [v46 output];
+          output = [v45 output];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v41 = v29;
+            v40 = v29;
             v31 = [output objectForKey:@"keybag"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
@@ -143,7 +146,7 @@ LABEL_18:
               v32 = [[NSData alloc] initWithBase64EncodedString:v31 options:0];
 
               v31 = v32;
-              v27 = v45;
+              v27 = v44;
             }
 
             objc_opt_class();
@@ -152,71 +155,74 @@ LABEL_18:
               sub_1000B29AC(v31);
             }
 
-            v29 = v41;
+            v29 = v40;
           }
         }
 
         v13 = v29;
-        goto LABEL_40;
+        goto LABEL_42;
       }
 
-      oSLogObject = [NSString stringWithCString:v26 encoding:4, &v49, v40];
+      oSLogObject = [NSString stringWithCString:v26 encoding:4];
       free(v26);
       v39 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
-LABEL_27:
+LABEL_28:
   v33 = +[SSLogConfig sharedDaemonConfig];
   if (!v33)
   {
     v33 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog2 = [v33 shouldLog];
+  shouldLog = [v33 shouldLog];
   if ([v33 shouldLogToDisk])
   {
-    v35 = shouldLog2 | 2;
+    LODWORD(v35) = shouldLog | 2;
   }
 
   else
   {
-    v35 = shouldLog2;
+    LODWORD(v35) = shouldLog;
   }
 
   oSLogObject2 = [v33 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
+  {
+    v35 = v35;
+  }
+
+  else
   {
     v35 &= 2u;
   }
 
   if (!v35)
   {
-    goto LABEL_37;
+    goto LABEL_39;
   }
 
-  v49 = 138412290;
-  v50 = objc_opt_class();
-  v37 = v50;
-  LODWORD(v40) = 12;
-  v39 = &v49;
-  v38 = _os_log_send_and_compose_impl();
+  v48 = 138412290;
+  v49 = objc_opt_class();
+  v37 = v49;
+  v38 = _os_log_send_and_compose_impl(v35, 0, 0, 0, &_mh_execute_header, oSLogObject2, 2, "%@: Skip operation, no kbsync data", &v48, 12);
 
   if (v38)
   {
-    oSLogObject2 = [NSString stringWithCString:v38 encoding:4, &v49, v40];
+    oSLogObject2 = [NSString stringWithCString:v38 encoding:4];
     free(v38);
     v39 = oSLogObject2;
     SSFileLog();
-LABEL_37:
+LABEL_39:
   }
 
   v13 = SSError();
   v28 = 0;
-LABEL_41:
+LABEL_43:
   [(KeybagSyncOperation *)self setError:v13, v39];
   [(KeybagSyncOperation *)self setSuccess:v28];
 }

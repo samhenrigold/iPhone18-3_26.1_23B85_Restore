@@ -58,46 +58,46 @@ LABEL_9:
 
 + (id)liveEventsForQuery:(id)query context:(id)context
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   contextCopy = context;
-  v50 = queryCopy;
-  v51 = [self contextKeypathForQuery:queryCopy];
-  if (!v51 || ([queryCopy eventStreams], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "count"), v7, v8 != 1))
+  v49 = queryCopy;
+  v50 = [self contextKeypathForQuery:queryCopy];
+  if (!v50 || ([queryCopy eventStreams], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "count"), v7, v8 != 1))
   {
-    v52 = MEMORY[0x1E695E0F0];
+    v51 = MEMORY[0x1E695E0F0];
     goto LABEL_59;
   }
 
   eventStreams = [queryCopy eventStreams];
-  v56 = [eventStreams objectAtIndexedSubscript:0];
+  v55 = [eventStreams objectAtIndexedSubscript:0];
 
   keyPathForAppUsageDataDictionaries = [get_CDContextQueriesClass() keyPathForAppUsageDataDictionaries];
-  v11 = [v51 isEqual:keyPathForAppUsageDataDictionaries];
+  v11 = [v50 isEqual:keyPathForAppUsageDataDictionaries];
 
   if (v11)
   {
-    v12 = [contextCopy objectForKeyedSubscript:v51];
-    v52 = [MEMORY[0x1E695E0F0] mutableCopy];
+    v12 = [contextCopy objectForKeyedSubscript:v50];
+    v51 = [MEMORY[0x1E695E0F0] mutableCopy];
+    v70 = 0u;
     v71 = 0u;
     v72 = 0u;
     v73 = 0u;
-    v74 = 0u;
     obj = v12;
-    v13 = [obj countByEnumeratingWithState:&v71 objects:v82 count:16];
+    v13 = [obj countByEnumeratingWithState:&v70 objects:v81 count:16];
     if (v13)
     {
-      v14 = *v72;
+      v14 = *v71;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v72 != v14)
+          if (*v71 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v71 + 1) + 8 * i);
+          v16 = *(*(&v70 + 1) + 8 * i);
           appUsageBundleID = [get_CDContextQueriesClass() appUsageBundleID];
           v18 = [v16 objectForKeyedSubscript:appUsageBundleID];
 
@@ -107,10 +107,10 @@ LABEL_9:
           if (v18 && v20)
           {
             date = [MEMORY[0x1E695DF00] date];
-            v22 = [get_DKEventClass() eventWithStream:v56 startDate:v20 endDate:date identifierStringValue:v18 metadata:0];
+            v22 = [get_DKEventClass() eventWithStream:v55 startDate:v20 endDate:date identifierStringValue:v18 metadata:0];
             if (v22)
             {
-              [v52 addObject:v22];
+              [v51 addObject:v22];
             }
 
             else
@@ -118,7 +118,7 @@ LABEL_9:
               v24 = __biome_log_for_category();
               if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
               {
-                [(BMKnowledgeContextMapping *)v75 liveEventsForQuery:v24 context:?];
+                [(BMKnowledgeContextMapping *)v74 liveEventsForQuery:v24 context:?];
               }
             }
           }
@@ -147,7 +147,7 @@ LABEL_9:
           }
         }
 
-        v13 = [obj countByEnumeratingWithState:&v71 objects:v82 count:16];
+        v13 = [obj countByEnumeratingWithState:&v70 objects:v81 count:16];
       }
 
       while (v13);
@@ -157,39 +157,39 @@ LABEL_9:
   else
   {
     keyPathForAppWebUsageDataDictionaries = [get_CDContextQueriesClass() keyPathForAppWebUsageDataDictionaries];
-    v26 = [v51 isEqual:keyPathForAppWebUsageDataDictionaries];
+    v26 = [v50 isEqual:keyPathForAppWebUsageDataDictionaries];
 
     if (!v26)
     {
-      v52 = MEMORY[0x1E695E0F0];
+      v51 = MEMORY[0x1E695E0F0];
       goto LABEL_58;
     }
 
-    v27 = [contextCopy objectForKeyedSubscript:v51];
-    v52 = [MEMORY[0x1E695E0F0] mutableCopy];
+    v27 = [contextCopy objectForKeyedSubscript:v50];
+    v51 = [MEMORY[0x1E695E0F0] mutableCopy];
+    v66 = 0u;
     v67 = 0u;
     v68 = 0u;
     v69 = 0u;
-    v70 = 0u;
     obj = v27;
-    v54 = [obj countByEnumeratingWithState:&v67 objects:v81 count:16];
-    if (v54)
+    v53 = [obj countByEnumeratingWithState:&v66 objects:v80 count:16];
+    if (v53)
     {
-      v53 = *v68;
+      v52 = *v67;
       do
       {
         v28 = 0;
         do
         {
-          if (*v68 != v53)
+          if (*v67 != v52)
           {
             v29 = v28;
             objc_enumerationMutation(obj);
             v28 = v29;
           }
 
-          v58 = v28;
-          v30 = *(*(&v67 + 1) + 8 * v28);
+          v57 = v28;
+          v30 = *(*(&v66 + 1) + 8 * v28);
           appWebUsageWebDomain = [get_CDContextQueriesClass() appWebUsageWebDomain];
           appWebUsageStartDate = [get_CDContextQueriesClass() appWebUsageStartDate];
           appWebUsageBundleID = [get_CDContextQueriesClass() appWebUsageBundleID];
@@ -197,48 +197,48 @@ LABEL_9:
           appWebUsageWepageURL = [get_CDContextQueriesClass() appWebUsageWepageURL];
           v31 = [v30 objectForKeyedSubscript:appWebUsageWebDomain];
           v32 = [v30 objectForKeyedSubscript:appWebUsageStartDate];
-          v59 = [v30 objectForKeyedSubscript:appWebUsageBundleID];
+          v58 = [v30 objectForKeyedSubscript:appWebUsageBundleID];
           v33 = [v30 objectForKeyedSubscript:appWebUsageType];
           v34 = [v30 objectForKeyedSubscript:appWebUsageWepageURL];
           v35 = v34;
           if (v34 && v31 && v33 && v32)
           {
-            *v75 = 0;
-            v76 = v75;
-            v77 = 0x2050000000;
+            *v74 = 0;
+            v75 = v74;
+            v76 = 0x2050000000;
             v36 = get_DKBundleIdentifierClass_softClass;
-            v78 = get_DKBundleIdentifierClass_softClass;
+            v77 = get_DKBundleIdentifierClass_softClass;
             if (!get_DKBundleIdentifierClass_softClass)
             {
               *&buf = MEMORY[0x1E69E9820];
               *(&buf + 1) = 3221225472;
-              v84 = __get_DKBundleIdentifierClass_block_invoke;
-              v85 = &unk_1E6E52EB0;
-              v86 = v75;
+              v83 = __get_DKBundleIdentifierClass_block_invoke;
+              v84 = &unk_1E6E52EB0;
+              v85 = v74;
               __get_DKBundleIdentifierClass_block_invoke(&buf);
-              v36 = *(v76 + 3);
+              v36 = *(v75 + 3);
             }
 
             v37 = v36;
-            _Block_object_dispose(v75, 8);
-            v38 = [v36 withBundle:v59];
+            _Block_object_dispose(v74, 8);
+            v38 = [v36 withBundle:v58];
             webpageURL = [get_DKDigitalHealthMetadataKeyClass() webpageURL];
             webDomain = [get_DKDigitalHealthMetadataKeyClass() webDomain];
             usageType = [get_DKDigitalHealthMetadataKeyClass() usageType];
-            v79[0] = webpageURL;
-            v79[1] = webDomain;
-            v80[0] = v35;
-            v80[1] = v31;
-            v79[2] = usageType;
-            v80[2] = v33;
-            v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v80 forKeys:v79 count:3];
+            v78[0] = webpageURL;
+            v78[1] = webDomain;
+            v79[0] = v35;
+            v79[1] = v31;
+            v78[2] = usageType;
+            v79[2] = v33;
+            v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v79 forKeys:v78 count:3];
             DKEventClass = get_DKEventClass();
             date2 = [MEMORY[0x1E695DF00] date];
-            v44 = [DKEventClass eventWithStream:v56 startDate:v32 endDate:date2 value:v38 metadata:v41];
+            v44 = [DKEventClass eventWithStream:v55 startDate:v32 endDate:date2 value:v38 metadata:v41];
 
             if (v44)
             {
-              [v52 addObject:v44];
+              [v51 addObject:v44];
             }
 
             else
@@ -246,7 +246,7 @@ LABEL_9:
               v46 = __biome_log_for_category();
               if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
               {
-                [(BMKnowledgeContextMapping *)&v65 liveEventsForQuery:v66 context:v46];
+                [(BMKnowledgeContextMapping *)&v64 liveEventsForQuery:v65 context:v46];
               }
             }
           }
@@ -284,23 +284,21 @@ LABEL_9:
             }
           }
 
-          v28 = v58 + 1;
+          v28 = v57 + 1;
         }
 
-        while (v54 != v58 + 1);
-        v54 = [obj countByEnumeratingWithState:&v67 objects:v81 count:16];
+        while (v53 != v57 + 1);
+        v53 = [obj countByEnumeratingWithState:&v66 objects:v80 count:16];
       }
 
-      while (v54);
+      while (v53);
     }
   }
 
 LABEL_58:
 LABEL_59:
 
-  v47 = *MEMORY[0x1E69E9840];
-
-  return v52;
+  return v51;
 }
 
 @end

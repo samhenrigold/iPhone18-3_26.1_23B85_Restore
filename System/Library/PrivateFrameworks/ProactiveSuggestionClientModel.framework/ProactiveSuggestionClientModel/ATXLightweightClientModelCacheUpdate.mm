@@ -110,16 +110,16 @@
 
 - (id)jsonDict
 {
-  v16[5] = *MEMORY[0x1E69E9840];
+  v15[5] = *MEMORY[0x1E69E9840];
   clientModelId = self->_clientModelId;
   if (!clientModelId)
   {
     clientModelId = @"nil";
   }
 
-  v16[0] = clientModelId;
-  v15[0] = @"clientModelId";
-  v15[1] = @"uuid";
+  v15[0] = clientModelId;
+  v14[0] = @"clientModelId";
+  v14[1] = @"uuid";
   uUIDString = [(NSUUID *)self->_uuid UUIDString];
   v5 = uUIDString;
   if (uUIDString)
@@ -132,11 +132,11 @@
     v6 = @"nil";
   }
 
-  v16[1] = v6;
-  v15[2] = @"suggestions";
+  v15[1] = v6;
+  v14[2] = @"suggestions";
   v7 = [ATXLightweightProactiveSuggestion lightWeightSuggestionDescriptionsFromLightWeightSuggestions:self->_suggestions];
-  v16[2] = v7;
-  v15[3] = @"suggestionCount";
+  v15[2] = v7;
+  v14[3] = @"suggestionCount";
   v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSArray count](self->_suggestions, "count")}];
   v9 = v8;
   if (v8)
@@ -149,13 +149,11 @@
     v10 = @"nil";
   }
 
-  v16[3] = v10;
-  v15[4] = @"cacheCreationDate";
+  v15[3] = v10;
+  v14[4] = @"cacheCreationDate";
   v11 = [(NSDate *)self->_cacheCreationDate description];
-  v16[4] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:5];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v15[4] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:5];
 
   return v12;
 }
@@ -285,30 +283,31 @@ LABEL_7:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v17 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    v18 = __atxlog_handle_blending(isKindOfClass);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
-      [(ATXLightweightClientModelCacheUpdate *)self initWithProto:v17];
+      [(ATXLightweightClientModelCacheUpdate *)self initWithProto:v18];
     }
 
     goto LABEL_7;
   }
 
-  v5 = protoCopy;
-  clientModelId = [v5 clientModelId];
-  suggestions = [v5 suggestions];
-  v8 = [ATXLightweightProactiveSuggestion lightWeightSuggestionsFromProtoLightWeightSuggestions:suggestions];
-  v9 = objc_alloc(MEMORY[0x1E696AFB0]);
-  uuidString = [v5 uuidString];
-  v11 = [v9 initWithUUIDString:uuidString];
-  v12 = objc_alloc(MEMORY[0x1E695DF00]);
-  [v5 cacheCreationDate];
-  v14 = v13;
+  v6 = protoCopy;
+  clientModelId = [v6 clientModelId];
+  suggestions = [v6 suggestions];
+  v9 = [ATXLightweightProactiveSuggestion lightWeightSuggestionsFromProtoLightWeightSuggestions:suggestions];
+  v10 = objc_alloc(MEMORY[0x1E696AFB0]);
+  uuidString = [v6 uuidString];
+  v12 = [v10 initWithUUIDString:uuidString];
+  v13 = objc_alloc(MEMORY[0x1E695DF00]);
+  [v6 cacheCreationDate];
+  v15 = v14;
 
-  v15 = [v12 initWithTimeIntervalSinceReferenceDate:v14];
-  self = [(ATXLightweightClientModelCacheUpdate *)self initWithClientModelId:clientModelId suggestions:v8 uuid:v11 cacheCreationDate:v15];
+  v16 = [v13 initWithTimeIntervalSinceReferenceDate:v15];
+  self = [(ATXLightweightClientModelCacheUpdate *)self initWithClientModelId:clientModelId suggestions:v9 uuid:v12 cacheCreationDate:v16];
 
   selfCopy = self;
 LABEL_8:
@@ -318,14 +317,12 @@ LABEL_8:
 
 - (void)initWithProto:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_fault_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_FAULT, "Unable to construct class %@ from ProtoBuf object", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_fault_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_FAULT, "Unable to construct class %@ from ProtoBuf object", &v5, 0xCu);
 }
 
 @end

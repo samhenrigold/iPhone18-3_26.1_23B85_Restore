@@ -112,42 +112,52 @@
 {
   if (BSFloatGreaterThanFloat())
   {
-    self->_boxed_minExpirationTimeout = [MEMORY[0x1E696AD98] numberWithDouble:timeout];
-  }
-
-  else if (BSFloatIsZero())
-  {
-    self->_boxed_minExpirationTimeout = 0;
+    IsZero = [MEMORY[0x1E696AD98] numberWithDouble:timeout];
+    self->_boxed_minExpirationTimeout = IsZero;
   }
 
   else
   {
-    [MEMORY[0x1E696AAA8] currentHandler];
-    [objc_claimAutoreleasedReturnValue() handleFailureInMethod:a2 object:self file:@"SBIdleTimerRequestConfiguration.m" lineNumber:100 description:{@"Min timeout: %g must be nonnegative", *&timeout}];
+    IsZero = BSFloatIsZero();
+    if (IsZero)
+    {
+      self->_boxed_minExpirationTimeout = 0;
+    }
+
+    else
+    {
+      [MEMORY[0x1E696AAA8] currentHandler];
+      IsZero = [objc_claimAutoreleasedReturnValue() handleFailureInMethod:a2 object:self file:@"SBIdleTimerRequestConfiguration.m" lineNumber:100 description:{@"Min timeout: %g must be nonnegative", *&timeout}];
+    }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](IsZero);
 }
 
 - (void)setMaxExpirationTimeout:(double)timeout
 {
   if (BSFloatGreaterThanFloat())
   {
-    self->_boxed_maxExpirationTimeout = [MEMORY[0x1E696AD98] numberWithDouble:timeout];
-  }
-
-  else if (BSFloatIsZero())
-  {
-    self->_boxed_maxExpirationTimeout = 0;
+    IsZero = [MEMORY[0x1E696AD98] numberWithDouble:timeout];
+    self->_boxed_maxExpirationTimeout = IsZero;
   }
 
   else
   {
-    [MEMORY[0x1E696AAA8] currentHandler];
-    [objc_claimAutoreleasedReturnValue() handleFailureInMethod:a2 object:self file:@"SBIdleTimerRequestConfiguration.m" lineNumber:118 description:{@"Max timeout: %g must be nonnegative", *&timeout}];
+    IsZero = BSFloatIsZero();
+    if (IsZero)
+    {
+      self->_boxed_maxExpirationTimeout = 0;
+    }
+
+    else
+    {
+      [MEMORY[0x1E696AAA8] currentHandler];
+      IsZero = [objc_claimAutoreleasedReturnValue() handleFailureInMethod:a2 object:self file:@"SBIdleTimerRequestConfiguration.m" lineNumber:118 description:{@"Max timeout: %g must be nonnegative", *&timeout}];
+    }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](IsZero);
 }
 
 - (void)_setIdleEventHandler:(id)handler

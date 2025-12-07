@@ -28,38 +28,41 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_274589434();
+  sub_274589434(selfCopy);
 }
 
 - (void)viewIsAppearing:(BOOL)appearing
 {
+  appearingCopy = appearing;
   selfCopy = self;
-  sub_274589604(appearing);
+  sub_274589604(appearingCopy);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_2745896D4(disappear);
+  sub_2745896D4(disappearCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_274589788(appear);
+  sub_274589788(appearCopy);
 }
 
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_274589840();
+  sub_274589840(selfCopy);
 }
 
 - (void)motionEnded:(int64_t)ended withEvent:(id)event
 {
   eventCopy = event;
   selfCopy = self;
-  sub_274589914();
+  sub_274589914(ended, event);
 }
 
 - (void)viewDidLayoutSubviews
@@ -73,10 +76,10 @@
   v4 = sub_274637D0C();
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
-  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_274637CEC();
   selfCopy = self;
-  sub_274589F3C();
+  sub_274589F3C(v7, v9, v10);
 
   (*(v5 + 8))(v7, v4);
 }

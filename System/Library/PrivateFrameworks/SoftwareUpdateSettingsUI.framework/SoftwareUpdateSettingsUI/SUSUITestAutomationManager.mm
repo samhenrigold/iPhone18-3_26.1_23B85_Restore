@@ -87,7 +87,6 @@ uint64_t __43__SUSUITestAutomationManager_sharedManager__block_invoke(uint64_t a
   }
 
   objc_storeStrong(v8, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -180,7 +179,6 @@ uint64_t __43__SUSUITestAutomationManager_sharedManager__block_invoke(uint64_t a
 
   objc_sync_exit(obj);
   MEMORY[0x277D82BD8](obj);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)stopObserving
@@ -221,7 +219,6 @@ uint64_t __43__SUSUITestAutomationManager_sharedManager__block_invoke(uint64_t a
 
   objc_sync_exit(v5);
   MEMORY[0x277D82BD8](v5);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)enabled
@@ -373,7 +370,6 @@ uint64_t __43__SUSUITestAutomationManager_sharedManager__block_invoke(uint64_t a
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -546,7 +542,6 @@ LABEL_32:
   v32 = 1;
 LABEL_33:
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)setupAutomaticTestingForStoredSession:(id)session
@@ -638,7 +633,6 @@ LABEL_33:
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

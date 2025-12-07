@@ -43,12 +43,12 @@
   return v5;
 }
 
-os_log_t __46__CADOperationProxy_initWithClientConnection___block_invoke()
+os_log_t __46__CADOperationProxy_initWithClientConnection___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = CADCalendarLogSubsystem;
-  v1 = objc_opt_class();
-  v2 = [NSStringFromClass(v1) UTF8String];
-  result = os_log_create(v0, v2);
+  v2 = CADCalendarLogSubsystem;
+  v3 = objc_opt_class();
+  v4 = [NSStringFromClass(v3) UTF8String];
+  result = os_log_create(v2, v4);
   CADOperationProxyLogHandle = result;
   return result;
 }
@@ -154,51 +154,47 @@ LABEL_18:
 
 - (void)forwardingTargetForSelector:(NSObject *)a3 .cold.1(const char *a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = NSStringFromSelector(a1);
   v6 = [*(a2 + 8) identity];
-  v8 = 138412546;
-  v9 = v5;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_error_impl(&dword_22430B000, a3, OS_LOG_TYPE_ERROR, "A client attempted to call [%@] and was denied due to insufficient privileges.  Client identity: [%@]", &v8, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_error_impl(&dword_22430B000, a3, OS_LOG_TYPE_ERROR, "A client attempted to call [%@] and was denied due to insufficient privileges.  Client identity: [%@]", &v7, 0x16u);
 }
 
 - (void)forwardInvocation:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 138412290;
-  v5 = NSStringFromSelector([a1 selector]);
-  _os_log_debug_impl(&dword_22430B000, a2, OS_LOG_TYPE_DEBUG, "Received message %@ before initialization. Dropping this message.", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = NSStringFromSelector([a1 selector]);
+  _os_log_debug_impl(&dword_22430B000, a2, OS_LOG_TYPE_DEBUG, "Received message %@ before initialization. Dropping this message.", &v3, 0xCu);
 }
 
 - (void)forwardInvocation:(NSObject *)a3 .cold.2(void *a1, uint64_t a2, NSObject *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = NSStringFromSelector([a1 selector]);
   v6 = [*(a2 + 8) reminderAccessGranted];
   v7 = [*(a2 + 8) eventAccessLevel];
-  v9 = 138412802;
-  v10 = v5;
-  v11 = 1024;
-  v12 = v6;
-  v13 = 1024;
-  v14 = v7;
-  _os_log_error_impl(&dword_22430B000, a3, OS_LOG_TYPE_ERROR, "ERROR: access denied to perform invocation %@. The CADXPCImplementation has the following TCC status: Reminders %{BOOL}i, Events %d.", &v9, 0x18u);
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138412802;
+  v9 = v5;
+  v10 = 1024;
+  v11 = v6;
+  v12 = 1024;
+  v13 = v7;
+  _os_log_error_impl(&dword_22430B000, a3, OS_LOG_TYPE_ERROR, "ERROR: access denied to perform invocation %@. The CADXPCImplementation has the following TCC status: Reminders %{BOOL}i, Events %d.", &v8, 0x18u);
 }
 
 - (void)forwardInvocation:(void *)a3 .cold.3(uint64_t a1, NSObject *a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v5 = [*(a1 + 8) identity];
-  v7 = 138412290;
-  v8 = v5;
-  _os_log_error_impl(&dword_22430B000, a2, OS_LOG_TYPE_ERROR, "ERROR: Refused for connection from %@", &v7, 0xCu);
+  v6 = 138412290;
+  v7 = v5;
+  _os_log_error_impl(&dword_22430B000, a2, OS_LOG_TYPE_ERROR, "ERROR: Refused for connection from %@", &v6, 0xCu);
   *a3 = CADOperationProxyLogHandle;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

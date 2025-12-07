@@ -7,16 +7,14 @@
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"result";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"result";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDUserDataZoneControllerShareLogEvent result](self, "result")}];
-  v8[1] = @"didAccept";
-  v9[0] = v3;
+  v7[1] = @"didAccept";
+  v8[0] = v3;
   v4 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDUserDataZoneControllerShareLogEvent didAccept](self, "didAccept")}];
-  v9[1] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }

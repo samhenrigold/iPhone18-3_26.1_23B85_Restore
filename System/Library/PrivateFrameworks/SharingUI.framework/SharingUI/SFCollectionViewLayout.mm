@@ -435,7 +435,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t __73__SFCollectionViewLayout__evaluatePreferredItemSizeForItemsAtIndexPaths___block_invoke(uint64_t a1, uint64_t a2)
+void *__73__SFCollectionViewLayout__evaluatePreferredItemSizeForItemsAtIndexPaths___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) collectionView:*(a1 + 40) layout:*(a1 + 48) preferredSizeForItemAtIndexPath:a2];
   v6 = *(*(a1 + 56) + 8);

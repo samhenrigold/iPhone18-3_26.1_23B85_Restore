@@ -13,12 +13,12 @@
 
 + (id)suggestionIdentifierForAutocompleteResult:(id)result
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   resultCopy = result;
   if (([resultCopy sourceType] & 4) != 0)
   {
-    v9[0] = *MEMORY[0x277CBD018];
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = *MEMORY[0x277CBD018];
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
     v6 = [resultCopy contactWithKeysToFetch:v5 error:0];
 
     suggestionRecordId = 0;
@@ -32,8 +32,6 @@
   {
     suggestionRecordId = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return suggestionRecordId;
 }
@@ -56,33 +54,32 @@
 
 + (int)suggestionSourcesForAutocompleteResult:(id)result
 {
-  v17[4] = *MEMORY[0x277D85DE8];
+  v16[4] = *MEMORY[0x277D85DE8];
   resultCopy = result;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
-  v15 = 0;
-  v16[0] = &unk_282793478;
-  v16[1] = &unk_2827934A8;
-  v17[0] = &unk_282793490;
-  v17[1] = &unk_2827934C0;
-  v16[2] = &unk_2827934D8;
-  v16[3] = &unk_282793508;
-  v17[2] = &unk_2827934F0;
-  v17[3] = &unk_282793520;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __73__CNAutocompleteSuggestionsProbe_suggestionSourcesForAutocompleteResult___block_invoke;
-  v9[3] = &unk_2781C3EF0;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
+  v15[0] = &unk_282793478;
+  v15[1] = &unk_2827934A8;
+  v16[0] = &unk_282793490;
+  v16[1] = &unk_2827934C0;
+  v15[2] = &unk_2827934D8;
+  v15[3] = &unk_282793508;
+  v16[2] = &unk_2827934F0;
+  v16[3] = &unk_282793520;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __73__CNAutocompleteSuggestionsProbe_suggestionSourcesForAutocompleteResult___block_invoke;
+  v8[3] = &unk_2781C3EF0;
   v5 = resultCopy;
-  v10 = v5;
-  v11 = &v12;
-  [v4 enumerateKeysAndObjectsUsingBlock:v9];
-  v6 = *(v13 + 6);
+  v9 = v5;
+  v10 = &v11;
+  [v4 enumerateKeysAndObjectsUsingBlock:v8];
+  v6 = *(v12 + 6);
 
-  _Block_object_dispose(&v12, 8);
-  v7 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v11, 8);
   return v6;
 }
 
@@ -102,12 +99,12 @@ void __73__CNAutocompleteSuggestionsProbe_suggestionSourcesForAutocompleteResult
 
 - (CNAutocompleteSuggestionsProbe)init
 {
-  serviceForContacts = [(objc_class *)getSGSuggestionsServiceClass() serviceForContacts];
-  [serviceForContacts setSyncTimeout:0.2];
+  v3 = [getSGSuggestionsServiceClass(self a2)];
+  [v3 setSyncTimeout:0.2];
   defaultProvider = [MEMORY[0x277CFBEB0] defaultProvider];
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
-  v7 = [(CNAutocompleteSuggestionsProbe *)self initWithSuggestionsService:serviceForContacts schedulerProvider:defaultProvider bundleIdentifier:bundleIdentifier];
+  v7 = [(CNAutocompleteSuggestionsProbe *)self initWithSuggestionsService:v3 schedulerProvider:defaultProvider bundleIdentifier:bundleIdentifier];
 
   return v7;
 }
@@ -213,41 +210,39 @@ void __57__CNAutocompleteSuggestionsProbe_recordSGServiceMessage___block_invoke(
 
 uint64_t __42__CNAutocompleteSuggestionsProbe_sendData__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        (*(*(*(&v9 + 1) + 8 * v6) + 16))(*(*(&v9 + 1) + 8 * v6));
+        (*(*(*(&v8 + 1) + 8 * v6) + 16))(*(*(&v8 + 1) + 8 * v6));
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
 
-  result = [*(a1 + 32) removeAllObjects];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) removeAllObjects];
 }
 
 @end

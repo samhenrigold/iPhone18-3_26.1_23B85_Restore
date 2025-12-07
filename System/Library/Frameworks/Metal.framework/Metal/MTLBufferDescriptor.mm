@@ -79,37 +79,7 @@
     v27 = v4;
     v28 = v3;
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      goto LABEL_17;
-    }
-
-    length = self->_length;
-    if (length != [equal length])
-    {
-      goto LABEL_17;
-    }
-
-    alignment = self->_alignment;
-    if (alignment != [equal alignment])
-    {
-      goto LABEL_17;
-    }
-
-    resourceOptions = self->_resourceOptions;
-    if (resourceOptions != [equal resourceOptions])
-    {
-      goto LABEL_17;
-    }
-
-    contents = self->_contents;
-    if (contents != [equal contents])
-    {
-      goto LABEL_17;
-    }
-
-    noCopy = self->_noCopy;
-    if (noCopy == [equal noCopy] && (deallocator = self->_deallocator, deallocator == objc_msgSend(equal, "deallocator")) && (pinnedGPUAddress = self->_pinnedGPUAddress, pinnedGPUAddress == objc_msgSend(equal, "pinnedGPUAddress")) && (pointerTag = self->_pointerTag, pointerTag == objc_msgSend(equal, "pointerTag")) && (parentGPUAddress = self->_parentGPUAddress, parentGPUAddress == objc_msgSend(equal, "parentGPUAddress")) && (parentGPUSize = self->_parentGPUSize, parentGPUSize == objc_msgSend(equal, "parentGPUSize")) && (v21 = self->_addressRanges == 0, v21 != (objc_msgSend(equal, "addressRanges") != 0)))
+    if ((objc_opt_isKindOfClass() & 1) != 0 && (length = self->_length, length == [equal length]) && (alignment = self->_alignment, alignment == objc_msgSend(equal, "alignment")) && (resourceOptions = self->_resourceOptions, resourceOptions == objc_msgSend(equal, "resourceOptions")) && (contents = self->_contents, contents == objc_msgSend(equal, "contents")) && (noCopy = self->_noCopy, noCopy == objc_msgSend(equal, "noCopy")) && (deallocator = self->_deallocator, deallocator == objc_msgSend(equal, "deallocator")) && (pinnedGPUAddress = self->_pinnedGPUAddress, pinnedGPUAddress == objc_msgSend(equal, "pinnedGPUAddress")) && (pointerTag = self->_pointerTag, pointerTag == objc_msgSend(equal, "pointerTag")) && (parentGPUAddress = self->_parentGPUAddress, parentGPUAddress == objc_msgSend(equal, "parentGPUAddress")) && (parentGPUSize = self->_parentGPUSize, parentGPUSize == objc_msgSend(equal, "parentGPUSize")) && (v21 = self->_addressRanges == 0, v21 != (objc_msgSend(equal, "addressRanges") != 0)))
     {
       addressRanges = self->_addressRanges;
       if (!addressRanges || (v23 = -[MTLResourceAddressRangeArray isEqual:](addressRanges, "isEqual:", [equal addressRanges])))
@@ -121,7 +91,6 @@
 
     else
     {
-LABEL_17:
       LOBYTE(v23) = 0;
     }
   }

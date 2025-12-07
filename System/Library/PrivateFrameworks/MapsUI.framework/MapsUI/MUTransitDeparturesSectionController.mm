@@ -4,6 +4,12 @@
 - (MUTransitDeparturesSectionControllerDelegate)departuresDelegate;
 - (id)traitsForDeparturesDataSource:(id)source;
 - (void)_setupSections;
+- (void)infoCardAnalyticsDidSelectAction:(int)action eventValue:(id)value feedbackDelegateSelector:(int)selector actionRichProviderId:(id)id classification:(id)classification;
+- (void)infoCardAnalyticsDidSelectAction:(int)action eventValue:(id)value feedbackDelegateSelector:(int)selector classification:(id)classification;
+- (void)infoCardAnalyticsDidSelectAction:(int)action target:(int)target eventValue:(id)value actionURL:(id)l photoID:(id)d moduleMetadata:(id)metadata feedbackDelegateSelector:(int)selector actionRichProviderId:(id)self0 classification:(id)self1;
+- (void)infoCardAnalyticsDidSelectAction:(int)action target:(int)target eventValue:(id)value feedbackDelegateSelector:(int)selector actionRichProviderId:(id)id classification:(id)classification;
+- (void)infoCardAnalyticsDidSelectAction:(int)action target:(int)target eventValue:(id)value moduleMetadata:(id)metadata feedbackDelegateSelector:(int)selector actionRichProviderId:(id)id classification:(id)classification;
+- (void)infoCardTransitAnalyticsDidSelectionAction:(int)action resultIndex:(int64_t)index targetID:(unint64_t)d transitSystem:(id)system transitDepartureSequence:(id)sequence transitCardCategory:(int)category transitIncident:(id)incident feedbackDelegateSelector:(int)self0;
 - (void)sectionViewProvider:(id)provider didSelect:(id)select using:(id)using;
 - (void)sectionViewProvider:(id)provider didSelectAttribution:(id)attribution;
 - (void)sectionViewProvider:(id)provider didSelectConnectionInfo:(id)info;
@@ -92,6 +98,79 @@
   LOBYTE(self) = [departuresDelegate transitDeparturesSectionController:self canSelectDepartureSequence:selectCopy usingMapItem:usingCopy];
 
   return self;
+}
+
+- (void)infoCardAnalyticsDidSelectAction:(int)action target:(int)target eventValue:(id)value moduleMetadata:(id)metadata feedbackDelegateSelector:(int)selector actionRichProviderId:(id)id classification:(id)classification
+{
+  v10 = *&selector;
+  v13 = *&target;
+  v14 = *&action;
+  classificationCopy = classification;
+  idCopy = id;
+  metadataCopy = metadata;
+  valueCopy = value;
+  analyticsDelegate = [(MUPlaceSectionController *)self analyticsDelegate];
+  [analyticsDelegate infoCardAnalyticsDidSelectAction:v14 target:v13 eventValue:valueCopy moduleMetadata:metadataCopy feedbackDelegateSelector:v10 actionRichProviderId:idCopy classification:classificationCopy];
+}
+
+- (void)infoCardTransitAnalyticsDidSelectionAction:(int)action resultIndex:(int64_t)index targetID:(unint64_t)d transitSystem:(id)system transitDepartureSequence:(id)sequence transitCardCategory:(int)category transitIncident:(id)incident feedbackDelegateSelector:(int)self0
+{
+  v10 = *&category;
+  v15 = *&action;
+  incidentCopy = incident;
+  sequenceCopy = sequence;
+  systemCopy = system;
+  analyticsDelegate = [(MUPlaceSectionController *)self analyticsDelegate];
+  LODWORD(v20) = selector;
+  [analyticsDelegate infoCardTransitAnalyticsDidSelectionAction:v15 resultIndex:index targetID:d transitSystem:systemCopy transitDepartureSequence:sequenceCopy transitCardCategory:v10 transitIncident:incidentCopy feedbackDelegateSelector:v20];
+}
+
+- (void)infoCardAnalyticsDidSelectAction:(int)action target:(int)target eventValue:(id)value actionURL:(id)l photoID:(id)d moduleMetadata:(id)metadata feedbackDelegateSelector:(int)selector actionRichProviderId:(id)self0 classification:(id)self1
+{
+  v15 = *&target;
+  v16 = *&action;
+  classificationCopy = classification;
+  idCopy = id;
+  metadataCopy = metadata;
+  dCopy = d;
+  lCopy = l;
+  valueCopy = value;
+  analyticsDelegate = [(MUPlaceSectionController *)self analyticsDelegate];
+  LODWORD(v24) = selector;
+  [analyticsDelegate infoCardAnalyticsDidSelectAction:v16 target:v15 eventValue:valueCopy actionURL:lCopy photoID:dCopy moduleMetadata:metadataCopy feedbackDelegateSelector:v24 actionRichProviderId:idCopy classification:classificationCopy];
+}
+
+- (void)infoCardAnalyticsDidSelectAction:(int)action target:(int)target eventValue:(id)value feedbackDelegateSelector:(int)selector actionRichProviderId:(id)id classification:(id)classification
+{
+  v9 = *&selector;
+  v11 = *&target;
+  v12 = *&action;
+  classificationCopy = classification;
+  idCopy = id;
+  valueCopy = value;
+  analyticsDelegate = [(MUPlaceSectionController *)self analyticsDelegate];
+  [analyticsDelegate infoCardAnalyticsDidSelectAction:v12 target:v11 eventValue:valueCopy feedbackDelegateSelector:v9 actionRichProviderId:idCopy classification:classificationCopy];
+}
+
+- (void)infoCardAnalyticsDidSelectAction:(int)action eventValue:(id)value feedbackDelegateSelector:(int)selector actionRichProviderId:(id)id classification:(id)classification
+{
+  v8 = *&selector;
+  v10 = *&action;
+  classificationCopy = classification;
+  idCopy = id;
+  valueCopy = value;
+  analyticsDelegate = [(MUPlaceSectionController *)self analyticsDelegate];
+  [analyticsDelegate infoCardAnalyticsDidSelectAction:v10 eventValue:valueCopy feedbackDelegateSelector:v8 actionRichProviderId:idCopy classification:classificationCopy];
+}
+
+- (void)infoCardAnalyticsDidSelectAction:(int)action eventValue:(id)value feedbackDelegateSelector:(int)selector classification:(id)classification
+{
+  v6 = *&selector;
+  v8 = *&action;
+  classificationCopy = classification;
+  valueCopy = value;
+  analyticsDelegate = [(MUPlaceSectionController *)self analyticsDelegate];
+  [analyticsDelegate infoCardAnalyticsDidSelectAction:v8 eventValue:valueCopy feedbackDelegateSelector:v6 classification:classificationCopy];
 }
 
 - (void)_setupSections

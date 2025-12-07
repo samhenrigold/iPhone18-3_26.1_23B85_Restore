@@ -17,11 +17,13 @@
 - (BOOL)shouldUseAuthentication;
 - (NSString)identifier;
 - (id)newDeliveryWithHeaders:(id)headers HTML:(id)l plainTextAlternative:(id)alternative other:(id)other;
+- (id)newDeliveryWithHeaders:(id)headers mixedContent:(id)content textPartsAreHTML:(BOOL)l;
 - (id)newDeliveryWithMessage:(id)message;
 - (unint64_t)maximumMessageBytes;
 - (void)_setAccountProperties:(id)properties;
 - (void)_updateAccountDescriptionWithUsername:(id)username hostname:(id)hostname;
 - (void)setMaximumMessageBytes:(unint64_t)bytes;
+- (void)setShouldUseAuthentication:(BOOL)authentication;
 - (void)setUsername:(id)username;
 @end
 
@@ -90,28 +92,28 @@
 
 + (id)existingAccountForUniqueID:(id)d
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dCopy = d;
   +[DeliveryAccount mf_lock];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v4 = sDeliveryAccounts;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         uniqueID = [v8 uniqueID];
         v10 = [uniqueID isEqualToString:dCopy];
 
@@ -122,7 +124,7 @@
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -135,7 +137,6 @@
 LABEL_11:
 
   +[DeliveryAccount mf_unlock];
-  v11 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -178,27 +179,27 @@ LABEL_11:
 
 + (DeliveryAccount)accountWithUniqueId:(id)id
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   idCopy = id;
   [self deliveryAccounts];
+  v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v5 = v15 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v13 = 0u;
+  v5 = v14 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         uniqueID = [v9 uniqueID];
         v11 = [idCopy isEqualToString:uniqueID];
 
@@ -209,7 +210,7 @@ LABEL_11:
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -221,34 +222,32 @@ LABEL_11:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 + (DeliveryAccount)accountWithIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   [self deliveryAccounts];
+  v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v5 = v15 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v13 = 0u;
+  v5 = v14 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         identifier = [v9 identifier];
         v11 = [identifier isEqualToString:identifierCopy];
 
@@ -259,7 +258,7 @@ LABEL_11:
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -271,35 +270,33 @@ LABEL_11:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 + (id)existingAccountWithIdentifier:(id)identifier
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   +[DeliveryAccount mf_lock];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v4 = sDeliveryAccounts;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         identifier = [v8 identifier];
         v10 = [identifier isEqualToString:identifierCopy];
 
@@ -310,7 +307,7 @@ LABEL_11:
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -323,7 +320,6 @@ LABEL_11:
 LABEL_11:
 
   +[DeliveryAccount mf_unlock];
-  v11 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -443,6 +439,17 @@ LABEL_11:
   return v5;
 }
 
+- (id)newDeliveryWithHeaders:(id)headers mixedContent:(id)content textPartsAreHTML:(BOOL)l
+{
+  lCopy = l;
+  headersCopy = headers;
+  contentCopy = content;
+  v10 = [objc_alloc(-[DeliveryAccount deliveryClass](self "deliveryClass"))];
+  [v10 setAccount:self];
+
+  return v10;
+}
+
 - (id)newDeliveryWithHeaders:(id)headers HTML:(id)l plainTextAlternative:(id)alternative other:(id)other
 {
   headersCopy = headers;
@@ -472,6 +479,12 @@ LABEL_11:
   }
 
   return v6;
+}
+
+- (void)setShouldUseAuthentication:(BOOL)authentication
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:authentication];
+  [MFAccount setAccountProperty:"setAccountProperty:forKey:" forKey:?];
 }
 
 - (void)setUsername:(id)username
@@ -512,27 +525,27 @@ LABEL_11:
 
 - (BOOL)hasNoReferences
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   identifier = [(DeliveryAccount *)self identifier];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v3 = +[MailAccount mailAccounts];
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
-    v5 = *v13;
+    v5 = *v12;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        deliveryAccount = [*(*(&v12 + 1) + 8 * i) deliveryAccount];
+        deliveryAccount = [*(*(&v11 + 1) + 8 * i) deliveryAccount];
         identifier2 = [deliveryAccount identifier];
 
         LOBYTE(deliveryAccount) = [identifier2 isEqualToString:identifier];
@@ -543,7 +556,7 @@ LABEL_11:
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v4)
       {
         continue;
@@ -556,7 +569,6 @@ LABEL_11:
   v9 = 1;
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

@@ -78,7 +78,7 @@ LABEL_12:
   }
 
 LABEL_17:
-  [(ICPinOperationResponseParserDelegate *)self setUpdateRequired:self->_updateRequired, *v15];
+  [(ICPinOperationResponseParserDelegate *)self setUpdateRequired:self->_updateRequired, *v15, *&v15[8]];
   [(ICPinOperationResponseParserDelegate *)self setActionFailed:self->_pinStatus != 200];
 }
 
@@ -121,20 +121,20 @@ LABEL_8:
     {
       if (code == 1634366576)
       {
-        v20 = bswap32(*bytes);
-        if (self->_pinAction != v20)
+        v19 = bswap32(*bytes);
+        if (self->_pinAction != v19)
         {
-          v13 = os_log_create("com.apple.amp.itunescloudd", "Default");
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v12 = os_log_create("com.apple.amp.itunescloudd", "Default");
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             pinAction = self->_pinAction;
-            v22 = 134218496;
+            v21 = 134218496;
             selfCopy2 = self;
-            v24 = 1024;
-            v25 = pinAction;
-            v26 = 1024;
-            v27 = v20;
-            v15 = "%p pin action differs (request=%d, response=%d)";
+            v23 = 1024;
+            v24 = pinAction;
+            v25 = 1024;
+            v26 = v19;
+            v14 = "%p pin action differs (request=%d, response=%d)";
             goto LABEL_23;
           }
 
@@ -152,9 +152,9 @@ LABEL_24:
       }
     }
 
-    v16 = [[NSString alloc] initWithBytes:bytes length:length encoding:4];
+    v15 = [[NSString alloc] initWithBytes:bytes length:length encoding:4];
     currentCloudLibraryID = self->_currentCloudLibraryID;
-    self->_currentCloudLibraryID = v16;
+    self->_currentCloudLibraryID = v15;
 
     goto LABEL_28;
   }
@@ -163,15 +163,15 @@ LABEL_24:
   {
     if (code == 1836282996)
     {
-      v19 = bswap32(*bytes);
+      v18 = bswap32(*bytes);
       if (self->_processingItemListing)
       {
-        self->_pinStatus = v19;
+        self->_pinStatus = v18;
       }
 
       else
       {
-        self->_overallStatus = v19;
+        self->_overallStatus = v18;
       }
     }
 
@@ -187,7 +187,7 @@ LABEL_24:
     {
       if (length == 8)
       {
-        v18 = ((*bytes << 56) | (bytes[1] << 48) | (bytes[2] << 40) | (bytes[3] << 32) | (bytes[4] << 24) | (bytes[5] << 16) | (bytes[6] << 8)) + bytes[7];
+        v17 = ((*bytes << 56) | (bytes[1] << 48) | (bytes[2] << 40) | (bytes[3] << 32) | (bytes[4] << 24) | (bytes[5] << 16) | (bytes[6] << 8)) + bytes[7];
       }
 
       else
@@ -197,32 +197,31 @@ LABEL_24:
           goto LABEL_28;
         }
 
-        v18 = bswap32(*bytes);
+        v17 = bswap32(*bytes);
       }
 
-      self->_currentCloudID = v18;
+      self->_currentCloudID = v17;
       goto LABEL_28;
     }
 
     if (code == 1835625316)
     {
       v11 = *bytes;
-      entityType = self->_entityType;
       if (v11 != DAAPPinTypeFromICLibraryPinEntityType())
       {
-        v13 = os_log_create("com.apple.amp.itunescloudd", "Default");
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v12 = os_log_create("com.apple.amp.itunescloudd", "Default");
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          v14 = self->_entityType;
-          v22 = 134218496;
+          entityType = self->_entityType;
+          v21 = 134218496;
           selfCopy2 = self;
-          v24 = 1024;
-          v25 = v14;
-          v26 = 1024;
-          v27 = v11;
-          v15 = "%p item type differs (request=%d, response=%d)";
+          v23 = 1024;
+          v24 = entityType;
+          v25 = 1024;
+          v26 = v11;
+          v14 = "%p item type differs (request=%d, response=%d)";
 LABEL_23:
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, v15, &v22, 0x18u);
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, v14, &v21, 0x18u);
           goto LABEL_24;
         }
 

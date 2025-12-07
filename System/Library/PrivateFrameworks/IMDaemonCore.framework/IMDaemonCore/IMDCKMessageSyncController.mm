@@ -145,50 +145,46 @@
 
 - (int64_t)_numberOfBatchesOfMessagesToFetchInInitialSync
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   ckUtilities = [(IMDCKAbstractSyncController *)self ckUtilities];
   isInCloudKitDemoMode = [ckUtilities isInCloudKitDemoMode];
 
   if (isInCloudKitDemoMode)
   {
-    integerValue = 1;
+    return 1;
+  }
+
+  ckUtilities2 = [(IMDCKAbstractSyncController *)self ckUtilities];
+  serverBag = [ckUtilities2 serverBag];
+  v8 = [serverBag objectForKey:@"ck-max-number-of-message-batches"];
+
+  if (v8 && [v8 integerValue] >= 1)
+  {
+    integerValue = [v8 integerValue];
+    if (IMOSLoggingEnabled())
+    {
+      v9 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      {
+        v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:integerValue];
+        v12 = 138412290;
+        v13 = v10;
+        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, " overriding max number of message batches to fetch %@", &v12, 0xCu);
+      }
+    }
   }
 
   else
   {
-    ckUtilities2 = [(IMDCKAbstractSyncController *)self ckUtilities];
-    serverBag = [ckUtilities2 serverBag];
-    v8 = [serverBag objectForKey:@"ck-max-number-of-message-batches"];
-
-    if (v8 && [v8 integerValue] >= 1)
-    {
-      integerValue = [v8 integerValue];
-      if (IMOSLoggingEnabled())
-      {
-        v9 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
-        {
-          v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:integerValue];
-          v13 = 138412290;
-          v14 = v10;
-          _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, " overriding max number of message batches to fetch %@", &v13, 0xCu);
-        }
-      }
-    }
-
-    else
-    {
-      integerValue = 5;
-    }
+    integerValue = 5;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return integerValue;
 }
 
 - (BOOL)_isValidCKRecordToSync:(id)sync
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   syncCopy = sync;
   v4 = [syncCopy size];
   if (v4 > 0xA000 && IMOSLoggingEnabled())
@@ -196,46 +192,45 @@
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v8 = 134217984;
-      v9 = [syncCopy size];
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "**** Message %lu CKRecord size exceeds max limit.", &v8, 0xCu);
+      v7 = 134217984;
+      v8 = [syncCopy size];
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "**** Message %lu CKRecord size exceeds max limit.", &v7, 0xCu);
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v4 <= 0xA000;
 }
 
 - (id)_recordsToSaveWithAttemptCount:(unint64_t)count
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v6 = v5;
   if (count < 0x32)
   {
     *buf = 0;
-    v18 = buf;
-    v19 = 0x2020000000;
-    v20 = 0;
+    v17 = buf;
+    v18 = 0x2020000000;
+    v19 = 0;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = sub_22B649250;
     block[3] = &unk_278702C50;
     block[4] = self;
-    v16 = buf;
+    v15 = buf;
     v9 = v5;
-    v15 = v9;
+    v14 = v9;
     dispatch_sync(MEMORY[0x277D85CD0], block);
-    if (v18[24] == 1)
+    if (v17[24] == 1)
     {
       if (IMOSLoggingEnabled())
       {
         v10 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
-          *v21 = 134217984;
+          *v20 = 134217984;
           countCopy = count;
-          _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "We had invalid records attempting to load records again. Attempt count %lu", v21, 0xCu);
+          _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "We had invalid records attempting to load records again. Attempt count %lu", v20, 0xCu);
         }
       }
 
@@ -267,7 +262,6 @@
     v8 = v6;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -319,7 +313,7 @@
 
 - (void)_processRecordWriteCompletionForRecord:(id)record NSError:(id)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   errorCopy = error;
   if (IMOSLoggingEnabled())
@@ -330,26 +324,26 @@
       v9 = [recordCopy _stringForKey:@"guid"];
       recordID = [recordCopy recordID];
       *buf = 138412802;
-      v32 = v9;
-      v33 = 2112;
-      v34 = errorCopy;
-      v35 = 2112;
-      v36 = recordID;
+      v31 = v9;
+      v32 = 2112;
+      v33 = errorCopy;
+      v34 = 2112;
+      v35 = recordID;
       _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Wrote message with GUID %@, error %@, recordName:%@", buf, 0x20u);
     }
   }
 
   if (!errorCopy)
   {
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = sub_22B649E4C;
-    v29[3] = &unk_278702FA0;
-    v29[4] = self;
-    v11 = &v30;
-    v30 = recordCopy;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = sub_22B649E4C;
+    v28[3] = &unk_278702FA0;
+    v28[4] = self;
+    v11 = &v29;
+    v29 = recordCopy;
     v12 = MEMORY[0x277D85CD0];
-    v13 = v29;
+    v13 = v28;
 LABEL_26:
     dispatch_sync(v12, v13);
     goto LABEL_27;
@@ -359,15 +353,15 @@ LABEL_26:
   {
     if ([errorCopy code] == 26)
     {
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = sub_22B64A0B8;
-      v24[3] = &unk_278702FA0;
-      v24[4] = self;
-      v11 = &v25;
-      v25 = recordCopy;
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = sub_22B64A0B8;
+      v23[3] = &unk_278702FA0;
+      v23[4] = self;
+      v11 = &v24;
+      v24 = recordCopy;
       v12 = MEMORY[0x277D85CD0];
-      v13 = v24;
+      v13 = v23;
     }
 
     else if ([errorCopy code] == 12 || objc_msgSend(errorCopy, "code") == 11)
@@ -382,28 +376,28 @@ LABEL_26:
         }
       }
 
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = sub_22B64A110;
-      v22[3] = &unk_278702FA0;
-      v22[4] = self;
-      v11 = &v23;
-      v23 = recordCopy;
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = sub_22B64A110;
+      v21[3] = &unk_278702FA0;
+      v21[4] = self;
+      v11 = &v22;
+      v22 = recordCopy;
       v12 = MEMORY[0x277D85CD0];
-      v13 = v22;
+      v13 = v21;
     }
 
     else if ([errorCopy code] == 2050 || objc_msgSend(errorCopy, "code") == 100)
     {
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = sub_22B64A168;
-      v20[3] = &unk_278702FA0;
-      v20[4] = self;
-      v11 = &v21;
-      v21 = recordCopy;
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = sub_22B64A168;
+      v19[3] = &unk_278702FA0;
+      v19[4] = self;
+      v11 = &v20;
+      v20 = recordCopy;
       v12 = MEMORY[0x277D85CD0];
-      v13 = v20;
+      v13 = v19;
     }
 
     else
@@ -415,20 +409,20 @@ LABEL_26:
         {
           code = [errorCopy code];
           *buf = 134217984;
-          v32 = code;
+          v31 = code;
           _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Encountered an unknown error.  We'll try syncing this message again on the next sync. Error code: %llu", buf, 0xCu);
         }
       }
 
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = sub_22B64A1C0;
-      v18[3] = &unk_278702FA0;
-      v18[4] = self;
-      v11 = &v19;
-      v19 = recordCopy;
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = sub_22B64A1C0;
+      v17[3] = &unk_278702FA0;
+      v17[4] = self;
+      v11 = &v18;
+      v18 = recordCopy;
       v12 = MEMORY[0x277D85CD0];
-      v13 = v18;
+      v13 = v17;
     }
 
     goto LABEL_26;
@@ -439,14 +433,12 @@ LABEL_26:
   block[2] = sub_22B649EAC;
   block[3] = &unk_2787038F8;
   block[4] = self;
-  v27 = errorCopy;
-  v28 = recordCopy;
+  v26 = errorCopy;
+  v27 = recordCopy;
   dispatch_sync(MEMORY[0x277D85CD0], block);
 
-  v11 = &v27;
+  v11 = &v26;
 LABEL_27:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_operationErrorForModifyingRecordCompletion:(id)completion
@@ -481,7 +473,7 @@ LABEL_27:
 - (void)_processModifyRecordsCompletion:(id)completion deletedRecordIDs:(id)ds operationError:(id)error isLastBatchOfWrite:(BOOL)write activity:(id)activity writeCompletionBlock:(id)block
 {
   writeCopy = write;
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   dsCopy = ds;
   errorCopy = error;
@@ -493,7 +485,7 @@ LABEL_27:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v32 = errorCopy;
+      v31 = errorCopy;
       _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, "_processModifyRecordsCompletion error %@", buf, 0xCu);
     }
   }
@@ -531,16 +523,16 @@ LABEL_28:
         }
 
         *buf = 138412802;
-        v32 = v24;
-        v33 = 2112;
-        v34 = v20;
+        v31 = v24;
+        v32 = 2112;
+        v33 = v20;
         if (!v20)
         {
           v23 = @"YES";
         }
 
-        v35 = 2112;
-        v36 = v23;
+        v34 = 2112;
+        v35 = v23;
         _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "We completed writing messages. isLastBatch %@, write error %@, writeSuccess %@", buf, 0x20u);
       }
     }
@@ -569,12 +561,10 @@ LABEL_28:
     block[2] = sub_22B64A664;
     block[3] = &unk_2787037B8;
     block[4] = self;
-    v29 = activityCopy;
-    v30 = blockCopy;
+    v28 = activityCopy;
+    v29 = blockCopy;
     dispatch_async(ckQueue, block);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_syncOperationGroupName
@@ -595,7 +585,7 @@ LABEL_28:
 
 - (void)_writeDirtyMessagesToCloudKitWithActivity:(id)activity completion:(id)completion
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   completionCopy = completion;
   if ([(IMDCKMessageSyncController *)self _deviceConditionsAllowsMessageSyncForCurrentBatchCount:1 maxBatchCount:-1 activity:activityCopy])
@@ -612,9 +602,9 @@ LABEL_28:
         v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(_recordsToSave, "count")}];
         v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v10, "count")}];
         *buf = 138412546;
-        v33 = v12;
-        v34 = 2112;
-        v35 = v13;
+        v32 = v12;
+        v33 = 2112;
+        v34 = v13;
         _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Got %@ records to sync, filtered to %@ unique records", buf, 0x16u);
       }
     }
@@ -633,9 +623,9 @@ LABEL_28:
             v17 = [_recordsToSave count];
             _numberOfMessagesToUpload2 = [(IMDCKMessageSyncController *)self _numberOfMessagesToUpload];
             *buf = 134218240;
-            v33 = v17;
-            v34 = 2048;
-            v35 = _numberOfMessagesToUpload2;
+            v32 = v17;
+            v33 = 2048;
+            v34 = _numberOfMessagesToUpload2;
             _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Number of messages to upload %lu < max batch size. %lu ", buf, 0x16u);
           }
         }
@@ -657,21 +647,21 @@ LABEL_28:
       _syncOperationGroupName = [(IMDCKMessageSyncController *)self _syncOperationGroupName];
       v23 = [cKOperationFactory saveMessagesCKOperationUsingRecordsToSave:v10 operationGroupName:_syncOperationGroupName activity:activityCopy];
 
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = sub_22B64AC28;
-      v31[3] = &unk_2787047C0;
-      v31[4] = self;
-      [v23 setPerRecordCompletionBlock:v31];
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = sub_22B64AC38;
-      v27[3] = &unk_278703920;
-      v27[4] = self;
-      v30 = v20;
-      v28 = activityCopy;
-      v29 = completionCopy;
-      [v23 setModifyRecordsCompletionBlock:v27];
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = sub_22B64AC28;
+      v30[3] = &unk_2787047C0;
+      v30[4] = self;
+      [v23 setPerRecordCompletionBlock:v30];
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = sub_22B64AC38;
+      v26[3] = &unk_278703920;
+      v26[4] = self;
+      v29 = v20;
+      v27 = activityCopy;
+      v28 = completionCopy;
+      [v23 setModifyRecordsCompletionBlock:v26];
       [(IMDCKMessageSyncController *)self _scheduleOperation:v23];
     }
 
@@ -702,7 +692,7 @@ LABEL_28:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v33 = @"NO";
+      v32 = @"NO";
       _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Did not schedule a write. Device Conditions suitable to write:%@", buf, 0xCu);
     }
   }
@@ -713,13 +703,11 @@ LABEL_28:
     (*(completionCopy + 2))(completionCopy, 0, _recordsToSave);
 LABEL_30:
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processRecordChange:(id)change
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   if (IMOSLoggingEnabled())
   {
@@ -728,26 +716,24 @@ LABEL_30:
     {
       v6 = [changeCopy _stringForKey:@"guid"];
       *buf = 138412290;
-      v12 = v6;
+      v11 = v6;
       _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Fetched message record with GUID %@", buf, 0xCu);
     }
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = sub_22B64ADC4;
-  v9[3] = &unk_278702FA0;
-  v9[4] = self;
-  v10 = changeCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = sub_22B64ADC4;
+  v8[3] = &unk_278702FA0;
+  v8[4] = self;
+  v9 = changeCopy;
   v7 = changeCopy;
-  dispatch_sync(MEMORY[0x277D85CD0], v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_sync(MEMORY[0x277D85CD0], v8);
 }
 
 - (void)_updateDeviceConditionsToCheckIfNeededForCurrentBatchCount:(int64_t)count maxBatchCount:(int64_t)batchCount
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (![(IMDCKMessageSyncController *)self deviceConditionsToCheck])
   {
     if (batchCount == -1)
@@ -757,8 +743,8 @@ LABEL_30:
         v7 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v11) = 0;
-          _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "This is a periodic sync and deviceConditionstoCheck is set to IMCheckNoDeviceConditions, changing it to IMCheckAllDeviceConditions", &v11, 2u);
+          LOWORD(v10) = 0;
+          _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "This is a periodic sync and deviceConditionstoCheck is set to IMCheckNoDeviceConditions, changing it to IMCheckAllDeviceConditions", &v10, 2u);
         }
 
         goto LABEL_12;
@@ -766,7 +752,7 @@ LABEL_30:
 
 LABEL_13:
       [(IMDCKMessageSyncController *)self setDeviceConditionsToCheck:1];
-      goto LABEL_14;
+      return;
     }
 
     if ((batchCount & 0x8000000000000000) == 0 && count > batchCount)
@@ -778,11 +764,11 @@ LABEL_13:
         {
           v8 = [MEMORY[0x277CCABB0] numberWithInteger:count];
           v9 = [MEMORY[0x277CCABB0] numberWithInteger:batchCount];
-          v11 = 138412546;
-          v12 = v8;
-          v13 = 2112;
-          v14 = v9;
-          _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "This is an initial sync but current batch count [%@] >= maxBatchCount [%@] and deviceConditionstoCheck is set to IMCheckNoDeviceConditions, changing it to IMCheckAllDeviceConditions", &v11, 0x16u);
+          v10 = 138412546;
+          v11 = v8;
+          v12 = 2112;
+          v13 = v9;
+          _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "This is an initial sync but current batch count [%@] >= maxBatchCount [%@] and deviceConditionstoCheck is set to IMCheckNoDeviceConditions, changing it to IMCheckAllDeviceConditions", &v10, 0x16u);
         }
 
 LABEL_12:
@@ -793,9 +779,6 @@ LABEL_12:
       goto LABEL_13;
     }
   }
-
-LABEL_14:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_deviceConditionsAllowsMessageSyncForCurrentBatchCount:(int64_t)count maxBatchCount:(int64_t)batchCount activity:(id)activity
@@ -839,7 +822,7 @@ LABEL_14:
 
 - (BOOL)_deviceConditionsAllowsMessageSyncForActivity:(id)activity deviceConditionsToCheck:(unint64_t)check currentBatchCount:(int64_t)count maxBatchCount:(int64_t)batchCount
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   _ckUtilitiesInstance = [(IMDCKMessageSyncController *)self _ckUtilitiesInstance];
   cloudKitSyncingEnabled = [_ckUtilitiesInstance cloudKitSyncingEnabled];
@@ -861,9 +844,9 @@ LABEL_14:
           if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
           {
             v17 = [MEMORY[0x277CCABB0] numberWithInteger:count];
-            v35 = 138412290;
-            v36 = v17;
-            _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "This is a coreduet sync at currentBatchCount %@, coreduet says to defer syncing", &v35, 0xCu);
+            v34 = 138412290;
+            v35 = v17;
+            _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "This is a coreduet sync at currentBatchCount %@, coreduet says to defer syncing", &v34, 0xCu);
           }
         }
 
@@ -877,9 +860,9 @@ LABEL_14:
         if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
           v25 = [MEMORY[0x277CCABB0] numberWithInteger:count];
-          v35 = 138412290;
-          v36 = v25;
-          _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "This is a coreduet sync at currentBatchCount %@, coreduet says to continue syncing", &v35, 0xCu);
+          v34 = 138412290;
+          v35 = v25;
+          _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "This is a coreduet sync at currentBatchCount %@, coreduet says to continue syncing", &v34, 0xCu);
         }
 
 LABEL_34:
@@ -901,11 +884,11 @@ LABEL_34:
           if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
           {
             v28 = [MEMORY[0x277CCABB0] numberWithInteger:count];
-            v35 = 138412546;
-            v36 = v28;
-            v37 = 2112;
-            v38 = @"NO";
-            _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Message sync: Not checking device conditions for full sync at current batch count %@ isCoreDuetSync %@", &v35, 0x16u);
+            v34 = 138412546;
+            v35 = v28;
+            v36 = 2112;
+            v37 = @"NO";
+            _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Message sync: Not checking device conditions for full sync at current batch count %@ isCoreDuetSync %@", &v34, 0x16u);
           }
 
           goto LABEL_34;
@@ -918,9 +901,9 @@ LABEL_34:
         if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
           v27 = [MEMORY[0x277CCABB0] numberWithInteger:count];
-          v35 = 138412290;
-          v36 = v27;
-          _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Message sync: Not checking device conditions for initial sync at current batchCount %@", &v35, 0xCu);
+          v34 = 138412290;
+          v35 = v27;
+          _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "Message sync: Not checking device conditions for initial sync at current batchCount %@", &v34, 0xCu);
         }
 
         goto LABEL_34;
@@ -961,13 +944,13 @@ LABEL_39:
 
             v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[IMDCKMessageSyncController deviceConditionsToCheck](self, "deviceConditionsToCheck")}];
             v32 = [MEMORY[0x277CCABB0] numberWithInteger:count];
-            v35 = 138412802;
-            v36 = v30;
-            v37 = 2112;
-            v38 = v31;
-            v39 = 2112;
-            v40 = v32;
-            _os_log_impl(&dword_22B4CC000, v29, OS_LOG_TYPE_INFO, "Message sync: device conditions allow sync: %@ deviceConditionsToCheck %@ currentBatchCount %@", &v35, 0x20u);
+            v34 = 138412802;
+            v35 = v30;
+            v36 = 2112;
+            v37 = v31;
+            v38 = 2112;
+            v39 = v32;
+            _os_log_impl(&dword_22B4CC000, v29, OS_LOG_TYPE_INFO, "Message sync: device conditions allow sync: %@ deviceConditionsToCheck %@ currentBatchCount %@", &v34, 0x20u);
           }
         }
 
@@ -1004,17 +987,16 @@ LABEL_39:
         v19 = @"YES";
       }
 
-      v35 = 138412546;
-      v36 = v20;
-      v37 = 2112;
-      v38 = v19;
-      _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "Message sync: Stop syncing, feature enabled %@ hasMatchingAccounts %@.", &v35, 0x16u);
+      v34 = 138412546;
+      v35 = v20;
+      v36 = 2112;
+      v37 = v19;
+      _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "Message sync: Stop syncing, feature enabled %@ hasMatchingAccounts %@.", &v34, 0x16u);
     }
   }
 
 LABEL_46:
 
-  v33 = *MEMORY[0x277D85DE8];
   return cloudKitSyncingEnabled;
 }
 
@@ -1168,7 +1150,7 @@ LABEL_6:
 - (void)_fetchArchivedRecordsIfNeeded:(BOOL)needed currentBatchCount:(int64_t)count maxNumberOfBatches:(int64_t)batches activity:(id)activity withCompletionBlock:(id)block
 {
   neededCopy = needed;
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   blockCopy = block;
   if (batches < 0 || count < batches)
@@ -1185,9 +1167,9 @@ LABEL_6:
           v18 = [MEMORY[0x277CCABB0] numberWithInteger:count];
           v19 = [MEMORY[0x277CCABB0] numberWithInteger:batches];
           *buf = 138412546;
-          v44 = v18;
-          v45 = 2112;
-          v46 = v19;
+          v43 = v18;
+          v44 = 2112;
+          v45 = v19;
           _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Fetching archived currentBatchCount %@ maxNumberOfBatches %@", buf, 0x16u);
         }
       }
@@ -1200,7 +1182,7 @@ LABEL_6:
         {
           archivedRecordSyncToken = [(IMDCKMessageSyncController *)self archivedRecordSyncToken];
           *buf = 138412290;
-          v44 = archivedRecordSyncToken;
+          v43 = archivedRecordSyncToken;
           _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "******** Fetching archived records ***** sync token is %@", buf, 0xCu);
         }
       }
@@ -1210,32 +1192,32 @@ LABEL_6:
       _messageZoneID = [(IMDCKMessageSyncController *)self _messageZoneID];
       v25 = [cKOperationFactory fetchArchivedRecordsOperationWithSyncToken:archivedRecordSyncToken2 zoneID:_messageZoneID activity:activityCopy];
 
-      v42[0] = MEMORY[0x277D85DD0];
-      v42[1] = 3221225472;
-      v42[2] = sub_22B64C940;
-      v42[3] = &unk_2787046E0;
-      v42[4] = self;
-      [v25 setRecordFetchedBlock:v42];
+      v41[0] = MEMORY[0x277D85DD0];
+      v41[1] = 3221225472;
+      v41[2] = sub_22B64C940;
+      v41[3] = &unk_2787046E0;
+      v41[4] = self;
+      [v25 setRecordFetchedBlock:v41];
       [v25 setRecordZoneChangeTokensUpdatedBlock:&unk_283F1A948];
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 3221225472;
-      v37[2] = sub_22B64CB34;
-      v37[3] = &unk_278706E30;
-      v37[4] = self;
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 3221225472;
+      v36[2] = sub_22B64CB34;
+      v36[3] = &unk_278706E30;
+      v36[4] = self;
       countCopy = count;
       batchesCopy = batches;
-      v38 = activityCopy;
+      v37 = activityCopy;
       v26 = blockCopy;
-      v39 = v26;
-      [v25 setRecordZoneFetchCompletionBlock:v37];
-      v31 = MEMORY[0x277D85DD0];
-      v32 = 3221225472;
-      v33 = sub_22B64CB78;
-      v34 = &unk_278704778;
+      v38 = v26;
+      [v25 setRecordZoneFetchCompletionBlock:v36];
+      v30 = MEMORY[0x277D85DD0];
+      v31 = 3221225472;
+      v32 = sub_22B64CB78;
+      v33 = &unk_278704778;
       selfCopy = self;
-      v36 = v26;
-      [v25 setFetchArchivedRecordsCompletionBlock:&v31];
-      [(IMDCKMessageSyncController *)self _scheduleOperation:v25, v31, v32, v33, v34, selfCopy];
+      v35 = v26;
+      [v25 setFetchArchivedRecordsCompletionBlock:&v30];
+      [(IMDCKMessageSyncController *)self _scheduleOperation:v25, v30, v31, v32, v33, selfCopy];
     }
 
     else if (v15)
@@ -1294,13 +1276,11 @@ LABEL_8:
       (*(blockCopy + 2))(blockCopy, 1, 1, 0);
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processFetchArchivedRecordCompletionWithError:(id)error WithCompletionBlock:(id)block
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   blockCopy = block;
   v7 = IMOSLoggingEnabled();
@@ -1311,9 +1291,9 @@ LABEL_8:
       v8 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v11 = 138412290;
-        v12 = errorCopy;
-        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "*** Encountered error while fetching archived records %@", &v11, 0xCu);
+        v10 = 138412290;
+        v11 = errorCopy;
+        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "*** Encountered error while fetching archived records %@", &v10, 0xCu);
       }
     }
 
@@ -1328,12 +1308,10 @@ LABEL_8:
     v9 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "*** Did not encounter error while fetching archived records", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "*** Did not encounter error while fetching archived records", &v10, 2u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processRecordZoneFetchCompletionZoneID:(id)d serverChangeToken:(id)token clientChangeTokenData:(id)data moreComing:(BOOL)coming NSError:(id)error syncType:(int64_t)type currentBatchCount:(int64_t)count maxNumberOfBatches:(int64_t)self0 shouldFetchArchivedRecords:(BOOL)self1 activity:(id)self2 completionBlock:(id)self3
@@ -1366,7 +1344,7 @@ LABEL_8:
 
 - (void)_processFetchRecordZoneChangesCompletionWithError:(id)error completionBlock:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   blockCopy = block;
   if (!errorCopy)
@@ -1402,30 +1380,28 @@ LABEL_5:
 
   if (IMOSLoggingEnabled())
   {
-    v13 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v12 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v19 = errorCopy;
-      _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Failed fetching messages %@", buf, 0xCu);
+      v18 = errorCopy;
+      _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Failed fetching messages %@", buf, 0xCu);
     }
   }
 
   if (blockCopy)
   {
     ckQueue = [(IMDCKMessageSyncController *)self ckQueue];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = sub_22B64D9C8;
-    v15[3] = &unk_2787028B0;
-    v17 = blockCopy;
-    v16 = errorCopy;
-    dispatch_async(ckQueue, v15);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = sub_22B64D9C8;
+    v14[3] = &unk_2787028B0;
+    v16 = blockCopy;
+    v15 = errorCopy;
+    dispatch_async(ckQueue, v14);
   }
 
 LABEL_9:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldFetchArchivedRecords:(id)records
@@ -1447,7 +1423,7 @@ LABEL_9:
 
 - (void)_fetchMessageZoneChangesSyncType:(int64_t)type currentBatchCount:(int64_t)count maxNumberOfBatches:(int64_t)batches activity:(id)activity completionBlock:(id)block
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   blockCopy = block;
   if (batches < 1 || count < batches)
@@ -1455,21 +1431,21 @@ LABEL_9:
     _numberOfBatchesOfMessagesToFetchInInitialSync = [(IMDCKMessageSyncController *)self _numberOfBatchesOfMessagesToFetchInInitialSync];
     if (batches == -1)
     {
-      v23 = _numberOfBatchesOfMessagesToFetchInInitialSync;
+      v21 = _numberOfBatchesOfMessagesToFetchInInitialSync;
       if (_numberOfBatchesOfMessagesToFetchInInitialSync < count)
       {
         date = [MEMORY[0x277CBEAA8] date];
         if (IMOSLoggingEnabled())
         {
-          v25 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+          v23 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
           {
-            v26 = [MEMORY[0x277CCABB0] numberWithInteger:v23];
+            v24 = [MEMORY[0x277CCABB0] numberWithInteger:v21];
             *buf = 138412546;
-            *&buf[4] = v26;
+            *&buf[4] = v24;
             *&buf[12] = 2112;
             *&buf[14] = date;
-            _os_log_impl(&dword_22B4CC000, v25, OS_LOG_TYPE_INFO, "We completed fetching %@ batches of messages during a full sync, setting fullPartialSyncFirstCompletedDate to %@", buf, 0x16u);
+            _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "We completed fetching %@ batches of messages during a full sync, setting fullPartialSyncFirstCompletedDate to %@", buf, 0x16u);
           }
         }
 
@@ -1478,23 +1454,23 @@ LABEL_9:
       }
     }
 
-    v28 = [(IMDCKMessageSyncController *)self _isDiskSpaceAvailableForSyncType:type currentBatchCount:count];
-    v29 = [(IMDCKMessageSyncController *)self _deviceConditionsAllowsMessageSyncForCurrentBatchCount:count maxBatchCount:batches activity:activityCopy];
-    v30 = IMOSLoggingEnabled();
-    if (v29 && v28)
+    v26 = [(IMDCKMessageSyncController *)self _isDiskSpaceAvailableForSyncType:type currentBatchCount:count];
+    v27 = [(IMDCKMessageSyncController *)self _deviceConditionsAllowsMessageSyncForCurrentBatchCount:count maxBatchCount:batches activity:activityCopy];
+    v28 = IMOSLoggingEnabled();
+    if (v27 && v26)
     {
-      if (v30)
+      if (v28)
       {
-        v31 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+        v29 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
         {
-          v32 = [MEMORY[0x277CCABB0] numberWithInteger:count];
-          v33 = [MEMORY[0x277CCABB0] numberWithInteger:batches];
+          v30 = [MEMORY[0x277CCABB0] numberWithInteger:count];
+          v31 = [MEMORY[0x277CCABB0] numberWithInteger:batches];
           *buf = 138412546;
-          *&buf[4] = v32;
+          *&buf[4] = v30;
           *&buf[12] = 2112;
-          *&buf[14] = v33;
-          _os_log_impl(&dword_22B4CC000, v31, OS_LOG_TYPE_INFO, "Fetching live messages, currentBatchCount %@ maxNumberOfBatches %@", buf, 0x16u);
+          *&buf[14] = v31;
+          _os_log_impl(&dword_22B4CC000, v29, OS_LOG_TYPE_INFO, "Fetching live messages, currentBatchCount %@ maxNumberOfBatches %@", buf, 0x16u);
         }
       }
 
@@ -1502,97 +1478,97 @@ LABEL_9:
       cKOperationFactory = [(IMDCKMessageSyncController *)self CKOperationFactory];
       latestSyncToken = [(IMDCKMessageSyncController *)self latestSyncToken];
       _messageZoneID = [(IMDCKMessageSyncController *)self _messageZoneID];
-      v37 = [(IMDCKMessageSyncController *)self _numberOfRecordsToFetchForSyncType:type];
+      v35 = [(IMDCKMessageSyncController *)self _numberOfRecordsToFetchForSyncType:type];
       _syncOperationGroupName = [(IMDCKMessageSyncController *)self _syncOperationGroupName];
-      v39 = [cKOperationFactory fetchMessageZoneChangesCKOperationUsingToken:latestSyncToken zoneID:_messageZoneID resultsLimit:v37 operationGroupName:_syncOperationGroupName activity:activityCopy];
+      v37 = [cKOperationFactory fetchMessageZoneChangesCKOperationUsingToken:latestSyncToken zoneID:_messageZoneID resultsLimit:v35 operationGroupName:_syncOperationGroupName activity:activityCopy];
 
-      v60[0] = MEMORY[0x277D85DD0];
-      v60[1] = 3221225472;
-      v60[2] = sub_22B64E3A4;
-      v60[3] = &unk_2787046E0;
-      v60[4] = self;
-      [v39 setRecordChangedBlock:v60];
-      [v39 setRecordZoneChangeTokensUpdatedBlock:&unk_283F1A968];
-      [v39 setRecordWithIDWasDeletedBlock:&unk_283F1A988];
+      v57[0] = MEMORY[0x277D85DD0];
+      v57[1] = 3221225472;
+      v57[2] = sub_22B64E3A4;
+      v57[3] = &unk_2787046E0;
+      v57[4] = self;
+      [v37 setRecordChangedBlock:v57];
+      [v37 setRecordZoneChangeTokensUpdatedBlock:&unk_283F1A968];
+      [v37 setRecordWithIDWasDeletedBlock:&unk_283F1A988];
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v64 = sub_22B4D7790;
-      v65 = sub_22B4D792C;
-      v40 = v39;
-      v66 = v40;
-      v53[0] = MEMORY[0x277D85DD0];
-      v53[1] = 3221225472;
-      v53[2] = sub_22B64E56C;
-      v53[3] = &unk_278706EC8;
-      v53[4] = self;
-      v56 = buf;
+      v61 = sub_22B4D7790;
+      v62 = sub_22B4D792C;
+      v38 = v37;
+      v63 = v38;
+      v50[0] = MEMORY[0x277D85DD0];
+      v50[1] = 3221225472;
+      v50[2] = sub_22B64E56C;
+      v50[3] = &unk_278706EC8;
+      v50[4] = self;
+      v53 = buf;
       typeCopy = type;
       countCopy = count;
       batchesCopy = batches;
-      v54 = activityCopy;
-      v41 = blockCopy;
-      v55 = v41;
-      [v40 setRecordZoneFetchCompletionBlock:v53];
-      v51[0] = MEMORY[0x277D85DD0];
-      v51[1] = 3221225472;
-      v51[2] = sub_22B64E650;
-      v51[3] = &unk_278704778;
-      v51[4] = self;
-      v52 = v41;
-      [v40 setFetchRecordZoneChangesCompletionBlock:v51];
+      v51 = activityCopy;
+      v39 = blockCopy;
+      v52 = v39;
+      [v38 setRecordZoneFetchCompletionBlock:v50];
+      v48[0] = MEMORY[0x277D85DD0];
+      v48[1] = 3221225472;
+      v48[2] = sub_22B64E650;
+      v48[3] = &unk_278704778;
+      v48[4] = self;
+      v49 = v39;
+      [v38 setFetchRecordZoneChangesCompletionBlock:v48];
       if (IMOSLoggingEnabled())
       {
-        v42 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+        v40 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
         {
           latestSyncToken2 = [(IMDCKMessageSyncController *)self latestSyncToken];
-          *v61 = 138412290;
-          v62 = latestSyncToken2;
-          _os_log_impl(&dword_22B4CC000, v42, OS_LOG_TYPE_INFO, "Scheduling a fetch operation from message zone, using token %@", v61, 0xCu);
+          *v58 = 138412290;
+          v59 = latestSyncToken2;
+          _os_log_impl(&dword_22B4CC000, v40, OS_LOG_TYPE_INFO, "Scheduling a fetch operation from message zone, using token %@", v58, 0xCu);
         }
       }
 
-      [(IMDCKMessageSyncController *)self _scheduleOperation:v40];
+      [(IMDCKMessageSyncController *)self _scheduleOperation:v38];
 
       _Block_object_dispose(buf, 8);
     }
 
     else
     {
-      if (v30)
+      if (v28)
       {
-        v45 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+        v43 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
         {
-          v46 = @"NO";
-          if (v29)
+          v44 = @"NO";
+          if (v27)
           {
-            v47 = @"YES";
+            v45 = @"YES";
           }
 
           else
           {
-            v47 = @"NO";
+            v45 = @"NO";
           }
 
-          if (v28)
+          if (v26)
           {
-            v46 = @"YES";
+            v44 = @"YES";
           }
 
           *buf = 138412546;
-          *&buf[4] = v47;
+          *&buf[4] = v45;
           *&buf[12] = 2112;
-          *&buf[14] = v46;
-          _os_log_impl(&dword_22B4CC000, v45, OS_LOG_TYPE_INFO, "Did not fetch changes from message zone. Device condition allows sync %@. Disk Space Available %@", buf, 0x16u);
+          *&buf[14] = v44;
+          _os_log_impl(&dword_22B4CC000, v43, OS_LOG_TYPE_INFO, "Did not fetch changes from message zone. Device condition allows sync %@. Disk Space Available %@", buf, 0x16u);
         }
       }
 
       if (blockCopy)
       {
-        v48 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D19D18] code:2 userInfo:0];
-        (*(blockCopy + 2))(blockCopy, 0, 0, 0, v48);
+        v46 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D19D18] code:2 userInfo:0];
+        (*(blockCopy + 2))(blockCopy, 0, 0, 0, v46);
       }
     }
   }
@@ -1614,30 +1590,28 @@ LABEL_9:
 
     if (shouldForceArchivedMessagesSync)
     {
-      v16 = *MEMORY[0x277D19A08];
-      v17 = *MEMORY[0x277D19BE0];
-      v18 = IMGetDomainBoolForKeyWithDefaultValue();
+      v16 = IMGetDomainBoolForKeyWithDefaultValue();
       if (blockCopy)
       {
-        v19 = v18;
+        v17 = v16;
         if (IMOSLoggingEnabled())
         {
-          v20 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+          v18 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
           {
-            v21 = @"NO";
-            if (v19)
+            v19 = @"NO";
+            if (v17)
             {
-              v21 = @"YES";
+              v19 = @"YES";
             }
 
             *buf = 138412290;
-            *&buf[4] = v21;
-            _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "shouldForceArchivedMessagesSync is YES, fetched max live record batches but will also fetch initial sync archived records if needed: %@", buf, 0xCu);
+            *&buf[4] = v19;
+            _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "shouldForceArchivedMessagesSync is YES, fetched max live record batches but will also fetch initial sync archived records if needed: %@", buf, 0xCu);
           }
         }
 
-        (*(blockCopy + 2))(blockCopy, 1, v19, 0, 0);
+        (*(blockCopy + 2))(blockCopy, 1, v17, 0, 0);
       }
     }
 
@@ -1645,19 +1619,17 @@ LABEL_9:
     {
       if (IMOSLoggingEnabled())
       {
-        v44 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+        v42 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_22B4CC000, v44, OS_LOG_TYPE_INFO, "Since we fetched max live batch records, we will not fetch archived records", buf, 2u);
+          _os_log_impl(&dword_22B4CC000, v42, OS_LOG_TYPE_INFO, "Since we fetched max live batch records, we will not fetch archived records", buf, 2u);
         }
       }
 
       (*(blockCopy + 2))(blockCopy, 1, 0, 0, 0);
     }
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_noteSyncEnded
@@ -1706,7 +1678,7 @@ LABEL_9:
 
 - (BOOL)_shouldMarkAllMessagesAsNeedingSync
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D1ACB8] = [MEMORY[0x277D1ACB8] sharedInstance];
   isUnderFirstDataProtectionLock = [mEMORY[0x277D1ACB8] isUnderFirstDataProtectionLock];
 
@@ -1732,13 +1704,12 @@ LABEL_9:
         v7 = @"YES";
       }
 
-      v10 = 138412290;
-      v11 = v7;
-      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "_shouldMarkAllMessagesAsNeedingSync %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v7;
+      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "_shouldMarkAllMessagesAsNeedingSync %@", &v9, 0xCu);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -1843,7 +1814,7 @@ LABEL_17:
 
 - (void)syncMessagesWithSyncType:(int64_t)type deviceConditionsToCheck:(unint64_t)check activity:(id)activity completionBlock:(id)block
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   blockCopy = block;
   if (IMOSLoggingEnabled())
@@ -1854,8 +1825,8 @@ LABEL_17:
       v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:check];
       *buf = 134218242;
       typeCopy = type;
-      v24 = 2112;
-      v25 = v13;
+      v23 = 2112;
+      v24 = v13;
       _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "syncMessagesWithSyncType with type %ld deviceConditionsToCheck %@", buf, 0x16u);
     }
   }
@@ -1864,19 +1835,17 @@ LABEL_17:
   [(IMDCKAbstractSyncController *)self setIsSyncing:1];
   [(IMDCKMessageSyncController *)self setDeviceConditionsToCheck:check];
   ckQueue = [(IMDCKMessageSyncController *)self ckQueue];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = sub_22B64F300;
-  v18[3] = &unk_278706F90;
-  v18[4] = self;
-  v19 = activityCopy;
-  v20 = blockCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = sub_22B64F300;
+  v17[3] = &unk_278706F90;
+  v17[4] = self;
+  v18 = activityCopy;
+  v19 = blockCopy;
   typeCopy2 = type;
   v15 = blockCopy;
   v16 = activityCopy;
-  dispatch_async(ckQueue, v18);
-
-  v17 = *MEMORY[0x277D85DE8];
+  dispatch_async(ckQueue, v17);
 }
 
 - (void)deleteMessageSyncToken
@@ -1916,15 +1885,15 @@ LABEL_17:
 - (void)clearLocalSyncState:(unint64_t)state
 {
   stateCopy = state;
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v8[0] = 67109120;
-      v8[1] = stateCopy;
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Clearing local messages sync state, flags 0x%x", v8, 8u);
+      v7[0] = 67109120;
+      v7[1] = stateCopy;
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Clearing local messages sync state, flags 0x%x", v7, 8u);
     }
   }
 
@@ -1944,13 +1913,11 @@ LABEL_17:
   {
     [(IMDCKMessageSyncController *)self _needsToMarkAllMessagesAsNeedingSync];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processRecordDeletionCompletion:(id)completion error:(id)error completionBlock:(id)block
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   errorCopy = error;
   blockCopy = block;
@@ -1960,7 +1927,7 @@ LABEL_17:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v24 = errorCopy;
+      v23 = errorCopy;
       _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Delete message callback with error %@", buf, 0xCu);
     }
   }
@@ -1970,29 +1937,27 @@ LABEL_17:
   block[2] = sub_22B65031C;
   block[3] = &unk_2787038F8;
   v12 = completionCopy;
-  v20 = v12;
+  v19 = v12;
   v13 = errorCopy;
-  v21 = v13;
+  v20 = v13;
   selfCopy = self;
   dispatch_sync(MEMORY[0x277D85CD0], block);
   if (blockCopy)
   {
     ckQueue = [(IMDCKMessageSyncController *)self ckQueue];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = sub_22B65064C;
-    v16[3] = &unk_2787028B0;
-    v18 = blockCopy;
-    v17 = v13;
-    dispatch_async(ckQueue, v16);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = sub_22B65064C;
+    v15[3] = &unk_2787028B0;
+    v17 = blockCopy;
+    v16 = v13;
+    dispatch_async(ckQueue, v15);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deleteMessagesWithRecordIDs:(id)ds completion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   completionCopy = completion;
   if ([dsCopy count])
@@ -2000,21 +1965,21 @@ LABEL_17:
     cKOperationFactory = [(IMDCKMessageSyncController *)self CKOperationFactory];
     v9 = [cKOperationFactory deleteMessageCKOperationUsingRecordIDstoDelete:dsCopy];
 
-    v13 = MEMORY[0x277D85DD0];
-    v14 = 3221225472;
-    v15 = sub_22B65088C;
-    v16 = &unk_278703858;
+    v12 = MEMORY[0x277D85DD0];
+    v13 = 3221225472;
+    v14 = sub_22B65088C;
+    v15 = &unk_278703858;
     selfCopy = self;
-    v18 = completionCopy;
-    [v9 setModifyRecordsCompletionBlock:&v13];
-    [v9 setPerRecordCompletionBlock:{&unk_283F1A9C8, v13, v14, v15, v16, selfCopy}];
+    v17 = completionCopy;
+    [v9 setModifyRecordsCompletionBlock:&v12];
+    [v9 setPerRecordCompletionBlock:{&unk_283F1A9C8, v12, v13, v14, v15, selfCopy}];
     if (IMOSLoggingEnabled())
     {
       v10 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v20 = dsCopy;
+        v19 = dsCopy;
         _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Kicking off deleted of recordIDs %@", buf, 0xCu);
       }
     }
@@ -2036,8 +2001,6 @@ LABEL_17:
 
     (*(completionCopy + 2))(completionCopy, 0);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_constructMessageRecordIDUsingTombStoneDictionary:(id)dictionary
@@ -2060,32 +2023,32 @@ LABEL_17:
 
 - (id)_copyRecordIDsToDeleteWithLimit:(unint64_t)limit
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   _sharedIMDMessageStore = [(IMDCKMessageSyncController *)self _sharedIMDMessageStore];
   v6 = [_sharedIMDMessageStore copyMessagesThatNeedToBeDeletedInCloudKitWithLimit:limit];
 
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v8 = objc_autoreleasePoolPush();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v9 = v6;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [(IMDCKMessageSyncController *)self _constructMessageRecordIDUsingTombStoneDictionary:*(*(&v18 + 1) + 8 * i), v18];
+        v14 = [(IMDCKMessageSyncController *)self _constructMessageRecordIDUsingTombStoneDictionary:*(*(&v17 + 1) + 8 * i), v17];
         v15 = v14;
         if (v7 && v14)
         {
@@ -2093,20 +2056,19 @@ LABEL_17:
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
   }
 
   objc_autoreleasePoolPop(v8);
-  v16 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)syncDeletedMessagesToCloudKitWithCompletion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   _ckUtilitiesInstance = [(IMDCKMessageSyncController *)self _ckUtilitiesInstance];
   cloudKitSyncingEnabled = [_ckUtilitiesInstance cloudKitSyncingEnabled];
@@ -2123,9 +2085,9 @@ LABEL_17:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         *buf = 134218240;
-        v20 = [v7 count];
-        v21 = 2048;
-        v22 = [v9 count];
+        v19 = [v7 count];
+        v20 = 2048;
+        v21 = [v9 count];
         _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Got %lu recordIDs to sync, filtered to %lu unique recordID", buf, 0x16u);
       }
     }
@@ -2158,8 +2120,8 @@ LABEL_7:
       block[2] = sub_22B650DCC;
       block[3] = &unk_2787037B8;
       block[4] = self;
-      v17 = v9;
-      v18 = completionCopy;
+      v16 = v9;
+      v17 = completionCopy;
       dispatch_async(ckQueue, block);
     }
 
@@ -2183,8 +2145,6 @@ LABEL_7:
 
     (*(completionCopy + 2))(completionCopy, 1, 0);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

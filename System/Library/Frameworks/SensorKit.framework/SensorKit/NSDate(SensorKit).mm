@@ -1,6 +1,6 @@
 @interface NSDate(SensorKit)
 + (uint64_t)dateWithSRAbsoluteTime:()SensorKit;
-- (double)srAbsoluteTime;
+- (SRAbsoluteTime)srAbsoluteTime;
 - (uint64_t)initWithSRAbsoluteTime:()SensorKit;
 @end
 
@@ -21,7 +21,7 @@
   return [self initWithTimeIntervalSinceReferenceDate:v3];
 }
 
-- (double)srAbsoluteTime
+- (SRAbsoluteTime)srAbsoluteTime
 {
   [self timeIntervalSinceReferenceDate];
 

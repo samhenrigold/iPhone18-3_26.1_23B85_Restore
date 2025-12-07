@@ -82,10 +82,10 @@
 
 - (id)runAction
 {
-  v43 = *MEMORY[0x1E69E9840];
-  v34.receiver = self;
-  v34.super_class = AMSUIWebOpenURLAction;
-  runAction = [(AMSUIWebAction *)&v34 runAction];
+  v42 = *MEMORY[0x1E69E9840];
+  v33.receiver = self;
+  v33.super_class = AMSUIWebOpenURLAction;
+  runAction = [(AMSUIWebAction *)&v33 runAction];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -101,13 +101,13 @@
     v9 = AMSLogableURL();
     type = [(AMSUIWebOpenURLAction *)self type];
     *buf = 138544130;
-    v36 = v6;
-    v37 = 2114;
-    v38 = v7;
-    v39 = 2114;
-    v40 = v9;
-    v41 = 2048;
-    v42 = type;
+    v35 = v6;
+    v36 = 2114;
+    v37 = v7;
+    v38 = 2114;
+    v39 = v9;
+    v40 = 2048;
+    v41 = type;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Opening URL: %{public}@ type: %ld", buf, 0x2Au);
   }
 
@@ -153,9 +153,9 @@ LABEL_14:
       v25 = objc_opt_class();
       v26 = AMSLogKey();
       *buf = 138543618;
-      v36 = v25;
-      v37 = 2114;
-      v38 = v26;
+      v35 = v25;
+      v36 = 2114;
+      v37 = v26;
       _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Failed to handle unknown type", buf, 0x16u);
     }
 
@@ -208,14 +208,13 @@ LABEL_25:
   promiseAdapter = [v20 promiseWithError:v31];
 
 LABEL_26:
-  v32 = *MEMORY[0x1E69E9840];
 
   return promiseAdapter;
 }
 
 + (id)_openUniversalLink:(id)link
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   linkCopy = link;
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!mEMORY[0x1E698C968])
@@ -229,28 +228,26 @@ LABEL_26:
     v6 = objc_opt_class();
     v7 = AMSLogKey();
     *buf = 138543874;
-    v19 = v6;
-    v20 = 2114;
-    v21 = v7;
-    v22 = 2112;
-    v23 = linkCopy;
+    v18 = v6;
+    v19 = 2114;
+    v20 = v7;
+    v21 = 2112;
+    v22 = linkCopy;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Opening universal link: %@", buf, 0x20u);
   }
 
   v8 = objc_alloc_init(MEMORY[0x1E698C7F0]);
   mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
-  v16 = *MEMORY[0x1E69DDB50];
-  v17 = MEMORY[0x1E695E118];
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __44__AMSUIWebOpenURLAction__openUniversalLink___block_invoke;
-  v14[3] = &unk_1E7F25888;
+  v15 = *MEMORY[0x1E69DDB50];
+  v16 = MEMORY[0x1E695E118];
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __44__AMSUIWebOpenURLAction__openUniversalLink___block_invoke;
+  v13[3] = &unk_1E7F25888;
   v11 = v8;
-  v15 = v11;
-  [mEMORY[0x1E69DC668] openURL:linkCopy options:v10 completionHandler:v14];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v14 = v11;
+  [mEMORY[0x1E69DC668] openURL:linkCopy options:v10 completionHandler:v13];
 
   return v11;
 }

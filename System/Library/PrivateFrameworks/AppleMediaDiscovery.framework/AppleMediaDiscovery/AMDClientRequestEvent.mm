@@ -125,31 +125,8 @@
       objc_storeStrong(&v20, AMD_CUSTOM_AGG_VERSION_1);
     }
 
-    if (!v23 || ([v20 isEqualToString:AMD_CUSTOM_AGG_VERSION_SQLITE_0] & 1) != 0)
+    if (!v23 || ([v20 isEqualToString:AMD_CUSTOM_AGG_VERSION_SQLITE_0] & 1) != 0 || ((v8 = [AMDFeatureDescriptor alloc], v19 = -[AMDFeatureDescriptor initWithDictionary:withUserId:featureName:](v8, "initWithDictionary:withUserId:featureName:", v23), v9 = [AMDFeatureDescriptor alloc], v18 = -[AMDFeatureDescriptor initWithDictionaryV2:withUserId:featureName:withDomain:](v9, "initWithDictionaryV2:withUserId:featureName:withDomain:", v23, @"111111111", location[0], v24), v19) || v18 ? (v21 = 0) : (v29 = 0, v21 = 1), objc_storeStrong(&v18, 0), objc_storeStrong(&v19, 0), !v21))
     {
-      goto LABEL_14;
-    }
-
-    v8 = [AMDFeatureDescriptor alloc];
-    v19 = [AMDFeatureDescriptor initWithDictionary:v8 withUserId:"initWithDictionary:withUserId:featureName:" featureName:v23];
-    v9 = [AMDFeatureDescriptor alloc];
-    v18 = [(AMDFeatureDescriptor *)v9 initWithDictionaryV2:v23 withUserId:@"111111111" featureName:location[0] withDomain:v24];
-    if (v19 || v18)
-    {
-      v21 = 0;
-    }
-
-    else
-    {
-      v29 = 0;
-      v21 = 1;
-    }
-
-    objc_storeStrong(&v18, 0);
-    objc_storeStrong(&v19, 0);
-    if (!v21)
-    {
-LABEL_14:
       v10 = selfCopy;
       selfCopy = 0;
       v17.receiver = v10;

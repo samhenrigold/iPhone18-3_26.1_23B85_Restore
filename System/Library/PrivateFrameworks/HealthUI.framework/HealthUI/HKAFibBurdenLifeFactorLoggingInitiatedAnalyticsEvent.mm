@@ -27,39 +27,39 @@
   sourceCopy = source;
   v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
   healthDataSource = [sourceCopy healthDataSource];
-  v32 = 0;
-  v8 = [healthDataSource biologicalSexWithError:&v32];
-  v9 = v32;
+  v35 = 0;
+  v8 = [healthDataSource biologicalSexWithError:&v35];
+  v9 = v35;
 
   v10 = MEMORY[0x1E696B508];
   if (v9)
   {
-    _HKInitializeLogging();
-    v11 = HKLogAFibBurden();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v11 = _HKInitializeLogging();
+    v12 = HKLogAFibBurden(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [HKAFibBurdenLifeFactorLoggingInitiatedAnalyticsEvent makeIHAGatedEventPayloadWithDataSource:error:];
     }
 
-    v12 = *v10;
-    v13 = *MEMORY[0x1E696B4D8];
-    v14 = v6;
+    v13 = *v10;
+    v14 = *MEMORY[0x1E696B4D8];
+    v15 = v6;
     goto LABEL_7;
   }
 
   if (v8)
   {
     v9 = HKAnalyticsPropertyValueForBiologicalSex();
-    v13 = *MEMORY[0x1E696B4D8];
-    v14 = v6;
-    v12 = v9;
+    v14 = *MEMORY[0x1E696B4D8];
+    v15 = v6;
+    v13 = v9;
 LABEL_7:
-    [v14 setObject:v12 forKeyedSubscript:v13];
+    [v15 setObject:v13 forKeyedSubscript:v14];
     goto LABEL_8;
   }
 
-  _HKInitializeLogging();
-  v9 = HKLogAFibBurden();
+  v33 = _HKInitializeLogging();
+  v9 = HKLogAFibBurden(v33);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
   {
     [HKAFibBurdenLifeFactorLoggingInitiatedAnalyticsEvent makeIHAGatedEventPayloadWithDataSource:v9 error:?];
@@ -70,51 +70,51 @@ LABEL_8:
   healthDataSource2 = [sourceCopy healthDataSource];
   environmentDataSource = [sourceCopy environmentDataSource];
   currentDate = [environmentDataSource currentDate];
-  v31 = 0;
-  v18 = [healthDataSource2 ageWithCurrentDate:currentDate error:&v31];
-  v19 = v31;
+  v34 = 0;
+  v19 = [healthDataSource2 ageWithCurrentDate:currentDate error:&v34];
+  v20 = v34;
 
-  if (v19)
+  if (v20)
   {
-    _HKInitializeLogging();
-    v20 = HKLogAFibBurden();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = _HKInitializeLogging();
+    v22 = HKLogAFibBurden(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [HKAFibBurdenLifeFactorLoggingInitiatedAnalyticsEvent makeIHAGatedEventPayloadWithDataSource:error:];
     }
 
-    v21 = *MEMORY[0x1E696B4B8];
+    v23 = *MEMORY[0x1E696B4B8];
   }
 
   else
   {
-    v22 = [MEMORY[0x1E696AD98] numberWithInteger:*MEMORY[0x1E696C808]];
-    v21 = HKAnalyticsDecadeBucketedAgeForAgeWithMinimumAge();
+    v24 = [MEMORY[0x1E696AD98] numberWithInteger:*MEMORY[0x1E696C808]];
+    v23 = HKAnalyticsDecadeBucketedAgeForAgeWithMinimumAge();
 
-    v19 = v21;
-    if (!v18)
+    v20 = v23;
+    if (!v19)
     {
       goto LABEL_14;
     }
   }
 
-  [v6 setObject:v21 forKeyedSubscript:*MEMORY[0x1E696B4D0]];
-  v21 = v19;
+  [v6 setObject:v23 forKeyedSubscript:*MEMORY[0x1E696B4D0]];
+  v23 = v20;
 LABEL_14:
 
   healthDataSource3 = [sourceCopy healthDataSource];
-  v24 = [(HKAFibBurdenLifeFactorLoggingInitiatedAnalyticsEvent *)self determineFeatureVersionWithHealthDataSource:healthDataSource3];
+  v26 = [(HKAFibBurdenLifeFactorLoggingInitiatedAnalyticsEvent *)self determineFeatureVersionWithHealthDataSource:healthDataSource3];
 
-  if (v24)
+  if (v26)
   {
-    [v6 setObject:v24 forKeyedSubscript:@"featureVersion"];
+    [v6 setObject:v26 forKeyedSubscript:@"featureVersion"];
   }
 
   identifier = [(HKSampleType *)self->_sampleType identifier];
   [v6 setObject:identifier forKeyedSubscript:@"lifeFactor"];
 
-  v26 = *v10;
-  v27 = v26;
+  v28 = *v10;
+  v29 = v28;
   context = self->_context;
   if (context)
   {
@@ -123,17 +123,17 @@ LABEL_14:
       goto LABEL_21;
     }
 
-    v29 = @"lifeFactorPlatter";
+    v31 = @"lifeFactorPlatter";
   }
 
   else
   {
-    v29 = @"interactiveChart";
+    v31 = @"interactiveChart";
   }
 
-  v27 = v29;
+  v29 = v31;
 LABEL_21:
-  [v6 setObject:v27 forKeyedSubscript:@"context"];
+  [v6 setObject:v29 forKeyedSubscript:@"context"];
 
   return v6;
 }
@@ -144,9 +144,9 @@ LABEL_21:
   v5 = v4;
   if (v4)
   {
-    v16 = 0;
-    v6 = [v4 featureOnboardingRecordWithError:&v16];
-    v7 = v16;
+    v18 = 0;
+    v6 = [v4 featureOnboardingRecordWithError:&v18];
+    v7 = v18;
     if (v6)
     {
       onboardingCompletion = [v6 onboardingCompletion];
@@ -165,9 +165,9 @@ LABEL_21:
 
     else
     {
-      _HKInitializeLogging();
-      v14 = HKLogAFibBurden();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = _HKInitializeLogging();
+      v16 = HKLogAFibBurden(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [HKAFibBurdenLifeFactorLoggingInitiatedAnalyticsEvent determineFeatureVersionWithHealthDataSource:];
       }
@@ -178,11 +178,11 @@ LABEL_21:
 
   else
   {
-    _HKInitializeLogging();
-    v13 = HKLogAFibBurden();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v13 = _HKInitializeLogging();
+    v14 = HKLogAFibBurden(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      [(HKAFibBurdenLifeFactorLoggingInitiatedAnalyticsEvent *)self determineFeatureVersionWithHealthDataSource:v13];
+      [(HKAFibBurdenLifeFactorLoggingInitiatedAnalyticsEvent *)self determineFeatureVersionWithHealthDataSource:v14];
     }
 
     onboardingCompletion = *MEMORY[0x1E696B508];

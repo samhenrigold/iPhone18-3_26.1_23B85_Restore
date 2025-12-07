@@ -92,7 +92,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   if (*&self->_has)
   {
@@ -109,30 +109,30 @@
   if ([(NSMutableArray *)self->_initialMessages count])
   {
     v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_initialMessages, "count")}];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     v7 = self->_initialMessages;
-    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v26;
+      v10 = *v25;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v26 != v10)
+          if (*v25 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          dictionaryRepresentation = [*(*(&v25 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v24 + 1) + 8 * i) dictionaryRepresentation];
           [v6 addObject:dictionaryRepresentation];
         }
 
-        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v9);
@@ -193,18 +193,15 @@
     [dictionary setObject:v22 forKey:@"organizedByThread"];
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (*&self->_has)
   {
-    fullSyncVersion = self->_fullSyncVersion;
     PBDataWriterWriteUint32Field();
   }
 
@@ -213,33 +210,32 @@
     PBDataWriterWriteDataField();
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v6 = self->_initialMessages;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v7)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v5 = self->_initialMessages;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v18;
+    v7 = v6;
+    v8 = *v12;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v9)
+        if (*v12 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   if (self->_dateForRequestingMoreMessages)
@@ -249,7 +245,6 @@
 
   if ((*&self->_has & 4) != 0)
   {
-    syncedMailboxType = self->_syncedMailboxType;
     PBDataWriterWriteUint32Field();
   }
 
@@ -276,18 +271,14 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    mailboxSyncVersion = self->_mailboxSyncVersion;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if ((has & 8) != 0)
   {
-    organizedByThread = self->_organizedByThread;
     PBDataWriterWriteBOOLField();
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -373,7 +364,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if (*&self->_has)
@@ -386,30 +377,30 @@
   v8 = *(v6 + 16);
   *(v6 + 16) = v7;
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v9 = self->_initialMessages;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v29;
+    v12 = *v28;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v29 != v12)
+        if (*v28 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [*(*(&v28 + 1) + 8 * i) copyWithZone:{zone, v28}];
+        v14 = [*(*(&v27 + 1) + 8 * i) copyWithZone:{zone, v27}];
         [v6 addInitialMessage:v14];
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v11);
@@ -425,7 +416,7 @@
     *(v6 + 92) |= 4u;
   }
 
-  v17 = [(NSString *)self->_syncedMailboxAccountId copyWithZone:zone, v28];
+  v17 = [(NSString *)self->_syncedMailboxAccountId copyWithZone:zone, v27];
   v18 = *(v6 + 56);
   *(v6 + 56) = v17;
 
@@ -455,7 +446,6 @@
     *(v6 + 92) |= 8u;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -467,7 +457,6 @@
     goto LABEL_33;
   }
 
-  v5 = *(equalCopy + 92);
   if (*&self->_has)
   {
     if ((*(equalCopy + 92) & 1) == 0 || self->_fullSyncVersion != *(equalCopy + 6))
@@ -505,7 +494,6 @@
     }
   }
 
-  v9 = *(equalCopy + 92);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 92) & 4) == 0 || self->_syncedMailboxType != *(equalCopy + 18))
@@ -565,13 +553,13 @@
     goto LABEL_33;
   }
 
-  v14 = (*(equalCopy + 92) & 8) == 0;
+  v12 = (*(equalCopy + 92) & 8) == 0;
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 92) & 8) == 0)
     {
 LABEL_33:
-      v14 = 0;
+      v12 = 0;
       goto LABEL_34;
     }
 
@@ -588,12 +576,12 @@ LABEL_33:
       goto LABEL_33;
     }
 
-    v14 = 1;
+    v12 = 1;
   }
 
 LABEL_34:
 
-  return v14;
+  return v12;
 }
 
 - (unint64_t)hash
@@ -651,7 +639,7 @@ LABEL_9:
 
 - (void)mergeFrom:(id)from
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = fromCopy;
   if (fromCopy[23])
@@ -665,29 +653,29 @@ LABEL_9:
     [(NNMKProtoInitialMessagesSync *)self setDateSynced:?];
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = *(v5 + 4);
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(NNMKProtoInitialMessagesSync *)self addInitialMessage:*(*(&v15 + 1) + 8 * i), v15];
+        [(NNMKProtoInitialMessagesSync *)self addInitialMessage:*(*(&v14 + 1) + 8 * i), v14];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
@@ -747,8 +735,6 @@ LABEL_9:
     self->_organizedByThread = *(v5 + 88);
     *&self->_has |= 8u;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

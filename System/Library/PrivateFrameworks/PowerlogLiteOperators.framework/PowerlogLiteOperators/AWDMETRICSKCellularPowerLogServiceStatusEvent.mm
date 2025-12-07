@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)ratAsString:(int)string;
+- (id)statusAsString:(int)string;
 - (int)StringAsRat:(id)rat;
 - (int)StringAsStatus:(id)status;
 - (int)rat;
@@ -44,6 +46,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)statusAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2782625D0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsStatus:(id)status
@@ -98,6 +115,57 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)ratAsString:(int)string
+{
+  if (string > 2)
+  {
+    switch(string)
+    {
+      case 3:
+        v4 = @"SYS_RAT_TDS";
+
+        break;
+      case 4:
+        v4 = @"SYS_RAT_NR5G";
+
+        break;
+      case 255:
+        v4 = @"SYS_RAT_INVALID";
+
+        break;
+      default:
+LABEL_20:
+        v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+    }
+  }
+
+  else if (string)
+  {
+    if (string != 1)
+    {
+      if (string == 2)
+      {
+        v4 = @"SYS_RAT_LTE";
+
+        return v4;
+      }
+
+      goto LABEL_20;
+    }
+
+    v4 = @"SYS_RAT_UMTS";
+  }
+
+  else
+  {
+    v4 = @"SYS_RAT_GSM";
+  }
+
+  return v4;
 }
 
 - (int)StringAsRat:(id)rat
@@ -289,7 +357,6 @@ LABEL_6:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -309,7 +376,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  status = self->_status;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -324,12 +390,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  rat = self->_rat;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_5:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 

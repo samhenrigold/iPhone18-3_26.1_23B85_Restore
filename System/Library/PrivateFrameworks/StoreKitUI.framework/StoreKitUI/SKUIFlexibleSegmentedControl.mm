@@ -32,9 +32,9 @@
     [SKUIFlexibleSegmentedControl initWithFrame:];
   }
 
-  v13.receiver = self;
-  v13.super_class = SKUIFlexibleSegmentedControl;
-  height = [(SKUIFlexibleSegmentedControl *)&v13 initWithFrame:x, y, width, height];
+  v15.receiver = self;
+  v15.super_class = SKUIFlexibleSegmentedControl;
+  height = [(SKUIFlexibleSegmentedControl *)&v15 initWithFrame:x, y, width, height];
   v9 = height;
   if (height)
   {
@@ -44,8 +44,8 @@
     segmentedControl = v9->_segmentedControl;
     v9->_segmentedControl = v10;
 
-    [(UISegmentedControl *)v9->_segmentedControl addTarget:v9 action:sel__valueChangeAction_ forControlEvents:4096];
-    [(UISegmentedControl *)v9->_segmentedControl setSemanticContentAttribute:storeSemanticContentAttribute()];
+    v12 = [(UISegmentedControl *)v9->_segmentedControl addTarget:v9 action:sel__valueChangeAction_ forControlEvents:4096];
+    [(UISegmentedControl *)v9->_segmentedControl setSemanticContentAttribute:storeSemanticContentAttribute(v12, v13)];
     [(SKUIFlexibleSegmentedControl *)v9 addSubview:v9->_segmentedControl];
   }
 
@@ -77,52 +77,52 @@
   numberOfSegments = [(UISegmentedControl *)self->_segmentedControl numberOfSegments];
   if (numberOfSegments <= index)
   {
-    v18 = *v5;
-    v17 = v5[2];
-    v16 = v5[3];
+    v19 = *v5;
+    v18 = v5[2];
+    v17 = v5[3];
   }
 
   else
   {
     v8 = numberOfSegments;
-    [(UISegmentedControl *)self->_segmentedControl frame];
-    v10 = v9;
-    v12 = v11;
-    v14 = v13;
-    v16 = v15;
-    *&v9 = v13 / v8;
-    v17 = floorf(*&v9);
-    v18 = v10 + index * v17;
-    if (storeShouldReverseLayoutDirection())
+    frame = [(UISegmentedControl *)self->_segmentedControl frame];
+    v11 = v10;
+    v13 = v12;
+    v15 = v14;
+    v17 = v16;
+    *&v10 = v14 / v8;
+    v18 = floorf(*&v10);
+    v19 = v11 + index * v18;
+    if (storeShouldReverseLayoutDirection(frame, v20))
     {
-      v25.origin.x = v10;
-      v25.origin.y = v12;
-      v25.size.width = v14;
-      v25.size.height = v16;
-      MaxX = CGRectGetMaxX(v25);
-      v26.origin.x = v18;
-      v26.origin.y = v6;
-      v26.size.width = v17;
-      v26.size.height = v16;
-      v20 = MaxX - CGRectGetWidth(v26);
-      v27.origin.x = v18;
-      v27.origin.y = v6;
-      v27.size.width = v17;
-      v27.size.height = v16;
-      v18 = v20 - CGRectGetMinX(v27);
+      v27.origin.x = v11;
+      v27.origin.y = v13;
+      v27.size.width = v15;
+      v27.size.height = v17;
+      MaxX = CGRectGetMaxX(v27);
+      v28.origin.x = v19;
+      v28.origin.y = v6;
+      v28.size.width = v18;
+      v28.size.height = v17;
+      v22 = MaxX - CGRectGetWidth(v28);
+      v29.origin.x = v19;
+      v29.origin.y = v6;
+      v29.size.width = v18;
+      v29.size.height = v17;
+      v19 = v22 - CGRectGetMinX(v29);
     }
 
-    v6 = v12;
+    v6 = v13;
   }
 
-  v21 = v18;
-  v22 = v6;
-  v23 = v17;
-  v24 = v16;
-  result.size.height = v24;
-  result.size.width = v23;
-  result.origin.y = v22;
-  result.origin.x = v21;
+  v23 = v19;
+  v24 = v6;
+  v25 = v18;
+  v26 = v17;
+  result.size.height = v26;
+  result.size.width = v25;
+  result.origin.y = v24;
+  result.origin.x = v23;
   return result;
 }
 

@@ -84,27 +84,27 @@ void __50__TKTokenConfiguration_interfaceForChangeProtocol__block_invoke()
 
 - (void)tokenConfigurationChanged:(id)changed
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   changedCopy = changed;
-  v5 = [changedCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [changedCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(changedCopy);
         }
 
-        if ([(TKTokenID *)self->_tokenID isEqual:*(*(&v12 + 1) + 8 * i), v12])
+        if ([(TKTokenID *)self->_tokenID isEqual:*(*(&v11 + 1) + 8 * i), v11])
         {
           selfCopy = self;
           objc_sync_enter(selfCopy);
@@ -116,7 +116,7 @@ void __50__TKTokenConfiguration_interfaceForChangeProtocol__block_invoke()
         }
       }
 
-      v6 = [changedCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [changedCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -127,8 +127,6 @@ void __50__TKTokenConfiguration_interfaceForChangeProtocol__block_invoke()
   }
 
 LABEL_11:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)beginTransaction
@@ -206,28 +204,28 @@ LABEL_11:
 
 void __37__TKTokenConfiguration_keychainItems__block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [TKTokenKeychainItem keychainItemWithInfo:*(*(&v10 + 1) + 8 * v7)];
+        v8 = [TKTokenKeychainItem keychainItemWithInfo:*(*(&v9 + 1) + 8 * v7)];
         if (v8)
         {
           [*(a1 + 32) addObject:v8];
@@ -237,13 +235,11 @@ void __37__TKTokenConfiguration_keychainItems__block_invoke(uint64_t a1, void *a
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)_hasSeparateKeysAndCertificatesObjectIDSpace
@@ -272,9 +268,9 @@ void __37__TKTokenConfiguration_keychainItems__block_invoke(uint64_t a1, void *a
 
 - (void)setKeychainItems:(NSArray *)keychainItems
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v3 = keychainItems;
-  v4 = TK_LOG_tokencfg();
+  v4 = TK_LOG_tokencfg(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [(TKTokenConfiguration *)v3 setKeychainItems:v4];
@@ -311,20 +307,20 @@ LABEL_23:
       if (v12)
       {
         objc_opt_class();
-        if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()) || (objc_opt_class(), (objc_opt_isKindOfClass()) && (objc_opt_class(), (objc_opt_isKindOfClass()))
+        if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass) || (objc_opt_class(), (objc_opt_isKindOfClass()) && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass))
         {
-          v13 = @"Detected duplicate objectID for objects %@ and %@";
+          v14 = @"Detected duplicate objectID for objects %@ and %@";
           if ((_hasSeparateKeysAndCertificatesObjectIDSpaceIsSetExternally & 1) == 0)
           {
-            v14 = TK_LOG_tokencfg();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+            v15 = TK_LOG_tokencfg(isKindOfClass);
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
             {
               *buf = 138543618;
-              v38 = v7;
-              v39 = 2114;
-              v40 = v9;
-              v15 = v14;
-              v16 = "Detected duplicate objectID for objects %{public}@ and %{public}@";
+              v39 = v7;
+              v40 = 2114;
+              v41 = v9;
+              v16 = v15;
+              v17 = "Detected duplicate objectID for objects %{public}@ and %{public}@";
               goto LABEL_22;
             }
 
@@ -334,29 +330,30 @@ LABEL_23:
           goto LABEL_18;
         }
 
-        if (([objc_opt_class() _hasSeparateKeysAndCertificatesObjectIDSpace] & 1) == 0)
+        _hasSeparateKeysAndCertificatesObjectIDSpace = [objc_opt_class() _hasSeparateKeysAndCertificatesObjectIDSpace];
+        if ((_hasSeparateKeysAndCertificatesObjectIDSpace & 1) == 0)
         {
-          v13 = @"Detected duplicate objectID for key %@ and certificate %@. This is allowed only for token extensions built for macOS 10.16 or newer. Either change build options to target newer OS version or avoid sharing same objectID for key and certificate.";
+          v14 = @"Detected duplicate objectID for key %@ and certificate %@. This is allowed only for token extensions built for macOS 10.16 or newer. Either change build options to target newer OS version or avoid sharing same objectID for key and certificate.";
           if ((_hasSeparateKeysAndCertificatesObjectIDSpaceIsSetExternally & 1) == 0)
           {
-            v14 = TK_LOG_tokencfg();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+            v15 = TK_LOG_tokencfg(_hasSeparateKeysAndCertificatesObjectIDSpace);
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
             {
               *buf = 138543618;
-              v38 = v7;
-              v39 = 2114;
-              v40 = v9;
-              v15 = v14;
-              v16 = "Detected duplicate objectID for key %{public}@ and certificate %{public}@. This is allowed only for token extensions built for macOS 10.16 or newer. Either change build options to target newer OS version or avoid sharing same objectID for key and certificate.";
+              v39 = v7;
+              v40 = 2114;
+              v41 = v9;
+              v16 = v15;
+              v17 = "Detected duplicate objectID for key %{public}@ and certificate %{public}@. This is allowed only for token extensions built for macOS 10.16 or newer. Either change build options to target newer OS version or avoid sharing same objectID for key and certificate.";
 LABEL_22:
-              _os_log_fault_impl(&dword_1DF413000, v15, OS_LOG_TYPE_FAULT, v16, buf, 0x16u);
+              _os_log_fault_impl(&dword_1DF413000, v16, OS_LOG_TYPE_FAULT, v17, buf, 0x16u);
             }
 
 LABEL_17:
           }
 
 LABEL_18:
-          [MEMORY[0x1E695DF30] raise:v6 format:{v13, v7, v9}];
+          [MEMORY[0x1E695DF30] raise:v6 format:{v14, v7, v9}];
         }
       }
 
@@ -370,49 +367,48 @@ LABEL_18:
 LABEL_24:
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v18 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSArray count](v3, "count")}];
-  v34 = 0u;
+  v20 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSArray count](v3, "count")}];
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v19 = v3;
-  v20 = [(NSArray *)v19 countByEnumeratingWithState:&v32 objects:v36 count:16];
-  if (v20)
+  v34 = 0u;
+  v21 = v3;
+  v22 = [(NSArray *)v21 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  if (v22)
   {
-    v21 = *v33;
+    v23 = *v34;
     do
     {
-      for (i = 0; i != v20; ++i)
+      for (i = 0; i != v22; ++i)
       {
-        if (*v33 != v21)
+        if (*v34 != v23)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v21);
         }
 
-        v23 = *(*(&v32 + 1) + 8 * i);
+        v25 = *(*(&v33 + 1) + 8 * i);
         tokenID = [(TKTokenConfiguration *)selfCopy tokenID];
-        [v23 setTokenID:tokenID];
+        [v25 setTokenID:tokenID];
 
-        keychainAttributes = [v23 keychainAttributes];
-        [v18 addObject:keychainAttributes];
+        keychainAttributes = [v25 keychainAttributes];
+        [v20 addObject:keychainAttributes];
       }
 
-      v20 = [(NSArray *)v19 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v22 = [(NSArray *)v21 countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
-    while (v20);
+    while (v22);
   }
 
   configurationProtocol = [(TKTokenConfigurationConnection *)selfCopy->_configurationConnection configurationProtocol];
   tokenID2 = [(TKTokenConfiguration *)selfCopy tokenID];
-  [configurationProtocol updateKeychainItemsForTokenID:tokenID2 items:v18 reply:&__block_literal_global_148];
+  [configurationProtocol updateKeychainItemsForTokenID:tokenID2 items:v20 reply:&__block_literal_global_148];
 
-  v28 = [(NSArray *)v19 copy];
-  v29 = selfCopy->_keychainItems;
-  selfCopy->_keychainItems = v28;
+  v30 = [(NSArray *)v21 copy];
+  v31 = selfCopy->_keychainItems;
+  selfCopy->_keychainItems = v30;
 
   objc_sync_exit(selfCopy);
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (TKTokenKeychainKey)keyForObjectID:(TKTokenObjectID)objectID error:(NSError *)error
@@ -447,7 +443,7 @@ LABEL_24:
 
           if (v13)
           {
-            v15 = v11;
+            v16 = v11;
 
             goto LABEL_16;
           }
@@ -464,8 +460,8 @@ LABEL_24:
     }
   }
 
-  v14 = TK_LOG_tokencfg();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v15 = TK_LOG_tokencfg(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     [TKTokenConfiguration keyForObjectID:v5 error:self];
   }
@@ -473,19 +469,17 @@ LABEL_24:
   if (error)
   {
     [MEMORY[0x1E696ABC0] errorWithDomain:@"CryptoTokenKit" code:-6 userInfo:MEMORY[0x1E695E0F8]];
-    *error = v15 = 0;
+    *error = v16 = 0;
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
 LABEL_16:
 
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v15;
+  return v16;
 }
 
 - (TKTokenKeychainCertificate)certificateForObjectID:(TKTokenObjectID)objectID error:(NSError *)error
@@ -520,7 +514,7 @@ LABEL_16:
 
           if (v13)
           {
-            v15 = v11;
+            v16 = v11;
 
             goto LABEL_16;
           }
@@ -537,8 +531,8 @@ LABEL_16:
     }
   }
 
-  v14 = TK_LOG_tokencfg();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v15 = TK_LOG_tokencfg(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     [TKTokenConfiguration certificateForObjectID:v5 error:self];
   }
@@ -546,48 +540,39 @@ LABEL_16:
   if (error)
   {
     [MEMORY[0x1E696ABC0] errorWithDomain:@"CryptoTokenKit" code:-6 userInfo:MEMORY[0x1E695E0F8]];
-    *error = v15 = 0;
+    *error = v16 = 0;
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
 LABEL_16:
 
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v15;
+  return v16;
 }
 
 - (void)setKeychainItems:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1DF413000, a2, OS_LOG_TYPE_DEBUG, "Configuration got items: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1DF413000, a2, OS_LOG_TYPE_DEBUG, "Configuration got items: %{public}@", &v2, 0xCu);
 }
 
 - (void)keyForObjectID:(uint64_t)a1 error:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = [a2 tokenID];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_1(&dword_1DF413000, v3, v4, "Cannot find requested key %{public}@ on token %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_1(&dword_1DF413000, v3, v4, "Cannot find requested key %{public}@ on token %{public}@", v5, v6, v7, v8);
 }
 
 - (void)certificateForObjectID:(uint64_t)a1 error:(void *)a2 .cold.1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = [a2 tokenID];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_1(&dword_1DF413000, v3, v4, "Cannot find requested certificate %{public}@ on token %{public}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_1(&dword_1DF413000, v3, v4, "Cannot find requested certificate %{public}@ on token %{public}@", v5, v6, v7, v8);
 }
 
 @end

@@ -7,9 +7,6 @@
 
 - (void)changed:(id)changed
 {
-  v5 = *(&self->super.isa + OBJC_IVAR____TtCV17AppleVisionProApp19CarouselPageControl11Coordinator_currentPage);
-  v6 = *&self->currentPage[OBJC_IVAR____TtCV17AppleVisionProApp19CarouselPageControl11Coordinator_currentPage];
-  v7 = *&self->currentPage[OBJC_IVAR____TtCV17AppleVisionProApp19CarouselPageControl11Coordinator_currentPage + 8];
 
   changedCopy = changed;
   selfCopy = self;

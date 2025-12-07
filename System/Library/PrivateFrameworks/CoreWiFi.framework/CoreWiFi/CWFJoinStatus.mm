@@ -2271,7 +2271,7 @@ LABEL_124:
 
 - (id)JSONCompatibleKeyValueMap
 {
-  v62[2] = *MEMORY[0x1E69E9840];
+  v61[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   uUID = [(CWFJoinStatus *)self UUID];
   uUIDString = [uUID UUIDString];
@@ -2292,16 +2292,16 @@ LABEL_124:
 
   else
   {
-    v61[0] = @"description";
+    v60[0] = @"description";
     error2 = [(CWFJoinStatus *)self error];
     localizedDescription = [error2 localizedDescription];
-    v61[1] = @"code";
-    v62[0] = localizedDescription;
+    v60[1] = @"code";
+    v61[0] = localizedDescription;
     v12 = MEMORY[0x1E696AD98];
     error3 = [(CWFJoinStatus *)self error];
     v14 = [v12 numberWithInteger:{objc_msgSend(error3, "code")}];
-    v62[1] = v14;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v62 forKeys:v61 count:2];
+    v61[1] = v14;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v61 forKeys:v60 count:2];
     [v3 setObject:v15 forKeyedSubscript:@"error"];
   }
 
@@ -2409,8 +2409,6 @@ LABEL_124:
   {
     v58 = 0;
   }
-
-  v59 = *MEMORY[0x1E69E9840];
 
   return v58;
 }

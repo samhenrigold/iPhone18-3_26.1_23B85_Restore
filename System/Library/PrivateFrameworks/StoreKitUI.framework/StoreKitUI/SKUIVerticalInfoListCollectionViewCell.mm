@@ -698,24 +698,24 @@ void __56__SKUIVerticalInfoListCollectionViewCell_layoutSubviews__block_invoke(u
 
   v10 = style;
 
-  v11 = SKUIViewElementFontWithStyle(v10);
-  if (!v11)
+  v12 = SKUIViewElementFontWithStyle(v10);
+  if (!v12)
   {
-    v11 = SKUIFontPreferredFontForTextStyle(5);
+    v12 = SKUIFontPreferredFontForTextStyle(5, v11);
   }
 
   tintColor = [contextCopy tintColor];
-  v13 = SKUIViewElementPlainColorWithStyle(v10, tintColor);
+  v14 = SKUIViewElementPlainColorWithStyle(v10, tintColor);
 
-  if (!v13)
+  if (!v14)
   {
-    v13 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.8];
+    v14 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.8];
   }
 
   buttonText = [buttonCopy buttonText];
-  v15 = [buttonText attributedStringWithDefaultFont:v11 foregroundColor:v13 style:v10];
+  v16 = [buttonText attributedStringWithDefaultFont:v12 foregroundColor:v14 style:v10];
 
-  return v15;
+  return v16;
 }
 
 + (id)_attributedStringForLabel:(id)label context:(id)context
@@ -723,25 +723,25 @@ void __56__SKUIVerticalInfoListCollectionViewCell_layoutSubviews__block_invoke(u
   labelCopy = label;
   contextCopy = context;
   style = [labelCopy style];
-  v8 = SKUIViewElementFontWithStyle(style);
-  if (!v8)
+  v9 = SKUIViewElementFontWithStyle(style);
+  if (!v9)
   {
-    v8 = SKUIFontPreferredFontForTextStyle(5);
+    v9 = SKUIFontPreferredFontForTextStyle(5, v8);
   }
 
   tintColor = [contextCopy tintColor];
-  v10 = SKUIViewElementPlainColorWithStyle(style, tintColor);
+  v11 = SKUIViewElementPlainColorWithStyle(style, tintColor);
 
-  if (!v10)
+  if (!v11)
   {
-    v11 = [labelCopy labelViewStyle] == 5;
-    v10 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:dbl_215F3FDA0[v11]];
+    v12 = [labelCopy labelViewStyle] == 5;
+    v11 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:dbl_215F3FDA0[v12]];
   }
 
   text = [labelCopy text];
-  v13 = [text attributedStringWithDefaultFont:v8 foregroundColor:v10 style:style];
+  v14 = [text attributedStringWithDefaultFont:v9 foregroundColor:v11 style:style];
 
-  return v13;
+  return v14;
 }
 
 - (void)initWithFrame:.cold.1()

@@ -16,8 +16,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v14[4] = *MEMORY[0x1E69E9840];
-  v13[0] = @"person";
+  v13[4] = *MEMORY[0x1E69E9840];
+  v12[0] = @"person";
   person = self->_person;
   null = person;
   if (!person)
@@ -25,11 +25,11 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[0] = null;
-  v13[1] = @"status";
+  v13[0] = null;
+  v12[1] = @"status";
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:self->_status];
-  v14[1] = v5;
-  v13[2] = @"isUser";
+  v13[1] = v5;
+  v12[2] = @"isUser";
   isUser = self->_isUser;
   null2 = isUser;
   if (!isUser)
@@ -37,8 +37,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[2] = null2;
-  v13[3] = @"isEventOrganizer";
+  v13[2] = null2;
+  v12[3] = @"isEventOrganizer";
   isEventOrganizer = self->_isEventOrganizer;
   null3 = isEventOrganizer;
   if (!isEventOrganizer)
@@ -46,8 +46,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[3] = null3;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
+  v13[3] = null3;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:4];
   if (isEventOrganizer)
   {
     if (isUser)
@@ -69,8 +69,6 @@ LABEL_9:
   if (!person)
   {
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

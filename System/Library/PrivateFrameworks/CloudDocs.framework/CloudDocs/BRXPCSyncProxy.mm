@@ -98,45 +98,43 @@ void __36__BRXPCSyncProxy_initWithXPCObject___block_invoke(uint64_t a1, void *a2
 
 - (void)initWithXPCObject:.cold.1()
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v0 = brc_bread_crumbs("[BRXPCSyncProxy initWithXPCObject:]", 22);
   v1 = brc_default_log(0, 0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    v3 = 138412290;
-    v4 = v0;
-    _os_log_fault_impl(&dword_1AE2A9000, v1, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: [object respondsToSelector:@selector(synchronousRemoteObjectProxyWithErrorHandler:)]%@", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = v0;
+    _os_log_fault_impl(&dword_1AE2A9000, v1, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: [object respondsToSelector:@selector(synchronousRemoteObjectProxyWithErrorHandler:)]%@", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)forwardInvocation:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v4 = brc_bread_crumbs("[BRXPCSyncProxy forwardInvocation:]", 38);
   v5 = brc_default_log(0, 0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0_2(&dword_1AE2A9000, v6, v7, "[CRIT] Assertion failed: _target%@", v8, v9, v10, v11, 2u);
+    LODWORD(v12) = 138412290;
+    *(&v12 + 4) = v4;
+    OUTLINED_FUNCTION_0_2(&dword_1AE2A9000, v6, v7, "[CRIT] Assertion failed: _target%@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   *a2 = *a1;
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)methodSignatureForSelector:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v4 = brc_bread_crumbs("[BRXPCSyncProxy methodSignatureForSelector:]", 44);
   v5 = brc_default_log(0, 0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0_2(&dword_1AE2A9000, v6, v7, "[CRIT] Assertion failed: _target%@", v8, v9, v10, v11, 2u);
+    LODWORD(v12) = 138412290;
+    *(&v12 + 4) = v4;
+    OUTLINED_FUNCTION_0_2(&dword_1AE2A9000, v6, v7, "[CRIT] Assertion failed: _target%@", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   *a2 = *a1;
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

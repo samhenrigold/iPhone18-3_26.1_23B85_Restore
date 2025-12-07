@@ -13,9 +13,9 @@
   typeCopy = type;
   qualifierCopy = qualifier;
   criteriaCopy = criteria;
-  v28.receiver = self;
-  v28.super_class = MSCriterion;
-  v12 = [(MSCriterion *)&v28 init];
+  v20.receiver = self;
+  v20.super_class = MSCriterion;
+  v12 = [(MSCriterion *)&v20 init];
   p_isa = &v12->super.isa;
   v14 = &v12->super.isa;
   if (v12)
@@ -25,16 +25,14 @@
     objc_storeStrong(p_isa + 3, criteria);
     if ([v14[1] isEqual:@"_MSCriterionTypeComplex"])
     {
-      v15 = p_isa[3];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v16 = MEMORY[0x1E695DF30];
-        v17 = p_isa[3];
-        v18 = objc_opt_class();
-        v19 = @"Expected array for complex type, but received %@";
+        v15 = MEMORY[0x1E695DF30];
+        v16 = objc_opt_class();
+        v17 = @"Expected array for complex type, but received %@";
 LABEL_8:
-        [v16 raise:@"InvalidCriterionType" format:{v19, v18}];
+        [v15 raise:@"InvalidCriterionType" format:{v17, v16}];
       }
     }
 
@@ -44,56 +42,50 @@ LABEL_8:
       {
         if ([p_isa[1] isEqual:@"MSCriterionTypeReadStatus"])
         {
-          v22 = p_isa[3];
           objc_opt_class();
           if (objc_opt_isKindOfClass() & 1) != 0 && (([p_isa[3] isEqualToString:@"MSCriterionExpressionRead"] & 1) != 0 || (objc_msgSend(p_isa[3], "isEqualToString:", @"MSCriterionExpressionUnread")))
           {
             goto LABEL_19;
           }
 
-          v23 = @"Expected either MSCriterionExpressionRead or MSCriterionExpressionUnread for read status criteria type.";
+          v18 = @"Expected either MSCriterionExpressionRead or MSCriterionExpressionUnread for read status criteria type.";
         }
 
         else
         {
           if (([p_isa[1] isEqual:@"MSCriterionTypeMessageReference"] & 1) == 0 && !objc_msgSend(p_isa[1], "isEqual:", @"MSCriterionTypeConversationReference"))
           {
-            v26 = p_isa[3];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
               goto LABEL_19;
             }
 
-            v16 = MEMORY[0x1E695DF30];
-            v27 = p_isa[3];
-            v18 = objc_opt_class();
-            v19 = @"Expected string for criteria, but received %@";
+            v15 = MEMORY[0x1E695DF30];
+            v16 = objc_opt_class();
+            v17 = @"Expected string for criteria, but received %@";
             goto LABEL_8;
           }
 
-          v24 = p_isa[3];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
             goto LABEL_19;
           }
 
-          v23 = @"Expected a valid reference for reference criterion type";
+          v18 = @"Expected a valid reference for reference criterion type";
         }
 
-        [MEMORY[0x1E695DF30] raise:@"InvalidCriterionType" format:v23];
+        [MEMORY[0x1E695DF30] raise:@"InvalidCriterionType" format:v18];
         goto LABEL_19;
       }
 
-      v20 = p_isa[3];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v16 = MEMORY[0x1E695DF30];
-        v21 = p_isa[3];
-        v18 = objc_opt_class();
-        v19 = @"Expected date for date criteria type, but received %@";
+        v15 = MEMORY[0x1E695DF30];
+        v16 = objc_opt_class();
+        v17 = @"Expected date for date criteria type, but received %@";
         goto LABEL_8;
       }
     }
@@ -138,17 +130,17 @@ LABEL_19:
 
 - (MSCriterion)initWithCoder:(id)coder
 {
-  v22[5] = *MEMORY[0x1E69E9840];
+  v21[5] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   if ([coderCopy allowsKeyedCoding] && objc_msgSend(coderCopy, "containsValueForKey:", @"_MSCodingKeyVersion") && objc_msgSend(coderCopy, "decodeInt32ForKey:", @"_MSCodingKeyVersion") == 1)
   {
     v5 = MEMORY[0x1E695DFD8];
-    v22[0] = objc_opt_class();
-    v22[1] = objc_opt_class();
-    v22[2] = objc_opt_class();
-    v22[3] = objc_opt_class();
-    v22[4] = objc_opt_class();
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:5];
+    v21[0] = objc_opt_class();
+    v21[1] = objc_opt_class();
+    v21[2] = objc_opt_class();
+    v21[3] = objc_opt_class();
+    v21[4] = objc_opt_class();
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:5];
     v7 = [v5 setWithArray:v6];
 
     v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"_MSCodingKeyCriteria"];
@@ -170,20 +162,20 @@ LABEL_19:
     }
 
     v11 = 0;
-    v21[2] = xmmword_1E855EED8;
-    v21[3] = *&off_1E855EEE8;
-    v21[4] = xmmword_1E855EEF8;
-    v20[0] = @"MSCriterionQualifierContains";
-    v20[1] = @"MSCriterionQualifierDoesNotContain";
-    v20[2] = @"MSCriterionQualifierGreaterThan";
-    v20[3] = @"MSCriterionQualifierLessThan";
-    v20[4] = @"_MSCriterionQualifierAllRequired";
-    v20[5] = @"_MSCriterionQualifierNotAllRequired";
-    v21[0] = xmmword_1E855EEB8;
-    v21[1] = *&off_1E855EEC8;
+    v20[2] = xmmword_1E855EED8;
+    v20[3] = *&off_1E855EEE8;
+    v20[4] = xmmword_1E855EEF8;
+    v19[0] = @"MSCriterionQualifierContains";
+    v19[1] = @"MSCriterionQualifierDoesNotContain";
+    v19[2] = @"MSCriterionQualifierGreaterThan";
+    v19[3] = @"MSCriterionQualifierLessThan";
+    v19[4] = @"_MSCriterionQualifierAllRequired";
+    v19[5] = @"_MSCriterionQualifierNotAllRequired";
+    v20[0] = xmmword_1E855EEB8;
+    v20[1] = *&off_1E855EEC8;
     while (1)
     {
-      v12 = *(v21 + v11);
+      v12 = *(v20 + v11);
       if ([v12 isEqualToString:v9])
       {
         break;
@@ -200,7 +192,7 @@ LABEL_19:
     v13 = 0;
     while (1)
     {
-      v14 = v20[v13];
+      v14 = v19[v13];
       if ([v14 isEqualToString:v10])
       {
         break;
@@ -238,7 +230,6 @@ LABEL_24:
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

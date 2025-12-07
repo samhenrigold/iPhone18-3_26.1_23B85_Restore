@@ -235,7 +235,7 @@ uint64_t __119__HDRollingBaselineRelativeDataSource__primeBaselineCalculatorWith
   v16 = *(a1 + 32);
   if (*(a1 + 56) > a2)
   {
-    [*&v16[2] addNextSampleValue:*(a1 + 40) startTime:a4 sourceID:a5];
+    [*&v16[2] addNextSampleValue:*(a1 + 40) startTime:a8 sourceID:{a9, a10, a11, a4, a5}];
     goto LABEL_34;
   }
 
@@ -310,66 +310,65 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v28 = *(v26 + 2);
-  v29 = v26[5];
-  v30 = v26[4];
-  if (v29 == v30)
+  v28 = v26[5];
+  v29 = v26[4];
+  if (v28 == v29)
   {
-    v31 = 0;
+    v30 = 0;
   }
 
   else
   {
-    v31 = 102 * ((v29 - v30) >> 3) - 1;
+    v30 = 102 * ((v28 - v29) >> 3) - 1;
   }
 
-  v33 = v26[7];
-  v32 = v26[8];
-  v34 = v32 + v33;
-  if (v31 == v32 + v33)
+  v32 = v26[7];
+  v31 = v26[8];
+  v33 = v31 + v32;
+  if (v30 == v31 + v32)
   {
-    if (v33 < 0x66)
+    if (v32 < 0x66)
     {
-      v35 = v26[6];
-      v36 = v26[3];
-      if (v29 - v30 < (v35 - v36))
+      v34 = v26[6];
+      v35 = v26[3];
+      if (v28 - v29 < v34 - v35)
       {
         operator new();
       }
 
-      if (v35 == v36)
+      if (v34 == v35)
       {
-        v37 = 1;
+        v36 = 1;
       }
 
       else
       {
-        v37 = (v35 - v36) >> 2;
+        v36 = (v34 - v35) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::unique_ptr<health::TransactionalCache<unsigned long long,health::FilePage>::CacheEntry,std::default_delete<health::TransactionalCache<unsigned long long,health::FilePage>::CacheEntry>>>>(v37);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::unique_ptr<health::TransactionalCache<unsigned long long,health::FilePage>::CacheEntry,std::default_delete<health::TransactionalCache<unsigned long long,health::FilePage>::CacheEntry>>>>(v36);
     }
 
-    v26[7] = v33 - 102;
-    v41 = *v30;
-    v26[4] = (v30 + 8);
-    std::__split_buffer<std::__thread_id *>::emplace_back<std::__thread_id *&>(v26 + 3, &v41);
-    v32 = v26[8];
-    v30 = v26[4];
-    v34 = v26[7] + v32;
+    v26[7] = v32 - 102;
+    v40 = *v29;
+    v26[4] = (v29 + 8);
+    std::__split_buffer<std::__thread_id *>::emplace_back<std::__thread_id *&>(v26 + 3, &v40);
+    v31 = v26[8];
+    v29 = v26[4];
+    v33 = v26[7] + v31;
   }
 
-  v38 = *&v30[8 * (v34 / 0x66)] + 40 * (v34 % 0x66);
-  *v38 = a4;
-  *(v38 + 8) = a2;
-  *(v38 + 16) = a3;
-  *(v38 + 24) = a9;
-  *(v38 + 32) = 1;
-  v26[8] = v32 + 1;
+  v37 = *&v29[8 * (v33 / 0x66)] + 40 * (v33 % 0x66);
+  *v37 = a4;
+  *(v37 + 8) = a2;
+  *(v37 + 16) = a3;
+  *(v37 + 24) = a9;
+  *(v37 + 32) = 1;
+  v26[8] = v31 + 1;
 LABEL_34:
-  v39 = *(a1 + 32);
+  v38 = *(a1 + 32);
 
-  return [v39 _shouldContinueWithError:a12];
+  return [v38 _shouldContinueWithError:a12];
 }
 
 - (BOOL)_supplementCalculatorWithSubsequentSamplesForSample:(HDRawQuantitySample *)sample baselineCompatibilityID:(id)d error:(id *)error
@@ -453,7 +452,7 @@ LABEL_16:
 
 uint64_t __121__HDRollingBaselineRelativeDataSource__supplementCalculatorWithSubsequentSamplesForSample_baselineCompatibilityID_error___block_invoke(void *a1, double a2, double a3, double a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
-  [*(a1[4] + 16) addSupplementarySampleValue:a1[5] startTime:a4 sourceID:a2];
+  [*(a1[4] + 16) addSupplementarySampleValue:a1[5] startTime:a7 sourceID:{a8, a9, a10, a4, a2}];
   if ([*(a1[4] + 16) hasSufficientDataToBaselineSampleWithSourceID:a1[5]])
   {
     *(*(a1[6] + 8) + 24) = 1;
@@ -485,34 +484,32 @@ uint64_t __121__HDRollingBaselineRelativeDataSource__supplementCalculatorWithSub
 - (id)_predicateForSamplesStartingWithinDateInterval:(id)interval sourceID:(int64_t)d isIntervalStartDateInclusive:(BOOL)inclusive
 {
   inclusiveCopy = inclusive;
-  v20[4] = *MEMORY[0x277D85DE8];
+  v19[4] = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   v9 = HDSampleEntityPredicateForDataType(self->_quantityType);
   endDate = [intervalCopy endDate];
-  v11 = HDSampleEntityPredicateForStartDate(3);
+  v11 = HDSampleEntityPredicateForStartDate(3, endDate);
 
   startDate = [intervalCopy startDate];
   if (inclusiveCopy)
   {
-    HDSampleEntityPredicateForStartDate(6);
+    HDSampleEntityPredicateForStartDate(6, startDate);
   }
 
   else
   {
-    HDSampleEntityPredicateForStartDate(5);
+    HDSampleEntityPredicateForStartDate(5, startDate);
   }
   v13 = ;
 
   v14 = [(_HDRollingBaselineRelativeDataSourceBaselineCompatibilityMap *)self->_canonicalSourceMap predicateForDataEntitiesWithSourceIDsCompatibleWithSourceID:d];
   v15 = MEMORY[0x277D10B20];
-  v20[0] = v9;
-  v20[1] = v11;
-  v20[2] = v13;
-  v20[3] = v14;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
+  v19[0] = v9;
+  v19[1] = v11;
+  v19[2] = v13;
+  v19[3] = v14;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
   v17 = [v15 predicateMatchingAllPredicates:v16];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

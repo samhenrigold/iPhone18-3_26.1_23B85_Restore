@@ -26,7 +26,7 @@
 
   if (v3)
   {
-    sub_1000065A8(0, &qword_100AD86C0);
+    sub_1000065A8(0, &qword_100AD86C0, UIAccessibilityCustomAction_ptr);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 

@@ -121,7 +121,7 @@
   if (errorCopy)
   {
     domain = [errorCopy domain];
-    v27 = sub_100012628();
+    v27 = sub_100012628(domain);
     v28 = [v27 containsObject:domain];
     v29 = @"other";
     if (v28)

@@ -12,10 +12,10 @@
   v5 = *&status;
   managerCopy = manager;
   delegate = [(SLSafeLocationManagerDelegate *)self delegate];
-  _SLLog(v4, 7, @"SLSafeLocationManagerDelegate locationManager:didChangeAuthorizationStatus: calling strong delegate %@");
+  _SLLog(v4, 7, @"SLSafeLocationManagerDelegate locationManager:didChangeAuthorizationStatus: calling strong delegate %@", v8, v9, v10, v11, v12, delegate);
   if (delegate && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    [delegate locationManager:managerCopy didChangeAuthorizationStatus:{v5, delegate}];
+    [delegate locationManager:managerCopy didChangeAuthorizationStatus:v5];
   }
 }
 
@@ -24,8 +24,8 @@
   locationsCopy = locations;
   managerCopy = manager;
   delegate = [(SLSafeLocationManagerDelegate *)self delegate];
-  _SLLog(v4, 7, @"SLSafeLocationManagerDelegate locationManager:didUpdateLocations: calling strong delegate %@");
-  [delegate locationManager:managerCopy didUpdateLocations:{locationsCopy, delegate}];
+  _SLLog(v4, 7, @"SLSafeLocationManagerDelegate locationManager:didUpdateLocations: calling strong delegate %@", v9, v10, v11, v12, v13, delegate);
+  [delegate locationManager:managerCopy didUpdateLocations:locationsCopy];
 }
 
 - (void)locationManager:(id)manager didFailWithError:(id)error
@@ -33,8 +33,8 @@
   errorCopy = error;
   managerCopy = manager;
   delegate = [(SLSafeLocationManagerDelegate *)self delegate];
-  _SLLog(v4, 7, @"SLSafeLocationManagerDelegate locationManager:didFailWithError: calling strong delegate %@");
-  [delegate locationManager:managerCopy didFailWithError:{errorCopy, delegate}];
+  _SLLog(v4, 7, @"SLSafeLocationManagerDelegate locationManager:didFailWithError: calling strong delegate %@", v9, v10, v11, v12, v13, delegate);
+  [delegate locationManager:managerCopy didFailWithError:errorCopy];
 }
 
 - (CLLocationManagerDelegate)delegate

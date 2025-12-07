@@ -286,21 +286,21 @@ void __41__VCVideoRelay_deregisterForVideoFrames___block_invoke(void *a1)
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create CMSampleBuffer", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to create CMSampleBuffer", v2, v3, v4, v5);
 }
 
 - (void)enqueueFrame:atTime:cameraStatusBits:.cold.2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d frameBuffer is nil", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d frameBuffer is nil", v2, v3, v4, v5);
 }
 
 - (void)registerForVideoFrames:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d client is nil", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d client is nil", v2, v3, v4, v5);
 }
 
 void __39__VCVideoRelay_registerForVideoFrames___block_invoke_cold_1()
@@ -315,7 +315,7 @@ void __39__VCVideoRelay_registerForVideoFrames___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d client is nil", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d client is nil", v2, v3, v4, v5);
 }
 
 void __41__VCVideoRelay_deregisterForVideoFrames___block_invoke_cold_1()

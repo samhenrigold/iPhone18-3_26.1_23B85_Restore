@@ -23,7 +23,7 @@
 
 - (void)_handleRetrievedPrivacySettings:(id)settings
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   if (*MEMORY[0x277CBC880] != -1)
   {
@@ -33,9 +33,9 @@
   v5 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
   {
-    v13 = 138412290;
-    v14 = settingsCopy;
-    _os_log_impl(&dword_22506F000, v5, OS_LOG_TYPE_INFO, "Found user privacy settings %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = settingsCopy;
+    _os_log_impl(&dword_22506F000, v5, OS_LOG_TYPE_INFO, "Found user privacy settings %@", &v12, 0xCu);
   }
 
   if (objc_msgSend_hasDiscoverable(settingsCopy, v6, v7))
@@ -57,8 +57,6 @@
   }
 
   objc_msgSend_finishWithError_(self, v11, 0);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)main

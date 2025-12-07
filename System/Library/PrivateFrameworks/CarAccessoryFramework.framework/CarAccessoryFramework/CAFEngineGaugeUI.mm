@@ -6,6 +6,7 @@
 - (CAFBoolCharacteristic)uiSecondaryEngineGaugeHiddenCharacteristic;
 - (CAFUIEmphasizedEngineGaugeCharacteristic)uiEmphasizedEngineGaugeCharacteristic;
 - (unsigned)uiEmphasizedEngineGauge;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -121,6 +122,56 @@
   bOOLValue = [uiSecondaryEngineGaugeHiddenCharacteristic BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000041000007"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    uiEmphasizedEngineGaugeCharacteristic = [(CAFEngineGaugeUI *)self uiEmphasizedEngineGaugeCharacteristic];
+    uniqueIdentifier2 = [uiEmphasizedEngineGaugeCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers engineGaugeUIService:self didUpdateUiEmphasizedEngineGauge:{-[CAFEngineGaugeUI uiEmphasizedEngineGauge](self, "uiEmphasizedEngineGauge")}];
+LABEL_8:
+
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000041000008"])
+  {
+    goto LABEL_8;
+  }
+
+  uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+  uiSecondaryEngineGaugeHiddenCharacteristic = [(CAFEngineGaugeUI *)self uiSecondaryEngineGaugeHiddenCharacteristic];
+  uniqueIdentifier4 = [uiSecondaryEngineGaugeHiddenCharacteristic uniqueIdentifier];
+  v16 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+  if (v16)
+  {
+    observers = [(CAFService *)self observers];
+    [observers engineGaugeUIService:self didUpdateUiSecondaryEngineGaugeHidden:{-[CAFEngineGaugeUI uiSecondaryEngineGaugeHidden](self, "uiSecondaryEngineGaugeHidden")}];
+    goto LABEL_8;
+  }
+
+LABEL_9:
+  v17.receiver = self;
+  v17.super_class = CAFEngineGaugeUI;
+  [(CAFService *)&v17 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForUIEmphasizedEngineGauge

@@ -9,31 +9,29 @@
 
 - (id)attributeDescriptions
 {
-  v21[5] = *MEMORY[0x277D85DE8];
+  v20[5] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   actionSetUUID = [(HMDActionSetNotificationRegistration *)self actionSetUUID];
   v4 = [v3 initWithName:@"Action Set UUID" value:actionSetUUID];
-  v21[0] = v4;
+  v20[0] = v4;
   v5 = objc_alloc(MEMORY[0x277D0F778]);
   deviceIdsDestination = [(HMDActionSetNotificationRegistration *)self deviceIdsDestination];
   v7 = [v5 initWithName:@"Device IDS Destination" value:deviceIdsDestination];
-  v21[1] = v7;
+  v20[1] = v7;
   v8 = objc_alloc(MEMORY[0x277D0F778]);
   userUUID = [(HMDActionSetNotificationRegistration *)self userUUID];
   v10 = [v8 initWithName:@"User UUID" value:userUUID];
-  v21[2] = v10;
+  v20[2] = v10;
   v11 = objc_alloc(MEMORY[0x277D0F778]);
   lastModified = [(HMDActionSetNotificationRegistration *)self lastModified];
   v13 = [v11 initWithName:@"Last Modified" value:lastModified];
-  v21[3] = v13;
+  v20[3] = v13;
   v14 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDActionSetNotificationRegistration *)self enabled];
   v15 = HMFBooleanToString();
   v16 = [v14 initWithName:@"Enabled" value:v15];
-  v21[4] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:5];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v20[4] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:5];
 
   return v17;
 }

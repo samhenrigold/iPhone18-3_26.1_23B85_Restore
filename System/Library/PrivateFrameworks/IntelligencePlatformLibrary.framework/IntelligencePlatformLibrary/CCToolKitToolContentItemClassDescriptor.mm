@@ -336,13 +336,13 @@ LABEL_21:
       {
         if (v23 == 3)
         {
-          v45 = [CCToolKitToolContentItemClassDescriptorLinkEnumContentItemClass alloc];
-          v46 = CCPBReaderReadDataNoCopy();
-          v59 = 0;
-          v47 = [(CCItemMessage *)v45 initWithData:v46 error:&v59];
-          v10 = v59;
+          v44 = [CCToolKitToolContentItemClassDescriptorLinkEnumContentItemClass alloc];
+          v45 = CCPBReaderReadDataNoCopy();
+          v57 = 0;
+          v46 = [(CCItemMessage *)v44 initWithData:v45 error:&v57];
+          v10 = v57;
           linkEnumContentItemClass = self->_linkEnumContentItemClass;
-          self->_linkEnumContentItemClass = v47;
+          self->_linkEnumContentItemClass = v46;
 
           if (v10)
           {
@@ -363,9 +363,9 @@ LABEL_21:
         {
           v30 = [CCToolKitToolContentItemClassDescriptorLinkCodableContentItemClass alloc];
           v31 = CCPBReaderReadDataNoCopy();
-          v58 = 0;
-          v32 = [(CCItemMessage *)v30 initWithData:v31 error:&v58];
-          v10 = v58;
+          v56 = 0;
+          v32 = [(CCItemMessage *)v30 initWithData:v31 error:&v56];
+          v10 = v56;
           linkCodableContentItemClass = self->_linkCodableContentItemClass;
           self->_linkCodableContentItemClass = v32;
 
@@ -397,18 +397,18 @@ LABEL_37:
       {
         if (v23 == 1)
         {
-          v40 = CCPBReaderReadStringNoCopy();
-          v41 = self->_regularContentItemClass;
-          self->_regularContentItemClass = v40;
+          v39 = CCPBReaderReadStringNoCopy();
+          v40 = self->_regularContentItemClass;
+          self->_regularContentItemClass = v39;
 
           self->_kindType = 1;
-          v42 = self->_linkEntityContentItemClass;
+          v41 = self->_linkEntityContentItemClass;
           self->_linkEntityContentItemClass = 0;
 
-          v43 = self->_linkEnumContentItemClass;
+          v42 = self->_linkEnumContentItemClass;
           self->_linkEnumContentItemClass = 0;
 
-          v44 = self->_linkCodableContentItemClass;
+          v43 = self->_linkCodableContentItemClass;
           self->_linkCodableContentItemClass = 0;
 
 LABEL_33:
@@ -420,9 +420,9 @@ LABEL_33:
         {
           v24 = [CCToolKitToolContentItemClassDescriptorLinkEntityContentItemClass alloc];
           v25 = CCPBReaderReadDataNoCopy();
-          v60 = 0;
-          v26 = [(CCItemMessage *)v24 initWithData:v25 error:&v60];
-          v10 = v60;
+          v58 = 0;
+          v26 = [(CCItemMessage *)v24 initWithData:v25 error:&v58];
+          v10 = v58;
           v27 = self->_linkEntityContentItemClass;
           self->_linkEntityContentItemClass = v26;
 
@@ -439,7 +439,7 @@ LABEL_33:
           self->_linkEnumContentItemClass = 0;
 
 LABEL_36:
-          v51 = self->_linkCodableContentItemClass;
+          v50 = self->_linkCodableContentItemClass;
           self->_linkCodableContentItemClass = 0;
 
           goto LABEL_37;
@@ -450,7 +450,6 @@ LABEL_36:
       {
         v37 = objc_opt_class();
         v38 = NSStringFromClass(v37);
-        v39 = *&v6[*v9];
         v10 = CCSkipFieldErrorForMessage();
 
         goto LABEL_37;
@@ -472,23 +471,22 @@ LABEL_40:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v56 = 1;
+    v54 = 1;
     goto LABEL_44;
   }
 
 LABEL_41:
-  v52 = objc_opt_class();
-  v53 = NSStringFromClass(v52);
-  v54 = *&v6[*v9];
-  v55 = CCInvalidBufferErrorForMessage();
+  v51 = objc_opt_class();
+  v52 = NSStringFromClass(v51);
+  v53 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_42:
-  v56 = 0;
+  v54 = 0;
 LABEL_44:
 
-  return v56;
+  return v54;
 }
 
 - (CCToolKitToolContentItemClassDescriptor)initWithKind:(id)kind kindType:(unsigned int)type error:(id *)error

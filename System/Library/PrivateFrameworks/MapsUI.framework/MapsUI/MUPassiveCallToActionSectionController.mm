@@ -13,20 +13,8 @@
   if (!self->_sectionView)
   {
     suggestionView = self->_suggestionView;
-    if (suggestionView)
+    if (suggestionView || (-[MUCallToActionSectionController callToActionDelegate](self, "callToActionDelegate"), v4 = objc_claimAutoreleasedReturnValue(), [v4 suggestionViewForCallToActionSectionController:self], v5 = objc_claimAutoreleasedReturnValue(), v6 = self->_suggestionView, self->_suggestionView = v5, v6, v4, (suggestionView = self->_suggestionView) != 0))
     {
-      goto LABEL_5;
-    }
-
-    callToActionDelegate = [(MUCallToActionSectionController *)self callToActionDelegate];
-    v5 = [callToActionDelegate suggestionViewForCallToActionSectionController:self];
-    v6 = self->_suggestionView;
-    self->_suggestionView = v5;
-
-    suggestionView = self->_suggestionView;
-    if (suggestionView)
-    {
-LABEL_5:
       v7 = [MUPlaceSectionView insetPlatterSectionViewForContentView:suggestionView sectionHeaderViewModel:0 sectionFooterViewModel:0];
       sectionView = self->_sectionView;
       self->_sectionView = v7;
@@ -42,7 +30,7 @@ LABEL_5:
 {
   sectionView = self->_sectionView;
   self->_sectionView = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, sectionView);
 }
 
 - (void)updateSuggestionView

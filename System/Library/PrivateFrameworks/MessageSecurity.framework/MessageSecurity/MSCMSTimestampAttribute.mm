@@ -47,15 +47,15 @@
 
 - (MSCMSTimestampAttribute)initWithTimestampToken:(id)token
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = MSCMSTimestampAttribute;
+  v17 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = MSCMSTimestampAttribute;
   tokenCopy = token;
-  v4 = [(MSCMSTimestampAttribute *)&v13 init];
-  v12 = 0;
-  v5 = [[MSCMSTimestampAttributeInternal alloc] initWithTimestampToken:tokenCopy error:&v12];
+  v4 = [(MSCMSTimestampAttribute *)&v12 init];
+  v11 = 0;
+  v5 = [[MSCMSTimestampAttributeInternal alloc] initWithTimestampToken:tokenCopy error:&v11];
 
-  v6 = v12;
+  v6 = v11;
   [(MSCMSTimestampAttribute *)v4 setTimestampAttribute:v5];
 
   timestampAttribute = [(MSCMSTimestampAttribute *)v4 timestampAttribute];
@@ -76,24 +76,25 @@
     if (os_log_type_enabled(MS_DEFAULT_LOG_INTERNAL, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v15 = "[MSCMSTimestampAttribute initWithTimestampToken:]";
-      v16 = 2112;
-      v17 = v6;
+      v14 = "[MSCMSTimestampAttribute initWithTimestampToken:]";
+      v15 = 2112;
+      v16 = v6;
       _os_log_impl(&dword_258C80000, v9, OS_LOG_TYPE_ERROR, "%s failed with %@", buf, 0x16u);
     }
 
     v8 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 uint64_t __50__MSCMSTimestampAttribute_initWithTimestampToken___block_invoke()
 {
-  MS_DEFAULT_LOG_INTERNAL = os_log_create("com.apple.MessageSecurity", "default");
+  v0 = os_log_create("com.apple.MessageSecurity", "default");
+  v1 = MS_DEFAULT_LOG_INTERNAL;
+  MS_DEFAULT_LOG_INTERNAL = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (BOOL)verifyTimestamps:(id)timestamps error:(id *)error

@@ -1702,30 +1702,29 @@ LABEL_102:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_oplockFailure)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_uniqueFieldFailure)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_moveOplockFailure)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -1797,7 +1796,6 @@ LABEL_102:
     goto LABEL_13;
   }
 
-  v8 = *(equalCopy + 40);
   if (*&self->_has)
   {
     if ((equalCopy[5] & 1) == 0 || self->_type != *(equalCopy + 6))
@@ -1814,27 +1812,27 @@ LABEL_13:
   }
 
   oplockFailure = self->_oplockFailure;
-  v10 = equalCopy[2];
-  if (oplockFailure | v10 && !objc_msgSend_isEqual_(oplockFailure, v7, v10))
+  v9 = equalCopy[2];
+  if (oplockFailure | v9 && !objc_msgSend_isEqual_(oplockFailure, v7, v9))
   {
     goto LABEL_13;
   }
 
   uniqueFieldFailure = self->_uniqueFieldFailure;
-  v12 = equalCopy[4];
-  if (uniqueFieldFailure | v12)
+  v11 = equalCopy[4];
+  if (uniqueFieldFailure | v11)
   {
-    if (!objc_msgSend_isEqual_(uniqueFieldFailure, v7, v12))
+    if (!objc_msgSend_isEqual_(uniqueFieldFailure, v7, v11))
     {
       goto LABEL_13;
     }
   }
 
   moveOplockFailure = self->_moveOplockFailure;
-  v14 = equalCopy[1];
-  if (moveOplockFailure | v14)
+  v13 = equalCopy[1];
+  if (moveOplockFailure | v13)
   {
-    isEqual = objc_msgSend_isEqual_(moveOplockFailure, v7, v14);
+    isEqual = objc_msgSend_isEqual_(moveOplockFailure, v7, v13);
   }
 
   else

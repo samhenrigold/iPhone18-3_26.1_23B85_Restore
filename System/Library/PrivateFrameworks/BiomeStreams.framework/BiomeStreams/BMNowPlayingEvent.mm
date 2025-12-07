@@ -3,6 +3,8 @@
 - (BMNowPlayingEvent)initWithDKEvent:(id)event outputDevices:(id)devices iTunesArtistIdentifier:(id)identifier iTunesAlbumIdentifier:(id)albumIdentifier;
 - (BMNowPlayingEvent)initWithProto:(id)proto;
 - (BMNowPlayingEvent)initWithProtoData:(id)data;
+- (BMNowPlayingEvent)initWithUniqueID:(id)d bundleID:(id)iD absoluteTimestamp:(double)timestamp playbackState:(unint64_t)state album:(id)album artist:(id)artist duration:(unsigned int)duration genre:(id)self0 title:(id)self1 elapsed:(unsigned int)self2 mediaType:(id)self3 iTunesStoreIdentifier:(id)self4 iTunesSubscriptionIdentifier:(id)self5 iTunesArtistIdentifier:(id)self6 iTunesAlbumIdentifier:(id)self7 isAirPlayVideo:(BOOL)self8 outputDevices:(id)self9;
+- (BMNowPlayingEvent)initWithUniqueID:(id)d bundleID:(id)iD absoluteTimestamp:(double)timestamp playbackState:(unint64_t)state album:(id)album artist:(id)artist duration:(unsigned int)duration genre:(id)self0 title:(id)self1 elapsed:(unsigned int)self2 mediaType:(id)self3 iTunesStoreIdentifier:(id)self4 iTunesSubscriptionIdentifier:(id)self5 isAirPlayVideo:(BOOL)self6 outputDevices:(id)self7;
 - (BMNowPlayingEvent)initWithUniqueID:(id)d bundleID:(id)iD absoluteTimestamp:(double)timestamp playbackState:(unint64_t)state album:(id)album artist:(id)artist duration:(unsigned int)duration genre:(id)self0 title:(id)self1 elapsed:(unsigned int)self2 mediaType:(id)self3 itemMediaType:(int)self4 itemMediaSubtype:(int)self5 iTunesStoreIdentifier:(id)self6 iTunesSubscriptionIdentifier:(id)self7 iTunesArtistIdentifier:(id)self8 iTunesAlbumIdentifier:(id)self9 groupIdentifier:(id)groupIdentifier isAirPlayVideo:(BOOL)video isRemoteControl:(BOOL)control outputDevices:(id)devices;
 - (BOOL)isEqual:(id)equal;
 - (NSString)description;
@@ -12,6 +14,20 @@
 @end
 
 @implementation BMNowPlayingEvent
+
+- (BMNowPlayingEvent)initWithUniqueID:(id)d bundleID:(id)iD absoluteTimestamp:(double)timestamp playbackState:(unint64_t)state album:(id)album artist:(id)artist duration:(unsigned int)duration genre:(id)self0 title:(id)self1 elapsed:(unsigned int)self2 mediaType:(id)self3 iTunesStoreIdentifier:(id)self4 iTunesSubscriptionIdentifier:(id)self5 isAirPlayVideo:(BOOL)self6 outputDevices:(id)self7
+{
+  LOBYTE(v19) = video;
+  LODWORD(v18) = elapsed;
+  return [(BMNowPlayingEvent *)self initWithUniqueID:d bundleID:iD absoluteTimestamp:state playbackState:album album:artist artist:*&duration duration:timestamp genre:genre title:title elapsed:v18 mediaType:type iTunesStoreIdentifier:identifier iTunesSubscriptionIdentifier:subscriptionIdentifier iTunesArtistIdentifier:0 iTunesAlbumIdentifier:0 isAirPlayVideo:v19 outputDevices:devices];
+}
+
+- (BMNowPlayingEvent)initWithUniqueID:(id)d bundleID:(id)iD absoluteTimestamp:(double)timestamp playbackState:(unint64_t)state album:(id)album artist:(id)artist duration:(unsigned int)duration genre:(id)self0 title:(id)self1 elapsed:(unsigned int)self2 mediaType:(id)self3 iTunesStoreIdentifier:(id)self4 iTunesSubscriptionIdentifier:(id)self5 iTunesArtistIdentifier:(id)self6 iTunesAlbumIdentifier:(id)self7 isAirPlayVideo:(BOOL)self8 outputDevices:(id)self9
+{
+  LOWORD(v21) = video;
+  LODWORD(v20) = elapsed;
+  return [BMNowPlayingEvent initWithUniqueID:"initWithUniqueID:bundleID:absoluteTimestamp:playbackState:album:artist:duration:genre:title:elapsed:mediaType:itemMediaType:itemMediaSubtype:iTunesStoreIdentifier:iTunesSubscriptionIdentifier:iTunesArtistIdentifier:iTunesAlbumIdentifier:groupIdentifier:isAirPlayVideo:isRemoteControl:outputDevices:" bundleID:d absoluteTimestamp:iD playbackState:state album:album artist:artist duration:*&duration genre:timestamp title:genre elapsed:title mediaType:v20 itemMediaType:type itemMediaSubtype:0 iTunesStoreIdentifier:identifier iTunesSubscriptionIdentifier:subscriptionIdentifier iTunesArtistIdentifier:artistIdentifier iTunesAlbumIdentifier:albumIdentifier groupIdentifier:0 isAirPlayVideo:v21 isRemoteControl:devices outputDevices:?];
+}
 
 - (BMNowPlayingEvent)initWithUniqueID:(id)d bundleID:(id)iD absoluteTimestamp:(double)timestamp playbackState:(unint64_t)state album:(id)album artist:(id)artist duration:(unsigned int)duration genre:(id)self0 title:(id)self1 elapsed:(unsigned int)self2 mediaType:(id)self3 itemMediaType:(int)self4 itemMediaSubtype:(int)self5 iTunesStoreIdentifier:(id)self6 iTunesSubscriptionIdentifier:(id)self7 iTunesArtistIdentifier:(id)self8 iTunesAlbumIdentifier:(id)self9 groupIdentifier:(id)groupIdentifier isAirPlayVideo:(BOOL)video isRemoteControl:(BOOL)control outputDevices:(id)devices
 {
@@ -62,7 +78,7 @@
 
 - (BMNowPlayingEvent)initWithDKEvent:(id)event outputDevices:(id)devices iTunesArtistIdentifier:(id)identifier iTunesAlbumIdentifier:(id)albumIdentifier
 {
-  v112 = *MEMORY[0x1E69E9840];
+  v111 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   devicesCopy = devices;
   identifierCopy = identifier;
@@ -84,12 +100,12 @@
   v22 = v21;
   metadata3 = [eventCopy metadata];
   playing = [get_DKNowPlayingMetadataKeyClass() playing];
-  v93 = metadata3;
-  v90 = [metadata3 objectForKeyedSubscript:?];
-  integerValue = [v90 integerValue];
+  v92 = metadata3;
+  v89 = [metadata3 objectForKeyedSubscript:?];
+  integerValue = [v89 integerValue];
   v25 = integerValue;
-  v96 = source;
-  v103 = itemID;
+  v95 = source;
+  v102 = itemID;
   if (integerValue >= 6)
   {
     v26 = __biome_log_for_category();
@@ -98,81 +114,81 @@
       [BMNowPlayingEvent initWithDKEvent:v25 outputDevices:? iTunesArtistIdentifier:? iTunesAlbumIdentifier:?];
     }
 
-    v80 = 0;
+    v79 = 0;
   }
 
   else
   {
-    v80 = integerValue & 7;
+    v79 = integerValue & 7;
   }
 
   metadata4 = [eventCopy metadata];
   album = [get_DKNowPlayingMetadataKeyClass() album];
-  v89 = metadata4;
-  v87 = [metadata4 objectForKeyedSubscript:?];
+  v88 = metadata4;
+  v86 = [metadata4 objectForKeyedSubscript:?];
   metadata5 = [eventCopy metadata];
   artist = [get_DKNowPlayingMetadataKeyClass() artist];
-  v86 = metadata5;
-  v84 = [metadata5 objectForKeyedSubscript:?];
+  v85 = metadata5;
+  v83 = [metadata5 objectForKeyedSubscript:?];
   metadata6 = [eventCopy metadata];
   duration = [get_DKNowPlayingMetadataKeyClass() duration];
-  v83 = metadata6;
-  v81 = [metadata6 objectForKeyedSubscript:?];
-  unsignedLongValue = [v81 unsignedLongValue];
+  v82 = metadata6;
+  v80 = [metadata6 objectForKeyedSubscript:?];
+  unsignedLongValue = [v80 unsignedLongValue];
   metadata7 = [eventCopy metadata];
   genre = [get_DKNowPlayingMetadataKeyClass() genre];
-  v79 = metadata7;
-  v77 = [metadata7 objectForKeyedSubscript:?];
+  v78 = metadata7;
+  v76 = [metadata7 objectForKeyedSubscript:?];
   metadata8 = [eventCopy metadata];
   title = [get_DKNowPlayingMetadataKeyClass() title];
-  v76 = metadata8;
-  v74 = [metadata8 objectForKeyedSubscript:?];
+  v75 = metadata8;
+  v73 = [metadata8 objectForKeyedSubscript:?];
   metadata9 = [eventCopy metadata];
   [get_DKNowPlayingMetadataKeyClass() elapsed];
-  v71 = v73 = metadata9;
-  v70 = [metadata9 objectForKeyedSubscript:?];
-  unsignedLongValue2 = [v70 unsignedLongValue];
+  v70 = v72 = metadata9;
+  v69 = [metadata9 objectForKeyedSubscript:?];
+  unsignedLongValue2 = [v69 unsignedLongValue];
   metadata10 = [eventCopy metadata];
   mediaType = [get_DKNowPlayingMetadataKeyClass() mediaType];
-  v69 = metadata10;
-  v67 = [metadata10 objectForKeyedSubscript:?];
-  v98 = v15;
+  v68 = metadata10;
+  v66 = [metadata10 objectForKeyedSubscript:?];
+  v97 = v15;
   stringValue2 = [v15 stringValue];
-  v97 = v18;
+  v96 = v18;
   stringValue3 = [v18 stringValue];
-  v100 = identifierCopy;
+  v99 = identifierCopy;
   stringValue4 = [identifierCopy stringValue];
-  v99 = albumIdentifierCopy;
+  v98 = albumIdentifierCopy;
   stringValue5 = [albumIdentifierCopy stringValue];
-  v101 = eventCopy;
+  v100 = eventCopy;
   metadata11 = [eventCopy metadata];
   isAirPlayVideo = [get_DKNowPlayingMetadataKeyClass() isAirPlayVideo];
-  v61 = metadata11;
-  v59 = [metadata11 objectForKeyedSubscript:?];
-  bOOLValue = [v59 BOOLValue];
+  v60 = metadata11;
+  v58 = [metadata11 objectForKeyedSubscript:?];
+  bOOLValue = [v58 BOOLValue];
   v35 = devicesCopy;
   v36 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v35, "count")}];
+  v104 = 0u;
   v105 = 0u;
   v106 = 0u;
   v107 = 0u;
-  v108 = 0u;
   v37 = v35;
-  v38 = [v37 countByEnumeratingWithState:&v105 objects:v109 count:16];
+  v38 = [v37 countByEnumeratingWithState:&v104 objects:v108 count:16];
   if (v38)
   {
     v39 = v38;
-    v40 = *v106;
+    v40 = *v105;
     do
     {
       v41 = 0;
       do
       {
-        if (*v106 != v40)
+        if (*v105 != v40)
         {
           objc_enumerationMutation(v37);
         }
 
-        v42 = *(*(&v105 + 1) + 8 * v41);
+        v42 = *(*(&v104 + 1) + 8 * v41);
         v43 = [BMNowPlayingOutputDevice alloc];
         deviceType = [v42 deviceType];
         v45 = deviceType;
@@ -182,7 +198,7 @@
           if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
           {
             *buf = 134217984;
-            v111 = v45;
+            v110 = v45;
             _os_log_fault_impl(&dword_1848EE000, v47, OS_LOG_TYPE_FAULT, "BMNowPlayingAVOutputDeviceType: Unrecognized value for outputDevice: %ld", buf, 0xCu);
           }
 
@@ -202,7 +218,7 @@
           if (os_log_type_enabled(v51, OS_LOG_TYPE_FAULT))
           {
             *buf = 134217984;
-            v111 = v49;
+            v110 = v49;
             _os_log_fault_impl(&dword_1848EE000, v51, OS_LOG_TYPE_FAULT, "BMNowPlayingAVOutputDeviceSubType: Unrecognized value for outputSubtype: %ld", buf, 0xCu);
           }
 
@@ -222,18 +238,17 @@
       }
 
       while (v39 != v41);
-      v39 = [v37 countByEnumeratingWithState:&v105 objects:v109 count:16];
+      v39 = [v37 countByEnumeratingWithState:&v104 objects:v108 count:16];
     }
 
     while (v39);
   }
 
-  LOBYTE(v57) = bOOLValue;
-  LODWORD(v56) = unsignedLongValue2;
-  v104 = [(BMNowPlayingEvent *)self initWithUniqueID:v103 bundleID:stringValue absoluteTimestamp:v80 playbackState:v87 album:v84 artist:unsignedLongValue duration:v22 genre:v77 title:v74 elapsed:v56 mediaType:v67 iTunesStoreIdentifier:stringValue2 iTunesSubscriptionIdentifier:stringValue3 iTunesArtistIdentifier:stringValue4 iTunesAlbumIdentifier:stringValue5 isAirPlayVideo:v57 outputDevices:v36];
+  LOBYTE(v56) = bOOLValue;
+  LODWORD(v55) = unsignedLongValue2;
+  v103 = [(BMNowPlayingEvent *)self initWithUniqueID:v102 bundleID:stringValue absoluteTimestamp:v79 playbackState:v86 album:v83 artist:unsignedLongValue duration:v22 genre:v76 title:v73 elapsed:v55 mediaType:v66 iTunesStoreIdentifier:stringValue2 iTunesSubscriptionIdentifier:stringValue3 iTunesArtistIdentifier:stringValue4 iTunesAlbumIdentifier:stringValue5 isAirPlayVideo:v56 outputDevices:v36];
 
-  v54 = *MEMORY[0x1E69E9840];
-  return v104;
+  return v103;
 }
 
 - (NSString)description
@@ -261,7 +276,7 @@
 
 - (BMNowPlayingEvent)initWithProto:(id)proto
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   protoCopy = proto;
   if (protoCopy)
   {
@@ -269,32 +284,32 @@
     if (objc_opt_isKindOfClass())
     {
       selfCopy = self;
-      v46 = protoCopy;
+      v45 = protoCopy;
       v5 = protoCopy;
       v6 = objc_alloc(MEMORY[0x1E695DF70]);
       outputDevices = [v5 outputDevices];
       v8 = [v6 initWithCapacity:{objc_msgSend(outputDevices, "count")}];
 
-      v50 = 0u;
-      v51 = 0u;
-      v48 = 0u;
       v49 = 0u;
+      v50 = 0u;
+      v47 = 0u;
+      v48 = 0u;
       outputDevices2 = [v5 outputDevices];
-      v10 = [outputDevices2 countByEnumeratingWithState:&v48 objects:v52 count:16];
+      v10 = [outputDevices2 countByEnumeratingWithState:&v47 objects:v51 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v49;
+        v12 = *v48;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v49 != v12)
+            if (*v48 != v12)
             {
               objc_enumerationMutation(outputDevices2);
             }
 
-            v14 = *(*(&v48 + 1) + 8 * i);
+            v14 = *(*(&v47 + 1) + 8 * i);
             v15 = [BMNowPlayingOutputDevice alloc];
             outputDeviceType = [v14 outputDeviceType];
             outputDeviceSubType = [v14 outputDeviceSubType];
@@ -303,7 +318,7 @@
             [v8 addObject:v19];
           }
 
-          v11 = [outputDevices2 countByEnumeratingWithState:&v48 objects:v52 count:16];
+          v11 = [outputDevices2 countByEnumeratingWithState:&v47 objects:v51 count:16];
         }
 
         while (v11);
@@ -329,14 +344,14 @@
       iTunesAlbumIdentifier = [v5 iTunesAlbumIdentifier];
       groupIdentifier = [v5 groupIdentifier];
       isAirPlayVideo = [v5 isAirPlayVideo];
-      BYTE1(v31) = [v5 isRemoteControl];
-      LOBYTE(v31) = isAirPlayVideo;
-      LODWORD(v30) = elapsed;
-      self = [(BMNowPlayingEvent *)selfCopy initWithUniqueID:uniqueId bundleID:bundleId absoluteTimestamp:playbackState playbackState:album album:artist artist:duration duration:v21 genre:genre title:title elapsed:v30 mediaType:mediaType itemMediaType:__PAIR64__(itemMediaSubtype itemMediaSubtype:itemMediaType) iTunesStoreIdentifier:iTunesStoreIdentifier iTunesSubscriptionIdentifier:iTunesSubscriptionIdentifier iTunesArtistIdentifier:iTunesArtistIdentifier iTunesAlbumIdentifier:iTunesAlbumIdentifier groupIdentifier:groupIdentifier isAirPlayVideo:v31 isRemoteControl:v8 outputDevices:?];
+      BYTE1(v30) = [v5 isRemoteControl];
+      LOBYTE(v30) = isAirPlayVideo;
+      LODWORD(v29) = elapsed;
+      self = [(BMNowPlayingEvent *)selfCopy initWithUniqueID:uniqueId bundleID:bundleId absoluteTimestamp:playbackState playbackState:album album:artist artist:duration duration:v21 genre:genre title:title elapsed:v29 mediaType:mediaType itemMediaType:__PAIR64__(itemMediaSubtype itemMediaSubtype:itemMediaType) iTunesStoreIdentifier:iTunesStoreIdentifier iTunesSubscriptionIdentifier:iTunesSubscriptionIdentifier iTunesArtistIdentifier:iTunesArtistIdentifier iTunesAlbumIdentifier:iTunesAlbumIdentifier groupIdentifier:groupIdentifier isAirPlayVideo:v30 isRemoteControl:v8 outputDevices:?];
 
       v26 = v5;
       selfCopy2 = self;
-      protoCopy = v46;
+      protoCopy = v45;
     }
 
     else
@@ -356,7 +371,6 @@
     selfCopy2 = 0;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 
@@ -381,32 +395,32 @@
 
 - (id)proto
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_outputDevices, "count")}];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v4 = self->_outputDevices;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        proto = [*(*(&v18 + 1) + 8 * i) proto];
+        proto = [*(*(&v17 + 1) + 8 * i) proto];
         [v3 addObject:proto];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
@@ -475,8 +489,6 @@
 
   v14 = 0;
 LABEL_19:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

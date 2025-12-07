@@ -56,15 +56,16 @@
   {
   }
 
-  if ([actionCopy _loadActionURL])
+  _loadActionURL = [actionCopy _loadActionURL];
+  if (_loadActionURL)
   {
     completionCopy[2](completionCopy, 1, 0);
   }
 
   else
   {
-    v13 = _FLLogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = _FLLogSystem(_loadActionURL);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       item2 = [(FLHeadlessActionHandler *)self item];
       uniqueIdentifier = [item2 uniqueIdentifier];
@@ -72,17 +73,15 @@
       v20 = actionCopy;
       v21 = 2112;
       v22 = uniqueIdentifier;
-      _os_log_error_impl(&dword_22E696000, v13, OS_LOG_TYPE_ERROR, "Action could not be handled for %@ - %@", buf, 0x16u);
+      _os_log_error_impl(&dword_22E696000, v14, OS_LOG_TYPE_ERROR, "Action could not be handled for %@ - %@", buf, 0x16u);
     }
 
-    v14 = FLError(1666);
-    (completionCopy)[2](completionCopy, 0, v14);
+    v15 = FLError(1666);
+    (completionCopy)[2](completionCopy, 0, v15);
   }
 
 LABEL_10:
   os_activity_scope_leave(&v18);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleExtensionBasedAction:(id)action completion:(id)completion
@@ -94,16 +93,16 @@ LABEL_10:
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v8, &state);
-  v9 = _FLLogSystem();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = _FLLogSystem(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     item = [(FLHeadlessActionHandler *)self item];
     *buf = 138412290;
     v20 = item;
-    _os_log_impl(&dword_22E696000, v9, OS_LOG_TYPE_DEFAULT, "Starting to load extension for follow up: %@", buf, 0xCu);
+    _os_log_impl(&dword_22E696000, v10, OS_LOG_TYPE_DEFAULT, "Starting to load extension for follow up: %@", buf, 0xCu);
   }
 
-  v11 = +[FLHeadlessExtensionLoader sharedExtensionQueue];
+  v12 = +[FLHeadlessExtensionLoader sharedExtensionQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __65__FLHeadlessActionHandler_handleExtensionBasedAction_completion___block_invoke;
@@ -111,12 +110,11 @@ LABEL_10:
   block[4] = self;
   v16 = actionCopy;
   v17 = completionCopy;
-  v12 = completionCopy;
-  v13 = actionCopy;
-  dispatch_async(v11, block);
+  v13 = completionCopy;
+  v14 = actionCopy;
+  dispatch_async(v12, block);
 
   os_activity_scope_leave(&state);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __65__FLHeadlessActionHandler_handleExtensionBasedAction_completion___block_invoke(uint64_t a1)
@@ -127,7 +125,7 @@ void __65__FLHeadlessActionHandler_handleExtensionBasedAction_completion___block
   v5 = [(FLHeadlessExtensionLoader *)v2 initWithIdentifier:v4];
 
   v6 = [(FLHeadlessExtensionLoader *)v5 remoteInterface];
-  v7 = _FLLogSystem();
+  v7 = _FLLogSystem(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -159,24 +157,22 @@ void __65__FLHeadlessActionHandler_handleExtensionBasedAction_completion___block
 
 uint64_t __65__FLHeadlessActionHandler_handleExtensionBasedAction_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = _FLLogSystem();
+  v9 = *MEMORY[0x277D85DE8];
+  v4 = _FLLogSystem(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [MEMORY[0x277CCABB0] numberWithBool:a2];
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_22E696000, v4, OS_LOG_TYPE_DEFAULT, "Headless extension processed follow up: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_22E696000, v4, OS_LOG_TYPE_DEFAULT, "Headless extension processed follow up: %@", &v7, 0xCu);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)dealloc
 {
-  v3 = _FLLogSystem();
+  v3 = _FLLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;

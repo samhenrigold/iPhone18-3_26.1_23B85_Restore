@@ -98,7 +98,7 @@ void __33__NTKSnapshotQueue_queueRequest___block_invoke(uint64_t a1)
   return v4;
 }
 
-unint64_t __62__NTKSnapshotQueue__queue_pullHighestPriorityRequestFromQueue__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__62__NTKSnapshotQueue__queue_pullHighestPriorityRequestFromQueue__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 priority];
   if (result > *(*(*(a1 + 32) + 8) + 24))

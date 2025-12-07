@@ -44,29 +44,29 @@
 
     if (currentFrame)
     {
-      memset(&v22, 0, sizeof(v22));
+      memset(&v21, 0, sizeof(v21));
       contentView = [(MapsFloatingDebugViewController *)self contentView];
       window = [contentView window];
       windowScene = [window windowScene];
-      interfaceOrientation = [windowScene interfaceOrientation];
+      [windowScene interfaceOrientation];
       cameraFeedImageView = [(VIOSessionStateFloatingDebugViewController *)self cameraFeedImageView];
       [cameraFeedImageView bounds];
-      [currentFrame displayTransformForOrientation:interfaceOrientation viewportSize:{v12, v13}];
+      objc_msgSend_displayTransformForOrientation_viewportSize_(currentFrame, v11, v12);
 
-      v20 = v22;
-      CGAffineTransformInvert(&v21, &v20);
-      v22 = v21;
-      v14 = +[CIImage imageWithCVPixelBuffer:](CIImage, "imageWithCVPixelBuffer:", [currentFrame capturedImage]);
-      v21 = v22;
-      v15 = [v14 imageByApplyingTransform:&v21];
+      v19 = v21;
+      CGAffineTransformInvert(&v20, &v19);
+      v21 = v20;
+      v13 = +[CIImage imageWithCVPixelBuffer:](CIImage, "imageWithCVPixelBuffer:", [currentFrame capturedImage]);
+      v20 = v21;
+      v14 = [v13 imageByApplyingTransform:&v20];
 
-      v16 = [CIContext contextWithOptions:0];
-      [v15 extent];
-      v17 = [v16 createCGImage:v15 fromRect:?];
-      v18 = [UIImage imageWithCGImage:v17];
-      CGImageRelease(v17);
+      v15 = [CIContext contextWithOptions:0];
+      [v14 extent];
+      v16 = [v15 createCGImage:v14 fromRect:?];
+      v17 = [UIImage imageWithCGImage:v16];
+      CGImageRelease(v16);
       cameraFeedImageView2 = [(VIOSessionStateFloatingDebugViewController *)self cameraFeedImageView];
-      [cameraFeedImageView2 setImage:v18];
+      [cameraFeedImageView2 setImage:v17];
     }
   }
 }

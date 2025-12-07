@@ -7,7 +7,7 @@
 
 + (id)identifier
 {
-  v2 = SBLogWallpaper();
+  v2 = SBLogWallpaper(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     *v3 = 0;
@@ -19,7 +19,7 @@
 
 - (void)setAnimating:(BOOL)animating
 {
-  v3 = SBLogWallpaper();
+  v3 = SBLogWallpaper(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     *v4 = 0;

@@ -65,7 +65,7 @@
 
 - (BOOL)_continueActivity
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v6 = objc_msgSend_activity(selfCopy, v3, v4, v5);
@@ -84,11 +84,11 @@
       {
         v10 = objc_opt_class();
         v14 = objc_msgSend_taskID(selfCopy, v11, v12, v13);
-        v25 = 138478083;
-        v26 = v10;
-        v27 = 2114;
-        v28 = v14;
-        _os_log_impl(&dword_1BADC1000, v9, OS_LOG_TYPE_ERROR, "[%{private}@]: Unable to continue task %{public}@ - terminating.", &v25, 0x16u);
+        v24 = 138478083;
+        v25 = v10;
+        v26 = 2114;
+        v27 = v14;
+        _os_log_impl(&dword_1BADC1000, v9, OS_LOG_TYPE_ERROR, "[%{private}@]: Unable to continue task %{public}@ - terminating.", &v24, 0x16u);
       }
 
       objc_msgSend_finished(selfCopy, v15, v16, v17);
@@ -101,7 +101,6 @@
 
   objc_sync_exit(selfCopy);
 
-  v23 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -126,7 +125,7 @@
 
 - (void)_registerActivityWithCriteria:(id)criteria
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   criteriaCopy = criteria;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -136,28 +135,27 @@
     v7 = objc_opt_class();
     v11 = objc_msgSend_taskID(selfCopy, v8, v9, v10);
     *buf = 138478339;
-    v26 = v7;
-    v27 = 2114;
-    v28 = v11;
-    v29 = 2114;
-    v30 = criteriaCopy;
+    v25 = v7;
+    v26 = 2114;
+    v27 = v11;
+    v28 = 2114;
+    v29 = criteriaCopy;
     _os_log_impl(&dword_1BADC1000, v6, OS_LOG_TYPE_DEFAULT, "[%{private}@]: Scheduling XPC activity %{public}@ with criteria %{public}@", buf, 0x20u);
   }
 
   v15 = objc_msgSend_taskID(selfCopy, v12, v13, v14);
   v16 = v15;
   v20 = objc_msgSend_UTF8String(v15, v17, v18, v19);
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = sub_1BAF1C5D0;
-  v23[3] = &unk_1E7F1D1C8;
-  v23[4] = selfCopy;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = sub_1BAF1C5D0;
+  v22[3] = &unk_1E7F1D1C8;
+  v22[4] = selfCopy;
   v21 = criteriaCopy;
-  v24 = v21;
-  xpc_activity_register(v20, v21, v23);
+  v23 = v21;
+  xpc_activity_register(v20, v21, v22);
 
   objc_sync_exit(selfCopy);
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)finished
@@ -181,7 +179,7 @@
 
 - (BOOL)setActivityState:(int64_t)state
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v8 = objc_msgSend_activity(selfCopy, v5, v6, v7);
@@ -199,13 +197,13 @@
         v14 = objc_opt_class();
         v18 = objc_msgSend_taskID(selfCopy, v15, v16, v17);
         v21 = objc_msgSend_numberWithLong_(MEMORY[0x1E696AD98], v19, state, v20);
-        v32 = 138478339;
-        v33 = v14;
-        v34 = 2114;
-        v35 = v18;
-        v36 = 2114;
-        v37 = v21;
-        _os_log_impl(&dword_1BADC1000, v13, OS_LOG_TYPE_INFO, "[%{private}@]: Setting activity %{public}@ to the %{public}@ state.", &v32, 0x20u);
+        v31 = 138478339;
+        v32 = v14;
+        v33 = 2114;
+        v34 = v18;
+        v35 = 2114;
+        v36 = v21;
+        _os_log_impl(&dword_1BADC1000, v13, OS_LOG_TYPE_INFO, "[%{private}@]: Setting activity %{public}@ to the %{public}@ state.", &v31, 0x20u);
       }
     }
 
@@ -217,26 +215,25 @@
         v22 = objc_opt_class();
         v26 = objc_msgSend_taskID(selfCopy, v23, v24, v25);
         v29 = objc_msgSend_numberWithLong_(MEMORY[0x1E696AD98], v27, state, v28);
-        v32 = 138478339;
-        v33 = v22;
-        v34 = 2114;
-        v35 = v26;
-        v36 = 2114;
-        v37 = v29;
-        _os_log_impl(&dword_1BADC1000, v13, OS_LOG_TYPE_ERROR, "[%{private}@]: Failed to set activity %{public}@ to state %{public}@.", &v32, 0x20u);
+        v31 = 138478339;
+        v32 = v22;
+        v33 = 2114;
+        v34 = v26;
+        v35 = 2114;
+        v36 = v29;
+        _os_log_impl(&dword_1BADC1000, v13, OS_LOG_TYPE_ERROR, "[%{private}@]: Failed to set activity %{public}@ to state %{public}@.", &v31, 0x20u);
       }
     }
   }
 
   objc_sync_exit(selfCopy);
 
-  v30 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (BOOL)shouldDefer
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v6 = objc_msgSend_activity(selfCopy, v3, v4, v5);
@@ -253,30 +250,29 @@
       v16 = objc_msgSend_taskID(selfCopy, v13, v14, v15);
       v17 = v16;
       v18 = @"is not";
-      v21 = 138478339;
-      v22 = v12;
-      v23 = 2114;
+      v20 = 138478339;
+      v21 = v12;
+      v22 = 2114;
       if (v6)
       {
         v18 = @"will be";
       }
 
-      v24 = v16;
-      v25 = 2114;
-      v26 = v18;
-      _os_log_impl(&dword_1BADC1000, v11, OS_LOG_TYPE_DEFAULT, "[%{private}@]: Activity %{public}@ %{public}@ deferred.", &v21, 0x20u);
+      v23 = v16;
+      v24 = 2114;
+      v25 = v18;
+      _os_log_impl(&dword_1BADC1000, v11, OS_LOG_TYPE_DEFAULT, "[%{private}@]: Activity %{public}@ %{public}@ deferred.", &v20, 0x20u);
     }
   }
 
   objc_sync_exit(selfCopy);
 
-  v19 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (BOOL)deferActivity
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v7 = objc_msgSend_setActivityState_(self, a2, 3, v2);
   if (v7)
   {
@@ -291,11 +287,11 @@
       v9 = objc_opt_class();
       v10 = v9;
       v14 = objc_msgSend_taskID(self, v11, v12, v13);
-      v26 = 138478083;
-      v27 = v9;
-      v28 = 2114;
-      v29 = v14;
-      _os_log_impl(&dword_1BADC1000, v8, OS_LOG_TYPE_ERROR, "[%{private}@]: Unable to defer activity %{public}@ - terminating.", &v26, 0x16u);
+      v25 = 138478083;
+      v26 = v9;
+      v27 = 2114;
+      v28 = v14;
+      _os_log_impl(&dword_1BADC1000, v8, OS_LOG_TYPE_ERROR, "[%{private}@]: Unable to defer activity %{public}@ - terminating.", &v25, 0x16u);
     }
 
     objc_msgSend_finished(self, v15, v16, v17);
@@ -303,45 +299,40 @@
     objc_msgSend_terminateActivity_(v21, v22, self, v23);
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (void)cancel
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_activity(self, a2, v2, v3);
 
-  if (!v5)
+  if (v5)
   {
-LABEL_10:
-    v24 = *MEMORY[0x1E69E9840];
-    return;
-  }
+    v9 = objc_msgSend_activity(self, v6, v7, v8);
+    state = xpc_activity_get_state(v9);
 
-  v9 = objc_msgSend_activity(self, v6, v7, v8);
-  state = xpc_activity_get_state(v9);
-
-  if (state > 4 || ((1 << state) & 0x1A) == 0)
-  {
-    v19 = APLogForCategory(0x39uLL);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    if (state <= 4 && ((1 << state) & 0x1A) != 0)
     {
-      v23 = objc_msgSend_taskID(self, v20, v21, v22);
-      *buf = 138543618;
-      v27 = v23;
-      v28 = 2048;
-      v29 = state;
-      _os_log_impl(&dword_1BADC1000, v19, OS_LOG_TYPE_ERROR, "Cannot cancel activity %{public}@ with state %ld", buf, 0x16u);
+      v23 = objc_msgSend_taskID(self, v11, v12, v13);
+      v17 = objc_msgSend_UTF8String(v23, v14, v15, v16);
+      xpc_activity_unregister(v17);
     }
 
-    goto LABEL_10;
+    else
+    {
+      v18 = APLogForCategory(0x39uLL);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      {
+        v22 = objc_msgSend_taskID(self, v19, v20, v21);
+        *buf = 138543618;
+        v25 = v22;
+        v26 = 2048;
+        v27 = state;
+        _os_log_impl(&dword_1BADC1000, v18, OS_LOG_TYPE_ERROR, "Cannot cancel activity %{public}@ with state %ld", buf, 0x16u);
+      }
+    }
   }
-
-  v25 = objc_msgSend_taskID(self, v11, v12, v13);
-  v17 = objc_msgSend_UTF8String(v25, v14, v15, v16);
-  xpc_activity_unregister(v17);
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_backgroundDeferralCheck

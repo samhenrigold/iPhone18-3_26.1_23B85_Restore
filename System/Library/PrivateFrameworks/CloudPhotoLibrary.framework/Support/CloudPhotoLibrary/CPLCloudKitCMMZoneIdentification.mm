@@ -206,7 +206,7 @@ LABEL_19:
 {
   changeCopy = change;
   providerCopy = provider;
-  v8 = sub_10008C178();
+  v8 = sub_10008C178(providerCopy);
   if ([v8 containsObject:{objc_msgSend(changeCopy, "recordClass")}])
   {
     v11.receiver = self;
@@ -226,7 +226,7 @@ LABEL_19:
 {
   changeCopy = change;
   providerCopy = provider;
-  v8 = sub_10008C178();
+  v8 = sub_10008C178(providerCopy);
   if ([v8 containsObject:{objc_msgSend(changeCopy, "recordClass")}])
   {
     v11.receiver = self;
@@ -246,7 +246,7 @@ LABEL_19:
 {
   recordCopy = record;
   providerCopy = provider;
-  v8 = sub_10008C178();
+  v8 = sub_10008C178(providerCopy);
   if ([v8 containsObject:{objc_msgSend(recordCopy, "recordClass")}])
   {
     v11.receiver = self;
@@ -266,7 +266,7 @@ LABEL_19:
 {
   recordCopy = record;
   providerCopy = provider;
-  v8 = sub_10008C178();
+  v8 = sub_10008C178(providerCopy);
   if ([v8 containsObject:{objc_msgSend(recordCopy, "recordClass")}])
   {
     v11.receiver = self;
@@ -284,7 +284,7 @@ LABEL_19:
 
 - (BOOL)supportsUploadOfRecordClass:(Class)class
 {
-  v5 = sub_10008C178();
+  v5 = sub_10008C178(self);
   if ([v5 containsObject:class])
   {
     v8.receiver = self;
@@ -302,7 +302,7 @@ LABEL_19:
 
 - (BOOL)supportsDownloadOfRecordClass:(Class)class
 {
-  v5 = sub_10008C178();
+  v5 = sub_10008C178(self);
   if ([v5 containsObject:class])
   {
     v8.receiver = self;
@@ -320,7 +320,7 @@ LABEL_19:
 
 - (BOOL)supportsDirectDeletionOfRecordClass:(Class)class
 {
-  v5 = sub_10008C178();
+  v5 = sub_10008C178(self);
   if ([v5 containsObject:class])
   {
     v8.receiver = self;
@@ -338,7 +338,7 @@ LABEL_19:
 
 - (BOOL)supportsDeletionOfRecordClass:(Class)class
 {
-  v5 = sub_10008C178();
+  v5 = sub_10008C178(self);
   if ([v5 containsObject:class])
   {
     v8.receiver = self;

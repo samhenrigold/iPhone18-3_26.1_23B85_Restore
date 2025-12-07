@@ -65,9 +65,9 @@
   return v15;
 }
 
-void __87__SUUIHorizontalLockupCollectionViewCellAccessibility__accessibilityHitTest_withEvent___block_invoke(void *a1, void *a2)
+void __87__SUUIHorizontalLockupCollectionViewCellAccessibility__accessibilityHitTest_withEvent___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = a2;
+  v6 = a2;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -77,17 +77,15 @@ void __87__SUUIHorizontalLockupCollectionViewCellAccessibility__accessibilityHit
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    if ([v8 isAccessibilityElement])
+    if ([v6 isAccessibilityElement])
     {
-      [v8 accessibilityActivationPoint];
-      v4 = a1[6];
-      v5 = a1[7];
+      [v6 accessibilityActivationPoint];
       AX_CGPointGetDistanceToPoint();
-      v7 = *(a1[4] + 8);
-      if (v6 < *(v7 + 24))
+      v5 = *(*(a1 + 32) + 8);
+      if (v4 < *(v5 + 24))
       {
-        *(v7 + 24) = v6;
-        objc_storeStrong((*(a1[5] + 8) + 40), a2);
+        *(v5 + 24) = v4;
+        objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
       }
     }
   }

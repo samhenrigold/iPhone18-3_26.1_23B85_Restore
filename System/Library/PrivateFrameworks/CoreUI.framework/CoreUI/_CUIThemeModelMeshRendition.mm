@@ -56,7 +56,7 @@
       do
       {
         v15 = [[NSString alloc] initWithBytes:v11 + 8 length:v11[7] encoding:4];
-        v16 = [objc_alloc(getMDLVertexAttributeClass[0]()) initWithName:v15 format:*v11 offset:v11[4] bufferIndex:v11[6]];
+        v16 = [objc_alloc(getMDLVertexAttributeClass()) initWithName:v15 format:*v11 offset:v11[4] bufferIndex:v11[6]];
         [(NSMutableArray *)v12 addObject:v16];
 
         v11 = (v11 + v11[7] + *(v11 + 1) * *(v8 + 12) + 32);
@@ -81,7 +81,7 @@
       v21 = 0;
       do
       {
-        v22 = objc_alloc(getMDLVertexBufferLayoutClass[0]());
+        v22 = objc_alloc(getMDLVertexBufferLayoutClass());
         v23 = *v11;
         v11 += 2;
         v24 = [v22 initWithStride:v23];
@@ -126,7 +126,7 @@
       while (v28 < *(v8 + 44));
     }
 
-    v30 = objc_alloc_init(getMDLVertexDescriptorClass[0]());
+    v30 = objc_alloc_init(getMDLVertexDescriptorClass());
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
@@ -155,7 +155,7 @@
     }
 
     v35 = objc_alloc_init(NSArray);
-    v6[27] = [objc_alloc(getMDLMeshClass[0]()) initWithVertexBuffers:v25 vertexCount:*(v8 + 3) descriptor:v30 submeshes:v35];
+    v6[27] = [objc_alloc(getMDLMeshClass()) initWithVertexBuffers:v25 vertexCount:*(v8 + 3) descriptor:v30 submeshes:v35];
     [v6[27] setName:{objc_msgSend(v6, "name")}];
   }
 

@@ -106,7 +106,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   if (*&self->_has)
   {
@@ -116,29 +116,29 @@
   if ([(NSMutableArray *)self->_instances count])
   {
     v4 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_instances, "count")}];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     instances = self->_instances;
-    v6 = [(NSMutableArray *)instances countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [(NSMutableArray *)instances countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(instances);
           }
 
-          [v4 addObject:{objc_msgSend(*(*(&v13 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v4 addObject:{objc_msgSend(*(*(&v12 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v7 = [(NSMutableArray *)instances countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [(NSMutableArray *)instances countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -164,7 +164,7 @@ LABEL_20:
       [dictionary setObject:objc_msgSend(MEMORY[0x29EDBA070] forKey:{"numberWithInt:", self->_confidenceOfMostConfidentModel), @"confidenceOfMostConfidentModel"}];
       if ((*&self->_has & 4) == 0)
       {
-        goto LABEL_17;
+        return dictionary;
       }
 
       goto LABEL_16;
@@ -190,53 +190,48 @@ LABEL_16:
     [dictionary setObject:objc_msgSend(MEMORY[0x29EDBA070] forKey:{"numberWithInt:", self->_durationSinceLastSuccessfulTraining), @"durationSinceLastSuccessfulTraining"}];
   }
 
-LABEL_17:
-  v11 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   instances = self->_instances;
-  v6 = [(NSMutableArray *)instances countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v6)
+  v5 = [(NSMutableArray *)instances countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v5)
   {
-    v7 = v6;
-    v8 = *v18;
+    v6 = v5;
+    v7 = *v11;
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v8)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(instances);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v7 = [(NSMutableArray *)instances countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [(NSMutableArray *)instances countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v7);
+    while (v6);
   }
 
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    modelType = self->_modelType;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -247,15 +242,7 @@ LABEL_12:
         goto LABEL_13;
       }
 
-LABEL_18:
-      confidenceOfMostConfidentModel = self->_confidenceOfMostConfidentModel;
-      PBDataWriterWriteInt32Field();
-      if ((*&self->_has & 4) == 0)
-      {
-        goto LABEL_15;
-      }
-
-      goto LABEL_14;
+      goto LABEL_18;
     }
   }
 
@@ -264,24 +251,28 @@ LABEL_18:
     goto LABEL_12;
   }
 
-  fallbackModelConfidence = self->_fallbackModelConfidence;
   PBDataWriterWriteInt32Field();
   has = self->_has;
-  if ((has & 2) != 0)
+  if ((has & 2) == 0)
   {
-    goto LABEL_18;
-  }
-
 LABEL_13:
-  if ((has & 4) != 0)
-  {
-LABEL_14:
-    durationSinceLastSuccessfulTraining = self->_durationSinceLastSuccessfulTraining;
-    PBDataWriterWriteInt32Field();
+    if ((has & 4) == 0)
+    {
+      return;
+    }
+
+    goto LABEL_14;
   }
 
-LABEL_15:
-  v13 = *MEMORY[0x29EDCA608];
+LABEL_18:
+  PBDataWriterWriteInt32Field();
+  if ((*&self->_has & 4) == 0)
+  {
+    return;
+  }
+
+LABEL_14:
+  PBDataWriterWriteInt32Field();
 }
 
 - (void)copyTo:(id)to
@@ -358,7 +349,7 @@ LABEL_11:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if (*&self->_has)
@@ -367,30 +358,30 @@ LABEL_11:
     *(v5 + 44) |= 1u;
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   instances = self->_instances;
-  v8 = [(NSMutableArray *)instances countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [(NSMutableArray *)instances countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(instances);
         }
 
-        v12 = [*(*(&v16 + 1) + 8 * i) copyWithZone:zone];
+        v12 = [*(*(&v15 + 1) + 8 * i) copyWithZone:zone];
         [v6 addInstance:v12];
       }
 
-      v9 = [(NSMutableArray *)instances countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [(NSMutableArray *)instances countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
@@ -415,7 +406,7 @@ LABEL_18:
       *(v6 + 44) |= 2u;
       if ((*&self->_has & 4) == 0)
       {
-        goto LABEL_15;
+        return v6;
       }
 
       goto LABEL_14;
@@ -443,8 +434,6 @@ LABEL_14:
     *(v6 + 44) |= 4u;
   }
 
-LABEL_15:
-  v14 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -454,7 +443,6 @@ LABEL_15:
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 44);
     if (has)
     {
       if ((*(equal + 44) & 1) == 0 || self->_timestamp != *(equal + 1))
@@ -603,36 +591,36 @@ LABEL_8:
 
 - (void)mergeFrom:(id)from
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   if (*(from + 44))
   {
     self->_timestamp = *(from + 1);
     *&self->_has |= 1u;
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = *(from + 4);
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(AWDCoreRoutineMagicalMomentsRecommendedAppsHistogramSet *)self addInstance:*(*(&v12 + 1) + 8 * i)];
+        [(AWDCoreRoutineMagicalMomentsRecommendedAppsHistogramSet *)self addInstance:*(*(&v11 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -652,15 +640,7 @@ LABEL_12:
         goto LABEL_13;
       }
 
-LABEL_18:
-      self->_confidenceOfMostConfidentModel = *(from + 4);
-      *&self->_has |= 2u;
-      if ((*(from + 44) & 4) == 0)
-      {
-        goto LABEL_15;
-      }
-
-      goto LABEL_14;
+      goto LABEL_18;
     }
   }
 
@@ -672,21 +652,28 @@ LABEL_18:
   self->_fallbackModelConfidence = *(from + 6);
   *&self->_has |= 8u;
   v10 = *(from + 44);
-  if ((v10 & 2) != 0)
+  if ((v10 & 2) == 0)
   {
-    goto LABEL_18;
-  }
-
 LABEL_13:
-  if ((v10 & 4) != 0)
-  {
-LABEL_14:
-    self->_durationSinceLastSuccessfulTraining = *(from + 5);
-    *&self->_has |= 4u;
+    if ((v10 & 4) == 0)
+    {
+      return;
+    }
+
+    goto LABEL_14;
   }
 
-LABEL_15:
-  v11 = *MEMORY[0x29EDCA608];
+LABEL_18:
+  self->_confidenceOfMostConfidentModel = *(from + 4);
+  *&self->_has |= 2u;
+  if ((*(from + 44) & 4) == 0)
+  {
+    return;
+  }
+
+LABEL_14:
+  self->_durationSinceLastSuccessfulTraining = *(from + 5);
+  *&self->_has |= 4u;
 }
 
 @end

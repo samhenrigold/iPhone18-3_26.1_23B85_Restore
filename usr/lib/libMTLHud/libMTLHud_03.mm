@@ -1,4 +1,19 @@
-_BYTE *std::string::__init_with_size[abi:ne200100]<char *,char *>(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void sub_38FD0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (*(v17 + 23) < 0)
+  {
+    operator delete(*v17);
+  }
+
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void *std::string::__init_with_size[abi:ne200100]<char *,char *>(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -11,14 +26,14 @@ _BYTE *std::string::__init_with_size[abi:ne200100]<char *,char *>(_BYTE *__dst, 
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
 }
 
@@ -95,7 +110,7 @@ void sub_391C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<char>::push_back[abi:ne200100](uint64_t a1, _BYTE *a2)
+void std::vector<char>::push_back[abi:ne200100](uint64_t a1, char *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -597,7 +612,7 @@ LABEL_14:
   return v6 + 2;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3, std::string *this, uint64_t a5)
+std::basic_regex<char>::value_type *std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<char const*>(std::basic_regex<char> *a1, std::basic_regex<char>::value_type *a2, std::basic_regex<char>::value_type *a3, std::string *this, uint64_t a5)
 {
   if (a2 == a3)
   {
@@ -1079,11 +1094,11 @@ LABEL_74:
   }
 }
 
-void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, unsigned __int8 a2, uint64_t a3)
+void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a1 + 169) == 1)
   {
-    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24));
+    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24), a2);
     v11 = v5 | ((*(**(a1 + 24) + 40))(*(a1 + 24), a3) << 8);
     v6 = a1 + 112;
     v7 = &v11;
@@ -1607,14 +1622,12 @@ void std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100](ui
     v6 = *a2;
     *(v4 + 16) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v7 = *(a2 + 24);
     *(v4 + 40) = *(a2 + 5);
     *(v4 + 24) = v7;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
     v8 = v4 + 48;
   }
@@ -2069,7 +2082,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_nondupl
     v8 = v6[1];
     if (v8 == 40)
     {
-      v9 = v6 + 2;
+      v9 = (v6 + 2);
       std::basic_regex<char,std::regex_traits<char>>::__push_begin_marked_subexpression(a1);
       marked_count = a1->__marked_count_;
       do
@@ -2304,7 +2317,7 @@ BOOL std::basic_regex<char,std::regex_traits<char>>::__test_back_ref(std::basic_
   return 1;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *a2, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   v6 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_expression<char const*>(a1, a2, a3);
   if (v6 == a2)
@@ -2322,7 +2335,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_bra
   return v7;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_expression<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *a2, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_expression<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   end = a1->__end_;
   marked_count = a1->__marked_count_;
@@ -2340,7 +2353,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_exp
         std::basic_regex<char,std::regex_traits<char>>::__push_begin_marked_subexpression(a1);
         v11 = a1->__marked_count_;
         ++a1->__open_count_;
-        v12 = std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(a1, v9 + 1, a3);
+        v12 = std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(a1, (v9 + 1), a3);
         if (v12 == a3 || (v9 = v12, *v12 != 41))
         {
           std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)6>();
@@ -2477,7 +2490,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_QUOTED_
   return std::basic_regex<char,std::regex_traits<char>>::__parse_awk_escape<char const*>(a1, v4, a3, 0);
 }
 
-uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(uint64_t a1, char *__f, char *__l, std::match_results<const char *> *this, int a5)
+uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(uint64_t a1, char *__f, char *__l, std::match_results<const char *> *this, unsigned int a5)
 {
   if ((a5 & 0x80) != 0)
   {
@@ -2521,7 +2534,7 @@ LABEL_19:
       do
       {
         std::vector<std::sub_match<char const*>>::assign(&this->__matches_, 0xAAAAAAAAAAAAAAABLL * ((this->__matches_.__end_ - this->__matches_.__begin_) >> 3), &this->__unmatched_);
-        v13 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v11, __l, this, v9 | 0x80u, 0);
+        v13 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v11, __l, this, v9 | 0x80, 0);
         begin = this->__matches_.__begin_;
         end = this->__matches_.__end_;
         if (v13)
@@ -2537,7 +2550,7 @@ LABEL_19:
 
     v12 = &this->__unmatched_;
     std::vector<std::sub_match<char const*>>::assign(&this->__matches_, 0xAAAAAAAAAAAAAAABLL * ((this->__matches_.__end_ - this->__matches_.__begin_) >> 3), &this->__unmatched_);
-    if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v11, __l, this, v9 | 0x80u, 0))
+    if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v11, __l, this, v9 | 0x80, 0))
     {
       begin = this->__matches_.__begin_;
       end = this->__matches_.__end_;
@@ -2846,6 +2859,13 @@ LABEL_71:
   return v49;
 }
 
+void sub_3C88C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+{
+  va_start(va, a24);
+  std::deque<std::__state<char>>::~deque[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
 uint64_t std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_subs<std::allocator<std::sub_match<char const*>>>(uint64_t a1, const char *a2, const char *a3, uint64_t *a4, int a5, char a6)
 {
   v52 = 0;
@@ -3086,50 +3106,49 @@ void sub_3CD68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-__n128 std::deque<std::__state<char>>::push_back(uint64_t a1, uint64_t a2)
+__n128 std::deque<std::__state<char>>::push_back(unint64_t *a1, uint64_t a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  v7 = 42 * ((v5 - v6) >> 3) - 1;
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  v6 = 42 * ((v4 - v5) >> 3) - 1;
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = *(a1 + 40) + *(a1 + 32);
-  if (v7 == v8)
+  v7 = a1[5] + a1[4];
+  if (v6 == v7)
   {
     std::deque<std::__state<char>>::__add_back_capacity(a1);
-    v6 = *(a1 + 8);
-    v8 = *(a1 + 40) + *(a1 + 32);
+    v5 = a1[1];
+    v7 = a1[5] + a1[4];
   }
 
-  v9 = *(v6 + 8 * (v8 / 0x2A)) + 96 * (v8 % 0x2A);
-  v10 = *(a2 + 16);
-  *v9 = *a2;
-  *(v9 + 16) = v10;
-  *(v9 + 40) = 0;
-  *(v9 + 48) = 0;
-  *(v9 + 32) = 0;
-  *(v9 + 32) = *(a2 + 32);
-  *(v9 + 48) = *(a2 + 48);
+  v8 = *(v5 + 8 * (v7 / 0x2A)) + 96 * (v7 % 0x2A);
+  v9 = *(a2 + 16);
+  *v8 = *a2;
+  *(v8 + 16) = v9;
+  *(v8 + 40) = 0;
+  *(v8 + 48) = 0;
+  *(v8 + 32) = 0;
+  *(v8 + 32) = *(a2 + 32);
+  *(v8 + 48) = *(a2 + 48);
   *(a2 + 32) = 0;
   *(a2 + 40) = 0;
   *(a2 + 48) = 0;
-  *(v9 + 56) = 0;
-  *(v9 + 64) = 0;
-  *(v9 + 72) = 0;
+  *(v8 + 56) = 0;
+  *(v8 + 64) = 0;
+  *(v8 + 72) = 0;
   result = *(a2 + 56);
-  *(v9 + 56) = result;
-  *(v9 + 72) = *(a2 + 72);
+  *(v8 + 56) = result;
+  *(v8 + 72) = *(a2 + 72);
   *(a2 + 56) = 0;
   *(a2 + 64) = 0;
   *(a2 + 72) = 0;
-  v12 = *(a2 + 80);
-  *(v9 + 85) = *(a2 + 85);
-  *(v9 + 80) = v12;
-  ++*(a1 + 40);
+  v11 = *(a2 + 80);
+  *(v8 + 85) = *(a2 + 85);
+  *(v8 + 80) = v11;
+  ++a1[5];
   return result;
 }
 
@@ -3191,19 +3210,19 @@ int64x2_t std::deque<std::__state<char>>::push_front(int64x2_t *a1, uint64_t a2)
   return result;
 }
 
-void *std::deque<std::__state<char>>::__add_back_capacity(void *a1)
+void std::deque<std::__state<char>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x2A;
   v3 = v1 - 42;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -3211,25 +3230,25 @@ void *std::deque<std::__state<char>>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<HUDUIWindow *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<HUDUIWindow *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(a1, &v9);
 }
 
 void sub_3D1D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -3243,27 +3262,26 @@ void sub_3D1D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(void *result, void *a2)
+void std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<HUDUIWindow *>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<HUDUIWindow *>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -3272,28 +3290,26 @@ void *std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char>
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(const void **result, void *a2)
+void std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -3306,52 +3322,50 @@ const void **std::__split_buffer<std::__state<char> *,std::allocator<std::__stat
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<HUDUIWindow *>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<HUDUIWindow *>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = (v6 + 8 * v8);
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
-  *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  *(v5 - 8) = *a2;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *> &>::emplace_back<std::__state<char> *>(void *result, void *a2)
+void std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *> &>::emplace_back<std::__state<char> *>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<HUDUIWindow *>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<HUDUIWindow *>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -3360,28 +3374,26 @@ void *std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char>
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *> &>::emplace_front<std::__state<char> *&>(const void **result, void *a2)
+void std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *> &>::emplace_front<std::__state<char> *&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -3394,29 +3406,28 @@ const void **std::__split_buffer<std::__state<char> *,std::allocator<std::__stat
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<HUDUIWindow *>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<HUDUIWindow *>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 uint64_t std::deque<std::__state<char>>::__maybe_remove_back_spare[abi:ne200100](void *a1, int a2)
@@ -3458,10 +3469,10 @@ uint64_t std::deque<std::__state<char>>::__maybe_remove_back_spare[abi:ne200100]
   return v7 ^ 1u;
 }
 
-const void **std::deque<std::__state<char>>::__add_front_capacity(uint64_t a1)
+void std::deque<std::__state<char>>::__add_front_capacity(const void **a1)
 {
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
+  v1 = a1[1];
+  v2 = a1[2];
   v3 = v2 - v1;
   if (v2 == v1)
   {
@@ -3473,15 +3484,15 @@ const void **std::deque<std::__state<char>>::__add_front_capacity(uint64_t a1)
     v4 = 42 * ((v2 - v1) >> 3) - 1;
   }
 
-  v5 = *(a1 + 32);
-  if ((v4 - (*(a1 + 40) + v5)) < 0x2A)
+  v5 = a1[4];
+  if ((v4 - (a1[5] + v5)) < 0x2A)
   {
-    v7 = *(a1 + 24);
-    v8 = *a1;
-    v9 = &v7[-*a1];
-    if (v3 < v9)
+    v6 = a1[3];
+    v7 = *a1;
+    v8 = v6 - *a1;
+    if (v3 < v8)
     {
-      if (v1 != v8)
+      if (v1 != v7)
       {
         operator new();
       }
@@ -3489,24 +3500,24 @@ const void **std::deque<std::__state<char>>::__add_front_capacity(uint64_t a1)
       operator new();
     }
 
-    if (v7 == v8)
+    if (v6 == v7)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9 >> 2;
+      v9 = v8 >> 2;
     }
 
-    v11[4] = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<HUDUIWindow *>>(a1, v10);
+    v10[4] = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<HUDUIWindow *>>(a1, v9);
   }
 
-  *(a1 + 32) = v5 + 42;
-  v11[0] = *(v2 - 1);
-  *(a1 + 16) = v2 - 8;
-  return std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(a1, v11);
+  a1[4] = (v5 + 42);
+  v10[0] = *(v2 - 8);
+  a1[2] = (v2 - 8);
+  std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(a1, v10);
 }
 
 void sub_3D8C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -3617,7 +3628,7 @@ uint64_t std::__split_buffer<std::__state<char> *,std::allocator<std::__state<ch
   return a1;
 }
 
-_BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(void *a1, uint64_t a2, __int128 *a3, unint64_t a4)
+char *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t *a1, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -3666,7 +3677,7 @@ _BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100
     {
       *result = *v5;
       result[16] = *(v5 + 16);
-      v5 += 24;
+      v5 = (v5 + 24);
       result += 24;
     }
 
@@ -3682,7 +3693,7 @@ _BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100
       {
         *result = *v5;
         result[16] = *(v5 + 16);
-        v5 += 24;
+        v5 = (v5 + 24);
         result += 24;
       }
 
@@ -3716,7 +3727,7 @@ _BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100
   return result;
 }
 
-char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(char **a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
+char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t *a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -3801,7 +3812,8 @@ char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:
       v15 = v11;
       do
       {
-        v16 = *v12++;
+        v16 = *v12;
+        v12 += 2;
         *v11 = v16;
         v11 += 16;
         v15 += 16;
@@ -3828,17 +3840,17 @@ std::logic_error *std::out_of_range::out_of_range[abi:ne200100](std::logic_error
   return result;
 }
 
-void *std::vector<double>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned long long>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned long long>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_3DED4(_Unwind_Exception *exception_object)
@@ -3872,11 +3884,12 @@ void __destructor_8_s0_s8_s16(uint64_t a1)
   v2 = *(a1 + 16);
 }
 
-void sub_40178(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_40178(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
-  objc_destroyWeak((v17 + 48));
+  va_start(va, location);
+  objc_destroyWeak((v16 + 48));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -4029,30 +4042,35 @@ uint64_t _MTLHUDCheckForConfigVersion(uint64_t result, void *a2)
 
   v2 = result;
   v3 = [a2 objectForKeyedSubscript:@"MTL_HUD_SYSTEM_CONFIG_VERSION"];
+  v4 = v3;
   if (!v3)
   {
-    goto LABEL_8;
+    goto LABEL_9;
   }
 
-  v4 = v3;
+  v5 = v3;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    LODWORD(v3) = 0;
+    v3 = 0;
     goto LABEL_8;
   }
 
-  if ([v4 unsignedIntValue] <= 1)
+  v3 = [v5 unsignedIntValue];
+  v4 = v5;
+  if (v3 <= 1)
   {
-    LODWORD(v3) = [v4 unsignedIntValue];
+    v3 = [v5 unsignedIntValue];
 LABEL_8:
+    v4 = v5;
+LABEL_9:
     *(v2 + 160) = v3;
   }
 
-  return _objc_release_x1();
+  return _objc_release_x1(v3, v4);
 }
 
-__int16 *HUDGetGlobalConfig()
+__int16 *HUDGetGlobalConfig(uint64_t a1, uint64_t a2)
 {
   if (HUDGetGlobalConfig_onceToken != -1)
   {
@@ -4062,38 +4080,17 @@ __int16 *HUDGetGlobalConfig()
   return &HUDGetGlobalConfig_config;
 }
 
-void HUDUpdateConfig(unsigned __int8 *a1, void *a2, int a3, int a4)
+void HUDUpdateConfig(unsigned __int8 *a1, void *a2, uint64_t a3, int a4)
 {
-  v62 = a2;
-  if ((MTLHudIsInternalInstall() & 1) != 0 || MTLHudIsSideLoadedApp())
+  v5 = a3;
+  v67 = a2;
+  IsInternalInstall = MTLHudIsInternalInstall(v67, v7);
+  if ((IsInternalInstall & 1) != 0 || MTLHudIsSideLoadedApp(IsInternalInstall, v9))
   {
-    v7 = +[NSUserDefaults standardUserDefaults];
-    v8 = [v7 objectForKey:@"MetalForceHudEnabled"];
+    v10 = +[NSUserDefaults standardUserDefaults];
+    v11 = [v10 objectForKey:@"MetalForceHudEnabled"];
 
     if (*a1)
-    {
-      v9 = 1;
-    }
-
-    else
-    {
-      objc_opt_class();
-      if (objc_opt_isKindOfClass())
-      {
-        v9 = [v8 BOOLValue];
-      }
-
-      else
-      {
-        v9 = 0;
-      }
-    }
-
-    *a1 = v9;
-    v10 = +[NSUserDefaults standardUserDefaults];
-    v11 = [v10 objectForKey:@"MetalHudLoggingEnabled"];
-
-    if (a1[1])
     {
       v12 = 1;
     }
@@ -4112,76 +4109,99 @@ void HUDUpdateConfig(unsigned __int8 *a1, void *a2, int a3, int a4)
       }
     }
 
-    a1[1] = v12;
-  }
+    *a1 = v12;
+    v13 = +[NSUserDefaults standardUserDefaults];
+    v14 = [v13 objectForKey:@"MetalHudLoggingEnabled"];
 
-  v13 = _CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_ENABLED", *a1);
-  *a1 = v13;
-  if ((v13 & 1) == 0)
-  {
-    *a1 = _CONFIG_BOOL(a1, a3, v62, @"GT_HUD_ENABLED", 0);
-  }
-
-  a1[5] = _CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_MANUAL_INTERPOSE", a1[5]);
-  a1[4] = _CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_ENCODER_TIMING_ENABLED", a1[4]);
-  a1[6] = _CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_SHOW_ZERO_METRICS", a1[6]);
-  a1[3] = _CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_INSIGHTS_ENABLED", a1[3]);
-  a1[2] = _CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_LOG_SHADER_ENABLED", a1[2]);
-  *(a1 + 37) = 0;
-  a1[17] = 0;
-  a1[19] = 1;
-  a1[1] = _CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_LOG_ENABLED", a1[1]);
-  a1[31] = _CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_LOG_METRICS_ENABLED", a1[31]);
-  v14 = _CONFIG_FLOAT(a1, a3, v62, @"MTL_HUD_OPACITY", *(a1 + 10));
-  if (v14 < 0.0)
-  {
-    v14 = 0.0;
-  }
-
-  v15 = fmin(v14, 1.0);
-  *(a1 + 10) = v15;
-  v16 = _CONFIG_FLOAT(a1, a3, v62, @"MTL_HUD_SCALE", *(a1 + 11));
-  if (v16 < 0.1)
-  {
-    v16 = 0.1;
-  }
-
-  v17 = fmin(v16, 1.0);
-  *(a1 + 11) = v17;
-  a1[23] = _CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_ALLOW_DYNAMIC_WIDTH", a1[23]);
-  v18 = _CONFIG_FLOAT(a1, a3, v62, @"MTL_HUD_ENCODER_GPU_TIMELINE_HEIGHT", *(a1 + 12));
-  if (v18 < 10.0)
-  {
-    v18 = 10.0;
-  }
-
-  v19 = fmin(v18, 300.0);
-  *(a1 + 12) = v19;
-  *(a1 + 28) = _CONFIG_FLOAT(a1, a3, v62, @"MTL_HUD_MIN_WIDTH_REQUIRED", *(a1 + 28));
-  *(a1 + 30) = fmaxf(_CONFIG_FLOAT(a1, a3, v62, @"MTL_HUD_INSIGHT_TIMEOUT", *(a1 + 30)), 1.0);
-  *(a1 + 31) = fmaxf(_CONFIG_FLOAT(a1, a3, v62, @"MTL_HUD_INSIGHT_REPORT_INTERVAL", *(a1 + 31)), 1.0);
-  a1[32] = _CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_DISABLE_INTERNAL", a1[32]);
-  v20 = _CONFIG_STRING(a1, a3, v62, @"MTL_HUD_ALIGNMENT");
-  v21 = v20;
-  if (v20)
-  {
-    v22 = atoll([v20 UTF8String]);
-    if (!v22)
+    if (a1[1])
     {
-      v23 = [&off_6F778 objectForKeyedSubscript:v21];
-      v24 = v23;
-      if (v23)
+      v15 = 1;
+    }
+
+    else
+    {
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
       {
-        v22 = [v23 unsignedLongLongValue];
+        v15 = [v14 BOOLValue];
       }
 
       else
       {
-        v22 = 0;
+        v15 = 0;
       }
     }
 
-    *(a1 + 8) = v22;
+    a1[1] = v15;
+  }
+
+  v16 = _CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_ENABLED", *a1);
+  *a1 = v16;
+  if ((v16 & 1) == 0)
+  {
+    *a1 = _CONFIG_BOOL(a1, v5, v67, @"GT_HUD_ENABLED", 0);
+  }
+
+  a1[5] = _CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_MANUAL_INTERPOSE", a1[5]);
+  a1[4] = _CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_ENCODER_TIMING_ENABLED", a1[4]);
+  a1[6] = _CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_SHOW_ZERO_METRICS", a1[6]);
+  a1[3] = _CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_INSIGHTS_ENABLED", a1[3]);
+  a1[2] = _CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_LOG_SHADER_ENABLED", a1[2]);
+  *(a1 + 37) = 0;
+  a1[17] = 0;
+  a1[19] = 1;
+  a1[1] = _CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_LOG_ENABLED", a1[1]);
+  a1[31] = _CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_LOG_METRICS_ENABLED", a1[31]);
+  v17 = _CONFIG_FLOAT(a1, v5, v67, @"MTL_HUD_OPACITY", *(a1 + 10));
+  if (v17 < 0.0)
+  {
+    v17 = 0.0;
+  }
+
+  v18 = fmin(v17, 1.0);
+  *(a1 + 10) = v18;
+  v19 = _CONFIG_FLOAT(a1, v5, v67, @"MTL_HUD_SCALE", *(a1 + 11));
+  if (v19 < 0.1)
+  {
+    v19 = 0.1;
+  }
+
+  v20 = fmin(v19, 1.0);
+  *(a1 + 11) = v20;
+  a1[23] = _CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_ALLOW_DYNAMIC_WIDTH", a1[23]);
+  v21 = _CONFIG_FLOAT(a1, v5, v67, @"MTL_HUD_ENCODER_GPU_TIMELINE_HEIGHT", *(a1 + 12));
+  if (v21 < 10.0)
+  {
+    v21 = 10.0;
+  }
+
+  v22 = fmin(v21, 300.0);
+  *(a1 + 12) = v22;
+  *(a1 + 28) = _CONFIG_FLOAT(a1, v5, v67, @"MTL_HUD_MIN_WIDTH_REQUIRED", *(a1 + 28));
+  *(a1 + 30) = fmaxf(_CONFIG_FLOAT(a1, v5, v67, @"MTL_HUD_INSIGHT_TIMEOUT", *(a1 + 30)), 1.0);
+  *(a1 + 31) = fmaxf(_CONFIG_FLOAT(a1, v5, v67, @"MTL_HUD_INSIGHT_REPORT_INTERVAL", *(a1 + 31)), 1.0);
+  a1[32] = _CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_DISABLE_INTERNAL", a1[32]);
+  v23 = _CONFIG_STRING(a1, v5, v67, @"MTL_HUD_ALIGNMENT");
+  v24 = v23;
+  if (v23)
+  {
+    v25 = atoll([v23 UTF8String]);
+    if (!v25)
+    {
+      v26 = [&off_6F778 objectForKeyedSubscript:v24];
+      v27 = v26;
+      if (v26)
+      {
+        v25 = [v26 unsignedLongLongValue];
+      }
+
+      else
+      {
+        v25 = 0;
+      }
+    }
+
+    *(a1 + 8) = v25;
   }
 
   if (*(a1 + 37))
@@ -4189,74 +4209,74 @@ void HUDUpdateConfig(unsigned __int8 *a1, void *a2, int a3, int a4)
     *(a1 + 9) = *(a1 + 9) & 0xFFFFFFFFFFBFE76BLL | 0x880;
   }
 
-  v25 = _CONFIG_STRING(a1, a3, v62, @"MTL_HUD_ELEMENTS");
-  v26 = v25;
-  if (v25)
+  v28 = _CONFIG_STRING(a1, v5, v67, @"MTL_HUD_ELEMENTS");
+  v29 = v28;
+  if (v28)
   {
-    *(a1 + 9) = _ElementsFromString(v25);
+    *(a1 + 9) = _ElementsFromString(v28);
   }
 
   if (a4 && !*(a1 + 40))
   {
-    v27 = [v62 objectForKeyedSubscript:@"MTL_HUD_ELEMENTS"];
-    if (v27)
+    v30 = [v67 objectForKeyedSubscript:@"MTL_HUD_ELEMENTS"];
+    if (v30)
     {
-      v28 = *(a1 + 9);
-      if (v28 != 16)
+      v31 = *(a1 + 9);
+      if (v31 != 16)
       {
-        *(a1 + 9) = v28 | 0x81000000;
+        *(a1 + 9) = v31 | 0x81000000;
       }
     }
   }
 
-  v29 = _CONFIG_STRING(a1, a3, v62, @"MTL_HUD_ELEMENTS_OTHERS");
-
-  if (v29)
-  {
-    *(a1 + 10) = _ElementsFromString(v29);
-  }
-
-  v30 = _CONFIG_STRING(a1, a3, v62, @"MTL_HUD_LAYOUT");
-  v31 = v30;
-  if (v30)
-  {
-    *(a1 + 9) = _LayoutFromString(v30);
-  }
-
-  v32 = _CONFIG_STRING(a1, a3, v62, @"MTL_HUD_LAYOUT_OTHERS");
+  v32 = _CONFIG_STRING(a1, v5, v67, @"MTL_HUD_ELEMENTS_OTHERS");
 
   if (v32)
   {
-    *(a1 + 10) = _LayoutFromString(v32);
+    *(a1 + 10) = _ElementsFromString(v32);
   }
 
-  v33 = _CONFIG_INT(a1, a3, v62, @"MTL_HUD_ENCODER_GPU_TIMELINE_FRAME_COUNT", *(a1 + 11));
-  if (v33 <= 1)
+  v33 = _CONFIG_STRING(a1, v5, v67, @"MTL_HUD_LAYOUT");
+  v34 = v33;
+  if (v33)
   {
-    v34 = 1;
+    *(a1 + 9) = _LayoutFromString(v33);
+  }
+
+  v35 = _CONFIG_STRING(a1, v5, v67, @"MTL_HUD_LAYOUT_OTHERS");
+
+  if (v35)
+  {
+    *(a1 + 10) = _LayoutFromString(v35);
+  }
+
+  v36 = _CONFIG_INT(a1, v5, v67, @"MTL_HUD_ENCODER_GPU_TIMELINE_FRAME_COUNT", *(a1 + 11));
+  if (v36 <= 1)
+  {
+    v37 = 1;
   }
 
   else
   {
-    v34 = v33;
+    v37 = v36;
   }
 
-  if (v34 >= 10)
+  if (v37 >= 10)
   {
-    v34 = 10;
+    v37 = 10;
   }
 
-  *(a1 + 11) = v34;
-  v35 = *(a1 + 12);
-  v36 = _CONFIG_FLOAT(a1, a3, v62, @"MTL_HUD_ENCODER_GPU_TIMELINE_SWAP_DELTA", v35);
-  if (v36 < 0.1)
+  *(a1 + 11) = v37;
+  v38 = *(a1 + 12);
+  v39 = _CONFIG_FLOAT(a1, v5, v67, @"MTL_HUD_ENCODER_GPU_TIMELINE_SWAP_DELTA", v38);
+  if (v39 < 0.1)
   {
-    v36 = 0.1;
+    v39 = 0.1;
   }
 
-  *(a1 + 12) = fmin(v36, 10.0);
-  v37 = *(a1 + 9);
-  if ((v37 & 0x200) != 0)
+  *(a1 + 12) = fmin(v39, 10.0);
+  v40 = *(a1 + 9);
+  if ((v40 & 0x200) != 0)
   {
     a1[4] = 1;
     goto LABEL_56;
@@ -4265,135 +4285,136 @@ void HUDUpdateConfig(unsigned __int8 *a1, void *a2, int a3, int a4)
   if (a1[4])
   {
 LABEL_56:
-    *(a1 + 9) = v37 | 0x200;
+    *(a1 + 9) = v40 | 0x200;
   }
 
-  v38 = _CONFIG_STRING(a1, a3, v62, @"MTL_HUD_POSITION_X");
-  v39 = v38;
-  if (v38)
-  {
-    v40 = atof([v38 UTF8String]);
-    *(a1 + 14) = v40;
-    *(a1 + 8) = 1;
-  }
-
-  v41 = _CONFIG_STRING(a1, a3, v62, @"MTL_HUD_POSITION_Y");
+  v41 = _CONFIG_STRING(a1, v5, v67, @"MTL_HUD_POSITION_X");
   v42 = v41;
   if (v41)
   {
     v43 = atof([v41 UTF8String]);
-    *(a1 + 15) = v43;
+    *(a1 + 14) = v43;
     *(a1 + 8) = 1;
   }
 
-  v44 = _CONFIG_INT(a1, a3, v62, @"MTL_HUD_TARGET_FPS", *(a1 + 33));
-  v45 = v44 & ~(v44 >> 63);
-  if (v45 >= 1000)
+  v44 = _CONFIG_STRING(a1, v5, v67, @"MTL_HUD_POSITION_Y");
+  v45 = v44;
+  if (v44)
   {
-    LODWORD(v45) = 1000;
+    v46 = atof([v44 UTF8String]);
+    *(a1 + 15) = v46;
+    *(a1 + 8) = 1;
   }
 
-  *(a1 + 33) = v45;
-  v46 = _CONFIG_INT(a1, a3, v62, @"MTL_HUD_MIN_WIDTH", *(a1 + 36));
-  v47 = 40;
-  if (v46 > 40)
+  v47 = _CONFIG_INT(a1, v5, v67, @"MTL_HUD_TARGET_FPS", *(a1 + 33));
+  v48 = v47 & ~(v47 >> 63);
+  if (v48 >= 1000)
   {
-    v47 = v46;
+    LODWORD(v48) = 1000;
   }
 
-  if (v47 >= 1000)
+  *(a1 + 33) = v48;
+  v49 = _CONFIG_INT(a1, v5, v67, @"MTL_HUD_MIN_WIDTH", *(a1 + 36));
+  v50 = 40;
+  if (v49 > 40)
   {
-    LODWORD(v47) = 1000;
+    v50 = v49;
   }
 
-  *(a1 + 36) = v47;
-  a1[15] = _CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_HIDE_GPTK_METRICS", a1[15]);
-  a1[14] = _CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_HIDE_METALFX_METRICS", a1[14]);
-  v48 = _CONFIG_FLOAT(a1, a3, v62, @"MTL_HUD_RUSAGE_UPDATE_INTERVAL", *(a1 + 32));
-  if (v48 <= 0.1)
+  if (v50 >= 1000)
   {
-    v48 = 0.1;
+    LODWORD(v50) = 1000;
   }
 
-  *(a1 + 32) = v48;
-  v49 = _CONFIG_FLOAT(a1, a3, v62, @"MTL_HUD_METRIC_TIMEOUT", *(a1 + 34));
-  if (v49 <= 0.1)
+  *(a1 + 36) = v50;
+  a1[15] = _CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_HIDE_GPTK_METRICS", a1[15]);
+  a1[14] = _CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_HIDE_METALFX_METRICS", a1[14]);
+  v51 = _CONFIG_FLOAT(a1, v5, v67, @"MTL_HUD_RUSAGE_UPDATE_INTERVAL", *(a1 + 32));
+  if (v51 <= 0.1)
   {
-    v49 = 0.1;
+    v51 = 0.1;
   }
 
-  *(a1 + 34) = v49;
-  v50 = _CONFIG_INT(a1, a3, v62, @"MTL_HUD_QRCODE_UPDATE_FRAME", *(a1 + 35));
-  *(a1 + 35) = v50 & ~(v50 >> 63);
-  a1[20] = _CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_DISABLE_OS_LOG", a1[20]);
-  a1[26] = _CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_DISABLE_COMPILER_STATS", a1[26]);
-  a1[27] = _CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_DISABLE_MTL4", a1[27]);
-  a1[30] = _CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_SHOW_METRICS_RANGE", a1[30]);
-  if (MTLHudIsInternalInstall())
+  *(a1 + 32) = v51;
+  v52 = _CONFIG_FLOAT(a1, v5, v67, @"MTL_HUD_METRIC_TIMEOUT", *(a1 + 34));
+  if (v52 <= 0.1)
   {
-    a1[18] = _CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_ALLOW_CAPTURE_HUD", a1[18]);
-    v51 = _CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_ENERGY_REPORT_ENABLED", (*(a1 + 9) >> 10) & 1);
-    v52 = *(a1 + 13);
-    v53 = _CONFIG_FLOAT(a1, a3, v62, @"MTL_HUD_ENEGRY_REPORT_SAMPLE_INTERVAL", v52);
-    if (v53 < 0.1)
+    v52 = 0.1;
+  }
+
+  *(a1 + 34) = v52;
+  v53 = _CONFIG_INT(a1, v5, v67, @"MTL_HUD_QRCODE_UPDATE_FRAME", *(a1 + 35));
+  *(a1 + 35) = v53 & ~(v53 >> 63);
+  a1[20] = _CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_DISABLE_OS_LOG", a1[20]);
+  a1[26] = _CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_DISABLE_COMPILER_STATS", a1[26]);
+  a1[27] = _CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_DISABLE_MTL4", a1[27]);
+  v54 = _CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_SHOW_METRICS_RANGE", a1[30]);
+  a1[30] = v54;
+  if (MTLHudIsInternalInstall(v54, v55))
+  {
+    a1[18] = _CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_ALLOW_CAPTURE_HUD", a1[18]);
+    v56 = _CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_ENERGY_REPORT_ENABLED", (*(a1 + 9) >> 10) & 1);
+    v57 = *(a1 + 13);
+    v58 = _CONFIG_FLOAT(a1, v5, v67, @"MTL_HUD_ENEGRY_REPORT_SAMPLE_INTERVAL", v57);
+    if (v58 < 0.1)
     {
-      v53 = 0.1;
+      v58 = 0.1;
     }
 
-    *(a1 + 13) = fmin(v53, 10.0);
-    v54 = _CONFIG_FLOAT(a1, a3, v62, @"MTL_HUD_ENEGRY_REPORT_HEIGHT", *(a1 + 13));
-    if (v54 < 10.0)
+    *(a1 + 13) = fmin(v58, 10.0);
+    v59 = _CONFIG_FLOAT(a1, v5, v67, @"MTL_HUD_ENEGRY_REPORT_HEIGHT", *(a1 + 13));
+    if (v59 < 10.0)
     {
-      v54 = 10.0;
+      v59 = 10.0;
     }
 
-    v55 = fmin(v54, 200.0);
-    *(a1 + 13) = v55;
-    v56 = *(a1 + 9);
-    if (v51)
+    v60 = fmin(v59, 200.0);
+    *(a1 + 13) = v60;
+    v61 = *(a1 + 9);
+    if (v56)
     {
-      v56 |= 0x400uLL;
-      *(a1 + 9) = v56;
+      v61 |= 0x400uLL;
+      *(a1 + 9) = v61;
     }
 
-    if (_CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_QR_CODE_ENABLED", (v56 >> 14) & 1))
+    if (_CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_QR_CODE_ENABLED", (v61 >> 14) & 1))
     {
       *(a1 + 9) |= 0x4000uLL;
     }
 
-    a1[16] = _CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_PROFILER_ENABLED", a1[16]);
-    a1[10] = _CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_SHOW_HUD_INTERNAL_METRICS", a1[10]);
-    a1[7] = _CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_SHOW_INSIGHTS_METRICS", a1[7]);
-    a1[9] = _CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_HIDE_INTERNAL_METRICS", a1[9]);
-    a1[33] = _CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_INTERNAL_FORCE_DIRECT", a1[33]);
-    a1[24] = _CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_DEBUG_SIGNPOSTS", a1[24]);
-    a1[25] = _CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_ROUND_APT", a1[25]);
+    a1[16] = _CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_PROFILER_ENABLED", a1[16]);
+    a1[10] = _CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_SHOW_HUD_INTERNAL_METRICS", a1[10]);
+    a1[7] = _CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_SHOW_INSIGHTS_METRICS", a1[7]);
+    a1[9] = _CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_HIDE_INTERNAL_METRICS", a1[9]);
+    a1[33] = _CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_INTERNAL_FORCE_DIRECT", a1[33]);
+    a1[24] = _CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_DEBUG_SIGNPOSTS", a1[24]);
+    a1[25] = _CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_ROUND_APT", a1[25]);
   }
 
-  v57 = _CONFIG_STRING(a1, a3, v62, @"MTL_HUD_EXTRA_ELEMENTS");
-  v58 = v57;
-  if (v57)
+  v62 = _CONFIG_STRING(a1, v5, v67, @"MTL_HUD_EXTRA_ELEMENTS");
+  v63 = v62;
+  if (v62)
   {
-    *(a1 + 9) |= _ElementsFromString(v57);
+    *(a1 + 9) |= _ElementsFromString(v62);
   }
 
-  if (_CONFIG_BOOL(a1, a3, v62, @"MTL_HUD_HIDDEN", 0))
+  if (_CONFIG_BOOL(a1, v5, v67, @"MTL_HUD_HIDDEN", 0))
   {
     *a1 = 0;
   }
 
-  v59 = 300.0;
+  v64 = 300.0;
   if (a1[30])
   {
-    v59 = 350.0;
+    v64 = 350.0;
   }
 
-  *(a1 + 29) = v59;
-  v60 = _CONFIG_STRING(a1, a3, v62, @"MTL_HUD_REPORT_URL");
-  if (v60)
+  *(a1 + 29) = v64;
+  v65 = _CONFIG_STRING(a1, v5, v67, @"MTL_HUD_REPORT_URL");
+  if (v65)
   {
-    v61 = +[_CADeveloperHUDProperties instance];
-    [v61 setReportOutputURL:v60];
+    v66 = +[_CADeveloperHUDProperties instance];
+    [v66 setReportOutputURL:v65];
   }
 
   MTLHUDDisableInternal = a1[32];
@@ -4420,7 +4441,7 @@ id HUDReportingComponentFromIdentifier(void *a1)
   return v2;
 }
 
-void *HUDGetInternalPerfMetrics()
+void *HUDGetInternalPerfMetrics(uint64_t a1, uint64_t a2)
 {
   if (HUDGetInternalPerfMetrics_onceToken != -1)
   {
@@ -4430,7 +4451,7 @@ void *HUDGetInternalPerfMetrics()
   return &HUDGetInternalPerfMetrics_metrics;
 }
 
-void HUDInternalPerfMetricsReset()
+void HUDInternalPerfMetricsReset(uint64_t a1, uint64_t a2)
 {
   if (HUDGetInternalPerfMetrics_onceToken != -1)
   {
@@ -4446,7 +4467,7 @@ void HUDInternalPerfMetricsReset()
   HUDValueHistoryRecordInit(&HUDGetInternalPerfMetrics_metrics + &stru_11C0, 0.0, 1000000000.0, 300000.0);
 }
 
-void HUDInternalPerfMetricFrameBegin()
+void HUDInternalPerfMetricFrameBegin(uint64_t a1, uint64_t a2)
 {
   if (HUDGetInternalPerfMetrics_onceToken != -1)
   {
@@ -4465,44 +4486,44 @@ void HUDInternalPerfMetricFrameBegin()
   qword_78368 = 0;
 }
 
-void HUDInternalPerfMetricPresentAdd(uint64_t a1)
+void HUDInternalPerfMetricPresentAdd(uint64_t result, uint64_t a2)
 {
   if (HUDGetInternalPerfMetrics_onceToken != -1)
   {
     HUDGetInternalPerfMetrics_cold_1();
   }
 
-  qword_771A8 += a1;
+  qword_771A8 += result;
 }
 
-void HUDInternalPerfMetricRenderAdd(uint64_t a1)
+void HUDInternalPerfMetricRenderAdd(uint64_t result, uint64_t a2)
 {
   if (HUDGetInternalPerfMetrics_onceToken != -1)
   {
     HUDGetInternalPerfMetrics_cold_1();
   }
 
-  qword_77618 += a1;
+  qword_77618 += result;
 }
 
-void HUDInternalPerfMetricGPUTimeTrackerAdd(uint64_t a1)
+void HUDInternalPerfMetricGPUTimeTrackerAdd(uint64_t result, uint64_t a2)
 {
   if (HUDGetInternalPerfMetrics_onceToken != -1)
   {
     HUDGetInternalPerfMetrics_cold_1();
   }
 
-  qword_77A88 += a1;
+  qword_77A88 += result;
 }
 
-void HUDInternalPerfMetricLoggingAdd(uint64_t a1)
+void HUDInternalPerfMetricLoggingAdd(uint64_t result, uint64_t a2)
 {
   if (HUDGetInternalPerfMetrics_onceToken != -1)
   {
     HUDGetInternalPerfMetrics_cold_1();
   }
 
-  qword_78368 += a1;
+  qword_78368 += result;
 }
 
 void HUDRegisterGlobalMetrics()
@@ -4938,78 +4959,80 @@ LABEL_13:
   return a5;
 }
 
-id _HUDSignpostLegacyLoggingHandle()
+id _HUDSignpostLegacyLoggingHandle(uint64_t a1)
 {
   if (_HUDSignpostLegacyLoggingHandle_onceToken != -1)
   {
     _HUDSignpostLegacyLoggingHandle_cold_1();
   }
 
-  v1 = _HUDSignpostLegacyLoggingHandle_handle;
+  v2 = _HUDSignpostLegacyLoggingHandle_handle;
 
-  return v1;
+  return v2;
 }
 
-id _HUDSignpostInsightsLoggingHandle()
+id _HUDSignpostInsightsLoggingHandle(uint64_t a1)
 {
   if (_HUDSignpostInsightsLoggingHandle_onceToken != -1)
   {
     _HUDSignpostInsightsLoggingHandle_cold_1();
   }
 
-  v1 = _HUDSignpostInsightsLoggingHandle_handle;
+  v2 = _HUDSignpostInsightsLoggingHandle_handle;
 
-  return v1;
+  return v2;
 }
 
-id _HUDSignpostInsightsMetricsHandle()
+id _HUDSignpostInsightsMetricsHandle(uint64_t a1)
 {
   if (_HUDSignpostInsightsMetricsHandle_onceToken != -1)
   {
     _HUDSignpostInsightsMetricsHandle_cold_1();
   }
 
-  v1 = _HUDSignpostInsightsMetricsHandle_handle;
+  v2 = _HUDSignpostInsightsMetricsHandle_handle;
 
-  return v1;
+  return v2;
 }
 
-id HUDSignpostGetOSLog(int a1)
+id HUDSignpostGetOSLog(uint64_t a1, uint64_t a2)
 {
-  if (*(HUDGetGlobalConfig() + 20) == 1)
+  v3 = a1;
+  v4 = HUDGetGlobalConfig(a1, a2);
+  if (*(v4 + 20) == 1)
   {
-    v1 = &_os_log_disabled;
-    v3 = &_os_log_disabled;
+    v2 = &_os_log_disabled;
+    v5 = &_os_log_disabled;
     goto LABEL_10;
   }
 
-  if (a1)
+  if (v3)
   {
-    if (a1 == 2)
+    if (v3 == 2)
     {
-      v4 = _HUDSignpostInsightsMetricsHandle();
+      v6 = _HUDSignpostInsightsMetricsHandle(v4);
     }
 
     else
     {
-      if (a1 != 1)
+      if (v3 != 1)
       {
         goto LABEL_10;
       }
 
-      v4 = _HUDSignpostInsightsLoggingHandle();
+      v6 = _HUDSignpostInsightsLoggingHandle(v4);
     }
   }
 
   else
   {
-    v4 = _HUDSignpostLegacyLoggingHandle();
+    v6 = _HUDSignpostLegacyLoggingHandle(v4);
   }
 
-  v1 = v4;
+  v2 = v6;
 LABEL_10:
 
-  return v1;
+  return v2;
 }
 
 void _HUDSystemStateUpdate(uint64_t a1)
@@ -5110,12 +5133,12 @@ void _HUDSystemStateUpdate(uint64_t a1)
   }
 }
 
-uint64_t HUDSystemStateGetSnapshot(void *a1)
+uint64_t HUDSystemStateGetSnapshot(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   *a1 = &HUDSystemStateGetSnapshot_globalState;
-  v1 = HUDCurrentTimeInNs();
-  v2 = (v1 - HUDSystemStateGetSnapshot_lastTime);
-  if ((*(HUDGetGlobalConfig() + 32) * 1000000000.0) >= v2)
+  v4 = HUDCurrentTimeInNs();
+  v5 = (v4 - HUDSystemStateGetSnapshot_lastTime);
+  if ((*(HUDGetGlobalConfig(v4, v6) + 32) * 1000000000.0) >= v5)
   {
     return 0;
   }
@@ -5125,27 +5148,27 @@ uint64_t HUDSystemStateGetSnapshot(void *a1)
   xmmword_783D0 = 0u;
   unk_783E0 = 0u;
   HUDSystemStateGetSnapshot_globalState = 0u;
-  HUDSystemStateGetSnapshot_lastTime = v1;
+  HUDSystemStateGetSnapshot_lastTime = v4;
   _HUDSystemStateUpdate(&HUDSystemStateGetSnapshot_globalState);
   return 1;
 }
 
-id _HUDDispatchQueueGet()
+id _HUDDispatchQueueGet(uint64_t a1)
 {
   if (_HUDDispatchQueueGet_onceToken != -1)
   {
     _HUDDispatchQueueGet_cold_1();
   }
 
-  v1 = _HUDDispatchQueueGet_queue;
+  v2 = _HUDDispatchQueueGet_queue;
 
-  return v1;
+  return v2;
 }
 
 void HUDDispatchQueueAsync(void *a1)
 {
   v1 = a1;
-  v2 = _HUDDispatchQueueGet();
+  v2 = _HUDDispatchQueueGet(v1);
   dispatch_async(v2, v1);
 }
 
@@ -5153,7 +5176,7 @@ void HUDDispatchQueueGroupAsync(void *a1, void *a2)
 {
   v3 = a2;
   v4 = a1;
-  v5 = _HUDDispatchQueueGet();
+  v5 = _HUDDispatchQueueGet(v4);
   dispatch_group_async(v4, v5, v3);
 }
 
@@ -5230,11 +5253,11 @@ id MTLHud_objc_unwrap(void *a1)
   return v3;
 }
 
-uint64_t MTLHudIsInternalInstall()
+uint64_t MTLHudIsInternalInstall(uint64_t a1, uint64_t a2)
 {
   if (MTLHUDDisableInternal)
   {
-    v0 = 0;
+    v2 = 0;
   }
 
   else
@@ -5244,13 +5267,13 @@ uint64_t MTLHudIsInternalInstall()
       MTLHudIsInternalInstall_cold_1();
     }
 
-    v0 = MTLHudIsInternalInstall___internalInstall;
+    v2 = MTLHudIsInternalInstall___internalInstall;
   }
 
-  return v0 & 1;
+  return v2 & 1;
 }
 
-uint64_t MTLHudIsSideLoadedApp()
+uint64_t MTLHudIsSideLoadedApp(uint64_t a1, uint64_t a2)
 {
   if (MTLHudIsSideLoadedApp___onceToken != -1)
   {
@@ -5260,7 +5283,7 @@ uint64_t MTLHudIsSideLoadedApp()
   return MTLHudIsSideLoadedApp___isSideloaded;
 }
 
-uint64_t MTLHudIsProcessTranslated()
+uint64_t MTLHudIsProcessTranslated(uint64_t a1, uint64_t a2)
 {
   if (MTLHudIsProcessTranslated_onceToken != -1)
   {
@@ -5270,7 +5293,7 @@ uint64_t MTLHudIsProcessTranslated()
   return 0;
 }
 
-uint64_t MTLHudIsExcluded()
+uint64_t MTLHudIsExcluded(uint64_t a1, uint64_t a2)
 {
   if (MTLHudIsExcluded_onceToken != -1)
   {
@@ -5280,7 +5303,7 @@ uint64_t MTLHudIsExcluded()
   return MTLHudIsExcluded_isBlastDoor;
 }
 
-uint64_t MTLHudIsCaptureEnabled()
+uint64_t MTLHudIsCaptureEnabled(uint64_t a1, uint64_t a2)
 {
   if (MTLHudIsCaptureEnabled_onceToken != -1)
   {
@@ -5290,7 +5313,7 @@ uint64_t MTLHudIsCaptureEnabled()
   return MTLHudIsCaptureEnabled_attached;
 }
 
-uint64_t MTLHudGetMetalWrapperType()
+uint64_t MTLHudGetMetalWrapperType(uint64_t a1, uint64_t a2)
 {
   if (MTLHudGetMetalWrapperType_onceToken != -1)
   {
@@ -5358,7 +5381,7 @@ void __MTLHudIsVirtualDevice_block_invoke(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = MobileGestalt_get_isVirtualDevice();
 }
 
-unint64_t HUDCurrentTimeInNs()
+uint64_t HUDCurrentTimeInNs()
 {
   v0 = mach_absolute_time();
   if (HUDMachAbsoluteToNs_onceToken != -1)
@@ -5743,7 +5766,7 @@ LABEL_20:
   return result;
 }
 
-const char *HUDMTLPixelFormatName(int a1)
+const char *HUDMTLPixelFormatName(int a1, uint64_t a2)
 {
   result = "Invalid";
   switch(a1)
@@ -6023,7 +6046,7 @@ const char *HUDMTLPixelFormatName(int a1)
     case 264:
       return "Unspecialized";
     default:
-      if (!MTLHudIsInternalInstall())
+      if (!MTLHudIsInternalInstall("Invalid", a2))
       {
         return 0;
       }
@@ -6449,7 +6472,7 @@ const char *HUDMTLPixelFormatName(int a1)
   }
 }
 
-uint64_t MTLHUDGameModeEnabled()
+uint64_t MTLHUDGameModeEnabled(uint64_t a1, uint64_t a2)
 {
   if (MTLHUDGameModeEnabled_onceToken != -1)
   {
@@ -6459,7 +6482,7 @@ uint64_t MTLHUDGameModeEnabled()
   return MTLHUDGameModeEnabled_enabled;
 }
 
-uint64_t MTLHUDGetGameModeKeyState()
+uint64_t MTLHUDGetGameModeKeyState(uint64_t a1, uint64_t a2)
 {
   if (MTLHUDGetGameModeKeyState_onceToken != -1)
   {
@@ -6469,79 +6492,81 @@ uint64_t MTLHUDGetGameModeKeyState()
   return MTLHUDGetGameModeKeyState_state;
 }
 
-void MTLHUDInit()
+void MTLHUDInit(uint64_t a1, uint64_t a2)
 {
-  if ((MTLHudIsExcluded() & 1) == 0)
+  IsExcluded = MTLHudIsExcluded(a1, a2);
+  if ((IsExcluded & 1) == 0)
   {
-    if ((MTLHudIsInternalInstall() & 1) != 0 || MTLHudIsSideLoadedApp())
+    IsInternalInstall = MTLHudIsInternalInstall(IsExcluded, v3);
+    if ((IsInternalInstall & 1) != 0 || MTLHudIsSideLoadedApp(IsInternalInstall, v5))
     {
-      v0 = +[NSUserDefaults standardUserDefaults];
-      v1 = [v0 objectForKey:@"MetalForceHudEnabled"];
+      v6 = +[NSUserDefaults standardUserDefaults];
+      v7 = [v6 objectForKey:@"MetalForceHudEnabled"];
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v2 = [v1 BOOLValue];
+        v8 = [v7 BOOLValue];
       }
 
       else
       {
-        v2 = 0;
+        v8 = 0;
       }
     }
 
     else
     {
-      v2 = 0;
+      v8 = 0;
     }
 
-    v3 = getenv("MTL_HUD_ENABLED");
-    if (v3 || (v3 = getenv("GT_HUD_ENABLED")) != 0)
+    v9 = getenv("MTL_HUD_ENABLED");
+    if (v9 || (v9 = getenv("GT_HUD_ENABLED")) != 0)
     {
-      if (strtol(v3, 0, 0) <= 0)
+      if (strtol(v9, 0, 0) <= 0)
       {
         return;
       }
     }
 
-    else if (!v2)
+    else if (!v8)
     {
       return;
     }
 
-    v4 = getenv("MTL_HUD_MANUAL_INTERPOSE");
-    if (!v4 || !atoi(v4))
+    v10 = getenv("MTL_HUD_MANUAL_INTERPOSE");
+    if (!v10 || (v10 = atoi(v10), !v10))
     {
 
-      HUDInitInterposeCA();
+      HUDInitInterposeCA(v10, v11);
     }
   }
 }
 
-void sub_49074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_49074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   __destructor_8_s0_s8_s16_s24_s32_s40_s48_s56(va);
   _Unwind_Resume(a1);
 }
 
-void sub_49400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_49400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   __destructor_8_s0_s8_s16(va);
   _Unwind_Resume(a1);
 }
 
-void sub_4A000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_4A000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   __destructor_8_s0_s8_s16_s40_s48_s56_s64(va);
   _Unwind_Resume(a1);
 }
 
-void sub_4A23C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_4A23C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   __destructor_8_s0_s8_s16_s40_s48_s56_s64(va);
   _Unwind_Resume(a1);
 }

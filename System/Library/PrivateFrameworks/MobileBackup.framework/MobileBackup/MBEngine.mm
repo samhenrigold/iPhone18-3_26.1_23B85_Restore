@@ -158,12 +158,10 @@
     {
       *buf = 138543618;
       selfCopy = self;
-      v16 = 2114;
-      v17 = errorCopy;
+      v14 = 2114;
+      v15 = errorCopy;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Canceling %{public}@: %{public}@", buf, 0x16u);
-      selfCopy2 = self;
-      v13 = errorCopy;
-      _MBLog();
+      _MBLog(@"Df", "Canceling %{public}@: %{public}@", self, errorCopy);
     }
 
     cancelError = [(MBEngine *)self cancelError];
@@ -176,7 +174,7 @@
         errorCopy = [MBError errorWithCode:202 format:@"%@ cancelled", engineModeString];
       }
 
-      [(MBEngine *)self setCancelError:errorCopy, selfCopy2, v13];
+      [(MBEngine *)self setCancelError:errorCopy];
     }
 
     v6 = atomic_exchange(&self->_canceled, 1u);

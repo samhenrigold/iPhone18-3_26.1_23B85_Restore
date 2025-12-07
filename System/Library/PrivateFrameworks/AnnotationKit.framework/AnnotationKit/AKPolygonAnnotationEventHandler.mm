@@ -64,7 +64,7 @@
   v15 = v14;
   v17 = v16;
   [annotation rotationAngle];
-  [AKGeometryHelper rotationTransformForRect:v11 withAngle:v13, v15, v17, -v18];
+  objc_msgSend_rotationTransformForRect_withAngle_(AKGeometryHelper, v11, v13, v15, v17, -v18);
   if ([(AKAnnotationEventHandler *)self initiallyDraggedArea]== 17)
   {
     [AKAnnotationPointOfInterestHelper validatePoint:[(AKAnnotationEventHandler *)self initiallyDraggedArea] ofDraggableArea:annotation forAnnotation:pageController onPageController:y * 0.0 + 0.0 * x + 0.0, y * 0.0 + 0.0 * x + 0.0];

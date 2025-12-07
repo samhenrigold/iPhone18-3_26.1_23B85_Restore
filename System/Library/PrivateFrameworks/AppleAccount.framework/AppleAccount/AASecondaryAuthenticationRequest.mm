@@ -53,21 +53,20 @@ LABEL_3:
 
 - (id)urlRequest
 {
-  v12.receiver = self;
-  v12.super_class = AASecondaryAuthenticationRequest;
-  urlRequest = [(AARequest *)&v12 urlRequest];
+  v11.receiver = self;
+  v11.super_class = AASecondaryAuthenticationRequest;
+  urlRequest = [(AARequest *)&v11 urlRequest];
   v4 = [urlRequest mutableCopy];
 
-  dsid = self->_dsid;
-  v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@:%@", dsid, self->_primaryToken];
-  v7 = [v6 dataUsingEncoding:4];
-  v8 = [v7 base64EncodedStringWithOptions:0];
+  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@:%@", self->_dsid, self->_primaryToken];
+  v6 = [v5 dataUsingEncoding:4];
+  v7 = [v6 base64EncodedStringWithOptions:0];
 
-  [v4 addValue:v8 forHTTPHeaderField:@"X-Apple-GS-Token"];
-  v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Basic %@", v8];
-  [v4 addValue:v9 forHTTPHeaderField:@"Authorization"];
-  v10 = +[AADeviceInfo udid];
-  [v4 addValue:v10 forHTTPHeaderField:@"X-AppleID-Device-Udid"];
+  [v4 addValue:v7 forHTTPHeaderField:@"X-Apple-GS-Token"];
+  v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Basic %@", v7];
+  [v4 addValue:v8 forHTTPHeaderField:@"Authorization"];
+  v9 = +[AADeviceInfo udid];
+  [v4 addValue:v9 forHTTPHeaderField:@"X-AppleID-Device-Udid"];
 
   [v4 aa_addDeviceProvisioningInfoHeadersWithDSID:self->_dsid];
 

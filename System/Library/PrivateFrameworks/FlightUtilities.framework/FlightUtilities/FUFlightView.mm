@@ -31,9 +31,11 @@
 - (void)changeCurrentPage:(id)page;
 - (void)cleanupView;
 - (void)didMoveToWindow;
+- (void)fitMap:(BOOL)map;
 - (void)flightInfoView:(id)view didUpdateFocus:(int64_t)focus;
 - (void)layoutMarginsDidChange;
 - (void)layoutSubviews;
+- (void)mapView:(id)view regionDidChangeAnimated:(BOOL)animated;
 - (void)pageViewController:(id)controller didFinishAnimating:(BOOL)animating previousViewControllers:(id)controllers transitionCompleted:(BOOL)completed;
 - (void)removeMapBackground;
 - (void)setAbsoluteIndex:(unint64_t)index animated:(BOOL)animated;
@@ -219,7 +221,7 @@
 
 - (void)removeMapBackground
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (!self->_spotlightMode)
   {
     self->_spotlightMode = 1;
@@ -244,41 +246,39 @@
 
     [(FUFlightView *)self setNeedsUpdateConstraints];
     [(FUFlightView *)self setNeedsLayout];
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v9 = self->_controllers;
-    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v17;
+      v12 = *v16;
       do
       {
         v13 = 0;
         do
         {
-          if (*v17 != v12)
+          if (*v16 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          flightInfoView = [*(*(&v16 + 1) + 8 * v13) flightInfoView];
+          flightInfoView = [*(*(&v15 + 1) + 8 * v13) flightInfoView];
           [flightInfoView updateForFollowupContent:self->_spotlightMode];
 
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v11);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tlk_updateForAppearance:(id)appearance
@@ -551,9 +551,9 @@ void __24__FUFlightView_showInfo__block_invoke(uint64_t a1)
 
 - (void)layoutSubviews
 {
-  v21.receiver = self;
-  v21.super_class = FUFlightView;
-  [(FUFlightView *)&v21 layoutSubviews];
+  v19.receiver = self;
+  v19.super_class = FUFlightView;
+  [(FUFlightView *)&v19 layoutSubviews];
   if (self->_spotlightMode)
   {
     v3 = 20.0;
@@ -574,24 +574,22 @@ void __24__FUFlightView_showInfo__block_invoke(uint64_t a1)
   mapView = [(FUFlightView *)self mapView];
   [mapView _setAttributionInsets:{0.0, -v4, -v5, 0.0}];
 
-  landscapeMode = [(FUFlightView *)self landscapeMode];
-  spotlightMode = self->_spotlightMode;
-  if (landscapeMode)
+  if ([(FUFlightView *)self landscapeMode])
   {
     if (!self->_spotlightMode && ![(FUFlightView *)self mapOnly])
     {
       backBlurView = [(FUFlightView *)self backBlurView];
       [backBlurView frame];
-      v16 = v15;
+      v14 = v13;
 
       if ([*MEMORY[0x277D76620] userInterfaceLayoutDirection] == 1)
       {
-        v6 = v6 + v16;
+        v6 = v6 + v14;
       }
 
       else
       {
-        v4 = v4 + v16;
+        v4 = v4 + v14;
       }
     }
   }
@@ -600,9 +598,9 @@ void __24__FUFlightView_showInfo__block_invoke(uint64_t a1)
   {
     backBlurView2 = [(FUFlightView *)self backBlurView];
     [backBlurView2 frame];
-    v19 = v18;
+    v17 = v16;
 
-    v5 = v5 + v19;
+    v5 = v5 + v17;
   }
 
   mapView2 = [(FUFlightView *)self mapView];
@@ -776,48 +774,48 @@ LABEL_7:
 
 - (id)flightForLeg:(id)leg
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   legCopy = leg;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v5 = self->_flights;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * i);
+        v10 = *(*(&v22 + 1) + 8 * i);
+        v18 = 0u;
         v19 = 0u;
         v20 = 0u;
         v21 = 0u;
-        v22 = 0u;
         legs = [v10 legs];
-        v12 = [legs countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v12 = [legs countByEnumeratingWithState:&v18 objects:v26 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v20;
+          v14 = *v19;
           while (2)
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v20 != v14)
+              if (*v19 != v14)
               {
                 objc_enumerationMutation(legs);
               }
 
-              if (*(*(&v19 + 1) + 8 * j) == legCopy)
+              if (*(*(&v18 + 1) + 8 * j) == legCopy)
               {
                 v16 = v10;
 
@@ -825,7 +823,7 @@ LABEL_7:
               }
             }
 
-            v13 = [legs countByEnumeratingWithState:&v19 objects:v27 count:16];
+            v13 = [legs countByEnumeratingWithState:&v18 objects:v26 count:16];
             if (v13)
             {
               continue;
@@ -836,7 +834,7 @@ LABEL_7:
         }
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
       v16 = 0;
     }
 
@@ -850,49 +848,47 @@ LABEL_7:
 
 LABEL_19:
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (unint64_t)absoluteLegIndex
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   currentLeg = [(FUFlightView *)self currentLeg];
   if (currentLeg)
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v4 = self->_flights;
-    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = 0;
-      v8 = *v25;
-      v19 = *v25;
+      v8 = *v24;
+      v18 = *v24;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v25 != v8)
+          if (*v24 != v8)
           {
             objc_enumerationMutation(v4);
           }
 
-          v10 = *(*(&v24 + 1) + 8 * i);
+          v10 = *(*(&v23 + 1) + 8 * i);
+          v19 = 0u;
           v20 = 0u;
           v21 = 0u;
           v22 = 0u;
-          v23 = 0u;
           legs = [v10 legs];
-          v12 = [legs countByEnumeratingWithState:&v20 objects:v28 count:16];
+          v12 = [legs countByEnumeratingWithState:&v19 objects:v27 count:16];
           if (v12)
           {
             v13 = v12;
-            v14 = *v21;
+            v14 = *v20;
             while (2)
             {
               v15 = 0;
@@ -900,12 +896,12 @@ LABEL_19:
               v7 += v13;
               do
               {
-                if (*v21 != v14)
+                if (*v20 != v14)
                 {
                   objc_enumerationMutation(legs);
                 }
 
-                if (currentLeg == *(*(&v20 + 1) + 8 * v15))
+                if (currentLeg == *(*(&v19 + 1) + 8 * v15))
                 {
 
                   goto LABEL_21;
@@ -916,7 +912,7 @@ LABEL_19:
               }
 
               while (v13 != v15);
-              v13 = [legs countByEnumeratingWithState:&v20 objects:v28 count:16];
+              v13 = [legs countByEnumeratingWithState:&v19 objects:v27 count:16];
               if (v13)
               {
                 continue;
@@ -926,10 +922,10 @@ LABEL_19:
             }
           }
 
-          v8 = v19;
+          v8 = v18;
         }
 
-        v6 = [(NSArray *)v4 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v6 = [(NSArray *)v4 countByEnumeratingWithState:&v23 objects:v28 count:16];
         v16 = 0x7FFFFFFFFFFFFFFFLL;
       }
 
@@ -949,51 +945,50 @@ LABEL_21:
     v16 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (BOOL)setFlights:(id)flights selectedFlight:(int64_t)flight selectedLeg:(int64_t)leg
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   flightsCopy = flights;
   v10 = flightsCopy;
   if (*&self->_flights != __PAIR128__(flight, flightsCopy) || self->_selectedLeg != leg)
   {
     legCopy = leg;
     flightCopy = flight;
-    v79 = flightsCopy;
+    v78 = flightsCopy;
     objc_storeStrong(&self->_flights, flights);
     v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
     controllers = self->_controllers;
     self->_controllers = v12;
 
-    v81 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v80 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v88 = 0u;
     v89 = 0u;
     v90 = 0u;
     v91 = 0u;
-    v92 = 0u;
     obj = self->_flights;
-    v83 = [(NSArray *)obj countByEnumeratingWithState:&v89 objects:v95 count:16];
-    if (v83)
+    v82 = [(NSArray *)obj countByEnumeratingWithState:&v88 objects:v94 count:16];
+    if (v82)
     {
-      v82 = *v90;
+      v81 = *v89;
       do
       {
-        for (i = 0; i != v83; ++i)
+        for (i = 0; i != v82; ++i)
         {
-          if (*v90 != v82)
+          if (*v89 != v81)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v89 + 1) + 8 * i);
+          v15 = *(*(&v88 + 1) + 8 * i);
           legs = [v15 legs];
           v16 = [legs count];
           if (v16)
           {
             v17 = v16;
-            [v81 addObjectsFromArray:legs];
+            [v80 addObjectsFromArray:legs];
             if (v17 >= 1)
             {
               for (j = 0; j != v17; ++j)
@@ -1011,13 +1006,13 @@ LABEL_21:
           }
         }
 
-        v83 = [(NSArray *)obj countByEnumeratingWithState:&v89 objects:v95 count:16];
+        v82 = [(NSArray *)obj countByEnumeratingWithState:&v88 objects:v94 count:16];
       }
 
-      while (v83);
+      while (v82);
     }
 
-    objc_storeStrong(&self->_allLegs, v81);
+    objc_storeStrong(&self->_allLegs, v80);
     v22 = [(NSArray *)self->_allLegs count];
     v23 = 0.0;
     if (v22 >= 2)
@@ -1036,8 +1031,8 @@ LABEL_21:
     pageControl = [(FUFlightView *)self pageControl];
     [pageControl setAlpha:v23];
 
-    v10 = v79;
-    if (!v79 || ![v79 count] || (objc_msgSend(v79, "firstObject"), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v25, "legs"), v26 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend(v26, "count"), v26, v25, !v27))
+    v10 = v78;
+    if (!v78 || ![v78 count] || (objc_msgSend(v78, "firstObject"), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v25, "legs"), v26 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend(v26, "count"), v26, v25, !v27))
     {
       [(FUFlightView *)self cleanupView];
 LABEL_61:
@@ -1047,9 +1042,9 @@ LABEL_61:
     }
 
     self->_highlightCurrentFlightLeg = 1;
-    if (flightCopy == 0x7FFFFFFFFFFFFFFFLL || [v79 count] <= flightCopy)
+    if (flightCopy == 0x7FFFFFFFFFFFFFFFLL || [v78 count] <= flightCopy)
     {
-      if ([v79 count] == 1)
+      if ([v78 count] == 1)
       {
         v31 = 0;
       }
@@ -1059,9 +1054,9 @@ LABEL_61:
         v31 = 0;
         while (1)
         {
-          v32 = [v79 objectAtIndexedSubscript:v31];
+          v32 = [v78 objectAtIndexedSubscript:v31];
           v33 = v31 + 1;
-          v34 = [v79 objectAtIndexedSubscript:v31 + 1];
+          v34 = [v78 objectAtIndexedSubscript:v31 + 1];
           arrival = [v32 arrival];
           time = [arrival time];
           [time timeIntervalSinceNow];
@@ -1090,7 +1085,7 @@ LABEL_61:
           if (v38 >= v42)
           {
             ++v31;
-            if (v33 < [v79 count] - 1)
+            if (v33 < [v78 count] - 1)
             {
               continue;
             }
@@ -1109,14 +1104,14 @@ LABEL_40:
       self->_selectedFlight = flightCopy;
       if (legCopy != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v28 = [v79 objectAtIndexedSubscript:flightCopy];
+        v28 = [v78 objectAtIndexedSubscript:flightCopy];
         legs2 = [v28 legs];
         v30 = [legs2 count];
 
         if (v30 <= legCopy)
         {
-          v75 = [v79 objectAtIndexedSubscript:flightCopy];
-          legs3 = [v75 legs];
+          v74 = [v78 objectAtIndexedSubscript:flightCopy];
+          legs3 = [v74 legs];
           self->_selectedLeg = [legs3 count] - 1;
         }
 
@@ -1132,16 +1127,16 @@ LABEL_40:
 
     self->_selectedLeg = 0;
 LABEL_42:
-    v87 = 0u;
-    v88 = 0u;
-    v85 = 0u;
     v86 = 0u;
+    v87 = 0u;
+    v84 = 0u;
+    v85 = 0u;
     v43 = self->_controllers;
-    v44 = [(NSMutableArray *)v43 countByEnumeratingWithState:&v85 objects:v94 count:16];
+    v44 = [(NSMutableArray *)v43 countByEnumeratingWithState:&v84 objects:v93 count:16];
     if (v44)
     {
       v45 = v44;
-      v46 = *v86;
+      v46 = *v85;
       v47 = *MEMORY[0x277D76C78];
       v48 = *(MEMORY[0x277D76C78] + 8);
       v49 = 0.0;
@@ -1149,12 +1144,12 @@ LABEL_42:
       {
         for (k = 0; k != v45; ++k)
         {
-          if (*v86 != v46)
+          if (*v85 != v46)
           {
             objc_enumerationMutation(v43);
           }
 
-          view = [*(*(&v85 + 1) + 8 * k) view];
+          view = [*(*(&v84 + 1) + 8 * k) view];
           LODWORD(v52) = 1144750080;
           LODWORD(v53) = 1132068864;
           [view systemLayoutSizeFittingSize:v47 withHorizontalFittingPriority:v48 verticalFittingPriority:{v52, v53}];
@@ -1166,7 +1161,7 @@ LABEL_42:
           }
         }
 
-        v45 = [(NSMutableArray *)v43 countByEnumeratingWithState:&v85 objects:v94 count:16];
+        v45 = [(NSMutableArray *)v43 countByEnumeratingWithState:&v84 objects:v93 count:16];
       }
 
       while (v45);
@@ -1180,8 +1175,8 @@ LABEL_42:
     absoluteLegIndex = [(FUFlightView *)self absoluteLegIndex];
     pageViewController = self->_pageViewController;
     v58 = [(NSMutableArray *)self->_controllers objectAtIndexedSubscript:absoluteLegIndex];
-    v93 = v58;
-    v59 = [MEMORY[0x277CBEA60] arrayWithObjects:&v93 count:1];
+    v92 = v58;
+    v59 = [MEMORY[0x277CBEA60] arrayWithObjects:&v92 count:1];
     [(UIPageViewController *)pageViewController setViewControllers:v59 direction:0 animated:0 completion:0];
 
     pageControl2 = [(FUFlightView *)self pageControl];
@@ -1233,7 +1228,6 @@ LABEL_42:
   v11 = 0;
 LABEL_62:
 
-  v73 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -1273,33 +1267,33 @@ LABEL_62:
 
 - (void)updateMapArcs
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   v3 = self->_tracks;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v37 objects:v43 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v36 objects:v42 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v38;
+    v6 = *v37;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v38 != v6)
+        if (*v37 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v37 + 1) + 8 * i);
+        v8 = *(*(&v36 + 1) + 8 * i);
         mapView = [(FUFlightView *)self mapView];
         polyline = [v8 polyline];
         [mapView removeOverlay:polyline];
       }
 
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v37 objects:v43 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v36 objects:v42 count:16];
     }
 
     while (v5);
@@ -1308,26 +1302,26 @@ LABEL_62:
   tracks = self->_tracks;
   self->_tracks = 0;
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v12 = self->_allLegs;
-  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v33 objects:v42 count:16];
+  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v32 objects:v41 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v34;
+    v15 = *v33;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v34 != v15)
+        if (*v33 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v33 + 1) + 8 * j);
+        v17 = *(*(&v32 + 1) + 8 * j);
         departure = [v17 departure];
         airport = [departure airport];
 
@@ -1349,15 +1343,15 @@ LABEL_62:
           [airport location];
           v24 = v23;
           [airport location];
-          v45 = CLLocationCoordinate2DMake(v24, v25);
-          v41[0] = MKMapPointForCoordinate(v45);
+          v44 = CLLocationCoordinate2DMake(v24, v25);
+          v40[0] = MKMapPointForCoordinate(v44);
           [airport2 location];
           v27 = v26;
           [airport2 location];
-          v46 = CLLocationCoordinate2DMake(v27, v28);
-          v41[1] = MKMapPointForCoordinate(v46);
+          v45 = CLLocationCoordinate2DMake(v27, v28);
+          v40[1] = MKMapPointForCoordinate(v45);
           v29 = objc_opt_new();
-          v30 = [MEMORY[0x277CD4DF0] polylineWithPoints:v41 count:2];
+          v30 = [MEMORY[0x277CD4DF0] polylineWithPoints:v40 count:2];
           [v29 setPolyline:v30];
 
           [v29 setLeg:v17];
@@ -1372,13 +1366,11 @@ LABEL_62:
         }
       }
 
-      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v33 objects:v42 count:16];
+      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v32 objects:v41 count:16];
     }
 
     while (v14);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAbsoluteIndex:(unint64_t)index animated:(BOOL)animated
@@ -1532,7 +1524,7 @@ LABEL_10:
 
 - (void)cleanupView
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (self->_planeTracker)
   {
     mapView = [(FUFlightView *)self mapView];
@@ -1542,27 +1534,27 @@ LABEL_10:
     self->_planeTracker = 0;
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v5 = self->_tracks;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * v9);
+        v10 = *(*(&v14 + 1) + 8 * v9);
         mapView2 = [(FUFlightView *)self mapView];
         polyline = [v10 polyline];
         [mapView2 removeOverlay:polyline];
@@ -1571,7 +1563,7 @@ LABEL_10:
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -1580,8 +1572,6 @@ LABEL_10:
   [(NSMutableArray *)self->_tracks removeAllObjects];
   currentTrack = self->_currentTrack;
   self->_currentTrack = 0;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)arrivalCamera
@@ -1635,6 +1625,229 @@ LABEL_10:
   [v10 setPitch:0.0];
 
   return v10;
+}
+
+- (void)fitMap:(BOOL)map
+{
+  v80 = *MEMORY[0x277D85DE8];
+  self->_currentFocus = 2;
+  if (!self->_ignoreMapUpdate)
+  {
+    tracks = self->_tracks;
+    if (tracks)
+    {
+      mapCopy = map;
+      if ([(NSMutableArray *)tracks count])
+      {
+        if (self->_currentTrack && ![(FUFlightView *)self mapOnly])
+        {
+          polyline = [(FUFLightTrack *)self->_currentTrack polyline];
+          [(NSMutableArray *)polyline boundingMapRect];
+          v6 = v29;
+          v7 = v30;
+          v8 = v31;
+          v9 = v32;
+        }
+
+        else
+        {
+          v6 = *MEMORY[0x277CD4BB0];
+          v7 = *(MEMORY[0x277CD4BB0] + 8);
+          v8 = *(MEMORY[0x277CD4BB0] + 16);
+          v9 = *(MEMORY[0x277CD4BB0] + 24);
+          v77 = 0u;
+          v78 = 0u;
+          v75 = 0u;
+          v76 = 0u;
+          polyline = self->_tracks;
+          v11 = [(NSMutableArray *)polyline countByEnumeratingWithState:&v75 objects:v79 count:16];
+          if (v11)
+          {
+            v12 = v11;
+            v13 = *v76;
+            v69 = *MEMORY[0x277CD4BB8] + *(MEMORY[0x277CD4BB8] + 16);
+            v72 = v7;
+            v73 = v6;
+            do
+            {
+              for (i = 0; i != v12; ++i)
+              {
+                if (*v76 != v13)
+                {
+                  objc_enumerationMutation(polyline);
+                }
+
+                polyline2 = [*(*(&v75 + 1) + 8 * i) polyline];
+                [polyline2 boundingMapRect];
+                v17 = v16;
+                v19 = v18;
+                v21 = v20;
+                v23 = v22;
+
+                if (v6 == v73 && v7 == v72)
+                {
+                  v9 = v23;
+                  v8 = v21;
+                  v7 = v19;
+                  v6 = v17;
+                }
+
+                else if (v17 != v73 || v19 != v72)
+                {
+                  v81.origin.x = v6;
+                  v81.origin.y = v7;
+                  v81.size.width = v8;
+                  v81.size.height = v9;
+                  v88.origin.x = v17;
+                  v88.origin.y = v19;
+                  v88.size.width = v21;
+                  v88.size.height = v23;
+                  v82 = MKMapRectUnion(v81, v88);
+                  x = v82.origin.x;
+                  y = v82.origin.y;
+                  width = v82.size.width;
+                  height = v82.size.height;
+                  v70 = v6;
+                  v6 = v6 + v69;
+                  v82.origin.x = v6;
+                  v82.origin.y = v7;
+                  v82.size.width = v8;
+                  v82.size.height = v9;
+                  v89.origin.x = v17;
+                  v89.origin.y = v19;
+                  v89.size.width = v21;
+                  v89.size.height = v23;
+                  v83 = MKMapRectUnion(v82, v89);
+                  v25 = v83.size.width < width;
+                  if (v83.size.width < width)
+                  {
+                    v26 = v9;
+                  }
+
+                  else
+                  {
+                    v26 = height;
+                  }
+
+                  if (v25)
+                  {
+                    v27 = v8;
+                  }
+
+                  else
+                  {
+                    v27 = width;
+                  }
+
+                  v62 = v27;
+                  v28 = y;
+                  if (v25)
+                  {
+                    v28 = v7;
+                  }
+
+                  v66 = v28;
+                  v68 = v26;
+                  if (!v25)
+                  {
+                    v6 = x;
+                  }
+
+                  v84.origin.x = v70;
+                  v90.origin.x = v17 + v69;
+                  v84.origin.y = v7;
+                  v84.size.width = v8;
+                  v84.size.height = v9;
+                  v90.origin.y = v19;
+                  v90.size.width = v21;
+                  v90.size.height = v23;
+                  v85 = MKMapRectUnion(v84, v90);
+                  v8 = v62;
+                  v7 = v66;
+                  v9 = v68;
+                  if (v85.size.width < v62)
+                  {
+                    v9 = v85.size.height;
+                    v8 = v85.size.width;
+                    v7 = v85.origin.y;
+                    v6 = v85.origin.x;
+                  }
+                }
+              }
+
+              v12 = [(NSMutableArray *)polyline countByEnumeratingWithState:&v75 objects:v79 count:16];
+            }
+
+            while (v12);
+          }
+        }
+
+        mapView = [(FUFlightView *)self mapView];
+        v71 = v6;
+        v74 = v7;
+        [mapView mapRectThatFits:v6 edgePadding:{v7, v8, v9, 25.0, 20.0, 20.0, 20.0}];
+        v87 = MKCoordinateRegionForMapRect(v86);
+        latitude = v87.center.latitude;
+        longitude = v87.center.longitude;
+        latitudeDelta = v87.span.latitudeDelta;
+        longitudeDelta = v87.span.longitudeDelta;
+
+        mapView2 = [(FUFlightView *)self mapView];
+        [mapView2 _zoomLevelForRegion:0 includeAccessoryPadding:{latitude, longitude, latitudeDelta, longitudeDelta}];
+        v40 = v39;
+        mapView3 = [(FUFlightView *)self mapView];
+        [mapView3 _minimumZoomLevel];
+        v43 = v42;
+
+        if (v40 >= v43)
+        {
+          v58 = v74;
+          v56 = v71;
+        }
+
+        else
+        {
+          if ([(FUPlaneTrackerAnnotationView *)self->_planeTracker showsPlane])
+          {
+            [(FUPlaneTrackerAnnotationView *)self->_planeTracker currentLocation];
+            latitude = v44;
+            longitude = v45;
+          }
+
+          v46 = 84.0;
+          if (latitude <= 84.0)
+          {
+            v46 = latitude;
+            if (latitude < -84.0)
+            {
+              v46 = -84.0;
+            }
+          }
+
+          if (!self->_spotlightMode)
+          {
+            latitudeDelta = latitudeDelta / 2.5;
+            longitudeDelta = longitudeDelta / 2.5;
+          }
+
+          mapView4 = [(FUFlightView *)self mapView];
+          [mapView4 regionThatFits:{v46, longitude, latitudeDelta, longitudeDelta}];
+          v49 = v48;
+          v51 = v50;
+          v53 = v52;
+          v55 = v54;
+
+          v56 = MEMORY[0x24C24B7B0](v49, v51, v53, v55);
+          v58 = v57;
+          v8 = v59;
+          v9 = v60;
+        }
+
+        mapView5 = [(FUFlightView *)self mapView];
+        [mapView5 setVisibleMapRect:mapCopy edgePadding:v56 animated:{v58, v8, v9, 25.0, 20.0, 20.0, 20.0}];
+      }
+    }
+  }
 }
 
 - (void)updateMapCamera
@@ -1702,6 +1915,29 @@ LABEL_9:
   }
 
   return v6;
+}
+
+- (void)mapView:(id)view regionDidChangeAnimated:(BOOL)animated
+{
+  v5 = [(FUFlightView *)self currentLeg:view];
+  if (v5)
+  {
+    v6 = v5;
+    mapView = [(FUFlightView *)self mapView];
+    [mapView alpha];
+    v9 = v8;
+
+    if (v9 < 1.0)
+    {
+      v10 = dispatch_time(0, 100000000);
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = __48__FUFlightView_mapView_regionDidChangeAnimated___block_invoke;
+      block[3] = &unk_279011498;
+      block[4] = self;
+      dispatch_after(v10, MEMORY[0x277D85CD0], block);
+    }
+  }
 }
 
 uint64_t __48__FUFlightView_mapView_regionDidChangeAnimated___block_invoke(uint64_t a1)
@@ -1786,7 +2022,7 @@ void __48__FUFlightView_mapView_regionDidChangeAnimated___block_invoke_2(uint64_
 
 - (void)changeCurrentPage:(id)page
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   pageControl = [(FUFlightView *)self pageControl];
   currentPage = [pageControl currentPage];
 
@@ -1798,14 +2034,12 @@ void __48__FUFlightView_mapView_regionDidChangeAnimated___block_invoke_2(uint64_
   {
     pageViewController = self->_pageViewController;
     v11 = [(NSMutableArray *)self->_controllers objectAtIndexedSubscript:currentPage];
-    v14[0] = v11;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+    v13[0] = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
     [(UIPageViewController *)pageViewController setViewControllers:v12 direction:currentPage <= v8 animated:1 completion:0];
 
     [(FUFlightView *)self setAbsoluteIndex:currentPage animated:1];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)flightInfoView:(id)view didUpdateFocus:(int64_t)focus

@@ -10,7 +10,7 @@
 
 - (void)coordinatorDidInstallPlaceholder:(id)placeholder forApplicationRecord:(id)record
 {
-  v7 = sub_1001F0C48(&unk_100783A20);
+  v7 = sub_1001F0C48(&unk_100783A20, &unk_1006AA0A0);
   v8 = *(v7 - 8);
   __chkstk_darwin(v7);
   v10 = v17 - v9;
@@ -28,7 +28,7 @@
     v18 = 3;
     v15 = recordCopy;
     v16 = placeholderCopy;
-    sub_1001F0C48(&unk_100783A00);
+    sub_1001F0C48(&unk_100783A00, &unk_1006AA090);
     AsyncStream.Continuation.yield(_:)();
 
     (*(v8 + 8))(v10, v7);
@@ -37,7 +37,7 @@
 
 - (void)coordinator:(id)coordinator didUpdateProgress:(double)progress forPhase:(unint64_t)phase overallProgress:(double)overallProgress
 {
-  v11 = sub_1001F0C48(&unk_100783A20);
+  v11 = sub_1001F0C48(&unk_100783A20, &unk_1006AA0A0);
   v12 = *(v11 - 8);
   __chkstk_darwin(v11);
   v14 = v19 - v13;
@@ -51,7 +51,7 @@
   *&v19[4] = overallProgress;
   v20 = 2;
   v18 = coordinatorCopy;
-  sub_1001F0C48(&unk_100783A00);
+  sub_1001F0C48(&unk_100783A00, &unk_1006AA090);
   AsyncStream.Continuation.yield(_:)();
 
   (*(v12 + 8))(v14, v11);
@@ -75,7 +75,7 @@
 
   v6 = sub_1003F01A8(v8);
 
-  sub_1000032A8(v8, &qword_100783A30);
+  sub_1000032A8(v8, &qword_100783A30, &unk_10069E960);
   return v6 & 1;
 }
 
@@ -91,7 +91,7 @@
   uniqueIdentifier = [v7 uniqueIdentifier];
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-  sub_1003F9C4C(&qword_100781FF8, &type metadata accessor for UUID);
+  sub_1003F9C4C(&qword_100781FF8, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
   dispatch thunk of Hashable.hash(into:)();
   (*(v4 + 8))(v6, v3);
   v10 = Hasher.finalize()();

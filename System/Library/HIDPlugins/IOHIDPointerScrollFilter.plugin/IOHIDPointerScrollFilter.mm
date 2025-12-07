@@ -1,88 +1,84 @@
-void IOHIDPointerScrollFilter::setPropertyForClient(IOHIDPointerScrollFilter *this, CFStringRef theString1, const void *a3, const void *a4)
+void IOHIDPointerScrollFilter::setPropertyForClient(CFMutableDictionaryRef *this, CFStringRef theString1, const void *a3, const void *a4)
 {
-  v26 = *MEMORY[0x29EDCA608];
-  if (!theString1)
+  v24 = *MEMORY[0x29EDCA608];
+  if (theString1)
   {
-    goto LABEL_24;
-  }
-
-  if (CFStringCompare(theString1, @"DropAccelPropertyEvents", 0) == kCFCompareEqualTo)
-  {
-    *(this + 166) = *MEMORY[0x29EDB8F00] == a3;
-    goto LABEL_24;
-  }
-
-  if (CFStringCompare(theString1, @"IOHIDAcclerationStatsDelayMS", 0))
-  {
-    v8 = 0;
-    while (!CFEqual(theString1, *(&IOHIDPointerScrollFilter::_cachedPropertyList + v8)))
+    if (CFStringCompare(theString1, @"DropAccelPropertyEvents", 0))
     {
-      v8 += 8;
-      if (v8 == 152)
+      if (CFStringCompare(theString1, @"IOHIDAcclerationStatsDelayMS", 0))
       {
-        goto LABEL_24;
-      }
-    }
+        v8 = 0;
+        while (!CFEqual(theString1, *(&IOHIDPointerScrollFilter::_cachedPropertyList + v8)))
+        {
+          v8 += 8;
+          if (v8 == 152)
+          {
+            return;
+          }
+        }
 
-    if (a3)
-    {
-      CFDictionarySetValue(*(this + 14), theString1, a3);
-      CFDictionarySetValue(*(this + 12), theString1, a3);
-    }
+        if (a3)
+        {
+          CFDictionarySetValue(this[14], theString1, a3);
+          CFDictionarySetValue(this[12], theString1, a3);
+        }
 
-    v11 = _IOHIDLogCategory();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-    {
-      RegistryID = *(this + 15);
-      if (RegistryID)
-      {
-        RegistryID = IOHIDServiceGetRegistryID();
-      }
+        v10 = _IOHIDLogCategory();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        {
+          RegistryID = this[15];
+          if (RegistryID)
+          {
+            RegistryID = IOHIDServiceGetRegistryID();
+          }
 
-      v13 = *(this + 10);
-      v16 = 138413314;
-      if (v13)
-      {
-        v14 = "yes";
+          v12 = this[10];
+          v14 = 138413314;
+          if (v12)
+          {
+            v13 = "yes";
+          }
+
+          else
+          {
+            v13 = "no";
+          }
+
+          v15 = RegistryID;
+          v16 = 2112;
+          v17 = theString1;
+          v18 = 2112;
+          v19 = a3;
+          v20 = 2080;
+          v21 = v13;
+          v22 = 2112;
+          v23 = a4;
+          _os_log_impl(&dword_29D436000, v10, OS_LOG_TYPE_DEFAULT, "[%@] Acceleration key:%@ value:%@ apply:%s client:%@\n", &v14, 0x34u);
+        }
+
+        if (this[10])
+        {
+          IOHIDPointerScrollFilter::setupAcceleration(this);
+          CFDictionaryRemoveAllValues(this[14]);
+        }
       }
 
       else
       {
-        v14 = "no";
+        v9 = CFGetTypeID(a3);
+        if (v9 == CFNumberGetTypeID())
+        {
+
+          CFNumberGetValue(a3, kCFNumberLongLongType, this + 22);
+        }
       }
-
-      v17 = RegistryID;
-      v18 = 2112;
-      v19 = theString1;
-      v20 = 2112;
-      v21 = a3;
-      v22 = 2080;
-      v23 = v14;
-      v24 = 2112;
-      v25 = a4;
-      _os_log_impl(&dword_29D436000, v11, OS_LOG_TYPE_DEFAULT, "[%@] Acceleration key:%@ value:%@ apply:%s client:%@\n", &v16, 0x34u);
     }
 
-    if (*(this + 10))
+    else
     {
-      IOHIDPointerScrollFilter::setupAcceleration(this);
-      CFDictionaryRemoveAllValues(*(this + 14));
+      *(this + 166) = *MEMORY[0x29EDB8F00] == a3;
     }
-
-    goto LABEL_24;
   }
-
-  v9 = CFGetTypeID(a3);
-  if (v9 != CFNumberGetTypeID())
-  {
-LABEL_24:
-    v15 = *MEMORY[0x29EDCA608];
-    return;
-  }
-
-  v10 = *MEMORY[0x29EDCA608];
-
-  CFNumberGetValue(a3, kCFNumberLongLongType, this + 176);
 }
 
 void *IOHIDSimpleAccelerator::serialize(IOHIDSimpleAccelerator *this, __CFDictionary *a2)
@@ -262,9 +258,9 @@ void *IOHIDScrollAccelerator::serialize(IOHIDScrollAccelerator *this, __CFDictio
   return sub_29D43773C(&v7);
 }
 
-void sub_29D437170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29D437170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_29D43773C(va);
   _Unwind_Resume(a1);
 }
@@ -346,9 +342,9 @@ void *IOHIDPointerAccelerator::serialize(IOHIDPointerAccelerator *this, __CFDict
   return sub_29D43773C(&v7);
 }
 
-void sub_29D4373C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29D4373C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_29D43773C(va);
   _Unwind_Resume(a1);
 }
@@ -513,12 +509,12 @@ void sub_29D437920(void *a1)
 void IOHIDParametricAcceleration::GetCurve(IOHIDParametricAcceleration *this@<X0>, const __CFString *a2@<X2>, double *a3@<X8>)
 {
   *a3 = IOHIDParametricAcceleration::GetCurveParameter(this, @"HIDAccelIndex", a2);
-  a3[1] = IOHIDParametricAcceleration::GetCurveParameter(this, @"HIDAccelGainLinear", v6);
-  a3[2] = IOHIDParametricAcceleration::GetCurveParameter(this, @"HIDAccelGainParabolic", v7);
-  a3[3] = IOHIDParametricAcceleration::GetCurveParameter(this, @"HIDAccelGainCubic", v8);
-  a3[4] = IOHIDParametricAcceleration::GetCurveParameter(this, @"HIDAccelGainQuartic", v9);
-  a3[5] = IOHIDParametricAcceleration::GetCurveParameter(this, @"HIDAccelTangentSpeedLinear", v10);
-  a3[6] = IOHIDParametricAcceleration::GetCurveParameter(this, @"HIDAccelTangentSpeedParabolicRoot", v11);
+  a3[1] = IOHIDParametricAcceleration::GetCurveParameter(this, @"HIDAccelGainLinear", v5);
+  a3[2] = IOHIDParametricAcceleration::GetCurveParameter(this, @"HIDAccelGainParabolic", v6);
+  a3[3] = IOHIDParametricAcceleration::GetCurveParameter(this, @"HIDAccelGainCubic", v7);
+  a3[4] = IOHIDParametricAcceleration::GetCurveParameter(this, @"HIDAccelGainQuartic", v8);
+  a3[5] = IOHIDParametricAcceleration::GetCurveParameter(this, @"HIDAccelTangentSpeedLinear", v9);
+  a3[6] = IOHIDParametricAcceleration::GetCurveParameter(this, @"HIDAccelTangentSpeedParabolicRoot", v10);
 }
 
 double IOHIDParametricAcceleration::GetCurveParameter(CFTypeRef cf, const __CFDictionary *a2, const __CFString *a3)
@@ -548,12 +544,12 @@ double IOHIDParametricAcceleration::GetCurveParameter(CFTypeRef cf, const __CFDi
   return v5;
 }
 
-void sub_29D437ADC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29D437ADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
   sub_29D437894(va);
   sub_29D4397DC(va1);
   _Unwind_Resume(a1);
@@ -561,7 +557,7 @@ void sub_29D437ADC(_Unwind_Exception *a1, uint64_t a2, ...)
 
 uint64_t IOHIDParametricAcceleration::CreateWithParameters(IOHIDParametricAcceleration *this, const __CFArray *a2, double a3, double a4, double a5)
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   v9 = _IOHIDLogCategory();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
@@ -576,17 +572,17 @@ uint64_t IOHIDParametricAcceleration::CreateWithParameters(IOHIDParametricAccele
 
   if (this && a3 >= 0.0)
   {
-    v28 = 0xAAAAAAAAAAAAAAAALL;
+    v27 = 0xAAAAAAAAAAAAAAAALL;
     theArray = 0xAAAAAAAAAAAAAAAALL;
-    sub_29D4398C8(&v28, this, 0);
+    sub_29D4398C8(&v27, this, 0);
     v10 = 0;
-    v27 = 0;
-    v28 = &unk_2A241F9E0;
-    __src = 0;
     v26 = 0;
+    v27 = &unk_2A241F9E0;
+    __src = 0;
+    v25 = 0;
     while (v10 < CFArrayGetCount(theArray))
     {
-      v31 = -1;
+      v30 = -1;
       *&v11 = -1;
       *(&v11 + 1) = -1;
       *&buf[16] = v11;
@@ -596,24 +592,24 @@ uint64_t IOHIDParametricAcceleration::CreateWithParameters(IOHIDParametricAccele
       IOHIDParametricAcceleration::GetCurve(ValueAtIndex, v13, buf);
       if (vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqzq_f64(*&buf[8]), vceqzq_f64(*&buf[24]))))))
       {
-        v14 = v26;
-        if (v26 >= v27)
+        v14 = v25;
+        if (v25 >= v26)
         {
           v16 = __src;
-          v17 = v26 - __src;
-          v18 = 0x6DB6DB6DB6DB6DB7 * ((v26 - __src) >> 3);
+          v17 = v25 - __src;
+          v18 = 0x6DB6DB6DB6DB6DB7 * ((v25 - __src) >> 3);
           v19 = v18 + 1;
           if ((v18 + 1) > 0x492492492492492)
           {
             sub_29D439F24();
           }
 
-          if (0xDB6DB6DB6DB6DB6ELL * ((v27 - __src) >> 3) > v19)
+          if (0xDB6DB6DB6DB6DB6ELL * ((v26 - __src) >> 3) > v19)
           {
-            v19 = 0xDB6DB6DB6DB6DB6ELL * ((v27 - __src) >> 3);
+            v19 = 0xDB6DB6DB6DB6DB6ELL * ((v26 - __src) >> 3);
           }
 
-          if ((0x6DB6DB6DB6DB6DB7 * ((v27 - __src) >> 3)) >= 0x249249249249249)
+          if ((0x6DB6DB6DB6DB6DB7 * ((v26 - __src) >> 3)) >= 0x249249249249249)
           {
             v19 = 0x492492492492492;
           }
@@ -623,18 +619,18 @@ uint64_t IOHIDParametricAcceleration::CreateWithParameters(IOHIDParametricAccele
             sub_29D43A048(&__src, v19);
           }
 
-          v20 = 8 * ((v26 - __src) >> 3);
+          v20 = 8 * ((v25 - __src) >> 3);
           *v20 = *buf;
           *(v20 + 16) = *&buf[16];
           *(v20 + 32) = *&buf[32];
-          *(v20 + 48) = v31;
+          *(v20 + 48) = v30;
           v15 = 56 * v18 + 56;
           v21 = (56 * v18 - v17);
           memcpy((v20 - v17), v16, v17);
           v22 = __src;
           __src = v21;
-          v26 = v15;
-          v27 = 0;
+          v25 = v15;
+          v26 = 0;
           if (v22)
           {
             operator delete(v22);
@@ -643,45 +639,45 @@ uint64_t IOHIDParametricAcceleration::CreateWithParameters(IOHIDParametricAccele
 
         else
         {
-          *v26 = *buf;
+          *v25 = *buf;
           *(v14 + 1) = *&buf[16];
           *(v14 + 2) = *&buf[32];
-          *(v14 + 6) = v31;
+          *(v14 + 6) = v30;
           v15 = (v14 + 56);
         }
 
-        v26 = v15;
+        v25 = v15;
       }
 
       ++v10;
     }
 
-    if (v26 != __src)
+    if (v25 != __src)
     {
       operator new();
     }
 
     if (__src)
     {
-      v26 = __src;
+      v25 = __src;
       operator delete(__src);
     }
 
-    sub_29D439A14(&v28);
+    sub_29D439A14(&v27);
   }
 
-  v23 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
-void sub_29D4380C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, uint64_t a15)
+void sub_29D4380C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   if (__p)
   {
     operator delete(__p);
   }
 
-  sub_29D439A14(&a15);
+  sub_29D439A14(va);
   _Unwind_Resume(a1);
 }
 
@@ -725,29 +721,6 @@ void *IOHIDParametricAcceleration::serialize(IOHIDParametricAcceleration *this, 
   return sub_29D43773C(&v4);
 }
 
-double IOHIDTableAcceleration::InterpolatePoint(uint64_t a1, double *a2, double *a3, double *a4)
-{
-  v4 = a4[1];
-  v5 = (v4 - a3[1]) / (*a4 - *a3);
-  if (v4 - v5 * *a4 + *a2 * v5 >= a2[1])
-  {
-    v6 = *(a2 + 1);
-  }
-
-  return *a2;
-}
-
-double IOHIDTableAcceleration::InterpolatePoint(void *a1, double *a2, double *a3)
-{
-  if (*a3 != *a2)
-  {
-    v3 = (a3[1] - a2[1]) / (*a3 - *a2);
-  }
-
-  v4 = a1[1];
-  return *a1;
-}
-
 uint64_t IOHIDTableAcceleration::InterpolateFunction(int a1, ACCEL_TABLE_ENTRY *a2, ACCEL_TABLE_ENTRY *this, double a4, uint64_t a5)
 {
   v9 = ACCEL_TABLE_ENTRY::point(this, 0);
@@ -785,9 +758,9 @@ uint64_t IOHIDTableAcceleration::InterpolateFunction(int a1, ACCEL_TABLE_ENTRY *
         v22 = v11 - (v11 - v15) / (v9 - v16) * v9 + v17 * ((v11 - v15) / (v9 - v16));
       }
 
-      v23[0] = v17;
-      v23[1] = v22 + vabdd_f64(i, v21) * a4;
-      sub_29D43A0A4(a5, v23);
+      *&v23 = v17;
+      *(&v23 + 1) = v22 + vabdd_f64(i, v21) * a4;
+      sub_29D43A0A4(a5, &v23, &v23);
       ++v14;
       result = ACCEL_TABLE_ENTRY::count(a2);
     }
@@ -800,7 +773,6 @@ uint64_t IOHIDTableAcceleration::InterpolateFunction(int a1, ACCEL_TABLE_ENTRY *
 
 uint64_t IOHIDTableAcceleration::CreateWithTable(IOHIDTableAcceleration *this, const __CFData *a2, double a3, double a4, double a5)
 {
-  v11 = *MEMORY[0x29EDCA608];
   BytePtr = CFDataGetBytePtr(this);
   if (BytePtr)
   {
@@ -826,11 +798,10 @@ uint64_t IOHIDTableAcceleration::CreateWithTable(IOHIDTableAcceleration *this, c
     }
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
-void sub_29D438B18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37)
+void sub_29D438B18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37)
 {
   sub_29D43A528(&a13, a14);
   sub_29D439A64(&a21, MEMORY[0x29EDC9528]);
@@ -911,33 +882,33 @@ double IOHIDTableAcceleration::multiplier(IOHIDTableAcceleration *this, double a
 
 void *IOHIDTableAcceleration::serialize(IOHIDTableAcceleration *this, __CFDictionary *a2)
 {
-  v18 = *MEMORY[0x29EDCA608];
-  v13 = 0xAAAAAAAAAAAAAAAALL;
+  v17 = *MEMORY[0x29EDCA608];
+  v12 = 0xAAAAAAAAAAAAAAAALL;
   theDict = 0xAAAAAAAAAAAAAAAALL;
-  sub_29D4375F0(&v13, a2, 0);
-  v13 = &unk_2A241F788;
+  sub_29D4375F0(&v12, a2, 0);
+  v12 = &unk_2A241F788;
   CFDictionarySetValue(theDict, @"Class", @"IOHIDTableAcceleration");
-  v11 = 0xAAAAAAAAAAAAAAAALL;
+  v10 = 0xAAAAAAAAAAAAAAAALL;
   theArray = 0xAAAAAAAAAAAAAAAALL;
   Mutable = CFArrayCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9000]);
-  sub_29D439BB4(&v11, Mutable, 1);
-  v11 = &unk_2A241FA80;
+  sub_29D439BB4(&v10, Mutable, 1);
+  v10 = &unk_2A241FA80;
   for (i = *(this + 1); i != *(this + 2); i += 3)
   {
-    v16 = xmmword_29F34F340;
-    v17 = @"x";
-    sub_29D437818(v9, vcvtd_n_u64_f64(*i, 0x10uLL));
-    v15[0] = v9[1];
-    sub_29D437818(v8, vcvtd_n_u64_f64(i[1], 0x10uLL));
-    v15[1] = v8[1];
-    sub_29D437818(v7, vcvtd_n_u64_f64(i[2], 0x10uLL));
-    v15[2] = v7[1];
-    sub_29D439D50(v10, &v16, 3uLL, v15, 3uLL);
-    CFArrayAppendValue(theArray, v10[1]);
-    sub_29D4397DC(v10);
+    v15 = xmmword_29F34F340;
+    v16 = @"x";
+    sub_29D437818(v8, vcvtd_n_u64_f64(*i, 0x10uLL));
+    v14[0] = v8[1];
+    sub_29D437818(v7, vcvtd_n_u64_f64(i[1], 0x10uLL));
+    v14[1] = v7[1];
+    sub_29D437818(v6, vcvtd_n_u64_f64(i[2], 0x10uLL));
+    v14[2] = v6[1];
+    sub_29D439D50(v9, &v15, 3uLL, v14, 3uLL);
+    CFArrayAppendValue(theArray, v9[1]);
+    sub_29D4397DC(v9);
+    sub_29D437894(v6);
     sub_29D437894(v7);
     sub_29D437894(v8);
-    sub_29D437894(v9);
   }
 
   if (theArray)
@@ -945,18 +916,16 @@ void *IOHIDTableAcceleration::serialize(IOHIDTableAcceleration *this, __CFDictio
     CFDictionarySetValue(theDict, @"Curves", theArray);
   }
 
-  sub_29D439D00(&v11);
-  result = sub_29D43773C(&v13);
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
+  sub_29D439D00(&v10);
+  return sub_29D43773C(&v12);
 }
 
-void sub_29D439530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_29D439530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va1, a12);
-  va_start(va, a12);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a19);
+  va_start(va, a19);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   sub_29D439D00(va);
   sub_29D43773C(va1);
   _Unwind_Resume(a1);
@@ -1236,17 +1205,17 @@ void *sub_29D439D00(void *a1)
   return a1;
 }
 
-void *sub_29D439D50(void *a1, uint64_t a2, unint64_t a3, uint64_t a4, unint64_t a5)
+void *sub_29D439D50(void *a1, uint64_t *a2, unint64_t a3, uint64_t *a4, unint64_t a5)
 {
   *a1 = &unk_2A241F940;
   __p = 0;
   v13 = 0;
   v14 = 0;
-  sub_29D439E74(&__p, a2, a2 + 8 * a3, a3);
+  sub_29D439E74(&__p, a2, &a2[a3], a3);
   values = 0;
   v10 = 0;
   v11 = 0;
-  sub_29D439E74(&values, a4, a4 + 8 * a5, a5);
+  sub_29D439E74(&values, a4, &a4[a5], a5);
   a1[1] = CFDictionaryCreate(*MEMORY[0x29EDB8ED8], __p, values, (v13 - __p) >> 3, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   if (values)
   {
@@ -1279,7 +1248,7 @@ void sub_29D439E30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_29D439E74(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_29D439E74(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1301,7 +1270,7 @@ void sub_29D439ECC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_29D439EE8(uint64_t a1, unint64_t a2)
+void sub_29D439EE8(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -1352,48 +1321,48 @@ void sub_29D43A048(uint64_t a1, unint64_t a2)
   sub_29D43A014();
 }
 
-uint64_t *sub_29D43A0A4(uint64_t a1, double *a2)
+uint64_t *sub_29D43A0A4(uint64_t a1, double *a2, _OWORD *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 4);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 4);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v2;
-      if (!*v4)
+      v3 = *v3;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v2;
+      return v3;
     }
 
-    v2 = v2[1];
-    if (!v2)
+    v3 = v3[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *sub_29D43A170(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *sub_29D43A170(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -1419,12 +1388,12 @@ uint64_t *sub_29D43A1C8(uint64_t *result, uint64_t *a2)
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -1438,22 +1407,22 @@ uint64_t *sub_29D43A1C8(uint64_t *result, uint64_t *a2)
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -1487,13 +1456,13 @@ uint64_t *sub_29D43A1C8(uint64_t *result, uint64_t *a2)
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -1651,14 +1620,6 @@ void sub_29D43A57C(uint64_t a1, unint64_t a2)
   sub_29D43A014();
 }
 
-double ACCEL_TABLE_ENTRY::point(ACCEL_TABLE_ENTRY *this, unsigned int a2)
-{
-  v2 = this + 8 * a2;
-  result = vcvtd_n_f64_s32(bswap32(*(v2 + 6)), 0x10uLL);
-  v4 = vcvtd_n_f64_s32(bswap32(*(v2 + 10)), 0x10uLL);
-  return result;
-}
-
 uint64_t ACCEL_TABLE::entry(ACCEL_TABLE *this, int a2)
 {
   result = this + 10;
@@ -1749,17 +1710,15 @@ void *sub_29D43A8C8(void *a1, uint64_t a2)
       v12 = MEMORY[0x29ED57FF0](v11, vcvtd_n_f64_s32(bswap32(*(v10 - 1)), 0x10uLL));
       v13 = sub_29D43AAF0(v12, "(", 1);
       *(v13 + *(*v13 - 24) + 8) = *(v13 + *(*v13 - 24) + 8) & 0xFFFFFFB5 | 8;
-      v14 = *(v10 - 1);
-      v15 = MEMORY[0x29ED58000]();
-      v16 = sub_29D43AAF0(v15, ")\n", 2);
-      v17 = sub_29D43AAF0(v16, "    y: ", 7);
-      v18 = MEMORY[0x29ED57FF0](v17, vcvtd_n_f64_s32(bswap32(*v10), 0x10uLL));
-      v19 = sub_29D43AAF0(v18, "(", 1);
-      *(v19 + *(*v19 - 24) + 8) = *(v19 + *(*v19 - 24) + 8) & 0xFFFFFFB5 | 8;
-      v20 = *v10;
+      v14 = MEMORY[0x29ED58000]();
+      v15 = sub_29D43AAF0(v14, ")\n", 2);
+      v16 = sub_29D43AAF0(v15, "    y: ", 7);
+      v17 = MEMORY[0x29ED57FF0](v16, vcvtd_n_f64_s32(bswap32(*v10), 0x10uLL));
+      v18 = sub_29D43AAF0(v17, "(", 1);
+      *(v18 + *(*v18 - 24) + 8) = *(v18 + *(*v18 - 24) + 8) & 0xFFFFFFB5 | 8;
       v10 += 2;
-      v21 = MEMORY[0x29ED58000]();
-      sub_29D43AAF0(v21, ")\n", 2);
+      v19 = MEMORY[0x29ED58000]();
+      sub_29D43AAF0(v19, ")\n", 2);
       ++v9;
     }
 
@@ -1777,16 +1736,16 @@ void *sub_29D43AAF0(void *a1, uint64_t a2, uint64_t a3)
   if (LOBYTE(v13[0]) == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x29EDC93D0]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -1809,9 +1768,9 @@ void *sub_29D43AAF0(void *a1, uint64_t a2, uint64_t a3)
   return a1;
 }
 
-void sub_29D43AC38(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_29D43AC38(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x29ED57FD0](&a10);
+  MEMORY[0x29ED57FD0](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -2104,13 +2063,13 @@ void IOHIDPointerScrollFilter::createAccelStatsTimer(dispatch_queue_t *this)
 
 void IOHIDPointerScrollFilter::setupAcceleration(CFDictionaryRef *this)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   if (this[15])
   {
-    v8 = 0xAAAAAAAAAAAAAAAALL;
+    v7 = 0xAAAAAAAAAAAAAAAALL;
     number = 0xAAAAAAAAAAAAAAAALL;
     v2 = IOHIDPointerScrollFilter::copyCachedProperty(this, @"HIDPointerAccelerationMultiplier");
-    sub_29D43982C(&v8, v2, 1);
+    sub_29D43982C(&v7, v2, 1);
     if (number && (valuePtr = 0, CFNumberGetValue(number, kCFNumberSInt32Type, &valuePtr), valuePtr))
     {
       v3 = number;
@@ -2119,13 +2078,13 @@ void IOHIDPointerScrollFilter::setupAcceleration(CFDictionaryRef *this)
     else
     {
       sub_29D43EB4C(&valuePtr, 0x10000);
-      sub_29D43C81C(&v8, &valuePtr);
+      sub_29D43C81C(&v7, &valuePtr);
       sub_29D437894(&valuePtr);
       v3 = number;
       if (!number)
       {
-        v6 = _IOHIDLogCategory();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+        v5 = _IOHIDLogCategory();
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
         {
           RegistryID = this[15];
           if (RegistryID)
@@ -2134,8 +2093,8 @@ void IOHIDPointerScrollFilter::setupAcceleration(CFDictionaryRef *this)
           }
 
           valuePtr = 138412290;
-          v11 = RegistryID;
-          _os_log_impl(&dword_29D436000, v6, OS_LOG_TYPE_INFO, "[%@] Could not get/create pointer acceleration multiplier\n", &valuePtr, 0xCu);
+          v10 = RegistryID;
+          _os_log_impl(&dword_29D436000, v5, OS_LOG_TYPE_INFO, "[%@] Could not get/create pointer acceleration multiplier\n", &valuePtr, 0xCu);
         }
 
         goto LABEL_7;
@@ -2148,8 +2107,8 @@ void IOHIDPointerScrollFilter::setupAcceleration(CFDictionaryRef *this)
     IOHIDPointerScrollFilter::setupScrollAcceleration(this, 1.0);
     IOHIDPointerScrollFilter::startAccelStatsTimer(this);
 LABEL_7:
-    sub_29D437894(&v8);
-    goto LABEL_10;
+    sub_29D437894(&v7);
+    return;
   }
 
   v4 = _IOHIDLogCategory();
@@ -2157,9 +2116,6 @@ LABEL_7:
   {
     sub_29D43EE94(this, v4);
   }
-
-LABEL_10:
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void IOHIDPointerScrollFilter::unscheduleFromDispatchQueue(CFTypeRef *this, dispatch_queue_s *a2)
@@ -2217,37 +2173,37 @@ CFTypeRef IOHIDPointerScrollFilter::copyPropertyForClient(IOHIDPointerScrollFilt
 
 void *IOHIDPointerScrollFilter::serialize(IOHIDPointerScrollFilter *this, __CFDictionary *a2)
 {
-  v45[3] = *MEMORY[0x29EDCA608];
+  v44[3] = *MEMORY[0x29EDCA608];
+  v42 = 0xAAAAAAAAAAAAAAAALL;
   v43 = 0xAAAAAAAAAAAAAAAALL;
-  v44 = 0xAAAAAAAAAAAAAAAALL;
-  sub_29D4375F0(&v43, a2, 0);
-  v43 = &unk_2A241F788;
-  v45[0] = "X";
-  v45[1] = "Y";
-  v45[2] = "Z";
-  if (v44)
+  sub_29D4375F0(&v42, a2, 0);
+  v42 = &unk_2A241F788;
+  v44[0] = "X";
+  v44[1] = "Y";
+  v44[2] = "Z";
+  if (v43)
   {
     v3 = IOHIDPointerScrollFilter::copyCachedProperty(this, @"HIDPointerAccelerationType");
-    v42[0] = &unk_2A241FBD0;
-    v42[1] = v3;
+    v41[0] = &unk_2A241FBD0;
+    v41[1] = v3;
     if (v3)
     {
-      CFDictionarySetValue(v44, @"HIDPointerAccelerationType", v3);
+      CFDictionarySetValue(v43, @"HIDPointerAccelerationType", v3);
     }
 
+    v39 = 0xAAAAAAAAAAAAAAAALL;
     v40 = 0xAAAAAAAAAAAAAAAALL;
-    v41 = 0xAAAAAAAAAAAAAAAALL;
     v4 = IOHIDPointerScrollFilter::copyCachedProperty(this, @"HIDPointerAccelerationAlgorithm");
-    sub_29D43982C(&v40, v4, 1);
-    if (v41)
+    sub_29D43982C(&v39, v4, 1);
+    if (v40)
     {
-      v5 = CFGetTypeID(v41);
+      v5 = CFGetTypeID(v40);
       if (v5 == CFNumberGetTypeID())
       {
         value.__r_.__value_.__r.__words[0] = 0xAAAAAAAAAAAAAAAALL;
         value.__r_.__value_.__l.__size_ = 0xAAAAAAAAAAAAAAAALL;
         valuePtr.__r_.__value_.__s.__data_[0] = 0;
-        CFNumberGetValue(v41, kCFNumberSInt8Type, &valuePtr);
+        CFNumberGetValue(v40, kCFNumberSInt8Type, &valuePtr);
         if (valuePtr.__r_.__value_.__s.__data_[0] > 2uLL)
         {
           v6 = @"Unknown";
@@ -2261,27 +2217,27 @@ void *IOHIDPointerScrollFilter::serialize(IOHIDPointerScrollFilter *this, __CFDi
         sub_29D43E8F8(&value, v6, 0);
         if (value.__r_.__value_.__l.__size_)
         {
-          CFDictionarySetValue(v44, @"HIDPointerAccelerationAlgorithm", value.__r_.__value_.__l.__size_);
+          CFDictionarySetValue(v43, @"HIDPointerAccelerationAlgorithm", value.__r_.__value_.__l.__size_);
         }
 
         sub_29D43EA04(&value);
       }
     }
 
+    v37 = 0xAAAAAAAAAAAAAAAALL;
     v38 = 0xAAAAAAAAAAAAAAAALL;
-    v39 = 0xAAAAAAAAAAAAAAAALL;
     v7 = IOHIDPointerScrollFilter::copyCachedProperty(this, @"HIDScrollAccelerationType");
-    v38 = &unk_2A241FBD0;
-    v39 = v7;
+    v37 = &unk_2A241FBD0;
+    v38 = v7;
     if (v7)
     {
-      CFDictionarySetValue(v44, @"HIDScrollAccelerationType", v7);
+      CFDictionarySetValue(v43, @"HIDScrollAccelerationType", v7);
     }
 
-    v36 = 0xAAAAAAAAAAAAAAAALL;
+    v35 = 0xAAAAAAAAAAAAAAAALL;
     cf = 0xAAAAAAAAAAAAAAAALL;
     v8 = IOHIDPointerScrollFilter::copyCachedProperty(this, @"HIDScrollAccelerationAlgorithm");
-    sub_29D43982C(&v36, v8, 1);
+    sub_29D43982C(&v35, v8, 1);
     if (cf)
     {
       v9 = CFGetTypeID(cf);
@@ -2304,22 +2260,22 @@ void *IOHIDPointerScrollFilter::serialize(IOHIDPointerScrollFilter *this, __CFDi
         sub_29D43E8F8(&value, v10, 0);
         if (value.__r_.__value_.__l.__size_)
         {
-          CFDictionarySetValue(v44, @"HIDScrollAccelerationAlgorithm", value.__r_.__value_.__l.__size_);
+          CFDictionarySetValue(v43, @"HIDScrollAccelerationAlgorithm", value.__r_.__value_.__l.__size_);
         }
 
         sub_29D43EA04(&value);
       }
     }
 
-    CFDictionarySetValue(v44, @"Class", @"IOHIDPointerScrollFilter");
-    sub_29D436CD0(&v43, @"PointerAccelerationValue", vcvtd_n_u64_f64(*(this + 16), 0x10uLL));
-    sub_29D436CD0(&v43, @"PointerAccelerationMinimum", vcvtd_n_u64_f64(*(this + 17), 0x10uLL));
-    sub_29D436CD0(&v43, @"ScrollAccelerationValue", vcvtd_n_u64_f64(*(this + 18), 0x10uLL));
-    sub_29D436CD0(&v43, @"MatchScore", *(this + 5));
+    CFDictionarySetValue(v43, @"Class", @"IOHIDPointerScrollFilter");
+    sub_29D436CD0(&v42, @"PointerAccelerationValue", vcvtd_n_u64_f64(*(this + 16), 0x10uLL));
+    sub_29D436CD0(&v42, @"PointerAccelerationMinimum", vcvtd_n_u64_f64(*(this + 17), 0x10uLL));
+    sub_29D436CD0(&v42, @"ScrollAccelerationValue", vcvtd_n_u64_f64(*(this + 18), 0x10uLL));
+    sub_29D436CD0(&v42, @"MatchScore", *(this + 5));
     v11 = *(this + 12);
     if (v11)
     {
-      CFDictionarySetValue(v44, @"Property", v11);
+      CFDictionarySetValue(v43, @"Property", v11);
     }
 
     if (*(this + 6))
@@ -2330,7 +2286,7 @@ void *IOHIDPointerScrollFilter::serialize(IOHIDPointerScrollFilter *this, __CFDi
       (*(**(this + 6) + 24))(*(this + 6), value.__r_.__value_.__l.__size_);
       if (value.__r_.__value_.__l.__size_)
       {
-        CFDictionarySetValue(v44, @"Pointer Accelerator", value.__r_.__value_.__l.__size_);
+        CFDictionarySetValue(v43, @"Pointer Accelerator", value.__r_.__value_.__l.__size_);
       }
 
       sub_29D43773C(&value);
@@ -2342,31 +2298,31 @@ void *IOHIDPointerScrollFilter::serialize(IOHIDPointerScrollFilter *this, __CFDi
     {
       if (*&v13[v12 * 8])
       {
+        v33 = 0xAAAAAAAAAAAAAAAALL;
         v34 = 0xAAAAAAAAAAAAAAAALL;
-        v35 = 0xAAAAAAAAAAAAAAAALL;
-        sub_29D4377A0(&v34, 0);
-        v32 = 0xAAAAAAAAAAAAAAAALL;
+        sub_29D4377A0(&v33, 0);
+        v31 = 0xAAAAAAAAAAAAAAAALL;
         key = 0xAAAAAAAAAAAAAAAALL;
         sub_29D43E6DC(&valuePtr, "Scroll Accelerator(axis: ");
-        sub_29D43E6DC(v26, v45[v12]);
-        if ((v27 & 0x80u) == 0)
+        sub_29D43E6DC(v25, v44[v12]);
+        if ((v26 & 0x80u) == 0)
         {
-          v14 = v26;
+          v14 = v25;
         }
 
         else
         {
-          v14 = v26[0];
+          v14 = v25[0];
         }
 
-        if ((v27 & 0x80u) == 0)
+        if ((v26 & 0x80u) == 0)
         {
-          v15 = v27;
+          v15 = v26;
         }
 
         else
         {
-          v15 = v26[1];
+          v15 = v25[1];
         }
 
         v16 = std::string::append(&valuePtr, v14, v15);
@@ -2376,43 +2332,43 @@ void *IOHIDPointerScrollFilter::serialize(IOHIDPointerScrollFilter *this, __CFDi
         v16->__r_.__value_.__l.__size_ = 0;
         v16->__r_.__value_.__r.__words[2] = 0;
         v16->__r_.__value_.__r.__words[0] = 0;
-        sub_29D43E6DC(v24, ")");
-        if ((v25 & 0x80u) == 0)
+        sub_29D43E6DC(v23, ")");
+        if ((v24 & 0x80u) == 0)
         {
-          v18 = v24;
+          v18 = v23;
         }
 
         else
         {
-          v18 = v24[0];
+          v18 = v23[0];
         }
 
-        if ((v25 & 0x80u) == 0)
+        if ((v24 & 0x80u) == 0)
         {
-          v19 = v25;
+          v19 = v24;
         }
 
         else
         {
-          v19 = v24[1];
+          v19 = v23[1];
         }
 
         v20 = std::string::append(&value, v18, v19);
         v21 = *&v20->__r_.__value_.__l.__data_;
-        v31 = v20->__r_.__value_.__r.__words[2];
+        v30 = v20->__r_.__value_.__r.__words[2];
         *__p = v21;
         v20->__r_.__value_.__l.__size_ = 0;
         v20->__r_.__value_.__r.__words[2] = 0;
         v20->__r_.__value_.__r.__words[0] = 0;
-        sub_29D43EA54(&v32, __p);
-        if (SHIBYTE(v31) < 0)
+        sub_29D43EA54(&v31, __p);
+        if (SHIBYTE(v30) < 0)
         {
           operator delete(__p[0]);
         }
 
-        if (v25 < 0)
+        if (v24 < 0)
         {
-          operator delete(v24[0]);
+          operator delete(v23[0]);
         }
 
         if (SHIBYTE(value.__r_.__value_.__r.__words[2]) < 0)
@@ -2420,9 +2376,9 @@ void *IOHIDPointerScrollFilter::serialize(IOHIDPointerScrollFilter *this, __CFDi
           operator delete(value.__r_.__value_.__l.__data_);
         }
 
-        if (v27 < 0)
+        if (v26 < 0)
         {
-          operator delete(v26[0]);
+          operator delete(v25[0]);
         }
 
         if (SHIBYTE(valuePtr.__r_.__value_.__r.__words[2]) < 0)
@@ -2430,29 +2386,27 @@ void *IOHIDPointerScrollFilter::serialize(IOHIDPointerScrollFilter *this, __CFDi
           operator delete(valuePtr.__r_.__value_.__l.__data_);
         }
 
-        (*(**&v13[v12 * 8] + 24))(*&v13[v12 * 8], v35);
-        if (key && v35)
+        (*(**&v13[v12 * 8] + 24))(*&v13[v12 * 8], v34);
+        if (key && v34)
         {
-          CFDictionarySetValue(v44, key, v35);
+          CFDictionarySetValue(v43, key, v34);
         }
 
-        sub_29D43EA04(&v32);
-        sub_29D43773C(&v34);
+        sub_29D43EA04(&v31);
+        sub_29D43773C(&v33);
       }
 
       ++v12;
     }
 
     while (v12 != 3);
-    sub_29D437894(&v36);
-    sub_29D43EA04(&v38);
-    sub_29D437894(&v40);
-    sub_29D43EA04(v42);
+    sub_29D437894(&v35);
+    sub_29D43EA04(&v37);
+    sub_29D437894(&v39);
+    sub_29D43EA04(v41);
   }
 
-  result = sub_29D43773C(&v43);
-  v23 = *MEMORY[0x29EDCA608];
-  return result;
+  return sub_29D43773C(&v42);
 }
 
 void sub_29D43BDD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, char a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46)
@@ -2466,34 +2420,34 @@ void sub_29D43BDD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t IOHIDPointerScrollFilter::match(uint64_t a1)
+uint64_t IOHIDPointerScrollFilter::match(uint64_t a1, uint64_t a2)
 {
   v14 = *MEMORY[0x29EDCA608];
   if (IOHIDServiceConformsTo() || IOHIDServiceConformsTo())
   {
-    v2 = 100;
+    v3 = 100;
   }
 
   else
   {
-    v2 = 100;
+    v3 = 100;
     if (!IOHIDServiceConformsTo())
     {
       if (IOHIDServiceConformsTo())
       {
-        v2 = 100;
+        v3 = 100;
       }
 
       else
       {
-        v2 = 0;
+        v3 = 0;
       }
     }
   }
 
-  *(a1 + 20) = v2;
-  v3 = _IOHIDLogCategory();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  *(a1 + 20) = v3;
+  v4 = _IOHIDLogCategory();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     RegistryID = IOHIDServiceGetRegistryID();
     v7 = *(a1 + 20);
@@ -2503,12 +2457,10 @@ uint64_t IOHIDPointerScrollFilter::match(uint64_t a1)
     v11 = RegistryID;
     v12 = 1024;
     v13 = v7;
-    _os_log_debug_impl(&dword_29D436000, v3, OS_LOG_TYPE_DEBUG, "(%p) for ServiceID %@ with score %d\n", &v8, 0x1Cu);
+    _os_log_debug_impl(&dword_29D436000, v4, OS_LOG_TYPE_DEBUG, "(%p) for ServiceID %@ with score %d\n", &v8, 0x1Cu);
   }
 
-  result = *(a1 + 20);
-  v5 = *MEMORY[0x29EDCA608];
-  return result;
+  return *(a1 + 20);
 }
 
 uint64_t IOHIDPointerScrollFilter::filter(void *a1, uint64_t a2)
@@ -2521,7 +2473,7 @@ uint64_t IOHIDPointerScrollFilter::filter(void *a1, uint64_t a2)
   v3 = IOHIDPointerScrollFilter::filterPropertyEvent(a1, a2);
   if (a1[6] && IOHIDEventConformsTo() && !IOHIDEventIsAbsolute() || (a1[7] || a1[8] || a1[9]) && IOHIDEventConformsTo())
   {
-    IOHIDPointerScrollFilter::accelerateEvent(a1);
+    IOHIDPointerScrollFilter::accelerateEvent(a1, v3);
   }
 
   return v3;
@@ -2572,29 +2524,28 @@ LABEL_16:
   return a2;
 }
 
-uint64_t IOHIDPointerScrollFilter::accelerateEvent(uint64_t a1)
+CFIndex IOHIDPointerScrollFilter::accelerateEvent(uint64_t a1, uint64_t a2)
 {
-  v38[3] = *MEMORY[0x29EDCA608];
+  v35[3] = *MEMORY[0x29EDCA608];
   if (*(a1 + 48))
   {
     if (*(a1 + 164) == 1 && IOHIDEventGetType() == 17 && (IOHIDEventGetEventFlags() & 0x100) == 0 && (IOHIDEventGetEventFlags() & 0x10000) == 0)
     {
       IOHIDEventGetFloatValue();
-      v3 = v2;
-      *buf = v2;
+      v5 = v4;
+      *buf = v4;
       IOHIDEventGetFloatValue();
-      *&buf[8] = v4;
-      if (v3 != 0.0 || v4 != 0.0)
+      *&buf[8] = v6;
+      if (v5 != 0.0 || v6 != 0.0)
       {
-        v5 = *(a1 + 48);
+        v7 = *(a1 + 48);
         TimeStamp = IOHIDEventGetTimeStamp();
-        if ((*(*v5 + 16))(v5, buf, 2, TimeStamp))
+        if ((*(*v7 + 16))(v7, buf, 2, TimeStamp))
         {
-          v7 = *MEMORY[0x29EDB8ED8];
           Copy = IOHIDEventCreateCopy();
           if (Copy)
           {
-            v9 = Copy;
+            v10 = Copy;
             Children = IOHIDEventGetChildren();
             if (Children)
             {
@@ -2606,7 +2557,7 @@ uint64_t IOHIDPointerScrollFilter::accelerateEvent(uint64_t a1)
             IOHIDEventGetEventFlags();
             IOHIDEventSetEventFlags();
             IOHIDEventAppendEvent();
-            CFRelease(v9);
+            CFRelease(v10);
           }
         }
       }
@@ -2615,22 +2566,22 @@ uint64_t IOHIDPointerScrollFilter::accelerateEvent(uint64_t a1)
 
   if (*(a1 + 165) == 1 && IOHIDEventGetType() == 6 && (IOHIDEventGetEventFlags() & 0x100) == 0 && (IOHIDEventGetEventFlags() & 0x10000) == 0)
   {
-    memset(v38, 255, 24);
-    if (IOHIDEventGetScrollMomentum() && (v11 = _IOHIDEventCopyAttachment()) != 0)
+    memset(v35, 255, 24);
+    if (IOHIDEventGetScrollMomentum() && (v12 = _IOHIDEventCopyAttachment()) != 0)
     {
-      v12 = v11;
-      v13 = CFGetTypeID(v11);
-      if (v13 == CFNumberGetTypeID())
+      v13 = v12;
+      v14 = CFGetTypeID(v12);
+      if (v14 == CFNumberGetTypeID())
       {
-        v14 = *(a1 + 152);
+        v15 = *(a1 + 152);
         valuePtr = 60.0;
-        CFNumberGetValue(v12, kCFNumberFloatType, &valuePtr);
-        v15 = valuePtr / 60.0;
-        *(a1 + 152) = v15;
-        if (vabdd_f64(v14, v15) > 0.5)
+        CFNumberGetValue(v13, kCFNumberFloatType, &valuePtr);
+        v16 = valuePtr / 60.0;
+        *(a1 + 152) = v16;
+        if (vabdd_f64(v15, v16) > 0.5)
         {
-          v16 = _IOHIDLogCategory();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+          v17 = _IOHIDLogCategory();
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
           {
             RegistryID = *(a1 + 120);
             if (RegistryID)
@@ -2638,14 +2589,14 @@ uint64_t IOHIDPointerScrollFilter::accelerateEvent(uint64_t a1)
               RegistryID = IOHIDServiceGetRegistryID();
             }
 
-            v18 = *(a1 + 152);
+            v19 = *(a1 + 152);
             *buf = 138412802;
             *&buf[4] = RegistryID;
             *&buf[12] = 2048;
-            *&buf[14] = v14;
-            v36 = 2048;
-            v37 = v18;
-            _os_log_impl(&dword_29D436000, v16, OS_LOG_TYPE_INFO, "[%@] _scrollMomentumMult:%.3f->%.3f\n", buf, 0x20u);
+            *&buf[14] = v15;
+            v33 = 2048;
+            v34 = v19;
+            _os_log_impl(&dword_29D436000, v17, OS_LOG_TYPE_INFO, "[%@] _scrollMomentumMult:%.3f->%.3f\n", buf, 0x20u);
           }
         }
       }
@@ -2655,7 +2606,7 @@ uint64_t IOHIDPointerScrollFilter::accelerateEvent(uint64_t a1)
         *(a1 + 152) = 0x3FF0000000000000;
       }
 
-      CFRelease(v12);
+      CFRelease(v13);
     }
 
     else
@@ -2663,76 +2614,72 @@ uint64_t IOHIDPointerScrollFilter::accelerateEvent(uint64_t a1)
       *(a1 + 152) = 0x3FF0000000000000;
     }
 
-    v19 = 0;
     v20 = 0;
-    v21 = dword_29D440248;
+    v21 = 0;
+    v22 = dword_29D440248;
     do
     {
-      v22 = *v21++;
+      ++v22;
       IOHIDEventGetFloatValue();
-      *&v38[v19] = v23;
+      *&v35[v20] = v23;
       if (v23 != 0.0)
       {
-        v24 = *(a1 + 56 + v19 * 8);
+        v24 = *(a1 + 56 + v20 * 8);
         if (v24)
         {
-          *&v38[v19] = *(a1 + 152) * v23;
+          *&v35[v20] = *(a1 + 152) * v23;
           v25 = IOHIDEventGetTimeStamp();
-          v20 |= (*(*v24 + 16))(v24, &v38[v19], 1, v25);
-          *&v38[v19] = *&v38[v19] / *(a1 + 152);
+          v21 |= (*(*v24 + 16))(v24, &v35[v20], 1, v25);
+          *&v35[v20] = *&v35[v20] / *(a1 + 152);
         }
       }
 
-      ++v19;
+      ++v20;
     }
 
-    while (v19 != 3);
-    if (v20)
+    while (v20 != 3);
+    if (v21)
     {
-      v26 = *MEMORY[0x29EDB8ED8];
-      v27 = IOHIDEventCreateCopy();
-      if (v27)
+      v26 = IOHIDEventCreateCopy();
+      if (v26)
       {
-        v28 = v27;
-        v29 = IOHIDEventGetChildren();
-        if (v29)
+        v27 = v26;
+        v28 = IOHIDEventGetChildren();
+        if (v28)
         {
-          CFArrayRemoveAllValues(v29);
+          CFArrayRemoveAllValues(v28);
         }
 
         for (i = 0; i != 3; ++i)
         {
-          *&v38[i] = *&v38[i] * 10.0;
-          v31 = dword_29D440248[i];
+          *&v35[i] = *&v35[i] * 10.0;
           IOHIDEventSetFloatValue();
         }
 
         IOHIDEventGetEventFlags();
         IOHIDEventSetEventFlags();
         IOHIDEventAppendEvent();
-        CFRelease(v28);
+        CFRelease(v27);
       }
     }
   }
 
-  result = IOHIDPointerScrollFilter::accelerateChildrens(a1);
-  v33 = *MEMORY[0x29EDCA608];
-  return result;
+  return IOHIDPointerScrollFilter::accelerateChildrens(a1, a2);
 }
 
-uint64_t IOHIDPointerScrollFilter::accelerateChildrens(uint64_t a1)
+CFIndex IOHIDPointerScrollFilter::accelerateChildrens(uint64_t a1, uint64_t a2)
 {
   result = IOHIDEventGetChildren();
   if (result)
   {
-    v3 = result;
+    v4 = result;
     result = CFArrayGetCount(result);
     if (result >= 1)
     {
-      v4 = result;
-      for (i = 0; i != v4; ++i)
+      v5 = result;
+      for (i = 0; i != v5; ++i)
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(v3, i);
+        ValueAtIndex = CFArrayGetValueAtIndex(v4, i);
         result = IOHIDPointerScrollFilter::accelerateEvent(a1, ValueAtIndex);
       }
     }
@@ -2743,28 +2690,28 @@ uint64_t IOHIDPointerScrollFilter::accelerateChildrens(uint64_t a1)
 
 uint64_t IOHIDPointerScrollFilter::createPointerTableAlgorithm(IOHIDPointerScrollFilter *this, unsigned int a2)
 {
-  v4 = *(this + 15);
-  v5 = IOHIDServiceCopyProperty();
-  v11 = &unk_2A241FBF0;
-  v12 = v5;
-  if (v5 || (v7 = CFDataCreate(*MEMORY[0x29EDB8ED8], byte_29D440254, 102), v10[0] = &unk_2A241FBF0, v10[1] = v7, sub_29D43C81C(&v11, v10), sub_29D43EAFC(v10), (v5 = v12) != 0))
+  v4 = IOHIDServiceCopyProperty();
+  v10 = &unk_2A241FBF0;
+  v11 = v4;
+  if (v4 || (v6 = CFDataCreate(*MEMORY[0x29EDB8ED8], byte_29D440254, 102), v9[0] = &unk_2A241FBF0, v9[1] = v6, sub_29D43C81C(&v10, v9), sub_29D43EAFC(v9), (v4 = v11) != 0))
   {
-    v8 = IOHIDTableAcceleration::CreateWithTable(v5, v6, *(this + 16), vcvtd_n_f64_s32(a2, 0x10uLL), 67.0);
+    v7 = IOHIDTableAcceleration::CreateWithTable(v4, v5, *(this + 16), vcvtd_n_f64_s32(a2, 0x10uLL), 67.0);
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  sub_29D43EAFC(&v11);
-  return v8;
+  sub_29D43EAFC(&v10);
+  return v7;
 }
 
-void sub_29D43C7F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_29D43C7F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   sub_29D43EAFC(&a9);
-  sub_29D43EAFC(&a11);
+  sub_29D43EAFC(va);
   _Unwind_Resume(a1);
 }
 
@@ -2788,11 +2735,11 @@ uint64_t sub_29D43C81C(uint64_t a1, uint64_t a2)
 
 uint64_t IOHIDPointerScrollFilter::createPointerParametricAlgorithm(IOHIDPointerScrollFilter *this, unsigned int a2)
 {
-  v12 = 0xAAAAAAAAAAAAAAAALL;
+  v11 = 0xAAAAAAAAAAAAAAAALL;
   theArray = 0xAAAAAAAAAAAAAAAALL;
   v4 = IOHIDPointerScrollFilter::copyCachedProperty(this, @"UserPointerAccelCurvesKey");
-  sub_29D4398C8(&v12, v4, 1);
-  v12 = &unk_2A241F9E0;
+  sub_29D4398C8(&v11, v4, 1);
+  v11 = &unk_2A241F9E0;
   if (theArray && CFArrayGetCount(theArray) >= 1)
   {
     v6 = IOHIDParametricAcceleration::CreateWithParameters(theArray, v5, *(this + 16), vcvtd_n_f64_s32(a2, 0x10uLL), 67.0);
@@ -2800,13 +2747,12 @@ uint64_t IOHIDPointerScrollFilter::createPointerParametricAlgorithm(IOHIDPointer
 
   else
   {
-    v7 = *(this + 15);
-    v8 = IOHIDServiceCopyProperty();
-    v11[0] = &unk_2A241FA60;
-    v11[1] = v8;
-    if (v8)
+    v7 = IOHIDServiceCopyProperty();
+    v10[0] = &unk_2A241FA60;
+    v10[1] = v7;
+    if (v7)
     {
-      v6 = IOHIDParametricAcceleration::CreateWithParameters(v8, v9, *(this + 16), vcvtd_n_f64_s32(a2, 0x10uLL), 67.0);
+      v6 = IOHIDParametricAcceleration::CreateWithParameters(v7, v8, *(this + 16), vcvtd_n_f64_s32(a2, 0x10uLL), 67.0);
     }
 
     else
@@ -2814,10 +2760,10 @@ uint64_t IOHIDPointerScrollFilter::createPointerParametricAlgorithm(IOHIDPointer
       v6 = 0;
     }
 
-    sub_29D439A14(v11);
+    sub_29D439A14(v10);
   }
 
-  sub_29D439A14(&v12);
+  sub_29D439A14(&v11);
   return v6;
 }
 
@@ -2904,9 +2850,9 @@ LABEL_11:
   return PointerParametricAlgorithm;
 }
 
-void sub_29D43CB18(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29D43CB18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29D437894(va);
   _Unwind_Resume(a1);
 }
@@ -2925,51 +2871,38 @@ const void *sub_29D43CB30(uint64_t a1)
 
 uint64_t IOHIDPointerScrollFilter::createScrollTableAlgorithm(IOHIDPointerScrollFilter *this, uint64_t a2, unsigned int a3, unsigned int a4)
 {
-  v7 = *(this + 15);
-  v8 = *(&off_29F34F378 + a2);
-  v9 = IOHIDServiceCopyProperty();
-  v17 = &unk_2A241FBF0;
-  v18 = v9;
-  if (v9)
+  v7 = IOHIDServiceCopyProperty();
+  v14 = &unk_2A241FBF0;
+  v15 = v7;
+  if (v7 || (v12 = &unk_2A241FBF0, v13 = IOHIDServiceCopyProperty(), sub_29D43C81C(&v14, &v12), sub_29D43EAFC(&v12), (v7 = v15) != 0) || (v9 = CFDataCreate(*MEMORY[0x29EDB8ED8], byte_29D440254, 102), v12 = &unk_2A241FBF0, v13 = v9, sub_29D43C81C(&v14, &v12), sub_29D43EAFC(&v12), (v7 = v15) != 0))
   {
-    goto LABEL_4;
-  }
-
-  v11 = *(this + 15);
-  v15 = &unk_2A241FBF0;
-  v16 = IOHIDServiceCopyProperty();
-  sub_29D43C81C(&v17, &v15);
-  sub_29D43EAFC(&v15);
-  v9 = v18;
-  if (v18 || (v12 = CFDataCreate(*MEMORY[0x29EDB8ED8], byte_29D440254, 102), v15 = &unk_2A241FBF0, v16 = v12, sub_29D43C81C(&v17, &v15), sub_29D43EAFC(&v15), (v9 = v18) != 0))
-  {
-LABEL_4:
-    v13 = IOHIDTableAcceleration::CreateWithTable(v9, v10, *(this + 18), vcvtd_n_f64_s32(a3, 0x10uLL), vcvtd_n_f64_s32(a4, 0x10uLL));
+    v10 = IOHIDTableAcceleration::CreateWithTable(v7, v8, *(this + 18), vcvtd_n_f64_s32(a3, 0x10uLL), vcvtd_n_f64_s32(a4, 0x10uLL));
   }
 
   else
   {
-    v13 = 0;
+    v10 = 0;
   }
 
-  sub_29D43EAFC(&v17);
-  return v13;
+  sub_29D43EAFC(&v14);
+  return v10;
 }
 
-void sub_29D43CCA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_29D43CCA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   sub_29D43EAFC(&a9);
-  sub_29D43EAFC(&a11);
+  sub_29D43EAFC(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t IOHIDPointerScrollFilter::createScrollParametricAlgorithm(IOHIDPointerScrollFilter *this, unint64_t a2, unsigned int a3, unsigned int a4)
 {
-  v15 = 0xAAAAAAAAAAAAAAAALL;
+  v14 = 0xAAAAAAAAAAAAAAAALL;
   theArray = 0xAAAAAAAAAAAAAAAALL;
   v7 = IOHIDPointerScrollFilter::copyCachedProperty(this, @"UserScrollAccelCurvesKey");
-  sub_29D4398C8(&v15, v7, 1);
-  v15 = &unk_2A241F9E0;
+  sub_29D4398C8(&v14, v7, 1);
+  v14 = &unk_2A241F9E0;
   if (theArray && CFArrayGetCount(theArray) >= 1)
   {
     v9 = IOHIDParametricAcceleration::CreateWithParameters(theArray, v8, *(this + 18), vcvtd_n_f64_s32(a3, 0x10uLL), vcvtd_n_f64_s32(a4, 0x10uLL));
@@ -2977,13 +2910,12 @@ uint64_t IOHIDPointerScrollFilter::createScrollParametricAlgorithm(IOHIDPointerS
 
   else
   {
-    v10 = *(this + 15);
-    v11 = IOHIDServiceCopyProperty();
-    v14[0] = &unk_2A241FA60;
-    v14[1] = v11;
-    if (v11)
+    v10 = IOHIDServiceCopyProperty();
+    v13[0] = &unk_2A241FA60;
+    v13[1] = v10;
+    if (v10)
     {
-      v9 = IOHIDParametricAcceleration::CreateWithParameters(v11, v12, *(this + 18), vcvtd_n_f64_s32(a3, 0x10uLL), vcvtd_n_f64_s32(a4, 0x10uLL));
+      v9 = IOHIDParametricAcceleration::CreateWithParameters(v10, v11, *(this + 18), vcvtd_n_f64_s32(a3, 0x10uLL), vcvtd_n_f64_s32(a4, 0x10uLL));
     }
 
     else
@@ -2991,10 +2923,10 @@ uint64_t IOHIDPointerScrollFilter::createScrollParametricAlgorithm(IOHIDPointerS
       v9 = 0;
     }
 
-    sub_29D439A14(v14);
+    sub_29D439A14(v13);
   }
 
-  sub_29D439A14(&v15);
+  sub_29D439A14(&v14);
   return v9;
 }
 
@@ -3052,16 +2984,16 @@ LABEL_11:
   return ScrollParametricAlgorithm;
 }
 
-void sub_29D43CF30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29D43CF30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29D437894(va);
   _Unwind_Resume(a1);
 }
 
 void *IOHIDPointerScrollFilter::setupPointerAcceleration(IOHIDPointerScrollFilter *this, double a2)
 {
-  v80 = *MEMORY[0x29EDCA608];
+  v76 = *MEMORY[0x29EDCA608];
   v3 = *(this + 40);
   result = *(this + 6);
   if (!v3)
@@ -3072,13 +3004,13 @@ void *IOHIDPointerScrollFilter::setupPointerAcceleration(IOHIDPointerScrollFilte
       (*(*result + 8))(result, a2);
     }
 
-    v62 = 0xAAAAAAAAAAAAAAAALL;
-    v63 = 0xAAAAAAAAAAAAAAAALL;
+    v58 = 0xAAAAAAAAAAAAAAAALL;
+    v59 = 0xAAAAAAAAAAAAAAAALL;
     v5 = IOHIDPointerScrollFilter::copyCachedProperty(this, @"HIDSupportsPointerAcceleration");
-    sub_29D43E798(&v62, v5, 1);
-    if (v63)
+    sub_29D43E798(&v58, v5, 1);
+    if (v59)
     {
-      v6 = sub_29D43DB4C(&v62);
+      v6 = sub_29D43DB4C(&v58);
     }
 
     else
@@ -3087,20 +3019,19 @@ void *IOHIDPointerScrollFilter::setupPointerAcceleration(IOHIDPointerScrollFilte
     }
 
     *(this + 164) = v6;
-    v60 = 0xAAAAAAAAAAAAAAAALL;
+    v56 = 0xAAAAAAAAAAAAAAAALL;
     number = 0xAAAAAAAAAAAAAAAALL;
-    v7 = *(this + 15);
-    v8 = IOHIDServiceCopyProperty();
-    sub_29D43982C(&v60, v8, 1);
+    v7 = IOHIDServiceCopyProperty();
+    sub_29D43982C(&v56, v7, 1);
     if (!number || (*valuePtr = 0, CFNumberGetValue(number, kCFNumberSInt32Type, valuePtr), !*valuePtr))
     {
       sub_29D43EB4C(valuePtr, 26214400);
-      sub_29D43C81C(&v60, valuePtr);
+      sub_29D43C81C(&v56, valuePtr);
       sub_29D437894(valuePtr);
       if (!number)
       {
-        v17 = _IOHIDLogCategory();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+        v16 = _IOHIDLogCategory();
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
           RegistryID = *(this + 15);
           if (RegistryID)
@@ -3110,105 +3041,105 @@ void *IOHIDPointerScrollFilter::setupPointerAcceleration(IOHIDPointerScrollFilte
 
           *valuePtr = 138412290;
           *&valuePtr[4] = RegistryID;
-          _os_log_impl(&dword_29D436000, v17, OS_LOG_TYPE_INFO, "[%@] Could not get/create pointer resolution\n", valuePtr, 0xCu);
+          _os_log_impl(&dword_29D436000, v16, OS_LOG_TYPE_INFO, "[%@] Could not get/create pointer resolution\n", valuePtr, 0xCu);
         }
 
         goto LABEL_81;
       }
     }
 
-    v58 = 0xAAAAAAAAAAAAAAAALL;
-    v59 = 0xAAAAAAAAAAAAAAAALL;
-    v9 = IOHIDPointerScrollFilter::copyCachedProperty(this, @"HIDPointerReportRate");
-    sub_29D43982C(&v58, v9, 1);
-    if (!v59)
+    v54 = 0xAAAAAAAAAAAAAAAALL;
+    v55 = 0xAAAAAAAAAAAAAAAALL;
+    v8 = IOHIDPointerScrollFilter::copyCachedProperty(this, @"HIDPointerReportRate");
+    sub_29D43982C(&v54, v8, 1);
+    if (!v55)
     {
       sub_29D43EB4C(valuePtr, 0);
-      sub_29D43C81C(&v58, valuePtr);
+      sub_29D43C81C(&v54, valuePtr);
       sub_29D437894(valuePtr);
-      if (!v59)
+      if (!v55)
       {
-        v19 = _IOHIDLogCategory();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+        v18 = _IOHIDLogCategory();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
-          v20 = *(this + 15);
-          if (v20)
+          v19 = *(this + 15);
+          if (v19)
           {
-            v20 = IOHIDServiceGetRegistryID();
+            v19 = IOHIDServiceGetRegistryID();
           }
 
           *valuePtr = 138412290;
-          *&valuePtr[4] = v20;
-          _os_log_impl(&dword_29D436000, v19, OS_LOG_TYPE_INFO, "[%@] Could not get/create pointer report rate\n", valuePtr, 0xCu);
+          *&valuePtr[4] = v19;
+          _os_log_impl(&dword_29D436000, v18, OS_LOG_TYPE_INFO, "[%@] Could not get/create pointer report rate\n", valuePtr, 0xCu);
         }
 
         goto LABEL_80;
       }
     }
 
-    v56 = &unk_2A241FC20;
-    cf1 = 0;
-    v54 = &unk_2A241FC20;
-    cf = 0;
     v52 = &unk_2A241FC20;
-    v53 = 0;
+    cf1 = 0;
     v50 = &unk_2A241FC20;
-    v51 = 0;
-    v48 = &unk_2A241F828;
+    cf = 0;
+    v48 = &unk_2A241FC20;
     v49 = 0;
-    v10 = IOHIDPointerScrollFilter::copyCachedProperty(this, @"HIDPointerAccelerationType");
+    v46 = &unk_2A241FC20;
+    v47 = 0;
+    v44 = &unk_2A241F828;
+    v45 = 0;
+    v9 = IOHIDPointerScrollFilter::copyCachedProperty(this, @"HIDPointerAccelerationType");
     *valuePtr = &unk_2A241FC20;
-    *&valuePtr[8] = v10;
-    sub_29D43C81C(&v56, valuePtr);
+    *&valuePtr[8] = v9;
+    sub_29D43C81C(&v52, valuePtr);
     sub_29D43EC00(valuePtr);
     if (cf1)
     {
-      v11 = IOHIDPointerScrollFilter::copyCachedProperty(this, cf1);
+      v10 = IOHIDPointerScrollFilter::copyCachedProperty(this, cf1);
       *valuePtr = &unk_2A241FC20;
-      *&valuePtr[8] = v11;
-      sub_29D43C81C(&v54, valuePtr);
-      v12 = sub_29D43EC00(valuePtr);
-      sub_29D43982C(v12, cf, 0);
-      sub_29D43C81C(&v48, valuePtr);
+      *&valuePtr[8] = v10;
+      sub_29D43C81C(&v50, valuePtr);
+      v11 = sub_29D43EC00(valuePtr);
+      sub_29D43982C(v11, cf, 0);
+      sub_29D43C81C(&v44, valuePtr);
       sub_29D437894(valuePtr);
-      v13 = CFEqual(cf1, @"HIDMouseAcceleration") != 0;
+      v12 = CFEqual(cf1, @"HIDMouseAcceleration") != 0;
     }
 
     else
     {
-      v13 = 0;
+      v12 = 0;
     }
 
-    v14 = v49;
-    if (!v49)
+    v13 = v45;
+    if (!v45)
     {
-      v15 = IOHIDPointerScrollFilter::copyCachedProperty(this, @"HIDMouseAcceleration");
+      v14 = IOHIDPointerScrollFilter::copyCachedProperty(this, @"HIDMouseAcceleration");
       *valuePtr = &unk_2A241FC20;
-      *&valuePtr[8] = v15;
-      sub_29D43C81C(&v52, valuePtr);
-      v16 = sub_29D43EC00(valuePtr);
-      sub_29D43982C(v16, v53, 0);
+      *&valuePtr[8] = v14;
       sub_29D43C81C(&v48, valuePtr);
+      v15 = sub_29D43EC00(valuePtr);
+      sub_29D43982C(v15, v49, 0);
+      sub_29D43C81C(&v44, valuePtr);
       sub_29D437894(valuePtr);
-      v14 = v49;
-      if (v49)
+      v13 = v45;
+      if (v45)
       {
-        v13 = 1;
+        v12 = 1;
       }
 
       else
       {
-        v21 = IOHIDPointerScrollFilter::copyCachedProperty(this, @"HIDPointerAcceleration");
+        v20 = IOHIDPointerScrollFilter::copyCachedProperty(this, @"HIDPointerAcceleration");
         *valuePtr = &unk_2A241FC20;
-        *&valuePtr[8] = v21;
-        sub_29D43C81C(&v50, valuePtr);
-        v22 = sub_29D43EC00(valuePtr);
-        sub_29D43982C(v22, v51, 0);
-        sub_29D43C81C(&v48, valuePtr);
+        *&valuePtr[8] = v20;
+        sub_29D43C81C(&v46, valuePtr);
+        v21 = sub_29D43EC00(valuePtr);
+        sub_29D43982C(v21, v47, 0);
+        sub_29D43C81C(&v44, valuePtr);
         sub_29D437894(valuePtr);
-        v13 = 0;
-        v14 = v49;
-        if (!v49)
+        v12 = 0;
+        v13 = v45;
+        if (!v45)
         {
           goto LABEL_30;
         }
@@ -3216,43 +3147,43 @@ void *IOHIDPointerScrollFilter::setupPointerAcceleration(IOHIDPointerScrollFilte
     }
 
     *valuePtr = 0;
-    CFNumberGetValue(v14, kCFNumberSInt32Type, valuePtr);
+    CFNumberGetValue(v13, kCFNumberSInt32Type, valuePtr);
     *(this + 16) = vcvtd_n_f64_s32(*valuePtr, 0x10uLL);
 LABEL_30:
-    v23 = _IOHIDLogCategory();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v22 = _IOHIDLogCategory();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = *(this + 15);
-      if (v24)
+      v23 = *(this + 15);
+      if (v23)
       {
-        v24 = IOHIDServiceGetRegistryID();
+        v23 = IOHIDServiceGetRegistryID();
       }
 
-      v25 = "enabled";
+      v24 = "enabled";
       if (*(this + 16) < 0.0)
       {
-        v25 = "disabled";
+        v24 = "disabled";
       }
 
       *valuePtr = 138414338;
-      *&valuePtr[4] = v24;
+      *&valuePtr[4] = v23;
       *&valuePtr[12] = 2080;
-      *&valuePtr[14] = v25;
-      v66 = 2112;
-      v67 = cf1;
+      *&valuePtr[14] = v24;
+      v62 = 2112;
+      v63 = cf1;
+      v64 = 2112;
+      v65 = cf;
+      v66 = 2080;
+      v67 = "HIDMouseAcceleration";
       v68 = 2112;
-      v69 = cf;
+      v69 = v49;
       v70 = 2080;
-      v71 = "HIDMouseAcceleration";
+      v71 = "HIDPointerAcceleration";
       v72 = 2112;
-      v73 = v53;
-      v74 = 2080;
-      v75 = "HIDPointerAcceleration";
-      v76 = 2112;
-      v77 = v51;
-      v78 = 2112;
-      v79 = v49;
-      _os_log_impl(&dword_29D436000, v23, OS_LOG_TYPE_DEFAULT, "[%@] Pointer acceleration (%s) %@:%@ %s:%@ %s:%@ %@\n", valuePtr, 0x5Cu);
+      v73 = v47;
+      v74 = 2112;
+      v75 = v45;
+      _os_log_impl(&dword_29D436000, v22, OS_LOG_TYPE_DEFAULT, "[%@] Pointer acceleration (%s) %@:%@ %s:%@ %s:%@ %@\n", valuePtr, 0x5Cu);
     }
 
     if (*(this + 16) < 0.0)
@@ -3260,66 +3191,65 @@ LABEL_30:
       goto LABEL_79;
     }
 
-    v26 = _IOHIDLogCategory();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
-    {
-      v27 = *(this + 15);
-      if (v27)
-      {
-        v27 = IOHIDServiceGetRegistryID();
-      }
-
-      sub_29D43EFA0(v27, this + 16);
-    }
-
-    v46 = 0xAAAAAAAAAAAAAAAALL;
-    v47 = 0xAAAAAAAAAAAAAAAALL;
-    v28 = IOHIDPointerScrollFilter::copyCachedProperty(this, @"HIDUseLinearScalingMouseAcceleration");
-    sub_29D43982C(&v46, v28, 1);
-    v29 = _IOHIDLogCategory();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+    v25 = _IOHIDLogCategory();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
       if (*(this + 15))
       {
-        v37 = IOHIDServiceGetRegistryID();
+        IOHIDServiceGetRegistryID();
+      }
+
+      sub_29D43EFA0();
+    }
+
+    v42 = 0xAAAAAAAAAAAAAAAALL;
+    v43 = 0xAAAAAAAAAAAAAAAALL;
+    v26 = IOHIDPointerScrollFilter::copyCachedProperty(this, @"HIDUseLinearScalingMouseAcceleration");
+    sub_29D43982C(&v42, v26, 1);
+    v27 = _IOHIDLogCategory();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    {
+      if (*(this + 15))
+      {
+        v34 = IOHIDServiceGetRegistryID();
       }
 
       else
       {
-        v37 = 0;
+        v34 = 0;
       }
 
-      v38 = sub_29D43CB30(&v46);
-      v39 = "no";
-      if (v13)
+      v35 = sub_29D43CB30(&v42);
+      v36 = "no";
+      if (v12)
       {
-        v40 = "yes";
+        v37 = "yes";
       }
 
       else
       {
-        v40 = "no";
+        v37 = "no";
       }
 
       *valuePtr = 138412802;
-      *&valuePtr[4] = v37;
+      *&valuePtr[4] = v34;
       *&valuePtr[12] = 2080;
-      *&valuePtr[14] = v40;
-      if (v38)
+      *&valuePtr[14] = v37;
+      if (v35)
       {
-        v39 = "yes";
+        v36 = "yes";
       }
 
-      v66 = 2080;
-      v67 = v39;
-      _os_log_debug_impl(&dword_29D436000, v29, OS_LOG_TYPE_DEBUG, "[%@] Is mouse acceleration? %s Use linear? %s\n", valuePtr, 0x20u);
-      if (!v13)
+      v62 = 2080;
+      v63 = v36;
+      _os_log_debug_impl(&dword_29D436000, v27, OS_LOG_TYPE_DEBUG, "[%@] Is mouse acceleration? %s Use linear? %s\n", valuePtr, 0x20u);
+      if (!v12)
       {
         goto LABEL_72;
       }
     }
 
-    else if (!v13)
+    else if (!v12)
     {
 LABEL_72:
       *valuePtr = 0;
@@ -3329,104 +3259,102 @@ LABEL_72:
         operator new();
       }
 
-      v41 = _IOHIDLogCategory();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+      v38 = _IOHIDLogCategory();
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
       {
-        v42 = *(this + 15);
-        if (v42)
+        v39 = *(this + 15);
+        if (v39)
         {
-          v42 = IOHIDServiceGetRegistryID();
+          v39 = IOHIDServiceGetRegistryID();
         }
 
         *valuePtr = 138412290;
-        *&valuePtr[4] = v42;
-        _os_log_impl(&dword_29D436000, v41, OS_LOG_TYPE_INFO, "[%@] Could not create accelerator\n", valuePtr, 0xCu);
+        *&valuePtr[4] = v39;
+        _os_log_impl(&dword_29D436000, v38, OS_LOG_TYPE_INFO, "[%@] Could not create accelerator\n", valuePtr, 0xCu);
       }
 
-      sub_29D437894(&v46);
+      sub_29D437894(&v42);
 LABEL_79:
-      sub_29D437894(&v48);
+      sub_29D437894(&v44);
+      sub_29D43EC00(&v46);
+      sub_29D43EC00(&v48);
       sub_29D43EC00(&v50);
       sub_29D43EC00(&v52);
-      sub_29D43EC00(&v54);
-      sub_29D43EC00(&v56);
 LABEL_80:
-      sub_29D437894(&v58);
+      sub_29D437894(&v54);
 LABEL_81:
-      sub_29D437894(&v60);
-      result = sub_29D43E8A8(&v62);
-      goto LABEL_82;
+      sub_29D437894(&v56);
+      return sub_29D43E8A8(&v58);
     }
 
-    if (v47)
+    if (v43)
     {
       *valuePtr = 0;
-      CFNumberGetValue(v47, kCFNumberSInt32Type, valuePtr);
+      CFNumberGetValue(v43, kCFNumberSInt32Type, valuePtr);
       if (*valuePtr)
       {
-        v30 = _IOHIDLogCategory();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        v28 = _IOHIDLogCategory();
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
-          v31 = *(this + 15);
-          if (v31)
+          v29 = *(this + 15);
+          if (v29)
           {
-            v31 = IOHIDServiceGetRegistryID();
+            v29 = IOHIDServiceGetRegistryID();
           }
 
           *valuePtr = 138412290;
-          *&valuePtr[4] = v31;
-          _os_log_impl(&dword_29D436000, v30, OS_LOG_TYPE_DEFAULT, "[%@] Using linear scaling\n", valuePtr, 0xCu);
+          *&valuePtr[4] = v29;
+          _os_log_impl(&dword_29D436000, v28, OS_LOG_TYPE_DEFAULT, "[%@] Using linear scaling\n", valuePtr, 0xCu);
         }
 
         if (*(this + 16) == 0.0)
         {
-          v44 = 0xAAAAAAAAAAAAAAAALL;
-          v45 = 0xAAAAAAAAAAAAAAAALL;
-          v32 = IOHIDPointerScrollFilter::copyCachedProperty(this, @"HIDPointerAccelerationMinimum");
-          sub_29D43982C(&v44, v32, 1);
-          if (sub_29D43CB30(&v44) && (*valuePtr = 0, CFNumberGetValue(v45, kCFNumberSInt32Type, valuePtr), *valuePtr))
+          v40 = 0xAAAAAAAAAAAAAAAALL;
+          v41 = 0xAAAAAAAAAAAAAAAALL;
+          v30 = IOHIDPointerScrollFilter::copyCachedProperty(this, @"HIDPointerAccelerationMinimum");
+          sub_29D43982C(&v40, v30, 1);
+          if (sub_29D43CB30(&v40) && (*valuePtr = 0, CFNumberGetValue(v41, kCFNumberSInt32Type, valuePtr), *valuePtr))
           {
             *valuePtr = 0;
-            CFNumberGetValue(v45, kCFNumberSInt32Type, valuePtr);
-            v33 = vcvtd_n_f64_s32(*valuePtr, 0x10uLL);
-            *(this + 17) = v33;
+            CFNumberGetValue(v41, kCFNumberSInt32Type, valuePtr);
+            v31 = vcvtd_n_f64_s32(*valuePtr, 0x10uLL);
+            *(this + 17) = v31;
           }
 
           else
           {
             memset(valuePtr, 170, 16);
-            v34 = IOHIDPreferencesCopyDomain();
-            sub_29D43982C(valuePtr, v34, 1);
+            v32 = IOHIDPreferencesCopyDomain();
+            sub_29D43982C(valuePtr, v32, 1);
             if (*&valuePtr[8])
             {
-              v64 = 0;
-              CFNumberGetValue(*&valuePtr[8], kCFNumberSInt32Type, &v64);
-              if (v64)
+              v60 = 0;
+              CFNumberGetValue(*&valuePtr[8], kCFNumberSInt32Type, &v60);
+              if (v60)
               {
-                v64 = 0;
-                CFNumberGetValue(*&valuePtr[8], kCFNumberSInt32Type, &v64);
-                *(this + 17) = vcvtd_n_f64_s32(v64, 0x10uLL);
+                v60 = 0;
+                CFNumberGetValue(*&valuePtr[8], kCFNumberSInt32Type, &v60);
+                *(this + 17) = vcvtd_n_f64_s32(v60, 0x10uLL);
               }
             }
 
             sub_29D437894(valuePtr);
-            v33 = *(this + 17);
+            v31 = *(this + 17);
           }
 
-          *(this + 16) = v33;
-          v35 = _IOHIDLogCategory();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+          *(this + 16) = v31;
+          v33 = _IOHIDLogCategory();
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
           {
-            v36 = *(this + 15);
-            if (v36)
+            if (*(this + 15))
             {
-              v36 = IOHIDServiceGetRegistryID();
+              IOHIDServiceGetRegistryID();
             }
 
-            sub_29D43EFD8(v36, this + 17);
+            sub_29D43EFD8();
           }
 
-          sub_29D437894(&v44);
+          sub_29D437894(&v40);
         }
 
         operator new();
@@ -3441,13 +3369,12 @@ LABEL_81:
     operator new();
   }
 
-LABEL_82:
-  v43 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-void sub_29D43D9CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28)
+void sub_29D43D9CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
+  va_start(va, a27);
   sub_29D437894(&a10);
   sub_29D437894(&a12);
   sub_29D437894(&a14);
@@ -3457,7 +3384,7 @@ void sub_29D43D9CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   sub_29D43EC00(&a22);
   sub_29D437894(&a24);
   sub_29D437894(&a26);
-  sub_29D43E8A8(&a28);
+  sub_29D43E8A8(va);
   _Unwind_Resume(a1);
 }
 
@@ -3484,7 +3411,7 @@ const void *sub_29D43DB4C(uint64_t a1)
 CFDictionaryRef *IOHIDPointerScrollFilter::setupScrollAcceleration(CFDictionaryRef *this, double a2)
 {
   v2 = this;
-  v64 = *MEMORY[0x29EDCA608];
+  v59 = *MEMORY[0x29EDCA608];
   if (*(this + 40))
   {
     for (i = 0; i != 3; ++i)
@@ -3498,13 +3425,13 @@ CFDictionaryRef *IOHIDPointerScrollFilter::setupScrollAcceleration(CFDictionaryR
 
   else
   {
-    v44 = 0xAAAAAAAAAAAAAAAALL;
-    v45 = 0xAAAAAAAAAAAAAAAALL;
+    v39 = 0xAAAAAAAAAAAAAAAALL;
+    v40 = 0xAAAAAAAAAAAAAAAALL;
     v4 = IOHIDPointerScrollFilter::copyCachedProperty(this, @"HIDSupportsScrollAcceleration");
-    sub_29D43E798(&v44, v4, 1);
-    if (v45)
+    sub_29D43E798(&v39, v4, 1);
+    if (v40)
     {
-      v5 = sub_29D43DB4C(&v44);
+      v5 = sub_29D43DB4C(&v39);
     }
 
     else
@@ -3513,65 +3440,36 @@ CFDictionaryRef *IOHIDPointerScrollFilter::setupScrollAcceleration(CFDictionaryR
     }
 
     *(v2 + 165) = v5;
-    v42 = &unk_2A241F828;
+    v37 = &unk_2A241F828;
     number = 0;
-    v40 = &unk_2A241FC20;
-    v41 = 0;
-    v38 = &unk_2A241FC20;
+    v35 = &unk_2A241FC20;
+    v36 = 0;
+    v33 = &unk_2A241FC20;
     cf = 0;
-    v36 = &unk_2A241FC20;
-    v37 = 0;
-    v34 = &unk_2A241FC20;
-    v35 = 0;
+    v31 = &unk_2A241FC20;
+    v32 = 0;
+    v29 = &unk_2A241FC20;
+    v30 = 0;
     v6 = IOHIDPointerScrollFilter::copyCachedProperty(v2, @"HIDScrollAccelerationType");
     *valuePtr = &unk_2A241FC20;
     *&valuePtr[8] = v6;
-    sub_29D43C81C(&v40, valuePtr);
+    sub_29D43C81C(&v35, valuePtr);
     sub_29D43EC00(valuePtr);
-    if (v41)
+    if (v36)
     {
-      v7 = IOHIDPointerScrollFilter::copyCachedProperty(v2, v41);
+      v7 = IOHIDPointerScrollFilter::copyCachedProperty(v2, v36);
       *valuePtr = &unk_2A241FC20;
       *&valuePtr[8] = v7;
-      sub_29D43C81C(&v38, valuePtr);
+      sub_29D43C81C(&v33, valuePtr);
       sub_29D43EC00(valuePtr);
       sub_29D43982C(valuePtr, cf, 0);
-      sub_29D43C81C(&v42, valuePtr);
+      sub_29D43C81C(&v37, valuePtr);
       sub_29D437894(valuePtr);
     }
 
     v8 = number;
-    if (number)
+    if (number || (v9 = IOHIDPointerScrollFilter::copyCachedProperty(v2, @"HIDMouseScrollAcceleration"), *valuePtr = &unk_2A241FC20, *&valuePtr[8] = v9, sub_29D43C81C(&v31, valuePtr), sub_29D43EC00(valuePtr), sub_29D43982C(valuePtr, v32, 0), sub_29D43C81C(&v37, valuePtr), sub_29D437894(valuePtr), (v8 = number) != 0) || (v10 = IOHIDPointerScrollFilter::copyCachedProperty(v2, @"HIDScrollAcceleration"), *valuePtr = &unk_2A241FC20, *&valuePtr[8] = v10, sub_29D43C81C(&v29, valuePtr), sub_29D43EC00(valuePtr), sub_29D43982C(valuePtr, v30, 0), sub_29D43C81C(&v37, valuePtr), sub_29D437894(valuePtr), (v8 = number) != 0))
     {
-      goto LABEL_15;
-    }
-
-    v9 = IOHIDPointerScrollFilter::copyCachedProperty(v2, @"HIDMouseScrollAcceleration");
-    *valuePtr = &unk_2A241FC20;
-    *&valuePtr[8] = v9;
-    sub_29D43C81C(&v36, valuePtr);
-    sub_29D43EC00(valuePtr);
-    sub_29D43982C(valuePtr, v37, 0);
-    sub_29D43C81C(&v42, valuePtr);
-    sub_29D437894(valuePtr);
-    v8 = number;
-    if (number)
-    {
-      goto LABEL_15;
-    }
-
-    v10 = IOHIDPointerScrollFilter::copyCachedProperty(v2, @"HIDScrollAcceleration");
-    *valuePtr = &unk_2A241FC20;
-    *&valuePtr[8] = v10;
-    sub_29D43C81C(&v34, valuePtr);
-    sub_29D43EC00(valuePtr);
-    sub_29D43982C(valuePtr, v35, 0);
-    sub_29D43C81C(&v42, valuePtr);
-    sub_29D437894(valuePtr);
-    v8 = number;
-    if (number)
-    {
-LABEL_15:
       *valuePtr = 0;
       CFNumberGetValue(v8, kCFNumberSInt32Type, valuePtr);
       *(v2 + 144) = vcvtd_n_f64_s32(*valuePtr, 0x10uLL);
@@ -3596,20 +3494,20 @@ LABEL_15:
       *&valuePtr[4] = RegistryID;
       *&valuePtr[12] = 2080;
       *&valuePtr[14] = v13;
-      v50 = 2112;
-      v51 = v41;
-      v52 = 2112;
-      v53 = cf;
-      v54 = 2080;
-      v55 = "HIDMouseScrollAcceleration";
-      v56 = 2112;
-      v57 = v37;
-      v58 = 2080;
-      v59 = "HIDScrollAcceleration";
-      v60 = 2112;
-      v61 = v35;
-      v62 = 2112;
-      v63 = number;
+      v45 = 2112;
+      v46 = v36;
+      v47 = 2112;
+      v48 = cf;
+      v49 = 2080;
+      v50 = "HIDMouseScrollAcceleration";
+      v51 = 2112;
+      v52 = v32;
+      v53 = 2080;
+      v54 = "HIDScrollAcceleration";
+      v55 = 2112;
+      v56 = v30;
+      v57 = 2112;
+      v58 = number;
       _os_log_impl(&dword_29D436000, v11, OS_LOG_TYPE_DEFAULT, "[%@] Scroll acceleration (%s) %@:%@ %s:%@ %s:%@ %@\n", valuePtr, 0x5Cu);
     }
 
@@ -3618,81 +3516,77 @@ LABEL_15:
       v14 = _IOHIDLogCategory();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        v15 = *(v2 + 120);
-        if (v15)
+        if (*(v2 + 120))
         {
-          v15 = IOHIDServiceGetRegistryID();
+          IOHIDServiceGetRegistryID();
         }
 
-        sub_29D43F010(v15, (v2 + 144));
+        sub_29D43F010();
       }
 
-      v32 = 0xAAAAAAAAAAAAAAAALL;
-      v33 = 0xAAAAAAAAAAAAAAAALL;
-      v16 = IOHIDPointerScrollFilter::copyCachedProperty(v2, @"HIDScrollReportRate");
-      sub_29D43982C(&v32, v16, 1);
-      if (v33 && (*buf = 0, CFNumberGetValue(v33, kCFNumberSInt32Type, buf), *buf) || (sub_29D43EB4C(buf, 4390912), sub_29D43C81C(&v32, buf), sub_29D437894(buf), v33))
+      v27 = 0xAAAAAAAAAAAAAAAALL;
+      v28 = 0xAAAAAAAAAAAAAAAALL;
+      v15 = IOHIDPointerScrollFilter::copyCachedProperty(v2, @"HIDScrollReportRate");
+      sub_29D43982C(&v27, v15, 1);
+      if (v28 && (*buf = 0, CFNumberGetValue(v28, kCFNumberSInt32Type, buf), *buf) || (sub_29D43EB4C(buf, 4390912), sub_29D43C81C(&v27, buf), sub_29D437894(buf), v28))
       {
-        v17 = 0;
+        v16 = 0;
         while (1)
         {
-          v18 = v2 + 8 * v17;
-          v19 = *(v18 + 56);
-          *(v18 + 56) = 0;
-          if (v19)
+          v17 = v2 + 8 * v16;
+          v18 = *(v17 + 56);
+          *(v17 + 56) = 0;
+          if (v18)
           {
-            (*(*v19 + 8))(v19);
+            (*(*v18 + 8))(v18);
           }
 
           memset(buf, 170, sizeof(buf));
-          v20 = *(v2 + 120);
-          v21 = *(&off_29F34F390 + v17);
-          v22 = IOHIDServiceCopyProperty();
-          sub_29D43982C(buf, v22, 1);
-          v23 = *&buf[8];
+          v19 = IOHIDServiceCopyProperty();
+          sub_29D43982C(buf, v19, 1);
+          v20 = *&buf[8];
           if (!*&buf[8])
           {
-            v24 = *(v2 + 120);
-            v25 = IOHIDServiceCopyProperty();
-            sub_29D43982C(v46, v25, 1);
-            sub_29D43C81C(buf, v46);
-            sub_29D437894(v46);
-            v23 = *&buf[8];
+            v21 = IOHIDServiceCopyProperty();
+            sub_29D43982C(v41, v21, 1);
+            sub_29D43C81C(buf, v41);
+            sub_29D437894(v41);
+            v20 = *&buf[8];
             if (!*&buf[8])
             {
               break;
             }
           }
 
-          *v46 = 0;
-          CFNumberGetValue(v23, kCFNumberSInt32Type, v46);
-          v26 = *v46;
-          *v46 = 0;
-          CFNumberGetValue(v33, kCFNumberSInt32Type, v46);
-          if (IOHIDPointerScrollFilter::createScrollAlgorithm(v2, v17, v26, *v46))
+          *v41 = 0;
+          CFNumberGetValue(v20, kCFNumberSInt32Type, v41);
+          v22 = *v41;
+          *v41 = 0;
+          CFNumberGetValue(v28, kCFNumberSInt32Type, v41);
+          if (IOHIDPointerScrollFilter::createScrollAlgorithm(v2, v16, v22, *v41))
           {
             operator new();
           }
 
           sub_29D437894(buf);
-          if (++v17 == 3)
+          if (++v16 == 3)
           {
             goto LABEL_48;
           }
         }
 
-        v29 = _IOHIDLogCategory();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+        v25 = _IOHIDLogCategory();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
         {
-          v30 = *(v2 + 120);
-          if (v30)
+          v26 = *(v2 + 120);
+          if (v26)
           {
-            v30 = IOHIDServiceGetRegistryID();
+            v26 = IOHIDServiceGetRegistryID();
           }
 
-          *v46 = 138412290;
-          v47 = v30;
-          _os_log_impl(&dword_29D436000, v29, OS_LOG_TYPE_INFO, "[%@] Could not get kIOHIDScrollResolutionKey\n", v46, 0xCu);
+          *v41 = 138412290;
+          v42 = v26;
+          _os_log_impl(&dword_29D436000, v25, OS_LOG_TYPE_INFO, "[%@] Could not get kIOHIDScrollResolutionKey\n", v41, 0xCu);
         }
 
         sub_29D437894(buf);
@@ -3700,34 +3594,33 @@ LABEL_15:
 
       else
       {
-        v27 = _IOHIDLogCategory();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+        v23 = _IOHIDLogCategory();
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
-          v28 = *(v2 + 120);
-          if (v28)
+          v24 = *(v2 + 120);
+          if (v24)
           {
-            v28 = IOHIDServiceGetRegistryID();
+            v24 = IOHIDServiceGetRegistryID();
           }
 
           *buf = 138412290;
-          *&buf[4] = v28;
-          _os_log_impl(&dword_29D436000, v27, OS_LOG_TYPE_INFO, "[%@] Could not get/create report rate\n", buf, 0xCu);
+          *&buf[4] = v24;
+          _os_log_impl(&dword_29D436000, v23, OS_LOG_TYPE_INFO, "[%@] Could not get/create report rate\n", buf, 0xCu);
         }
       }
 
 LABEL_48:
-      sub_29D437894(&v32);
+      sub_29D437894(&v27);
     }
 
-    sub_29D43EC00(&v34);
-    sub_29D43EC00(&v36);
-    sub_29D43EC00(&v38);
-    sub_29D43EC00(&v40);
-    sub_29D437894(&v42);
-    this = sub_29D43E8A8(&v44);
+    sub_29D43EC00(&v29);
+    sub_29D43EC00(&v31);
+    sub_29D43EC00(&v33);
+    sub_29D43EC00(&v35);
+    sub_29D437894(&v37);
+    return sub_29D43E8A8(&v39);
   }
 
-  v31 = *MEMORY[0x29EDCA608];
   return this;
 }
 
@@ -3773,22 +3666,32 @@ void IOHIDPointerScrollFilter::statsTimerCallback(dispatch_source_t *this, void 
   if (this[15])
   {
     dispatch_source_set_timer(this[21], 0xFFFFFFFFFFFFFFFFLL, 0, 0);
-    v3 = *(this + 16);
-    v4 = *(this + 18);
-    v15 = 0xAAAAAAAAAAAAAAAALL;
-    number = 0xAAAAAAAAAAAAAAAALL;
-    v5 = this[15];
-    v6 = IOHIDServiceCopyProperty();
-    sub_29D43982C(&v15, v6, 1);
+    v3 = this[16];
+    v4 = this[18];
     v13 = 0xAAAAAAAAAAAAAAAALL;
-    v14 = 0xAAAAAAAAAAAAAAAALL;
-    v7 = this[15];
-    v8 = IOHIDServiceCopyProperty();
-    sub_29D43982C(&v13, v8, 1);
+    number = 0xAAAAAAAAAAAAAAAALL;
+    v5 = IOHIDServiceCopyProperty();
+    sub_29D43982C(&v13, v5, 1);
+    v11 = 0xAAAAAAAAAAAAAAAALL;
+    v12 = 0xAAAAAAAAAAAAAAAALL;
+    v6 = IOHIDServiceCopyProperty();
+    sub_29D43982C(&v11, v6, 1);
     if (number)
     {
       valuePtr = 0;
       CFNumberGetValue(number, kCFNumberSInt16Type, &valuePtr);
+      v7 = valuePtr;
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+
+    if (v12)
+    {
+      valuePtr = 0;
+      CFNumberGetValue(v12, kCFNumberSInt16Type, &valuePtr);
       v9 = valuePtr;
     }
 
@@ -3797,51 +3700,39 @@ void IOHIDPointerScrollFilter::statsTimerCallback(dispatch_source_t *this, void 
       v9 = 0;
     }
 
-    if (v14)
-    {
-      valuePtr = 0;
-      CFNumberGetValue(v14, kCFNumberSInt16Type, &valuePtr);
-      v11 = valuePtr;
-    }
-
-    else
-    {
-      v11 = 0;
-    }
-
     if (analytics_is_event_used())
     {
-      v12 = xpc_dictionary_create(0, 0, 0);
-      xpc_dictionary_set_uint64(v12, "PointerAccelerationValue", vcvtd_n_u64_f64(v3, 0x10uLL));
-      xpc_dictionary_set_uint64(v12, "ScrollAccelerationValue", vcvtd_n_u64_f64(v4, 0x10uLL));
-      xpc_dictionary_set_uint64(v12, "VendorID", v11);
-      xpc_dictionary_set_uint64(v12, "ProductID", v9);
+      v10 = xpc_dictionary_create(0, 0, 0);
+      xpc_dictionary_set_uint64(v10, "PointerAccelerationValue", vcvtd_n_u64_f64(*&v3, 0x10uLL));
+      xpc_dictionary_set_uint64(v10, "ScrollAccelerationValue", vcvtd_n_u64_f64(*&v4, 0x10uLL));
+      xpc_dictionary_set_uint64(v10, "VendorID", v9);
+      xpc_dictionary_set_uint64(v10, "ProductID", v7);
       analytics_send_event();
-      xpc_release(v12);
+      xpc_release(v10);
     }
 
+    sub_29D437894(&v11);
     sub_29D437894(&v13);
-    sub_29D437894(&v15);
   }
 
   else
   {
-    v10 = _IOHIDLogCategory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v8 = _IOHIDLogCategory();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_29D43F048(v10);
+      sub_29D43F048(v8);
     }
   }
 }
 
-void sub_29D43E6B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29D43E6B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_29D437894(va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *sub_29D43E6DC(_BYTE *a1, char *__s)
+void *sub_29D43E6DC(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -3855,13 +3746,13 @@ _BYTE *sub_29D43E6DC(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -4061,20 +3952,18 @@ void sub_29D43EC78(void *a1@<X0>, const char *a2@<X3>, uint8_t *a3@<X4>, NSObjec
 
 void sub_29D43EC94(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_debug_impl(&dword_29D436000, a2, OS_LOG_TYPE_DEBUG, "table index %zu\n", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_debug_impl(&dword_29D436000, a2, OS_LOG_TYPE_DEBUG, "table index %zu\n", &v2, 0xCu);
 }
 
 void sub_29D43ED0C(ACCEL_TABLE *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v4[0] = 67109120;
-  v4[1] = ACCEL_TABLE::signature(a1);
-  _os_log_debug_impl(&dword_29D436000, a2, OS_LOG_TYPE_DEBUG, "unsupported table signature  %d\n", v4, 8u);
-  v3 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v3[0] = 67109120;
+  v3[1] = ACCEL_TABLE::signature(a1);
+  _os_log_debug_impl(&dword_29D436000, a2, OS_LOG_TYPE_DEBUG, "unsupported table signature  %d\n", v3, 8u);
 }
 
 void sub_29D43ED98(char *a1, uint8_t *buf, os_log_t log)
@@ -4100,42 +3989,40 @@ void sub_29D43ED98(char *a1, uint8_t *buf, os_log_t log)
 
 void sub_29D43EE94(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_debug_impl(&dword_29D436000, a2, OS_LOG_TYPE_DEBUG, "(%p) setupAcceleration service not available\n", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_debug_impl(&dword_29D436000, a2, OS_LOG_TYPE_DEBUG, "(%p) setupAcceleration service not available\n", &v2, 0xCu);
 }
 
 void sub_29D43EF0C(CFStringRef *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   CStringPtr = CFStringGetCStringPtr(*a1, 0);
-  v5 = 136315138;
-  v6 = CStringPtr;
-  _os_log_error_impl(&dword_29D436000, a2, OS_LOG_TYPE_ERROR, "Unable to deserialize HID Property Event %s", &v5, 0xCu);
-  v4 = *MEMORY[0x29EDCA608];
+  v4 = 136315138;
+  v5 = CStringPtr;
+  _os_log_error_impl(&dword_29D436000, a2, OS_LOG_TYPE_ERROR, "Unable to deserialize HID Property Event %s", &v4, 0xCu);
 }
 
-void sub_29D43EFA0(uint64_t a1, uint64_t *a2)
+void sub_29D43EFA0()
 {
-  sub_29D43EC68(a1, a2);
-  sub_29D43EC50(v2, 5.778e-34, v3, v4);
-  sub_29D43EC78(&dword_29D436000, "[%@] Pointer acceleration value %f\n", v5, v6);
+  sub_29D43EC68();
+  sub_29D43EC50(v0, 5.778e-34, v1, v2);
+  sub_29D43EC78(&dword_29D436000, "[%@] Pointer acceleration value %f\n", v3, v4);
 }
 
-void sub_29D43EFD8(uint64_t a1, uint64_t *a2)
+void sub_29D43EFD8()
 {
-  sub_29D43EC68(a1, a2);
-  sub_29D43EC50(v2, 5.778e-34, v3, v4);
-  sub_29D43EC78(&dword_29D436000, "[%@] Override pointer acceleration value with minimum %f\n", v5, v6);
+  sub_29D43EC68();
+  sub_29D43EC50(v0, 5.778e-34, v1, v2);
+  sub_29D43EC78(&dword_29D436000, "[%@] Override pointer acceleration value with minimum %f\n", v3, v4);
 }
 
-void sub_29D43F010(uint64_t a1, uint64_t *a2)
+void sub_29D43F010()
 {
-  sub_29D43EC68(a1, a2);
-  sub_29D43EC50(v2, 5.778e-34, v3, v4);
-  sub_29D43EC78(&dword_29D436000, "[%@] Scroll acceleration value %f\n", v5, v6);
+  sub_29D43EC68();
+  sub_29D43EC50(v0, 5.778e-34, v1, v2);
+  sub_29D43EC78(&dword_29D436000, "[%@] Scroll acceleration value %f\n", v3, v4);
 }
 
 uint64_t std::ostream::operator<<()

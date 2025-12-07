@@ -39,7 +39,7 @@
     v5->_shadowType = [coderCopy decodeIntegerForKey:@"shadowType"];
     if (coderCopy)
     {
-      [coderCopy decodeCGAffineTransformForKey:@"liftedTransform"];
+      objc_msgSend_decodeCGAffineTransformForKey_(coderCopy);
     }
 
     else
@@ -79,7 +79,7 @@
 {
   v4 = objc_alloc_init(_UIDragPreviewShadowProperties);
   [(_UIDragPreviewShadowProperties *)v4 setShadowType:[(_UIDragPreviewShadowProperties *)self shadowType]];
-  [(_UIDragPreviewShadowProperties *)self liftedTransform];
+  objc_msgSend_liftedTransform(self);
   v6[0] = v6[3];
   v6[1] = v6[4];
   v6[2] = v6[5];

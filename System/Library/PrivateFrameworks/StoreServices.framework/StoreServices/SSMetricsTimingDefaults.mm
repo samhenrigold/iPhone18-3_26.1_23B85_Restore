@@ -73,7 +73,7 @@ void __41__SSMetricsTimingDefaults_sharedInstance__block_invoke()
 
 void __51__SSMetricsTimingDefaults_initWithSessionDelegate___block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (*(a1 + 32) && (objc_opt_respondsToSelector() & 1) != 0)
   {
@@ -96,53 +96,57 @@ void __51__SSMetricsTimingDefaults_initWithSessionDelegate___block_invoke(uint64
     v5 = [v4 shouldLog];
     if ([v4 shouldLogToDisk])
     {
-      v6 = v5 | 2;
+      LODWORD(v6) = v5 | 2;
     }
 
     else
     {
-      v6 = v5;
+      LODWORD(v6) = v5;
     }
 
     v7 = [v4 OSLogObject];
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = v6;
+    }
+
+    else
     {
       v6 &= 2u;
     }
 
     if (v6)
     {
-      *v36 = 138412290;
-      *&v36[4] = objc_opt_class();
-      v8 = *&v36[4];
-      LODWORD(v35) = 12;
-      v34 = v36;
-      v9 = _os_log_send_and_compose_impl();
+      v36 = 138412290;
+      v37 = objc_opt_class();
+      v8 = v37;
+      v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_1D48BA000, v7, 0, "%@: Not setting anything following bag load", &v36, 12);
 
       if (!v9)
       {
-LABEL_18:
+LABEL_19:
 
         v16 = 0;
-        goto LABEL_36;
+        goto LABEL_38;
       }
 
-      v7 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, v36, v35, *v36}];
+      v7 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:4];
       free(v9);
       SSFileLog(v4, @"%@", v10, v11, v12, v13, v14, v15, v7);
     }
 
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
   if (!v3)
   {
     v17 = [SSURLBagContext contextWithBagType:0];
-    if (SSIsDaemon())
+    v29 = SSIsDaemon();
+    if (v29)
     {
-      v29 = SSViTunesStoreFramework();
-      v30 = [SSVWeakLinkedClassForString(&cfstr_Isurlbagcache.isa v29)];
-      v20 = [v30 URLBagForContext:v17];
+      v31 = SSViTunesStoreFramework(v29, v30);
+      v32 = [SSVWeakLinkedClassForString(&cfstr_Isurlbagcache.isa v31)];
+      v20 = [v32 URLBagForContext:v17];
 
       [v20 valueForKey:@"metrics"];
     }
@@ -153,7 +157,7 @@ LABEL_18:
       [v20 valueForKey:@"metrics" error:0];
     }
     v16 = ;
-    goto LABEL_34;
+    goto LABEL_36;
   }
 
   v16 = [v3 dictionaryForKey:@"metrics" error:0];
@@ -166,51 +170,54 @@ LABEL_18:
   v18 = [v17 shouldLog];
   if ([v17 shouldLogToDisk])
   {
-    v19 = v18 | 2;
+    LODWORD(v19) = v18 | 2;
   }
 
   else
   {
-    v19 = v18;
+    LODWORD(v19) = v18;
   }
 
   v20 = [v17 OSLogObject];
-  if (!os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  {
+    v19 = v19;
+  }
+
+  else
   {
     v19 &= 2u;
   }
 
   if (!v19)
   {
-    goto LABEL_34;
+    goto LABEL_36;
   }
 
-  *v36 = 138412546;
-  *&v36[4] = objc_opt_class();
-  *&v36[12] = 2112;
-  *&v36[14] = v16;
-  v21 = *&v36[4];
-  LODWORD(v35) = 22;
-  v34 = v36;
-  v22 = _os_log_send_and_compose_impl();
+  v36 = 138412546;
+  v37 = objc_opt_class();
+  v38 = 2112;
+  v39 = v16;
+  v21 = v37;
+  v22 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &dword_1D48BA000, v20, 0, "%@: Metrics values are: %@", &v36, 22);
 
   if (v22)
   {
-    v20 = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:{4, v36, v35, *v36, *&v36[8], v37}];
+    v20 = [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:4];
     free(v22);
     SSFileLog(v17, @"%@", v23, v24, v25, v26, v27, v28, v20);
-LABEL_34:
+LABEL_36:
   }
 
-LABEL_36:
-  v31 = [v16 objectForKeyedSubscript:{@"performance", v34}];
-  v32 = [WeakRetained cachedValues];
-  v33 = [v32 isEqualToDictionary:v31];
+LABEL_38:
+  v33 = [v16 objectForKeyedSubscript:@"performance"];
+  v34 = [WeakRetained cachedValues];
+  v35 = [v34 isEqualToDictionary:v33];
 
-  if ((v33 & 1) == 0)
+  if ((v35 & 1) == 0)
   {
-    CFPreferencesSetAppValue(@"NetworkTimingMetrics", v31, @"com.apple.itunesstored");
-    [WeakRetained setCachedValues:v31];
+    CFPreferencesSetAppValue(@"NetworkTimingMetrics", v33, @"com.apple.itunesstored");
+    [WeakRetained setCachedValues:v33];
   }
 }
 

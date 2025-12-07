@@ -8,7 +8,7 @@
 + (id)makeWithBuilder:(id)builder configuration:(id)configuration
 {
   v5 = *(configuration + OBJC_IVAR___WOCoreLiveWorkoutConfiguration_configuration);
-  type metadata accessor for PacerWorkoutConfiguration();
+  type metadata accessor for PacerWorkoutConfiguration(0);
   v6 = swift_dynamicCastClass();
   if (v6)
   {
@@ -23,7 +23,7 @@
 
   else
   {
-    result = _assertionFailure(_:_:file:line:flags:)();
+    result = _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD00000000000005ELL, 0x800000020B45ECA0, "WorkoutCore/PacerDistanceGoalProgressAccumulatorFactory.swift", 61, 2, 20, 0);
     __break(1u);
   }
 

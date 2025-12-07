@@ -1,74 +1,3 @@
-uint64_t rename_new_index(uint64_t a1, char *a2, uint64_t a3)
-{
-  v25 = *MEMORY[0x1E69E9840];
-  v23 = 0u;
-  memset(v24, 0, sizeof(v24));
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  *__str = 0u;
-  v5 = fmtcheck(a2, "%i");
-  snprintf(__str, 0xFFuLL, v5, a3);
-  v6 = ContentIndexChangePrefix(a1);
-  v7 = *(a1 + 4912);
-  if (v6)
-  {
-    if (v7 && _os_feature_enabled_impl())
-    {
-      vectorIndexEndMerge(*(a1 + 4912));
-    }
-  }
-
-  else if (v7 && _os_feature_enabled_impl())
-  {
-    vectorIndexCancelMerge(*(a1 + 4912));
-  }
-
-  v8 = *MEMORY[0x1E69E9840];
-  return v6;
-}
-
-uint64_t scan_lost_ids(uint64_t a1, int a2)
-{
-  v3 = *(a1 + 1192);
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 0x40000000;
-  v8[2] = __scan_lost_ids_block_invoke;
-  v8[3] = &__block_descriptor_tmp_835;
-  v8[4] = a1;
-  if (*v3 != 1685287992)
-  {
-    v5 = __si_assert_copy_extra_332();
-    v6 = v5;
-    if (v5)
-    {
-      v7 = v5;
-    }
-
-    else
-    {
-      v7 = "";
-    }
-
-    __message_assert("%s:%u: Unexpected code path %s ", "core-db.c", 248, v7);
-    free(v6);
-    MEMORY[0xBAD] = -559038737;
-    abort();
-  }
-
-  db2_scan_lost_ids(v3, a2, a1, v8);
-  return unlinkat(*(a1 + 32), "rescan_needed", 2048);
-}
-
 void si_freeIndex0(uint64_t *a1, int a2)
 {
   if (a2)
@@ -86,15 +15,16 @@ void si_freeIndex0(uint64_t *a1, int a2)
   free(a1);
 }
 
-BOOL si_merge_term_filter(void *a1, unsigned __int8 *a2, unsigned int a3)
+BOOL si_merge_term_filter(void *a1, unsigned __int8 *a2, uint64_t a3)
 {
+  v3 = a3;
   v6 = triePropertyID(a2, a3);
   if (v6 != si_merge_term_filter_lastID)
   {
     si_merge_term_filter_lastID = v6;
   }
 
-  if (a3 == 2)
+  if (v3 == 2)
   {
     if (*a2 > 5u)
     {
@@ -105,9 +35,9 @@ BOOL si_merge_term_filter(void *a1, unsigned __int8 *a2, unsigned int a3)
     return v7 < 6;
   }
 
-  if (a3 != 1)
+  if (v3 != 1)
   {
-    if (a3 < 3)
+    if (v3 < 3)
     {
       return 0;
     }
@@ -117,7 +47,7 @@ BOOL si_merge_term_filter(void *a1, unsigned __int8 *a2, unsigned int a3)
       return 0;
     }
 
-    v9 = triePropertyID(a2, a3);
+    v9 = triePropertyID(a2, v3);
     if (!v9)
     {
       return 0;
@@ -415,66 +345,64 @@ uint64_t _CreateDeferQueue(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
   pthread_mutex_lock((a1 + 1320));
   if (*(a1 + 1152))
   {
-    v13 = __si_assert_copy_extra_661(-1);
-    v14 = v13;
-    v15 = "";
-    if (v13)
+    v14 = __si_assert_copy_extra_661(-1);
+    v15 = v14;
+    v16 = "";
+    if (v14)
     {
-      v15 = v13;
+      v16 = v14;
     }
 
-    __message_assert("%s:%u: failed assertion '%s' %s ", "SpotlightIndex.c", 7315, "!ref->workqueues.queues[SI_DEFER_QUEUE_IDX]", v15);
-    free(v14);
+    __message_assert("%s:%u: failed assertion '%s' %s ", "SpotlightIndex.c", 7315, "!ref->workqueues.queues[SI_DEFER_QUEUE_IDX]", v16);
+    free(v15);
     if (__valid_fs(-1))
     {
-      v16 = 2989;
+      v17 = 2989;
     }
 
     else
     {
-      v16 = 3072;
+      v17 = 3072;
     }
 
-    *v16 = -559038737;
+    *v17 = -559038737;
     abort();
   }
 
-  *(a1 + 2072);
-  *(a1 + 1152) = si_create_child_queue(*(a1 + 872));
-  v8 = *a2 + 8 * a3;
-  *(a1 + 1304) = *(*v8 + 80);
-  v9 = *(v8 + 8 * a4 - 8);
-  LODWORD(v10) = *(v9 + 68);
-  v11 = *(v9 + 80);
-  if (v10 >= 2)
+  *(a1 + 1152) = si_create_child_queue(v8);
+  v9 = *a2 + 8 * a3;
+  *(a1 + 1304) = *(*v9 + 80);
+  v10 = *(v9 + 8 * a4 - 8);
+  LODWORD(v11) = *(v10 + 68);
+  v12 = *(v10 + 80);
+  if (v11 >= 2)
   {
-    v10 = v10;
+    v11 = v11;
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  *(a1 + 1312) = v11 + v10;
+  *(a1 + 1312) = v12 + v11;
 
   return pthread_mutex_unlock((a1 + 1320));
 }
 
 uint64_t new_live_index(uint64_t a1, int a2, unint64_t a3)
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 1384);
-  v65 = *(v6 + 8);
-  v71 = 0;
-  if (!fd_setDir(*(a1 + 32), &v71))
+  v66 = *(v6 + 8);
+  v72 = 0;
+  if (!fd_setDir(*(a1 + 32), &v72))
   {
-    New = 0;
-    goto LABEL_44;
+    return 0;
   }
 
-  v63 = a2;
-  cf = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"tmp.live.%d.", v65);
+  v64 = a2;
+  cf = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"tmp.live.%d.", v66);
   v7 = ((*(a1 + 828) & 1) << 6) ^ 0x50;
   if (*(a1 + 2072))
   {
@@ -499,14 +427,14 @@ uint64_t new_live_index(uint64_t a1, int a2, unint64_t a3)
   }
 
   v11 = ~(v8 >> 7) & 0x8000;
-  v70[0] = MEMORY[0x1E69E9820];
-  v70[1] = 0x40000000;
-  v70[2] = __new_live_index_block_invoke;
-  v70[3] = &__block_descriptor_tmp_871;
-  v70[4] = a1;
-  if (v65)
+  v71[0] = MEMORY[0x1E69E9820];
+  v71[1] = 0x40000000;
+  v71[2] = __new_live_index_block_invoke;
+  v71[3] = &__block_descriptor_tmp_871;
+  v71[4] = a1;
+  if (v66)
   {
-    v12 = *(*v6 + 8 * (v65 - 1));
+    v12 = *(*v6 + 8 * (v66 - 1));
     LODWORD(v13) = *(v12 + 68);
     if (v13 >= 2)
     {
@@ -548,13 +476,13 @@ uint64_t new_live_index(uint64_t a1, int a2, unint64_t a3)
       v23 = 0;
     }
 
-    v68[0] = MEMORY[0x1E69E9820];
-    v68[1] = 0x40000000;
-    v68[2] = __new_live_index_block_invoke_3;
-    v68[3] = &__block_descriptor_tmp_873;
-    v68[4] = a1;
-    New = ContentIndexCreateNew(v16, cf, v15, v17, v10 | v11, 1, v18, v23, v68, v70, *(a1 + 60));
-    v40 = *(*v6 + 8 * (v65 - 1));
+    v69[0] = MEMORY[0x1E69E9820];
+    v69[1] = 0x40000000;
+    v69[2] = __new_live_index_block_invoke_3;
+    v69[3] = &__block_descriptor_tmp_873;
+    v69[4] = a1;
+    New = ContentIndexCreateNew(v16, cf, v15, v17, v10 | v11, 1, v18, v23, v69, v71, *(a1 + 60));
+    v40 = *(*v6 + 8 * (v66 - 1));
     v41 = v15;
     v42 = 7523;
   }
@@ -610,12 +538,12 @@ uint64_t new_live_index(uint64_t a1, int a2, unint64_t a3)
       v39 = 0;
     }
 
-    v69[0] = MEMORY[0x1E69E9820];
-    v69[1] = 0x40000000;
-    v69[2] = __new_live_index_block_invoke_2;
-    v69[3] = &__block_descriptor_tmp_872;
-    v69[4] = a1;
-    New = ContentIndexCreateNew(v29, cf, v15, v30, v10 | v11, 1, v31, v39, v69, v70, *(a1 + 60));
+    v70[0] = MEMORY[0x1E69E9820];
+    v70[1] = 0x40000000;
+    v70[2] = __new_live_index_block_invoke_2;
+    v70[3] = &__block_descriptor_tmp_872;
+    v70[4] = a1;
+    New = ContentIndexCreateNew(v29, cf, v15, v30, v10 | v11, 1, v31, v39, v70, v71, *(a1 + 60));
     v40 = *(*v25 + 8 * (*(v25 + 8) - 1));
     v41 = v15;
     v42 = 7518;
@@ -625,11 +553,11 @@ uint64_t new_live_index(uint64_t a1, int a2, unint64_t a3)
   CFRelease(cf);
   if (New)
   {
-    SIActivityJournalNewLiveIndex((a1 + 2192), v65, v15);
+    SIActivityJournalNewLiveIndex((a1 + 2192), v66, v15);
     v43 = *(v6 + 8);
     if (v43)
     {
-      ContentIndexSetEmergency(New, *(*(*v6 + 8 * (v65 - 1)) + 44));
+      ContentIndexSetEmergency(New, *(*(*v6 + 8 * (v66 - 1)) + 44));
     }
 
     aBlock[0] = MEMORY[0x1E69E9820];
@@ -640,13 +568,13 @@ uint64_t new_live_index(uint64_t a1, int a2, unint64_t a3)
     aBlock[5] = New;
     ContentIndexSetDirtyCallback(New, aBlock);
     *(New + 15201) = 4;
-    v76 = 0;
-    v74 = 0u;
+    v77 = 0;
     v75 = 0u;
+    v76 = 0u;
     __buf = 0u;
-    v73 = 0u;
-    v66 = 0;
-    ContentIndexSyncIndex(New, &__buf, &v66);
+    v74 = 0u;
+    v67 = 0;
+    ContentIndexSyncIndex(New, &__buf, &v67);
     v44 = ContentIndexListClone(v6);
     v45 = v44;
     v46 = *(v44 + 3);
@@ -658,54 +586,53 @@ uint64_t new_live_index(uint64_t a1, int a2, unint64_t a3)
     }
 
     memset(__str, 0, 255);
-    snprintf(__str, 0xFFuLL, "live.%d.", v65);
+    snprintf(__str, 0xFFuLL, "live.%d.", v66);
     bzero(&__buf + 8, 0x208uLL);
     *&__buf = 0x6D6F76650A00;
     DWORD2(__buf) = 2;
-    LODWORD(v73) = v65;
-    HIDWORD(v73) = 1;
-    *(*v45 + 8 * v65) = New;
-    *(v45 + 16) = v65;
+    LODWORD(v74) = v66;
+    HIDWORD(v74) = 1;
+    *(*v45 + 8 * v66) = New;
+    *(v45 + 16) = v66;
     ++*(v45 + 8);
-    v48 = *(a1 + 1392);
-    si_clone_index_metadata_to_inflight(a1);
-    __strlcpy_chk();
+    si_clone_index_metadata_to_inflight(v48);
+    __strlcpy_chk(&v78, (New + 15208), 255, 255);
     v49 = si_openat_protected(*(a1 + 32), "tmp.movePlan", 1538, 3);
     pwrite(v49, &__buf, 0x210uLL, 0);
     fcntl(v49, 85);
-    ContentIndexChangePrefix(New);
+    ContentIndexChangePrefix(v50);
     unlinkat(*(a1 + 32), "tmp.movePlan", 2048);
     close(v49);
-    v55 = v6;
-    atomic_compare_exchange_strong((a1 + 1384), &v55, v45);
-    if (v55 != v6)
+    v56 = v6;
+    atomic_compare_exchange_strong((a1 + 1384), &v56, v45);
+    if (v56 != v6)
     {
-      v59 = __si_assert_copy_extra_661(*(a1 + 32));
-      v60 = v59;
-      v61 = "";
-      if (v59)
+      v60 = __si_assert_copy_extra_661(*(a1 + 32));
+      v61 = v60;
+      v62 = "";
+      if (v60)
       {
-        v61 = v59;
+        v62 = v60;
       }
 
-      __message_assert("%s:%u: failed assertion '%s' %s This should be impossible; this thread is supposed to be  suspended when the other thread changes index sets.", "SpotlightIndex.c", 7580, "OSAtomicCompareAndSwapPtrBarrier(oldIndexSet,indexSet,(void* volatile*)indexSetPtr)", v61);
-      free(v60);
+      __message_assert("%s:%u: failed assertion '%s' %s This should be impossible; this thread is supposed to be  suspended when the other thread changes index sets.", "SpotlightIndex.c", 7580, "OSAtomicCompareAndSwapPtrBarrier(oldIndexSet,indexSet,(void* volatile*)indexSetPtr)", v62);
+      free(v61);
       if (__valid_fs(*(a1 + 32)))
       {
-        v62 = 2989;
+        v63 = 2989;
       }
 
       else
       {
-        v62 = 3072;
+        v63 = 3072;
       }
 
-      *v62 = -559038737;
+      *v63 = -559038737;
       abort();
     }
 
-    si_write_index_state(a1, 1, 0, v50, v51, v52, v53, v54);
-    if (v63)
+    si_write_index_state(a1, 1, 0, v51, v52, v53, v54, v55);
+    if (v64)
     {
       si_cleanup(a1, v6);
       atomic_fetch_add_explicit((a1 + 1400), 1u, memory_order_relaxed);
@@ -725,36 +652,34 @@ uint64_t new_live_index(uint64_t a1, int a2, unint64_t a3)
       }
     }
 
-    _CIDisableUpdates(*(*v45 + 8 * (v65 - 1)));
-    New = *(*v45 + 8 * (v65 - 1));
+    _CIDisableUpdates(v57);
+    New = *(*v45 + 8 * (v66 - 1));
   }
 
 LABEL_42:
-  v56 = v71;
-  MEMORY[0x1C6921200](v71);
-  if ((v56 & 0x80000000) == 0)
+  v58 = v72;
+  MEMORY[0x1C6921200](v72);
+  if ((v58 & 0x80000000) == 0)
   {
-    close(v56);
+    close(v58);
   }
 
-LABEL_44:
-  v57 = *MEMORY[0x1E69E9840];
   return New;
 }
 
 void si_recycleForBadIndex(uint64_t a1, uint64_t a2, const char *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v6 = *__error();
   v7 = _SILogForLogForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315650;
-    v11 = "si_recycleForBadIndex";
-    v12 = 1024;
-    v13 = 17389;
-    v14 = 2080;
-    v15 = a3;
+    v10 = "si_recycleForBadIndex";
+    v11 = 1024;
+    v12 = 17389;
+    v13 = 2080;
+    v14 = a3;
     _os_log_error_impl(&dword_1C278D000, v7, OS_LOG_TYPE_ERROR, "%s:%d: recycle %s", buf, 0x1Cu);
   }
 
@@ -783,17 +708,16 @@ void si_recycleForBadIndex(uint64_t a1, uint64_t a2, const char *a3)
   }
 
   si_makeUnavailable(a1, 22, 2, 7, a3);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-void si_scanEnded(uint64_t *a1, int a2)
+void si_scanEnded(atomic_uint **a1, int a2)
 {
   if (!a2)
   {
     v4 = *a1;
-    if (**(*a1 + 1392))
+    if (**(*a1 + 174))
     {
-      v5 = *(v4 + 1416);
+      v5 = *(v4 + 177);
       if (v5)
       {
         v6 = *(v5 + 88);
@@ -810,8 +734,8 @@ void si_scanEnded(uint64_t *a1, int a2)
       *(v7 + 64) = a1[8];
       a1[8] = 0;
       syncIndex(v7, 0);
-      v8 = *(a1[1] + 56);
-      if (gSISystemOnBattery == 1 && (v9 = *(v4 + 2360)) != 0 && (v10 = *(v9 + 80)) != 0)
+      v8 = a1[1][14];
+      if (gSISystemOnBattery == 1 && (v9 = *(v4 + 295)) != 0 && (v10 = *(v9 + 80)) != 0)
       {
         v11 = *(v9 + 144);
         v12[0] = MEMORY[0x1E69E9820];
@@ -829,42 +753,42 @@ void si_scanEnded(uint64_t *a1, int a2)
     }
   }
 
-  si_sync_ctx_free(a1, a2 != 0);
+  si_sync_ctx_free(a1, a2 != 0, 9955, "void si_scanEnded(si_sync_ctx *, Boolean)");
 }
 
-void __si_scanEnded_block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, NSObject *a5)
+void __si_scanEnded_block_invoke(uint64_t result, void *a2, void *a3, uint64_t a4, NSObject *a5)
 {
   if (a2)
   {
-    setupAndIssueMergeScan(a2, *(a1 + 32), a3, a4, a5);
+    setupAndIssueMergeScan(a2, *(result + 32), a3, a4, a5);
   }
 }
 
-void setupAndIssueMergeScan(uint64_t a1, int a2, void *a3, uint64_t a4, NSObject *a5)
+void setupAndIssueMergeScan(void *a1, int a2, void *a3, uint64_t a4, NSObject *a5)
 {
-  v17 = 0;
-  v18 = a2;
-  v9 = si_needsVaccuum(*(a1 + 1384), &v18, &v17);
-  v10 = v17;
-  if (v17)
+  v18 = 0;
+  v19 = a2;
+  v9 = si_needsVaccuum(a1[173], &v19, &v18);
+  v10 = v18;
+  if (v18)
   {
     v11 = v9;
     v12 = malloc_type_calloc(1uLL, 0x460uLL, 0x1070040C187FD8AuLL);
     *v12 = a1;
     v12[16] = 1;
     v12[1041] = v11;
-    *(v12 + 2) = v18;
+    *(v12 + 2) = v19;
     *(v12 + 3) = v10;
     v12[1042] = 0;
     *(v12 + 131) = "void setupAndIssueMergeScan(SIRef, int32_t, _Bool, xpc_activity_t, _Bool *, dispatch_group_t)";
     *(v12 + 274) = 6;
     v12[1100] = 1;
-    __strlcpy_chk();
+    __strlcpy_chk((v12 + 17), "live.%d.", v17);
     v13 = v12 + 1064;
     si_power_info_init((v12 + 1064), a3, a4, a5);
     if (!*(v12 + 136) && !*v13)
     {
-      v15 = *(a1 + 2360);
+      v15 = a1[295];
       if (v15)
       {
         v16 = *(v15 + 64);
@@ -875,7 +799,7 @@ void setupAndIssueMergeScan(uint64_t a1, int a2, void *a3, uint64_t a4, NSObject
       }
     }
 
-    v14 = *(a1 + 1064);
+    v14 = a1[133];
 
     si_enqueue_work(v14, si_mergeIndex, v12);
   }
@@ -997,7 +921,7 @@ LABEL_14:
 
 _DWORD *si_getSyncIndex(uint64_t a1, int a2)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 1392);
   v4 = *(a1 + 1384);
   v5 = *(v3 + 2);
@@ -1013,28 +937,28 @@ _DWORD *si_getSyncIndex(uint64_t a1, int a2)
         v11 = atomic_load((v10 + 36));
         if ((v11 & 3) == 0 && (*(v10 + 15203) & 1) == 0)
         {
-          v28 = __si_assert_copy_extra_661(-1);
-          v29 = v28;
-          v30 = "";
-          if (v28)
+          v27 = __si_assert_copy_extra_661(-1);
+          v28 = v27;
+          v29 = "";
+          if (v27)
           {
-            v30 = v28;
+            v29 = v27;
           }
 
-          __message_assert("%s:%u: failed assertion '%s' %s ", "SpotlightIndex.c", 10469, "!ContentIndexWritable(indexSet->index[i-1])", v30);
+          __message_assert("%s:%u: failed assertion '%s' %s ", "SpotlightIndex.c", 10469, "!ContentIndexWritable(indexSet->index[i-1])", v29);
 LABEL_36:
-          free(v29);
+          free(v28);
           if (__valid_fs(-1))
           {
-            v31 = 2989;
+            v30 = 2989;
           }
 
           else
           {
-            v31 = 3072;
+            v30 = 3072;
           }
 
-          *v31 = -559038737;
+          *v30 = -559038737;
           abort();
         }
 
@@ -1059,15 +983,15 @@ LABEL_36:
     v15 = atomic_load((v14 + 36));
     if ((v15 & 3) != 0 || *(v14 + 15203) == 1)
     {
-      v36 = __si_assert_copy_extra_661(-1);
-      v29 = v36;
-      v37 = "";
-      if (v36)
+      v35 = __si_assert_copy_extra_661(-1);
+      v28 = v35;
+      v36 = "";
+      if (v35)
       {
-        v37 = v36;
+        v36 = v35;
       }
 
-      __message_assert("%s:%u: failed assertion '%s' %s ", "SpotlightIndex.c", 10472, "indexLiveSet->currentIndex==~0 || ContentIndexWritable(indexLiveSet->index[indexLiveSet->currentIndex])", v37);
+      __message_assert("%s:%u: failed assertion '%s' %s ", "SpotlightIndex.c", 10472, "indexLiveSet->currentIndex==~0 || ContentIndexWritable(indexLiveSet->index[indexLiveSet->currentIndex])", v36);
       goto LABEL_36;
     }
   }
@@ -1098,30 +1022,30 @@ LABEL_20:
 LABEL_22:
   if (*LiveIndex != -1163003219)
   {
-    v32 = __si_assert_copy_extra_661(-1);
-    v29 = v32;
-    v33 = "";
-    if (v32)
+    v31 = __si_assert_copy_extra_661(-1);
+    v28 = v31;
+    v32 = "";
+    if (v31)
     {
-      v33 = v32;
+      v32 = v31;
     }
 
-    __message_assert("%s:%u: failed assertion '%s' %s ", "SpotlightIndex.c", 10481, "ContentIndexValidIndex(cindex)", v33);
+    __message_assert("%s:%u: failed assertion '%s' %s ", "SpotlightIndex.c", 10481, "ContentIndexValidIndex(cindex)", v32);
     goto LABEL_36;
   }
 
   v22 = atomic_load(LiveIndex + 9);
   if ((v22 & 3) != 0 || *(LiveIndex + 15203) == 1)
   {
-    v34 = __si_assert_copy_extra_661(-1);
-    v29 = v34;
-    v35 = "";
-    if (v34)
+    v33 = __si_assert_copy_extra_661(-1);
+    v28 = v33;
+    v34 = "";
+    if (v33)
     {
-      v35 = v34;
+      v34 = v33;
     }
 
-    __message_assert("%s:%u: failed assertion '%s' %s ", "SpotlightIndex.c", 10482, "ContentIndexWritable(cindex)", v35);
+    __message_assert("%s:%u: failed assertion '%s' %s ", "SpotlightIndex.c", 10482, "ContentIndexWritable(cindex)", v34);
     goto LABEL_36;
   }
 
@@ -1131,70 +1055,65 @@ LABEL_22:
     v24 = _SILogForLogForCategory(0);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v27 = LiveIndex[10];
+      v26 = LiveIndex[10];
       *buf = 136315906;
-      v39 = "si_getSyncIndex";
-      v40 = 1024;
-      v41 = 10485;
-      v42 = 1024;
-      v43 = a2;
-      v44 = 1024;
-      v45 = v27;
+      v38 = "si_getSyncIndex";
+      v39 = 1024;
+      v40 = 10485;
+      v41 = 1024;
+      v42 = a2;
+      v43 = 1024;
+      v44 = v26;
       _os_log_error_impl(&dword_1C278D000, v24, OS_LOG_TYPE_ERROR, "%s:%d: Unexpected transaction id %d != %d", buf, 0x1Eu);
     }
 
     *__error() = v23;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return LiveIndex;
 }
 
 uint64_t si_mergeOneIndex(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  if (fd_setDir(*(a1 + 32), &v13))
+  v14 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  if (!fd_setDir(*(a1 + 32), &v12))
   {
-    v4 = *(a1 + 1384);
-    v5 = ContentIndexListClone(v4);
-    bzero(v14, 0x400uLL);
-    v6 = fcntl(*(a1 + 32), 50, v14);
-    if (v14[0])
-    {
-      v7 = v6 < 0;
-    }
+    return 0;
+  }
 
-    else
-    {
-      v7 = 1;
-    }
-
-    if (v7)
-    {
-      v8 = 0;
-    }
-
-    else
-    {
-      v8 = v14;
-    }
-
-    v9 = OuterMerge(a1, *(a2 + 56), 1u, (a1 + 1384), v4, v5, v8, "live.%d.", 0, 1u, 0);
-    v10 = v13;
-    MEMORY[0x1C6921200](v13);
-    if ((v10 & 0x80000000) == 0)
-    {
-      close(v10);
-    }
+  v4 = *(a1 + 1384);
+  v5 = ContentIndexListClone(v4);
+  bzero(v13, 0x400uLL);
+  v6 = fcntl(*(a1 + 32), 50, v13);
+  if (v13[0])
+  {
+    v7 = v6 < 0;
   }
 
   else
   {
-    v9 = 0;
+    v7 = 1;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
+  if (v7)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    v8 = v13;
+  }
+
+  v9 = OuterMerge(a1, *(a2 + 56), 1u, (a1 + 1384), v4, v5, v8, "live.%d.", 256, 0);
+  v10 = v12;
+  MEMORY[0x1C6921200](v12);
+  if ((v10 & 0x80000000) == 0)
+  {
+    close(v10);
+  }
+
   return v9;
 }
 
@@ -1262,139 +1181,135 @@ LABEL_6:
   return result;
 }
 
-uint64_t SICreateIndex(uint64_t *a1, const __CFString *a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11)
+uint64_t SICreateIndex(uint64_t *a1, const __CFString *a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, void *a8, __int128 *a9, uint64_t a10, uint64_t a11)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   bzero(buffer, 0x400uLL);
-  if (CFStringGetFileSystemRepresentation(a2, buffer, 1024))
+  if (!CFStringGetFileSystemRepresentation(a2, buffer, 1024))
   {
-    result = open(buffer, 1081344);
-    if (result != -1)
+    return 0xFFFFFFFFLL;
+  }
+
+  result = open(buffer, 1081344);
+  if (result != -1)
+  {
+    v20 = result;
+    if (a6 && a7 && a8)
     {
-      v20 = result;
-      if (a6 && a7 && a8)
+      v33 = 0;
+      v31 = 0u;
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
+      v25 = *a9;
+      v26 = *(a9 + 2);
+      result = _SIOpenIndex(v25, a1, result, a3, a4, a5, &v27, &v25, a10, a11, 0, &SICreateIndex_cancel);
+      if ((result & 0x80000000) == 0)
       {
-        v34 = 0;
-        v32 = 0u;
-        v33 = 0u;
-        v30 = 0u;
-        v31 = 0u;
-        v28 = 0u;
-        v29 = 0u;
-        v26 = *a9;
-        v27 = *(a9 + 16);
-        result = _SIOpenIndex(a1, result, a3, a4, a5, &v28, &v26, a10, a11, 0, &SICreateIndex_cancel);
-        if ((result & 0x80000000) == 0)
-        {
-          v21 = *(&v31 + 1);
-          v22 = v29;
-          v23 = *(&v28 + 1);
-          *a6 = *(&v29 + 1) + v31 + v28;
-          v24 = *(&v30 + 1);
-          *a7 = v30 + v21 + v23;
-          *a8 = v24 + v32 + v22;
-        }
+        v21 = *(&v30 + 1);
+        v22 = v28;
+        v23 = v27.n128_u64[1];
+        *a6 = *(&v28 + 1) + v30 + v27.n128_u64[0];
+        v24 = *(&v29 + 1);
+        *a7 = v29 + v21 + v23;
+        *a8 = v24 + v31 + v22;
+      }
+    }
+
+    else
+    {
+      v27 = *a9;
+      *&v28 = *(a9 + 2);
+      result = _SIOpenIndex(v27, a1, result, a3, a4, a5, 0, &v27, a10, a11, 0, &SICreateIndex_cancel);
+    }
+
+    if ((a5 & 6) == 2 && (result & 0x80000000) != 0)
+    {
+      if (a6)
+      {
+        *a6 = 0;
+      }
+
+      if (a7)
+      {
+        *a7 = 0;
+      }
+
+      if (a8)
+      {
+        *a8 = 0;
+      }
+
+      v27 = *a9;
+      *&v28 = *(a9 + 2);
+      LODWORD(result) = SICreateNewIndex(a1, v20, a3, a4, a5, &v27, a10, a11, &SICreateIndex_cancel);
+      if (result <= 1)
+      {
+        return 1;
       }
 
       else
       {
-        v28 = *a9;
-        *&v29 = *(a9 + 16);
-        result = _SIOpenIndex(a1, result, a3, a4, a5, 0, &v28, a10, a11, 0, &SICreateIndex_cancel);
-      }
-
-      if ((a5 & 6) == 2 && (result & 0x80000000) != 0)
-      {
-        if (a6)
-        {
-          *a6 = 0;
-        }
-
-        if (a7)
-        {
-          *a7 = 0;
-        }
-
-        if (a8)
-        {
-          *a8 = 0;
-        }
-
-        v28 = *a9;
-        *&v29 = *(a9 + 16);
-        LODWORD(result) = SICreateNewIndex(a1, v20, a3, a4, a5, &v28, a10, a11, &SICreateIndex_cancel);
-        if (result <= 1)
-        {
-          result = 1;
-        }
-
-        else
-        {
-          result = result;
-        }
+        return result;
       }
     }
   }
 
-  else
-  {
-    result = 0xFFFFFFFFLL;
-  }
-
-  v25 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t _SIOpenIndex(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, _BYTE *a10, _DWORD *a11)
+uint64_t _SIOpenIndex(__n128 a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, _BYTE *a11, _DWORD *a12)
 {
-  v11 = MEMORY[0x1EEE9AC00](a1);
-  v13 = v12;
-  v15 = v14;
-  v591 = v16;
-  v18 = v17;
-  v595 = v19;
-  v596 = v20;
-  v22 = v21;
-  v24 = v23;
-  v650 = *MEMORY[0x1E69E9840];
-  v645 = 0;
-  v585 = open(".", 4, v11);
+  v12 = MEMORY[0x1EEE9AC00](a1);
+  v14 = v13;
+  v16 = v15;
+  v456 = v17;
+  v19 = v18;
+  v460 = v20;
+  v461 = v21;
+  v23 = v22;
+  v25 = v24;
+  v515 = *MEMORY[0x1E69E9840];
+  v510 = 0;
+  v450 = open(".", 4, v12);
   _SITuningInit();
   makeThreadId();
-  v644 = 0;
-  v643 = 0;
+  v509 = 0;
+  v508 = 0;
   cf = 0;
-  *a10 = 0;
-  v599 = BYTE3(v18);
-  _si_load_error_from_file(BYTE3(v18), v22);
+  *a11 = 0;
+  v464 = BYTE3(v19);
+  _si_load_error_from_file(BYTE3(v19), v23);
   _si_set_error_str(0, 1);
   _si_set_rebuild_reason(0, 1, 1);
-  v25 = openat(v22, "tmp.movePlan", 2);
-  v608 = v24;
-  if ((v25 & 0x80000000) != 0)
+  v26 = openat(v23, "tmp.movePlan", 2);
+  v473 = v25;
+  if ((v26 & 0x80000000) != 0)
   {
     goto LABEL_50;
   }
 
-  v26 = v25;
+  v27 = v26;
   bzero(__buf, 0x210uLL);
-  if (prot_pread(v26, __buf, 0x210uLL, 0) == 528 && *__buf == 0x6D6F76650A00)
+  if (prot_pread(v27, __buf, 0x210uLL, 0) == 528 && *__buf == 0x6D6F76650A00)
   {
-    memset(v649, 0, 255);
-    memset(v648, 0, 255);
-    v601 = v18;
+    memset(v514, 0, 255);
+    memset(v513, 0, 255);
+    v466 = v19;
     if (*&__buf[8] <= 1)
     {
       if (!*&__buf[8])
       {
         if (__buf[12])
         {
-          v42 = "live.";
+          v43 = "live.";
         }
 
         else
         {
-          v42 = "";
+          v43 = "";
         }
 
         if (*&__buf[36] > 1)
@@ -1424,59 +1339,59 @@ uint64_t _SIOpenIndex(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
           {
             if (*&__buf[20])
             {
-              v43 = 0;
+              v44 = 0;
               do
               {
-                snprintf(v648, 0xFFuLL, "%s%d.", v42, v43 + *&__buf[16]);
-                snprintf(v649, 0xFFuLL, "%s.%s%d.", "tmp.victim", v42, v43 + *&__buf[16]);
-                ContentIndexCompleteChangePrefix(v22, v648, v649);
-                ++v43;
+                snprintf(v513, 0xFFuLL, "%s%d.", v43, v44 + *&__buf[16]);
+                snprintf(v514, 0xFFuLL, "%s.%s%d.", "tmp.victim", v43, v44 + *&__buf[16]);
+                ContentIndexCompleteChangePrefix(v23, v513, v514);
+                ++v44;
               }
 
-              while (v43 < *&__buf[20]);
+              while (v44 < *&__buf[20]);
             }
 
             *&__buf[36] = 1;
-            pwrite(v26, __buf, 0x210uLL, 0);
-            fcntl(v26, 85);
+            pwrite(v27, __buf, 0x210uLL, 0);
+            fcntl(v27, 85);
           }
 
-          v44 = *&__buf[32];
-          v45 = v22;
+          v45 = *&__buf[32];
+          v46 = v23;
           if (*&__buf[32] < *&__buf[28])
           {
             do
             {
-              v46 = v44;
               v47 = v45;
-              v48 = *&__buf[16] + *&__buf[32] + 1;
-              snprintf(v648, 0xFFuLL, "%s%d.", v42, v44 + *&__buf[24]);
-              v49 = v48;
-              v45 = v47;
-              snprintf(v649, 0xFFuLL, "%s%d.", v42, v49);
-              *&__buf[32] = v46;
-              pwrite(v26, __buf, 0x210uLL, 0);
-              fcntl(v26, 85);
-              ContentIndexCompleteChangePrefix(v47, v648, v649);
-              v44 = v46 + 1;
+              v48 = v46;
+              v49 = *&__buf[16] + *&__buf[32] + 1;
+              snprintf(v513, 0xFFuLL, "%s%d.", v43, v45 + *&__buf[24]);
+              v50 = v49;
+              v46 = v48;
+              snprintf(v514, 0xFFuLL, "%s%d.", v43, v50);
+              *&__buf[32] = v47;
+              pwrite(v27, __buf, 0x210uLL, 0);
+              fcntl(v27, 85);
+              ContentIndexCompleteChangePrefix(v48, v513, v514);
+              v45 = v47 + 1;
             }
 
-            while ((v46 + 1) < *&__buf[28]);
+            while ((v47 + 1) < *&__buf[28]);
           }
 
           *&__buf[36] = 2;
-          pwrite(v26, __buf, 0x210uLL, 0);
-          fcntl(v26, 85);
-          LODWORD(v22) = v45;
+          pwrite(v27, __buf, 0x210uLL, 0);
+          fcntl(v27, 85);
+          LODWORD(v23) = v46;
         }
 
-        snprintf(v649, 0xFFuLL, "%s%d.", v42, *&__buf[16]);
-        ContentIndexCompleteChangePrefix(v22, &__buf[268], v649);
+        snprintf(v514, 0xFFuLL, "%s%d.", v43, *&__buf[16]);
+        ContentIndexCompleteChangePrefix(v23, &__buf[268], v514);
         *&__buf[36] = 3;
-        pwrite(v26, __buf, 0x210uLL, 0);
-        fcntl(v26, 85);
+        pwrite(v27, __buf, 0x210uLL, 0);
+        fcntl(v27, 85);
 LABEL_47:
-        rename_transitional_state(v22);
+        rename_transitional_state(v23);
         goto LABEL_48;
       }
 
@@ -1489,32 +1404,32 @@ LABEL_47:
             goto LABEL_48;
           }
 
-          v29 = *&__buf[24];
+          v30 = *&__buf[24];
           if (*&__buf[24] < *&__buf[12])
           {
             do
             {
-              v30 = v29;
-              *&__buf[24] = v29;
-              pwrite(v26, __buf, 0x210uLL, 0);
-              fcntl(v26, 85);
-              snprintf(v648, 0xFFuLL, "live.%d.", v30 + *&__buf[16]);
-              snprintf(v649, 0xFFuLL, "%d.", v30 + *&__buf[20]);
-              ContentIndexCompleteChangePrefix(v22, v648, v649);
-              v29 = v30 + 1;
+              v31 = v30;
+              *&__buf[24] = v30;
+              pwrite(v27, __buf, 0x210uLL, 0);
+              fcntl(v27, 85);
+              snprintf(v513, 0xFFuLL, "live.%d.", v31 + *&__buf[16]);
+              snprintf(v514, 0xFFuLL, "%d.", v31 + *&__buf[20]);
+              ContentIndexCompleteChangePrefix(v23, v513, v514);
+              v30 = v31 + 1;
             }
 
-            while ((v30 + 1) < *&__buf[12]);
+            while ((v31 + 1) < *&__buf[12]);
           }
 
           *&__buf[28] = 1;
-          pwrite(v26, __buf, 0x210uLL, 0);
+          pwrite(v27, __buf, 0x210uLL, 0);
         }
 
-        v31 = "live.0.";
-        v32 = v22;
+        v32 = "live.0.";
+        v33 = v23;
 LABEL_26:
-        ContentIndexCompleteChangePrefix(v32, &__buf[268], v31);
+        ContentIndexCompleteChangePrefix(v33, &__buf[268], v32);
         goto LABEL_47;
       }
     }
@@ -1527,15 +1442,15 @@ LABEL_26:
         {
           if (*&__buf[12] == 842150450)
           {
-            _rename_prefix_suffix(v22, &__buf[268], ".offsets", v27, v28);
-            _rename_prefix_suffix(v22, &__buf[268], ".data", v38, v39);
-            _rename_prefix_suffix(v22, &__buf[268], ".header", v40, v41);
+            _rename_prefix_suffix(v23, &__buf[268], ".offsets", v28, v29);
+            _rename_prefix_suffix(v23, &__buf[268], ".data", v39, v40);
+            _rename_prefix_suffix(v23, &__buf[268], ".header", v41, v42);
           }
         }
 
         else if (*&__buf[8] == 4)
         {
-          ContentIndexCompleteChangePrefix(v22, &__buf[268], &__buf[12]);
+          ContentIndexCompleteChangePrefix(v23, &__buf[268], &__buf[12]);
         }
 
         goto LABEL_48;
@@ -1543,12 +1458,12 @@ LABEL_26:
 
       if (__buf[12])
       {
-        v33 = "live.";
+        v34 = "live.";
       }
 
       else
       {
-        v33 = "";
+        v34 = "";
       }
 
       if (*&__buf[28] == 1)
@@ -1558,227 +1473,228 @@ LABEL_26:
 
       if (!*&__buf[28])
       {
-        v605 = v13;
-        v34 = *&__buf[24];
-        v35 = v22;
-        while (v34 > *&__buf[16])
+        v470 = v14;
+        v35 = *&__buf[24];
+        v36 = v23;
+        while (v35 > *&__buf[16])
         {
-          v36 = v35;
-          v37 = v34--;
-          snprintf(v648, 0xFFuLL, "%s%d.", v33, v34);
-          snprintf(v649, 0xFFuLL, "%s%d.", v33, v37);
-          *&__buf[24] = v37;
-          v35 = v36;
-          pwrite(v26, __buf, 0x210uLL, 0);
-          fcntl(v26, 85);
-          ContentIndexCompleteChangePrefix(v36, v648, v649);
+          v37 = v36;
+          v38 = v35--;
+          snprintf(v513, 0xFFuLL, "%s%d.", v34, v35);
+          snprintf(v514, 0xFFuLL, "%s%d.", v34, v38);
+          *&__buf[24] = v38;
+          v36 = v37;
+          pwrite(v27, __buf, 0x210uLL, 0);
+          fcntl(v27, 85);
+          ContentIndexCompleteChangePrefix(v37, v513, v514);
         }
 
         *&__buf[28] = 1;
-        pwrite(v26, __buf, 0x210uLL, 0);
-        fcntl(v26, 85);
-        v13 = v605;
-        LODWORD(v22) = v35;
+        pwrite(v27, __buf, 0x210uLL, 0);
+        fcntl(v27, 85);
+        v14 = v470;
+        LODWORD(v23) = v36;
 LABEL_25:
-        snprintf(v649, 0xFFuLL, "%s%d.", v33, *&__buf[16]);
-        v32 = v22;
-        v31 = v649;
+        snprintf(v514, 0xFFuLL, "%s%d.", v34, *&__buf[16]);
+        v33 = v23;
+        v32 = v514;
         goto LABEL_26;
       }
     }
 
 LABEL_48:
-    v18 = v601;
+    v19 = v466;
   }
 
-  unlinkat(v22, "tmp.movePlan", 2048);
-  close(v26);
+  unlinkat(v23, "tmp.movePlan", 2048);
+  close(v27);
 LABEL_50:
-  v50 = malloc_type_calloc(1uLL, 0x2788uLL, 0x10F00403822957CuLL);
-  *v50 = 0xC0DE10DE10DEC0DELL;
-  SIInitIndexLocks(v50);
-  v641[0] = MEMORY[0x1E69E9820];
-  v641[1] = 0x40000000;
-  v641[2] = ___SIOpenIndex_block_invoke;
-  v641[3] = &__block_descriptor_tmp_896;
-  v641[4] = v50;
-  *(v50 + 15) = v599;
-  *(v50 + 8) = -1;
-  *(v50 + 12) = -1;
-  v57 = *v15;
-  *(v50 + 3) = *(v15 + 2);
-  *(v50 + 8) = v57;
-  *(v50 + 295) = v13;
-  *(v50 + 290) = 0;
-  *(v50 + 824) = a11;
-  *(v50 + 364) = 1;
-  v58 = v595;
-  if (v595)
+  v51 = malloc_type_calloc(1uLL, 0x2788uLL, 0x10F00403822957CuLL);
+  *v51 = 0xC0DE10DE10DEC0DELL;
+  SIInitIndexLocks(v51);
+  v506[0] = MEMORY[0x1E69E9820];
+  v506[1] = 0x40000000;
+  v506[2] = ___SIOpenIndex_block_invoke;
+  v506[3] = &__block_descriptor_tmp_896;
+  v506[4] = v51;
+  *(v51 + 15) = v464;
+  *(v51 + 8) = -1;
+  *(v51 + 12) = -1;
+  v52 = *v16;
+  *(v51 + 3) = *(v16 + 2);
+  *(v51 + 8) = v52;
+  *(v51 + 295) = v14;
+  *(v51 + 290) = 0;
+  *(v51 + 824) = a12;
+  *(v51 + 364) = 1;
+  v53 = v460;
+  if (v460)
   {
-    v59 = ~(*(v595 + 28) << 20) & 0x400000;
+    v54 = ~(*(v460 + 28) << 20) & 0x400000;
   }
 
   else
   {
-    v59 = 0;
+    v54 = 0;
   }
 
-  v60 = *(v50 + 1646) & 0xFEBFFFFF | v59;
-  *(v50 + 1646) = v60;
-  v50[6944] = (v18 & 0x40000) != 0;
-  v61 = *(v50 + 149);
-  if (v61)
+  v55 = *(v51 + 1646) & 0xFEBFFFFF | v54;
+  *(v51 + 1646) = v55;
+  v51[6944] = (v19 & 0x40000) != 0;
+  v56 = *(v51 + 149);
+  if (v56)
   {
-    db_datastore_set_bg_assertion_flag(v61, (v18 & 0x40000) != 0);
-    v60 = *(v50 + 1646);
+    db_datastore_set_bg_assertion_flag(v56, (v19 & 0x40000) != 0);
+    v55 = *(v51 + 1646);
   }
 
-  *(v50 + 1741) = 0;
-  v50[2072] = BYTE1(v18) & 1;
-  if ((v18 & 0x100) != 0)
+  *(v51 + 1741) = 0;
+  v51[2072] = BYTE1(v19) & 1;
+  if ((v19 & 0x100) != 0)
   {
-    *(v50 + 1646) = v60 | 0x1000000;
-    LOBYTE(v62) = 1;
+    *(v51 + 1646) = v55 | 0x1000000;
+    LOBYTE(v57) = 1;
   }
 
   else
   {
-    LOBYTE(v62) = 0;
-    if (v596 && (v60 & 0x1000000) != 0)
+    LOBYTE(v57) = 0;
+    if (v461 && (v55 & 0x1000000) != 0)
     {
-      v62 = (*(v596 + 28) >> 4) & 1;
+      v57 = (*(v461 + 28) >> 4) & 1;
     }
   }
 
-  *(v50 + 76) = 0u;
-  *(v50 + 304) = -1;
-  v63 = v585;
-  *(v50 + 80) = 0u;
-  *(v50 + 79) = 0u;
-  *(v50 + 78) = 0u;
-  *(v50 + 77) = 0u;
-  *(v50 + 75) = 0u;
-  v639 = 0;
-  v638 = 0;
-  v640 = 0;
-  v637 = 0;
-  v636 = 0;
-  if (*a11)
+  v58 = 0uLL;
+  *(v51 + 76) = 0u;
+  *(v51 + 304) = -1;
+  v59 = v450;
+  *(v51 + 80) = 0u;
+  *(v51 + 79) = 0u;
+  *(v51 + 78) = 0u;
+  *(v51 + 77) = 0u;
+  *(v51 + 75) = 0u;
+  v504 = 0;
+  v503 = 0;
+  v505 = 0;
+  v502 = 0;
+  v501 = 0;
+  if (*a12)
   {
-    __si_set_error_str(1, "%s:%u: %s", v51, v52, v53, v54, v55, v56, "SpotlightIndex.c");
-    v64 = v62;
-    v65 = 89;
+    __si_set_error_str(1, "%s:%u: %s", "SpotlightIndex.c", 12251, "open canceled");
+    v60 = v57;
+    v61 = 89;
 LABEL_62:
-    v66 = v608;
+    v62 = v473;
     goto LABEL_63;
   }
 
-  v67 = v18 & 0x80040001;
-  v68 = v18 & 4;
-  v600 = v22;
-  v590 = v68;
-  if (v595)
+  v63 = v19 & 0x80040001;
+  v64 = v19 & 4;
+  v465 = v23;
+  v455 = v64;
+  if (v460)
   {
-    v69 = *(v595 + 28);
-    v70 = dup(*(v595 + 4));
-    v67 = v18 & 0x80040001;
-    v68 = v18 & 4;
-    *(v50 + 12) = v70;
-    LOBYTE(v71) = v50[2072];
-    v72 = v69;
+    v65 = *(v460 + 28);
+    v66 = dup(*(v460 + 4));
+    v63 = v19 & 0x80040001;
+    v64 = v19 & 4;
+    *(v51 + 12) = v66;
+    LOBYTE(v67) = v51[2072];
+    v68 = v65;
   }
 
   else
   {
-    v71 = (v18 & 0x100) >> 8;
-    v72 = 0;
+    v67 = (v19 & 0x100) >> 8;
+    v68 = 0;
   }
 
-  v78 = v67;
-  v597 = v68;
-  v79 = v68 != 0;
-  if (v71)
+  v73 = v63;
+  v462 = v64;
+  v74 = v64 != 0;
+  if (v67)
   {
-    v80 = v72;
+    v75 = v68;
   }
 
   else
   {
-    v80 = v79;
+    v75 = v74;
   }
 
-  if ((v18 & 8) != 0)
+  if ((v19 & 8) != 0)
   {
-    v81 = 0;
-    v82 = -1;
-    v83 = 0;
-    v84 = v62;
-    goto LABEL_88;
+    v76 = 0;
+    v77 = -1;
+    v78 = 0;
+    v79 = v57;
+    goto LABEL_87;
   }
 
-  v589 = v67;
-  bzero(v649, 0x400uLL);
-  v87 = guarded_dup(v600);
-  *(v50 + 4) = v87;
-  *(v50 + 5) = v88;
-  if (v87 == -1 || MEMORY[0x1C6921200]())
+  v454 = v63;
+  bzero(v514, 0x400uLL);
+  v82 = guarded_dup(v465);
+  *(v51 + 4) = v82;
+  *(v51 + 5) = v83;
+  if (v82 == -1 || MEMORY[0x1C6921200]())
   {
-    v89 = *__error();
-    __si_set_error_str(1, "%s:%u: %s", v90, v91, v92, v93, v94, v95, "SpotlightIndex.c");
-    v64 = v62;
-    v65 = v89;
+    v84 = *__error();
+    __si_set_error_str(1, "%s:%u: %s", "SpotlightIndex.c", 12299, "invalid path");
+    v60 = v57;
+    v61 = v84;
     goto LABEL_62;
   }
 
-  v592 = v78;
-  v607 = v13;
-  v100 = (v50[6944] ^ 1) & v62;
-  registerForCloning(*(v50 + 8), v100 & 1);
-  bzero(v648, 0x400uLL);
-  v101 = *__error();
-  v102 = _SILogForLogForCategory(11);
-  v103 = 2 * (dword_1EBF46AF8 < 4);
-  if (os_log_type_enabled(v102, v103))
+  v457 = v73;
+  v472 = v14;
+  v89 = (v51[6944] ^ 1) & v57;
+  registerForCloning(*(v51 + 8), v89 & 1);
+  bzero(v513, 0x400uLL);
+  v90 = *__error();
+  v91 = _SILogForLogForCategory(11);
+  v92 = 2 * (dword_1EBF46AF8 < 4);
+  if (os_log_type_enabled(v91, v92))
   {
-    v104 = fcntl(*(v50 + 8), 50, v648);
-    v105 = 0;
-    if (LOBYTE(v648[0]))
+    v93 = fcntl(*(v51 + 8), 50, v513);
+    v94 = 0;
+    if (LOBYTE(v513[0]))
     {
-      v106 = v104 < 0;
+      v95 = v93 < 0;
     }
 
     else
     {
-      v106 = 1;
+      v95 = 1;
     }
 
-    if (!v106)
+    if (!v95)
     {
-      v105 = v648;
+      v94 = v513;
     }
 
     *__buf = 134218242;
-    *&__buf[4] = v50;
+    *&__buf[4] = v51;
     *&__buf[12] = 2080;
-    *&__buf[14] = v105;
-    _os_log_impl(&dword_1C278D000, v102, v103, "%p Open fd %s", __buf, 0x16u);
+    *&__buf[14] = v94;
+    _os_log_impl(&dword_1C278D000, v91, v92, "%p Open fd %s", __buf, 0x16u);
   }
 
-  v598 = v100;
-  *__error() = v101;
-  if (v50[2072] == 1)
+  v463 = v89;
+  *__error() = v90;
+  if (v51[2072] == 1)
   {
     *buf = 0;
-    if (fd_setDir(*(v50 + 8), buf))
+    if (fd_setDir(*(v51 + 8), buf))
     {
       memset(__buf, 0, 144);
       if (!stat("activityJournal", __buf))
       {
-        __si_set_error_str(1, "%s:%u: %s", v107, v108, v109, v110, v111, v112, "SpotlightIndex.c");
-        __si_set_rebuild_reason(v239, v240, "%s:%u: %s", "SpotlightIndex.c", 12325, "rebuild activity journal name");
+        __si_set_error_str(1, "%s:%u: %s", "SpotlightIndex.c", 12324, "rebuild activity journal name");
+        __si_set_rebuild_reason(v190, v191, "%s:%u: %s", "SpotlightIndex.c", 12325, "rebuild activity journal name");
         fd_resetDir(*buf);
-        v13 = v607;
-        v66 = v608;
+        v14 = v472;
+        v62 = v473;
         goto LABEL_249;
       }
 
@@ -1786,156 +1702,156 @@ LABEL_62:
     }
   }
 
-  v635 = 0;
-  v113 = check_crash_state(*(v50 + 8), v80, v18, &v635, 0);
-  v114 = *__error();
-  v115 = _SILogForLogForCategory(0);
-  v116 = 2 * (gSILogLevels[0] < 4);
-  if (os_log_type_enabled(v115, v116))
+  v500 = 0;
+  v96 = check_crash_state(*(v51 + 8), v75, v19, &v500, 0);
+  v97 = *__error();
+  v98 = _SILogForLogForCategory(0);
+  v99 = 2 * (gSILogLevels[0] < 4);
+  if (os_log_type_enabled(v98, v99))
   {
-    v117 = v635;
-    v118 = fcntl(*(v50 + 8), 50, v649);
-    v119 = 0;
-    if (LOBYTE(v649[0]))
+    v100 = v500;
+    v101 = fcntl(*(v51 + 8), 50, v514);
+    v102 = 0;
+    if (LOBYTE(v514[0]))
     {
-      v120 = v118 < 0;
+      v103 = v101 < 0;
     }
 
     else
     {
-      v120 = 1;
+      v103 = 1;
     }
 
-    if (!v120)
+    if (!v103)
     {
-      v119 = v649;
+      v102 = v514;
     }
 
     *__buf = 134218242;
-    *&__buf[4] = v117;
+    *&__buf[4] = v100;
     *&__buf[12] = 2080;
-    *&__buf[14] = v119;
-    _os_log_impl(&dword_1C278D000, v115, v116, "last_crash_delta: %ld for %s", __buf, 0x16u);
+    *&__buf[14] = v102;
+    _os_log_impl(&dword_1C278D000, v98, v99, "last_crash_delta: %ld for %s", __buf, 0x16u);
   }
 
-  v121 = v113;
-  *__error() = v114;
-  if ((v635 - 1) <= 0x545E)
+  v104 = v96;
+  *__error() = v97;
+  if ((v500 - 1) <= 0x545E)
   {
     icu_rules_clear_cache();
   }
 
-  v13 = v607;
-  v66 = v608;
-  if (v113)
+  v14 = v472;
+  v62 = v473;
+  if (v96)
   {
-    v122 = *__error();
-    v123 = _SILogForLogForCategory(0);
-    if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
+    v105 = *__error();
+    v106 = _SILogForLogForCategory(0);
+    if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
     {
-      v296 = fcntl(*(v50 + 8), 50, v649);
-      v297 = 0;
+      v234 = fcntl(*(v51 + 8), 50, v514);
+      v235 = 0;
       *&__buf[4] = "_SIOpenIndex";
       *&__buf[14] = 12341;
       *__buf = 136315906;
-      if (LOBYTE(v649[0]))
+      if (LOBYTE(v514[0]))
       {
-        v298 = v296 < 0;
+        v236 = v234 < 0;
       }
 
       else
       {
-        v298 = 1;
+        v236 = 1;
       }
 
       *&__buf[12] = 1024;
-      if (!v298)
+      if (!v236)
       {
-        v297 = v649;
+        v235 = v514;
       }
 
       *&__buf[18] = 1024;
-      *&__buf[20] = v121;
+      *&__buf[20] = v104;
       *&__buf[24] = 2080;
-      *&__buf[26] = v297;
-      _os_log_error_impl(&dword_1C278D000, v123, OS_LOG_TYPE_ERROR, "%s:%d: check_crash_state: %d for %s", __buf, 0x22u);
+      *&__buf[26] = v235;
+      _os_log_error_impl(&dword_1C278D000, v106, OS_LOG_TYPE_ERROR, "%s:%d: check_crash_state: %d for %s", __buf, 0x22u);
     }
 
-    *__error() = v122;
+    *__error() = v105;
     if (CFPreferencesGetAppBooleanValue(@"SpotlightDisableIndexRebuild", *MEMORY[0x1E695E890], 0))
     {
-      v130 = *__error();
-      v131 = _SILogForLogForCategory(0);
-      if (os_log_type_enabled(v131, OS_LOG_TYPE_ERROR))
+      v107 = *__error();
+      v108 = _SILogForLogForCategory(0);
+      if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
       {
         *__buf = 136315394;
         *&__buf[4] = "_SIOpenIndex";
         *&__buf[12] = 1024;
         *&__buf[14] = 12353;
-        _os_log_error_impl(&dword_1C278D000, v131, OS_LOG_TYPE_ERROR, "%s:%d: Index rebuild disabled by SpotlightDisableIndexRebuild", __buf, 0x12u);
+        _os_log_error_impl(&dword_1C278D000, v108, OS_LOG_TYPE_ERROR, "%s:%d: Index rebuild disabled by SpotlightDisableIndexRebuild", __buf, 0x12u);
       }
 
-      *__error() = v130;
-      goto LABEL_127;
+      *__error() = v107;
+      goto LABEL_126;
     }
 
-    __si_set_error_str(1, "%s:%u: %s", v124, v125, v126, v127, v128, v129, "SpotlightIndex.c");
+    __si_set_error_str(1, "%s:%u: %s", "SpotlightIndex.c", 12350, "repeated crashes");
 LABEL_249:
-    v63 = v585;
-    v65 = 22;
-    v64 = v598;
+    v59 = v450;
+    v61 = 22;
+    v60 = v463;
     goto LABEL_63;
   }
 
-LABEL_127:
-  v584 = check_crash_state(v600, v80, v18, 0, 1);
-  v602 = v18;
-  v582 = check_crash_state(v600, v80, v18, 0, 3);
-  if (v582)
+LABEL_126:
+  v449 = check_crash_state(v465, v75, v19, 0, 1);
+  v467 = v19;
+  v447 = check_crash_state(v465, v75, v19, 0, 3);
+  if (v447)
   {
-    v645 = 2;
+    v510 = 2;
   }
 
-  v132 = malloc_type_calloc(1uLL, 0x18uLL, 0x1080040A085CBA5uLL);
-  *(v50 + 174) = v132;
-  v132[3] = 2;
-  v133 = malloc_type_calloc(2uLL, 8uLL, 0x2004093837F09uLL);
-  v134 = *(v50 + 174);
-  *v134 = v133;
-  *(v134 + 16) = -1;
-  v135 = malloc_type_calloc(1uLL, 0x18uLL, 0x1080040A085CBA5uLL);
-  *(v50 + 173) = v135;
-  v135[3] = 2;
-  v136 = malloc_type_calloc(2uLL, 8uLL, 0x2004093837F09uLL);
-  v137 = *(v50 + 173);
-  *v137 = v136;
-  *(v137 + 16) = -1;
-  v634 = 0;
+  v109 = malloc_type_calloc(1uLL, 0x18uLL, 0x1080040A085CBA5uLL);
+  *(v51 + 174) = v109;
+  v109[3] = 2;
+  v110 = malloc_type_calloc(2uLL, 8uLL, 0x2004093837F09uLL);
+  v111 = *(v51 + 174);
+  *v111 = v110;
+  *(v111 + 16) = -1;
+  v112 = malloc_type_calloc(1uLL, 0x18uLL, 0x1080040A085CBA5uLL);
+  *(v51 + 173) = v112;
+  v112[3] = 2;
+  v113 = malloc_type_calloc(2uLL, 8uLL, 0x2004093837F09uLL);
+  v114 = *(v51 + 173);
+  *v114 = v113;
+  *(v114 + 16) = -1;
+  v499 = 0;
   add_explicit = atomic_fetch_add_explicit(&exceptionSequenceNum, 1u, memory_order_relaxed);
-  v633 = 0;
-  *&v632[4] = 0;
-  *v632 = 0;
-  v139 = setThreadIdAndInfo(*(v50 + 8), sFdExceptionCallbacks, 0, 1, add_explicit + 1);
-  *&v632[8] = HIDWORD(v139);
-  v633 = v139;
-  *&v632[4] = v140;
-  *v632 = v141;
-  v142 = threadData[9 * v139 + 1] + 320 * HIDWORD(v139);
-  *(v142 + 216) = 0;
-  v143 = *(v142 + 312);
-  v144 = *(v142 + 224);
-  if (v144)
+  v498 = 0;
+  *&v497[4] = 0;
+  *v497 = 0;
+  v116 = setThreadIdAndInfo(*(v51 + 8), sFdExceptionCallbacks, 0, 1, add_explicit + 1);
+  *&v497[8] = HIDWORD(v116);
+  v498 = v116;
+  *&v497[4] = v117;
+  *v497 = v118;
+  v119 = threadData[9 * v116 + 1] + 320 * HIDWORD(v116);
+  *(v119 + 216) = 0;
+  v120 = *(v119 + 312);
+  v121 = *(v119 + 224);
+  if (v121)
   {
-    v144(*(v142 + 288));
+    v121(*(v119 + 288));
   }
 
-  v631 = v633;
-  v630 = *&v632[8];
-  v629 = *v632;
-  v13 = v607;
-  v63 = v585;
-  v58 = v595;
-  if (_setjmp(v142))
+  v496 = v498;
+  v495 = *&v497[8];
+  v494 = *v497;
+  v14 = v472;
+  v59 = v450;
+  v53 = v460;
+  if (_setjmp(v119))
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
@@ -1943,18 +1859,18 @@ LABEL_127:
       _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", __buf, 2u);
     }
 
-    *(v142 + 312) = v143;
-    CIOnThreadCleanUpReset(v629);
-    dropThreadId(v631, 1, add_explicit + 1);
-    CICleanUpReset(v631, HIDWORD(v629));
-    v151 = 0;
-    v82 = -1;
-    v83 = 0;
-    v78 = v592;
-    goto LABEL_135;
+    *(v119 + 312) = v120;
+    CIOnThreadCleanUpReset(v494);
+    dropThreadId(v496, 1, add_explicit + 1);
+    CICleanUpReset(v496, HIDWORD(v494));
+    v123 = 0;
+    v77 = -1;
+    v78 = 0;
+    v73 = v457;
+    goto LABEL_134;
   }
 
-  v593 = v143;
+  v458 = v120;
   if (SIIsAppleInternal_onceToken != -1)
   {
     dispatch_once(&SIIsAppleInternal_onceToken, &__block_literal_global_6502);
@@ -1962,65 +1878,64 @@ LABEL_127:
 
   if (SIIsAppleInternal_internal)
   {
-    if (v597)
+    if (v462)
     {
-      v203 = 0;
+      v163 = 0;
     }
 
     else
     {
-      v203 = fd_create_protected(*(v50 + 8), "activityJournal.1", 536871433, 3u);
+      v163 = fd_create_protected(*(v51 + 8), "activityJournal.1", 536871433, 3u);
     }
 
-    si_activity_journal_init((v50 + 2192), v203);
-    fd_mark_purgable(*(v50 + 274));
+    si_activity_journal_init((v51 + 2192), v163);
+    fd_mark_purgable(*(v51 + 274));
   }
 
-  v241 = *(v50 + 15);
-  v242 = CIMetaInfoOpenAndLock(*(v50 + 8));
-  if (v242)
+  v192 = CIMetaInfoOpenAndLock(v122);
+  if (v192)
   {
-    v243 = v242;
-    v244 = v242;
-    v245 = *__error();
-    v246 = _SILogForLogForCategory(10);
-    if (os_log_type_enabled(v246, OS_LOG_TYPE_ERROR))
+    v193 = v192;
+    v194 = v192;
+    v195 = *__error();
+    v196 = _SILogForLogForCategory(10);
+    if (os_log_type_enabled(v196, OS_LOG_TYPE_ERROR))
     {
       *__buf = 136315650;
       *&__buf[4] = "_SIOpenIndex";
       *&__buf[12] = 1024;
       *&__buf[14] = 12393;
       *&__buf[18] = 1024;
-      *&__buf[20] = v244;
-      _os_log_error_impl(&dword_1C278D000, v246, OS_LOG_TYPE_ERROR, "%s:%d: CIMetaInfoOpenAndLock error %d", __buf, 0x18u);
+      *&__buf[20] = v194;
+      _os_log_error_impl(&dword_1C278D000, v196, OS_LOG_TYPE_ERROR, "%s:%d: CIMetaInfoOpenAndLock error %d", __buf, 0x18u);
     }
 
-    *__error() = v245;
+    *__error() = v195;
     bzero(__buf, 0x400uLL);
-    snprintf(__buf, 0x400uLL, "CIMetaInfoOpenAndLock failed with %d", v243);
-    __si_set_error_str(0, "%s:%u: %s", v247, v248, v249, v250, v251, v252, "SpotlightIndex.c");
-    v253 = threadData[9 * v631 + 1] + 320 * v630;
-    *(v253 + 312) = v593;
-    v254 = *(v253 + 232);
-    v66 = v608;
-    if (v254)
+    snprintf(__buf, 0x400uLL, "CIMetaInfoOpenAndLock failed with %d", v193);
+    __si_set_error_str(0, "%s:%u: %s", "SpotlightIndex.c", 12397, __buf);
+    v197 = threadData[9 * v496 + 1] + 320 * v495;
+    *(v197 + 312) = v458;
+    v198 = *(v197 + 232);
+    v62 = v473;
+    if (v198)
     {
-      v254(*(v253 + 288));
+      v198(*(v197 + 288));
     }
 
-    dropThreadId(v631, 0, add_explicit + 1);
-    v65 = v244;
+    dropThreadId(v496, 0, add_explicit + 1);
+    v61 = v194;
 LABEL_258:
-    v84 = v598;
+    v79 = v463;
 LABEL_259:
-    v63 = v585;
+    v59 = v450;
     goto LABEL_230;
   }
 
-  v255 = *(v50 + 321);
-  if (v50[2072] != 1)
+  v199 = *(v51 + 321);
+  if (v51[2072] != 1)
   {
-    if (v255 < 100)
+    if (v199 < 100)
     {
       goto LABEL_307;
     }
@@ -2028,118 +1943,118 @@ LABEL_259:
     goto LABEL_306;
   }
 
-  if (v255 > 112)
+  if (v199 > 112)
   {
 LABEL_306:
-    v50[2073] = 1;
+    v51[2073] = 1;
   }
 
 LABEL_307:
-  v628[0] = MEMORY[0x1E69E9820];
-  v628[1] = 0x40000000;
-  v628[2] = ___SIOpenIndex_block_invoke_904;
-  v628[3] = &__block_descriptor_tmp_905;
-  v628[4] = v50;
-  check_touch_file(v600, "tmp.Glow", v628);
-  v627[0] = MEMORY[0x1E69E9820];
-  v627[1] = 0x40000000;
-  v627[2] = ___SIOpenIndex_block_invoke_2;
-  v627[3] = &__block_descriptor_tmp_906;
-  v627[4] = v50;
-  check_touch_file(v600, "Glow.created", v627);
-  if ((v18 & 0x40) != 0)
+  v493[0] = MEMORY[0x1E69E9820];
+  v493[1] = 0x40000000;
+  v493[2] = ___SIOpenIndex_block_invoke_904;
+  v493[3] = &__block_descriptor_tmp_905;
+  v493[4] = v51;
+  check_touch_file(v465, "tmp.Glow", v493);
+  v492[0] = MEMORY[0x1E69E9820];
+  v492[1] = 0x40000000;
+  v492[2] = ___SIOpenIndex_block_invoke_2;
+  v492[3] = &__block_descriptor_tmp_906;
+  v492[4] = v51;
+  check_touch_file(v465, "Glow.created", v492);
+  if ((v19 & 0x40) != 0)
   {
-    *(v50 + 1646) |= 0x40u;
+    *(v51 + 1646) |= 0x40u;
   }
 
   else
   {
-    v626[0] = MEMORY[0x1E69E9820];
-    v626[1] = 0x40000000;
-    v626[2] = ___SIOpenIndex_block_invoke_3;
-    v626[3] = &__block_descriptor_tmp_907;
-    v626[4] = v50;
-    check_touch_file(v600, "tmp.Cab", v626);
+    v491[0] = MEMORY[0x1E69E9820];
+    v491[1] = 0x40000000;
+    v491[2] = ___SIOpenIndex_block_invoke_3;
+    v491[3] = &__block_descriptor_tmp_907;
+    v491[4] = v51;
+    check_touch_file(v465, "tmp.Cab", v491);
   }
 
-  v594 = add_explicit;
-  if ((v18 & 0x400) != 0)
+  v459 = add_explicit;
+  if ((v19 & 0x400) != 0)
   {
-    *(v50 + 1646) |= 0x100u;
+    *(v51 + 1646) |= 0x100u;
   }
 
   else
   {
-    v625[0] = MEMORY[0x1E69E9820];
-    v625[1] = 0x40000000;
-    v625[2] = ___SIOpenIndex_block_invoke_4;
-    v625[3] = &__block_descriptor_tmp_908;
-    v625[4] = v50;
-    check_touch_file(v600, "tmp.Star", v625);
+    v490[0] = MEMORY[0x1E69E9820];
+    v490[1] = 0x40000000;
+    v490[2] = ___SIOpenIndex_block_invoke_4;
+    v490[3] = &__block_descriptor_tmp_908;
+    v490[4] = v51;
+    check_touch_file(v465, "tmp.Star", v490);
   }
 
-  v624[0] = MEMORY[0x1E69E9820];
-  v624[1] = 0x40000000;
-  v624[2] = ___SIOpenIndex_block_invoke_5;
-  v624[3] = &__block_descriptor_tmp_910;
-  v624[4] = v50;
-  check_touch_file(v600, "tmp.DerivedIsMeV1", v624);
-  v623[0] = MEMORY[0x1E69E9820];
-  v623[1] = 0x40000000;
-  v623[2] = ___SIOpenIndex_block_invoke_6;
-  v623[3] = &__block_descriptor_tmp_912;
-  v623[4] = v50;
-  check_touch_file(v600, "DerivedIsMeV1.created", v623);
-  v622[0] = MEMORY[0x1E69E9820];
-  v622[1] = 0x40000000;
-  v622[2] = ___SIOpenIndex_block_invoke_7;
-  v622[3] = &__block_descriptor_tmp_913;
-  v622[4] = v50;
-  check_touch_file(v600, "derivedFromToIsMeNameUpdated1.created", v622);
-  v621[0] = MEMORY[0x1E69E9820];
-  v621[1] = 0x40000000;
-  v621[2] = ___SIOpenIndex_block_invoke_8;
-  v621[3] = &__block_descriptor_tmp_914;
-  v621[4] = v50;
-  check_touch_file(v600, "derivedFromToIsMeNameAdded1.created", v621);
-  v620[0] = MEMORY[0x1E69E9820];
-  v620[1] = 0x40000000;
-  v620[2] = ___SIOpenIndex_block_invoke_9;
-  v620[3] = &__block_descriptor_tmp_915;
-  v620[4] = v50;
-  check_touch_file(v600, "derivedFromToIsMeAliasUpdated1.created", v620);
-  v619[0] = MEMORY[0x1E69E9820];
-  v619[1] = 0x40000000;
-  v619[2] = ___SIOpenIndex_block_invoke_10;
-  v619[3] = &__block_descriptor_tmp_916;
-  v619[4] = v50;
-  check_touch_file(v600, "derivedFromToIsMeAliasAdded1.created", v619);
-  v618 = 0;
-  if (v597 || (index_state = si_read_index_state(v50), v278 = v50[2481], !v50[2481]))
+  v489[0] = MEMORY[0x1E69E9820];
+  v489[1] = 0x40000000;
+  v489[2] = ___SIOpenIndex_block_invoke_5;
+  v489[3] = &__block_descriptor_tmp_910;
+  v489[4] = v51;
+  check_touch_file(v465, "tmp.DerivedIsMeV1", v489);
+  v488[0] = MEMORY[0x1E69E9820];
+  v488[1] = 0x40000000;
+  v488[2] = ___SIOpenIndex_block_invoke_6;
+  v488[3] = &__block_descriptor_tmp_912;
+  v488[4] = v51;
+  check_touch_file(v465, "DerivedIsMeV1.created", v488);
+  v487[0] = MEMORY[0x1E69E9820];
+  v487[1] = 0x40000000;
+  v487[2] = ___SIOpenIndex_block_invoke_7;
+  v487[3] = &__block_descriptor_tmp_913;
+  v487[4] = v51;
+  check_touch_file(v465, "derivedFromToIsMeNameUpdated1.created", v487);
+  v486[0] = MEMORY[0x1E69E9820];
+  v486[1] = 0x40000000;
+  v486[2] = ___SIOpenIndex_block_invoke_8;
+  v486[3] = &__block_descriptor_tmp_914;
+  v486[4] = v51;
+  check_touch_file(v465, "derivedFromToIsMeNameAdded1.created", v486);
+  v485[0] = MEMORY[0x1E69E9820];
+  v485[1] = 0x40000000;
+  v485[2] = ___SIOpenIndex_block_invoke_9;
+  v485[3] = &__block_descriptor_tmp_915;
+  v485[4] = v51;
+  check_touch_file(v465, "derivedFromToIsMeAliasUpdated1.created", v485);
+  v484[0] = MEMORY[0x1E69E9820];
+  v484[1] = 0x40000000;
+  v484[2] = ___SIOpenIndex_block_invoke_10;
+  v484[3] = &__block_descriptor_tmp_916;
+  v484[4] = v51;
+  check_touch_file(v465, "derivedFromToIsMeAliasAdded1.created", v484);
+  v483 = 0;
+  if (v462 || (index_state = si_read_index_state(v221), v223 = v51[2481], !v51[2481]))
   {
-    if (v50[2072])
+    if (v51[2072])
     {
-      v284 = 75776;
+      v228 = 75776;
     }
 
     else
     {
-      v284 = 141312;
+      v228 = 141312;
     }
 
-    v285 = v284 & 0xFFFFFFF1 | (2 * (v18 & 4));
-    if (CIMetaInfoRead((v50 + 1200), v50[2072]))
+    v229 = v228 & 0xFFFFFFF1 | (2 * (v19 & 4));
+    if (CIMetaInfoRead((v51 + 1200), v51[2072]))
     {
-      if (!v597 && (db_check_datastore(*(v50 + 8), v285) & 0x80000000) == 0)
+      if (!v462 && (db_check_datastore(*(v51 + 8), v229) & 0x80000000) == 0)
       {
-        *a10 = 1;
+        *a11 = 1;
       }
 
-      v286 = *__error();
-      v287 = _SILogForLogForCategory(10);
-      v63 = v585;
-      v66 = v608;
-      if (os_log_type_enabled(v287, OS_LOG_TYPE_ERROR))
+      v230 = *__error();
+      v231 = _SILogForLogForCategory(10);
+      v59 = v450;
+      v62 = v473;
+      if (os_log_type_enabled(v231, OS_LOG_TYPE_ERROR))
       {
         *__buf = 136315650;
         *&__buf[4] = "_SIOpenIndex";
@@ -2147,346 +2062,347 @@ LABEL_307:
         *&__buf[14] = 12518;
         *&__buf[18] = 1024;
         *&__buf[20] = -1;
-        _os_log_error_impl(&dword_1C278D000, v287, OS_LOG_TYPE_ERROR, "%s:%d: CIMetaInfoRead error %d", __buf, 0x18u);
+        _os_log_error_impl(&dword_1C278D000, v231, OS_LOG_TYPE_ERROR, "%s:%d: CIMetaInfoRead error %d", __buf, 0x18u);
       }
 
-      *__error() = v286;
+      *__error() = v230;
       bzero(__buf, 0x400uLL);
       snprintf(__buf, 0x400uLL, "CIMetaInfoRead failed with %d", -1);
-      __si_set_error_str(1, "%s:%u: %s", v288, v289, v290, v291, v292, v293, "SpotlightIndex.c");
-      v294 = threadData[9 * v631 + 1] + 320 * v630;
-      *(v294 + 312) = v593;
-      v295 = *(v294 + 232);
-      if (v295)
+      __si_set_error_str(1, "%s:%u: %s", "SpotlightIndex.c", 12521, __buf);
+      v232 = threadData[9 * v496 + 1] + 320 * v495;
+      *(v232 + 312) = v458;
+      v233 = *(v232 + 232);
+      if (v233)
       {
-        v295(*(v294 + 288));
+        v233(*(v232 + 288));
       }
 
-      dropThreadId(v631, 0, v594 + 1);
-      v65 = -1;
-      goto LABEL_491;
+      dropThreadId(v496, 0, v459 + 1);
+      v61 = -1;
+      goto LABEL_492;
     }
 
-    v312 = db_check_datastore(*(v50 + 8), v285);
-    v313 = v312;
-    v567 = *__error();
-    v314 = *__error();
-    v315 = _SILogForLogForCategory(0);
-    v316 = 2 * (gSILogLevels[0] < 4);
-    if (os_log_type_enabled(v315, v316))
+    v250 = db_check_datastore(*(v51 + 8), v229);
+    v251 = v250;
+    v432 = *__error();
+    v252 = *__error();
+    v253 = _SILogForLogForCategory(0);
+    v254 = 2 * (gSILogLevels[0] < 4);
+    if (os_log_type_enabled(v253, v254))
     {
       *__buf = 67109120;
-      *&__buf[4] = v312;
-      _os_log_impl(&dword_1C278D000, v315, v316, "db_check_datastore: %d", __buf, 8u);
+      *&__buf[4] = v250;
+      _os_log_impl(&dword_1C278D000, v253, v254, "db_check_datastore: %d", __buf, 8u);
     }
 
-    *__error() = v314;
-    if (v312 == -1 && v567 == 2)
+    *__error() = v252;
+    if (v250 == -1 && v432 == 2)
     {
-      v323 = *__error();
-      v324 = _SILogForLogForCategory(0);
-      v325 = 2 * (gSILogLevels[0] < 4);
-      v13 = v607;
-      if (os_log_type_enabled(v324, v325))
+      v261 = *__error();
+      v262 = _SILogForLogForCategory(0);
+      v263 = 2 * (gSILogLevels[0] < 4);
+      v14 = v472;
+      if (os_log_type_enabled(v262, v263))
       {
         *__buf = 0;
-        _os_log_impl(&dword_1C278D000, v324, v325, "file didn't exist, try shadow", __buf, 2u);
+        _os_log_impl(&dword_1C278D000, v262, v263, "file didn't exist, try shadow", __buf, 2u);
       }
 
-      *__error() = v323;
-      v326 = v592;
+      *__error() = v261;
+      v264 = v457;
     }
 
     else
     {
-      v13 = v607;
-      v326 = v592;
-      if (!v312)
+      v14 = v472;
+      v264 = v457;
+      if (!v250)
       {
-        v327 = 7;
+        v265 = 7;
         goto LABEL_361;
       }
 
-      if (v312 != 2)
+      if (v250 != 2)
       {
-        if (v312 != 1)
+        if (v250 != 1)
         {
-          v405 = *__error();
+          v309 = *__error();
           bzero(__buf, 0x400uLL);
-          snprintf(__buf, 0x400uLL, "invalid datastore %d, %d", v312, v405);
+          snprintf(__buf, 0x400uLL, "invalid datastore %d, %d", v250, v309);
+          v297 = 12552;
 LABEL_425:
-          __si_set_error_str(1, "%s:%u: %s", v376, v377, v378, v379, v380, v381, "SpotlightIndex.c");
-          v406 = threadData[9 * v631 + 1] + 320 * v630;
-          *(v406 + 312) = v593;
-          v407 = *(v406 + 232);
-          v66 = v608;
-          if (v407)
+          __si_set_error_str(1, "%s:%u: %s", "SpotlightIndex.c", v297, __buf);
+          v310 = threadData[9 * v496 + 1] + 320 * v495;
+          *(v310 + 312) = v458;
+          v311 = *(v310 + 232);
+          v62 = v473;
+          if (v311)
           {
-            v407(*(v406 + 288));
+            v311(*(v310 + 288));
           }
 
-          v65 = 0;
-          dropThreadId(v631, 0, v594 + 1);
+          v61 = 0;
+          dropThreadId(v496, 0, v459 + 1);
           goto LABEL_258;
         }
 
-        v327 = 7;
-        v313 = 1;
-        v328 = 1;
-        v329 = v285 | 1;
+        v265 = 7;
+        v251 = 1;
+        v266 = 1;
+        v267 = v229 | 1;
 LABEL_362:
-        v580 = v329;
-        v581 = v328;
-        v330 = v327 | 0x2000;
-        if (!v584)
+        v445 = v267;
+        v446 = v266;
+        v268 = v265 | 0x2000;
+        if (!v449)
         {
-          v330 = v327;
+          v268 = v265;
         }
 
-        if (v582)
+        if (v447)
         {
-          v331 = v330 | 0x4000;
+          v269 = v268 | 0x4000;
         }
 
         else
         {
-          v331 = v330;
+          v269 = v268;
         }
 
-        if (v326)
+        if (v264)
         {
 LABEL_368:
-          v332 = v331;
-          if (v331 != 7)
+          v270 = v269;
+          if (v269 != 7)
           {
-            goto LABEL_433;
+            goto LABEL_434;
           }
 
           goto LABEL_369;
         }
 
-        v570 = v313;
-        v568 = reverseStoreNeedsRecover(*(v50 + 8));
-        v343 = *__error();
-        v344 = _SILogForLogForCategory(0);
-        v345 = 2 * (gSILogLevels[0] < 4);
-        if (os_log_type_enabled(v344, v345))
+        v435 = v251;
+        v433 = reverseStoreNeedsRecover(*(v51 + 8));
+        v275 = *__error();
+        v276 = _SILogForLogForCategory(0);
+        v277 = 2 * (gSILogLevels[0] < 4);
+        if (os_log_type_enabled(v276, v277))
         {
           *__buf = 67109120;
-          *&__buf[4] = v568;
-          _os_log_impl(&dword_1C278D000, v344, v345, "reverse store state: %x", __buf, 8u);
+          *&__buf[4] = v433;
+          _os_log_impl(&dword_1C278D000, v276, v277, "reverse store state: %x", __buf, 8u);
         }
 
-        *__error() = v343;
-        if (v568 < 0)
+        *__error() = v275;
+        if (v433 < 0)
         {
-          v346 = v568;
-          v13 = v607;
-          if (v568 == -1073623027)
+          v278 = v433;
+          v14 = v472;
+          if (v433 == -1073623027)
           {
             goto LABEL_368;
           }
 
-          if (v568 == -804450864)
+          if (v433 == -804450864)
           {
-            if (v331 == 7)
+            if (v269 == 7)
             {
 LABEL_369:
-              v333 = db_restore_dirty_chunk_info(*(v50 + 8), &v636, v317, v318, v319, v320, v321, v322);
-              if (v333)
+              v271 = db_restore_dirty_chunk_info(*(v51 + 8), &v501, v255, v256, v257, v258, v259, v260);
+              if (v271)
               {
-                v334 = v333;
+                v272 = v271;
                 bzero(__buf, 0x400uLL);
-                snprintf(__buf, 0x400uLL, "restore db dirty pages failed %d", v334);
-                __si_set_error_str(1, "%s:%u: %s", v335, v336, v337, v338, v339, v340, "SpotlightIndex.c");
-                v341 = 4;
+                snprintf(__buf, 0x400uLL, "restore db dirty pages failed %d", v272);
+                __si_set_error_str(1, "%s:%u: %s", "SpotlightIndex.c", 12613, __buf);
+                v273 = 4;
               }
 
               else
               {
-                v341 = 7;
+                v273 = 7;
               }
 
-              if (v592)
+              if (v457)
               {
-                v332 = v341;
+                v270 = v273;
               }
 
               else
               {
-                v390 = reverseStoreRestoreDirtyBitmap(*(v50 + 8), &v638);
-                v332 = v341;
-                if (v390)
+                v300 = reverseStoreRestoreDirtyBitmap(*(v51 + 8), &v503);
+                v270 = v273;
+                if (v300)
                 {
-                  v391 = v390;
+                  v301 = v300;
                   bzero(__buf, 0x400uLL);
-                  snprintf(__buf, 0x400uLL, "restore rs dirty pages failed %d", v391);
-                  __si_set_error_str(1, "%s:%u: %s", v392, v393, v394, v395, v396, v397, "SpotlightIndex.c");
-                  v332 = 4;
+                  snprintf(__buf, 0x400uLL, "restore rs dirty pages failed %d", v301);
+                  __si_set_error_str(1, "%s:%u: %s", "SpotlightIndex.c", 12623, __buf);
+                  v270 = 4;
                 }
               }
 
-LABEL_433:
-              v416 = *(v50 + 1646);
-              if ((v416 & 0x10) != 0)
+LABEL_434:
+              v315 = *(v51 + 1646);
+              if ((v315 & 0x10) != 0)
               {
-                v417 = 48;
+                v316 = 48;
               }
 
               else
               {
-                v417 = 16;
+                v316 = 16;
               }
 
-              v418 = v332 | v417 | (2 * v590);
-              if (!v589)
+              v317 = v270 | v316 | (2 * v455);
+              if (!v454)
               {
-                v418 |= 0x40u;
+                v317 |= 0x40u;
               }
 
-              if (v50[2072])
+              if (v51[2072])
               {
-                v419 = v418 | 0x100;
+                v318 = v317 | 0x100;
               }
 
               else
               {
-                v419 = v418;
+                v318 = v317;
               }
 
-              v420 = SICopyProperty(v50, @"kSITokenizerUseCRF");
-              if (v420)
+              v319 = SICopyProperty(v51, @"kSITokenizerUseCRF");
+              if (v319)
               {
-                v421 = v420;
-                if (CFBooleanGetValue(v420))
+                v320 = v319;
+                if (CFBooleanGetValue(v319))
                 {
-                  *(v50 + 1646) = *(v50 + 1646) & 0xF9FFFFFF | 0x2000000;
+                  *(v51 + 1646) = *(v51 + 1646) & 0xF9FFFFFF | 0x2000000;
                 }
 
-                CFRelease(v421);
+                CFRelease(v320);
               }
 
-              VersionForDirectory = ContentIndexGetVersionForDirectory(*(v50 + 8));
-              v423 = VersionForDirectory;
-              if (v50[2072] == 1)
+              VersionForDirectory = ContentIndexGetVersionForDirectory(*(v51 + 8));
+              v322 = VersionForDirectory;
+              if (v51[2072] == 1)
               {
                 if ((VersionForDirectory - 115) < 0xFFFFFFFD)
                 {
-                  v424 = 114;
-                  goto LABEL_478;
+                  v323 = 114;
+                  goto LABEL_479;
                 }
               }
 
               else if ((VersionForDirectory - 96) >= 5 && VersionForDirectory != 102)
               {
-                v424 = 102;
-LABEL_478:
-                v462 = VersionForDirectory;
-                if (VersionForDirectory >= v424 || (!v50[2072] ? (v463 = 95) : (v463 = 111), VersionForDirectory != -1 && VersionForDirectory < v463))
+                v323 = 102;
+LABEL_479:
+                v356 = VersionForDirectory;
+                if (VersionForDirectory >= v323 || (!v51[2072] ? (v357 = 95) : (v357 = 111), VersionForDirectory != -1 && VersionForDirectory < v357))
                 {
                   bzero(__buf, 0x400uLL);
-                  snprintf(__buf, 0x400uLL, "invalid index version reindexing %d, %d", v423, v424);
-                  __si_set_error_str(1, "%s:%u: %s", v464, v465, v466, v467, v468, v469, "SpotlightIndex.c");
-                  v470 = *__error();
-                  v471 = _SILogForLogForCategory(0);
-                  v472 = gSILogLevels[0] < 3;
-                  if (os_log_type_enabled(v471, (gSILogLevels[0] < 3)))
+                  snprintf(__buf, 0x400uLL, "invalid index version reindexing %d, %d", v322, v323);
+                  __si_set_error_str(1, "%s:%u: %s", "SpotlightIndex.c", 12709, __buf);
+                  v358 = *__error();
+                  v359 = _SILogForLogForCategory(0);
+                  v360 = gSILogLevels[0] < 3;
+                  if (os_log_type_enabled(v359, (gSILogLevels[0] < 3)))
                   {
                     *buf = 67109376;
-                    *&buf[4] = v462;
+                    *&buf[4] = v356;
                     *&buf[8] = 1024;
-                    *&buf[10] = v424;
-                    _os_log_impl(&dword_1C278D000, v471, v472, "*warn* Index version %d out of date, expected %d, reindexing", buf, 0xEu);
+                    *&buf[10] = v323;
+                    _os_log_impl(&dword_1C278D000, v359, v360, "*warn* Index version %d out of date, expected %d, reindexing", buf, 0xEu);
                   }
 
-                  *__error() = v470;
-                  if (!v597)
+                  *__error() = v358;
+                  if (!v462)
                   {
-                    x_unlinkat(*(v50 + 8), "store.db", 0);
-                    x_unlinkat(*(v50 + 8), ".store.db", 0);
+                    x_unlinkat(*(v51 + 8), "store.db", 0);
+                    x_unlinkat(*(v51 + 8), ".store.db", 0);
                   }
 
-                  v473 = threadData[9 * v631 + 1] + 320 * v630;
-                  *(v473 + 312) = v593;
-                  v474 = *(v473 + 232);
-                  v63 = v585;
-                  v66 = v608;
-                  if (v474)
+                  v361 = threadData[9 * v496 + 1] + 320 * v495;
+                  *(v361 + 312) = v458;
+                  v362 = *(v361 + 232);
+                  v59 = v450;
+                  v62 = v473;
+                  if (v362)
                   {
-                    v474(*(v473 + 288));
+                    v362(*(v361 + 288));
                   }
 
-                  v65 = 0;
-                  dropThreadId(v631, 0, v594 + 1);
-                  goto LABEL_491;
+                  v61 = 0;
+                  dropThreadId(v496, 0, v459 + 1);
+                  goto LABEL_492;
                 }
 
                 bzero(__buf, 0x400uLL);
-                snprintf(__buf, 0x400uLL, "invalid index version recovering %d, %d", v423, v424);
-                __si_set_error_str(1, "%s:%u: %s", v477, v478, v479, v480, v481, v482, "SpotlightIndex.c");
-                v483 = *__error();
-                v484 = _SILogForLogForCategory(0);
-                v485 = gSILogLevels[0] < 3;
-                if (os_log_type_enabled(v484, (gSILogLevels[0] < 3)))
+                snprintf(__buf, 0x400uLL, "invalid index version recovering %d, %d", v322, v323);
+                __si_set_error_str(1, "%s:%u: %s", "SpotlightIndex.c", 12703, __buf);
+                v365 = *__error();
+                v366 = _SILogForLogForCategory(0);
+                v367 = gSILogLevels[0] < 3;
+                if (os_log_type_enabled(v366, (gSILogLevels[0] < 3)))
                 {
                   *buf = 67109376;
-                  *&buf[4] = v462;
+                  *&buf[4] = v356;
                   *&buf[8] = 1024;
-                  *&buf[10] = v424;
-                  _os_log_impl(&dword_1C278D000, v484, v485, "*warn* Index version %d out of date, expected %d, recovering", buf, 0xEu);
+                  *&buf[10] = v323;
+                  _os_log_impl(&dword_1C278D000, v366, v367, "*warn* Index version %d out of date, expected %d, recovering", buf, 0xEu);
                 }
 
-                *__error() = v483;
-                *a10 = 1;
-                v475 = *(v50 + 364);
-                v476 = -1;
-                v13 = v607;
-LABEL_496:
-                *(v50 + 364) = v475;
-                v486 = *__error();
-                v487 = _SILogForLogForCategory(0);
-                v488 = 2 * (gSILogLevels[0] < 4);
-                v66 = v608;
-                if (os_log_type_enabled(v487, v488))
+                *__error() = v365;
+                *a11 = 1;
+                v363 = *(v51 + 364);
+                v364 = -1;
+                v14 = v472;
+LABEL_497:
+                *(v51 + 364) = v363;
+                v368 = *__error();
+                v369 = _SILogForLogForCategory(0);
+                v370 = 2 * (gSILogLevels[0] < 4);
+                v62 = v473;
+                if (os_log_type_enabled(v369, v370))
                 {
                   *__buf = 0;
-                  _os_log_impl(&dword_1C278D000, v487, v488, "Could not open existing content index", __buf, 2u);
+                  _os_log_impl(&dword_1C278D000, v369, v370, "Could not open existing content index", __buf, 2u);
                 }
 
-                *__error() = v486;
-                v489 = threadData[9 * v631 + 1] + 320 * v630;
-                *(v489 + 312) = v593;
-                v490 = *(v489 + 232);
-                if (v490)
+                *__error() = v368;
+                v371 = threadData[9 * v496 + 1] + 320 * v495;
+                *(v371 + 312) = v458;
+                v372 = *(v371 + 232);
+                if (v372)
                 {
-                  v490(*(v489 + 288));
+                  v372(*(v371 + 288));
                 }
 
-                v65 = 0;
-                dropThreadId(v631, 0, v594 + 1);
+                v61 = 0;
+                dropThreadId(v496, 0, v459 + 1);
                 bzero(__buf, 0x400uLL);
-                snprintf(__buf, 0x400uLL, "content index open failed %d", v476);
-                __si_set_error_str(0, "%s:%u: %s", v491, v492, v493, v494, v495, v496, "SpotlightIndex.c");
+                snprintf(__buf, 0x400uLL, "content index open failed %d", v364);
+                __si_set_error_str(0, "%s:%u: %s", "SpotlightIndex.c", 12752, __buf);
                 goto LABEL_258;
               }
 
-              v425 = v419;
-              v426 = ((v416 >> 7) & 0x8000 | (v416 >> 13) & 0x800) ^ 0x8000;
-              *a10 = 1;
-              v571 = *(v50 + 364);
-              v617[0] = MEMORY[0x1E69E9820];
-              v617[1] = 0x40000000;
-              v617[2] = ___SIOpenIndex_block_invoke_930;
-              v617[3] = &__block_descriptor_tmp_931;
-              v617[4] = v50;
-              _si_next_index_id(v50, (*(*(v50 + 173) + 8) + *(*(v50 + 174) + 8)), 0, 1);
-              v427 = *(v50 + 174);
-              v428 = *(v50 + 173);
-              v429 = *(v50 + 824);
-              v430 = *(v50 + 149);
-              if (v430)
+              v324 = v318;
+              v325 = ((v315 >> 7) & 0x8000 | (v315 >> 13) & 0x800) ^ 0x8000;
+              *a11 = 1;
+              v436 = *(v51 + 364);
+              v482[0] = MEMORY[0x1E69E9820];
+              v482[1] = 0x40000000;
+              v482[2] = ___SIOpenIndex_block_invoke_930;
+              v482[3] = &__block_descriptor_tmp_931;
+              v482[4] = v51;
+              _si_next_index_id(v51, (*(*(v51 + 173) + 8) + *(*(v51 + 174) + 8)), 0, 1);
+              v327 = *(v51 + 174);
+              v328 = *(v51 + 173);
+              v329 = *(v51 + 824);
+              v330 = *(v51 + 149);
+              if (v330)
               {
-                vector_store = db_get_vector_store(v430);
+                vector_store = db_get_vector_store(v330);
               }
 
               else
@@ -2494,81 +2410,81 @@ LABEL_496:
                 vector_store = 0;
               }
 
-              v432 = ContentIndexOpenBulk((v50 + 1200), v591, v427, v428, v425 | v426, v429, (v50 + 2408), &v618, vector_store, v617, v641);
-              v433 = v432;
-              v434 = *__error();
-              v435 = _SILogForLogForCategory(0);
-              v436 = 2 * (gSILogLevels[0] < 4);
-              if (os_log_type_enabled(v435, v436))
+              v332 = ContentIndexOpenBulk(v326, (v51 + 1200), v456, v327, v328, v324 | v325, v329, (v51 + 2408), &v483, vector_store, v482, v506);
+              v333 = v332;
+              v334 = *__error();
+              v335 = _SILogForLogForCategory(0);
+              v336 = 2 * (gSILogLevels[0] < 4);
+              if (os_log_type_enabled(v335, v336))
               {
-                v437 = *(v50 + 301);
+                v337 = *(v51 + 301);
                 *__buf = 67109632;
-                *&__buf[4] = v432;
+                *&__buf[4] = v332;
                 *&__buf[8] = 2048;
-                *&__buf[10] = v50;
+                *&__buf[10] = v51;
                 *&__buf[18] = 2048;
-                *&__buf[20] = v437;
-                _os_log_impl(&dword_1C278D000, v435, v436, "ContentIndexOpenBulk: %d opened %p with recovery time %llu", __buf, 0x1Cu);
+                *&__buf[20] = v337;
+                _os_log_impl(&dword_1C278D000, v335, v336, "ContentIndexOpenBulk: %d opened %p with recovery time %llu", __buf, 0x1Cu);
               }
 
-              *__error() = v434;
-              if (v432 == 3)
+              *__error() = v334;
+              if (v332 == 3)
               {
-                v433 = 0;
-                v13 = v607;
-                v63 = v585;
-                v444 = v592;
-                v445 = v18 & 4;
+                v333 = 0;
+                v14 = v472;
+                v59 = v450;
+                v338 = v457;
+                v339 = v19 & 4;
               }
 
               else
               {
-                v13 = v607;
-                v63 = v585;
-                v444 = v592;
-                v445 = v18 & 4;
-                if (v432 < 0)
+                v14 = v472;
+                v59 = v450;
+                v338 = v457;
+                v339 = v19 & 4;
+                if (v332 < 0)
                 {
-                  v475 = v571;
-                  v476 = v432;
-                  goto LABEL_496;
+                  v363 = v436;
+                  v364 = v332;
+                  goto LABEL_497;
                 }
               }
 
-              v446 = v433;
-              if (!v597)
+              v340 = v333;
+              if (!v462)
               {
-                si_handle_tmp_files(*(v50 + 8), v432 == 3, (v18 >> 12) & 1, &v644, &v643, &cf);
-                v445 = v18 & 4;
+                si_handle_tmp_files(*(v51 + 8), v332 == 3, (v19 >> 12) & 1, &v509, &v508, &cf);
+                v339 = v19 & 4;
               }
 
-              if (v433 == 2)
+              if (v333 == 2)
               {
                 if (__si_invalid_term_update_set_key)
                 {
-                  __si_set_error_str(1, "%s:%u: %s", v438, v439, v440, v441, v442, v443, "SpotlightIndex.c");
+                  __si_set_error_str(1, "%s:%u: %s", "SpotlightIndex.c", 12773, "invalid term update set from lion");
                   _si_set_invalid_term_update_set();
                 }
 
-                v447 = v580 | 0x20;
-                if (v444)
+                v341 = v445 | 0x20;
+                if (v338)
                 {
-LABEL_505:
-                  v497 = v581 ^ 1;
-                  if ((v447 & 0x20) == 0)
+LABEL_506:
+                  v373 = v446 ^ 1;
+                  if ((v341 & 0x20) == 0)
                   {
-                    v497 = 1;
+                    v373 = 1;
                   }
 
-                  if (v497)
+                  if (v373)
                   {
                     memset(__buf, 0, 40);
-                    *__buf = *(v50 + 8);
+                    *__buf = *(v51 + 8);
                     *&__buf[8] = "store.db";
-                    v502 = *(v50 + 15);
-                    *&__buf[16] = v447;
-                    *&__buf[20] = v502;
-                    v365 = v594;
+                    v378 = *(v51 + 15);
+                    *&__buf[16] = v341;
+                    *&__buf[20] = v378;
+                    v292 = v459;
                     if (SIIsAppleInternal_onceToken != -1)
                     {
                       dispatch_once(&SIIsAppleInternal_onceToken, &__block_literal_global_6502);
@@ -2577,555 +2493,560 @@ LABEL_505:
                     datastore_with_ctx = 0;
                     if (SIIsAppleInternal_internal)
                     {
-                      v504 = v50 + 2192;
+                      v380 = v51 + 2192;
                     }
 
                     else
                     {
-                      v504 = 0;
+                      v380 = 0;
                     }
 
-                    *&__buf[24] = v504;
+                    *&__buf[24] = v380;
                     __buf[32] = 0;
-                    *&__buf[40] = v50;
+                    *&__buf[40] = v51;
                     *&__buf[48] = _sdb_cache_flush_callback;
-                    if ((v447 & 0x1000) == 0)
+                    if ((v341 & 0x1000) == 0)
                     {
                       datastore_with_ctx = db2_get_datastore_with_ctx(__buf);
                     }
 
-                    *(v50 + 149) = datastore_with_ctx;
-                    v501 = *__error();
+                    *(v51 + 149) = datastore_with_ctx;
+                    v377 = *__error();
                   }
 
                   else
                   {
-                    v498 = *__error();
-                    v499 = _SILogForLogForCategory(0);
-                    v500 = gSILogLevels[0] < 3;
-                    v365 = v594;
-                    if (os_log_type_enabled(v499, (gSILogLevels[0] < 3)))
+                    v374 = *__error();
+                    v375 = _SILogForLogForCategory(0);
+                    v376 = gSILogLevels[0] < 3;
+                    v292 = v459;
+                    if (os_log_type_enabled(v375, (gSILogLevels[0] < 3)))
                     {
                       *__buf = 0;
-                      _os_log_impl(&dword_1C278D000, v499, v500, "*warn* datastore clean, index dirty, recovering...", __buf, 2u);
+                      _os_log_impl(&dword_1C278D000, v375, v376, "*warn* datastore clean, index dirty, recovering...", __buf, 2u);
                     }
 
-                    *__error() = v498;
-                    v501 = 22;
+                    *__error() = v374;
+                    v377 = 22;
                   }
 
-                  if (!*(v50 + 149))
+                  if (!*(v51 + 149))
                   {
                     bzero(__buf, 0x400uLL);
-                    snprintf(__buf, 0x400uLL, "open datastore failed %d", v501);
-                    __si_set_error_str(1, "%s:%u: %s", v519, v520, v521, v522, v523, v524, "SpotlightIndex.c");
-                    v525 = threadData[9 * v631 + 1] + 320 * v630;
-                    *(v525 + 312) = v593;
-                    v526 = *(v525 + 232);
-                    if (v526)
+                    snprintf(__buf, 0x400uLL, "open datastore failed %d", v377);
+                    __si_set_error_str(1, "%s:%u: %s", "SpotlightIndex.c", 12830, __buf);
+                    v389 = threadData[9 * v496 + 1] + 320 * v495;
+                    *(v389 + 312) = v458;
+                    v390 = *(v389 + 232);
+                    if (v390)
                     {
-                      v526(*(v525 + 288));
+                      v390(*(v389 + 288));
                     }
 
-                    v65 = 0;
-                    dropThreadId(v631, 0, v365 + 1);
-                    goto LABEL_208;
+                    v61 = 0;
+                    dropThreadId(v496, 0, v292 + 1);
+                    goto LABEL_207;
                   }
 
                   *__buf = 0;
-                  v505 = SICopyProperty(v50, @"kSINextIndexId");
-                  if (v505)
+                  v381 = SICopyProperty(v51, @"kSINextIndexId");
+                  if (v381)
                   {
-                    v506 = v505;
-                    v507 = CFGetTypeID(v505);
-                    if (v507 == CFNumberGetTypeID())
+                    v382 = v381;
+                    v383 = CFGetTypeID(v381);
+                    if (v383 == CFNumberGetTypeID())
                     {
-                      CFNumberGetValue(v506, kCFNumberSInt32Type, __buf);
+                      CFNumberGetValue(v382, kCFNumberSInt32Type, __buf);
                     }
 
-                    CFRelease(v506);
+                    CFRelease(v382);
                   }
 
-                  if (*__buf > *(v50 + 364))
+                  if (*__buf > *(v51 + 364))
                   {
-                    *(v50 + 364) = *__buf;
+                    *(v51 + 364) = *__buf;
                   }
 
-                  v404 = v584 != 0;
-                  db_datastore_set_bg_assertion_flag(*(v50 + 149), v50[6944]);
-                  if (v446)
+                  v308 = v449 != 0;
+                  db_datastore_set_bg_assertion_flag(*(v51 + 149), v51[6944]);
+                  if (v340)
                   {
-                    if (!v597 && v446 == 2)
+                    if (!v462 && v340 == 2)
                     {
-                      db_set_dirty_chunks(*(v50 + 149), 0, 0, 0);
-                      db_store_dirty_chunk_info(*(v50 + 149), *(v50 + 8), 1, 0);
-                      v508 = *(v50 + 828);
-                      if (v508)
+                      db_set_dirty_chunks(*(v51 + 149), 0, 0, 0);
+                      db_store_dirty_chunk_info(*(v51 + 149), *(v51 + 8), 1, 0);
+                      v384 = *(v51 + 828);
+                      if (v384)
                       {
-                        reverseStoreStoreDirtyBitmap(v508);
+                        reverseStoreStoreDirtyBitmap(v384);
                       }
 
-                      v509 = handleIndexRepair(v50, v13, v618);
-                      if (v509)
+                      v385 = handleIndexRepair(v51, v14, v483);
+                      if (v385)
                       {
-                        v510 = v509;
+                        v386 = v385;
                         bzero(__buf, 0x400uLL);
-                        snprintf(__buf, 0x400uLL, "recover datastore error %d", v510);
-                        __si_set_error_str(1, "%s:%u: %s", v511, v512, v513, v514, v515, v516, "SpotlightIndex.c");
-                        goto LABEL_533;
+                        snprintf(__buf, 0x400uLL, "recover datastore error %d", v386);
+                        __si_set_error_str(1, "%s:%u: %s", "SpotlightIndex.c", 12866, __buf);
+                        goto LABEL_534;
                       }
 
-LABEL_542:
-                      v50[2481] = 4;
-                      is_dirty = db_is_dirty(*(v50 + 149));
-                      v533 = 4;
+LABEL_543:
+                      v51[2481] = 4;
+                      is_dirty = db_is_dirty(*(v51 + 149));
+                      v397 = 4;
                       if (is_dirty)
                       {
-                        v533 = 1;
-                        v50[2481] = 1;
+                        v397 = 1;
+                        v51[2481] = 1;
                       }
 
-                      v151 = v446;
-                      v50[2482] = v533;
-                      if (v592)
+                      v123 = v340;
+                      v51[2482] = v397;
+                      if (v457)
                       {
-                        v50[2483] = 0;
-LABEL_554:
-                        v535 = *(v50 + 174);
-                        v536 = *(*(v50 + 173) + 8);
-                        v537 = *(v535 + 8);
-                        if (v50[6944] == 1)
+                        v51[2483] = 0;
+LABEL_555:
+                        v399 = *(v51 + 174);
+                        v400 = *(*(v51 + 173) + 8);
+                        v401 = *(v399 + 8);
+                        if (v51[6944] == 1)
                         {
-                          v537 = *(v50 + 1242);
+                          v401 = *(v51 + 1242);
                         }
 
-                        if (*(v535 + 8))
+                        if (*(v399 + 8))
                         {
-                          v538 = *(v535 + 8);
-                          v539 = v50 + 2488;
-                          v540 = **(v50 + 174);
-                          for (i = 0; v538 != i; ++i)
+                          v402 = *(v399 + 8);
+                          v403 = v51 + 2488;
+                          v404 = **(v51 + 174);
+                          for (i = 0; v402 != i; ++i)
                           {
-                            v542 = atomic_load((*(v540 + 8 * i) + 32));
-                            if (v542 > 0)
+                            v406 = atomic_load((*(v404 + 8 * i) + 32));
+                            if (v406 > 0)
                             {
-                              if (v542 == 1)
+                              if (v406 == 1)
                               {
-LABEL_566:
-                                LOBYTE(v542) = 4;
-                                v539[i] = 4;
-                                goto LABEL_567;
+LABEL_567:
+                                LOBYTE(v406) = 4;
+                                v403[i] = 4;
+                                goto LABEL_568;
                               }
 
-                              if (v542 != 2)
+                              if (v406 != 2)
                               {
-LABEL_564:
-                                LOBYTE(v542) = 1;
+LABEL_565:
+                                LOBYTE(v406) = 1;
                               }
                             }
 
                             else
                             {
-                              if (v542 == -1073623027)
+                              if (v406 == -1073623027)
                               {
-                                goto LABEL_566;
+                                goto LABEL_567;
                               }
 
-                              if (v542 != -804450864)
+                              if (v406 != -804450864)
                               {
-                                goto LABEL_564;
+                                goto LABEL_565;
                               }
 
-                              LOBYTE(v542) = 3;
+                              LOBYTE(v406) = 3;
                             }
 
-                            v539[i] = v542;
-                            v50[2481] = 1;
-LABEL_567:
-                            v543 = **(v50 + 174);
-                            *(*(v543 + 8 * i) + 15201) = v542;
-                            v540 = v543;
+                            v403[i] = v406;
+                            v51[2481] = 1;
+LABEL_568:
+                            v407 = **(v51 + 174);
+                            *(*(v407 + 8 * i) + 15201) = v406;
+                            v404 = v407;
                           }
                         }
 
-                        if (!v536)
+                        if (!v400)
                         {
-LABEL_580:
-                          v403 = 0;
-                          si_write_index_state(v50, 1, 0, v528, v529, v530, v531, v532);
-                          goto LABEL_581;
+LABEL_581:
+                          v307 = 0;
+                          si_write_index_state(v51, 1, 0, v392, v393, v394, v395, v396);
+                          goto LABEL_582;
                         }
 
-                        v544 = v50 + 2488;
-                        v545 = **(v50 + 173);
-                        v546 = 8 * v536;
-                        v547 = 0;
-                        v548 = v537;
+                        v408 = v51 + 2488;
+                        v409 = **(v51 + 173);
+                        v410 = 8 * v400;
+                        v411 = 0;
+                        v412 = v401;
                         while (1)
                         {
-                          v549 = atomic_load((*(v545 + v547) + 32));
-                          if (v549 > 0)
+                          v413 = atomic_load((*(v409 + v411) + 32));
+                          if (v413 > 0)
                           {
-                            if (v549 == 1)
+                            if (v413 == 1)
                             {
-LABEL_578:
-                              LOBYTE(v549) = 4;
-                              v544[v548] = 4;
-                              goto LABEL_579;
+LABEL_579:
+                              LOBYTE(v413) = 4;
+                              v408[v412] = 4;
+                              goto LABEL_580;
                             }
 
-                            if (v549 != 2)
+                            if (v413 != 2)
                             {
-LABEL_576:
-                              LOBYTE(v549) = 1;
+LABEL_577:
+                              LOBYTE(v413) = 1;
                             }
                           }
 
                           else
                           {
-                            if (v549 == -1073623027)
+                            if (v413 == -1073623027)
                             {
-                              goto LABEL_578;
+                              goto LABEL_579;
                             }
 
-                            if (v549 != -804450864)
+                            if (v413 != -804450864)
                             {
-                              goto LABEL_576;
+                              goto LABEL_577;
                             }
 
-                            LOBYTE(v549) = 3;
+                            LOBYTE(v413) = 3;
                           }
 
-                          v544[v548] = v549;
-                          v50[2481] = 1;
-LABEL_579:
-                          v550 = **(v50 + 173);
-                          *(*(v550 + v547) + 15201) = v549;
-                          ++v548;
-                          v547 += 8;
-                          v545 = v550;
-                          if (v546 == v547)
+                          v408[v412] = v413;
+                          v51[2481] = 1;
+LABEL_580:
+                          v414 = **(v51 + 173);
+                          *(*(v414 + v411) + 15201) = v413;
+                          ++v412;
+                          v411 += 8;
+                          v409 = v414;
+                          if (v410 == v411)
                           {
-                            goto LABEL_580;
+                            goto LABEL_581;
                           }
                         }
                       }
 
-                      v534 = *(v50 + 828);
-                      if (v534)
+                      v398 = *(v51 + 828);
+                      if (v398)
                       {
-                        LODWORD(v534) = *(v534 + 4416);
-                        switch(v534)
+                        LODWORD(v398) = *(v398 + 4416);
+                        switch(v398)
                         {
                           case 0xC001D00D:
-                            v50[2483] = 4;
-                            goto LABEL_553;
+                            v51[2483] = 4;
+                            goto LABEL_554;
                           case 0xD00D0DD0:
-                            LOBYTE(v534) = 3;
+                            LOBYTE(v398) = 3;
                             break;
                           case 2:
                             break;
                           default:
-                            v50[2483] = 1;
-                            v50[2481] = 1;
-LABEL_553:
-                            v13 = v607;
-                            v63 = v585;
-                            v58 = v595;
-                            v365 = v594;
-                            goto LABEL_554;
+                            v51[2483] = 1;
+                            v51[2481] = 1;
+LABEL_554:
+                            v14 = v472;
+                            v59 = v450;
+                            v53 = v460;
+                            v292 = v459;
+                            goto LABEL_555;
                         }
                       }
 
-                      v50[2483] = v534;
-                      v645 |= 1u;
-                      goto LABEL_553;
+                      v51[2483] = v398;
+                      v510 |= 1u;
+                      goto LABEL_554;
                     }
                   }
 
                   else
                   {
-                    db_set_dirty_chunks(*(v50 + 149), v636, v637, SHIDWORD(v637));
-                    v636 = 0;
+                    db_set_dirty_chunks(*(v51 + 149), v501, v502, SHIDWORD(v502));
+                    v501 = 0;
                   }
 
-                  if (v597)
+                  if (v462)
                   {
-                    v403 = 0;
-                    v151 = v446;
-                    goto LABEL_581;
+                    v307 = 0;
+                    v123 = v340;
+                    goto LABEL_582;
                   }
 
-                  goto LABEL_542;
+                  goto LABEL_543;
                 }
 
-                if (handleDirStoreOverlay(v50))
+                if (handleDirStoreOverlay(v51))
                 {
-                  v645 |= 2u;
+                  v510 |= 2u;
                 }
 
-                v448 = v580 | 0x20;
-                v445 = v18 & 4;
+                v342 = v445 | 0x20;
+                v339 = v19 & 4;
               }
 
               else
               {
-                v447 = v580;
-                v448 = v580;
-                if (v444)
+                v341 = v445;
+                v342 = v445;
+                if (v338)
                 {
-                  goto LABEL_505;
+                  goto LABEL_506;
                 }
               }
 
-              v583 = v446;
-              v449 = check_crash_state(*(v50 + 8), v445 != 0, v18, &v635, 2);
+              v448 = v340;
+              v343 = check_crash_state(*(v51 + 8), v339 != 0, v19, &v500, 2);
               bzero(__buf, 0x400uLL);
-              v450 = *__error();
-              v451 = _SILogForLogForCategory(0);
-              v452 = 2 * (gSILogLevels[0] < 4);
-              if (os_log_type_enabled(v451, v452))
+              v344 = *__error();
+              v345 = _SILogForLogForCategory(0);
+              v346 = 2 * (gSILogLevels[0] < 4);
+              if (os_log_type_enabled(v345, v346))
               {
-                v569 = v448;
-                v453 = v452;
-                v454 = v449;
-                v455 = v635;
-                v456 = fcntl(*(v50 + 8), 50, __buf);
-                v457 = 0;
+                v434 = v342;
+                v347 = v346;
+                v348 = v343;
+                v349 = v500;
+                v350 = fcntl(*(v51 + 8), 50, __buf);
+                v351 = 0;
                 if (__buf[0])
                 {
-                  v458 = v456 < 0;
+                  v352 = v350 < 0;
                 }
 
                 else
                 {
-                  v458 = 1;
+                  v352 = 1;
                 }
 
-                if (!v458)
+                if (!v352)
                 {
-                  v457 = __buf;
+                  v351 = __buf;
                 }
 
                 *buf = 134218242;
-                *&buf[4] = v455;
-                v449 = v454;
+                *&buf[4] = v349;
+                v343 = v348;
                 *&buf[12] = 2080;
-                *&buf[14] = v457;
-                v459 = v453;
-                v448 = v569;
-                _os_log_impl(&dword_1C278D000, v451, v459, "rs last_crash_delta: %ld for %s", buf, 0x16u);
+                *&buf[14] = v351;
+                v353 = v347;
+                v342 = v434;
+                _os_log_impl(&dword_1C278D000, v345, v353, "rs last_crash_delta: %ld for %s", buf, 0x16u);
               }
 
-              *__error() = v450;
-              v460 = openReverseStore(*(v50 + 8), v449, v583 == 2, v590 != 0, *(v50 + 824), &v638, v641);
-              *(v50 + 828) = v460;
-              if (v640)
+              *__error() = v344;
+              v354 = openReverseStore(*(v51 + 8), v343, v448 == 2, v455 != 0, *(v51 + 824), &v503, v506);
+              *(v51 + 828) = v354;
+              if (v505)
               {
-                CFRelease(v640);
-                v640 = 0;
-                v461 = *(v50 + 828);
+                CFRelease(v505);
+                v505 = 0;
+                v355 = *(v51 + 828);
               }
 
               else
               {
-                v461 = v460;
+                v355 = v354;
               }
 
-              v63 = v585;
-              v639 = 0;
-              v638 = 0;
-              v446 = v583;
-              if (!v461)
+              v59 = v450;
+              v504 = 0;
+              v503 = 0;
+              v340 = v448;
+              if (!v355)
               {
-                v645 |= 1u;
+                v510 |= 1u;
               }
 
-              v447 = v448;
-              goto LABEL_505;
+              v341 = v342;
+              goto LABEL_506;
             }
 
-            v332 = v331;
-            if (v331 != 4)
+            v270 = v269;
+            if (v269 != 4)
             {
-              goto LABEL_433;
+              goto LABEL_434;
             }
 
-            v347 = *__error();
-            v348 = _SILogForLogForCategory(0);
-            v349 = gSILogLevels[0] < 3;
-            if (os_log_type_enabled(v348, (gSILogLevels[0] < 3)))
+            v279 = *__error();
+            v280 = _SILogForLogForCategory(0);
+            v281 = gSILogLevels[0] < 3;
+            if (os_log_type_enabled(v280, (gSILogLevels[0] < 3)))
             {
               *__buf = 0x404000300;
               *&__buf[8] = 1024;
               *&__buf[10] = -804450864;
               *&__buf[14] = 1024;
-              *&__buf[16] = v570;
-              _os_log_impl(&dword_1C278D000, v348, v349, "*warn* datastore dirty, reverse store needs shadow -- forcing repair (%u, %u, %u)", __buf, 0x14u);
+              *&__buf[16] = v435;
+              _os_log_impl(&dword_1C278D000, v280, v281, "*warn* datastore dirty, reverse store needs shadow -- forcing repair (%u, %u, %u)", __buf, 0x14u);
             }
 
-LABEL_431:
-            *__error() = v347;
-            __si_set_error_str(1, "%s:%u: %s", v410, v411, v412, v413, v414, v415, "SpotlightIndex.c");
-            *a10 = 1;
-LABEL_533:
-            v517 = threadData[9 * v631 + 1] + 320 * v630;
-            *(v517 + 312) = v593;
-            v518 = *(v517 + 232);
-            if (v518)
+            *__error() = v279;
+            v431 = "ds dirty, rs needs shadow";
+            v282 = 12575;
+LABEL_432:
+            __si_set_error_str(1, "%s:%u: %s", "SpotlightIndex.c", v282, v431);
+            *a11 = 1;
+LABEL_534:
+            v387 = threadData[9 * v496 + 1] + 320 * v495;
+            *(v387 + 312) = v458;
+            v388 = *(v387 + 232);
+            if (v388)
             {
-              v518(*(v517 + 288));
+              v388(*(v387 + 288));
             }
 
-            v65 = 0;
-            dropThreadId(v631, 0, v594 + 1);
-            v84 = v598;
-            v13 = v607;
-            v66 = v608;
+            v61 = 0;
+            dropThreadId(v496, 0, v459 + 1);
+            v79 = v463;
+            v14 = v472;
+            v62 = v473;
             goto LABEL_259;
           }
         }
 
         else
         {
-          if (!v568)
+          if (!v433)
           {
-            if (!v581)
+            if (!v446)
             {
-              v332 = 4;
-              v13 = v607;
-              v58 = v595;
-              goto LABEL_433;
+              v270 = 4;
+              v14 = v472;
+              v53 = v460;
+              goto LABEL_434;
             }
 
-            v347 = *__error();
-            v408 = _SILogForLogForCategory(0);
-            v409 = gSILogLevels[0] < 3;
-            if (os_log_type_enabled(v408, (gSILogLevels[0] < 3)))
+            v312 = *__error();
+            v313 = _SILogForLogForCategory(0);
+            v314 = gSILogLevels[0] < 3;
+            if (os_log_type_enabled(v313, (gSILogLevels[0] < 3)))
             {
               *__buf = 0;
-              _os_log_impl(&dword_1C278D000, v408, v409, "*warn* datastore needs shadow, reverse store dirty -- forcing repair", __buf, 2u);
+              _os_log_impl(&dword_1C278D000, v313, v314, "*warn* datastore needs shadow, reverse store dirty -- forcing repair", __buf, 2u);
             }
 
-            goto LABEL_431;
+            *__error() = v312;
+            v431 = "ds needs shadow, rs dirty";
+            v282 = 12587;
+            goto LABEL_432;
           }
 
-          v346 = v568;
-          v13 = v607;
-          if (v568 == 2)
+          v278 = v433;
+          v14 = v472;
+          if (v433 == 2)
           {
             goto LABEL_368;
           }
         }
 
         bzero(__buf, 0x400uLL);
-        snprintf(__buf, 0x400uLL, "invalid reverse store %d", v346);
-        __si_set_error_str(1, "%s:%u: %s", v382, v383, v384, v385, v386, v387, "SpotlightIndex.c");
-        v388 = threadData[9 * v631 + 1] + 320 * v630;
-        *(v388 + 312) = v593;
-        v389 = *(v388 + 232);
-        if (v389)
+        snprintf(__buf, 0x400uLL, "invalid reverse store %d", v278);
+        __si_set_error_str(1, "%s:%u: %s", "SpotlightIndex.c", 12600, __buf);
+        v298 = threadData[9 * v496 + 1] + 320 * v495;
+        *(v298 + 312) = v458;
+        v299 = *(v298 + 232);
+        if (v299)
         {
-          v389(*(v388 + 288));
+          v299(*(v298 + 288));
         }
 
-        v65 = 0;
-        dropThreadId(v631, 0, v594 + 1);
-        v84 = v598;
-        v66 = v608;
+        v61 = 0;
+        dropThreadId(v496, 0, v459 + 1);
+        v79 = v463;
+        v62 = v473;
         goto LABEL_259;
       }
     }
 
-    v327 = 4;
-    v313 = 2;
+    v265 = 4;
+    v251 = 2;
 LABEL_361:
-    v328 = 0;
-    v329 = v285;
+    v266 = 0;
+    v267 = v229;
     goto LABEL_362;
   }
 
-  v279 = v50[2481];
-  if (v50[6944] == 1 && v278 != 1 && v278 != 4)
+  if (v51[6944] == 1 && v223 != 1 && v223 != 4)
   {
-    v373 = index_state;
-    v374 = *__error();
-    v375 = _SILogForLogForCategory(10);
-    if (os_log_type_enabled(v375, OS_LOG_TYPE_ERROR))
+    v294 = index_state;
+    v295 = *__error();
+    v296 = _SILogForLogForCategory(10);
+    if (os_log_type_enabled(v296, OS_LOG_TYPE_ERROR))
     {
       *__buf = 136315650;
       *&__buf[4] = "_SIOpenIndex";
       *&__buf[12] = 1024;
       *&__buf[14] = 12442;
       *&__buf[18] = 1024;
-      *&__buf[20] = v278;
-      _os_log_error_impl(&dword_1C278D000, v375, OS_LOG_TYPE_ERROR, "%s:%d: open indexstate not clean for locked indexing: %d", __buf, 0x18u);
+      *&__buf[20] = v223;
+      _os_log_error_impl(&dword_1C278D000, v296, OS_LOG_TYPE_ERROR, "%s:%d: open indexstate not clean for locked indexing: %d", __buf, 0x18u);
     }
 
-    *__error() = v374;
+    *__error() = v295;
     bzero(__buf, 0x400uLL);
-    snprintf(__buf, 0x400uLL, "open index state failed %d, %d", v373, v278);
+    snprintf(__buf, 0x400uLL, "open index state failed %d, %d", v294, v223);
+    v297 = 12445;
     goto LABEL_425;
   }
 
-  memcpy(__buf, v50 + 2480, sizeof(__buf));
-  v280 = *__error();
-  v281 = _SILogForLogForCategory(11);
-  v282 = 2 * (dword_1EBF46AF8 < 4);
-  if (os_log_type_enabled(v281, v282))
+  memcpy(__buf, v51 + 2480, sizeof(__buf));
+  v224 = *__error();
+  v225 = _SILogForLogForCategory(11);
+  v226 = 2 * (dword_1EBF46AF8 < 4);
+  if (os_log_type_enabled(v225, v226))
   {
-    if (v278 > 4)
+    if (v223 > 4)
     {
-      v283 = "unknown";
+      v227 = "unknown";
     }
 
     else
     {
-      v283 = off_1E8192938[(v278 - 1)];
+      v227 = off_1E8192938[(v223 - 1)];
     }
 
     *buf = 134218242;
-    *&buf[4] = v50;
+    *&buf[4] = v51;
     *&buf[12] = 2080;
-    *&buf[14] = v283;
-    _os_log_impl(&dword_1C278D000, v281, v282, "%p si state: %s", buf, 0x16u);
+    *&buf[14] = v227;
+    _os_log_impl(&dword_1C278D000, v225, v226, "%p si state: %s", buf, 0x16u);
   }
 
-  *__error() = v280;
-  v350 = _SIOpenIndexFilesWithState(v50, v278, v589 == 0, (*(v50 + 1646) >> 4) & 1, v602, a10, &v618, v591, &v645, v584 != 0);
-  v151 = v350;
-  v351 = *__error();
-  v352 = _SILogForLogForCategory(11);
-  v353 = 2 * (dword_1EBF46AF8 < 4);
-  if (os_log_type_enabled(v352, v353))
+  *__error() = v224;
+  v283 = _SIOpenIndexFilesWithState(v51, v223, v454 == 0, (*(v51 + 1646) >> 4) & 1, v467, a11, &v483, v456, &v510, v449 != 0);
+  v123 = v283;
+  v284 = *__error();
+  v285 = _SILogForLogForCategory(11);
+  v286 = 2 * (dword_1EBF46AF8 < 4);
+  if (os_log_type_enabled(v285, v286))
   {
     *buf = 134218240;
-    *&buf[4] = v50;
+    *&buf[4] = v51;
     *&buf[12] = 1024;
-    *&buf[14] = v350;
-    _os_log_impl(&dword_1C278D000, v352, v353, "%p _SIOpenIndexFilesWithState: %d", buf, 0x12u);
+    *&buf[14] = v283;
+    _os_log_impl(&dword_1C278D000, v285, v286, "%p _SIOpenIndexFilesWithState: %d", buf, 0x12u);
   }
 
-  *__error() = v351;
-  v354 = *__error();
-  if (v350 == 2)
+  *__error() = v284;
+  v287 = *__error();
+  if (v283 == 2)
   {
-    v63 = v585;
-    v365 = v594;
-    if (handleDirStoreOverlay(v50))
+    v59 = v450;
+    v292 = v459;
+    if (handleDirStoreOverlay(v51))
     {
-      v645 |= 2u;
+      v510 |= 2u;
     }
 
-    v13 = v607;
-    if (handleIndexRepair(v50, v607, v618))
+    v14 = v472;
+    if (handleIndexRepair(v51, v472, v483))
     {
-      __si_set_error_str(1, "%s:%u: %s", v366, v367, v368, v369, v370, v371, "SpotlightIndex.c");
-      v363 = threadData[9 * v631 + 1] + 320 * v630;
-      *(v363 + 312) = v593;
-      v364 = *(v363 + 232);
-      v66 = v608;
-      if (!v364)
+      __si_set_error_str(1, "%s:%u: %s", "SpotlightIndex.c", 12475, "recover datastore error");
+      v290 = threadData[9 * v496 + 1] + 320 * v495;
+      *(v290 + 312) = v458;
+      v291 = *(v290 + 232);
+      v62 = v473;
+      if (!v291)
       {
         goto LABEL_399;
       }
@@ -3133,412 +3054,410 @@ LABEL_361:
       goto LABEL_398;
     }
 
-    v372 = 0;
+    v293 = 0;
   }
 
   else
   {
-    v63 = v585;
-    if (v350 == -1)
+    v59 = v450;
+    if (v283 == -1)
     {
-      v355 = *__error();
-      v356 = _SILogForLogForCategory(10);
-      if (os_log_type_enabled(v356, OS_LOG_TYPE_ERROR))
+      v288 = *__error();
+      v289 = _SILogForLogForCategory(10);
+      if (os_log_type_enabled(v289, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
         *&buf[4] = "_SIOpenIndex";
         *&buf[12] = 1024;
         *&buf[14] = 12459;
         *&buf[18] = 1024;
-        *&buf[20] = v354;
-        _os_log_error_impl(&dword_1C278D000, v356, OS_LOG_TYPE_ERROR, "%s:%d: _SIOpenIndexFilesWithState error %d", buf, 0x18u);
+        *&buf[20] = v287;
+        _os_log_error_impl(&dword_1C278D000, v289, OS_LOG_TYPE_ERROR, "%s:%d: _SIOpenIndexFilesWithState error %d", buf, 0x18u);
       }
 
-      *__error() = v355;
-      __si_set_error_str(0, "%s:%u: %s", v357, v358, v359, v360, v361, v362, "SpotlightIndex.c");
-      v363 = threadData[9 * v631 + 1] + 320 * v630;
-      *(v363 + 312) = v593;
-      v364 = *(v363 + 232);
-      v13 = v607;
-      v66 = v608;
-      v365 = v594;
-      if (!v364)
+      *__error() = v288;
+      __si_set_error_str(0, "%s:%u: %s", "SpotlightIndex.c", 12461, "_SIOpenIndexFilesWithState failed with -1");
+      v290 = threadData[9 * v496 + 1] + 320 * v495;
+      *(v290 + 312) = v458;
+      v291 = *(v290 + 232);
+      v14 = v472;
+      v62 = v473;
+      v292 = v459;
+      if (!v291)
       {
         goto LABEL_399;
       }
 
 LABEL_398:
-      v364(*(v363 + 288));
+      v291(*(v290 + 288));
 LABEL_399:
-      dropThreadId(v631, 0, v365 + 1);
-      v65 = v354;
-LABEL_491:
-      v84 = v598;
+      dropThreadId(v496, 0, v292 + 1);
+      v61 = v287;
+LABEL_492:
+      v79 = v463;
       goto LABEL_230;
     }
 
-    v372 = v278 == 3;
-    v13 = v607;
-    v365 = v594;
+    v293 = v223 == 3;
+    v14 = v472;
+    v292 = v459;
   }
 
-  si_handle_tmp_files(*(v50 + 8), v372, (v602 >> 12) & 1, &v644, &v643, &cf);
-  if (memcmp(__buf, v50 + 2480, 0x1000uLL))
+  si_handle_tmp_files(*(v51 + 8), v293, (v467 >> 12) & 1, &v509, &v508, &cf);
+  if (memcmp(__buf, v51 + 2480, 0x1000uLL))
   {
-    si_write_index_state(v50, 0, 0, v398, v399, v400, v401, v402);
+    si_write_index_state(v51, 0, 0, v302, v303, v304, v305, v306);
   }
 
-  v403 = v354;
-  v404 = 0;
-LABEL_581:
-  v579 = v404;
-  v78 = v592;
-  if ((v50[6944] & 1) == 0)
+  v307 = v287;
+  v308 = 0;
+LABEL_582:
+  v444 = v308;
+  v73 = v457;
+  if ((v51[6944] & 1) == 0)
   {
-    v551 = fd_create_protected(*(v50 + 8), "topK.v2.mdplistc", 0, 0);
-    if (v551)
+    v415 = fd_create_protected(*(v51 + 8), "topK.v2.mdplistc", 0, 0);
+    if (v415)
     {
-      v552 = v551;
+      v416 = v415;
       memset(__buf, 0, 144);
-      fd_stat(v551, __buf);
-      v553 = fd_mmap(v552);
-      if (v553 != -1)
+      fd_stat(v415, __buf);
+      v417 = fd_mmap(v416, *&__buf[96], 1, 1, 0);
+      if (v417 != -1)
       {
-        v574 = v553;
-        *buf = v553;
+        v439 = v417;
+        *buf = v417;
         *&buf[8] = *&__buf[96];
         *&buf[16] = 0;
-        v616[0] = 1;
-        v616[1] = buf;
-        v554 = atomic_fetch_add_explicit(&exceptionSequenceNum, 1u, memory_order_relaxed);
-        v555 = setThreadIdAndInfo(-1, sMappingExceptionCallbacks, v616, 0, v554 + 1);
-        v614 = HIDWORD(v555);
-        v615 = v555;
-        v613 = __PAIR64__(v556, v557);
-        v558 = threadData[9 * v555 + 1] + 320 * HIDWORD(v555);
-        *(v558 + 216) = 0;
-        v559 = *(v558 + 312);
-        v560 = *(v558 + 224);
-        v561 = v558;
-        if (v560)
+        v481[0] = 1;
+        v481[1] = buf;
+        v418 = atomic_fetch_add_explicit(&exceptionSequenceNum, 1u, memory_order_relaxed);
+        v419 = setThreadIdAndInfo(-1, sMappingExceptionCallbacks, v481, 0, v418 + 1);
+        v479 = HIDWORD(v419);
+        v480 = v419;
+        v478 = __PAIR64__(v420, v421);
+        v422 = threadData[9 * v419 + 1] + 320 * HIDWORD(v419);
+        *(v422 + 216) = 0;
+        v423 = *(v422 + 312);
+        v424 = *(v422 + 224);
+        v425 = v422;
+        if (v424)
         {
-          v560(*(v558 + 288));
+          v424(*(v422 + 288));
         }
 
-        v612 = v615;
-        v611 = v614;
-        v610 = v613;
-        if (_setjmp(v561))
+        v477 = v480;
+        v476 = v479;
+        v475 = v478;
+        if (_setjmp(v425))
         {
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            *v609 = 0;
-            _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", v609, 2u);
+            *v474 = 0;
+            _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", v474, 2u);
           }
 
-          v561[78] = v559;
-          CIOnThreadCleanUpReset(v610);
-          dropThreadId(v612, 1, v554 + 1);
-          CICleanUpReset(v612, HIDWORD(v610));
+          v425[78] = v423;
+          CIOnThreadCleanUpReset(v475);
+          dropThreadId(v477, 1, v418 + 1);
+          CICleanUpReset(v477, HIDWORD(v475));
         }
 
         else
         {
-          v562 = *MEMORY[0x1E695E480];
-          *(v50 + 83) = _MDPlistContainerCreateWithBytes();
-          v563 = threadData[9 * v612 + 1] + 320 * v611;
-          *(v563 + 312) = v559;
-          v564 = *(v563 + 232);
-          if (v564)
+          *(v51 + 83) = _MDPlistContainerCreateWithBytes();
+          v426 = threadData[9 * v477 + 1] + 320 * v476;
+          *(v426 + 312) = v423;
+          v427 = *(v426 + 232);
+          if (v427)
           {
-            v564(*(v563 + 288));
+            v427(*(v426 + 288));
           }
 
-          dropThreadId(v612, 0, v554 + 1);
-          v13 = v607;
+          dropThreadId(v477, 0, v418 + 1);
+          v14 = v472;
         }
 
-        v365 = v594;
-        v78 = v592;
-        if (!*(v50 + 83))
+        v292 = v459;
+        v73 = v457;
+        if (!*(v51 + 83))
         {
-          munmap(v574, *&__buf[96]);
+          munmap(v439, *&__buf[96]);
         }
       }
 
-      fd_release(v552);
-      v63 = v585;
-      v58 = v595;
+      fd_release(v416);
+      v59 = v450;
+      v53 = v460;
     }
   }
 
-  v634 = 1;
-  v565 = threadData[9 * v631 + 1] + 320 * v630;
-  *(v565 + 312) = v593;
-  v566 = *(v565 + 232);
-  if (v566)
+  v499 = 1;
+  v428 = threadData[9 * v496 + 1] + 320 * v495;
+  *(v428 + 312) = v458;
+  v429 = *(v428 + 232);
+  if (v429)
   {
-    v566(*(v565 + 288));
+    v429(*(v428 + 288));
   }
 
-  dropThreadId(v631, 0, v365 + 1);
-  v82 = v403;
-  v83 = v579;
-LABEL_135:
-  if ((v634 & 1) == 0)
+  dropThreadId(v496, 0, v292 + 1);
+  v77 = v307;
+  v78 = v444;
+LABEL_134:
+  if ((v499 & 1) == 0)
   {
-    __si_set_error_str(1, "%s:%u: %s", v145, v146, v147, v148, v149, v150, "SpotlightIndex.c");
-    v65 = 22;
-LABEL_208:
-    v84 = v598;
-    v66 = v608;
+    __si_set_error_str(1, "%s:%u: %s", "SpotlightIndex.c", 12951, "index setup error");
+    v61 = 22;
+LABEL_207:
+    v79 = v463;
+    v62 = v473;
 LABEL_230:
-    if (v640)
+    if (v505)
     {
-      CFRelease(v640);
-      v640 = 0;
+      CFRelease(v505);
+      v505 = 0;
     }
 
-    v639 = 0;
-    v638 = 0;
-    _SICloseIndex(v50, 0);
-    v225 = *(v50 + 149);
-    if (v225)
+    v504 = 0;
+    v503 = 0;
+    _SICloseIndex(v51, 0);
+    v182 = *(v51 + 149);
+    if (v182)
     {
-      db_release_datastore_no_sync(v225);
-      *(v50 + 149) = 0;
+      db_release_datastore_no_sync(v182);
+      *(v51 + 149) = 0;
     }
 
-    v226 = *(v50 + 828);
-    if (v226)
+    v183 = *(v51 + 828);
+    if (v183)
     {
-      freeReverseDirStore(v226);
-      *(v50 + 828) = 0;
+      freeReverseDirStore(v183);
+      *(v51 + 828) = 0;
     }
 
-    *v66 = 0;
-    v64 = v84;
+    *v62 = 0;
+    v60 = v79;
 LABEL_63:
     if (cf)
     {
       CFRelease(cf);
     }
 
-    if (v644)
+    if (v509)
     {
-      CFRelease(v644);
+      CFRelease(v509);
     }
 
-    MEMORY[0x1C6921200](v63);
-    close(v63);
-    free(v636);
-    if (*(v50 + 5))
+    MEMORY[0x1C6921200](v59);
+    close(v59);
+    free(v501);
+    if (*(v51 + 5))
     {
       guarded_close_np();
-      if ((v64 & 1) == 0)
+      if ((v60 & 1) == 0)
       {
 LABEL_75:
-        ContentIndexListFree(*(v50 + 174));
-        ContentIndexListFree(*(v50 + 173));
-        if (v13)
+        ContentIndexListFree(*(v51 + 174));
+        ContentIndexListFree(*(v51 + 173));
+        if (v14)
         {
-          v74 = *(v13 + 24);
-          if (v74)
+          v70 = *(v14 + 24);
+          if (v70)
           {
-            v74(v13);
+            v70(v14);
           }
         }
 
-        v75 = *(v50 + 187);
-        if (v75)
+        v71 = *(v51 + 187);
+        if (v71)
         {
-          CFRelease(v75);
+          CFRelease(v71);
         }
 
-        free(v50);
-        *v66 = 0;
-        *__error() = v65;
-        result = 0xFFFFFFFFLL;
-        goto LABEL_81;
+        free(v51);
+        *v62 = 0;
+        *__error() = v61;
+        return 0xFFFFFFFFLL;
       }
     }
 
     else
     {
-      close(*(v50 + 8));
-      if ((v64 & 1) == 0)
+      close(*(v51 + 8));
+      if ((v60 & 1) == 0)
       {
         goto LABEL_75;
       }
     }
 
-    v73 = *(v50 + 8);
-    if ((v73 & 0x80000000) == 0)
+    v69 = *(v51 + 8);
+    if ((v69 & 0x80000000) == 0)
     {
-      unregisterForCloning(v73);
+      unregisterForCloning(v69);
     }
 
     goto LABEL_75;
   }
 
-  v81 = v151;
-  v84 = v598;
-  v18 = v602;
-LABEL_88:
-  v85 = v83;
-  v587 = v84;
-  v588 = v81;
-  *v608 = v50;
-  v606 = v13;
-  v586 = v82;
-  if (v78)
+  v76 = v123;
+  v79 = v463;
+  v19 = v467;
+LABEL_87:
+  v80 = v78;
+  v452 = v79;
+  v453 = v76;
+  *v473 = v51;
+  v471 = v14;
+  v451 = v77;
+  if (v73)
   {
-    v86 = v645;
+    v81 = v510;
   }
 
-  else if ((v18 & 8) != 0 || (v50[2072] & 1) != 0 || *(v50 + 828))
+  else if ((v19 & 8) != 0 || (v51[2072] & 1) != 0 || *(v51 + 828))
   {
-    v86 = v645;
+    v81 = v510;
   }
 
   else
   {
-    v86 = v645;
-    if (!v645)
+    v81 = v510;
+    if (!v510)
     {
-      v96 = __si_assert_copy_extra_661(-1);
-      v97 = v96;
-      v98 = "";
-      if (v96)
+      v85 = __si_assert_copy_extra_661(-1);
+      v86 = v85;
+      v87 = "";
+      if (v85)
       {
-        v98 = v96;
+        v87 = v85;
       }
 
-      __message_assert("%s:%u: failed assertion '%s' %s ", "SpotlightIndex.c", 12964, "fs_only || newIndex->dirStore || rebuildDirStore", v98);
-      free(v97);
+      __message_assert("%s:%u: failed assertion '%s' %s ", "SpotlightIndex.c", 12964, "fs_only || newIndex->dirStore || rebuildDirStore", v87);
+      free(v86);
       if (__valid_fs(-1))
       {
-        v99 = 2989;
+        v88 = 2989;
       }
 
       else
       {
-        v99 = 3072;
+        v88 = 3072;
       }
 
-      *v99 = -559038737;
+      *v88 = -559038737;
       abort();
     }
   }
 
-  v158 = SIInitIndex(v50, v58, v596, v18, a9, v644, cf, 0, v86);
-  if ((v158 & 0x80000000) != 0)
+  v124 = SIInitIndex(v58, v51, v53, v461, v19, a10, v509, cf, 0, v81);
+  if ((v124 & 0x80000000) != 0)
   {
     if (!__si_error_str_key || !pthread_getspecific(__si_error_str_key))
     {
       bzero(__buf, 0x400uLL);
-      snprintf(__buf, 0x400uLL, "init index error %d", v158);
-      __si_set_error_str(1, "%s:%u: %s", v159, v160, v161, v162, v163, v164, "SpotlightIndex.c");
+      snprintf(__buf, 0x400uLL, "init index error %d", v124);
+      __si_set_error_str(1, "%s:%u: %s", "SpotlightIndex.c", 12975, __buf);
     }
 
-    v65 = 22;
-    v13 = v606;
-    v66 = v608;
+    v61 = 22;
+    v14 = v471;
+    v62 = v473;
     goto LABEL_230;
   }
 
-  if ((v86 & 1) == 0)
+  if ((v81 & 1) == 0)
   {
-    if ((v86 & 2) == 0)
+    if ((v81 & 2) == 0)
     {
-      goto LABEL_141;
+      goto LABEL_140;
     }
 
-LABEL_148:
-    x_unlinkat(v600, "mds64-crash-state-forward-path-index-v2", 2048);
-    if (!v85)
+LABEL_147:
+    x_unlinkat(v465, "mds64-crash-state-forward-path-index-v2", 2048);
+    if (!v80)
     {
-      goto LABEL_153;
+      goto LABEL_152;
     }
 
-    goto LABEL_149;
-  }
-
-  x_unlinkat(v600, "mds64-crash-state-reverse-store-v2", 2048);
-  if ((v86 & 2) != 0)
-  {
     goto LABEL_148;
   }
 
-LABEL_141:
-  if (!v85)
+  x_unlinkat(v465, "mds64-crash-state-reverse-store-v2", 2048);
+  if ((v81 & 2) != 0)
   {
-    goto LABEL_153;
+    goto LABEL_147;
   }
 
-LABEL_149:
+LABEL_140:
+  if (!v80)
+  {
+    goto LABEL_152;
+  }
+
+LABEL_148:
   __buf[0] = 0;
-  v165 = db_clear_vector_fields(*(v50 + 149), __buf, *(v50 + 824), &__block_literal_global_942);
+  v125 = db_clear_vector_fields(*(v51 + 149), __buf, *(v51 + 824), &__block_literal_global_942);
   if (__buf[0] == 1)
   {
-    db_unlock_datastore(*(v50 + 149));
+    db_unlock_datastore(*(v51 + 149));
   }
 
-  if (!v165)
+  if (!v125)
   {
-    x_unlinkat(v600, "mds64-crash-state-vector-index-v2", 2048);
+    x_unlinkat(v465, "mds64-crash-state-vector-index-v2", 2048);
   }
 
-LABEL_153:
-  if ((v600 & 0x80000000) == 0)
+LABEL_152:
+  if ((v465 & 0x80000000) == 0)
   {
-    v166 = openat(v600, "rescan_needed", 0);
-    if (v166 != -1)
+    v126 = openat(v465, "rescan_needed", 0);
+    if (v126 != -1)
     {
-      v167 = v166;
+      v127 = v126;
       __buf[0] = 0;
-      read(v166, __buf, 1uLL);
-      close(v167);
+      read(v126, __buf, 1uLL);
+      close(v127);
     }
   }
 
-  if ((~v18 & 0x80100) == 0)
+  if ((~v19 & 0x80100) == 0)
   {
-    v168 = *(v50 + 586);
-    *&v649[0] = 0;
-    *(&v649[0] + 1) = v649;
-    *&v649[1] = 0x2000000000;
-    BYTE8(v649[1]) = 0;
+    v128 = *(v51 + 586);
+    *&v514[0] = 0;
+    *(&v514[0] + 1) = v514;
+    *&v514[1] = 0x2000000000;
+    BYTE8(v514[1]) = 0;
     *__buf = MEMORY[0x1E69E9820];
     *&__buf[8] = 0x40000000;
     *&__buf[16] = __exist_precheck_touch_file_block_invoke;
     *&__buf[24] = &unk_1E8191AB0;
-    *&__buf[32] = v649;
-    check_touch_file(v600, "132427543.fixed", __buf);
-    v169 = *(*(&v649[0] + 1) + 24);
-    _Block_object_dispose(v649, 8);
-    if (v169 == 1)
+    *&__buf[32] = v514;
+    check_touch_file(v465, "132427543.fixed", __buf);
+    v129 = *(*(&v514[0] + 1) + 24);
+    _Block_object_dispose(v514, 8);
+    if (v129 == 1)
     {
       if (gSILogLevels[0] < 5)
       {
-        goto LABEL_214;
+        goto LABEL_213;
       }
 
-      v170 = v18;
-      LODWORD(v18) = *__error();
-      v171 = _SILogForLogForCategory(0);
-      if (!os_log_type_enabled(v171, OS_LOG_TYPE_DEFAULT))
+      v130 = v19;
+      LODWORD(v19) = *__error();
+      v131 = _SILogForLogForCategory(0);
+      if (!os_log_type_enabled(v131, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_201;
+        goto LABEL_200;
       }
 
       *__buf = 67109120;
-      *&__buf[4] = v599;
-      v172 = OS_LOG_TYPE_DEFAULT;
-      v173 = "(%u) precheck touch file exists";
-      v174 = v171;
-      v175 = 8;
-      goto LABEL_200;
+      *&__buf[4] = v464;
+      v132 = OS_LOG_TYPE_DEFAULT;
+      v133 = "(%u) precheck touch file exists";
+      v134 = v131;
+      v135 = 8;
+      goto LABEL_199;
     }
 
     if (totalDiskSpaceSize_onceToken != -1)
@@ -3546,511 +3465,515 @@ LABEL_153:
       dispatch_once(&totalDiskSpaceSize_onceToken, &__block_literal_global_1019);
     }
 
-    v176 = gTotalDiskSpaceSize;
-    v177 = openat(v600, ".", 0);
-    if (v177 == -1)
+    v136 = gTotalDiskSpaceSize;
+    v137 = openat(v465, ".", 0);
+    if (v137 == -1)
     {
-      v170 = v18;
-      LODWORD(v18) = *__error();
-      v200 = _SILogForLogForCategory(0);
-      v201 = gSILogLevels[0] < 3;
-      if (!os_log_type_enabled(v200, (gSILogLevels[0] < 3)))
+      v130 = v19;
+      LODWORD(v19) = *__error();
+      v160 = _SILogForLogForCategory(0);
+      v161 = gSILogLevels[0] < 3;
+      if (!os_log_type_enabled(v160, (gSILogLevels[0] < 3)))
       {
-LABEL_201:
-        *__error() = v18;
-        LOWORD(v18) = v170;
-        goto LABEL_214;
-      }
-
-      v202 = *__error();
-      *__buf = 67109376;
-      *&__buf[4] = v600;
-      *&__buf[8] = 1024;
-      *&__buf[10] = v202;
-      v173 = "*warn* openat(%d): %d";
-      v174 = v200;
-      v172 = v201;
-      v175 = 14;
 LABEL_200:
-      _os_log_impl(&dword_1C278D000, v174, v172, v173, __buf, v175);
-      goto LABEL_201;
-    }
-
-    v178 = v177;
-    v179 = fdopendir(v177);
-    v604 = v63;
-    v603 = v18;
-    if (!v179)
-    {
-      v204 = *__error();
-      v205 = _SILogForLogForCategory(0);
-      v206 = gSILogLevels[0] < 3;
-      if (os_log_type_enabled(v205, (gSILogLevels[0] < 3)))
-      {
-        v207 = *__error();
-        *__buf = 67109376;
-        *&__buf[4] = v178;
-        *&__buf[8] = 1024;
-        *&__buf[10] = v207;
-        _os_log_impl(&dword_1C278D000, v205, v206, "*warn* fdopendir(%d): %d", __buf, 0xEu);
+        *__error() = v19;
+        LOWORD(v19) = v130;
+        goto LABEL_213;
       }
 
-      *__error() = v204;
-      close(v178);
-      v63 = v604;
-      goto LABEL_213;
+      v162 = *__error();
+      *__buf = 67109376;
+      *&__buf[4] = v465;
+      *&__buf[8] = 1024;
+      *&__buf[10] = v162;
+      v133 = "*warn* openat(%d): %d";
+      v134 = v160;
+      v132 = v161;
+      v135 = 14;
+LABEL_199:
+      _os_log_impl(&dword_1C278D000, v134, v132, v133, __buf, v135);
+      goto LABEL_200;
     }
 
-    v577 = v176;
-    v578 = v176;
-    v180 = v179;
+    v138 = v137;
+    v139 = fdopendir(v137);
+    v469 = v59;
+    v468 = v19;
+    if (!v139)
+    {
+      v164 = *__error();
+      v165 = _SILogForLogForCategory(0);
+      v166 = gSILogLevels[0] < 3;
+      if (os_log_type_enabled(v165, (gSILogLevels[0] < 3)))
+      {
+        v167 = *__error();
+        *__buf = 67109376;
+        *&__buf[4] = v138;
+        *&__buf[8] = 1024;
+        *&__buf[10] = v167;
+        _os_log_impl(&dword_1C278D000, v165, v166, "*warn* fdopendir(%d): %d", __buf, 0xEu);
+      }
+
+      *__error() = v164;
+      close(v138);
+      v59 = v469;
+      goto LABEL_212;
+    }
+
+    v442 = v136;
+    v443 = v136;
+    v140 = v139;
     memset(__buf, 0, 144);
-    v181 = 0;
-    v573 = time(0);
-    v182 = 0;
-    v183 = 0;
-    v184 = 0;
+    v141 = 0;
+    v438 = time(0);
+    v142 = 0;
+    v143 = 0;
+    v144 = 0;
+LABEL_165:
+    v145 = v144;
+    v441 = v141;
+    v146 = v142;
 LABEL_166:
-    v185 = v184;
-    v576 = v181;
-    v186 = v182;
+    v437 = v146;
+    v147 = v143;
 LABEL_167:
-    v572 = v186;
-    v187 = v183;
-LABEL_168:
-    v575 = v187;
+    v440 = v147;
     while (1)
     {
-      v188 = readdir(v180);
-      if (!v188)
+      v148 = readdir(v140);
+      if (!v148)
       {
         break;
       }
 
-      v189 = v188;
-      if (v188->d_type == 8)
+      v149 = v148;
+      if (v148->d_type == 8)
       {
-        d_name = v188->d_name;
-        if (v188->d_name[0] != 46 && !strstr(v188->d_name, ".shadow") && !fstatat(v600, d_name, __buf, 32))
+        d_name = v148->d_name;
+        if (v148->d_name[0] != 46 && !strstr(v148->d_name, ".shadow") && !fstatat(v465, d_name, __buf, 32))
         {
           if (!strncmp(d_name, "journalAttr.", 0xCuLL))
           {
-            v191 = &d_name[strlen(d_name)];
-            if (*(v191 - 3) != 116 || *(v191 - 2) != 111 || *(v191 - 1) != 99)
+            v151 = &d_name[strlen(d_name)];
+            if (*(v151 - 3) != 116 || *(v151 - 2) != 111 || *(v151 - 1) != 99)
             {
-              LODWORD(v649[0]) = 0;
-              if (sscanf(&v189->d_name[12], "%d", v649) == 1 && SLODWORD(v649[0]) > v168 && (v185 += *&__buf[96], v573 > *&__buf[48]))
+              LODWORD(v514[0]) = 0;
+              if (sscanf(&v149->d_name[12], "%d", v514) == 1 && SLODWORD(v514[0]) > v128 && (v145 += *&__buf[96], v438 > *&__buf[48]))
               {
-                if (v572 <= v573 - *&__buf[48])
+                if (v437 <= v438 - *&__buf[48])
                 {
-                  v192 = v573 - *&__buf[48];
+                  v152 = v438 - *&__buf[48];
                 }
 
                 else
                 {
-                  v192 = v572;
+                  v152 = v437;
                 }
               }
 
               else
               {
-                v192 = v572;
+                v152 = v437;
               }
 
-              v186 = v192;
-              v183 = v575;
-              goto LABEL_167;
+              v146 = v152;
+              v143 = v440;
+              goto LABEL_166;
             }
           }
 
-          if (strstr(d_name, ".indexPostings") && !strncmp(&d_name[v189->d_namlen - 14], ".indexPostings", 0xEuLL))
+          if (strstr(d_name, ".indexPostings") && !strncmp(&d_name[v149->d_namlen - 14], ".indexPostings", 0xEuLL))
           {
-            v183 = *&__buf[96] + v575;
-            v187 = *&__buf[96] + v575;
-            if (v573 <= *&__buf[48])
+            v143 = *&__buf[96] + v440;
+            v147 = *&__buf[96] + v440;
+            if (v438 <= *&__buf[48])
             {
-              goto LABEL_168;
+              goto LABEL_167;
             }
 
-            if (v576 <= v573 - *&__buf[48])
+            if (v441 <= v438 - *&__buf[48])
             {
-              v181 = v573 - *&__buf[48];
+              v141 = v438 - *&__buf[48];
             }
 
             else
             {
-              v181 = v576;
+              v141 = v441;
             }
 
-            v182 = v572;
-            v184 = v185;
-            goto LABEL_166;
+            v142 = v437;
+            v144 = v145;
+            goto LABEL_165;
           }
         }
       }
     }
 
-    closedir(v180);
-    if (v185 >> 29 && v572 >= 604801)
+    closedir(v140);
+    if (v145 >> 29 && v437 >= 604801)
     {
-      v193 = *__error();
-      v194 = _SILogForLogForCategory(0);
-      v195 = gSILogLevels[0] < 3;
-      v66 = v608;
-      v63 = v63;
-      if (os_log_type_enabled(v194, (gSILogLevels[0] < 3)))
+      v153 = *__error();
+      v154 = _SILogForLogForCategory(0);
+      v155 = gSILogLevels[0] < 3;
+      v62 = v473;
+      v59 = v59;
+      if (os_log_type_enabled(v154, (gSILogLevels[0] < 3)))
       {
-        LODWORD(v649[0]) = 134218240;
-        *(v649 + 4) = v185;
-        WORD6(v649[0]) = 2048;
-        *(v649 + 14) = v572;
-        v196 = "*warn* Huge unprocessed journal files detected. size:%llu age:%lus";
-        v197 = v194;
-        v198 = v195;
-        v199 = 22;
+        LODWORD(v514[0]) = 134218240;
+        *(v514 + 4) = v145;
+        WORD6(v514[0]) = 2048;
+        *(v514 + 14) = v437;
+        v156 = "*warn* Huge unprocessed journal files detected. size:%llu age:%lus";
+        v157 = v154;
+        v158 = v155;
+        v159 = 22;
 LABEL_241:
-        _os_log_impl(&dword_1C278D000, v197, v198, v196, v649, v199);
+        _os_log_impl(&dword_1C278D000, v157, v158, v156, v514, v159);
         goto LABEL_242;
       }
 
       goto LABEL_242;
     }
 
-    if (v575 >> 30 >= 5 && v577 <= 10 * v575)
+    if (v440 >> 30 >= 5 && v442 <= 10 * v440)
     {
-      v193 = *__error();
-      v227 = _SILogForLogForCategory(0);
-      v228 = gSILogLevels[0] < 3;
-      v66 = v608;
-      v63 = v63;
-      if (os_log_type_enabled(v227, (gSILogLevels[0] < 3)))
+      v153 = *__error();
+      v184 = _SILogForLogForCategory(0);
+      v185 = gSILogLevels[0] < 3;
+      v62 = v473;
+      v59 = v59;
+      if (os_log_type_enabled(v184, (gSILogLevels[0] < 3)))
       {
-        LODWORD(v649[0]) = 136316162;
-        *(v649 + 4) = ".indexPostings";
-        WORD6(v649[0]) = 2048;
-        *(v649 + 14) = v575;
-        WORD3(v649[1]) = 2048;
-        *(&v649[1] + 1) = v576;
-        LOWORD(v649[2]) = 2048;
-        *(&v649[2] + 2) = v185;
-        WORD5(v649[2]) = 2048;
-        *(&v649[2] + 12) = v578;
-        v196 = "*warn* Huge *%s files detected. size:%llu age:%lus journals:%llu totalDisk:%llu";
-        v197 = v227;
-        v198 = v228;
-        v199 = 52;
+        LODWORD(v514[0]) = 136316162;
+        *(v514 + 4) = ".indexPostings";
+        WORD6(v514[0]) = 2048;
+        *(v514 + 14) = v440;
+        WORD3(v514[1]) = 2048;
+        *(&v514[1] + 1) = v441;
+        LOWORD(v514[2]) = 2048;
+        *(&v514[2] + 2) = v145;
+        WORD5(v514[2]) = 2048;
+        *(&v514[2] + 12) = v443;
+        v156 = "*warn* Huge *%s files detected. size:%llu age:%lus journals:%llu totalDisk:%llu";
+        v157 = v184;
+        v158 = v185;
+        v159 = 52;
         goto LABEL_241;
       }
 
 LABEL_242:
-      v13 = v606;
-      *__error() = v193;
-      dump_filesystem_meta(v600);
-      __si_set_error_str(1, "%s:%u: %s", v229, v230, v231, v232, v233, v234, "SpotlightIndex.c");
-      v65 = 22;
-      v64 = v587;
+      v14 = v471;
+      *__error() = v153;
+      dump_filesystem_meta(v465);
+      __si_set_error_str(1, "%s:%u: %s", "SpotlightIndex.c", 13010, "rebuilding index because of huge journals or merge files");
+      v61 = 22;
+      v60 = v452;
       goto LABEL_63;
     }
 
-    v256 = unlinkat(v600, "130162031.fixed", 0);
-    v257 = *__error();
-    v258 = *__error();
-    v259 = _SILogForLogForCategory(0);
-    v260 = os_log_type_enabled(v259, OS_LOG_TYPE_DEFAULT);
-    if (v256)
+    v200 = unlinkat(v465, "130162031.fixed", 0);
+    v201 = *__error();
+    v202 = *__error();
+    v203 = _SILogForLogForCategory(0);
+    v204 = os_log_type_enabled(v203, OS_LOG_TYPE_DEFAULT);
+    if (v200)
     {
-      if (v260)
+      if (v204)
       {
-        LODWORD(v649[0]) = 67109632;
-        DWORD1(v649[0]) = v599;
-        WORD4(v649[0]) = 1024;
-        *(v649 + 10) = v600;
-        HIWORD(v649[0]) = 1024;
-        LODWORD(v649[1]) = v257;
-        v261 = "(%u) did not delete previous touch file %d err %d";
+        LODWORD(v514[0]) = 67109632;
+        DWORD1(v514[0]) = v464;
+        WORD4(v514[0]) = 1024;
+        *(v514 + 10) = v465;
+        HIWORD(v514[0]) = 1024;
+        LODWORD(v514[1]) = v201;
+        v205 = "(%u) did not delete previous touch file %d err %d";
 LABEL_345:
-        _os_log_impl(&dword_1C278D000, v259, OS_LOG_TYPE_DEFAULT, v261, v649, 0x14u);
+        _os_log_impl(&dword_1C278D000, v203, OS_LOG_TYPE_DEFAULT, v205, v514, 0x14u);
       }
     }
 
-    else if (v260)
+    else if (v204)
     {
-      LODWORD(v649[0]) = 67109632;
-      DWORD1(v649[0]) = v599;
-      WORD4(v649[0]) = 1024;
-      *(v649 + 10) = v600;
-      HIWORD(v649[0]) = 1024;
-      LODWORD(v649[1]) = v257;
-      v261 = "(%u) deleted previous touch file %d err %d";
+      LODWORD(v514[0]) = 67109632;
+      DWORD1(v514[0]) = v464;
+      WORD4(v514[0]) = 1024;
+      *(v514 + 10) = v465;
+      HIWORD(v514[0]) = 1024;
+      LODWORD(v514[1]) = v201;
+      v205 = "(%u) deleted previous touch file %d err %d";
       goto LABEL_345;
     }
 
-    *__error() = v258;
-    *__error() = v257;
-    v299 = openat(v600, "132427543.fixed", 513, 384);
-    v300 = *__error();
-    v301 = v300;
-    v63 = v604;
-    if (v299 != -1)
+    *__error() = v202;
+    *__error() = v201;
+    v237 = openat(v465, "132427543.fixed", 513, 384);
+    v238 = *__error();
+    v239 = v238;
+    v59 = v469;
+    if (v237 != -1)
     {
-      v302 = *__error();
-      v303 = _SILogForLogForCategory(0);
-      v304 = v303;
-      if (v300 == 2)
+      v240 = *__error();
+      v241 = _SILogForLogForCategory(0);
+      v242 = v241;
+      if (v238 == 2)
       {
-        LOWORD(v18) = v603;
-        if (os_log_type_enabled(v303, OS_LOG_TYPE_DEFAULT))
+        LOWORD(v19) = v468;
+        if (os_log_type_enabled(v241, OS_LOG_TYPE_DEFAULT))
         {
-          LODWORD(v649[0]) = 67109376;
-          DWORD1(v649[0]) = v599;
-          WORD4(v649[0]) = 1024;
-          *(v649 + 10) = v600;
-          v305 = OS_LOG_TYPE_DEFAULT;
-          v306 = "(%u) create touch file %d";
-          v307 = v304;
-          v308 = 14;
+          LODWORD(v514[0]) = 67109376;
+          DWORD1(v514[0]) = v464;
+          WORD4(v514[0]) = 1024;
+          *(v514 + 10) = v465;
+          v243 = OS_LOG_TYPE_DEFAULT;
+          v244 = "(%u) create touch file %d";
+          v245 = v242;
+          v246 = 14;
 LABEL_373:
-          _os_log_impl(&dword_1C278D000, v307, v305, v306, v649, v308);
+          _os_log_impl(&dword_1C278D000, v245, v243, v244, v514, v246);
         }
       }
 
       else
       {
-        v342 = gSILogLevels[0] < 3;
-        LOWORD(v18) = v603;
-        if (os_log_type_enabled(v303, (gSILogLevels[0] < 3)))
+        v274 = gSILogLevels[0] < 3;
+        LOWORD(v19) = v468;
+        if (os_log_type_enabled(v241, (gSILogLevels[0] < 3)))
         {
-          LODWORD(v649[0]) = 67109632;
-          DWORD1(v649[0]) = v599;
-          WORD4(v649[0]) = 1024;
-          *(v649 + 10) = v600;
-          HIWORD(v649[0]) = 1024;
-          LODWORD(v649[1]) = v301;
-          v306 = "*warn* (%u) create touch file %d err %d";
-          v307 = v304;
-          v305 = v342;
-          v308 = 20;
+          LODWORD(v514[0]) = 67109632;
+          DWORD1(v514[0]) = v464;
+          WORD4(v514[0]) = 1024;
+          *(v514 + 10) = v465;
+          HIWORD(v514[0]) = 1024;
+          LODWORD(v514[1]) = v239;
+          v244 = "*warn* (%u) create touch file %d err %d";
+          v245 = v242;
+          v243 = v274;
+          v246 = 20;
           goto LABEL_373;
         }
       }
 
-      *__error() = v302;
-      *__error() = v301;
-      close(v299);
-      v63 = v604;
-      goto LABEL_214;
+      *__error() = v240;
+      *__error() = v239;
+      close(v237);
+      v59 = v469;
+      goto LABEL_213;
     }
 
-    v309 = *__error();
-    v310 = _SILogForLogForCategory(0);
-    v311 = gSILogLevels[0] < 3;
-    if (os_log_type_enabled(v310, (gSILogLevels[0] < 3)))
+    v247 = *__error();
+    v248 = _SILogForLogForCategory(0);
+    v249 = gSILogLevels[0] < 3;
+    if (os_log_type_enabled(v248, (gSILogLevels[0] < 3)))
     {
-      LODWORD(v649[0]) = 67109632;
-      DWORD1(v649[0]) = v599;
-      WORD4(v649[0]) = 1024;
-      *(v649 + 10) = v600;
-      HIWORD(v649[0]) = 1024;
-      LODWORD(v649[1]) = v301;
-      _os_log_impl(&dword_1C278D000, v310, v311, "*warn* (%u) create touch file %d err %d", v649, 0x14u);
+      LODWORD(v514[0]) = 67109632;
+      DWORD1(v514[0]) = v464;
+      WORD4(v514[0]) = 1024;
+      *(v514 + 10) = v465;
+      HIWORD(v514[0]) = 1024;
+      LODWORD(v514[1]) = v239;
+      _os_log_impl(&dword_1C278D000, v248, v249, "*warn* (%u) create touch file %d err %d", v514, 0x14u);
     }
 
-    *__error() = v309;
-    *__error() = v301;
-LABEL_213:
-    LOWORD(v18) = v603;
+    *__error() = v247;
+    *__error() = v239;
+LABEL_212:
+    LOWORD(v19) = v468;
   }
 
-LABEL_214:
-  v66 = v608;
-  v208 = v18 & 0xC;
-  if ((v18 & 0xC) == 0)
+LABEL_213:
+  v62 = v473;
+  v168 = v19 & 0xC;
+  if ((v19 & 0xC) == 0)
   {
-    if ((v18 & 0x200) != 0 && (v50[2073] & 1) == 0)
+    if ((v19 & 0x200) != 0 && (v51[2073] & 1) == 0)
     {
-      __si_set_error_str(1, "%s:%u: %s", v152, v153, v154, v155, v156, v157, "SpotlightIndex.c");
-      v84 = v587;
-      v65 = v586;
+      __si_set_error_str(1, "%s:%u: %s", "SpotlightIndex.c", 13017, "index not created with unigrams error");
+      v79 = v452;
+      v61 = v451;
     }
 
     else
     {
-      if (si_validate_db(v50))
+      if (si_validate_db(v51))
       {
-        indexmetadata = si_create_indexmetadata(v50, 1);
+        indexmetadata = si_create_indexmetadata(v51, 1);
         if (indexmetadata)
         {
           free(indexmetadata);
-LABEL_222:
-          v217 = v18;
-          v218 = *(v50 + 173);
-          *__buf = v50;
-          __checkIndexSetDocIdOrder(v50, v218);
-          v219 = *(v50 + 174);
-          *__buf = v50;
-          __checkIndexSetDocIdOrder(v50, v219);
-          if (v597)
+LABEL_221:
+          v171 = v19;
+          v172 = *(v51 + 173);
+          *__buf = v51;
+          __checkIndexSetDocIdOrder(v51, v172);
+          v173 = *(v51 + 174);
+          *__buf = v51;
+          __checkIndexSetDocIdOrder(v51, v173);
+          if (v462)
           {
             goto LABEL_282;
           }
 
-          v220 = v63;
-          v221 = *(v50 + 173);
-          v222 = *(v50 + 174);
-          v223 = v222;
-          disableWritingForAllButLastOfRunsOfTransaction(v221);
-          disableWritingForAllButLastOfRunsOfTransaction(v222);
-          if (*(v221 + 8) >= 2u)
+          v175 = v59;
+          v176 = *(v51 + 173);
+          v177 = *(v51 + 174);
+          v178 = v177;
+          disableWritingForAllButLastOfRunsOfTransaction(v176, v174);
+          disableWritingForAllButLastOfRunsOfTransaction(v177, v179);
+          if (*(v176 + 8) >= 2u)
           {
-            if (v50[6587])
+            if (v51[6587])
             {
               NotCompactCount = 0;
             }
 
             else
             {
-              NotCompactCount = indexSetGetNotCompactCount(v221);
+              NotCompactCount = indexSetGetNotCompactCount(v176);
             }
 
-            NotMergedCount = indexSetGetNotMergedCount(v221);
-            LiveCount = indexSetGetLiveCount(*v221, *(v221 + 8));
+            NotMergedCount = indexSetGetNotMergedCount(v176);
+            LiveCount = indexSetGetLiveCount(*v176, *(v176 + 8));
             if (NotCompactCount >= 10)
             {
-              v237 = v50;
-              v238 = NotCompactCount;
+              v188 = v51;
+              v189 = NotCompactCount;
 LABEL_268:
-              holdAndIssueMerge(v237, v238, v221, 1);
+              holdAndIssueMerge(v188, v189, v176, 1);
               goto LABEL_269;
             }
 
             if (NotMergedCount > 10)
             {
-              v237 = v50;
-              v238 = NotMergedCount;
+              v188 = v51;
+              v189 = NotMergedCount;
               goto LABEL_268;
             }
 
             if (LiveCount >= 6)
             {
-              v238 = LiveCount - 1;
-              v237 = v50;
+              v189 = LiveCount - 1;
+              v188 = v51;
               goto LABEL_268;
             }
 
             if (NotCompactCount)
             {
-              compactReadOnlyIndexes(v50, 1);
+              compactReadOnlyIndexes(v51, 1);
             }
           }
 
 LABEL_269:
-          v63 = v220;
-          if (*(v223 + 8) >= 2u)
+          v59 = v175;
+          if (*(v178 + 8) >= 2u)
           {
-            if (v50[6587])
+            if (v51[6587])
             {
-              v262 = 0;
+              v206 = 0;
             }
 
             else
             {
-              v262 = indexSetGetNotCompactCount(v223);
+              v206 = indexSetGetNotCompactCount(v178);
             }
 
-            v263 = indexSetGetNotMergedCount(v223);
-            if (indexSetGetWritableCount(v223) || (v264 = *(v223 + 8), v264 < 2))
+            v207 = indexSetGetNotMergedCount(v178);
+            if (indexSetGetWritableCount(v178) || (v208 = *(v178 + 8), v208 < 2))
             {
-              if (v262 >= 10)
+              if (v206 >= 10)
               {
-                v265 = v50;
-                v266 = v262;
+                v209 = v51;
+                v210 = v206;
 LABEL_281:
-                holdAndIssueMerge(v265, v266, v223, 0);
-                v63 = v220;
+                holdAndIssueMerge(v209, v210, v178, 0);
+                v59 = v175;
                 goto LABEL_282;
               }
 
-              if (v263 > 10)
+              if (v207 > 10)
               {
-                v265 = v50;
-                v266 = v263;
+                v209 = v51;
+                v210 = v207;
                 goto LABEL_281;
               }
 
-              v264 = *(v223 + 8);
-              if (v264 < 0x1A)
+              v208 = *(v178 + 8);
+              if (v208 < 0x1A)
               {
-                v63 = v220;
-                if (v262)
+                v59 = v175;
+                if (v206)
                 {
-                  compactReadOnlyIndexes(v50, 0);
+                  compactReadOnlyIndexes(v51, 0);
                 }
 
                 goto LABEL_282;
               }
             }
 
-            v266 = v264 >> 1;
-            v265 = v50;
+            v210 = v208 >> 1;
+            v209 = v51;
             goto LABEL_281;
           }
 
 LABEL_282:
-          free(v636);
-          MEMORY[0x1C6921200](v63);
-          close(v63);
-          if ((v217 & 1) == 0)
+          free(v501);
+          MEMORY[0x1C6921200](v59);
+          close(v59);
+          if ((v171 & 1) == 0)
           {
-            _SIPreHeatIndex(v50, 0, 1);
+            _SIPreHeatIndex(v51, 0, 1);
           }
 
-          v209 = v588;
-          if (!(v158 | v208))
+          v169 = v453;
+          if (!(v124 | v168))
           {
-            if (v588)
+            if (v453)
             {
-              v267 = 39;
+              v211 = 39;
             }
 
             else
             {
-              v267 = 38;
+              v211 = 38;
             }
 
-            SIActivityJournalOpen((v50 + 2192), v267, *(v50 + 586), *(*(v50 + 174) + 8), *(*(v50 + 173) + 8), *(v50 + 266), *(v50 + 267), *(v50 + 301));
+            SIActivityJournalOpen((v51 + 2192), v211, *(v51 + 586), *(*(v51 + 174) + 8), *(*(v51 + 173) + 8), *(v51 + 266), *(v51 + 267), *(v51 + 301));
           }
 
           goto LABEL_289;
         }
+
+        v430 = "missing system dbo";
+        v181 = 13030;
       }
 
       else
       {
-        LODWORD(indexmetadata) = 0;
+        v430 = "name table is missing dummy values";
+        v181 = 13023;
       }
 
-      __si_set_error_str(indexmetadata, "%s:%u: %s", v210, v211, v212, v213, v214, v215, "SpotlightIndex.c");
-      v65 = 22;
-      v84 = v587;
+      __si_set_error_str(0, "%s:%u: %s", "SpotlightIndex.c", v181, v430);
+      v61 = 22;
+      v79 = v452;
     }
 
-    v13 = v606;
+    v14 = v471;
     goto LABEL_230;
   }
 
-  if ((v18 & 8) == 0)
+  if ((v19 & 8) == 0)
   {
-    goto LABEL_222;
+    goto LABEL_221;
   }
 
-  free(v636);
-  MEMORY[0x1C6921200](v63);
-  close(v63);
-  v209 = v588;
+  free(v501);
+  MEMORY[0x1C6921200](v59);
+  close(v59);
+  v169 = v453;
 LABEL_289:
-  if (v644)
+  if (v509)
   {
-    CFRelease(v644);
+    CFRelease(v509);
   }
 
   if (cf)
@@ -4058,176 +3981,171 @@ LABEL_289:
     CFRelease(cf);
   }
 
-  v268 = *(v50 + 174);
-  v269 = *(v50 + 173);
+  v212 = *(v51 + 174);
+  v213 = *(v51 + 173);
   *__buf = MEMORY[0x1E69E9820];
   *&__buf[8] = 0x40000000;
   *&__buf[16] = __si_cacheIndexVersion_block_invoke;
   *&__buf[24] = &__block_descriptor_tmp_1098;
-  *&__buf[32] = v50;
-  if (v269)
+  *&__buf[32] = v51;
+  if (v213)
   {
-    v270 = v269;
-    v271 = *(v269 + 8);
-    while (v271 >= 1)
+    v214 = v213;
+    v215 = *(v213 + 8);
+    while (v215 >= 1)
     {
-      v272 = v271 - 1;
-      v273 = (*&__buf[16])(__buf, *(*v270 + 8 * v271 - 8), 1);
-      v271 = v272;
-      if (!v273)
+      v216 = v215 - 1;
+      v217 = (*&__buf[16])(__buf, *(*v214 + 8 * v215 - 8), 1);
+      v215 = v216;
+      if (!v217)
       {
         goto LABEL_302;
       }
     }
   }
 
-  if (v268)
+  if (v212)
   {
-    v274 = *(v268 + 8);
+    v218 = *(v212 + 8);
     do
     {
-      if (v274 < 1)
+      if (v218 < 1)
       {
         break;
       }
 
-      v275 = v274 - 1;
-      v276 = (*&__buf[16])(__buf, *(*v268 + 8 * v274 - 8), 0);
-      v274 = v275;
+      v219 = v218 - 1;
+      v220 = (*&__buf[16])(__buf, *(*v212 + 8 * v218 - 8), 0);
+      v218 = v219;
     }
 
-    while (v276);
+    while (v220);
   }
 
 LABEL_302:
-  if (v158)
+  if (v124)
   {
-    result = v158;
+    return v124;
   }
 
   else
   {
-    result = v209;
+    return v169;
   }
-
-LABEL_81:
-  v77 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 uint64_t SICreateNewIndex(uint64_t *a1, int a2, uint64_t a3, uint64_t a4, int a5, __int128 *a6, uint64_t a7, uint64_t a8, _DWORD *a9)
 {
   LODWORD(v12) = a5;
   LODWORD(v14) = a2;
-  v314 = *MEMORY[0x1E69E9840];
+  v309 = *MEMORY[0x1E69E9840];
   if (freeQueueOnce != -1)
   {
-    v261 = a3;
+    v256 = a3;
     dispatch_once(&freeQueueOnce, &__block_literal_global_358);
-    a3 = v261;
+    a3 = v256;
   }
 
   v16 = 0xFFFFFFFFLL;
   if ((v12 & 4) != 0)
   {
-    goto LABEL_17;
+    return v16;
   }
 
-  v293 = a8;
-  v294 = a3;
-  v292 = a4;
-  v295 = v14;
-  v296 = a1;
+  v288 = a8;
+  v289 = a3;
+  v287 = a4;
+  v290 = v14;
+  v291 = a1;
   v17 = (v12 & 0x100) >> 8;
-  v297 = open(".", 4);
-  bzero(v313, 0x400uLL);
+  v292 = open(".", 4);
+  bzero(v308, 0x400uLL);
   _SITuningInit();
   makeThreadId();
   v18 = malloc_type_calloc(1uLL, 0x2788uLL, 0x10F00403822957CuLL);
   SIInitIndexLocks(v18);
-  v301[0] = MEMORY[0x1E69E9820];
-  v301[1] = 0x40000000;
-  v301[2] = __SICreateNewIndex_block_invoke_2;
-  v301[3] = &__block_descriptor_tmp_361;
-  v301[4] = v18;
+  v296[0] = MEMORY[0x1E69E9820];
+  v296[1] = 0x40000000;
+  v296[2] = __SICreateNewIndex_block_invoke_2;
+  v296[3] = &__block_descriptor_tmp_361;
+  v296[4] = v18;
   *v18 = 0xC0DE10DE10DEC0DELL;
   *(v18 + 15) = BYTE3(v12);
   *(v18 + 8) = -1;
   *(v18 + 12) = -1;
   v18[2072] = (v12 & 0x100) >> 8;
   v18[2073] = (v12 & 0x200) >> 9;
-  v25 = *a6;
+  v19 = *a6;
   *(v18 + 3) = *(a6 + 2);
-  *(v18 + 8) = v25;
+  *(v18 + 8) = v19;
   *(v18 + 295) = a7;
   *(v18 + 290) = 0;
   *(v18 + 824) = a9;
   *(v18 + 364) = 1;
   if (v17)
   {
-    v26 = 0x1000000;
+    v20 = 0x1000000;
   }
 
   else
   {
-    v26 = 0;
+    v20 = 0;
   }
 
-  v298 = v18;
-  *(v18 + 1646) = *(v18 + 1646) & 0xFEFFFFFF | v26;
+  v293 = v18;
+  *(v18 + 1646) = *(v18 + 1646) & 0xFEFFFFFF | v20;
   if (*a9)
   {
-    __si_set_error_str(1, "%s:%u: %s", v19, v20, v21, v22, v23, v24, "SpotlightIndex.c");
-    v27 = 0;
-    v28 = 0;
-    v29 = v297;
-    v30 = a1;
-    v31 = v18;
-    v32 = a7;
+    __si_set_error_str(1, "%s:%u: %s", "SpotlightIndex.c", 14285, "open canceled");
+    v21 = 0;
+    v22 = 0;
+    v23 = v292;
+    v24 = a1;
+    v25 = v18;
+    v26 = a7;
 LABEL_9:
-    v33 = *__error();
-    v34 = _SILogForLogForCategory(0);
-    v35 = 2 * (gSILogLevels[0] < 4);
-    if (os_log_type_enabled(v34, v35))
+    v27 = *__error();
+    v28 = _SILogForLogForCategory(0);
+    v29 = 2 * (gSILogLevels[0] < 4);
+    if (os_log_type_enabled(v28, v29))
     {
       *buf = 67109376;
-      *&buf[4] = v28;
+      *&buf[4] = v22;
       *&buf[8] = 1024;
-      *&buf[10] = v27;
-      _os_log_impl(&dword_1C278D000, v34, v35, "Failed at %d (%d)", buf, 0xEu);
+      *&buf[10] = v21;
+      _os_log_impl(&dword_1C278D000, v28, v29, "Failed at %d (%d)", buf, 0xEu);
     }
 
-    *__error() = v33;
-    MEMORY[0x1C6921200](v29);
-    close(v29);
-    ContentIndexListFree(*(v31 + 1392));
-    ContentIndexListFree(*(v31 + 1384));
-    v36 = *(v31 + 1496);
-    if (v36)
+    *__error() = v27;
+    MEMORY[0x1C6921200](v23);
+    close(v23);
+    ContentIndexListFree(*(v25 + 1392));
+    ContentIndexListFree(*(v25 + 1384));
+    v30 = *(v25 + 1496);
+    if (v30)
     {
-      CFRelease(v36);
+      CFRelease(v30);
     }
 
-    if (v32)
+    if (v26)
     {
-      v37 = *(v32 + 24);
-      if (v37)
+      v31 = *(v26 + 24);
+      if (v31)
       {
-        v37(v32);
+        v31(v26);
       }
     }
 
-    free(v31);
-    *v30 = 0;
-    v16 = 0xFFFFFFFFLL;
-    goto LABEL_17;
+    free(v25);
+    *v24 = 0;
+    return 0xFFFFFFFFLL;
   }
 
-  v32 = a7;
+  v26 = a7;
   if ((v12 & 0x100) != 0)
   {
-    LOBYTE(v43) = 0;
-    v44 = 1;
+    LOBYTE(v36) = 0;
+    v37 = 1;
     v14 = v14;
     v12 = v12;
   }
@@ -4235,50 +4153,50 @@ LABEL_9:
   else
   {
     v14 = v14;
-    v40 = v294;
+    v33 = v289;
     v12 = v12;
-    if (v294 && ((v41 = *(v294 + 4), v41 == -1) || (v42 = dup(v41), v40 = v294, v298[12] = v42, v42 == -1)))
+    if (v289 && ((v34 = *(v289 + 4), v34 == -1) || (v35 = dup(v34), v33 = v289, v293[12] = v35, v35 == -1)))
     {
       if ((v12 & 8) != 0)
       {
-        v27 = 0;
-        v28 = 0;
-        v29 = v297;
-        v30 = a1;
-        v31 = v298;
+        v21 = 0;
+        v22 = 0;
+        v23 = v292;
+        v24 = a1;
+        v25 = v293;
         goto LABEL_9;
       }
 
-      v43 = *(v40 + 28);
-      v44 = (v12 & 0x180) != 0;
+      v36 = *(v33 + 28);
+      v37 = (v12 & 0x180) != 0;
     }
 
     else
     {
-      LOBYTE(v43) = 0;
-      v44 = 0;
+      LOBYTE(v36) = 0;
+      v37 = 0;
     }
   }
 
   *buf = 0;
-  v31 = v298;
+  v25 = v293;
   if (fd_setDir(v14, buf))
   {
-    v45 = *__error();
-    v46 = _SILogForLogForCategory(0);
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+    v39 = *__error();
+    v40 = _SILogForLogForCategory(0);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       *valuePtr = 0;
-      _os_log_impl(&dword_1C278D000, v46, OS_LOG_TYPE_DEFAULT, "Creating New Index", valuePtr, 2u);
+      _os_log_impl(&dword_1C278D000, v40, OS_LOG_TYPE_DEFAULT, "Creating New Index", valuePtr, 2u);
     }
 
-    *__error() = v45;
-    v47 = *buf;
+    *__error() = v39;
+    v41 = *buf;
     MEMORY[0x1C6921200](*buf);
-    LODWORD(v14) = v295;
-    if ((v47 & 0x80000000) == 0)
+    LODWORD(v14) = v290;
+    if ((v41 & 0x80000000) == 0)
     {
-      close(v47);
+      close(v41);
     }
   }
 
@@ -4286,1492 +4204,139 @@ LABEL_9:
   {
     if (!a7)
     {
-      v269 = __si_assert_copy_extra_661(-1);
-      v270 = v269;
-      v271 = "";
-      if (v269)
+      v264 = __si_assert_copy_extra_661(-1);
+      v265 = v264;
+      v266 = "";
+      if (v264)
       {
-        v271 = v269;
+        v266 = v264;
       }
 
-      __message_assert("%s:%u: failed assertion '%s' %s ", "SpotlightIndex.c", 14314, "callbacks", v271);
-      free(v270);
+      __message_assert("%s:%u: failed assertion '%s' %s ", "SpotlightIndex.c", 14314, "callbacks", v266);
+      free(v265);
       if (__valid_fs(-1))
       {
-        v272 = 2989;
+        v267 = 2989;
       }
 
       else
       {
-        v272 = 3072;
+        v267 = 3072;
       }
 
-      *v272 = -559038737;
+      *v267 = -559038737;
       abort();
     }
 
-    v48 = check_crash_state(v14, v43 & 1, v12, 0, 0);
-    if (v48)
+    v42 = check_crash_state(v14, v36 & 1, v12, 0, 0);
+    if (v42)
     {
-      v49 = v48;
-      v50 = *__error();
-      v51 = _SILogForLogForCategory(0);
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+      v43 = v42;
+      v44 = *__error();
+      v45 = _SILogForLogForCategory(0);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
-        v101 = fcntl(v295, 50, v313);
-        if (v313[0])
+        v96 = fcntl(v290, 50, v308);
+        if (v308[0])
         {
-          v102 = v101 < 0;
+          v97 = v96 < 0;
         }
 
         else
         {
-          v102 = 1;
+          v97 = 1;
         }
 
-        if (v102)
+        if (v97)
         {
-          v103 = 0;
+          v98 = 0;
         }
 
         else
         {
-          v103 = v313;
+          v98 = v308;
         }
 
-        v32 = a7;
+        v26 = a7;
         *buf = 136315906;
         *&buf[4] = "SICreateNewIndex";
         *&buf[12] = 1024;
         *&buf[14] = 14320;
         *&buf[18] = 1024;
-        *&buf[20] = v49;
+        *&buf[20] = v43;
         *&buf[24] = 2080;
-        *&buf[26] = v103;
-        _os_log_error_impl(&dword_1C278D000, v51, OS_LOG_TYPE_ERROR, "%s:%d: check_crash_state: %d for %s", buf, 0x22u);
+        *&buf[26] = v98;
+        _os_log_error_impl(&dword_1C278D000, v45, OS_LOG_TYPE_ERROR, "%s:%d: check_crash_state: %d for %s", buf, 0x22u);
       }
 
-      v27 = 0;
-      v28 = 0;
-      *__error() = v50;
-      v29 = v297;
-      v30 = v296;
+      v21 = 0;
+      v22 = 0;
+      *__error() = v44;
+      v23 = v292;
+      v24 = v291;
       goto LABEL_9;
     }
 
-    v67 = check_crash_state(v14, v43 & 1, v12, 0, 1);
-    v68 = guarded_dup(v14);
-    *(v298 + 4) = v68;
-    *(v298 + 5) = v69;
+    v61 = check_crash_state(v14, v36 & 1, v12, 0, 1);
+    v62 = guarded_dup(v14);
+    *(v293 + 4) = v62;
+    *(v293 + 5) = v63;
     if ((v12 & 0x80000001) != 0)
     {
-      v70 = 17;
+      v64 = 17;
     }
 
     else
     {
-      v70 = 81;
+      v64 = 81;
     }
 
-    if (*(v298 + 2072))
+    if (*(v293 + 2072))
     {
-      v70 |= 0x100u;
+      v64 |= 0x100u;
     }
 
-    if (*(v298 + 2073))
+    if (*(v293 + 2073))
     {
-      v70 |= 0x400u;
+      v64 |= 0x400u;
     }
 
-    if (v67)
+    if (v61)
     {
-      v70 |= 0x2000u;
+      v64 |= 0x2000u;
     }
 
-    v71 = v294;
-    if (v294)
+    v65 = v289;
+    if (v289)
     {
-      v71 = ~(*(v294 + 28) << 20) & 0x400000;
+      v65 = ~(*(v289 + 28) << 20) & 0x400000;
     }
 
-    v298[1646] = v298[1646] & 0xFFBFFFFF | v71;
-    v72 = ~(v71 >> 7) & 0x8000 | v70;
-    if (v44)
+    v293[1646] = v293[1646] & 0xFFBFFFFF | v65;
+    v66 = ~(v65 >> 7) & 0x8000 | v64;
+    if (v37)
     {
-      v72 |= 0x80u;
+      v66 |= 0x80u;
     }
 
-    if ((v68 & 0x80000000) != 0)
+    if ((v62 & 0x80000000) != 0)
     {
-      v27 = 0;
-      v28 = 0;
+      v21 = 0;
+      v22 = 0;
 LABEL_87:
-      v29 = v297;
+      v23 = v292;
       goto LABEL_88;
     }
 
-    v291 = v72;
+    v286 = v66;
     if (dword_1EBF46AE8 >= 5)
     {
-      v276 = *__error();
-      v277 = _SILogForLogForCategory(7);
-      if (os_log_type_enabled(v277, OS_LOG_TYPE_DEFAULT))
+      v271 = *__error();
+      v272 = _SILogForLogForCategory(7);
+      if (os_log_type_enabled(v272, OS_LOG_TYPE_DEFAULT))
       {
-        v278 = fcntl(v295, 50, v313);
-        if (v313[0])
-        {
-          v279 = v278 < 0;
-        }
-
-        else
-        {
-          v279 = 1;
-        }
-
-        if (v279)
-        {
-          v280 = 0;
-        }
-
-        else
-        {
-          v280 = v313;
-        }
-
-        *buf = 136315138;
-        *&buf[4] = v280;
-        _os_log_impl(&dword_1C278D000, v277, OS_LOG_TYPE_DEFAULT, "Opened %s successfully", buf, 0xCu);
-      }
-
-      *__error() = v276;
-      v12 = v12;
-      v31 = v298;
-      if (dword_1EBF46AE8 >= 5)
-      {
-        v281 = *__error();
-        v282 = _SILogForLogForCategory(7);
-        if (os_log_type_enabled(v282, OS_LOG_TYPE_DEFAULT))
-        {
-          v283 = fcntl(v295, 50, v313);
-          if (v313[0])
-          {
-            v284 = v283 < 0;
-          }
-
-          else
-          {
-            v284 = 1;
-          }
-
-          if (v284)
-          {
-            v285 = 0;
-          }
-
-          else
-          {
-            v285 = v313;
-          }
-
-          *buf = 136315394;
-          *&buf[4] = v285;
-          *&buf[12] = 2080;
-          *&buf[14] = "store.db";
-          _os_log_impl(&dword_1C278D000, v282, OS_LOG_TYPE_DEFAULT, "Try %s/%s", buf, 0x16u);
-        }
-
-        *__error() = v281;
-        v12 = v12;
-        v31 = v298;
-      }
-    }
-
-    registerForCloning(*(v31 + 32), v17);
-    if (SIIsAppleInternal_onceToken != -1)
-    {
-      dispatch_once(&SIIsAppleInternal_onceToken, &__block_literal_global_6502);
-    }
-
-    if (SIIsAppleInternal_internal)
-    {
-      v73 = fd_create_protected(*(v31 + 32), "activityJournal.1", 536872457, 3u);
-      si_activity_journal_init(v31 + 2192, v73);
-      fd_mark_purgable(*(v31 + 2192));
-    }
-
-    unlinkat(*(v31 + 32), "mds64-crash-state", 0);
-    unlinkat(*(v31 + 32), "mds64-crash-state-v2", 0);
-    if ((v12 & 0x100) == 0)
-    {
-      v74 = fd_create_protected(*(v31 + 32), "tmp.Lion", 512, 0);
-      fd_release(v74);
-      v75 = fd_create_protected(*(v31 + 32), "Lion.created", 512, 0);
-      fd_release(v75);
-      v76 = fd_create_protected(*(v31 + 32), "tmp.Cab", 512, 0);
-      fd_release(v76);
-      v77 = fd_create_protected(*(v31 + 32), "Cab.created", 512, 0);
-      fd_release(v77);
-      *(v31 + 6584) |= 0x40u;
-      v78 = fd_create_protected(*(v31 + 32), "tmp.Star", 512, 0);
-      fd_release(v78);
-      v79 = fd_create_protected(*(v31 + 32), "Glow.created", 512, 0);
-      fd_release(v79);
-      v80 = fd_create_protected(*(v31 + 32), "tmp.Glow", 512, 0);
-      fd_release(v80);
-      v81 = fd_create_protected(*(v31 + 32), "tmp.SequoiaPhotosFixed", 512, 0);
-      fd_release(v81);
-      if (_os_feature_enabled_impl())
-      {
-        v82 = fd_create_protected(*(v31 + 32), "macOS16.created", 512, 0);
-        fd_release(v82);
-        v83 = fd_create_protected(*(v31 + 32), "tmp.macOS16", 512, 0);
-        fd_release(v83);
-      }
-    }
-
-    v84 = malloc_type_calloc(1uLL, 0x18uLL, 0x1080040A085CBA5uLL);
-    *(v31 + 1392) = v84;
-    v84[3] = 2;
-    v85 = malloc_type_calloc(2uLL, 8uLL, 0x2004093837F09uLL);
-    v86 = *(v31 + 1392);
-    *v86 = v85;
-    *(v86 + 16) = -1;
-    v87 = malloc_type_calloc(1uLL, 0x18uLL, 0x1080040A085CBA5uLL);
-    *(v31 + 1384) = v87;
-    v87[3] = 2;
-    v88 = malloc_type_calloc(2uLL, 8uLL, 0x2004093837F09uLL);
-    v89 = *(v31 + 1384);
-    *v89 = v88;
-    *(v89 + 16) = -1;
-    MEMORY[0x1C6921200](*(v31 + 32));
-    if ((v12 & 0x200) != 0)
-    {
-      v90 = 3;
-    }
-
-    else
-    {
-      v90 = 1;
-    }
-
-    if ((v12 & 0x100) != 0)
-    {
-      v91 = v90;
-    }
-
-    else
-    {
-      v91 = (v12 & 0x200) >> 8;
-    }
-
-    if (CIMetaInfoCreateWithPrefix(*(v31 + 32), v31 + 1200, v91, 1, *(v31 + 60), 0))
-    {
-      v27 = 0;
-      v28 = 14469;
-      v29 = v297;
-      v32 = a7;
-LABEL_88:
-      v30 = v296;
-      goto LABEL_89;
-    }
-
-    v300 = 0;
-    v94 = *(v31 + 1392);
-    v95 = *(v31 + 1384);
-    v96 = *(v31 + 6592);
-    vector_store = *(v31 + 1192);
-    if (vector_store)
-    {
-      vector_store = db_get_vector_store(vector_store);
-    }
-
-    v299[0] = MEMORY[0x1E69E9820];
-    v299[1] = 0x40000000;
-    v299[2] = __SICreateNewIndex_block_invoke_378;
-    v299[3] = &__block_descriptor_tmp_380;
-    v299[4] = v31;
-    v98 = ContentIndexOpenBulk(v31 + 1200, 0, v94, v95, v291, v96, v31 + 2408, &v300, vector_store, v299, v301);
-    if (v98 == 1)
-    {
-      v104 = time(0);
-      v105 = *(v31 + 1392);
-      if (*(v105 + 8))
-      {
-        ContentIndexUpdateTimeStamp(**v105, v104, 0, 1);
-        ContentIndexUpdateTimeStamp(***(v31 + 1392), v104, 1, 1);
-      }
-
-      LiveIndex = si_getLiveIndex(*(v31 + 1384));
-      ContentIndexUpdateTimeStamp(LiveIndex, v104, 0, 1);
-      v107 = si_getLiveIndex(*(v31 + 1384));
-      ContentIndexUpdateTimeStamp(v107, v104, 1, 1);
-    }
-
-    else if (v98 == -1)
-    {
-      v99 = *__error();
-      v100 = _SILogForLogForCategory(0);
-      v32 = a7;
-      if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 136315394;
-        *&buf[4] = "SICreateNewIndex";
-        *&buf[12] = 1024;
-        *&buf[14] = 14481;
-        _os_log_error_impl(&dword_1C278D000, v100, OS_LOG_TYPE_ERROR, "%s:%d: Could not create new content index", buf, 0x12u);
-      }
-
-      v27 = 0;
-      *__error() = v99;
-      v28 = 14480;
-      goto LABEL_87;
-    }
-
-    if (v44)
-    {
-      v108 = 133376;
-    }
-
-    else
-    {
-      v108 = 256;
-    }
-
-    if (*(v31 + 2072))
-    {
-      v109 = 67584;
-    }
-
-    else
-    {
-      v109 = v108;
-    }
-
-    if (dword_1EBF46AE8 >= 5)
-    {
-      v286 = *__error();
-      v287 = _SILogForLogForCategory(7);
-      if (os_log_type_enabled(v287, OS_LOG_TYPE_DEFAULT))
-      {
-        v288 = fcntl(v295, 50, v313);
-        if (v313[0])
-        {
-          v289 = v288 < 0;
-        }
-
-        else
-        {
-          v289 = 1;
-        }
-
-        if (v289)
-        {
-          v290 = 0;
-        }
-
-        else
-        {
-          v290 = v313;
-        }
-
-        *buf = 136315394;
-        *&buf[4] = v290;
-        *&buf[12] = 2080;
-        *&buf[14] = "store.db";
-        _os_log_impl(&dword_1C278D000, v287, OS_LOG_TYPE_DEFAULT, "Creating store at %s/%s.", buf, 0x16u);
-      }
-
-      *__error() = v286;
-      v12 = v12;
-      v31 = v298;
-    }
-
-    memset(buf, 0, sizeof(buf));
-    *buf = *(v31 + 32);
-    *&buf[8] = "store.db";
-    *&buf[20] = *(v31 + 60);
-    if (SIIsAppleInternal_onceToken != -1)
-    {
-      dispatch_once(&SIIsAppleInternal_onceToken, &__block_literal_global_6502);
-    }
-
-    v30 = v296;
-    if (SIIsAppleInternal_internal)
-    {
-      v110 = v31 + 2192;
-    }
-
-    else
-    {
-      v110 = 0;
-    }
-
-    *&buf[24] = v110;
-    buf[32] = 0;
-    v311 = v31;
-    v312 = _sdb_cache_flush_callback;
-    *&buf[16] = v109;
-    datastore_with_ctx = db2_create_datastore_with_ctx(buf);
-    *(v31 + 1192) = datastore_with_ctx;
-    if (datastore_with_ctx)
-    {
-      si_set_vector_store(v31);
-      if ((v12 & 0x80000001) != 0 || (ReverseStore = createReverseStore(*(v31 + 32), "", v301), (*(v31 + 6624) = ReverseStore) != 0))
-      {
-        v113 = 0;
-        v114 = (v31 + 1192);
-        do
-        {
-          id_for_field = db_create_id_for_field(*v114, "_kMDXXXX___DUMMY", v113, v113);
-          ++v113;
-        }
-
-        while (id_for_field < 6);
-        db_create_id_for_value(*v114, "public.message");
-        db_create_id_for_value(*v114, "com.apple.mail.emlx");
-        db_create_id_for_value(*v114, "com.apple.mail.eml");
-        db_create_id_for_value(*v114, "com.microsoft.entourage.virtual.message");
-        db_create_id_for_value(*v114, "com.apple.ichat.transcript");
-        db_create_id_for_value(*v114, "public.contact");
-        db_create_id_for_value(*v114, "public.vcard");
-        db_create_id_for_value(*v114, "com.apple.addressbook.person");
-        db_create_id_for_value(*v114, "com.apple.addressbook.group");
-        db_create_id_for_value(*v114, "com.microsoft.entourage.virtual.contact");
-        db_create_id_for_value(*v114, "com.microsoft.entourage.virtual.group");
-        db_create_id_for_value(*v114, "com.apple.systempreference.prefpane");
-        db_create_id_for_value(*v114, "public.font");
-        db_create_id_for_value(*v114, "public.bookmark");
-        db_create_id_for_value(*v114, "com.apple.safari.bookmark");
-        db_create_id_for_value(*v114, "com.apple.safari.history");
-        db_create_id_for_value(*v114, "public.to-do-item");
-        db_create_id_for_value(*v114, "public.calendar-event");
-        db_create_id_for_value(*v114, "com.apple.ical.bookmark");
-        db_create_id_for_value(*v114, "com.apple.ical.bookmark.todo");
-        db_create_id_for_value(*v114, "com.apple.ical.ics.event");
-        db_create_id_for_value(*v114, "com.apple.ical.ics.todo");
-        db_create_id_for_value(*v114, "com.microsoft.entourage.virtual.event");
-        db_create_id_for_value(*v114, "com.microsoft.entourage.virtual.task");
-        db_create_id_for_value(*v114, "public.movie");
-        db_create_id_for_value(*v114, "com.apple.quicktime-movie");
-        db_create_id_for_value(*v114, "public.mpeg-video");
-        db_create_id_for_value(*v114, "public.mpeg-4");
-        db_create_id_for_value(*v114, "public.mpeg");
-        db_create_id_for_value(*v114, "public.3gpp");
-        db_create_id_for_value(*v114, "public.3gpp2");
-        db_create_id_for_value(*v114, "com.apple.application-bundle");
-        db_create_id_for_value(*v114, "com.apple.application-file");
-        db_create_id_for_value(*v114, "com.apple.dashboard-widget");
-        db_create_id_for_value(*v114, "public.folder");
-        db_create_id_for_value(*v114, "com.apple.mount-point");
-        db_create_id_for_value(*v114, "public.audio");
-        db_create_id_for_value(*v114, "public.mpeg-4-audio");
-        db_create_id_for_value(*v114, "com.apple.protected-mpeg-4-audio");
-        db_create_id_for_value(*v114, "com.adobe.pdf");
-        db_create_id_for_value(*v114, "com.apple.localized-pdf-bundle");
-        db_create_id_for_value(*v114, "public.presentation");
-        db_create_id_for_value(*v114, "com.microsoft.powerpoint.ppt");
-        db_create_id_for_value(*v114, "com.apple.keynote.key");
-        db_create_id_for_value(*v114, "com.apple.iwork.keynote.key");
-        db_create_id_for_value(*v114, "public.image");
-        db_create_id_for_value(*v114, "com.apple.motion.project");
-        db_create_id_for_value(*v114, "com.apple.iwork.pages.pages");
-        db_create_id_for_value(*v114, "com.apple.iwork.pages.sffpages");
-        db_create_id_for_value(*v114, "com.apple.iwork.pages.template");
-        db_create_id_for_value(*v114, "com.apple.iwork.pages.sfftemplate");
-        db_create_id_for_value(*v114, "public.rtf");
-        db_create_id_for_value(*v114, "com.apple.rtfd");
-        db_create_id_for_value(*v114, "com.apple.flat-rtfd");
-        db_create_id_for_value(*v114, "com.microsoft.word.doc");
-        db_create_id_for_value(*v114, "org.khronos.collada.digital-asset-exchange");
-        db_create_id_for_value(*v114, "public.plain-text");
-        db_create_id_for_value(*v114, "public.html");
-        db_create_id_for_value(*v114, "public.xhtml");
-        db_create_id_for_value(*v114, "public.shell-script");
-        db_create_id_for_value(*v114, "public.source-code");
-        db_create_id_for_value(*v114, "public.unix-executable");
-        db_create_id_for_value(*v114, "com.apple.xcode.project");
-        db_create_id_for_value(*v114, "com.apple.xcode.model");
-        db_create_id_for_value(*v114, "com.apple.xcode.archive");
-        db_create_id_for_value(*v114, "com.apple.xcode.docset");
-        db_create_id_for_value(*v114, "com.apple.xcode.projectdata");
-        db_create_id_for_value(*v114, "com.apple.xcode.dsym");
-        db_create_id_for_value(*v114, "com.apple.xcode.configsettings");
-        db_create_id_for_value(*v114, "com.apple.xcode.usersettings");
-        db_create_id_for_value(*v114, "com.apple.xcode.strings-text");
-        db_create_id_for_value(*v114, "com.apple.xcode.plugin");
-        db_create_id_for_value(*v114, "com.apple.xcode.mom");
-        db_create_id_for_value(*v114, "com.apple.property-list");
-        db_create_id_for_value(*v114, "dyn.ah62d4rv4ge81a7dk");
-        db_create_id_for_value(*v114, "dyn.ah62d4rv4ge80u5pbsa");
-        db_create_id_for_value(*v114, "com.apple.dashcode.xml");
-        db_create_id_for_value(*v114, "com.apple.dashcode.css");
-        db_create_id_for_value(*v114, "com.apple.dashcode.javascript");
-        db_create_id_for_value(*v114, "com.apple.dashcode.json");
-        db_create_id_for_value(*v114, "com.apple.dashcode.manifest");
-        db_create_id_for_value(*v114, "com.apple.interfacebuilder.document");
-        db_create_id_for_value(*v114, "com.apple.interfacebuilder.document.cocoa");
-        db_create_id_for_value(*v114, "com.apple.rez-source");
-        db_create_id_for_value(*v114, "com.apple.iphone.developerprofile");
-        db_create_id_for_value(*v114, "com.apple.iphone.mobileprovision");
-        db_create_id_for_value(*v114, "com.apple.coreanimation-bundle");
-        db_create_id_for_value(*v114, "com.apple.coreanimation-xml");
-        db_create_id_for_value(*v114, "com.sun.java-class");
-        db_create_id_for_value(*v114, "com.apple.scripting-definition");
-        db_create_id_for_value(*v114, "com.apple.dt.document.workspace");
-        db_create_id_for_value(*v114, "com.apple.dt.document.scheme");
-        db_create_id_for_value(*v114, "com.apple.dt.ide.plug-in");
-        db_create_id_for_value(*v114, "com.apple.dt.dvt.plug-in");
-        db_create_id_for_value(*v114, "com.apple.dt.document.snapshot");
-        db_create_id_for_value(*v114, "com.apple.dt.bundle.unit-test.objective-c");
-        db_create_id_for_value(*v114, "com.apple.instruments.tracetemplate");
-        db_create_id_for_value(*v114, "com.apple.quartzdebug.introspectiontrace");
-        db_create_id_for_value(*v114, "com.apple.applescript.text-object");
-        db_create_id_for_value(*v114, "com.apple.applescript.data-object");
-        db_create_id_for_value(*v114, "com.apple.applescript.url-object");
-        db_create_id_for_value(*v114, "com.apple.applescript.alias-object");
-        db_create_id_for_value(*v114, "com.apple.symbol-export");
-        db_create_id_for_value(*v114, "com.apple.mach-o-binary");
-        db_create_id_for_value(*v114, "com.apple.mach-o-object");
-        db_create_id_for_value(*v114, "com.apple.mach-o-executable");
-        db_create_id_for_value(*v114, "com.apple.x11-mach-o-executable");
-        db_create_id_for_value(*v114, "public.object-code");
-        db_create_id_for_value(*v114, "com.microsoft.windows-executable");
-        db_create_id_for_value(*v114, "com.microsoft.windows-dynamic-link-library");
-        db_create_id_for_value(*v114, "com.sun.java-archive");
-        db_create_id_for_value(*v114, "com.sun.web-application-archive");
-        db_create_id_for_value(*v114, "com.apple.xcode.plugindata");
-        db_create_id_for_value(*v114, "com.apple.dt.playground");
-        db_create_id_for_value(*v114, "com.apple.iwork.numbers.sffnumbers");
-        db_create_id_for_value(*v114, "com.apple.iwork.numbers.numbers");
-        db_create_id_for_value(*v114, "com.apple.iwork.numbers.template");
-        db_create_id_for_value(*v114, "com.microsoft.excel.xls");
-        db_create_id_for_value(*v114, "org.openxmlformats.spreadsheetml.sheet");
-        db_create_id_for_value(*v114, "public.spreadsheet");
-        db_create_id_for_value(*v114, "public.xml");
-        db_create_id_for_value(*v114, "com.apple.log");
-        db_create_id_for_value(*v114, "com.apple.crashreport");
-        db_create_id_for_value(*v114, "com.apple.spinreport");
-        db_create_id_for_value(*v114, "com.apple.panicreport");
-        db_create_id_for_value(*v114, "com.apple.shutdownstall");
-        db_create_id_for_value(*v114, "com.apple.hangreport");
-        db_create_id_for_value(*v114, "public.json");
-        db_create_id_for_value(*v114, "public.log");
-        db_create_id_for_value(*v114, "public.content");
-        db_create_id_for_value(*v114, "com.microsoft.excel.sheet.binary.macroenabled");
-        db_create_id_for_value(*v114, "org.openxmlformats.spreadsheetml.sheet.macroenabled");
-        db_create_id_for_value(*v114, "com.apple.protected-mpeg-4-audio-b");
-        db_create_id_for_value(*v114, "com.audible.aa-audiobook");
-        db_create_id_for_value(*v114, "com.audible.aax-audiobook");
-        db_create_id_for_value(*v114, "com.apple.tips");
-        db_create_id_for_value(*v114, "com.apple.helpviewer");
-        db_create_id_for_value(*v114, "com.apple.help.topic");
-        db_create_id_for_field(*v114, "kMDItemContentTypeTree", 0x330u, 11);
-        db_create_id_for_field(*v114, "kMDItemSupportFileType", 0x330u, 11);
-        db_create_id_for_field(*v114, "_kMDItemTimeMachinePath", 0, 0);
-        db_create_id_for_field(*v114, "kMDItemContentType", 0x310u, 11);
-        db_create_id_for_field(*v114, "_kMDItemGroupId", 0x108u, 2);
-        if ((v12 & 0x100) == 0)
-        {
-          v116 = *MEMORY[0x1E695E480];
-          Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, 0, 0);
-          id_for_value = db_create_id_for_value(*v114, "public.message");
-          if (id_for_value != -2)
-          {
-            CFDictionarySetValue(Mutable, (id_for_value & 0x7FFFFFFF), 1);
-          }
-
-          v119 = db_create_id_for_value(*v114, "com.apple.mail.emlx");
-          if (v119 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v119 & 0x7FFFFFFF), 2);
-          }
-
-          v120 = db_create_id_for_value(*v114, "com.apple.mail.eml");
-          if (v120 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v120 & 0x7FFFFFFF), 3);
-          }
-
-          v121 = db_create_id_for_value(*v114, "com.microsoft.entourage.virtual.message");
-          if (v121 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v121 & 0x7FFFFFFF), 4);
-          }
-
-          v122 = db_create_id_for_value(*v114, "com.apple.ichat.transcript");
-          if (v122 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v122 & 0x7FFFFFFF), 5);
-          }
-
-          v123 = db_create_id_for_value(*v114, "public.contact");
-          if (v123 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v123 & 0x7FFFFFFF), 6);
-          }
-
-          v124 = db_create_id_for_value(*v114, "public.vcard");
-          if (v124 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v124 & 0x7FFFFFFF), 7);
-          }
-
-          v125 = db_create_id_for_value(*v114, "com.apple.addressbook.person");
-          if (v125 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v125 & 0x7FFFFFFF), 8);
-          }
-
-          v126 = db_create_id_for_value(*v114, "com.apple.addressbook.group");
-          if (v126 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v126 & 0x7FFFFFFF), 9);
-          }
-
-          v127 = db_create_id_for_value(*v114, "com.microsoft.entourage.virtual.contact");
-          if (v127 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v127 & 0x7FFFFFFF), 0xA);
-          }
-
-          v128 = db_create_id_for_value(*v114, "com.microsoft.entourage.virtual.group");
-          if (v128 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v128 & 0x7FFFFFFF), 0xB);
-          }
-
-          v129 = db_create_id_for_value(*v114, "com.apple.systempreference.prefpane");
-          if (v129 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v129 & 0x7FFFFFFF), 0xC);
-          }
-
-          v130 = db_create_id_for_value(*v114, "public.font");
-          if (v130 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v130 & 0x7FFFFFFF), 0xD);
-          }
-
-          v131 = db_create_id_for_value(*v114, "public.bookmark");
-          if (v131 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v131 & 0x7FFFFFFF), 0xE);
-          }
-
-          v132 = db_create_id_for_value(*v114, "com.apple.safari.bookmark");
-          if (v132 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v132 & 0x7FFFFFFF), 0xF);
-          }
-
-          v133 = db_create_id_for_value(*v114, "com.apple.safari.history");
-          if (v133 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v133 & 0x7FFFFFFF), 0x10);
-          }
-
-          v134 = db_create_id_for_value(*v114, "public.to-do-item");
-          if (v134 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v134 & 0x7FFFFFFF), 0x11);
-          }
-
-          v135 = db_create_id_for_value(*v114, "public.calendar-event");
-          if (v135 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v135 & 0x7FFFFFFF), 0x12);
-          }
-
-          v136 = db_create_id_for_value(*v114, "com.apple.ical.bookmark");
-          if (v136 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v136 & 0x7FFFFFFF), 0x13);
-          }
-
-          v137 = db_create_id_for_value(*v114, "com.apple.ical.bookmark.todo");
-          if (v137 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v137 & 0x7FFFFFFF), 0x14);
-          }
-
-          v138 = db_create_id_for_value(*v114, "com.apple.ical.ics.event");
-          if (v138 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v138 & 0x7FFFFFFF), 0x15);
-          }
-
-          v139 = db_create_id_for_value(*v114, "com.apple.ical.ics.todo");
-          if (v139 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v139 & 0x7FFFFFFF), 0x16);
-          }
-
-          v140 = db_create_id_for_value(*v114, "com.microsoft.entourage.virtual.event");
-          if (v140 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v140 & 0x7FFFFFFF), 0x17);
-          }
-
-          v141 = db_create_id_for_value(*v114, "com.microsoft.entourage.virtual.task");
-          if (v141 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v141 & 0x7FFFFFFF), 0x18);
-          }
-
-          v142 = db_create_id_for_value(*v114, "public.movie");
-          if (v142 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v142 & 0x7FFFFFFF), 0x19);
-          }
-
-          v143 = db_create_id_for_value(*v114, "com.apple.quicktime-movie");
-          if (v143 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v143 & 0x7FFFFFFF), 0x1A);
-          }
-
-          v144 = db_create_id_for_value(*v114, "public.mpeg-video");
-          if (v144 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v144 & 0x7FFFFFFF), 0x1B);
-          }
-
-          v145 = db_create_id_for_value(*v114, "public.mpeg-4");
-          if (v145 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v145 & 0x7FFFFFFF), 0x1C);
-          }
-
-          v146 = db_create_id_for_value(*v114, "public.mpeg");
-          if (v146 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v146 & 0x7FFFFFFF), 0x1D);
-          }
-
-          v147 = db_create_id_for_value(*v114, "public.3gpp");
-          if (v147 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v147 & 0x7FFFFFFF), 0x1E);
-          }
-
-          v148 = db_create_id_for_value(*v114, "public.3gpp2");
-          if (v148 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v148 & 0x7FFFFFFF), 0x1F);
-          }
-
-          v149 = db_create_id_for_value(*v114, "com.apple.application-bundle");
-          if (v149 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v149 & 0x7FFFFFFF), 0x20);
-          }
-
-          v150 = db_create_id_for_value(*v114, "com.apple.application-file");
-          if (v150 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v150 & 0x7FFFFFFF), 0x21);
-          }
-
-          v151 = db_create_id_for_value(*v114, "com.apple.dashboard-widget");
-          if (v151 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v151 & 0x7FFFFFFF), 0x22);
-          }
-
-          v152 = db_create_id_for_value(*v114, "public.folder");
-          if (v152 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v152 & 0x7FFFFFFF), 0x23);
-          }
-
-          v153 = db_create_id_for_value(*v114, "com.apple.mount-point");
-          if (v153 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v153 & 0x7FFFFFFF), 0x24);
-          }
-
-          v154 = db_create_id_for_value(*v114, "public.audio");
-          if (v154 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v154 & 0x7FFFFFFF), 0x25);
-          }
-
-          v155 = db_create_id_for_value(*v114, "public.mpeg-4-audio");
-          if (v155 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v155 & 0x7FFFFFFF), 0x26);
-          }
-
-          v156 = db_create_id_for_value(*v114, "com.apple.protected-mpeg-4-audio");
-          if (v156 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v156 & 0x7FFFFFFF), 0x27);
-          }
-
-          v157 = db_create_id_for_value(*v114, "com.adobe.pdf");
-          if (v157 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v157 & 0x7FFFFFFF), 0x28);
-          }
-
-          v158 = db_create_id_for_value(*v114, "com.apple.localized-pdf-bundle");
-          if (v158 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v158 & 0x7FFFFFFF), 0x29);
-          }
-
-          v159 = db_create_id_for_value(*v114, "public.presentation");
-          if (v159 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v159 & 0x7FFFFFFF), 0x2A);
-          }
-
-          v160 = db_create_id_for_value(*v114, "com.microsoft.powerpoint.ppt");
-          if (v160 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v160 & 0x7FFFFFFF), 0x2B);
-          }
-
-          v161 = db_create_id_for_value(*v114, "com.apple.keynote.key");
-          if (v161 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v161 & 0x7FFFFFFF), 0x2C);
-          }
-
-          v162 = db_create_id_for_value(*v114, "com.apple.iwork.keynote.key");
-          if (v162 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v162 & 0x7FFFFFFF), 0x2D);
-          }
-
-          v163 = db_create_id_for_value(*v114, "public.image");
-          if (v163 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v163 & 0x7FFFFFFF), 0x2E);
-          }
-
-          v164 = db_create_id_for_value(*v114, "com.apple.motion.project");
-          if (v164 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v164 & 0x7FFFFFFF), 0x2F);
-          }
-
-          v165 = db_create_id_for_value(*v114, "com.apple.iwork.pages.pages");
-          if (v165 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v165 & 0x7FFFFFFF), 0x30);
-          }
-
-          v166 = db_create_id_for_value(*v114, "com.apple.iwork.pages.sffpages");
-          if (v166 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v166 & 0x7FFFFFFF), 0x31);
-          }
-
-          v167 = db_create_id_for_value(*v114, "com.apple.iwork.pages.template");
-          if (v167 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v167 & 0x7FFFFFFF), 0x32);
-          }
-
-          v168 = db_create_id_for_value(*v114, "com.apple.iwork.pages.sfftemplate");
-          if (v168 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v168 & 0x7FFFFFFF), 0x33);
-          }
-
-          v169 = db_create_id_for_value(*v114, "public.rtf");
-          if (v169 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v169 & 0x7FFFFFFF), 0x34);
-          }
-
-          v170 = db_create_id_for_value(*v114, "com.apple.rtfd");
-          if (v170 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v170 & 0x7FFFFFFF), 0x35);
-          }
-
-          v171 = db_create_id_for_value(*v114, "com.apple.flat-rtfd");
-          if (v171 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v171 & 0x7FFFFFFF), 0x36);
-          }
-
-          v172 = db_create_id_for_value(*v114, "com.microsoft.word.doc");
-          if (v172 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v172 & 0x7FFFFFFF), 0x37);
-          }
-
-          v173 = db_create_id_for_value(*v114, "org.khronos.collada.digital-asset-exchange");
-          if (v173 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v173 & 0x7FFFFFFF), 0x38);
-          }
-
-          v174 = db_create_id_for_value(*v114, "public.plain-text");
-          if (v174 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v174 & 0x7FFFFFFF), 0x39);
-          }
-
-          v175 = db_create_id_for_value(*v114, "public.html");
-          if (v175 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v175 & 0x7FFFFFFF), 0x3A);
-          }
-
-          v176 = db_create_id_for_value(*v114, "public.xhtml");
-          if (v176 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v176 & 0x7FFFFFFF), 0x3B);
-          }
-
-          v177 = db_create_id_for_value(*v114, "public.shell-script");
-          if (v177 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v177 & 0x7FFFFFFF), 0x3C);
-          }
-
-          v178 = db_create_id_for_value(*v114, "public.source-code");
-          if (v178 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v178 & 0x7FFFFFFF), 0x3D);
-          }
-
-          v179 = db_create_id_for_value(*v114, "public.unix-executable");
-          if (v179 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v179 & 0x7FFFFFFF), 0x3E);
-          }
-
-          v180 = db_create_id_for_value(*v114, "com.apple.xcode.project");
-          if (v180 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v180 & 0x7FFFFFFF), 0x3F);
-          }
-
-          v181 = db_create_id_for_value(*v114, "com.apple.xcode.model");
-          if (v181 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v181 & 0x7FFFFFFF), 0x40);
-          }
-
-          v182 = db_create_id_for_value(*v114, "com.apple.xcode.archive");
-          if (v182 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v182 & 0x7FFFFFFF), 0x41);
-          }
-
-          v183 = db_create_id_for_value(*v114, "com.apple.xcode.docset");
-          if (v183 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v183 & 0x7FFFFFFF), 0x42);
-          }
-
-          v184 = db_create_id_for_value(*v114, "com.apple.xcode.projectdata");
-          if (v184 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v184 & 0x7FFFFFFF), 0x43);
-          }
-
-          v185 = db_create_id_for_value(*v114, "com.apple.xcode.dsym");
-          if (v185 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v185 & 0x7FFFFFFF), 0x44);
-          }
-
-          v186 = db_create_id_for_value(*v114, "com.apple.xcode.configsettings");
-          if (v186 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v186 & 0x7FFFFFFF), 0x45);
-          }
-
-          v187 = db_create_id_for_value(*v114, "com.apple.xcode.usersettings");
-          if (v187 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v187 & 0x7FFFFFFF), 0x46);
-          }
-
-          v188 = db_create_id_for_value(*v114, "com.apple.xcode.strings-text");
-          if (v188 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v188 & 0x7FFFFFFF), 0x47);
-          }
-
-          v189 = db_create_id_for_value(*v114, "com.apple.xcode.plugin");
-          if (v189 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v189 & 0x7FFFFFFF), 0x48);
-          }
-
-          v190 = db_create_id_for_value(*v114, "com.apple.xcode.mom");
-          if (v190 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v190 & 0x7FFFFFFF), 0x49);
-          }
-
-          v191 = db_create_id_for_value(*v114, "com.apple.property-list");
-          if (v191 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v191 & 0x7FFFFFFF), 0x4A);
-          }
-
-          v192 = db_create_id_for_value(*v114, "dyn.ah62d4rv4ge81a7dk");
-          if (v192 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v192 & 0x7FFFFFFF), 0x4B);
-          }
-
-          v193 = db_create_id_for_value(*v114, "dyn.ah62d4rv4ge80u5pbsa");
-          if (v193 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v193 & 0x7FFFFFFF), 0x4C);
-          }
-
-          v194 = db_create_id_for_value(*v114, "com.apple.dashcode.xml");
-          if (v194 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v194 & 0x7FFFFFFF), 0x4D);
-          }
-
-          v195 = db_create_id_for_value(*v114, "com.apple.dashcode.css");
-          if (v195 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v195 & 0x7FFFFFFF), 0x4E);
-          }
-
-          v196 = db_create_id_for_value(*v114, "com.apple.dashcode.javascript");
-          if (v196 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v196 & 0x7FFFFFFF), 0x4F);
-          }
-
-          v197 = db_create_id_for_value(*v114, "com.apple.dashcode.json");
-          if (v197 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v197 & 0x7FFFFFFF), 0x50);
-          }
-
-          v198 = db_create_id_for_value(*v114, "com.apple.dashcode.manifest");
-          if (v198 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v198 & 0x7FFFFFFF), 0x51);
-          }
-
-          v199 = db_create_id_for_value(*v114, "com.apple.interfacebuilder.document");
-          if (v199 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v199 & 0x7FFFFFFF), 0x52);
-          }
-
-          v200 = db_create_id_for_value(*v114, "com.apple.interfacebuilder.document.cocoa");
-          if (v200 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v200 & 0x7FFFFFFF), 0x53);
-          }
-
-          v201 = db_create_id_for_value(*v114, "com.apple.rez-source");
-          if (v201 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v201 & 0x7FFFFFFF), 0x54);
-          }
-
-          v202 = db_create_id_for_value(*v114, "com.apple.iphone.developerprofile");
-          if (v202 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v202 & 0x7FFFFFFF), 0x55);
-          }
-
-          v203 = db_create_id_for_value(*v114, "com.apple.iphone.mobileprovision");
-          if (v203 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v203 & 0x7FFFFFFF), 0x56);
-          }
-
-          v204 = db_create_id_for_value(*v114, "com.apple.coreanimation-bundle");
-          if (v204 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v204 & 0x7FFFFFFF), 0x57);
-          }
-
-          v205 = db_create_id_for_value(*v114, "com.apple.coreanimation-xml");
-          if (v205 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v205 & 0x7FFFFFFF), 0x58);
-          }
-
-          v206 = db_create_id_for_value(*v114, "com.sun.java-class");
-          if (v206 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v206 & 0x7FFFFFFF), 0x59);
-          }
-
-          v207 = db_create_id_for_value(*v114, "com.apple.scripting-definition");
-          if (v207 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v207 & 0x7FFFFFFF), 0x5A);
-          }
-
-          v208 = db_create_id_for_value(*v114, "com.apple.dt.document.workspace");
-          if (v208 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v208 & 0x7FFFFFFF), 0x5B);
-          }
-
-          v209 = db_create_id_for_value(*v114, "com.apple.dt.document.scheme");
-          if (v209 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v209 & 0x7FFFFFFF), 0x5C);
-          }
-
-          v210 = db_create_id_for_value(*v114, "com.apple.dt.ide.plug-in");
-          if (v210 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v210 & 0x7FFFFFFF), 0x5D);
-          }
-
-          v211 = db_create_id_for_value(*v114, "com.apple.dt.dvt.plug-in");
-          if (v211 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v211 & 0x7FFFFFFF), 0x5E);
-          }
-
-          v212 = db_create_id_for_value(*v114, "com.apple.dt.document.snapshot");
-          if (v212 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v212 & 0x7FFFFFFF), 0x5F);
-          }
-
-          v213 = db_create_id_for_value(*v114, "com.apple.dt.bundle.unit-test.objective-c");
-          if (v213 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v213 & 0x7FFFFFFF), 0x60);
-          }
-
-          v214 = db_create_id_for_value(*v114, "com.apple.instruments.tracetemplate");
-          if (v214 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v214 & 0x7FFFFFFF), 0x61);
-          }
-
-          v215 = db_create_id_for_value(*v114, "com.apple.quartzdebug.introspectiontrace");
-          if (v215 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v215 & 0x7FFFFFFF), 0x62);
-          }
-
-          v216 = db_create_id_for_value(*v114, "com.apple.applescript.text-object");
-          if (v216 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v216 & 0x7FFFFFFF), 0x63);
-          }
-
-          v217 = db_create_id_for_value(*v114, "com.apple.applescript.data-object");
-          if (v217 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v217 & 0x7FFFFFFF), 0x64);
-          }
-
-          v218 = db_create_id_for_value(*v114, "com.apple.applescript.url-object");
-          if (v218 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v218 & 0x7FFFFFFF), 0x65);
-          }
-
-          v219 = db_create_id_for_value(*v114, "com.apple.applescript.alias-object");
-          if (v219 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v219 & 0x7FFFFFFF), 0x66);
-          }
-
-          v220 = db_create_id_for_value(*v114, "com.apple.symbol-export");
-          if (v220 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v220 & 0x7FFFFFFF), 0x67);
-          }
-
-          v221 = db_create_id_for_value(*v114, "com.apple.mach-o-binary");
-          if (v221 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v221 & 0x7FFFFFFF), 0x68);
-          }
-
-          v222 = db_create_id_for_value(*v114, "com.apple.mach-o-object");
-          if (v222 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v222 & 0x7FFFFFFF), 0x69);
-          }
-
-          v223 = db_create_id_for_value(*v114, "com.apple.mach-o-executable");
-          if (v223 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v223 & 0x7FFFFFFF), 0x6A);
-          }
-
-          v224 = db_create_id_for_value(*v114, "com.apple.x11-mach-o-executable");
-          if (v224 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v224 & 0x7FFFFFFF), 0x6B);
-          }
-
-          v225 = db_create_id_for_value(*v114, "public.object-code");
-          if (v225 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v225 & 0x7FFFFFFF), 0x6C);
-          }
-
-          v226 = db_create_id_for_value(*v114, "com.microsoft.windows-executable");
-          if (v226 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v226 & 0x7FFFFFFF), 0x6D);
-          }
-
-          v227 = db_create_id_for_value(*v114, "com.microsoft.windows-dynamic-link-library");
-          if (v227 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v227 & 0x7FFFFFFF), 0x6E);
-          }
-
-          v228 = db_create_id_for_value(*v114, "com.sun.java-archive");
-          if (v228 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v228 & 0x7FFFFFFF), 0x6F);
-          }
-
-          v229 = db_create_id_for_value(*v114, "com.sun.web-application-archive");
-          if (v229 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v229 & 0x7FFFFFFF), 0x70);
-          }
-
-          v230 = db_create_id_for_value(*v114, "com.apple.xcode.plugindata");
-          if (v230 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v230 & 0x7FFFFFFF), 0x71);
-          }
-
-          v231 = db_create_id_for_value(*v114, "com.apple.dt.playground");
-          if (v231 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v231 & 0x7FFFFFFF), 0x72);
-          }
-
-          v232 = db_create_id_for_value(*v114, "com.apple.iwork.numbers.sffnumbers");
-          if (v232 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v232 & 0x7FFFFFFF), 0x73);
-          }
-
-          v233 = db_create_id_for_value(*v114, "com.apple.iwork.numbers.numbers");
-          if (v233 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v233 & 0x7FFFFFFF), 0x74);
-          }
-
-          v234 = db_create_id_for_value(*v114, "com.apple.iwork.numbers.template");
-          if (v234 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v234 & 0x7FFFFFFF), 0x75);
-          }
-
-          v235 = db_create_id_for_value(*v114, "com.microsoft.excel.xls");
-          if (v235 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v235 & 0x7FFFFFFF), 0x76);
-          }
-
-          v236 = db_create_id_for_value(*v114, "org.openxmlformats.spreadsheetml.sheet");
-          if (v236 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v236 & 0x7FFFFFFF), 0x77);
-          }
-
-          v237 = db_create_id_for_value(*v114, "public.spreadsheet");
-          if (v237 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v237 & 0x7FFFFFFF), 0x78);
-          }
-
-          v238 = db_create_id_for_value(*v114, "public.xml");
-          if (v238 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v238 & 0x7FFFFFFF), 0x79);
-          }
-
-          v239 = db_create_id_for_value(*v114, "com.apple.log");
-          if (v239 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v239 & 0x7FFFFFFF), 0x7A);
-          }
-
-          v240 = db_create_id_for_value(*v114, "com.apple.crashreport");
-          if (v240 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v240 & 0x7FFFFFFF), 0x7B);
-          }
-
-          v241 = db_create_id_for_value(*v114, "com.apple.spinreport");
-          if (v241 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v241 & 0x7FFFFFFF), 0x7C);
-          }
-
-          v242 = db_create_id_for_value(*v114, "com.apple.panicreport");
-          if (v242 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v242 & 0x7FFFFFFF), 0x7D);
-          }
-
-          v243 = db_create_id_for_value(*v114, "com.apple.shutdownstall");
-          if (v243 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v243 & 0x7FFFFFFF), 0x7E);
-          }
-
-          v244 = db_create_id_for_value(*v114, "com.apple.hangreport");
-          if (v244 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v244 & 0x7FFFFFFF), 0x7F);
-          }
-
-          v245 = db_create_id_for_value(*v114, "public.json");
-          if (v245 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v245 & 0x7FFFFFFF), 0x80);
-          }
-
-          v246 = db_create_id_for_value(*v114, "public.log");
-          if (v246 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v246 & 0x7FFFFFFF), 0x81);
-          }
-
-          v247 = db_create_id_for_value(*v114, "public.content");
-          if (v247 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v247 & 0x7FFFFFFF), 0x82);
-          }
-
-          v248 = db_create_id_for_value(*v114, "com.microsoft.excel.sheet.binary.macroenabled");
-          if (v248 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v248 & 0x7FFFFFFF), 0x83);
-          }
-
-          v249 = db_create_id_for_value(*v114, "org.openxmlformats.spreadsheetml.sheet.macroenabled");
-          if (v249 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v249 & 0x7FFFFFFF), 0x84);
-          }
-
-          v250 = db_create_id_for_value(*v114, "com.apple.protected-mpeg-4-audio-b");
-          if (v250 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v250 & 0x7FFFFFFF), 0x85);
-          }
-
-          v251 = db_create_id_for_value(*v114, "com.audible.aa-audiobook");
-          if (v251 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v251 & 0x7FFFFFFF), 0x86);
-          }
-
-          v252 = db_create_id_for_value(*v114, "com.audible.aax-audiobook");
-          if (v252 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v252 & 0x7FFFFFFF), 0x87);
-          }
-
-          v253 = db_create_id_for_value(*v114, "com.apple.tips");
-          if (v253 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v253 & 0x7FFFFFFF), 0x88);
-          }
-
-          v254 = db_create_id_for_value(*v114, "com.apple.helpviewer");
-          if (v254 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v254 & 0x7FFFFFFF), 0x89);
-          }
-
-          v255 = db_create_id_for_value(*v114, "com.apple.help.topic");
-          if (v255 != -2)
-          {
-            CFDictionarySetValue(Mutable, (v255 & 0x7FFFFFFF), 0x8A);
-          }
-
-          *(v31 + 6608) = CFDictionaryCreateCopy(v116, Mutable);
-          CFRelease(Mutable);
-        }
-
-        db_create_id_for_field(*v114, "kMDStoreProperties", 0x108u, 14);
-        if (!*v114)
-        {
-          v259 = *__error();
-          v260 = _SILogForLogForCategory(7);
-          v29 = v297;
-          v32 = a7;
-          if (os_log_type_enabled(v260, OS_LOG_TYPE_ERROR))
-          {
-            v266 = fcntl(v295, 50, v313);
-            if (v313[0])
-            {
-              v267 = v266 < 0;
-            }
-
-            else
-            {
-              v267 = 1;
-            }
-
-            if (v267)
-            {
-              v268 = 0;
-            }
-
-            else
-            {
-              v268 = v313;
-            }
-
-            v32 = a7;
-            *buf = 136315906;
-            *&buf[4] = "SICreateNewIndex";
-            *&buf[12] = 1024;
-            *&buf[14] = 14614;
-            *&buf[18] = 2080;
-            *&buf[20] = v268;
-            *&buf[28] = 2080;
-            *&buf[30] = "store.db";
-            _os_log_error_impl(&dword_1C278D000, v260, OS_LOG_TYPE_ERROR, "%s:%d: Could not create store at path '%s/%s'", buf, 0x26u);
-          }
-
-          *__error() = v259;
-          v28 = 14615;
-          v27 = 1;
-          goto LABEL_89;
-        }
-
-        *buf = 2;
-        v256 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, buf);
-        SISetProperty(v31, @"YukonRecomputedSizes", v256);
-        CFRelease(v256);
-        v27 = 1;
-        _si_next_index_id(v31, *(v31 + 1456), 1, 1);
-        v29 = v297;
-        v52 = v294;
-        v32 = a7;
-        goto LABEL_35;
-      }
-
-      v257 = *__error();
-      v262 = _SILogForLogForCategory(7);
-      if (os_log_type_enabled(v262, OS_LOG_TYPE_ERROR))
-      {
-        v273 = fcntl(v295, 50, v313);
-        if (v313[0])
+        v273 = fcntl(v290, 50, v308);
+        if (v308[0])
         {
           v274 = v273 < 0;
         }
@@ -5788,176 +4353,1527 @@ LABEL_88:
 
         else
         {
-          v275 = v313;
+          v275 = v308;
         }
 
-        *valuePtr = 136315650;
-        v303 = "SICreateNewIndex";
-        v304 = 1024;
-        v305 = 14542;
-        v306 = 2080;
-        v307 = v275;
-        _os_log_error_impl(&dword_1C278D000, v262, OS_LOG_TYPE_ERROR, "%s:%d: Could not create reverse dir store at path '%s'", valuePtr, 0x1Cu);
+        *buf = 136315138;
+        *&buf[4] = v275;
+        _os_log_impl(&dword_1C278D000, v272, OS_LOG_TYPE_DEFAULT, "Opened %s successfully", buf, 0xCu);
       }
 
-      v28 = 14543;
+      *__error() = v271;
+      v12 = v12;
+      v25 = v293;
+      if (dword_1EBF46AE8 >= 5)
+      {
+        v276 = *__error();
+        v277 = _SILogForLogForCategory(7);
+        if (os_log_type_enabled(v277, OS_LOG_TYPE_DEFAULT))
+        {
+          v278 = fcntl(v290, 50, v308);
+          if (v308[0])
+          {
+            v279 = v278 < 0;
+          }
+
+          else
+          {
+            v279 = 1;
+          }
+
+          if (v279)
+          {
+            v280 = 0;
+          }
+
+          else
+          {
+            v280 = v308;
+          }
+
+          *buf = 136315394;
+          *&buf[4] = v280;
+          *&buf[12] = 2080;
+          *&buf[14] = "store.db";
+          _os_log_impl(&dword_1C278D000, v277, OS_LOG_TYPE_DEFAULT, "Try %s/%s", buf, 0x16u);
+        }
+
+        *__error() = v276;
+        v12 = v12;
+        v25 = v293;
+      }
+    }
+
+    registerForCloning(*(v25 + 32), v17);
+    if (SIIsAppleInternal_onceToken != -1)
+    {
+      dispatch_once(&SIIsAppleInternal_onceToken, &__block_literal_global_6502);
+    }
+
+    if (SIIsAppleInternal_internal)
+    {
+      v67 = fd_create_protected(*(v25 + 32), "activityJournal.1", 536872457, 3u);
+      si_activity_journal_init(v25 + 2192, v67);
+      fd_mark_purgable(*(v25 + 2192));
+    }
+
+    unlinkat(*(v25 + 32), "mds64-crash-state", 0);
+    unlinkat(*(v25 + 32), "mds64-crash-state-v2", 0);
+    if ((v12 & 0x100) == 0)
+    {
+      v68 = fd_create_protected(*(v25 + 32), "tmp.Lion", 512, 0);
+      fd_release(v68);
+      v69 = fd_create_protected(*(v25 + 32), "Lion.created", 512, 0);
+      fd_release(v69);
+      v70 = fd_create_protected(*(v25 + 32), "tmp.Cab", 512, 0);
+      fd_release(v70);
+      v71 = fd_create_protected(*(v25 + 32), "Cab.created", 512, 0);
+      fd_release(v71);
+      *(v25 + 6584) |= 0x40u;
+      v72 = fd_create_protected(*(v25 + 32), "tmp.Star", 512, 0);
+      fd_release(v72);
+      v73 = fd_create_protected(*(v25 + 32), "Glow.created", 512, 0);
+      fd_release(v73);
+      v74 = fd_create_protected(*(v25 + 32), "tmp.Glow", 512, 0);
+      fd_release(v74);
+      v75 = fd_create_protected(*(v25 + 32), "tmp.SequoiaPhotosFixed", 512, 0);
+      fd_release(v75);
+      if (_os_feature_enabled_impl())
+      {
+        v76 = fd_create_protected(*(v25 + 32), "macOS16.created", 512, 0);
+        fd_release(v76);
+        v77 = fd_create_protected(*(v25 + 32), "tmp.macOS16", 512, 0);
+        fd_release(v77);
+      }
+    }
+
+    v78 = malloc_type_calloc(1uLL, 0x18uLL, 0x1080040A085CBA5uLL);
+    *(v25 + 1392) = v78;
+    v78[3] = 2;
+    v79 = malloc_type_calloc(2uLL, 8uLL, 0x2004093837F09uLL);
+    v80 = *(v25 + 1392);
+    *v80 = v79;
+    *(v80 + 16) = -1;
+    v81 = malloc_type_calloc(1uLL, 0x18uLL, 0x1080040A085CBA5uLL);
+    *(v25 + 1384) = v81;
+    v81[3] = 2;
+    v82 = malloc_type_calloc(2uLL, 8uLL, 0x2004093837F09uLL);
+    v83 = *(v25 + 1384);
+    *v83 = v82;
+    *(v83 + 16) = -1;
+    MEMORY[0x1C6921200](*(v25 + 32));
+    if ((v12 & 0x200) != 0)
+    {
+      v84 = 3;
     }
 
     else
     {
-      v257 = *__error();
-      v258 = _SILogForLogForCategory(7);
-      if (os_log_type_enabled(v258, OS_LOG_TYPE_ERROR))
+      v84 = 1;
+    }
+
+    if ((v12 & 0x100) != 0)
+    {
+      v85 = v84;
+    }
+
+    else
+    {
+      v85 = (v12 & 0x200) >> 8;
+    }
+
+    if (CIMetaInfoCreateWithPrefix(*(v25 + 32), v25 + 1200, v85, 1, *(v25 + 60), 0))
+    {
+      v21 = 0;
+      v22 = 14469;
+      v23 = v292;
+      v26 = a7;
+LABEL_88:
+      v24 = v291;
+      goto LABEL_89;
+    }
+
+    v295 = 0;
+    v89 = *(v25 + 1392);
+    v90 = *(v25 + 1384);
+    v91 = *(v25 + 6592);
+    vector_store = *(v25 + 1192);
+    if (vector_store)
+    {
+      vector_store = db_get_vector_store(vector_store);
+    }
+
+    v294[0] = MEMORY[0x1E69E9820];
+    v294[1] = 0x40000000;
+    v294[2] = __SICreateNewIndex_block_invoke_378;
+    v294[3] = &__block_descriptor_tmp_380;
+    v294[4] = v25;
+    v93 = ContentIndexOpenBulk(v86, v25 + 1200, 0, v89, v90, v286, v91, v25 + 2408, &v295, vector_store, v294, v296);
+    if (v93 == 1)
+    {
+      v99 = time(0);
+      v100 = *(v25 + 1392);
+      if (*(v100 + 8))
       {
-        v263 = fcntl(v295, 50, v313);
-        if (v313[0])
+        ContentIndexUpdateTimeStamp(**v100, v99, 0, 1);
+        ContentIndexUpdateTimeStamp(***(v25 + 1392), v99, 1u, 1);
+      }
+
+      LiveIndex = si_getLiveIndex(*(v25 + 1384));
+      ContentIndexUpdateTimeStamp(LiveIndex, v99, 0, 1);
+      v102 = si_getLiveIndex(*(v25 + 1384));
+      ContentIndexUpdateTimeStamp(v102, v99, 1u, 1);
+    }
+
+    else if (v93 == -1)
+    {
+      v94 = *__error();
+      v95 = _SILogForLogForCategory(0);
+      v26 = a7;
+      if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        *&buf[4] = "SICreateNewIndex";
+        *&buf[12] = 1024;
+        *&buf[14] = 14481;
+        _os_log_error_impl(&dword_1C278D000, v95, OS_LOG_TYPE_ERROR, "%s:%d: Could not create new content index", buf, 0x12u);
+      }
+
+      v21 = 0;
+      *__error() = v94;
+      v22 = 14480;
+      goto LABEL_87;
+    }
+
+    if (v37)
+    {
+      v103 = 133376;
+    }
+
+    else
+    {
+      v103 = 256;
+    }
+
+    if (*(v25 + 2072))
+    {
+      v104 = 67584;
+    }
+
+    else
+    {
+      v104 = v103;
+    }
+
+    if (dword_1EBF46AE8 >= 5)
+    {
+      v281 = *__error();
+      v282 = _SILogForLogForCategory(7);
+      if (os_log_type_enabled(v282, OS_LOG_TYPE_DEFAULT))
+      {
+        v283 = fcntl(v290, 50, v308);
+        if (v308[0])
         {
-          v264 = v263 < 0;
+          v284 = v283 < 0;
         }
 
         else
         {
-          v264 = 1;
+          v284 = 1;
         }
 
-        if (v264)
+        if (v284)
         {
-          v265 = 0;
+          v285 = 0;
         }
 
         else
         {
-          v265 = v313;
+          v285 = v308;
+        }
+
+        *buf = 136315394;
+        *&buf[4] = v285;
+        *&buf[12] = 2080;
+        *&buf[14] = "store.db";
+        _os_log_impl(&dword_1C278D000, v282, OS_LOG_TYPE_DEFAULT, "Creating store at %s/%s.", buf, 0x16u);
+      }
+
+      *__error() = v281;
+      v12 = v12;
+      v25 = v293;
+    }
+
+    memset(buf, 0, sizeof(buf));
+    *buf = *(v25 + 32);
+    *&buf[8] = "store.db";
+    *&buf[20] = *(v25 + 60);
+    if (SIIsAppleInternal_onceToken != -1)
+    {
+      dispatch_once(&SIIsAppleInternal_onceToken, &__block_literal_global_6502);
+    }
+
+    v24 = v291;
+    if (SIIsAppleInternal_internal)
+    {
+      v105 = v25 + 2192;
+    }
+
+    else
+    {
+      v105 = 0;
+    }
+
+    *&buf[24] = v105;
+    buf[32] = 0;
+    v306 = v25;
+    v307 = _sdb_cache_flush_callback;
+    *&buf[16] = v104;
+    datastore_with_ctx = db2_create_datastore_with_ctx(buf);
+    *(v25 + 1192) = datastore_with_ctx;
+    if (datastore_with_ctx)
+    {
+      si_set_vector_store(v25);
+      if ((v12 & 0x80000001) != 0 || (ReverseStore = createReverseStore(*(v25 + 32), "", v296), (*(v25 + 6624) = ReverseStore) != 0))
+      {
+        v108 = 0;
+        v109 = (v25 + 1192);
+        do
+        {
+          id_for_field = db_create_id_for_field(*v109, "_kMDXXXX___DUMMY", v108, v108);
+          ++v108;
+        }
+
+        while (id_for_field < 6);
+        db_create_id_for_value(*v109, "public.message");
+        db_create_id_for_value(*v109, "com.apple.mail.emlx");
+        db_create_id_for_value(*v109, "com.apple.mail.eml");
+        db_create_id_for_value(*v109, "com.microsoft.entourage.virtual.message");
+        db_create_id_for_value(*v109, "com.apple.ichat.transcript");
+        db_create_id_for_value(*v109, "public.contact");
+        db_create_id_for_value(*v109, "public.vcard");
+        db_create_id_for_value(*v109, "com.apple.addressbook.person");
+        db_create_id_for_value(*v109, "com.apple.addressbook.group");
+        db_create_id_for_value(*v109, "com.microsoft.entourage.virtual.contact");
+        db_create_id_for_value(*v109, "com.microsoft.entourage.virtual.group");
+        db_create_id_for_value(*v109, "com.apple.systempreference.prefpane");
+        db_create_id_for_value(*v109, "public.font");
+        db_create_id_for_value(*v109, "public.bookmark");
+        db_create_id_for_value(*v109, "com.apple.safari.bookmark");
+        db_create_id_for_value(*v109, "com.apple.safari.history");
+        db_create_id_for_value(*v109, "public.to-do-item");
+        db_create_id_for_value(*v109, "public.calendar-event");
+        db_create_id_for_value(*v109, "com.apple.ical.bookmark");
+        db_create_id_for_value(*v109, "com.apple.ical.bookmark.todo");
+        db_create_id_for_value(*v109, "com.apple.ical.ics.event");
+        db_create_id_for_value(*v109, "com.apple.ical.ics.todo");
+        db_create_id_for_value(*v109, "com.microsoft.entourage.virtual.event");
+        db_create_id_for_value(*v109, "com.microsoft.entourage.virtual.task");
+        db_create_id_for_value(*v109, "public.movie");
+        db_create_id_for_value(*v109, "com.apple.quicktime-movie");
+        db_create_id_for_value(*v109, "public.mpeg-video");
+        db_create_id_for_value(*v109, "public.mpeg-4");
+        db_create_id_for_value(*v109, "public.mpeg");
+        db_create_id_for_value(*v109, "public.3gpp");
+        db_create_id_for_value(*v109, "public.3gpp2");
+        db_create_id_for_value(*v109, "com.apple.application-bundle");
+        db_create_id_for_value(*v109, "com.apple.application-file");
+        db_create_id_for_value(*v109, "com.apple.dashboard-widget");
+        db_create_id_for_value(*v109, "public.folder");
+        db_create_id_for_value(*v109, "com.apple.mount-point");
+        db_create_id_for_value(*v109, "public.audio");
+        db_create_id_for_value(*v109, "public.mpeg-4-audio");
+        db_create_id_for_value(*v109, "com.apple.protected-mpeg-4-audio");
+        db_create_id_for_value(*v109, "com.adobe.pdf");
+        db_create_id_for_value(*v109, "com.apple.localized-pdf-bundle");
+        db_create_id_for_value(*v109, "public.presentation");
+        db_create_id_for_value(*v109, "com.microsoft.powerpoint.ppt");
+        db_create_id_for_value(*v109, "com.apple.keynote.key");
+        db_create_id_for_value(*v109, "com.apple.iwork.keynote.key");
+        db_create_id_for_value(*v109, "public.image");
+        db_create_id_for_value(*v109, "com.apple.motion.project");
+        db_create_id_for_value(*v109, "com.apple.iwork.pages.pages");
+        db_create_id_for_value(*v109, "com.apple.iwork.pages.sffpages");
+        db_create_id_for_value(*v109, "com.apple.iwork.pages.template");
+        db_create_id_for_value(*v109, "com.apple.iwork.pages.sfftemplate");
+        db_create_id_for_value(*v109, "public.rtf");
+        db_create_id_for_value(*v109, "com.apple.rtfd");
+        db_create_id_for_value(*v109, "com.apple.flat-rtfd");
+        db_create_id_for_value(*v109, "com.microsoft.word.doc");
+        db_create_id_for_value(*v109, "org.khronos.collada.digital-asset-exchange");
+        db_create_id_for_value(*v109, "public.plain-text");
+        db_create_id_for_value(*v109, "public.html");
+        db_create_id_for_value(*v109, "public.xhtml");
+        db_create_id_for_value(*v109, "public.shell-script");
+        db_create_id_for_value(*v109, "public.source-code");
+        db_create_id_for_value(*v109, "public.unix-executable");
+        db_create_id_for_value(*v109, "com.apple.xcode.project");
+        db_create_id_for_value(*v109, "com.apple.xcode.model");
+        db_create_id_for_value(*v109, "com.apple.xcode.archive");
+        db_create_id_for_value(*v109, "com.apple.xcode.docset");
+        db_create_id_for_value(*v109, "com.apple.xcode.projectdata");
+        db_create_id_for_value(*v109, "com.apple.xcode.dsym");
+        db_create_id_for_value(*v109, "com.apple.xcode.configsettings");
+        db_create_id_for_value(*v109, "com.apple.xcode.usersettings");
+        db_create_id_for_value(*v109, "com.apple.xcode.strings-text");
+        db_create_id_for_value(*v109, "com.apple.xcode.plugin");
+        db_create_id_for_value(*v109, "com.apple.xcode.mom");
+        db_create_id_for_value(*v109, "com.apple.property-list");
+        db_create_id_for_value(*v109, "dyn.ah62d4rv4ge81a7dk");
+        db_create_id_for_value(*v109, "dyn.ah62d4rv4ge80u5pbsa");
+        db_create_id_for_value(*v109, "com.apple.dashcode.xml");
+        db_create_id_for_value(*v109, "com.apple.dashcode.css");
+        db_create_id_for_value(*v109, "com.apple.dashcode.javascript");
+        db_create_id_for_value(*v109, "com.apple.dashcode.json");
+        db_create_id_for_value(*v109, "com.apple.dashcode.manifest");
+        db_create_id_for_value(*v109, "com.apple.interfacebuilder.document");
+        db_create_id_for_value(*v109, "com.apple.interfacebuilder.document.cocoa");
+        db_create_id_for_value(*v109, "com.apple.rez-source");
+        db_create_id_for_value(*v109, "com.apple.iphone.developerprofile");
+        db_create_id_for_value(*v109, "com.apple.iphone.mobileprovision");
+        db_create_id_for_value(*v109, "com.apple.coreanimation-bundle");
+        db_create_id_for_value(*v109, "com.apple.coreanimation-xml");
+        db_create_id_for_value(*v109, "com.sun.java-class");
+        db_create_id_for_value(*v109, "com.apple.scripting-definition");
+        db_create_id_for_value(*v109, "com.apple.dt.document.workspace");
+        db_create_id_for_value(*v109, "com.apple.dt.document.scheme");
+        db_create_id_for_value(*v109, "com.apple.dt.ide.plug-in");
+        db_create_id_for_value(*v109, "com.apple.dt.dvt.plug-in");
+        db_create_id_for_value(*v109, "com.apple.dt.document.snapshot");
+        db_create_id_for_value(*v109, "com.apple.dt.bundle.unit-test.objective-c");
+        db_create_id_for_value(*v109, "com.apple.instruments.tracetemplate");
+        db_create_id_for_value(*v109, "com.apple.quartzdebug.introspectiontrace");
+        db_create_id_for_value(*v109, "com.apple.applescript.text-object");
+        db_create_id_for_value(*v109, "com.apple.applescript.data-object");
+        db_create_id_for_value(*v109, "com.apple.applescript.url-object");
+        db_create_id_for_value(*v109, "com.apple.applescript.alias-object");
+        db_create_id_for_value(*v109, "com.apple.symbol-export");
+        db_create_id_for_value(*v109, "com.apple.mach-o-binary");
+        db_create_id_for_value(*v109, "com.apple.mach-o-object");
+        db_create_id_for_value(*v109, "com.apple.mach-o-executable");
+        db_create_id_for_value(*v109, "com.apple.x11-mach-o-executable");
+        db_create_id_for_value(*v109, "public.object-code");
+        db_create_id_for_value(*v109, "com.microsoft.windows-executable");
+        db_create_id_for_value(*v109, "com.microsoft.windows-dynamic-link-library");
+        db_create_id_for_value(*v109, "com.sun.java-archive");
+        db_create_id_for_value(*v109, "com.sun.web-application-archive");
+        db_create_id_for_value(*v109, "com.apple.xcode.plugindata");
+        db_create_id_for_value(*v109, "com.apple.dt.playground");
+        db_create_id_for_value(*v109, "com.apple.iwork.numbers.sffnumbers");
+        db_create_id_for_value(*v109, "com.apple.iwork.numbers.numbers");
+        db_create_id_for_value(*v109, "com.apple.iwork.numbers.template");
+        db_create_id_for_value(*v109, "com.microsoft.excel.xls");
+        db_create_id_for_value(*v109, "org.openxmlformats.spreadsheetml.sheet");
+        db_create_id_for_value(*v109, "public.spreadsheet");
+        db_create_id_for_value(*v109, "public.xml");
+        db_create_id_for_value(*v109, "com.apple.log");
+        db_create_id_for_value(*v109, "com.apple.crashreport");
+        db_create_id_for_value(*v109, "com.apple.spinreport");
+        db_create_id_for_value(*v109, "com.apple.panicreport");
+        db_create_id_for_value(*v109, "com.apple.shutdownstall");
+        db_create_id_for_value(*v109, "com.apple.hangreport");
+        db_create_id_for_value(*v109, "public.json");
+        db_create_id_for_value(*v109, "public.log");
+        db_create_id_for_value(*v109, "public.content");
+        db_create_id_for_value(*v109, "com.microsoft.excel.sheet.binary.macroenabled");
+        db_create_id_for_value(*v109, "org.openxmlformats.spreadsheetml.sheet.macroenabled");
+        db_create_id_for_value(*v109, "com.apple.protected-mpeg-4-audio-b");
+        db_create_id_for_value(*v109, "com.audible.aa-audiobook");
+        db_create_id_for_value(*v109, "com.audible.aax-audiobook");
+        db_create_id_for_value(*v109, "com.apple.tips");
+        db_create_id_for_value(*v109, "com.apple.helpviewer");
+        db_create_id_for_value(*v109, "com.apple.help.topic");
+        db_create_id_for_field(*v109, "kMDItemContentTypeTree", 0x330u, 11);
+        db_create_id_for_field(*v109, "kMDItemSupportFileType", 0x330u, 11);
+        db_create_id_for_field(*v109, "_kMDItemTimeMachinePath", 0, 0);
+        db_create_id_for_field(*v109, "kMDItemContentType", 0x310u, 11);
+        db_create_id_for_field(*v109, "_kMDItemGroupId", 0x108u, 2);
+        if ((v12 & 0x100) == 0)
+        {
+          v111 = *MEMORY[0x1E695E480];
+          Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, 0, 0);
+          id_for_value = db_create_id_for_value(*v109, "public.message");
+          if (id_for_value != -2)
+          {
+            CFDictionarySetValue(Mutable, (id_for_value & 0x7FFFFFFF), 1);
+          }
+
+          v114 = db_create_id_for_value(*v109, "com.apple.mail.emlx");
+          if (v114 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v114 & 0x7FFFFFFF), 2);
+          }
+
+          v115 = db_create_id_for_value(*v109, "com.apple.mail.eml");
+          if (v115 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v115 & 0x7FFFFFFF), 3);
+          }
+
+          v116 = db_create_id_for_value(*v109, "com.microsoft.entourage.virtual.message");
+          if (v116 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v116 & 0x7FFFFFFF), 4);
+          }
+
+          v117 = db_create_id_for_value(*v109, "com.apple.ichat.transcript");
+          if (v117 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v117 & 0x7FFFFFFF), 5);
+          }
+
+          v118 = db_create_id_for_value(*v109, "public.contact");
+          if (v118 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v118 & 0x7FFFFFFF), 6);
+          }
+
+          v119 = db_create_id_for_value(*v109, "public.vcard");
+          if (v119 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v119 & 0x7FFFFFFF), 7);
+          }
+
+          v120 = db_create_id_for_value(*v109, "com.apple.addressbook.person");
+          if (v120 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v120 & 0x7FFFFFFF), 8);
+          }
+
+          v121 = db_create_id_for_value(*v109, "com.apple.addressbook.group");
+          if (v121 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v121 & 0x7FFFFFFF), 9);
+          }
+
+          v122 = db_create_id_for_value(*v109, "com.microsoft.entourage.virtual.contact");
+          if (v122 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v122 & 0x7FFFFFFF), 0xA);
+          }
+
+          v123 = db_create_id_for_value(*v109, "com.microsoft.entourage.virtual.group");
+          if (v123 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v123 & 0x7FFFFFFF), 0xB);
+          }
+
+          v124 = db_create_id_for_value(*v109, "com.apple.systempreference.prefpane");
+          if (v124 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v124 & 0x7FFFFFFF), 0xC);
+          }
+
+          v125 = db_create_id_for_value(*v109, "public.font");
+          if (v125 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v125 & 0x7FFFFFFF), 0xD);
+          }
+
+          v126 = db_create_id_for_value(*v109, "public.bookmark");
+          if (v126 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v126 & 0x7FFFFFFF), 0xE);
+          }
+
+          v127 = db_create_id_for_value(*v109, "com.apple.safari.bookmark");
+          if (v127 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v127 & 0x7FFFFFFF), 0xF);
+          }
+
+          v128 = db_create_id_for_value(*v109, "com.apple.safari.history");
+          if (v128 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v128 & 0x7FFFFFFF), 0x10);
+          }
+
+          v129 = db_create_id_for_value(*v109, "public.to-do-item");
+          if (v129 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v129 & 0x7FFFFFFF), 0x11);
+          }
+
+          v130 = db_create_id_for_value(*v109, "public.calendar-event");
+          if (v130 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v130 & 0x7FFFFFFF), 0x12);
+          }
+
+          v131 = db_create_id_for_value(*v109, "com.apple.ical.bookmark");
+          if (v131 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v131 & 0x7FFFFFFF), 0x13);
+          }
+
+          v132 = db_create_id_for_value(*v109, "com.apple.ical.bookmark.todo");
+          if (v132 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v132 & 0x7FFFFFFF), 0x14);
+          }
+
+          v133 = db_create_id_for_value(*v109, "com.apple.ical.ics.event");
+          if (v133 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v133 & 0x7FFFFFFF), 0x15);
+          }
+
+          v134 = db_create_id_for_value(*v109, "com.apple.ical.ics.todo");
+          if (v134 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v134 & 0x7FFFFFFF), 0x16);
+          }
+
+          v135 = db_create_id_for_value(*v109, "com.microsoft.entourage.virtual.event");
+          if (v135 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v135 & 0x7FFFFFFF), 0x17);
+          }
+
+          v136 = db_create_id_for_value(*v109, "com.microsoft.entourage.virtual.task");
+          if (v136 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v136 & 0x7FFFFFFF), 0x18);
+          }
+
+          v137 = db_create_id_for_value(*v109, "public.movie");
+          if (v137 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v137 & 0x7FFFFFFF), 0x19);
+          }
+
+          v138 = db_create_id_for_value(*v109, "com.apple.quicktime-movie");
+          if (v138 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v138 & 0x7FFFFFFF), 0x1A);
+          }
+
+          v139 = db_create_id_for_value(*v109, "public.mpeg-video");
+          if (v139 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v139 & 0x7FFFFFFF), 0x1B);
+          }
+
+          v140 = db_create_id_for_value(*v109, "public.mpeg-4");
+          if (v140 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v140 & 0x7FFFFFFF), 0x1C);
+          }
+
+          v141 = db_create_id_for_value(*v109, "public.mpeg");
+          if (v141 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v141 & 0x7FFFFFFF), 0x1D);
+          }
+
+          v142 = db_create_id_for_value(*v109, "public.3gpp");
+          if (v142 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v142 & 0x7FFFFFFF), 0x1E);
+          }
+
+          v143 = db_create_id_for_value(*v109, "public.3gpp2");
+          if (v143 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v143 & 0x7FFFFFFF), 0x1F);
+          }
+
+          v144 = db_create_id_for_value(*v109, "com.apple.application-bundle");
+          if (v144 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v144 & 0x7FFFFFFF), 0x20);
+          }
+
+          v145 = db_create_id_for_value(*v109, "com.apple.application-file");
+          if (v145 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v145 & 0x7FFFFFFF), 0x21);
+          }
+
+          v146 = db_create_id_for_value(*v109, "com.apple.dashboard-widget");
+          if (v146 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v146 & 0x7FFFFFFF), 0x22);
+          }
+
+          v147 = db_create_id_for_value(*v109, "public.folder");
+          if (v147 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v147 & 0x7FFFFFFF), 0x23);
+          }
+
+          v148 = db_create_id_for_value(*v109, "com.apple.mount-point");
+          if (v148 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v148 & 0x7FFFFFFF), 0x24);
+          }
+
+          v149 = db_create_id_for_value(*v109, "public.audio");
+          if (v149 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v149 & 0x7FFFFFFF), 0x25);
+          }
+
+          v150 = db_create_id_for_value(*v109, "public.mpeg-4-audio");
+          if (v150 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v150 & 0x7FFFFFFF), 0x26);
+          }
+
+          v151 = db_create_id_for_value(*v109, "com.apple.protected-mpeg-4-audio");
+          if (v151 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v151 & 0x7FFFFFFF), 0x27);
+          }
+
+          v152 = db_create_id_for_value(*v109, "com.adobe.pdf");
+          if (v152 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v152 & 0x7FFFFFFF), 0x28);
+          }
+
+          v153 = db_create_id_for_value(*v109, "com.apple.localized-pdf-bundle");
+          if (v153 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v153 & 0x7FFFFFFF), 0x29);
+          }
+
+          v154 = db_create_id_for_value(*v109, "public.presentation");
+          if (v154 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v154 & 0x7FFFFFFF), 0x2A);
+          }
+
+          v155 = db_create_id_for_value(*v109, "com.microsoft.powerpoint.ppt");
+          if (v155 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v155 & 0x7FFFFFFF), 0x2B);
+          }
+
+          v156 = db_create_id_for_value(*v109, "com.apple.keynote.key");
+          if (v156 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v156 & 0x7FFFFFFF), 0x2C);
+          }
+
+          v157 = db_create_id_for_value(*v109, "com.apple.iwork.keynote.key");
+          if (v157 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v157 & 0x7FFFFFFF), 0x2D);
+          }
+
+          v158 = db_create_id_for_value(*v109, "public.image");
+          if (v158 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v158 & 0x7FFFFFFF), 0x2E);
+          }
+
+          v159 = db_create_id_for_value(*v109, "com.apple.motion.project");
+          if (v159 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v159 & 0x7FFFFFFF), 0x2F);
+          }
+
+          v160 = db_create_id_for_value(*v109, "com.apple.iwork.pages.pages");
+          if (v160 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v160 & 0x7FFFFFFF), 0x30);
+          }
+
+          v161 = db_create_id_for_value(*v109, "com.apple.iwork.pages.sffpages");
+          if (v161 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v161 & 0x7FFFFFFF), 0x31);
+          }
+
+          v162 = db_create_id_for_value(*v109, "com.apple.iwork.pages.template");
+          if (v162 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v162 & 0x7FFFFFFF), 0x32);
+          }
+
+          v163 = db_create_id_for_value(*v109, "com.apple.iwork.pages.sfftemplate");
+          if (v163 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v163 & 0x7FFFFFFF), 0x33);
+          }
+
+          v164 = db_create_id_for_value(*v109, "public.rtf");
+          if (v164 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v164 & 0x7FFFFFFF), 0x34);
+          }
+
+          v165 = db_create_id_for_value(*v109, "com.apple.rtfd");
+          if (v165 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v165 & 0x7FFFFFFF), 0x35);
+          }
+
+          v166 = db_create_id_for_value(*v109, "com.apple.flat-rtfd");
+          if (v166 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v166 & 0x7FFFFFFF), 0x36);
+          }
+
+          v167 = db_create_id_for_value(*v109, "com.microsoft.word.doc");
+          if (v167 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v167 & 0x7FFFFFFF), 0x37);
+          }
+
+          v168 = db_create_id_for_value(*v109, "org.khronos.collada.digital-asset-exchange");
+          if (v168 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v168 & 0x7FFFFFFF), 0x38);
+          }
+
+          v169 = db_create_id_for_value(*v109, "public.plain-text");
+          if (v169 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v169 & 0x7FFFFFFF), 0x39);
+          }
+
+          v170 = db_create_id_for_value(*v109, "public.html");
+          if (v170 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v170 & 0x7FFFFFFF), 0x3A);
+          }
+
+          v171 = db_create_id_for_value(*v109, "public.xhtml");
+          if (v171 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v171 & 0x7FFFFFFF), 0x3B);
+          }
+
+          v172 = db_create_id_for_value(*v109, "public.shell-script");
+          if (v172 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v172 & 0x7FFFFFFF), 0x3C);
+          }
+
+          v173 = db_create_id_for_value(*v109, "public.source-code");
+          if (v173 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v173 & 0x7FFFFFFF), 0x3D);
+          }
+
+          v174 = db_create_id_for_value(*v109, "public.unix-executable");
+          if (v174 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v174 & 0x7FFFFFFF), 0x3E);
+          }
+
+          v175 = db_create_id_for_value(*v109, "com.apple.xcode.project");
+          if (v175 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v175 & 0x7FFFFFFF), 0x3F);
+          }
+
+          v176 = db_create_id_for_value(*v109, "com.apple.xcode.model");
+          if (v176 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v176 & 0x7FFFFFFF), 0x40);
+          }
+
+          v177 = db_create_id_for_value(*v109, "com.apple.xcode.archive");
+          if (v177 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v177 & 0x7FFFFFFF), 0x41);
+          }
+
+          v178 = db_create_id_for_value(*v109, "com.apple.xcode.docset");
+          if (v178 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v178 & 0x7FFFFFFF), 0x42);
+          }
+
+          v179 = db_create_id_for_value(*v109, "com.apple.xcode.projectdata");
+          if (v179 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v179 & 0x7FFFFFFF), 0x43);
+          }
+
+          v180 = db_create_id_for_value(*v109, "com.apple.xcode.dsym");
+          if (v180 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v180 & 0x7FFFFFFF), 0x44);
+          }
+
+          v181 = db_create_id_for_value(*v109, "com.apple.xcode.configsettings");
+          if (v181 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v181 & 0x7FFFFFFF), 0x45);
+          }
+
+          v182 = db_create_id_for_value(*v109, "com.apple.xcode.usersettings");
+          if (v182 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v182 & 0x7FFFFFFF), 0x46);
+          }
+
+          v183 = db_create_id_for_value(*v109, "com.apple.xcode.strings-text");
+          if (v183 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v183 & 0x7FFFFFFF), 0x47);
+          }
+
+          v184 = db_create_id_for_value(*v109, "com.apple.xcode.plugin");
+          if (v184 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v184 & 0x7FFFFFFF), 0x48);
+          }
+
+          v185 = db_create_id_for_value(*v109, "com.apple.xcode.mom");
+          if (v185 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v185 & 0x7FFFFFFF), 0x49);
+          }
+
+          v186 = db_create_id_for_value(*v109, "com.apple.property-list");
+          if (v186 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v186 & 0x7FFFFFFF), 0x4A);
+          }
+
+          v187 = db_create_id_for_value(*v109, "dyn.ah62d4rv4ge81a7dk");
+          if (v187 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v187 & 0x7FFFFFFF), 0x4B);
+          }
+
+          v188 = db_create_id_for_value(*v109, "dyn.ah62d4rv4ge80u5pbsa");
+          if (v188 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v188 & 0x7FFFFFFF), 0x4C);
+          }
+
+          v189 = db_create_id_for_value(*v109, "com.apple.dashcode.xml");
+          if (v189 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v189 & 0x7FFFFFFF), 0x4D);
+          }
+
+          v190 = db_create_id_for_value(*v109, "com.apple.dashcode.css");
+          if (v190 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v190 & 0x7FFFFFFF), 0x4E);
+          }
+
+          v191 = db_create_id_for_value(*v109, "com.apple.dashcode.javascript");
+          if (v191 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v191 & 0x7FFFFFFF), 0x4F);
+          }
+
+          v192 = db_create_id_for_value(*v109, "com.apple.dashcode.json");
+          if (v192 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v192 & 0x7FFFFFFF), 0x50);
+          }
+
+          v193 = db_create_id_for_value(*v109, "com.apple.dashcode.manifest");
+          if (v193 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v193 & 0x7FFFFFFF), 0x51);
+          }
+
+          v194 = db_create_id_for_value(*v109, "com.apple.interfacebuilder.document");
+          if (v194 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v194 & 0x7FFFFFFF), 0x52);
+          }
+
+          v195 = db_create_id_for_value(*v109, "com.apple.interfacebuilder.document.cocoa");
+          if (v195 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v195 & 0x7FFFFFFF), 0x53);
+          }
+
+          v196 = db_create_id_for_value(*v109, "com.apple.rez-source");
+          if (v196 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v196 & 0x7FFFFFFF), 0x54);
+          }
+
+          v197 = db_create_id_for_value(*v109, "com.apple.iphone.developerprofile");
+          if (v197 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v197 & 0x7FFFFFFF), 0x55);
+          }
+
+          v198 = db_create_id_for_value(*v109, "com.apple.iphone.mobileprovision");
+          if (v198 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v198 & 0x7FFFFFFF), 0x56);
+          }
+
+          v199 = db_create_id_for_value(*v109, "com.apple.coreanimation-bundle");
+          if (v199 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v199 & 0x7FFFFFFF), 0x57);
+          }
+
+          v200 = db_create_id_for_value(*v109, "com.apple.coreanimation-xml");
+          if (v200 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v200 & 0x7FFFFFFF), 0x58);
+          }
+
+          v201 = db_create_id_for_value(*v109, "com.sun.java-class");
+          if (v201 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v201 & 0x7FFFFFFF), 0x59);
+          }
+
+          v202 = db_create_id_for_value(*v109, "com.apple.scripting-definition");
+          if (v202 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v202 & 0x7FFFFFFF), 0x5A);
+          }
+
+          v203 = db_create_id_for_value(*v109, "com.apple.dt.document.workspace");
+          if (v203 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v203 & 0x7FFFFFFF), 0x5B);
+          }
+
+          v204 = db_create_id_for_value(*v109, "com.apple.dt.document.scheme");
+          if (v204 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v204 & 0x7FFFFFFF), 0x5C);
+          }
+
+          v205 = db_create_id_for_value(*v109, "com.apple.dt.ide.plug-in");
+          if (v205 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v205 & 0x7FFFFFFF), 0x5D);
+          }
+
+          v206 = db_create_id_for_value(*v109, "com.apple.dt.dvt.plug-in");
+          if (v206 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v206 & 0x7FFFFFFF), 0x5E);
+          }
+
+          v207 = db_create_id_for_value(*v109, "com.apple.dt.document.snapshot");
+          if (v207 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v207 & 0x7FFFFFFF), 0x5F);
+          }
+
+          v208 = db_create_id_for_value(*v109, "com.apple.dt.bundle.unit-test.objective-c");
+          if (v208 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v208 & 0x7FFFFFFF), 0x60);
+          }
+
+          v209 = db_create_id_for_value(*v109, "com.apple.instruments.tracetemplate");
+          if (v209 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v209 & 0x7FFFFFFF), 0x61);
+          }
+
+          v210 = db_create_id_for_value(*v109, "com.apple.quartzdebug.introspectiontrace");
+          if (v210 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v210 & 0x7FFFFFFF), 0x62);
+          }
+
+          v211 = db_create_id_for_value(*v109, "com.apple.applescript.text-object");
+          if (v211 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v211 & 0x7FFFFFFF), 0x63);
+          }
+
+          v212 = db_create_id_for_value(*v109, "com.apple.applescript.data-object");
+          if (v212 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v212 & 0x7FFFFFFF), 0x64);
+          }
+
+          v213 = db_create_id_for_value(*v109, "com.apple.applescript.url-object");
+          if (v213 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v213 & 0x7FFFFFFF), 0x65);
+          }
+
+          v214 = db_create_id_for_value(*v109, "com.apple.applescript.alias-object");
+          if (v214 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v214 & 0x7FFFFFFF), 0x66);
+          }
+
+          v215 = db_create_id_for_value(*v109, "com.apple.symbol-export");
+          if (v215 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v215 & 0x7FFFFFFF), 0x67);
+          }
+
+          v216 = db_create_id_for_value(*v109, "com.apple.mach-o-binary");
+          if (v216 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v216 & 0x7FFFFFFF), 0x68);
+          }
+
+          v217 = db_create_id_for_value(*v109, "com.apple.mach-o-object");
+          if (v217 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v217 & 0x7FFFFFFF), 0x69);
+          }
+
+          v218 = db_create_id_for_value(*v109, "com.apple.mach-o-executable");
+          if (v218 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v218 & 0x7FFFFFFF), 0x6A);
+          }
+
+          v219 = db_create_id_for_value(*v109, "com.apple.x11-mach-o-executable");
+          if (v219 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v219 & 0x7FFFFFFF), 0x6B);
+          }
+
+          v220 = db_create_id_for_value(*v109, "public.object-code");
+          if (v220 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v220 & 0x7FFFFFFF), 0x6C);
+          }
+
+          v221 = db_create_id_for_value(*v109, "com.microsoft.windows-executable");
+          if (v221 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v221 & 0x7FFFFFFF), 0x6D);
+          }
+
+          v222 = db_create_id_for_value(*v109, "com.microsoft.windows-dynamic-link-library");
+          if (v222 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v222 & 0x7FFFFFFF), 0x6E);
+          }
+
+          v223 = db_create_id_for_value(*v109, "com.sun.java-archive");
+          if (v223 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v223 & 0x7FFFFFFF), 0x6F);
+          }
+
+          v224 = db_create_id_for_value(*v109, "com.sun.web-application-archive");
+          if (v224 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v224 & 0x7FFFFFFF), 0x70);
+          }
+
+          v225 = db_create_id_for_value(*v109, "com.apple.xcode.plugindata");
+          if (v225 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v225 & 0x7FFFFFFF), 0x71);
+          }
+
+          v226 = db_create_id_for_value(*v109, "com.apple.dt.playground");
+          if (v226 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v226 & 0x7FFFFFFF), 0x72);
+          }
+
+          v227 = db_create_id_for_value(*v109, "com.apple.iwork.numbers.sffnumbers");
+          if (v227 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v227 & 0x7FFFFFFF), 0x73);
+          }
+
+          v228 = db_create_id_for_value(*v109, "com.apple.iwork.numbers.numbers");
+          if (v228 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v228 & 0x7FFFFFFF), 0x74);
+          }
+
+          v229 = db_create_id_for_value(*v109, "com.apple.iwork.numbers.template");
+          if (v229 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v229 & 0x7FFFFFFF), 0x75);
+          }
+
+          v230 = db_create_id_for_value(*v109, "com.microsoft.excel.xls");
+          if (v230 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v230 & 0x7FFFFFFF), 0x76);
+          }
+
+          v231 = db_create_id_for_value(*v109, "org.openxmlformats.spreadsheetml.sheet");
+          if (v231 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v231 & 0x7FFFFFFF), 0x77);
+          }
+
+          v232 = db_create_id_for_value(*v109, "public.spreadsheet");
+          if (v232 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v232 & 0x7FFFFFFF), 0x78);
+          }
+
+          v233 = db_create_id_for_value(*v109, "public.xml");
+          if (v233 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v233 & 0x7FFFFFFF), 0x79);
+          }
+
+          v234 = db_create_id_for_value(*v109, "com.apple.log");
+          if (v234 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v234 & 0x7FFFFFFF), 0x7A);
+          }
+
+          v235 = db_create_id_for_value(*v109, "com.apple.crashreport");
+          if (v235 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v235 & 0x7FFFFFFF), 0x7B);
+          }
+
+          v236 = db_create_id_for_value(*v109, "com.apple.spinreport");
+          if (v236 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v236 & 0x7FFFFFFF), 0x7C);
+          }
+
+          v237 = db_create_id_for_value(*v109, "com.apple.panicreport");
+          if (v237 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v237 & 0x7FFFFFFF), 0x7D);
+          }
+
+          v238 = db_create_id_for_value(*v109, "com.apple.shutdownstall");
+          if (v238 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v238 & 0x7FFFFFFF), 0x7E);
+          }
+
+          v239 = db_create_id_for_value(*v109, "com.apple.hangreport");
+          if (v239 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v239 & 0x7FFFFFFF), 0x7F);
+          }
+
+          v240 = db_create_id_for_value(*v109, "public.json");
+          if (v240 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v240 & 0x7FFFFFFF), 0x80);
+          }
+
+          v241 = db_create_id_for_value(*v109, "public.log");
+          if (v241 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v241 & 0x7FFFFFFF), 0x81);
+          }
+
+          v242 = db_create_id_for_value(*v109, "public.content");
+          if (v242 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v242 & 0x7FFFFFFF), 0x82);
+          }
+
+          v243 = db_create_id_for_value(*v109, "com.microsoft.excel.sheet.binary.macroenabled");
+          if (v243 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v243 & 0x7FFFFFFF), 0x83);
+          }
+
+          v244 = db_create_id_for_value(*v109, "org.openxmlformats.spreadsheetml.sheet.macroenabled");
+          if (v244 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v244 & 0x7FFFFFFF), 0x84);
+          }
+
+          v245 = db_create_id_for_value(*v109, "com.apple.protected-mpeg-4-audio-b");
+          if (v245 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v245 & 0x7FFFFFFF), 0x85);
+          }
+
+          v246 = db_create_id_for_value(*v109, "com.audible.aa-audiobook");
+          if (v246 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v246 & 0x7FFFFFFF), 0x86);
+          }
+
+          v247 = db_create_id_for_value(*v109, "com.audible.aax-audiobook");
+          if (v247 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v247 & 0x7FFFFFFF), 0x87);
+          }
+
+          v248 = db_create_id_for_value(*v109, "com.apple.tips");
+          if (v248 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v248 & 0x7FFFFFFF), 0x88);
+          }
+
+          v249 = db_create_id_for_value(*v109, "com.apple.helpviewer");
+          if (v249 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v249 & 0x7FFFFFFF), 0x89);
+          }
+
+          v250 = db_create_id_for_value(*v109, "com.apple.help.topic");
+          if (v250 != -2)
+          {
+            CFDictionarySetValue(Mutable, (v250 & 0x7FFFFFFF), 0x8A);
+          }
+
+          *(v25 + 6608) = CFDictionaryCreateCopy(v111, Mutable);
+          CFRelease(Mutable);
+        }
+
+        db_create_id_for_field(*v109, "kMDStoreProperties", 0x108u, 14);
+        if (!*v109)
+        {
+          v254 = *__error();
+          v255 = _SILogForLogForCategory(7);
+          v23 = v292;
+          v26 = a7;
+          if (os_log_type_enabled(v255, OS_LOG_TYPE_ERROR))
+          {
+            v261 = fcntl(v290, 50, v308);
+            if (v308[0])
+            {
+              v262 = v261 < 0;
+            }
+
+            else
+            {
+              v262 = 1;
+            }
+
+            if (v262)
+            {
+              v263 = 0;
+            }
+
+            else
+            {
+              v263 = v308;
+            }
+
+            v26 = a7;
+            *buf = 136315906;
+            *&buf[4] = "SICreateNewIndex";
+            *&buf[12] = 1024;
+            *&buf[14] = 14614;
+            *&buf[18] = 2080;
+            *&buf[20] = v263;
+            *&buf[28] = 2080;
+            *&buf[30] = "store.db";
+            _os_log_error_impl(&dword_1C278D000, v255, OS_LOG_TYPE_ERROR, "%s:%d: Could not create store at path '%s/%s'", buf, 0x26u);
+          }
+
+          *__error() = v254;
+          v22 = 14615;
+          v21 = 1;
+          goto LABEL_89;
+        }
+
+        *buf = 2;
+        v251 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, buf);
+        SISetProperty(v25, @"YukonRecomputedSizes", v251);
+        CFRelease(v251);
+        v21 = 1;
+        _si_next_index_id(v25, *(v25 + 1456), 1, 1);
+        v23 = v292;
+        v46 = v289;
+        v26 = a7;
+        goto LABEL_35;
+      }
+
+      v252 = *__error();
+      v257 = _SILogForLogForCategory(7);
+      if (os_log_type_enabled(v257, OS_LOG_TYPE_ERROR))
+      {
+        v268 = fcntl(v290, 50, v308);
+        if (v308[0])
+        {
+          v269 = v268 < 0;
+        }
+
+        else
+        {
+          v269 = 1;
+        }
+
+        if (v269)
+        {
+          v270 = 0;
+        }
+
+        else
+        {
+          v270 = v308;
+        }
+
+        *valuePtr = 136315650;
+        v298 = "SICreateNewIndex";
+        v299 = 1024;
+        v300 = 14542;
+        v301 = 2080;
+        v302 = v270;
+        _os_log_error_impl(&dword_1C278D000, v257, OS_LOG_TYPE_ERROR, "%s:%d: Could not create reverse dir store at path '%s'", valuePtr, 0x1Cu);
+      }
+
+      v22 = 14543;
+    }
+
+    else
+    {
+      v252 = *__error();
+      v253 = _SILogForLogForCategory(7);
+      if (os_log_type_enabled(v253, OS_LOG_TYPE_ERROR))
+      {
+        v258 = fcntl(v290, 50, v308);
+        if (v308[0])
+        {
+          v259 = v258 < 0;
+        }
+
+        else
+        {
+          v259 = 1;
+        }
+
+        if (v259)
+        {
+          v260 = 0;
+        }
+
+        else
+        {
+          v260 = v308;
         }
 
         *valuePtr = 136315906;
-        v303 = "SICreateNewIndex";
-        v304 = 1024;
-        v305 = 14530;
-        v306 = 2080;
-        v307 = v265;
-        v308 = 2080;
-        v309 = "store.db";
-        _os_log_error_impl(&dword_1C278D000, v258, OS_LOG_TYPE_ERROR, "%s:%d: Could not create store at path '%s/%s'", valuePtr, 0x26u);
+        v298 = "SICreateNewIndex";
+        v299 = 1024;
+        v300 = 14530;
+        v301 = 2080;
+        v302 = v260;
+        v303 = 2080;
+        v304 = "store.db";
+        _os_log_error_impl(&dword_1C278D000, v253, OS_LOG_TYPE_ERROR, "%s:%d: Could not create store at path '%s/%s'", valuePtr, 0x26u);
       }
 
-      v28 = 14531;
+      v22 = 14531;
     }
 
-    v29 = v297;
-    v32 = a7;
-    v27 = 0;
-    *__error() = v257;
+    v23 = v292;
+    v26 = a7;
+    v21 = 0;
+    *__error() = v252;
     goto LABEL_89;
   }
 
-  v27 = 0;
-  v29 = v297;
-  v52 = v294;
-  v30 = v296;
+  v21 = 0;
+  v23 = v292;
+  v46 = v289;
+  v24 = v291;
 LABEL_35:
-  *v30 = v31;
-  *(v31 + 6584) |= 0xE000000u;
-  v53 = SIInitIndex(v31, v52, v292, v12, v293, 0, 0, 1, 0);
-  if ((v53 & 0x80000000) != 0)
+  *v24 = v25;
+  *(v25 + 6584) |= 0xE000000u;
+  v47 = SIInitIndex(v38, v25, v46, v287, v12, v288, 0, 0, 1, 0);
+  if ((v47 & 0x80000000) != 0)
   {
-    v28 = 0;
+    v22 = 0;
 LABEL_89:
-    _SICloseIndex(v31, 0);
-    v92 = *(v31 + 1192);
-    if (v92)
+    _SICloseIndex(v25, 0);
+    v87 = *(v25 + 1192);
+    if (v87)
     {
-      db_release_datastore_no_sync(v92);
-      *(v31 + 1192) = 0;
+      db_release_datastore_no_sync(v87);
+      *(v25 + 1192) = 0;
     }
 
-    v93 = *(v31 + 6624);
-    if (v93)
+    v88 = *(v25 + 6624);
+    if (v88)
     {
-      freeReverseDirStore(v93);
-      *(v31 + 6624) = 0;
+      freeReverseDirStore(v88);
+      *(v25 + 6624) = 0;
     }
 
     goto LABEL_9;
   }
 
-  v16 = v53;
-  if (!(v53 | v12 & 8))
+  v16 = v47;
+  if (!(v47 | v12 & 8))
   {
-    v54 = *MEMORY[0x1E695E4D0];
+    v48 = *MEMORY[0x1E695E4D0];
     if ((v12 & 0x200) != 0)
     {
-      si_set_property(v31, @"kSITokenizerUnigrams", *MEMORY[0x1E695E4D0], 1, 0);
+      si_set_property(v25, @"kSITokenizerUnigrams", *MEMORY[0x1E695E4D0], 1, 0);
     }
 
-    si_set_property(v31, @"kSITokenizerUseCRF", v54, 1, 0);
-    *buf = (*(v31 + 6584) >> 25) & 3;
-    v55 = *MEMORY[0x1E695E480];
-    v56 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, buf);
-    si_set_property(v31, @"kSITokenizerVersion", v56, 1, 0);
-    CFRelease(v56);
-    v57 = CFStringCreateWithCString(v55, sysVersionCStr, 0x8000100u);
-    si_set_property(v31, @"kSIRepairSizes", v57, 1, 0);
-    CFRelease(v57);
-    *valuePtr = (*(v31 + 6584) >> 27) & 1;
-    v58 = CFNumberCreate(v55, kCFNumberIntType, valuePtr);
-    si_set_property(v31, @"kSIIdentifierHashVersion", v58, 1, 0);
-    CFRelease(v58);
-    si_set_property(v31, @"kSIRepairedIndex", v54, 1, 0);
-    _si_set_version_property(v31, @"VEC_EXT_CLEARED_JOURNALS", 0);
-    _si_set_version_property(v31, @"VEC_EXT_CLEARED_VECTORS", 1);
-    si_set_obj_state(v31, v31);
+    si_set_property(v25, @"kSITokenizerUseCRF", v48, 1, 0);
+    *buf = (*(v25 + 6584) >> 25) & 3;
+    v49 = *MEMORY[0x1E695E480];
+    v50 = CFNumberCreate(*MEMORY[0x1E695E480], kCFNumberIntType, buf);
+    si_set_property(v25, @"kSITokenizerVersion", v50, 1, 0);
+    CFRelease(v50);
+    v51 = CFStringCreateWithCString(v49, sysVersionCStr, 0x8000100u);
+    si_set_property(v25, @"kSIRepairSizes", v51, 1, 0);
+    CFRelease(v51);
+    *valuePtr = (*(v25 + 6584) >> 27) & 1;
+    v52 = CFNumberCreate(v49, kCFNumberIntType, valuePtr);
+    si_set_property(v25, @"kSIIdentifierHashVersion", v52, 1, 0);
+    CFRelease(v52);
+    si_set_property(v25, @"kSIRepairedIndex", v48, 1, 0);
+    _si_set_version_property(v25, @"VEC_EXT_CLEARED_JOURNALS", 0);
+    _si_set_version_property(v25, @"VEC_EXT_CLEARED_VECTORS", 1);
+    si_set_obj_state(v25, v25);
   }
 
-  MEMORY[0x1C6921200](v29);
-  close(v29);
+  MEMORY[0x1C6921200](v23);
+  close(v23);
   if ((v12 & 8) == 0)
   {
-    SIActivityJournalOpen(v31 + 2192, 37, *(v31 + 2344), *(*(v31 + 1392) + 8), *(*(v31 + 1384) + 8), 0, 0, *(v31 + 2408));
+    SIActivityJournalOpen(v25 + 2192, 37, *(v25 + 2344), *(*(v25 + 1392) + 8), *(*(v25 + 1384) + 8), 0, 0, *(v25 + 2408));
   }
 
-  v59 = *(v31 + 1392);
-  v60 = *(v31 + 1384);
+  v53 = *(v25 + 1392);
+  v54 = *(v25 + 1384);
   *buf = MEMORY[0x1E69E9820];
   *&buf[8] = 0x40000000;
   *&buf[16] = __si_cacheIndexVersion_block_invoke;
   *&buf[24] = &__block_descriptor_tmp_1098;
-  *&buf[32] = v31;
-  if (v60)
+  *&buf[32] = v25;
+  if (v54)
   {
-    v61 = *(v60 + 8);
-    while (v61 >= 1)
+    v55 = *(v54 + 8);
+    while (v55 >= 1)
     {
-      v62 = v61 - 1;
-      v63 = (*&buf[16])(buf, *(*v60 + 8 * v61 - 8), 1);
-      v61 = v62;
-      if (!v63)
+      v56 = v55 - 1;
+      v57 = (*&buf[16])(buf, *(*v54 + 8 * v55 - 8), 1);
+      v55 = v56;
+      if (!v57)
       {
-        goto LABEL_17;
+        return v16;
       }
     }
   }
 
-  if (v59)
+  if (v53)
   {
-    v64 = *(v59 + 8);
+    v58 = *(v53 + 8);
     do
     {
-      if (v64 < 1)
+      if (v58 < 1)
       {
         break;
       }
 
-      v65 = v64 - 1;
-      v66 = (*&buf[16])(buf, *(*v59 + 8 * v64 - 8), 0);
-      v64 = v65;
+      v59 = v58 - 1;
+      v60 = (*&buf[16])(buf, *(*v53 + 8 * v58 - 8), 0);
+      v58 = v59;
     }
 
-    while (v66);
+    while (v60);
   }
 
-LABEL_17:
-  v38 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -5990,10 +5906,10 @@ double SIInitIndexLocks(uint64_t a1)
 
 uint64_t guarded_dup(int a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v9 = 0;
-  v8 = dup(a1);
-  arc4random_buf(&v9, 8uLL);
+  v17 = *MEMORY[0x1E69E9840];
+  v8 = 0;
+  v7 = dup(a1);
+  arc4random_buf(&v8, 8uLL);
   v1 = change_fdguard_np();
   if (v1)
   {
@@ -6002,34 +5918,32 @@ uint64_t guarded_dup(int a1)
     v4 = _SILogForLogForCategory(11);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = *__error();
+      v6 = *__error();
       *buf = 136315906;
-      v11 = "guarded_dup";
-      v12 = 1024;
-      v13 = 14191;
-      v14 = 1024;
-      v15 = v2;
-      v16 = 1024;
-      v17 = v7;
+      v10 = "guarded_dup";
+      v11 = 1024;
+      v12 = 14191;
+      v13 = 1024;
+      v14 = v2;
+      v15 = 1024;
+      v16 = v6;
       _os_log_error_impl(&dword_1C278D000, v4, OS_LOG_TYPE_ERROR, "%s:%d: Failed to protect fd with %d %d", buf, 0x1Eu);
     }
 
     *__error() = v3;
   }
 
-  result = v8;
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return v7;
 }
 
-int *si_set_vector_store(uint64_t a1)
+int *si_set_vector_store(void *a1)
 {
-  result = *(a1 + 1192);
+  result = a1[149];
   if (result)
   {
     vector_store = db_get_vector_store(result);
-    v4 = *(a1 + 1392);
-    v5 = *(a1 + 1384);
+    v4 = a1[174];
+    v5 = a1[173];
     v8[0] = MEMORY[0x1E69E9820];
     v8[1] = 0x40000000;
     v9 = __si_set_vector_store_block_invoke;
@@ -6067,24 +5981,24 @@ LABEL_7:
       }
     }
 
-    return db_set_host(*(a1 + 1192), a1);
+    return db_set_host(a1[149], a1);
   }
 
   return result;
 }
 
-uint64_t SIInitIndex(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
+uint64_t SIInitIndex(__n128 a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10)
 {
   MEMORY[0x1EEE9AC00](a1);
-  v10 = v9;
-  v12 = v11;
-  v14 = v13;
-  cf = v15;
-  v17 = v16;
-  v459 = v18;
-  v20 = v19;
-  v22 = v21;
-  v532 = *MEMORY[0x1E69E9840];
+  v11 = v10;
+  v13 = v12;
+  v15 = v14;
+  cf = v16;
+  v18 = v17;
+  v435 = v19;
+  v21 = v20;
+  v23 = v22;
+  v508 = *MEMORY[0x1E69E9840];
   if (registerForGameModeChange_onceToken != -1)
   {
     dispatch_once(&registerForGameModeChange_onceToken, &__block_literal_global_1131);
@@ -6095,26 +6009,26 @@ uint64_t SIInitIndex(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_
     dispatch_once(&freeQueueOnce, &__block_literal_global_1105);
   }
 
-  v463 = v14;
-  v466 = v12;
-  si_set_vector_store(v22);
-  v23 = *(v22 + 1392);
-  v24 = *(v22 + 1384);
+  v439 = v15;
+  v442 = v13;
+  si_set_vector_store(v23);
+  v24 = *(v23 + 1392);
+  v25 = *(v23 + 1384);
   *__s1 = 0;
-  v494 = __s1;
-  v495 = 0x2000000000;
-  v496 = 0;
+  v470 = __s1;
+  v471 = 0x2000000000;
+  v472 = 0;
   *&buf.f_bsize = MEMORY[0x1E69E9820];
   buf.f_blocks = 0x40000000;
   buf.f_bfree = __ContentIndexVectorIndexDropCount_block_invoke;
   buf.f_bavail = &unk_1E8197668;
   buf.f_files = __s1;
-  if (v23 && (v25 = v23, *(v23 + 8)))
+  if (v24 && (v26 = v24, *(v24 + 8)))
   {
-    v26 = 0;
-    while ((buf.f_bfree)(&buf, *(*v25 + 8 * v26), 0))
+    v27 = 0;
+    while ((buf.f_bfree)(&buf, *(*v26 + 8 * v27), 0))
     {
-      if (++v26 >= *(v25 + 8))
+      if (++v27 >= *(v26 + 8))
       {
         goto LABEL_10;
       }
@@ -6124,109 +6038,109 @@ uint64_t SIInitIndex(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_
   else
   {
 LABEL_10:
-    if (v24 && *(v24 + 8))
+    if (v25 && *(v25 + 8))
     {
-      v27 = 0;
+      v28 = 0;
       do
       {
-        if (!(buf.f_bfree)(&buf, *(*v24 + 8 * v27), 1))
+        if (!(buf.f_bfree)(&buf, *(*v25 + 8 * v28), 1))
         {
           break;
         }
 
-        ++v27;
+        ++v28;
       }
 
-      while (v27 < *(v24 + 8));
+      while (v28 < *(v25 + 8));
     }
   }
 
-  v28 = *(v494 + 6);
+  v29 = *(v470 + 6);
   _Block_object_dispose(__s1, 8);
-  if (v28)
+  if (v29)
   {
-    v29 = *__error();
-    v30 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v30 = *__error();
+    v31 = _SILogForLogForCategory(16);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       buf.f_bsize = 67109120;
-      buf.f_iosize = v28;
-      _os_log_impl(&dword_1C278D000, v30, OS_LOG_TYPE_DEFAULT, "db_scan_lost_ids for %u dropped vectors", &buf, 8u);
+      buf.f_iosize = v29;
+      _os_log_impl(&dword_1C278D000, v31, OS_LOG_TYPE_DEFAULT, "db_scan_lost_ids for %u dropped vectors", &buf, 8u);
     }
 
-    *__error() = v29;
-    create_scan_touch_file(*(v22 + 32), 0);
-    scan_lost_ids(v22, 0);
-    v31 = *(v22 + 1392);
-    v32 = *(v22 + 1384);
-    if (v31)
-    {
-      v33 = *(v31 + 8);
-      if (v33)
-      {
-        v34 = *v31;
-        do
-        {
-          v35 = *v34++;
-          *(v35 + 4920) = 0;
-          --v33;
-        }
-
-        while (v33);
-      }
-    }
-
+    *__error() = v30;
+    create_scan_touch_file(*(v23 + 32), 0);
+    scan_lost_ids(v23, 0);
+    v32 = *(v23 + 1392);
+    v33 = *(v23 + 1384);
     if (v32)
     {
-      v36 = *(v32 + 8);
-      if (v36)
+      v34 = *(v32 + 8);
+      if (v34)
       {
-        v37 = *v32;
+        v35 = *v32;
         do
         {
-          v38 = *v37++;
-          *(v38 + 4920) = 0;
-          --v36;
+          v36 = *v35++;
+          *(v36 + 4920) = 0;
+          --v34;
         }
 
-        while (v36);
+        while (v34);
+      }
+    }
+
+    if (v33)
+    {
+      v37 = *(v33 + 8);
+      if (v37)
+      {
+        v38 = *v33;
+        do
+        {
+          v39 = *v38++;
+          *(v39 + 4920) = 0;
+          --v37;
+        }
+
+        while (v37);
       }
     }
   }
 
-  v458 = v20;
-  v460 = v10;
-  v39 = v10;
-  v40 = dispatch_queue_attr_make_with_qos_class(MEMORY[0x1E69E96A8], QOS_CLASS_BACKGROUND, 0);
-  *(v22 + 1184) = dispatch_queue_create("com.apple.spotlight.index.journal.toc", v40);
+  v434 = v21;
+  v436 = v11;
+  v40 = v11;
+  v41 = dispatch_queue_attr_make_with_qos_class(MEMORY[0x1E69E96A8], QOS_CLASS_BACKGROUND, 0);
+  *(v23 + 1184) = dispatch_queue_create("com.apple.spotlight.index.journal.toc", v41);
   bzero(__s1, 0x400uLL);
-  v41 = *(v22 + 32);
+  v42 = *(v23 + 32);
   bzero(&buf, 0x878uLL);
-  v42 = fstatfs(v41, &buf);
-  v43 = buf.f_blocks * buf.f_bsize;
-  if (v42)
+  v43 = fstatfs(v42, &buf);
+  v44 = buf.f_blocks * buf.f_bsize;
+  if (v43)
   {
-    v43 = -1;
+    v44 = -1;
   }
 
-  *(v22 + 2472) = v43;
-  *(v22 + 6876) = 0x7FFFFFFF;
-  v44 = 832;
+  *(v23 + 2472) = v44;
+  *(v23 + 6876) = 0x7FFFFFFF;
+  v45 = 832;
   do
   {
-    v45 = v44;
-    *(v22 + v44) = dispatch_semaphore_create(16);
-    v44 = v45 + 8;
+    v46 = v45;
+    *(v23 + v45) = dispatch_semaphore_create(16);
+    v45 = v46 + 8;
   }
 
-  while (v45 != 856);
-  atomic_store(0, (v22 + 6888));
-  *(v22 + 1480) = 0;
-  *(v22 + 1472) = 0;
-  if (*(v22 + 2072) != 1)
+  while (v46 != 856);
+  atomic_store(0, (v23 + 6888));
+  *(v23 + 1480) = 0;
+  *(v23 + 1472) = 0;
+  if (*(v23 + 2072) != 1)
   {
-    *(v22 + 64) = 0;
-    if ((v17 & 0x100) == 0)
+    *(v23 + 64) = 0;
+    if ((v18 & 0x100) == 0)
     {
       goto LABEL_35;
     }
@@ -6234,63 +6148,63 @@ LABEL_10:
     goto LABEL_34;
   }
 
-  v46 = dispatch_workloop_create("Watchdog workloop");
-  v47 = dispatch_queue_create_with_target_V2("Watchdog timer queue", 0, v46);
-  v48 = dispatch_source_create(MEMORY[0x1E69E9710], 1uLL, 0, v47);
-  dispatch_release(v46);
-  v49 = malloc_type_calloc(1uLL, 0x78uLL, 0x1060040D8F80976uLL);
-  *v49 = v48;
-  v49[1] = v47;
-  *(v49 + 16) = 0;
-  v49[9] = 0;
-  v49[12] = 0;
-  v49[14] = 0;
-  *(v49 + 20) = 0;
-  *(v49 + 2) = 0u;
-  *(v49 + 3) = 0u;
-  *(v49 + 16) = 0;
-  *(v22 + 64) = v49;
+  v47 = dispatch_workloop_create("Watchdog workloop");
+  v48 = dispatch_queue_create_with_target_V2("Watchdog timer queue", 0, v47);
+  v49 = dispatch_source_create(MEMORY[0x1E69E9710], 1uLL, 0, v48);
+  dispatch_release(v47);
+  v50 = malloc_type_calloc(1uLL, 0x78uLL, 0x1060040D8F80976uLL);
+  *v50 = v49;
+  v50[1] = v48;
+  *(v50 + 16) = 0;
+  v50[9] = 0;
+  v50[12] = 0;
+  v50[14] = 0;
+  *(v50 + 20) = 0;
+  *(v50 + 2) = 0u;
+  *(v50 + 3) = 0u;
+  *(v50 + 16) = 0;
+  *(v23 + 64) = v50;
   *&buf.f_bsize = MEMORY[0x1E69E9820];
   buf.f_blocks = 0x40000000;
   buf.f_bfree = __si_indexingWatchdogInit_block_invoke;
   buf.f_bavail = &__block_descriptor_tmp_7_3953;
-  buf.f_files = v49;
-  buf.f_ffree = v22;
-  dispatch_source_set_event_handler(v48, &buf);
-  if ((v17 & 0x100) != 0)
+  buf.f_files = v50;
+  buf.f_ffree = v23;
+  dispatch_source_set_event_handler(v49, &buf);
+  if ((v18 & 0x100) != 0)
   {
 LABEL_34:
-    *(v22 + 2128) = xmmword_1C2BFA340;
-    *(v22 + 672) = 0;
-    *(v22 + 328) = 0;
-    *(v22 + 656) = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    si_init_orphan_oid(v22);
+    *(v23 + 2128) = xmmword_1C2BFA340;
+    *(v23 + 672) = 0;
+    *(v23 + 328) = 0;
+    *(v23 + 656) = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+    si_init_orphan_oid(v23);
   }
 
 LABEL_35:
-  bzero((v22 + 7040), 0xC00uLL);
+  bzero((v23 + 7040), 0xC00uLL);
   add_explicit = atomic_fetch_add_explicit(&exceptionSequenceNum, 1u, memory_order_relaxed);
-  v484 = 0;
-  *&v483[4] = 0;
-  *v483 = 0;
-  v51 = setThreadIdAndInfo(*(v22 + 32), sFdExceptionCallbacks, 0, 1, add_explicit + 1);
-  *&v483[8] = HIDWORD(v51);
-  v484 = v51;
-  *&v483[4] = v52;
-  *v483 = v53;
-  v54 = threadData[9 * v51 + 1] + 320 * HIDWORD(v51);
-  *(v54 + 216) = 0;
-  v55 = *(v54 + 312);
-  v56 = *(v54 + 224);
-  if (v56)
+  v460 = 0;
+  *&v459[4] = 0;
+  *v459 = 0;
+  v52 = setThreadIdAndInfo(*(v23 + 32), sFdExceptionCallbacks, 0, 1, add_explicit + 1);
+  *&v459[8] = HIDWORD(v52);
+  v460 = v52;
+  *&v459[4] = v53;
+  *v459 = v54;
+  v55 = threadData[9 * v52 + 1] + 320 * HIDWORD(v52);
+  *(v55 + 216) = 0;
+  v56 = *(v55 + 312);
+  v57 = *(v55 + 224);
+  if (v57)
   {
-    v56(*(v54 + 288));
+    v57(*(v55 + 288));
   }
 
-  v482 = v484;
-  v481 = *&v483[8];
-  v480 = *v483;
-  if (_setjmp(v54))
+  v458 = v460;
+  v457 = *&v459[8];
+  v456 = *v459;
+  if (_setjmp(v55))
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
@@ -6298,230 +6212,229 @@ LABEL_35:
       _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", &buf, 2u);
     }
 
-    *(v54 + 312) = v55;
-    CIOnThreadCleanUpReset(v480);
-    dropThreadId(v482, 1, add_explicit + 1);
-    CICleanUpReset(v482, HIDWORD(v480));
+    *(v55 + 312) = v56;
+    CIOnThreadCleanUpReset(v456);
+    dropThreadId(v458, 1, add_explicit + 1);
+    CICleanUpReset(v458, HIDWORD(v456));
 LABEL_146:
-    _SICloseIndex(v22, 0);
-    pthread_mutex_destroy((v22 + 1880));
-    pthread_cond_destroy((v22 + 1944));
-    pthread_mutex_destroy((v22 + 1504));
-    pthread_mutex_destroy((v22 + 1568));
-    pthread_mutex_destroy((v22 + 1632));
-    pthread_mutex_destroy((v22 + 6976));
-    pthread_mutex_destroy((v22 + 2256));
-    pthread_rwlock_destroy((v22 + 80));
-    result = 0xFFFFFFFFLL;
-    goto LABEL_147;
+    _SICloseIndex(v23, 0);
+    pthread_mutex_destroy((v23 + 1880));
+    pthread_cond_destroy((v23 + 1944));
+    pthread_mutex_destroy((v23 + 1504));
+    pthread_mutex_destroy((v23 + 1568));
+    pthread_mutex_destroy((v23 + 1632));
+    pthread_mutex_destroy((v23 + 6976));
+    pthread_mutex_destroy((v23 + 2256));
+    pthread_rwlock_destroy((v23 + 80));
+    return 0xFFFFFFFFLL;
   }
 
-  v462 = v39;
-  v57 = *MEMORY[0x1E695E480];
+  v438 = v40;
   v58 = *MEMORY[0x1E695E480];
-  *(v22 + 72) = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  v59 = *MEMORY[0x1E695E480];
+  *(v23 + 72) = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   valuePtr = 1;
-  v59 = CFNumberCreate(v57, kCFNumberIntType, &valuePtr);
-  if (v59)
+  v60 = CFNumberCreate(v58, kCFNumberIntType, &valuePtr);
+  if (v60)
   {
-    v60 = v59;
-    CFDictionarySetValue(*(v22 + 72), @"version", v59);
-    CFRelease(v60);
+    v61 = v60;
+    CFDictionarySetValue(*(v23 + 72), @"version", v60);
+    CFRelease(v61);
   }
 
-  *(v22 + 1704) = CFBagCreateMutable(v58, 64, MEMORY[0x1E695E9D0]);
-  if (*(v22 + 32) && *(v22 + 1192))
+  *(v23 + 1704) = CFBagCreateMutable(v59, 64, MEMORY[0x1E695E9D0]);
+  if (*(v23 + 32) && *(v23 + 1192))
   {
-    _si_init_localized_terms(v22);
+    _si_init_localized_terms(v23);
   }
 
-  if ((v17 & 0x80000109) == 0 && !a9 && !*(v22 + 6624))
+  if ((v18 & 0x80000109) == 0 && !a10 && !*(v23 + 6624))
   {
-    v419 = __si_assert_copy_extra_661(-1);
-    v387 = v419;
-    v420 = "";
-    if (v419)
+    v395 = __si_assert_copy_extra_661(-1);
+    v363 = v395;
+    v396 = "";
+    if (v395)
     {
-      v420 = v419;
+      v396 = v395;
     }
 
-    v429 = "fs_only || newIndex->dirStore || rebuildDirStore";
-    v431 = v420;
-    v389 = 15551;
-LABEL_520:
-    __message_assert("%s:%u: failed assertion '%s' %s ", "SpotlightIndex.c", v389, v429, v431);
-    free(v387);
+    v405 = "fs_only || newIndex->dirStore || rebuildDirStore";
+    v407 = v396;
+    v365 = 15551;
+LABEL_512:
+    __message_assert("%s:%u: failed assertion '%s' %s ", "SpotlightIndex.c", v365, v405, v407);
+    free(v363);
     if (__valid_fs(-1))
     {
-      v394 = 2989;
+      v370 = 2989;
     }
 
     else
     {
-      v394 = 3072;
+      v370 = 3072;
     }
 
-    *v394 = -559038737;
+    *v370 = -559038737;
     abort();
   }
 
-  *(v22 + 828) = v17;
-  if (*(v22 + 2072) == 1)
+  *(v23 + 828) = v18;
+  if (*(v23 + 2072) == 1)
   {
-    *(v22 + 6584) |= 0x300000u;
+    *(v23 + 6584) |= 0x300000u;
   }
 
-  v465 = v17 & 0x80000109;
-  v61 = *(v22 + 32);
-  value = v22;
-  v468 = add_explicit;
-  v467 = v55;
-  v464 = v58;
-  if ((v17 & 0x100) != 0)
+  v441 = v18 & 0x80000109;
+  v62 = *(v23 + 32);
+  value = v23;
+  v444 = add_explicit;
+  v443 = v56;
+  v440 = v59;
+  if ((v18 & 0x100) != 0)
   {
-    v521 = 0u;
-    v520 = 0u;
-    v519 = 0u;
-    v518 = 0u;
-    v517 = 0u;
-    v516 = 0u;
-    v515 = 0u;
-    v514 = 0u;
-    v513 = 0u;
-    v512 = 0u;
-    v511 = 0u;
-    v510 = 0u;
-    v509 = 0u;
-    v508 = 0u;
-    v507 = 0u;
-    v506 = 0u;
-    v505 = 0u;
-    v504 = 0u;
-    v503 = 0u;
-    v502 = 0u;
-    v501 = 0u;
-    v500 = 0u;
-    v499 = 0u;
-    memset(&v498, 0, sizeof(v498));
-    snprintf(&v498, 0x200uLL, "doc_store_load(%d, %s, %lld)", v61, "docstore", 1);
-    v486[1] = 0;
-    v486[0] = 0;
-    ScopeLogger::ScopeLogger(v486, &v498);
-    memset(v485, 0, sizeof(v485));
-    analytics::ScopedLogger<analytics::OpenEvent>::ScopedLogger();
+    v497 = 0u;
+    v496 = 0u;
+    v495 = 0u;
+    v494 = 0u;
+    v493 = 0u;
+    v492 = 0u;
+    v491 = 0u;
+    v490 = 0u;
+    v489 = 0u;
+    v488 = 0u;
+    v487 = 0u;
+    v486 = 0u;
+    v485 = 0u;
+    v484 = 0u;
+    v483 = 0u;
+    v482 = 0u;
+    v481 = 0u;
+    v480 = 0u;
+    v479 = 0u;
+    v478 = 0u;
+    v477 = 0u;
+    v476 = 0u;
+    v475 = 0u;
+    memset(&v474, 0, sizeof(v474));
+    snprintf(&v474, 0x200uLL, "doc_store_load(%d, %s, %lld)", v62, "docstore", 1);
+    v462[1] = 0;
+    v462[0] = 0;
+    ScopeLogger::ScopeLogger(v462, &v474);
+    memset(v461, 0, sizeof(v461));
+    analytics::ScopedLogger<analytics::OpenEvent>::ScopedLogger(v461);
   }
 
-  v62 = fcntl(*(v22 + 32), 50, __s1);
-  v63 = 0;
-  if ((v62 & 0x80000000) == 0 && __s1[0])
+  v63 = fcntl(*(v23 + 32), 50, __s1);
+  v64 = 0;
+  if ((v63 & 0x80000000) == 0 && __s1[0])
   {
-    v64 = strstr(__s1, "NSFile");
-    if (v64)
+    v65 = strstr(__s1, "NSFile");
+    if (v65)
     {
-      v63 = v64;
+      v64 = v65;
     }
 
     else
     {
-      v63 = __s1;
+      v64 = __s1;
     }
   }
 
-  v452 = v63;
-  if (*(v22 + 1192))
+  v428 = v64;
+  if (*(v23 + 1192))
   {
-    _SIInitSDB(v22, v17, (v17 >> 2) & 1);
-    v65 = SICopyProperty(v22, @"JournalSerialNumber");
-    if (v65)
+    _SIInitSDB(v23, v18, (v18 >> 2) & 1);
+    v66 = SICopyProperty(v23, @"JournalSerialNumber");
+    if (v66)
     {
-      v66 = v65;
-      v67 = CFGetTypeID(v65);
-      if (v67 == CFNumberGetTypeID())
+      v67 = v66;
+      v68 = CFGetTypeID(v66);
+      if (v68 == CFNumberGetTypeID())
       {
         *&buf.f_bsize = 0;
-        CFNumberGetValue(v66, kCFNumberSInt64Type, &buf);
+        CFNumberGetValue(v67, kCFNumberSInt64Type, &buf);
         if (*&buf.f_bsize)
         {
-          *(v22 + 2128) = *&buf.f_bsize;
+          *(v23 + 2128) = *&buf.f_bsize;
         }
       }
 
-      CFRelease(v66);
+      CFRelease(v67);
     }
 
-    v68 = SICopyProperty(v22, @"ConsumedJournalSerialNumber");
-    if (v68)
+    v69 = SICopyProperty(v23, @"ConsumedJournalSerialNumber");
+    if (v69)
     {
-      v69 = v68;
-      v70 = CFGetTypeID(v68);
-      if (v70 == CFNumberGetTypeID())
+      v70 = v69;
+      v71 = CFGetTypeID(v69);
+      if (v71 == CFNumberGetTypeID())
       {
         *&buf.f_bsize = 0;
-        CFNumberGetValue(v69, kCFNumberSInt64Type, &buf);
+        CFNumberGetValue(v70, kCFNumberSInt64Type, &buf);
         if (*&buf.f_bsize)
         {
-          *(v22 + 2136) = *&buf.f_bsize;
+          *(v23 + 2136) = *&buf.f_bsize;
         }
       }
 
-      CFRelease(v69);
+      CFRelease(v70);
     }
 
-    v71 = SICopyProperty(v22, @"kSIIdentifierHashVersion");
-    if (v71)
+    v72 = SICopyProperty(v23, @"kSIIdentifierHashVersion");
+    if (v72)
     {
-      v72 = v71;
-      v73 = CFGetTypeID(v71);
-      if (v73 == CFNumberGetTypeID())
+      v73 = v72;
+      v74 = CFGetTypeID(v72);
+      if (v74 == CFNumberGetTypeID())
       {
         buf.f_bsize = 0;
-        CFNumberGetValue(v72, kCFNumberIntType, &buf);
-        *(v22 + 6584) = *(v22 + 6584) & 0xF7FFFFFF | ((buf.f_bsize & 1) << 27);
+        CFNumberGetValue(v73, kCFNumberIntType, &buf);
+        *(v23 + 6584) = *(v23 + 6584) & 0xF7FFFFFF | ((buf.f_bsize & 1) << 27);
       }
 
-      CFRelease(v72);
+      CFRelease(v73);
     }
 
-    v74 = SICopyProperty(v22, @"kSIIdentifierHashVersion");
-    if (v74)
+    v75 = SICopyProperty(v23, @"kSIIdentifierHashVersion");
+    if (v75)
     {
-      v75 = v74;
-      v76 = CFGetTypeID(v74);
-      if (v76 == CFNumberGetTypeID())
+      v76 = v75;
+      v77 = CFGetTypeID(v75);
+      if (v77 == CFNumberGetTypeID())
       {
         buf.f_bsize = 0;
-        CFNumberGetValue(v75, kCFNumberIntType, &buf);
-        *(v22 + 6584) = *(v22 + 6584) & 0xF7FFFFFF | ((buf.f_bsize & 1) << 27);
+        CFNumberGetValue(v76, kCFNumberIntType, &buf);
+        *(v23 + 6584) = *(v23 + 6584) & 0xF7FFFFFF | ((buf.f_bsize & 1) << 27);
       }
 
-      CFRelease(v75);
+      CFRelease(v76);
     }
 
-    if ((v462 & 1) == 0)
+    if ((v438 & 1) == 0)
     {
-      v77 = *(v22 + 1456);
-      if (v77 <= 1)
+      v78 = *(v23 + 1456);
+      if (v78 <= 1)
       {
-        v77 = 1;
+        v78 = 1;
       }
 
       *&buf.f_bsize = 0;
       buf.f_blocks = &buf;
       buf.f_bfree = 0x2000000000;
-      LODWORD(buf.f_bavail) = v77;
-      v78 = *(v22 + 1392);
-      v79 = *(v22 + 1384);
-      v475[0] = MEMORY[0x1E69E9820];
-      v475[1] = 0x40000000;
-      v476 = __SIInitIndex_block_invoke_1107;
-      v477 = &unk_1E8191CE0;
+      LODWORD(buf.f_bavail) = v78;
+      v79 = *(v23 + 1392);
+      v80 = *(v23 + 1384);
+      v451[0] = MEMORY[0x1E69E9820];
+      v451[1] = 0x40000000;
+      v452 = __SIInitIndex_block_invoke_1107;
+      v453 = &unk_1E8191CE0;
       p_buf = &buf;
-      if (v78 && *(v78 + 8))
+      if (v79 && *(v79 + 8))
       {
-        v80 = 0;
-        while ((v476)(v475, *(*v78 + 8 * v80), 0))
+        v81 = 0;
+        while ((v452)(v451, *(*v79 + 8 * v81), 0))
         {
-          if (++v80 >= *(v78 + 8))
+          if (++v81 >= *(v79 + 8))
           {
             goto LABEL_86;
           }
@@ -6531,51 +6444,51 @@ LABEL_520:
       else
       {
 LABEL_86:
-        if (v79 && *(v79 + 8))
+        if (v80 && *(v80 + 8))
         {
-          v81 = 0;
+          v82 = 0;
           do
           {
-            if (!(v476)(v475, *(*v79 + 8 * v81), 1))
+            if (!(v452)(v451, *(*v80 + 8 * v82), 1))
             {
               break;
             }
 
-            ++v81;
+            ++v82;
           }
 
-          while (v81 < *(v79 + 8));
+          while (v82 < *(v80 + 8));
         }
       }
 
-      v82 = *(buf.f_blocks + 24);
-      if (v82 > *(v22 + 1456))
+      v83 = *(buf.f_blocks + 24);
+      if (v83 > *(v23 + 1456))
       {
-        *(v22 + 1456) = v82;
-        v83 = CFNumberCreate(v58, kCFNumberSInt32Type, (v22 + 1456));
-        SISetProperty(v22, @"kSINextIndexId", v83);
-        CFRelease(v83);
+        *(v23 + 1456) = v83;
+        v84 = CFNumberCreate(v59, kCFNumberSInt32Type, (v23 + 1456));
+        SISetProperty(v23, @"kSINextIndexId", v84);
+        CFRelease(v84);
       }
 
-      v84 = SICopyProperty(v22, @"kSPHasPhotos");
-      v85 = *MEMORY[0x1E695E4D0];
-      *(v22 + 10112) = v84 == *MEMORY[0x1E695E4D0];
-      *(v22 + 10113) = SICopyProperty(v22, @"kSPHasText") == v85;
+      v85 = SICopyProperty(v23, @"kSPHasPhotos");
+      v86 = *MEMORY[0x1E695E4D0];
+      *(v23 + 10112) = v85 == *MEMORY[0x1E695E4D0];
+      *(v23 + 10113) = SICopyProperty(v23, @"kSPHasText") == v86;
       _Block_object_dispose(&buf, 8);
-      add_explicit = v468;
+      add_explicit = v444;
     }
   }
 
-  *(v22 + 1776) = CFSetCreateMutable(v58, 0, &kSILQCallbacks);
-  *(v22 + 1784) = CFDictionaryCreateMutable(v58, 0, MEMORY[0x1E695E9D8], &kQueryNodeUniqueSetValueCallbacks);
-  pthread_mutex_init((v22 + 1712), 0);
-  pthread_mutex_init((v22 + 1320), 0);
-  *(v22 + 1440) = 0;
-  v461 = v17 & 0xC;
-  if ((v17 & 0xC) != 0)
+  *(v23 + 1776) = CFSetCreateMutable(v59, 0, &kSILQCallbacks);
+  *(v23 + 1784) = CFDictionaryCreateMutable(v59, 0, MEMORY[0x1E695E9D8], &kQueryNodeUniqueSetValueCallbacks);
+  pthread_mutex_init((v23 + 1712), 0);
+  pthread_mutex_init((v23 + 1320), 0);
+  *(v23 + 1440) = 0;
+  v437 = v18 & 0xC;
+  if ((v18 & 0xC) != 0)
   {
-    v92 = cf;
-    if ((v17 & 8) != 0)
+    v87 = cf;
+    if ((v18 & 8) != 0)
     {
       goto LABEL_132;
     }
@@ -6583,597 +6496,566 @@ LABEL_86:
 
   else
   {
-    v93 = SICopyProperty(v22, @"kMDSIndexSyncCount");
-    v94 = (v22 + 2344);
-    if (v93)
+    v88 = SICopyProperty(v23, @"kMDSIndexSyncCount");
+    v89 = (v23 + 2344);
+    if (v88)
     {
-      v95 = v93;
-      CFNumberGetValue(v93, kCFNumberIntType, v94);
-      CFRelease(v95);
+      v90 = v88;
+      CFNumberGetValue(v88, kCFNumberIntType, v89);
+      CFRelease(v90);
     }
 
     else
     {
-      *v94 = 1;
+      *v89 = 1;
     }
 
-    v96 = SICopyProperty(v22, @"kMDSIndexDeferSyncCount");
-    v86 = (v22 + 2348);
+    v91 = SICopyProperty(v23, @"kMDSIndexDeferSyncCount");
+    v92 = (v23 + 2348);
+    if (v91)
+    {
+      v93 = v91;
+      CFNumberGetValue(v91, kCFNumberIntType, v92);
+      CFRelease(v93);
+    }
+
+    else
+    {
+      *v92 = 1;
+    }
+
+    v87 = cf;
+  }
+
+  if ((*(v23 + 2073) & 1) == 0)
+  {
+    v94 = SICopyProperty(v23, @"kSITokenizerUnigrams");
+    if (v94)
+    {
+      v95 = v94;
+      if (CFBooleanGetValue(v94))
+      {
+        *(v23 + 2073) = 1;
+      }
+
+      CFRelease(v95);
+      v87 = cf;
+    }
+  }
+
+  if ((*(v23 + 6587) & 6) == 0)
+  {
+    v96 = SICopyProperty(v23, @"kSITokenizerUseCRF");
     if (v96)
     {
       v97 = v96;
-      CFNumberGetValue(v96, kCFNumberIntType, v86);
+      if (CFBooleanGetValue(v96))
+      {
+        *(v23 + 6584) = *(v23 + 6584) & 0xF9FFFFFF | 0x2000000;
+      }
+
       CFRelease(v97);
+      v87 = cf;
     }
 
-    else
-    {
-      *v86 = 1;
-    }
-
-    v92 = cf;
-  }
-
-  if ((*(v22 + 2073) & 1) == 0)
-  {
-    v98 = SICopyProperty(v22, @"kSITokenizerUnigrams");
+    v98 = SICopyProperty(v23, @"kSITokenizerVersion");
     if (v98)
     {
       v99 = v98;
-      if (CFBooleanGetValue(v98))
-      {
-        *(v22 + 2073) = 1;
-      }
-
-      CFRelease(v99);
-      v92 = cf;
-    }
-  }
-
-  if ((*(v22 + 6587) & 6) == 0)
-  {
-    v100 = SICopyProperty(v22, @"kSITokenizerUseCRF");
-    if (v100)
-    {
-      v101 = v100;
-      if (CFBooleanGetValue(v100))
-      {
-        *(v22 + 6584) = *(v22 + 6584) & 0xF9FFFFFF | 0x2000000;
-      }
-
-      CFRelease(v101);
-      v92 = cf;
-    }
-
-    v102 = SICopyProperty(v22, @"kSITokenizerVersion");
-    if (v102)
-    {
-      v103 = v102;
-      *(v22 + 6584) |= 0x6000000u;
-      v104 = CFGetTypeID(v102);
-      if (v104 == CFNumberGetTypeID())
+      *(v23 + 6584) |= 0x6000000u;
+      v100 = CFGetTypeID(v98);
+      if (v100 == CFNumberGetTypeID())
       {
         buf.f_bsize = 0;
-        if (CFNumberGetValue(v103, kCFNumberIntType, &buf))
+        if (CFNumberGetValue(v99, kCFNumberIntType, &buf))
         {
           if (buf.f_bsize - 1 <= 2)
           {
-            *(v22 + 6584) = *(v22 + 6584) & 0xF9FFFFFF | (buf.f_bsize << 25);
+            *(v23 + 6584) = *(v23 + 6584) & 0xF9FFFFFF | (buf.f_bsize << 25);
           }
         }
       }
 
-      CFRelease(v103);
-      v92 = cf;
+      CFRelease(v99);
+      v87 = cf;
     }
 
-    if ((v17 & 1) == 0 && (~*(v22 + 6584) & 0x6000000) != 0)
+    if ((v18 & 1) == 0 && (~*(v23 + 6584) & 0x6000000) != 0)
     {
-      v105 = CFLocaleCopyPreferredLanguages();
-      if (v105)
+      v101 = CFLocaleCopyPreferredLanguages();
+      if (v101)
       {
-        v106 = v105;
-        if (CFArrayGetCount(v105))
+        v102 = v101;
+        if (CFArrayGetCount(v101))
         {
-          ValueAtIndex = CFArrayGetValueAtIndex(v106, 0);
+          ValueAtIndex = CFArrayGetValueAtIndex(v102, 0);
           if (CFStringFind(ValueAtIndex, @"ko", 9uLL).length)
           {
-            v108 = *__error();
-            v109 = _SILogForLogForCategory(0);
-            if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
+            v104 = *__error();
+            v105 = _SILogForLogForCategory(0);
+            if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
             {
-              v406 = *(v22 + 6584);
+              v382 = *(v23 + 6584);
               buf.f_bsize = 136315906;
               *&buf.f_iosize = "SIInitIndex";
               WORD2(buf.f_blocks) = 1024;
               *(&buf.f_blocks + 6) = 15792;
               WORD1(buf.f_bfree) = 1024;
-              HIDWORD(buf.f_bfree) = (v406 >> 25) & 3;
+              HIDWORD(buf.f_bfree) = (v382 >> 25) & 3;
               LOWORD(buf.f_bavail) = 2112;
               *(&buf.f_bavail + 2) = ValueAtIndex;
-              _os_log_error_impl(&dword_1C278D000, v109, OS_LOG_TYPE_ERROR, "%s:%d: rebuild index for tokenizer (%d) %@", &buf, 0x22u);
+              _os_log_error_impl(&dword_1C278D000, v105, OS_LOG_TYPE_ERROR, "%s:%d: rebuild index for tokenizer (%d) %@", &buf, 0x22u);
             }
 
-            *__error() = v108;
-            CFRelease(v106);
-            __si_set_error_str(1, "%s:%u: %s", v110, v111, v112, v113, v114, v115, "SpotlightIndex.c");
-            __si_set_rebuild_reason(v116, v117, "%s:%u: %s", "SpotlightIndex.c", 15799, "tokenizer");
+            *__error() = v104;
+            CFRelease(v102);
+            __si_set_error_str(1, "%s:%u: %s", "SpotlightIndex.c", 15798, "rebuild for tokenizer");
+            __si_set_rebuild_reason(v106, v107, "%s:%u: %s", "SpotlightIndex.c", 15799, "tokenizer");
             goto LABEL_143;
           }
         }
 
-        CFRelease(v106);
-        v92 = cf;
+        CFRelease(v102);
+        v87 = cf;
       }
     }
   }
 
-  if ((v17 & 0xC) == 0)
+  if ((v18 & 0xC) == 0)
   {
-    v118 = *(v22 + 1192);
-    if (v118)
+    v108 = *(v23 + 1192);
+    if (v108)
     {
-      db_create_id_for_field(v118, "kMDItemAttributeChangeDate", 0, 12);
+      db_create_id_for_field(v108, "kMDItemAttributeChangeDate", 0, 12);
     }
   }
 
 LABEL_132:
-  if (v92)
+  if (v87)
   {
-    CFRetain(v92);
+    CFRetain(v87);
   }
 
-  *(v22 + 1416) = v92;
-  if (v458 && (v17 & 0x100) == 0)
+  *(v23 + 1416) = v87;
+  if (v434 && (v18 & 0x100) == 0)
   {
-    if ((v458[7] & 0x80) != 0)
+    if ((v434[7] & 0x80) != 0)
     {
-      v119 = 0;
+      v109 = 0;
     }
 
     else
     {
-      v119 = (v458[7] >> 7) & 2;
+      v109 = (v434[7] >> 7) & 2;
     }
 
-    v120 = v119 | *(v22 + 6584) & 0xFFFFFFFD;
-    *(v22 + 6584) = v120;
-    v121 = v120 & 0xFFFFFFFB | (4 * ((v458[7] >> 5) & 1));
-    *(v22 + 6584) = v121;
-    v122 = v121 & 0xFFFFFFFE | (v458[7] >> 13) & 1;
-    *(v22 + 6584) = v122;
-    *(v22 + 6584) = (v122 & 0xFFBFFFFF | (((v458[7] >> 2) & 1) << 22)) ^ 0x400000;
+    v110 = v109 | *(v23 + 6584) & 0xFFFFFFFD;
+    *(v23 + 6584) = v110;
+    v111 = v110 & 0xFFFFFFFB | (4 * ((v434[7] >> 5) & 1));
+    *(v23 + 6584) = v111;
+    v112 = v111 & 0xFFFFFFFE | (v434[7] >> 13) & 1;
+    *(v23 + 6584) = v112;
+    *(v23 + 6584) = (v112 & 0xFFBFFFFF | (((v434[7] >> 2) & 1) << 22)) ^ 0x400000;
 LABEL_141:
-    if (!v92)
+    if (!v87)
     {
-      __si_set_error_str(1, "%s:%u: %s", v86, v87, v88, v89, v90, v91, "SpotlightIndex.c");
+      __si_set_error_str(1, "%s:%u: %s", "SpotlightIndex.c", 15832, "open persistent id store error");
 LABEL_143:
-      v123 = threadData[9 * v482 + 1] + 320 * v481;
-      *(v123 + 312) = v55;
-      v124 = *(v123 + 232);
-      if (v124)
+      v113 = threadData[9 * v458 + 1] + 320 * v457;
+      *(v113 + 312) = v56;
+      v114 = *(v113 + 232);
+      if (v114)
       {
-        v124(*(v123 + 288));
+        v114(*(v113 + 288));
       }
 
-      dropThreadId(v482, 0, add_explicit + 1);
+      dropThreadId(v458, 0, add_explicit + 1);
       goto LABEL_146;
     }
 
-    goto LABEL_148;
+    goto LABEL_147;
   }
 
-  if ((v17 & 0x100) == 0)
+  if ((v18 & 0x100) == 0)
   {
     goto LABEL_141;
   }
 
-LABEL_148:
-  v492 = 0u;
-  v491 = 0u;
-  v490 = 0u;
-  v489 = 0u;
-  v488 = 0u;
-  *v487 = 0u;
+LABEL_147:
+  v468 = 0u;
+  v467 = 0u;
+  v466 = 0u;
+  v465 = 0u;
+  v464 = 0u;
+  *v463 = 0u;
   Current = CFAbsoluteTimeGetCurrent();
   pthread_mutex_lock(&schlock);
-  v128 = CFAbsoluteTimeGetCurrent() - Current;
-  if (v128 > 60.0)
+  v117 = CFAbsoluteTimeGetCurrent() - Current;
+  if (v117 > 60.0)
   {
-    v129 = *__error();
-    v130 = _SILogForLogForCategory(3);
-    if (os_log_type_enabled(v130, OS_LOG_TYPE_DEFAULT))
+    v118 = *__error();
+    v119 = _SILogForLogForCategory(3);
+    if (os_log_type_enabled(v119, OS_LOG_TYPE_DEFAULT))
     {
       buf.f_bsize = 134217984;
-      *&buf.f_iosize = v128;
-      _os_log_impl(&dword_1C278D000, v130, OS_LOG_TYPE_DEFAULT, "[shutdown hang] Waited %lfs for schlock", &buf, 0xCu);
+      *&buf.f_iosize = v117;
+      _os_log_impl(&dword_1C278D000, v119, OS_LOG_TYPE_DEFAULT, "[shutdown hang] Waited %lfs for schlock", &buf, 0xCu);
     }
 
-    *__error() = v129;
+    *__error() = v118;
   }
 
-  v131 = 12;
-  if ((v17 & 4) != 0)
+  v120 = 12;
+  if ((v18 & 4) != 0)
   {
-    v131 = 9;
+    v120 = 9;
   }
 
-  v469 = v17;
-  if ((v17 & 8) != 0)
+  v445 = v18;
+  if ((v18 & 8) != 0)
   {
-    v132 = 6;
+    v121 = 6;
   }
 
   else
   {
-    v132 = v131;
+    v121 = v120;
   }
 
-  v133 = global_schedulers;
-  v134 = v132;
+  v122 = global_schedulers;
+  v123 = v121;
   do
   {
-    if (!*v133)
+    if (!*v122)
     {
       *&buf.f_bsize = xmmword_1F427BA38;
       *&buf.f_bfree = *&off_1F427BA48;
       buf.f_files = qword_1F427BA58;
-      *v133 = CFDictionaryCreateMutable(v58, 0, 0, &buf);
+      *v122 = CFDictionaryCreateMutable(v59, 0, 0, &buf);
     }
 
-    ++v133;
-    --v134;
+    ++v122;
+    --v123;
   }
 
-  while (v134);
-  if ((v469 & 8) == 0)
+  while (v123);
+  if ((v445 & 8) == 0)
   {
     Mutable = gAllIndexes;
     if (!gAllIndexes)
     {
-      Mutable = CFSetCreateMutable(v58, 0, 0);
+      Mutable = CFSetCreateMutable(v59, 0, 0);
       gAllIndexes = Mutable;
     }
 
-    CFSetAddValue(Mutable, v22);
+    CFSetAddValue(Mutable, v23);
   }
 
-  v136 = v459;
-  if (v459)
+  v125 = v435;
+  if (v435)
   {
-    v136 = *v459;
+    v125 = *v435;
   }
 
-  v444 = v136;
-  if (v458)
+  v420 = v125;
+  if (v434)
   {
-    v137 = *v458;
+    v126 = *v434;
   }
 
   else
   {
-    v137 = 0;
+    v126 = 0;
   }
 
-  *(v22 + 1404) = v444;
-  v443 = v137;
-  *(v22 + 1408) = v137;
-  *(v22 + 6584) |= 0x1000000u;
+  *(v23 + 1404) = v420;
+  v419 = v126;
+  *(v23 + 1408) = v126;
+  *(v23 + 6584) |= 0x1000000u;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 0x40000000;
   block[2] = __SIInitIndex_block_invoke_1116;
   block[3] = &__block_descriptor_tmp_1120;
-  block[4] = v22;
+  block[4] = v23;
   if (SIInitIndex_once != -1)
   {
     dispatch_once(&SIInitIndex_once, block);
   }
 
-  if (SIInitIndex_override == 1 && (HIBYTE(*(v22 + 6584)) & 1) != SIInitIndex_lowLatency)
+  if (SIInitIndex_override == 1 && (HIBYTE(*(v23 + 6584)) & 1) != SIInitIndex_lowLatency)
   {
-    v138 = *__error();
-    v139 = _SILogForLogForCategory(0);
-    if (os_log_type_enabled(v139, OS_LOG_TYPE_DEFAULT))
+    v127 = *__error();
+    v128 = _SILogForLogForCategory(0);
+    if (os_log_type_enabled(v128, OS_LOG_TYPE_DEFAULT))
     {
       if (SIInitIndex_lowLatency)
       {
-        v140 = "true";
+        v129 = "true";
       }
 
       else
       {
-        v140 = "false";
+        v129 = "false";
       }
 
       buf.f_bsize = 136315138;
-      *&buf.f_iosize = v140;
-      _os_log_impl(&dword_1C278D000, v139, OS_LOG_TYPE_DEFAULT, "setting low latency: %s", &buf, 0xCu);
+      *&buf.f_iosize = v129;
+      _os_log_impl(&dword_1C278D000, v128, OS_LOG_TYPE_DEFAULT, "setting low latency: %s", &buf, 0xCu);
     }
 
-    *__error() = v138;
-    *(v22 + 6584) = *(v22 + 6584) & 0xFEFFFFFF | ((SIInitIndex_lowLatency & 1) << 24);
+    *__error() = v127;
+    *(v23 + 6584) = *(v23 + 6584) & 0xFEFFFFFF | ((SIInitIndex_lowLatency & 1) << 24);
   }
 
-  v141 = (v22 + 864);
-  v142 = v22 + 1008;
-  v143 = &off_1F427B590;
-  v144 = 6;
-  v457 = value + 864;
+  v130 = (v23 + 864);
+  v131 = v23 + 1008;
+  v132 = &off_1F427B590;
+  v133 = 6;
+  v433 = value + 864;
   do
   {
     bzero(&buf, 0x450uLL);
-    v146 = *(v143 + 2);
-    v145 = *(v143 + 3);
-    snprintf(&buf, 0x450uLL, "%s scheduler for index at %s", *v143, v452);
-    if (*&v141[8 * v146])
+    v135 = *(v132 + 2);
+    v134 = *(v132 + 3);
+    snprintf(&buf, 0x450uLL, "%s scheduler for index at %s", *v132, v428);
+    if (*&v130[8 * v135])
     {
-      v386 = __si_assert_copy_extra_661(-1);
-      v387 = v386;
-      v388 = "";
-      if (v386)
+      v362 = __si_assert_copy_extra_661(-1);
+      v363 = v362;
+      v364 = "";
+      if (v362)
       {
-        v388 = v386;
+        v364 = v362;
       }
 
-      v429 = "newIndex->workqueues.schedulers[schedId]==0";
-      v431 = v388;
-      v389 = 15926;
-      goto LABEL_520;
+      v405 = "newIndex->workqueues.schedulers[schedId]==0";
+      v407 = v364;
+      v365 = 15926;
+      goto LABEL_512;
     }
 
-    if (*(v142 + 8 * v145))
+    if (*(v131 + 8 * v134))
     {
-      v390 = __si_assert_copy_extra_661(-1);
-      v387 = v390;
-      v391 = "";
-      if (v390)
+      v366 = __si_assert_copy_extra_661(-1);
+      v363 = v366;
+      v367 = "";
+      if (v366)
       {
-        v391 = v390;
+        v367 = v366;
       }
 
-      v429 = "newIndex->workqueues.queues[queueId]==0";
-      v431 = v391;
-      v389 = 15927;
-      goto LABEL_520;
+      v405 = "newIndex->workqueues.queues[queueId]==0";
+      v407 = v367;
+      v365 = 15927;
+      goto LABEL_512;
     }
 
-    v147 = *(v143 - 24);
-    v148 = *(v143 - 2);
-    v149 = *(v143 - 4);
-    root_scheduler = si_create_root_scheduler(&buf);
-    v141 = value + 864;
-    *&v457[8 * v146] = root_scheduler;
-    value[2072];
-    *(v142 + 8 * v145) = si_create_child_queue(root_scheduler);
-    v143 += 7;
-    --v144;
+    v130 = value + 864;
+    *&v433[8 * v135] = si_create_root_scheduler(v136);
+    *(v131 + 8 * v134) = si_create_child_queue(v137);
+    v132 += 7;
+    --v133;
   }
 
-  while (v144);
-  v437 = value + 1008;
-  v151 = global_schedulers;
-  v152 = &byte_1F427B2E8;
-  v153 = v487;
+  while (v133);
+  v413 = value + 1008;
+  v138 = global_schedulers;
+  v139 = &byte_1F427B2E8;
+  v140 = v463;
   do
   {
-    v436 = v132;
-    if ((v469 & 0x100) != 0)
+    v412 = v121;
+    if ((v445 & 0x100) != 0)
     {
-      v154 = 0;
+      v141 = 0;
     }
 
     else
     {
-      v154 = v444;
-      if (*(v152 - 15))
+      v141 = v420;
+      if (*(v139 - 15))
       {
-        v154 = v443;
+        v141 = v419;
       }
     }
 
-    v155 = v154;
-    if (!CFDictionaryGetValueIfPresent(*v151, v154, v153))
+    v142 = v141;
+    if (!CFDictionaryGetValueIfPresent(*v138, v141, v140))
     {
       bzero(&buf, 0x400uLL);
-      snprintf(&buf, 0x400uLL, "%s scheduler for spindle %d", *(v152 + 1), v155);
-      if (*(v152 - 15) == 1)
+      snprintf(&buf, 0x400uLL, "%s scheduler for spindle %d", *(v139 + 1), v142);
+      root_scheduler = si_create_root_scheduler(v149);
+      *v140 = root_scheduler;
+      CFDictionarySetValue(*v138, v142, root_scheduler);
+      v158 = *v140;
+      if (*v140)
       {
-        v162 = v458;
-      }
-
-      else
-      {
-        v162 = v459;
-      }
-
-      if (v162 && *v152 == 1)
-      {
-        v162[7];
-      }
-
-      v172 = *(v152 - 16);
-      v173 = *(v152 - 1);
-      v174 = *(v152 - 3);
-      v175 = si_create_root_scheduler(&buf);
-      *v153 = v175;
-      CFDictionarySetValue(*v151, v155, v175);
-      v176 = *v153;
-      if (*v153 && atomic_fetch_add((v176 + 96), 0xFFFFFFFF) == 1)
-      {
-        _si_scheduler_destroy(v176);
+        if (atomic_fetch_add((v158 + 96), 0xFFFFFFFF) == 1)
+        {
+          _si_scheduler_destroy(v158);
+        }
       }
     }
 
     bzero(&buf, 0x450uLL);
-    v157 = *(v152 + 4);
-    v156 = *(v152 + 5);
-    v158 = *(v152 - 32);
-    v159 = *v152;
-    snprintf(&buf, 0x450uLL, "%s scheduler for index at %s", *(v152 + 1), v452);
-    if (*&v457[8 * v157])
+    v144 = *(v139 + 4);
+    v143 = *(v139 + 5);
+    v145 = *(v139 - 32);
+    snprintf(&buf, 0x450uLL, "%s scheduler for index at %s", *(v139 + 1), v428);
+    if (*&v433[8 * v144])
     {
-      v392 = __si_assert_copy_extra_661(-1);
-      v387 = v392;
-      v393 = "";
-      if (v392)
+      v368 = __si_assert_copy_extra_661(-1);
+      v363 = v368;
+      v369 = "";
+      if (v368)
       {
-        v393 = v392;
+        v369 = v368;
       }
 
-      v429 = "newIndex->workqueues.schedulers[schedId]==0";
-      v431 = v393;
-      v389 = 15965;
-      goto LABEL_520;
+      v405 = "newIndex->workqueues.schedulers[schedId]==0";
+      v407 = v369;
+      v365 = 15965;
+      goto LABEL_512;
     }
 
-    if (*&v437[8 * v156])
+    if (*&v413[8 * v143])
     {
-      v395 = __si_assert_copy_extra_661(-1);
-      v396 = v395;
-      v397 = "";
-      if (v395)
+      v371 = __si_assert_copy_extra_661(-1);
+      v372 = v371;
+      v373 = "";
+      if (v371)
       {
-        v397 = v395;
+        v373 = v371;
       }
 
-      v430 = "newIndex->workqueues.queues[queueId]==0";
-      v432 = v397;
-      v398 = 15966;
-      goto LABEL_527;
+      v406 = "newIndex->workqueues.queues[queueId]==0";
+      v408 = v373;
+      v374 = 15966;
+      goto LABEL_519;
     }
 
-    v160 = *v153;
-    v161 = *v153;
-    if ((v159 & 1) == 0)
-    {
-      v163 = v161[34];
-    }
-
-    v164 = *(v152 - 16);
-    v165 = *(v152 - 3);
-    v166 = *(v161 + 20);
-    scheduler = si_create_scheduler(*(v160 + 4));
-    v168 = scheduler;
-    if (v158)
+    v147 = *v140;
+    v148 = *v140;
+    scheduler = si_create_scheduler(v146);
+    v151 = scheduler;
+    if (v145)
     {
       dispatch_suspend(scheduler[20]);
-      ++*(v168 + 116);
-      v169 = debug_token_create(v168, "SIScheduler.c", 1176);
-      *(v168 + 168) = v169;
-      pthread_threadid_np(0, (v169 + 24));
+      ++*(v151 + 116);
+      v152 = debug_token_create(v151, "SIScheduler.c", 1176);
+      *(v151 + 168) = v152;
+      pthread_threadid_np(0, (v152 + 24));
     }
 
-    *(v168 + 8) = *(v161 + 2);
-    atomic_fetch_add(v160 + 24, 1u);
-    dispatch_activate(*(v168 + 32));
-    v170 = *(v161 + 4);
-    *&v498.st_dev = MEMORY[0x1E69E9820];
-    v498.st_ino = 0x40000000;
-    *&v498.st_uid = __si_create_child_scheduler_block_invoke;
-    *&v498.st_rdev = &__block_descriptor_tmp_16_1484;
-    v498.st_atimespec.tv_sec = v161;
-    v498.st_atimespec.tv_nsec = v168;
-    dispatch_sync(v170, &v498);
-    v171 = (value + 864);
-    *&v457[8 * v157] = v168;
-    value[2072];
-    *&v437[8 * v156] = si_create_child_queue(v168);
-    ++v151;
-    v152 += 56;
-    ++v153;
-    --v132;
+    *(v151 + 8) = *(v148 + 8);
+    atomic_fetch_add(v147 + 24, 1u);
+    dispatch_activate(*(v151 + 32));
+    v153 = *(v148 + 4);
+    *&v474.st_dev = MEMORY[0x1E69E9820];
+    v474.st_ino = 0x40000000;
+    *&v474.st_uid = __si_create_child_scheduler_block_invoke;
+    *&v474.st_rdev = &__block_descriptor_tmp_16_1484;
+    v474.st_atimespec.tv_sec = v148;
+    v474.st_atimespec.tv_nsec = v151;
+    dispatch_sync(v153, &v474);
+    v154 = (value + 864);
+    *&v433[8 * v144] = v151;
+    *&v413[8 * v143] = si_create_child_queue(v155);
+    ++v138;
+    v139 += 56;
+    ++v140;
+    --v121;
   }
 
-  while (v436 != 1);
-  v177 = value;
-  v178 = v464;
+  while (v412 != 1);
+  v159 = value;
+  v160 = v440;
   if (*(value + 112))
   {
-    v179 = *__error();
-    v180 = _SILogForLogForCategory(3);
-    v181 = 2 * (dword_1EBF46AD8 < 4);
-    if (os_log_type_enabled(v180, v181))
+    v161 = *__error();
+    v162 = _SILogForLogForCategory(3);
+    v163 = 2 * (dword_1EBF46AD8 < 4);
+    if (os_log_type_enabled(v162, v163))
     {
-      v182 = *(value + 112);
+      v164 = *(value + 112);
       buf.f_bsize = 134218242;
-      *&buf.f_iosize = v182;
+      *&buf.f_iosize = v164;
       WORD2(buf.f_blocks) = 2080;
-      *(&buf.f_blocks + 6) = v452;
-      _os_log_impl(&dword_1C278D000, v180, v181, "Suspending root scheduler for %p (%s)", &buf, 0x16u);
+      *(&buf.f_blocks + 6) = v428;
+      _os_log_impl(&dword_1C278D000, v162, v163, "Suspending root scheduler for %p (%s)", &buf, 0x16u);
     }
 
-    *__error() = v179;
-    v183 = *(value + 112);
+    *__error() = v161;
+    v165 = *(value + 112);
     do
     {
-      v184 = v183;
-      if (!v183)
+      v166 = v165;
+      if (!v165)
       {
         break;
       }
 
-      v183 = *v183;
+      v165 = *v165;
     }
 
-    while (*v184);
-    *(value + 306) = si_scheduler_suspend_async(v184);
+    while (*v166);
+    *(value + 306) = si_scheduler_suspend_async(v166);
   }
 
-  v185 = v468;
+  v167 = v444;
   if (dword_1EBF46AD8 >= 5)
   {
-    v413 = *__error();
-    v414 = _SILogForLogForCategory(3);
-    if (os_log_type_enabled(v414, OS_LOG_TYPE_DEFAULT))
+    v389 = *__error();
+    v390 = _SILogForLogForCategory(3);
+    if (os_log_type_enabled(v390, OS_LOG_TYPE_DEFAULT))
     {
-      v415 = *(value + 113);
+      v391 = *(value + 113);
       buf.f_bsize = 134217984;
-      *&buf.f_iosize = v415;
-      _os_log_impl(&dword_1C278D000, v414, OS_LOG_TYPE_DEFAULT, "Created volume scheduler %p", &buf, 0xCu);
+      *&buf.f_iosize = v391;
+      _os_log_impl(&dword_1C278D000, v390, OS_LOG_TYPE_DEFAULT, "Created volume scheduler %p", &buf, 0xCu);
     }
 
-    *__error() = v413;
+    *__error() = v389;
     if (dword_1EBF46AD8 >= 5)
     {
-      v416 = *__error();
-      v417 = _SILogForLogForCategory(3);
-      if (os_log_type_enabled(v417, OS_LOG_TYPE_DEFAULT))
+      v392 = *__error();
+      v393 = _SILogForLogForCategory(3);
+      if (os_log_type_enabled(v393, OS_LOG_TYPE_DEFAULT))
       {
-        v418 = *(value + 116);
+        v394 = *(value + 116);
         buf.f_bsize = 134217984;
-        *&buf.f_iosize = v418;
-        _os_log_impl(&dword_1C278D000, v417, OS_LOG_TYPE_DEFAULT, "Created index scheduler %p", &buf, 0xCu);
+        *&buf.f_iosize = v394;
+        _os_log_impl(&dword_1C278D000, v393, OS_LOG_TYPE_DEFAULT, "Created index scheduler %p", &buf, 0xCu);
       }
 
-      *__error() = v416;
+      *__error() = v392;
     }
   }
 
-  if (!v461)
+  if (!v437)
   {
-    value[2072];
-    *(value + 145) = si_create_child_queue(*(value + 109));
+    *(value + 145) = si_create_child_queue(v156);
   }
 
   pthread_mutex_unlock(&schlock);
   *(value + 865) = copyVolumeInfoStr(*(value + 8));
   for (i = 1008; i != 1168; i += 8)
   {
-    v187 = *&value[i];
-    if (v187)
+    v169 = *&value[i];
+    if (v169)
     {
-      v188 = *&value[i];
-      v189 = *(value + 8);
-      *(v187 + 40) = v189;
-      *(v188 + 48) = copyVolumeInfoStr(v189);
+      v170 = *&value[i];
+      v171 = *(value + 8);
+      *(v169 + 40) = v171;
+      *(v170 + 48) = copyVolumeInfoStr(v171);
     }
   }
 
   if (*(value + 146))
   {
-    v190 = *(value + 146);
-    *(v190 + 40) = -1;
-    *(v190 + 48) = strdup("");
+    v172 = *(value + 146);
+    *(v172 + 40) = -1;
+    *(v172 + 48) = strdup("");
   }
 
   if (*(value + 149))
@@ -7184,743 +7066,743 @@ LABEL_148:
       si_storecookieRef(value);
     }
 
-    si_getsizes(value, v460 ^ 1);
+    si_getsizes(value, v436 ^ 1);
   }
 
-  if ((v469 & 8) == 0)
+  if ((v445 & 8) == 0)
   {
-    v191 = SICopyProperty(value, @"kIndexRemappingData");
-    if (v191)
+    v173 = SICopyProperty(value, @"kIndexRemappingData");
+    if (v173)
     {
-      v192 = v191;
-      v193 = CFDictionaryGetValue(v191, remapping_keys[0]);
-      v194 = CFDictionaryGetValue(v192, off_1EBF46C08);
-      if (v193)
+      v174 = v173;
+      v175 = CFDictionaryGetValue(v173, remapping_keys[0]);
+      v176 = CFDictionaryGetValue(v174, off_1EBF46C08);
+      if (v175)
       {
-        CFNumberGetValue(v193, kCFNumberCFIndexType, value + 2384);
+        CFNumberGetValue(v175, kCFNumberCFIndexType, value + 2384);
       }
 
-      if (v194)
+      if (v176)
       {
-        v438 = v192;
-        Count = CFArrayGetCount(v194);
-        theArray = CFArrayCreateMutable(v464, 0, MEMORY[0x1E695E9C0]);
+        v414 = v174;
+        Count = CFArrayGetCount(v176);
+        theArray = CFArrayCreateMutable(v440, 0, MEMORY[0x1E695E9C0]);
         if (Count >= 1)
         {
           for (j = 0; Count != j; ++j)
           {
-            v197 = CFArrayGetValueAtIndex(v194, j);
-            v198 = *(v177 + 32);
-            v199 = CFDictionaryGetValue(v197, remapping_keys_11804);
-            v200 = CFDictionaryGetValue(v197, off_1EBF47958);
-            if (v200)
+            v179 = CFArrayGetValueAtIndex(v176, j);
+            v180 = *(v159 + 32);
+            v181 = CFDictionaryGetValue(v179, remapping_keys_11804);
+            v182 = CFDictionaryGetValue(v179, off_1EBF47958);
+            if (v182)
             {
-              v201 = v199 == 0;
+              v183 = v181 == 0;
             }
 
             else
             {
-              v201 = 1;
+              v183 = 1;
             }
 
-            if (v201)
+            if (v183)
             {
-              goto LABEL_248;
+              goto LABEL_240;
             }
 
             *&buf.f_bsize = 0;
-            v498.st_dev = 0;
-            if (!CFNumberGetValue(v200, kCFNumberCFIndexType, &buf))
+            v474.st_dev = 0;
+            if (!CFNumberGetValue(v182, kCFNumberCFIndexType, &buf))
             {
-              goto LABEL_248;
+              goto LABEL_240;
             }
 
-            if (!CFNumberGetValue(v199, kCFNumberSInt32Type, &v498))
+            if (!CFNumberGetValue(v181, kCFNumberSInt32Type, &v474))
             {
-              goto LABEL_248;
+              goto LABEL_240;
             }
 
-            v202 = CIDecodeRemappingMetadataWithIndex(v198, v498.st_dev, *&buf.f_bsize);
-            if (!v202)
+            v184 = CIDecodeRemappingMetadataWithIndex(v180, v474.st_dev, *&buf.f_bsize);
+            if (!v184)
             {
-              goto LABEL_248;
+              goto LABEL_240;
             }
 
-            v203 = v202;
-            CFArrayAppendValue(theArray, v202);
-            if ((v469 & 4) == 0)
+            v185 = v184;
+            CFArrayAppendValue(theArray, v184);
+            if ((v445 & 4) == 0)
             {
-              v204 = ContentIndexRemappingNextDocId(v203, &buf);
-              if (!v204)
+              v186 = ContentIndexRemappingNextDocId(v185, &buf);
+              if (!v186)
               {
-                goto LABEL_248;
+                goto LABEL_240;
               }
 
-              v205 = si_indexForDocId(value, v204);
-              if (!v205)
+              v187 = si_indexForDocId(value, v186);
+              if (!v187)
               {
-                goto LABEL_248;
+                goto LABEL_240;
               }
 
-              v433 = v205;
-              v206 = malloc_type_malloc(0x20uLL, 0x20040DC1BFBCFuLL);
-              *v206 = value;
-              v206[1] = v433;
-              v206[2] = CFRetain(v203);
-              si_enqueue_work(*(value + 133), si_remapForIndex, v206);
+              v409 = v187;
+              v188 = malloc_type_malloc(0x20uLL, 0x20040DC1BFBCFuLL);
+              *v188 = value;
+              v188[1] = v409;
+              v188[2] = CFRetain(v185);
+              si_enqueue_work(*(value + 133), si_remapForIndex, v188);
             }
 
-            CFRelease(v203);
-LABEL_248:
-            v177 = value;
+            CFRelease(v185);
+LABEL_240:
+            v159 = value;
           }
         }
 
-        si_inflateLeakedRemapping(v177, (v469 & 4) != 0, *(v177 + 2384), theArray);
+        si_inflateLeakedRemapping(v159, (v445 & 4) != 0, *(v159 + 2384), theArray);
         if (CFArrayGetCount(theArray))
         {
-          *(v177 + 2368) = theArray;
+          *(v159 + 2368) = theArray;
         }
 
         else
         {
-          *(v177 + 2368) = 0;
+          *(v159 + 2368) = 0;
           CFRelease(theArray);
         }
 
-        v185 = v468;
-        v178 = v464;
-        v171 = (value + 864);
-        v192 = v438;
+        v167 = v444;
+        v160 = v440;
+        v154 = (value + 864);
+        v174 = v414;
       }
 
       else
       {
-        v207 = CFArrayCreateMutable(v464, 0, MEMORY[0x1E695E9C0]);
+        v189 = CFArrayCreateMutable(v440, 0, MEMORY[0x1E695E9C0]);
         if (*(value + 298) <= 1uLL)
         {
-          v208 = 1;
+          v190 = 1;
         }
 
         else
         {
-          v208 = *(value + 298);
+          v190 = *(value + 298);
         }
 
-        si_inflateLeakedRemapping(value, (v469 & 4) != 0, v208, v207);
-        if (CFArrayGetCount(v207))
+        si_inflateLeakedRemapping(value, (v445 & 4) != 0, v190, v189);
+        if (CFArrayGetCount(v189))
         {
-          *(value + 296) = v207;
+          *(value + 296) = v189;
         }
 
         else
         {
           *(value + 296) = 0;
-          CFRelease(v207);
+          CFRelease(v189);
         }
       }
 
-      CFRelease(v192);
+      CFRelease(v174);
     }
   }
 
-  si_populateClientStates(v177);
-  if (a9 && *(v177 + 872) && *(v177 + 1040))
+  si_populateClientStates(v159);
+  if (a10 && *(v159 + 872) && *(v159 + 1040))
   {
-    v209 = malloc_type_calloc(1uLL, 0x18uLL, 0x102004093CA8EA1uLL);
-    v209[2] = a9;
-    *v209 = v177;
-    *(v209 + 2) = _si_scheduler_suspend(*(v177 + 872), "SpotlightIndex.c", 36370);
-    si_enqueue_work(*(v177 + 1040), si_repair_index_file_tree, v209);
+    v191 = malloc_type_calloc(1uLL, 0x18uLL, 0x102004093CA8EA1uLL);
+    v191[2] = a10;
+    *v191 = v159;
+    *(v191 + 2) = _si_scheduler_suspend(*(v159 + 872), "SpotlightIndex.c", 36370);
+    si_enqueue_work(*(v159 + 1040), si_repair_index_file_tree, v191);
   }
 
-  if (!v461 && (v462 & 1) == 0)
+  if (!v437 && (v438 & 1) == 0)
   {
     if (_os_feature_enabled_impl())
     {
-      if (si_check_version_property(v177, @"VEC_EXT_CLEARED_VECTORS"))
+      if (si_check_version_property(v159, @"VEC_EXT_CLEARED_VECTORS"))
       {
         buf.f_bsize = 0;
-        v210 = db_clear_vector_fields(*(v177 + 1192), &buf, *(v177 + 6592), &__block_literal_global_1181);
+        v192 = db_clear_vector_fields(*(v159 + 1192), &buf, *(v159 + 6592), &__block_literal_global_1181);
         if (buf.f_bsize)
         {
-          db_unlock_datastore(*(v177 + 1192));
+          db_unlock_datastore(*(v159 + 1192));
         }
 
-        if (!v210)
+        if (!v192)
         {
-          v211 = *__error();
-          v212 = _SILogForLogForCategory(16);
-          v213 = dword_1EBF46B0C < 3;
-          if (os_log_type_enabled(v212, (dword_1EBF46B0C < 3)))
+          v193 = *__error();
+          v194 = _SILogForLogForCategory(16);
+          v195 = dword_1EBF46B0C < 3;
+          if (os_log_type_enabled(v194, (dword_1EBF46B0C < 3)))
           {
-            LOWORD(v498.st_dev) = 0;
-            _os_log_impl(&dword_1C278D000, v212, v213, "*warn* Reset vector indexes", &v498, 2u);
+            LOWORD(v474.st_dev) = 0;
+            _os_log_impl(&dword_1C278D000, v194, v195, "*warn* Reset vector indexes", &v474, 2u);
           }
 
-          *__error() = v211;
-          v214 = *(v177 + 1392);
-          v215 = *(v177 + 1384);
-          if (v214 && *(v214 + 8))
+          *__error() = v193;
+          v196 = *(v159 + 1392);
+          v197 = *(v159 + 1384);
+          if (v196 && *(v196 + 8))
           {
-            v216 = 0;
+            v198 = 0;
             do
             {
-              v217 = v216;
-              ContentIndexResetVectorIndex(*(*v214 + 8 * v216));
-              v216 = v217 + 1;
+              v199 = v198;
+              ContentIndexResetVectorIndex(*(*v196 + 8 * v198));
+              v198 = v199 + 1;
             }
 
-            while (v217 + 1 < *(v214 + 8));
+            while (v199 + 1 < *(v196 + 8));
           }
 
-          if (v215 && *(v215 + 8))
+          if (v197 && *(v197 + 8))
           {
-            v218 = 0;
+            v200 = 0;
             do
             {
-              v219 = v218;
-              ContentIndexResetVectorIndex(*(*v215 + 8 * v218));
-              v218 = v219 + 1;
+              v201 = v200;
+              ContentIndexResetVectorIndex(*(*v197 + 8 * v200));
+              v200 = v201 + 1;
             }
 
-            while (v219 + 1 < *(v215 + 8));
+            while (v201 + 1 < *(v197 + 8));
           }
 
-          _si_set_version_property(v177, @"VEC_EXT_CLEARED_VECTORS", 1);
+          _si_set_version_property(v159, @"VEC_EXT_CLEARED_VECTORS", 1);
         }
 
-LABEL_282:
-        db_set_ignore_vectors(*(v177 + 1192), 1);
+LABEL_274:
+        db_set_ignore_vectors(*(v159 + 1192), 1);
       }
 
-      else if (si_check_version_property(v177, @"VEC_EXT_CLEARED_JOURNALS"))
+      else if (si_check_version_property(v159, @"VEC_EXT_CLEARED_JOURNALS"))
       {
-        goto LABEL_282;
+        goto LABEL_274;
       }
     }
 
-    LODWORD(v485[0]) = 0;
-    if (fd_setDir(*(v177 + 32), v485))
+    LODWORD(v461[0]) = 0;
+    if (fd_setDir(*(v159 + 32), v461))
     {
       bzero(&buf, 0x400uLL);
-      v220 = *(v177 + 2344);
-      v449 = v220;
-      v455 = *(v177 + 2348);
-      v221 = v220 + 1;
-      while (v221 != 0x7FFFFFFF)
+      v202 = *(v159 + 2344);
+      v425 = v202;
+      v431 = *(v159 + 2348);
+      v203 = v202 + 1;
+      while (v203 != 0x7FFFFFFF)
       {
-        if (snprintf(&buf, 0x400uLL, "%s%d", "journalAttr.", v221) >= 0x400)
+        if (snprintf(&buf, 0x400uLL, "%s%d", "journalAttr.", v203) >= 0x400)
         {
-          v400 = __si_assert_copy_extra_661(-1);
-          v387 = v400;
-          v401 = "";
-          if (v400)
+          v376 = __si_assert_copy_extra_661(-1);
+          v363 = v376;
+          v377 = "";
+          if (v376)
           {
-            v401 = v400;
+            v377 = v376;
           }
 
-          v429 = "0 <= count && count < pathBufferSize";
-          v431 = v401;
-          v389 = 6266;
-          goto LABEL_520;
+          v405 = "0 <= count && count < pathBufferSize";
+          v407 = v377;
+          v365 = 6266;
+          goto LABEL_512;
         }
 
-        memset(&v498, 0, sizeof(v498));
-        v222 = stat(&buf, &v498);
-        v223 = ++v221;
-        if (v222)
+        memset(&v474, 0, sizeof(v474));
+        v204 = stat(&buf, &v474);
+        v205 = ++v203;
+        if (v204)
         {
-          v224 = v223 - 2;
-          goto LABEL_290;
+          v206 = v205 - 2;
+          goto LABEL_282;
         }
       }
 
-      v224 = 2147483646;
-LABEL_290:
-      v225 = v220 - 1;
-      v226 = v220 + 0x7FFFFFFF;
+      v206 = 2147483646;
+LABEL_282:
+      v207 = v202 - 1;
+      v208 = v202 + 0x7FFFFFFF;
       do
       {
-        if (!v226)
+        if (!v208)
         {
-          v231 = 0x80000000;
-          v230 = -2147483647;
-          goto LABEL_296;
+          v213 = 0x80000000;
+          v212 = -2147483647;
+          goto LABEL_288;
         }
 
-        if (snprintf(&buf, 0x400uLL, "%s%d", "journalAttr.", v225) >= 0x400)
+        if (snprintf(&buf, 0x400uLL, "%s%d", "journalAttr.", v207) >= 0x400)
         {
-          v402 = __si_assert_copy_extra_661(-1);
-          v387 = v402;
-          v403 = "";
-          if (v402)
+          v378 = __si_assert_copy_extra_661(-1);
+          v363 = v378;
+          v379 = "";
+          if (v378)
           {
-            v403 = v402;
+            v379 = v378;
           }
 
-          v429 = "0 <= count && count < pathBufferSize";
-          v431 = v403;
-          v389 = 6278;
-          goto LABEL_520;
+          v405 = "0 <= count && count < pathBufferSize";
+          v407 = v379;
+          v365 = 6278;
+          goto LABEL_512;
         }
 
-        memset(&v498, 0, sizeof(v498));
-        v227 = stat(&buf, &v498);
-        v228 = --v225;
-        --v226;
+        memset(&v474, 0, sizeof(v474));
+        v209 = stat(&buf, &v474);
+        v210 = --v207;
+        --v208;
       }
 
-      while (!v227);
-      v229 = v228 + 1;
-      v230 = v228 + 2;
-      v231 = v229;
-LABEL_296:
-      v232 = v231;
-      v233 = v230;
-      v234 = v455;
-      v235 = v455;
-      if (*(v177 + 2072) != 1)
+      while (!v209);
+      v211 = v210 + 1;
+      v212 = v210 + 2;
+      v213 = v211;
+LABEL_288:
+      v214 = v213;
+      v215 = v212;
+      v216 = v431;
+      v217 = v431;
+      if (*(v159 + 2072) != 1)
       {
-        goto LABEL_310;
+        goto LABEL_302;
       }
 
-      v439 = v231;
-      v236 = v455 + 1;
+      v415 = v213;
+      v218 = v431 + 1;
       do
       {
-        if (v236 == 0x7FFFFFFF)
+        if (v218 == 0x7FFFFFFF)
         {
-          v235 = 2147483646;
-          goto LABEL_303;
+          v217 = 2147483646;
+          goto LABEL_295;
         }
 
-        if (snprintf(&buf, 0x400uLL, "%s%d", "deferAttr.", v236) >= 0x400)
+        if (snprintf(&buf, 0x400uLL, "%s%d", "deferAttr.", v218) >= 0x400)
         {
-          v407 = __si_assert_copy_extra_661(-1);
-          v396 = v407;
-          v408 = "";
-          if (v407)
+          v383 = __si_assert_copy_extra_661(-1);
+          v372 = v383;
+          v384 = "";
+          if (v383)
           {
-            v408 = v407;
+            v384 = v383;
           }
 
-          v430 = "0 <= count && count < pathBufferSize";
-          v432 = v408;
-          v398 = 6319;
-          goto LABEL_527;
+          v406 = "0 <= count && count < pathBufferSize";
+          v408 = v384;
+          v374 = 6319;
+          goto LABEL_519;
         }
 
-        memset(&v498, 0, sizeof(v498));
-        v237 = stat(&buf, &v498);
-        v238 = ++v236;
+        memset(&v474, 0, sizeof(v474));
+        v219 = stat(&buf, &v474);
+        v220 = ++v218;
       }
 
-      while (!v237);
-      v235 = v238 - 2;
-LABEL_303:
-      v239 = v455 - 1;
-      v240 = v455 + 0x7FFFFFFF;
-      while (v240)
+      while (!v219);
+      v217 = v220 - 2;
+LABEL_295:
+      v221 = v431 - 1;
+      v222 = v431 + 0x7FFFFFFF;
+      while (v222)
       {
-        if (snprintf(&buf, 0x400uLL, "%s%d", "deferAttr.", v239) >= 0x400)
+        if (snprintf(&buf, 0x400uLL, "%s%d", "deferAttr.", v221) >= 0x400)
         {
-          v409 = __si_assert_copy_extra_661(-1);
-          v387 = v409;
-          v410 = "";
-          if (v409)
+          v385 = __si_assert_copy_extra_661(-1);
+          v363 = v385;
+          v386 = "";
+          if (v385)
           {
-            v410 = v409;
+            v386 = v385;
           }
 
-          v429 = "0 <= count && count < pathBufferSize";
-          v431 = v410;
-          v389 = 6331;
-          goto LABEL_520;
+          v405 = "0 <= count && count < pathBufferSize";
+          v407 = v386;
+          v365 = 6331;
+          goto LABEL_512;
         }
 
-        memset(&v498, 0, sizeof(v498));
-        v241 = stat(&buf, &v498);
-        v242 = --v239;
-        --v240;
-        if (v241)
+        memset(&v474, 0, sizeof(v474));
+        v223 = stat(&buf, &v474);
+        v224 = --v221;
+        --v222;
+        if (v223)
         {
-          v234 = v242 + 2;
-          goto LABEL_309;
+          v216 = v224 + 2;
+          goto LABEL_301;
         }
       }
 
-      v234 = -2147483647;
-LABEL_309:
-      v177 = value;
-      v232 = v439;
-LABEL_310:
-      v451 = v234;
-      v450 = v235;
-      v243 = *(v177 + 6952);
-      if (!v243)
+      v216 = -2147483647;
+LABEL_301:
+      v159 = value;
+      v214 = v415;
+LABEL_302:
+      v427 = v216;
+      v426 = v217;
+      v225 = *(v159 + 6952);
+      if (!v225)
       {
-        v243 = fd_create_protected(*(v177 + 32), "journalRepair.1", 0, 0);
-        if (!v243)
+        v225 = fd_create_protected(*(v159 + 32), "journalRepair.1", 0, 0);
+        if (!v225)
         {
-          v250 = v233;
-          v178 = v464;
-          goto LABEL_325;
+          v232 = v215;
+          v160 = v440;
+          goto LABEL_317;
         }
       }
 
-      memset(&v498, 0, sizeof(v498));
-      v178 = v464;
-      if (fd_stat(v243, &v498))
+      memset(&v474, 0, sizeof(v474));
+      v160 = v440;
+      if (fd_stat(v225, &v474))
       {
-        v244 = v233;
-        goto LABEL_324;
+        v226 = v215;
+        goto LABEL_316;
       }
 
-      v245 = *__error();
-      v246 = v233;
-      v247 = _SILogForLogForCategory(0);
-      if (os_log_type_enabled(v247, OS_LOG_TYPE_DEFAULT))
+      v227 = *__error();
+      v228 = v215;
+      v229 = _SILogForLogForCategory(0);
+      if (os_log_type_enabled(v229, OS_LOG_TYPE_DEFAULT))
       {
-        v522 = 136316162;
-        v523 = "journalRepair.1";
-        v524 = 2048;
-        st_size = v498.st_size;
-        v526 = 1024;
-        v527 = v220;
-        v528 = 1024;
-        v529 = v246;
-        v530 = 1024;
-        v531 = v224;
-        _os_log_impl(&dword_1C278D000, v247, OS_LOG_TYPE_DEFAULT, "Found %s, size:%lld, syncCount:%d, first:%d, last:%d", &v522, 0x28u);
+        v498 = 136316162;
+        v499 = "journalRepair.1";
+        v500 = 2048;
+        st_size = v474.st_size;
+        v502 = 1024;
+        v503 = v202;
+        v504 = 1024;
+        v505 = v228;
+        v506 = 1024;
+        v507 = v206;
+        _os_log_impl(&dword_1C278D000, v229, OS_LOG_TYPE_DEFAULT, "Found %s, size:%lld, syncCount:%d, first:%d, last:%d", &v498, 0x28u);
       }
 
-      *__error() = v245;
-      if (!v498.st_size)
+      *__error() = v227;
+      if (!v474.st_size)
       {
-        _fd_unlink_with_origin(v243, 0);
-        fd_release(v243);
-        v243 = 0;
-        v244 = v246;
-        goto LABEL_324;
+        _fd_unlink_with_origin(v225, 0);
+        fd_release(v225);
+        v225 = 0;
+        v226 = v228;
+        goto LABEL_316;
       }
 
-      if (snprintf(&buf, 0x400uLL, "%s%d", "journalAttr.", v232) >= 0x400)
+      if (snprintf(&buf, 0x400uLL, "%s%d", "journalAttr.", v214) >= 0x400)
       {
-        v427 = __si_assert_copy_extra_661(-1);
-        v396 = v427;
-        v428 = "";
-        if (v427)
+        v403 = __si_assert_copy_extra_661(-1);
+        v372 = v403;
+        v404 = "";
+        if (v403)
         {
-          v428 = v427;
+          v404 = v403;
         }
 
-        v430 = "0 <= count && count < pathBufferSize";
-        v432 = v428;
-        v398 = 6359;
-        goto LABEL_527;
+        v406 = "0 <= count && count < pathBufferSize";
+        v408 = v404;
+        v374 = 6359;
+        goto LABEL_519;
       }
 
-      v248 = *__error();
-      v249 = _SILogForLogForCategory(0);
-      if (os_log_type_enabled(v249, OS_LOG_TYPE_DEFAULT))
+      v230 = *__error();
+      v231 = _SILogForLogForCategory(0);
+      if (os_log_type_enabled(v231, OS_LOG_TYPE_DEFAULT))
       {
-        v522 = 136316162;
-        v523 = "journalRepair.1";
-        v524 = 2080;
+        v498 = 136316162;
+        v499 = "journalRepair.1";
+        v500 = 2080;
         st_size = &buf;
-        v526 = 1024;
-        v527 = v220;
-        v528 = 1024;
-        v529 = v232;
-        v530 = 1024;
-        v531 = v224;
-        _os_log_impl(&dword_1C278D000, v249, OS_LOG_TYPE_DEFAULT, "Moving %s to %s, syncCount:%d, first:%d, last:%d", &v522, 0x28u);
+        v502 = 1024;
+        v503 = v202;
+        v504 = 1024;
+        v505 = v214;
+        v506 = 1024;
+        v507 = v206;
+        _os_log_impl(&dword_1C278D000, v231, OS_LOG_TYPE_DEFAULT, "Moving %s to %s, syncCount:%d, first:%d, last:%d", &v498, 0x28u);
       }
 
-      *__error() = v248;
-      fd_rename(v243, &buf);
-      v244 = v232;
-LABEL_324:
-      v250 = v244;
-LABEL_325:
-      v446 = v243;
-      if (v224 == v220 || v250 == v220)
+      *__error() = v230;
+      fd_rename(v225, &buf);
+      v226 = v214;
+LABEL_316:
+      v232 = v226;
+LABEL_317:
+      v422 = v225;
+      if (v206 == v202 || v232 == v202)
       {
-        if (snprintf(&buf, 0x400uLL, "%s%d", "journalAttr.", v220) < 0x400)
+        if (snprintf(&buf, 0x400uLL, "%s%d", "journalAttr.", v202) < 0x400)
         {
-          memset(&v498, 0, sizeof(v498));
-          v251 = stat(&buf, &v498);
-          if (v251)
+          memset(&v474, 0, sizeof(v474));
+          v233 = stat(&buf, &v474);
+          if (v233)
           {
-            v252 = v224 == v220;
+            v234 = v206 == v202;
           }
 
           else
           {
-            v252 = 0;
+            v234 = 0;
           }
 
-          if (v251)
+          if (v233)
           {
-            v253 = v250 == v220;
+            v235 = v232 == v202;
           }
 
           else
           {
-            v253 = 0;
+            v235 = 0;
           }
 
-          v224 -= v252;
-          v250 += v253;
-          goto LABEL_335;
+          v206 -= v234;
+          v232 += v235;
+          goto LABEL_327;
         }
 
-        v423 = __si_assert_copy_extra_661(-1);
-        v396 = v423;
-        v424 = "";
-        if (v423)
+        v399 = __si_assert_copy_extra_661(-1);
+        v372 = v399;
+        v400 = "";
+        if (v399)
         {
-          v424 = v423;
+          v400 = v399;
         }
 
-        v430 = "0 <= count && count < pathBufferSize";
-        v432 = v424;
-        v398 = 6369;
-LABEL_527:
-        __message_assert("%s:%u: failed assertion '%s' %s ", "SpotlightIndex.c", v398, v430, v432);
-        free(v396);
+        v406 = "0 <= count && count < pathBufferSize";
+        v408 = v400;
+        v374 = 6369;
+LABEL_519:
+        __message_assert("%s:%u: failed assertion '%s' %s ", "SpotlightIndex.c", v374, v406, v408);
+        free(v372);
         if (__valid_fs(-1))
         {
-          v399 = 2989;
+          v375 = 2989;
         }
 
         else
         {
-          v399 = 3072;
+          v375 = 3072;
         }
 
-        *v399 = -559038737;
+        *v375 = -559038737;
         abort();
       }
 
-LABEL_335:
-      v254 = v250;
-      v454 = *(v177 + 2128);
-      v453 = *(v177 + 2136);
-      v255 = *__error();
-      v256 = _SILogForLogForCategory(0);
-      v257 = os_log_type_enabled(v256, OS_LOG_TYPE_DEFAULT);
-      v258 = v224 - v254;
-      if (v224 < v254)
+LABEL_327:
+      v236 = v232;
+      v430 = *(v159 + 2128);
+      v429 = *(v159 + 2136);
+      v237 = *__error();
+      v238 = _SILogForLogForCategory(0);
+      v239 = os_log_type_enabled(v238, OS_LOG_TYPE_DEFAULT);
+      v240 = v206 - v236;
+      if (v206 < v236)
       {
-        if (v257)
+        if (v239)
         {
-          v498.st_dev = 134219264;
-          *&v498.st_mode = v177;
-          WORD2(v498.st_ino) = 1024;
-          *(&v498.st_ino + 6) = v220;
-          HIWORD(v498.st_uid) = 1024;
-          v498.st_gid = v254;
-          LOWORD(v498.st_rdev) = 1024;
-          *(&v498.st_rdev + 2) = v224;
-          *(&v498.st_rdev + 3) = 2048;
-          v498.st_atimespec.tv_sec = v454;
-          LOWORD(v498.st_atimespec.tv_nsec) = 2048;
-          *(&v498.st_atimespec.tv_nsec + 2) = v453;
-          _os_log_impl(&dword_1C278D000, v256, OS_LOG_TYPE_DEFAULT, "No journals to replay for %p, syncCount:%d, first:%d, last:%d, journalSerialNumber:%lld, consumedJournalSerialNumber:%lld", &v498, 0x32u);
+          v474.st_dev = 134219264;
+          *&v474.st_mode = v159;
+          WORD2(v474.st_ino) = 1024;
+          *(&v474.st_ino + 6) = v202;
+          HIWORD(v474.st_uid) = 1024;
+          v474.st_gid = v236;
+          LOWORD(v474.st_rdev) = 1024;
+          *(&v474.st_rdev + 2) = v206;
+          *(&v474.st_rdev + 3) = 2048;
+          v474.st_atimespec.tv_sec = v430;
+          LOWORD(v474.st_atimespec.tv_nsec) = 2048;
+          *(&v474.st_atimespec.tv_nsec + 2) = v429;
+          _os_log_impl(&dword_1C278D000, v238, OS_LOG_TYPE_DEFAULT, "No journals to replay for %p, syncCount:%d, first:%d, last:%d, journalSerialNumber:%lld, consumedJournalSerialNumber:%lld", &v474, 0x32u);
         }
 
-        *__error() = v255;
-        v259 = -1;
-        v260 = v224;
-        goto LABEL_375;
+        *__error() = v237;
+        v241 = -1;
+        v242 = v206;
+        goto LABEL_367;
       }
 
-      if (v257)
+      if (v239)
       {
-        v498.st_dev = 67110656;
-        *&v498.st_mode = v258 + 1;
-        LOWORD(v498.st_ino) = 2048;
-        *(&v498.st_ino + 2) = v177;
-        HIWORD(v498.st_uid) = 1024;
-        v498.st_gid = v220;
-        LOWORD(v498.st_rdev) = 1024;
-        *(&v498.st_rdev + 2) = v254;
-        *(&v498.st_rdev + 3) = 1024;
-        LODWORD(v498.st_atimespec.tv_sec) = v224;
-        WORD2(v498.st_atimespec.tv_sec) = 2048;
-        *(&v498.st_atimespec.tv_sec + 6) = v454;
-        HIWORD(v498.st_atimespec.tv_nsec) = 2048;
-        v498.st_mtimespec.tv_sec = v453;
-        _os_log_impl(&dword_1C278D000, v256, OS_LOG_TYPE_DEFAULT, "Replaying %d journals for %p, syncCount:%d, first:%d, last:%d, journalSerialNumber:%lld, consumedJournalSerialNumber:%lld", &v498, 0x38u);
+        v474.st_dev = 67110656;
+        *&v474.st_mode = v240 + 1;
+        LOWORD(v474.st_ino) = 2048;
+        *(&v474.st_ino + 2) = v159;
+        HIWORD(v474.st_uid) = 1024;
+        v474.st_gid = v202;
+        LOWORD(v474.st_rdev) = 1024;
+        *(&v474.st_rdev + 2) = v236;
+        *(&v474.st_rdev + 3) = 1024;
+        LODWORD(v474.st_atimespec.tv_sec) = v206;
+        WORD2(v474.st_atimespec.tv_sec) = 2048;
+        *(&v474.st_atimespec.tv_sec + 6) = v430;
+        HIWORD(v474.st_atimespec.tv_nsec) = 2048;
+        v474.st_mtimespec.tv_sec = v429;
+        _os_log_impl(&dword_1C278D000, v238, OS_LOG_TYPE_DEFAULT, "Replaying %d journals for %p, syncCount:%d, first:%d, last:%d, journalSerialNumber:%lld, consumedJournalSerialNumber:%lld", &v474, 0x38u);
       }
 
-      *__error() = v255;
-      if (v224 >= *(v177 + 2344))
+      *__error() = v237;
+      if (v206 >= *(v159 + 2344))
       {
-        *(v177 + 2344) = v224 + 1;
+        *(v159 + 2344) = v206 + 1;
       }
 
-      v442 = v224;
-      v440 = v258 + 1;
-      v522 = 0;
-      v261 = -1;
-      v262 = 0;
-      v263 = 0;
-      v447 = v254;
+      v418 = v206;
+      v416 = v240 + 1;
+      v498 = 0;
+      v243 = -1;
+      v244 = 0;
+      v245 = 0;
+      v423 = v236;
       while (2)
       {
-        v264 = v254 + v262;
-        if (snprintf(&buf, 0x400uLL, "%s%d", "journalAttr.", v254 + v262) >= 0x400)
+        v246 = v236 + v244;
+        if (snprintf(&buf, 0x400uLL, "%s%d", "journalAttr.", v236 + v244) >= 0x400)
         {
-          v404 = __si_assert_copy_extra_661(-1);
-          v387 = v404;
-          v405 = "";
-          if (v404)
+          v380 = __si_assert_copy_extra_661(-1);
+          v363 = v380;
+          v381 = "";
+          if (v380)
           {
-            v405 = v404;
+            v381 = v380;
           }
 
-          v429 = "0 <= count && count < pathBufferSize";
-          v431 = v405;
-          v389 = 6397;
-          goto LABEL_520;
+          v405 = "0 <= count && count < pathBufferSize";
+          v407 = v381;
+          v365 = 6397;
+          goto LABEL_512;
         }
 
-        if (v522)
+        if (v498)
         {
-          v265 = fd_create_protected(*(v177 + 32), &buf, 2, 0);
-          if (v265)
+          v247 = fd_create_protected(*(v159 + 32), &buf, 2, 0);
+          if (v247)
           {
-            v266 = v265;
-            v267 = fd_truncate(v265, 0);
-            fd_release(v266);
-            v268 = *__error();
-            v269 = _SILogForLogForCategory(0);
-            if (os_log_type_enabled(v269, OS_LOG_TYPE_ERROR))
+            v248 = v247;
+            v249 = fd_truncate(v247, 0);
+            fd_release(v248);
+            v250 = *__error();
+            v251 = _SILogForLogForCategory(0);
+            if (os_log_type_enabled(v251, OS_LOG_TYPE_ERROR))
             {
-              v498.st_dev = 136316162;
-              *&v498.st_mode = "si_playbackJournals";
-              WORD2(v498.st_ino) = 1024;
-              *(&v498.st_ino + 6) = 6433;
-              HIWORD(v498.st_uid) = 1024;
-              v498.st_gid = v254 + v262;
-              LOWORD(v498.st_rdev) = 1024;
-              *(&v498.st_rdev + 2) = v267;
-              *(&v498.st_rdev + 3) = 2080;
-              v498.st_atimespec.tv_sec = &buf;
-              _os_log_error_impl(&dword_1C278D000, v269, OS_LOG_TYPE_ERROR, "%s:%d: ParseFailed truncated A idx:%d result:%d %s", &v498, 0x28u);
+              v474.st_dev = 136316162;
+              *&v474.st_mode = "si_playbackJournals";
+              WORD2(v474.st_ino) = 1024;
+              *(&v474.st_ino + 6) = 6433;
+              HIWORD(v474.st_uid) = 1024;
+              v474.st_gid = v236 + v244;
+              LOWORD(v474.st_rdev) = 1024;
+              *(&v474.st_rdev + 2) = v249;
+              *(&v474.st_rdev + 3) = 2080;
+              v474.st_atimespec.tv_sec = &buf;
+              _os_log_error_impl(&dword_1C278D000, v251, OS_LOG_TYPE_ERROR, "%s:%d: ParseFailed truncated A idx:%d result:%d %s", &v474, 0x28u);
             }
 
-            *__error() = v268;
+            *__error() = v250;
           }
 
           else
           {
-            v278 = *__error();
-            v279 = _SILogForLogForCategory(0);
-            if (os_log_type_enabled(v279, OS_LOG_TYPE_ERROR))
+            v260 = *__error();
+            v261 = _SILogForLogForCategory(0);
+            if (os_log_type_enabled(v261, OS_LOG_TYPE_ERROR))
             {
-              v498.st_dev = 136315906;
-              *&v498.st_mode = "si_playbackJournals";
-              WORD2(v498.st_ino) = 1024;
-              *(&v498.st_ino + 6) = 6427;
-              HIWORD(v498.st_uid) = 1024;
-              v498.st_gid = v254 + v262;
-              LOWORD(v498.st_rdev) = 2080;
-              *(&v498.st_rdev + 2) = &buf;
-              _os_log_error_impl(&dword_1C278D000, v279, OS_LOG_TYPE_ERROR, "%s:%d: ParseFailed unable to truncate A idx:%d %s", &v498, 0x22u);
+              v474.st_dev = 136315906;
+              *&v474.st_mode = "si_playbackJournals";
+              WORD2(v474.st_ino) = 1024;
+              *(&v474.st_ino + 6) = 6427;
+              HIWORD(v474.st_uid) = 1024;
+              v474.st_gid = v236 + v244;
+              LOWORD(v474.st_rdev) = 2080;
+              *(&v474.st_rdev + 2) = &buf;
+              _os_log_error_impl(&dword_1C278D000, v261, OS_LOG_TYPE_ERROR, "%s:%d: ParseFailed unable to truncate A idx:%d %s", &v474, 0x22u);
             }
 
-            *__error() = v278;
+            *__error() = v260;
           }
 
-          goto LABEL_370;
+          goto LABEL_362;
         }
 
-        if (v446 && (v270 = v446, !v262) || (v270 = fd_create_protected(*(v177 + 32), &buf, 0, 0)) != 0)
+        if (v422 && (v252 = v422, !v244) || (v252 = fd_create_protected(*(v159 + 32), &buf, 0, 0)) != 0)
         {
-          v271 = si_playbackJournal(v177, v270, &v522);
-          v272 = v522;
-          if (v522)
+          v253 = si_playbackJournal(v159, v252, &v498);
+          v254 = v498;
+          if (v498)
           {
-            v273 = *__error();
-            v274 = _SILogForLogForCategory(0);
-            if (os_log_type_enabled(v274, OS_LOG_TYPE_ERROR))
+            v255 = *__error();
+            v256 = _SILogForLogForCategory(0);
+            if (os_log_type_enabled(v256, OS_LOG_TYPE_ERROR))
             {
-              v498.st_dev = 136316418;
-              *&v498.st_mode = "si_playbackJournals";
-              WORD2(v498.st_ino) = 1024;
-              *(&v498.st_ino + 6) = 6415;
-              HIWORD(v498.st_uid) = 1024;
-              v498.st_gid = v264;
-              LOWORD(v498.st_rdev) = 1024;
-              *(&v498.st_rdev + 2) = v447;
-              *(&v498.st_rdev + 3) = 1024;
-              LODWORD(v498.st_atimespec.tv_sec) = v442;
-              WORD2(v498.st_atimespec.tv_sec) = 2080;
-              *(&v498.st_atimespec.tv_sec + 6) = &buf;
-              _os_log_error_impl(&dword_1C278D000, v274, OS_LOG_TYPE_ERROR, "%s:%d: ParseFailed A idx:%d (%d %d) %s", &v498, 0x2Eu);
+              v474.st_dev = 136316418;
+              *&v474.st_mode = "si_playbackJournals";
+              WORD2(v474.st_ino) = 1024;
+              *(&v474.st_ino + 6) = 6415;
+              HIWORD(v474.st_uid) = 1024;
+              v474.st_gid = v246;
+              LOWORD(v474.st_rdev) = 1024;
+              *(&v474.st_rdev + 2) = v423;
+              *(&v474.st_rdev + 3) = 1024;
+              LODWORD(v474.st_atimespec.tv_sec) = v418;
+              WORD2(v474.st_atimespec.tv_sec) = 2080;
+              *(&v474.st_atimespec.tv_sec + 6) = &buf;
+              _os_log_error_impl(&dword_1C278D000, v256, OS_LOG_TYPE_ERROR, "%s:%d: ParseFailed A idx:%d (%d %d) %s", &v474, 0x2Eu);
             }
 
-            *__error() = v273;
-            v177 = value;
-            v254 = v447;
+            *__error() = v255;
+            v159 = value;
+            v236 = v423;
           }
 
-          if (v261 <= v271)
+          if (v243 <= v253)
           {
-            v275 = v271;
+            v257 = v253;
           }
 
           else
           {
-            v275 = v261;
+            v257 = v243;
           }
 
-          if (v272)
+          if (v254)
           {
-            v276 = v261;
+            v258 = v243;
           }
 
           else
           {
-            v276 = v275;
+            v258 = v257;
           }
 
-          fd_release(v270);
-          v277 = (v263 + 1);
-          v259 = v276;
+          fd_release(v252);
+          v259 = (v245 + 1);
+          v241 = v258;
         }
 
         else
         {
-          v280 = *__error();
-          v281 = _SILogForLogForCategory(0);
-          if (os_log_type_enabled(v281, OS_LOG_TYPE_DEFAULT))
+          v262 = *__error();
+          v263 = _SILogForLogForCategory(0);
+          if (os_log_type_enabled(v263, OS_LOG_TYPE_DEFAULT))
           {
-            v498.st_dev = 136315906;
-            *&v498.st_mode = &buf;
-            WORD2(v498.st_ino) = 1024;
-            *(&v498.st_ino + 6) = v449;
-            HIWORD(v498.st_uid) = 1024;
-            v498.st_gid = v254;
-            LOWORD(v498.st_rdev) = 1024;
-            *(&v498.st_rdev + 2) = v442;
-            _os_log_impl(&dword_1C278D000, v281, OS_LOG_TYPE_DEFAULT, "Missing %s, syncCount:%d, first:%d, last:%d", &v498, 0x1Eu);
+            v474.st_dev = 136315906;
+            *&v474.st_mode = &buf;
+            WORD2(v474.st_ino) = 1024;
+            *(&v474.st_ino + 6) = v425;
+            HIWORD(v474.st_uid) = 1024;
+            v474.st_gid = v236;
+            LOWORD(v474.st_rdev) = 1024;
+            *(&v474.st_rdev + 2) = v418;
+            _os_log_impl(&dword_1C278D000, v263, OS_LOG_TYPE_DEFAULT, "Missing %s, syncCount:%d, first:%d, last:%d", &v474, 0x1Eu);
           }
 
-          *__error() = v280;
-LABEL_370:
-          v277 = v263;
-          v259 = v261;
+          *__error() = v262;
+LABEL_362:
+          v259 = v245;
+          v241 = v243;
         }
 
-        ++v262;
-        v261 = v259;
-        v263 = v277;
-        if (v440 != v262)
+        ++v244;
+        v243 = v241;
+        v245 = v259;
+        if (v416 != v244)
         {
           continue;
         }
@@ -7928,717 +7810,713 @@ LABEL_370:
         break;
       }
 
-      v282 = *__error();
-      v283 = _SILogForLogForCategory(0);
-      if (os_log_type_enabled(v283, OS_LOG_TYPE_DEFAULT))
+      v264 = *__error();
+      v265 = _SILogForLogForCategory(0);
+      if (os_log_type_enabled(v265, OS_LOG_TYPE_DEFAULT))
       {
-        v498.st_dev = 67109890;
-        *&v498.st_mode = v277;
-        LOWORD(v498.st_ino) = 2080;
-        *(&v498.st_ino + 2) = &buf;
-        HIWORD(v498.st_uid) = 1024;
-        v498.st_gid = v449;
-        LOWORD(v498.st_rdev) = 2048;
-        *(&v498.st_rdev + 2) = v259;
-        _os_log_impl(&dword_1C278D000, v283, OS_LOG_TYPE_DEFAULT, "Replayed %d journal(s) %s, syncCount:%d, maxReplaySerialNumber:%lld", &v498, 0x22u);
+        v474.st_dev = 67109890;
+        *&v474.st_mode = v259;
+        LOWORD(v474.st_ino) = 2080;
+        *(&v474.st_ino + 2) = &buf;
+        HIWORD(v474.st_uid) = 1024;
+        v474.st_gid = v425;
+        LOWORD(v474.st_rdev) = 2048;
+        *(&v474.st_rdev + 2) = v241;
+        _os_log_impl(&dword_1C278D000, v265, OS_LOG_TYPE_DEFAULT, "Replayed %d journal(s) %s, syncCount:%d, maxReplaySerialNumber:%lld", &v474, 0x22u);
       }
 
-      *__error() = v282;
-      v260 = v254;
-      v178 = v464;
-LABEL_375:
-      v448 = v259;
-      v284 = v463;
-      if (v463)
+      *__error() = v264;
+      v242 = v236;
+      v160 = v440;
+LABEL_367:
+      v424 = v241;
+      v266 = v439;
+      if (v439)
       {
-        v285 = v260;
-        v286 = CFArrayGetCount(v463);
-        v287 = v286;
-        if (v286 >= 2)
+        v267 = v242;
+        v268 = CFArrayGetCount(v439);
+        v269 = v268;
+        if (v268 >= 2)
         {
-          v533.length = v286;
-          v533.location = 0;
-          CFArraySortValues(v463, v533, IntPtrCFCompare, 0);
-          goto LABEL_379;
+          v509.length = v268;
+          v509.location = 0;
+          CFArraySortValues(v439, v509, IntPtrCFCompare, 0);
+          goto LABEL_371;
         }
 
-        if (v286 == 1)
+        if (v268 == 1)
         {
-LABEL_379:
+LABEL_371:
           tv_sec = 0;
-          v289 = 0;
-          v290 = 0;
+          v271 = 0;
+          v272 = 0;
           while (1)
           {
-            v291 = CFArrayGetValueAtIndex(v284, v290);
-            snprintf(&buf, 0x400uLL, "%s%d", "journalAttr.", v291);
-            if (v291 < v285)
+            v273 = CFArrayGetValueAtIndex(v266, v272);
+            snprintf(&buf, 0x400uLL, "%s%d", "journalAttr.", v273);
+            if (v273 < v267)
             {
               break;
             }
 
-            if (!v289)
+            if (!v271)
             {
-              memset(&v498, 0, sizeof(v498));
-              v296 = stat(&buf, &v498);
-              v289 = v296 == 0;
-              if (!v296)
+              memset(&v474, 0, sizeof(v474));
+              v278 = stat(&buf, &v474);
+              v271 = v278 == 0;
+              if (!v278)
               {
-                tv_sec = v498.st_ctimespec.tv_sec;
+                tv_sec = v474.st_ctimespec.tv_sec;
               }
 
-              goto LABEL_395;
+              goto LABEL_387;
             }
 
-            if (v291 <= v285)
+            if (v273 <= v267)
             {
-              v289 = 1;
+              v271 = 1;
             }
 
             else
             {
-              memset(&v498, 0, sizeof(v498));
-              if (!stat(&buf, &v498) && v498.st_ctimespec.tv_sec < tv_sec)
+              memset(&v474, 0, sizeof(v474));
+              if (!stat(&buf, &v474) && v474.st_ctimespec.tv_sec < tv_sec)
               {
                 break;
               }
 
-              v289 = 1;
+              v271 = 1;
             }
 
-LABEL_395:
-            if (v287 == ++v290)
+LABEL_387:
+            if (v269 == ++v272)
             {
-              goto LABEL_396;
+              goto LABEL_388;
             }
           }
 
-          v292 = *__error();
-          v293 = _SILogForLogForCategory(0);
-          if (os_log_type_enabled(v293, OS_LOG_TYPE_DEFAULT))
+          v274 = *__error();
+          v275 = _SILogForLogForCategory(0);
+          if (os_log_type_enabled(v275, OS_LOG_TYPE_DEFAULT))
           {
-            v498.st_dev = 136315138;
-            *&v498.st_mode = &buf;
-            _os_log_impl(&dword_1C278D000, v293, OS_LOG_TYPE_DEFAULT, "Unlinking dropped file %s", &v498, 0xCu);
+            v474.st_dev = 136315138;
+            *&v474.st_mode = &buf;
+            _os_log_impl(&dword_1C278D000, v275, OS_LOG_TYPE_DEFAULT, "Unlinking dropped file %s", &v474, 0xCu);
           }
 
-          *__error() = v292;
+          *__error() = v274;
           unlink(&buf);
-          snprintf(&buf, 0x400uLL, "%s%d_toc", "journalAttr.", v291);
-          v294 = *__error();
-          v295 = _SILogForLogForCategory(0);
-          if (os_log_type_enabled(v295, OS_LOG_TYPE_DEFAULT))
+          snprintf(&buf, 0x400uLL, "%s%d_toc", "journalAttr.", v273);
+          v276 = *__error();
+          v277 = _SILogForLogForCategory(0);
+          if (os_log_type_enabled(v277, OS_LOG_TYPE_DEFAULT))
           {
-            v498.st_dev = 136315138;
-            *&v498.st_mode = &buf;
-            _os_log_impl(&dword_1C278D000, v295, OS_LOG_TYPE_DEFAULT, "Unlinking dropped file %s", &v498, 0xCu);
+            v474.st_dev = 136315138;
+            *&v474.st_mode = &buf;
+            _os_log_impl(&dword_1C278D000, v277, OS_LOG_TYPE_DEFAULT, "Unlinking dropped file %s", &v474, 0xCu);
           }
 
-          *__error() = v294;
+          *__error() = v276;
           unlink(&buf);
-          v178 = v464;
-          v284 = v463;
-          goto LABEL_395;
+          v160 = v440;
+          v266 = v439;
+          goto LABEL_387;
         }
       }
 
-LABEL_396:
-      v177 = value;
-      v185 = v468;
-      v171 = (value + 864);
+LABEL_388:
+      v159 = value;
+      v167 = v444;
+      v154 = (value + 864);
       if (value[2072])
       {
-        if (v450 == v455 || v451 == v455)
+        if (v426 == v431 || v427 == v431)
         {
-          if (snprintf(&buf, 0x400uLL, "%s%d", "deferAttr.", v455) >= 0x400)
+          if (snprintf(&buf, 0x400uLL, "%s%d", "deferAttr.", v431) >= 0x400)
           {
-            v425 = __si_assert_copy_extra_661(-1);
-            v387 = v425;
-            v426 = "";
-            if (v425)
+            v401 = __si_assert_copy_extra_661(-1);
+            v363 = v401;
+            v402 = "";
+            if (v401)
             {
-              v426 = v425;
+              v402 = v401;
             }
 
-            v429 = "0 <= count && count < pathBufferSize";
-            v431 = v426;
-            v389 = 6561;
-            goto LABEL_520;
+            v405 = "0 <= count && count < pathBufferSize";
+            v407 = v402;
+            v365 = 6561;
+            goto LABEL_512;
           }
 
-          memset(&v498, 0, sizeof(v498));
-          v299 = stat(&buf, &v498);
-          if (v299)
+          memset(&v474, 0, sizeof(v474));
+          v281 = stat(&buf, &v474);
+          if (v281)
           {
-            v300 = v450 == v455;
+            v282 = v426 == v431;
           }
 
           else
           {
-            v300 = 0;
+            v282 = 0;
           }
 
-          if (v299)
+          if (v281)
           {
-            v301 = v451 == v455;
+            v283 = v427 == v431;
           }
 
           else
           {
-            v301 = 0;
+            v283 = 0;
           }
 
-          v297 = v450 - v300;
-          v298 = v451 + v301;
+          v279 = v426 - v282;
+          v280 = v427 + v283;
         }
 
         else
         {
-          v297 = v450;
-          v298 = v451;
+          v279 = v426;
+          v280 = v427;
         }
 
-        v302 = v298;
-        v303 = v297;
-        v304 = *__error();
-        v305 = _SILogForLogForCategory(0);
-        v306 = os_log_type_enabled(v305, OS_LOG_TYPE_DEFAULT);
-        v441 = v302;
-        if (v303 < v302)
+        v284 = v280;
+        v285 = v279;
+        v286 = *__error();
+        v287 = _SILogForLogForCategory(0);
+        v288 = os_log_type_enabled(v287, OS_LOG_TYPE_DEFAULT);
+        v417 = v284;
+        if (v285 < v284)
         {
-          v307 = v466;
-          if (v306)
+          v289 = v442;
+          if (v288)
           {
-            v498.st_dev = 134219264;
-            *&v498.st_mode = value;
-            WORD2(v498.st_ino) = 1024;
-            *(&v498.st_ino + 6) = v455;
-            HIWORD(v498.st_uid) = 1024;
-            v498.st_gid = v302;
-            LOWORD(v498.st_rdev) = 1024;
-            *(&v498.st_rdev + 2) = v303;
-            *(&v498.st_rdev + 3) = 2048;
-            v498.st_atimespec.tv_sec = v454;
-            LOWORD(v498.st_atimespec.tv_nsec) = 2048;
-            *(&v498.st_atimespec.tv_nsec + 2) = v453;
-            _os_log_impl(&dword_1C278D000, v305, OS_LOG_TYPE_DEFAULT, "No defer journals to replay for %p, deferSyncCount:%d, first:%d, last:%d, journalSerialNumber:%lld, consumedJournalSerialNumber:%lld", &v498, 0x32u);
+            v474.st_dev = 134219264;
+            *&v474.st_mode = value;
+            WORD2(v474.st_ino) = 1024;
+            *(&v474.st_ino + 6) = v431;
+            HIWORD(v474.st_uid) = 1024;
+            v474.st_gid = v284;
+            LOWORD(v474.st_rdev) = 1024;
+            *(&v474.st_rdev + 2) = v285;
+            *(&v474.st_rdev + 3) = 2048;
+            v474.st_atimespec.tv_sec = v430;
+            LOWORD(v474.st_atimespec.tv_nsec) = 2048;
+            *(&v474.st_atimespec.tv_nsec + 2) = v429;
+            _os_log_impl(&dword_1C278D000, v287, OS_LOG_TYPE_DEFAULT, "No defer journals to replay for %p, deferSyncCount:%d, first:%d, last:%d, journalSerialNumber:%lld, consumedJournalSerialNumber:%lld", &v474, 0x32u);
           }
 
-          *__error() = v304;
-          v308 = v303;
-          v309 = v448;
-LABEL_446:
-          v434 = v309;
-          if (v307)
+          *__error() = v286;
+          v290 = v285;
+          v291 = v424;
+LABEL_438:
+          v410 = v291;
+          if (v289)
           {
-            v334 = CFArrayGetCount(v307);
-            if (v334 >= 1)
+            v316 = CFArrayGetCount(v289);
+            if (v316 >= 1)
             {
-              v335 = v334;
-              for (k = 0; k != v335; ++k)
+              v317 = v316;
+              for (k = 0; k != v317; ++k)
               {
-                v337 = CFArrayGetValueAtIndex(v307, k);
-                if (v337 < v308)
+                v319 = CFArrayGetValueAtIndex(v289, k);
+                if (v319 < v290)
                 {
-                  v338 = v337;
-                  snprintf(&buf, 0x400uLL, "%s%d", "deferAttr.", v337);
-                  v339 = *__error();
-                  v340 = _SILogForLogForCategory(0);
-                  if (os_log_type_enabled(v340, OS_LOG_TYPE_DEFAULT))
+                  v320 = v319;
+                  snprintf(&buf, 0x400uLL, "%s%d", "deferAttr.", v319);
+                  v321 = *__error();
+                  v322 = _SILogForLogForCategory(0);
+                  if (os_log_type_enabled(v322, OS_LOG_TYPE_DEFAULT))
                   {
-                    v498.st_dev = 136315138;
-                    *&v498.st_mode = &buf;
-                    _os_log_impl(&dword_1C278D000, v340, OS_LOG_TYPE_DEFAULT, "Unlinking dropped file %s", &v498, 0xCu);
+                    v474.st_dev = 136315138;
+                    *&v474.st_mode = &buf;
+                    _os_log_impl(&dword_1C278D000, v322, OS_LOG_TYPE_DEFAULT, "Unlinking dropped file %s", &v474, 0xCu);
                   }
 
-                  *__error() = v339;
+                  *__error() = v321;
                   unlink(&buf);
-                  snprintf(&buf, 0x400uLL, "%s%d_toc", "deferAttr.", v338);
-                  v341 = *__error();
-                  v342 = _SILogForLogForCategory(0);
-                  if (os_log_type_enabled(v342, OS_LOG_TYPE_DEFAULT))
+                  snprintf(&buf, 0x400uLL, "%s%d_toc", "deferAttr.", v320);
+                  v323 = *__error();
+                  v324 = _SILogForLogForCategory(0);
+                  if (os_log_type_enabled(v324, OS_LOG_TYPE_DEFAULT))
                   {
-                    v498.st_dev = 136315138;
-                    *&v498.st_mode = &buf;
-                    _os_log_impl(&dword_1C278D000, v342, OS_LOG_TYPE_DEFAULT, "Unlinking dropped file %s", &v498, 0xCu);
+                    v474.st_dev = 136315138;
+                    *&v474.st_mode = &buf;
+                    _os_log_impl(&dword_1C278D000, v324, OS_LOG_TYPE_DEFAULT, "Unlinking dropped file %s", &v474, 0xCu);
                   }
 
-                  *__error() = v341;
+                  *__error() = v323;
                   unlink(&buf);
-                  v177 = value;
-                  v307 = v466;
-                  v178 = v464;
+                  v159 = value;
+                  v289 = v442;
+                  v160 = v440;
                 }
               }
             }
           }
 
-          v343 = v453;
-          if (v434 > v453)
+          v325 = v429;
+          if (v410 > v429)
           {
-            v343 = v434;
+            v325 = v410;
           }
 
-          v344 = v454;
-          if (v454 <= v343)
+          v326 = v430;
+          if (v430 <= v325)
           {
-            v345 = v343 + 1;
-            *(v177 + 2128) = v345;
-            v344 = v345;
+            v327 = v325 + 1;
+            *(v159 + 2128) = v327;
+            v326 = v327;
           }
 
-          v346 = *__error();
-          v347 = _SILogForLogForCategory(0);
-          v185 = v468;
-          v171 = (value + 864);
-          if (os_log_type_enabled(v347, OS_LOG_TYPE_DEFAULT))
+          v328 = *__error();
+          v329 = _SILogForLogForCategory(0);
+          v167 = v444;
+          v154 = (value + 864);
+          if (os_log_type_enabled(v329, OS_LOG_TYPE_DEFAULT))
           {
-            v498.st_dev = 134218240;
-            *&v498.st_mode = v344;
-            WORD2(v498.st_ino) = 2048;
-            *(&v498.st_ino + 6) = v453;
-            _os_log_impl(&dword_1C278D000, v347, OS_LOG_TYPE_DEFAULT, "journalSerialNumber:%lld, consumedJournalSerialNumber:%lld", &v498, 0x16u);
+            v474.st_dev = 134218240;
+            *&v474.st_mode = v326;
+            WORD2(v474.st_ino) = 2048;
+            *(&v474.st_ino + 6) = v429;
+            _os_log_impl(&dword_1C278D000, v329, OS_LOG_TYPE_DEFAULT, "journalSerialNumber:%lld, consumedJournalSerialNumber:%lld", &v474, 0x16u);
           }
 
-          *__error() = v346;
-          goto LABEL_463;
+          *__error() = v328;
+          goto LABEL_455;
         }
 
-        if (v306)
+        if (v288)
         {
-          v498.st_dev = 67110656;
-          *&v498.st_mode = v303 - v302 + 1;
-          LOWORD(v498.st_ino) = 2048;
-          *(&v498.st_ino + 2) = value;
-          HIWORD(v498.st_uid) = 1024;
-          v498.st_gid = v455;
-          LOWORD(v498.st_rdev) = 1024;
-          *(&v498.st_rdev + 2) = v302;
-          *(&v498.st_rdev + 3) = 1024;
-          LODWORD(v498.st_atimespec.tv_sec) = v303;
-          WORD2(v498.st_atimespec.tv_sec) = 2048;
-          *(&v498.st_atimespec.tv_sec + 6) = v454;
-          HIWORD(v498.st_atimespec.tv_nsec) = 2048;
-          v498.st_mtimespec.tv_sec = v453;
-          _os_log_impl(&dword_1C278D000, v305, OS_LOG_TYPE_DEFAULT, "Replaying %d defer journals for %p, syncCount:%d, first:%d, last:%d, journalSerialNumber:%lld, consumedJournalSerialNumber:%lld", &v498, 0x38u);
+          v474.st_dev = 67110656;
+          *&v474.st_mode = v285 - v284 + 1;
+          LOWORD(v474.st_ino) = 2048;
+          *(&v474.st_ino + 2) = value;
+          HIWORD(v474.st_uid) = 1024;
+          v474.st_gid = v431;
+          LOWORD(v474.st_rdev) = 1024;
+          *(&v474.st_rdev + 2) = v284;
+          *(&v474.st_rdev + 3) = 1024;
+          LODWORD(v474.st_atimespec.tv_sec) = v285;
+          WORD2(v474.st_atimespec.tv_sec) = 2048;
+          *(&v474.st_atimespec.tv_sec + 6) = v430;
+          HIWORD(v474.st_atimespec.tv_nsec) = 2048;
+          v474.st_mtimespec.tv_sec = v429;
+          _os_log_impl(&dword_1C278D000, v287, OS_LOG_TYPE_DEFAULT, "Replaying %d defer journals for %p, syncCount:%d, first:%d, last:%d, journalSerialNumber:%lld, consumedJournalSerialNumber:%lld", &v474, 0x38u);
         }
 
-        *__error() = v304;
-        if (v303 >= *(value + 587))
+        *__error() = v286;
+        if (v285 >= *(value + 587))
         {
-          *(value + 587) = v303 + 1;
+          *(value + 587) = v285 + 1;
         }
 
-        v445 = v303;
-        v310 = (v303 + 1);
-        v522 = 0;
-        v311 = 0;
-        v312 = "deferAttr.";
-        v313 = v448;
-        v314 = v441;
+        v421 = v285;
+        v292 = (v285 + 1);
+        v498 = 0;
+        v293 = 0;
+        v294 = "deferAttr.";
+        v295 = v424;
+        v296 = v417;
         while (2)
         {
-          if (snprintf(&buf, 0x400uLL, "%s%d", v312, v314) >= 0x400)
+          if (snprintf(&buf, 0x400uLL, "%s%d", v294, v296) >= 0x400)
           {
-            v411 = __si_assert_copy_extra_661(-1);
-            v387 = v411;
-            v412 = "";
-            if (v411)
+            v387 = __si_assert_copy_extra_661(-1);
+            v363 = v387;
+            v388 = "";
+            if (v387)
             {
-              v412 = v411;
+              v388 = v387;
             }
 
-            v429 = "0 <= count && count < pathBufferSize";
-            v431 = v412;
-            v389 = 6584;
-            goto LABEL_520;
+            v405 = "0 <= count && count < pathBufferSize";
+            v407 = v388;
+            v365 = 6584;
+            goto LABEL_512;
           }
 
-          v315 = *(value + 8);
-          if (v311)
+          v297 = *(value + 8);
+          if (v293)
           {
-            v316 = fd_create_protected(v315, &buf, 2, 0);
-            if (v316)
+            v298 = fd_create_protected(v297, &buf, 2, 0);
+            if (v298)
             {
-              v317 = v316;
-              v318 = fd_truncate(v316, 0);
-              fd_release(v317);
-              v319 = *__error();
-              v320 = _SILogForLogForCategory(0);
-              if (os_log_type_enabled(v320, OS_LOG_TYPE_ERROR))
+              v299 = v298;
+              v300 = fd_truncate(v298, 0);
+              fd_release(v299);
+              v301 = *__error();
+              v302 = _SILogForLogForCategory(0);
+              if (os_log_type_enabled(v302, OS_LOG_TYPE_ERROR))
               {
-                v498.st_dev = 136316162;
-                *&v498.st_mode = "si_playbackJournals";
-                WORD2(v498.st_ino) = 1024;
-                *(&v498.st_ino + 6) = 6615;
-                HIWORD(v498.st_uid) = 1024;
-                v498.st_gid = v314;
-                LOWORD(v498.st_rdev) = 1024;
-                *(&v498.st_rdev + 2) = v318;
-                *(&v498.st_rdev + 3) = 2080;
-                v498.st_atimespec.tv_sec = &buf;
-                _os_log_error_impl(&dword_1C278D000, v320, OS_LOG_TYPE_ERROR, "%s:%d: ParseFailed truncated B idx:%d result:%d %s", &v498, 0x28u);
+                v474.st_dev = 136316162;
+                *&v474.st_mode = "si_playbackJournals";
+                WORD2(v474.st_ino) = 1024;
+                *(&v474.st_ino + 6) = 6615;
+                HIWORD(v474.st_uid) = 1024;
+                v474.st_gid = v296;
+                LOWORD(v474.st_rdev) = 1024;
+                *(&v474.st_rdev + 2) = v300;
+                *(&v474.st_rdev + 3) = 2080;
+                v474.st_atimespec.tv_sec = &buf;
+                _os_log_error_impl(&dword_1C278D000, v302, OS_LOG_TYPE_ERROR, "%s:%d: ParseFailed truncated B idx:%d result:%d %s", &v474, 0x28u);
               }
 
-              *__error() = v319;
-              v309 = v313;
-              goto LABEL_444;
+              *__error() = v301;
+              v291 = v295;
+              goto LABEL_436;
             }
 
-            v332 = *__error();
-            v333 = _SILogForLogForCategory(0);
-            if (os_log_type_enabled(v333, OS_LOG_TYPE_ERROR))
+            v314 = *__error();
+            v315 = _SILogForLogForCategory(0);
+            if (os_log_type_enabled(v315, OS_LOG_TYPE_ERROR))
             {
-              v498.st_dev = 136315906;
-              *&v498.st_mode = "si_playbackJournals";
-              WORD2(v498.st_ino) = 1024;
-              *(&v498.st_ino + 6) = 6609;
-              HIWORD(v498.st_uid) = 1024;
-              v498.st_gid = v314;
-              LOWORD(v498.st_rdev) = 2080;
-              *(&v498.st_rdev + 2) = &buf;
-              _os_log_error_impl(&dword_1C278D000, v333, OS_LOG_TYPE_ERROR, "%s:%d: ParseFailed unable to truncate B idx:%d %s", &v498, 0x22u);
+              v474.st_dev = 136315906;
+              *&v474.st_mode = "si_playbackJournals";
+              WORD2(v474.st_ino) = 1024;
+              *(&v474.st_ino + 6) = 6609;
+              HIWORD(v474.st_uid) = 1024;
+              v474.st_gid = v296;
+              LOWORD(v474.st_rdev) = 2080;
+              *(&v474.st_rdev + 2) = &buf;
+              _os_log_error_impl(&dword_1C278D000, v315, OS_LOG_TYPE_ERROR, "%s:%d: ParseFailed unable to truncate B idx:%d %s", &v474, 0x22u);
             }
 
-            *__error() = v332;
+            *__error() = v314;
           }
 
           else
           {
-            v321 = fd_create_protected(v315, &buf, 0, 0);
-            v322 = *__error();
-            v323 = _SILogForLogForCategory(0);
-            v324 = os_log_type_enabled(v323, OS_LOG_TYPE_DEFAULT);
-            if (v321)
+            v303 = fd_create_protected(v297, &buf, 0, 0);
+            v304 = *__error();
+            v305 = _SILogForLogForCategory(0);
+            v306 = os_log_type_enabled(v305, OS_LOG_TYPE_DEFAULT);
+            if (v303)
             {
-              v325 = v312;
-              if (v324)
+              v307 = v294;
+              if (v306)
               {
-                v498.st_dev = 136315906;
-                *&v498.st_mode = &buf;
-                WORD2(v498.st_ino) = 1024;
-                *(&v498.st_ino + 6) = v455;
-                HIWORD(v498.st_uid) = 1024;
-                v498.st_gid = v441;
-                LOWORD(v498.st_rdev) = 1024;
-                *(&v498.st_rdev + 2) = v445;
-                _os_log_impl(&dword_1C278D000, v323, OS_LOG_TYPE_DEFAULT, "Replaying %s, syncCount:%d, first:%d, last:%d", &v498, 0x1Eu);
+                v474.st_dev = 136315906;
+                *&v474.st_mode = &buf;
+                WORD2(v474.st_ino) = 1024;
+                *(&v474.st_ino + 6) = v431;
+                HIWORD(v474.st_uid) = 1024;
+                v474.st_gid = v417;
+                LOWORD(v474.st_rdev) = 1024;
+                *(&v474.st_rdev + 2) = v421;
+                _os_log_impl(&dword_1C278D000, v305, OS_LOG_TYPE_DEFAULT, "Replaying %s, syncCount:%d, first:%d, last:%d", &v474, 0x1Eu);
               }
 
-              v326 = v310;
-              *__error() = v322;
-              v327 = si_playbackJournal(value, v321, &v522);
-              v311 = v522;
-              if (v522)
+              v308 = v292;
+              *__error() = v304;
+              v309 = si_playbackJournal(value, v303, &v498);
+              v293 = v498;
+              if (v498)
               {
-                v328 = *__error();
-                v329 = _SILogForLogForCategory(0);
-                if (os_log_type_enabled(v329, OS_LOG_TYPE_ERROR))
+                v310 = *__error();
+                v311 = _SILogForLogForCategory(0);
+                if (os_log_type_enabled(v311, OS_LOG_TYPE_ERROR))
                 {
-                  v498.st_dev = 136316418;
-                  *&v498.st_mode = "si_playbackJournals";
-                  WORD2(v498.st_ino) = 1024;
-                  *(&v498.st_ino + 6) = 6597;
-                  HIWORD(v498.st_uid) = 1024;
-                  v498.st_gid = v314;
-                  LOWORD(v498.st_rdev) = 1024;
-                  *(&v498.st_rdev + 2) = v441;
-                  *(&v498.st_rdev + 3) = 1024;
-                  LODWORD(v498.st_atimespec.tv_sec) = v445;
-                  WORD2(v498.st_atimespec.tv_sec) = 2080;
-                  *(&v498.st_atimespec.tv_sec + 6) = &buf;
-                  _os_log_error_impl(&dword_1C278D000, v329, OS_LOG_TYPE_ERROR, "%s:%d: ParseFailed B idx:%d (%d %d) %s", &v498, 0x2Eu);
+                  v474.st_dev = 136316418;
+                  *&v474.st_mode = "si_playbackJournals";
+                  WORD2(v474.st_ino) = 1024;
+                  *(&v474.st_ino + 6) = 6597;
+                  HIWORD(v474.st_uid) = 1024;
+                  v474.st_gid = v296;
+                  LOWORD(v474.st_rdev) = 1024;
+                  *(&v474.st_rdev + 2) = v417;
+                  *(&v474.st_rdev + 3) = 1024;
+                  LODWORD(v474.st_atimespec.tv_sec) = v421;
+                  WORD2(v474.st_atimespec.tv_sec) = 2080;
+                  *(&v474.st_atimespec.tv_sec + 6) = &buf;
+                  _os_log_error_impl(&dword_1C278D000, v311, OS_LOG_TYPE_ERROR, "%s:%d: ParseFailed B idx:%d (%d %d) %s", &v474, 0x2Eu);
                 }
 
-                *__error() = v328;
+                *__error() = v310;
               }
 
-              if (v313 <= v327)
+              if (v295 <= v309)
               {
-                v330 = v327;
-              }
-
-              else
-              {
-                v330 = v313;
-              }
-
-              if (v311)
-              {
-                v331 = v313;
+                v312 = v309;
               }
 
               else
               {
-                v331 = v330;
+                v312 = v295;
               }
 
-              fd_release(v321);
-              v309 = v331;
-              v310 = v326;
-              v312 = v325;
-LABEL_444:
-              ++v314;
-              v313 = v309;
-              if (v310 == v314)
+              if (v293)
               {
-                v308 = v441;
-                v177 = value;
-                v307 = v466;
-                v178 = v464;
-                goto LABEL_446;
+                v313 = v295;
+              }
+
+              else
+              {
+                v313 = v312;
+              }
+
+              fd_release(v303);
+              v291 = v313;
+              v292 = v308;
+              v294 = v307;
+LABEL_436:
+              ++v296;
+              v295 = v291;
+              if (v292 == v296)
+              {
+                v290 = v417;
+                v159 = value;
+                v289 = v442;
+                v160 = v440;
+                goto LABEL_438;
               }
 
               continue;
             }
 
-            if (v324)
+            if (v306)
             {
-              v498.st_dev = 136315906;
-              *&v498.st_mode = &buf;
-              WORD2(v498.st_ino) = 1024;
-              *(&v498.st_ino + 6) = v455;
-              HIWORD(v498.st_uid) = 1024;
-              v498.st_gid = v441;
-              LOWORD(v498.st_rdev) = 1024;
-              *(&v498.st_rdev + 2) = v445;
-              _os_log_impl(&dword_1C278D000, v323, OS_LOG_TYPE_DEFAULT, "Missing %s, syncCount:%d, first:%d, last:%d", &v498, 0x1Eu);
+              v474.st_dev = 136315906;
+              *&v474.st_mode = &buf;
+              WORD2(v474.st_ino) = 1024;
+              *(&v474.st_ino + 6) = v431;
+              HIWORD(v474.st_uid) = 1024;
+              v474.st_gid = v417;
+              LOWORD(v474.st_rdev) = 1024;
+              *(&v474.st_rdev + 2) = v421;
+              _os_log_impl(&dword_1C278D000, v305, OS_LOG_TYPE_DEFAULT, "Missing %s, syncCount:%d, first:%d, last:%d", &v474, 0x1Eu);
             }
 
-            *__error() = v322;
-            v311 = 0;
+            *__error() = v304;
+            v293 = 0;
           }
 
           break;
         }
 
-        v309 = v313;
-        goto LABEL_444;
+        v291 = v295;
+        goto LABEL_436;
       }
 
-LABEL_463:
-      v348 = v485[0];
-      MEMORY[0x1C6921200](LODWORD(v485[0]));
-      if ((v348 & 0x80000000) == 0)
+LABEL_455:
+      v330 = v461[0];
+      MEMORY[0x1C6921200](LODWORD(v461[0]));
+      if ((v330 & 0x80000000) == 0)
       {
-        close(v348);
+        close(v330);
       }
     }
 
     if (_os_feature_enabled_impl())
     {
-      v349 = *(v177 + 1048);
+      v331 = *(v159 + 1048);
       aBlock[0] = MEMORY[0x1E69E9820];
       aBlock[1] = 0x40000000;
       aBlock[2] = __SIInitIndex_block_invoke_1123;
       aBlock[3] = &__block_descriptor_tmp_1124;
-      aBlock[4] = v177;
-      si_enqueue_block(v349, aBlock);
+      aBlock[4] = v159;
+      si_enqueue_block(v331, aBlock);
     }
   }
 
-  if (*(v177 + 2072) == 1 && (clientstates_file = si_read_clientstates_file(v177)) != 0)
+  if (*(v159 + 2072) == 1 && (clientstates_file = si_read_clientstates_file(v159)) != 0)
   {
-    v351 = clientstates_file;
-    v352 = CFDictionaryGetValue(clientstates_file, @"journalName");
-    if (v352)
+    v333 = clientstates_file;
+    v334 = CFDictionaryGetValue(clientstates_file, @"journalName");
+    if (v334)
     {
-      v353 = v352;
-      v354 = CFRetain(v352);
-      SIReleaseJournalAssertion(v177, v353);
-      v355 = v354;
+      v335 = v334;
+      v336 = CFRetain(v334);
+      SIReleaseJournalAssertion(v159, v335);
+      v337 = v336;
     }
 
     else
     {
-      v355 = 0;
-      SIReleaseJournalAssertion(v177, 0);
+      v337 = 0;
+      SIReleaseJournalAssertion(v159, 0);
     }
 
-    CFRelease(v351);
-    v356 = v355;
+    CFRelease(v333);
+    v338 = v337;
   }
 
   else
   {
-    v356 = 0;
+    v338 = 0;
   }
 
-  v472 = *(v177 + 2128);
-  v357 = CFNumberCreate(v178, kCFNumberSInt64Type, &v472);
-  if (v357)
+  v448 = *(v159 + 2128);
+  v339 = CFNumberCreate(v160, kCFNumberSInt64Type, &v448);
+  if (v339)
   {
-    v358 = v357;
-    CFDictionarySetValue(*(v177 + 72), @"journalSerialNumber", v357);
-    CFRelease(v358);
+    v340 = v339;
+    CFDictionarySetValue(*(v159 + 72), @"journalSerialNumber", v339);
+    CFRelease(v340);
   }
 
-  v359 = CFNumberCreate(v178, kCFNumberIntType, (v177 + 2344));
-  if (v359)
+  v341 = CFNumberCreate(v160, kCFNumberIntType, (v159 + 2344));
+  if (v341)
   {
-    v360 = v359;
-    CFDictionarySetValue(*(v177 + 72), @"syncCount", v359);
-    CFRelease(v360);
+    v342 = v341;
+    CFDictionarySetValue(*(v159 + 72), @"syncCount", v341);
+    CFRelease(v342);
   }
 
-  v361 = CFNumberCreate(v178, kCFNumberIntType, (v177 + 2348));
-  if (v361)
+  v343 = CFNumberCreate(v160, kCFNumberIntType, (v159 + 2348));
+  if (v343)
   {
-    v362 = v361;
-    CFDictionarySetValue(*(v177 + 72), @"deferSyncCount", v361);
-    CFRelease(v362);
+    v344 = v343;
+    CFDictionarySetValue(*(v159 + 72), @"deferSyncCount", v343);
+    CFRelease(v344);
   }
 
-  if (v356)
+  if (v338)
   {
-    CFDictionarySetValue(*(v177 + 72), @"journalName", v356);
-    CFRelease(v356);
+    CFDictionarySetValue(*(v159 + 72), @"journalName", v338);
+    CFRelease(v338);
   }
 
-  v363 = si_storecookieRef(v177);
-  if (!v363)
+  v345 = si_storecookieRef(v159);
+  if (!v345)
   {
-    v366 = *__error();
-    v367 = _SILogForLogForCategory(0);
-    if (!os_log_type_enabled(v367, OS_LOG_TYPE_ERROR))
+    v348 = *__error();
+    v349 = _SILogForLogForCategory(0);
+    if (!os_log_type_enabled(v349, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_488;
+      goto LABEL_480;
     }
 
     buf.f_bsize = 136315394;
     *&buf.f_iosize = "SIInitIndex";
     WORD2(buf.f_blocks) = 1024;
     *(&buf.f_blocks + 6) = 16088;
-    v368 = "%s:%d: Failed to retrieve store cookie during index initialization";
-LABEL_530:
-    _os_log_error_impl(&dword_1C278D000, v367, OS_LOG_TYPE_ERROR, v368, &buf, 0x12u);
-    goto LABEL_488;
+    v350 = "%s:%d: Failed to retrieve store cookie during index initialization";
+LABEL_522:
+    _os_log_error_impl(&dword_1C278D000, v349, OS_LOG_TYPE_ERROR, v350, &buf, 0x12u);
+    goto LABEL_480;
   }
 
-  v364 = CFUUIDCreateString(v178, v363);
-  if (v364)
+  v346 = CFUUIDCreateString(v160, v345);
+  if (v346)
   {
-    v365 = v364;
-    CFDictionarySetValue(*(v177 + 72), @"cookie", v364);
-    CFRelease(v365);
-    goto LABEL_489;
+    v347 = v346;
+    CFDictionarySetValue(*(v159 + 72), @"cookie", v346);
+    CFRelease(v347);
+    goto LABEL_481;
   }
 
-  v366 = *__error();
-  v367 = _SILogForLogForCategory(0);
-  if (os_log_type_enabled(v367, OS_LOG_TYPE_ERROR))
+  v348 = *__error();
+  v349 = _SILogForLogForCategory(0);
+  if (os_log_type_enabled(v349, OS_LOG_TYPE_ERROR))
   {
     buf.f_bsize = 136315394;
     *&buf.f_iosize = "SIInitIndex";
     WORD2(buf.f_blocks) = 1024;
     *(&buf.f_blocks + 6) = 16085;
-    v368 = "%s:%d: Failed to create string from store cookie UUID bytes";
-    goto LABEL_530;
+    v350 = "%s:%d: Failed to create string from store cookie UUID bytes";
+    goto LABEL_522;
   }
 
-LABEL_488:
-  *__error() = v366;
-LABEL_489:
-  SIPersistClientStateAndMeta(v177, 1);
-  if (!v461)
+LABEL_480:
+  *__error() = v348;
+LABEL_481:
+  SIPersistClientStateAndMeta(v159, 1);
+  if (!v437)
   {
-    si_enqueue_barrier(*(v177 + 1048), resumeHoldQueue, *(*(v177 + 1160) + 16));
+    si_enqueue_barrier(*(v159 + 1048), resumeHoldQueue, *(*(v159 + 1160) + 16));
   }
 
-  v369 = SICopyProperty(v177, @"YukonRecomputedSizes");
-  if (v369)
+  v351 = SICopyProperty(v159, @"YukonRecomputedSizes");
+  if (v351)
   {
-    v370 = v369;
+    v352 = v351;
     buf.f_bsize = 0;
-    CFNumberGetValue(v369, kCFNumberIntType, &buf);
+    CFNumberGetValue(v351, kCFNumberIntType, &buf);
     f_bsize = buf.f_bsize;
-    CFRelease(v370);
-    if ((v469 & 0x800) == 0 && f_bsize < 2)
+    CFRelease(v352);
+    if ((v445 & 0x800) == 0 && f_bsize < 2)
     {
-LABEL_494:
-      v471[0] = MEMORY[0x1E69E9820];
-      v471[1] = 0x40000000;
-      v471[2] = __SIInitIndex_block_invoke_1125;
-      v471[3] = &__block_descriptor_tmp_1126;
-      v471[4] = v177;
-      _SIRecomputeSizesWithCallback(v177, 0, v471);
+LABEL_486:
+      v447[0] = MEMORY[0x1E69E9820];
+      v447[1] = 0x40000000;
+      v447[2] = __SIInitIndex_block_invoke_1125;
+      v447[3] = &__block_descriptor_tmp_1126;
+      v447[4] = v159;
+      _SIRecomputeSizesWithCallback(v159, 0, v447);
     }
   }
 
-  else if ((v469 & 0x800) == 0)
+  else if ((v445 & 0x800) == 0)
   {
-    goto LABEL_494;
+    goto LABEL_486;
   }
 
-  v372 = threadData[9 * v482 + 1] + 320 * v481;
-  *(v372 + 312) = v467;
-  v373 = *(v372 + 232);
-  if (v373)
+  v354 = threadData[9 * v458 + 1] + 320 * v457;
+  *(v354 + 312) = v443;
+  v355 = *(v354 + 232);
+  if (v355)
   {
-    v373(*(v372 + 288));
+    v355(*(v354 + 288));
   }
 
-  dropThreadId(v482, 0, v185 + 1);
-  if (!v465 && !a9 && !*(v177 + 6624))
+  dropThreadId(v458, 0, v167 + 1);
+  if (!v441 && !a10 && !*(v159 + 6624))
   {
-    v421 = __si_assert_copy_extra_661(-1);
-    v387 = v421;
-    v422 = "";
-    if (v421)
+    v397 = __si_assert_copy_extra_661(-1);
+    v363 = v397;
+    v398 = "";
+    if (v397)
     {
-      v422 = v421;
+      v398 = v397;
     }
 
-    v429 = "fs_only||newIndex->dirStore || rebuildDirStore";
-    v431 = v422;
-    v389 = 16122;
-    goto LABEL_520;
+    v405 = "fs_only||newIndex->dirStore || rebuildDirStore";
+    v407 = v398;
+    v365 = 16122;
+    goto LABEL_512;
   }
 
   if (gTerminating)
   {
-    __si_set_error_str(1, "%s:%u: %s", v374, v375, v376, v377, v378, v379, "SpotlightIndex.c");
-    result = 4294967293;
+    __si_set_error_str(1, "%s:%u: %s", "SpotlightIndex.c", 16126, "process terminating");
+    return 4294967293;
   }
 
   else
   {
-    v380 = *v171;
-    if (*v171)
+    v356 = *v154;
+    if (*v154)
     {
-      v381 = *(v380 + 168);
-      *(v380 + 168) = 0;
-      v382 = *v171;
+      v357 = *(v356 + 168);
+      *(v356 + 168) = 0;
+      v358 = *v154;
     }
 
     else
     {
-      v382 = 0;
-      v381 = 0;
+      v358 = 0;
+      v357 = 0;
     }
 
-    si_scheduler_resume(v382, v381, "/Library/Caches/com.apple.xbs/Sources/Spotlight_frameworks/spotlight/index/SpotlightIndex/SpotlightIndex.c", 16182);
-    v383 = *(v177 + 944);
-    if (v383)
+    si_scheduler_resume(v358, v357, "/Library/Caches/com.apple.xbs/Sources/Spotlight_frameworks/spotlight/index/SpotlightIndex/SpotlightIndex.c", 16182);
+    v359 = *(v159 + 944);
+    if (v359)
     {
-      v384 = *(v383 + 168);
-      *(v383 + 168) = 0;
-      v385 = *(v177 + 944);
+      v360 = *(v359 + 168);
+      *(v359 + 168) = 0;
+      v361 = *(v159 + 944);
     }
 
     else
     {
-      v385 = 0;
-      v384 = 0;
+      v361 = 0;
+      v360 = 0;
     }
 
-    si_scheduler_resume(v385, v384, "/Library/Caches/com.apple.xbs/Sources/Spotlight_frameworks/spotlight/index/SpotlightIndex/SpotlightIndex.c", 16184);
-    result = 0;
+    si_scheduler_resume(v361, v360, "/Library/Caches/com.apple.xbs/Sources/Spotlight_frameworks/spotlight/index/SpotlightIndex/SpotlightIndex.c", 16184);
+    return 0;
   }
-
-LABEL_147:
-  v126 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 void _si_set_version_property(uint64_t a1, const void *a2, int a3)
@@ -8704,19 +8582,19 @@ LABEL_3:
   _SIShutdownIndex(a1);
 }
 
-void SIShutdownIndex(uint64_t a1, void (*a2)(uint64_t, uint64_t), uint64_t a3)
+void SIShutdownIndex(uint64_t result, uint64_t (*a2)(uint64_t, uint64_t), uint64_t a3)
 {
-  if (!a1)
+  if (!result)
   {
     goto LABEL_6;
   }
 
-  if (sContactsIndex == a1)
+  if (sContactsIndex == result)
   {
     sContactsIndex = 0;
   }
 
-  if ((*(a1 + 2432) & 1) != 0 || *(a1 + 2416))
+  if ((*(result + 2432) & 1) != 0 || *(result + 2416))
   {
 LABEL_6:
     if (a2)
@@ -8728,15 +8606,15 @@ LABEL_6:
 
   else
   {
-    *(a1 + 2432) = 1;
+    *(result + 2432) = 1;
     v5 = malloc_type_malloc(0x18uLL, 0xA00402214FCE6uLL);
     v5[1] = a3;
     v5[2] = a2;
-    *v5 = a1;
-    *(a1 + 2428) = 1;
+    *v5 = result;
+    *(result + 2428) = 1;
     for (i = 864; i != 1000; i += 8)
     {
-      v7 = *(a1 + i);
+      v7 = *(result + i);
       if (v7)
       {
         v8 = *(v7 + 32);
@@ -8749,13 +8627,13 @@ LABEL_6:
       }
     }
 
-    *(a1 + 2433) = 1;
-    if (*(a1 + 2448))
+    *(result + 2433) = 1;
+    if (*(result + 2448))
     {
-      awakenPreheat(a1);
+      awakenPreheat(result);
     }
 
-    v9 = *(a1 + 1168);
+    v9 = *(result + 1168);
 
     si_enqueue_work(v9, si_shutdown, v5);
   }
@@ -8763,11 +8641,11 @@ LABEL_6:
 
 void _SIShutdownIndex(uint64_t a1)
 {
-  v88 = *MEMORY[0x1E69E9840];
-  bzero(v87, 0x400uLL);
+  v87 = *MEMORY[0x1E69E9840];
+  bzero(v86, 0x400uLL);
   v2 = (a1 + 32);
-  v3 = fcntl(*(a1 + 32), 50, v87);
-  if (v87[0])
+  v3 = fcntl(*(a1 + 32), 50, v86);
+  if (v86[0])
   {
     v4 = v3 < 0;
   }
@@ -8784,7 +8662,7 @@ void _SIShutdownIndex(uint64_t a1)
 
   else
   {
-    v5 = v87;
+    v5 = v86;
   }
 
   v6 = *__error();
@@ -8805,21 +8683,21 @@ void _SIShutdownIndex(uint64_t a1)
   }
 
   *(a1 + 2428) = 1;
-  v76 = 0;
-  v77 = &v76;
-  v78 = 0x2000000000;
-  v79 = 0;
+  v75 = 0;
+  v76 = &v75;
+  v77 = 0x2000000000;
+  v78 = 0;
   v10 = *(a1 + 1392);
   v11 = *(a1 + 1384);
-  v72[0] = MEMORY[0x1E69E9820];
-  v72[1] = 0x40000000;
-  v73 = ___SIShutdownIndex_block_invoke;
-  v74 = &unk_1E8191F48;
-  v75 = &v76;
+  v71[0] = MEMORY[0x1E69E9820];
+  v71[1] = 0x40000000;
+  v72 = ___SIShutdownIndex_block_invoke;
+  v73 = &unk_1E8191F48;
+  v74 = &v75;
   if (v10 && *(v10 + 8))
   {
     v12 = 0;
-    while ((v73)(v72, *(*v10 + 8 * v12), 0))
+    while ((v72)(v71, *(*v10 + 8 * v12), 0))
     {
       if (++v12 >= *(v10 + 8))
       {
@@ -8836,7 +8714,7 @@ LABEL_16:
       v13 = 0;
       do
       {
-        if (!(v73)(v72, *(*v11 + 8 * v13), 1))
+        if (!(v72)(v71, *(*v11 + 8 * v13), 1))
         {
           break;
         }
@@ -8848,7 +8726,7 @@ LABEL_16:
     }
   }
 
-  if ((v77[3] & 1) == 0)
+  if ((v76[3] & 1) == 0)
   {
     si_scheduler_boost_and_forget(*(a1 + 944));
     si_scheduler_boost_and_forget(*(a1 + 864));
@@ -8859,7 +8737,7 @@ LABEL_16:
     si_scheduler_boost_and_forget(*(a1 + 880));
     si_scheduler_boost_and_forget(*(a1 + 952));
     _SIShutdownIndexSchedulers(a1, 0, 0, Current);
-    v71 = 0;
+    v70 = 0;
     v14 = *(a1 + 6592);
     v15 = *(a1 + 1192);
     v16 = *(a1 + 1392);
@@ -8964,17 +8842,17 @@ LABEL_59:
       }
     }
 
-    v65 = 0;
-    v68 = 257;
-    v66 = v15;
-    v67 = a1;
+    v64 = 0;
+    v67 = 257;
+    v65 = v15;
+    v66 = a1;
     v19 = v17;
-    v64 = 0u;
-    v69 = v16;
-    v70 = v17;
-    v86 = 0;
-    v85 = 0u;
+    v63 = 0u;
+    v68 = v16;
+    v69 = v17;
+    v85 = 0;
     v84 = 0u;
+    v83 = 0u;
     memset(buf, 0, sizeof(buf));
     if (gTerminating)
     {
@@ -8991,19 +8869,19 @@ LABEL_59:
     }
 
     while (v20 != v16 || v21 != v19);
-    if (!fd_setDir(*v2, &v71))
+    if (!fd_setDir(*v2, &v70))
     {
       v31 = *__error();
       v32 = _SILogForLogForCategory(0);
       if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        v59 = *__error();
+        v58 = *__error();
         *valuePtr = 136315906;
         *&valuePtr[4] = "_SIShutdownIndex";
         *&valuePtr[12] = 1024;
         *&valuePtr[14] = 16974;
         *&valuePtr[18] = 1024;
-        *&valuePtr[20] = v59;
+        *&valuePtr[20] = v58;
         *&valuePtr[24] = 2080;
         *&valuePtr[26] = v5;
         _os_log_error_impl(&dword_1C278D000, v32, OS_LOG_TYPE_ERROR, "%s:%d: setDir 2 error %d (%s)", valuePtr, 0x22u);
@@ -9013,9 +8891,9 @@ LABEL_59:
       v33 = *(a1 + 1392);
       v34 = *(a1 + 1384);
       *&valuePtr[16] = *&buf[16];
-      *&valuePtr[32] = v84;
+      *&valuePtr[32] = v83;
+      v80 = v84;
       v81 = v85;
-      v82 = v86;
       *valuePtr = *buf;
       ContentIndexCloseIndexBulk_Step1(0, v33, v34, valuePtr, v14);
       CIMetaInfoClose(a1 + 1200);
@@ -9024,10 +8902,10 @@ LABEL_59:
 
     add_explicit = atomic_fetch_add_explicit(&exceptionSequenceNum, 1u, memory_order_relaxed);
     v24 = setThreadIdAndInfo(*v2, sFdExceptionCallbacks, 0, 1, add_explicit + 1);
-    v62 = HIDWORD(v24);
-    v63 = v24;
-    v60 = v26;
-    v61 = v25;
+    v61 = HIDWORD(v24);
+    v62 = v24;
+    v59 = v26;
+    v60 = v25;
     v27 = threadData[9 * v24 + 1] + 320 * HIDWORD(v24);
     *(v27 + 216) = 0;
     v28 = *(v27 + 312);
@@ -9047,9 +8925,9 @@ LABEL_59:
       }
 
       v30[78] = v28;
-      CIOnThreadCleanUpReset(v60);
-      dropThreadId(v63, 1, add_explicit + 1);
-      CICleanUpReset(v63, v61);
+      CIOnThreadCleanUpReset(v59);
+      dropThreadId(v62, 1, add_explicit + 1);
+      CICleanUpReset(v62, v60);
       v18 = 0x1EBF46000;
 LABEL_56:
       v41 = *__error();
@@ -9096,19 +8974,19 @@ LABEL_56:
       *valuePtr = xmmword_1F427BAA0;
       *&valuePtr[16] = *&off_1F427BAB0;
       *&valuePtr[32] = xmmword_1F427BAC0;
-      v81 = *off_1F427BAD0;
-      v82 = &v64;
+      v80 = *off_1F427BAD0;
+      v81 = &v63;
 LABEL_51:
       ContentIndexCloseIndexBulk_Step1(v37, v20, v21, valuePtr, v14);
       CIMetaInfoClose(v37);
-      v38 = v71;
-      MEMORY[0x1C6921200](v71);
+      v38 = v70;
+      MEMORY[0x1C6921200](v70);
       if ((v38 & 0x80000000) == 0)
       {
         close(v38);
       }
 
-      v39 = threadData[9 * v63 + 1] + 320 * v62;
+      v39 = threadData[9 * v62 + 1] + 320 * v61;
       *(v39 + 312) = v28;
       v40 = *(v39 + 232);
       v18 = 0x1EBF46000uLL;
@@ -9117,30 +8995,29 @@ LABEL_51:
         v40(*(v39 + 288));
       }
 
-      dropThreadId(v63, 0, add_explicit + 1);
+      dropThreadId(v62, 0, add_explicit + 1);
       goto LABEL_56;
     }
 
 LABEL_50:
     *&valuePtr[16] = *&buf[16];
-    *&valuePtr[32] = v84;
+    *&valuePtr[32] = v83;
+    v80 = v84;
     v81 = v85;
-    v82 = v86;
     *valuePtr = *buf;
     goto LABEL_51;
   }
 
 LABEL_84:
-  _Block_object_dispose(&v76, 8);
-  v58 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v75, 8);
 }
 
 void _SIShutdownIndexSchedulers(uint64_t a1, char a2, int a3, double a4)
 {
-  v41 = *MEMORY[0x1E69E9840];
-  bzero(v40, 0x400uLL);
-  v8 = fcntl(*(a1 + 32), 50, v40);
-  if (v40[0])
+  v40 = *MEMORY[0x1E69E9840];
+  bzero(v39, 0x400uLL);
+  v8 = fcntl(*(a1 + 32), 50, v39);
+  if (v39[0])
   {
     v9 = v8 < 0;
   }
@@ -9188,7 +9065,7 @@ void _SIShutdownIndexSchedulers(uint64_t a1, char a2, int a3, double a4)
 
     else
     {
-      v18 = v40;
+      v18 = v39;
     }
 
     *buf = 136315394;
@@ -9289,32 +9166,30 @@ void _SIShutdownIndexSchedulers(uint64_t a1, char a2, int a3, double a4)
     block[2] = ___SIShutdownIndexSchedulers_block_invoke;
     block[3] = &__block_descriptor_tmp_1205;
     block[4] = v21;
-    memcpy(v33, buf, sizeof(v33));
-    v34 = v11;
-    v35 = v30;
-    v38 = v12;
-    v36 = v27;
-    v37 = v26;
+    memcpy(v32, buf, sizeof(v32));
+    v33 = v11;
+    v34 = v30;
+    v37 = v12;
+    v35 = v27;
+    v36 = v26;
     dispatch_group_notify(v11, v30, block);
     dispatch_activate(v30);
     dispatch_release(v30);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void awakenPreheat(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = *__error();
   v3 = _SILogForLogForCategory(3);
   v4 = 2 * (dword_1EBF46AD8 < 4);
   if (os_log_type_enabled(v3, v4))
   {
     v5 = *(a1 + 896);
-    v17 = 134217984;
-    v18 = v5;
-    _os_log_impl(&dword_1C278D000, v3, v4, "awakenPreheat entered for %p", &v17, 0xCu);
+    v16 = 134217984;
+    v17 = v5;
+    _os_log_impl(&dword_1C278D000, v3, v4, "awakenPreheat entered for %p", &v16, 0xCu);
   }
 
   *__error() = v2;
@@ -9327,9 +9202,9 @@ void awakenPreheat(uint64_t a1)
     if (os_log_type_enabled(v9, v10))
     {
       v11 = *(a1 + 896);
-      v17 = 134217984;
-      v18 = v11;
-      _os_log_impl(&dword_1C278D000, v9, v10, "awakenPreheat continued for %p", &v17, 0xCu);
+      v16 = 134217984;
+      v17 = v11;
+      _os_log_impl(&dword_1C278D000, v9, v10, "awakenPreheat continued for %p", &v16, 0xCu);
     }
 
     *__error() = v8;
@@ -9344,15 +9219,13 @@ void awakenPreheat(uint64_t a1)
     if (os_log_type_enabled(v13, v14))
     {
       v15 = *(a1 + 896);
-      v17 = 134217984;
-      v18 = v15;
-      _os_log_impl(&dword_1C278D000, v13, v14, "awakenPreheat skipped for %p", &v17, 0xCu);
+      v16 = 134217984;
+      v17 = v15;
+      _os_log_impl(&dword_1C278D000, v13, v14, "awakenPreheat skipped for %p", &v16, 0xCu);
     }
 
     *__error() = v12;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t cleanup_retiring(uint64_t a1)
@@ -9411,7 +9284,7 @@ void si_handleWorkQueue(uint64_t a1, uint64_t a2, NSObject *a3, int a4)
 
 void cf_release_scheduler_stopping(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = dispatch_group_create();
   si_scheduler_stop(a2, v3);
   Current = CFAbsoluteTimeGetCurrent();
@@ -9423,9 +9296,9 @@ void cf_release_scheduler_stopping(uint64_t a1, uint64_t a2)
     v7 = _SILogForLogForCategory(3);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v10) = 134217984;
-      *(&v10 + 4) = v5;
-      _os_log_impl(&dword_1C278D000, v7, OS_LOG_TYPE_DEFAULT, "[shutdown hang] Waited for %lfs to release scheduler", &v10, 0xCu);
+      LODWORD(v9) = 134217984;
+      *(&v9 + 4) = v5;
+      _os_log_impl(&dword_1C278D000, v7, OS_LOG_TYPE_DEFAULT, "[shutdown hang] Waited for %lfs to release scheduler", &v9, 0xCu);
     }
 
     *__error() = v6;
@@ -9433,19 +9306,17 @@ void cf_release_scheduler_stopping(uint64_t a1, uint64_t a2)
 
   dispatch_release(v3);
   v8 = *(a2 + 32);
-  *&v10 = MEMORY[0x1E69E9820];
-  *(&v10 + 1) = 0x40000000;
-  v11 = __si_scheduler_drain_block_invoke;
-  v12 = &__block_descriptor_tmp_8;
-  v13 = a2;
-  v14 = 0;
-  dispatch_sync(v8, &v10);
+  *&v9 = MEMORY[0x1E69E9820];
+  *(&v9 + 1) = 0x40000000;
+  v10 = __si_scheduler_drain_block_invoke;
+  v11 = &__block_descriptor_tmp_8;
+  v12 = a2;
+  v13 = 0;
+  dispatch_sync(v8, &v9);
   if (atomic_fetch_add((a2 + 96), 0xFFFFFFFF) == 1)
   {
     _si_scheduler_destroy(a2);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t cf_retain_scheduler(uint64_t a1, uint64_t a2)
@@ -9469,14 +9340,14 @@ void __si_handleWorkQueue_block_invoke(uint64_t a1)
 
 int *si_shutdown(uint64_t *a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = *__error();
   v3 = _SILogForLogForCategory(3);
   v4 = 2 * (dword_1EBF46AD8 < 4);
   if (os_log_type_enabled(v3, v4))
   {
-    LOWORD(v16) = 0;
-    _os_log_impl(&dword_1C278D000, v3, v4, "Shutdown started", &v16, 2u);
+    LOWORD(v15) = 0;
+    _os_log_impl(&dword_1C278D000, v3, v4, "Shutdown started", &v15, 2u);
   }
 
   *__error() = v2;
@@ -9520,14 +9391,13 @@ LABEL_10:
   if (os_log_type_enabled(v11, v12))
   {
     v13 = CFAbsoluteTimeGetCurrent();
-    v16 = 134217984;
-    v17 = v13 - Current;
-    _os_log_impl(&dword_1C278D000, v11, v12, "Shutdown ended after %f seconds", &v16, 0xCu);
+    v15 = 134217984;
+    v16 = v13 - Current;
+    _os_log_impl(&dword_1C278D000, v11, v12, "Shutdown ended after %f seconds", &v15, 0xCu);
   }
 
   result = __error();
   *result = v10;
-  v15 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9763,24 +9633,24 @@ uint64_t _si_init_localized_terms(uint64_t a1)
           store_stream_read_bytes_707(v53, (a1 + 6856), 0x10uLL);
           if (!uuid_compare(buffer, (a1 + 6856)))
           {
-            updated = TermUpdateSetRestore(v53, 0, 0, 0, 1, v5, 0, 0, 0, 0, v48);
+            updated = TermUpdateSetRestore(v12, v53, 0, 0, 0, 1, v5, 0, 0, 0, 0, v48);
             *(a1 + 6648) = updated;
             if (updated)
             {
-              v28 = *__error();
-              v29 = _SILogForLogForCategory(0);
-              v30 = 2 * (gSILogLevels[0] < 4);
-              if (os_log_type_enabled(v29, v30))
+              v29 = *__error();
+              v30 = _SILogForLogForCategory(0);
+              v31 = 2 * (gSILogLevels[0] < 4);
+              if (os_log_type_enabled(v30, v31))
               {
                 WORD2(v47) = 0;
-                _os_log_impl(&dword_1C278D000, v29, v30, "restored localized terms", &v47 + 4, 2u);
+                _os_log_impl(&dword_1C278D000, v30, v31, "restored localized terms", &v47 + 4, 2u);
               }
 
-              *__error() = v28;
+              *__error() = v29;
               CFRelease(v11);
               store_stream_destroy(v53);
               fd_release(v4);
-              v12 = 1;
+              v13 = 1;
               goto LABEL_21;
             }
           }
@@ -9795,34 +9665,34 @@ uint64_t _si_init_localized_terms(uint64_t a1)
   }
 
   *(a1 + 6648) = TermUpdateSetCreate(0, 0, 0, 1, v5, 0, 0, v48);
-  v12 = 0;
+  v13 = 0;
 LABEL_21:
   memset(v53, 0, 24);
   pthread_rwlockattr_init(v53);
   pthread_rwlock_init((a1 + 6656), v53);
   pthread_rwlockattr_destroy(v53);
-  v13 = *(a1 + 6648);
-  *(v13 + 280) = a1 + 6656;
-  *(v13 + 608) = getPropertyStringCallback;
+  v14 = *(a1 + 6648);
+  *(v14 + 280) = a1 + 6656;
+  *(v14 + 608) = getPropertyStringCallback;
   *(a1 + 6872) = 0;
   add_explicit = atomic_fetch_add_explicit(&exceptionSequenceNum, 1u, memory_order_relaxed);
-  v15 = setThreadIdAndInfo(*(a1 + 32), sFdExceptionCallbacks, 0, 1, add_explicit + 1);
-  *buffer = HIDWORD(v15);
-  *v53 = v15;
-  v47 = __PAIR64__(v16, v17);
-  v18 = threadData[9 * v15 + 1] + 320 * HIDWORD(v15);
-  *(v18 + 216) = 0;
-  v19 = *(v18 + 312);
-  v20 = *(v18 + 224);
-  if (v20)
+  v16 = setThreadIdAndInfo(*(a1 + 32), sFdExceptionCallbacks, 0, 1, add_explicit + 1);
+  *buffer = HIDWORD(v16);
+  *v53 = v16;
+  v47 = __PAIR64__(v17, v18);
+  v19 = threadData[9 * v16 + 1] + 320 * HIDWORD(v16);
+  *(v19 + 216) = 0;
+  v20 = *(v19 + 312);
+  v21 = *(v19 + 224);
+  if (v21)
   {
-    v20(*(v18 + 288));
+    v21(*(v19 + 288));
   }
 
   v46 = *v53;
   v45 = *buffer;
   v44 = v47;
-  if (_setjmp(v18))
+  if (_setjmp(v19))
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
@@ -9830,95 +9700,94 @@ LABEL_21:
       _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", buf, 2u);
     }
 
-    *(v18 + 312) = v19;
+    *(v19 + 312) = v20;
     CIOnThreadCleanUpReset(v44);
     dropThreadId(v46, 1, add_explicit + 1);
-    result = CICleanUpReset(v46, HIDWORD(v44));
-    goto LABEL_58;
+    return CICleanUpReset(v46, HIDWORD(v44));
   }
 
   if (*(a1 + 1284) >= 84)
   {
-    v22 = *(a1 + 1192);
+    v23 = *(a1 + 1192);
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 0x40000000;
     aBlock[2] = ___si_init_localized_terms_block_invoke_1146;
     aBlock[3] = &__block_descriptor_tmp_1147;
     aBlock[4] = a1;
-    if (*v22 == 1685287992)
+    if (*v23 == 1685287992)
     {
-      *(v22 + 968) = _Block_copy(aBlock);
+      *(v23 + 968) = _Block_copy(aBlock);
     }
 
-    if ((v12 & 1) == 0)
+    if ((v13 & 1) == 0)
     {
-      v23 = *(a1 + 1192);
-      if (*v23 == 1685287992)
+      v24 = *(a1 + 1192);
+      if (*v24 == 1685287992)
       {
-        if (*(v23 + 968))
+        if (*(v24 + 968))
         {
-          v24 = *(v23 + 912);
-          if ((*(v23 + 804) & 0x14) == 0)
+          v25 = *(v24 + 912);
+          if ((*(v24 + 804) & 0x14) == 0)
           {
-            if (*(v24 + 56) >= 2u)
+            if (*(v25 + 56) >= 2u)
             {
-              v26 = 1;
+              v27 = 1;
               do
               {
-                (*(*(v23 + 968) + 16))();
-                ++v26;
+                (*(*(v24 + 968) + 16))();
+                ++v27;
               }
 
-              while (v26 < *(v24 + 56));
+              while (v27 < *(v25 + 56));
             }
 
             goto LABEL_55;
           }
 
-          if (v24)
+          if (v25)
           {
-            v25 = *(v24 + 216);
-            if (v25 <= 842150449)
+            v26 = *(v25 + 216);
+            if (v26 <= 842150449)
             {
-              if (v25 == -572662307)
+              if (v26 == -572662307)
               {
-                v31 = data_map_double_count(*(v23 + 912));
+                v32 = data_map_double_count(*(v24 + 912));
 LABEL_52:
-                v32 = v31 + 1;
-                if (v31 + 1 >= 2)
+                v33 = v32 + 1;
+                if (v32 + 1 >= 2)
                 {
-                  v33 = 2;
+                  v34 = 2;
                   do
                   {
-                    v34 = v33;
-                    (*(*(v23 + 968) + 16))();
-                    v33 = v34 + 1;
+                    v35 = v34;
+                    (*(*(v24 + 968) + 16))();
+                    v34 = v35 + 1;
                   }
 
-                  while (v32 > v34);
+                  while (v33 > v35);
                 }
 
                 goto LABEL_55;
               }
 
-              if (v25 != -270471200)
+              if (v26 != -270471200)
               {
                 goto LABEL_55;
               }
 
 LABEL_50:
-              v31 = *(v24 + 224) - 1;
+              v32 = *(v25 + 224) - 1;
               goto LABEL_52;
             }
 
-            if (v25 == 1684300900)
+            if (v26 == 1684300900)
             {
               goto LABEL_50;
             }
 
-            if (v25 == 842150450)
+            if (v26 == 842150450)
             {
-              v31 = (*(v24 + 220) - 1);
+              v32 = (*(v25 + 220) - 1);
               goto LABEL_52;
             }
           }
@@ -9928,16 +9797,2200 @@ LABEL_50:
   }
 
 LABEL_55:
-  v35 = threadData[9 * v46 + 1] + 320 * v45;
-  *(v35 + 312) = v19;
-  v36 = *(v35 + 232);
-  if (v36)
+  v36 = threadData[9 * v46 + 1] + 320 * v45;
+  *(v36 + 312) = v20;
+  v37 = *(v36 + 232);
+  if (v37)
   {
-    v36(*(v35 + 288));
+    v37(*(v36 + 288));
   }
 
-  result = dropThreadId(v46, 0, add_explicit + 1);
-LABEL_58:
-  v37 = *MEMORY[0x1E69E9840];
-  return result;
+  return dropThreadId(v46, 0, add_explicit + 1);
+}
+
+uint64_t _SIInitSDB(uint64_t a1, __int16 a2, int a3)
+{
+  v373 = *MEMORY[0x1E69E9840];
+  add_explicit = atomic_fetch_add_explicit(&exceptionSequenceNum, 1u, memory_order_relaxed);
+  v7 = setThreadIdAndInfo(-1, sSDBExceptionCallbacks, *(a1 + 1192), 0x40000000, add_explicit + 1);
+  v366 = v7;
+  v8 = threadData[9 * v7 + 1] + 320 * HIDWORD(v7);
+  v364 = v9;
+  v365 = HIDWORD(v7);
+  v363 = v10;
+  *(v8 + 216) = 0;
+  v11 = *(v8 + 312);
+  v12 = *(v8 + 224);
+  if (v12)
+  {
+    v12(*(v8 + 288));
+  }
+
+  v362 = v366;
+  v361 = v365;
+  v360 = v364;
+  v359 = v363;
+  v13 = _setjmp(v8);
+  v14 = MEMORY[0x1E695E480];
+  if (v13)
+  {
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", buf, 2u);
+    }
+
+    *(v8 + 312) = v11;
+    CIOnThreadCleanUpReset(v359);
+    dropThreadId(v362, 1, add_explicit + 1);
+    CICleanUpReset(v362, v360);
+    goto LABEL_617;
+  }
+
+  v15 = *(a1 + 1192);
+  v358[0] = MEMORY[0x1E69E9820];
+  v358[1] = 0x40000000;
+  v358[2] = ___SIInitSDB_block_invoke;
+  v358[3] = &__block_descriptor_tmp_1149;
+  v358[4] = a1;
+  v356[4] = a1;
+  v357[0] = MEMORY[0x1E69E9820];
+  v357[1] = 0x40000000;
+  v357[2] = ___SIInitSDB_block_invoke_2;
+  v357[3] = &__block_descriptor_tmp_1151;
+  v357[4] = a1;
+  v356[0] = MEMORY[0x1E69E9820];
+  v356[1] = 0x40000000;
+  v356[2] = ___SIInitSDB_block_invoke_3;
+  v356[3] = &__block_descriptor_tmp_1152;
+  if (*v15 != 1685287992)
+  {
+    v335 = __si_assert_copy_extra_332();
+    v336 = v335;
+    v337 = "";
+    if (v335)
+    {
+      v337 = v335;
+    }
+
+    __message_assert("%s:%u: Unexpected code path %s ", "core-db.c", 233, v337);
+LABEL_631:
+    free(v336);
+    MEMORY[0xBAD] = -559038737;
+    abort();
+  }
+
+  db2_set_garbage_collector(v15, v358, v357, v356);
+  v16 = *(a1 + 1192);
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 0x40000000;
+  aBlock[2] = ___SIInitSDB_block_invoke_4;
+  aBlock[3] = &__block_descriptor_tmp_1154;
+  aBlock[4] = a1;
+  if (*v16 != 1685287992)
+  {
+    v338 = *__error();
+    v339 = _SILogForLogForCategory(4);
+    if (os_log_type_enabled(v339, OS_LOG_TYPE_ERROR))
+    {
+      v340 = *v16;
+      *buf = 136315650;
+      v368 = "db_set_dirty_callback";
+      v369 = 1024;
+      v370 = 235;
+      v371 = 1024;
+      v372 = v340;
+      _os_log_error_impl(&dword_1C278D000, v339, OS_LOG_TYPE_ERROR, "%s:%d: unexpected db signature %x", buf, 0x18u);
+    }
+
+    *__error() = v338;
+    v341 = __si_assert_copy_extra_332();
+    v336 = v341;
+    v342 = "";
+    if (v341)
+    {
+      v342 = v341;
+    }
+
+    __message_assert("%s:%u: Unexpected code path %s ", "core-db.c", 235, v342);
+    goto LABEL_631;
+  }
+
+  v17 = _Block_copy(aBlock);
+  v18 = *(v16 + 104);
+  if (v18)
+  {
+    _Block_release(v18);
+  }
+
+  *(v16 + 104) = v17;
+  v19 = *(a1 + 6624);
+  if (v19)
+  {
+    v354[0] = MEMORY[0x1E69E9820];
+    v354[1] = 0x40000000;
+    v354[2] = ___SIInitSDB_block_invoke_5;
+    v354[3] = &__block_descriptor_tmp_1155;
+    v354[4] = a1;
+    v20 = _Block_copy(v354);
+    v21 = *(v19 + 4640);
+    if (v21)
+    {
+      _Block_release(v21);
+    }
+
+    *(v19 + 4640) = v20;
+  }
+
+  v348 = v11;
+  v349 = add_explicit;
+  v22 = *(a1 + 1392);
+  v23 = *(a1 + 1384);
+  v350[0] = MEMORY[0x1E69E9820];
+  v350[1] = 0x40000000;
+  v351 = ___SIInitSDB_block_invoke_6;
+  v352 = &__block_descriptor_tmp_1157;
+  v353 = a1;
+  if (v22 && *(v22 + 8))
+  {
+    v24 = 0;
+    while ((v351)(v350, *(*v22 + 8 * v24), 0))
+    {
+      if (++v24 >= *(v22 + 8))
+      {
+        goto LABEL_20;
+      }
+    }
+  }
+
+  else
+  {
+LABEL_20:
+    if (v23 && *(v23 + 8))
+    {
+      v25 = 0;
+      do
+      {
+        if (!(v351)(v350, *(*v23 + 8 * v25), 1))
+        {
+          break;
+        }
+
+        ++v25;
+      }
+
+      while (v25 < *(v23 + 8));
+    }
+  }
+
+  v26 = a3;
+  if (*(a1 + 2072) == 1)
+  {
+    v27 = SICopyProperty(a1, @"GroupAssignments");
+    v28 = *v14;
+    if (v27)
+    {
+      v29 = v27;
+      *(a1 + 2088) = CFDictionaryCreateMutableCopy(*v14, 0, v27);
+      CFRelease(v29);
+    }
+
+    else
+    {
+      *(a1 + 2088) = CFDictionaryCreateMutable(*v14, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+    }
+
+    Mutable = CFBitVectorCreateMutable(v28, 256);
+    *(a1 + 2096) = Mutable;
+    CFBitVectorSetCount(Mutable, 256);
+    CFBitVectorSetAllBits(*(a1 + 2096), 0);
+    CFDictionaryApplyFunction(*(a1 + 2088), updateUsedBites, *(a1 + 2096));
+  }
+
+  v31 = (a1 + 1192);
+  *(a1 + 2060) = db_create_id_for_field(*(a1 + 1192), "_kMDItemExternalID", 0x2308u, 11);
+  *(a1 + 2064) = db_create_id_for_field(*(a1 + 1192), "_kMDItemBundleID", 0x4318u, 11);
+  *(a1 + 2056) = db_create_id_for_field(*(a1 + 1192), "_kMDItemOwnerUserID", 0x308u, 7);
+  *(a1 + 2068) = db_create_id_for_field(*(a1 + 1192), "_kMDItemDomainIdentifier", 0x4300u, 11);
+  *(a1 + 2032) = db_create_id_for_field(*(a1 + 1192), "_kMDItemFileName", 0x308u, 11);
+  *(a1 + 2000) = db_create_id_for_field(*(a1 + 1192), "kMDItemContentTypeTree", 0x330u, 11);
+  *(a1 + 2004) = db_create_id_for_field(*(a1 + 1192), "kMDItemSupportFileType", 0x330u, 11);
+  *(a1 + 1996) = db_create_id_for_field(*(a1 + 1192), "kMDItemContentType", 0x310u, 11);
+  *(a1 + 2008) = db_create_id_for_field(*(a1 + 1192), "_kMDItemGroupId", 0x108u, 2);
+  if (v26)
+  {
+    if ((a2 & 0x100) != 0)
+    {
+      v174 = "_kMDItemStorageSize";
+    }
+
+    else
+    {
+      if (!*(a1 + 6608))
+      {
+        v32 = *v14;
+        v33 = CFDictionaryCreateMutable(*v14, 0, 0, 0);
+        v34 = *v31;
+        id_for_string = db_get_id_for_string(*v31, "public.message");
+        if (id_for_string != -2)
+        {
+          CFDictionarySetValue(v33, (id_for_string & 0x7FFFFFFF), 1);
+          v34 = *v31;
+        }
+
+        v36 = db_get_id_for_string(v34, "com.apple.mail.emlx");
+        if (v36 != -2)
+        {
+          CFDictionarySetValue(v33, (v36 & 0x7FFFFFFF), 2);
+          v34 = *v31;
+        }
+
+        v37 = db_get_id_for_string(v34, "com.apple.mail.eml");
+        if (v37 != -2)
+        {
+          CFDictionarySetValue(v33, (v37 & 0x7FFFFFFF), 3);
+          v34 = *v31;
+        }
+
+        v38 = db_get_id_for_string(v34, "com.microsoft.entourage.virtual.message");
+        if (v38 != -2)
+        {
+          CFDictionarySetValue(v33, (v38 & 0x7FFFFFFF), 4);
+          v34 = *v31;
+        }
+
+        v39 = db_get_id_for_string(v34, "com.apple.ichat.transcript");
+        if (v39 != -2)
+        {
+          CFDictionarySetValue(v33, (v39 & 0x7FFFFFFF), 5);
+          v34 = *v31;
+        }
+
+        v40 = db_get_id_for_string(v34, "public.contact");
+        if (v40 != -2)
+        {
+          CFDictionarySetValue(v33, (v40 & 0x7FFFFFFF), 6);
+          v34 = *v31;
+        }
+
+        v41 = db_get_id_for_string(v34, "public.vcard");
+        if (v41 != -2)
+        {
+          CFDictionarySetValue(v33, (v41 & 0x7FFFFFFF), 7);
+          v34 = *v31;
+        }
+
+        v42 = db_get_id_for_string(v34, "com.apple.addressbook.person");
+        if (v42 != -2)
+        {
+          CFDictionarySetValue(v33, (v42 & 0x7FFFFFFF), 8);
+          v34 = *v31;
+        }
+
+        v43 = db_get_id_for_string(v34, "com.apple.addressbook.group");
+        if (v43 != -2)
+        {
+          CFDictionarySetValue(v33, (v43 & 0x7FFFFFFF), 9);
+          v34 = *v31;
+        }
+
+        v44 = db_get_id_for_string(v34, "com.microsoft.entourage.virtual.contact");
+        if (v44 != -2)
+        {
+          CFDictionarySetValue(v33, (v44 & 0x7FFFFFFF), 0xA);
+          v34 = *v31;
+        }
+
+        v45 = db_get_id_for_string(v34, "com.microsoft.entourage.virtual.group");
+        if (v45 != -2)
+        {
+          CFDictionarySetValue(v33, (v45 & 0x7FFFFFFF), 0xB);
+          v34 = *v31;
+        }
+
+        v46 = db_get_id_for_string(v34, "com.apple.systempreference.prefpane");
+        if (v46 != -2)
+        {
+          CFDictionarySetValue(v33, (v46 & 0x7FFFFFFF), 0xC);
+          v34 = *v31;
+        }
+
+        v47 = db_get_id_for_string(v34, "public.font");
+        if (v47 != -2)
+        {
+          CFDictionarySetValue(v33, (v47 & 0x7FFFFFFF), 0xD);
+          v34 = *v31;
+        }
+
+        v48 = db_get_id_for_string(v34, "public.bookmark");
+        if (v48 != -2)
+        {
+          CFDictionarySetValue(v33, (v48 & 0x7FFFFFFF), 0xE);
+          v34 = *v31;
+        }
+
+        v49 = db_get_id_for_string(v34, "com.apple.safari.bookmark");
+        if (v49 != -2)
+        {
+          CFDictionarySetValue(v33, (v49 & 0x7FFFFFFF), 0xF);
+          v34 = *v31;
+        }
+
+        v50 = db_get_id_for_string(v34, "com.apple.safari.history");
+        if (v50 != -2)
+        {
+          CFDictionarySetValue(v33, (v50 & 0x7FFFFFFF), 0x10);
+          v34 = *v31;
+        }
+
+        v51 = db_get_id_for_string(v34, "public.to-do-item");
+        if (v51 != -2)
+        {
+          CFDictionarySetValue(v33, (v51 & 0x7FFFFFFF), 0x11);
+          v34 = *v31;
+        }
+
+        v52 = db_get_id_for_string(v34, "public.calendar-event");
+        if (v52 != -2)
+        {
+          CFDictionarySetValue(v33, (v52 & 0x7FFFFFFF), 0x12);
+          v34 = *v31;
+        }
+
+        v53 = db_get_id_for_string(v34, "com.apple.ical.bookmark");
+        if (v53 != -2)
+        {
+          CFDictionarySetValue(v33, (v53 & 0x7FFFFFFF), 0x13);
+          v34 = *v31;
+        }
+
+        v54 = db_get_id_for_string(v34, "com.apple.ical.bookmark.todo");
+        if (v54 != -2)
+        {
+          CFDictionarySetValue(v33, (v54 & 0x7FFFFFFF), 0x14);
+          v34 = *v31;
+        }
+
+        v55 = db_get_id_for_string(v34, "com.apple.ical.ics.event");
+        if (v55 != -2)
+        {
+          CFDictionarySetValue(v33, (v55 & 0x7FFFFFFF), 0x15);
+          v34 = *v31;
+        }
+
+        v56 = db_get_id_for_string(v34, "com.apple.ical.ics.todo");
+        if (v56 != -2)
+        {
+          CFDictionarySetValue(v33, (v56 & 0x7FFFFFFF), 0x16);
+          v34 = *v31;
+        }
+
+        v57 = db_get_id_for_string(v34, "com.microsoft.entourage.virtual.event");
+        if (v57 != -2)
+        {
+          CFDictionarySetValue(v33, (v57 & 0x7FFFFFFF), 0x17);
+          v34 = *v31;
+        }
+
+        v58 = db_get_id_for_string(v34, "com.microsoft.entourage.virtual.task");
+        if (v58 != -2)
+        {
+          CFDictionarySetValue(v33, (v58 & 0x7FFFFFFF), 0x18);
+          v34 = *v31;
+        }
+
+        v59 = db_get_id_for_string(v34, "public.movie");
+        if (v59 != -2)
+        {
+          CFDictionarySetValue(v33, (v59 & 0x7FFFFFFF), 0x19);
+          v34 = *v31;
+        }
+
+        v60 = db_get_id_for_string(v34, "com.apple.quicktime-movie");
+        if (v60 != -2)
+        {
+          CFDictionarySetValue(v33, (v60 & 0x7FFFFFFF), 0x1A);
+          v34 = *v31;
+        }
+
+        v61 = db_get_id_for_string(v34, "public.mpeg-video");
+        if (v61 != -2)
+        {
+          CFDictionarySetValue(v33, (v61 & 0x7FFFFFFF), 0x1B);
+          v34 = *v31;
+        }
+
+        v62 = db_get_id_for_string(v34, "public.mpeg-4");
+        if (v62 != -2)
+        {
+          CFDictionarySetValue(v33, (v62 & 0x7FFFFFFF), 0x1C);
+          v34 = *v31;
+        }
+
+        v63 = db_get_id_for_string(v34, "public.mpeg");
+        if (v63 != -2)
+        {
+          CFDictionarySetValue(v33, (v63 & 0x7FFFFFFF), 0x1D);
+          v34 = *v31;
+        }
+
+        v64 = db_get_id_for_string(v34, "public.3gpp");
+        if (v64 != -2)
+        {
+          CFDictionarySetValue(v33, (v64 & 0x7FFFFFFF), 0x1E);
+          v34 = *v31;
+        }
+
+        v65 = db_get_id_for_string(v34, "public.3gpp2");
+        if (v65 != -2)
+        {
+          CFDictionarySetValue(v33, (v65 & 0x7FFFFFFF), 0x1F);
+          v34 = *v31;
+        }
+
+        v66 = db_get_id_for_string(v34, "com.apple.application-bundle");
+        if (v66 != -2)
+        {
+          CFDictionarySetValue(v33, (v66 & 0x7FFFFFFF), 0x20);
+          v34 = *v31;
+        }
+
+        v67 = db_get_id_for_string(v34, "com.apple.application-file");
+        if (v67 != -2)
+        {
+          CFDictionarySetValue(v33, (v67 & 0x7FFFFFFF), 0x21);
+          v34 = *v31;
+        }
+
+        v68 = db_get_id_for_string(v34, "com.apple.dashboard-widget");
+        if (v68 != -2)
+        {
+          CFDictionarySetValue(v33, (v68 & 0x7FFFFFFF), 0x22);
+          v34 = *v31;
+        }
+
+        v69 = db_get_id_for_string(v34, "public.folder");
+        if (v69 != -2)
+        {
+          CFDictionarySetValue(v33, (v69 & 0x7FFFFFFF), 0x23);
+          v34 = *v31;
+        }
+
+        v70 = db_get_id_for_string(v34, "com.apple.mount-point");
+        if (v70 != -2)
+        {
+          CFDictionarySetValue(v33, (v70 & 0x7FFFFFFF), 0x24);
+          v34 = *v31;
+        }
+
+        v71 = db_get_id_for_string(v34, "public.audio");
+        if (v71 != -2)
+        {
+          CFDictionarySetValue(v33, (v71 & 0x7FFFFFFF), 0x25);
+          v34 = *v31;
+        }
+
+        v72 = db_get_id_for_string(v34, "public.mpeg-4-audio");
+        if (v72 != -2)
+        {
+          CFDictionarySetValue(v33, (v72 & 0x7FFFFFFF), 0x26);
+          v34 = *v31;
+        }
+
+        v73 = db_get_id_for_string(v34, "com.apple.protected-mpeg-4-audio");
+        if (v73 != -2)
+        {
+          CFDictionarySetValue(v33, (v73 & 0x7FFFFFFF), 0x27);
+          v34 = *v31;
+        }
+
+        v74 = db_get_id_for_string(v34, "com.adobe.pdf");
+        if (v74 != -2)
+        {
+          CFDictionarySetValue(v33, (v74 & 0x7FFFFFFF), 0x28);
+          v34 = *v31;
+        }
+
+        v75 = db_get_id_for_string(v34, "com.apple.localized-pdf-bundle");
+        if (v75 != -2)
+        {
+          CFDictionarySetValue(v33, (v75 & 0x7FFFFFFF), 0x29);
+          v34 = *v31;
+        }
+
+        v76 = db_get_id_for_string(v34, "public.presentation");
+        if (v76 != -2)
+        {
+          CFDictionarySetValue(v33, (v76 & 0x7FFFFFFF), 0x2A);
+          v34 = *v31;
+        }
+
+        v77 = db_get_id_for_string(v34, "com.microsoft.powerpoint.ppt");
+        if (v77 != -2)
+        {
+          CFDictionarySetValue(v33, (v77 & 0x7FFFFFFF), 0x2B);
+          v34 = *v31;
+        }
+
+        v78 = db_get_id_for_string(v34, "com.apple.keynote.key");
+        if (v78 != -2)
+        {
+          CFDictionarySetValue(v33, (v78 & 0x7FFFFFFF), 0x2C);
+          v34 = *v31;
+        }
+
+        v79 = db_get_id_for_string(v34, "com.apple.iwork.keynote.key");
+        if (v79 != -2)
+        {
+          CFDictionarySetValue(v33, (v79 & 0x7FFFFFFF), 0x2D);
+          v34 = *v31;
+        }
+
+        v80 = db_get_id_for_string(v34, "public.image");
+        if (v80 != -2)
+        {
+          CFDictionarySetValue(v33, (v80 & 0x7FFFFFFF), 0x2E);
+          v34 = *v31;
+        }
+
+        v81 = db_get_id_for_string(v34, "com.apple.motion.project");
+        if (v81 != -2)
+        {
+          CFDictionarySetValue(v33, (v81 & 0x7FFFFFFF), 0x2F);
+          v34 = *v31;
+        }
+
+        v82 = db_get_id_for_string(v34, "com.apple.iwork.pages.pages");
+        if (v82 != -2)
+        {
+          CFDictionarySetValue(v33, (v82 & 0x7FFFFFFF), 0x30);
+          v34 = *v31;
+        }
+
+        v83 = db_get_id_for_string(v34, "com.apple.iwork.pages.sffpages");
+        if (v83 != -2)
+        {
+          CFDictionarySetValue(v33, (v83 & 0x7FFFFFFF), 0x31);
+          v34 = *v31;
+        }
+
+        v84 = db_get_id_for_string(v34, "com.apple.iwork.pages.template");
+        if (v84 != -2)
+        {
+          CFDictionarySetValue(v33, (v84 & 0x7FFFFFFF), 0x32);
+          v34 = *v31;
+        }
+
+        v85 = db_get_id_for_string(v34, "com.apple.iwork.pages.sfftemplate");
+        if (v85 != -2)
+        {
+          CFDictionarySetValue(v33, (v85 & 0x7FFFFFFF), 0x33);
+          v34 = *v31;
+        }
+
+        v86 = db_get_id_for_string(v34, "public.rtf");
+        if (v86 != -2)
+        {
+          CFDictionarySetValue(v33, (v86 & 0x7FFFFFFF), 0x34);
+          v34 = *v31;
+        }
+
+        v87 = db_get_id_for_string(v34, "com.apple.rtfd");
+        if (v87 != -2)
+        {
+          CFDictionarySetValue(v33, (v87 & 0x7FFFFFFF), 0x35);
+          v34 = *v31;
+        }
+
+        v88 = db_get_id_for_string(v34, "com.apple.flat-rtfd");
+        if (v88 != -2)
+        {
+          CFDictionarySetValue(v33, (v88 & 0x7FFFFFFF), 0x36);
+          v34 = *v31;
+        }
+
+        v89 = db_get_id_for_string(v34, "com.microsoft.word.doc");
+        if (v89 != -2)
+        {
+          CFDictionarySetValue(v33, (v89 & 0x7FFFFFFF), 0x37);
+          v34 = *v31;
+        }
+
+        v90 = db_get_id_for_string(v34, "org.khronos.collada.digital-asset-exchange");
+        if (v90 != -2)
+        {
+          CFDictionarySetValue(v33, (v90 & 0x7FFFFFFF), 0x38);
+          v34 = *v31;
+        }
+
+        v91 = db_get_id_for_string(v34, "public.plain-text");
+        if (v91 != -2)
+        {
+          CFDictionarySetValue(v33, (v91 & 0x7FFFFFFF), 0x39);
+          v34 = *v31;
+        }
+
+        v92 = db_get_id_for_string(v34, "public.html");
+        if (v92 != -2)
+        {
+          CFDictionarySetValue(v33, (v92 & 0x7FFFFFFF), 0x3A);
+          v34 = *v31;
+        }
+
+        v93 = db_get_id_for_string(v34, "public.xhtml");
+        if (v93 != -2)
+        {
+          CFDictionarySetValue(v33, (v93 & 0x7FFFFFFF), 0x3B);
+          v34 = *v31;
+        }
+
+        v94 = db_get_id_for_string(v34, "public.shell-script");
+        if (v94 != -2)
+        {
+          CFDictionarySetValue(v33, (v94 & 0x7FFFFFFF), 0x3C);
+          v34 = *v31;
+        }
+
+        v95 = db_get_id_for_string(v34, "public.source-code");
+        if (v95 != -2)
+        {
+          CFDictionarySetValue(v33, (v95 & 0x7FFFFFFF), 0x3D);
+          v34 = *v31;
+        }
+
+        v96 = db_get_id_for_string(v34, "public.unix-executable");
+        if (v96 != -2)
+        {
+          CFDictionarySetValue(v33, (v96 & 0x7FFFFFFF), 0x3E);
+          v34 = *v31;
+        }
+
+        v97 = db_get_id_for_string(v34, "com.apple.xcode.project");
+        if (v97 != -2)
+        {
+          CFDictionarySetValue(v33, (v97 & 0x7FFFFFFF), 0x3F);
+          v34 = *v31;
+        }
+
+        v98 = db_get_id_for_string(v34, "com.apple.xcode.model");
+        if (v98 != -2)
+        {
+          CFDictionarySetValue(v33, (v98 & 0x7FFFFFFF), 0x40);
+          v34 = *v31;
+        }
+
+        v99 = db_get_id_for_string(v34, "com.apple.xcode.archive");
+        if (v99 != -2)
+        {
+          CFDictionarySetValue(v33, (v99 & 0x7FFFFFFF), 0x41);
+          v34 = *v31;
+        }
+
+        v100 = db_get_id_for_string(v34, "com.apple.xcode.docset");
+        if (v100 != -2)
+        {
+          CFDictionarySetValue(v33, (v100 & 0x7FFFFFFF), 0x42);
+          v34 = *v31;
+        }
+
+        v101 = db_get_id_for_string(v34, "com.apple.xcode.projectdata");
+        if (v101 != -2)
+        {
+          CFDictionarySetValue(v33, (v101 & 0x7FFFFFFF), 0x43);
+          v34 = *v31;
+        }
+
+        v102 = db_get_id_for_string(v34, "com.apple.xcode.dsym");
+        if (v102 != -2)
+        {
+          CFDictionarySetValue(v33, (v102 & 0x7FFFFFFF), 0x44);
+          v34 = *v31;
+        }
+
+        v103 = db_get_id_for_string(v34, "com.apple.xcode.configsettings");
+        if (v103 != -2)
+        {
+          CFDictionarySetValue(v33, (v103 & 0x7FFFFFFF), 0x45);
+          v34 = *v31;
+        }
+
+        v104 = db_get_id_for_string(v34, "com.apple.xcode.usersettings");
+        if (v104 != -2)
+        {
+          CFDictionarySetValue(v33, (v104 & 0x7FFFFFFF), 0x46);
+          v34 = *v31;
+        }
+
+        v105 = db_get_id_for_string(v34, "com.apple.xcode.strings-text");
+        if (v105 != -2)
+        {
+          CFDictionarySetValue(v33, (v105 & 0x7FFFFFFF), 0x47);
+          v34 = *v31;
+        }
+
+        v106 = db_get_id_for_string(v34, "com.apple.xcode.plugin");
+        if (v106 != -2)
+        {
+          CFDictionarySetValue(v33, (v106 & 0x7FFFFFFF), 0x48);
+          v34 = *v31;
+        }
+
+        v107 = db_get_id_for_string(v34, "com.apple.xcode.mom");
+        if (v107 != -2)
+        {
+          CFDictionarySetValue(v33, (v107 & 0x7FFFFFFF), 0x49);
+          v34 = *v31;
+        }
+
+        v108 = db_get_id_for_string(v34, "com.apple.property-list");
+        if (v108 != -2)
+        {
+          CFDictionarySetValue(v33, (v108 & 0x7FFFFFFF), 0x4A);
+          v34 = *v31;
+        }
+
+        v109 = db_get_id_for_string(v34, "dyn.ah62d4rv4ge81a7dk");
+        if (v109 != -2)
+        {
+          CFDictionarySetValue(v33, (v109 & 0x7FFFFFFF), 0x4B);
+          v34 = *v31;
+        }
+
+        v110 = db_get_id_for_string(v34, "dyn.ah62d4rv4ge80u5pbsa");
+        if (v110 != -2)
+        {
+          CFDictionarySetValue(v33, (v110 & 0x7FFFFFFF), 0x4C);
+          v34 = *v31;
+        }
+
+        v111 = db_get_id_for_string(v34, "com.apple.dashcode.xml");
+        if (v111 != -2)
+        {
+          CFDictionarySetValue(v33, (v111 & 0x7FFFFFFF), 0x4D);
+          v34 = *v31;
+        }
+
+        v112 = db_get_id_for_string(v34, "com.apple.dashcode.css");
+        if (v112 != -2)
+        {
+          CFDictionarySetValue(v33, (v112 & 0x7FFFFFFF), 0x4E);
+          v34 = *v31;
+        }
+
+        v113 = db_get_id_for_string(v34, "com.apple.dashcode.javascript");
+        if (v113 != -2)
+        {
+          CFDictionarySetValue(v33, (v113 & 0x7FFFFFFF), 0x4F);
+          v34 = *v31;
+        }
+
+        v114 = db_get_id_for_string(v34, "com.apple.dashcode.json");
+        if (v114 != -2)
+        {
+          CFDictionarySetValue(v33, (v114 & 0x7FFFFFFF), 0x50);
+          v34 = *v31;
+        }
+
+        v115 = db_get_id_for_string(v34, "com.apple.dashcode.manifest");
+        if (v115 != -2)
+        {
+          CFDictionarySetValue(v33, (v115 & 0x7FFFFFFF), 0x51);
+          v34 = *v31;
+        }
+
+        v116 = db_get_id_for_string(v34, "com.apple.interfacebuilder.document");
+        if (v116 != -2)
+        {
+          CFDictionarySetValue(v33, (v116 & 0x7FFFFFFF), 0x52);
+          v34 = *v31;
+        }
+
+        v117 = db_get_id_for_string(v34, "com.apple.interfacebuilder.document.cocoa");
+        if (v117 != -2)
+        {
+          CFDictionarySetValue(v33, (v117 & 0x7FFFFFFF), 0x53);
+          v34 = *v31;
+        }
+
+        v118 = db_get_id_for_string(v34, "com.apple.rez-source");
+        if (v118 != -2)
+        {
+          CFDictionarySetValue(v33, (v118 & 0x7FFFFFFF), 0x54);
+          v34 = *v31;
+        }
+
+        v119 = db_get_id_for_string(v34, "com.apple.iphone.developerprofile");
+        if (v119 != -2)
+        {
+          CFDictionarySetValue(v33, (v119 & 0x7FFFFFFF), 0x55);
+          v34 = *v31;
+        }
+
+        v120 = db_get_id_for_string(v34, "com.apple.iphone.mobileprovision");
+        if (v120 != -2)
+        {
+          CFDictionarySetValue(v33, (v120 & 0x7FFFFFFF), 0x56);
+          v34 = *v31;
+        }
+
+        v121 = db_get_id_for_string(v34, "com.apple.coreanimation-bundle");
+        if (v121 != -2)
+        {
+          CFDictionarySetValue(v33, (v121 & 0x7FFFFFFF), 0x57);
+          v34 = *v31;
+        }
+
+        v122 = db_get_id_for_string(v34, "com.apple.coreanimation-xml");
+        if (v122 != -2)
+        {
+          CFDictionarySetValue(v33, (v122 & 0x7FFFFFFF), 0x58);
+          v34 = *v31;
+        }
+
+        v123 = db_get_id_for_string(v34, "com.sun.java-class");
+        if (v123 != -2)
+        {
+          CFDictionarySetValue(v33, (v123 & 0x7FFFFFFF), 0x59);
+          v34 = *v31;
+        }
+
+        v124 = db_get_id_for_string(v34, "com.apple.scripting-definition");
+        if (v124 != -2)
+        {
+          CFDictionarySetValue(v33, (v124 & 0x7FFFFFFF), 0x5A);
+          v34 = *v31;
+        }
+
+        v125 = db_get_id_for_string(v34, "com.apple.dt.document.workspace");
+        if (v125 != -2)
+        {
+          CFDictionarySetValue(v33, (v125 & 0x7FFFFFFF), 0x5B);
+          v34 = *v31;
+        }
+
+        v126 = db_get_id_for_string(v34, "com.apple.dt.document.scheme");
+        if (v126 != -2)
+        {
+          CFDictionarySetValue(v33, (v126 & 0x7FFFFFFF), 0x5C);
+          v34 = *v31;
+        }
+
+        v127 = db_get_id_for_string(v34, "com.apple.dt.ide.plug-in");
+        if (v127 != -2)
+        {
+          CFDictionarySetValue(v33, (v127 & 0x7FFFFFFF), 0x5D);
+          v34 = *v31;
+        }
+
+        v128 = db_get_id_for_string(v34, "com.apple.dt.dvt.plug-in");
+        if (v128 != -2)
+        {
+          CFDictionarySetValue(v33, (v128 & 0x7FFFFFFF), 0x5E);
+          v34 = *v31;
+        }
+
+        v129 = db_get_id_for_string(v34, "com.apple.dt.document.snapshot");
+        if (v129 != -2)
+        {
+          CFDictionarySetValue(v33, (v129 & 0x7FFFFFFF), 0x5F);
+          v34 = *v31;
+        }
+
+        v130 = db_get_id_for_string(v34, "com.apple.dt.bundle.unit-test.objective-c");
+        if (v130 != -2)
+        {
+          CFDictionarySetValue(v33, (v130 & 0x7FFFFFFF), 0x60);
+          v34 = *v31;
+        }
+
+        v131 = db_get_id_for_string(v34, "com.apple.instruments.tracetemplate");
+        if (v131 != -2)
+        {
+          CFDictionarySetValue(v33, (v131 & 0x7FFFFFFF), 0x61);
+          v34 = *v31;
+        }
+
+        v132 = db_get_id_for_string(v34, "com.apple.quartzdebug.introspectiontrace");
+        if (v132 != -2)
+        {
+          CFDictionarySetValue(v33, (v132 & 0x7FFFFFFF), 0x62);
+          v34 = *v31;
+        }
+
+        v133 = db_get_id_for_string(v34, "com.apple.applescript.text-object");
+        if (v133 != -2)
+        {
+          CFDictionarySetValue(v33, (v133 & 0x7FFFFFFF), 0x63);
+          v34 = *v31;
+        }
+
+        v134 = db_get_id_for_string(v34, "com.apple.applescript.data-object");
+        if (v134 != -2)
+        {
+          CFDictionarySetValue(v33, (v134 & 0x7FFFFFFF), 0x64);
+        }
+
+        v135 = *v31;
+        v136 = db_get_id_for_string(*v31, "com.apple.applescript.url-object");
+        if (v136 != -2)
+        {
+          CFDictionarySetValue(v33, (v136 & 0x7FFFFFFF), 0x65);
+          v135 = *v31;
+        }
+
+        v137 = db_get_id_for_string(v135, "com.apple.applescript.alias-object");
+        if (v137 != -2)
+        {
+          CFDictionarySetValue(v33, (v137 & 0x7FFFFFFF), 0x66);
+          v135 = *v31;
+        }
+
+        v138 = db_get_id_for_string(v135, "com.apple.symbol-export");
+        if (v138 != -2)
+        {
+          CFDictionarySetValue(v33, (v138 & 0x7FFFFFFF), 0x67);
+          v135 = *v31;
+        }
+
+        v139 = db_get_id_for_string(v135, "com.apple.mach-o-binary");
+        if (v139 != -2)
+        {
+          CFDictionarySetValue(v33, (v139 & 0x7FFFFFFF), 0x68);
+          v135 = *v31;
+        }
+
+        v140 = db_get_id_for_string(v135, "com.apple.mach-o-object");
+        if (v140 != -2)
+        {
+          CFDictionarySetValue(v33, (v140 & 0x7FFFFFFF), 0x69);
+          v135 = *v31;
+        }
+
+        v141 = db_get_id_for_string(v135, "com.apple.mach-o-executable");
+        if (v141 != -2)
+        {
+          CFDictionarySetValue(v33, (v141 & 0x7FFFFFFF), 0x6A);
+          v135 = *v31;
+        }
+
+        v142 = db_get_id_for_string(v135, "com.apple.x11-mach-o-executable");
+        if (v142 != -2)
+        {
+          CFDictionarySetValue(v33, (v142 & 0x7FFFFFFF), 0x6B);
+          v135 = *v31;
+        }
+
+        v143 = db_get_id_for_string(v135, "public.object-code");
+        if (v143 != -2)
+        {
+          CFDictionarySetValue(v33, (v143 & 0x7FFFFFFF), 0x6C);
+          v135 = *v31;
+        }
+
+        v144 = db_get_id_for_string(v135, "com.microsoft.windows-executable");
+        if (v144 != -2)
+        {
+          CFDictionarySetValue(v33, (v144 & 0x7FFFFFFF), 0x6D);
+          v135 = *v31;
+        }
+
+        v145 = db_get_id_for_string(v135, "com.microsoft.windows-dynamic-link-library");
+        if (v145 != -2)
+        {
+          CFDictionarySetValue(v33, (v145 & 0x7FFFFFFF), 0x6E);
+          v135 = *v31;
+        }
+
+        v146 = db_get_id_for_string(v135, "com.sun.java-archive");
+        if (v146 != -2)
+        {
+          CFDictionarySetValue(v33, (v146 & 0x7FFFFFFF), 0x6F);
+          v135 = *v31;
+        }
+
+        v147 = db_get_id_for_string(v135, "com.sun.web-application-archive");
+        if (v147 != -2)
+        {
+          CFDictionarySetValue(v33, (v147 & 0x7FFFFFFF), 0x70);
+          v135 = *v31;
+        }
+
+        v148 = db_get_id_for_string(v135, "com.apple.xcode.plugindata");
+        if (v148 != -2)
+        {
+          CFDictionarySetValue(v33, (v148 & 0x7FFFFFFF), 0x71);
+          v135 = *v31;
+        }
+
+        v149 = db_get_id_for_string(v135, "com.apple.dt.playground");
+        if (v149 != -2)
+        {
+          CFDictionarySetValue(v33, (v149 & 0x7FFFFFFF), 0x72);
+          v135 = *v31;
+        }
+
+        v150 = db_get_id_for_string(v135, "com.apple.iwork.numbers.sffnumbers");
+        if (v150 != -2)
+        {
+          CFDictionarySetValue(v33, (v150 & 0x7FFFFFFF), 0x73);
+          v135 = *v31;
+        }
+
+        v151 = db_get_id_for_string(v135, "com.apple.iwork.numbers.numbers");
+        if (v151 != -2)
+        {
+          CFDictionarySetValue(v33, (v151 & 0x7FFFFFFF), 0x74);
+          v135 = *v31;
+        }
+
+        v152 = db_get_id_for_string(v135, "com.apple.iwork.numbers.template");
+        if (v152 != -2)
+        {
+          CFDictionarySetValue(v33, (v152 & 0x7FFFFFFF), 0x75);
+          v135 = *v31;
+        }
+
+        v153 = db_get_id_for_string(v135, "com.microsoft.excel.xls");
+        if (v153 != -2)
+        {
+          CFDictionarySetValue(v33, (v153 & 0x7FFFFFFF), 0x76);
+          v135 = *v31;
+        }
+
+        v154 = db_get_id_for_string(v135, "org.openxmlformats.spreadsheetml.sheet");
+        if (v154 != -2)
+        {
+          CFDictionarySetValue(v33, (v154 & 0x7FFFFFFF), 0x77);
+          v135 = *v31;
+        }
+
+        v155 = db_get_id_for_string(v135, "public.spreadsheet");
+        if (v155 != -2)
+        {
+          CFDictionarySetValue(v33, (v155 & 0x7FFFFFFF), 0x78);
+          v135 = *v31;
+        }
+
+        v156 = db_get_id_for_string(v135, "public.xml");
+        if (v156 != -2)
+        {
+          CFDictionarySetValue(v33, (v156 & 0x7FFFFFFF), 0x79);
+          v135 = *v31;
+        }
+
+        v157 = db_get_id_for_string(v135, "com.apple.log");
+        if (v157 != -2)
+        {
+          CFDictionarySetValue(v33, (v157 & 0x7FFFFFFF), 0x7A);
+          v135 = *v31;
+        }
+
+        v158 = db_get_id_for_string(v135, "com.apple.crashreport");
+        if (v158 != -2)
+        {
+          CFDictionarySetValue(v33, (v158 & 0x7FFFFFFF), 0x7B);
+          v135 = *v31;
+        }
+
+        v159 = db_get_id_for_string(v135, "com.apple.spinreport");
+        if (v159 != -2)
+        {
+          CFDictionarySetValue(v33, (v159 & 0x7FFFFFFF), 0x7C);
+          v135 = *v31;
+        }
+
+        v160 = db_get_id_for_string(v135, "com.apple.panicreport");
+        if (v160 != -2)
+        {
+          CFDictionarySetValue(v33, (v160 & 0x7FFFFFFF), 0x7D);
+          v135 = *v31;
+        }
+
+        v161 = db_get_id_for_string(v135, "com.apple.shutdownstall");
+        if (v161 != -2)
+        {
+          CFDictionarySetValue(v33, (v161 & 0x7FFFFFFF), 0x7E);
+          v135 = *v31;
+        }
+
+        v162 = db_get_id_for_string(v135, "com.apple.hangreport");
+        if (v162 != -2)
+        {
+          CFDictionarySetValue(v33, (v162 & 0x7FFFFFFF), 0x7F);
+          v135 = *v31;
+        }
+
+        v163 = db_get_id_for_string(v135, "public.json");
+        if (v163 != -2)
+        {
+          CFDictionarySetValue(v33, (v163 & 0x7FFFFFFF), 0x80);
+          v135 = *v31;
+        }
+
+        v164 = db_get_id_for_string(v135, "public.log");
+        if (v164 != -2)
+        {
+          CFDictionarySetValue(v33, (v164 & 0x7FFFFFFF), 0x81);
+          v135 = *v31;
+        }
+
+        v165 = db_get_id_for_string(v135, "public.content");
+        if (v165 != -2)
+        {
+          CFDictionarySetValue(v33, (v165 & 0x7FFFFFFF), 0x82);
+          v135 = *v31;
+        }
+
+        v166 = db_get_id_for_string(v135, "com.microsoft.excel.sheet.binary.macroenabled");
+        if (v166 != -2)
+        {
+          CFDictionarySetValue(v33, (v166 & 0x7FFFFFFF), 0x83);
+          v135 = *v31;
+        }
+
+        v167 = db_get_id_for_string(v135, "org.openxmlformats.spreadsheetml.sheet.macroenabled");
+        if (v167 != -2)
+        {
+          CFDictionarySetValue(v33, (v167 & 0x7FFFFFFF), 0x84);
+          v135 = *v31;
+        }
+
+        v168 = db_get_id_for_string(v135, "com.apple.protected-mpeg-4-audio-b");
+        if (v168 != -2)
+        {
+          CFDictionarySetValue(v33, (v168 & 0x7FFFFFFF), 0x85);
+          v135 = *v31;
+        }
+
+        v169 = db_get_id_for_string(v135, "com.audible.aa-audiobook");
+        if (v169 != -2)
+        {
+          CFDictionarySetValue(v33, (v169 & 0x7FFFFFFF), 0x86);
+          v135 = *v31;
+        }
+
+        v170 = db_get_id_for_string(v135, "com.audible.aax-audiobook");
+        if (v170 != -2)
+        {
+          CFDictionarySetValue(v33, (v170 & 0x7FFFFFFF), 0x87);
+          v135 = *v31;
+        }
+
+        v171 = db_get_id_for_string(v135, "com.apple.tips");
+        if (v171 != -2)
+        {
+          CFDictionarySetValue(v33, (v171 & 0x7FFFFFFF), 0x88);
+          v135 = *v31;
+        }
+
+        v172 = db_get_id_for_string(v135, "com.apple.helpviewer");
+        if (v172 != -2)
+        {
+          CFDictionarySetValue(v33, (v172 & 0x7FFFFFFF), 0x89);
+          v135 = *v31;
+        }
+
+        v173 = db_get_id_for_string(v135, "com.apple.help.topic");
+        if (v173 != -2)
+        {
+          CFDictionarySetValue(v33, (v173 & 0x7FFFFFFF), 0x8A);
+        }
+
+        *(a1 + 6608) = CFDictionaryCreateCopy(v32, v33);
+        CFRelease(v33);
+      }
+
+      v174 = "kMDItemPhysicalSize";
+    }
+
+    *(a1 + 2012) = db_get_id_for_field(*(a1 + 1192), v174);
+    id_for_field = db_get_id_for_field(*(a1 + 1192), "kMDItemWhereFroms");
+  }
+
+  else
+  {
+    if ((a2 & 0x100) != 0)
+    {
+      v315 = "_kMDItemStorageSize";
+    }
+
+    else
+    {
+      if (!*(a1 + 6608))
+      {
+        v175 = *v14;
+        v176 = CFDictionaryCreateMutable(*v14, 0, 0, 0);
+        id_for_value = db_create_id_for_value(*v31, "public.message");
+        if (id_for_value != -2)
+        {
+          CFDictionarySetValue(v176, (id_for_value & 0x7FFFFFFF), 1);
+        }
+
+        v178 = db_create_id_for_value(*v31, "com.apple.mail.emlx");
+        if (v178 != -2)
+        {
+          CFDictionarySetValue(v176, (v178 & 0x7FFFFFFF), 2);
+        }
+
+        v179 = db_create_id_for_value(*v31, "com.apple.mail.eml");
+        if (v179 != -2)
+        {
+          CFDictionarySetValue(v176, (v179 & 0x7FFFFFFF), 3);
+        }
+
+        v180 = db_create_id_for_value(*v31, "com.microsoft.entourage.virtual.message");
+        if (v180 != -2)
+        {
+          CFDictionarySetValue(v176, (v180 & 0x7FFFFFFF), 4);
+        }
+
+        v181 = db_create_id_for_value(*v31, "com.apple.ichat.transcript");
+        if (v181 != -2)
+        {
+          CFDictionarySetValue(v176, (v181 & 0x7FFFFFFF), 5);
+        }
+
+        v182 = db_create_id_for_value(*v31, "public.contact");
+        if (v182 != -2)
+        {
+          CFDictionarySetValue(v176, (v182 & 0x7FFFFFFF), 6);
+        }
+
+        v183 = db_create_id_for_value(*v31, "public.vcard");
+        if (v183 != -2)
+        {
+          CFDictionarySetValue(v176, (v183 & 0x7FFFFFFF), 7);
+        }
+
+        v184 = db_create_id_for_value(*v31, "com.apple.addressbook.person");
+        if (v184 != -2)
+        {
+          CFDictionarySetValue(v176, (v184 & 0x7FFFFFFF), 8);
+        }
+
+        v185 = db_create_id_for_value(*v31, "com.apple.addressbook.group");
+        if (v185 != -2)
+        {
+          CFDictionarySetValue(v176, (v185 & 0x7FFFFFFF), 9);
+        }
+
+        v186 = db_create_id_for_value(*v31, "com.microsoft.entourage.virtual.contact");
+        if (v186 != -2)
+        {
+          CFDictionarySetValue(v176, (v186 & 0x7FFFFFFF), 0xA);
+        }
+
+        v187 = db_create_id_for_value(*v31, "com.microsoft.entourage.virtual.group");
+        if (v187 != -2)
+        {
+          CFDictionarySetValue(v176, (v187 & 0x7FFFFFFF), 0xB);
+        }
+
+        v188 = db_create_id_for_value(*v31, "com.apple.systempreference.prefpane");
+        if (v188 != -2)
+        {
+          CFDictionarySetValue(v176, (v188 & 0x7FFFFFFF), 0xC);
+        }
+
+        v189 = db_create_id_for_value(*v31, "public.font");
+        if (v189 != -2)
+        {
+          CFDictionarySetValue(v176, (v189 & 0x7FFFFFFF), 0xD);
+        }
+
+        v190 = db_create_id_for_value(*v31, "public.bookmark");
+        if (v190 != -2)
+        {
+          CFDictionarySetValue(v176, (v190 & 0x7FFFFFFF), 0xE);
+        }
+
+        v191 = db_create_id_for_value(*v31, "com.apple.safari.bookmark");
+        if (v191 != -2)
+        {
+          CFDictionarySetValue(v176, (v191 & 0x7FFFFFFF), 0xF);
+        }
+
+        v192 = db_create_id_for_value(*v31, "com.apple.safari.history");
+        if (v192 != -2)
+        {
+          CFDictionarySetValue(v176, (v192 & 0x7FFFFFFF), 0x10);
+        }
+
+        v193 = db_create_id_for_value(*v31, "public.to-do-item");
+        if (v193 != -2)
+        {
+          CFDictionarySetValue(v176, (v193 & 0x7FFFFFFF), 0x11);
+        }
+
+        v194 = db_create_id_for_value(*v31, "public.calendar-event");
+        if (v194 != -2)
+        {
+          CFDictionarySetValue(v176, (v194 & 0x7FFFFFFF), 0x12);
+        }
+
+        v195 = db_create_id_for_value(*v31, "com.apple.ical.bookmark");
+        if (v195 != -2)
+        {
+          CFDictionarySetValue(v176, (v195 & 0x7FFFFFFF), 0x13);
+        }
+
+        v196 = db_create_id_for_value(*v31, "com.apple.ical.bookmark.todo");
+        if (v196 != -2)
+        {
+          CFDictionarySetValue(v176, (v196 & 0x7FFFFFFF), 0x14);
+        }
+
+        v197 = db_create_id_for_value(*v31, "com.apple.ical.ics.event");
+        if (v197 != -2)
+        {
+          CFDictionarySetValue(v176, (v197 & 0x7FFFFFFF), 0x15);
+        }
+
+        v198 = db_create_id_for_value(*v31, "com.apple.ical.ics.todo");
+        if (v198 != -2)
+        {
+          CFDictionarySetValue(v176, (v198 & 0x7FFFFFFF), 0x16);
+        }
+
+        v199 = db_create_id_for_value(*v31, "com.microsoft.entourage.virtual.event");
+        if (v199 != -2)
+        {
+          CFDictionarySetValue(v176, (v199 & 0x7FFFFFFF), 0x17);
+        }
+
+        v200 = db_create_id_for_value(*v31, "com.microsoft.entourage.virtual.task");
+        if (v200 != -2)
+        {
+          CFDictionarySetValue(v176, (v200 & 0x7FFFFFFF), 0x18);
+        }
+
+        v201 = db_create_id_for_value(*v31, "public.movie");
+        if (v201 != -2)
+        {
+          CFDictionarySetValue(v176, (v201 & 0x7FFFFFFF), 0x19);
+        }
+
+        v202 = db_create_id_for_value(*v31, "com.apple.quicktime-movie");
+        if (v202 != -2)
+        {
+          CFDictionarySetValue(v176, (v202 & 0x7FFFFFFF), 0x1A);
+        }
+
+        v203 = db_create_id_for_value(*v31, "public.mpeg-video");
+        if (v203 != -2)
+        {
+          CFDictionarySetValue(v176, (v203 & 0x7FFFFFFF), 0x1B);
+        }
+
+        v204 = db_create_id_for_value(*v31, "public.mpeg-4");
+        if (v204 != -2)
+        {
+          CFDictionarySetValue(v176, (v204 & 0x7FFFFFFF), 0x1C);
+        }
+
+        v205 = db_create_id_for_value(*v31, "public.mpeg");
+        if (v205 != -2)
+        {
+          CFDictionarySetValue(v176, (v205 & 0x7FFFFFFF), 0x1D);
+        }
+
+        v206 = db_create_id_for_value(*v31, "public.3gpp");
+        if (v206 != -2)
+        {
+          CFDictionarySetValue(v176, (v206 & 0x7FFFFFFF), 0x1E);
+        }
+
+        v207 = db_create_id_for_value(*v31, "public.3gpp2");
+        if (v207 != -2)
+        {
+          CFDictionarySetValue(v176, (v207 & 0x7FFFFFFF), 0x1F);
+        }
+
+        v208 = db_create_id_for_value(*v31, "com.apple.application-bundle");
+        if (v208 != -2)
+        {
+          CFDictionarySetValue(v176, (v208 & 0x7FFFFFFF), 0x20);
+        }
+
+        v209 = db_create_id_for_value(*v31, "com.apple.application-file");
+        if (v209 != -2)
+        {
+          CFDictionarySetValue(v176, (v209 & 0x7FFFFFFF), 0x21);
+        }
+
+        v210 = db_create_id_for_value(*v31, "com.apple.dashboard-widget");
+        if (v210 != -2)
+        {
+          CFDictionarySetValue(v176, (v210 & 0x7FFFFFFF), 0x22);
+        }
+
+        v211 = db_create_id_for_value(*v31, "public.folder");
+        if (v211 != -2)
+        {
+          CFDictionarySetValue(v176, (v211 & 0x7FFFFFFF), 0x23);
+        }
+
+        v212 = db_create_id_for_value(*v31, "com.apple.mount-point");
+        if (v212 != -2)
+        {
+          CFDictionarySetValue(v176, (v212 & 0x7FFFFFFF), 0x24);
+        }
+
+        v213 = db_create_id_for_value(*v31, "public.audio");
+        if (v213 != -2)
+        {
+          CFDictionarySetValue(v176, (v213 & 0x7FFFFFFF), 0x25);
+        }
+
+        v214 = db_create_id_for_value(*v31, "public.mpeg-4-audio");
+        if (v214 != -2)
+        {
+          CFDictionarySetValue(v176, (v214 & 0x7FFFFFFF), 0x26);
+        }
+
+        v215 = db_create_id_for_value(*v31, "com.apple.protected-mpeg-4-audio");
+        if (v215 != -2)
+        {
+          CFDictionarySetValue(v176, (v215 & 0x7FFFFFFF), 0x27);
+        }
+
+        v216 = db_create_id_for_value(*v31, "com.adobe.pdf");
+        if (v216 != -2)
+        {
+          CFDictionarySetValue(v176, (v216 & 0x7FFFFFFF), 0x28);
+        }
+
+        v217 = db_create_id_for_value(*v31, "com.apple.localized-pdf-bundle");
+        if (v217 != -2)
+        {
+          CFDictionarySetValue(v176, (v217 & 0x7FFFFFFF), 0x29);
+        }
+
+        v218 = db_create_id_for_value(*v31, "public.presentation");
+        if (v218 != -2)
+        {
+          CFDictionarySetValue(v176, (v218 & 0x7FFFFFFF), 0x2A);
+        }
+
+        v219 = db_create_id_for_value(*v31, "com.microsoft.powerpoint.ppt");
+        if (v219 != -2)
+        {
+          CFDictionarySetValue(v176, (v219 & 0x7FFFFFFF), 0x2B);
+        }
+
+        v220 = db_create_id_for_value(*v31, "com.apple.keynote.key");
+        if (v220 != -2)
+        {
+          CFDictionarySetValue(v176, (v220 & 0x7FFFFFFF), 0x2C);
+        }
+
+        v221 = db_create_id_for_value(*v31, "com.apple.iwork.keynote.key");
+        if (v221 != -2)
+        {
+          CFDictionarySetValue(v176, (v221 & 0x7FFFFFFF), 0x2D);
+        }
+
+        v222 = db_create_id_for_value(*v31, "public.image");
+        if (v222 != -2)
+        {
+          CFDictionarySetValue(v176, (v222 & 0x7FFFFFFF), 0x2E);
+        }
+
+        v223 = db_create_id_for_value(*v31, "com.apple.motion.project");
+        if (v223 != -2)
+        {
+          CFDictionarySetValue(v176, (v223 & 0x7FFFFFFF), 0x2F);
+        }
+
+        v224 = db_create_id_for_value(*v31, "com.apple.iwork.pages.pages");
+        if (v224 != -2)
+        {
+          CFDictionarySetValue(v176, (v224 & 0x7FFFFFFF), 0x30);
+        }
+
+        v225 = db_create_id_for_value(*v31, "com.apple.iwork.pages.sffpages");
+        if (v225 != -2)
+        {
+          CFDictionarySetValue(v176, (v225 & 0x7FFFFFFF), 0x31);
+        }
+
+        v226 = db_create_id_for_value(*v31, "com.apple.iwork.pages.template");
+        if (v226 != -2)
+        {
+          CFDictionarySetValue(v176, (v226 & 0x7FFFFFFF), 0x32);
+        }
+
+        v227 = db_create_id_for_value(*v31, "com.apple.iwork.pages.sfftemplate");
+        if (v227 != -2)
+        {
+          CFDictionarySetValue(v176, (v227 & 0x7FFFFFFF), 0x33);
+        }
+
+        v228 = db_create_id_for_value(*v31, "public.rtf");
+        if (v228 != -2)
+        {
+          CFDictionarySetValue(v176, (v228 & 0x7FFFFFFF), 0x34);
+        }
+
+        v229 = db_create_id_for_value(*v31, "com.apple.rtfd");
+        if (v229 != -2)
+        {
+          CFDictionarySetValue(v176, (v229 & 0x7FFFFFFF), 0x35);
+        }
+
+        v230 = db_create_id_for_value(*v31, "com.apple.flat-rtfd");
+        if (v230 != -2)
+        {
+          CFDictionarySetValue(v176, (v230 & 0x7FFFFFFF), 0x36);
+        }
+
+        v231 = db_create_id_for_value(*v31, "com.microsoft.word.doc");
+        if (v231 != -2)
+        {
+          CFDictionarySetValue(v176, (v231 & 0x7FFFFFFF), 0x37);
+        }
+
+        v232 = db_create_id_for_value(*v31, "org.khronos.collada.digital-asset-exchange");
+        if (v232 != -2)
+        {
+          CFDictionarySetValue(v176, (v232 & 0x7FFFFFFF), 0x38);
+        }
+
+        v233 = db_create_id_for_value(*v31, "public.plain-text");
+        if (v233 != -2)
+        {
+          CFDictionarySetValue(v176, (v233 & 0x7FFFFFFF), 0x39);
+        }
+
+        v234 = db_create_id_for_value(*v31, "public.html");
+        if (v234 != -2)
+        {
+          CFDictionarySetValue(v176, (v234 & 0x7FFFFFFF), 0x3A);
+        }
+
+        v235 = db_create_id_for_value(*v31, "public.xhtml");
+        if (v235 != -2)
+        {
+          CFDictionarySetValue(v176, (v235 & 0x7FFFFFFF), 0x3B);
+        }
+
+        v236 = db_create_id_for_value(*v31, "public.shell-script");
+        if (v236 != -2)
+        {
+          CFDictionarySetValue(v176, (v236 & 0x7FFFFFFF), 0x3C);
+        }
+
+        v237 = db_create_id_for_value(*v31, "public.source-code");
+        if (v237 != -2)
+        {
+          CFDictionarySetValue(v176, (v237 & 0x7FFFFFFF), 0x3D);
+        }
+
+        v238 = db_create_id_for_value(*v31, "public.unix-executable");
+        if (v238 != -2)
+        {
+          CFDictionarySetValue(v176, (v238 & 0x7FFFFFFF), 0x3E);
+        }
+
+        v239 = db_create_id_for_value(*v31, "com.apple.xcode.project");
+        if (v239 != -2)
+        {
+          CFDictionarySetValue(v176, (v239 & 0x7FFFFFFF), 0x3F);
+        }
+
+        v240 = db_create_id_for_value(*v31, "com.apple.xcode.model");
+        if (v240 != -2)
+        {
+          CFDictionarySetValue(v176, (v240 & 0x7FFFFFFF), 0x40);
+        }
+
+        v241 = db_create_id_for_value(*v31, "com.apple.xcode.archive");
+        if (v241 != -2)
+        {
+          CFDictionarySetValue(v176, (v241 & 0x7FFFFFFF), 0x41);
+        }
+
+        v242 = db_create_id_for_value(*v31, "com.apple.xcode.docset");
+        if (v242 != -2)
+        {
+          CFDictionarySetValue(v176, (v242 & 0x7FFFFFFF), 0x42);
+        }
+
+        v243 = db_create_id_for_value(*v31, "com.apple.xcode.projectdata");
+        if (v243 != -2)
+        {
+          CFDictionarySetValue(v176, (v243 & 0x7FFFFFFF), 0x43);
+        }
+
+        v244 = db_create_id_for_value(*v31, "com.apple.xcode.dsym");
+        if (v244 != -2)
+        {
+          CFDictionarySetValue(v176, (v244 & 0x7FFFFFFF), 0x44);
+        }
+
+        v245 = db_create_id_for_value(*v31, "com.apple.xcode.configsettings");
+        if (v245 != -2)
+        {
+          CFDictionarySetValue(v176, (v245 & 0x7FFFFFFF), 0x45);
+        }
+
+        v246 = db_create_id_for_value(*v31, "com.apple.xcode.usersettings");
+        if (v246 != -2)
+        {
+          CFDictionarySetValue(v176, (v246 & 0x7FFFFFFF), 0x46);
+        }
+
+        v247 = db_create_id_for_value(*v31, "com.apple.xcode.strings-text");
+        if (v247 != -2)
+        {
+          CFDictionarySetValue(v176, (v247 & 0x7FFFFFFF), 0x47);
+        }
+
+        v248 = db_create_id_for_value(*v31, "com.apple.xcode.plugin");
+        if (v248 != -2)
+        {
+          CFDictionarySetValue(v176, (v248 & 0x7FFFFFFF), 0x48);
+        }
+
+        v249 = db_create_id_for_value(*v31, "com.apple.xcode.mom");
+        if (v249 != -2)
+        {
+          CFDictionarySetValue(v176, (v249 & 0x7FFFFFFF), 0x49);
+        }
+
+        v250 = db_create_id_for_value(*v31, "com.apple.property-list");
+        if (v250 != -2)
+        {
+          CFDictionarySetValue(v176, (v250 & 0x7FFFFFFF), 0x4A);
+        }
+
+        v251 = db_create_id_for_value(*v31, "dyn.ah62d4rv4ge81a7dk");
+        if (v251 != -2)
+        {
+          CFDictionarySetValue(v176, (v251 & 0x7FFFFFFF), 0x4B);
+        }
+
+        v252 = db_create_id_for_value(*v31, "dyn.ah62d4rv4ge80u5pbsa");
+        if (v252 != -2)
+        {
+          CFDictionarySetValue(v176, (v252 & 0x7FFFFFFF), 0x4C);
+        }
+
+        v253 = db_create_id_for_value(*v31, "com.apple.dashcode.xml");
+        if (v253 != -2)
+        {
+          CFDictionarySetValue(v176, (v253 & 0x7FFFFFFF), 0x4D);
+        }
+
+        v254 = db_create_id_for_value(*v31, "com.apple.dashcode.css");
+        if (v254 != -2)
+        {
+          CFDictionarySetValue(v176, (v254 & 0x7FFFFFFF), 0x4E);
+        }
+
+        v255 = db_create_id_for_value(*v31, "com.apple.dashcode.javascript");
+        if (v255 != -2)
+        {
+          CFDictionarySetValue(v176, (v255 & 0x7FFFFFFF), 0x4F);
+        }
+
+        v256 = db_create_id_for_value(*v31, "com.apple.dashcode.json");
+        if (v256 != -2)
+        {
+          CFDictionarySetValue(v176, (v256 & 0x7FFFFFFF), 0x50);
+        }
+
+        v257 = db_create_id_for_value(*v31, "com.apple.dashcode.manifest");
+        if (v257 != -2)
+        {
+          CFDictionarySetValue(v176, (v257 & 0x7FFFFFFF), 0x51);
+        }
+
+        v258 = db_create_id_for_value(*v31, "com.apple.interfacebuilder.document");
+        if (v258 != -2)
+        {
+          CFDictionarySetValue(v176, (v258 & 0x7FFFFFFF), 0x52);
+        }
+
+        v259 = db_create_id_for_value(*v31, "com.apple.interfacebuilder.document.cocoa");
+        if (v259 != -2)
+        {
+          CFDictionarySetValue(v176, (v259 & 0x7FFFFFFF), 0x53);
+        }
+
+        v260 = db_create_id_for_value(*v31, "com.apple.rez-source");
+        if (v260 != -2)
+        {
+          CFDictionarySetValue(v176, (v260 & 0x7FFFFFFF), 0x54);
+        }
+
+        v261 = db_create_id_for_value(*v31, "com.apple.iphone.developerprofile");
+        if (v261 != -2)
+        {
+          CFDictionarySetValue(v176, (v261 & 0x7FFFFFFF), 0x55);
+        }
+
+        v262 = db_create_id_for_value(*v31, "com.apple.iphone.mobileprovision");
+        if (v262 != -2)
+        {
+          CFDictionarySetValue(v176, (v262 & 0x7FFFFFFF), 0x56);
+        }
+
+        v263 = db_create_id_for_value(*v31, "com.apple.coreanimation-bundle");
+        if (v263 != -2)
+        {
+          CFDictionarySetValue(v176, (v263 & 0x7FFFFFFF), 0x57);
+        }
+
+        v264 = db_create_id_for_value(*v31, "com.apple.coreanimation-xml");
+        if (v264 != -2)
+        {
+          CFDictionarySetValue(v176, (v264 & 0x7FFFFFFF), 0x58);
+        }
+
+        v265 = db_create_id_for_value(*v31, "com.sun.java-class");
+        if (v265 != -2)
+        {
+          CFDictionarySetValue(v176, (v265 & 0x7FFFFFFF), 0x59);
+        }
+
+        v266 = db_create_id_for_value(*v31, "com.apple.scripting-definition");
+        if (v266 != -2)
+        {
+          CFDictionarySetValue(v176, (v266 & 0x7FFFFFFF), 0x5A);
+        }
+
+        v267 = db_create_id_for_value(*v31, "com.apple.dt.document.workspace");
+        if (v267 != -2)
+        {
+          CFDictionarySetValue(v176, (v267 & 0x7FFFFFFF), 0x5B);
+        }
+
+        v268 = db_create_id_for_value(*v31, "com.apple.dt.document.scheme");
+        if (v268 != -2)
+        {
+          CFDictionarySetValue(v176, (v268 & 0x7FFFFFFF), 0x5C);
+        }
+
+        v269 = db_create_id_for_value(*v31, "com.apple.dt.ide.plug-in");
+        if (v269 != -2)
+        {
+          CFDictionarySetValue(v176, (v269 & 0x7FFFFFFF), 0x5D);
+        }
+
+        v270 = db_create_id_for_value(*v31, "com.apple.dt.dvt.plug-in");
+        if (v270 != -2)
+        {
+          CFDictionarySetValue(v176, (v270 & 0x7FFFFFFF), 0x5E);
+        }
+
+        v271 = db_create_id_for_value(*v31, "com.apple.dt.document.snapshot");
+        if (v271 != -2)
+        {
+          CFDictionarySetValue(v176, (v271 & 0x7FFFFFFF), 0x5F);
+        }
+
+        v272 = db_create_id_for_value(*v31, "com.apple.dt.bundle.unit-test.objective-c");
+        if (v272 != -2)
+        {
+          CFDictionarySetValue(v176, (v272 & 0x7FFFFFFF), 0x60);
+        }
+
+        v273 = db_create_id_for_value(*v31, "com.apple.instruments.tracetemplate");
+        if (v273 != -2)
+        {
+          CFDictionarySetValue(v176, (v273 & 0x7FFFFFFF), 0x61);
+        }
+
+        v274 = db_create_id_for_value(*v31, "com.apple.quartzdebug.introspectiontrace");
+        if (v274 != -2)
+        {
+          CFDictionarySetValue(v176, (v274 & 0x7FFFFFFF), 0x62);
+        }
+
+        v275 = db_create_id_for_value(*v31, "com.apple.applescript.text-object");
+        if (v275 != -2)
+        {
+          CFDictionarySetValue(v176, (v275 & 0x7FFFFFFF), 0x63);
+        }
+
+        v276 = db_create_id_for_value(*v31, "com.apple.applescript.data-object");
+        if (v276 != -2)
+        {
+          CFDictionarySetValue(v176, (v276 & 0x7FFFFFFF), 0x64);
+        }
+
+        v277 = db_create_id_for_value(*v31, "com.apple.applescript.url-object");
+        if (v277 != -2)
+        {
+          CFDictionarySetValue(v176, (v277 & 0x7FFFFFFF), 0x65);
+        }
+
+        v278 = db_create_id_for_value(*v31, "com.apple.applescript.alias-object");
+        if (v278 != -2)
+        {
+          CFDictionarySetValue(v176, (v278 & 0x7FFFFFFF), 0x66);
+        }
+
+        v279 = db_create_id_for_value(*v31, "com.apple.symbol-export");
+        if (v279 != -2)
+        {
+          CFDictionarySetValue(v176, (v279 & 0x7FFFFFFF), 0x67);
+        }
+
+        v280 = db_create_id_for_value(*v31, "com.apple.mach-o-binary");
+        if (v280 != -2)
+        {
+          CFDictionarySetValue(v176, (v280 & 0x7FFFFFFF), 0x68);
+        }
+
+        v281 = db_create_id_for_value(*v31, "com.apple.mach-o-object");
+        if (v281 != -2)
+        {
+          CFDictionarySetValue(v176, (v281 & 0x7FFFFFFF), 0x69);
+        }
+
+        v282 = db_create_id_for_value(*v31, "com.apple.mach-o-executable");
+        if (v282 != -2)
+        {
+          CFDictionarySetValue(v176, (v282 & 0x7FFFFFFF), 0x6A);
+        }
+
+        v283 = db_create_id_for_value(*v31, "com.apple.x11-mach-o-executable");
+        if (v283 != -2)
+        {
+          CFDictionarySetValue(v176, (v283 & 0x7FFFFFFF), 0x6B);
+        }
+
+        v284 = db_create_id_for_value(*v31, "public.object-code");
+        if (v284 != -2)
+        {
+          CFDictionarySetValue(v176, (v284 & 0x7FFFFFFF), 0x6C);
+        }
+
+        v285 = db_create_id_for_value(*v31, "com.microsoft.windows-executable");
+        if (v285 != -2)
+        {
+          CFDictionarySetValue(v176, (v285 & 0x7FFFFFFF), 0x6D);
+        }
+
+        v286 = db_create_id_for_value(*v31, "com.microsoft.windows-dynamic-link-library");
+        if (v286 != -2)
+        {
+          CFDictionarySetValue(v176, (v286 & 0x7FFFFFFF), 0x6E);
+        }
+
+        v287 = db_create_id_for_value(*v31, "com.sun.java-archive");
+        if (v287 != -2)
+        {
+          CFDictionarySetValue(v176, (v287 & 0x7FFFFFFF), 0x6F);
+        }
+
+        v288 = db_create_id_for_value(*v31, "com.sun.web-application-archive");
+        if (v288 != -2)
+        {
+          CFDictionarySetValue(v176, (v288 & 0x7FFFFFFF), 0x70);
+        }
+
+        v289 = db_create_id_for_value(*v31, "com.apple.xcode.plugindata");
+        if (v289 != -2)
+        {
+          CFDictionarySetValue(v176, (v289 & 0x7FFFFFFF), 0x71);
+        }
+
+        v290 = db_create_id_for_value(*v31, "com.apple.dt.playground");
+        if (v290 != -2)
+        {
+          CFDictionarySetValue(v176, (v290 & 0x7FFFFFFF), 0x72);
+        }
+
+        v291 = db_create_id_for_value(*v31, "com.apple.iwork.numbers.sffnumbers");
+        if (v291 != -2)
+        {
+          CFDictionarySetValue(v176, (v291 & 0x7FFFFFFF), 0x73);
+        }
+
+        v292 = db_create_id_for_value(*v31, "com.apple.iwork.numbers.numbers");
+        if (v292 != -2)
+        {
+          CFDictionarySetValue(v176, (v292 & 0x7FFFFFFF), 0x74);
+        }
+
+        v293 = db_create_id_for_value(*v31, "com.apple.iwork.numbers.template");
+        if (v293 != -2)
+        {
+          CFDictionarySetValue(v176, (v293 & 0x7FFFFFFF), 0x75);
+        }
+
+        v294 = db_create_id_for_value(*v31, "com.microsoft.excel.xls");
+        if (v294 != -2)
+        {
+          CFDictionarySetValue(v176, (v294 & 0x7FFFFFFF), 0x76);
+        }
+
+        v295 = db_create_id_for_value(*v31, "org.openxmlformats.spreadsheetml.sheet");
+        if (v295 != -2)
+        {
+          CFDictionarySetValue(v176, (v295 & 0x7FFFFFFF), 0x77);
+        }
+
+        v296 = db_create_id_for_value(*v31, "public.spreadsheet");
+        if (v296 != -2)
+        {
+          CFDictionarySetValue(v176, (v296 & 0x7FFFFFFF), 0x78);
+        }
+
+        v297 = db_create_id_for_value(*v31, "public.xml");
+        if (v297 != -2)
+        {
+          CFDictionarySetValue(v176, (v297 & 0x7FFFFFFF), 0x79);
+        }
+
+        v298 = db_create_id_for_value(*v31, "com.apple.log");
+        if (v298 != -2)
+        {
+          CFDictionarySetValue(v176, (v298 & 0x7FFFFFFF), 0x7A);
+        }
+
+        v299 = db_create_id_for_value(*v31, "com.apple.crashreport");
+        if (v299 != -2)
+        {
+          CFDictionarySetValue(v176, (v299 & 0x7FFFFFFF), 0x7B);
+        }
+
+        v300 = db_create_id_for_value(*v31, "com.apple.spinreport");
+        if (v300 != -2)
+        {
+          CFDictionarySetValue(v176, (v300 & 0x7FFFFFFF), 0x7C);
+        }
+
+        v301 = db_create_id_for_value(*v31, "com.apple.panicreport");
+        if (v301 != -2)
+        {
+          CFDictionarySetValue(v176, (v301 & 0x7FFFFFFF), 0x7D);
+        }
+
+        v302 = db_create_id_for_value(*v31, "com.apple.shutdownstall");
+        if (v302 != -2)
+        {
+          CFDictionarySetValue(v176, (v302 & 0x7FFFFFFF), 0x7E);
+        }
+
+        v303 = db_create_id_for_value(*v31, "com.apple.hangreport");
+        if (v303 != -2)
+        {
+          CFDictionarySetValue(v176, (v303 & 0x7FFFFFFF), 0x7F);
+        }
+
+        v304 = db_create_id_for_value(*v31, "public.json");
+        if (v304 != -2)
+        {
+          CFDictionarySetValue(v176, (v304 & 0x7FFFFFFF), 0x80);
+        }
+
+        v305 = db_create_id_for_value(*v31, "public.log");
+        if (v305 != -2)
+        {
+          CFDictionarySetValue(v176, (v305 & 0x7FFFFFFF), 0x81);
+        }
+
+        v306 = db_create_id_for_value(*v31, "public.content");
+        if (v306 != -2)
+        {
+          CFDictionarySetValue(v176, (v306 & 0x7FFFFFFF), 0x82);
+        }
+
+        v307 = db_create_id_for_value(*v31, "com.microsoft.excel.sheet.binary.macroenabled");
+        if (v307 != -2)
+        {
+          CFDictionarySetValue(v176, (v307 & 0x7FFFFFFF), 0x83);
+        }
+
+        v308 = db_create_id_for_value(*v31, "org.openxmlformats.spreadsheetml.sheet.macroenabled");
+        if (v308 != -2)
+        {
+          CFDictionarySetValue(v176, (v308 & 0x7FFFFFFF), 0x84);
+        }
+
+        v309 = db_create_id_for_value(*v31, "com.apple.protected-mpeg-4-audio-b");
+        if (v309 != -2)
+        {
+          CFDictionarySetValue(v176, (v309 & 0x7FFFFFFF), 0x85);
+        }
+
+        v310 = db_create_id_for_value(*v31, "com.audible.aa-audiobook");
+        if (v310 != -2)
+        {
+          CFDictionarySetValue(v176, (v310 & 0x7FFFFFFF), 0x86);
+        }
+
+        v311 = db_create_id_for_value(*v31, "com.audible.aax-audiobook");
+        if (v311 != -2)
+        {
+          CFDictionarySetValue(v176, (v311 & 0x7FFFFFFF), 0x87);
+        }
+
+        v312 = db_create_id_for_value(*v31, "com.apple.tips");
+        if (v312 != -2)
+        {
+          CFDictionarySetValue(v176, (v312 & 0x7FFFFFFF), 0x88);
+        }
+
+        v313 = db_create_id_for_value(*v31, "com.apple.helpviewer");
+        if (v313 != -2)
+        {
+          CFDictionarySetValue(v176, (v313 & 0x7FFFFFFF), 0x89);
+        }
+
+        v314 = db_create_id_for_value(*v31, "com.apple.help.topic");
+        if (v314 != -2)
+        {
+          CFDictionarySetValue(v176, (v314 & 0x7FFFFFFF), 0x8A);
+        }
+
+        *(a1 + 6608) = CFDictionaryCreateCopy(v175, v176);
+        CFRelease(v176);
+      }
+
+      v315 = "kMDItemPhysicalSize";
+    }
+
+    *(a1 + 2012) = db_create_id_for_field(*(a1 + 1192), v315, 0x300u, 7);
+    id_for_field = db_create_id_for_field(*(a1 + 1192), "kMDItemWhereFroms", 0x220u, 11);
+  }
+
+  *(a1 + 2028) = id_for_field;
+  v317 = *(a1 + 1192);
+  if (*v317 != 1685287992)
+  {
+    v343 = *__error();
+    v344 = _SILogForLogForCategory(4);
+    if (os_log_type_enabled(v344, OS_LOG_TYPE_ERROR))
+    {
+      v345 = *v317;
+      *buf = 136315650;
+      v368 = "db_create_static_strings";
+      v369 = 1024;
+      v370 = 436;
+      v371 = 1024;
+      v372 = v345;
+      _os_log_error_impl(&dword_1C278D000, v344, OS_LOG_TYPE_ERROR, "%s:%d: unexpected db signature %x", buf, 0x18u);
+    }
+
+    *__error() = v343;
+    v346 = __si_assert_copy_extra_332();
+    v336 = v346;
+    v347 = "";
+    if (v346)
+    {
+      v347 = v346;
+    }
+
+    __message_assert("%s:%u: Unexpected code path %s ", "core-db.c", 436, v347);
+    goto LABEL_631;
+  }
+
+  v318 = v317[201];
+  *buf = 18959;
+  v317[234] = _get_id_for_string(v317, 0, "kMDItemLanguages", 16, ((v318 >> 3) & 1) == 0, buf);
+  v319 = v317[201];
+  if ((v319 & 4) != 0)
+  {
+    v320 = 17167;
+  }
+
+  else
+  {
+    v320 = -15601;
+  }
+
+  *buf = v320;
+  v317[235] = _get_id_for_string(v317, 0, "kMDItemKind", 11, ((v319 >> 3) & 1) == 0, buf);
+  v321 = v317[201];
+  if ((v321 & 4) != 0)
+  {
+    v322 = 17163;
+  }
+
+  else
+  {
+    v322 = -15605;
+  }
+
+  *buf = v322;
+  v317[236] = _get_id_for_string(v317, 0, "kMDItemDisplayName", 18, ((v321 >> 3) & 1) == 0, buf);
+  v323 = v317[201];
+  if ((v323 & 4) != 0)
+  {
+    v324 = 779;
+  }
+
+  else
+  {
+    v324 = -31989;
+  }
+
+  *buf = v324;
+  v317[237] = _get_id_for_string(v317, 0, "kMDItemKeywords", 15, ((v323 >> 3) & 1) == 0, buf);
+  v325 = v317[201];
+  if ((v325 & 4) != 0)
+  {
+    v326 = 779;
+  }
+
+  else
+  {
+    v326 = -31989;
+  }
+
+  *buf = v326;
+  v317[238] = _get_id_for_string(v317, 0, "com_apple_system_prefs_keywords", 31, ((v325 >> 3) & 1) == 0, buf);
+  v327 = v317[201];
+  if ((v327 & 4) != 0)
+  {
+    v328 = 783;
+  }
+
+  else
+  {
+    v328 = -31985;
+  }
+
+  *buf = v328;
+  v317[239] = _get_id_for_string(v317, 0, "kMDItemKeywords", 15, ((v327 >> 3) & 1) == 0, buf);
+  v329 = v317[201];
+  if ((v329 & 4) != 0)
+  {
+    v330 = 783;
+  }
+
+  else
+  {
+    v330 = -31985;
+  }
+
+  *buf = v330;
+  v317[240] = _get_id_for_string(v317, 0, "com_apple_system_prefs_keywords", 31, ((v329 >> 3) & 1) == 0, buf);
+  *(a1 + 2016) = db_create_id_for_field(*(a1 + 1192), "kMDItemDisplayName", 0x12A0u, 11);
+  *(a1 + 2020) = db_create_id_for_field(*(a1 + 1192), "kMDItemLanguages", 0x330u, 11);
+  *(a1 + 2036) = db_create_id_for_field(*(a1 + 1192), "kMDItemRecipientEmailAddresses", 0x220u, 11);
+  *(a1 + 2040) = db_create_id_for_field(*(a1 + 1192), "kMDItemPrimaryRecipientEmailAddresses", 0x4320u, 11);
+  *(a1 + 2044) = db_create_id_for_field(*(a1 + 1192), "kMDItemAdditionalRecipientEmailAddresses", 0x4320u, 11);
+  *(a1 + 2048) = db_create_id_for_field(*(a1 + 1192), "kMDItemHiddenAdditionalRecipientEmailAddresses", 0x4320u, 11);
+  *(a1 + 2052) = db_create_id_for_field(*(a1 + 1192), "_kMDItemDisplayNameWithExtensions", 0x228u, 11);
+  v331 = threadData[9 * v362 + 1] + 320 * v361;
+  *(v331 + 312) = v348;
+  v332 = *(v331 + 232);
+  if (v332)
+  {
+    v332(*(v331 + 288));
+  }
+
+  dropThreadId(v362, 0, v349 + 1);
+  v14 = MEMORY[0x1E695E480];
+LABEL_617:
+  v333 = *v14;
+  *(a1 + 1800) = CFBagCreateMutable(*v14, 64, MEMORY[0x1E695E9D0]);
+  *(a1 + 1808) = CFDictionaryCreateMutable(v333, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  return pthread_mutex_init((a1 + 1816), 0);
 }

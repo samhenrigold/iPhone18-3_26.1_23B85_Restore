@@ -1,10 +1,62 @@
 @interface CSSmartSiriVolumeServiceProxy
 - (CSSmartSiriVolumeServiceProxy)init;
 - (void)getVolumeForTTSType:(unint64_t)type withContext:(id)context reply:(id)reply;
+- (void)setPermanentVolumeOffsetWithDirection:(BOOL)direction;
+- (void)setSmartSiriVolumeDirection:(BOOL)direction;
 - (void)setSmartSiriVolumePercentage:(float)percentage;
 @end
 
 @implementation CSSmartSiriVolumeServiceProxy
+
+- (void)setPermanentVolumeOffsetWithDirection:(BOOL)direction
+{
+  directionCopy = direction;
+  v4 = +[CSSmartSiriVolumeManager sharedInstance];
+  v5 = v4;
+  if (v4)
+  {
+    [v4 setPermanentVolumeOffsetWithDirection:directionCopy];
+  }
+
+  else
+  {
+    v6 = [NSString stringWithFormat:@"SmartSiriVolume not supported on this device type. smartSiriVolume : %p", 0];
+    v7 = CSLogCategoryASV;
+    if (os_log_type_enabled(CSLogCategoryASV, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v9 = "[CSSmartSiriVolumeServiceProxy setPermanentVolumeOffsetWithDirection:]";
+      v10 = 2114;
+      v11 = v6;
+      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%s ERR: %{public}@", buf, 0x16u);
+    }
+  }
+}
+
+- (void)setSmartSiriVolumeDirection:(BOOL)direction
+{
+  directionCopy = direction;
+  v4 = +[CSSmartSiriVolumeManager sharedInstance];
+  v5 = v4;
+  if (v4)
+  {
+    [v4 setSmartSiriVolumeDirection:directionCopy];
+  }
+
+  else
+  {
+    v6 = [NSString stringWithFormat:@"SmartSiriVolume not supported on this device type. smartSiriVolume : %p", 0];
+    v7 = CSLogCategoryASV;
+    if (os_log_type_enabled(CSLogCategoryASV, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v9 = "[CSSmartSiriVolumeServiceProxy setSmartSiriVolumeDirection:]";
+      v10 = 2114;
+      v11 = v6;
+      _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%s ERR: %{public}@", buf, 0x16u);
+    }
+  }
+}
 
 - (void)setSmartSiriVolumePercentage:(float)percentage
 {

@@ -7,28 +7,26 @@
 
 - (id)hmbData
 {
-  v12[3] = *MEMORY[0x277D85DE8];
-  v11[0] = @"a";
+  v11[3] = *MEMORY[0x277D85DE8];
+  v10[0] = @"a";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(self, "majorVersion")}];
-  v12[0] = v2;
-  v11[1] = @"i";
+  v11[0] = v2;
+  v10[1] = @"i";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(self, "minorVersion")}];
-  v12[1] = v3;
-  v11[2] = @"u";
+  v11[1] = v3;
+  v10[2] = @"u";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(self, "updateVersion")}];
-  v12[2] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v11[2] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
-  v10 = 0;
-  v6 = MEMORY[0x231885660](v5, 8, &v10);
+  v9 = 0;
+  v6 = MEMORY[0x231885660](v5, 8, &v9);
   if (!v6)
   {
     _HMFPreconditionFailure();
   }
 
   v7 = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -66,7 +64,7 @@
   else
   {
     v15 = _HMFPreconditionFailure();
-    return [CKRecord(HMB) recordFromExternalData:v15 error:?];
+    return [(CKRecord(HMB) *)v15 recordFromExternalData:v16 error:v17, v18];
   }
 }
 

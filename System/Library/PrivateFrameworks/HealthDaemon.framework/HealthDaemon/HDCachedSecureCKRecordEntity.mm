@@ -41,40 +41,37 @@
 
 id __80__HDCachedSecureCKRecordEntity_insertWithRecordID_recordData_transaction_error___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_self();
-  v3 = MEMORY[0x277CCACA8];
-  v4 = [v2 disambiguatedDatabaseTable];
-  v5 = [v3 stringWithFormat:@"INSERT INTO %@ (%@, %@) VALUES (?, ?)", v4, @"record_id", @"record_data"];
+  v1 = objc_opt_self();
+  v2 = MEMORY[0x277CCACA8];
+  v3 = [v1 disambiguatedDatabaseTable];
+  v4 = [v2 stringWithFormat:@"INSERT INTO %@ (%@, %@) VALUES (?, ?)", v3, @"record_id", @"record_data"];
 
-  return v5;
+  return v4;
 }
 
 uint64_t __80__HDCachedSecureCKRecordEntity_insertWithRecordID_recordData_transaction_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
   sqlite3_bind_int64(a2, 1, *(a1 + 40));
-  v3 = *(a1 + 32);
 
   return HDSQLiteBindFoundationValueToStatement();
 }
 
 + (BOOL)updateWithRecordData:(id)data recordID:(int64_t)d transaction:(id)transaction error:(id *)error
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v11 = [transaction databaseForEntityClass:self];
   v12 = HDPredicateForRecordID(d);
-  v19[0] = @"record_data";
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __80__HDCachedSecureCKRecordEntity_updateWithRecordData_recordID_transaction_error___block_invoke;
-  v17[3] = &unk_278614508;
-  v18 = dataCopy;
+  v18[0] = @"record_data";
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __80__HDCachedSecureCKRecordEntity_updateWithRecordData_recordID_transaction_error___block_invoke;
+  v16[3] = &unk_278614508;
+  v17 = dataCopy;
   v14 = dataCopy;
-  LOBYTE(error) = [self updateProperties:v13 predicate:v12 database:v11 error:error bindingHandler:v17];
+  LOBYTE(error) = [self updateProperties:v13 predicate:v12 database:v11 error:error bindingHandler:v16];
 
-  v15 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -443,34 +440,34 @@ uint64_t __126__HDCachedSecureCKRecordEntity_deleteRecordWithContainerIdentifier
 
 uint64_t __68__HDCachedSecureCKRecordEntity_synchronizeRecordsWithProfile_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __68__HDCachedSecureCKRecordEntity_synchronizeRecordsWithProfile_error___block_invoke_2;
-  v30[3] = &unk_278628660;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __68__HDCachedSecureCKRecordEntity_synchronizeRecordsWithProfile_error___block_invoke_2;
+  v29[3] = &unk_278628660;
   v6 = v4;
-  v31 = v6;
+  v30 = v6;
   v7 = v5;
-  v32 = v7;
-  v8 = v30;
+  v31 = v7;
+  v8 = v29;
   v9 = v6;
   v10 = objc_opt_self();
   v11 = [v9 databaseForEntityClass:v10];
 
   v12 = [v10 queryWithDatabase:v11 predicate:0];
 
-  *&v37 = @"record_id";
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __93__HDCachedSecureCKRecordEntity__enumerateAllRecordIDsInTransaction_error_enumerationHandler___block_invoke;
-  v35[3] = &unk_2786145A8;
-  v36 = v8;
+  *&v36 = @"record_id";
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __93__HDCachedSecureCKRecordEntity__enumerateAllRecordIDsInTransaction_error_enumerationHandler___block_invoke;
+  v34[3] = &unk_2786145A8;
+  v35 = v8;
   v14 = v8;
   v15 = a3;
-  LODWORD(a3) = [v12 enumerateProperties:v13 error:a3 enumerationHandler:v35];
+  LODWORD(a3) = [v12 enumerateProperties:v13 error:a3 enumerationHandler:v34];
 
   if (a3)
   {
@@ -479,39 +476,39 @@ uint64_t __68__HDCachedSecureCKRecordEntity_synchronizeRecordsWithProfile_error_
       v16 = v7;
       v17 = v9;
       v18 = objc_opt_self();
+      v36 = 0u;
       v37 = 0u;
       v38 = 0u;
       v39 = 0u;
-      v40 = 0u;
       obj = v16;
-      v19 = [obj countByEnumeratingWithState:&v37 objects:v35 count:16];
+      v19 = [obj countByEnumeratingWithState:&v36 objects:v34 count:16];
       if (v19)
       {
         v20 = v19;
-        v28 = v7;
-        v21 = *v38;
+        v27 = v7;
+        v21 = *v37;
         while (2)
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v38 != v21)
+            if (*v37 != v21)
             {
               objc_enumerationMutation(obj);
             }
 
-            v23 = *(*(&v37 + 1) + 8 * i);
+            v23 = *(*(&v36 + 1) + 8 * i);
             v24 = [v17 protectedDatabase];
-            v33[4] = v23;
-            v34[0] = MEMORY[0x277D85DD0];
-            v34[1] = 3221225472;
-            v34[2] = __67__HDCachedSecureCKRecordEntity__deleteRecordIds_transaction_error___block_invoke;
-            v34[3] = &__block_descriptor_40_e15___NSString_8__0l;
-            v34[4] = v18;
+            v32[4] = v23;
             v33[0] = MEMORY[0x277D85DD0];
             v33[1] = 3221225472;
-            v33[2] = __67__HDCachedSecureCKRecordEntity__deleteRecordIds_transaction_error___block_invoke_2;
-            v33[3] = &unk_278614860;
-            LODWORD(v23) = [v24 executeCachedStatementForKey:&_deleteRecordIds_transaction_error__lookupKey error:v15 SQLGenerator:v34 bindingHandler:v33 enumerationHandler:0];
+            v33[2] = __67__HDCachedSecureCKRecordEntity__deleteRecordIds_transaction_error___block_invoke;
+            v33[3] = &__block_descriptor_40_e15___NSString_8__0l;
+            v33[4] = v18;
+            v32[0] = MEMORY[0x277D85DD0];
+            v32[1] = 3221225472;
+            v32[2] = __67__HDCachedSecureCKRecordEntity__deleteRecordIds_transaction_error___block_invoke_2;
+            v32[3] = &unk_278614860;
+            LODWORD(v23) = [v24 executeCachedStatementForKey:&_deleteRecordIds_transaction_error__lookupKey error:v15 SQLGenerator:v33 bindingHandler:v32 enumerationHandler:0];
 
             if (!v23)
             {
@@ -520,7 +517,7 @@ uint64_t __68__HDCachedSecureCKRecordEntity_synchronizeRecordsWithProfile_error_
             }
           }
 
-          v20 = [obj countByEnumeratingWithState:&v37 objects:v35 count:16];
+          v20 = [obj countByEnumeratingWithState:&v36 objects:v34 count:16];
           if (v20)
           {
             continue;
@@ -531,7 +528,7 @@ uint64_t __68__HDCachedSecureCKRecordEntity_synchronizeRecordsWithProfile_error_
 
         v25 = 1;
 LABEL_14:
-        v7 = v28;
+        v7 = v27;
       }
 
       else
@@ -551,7 +548,6 @@ LABEL_14:
     v25 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
@@ -594,12 +590,12 @@ id __68__HDCachedSecureCKRecordEntity_synchronizeRecordsWithProfile_error___bloc
   return v2;
 }
 
-uint64_t __93__HDCachedSecureCKRecordEntity__enumerateAllRecordIDsInTransaction_error_enumerationHandler___block_invoke(uint64_t a1)
+uint64_t __93__HDCachedSecureCKRecordEntity__enumerateAllRecordIDsInTransaction_error_enumerationHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   HDSQLiteColumnWithNameAsInt64();
-  v2 = *(*(a1 + 32) + 16);
+  v4 = *(*(a1 + 32) + 16);
 
-  return v2();
+  return v4();
 }
 
 id __67__HDCachedSecureCKRecordEntity__deleteRecordIds_transaction_error___block_invoke(uint64_t a1)

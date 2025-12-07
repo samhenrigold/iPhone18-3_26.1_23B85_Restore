@@ -1,10 +1,20 @@
 @interface PMLHashingVectorizer
++ (id)withBucketSize:(int)size andCharNgramOrder:(int)order;
++ (id)withBucketSize:(int)size andNgramOrder:(int)order;
++ (id)withBucketSize:(int)size andNgrams:(int)ngrams;
++ (id)withBucketSize:(int)size characterNGramRange:(_NSRange)range tokenNGramRange:(_NSRange)gramRange shouldNormalizeTokens:(BOOL)tokens shouldNormalizeCharacters:(BOOL)characters;
++ (id)withBucketSize:(int)size characterNGramRange:(_NSRange)range tokenNGramRange:(_NSRange)gramRange shouldNormalizeTokens:(BOOL)tokens shouldNormalizeCharacters:(BOOL)characters localeForNonwordTokens:(id)nonwordTokens tokenizeNewlines:(BOOL)newlines;
++ (id)withBucketSize:(int)size characterNGramRange:(_NSRange)range tokenNGramRange:(_NSRange)gramRange shouldNormalizeTokens:(BOOL)tokens shouldNormalizeCharacters:(BOOL)characters localeForNonwordTokens:(id)nonwordTokens tokenizeNewlines:(BOOL)newlines idVectorLength:(unint64_t)self0 extraIdOptions:(unint64_t)self1 vectorizerStrategy:(unint64_t)self2 vectorNormalization:(int64_t)self3;
++ (id)withBucketSize:(int)size characterNGramRange:(_NSRange)range tokenNGramRange:(_NSRange)gramRange shouldNormalizeTokens:(BOOL)tokens shouldNormalizeCharacters:(BOOL)characters localeForNonwordTokens:(id)nonwordTokens tokenizeNewlines:(BOOL)newlines idVectorLength:(unint64_t)self0 extraIdOptions:(unint64_t)self1 vectorizerStrategy:(unint64_t)self2 vectorNormalization:(int64_t)self3 vocab:(id)self4;
++ (id)withBucketSize:(int)size ngrams:(int)ngrams localeForNonwordTokens:(id)tokens tokenizeNewlines:(BOOL)newlines;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToHashingVectorizer:(id)vectorizer;
 - (PMLHashingVectorizer)initWithBucketSize:(int)size characterNGramRange:(_NSRange)range tokenNGramRange:(_NSRange)gramRange shouldNormalizeTokens:(BOOL)tokens shouldNormalizeCharacters:(BOOL)characters localeForNonwordTokens:(id)nonwordTokens tokenizeNewlines:(BOOL)newlines idVectorLength:(unint64_t)self0 extraIdOptions:(unint64_t)self1 vectorizerStrategy:(unint64_t)self2 vectorNormalization:(int64_t)self3 vocab:(id)self4;
+- (PMLHashingVectorizer)initWithBucketSize:(int)size ngrams:(int)ngrams localeForNonwordTokens:(id)tokens tokenizeNewlines:(BOOL)newlines;
 - (PMLHashingVectorizer)initWithPlist:(id)plist chunks:(id)chunks context:(id)context;
 - (id)toPlistWithChunks:(id)chunks;
 - (id)transform:(id)transform;
+- (id)transformBagOfIds:(id)ids shouldDecrement:(BOOL)decrement;
 - (id)transformBatch:(id)batch;
 - (id)transformSequentialNGrams:(id)grams;
 - (id)transformWithFrequency:(id)frequency shouldDecrement:(BOOL)decrement;
@@ -231,47 +241,47 @@ LABEL_9:
 
 - (id)toPlistWithChunks:(id)chunks
 {
-  v24[13] = *MEMORY[0x277D85DE8];
-  v23[0] = @"BUCKET_SIZE";
-  v22 = [MEMORY[0x277CCABB0] numberWithInt:self->_buckets];
-  v24[0] = v22;
-  v23[1] = @"NGRAM_SIZE";
-  v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_tokenNGramRange.length];
-  v24[1] = v21;
-  v23[2] = @"CHARACTER_NGRAM_LOCATION";
-  v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_characterNGramRange.location];
-  v24[2] = v20;
-  v23[3] = @"CHARACTER_NGRAM_LENGTH";
-  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_characterNGramRange.length];
-  v24[3] = v19;
-  v23[4] = @"CHARACTER_NORMALIZATION";
-  v18 = [MEMORY[0x277CCABB0] numberWithBool:self->_shouldNormalizeCharacters];
-  v24[4] = v18;
-  v23[5] = @"TOKEN_NGRAM_LOCATION";
-  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_tokenNGramRange.location];
-  v24[5] = v17;
-  v23[6] = @"TOKEN_NGRAM_LENGTH";
+  v23[13] = *MEMORY[0x277D85DE8];
+  v22[0] = @"BUCKET_SIZE";
+  v21 = [MEMORY[0x277CCABB0] numberWithInt:self->_buckets];
+  v23[0] = v21;
+  v22[1] = @"NGRAM_SIZE";
+  v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_tokenNGramRange.length];
+  v23[1] = v20;
+  v22[2] = @"CHARACTER_NGRAM_LOCATION";
+  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_characterNGramRange.location];
+  v23[2] = v19;
+  v22[3] = @"CHARACTER_NGRAM_LENGTH";
+  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_characterNGramRange.length];
+  v23[3] = v18;
+  v22[4] = @"CHARACTER_NORMALIZATION";
+  v17 = [MEMORY[0x277CCABB0] numberWithBool:self->_shouldNormalizeCharacters];
+  v23[4] = v17;
+  v22[5] = @"TOKEN_NGRAM_LOCATION";
+  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_tokenNGramRange.location];
+  v23[5] = v16;
+  v22[6] = @"TOKEN_NGRAM_LENGTH";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_tokenNGramRange.length];
-  v24[6] = v4;
-  v23[7] = @"TOKEN_NORMALIZATION";
+  v23[6] = v4;
+  v22[7] = @"TOKEN_NORMALIZATION";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:self->_shouldNormalizeTokens];
-  v24[7] = v5;
-  v23[8] = @"SHOULD_TOKENIZE_NEWLINES";
+  v23[7] = v5;
+  v22[8] = @"SHOULD_TOKENIZE_NEWLINES";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:self->_tokenizeNewlines];
-  v24[8] = v6;
-  v23[9] = @"ID_VECTOR_LENGTH";
+  v23[8] = v6;
+  v22[9] = @"ID_VECTOR_LENGTH";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_idVectorLength];
-  v24[9] = v7;
-  v23[10] = @"EXTRA_ID_OPTIONS";
+  v23[9] = v7;
+  v22[10] = @"EXTRA_ID_OPTIONS";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_extraIdOptions];
-  v24[10] = v8;
-  v23[11] = @"VECTORIZER_STRATEGY";
+  v23[10] = v8;
+  v22[11] = @"VECTORIZER_STRATEGY";
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_vectorizerStrategy];
-  v24[11] = v9;
-  v23[12] = @"VECTOR_NORMALIZATION";
+  v23[11] = v9;
+  v22[12] = @"VECTOR_NORMALIZATION";
   v10 = [MEMORY[0x277CCABB0] numberWithInteger:self->_vectorNormalization];
-  v24[12] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:13];
+  v23[12] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:13];
   v12 = [v11 mutableCopy];
 
   localeForNonwordTokens = self->_localeForNonwordTokens;
@@ -280,8 +290,6 @@ LABEL_9:
     localeIdentifier = [(NSLocale *)localeForNonwordTokens localeIdentifier];
     [v12 setObject:localeIdentifier forKeyedSubscript:@"NON_WORD_TOKENS_LOCALE"];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -329,41 +337,62 @@ LABEL_9:
 
 - (id)transformBatch:(id)batch
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   batchCopy = batch;
   v5 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = batchCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(PMLHashingVectorizer *)self transform:*(*(&v14 + 1) + 8 * i), v14];
+        v11 = [(PMLHashingVectorizer *)self transform:*(*(&v13 + 1) + 8 * i), v13];
         [v5 addObject:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v5;
+}
+
+- (id)transformBagOfIds:(id)ids shouldDecrement:(BOOL)decrement
+{
+  decrementCopy = decrement;
+  idsCopy = ids;
+  if (self->_endId)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"PMLHashingVectorizer.m" lineNumber:612 description:{@"Invalid parameter not satisfying: %@", @"_endId == 0"}];
+  }
+
+  if (self->_startId)
+  {
+    currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler2 handleFailureInMethod:a2 object:self file:@"PMLHashingVectorizer.m" lineNumber:613 description:{@"Invalid parameter not satisfying: %@", @"_startId == 0"}];
+  }
+
+  v8 = [(PMLHashingVectorizer *)self transformWithFrequency:idsCopy shouldDecrement:decrementCopy];
+  [v8 convertToBagOfIds];
+  [v8 addStartId:self->_startId endId:self->_endId paddingId:self->_paddingId withMaxVectorLength:self->_idVectorLength];
+
+  return v8;
 }
 
 - (id)transformSequentialNGrams:(id)grams
@@ -638,6 +667,103 @@ LABEL_20:
   }
 
   return v21;
+}
+
+- (PMLHashingVectorizer)initWithBucketSize:(int)size ngrams:(int)ngrams localeForNonwordTokens:(id)tokens tokenizeNewlines:(BOOL)newlines
+{
+  LOBYTE(v8) = newlines;
+  LOBYTE(v7) = 0;
+  return [(PMLHashingVectorizer *)self initWithBucketSize:*&size characterNGramRange:0 tokenNGramRange:0 shouldNormalizeTokens:1 shouldNormalizeCharacters:ngrams localeForNonwordTokens:1 tokenizeNewlines:v7 idVectorLength:tokens extraIdOptions:v8 vectorizerStrategy:0 vectorNormalization:0 vocab:0, 2, 0];
+}
+
++ (id)withBucketSize:(int)size characterNGramRange:(_NSRange)range tokenNGramRange:(_NSRange)gramRange shouldNormalizeTokens:(BOOL)tokens shouldNormalizeCharacters:(BOOL)characters
+{
+  LOBYTE(v9) = 0;
+  LOBYTE(v8) = characters;
+  return [PMLHashingVectorizer withBucketSize:*&size characterNGramRange:range.location tokenNGramRange:range.length shouldNormalizeTokens:gramRange.location shouldNormalizeCharacters:gramRange.length localeForNonwordTokens:tokens tokenizeNewlines:v8, 0, v9];
+}
+
++ (id)withBucketSize:(int)size characterNGramRange:(_NSRange)range tokenNGramRange:(_NSRange)gramRange shouldNormalizeTokens:(BOOL)tokens shouldNormalizeCharacters:(BOOL)characters localeForNonwordTokens:(id)nonwordTokens tokenizeNewlines:(BOOL)newlines
+{
+  tokensCopy = tokens;
+  length = gramRange.length;
+  location = gramRange.location;
+  v12 = range.length;
+  v13 = range.location;
+  v14 = *&size;
+  nonwordTokensCopy = nonwordTokens;
+  LOBYTE(v19) = newlines;
+  LOBYTE(v18) = characters;
+  v16 = [[PMLHashingVectorizer alloc] initWithBucketSize:v14 characterNGramRange:v13 tokenNGramRange:v12 shouldNormalizeTokens:location shouldNormalizeCharacters:length localeForNonwordTokens:tokensCopy tokenizeNewlines:v18 idVectorLength:nonwordTokensCopy extraIdOptions:v19 vectorizerStrategy:0 vectorNormalization:0 vocab:0, 2, 0];
+
+  return v16;
+}
+
++ (id)withBucketSize:(int)size characterNGramRange:(_NSRange)range tokenNGramRange:(_NSRange)gramRange shouldNormalizeTokens:(BOOL)tokens shouldNormalizeCharacters:(BOOL)characters localeForNonwordTokens:(id)nonwordTokens tokenizeNewlines:(BOOL)newlines idVectorLength:(unint64_t)self0 extraIdOptions:(unint64_t)self1 vectorizerStrategy:(unint64_t)self2 vectorNormalization:(int64_t)self3 vocab:(id)self4
+{
+  tokensCopy = tokens;
+  length = range.length;
+  location = range.location;
+  v16 = *&size;
+  vocabCopy = vocab;
+  nonwordTokensCopy = nonwordTokens;
+  LOBYTE(v22) = newlines;
+  LOBYTE(v21) = characters;
+  vocabCopy = [[PMLHashingVectorizer alloc] initWithBucketSize:v16 characterNGramRange:location tokenNGramRange:length shouldNormalizeTokens:gramRange.location shouldNormalizeCharacters:gramRange.length localeForNonwordTokens:tokensCopy tokenizeNewlines:v21 idVectorLength:nonwordTokensCopy extraIdOptions:v22 vectorizerStrategy:length vectorNormalization:options vocab:strategy, normalization, vocabCopy];
+
+  return vocabCopy;
+}
+
++ (id)withBucketSize:(int)size characterNGramRange:(_NSRange)range tokenNGramRange:(_NSRange)gramRange shouldNormalizeTokens:(BOOL)tokens shouldNormalizeCharacters:(BOOL)characters localeForNonwordTokens:(id)nonwordTokens tokenizeNewlines:(BOOL)newlines idVectorLength:(unint64_t)self0 extraIdOptions:(unint64_t)self1 vectorizerStrategy:(unint64_t)self2 vectorNormalization:(int64_t)self3
+{
+  tokensCopy = tokens;
+  length = gramRange.length;
+  location = gramRange.location;
+  v14 = range.length;
+  v15 = range.location;
+  v16 = *&size;
+  nonwordTokensCopy = nonwordTokens;
+  LOBYTE(v21) = newlines;
+  LOBYTE(v20) = characters;
+  v18 = [[PMLHashingVectorizer alloc] initWithBucketSize:v16 characterNGramRange:v15 tokenNGramRange:v14 shouldNormalizeTokens:location shouldNormalizeCharacters:length localeForNonwordTokens:tokensCopy tokenizeNewlines:v20 idVectorLength:nonwordTokensCopy extraIdOptions:v21 vectorizerStrategy:length vectorNormalization:options vocab:strategy, normalization, 0];
+
+  return v18;
+}
+
++ (id)withBucketSize:(int)size ngrams:(int)ngrams localeForNonwordTokens:(id)tokens tokenizeNewlines:(BOOL)newlines
+{
+  newlinesCopy = newlines;
+  v7 = *&ngrams;
+  v8 = *&size;
+  tokensCopy = tokens;
+  v10 = [[PMLHashingVectorizer alloc] initWithBucketSize:v8 ngrams:v7 localeForNonwordTokens:tokensCopy tokenizeNewlines:newlinesCopy];
+
+  return v10;
+}
+
++ (id)withBucketSize:(int)size andNgrams:(int)ngrams
+{
+  v4 = [[PMLHashingVectorizer alloc] initWithBucketSize:*&size ngrams:*&ngrams localeForNonwordTokens:0 tokenizeNewlines:0];
+
+  return v4;
+}
+
++ (id)withBucketSize:(int)size andCharNgramOrder:(int)order
+{
+  LOBYTE(v7) = 0;
+  LOBYTE(v6) = 0;
+  v4 = [[PMLHashingVectorizer alloc] initWithBucketSize:*&size characterNGramRange:order tokenNGramRange:1 shouldNormalizeTokens:0 shouldNormalizeCharacters:0 localeForNonwordTokens:1 tokenizeNewlines:v6 idVectorLength:0 extraIdOptions:v7 vectorizerStrategy:0 vectorNormalization:0 vocab:3, -1, 0];
+
+  return v4;
+}
+
++ (id)withBucketSize:(int)size andNgramOrder:(int)order
+{
+  LOBYTE(v7) = 0;
+  LOBYTE(v6) = 0;
+  v4 = [[PMLHashingVectorizer alloc] initWithBucketSize:*&size characterNGramRange:0 tokenNGramRange:0 shouldNormalizeTokens:order shouldNormalizeCharacters:1 localeForNonwordTokens:1 tokenizeNewlines:v6 idVectorLength:0 extraIdOptions:v7 vectorizerStrategy:0 vectorNormalization:0 vocab:2, -1, 0];
+
+  return v4;
 }
 
 @end

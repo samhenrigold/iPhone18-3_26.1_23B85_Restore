@@ -5,6 +5,7 @@
 - (BOOL)setiCDPStatus:(BOOL)status;
 - (BOOL)storePCSKeyData:(id)data current:(BOOL)current;
 - (BOOL)updateSyncDevice:(id)device version:(id)version;
+- (BOOL)updateSyncedKeysToDevice:(id)device type:(int)type keys:(id)keys;
 - (PCSKeySyncing)init;
 - (_PCSIdentitySetData)copyIdentitySet;
 - (id)allClients;
@@ -367,6 +368,52 @@ LABEL_19:
     v10 = +[NSDate date];
     v11 = [v10 description];
     [userRegistry updateSyncDevice:deviceCopy seen:v11 version:versionCopy];
+
+    [userRegistry endTransaction:1];
+  }
+
+  return beginExclusiveTransaction;
+}
+
+- (BOOL)updateSyncedKeysToDevice:(id)device type:(int)type keys:(id)keys
+{
+  v6 = *&type;
+  deviceCopy = device;
+  keysCopy = keys;
+  userRegistry = [(PCSKeySyncing *)self userRegistry];
+  beginExclusiveTransaction = [userRegistry beginExclusiveTransaction];
+  if (beginExclusiveTransaction)
+  {
+    v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v12 = keysCopy;
+    v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    if (v13)
+    {
+      v14 = v13;
+      v15 = *v19;
+      do
+      {
+        v16 = 0;
+        do
+        {
+          if (*v19 != v15)
+          {
+            objc_enumerationMutation(v12);
+          }
+
+          [userRegistry syncedKeyToDevice:*(*(&v18 + 1) + 8 * v16) type:v6 device:{deviceCopy, v18}];
+          v16 = v16 + 1;
+        }
+
+        while (v14 != v16);
+        v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      }
+
+      while (v14);
+    }
 
     [userRegistry endTransaction:1];
   }

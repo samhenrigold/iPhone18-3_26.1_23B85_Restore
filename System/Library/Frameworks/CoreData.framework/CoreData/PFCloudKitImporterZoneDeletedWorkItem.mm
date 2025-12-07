@@ -53,8 +53,8 @@
 
 - (void)doWorkForStore:(id)store inMonitor:(id)monitor completion:(id)completion
 {
-  v28[1] = *MEMORY[0x1E69E9840];
-  v27 = 0;
+  v27[1] = *MEMORY[0x1E69E9840];
+  v26 = 0;
   if (self)
   {
     options = self->super._options;
@@ -106,8 +106,8 @@
     }
   }
 
-  v28[0] = self->_deletedRecordZoneID;
-  v16 = -[PFCloudKitMetadataPurger purgeMetadataFromStore:inMonitor:withOptions:forRecordZones:inDatabaseWithScope:andTransactionAuthor:error:](metadataPurger, store, monitor, v12, [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1], databaseScope, @"NSCloudKitMirroringDelegate.import", &v27);
+  v27[0] = self->_deletedRecordZoneID;
+  v16 = -[PFCloudKitMetadataPurger purgeMetadataFromStore:inMonitor:withOptions:forRecordZones:inDatabaseWithScope:andTransactionAuthor:error:](metadataPurger, store, monitor, v12, [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1], databaseScope, @"NSCloudKitMirroringDelegate.import", &v26);
   v17 = [NSCloudKitMirroringResult alloc];
   request = self->super._request;
   identifier = [store identifier];
@@ -122,7 +122,7 @@
 
   else
   {
-    v24 = v27;
+    v24 = v26;
     v20 = v17;
     v21 = request;
     v22 = 0;
@@ -134,8 +134,6 @@
   {
     (*(completion + 2))(completion, v25);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 @end

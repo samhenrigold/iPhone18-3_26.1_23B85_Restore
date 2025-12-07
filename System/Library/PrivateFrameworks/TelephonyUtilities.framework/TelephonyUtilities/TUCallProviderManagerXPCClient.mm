@@ -55,33 +55,33 @@
 
 void __38__TUCallProviderManagerXPCClient_init__block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v2 = +[TUCallProviderManager defaultProviders];
   v3 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v2, "count")}];
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v5)
   {
-    v6 = *v29;
+    v6 = *v28;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v29 != v6)
+        if (*v28 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v28 + 1) + 8 * i);
+        v8 = *(*(&v27 + 1) + 8 * i);
         v9 = [v8 identifier];
         [v3 setObject:v8 forKeyedSubscript:v9];
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v5);
@@ -104,20 +104,18 @@ void __38__TUCallProviderManagerXPCClient_init__block_invoke(uint64_t a1)
   objc_initWeak(&location, *(a1 + 32));
   v18 = *(a1 + 32);
   v19 = [v18 queue];
-  v22 = MEMORY[0x1E69E9820];
-  v23 = 3221225472;
-  v24 = __38__TUCallProviderManagerXPCClient_init__block_invoke_2;
-  v25 = &unk_1E7424C60;
-  objc_copyWeak(&v26, &location);
-  notify_register_dispatch("com.apple.telephonyutilities.callservicesdaemon.connectionrequest", v18 + 3, v19, &v22);
+  v21 = MEMORY[0x1E69E9820];
+  v22 = 3221225472;
+  v23 = __38__TUCallProviderManagerXPCClient_init__block_invoke_2;
+  v24 = &unk_1E7424C60;
+  objc_copyWeak(&v25, &location);
+  notify_register_dispatch("com.apple.telephonyutilities.callservicesdaemon.connectionrequest", v18 + 3, v19, &v21);
 
   WeakRetained = objc_loadWeakRetained(&sAsynchronousServer_2);
-  [WeakRetained registerClient:{*(a1 + 32), v22, v23, v24, v25}];
+  [WeakRetained registerClient:{*(a1 + 32), v21, v22, v23, v24}];
 
-  objc_destroyWeak(&v26);
+  objc_destroyWeak(&v25);
   objc_destroyWeak(&location);
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)currentProcessCanAccessInitialState
@@ -138,7 +136,7 @@ void __38__TUCallProviderManagerXPCClient_init__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __69__TUCallProviderManagerXPCClient_currentProcessCanAccessInitialState__block_invoke()
+void *__69__TUCallProviderManagerXPCClient_currentProcessCanAccessInitialState__block_invoke()
 {
   result = TUCurrentProcessHasEntitlementCapability(@"access-call-providers");
   currentProcessCanAccessInitialState_isCurrentProcessEntitled = result;
@@ -237,7 +235,7 @@ void __71__TUCallProviderManagerXPCClient_callProviderManagerServerXPCInterface_
   dispatch_sync(queue, block);
 }
 
-uint64_t __64__TUCallProviderManagerXPCClient_blockUntilInitialStateReceived__block_invoke(uint64_t a1)
+void *__64__TUCallProviderManagerXPCClient_blockUntilInitialStateReceived__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) requestedInitialState];
   if ((result & 1) == 0)
@@ -371,7 +369,7 @@ void __47__TUCallProviderManagerXPCClient_xpcConnection__block_invoke(uint64_t a
 
 void __47__TUCallProviderManagerXPCClient_xpcConnection__block_invoke_2(uint64_t a1)
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -411,20 +409,22 @@ void __38__TUCallProviderManagerXPCClient_init__block_invoke_2(uint64_t a1)
   v7 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
-  if (WeakRetained && [WeakRetained requestedInitialState])
+  if (WeakRetained)
   {
-    v3 = TUDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v3 = [WeakRetained requestedInitialState];
+    if (v3)
     {
-      v5 = 136315138;
-      v6 = "com.apple.telephonyutilities.callservicesdaemon.connectionrequest";
-      _os_log_impl(&dword_1956FD000, v3, OS_LOG_TYPE_DEFAULT, "Handling %s by setting up XPC connection", &v5, 0xCu);
+      v4 = TUDefaultLog(v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      {
+        v5 = 136315138;
+        v6 = "com.apple.telephonyutilities.callservicesdaemon.connectionrequest";
+        _os_log_impl(&dword_1956FD000, v4, OS_LOG_TYPE_DEFAULT, "Handling %s by setting up XPC connection", &v5, 0xCu);
+      }
+
+      [v2 _requestInitialState];
     }
-
-    [v2 _requestInitialState];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (TUCallProviderManagerDataSourceDelegate)delegate
@@ -452,10 +452,7 @@ void __38__TUCallProviderManagerXPCClient_init__block_invoke_2(uint64_t a1)
 
 uint64_t __42__TUCallProviderManagerXPCClient_delegate__block_invoke(uint64_t a1)
 {
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 16));
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = WeakRetained;
+  *(*(*(a1 + 40) + 8) + 40) = objc_loadWeakRetained((*(a1 + 32) + 16));
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -548,7 +545,7 @@ void __76__TUCallProviderManagerXPCClient_donateUserIntentForProviderWithIdentif
 
 void __76__TUCallProviderManagerXPCClient_donateUserIntentForProviderWithIdentifier___block_invoke_2(uint64_t a1)
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __76__TUCallProviderManagerXPCClient_donateUserIntentForProviderWithIdentifier___block_invoke_2_cold_1(a1, v2, v3, v4, v5, v6, v7, v8);
@@ -583,7 +580,7 @@ void __86__TUCallProviderManagerXPCClient_donateBackgroundCallIntentForProviderW
 
 void __86__TUCallProviderManagerXPCClient_donateBackgroundCallIntentForProviderWithIdentifier___block_invoke_2(uint64_t a1)
 {
-  v2 = TUDefaultLog();
+  v2 = TUDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __86__TUCallProviderManagerXPCClient_donateBackgroundCallIntentForProviderWithIdentifier___block_invoke_2_cold_1(a1, v2, v3, v4, v5, v6, v7, v8);
@@ -621,25 +618,23 @@ void __69__TUCallProviderManagerXPCClient_launchAppForDialRequest_completion___b
 
 void __69__TUCallProviderManagerXPCClient_launchAppForDialRequest_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = TUDefaultLog();
+  v4 = TUDefaultLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __69__TUCallProviderManagerXPCClient_launchAppForDialRequest_completion___block_invoke_2_cold_1();
   }
 
   v5 = *MEMORY[0x1E696AA08];
-  v10[0] = *MEMORY[0x1E696A578];
-  v10[1] = v5;
-  v11[0] = @"Error communicating with callservicesd";
-  v11[1] = v3;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v9[0] = *MEMORY[0x1E696A578];
+  v9[1] = v5;
+  v10[0] = @"Error communicating with callservicesd";
+  v10[1] = v3;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   v7 = *(a1 + 32);
   v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.TelephonyUtilities" code:1 userInfo:v6];
   (*(v7 + 16))(v7, v8);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (TUCallProvider)defaultAppProvider
@@ -679,7 +674,7 @@ void __52__TUCallProviderManagerXPCClient_defaultAppProvider__block_invoke(uint6
 void __52__TUCallProviderManagerXPCClient_defaultAppProvider__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __52__TUCallProviderManagerXPCClient_defaultAppProvider__block_invoke_2_cold_1();
@@ -723,7 +718,7 @@ void __49__TUCallProviderManagerXPCClient_sortedProviders__block_invoke(uint64_t
 void __49__TUCallProviderManagerXPCClient_sortedProviders__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __49__TUCallProviderManagerXPCClient_sortedProviders__block_invoke_2_cold_1();
@@ -743,13 +738,13 @@ void __47__TUCallProviderManagerXPCClient_xpcConnection__block_invoke_23(uint64_
   }
 }
 
-void __47__TUCallProviderManagerXPCClient_xpcConnection__block_invoke_2_24()
+void __47__TUCallProviderManagerXPCClient_xpcConnection__block_invoke_2_24(uint64_t a1)
 {
-  v0 = TUDefaultLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = TUDefaultLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1956FD000, v0, OS_LOG_TYPE_DEFAULT, "XPC connection interrupted.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1956FD000, v1, OS_LOG_TYPE_DEFAULT, "XPC connection interrupted.", v2, 2u);
   }
 }
 
@@ -812,7 +807,7 @@ void __47__TUCallProviderManagerXPCClient_xpcConnection__block_invoke_2_24()
 void __54__TUCallProviderManagerXPCClient__requestInitialState__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __54__TUCallProviderManagerXPCClient__requestInitialState__block_invoke_cold_1();
@@ -821,35 +816,35 @@ void __54__TUCallProviderManagerXPCClient__requestInitialState__block_invoke(uin
 
 - (void)_updateProvidersByIdentifier:(id)identifier localProvidersByIdentifier:(id)byIdentifier pairedHostDeviceProvidersByIdentifier:(id)providersByIdentifier
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   byIdentifierCopy = byIdentifier;
   providersByIdentifierCopy = providersByIdentifier;
   queue = [(TUCallProviderManagerXPCClient *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v12 = TUDefaultLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-  {
-    v17 = 138412290;
-    v18 = identifierCopy;
-    _os_log_impl(&dword_1956FD000, v12, OS_LOG_TYPE_DEFAULT, "_updateProvidersByIdentifier providersByIdentifier,: %@", &v17, 0xCu);
-  }
-
-  v13 = TUDefaultLog();
+  v13 = TUDefaultLog(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = byIdentifierCopy;
-    _os_log_impl(&dword_1956FD000, v13, OS_LOG_TYPE_DEFAULT, "_updateProvidersByIdentifier localProvidersByIdentifier: %@", &v17, 0xCu);
+    v19 = 138412290;
+    v20 = identifierCopy;
+    _os_log_impl(&dword_1956FD000, v13, OS_LOG_TYPE_DEFAULT, "_updateProvidersByIdentifier providersByIdentifier,: %@", &v19, 0xCu);
   }
 
-  v14 = TUDefaultLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = TUDefaultLog(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = providersByIdentifierCopy;
-    _os_log_impl(&dword_1956FD000, v14, OS_LOG_TYPE_DEFAULT, "_updateProvidersByIdentifier pairedHostDeviceProvidersByIdentifier: %@", &v17, 0xCu);
+    v19 = 138412290;
+    v20 = byIdentifierCopy;
+    _os_log_impl(&dword_1956FD000, v15, OS_LOG_TYPE_DEFAULT, "_updateProvidersByIdentifier localProvidersByIdentifier: %@", &v19, 0xCu);
+  }
+
+  v17 = TUDefaultLog(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    v19 = 138412290;
+    v20 = providersByIdentifierCopy;
+    _os_log_impl(&dword_1956FD000, v17, OS_LOG_TYPE_DEFAULT, "_updateProvidersByIdentifier pairedHostDeviceProvidersByIdentifier: %@", &v19, 0xCu);
   }
 
   [(TUCallProviderManagerXPCClient *)self setProvidersByIdentifier:identifierCopy];
@@ -857,8 +852,6 @@ void __54__TUCallProviderManagerXPCClient__requestInitialState__block_invoke(uin
   [(TUCallProviderManagerXPCClient *)self setPairedHostDeviceProvidersByIdentifier:providersByIdentifierCopy];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained providersChangedForDataSource:self];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateProvidersByIdentifier:(id)identifier localProvidersByIdentifier:(id)byIdentifier pairedHostDeviceProvidersByIdentifier:(id)providersByIdentifier
@@ -883,50 +876,16 @@ void __54__TUCallProviderManagerXPCClient__requestInitialState__block_invoke(uin
 
 void __76__TUCallProviderManagerXPCClient_donateUserIntentForProviderWithIdentifier___block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_0(&dword_1956FD000, a2, a3, "Error donating intent for provider with identifier: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0(&dword_1956FD000, a2, a3, "Error donating intent for provider with identifier: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __86__TUCallProviderManagerXPCClient_donateBackgroundCallIntentForProviderWithIdentifier___block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_0(&dword_1956FD000, a2, a3, "Error donating background call intent for provider with identifier: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __69__TUCallProviderManagerXPCClient_launchAppForDialRequest_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error requesting app launch: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __52__TUCallProviderManagerXPCClient_defaultAppProvider__block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error requesting defaultAppProvider: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __49__TUCallProviderManagerXPCClient_sortedProviders__block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error requesting sortedProviders: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __54__TUCallProviderManagerXPCClient__requestInitialState__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1956FD000, v0, v1, "Error requesting initial state: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0(&dword_1956FD000, a2, a3, "Error donating background call intent for provider with identifier: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

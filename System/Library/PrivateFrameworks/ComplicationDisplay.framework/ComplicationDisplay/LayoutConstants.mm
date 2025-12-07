@@ -85,7 +85,7 @@ void ___LayoutConstants_block_invoke_0(void *a1@<X1>, _OWORD *a2@<X8>)
   os_unfair_lock_unlock(&_block_invoke_lock_0);
 }
 
-double ___LayoutConstants_block_invoke_2_0@<D0>(void *a1@<X1>, uint64_t a2@<X8>)
+double ___LayoutConstants_block_invoke_2_0@<D0>(void *a1@<X1>, double *a2@<X8>)
 {
   v3 = a1;
   CLKValueForLuxoDeviceMetrics();
@@ -105,17 +105,17 @@ double ___LayoutConstants_block_invoke_2_0@<D0>(void *a1@<X1>, uint64_t a2@<X8>)
 
   result = v5 * v17;
   *a2 = v5;
-  *(a2 + 8) = v7;
-  *(a2 + 16) = v9;
-  *(a2 + 24) = v11;
-  *(a2 + 32) = v13;
-  *(a2 + 40) = v15;
-  *(a2 + 48) = v5 * v17;
-  *(a2 + 56) = v7 * v17;
-  *(a2 + 64) = v9 * v17;
-  *(a2 + 72) = v11 * v17;
-  *(a2 + 80) = v13 * v17;
-  *(a2 + 88) = v15;
+  a2[1] = v7;
+  a2[2] = v9;
+  a2[3] = v11;
+  a2[4] = v13;
+  *(a2 + 5) = v15;
+  a2[6] = v5 * v17;
+  a2[7] = v7 * v17;
+  a2[8] = v9 * v17;
+  a2[9] = v11 * v17;
+  a2[10] = v13 * v17;
+  *(a2 + 11) = v15;
   return result;
 }
 
@@ -245,31 +245,30 @@ double ___LayoutConstants_block_invoke_4(uint64_t a1, void *a2)
 
 double ___LayoutConstants_block_invoke_2_3(uint64_t a1, uint64_t a2)
 {
-  v12[3] = *MEMORY[0x277D85DE8];
+  v11[3] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBBAF8] metricsWithDevice:a2 identitySizeClass:2];
   [v2 scaledValue:20.0];
   v4 = v3;
-  v11[0] = &unk_285702CB0;
-  v11[1] = &unk_285702CC8;
-  v12[0] = &unk_285703118;
-  v12[1] = &unk_285703128;
-  v11[2] = &unk_285702CE0;
-  v12[2] = &unk_285703138;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v10[0] = &unk_285702CB0;
+  v10[1] = &unk_285702CC8;
+  v11[0] = &unk_285703118;
+  v11[1] = &unk_285703128;
+  v10[2] = &unk_285702CE0;
+  v11[2] = &unk_285703138;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
   [v2 scaledValue:v5 withOverrides:20.5];
 
-  v9[0] = &unk_285702CF8;
-  v9[1] = &unk_285702CB0;
-  v10[0] = &unk_285703148;
-  v10[1] = &unk_285703158;
-  v9[2] = &unk_285702CC8;
-  v9[3] = &unk_285702CE0;
-  v10[2] = &unk_285703168;
-  v10[3] = &unk_285703178;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
+  v8[0] = &unk_285702CF8;
+  v8[1] = &unk_285702CB0;
+  v9[0] = &unk_285703148;
+  v9[1] = &unk_285703158;
+  v8[2] = &unk_285702CC8;
+  v8[3] = &unk_285702CE0;
+  v9[2] = &unk_285703168;
+  v9[3] = &unk_285703178;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
   [v2 scaledValue:v6 withOverrides:14.5];
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -308,21 +307,20 @@ double ___LayoutConstants_block_invoke_5(uint64_t a1, void *a2)
 
 double ___LayoutConstants_block_invoke_2_4(uint64_t a1, void *a2)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBBAF8];
   v3 = a2;
   v4 = [v2 metricsWithDevice:v3 identitySizeClass:2];
   [v4 setRoundingBehavior:0];
-  v10[0] = &unk_285702D10;
-  v10[1] = &unk_285702D28;
-  v11[0] = &unk_285703188;
-  v11[1] = &unk_285703188;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v9[0] = &unk_285702D10;
+  v9[1] = &unk_285702D28;
+  v10[0] = &unk_285703188;
+  v10[1] = &unk_285703188;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
   [v4 scaledValue:v5 withOverrides:1.5];
   v7 = v6;
 
   CLKComplicationGraphicExtraLargeCircularScalingFactor();
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -366,17 +364,17 @@ void ___LayoutConstants_block_invoke_6(void *a1@<X1>, uint64_t a2@<X8>)
 
 void ___LayoutConstants_block_invoke_2_5(void *a1@<X1>, uint64_t a2@<X8>)
 {
-  v31[3] = *MEMORY[0x277D85DE8];
+  v30[3] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBBAF8];
   v4 = a1;
   v5 = [v3 metricsWithDevice:v4 identitySizeClass:2];
-  v30[0] = &unk_285702D40;
-  v30[1] = &unk_285702D58;
-  v31[0] = &unk_285703198;
-  v31[1] = &unk_2857031A8;
-  v30[2] = &unk_285702D70;
-  v31[2] = &unk_2857031B8;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:3];
+  v29[0] = &unk_285702D40;
+  v29[1] = &unk_285702D58;
+  v30[0] = &unk_285703198;
+  v30[1] = &unk_2857031A8;
+  v29[2] = &unk_285702D70;
+  v30[2] = &unk_2857031B8;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:3];
   [v5 scaledValue:v6 withOverrides:17.0];
   *a2 = v7;
 
@@ -389,45 +387,43 @@ void ___LayoutConstants_block_invoke_2_5(void *a1@<X1>, uint64_t a2@<X8>)
   v9 = CDCornerComplicationTopLeftCenterAngle(v4);
 
   *(a2 + 48) = v9;
-  v28[0] = &unk_285702D40;
-  v28[1] = &unk_285702D58;
-  v29[0] = &unk_2857031C8;
-  v29[1] = &unk_2857031C8;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+  v27[0] = &unk_285702D40;
+  v27[1] = &unk_285702D58;
+  v28[0] = &unk_2857031C8;
+  v28[1] = &unk_2857031C8;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
   [v5 constantValue:v10 withOverrides:-60.0];
   *(a2 + 56) = v11;
 
-  v26[0] = &unk_285702D40;
-  v26[1] = &unk_285702D58;
-  v27[0] = &unk_2857031D8;
-  v27[1] = &unk_2857031D8;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+  v25[0] = &unk_285702D40;
+  v25[1] = &unk_285702D58;
+  v26[0] = &unk_2857031D8;
+  v26[1] = &unk_2857031D8;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
   [v5 constantValue:v12 withOverrides:95.0];
   *(a2 + 64) = v13;
 
   v14 = [MEMORY[0x277CCAE60] valueWithCGSize:{57.5, 12.5, &unk_285702D88}];
-  v25[0] = v14;
-  v24[1] = &unk_285702DA0;
+  v24[0] = v14;
+  v23[1] = &unk_285702DA0;
   v15 = [MEMORY[0x277CCAE60] valueWithCGSize:{55.5, 12.0}];
-  v25[1] = v15;
-  v24[2] = &unk_285702DB8;
+  v24[1] = v15;
+  v23[2] = &unk_285702DB8;
   v16 = [MEMORY[0x277CCAE60] valueWithCGSize:{62.5, 13.5}];
-  v25[2] = v16;
-  v24[3] = &unk_285702DD0;
+  v24[2] = v16;
+  v23[3] = &unk_285702DD0;
   v17 = [MEMORY[0x277CCAE60] valueWithCGSize:{62.5, 13.5}];
-  v25[3] = v17;
-  v24[4] = &unk_285702D40;
+  v24[3] = v17;
+  v23[4] = &unk_285702D40;
   v18 = [MEMORY[0x277CCAE60] valueWithCGSize:{57.5, 12.5}];
-  v25[4] = v18;
-  v24[5] = &unk_285702D58;
+  v24[4] = v18;
+  v23[5] = &unk_285702D58;
   v19 = [MEMORY[0x277CCAE60] valueWithCGSize:{62.5, 13.5}];
-  v25[5] = v19;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:6];
+  v24[5] = v19;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:6];
   [v5 scaledSize:v20 withOverrides:{52.5, 11.5}];
   *(a2 + 72) = v21;
   *(a2 + 80) = v22;
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void ___LayoutConstants_block_invoke_7(void *a1@<X1>, uint64_t a2@<X8>)
@@ -470,76 +466,74 @@ void ___LayoutConstants_block_invoke_7(void *a1@<X1>, uint64_t a2@<X8>)
 
 void ___LayoutConstants_block_invoke_2_6(void *a1@<X1>, uint64_t a2@<X8>)
 {
-  v31[6] = *MEMORY[0x277D85DE8];
+  v30[6] = *MEMORY[0x277D85DE8];
   *(a2 + 8) = 0;
   v3 = MEMORY[0x277CBBAF8];
   v4 = a1;
   v5 = [v3 metricsWithDevice:v4 identitySizeClass:2];
   *a2 = CDRichComplicationCornerInnerFontSize(v4);
   *(a2 + 24) = CDCornerComplicationInnerUpperTextBaselineRadius(v4);
-  v30[0] = &unk_285702DE8;
-  v30[1] = &unk_285702E00;
-  v31[0] = &unk_2857031E8;
-  v31[1] = &unk_2857031F8;
-  v30[2] = &unk_285702E18;
-  v30[3] = &unk_285702E30;
-  v31[2] = &unk_285703208;
-  v31[3] = &unk_285703208;
-  v30[4] = &unk_285702E48;
-  v30[5] = &unk_285702E60;
-  v31[4] = &unk_285703218;
-  v31[5] = &unk_285703228;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:6];
+  v29[0] = &unk_285702DE8;
+  v29[1] = &unk_285702E00;
+  v30[0] = &unk_2857031E8;
+  v30[1] = &unk_2857031F8;
+  v29[2] = &unk_285702E18;
+  v29[3] = &unk_285702E30;
+  v30[2] = &unk_285703208;
+  v30[3] = &unk_285703208;
+  v29[4] = &unk_285702E48;
+  v29[5] = &unk_285702E60;
+  v30[4] = &unk_285703218;
+  v30[5] = &unk_285703228;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:6];
   [v5 scaledValue:v6 withOverrides:86.5];
   *(a2 + 32) = v7;
 
-  v28[0] = &unk_285702E48;
-  v28[1] = &unk_285702E60;
-  v29[0] = &unk_285703238;
-  v29[1] = &unk_285703238;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+  v27[0] = &unk_285702E48;
+  v27[1] = &unk_285702E60;
+  v28[0] = &unk_285703238;
+  v28[1] = &unk_285703238;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
   [v5 constantValue:v8 withOverrides:3.0];
   *(a2 + 40) = v9;
 
-  v26[0] = &unk_285702DE8;
-  v26[1] = &unk_285702E48;
-  v27[0] = &unk_285703248;
-  v27[1] = &unk_285703238;
-  v26[2] = &unk_285702E60;
-  v27[2] = &unk_285703238;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:3];
+  v25[0] = &unk_285702DE8;
+  v25[1] = &unk_285702E48;
+  v26[0] = &unk_285703248;
+  v26[1] = &unk_285703238;
+  v25[2] = &unk_285702E60;
+  v26[2] = &unk_285703238;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:3];
   [v5 constantValue:v10 withOverrides:3.0];
   *(a2 + 48) = v11;
 
   *(a2 + 56) = CDCornerComplicationTopLeftCenterAngle(v4);
-  v24[0] = &unk_285702E48;
-  v24[1] = &unk_285702E60;
-  v25[0] = &unk_285703258;
-  v25[1] = &unk_285703258;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+  v23[0] = &unk_285702E48;
+  v23[1] = &unk_285702E60;
+  v24[0] = &unk_285703258;
+  v24[1] = &unk_285703258;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
   [v5 constantValue:v12 withOverrides:0.0];
   *(a2 + 64) = v13;
 
-  v22[0] = &unk_285702E48;
-  v22[1] = &unk_285702E60;
-  v23[0] = &unk_285703268;
-  v23[1] = &unk_285703268;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
+  v21[0] = &unk_285702E48;
+  v21[1] = &unk_285702E60;
+  v22[0] = &unk_285703268;
+  v22[1] = &unk_285703268;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
   [v5 constantValue:v14 withOverrides:55.0];
   *(a2 + 72) = v15;
 
-  v20[0] = &unk_285702E48;
-  v20[1] = &unk_285702E60;
-  v21[0] = &unk_285703278;
-  v21[1] = &unk_285703278;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  v19[0] = &unk_285702E48;
+  v19[1] = &unk_285702E60;
+  v20[0] = &unk_285703278;
+  v20[1] = &unk_285703278;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
   [v5 constantValue:v16 withOverrides:140.0];
   *(a2 + 80) = v17;
 
   v18 = CDCornerComplicationClippingSliceAngle(v4);
   *(a2 + 16) = v18;
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void ___LayoutConstants_block_invoke_8(void *a1@<X1>, uint64_t a2@<X8>)
@@ -642,86 +636,85 @@ void ___LayoutConstants_block_invoke_9(void *a1@<X1>, _OWORD *a2@<X8>)
 
 void ___LayoutConstants_block_invoke_2_8(void *a1@<X1>, double *a2@<X8>)
 {
-  v38[3] = *MEMORY[0x277D85DE8];
+  v37[3] = *MEMORY[0x277D85DE8];
   a2[7] = 0.0;
   a2[8] = 0.0;
   a2[9] = 0.0;
   v3 = MEMORY[0x277CBBAF8];
   v4 = a1;
   v5 = [v3 metricsWithDevice:v4 identitySizeClass:2];
-  v37[0] = &unk_285702E90;
-  v37[1] = &unk_285702EA8;
-  v38[0] = &unk_285703298;
-  v38[1] = &unk_2857032A8;
-  v37[2] = &unk_285702EC0;
-  v38[2] = &unk_2857032A8;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:3];
+  v36[0] = &unk_285702E90;
+  v36[1] = &unk_285702EA8;
+  v37[0] = &unk_285703298;
+  v37[1] = &unk_2857032A8;
+  v36[2] = &unk_285702EC0;
+  v37[2] = &unk_2857032A8;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:3];
   [v5 scaledValue:v6 withOverrides:13.0];
   *a2 = v7;
 
   a2[1] = 38.0;
-  v35[0] = &unk_285702ED8;
-  v35[1] = &unk_285702E90;
-  v36[0] = &unk_2857032B8;
-  v36[1] = &unk_2857032C8;
-  v35[2] = &unk_285702EA8;
-  v36[2] = &unk_2857032D8;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:3];
+  v34[0] = &unk_285702ED8;
+  v34[1] = &unk_285702E90;
+  v35[0] = &unk_2857032B8;
+  v35[1] = &unk_2857032C8;
+  v34[2] = &unk_285702EA8;
+  v35[2] = &unk_2857032D8;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:3];
   [v5 scaledValue:v8 withOverrides:94.0];
   *(a2 + 2) = v9;
 
-  v33[0] = &unk_285702ED8;
-  v33[1] = &unk_285702E90;
-  v34[0] = &unk_2857032E8;
-  v34[1] = &unk_2857032D8;
-  v33[2] = &unk_285702EA8;
-  v34[2] = &unk_2857032F8;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:3];
+  v32[0] = &unk_285702ED8;
+  v32[1] = &unk_285702E90;
+  v33[0] = &unk_2857032E8;
+  v33[1] = &unk_2857032D8;
+  v32[2] = &unk_285702EA8;
+  v33[2] = &unk_2857032F8;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:3];
   [v5 scaledValue:v10 withOverrides:102.5];
   *(a2 + 3) = v11;
 
   v12 = CDCornerComplicationTopLeftCenterAngle(v4);
   a2[4] = v12;
-  v31[0] = &unk_285702E90;
-  v31[1] = &unk_285702EA8;
-  v32[0] = &unk_285703308;
-  v32[1] = &unk_285703308;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
+  v30[0] = &unk_285702E90;
+  v30[1] = &unk_285702EA8;
+  v31[0] = &unk_285703308;
+  v31[1] = &unk_285703308;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
   [v5 constantValue:v13 withOverrides:15.0];
   *(a2 + 5) = v14;
 
-  v29[0] = &unk_285702E90;
-  v29[1] = &unk_285702EA8;
-  v30[0] = &unk_285703318;
-  v30[1] = &unk_285703318;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
+  v28[0] = &unk_285702E90;
+  v28[1] = &unk_285702EA8;
+  v29[0] = &unk_285703318;
+  v29[1] = &unk_285703318;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
   [v5 constantValue:v15 withOverrides:115.0];
   *(a2 + 6) = v16;
 
   v17 = [MEMORY[0x277CCAE60] valueWithCGSize:{25.0, 12.0, &unk_285702ED8}];
-  v28[0] = v17;
-  v27[1] = &unk_285702EF0;
+  v27[0] = v17;
+  v26[1] = &unk_285702EF0;
   v18 = [MEMORY[0x277CCAE60] valueWithCGSize:{24.0, 11.5}];
-  v28[1] = v18;
-  v27[2] = &unk_285702F08;
+  v27[1] = v18;
+  v26[2] = &unk_285702F08;
   v19 = [MEMORY[0x277CCAE60] valueWithCGSize:{27.5, 12.5}];
-  v28[2] = v19;
-  v27[3] = &unk_285702F20;
+  v27[2] = v19;
+  v26[3] = &unk_285702F20;
   v20 = [MEMORY[0x277CCAE60] valueWithCGSize:{27.5, 12.5}];
-  v28[3] = v20;
-  v27[4] = &unk_285702E90;
+  v27[3] = v20;
+  v26[4] = &unk_285702E90;
   v21 = [MEMORY[0x277CCAE60] valueWithCGSize:{25.0, 12.0}];
-  v28[4] = v21;
-  v27[5] = &unk_285702EA8;
+  v27[4] = v21;
+  v26[5] = &unk_285702EA8;
   v22 = [MEMORY[0x277CCAE60] valueWithCGSize:{27.5, 12.5}];
-  v28[5] = v22;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:6];
+  v27[5] = v22;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:6];
   [v5 scaledSize:v23 withOverrides:{22.5, 11.0}];
   *(a2 + 7) = v24;
   *(a2 + 8) = v25;
 
   a2[9] = 1.0;
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 double ___LayoutConstants_block_invoke_10(uint64_t a1, void *a2)
@@ -761,40 +754,39 @@ double ___LayoutConstants_block_invoke_10(uint64_t a1, void *a2)
 
 double ___LayoutConstants_block_invoke_2_9(uint64_t a1, uint64_t a2)
 {
-  v18[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBBAF8] metricsWithDevice:a2 identitySizeClass:2];
-  v17[0] = &unk_285702F38;
-  v17[1] = &unk_285702F50;
-  v18[0] = &unk_285703328;
-  v18[1] = &unk_285703338;
-  v17[2] = &unk_285702F68;
-  v18[2] = &unk_285703338;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
+  v16[0] = &unk_285702F38;
+  v16[1] = &unk_285702F50;
+  v17[0] = &unk_285703328;
+  v17[1] = &unk_285703338;
+  v16[2] = &unk_285702F68;
+  v17[2] = &unk_285703338;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
   [v2 scaledValue:v3 withOverrides:10.0];
   v5 = v4;
 
-  v15[0] = &unk_285702F80;
+  v14[0] = &unk_285702F80;
   v6 = [MEMORY[0x277CCAE60] valueWithCGSize:{21.0, 9.5}];
-  v16[0] = v6;
-  v15[1] = &unk_285702F98;
+  v15[0] = v6;
+  v14[1] = &unk_285702F98;
   v7 = [MEMORY[0x277CCAE60] valueWithCGSize:{20.0, 9.0}];
-  v16[1] = v7;
-  v15[2] = &unk_285702FB0;
+  v15[1] = v7;
+  v14[2] = &unk_285702FB0;
   v8 = [MEMORY[0x277CCAE60] valueWithCGSize:{22.5, 10.0}];
-  v16[2] = v8;
-  v15[3] = &unk_285702FC8;
+  v15[2] = v8;
+  v14[3] = &unk_285702FC8;
   v9 = [MEMORY[0x277CCAE60] valueWithCGSize:{22.5, 10.0}];
-  v16[3] = v9;
-  v15[4] = &unk_285702F38;
+  v15[3] = v9;
+  v14[4] = &unk_285702F38;
   v10 = [MEMORY[0x277CCAE60] valueWithCGSize:{21.0, 9.5}];
-  v16[4] = v10;
-  v15[5] = &unk_285702F50;
+  v15[4] = v10;
+  v14[5] = &unk_285702F50;
   v11 = [MEMORY[0x277CCAE60] valueWithCGSize:{22.5, 10.0}];
-  v16[5] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:6];
+  v15[5] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:6];
   [v2 scaledSize:v12 withOverrides:{19.0, 8.5}];
 
-  v13 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -835,27 +827,26 @@ double ___LayoutConstants_block_invoke_11(uint64_t a1, void *a2)
 
 double ___LayoutConstants_block_invoke_2_10(uint64_t a1, void *a2)
 {
-  v10[4] = *MEMORY[0x277D85DE8];
+  v9[4] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBBAF8];
   v3 = a2;
   v4 = [v2 metricsWithDevice:v3 identitySizeClass:2];
   v5 = CDCircularSmallComplicationDiameter(v3);
 
-  v9[0] = &unk_2857030B8;
-  v9[1] = &unk_2857030D0;
-  v10[0] = &unk_2857035F8;
-  v10[1] = &unk_285703608;
-  v9[2] = &unk_2857030E8;
-  v9[3] = &unk_285703100;
-  v10[2] = &unk_285703618;
-  v10[3] = &unk_285703628;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
+  v8[0] = &unk_2857030B8;
+  v8[1] = &unk_2857030D0;
+  v9[0] = &unk_2857035F8;
+  v9[1] = &unk_285703608;
+  v8[2] = &unk_2857030E8;
+  v8[3] = &unk_285703100;
+  v9[2] = &unk_285703618;
+  v9[3] = &unk_285703628;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
   [v4 scaledValue:v6 withOverrides:4.0];
 
   [v4 scaledValue:3 withOverride:63.0 forSizeClass:70.0];
   [v4 scaledValue:3 withOverride:80.0 forSizeClass:89.0];
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

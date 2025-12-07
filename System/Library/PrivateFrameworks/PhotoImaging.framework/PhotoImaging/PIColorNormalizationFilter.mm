@@ -337,9 +337,11 @@ LABEL_21:
 
 uint64_t __36__PIColorNormalizationFilter_logger__block_invoke()
 {
-  logger_s_logger = os_log_create("PhotoImaging", "PIColorNormalizationFilter");
+  v0 = os_log_create("PhotoImaging", "PIColorNormalizationFilter");
+  v1 = logger_s_logger;
+  logger_s_logger = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

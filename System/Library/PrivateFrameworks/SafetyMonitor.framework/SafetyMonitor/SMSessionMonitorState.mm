@@ -47,7 +47,7 @@
 
 - (void)setCurrentRegionState:(unint64_t)state
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (self->_currentRegionState != state)
   {
     self->_currentRegionState = state;
@@ -57,23 +57,21 @@
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
         v5 = [SMSessionMonitorState regionStateToString:self->_currentRegionState];
-        v7 = 136315394;
-        v8 = "[SMSessionMonitorState setCurrentRegionState:]";
-        v9 = 2112;
-        v10 = v5;
-        _os_log_impl(&dword_26455D000, v4, OS_LOG_TYPE_INFO, "%s, currentRegionState, %@", &v7, 0x16u);
+        v6 = 136315394;
+        v7 = "[SMSessionMonitorState setCurrentRegionState:]";
+        v8 = 2112;
+        v9 = v5;
+        _os_log_impl(&dword_26455D000, v4, OS_LOG_TYPE_INFO, "%s, currentRegionState, %@", &v6, 0x16u);
       }
     }
 
     [(SMSessionMonitorState *)self markDirty];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTriggerPending:(BOOL)pending
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (self->_triggerPending != pending)
   {
     self->_triggerPending = pending;
@@ -83,23 +81,21 @@
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
         triggerPending = self->_triggerPending;
-        v7 = 136315394;
-        v8 = "[SMSessionMonitorState setTriggerPending:]";
-        v9 = 1024;
-        v10 = triggerPending;
-        _os_log_impl(&dword_26455D000, v4, OS_LOG_TYPE_INFO, "%s, triggerPending, %d", &v7, 0x12u);
+        v6 = 136315394;
+        v7 = "[SMSessionMonitorState setTriggerPending:]";
+        v8 = 1024;
+        v9 = triggerPending;
+        _os_log_impl(&dword_26455D000, v4, OS_LOG_TYPE_INFO, "%s, triggerPending, %d", &v6, 0x12u);
       }
     }
 
     [(SMSessionMonitorState *)self markDirty];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTriggerConfirmed:(BOOL)confirmed
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (self->_triggerConfirmed != confirmed)
   {
     self->_triggerConfirmed = confirmed;
@@ -109,18 +105,16 @@
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
         triggerConfirmed = self->_triggerConfirmed;
-        v7 = 136315394;
-        v8 = "[SMSessionMonitorState setTriggerConfirmed:]";
-        v9 = 1024;
-        v10 = triggerConfirmed;
-        _os_log_impl(&dword_26455D000, v4, OS_LOG_TYPE_INFO, "%s, triggerConfirmed, %d", &v7, 0x12u);
+        v6 = 136315394;
+        v7 = "[SMSessionMonitorState setTriggerConfirmed:]";
+        v8 = 1024;
+        v9 = triggerConfirmed;
+        _os_log_impl(&dword_26455D000, v4, OS_LOG_TYPE_INFO, "%s, triggerConfirmed, %d", &v6, 0x12u);
       }
     }
 
     [(SMSessionMonitorState *)self markDirty];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (id)regionStateToString:(unint64_t)string

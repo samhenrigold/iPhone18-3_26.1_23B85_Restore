@@ -61,4 +61,10 @@ void __37__SKJSUIAnimatorDOMFeature_animate::__block_invoke(void *a1)
   }
 }
 
+- (void)initWithAppContext:(uint64_t)a3 DOMFeature:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKJSUIAnimatorDOMFeature initWithAppContext:DOMFeature:]";
+}
+
 @end

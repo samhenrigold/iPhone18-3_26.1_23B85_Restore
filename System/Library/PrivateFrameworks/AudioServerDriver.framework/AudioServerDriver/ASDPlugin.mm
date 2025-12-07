@@ -1,6 +1,7 @@
 @interface ASDPlugin
 - (ASDPlugin)init;
 - (BOOL)deregisterForSystemSleepNotifications;
+- (BOOL)getProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int *)dataSize andData:(void *)andData forClient:(int)client;
 - (BOOL)hasProperty:(const AudioObjectPropertyAddress *)property;
 - (BOOL)registerForSystemSleepNotifications;
 - (BOOL)requestConfigurationChangeForDevice:(id)device withBlock:(id)block;
@@ -8,7 +9,9 @@
 - (id)audioDevices;
 - (id)boxes;
 - (id)clockDevices;
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree;
 - (id)dictionaryForKey:(id)key;
+- (id)objectForObjectID:(unsigned int)d;
 - (unsigned)addRef;
 - (unsigned)dataSizeForProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size andQualifierData:(const void *)data;
 - (unsigned)objectIDForBoxUID:(id)d;
@@ -23,6 +26,7 @@
 - (void)addClockDevice:(id)device;
 - (void)addClockDevices:(id)devices;
 - (void)changedProperty:(const AudioObjectPropertyAddress *)property forObject:(id)object;
+- (void)changedProperty:(const AudioObjectPropertyAddress *)property forObjectID:(unsigned int)d;
 - (void)dealloc;
 - (void)doAddAudioDevice:(id)device;
 - (void)doAddAudioDevices:(id)devices;
@@ -51,108 +55,106 @@
 
 - (void)systemHasPoweredOn
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   audioDevices = [(ASDPlugin *)self audioDevices];
   clockDevices = [(ASDPlugin *)self clockDevices];
   boxes = [(ASDPlugin *)self boxes];
   v6 = [MEMORY[0x277CBEB58] setWithCapacity:8];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v7 = boxes;
-  v8 = [v7 countByEnumeratingWithState:&v34 objects:v40 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v35;
+    v10 = *v34;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v35 != v10)
+        if (*v34 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        systemHasPoweredOn = [*(*(&v34 + 1) + 8 * i) systemHasPoweredOn];
+        systemHasPoweredOn = [*(*(&v33 + 1) + 8 * i) systemHasPoweredOn];
         if ([systemHasPoweredOn count])
         {
           [v6 addObjectsFromArray:systemHasPoweredOn];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v34 objects:v40 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v33 objects:v39 count:16];
     }
 
     while (v9);
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v13 = audioDevices;
-  v14 = [v13 countByEnumeratingWithState:&v30 objects:v39 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v29 objects:v38 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v31;
+    v16 = *v30;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v31 != v16)
+        if (*v30 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v30 + 1) + 8 * j);
+        v18 = *(*(&v29 + 1) + 8 * j);
         if (([v6 containsObject:v18] & 1) == 0)
         {
           [v18 systemHasPoweredOn];
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v30 objects:v39 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v29 objects:v38 count:16];
     }
 
     while (v15);
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v19 = clockDevices;
-  v20 = [v19 countByEnumeratingWithState:&v26 objects:v38 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v25 objects:v37 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v27;
+    v22 = *v26;
     do
     {
       for (k = 0; k != v21; ++k)
       {
-        if (*v27 != v22)
+        if (*v26 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v26 + 1) + 8 * k);
-        if (([v6 containsObject:{v24, v26}] & 1) == 0)
+        v24 = *(*(&v25 + 1) + 8 * k);
+        if (([v6 containsObject:{v24, v25}] & 1) == 0)
         {
           [v24 systemHasPoweredOn];
         }
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v26 objects:v38 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v25 objects:v37 count:16];
     }
 
     while (v21);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)clockDevices
@@ -284,7 +286,7 @@ void __18__ASDPlugin_boxes__block_invoke(uint64_t a1)
 
 - (void)dealloc
 {
-  ASD_DestroyDriverInterface(self->_interfacePtr);
+  ASD_DestroyDriverInterface(self->_interfacePtr, a2);
   v3.receiver = self;
   v3.super_class = ASDPlugin;
   [(ASDObject *)&v3 dealloc];
@@ -576,14 +578,14 @@ uint64_t __68__ASDPlugin_dataSizeForProperty_withQualifierSize_andQualifierData_
   return result;
 }
 
-uint64_t __68__ASDPlugin_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke_3(uint64_t a1)
+void *__68__ASDPlugin_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke_3(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 80) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __68__ASDPlugin_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke_4(uint64_t a1)
+void *__68__ASDPlugin_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke_4(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 112) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -632,25 +634,430 @@ uint64_t __68__ASDPlugin_dataSizeForProperty_withQualifierSize_andQualifierData_
   return result;
 }
 
+- (BOOL)getProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int *)dataSize andData:(void *)andData forClient:(int)client
+{
+  result = 0;
+  if (!property || !dataSize || !andData)
+  {
+    return result;
+  }
+
+  dataCopy = data;
+  v13 = *&size;
+  mSelector = property->mSelector;
+  if (property->mSelector <= 1870098019)
+  {
+    if (mSelector > 1684370978)
+    {
+      if (mSelector != 1684370979)
+      {
+        if (mSelector != 1819107691)
+        {
+          goto LABEL_47;
+        }
+
+        if (*dataSize >= 8)
+        {
+          manufacturerName = self->_manufacturerName;
+          *andData = manufacturerName;
+          if (manufacturerName)
+          {
+            CFRetain(manufacturerName);
+          }
+
+          v20 = 8;
+          goto LABEL_28;
+        }
+
+        return 0;
+      }
+
+      if (size)
+      {
+        if ((size & 3) != 0)
+        {
+          return 0;
+        }
+
+        v60 = 0;
+        v61 = &v60;
+        v62 = 0x2020000000;
+        v63 = 0;
+        v23 = *dataSize;
+        if (v23 >= [(ASDPlugin *)self dataSizeForProperty:property withQualifierSize:*&size andQualifierData:data])
+        {
+          v24 = [(ASDPlugin *)self dataSizeForProperty:property withQualifierSize:v13 andQualifierData:dataCopy];
+        }
+
+        else
+        {
+          v24 = *dataSize;
+        }
+
+        v39 = v24 >> 2;
+        if (v13 >> 2 <= 1)
+        {
+          v40 = 1;
+        }
+
+        else
+        {
+          v40 = v13 >> 2;
+        }
+
+        do
+        {
+          v41 = *dataCopy++;
+          if (v41 == 1633969526)
+          {
+            audioDeviceQueue = self->_audioDeviceQueue;
+            v59[0] = MEMORY[0x277D85DD0];
+            v59[1] = 3221225472;
+            v59[2] = __84__ASDPlugin_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke;
+            v59[3] = &unk_278CE3E50;
+            v59[4] = self;
+            v59[5] = &v60;
+            v59[6] = v39;
+            v59[7] = andData;
+            dispatch_sync(audioDeviceQueue, v59);
+          }
+
+          --v40;
+        }
+
+        while (v40);
+LABEL_63:
+        *dataSize = 4 * *(v61 + 6);
+        _Block_object_dispose(&v60, 8);
+        return 1;
+      }
+
+      v60 = 0;
+      v61 = &v60;
+      v62 = 0x2020000000;
+      v63 = 0;
+      v29 = *dataSize;
+      if (v29 >= [(ASDPlugin *)self dataSizeForProperty:property withQualifierSize:0 andQualifierData:data])
+      {
+        v30 = [(ASDPlugin *)self dataSizeForProperty:property withQualifierSize:0 andQualifierData:dataCopy];
+      }
+
+      else
+      {
+        v30 = *dataSize;
+      }
+
+      v35 = v30 >> 2;
+      boxQueue = self->_audioDeviceQueue;
+      v58[0] = MEMORY[0x277D85DD0];
+      v58[1] = 3221225472;
+      v58[2] = __84__ASDPlugin_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_2;
+      v58[3] = &unk_278CE3E50;
+      v58[4] = self;
+      v58[5] = &v60;
+      v58[6] = v35;
+      v58[7] = andData;
+      v27 = v58;
+    }
+
+    else if (mSelector == 1651472419)
+    {
+      v60 = 0;
+      v61 = &v60;
+      v62 = 0x2020000000;
+      v63 = 0;
+      v21 = *dataSize;
+      if (v21 >= [(ASDPlugin *)self dataSizeForProperty:property withQualifierSize:*&size andQualifierData:data])
+      {
+        v22 = [(ASDPlugin *)self dataSizeForProperty:property withQualifierSize:v13 andQualifierData:dataCopy];
+      }
+
+      else
+      {
+        v22 = *dataSize;
+      }
+
+      v28 = v22 >> 2;
+      boxQueue = self->_boxQueue;
+      v57[0] = MEMORY[0x277D85DD0];
+      v57[1] = 3221225472;
+      v57[2] = __84__ASDPlugin_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_3;
+      v57[3] = &unk_278CE3E50;
+      v57[4] = self;
+      v57[5] = &v60;
+      v57[6] = v28;
+      v57[7] = andData;
+      v27 = v57;
+    }
+
+    else
+    {
+      if (mSelector != 1668049699)
+      {
+        goto LABEL_47;
+      }
+
+      v60 = 0;
+      v61 = &v60;
+      v62 = 0x2020000000;
+      v63 = 0;
+      v17 = *dataSize;
+      if (v17 >= [(ASDPlugin *)self dataSizeForProperty:property withQualifierSize:*&size andQualifierData:data])
+      {
+        v18 = [(ASDPlugin *)self dataSizeForProperty:property withQualifierSize:v13 andQualifierData:dataCopy];
+      }
+
+      else
+      {
+        v18 = *dataSize;
+      }
+
+      v25 = v18 >> 2;
+      boxQueue = self->_clockDeviceQueue;
+      v56[0] = MEMORY[0x277D85DD0];
+      v56[1] = 3221225472;
+      v56[2] = __84__ASDPlugin_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_4;
+      v56[3] = &unk_278CE3E50;
+      v56[4] = self;
+      v56[5] = &v60;
+      v56[6] = v25;
+      v56[7] = andData;
+      v27 = v56;
+    }
+
+LABEL_62:
+    dispatch_sync(boxQueue, v27);
+    goto LABEL_63;
+  }
+
+  if (mSelector <= 1969841249)
+  {
+    if (mSelector != 1870098020)
+    {
+      if (mSelector != 1953653102)
+      {
+        goto LABEL_47;
+      }
+
+      if (*dataSize >= 4)
+      {
+        *andData = [(ASDPlugin *)self transportType];
+        v20 = 4;
+LABEL_28:
+        *dataSize = v20;
+        return 1;
+      }
+
+      return 0;
+    }
+
+    if (size)
+    {
+      if ((size & 3) != 0)
+      {
+        return 0;
+      }
+
+      v60 = 0;
+      v61 = &v60;
+      v62 = 0x2020000000;
+      v63 = 0;
+      v33 = *dataSize;
+      if (v33 >= [(ASDPlugin *)self dataSizeForProperty:property withQualifierSize:*&size andQualifierData:data])
+      {
+        v34 = [(ASDPlugin *)self dataSizeForProperty:property withQualifierSize:v13 andQualifierData:dataCopy];
+      }
+
+      else
+      {
+        v34 = *dataSize;
+      }
+
+      v43 = v34 >> 2;
+      if (v13 >> 2 <= 1)
+      {
+        v44 = 1;
+      }
+
+      else
+      {
+        v44 = v13 >> 2;
+      }
+
+      while (1)
+      {
+        v46 = *dataCopy++;
+        v45 = v46;
+        if (v46 == 1633841016)
+        {
+          clockDeviceQueue = self->_boxQueue;
+          v54[0] = MEMORY[0x277D85DD0];
+          v54[1] = 3221225472;
+          v54[2] = __84__ASDPlugin_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_6;
+          v54[3] = &unk_278CE3E50;
+          v54[4] = self;
+          v54[5] = &v60;
+          v54[6] = v43;
+          v54[7] = andData;
+          v48 = v54;
+          goto LABEL_84;
+        }
+
+        if (v45 == 1633905771)
+        {
+          break;
+        }
+
+        if (v45 == 1633969526)
+        {
+          clockDeviceQueue = self->_audioDeviceQueue;
+          v55[0] = MEMORY[0x277D85DD0];
+          v55[1] = 3221225472;
+          v55[2] = __84__ASDPlugin_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_5;
+          v55[3] = &unk_278CE3E50;
+          v55[4] = self;
+          v55[5] = &v60;
+          v55[6] = v43;
+          v55[7] = andData;
+          v48 = v55;
+LABEL_84:
+          dispatch_sync(clockDeviceQueue, v48);
+        }
+
+        if (!--v44)
+        {
+          goto LABEL_63;
+        }
+      }
+
+      clockDeviceQueue = self->_clockDeviceQueue;
+      v53[0] = MEMORY[0x277D85DD0];
+      v53[1] = 3221225472;
+      v53[2] = __84__ASDPlugin_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_7;
+      v53[3] = &unk_278CE3E50;
+      v53[4] = self;
+      v53[5] = &v60;
+      v53[6] = v43;
+      v53[7] = andData;
+      v48 = v53;
+      goto LABEL_84;
+    }
+
+    v60 = 0;
+    v61 = &v60;
+    v62 = 0x2020000000;
+    v63 = 0;
+    v31 = *dataSize;
+    if (v31 >= [(ASDPlugin *)self dataSizeForProperty:property withQualifierSize:0 andQualifierData:data])
+    {
+      v32 = [(ASDPlugin *)self dataSizeForProperty:property withQualifierSize:0 andQualifierData:dataCopy];
+    }
+
+    else
+    {
+      v32 = *dataSize;
+    }
+
+    v36 = v32 >> 2;
+    v37 = self->_audioDeviceQueue;
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __84__ASDPlugin_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_8;
+    block[3] = &unk_278CE3E50;
+    block[4] = self;
+    block[5] = &v60;
+    block[6] = v36;
+    block[7] = andData;
+    dispatch_sync(v37, block);
+    v38 = self->_boxQueue;
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __84__ASDPlugin_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_9;
+    v51[3] = &unk_278CE3E50;
+    v51[4] = self;
+    v51[5] = &v60;
+    v51[6] = v36;
+    v51[7] = andData;
+    dispatch_sync(v38, v51);
+    boxQueue = self->_clockDeviceQueue;
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __84__ASDPlugin_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_10;
+    v50[3] = &unk_278CE3E50;
+    v50[4] = self;
+    v50[5] = &v60;
+    v50[6] = v36;
+    v50[7] = andData;
+    v27 = v50;
+    goto LABEL_62;
+  }
+
+  if (mSelector != 1969841250)
+  {
+    if (mSelector == 1969841251)
+    {
+      result = 0;
+      if (data && size == 8 && *dataSize >= 4)
+      {
+        *dataSize = 4;
+        v16 = [(ASDPlugin *)self objectIDForClockDeviceUID:data];
+        goto LABEL_46;
+      }
+
+      return result;
+    }
+
+    if (mSelector == 1969841252)
+    {
+      result = 0;
+      if (data && size == 8 && *dataSize >= 4)
+      {
+        *dataSize = 4;
+        v16 = [(ASDPlugin *)self objectIDForDeviceUID:data];
+LABEL_46:
+        *andData = v16;
+        return 1;
+      }
+
+      return result;
+    }
+
+LABEL_47:
+    v49.receiver = self;
+    v49.super_class = ASDPlugin;
+    return [(ASDObject *)&v49 getProperty:property withQualifierSize:*&size qualifierData:data dataSize:dataSize andData:andData forClient:*&client];
+  }
+
+  result = 0;
+  if (data && size == 8 && *dataSize >= 4)
+  {
+    *dataSize = 4;
+    v16 = [(ASDPlugin *)self objectIDForBoxUID:data];
+    goto LABEL_46;
+  }
+
+  return result;
+}
+
 void __84__ASDPlugin_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = *(a1[4] + 96);
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v11 != v6)
+      if (*v10 != v6)
       {
         objc_enumerationMutation(v3);
       }
@@ -660,12 +1067,12 @@ LABEL_3:
         break;
       }
 
-      v8 = [*(a1[4] + 96) objectForKey:{*(*(&v10 + 1) + 8 * v7), v10}];
+      v8 = [*(a1[4] + 96) objectForKey:{*(*(&v9 + 1) + 8 * v7), v9}];
       *(a1[7] + 4 * (*(*(a1[5] + 8) + 24))++) = [v8 objectID];
 
       if (v5 == ++v7)
       {
-        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -677,28 +1084,27 @@ LABEL_3:
   }
 
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __84__ASDPlugin_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_2(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = *(a1[4] + 96);
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v11 != v6)
+      if (*v10 != v6)
       {
         objc_enumerationMutation(v3);
       }
@@ -708,12 +1114,12 @@ LABEL_3:
         break;
       }
 
-      v8 = [*(a1[4] + 96) objectForKey:{*(*(&v10 + 1) + 8 * v7), v10}];
+      v8 = [*(a1[4] + 96) objectForKey:{*(*(&v9 + 1) + 8 * v7), v9}];
       *(a1[7] + 4 * (*(*(a1[5] + 8) + 24))++) = [v8 objectID];
 
       if (v5 == ++v7)
       {
-        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -725,28 +1131,27 @@ LABEL_3:
   }
 
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __84__ASDPlugin_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_3(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = *(a1[4] + 80);
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v11 != v6)
+      if (*v10 != v6)
       {
         objc_enumerationMutation(v3);
       }
@@ -756,12 +1161,12 @@ LABEL_3:
         break;
       }
 
-      v8 = [*(a1[4] + 80) objectForKey:{*(*(&v10 + 1) + 8 * v7), v10}];
+      v8 = [*(a1[4] + 80) objectForKey:{*(*(&v9 + 1) + 8 * v7), v9}];
       *(a1[7] + 4 * (*(*(a1[5] + 8) + 24))++) = [v8 objectID];
 
       if (v5 == ++v7)
       {
-        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -773,28 +1178,27 @@ LABEL_3:
   }
 
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __84__ASDPlugin_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_4(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = *(a1[4] + 112);
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v11 != v6)
+      if (*v10 != v6)
       {
         objc_enumerationMutation(v3);
       }
@@ -804,12 +1208,12 @@ LABEL_3:
         break;
       }
 
-      v8 = [*(a1[4] + 112) objectForKey:{*(*(&v10 + 1) + 8 * v7), v10}];
+      v8 = [*(a1[4] + 112) objectForKey:{*(*(&v9 + 1) + 8 * v7), v9}];
       *(a1[7] + 4 * (*(*(a1[5] + 8) + 24))++) = [v8 objectID];
 
       if (v5 == ++v7)
       {
-        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -821,28 +1225,27 @@ LABEL_3:
   }
 
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __84__ASDPlugin_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_5(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = *(a1[4] + 96);
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v11 != v6)
+      if (*v10 != v6)
       {
         objc_enumerationMutation(v3);
       }
@@ -852,12 +1255,12 @@ LABEL_3:
         break;
       }
 
-      v8 = [*(a1[4] + 96) objectForKey:{*(*(&v10 + 1) + 8 * v7), v10}];
+      v8 = [*(a1[4] + 96) objectForKey:{*(*(&v9 + 1) + 8 * v7), v9}];
       *(a1[7] + 4 * (*(*(a1[5] + 8) + 24))++) = [v8 objectID];
 
       if (v5 == ++v7)
       {
-        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -869,28 +1272,27 @@ LABEL_3:
   }
 
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __84__ASDPlugin_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_6(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = *(a1[4] + 80);
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v11 != v6)
+      if (*v10 != v6)
       {
         objc_enumerationMutation(v3);
       }
@@ -900,12 +1302,12 @@ LABEL_3:
         break;
       }
 
-      v8 = [*(a1[4] + 80) objectForKey:{*(*(&v10 + 1) + 8 * v7), v10}];
+      v8 = [*(a1[4] + 80) objectForKey:{*(*(&v9 + 1) + 8 * v7), v9}];
       *(a1[7] + 4 * (*(*(a1[5] + 8) + 24))++) = [v8 objectID];
 
       if (v5 == ++v7)
       {
-        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -917,28 +1319,27 @@ LABEL_3:
   }
 
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __84__ASDPlugin_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_7(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = *(a1[4] + 112);
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v11 != v6)
+      if (*v10 != v6)
       {
         objc_enumerationMutation(v3);
       }
@@ -948,12 +1349,12 @@ LABEL_3:
         break;
       }
 
-      v8 = [*(a1[4] + 112) objectForKey:{*(*(&v10 + 1) + 8 * v7), v10}];
+      v8 = [*(a1[4] + 112) objectForKey:{*(*(&v9 + 1) + 8 * v7), v9}];
       *(a1[7] + 4 * (*(*(a1[5] + 8) + 24))++) = [v8 objectID];
 
       if (v5 == ++v7)
       {
-        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -965,28 +1366,27 @@ LABEL_3:
   }
 
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __84__ASDPlugin_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_8(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = *(a1[4] + 96);
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v11 != v6)
+      if (*v10 != v6)
       {
         objc_enumerationMutation(v3);
       }
@@ -996,12 +1396,12 @@ LABEL_3:
         break;
       }
 
-      v8 = [*(a1[4] + 96) objectForKey:{*(*(&v10 + 1) + 8 * v7), v10}];
+      v8 = [*(a1[4] + 96) objectForKey:{*(*(&v9 + 1) + 8 * v7), v9}];
       *(a1[7] + 4 * (*(*(a1[5] + 8) + 24))++) = [v8 objectID];
 
       if (v5 == ++v7)
       {
-        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -1013,28 +1413,27 @@ LABEL_3:
   }
 
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __84__ASDPlugin_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_9(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = *(a1[4] + 80);
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v11 != v6)
+      if (*v10 != v6)
       {
         objc_enumerationMutation(v3);
       }
@@ -1044,12 +1443,12 @@ LABEL_3:
         break;
       }
 
-      v8 = [*(a1[4] + 80) objectForKey:{*(*(&v10 + 1) + 8 * v7), v10}];
+      v8 = [*(a1[4] + 80) objectForKey:{*(*(&v9 + 1) + 8 * v7), v9}];
       *(a1[7] + 4 * (*(*(a1[5] + 8) + 24))++) = [v8 objectID];
 
       if (v5 == ++v7)
       {
-        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -1061,28 +1460,27 @@ LABEL_3:
   }
 
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __84__ASDPlugin_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_10(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = *(a1[4] + 112);
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v11 != v6)
+      if (*v10 != v6)
       {
         objc_enumerationMutation(v3);
       }
@@ -1092,12 +1490,12 @@ LABEL_3:
         break;
       }
 
-      v8 = [*(a1[4] + 112) objectForKey:{*(*(&v10 + 1) + 8 * v7), v10}];
+      v8 = [*(a1[4] + 112) objectForKey:{*(*(&v9 + 1) + 8 * v7), v9}];
       *(a1[7] + 4 * (*(*(a1[5] + 8) + 24))++) = [v8 objectID];
 
       if (v5 == ++v7)
       {
-        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -1109,7 +1507,6 @@ LABEL_3:
   }
 
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (unsigned)addRef
@@ -1167,6 +1564,27 @@ LABEL_3:
   [(NSMapTable *)objects removeObjectForKey:v8];
 
   os_unfair_lock_unlock(&self->_objectsLock);
+}
+
+- (id)objectForObjectID:(unsigned int)d
+{
+  if (d == 1)
+  {
+    selfCopy = self;
+  }
+
+  else
+  {
+    v5 = *&d;
+    os_unfair_lock_lock(&self->_objectsLock);
+    objects = self->_objects;
+    v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v5];
+    selfCopy = [(NSMapTable *)objects objectForKey:v7];
+
+    os_unfair_lock_unlock(&self->_objectsLock);
+  }
+
+  return selfCopy;
 }
 
 - (void)addAudioDevice:(id)device
@@ -1318,20 +1736,15 @@ void __33__ASDPlugin_doRemoveAudioDevice___block_invoke(uint64_t a1)
 
 void __31__ASDPlugin_doAddAudioDevices___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
+  memset(v10, 0, sizeof(v10));
   v2 = *(a1 + 32);
-  if ([v2 countByEnumeratingWithState:&v11 objects:v15 count:16])
+  if ([v2 countByEnumeratingWithState:v10 objects:v11 count:16])
   {
-    *v12;
-    *v12;
-    v3 = **(&v11 + 1);
+    v3 = **(&v10[0] + 1);
     v4 = *(*(a1 + 40) + 96);
-    v5 = [**(&v11 + 1) deviceUID];
+    v5 = [**(&v10[0] + 1) deviceUID];
     v6 = [v4 objectForKeyedSubscript:v5];
 
     if (v6)
@@ -1347,7 +1760,6 @@ void __31__ASDPlugin_doAddAudioDevices___block_invoke(uint64_t a1)
   }
 
   objc_autoreleasePoolPop(context);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAudioDevices:(id)devices
@@ -1387,28 +1799,28 @@ void __31__ASDPlugin_doAddAudioDevices___block_invoke(uint64_t a1)
 
 void __34__ASDPlugin_doRemoveAudioDevices___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * i);
+        v7 = *(*(&v14 + 1) + 8 * i);
         v8 = *(*(a1 + 40) + 96);
         v9 = [v7 deviceUID];
         v10 = [v8 objectForKeyedSubscript:v9];
@@ -1425,14 +1837,13 @@ void __34__ASDPlugin_doRemoveAudioDevices___block_invoke(uint64_t a1)
         [v11 removeObjectForKey:v12];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v4);
   }
 
   objc_autoreleasePoolPop(context);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)audioDevices
@@ -1744,20 +2155,15 @@ void __30__ASDPlugin_doAddClockDevice___block_invoke(uint64_t a1)
 
 void __31__ASDPlugin_doAddClockDevices___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
+  memset(v10, 0, sizeof(v10));
   v2 = *(a1 + 32);
-  if ([v2 countByEnumeratingWithState:&v11 objects:v15 count:16])
+  if ([v2 countByEnumeratingWithState:v10 objects:v11 count:16])
   {
-    *v12;
-    *v12;
-    v3 = **(&v11 + 1);
+    v3 = **(&v10[0] + 1);
     v4 = *(*(a1 + 40) + 112);
-    v5 = [**(&v11 + 1) deviceUID];
+    v5 = [**(&v10[0] + 1) deviceUID];
     v6 = [v4 objectForKeyedSubscript:v5];
 
     if (v6)
@@ -1773,7 +2179,6 @@ void __31__ASDPlugin_doAddClockDevices___block_invoke(uint64_t a1)
   }
 
   objc_autoreleasePoolPop(context);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeClockDevice:(id)device
@@ -1870,28 +2275,28 @@ void __33__ASDPlugin_doRemoveClockDevice___block_invoke(uint64_t a1)
 
 void __34__ASDPlugin_doRemoveClockDevices___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * i);
+        v7 = *(*(&v14 + 1) + 8 * i);
         v8 = *(*(a1 + 40) + 112);
         v9 = [v7 deviceUID];
         v10 = [v8 objectForKeyedSubscript:v9];
@@ -1908,14 +2313,13 @@ void __34__ASDPlugin_doRemoveClockDevices___block_invoke(uint64_t a1)
         [v11 removeObjectForKey:v12];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v4);
   }
 
   objc_autoreleasePoolPop(context);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (unsigned)objectIDForClockDeviceUID:(id)d
@@ -1992,6 +2396,34 @@ void __39__ASDPlugin_objectIDForClockDeviceUID___block_invoke(void *a1)
   }
 
 LABEL_11:
+}
+
+- (void)changedProperty:(const AudioObjectPropertyAddress *)property forObjectID:(unsigned int)d
+{
+  if (property)
+  {
+    pluginHost = self->_pluginHost;
+    if (pluginHost)
+    {
+      mSelector = property->mSelector;
+      if (property->mSelector > 1885762591)
+      {
+        v6 = mSelector == 1885762592;
+        v7 = 1936092532;
+      }
+
+      else
+      {
+        v6 = mSelector == 1667523955;
+        v7 = 1853059700;
+      }
+
+      if (!v6 && mSelector != v7)
+      {
+        (pluginHost->PropertiesChanged)(pluginHost, *&d, 1, property);
+      }
+    }
+  }
 }
 
 - (BOOL)requestConfigurationChangeForDevice:(id)device withBlock:(id)block
@@ -2097,13 +2529,13 @@ LABEL_9:
 
 - (BOOL)registerForSystemSleepNotifications
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     bundleID = [(ASDPlugin *)self bundleID];
-    v7 = 136315138;
+    v6 = 136315138;
     uTF8String = [bundleID UTF8String];
-    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s registered for system sleep notifications", &v7, 0xCu);
+    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s registered for system sleep notifications", &v6, 0xCu);
   }
 
   LODWORD(powerNotificationPort) = IORegisterForSystemPower(self, &self->_powerNotificationPort, IOPowerNotifierCallback, &self->_powerNotifier);
@@ -2126,13 +2558,12 @@ LABEL_9:
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return powerNotificationPort;
 }
 
 - (void)_handlePowerNotificationWithMessageType:(unsigned int)type andArgument:(int64_t)argument
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   HIDWORD(v7) = type + 536870288;
   LODWORD(v7) = type + 536870288;
   v6 = v7 >> 4;
@@ -2141,80 +2572,85 @@ LABEL_9:
     if (!v6)
     {
       IOAllowPowerChange(self->_powerConnection, argument);
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        bundleID = [(ASDPlugin *)self bundleID];
-        v16 = 136315138;
-        uTF8String = [bundleID UTF8String];
-        v9 = MEMORY[0x277D86220];
-        v10 = "%s received power notification kIOMessageCanSystemSleep";
-        goto LABEL_19;
+        return;
       }
 
-      goto LABEL_23;
+      bundleID = [(ASDPlugin *)self bundleID];
+      v15 = 136315138;
+      uTF8String = [bundleID UTF8String];
+      v9 = MEMORY[0x277D86220];
+      v10 = "%s received power notification kIOMessageCanSystemSleep";
+      goto LABEL_19;
     }
 
-    if (v6 == 1)
+    if (v6 != 1)
     {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-      {
-        bundleID2 = [(ASDPlugin *)self bundleID];
-        v16 = 136315138;
-        uTF8String = [bundleID2 UTF8String];
-        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s received power notification kIOMessageSystemWillSleep", &v16, 0xCu);
-      }
-
-      [(ASDPlugin *)self systemWillSleep];
-      IOAllowPowerChange(self->_powerConnection, argument);
-      goto LABEL_23;
+      goto LABEL_20;
     }
 
-    goto LABEL_20;
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    {
+      bundleID2 = [(ASDPlugin *)self bundleID];
+      v15 = 136315138;
+      uTF8String = [bundleID2 UTF8String];
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s received power notification kIOMessageSystemWillSleep", &v15, 0xCu);
+    }
+
+    [(ASDPlugin *)self systemWillSleep];
+    IOAllowPowerChange(self->_powerConnection, argument);
   }
 
-  if (v6 != 2)
+  else
   {
-    if (v6 == 9)
+    if (v6 == 2)
     {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        bundleID3 = [(ASDPlugin *)self bundleID];
-        v16 = 136315138;
-        uTF8String = [bundleID3 UTF8String];
-        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s received power notification kIOMessageSystemHasPoweredOn", &v16, 0xCu);
+        return;
       }
 
-      [(ASDPlugin *)self systemHasPoweredOn];
-      goto LABEL_23;
+      bundleID = [(ASDPlugin *)self bundleID];
+      v15 = 136315138;
+      uTF8String = [bundleID UTF8String];
+      v9 = MEMORY[0x277D86220];
+      v10 = "%s received power notification kIOMessageSystemWillNotSleep";
+      goto LABEL_19;
     }
 
-    if (v6 == 11)
+    if (v6 != 9)
     {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      if (v6 == 11)
       {
+        if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+        {
+          return;
+        }
+
         bundleID = [(ASDPlugin *)self bundleID];
-        v16 = 136315138;
+        v15 = 136315138;
         uTF8String = [bundleID UTF8String];
         v9 = MEMORY[0x277D86220];
         v10 = "%s received power notification kIOMessageSystemWillPowerOn";
 LABEL_19:
         v14 = 12;
 LABEL_22:
-        _os_log_impl(&dword_2415D8000, v9, OS_LOG_TYPE_DEFAULT, v10, &v16, v14);
+        _os_log_impl(&dword_2415D8000, v9, OS_LOG_TYPE_DEFAULT, v10, &v15, v14);
 
-        goto LABEL_23;
+        return;
       }
 
-      goto LABEL_23;
-    }
-
 LABEL_20:
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-    {
+      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      {
+        return;
+      }
+
       bundleID = [(ASDPlugin *)self bundleID];
-      v16 = 136315394;
+      v15 = 136315394;
       uTF8String = [bundleID UTF8String];
-      v18 = 1024;
+      v17 = 1024;
       typeCopy = type;
       v9 = MEMORY[0x277D86220];
       v10 = "%s received unhandled power notification 0x%x";
@@ -2222,138 +2658,131 @@ LABEL_20:
       goto LABEL_22;
     }
 
-    goto LABEL_23;
-  }
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    {
+      bundleID3 = [(ASDPlugin *)self bundleID];
+      v15 = 136315138;
+      uTF8String = [bundleID3 UTF8String];
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s received power notification kIOMessageSystemHasPoweredOn", &v15, 0xCu);
+    }
 
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-  {
-    bundleID = [(ASDPlugin *)self bundleID];
-    v16 = 136315138;
-    uTF8String = [bundleID UTF8String];
-    v9 = MEMORY[0x277D86220];
-    v10 = "%s received power notification kIOMessageSystemWillNotSleep";
-    goto LABEL_19;
+    [(ASDPlugin *)self systemHasPoweredOn];
   }
-
-LABEL_23:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)systemWillSleep
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   audioDevices = [(ASDPlugin *)self audioDevices];
   clockDevices = [(ASDPlugin *)self clockDevices];
   boxes = [(ASDPlugin *)self boxes];
   v6 = [MEMORY[0x277CBEB58] setWithCapacity:8];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v7 = boxes;
-  v8 = [v7 countByEnumeratingWithState:&v34 objects:v40 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v35;
+    v10 = *v34;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v35 != v10)
+        if (*v34 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        systemWillSleep = [*(*(&v34 + 1) + 8 * i) systemWillSleep];
+        systemWillSleep = [*(*(&v33 + 1) + 8 * i) systemWillSleep];
         if ([systemWillSleep count])
         {
           [v6 addObjectsFromArray:systemWillSleep];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v34 objects:v40 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v33 objects:v39 count:16];
     }
 
     while (v9);
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v13 = audioDevices;
-  v14 = [v13 countByEnumeratingWithState:&v30 objects:v39 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v29 objects:v38 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v31;
+    v16 = *v30;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v31 != v16)
+        if (*v30 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v30 + 1) + 8 * j);
+        v18 = *(*(&v29 + 1) + 8 * j);
         if (([v6 containsObject:v18] & 1) == 0)
         {
           [v18 systemWillSleep];
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v30 objects:v39 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v29 objects:v38 count:16];
     }
 
     while (v15);
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v19 = clockDevices;
-  v20 = [v19 countByEnumeratingWithState:&v26 objects:v38 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v25 objects:v37 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v27;
+    v22 = *v26;
     do
     {
       for (k = 0; k != v21; ++k)
       {
-        if (*v27 != v22)
+        if (*v26 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v26 + 1) + 8 * k);
-        if (([v6 containsObject:{v24, v26}] & 1) == 0)
+        v24 = *(*(&v25 + 1) + 8 * k);
+        if (([v6 containsObject:{v24, v25}] & 1) == 0)
         {
           [v24 systemWillSleep];
         }
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v26 objects:v38 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v25 objects:v37 count:16];
     }
 
     while (v21);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)deregisterForSystemSleepNotifications
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     bundleID = [(ASDPlugin *)self bundleID];
-    v8 = 136315138;
+    v7 = 136315138;
     uTF8String = [bundleID UTF8String];
-    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s deregistered for system sleep notifications", &v8, 0xCu);
+    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s deregistered for system sleep notifications", &v7, 0xCu);
   }
 
   if (self->_powerNotifier)
@@ -2376,8 +2805,179 @@ LABEL_23:
     self->_powerNotificationPort = 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return 1;
+}
+
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree
+{
+  treeCopy = tree;
+  v62 = *MEMORY[0x277D85DE8];
+  indentCopy = indent;
+  v58.receiver = self;
+  v58.super_class = ASDPlugin;
+  v7 = [(ASDObject *)&v58 diagnosticDescriptionWithIndent:indentCopy walkTree:treeCopy];
+  v45 = [indentCopy stringByAppendingString:@"|        "];
+  bundleID = [(ASDPlugin *)self bundleID];
+  [v7 appendFormat:@"%@|    Bundle ID: %s\n", indentCopy, objc_msgSend(bundleID, "UTF8String")];
+
+  v9 = indentCopy;
+  [v7 appendFormat:@"%@|    Manufacturer: %s\n", indentCopy, -[NSString UTF8String](self->_manufacturerName, "UTF8String")];
+  boxes = [(ASDPlugin *)self boxes];
+  v11 = [boxes count];
+
+  selfCopy = self;
+  if (v11)
+  {
+    [v7 appendFormat:@"%@|    Box Objects:\n", indentCopy];
+    v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    boxes2 = [(ASDPlugin *)self boxes];
+    v13 = [boxes2 countByEnumeratingWithState:&v54 objects:v61 count:16];
+    if (v13)
+    {
+      v14 = v13;
+      v15 = 0;
+      v16 = *v55;
+      do
+      {
+        for (i = 0; i != v14; ++i)
+        {
+          if (*v55 != v16)
+          {
+            objc_enumerationMutation(boxes2);
+          }
+
+          v18 = *(*(&v54 + 1) + 8 * i);
+          if (treeCopy)
+          {
+            boxUID = [*(*(&v54 + 1) + 8 * i) diagnosticDescriptionWithIndent:v45 walkTree:1];
+            [v7 appendString:boxUID];
+          }
+
+          else
+          {
+            objectID = [*(*(&v54 + 1) + 8 * i) objectID];
+            boxUID = [v18 boxUID];
+            [v7 appendFormat:@"%@|        %u: %u (%s)\n", v9, v15, objectID, objc_msgSend(boxUID, "UTF8String")];
+          }
+
+          v15 = (v15 + 1);
+        }
+
+        v14 = [boxes2 countByEnumeratingWithState:&v54 objects:v61 count:16];
+      }
+
+      while (v14);
+    }
+
+    self = selfCopy;
+  }
+
+  audioDevices = [(ASDPlugin *)self audioDevices];
+  v22 = [audioDevices count];
+
+  if (v22)
+  {
+    [v7 appendFormat:@"%@|    Audio Device Objects:\n", v9];
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    audioDevices2 = [(ASDPlugin *)self audioDevices];
+    v24 = [audioDevices2 countByEnumeratingWithState:&v50 objects:v60 count:16];
+    if (v24)
+    {
+      v25 = v24;
+      v26 = 0;
+      v27 = *v51;
+      do
+      {
+        for (j = 0; j != v25; ++j)
+        {
+          if (*v51 != v27)
+          {
+            objc_enumerationMutation(audioDevices2);
+          }
+
+          v29 = *(*(&v50 + 1) + 8 * j);
+          if (treeCopy)
+          {
+            deviceUID = [*(*(&v50 + 1) + 8 * j) diagnosticDescriptionWithIndent:v45 walkTree:1];
+            [v7 appendString:deviceUID];
+          }
+
+          else
+          {
+            objectID2 = [*(*(&v50 + 1) + 8 * j) objectID];
+            deviceUID = [v29 deviceUID];
+            [v7 appendFormat:@"%@|        %u: %u (%s)\n", v9, v26, objectID2, objc_msgSend(deviceUID, "UTF8String")];
+          }
+
+          v26 = (v26 + 1);
+        }
+
+        v25 = [audioDevices2 countByEnumeratingWithState:&v50 objects:v60 count:16];
+      }
+
+      while (v25);
+    }
+
+    self = selfCopy;
+  }
+
+  clockDevices = [(ASDPlugin *)self clockDevices];
+  v33 = [clockDevices count];
+
+  if (v33)
+  {
+    [v7 appendFormat:@"%@|    Clock Device Objects:\n", v9];
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    clockDevices2 = [(ASDPlugin *)self clockDevices];
+    v35 = [clockDevices2 countByEnumeratingWithState:&v46 objects:v59 count:16];
+    if (v35)
+    {
+      v36 = v35;
+      v37 = 0;
+      v38 = *v47;
+      do
+      {
+        for (k = 0; k != v36; ++k)
+        {
+          if (*v47 != v38)
+          {
+            objc_enumerationMutation(clockDevices2);
+          }
+
+          v40 = *(*(&v46 + 1) + 8 * k);
+          if (treeCopy)
+          {
+            deviceUID2 = [*(*(&v46 + 1) + 8 * k) diagnosticDescriptionWithIndent:v45 walkTree:1];
+            [v7 appendString:deviceUID2];
+          }
+
+          else
+          {
+            objectID3 = [*(*(&v46 + 1) + 8 * k) objectID];
+            deviceUID2 = [v40 deviceUID];
+            [v7 appendFormat:@"%@|        %u: %u (%s)\n", v9, v37, objectID3, objc_msgSend(deviceUID2, "UTF8String")];
+          }
+
+          v37 = (v37 + 1);
+        }
+
+        v36 = [clockDevices2 countByEnumeratingWithState:&v46 objects:v59 count:16];
+      }
+
+      while (v36);
+    }
+  }
+
+  return v7;
 }
 
 void __30__ASDPlugin_doAddAudioDevice___block_invoke_cold_1()
@@ -2454,11 +3054,10 @@ void __34__ASDPlugin_doRemoveClockDevices___block_invoke_cold_1()
 
 - (void)requestConfigurationChangeForDevice:(int)a1 withBlock:.cold.1(int a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 67109120;
-  v2[1] = a1;
-  _os_log_error_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "request config change error %u", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 67109120;
+  v1[1] = a1;
+  _os_log_error_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "request config change error %u", v1, 8u);
 }
 
 @end

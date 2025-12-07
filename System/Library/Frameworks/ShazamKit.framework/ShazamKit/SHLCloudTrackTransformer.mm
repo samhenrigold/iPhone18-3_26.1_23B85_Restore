@@ -1,5 +1,6 @@
 @interface SHLCloudTrackTransformer
 + (id)baseCloudRecordFromTrack:(id)track usingEncryption:(BOOL)encryption;
++ (id)cloudBackedItemFromLibraryTrack:(id)track usingEncryption:(BOOL)encryption;
 + (id)libraryTrackFromCloudBackedItem:(id)item usingEncryption:(BOOL)encryption;
 @end
 
@@ -169,6 +170,182 @@ LABEL_25:
 LABEL_26:
 
   return v12;
+}
+
++ (id)cloudBackedItemFromLibraryTrack:(id)track usingEncryption:(BOOL)encryption
+{
+  encryptionCopy = encryption;
+  trackCopy = track;
+  v7 = [self baseCloudRecordFromTrack:trackCopy usingEncryption:encryptionCopy];
+  if (v7)
+  {
+    if (encryptionCopy)
+    {
+      recognitionIdentifier = [trackCopy recognitionIdentifier];
+      shazamKey = [trackCopy shazamKey];
+      validatedKey = [shazamKey validatedKey];
+
+      encryptedValues = [v7 encryptedValues];
+      [encryptedValues setObject:recognitionIdentifier forKeyedSubscript:@"RecognitionIdentifier"];
+
+      encryptedValues2 = [v7 encryptedValues];
+      [encryptedValues2 setObject:validatedKey forKeyedSubscript:@"ShazamKey"];
+
+      date = [trackCopy date];
+      encryptedValues3 = [v7 encryptedValues];
+      [encryptedValues3 setObject:date forKeyedSubscript:@"Date"];
+
+      providerIdentifier = [trackCopy providerIdentifier];
+      encryptedValues4 = [v7 encryptedValues];
+      [encryptedValues4 setObject:providerIdentifier forKeyedSubscript:@"ProviderIdentifier"];
+
+      providerName = [trackCopy providerName];
+      encryptedValues5 = [v7 encryptedValues];
+      [encryptedValues5 setObject:providerName forKeyedSubscript:@"ProviderName"];
+
+      title = [trackCopy title];
+      encryptedValues6 = [v7 encryptedValues];
+      [encryptedValues6 setObject:title forKeyedSubscript:@"Title"];
+
+      subtitle = [trackCopy subtitle];
+      encryptedValues7 = [v7 encryptedValues];
+      [encryptedValues7 setObject:subtitle forKeyedSubscript:@"Subtitle"];
+    }
+
+    else
+    {
+      compoundIdentifier = [trackCopy compoundIdentifier];
+      recognitionIdentifier = [compoundIdentifier recognitionIdentifier];
+
+      compoundIdentifier2 = [trackCopy compoundIdentifier];
+      shazamKey2 = [compoundIdentifier2 shazamKey];
+      validatedKey = [shazamKey2 validatedKey];
+
+      [v7 setObject:recognitionIdentifier forKeyedSubscript:@"RecognitionIdentifier"];
+      [v7 setObject:validatedKey forKeyedSubscript:@"ShazamKey"];
+      date2 = [trackCopy date];
+      [v7 setObject:date2 forKeyedSubscript:@"Date"];
+
+      providerIdentifier2 = [trackCopy providerIdentifier];
+      [v7 setObject:providerIdentifier2 forKeyedSubscript:@"ProviderIdentifier"];
+
+      providerName2 = [trackCopy providerName];
+      [v7 setObject:providerName2 forKeyedSubscript:@"ProviderName"];
+
+      title2 = [trackCopy title];
+      [v7 setObject:title2 forKeyedSubscript:@"Title"];
+
+      subtitle = [trackCopy subtitle];
+      [v7 setObject:subtitle forKeyedSubscript:@"Subtitle"];
+    }
+
+    labels = [trackCopy labels];
+    v32 = [labels count];
+
+    if (v32)
+    {
+      v64 = validatedKey;
+      v33 = recognitionIdentifier;
+      labels2 = [trackCopy labels];
+      v35 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [labels2 count]);
+
+      v67 = 0u;
+      v68 = 0u;
+      v65 = 0u;
+      v66 = 0u;
+      labels3 = [trackCopy labels];
+      v37 = [labels3 countByEnumeratingWithState:&v65 objects:v69 count:16];
+      if (v37)
+      {
+        v38 = v37;
+        v39 = *v66;
+        do
+        {
+          for (i = 0; i != v38; i = i + 1)
+          {
+            if (*v66 != v39)
+            {
+              objc_enumerationMutation(labels3);
+            }
+
+            name = [*(*(&v65 + 1) + 8 * i) name];
+            [v35 addObject:name];
+          }
+
+          v38 = [labels3 countByEnumeratingWithState:&v65 objects:v69 count:16];
+        }
+
+        while (v38);
+      }
+
+      v42 = [v35 copy];
+      if (encryptionCopy)
+      {
+        encryptedValues8 = [v7 encryptedValues];
+        [encryptedValues8 setObject:v42 forKeyedSubscript:@"Labels"];
+      }
+
+      else
+      {
+        [v7 setObject:v42 forKeyedSubscript:@"Labels"];
+      }
+
+      recognitionIdentifier = v33;
+      validatedKey = v64;
+    }
+
+    [trackCopy locationCoordinate];
+    if (CLLocationCoordinate2DIsValid(v71))
+    {
+      if (encryptionCopy)
+      {
+        v44 = [CLLocation alloc];
+        [trackCopy locationCoordinate];
+        v46 = v45;
+        [trackCopy locationCoordinate];
+        v48 = v44;
+        v49 = v46;
+      }
+
+      else
+      {
+        [trackCopy locationCoordinate];
+        v51 = round(v50 * 100.0) / 100.0;
+        [trackCopy locationCoordinate];
+        v53 = round(v52 * 100.0) / 100.0;
+        v48 = [CLLocation alloc];
+        v49 = v51;
+        v47 = v53;
+      }
+
+      v54 = [v48 initWithLatitude:v49 longitude:v47];
+      encryptedValues9 = [v7 encryptedValues];
+      [encryptedValues9 setObject:v54 forKeyedSubscript:@"Location"];
+    }
+
+    associatedGroupIdentifier = [trackCopy associatedGroupIdentifier];
+
+    if (associatedGroupIdentifier)
+    {
+      v57 = [CKRecordID alloc];
+      associatedGroupIdentifier2 = [trackCopy associatedGroupIdentifier];
+      recordID = [v7 recordID];
+      zoneID = [recordID zoneID];
+      v61 = [v57 initWithRecordName:associatedGroupIdentifier2 zoneID:zoneID];
+
+      v62 = [[CKReference alloc] initWithRecordID:v61 action:1];
+      [v7 setObject:v62 forKeyedSubscript:@"AssociatedGroupIdentifier"];
+    }
+
+    v23 = [[SHLCloudBackedItem alloc] initWithRecord:v7];
+  }
+
+  else
+  {
+    v23 = 0;
+  }
+
+  return v23;
 }
 
 + (id)baseCloudRecordFromTrack:(id)track usingEncryption:(BOOL)encryption

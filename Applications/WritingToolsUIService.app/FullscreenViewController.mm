@@ -1,6 +1,7 @@
 @interface FullscreenViewController
 - (_TtC21WritingToolsUIService24FullscreenViewController)initWithCoder:(id)coder;
 - (_TtC21WritingToolsUIService24FullscreenViewController)initWithNibName:(id)name bundle:(id)bundle;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -19,6 +20,16 @@
 {
   selfCopy = self;
   sub_100183370();
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for FullscreenViewController();
+  v4 = v5.receiver;
+  [(FullscreenViewController *)&v5 viewDidAppear:appearCopy];
+  sub_10018391C();
 }
 
 - (_TtC21WritingToolsUIService24FullscreenViewController)initWithNibName:(id)name bundle:(id)bundle

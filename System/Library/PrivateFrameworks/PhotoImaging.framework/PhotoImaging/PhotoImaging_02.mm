@@ -1,7 +1,7 @@
-void sub_1C782DD74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_1C782DD74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   CKernel::~CKernel(&STACK[0x3930]);
-  if (*v69 == 1)
+  if (*v65 == 1)
   {
     if (STACK[0x6B00])
     {
@@ -9,7 +9,7 @@ void sub_1C782DD74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     }
   }
 
-  CGrNavigator::~CGrNavigator(&a69);
+  CGrNavigator::~CGrNavigator(&a65);
   CGrNavigator::~CGrNavigator(&a53);
   CGrNavigator::~CGrNavigator(&a33);
   CGrNavigator::~CGrNavigator(&a43);
@@ -40,14 +40,14 @@ void CMedian::CKernel16x128::~CKernel16x128(CMedian::CKernel16x128 *this)
 uint64_t CMedian::CKernel16x128::Process_(CMedian::CKernel16x128 *this, const CGrNavigator *a2, const CGrNavigator *a3, unsigned int a4, const CGrNavigator *a5)
 {
   v140 = *MEMORY[0x1E69E9840];
-  v9 = CKernel::BorrowData(this);
+  v9 = CKernel::BorrowData(this, 0xC0630uLL);
   if (!v9)
   {
     return 7;
   }
 
   v121 = v9;
-  v10 = *(v9 + 32) + 788016 * a4;
+  v10 = *(v9 + 4) + 788016 * a4;
   v12 = *(a2 + 6);
   v11 = *(a2 + 7);
   v130[1] = 0;
@@ -689,20 +689,20 @@ LABEL_149:
   return 0;
 }
 
-void sub_1C782E890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C782E890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
+  va_start(va1, a11);
+  va_start(va, a11);
   v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
   v15 = va_arg(va1, void);
   v16 = va_arg(va1, void);
   v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   CGrNavigator::~CGrNavigator(va);
   CGrNavigator::~CGrNavigator(va1);
   _Unwind_Resume(a1);
@@ -713,8 +713,8 @@ void CMedian::Median16x128_(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uin
   v6 = a6;
   v10 = a2;
   v12 = *(a4 + 48);
-  v58 = (2 * a1);
-  v13 = v58 & 0xFFFFFFF0;
+  v57 = (2 * a1);
+  v13 = v57 & 0xFFFFFFF0;
   if (((2 * a1) & 0xFFFFFF80) != 0)
   {
     v13 = 128;
@@ -732,131 +732,131 @@ void CMedian::Median16x128_(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uin
 
   if (v14 >= v12)
   {
-    v57 = *(a4 + 56);
-    v29 = (2 * a1) | 1;
+    v56 = *(a4 + 56);
+    v28 = (2 * a1) | 1;
     bzero(a5, 0x10600uLL);
-    v30 = a3[2];
-    v31 = a3[3];
-    if ((*(v30 + 2 * ((a1 & 0x7FFFFFFF) + (v14 >> 1)) + v31 * (a1 & 0x7FFFFFFF)) & 0xFFF0) != 0)
+    v29 = a3[2];
+    v30 = a3[3];
+    if ((*(v29 + 2 * ((a1 & 0x7FFFFFFF) + (v14 >> 1)) + v30 * (a1 & 0x7FFFFFFF)) & 0xFFF0) != 0)
     {
-      v32 = *(v30 + 2 * ((a1 & 0x7FFFFFFF) + (v14 >> 1)) + v31 * (a1 & 0x7FFFFFFF)) & 0xFFF0;
+      v31 = *(v29 + 2 * ((a1 & 0x7FFFFFFF) + (v14 >> 1)) + v30 * (a1 & 0x7FFFFFFF)) & 0xFFF0;
     }
 
     else
     {
-      v32 = 16;
+      v31 = 16;
     }
 
     if (v14)
     {
-      v33 = vdupq_n_s64(v14 - 1);
-      v34 = xmmword_1C7845E40;
-      v35 = xmmword_1C7845E50;
-      v36 = xmmword_1C7845DB0;
-      v37 = xmmword_1C7845C80;
-      v38 = (a5 + 8);
-      v39 = v14;
-      v40 = vdupq_n_s64(8uLL);
+      v32 = vdupq_n_s64(v14 - 1);
+      v33 = xmmword_1C7845E40;
+      v34 = xmmword_1C7845E50;
+      v35 = xmmword_1C7845DB0;
+      v36 = xmmword_1C7845C80;
+      v37 = (a5 + 8);
+      v38 = v14;
+      v39 = vdupq_n_s64(8uLL);
       do
       {
-        v41 = vmovn_s64(vcgeq_u64(v33, v37));
-        if (vuzp1_s8(vuzp1_s16(v41, *v33.i8), *v33.i8).u8[0])
+        v40 = vmovn_s64(vcgeq_u64(v32, v36));
+        if (vuzp1_s8(vuzp1_s16(v40, *v32.i8), *v32.i8).u8[0])
         {
-          *(v38 - 4) = v32;
+          *(v37 - 4) = v31;
         }
 
-        if (vuzp1_s8(vuzp1_s16(v41, *&v33), *&v33).i8[1])
+        if (vuzp1_s8(vuzp1_s16(v40, *&v32), *&v32).i8[1])
         {
-          *(v38 - 3) = v32;
+          *(v37 - 3) = v31;
         }
 
-        if (vuzp1_s8(vuzp1_s16(*&v33, vmovn_s64(vcgeq_u64(v33, *&v36))), *&v33).i8[2])
+        if (vuzp1_s8(vuzp1_s16(*&v32, vmovn_s64(vcgeq_u64(v32, *&v35))), *&v32).i8[2])
         {
-          *(v38 - 2) = v32;
-          *(v38 - 1) = v32;
+          *(v37 - 2) = v31;
+          *(v37 - 1) = v31;
         }
 
-        v42 = vmovn_s64(vcgeq_u64(v33, v35));
-        if (vuzp1_s8(*&v33, vuzp1_s16(v42, *&v33)).i32[1])
+        v41 = vmovn_s64(vcgeq_u64(v32, v34));
+        if (vuzp1_s8(*&v32, vuzp1_s16(v41, *&v32)).i32[1])
         {
-          *v38 = v32;
+          *v37 = v31;
         }
 
-        if (vuzp1_s8(*&v33, vuzp1_s16(v42, *&v33)).i8[5])
+        if (vuzp1_s8(*&v32, vuzp1_s16(v41, *&v32)).i8[5])
         {
-          v38[1] = v32;
+          v37[1] = v31;
         }
 
-        if (vuzp1_s8(*&v33, vuzp1_s16(*&v33, vmovn_s64(vcgeq_u64(v33, *&v34)))).i8[6])
+        if (vuzp1_s8(*&v32, vuzp1_s16(*&v32, vmovn_s64(vcgeq_u64(v32, *&v33)))).i8[6])
         {
-          v38[2] = v32;
-          v38[3] = v32;
+          v37[2] = v31;
+          v37[3] = v31;
         }
 
-        v35 = vaddq_s64(v35, v40);
-        v36 = vaddq_s64(v36, v40);
-        v37 = vaddq_s64(v37, v40);
-        v38 += 8;
-        v34 = vaddq_s64(v34, v40);
-        v39 -= 8;
+        v34 = vaddq_s64(v34, v39);
+        v35 = vaddq_s64(v35, v39);
+        v36 = vaddq_s64(v36, v39);
+        v37 += 8;
+        v33 = vaddq_s64(v33, v39);
+        v38 -= 8;
       }
 
-      while (v39);
+      while (v38);
     }
 
-    v43 = a4;
-    v44 = v6;
-    v45 = 0;
+    v42 = a4;
+    v43 = v6;
+    v44 = 0;
     do
     {
-      Hist16x128Inc(a5, a3[2] + a3[3] * v45++, v29, v32, v14);
+      Hist16x128Inc(a5, a3[2] + a3[3] * v44++, v28, v31, v14);
     }
 
-    while (v58 + 1 != v45);
+    while (v57 + 1 != v44);
     *(a5 + 1280) = 0;
     *(a5 + 66815) = 0;
     if (v14)
     {
-      v46 = *(a5 + 768);
-      v47 = v14 - 1;
-      v48 = (a5 + 514);
+      v45 = *(a5 + 768);
+      v46 = v14 - 1;
+      v47 = (a5 + 514);
       do
       {
-        v49 = *v48++;
-        v46 += v49;
-        --v47;
+        v48 = *v47++;
+        v45 += v48;
+        --v46;
       }
 
-      while (v47);
-      v50 = 129;
-      v51 = a5;
-      v52 = v14;
+      while (v46);
+      v49 = 129;
+      v50 = a5;
+      v51 = v14;
       do
       {
-        *(v51 + 256) = v46;
-        v46 = v46 + *(a5 + 512 + 2 * v50) - *(v51 + 514);
-        v51 += 2;
-        ++v50;
-        --v52;
+        *(v50 + 256) = v45;
+        v45 = v45 + *(a5 + 512 + 2 * v49) - *(v50 + 514);
+        v50 += 2;
+        ++v49;
+        --v51;
       }
 
-      while (v52);
+      while (v51);
     }
 
-    if (v57)
+    if (v56)
     {
-      Hist16x128ReadC1(a5, *(a4 + 16), v10, v14, v44);
-      if (v57 != 1)
+      Hist16x128ReadC1(a5, *(a4 + 16), v10, v14, v43);
+      if (v56 != 1)
       {
-        v53 = 0;
+        v52 = 0;
         do
         {
-          Hist16x128Step(a5, (a3[2] + a3[3] * (v58 + 1 + v53)), (a3[2] + a3[3] * v53), v29, v14);
-          ++v53;
-          Hist16x128ReadC1(a5, *(v43 + 16) + *(v43 + 24) * v53, v10, v14, v44);
+          Hist16x128Step(a5, (a3[2] + a3[3] * (v57 + 1 + v52)), (a3[2] + a3[3] * v52), v28, v14);
+          ++v52;
+          Hist16x128ReadC1(a5, *(v42 + 16) + *(v42 + 24) * v52, v10, v14, v43);
         }
 
-        while (v57 - 1 != v53);
+        while (v56 - 1 != v52);
       }
     }
   }
@@ -868,9 +868,9 @@ void CMedian::Median16x128_(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uin
     v17 = a2;
     v18 = 0;
     v19 = 0;
-    v54 = (v12 - 1 + v14) / v14;
-    v56 = *(a4 + 48);
-    v55 = v14;
+    v53 = (v12 - 1 + v14) / v14;
+    v55 = *(a4 + 48);
+    v54 = v14;
     do
     {
       v20 = v14 + v18;
@@ -886,43 +886,44 @@ void CMedian::Median16x128_(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uin
       }
 
       v22 = *(v15 + 56);
-      v64 = v21;
-      v65 = v20;
-      v66 = v22;
+      v63 = v21;
+      v64 = v20;
+      v65 = v22;
       v23 = a3[7];
-      v61 = v21;
-      v62 = v20 + v58;
-      v63 = v23;
+      v60 = v21;
+      v61 = v20 + v57;
+      v62 = v23;
       v24 = a3;
       v25 = v17;
       v14 = v16;
-      CGrNavigator::CGrNavigator(v60, a3, &v61);
-      v60[0] = &unk_1F46EA458;
-      v26 = v15;
-      *&v27 = CGrNavigator::CGrNavigator(v59, v15, &v64);
+      CGrNavigator::CGrNavigator(v59, a3, &v60);
       v59[0] = &unk_1F46EA458;
-      v28 = v14;
-      CMedian::Median16x128_(a1, v25, v60, v59, a5, v14, v27);
+      v26 = v15;
+      CGrNavigator::CGrNavigator(v58, v15, &v63);
+      v58[0] = &unk_1F46EA458;
+      v27 = v14;
+      CMedian::Median16x128_(a1, v25, v59, v58, a5, v14);
+      CGrNavigator::~CGrNavigator(v58);
       CGrNavigator::~CGrNavigator(v59);
-      CGrNavigator::~CGrNavigator(v60);
       ++v19;
-      LODWORD(v14) = v55;
-      v18 += v55;
-      v16 = v28;
+      LODWORD(v14) = v54;
+      v18 += v54;
+      v16 = v27;
       v15 = v26;
       v17 = v25;
       a3 = v24;
-      v12 = v56;
+      v12 = v55;
     }
 
-    while (v19 < v54);
+    while (v19 < v53);
   }
 }
 
-void sub_1C782ED14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_1C782ED14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
   CGrNavigator::~CGrNavigator(&a16);
-  CGrNavigator::~CGrNavigator(&a26);
+  CGrNavigator::~CGrNavigator(va);
   _Unwind_Resume(a1);
 }
 
@@ -1433,20 +1434,20 @@ uint64_t CMedian::CKernel32x128::Process_(CMedian::CKernel32x128 *this, const CG
   return 0;
 }
 
-void sub_1C782F4B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1C782F4B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
+  va_start(va1, a11);
+  va_start(va, a11);
   v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
   v15 = va_arg(va1, void);
   v16 = va_arg(va1, void);
   v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   CGrNavigator::~CGrNavigator(va);
   CGrNavigator::~CGrNavigator(va1);
   _Unwind_Resume(a1);
@@ -1610,7 +1611,7 @@ LABEL_15:
   {
     v24 = a2[1].i64[1] | a2[1].i64[0] | a2[2].i64[1];
     v25 = v24 & -v24;
-    v26 = *(v5 + 3) | *(v5 + 2) | *(v5 + 5);
+    v26 = v5[1].i64[1] | v5[1].i64[0] | v5[2].i64[1];
     v28 = (v26 & -v26) < 0x10 || v25 < 0x10;
     if (a4)
     {
@@ -1624,7 +1625,7 @@ LABEL_15:
     v28 = 0;
   }
 
-  v30 = *(v5 + 6);
+  v30 = v5[3].u64[0];
   v31 = *(this + 6);
   v32 = *(this + 7);
   if (v30 % v32)
@@ -1646,7 +1647,7 @@ LABEL_15:
 
     else
     {
-      v56 = *(v5 + 6);
+      v56 = v5[3].i64[0];
     }
 
     if (v56 % v32)
@@ -1660,10 +1661,10 @@ LABEL_15:
     }
 
     CGrNavigator::CGrNavigator(v89, *(this + 2), v57 - v30 + a2[3].i64[0], a2[3].i64[1], a2[2].i64[0]);
-    CGrNavigator::CGrNavigator(v85, *(this + 2), v57, *(v5 + 7), *(v5 + 4));
+    CGrNavigator::CGrNavigator(v85, *(this + 2), v57, v5[3].i64[1], v5[2].i64[0]);
     if (v92 == 1 && (v88 & 1) != 0)
     {
-      v58 = *(v5 + 4) * *(v5 + 6);
+      v58 = v5[2].i64[0] * v5[3].i64[0];
       if (a2[3].i64[1])
       {
         v59 = 0;
@@ -1679,15 +1680,15 @@ LABEL_15:
         while (v62);
       }
 
-      if (*(this + 32) == 1 && *(v77 + 7) != 0)
+      if (*(this + 32) == 1 && v77[3].i64[1] != 0)
       {
         v64 = 0;
         v65 = 1;
         do
         {
-          memcpy((v86 + v87 * v64), (*(v77 + 2) + *(v77 + 3) * v64), v58);
+          memcpy((v86 + v87 * v64), (v77[1].i64[0] + v77[1].i64[1] * v64), v58);
           v64 = v65;
-          v62 = *(v77 + 7) > v65++;
+          v62 = v77[3].i64[1] > v65++;
         }
 
         while (v62);
@@ -1699,15 +1700,15 @@ LABEL_15:
         if (!v17)
         {
 LABEL_81:
-          if (*(v77 + 7))
+          if (v77[3].i64[1])
           {
             v69 = 0;
             v70 = 1;
             do
             {
-              memcpy((*(v77 + 2) + *(v77 + 3) * v69), (v86 + v87 * v69), v58);
+              memcpy((v77[1].i64[0] + v77[1].i64[1] * v69), (v86 + v87 * v69), v58);
               v69 = v70;
-              v62 = *(v77 + 7) > v70++;
+              v62 = v77[3].i64[1] > v70++;
             }
 
             while (v62);
@@ -1868,11 +1869,12 @@ LABEL_87:
   return 0;
 }
 
-void sub_1C782FD44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_1C782FD44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
+  va_start(va, a31);
   CGrNavigator::~CGrNavigator(&a22);
-  CGrNavigator::~CGrNavigator(&a32);
-  CGrNavigator::~CGrNavigator((v32 - 216));
+  CGrNavigator::~CGrNavigator(va);
+  CGrNavigator::~CGrNavigator((v31 - 216));
   _Unwind_Resume(a1);
 }
 
@@ -1905,11 +1907,11 @@ void ___ZN7CKernel7ProcessERK12CGrNavigatorS2_PS1__block_invoke(uint64_t a1)
   }
 }
 
-void sub_1C782FEA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1C782FEA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   CGrNavigator::~CGrNavigator(va);
-  CGrNavigator::~CGrNavigator((v11 - 112));
+  CGrNavigator::~CGrNavigator((v18 - 112));
   _Unwind_Resume(a1);
 }
 
@@ -2031,7 +2033,7 @@ void CKernel::~CKernel(CKernel *this)
   *(this + 8) = 0;
 }
 
-uint64_t freeDataNodes(uint64_t result)
+void *freeDataNodes(void *result)
 {
   if (result)
   {
@@ -2054,49 +2056,49 @@ uint64_t freeDataNodes(uint64_t result)
   return result;
 }
 
-uint64_t CKernel::BorrowData(CKernel *this)
+CMemBlock *CKernel::BorrowData(CKernel *this, unint64_t a2)
 {
   pthread_mutex_lock((this + 12632));
-  v2 = *(this + 1577);
-  if (!v2)
+  v3 = *(this + 1577);
+  if (!v3)
   {
     operator new();
   }
 
-  *(this + 1577) = v2[1];
-  v2[1] = 0;
-  v3 = *(this + 1578);
-  if (v3)
+  *(this + 1577) = v3[1];
+  v3[1] = 0;
+  v4 = *(this + 1578);
+  if (v4)
   {
     do
     {
-      v4 = v3;
-      v3 = *(v3 + 8);
+      v5 = v4;
+      v4 = *(v4 + 8);
     }
 
-    while (v3);
-    v5 = (v4 + 8);
+    while (v4);
+    v6 = (v5 + 8);
   }
 
   else
   {
-    v5 = (this + 12624);
+    v6 = (this + 12624);
   }
 
-  *v5 = v2;
-  if (*v2)
+  *v6 = v3;
+  if (*v3)
   {
-    (*(**v2 + 80))(*v2);
-    v6 = *v2;
+    (*(**v3 + 80))(*v3);
+    v7 = *v3;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   pthread_mutex_unlock((this + 12632));
-  return v6;
+  return v7;
 }
 
 uint64_t CKernel::ReturnData(CKernel *this, CMemBlock *a2)
@@ -2186,14 +2188,14 @@ uint64_t CMedian::CKernel8C::Process_(CMedian::CKernel8C *this, const CGrNavigat
 {
   v9 = this;
   v339 = *MEMORY[0x1E69E9840];
-  v10 = CKernel::BorrowData(this);
+  v10 = CKernel::BorrowData(this, 0x240uLL);
   if (!v10)
   {
     return 7;
   }
 
   v11 = v10;
-  v12 = (*(v10 + 32) + 576 * a4);
+  v12 = (*(v10 + 4) + 576 * a4);
   v13 = *(v9 + 1587);
   if (*(v13 + 46) == 1 && a5 && (*(v13 + 47) & 1) != 0)
   {
@@ -3389,9 +3391,9 @@ LABEL_20:
   return v8;
 }
 
-void sub_1C7831874(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7831874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CLock::~CLock(va);
   _Unwind_Resume(a1);
 }
@@ -3933,7 +3935,7 @@ double gotLoadHelper_x8__SCMLErrorDomain(double result)
   return result;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_SensitiveContentAnalysisML(double a1)
+double dlopenHelper_SensitiveContentAnalysisML(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/SensitiveContentAnalysisML.framework/SensitiveContentAnalysisML", 0);
   atomic_store(1u, &dlopenHelperFlag_SensitiveContentAnalysisML);

@@ -1,197 +1,3 @@
-uint64_t SipUserAgent::getCallTransferInfo(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *(a2 + 23);
-  if ((v3 & 0x80u) != 0)
-  {
-    v3 = *(a2 + 8);
-  }
-
-  if (v3)
-  {
-    v4 = *(a1 + 352);
-    if (v4)
-    {
-      v25 = 0u;
-      v26 = 0u;
-      memset(v24, 0, sizeof(v24));
-      std::string::basic_string[abi:ne200100]<0>(&v23, "");
-      std::string::basic_string[abi:ne200100]<0>(&v22, "");
-      std::string::basic_string[abi:ne200100]<0>(__p, "");
-      if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
-      {
-        std::string::__init_copy_ctor_external(v24, v23.__r_.__value_.__l.__data_, v23.__r_.__value_.__l.__size_);
-      }
-
-      else
-      {
-        v24[0] = v23;
-      }
-
-      if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
-      {
-        std::string::__init_copy_ctor_external(&v24[1], v22.__r_.__value_.__l.__data_, v22.__r_.__value_.__l.__size_);
-      }
-
-      else
-      {
-        v24[1] = v22;
-      }
-
-      if (SHIBYTE(v21) < 0)
-      {
-        std::string::__init_copy_ctor_external(&v25, __p[0], __p[1]);
-        BYTE8(v26) = 0;
-        if (SHIBYTE(v21) < 0)
-        {
-          operator delete(__p[0]);
-        }
-      }
-
-      else
-      {
-        v25 = *__p;
-        *&v26 = v21;
-        BYTE8(v26) = 0;
-      }
-
-      if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v22.__r_.__value_.__l.__data_);
-      }
-
-      if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v23.__r_.__value_.__l.__data_);
-      }
-
-      v7 = SipDialogTable::fillReplacesHeaderData(v4 + 248, a2, v24);
-      v8 = !v7;
-      if (!a3)
-      {
-        v8 = 1;
-      }
-
-      if ((v8 & 1) == 0)
-      {
-        memset(&__str, 0, sizeof(__str));
-        if (SHIBYTE(v24[0].__r_.__value_.__r.__words[2]) < 0)
-        {
-          std::string::__init_copy_ctor_external(&__str, v24[0].__r_.__value_.__l.__data_, v24[0].__r_.__value_.__l.__size_);
-        }
-
-        else
-        {
-          __str = v24[0];
-        }
-
-        memset(&v18, 0, sizeof(v18));
-        if (SHIBYTE(v24[1].__r_.__value_.__r.__words[2]) < 0)
-        {
-          std::string::__init_copy_ctor_external(&v18, v24[1].__r_.__value_.__l.__data_, v24[1].__r_.__value_.__l.__size_);
-        }
-
-        else
-        {
-          v18 = v24[1];
-        }
-
-        memset(&v17, 0, sizeof(v17));
-        if (SBYTE7(v26) < 0)
-        {
-          std::string::__init_copy_ctor_external(&v17, v25, *(&v25 + 1));
-        }
-
-        else
-        {
-          *&v17.__r_.__value_.__l.__data_ = v25;
-          v17.__r_.__value_.__r.__words[2] = v26;
-        }
-
-        v9 = BYTE8(v26);
-        std::string::operator=((a3 + 104), &__str);
-        size = HIBYTE(v18.__r_.__value_.__r.__words[2]);
-        if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-        {
-          size = v18.__r_.__value_.__l.__size_;
-        }
-
-        if (size)
-        {
-          v16.__r_.__value_.__r.__words[0] = "to-tag";
-          v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a3 + 72, "to-tag");
-          std::string::operator=((v11 + 56), &v18);
-        }
-
-        v12 = HIBYTE(v17.__r_.__value_.__r.__words[2]);
-        if ((v17.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-        {
-          v12 = v17.__r_.__value_.__l.__size_;
-        }
-
-        if (v12)
-        {
-          v16.__r_.__value_.__r.__words[0] = "from-tag";
-          v13 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a3 + 72, "from-tag");
-          std::string::operator=((v13 + 56), &v17);
-        }
-
-        if (v9)
-        {
-          std::string::basic_string[abi:ne200100]<0>(&v16, "");
-          v27 = "early-only";
-          v14 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a3 + 72, "early-only");
-          std::string::operator=((v14 + 56), &v16);
-          if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
-          {
-            operator delete(v16.__r_.__value_.__l.__data_);
-          }
-        }
-
-        if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v17.__r_.__value_.__l.__data_);
-        }
-
-        if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(v18.__r_.__value_.__l.__data_);
-        }
-
-        if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(__str.__r_.__value_.__l.__data_);
-        }
-      }
-
-      if (SBYTE7(v26) < 0)
-      {
-        operator delete(v25);
-      }
-
-      if (SHIBYTE(v24[1].__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v24[1].__r_.__value_.__l.__data_);
-      }
-
-      if (SHIBYTE(v24[0].__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v24[0].__r_.__value_.__l.__data_);
-        if (v7)
-        {
-          return 1;
-        }
-      }
-
-      else if (v7)
-      {
-        return 1;
-      }
-    }
-  }
-
-  return 0;
-}
-
 void sub_1E4D57328(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47, void *a48, uint64_t a49, int a50, __int16 a51, char a52, char a53)
 {
   if (a28 < 0)
@@ -230,19 +36,19 @@ uint64_t SipUserAgent::getPreferredMedia(uint64_t a1, uint64_t a2)
 
   if (v3 < 0)
   {
-    std::string::__init_copy_ctor_external(&v20, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(&v19, *a2, *(a2 + 8));
   }
 
   else
   {
-    v20 = *a2;
+    v19 = *a2;
   }
 
-  v5 = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(v4 + 248, &v20.__r_.__value_.__l.__data_);
+  v5 = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(v4 + 248, &v19);
   v6 = v4 + 256;
-  if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v20.__r_.__value_.__l.__data_);
+    operator delete(v19.__r_.__value_.__l.__data_);
   }
 
   if (v6 == v5 || *(v5 + 512) != 1)
@@ -251,16 +57,16 @@ uint64_t SipUserAgent::getPreferredMedia(uint64_t a1, uint64_t a2)
   }
 
   *__p = 0u;
-  v19 = 0u;
-  *v16 = 0u;
-  v17 = 0u;
+  v18 = 0u;
+  *v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
-  *v13 = 0u;
-  SipDialogParticipantInfo::SipDialogParticipantInfo(&v12, (v5 + 384));
-  v7 = v16[1];
-  if (v16[1] == v17)
+  v11 = 0u;
+  *v12 = 0u;
+  SipDialogParticipantInfo::SipDialogParticipantInfo(&v11, (v5 + 384));
+  v7 = v15[1];
+  if (v15[1] == v16)
   {
 LABEL_16:
     v9 = 1;
@@ -268,11 +74,11 @@ LABEL_16:
 
   else
   {
-    v8 = v16[1];
+    v8 = v15[1];
     while (v8[1] != 3)
     {
       v8 += 3;
-      if (v8 == v17)
+      if (v8 == v16)
       {
         goto LABEL_16;
       }
@@ -280,29 +86,28 @@ LABEL_16:
 
     v9 = 0;
     v5 = *v8;
-    v10 = v8[2];
   }
 
-  if (SHIBYTE(v19) < 0)
+  if (SHIBYTE(v18) < 0)
   {
     operator delete(__p[1]);
-    v7 = v16[1];
+    v7 = v15[1];
   }
 
   if (v7)
   {
-    *&v17 = v7;
+    *&v16 = v7;
     operator delete(v7);
   }
 
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&v15, *(&v15 + 1));
-  if (SHIBYTE(v14) < 0)
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&v14, *(&v14 + 1));
+  if (SHIBYTE(v13) < 0)
   {
-    operator delete(v13[1]);
+    operator delete(v12[1]);
   }
 
-  v21 = &v12;
-  std::vector<bambi::XmlParserNamespace>::__destroy_vector::operator()[abi:ne200100](&v21);
+  v20 = &v11;
+  std::vector<bambi::XmlParserNamespace>::__destroy_vector::operator()[abi:ne200100](&v20);
   if (v9)
   {
     return 0x200000001;
@@ -871,7 +676,7 @@ void SipImpuInfo::SipImpuInfo(SipImpuInfo *this, const SipImpuInfo *a2)
   SipUri::SipUri((v4 + 408), (a2 + 408));
   *(this + 104) = 0;
   *(this + 51) = 0u;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(this + 816, *(a2 + 102), *(a2 + 103), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 103) - *(a2 + 102)) >> 3));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(this + 102, *(a2 + 102), *(a2 + 103), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 103) - *(a2 + 102)) >> 3));
   if (*(a2 + 863) < 0)
   {
     std::string::__init_copy_ctor_external(this + 35, *(a2 + 105), *(a2 + 106));
@@ -898,17 +703,17 @@ void SipImpuInfo::SipImpuInfo(SipImpuInfo *this, const SipImpuInfo *a2)
   }
 }
 
-void sub_1E4D57D68(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4D57D68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (v2[863] < 0)
+  va_start(va, a3);
+  if (v3[863] < 0)
   {
-    operator delete(*v3);
+    operator delete(*v4);
   }
 
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
-  SipUri::~SipUri((v2 + 408));
-  SipUri::~SipUri(v2);
+  SipUri::~SipUri((v3 + 408));
+  SipUri::~SipUri(v3);
   _Unwind_Resume(a1);
 }
 
@@ -1011,16 +816,16 @@ void std::__shared_ptr_emplace<SipDialogEventClient>::~__shared_ptr_emplace(std:
   JUMPOUT(0x1E69235B0);
 }
 
-uint64_t std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(uint64_t **a1, uint64_t ***a2, uint64_t a3)
 {
-  v4 = 0;
-  v2 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v5 = 0;
+  v3 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 void std::__shared_ptr_emplace<SipLazuliManager>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -1047,19 +852,19 @@ void std::__shared_ptr_emplace<SipAuthClient>::~__shared_ptr_emplace(std::__shar
   JUMPOUT(0x1E69235B0);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::weak_ptr<SipUserAgentDelegate>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::weak_ptr<SipUserAgentDelegate>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::weak_ptr<SipUserAgentDelegate>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, void **a2)
+uint64_t *std::__tree<std::__value_type<std::string,std::weak_ptr<SipUserAgentDelegate>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::weak_ptr<SipUserAgentDelegate>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::weak_ptr<SipUserAgentDelegate>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, uint64_t ***a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v7 = 0;
-  v2 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v7, a2);
-  if (!v2)
+  v10 = 0;
+  v5 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v10, a2);
+  if (!v5)
   {
-    v4 = 0;
-    v5 = 0;
-    v6 = 0;
+    v7 = 0;
+    v8 = 0;
+    v9 = 0;
     std::__tree<std::__value_type<std::string,std::weak_ptr<SipUserAgentDelegate>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::weak_ptr<SipUserAgentDelegate>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::weak_ptr<SipUserAgentDelegate>>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
   }
 
-  return v2;
+  return v5;
 }
 
 uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::weak_ptr<SipUserAgentDelegate>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::weak_ptr<SipUserAgentDelegate>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
@@ -1079,7 +884,7 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::wea
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::weak_ptr<SipUserAgentDelegate>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::weak_ptr<SipUserAgentDelegate>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::weak_ptr<SipUserAgentDelegate>>>>::__erase_unique<std::string>(uint64_t **a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::weak_ptr<SipUserAgentDelegate>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::weak_ptr<SipUserAgentDelegate>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::weak_ptr<SipUserAgentDelegate>>>>::__erase_unique<std::string>(uint64_t **a1, char *a2)
 {
   v3 = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a1, a2);
   if (a1 + 1 == v3)
@@ -1099,8 +904,9 @@ uint64_t _GLOBAL__sub_I_SipUserAgent_cpp()
   v0 = MEMORY[0x1E69E52C0];
 }
 
-uint64_t IBIRTPStackController::IBIRTPStackController(uint64_t a1, uint64_t *a2, int a3, uint64_t *a4)
+uint64_t IBIRTPStackController::IBIRTPStackController(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4)
 {
+  v4 = a3;
   v6 = a2[1];
   v13 = *a2;
   v14 = v6;
@@ -1118,7 +924,7 @@ uint64_t IBIRTPStackController::IBIRTPStackController(uint64_t a1, uint64_t *a2,
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "ibi.stackcontroller");
-  RTPStackController::RTPStackController(a1, &v13, a3, &v11, __p);
+  RTPStackController::RTPStackController(a1, &v13, v4, &v11, __p);
   if (v10 < 0)
   {
     operator delete(__p[0]);
@@ -1263,7 +1069,7 @@ void RTPStackController::~RTPStackController(RTPStackController *this)
   ctu::SharedSynchronizable<SharedImsResultItem>::~SharedSynchronizable(this + 1);
 }
 
-void IBIRTPStackController::initialize(void *a1, std::string::size_type a2, uint64_t a3)
+void IBIRTPStackController::initialize(void *a1, const std::string::value_type **a2, uint64_t a3)
 {
   v50 = 0u;
   v51 = 0u;
@@ -1275,7 +1081,7 @@ void IBIRTPStackController::initialize(void *a1, std::string::size_type a2, uint
   if (a1 + 16 != std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>((a1 + 15), a2))
   {
     __p.__r_.__value_.__r.__words[0] = a2;
-    if (*(std::__tree<std::__value_type<std::string,unsigned char>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned char>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned char>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 15), a2) + 56) == a3)
+    if (*(std::__tree<std::__value_type<std::string,unsigned char>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned char>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned char>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 15), a2, &__p) + 56) == a3)
     {
       std::string::basic_string[abi:ne200100]<0>(&__p, "ibi.stackcontroller");
       v45[0] = 0;
@@ -1305,7 +1111,7 @@ void IBIRTPStackController::initialize(void *a1, std::string::size_type a2, uint
   }
 
   __p.__r_.__value_.__r.__words[0] = a2;
-  *(std::__tree<std::__value_type<std::string,unsigned char>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned char>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned char>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 15), a2) + 56) = a3;
+  *(std::__tree<std::__value_type<std::string,unsigned char>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned char>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned char>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 15), a2, &__p) + 56) = a3;
   if (!a1[20])
   {
     std::string::basic_string[abi:ne200100]<0>(&__p, "ibi.stackcontroller");
@@ -1369,7 +1175,7 @@ void IBIRTPStackController::initialize(void *a1, std::string::size_type a2, uint
   {
     v11 = a1[9];
     v12 = (*(*(v10 + 8) + 176))();
-    RTPManager::stackIdForSession(v11, v12, &__p);
+    RTPManager::stackIdForSession(&__p, v11, v12);
     v13 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
@@ -1383,9 +1189,9 @@ void IBIRTPStackController::initialize(void *a1, std::string::size_type a2, uint
 
     v15 = *(a2 + 23);
     v16 = v15;
-    if ((v15 & 0x80u) != 0)
+    if (v15 < 0)
     {
-      v15 = *(a2 + 8);
+      v15 = a2[1];
     }
 
     if (size == v15)
@@ -1441,7 +1247,7 @@ LABEL_38:
 
 LABEL_42:
   __p.__r_.__value_.__r.__words[0] = a2;
-  v21 = *(std::__tree<std::__value_type<std::string,unsigned char>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned char>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned char>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 15), a2) + 56);
+  v21 = *(std::__tree<std::__value_type<std::string,unsigned char>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned char>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned char>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 15), a2, &__p) + 56);
   (*(*a1 + 112))(a1, 2);
   std::string::basic_string[abi:ne200100]<0>(&__p, "ibi.stackcontroller");
   v28[0] = 0;
@@ -1464,7 +1270,7 @@ LABEL_42:
   memset(&v27, 0, sizeof(v27));
   if (*(a2 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v27, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(&v27, *a2, a2[1]);
   }
 
   else
@@ -1576,17 +1382,17 @@ void ___ZN21IBIRTPStackController10initializeERKNSt3__112basic_stringIcNS0_11cha
   }
 }
 
-void sub_1E4D59464(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4D59464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ImsResult::~ImsResult(va);
-  v5 = *(v3 - 40);
-  if (v5)
+  v6 = *(v4 - 40);
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   _Unwind_Resume(a1);
 }
 
@@ -1628,25 +1434,25 @@ void __destroy_helper_block_e8_40c67_ZTSKNSt3__112basic_stringIcNS_11char_traits
   }
 }
 
-void IBIRTPStackController::cleanup(void *a1, uint64_t a2)
+void IBIRTPStackController::cleanup(void *result, uint64_t a2)
 {
-  if (a1[9])
+  if (result[9])
   {
-    v4 = a1[12];
-    v27[0] = 0;
-    v27[1] = 0;
-    v26 = v27;
-    if (v4 != a1 + 13)
+    v4 = result[12];
+    v25[0] = 0;
+    v25[1] = 0;
+    v24 = v25;
+    if (v4 != result + 13)
     {
       operator new();
     }
 
-    v5 = a1[18];
+    v5 = result[18];
     if (v5)
     {
-      v6 = a1[9];
+      v6 = result[9];
       v7 = (*(*(v5 + 8) + 176))();
-      RTPManager::stackIdForSession(v6, v7, &__p);
+      RTPManager::stackIdForSession(&__p, v6, v7);
       v8 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
       if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
@@ -1659,25 +1465,23 @@ void IBIRTPStackController::cleanup(void *a1, uint64_t a2)
       }
 
       v10 = *(a2 + 23);
-      v11 = *(a2 + 8);
       if ((v10 & 0x80000000) == 0)
       {
-        v12 = *(a2 + 23);
+        v11 = *(a2 + 23);
       }
 
       else
       {
-        v12 = *(a2 + 8);
+        v11 = *(a2 + 8);
       }
 
-      if (size == v12)
+      if (size == v11)
       {
-        v13 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
-        v14 = *a2;
-        v15 = (v10 & 0x80000000) == 0 ? a2 : *a2;
-        if (!memcmp(v13, v15, size))
+        v12 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
+        v13 = (v10 & 0x80000000) == 0 ? a2 : *a2;
+        if (!memcmp(v12, v13, size))
         {
-          v23 = 1;
+          v21 = 1;
           if (v8 < 0)
           {
 LABEL_35:
@@ -1685,7 +1489,7 @@ LABEL_35:
           }
 
 LABEL_36:
-          if (v23)
+          if (v21)
           {
             goto LABEL_37;
           }
@@ -1694,9 +1498,9 @@ LABEL_36:
         }
       }
 
-      if (v12 != 15)
+      if (v11 != 15)
       {
-        v23 = 0;
+        v21 = 0;
         if ((v8 & 0x80) == 0)
         {
           goto LABEL_36;
@@ -1705,56 +1509,56 @@ LABEL_36:
         goto LABEL_35;
       }
 
-      v16 = v10 >> 63;
+      v14 = v10 >> 63;
     }
 
     else
     {
-      v17 = *(a2 + 23);
-      v18 = *(a2 + 8);
-      if ((v17 & 0x80000000) == 0)
+      v15 = *(a2 + 23);
+      v16 = *(a2 + 8);
+      if ((v15 & 0x80000000) == 0)
       {
-        v18 = *(a2 + 23);
+        v16 = *(a2 + 23);
       }
 
-      if (v18 != 15)
+      if (v16 != 15)
       {
         goto LABEL_40;
       }
 
-      v16 = v17 >> 63;
+      v14 = v15 >> 63;
     }
 
-    if (v16)
+    if (v14)
     {
-      v19 = *a2;
+      v17 = *a2;
     }
 
     else
     {
-      v19 = a2;
+      v17 = a2;
     }
 
-    v20 = *v19 ^ 0x536C6C414942496BLL | *(v19 + 7) ^ 0x736E6F6973736553;
-    v21 = v20 == 0;
-    v22 = v20 != 0;
-    v23 = v21;
+    v18 = *v17 ^ 0x536C6C414942496BLL | *(v17 + 7) ^ 0x736E6F6973736553;
+    v19 = v18 == 0;
+    v20 = v18 != 0;
+    v21 = v19;
     if (!v5)
     {
-      if (!v22)
+      if (!v20)
       {
 LABEL_37:
-        v24 = a1[19];
-        a1[18] = 0;
-        a1[19] = 0;
-        if (v24)
+        v22 = result[19];
+        result[18] = 0;
+        result[19] = 0;
+        if (v22)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v24);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v22);
         }
       }
 
 LABEL_40:
-      std::__tree<std::__value_type<unsigned int,std::shared_ptr<IBISession>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::shared_ptr<IBISession>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::shared_ptr<IBISession>>>>::destroy(v27[0]);
+      std::__tree<std::__value_type<unsigned int,std::shared_ptr<IBISession>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::shared_ptr<IBISession>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::shared_ptr<IBISession>>>>::destroy(v25[0]);
       return;
     }
 
@@ -1767,68 +1571,68 @@ LABEL_40:
   }
 }
 
-void IBIRTPStackController::createRTPSession(uint64_t a1@<X0>, uint64_t *a2@<X3>, void **a3@<X5>, void *a4@<X8>)
+void IBIRTPStackController::createRTPSession(void *a1@<X0>, uint64_t *a4@<X3>, uint64_t ***a6@<X5>, void *a8@<X8>)
 {
-  if (a1 + 128 == std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a1 + 120, a3))
+  if (a1 + 16 == std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>((a1 + 15), a6))
   {
-    v9 = 255;
+    v13 = 255;
   }
 
   else
   {
-    v8 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1 + 120, &v26, a3);
-    if (!v8)
+    v12 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>((a1 + 15), &v30, a6);
+    if (!v12)
     {
       std::__throw_out_of_range[abi:ne200100]("map::at:  key not found");
     }
 
-    v9 = *(v8 + 56);
+    v13 = *(v12 + 56);
   }
 
-  v10 = std::string::basic_string[abi:ne200100]<0>(&v26, "ibi.stackcontroller");
-  v22[0] = 0;
-  v25 = 0;
-  v11 = ims::debug(v10, v22);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v11 + 8), "Attempting to create new RTP session for ", 41);
-  *(v11 + 17) = 0;
-  (*(*v11 + 32))(v11, a3);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v11 + 8), " with AppId : ", 14);
-  *(v11 + 17) = 0;
-  MEMORY[0x1E6923340](*(v11 + 8), v9);
-  *(v11 + 17) = 0;
-  (*(*v11 + 64))(v11, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v11 + 17) = 0;
-  if (v25 == 1 && v24 < 0)
+  v14 = std::string::basic_string[abi:ne200100]<0>(&v30, "ibi.stackcontroller");
+  v26[0] = 0;
+  v29 = 0;
+  v15 = ims::debug(v14, v26);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), "Attempting to create new RTP session for ", 41);
+  *(v15 + 17) = 0;
+  (*(*v15 + 32))(v15, a6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), " with AppId : ", 14);
+  *(v15 + 17) = 0;
+  MEMORY[0x1E6923340](*(v15 + 8), v13);
+  *(v15 + 17) = 0;
+  (*(*v15 + 64))(v15, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v15 + 17) = 0;
+  if (v29 == 1 && v28 < 0)
   {
     operator delete(__p);
   }
 
-  if (v27 < 0)
+  if (v31 < 0)
   {
-    operator delete(v26);
+    operator delete(v30);
   }
 
-  v12 = a2[1];
-  if (v12)
+  v16 = a4[1];
+  if (v16)
   {
-    v13 = std::__shared_weak_count::lock(v12);
-    if (v13)
+    v17 = std::__shared_weak_count::lock(v16);
+    if (v17)
     {
-      v14 = *a2;
-      if (*a2)
+      v18 = *a4;
+      if (*a4)
       {
-        v15 = *(v14 + 128);
-        if (v15)
+        v19 = *(v18 + 128);
+        if (v19)
         {
-          v15 = std::__shared_weak_count::lock(v15);
-          if (v15)
+          v19 = std::__shared_weak_count::lock(v19);
+          if (v19)
           {
-            v15 = *(v14 + 120);
+            v19 = *(v18 + 120);
           }
         }
 
-        SipStack::prefs(v15);
-        std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v26, (a1 + 8));
+        SipStack::prefs(v19);
+        std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v30, a1 + 1);
         operator new();
       }
     }
@@ -1836,32 +1640,32 @@ void IBIRTPStackController::createRTPSession(uint64_t a1@<X0>, uint64_t *a2@<X3>
 
   else
   {
-    v13 = 0;
+    v17 = 0;
   }
 
-  v16 = std::string::basic_string[abi:ne200100]<0>(&v26, "ibi.stackcontroller");
-  v18[0] = 0;
-  v21 = 0;
-  v17 = ims::error(v16, v18);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v17 + 8), "SDPSession expired.", 19);
-  *(v17 + 17) = 0;
-  (*(*v17 + 64))(v17, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v17 + 17) = 0;
-  if (v21 == 1 && v20 < 0)
+  v20 = std::string::basic_string[abi:ne200100]<0>(&v30, "ibi.stackcontroller");
+  v22[0] = 0;
+  v25 = 0;
+  v21 = ims::error(v20, v22);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), "SDPSession expired.", 19);
+  *(v21 + 17) = 0;
+  (*(*v21 + 64))(v21, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v21 + 17) = 0;
+  if (v25 == 1 && v24 < 0)
   {
-    operator delete(v19);
+    operator delete(v23);
   }
 
-  if (v27 < 0)
+  if (v31 < 0)
   {
-    operator delete(v26);
+    operator delete(v30);
   }
 
-  *a4 = 0;
-  a4[1] = 0;
-  if (v13)
+  *a8 = 0;
+  a8[1] = 0;
+  if (v17)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
   }
 }
 
@@ -1991,17 +1795,17 @@ void RTPStackController::stackError(void *a1, const ImsResult *a2)
   }
 }
 
-void sub_1E4D5A328(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E4D5A328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ImsResult::~ImsResult(va);
-  v5 = *(v3 - 40);
-  if (v5)
+  v6 = *(v4 - 40);
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   _Unwind_Resume(a1);
 }
 
@@ -2173,7 +1977,7 @@ void sub_1E4D5A798(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void IBIRTPStackController::handleMediaError(IBIRTPStackController *this, uint64_t a2, uint64_t a3, uint64_t a4)
+void IBIRTPStackController::handleMediaError(IBIRTPStackController *this, uint64_t a2, _BOOL8 a3, _BOOL8 a4)
 {
   v30 = a2;
   v8 = std::string::basic_string[abi:ne200100]<0>(v28, "ibi.stackcontroller");
@@ -3056,54 +2860,54 @@ void sub_1E4D5C350(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void IBIRTPStackController::sendAudioCallEvent(void *a1, uint64_t a2)
 {
-  std::string::basic_string[abi:ne200100]<0>(v9, "ibi.stackcontroller");
-  v15[0] = 0;
-  v18 = 0;
-  v4 = ims::debug(v9, v15);
+  std::string::basic_string[abi:ne200100]<0>(v10, "ibi.stackcontroller");
+  v16[0] = 0;
+  v19 = 0;
+  v5 = ims::debug(v10, v16);
   if (a1)
   {
-    v5 = v4;
-    v6 = *(*(*a1 - 8) + 8);
-    v7 = *(v4 + 8);
-    v8 = strlen((v6 & 0x7FFFFFFFFFFFFFFFLL));
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, v6 & 0x7FFFFFFFFFFFFFFFLL, v8);
-    *(v5 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v5 + 8), "::", 2);
-    *(v5 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v5 + 8), "sendAudioCallEvent", 18);
-    *(v5 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v5 + 8), " [event=", 8);
-    *(v5 + 17) = 0;
-    MEMORY[0x1E6923340](*(v5 + 8), a2);
-    *(v5 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v5 + 8), "]", 1);
-    *(v5 + 17) = 0;
-    (*(*v5 + 64))(v5, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v5 + 17) = 0;
-    if (v18 == 1 && v17 < 0)
+    v6 = v5;
+    v7 = *(*(*a1 - 8) + 8);
+    v8 = *(v5 + 8);
+    v9 = strlen((v7 & 0x7FFFFFFFFFFFFFFFLL));
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, v7 & 0x7FFFFFFFFFFFFFFFLL, v9);
+    *(v6 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), "::", 2);
+    *(v6 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), "sendAudioCallEvent", 18);
+    *(v6 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), " [event=", 8);
+    *(v6 + 17) = 0;
+    MEMORY[0x1E6923340](*(v6 + 8), a2);
+    *(v6 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), "]", 1);
+    *(v6 + 17) = 0;
+    (*(*v6 + 64))(v6, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v6 + 17) = 0;
+    if (v19 == 1 && v18 < 0)
     {
       operator delete(__p);
     }
 
-    if (SBYTE7(v10) < 0)
+    if (SBYTE7(v11) < 0)
     {
-      operator delete(v9[0]);
+      operator delete(v10[0]);
     }
 
-    v14 = 0;
-    v12 = 0u;
+    v15 = 0;
     v13 = 0u;
-    v10 = 0u;
+    v14 = 0u;
     v11 = 0u;
-    *v9 = 0u;
-    AriSdk::ARI_CsiIceAudCallEventReq_SDK::ARI_CsiIceAudCallEventReq_SDK(v9);
+    v12 = 0u;
+    *v10 = 0u;
+    AriSdk::ARI_CsiIceAudCallEventReq_SDK::ARI_CsiIceAudCallEventReq_SDK(v10);
     operator new();
   }
 
   __cxa_bad_typeid();
 }
 
-void sub_1E4D5C924(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, char a33, void *aBlock, uint64_t a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, uint64_t a41, void *__p, uint64_t a43, int a44, __int16 a45, char a46, char a47, uint64_t a48, char a49)
+void sub_1E4D5C924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, char a33, void *aBlock, uint64_t a35, int a36, __int16 a37, char a38, char a39, uint64_t a40, uint64_t a41, void *__p, uint64_t a43, int a44, __int16 a45, char a46, char a47, uint64_t a48, char a49)
 {
   v53 = *(v51 - 80);
   if (v53)
@@ -3130,7 +2934,7 @@ LABEL_3:
   if (!v49)
   {
 LABEL_5:
-    MEMORY[0x1E69229B0](&a9);
+    MEMORY[0x1E69229B0](&a9, a2, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(a1);
   }
 
@@ -3139,26 +2943,26 @@ LABEL_4:
   goto LABEL_5;
 }
 
-uint64_t IBIRTPStackController::reportAPSession(uint64_t a1, void *a2, void *a3, unsigned __int16 a4, unsigned __int16 a5, uint64_t a6)
+uint64_t IBIRTPStackController::reportAPSession(void *a1, IpAddress **a2, IpAddress **a3, unsigned __int16 a4, unsigned __int16 a5, uint64_t a6)
 {
-  v29 = a4;
-  v28 = a5;
+  v23 = a4;
+  v22 = a5;
   result = TelephonyRadiosGetRadioVendor();
   if (result != 3)
   {
     std::string::basic_string[abi:ne200100]<0>(v12, "ibi.stackcontroller");
-    v24[0] = 0;
-    v27 = 0;
-    v10 = ims::debug(v12, v24);
+    v18[0] = 0;
+    v21 = 0;
+    v10 = ims::debug(v12, v18);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), "reportAPSession", 15);
     *(v10 + 17) = 0;
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), " [localPort=", 12);
     *(v10 + 17) = 0;
-    MEMORY[0x1E6923390](*(v10 + 8), v29);
+    MEMORY[0x1E6923390](*(v10 + 8), v23);
     *(v10 + 17) = 0;
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), " remotePort=", 12);
     *(v10 + 17) = 0;
-    MEMORY[0x1E6923390](*(v10 + 8), v28);
+    MEMORY[0x1E6923390](*(v10 + 8), v22);
     *(v10 + 17) = 0;
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), " callActive=", 12);
     *(v10 + 17) = 0;
@@ -3168,35 +2972,35 @@ uint64_t IBIRTPStackController::reportAPSession(uint64_t a1, void *a2, void *a3,
     *(v10 + 17) = 0;
     if (*a3)
     {
-      IpAddress::asString(&v32);
+      IpAddress::asString(&v26, *a3, 0);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v32, "0");
-    (*(*v10 + 32))(v10, &v32);
+    std::string::basic_string[abi:ne200100]<0>(&v26, "0");
+    (*(*v10 + 32))(v10, &v26);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), " localAddress=", 14);
     *(v10 + 17) = 0;
     if (*a2)
     {
-      IpAddress::asString(&v30);
+      IpAddress::asString(&v24, *a2, 0);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v30, "0");
-    (*(*v10 + 32))(v10, &v30);
+    std::string::basic_string[abi:ne200100]<0>(&v24, "0");
+    (*(*v10 + 32))(v10, &v24);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v10 + 8), "]", 1);
     *(v10 + 17) = 0;
     (*(*v10 + 64))(v10, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v10 + 17) = 0;
-    if (v31 < 0)
+    if (v25 < 0)
     {
-      operator delete(v30);
+      operator delete(v24);
     }
 
-    if (v33 < 0)
+    if (v27 < 0)
     {
-      operator delete(v32);
+      operator delete(v26);
     }
 
-    if (v27 == 1 && v26 < 0)
+    if (v21 == 1 && v20 < 0)
     {
       operator delete(__p);
     }
@@ -3206,23 +3010,17 @@ uint64_t IBIRTPStackController::reportAPSession(uint64_t a1, void *a2, void *a3,
       operator delete(v12[0]);
     }
 
-    v23 = 0;
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
-    v18 = 0u;
+    v17 = 0;
     v15 = 0u;
-    v16 = 0u;
+    memset(v16, 0, sizeof(v16));
     v13 = 0u;
     v14 = 0u;
     *v12 = 0u;
     AriSdk::ARI_IBICallPsRtpReq_SDK::ARI_IBICallPsRtpReq_SDK(v12);
     memset(v11, 0, sizeof(v11));
     std::vector<unsigned char>::vector[abi:ne200100](v11, 16);
-    LODWORD(v32) = 0;
-    AriSdk::Tlv<unsigned int>::operator=<unsigned int &,void>();
+    LODWORD(v26) = 0;
+    AriSdk::Tlv<unsigned int>::operator=<unsigned int &,void>(v16, &v26);
   }
 
   return result;
@@ -3235,11 +3033,11 @@ void sub_1E4D5D240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(__p);
   }
 
-  MEMORY[0x1E6922940](&a31);
+  MEMORY[0x1E6922940](&a31, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void ibiUtils::ibiSetValue<unsigned char,16ul,std::vector<unsigned char>>(Ari *a1, uint64_t *a2)
+void ibiUtils::ibiSetValue<unsigned char,16ul,std::vector<unsigned char>>(Ari *a1, char **a2)
 {
   v4 = *a2;
   v3 = a2[1];
@@ -3444,13 +3242,16 @@ void sub_1E4D5D95C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t IBIRTPStackController::setAppId(uint64_t result, void **a2, int a3)
+uint64_t IBIRTPStackController::setAppId(uint64_t result, __int128 *a2, int a3)
 {
   if (a3 != 255)
   {
-    v3 = a3;
-    result = std::__tree<std::__value_type<std::string,unsigned char>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned char>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned char>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(result + 120, a2);
-    *(result + 56) = v3;
+    v6[3] = v3;
+    v6[4] = v4;
+    v5 = a3;
+    v6[0] = a2;
+    result = std::__tree<std::__value_type<std::string,unsigned char>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned char>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned char>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(result + 120, a2, v6);
+    *(result + 56) = v5;
   }
 
   return result;
@@ -3516,16 +3317,16 @@ void ims::SharedLoggable<RTPStackController>::~SharedLoggable(uint64_t a1)
   JUMPOUT(0x1E69235B0);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,unsigned char>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned char>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned char>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,unsigned char>,std::__map_value_compare<std::string,std::__value_type<std::string,unsigned char>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,unsigned char>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, uint64_t ***a2, __int128 **a3)
 {
-  v4 = 0;
-  v2 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v5 = 0;
+  v3 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 void std::__tree<std::__value_type<unsigned int,std::shared_ptr<IBISession>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::shared_ptr<IBISession>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::shared_ptr<IBISession>>>>::destroy(void *a1)
@@ -3576,7 +3377,7 @@ void __destroy_helper_block_e8_40c47_ZTSNSt3__110shared_ptrIK18RTPStackControlle
 
 void std::__tree<std::__value_type<unsigned int,std::shared_ptr<IBISession>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,std::shared_ptr<IBISession>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,std::shared_ptr<IBISession>>>>::__erase_unique<unsigned int>(uint64_t **a1, unsigned int a2)
 {
-  v4 = (a1 + 1);
+  v4 = a1 + 1;
   v3 = a1[1];
   if (v3)
   {
@@ -3725,7 +3526,7 @@ void *ice::detail::wrapCallback<int>@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 
 Ari *AriSdk::TlvArray<unsigned char,16ul>::operator=(Ari *a1, __n128 *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (a2->n128_u64[1] - a2->n128_u64[0] < 0x11)
   {
     std::vector<unsigned char>::__move_assign(a1, a2);
@@ -3739,30 +3540,30 @@ Ari *AriSdk::TlvArray<unsigned char,16ul>::operator=(Ari *a1, __n128 *a2)
       OsLog = AriOsa::GetOsLog(LogLevels);
       if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
       {
-        AriOsa::LogSrcInfo(v13, "/AppleInternal/Library/BuildRoots/4~CAp6ugAzXgRI-603lAI8B8fP5lG5sdpA6ibsuMk/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/local/include/ARI/ari_sdk_msg.h", "operator=", v6);
-        v11 = v14 >= 0 ? v13 : v13[0];
-        v12 = a2->n128_u64[1] - a2->n128_u64[0];
+        AriOsa::LogSrcInfo(v12, "/AppleInternal/Library/BuildRoots/4~CAp6ugAzXgRI-603lAI8B8fP5lG5sdpA6ibsuMk/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/local/include/ARI/ari_sdk_msg.h", "operator=", v6);
+        v10 = v13 >= 0 ? v12 : v12[0];
+        v11 = a2->n128_u64[1] - a2->n128_u64[0];
         *__p = 136316418;
         *&__p[4] = "ari";
-        v16 = 2080;
-        v17 = v11;
-        v18 = 1024;
-        v19 = 360;
-        v20 = 2048;
-        v21 = a1;
-        v22 = 2048;
-        v23 = v12;
-        v24 = 2048;
-        v25 = 16;
+        v15 = 2080;
+        v16 = v10;
+        v17 = 1024;
+        v18 = 360;
+        v19 = 2048;
+        v20 = a1;
+        v21 = 2048;
+        v22 = v11;
+        v23 = 2048;
+        v24 = 16;
         _os_log_error_impl(&dword_1E4C3F000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", __p, 0x3Au);
-        if (v14 < 0)
+        if (v13 < 0)
         {
-          operator delete(v13[0]);
+          operator delete(v12[0]);
         }
       }
 
       AriOsa::LogSrcInfo(__p, "/AppleInternal/Library/BuildRoots/4~CAp6ugAzXgRI-603lAI8B8fP5lG5sdpA6ibsuMk/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/local/include/ARI/ari_sdk_msg.h", "operator=", v6);
-      if (v18 >= 0)
+      if (v17 >= 0)
       {
         v8 = __p;
       }
@@ -3773,14 +3574,13 @@ Ari *AriSdk::TlvArray<unsigned char,16ul>::operator=(Ari *a1, __n128 *a2)
       }
 
       AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Array assignment too large(%p), got(%zu) max(%zu)", v7, v8, 360, a1, a2->n128_u64[1] - a2->n128_u64[0], 16);
-      if (SHIBYTE(v18) < 0)
+      if (SHIBYTE(v17) < 0)
       {
         operator delete(*__p);
       }
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
@@ -3947,10 +3747,10 @@ void std::__shared_ptr_emplace<LazuliSuccessReportHeader>::~__shared_ptr_emplace
   JUMPOUT(0x1E69235B0);
 }
 
-void ImsPrefs::AcceptContactParams(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::AcceptContactParams(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "AcceptContactParams");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -3967,7 +3767,7 @@ void sub_1E4D5EA20(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::stringValue(uint64_t a1@<X0>, void **a2@<X1>, std::string *a3@<X8>)
+void ImsPrefs::stringValue(uint64_t a1@<X0>, char *a2@<X1>, std::string *a3@<X8>)
 {
   v11 = &unk_1F5EF36B0;
   v12 = 0;
@@ -3990,7 +3790,7 @@ void ImsPrefs::stringValue(uint64_t a1@<X0>, void **a2@<X1>, std::string *a3@<X8
     ims::CFType::~CFType(v8);
     if (ims::CFDictionary::getValue<ims::CFString>(v9, a2, &v11))
     {
-      ims::CFString::asString(v12, 0x8000100, &v7);
+      ims::CFString::asString(&v7, v12, 0x8000100);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -4019,7 +3819,7 @@ void ImsPrefs::stringValue(uint64_t a1@<X0>, void **a2@<X1>, std::string *a3@<X8
   ims::CFType::~CFType(&v11);
 }
 
-void sub_1E4D5EBBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, char a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
+void sub_1E4D5EBBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
 {
   ims::CFType::~CFType(&a15);
   if (a22 < 0)
@@ -4031,10 +3831,10 @@ void sub_1E4D5EBBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ImsPrefs::AcceptedSmsContentTypes(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::AcceptedSmsContentTypes(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "AcceptedSmsContentTypes");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -4073,7 +3873,7 @@ void sub_1E4D5ECE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ImsPrefs::intValue(uint64_t a1, void **a2)
+uint64_t ImsPrefs::intValue(uint64_t a1, char *a2)
 {
   v10 = &unk_1F5EF3708;
   v11 = 0;
@@ -4110,9 +3910,9 @@ LABEL_8:
   return v6;
 }
 
-void sub_1E4D5EE10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1E4D5EE10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   ims::CFType::~CFType(va);
   _Unwind_Resume(a1);
 }
@@ -4139,7 +3939,7 @@ void sub_1E4D5EEA0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL ImsPrefs::BOOLValue(uint64_t a1, void **a2)
+BOOL ImsPrefs::BOOLValue(uint64_t a1, char *a2)
 {
   v9 = &unk_1F5EF38A0;
   BOOLean = 0;
@@ -4185,9 +3985,9 @@ LABEL_11:
   return v5;
 }
 
-void sub_1E4D5EFE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1E4D5EFE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   ims::CFType::~CFType(va);
   _Unwind_Resume(a1);
 }
@@ -4258,7 +4058,7 @@ void sub_1E4D5F160(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::dictValue(uint64_t a1@<X0>, void **a2@<X1>, void *a3@<X8>)
+void ImsPrefs::dictValue(uint64_t a1@<X0>, char *a2@<X1>, void *a3@<X8>)
 {
   v10 = &unk_1F5EF3760;
   cf = 0;
@@ -4302,9 +4102,9 @@ LABEL_10:
   ims::CFType::~CFType(&v10);
 }
 
-void sub_1E4D5F2C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1E4D5F2C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   ims::CFType::~CFType(va);
   _Unwind_Resume(a1);
 }
@@ -5211,10 +5011,10 @@ void sub_1E4D60618(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::ContactUser(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::ContactUser(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "ContactUser");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -5341,10 +5141,10 @@ void sub_1E4D608E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::DefaultAuthAlgorithm(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::DefaultAuthAlgorithm(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "DefaultAuthAlgorithm");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -5581,7 +5381,7 @@ void sub_1E4D60E10(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::arrayValue(uint64_t a1@<X0>, void **a2@<X1>, void *a3@<X8>)
+void ImsPrefs::arrayValue(uint64_t a1@<X0>, char *a2@<X1>, void *a3@<X8>)
 {
   v10 = &unk_1F5EC8AD0;
   cf = 0;
@@ -5625,9 +5425,9 @@ LABEL_10:
   ims::CFType::~CFType(&v10);
 }
 
-void sub_1E4D60F78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1E4D60F78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   ims::CFType::~CFType(va);
   _Unwind_Resume(a1);
 }
@@ -5654,10 +5454,10 @@ void sub_1E4D61008(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::DontThrottleOnRegistrationErrorCodes(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::DontThrottleOnRegistrationErrorCodes(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "DontThrottleOnRegistrationErrorCodes");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -5762,10 +5562,10 @@ void sub_1E4D61260(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::DropRegistrationOnErrorCodes(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::DropRegistrationOnErrorCodes(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "DropRegistrationOnErrorCodes");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -5958,10 +5758,10 @@ void sub_1E4D61698(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::EmergencyErrorResponsesToTriggerCSFB(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::EmergencyErrorResponsesToTriggerCSFB(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "EmergencyErrorResponsesToTriggerCSFB");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -6152,10 +5952,10 @@ void sub_1E4D61AD0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::EmergencyRegistrationRequestUri(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::EmergencyRegistrationRequestUri(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "EmergencyRegistrationRequestUri");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -6568,10 +6368,10 @@ void sub_1E4D623B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::FatalSmsErrors(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::FatalSmsErrors(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "FatalSmsErrors");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -6630,10 +6430,10 @@ void sub_1E4D62520(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::ForbiddenRegistrationErrorCodes(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::ForbiddenRegistrationErrorCodes(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "ForbiddenRegistrationErrorCodes");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -6716,10 +6516,10 @@ void sub_1E4D62700(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::ForcedFeatureTags(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::ForcedFeatureTags(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "ForcedFeatureTags");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -7088,10 +6888,10 @@ void sub_1E4D62EF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::IgnoreReregistrationErrorCodes(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::IgnoreReregistrationErrorCodes(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "IgnoreReregistrationErrorCodes");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -7214,10 +7014,10 @@ void sub_1E4D631C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::InviteErrorResponsesToTriggerCSFB(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::InviteErrorResponsesToTriggerCSFB(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "InviteErrorResponsesToTriggerCSFB");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -7278,10 +7078,10 @@ void sub_1E4D63330(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::KillForkOnUpdateErrors(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::KillForkOnUpdateErrors(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "KillForkOnUpdateErrors");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -7538,10 +7338,10 @@ void sub_1E4D638D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::AddLocationInInviteResponses(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::AddLocationInInviteResponses(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "AddLocationInInviteResponses");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -7668,10 +7468,10 @@ void sub_1E4D63BA0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::MethodInPIDF(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::MethodInPIDF(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "MethodInPIDF");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -7776,10 +7576,10 @@ void sub_1E4D63DF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::NonFatalReInviteResponses(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::NonFatalReInviteResponses(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "NonFatalReInviteResponses");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -8014,10 +7814,10 @@ void sub_1E4D64320(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::PreferredAuthQopList(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::PreferredAuthQopList(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "PreferredAuthQopList");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -8034,10 +7834,10 @@ void sub_1E4D64398(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::PreferredSenderIdentity(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::PreferredSenderIdentity(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "PreferredSenderIdentity");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -8054,10 +7854,10 @@ void sub_1E4D64410(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::PreferredSenderName(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::PreferredSenderName(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "PreferredSenderName");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -8074,10 +7874,10 @@ void sub_1E4D64488(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::PrivacyHeaderValue(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::PrivacyHeaderValue(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "PrivacyHeaderValue");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -8116,10 +7916,10 @@ void sub_1E4D64578(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::ReRegisterOnErrorCodes(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::ReRegisterOnErrorCodes(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "ReRegisterOnErrorCodes");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -8444,10 +8244,10 @@ void sub_1E4D64C80(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::RegistrationPolicy(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::RegistrationPolicy(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "RegistrationPolicy");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -8552,10 +8352,10 @@ void sub_1E4D64ED8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::RegistrationRetryIntervals(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::RegistrationRetryIntervals(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "RegistrationRetryIntervals");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -8572,10 +8372,10 @@ void sub_1E4D64F50(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::CountryCodesWhereNeedImsiInContactHeaderOfAnonymousEmergencyInvite(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::CountryCodesWhereNeedImsiInContactHeaderOfAnonymousEmergencyInvite(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "CountryCodesWhereNeedImsiInContactHeaderOfAnonymousEmergencyInvite");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -8856,10 +8656,10 @@ void sub_1E4D65568(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::ResetDisabledModeOnEvents(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::ResetDisabledModeOnEvents(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "ResetDisabledModeOnEvents");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -8876,10 +8676,10 @@ void sub_1E4D655E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::ResetThrottlingOnEvents(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::ResetThrottlingOnEvents(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "ResetThrottlingOnEvents");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -8896,10 +8696,10 @@ void sub_1E4D65658(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::RetryAfterStatusCodes(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::RetryAfterStatusCodes(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "RetryAfterStatusCodes");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -8916,10 +8716,10 @@ void sub_1E4D656D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::IgnoreRetryAfterStatusCodes(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::IgnoreRetryAfterStatusCodes(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "IgnoreRetryAfterStatusCodes");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -9636,10 +9436,10 @@ void sub_1E4D66648(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ImsPrefs::PCSCFDomainName(ImsPrefs *this@<X0>, std::string *a2@<X8>)
+void ImsPrefs::PCSCFDomainName(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "PCSCFDomainName");
-  ImsPrefs::stringValue(this, __p, a2);
+  ImsPrefs::stringValue(this, __p, a1);
   if (v5 < 0)
   {
     operator delete(__p[0]);
@@ -9884,4 +9684,210 @@ BOOL ImsPrefs::TransferorShouldSendByeRequest(ImsPrefs *this)
   }
 
   return v2;
+}
+
+void sub_1E4D66BE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+BOOL ImsPrefs::ExplicitTransferEnabled(ImsPrefs *this)
+{
+  std::string::basic_string[abi:ne200100]<0>(__p, "ExplicitTransferEnabled");
+  v2 = ImsPrefs::BOOLValue(this, __p);
+  if (v5 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  return v2;
+}
+
+void sub_1E4D66C60(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+BOOL ImsPrefs::HoldTransferTargetSession(ImsPrefs *this)
+{
+  std::string::basic_string[abi:ne200100]<0>(__p, "HoldTransferTargetSession");
+  v2 = ImsPrefs::BOOLValue(this, __p);
+  if (v5 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  return v2;
+}
+
+void sub_1E4D66CD8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t ImsPrefs::TransportInitTimeoutSeconds(ImsPrefs *this)
+{
+  std::string::basic_string[abi:ne200100]<0>(__p, "TransportInitTimeoutSeconds");
+  v2 = ImsPrefs::intValue(this, __p);
+  if (v5 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  return v2;
+}
+
+void sub_1E4D66D50(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+BOOL ImsPrefs::TriggerCSFBOnLocalQoSTimeoutMO(ImsPrefs *this)
+{
+  std::string::basic_string[abi:ne200100]<0>(__p, "TriggerCSFBOnLocalQoSTimeoutMO");
+  v2 = ImsPrefs::BOOLValue(this, __p);
+  if (v5 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  return v2;
+}
+
+void sub_1E4D66DC8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+BOOL ImsPrefs::TriggerCSFBOnLocalQoSTimeoutMT(ImsPrefs *this)
+{
+  std::string::basic_string[abi:ne200100]<0>(__p, "TriggerCSFBOnLocalQoSTimeoutMT");
+  v2 = ImsPrefs::BOOLValue(this, __p);
+  if (v5 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  return v2;
+}
+
+void sub_1E4D66E40(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+BOOL ImsPrefs::TriggerCSFBOnSDPError(ImsPrefs *this)
+{
+  std::string::basic_string[abi:ne200100]<0>(__p, "TriggerCSFBOnSDPError");
+  v2 = ImsPrefs::BOOLValue(this, __p);
+  if (v5 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  return v2;
+}
+
+void sub_1E4D66EB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+BOOL ImsPrefs::TriggerCSFBOnWaitForRingingTimeout(ImsPrefs *this)
+{
+  std::string::basic_string[abi:ne200100]<0>(__p, "TriggerCSFBOnWaitForRingingTimeout");
+  v2 = ImsPrefs::BOOLValue(this, __p);
+  if (v5 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  return v2;
+}
+
+void sub_1E4D66F30(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void ImsPrefs::TimeoutRegistrationAllProxyErrorCodes(std::string *__return_ptr a1@<X8>, ImsPrefs *this@<X0>)
+{
+  std::string::basic_string[abi:ne200100]<0>(__p, "TimeoutRegistrationAllProxyErrorCodes");
+  ImsPrefs::stringValue(this, __p, a1);
+  if (v5 < 0)
+  {
+    operator delete(__p[0]);
+  }
+}
+
+void sub_1E4D66FA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+BOOL ImsPrefs::UseAoRForSmsSenderIdentity(ImsPrefs *this)
+{
+  std::string::basic_string[abi:ne200100]<0>(__p, "UseAoRForSmsSenderIdentity");
+  v2 = ImsPrefs::BOOLValue(this, __p);
+  if (v5 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  return v2;
+}
+
+void sub_1E4D67020(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
 }

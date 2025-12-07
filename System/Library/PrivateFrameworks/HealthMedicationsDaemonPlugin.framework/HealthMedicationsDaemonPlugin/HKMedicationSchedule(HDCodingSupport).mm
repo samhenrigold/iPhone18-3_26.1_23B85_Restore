@@ -40,7 +40,7 @@
 
 + (NSObject)hd_medicationScheduleFromCodable:()HDCodingSupport
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v4 = a3;
   [v4 endDateTime];
   if (fabs(v5) < 2.22044605e-16)
@@ -78,8 +78,8 @@
     medicationIdentifier = 0;
   }
 
-  v42 = medicationIdentifier;
-  v43 = v7;
+  v41 = medicationIdentifier;
+  v42 = v7;
   if ([v4 hasScheduleType])
   {
     scheduleType = [v4 scheduleType];
@@ -96,10 +96,10 @@
   decodedMedicationUUID = [v4 decodedMedicationUUID];
   v15 = MEMORY[0x277CBEBB0];
   createdTimeZone = [v4 createdTimeZone];
-  v35 = [v15 timeZoneWithName:createdTimeZone];
+  v34 = [v15 timeZoneWithName:createdTimeZone];
   v16 = MEMORY[0x277CBEAA8];
   [v4 startDateTime];
-  v34 = [v16 dateWithTimeIntervalSinceReferenceDate:?];
+  v33 = [v16 dateWithTimeIntervalSinceReferenceDate:?];
   intervalDatas = [v4 intervalDatas];
   selfCopy = self;
   v17 = [(HKMedicationSchedule *)self _medicationScheduleIntervalDataFromCodable:intervalDatas];
@@ -111,8 +111,8 @@
   [v4 creationDate];
   v24 = v23;
   note = [v4 note];
-  LOBYTE(v32) = deleted;
-  v26 = [v14 initWithUUID:decodedUUID medicationUUID:decodedMedicationUUID medicationIdentifier:v42 createdUTCOffset:v35 startDateTime:v34 endDateTime:v43 timeIntervals:v24 scheduleType:v17 displayOptions:scheduleType cycleStartDateComponents:displayOptions deleted:v21 creationTimestamp:v32 note:note compatibilityVersionRange:{minimum, origin}];
+  LOBYTE(v31) = deleted;
+  v26 = [v14 initWithUUID:decodedUUID medicationUUID:decodedMedicationUUID medicationIdentifier:v41 createdUTCOffset:v34 startDateTime:v33 endDateTime:v42 timeIntervals:v24 scheduleType:v17 displayOptions:scheduleType cycleStartDateComponents:displayOptions deleted:v21 creationTimestamp:v31 note:note compatibilityVersionRange:{minimum, origin}];
 
   if ([v26 isUnavailable])
   {
@@ -121,9 +121,9 @@
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v45 = selfCopy;
-      v46 = 2114;
-      v47 = v26;
+      v44 = selfCopy;
+      v45 = 2114;
+      v46 = v26;
       _os_log_impl(&dword_25181C000, v27, OS_LOG_TYPE_DEFAULT, "[%{public}@] Receiving a schedule that has already been marked as unavailable. %{public}@", buf, 0x16u);
     }
 
@@ -149,7 +149,6 @@ LABEL_21:
 
   v29 = v26;
 
-  v30 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
@@ -217,13 +216,12 @@ LABEL_21:
 
 + (void)hd_medicationScheduleFromCodable:()HDCodingSupport .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_25181C000, log, OS_LOG_TYPE_ERROR, "[%{public}@] Received invalid schedule: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_25181C000, log, OS_LOG_TYPE_ERROR, "[%{public}@] Received invalid schedule: %{public}@", &v3, 0x16u);
 }
 
 @end

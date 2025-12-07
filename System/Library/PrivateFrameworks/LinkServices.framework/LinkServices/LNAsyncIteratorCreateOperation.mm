@@ -31,33 +31,31 @@
 
 - (void)start
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = LNAsyncIteratorCreateOperation;
-  [(LNConnectionOperation *)&v11 start];
+  v15 = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = LNAsyncIteratorCreateOperation;
+  [(LNConnectionOperation *)&v10 start];
   v3 = getLNLogCategoryExecution();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     sequence = [(LNAsyncIteratorCreateOperation *)self sequence];
     options = [(LNAsyncIteratorCreateOperation *)self options];
     *buf = 138412546;
-    v13 = sequence;
-    v14 = 2112;
-    v15 = options;
+    v12 = sequence;
+    v13 = 2112;
+    v14 = options;
     _os_log_impl(&dword_19763D000, v3, OS_LOG_TYPE_INFO, "Creating AsyncIterator for sequence: %@, with options: %@", buf, 0x16u);
   }
 
   connectionInterface = [(LNInterfaceConnectionOperation *)self connectionInterface];
   sequence2 = [(LNAsyncIteratorCreateOperation *)self sequence];
   options2 = [(LNAsyncIteratorCreateOperation *)self options];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __39__LNAsyncIteratorCreateOperation_start__block_invoke;
-  v10[3] = &unk_1E74B08A8;
-  v10[4] = self;
-  [connectionInterface createAsyncIteratorForSequence:sequence2 options:options2 completionHandler:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __39__LNAsyncIteratorCreateOperation_start__block_invoke;
+  v9[3] = &unk_1E74B08A8;
+  v9[4] = self;
+  [connectionInterface createAsyncIteratorForSequence:sequence2 options:options2 completionHandler:v9];
 }
 
 void __39__LNAsyncIteratorCreateOperation_start__block_invoke(uint64_t a1, void *a2, void *a3)

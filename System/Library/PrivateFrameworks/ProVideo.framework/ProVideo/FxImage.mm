@@ -125,7 +125,7 @@
   v4 = [FxImage allocWithZone:zone];
   if (self)
   {
-    [(FxImage *)self imageInfo];
+    objc_msgSend_imageInfo(self);
   }
 
   else

@@ -19,7 +19,7 @@
 
 - (void)setupWithPlaybackEventsDictionary:(id)dictionary
 {
-  sub_1E3280A90(0, &qword_1ECF41518);
+  sub_1E3280A90(0, &qword_1ECF41518, 0x1E69D5A38);
   sub_1E4205C64();
   selfCopy = self;
   sub_1E41853B4();

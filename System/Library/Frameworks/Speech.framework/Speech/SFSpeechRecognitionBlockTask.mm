@@ -23,7 +23,7 @@ void __105___SFSpeechRecognitionBlockTask_localSpeechRecognitionClient_didRecogn
   }
 }
 
-uint64_t __87___SFSpeechRecognitionBlockTask_localSpeechRecognitionClient_speechRecognitionDidFail___block_invoke(uint64_t a1)
+dispatch_queue_t *__87___SFSpeechRecognitionBlockTask_localSpeechRecognitionClient_speechRecognitionDidFail___block_invoke(uint64_t a1)
 {
   [(_SFSpeechRecognitionBlockTask *)*(a1 + 32) _fireResultHandlerWithResult:*(*(a1 + 32) + 56) error:?];
   v2 = *(a1 + 32);
@@ -31,7 +31,7 @@ uint64_t __87___SFSpeechRecognitionBlockTask_localSpeechRecognitionClient_speech
   return [(_SFSpeechRecognitionBlockTask *)v2 _finalizeResultHandler];
 }
 
-uint64_t __85___SFSpeechRecognitionBlockTask_localSpeechRecognitionClient_speechRecordingDidFail___block_invoke(uint64_t a1)
+dispatch_queue_t *__85___SFSpeechRecognitionBlockTask_localSpeechRecognitionClient_speechRecordingDidFail___block_invoke(uint64_t a1)
 {
   [(_SFSpeechRecognitionBlockTask *)*(a1 + 32) _fireResultHandlerWithResult:*(a1 + 40) error:?];
   v2 = *(a1 + 32);
@@ -39,7 +39,7 @@ uint64_t __85___SFSpeechRecognitionBlockTask_localSpeechRecognitionClient_speech
   return [(_SFSpeechRecognitionBlockTask *)v2 _finalizeResultHandler];
 }
 
-uint64_t __86___SFSpeechRecognitionBlockTask_localSpeechRecognitionClientSpeechRecordingDidCancel___block_invoke(uint64_t a1)
+dispatch_queue_t *__86___SFSpeechRecognitionBlockTask_localSpeechRecognitionClientSpeechRecordingDidCancel___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E698D280] code:216 userInfo:0];
@@ -73,7 +73,7 @@ void __86___SFSpeechRecognitionBlockTask_dictationConnection_didRecognizeTokens_
 
 void __73___SFSpeechRecognitionBlockTask_dictationConnection_didRecognizePackage___block_invoke(uint64_t a1)
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   if (+[SFUtilities isSpeechXPCEnabled])
   {
     v2 = [MEMORY[0x1E695DF90] dictionary];
@@ -86,26 +86,25 @@ void __73___SFSpeechRecognitionBlockTask_dictationConnection_didRecognizePackage
     v4 = v3;
     [v2 addEntriesFromDictionary:v4];
 
-    v12[0] = @"textNotEmpty";
+    v11[0] = @"textNotEmpty";
     v5 = MEMORY[0x1E696AD98];
     v6 = [*(a1 + 40) bestTranscription];
     v7 = [v6 formattedString];
     v8 = [v5 numberWithInt:{objc_msgSend(v7, "length") != 0}];
-    v12[1] = @"isFinal";
-    v13[0] = v8;
+    v11[1] = @"isFinal";
+    v12[0] = v8;
     v9 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(*(a1 + 48), "isFinal")}];
-    v13[1] = v9;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+    v12[1] = v9;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
     [v2 addEntriesFromDictionary:v10];
 
     [SFLocalSpeechRecognitionClient logCoreAnalyticsEvent:@"com.apple.speechapi.ResultPackage" withAnalytics:v2];
   }
 
   [(_SFSpeechRecognitionBlockTask *)*(a1 + 32) _fireResultHandlerWithResult:0 error:?];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __78___SFSpeechRecognitionBlockTask_dictationConnection_speechRecognitionDidFail___block_invoke(uint64_t a1)
+dispatch_queue_t *__78___SFSpeechRecognitionBlockTask_dictationConnection_speechRecognitionDidFail___block_invoke(uint64_t a1)
 {
   [(_SFSpeechRecognitionBlockTask *)*(a1 + 32) _fireResultHandlerWithResult:*(*(a1 + 32) + 56) error:?];
   v2 = *(a1 + 32);
@@ -113,7 +112,7 @@ uint64_t __78___SFSpeechRecognitionBlockTask_dictationConnection_speechRecogniti
   return [(_SFSpeechRecognitionBlockTask *)v2 _finalizeResultHandler];
 }
 
-uint64_t __77___SFSpeechRecognitionBlockTask_dictationConnectionSpeechRecordingDidCancel___block_invoke(uint64_t a1)
+dispatch_queue_t *__77___SFSpeechRecognitionBlockTask_dictationConnectionSpeechRecordingDidCancel___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E698D280] code:216 userInfo:0];
@@ -124,7 +123,7 @@ uint64_t __77___SFSpeechRecognitionBlockTask_dictationConnectionSpeechRecordingD
   return [(_SFSpeechRecognitionBlockTask *)v4 _finalizeResultHandler];
 }
 
-uint64_t __76___SFSpeechRecognitionBlockTask_dictationConnection_speechRecordingDidFail___block_invoke(uint64_t a1)
+dispatch_queue_t *__76___SFSpeechRecognitionBlockTask_dictationConnection_speechRecordingDidFail___block_invoke(uint64_t a1)
 {
   [(_SFSpeechRecognitionBlockTask *)*(a1 + 32) _fireResultHandlerWithResult:*(a1 + 40) error:?];
   v2 = *(a1 + 32);

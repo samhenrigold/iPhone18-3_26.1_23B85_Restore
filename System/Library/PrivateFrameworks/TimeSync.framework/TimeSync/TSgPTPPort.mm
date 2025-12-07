@@ -1,7 +1,9 @@
 @interface TSgPTPPort
 + (id)diagnosticDescriptionForInfo:(id)info withIndent:(id)indent;
++ (id)gPTPPortWithClockIdentifier:(unint64_t)identifier andPortNumber:(unsigned __int16)number;
 + (id)gPTPPortWithImplDC:(id)c;
 - (TSgPTPPort)init;
+- (TSgPTPPort)initWithClockIdentifier:(unint64_t)identifier andPortNumber:(unsigned __int16)number;
 - (TSgPTPPort)initWithImplDC:(id)c;
 - (id)getMetrics;
 - (id)getMetricsWithDelta:(id)delta;
@@ -13,9 +15,8 @@
 - (TSgPTPPort)init
 {
   v3 = MEMORY[0x277CBEAD8];
-  v4 = *MEMORY[0x277CBE660];
-  v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSgPTPPort init]"];
-  [v3 raise:v4 format:{@"Do not call %@", v5}];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:?];
+  [v3 raise:v4 format:?];
 
   return 0;
 }
@@ -24,7 +25,7 @@
 {
   cCopy = c;
   portType = [cCopy portType];
-  if (portType > 8 || (v5 = [objc_alloc(*off_279DBDA20[portType]) initWithImplDC:cCopy]) == 0)
+  if (portType > 8 || (v5 = [objc_alloc(*off_279DBDA20[portType]) initWithImplDC:?]) == 0)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
@@ -35,6 +36,22 @@
   }
 
   return v5;
+}
+
++ (id)gPTPPortWithClockIdentifier:(unint64_t)identifier andPortNumber:(unsigned __int16)number
+{
+  v4 = [_TSF_TSDgPTPPort gPTPPortWithClockIdentifier:"gPTPPortWithClockIdentifier:portNumber:" portNumber:?];
+  v5 = [TSgPTPPort gPTPPortWithImplDC:?];
+
+  return v5;
+}
+
+- (TSgPTPPort)initWithClockIdentifier:(unint64_t)identifier andPortNumber:(unsigned __int16)number
+{
+  v5 = [_TSF_TSDgPTPPort gPTPPortWithClockIdentifier:"gPTPPortWithClockIdentifier:portNumber:" portNumber:?];
+  v6 = [(TSgPTPPort *)self initWithImplDC:?];
+
+  return v6;
 }
 
 - (TSgPTPPort)initWithImplDC:(id)c
@@ -82,164 +99,101 @@ LABEL_5:
   infoCopy = info;
   indentCopy = indent;
   string = [MEMORY[0x277CCAB68] string];
-  v8 = [infoCopy objectForKeyedSubscript:@"ClassName"];
-  [string appendFormat:@"%@+%@\n", indentCopy, v8];
+  v8 = [infoCopy objectForKeyedSubscript:?];
+  [string appendFormat:indentCopy, v8];
 
-  [string appendFormat:@"%@    Port Number: ", indentCopy];
-  v9 = [infoCopy objectForKeyedSubscript:@"PortNumber"];
+  [string appendFormat:indentCopy];
+  v9 = [infoCopy objectForKeyedSubscript:?];
   v10 = v9;
   if (v9)
   {
-    [string appendFormat:@"%hu\n", objc_msgSend(v9, "unsignedShortValue")];
+    [string appendFormat:objc_msgSend(v9, "unsignedShortValue")];
   }
 
   else
   {
-    [string appendString:@"Could not read property\n"];
+    [string appendString:?];
   }
 
-  [string appendFormat:@"%@    Port Role: ", indentCopy];
-  v11 = [infoCopy objectForKeyedSubscript:@"PortRole"];
+  [string appendFormat:indentCopy];
+  v11 = [infoCopy objectForKeyedSubscript:?];
 
   if (!v11)
   {
-    v13 = @"Could not read property\n";
-    goto LABEL_16;
+    goto LABEL_12;
   }
 
   intValue = [v11 intValue];
   if (intValue > 1)
   {
-    if (intValue == 2)
+    if (intValue == 2 || intValue == 3)
     {
-      v13 = @"Slave\n";
-      goto LABEL_16;
+      goto LABEL_12;
     }
 
-    if (intValue == 3)
-    {
-      v13 = @"Master\n";
-      goto LABEL_16;
-    }
-
-LABEL_13:
-    [string appendFormat:@"Unknown (%d)\n", objc_msgSend(v11, "intValue")];
-    goto LABEL_17;
-  }
-
-  if (!intValue)
-  {
-    v13 = @"Disabled\n";
-    goto LABEL_16;
-  }
-
-  if (intValue != 1)
-  {
+LABEL_11:
+    [string appendFormat:objc_msgSend(v11, "intValue")];
     goto LABEL_13;
   }
 
-  v13 = @"Passive\n";
-LABEL_16:
-  [string appendString:v13];
-LABEL_17:
-  [string appendFormat:@"%@    Port Type: ", indentCopy];
-  v14 = [infoCopy objectForKeyedSubscript:@"PortType"];
-
-  if (!v14)
+  if (intValue > 1)
   {
-    v16 = @"Could not read property\n";
-    goto LABEL_24;
+    goto LABEL_11;
   }
 
-  intValue2 = [v14 intValue];
+LABEL_12:
+  [string appendString:?];
+LABEL_13:
+  [string appendFormat:indentCopy];
+  v13 = [infoCopy objectForKeyedSubscript:?];
+
+  if (!v13)
+  {
+LABEL_18:
+    [string appendString:?];
+    goto LABEL_19;
+  }
+
+  intValue2 = [v13 intValue];
   if (intValue2 > 4)
   {
-    if (intValue2 <= 6)
+    if (intValue2 < 8 || intValue2 == 8)
     {
-      if (intValue2 == 5)
-      {
-        v16 = @"Unicast End-to-End Link Layer\n";
-      }
-
-      else
-      {
-        v16 = @"Unicast End-to-End UDPv4\n";
-      }
-
-      goto LABEL_24;
+      goto LABEL_18;
     }
+  }
 
-    if (intValue2 == 7)
-    {
-      v16 = @"Unicast End-to-End UDPv6\n";
-      goto LABEL_24;
-    }
+  else if (intValue2 > 2 || intValue2 == 1 || intValue2 == 2)
+  {
+    goto LABEL_18;
+  }
 
-    if (intValue2 == 8)
-    {
-      v16 = @"Local Clock\n";
-      goto LABEL_24;
-    }
+  [string appendFormat:objc_msgSend(v13, "intValue")];
+LABEL_19:
+  [string appendFormat:indentCopy];
+  v15 = [infoCopy objectForKeyedSubscript:?];
+
+  if (v15)
+  {
+    [string appendFormat:objc_msgSend(v15, "intValue")];
   }
 
   else
   {
-    if (intValue2 > 2)
-    {
-      if (intValue2 == 3)
-      {
-        v16 = @"Unicast Point-to-Point UDPv4\n";
-      }
-
-      else
-      {
-        v16 = @"Unicast Point-to-Point UDPv6\n";
-      }
-
-      goto LABEL_24;
-    }
-
-    if (intValue2 == 1)
-    {
-      v16 = @"AVB Ethernet\n";
-      goto LABEL_24;
-    }
-
-    if (intValue2 == 2)
-    {
-      v16 = @"Unicast Point-to-Point Link Layer\n";
-LABEL_24:
-      [string appendString:v16];
-      goto LABEL_25;
-    }
+    [string appendString:?];
   }
 
-  [string appendFormat:@"Unknown (%d)\n", objc_msgSend(v14, "intValue")];
-LABEL_25:
-  [string appendFormat:@"%@    Ntp anchor offsetNsec: ", indentCopy];
-  v17 = [infoCopy objectForKeyedSubscript:@"NtpAnchorOffsetNsec"];
+  [string appendFormat:indentCopy];
+  v16 = [infoCopy objectForKeyedSubscript:?];
 
-  if (v17)
+  if (v16)
   {
-    [string appendFormat:@"%d \n", objc_msgSend(v17, "intValue")];
+    [string appendFormat:objc_msgSend(v16, "BOOLValue")];
   }
 
   else
   {
-    [string appendString:@"Could not read property\n"];
-  }
-
-  [string appendFormat:@"%@    Local clock source from NTP: ", indentCopy];
-  v18 = [infoCopy objectForKeyedSubscript:@"LocalClockSourceFromNTP"];
-
-  if (v18)
-  {
-    [string appendFormat:@"%d \n", objc_msgSend(v18, "BOOLValue")];
-  }
-
-  else
-  {
-    [string appendString:@"Could not read property\n"];
+    [string appendString:?];
   }
 
   return string;
@@ -250,7 +204,7 @@ LABEL_25:
   getMetrics = [(_TSF_TSDgPTPPort *)self->_impl getMetrics];
   if (getMetrics)
   {
-    v3 = [[TSPortMetrics alloc] initWithDaemonMetrics:getMetrics];
+    v3 = [[TSPortMetrics alloc] initWithDaemonMetrics:?];
   }
 
   else
@@ -265,11 +219,11 @@ LABEL_25:
 {
   impl = self->_impl;
   toDaemonMetrics = [delta toDaemonMetrics];
-  v5 = [(_TSF_TSDgPTPPort *)impl getMetricsWithDelta:toDaemonMetrics];
+  v5 = [(_TSF_TSDgPTPPort *)impl getMetricsWithDelta:?];
 
   if (v5)
   {
-    v6 = [[TSPortMetrics alloc] initWithDaemonMetrics:v5];
+    v6 = [[TSPortMetrics alloc] initWithDaemonMetrics:?];
   }
 
   else
@@ -282,44 +236,38 @@ LABEL_25:
 
 + (void)gPTPPortWithImplDC:(void *)a1 .cold.1(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
-  v5 = 136315650;
-  v6 = [v3 UTF8String];
-  v7 = 2048;
-  v8 = objc_opt_class();
-  v9 = 1024;
-  v10 = [a1 portType];
-  _os_log_error_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to create port for %s %p %u", &v5, 0x1Cu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315650;
+  v5 = [v3 UTF8String];
+  v6 = 2048;
+  v7 = objc_opt_class();
+  v8 = 1024;
+  v9 = [a1 portType];
+  _os_log_error_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to create port for %s %p %u", &v4, 0x1Cu);
 }
 
 - (void)initWithImplDC:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithImplDC:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -9,14 +9,14 @@
 
 - (id)writeMessageToWriter:(id)writer error:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   writerCopy = writer;
   v7 = objc_alloc_init(WFREPBDialogRequest);
   v8 = MEMORY[0x1E696ACC8];
   dialogRequest = [(WFRemoteExecutionDialogRequest *)self dialogRequest];
-  v18 = 0;
-  v10 = [v8 archivedDataWithRootObject:dialogRequest requiringSecureCoding:1 error:&v18];
-  v11 = v18;
+  v17 = 0;
+  v10 = [v8 archivedDataWithRootObject:dialogRequest requiringSecureCoding:1 error:&v17];
+  v11 = v17;
 
   if (v10)
   {
@@ -34,9 +34,9 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v20 = "[WFRemoteExecutionDialogRequest writeMessageToWriter:error:]";
-      v21 = 2114;
-      v22 = v11;
+      v19 = "[WFRemoteExecutionDialogRequest writeMessageToWriter:error:]";
+      v20 = 2114;
+      v21 = v11;
       _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_FAULT, "%s Unable to archive dialog request: %{public}@", buf, 0x16u);
     }
 
@@ -53,26 +53,24 @@
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return immutableData;
 }
 
 - (BOOL)readMessageFromData:(id)data error:(id *)error
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E69C65B8];
   dataCopy = data;
   v8 = [[v6 alloc] initWithData:dataCopy];
 
   v9 = objc_alloc_init(WFREPBDialogRequest);
-  v37 = 0;
-  v10 = [(PBCodable *)v9 readFrom:v8 error:&v37];
-  v11 = v37;
+  v36 = 0;
+  v10 = [(PBCodable *)v9 readFrom:v8 error:&v36];
+  v11 = v36;
   if (v10)
   {
     errorCopy = error;
-    v35 = v8;
+    v34 = v8;
     runRequestIdentifier = [(WFREPBDialogRequest *)v9 runRequestIdentifier];
     runRequestIdentifier = self->_runRequestIdentifier;
     self->_runRequestIdentifier = runRequestIdentifier;
@@ -88,9 +86,9 @@
     v22 = [v21 mutableCopy];
 
     [v22 addObject:objc_opt_class()];
-    v36 = 0;
-    v23 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v22 fromData:dialogRequestData error:&v36];
-    v24 = v36;
+    v35 = 0;
+    v23 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:v22 fromData:dialogRequestData error:&v35];
+    v24 = v35;
     dialogRequest = self->_dialogRequest;
     self->_dialogRequest = v23;
 
@@ -102,9 +100,9 @@
       if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v39 = "[WFRemoteExecutionDialogRequest readMessageFromData:error:]";
-        v40 = 2114;
-        v41 = v24;
+        v38 = "[WFRemoteExecutionDialogRequest readMessageFromData:error:]";
+        v39 = 2114;
+        v40 = v24;
         _os_log_impl(&dword_1CA256000, v28, OS_LOG_TYPE_FAULT, "%s Unable to convert data into dialog request: %{public}@", buf, 0x16u);
       }
 
@@ -115,7 +113,7 @@
       }
     }
 
-    v8 = v35;
+    v8 = v34;
   }
 
   else
@@ -124,9 +122,9 @@
     if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v39 = "[WFRemoteExecutionDialogRequest readMessageFromData:error:]";
-      v40 = 2114;
-      v41 = v11;
+      v38 = "[WFRemoteExecutionDialogRequest readMessageFromData:error:]";
+      v39 = 2114;
+      v40 = v11;
       _os_log_impl(&dword_1CA256000, v30, OS_LOG_TYPE_FAULT, "%s Failed to read dialog request protobuf, %{public}@", buf, 0x16u);
     }
 
@@ -143,7 +141,6 @@
     }
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v27;
 }
 

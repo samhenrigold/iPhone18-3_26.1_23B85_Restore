@@ -9,30 +9,29 @@
 {
   v2 = sub_22855C85C();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  v5 = MEMORY[0x28223BE20](v2);
-  v7 = &v15[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x28223BE20](v5);
-  v9 = &v15[-v8];
+  v4 = MEMORY[0x28223BE20](v2);
+  v6 = v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4);
+  v8 = v14 - v7;
   if (qword_280DEB2E0 != -1)
   {
     swift_once();
   }
 
-  v10 = __swift_project_value_buffer(v2, qword_280DEB2E8);
-  v11 = *(v3 + 16);
-  v11(v9, v10, v2);
-  v11(v7, v9, v2);
+  v9 = __swift_project_value_buffer(v2, qword_280DEB2E8);
+  v10 = *(v3 + 16);
+  v10(v8, v9, v2);
+  v10(v6, v8, v2);
   sub_22855E19C();
-  v12 = HKSensitiveLogItem();
+  v11 = HKSensitiveLogItem();
   swift_unknownObjectRelease();
   sub_22855DA7C();
   swift_unknownObjectRelease();
   sub_22855D1BC();
-  (*(v3 + 8))(v9, v2);
-  v13 = sub_22855D17C();
+  (*(v3 + 8))(v8, v2);
+  v12 = sub_22855D17C();
 
-  return v13;
+  return v12;
 }
 
 - (_TtC14HealthPlatform25PregnancyStateInputSignal)init

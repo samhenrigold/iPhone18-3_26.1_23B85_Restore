@@ -1,7 +1,10 @@
 @interface MSCameraFolder
 - (BOOL)validAVAsset:(id)asset;
 - (MSCameraFolder)initWithFSURL:(id)l name:(id)name parent:(id)parent device:(id)device;
+- (id)createAssetFromURL:(id)l notify:(BOOL)notify preflight:(BOOL)preflight;
+- (id)createValidAssetFromURL:(id)l attemptCount:(unsigned int)count notify:(BOOL)notify preflight:(BOOL)preflight;
 - (id)folderMatchingPath:(id)path;
+- (id)newItemWithFSURL:(id)l name:(id)name notify:(BOOL)notify fullMetadata:(BOOL)metadata;
 - (void)cancelReflight;
 - (void)dealloc;
 - (void)enumerateContentWithOptions:(id)options;
@@ -825,6 +828,200 @@ uint64_t __46__MSCameraFolder_enumerateContentWithOptions___block_invoke_2(uint6
   return v15;
 }
 
+- (id)createAssetFromURL:(id)l notify:(BOOL)notify preflight:(BOOL)preflight
+{
+  preflightCopy = preflight;
+  notifyCopy = notify;
+  lCopy = l;
+  path = [lCopy path];
+  lastPathComponent = [path lastPathComponent];
+  pathExtension = [lastPathComponent pathExtension];
+  lowercaseString = [pathExtension lowercaseString];
+  v13 = [lowercaseString isEqualToString:@"mov"];
+
+  if (v13)
+  {
+    v14 = [(MSCameraFolder *)self createValidAssetFromURL:lCopy attemptCount:20 notify:notifyCopy preflight:preflightCopy];
+  }
+
+  else
+  {
+    path2 = [lCopy path];
+    lastPathComponent2 = [path2 lastPathComponent];
+    v14 = [(MSCameraFolder *)self newItemWithFSURL:lCopy name:lastPathComponent2 notify:notifyCopy fullMetadata:1];
+
+    if (!v14)
+    {
+      __ICOSLogCreate();
+      name = [(MSCameraItem *)self name];
+      if ([name length] >= 0x15)
+      {
+        v18 = [name substringWithRange:{0, 18}];
+        v19 = [v18 stringByAppendingString:@".."];
+
+        name = v19;
+      }
+
+      path3 = [lCopy path];
+      lastPathComponent3 = [path3 lastPathComponent];
+      v22 = [NSString stringWithFormat:@"--> Disappeared: %@", lastPathComponent3];
+
+      v23 = _gICOSLog;
+      if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+      {
+        v24 = name;
+        v25 = v23;
+        *buf = 136446466;
+        uTF8String = [name UTF8String];
+        v29 = 2114;
+        v30 = v22;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      }
+    }
+  }
+
+  return v14;
+}
+
+- (id)createValidAssetFromURL:(id)l attemptCount:(unsigned int)count notify:(BOOL)notify preflight:(BOOL)preflight
+{
+  preflightCopy = preflight;
+  notifyCopy = notify;
+  v8 = *&count;
+  lCopy = l;
+  v11 = [(MSCameraFolder *)self validAVAsset:lCopy];
+  if (v8 && !v11)
+  {
+    v12 = [NSNumber numberWithUnsignedInt:v8];
+    v13 = dispatch_time(0, 100000000);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = __72__MSCameraFolder_createValidAssetFromURL_attemptCount_notify_preflight___block_invoke;
+    block[3] = &unk_1000249E0;
+    v44 = v12;
+    selfCopy = self;
+    v46 = lCopy;
+    v47 = preflightCopy;
+    name2 = v12;
+    dispatch_after(v13, &_dispatch_main_q, block);
+
+    v15 = v44;
+LABEL_4:
+
+    v16 = 0;
+    goto LABEL_19;
+  }
+
+  if (v11)
+  {
+    __ICOSLogCreate();
+    name = [(MSCameraItem *)self name];
+    if ([name length] >= 0x15)
+    {
+      v18 = [name substringWithRange:{0, 18}];
+      v19 = [v18 stringByAppendingString:@".."];
+
+      name = v19;
+    }
+
+    path = [lCopy path];
+    lastPathComponent = [path lastPathComponent];
+    v22 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"-[decoded]-> 🟢 Retried: %@, Total Retry Time: %d(ms), Notify: %d", lastPathComponent, (100 * (20 - v8)), notifyCopy);
+
+    v23 = _gICOSLog;
+    if (!os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_15;
+    }
+
+    goto LABEL_14;
+  }
+
+  if (v8 == 20)
+  {
+    goto LABEL_16;
+  }
+
+  __ICOSLogCreate();
+  name = [(MSCameraItem *)self name];
+  if ([name length] >= 0x15)
+  {
+    v24 = [name substringWithRange:{0, 18}];
+    v25 = [v24 stringByAppendingString:@".."];
+
+    name = v25;
+  }
+
+  path2 = [lCopy path];
+  lastPathComponent2 = [path2 lastPathComponent];
+  v22 = [NSString stringWithFormat:@"[not decoded]-> 🔴 Retried: %@, Total Retry Time: %d(ms)", lastPathComponent2, (100 * (20 - v8))];
+
+  v23 = _gICOSLog;
+  if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+  {
+LABEL_14:
+    v28 = name;
+    v29 = v23;
+    *buf = 136446466;
+    uTF8String = [name UTF8String];
+    v50 = 2114;
+    v51 = v22;
+    _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+  }
+
+LABEL_15:
+
+LABEL_16:
+  if (preflightCopy)
+  {
+    device = [(MSCameraItem *)self device];
+    [device incrementPreflightObjectCount:1];
+
+    device2 = [(MSCameraItem *)self device];
+    [device2 notifyDeviceReadyPreflightCount];
+  }
+
+  path3 = [lCopy path];
+  lastPathComponent3 = [path3 lastPathComponent];
+  v16 = [(MSCameraFolder *)self newItemWithFSURL:lCopy name:lastPathComponent3 notify:notifyCopy fullMetadata:v8 == 20];
+
+  if (!v16)
+  {
+    __ICOSLogCreate();
+    name2 = [(MSCameraItem *)self name];
+    if ([name2 length] >= 0x15)
+    {
+      v35 = [name2 substringWithRange:{0, 18}];
+      v36 = [v35 stringByAppendingString:@".."];
+
+      name2 = v36;
+    }
+
+    path4 = [lCopy path];
+    lastPathComponent4 = [path4 lastPathComponent];
+    v15 = [NSString stringWithFormat:@"--> Disappeared: %@", lastPathComponent4];
+
+    v39 = _gICOSLog;
+    if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+    {
+      v40 = name2;
+      v41 = v39;
+      uTF8String2 = [name2 UTF8String];
+      *buf = 136446466;
+      uTF8String = uTF8String2;
+      v50 = 2114;
+      v51 = v15;
+      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+    }
+
+    goto LABEL_4;
+  }
+
+LABEL_19:
+
+  return v16;
+}
+
 void __72__MSCameraFolder_createValidAssetFromURL_attemptCount_notify_preflight___block_invoke(uint64_t a1)
 {
   v2 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [*(a1 + 32) unsignedIntegerValue] - 1);
@@ -955,6 +1152,56 @@ void __31__MSCameraFolder_validAVAsset___block_invoke(uint64_t a1)
   }
 
   dispatch_semaphore_signal(*(a1 + 48));
+}
+
+- (id)newItemWithFSURL:(id)l name:(id)name notify:(BOOL)notify fullMetadata:(BOOL)metadata
+{
+  metadataCopy = metadata;
+  notifyCopy = notify;
+  nameCopy = name;
+  lCopy = l;
+  v12 = [MSCameraFile alloc];
+  device = [(MSCameraItem *)self device];
+  v14 = [(MSCameraFile *)v12 initWithFSURL:lCopy name:nameCopy parent:self device:device fullMetadata:metadataCopy];
+
+  if (v14)
+  {
+    __ICOSLogCreate();
+    v15 = [NSString stringWithFormat:@"File queued: %@\n", v14];
+    v16 = [v15 description];
+    v17 = [NSString stringWithFormat:@"%@", v16];
+
+    if (__ICLogTypeEnabled())
+    {
+      v18 = _gICOSLog;
+      if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138543362;
+        v31 = v17;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
+      }
+    }
+
+    device2 = [(MSCameraItem *)self device];
+    [device2 addCameraFileToIndex:v14];
+
+    if (notifyCopy)
+    {
+      v28 = @"ICCameraItemProxyArray";
+      cameraItemProxy = [(MSCameraItem *)v14 cameraItemProxy];
+      v27 = cameraItemProxy;
+      v21 = [NSArray arrayWithObjects:&v27 count:1];
+      v29 = v21;
+      v22 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+
+      device3 = [(MSCameraItem *)self device];
+      device4 = [(MSCameraItem *)self device];
+      allConnections = [device4 allConnections];
+      [device3 sendAddedItemsNotification:v22 toConnections:allConnections];
+    }
+  }
+
+  return v14;
 }
 
 - (id)folderMatchingPath:(id)path

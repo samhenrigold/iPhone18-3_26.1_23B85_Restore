@@ -30,7 +30,6 @@
 - (void)_initializeDatabaseStartup;
 - (void)_initializeSystemGroups;
 - (void)_managedObjectChanged:(id)changed;
-- (void)_saveIfPossible;
 - (void)_setupDatabase;
 - (void)_updateCloudKitHelpers;
 - (void)addCloudRecordToPurge:(id)purge recordEntityType:(id)type;
@@ -121,10 +120,98 @@ LABEL_7:
 
 - (void)_setupDatabase
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_2_0(&dword_1C0E8A000, v0, v1, "Punctuation storeDescription: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
+  managedObjectContext = [(AXSSDatabaseManager *)self managedObjectContext];
+
+  if (!managedObjectContext)
+  {
+    context = objc_autoreleasePoolPush();
+    v4 = *MEMORY[0x1E696A3A0];
+    v39 = *MEMORY[0x1E696A3A0];
+    v5 = *MEMORY[0x1E696A388];
+    v40[0] = *MEMORY[0x1E696A388];
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+    defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+    _databaseDirectoryPath = [(AXSSPunctuationManager *)self _databaseDirectoryPath];
+    v36 = 0;
+    [defaultManager createDirectoryAtPath:_databaseDirectoryPath withIntermediateDirectories:1 attributes:v6 error:&v36];
+    v26 = v36;
+
+    v9 = objc_alloc(MEMORY[0x1E695DFF8]);
+    _databaseFilePath = [(AXSSPunctuationManager *)self _databaseFilePath];
+    v11 = [v9 initFileURLWithPath:_databaseFilePath];
+
+    v12 = AXLogPunctuationStorage();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    {
+      [AXSSPunctuationManager _setupDatabase];
+    }
+
+    v13 = [objc_alloc(MEMORY[0x1E695D628]) initWithConcurrencyType:1];
+    [v13 setAutomaticallyMergesChangesFromParent:1];
+    v14 = objc_alloc(MEMORY[0x1E695D638]);
+    v15 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    v16 = [v15 URLForResource:@"AXSSPunctuationModel" withExtension:@"momd"];
+    v17 = [v14 initWithContentsOfURL:v16];
+
+    v18 = AXLogPunctuationStorage();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    {
+      [AXSSPunctuationManager _setupDatabase];
+    }
+
+    v19 = [objc_alloc(MEMORY[0x1E695D6C0]) initWithManagedObjectModel:v17];
+    v20 = [MEMORY[0x1E695D6C8] persistentStoreDescriptionWithURL:v11];
+    v21 = AXLogPunctuationStorage();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    {
+      [AXSSPunctuationManager _setupDatabase];
+    }
+
+    [v20 setType:*MEMORY[0x1E695D4A8]];
+    [v20 setOption:MEMORY[0x1E695E118] forKey:*MEMORY[0x1E695D380]];
+    [v20 setOption:MEMORY[0x1E695E118] forKey:*MEMORY[0x1E695D318]];
+    [v20 setOption:MEMORY[0x1E695E0F8] forKey:*MEMORY[0x1E695D3C0]];
+    [v20 setOption:v5 forKey:v4];
+    v34[0] = 0;
+    v34[1] = v34;
+    v34[2] = 0x3032000000;
+    v34[3] = __Block_byref_object_copy_;
+    v34[4] = __Block_byref_object_dispose_;
+    v35 = 0;
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __40__AXSSPunctuationManager__setupDatabase__block_invoke;
+    v28[3] = &unk_1E8134898;
+    v33 = v34;
+    v22 = v19;
+    v29 = v22;
+    v23 = v20;
+    v30 = v23;
+    v24 = v13;
+    v31 = v24;
+    selfCopy = self;
+    [v22 addPersistentStoreWithDescription:v23 completionHandler:v28];
+    [v24 setPersistentStoreCoordinator:v22];
+    [v24 setMergePolicy:*MEMORY[0x1E695D370]];
+    [(AXSSDatabaseManager *)self setManagedObjectContext:v24];
+    self->_finishedInitialization = 1;
+    v25 = AXLogPunctuationStorage();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      v38 = v24;
+      _os_log_impl(&dword_1C0E8A000, v25, OS_LOG_TYPE_INFO, "Set up database for punctuation: %@", buf, 0xCu);
+    }
+
+    if (v24)
+    {
+      [(AXSSPunctuationManager *)self setCloudKitSync:[(AXSSPunctuationManager *)self cloudKitSync]];
+    }
+
+    _Block_object_dispose(v34, 8);
+    objc_autoreleasePoolPop(context);
+  }
 }
 
 - (BOOL)_saveIfPossible
@@ -290,64 +377,62 @@ uint64_t __49__AXSSPunctuationManager__initializeSystemGroups__block_invoke_3(ui
 
 void __57__AXSSPunctuationManager_punctuationEntriesForGroupUUID___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = +[AXSS_PunctuationEntry fetchRequest];
   v3 = [MEMORY[0x1E696AE18] predicateWithFormat:@"groupUUID = %@", *(a1 + 32)];
   [v2 setPredicate:v3];
 
   [v2 setReturnsObjectsAsFaults:0];
   v4 = [*(a1 + 40) managedObjectContext];
-  v19 = 0;
-  v5 = [v4 executeFetchRequest:v2 error:&v19];
-  v6 = v19;
+  v18 = 0;
+  v5 = [v4 executeFetchRequest:v2 error:&v18];
+  v6 = v18;
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
         v12 = *(a1 + 48);
-        v13 = [*(a1 + 40) _punctuationEntryFromManagedObject:*(*(&v15 + 1) + 8 * v11)];
+        v13 = [*(a1 + 40) _punctuationEntryFromManagedObject:*(*(&v14 + 1) + 8 * v11)];
         [v12 addObject:v13];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_initializeCloudKitHelpers
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = AXLogPunctuationStorage();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     managedObjectContext = [(AXSSDatabaseManager *)self managedObjectContext];
-    v15 = 138412290;
-    v16 = managedObjectContext;
-    _os_log_impl(&dword_1C0E8A000, v3, OS_LOG_TYPE_INFO, "Initialization cloud kit helpers with object context: %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = managedObjectContext;
+    _os_log_impl(&dword_1C0E8A000, v3, OS_LOG_TYPE_INFO, "Initialization cloud kit helpers with object context: %@", &v14, 0xCu);
   }
 
   managedObjectContext2 = [(AXSSDatabaseManager *)self managedObjectContext];
@@ -371,8 +456,6 @@ void __57__AXSSPunctuationManager_punctuationEntriesForGroupUUID___block_invoke(
     managedObjectContext4 = [(AXSSDatabaseManager *)self managedObjectContext];
     [(AXSSCloudKitHelper *)v12 observeChangesForManagedContext:managedObjectContext4];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setCloudKitSync:(BOOL)sync
@@ -442,7 +525,7 @@ void __43__AXSSPunctuationManager__cloudKitUpdated___block_invoke(uint64_t a1)
 
 - (void)_managedObjectChanged:(id)changed
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
   if ([(AXSSPunctuationManager *)self cloudKitPushInSameProcess]|| ![(AXSSPunctuationManager *)self cloudKitSync])
   {
@@ -450,7 +533,7 @@ void __43__AXSSPunctuationManager__cloudKitUpdated___block_invoke(uint64_t a1)
     v7 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E695D328]];
 
     userInfo2 = [changedCopy userInfo];
-    v38 = [userInfo2 objectForKeyedSubscript:*MEMORY[0x1E695D2F8]];
+    v37 = [userInfo2 objectForKeyedSubscript:*MEMORY[0x1E695D2F8]];
 
     v9 = AXLogPunctuationStorage();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
@@ -458,9 +541,9 @@ void __43__AXSSPunctuationManager__cloudKitUpdated___block_invoke(uint64_t a1)
       userInfo3 = [changedCopy userInfo];
       callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
       *buf = 138412546;
-      v46 = userInfo3;
-      v47 = 2112;
-      v48 = callStackSymbols;
+      v45 = userInfo3;
+      v46 = 2112;
+      v47 = callStackSymbols;
       _os_log_impl(&dword_1C0E8A000, v9, OS_LOG_TYPE_INFO, "MOC changed: %@ %@", buf, 0x16u);
     }
 
@@ -475,7 +558,7 @@ void __43__AXSSPunctuationManager__cloudKitUpdated___block_invoke(uint64_t a1)
       [v12 addObjectsFromArray:allObjects];
     }
 
-    v39 = v7;
+    v38 = v7;
     userInfo5 = [changedCopy userInfo];
     v18 = [userInfo5 objectForKeyedSubscript:v14];
 
@@ -485,7 +568,7 @@ void __43__AXSSPunctuationManager__cloudKitUpdated___block_invoke(uint64_t a1)
       [v12 addObjectsFromArray:allObjects2];
     }
 
-    v37 = v18;
+    v36 = v18;
     userInfo6 = [changedCopy userInfo];
     v21 = [userInfo6 objectForKeyedSubscript:v14];
 
@@ -495,28 +578,28 @@ void __43__AXSSPunctuationManager__cloudKitUpdated___block_invoke(uint64_t a1)
       [v12 addObjectsFromArray:allObjects3];
     }
 
-    v36 = v21;
+    v35 = v21;
     v23 = [MEMORY[0x1E695DFA8] set];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v24 = v12;
-    v25 = [v24 countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v25 = [v24 countByEnumeratingWithState:&v39 objects:v43 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v41;
+      v27 = *v40;
       do
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v41 != v27)
+          if (*v40 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          v29 = *(*(&v40 + 1) + 8 * i);
+          v29 = *(*(&v39 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -537,14 +620,14 @@ void __43__AXSSPunctuationManager__cloudKitUpdated___block_invoke(uint64_t a1)
           }
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v40 objects:v44 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v39 objects:v43 count:16];
       }
 
       while (v26);
     }
 
-    v5 = v39;
-    if (-[NSObject count](v39, "count") || [v38 count] || -[NSObject count](v23, "count"))
+    v5 = v38;
+    if (-[NSObject count](v38, "count") || [v37 count] || -[NSObject count](v23, "count"))
     {
       defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
       [defaultCenter postNotificationName:@"AXSSVoiceOverPunctuationGroupsChangedNotification" object:0];
@@ -556,9 +639,9 @@ void __43__AXSSPunctuationManager__cloudKitUpdated___block_invoke(uint64_t a1)
       if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v46 = v39;
-        v47 = 2112;
-        v48 = v38;
+        v45 = v38;
+        v46 = 2112;
+        v47 = v37;
         _os_log_impl(&dword_1C0E8A000, v33, OS_LOG_TYPE_INFO, "MOC changed - posting groups changed because inserted/deleted count: %@/%@", buf, 0x16u);
       }
     }
@@ -567,7 +650,7 @@ void __43__AXSSPunctuationManager__cloudKitUpdated___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v46 = v23;
+      v45 = v23;
       _os_log_impl(&dword_1C0E8A000, v34, OS_LOG_TYPE_INFO, "Processing changes for groups: %@", buf, 0xCu);
     }
   }
@@ -580,35 +663,33 @@ void __43__AXSSPunctuationManager__cloudKitUpdated___block_invoke(uint64_t a1)
       [AXSSPunctuationManager _managedObjectChanged:v5];
     }
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (id)nextDefaultGroupName
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   punctuationGroups = [(AXSSPunctuationManager *)self punctuationGroups];
-  v3 = [punctuationGroups countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v3 = [punctuationGroups countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
     v6 = 0;
-    v7 = *v24;
+    v7 = *v23;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v24 != v7)
+        if (*v23 != v7)
         {
           objc_enumerationMutation(punctuationGroups);
         }
 
-        v9 = *(*(&v23 + 1) + 8 * i);
+        v9 = *(*(&v22 + 1) + 8 * i);
         if (([v9 isSystemPunctuationGroup] & 1) == 0)
         {
           ++v5;
@@ -620,16 +701,16 @@ void __43__AXSSPunctuationManager__cloudKitUpdated___block_invoke(uint64_t a1)
           invertedSet = [decimalDigitCharacterSet invertedSet];
           [v12 setCharactersToBeSkipped:invertedSet];
 
-          v22 = 0;
-          [v12 scanInt:&v22];
-          if (v6 <= v22)
+          v21 = 0;
+          [v12 scanInt:&v21];
+          if (v6 <= v21)
           {
-            v6 = v22;
+            v6 = v21;
           }
         }
       }
 
-      v4 = [punctuationGroups countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v4 = [punctuationGroups countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v4);
@@ -655,8 +736,6 @@ void __43__AXSSPunctuationManager__cloudKitUpdated___block_invoke(uint64_t a1)
   }
 
   v19 = [v15 localizedStringWithFormat:v17, v18 + 1];
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -756,7 +835,7 @@ void __40__AXSSPunctuationManager__setupDatabase__block_invoke(uint64_t a1, uint
 
 void __65__AXSSPunctuationManager_addCloudRecordToPurge_recordEntityType___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695D5B8];
   v3 = [*(a1 + 32) managedObjectContext];
   v4 = [v2 insertNewObjectForEntityForName:@"AXSS_PunctuationCloudDeletionCache" inManagedObjectContext:v3];
@@ -768,15 +847,14 @@ void __65__AXSSPunctuationManager_addCloudRecordToPurge_recordEntityType___block
   {
     v6 = *(a1 + 40);
     v7 = *(a1 + 48);
-    v9 = 138412546;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v7;
-    _os_log_impl(&dword_1C0E8A000, v5, OS_LOG_TYPE_INFO, "Store purge record: %@ for %@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
+    _os_log_impl(&dword_1C0E8A000, v5, OS_LOG_TYPE_INFO, "Store purge record: %@ for %@", &v8, 0x16u);
   }
 
   [*(a1 + 32) _saveIfPossible];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)cloudRecordsToPurge:(id)purge
@@ -1106,7 +1184,7 @@ void __52__AXSSPunctuationManager__punctuationGroupForEntry___block_invoke(uint6
 
 - (void)importPunctuationGroup:(id)group
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   groupCopy = group;
   uUID = [MEMORY[0x1E696AFB0] UUID];
   [groupCopy setUuid:uUID];
@@ -1116,33 +1194,33 @@ void __52__AXSSPunctuationManager__punctuationGroupForEntry___block_invoke(uint6
   {
     name = [groupCopy name];
     *buf = 138412290;
-    v26 = name;
+    v25 = name;
     _os_log_impl(&dword_1C0E8A000, v6, OS_LOG_TYPE_DEFAULT, "Importing group: %@", buf, 0xCu);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   entries = [groupCopy entries];
-  v9 = [entries countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [entries countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v11 = v9;
-    v12 = *v21;
+    v12 = *v20;
     *&v10 = 138412290;
-    v19 = v10;
+    v18 = v10;
     do
     {
       v13 = 0;
       do
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(entries);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * v13);
+        v14 = *(*(&v19 + 1) + 8 * v13);
         uUID2 = [MEMORY[0x1E696AFB0] UUID];
         [v14 setUuid:uUID2];
 
@@ -1152,8 +1230,8 @@ void __52__AXSSPunctuationManager__punctuationGroupForEntry___block_invoke(uint6
         v17 = AXLogPunctuationStorage();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v19;
-          v26 = v14;
+          *buf = v18;
+          v25 = v14;
           _os_log_impl(&dword_1C0E8A000, v17, OS_LOG_TYPE_DEFAULT, "Importing entry: %@", buf, 0xCu);
         }
 
@@ -1162,14 +1240,13 @@ void __52__AXSSPunctuationManager__punctuationGroupForEntry___block_invoke(uint6
       }
 
       while (v11 != v13);
-      v11 = [entries countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [entries countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v11);
   }
 
   [(AXSSPunctuationManager *)self updatePunctuationGroup:groupCopy];
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)punctuationEntryObjectFromLocalObjects:(id)objects
@@ -1261,7 +1338,7 @@ id __65__AXSSPunctuationManager_punctuationEntryObjectFromLocalObjects___block_i
 
 - (void)updatePunctuationGroup:(id)group fromCloudKit:(BOOL)kit
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   groupCopy = group;
   if (groupCopy)
   {
@@ -1270,29 +1347,27 @@ id __65__AXSSPunctuationManager_punctuationEntryObjectFromLocalObjects___block_i
     {
       callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
       *buf = 138412290;
-      v18 = callStackSymbols;
+      v17 = callStackSymbols;
       _os_log_impl(&dword_1C0E8A000, v7, OS_LOG_TYPE_INFO, "1 storing entries: %@", buf, 0xCu);
     }
 
     managedObjectContext = [(AXSSDatabaseManager *)self managedObjectContext];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __62__AXSSPunctuationManager_updatePunctuationGroup_fromCloudKit___block_invoke;
-    v12[3] = &unk_1E81349C0;
-    v13 = managedObjectContext;
-    v14 = groupCopy;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __62__AXSSPunctuationManager_updatePunctuationGroup_fromCloudKit___block_invoke;
+    v11[3] = &unk_1E81349C0;
+    v12 = managedObjectContext;
+    v13 = groupCopy;
     selfCopy = self;
     kitCopy = kit;
     v10 = managedObjectContext;
-    [v10 performBlock:v12];
+    [v10 performBlock:v11];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __62__AXSSPunctuationManager_updatePunctuationGroup_fromCloudKit___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) refreshAllObjects];
   v2 = +[AXSS_PunctuationGroup fetchRequest];
   v3 = MEMORY[0x1E696AE18];
@@ -1302,9 +1377,9 @@ void __62__AXSSPunctuationManager_updatePunctuationGroup_fromCloudKit___block_in
 
   [v2 setReturnsObjectsAsFaults:0];
   v6 = *(a1 + 32);
-  v36 = 0;
-  v7 = [v6 executeFetchRequest:v2 error:&v36];
-  v8 = v36;
+  v35 = 0;
+  v7 = [v6 executeFetchRequest:v2 error:&v35];
+  v8 = v35;
   v9 = [v7 lastObject];
   v10 = v9;
   if (v9)
@@ -1372,29 +1447,29 @@ void __62__AXSSPunctuationManager_updatePunctuationGroup_fromCloudKit___block_in
     [v14 setCkRecordProcessDate:0];
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v25 = [v14 autoSwitchContexts];
-  v26 = [v25 countByEnumeratingWithState:&v32 objects:v39 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v31 objects:v38 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v33;
+    v28 = *v32;
     do
     {
       for (i = 0; i != v27; ++i)
       {
-        if (*v33 != v28)
+        if (*v32 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        [*(*(&v32 + 1) + 8 * i) setGroup:v14];
+        [*(*(&v31 + 1) + 8 * i) setGroup:v14];
       }
 
-      v27 = [v25 countByEnumeratingWithState:&v32 objects:v39 count:16];
+      v27 = [v25 countByEnumeratingWithState:&v31 objects:v38 count:16];
     }
 
     while (v27);
@@ -1404,14 +1479,12 @@ void __62__AXSSPunctuationManager_updatePunctuationGroup_fromCloudKit___block_in
   if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v38 = v14;
+    v37 = v14;
     _os_log_impl(&dword_1C0E8A000, v30, OS_LOG_TYPE_INFO, "2 storing entries: %@", buf, 0xCu);
   }
 
   [*(a1 + 40) setInDatabase:1];
   [*(a1 + 48) _saveIfPossible];
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removePunctuationGroup:(id)group
@@ -1437,30 +1510,30 @@ void __62__AXSSPunctuationManager_updatePunctuationGroup_fromCloudKit___block_in
 
 void __49__AXSSPunctuationManager_removePunctuationGroup___block_invoke(uint64_t a1)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   obj = [*(a1 + 32) entries];
-  v34 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
+  v33 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
   v2 = 0;
-  if (v34)
+  if (v33)
   {
-    v33 = *v45;
+    v32 = *v44;
     do
     {
       v3 = 0;
       v4 = v2;
       do
       {
-        if (*v45 != v33)
+        if (*v44 != v32)
         {
           objc_enumerationMutation(obj);
         }
 
-        v36 = v3;
-        v5 = *(*(&v44 + 1) + 8 * v3);
+        v35 = v3;
+        v5 = *(*(&v43 + 1) + 8 * v3);
         v6 = +[AXSS_PunctuationEntry fetchRequest];
         v7 = MEMORY[0x1E696AE18];
         v8 = [v5 uuid];
@@ -1468,31 +1541,31 @@ void __49__AXSSPunctuationManager_removePunctuationGroup___block_invoke(uint64_t
         [v6 setPredicate:v9];
 
         [v6 setReturnsObjectsAsFaults:0];
-        v42 = 0u;
-        v43 = 0u;
-        v40 = 0u;
         v41 = 0u;
+        v42 = 0u;
+        v39 = 0u;
+        v40 = 0u;
         v10 = [*(a1 + 40) managedObjectContext];
-        v39 = v4;
-        v35 = v6;
-        v11 = [v10 executeFetchRequest:v6 error:&v39];
-        v37 = v39;
+        v38 = v4;
+        v34 = v6;
+        v11 = [v10 executeFetchRequest:v6 error:&v38];
+        v36 = v38;
 
-        v12 = [v11 countByEnumeratingWithState:&v40 objects:v48 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v39 objects:v47 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v41;
+          v14 = *v40;
           do
           {
             for (i = 0; i != v13; ++i)
             {
-              if (*v41 != v14)
+              if (*v40 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v16 = *(*(&v40 + 1) + 8 * i);
+              v16 = *(*(&v39 + 1) + 8 * i);
               if ([v16 inCloud])
               {
                 v17 = *(a1 + 40);
@@ -1505,22 +1578,22 @@ void __49__AXSSPunctuationManager_removePunctuationGroup___block_invoke(uint64_t
               [v20 deleteObject:v16];
             }
 
-            v13 = [v11 countByEnumeratingWithState:&v40 objects:v48 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v39 objects:v47 count:16];
           }
 
           while (v13);
         }
 
-        v2 = v37;
-        v3 = v36 + 1;
-        v4 = v37;
+        v2 = v36;
+        v3 = v35 + 1;
+        v4 = v36;
       }
 
-      while (v36 + 1 != v34);
-      v34 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
+      while (v35 + 1 != v33);
+      v33 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
     }
 
-    while (v34);
+    while (v33);
   }
 
   v21 = +[AXSS_PunctuationGroup fetchRequest];
@@ -1531,9 +1604,9 @@ void __49__AXSSPunctuationManager_removePunctuationGroup___block_invoke(uint64_t
 
   [v21 setReturnsObjectsAsFaults:0];
   v25 = [*(a1 + 40) managedObjectContext];
-  v38 = v2;
-  v26 = [v25 executeFetchRequest:v21 error:&v38];
-  v27 = v38;
+  v37 = v2;
+  v26 = [v25 executeFetchRequest:v21 error:&v37];
+  v27 = v37;
 
   v28 = [v26 lastObject];
   if (v28)
@@ -1552,8 +1625,6 @@ void __49__AXSSPunctuationManager_removePunctuationGroup___block_invoke(uint64_t
   }
 
   [*(a1 + 40) _saveIfPossible];
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_punctuationEntryFromManagedObject:(id)object
@@ -1600,7 +1671,7 @@ void __49__AXSSPunctuationManager_removePunctuationGroup___block_invoke(uint64_t
 
 - (id)_punctuationGroupFromManagedObject:(id)object
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   if (!objectCopy)
   {
@@ -1659,30 +1730,30 @@ LABEL_10:
 
 LABEL_11:
   v19 = [MEMORY[0x1E695DFA8] set];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   autoSwitchContexts = [objectCopy autoSwitchContexts];
-  v21 = [autoSwitchContexts countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v21 = [autoSwitchContexts countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v34;
+    v23 = *v33;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v34 != v23)
+        if (*v33 != v23)
         {
           objc_enumerationMutation(autoSwitchContexts);
         }
 
-        contextIdentifier = [*(*(&v33 + 1) + 8 * i) contextIdentifier];
+        contextIdentifier = [*(*(&v32 + 1) + 8 * i) contextIdentifier];
         [v19 addObject:contextIdentifier];
       }
 
-      v22 = [autoSwitchContexts countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v22 = [autoSwitchContexts countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v22);
@@ -1704,76 +1775,73 @@ LABEL_11:
   [(AXSSPunctuationGroup *)v5 setLastModifiedDate:lastModifiedDate];
 
 LABEL_19:
-  v31 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)punctuationGroupsForContexts
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = +[AXSS_PunctuationContext fetchRequest];
-  v31[0] = 0;
-  v31[1] = v31;
-  v31[2] = 0x3032000000;
-  v31[3] = __Block_byref_object_copy_;
-  v31[4] = __Block_byref_object_dispose_;
-  v32 = 0;
+  v30[0] = 0;
+  v30[1] = v30;
+  v30[2] = 0x3032000000;
+  v30[3] = __Block_byref_object_copy_;
+  v30[4] = __Block_byref_object_dispose_;
+  v31 = 0;
   [v3 setReturnsObjectsAsFaults:0];
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy_;
-  v29 = __Block_byref_object_dispose_;
-  v30 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy_;
+  v28 = __Block_byref_object_dispose_;
+  v29 = 0;
   managedObjectContext = [(AXSSDatabaseManager *)self managedObjectContext];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __54__AXSSPunctuationManager_punctuationGroupsForContexts__block_invoke;
-  v21[3] = &unk_1E81349E8;
-  v23 = &v25;
-  v21[4] = self;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __54__AXSSPunctuationManager_punctuationGroupsForContexts__block_invoke;
+  v20[3] = &unk_1E81349E8;
+  v22 = &v24;
+  v20[4] = self;
   v5 = v3;
-  v22 = v5;
-  v24 = v31;
-  [managedObjectContext performBlockAndWait:v21];
+  v21 = v5;
+  v23 = v30;
+  [managedObjectContext performBlockAndWait:v20];
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
-  v7 = v26[5];
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v33 count:16];
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v7 = v25[5];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v32 count:16];
   if (v8)
   {
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         group = [v11 group];
         v13 = [(AXSSPunctuationManager *)self _punctuationGroupFromManagedObject:group];
         contextIdentifier = [v11 contextIdentifier];
         [dictionary setObject:v13 forKeyedSubscript:contextIdentifier];
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v17 objects:v33 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v16 objects:v32 count:16];
     }
 
     while (v8);
   }
 
-  _Block_object_dispose(&v25, 8);
-  _Block_object_dispose(v31, 8);
-
-  v15 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(v30, 8);
 
   return dictionary;
 }
@@ -1816,13 +1884,13 @@ void __54__AXSSPunctuationManager_punctuationGroupsForContexts__block_invoke(uin
 
 void __43__AXSSPunctuationManager_punctuationGroups__block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = +[AXSS_PunctuationGroup fetchRequest];
   [v2 setReturnsObjectsAsFaults:0];
   v3 = [*(a1 + 32) managedObjectContext];
-  v21 = 0;
-  v4 = [v3 executeFetchRequest:v2 error:&v21];
-  v5 = v21;
+  v20 = 0;
+  v4 = [v3 executeFetchRequest:v2 error:&v20];
+  v5 = v20;
 
   v6 = [*(a1 + 32) punctuationGroupsForContexts];
   v7 = [MEMORY[0x1E695DF70] array];
@@ -1830,27 +1898,27 @@ void __43__AXSSPunctuationManager_punctuationGroups__block_invoke(uint64_t a1)
   v9 = *(v8 + 40);
   *(v8 + 40) = v7;
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v10 = v4;
-  v11 = [v10 countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v18;
+    v13 = *v17;
     do
     {
       v14 = 0;
       do
       {
-        if (*v18 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [*(a1 + 32) _punctuationGroupFromManagedObject:{*(*(&v17 + 1) + 8 * v14), v17}];
+        v15 = [*(a1 + 32) _punctuationGroupFromManagedObject:{*(*(&v16 + 1) + 8 * v14), v16}];
         [*(a1 + 32) _filterAutoswitchContexts:v15 punctuationGroupsForContexts:v6];
         [*(*(*(a1 + 40) + 8) + 40) addObject:v15];
 
@@ -1858,14 +1926,13 @@ void __43__AXSSPunctuationManager_punctuationGroups__block_invoke(uint64_t a1)
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v12);
   }
 
   [*(*(*(a1 + 40) + 8) + 40) sortUsingComparator:&__block_literal_global_130];
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __43__AXSSPunctuationManager_punctuationGroups__block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -1933,51 +2000,50 @@ LABEL_5:
 
 - (void)_filterAutoswitchContexts:(id)contexts punctuationGroupsForContexts:(id)forContexts
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   contextsCopy = contexts;
   forContextsCopy = forContexts;
   autoSwitchContexts = [contextsCopy autoSwitchContexts];
-  v18 = [autoSwitchContexts mutableCopy];
+  v17 = [autoSwitchContexts mutableCopy];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   obj = [contextsCopy autoSwitchContexts];
-  v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
-        v13 = [forContextsCopy objectForKeyedSubscript:{v12, v18}];
+        v12 = *(*(&v19 + 1) + 8 * i);
+        v13 = [forContextsCopy objectForKeyedSubscript:{v12, v17}];
         uuid = [v13 uuid];
         uuid2 = [contextsCopy uuid];
         v16 = [uuid isEqual:uuid2];
 
         if ((v16 & 1) == 0)
         {
-          [v18 removeObject:v12];
+          [v17 removeObject:v12];
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
   }
 
-  [contextsCopy setAutoSwitchContexts:v18];
-  v17 = *MEMORY[0x1E69E9840];
+  [contextsCopy setAutoSwitchContexts:v17];
 }
 
 - (id)punctuationEntryForUUID:(id)d
@@ -2085,7 +2151,7 @@ void __50__AXSSPunctuationManager_punctuationGroupForUUID___block_invoke(uint64_
     v11 = AXLogPunctuationStorage();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __50__AXSSPunctuationManager_punctuationGroupForUUID___block_invoke_cold_1(v6, (a1 + 32));
+      __50__AXSSPunctuationManager_punctuationGroupForUUID___block_invoke_cold_1();
     }
   }
 
@@ -2158,7 +2224,7 @@ void __50__AXSSPunctuationManager_punctuationGroupForUUID___block_invoke(uint64_
 
 void __51__AXSSPunctuationManager_updateEntry_fromCloudKit___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = +[AXSS_PunctuationEntry fetchRequest];
   v3 = MEMORY[0x1E696AE18];
   v4 = [*(a1 + 32) uuid];
@@ -2167,9 +2233,9 @@ void __51__AXSSPunctuationManager_updateEntry_fromCloudKit___block_invoke(uint64
 
   [v2 setReturnsObjectsAsFaults:0];
   v6 = [*(a1 + 40) managedObjectContext];
-  v26 = 0;
-  v7 = [v6 executeFetchRequest:v2 error:&v26];
-  v8 = v26;
+  v25 = 0;
+  v7 = [v6 executeFetchRequest:v2 error:&v25];
+  v8 = v25;
 
   v9 = [v7 lastObject];
   if (v9)
@@ -2239,12 +2305,11 @@ void __51__AXSSPunctuationManager_updateEntry_fromCloudKit___block_invoke(uint64
   {
     v24 = *(a1 + 32);
     *buf = 138412290;
-    v28 = v24;
+    v27 = v24;
     _os_log_impl(&dword_1C0E8A000, v23, OS_LOG_TYPE_INFO, "Updating entry: %@", buf, 0xCu);
   }
 
   [*(a1 + 40) _saveIfPossible];
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeEntry:(id)entry
@@ -2354,123 +2419,30 @@ void __38__AXSSPunctuationManager_removeEntry___block_invoke(uint64_t a1)
 
 - (void)_cloudKitUpdated:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = [a1 cloudKitSync];
   v5 = [a1 managedObjectContext];
-  v7[0] = 67109378;
-  v7[1] = v4;
-  v8 = 2112;
-  v9 = v5;
-  _os_log_debug_impl(&dword_1C0E8A000, a2, OS_LOG_TYPE_DEBUG, "Cloud kit updated itself: %d, %@", v7, 0x12u);
-
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __40__AXSSPunctuationManager__setupDatabase__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1C0E8A000, v0, v1, "Punctuation err: resetting storage coordinator %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_saveIfPossible
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1C0E8A000, v0, v1, "Could not save punctuation: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __46__AXSSPunctuationManager_cloudRecordsToPurge___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1C0E8A000, v0, v1, "Could not fetch entries: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __50__AXSSPunctuationManager_removeAllRecordsForPurge__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1C0E8A000, v0, v1, "Could not remove group: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __49__AXSSPunctuationManager_parentPunctuationGroup___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1C0E8A000, v0, v1, "Could not get parent group: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __52__AXSSPunctuationManager__punctuationGroupForEntry___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1C0E8A000, v0, v1, "Could not fetch group for entry: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __65__AXSSPunctuationManager_punctuationEntryObjectFromLocalObjects___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1C0E8A000, v0, v1, "Unable to fetch uuid for entry: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __62__AXSSPunctuationManager_updatePunctuationGroup_fromCloudKit___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1C0E8A000, v0, v1, "Could not fetch group: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __50__AXSSPunctuationManager_punctuationEntryForUUID___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1C0E8A000, v0, v1, "Could not get entry: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __50__AXSSPunctuationManager_punctuationGroupForUUID___block_invoke_cold_1(uint64_t a1, uint64_t *a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
-  OUTLINED_FUNCTION_3();
+  v6[0] = 67109378;
+  v6[1] = v4;
   v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_1C0E8A000, v4, OS_LOG_TYPE_ERROR, "Error getting group: %@ %@", v6, 0x16u);
+  v8 = v5;
+  _os_log_debug_impl(&dword_1C0E8A000, a2, OS_LOG_TYPE_DEBUG, "Cloud kit updated itself: %d, %@", v6, 0x12u);
+}
+
+void __50__AXSSPunctuationManager_punctuationGroupForUUID___block_invoke_cold_1()
+{
   v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3();
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_1C0E8A000, v1, OS_LOG_TYPE_ERROR, "Error getting group: %@ %@", v2, 0x16u);
 }
 
 - (void)updateEntry:fromCloudKit:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
-  _os_log_fault_impl(&dword_1C0E8A000, v0, OS_LOG_TYPE_FAULT, "Every entry being updated needs a group UUID: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-void __51__AXSSPunctuationManager_updateEntry_fromCloudKit___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1C0E8A000, v0, v1, "Could not update entry: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __38__AXSSPunctuationManager_removeEntry___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1C0E8A000, v0, v1, "Could not delete entry: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1C0E8A000, v0, OS_LOG_TYPE_FAULT, "Every entry being updated needs a group UUID: %@", v1, 0xCu);
 }
 
 @end

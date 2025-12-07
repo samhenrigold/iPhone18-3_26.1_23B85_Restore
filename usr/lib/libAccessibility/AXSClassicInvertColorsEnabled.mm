@@ -3,7 +3,7 @@
 
 @implementation AXSClassicInvertColorsEnabled
 
-uint64_t ___AXSClassicInvertColorsEnabled_block_invoke()
+void *___AXSClassicInvertColorsEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

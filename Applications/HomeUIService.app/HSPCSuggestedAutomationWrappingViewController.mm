@@ -4,6 +4,7 @@
 - (id)hu_preloadContent;
 - (id)shouldSkip;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HSPCSuggestedAutomationWrappingViewController
@@ -65,6 +66,23 @@
 
   mvvmController2 = [(HSPCSuggestedAutomationWrappingViewController *)self mvvmController];
   [mvvmController2 didMoveToParentViewController:self];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = HSPCSuggestedAutomationWrappingViewController;
+  [(HSPCSuggestedAutomationWrappingViewController *)&v9 viewWillAppear:appear];
+  mvvmController = [(HSPCSuggestedAutomationWrappingViewController *)self mvvmController];
+  tableView = [mvvmController tableView];
+  [tableView layoutIfNeeded];
+
+  contentView = [(HSPCSuggestedAutomationWrappingViewController *)self contentView];
+  [contentView setNeedsUpdateConstraints];
+
+  view = [(HSPCSuggestedAutomationWrappingViewController *)self view];
+  [view bounds];
+  [(HSPCSuggestedAutomationWrappingViewController *)self updatePreferredContentSizeForCardWidth:v8];
 }
 
 - (id)hu_preloadContent

@@ -259,7 +259,7 @@ void __124__PUOneUpVisualImageAnalyzingController__requestAnalysisForVideoFrameO
   v8 = videoSession;
   if (videoSession)
   {
-    [videoSession preferredTransform];
+    objc_msgSend_preferredTransform(videoSession);
   }
 
   else

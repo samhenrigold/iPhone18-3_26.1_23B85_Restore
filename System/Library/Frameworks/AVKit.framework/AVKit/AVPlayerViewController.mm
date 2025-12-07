@@ -93,7 +93,13 @@
 - (id)_fullScreenController;
 - (id)_newsWidgetPlayerBehaviorContext;
 - (id)_newsWidgetPlayerLegacyBehavior;
+- (id)_performInitialSetup;
 - (id)_preferredDynamicRangeForAutomaticModeWithHeadroomUsage:(id *)usage;
+- (id)_updateControlsViewControllerPerformanceState;
+- (id)_updateControlsVisibilityPolicyAnimated:(id *)result;
+- (id)_updateExcludedControls;
+- (id)_updateGesturesEnablementStates;
+- (id)_updateVisualAnalysisViewHiddenState;
 - (id)_volumeController;
 - (id)avkit_pictureInPictureViewController;
 - (id)controlsViewController:(id)controller displayNameForMediaSelectionOption:(id)option;
@@ -112,16 +118,7 @@
 - (int64_t)overrideUserInterfaceStyle;
 - (int64_t)preferredStatusBarStyle;
 - (uint64_t)_isReadyToConnectSynchronousChecks;
-- (uint64_t)_performInitialSetup;
-- (uint64_t)_updateControlsViewControllerPerformanceState;
-- (uint64_t)_updateControlsVisibilityPolicyAnimated:(uint64_t)result;
-- (uint64_t)_updateExcludedControls;
-- (uint64_t)_updateIncludedControls;
-- (uint64_t)_updateScrubbingGestureEnabledState;
-- (uint64_t)_updateSecondGenerationControlsGestureEnablementStates;
 - (uint64_t)_updateTapThroughGestureRecognizerEnablementState;
-- (uint64_t)_updateVisualAnalysisViewActiveInteractionTypes;
-- (uint64_t)_updateVisualAnalysisViewHiddenState;
 - (void)_addObservers;
 - (void)_addObserversOnControlsViewController;
 - (void)_attachContentTabPanGestureRecognizerIfNeeded;
@@ -203,7 +200,7 @@
 - (void)_updateDefaultPlaybackRateIfNeeded;
 - (void)_updateEnhanceDialogueEnabled;
 - (void)_updateExternalPlaybackIndicatorView;
-- (void)_updateGesturesEnablementStates;
+- (void)_updateIncludedControls;
 - (void)_updateInfoTabViewControllerIfNeeded;
 - (void)_updateInfoTabViewControllerPreferredContentSizeIfNeededToFitSize:(double)size;
 - (void)_updateMenuGroupAttributes;
@@ -220,7 +217,9 @@
 - (void)_updatePreferredDynamicRangeForAutomaticMode;
 - (void)_updatePreferredDynamicRangeForAutomaticModeWithHeadroomUsage:(void *)usage;
 - (void)_updatePrefersFullScreenStyleForEmbeddedMode;
+- (void)_updateScrubbingGestureEnabledState;
 - (void)_updateSecondGenerationContentTabsGestureEnablementState;
+- (void)_updateSecondGenerationControlsGestureEnablementStates;
 - (void)_updateSecondScreenConnectionPlayingState;
 - (void)_updateSecondScreenConnectionReadyToConnect;
 - (void)_updateSelectedPlaybackSpeedIfPlayerControllerRateChanges;
@@ -232,6 +231,7 @@
 - (void)_updateUnsupportedContentIndicatorView;
 - (void)_updateVideoGravityPinchGestureEnablementState;
 - (void)_updateViewControllerPreferencesIfNeeded;
+- (void)_updateVisualAnalysisViewActiveInteractionTypes;
 - (void)_updateVisualAnalyzerEnabledStateIfNeeded;
 - (void)_updateVolumeController;
 - (void)_updateWantsAnalysisButtonVisibleStateIfNeeded;
@@ -623,25 +623,25 @@
 - (void)scrollingObserverDidChangeScrollingState:(id)state
 {
   [(AVPlayerViewController *)self performInitialSetupIfNeededAndPossible];
-  [(AVPlayerViewController *)self _updateControlsViewControllerPerformanceState];
+  [(AVPlayerViewController *)&self->super.super.super.isa _updateControlsViewControllerPerformanceState];
   [(AVPlayerViewController *)self _updatePlayerControllerInspectionState];
   [(AVPlayerViewController *)self _updateVisualAnalyzerEnabledStateIfNeeded];
 
-  [(AVPlayerViewController *)self _updateVisualAnalysisViewHiddenState];
+  [(AVPlayerViewController *)&self->super.super.super.isa _updateVisualAnalysisViewHiddenState];
 }
 
-- (uint64_t)_updateControlsViewControllerPerformanceState
+- (id)_updateControlsViewControllerPerformanceState
 {
   if (result)
   {
     v1 = result;
-    window = [*(result + 1240) window];
+    window = [result[155] window];
     v3 = window == 0;
 
-    scrollingObserver = [*(v1 + 1240) scrollingObserver];
+    scrollingObserver = [v1[155] scrollingObserver];
     isScrolling = [scrollingObserver isScrolling];
 
-    v6 = *(v1 + 1248);
+    v6 = v1[156];
 
     return [v6 setOptimizeForPerformance:(v3 | isScrolling) & 1];
   }
@@ -706,12 +706,12 @@ LABEL_10:
   }
 }
 
-- (uint64_t)_updateVisualAnalysisViewHiddenState
+- (id)_updateVisualAnalysisViewHiddenState
 {
   if (result)
   {
     v1 = result;
-    scrollingObserver = [*(result + 1240) scrollingObserver];
+    scrollingObserver = [result[155] scrollingObserver];
     isScrolling = [scrollingObserver isScrolling];
 
     v4 = isScrolling | ~[v1 allowsVideoFrameAnalysis];
@@ -1329,7 +1329,7 @@ uint64_t __118__AVPlayerViewController_pictureInPictureController_restoreUserInt
   [v8 setPictureInPictureActive:0];
 
   [(AVPlayerViewController *)self _updateVisualAnalyzerEnabledStateIfNeeded];
-  [(AVPlayerViewController *)self _updateControlsVisibilityPolicyAnimated:?];
+  [(AVPlayerViewController *)&self->super.super.super.isa _updateControlsVisibilityPolicyAnimated:?];
   objc_destroyWeak(&v13);
   objc_destroyWeak(&location);
 }
@@ -1345,12 +1345,12 @@ void __76__AVPlayerViewController_pictureInPictureControllerDidStopPictureInPict
   }
 }
 
-- (uint64_t)_updateControlsVisibilityPolicyAnimated:(uint64_t)result
+- (id)_updateControlsVisibilityPolicyAnimated:(id *)result
 {
   if (result)
   {
     v3 = result;
-    if (*(result + 1256))
+    if (result[157])
     {
       v4 = *(result + 1480) ^ 1;
     }
@@ -1360,7 +1360,7 @@ void __76__AVPlayerViewController_pictureInPictureControllerDidStopPictureInPict
       v4 = 0;
     }
 
-    presentationState = [*(result + 1136) presentationState];
+    presentationState = [result[142] presentationState];
     playerController = [v3 playerController];
     isPlayingOnExternalScreen = [playerController isPlayingOnExternalScreen];
 
@@ -1380,7 +1380,7 @@ void __76__AVPlayerViewController_pictureInPictureControllerDidStopPictureInPict
       }
     }
 
-    if (*(v3 + 1068) & 1) != 0 || (*(v3 + 1070) & 1) != 0 || ([*(v3 + 1800) isInteractionInProgress])
+    if (*(v3 + 1068) & 1) != 0 || (*(v3 + 1070) & 1) != 0 || ([v3[225] isInteractionInProgress])
     {
       LOBYTE(v11) = 1;
     }
@@ -1408,7 +1408,7 @@ void __76__AVPlayerViewController_pictureInPictureControllerDidStopPictureInPict
       v15 = 0;
     }
 
-    v16 = *(v3 + 1248);
+    v16 = v3[156];
 
     return [v16 updateVisibilityPolicy:v15 animated:a2];
   }
@@ -1468,7 +1468,7 @@ void __76__AVPlayerViewController_pictureInPictureControllerDidStopPictureInPict
   v12 = ;
   [v12 setPictureInPictureActive:0];
 
-  [(AVPlayerViewController *)self _updateControlsVisibilityPolicyAnimated:?];
+  [(AVPlayerViewController *)&self->super.super.super.isa _updateControlsVisibilityPolicyAnimated:?];
   objc_destroyWeak(&v14);
   objc_destroyWeak(buf);
 }
@@ -1646,7 +1646,7 @@ uint64_t __77__AVPlayerViewController_pictureInPictureControllerDidStartPictureI
   v10 = ;
   [v10 setPictureInPictureActive:1];
 
-  [(AVPlayerViewController *)self _updateControlsVisibilityPolicyAnimated:?];
+  [(AVPlayerViewController *)&self->super.super.super.isa _updateControlsVisibilityPolicyAnimated:?];
   objc_destroyWeak(&v15);
   objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
@@ -2192,7 +2192,7 @@ LABEL_17:
   objc_destroyWeak(&location);
 LABEL_19:
   self->_fullscreenTransitionInProgress = 0;
-  [(AVPlayerViewController *)self _updateControlsVisibilityPolicyAnimated:?];
+  [(AVPlayerViewController *)&self->super.super.super.isa _updateControlsVisibilityPolicyAnimated:?];
   [(AVPlayerViewController *)self _updateStatusBarGradientViewVisibility];
 }
 
@@ -3083,7 +3083,7 @@ void __64__AVPlayerViewController__setupToggleVisualLookupActionIfNeeded__block_
   buttonCopy = button;
   if (self && self->_controlsGeneration)
   {
-    [(AVPlayerViewController *)self _updateControlsVisibilityPolicyAnimated:?];
+    [(AVPlayerViewController *)&self->super.super.super.isa _updateControlsVisibilityPolicyAnimated:?];
   }
 
   [(AVControlsViewController *)self->_controlsViewController toggleVisibility:self];
@@ -3201,18 +3201,18 @@ void __64__AVPlayerViewController__setupToggleVisualLookupActionIfNeeded__block_
   }
 }
 
-- (uint64_t)_updateVisualAnalysisViewActiveInteractionTypes
+- (void)_updateVisualAnalysisViewActiveInteractionTypes
 {
   if (result)
   {
-    if (*(result + 1552) == 1)
+    if (*(result + 194) == 1)
     {
       v1 = 30;
     }
 
     else
     {
-      v1 = *(result + 1552);
+      v1 = *(result + 194);
     }
 
     if ((v1 & 8) != 0 && !*(result + 1520))
@@ -3220,7 +3220,7 @@ void __64__AVPlayerViewController__setupToggleVisualLookupActionIfNeeded__block_
       v1 &= ~8uLL;
     }
 
-    return [*(result + 1800) setAnalysisTypes:v1];
+    return [*(result + 225) setAnalysisTypes:v1];
   }
 
   return result;
@@ -3414,7 +3414,7 @@ LABEL_42:
       LOBYTE(v5) = 0;
     }
 
-    v6 = *(v1 + 1384);
+    v6 = v1[173];
 
     return [v6 setEnabled:v5 & 1];
   }
@@ -3479,7 +3479,7 @@ LABEL_42:
   v10 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    [(AVPlayerViewController *)self _updateControlsViewControllerPerformanceState];
+    [(AVPlayerViewController *)&self->super.super.super.isa _updateControlsViewControllerPerformanceState];
     [(AVPlayerViewController *)self performInitialSetupIfNeededAndPossible];
     [(AVPlayerViewController *)self _updatePlayerControllerInspectionState];
     window = [(AVPlayerViewControllerContentView *)self->_playerViewControllerContentView window];
@@ -3672,7 +3672,7 @@ void __109__AVPlayerViewController_controlsViewController_willBeginUpdatingVisib
   v14 = handlerCopy;
   [_transitionController beginFullScreenDismissalOfViewController:v12 animated:animatedCopy isInteractive:interactiveCopy completion:v15];
 
-  [(AVPlayerViewController *)self _updateControlsVisibilityPolicyAnimated:?];
+  [(AVPlayerViewController *)&self->super.super.super.isa _updateControlsVisibilityPolicyAnimated:?];
   [(AVPlayerViewController *)self _updateStatusBarGradientViewVisibility];
 }
 
@@ -3867,7 +3867,7 @@ uint64_t __90__AVPlayerViewController__transitionFromFullScreenAnimated_interact
   v25 = handlerCopy;
   [_transitionController2 beginFullScreenPresentationOfViewController:v12 fromView:view isInteractive:interactiveCopy completion:v26];
 
-  [(AVPlayerViewController *)self _updateControlsVisibilityPolicyAnimated:?];
+  [(AVPlayerViewController *)&self->super.super.super.isa _updateControlsVisibilityPolicyAnimated:?];
   [(AVPlayerViewController *)self _updateStatusBarGradientViewVisibility];
 }
 
@@ -5301,22 +5301,22 @@ uint64_t __71__AVPlayerViewController__isTrackingUserInteractionWithInteractiveV
   [(AVMobileFullscreenController *)self->_fullscreenController updatePresentationStateTo:v25];
   [(AVPlayerViewController *)self _updateScrubbingGestureEnabledState];
   [(AVPlayerViewController *)self _updateContentOverlayViewSuperview];
-  [(AVPlayerViewController *)self _updateControlsVisibilityPolicyAnimated:?];
+  [(AVPlayerViewController *)&self->super.super.super.isa _updateControlsVisibilityPolicyAnimated:?];
 
   [(AVPlayerViewController *)self _updatePreferredDynamicRangeForAutomaticMode];
 }
 
-- (uint64_t)_updateScrubbingGestureEnabledState
+- (void)_updateScrubbingGestureEnabledState
 {
   if (result)
   {
     v1 = result;
-    if (*(result + 1256))
+    if (result[157])
     {
       v2 = +[AVKitGlobalSettings shared];
       if ([v2 overVideoScrubbingGestureEnabled])
       {
-        fullscreenController = [*(v1 + 1248) fullscreenController];
+        fullscreenController = [v1[156] fullscreenController];
         v4 = [fullscreenController presentationState] != 2 && (objc_msgSend(v1, "actuallyRequiresLinearPlayback") & 1) == 0 && !-[AVPlayerViewController _contentTabsVisible](v1);
       }
 
@@ -5331,7 +5331,7 @@ uint64_t __71__AVPlayerViewController__isTrackingUserInteractionWithInteractiveV
       v4 = 0;
     }
 
-    v5 = *(v1 + 1200);
+    v5 = v1[150];
 
     return [v5 setEnabled:v4];
   }
@@ -5969,7 +5969,7 @@ void __67__AVPlayerViewController__createPictureInPictureControllerIfNeeded__blo
   {
     transitionContext = [contextCopy transitionContext];
     animationCoordinator = [transitionContext animationCoordinator];
-    [(AVPlayerViewController *)self _updateGesturesEnablementStates];
+    [(AVPlayerViewController *)&self->super.super.super.isa _updateGesturesEnablementStates];
     objc_initWeak(&location, self);
     v14[0] = MEMORY[0x1E69E9820];
     v14[1] = 3221225472;
@@ -6002,14 +6002,14 @@ void __67__AVPlayerViewController__createPictureInPictureControllerIfNeeded__blo
   }
 }
 
-- (void)_updateGesturesEnablementStates
+- (id)_updateGesturesEnablementStates
 {
   if (result)
   {
     v1 = result;
     [(AVPlayerViewController *)result _updateSecondGenerationControlsGestureEnablementStates];
-    [*(v1 + 1416) setEnabled:!-[AVPlayerViewController _contentTabsVisible](v1)];
-    v2 = *(v1 + 1376);
+    [v1[177] setEnabled:!-[AVPlayerViewController _contentTabsVisible](v1)];
+    v2 = v1[172];
     v3 = ![(AVPlayerViewController *)v1 _contentTabsVisible];
 
     return [v2 setEnabled:v3];
@@ -6065,7 +6065,7 @@ void __91__AVPlayerViewController__controlsViewController_willBeginContentTabTra
   [v4 updateVideoBounds];
 }
 
-- (uint64_t)_updateSecondGenerationControlsGestureEnablementStates
+- (void)_updateSecondGenerationControlsGestureEnablementStates
 {
   [(AVPlayerViewController *)self _updateSecondGenerationContentTabsGestureEnablementState];
   [(AVPlayerViewController *)self _updateTapThroughGestureRecognizerEnablementState];
@@ -7420,7 +7420,7 @@ LABEL_6:
   if (self->_showsVisualLookup != lookup)
   {
     self->_showsVisualLookup = lookup;
-    [(AVPlayerViewController *)self _updateControlsVisibilityPolicyAnimated:?];
+    [(AVPlayerViewController *)&self->super.super.super.isa _updateControlsVisibilityPolicyAnimated:?];
     [(AVPlayerViewController *)self _updateVisualAnalysisViewActiveInteractionTypes];
     showsVisualLookup = self->_showsVisualLookup;
     toggleLookupAction = self->_toggleLookupAction;
@@ -7585,7 +7585,7 @@ void __54__AVPlayerViewController__didEndPlayingOnSecondScreen__block_invoke(uin
     else
     {
       playerController3 = [(AVPlayerViewController *)self playerController];
-      [playerController3 currentTime];
+      objc_msgSend_currentTime(playerController3);
       [playerController2 seekToTime:v7 + 15.0];
     }
   }
@@ -7607,7 +7607,7 @@ void __54__AVPlayerViewController__didEndPlayingOnSecondScreen__block_invoke(uin
     else
     {
       playerController3 = [(AVPlayerViewController *)self playerController];
-      [playerController3 currentTime];
+      objc_msgSend_currentTime(playerController3);
       [playerController2 seekToTime:v7 + -15.0];
     }
   }
@@ -8823,11 +8823,11 @@ void __34__AVPlayerViewController_loadView__block_invoke_272(uint64_t a1, void *
   {
 LABEL_11:
 
-    [(AVPlayerViewController *)self _performInitialSetup];
+    [(AVPlayerViewController *)&self->super.super.super.isa _performInitialSetup];
   }
 }
 
-- (uint64_t)_performInitialSetup
+- (id)_performInitialSetup
 {
   if (result)
   {
@@ -9792,7 +9792,7 @@ void __56__AVPlayerViewController__dismissControlsViewController__block_invoke(u
       [(AVPlayerViewController *)self chromePlaybackControlsController];
     }
     v7 = ;
-    [v7 setEntersFullScreenWhenPlaybackBegins:{v3, *v8, *&v8[16]}];
+    [v7 setEntersFullScreenWhenPlaybackBegins:{v3, *v8, *&v8[8]}];
   }
 }
 
@@ -9828,7 +9828,7 @@ void __56__AVPlayerViewController__dismissControlsViewController__block_invoke(u
     [(AVPlayerViewController *)self chromePlaybackControlsController];
   }
   v7 = ;
-  [v7 setVolumeControlsCanShowSlider:{sliderCopy, *v8, *&v8[16]}];
+  [v7 setVolumeControlsCanShowSlider:{sliderCopy, *v8, *&v8[8]}];
 }
 
 - (BOOL)volumeControlsCanShowSlider
@@ -9941,7 +9941,7 @@ void __56__AVPlayerViewController__dismissControlsViewController__block_invoke(u
         [(AVPlayerViewController *)self chromePlaybackControlsController];
       }
       v7 = ;
-      [v7 setRequiresLinearPlayback:{playbackCopy, *v11, *&v11[16]}];
+      [v7 setRequiresLinearPlayback:{playbackCopy, *v11, *&v11[8]}];
 
       playerController = [(AVPlayerViewController *)self playerController];
       [playerController setTouchBarRequiresLinearPlayback:playbackCopy];
@@ -9999,7 +9999,7 @@ void __56__AVPlayerViewController__dismissControlsViewController__block_invoke(u
       [(AVPlayerViewController *)self chromePlaybackControlsController];
     }
     v7 = ;
-    [v7 setShowsMinimalPlaybackControlsWhenEmbeddedInline:{inlineCopy, *v8, *&v8[16]}];
+    [v7 setShowsMinimalPlaybackControlsWhenEmbeddedInline:{inlineCopy, *v8, *&v8[8]}];
   }
 }
 
@@ -10062,7 +10062,7 @@ void __56__AVPlayerViewController__dismissControlsViewController__block_invoke(u
 
     self->_canHidePlaybackControls = controlsCopy;
     [(AVPlayerViewController *)self _updatePlaybackControlsCanHideStateIfNeeded];
-    [(AVPlayerViewController *)self _updateControlsVisibilityPolicyAnimated:?];
+    [(AVPlayerViewController *)&self->super.super.super.isa _updateControlsVisibilityPolicyAnimated:?];
   }
 }
 
@@ -10265,7 +10265,7 @@ void __72__AVPlayerViewController_setOverrideParentApplicationDisplayIdentifier_
     [(AVPlayerViewController *)self chromePlaybackControlsController];
   }
   v8 = ;
-  [v8 setShowsTimecodes:{v3, *v9, *&v9[16]}];
+  [v8 setShowsTimecodes:{v3, *v9, *&v9[8]}];
 }
 
 - (void)setPlaybackSpeedCollection:(id)collection
@@ -10530,7 +10530,7 @@ void __46__AVPlayerViewController_setPlayerController___block_invoke(uint64_t a1
       [(AVPictureInPictureController *)self->_pictureInPictureController setAllowsPictureInPicturePlayback:v3];
     }
 
-    if ([(AVPlayerViewController *)self _delegateRespondsTo:sel_playerViewControllerShouldStartPictureInPictureFromInlineWhenEnteringBackground_, *v8, *&v8[16]])
+    if ([(AVPlayerViewController *)self _delegateRespondsTo:sel_playerViewControllerShouldStartPictureInPictureFromInlineWhenEnteringBackground_, *v8, *&v8[8]])
     {
       delegate = [(AVPlayerViewController *)self delegate];
       -[AVPlayerViewController setCanStartPictureInPictureAutomaticallyFromInline:](self, "setCanStartPictureInPictureAutomaticallyFromInline:", [delegate playerViewControllerShouldStartPictureInPictureFromInlineWhenEnteringBackground:self]);
@@ -10587,7 +10587,7 @@ void __46__AVPlayerViewController_setPlayerController___block_invoke(uint64_t a1
       [(AVPlayerViewController *)self _updateShowsAnalysisControl];
       [(AVPlayerViewController *)self _updateVisualAnalyzerEnabledStateIfNeeded];
 
-      [(AVPlayerViewController *)self _updateVisualAnalysisViewHiddenState];
+      [(AVPlayerViewController *)&self->super.super.super.isa _updateVisualAnalysisViewHiddenState];
     }
   }
 
@@ -10720,7 +10720,7 @@ void __46__AVPlayerViewController_setPlayerController___block_invoke(uint64_t a1
   else
   {
     v4 = [[AVMobileChromeControlsViewController alloc] initWithPlayerViewController:self];
-    [self overrideTransformForProminentPlayButton];
+    objc_msgSend_overrideTransformForProminentPlayButton(self);
     [(AVMobileChromeControlsViewController *)v4 setTransformForProminentPlayButton:&v13];
     overrideLayoutMarginsWhenEmbeddedInline = [self overrideLayoutMarginsWhenEmbeddedInline];
     [(AVMobileChromeControlsViewController *)v4 setEmbeddedInlineLayoutMargins:overrideLayoutMarginsWhenEmbeddedInline];
@@ -10764,34 +10764,34 @@ LABEL_13:
 
 - (void)_updateControlsViewControllerInitialState
 {
-  if (self)
+  if (result)
   {
-    [self _addObserversOnControlsViewController];
-    [(AVPlayerViewController *)self _updateShowsAnalysisControl];
-    [(AVPlayerViewController *)self _updateIncludedControls];
-    [(AVPlayerViewController *)self _updateExcludedControls];
-    [(AVPlayerViewController *)self _updatePrefersFullScreenStyleForEmbeddedMode];
-    [(AVPlayerViewController *)self _updateTips];
-    [(AVPlayerViewController *)self _updateMenuGroupAttributes];
-    [self _updateCustomControlsViewStateWithVisibleControlsSet:0];
-    [(AVPlayerViewController *)self _updateControlsViewControllerPerformanceState];
+    [result _addObserversOnControlsViewController];
+    [(AVPlayerViewController *)result _updateShowsAnalysisControl];
+    [(AVPlayerViewController *)result _updateIncludedControls];
+    [(AVPlayerViewController *)result _updateExcludedControls];
+    [(AVPlayerViewController *)result _updatePrefersFullScreenStyleForEmbeddedMode];
+    [(AVPlayerViewController *)result _updateTips];
+    [(AVPlayerViewController *)result _updateMenuGroupAttributes];
+    [result _updateCustomControlsViewStateWithVisibleControlsSet:0];
+    [(AVPlayerViewController *)result _updateControlsViewControllerPerformanceState];
 
-    [(AVPlayerViewController *)self _updateControlsViewControllerVideoScaledStateIfNeeded];
+    [(AVPlayerViewController *)result _updateControlsViewControllerVideoScaledStateIfNeeded];
   }
 }
 
-- (uint64_t)_updateIncludedControls
+- (void)_updateIncludedControls
 {
   if (result)
   {
     v1 = 72;
-    if (*(result + 1480) & 1 | (*(result + 1256) == 0))
+    if (*(result + 1480) & 1 | (*(result + 157) == 0))
     {
       v1 = 0;
     }
 
     v2 = 121;
-    if (*(result + 1480) & 1 | (*(result + 1256) == 0))
+    if (*(result + 1480) & 1 | (*(result + 157) == 0))
     {
       v2 = 57;
     }
@@ -10816,22 +10816,22 @@ LABEL_13:
       v3 = v1;
     }
 
-    return [*(result + 1248) setIncludedControls:v3];
+    return [*(result + 156) setIncludedControls:v3];
   }
 
   return result;
 }
 
-- (uint64_t)_updateExcludedControls
+- (id)_updateExcludedControls
 {
   if (result)
   {
     v1 = result;
-    controlsViewControllerIfChromeless = [*(result + 1248) controlsViewControllerIfChromeless];
-    [controlsViewControllerIfChromeless setExcludedControls:{objc_msgSend(*(v1 + 1544), "excludedControls")}];
+    controlsViewControllerIfChromeless = [result[156] controlsViewControllerIfChromeless];
+    [controlsViewControllerIfChromeless setExcludedControls:{objc_msgSend(v1[193], "excludedControls")}];
 
-    controlsViewControllerIfGlass = [*(v1 + 1248) controlsViewControllerIfGlass];
-    [controlsViewControllerIfGlass setExcludedControls:{objc_msgSend(*(v1 + 1544), "excludedControls")}];
+    controlsViewControllerIfGlass = [v1[156] controlsViewControllerIfGlass];
+    [controlsViewControllerIfGlass setExcludedControls:{objc_msgSend(v1[193], "excludedControls")}];
 
     return [(AVPlayerViewController *)v1 _updateTapThroughGestureRecognizerEnablementState];
   }
@@ -11155,7 +11155,7 @@ LABEL_13:
     v11 = ;
     [v11 setCanIncludePlaybackControlsWhenInline:{inlineCopy, v6, v12, v13, v14, v7}];
 
-    [(AVPlayerViewController *)self _updateControlsVisibilityPolicyAnimated:?];
+    [(AVPlayerViewController *)&self->super.super.super.isa _updateControlsVisibilityPolicyAnimated:?];
   }
 }
 
@@ -11194,7 +11194,7 @@ LABEL_13:
       [(AVPlayerViewController *)self chromePlaybackControlsController];
     }
     v7 = ;
-    [v7 setShowsPlaybackControls:{self->_showsPlaybackControls, *v9, *&v9[16]}];
+    [v7 setShowsPlaybackControls:{self->_showsPlaybackControls, *v9, *&v9[8]}];
 
     contentView = [(AVPlayerViewController *)self contentView];
     [contentView setShowsPlaybackControls:self->_showsPlaybackControls];
@@ -11203,7 +11203,7 @@ LABEL_13:
     [(AVPlayerViewController *)self _updateAnalysisViewSuperview];
     [(AVPlayerViewController *)self _updateWantsAnalysisButtonVisibleStateIfNeeded];
     [(AVPlayerViewController *)&self->super.super.super.isa _setupInfoTabViewController];
-    [(AVPlayerViewController *)self _updateControlsVisibilityPolicyAnimated:?];
+    [(AVPlayerViewController *)&self->super.super.super.isa _updateControlsVisibilityPolicyAnimated:?];
     [(AVPlayerViewController *)self _updateSecondScreenConnectionReadyToConnect];
     [(AVPlayerViewController *)self _updateEnhanceDialogueEnabled];
   }
@@ -11234,7 +11234,7 @@ LABEL_13:
     configuration = self->_configuration;
     self->_configuration = v4;
 
-    [(AVPlayerViewController *)self _updateExcludedControls];
+    [(AVPlayerViewController *)&self->super.super.super.isa _updateExcludedControls];
     [(AVPlayerViewController *)self _updatePrefersFullScreenStyleForEmbeddedMode];
     [(AVPlayerViewController *)self _updateTips];
     [(AVPlayerViewController *)self _updatePlaybackControlsState];
@@ -11680,7 +11680,7 @@ void __40__AVPlayerViewController_initWithCoder___block_invoke_3(uint64_t a1, vo
   v3 = v2;
   if (v2)
   {
-    *(v2 + 1071) = 1;
+    v2[1071] = 1;
     [(AVPlayerViewController *)v2 _updateStatusBarGradientViewVisibility];
   }
 
@@ -12674,7 +12674,7 @@ uint64_t __103__AVPlayerViewController_AVPlayerViewController_WebKitOnly__enterF
       [(UITapGestureRecognizer *)self->_doubleTapGestureRecognizer setEnabled:self->_controlsGeneration == 0];
       [(AVPlayerViewController *)self _updateSecondGenerationControlsGestureEnablementStates];
       [(AVPlayerViewController *)self _updateStatusBarGradientViewVisibility];
-      [(AVPlayerViewController *)self _updateControlsVisibilityPolicyAnimated:?];
+      [(AVPlayerViewController *)&self->super.super.super.isa _updateControlsVisibilityPolicyAnimated:?];
       [(AVPlayerViewController *)self _updateControlsViewControllerInitialState];
     }
   }

@@ -19,7 +19,7 @@
 - (void)viewDidLayoutSubviews
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for MessageHistoryViewController();
+  v6.super_class = type metadata accessor for MessageHistoryViewController(0);
   v2 = v6.receiver;
   [(CKMessageHistoryViewController *)&v6 viewDidLayoutSubviews];
   v3 = sub_190CC1BEC();
@@ -78,7 +78,7 @@
 
 - (void)dateSelection:(id)selection didSelectDate:(id)date
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD627D0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD627D0, &qword_190E03440);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v14 - v8;
   if (date)
@@ -98,12 +98,12 @@
   selfCopy = self;
   sub_190CC4F68(v9);
 
-  sub_19022EEA4(v9, &qword_1EAD627D0);
+  sub_19022EEA4(v9, &qword_1EAD627D0, &qword_190E03440);
 }
 
 - (BOOL)dateSelection:(id)selection canSelectDate:(id)date
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD627D0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD627D0, &qword_190E03440);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v16 - v8;
   if (date)
@@ -123,7 +123,7 @@
   selfCopy = self;
   v14 = sub_190CC549C(v9);
 
-  sub_19022EEA4(v9, &qword_1EAD627D0);
+  sub_19022EEA4(v9, &qword_1EAD627D0, &qword_190E03440);
   return v14;
 }
 

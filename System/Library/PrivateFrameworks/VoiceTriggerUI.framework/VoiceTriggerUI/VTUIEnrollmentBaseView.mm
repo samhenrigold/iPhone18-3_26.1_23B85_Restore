@@ -32,7 +32,7 @@
 
 - (void)_setupUI
 {
-  v205 = *MEMORY[0x277D85DE8];
+  v204 = *MEMORY[0x277D85DE8];
   v3 = +[VTUIStyle sharedStyle];
   mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
   windows = [mEMORY[0x277D75128] windows];
@@ -58,7 +58,7 @@
   readableLeftAnchorConstraint = self->_readableLeftAnchorConstraint;
   self->_readableLeftAnchorConstraint = v14;
 
-  v188 = readableContentGuide;
+  v187 = readableContentGuide;
   rightAnchor = [readableContentGuide rightAnchor];
   rightAnchor2 = [(VTUIEnrollmentBaseView *)self rightAnchor];
   v18 = [rightAnchor constraintEqualToAnchor:rightAnchor2 constant:-v10];
@@ -95,11 +95,11 @@
   if (os_log_type_enabled(VTUILogContextFacility, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v200 = "[VTUIEnrollmentBaseView _setupUI]";
-    v201 = 1024;
-    v202 = isKindOfClass & 1;
-    v203 = 1024;
-    v204 = isOptedIn;
+    v199 = "[VTUIEnrollmentBaseView _setupUI]";
+    v200 = 1024;
+    v201 = isKindOfClass & 1;
+    v202 = 1024;
+    v203 = isOptedIn;
     _os_log_impl(&dword_2728BC000, v27, OS_LOG_TYPE_DEFAULT, "%s Showing EnrollmentView. useWaveform: %d, useNewSiriIcon: %d", buf, 0x18u);
   }
 
@@ -114,7 +114,7 @@
     siriIconImage = [v3 siriIconImage];
   }
 
-  v186 = siriIconImage;
+  v185 = siriIconImage;
   v29 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:siriIconImage];
   if (isOptedIn)
   {
@@ -173,7 +173,7 @@
     [(UILabel *)self->_subtitleLabel setTextColor:secondaryLabelColor];
   }
 
-  v185 = v29;
+  v184 = v29;
   [(UIView *)self->_scrollContainerView addSubview:self->_subtitleLabel];
   v40 = objc_alloc_init(MEMORY[0x277D756B8]);
   instructionLabel = self->_instructionLabel;
@@ -191,7 +191,7 @@
   }
 
   [(UILabel *)self->_instructionLabel setTextAlignment:v42];
-  v189 = v3;
+  v188 = v3;
   subtitleFont2 = [v3 subtitleFont];
   [(UILabel *)self->_instructionLabel setFont:subtitleFont2];
 
@@ -203,122 +203,122 @@
   }
 
   [(UIView *)self->_scrollContainerView addSubview:self->_instructionLabel];
-  v140 = MEMORY[0x277CCAAD0];
+  v139 = MEMORY[0x277CCAAD0];
   topAnchor = [(UIScrollView *)self->_scrollView topAnchor];
   topAnchor2 = [(VTUIEnrollmentBaseView *)self topAnchor];
-  v155 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v198[0] = v155;
+  v154 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v197[0] = v154;
   leftAnchor3 = [(UIScrollView *)self->_scrollView leftAnchor];
   leftAnchor4 = [(VTUIEnrollmentBaseView *)self leftAnchor];
-  v148 = [leftAnchor3 constraintEqualToAnchor:leftAnchor4];
-  v198[1] = v148;
+  v147 = [leftAnchor3 constraintEqualToAnchor:leftAnchor4];
+  v197[1] = v147;
   rightAnchor3 = [(UIScrollView *)self->_scrollView rightAnchor];
   rightAnchor4 = [(VTUIEnrollmentBaseView *)self rightAnchor];
-  v143 = [rightAnchor3 constraintEqualToAnchor:rightAnchor4];
-  v198[2] = v143;
+  v142 = [rightAnchor3 constraintEqualToAnchor:rightAnchor4];
+  v197[2] = v142;
   bottomAnchor = [(UIScrollView *)self->_scrollView bottomAnchor];
   bottomAnchor2 = [(VTUIEnrollmentBaseView *)self bottomAnchor];
-  v139 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v198[3] = v139;
+  v138 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v197[3] = v138;
   topAnchor3 = [(UIView *)self->_scrollContainerView topAnchor];
   topAnchor4 = [(UIScrollView *)self->_scrollView topAnchor];
-  v136 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
-  v198[4] = v136;
+  v135 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
+  v197[4] = v135;
   leftAnchor5 = [(UIView *)self->_scrollContainerView leftAnchor];
   leftAnchor6 = [(UIScrollView *)self->_scrollView leftAnchor];
-  v133 = [leftAnchor5 constraintEqualToAnchor:leftAnchor6];
-  v198[5] = v133;
+  v132 = [leftAnchor5 constraintEqualToAnchor:leftAnchor6];
+  v197[5] = v132;
   rightAnchor5 = [(UIView *)self->_scrollContainerView rightAnchor];
   rightAnchor6 = [(UIScrollView *)self->_scrollView rightAnchor];
   v46 = [rightAnchor5 constraintEqualToAnchor:rightAnchor6];
-  v198[6] = v46;
+  v197[6] = v46;
   widthAnchor = [(UIView *)self->_scrollContainerView widthAnchor];
   widthAnchor2 = [(UIScrollView *)self->_scrollView widthAnchor];
   v49 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
-  v198[7] = v49;
+  v197[7] = v49;
   bottomAnchor3 = [(UIView *)self->_scrollContainerView bottomAnchor];
   bottomAnchor4 = [(UIScrollView *)self->_scrollView bottomAnchor];
   v52 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-  v198[8] = v52;
-  v53 = [MEMORY[0x277CBEA60] arrayWithObjects:v198 count:9];
-  [v140 activateConstraints:v53];
+  v197[8] = v52;
+  v53 = [MEMORY[0x277CBEA60] arrayWithObjects:v197 count:9];
+  [v139 activateConstraints:v53];
 
-  v153 = MEMORY[0x277CCAAD0];
+  v152 = MEMORY[0x277CCAAD0];
   topAnchor5 = [(UIImageView *)*p_iconImageView topAnchor];
   topAnchor6 = [(UIView *)self->_scrollContainerView topAnchor];
   [(VTUIEnrollmentBaseView *)self imageOffsetFromTop];
-  v156 = [topAnchor5 constraintEqualToAnchor:topAnchor6 constant:?];
-  v197[0] = v156;
+  v155 = [topAnchor5 constraintEqualToAnchor:topAnchor6 constant:?];
+  v196[0] = v155;
   centerXAnchor = [(UIImageView *)*p_iconImageView centerXAnchor];
   centerXAnchor2 = [(UIView *)self->_scrollContainerView centerXAnchor];
   v56 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v197[1] = v56;
+  v196[1] = v56;
   widthAnchor3 = [(UIImageView *)*p_iconImageView widthAnchor];
-  [v189 orbImageLength];
+  [v188 orbImageLength];
   v58 = [widthAnchor3 constraintEqualToConstant:?];
-  v197[2] = v58;
+  v196[2] = v58;
   heightAnchor = [(UIImageView *)*p_iconImageView heightAnchor];
-  [v189 orbImageLength];
+  [v188 orbImageLength];
   v60 = [heightAnchor constraintEqualToConstant:?];
-  v197[3] = v60;
-  v61 = [MEMORY[0x277CBEA60] arrayWithObjects:v197 count:4];
-  [v153 activateConstraints:v61];
+  v196[3] = v60;
+  v61 = [MEMORY[0x277CBEA60] arrayWithObjects:v196 count:4];
+  [v152 activateConstraints:v61];
 
-  v161 = MEMORY[0x277CCAAD0];
+  v160 = MEMORY[0x277CCAAD0];
   topAnchor7 = [(UILabel *)self->_titleLabel topAnchor];
   bottomAnchor5 = [(UIImageView *)*p_iconImageView bottomAnchor];
-  [v189 titleOffsetFromOrbImage];
+  [v188 titleOffsetFromOrbImage];
   v62 = [topAnchor7 constraintEqualToAnchor:bottomAnchor5 constant:?];
-  v196[0] = v62;
+  v195[0] = v62;
   widthAnchor4 = [(UILabel *)self->_titleLabel widthAnchor];
-  widthAnchor5 = [v188 widthAnchor];
+  widthAnchor5 = [v187 widthAnchor];
   v65 = [widthAnchor4 constraintEqualToAnchor:widthAnchor5];
-  v196[1] = v65;
+  v195[1] = v65;
   centerXAnchor3 = [(UILabel *)self->_titleLabel centerXAnchor];
   centerXAnchor4 = [(UIView *)self->_scrollContainerView centerXAnchor];
   v68 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
-  v196[2] = v68;
-  v69 = [MEMORY[0x277CBEA60] arrayWithObjects:v196 count:3];
-  [v161 activateConstraints:v69];
+  v195[2] = v68;
+  v69 = [MEMORY[0x277CBEA60] arrayWithObjects:v195 count:3];
+  [v160 activateConstraints:v69];
 
-  v168 = MEMORY[0x277CCAAD0];
+  v167 = MEMORY[0x277CCAAD0];
   topAnchor8 = [(UILabel *)self->_subtitleLabel topAnchor];
   bottomAnchor6 = [(UILabel *)self->_titleLabel bottomAnchor];
-  [v189 subtitle1BaselineOffset];
+  [v188 subtitle1BaselineOffset];
   v70 = [topAnchor8 constraintEqualToAnchor:bottomAnchor6 constant:?];
-  v195[0] = v70;
+  v194[0] = v70;
   widthAnchor6 = [(UILabel *)self->_subtitleLabel widthAnchor];
-  widthAnchor7 = [v188 widthAnchor];
+  widthAnchor7 = [v187 widthAnchor];
   v73 = [widthAnchor6 constraintEqualToAnchor:widthAnchor7];
-  v195[1] = v73;
+  v194[1] = v73;
   centerXAnchor5 = [(UILabel *)self->_subtitleLabel centerXAnchor];
   centerXAnchor6 = [(UIView *)self->_scrollContainerView centerXAnchor];
   v76 = [centerXAnchor5 constraintEqualToAnchor:centerXAnchor6];
-  v195[2] = v76;
-  v77 = [MEMORY[0x277CBEA60] arrayWithObjects:v195 count:3];
-  [v168 activateConstraints:v77];
+  v194[2] = v76;
+  v77 = [MEMORY[0x277CBEA60] arrayWithObjects:v194 count:3];
+  [v167 activateConstraints:v77];
 
-  v162 = MEMORY[0x277CCAAD0];
+  v161 = MEMORY[0x277CCAAD0];
   topAnchor9 = [(UILabel *)self->_instructionLabel topAnchor];
   bottomAnchor7 = [(UILabel *)self->_subtitleLabel bottomAnchor];
-  [v189 subtitle2BaselineOffset];
-  v177 = [topAnchor9 constraintEqualToAnchor:bottomAnchor7 constant:?];
-  v194[0] = v177;
+  [v188 subtitle2BaselineOffset];
+  v176 = [topAnchor9 constraintEqualToAnchor:bottomAnchor7 constant:?];
+  v193[0] = v176;
   widthAnchor8 = [(UILabel *)self->_instructionLabel widthAnchor];
-  widthAnchor9 = [v188 widthAnchor];
+  widthAnchor9 = [v187 widthAnchor];
   v79 = [widthAnchor8 constraintEqualToAnchor:widthAnchor9];
-  v194[1] = v79;
+  v193[1] = v79;
   centerXAnchor7 = [(UILabel *)self->_instructionLabel centerXAnchor];
   centerXAnchor8 = [(UIView *)self->_scrollContainerView centerXAnchor];
   v82 = [centerXAnchor7 constraintEqualToAnchor:centerXAnchor8];
-  v194[2] = v82;
+  v193[2] = v82;
   bottomAnchor8 = [(UILabel *)self->_instructionLabel bottomAnchor];
   bottomAnchor9 = [(UIView *)self->_scrollContainerView bottomAnchor];
-  [v189 subtitle2BaselineOffset];
+  [v188 subtitle2BaselineOffset];
   v86 = [bottomAnchor8 constraintEqualToAnchor:bottomAnchor9 constant:-v85];
-  v194[3] = v86;
-  v87 = [MEMORY[0x277CBEA60] arrayWithObjects:v194 count:4];
-  [v162 activateConstraints:v87];
+  v193[3] = v86;
+  v87 = [MEMORY[0x277CBEA60] arrayWithObjects:v193 count:4];
+  [v161 activateConstraints:v87];
 
   footerView = [(VTUIEnrollmentBaseView *)self footerView];
   if ([(VTUIEnrollmentBaseView *)self showPrivacyTextView]|| footerView)
@@ -351,75 +351,75 @@
     }
 
     v94 = v93;
-    v157 = MEMORY[0x277CCAAD0];
-    v184 = v94;
+    v156 = MEMORY[0x277CCAAD0];
+    v183 = v94;
     topAnchor10 = [(UITextView *)v94 topAnchor];
     topAnchor11 = [(_UIBackdropView *)self->_backdropView topAnchor];
-    v170 = [topAnchor10 constraintEqualToSystemSpacingBelowAnchor:topAnchor11 multiplier:1.0];
-    v193[0] = v170;
+    v169 = [topAnchor10 constraintEqualToSystemSpacingBelowAnchor:topAnchor11 multiplier:1.0];
+    v192[0] = v169;
     leftAnchor7 = [(_UIBackdropView *)self->_backdropView leftAnchor];
     leftAnchor8 = [(VTUIEnrollmentBaseView *)self leftAnchor];
     v96 = [leftAnchor7 constraintEqualToAnchor:leftAnchor8];
-    v193[1] = v96;
+    v192[1] = v96;
     rightAnchor7 = [(_UIBackdropView *)self->_backdropView rightAnchor];
     rightAnchor8 = [(VTUIEnrollmentBaseView *)self rightAnchor];
     [rightAnchor7 constraintEqualToAnchor:rightAnchor8];
-    v99 = v187 = footerView;
-    v193[2] = v99;
+    v99 = v186 = footerView;
+    v192[2] = v99;
     bottomAnchor10 = [(_UIBackdropView *)self->_backdropView bottomAnchor];
     bottomAnchor11 = [(VTUIEnrollmentBaseView *)self bottomAnchor];
     v102 = [bottomAnchor10 constraintEqualToAnchor:bottomAnchor11];
-    v193[3] = v102;
-    v103 = [MEMORY[0x277CBEA60] arrayWithObjects:v193 count:4];
-    [v157 activateConstraints:v103];
+    v192[3] = v102;
+    v103 = [MEMORY[0x277CBEA60] arrayWithObjects:v192 count:4];
+    [v156 activateConstraints:v103];
 
-    footerView = v187;
+    footerView = v186;
     v104 = self->_privacyTextView;
     v105 = MEMORY[0x277CCAAD0];
-    if (v104 && v187)
+    if (v104 && v186)
     {
       leftAnchor9 = [(UITextView *)v104 leftAnchor];
-      leftAnchor10 = [v188 leftAnchor];
-      v171 = [leftAnchor9 constraintEqualToAnchor:leftAnchor10];
-      v192[0] = v171;
+      leftAnchor10 = [v187 leftAnchor];
+      v170 = [leftAnchor9 constraintEqualToAnchor:leftAnchor10];
+      v191[0] = v170;
       rightAnchor9 = [(UITextView *)self->_privacyTextView rightAnchor];
-      rightAnchor10 = [v188 rightAnchor];
-      v147 = [rightAnchor9 constraintEqualToAnchor:rightAnchor10];
-      v192[1] = v147;
+      rightAnchor10 = [v187 rightAnchor];
+      v146 = [rightAnchor9 constraintEqualToAnchor:rightAnchor10];
+      v191[1] = v146;
       bottomAnchor12 = [(UITextView *)self->_privacyTextView bottomAnchor];
-      topAnchor12 = [(UITextView *)v187 topAnchor];
+      topAnchor12 = [(UITextView *)v186 topAnchor];
       bottomAnchor15 = [bottomAnchor12 constraintEqualToAnchor:?];
-      v192[2] = bottomAnchor15;
-      leftAnchor11 = [(UITextView *)v187 leftAnchor];
-      leftAnchor12 = [v188 leftAnchor];
-      v173 = leftAnchor11;
-      v145 = [leftAnchor11 constraintEqualToAnchor:leftAnchor12];
-      v192[3] = v145;
-      rightAnchor11 = [(UITextView *)v187 rightAnchor];
-      rightAnchor12 = [v188 rightAnchor];
+      v191[2] = bottomAnchor15;
+      leftAnchor11 = [(UITextView *)v186 leftAnchor];
+      leftAnchor12 = [v187 leftAnchor];
+      v172 = leftAnchor11;
+      v144 = [leftAnchor11 constraintEqualToAnchor:leftAnchor12];
+      v191[3] = v144;
+      rightAnchor11 = [(UITextView *)v186 rightAnchor];
+      rightAnchor12 = [v187 rightAnchor];
       v110 = [rightAnchor11 constraintEqualToAnchor:rightAnchor12];
-      v192[4] = v110;
-      bottomAnchor13 = [(UITextView *)v187 bottomAnchor];
+      v191[4] = v110;
+      bottomAnchor13 = [(UITextView *)v186 bottomAnchor];
       safeAreaLayoutGuide = [(VTUIEnrollmentBaseView *)self safeAreaLayoutGuide];
       [safeAreaLayoutGuide bottomAnchor];
       v114 = v113 = v105;
       v115 = [bottomAnchor13 constraintEqualToAnchor:v114];
-      v192[5] = v115;
-      v116 = [MEMORY[0x277CBEA60] arrayWithObjects:v192 count:6];
+      v191[5] = v115;
+      v116 = [MEMORY[0x277CBEA60] arrayWithObjects:v191 count:6];
       v117 = v113;
-      v118 = v147;
+      v118 = v146;
       [v117 activateConstraints:v116];
 
       leftAnchor14 = leftAnchor10;
       leftAnchor13 = leftAnchor9;
 
       v121 = bottomAnchor12;
-      footerView = v187;
+      footerView = v186;
 
       rightAnchor13 = rightAnchor9;
       rightAnchor14 = rightAnchor10;
 
-      v124 = v171;
+      v124 = v170;
     }
 
     else
@@ -427,56 +427,54 @@
       if (v104)
       {
         leftAnchor13 = [(UITextView *)v104 leftAnchor];
-        leftAnchor14 = [v188 leftAnchor];
+        leftAnchor14 = [v187 leftAnchor];
         v124 = [leftAnchor13 constraintEqualToAnchor:leftAnchor14];
-        v191[0] = v124;
+        v190[0] = v124;
         rightAnchor13 = [(UITextView *)self->_privacyTextView rightAnchor];
-        rightAnchor14 = [v188 rightAnchor];
+        rightAnchor14 = [v187 rightAnchor];
         v118 = [rightAnchor13 constraintEqualToAnchor:rightAnchor14];
-        v191[1] = v118;
+        v190[1] = v118;
         bottomAnchor14 = [(UITextView *)self->_privacyTextView bottomAnchor];
         selfCopy = self;
         v121 = bottomAnchor14;
         topAnchor12 = [(VTUIEnrollmentBaseView *)selfCopy safeAreaLayoutGuide];
         bottomAnchor15 = [topAnchor12 bottomAnchor];
-        v173 = [v121 constraintEqualToAnchor:?];
-        v191[2] = v173;
+        v172 = [v121 constraintEqualToAnchor:?];
+        v190[2] = v172;
         v127 = MEMORY[0x277CBEA60];
-        v128 = v191;
+        v128 = v190;
       }
 
       else
       {
-        leftAnchor13 = [(UITextView *)v187 leftAnchor];
-        leftAnchor14 = [v188 leftAnchor];
+        leftAnchor13 = [(UITextView *)v186 leftAnchor];
+        leftAnchor14 = [v187 leftAnchor];
         v124 = [leftAnchor13 constraintEqualToAnchor:leftAnchor14];
-        v190[0] = v124;
-        rightAnchor13 = [(UITextView *)v187 rightAnchor];
-        rightAnchor14 = [v188 rightAnchor];
+        v189[0] = v124;
+        rightAnchor13 = [(UITextView *)v186 rightAnchor];
+        rightAnchor14 = [v187 rightAnchor];
         v118 = [rightAnchor13 constraintEqualToAnchor:rightAnchor14];
-        v190[1] = v118;
-        bottomAnchor16 = [(UITextView *)v187 bottomAnchor];
+        v189[1] = v118;
+        bottomAnchor16 = [(UITextView *)v186 bottomAnchor];
         selfCopy2 = self;
         v121 = bottomAnchor16;
         topAnchor12 = [(VTUIEnrollmentBaseView *)selfCopy2 safeAreaLayoutGuide];
         bottomAnchor15 = [topAnchor12 bottomAnchor];
-        v173 = [v121 constraintEqualToAnchor:?];
-        v190[2] = v173;
+        v172 = [v121 constraintEqualToAnchor:?];
+        v189[2] = v172;
         v127 = MEMORY[0x277CBEA60];
-        v128 = v190;
+        v128 = v189;
       }
 
       leftAnchor12 = [v127 arrayWithObjects:v128 count:3];
       [v105 activateConstraints:leftAnchor12];
     }
   }
-
-  v131 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createPrivacyTextView
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   v3 = +[VTUIStyle sharedStyle];
   v4 = objc_alloc_init(MEMORY[0x277D75C40]);
   [v4 setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -504,13 +502,13 @@
   v11 = objc_alloc(MEMORY[0x277CCAB48]);
   v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v7, v8];
   v13 = *MEMORY[0x277D74118];
-  v30[0] = v10;
+  v29[0] = v10;
   v14 = *MEMORY[0x277D740A8];
-  v29[0] = v13;
-  v29[1] = v14;
+  v28[0] = v13;
+  v28[1] = v14;
   footerLabelFont = [v3 footerLabelFont];
-  v30[1] = footerLabelFont;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
+  v29[1] = footerLabelFont;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
   v17 = [v11 initWithString:v12 attributes:v16];
 
   if ([v8 length])
@@ -541,8 +539,6 @@
     [v4 _setInteractiveTextSelectionDisabled:1];
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
@@ -572,7 +568,7 @@
 
 - (void)setContentView:(id)view
 {
-  v26[4] = *MEMORY[0x277D85DE8];
+  v25[4] = *MEMORY[0x277D85DE8];
   viewCopy = view;
   [(UIView *)self->_contentView removeFromSuperview];
   [(UILabel *)self->_instructionLabel removeFromSuperview];
@@ -583,33 +579,31 @@
   v6 = +[VTUIStyle sharedStyle];
   contentView = self->_contentView;
   self->_contentView = viewCopy;
-  v22 = viewCopy;
+  v21 = viewCopy;
 
   [(UIView *)self->_scrollContainerView addSubview:self->_contentView];
   [(UIView *)self->_contentView setTranslatesAutoresizingMaskIntoConstraints:0];
-  v19 = MEMORY[0x277CCAAD0];
+  v18 = MEMORY[0x277CCAAD0];
   topAnchor = [(UIView *)self->_contentView topAnchor];
   bottomAnchor = [(UILabel *)self->_subtitleLabel bottomAnchor];
   [v6 subtitle2BaselineOffset];
-  v21 = [topAnchor constraintEqualToAnchor:bottomAnchor constant:?];
-  v26[0] = v21;
+  v20 = [topAnchor constraintEqualToAnchor:bottomAnchor constant:?];
+  v25[0] = v20;
   widthAnchor = [(UIView *)self->_contentView widthAnchor];
   widthAnchor2 = [readableContentGuide widthAnchor];
   v9 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
-  v26[1] = v9;
+  v25[1] = v9;
   centerXAnchor = [(UIView *)self->_contentView centerXAnchor];
   centerXAnchor2 = [(UIView *)self->_scrollContainerView centerXAnchor];
   v12 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v26[2] = v12;
+  v25[2] = v12;
   bottomAnchor2 = [(UIView *)self->_contentView bottomAnchor];
   bottomAnchor3 = [(UIView *)self->_scrollContainerView bottomAnchor];
   [v6 subtitle2BaselineOffset];
   v16 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3 constant:-v15];
-  v26[3] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:4];
-  [v19 activateConstraints:v17];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v25[3] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:4];
+  [v18 activateConstraints:v17];
 }
 
 - (void)updateConstraints

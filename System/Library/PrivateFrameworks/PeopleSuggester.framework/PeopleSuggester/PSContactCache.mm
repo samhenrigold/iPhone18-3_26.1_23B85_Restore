@@ -46,48 +46,46 @@ void __41___PSContactCache__setContact_forHandle___block_invoke(uint64_t a1, voi
 
 void __57___PSContactCache__removeAllHandlesForContactIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_opt_new();
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __57___PSContactCache__removeAllHandlesForContactIdentifier___block_invoke_2;
-  v16[3] = &unk_1E7C26810;
-  v17 = *(a1 + 32);
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __57___PSContactCache__removeAllHandlesForContactIdentifier___block_invoke_2;
+  v15[3] = &unk_1E7C26810;
+  v16 = *(a1 + 32);
   v5 = v4;
-  v18 = v5;
-  [v3 enumerateKeysAndObjectsUsingBlock:v16];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
+  v17 = v5;
+  [v3 enumerateKeysAndObjectsUsingBlock:v15];
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [v3 removeObjectForKey:{*(*(&v12 + 1) + 8 * v10++), v12}];
+        [v3 removeObjectForKey:{*(*(&v11 + 1) + 8 * v10++), v11}];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __57___PSContactCache__removeAllHandlesForContactIdentifier___block_invoke_2(uint64_t a1, void *a2, void *a3)

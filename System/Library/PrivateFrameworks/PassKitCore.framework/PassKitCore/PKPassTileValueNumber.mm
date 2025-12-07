@@ -24,7 +24,7 @@
 
     v9 = [dictionaryCopy PKStringForKey:@"numberStyle"];
     v10 = 1;
-    self->_numberStyle = _PKEnumValueFromString(v9, 0, @"PKNumberStyle", @"PKNumberStyleDecimal, WLNumberStyleDecimal, PKNumberStylePercent, WLNumberStylePercent, PKNumberStyleScientific, WLNumberStyleScientific, PKNumberStyleSpellOut, WLNumberStyleSpellOut", v11, v12, v13, v14, 1u);
+    self->_numberStyle = _PKEnumValueFromString(v9, 0, @"PKNumberStyle", @"PKNumberStyleDecimal, WLNumberStyleDecimal, PKNumberStylePercent, WLNumberStylePercent, PKNumberStyleScientific, WLNumberStyleScientific, PKNumberStyleSpellOut, WLNumberStyleSpellOut", v11, v12, v13, v14, 1);
   }
 
   else
@@ -104,7 +104,7 @@
     v5->_currencyCode = v8;
 
     v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"numberStyle"];
-    v5->_numberStyle = _PKEnumValueFromString(v10, 0, @"PKNumberStyle", @"PKNumberStyleDecimal, WLNumberStyleDecimal, PKNumberStylePercent, WLNumberStylePercent, PKNumberStyleScientific, WLNumberStyleScientific, PKNumberStyleSpellOut, WLNumberStyleSpellOut", v11, v12, v13, v14, 1u);
+    v5->_numberStyle = _PKEnumValueFromString(v10, 0, @"PKNumberStyle", @"PKNumberStyleDecimal, WLNumberStyleDecimal, PKNumberStylePercent, WLNumberStylePercent, PKNumberStyleScientific, WLNumberStyleScientific, PKNumberStyleSpellOut, WLNumberStyleSpellOut", v11, v12, v13, v14, 1);
   }
 
   return v5;
@@ -175,9 +175,9 @@ LABEL_15:
 
       else
       {
-        v12 = [(NSString *)v7 isEqualToString:v8];
+        isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-        if (v12)
+        if (isEqualToString)
         {
           goto LABEL_13;
         }

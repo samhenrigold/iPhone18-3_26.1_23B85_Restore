@@ -6,6 +6,7 @@
 - (CPAccNavParam)init;
 - (CPAccNavParamKey)primaryKey;
 - (id)copySettingCollectionGeneric:(Class)generic;
+- (id)copySettingEncodeable:(BOOL)encodeable;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (void)configureTypesForUpdate:(Class)update;
@@ -100,44 +101,50 @@
   return v4;
 }
 
+- (id)copySettingEncodeable:(BOOL)encodeable
+{
+  encodeableCopy = encodeable;
+  v4 = [(CPAccNavParam *)self copy];
+  [v4 setEncodeable:encodeableCopy];
+  return v4;
+}
+
 - (void)configureTypesForUpdate:(Class)update
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (![(CPAccNavParam *)self objcType]&& [(objc_class *)update conformsToProtocol:&unk_284A05938])
   {
     [(CPAccNavParam *)self setObjcType:[CPAccNavParam _objcTypeForUpdate:update parameter:self]];
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     keys = [(CPAccNavParam *)self keys];
-    v6 = [keys countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v6 = [keys countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v13;
+      v8 = *v12;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v13 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(keys);
           }
 
-          v10 = *(*(&v12 + 1) + 8 * i);
+          v10 = *(*(&v11 + 1) + 8 * i);
           [v10 setAccNavType:{+[CPAccNavParam _accNavTypeForUpdate:parameter:key:](CPAccNavParam, "_accNavTypeForUpdate:parameter:key:", update, self, v10)}];
           [v10 setParam:self];
         }
 
-        v7 = [keys countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v7 = [keys countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v7);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (Class)_objcTypeForUpdate:(Class)update parameter:(id)parameter

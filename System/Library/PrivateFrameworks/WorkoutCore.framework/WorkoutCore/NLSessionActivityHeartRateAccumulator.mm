@@ -58,7 +58,6 @@
   v4 = _Block_copy(aBlock);
   updateHandler = selfCopy->_updateHandler;
   selfCopy->_updateHandler = v4;
-  MEMORY[0x277D82BD8](updateHandler);
   if (+[WOStoreDemoModeProvider isRunningInStoreDemoMode])
   {
     [(NLSessionActivityHeartRateAccumulator *)selfCopy _startFakingData];
@@ -85,7 +84,6 @@
     v3 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:selfCopy target:sel__invalidDataTimerFired selector:0 userInfo:0 repeats:selfCopy->_staleTimeout];
     invalidDataTimer = selfCopy->_invalidDataTimer;
     selfCopy->_invalidDataTimer = v3;
-    MEMORY[0x277D82BD8](invalidDataTimer);
     if ([MEMORY[0x277CCDD30] isAppleInternalInstall])
     {
       _HKInitializeLogging();
@@ -135,7 +133,6 @@
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidDataTimerFired
@@ -167,25 +164,25 @@
 
 - (void)_fakeReading
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v21 = a2;
+  v23 = a2;
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   [standardUserDefaults doubleForKey:@"NLWorkoutFakeHeartRateCenterValue"];
-  v13 = v2;
+  v15 = v2;
   MEMORY[0x277D82BD8](standardUserDefaults);
-  v20 = v13;
-  if (v13 < 30.0)
+  v22 = v15;
+  if (v15 < 30.0)
   {
-    v20 = 135.0;
+    v22 = 135.0;
   }
 
   standardUserDefaults2 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-  v19 = [standardUserDefaults2 objectForKey:@"NLWorkoutFakeHeartRateValueRangeLength"];
-  MEMORY[0x277D82BD8](standardUserDefaults2);
-  if (v19)
+  v21 = [standardUserDefaults2 objectForKey:@"NLWorkoutFakeHeartRateValueRangeLength"];
+  *&v3 = MEMORY[0x277D82BD8](standardUserDefaults2).n128_u64[0];
+  if (v21)
   {
-    intValue = [v19 intValue];
+    intValue = [v21 intValue];
   }
 
   else
@@ -193,31 +190,29 @@
     intValue = 15;
   }
 
-  v18 = intValue;
-  v17 = v20 + round((arc4random() % (v18 + 1))) - v18 / 2.0;
-  v3 = MEMORY[0x277CCD7E8];
+  v20 = intValue;
+  v19 = v22 + round((arc4random() % (v20 + 1))) - v20 / 2.0;
+  v5 = MEMORY[0x277CCD7E8];
   _countPerMinuteUnit = [MEMORY[0x277CCDAB0] _countPerMinuteUnit];
-  v16 = [v3 quantityWithUnit:v17 doubleValue:?];
-  MEMORY[0x277D82BD8](_countPerMinuteUnit);
+  v18 = [v5 quantityWithUnit:v19 doubleValue:?];
   date = [MEMORY[0x277CBEAA8] date];
-  v5 = MEMORY[0x277CCD800];
-  v6 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCCB90]];
-  v14 = [v5 quantitySampleWithType:? quantity:? startDate:? endDate:?];
-  MEMORY[0x277D82BD8](v6);
+  v7 = MEMORY[0x277CCD800];
+  v8 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCCB90]];
+  v16 = [v7 quantitySampleWithType:? quantity:? startDate:? endDate:?];
+  *&v4 = MEMORY[0x277D82BD8](v8).n128_u64[0];
   builder = [(NLSessionActivityBuilderAccumulator *)selfCopy builder];
-  v23[0] = v14;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+  v25[0] = v16;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
   [HKLiveWorkoutBuilder addSamples:builder completion:"addSamples:completion:"];
-  MEMORY[0x277D82BD8](v7);
-  MEMORY[0x277D82BD8](builder);
-  v9 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:(arc4random() % 5) + 5.0];
-  [(NSTimer *)selfCopy->_fakeDataTimer setFireDate:?];
   MEMORY[0x277D82BD8](v9);
-  objc_storeStrong(&v14, 0);
-  objc_storeStrong(&date, 0);
+  MEMORY[0x277D82BD8](builder);
+  v11 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:(arc4random() % 5) + 5.0];
+  [(NSTimer *)selfCopy->_fakeDataTimer setFireDate:?];
+  MEMORY[0x277D82BD8](v11);
   objc_storeStrong(&v16, 0);
-  objc_storeStrong(&v19, 0);
-  *MEMORY[0x277D85DE8];
+  objc_storeStrong(&date, 0);
+  objc_storeStrong(&v18, 0);
+  objc_storeStrong(&v21, 0);
 }
 
 void __53__NLSessionActivityHeartRateAccumulator__fakeReading__block_invoke(NSObject *a1, char a2, id obj)
@@ -238,13 +233,12 @@ void __53__NLSessionActivityHeartRateAccumulator__fakeReading__block_invoke(NSOb
 
   objc_storeStrong(oslog, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - ($B42DDA7905377C1B85A751F444708923)heartRateData
 {
   selfCopy = self;
-  v22[1] = a3;
+  v26[1] = a3;
   memset(retstr, 0, sizeof($B42DDA7905377C1B85A751F444708923));
   if (+[NLSessionActivityFakeDataManager shouldShowFakeData])
   {
@@ -260,36 +254,36 @@ void __53__NLSessionActivityHeartRateAccumulator__fakeReading__block_invoke(NSOb
     date = [MEMORY[0x277CBEAA8] date];
     [date timeIntervalSinceReferenceDate];
     retstr->var5 = v7;
-    return MEMORY[0x277D82BD8](date);
+    MEMORY[0x277D82BD8](date);
   }
 
   else
   {
-    v22[0] = [(NLSessionActivityHeartRateAccumulator *)selfCopy mostRecentStatistics];
-    mostRecentQuantity = [v22[0] mostRecentQuantity];
+    v26[0] = [(NLSessionActivityHeartRateAccumulator *)selfCopy mostRecentStatistics];
+    mostRecentQuantity = [v26[0] mostRecentQuantity];
     [mostRecentQuantity doubleValueForUnit:selfCopy->_countPerMinuteUnit];
     retstr->var0 = v9;
-    MEMORY[0x277D82BD8](mostRecentQuantity);
+    *&v10 = MEMORY[0x277D82BD8](mostRecentQuantity).n128_u64[0];
     retstr->var1 = 0;
-    averageQuantity = [v22[0] averageQuantity];
+    averageQuantity = [v26[0] averageQuantity];
     [averageQuantity doubleValueForUnit:selfCopy->_countPerMinuteUnit];
-    retstr->var2 = v10;
-    MEMORY[0x277D82BD8](averageQuantity);
-    minimumQuantity = [v22[0] minimumQuantity];
+    retstr->var2 = v11;
+    *&v12 = MEMORY[0x277D82BD8](averageQuantity).n128_u64[0];
+    minimumQuantity = [v26[0] minimumQuantity];
     [minimumQuantity doubleValueForUnit:selfCopy->_countPerMinuteUnit];
-    retstr->var3 = v11;
-    MEMORY[0x277D82BD8](minimumQuantity);
-    maximumQuantity = [v22[0] maximumQuantity];
+    retstr->var3 = v13;
+    *&v14 = MEMORY[0x277D82BD8](minimumQuantity).n128_u64[0];
+    maximumQuantity = [v26[0] maximumQuantity];
     [maximumQuantity doubleValueForUnit:selfCopy->_countPerMinuteUnit];
-    retstr->var4 = v12;
-    MEMORY[0x277D82BD8](maximumQuantity);
-    mostRecentQuantityDateInterval = [v22[0] mostRecentQuantityDateInterval];
+    retstr->var4 = v15;
+    *&v16 = MEMORY[0x277D82BD8](maximumQuantity).n128_u64[0];
+    mostRecentQuantityDateInterval = [v26[0] mostRecentQuantityDateInterval];
     endDate = [mostRecentQuantityDateInterval endDate];
     [endDate timeIntervalSinceReferenceDate];
-    retstr->var5 = v13;
+    retstr->var5 = v17;
     MEMORY[0x277D82BD8](endDate);
     MEMORY[0x277D82BD8](mostRecentQuantityDateInterval);
-    objc_storeStrong(v22, 0);
+    objc_storeStrong(v26, 0);
   }
 
   return result;
@@ -314,7 +308,7 @@ void __53__NLSessionActivityHeartRateAccumulator__fakeReading__block_invoke(NSOb
     date = [MEMORY[0x277CBEAA8] date];
     [date timeIntervalSinceReferenceDate];
     retstr->var5 = v7;
-    return (MEMORY[0x277D82BD8])(date);
+    MEMORY[0x277D82BD8](date);
   }
 
   else

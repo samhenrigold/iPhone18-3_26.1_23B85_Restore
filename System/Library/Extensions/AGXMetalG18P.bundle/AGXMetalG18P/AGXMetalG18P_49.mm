@@ -1,6 +1,6 @@
 void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE28createFragmentProgramVariantI27MTLRenderPipelineDescriptorEEvPT_P19AGXG18PFamilyDevicemP26AGXG18PFamilyBinaryArchivePKNS_17UserShaderFactoryIS2_S3_S4_E17ArchiveLookupInfoEP7NSArrayPNS1_15FragmentProgramEPKNS_21VertexProgramVaryingsEPU27objcproto16OS_dispatch_data8NSObjectbPU27objcproto16MTL4CompilerTask11objc_objectU13block_pointerFvPNS1_22FragmentProgramVariantE13ReflectionKeyP19NSMutableDictionary16MTLCompilerErrorP8NSStringSS_E_block_invoke_4(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  AGX::Program<AGX::HAL300::FragmentProgramVariant,AGX::FragmentProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::signalPending(*(a1 + 40), *(a1 + 48), a3, a1 + 64, a2);
+  AGX::Program<AGX::HAL300::FragmentProgramVariant,AGX::FragmentProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::signalPending(*(a1 + 40), *(a1 + 48), a3, (a1 + 64), a2);
   v4 = **(a1 + 56);
 
   dispatch_group_leave(v4);
@@ -405,7 +405,7 @@ LABEL_45:
   return (v6 | v5 | v17 | v10 | (v18 || v19) | v38 | v4) == 0;
 }
 
-void AGX::Program<AGX::HAL300::FragmentProgramVariant,AGX::FragmentProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::signalPending(uint64_t a1, int a2, NSObject *a3, uint64_t a4, uint64_t a5)
+void AGX::Program<AGX::HAL300::FragmentProgramVariant,AGX::FragmentProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::signalPending(uint64_t a1, int a2, NSObject *a3, _OWORD *a4, uint64_t a5)
 {
   v5 = *&a2 & 0x330003;
   if ((*&a2 & 0x330003) == 0)
@@ -425,13 +425,13 @@ void AGX::Program<AGX::HAL300::FragmentProgramVariant,AGX::FragmentProgramKey,AG
     }
 
     v14 = &v10[4 * v11];
-    v15 = *(a4 + 16);
+    v15 = a4[1];
     *v14 = *a4;
     v14[1] = v15;
     v16 = *(a1 + 1656);
     v17 = *(a1 + 1648) + 24 * v16;
     *(a1 + 1656) = v16 + 1;
-    v12 = v17 + 128;
+    v12 = (v17 + 128);
     v13 = *(v17 + 136);
     if (a5)
     {
@@ -448,21 +448,21 @@ LABEL_9:
         v12 = v18;
       }
 
-      if (*(v12 + 16))
+      if (v12[2])
       {
         v19 = v12;
-        dispatch_release(*(v12 + 16));
+        dispatch_release(v12[2]);
         v12 = v19;
       }
 
-      *(v12 + 8) = v5;
-      *(v12 + 16) = a3;
+      v12[1] = v5;
+      v12[2] = a3;
     }
 
     goto LABEL_15;
   }
 
-  v13 = *(v12 + 8);
+  v13 = v12[1];
   if (!a5)
   {
     goto LABEL_9;
@@ -583,33 +583,33 @@ void ___ZN3AGX8Compiler14compileProgramINS_18FragmentProgramKeyE20AGCDeserialize
   AGCDeserializedReply::~AGCDeserializedReply(v5);
 }
 
-void sub_29CC9982C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CC9982C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCDeserializedReply::~AGCDeserializedReply(va);
   _Unwind_Resume(a1);
 }
 
 void ___ZN3AGX17UserShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE53compileFunctionWithAirLinkedIntersectionFunction_ImplINS_18FragmentProgramKeyELb1EEENSt3__19enable_ifIXT0_EvE4typeERKT_P29MTLCompileFunctionRequestDataNS5_21DriverRequestDataImplIXT0_EEEU13block_pointerFvRK20AGCDeserializedReplyRKNS_28CompileFunctionReplyMetadataERKNS5_19DriverReplyDataImplIXT0_EEEE_block_invoke(uint64_t a1, void *a2, int8x16_t *a3)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v34 = *MEMORY[0x29EDCA608];
   v6 = *(a1 + 48);
   v7 = a3[2];
-  v20[0] = vextq_s8(a3[1], a3[1], 8uLL);
-  v20[1] = v7;
-  v21 = a3[3].i64[0];
-  AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createAirLinkedIntersectionVariantSets(&v25, v6, a2, v20, *(a1 + 112), a1 + 120);
+  v21[0] = vextq_s8(a3[1], a3[1], 8uLL);
+  v21[1] = v7;
+  v22 = a3[3].i64[0];
+  AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createAirLinkedIntersectionVariantSets(&v26, v6, a2, v21, *(a1 + 112), a1 + 120);
   v8 = a3[1];
-  v22 = *a3;
-  v23 = v8;
+  v23 = *a3;
+  v24 = v8;
   v9 = a3[3];
-  *v24 = a3[2];
-  *&v24[16] = v9;
-  AGCDeserializedReply::AGCDeserializedReply(v20);
-  if (!*&v24[8])
+  *v25 = a3[2];
+  *&v25[16] = v9;
+  AGCDeserializedReply::AGCDeserializedReply(v21);
+  if (!*&v25[8])
   {
     v10 = [*(a1 + 32) function];
-    if (!AGCReplyArray::getDeserializedReplyWithName<AGCDeserializedReply>(a2, [objc_msgSend(v10 "name")], v20))
+    if (!AGCReplyArray::getDeserializedReplyWithName<AGCDeserializedReply>(a2, [objc_msgSend(v10 "name")], v21))
     {
       v11 = *MEMORY[0x29EDCA610];
       v12 = [objc_msgSend(v10 "name")];
@@ -641,10 +641,10 @@ void ___ZN3AGX17UserShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
         *&buf[14] = 182;
         *&buf[18] = 2080;
         *&buf[20] = "compileFunctionWithAirLinkedIntersectionFunction_Impl_block_invoke";
-        v29 = 2080;
-        v30 = v16;
-        v31 = 2080;
-        v32 = v17;
+        v30 = 2080;
+        v31 = v16;
+        v32 = 2080;
+        v33 = v17;
         _os_log_error_impl(&dword_29CA13000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "AGX: AGX: %s:%d:%s: *** Failed to find compiler reply with function name %s. The available function names in the reply array are: %s.\n", buf, 0x30u);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -663,10 +663,10 @@ void ___ZN3AGX17UserShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
         *&buf[14] = 182;
         *&buf[18] = 2080;
         *&buf[20] = "compileFunctionWithAirLinkedIntersectionFunction_Impl_block_invoke";
-        v29 = 2080;
-        v30 = v14;
-        v31 = 2080;
-        v32 = v15;
+        v30 = 2080;
+        v31 = v14;
+        v32 = 2080;
+        v33 = v15;
         _os_log_impl(&dword_29CA13000, MEMORY[0x29EDCA988], OS_LOG_TYPE_INFO, "AGX: AGX: %s:%d:%s: *** Failed to find compiler reply with function name %s. The available function names in the reply array are: %s.\n", buf, 0x30u);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -674,36 +674,37 @@ void ___ZN3AGX17UserShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
         }
       }
 
-      *&v24[8] = 2;
-      *&v24[16] = @"Internal error during function compilation.";
+      *&v25[8] = 2;
+      *&v25[16] = @"Internal error during function compilation.";
     }
   }
 
   memset(buf, 0, 24);
-  if (v27 == 1)
+  if (v28 == 1)
   {
-    *buf = v25;
-    *&buf[16] = v26;
-    v26 = 0;
-    v25 = 0uLL;
+    *buf = v26;
+    *&buf[16] = v27;
+    v27 = 0;
+    v26 = 0uLL;
   }
 
   else
   {
-    if (v27)
+    if (v28)
     {
-      v18 = std::__throw_bad_variant_access[abi:nn200100]();
-      AGCDeserializedReply::~AGCDeserializedReply(v20);
-      if (v27 == -1)
+      std::__throw_bad_variant_access[abi:nn200100]();
+      v19 = v18;
+      AGCDeserializedReply::~AGCDeserializedReply(v21);
+      if (v28 == -1)
       {
-        _Unwind_Resume(v18);
+        _Unwind_Resume(v19);
       }
 
-      (off_2A23F59F0[v27])(v20, &v25);
-      _Unwind_Resume(v18);
+      (off_2A23F59F0[v28])(v21, &v26);
+      _Unwind_Resume(v19);
     }
 
-    *&v24[8] = v25;
+    *&v25[8] = v26;
   }
 
   (*(*(a1 + 40) + 16))();
@@ -713,10 +714,10 @@ void ___ZN3AGX17UserShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
     operator delete(*buf);
   }
 
-  AGCDeserializedReply::~AGCDeserializedReply(v20);
-  if (v27 != -1)
+  AGCDeserializedReply::~AGCDeserializedReply(v21);
+  if (v28 != -1)
   {
-    (off_2A23F59F0[v27])(v20, &v25);
+    (off_2A23F59F0[v28])(v21, &v26);
   }
 }
 
@@ -829,9 +830,9 @@ void ___ZN3AGX8Compiler14compileProgramINS_18FragmentProgramKeyE13AGCReplyArrayE
   }
 }
 
-void sub_29CC99F7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CC99F7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCReplyArray::~AGCReplyArray(va);
   _Unwind_Resume(a1);
 }
@@ -942,7 +943,7 @@ LABEL_13:
   return v9;
 }
 
-void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE27createVertexProgramAnalysisEP27MTLRenderPipelineDescriptorP19AGXG18PFamilyDevicemPNS1_13VertexProgramEPU27objcproto16OS_dispatch_data8NSObject_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, void *a9)
+void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE27createVertexProgramAnalysisEP27MTLRenderPipelineDescriptorP19AGXG18PFamilyDevicemPNS1_13VertexProgramEPU27objcproto16OS_dispatch_data8NSObject_block_invoke(uint64_t a1, const AGCDeserializedReply *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, void *a9)
 {
   v9 = a8;
   v11 = a9;
@@ -951,9 +952,9 @@ void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10O
     v12 = *(*(a1 + 48) + 8);
     v13 = *(a1 + 56);
     v14 = a2 + 1104;
-    if (*(a2 + 544))
+    if (*(a2 + 68))
     {
-      v15 = *(a2 + 552) == 0;
+      v15 = *(a2 + 69) == 0;
     }
 
     else
@@ -973,7 +974,7 @@ void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10O
     }
 
     v17 = *(a2 + v16);
-    v18 = *(v14 + 8);
+    v18 = *(v14 + 1);
     if (v17)
     {
       v19 = v18 == 0;
@@ -1268,9 +1269,9 @@ void ___ZN3AGX8Compiler14compileProgramINS_16VertexProgramKeyE20AGCDeserializedR
   AGCDeserializedReply::~AGCDeserializedReply(v5);
 }
 
-void sub_29CC9B020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CC9B020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCDeserializedReply::~AGCDeserializedReply(va);
   _Unwind_Resume(a1);
 }
@@ -2013,14 +2014,14 @@ void ___ZN3AGX8Compiler14compileProgramINS_14MeshProgramKeyE20AGCDeserializedRep
   AGCDeserializedReply::~AGCDeserializedReply(v5);
 }
 
-void sub_29CC9C294(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CC9C294(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCDeserializedReply::~AGCDeserializedReply(va);
   _Unwind_Resume(a1);
 }
 
-void AGX::Program<AGX::HAL300::MeshProgramVariant,AGX::MeshProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::signalPending(uint64_t a1, int a2, NSObject *a3, uint64_t a4, uint64_t a5)
+void AGX::Program<AGX::HAL300::MeshProgramVariant,AGX::MeshProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::signalPending(uint64_t a1, int a2, NSObject *a3, _OWORD *a4, uint64_t a5)
 {
   v5 = *&a2 & 0x330003;
   if ((*&a2 & 0x330003) == 0)
@@ -2040,13 +2041,13 @@ void AGX::Program<AGX::HAL300::MeshProgramVariant,AGX::MeshProgramKey,AGX::HAL30
     }
 
     v14 = &v10[4 * v11];
-    v15 = *(a4 + 16);
+    v15 = a4[1];
     *v14 = *a4;
     v14[1] = v15;
     v16 = *(a1 + 1368);
     v17 = *(a1 + 1360) + 24 * v16;
     *(a1 + 1368) = v16 + 1;
-    v12 = v17 + 128;
+    v12 = (v17 + 128);
     v13 = *(v17 + 136);
     if (a5)
     {
@@ -2063,21 +2064,21 @@ LABEL_9:
         v12 = v18;
       }
 
-      if (*(v12 + 16))
+      if (v12[2])
       {
         v19 = v12;
-        dispatch_release(*(v12 + 16));
+        dispatch_release(v12[2]);
         v12 = v19;
       }
 
-      *(v12 + 8) = v5;
-      *(v12 + 16) = a3;
+      v12[1] = v5;
+      v12[2] = a3;
     }
 
     goto LABEL_15;
   }
 
-  v13 = *(v12 + 8);
+  v13 = v12[1];
   if (!a5)
   {
     goto LABEL_9;
@@ -2097,7 +2098,7 @@ void AGX::HAL300::MeshProgramVariant::~MeshProgramVariant(AGX::HAL300::MeshProgr
   JUMPOUT(0x29ED520D0);
 }
 
-uint64_t VectorMap<ReflectionKey,AGX::Program<AGX::HAL300::MeshProgramVariant,AGX::MeshProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::ReflectionEntry,4u>::find(void *a1, int a2, void *a3)
+void *VectorMap<ReflectionKey,AGX::Program<AGX::HAL300::MeshProgramVariant,AGX::MeshProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::ReflectionEntry,4u>::find(void *a1, int a2, void *a3)
 {
   if (a2)
   {
@@ -2522,7 +2523,7 @@ void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10O
   }
 }
 
-void AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createMeshProgramVariant<MTLRenderPipelineDescriptor>(uint64_t a1, void *a2, void *a3, unint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, void *a8, os_unfair_lock_s *a9, uint64_t a10, NSObject *a11, unsigned __int8 a12, uint64_t a13, uint64_t a14)
+void AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createMeshProgramVariant<MTLRenderPipelineDescriptor>(uint64_t a1, void *a2, void *a3, unint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7, void *a8, os_unfair_lock_s *a9, uint64_t a10, NSObject *a11, unsigned __int8 a12, uint64_t a13, uint64_t a14)
 {
   v115 = *MEMORY[0x29EDCA608];
   v81[0] = 0;
@@ -2707,7 +2708,7 @@ LABEL_19:
     if (a6)
     {
       v41 = *a6;
-      v42 = *(a6 + 16);
+      v42 = a6[2];
       LOBYTE(v57) = 1;
       *(&v57 + 1) = v41;
       *&v58 = v42;
@@ -2840,16 +2841,18 @@ void sub_29CC9D670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE34createGeometryStageAndLinkPipelineI27MTLRenderPipelineDescriptorLb0EEEvPKNS5_28RenderPipelineDescriptorInfoEPNS1_22FragmentProgramVariantE13ReflectionKeyP19AGXG18PFamilyDevicePT_mbbyP19NSMutableDictionaryP26AGXG18PFamilyBinaryArchivePKNS_17UserShaderFactoryIS2_S3_S4_E17ArchiveLookupInfoEPU27objcproto16OS_dispatch_data8NSObjectPU27objcproto16MTL4CompilerTask11objc_objectU13block_pointerFvPU33objcproto22MTLRenderPipelineState11objc_objectP27MTLRenderPipelineReflectionP7NSErrorE_block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6)
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   if (a2)
   {
     v8 = *(a1 + 72);
     v7 = *(a1 + 80);
     v9 = *v8;
     v10 = *(v8 + 8);
+    memset(v17, 0, sizeof(v17));
     memset(v16, 0, sizeof(v16));
-    memset(v15, 0, sizeof(v15));
-    AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::constructRenderPipeline<MTLRenderPipelineDescriptor>(v9, v7, a1 + 104, v10, a2, a3, 0, 0, v16, 0, 0, v15, *(v8 + 96), *(v8 + 104), 0, 0, *(a1 + 32), *(v8 + 72), *(a1 + 40));
+    *(&v14 + 1) = *(a1 + 48);
+    *&v14 = a4;
+    AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::constructRenderPipeline<MTLRenderPipelineDescriptor>(v9, v7, a1 + 104, v10, a2, a3, 0, 0, v17, 0, 0, v16, *(v8 + 96), *(v8 + 104), 0, 0, *(a1 + 32), *(v8 + 72), *(a1 + 40), *(a1 + 88), *(a1 + 137), *(a1 + 96), v14, *(a1 + 56));
   }
 
   v11 = *(a1 + 56);
@@ -2866,12 +2869,12 @@ void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10O
     }
 
     v13 = [MEMORY[0x29EDB8DC0] dictionaryWithObject:a6 forKey:*MEMORY[0x29EDB9ED8]];
-    v14 = [objc_alloc(MEMORY[0x29EDB9FA0]) initWithDomain:@"AGXMetalG18P" code:v12 userInfo:v13];
+    v15 = [objc_alloc(MEMORY[0x29EDB9FA0]) initWithDomain:@"AGXMetalG18P" code:v12 userInfo:v13];
     (*(v11 + 16))(v11, 0, 0);
   }
 }
 
-void AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createVertexProgramVariant(uint64_t a1, MTLRenderPipelineDescriptor *a2, void *a3, unint64_t a4, uint64_t a5, std::string::size_type *a6, void *a7, uint64_t a8, uint64_t a9, NSObject *a10, uint64_t a11, unsigned __int8 a12, std::string::size_type a13, uint64_t a14)
+void AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createVertexProgramVariant(uint64_t a1, MTLRenderPipelineDescriptor *a2, void *a3, unint64_t a4, uint64_t a5, unint64_t a6, void *a7, uint64_t a8, uint64_t a9, NSObject *a10, uint64_t a11, unsigned __int8 a12, std::string::size_type a13, uint64_t a14)
 {
   v144 = *MEMORY[0x29EDCA608];
   v98[0] = 0;
@@ -3290,19 +3293,19 @@ void sub_29CC9E4BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE26createVertexProgramVariantEP27MTLRenderPipelineDescriptorP19AGXG18PFamilyDevicemP26AGXG18PFamilyBinaryArchivePKNS_17UserShaderFactoryIS2_S3_S4_E17ArchiveLookupInfoEP7NSArrayPNS1_13VertexProgramEPNS1_22FragmentProgramVariantEPU27objcproto16OS_dispatch_data8NSObjectSP_bPU27objcproto16MTL4CompilerTask11objc_objectU13block_pointerFvPNS1_20VertexProgramVariantE13ReflectionKeyP19NSMutableDictionary16MTLCompilerErrorP8NSStringE_block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE26createVertexProgramVariantEP27MTLRenderPipelineDescriptorP19AGXG18PFamilyDevicemP26AGXG18PFamilyBinaryArchivePKNS_17UserShaderFactoryIS2_S3_S4_E17ArchiveLookupInfoEP7NSArrayPNS1_13VertexProgramEPNS1_22FragmentProgramVariantEPU27objcproto16OS_dispatch_data8NSObjectSP_bPU27objcproto16MTL4CompilerTask11objc_objectU13block_pointerFvPNS1_20VertexProgramVariantE13ReflectionKeyP19NSMutableDictionary16MTLCompilerErrorP8NSStringE_block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v7 = *(a3 + 40);
-  v6 = *(a3 + 48);
+  v8 = *(a3 + 40);
+  v7 = *(a3 + 48);
   *(*(*(a1 + 56) + 8) + 40) = objc_alloc_init(MEMORY[0x29EDB8E00]);
   AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::fillCompilePerformanceStatisticsDictionary(*a3, *(a3 + 8), *(*(*(a1 + 56) + 8) + 40), *(a3 + 56), [*(a1 + 32) name], *(a1 + 112));
-  v8 = *(*(*(a1 + 56) + 8) + 40);
-  if (v8)
+  v9 = *(*(*(a1 + 56) + 8) + 40);
+  if (v9)
   {
-    v9 = [v8 objectForKey:*MEMORY[0x29EDBB378]];
-    if (v9)
+    v10 = [v9 objectForKey:*MEMORY[0x29EDBB378]];
+    if (v10)
     {
-      [v9 unsignedLongLongValue];
+      [v10 unsignedLongLongValue];
     }
   }
 
@@ -3311,125 +3314,125 @@ void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10O
     IOGPUDeviceTraceEvent();
   }
 
-  if (v7)
+  if (v8)
   {
     goto LABEL_7;
   }
 
-  v11 = a2 + 33;
+  v12 = a2 + 33;
   if (a2[33])
   {
-    v12 = a2[34] == 0;
+    v13 = a2[34] == 0;
   }
 
   else
   {
-    v12 = 1;
+    v13 = 1;
   }
 
-  v13 = 33;
-  if (v12)
+  v14 = 33;
+  if (v13)
   {
-    v13 = 103;
-    v11 = a2 + 103;
+    v14 = 103;
+    v12 = a2 + 103;
   }
 
-  if (a2[v13] && v11[1])
+  if (a2[v14] && v12[1])
   {
-    v10 = 0;
-    v6 = @"Internal error during function compilation";
-    v7 = 2;
+    v11 = 0;
+    v7 = @"Internal error during function compilation";
+    v8 = 2;
   }
 
   else
   {
     if (*(a1 + 113) != 1)
     {
-      v7 = 0;
+      v8 = 0;
 LABEL_7:
-      v10 = 1;
+      v11 = 1;
       goto LABEL_8;
     }
 
     isShaderExecuteIndirectCompatible = AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::isShaderExecuteIndirectCompatible(a2, 0);
-    v10 = (isShaderExecuteIndirectCompatible & 1) != 0;
+    v11 = (isShaderExecuteIndirectCompatible & 1) != 0;
     if (isShaderExecuteIndirectCompatible)
     {
-      v7 = 0;
+      v8 = 0;
     }
 
     else
     {
-      v6 = @"Vertex shader cannot be used with indirect command buffers";
-      v7 = 2;
+      v7 = @"Vertex shader cannot be used with indirect command buffers";
+      v8 = 2;
     }
   }
 
 LABEL_8:
-  AGX::Program<AGX::HAL300::VertexProgramVariant,AGX::VertexProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::signalPending(*(a1 + 80), *(a1 + 88), *(a3 + 16), a1 + 114, v7);
-  if (!v7)
+  AGX::Program<AGX::HAL300::VertexProgramVariant,AGX::VertexProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::signalPending(*(a1 + 80), *(a1 + 88), *(a3 + 16), a1 + 114, v8);
+  if (!v8)
   {
-    AGX::VsStateConfigGen3<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::VsStateConfigGen3(v22, a2);
-    v14 = *(a1 + 96);
-    if (v14)
+    AGX::VsStateConfigGen3<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::VsStateConfigGen3(v23, a2);
+    v15 = *(a1 + 96);
+    if (v15)
     {
-      if (*(v14 + 3920))
+      if (*(v15 + 3920))
       {
-        v15 = 64;
+        v16 = 64;
       }
 
       else
       {
-        v15 = 0;
+        v16 = 0;
       }
 
-      v23 = v23 & 0xFFFFFFBF | v15;
+      v24 = v24 & 0xFFFFFFBF | v16;
     }
 
     [*(a1 + 48) needsCustomBorderColorSamplers];
-    v16 = [*(a1 + 48) profileControl];
-    if (v16)
+    v17 = [*(a1 + 48) profileControl];
+    if (v17)
     {
-      v17 = v16;
-      [v16 uscCliqueTraceLevel];
-      [v17 uscEmitPosition];
-      [v17 uscEmitThreadControlFlow];
+      v18 = v17;
+      [v17 uscCliqueTraceLevel];
+      [v18 uscEmitPosition];
+      [v18 uscEmitThreadControlFlow];
     }
 
     operator new();
   }
 
-  v19 = *(a1 + 72);
-  v20 = *(a3 + 32);
-  v21 = *(a1 + 146);
-  *(v19 + 8) = 0;
-  *(v19 + 16) = v7;
+  v20 = *(a1 + 72);
+  v21 = *(a3 + 32);
+  v22 = *(a1 + 146);
+  *(v20 + 8) = 0;
+  *(v20 + 16) = v8;
 
-  *(v19 + 24) = [(__CFString *)v6 copy];
-  if (*(v19 + 8))
+  *(v20 + 24) = [(__CFString *)v7 copy];
+  if (*(v20 + 8))
   {
 
-    *(v19 + 32) = v20;
+    *(v20 + 32) = v21;
   }
 
   else
   {
-    *(v19 + 40) = v10 & v21;
+    *(v20 + 40) = v11 & v22;
   }
 
-  dispatch_group_leave(*v19);
+  dispatch_group_leave(*v20);
 }
 
-void sub_29CC9EAF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29CC9EAF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::~ProgramBindingRemap(va);
-  if (*(v8 - 193) < 0)
+  if (*(v14 - 193) < 0)
   {
-    operator delete(*(v8 - 216));
+    operator delete(*(v14 - 216));
   }
 
-  MEMORY[0x29ED520D0](v7, 0x10F3C40AC35E047);
+  MEMORY[0x29ED520D0](v13, 0x10F3C40AC35E047);
   _Unwind_Resume(a1);
 }
 
@@ -3576,12 +3579,12 @@ void AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
   }
 }
 
-void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE26createVertexProgramVariantEP27MTLRenderPipelineDescriptorP19AGXG18PFamilyDevicemP26AGXG18PFamilyBinaryArchivePKNS_17UserShaderFactoryIS2_S3_S4_E17ArchiveLookupInfoEP7NSArrayPNS1_13VertexProgramEPNS1_22FragmentProgramVariantEPU27objcproto16OS_dispatch_data8NSObjectSP_bPU27objcproto16MTL4CompilerTask11objc_objectU13block_pointerFvPNS1_20VertexProgramVariantE13ReflectionKeyP19NSMutableDictionary16MTLCompilerErrorP8NSStringE_block_invoke_2(uint64_t a1, uint64_t a2, NSObject *a3)
+void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE26createVertexProgramVariantEP27MTLRenderPipelineDescriptorP19AGXG18PFamilyDevicemP26AGXG18PFamilyBinaryArchivePKNS_17UserShaderFactoryIS2_S3_S4_E17ArchiveLookupInfoEP7NSArrayPNS1_13VertexProgramEPNS1_22FragmentProgramVariantEPU27objcproto16OS_dispatch_data8NSObjectSP_bPU27objcproto16MTL4CompilerTask11objc_objectU13block_pointerFvPNS1_20VertexProgramVariantE13ReflectionKeyP19NSMutableDictionary16MTLCompilerErrorP8NSStringE_block_invoke_2(uint64_t a1, uint64_t a2, NSObject *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   AGX::Program<AGX::HAL300::VertexProgramVariant,AGX::VertexProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::signalPending(*(a1 + 40), *(a1 + 48), a3, a1 + 64, a2);
-  v4 = **(a1 + 56);
+  v7 = **(a1 + 56);
 
-  dispatch_group_leave(v4);
+  dispatch_group_leave(v7);
 }
 
 void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE26createVertexProgramVariantEP27MTLRenderPipelineDescriptorP19AGXG18PFamilyDevicemP26AGXG18PFamilyBinaryArchivePKNS_17UserShaderFactoryIS2_S3_S4_E17ArchiveLookupInfoEP7NSArrayPNS1_13VertexProgramEPNS1_22FragmentProgramVariantEPU27objcproto16OS_dispatch_data8NSObjectSP_bPU27objcproto16MTL4CompilerTask11objc_objectU13block_pointerFvPNS1_20VertexProgramVariantE13ReflectionKeyP19NSMutableDictionary16MTLCompilerErrorP8NSStringE_block_invoke_3(void *a1)
@@ -3845,7 +3848,7 @@ void AGX::Program<AGX::HAL300::VertexProgramVariant,AGX::VertexProgramKey,AGX::H
     v16 = *(a1 + 1336);
     v17 = *(a1 + 1328) + 24 * v16;
     *(a1 + 1336) = v16 + 1;
-    v12 = v17 + 128;
+    v12 = (v17 + 128);
     v13 = *(v17 + 136);
     if (a5)
     {
@@ -3862,21 +3865,21 @@ LABEL_9:
         v12 = v18;
       }
 
-      if (*(v12 + 16))
+      if (v12[2])
       {
         v19 = v12;
-        dispatch_release(*(v12 + 16));
+        dispatch_release(v12[2]);
         v12 = v19;
       }
 
-      *(v12 + 8) = v5;
-      *(v12 + 16) = a3;
+      v12[1] = v5;
+      v12[2] = a3;
     }
 
     goto LABEL_15;
   }
 
-  v13 = *(v12 + 8);
+  v13 = v12[1];
   if (!a5)
   {
     goto LABEL_9;
@@ -3914,24 +3917,24 @@ uint64_t ___ZN3AGX8Compiler14compileProgramINS_16VertexProgramKeyE20AGCDeseriali
 
 void ___ZN3AGX17UserShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE53compileFunctionWithAirLinkedIntersectionFunction_ImplINS_16VertexProgramKeyELb1EEENSt3__19enable_ifIXT0_EvE4typeERKT_P29MTLCompileFunctionRequestDataNS5_21DriverRequestDataImplIXT0_EEEU13block_pointerFvRK20AGCDeserializedReplyRKNS_28CompileFunctionReplyMetadataERKNS5_19DriverReplyDataImplIXT0_EEEE_block_invoke(uint64_t a1, void *a2, int8x16_t *a3)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v34 = *MEMORY[0x29EDCA608];
   v6 = *(a1 + 48);
   v7 = a3[2];
-  v20[0] = vextq_s8(a3[1], a3[1], 8uLL);
-  v20[1] = v7;
-  v21 = a3[3].i64[0];
-  AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createAirLinkedIntersectionVariantSets(&v25, v6, a2, v20, *(a1 + 112), a1 + 120);
+  v21[0] = vextq_s8(a3[1], a3[1], 8uLL);
+  v21[1] = v7;
+  v22 = a3[3].i64[0];
+  AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createAirLinkedIntersectionVariantSets(&v26, v6, a2, v21, *(a1 + 112), a1 + 120);
   v8 = a3[1];
-  v22 = *a3;
-  v23 = v8;
+  v23 = *a3;
+  v24 = v8;
   v9 = a3[3];
-  *v24 = a3[2];
-  *&v24[16] = v9;
-  AGCDeserializedReply::AGCDeserializedReply(v20);
-  if (!*&v24[8])
+  *v25 = a3[2];
+  *&v25[16] = v9;
+  AGCDeserializedReply::AGCDeserializedReply(v21);
+  if (!*&v25[8])
   {
     v10 = [*(a1 + 32) function];
-    if (!AGCReplyArray::getDeserializedReplyWithName<AGCDeserializedReply>(a2, [objc_msgSend(v10 "name")], v20))
+    if (!AGCReplyArray::getDeserializedReplyWithName<AGCDeserializedReply>(a2, [objc_msgSend(v10 "name")], v21))
     {
       v11 = *MEMORY[0x29EDCA610];
       v12 = [objc_msgSend(v10 "name")];
@@ -3963,10 +3966,10 @@ void ___ZN3AGX17UserShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
         *&buf[14] = 182;
         *&buf[18] = 2080;
         *&buf[20] = "compileFunctionWithAirLinkedIntersectionFunction_Impl_block_invoke";
-        v29 = 2080;
-        v30 = v16;
-        v31 = 2080;
-        v32 = v17;
+        v30 = 2080;
+        v31 = v16;
+        v32 = 2080;
+        v33 = v17;
         _os_log_error_impl(&dword_29CA13000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "AGX: AGX: %s:%d:%s: *** Failed to find compiler reply with function name %s. The available function names in the reply array are: %s.\n", buf, 0x30u);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -3985,10 +3988,10 @@ void ___ZN3AGX17UserShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
         *&buf[14] = 182;
         *&buf[18] = 2080;
         *&buf[20] = "compileFunctionWithAirLinkedIntersectionFunction_Impl_block_invoke";
-        v29 = 2080;
-        v30 = v14;
-        v31 = 2080;
-        v32 = v15;
+        v30 = 2080;
+        v31 = v14;
+        v32 = 2080;
+        v33 = v15;
         _os_log_impl(&dword_29CA13000, MEMORY[0x29EDCA988], OS_LOG_TYPE_INFO, "AGX: AGX: %s:%d:%s: *** Failed to find compiler reply with function name %s. The available function names in the reply array are: %s.\n", buf, 0x30u);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -3996,36 +3999,37 @@ void ___ZN3AGX17UserShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
         }
       }
 
-      *&v24[8] = 2;
-      *&v24[16] = @"Internal error during function compilation.";
+      *&v25[8] = 2;
+      *&v25[16] = @"Internal error during function compilation.";
     }
   }
 
   memset(buf, 0, 24);
-  if (v27 == 1)
+  if (v28 == 1)
   {
-    *buf = v25;
-    *&buf[16] = v26;
-    v26 = 0;
-    v25 = 0uLL;
+    *buf = v26;
+    *&buf[16] = v27;
+    v27 = 0;
+    v26 = 0uLL;
   }
 
   else
   {
-    if (v27)
+    if (v28)
     {
-      v18 = std::__throw_bad_variant_access[abi:nn200100]();
-      AGCDeserializedReply::~AGCDeserializedReply(v20);
-      if (v27 == -1)
+      std::__throw_bad_variant_access[abi:nn200100]();
+      v19 = v18;
+      AGCDeserializedReply::~AGCDeserializedReply(v21);
+      if (v28 == -1)
       {
-        _Unwind_Resume(v18);
+        _Unwind_Resume(v19);
       }
 
-      (off_2A23F59F0[v27])(v20, &v25);
-      _Unwind_Resume(v18);
+      (off_2A23F59F0[v28])(v21, &v26);
+      _Unwind_Resume(v19);
     }
 
-    *&v24[8] = v25;
+    *&v25[8] = v26;
   }
 
   (*(*(a1 + 40) + 16))();
@@ -4035,10 +4039,10 @@ void ___ZN3AGX17UserShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
     operator delete(*buf);
   }
 
-  AGCDeserializedReply::~AGCDeserializedReply(v20);
-  if (v27 != -1)
+  AGCDeserializedReply::~AGCDeserializedReply(v21);
+  if (v28 != -1)
   {
-    (off_2A23F59F0[v27])(v20, &v25);
+    (off_2A23F59F0[v28])(v21, &v26);
   }
 }
 
@@ -4151,14 +4155,14 @@ void ___ZN3AGX8Compiler14compileProgramINS_16VertexProgramKeyE13AGCReplyArrayEEv
   }
 }
 
-void sub_29CC9FF48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CC9FF48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCReplyArray::~AGCReplyArray(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t AGX::UserProgramKeyFactory<AGX::HAL300::Classes,AGX::HAL300::Encoders>::CreateVertexProgramKey(uint64_t a1, MTLRenderPipelineDescriptor *a2, NSObject *a3, uint64_t a4, int a5, void *a6, int a7)
+BOOL AGX::UserProgramKeyFactory<AGX::HAL300::Classes,AGX::HAL300::Encoders>::CreateVertexProgramKey(uint64_t a1, MTLRenderPipelineDescriptor *a2, NSObject *a3, uint64_t a4, int a5, void *a6, int a7)
 {
   {
     AGX::UserProgramKeyFactory<AGX::HAL300::Classes,AGX::HAL300::Encoders>::GetPipelineScript<MTLRenderPipelineDescriptor>(MTLRenderPipelineDescriptor const*)::enable_pipeline_script = 0;
@@ -4228,7 +4232,7 @@ void sub_29CCA02F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::constructRenderPipeline<MTLRenderPipelineDescriptor>(void *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19)
+void AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::constructRenderPipeline<MTLRenderPipelineDescriptor>(void *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, void *a17, uint64_t a18, void *a19, uint64_t a20, char a21, uint64_t a22, __int128 a23, uint64_t a24)
 {
   if (a1)
   {
@@ -4252,14 +4256,14 @@ LABEL_5:
       [a10 vendorPrivate];
     }
 
-    v32 = [[AGXG18PFamilyRenderPipeline alloc] initWithDevice:a17 pipelineStateDescriptor:a19];
+    v37 = [[AGXG18PFamilyRenderPipeline alloc] initWithDevice:a17 pipelineStateDescriptor:a19];
     [a19 _descriptorPrivate];
-    v22 = a5;
+    v27 = a5;
     if (a5)
     {
-      v22 = *(a5 + 4256) == 0;
-      v23 = 256;
-      v24 = a11;
+      v27 = *(a5 + 4256) == 0;
+      v28 = 256;
+      v29 = a11;
       if (!a11)
       {
         goto LABEL_15;
@@ -4268,98 +4272,98 @@ LABEL_5:
 
     else
     {
-      v23 = 0;
-      v24 = a11;
+      v28 = 0;
+      v29 = a11;
       if (!a11)
       {
         goto LABEL_15;
       }
     }
 
-    if (*(v24 + 4052))
+    if (*(v29 + 4052))
     {
-      v22 = *(a11 + 4044) == 0;
-      v23 = 256;
+      v27 = *(a11 + 4044) == 0;
+      v28 = 256;
     }
 
 LABEL_15:
-    v25 = v23 | v22;
-    *&v32->_anon_228[432] = [a19 maxVertexAmplificationCount];
+    v30 = v28 | v27;
+    *&v37->_anon_228[432] = [a19 maxVertexAmplificationCount];
     [a19 sampleCoverage];
-    *&v32->_anon_228[436] = v26;
-    *&v32->_anon_228[444] = [a19 rasterSampleCount];
-    *&v32->_anon_228[440] = [a19 sampleMask];
-    v27 = [a19 isRasterizationEnabled];
-    v32->_anon_228[448] = v27;
-    if (v27)
+    *&v37->_anon_228[436] = v31;
+    *&v37->_anon_228[444] = [a19 rasterSampleCount];
+    *&v37->_anon_228[440] = [a19 sampleMask];
+    v32 = [a19 isRasterizationEnabled];
+    v37->_anon_228[448] = v32;
+    if (v32)
     {
-      v28 = 0;
+      v33 = 0;
     }
 
     else
     {
-      v28 = 0x20000;
+      v33 = 0x20000;
     }
 
-    *&v32->_anon_228[516] = *&v32->_anon_228[516] & 0xFFFDFFFF | v28;
-    v32->_anon_228[477] = [a19 supportIndirectCommandBuffers];
-    if ((v25 & 0x100) == 0)
+    *&v37->_anon_228[516] = *&v37->_anon_228[516] & 0xFFFDFFFF | v33;
+    v37->_anon_228[477] = [a19 supportIndirectCommandBuffers];
+    if ((v30 & 0x100) == 0)
     {
 LABEL_31:
       operator new();
     }
 
-    *&v32->_anon_228[452] = [a19 tessellationOutputWindingOrder] == 1;
-    *&v32->_anon_228[456] = [a19 tessellationPartitionMode];
-    *&v32->_anon_228[464] = [a19 tessellationFactorStepFunction];
-    *&v32->_anon_228[472] = [a19 maxTessellationFactor];
-    *&v32->_anon_228[468] = [a19 tessellationFactorFormat];
-    v32->_anon_228[476] = [a19 isTessellationFactorScaleEnabled];
-    v29 = [a19 tessellationPartitionMode];
-    if (v29 > 1)
+    *&v37->_anon_228[452] = [a19 tessellationOutputWindingOrder] == 1;
+    *&v37->_anon_228[456] = [a19 tessellationPartitionMode];
+    *&v37->_anon_228[464] = [a19 tessellationFactorStepFunction];
+    *&v37->_anon_228[472] = [a19 maxTessellationFactor];
+    *&v37->_anon_228[468] = [a19 tessellationFactorFormat];
+    v37->_anon_228[476] = [a19 isTessellationFactorScaleEnabled];
+    v34 = [a19 tessellationPartitionMode];
+    if (v34 > 1)
     {
-      if (v29 == 2)
+      if (v34 == 2)
       {
-        v31 = (v25 & 1) == 0;
-        v30 = 4;
+        v36 = (v30 & 1) == 0;
+        v35 = 4;
       }
 
       else
       {
-        if (v29 != 3)
+        if (v34 != 3)
         {
           goto LABEL_31;
         }
 
-        v31 = (v25 & 1) == 0;
-        v30 = 2;
+        v36 = (v30 & 1) == 0;
+        v35 = 2;
       }
     }
 
     else
     {
-      if (v29)
+      if (v34)
       {
-        if (v29 != 1)
+        if (v34 != 1)
         {
           goto LABEL_31;
         }
 
-        v30 = v25 ^ 1;
+        v35 = v30 ^ 1;
         goto LABEL_30;
       }
 
-      v31 = (v25 & 1) == 0;
-      v30 = 6;
+      v36 = (v30 & 1) == 0;
+      v35 = 6;
     }
 
-    if (v31)
+    if (v36)
     {
-      ++v30;
+      ++v35;
     }
 
 LABEL_30:
-    *&v32->_anon_228[460] = v30;
+    *&v37->_anon_228[460] = v35;
     goto LABEL_31;
   }
 
@@ -4561,13 +4565,13 @@ uint64_t AGX::Program<AGX::HAL300::FragmentProgramVariant,AGX::FragmentProgramKe
     v9 = *(a1 + 1656);
     v10 = *(a1 + 1648) + 24 * v9;
     *(a1 + 1656) = v9 + 1;
-    v6 = v10 + 128;
+    v6 = (v10 + 128);
   }
 
-  v11 = *(v6 + 16);
+  v11 = v6[2];
   if (v11)
   {
-    dispatch_retain(*(v6 + 16));
+    dispatch_retain(v6[2]);
   }
 
   os_unfair_lock_unlock((a1 + 1688));
@@ -4594,13 +4598,13 @@ uint64_t AGX::Program<AGX::HAL300::ObjectProgramVariant,AGX::ObjectProgramKey,AG
     v9 = *(a1 + 1144);
     v10 = *(a1 + 1136) + 24 * v9;
     *(a1 + 1144) = v9 + 1;
-    v6 = v10 + 128;
+    v6 = (v10 + 128);
   }
 
-  v11 = *(v6 + 16);
+  v11 = v6[2];
   if (v11)
   {
-    dispatch_retain(*(v6 + 16));
+    dispatch_retain(v6[2]);
   }
 
   os_unfair_lock_unlock((a1 + 1176));
@@ -4627,13 +4631,13 @@ uint64_t AGX::Program<AGX::HAL300::MeshProgramVariant,AGX::MeshProgramKey,AGX::H
     v9 = *(a1 + 1368);
     v10 = *(a1 + 1360) + 24 * v9;
     *(a1 + 1368) = v9 + 1;
-    v6 = v10 + 128;
+    v6 = (v10 + 128);
   }
 
-  v11 = *(v6 + 16);
+  v11 = v6[2];
   if (v11)
   {
-    dispatch_retain(*(v6 + 16));
+    dispatch_retain(v6[2]);
   }
 
   os_unfair_lock_unlock((a1 + 1400));
@@ -4685,57 +4689,57 @@ unint64_t AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classe
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned long long,unsigned long long>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned long long,unsigned long long>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,std::pair<unsigned long long,unsigned long long>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned long long,unsigned long long>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::pair<unsigned long long,unsigned long long>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::pair<unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(float *a1, unint64_t a2, void **a3)
 {
-  v2 = a1[1];
-  if (!*&v2)
+  v3 = *(a1 + 2);
+  if (!*&v3)
   {
     goto LABEL_22;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_22:
     operator new();
   }
 
-  if (v3.u32[0] < 2uLL)
+  if (v4.u32[0] < 2uLL)
   {
     while (1)
     {
-      v7 = v6[1];
-      if (v7 == a2)
+      v8 = v7[1];
+      if (v8 == a2)
       {
-        if (v6[2] == a2)
+        if (v7[2] == a2)
         {
-          return v6;
+          return v7;
         }
       }
 
-      else if ((v7 & (*&v2 - 1)) != v4)
+      else if ((v8 & (*&v3 - 1)) != v5)
       {
         goto LABEL_22;
       }
 
-      v6 = *v6;
-      if (!v6)
+      v7 = *v7;
+      if (!v7)
       {
         goto LABEL_22;
       }
@@ -4744,41 +4748,41 @@ LABEL_22:
 
   while (1)
   {
-    v8 = v6[1];
-    if (v8 == a2)
+    v9 = v7[1];
+    if (v9 == a2)
     {
       break;
     }
 
-    if (v8 >= *&v2)
+    if (v9 >= *&v3)
     {
-      v8 %= *&v2;
+      v9 %= *&v3;
     }
 
-    if (v8 != v4)
+    if (v9 != v5)
     {
       goto LABEL_22;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_22;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-void *std::vector<unsigned long long>::reserve(void *result, unint64_t a2)
+void std::vector<unsigned long long>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
@@ -4787,13 +4791,11 @@ void *std::vector<unsigned long long>::reserve(void *result, unint64_t a2)
 
     std::__throw_bad_array_new_length[abi:nn200100]();
   }
-
-  return result;
 }
 
-void *std::vector<std::pair<unsigned long long,unsigned long long>>::reserve(void *result, unint64_t a2)
+void std::vector<std::pair<unsigned long long,unsigned long long>>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
@@ -4802,8 +4804,6 @@ void *std::vector<std::pair<unsigned long long,unsigned long long>>::reserve(voi
 
     std::__throw_bad_array_new_length[abi:nn200100]();
   }
-
-  return result;
 }
 
 uint64_t AGX::UserProgramKeyFactory<AGX::HAL300::Classes,AGX::HAL300::Encoders>::CreateMeshProgramKey<MTLRenderPipelineDescriptor>(uint64_t a1, void *a2, NSObject *a3, void *a4, int a5, uint64_t a6, int a7)
@@ -4893,19 +4893,19 @@ unint64_t AGX::Program<AGX::HAL300::MeshProgramVariant,AGX::MeshProgramKey,AGX::
   return v14 | a2 & 0xFFFFFFFFFFCCFFFCLL;
 }
 
-void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE24createMeshProgramVariantI27MTLRenderPipelineDescriptorEEvPT_P19AGXG18PFamilyDevicemP26AGXG18PFamilyBinaryArchivePKNS_17UserShaderFactoryIS2_S3_S4_E17ArchiveLookupInfoEPU27objcproto16OS_dispatch_data8NSObjectP7NSArrayPNS1_11MeshProgramEPNS1_22FragmentProgramVariantESL_bPU27objcproto16MTL4CompilerTask11objc_objectU13block_pointerFvPNS1_18MeshProgramVariantE13ReflectionKeyP19NSMutableDictionary16MTLCompilerErrorP8NSStringSL_E_block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE24createMeshProgramVariantI27MTLRenderPipelineDescriptorEEvPT_P19AGXG18PFamilyDevicemP26AGXG18PFamilyBinaryArchivePKNS_17UserShaderFactoryIS2_S3_S4_E17ArchiveLookupInfoEPU27objcproto16OS_dispatch_data8NSObjectP7NSArrayPNS1_11MeshProgramEPNS1_22FragmentProgramVariantESL_bPU27objcproto16MTL4CompilerTask11objc_objectU13block_pointerFvPNS1_18MeshProgramVariantE13ReflectionKeyP19NSMutableDictionary16MTLCompilerErrorP8NSStringSL_E_block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v6 = *(a3 + 40);
-  v7 = *(a3 + 48);
+  v7 = *(a3 + 40);
+  v8 = *(a3 + 48);
   *(*(*(a1 + 56) + 8) + 40) = objc_alloc_init(MEMORY[0x29EDB8E00]);
   AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::fillCompilePerformanceStatisticsDictionary(*a3, *(a3 + 8), *(*(*(a1 + 56) + 8) + 40), *(a3 + 56), [*(a1 + 32) name], *(a1 + 112));
-  v8 = *(*(*(a1 + 56) + 8) + 40);
-  if (v8)
+  v9 = *(*(*(a1 + 56) + 8) + 40);
+  if (v9)
   {
-    v9 = [v8 objectForKey:*MEMORY[0x29EDBB378]];
-    if (v9)
+    v10 = [v9 objectForKey:*MEMORY[0x29EDBB378]];
+    if (v10)
     {
-      [v9 unsignedLongLongValue];
+      [v10 unsignedLongLongValue];
     }
   }
 
@@ -4914,141 +4914,141 @@ void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10O
     IOGPUDeviceTraceEvent();
   }
 
-  if (v6)
+  if (v7)
   {
     goto LABEL_7;
   }
 
-  v11 = a2 + 33;
+  v12 = a2 + 33;
   if (a2[33])
   {
-    v12 = a2[34] == 0;
+    v13 = a2[34] == 0;
   }
 
   else
   {
-    v12 = 1;
+    v13 = 1;
   }
 
-  v13 = 33;
-  if (v12)
+  v14 = 33;
+  if (v13)
   {
-    v13 = 103;
-    v11 = a2 + 103;
+    v14 = 103;
+    v12 = a2 + 103;
   }
 
-  if (a2[v13] && v11[1])
+  if (a2[v14] && v12[1])
   {
-    v10 = 0;
-    v7 = @"Internal error during function compilation";
-    v6 = 2;
+    v11 = 0;
+    v8 = @"Internal error during function compilation";
+    v7 = 2;
   }
 
   else
   {
     if (*(a1 + 113) != 1)
     {
-      v6 = 0;
+      v7 = 0;
 LABEL_7:
-      v10 = 1;
+      v11 = 1;
       goto LABEL_8;
     }
 
     isShaderExecuteIndirectCompatible = AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::isShaderExecuteIndirectCompatible(a2, 0);
-    v10 = (isShaderExecuteIndirectCompatible & 1) != 0;
+    v11 = (isShaderExecuteIndirectCompatible & 1) != 0;
     if (isShaderExecuteIndirectCompatible)
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     else
     {
-      v7 = @"Mesh shader cannot be used with indirect command buffers";
-      v6 = 2;
+      v8 = @"Mesh shader cannot be used with indirect command buffers";
+      v7 = 2;
     }
   }
 
 LABEL_8:
-  AGX::Program<AGX::HAL300::MeshProgramVariant,AGX::MeshProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::signalPending(*(a1 + 80), *(a1 + 88), *(a3 + 16), a1 + 114, v6);
-  if (!v6)
+  AGX::Program<AGX::HAL300::MeshProgramVariant,AGX::MeshProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::signalPending(*(a1 + 80), *(a1 + 88), *(a3 + 16), (a1 + 114), v7);
+  if (!v7)
   {
-    AGX::VsStateConfigGen3<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::VsStateConfigGen3(v37, a2);
-    v14 = *(a1 + 96);
-    if (v14)
+    AGX::VsStateConfigGen3<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::VsStateConfigGen3(v38, a2);
+    v15 = *(a1 + 96);
+    if (v15)
     {
-      if (*(v14 + 3920))
+      if (*(v15 + 3920))
       {
-        v15 = 64;
+        v16 = 64;
       }
 
       else
       {
-        v15 = 0;
+        v16 = 0;
       }
 
-      v38 = v38 & 0xFFFFFFBF | v15;
+      v39 = v39 & 0xFFFFFFBF | v16;
     }
 
-    v16 = [*(a1 + 48) needsCustomBorderColorSamplers];
-    v17 = *(a1 + 48);
-    v31 = *(*(a1 + 40) + 848);
-    v18 = *(v31 + 7112);
-    v32 = *(v31 + 7092);
-    v33 = v18;
-    v19 = [v17 profileControl];
-    v27 = 0;
+    v17 = [*(a1 + 48) needsCustomBorderColorSamplers];
+    v18 = *(a1 + 48);
+    v32 = *(*(a1 + 40) + 848);
+    v19 = *(v32 + 7112);
+    v33 = *(v32 + 7092);
+    v34 = v19;
+    v20 = [v18 profileControl];
     v28 = 0;
-    if (v19)
+    v29 = 0;
+    if (v20)
     {
-      v20 = v19;
-      v34 = [v19 uscCliqueTraceLevel];
-      v35 = [v20 uscEmitPosition];
-      v36 = [v20 uscEmitThreadControlFlow];
-      v29 = 0;
-      v21 = 1;
+      v21 = v20;
+      v35 = [v20 uscCliqueTraceLevel];
+      v36 = [v21 uscEmitPosition];
+      v37 = [v21 uscEmitThreadControlFlow];
+      v30 = 0;
+      v22 = 1;
     }
 
     else
     {
-      v21 = 0;
+      v22 = 0;
     }
 
-    v30 = v21;
-    AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::ProgramBindingRemap(v26, a2, 8, 0, v16, *(*(a1 + 80) + 1408), *(a1 + 104), 0, 0, 0);
+    v31 = v22;
+    AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::ProgramBindingRemap(v27, a2, 8, 0, v17, *(*(a1 + 80) + 1408), *(a1 + 104), 0, 0, 0);
     operator new();
   }
 
-  v23 = *(a1 + 72);
-  v24 = *(a3 + 32);
-  v25 = *(a1 + 146);
-  *(v23 + 8) = 0;
-  *(v23 + 16) = v6;
+  v24 = *(a1 + 72);
+  v25 = *(a3 + 32);
+  v26 = *(a1 + 146);
+  *(v24 + 8) = 0;
+  *(v24 + 16) = v7;
 
-  *(v23 + 24) = [(__CFString *)v7 copy];
-  if (*(v23 + 8))
+  *(v24 + 24) = [(__CFString *)v8 copy];
+  if (*(v24 + 8))
   {
 
-    *(v23 + 32) = v24;
+    *(v24 + 32) = v25;
   }
 
   else
   {
-    *(v23 + 40) = v10 & v25;
+    *(v24 + 40) = v11 & v26;
   }
 
-  dispatch_group_leave(*v23);
+  dispatch_group_leave(*v24);
 }
 
-void sub_29CCA54E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29CCA54E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::~ProgramBindingRemap(va);
   if (SLOBYTE(STACK[0x217]) < 0)
   {
     operator delete(STACK[0x200]);
   }
 
-  MEMORY[0x29ED520D0](v6, 0x10F3C400AB5AFBDLL);
+  MEMORY[0x29ED520D0](v11, 0x10F3C400AB5AFBDLL);
   AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::~ProgramBindingRemap(&STACK[0x218]);
   _Unwind_Resume(a1);
 }
@@ -5229,7 +5229,7 @@ void AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
 
 void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE24createMeshProgramVariantI27MTLRenderPipelineDescriptorEEvPT_P19AGXG18PFamilyDevicemP26AGXG18PFamilyBinaryArchivePKNS_17UserShaderFactoryIS2_S3_S4_E17ArchiveLookupInfoEPU27objcproto16OS_dispatch_data8NSObjectP7NSArrayPNS1_11MeshProgramEPNS1_22FragmentProgramVariantESL_bPU27objcproto16MTL4CompilerTask11objc_objectU13block_pointerFvPNS1_18MeshProgramVariantE13ReflectionKeyP19NSMutableDictionary16MTLCompilerErrorP8NSStringSL_E_block_invoke_2(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  AGX::Program<AGX::HAL300::MeshProgramVariant,AGX::MeshProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::signalPending(*(a1 + 40), *(a1 + 48), a3, a1 + 64, a2);
+  AGX::Program<AGX::HAL300::MeshProgramVariant,AGX::MeshProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::signalPending(*(a1 + 40), *(a1 + 48), a3, (a1 + 64), a2);
   v4 = **(a1 + 56);
 
   dispatch_group_leave(v4);
@@ -5512,24 +5512,24 @@ uint64_t ___ZN3AGX8Compiler14compileProgramINS_14MeshProgramKeyE20AGCDeserialize
 
 void ___ZN3AGX17UserShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE53compileFunctionWithAirLinkedIntersectionFunction_ImplINS_14MeshProgramKeyELb1EEENSt3__19enable_ifIXT0_EvE4typeERKT_P29MTLCompileFunctionRequestDataNS5_21DriverRequestDataImplIXT0_EEEU13block_pointerFvRK20AGCDeserializedReplyRKNS_28CompileFunctionReplyMetadataERKNS5_19DriverReplyDataImplIXT0_EEEE_block_invoke(uint64_t a1, void *a2, int8x16_t *a3)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v34 = *MEMORY[0x29EDCA608];
   v6 = *(a1 + 48);
   v7 = a3[2];
-  v20[0] = vextq_s8(a3[1], a3[1], 8uLL);
-  v20[1] = v7;
-  v21 = a3[3].i64[0];
-  AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createAirLinkedIntersectionVariantSets(&v25, v6, a2, v20, *(a1 + 112), a1 + 120);
+  v21[0] = vextq_s8(a3[1], a3[1], 8uLL);
+  v21[1] = v7;
+  v22 = a3[3].i64[0];
+  AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createAirLinkedIntersectionVariantSets(&v26, v6, a2, v21, *(a1 + 112), a1 + 120);
   v8 = a3[1];
-  v22 = *a3;
-  v23 = v8;
+  v23 = *a3;
+  v24 = v8;
   v9 = a3[3];
-  *v24 = a3[2];
-  *&v24[16] = v9;
-  AGCDeserializedReply::AGCDeserializedReply(v20);
-  if (!*&v24[8])
+  *v25 = a3[2];
+  *&v25[16] = v9;
+  AGCDeserializedReply::AGCDeserializedReply(v21);
+  if (!*&v25[8])
   {
     v10 = [*(a1 + 32) function];
-    if (!AGCReplyArray::getDeserializedReplyWithName<AGCDeserializedReply>(a2, [objc_msgSend(v10 "name")], v20))
+    if (!AGCReplyArray::getDeserializedReplyWithName<AGCDeserializedReply>(a2, [objc_msgSend(v10 "name")], v21))
     {
       v11 = *MEMORY[0x29EDCA610];
       v12 = [objc_msgSend(v10 "name")];
@@ -5561,10 +5561,10 @@ void ___ZN3AGX17UserShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
         *&buf[14] = 182;
         *&buf[18] = 2080;
         *&buf[20] = "compileFunctionWithAirLinkedIntersectionFunction_Impl_block_invoke";
-        v29 = 2080;
-        v30 = v16;
-        v31 = 2080;
-        v32 = v17;
+        v30 = 2080;
+        v31 = v16;
+        v32 = 2080;
+        v33 = v17;
         _os_log_error_impl(&dword_29CA13000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "AGX: AGX: %s:%d:%s: *** Failed to find compiler reply with function name %s. The available function names in the reply array are: %s.\n", buf, 0x30u);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -5583,10 +5583,10 @@ void ___ZN3AGX17UserShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
         *&buf[14] = 182;
         *&buf[18] = 2080;
         *&buf[20] = "compileFunctionWithAirLinkedIntersectionFunction_Impl_block_invoke";
-        v29 = 2080;
-        v30 = v14;
-        v31 = 2080;
-        v32 = v15;
+        v30 = 2080;
+        v31 = v14;
+        v32 = 2080;
+        v33 = v15;
         _os_log_impl(&dword_29CA13000, MEMORY[0x29EDCA988], OS_LOG_TYPE_INFO, "AGX: AGX: %s:%d:%s: *** Failed to find compiler reply with function name %s. The available function names in the reply array are: %s.\n", buf, 0x30u);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -5594,36 +5594,37 @@ void ___ZN3AGX17UserShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
         }
       }
 
-      *&v24[8] = 2;
-      *&v24[16] = @"Internal error during function compilation.";
+      *&v25[8] = 2;
+      *&v25[16] = @"Internal error during function compilation.";
     }
   }
 
   memset(buf, 0, 24);
-  if (v27 == 1)
+  if (v28 == 1)
   {
-    *buf = v25;
-    *&buf[16] = v26;
-    v26 = 0;
-    v25 = 0uLL;
+    *buf = v26;
+    *&buf[16] = v27;
+    v27 = 0;
+    v26 = 0uLL;
   }
 
   else
   {
-    if (v27)
+    if (v28)
     {
-      v18 = std::__throw_bad_variant_access[abi:nn200100]();
-      AGCDeserializedReply::~AGCDeserializedReply(v20);
-      if (v27 == -1)
+      std::__throw_bad_variant_access[abi:nn200100]();
+      v19 = v18;
+      AGCDeserializedReply::~AGCDeserializedReply(v21);
+      if (v28 == -1)
       {
-        _Unwind_Resume(v18);
+        _Unwind_Resume(v19);
       }
 
-      (off_2A23F59F0[v27])(v20, &v25);
-      _Unwind_Resume(v18);
+      (off_2A23F59F0[v28])(v21, &v26);
+      _Unwind_Resume(v19);
     }
 
-    *&v24[8] = v25;
+    *&v25[8] = v26;
   }
 
   (*(*(a1 + 40) + 16))();
@@ -5633,10 +5634,10 @@ void ___ZN3AGX17UserShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
     operator delete(*buf);
   }
 
-  AGCDeserializedReply::~AGCDeserializedReply(v20);
-  if (v27 != -1)
+  AGCDeserializedReply::~AGCDeserializedReply(v21);
+  if (v28 != -1)
   {
-    (off_2A23F59F0[v27])(v20, &v25);
+    (off_2A23F59F0[v28])(v21, &v26);
   }
 }
 
@@ -5749,18 +5750,18 @@ void ___ZN3AGX8Compiler14compileProgramINS_14MeshProgramKeyE13AGCReplyArrayEEvRK
   }
 }
 
-void sub_29CCA69B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CCA69B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCReplyArray::~AGCReplyArray(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::ProgramBindingRemap(uint64_t result, uint64_t a2)
+uint64_t AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::ProgramBindingRemap(uint64_t a1, uint64_t a2)
 {
-  *result = 0;
-  *(result + 8) = 0;
-  *(result + 16) = 0;
+  *a1 = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
   v2 = *(a2 + 8);
   if (v2)
   {
@@ -5772,9 +5773,9 @@ uint64_t AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::P
     std::__throw_bad_array_new_length[abi:nn200100]();
   }
 
-  *(result + 24) = 0;
-  *(result + 32) = 0;
-  *(result + 40) = 0;
+  *(a1 + 24) = 0;
+  *(a1 + 32) = 0;
+  *(a1 + 40) = 0;
   v4 = *(a2 + 24);
   v3 = *(a2 + 32);
   if (v3 != v4)
@@ -5787,9 +5788,9 @@ uint64_t AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::P
     goto LABEL_41;
   }
 
-  *(result + 48) = 0;
-  *(result + 56) = 0;
-  *(result + 64) = 0;
+  *(a1 + 48) = 0;
+  *(a1 + 56) = 0;
+  *(a1 + 64) = 0;
   v6 = *(a2 + 48);
   v5 = *(a2 + 56);
   if (v5 != v6)
@@ -5802,9 +5803,9 @@ uint64_t AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::P
     goto LABEL_41;
   }
 
-  *(result + 72) = 0;
-  *(result + 80) = 0;
-  *(result + 88) = 0;
+  *(a1 + 72) = 0;
+  *(a1 + 80) = 0;
+  *(a1 + 88) = 0;
   v8 = *(a2 + 72);
   v7 = *(a2 + 80);
   if (v7 != v8)
@@ -5817,9 +5818,9 @@ uint64_t AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::P
     goto LABEL_41;
   }
 
-  *(result + 96) = 0;
-  *(result + 104) = 0;
-  *(result + 112) = 0;
+  *(a1 + 96) = 0;
+  *(a1 + 104) = 0;
+  *(a1 + 112) = 0;
   v10 = *(a2 + 96);
   v9 = *(a2 + 104);
   if (v9 != v10)
@@ -5835,21 +5836,21 @@ LABEL_41:
 
   v11 = *(a2 + 120);
   v12 = *(a2 + 136);
-  *(result + 152) = *(a2 + 152);
-  *(result + 136) = v12;
-  *(result + 120) = v11;
-  *(result + 160) = *(a2 + 160);
-  *(result + 168) = *(a2 + 168);
-  *(result + 176) = *(a2 + 176);
-  *(result + 184) = *(a2 + 184);
-  *(result + 192) = *(a2 + 192);
+  *(a1 + 152) = *(a2 + 152);
+  *(a1 + 136) = v12;
+  *(a1 + 120) = v11;
+  *(a1 + 160) = *(a2 + 160);
+  *(a1 + 168) = *(a2 + 168);
+  *(a1 + 176) = *(a2 + 176);
+  *(a1 + 184) = *(a2 + 184);
+  *(a1 + 192) = *(a2 + 192);
   v13 = *(a2 + 200);
   v14 = *(a2 + 208);
-  *(result + 216) = 0;
-  *(result + 200) = v13;
-  *(result + 208) = v14;
-  *(result + 224) = 0;
-  *(result + 232) = 0;
+  *(a1 + 216) = 0;
+  *(a1 + 200) = v13;
+  *(a1 + 208) = v14;
+  *(a1 + 224) = 0;
+  *(a1 + 232) = 0;
   v16 = *(a2 + 216);
   v15 = *(a2 + 224);
   if (v15 != v16)
@@ -5862,9 +5863,9 @@ LABEL_41:
     goto LABEL_42;
   }
 
-  *(result + 240) = 0;
-  *(result + 248) = 0;
-  *(result + 256) = 0;
+  *(a1 + 240) = 0;
+  *(a1 + 248) = 0;
+  *(a1 + 256) = 0;
   v18 = *(a2 + 240);
   v17 = *(a2 + 248);
   if (v17 != v18)
@@ -5877,9 +5878,9 @@ LABEL_41:
     goto LABEL_42;
   }
 
-  *(result + 264) = 0;
-  *(result + 272) = 0;
-  *(result + 280) = 0;
+  *(a1 + 264) = 0;
+  *(a1 + 272) = 0;
+  *(a1 + 280) = 0;
   v20 = *(a2 + 264);
   v19 = *(a2 + 272);
   if (v19 != v20)
@@ -5892,9 +5893,9 @@ LABEL_41:
     goto LABEL_42;
   }
 
-  *(result + 288) = 0;
-  *(result + 296) = 0;
-  *(result + 304) = 0;
+  *(a1 + 288) = 0;
+  *(a1 + 296) = 0;
+  *(a1 + 304) = 0;
   v22 = *(a2 + 288);
   v21 = *(a2 + 296);
   if (v21 != v22)
@@ -5908,10 +5909,10 @@ LABEL_42:
     std::__throw_bad_array_new_length[abi:nn200100]();
   }
 
-  *(result + 312) = *(a2 + 312);
-  *(result + 328) = 0;
-  *(result + 336) = 0;
-  *(result + 320) = 0;
+  *(a1 + 312) = *(a2 + 312);
+  *(a1 + 328) = 0;
+  *(a1 + 336) = 0;
+  *(a1 + 320) = 0;
   v24 = *(a2 + 320);
   v23 = *(a2 + 328);
   if (v23 != v24)
@@ -5924,9 +5925,9 @@ LABEL_42:
     goto LABEL_43;
   }
 
-  *(result + 344) = 0;
-  *(result + 352) = 0;
-  *(result + 360) = 0;
+  *(a1 + 344) = 0;
+  *(a1 + 352) = 0;
+  *(a1 + 360) = 0;
   v26 = *(a2 + 344);
   v25 = *(a2 + 352);
   if (v25 != v26)
@@ -5939,9 +5940,9 @@ LABEL_42:
     goto LABEL_43;
   }
 
-  *(result + 368) = 0;
-  *(result + 376) = 0;
-  *(result + 384) = 0;
+  *(a1 + 368) = 0;
+  *(a1 + 376) = 0;
+  *(a1 + 384) = 0;
   v28 = *(a2 + 368);
   v27 = *(a2 + 376);
   if (v27 != v28)
@@ -5954,9 +5955,9 @@ LABEL_42:
     goto LABEL_43;
   }
 
-  *(result + 392) = 0;
-  *(result + 400) = 0;
-  *(result + 408) = 0;
+  *(a1 + 392) = 0;
+  *(a1 + 400) = 0;
+  *(a1 + 408) = 0;
   v30 = *(a2 + 392);
   v29 = *(a2 + 400);
   if (v29 != v30)
@@ -5970,13 +5971,13 @@ LABEL_43:
     std::__throw_bad_array_new_length[abi:nn200100]();
   }
 
-  *(result + 416) = *(a2 + 416);
-  *(result + 424) = *(a2 + 424);
-  *(result + 432) = *(a2 + 432);
-  *(result + 440) = *(a2 + 440);
-  *(result + 448) = *(a2 + 448);
-  *(result + 456) = *(a2 + 456);
-  return result;
+  *(a1 + 416) = *(a2 + 416);
+  *(a1 + 424) = *(a2 + 424);
+  *(a1 + 432) = *(a2 + 432);
+  *(a1 + 440) = *(a2 + 440);
+  *(a1 + 448) = *(a2 + 448);
+  *(a1 + 456) = *(a2 + 456);
+  return a1;
 }
 
 void sub_29CCA6F44(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void **a10)
@@ -6188,7 +6189,7 @@ void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10O
     v8 = *(a1 + 88);
     v10 = *v9;
     memset(v13, 0, sizeof(v13));
-    AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::constructRenderPipeline<MTLRenderPipelineDescriptor>(v10, v8, a1 + 120, 0, 0, v13, *(v9 + 24), a2, a3, *(v9 + 16), *(a1 + 96), a1 + 152, *(v9 + 96), 0, *(v9 + 120), *(v9 + 112), *(a1 + 32), *(v9 + 72), *(a1 + 40));
+    AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::constructRenderPipeline<MTLRenderPipelineDescriptor>(v10, v8, a1 + 120, 0, 0, v13, *(v9 + 24), a2, a3, *(v9 + 16), *(a1 + 96), a1 + 152, *(v9 + 96), 0, *(v9 + 120), *(v9 + 112), *(a1 + 32), *(v9 + 72), *(a1 + 40), *(a1 + 104), *(a1 + 185), *(a1 + 112), *(a1 + 48), *(a1 + 64));
   }
 
   v5 = *(a1 + 64);
@@ -6210,7 +6211,7 @@ void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10O
   }
 }
 
-void AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createUserOrPassthroughObjectProgramVariant<MTLRenderPipelineDescriptor>(uint64_t a1, void *a2, os_unfair_lock_s *a3, unint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, void *a8, void *a9, NSObject *a10, unsigned __int8 a11, unsigned __int8 a12, unsigned __int8 a13, uint64_t a14, uint64_t a15)
+void AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createUserOrPassthroughObjectProgramVariant<MTLRenderPipelineDescriptor>(uint64_t a1, void *a2, os_unfair_lock_s *a3, unint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7, void *a8, void *a9, NSObject *a10, unsigned __int8 a11, unsigned __int8 a12, unsigned __int8 a13, uint64_t a14, uint64_t a15)
 {
   v17 = a15;
   v151 = *MEMORY[0x29EDCA608];
@@ -6415,7 +6416,7 @@ void AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX
       if (a6)
       {
         v67 = *a6;
-        v68 = *(a6 + 16);
+        v68 = a6[2];
         LOBYTE(v85) = 1;
         *(&v85 + 1) = v67;
         v86[0] = v68;
@@ -6572,7 +6573,7 @@ void AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX
     {
       block = 0u;
       v101 = 0u;
-      (*(v17 + 16))(v17, 0, &block, 0, &stru_2A23FAE10);
+      (*(v17 + 16))(v17, 0, &block, 0, &stru_2A23FAE10, a6, a7, a8);
       return;
     }
 
@@ -6788,19 +6789,19 @@ LABEL_13:
   return v9;
 }
 
-void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE26createObjectProgramVariantI27MTLRenderPipelineDescriptorEEvPT_P19AGXG18PFamilyDevicemP26AGXG18PFamilyBinaryArchivePKNS_17UserShaderFactoryIS2_S3_S4_E17ArchiveLookupInfoEPU27objcproto16OS_dispatch_data8NSObjectP7NSArrayPNS1_13ObjectProgramESL_bbbPU27objcproto16MTL4CompilerTask11objc_objectU13block_pointerFvPNS1_20ObjectProgramVariantE13ReflectionKey16MTLCompilerErrorP8NSStringE_block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE26createObjectProgramVariantI27MTLRenderPipelineDescriptorEEvPT_P19AGXG18PFamilyDevicemP26AGXG18PFamilyBinaryArchivePKNS_17UserShaderFactoryIS2_S3_S4_E17ArchiveLookupInfoEPU27objcproto16OS_dispatch_data8NSObjectP7NSArrayPNS1_13ObjectProgramESL_bbbPU27objcproto16MTL4CompilerTask11objc_objectU13block_pointerFvPNS1_20ObjectProgramVariantE13ReflectionKey16MTLCompilerErrorP8NSStringE_block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v7 = *(a3 + 40);
-  v6 = *(a3 + 48);
+  v8 = *(a3 + 40);
+  v7 = *(a3 + 48);
   *(*(*(a1 + 56) + 8) + 40) = objc_alloc_init(MEMORY[0x29EDB8E00]);
   AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::fillCompilePerformanceStatisticsDictionary(*a3, *(a3 + 8), *(*(*(a1 + 56) + 8) + 40), *(a3 + 56), [*(a1 + 32) name], *(a1 + 104));
-  v8 = *(*(*(a1 + 56) + 8) + 40);
-  if (v8)
+  v9 = *(*(*(a1 + 56) + 8) + 40);
+  if (v9)
   {
-    v9 = [v8 objectForKey:*MEMORY[0x29EDBB378]];
-    if (v9)
+    v10 = [v9 objectForKey:*MEMORY[0x29EDBB378]];
+    if (v10)
     {
-      [v9 unsignedLongLongValue];
+      [v10 unsignedLongLongValue];
     }
   }
 
@@ -6809,108 +6810,108 @@ void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10O
     IOGPUDeviceTraceEvent();
   }
 
-  if (v7)
+  if (v8)
   {
     goto LABEL_7;
   }
 
-  v11 = a2 + 33;
+  v12 = a2 + 33;
   if (a2[33])
   {
-    v12 = a2[34] == 0;
+    v13 = a2[34] == 0;
   }
 
   else
   {
-    v12 = 1;
+    v13 = 1;
   }
 
-  v13 = 33;
-  if (v12)
+  v14 = 33;
+  if (v13)
   {
-    v13 = 103;
-    v11 = a2 + 103;
+    v14 = 103;
+    v12 = a2 + 103;
   }
 
-  if (a2[v13] && v11[1])
+  if (a2[v14] && v12[1])
   {
-    v10 = 0;
-    v6 = @"Internal error during function compilation";
-    v7 = 2;
+    v11 = 0;
+    v7 = @"Internal error during function compilation";
+    v8 = 2;
   }
 
   else
   {
     if (*(a1 + 105) != 1)
     {
-      v7 = 0;
+      v8 = 0;
 LABEL_7:
-      v10 = 1;
+      v11 = 1;
       goto LABEL_8;
     }
 
     isShaderExecuteIndirectCompatible = AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::isShaderExecuteIndirectCompatible(a2, 0);
-    v10 = (isShaderExecuteIndirectCompatible & 1) != 0;
+    v11 = (isShaderExecuteIndirectCompatible & 1) != 0;
     if (isShaderExecuteIndirectCompatible)
     {
-      v7 = 0;
+      v8 = 0;
     }
 
     else
     {
-      v6 = @"Object shader cannot be used with indirect command buffers";
-      v7 = 2;
+      v7 = @"Object shader cannot be used with indirect command buffers";
+      v8 = 2;
     }
   }
 
 LABEL_8:
-  AGX::Program<AGX::HAL300::ObjectProgramVariant,AGX::ObjectProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::signalPending(*(a1 + 80), *(a1 + 88), *(a3 + 16), a1 + 106, v7);
-  if (!v7)
+  AGX::Program<AGX::HAL300::ObjectProgramVariant,AGX::ObjectProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::signalPending(*(a1 + 80), *(a1 + 88), *(a3 + 16), a1 + 106, v8);
+  if (!v8)
   {
     [*(a1 + 48) needsCustomBorderColorSamplers];
-    v14 = [*(a1 + 48) profileControl];
-    if (v14)
+    v15 = [*(a1 + 48) profileControl];
+    if (v15)
     {
-      v15 = v14;
-      [v14 uscCliqueTraceLevel];
-      [v15 uscEmitPosition];
-      [v15 uscEmitThreadControlFlow];
+      v16 = v15;
+      [v15 uscCliqueTraceLevel];
+      [v16 uscEmitPosition];
+      [v16 uscEmitThreadControlFlow];
     }
 
     operator new();
   }
 
-  v17 = *(a1 + 72);
-  v18 = *(a3 + 32);
-  v19 = *(a1 + 138);
-  *(v17 + 8) = 0;
-  *(v17 + 16) = v7;
+  v18 = *(a1 + 72);
+  v19 = *(a3 + 32);
+  v20 = *(a1 + 138);
+  *(v18 + 8) = 0;
+  *(v18 + 16) = v8;
 
-  *(v17 + 24) = [(__CFString *)v6 copy];
-  if (*(v17 + 8))
+  *(v18 + 24) = [(__CFString *)v7 copy];
+  if (*(v18 + 8))
   {
 
-    *(v17 + 32) = v18;
+    *(v18 + 32) = v19;
   }
 
   else
   {
-    *(v17 + 40) = v10 & v19;
+    *(v18 + 40) = v11 & v20;
   }
 
-  dispatch_group_leave(*v17);
+  dispatch_group_leave(*v18);
 }
 
-void sub_29CCA894C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29CCA894C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::~ProgramBindingRemap(va);
-  if (*(v7 - 137) < 0)
+  if (*(v12 - 137) < 0)
   {
-    operator delete(*(v7 - 160));
+    operator delete(*(v12 - 160));
   }
 
-  MEMORY[0x29ED520D0](v6, 0x10F3C40D375609CLL);
+  MEMORY[0x29ED520D0](v11, 0x10F3C40D375609CLL);
   _Unwind_Resume(a1);
 }
 
@@ -7188,12 +7189,12 @@ void AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL3
   }
 }
 
-void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE26createObjectProgramVariantI27MTLRenderPipelineDescriptorEEvPT_P19AGXG18PFamilyDevicemP26AGXG18PFamilyBinaryArchivePKNS_17UserShaderFactoryIS2_S3_S4_E17ArchiveLookupInfoEPU27objcproto16OS_dispatch_data8NSObjectP7NSArrayPNS1_13ObjectProgramESL_bbbPU27objcproto16MTL4CompilerTask11objc_objectU13block_pointerFvPNS1_20ObjectProgramVariantE13ReflectionKey16MTLCompilerErrorP8NSStringE_block_invoke_2(uint64_t a1, uint64_t a2, NSObject *a3)
+void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE26createObjectProgramVariantI27MTLRenderPipelineDescriptorEEvPT_P19AGXG18PFamilyDevicemP26AGXG18PFamilyBinaryArchivePKNS_17UserShaderFactoryIS2_S3_S4_E17ArchiveLookupInfoEPU27objcproto16OS_dispatch_data8NSObjectP7NSArrayPNS1_13ObjectProgramESL_bbbPU27objcproto16MTL4CompilerTask11objc_objectU13block_pointerFvPNS1_20ObjectProgramVariantE13ReflectionKey16MTLCompilerErrorP8NSStringE_block_invoke_2(uint64_t a1, uint64_t a2, NSObject *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   AGX::Program<AGX::HAL300::ObjectProgramVariant,AGX::ObjectProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::signalPending(*(a1 + 40), *(a1 + 48), a3, a1 + 64, a2);
-  v4 = **(a1 + 56);
+  v7 = **(a1 + 56);
 
-  dispatch_group_leave(v4);
+  dispatch_group_leave(v7);
 }
 
 void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE26createObjectProgramVariantI27MTLRenderPipelineDescriptorEEvPT_P19AGXG18PFamilyDevicemP26AGXG18PFamilyBinaryArchivePKNS_17UserShaderFactoryIS2_S3_S4_E17ArchiveLookupInfoEPU27objcproto16OS_dispatch_data8NSObjectP7NSArrayPNS1_13ObjectProgramESL_bbbPU27objcproto16MTL4CompilerTask11objc_objectU13block_pointerFvPNS1_20ObjectProgramVariantE13ReflectionKey16MTLCompilerErrorP8NSStringE_block_invoke_3(uint64_t a1)
@@ -7635,7 +7636,7 @@ void AGX::Program<AGX::HAL300::ObjectProgramVariant,AGX::ObjectProgramKey,AGX::H
     v16 = *(a1 + 1144);
     v17 = *(a1 + 1136) + 24 * v16;
     *(a1 + 1144) = v16 + 1;
-    v12 = v17 + 128;
+    v12 = (v17 + 128);
     v13 = *(v17 + 136);
     if (a5)
     {
@@ -7652,21 +7653,21 @@ LABEL_9:
         v12 = v18;
       }
 
-      if (*(v12 + 16))
+      if (v12[2])
       {
         v19 = v12;
-        dispatch_release(*(v12 + 16));
+        dispatch_release(v12[2]);
         v12 = v19;
       }
 
-      *(v12 + 8) = v5;
-      *(v12 + 16) = a3;
+      v12[1] = v5;
+      v12[2] = a3;
     }
 
     goto LABEL_15;
   }
 
-  v13 = *(v12 + 8);
+  v13 = v12[1];
   if (!a5)
   {
     goto LABEL_9;
@@ -7787,33 +7788,33 @@ void ___ZN3AGX8Compiler14compileProgramINS_16ObjectProgramKeyE20AGCDeserializedR
   AGCDeserializedReply::~AGCDeserializedReply(v5);
 }
 
-void sub_29CCAA31C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CCAA31C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCDeserializedReply::~AGCDeserializedReply(va);
   _Unwind_Resume(a1);
 }
 
 void ___ZN3AGX17UserShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClassesEE53compileFunctionWithAirLinkedIntersectionFunction_ImplINS_16ObjectProgramKeyELb1EEENSt3__19enable_ifIXT0_EvE4typeERKT_P29MTLCompileFunctionRequestDataNS5_21DriverRequestDataImplIXT0_EEEU13block_pointerFvRK20AGCDeserializedReplyRKNS_28CompileFunctionReplyMetadataERKNS5_19DriverReplyDataImplIXT0_EEEE_block_invoke(uint64_t a1, void *a2, int8x16_t *a3)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v34 = *MEMORY[0x29EDCA608];
   v6 = *(a1 + 48);
   v7 = a3[2];
-  v20[0] = vextq_s8(a3[1], a3[1], 8uLL);
-  v20[1] = v7;
-  v21 = a3[3].i64[0];
-  AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createAirLinkedIntersectionVariantSets(&v25, v6, a2, v20, *(a1 + 112), a1 + 120);
+  v21[0] = vextq_s8(a3[1], a3[1], 8uLL);
+  v21[1] = v7;
+  v22 = a3[3].i64[0];
+  AGX::UserShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createAirLinkedIntersectionVariantSets(&v26, v6, a2, v21, *(a1 + 112), a1 + 120);
   v8 = a3[1];
-  v22 = *a3;
-  v23 = v8;
+  v23 = *a3;
+  v24 = v8;
   v9 = a3[3];
-  *v24 = a3[2];
-  *&v24[16] = v9;
-  AGCDeserializedReply::AGCDeserializedReply(v20);
-  if (!*&v24[8])
+  *v25 = a3[2];
+  *&v25[16] = v9;
+  AGCDeserializedReply::AGCDeserializedReply(v21);
+  if (!*&v25[8])
   {
     v10 = [*(a1 + 32) function];
-    if (!AGCReplyArray::getDeserializedReplyWithName<AGCDeserializedReply>(a2, [objc_msgSend(v10 "name")], v20))
+    if (!AGCReplyArray::getDeserializedReplyWithName<AGCDeserializedReply>(a2, [objc_msgSend(v10 "name")], v21))
     {
       v11 = *MEMORY[0x29EDCA610];
       v12 = [objc_msgSend(v10 "name")];
@@ -7845,10 +7846,10 @@ void ___ZN3AGX17UserShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
         *&buf[14] = 182;
         *&buf[18] = 2080;
         *&buf[20] = "compileFunctionWithAirLinkedIntersectionFunction_Impl_block_invoke";
-        v29 = 2080;
-        v30 = v16;
-        v31 = 2080;
-        v32 = v17;
+        v30 = 2080;
+        v31 = v16;
+        v32 = 2080;
+        v33 = v17;
         _os_log_error_impl(&dword_29CA13000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "AGX: AGX: %s:%d:%s: *** Failed to find compiler reply with function name %s. The available function names in the reply array are: %s.\n", buf, 0x30u);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -7867,10 +7868,10 @@ void ___ZN3AGX17UserShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
         *&buf[14] = 182;
         *&buf[18] = 2080;
         *&buf[20] = "compileFunctionWithAirLinkedIntersectionFunction_Impl_block_invoke";
-        v29 = 2080;
-        v30 = v14;
-        v31 = 2080;
-        v32 = v15;
+        v30 = 2080;
+        v31 = v14;
+        v32 = 2080;
+        v33 = v15;
         _os_log_impl(&dword_29CA13000, MEMORY[0x29EDCA988], OS_LOG_TYPE_INFO, "AGX: AGX: %s:%d:%s: *** Failed to find compiler reply with function name %s. The available function names in the reply array are: %s.\n", buf, 0x30u);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -7878,36 +7879,37 @@ void ___ZN3AGX17UserShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
         }
       }
 
-      *&v24[8] = 2;
-      *&v24[16] = @"Internal error during function compilation.";
+      *&v25[8] = 2;
+      *&v25[16] = @"Internal error during function compilation.";
     }
   }
 
   memset(buf, 0, 24);
-  if (v27 == 1)
+  if (v28 == 1)
   {
-    *buf = v25;
-    *&buf[16] = v26;
-    v26 = 0;
-    v25 = 0uLL;
+    *buf = v26;
+    *&buf[16] = v27;
+    v27 = 0;
+    v26 = 0uLL;
   }
 
   else
   {
-    if (v27)
+    if (v28)
     {
-      v18 = std::__throw_bad_variant_access[abi:nn200100]();
-      AGCDeserializedReply::~AGCDeserializedReply(v20);
-      if (v27 == -1)
+      std::__throw_bad_variant_access[abi:nn200100]();
+      v19 = v18;
+      AGCDeserializedReply::~AGCDeserializedReply(v21);
+      if (v28 == -1)
       {
-        _Unwind_Resume(v18);
+        _Unwind_Resume(v19);
       }
 
-      (off_2A23F59F0[v27])(v20, &v25);
-      _Unwind_Resume(v18);
+      (off_2A23F59F0[v28])(v21, &v26);
+      _Unwind_Resume(v19);
     }
 
-    *&v24[8] = v25;
+    *&v25[8] = v26;
   }
 
   (*(*(a1 + 40) + 16))();
@@ -7917,10 +7919,10 @@ void ___ZN3AGX17UserShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10ObjClas
     operator delete(*buf);
   }
 
-  AGCDeserializedReply::~AGCDeserializedReply(v20);
-  if (v27 != -1)
+  AGCDeserializedReply::~AGCDeserializedReply(v21);
+  if (v28 != -1)
   {
-    (off_2A23F59F0[v27])(v20, &v25);
+    (off_2A23F59F0[v28])(v21, &v26);
   }
 }
 
@@ -8033,9 +8035,9 @@ void ___ZN3AGX8Compiler14compileProgramINS_16ObjectProgramKeyE13AGCReplyArrayEEv
   }
 }
 
-void sub_29CCAAA6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CCAAA6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCReplyArray::~AGCReplyArray(va);
   _Unwind_Resume(a1);
 }
@@ -8229,16 +8231,16 @@ void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10O
   dispatch_group_leave(*v7);
 }
 
-void sub_29CCAB034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29CCAB034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   AGX::ProgramBindingRemap<AGX::HAL300::Encoders,AGX::HAL300::Classes>::~ProgramBindingRemap(va);
-  if (*(v6 - 73) < 0)
+  if (*(v9 - 73) < 0)
   {
-    operator delete(*(v6 - 96));
+    operator delete(*(v9 - 96));
   }
 
-  MEMORY[0x29ED520D0](v5, v4);
+  MEMORY[0x29ED520D0](v8, v7);
   _Unwind_Resume(a1);
 }
 
@@ -8469,9 +8471,9 @@ void ___ZN3AGX8Compiler14compileProgramINS_27PassthroughObjectProgramKeyE20AGCDe
   AGCDeserializedReply::~AGCDeserializedReply(v5);
 }
 
-void sub_29CCAB858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_29CCAB858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AGCDeserializedReply::~AGCDeserializedReply(va);
   _Unwind_Resume(a1);
 }
@@ -8500,13 +8502,13 @@ void __destroy_helper_block_e8_64c40_ZTSKN3AGX27PassthroughObjectProgramKeyE(voi
   }
 }
 
-uint64_t __copy_helper_block_e8_64c40_ZTSKN3AGX27PassthroughObjectProgramKeyE(uint64_t result, uint64_t a2)
+void *__copy_helper_block_e8_64c40_ZTSKN3AGX27PassthroughObjectProgramKeyE(void *result, uint64_t a2)
 {
-  *(result + 64) = &unk_2A23F6D50;
-  *(result + 72) = *(a2 + 72);
-  *(result + 88) = 0;
-  *(result + 96) = 0;
-  *(result + 80) = 0;
+  result[8] = &unk_2A23F6D50;
+  *(result + 18) = *(a2 + 72);
+  result[11] = 0;
+  result[12] = 0;
+  result[10] = 0;
   v3 = *(a2 + 80);
   v2 = *(a2 + 88);
   if (v2 != v3)
@@ -8519,8 +8521,8 @@ uint64_t __copy_helper_block_e8_64c40_ZTSKN3AGX27PassthroughObjectProgramKeyE(ui
     std::__throw_bad_array_new_length[abi:nn200100]();
   }
 
-  *(result + 64) = &unk_2A23F6D10;
-  *(result + 104) = *(a2 + 104);
+  result[8] = &unk_2A23F6D10;
+  *(result + 26) = *(a2 + 104);
   return result;
 }
 
@@ -8645,7 +8647,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createRenderPipeline_impl<MTLMeshRenderPipelineDescriptor>(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t *a7, uint64_t a8, uint64_t a9, uint64_t a10)
+uint64_t AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createRenderPipeline_impl<MTLMeshRenderPipelineDescriptor>(void *a1, void *a2, void *a3, void *a4, unint64_t a5, uint64_t a6, void **a7, void *a8, void *a9, uint64_t a10)
 {
   v28[21] = *MEMORY[0x29EDCA608];
   mach_absolute_time();
@@ -8733,6 +8735,13 @@ LABEL_8:
 
   v25 = v18;
   return 0;
+}
+
+void sub_29CCAC650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
+{
+  va_start(va, a44);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::populateRenderPipelineDescriptorInfo<MTLMeshRenderPipelineDescriptor>(uint64_t a1, uint64_t *a2, void *a3, uint64_t a4, char *a5, uint64_t a6)
@@ -8832,11 +8841,11 @@ void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10O
   v11 = *(*(*(a1 + 56) + 8) + 40);
   if (v11)
   {
-    v12 = v11 + 30;
+    v12 = &v11[30];
     isa = v11[31].isa;
-    if (isa && v12->isa && *(isa + 4104) == 1)
+    if (isa && *v12 && *(isa + 4104) == 1)
     {
-      ProgramVaryingTable<AGX::HAL300::Encoders,AGX::HAL300::Classes>::clone();
+      ProgramVaryingTable<AGX::HAL300::Encoders,AGX::HAL300::Classes>::clone(*(*v12 + 3824));
     }
 
     AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::finalize<MTLMeshRenderPipelineDescriptor>(v12, *(a1 + 32), v11, *(a1 + 40));
@@ -8929,7 +8938,7 @@ void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10O
   }
 }
 
-void AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createMeshProgramVariant<MTLMeshRenderPipelineDescriptor>(uint64_t a1, void *a2, void *a3, unint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, void *a8, os_unfair_lock_s *a9, uint64_t a10, NSObject *a11, unsigned __int8 a12, uint64_t a13, uint64_t a14)
+void AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createMeshProgramVariant<MTLMeshRenderPipelineDescriptor>(uint64_t a1, void *a2, void *a3, unint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7, void *a8, os_unfair_lock_s *a9, uint64_t a10, NSObject *a11, unsigned __int8 a12, uint64_t a13, uint64_t a14)
 {
   v115 = *MEMORY[0x29EDCA608];
   v81[0] = 0;
@@ -9114,7 +9123,7 @@ LABEL_19:
     if (a6)
     {
       v41 = *a6;
-      v42 = *(a6 + 16);
+      v42 = a6[2];
       LOBYTE(v57) = 1;
       *(&v57 + 1) = v41;
       *&v58 = v42;
@@ -9245,7 +9254,7 @@ void sub_29CCAD698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createMeshProgramAnalysis<MTLMeshRenderPipelineDescriptor>(uint64_t a1, void *a2, uint64_t a3, unint64_t a4, os_unfair_lock_s *a5, NSObject *a6, int a7)
+uint64_t AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createMeshProgramAnalysis<MTLMeshRenderPipelineDescriptor>(uint64_t a1, void *a2, uint64_t a3, unint64_t a4, os_unfair_lock_s *a5, NSObject *a6, unsigned int a7)
 {
   v45 = 0;
   v46 = &v45;
@@ -9302,7 +9311,7 @@ uint64_t AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes
 
     v23 = objc_opt_new();
     [v23 setUseAIRNTInterfaces:*(a1 + 24)];
-    [v23 setSync:a7 ^ 1u];
+    [v23 setSync:a7 ^ 1];
     [v23 setFunction:v18];
     [v23 setFrameworkData:a6];
     [v23 setPipelineCache:v19];
@@ -9448,7 +9457,7 @@ void ___ZN3AGX23UserCommonShaderFactoryINS_6HAL3008EncodersENS1_7ClassesENS1_10O
   }
 }
 
-void AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createFragmentProgramVariant<MTLMeshRenderPipelineDescriptor>(uint64_t a1, void *a2, void *a3, unint64_t a4, uint64_t a5, unint64_t a6, void *a7, os_unfair_lock_s *a8, __int128 *a9, NSObject *a10, unsigned __int8 a11, uint64_t a12, uint64_t a13)
+void AGX::UserCommonShaderFactory<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::createFragmentProgramVariant<MTLMeshRenderPipelineDescriptor>(uint64_t a1, void *a2, void *a3, unint64_t a4, uint64_t a5, uint64_t *a6, void *a7, os_unfair_lock_s *a8, __int128 *a9, NSObject *a10, unsigned __int8 a11, uint64_t a12, uint64_t a13)
 {
   v226 = *MEMORY[0x29EDCA608];
   v142[0] = 0;
@@ -10096,9 +10105,9 @@ LABEL_146:
   ReflectionKey::initGPUCompilerSPIOptionsHash(&__b, [a2 gpuCompilerSPIOptions]);
   v177 = __b;
   v178 = *v198;
-  CompileOptions = AGX::Program<AGX::HAL300::FragmentProgramVariant,AGX::FragmentProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::getOrCreateCompileOptions(a8, a4 | 3, &v177);
+  v99 = AGX::Program<AGX::HAL300::FragmentProgramVariant,AGX::FragmentProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::getOrCreateCompileOptions(a8, a4 | 3, &v177);
   v223[0] = 0;
-  VariantEntry = AGX::Program<AGX::HAL300::FragmentProgramVariant,AGX::FragmentProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::getOrCreateVariantEntry(a8, v140, v223, CompileOptions, (a5 | a6) != 0);
+  VariantEntry = AGX::Program<AGX::HAL300::FragmentProgramVariant,AGX::FragmentProgramKey,AGX::HAL300::IndirectArgumentLayout,AGXG18PFamilyIndirectArgumentBufferLayout>::getOrCreateVariantEntry(a8, v140, v223, v99, (a5 | a6) != 0);
   v101 = VariantEntry;
   v102 = a13;
   v103 = a11;
@@ -10133,7 +10142,7 @@ LABEL_146:
     }
 
     v132 = v110;
-    v137 = CompileOptions;
+    v137 = v99;
     v111 = [a2 openGLModeEnabled];
     v112 = objc_opt_new();
     v113 = v112;
@@ -10196,7 +10205,7 @@ LABEL_146:
     if (a6)
     {
       v123 = *a6;
-      v124 = *(a6 + 16);
+      v124 = a6[2];
       LOBYTE(v143) = 1;
       *(&v143 + 1) = v123;
       *&v144 = v124;
@@ -10253,7 +10262,7 @@ LABEL_146:
     AGX::Impl::FragmentProgramKey::~FragmentProgramKey(v173);
   }
 
-  else if ((CompileOptions & 0x330003) != 0)
+  else if ((v99 & 0x330003) != 0)
   {
     v109 = *a1;
     v169[0] = MEMORY[0x29EDCA5F8];
@@ -10264,9 +10273,9 @@ LABEL_146:
     v171 = v178;
     v169[5] = a8;
     v169[4] = a3;
-    v169[6] = CompileOptions;
+    v169[6] = v99;
     v169[7] = VariantEntry;
-    [*v109 reflectionWithFunction:v127 options:CompileOptions & 0x330003 sync:a11 ^ 1u completionHandler:v169];
+    [*v109 reflectionWithFunction:v127 options:v99 & 0x330003 sync:a11 ^ 1u completionHandler:v169];
   }
 
   block[0] = MEMORY[0x29EDCA5F8];

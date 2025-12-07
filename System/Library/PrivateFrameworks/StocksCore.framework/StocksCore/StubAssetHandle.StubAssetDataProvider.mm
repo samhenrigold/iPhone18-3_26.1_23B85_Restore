@@ -29,18 +29,16 @@
 {
   if (*(self + 5))
   {
-    v2 = *(self + 4);
-    v3 = *(self + 5);
     sub_1DACB71E4();
-    v4 = sub_1DACB92F4();
+    v2 = sub_1DACB92F4();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 @end

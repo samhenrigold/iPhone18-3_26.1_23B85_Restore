@@ -30,7 +30,7 @@
 
 - (BOOL)validateOperation
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (self && self->_archiveURL)
   {
     v3 = 1;
@@ -40,16 +40,16 @@
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"resource archive fetch operation requires a URL"];
-      v9 = 136315906;
-      v10 = "[FCResourceArchiveFetchOperation validateOperation]";
-      v11 = 2080;
-      v12 = "FCResourceArchiveFetchOperation.m";
-      v13 = 1024;
-      v14 = 81;
-      v15 = 2114;
-      v16 = v7;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
+      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"resource archive fetch operation requires a URL"];
+      v8 = 136315906;
+      v9 = "[FCResourceArchiveFetchOperation validateOperation]";
+      v10 = 2080;
+      v11 = "FCResourceArchiveFetchOperation.m";
+      v12 = 1024;
+      v13 = 81;
+      v14 = 2114;
+      v15 = v6;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v8, 0x26u);
     }
 
     v3 = 0;
@@ -62,27 +62,25 @@
   if (self->_context)
   {
     v4 = 1;
-    goto LABEL_12;
+    return v4 & v3;
   }
 
 LABEL_9:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"resource archive fetch operation requires a context"];
-    v9 = 136315906;
-    v10 = "[FCResourceArchiveFetchOperation validateOperation]";
-    v11 = 2080;
-    v12 = "FCResourceArchiveFetchOperation.m";
-    v13 = 1024;
-    v14 = 85;
-    v15 = 2114;
-    v16 = v8;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"resource archive fetch operation requires a context"];
+    v8 = 136315906;
+    v9 = "[FCResourceArchiveFetchOperation validateOperation]";
+    v10 = 2080;
+    v11 = "FCResourceArchiveFetchOperation.m";
+    v12 = 1024;
+    v13 = 85;
+    v14 = 2114;
+    v15 = v7;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v8, 0x26u);
   }
 
   v4 = 0;
-LABEL_12:
-  v5 = *MEMORY[0x1E69E9840];
   return v4 & v3;
 }
 
@@ -145,33 +143,33 @@ LABEL_12:
 
 void __51__FCResourceArchiveFetchOperation_performOperation__block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v53[1] = *MEMORY[0x1E69E9840];
+  v52[1] = *MEMORY[0x1E69E9840];
   v6 = a4;
   v7 = v6;
   if (v6)
   {
-    v41 = MEMORY[0x1E69E9820];
-    v42 = 3221225472;
-    v43 = __51__FCResourceArchiveFetchOperation_performOperation__block_invoke_2;
-    v44 = &unk_1E7C36C58;
-    v45 = *(a1 + 32);
-    v46 = v6;
-    [v45 finishedPerformingOperationWithError:v46];
+    v40 = MEMORY[0x1E69E9820];
+    v41 = 3221225472;
+    v42 = __51__FCResourceArchiveFetchOperation_performOperation__block_invoke_2;
+    v43 = &unk_1E7C36C58;
+    v44 = *(a1 + 32);
+    v45 = v6;
+    [v44 finishedPerformingOperationWithError:v45];
   }
 
   else
   {
     v8 = *(a1 + 32);
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v38 = __51__FCResourceArchiveFetchOperation_performOperation__block_invoke_3;
-    v39 = &unk_1E7C37750;
-    v40 = v8;
-    v9 = v37;
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v37 = __51__FCResourceArchiveFetchOperation_performOperation__block_invoke_3;
+    v38 = &unk_1E7C37750;
+    v39 = v8;
+    v9 = v36;
     v10 = v9;
     if (v8)
     {
-      v36 = v9;
+      v35 = v9;
       v11 = a2;
       v12 = [v8 progressHandler];
 
@@ -193,9 +191,9 @@ void __51__FCResourceArchiveFetchOperation_performOperation__block_invoke(uint64
       v19 = [MEMORY[0x1E695DF70] array];
       BOMCopierSetUserData();
       BOMCopierSetCopyFileFinishedHandler();
-      v52 = @"extractPKZip";
-      v53[0] = MEMORY[0x1E695E118];
-      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:&v52 count:1];
+      v51 = @"extractPKZip";
+      v52[0] = MEMORY[0x1E695E118];
+      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:&v51 count:1];
       [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
       v22 = v21;
       [v11 fileSystemRepresentation];
@@ -210,11 +208,11 @@ void __51__FCResourceArchiveFetchOperation_performOperation__block_invoke(uint64
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __80__FCResourceArchiveFetchOperation__unzipResourcesFromArchiveFileURL_completion___block_invoke;
-        v48 = COERCE_DOUBLE(&unk_1E7C379C8);
-        v10 = v36;
-        v49 = v36;
+        v47 = COERCE_DOUBLE(&unk_1E7C379C8);
+        v10 = v35;
+        v48 = v35;
         __80__FCResourceArchiveFetchOperation__unzipResourcesFromArchiveFileURL_completion___block_invoke(buf);
-        v26 = v49;
+        v26 = v48;
       }
 
       else
@@ -230,7 +228,7 @@ void __51__FCResourceArchiveFetchOperation_performOperation__block_invoke(uint64
           *&buf[12] = 2048;
           *&buf[14] = v30;
           *&buf[22] = 2048;
-          v48 = v25 - v22;
+          v47 = v25 - v22;
           _os_log_impl(&dword_1B63EF000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@ successfully extracted %lu files from zip archive in %.2fs", buf, 0x20u);
         }
 
@@ -247,19 +245,17 @@ void __51__FCResourceArchiveFetchOperation_performOperation__block_invoke(uint64
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __80__FCResourceArchiveFetchOperation__unzipResourcesFromArchiveFileURL_completion___block_invoke_28;
-        v48 = COERCE_DOUBLE(&unk_1E7C3B7C8);
-        v49 = v17;
-        v50 = v8;
-        v51 = v33;
+        v47 = COERCE_DOUBLE(&unk_1E7C3B7C8);
+        v48 = v17;
+        v49 = v8;
+        v50 = v33;
         v26 = v33;
         [v19 fc_visitSubarraysWithMaxCount:v34 block:buf];
-        v10 = v36;
-        v38(v36, v26, 0);
+        v10 = v35;
+        v37(v35, v26, 0);
       }
     }
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 void __51__FCResourceArchiveFetchOperation_performOperation__block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -483,28 +479,28 @@ void __80__FCResourceArchiveFetchOperation__unzipResourcesFromArchiveFileURL_com
 
 void __80__FCResourceArchiveFetchOperation__unzipResourcesFromArchiveFileURL_completion___block_invoke_28(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = a2;
-  v3 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v3 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v3)
   {
     v4 = v3;
-    v24 = *v26;
+    v23 = *v25;
     do
     {
       v5 = 0;
       do
       {
-        if (*v26 != v24)
+        if (*v25 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v25 + 1) + 8 * v5);
+        v6 = *(*(&v24 + 1) + 8 * v5);
         v7 = [*(a1 + 32) stringByAppendingPathComponent:v6];
         v8 = *(a1 + 40);
         if (v8)
@@ -541,14 +537,12 @@ void __80__FCResourceArchiveFetchOperation__unzipResourcesFromArchiveFileURL_com
       }
 
       while (v4 != v5);
-      v21 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v21 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
       v4 = v21;
     }
 
     while (v21);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __77__FCResourceArchiveFetchOperation__ensureResourcesAreReadyForUse_completion___block_invoke_2(uint64_t a1, double a2)
@@ -567,18 +561,17 @@ void __77__FCResourceArchiveFetchOperation__ensureResourcesAreReadyForUse_comple
   v3 = a2;
   if ([v3 status])
   {
-    v5[0] = MEMORY[0x1E69E9820];
-    v5[1] = 3221225472;
-    v5[2] = __77__FCResourceArchiveFetchOperation__ensureResourcesAreReadyForUse_completion___block_invoke_4;
-    v5[3] = &unk_1E7C37778;
-    v7 = *(a1 + 40);
-    v6 = v3;
-    __77__FCResourceArchiveFetchOperation__ensureResourcesAreReadyForUse_completion___block_invoke_4(v5);
+    v4[0] = MEMORY[0x1E69E9820];
+    v4[1] = 3221225472;
+    v4[2] = __77__FCResourceArchiveFetchOperation__ensureResourcesAreReadyForUse_completion___block_invoke_4;
+    v4[3] = &unk_1E7C37778;
+    v6 = *(a1 + 40);
+    v5 = v3;
+    __77__FCResourceArchiveFetchOperation__ensureResourcesAreReadyForUse_completion___block_invoke_4(v4);
   }
 
   else
   {
-    v4 = *(a1 + 32);
     (*(*(a1 + 40) + 16))();
   }
 }

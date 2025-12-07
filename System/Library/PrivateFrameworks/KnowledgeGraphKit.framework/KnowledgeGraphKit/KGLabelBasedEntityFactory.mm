@@ -80,38 +80,38 @@
 
 - (Class)_selectClassFromPossibleLabels:(id)labels dictionary:(id)dictionary
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   labelsCopy = labels;
   dictionaryCopy = dictionary;
   if ([dictionaryCopy count])
   {
     v8 = [(KGLabelBasedEntityFactory *)self _generateAllPossibleLabelSetsForLabels:labelsCopy labelSetsCache:0];
     v9 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"count" ascending:0];
-    v28[0] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+    v27[0] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
     v11 = [v8 sortedArrayUsingDescriptors:v10];
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v12 = v11;
-    v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v13)
     {
       v14 = v13;
       v15 = 0;
-      v16 = *v24;
+      v16 = *v23;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v24 != v16)
+          if (*v23 != v16)
           {
             objc_enumerationMutation(v12);
           }
 
-          v18 = [dictionaryCopy objectForKeyedSubscript:{*(*(&v23 + 1) + 8 * i), v23}];
+          v18 = [dictionaryCopy objectForKeyedSubscript:{*(*(&v22 + 1) + 8 * i), v22}];
           if (v15)
           {
             v19 = 1;
@@ -128,7 +128,7 @@
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v14);
@@ -146,8 +146,6 @@
   {
     v20 = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

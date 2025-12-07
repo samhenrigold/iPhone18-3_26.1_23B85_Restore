@@ -56,9 +56,9 @@
     +[UIColor(MTAdditions) cellEmpahsisSwitchBorderColor];
   }
 
-  v1 = cellEmpahsisSwitchBorderColor_color;
+  v2 = cellEmpahsisSwitchBorderColor_color;
 
-  return v1;
+  return v2;
 }
 
 - (uint64_t)isBlackColor

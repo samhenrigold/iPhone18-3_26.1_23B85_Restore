@@ -1968,7 +1968,7 @@ LABEL_6:
   }
 }
 
-uint64_t __58__PKBarcodePassDetailViewController__passSettingsChanged___block_invoke(uint64_t a1)
+void *__58__PKBarcodePassDetailViewController__passSettingsChanged___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 1352) setSettingsWithoutUpdatingDataAccessor:*(a1 + 40)];
   v2 = *(*(a1 + 32) + 1144);

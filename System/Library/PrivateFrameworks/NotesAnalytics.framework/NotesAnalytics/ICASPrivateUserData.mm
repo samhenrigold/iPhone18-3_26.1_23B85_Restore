@@ -28,8 +28,8 @@
 
 - (id)toDict
 {
-  v19[4] = *MEMORY[0x277D85DE8];
-  v18[0] = @"privateUserID";
+  v18[4] = *MEMORY[0x277D85DE8];
+  v17[0] = @"privateUserID";
   privateUserID = [(ICASPrivateUserData *)self privateUserID];
   if (privateUserID)
   {
@@ -42,8 +42,8 @@
   }
 
   v5 = privateUserID2;
-  v19[0] = privateUserID2;
-  v18[1] = @"saltVersion";
+  v18[0] = privateUserID2;
+  v17[1] = @"saltVersion";
   saltVersion = [(ICASPrivateUserData *)self saltVersion];
   if (saltVersion)
   {
@@ -56,8 +56,8 @@
   }
 
   v8 = saltVersion2;
-  v19[1] = saltVersion2;
-  v18[2] = @"userStartMonth";
+  v18[1] = saltVersion2;
+  v17[2] = @"userStartMonth";
   userStartMonth = [(ICASPrivateUserData *)self userStartMonth];
   if (userStartMonth)
   {
@@ -70,8 +70,8 @@
   }
 
   v11 = userStartMonth2;
-  v19[2] = userStartMonth2;
-  v18[3] = @"userStartYear";
+  v18[2] = userStartMonth2;
+  v17[3] = @"userStartYear";
   userStartYear = [(ICASPrivateUserData *)self userStartYear];
   if (userStartYear)
   {
@@ -84,10 +84,8 @@
   }
 
   v14 = userStartYear2;
-  v19[3] = userStartYear2;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v18[3] = userStartYear2;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
 
   return v15;
 }

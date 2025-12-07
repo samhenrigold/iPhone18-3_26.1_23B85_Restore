@@ -58,68 +58,69 @@
 {
   if (self->_syncAgentIsAvailable)
   {
-    objc_initWeak(location, self);
-    v3 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    inited = objc_initWeak(location, self);
+    v5 = WBS_LOG_CHANNEL_PREFIXCloudTabs(inited, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BB6F3000, v3, OS_LOG_TYPE_DEFAULT, "Fetching data from CloudKit", buf, 2u);
+      _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_DEFAULT, "Fetching data from CloudKit", buf, 2u);
     }
 
     if (self->_hasAttemptedToFetchDevicesAtLeastOnce)
     {
-      v4 = 0;
+      v6 = 0;
     }
 
     else
     {
       WeakRetained = objc_loadWeakRetained(&self->_wbsDelegate);
-      v4 = objc_opt_respondsToSelector();
+      v6 = objc_opt_respondsToSelector();
     }
 
     self->_hasAttemptedToFetchDevicesAtLeastOnce = 1;
     mEMORY[0x1E69C8A08] = [MEMORY[0x1E69C8A08] sharedProxy];
-    if (v4)
+    v12 = mEMORY[0x1E69C8A08];
+    if (v6)
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v13 = WBS_LOG_CHANNEL_PREFIXCloudTabs(mEMORY[0x1E69C8A08], v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_DEFAULT, "Getting cached CloudTab devices from the sync agent", buf, 2u);
+        _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_DEFAULT, "Getting cached CloudTab devices from the sync agent", buf, 2u);
       }
 
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __74__WBSCloudTabStore_fetchSyncedCloudTabDevicesAndCloseRequestsFromCloudKit__block_invoke;
-      v12[3] = &unk_1E7FB88B0;
-      objc_copyWeak(&v13, location);
-      [mEMORY[0x1E69C8A08] getCloudTabDevicesWithCompletionHandler:v12];
-      objc_destroyWeak(&v13);
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __74__WBSCloudTabStore_fetchSyncedCloudTabDevicesAndCloseRequestsFromCloudKit__block_invoke;
+      v16[3] = &unk_1E7FB88B0;
+      objc_copyWeak(&v17, location);
+      [v12 getCloudTabDevicesWithCompletionHandler:v16];
+      objc_destroyWeak(&v17);
     }
 
     self->_isFetchingDataFromCloudKit = 1;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __74__WBSCloudTabStore_fetchSyncedCloudTabDevicesAndCloseRequestsFromCloudKit__block_invoke_19;
-    v10[3] = &unk_1E7FB8900;
-    objc_copyWeak(&v11, location);
-    [mEMORY[0x1E69C8A08] fetchSyncedCloudTabDevicesAndCloseRequestsWithCompletionHandler:v10];
-    objc_destroyWeak(&v11);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __74__WBSCloudTabStore_fetchSyncedCloudTabDevicesAndCloseRequestsFromCloudKit__block_invoke_19;
+    v14[3] = &unk_1E7FB8900;
+    objc_copyWeak(&v15, location);
+    [v12 fetchSyncedCloudTabDevicesAndCloseRequestsWithCompletionHandler:v14];
+    objc_destroyWeak(&v15);
 
     objc_destroyWeak(location);
   }
 
   else
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = WBS_LOG_CHANNEL_PREFIXCloudTabs(self, a2);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(location[0]) = 0;
-      _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_DEFAULT, "Bypassing fetching data from CloudKit because CloudKit syncing of iCloud Tabs is not available", location, 2u);
+      _os_log_impl(&dword_1BB6F3000, v7, OS_LOG_TYPE_DEFAULT, "Bypassing fetching data from CloudKit because CloudKit syncing of iCloud Tabs is not available", location, 2u);
     }
 
-    v6 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:4099 userInfo:0];
-    [(WBSCloudTabStore *)self _didFetchDeviceDictionariesFromCloudKit:0 fetchedCloseRequests:0 error:v6];
+    v8 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:4099 userInfo:0];
+    [(WBSCloudTabStore *)self _didFetchDeviceDictionariesFromCloudKit:0 fetchedCloseRequests:0 error:v8];
   }
 }
 
@@ -196,23 +197,23 @@ void __74__WBSCloudTabStore_fetchSyncedCloudTabDevicesAndCloseRequestsFromCloudK
 
 - (BOOL)closeTab:(id)tab onDevice:(id)device
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   tabCopy = tab;
   deviceCopy = device;
-  v8 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = WBS_LOG_CHANNEL_PREFIXCloudTabs(deviceCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     uuidString = [tabCopy uuidString];
     uuid = [deviceCopy uuid];
     *buf = 138543618;
-    v23 = uuidString;
-    v24 = 2114;
-    v25 = uuid;
-    _os_log_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_DEFAULT, "Closing single tab with UUID %{public}@ on device with UUID %{public}@", buf, 0x16u);
+    v28 = uuidString;
+    v29 = 2114;
+    v30 = uuid;
+    _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_DEFAULT, "Closing single tab with UUID %{public}@ on device with UUID %{public}@", buf, 0x16u);
   }
 
-  v11 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v14 = WBS_LOG_CHANNEL_PREFIXCloudTabs(v12, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     [tabCopy description];
     objc_claimAutoreleasedReturnValue();
@@ -221,25 +222,26 @@ void __74__WBSCloudTabStore_fetchSyncedCloudTabDevicesAndCloseRequestsFromCloudK
     [WBSCloudTabStore closeTab:onDevice:];
   }
 
-  if (([deviceCopy isCloseRequestSupported] & 1) == 0)
+  isCloseRequestSupported = [deviceCopy isCloseRequestSupported];
+  if ((isCloseRequestSupported & 1) == 0)
   {
-    v16 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v21 = WBS_LOG_CHANNEL_PREFIXCloudTabs(isCloseRequestSupported, v16);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      *v21 = 0;
-      _os_log_impl(&dword_1BB6F3000, v16, OS_LOG_TYPE_DEFAULT, "Device doesn't support close requests", v21, 2u);
+      *v26 = 0;
+      _os_log_impl(&dword_1BB6F3000, v21, OS_LOG_TYPE_DEFAULT, "Device doesn't support close requests", v26, 2u);
     }
 
     goto LABEL_11;
   }
 
   uuid2 = [deviceCopy uuid];
-  v13 = [uuid2 length] == 0;
+  v18 = [uuid2 length] == 0;
 
-  if (v13 || ![(WBSCloudTabStore *)self _writeCloseRequestForTab:tabCopy onDevice:deviceCopy])
+  if (v18 || ![(WBSCloudTabStore *)self _writeCloseRequestForTab:tabCopy onDevice:deviceCopy])
   {
 LABEL_11:
-    v15 = 0;
+    v20 = 0;
     goto LABEL_12;
   }
 
@@ -249,14 +251,14 @@ LABEL_11:
   block[2] = __38__WBSCloudTabStore_closeTab_onDevice___block_invoke;
   block[3] = &unk_1E7FB7DD0;
   block[4] = self;
-  v19 = tabCopy;
-  v20 = deviceCopy;
+  v24 = tabCopy;
+  v25 = deviceCopy;
   dispatch_sync(internalQueue, block);
 
-  v15 = 1;
+  v20 = 1;
 LABEL_12:
 
-  return v15;
+  return v20;
 }
 
 void __38__WBSCloudTabStore_closeTab_onDevice___block_invoke(uint64_t a1)
@@ -270,52 +272,53 @@ void __38__WBSCloudTabStore_closeTab_onDevice___block_invoke(uint64_t a1)
 
 - (BOOL)closeAllTabsOnDevice:(id)device
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
-  v5 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = WBS_LOG_CHANNEL_PREFIXCloudTabs(deviceCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     uuid = [deviceCopy uuid];
     *buf = 138543362;
-    v16 = uuid;
-    _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_DEFAULT, "Closing all tabs on device with UUID %{public}@", buf, 0xCu);
+    v21 = uuid;
+    _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_DEFAULT, "Closing all tabs on device with UUID %{public}@", buf, 0xCu);
   }
 
-  v7 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v10 = WBS_LOG_CHANNEL_PREFIXCloudTabs(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [deviceCopy name];
     objc_claimAutoreleasedReturnValue();
     [WBSCloudTabStore closeAllTabsOnDevice:];
   }
 
-  if (([deviceCopy isCloseRequestSupported] & 1) == 0)
+  isCloseRequestSupported = [deviceCopy isCloseRequestSupported];
+  if ((isCloseRequestSupported & 1) == 0)
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v17 = WBS_LOG_CHANNEL_PREFIXCloudTabs(isCloseRequestSupported, v12);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_DEFAULT, "Device doesn't support close requests", v14, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_1BB6F3000, v17, OS_LOG_TYPE_DEFAULT, "Device doesn't support close requests", v19, 2u);
     }
 
     goto LABEL_10;
   }
 
   uuid2 = [deviceCopy uuid];
-  v9 = [uuid2 length] == 0;
+  v14 = [uuid2 length] == 0;
 
-  if (v9)
+  if (v14)
   {
 LABEL_10:
-    v11 = 0;
+    v16 = 0;
     goto LABEL_11;
   }
 
   tabs = [deviceCopy tabs];
-  v11 = [(WBSCloudTabStore *)self _closeTabs:tabs onDevice:deviceCopy];
+  v16 = [(WBSCloudTabStore *)self _closeTabs:tabs onDevice:deviceCopy];
 
 LABEL_11:
-  return v11;
+  return v16;
 }
 
 - (void)resetSyncedCloudTabDevicesAndCloseRequestsFromCloudKit
@@ -344,18 +347,19 @@ void __74__WBSCloudTabStore_resetSyncedCloudTabDevicesAndCloseRequestsFromCloudK
 
 - (void)saveCurrentCloudTabDeviceDictionaryToCloudKit:(id)kit completionHandler:(id)handler
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   kitCopy = kit;
   handlerCopy = handler;
-  v8 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = WBS_LOG_CHANNEL_PREFIXCloudTabs(handlerCopy, v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  if (v10)
   {
-    *v15 = 0;
-    _os_log_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_DEFAULT, "Saving current device to CloudKit", v15, 2u);
+    *v18 = 0;
+    _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_DEFAULT, "Saving current device to CloudKit", v18, 2u);
   }
 
-  v9 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v12 = WBS_LOG_CHANNEL_PREFIXCloudTabs(v10, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [kitCopy description];
     objc_claimAutoreleasedReturnValue();
@@ -365,9 +369,9 @@ void __74__WBSCloudTabStore_resetSyncedCloudTabDevicesAndCloseRequestsFromCloudK
   _currentDeviceUUID = [(WBSCloudTabStore *)self _currentDeviceUUID];
   uUIDString = [_currentDeviceUUID UUIDString];
 
-  v12 = [[WBSCloudTabDevice alloc] initWithDictionary:kitCopy uuid:uUIDString];
+  v15 = [[WBSCloudTabDevice alloc] initWithDictionary:kitCopy uuid:uUIDString];
   currentDevice = self->_currentDevice;
-  self->_currentDevice = v12;
+  self->_currentDevice = v15;
 
   mEMORY[0x1E69C8A08] = [MEMORY[0x1E69C8A08] sharedProxy];
   [mEMORY[0x1E69C8A08] saveTabsForCurrentDeviceWithDictionaryRepresentation:kitCopy deviceUUIDString:uUIDString completionHandler:handlerCopy];
@@ -469,7 +473,7 @@ void __44__WBSCloudTabStore_uniqueDeviceMultiplicity__block_invoke(uint64_t a1)
 
 - (void)pruneExpiredDevicesFromCloudKit
 {
-  v3 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
+  v3 = WBS_LOG_CHANNEL_PREFIXCloudTabs(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -479,65 +483,65 @@ void __44__WBSCloudTabStore_uniqueDeviceMultiplicity__block_invoke(uint64_t a1)
   v4 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:-604800.0];
   v5 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:-5184000.0];
   *buf = 0;
-  v20 = buf;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__6;
-  v23 = __Block_byref_object_dispose__6;
-  v24 = 0;
+  v21 = buf;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__6;
+  v24 = __Block_byref_object_dispose__6;
+  v25 = 0;
   internalQueue = self->_internalQueue;
-  v11 = MEMORY[0x1E69E9820];
-  v12 = 3221225472;
-  v13 = __51__WBSCloudTabStore_pruneExpiredDevicesFromCloudKit__block_invoke;
-  v14 = &unk_1E7FB8810;
+  v12 = MEMORY[0x1E69E9820];
+  v13 = 3221225472;
+  v14 = __51__WBSCloudTabStore_pruneExpiredDevicesFromCloudKit__block_invoke;
+  v15 = &unk_1E7FB8810;
   selfCopy = self;
-  v18 = buf;
+  v19 = buf;
   v7 = v5;
-  v16 = v7;
+  v17 = v7;
   v8 = v4;
-  v17 = v8;
-  dispatch_sync(internalQueue, &v11);
-  if ([*(v20 + 5) count])
+  v18 = v8;
+  dispatch_sync(internalQueue, &v12);
+  if ([*(v21 + 5) count])
   {
     mEMORY[0x1E69C8A08] = [MEMORY[0x1E69C8A08] sharedProxy];
-    [mEMORY[0x1E69C8A08] deleteDevicesWithUUIDStrings:*(v20 + 5) completionHandler:&__block_literal_global_21];
+    [mEMORY[0x1E69C8A08] deleteDevicesWithUUIDStrings:*(v21 + 5) completionHandler:&__block_literal_global_21];
   }
 
   else
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = WBS_LOG_CHANNEL_PREFIXCloudTabs(0, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      [(WBSCloudTabStore *)v10 pruneExpiredDevicesFromCloudKit];
+      [(WBSCloudTabStore *)v11 pruneExpiredDevicesFromCloudKit];
     }
   }
 
   _Block_object_dispose(buf, 8);
 }
 
-void __51__WBSCloudTabStore_pruneExpiredDevicesFromCloudKit__block_invoke(uint64_t a1)
+void __51__WBSCloudTabStore_pruneExpiredDevicesFromCloudKit__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = WBS_LOG_CHANNEL_PREFIXCloudTabs(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __51__WBSCloudTabStore_pruneExpiredDevicesFromCloudKit__block_invoke_cold_1(a1, v2);
+    __51__WBSCloudTabStore_pruneExpiredDevicesFromCloudKit__block_invoke_cold_1(a1, v3);
   }
 
-  v3 = *(*(a1 + 32) + 24);
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __51__WBSCloudTabStore_pruneExpiredDevicesFromCloudKit__block_invoke_9;
-  v7[3] = &unk_1E7FB87E8;
-  v8 = *(a1 + 40);
-  v9 = *(a1 + 48);
-  v4 = [v3 safari_mapAndFilterObjectsUsingBlock:v7];
-  v5 = *(*(a1 + 56) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  v4 = *(*(a1 + 32) + 24);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __51__WBSCloudTabStore_pruneExpiredDevicesFromCloudKit__block_invoke_9;
+  v8[3] = &unk_1E7FB87E8;
+  v9 = *(a1 + 40);
+  v10 = *(a1 + 48);
+  v5 = [v4 safari_mapAndFilterObjectsUsingBlock:v8];
+  v6 = *(*(a1 + 56) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v5;
 }
 
 id __51__WBSCloudTabStore_pruneExpiredDevicesFromCloudKit__block_invoke_9(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 hasDuplicateName];
   v5 = 40;
@@ -552,35 +556,36 @@ id __51__WBSCloudTabStore_pruneExpiredDevicesFromCloudKit__block_invoke_9(uint64
 
   if (v8 == -1)
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = WBS_LOG_CHANNEL_PREFIXCloudTabs(v9, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [v3 uuid];
-      v13 = 138543362;
-      v14 = v11;
-      _os_log_impl(&dword_1BB6F3000, v10, OS_LOG_TYPE_DEFAULT, "Pruning expired CloudKit device with UUID %{public}@", &v13, 0xCu);
+      v13 = [v3 uuid];
+      v15 = 138543362;
+      v16 = v13;
+      _os_log_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_DEFAULT, "Pruning expired CloudKit device with UUID %{public}@", &v15, 0xCu);
     }
 
-    v9 = [v3 uuid];
+    v11 = [v3 uuid];
   }
 
   else
   {
-    v9 = 0;
+    v11 = 0;
   }
 
-  return v9;
+  return v11;
 }
 
 void __51__WBSCloudTabStore_pruneExpiredDevicesFromCloudKit__block_invoke_11(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXCloudTabs(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [v2 safari_privacyPreservingDescription];
+      [v4 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __51__WBSCloudTabStore_pruneExpiredDevicesFromCloudKit__block_invoke_11_cold_1();
     }
@@ -589,55 +594,55 @@ void __51__WBSCloudTabStore_pruneExpiredDevicesFromCloudKit__block_invoke_11(uin
 
 - (void)clearTabsForFirstDuplicateDeviceInCloudKitWithName:(id)name passingTest:(id)test
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   testCopy = test;
-  v8 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = WBS_LOG_CHANNEL_PREFIXCloudTabs(testCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BB6F3000, v8, OS_LOG_TYPE_DEFAULT, "Clearing tabs for first duplicate device in CloudKit", buf, 2u);
+    _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_DEFAULT, "Clearing tabs for first duplicate device in CloudKit", buf, 2u);
   }
 
   *buf = 0;
-  v31 = buf;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__6;
-  v34 = __Block_byref_object_dispose__6;
-  v35 = 0;
+  v33 = buf;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__6;
+  v36 = __Block_byref_object_dispose__6;
+  v37 = 0;
   internalQueue = self->_internalQueue;
-  v22 = MEMORY[0x1E69E9820];
-  v23 = 3221225472;
-  v24 = __83__WBSCloudTabStore_clearTabsForFirstDuplicateDeviceInCloudKitWithName_passingTest___block_invoke;
-  v25 = &unk_1E7FB8860;
+  v24 = MEMORY[0x1E69E9820];
+  v25 = 3221225472;
+  v26 = __83__WBSCloudTabStore_clearTabsForFirstDuplicateDeviceInCloudKitWithName_passingTest___block_invoke;
+  v27 = &unk_1E7FB8860;
   selfCopy = self;
-  v10 = nameCopy;
-  v27 = v10;
-  v29 = buf;
-  v11 = testCopy;
-  v28 = v11;
-  dispatch_sync(internalQueue, &v22);
-  v12 = *(v31 + 5);
-  if (v12)
+  v11 = nameCopy;
+  v29 = v11;
+  v31 = buf;
+  v12 = testCopy;
+  v30 = v12;
+  dispatch_sync(internalQueue, &v24);
+  v13 = *(v33 + 5);
+  if (v13)
   {
-    uuid = [v12 uuid];
-    v14 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    uuid = [v13 uuid];
+    v16 = WBS_LOG_CHANNEL_PREFIXCloudTabs(uuid, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      *v36 = 138543362;
-      v37 = uuid;
-      _os_log_impl(&dword_1BB6F3000, v14, OS_LOG_TYPE_DEFAULT, "Marking device with UUID %{public}@ as a duplicate", v36, 0xCu);
+      *v38 = 138543362;
+      v39 = uuid;
+      _os_log_impl(&dword_1BB6F3000, v16, OS_LOG_TYPE_DEFAULT, "Marking device with UUID %{public}@ as a duplicate", v38, 0xCu);
     }
 
-    v15 = [WBSCloudTabDevice alloc];
-    name = [*(v31 + 5) name];
-    lastModified = [*(v31 + 5) lastModified];
-    v18 = [(WBSCloudTabDevice *)v15 initWithDeviceName:name lastModified:lastModified hasDuplicateName:1 tabs:0 uuid:uuid];
-    v19 = *(v31 + 5);
-    *(v31 + 5) = v18;
+    v17 = [WBSCloudTabDevice alloc];
+    name = [*(v33 + 5) name];
+    lastModified = [*(v33 + 5) lastModified];
+    v20 = [(WBSCloudTabDevice *)v17 initWithDeviceName:name lastModified:lastModified hasDuplicateName:1 tabs:0 uuid:uuid];
+    v21 = *(v33 + 5);
+    *(v33 + 5) = v20;
 
     mEMORY[0x1E69C8A08] = [MEMORY[0x1E69C8A08] sharedProxy];
-    dictionaryRepresentation = [*(v31 + 5) dictionaryRepresentation];
+    dictionaryRepresentation = [*(v33 + 5) dictionaryRepresentation];
     [mEMORY[0x1E69C8A08] saveTabsForCurrentDeviceWithDictionaryRepresentation:dictionaryRepresentation deviceUUIDString:uuid completionHandler:0];
   }
 
@@ -648,104 +653,108 @@ void __83__WBSCloudTabStore_clearTabsForFirstDuplicateDeviceInCloudKitWithName_p
 {
   if ([*(*(a1 + 32) + 24) count])
   {
-    v2 = *(*(a1 + 32) + 24);
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __83__WBSCloudTabStore_clearTabsForFirstDuplicateDeviceInCloudKitWithName_passingTest___block_invoke_13;
-    v8[3] = &unk_1E7FB8838;
-    v9 = *(a1 + 40);
-    v6 = *(a1 + 48);
-    v3 = v6;
-    v10 = v6;
-    [v2 enumerateObjectsUsingBlock:v8];
+    v3 = *(*(a1 + 32) + 24);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __83__WBSCloudTabStore_clearTabsForFirstDuplicateDeviceInCloudKitWithName_passingTest___block_invoke_13;
+    v11[3] = &unk_1E7FB8838;
+    v12 = *(a1 + 40);
+    v9 = *(a1 + 48);
+    v4 = v9;
+    v13 = v9;
+    v5 = [v3 enumerateObjectsUsingBlock:v11];
     if (!*(*(*(a1 + 56) + 8) + 40))
     {
-      v4 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v7 = WBS_LOG_CHANNEL_PREFIXCloudTabs(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1BB6F3000, v4, OS_LOG_TYPE_DEFAULT, "No eligible device with the same name found when looking for duplicates", buf, 2u);
+        _os_log_impl(&dword_1BB6F3000, v7, OS_LOG_TYPE_DEFAULT, "No eligible device with the same name found when looking for duplicates", buf, 2u);
       }
     }
   }
 
   else
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v8 = WBS_LOG_CHANNEL_PREFIXCloudTabs(0, v2);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      __83__WBSCloudTabStore_clearTabsForFirstDuplicateDeviceInCloudKitWithName_passingTest___block_invoke_cold_1(v5);
+      __83__WBSCloudTabStore_clearTabsForFirstDuplicateDeviceInCloudKitWithName_passingTest___block_invoke_cold_1(v8);
     }
   }
 }
 
 void __83__WBSCloudTabStore_clearTabsForFirstDuplicateDeviceInCloudKitWithName_passingTest___block_invoke_13(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v6 = a2;
   if (([v6 isEphemeralDevice] & 1) == 0)
   {
     v7 = [v6 name];
     v8 = [v7 isEqualToString:a1[4]];
 
-    if ((v8 & 1) != 0 && ([v6 hasDuplicateName] & 1) == 0)
+    if (v8)
     {
-      if (*(*(a1[6] + 8) + 40))
+      v9 = [v6 hasDuplicateName];
+      if ((v9 & 1) == 0)
       {
-        v9 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        if (*(*(a1[6] + 8) + 40))
         {
-          v10 = [v6 uuid];
-          v24 = 138543362;
-          v25 = v10;
-          _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_DEFAULT, "Found more than one device with the same name when looking for duplicates, second device has UUID %{public}@", &v24, 0xCu);
+          v11 = WBS_LOG_CHANNEL_PREFIXCloudTabs(v9, v10);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          {
+            v12 = [v6 uuid];
+            v26 = 138543362;
+            v27 = v12;
+            _os_log_impl(&dword_1BB6F3000, v11, OS_LOG_TYPE_DEFAULT, "Found more than one device with the same name when looking for duplicates, second device has UUID %{public}@", &v26, 0xCu);
+          }
+
+          v13 = *(a1[6] + 8);
+          v14 = *(v13 + 40);
+          *(v13 + 40) = 0;
+
+          *a4 = 1;
         }
 
-        v11 = *(a1[6] + 8);
-        v12 = *(v11 + 40);
-        *(v11 + 40) = 0;
-
-        *a4 = 1;
-      }
-
-      else
-      {
-        v13 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        else
         {
-          v14 = [v6 uuid];
-          v24 = 138543362;
-          v25 = v14;
-          _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_DEFAULT, "Found device with UUID %{public}@ with the same name as this device when looking for duplicates", &v24, 0xCu);
-        }
+          v15 = WBS_LOG_CHANNEL_PREFIXCloudTabs(v9, v10);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          {
+            v16 = [v6 uuid];
+            v26 = 138543362;
+            v27 = v16;
+            _os_log_impl(&dword_1BB6F3000, v15, OS_LOG_TYPE_DEFAULT, "Found device with UUID %{public}@ with the same name as this device when looking for duplicates", &v26, 0xCu);
+          }
 
-        v15 = [WBSCloudTabDevice alloc];
-        v16 = [v6 dictionaryRepresentation];
-        v17 = [v6 uuid];
-        v18 = [(WBSCloudTabDevice *)v15 initWithDictionary:v16 uuid:v17];
-        v19 = *(a1[6] + 8);
-        v20 = *(v19 + 40);
-        *(v19 + 40) = v18;
+          v17 = [WBSCloudTabDevice alloc];
+          v18 = [v6 dictionaryRepresentation];
+          v19 = [v6 uuid];
+          v20 = [(WBSCloudTabDevice *)v17 initWithDictionary:v18 uuid:v19];
+          v21 = *(a1[6] + 8);
+          v22 = *(v21 + 40);
+          *(v21 + 40) = v20;
 
-        v21 = a1[5];
-        if (v21 && ((*(v21 + 16))(v21, *(*(a1[6] + 8) + 40)) & 1) == 0)
-        {
-          v22 = *(a1[6] + 8);
-          v23 = *(v22 + 40);
-          *(v22 + 40) = 0;
+          v23 = a1[5];
+          if (v23 && ((*(v23 + 16))(v23, *(*(a1[6] + 8) + 40)) & 1) == 0)
+          {
+            v24 = *(a1[6] + 8);
+            v25 = *(v24 + 40);
+            *(v24 + 40) = 0;
+          }
         }
       }
     }
   }
 }
 
-void __74__WBSCloudTabStore_fetchSyncedCloudTabDevicesAndCloseRequestsFromCloudKit__block_invoke_2(uint64_t a1)
+void __74__WBSCloudTabStore_fetchSyncedCloudTabDevicesAndCloseRequestsFromCloudKit__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = WBS_LOG_CHANNEL_PREFIXCloudTabs(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1BB6F3000, v2, OS_LOG_TYPE_DEFAULT, "Received cached CloudTab devices from the sync agent", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1BB6F3000, v3, OS_LOG_TYPE_DEFAULT, "Received cached CloudTab devices from the sync agent", v5, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -760,8 +769,8 @@ void __74__WBSCloudTabStore_fetchSyncedCloudTabDevicesAndCloseRequestsFromCloudK
 
 - (void)handleCloseTabRequestsFromCloudKit
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v3 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
+  v26 = *MEMORY[0x1E69E9840];
+  v3 = WBS_LOG_CHANNEL_PREFIXCloudTabs(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -776,42 +785,42 @@ void __74__WBSCloudTabStore_fetchSyncedCloudTabDevicesAndCloseRequestsFromCloudK
   if ([v7 count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v22 = 0u;
+    v23 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v18 = 0u;
-    v19 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v10)
     {
-      v11 = *v19;
+      v11 = *v21;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v19 != v11)
+          if (*v21 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * i);
-          [(WBSCloudTabStore *)self _closeRequestedTabIfPossible:v13, v18];
+          v13 = *(*(&v20 + 1) + 8 * i);
+          [(WBSCloudTabStore *)self _closeRequestedTabIfPossible:v13, v20];
           requestUUID = [v13 requestUUID];
           uUIDString2 = [requestUUID UUIDString];
           [array addObject:uUIDString2];
         }
 
-        v10 = [v9 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
       while (v10);
     }
 
-    v16 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v18 = WBS_LOG_CHANNEL_PREFIXCloudTabs(v16, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BB6F3000, v16, OS_LOG_TYPE_DEFAULT, "Deleting close requests for this device from CloudKit", buf, 2u);
+      _os_log_impl(&dword_1BB6F3000, v18, OS_LOG_TYPE_DEFAULT, "Deleting close requests for this device from CloudKit", buf, 2u);
     }
 
     mEMORY[0x1E69C8A08] = [MEMORY[0x1E69C8A08] sharedProxy];
@@ -821,31 +830,32 @@ void __74__WBSCloudTabStore_fetchSyncedCloudTabDevicesAndCloseRequestsFromCloudK
 
 void __54__WBSCloudTabStore_handleCloseTabRequestsFromCloudKit__block_invoke(uint64_t a1, void *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXCloudTabs(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [v2 safari_privacyPreservingDescription];
+      [v4 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __54__WBSCloudTabStore_handleCloseTabRequestsFromCloudKit__block_invoke_cold_1();
     }
   }
 
-  v4 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v6 = WBS_LOG_CHANNEL_PREFIXCloudTabs(v2, v3);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_1BB6F3000, v4, OS_LOG_TYPE_DEFAULT, "Finished deleting close requests for this device from CloudKit", v5, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_DEFAULT, "Finished deleting close requests for this device from CloudKit", v7, 2u);
   }
 }
 
 - (void)deleteAllDevicesFromCloudKit
 {
-  v23[1] = *MEMORY[0x1E69E9840];
-  v3 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
+  v24[1] = *MEMORY[0x1E69E9840];
+  v3 = WBS_LOG_CHANNEL_PREFIXCloudTabs(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -853,11 +863,11 @@ void __54__WBSCloudTabStore_handleCloseTabRequestsFromCloudKit__block_invoke(uin
   }
 
   *buf = 0;
-  v18 = buf;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__6;
-  v21 = __Block_byref_object_dispose__6;
-  v22 = 0;
+  v19 = buf;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__6;
+  v22 = __Block_byref_object_dispose__6;
+  v23 = 0;
   internalQueue = self->_internalQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -869,7 +879,7 @@ void __54__WBSCloudTabStore_handleCloseTabRequestsFromCloudKit__block_invoke(uin
   currentDevice = self->_currentDevice;
   if (currentDevice)
   {
-    v6 = *(v18 + 5);
+    v6 = *(v19 + 5);
     uuid = [(WBSCloudTabDevice *)currentDevice uuid];
     if (v6)
     {
@@ -878,37 +888,37 @@ void __54__WBSCloudTabStore_handleCloseTabRequestsFromCloudKit__block_invoke(uin
 
     else
     {
-      v23[0] = uuid;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+      v24[0] = uuid;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
     }
     v8 = ;
-    v9 = *(v18 + 5);
-    *(v18 + 5) = v8;
+    v9 = *(v19 + 5);
+    *(v19 + 5) = v8;
   }
 
-  if ([*(v18 + 5) count])
+  if ([*(v19 + 5) count])
   {
     objc_initWeak(location, self);
     mEMORY[0x1E69C8A08] = [MEMORY[0x1E69C8A08] sharedProxy];
-    v11 = *(v18 + 5);
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __48__WBSCloudTabStore_deleteAllDevicesFromCloudKit__block_invoke_28;
-    v13[3] = &unk_1E7FB8970;
-    objc_copyWeak(&v14, location);
-    [mEMORY[0x1E69C8A08] deleteDevicesWithUUIDStrings:v11 completionHandler:v13];
+    v12 = *(v19 + 5);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __48__WBSCloudTabStore_deleteAllDevicesFromCloudKit__block_invoke_28;
+    v14[3] = &unk_1E7FB8970;
+    objc_copyWeak(&v15, location);
+    [mEMORY[0x1E69C8A08] deleteDevicesWithUUIDStrings:v12 completionHandler:v14];
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v15);
     objc_destroyWeak(location);
   }
 
   else
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = WBS_LOG_CHANNEL_PREFIXCloudTabs(0, v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(location[0]) = 0;
-      _os_log_impl(&dword_1BB6F3000, v12, OS_LOG_TYPE_DEFAULT, "No devices found in CloudKit to delete", location, 2u);
+      _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_DEFAULT, "No devices found in CloudKit to delete", location, 2u);
     }
   }
 
@@ -935,14 +945,15 @@ id __48__WBSCloudTabStore_deleteAllDevicesFromCloudKit__block_invoke_2(uint64_t 
 
 void __48__WBSCloudTabStore_deleteAllDevicesFromCloudKit__block_invoke_28(uint64_t a1, void *a2)
 {
-  v6[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXCloudTabs(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [v3 safari_privacyPreservingDescription];
+      [v5 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __48__WBSCloudTabStore_deleteAllDevicesFromCloudKit__block_invoke_28_cold_1();
     }
@@ -952,18 +963,18 @@ void __48__WBSCloudTabStore_deleteAllDevicesFromCloudKit__block_invoke_28(uint64
   block[1] = 3221225472;
   block[2] = __48__WBSCloudTabStore_deleteAllDevicesFromCloudKit__block_invoke_29;
   block[3] = &unk_1E7FB8948;
-  objc_copyWeak(v6, (a1 + 32));
+  objc_copyWeak(v8, (a1 + 32));
   dispatch_async(MEMORY[0x1E69E96A0], block);
-  objc_destroyWeak(v6);
+  objc_destroyWeak(v8);
 }
 
-void __48__WBSCloudTabStore_deleteAllDevicesFromCloudKit__block_invoke_29(uint64_t a1)
+void __48__WBSCloudTabStore_deleteAllDevicesFromCloudKit__block_invoke_29(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = WBS_LOG_CHANNEL_PREFIXCloudTabs(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1BB6F3000, v2, OS_LOG_TYPE_DEFAULT, "Fetching data from CloudKit after deleting all devices", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1BB6F3000, v3, OS_LOG_TYPE_DEFAULT, "Fetching data from CloudKit after deleting all devices", v5, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -1012,7 +1023,7 @@ void __48__WBSCloudTabStore_deleteAllDevicesFromCloudKit__block_invoke_29(uint64
 
 - (BOOL)_writeCloseRequestForTab:(id)tab onDevice:(id)device
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   tabCopy = tab;
   deviceCopy = device;
   uUID = [MEMORY[0x1E696AFB0] UUID];
@@ -1030,17 +1041,17 @@ void __48__WBSCloudTabStore_deleteAllDevicesFromCloudKit__block_invoke_29(uint64
 
   if (dictionaryRepresentation)
   {
-    v18 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v20 = WBS_LOG_CHANNEL_PREFIXCloudTabs(v18, v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       uUIDString = [v11 UUIDString];
       *buf = 138543362;
-      v27 = uUIDString;
-      _os_log_impl(&dword_1BB6F3000, v18, OS_LOG_TYPE_DEFAULT, "Writing close request to CloudKit for device with UUID %{public}@", buf, 0xCu);
+      v31 = uUIDString;
+      _os_log_impl(&dword_1BB6F3000, v20, OS_LOG_TYPE_DEFAULT, "Writing close request to CloudKit for device with UUID %{public}@", buf, 0xCu);
     }
 
-    v20 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v24 = WBS_LOG_CHANNEL_PREFIXCloudTabs(v22, v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
       [v11 UUIDString];
       objc_claimAutoreleasedReturnValue();
@@ -1051,12 +1062,12 @@ void __48__WBSCloudTabStore_deleteAllDevicesFromCloudKit__block_invoke_29(uint64
 
     mEMORY[0x1E69C8A08] = [MEMORY[0x1E69C8A08] sharedProxy];
     uUIDString2 = [uUID UUIDString];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __54__WBSCloudTabStore__writeCloseRequestForTab_onDevice___block_invoke;
-    v25[3] = &unk_1E7FB78D8;
-    v25[4] = self;
-    [mEMORY[0x1E69C8A08] saveCloudTabCloseRequestWithDictionaryRepresentation:dictionaryRepresentation closeRequestUUIDString:uUIDString2 completionHandler:v25];
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __54__WBSCloudTabStore__writeCloseRequestForTab_onDevice___block_invoke;
+    v29[3] = &unk_1E7FB78D8;
+    v29[4] = self;
+    [mEMORY[0x1E69C8A08] saveCloudTabCloseRequestWithDictionaryRepresentation:dictionaryRepresentation closeRequestUUIDString:uUIDString2 completionHandler:v29];
   }
 
   return dictionaryRepresentation != 0;
@@ -1066,12 +1077,13 @@ void __54__WBSCloudTabStore__writeCloseRequestForTab_onDevice___block_invoke(uin
 {
   block[8] = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXCloudTabs(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [v3 safari_privacyPreservingDescription];
+      [v5 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __54__WBSCloudTabStore__writeCloseRequestForTab_onDevice___block_invoke_cold_1();
     }
@@ -1085,12 +1097,12 @@ void __54__WBSCloudTabStore__writeCloseRequestForTab_onDevice___block_invoke(uin
   }
 }
 
-uint64_t __54__WBSCloudTabStore__writeCloseRequestForTab_onDevice___block_invoke_34(uint64_t a1)
+uint64_t __54__WBSCloudTabStore__writeCloseRequestForTab_onDevice___block_invoke_34(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = WBS_LOG_CHANNEL_PREFIXCloudTabs(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __54__WBSCloudTabStore__writeCloseRequestForTab_onDevice___block_invoke_34_cold_1(v2);
+    __54__WBSCloudTabStore__writeCloseRequestForTab_onDevice___block_invoke_34_cold_1(v3);
   }
 
   return [*(a1 + 32) fetchSyncedCloudTabDevicesAndCloseRequestsFromCloudKit];
@@ -1161,99 +1173,101 @@ void __40__WBSCloudTabStore__closeTabs_onDevice___block_invoke(uint64_t a1)
 
 - (id)_deviceWithTabsWithOutstandingCloseRequestsRemoved:(id)removed closeRequestsForDevice:(id)device
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   removedCopy = removed;
   deviceCopy = device;
-  if ([deviceCopy count])
+  v5 = [deviceCopy count];
+  if (v5)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = WBS_LOG_CHANNEL_PREFIXCloudTabs(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       uuid = [removedCopy uuid];
       *buf = 138543362;
-      v33 = uuid;
-      _os_log_impl(&dword_1BB6F3000, v5, OS_LOG_TYPE_DEFAULT, "Removing tabs with outstanding close requests for device with UUID %{public}@", buf, 0xCu);
+      v37 = uuid;
+      _os_log_impl(&dword_1BB6F3000, v7, OS_LOG_TYPE_DEFAULT, "Removing tabs with outstanding close requests for device with UUID %{public}@", buf, 0xCu);
     }
 
     tabs = [removedCopy tabs];
-    v8 = [tabs count];
+    v10 = [tabs count];
 
-    v24 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v8];
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
-    v28 = 0u;
+    v28 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v10];
+    v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     tabs2 = [removedCopy tabs];
-    v10 = [tabs2 countByEnumeratingWithState:&v27 objects:v31 count:16];
-    if (v10)
+    v12 = [tabs2 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    if (v12)
     {
-      v11 = *v28;
+      v13 = *v32;
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v28 != v11)
+          if (*v32 != v13)
           {
             objc_enumerationMutation(tabs2);
           }
 
-          v13 = *(*(&v27 + 1) + 8 * i);
-          v26[0] = MEMORY[0x1E69E9820];
-          v26[1] = 3221225472;
-          v26[2] = __94__WBSCloudTabStore__deviceWithTabsWithOutstandingCloseRequestsRemoved_closeRequestsForDevice___block_invoke;
-          v26[3] = &unk_1E7FB8998;
-          v26[4] = v13;
-          if ([deviceCopy indexOfObjectPassingTest:v26] == 0x7FFFFFFFFFFFFFFFLL)
+          v15 = *(*(&v31 + 1) + 8 * i);
+          v30[0] = MEMORY[0x1E69E9820];
+          v30[1] = 3221225472;
+          v30[2] = __94__WBSCloudTabStore__deviceWithTabsWithOutstandingCloseRequestsRemoved_closeRequestsForDevice___block_invoke;
+          v30[3] = &unk_1E7FB8998;
+          v30[4] = v15;
+          v16 = [deviceCopy indexOfObjectPassingTest:v30];
+          if (v16 == 0x7FFFFFFFFFFFFFFFLL)
           {
-            [v24 addObject:v13];
+            [v28 addObject:v15];
           }
 
           else
           {
-            v14 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+            v18 = WBS_LOG_CHANNEL_PREFIXCloudTabs(v16, v17);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
             {
-              uuid2 = [v13 uuid];
+              uuid2 = [v15 uuid];
               *buf = 138543362;
-              v33 = uuid2;
-              _os_log_impl(&dword_1BB6F3000, v14, OS_LOG_TYPE_DEFAULT, "Removing tab with outstanding close request with UUID %{public}@", buf, 0xCu);
+              v37 = uuid2;
+              _os_log_impl(&dword_1BB6F3000, v18, OS_LOG_TYPE_DEFAULT, "Removing tab with outstanding close request with UUID %{public}@", buf, 0xCu);
             }
           }
         }
 
-        v10 = [tabs2 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v12 = [tabs2 countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
-      while (v10);
+      while (v12);
     }
 
-    if ([v24 count])
+    if ([v28 count])
     {
-      v16 = [WBSCloudTabDeviceParameters parametersWithDevice:removedCopy];
-      [v16 setTabs:v24];
-      v17 = [WBSCloudTabDevice alloc];
+      v20 = [WBSCloudTabDeviceParameters parametersWithDevice:removedCopy];
+      [v20 setTabs:v28];
+      v21 = [WBSCloudTabDevice alloc];
       uuid3 = [removedCopy uuid];
-      v19 = [(WBSCloudTabDevice *)v17 initWithParameters:v16 uuid:uuid3];
+      v23 = [(WBSCloudTabDevice *)v21 initWithParameters:v20 uuid:uuid3];
     }
 
     else
     {
-      v19 = 0;
+      v23 = 0;
     }
 
-    v20 = removedCopy;
-    removedCopy = v19;
+    v24 = removedCopy;
+    removedCopy = v23;
   }
 
   else
   {
-    v20 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v24 = WBS_LOG_CHANNEL_PREFIXCloudTabs(0, v6);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       uuid4 = [removedCopy uuid];
       *buf = 138543362;
-      v33 = uuid4;
-      _os_log_impl(&dword_1BB6F3000, v20, OS_LOG_TYPE_DEFAULT, "No outstanding close requests for device with UUID %{public}@", buf, 0xCu);
+      v37 = uuid4;
+      _os_log_impl(&dword_1BB6F3000, v24, OS_LOG_TYPE_DEFAULT, "No outstanding close requests for device with UUID %{public}@", buf, 0xCu);
     }
   }
 
@@ -1338,47 +1352,47 @@ uint64_t __70__WBSCloudTabStore__indexOfDeviceInSyncedCloudTabDevicesFromCloudKi
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __60__WBSCloudTabStore__syncAgentProxyConnectionWasInvalidated___block_invoke(uint64_t a1)
+void __60__WBSCloudTabStore__syncAgentProxyConnectionWasInvalidated___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = WBS_LOG_CHANNEL_PREFIXCloudTabs(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_1BB6F3000, v2, OS_LOG_TYPE_DEFAULT, "CloudKit syncing of iCloud Tabs is not available", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_1BB6F3000, v3, OS_LOG_TYPE_DEFAULT, "CloudKit syncing of iCloud Tabs is not available", v7, 2u);
   }
 
   *(*(a1 + 32) + 72) = 0;
-  v3 = *(a1 + 32);
-  if (v3[16] == 1)
+  v4 = *(a1 + 32);
+  if (v4[16] == 1)
   {
-    v4 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:4099 userInfo:0];
-    [v3 _didFetchDeviceDictionariesFromCloudKit:0 fetchedCloseRequests:0 error:v4];
+    v5 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:4099 userInfo:0];
+    [v4 _didFetchDeviceDictionariesFromCloudKit:0 fetchedCloseRequests:0 error:v5];
   }
 
   else
   {
     [*(a1 + 32) resetSyncedCloudTabDevicesAndCloseRequestsFromCloudKit];
-    v5 = *(a1 + 32);
-    v4 = *(v5 + 40);
-    *(v5 + 40) = 0;
+    v6 = *(a1 + 32);
+    v5 = *(v6 + 40);
+    *(v6 + 40) = 0;
   }
 }
 
 - (void)_didFetchDeviceDictionariesFromCloudKit:(id)kit fetchedCloseRequests:(id)requests fetchedDevicesBySyncing:(BOOL)syncing error:(id)error
 {
   syncingCopy = syncing;
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   kitCopy = kit;
   requestsCopy = requests;
   errorCopy = error;
-  v13 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = WBS_LOG_CHANNEL_PREFIXCloudTabs(errorCopy, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218243;
-    v25 = [kitCopy count];
-    v26 = 2113;
-    v27 = kitCopy;
-    _os_log_impl(&dword_1BB6F3000, v13, OS_LOG_TYPE_DEFAULT, "Fetched %lu devices from CloudKit: %{private}@", buf, 0x16u);
+    v26 = [kitCopy count];
+    v27 = 2113;
+    v28 = kitCopy;
+    _os_log_impl(&dword_1BB6F3000, v14, OS_LOG_TYPE_DEFAULT, "Fetched %lu devices from CloudKit: %{private}@", buf, 0x16u);
   }
 
   self->_isFetchingDataFromCloudKit = !syncingCopy;
@@ -1388,20 +1402,20 @@ void __60__WBSCloudTabStore__syncAgentProxyConnectionWasInvalidated___block_invo
   block[2] = __111__WBSCloudTabStore__didFetchDeviceDictionariesFromCloudKit_fetchedCloseRequests_fetchedDevicesBySyncing_error___block_invoke;
   block[3] = &unk_1E7FB89E8;
   block[4] = self;
-  v23 = syncingCopy;
-  v15 = errorCopy;
-  v20 = v15;
-  v16 = kitCopy;
+  v24 = syncingCopy;
+  v16 = errorCopy;
   v21 = v16;
-  v17 = requestsCopy;
+  v17 = kitCopy;
   v22 = v17;
+  v18 = requestsCopy;
+  v23 = v18;
   dispatch_sync(internalQueue, block);
   WeakRetained = objc_loadWeakRetained(&self->_wbsDelegate);
   if (syncingCopy)
   {
     if (objc_opt_respondsToSelector())
     {
-      [WeakRetained didUpdateDevicesAndCloseRequestsFromCloudKitForCloudTabStore:self error:v15];
+      [WeakRetained didUpdateDevicesAndCloseRequestsFromCloudKitForCloudTabStore:self error:v16];
     }
   }
 
@@ -1413,7 +1427,7 @@ void __60__WBSCloudTabStore__syncAgentProxyConnectionWasInvalidated___block_invo
 
 void __111__WBSCloudTabStore__didFetchDeviceDictionariesFromCloudKit_fetchedCloseRequests_fetchedDevicesBySyncing_error___block_invoke(uint64_t a1)
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v3 = *(a1 + 32);
   v4 = *(v3 + 24);
@@ -1433,29 +1447,29 @@ void __111__WBSCloudTabStore__didFetchDeviceDictionariesFromCloudKit_fetchedClos
   }
 
   v9 = [*(a1 + 32) _currentDeviceUUID];
-  v41 = [v9 UUIDString];
+  v45 = [v9 UUIDString];
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
-  v48 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   obj = *(a1 + 48);
-  v10 = [obj countByEnumeratingWithState:&v47 objects:v58 count:16];
+  v10 = [obj countByEnumeratingWithState:&v51 objects:v62 count:16];
   if (v10)
   {
-    v12 = *v48;
+    v12 = *v52;
     *&v11 = 134218498;
-    v40 = v11;
+    v44 = v11;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v48 != v12)
+        if (*v52 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v47 + 1) + 8 * i);
+        v14 = *(*(&v51 + 1) + 8 * i);
         v15 = [v14 deviceOrCloseRequestDictionary];
         if ([WBSCloudTabDevice isCloudTabDeviceDictionary:v15])
         {
@@ -1464,96 +1478,97 @@ void __111__WBSCloudTabStore__didFetchDeviceDictionariesFromCloudKit_fetchedClos
           if (v17)
           {
             [*(*(a1 + 32) + 24) addObject:v17];
-            if ([v16 isEqualToString:v41])
+            v18 = [v16 isEqualToString:v45];
+            if (v18)
             {
               objc_storeStrong((*(a1 + 32) + 40), v17);
             }
 
-            v18 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+            v20 = WBS_LOG_CHANNEL_PREFIXCloudTabs(v18, v19);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
-              v19 = [(WBSCloudTabDevice *)v17 tabs];
-              v20 = [v19 count];
-              v21 = @"another";
+              v21 = [(WBSCloudTabDevice *)v17 tabs];
+              v22 = [v21 count];
+              v23 = @"another";
               if (*(*(a1 + 32) + 40) == v17)
               {
-                v21 = @"current";
+                v23 = @"current";
               }
 
-              *buf = v40;
-              v53 = v20;
-              v54 = 2114;
-              v55 = v21;
-              v56 = 2114;
-              v57 = v16;
-              _os_log_impl(&dword_1BB6F3000, v18, OS_LOG_TYPE_DEFAULT, "Fetched %lu tabs from CloudKit for %{public}@ device with UUID %{public}@", buf, 0x20u);
+              *buf = v44;
+              v57 = v22;
+              v58 = 2114;
+              v59 = v23;
+              v60 = 2114;
+              v61 = v16;
+              _os_log_impl(&dword_1BB6F3000, v20, OS_LOG_TYPE_DEFAULT, "Fetched %lu tabs from CloudKit for %{public}@ device with UUID %{public}@", buf, 0x20u);
             }
           }
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v47 objects:v58 count:16];
+      v10 = [obj countByEnumeratingWithState:&v51 objects:v62 count:16];
     }
 
     while (v10);
   }
 
-  v22 = WBS_LOG_CHANNEL_PREFIXCloudTabs();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v26 = WBS_LOG_CHANNEL_PREFIXCloudTabs(v24, v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = [*(a1 + 56) count];
-    v24 = *(a1 + 56);
+    v27 = [*(a1 + 56) count];
+    v28 = *(a1 + 56);
     *buf = 134218243;
-    v53 = v23;
-    v54 = 2113;
-    v55 = v24;
-    _os_log_impl(&dword_1BB6F3000, v22, OS_LOG_TYPE_DEFAULT, "Fetched %lu close requests from CloudKit: %{private}@", buf, 0x16u);
+    v57 = v27;
+    v58 = 2113;
+    v59 = v28;
+    _os_log_impl(&dword_1BB6F3000, v26, OS_LOG_TYPE_DEFAULT, "Fetched %lu close requests from CloudKit: %{private}@", buf, 0x16u);
   }
 
-  v25 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v26 = *(a1 + 32);
-  v27 = *(v26 + 48);
-  *(v26 + 48) = v25;
+  v29 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v30 = *(a1 + 32);
+  v31 = *(v30 + 48);
+  *(v30 + 48) = v29;
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v28 = *(a1 + 56);
-  v29 = [v28 countByEnumeratingWithState:&v43 objects:v51 count:16];
-  if (v29)
+  v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v32 = *(a1 + 56);
+  v33 = [v32 countByEnumeratingWithState:&v47 objects:v55 count:16];
+  if (v33)
   {
-    v30 = *v44;
+    v34 = *v48;
     do
     {
-      for (j = 0; j != v29; ++j)
+      for (j = 0; j != v33; ++j)
       {
-        if (*v44 != v30)
+        if (*v48 != v34)
         {
-          objc_enumerationMutation(v28);
+          objc_enumerationMutation(v32);
         }
 
-        v32 = *(*(&v43 + 1) + 8 * j);
-        v33 = [v32 deviceOrCloseRequestDictionary];
-        if ([WBSCloudTabCloseRequest isCloudTabCloseRequestDictionary:v33])
+        v36 = *(*(&v47 + 1) + 8 * j);
+        v37 = [v36 deviceOrCloseRequestDictionary];
+        if ([WBSCloudTabCloseRequest isCloudTabCloseRequestDictionary:v37])
         {
-          v34 = *(a1 + 32);
-          v35 = v34[6];
-          v36 = [v32 uuidString];
-          [v34 _addCloseRequestDictionary:v33 toDeviceUUIDsToCloseRequestsDictionary:v35 requestUUID:v36];
+          v38 = *(a1 + 32);
+          v39 = v38[6];
+          v40 = [v36 uuidString];
+          [v38 _addCloseRequestDictionary:v37 toDeviceUUIDsToCloseRequestsDictionary:v39 requestUUID:v40];
         }
       }
 
-      v29 = [v28 countByEnumeratingWithState:&v43 objects:v51 count:16];
+      v33 = [v32 countByEnumeratingWithState:&v47 objects:v55 count:16];
     }
 
-    while (v29);
+    while (v33);
   }
 
-  v37 = [*(a1 + 32) _devicesByFilteringAndSortingDevices:*(*(a1 + 32) + 24)];
-  v38 = *(a1 + 32);
-  v39 = *(v38 + 32);
-  *(v38 + 32) = v37;
+  v41 = [*(a1 + 32) _devicesByFilteringAndSortingDevices:*(*(a1 + 32) + 24)];
+  v42 = *(a1 + 32);
+  v43 = *(v42 + 32);
+  *(v42 + 32) = v41;
 }
 
 - (id)_devicesByFilteringAndSortingDevices:(id)devices

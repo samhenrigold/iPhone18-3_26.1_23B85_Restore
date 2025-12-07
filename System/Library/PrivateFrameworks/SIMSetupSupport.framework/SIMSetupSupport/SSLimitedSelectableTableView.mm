@@ -2,6 +2,7 @@
 - (SSLimitedSelectableTableView)initWithFrame:(CGRect)frame style:(int64_t)style limit:(unint64_t)limit;
 - (UITableViewDelegate)viewDelegate;
 - (void)_refreshTableView;
+- (void)selectRowAtIndexPath:(id)path animated:(BOOL)animated scrollPosition:(int64_t)position;
 - (void)setDelegate:(id)delegate;
 - (void)tableView:(id)view didDeselectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
@@ -28,6 +29,28 @@
   v4.receiver = self;
   v4.super_class = SSLimitedSelectableTableView;
   [(SSLimitedSelectableTableView *)&v4 setDelegate:self];
+}
+
+- (void)selectRowAtIndexPath:(id)path animated:(BOOL)animated scrollPosition:(int64_t)position
+{
+  animatedCopy = animated;
+  pathCopy = path;
+  indexPathsForSelectedRows = [(SSLimitedSelectableTableView *)self indexPathsForSelectedRows];
+  v10 = [indexPathsForSelectedRows containsObject:pathCopy];
+
+  if ((v10 & 1) == 0)
+  {
+    v13.receiver = self;
+    v13.super_class = SSLimitedSelectableTableView;
+    [(SSLimitedSelectableTableView *)&v13 selectRowAtIndexPath:pathCopy animated:animatedCopy scrollPosition:position];
+    v11 = dispatch_time(0, 50000000);
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __77__SSLimitedSelectableTableView_selectRowAtIndexPath_animated_scrollPosition___block_invoke;
+    block[3] = &unk_279B44578;
+    block[4] = self;
+    dispatch_after(v11, MEMORY[0x277D85CD0], block);
+  }
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path

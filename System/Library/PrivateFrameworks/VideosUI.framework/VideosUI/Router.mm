@@ -90,7 +90,7 @@ LABEL_5:
   OUTLINED_FUNCTION_168_5();
   sub_1E40D3828(v12, v13, v14, v15);
   v16 = OUTLINED_FUNCTION_53();
-  sub_1E34AF594(v16);
+  sub_1E34AF594(v16, v17);
 
   OUTLINED_FUNCTION_200();
 }
@@ -120,14 +120,14 @@ LABEL_5:
   v16 = OUTLINED_FUNCTION_78_0();
   sub_1E40D39C8(v16, v17, v7, v13, v14);
   v18 = OUTLINED_FUNCTION_124();
-  sub_1E34AF594(v18);
+  sub_1E34AF594(v18, v19);
 
   OUTLINED_FUNCTION_200();
 }
 
 - (void)handleAccountSettingsEventWithUrl:(id)url amsBagKey:(id)key useAMSWebView:(BOOL)view
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF363C0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF363C0, &unk_1E42A9420);
   OUTLINED_FUNCTION_17_2(v9);
   OUTLINED_FUNCTION_5_7();
   MEMORY[0x1EEE9AC00](v10);
@@ -156,7 +156,7 @@ LABEL_5:
   OUTLINED_FUNCTION_8_154();
   sub_1E40D3B70(v16, v17, v18, view);
 
-  sub_1E325F6F0(v12, &unk_1ECF363C0);
+  sub_1E325F6F0(v12, &unk_1ECF363C0, &unk_1E42A9420);
 }
 
 - (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion
@@ -171,7 +171,7 @@ LABEL_5:
   selfCopy = self;
   sub_1E40D3E60();
   v6 = OUTLINED_FUNCTION_74();
-  sub_1E34AF594(v6);
+  sub_1E34AF594(v6, v7);
 }
 
 - (BOOL)isPresentingAlert
@@ -198,7 +198,7 @@ LABEL_5:
   v9 = OUTLINED_FUNCTION_11_6();
   v11 = sub_1E40D404C(v9, v10, animatedCopy, v7);
   v12 = OUTLINED_FUNCTION_124();
-  sub_1E34AF594(v12);
+  sub_1E34AF594(v12, v13);
 
   return v11 & 1;
 }
@@ -222,7 +222,7 @@ LABEL_5:
   OUTLINED_FUNCTION_168_5();
   sub_1E40D4190();
   v15 = OUTLINED_FUNCTION_53();
-  sub_1E34AF594(v15);
+  sub_1E34AF594(v15, v16);
 
   OUTLINED_FUNCTION_200();
 }
@@ -238,8 +238,14 @@ LABEL_5:
   if (v12)
   {
     OUTLINED_FUNCTION_4_0();
-    *(swift_allocObject() + 16) = v12;
+    v13 = swift_allocObject();
+    *(v13 + 16) = v12;
     v12 = sub_1E3835F0C;
+  }
+
+  else
+  {
+    v13 = 0;
   }
 
   sourceCopy = source;
@@ -247,10 +253,10 @@ LABEL_5:
   contextCopy = context;
   selfCopy = self;
   sub_1E40D483C();
-  v18 = v17;
-  sub_1E34AF594(v12);
+  v19 = v18;
+  sub_1E34AF594(v12, v13);
 
-  return v18 & 1;
+  return v19 & 1;
 }
 
 @end

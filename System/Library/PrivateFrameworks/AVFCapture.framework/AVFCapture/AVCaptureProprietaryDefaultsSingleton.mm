@@ -68,9 +68,9 @@ AVCaptureProprietaryDefaultsSingleton *__69__AVCaptureProprietaryDefaultsSinglet
 
 - (AVCaptureProprietaryDefaultsSingleton)init
 {
-  v7.receiver = self;
-  v7.super_class = AVCaptureProprietaryDefaultsSingleton;
-  v2 = [(AVCaptureProprietaryDefaultsSingleton *)&v7 init];
+  v9.receiver = self;
+  v9.super_class = AVCaptureProprietaryDefaultsSingleton;
+  v2 = [(AVCaptureProprietaryDefaultsSingleton *)&v9 init];
   if (v2)
   {
     v3 = [objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.avfoundation.proprietarydefaults.singleton.source_queue.%p", AVCPDS_DefaultsSourceQueueContext), "UTF8String"];
@@ -80,8 +80,9 @@ AVCaptureProprietaryDefaultsSingleton *__69__AVCaptureProprietaryDefaultsSinglet
     v2->_proprietaryDefaultsSourceQueueLabel = v5;
     memcpy(v5, v3, v2->_proprietaryDefaultsSourceQueueLabelLength);
     v2->_proprietaryDefaultsSourceQueue = dispatch_queue_create(v2->_proprietaryDefaultsSourceQueueLabel, 0);
-    v2->_proprietaryDefaultChangeNotificationCallbackQueue = dispatch_queue_create("com.apple.avfoundation.proprietarydefaults.singleton.callback", 0);
-    if ((AVCaptureIsRunningInMediaserverd() & 1) == 0)
+    v6 = dispatch_queue_create("com.apple.avfoundation.proprietarydefaults.singleton.callback", 0);
+    v2->_proprietaryDefaultChangeNotificationCallbackQueue = v6;
+    if ((AVCaptureIsRunningInMediaserverd(v6, v7) & 1) == 0)
     {
       +[AVCaptureDevice _registerOnceForServerConnectionDiedNotification];
     }
@@ -286,22 +287,22 @@ LABEL_8:
   [(AVCaptureProprietaryDefaultsSingleton *)self _runBlockOnProprietaryDefaultsSourceQueueSync:v9];
 }
 
-uint64_t __109__AVCaptureProprietaryDefaultsSingleton_addObserver_forKey_callHandlerForInitialValue_defaultChangedHandler___block_invoke(uint64_t a1)
+void *__109__AVCaptureProprietaryDefaultsSingleton_addObserver_forKey_callHandlerForInitialValue_defaultChangedHandler___block_invoke(uint64_t a1, const char *a2)
 {
-  v2 = [*(*(a1 + 32) + 56) objectForKeyedSubscript:*(a1 + 40)];
-  v3 = v2;
-  if (!v2)
+  v3 = objc_msgSend_objectForKeyedSubscript_(*(*(a1 + 32) + 56), a2, *(a1 + 40));
+  v4 = v3;
+  if (!v3)
   {
-    v3 = [MEMORY[0x1E696AD18] strongToStrongObjectsMapTable];
-    [*(*(a1 + 32) + 56) setObject:v3 forKeyedSubscript:*(a1 + 40)];
+    v4 = [MEMORY[0x1E696AD18] strongToStrongObjectsMapTable];
+    [*(*(a1 + 32) + 56) setObject:v4 forKeyedSubscript:*(a1 + 40)];
   }
 
-  v4 = [*(a1 + 56) copy];
-  result = [v3 objectForKey:*(a1 + 48)];
-  v6 = result;
+  v5 = [*(a1 + 56) copy];
+  result = [v4 objectForKey:*(a1 + 48)];
+  v7 = result;
   if (result)
   {
-    if (v2)
+    if (v3)
     {
       goto LABEL_9;
     }
@@ -309,8 +310,8 @@ uint64_t __109__AVCaptureProprietaryDefaultsSingleton_addObserver_forKey_callHan
 
   else
   {
-    result = [v3 setObject:v4 forKey:*(a1 + 48)];
-    if (v2)
+    result = [v4 setObject:v5 forKey:*(a1 + 48)];
+    if (v3)
     {
       goto LABEL_9;
     }
@@ -323,13 +324,13 @@ uint64_t __109__AVCaptureProprietaryDefaultsSingleton_addObserver_forKey_callHan
   }
 
 LABEL_9:
-  if (!v6 && (*(a1 + 64) & 1) != 0)
+  if (!v7 && (*(a1 + 64) & 1) != 0)
   {
-    v7 = [*(a1 + 32) objectForKey:*(a1 + 40)];
-    v8 = *(a1 + 40);
-    v9 = v4[2];
+    v8 = [*(a1 + 32) objectForKey:*(a1 + 40)];
+    v9 = *(a1 + 40);
+    v10 = v5[2];
 
-    return v9(v4, v8, v7);
+    return v10(v5, v9, v8);
   }
 
   return result;
@@ -364,36 +365,36 @@ LABEL_6:
   [(AVCaptureProprietaryDefaultsSingleton *)self _runBlockOnProprietaryDefaultsSourceQueueSync:v7];
 }
 
-void *__63__AVCaptureProprietaryDefaultsSingleton_removeObserver_forKey___block_invoke(void *a1)
+void *__63__AVCaptureProprietaryDefaultsSingleton_removeObserver_forKey___block_invoke(void *a1, const char *a2)
 {
-  result = [*(a1[4] + 56) objectForKeyedSubscript:a1[5]];
+  result = objc_msgSend_objectForKeyedSubscript_(*(a1[4] + 56), a2, a1[5]);
   if (result)
   {
-    v3 = result;
+    v4 = result;
     result = [result objectForKey:a1[6]];
     if (result)
     {
-      [v3 removeObjectForKey:a1[6]];
-      result = [v3 count];
+      [v4 removeObjectForKey:a1[6]];
+      result = [v4 count];
       if (!result)
       {
         [*(a1[4] + 56) setObject:0 forKeyedSubscript:a1[5]];
         result = [*(a1[4] + 64) removeObject:a1[5]];
-        v4 = *(a1[4] + 40);
-        if (v4)
+        v5 = *(a1[4] + 40);
+        if (v5)
         {
-          v5 = a1[5];
+          v6 = a1[5];
           VTable = CMBaseObjectGetVTable();
-          v8 = *(VTable + 16);
+          v9 = *(VTable + 16);
           result = (VTable + 16);
-          v7 = v8;
-          if (*v8 >= 2uLL)
+          v8 = v9;
+          if (*v9 >= 2uLL)
           {
-            v9 = v7[7];
-            if (v9)
+            v10 = v8[7];
+            if (v10)
             {
 
-              return v9(v4, v5);
+              return v10(v5, v6);
             }
           }
         }
@@ -489,7 +490,7 @@ void __58__AVCaptureProprietaryDefaultsSingleton_setObject_forKey___block_invoke
       {
         if (!v6(v1, v3, v4))
         {
-          *(*(*(a1 + 56) + 8) + 40) = [*(*(a1 + 32) + 56) objectForKeyedSubscript:*(a1 + 40)];
+          *(*(*(a1 + 56) + 8) + 40) = objc_msgSend_objectForKeyedSubscript_(*(*(a1 + 32) + 56));
           v7 = *(*(*(a1 + 56) + 8) + 40);
           if (v7)
           {
@@ -635,7 +636,7 @@ id __66__AVCaptureProprietaryDefaultsSingleton_setObject_forWildcardKey___block_
             }
 
             v13 = *(*(&v17 + 1) + 8 * v12);
-            v14 = [*(*(a1 + 32) + 56) objectForKeyedSubscript:v13];
+            v14 = objc_msgSend_objectForKeyedSubscript_(*(*(a1 + 32) + 56));
             v15 = v14;
             if (v14 && ![v14 count])
             {
@@ -697,7 +698,7 @@ void __74__AVCaptureProprietaryDefaultsSingleton_imageForKey_fillWidth_fillHeigh
   v3 = [MEMORY[0x1E695DFF8] URLByResolvingBookmarkData:v2 options:256 relativeToURL:0 bookmarkDataIsStale:0 error:&v21];
   if (v21)
   {
-    __74__AVCaptureProprietaryDefaultsSingleton_imageForKey_fillWidth_fillHeight___block_invoke_cold_1();
+    __74__AVCaptureProprietaryDefaultsSingleton_imageForKey_fillWidth_fillHeight___block_invoke_cold_1(v3);
     return;
   }
 
@@ -739,7 +740,7 @@ void __74__AVCaptureProprietaryDefaultsSingleton_imageForKey_fillWidth_fillHeigh
     v13 = [v5 imageByApplyingTransform:&v19];
     if (!v13)
     {
-      __74__AVCaptureProprietaryDefaultsSingleton_imageForKey_fillWidth_fillHeight___block_invoke_cold_2();
+      __74__AVCaptureProprietaryDefaultsSingleton_imageForKey_fillWidth_fillHeight___block_invoke_cold_2(&v20);
       return;
     }
 
@@ -836,7 +837,7 @@ void __74__AVCaptureProprietaryDefaultsSingleton_imageForKey_fillWidth_fillHeigh
   return v9;
 }
 
-uint64_t __84__AVCaptureProprietaryDefaultsSingleton_retryPriorFailedKeyObservationRegistrations__block_invoke(uint64_t a1)
+void *__84__AVCaptureProprietaryDefaultsSingleton_retryPriorFailedKeyObservationRegistrations__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 64) count];
   if (result)
@@ -903,7 +904,7 @@ LABEL_4:
 
           v13 = *(*(&v18 + 1) + 8 * v12);
           [*(*(a1 + 32) + 64) removeObject:v13];
-          v14 = [*(*(a1 + 32) + 56) objectForKeyedSubscript:v13];
+          v14 = objc_msgSend_objectForKeyedSubscript_(*(*(a1 + 32) + 56));
           if (v14)
           {
             v15 = v14;
@@ -933,7 +934,7 @@ LABEL_4:
             }
           }
 
-          ++v12;
+          v12 = v12 + 1;
         }
 
         while (v10 != v12);
@@ -1080,7 +1081,7 @@ void __152__AVCaptureProprietaryDefaultsSingleton_updateCameraHistory_withCamera
         {
           if (*(*(*(a1 + 56) + 8) + 40))
           {
-            *(*(*(a1 + 64) + 8) + 40) = [*(*(a1 + 32) + 56) objectForKeyedSubscript:*(a1 + 40)];
+            *(*(*(a1 + 64) + 8) + 40) = objc_msgSend_objectForKeyedSubscript_(*(*(a1 + 32) + 56));
             v12 = *(*(*(a1 + 64) + 8) + 40);
             if (v12)
             {
@@ -1100,47 +1101,47 @@ void __152__AVCaptureProprietaryDefaultsSingleton_updateCameraHistory_withCamera
 
 - (void)updateCameraOverrideHistory:(id)history withCameraInfo:(id)info setOverride:(BOOL)override
 {
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3052000000;
-  v24 = __Block_byref_object_copy__6;
-  v25 = __Block_byref_object_dispose__6;
-  v26 = 0;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3052000000;
-  v18 = __Block_byref_object_copy__6;
-  v19 = __Block_byref_object_dispose__6;
-  v20 = 0;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __96__AVCaptureProprietaryDefaultsSingleton_updateCameraOverrideHistory_withCameraInfo_setOverride___block_invoke;
-  v13[3] = &unk_1E786FEB8;
-  v13[4] = self;
-  v13[5] = history;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3052000000;
+  v22 = __Block_byref_object_copy__6;
+  v23 = __Block_byref_object_dispose__6;
+  v24 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3052000000;
+  v16 = __Block_byref_object_copy__6;
+  v17 = __Block_byref_object_dispose__6;
+  v18 = 0;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __96__AVCaptureProprietaryDefaultsSingleton_updateCameraOverrideHistory_withCameraInfo_setOverride___block_invoke;
+  v11[3] = &unk_1E786FEB8;
+  v11[4] = self;
+  v11[5] = history;
   overrideCopy = override;
-  v13[6] = info;
-  v13[7] = &v15;
-  v13[8] = &v21;
-  [(AVCaptureProprietaryDefaultsSingleton *)self _runBlockOnProprietaryDefaultsSourceQueueSync:v13];
-  v7 = v22[5];
+  v11[6] = info;
+  v11[7] = &v13;
+  v11[8] = &v19;
+  [(AVCaptureProprietaryDefaultsSingleton *)self _runBlockOnProprietaryDefaultsSourceQueueSync:v11];
+  v7 = v20[5];
   if (v7)
   {
     if (dword_1ED8069E0)
     {
-      v12 = 0;
+      v10 = 0;
       type = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
-      v7 = v22[5];
+      v7 = v20[5];
     }
 
-    [(AVCaptureProprietaryDefaultsSingleton *)self _handleDefaultChangedNotificationForKey:history newValue:v16[5] handlersForKeyObservers:v7 callHandlersAsync:0, v9, v10];
+    [(AVCaptureProprietaryDefaultsSingleton *)self _handleDefaultChangedNotificationForKey:history newValue:v14[5] handlersForKeyObservers:v7 callHandlersAsync:0];
   }
 
-  _Block_object_dispose(&v15, 8);
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v19, 8);
 }
 
 void __96__AVCaptureProprietaryDefaultsSingleton_updateCameraOverrideHistory_withCameraInfo_setOverride___block_invoke(uint64_t a1)
@@ -1148,7 +1149,7 @@ void __96__AVCaptureProprietaryDefaultsSingleton_updateCameraOverrideHistory_wit
   v1 = *(*(a1 + 32) + 40);
   if (v1)
   {
-    v26[0] = 0;
+    v25[0] = 0;
     v3 = getpid();
     v4 = *(a1 + 40);
     v5 = *(a1 + 48);
@@ -1159,49 +1160,48 @@ void __96__AVCaptureProprietaryDefaultsSingleton_updateCameraOverrideHistory_wit
     {
       if (*(v8 + 64))
       {
-        if (!(*(v8 + 72))(v1, v3, v4, v5, v6, v26, v7 + 40) && v26[0] != 0)
+        if (!(*(v8 + 72))(v1, v3, v4, v5, v6, v25, v7 + 40) && v25[0] != 0)
         {
           if (dword_1ED8069E0)
           {
-            v28 = 0;
-            v27 = OS_LOG_TYPE_DEFAULT;
+            v27 = 0;
+            v26 = OS_LOG_TYPE_DEFAULT;
             os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-            v11 = v28;
-            if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v27))
+            v11 = v27;
+            v12 = v26;
+            if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v26))
             {
-              v12 = v11;
+              v13 = v11;
             }
 
             else
             {
-              v12 = v11 & 0xFFFFFFFE;
+              v13 = v11 & 0xFFFFFFFE;
             }
 
-            if (v12)
+            if (v13)
             {
-              v13 = *(a1 + 40);
-              v14 = *(*(*(a1 + 56) + 8) + 40);
-              v18 = 136315907;
-              v19 = "[AVCaptureProprietaryDefaultsSingleton updateCameraOverrideHistory:withCameraInfo:setOverride:]_block_invoke";
-              v20 = 2112;
-              v21 = v13;
-              v22 = 1024;
-              v23 = 84;
-              v24 = 2113;
-              v25 = v14;
-              LODWORD(v17) = 38;
-              v16 = &v18;
-              _os_log_send_and_compose_impl();
+              v14 = *(a1 + 40);
+              v15 = *(*(*(a1 + 56) + 8) + 40);
+              v17 = 136315907;
+              v18 = "[AVCaptureProprietaryDefaultsSingleton updateCameraOverrideHistory:withCameraInfo:setOverride:]_block_invoke";
+              v19 = 2112;
+              v20 = v14;
+              v21 = 1024;
+              v22 = 84;
+              v23 = 2113;
+              v24 = v15;
+              _os_log_send_and_compose_impl(v13, 0, v25, 128, &dword_1A917C000, os_log_and_send_and_compose_flags_and_os_log_type, v12, "<<<< AVCaptureProprietaryDefaults >>>> %s: updating history %@, overrideChanged changed %c, new camera override history %{private}@", &v17, 38);
             }
 
             fig_log_call_emit_and_clean_up_after_send_and_compose();
           }
 
-          *(*(*(a1 + 64) + 8) + 40) = [*(*(a1 + 32) + 56) objectForKeyedSubscript:{*(a1 + 40), v16, v17}];
-          v15 = *(*(*(a1 + 64) + 8) + 40);
-          if (v15)
+          *(*(*(a1 + 64) + 8) + 40) = objc_msgSend_objectForKeyedSubscript_(*(*(a1 + 32) + 56));
+          v16 = *(*(*(a1 + 64) + 8) + 40);
+          if (v16)
           {
-            if (![v15 count])
+            if (![v16 count])
             {
               [*(a1 + 32) unobserveChangesForKey:*(a1 + 40)];
 
@@ -1223,7 +1223,7 @@ void __96__AVCaptureProprietaryDefaultsSingleton_updateCameraOverrideHistory_wit
 
 - (void)_updateProprietaryDefaultsSource:(BOOL)source
 {
-  if (AVCaptureIsRunningInMediaserverd())
+  if (AVCaptureIsRunningInMediaserverd(self, a2))
   {
     v4 = FigCaptureSourceCopySources();
   }
@@ -1237,87 +1237,87 @@ void __96__AVCaptureProprietaryDefaultsSingleton_updateCameraOverrideHistory_wit
   firstObject = [v4 firstObject];
   if (!firstObject)
   {
-    v12 = 0;
-    v11 = 0;
+    v10 = 0;
+    v9 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
   [v5 count];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __74__AVCaptureProprietaryDefaultsSingleton__updateProprietaryDefaultsSource___block_invoke;
-  v10[3] = &unk_1E786ECD0;
-  v10[4] = self;
-  v10[5] = firstObject;
-  [(AVCaptureProprietaryDefaultsSingleton *)self _runBlockOnProprietaryDefaultsSourceQueueSync:v10];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __74__AVCaptureProprietaryDefaultsSingleton__updateProprietaryDefaultsSource___block_invoke;
+  v8[3] = &unk_1E786ECD0;
+  v8[4] = self;
+  v8[5] = firstObject;
+  [(AVCaptureProprietaryDefaultsSingleton *)self _runBlockOnProprietaryDefaultsSourceQueueSync:v8];
   if (v5)
   {
     CFRelease(v5);
   }
 }
 
-void *__74__AVCaptureProprietaryDefaultsSingleton__updateProprietaryDefaultsSource___block_invoke(void *result)
+void *__74__AVCaptureProprietaryDefaultsSingleton__updateProprietaryDefaultsSource___block_invoke(void *result, uint64_t a2)
 {
-  v1 = *(result[4] + 40);
-  if (result[5] != v1)
+  v2 = *(result[4] + 40);
+  if (result[5] != v2)
   {
-    v2 = result;
-    if (v1)
+    v3 = result;
+    if (v2)
     {
       [objc_msgSend(MEMORY[0x1E6987F48] notificationDispatcherForCMNotificationCenter:{CMNotificationCenterGetDefaultLocalCenter()), "removeListenerWithWeakReference:callback:name:object:", *(result[4] + 48), avpds_proprietaryDefaultsSourceNotificationHandler, 0, *(result[4] + 40)}];
-      v3 = *(v2[4] + 40);
-      if (v3)
+      v4 = *(v3[4] + 40);
+      if (v4)
       {
-        CFRelease(v3);
-        *(v2[4] + 40) = 0;
+        CFRelease(v4);
+        *(v3[4] + 40) = 0;
       }
     }
 
-    result = v2[5];
+    result = v3[5];
     if (result)
     {
-      *(v2[4] + 40) = CFRetain(result);
-      [objc_msgSend(MEMORY[0x1E6987F48] notificationDispatcherForCMNotificationCenter:{CMNotificationCenterGetDefaultLocalCenter()), "addListenerWithWeakReference:callback:name:object:flags:", *(v2[4] + 48), avpds_proprietaryDefaultsSourceNotificationHandler, 0, *(v2[4] + 40), 0}];
-      v15 = 0u;
+      *(v3[4] + 40) = CFRetain(result);
+      [objc_msgSend(MEMORY[0x1E6987F48] notificationDispatcherForCMNotificationCenter:{CMNotificationCenterGetDefaultLocalCenter()), "addListenerWithWeakReference:callback:name:object:flags:", *(v3[4] + 48), avpds_proprietaryDefaultsSourceNotificationHandler, 0, *(v3[4] + 40), 0}];
       v16 = 0u;
-      v13 = 0u;
+      v17 = 0u;
       v14 = 0u;
-      v4 = [*(v2[4] + 56) allKeys];
-      result = [v4 countByEnumeratingWithState:&v13 objects:v12 count:16];
+      v15 = 0u;
+      v5 = [*(v3[4] + 56) allKeys];
+      result = [v5 countByEnumeratingWithState:&v14 objects:v13 count:16];
       if (result)
       {
-        v5 = result;
-        v6 = *v14;
+        v6 = result;
+        v7 = *v15;
         do
         {
-          v7 = 0;
+          v8 = 0;
           do
           {
-            if (*v14 != v6)
+            if (*v15 != v7)
             {
-              objc_enumerationMutation(v4);
+              objc_enumerationMutation(v5);
             }
 
-            v8 = *(*(&v13 + 1) + 8 * v7);
-            v9 = *(v2[4] + 40);
-            v10 = *(CMBaseObjectGetVTable() + 16);
-            if (*v10 >= 2uLL)
+            v9 = *(*(&v14 + 1) + 8 * v8);
+            v10 = *(v3[4] + 40);
+            v11 = *(CMBaseObjectGetVTable() + 16);
+            if (*v11 >= 2uLL)
             {
-              v11 = v10[6];
-              if (v11)
+              v12 = v11[6];
+              if (v12)
               {
-                v11(v9, v8);
+                v12(v10, v9);
               }
             }
 
-            v7 = (v7 + 1);
+            v8 = (v8 + 1);
           }
 
-          while (v5 != v7);
-          result = [v4 countByEnumeratingWithState:&v13 objects:v12 count:16];
-          v5 = result;
+          while (v6 != v8);
+          result = [v5 countByEnumeratingWithState:&v14 objects:v13 count:16];
+          v6 = result;
         }
 
         while (result);
@@ -1332,8 +1332,8 @@ void *__74__AVCaptureProprietaryDefaultsSingleton__updateProprietaryDefaultsSour
 {
   if ([notification isEqualToString:*MEMORY[0x1E6990528]])
   {
-    v6 = [payload objectForKeyedSubscript:*MEMORY[0x1E6990868]];
-    v7 = [payload objectForKeyedSubscript:*MEMORY[0x1E6990870]];
+    v6 = objc_msgSend_objectForKeyedSubscript_(payload);
+    v7 = objc_msgSend_objectForKeyedSubscript_(payload);
     if (v6)
     {
       v8 = v7 == 0;
@@ -1346,7 +1346,7 @@ void *__74__AVCaptureProprietaryDefaultsSingleton__updateProprietaryDefaultsSour
 
     if (v8)
     {
-      [AVCaptureProprietaryDefaultsSingleton _handleNotification:payload:];
+      [AVCaptureProprietaryDefaultsSingleton _handleNotification:v7 payload:?];
     }
 
     else
@@ -1441,13 +1441,13 @@ void *__74__AVCaptureProprietaryDefaultsSingleton__updateProprietaryDefaultsSour
   objc_autoreleasePoolPop(context);
 }
 
-void __132__AVCaptureProprietaryDefaultsSingleton__handleDefaultChangedNotificationForKey_newValue_handlersForKeyObservers_callHandlersAsync___block_invoke(uint64_t a1)
+void __132__AVCaptureProprietaryDefaultsSingleton__handleDefaultChangedNotificationForKey_newValue_handlersForKeyObservers_callHandlersAsync___block_invoke(uint64_t a1, const char *a2)
 {
-  *(*(*(a1 + 48) + 8) + 40) = [*(*(a1 + 32) + 56) objectForKeyedSubscript:*(a1 + 40)];
-  v2 = *(*(*(a1 + 48) + 8) + 40);
-  if (v2)
+  *(*(*(a1 + 48) + 8) + 40) = objc_msgSend_objectForKeyedSubscript_(*(*(a1 + 32) + 56), a2, *(a1 + 40));
+  v3 = *(*(*(a1 + 48) + 8) + 40);
+  if (v3)
   {
-    if (![v2 count])
+    if (![v3 count])
     {
       [*(a1 + 32) unobserveChangesForKey:*(a1 + 40)];
 

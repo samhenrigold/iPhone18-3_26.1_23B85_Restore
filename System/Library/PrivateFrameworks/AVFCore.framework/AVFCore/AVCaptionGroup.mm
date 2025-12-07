@@ -57,7 +57,7 @@ LABEL_30:
       memset(&v45, 0, sizeof(v45));
       if (v12)
       {
-        [v12 timeRange];
+        objc_msgSend_timeRange(v12);
       }
 
       else
@@ -206,7 +206,7 @@ LABEL_17:
 {
   v4 = [(NSArray *)[(AVCaptionGroup *)self captions] count];
   v30 = 0;
-  v31 = 0;
+  v31[0] = 0;
   v29 = 0;
   Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], v4, MEMORY[0x1E695E9C0]);
   v6 = 0;
@@ -226,7 +226,7 @@ LABEL_17:
 
       if (self)
       {
-        [(AVCaptionGroup *)self timeRange];
+        objc_msgSend_timeRange(self);
       }
 
       else
@@ -240,7 +240,7 @@ LABEL_17:
       lhs.epoch = v26;
       if (v10)
       {
-        [v10 timeRange];
+        objc_msgSend_timeRange(v10);
       }
 
       else
@@ -259,7 +259,7 @@ LABEL_17:
       *v11 = v12;
       if (v10)
       {
-        [v10 timeRange];
+        objc_msgSend_timeRange(v10);
       }
 
       else
@@ -270,7 +270,7 @@ LABEL_17:
       CMTimeRangeGetEnd(&lhs, &v20);
       if (self)
       {
-        [(AVCaptionGroup *)self timeRange];
+        objc_msgSend_timeRange(self);
       }
 
       else
@@ -307,10 +307,10 @@ LABEL_20:
     {
       if (self)
       {
-        [(AVCaptionGroup *)self timeRange];
+        objc_msgSend_timeRange(self);
         *&v20.start.value = v18;
         v20.start.epoch = v19;
-        [(AVCaptionGroup *)self timeRange];
+        objc_msgSend_timeRange(self);
       }
 
       else
@@ -343,9 +343,9 @@ LABEL_26:
     CFRelease(v29);
   }
 
-  if (v31)
+  if (v31[0])
   {
-    CFRelease(v31);
+    CFRelease(v31[0]);
   }
 
   if (v30)

@@ -135,7 +135,6 @@ uint64_t __112__HKUserDomainConceptProperty_mergeListsOfPropertiesWithType_intoL
   v3 = a2;
   if ([v3 type] == *(a1 + 32))
   {
-    v4 = *(a1 + 40);
     isKindOfClass = objc_opt_isKindOfClass();
   }
 
@@ -152,7 +151,6 @@ uint64_t __112__HKUserDomainConceptProperty_mergeListsOfPropertiesWithType_intoL
   v3 = a2;
   if ([v3 type] == *(a1 + 32))
   {
-    v4 = *(a1 + 40);
     isKindOfClass = objc_opt_isKindOfClass();
   }
 

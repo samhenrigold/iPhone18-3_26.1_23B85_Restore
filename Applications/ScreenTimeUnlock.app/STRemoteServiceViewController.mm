@@ -5,6 +5,7 @@
 - (void)_dismissPINControllerWithCompletionHandler:(id)handler;
 - (void)_provideAuthenticationResultToClient:(id)client;
 - (void)_providePINToClient:(id)client;
+- (void)_restrictionsPINControllerDidDismiss:(BOOL)dismiss;
 - (void)_willAppearInRemoteViewController;
 - (void)configureWithContext:(id)context completion:(id)completion;
 - (void)devicePINControllerDidDismissPINPane:(id)pane;
@@ -12,10 +13,57 @@
 - (void)didCancelEnteringPIN;
 - (void)setPIN:(id)n forPINController:(id)controller;
 - (void)showRestrictionsPINControllerWithMode:(int64_t)mode;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation STRemoteServiceViewController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = STRemoteServiceViewController;
+  [(STRemoteServiceViewController *)&v5 viewWillAppear:appear];
+  [(STRemoteServiceViewController *)self showRestrictionsPINControllerWithMode:[(STRemoteServiceViewController *)self passcodeMode]];
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "STUI:: STRemoteServiceViewController.viewWillAppear", v4, 2u);
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = STRemoteServiceViewController;
+  [(STRemoteServiceViewController *)&v8 viewDidAppear:appear];
+  view = [(STRemoteServiceViewController *)self view];
+  window = [view window];
+  _rootSheetPresentationController = [window _rootSheetPresentationController];
+  [_rootSheetPresentationController _setShouldScaleDownBehindDescendantSheets:0];
+
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *v7 = 0;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "STUI:: STRemoteServiceViewController.viewDidAppear", v7, 2u);
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = STRemoteServiceViewController;
+  [(STRemoteServiceViewController *)&v5 viewDidDisappear:disappear];
+  [(STRemoteServiceViewController *)self _providePINToClient:0];
+  [(STRemoteServiceViewController *)self _provideAuthenticationResultToClient:0];
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "STUI:: STRemoteServiceViewController.viewDidDisappear", v4, 2u);
+  }
+}
 
 - (void)viewDidLoad
 {
@@ -235,6 +283,21 @@ LABEL_11:
   [(STRemoteServiceViewController *)self _providePINToClient:0];
 
   [(STRemoteServiceViewController *)self _provideAuthenticationResultToClient:0];
+}
+
+- (void)_restrictionsPINControllerDidDismiss:(BOOL)dismiss
+{
+  dismissCopy = dismiss;
+  v5 = +[NSDistributedNotificationCenter defaultCenter];
+  v6 = STRestrictionsPINControllerDidFinishNotification;
+  v10 = STNotificationKeyPINSuccess;
+  v7 = [NSNumber numberWithBool:dismissCopy];
+  v11 = v7;
+  v8 = [NSDictionary dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  [v5 postNotificationName:v6 object:0 userInfo:v8 deliverImmediately:1];
+
+  _remoteViewControllerProxy = [(STRemoteServiceViewController *)self _remoteViewControllerProxy];
+  [_remoteViewControllerProxy dismiss];
 }
 
 - (void)_providePINToClient:(id)client

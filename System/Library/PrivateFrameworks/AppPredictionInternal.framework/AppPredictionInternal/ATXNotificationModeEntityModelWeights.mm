@@ -38,9 +38,9 @@
 
 - (ATXNotificationModeEntityModelWeights)init
 {
-  v13.receiver = self;
-  v13.super_class = ATXNotificationModeEntityModelWeights;
-  v2 = [(ATXNotificationModeEntityModelWeights *)&v13 init];
+  v15.receiver = self;
+  v15.super_class = ATXNotificationModeEntityModelWeights;
+  v2 = [(ATXNotificationModeEntityModelWeights *)&v15 init];
   if (v2)
   {
     mEMORY[0x277CEB6A8] = [MEMORY[0x277CEB6A8] sharedInstance];
@@ -52,18 +52,18 @@
 
     if (v6)
     {
-      v7 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v8 = __atxlog_handle_modes(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        [(ATXNotificationModeEntityModelWeights *)v7 init];
+        [(ATXNotificationModeEntityModelWeights *)v8 init];
       }
 
       notificationModeEntityModelWeights2 = [*(v2 + 2) notificationModeEntityModelWeights];
-      v9 = *(v2 + 1);
+      v10 = *(v2 + 1);
       *(v2 + 1) = notificationModeEntityModelWeights2;
 
-      v10 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v12 = __atxlog_handle_modes(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         [(ATXNotificationModeEntityModelWeights *)v2 + 1 init];
       }
@@ -71,9 +71,9 @@
 
     else
     {
-      v11 = [MEMORY[0x277CEB3C0] dictionaryForResource:@"ATXNotificationModeEntityModelWeights" ofType:@"plist" specifiedABGroup:0];
-      v10 = *(v2 + 1);
-      *(v2 + 1) = v11;
+      v13 = [MEMORY[0x277CEB3C0] dictionaryForResource:@"ATXNotificationModeEntityModelWeights" ofType:@"plist" specifiedABGroup:0];
+      v12 = *(v2 + 1);
+      *(v2 + 1) = v13;
     }
   }
 
@@ -641,12 +641,11 @@
 
 - (void)init
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *self;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "ATXNotificationModeEntityModelWeights: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "ATXNotificationModeEntityModelWeights: %@", &v3, 0xCu);
 }
 
 @end

@@ -23,16 +23,16 @@ uint64_t _CSGetStringForCharacters(uint64_t a1, CSStore2::_StringFunctions *a2, 
 
 void CSStore2::String::Find(CSStore2::String *this, CSStore2::Store *a2, CSStore2::_StringFunctions *a3, const char *a4)
 {
-  v51 = *MEMORY[0x1E69E9840];
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x5812000000;
-  v43 = __Block_byref_object_copy__369;
-  v44 = __Block_byref_object_dispose__370;
+  v50 = *MEMORY[0x1E69E9840];
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x5812000000;
+  v42 = __Block_byref_object_copy__369;
+  v43 = __Block_byref_object_dispose__370;
+  v44 = 0;
   v45 = 0;
   v46 = 0;
-  v47 = 0;
-  v50 = 0;
+  v49 = 0;
   if (a4 > 5)
   {
 LABEL_15:
@@ -40,16 +40,16 @@ LABEL_15:
     if (StringCache)
     {
       HashCode = CSStore2::_StringFunctions::getHashCode(a3, a4);
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3221225472;
-      v34 = ___ZN8CSStore26String4FindERNS_5StoreEPKcj_block_invoke;
-      v35 = &unk_1E7ED3818;
-      v37 = a2;
-      v38 = a3;
-      v39 = a4;
-      v36 = &v40;
-      v17 = v33;
-      v48 = 0;
+      v32[0] = MEMORY[0x1E69E9820];
+      v32[1] = 3221225472;
+      v33 = ___ZN8CSStore26String4FindERNS_5StoreEPKcj_block_invoke;
+      v34 = &unk_1E7ED3818;
+      v36 = a2;
+      v37 = a3;
+      v38 = a4;
+      v35 = &v39;
+      v17 = v32;
+      v47 = 0;
       if (*StringCache)
       {
         v18 = &StringCache[2 * (HashCode % *StringCache)];
@@ -70,7 +70,7 @@ LABEL_15:
               v28 = 1;
               do
               {
-                v34(v17, v27, (v27 + 1), &v48);
+                v33(v17, v27, (v27 + 1), &v47);
                 if (v28 >= *v20)
                 {
                   break;
@@ -80,7 +80,7 @@ LABEL_15:
                 v27 += 2;
               }
 
-              while ((v48 & 1) == 0);
+              while ((v47 & 1) == 0);
             }
           }
         }
@@ -114,10 +114,10 @@ LABEL_15:
         if (v13)
         {
           *&__dst = 0;
-          v50 = 1;
+          v49 = 1;
           memcpy(&__dst, a3, a4);
           DWORD2(__dst) = a4;
-          if (v50)
+          if (v49)
           {
             v14 = (4 * v9) | 1;
             goto LABEL_29;
@@ -131,28 +131,27 @@ LABEL_15:
 
   *&__dst = 0;
   v14 = 1;
-  v50 = 1;
+  v49 = 1;
   DWORD2(__dst) = 0;
 LABEL_29:
-  v29 = v41;
-  v41[6] = 0;
+  v29 = v40;
+  v40[6] = 0;
   *(v29 + 14) = v14;
   *(v29 + 60) = 1;
   *(v29 + 4) = __dst;
-  *(v29 + 80) = v50;
+  *(v29 + 80) = v49;
 LABEL_30:
-  v30 = v41;
-  v31 = *(v41 + 4);
-  *this = *(v41 + 3);
+  v30 = v40;
+  v31 = *(v40 + 4);
+  *this = *(v40 + 3);
   *(this + 1) = v31;
   *(this + 4) = v30[10];
-  _Block_object_dispose(&v40, 8);
-  v32 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v39, 8);
 }
 
-void sub_1B9D5C3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1B9D5C3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -339,47 +338,45 @@ _DWORD *CSStore2::String::Get(_DWORD *this, CSStore2::Store *a2, unsigned int a3
 
 char *CSStore2::Store::getUnit(CSStore2 **this, const CSStore2::Table *a2, unsigned int a3)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   if (!a3)
   {
-    goto LABEL_40;
+    return 0;
   }
 
   v4 = *(a2 + 19);
   if (v4 == -1)
   {
-    goto LABEL_40;
+    return 0;
   }
 
   v6 = *this;
   v7 = *(v6 + 1);
   if (!v7 || *(v7 + 12) <= v4)
   {
-    goto LABEL_40;
+    return 0;
   }
 
   v10 = CSStore2::HashMap<unsigned int,unsigned int,CSStore2::_IdentifierFunctions,1ull>::Find(v6, (v7 + v4), a3);
   if (!v10)
   {
-    goto LABEL_40;
+    return 0;
   }
 
   v11 = *v10;
   if (v11 == -1)
   {
-    goto LABEL_40;
+    return 0;
   }
 
   v12 = *(*this + 1);
   v13 = *(v12 + 12);
   if (!v12 || v13 <= v11)
   {
-    goto LABEL_40;
+    return 0;
   }
 
   v15 = (v12 + v11);
-  *v10;
-  *v10;
   v16 = v11 + 1 > v13 || v11 == -1;
   if (v12 + v11 < v12 || v16)
   {
@@ -398,12 +395,12 @@ char *CSStore2::Store::getUnit(CSStore2 **this, const CSStore2::Table *a2, unsig
         v28 = *(v28 + 1);
       }
 
-      v35 = 134218496;
-      v36 = v27;
-      v37 = 2048;
-      v38 = a3;
-      v39 = 2048;
-      v40 = v15 - v28;
+      v34 = 134218496;
+      v35 = v27;
+      v36 = 2048;
+      v37 = a3;
+      v38 = 2048;
+      v39 = v15 - v28;
       v26 = "*** CSStore corruption detected (1). %llx %llx %llx";
       v29 = v23;
       v30 = 32;
@@ -421,25 +418,23 @@ char *CSStore2::Store::getUnit(CSStore2 **this, const CSStore2::Table *a2, unsig
     v23 = CSStore2::GetLog(v10);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
-      v33 = (4 * *a2);
-      v34 = *v15;
-      v35 = 134218752;
-      v36 = v33;
-      v37 = 2048;
-      v38 = a3;
-      v39 = 2048;
-      v40 = (4 * v34);
-      v41 = 2048;
-      v42 = v34 >> 30;
+      v32 = (4 * *a2);
+      v33 = *v15;
+      v34 = 134218752;
+      v35 = v32;
+      v36 = 2048;
+      v37 = a3;
+      v38 = 2048;
+      v39 = (4 * v33);
+      v40 = 2048;
+      v41 = v33 >> 30;
       v26 = "*** CSStore corruption detected (2). %llx %llx %llx %llx";
       goto LABEL_43;
     }
 
 LABEL_39:
 
-LABEL_40:
-    v15 = 0;
-    goto LABEL_41;
+    return 0;
   }
 
   v20 = (*v15 & 0xC0000000) != 0x40000000;
@@ -462,34 +457,32 @@ LABEL_40:
     {
       v24 = (4 * *a2);
       v25 = *v15;
-      v35 = 134218752;
-      v36 = v24;
-      v37 = 2048;
-      v38 = a3;
-      v39 = 2048;
-      v40 = (4 * v25);
-      v41 = 2048;
-      v42 = v25 >> 30;
+      v34 = 134218752;
+      v35 = v24;
+      v36 = 2048;
+      v37 = a3;
+      v38 = 2048;
+      v39 = (4 * v25);
+      v40 = 2048;
+      v41 = v25 >> 30;
       v26 = "*** CSStore corruption detected (3). %llx %llx %llx %llx";
 LABEL_43:
       v29 = v23;
       v30 = 42;
 LABEL_44:
-      _os_log_fault_impl(&dword_1B9D5B000, v29, OS_LOG_TYPE_FAULT, v26, &v35, v30);
+      _os_log_fault_impl(&dword_1B9D5B000, v29, OS_LOG_TYPE_FAULT, v26, &v34, v30);
       goto LABEL_39;
     }
 
     goto LABEL_39;
   }
 
-LABEL_41:
-  v31 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
-uint64_t CSStore2::HashMap<unsigned int,unsigned int,CSStore2::_IdentifierFunctions,1ull>::Find(CSStore2 *a1, int *a2, unsigned int a3)
+_DWORD *CSStore2::HashMap<unsigned int,unsigned int,CSStore2::_IdentifierFunctions,1ull>::Find(CSStore2 *a1, unsigned int *a2, unsigned int a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (*a2)
   {
     v3 = a3 == 0;
@@ -502,7 +495,7 @@ uint64_t CSStore2::HashMap<unsigned int,unsigned int,CSStore2::_IdentifierFuncti
 
   if (v3)
   {
-    goto LABEL_17;
+    return 0;
   }
 
   if (*a2 > 0x2000)
@@ -510,15 +503,15 @@ uint64_t CSStore2::HashMap<unsigned int,unsigned int,CSStore2::_IdentifierFuncti
     v12 = CSStore2::GetLog(a1);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v21 = *a2;
-      v22[0] = 67109376;
-      v22[1] = v21;
-      v23 = 1024;
-      v24 = 0x2000;
-      _os_log_error_impl(&dword_1B9D5B000, v12, OS_LOG_TYPE_ERROR, "Impossible bucket count %u when %u is the maximum.", v22, 0xEu);
+      v20 = *a2;
+      v21[0] = 67109376;
+      v21[1] = v20;
+      v22 = 1024;
+      v23 = 0x2000;
+      _os_log_error_impl(&dword_1B9D5B000, v12, OS_LOG_TYPE_ERROR, "Impossible bucket count %u when %u is the maximum.", v21, 0xEu);
     }
 
-    goto LABEL_17;
+    return 0;
   }
 
   v5 = &a2[2 * ((a3 >> 2) % *a2)];
@@ -527,9 +520,7 @@ uint64_t CSStore2::HashMap<unsigned int,unsigned int,CSStore2::_IdentifierFuncti
   v7 = v8;
   if (!v8)
   {
-LABEL_17:
-    v10 = 0;
-    goto LABEL_18;
+    return 0;
   }
 
   if (v7 == 1)
@@ -546,61 +537,57 @@ LABEL_17:
           v10 = v11 + v9 + 4;
           if (*(v11 + v9) != a3)
           {
-            v10 = 0;
+            return 0;
           }
         }
       }
 
-      goto LABEL_18;
+      return v10;
     }
 
-    goto LABEL_17;
+    return 0;
   }
 
-  v15 = v6[1];
-  if (v15 == -1)
+  v14 = v6[1];
+  if (v14 == -1)
   {
-    v18 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v16 = *(a1 + 1);
-    v17 = *(v16 + 12) > v15;
-    v18 = (v16 + v15);
-    if (!v17)
+    v15 = *(a1 + 1);
+    v16 = *(v15 + 12) > v14;
+    v17 = (v15 + v14);
+    if (!v16)
     {
-      v18 = 0;
+      v17 = 0;
     }
   }
 
-  v19 = 8 * v7;
-  v20 = &v18[2 * v7];
+  v18 = 8 * v7;
+  v19 = &v17[2 * v7];
   do
   {
-    if (*v18 == a3)
+    if (*v17 == a3)
     {
       break;
     }
 
-    v18 += 2;
-    v19 -= 8;
+    v17 += 2;
+    v18 -= 8;
   }
 
-  while (v19);
-  if (v18 == v20)
+  while (v18);
+  if (v17 == v19)
   {
-    v10 = 0;
+    return 0;
   }
 
   else
   {
-    v10 = (v18 + 1);
+    return v17 + 1;
   }
-
-LABEL_18:
-  v13 = *MEMORY[0x1E69E9840];
-  return v10;
 }
 
 uint64_t _CSStringCopyCFString(uint64_t a1, unsigned int a2)
@@ -763,7 +750,7 @@ char *CSStoreGetHeader(uint64_t a1, unsigned int a2, _DWORD *a3)
 
 char *CSStore2::Store::getTable(CSStore2::Store *this, unsigned int a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (a2 != -37516)
   {
     if (a2 > 0xFF)
@@ -771,11 +758,11 @@ char *CSStore2::Store::getTable(CSStore2::Store *this, unsigned int a2)
       v8 = CSStore2::GetLog(this);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        v12 = 134218240;
-        v13 = a2;
-        v14 = 2048;
-        v15 = a2 >> 2;
-        _os_log_debug_impl(&dword_1B9D5B000, v8, OS_LOG_TYPE_DEBUG, "Table %llu (shifted %llu) cannot fit in the in-memory table offset list. Consider lengthening the tableOffsets field.", &v12, 0x16u);
+        v11 = 134218240;
+        v12 = a2;
+        v13 = 2048;
+        v14 = a2 >> 2;
+        _os_log_debug_impl(&dword_1B9D5B000, v8, OS_LOG_TYPE_DEBUG, "Table %llu (shifted %llu) cannot fit in the in-memory table offset list. Consider lengthening the tableOffsets field.", &v11, 0x16u);
       }
     }
 
@@ -787,8 +774,7 @@ char *CSStore2::Store::getTable(CSStore2::Store *this, unsigned int a2)
         v5 = *(*this + 8);
         if (v5 && *(v5 + 12) > v4)
         {
-          Unit = (v5 + v4);
-          goto LABEL_17;
+          return (v5 + v4);
         }
       }
     }
@@ -800,15 +786,13 @@ char *CSStore2::Store::getTable(CSStore2::Store *this, unsigned int a2)
     v9 = *(v9 + 8);
   }
 
-  Unit = (v9 + 20);
+  v7 = (v9 + 20);
   if (a2 != -37516)
   {
-    Unit = CSStore2::Store::getUnit(this, Unit, a2);
+    return CSStore2::Store::getUnit(this, v7, a2);
   }
 
-LABEL_17:
-  v10 = *MEMORY[0x1E69E9840];
-  return Unit;
+  return v7;
 }
 
 uint64_t CSMapSync(uint64_t a1, uint64_t a2)
@@ -1108,7 +1092,7 @@ void _CSArrayEnumerateAllValues(uint64_t a1, unsigned int a2, void *a3)
 
 void CSStore2::Array::Get(CSStore2::Array *this, CSStore2::Store *a2, unsigned int a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   *this = 0;
   *(this + 24) = 0;
   Table = *(a2 + 33);
@@ -1128,16 +1112,16 @@ void CSStore2::Array::Get(CSStore2::Array *this, CSStore2::Store *a2, unsigned i
         v10 = CSStore2::GetLog(Unit);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          v14 = 134217984;
-          v15 = v8;
-          _os_log_error_impl(&dword_1B9D5B000, v10, OS_LOG_TYPE_ERROR, "Underflow getting array capacity (%llu)", &v14, 0xCu);
+          v13 = 134217984;
+          v14 = v8;
+          _os_log_error_impl(&dword_1B9D5B000, v10, OS_LOG_TYPE_ERROR, "Underflow getting array capacity (%llu)", &v13, 0xCu);
         }
 
         v12 = CSStore2::GetLog(v11);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          LOWORD(v14) = 0;
-          _os_log_error_impl(&dword_1B9D5B000, v12, OS_LOG_TYPE_ERROR, "Size of array unit was invalid for a CSArray; discarding", &v14, 2u);
+          LOWORD(v13) = 0;
+          _os_log_error_impl(&dword_1B9D5B000, v12, OS_LOG_TYPE_ERROR, "Size of array unit was invalid for a CSArray; discarding", &v13, 2u);
         }
 
         *this = 0;
@@ -1156,8 +1140,6 @@ void CSStore2::Array::Get(CSStore2::Array *this, CSStore2::Store *a2, unsigned i
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 char *CSStoreGetUnit(uint64_t a1, unsigned int a2, unsigned int a3, _DWORD *a4)
@@ -1358,7 +1340,7 @@ uint64_t _CSStringBindingGetBindings(uint64_t a1, void *a2, uint64_t a3)
   return result;
 }
 
-vm_address_t CSStore2::VM::AllocateCopy(CSStore2::VM *this, const void *a2, CSStore2::VM *a3)
+CSStore2::VM *CSStore2::VM::AllocateCopy(CSStore2::VM *this, const void *a2, CSStore2::VM *a3)
 {
   v3 = a3;
   v4 = a2;
@@ -1384,7 +1366,7 @@ vm_address_t CSStore2::VM::AllocateCopy(CSStore2::VM *this, const void *a2, CSSt
 
 vm_address_t CSStore2::VM::Allocate(CSStore2::VM *this)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   address = 0;
   v1 = *MEMORY[0x1E69E9AC8];
   v2 = this + *MEMORY[0x1E69E9AC8] - 1;
@@ -1416,23 +1398,22 @@ vm_address_t CSStore2::VM::Allocate(CSStore2::VM *this)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
-      v11 = v3;
-      v12 = 2048;
-      v13 = v4;
+      v10 = v3;
+      v11 = 2048;
+      v12 = v4;
       _os_log_error_impl(&dword_1B9D5B000, v7, OS_LOG_TYPE_ERROR, "Failed to allocate %llu bytes with kernel error %llx.", buf, 0x16u);
     }
 
-    result = 0;
+    return 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 unint64_t _CSArrayGetValueAtIndex(uint64_t a1, unsigned int a2, unsigned int a3)
 {
   result = 0;
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (a1 && a2)
   {
     if (performConstantAssertions == 1)
@@ -1444,13 +1425,13 @@ unint64_t _CSArrayGetValueAtIndex(uint64_t a1, unsigned int a2, unsigned int a3)
       }
     }
 
-    CSStore2::Array::Get(&v16, (a1 + 8), a2);
-    if (v18)
+    CSStore2::Array::Get(&v15, (a1 + 8), a2);
+    if (v17)
     {
-      v9 = **&v17[4] & 0x1FFFFFFF;
-      if (v9 >= *&v17[12])
+      v9 = **&v16[4] & 0x1FFFFFFF;
+      if (v9 >= *&v16[12])
       {
-        v10 = *&v17[12];
+        v10 = *&v16[12];
       }
 
       else
@@ -1463,11 +1444,11 @@ unint64_t _CSArrayGetValueAtIndex(uint64_t a1, unsigned int a2, unsigned int a3)
         v13 = CSStore2::GetLog(v8);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          v16 = 134218240;
-          *v17 = a3;
-          *&v17[8] = 2048;
-          *&v17[10] = v10;
-          _os_log_error_impl(&dword_1B9D5B000, v13, OS_LOG_TYPE_ERROR, "Out-of-bounds array read: %llu >= %llu", &v16, 0x16u);
+          v15 = 134218240;
+          *v16 = a3;
+          *&v16[8] = 2048;
+          *&v16[10] = v10;
+          _os_log_error_impl(&dword_1B9D5B000, v13, OS_LOG_TYPE_ERROR, "Out-of-bounds array read: %llu >= %llu", &v15, 0x16u);
         }
 
         v14 = 0;
@@ -1475,8 +1456,8 @@ unint64_t _CSArrayGetValueAtIndex(uint64_t a1, unsigned int a2, unsigned int a3)
 
       else
       {
-        v11 = *&v17[4] + 4;
-        if ((**&v17[4] & 0x20000000) != 0)
+        v11 = *&v16[4] + 4;
+        if ((**&v16[4] & 0x20000000) != 0)
         {
           v12 = *(v11 + 2 * a3);
         }
@@ -1491,22 +1472,21 @@ unint64_t _CSArrayGetValueAtIndex(uint64_t a1, unsigned int a2, unsigned int a3)
 
       if (v14 <= 0x100000000)
       {
-        result = 0x100000000;
+        return 0x100000000;
       }
 
       else
       {
-        result = v14;
+        return v14;
       }
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1754,45 +1734,37 @@ void *std::__hash_table<_opaque_pthread_t *,std::hash<_opaque_pthread_t *>,std::
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == a2)
       {
-        if (result[2] == a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -1800,7 +1772,7 @@ void *std::__hash_table<_opaque_pthread_t *,std::hash<_opaque_pthread_t *>,std::
 
 id CSStore2::Store::encodeAsXPCObject(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v3 = *MEMORY[0x1E69E9AC8];
@@ -1841,7 +1813,7 @@ id CSStore2::Store::encodeAsXPCObject(uint64_t a1, void *a2)
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
-      v33 = v5;
+      v32 = v5;
       _os_log_debug_impl(&dword_1B9D5B000, v10, OS_LOG_TYPE_DEBUG, "Creating dispatch_data for XPC coder with length %llu", buf, 0xCu);
     }
 
@@ -1871,11 +1843,11 @@ id CSStore2::Store::encodeAsXPCObject(uint64_t a1, void *a2)
       }
 
       v22 = MEMORY[0x1E696ABC0];
-      v30[0] = *MEMORY[0x1E696A278];
-      v30[1] = @"Line";
-      v31[0] = @"kCSStoreAllocFailedErr";
-      v31[1] = &unk_1F37D7B20;
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:2];
+      v29[0] = *MEMORY[0x1E696A278];
+      v29[1] = @"Line";
+      v30[0] = @"kCSStoreAllocFailedErr";
+      v30[1] = &unk_1F37D7B20;
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:2];
       v20 = [v22 errorWithDomain:*MEMORY[0x1E696A768] code:-9493 userInfo:v19];
     }
 
@@ -1890,11 +1862,11 @@ id CSStore2::Store::encodeAsXPCObject(uint64_t a1, void *a2)
 
       CSStore2::VM::Deallocate(Copy, v5);
       v18 = MEMORY[0x1E696ABC0];
-      v28[0] = *MEMORY[0x1E696A278];
-      v28[1] = @"Line";
-      v29[0] = @"kCSStoreAllocFailedErr";
-      v29[1] = &unk_1F37D7B38;
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:2];
+      v27[0] = *MEMORY[0x1E696A278];
+      v27[1] = @"Line";
+      v28[0] = @"kCSStoreAllocFailedErr";
+      v28[1] = &unk_1F37D7B38;
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:2];
       v20 = [v18 errorWithDomain:*MEMORY[0x1E696A768] code:-9493 userInfo:v19];
     }
 
@@ -1910,11 +1882,11 @@ id CSStore2::Store::encodeAsXPCObject(uint64_t a1, void *a2)
     }
 
     v16 = MEMORY[0x1E696ABC0];
-    v26[0] = *MEMORY[0x1E696A278];
-    v26[1] = @"Line";
-    v27[0] = @"kCSStoreAllocFailedErr";
-    v27[1] = &unk_1F37D7B50;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:2];
+    v25[0] = *MEMORY[0x1E696A278];
+    v25[1] = @"Line";
+    v26[0] = @"kCSStoreAllocFailedErr";
+    v26[1] = &unk_1F37D7B50;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:2];
     v15 = [v16 errorWithDomain:*MEMORY[0x1E696A768] code:-9493 userInfo:v12];
   }
 
@@ -1931,8 +1903,6 @@ id CSStore2::Store::encodeAsXPCObject(uint64_t a1, void *a2)
   }
 
 LABEL_30:
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -1985,18 +1955,18 @@ id CSStore2::GetLog(CSStore2 *this)
 
 void CSStore2::Store::CreateWithXPCObject(id **a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   *a1 = 0;
   if (!v5 || MEMORY[0x1BFAE65F0](v5) != MEMORY[0x1E69E9E70])
   {
     v7 = MEMORY[0x1E696ABC0];
-    v21[0] = *MEMORY[0x1E696A278];
-    v21[1] = @"Line";
-    v22[0] = @"paramErr";
-    v22[1] = &unk_1F37D7B08;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
+    v20[0] = *MEMORY[0x1E696A278];
+    v20[1] = @"Line";
+    v21[0] = @"paramErr";
+    v21[1] = &unk_1F37D7B08;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
     v9 = [v7 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v8];
 
     goto LABEL_4;
@@ -2004,16 +1974,16 @@ void CSStore2::Store::CreateWithXPCObject(id **a1, void *a2, void *a3)
 
   length = xpc_data_get_length(v6);
   bytes_ptr = xpc_data_get_bytes_ptr(v6);
-  v15 = bytes_ptr;
+  v14 = bytes_ptr;
   if (!bytes_ptr || HIDWORD(length))
   {
-    v18 = MEMORY[0x1E696ABC0];
-    v23[0] = *MEMORY[0x1E696A278];
-    v23[1] = @"Line";
-    v24[0] = @"kCSStoreBadDataErr";
-    v24[1] = &unk_1F37D7AF0;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
-    v9 = [v18 errorWithDomain:*MEMORY[0x1E696A768] code:-9496 userInfo:v19];
+    v17 = MEMORY[0x1E696ABC0];
+    v22[0] = *MEMORY[0x1E696A278];
+    v22[1] = @"Line";
+    v23[0] = @"kCSStoreBadDataErr";
+    v23[1] = &unk_1F37D7AF0;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
+    v9 = [v17 errorWithDomain:*MEMORY[0x1E696A768] code:-9496 userInfo:v18];
 
 LABEL_4:
     v10 = 0;
@@ -2025,20 +1995,20 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  v16 = CSStore2::GetLog(bytes_ptr);
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v15 = CSStore2::GetLog(bytes_ptr);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
     *&buf[4] = length;
-    _os_log_debug_impl(&dword_1B9D5B000, v16, OS_LOG_TYPE_DEBUG, "Creating CSStore from XPC coder with length %llu", buf, 0xCu);
+    _os_log_debug_impl(&dword_1B9D5B000, v15, OS_LOG_TYPE_DEBUG, "Creating CSStore from XPC coder with length %llu", buf, 0xCu);
   }
 
-  v20 = 0;
-  CSStore2::Store::CreateWithBytes(buf, v15, length, &v20);
-  v9 = v20;
-  v17 = *buf;
+  v19 = 0;
+  CSStore2::Store::CreateWithBytes(buf, v14, length, &v19);
+  v9 = v19;
+  v16 = *buf;
   *buf = 0;
-  std::unique_ptr<CSStore2::Store>::reset[abi:nn200100](a1, v17);
+  std::unique_ptr<CSStore2::Store>::reset[abi:nn200100](a1, v16);
   std::unique_ptr<CSStore2::Store>::reset[abi:nn200100](buf, 0);
   v10 = *a1 != 0;
   if (a3)
@@ -2052,8 +2022,6 @@ LABEL_5:
   }
 
 LABEL_7:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1B9D5F09C(_Unwind_Exception *a1)
@@ -2094,14 +2062,14 @@ void _CSStoreEnumerateUnits(uint64_t a1, unsigned int a2, void *a3)
   }
 }
 
-void CSStore2::Store::enumerateUnits(atomic_ullong *a1, unsigned int *a2, void *a3)
+void CSStore2::Store::enumerateUnits(atomic_ullong *a1, const CSStore2::Table *a2, void *a3)
 {
   v5 = a3;
   if (v5)
   {
     v6 = objc_autoreleasePoolPush();
     atomic_fetch_add(a1 + 36, 1uLL);
-    v7 = a2[19];
+    v7 = *(a2 + 19);
     if (v7 != -1)
     {
       v8 = *(*a1 + 8);
@@ -2181,19 +2149,418 @@ void ___ZN8CSStore26GetLogEv_block_invoke()
   CSStore2::GetLog(void)::result = v0;
 }
 
-void CSStore2::Store::CreateWithBytes(id **a1, uint64_t a2, uint64_t a3, void *a4)
+void CSStore2::Store::_Create(CSStore2 *a1, Bytef *a2, void *a3, int a4, uint64_t a5, void *a6)
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v87[2] = *MEMORY[0x1E69E9840];
+  *a1 = 0;
+  if (!a4)
+  {
+    if (a2)
+    {
+      if (a3 < 0x64)
+      {
+LABEL_8:
+        v15 = MEMORY[0x1E696ABC0];
+        v78[0] = *MEMORY[0x1E696A278];
+        v78[1] = @"Line";
+        v79[0] = @"kCSStoreBadDataErr";
+        v79[1] = &unk_1F37D7A60;
+        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v79 forKeys:v78 count:2];
+        v12 = [v15 errorWithDomain:*MEMORY[0x1E696A768] code:-9496 userInfo:v16];
+        v17 = 0;
+LABEL_80:
+
+        goto LABEL_81;
+      }
+
+      v19 = *a2;
+      if (*a2 == -788868902 || v19 == -623838512)
+      {
+        v21 = CSStore2::GetLog(a1);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_1B9D5B000, v21, OS_LOG_TYPE_DEFAULT, "Encountered CSStore1 file, can't read it.", buf, 2u);
+        }
+
+        v17 = 0;
+        goto LABEL_18;
+      }
+
+      if (v19 != 1819501666)
+      {
+        goto LABEL_8;
+      }
+
+      v29 = a2[4];
+      if (v29 != 2)
+      {
+LABEL_32:
+        if (!a5)
+        {
+          goto LABEL_63;
+        }
+
+        if (a3 <= 0x63)
+        {
+          v64 = v29;
+          v65 = [MEMORY[0x1E696AAA8] currentHandler];
+          v66 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"static std::unique_ptr<Store> CSStore2::Store::_Create(void *, _CSStoreSize, BOOL, BOOL, NSError *__autoreleasing *)"}];
+          [v65 handleFailureInFunction:v66 file:@"CSStore+Store.mm" lineNumber:128 description:@"Somehow thought CSStore header was OK when it's too short."];
+
+          v29 = v64;
+        }
+
+        v32 = *(a2 + 4);
+        v33 = *(a2 + 3);
+        v70 = *(a2 + 3);
+        if (v33 > 2)
+        {
+          v68 = *(a2 + 4);
+          v34 = v29;
+          v35 = crc32(0x6E797267uLL, a2 + 100, *(a2 + 3) - 100);
+          if (v35 >= 3uLL)
+          {
+            v36 = v35;
+          }
+
+          else
+          {
+            v36 = v35 | 0xE000;
+          }
+
+          v37 = CSStore2::GetLog(v35);
+          v38 = v37;
+          if (v33 == v36)
+          {
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+            {
+              *buf = 134217984;
+              *&buf[4] = v33;
+              _os_log_debug_impl(&dword_1B9D5B000, v38, OS_LOG_TYPE_DEBUG, "CSStore checksum matches: %llx", buf, 0xCu);
+            }
+
+            goto LABEL_63;
+          }
+
+          v69 = v33;
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 134218240;
+            *&buf[4] = v33;
+            *&buf[12] = 2048;
+            *&buf[14] = v36;
+            _os_log_error_impl(&dword_1B9D5B000, v38, OS_LOG_TYPE_ERROR, "CSStore checksum expected to be %llx, was %llx.", buf, 0x16u);
+          }
+
+          v17 = 0;
+          goto LABEL_76;
+        }
+
+        v69 = *(a2 + 3);
+        v39 = (2 * *MEMORY[0x1E69E9AC8]);
+        v40 = CSStore2::VM::Allocate(v39);
+        if (v40)
+        {
+          v68 = v32;
+          memset(buf, 0, sizeof(buf));
+          if (v39 >= a3)
+          {
+            v71 = 0;
+            v47 = 1;
+          }
+
+          else
+          {
+            v67 = v29;
+            v41 = 0;
+            v42 = 0;
+            do
+            {
+              v44 = *buf;
+              v43 = *&buf[8];
+              if (*&buf[8] - *buf >= 0x400uLL)
+              {
+                break;
+              }
+
+              if (!memcmp(&a2[v41], v40, v39))
+              {
+                v45.location = v41;
+                *&v73 = v41;
+                *(&v73 + 1) = v39;
+                if (v44 == v43 || (v46 = *(v43 - 16), v46.length + v46.location != v41))
+                {
+                  std::vector<_NSRange>::push_back[abi:nn200100](buf, &v73);
+                }
+
+                else
+                {
+                  v45.length = v39;
+                  *(v43 - 16) = NSUnionRange(v46, v45);
+                }
+
+                ++v42;
+              }
+
+              v41 += v39;
+            }
+
+            while (v39 + v41 < a3);
+            if (v42 >= 8)
+            {
+              v71 = [MEMORY[0x1E695DF70] array];
+              v50 = objc_alloc_init(MEMORY[0x1E696AAF0]);
+              v51 = *buf;
+              v52 = *&buf[8];
+              while (v51 != v52)
+              {
+                v53 = [v50 stringFromByteCount:v51[1]];
+                v54 = [MEMORY[0x1E696AEC0] stringWithFormat:@"0x%llX-0x%llX (%@)", *v51, *v51 + v51[1] - 1, v53];
+                [v71 addObject:v54];
+
+                v51 += 2;
+              }
+
+              v55 = v71;
+
+              v47 = 0;
+            }
+
+            else
+            {
+              v71 = 0;
+              v47 = 1;
+            }
+
+            v29 = v67;
+          }
+
+          CSStore2::VM::Deallocate(v40, *MEMORY[0x1E69E9AC8]);
+          if (*buf)
+          {
+            operator delete(*buf);
+          }
+
+          v56 = v71;
+          v17 = v56;
+          if ((v47 & 1) == 0)
+          {
+            v34 = v29;
+            v38 = CSStore2::GetLog(v56);
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+            {
+              *buf = 138543362;
+              *&buf[4] = v17;
+              _os_log_error_impl(&dword_1B9D5B000, v38, OS_LOG_TYPE_ERROR, "CSStore file has zeroed pages and has been corrupted at a low level. Offsets: %{public}@", buf, 0xCu);
+            }
+
+            v36 = 0;
+LABEL_76:
+
+            if (v34 == 2)
+            {
+              v59 = MEMORY[0x1E696ABC0];
+              v60 = *MEMORY[0x1E696A768];
+              if (v69 > 2)
+              {
+                v74[0] = *MEMORY[0x1E696A278];
+                v74[1] = @"Line";
+                v75[0] = @"kCSStoreBadChecksumErr";
+                v75[1] = &unk_1F37D7A90;
+                v74[2] = @"Checksum";
+                v16 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v69];
+                v75[2] = v16;
+                v74[3] = @"CalculatedChecksum";
+                v23 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v36];
+                v75[3] = v23;
+                v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v75 forKeys:v74 count:4];
+                v12 = [v59 errorWithDomain:v60 code:-9489 userInfo:v25];
+                goto LABEL_23;
+              }
+
+              v76[0] = *MEMORY[0x1E696A278];
+              v76[1] = @"Line";
+              v77[0] = @"kCSStoreBadDataErr";
+              v77[1] = &unk_1F37D7A78;
+              v77[2] = v17;
+              v76[2] = @"ZeroedRanges";
+              v76[3] = @"Length";
+              v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a3];
+              v77[3] = v16;
+              v76[4] = @"UsedLength";
+              v23 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v68];
+              v77[4] = v23;
+              v76[5] = @"ConsumedLength";
+              v25 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v70];
+              v77[5] = v25;
+              v76[6] = @"Checksum";
+              v28 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:v69];
+              v77[6] = v28;
+              v61 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v77 forKeys:v76 count:7];
+              v12 = [v59 errorWithDomain:v60 code:-9496 userInfo:v61];
+
+LABEL_22:
+LABEL_23:
+
+LABEL_79:
+              goto LABEL_80;
+            }
+
+            v48 = v34;
+            if (v34 != 1)
+            {
+              goto LABEL_78;
+            }
+
+LABEL_18:
+            if (CSStore2::IsAppleInternal(void)::once != -1)
+            {
+              dispatch_once(&CSStore2::IsAppleInternal(void)::once, &__block_literal_global_202);
+            }
+
+            if (CSStore2::IsAppleInternal(void)::result != 1)
+            {
+              v48 = 1;
+LABEL_78:
+              v57 = MEMORY[0x1E696ABC0];
+              v80[0] = *MEMORY[0x1E696A278];
+              v80[1] = @"Line";
+              v81[0] = @"kCSStoreOldVersionErr";
+              v81[1] = &unk_1F37D7A48;
+              v80[2] = @"Version";
+              v16 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:v48];
+              v81[2] = v16;
+              v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v81 forKeys:v80 count:3];
+              v12 = [v57 errorWithDomain:*MEMORY[0x1E696A768] code:-9488 userInfo:v23];
+              goto LABEL_79;
+            }
+
+            BundleWithIdentifier = CFBundleGetBundleWithIdentifier(@"com.apple.CSStore");
+            v16 = CFBundleCopyLocalizedString(BundleWithIdentifier, @"This file is in the CSStore1 format.", 0, @"Localized");
+            v23 = CFBundleCopyLocalizedString(BundleWithIdentifier, @"The system can only read CSStore2 files, which first shipped with iOS 9 and OS X El Capitan.", 0, @"Localized");
+            v24 = MEMORY[0x1E696ABC0];
+            v82[0] = *MEMORY[0x1E696A278];
+            v82[1] = @"Line";
+            v83[0] = @"kCSStoreOldVersionErr";
+            v83[1] = &unk_1F37D7A30;
+            v82[2] = @"Version";
+            v25 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:1];
+            v26 = *MEMORY[0x1E696A588];
+            v83[2] = v25;
+            v83[3] = v16;
+            v27 = *MEMORY[0x1E696A598];
+            v82[3] = v26;
+            v82[4] = v27;
+            v83[4] = v23;
+            v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v83 forKeys:v82 count:5];
+            v12 = [v24 errorWithDomain:*MEMORY[0x1E696A768] code:-9488 userInfo:v28];
+            goto LABEL_22;
+          }
+        }
+
+        else
+        {
+          v49 = CSStore2::GetLog(0);
+          if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 0;
+            _os_log_error_impl(&dword_1B9D5B000, v49, OS_LOG_TYPE_ERROR, "CSStore zero-page check could not allocate memory. Skipping check.", buf, 2u);
+          }
+        }
+
+LABEL_63:
+        operator new();
+      }
+
+      v30 = *(a2 + 3);
+      if (*(a2 + 4) > v30 || v30 > a3)
+      {
+        goto LABEL_8;
+      }
+
+      v31 = CSStore2::GetLog(a1);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+      {
+        v63 = *(a2 + 3);
+        v62 = *(a2 + 4);
+        *buf = 134218496;
+        *&buf[4] = a3;
+        *&buf[12] = 2048;
+        *&buf[14] = v62;
+        *&buf[22] = 2048;
+        v85 = v63;
+        _os_log_debug_impl(&dword_1B9D5B000, v31, OS_LOG_TYPE_DEBUG, "Checked CSStore data with lengths %llu/%llu/%llu", buf, 0x20u);
+      }
+    }
+
+    v29 = 2;
+    goto LABEL_32;
+  }
+
+  Copy = CSStore2::VM::AllocateCopy(a2, a3, a3);
+  if (Copy)
+  {
+    v72 = 0;
+    CSStore2::Store::_Create(buf, Copy, a3, 0, a5, &v72);
+    v12 = v72;
+    v13 = *buf;
+    *buf = 0;
+    std::unique_ptr<CSStore2::Store>::reset[abi:nn200100](a1, v13);
+    std::unique_ptr<CSStore2::Store>::reset[abi:nn200100](buf, 0);
+    if (*a1)
+    {
+      goto LABEL_84;
+    }
+
+    CSStore2::VM::Deallocate(Copy, a3);
+    v14 = 0;
+    if (!a6)
+    {
+      goto LABEL_84;
+    }
+
+    goto LABEL_82;
+  }
+
+  v18 = MEMORY[0x1E696ABC0];
+  v86[0] = *MEMORY[0x1E696A278];
+  v86[1] = @"Line";
+  v87[0] = @"kCSStoreAllocFailedErr";
+  v87[1] = &unk_1F37D7A00;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v87 forKeys:v86 count:2];
+  v12 = [v18 errorWithDomain:*MEMORY[0x1E696A768] code:-9493 userInfo:v17];
+LABEL_81:
+
+  v14 = *a1 != 0;
+  if (!a6)
+  {
+    goto LABEL_84;
+  }
+
+LABEL_82:
+  if (!v14)
+  {
+    v58 = v12;
+    *a6 = v12;
+  }
+
+LABEL_84:
+}
+
+void CSStore2::Store::CreateWithBytes(id **a1, Bytef *a2, void *a3, void *a4)
+{
+  v15[2] = *MEMORY[0x1E69E9840];
   *a1 = 0;
   if (a2 && a3)
   {
+    v12 = 0;
+    CSStore2::Store::_Create(&v13, a2, a3, 1, 0, &v12);
+    v6 = v12;
+    v7 = v13;
     v13 = 0;
-    CSStore2::Store::_Create(&v14, a2, a3, 1, 0, &v13);
-    v6 = v13;
-    v7 = v14;
-    v14 = 0;
     std::unique_ptr<CSStore2::Store>::reset[abi:nn200100](a1, v7);
-    std::unique_ptr<CSStore2::Store>::reset[abi:nn200100](&v14, 0);
+    std::unique_ptr<CSStore2::Store>::reset[abi:nn200100](&v13, 0);
     v8 = *a1 != 0;
     if (!a4)
     {
@@ -2204,11 +2571,11 @@ void CSStore2::Store::CreateWithBytes(id **a1, uint64_t a2, uint64_t a3, void *a
   else
   {
     v9 = MEMORY[0x1E696ABC0];
-    v15[0] = *MEMORY[0x1E696A278];
-    v15[1] = @"Line";
-    v16[0] = @"paramErr";
-    v16[1] = &unk_1F37D7AA8;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
+    v14[0] = *MEMORY[0x1E696A278];
+    v14[1] = @"Line";
+    v15[0] = @"paramErr";
+    v15[1] = &unk_1F37D7AA8;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
     v6 = [v9 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v10];
 
     v8 = 0;
@@ -2225,8 +2592,6 @@ void CSStore2::Store::CreateWithBytes(id **a1, uint64_t a2, uint64_t a3, void *a
   }
 
 LABEL_8:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 NSString *_CSStoreGetTableWithName(uint64_t a1, NSString *a2)
@@ -2296,9 +2661,9 @@ atomic_ullong CSStore2::Store::getTable(atomic_ullong *this, NSString *a2)
   return v5;
 }
 
-void sub_1B9D605CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, ...)
+void sub_1B9D605CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -2611,9 +2976,9 @@ void _CSMapEnumerateKeysAndValues(uint64_t a1, void *a2, void *a3)
   v6 = v5;
   if (a1 && a2 && v5 && !CSMapSync(a1, a2))
   {
+    v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
-    v22 = 1065353216;
+    v21 = 1065353216;
     v7 = a2[9];
     if (v7[2])
     {
@@ -2623,32 +2988,31 @@ void _CSMapEnumerateKeysAndValues(uint64_t a1, void *a2, void *a3)
         v9 = *(a2[10] + 4 * v8);
         if (v7[5] != v9 && v7[6] != v9)
         {
-          v10 = *(a2[11] + 4 * v8);
-          if (*(&v20 + 1))
+          if (*(&v19 + 1))
           {
-            v11 = vcnt_s8(*(&v20 + 8));
-            v11.i16[0] = vaddlv_u8(v11);
-            if (v11.u32[0] > 1uLL)
+            v10 = vcnt_s8(*(&v19 + 8));
+            v10.i16[0] = vaddlv_u8(v10);
+            if (v10.u32[0] > 1uLL)
             {
-              v12 = *(a2[10] + 4 * v8);
-              if (*(&v20 + 1) <= v9)
+              v11 = *(a2[10] + 4 * v8);
+              if (*(&v19 + 1) <= v9)
               {
-                v12 = v9 % DWORD2(v20);
+                v11 = v9 % DWORD2(v19);
               }
             }
 
             else
             {
-              v12 = (DWORD2(v20) - 1) & v9;
+              v11 = (DWORD2(v19) - 1) & v9;
             }
 
-            v13 = *(v20 + 8 * v12);
-            if (v13)
+            v12 = *(v19 + 8 * v11);
+            if (v12)
             {
-              for (i = *v13; i; i = *i)
+              for (i = *v12; i; i = *i)
               {
-                v15 = i[1];
-                if (v15 == v9)
+                v14 = i[1];
+                if (v14 == v9)
                 {
                   if (*(i + 4) == v9)
                   {
@@ -2658,20 +3022,20 @@ void _CSMapEnumerateKeysAndValues(uint64_t a1, void *a2, void *a3)
 
                 else
                 {
-                  if (v11.u32[0] > 1uLL)
+                  if (v10.u32[0] > 1uLL)
                   {
-                    if (v15 >= *(&v20 + 1))
+                    if (v14 >= *(&v19 + 1))
                     {
-                      v15 %= *(&v20 + 1);
+                      v14 %= *(&v19 + 1);
                     }
                   }
 
                   else
                   {
-                    v15 &= *(&v20 + 1) - 1;
+                    v14 &= *(&v19 + 1) - 1;
                   }
 
-                  if (v15 != v12)
+                  if (v14 != v11)
                   {
                     break;
                   }
@@ -2688,28 +3052,29 @@ LABEL_26:
       }
 
       while (v8 < v7[2]);
-      v16 = v21;
-      for (j = 0; v16; v16 = *v16)
+      v15 = v20;
+      for (j = 0; v15; v15 = *v15)
       {
-        v17 = objc_autoreleasePoolPush();
-        (v6)[2](v6, *(v16 + 4), *(v16 + 5), &j);
-        v18 = j;
-        objc_autoreleasePoolPop(v17);
-        if (v18)
+        v16 = objc_autoreleasePoolPush();
+        (v6)[2](v6, *(v15 + 4), *(v15 + 5), &j);
+        v17 = j;
+        objc_autoreleasePoolPop(v16);
+        if (v17)
         {
           break;
         }
       }
     }
 
-    std::__hash_table<std::__hash_value_type<unsigned long,unsigned int>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned int>>>::~__hash_table(&v20);
+    std::__hash_table<std::__hash_value_type<unsigned long,unsigned int>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned int>>>::~__hash_table(&v19);
   }
 }
 
-void sub_1B9D61064(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_1B9D61064(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
-  operator delete(v12);
-  std::__hash_table<std::__hash_value_type<unsigned long,unsigned int>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned int>>>::~__hash_table(&a11);
+  va_start(va, a10);
+  operator delete(v11);
+  std::__hash_table<std::__hash_value_type<unsigned long,unsigned int>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned int>>>::~__hash_table(va);
 
   _Unwind_Resume(a1);
 }
@@ -2896,9 +3261,9 @@ LABEL_18:
   os_unfair_lock_unlock(this + 2);
 }
 
-uint64_t _CSDictionaryCreateWithKeysAndValues(atomic_ullong *a1, char a2, int a3, uint64_t a4, uint64_t a5, unsigned int a6, void *a7)
+uint64_t _CSDictionaryCreateWithKeysAndValues(void *a1, char a2, int a3, uint64_t a4, uint64_t a5, unsigned int a6, void *a7)
 {
-  v66[2] = *MEMORY[0x1E69E9840];
+  v65[2] = *MEMORY[0x1E69E9840];
   if ((a3 & 4) == 0 || (a3 & 3) == 0)
   {
     if (a1)
@@ -2908,11 +3273,11 @@ uint64_t _CSDictionaryCreateWithKeysAndValues(atomic_ullong *a1, char a2, int a3
 
 LABEL_71:
     v51 = MEMORY[0x1E696ABC0];
-    v63[0] = *MEMORY[0x1E696A278];
-    v63[1] = @"Line";
-    v64[0] = @"paramErr";
-    v64[1] = &unk_1F37D78C8;
-    v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v64 forKeys:v63 count:2];
+    v62[0] = *MEMORY[0x1E696A278];
+    v62[1] = @"Line";
+    v63[0] = @"paramErr";
+    v63[1] = &unk_1F37D78C8;
+    v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v63 forKeys:v62 count:2];
     v48 = [v51 errorWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:v47];
 LABEL_72:
     v45 = v48;
@@ -2959,48 +3324,48 @@ LABEL_4:
     }
   }
 
-  v54 = a7;
-  v55 = Table;
+  v53 = a7;
+  v54 = Table;
+  v59 = 0u;
   v60 = 0u;
-  v61 = 0u;
-  v62 = 1065353216;
-  std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__rehash<true>(&v60, a6);
+  v61 = 1065353216;
+  std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__rehash<true>(&v59, a6);
   if (a6)
   {
     v15 = 0;
     do
     {
-      CSStore2::Dictionary::_CopyCanonicalKey(&v57, a1 + 1, *(a4 + 4 * v15), a2);
-      if (v59 == 1)
+      CSStore2::Dictionary::_CopyCanonicalKey(&v56, a1 + 1, *(a4 + 4 * v15), a2);
+      if (v58 == 1)
       {
         CSStore2::Dictionary::_TakeOwnershipOfValue((a1 + 1), *(a5 + 4 * v15), a3);
-        if (*(&v60 + 1))
+        if (*(&v59 + 1))
         {
-          v16 = vcnt_s8(*(&v60 + 8));
+          v16 = vcnt_s8(*(&v59 + 8));
           v16.i16[0] = vaddlv_u8(v16);
           if (v16.u32[0] > 1uLL)
           {
-            v17 = v58;
-            if (*(&v60 + 1) <= v58)
+            v17 = v57;
+            if (*(&v59 + 1) <= v57)
             {
-              v17 = v58 % DWORD2(v60);
+              v17 = v57 % DWORD2(v59);
             }
           }
 
           else
           {
-            v17 = (DWORD2(v60) - 1) & v58;
+            v17 = (DWORD2(v59) - 1) & v57;
           }
 
-          v18 = *(v60 + 8 * v17);
+          v18 = *(v59 + 8 * v17);
           if (v18)
           {
             for (i = *v18; i; i = *i)
             {
               v20 = i[1];
-              if (v20 == v58)
+              if (v20 == v57)
               {
-                if (*(i + 4) == v58)
+                if (*(i + 4) == v57)
                 {
                   goto LABEL_30;
                 }
@@ -3010,15 +3375,15 @@ LABEL_4:
               {
                 if (v16.u32[0] > 1uLL)
                 {
-                  if (v20 >= *(&v60 + 1))
+                  if (v20 >= *(&v59 + 1))
                   {
-                    v20 %= *(&v60 + 1);
+                    v20 %= *(&v59 + 1);
                   }
                 }
 
                 else
                 {
-                  v20 &= *(&v60 + 1) - 1;
+                  v20 &= *(&v59 + 1) - 1;
                 }
 
                 if (v20 != v17)
@@ -3040,15 +3405,15 @@ LABEL_30:
     while (v15 != a6);
   }
 
-  v21 = *v55;
-  if ((DWORD2(v61) + 1024) >= 0x2000)
+  v21 = *v54;
+  if ((DWORD2(v60) + 1024) >= 0x2000)
   {
     v22 = 0x2000;
   }
 
   else
   {
-    v22 = DWORD2(v61) + 1024;
+    v22 = DWORD2(v60) + 1024;
   }
 
   if (v22 <= 0x10)
@@ -3056,7 +3421,7 @@ LABEL_30:
     v22 = 16;
   }
 
-  v23 = 8 * v22 + 8 * (DWORD2(v61) + 1024);
+  v23 = 8 * v22 + 8 * (DWORD2(v60) + 1024);
   v24 = (v23 | 4u);
   v25 = CSStore2::Store::extend((a1 + 1), v23 | 4u);
   v26 = v25;
@@ -3076,14 +3441,14 @@ LABEL_30:
     v28 = 0;
   }
 
-  v29 = 0xFFFFFFFFLL;
+  v29 = -1;
   v30 = v25 >= v28;
   v31 = v25 - v28;
   if (v30 && !HIDWORD(v31))
   {
     if ((v31 + 1) > *(*(v27 + 8) + 12) || v31 == -1)
     {
-      v29 = 0xFFFFFFFFLL;
+      v29 = -1;
     }
 
     else
@@ -3092,9 +3457,9 @@ LABEL_30:
     }
   }
 
-  CSStore2::HashMap<unsigned int,unsigned int,CSStore2::Dictionary::_Functions,0ull>::Create(&v57, &v60, v29, 1024, 0);
-  v33 = v57;
-  if (!v57)
+  CSStore2::HashMap<unsigned int,unsigned int,CSStore2::Dictionary::_Functions,0ull>::Create(&v56, &v59, v29, 0x400u, 0);
+  v33 = v56;
+  if (!v56)
   {
     CSStore2::Store::assertNotEnumeratingUnits((a1 + 1));
     v37 = *(a1[1] + 8);
@@ -3111,9 +3476,9 @@ LABEL_30:
     goto LABEL_68;
   }
 
-  CSStore2::VM::Copy(v26, v57, v24);
-  v57 = 0;
-  v58(v33);
+  CSStore2::VM::Copy(v26, v56, v24);
+  v56 = 0;
+  v57(v33);
   v34 = CSStore2::Store::getTable((a1 + 1), 4 * v21);
   v35 = a1[1];
   if (v35)
@@ -3146,15 +3511,15 @@ LABEL_30:
   if (!Unit)
   {
 LABEL_68:
-    std::__hash_table<std::__hash_value_type<unsigned long,unsigned int>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned int>>>::~__hash_table(&v60);
-    a7 = v54;
+    std::__hash_table<std::__hash_value_type<unsigned long,unsigned int>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned int>>>::~__hash_table(&v59);
+    a7 = v53;
 LABEL_69:
     v46 = MEMORY[0x1E696ABC0];
-    v65[0] = *MEMORY[0x1E696A278];
-    v65[1] = @"Line";
-    v66[0] = @"kCSStoreAllocFailedErr";
-    v66[1] = &unk_1F37D78B0;
-    v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v66 forKeys:v65 count:2];
+    v64[0] = *MEMORY[0x1E696A278];
+    v64[1] = @"Line";
+    v65[0] = @"kCSStoreAllocFailedErr";
+    v65[1] = &unk_1F37D78B0;
+    v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v65 forKeys:v64 count:2];
     v48 = [v46 errorWithDomain:*MEMORY[0x1E696A768] code:-9493 userInfo:v47];
     goto LABEL_72;
   }
@@ -3164,10 +3529,10 @@ LABEL_69:
   *&Unit->var3[2] = 0;
   *&Unit->var3[4] = v40;
   v44 = (4 * *Unit);
-  std::__hash_table<std::__hash_value_type<unsigned long,unsigned int>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned int>>>::~__hash_table(&v60);
+  std::__hash_table<std::__hash_value_type<unsigned long,unsigned int>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned int>>>::~__hash_table(&v59);
   v45 = 0;
-  a7 = v54;
-  if (!v54)
+  a7 = v53;
+  if (!v53)
   {
     goto LABEL_75;
   }
@@ -3180,25 +3545,24 @@ LABEL_73:
 
 LABEL_75:
 
-  v52 = *MEMORY[0x1E69E9840];
   return v44;
 }
 
-Unit *_CSDictionaryDispose(Unit *result, CSStore2::Store *a2)
+Unit *_CSDictionaryDispose(Unit *result, CSStore2::Store *a2, unsigned int a3)
 {
   if (result && a2)
   {
-    v3 = result;
+    v4 = result;
     if (performMutatingAssertions == 1)
     {
-      v4 = *&result->var3[336];
-      if (v4)
+      v5 = *&result->var3[336];
+      if (v5)
       {
-        (***(v4 + 8))(*(v4 + 8));
+        (***(v5 + 8))(*(v5 + 8));
       }
     }
 
-    return CSStore2::Dictionary::Dispose(v3->var3, a2);
+    return CSStore2::Dictionary::Dispose((v4 + 8), a2);
   }
 
   return result;
@@ -3273,7 +3637,7 @@ uint64_t _CSDictionaryGetValueOptions(uint64_t a1, unsigned int a2)
   }
 }
 
-_DWORD *_CSDictionaryGetValue(uint64_t a1, unsigned int a2, unsigned int a3)
+unsigned int *_CSDictionaryGetValue(uint64_t a1, unsigned int a2, unsigned int a3)
 {
   if (performConstantAssertions == 1)
   {
@@ -3340,55 +3704,55 @@ void _CSDictionarySetValue(uint64_t a1, unsigned int a2, unsigned int a3, CSStor
     }
   }
 
-  CSStore2::Dictionary::Get(&v47, (a1 + 8), a2);
-  if (v50 == 1)
+  CSStore2::Dictionary::Get(&v49, (a1 + 8), a2);
+  if (v52 == 1)
   {
-    v9 = v48;
-    v10 = *(v48 + 4);
+    v9 = v50;
+    v10 = *(v50 + 4);
     if (v10 != -1)
     {
-      v11 = v47;
-      v12 = *(*v47 + 8);
+      v11 = v49;
+      v12 = *(*v49 + 8);
       if (*(v12 + 12) > v10)
       {
-        CSStore2::Dictionary::_CopyCanonicalKey(&v52, v47, a3, *v48);
-        if (v54 == 1)
+        CSStore2::Dictionary::_CopyCanonicalKey(v54, v49, a3, *v50);
+        if (v56 == 1)
         {
           v13 = (v12 + v10);
-          v14 = v53;
-          v15 = CSStore2::HashMap<unsigned int,unsigned int,CSStore2::Dictionary::_Functions,0ull>::Find(*v11, v13, v53);
+          v14 = v55;
+          v15 = CSStore2::HashMap<unsigned int,unsigned int,CSStore2::Dictionary::_Functions,0ull>::Find(*v11, v13, v55);
           if (v15)
           {
-            v16 = 1;
+            v18 = 1;
           }
 
           else
-          {
-            v16 = a4 == 0;
-          }
-
-          if (!v16)
-          {
-            CSStore2::String::retain(&v52);
-            CSStore2::Dictionary::_TakeOwnershipOfValue(v11, a4, *(v9 + 1));
-            goto LABEL_21;
-          }
-
-          v17 = v15;
-          if (v15)
           {
             v18 = a4 == 0;
           }
 
-          else
+          if (!v18)
           {
-            v18 = 0;
+            CSStore2::String::retain(v54, v16, v17);
+            CSStore2::Dictionary::_TakeOwnershipOfValue(v11, a4, *(v9 + 1));
+            goto LABEL_21;
           }
 
-          if (v18)
+          v19 = v15;
+          if (v15)
           {
-            CSStore2::String::release(&v52);
-            CSStore2::Dictionary::_RelinquishOwnershipOfValue(v11, *v17, *(v9 + 1));
+            v20 = a4 == 0;
+          }
+
+          else
+          {
+            v20 = 0;
+          }
+
+          if (v20)
+          {
+            CSStore2::String::release(v54);
+            CSStore2::Dictionary::_RelinquishOwnershipOfValue(v11, *v19, *(v9 + 1));
           }
 
           else
@@ -3396,7 +3760,7 @@ void _CSDictionarySetValue(uint64_t a1, unsigned int a2, unsigned int a3, CSStor
             if (v15 && *v15 != a4)
             {
               CSStore2::Dictionary::_TakeOwnershipOfValue(v11, a4, *(v9 + 1));
-              CSStore2::Dictionary::_RelinquishOwnershipOfValue(v11, *v17, *(v9 + 1));
+              CSStore2::Dictionary::_RelinquishOwnershipOfValue(v11, *v19, *(v9 + 1));
             }
 
             if (a4)
@@ -3406,151 +3770,151 @@ LABEL_21:
               {
 LABEL_70:
                 CSStore2::Store::collectGarbage(v11, 0);
-                CSStore2::Dictionary::Get(v51, v11, v49);
+                CSStore2::Dictionary::Get(v53, v11, v51);
 LABEL_71:
-                CSStore2::String::release(&v52);
+                CSStore2::String::release(v54);
                 return;
               }
 
-              v19 = CSStore2::HashMap<unsigned int,unsigned int,CSStore2::Dictionary::_Functions,0ull>::Find(*v11, v13, v14);
-              if (v19)
+              v21 = CSStore2::HashMap<unsigned int,unsigned int,CSStore2::Dictionary::_Functions,0ull>::Find(*v11, v13, v14);
+              if (v21)
               {
-                *v19 = a4;
+                *v21 = a4;
                 goto LABEL_70;
               }
 
-              v21 = &v13[2 * (v14 % *v13)];
-              v22 = (v21 + 1);
-              v23 = v21[2];
-              if (v23 == -1)
+              v23 = &v13[2 * (v14 % *v13)];
+              v24 = (v23 + 1);
+              v25 = v23[2];
+              if (v25 == -1)
               {
-                v27 = 0;
+                v29 = 0;
               }
 
               else
               {
-                v24 = *(*v11 + 1);
-                v25 = *(v24 + 12) > v23;
-                v26 = (v24 + v23);
-                if (v25)
+                v26 = *(*v11 + 1);
+                v27 = *(v26 + 12) > v25;
+                v28 = (v26 + v25);
+                if (v27)
                 {
-                  v27 = v26;
+                  v29 = v28;
                 }
 
                 else
                 {
-                  v27 = 0;
+                  v29 = 0;
                 }
               }
 
-              v28 = *v22;
-              if (v28)
+              v30 = *v24;
+              if (v30)
               {
-                v29 = v27;
-                v30 = *v22;
-                while (*v29 && v29[1])
+                v31 = v29;
+                v32 = *v24;
+                while (*v31 && v31[1])
                 {
-                  v29 += 2;
-                  if (!--v30)
+                  v31 += 2;
+                  if (!--v32)
                   {
                     goto LABEL_38;
                   }
                 }
 
-                *v29 = v14;
-                v29[1] = a4;
+                *v31 = v14;
+                v31[1] = a4;
                 goto LABEL_70;
               }
 
 LABEL_38:
-              v31 = v28 + 8;
-              v32 = *v11;
+              v33 = v30 + 8;
+              v34 = *v11;
               if (*v11)
               {
-                v33 = *(v32 + 1);
-                v34 = -1;
-                v35 = v22 >= v33;
-                v22 -= v33;
-                if (!v35)
+                v35 = *(v34 + 1);
+                v36 = -1;
+                v37 = v24 >= v35;
+                v24 -= v35;
+                if (!v37)
                 {
 LABEL_50:
-                  v37 = CSStore2::Store::embraceAndExtend(v11, v27, (8 * v28), 8 * v31);
-                  if (v34 == -1 || (v38 = *(*v11 + 1), *(v38 + 12) <= v34))
-                  {
-                    v39 = 0;
-                  }
-
-                  else
-                  {
-                    v39 = (v38 + v34);
-                  }
-
-                  if (!v37)
-                  {
-                    v39[1] = -1;
-                    abort();
-                  }
-
-                  v40 = *v11;
-                  if (*v11)
-                  {
-                    v41 = *(v40 + 1);
-                  }
-
-                  else
+                  v39 = CSStore2::Store::embraceAndExtend(v11, v29, (8 * v30), 8 * v33);
+                  if (v36 == -1 || (v40 = *(*v11 + 1), *(v40 + 12) <= v36))
                   {
                     v41 = 0;
                   }
 
-                  v42 = -1;
-                  v35 = v37 >= v41;
-                  v43 = &v37[-v41];
-                  if (v35 && !HIDWORD(v43))
+                  else
                   {
-                    if ((v43 + 1) > *(*(v40 + 1) + 12) || v43 == -1)
+                    v41 = (v40 + v36);
+                  }
+
+                  if (!v39)
+                  {
+                    v41[1] = -1;
+                    abort();
+                  }
+
+                  v42 = *v11;
+                  if (*v11)
+                  {
+                    v43 = *(v42 + 1);
+                  }
+
+                  else
+                  {
+                    v43 = 0;
+                  }
+
+                  v44 = -1;
+                  v37 = v39 >= v43;
+                  v45 = &v39[-v43];
+                  if (v37 && !HIDWORD(v45))
+                  {
+                    if ((v45 + 1) > *(*(v42 + 1) + 12) || v45 == -1)
                     {
-                      v42 = -1;
+                      v44 = -1;
                     }
 
                     else
                     {
-                      v42 = v43;
+                      v44 = v45;
                     }
                   }
 
-                  v39[1] = v42;
-                  v45 = &v37[8 * v28];
-                  *v45 = v14;
-                  v45[1] = a4;
-                  if (v28 + 1 < v31)
+                  v41[1] = v44;
+                  v47 = &v39[8 * v30];
+                  *v47 = v14;
+                  v47[1] = a4;
+                  if (v30 + 1 < v33)
                   {
-                    v46 = &v37[8 * (v28 + 1)];
-                    *(v46 + 6) = 0;
-                    *(v46 + 1) = 0u;
-                    *(v46 + 2) = 0u;
-                    *v46 = 0u;
+                    v48 = &v39[8 * (v30 + 1)];
+                    *(v48 + 6) = 0;
+                    *(v48 + 1) = 0u;
+                    *(v48 + 2) = 0u;
+                    *v48 = 0u;
                   }
 
-                  *v39 += 8;
+                  *v41 += 8;
                   goto LABEL_70;
                 }
               }
 
               else
               {
-                v34 = -1;
+                v36 = -1;
               }
 
-              if (!HIDWORD(v22))
+              if (!HIDWORD(v24))
               {
-                if ((v22 + 1) > *(*(v32 + 1) + 12) || v22 == -1)
+                if ((v24 + 1) > *(*(v34 + 1) + 12) || v24 == -1)
                 {
-                  v34 = -1;
+                  v36 = -1;
                 }
 
                 else
                 {
-                  v34 = v22;
+                  v36 = v24;
                 }
               }
 
@@ -3560,10 +3924,10 @@ LABEL_50:
 
           if (v14)
           {
-            v20 = CSStore2::HashMap<unsigned int,unsigned int,CSStore2::Dictionary::_Functions,0ull>::Find(*v11, v13, v14);
-            if (v20)
+            v22 = CSStore2::HashMap<unsigned int,unsigned int,CSStore2::Dictionary::_Functions,0ull>::Find(*v11, v13, v14);
+            if (v22)
             {
-              *v20 = 0;
+              *v22 = 0;
             }
           }
 
@@ -3657,7 +4021,7 @@ uint64_t initlockdown_checkin_xpc(uint64_t a1, uint64_t a2, void *a3, void *a4)
   }
 
   softLinklockdown_checkin_xpc = dlsym(lockdownLibrary(void)::sLib, "lockdown_checkin_xpc");
-  v9 = (softLinklockdown_checkin_xpc)(a1, a2, v7, v8);
+  v9 = softLinklockdown_checkin_xpc(a1, a2, v7, v8);
 
   return v9;
 }
@@ -3672,7 +4036,7 @@ uint64_t initlockdown_disconnect(uint64_t a1)
   v2 = dlsym(lockdownLibrary(void)::sLib, "lockdown_disconnect");
   softLinklockdown_disconnect = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 uint64_t initlockdown_send(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -3822,7 +4186,7 @@ void sub_1B9D65584(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void CSStore2::AttributedStringWriter::attributedString(CSStore2::AttributedStringWriter *this, NSAttributedString *a2, NSAttributedString *a3)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -3836,9 +4200,9 @@ void CSStore2::AttributedStringWriter::attributedString(CSStore2::AttributedStri
         v9 = [(NSAttributedString *)v6 string];
         v10 = [(NSAttributedString *)v5 string];
         *buf = 138478083;
-        v37 = v9;
-        v38 = 2114;
-        v39 = v10;
+        v36 = v9;
+        v37 = 2114;
+        v38 = v10;
         _os_log_debug_impl(&dword_1B9D5B000, &v8->super, OS_LOG_TYPE_DEBUG, "Eliding value %{private}@ for title %{public}@", buf, 0x16u);
       }
 
@@ -3862,9 +4226,9 @@ void CSStore2::AttributedStringWriter::attributedString(CSStore2::AttributedStri
       v13 = [(NSAttributedString *)v6 string];
       v14 = [(NSAttributedString *)v5 string];
       *buf = 138478083;
-      v37 = v13;
-      v38 = 2114;
-      v39 = v14;
+      v36 = v13;
+      v37 = 2114;
+      v38 = v14;
       _os_log_debug_impl(&dword_1B9D5B000, &v8->super, OS_LOG_TYPE_DEBUG, "Writing child unit with title -- eliding value %{private}@ for title %{public}@", buf, 0x16u);
     }
   }
@@ -3879,9 +4243,9 @@ void CSStore2::AttributedStringWriter::attributedString(CSStore2::AttributedStri
     {
       v17 = objc_alloc(MEMORY[0x1E696AAB0]);
       v18 = [(NSAttributedString *)v15 string];
-      v34 = @"_CSVOutputType";
-      v35 = &unk_1F37D7988;
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+      v33 = @"_CSVOutputType";
+      v34 = &unk_1F37D7988;
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
       v5 = [v17 initWithString:v18 attributes:v19];
     }
 
@@ -3894,13 +4258,13 @@ void CSStore2::AttributedStringWriter::attributedString(CSStore2::AttributedStri
     v21 = v20;
     if (v20)
     {
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = ___ZN8CSStore222AttributedStringWriter16attributedStringEP18NSAttributedStringS2__block_invoke;
-      v32[3] = &unk_1E7ED33A8;
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = ___ZN8CSStore222AttributedStringWriter16attributedStringEP18NSAttributedStringS2__block_invoke;
+      v31[3] = &unk_1E7ED33A8;
       v22 = v20;
-      v33 = v22;
-      v23 = MEMORY[0x1BFAE6310](v32);
+      v32 = v22;
+      v23 = MEMORY[0x1BFAE6310](v31);
       v24 = objc_autoreleasePoolPush();
       [(NSAttributedString *)v16 enumerateAttribute:@"_CSVOutputType" inRange:0 options:[(NSAttributedString *)v16 length] usingBlock:0x100000, v23];
       objc_autoreleasePoolPop(v24);
@@ -3955,7 +4319,6 @@ void CSStore2::AttributedStringWriter::attributedString(CSStore2::AttributedStri
 LABEL_29:
 
   objc_autoreleasePoolPop(v7);
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 {
@@ -3965,7 +4328,7 @@ LABEL_29:
     a2 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:a2];
   }
 
-  p_isa = &a2->super.isa;
+  v6 = a2;
   CSStore2::AttributedStringWriter::attributedString(this, a2, a3);
   if (v4)
   {
@@ -4078,7 +4441,7 @@ LABEL_17:
   return v13;
 }
 
-uint64_t ___ZN8CSStore222AttributedStringWriter16attributedStringEP18NSAttributedStringS2__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+void *___ZN8CSStore222AttributedStringWriter16attributedStringEP18NSAttributedStringS2__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   if (!a2 || ([a2 isEqual:&unk_1F37D7988] & 1) != 0 || (result = objc_msgSend(a2, "isEqual:", &unk_1F37D79A0), result))
   {
@@ -4261,7 +4624,7 @@ void CSStore2::AttributedStringWriter::stringArray(CSStore2::AttributedStringWri
   }
 }
 
-void sub_1B9D66460(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23)
+void sub_1B9D66460(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23)
 {
   _Block_object_dispose(&a16, 8);
   if (__p)
@@ -4275,14 +4638,12 @@ void sub_1B9D66460(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 __n128 __Block_byref_object_copy_(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -4438,17 +4799,17 @@ CSStore2 *CSStore2::addBackrefToAttributedString(CSStore2 *this, NSAttributedStr
 
 void CSStore2::AttributedStringWriter::array(CSStore2::AttributedStringWriter *this, NSString *a2, NSArray *a3)
 {
-  v22 = this;
-  v30 = *MEMORY[0x1E69E9840];
+  v21 = this;
+  v29 = *MEMORY[0x1E69E9840];
   if (!a3 || (this = [(NSArray *)a3 count]) == 0)
   {
-    if (*(*(v22 + 31) + 168) == 1)
+    if (*(*(v21 + 31) + 168) == 1)
     {
       v19 = CSStore2::getLog(this);
       if (os_log_type_enabled(&v19->super, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v29 = a2;
+        v28 = a2;
         _os_log_debug_impl(&dword_1B9D5B000, &v19->super, OS_LOG_TYPE_DEBUG, "Eliding empty array value for title %{public}@", buf, 0xCu);
       }
 
@@ -4467,12 +4828,12 @@ LABEL_31:
 LABEL_29:
     if (!a2)
     {
-      CSStore2::AttributedStringWriter::attributedString(v22, v4);
+      CSStore2::AttributedStringWriter::attributedString(v21, v4);
       goto LABEL_33;
     }
 
     v19 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:a2];
-    CSStore2::AttributedStringWriter::attributedString(v22, v19, v4);
+    CSStore2::AttributedStringWriter::attributedString(v21, v19, v4);
     goto LABEL_31;
   }
 
@@ -4482,30 +4843,30 @@ LABEL_29:
     goto LABEL_22;
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v5 = a3;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (!v6)
   {
     goto LABEL_21;
   }
 
-  v7 = *v24;
+  v7 = *v23;
   v8 = 1;
   do
   {
     v9 = 0;
     do
     {
-      if (*v24 != v7)
+      if (*v23 != v7)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = *(*(&v23 + 1) + 8 * v9);
+      v10 = *(*(&v22 + 1) + 8 * v9);
       if ((v8 & 1) == 0)
       {
         v11 = CSStore2::getAttributedStringWithCharacter(0x2C);
@@ -4552,7 +4913,7 @@ LABEL_19:
     }
 
     while (v6 != v9);
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
     v8 = 0;
   }
 
@@ -4568,8 +4929,6 @@ LABEL_22:
   }
 
 LABEL_33:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void CSStore2::AttributedStringWriter::attributedString(CSStore2::AttributedStringWriter::Impl **this, NSAttributedString *a2)
@@ -4613,7 +4972,7 @@ void sub_1B9D66D60(_Unwind_Exception *exception_object)
 
 id CSStore2::AttributedStringWriter::link(CSStore2::AttributedStringWriter *this, NSURL *a2, NSAttributedString *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (!v5)
   {
@@ -4629,12 +4988,12 @@ id CSStore2::AttributedStringWriter::link(CSStore2::AttributedStringWriter *this
     [v9 addAttribute:@"_CSVLink" value:a2 range:{0, objc_msgSend(v9, "length")}];
     v10 = *(this + 31);
     *uu = 0;
-    v20 = 0;
+    v19 = 0;
     MEMORY[0x1BFAE6570](uu);
-    memset(v18, 0, sizeof(v18));
-    uuid_unparse(uu, v18);
-    v18[36] = 0;
-    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v18];
+    memset(v17, 0, sizeof(v17));
+    uuid_unparse(uu, v17);
+    v17[36] = 0;
+    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v17];
     if (!*(v10 + 16))
     {
       v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -4652,8 +5011,6 @@ id CSStore2::AttributedStringWriter::link(CSStore2::AttributedStringWriter *this
       v8 = v15;
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -4689,7 +5046,7 @@ void sub_1B9D67088(_Unwind_Exception *exception_object)
 
 id CSStore2::AttributedStringWriter::link(CSStore2::AttributedStringWriter *this, uint64_t a2, uint64_t a3, NSAttributedString *a4)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v7 = a4;
   v8 = v7;
   if (!a3 && (*(*(this + 31) + 168) & 1) != 0)
@@ -4706,23 +5063,8 @@ id CSStore2::AttributedStringWriter::link(CSStore2::AttributedStringWriter *this
   if (!v7)
   {
     v10 = *(*(this + 31) + 160);
-    if (v10)
+    if (v10 && (v11 = v10, [v10 summaryOfUnit:a3 inTable:a2], v12 = objc_claimAutoreleasedReturnValue(), v11, v12) || (objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", a3), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "description"), v12 = objc_claimAutoreleasedReturnValue(), v13, v12))
     {
-      v11 = v10;
-      v12 = [v10 summaryOfUnit:a3 inTable:a2];
-
-      if (v12)
-      {
-        goto LABEL_9;
-      }
-    }
-
-    v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a3];
-    v12 = [v13 description];
-
-    if (v12)
-    {
-LABEL_9:
       v14 = [v12 stringByAppendingFormat:@" (0x%llx)", a3];
     }
 
@@ -4754,17 +5096,15 @@ LABEL_13:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         *buf = 134218240;
-        v22 = a2;
-        v23 = 2048;
-        v24 = a3;
+        v21 = a2;
+        v22 = 2048;
+        v23 = a3;
         _os_log_error_impl(&dword_1B9D5B000, v18, OS_LOG_TYPE_ERROR, "Failed to construct URL for table/unit %llx %llx", buf, 0x16u);
       }
     }
   }
 
 LABEL_19:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -4970,7 +5310,7 @@ void CSStore2::AttributedStringWriter::string(CSStore2::AttributedStringWriter::
     a2 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:a2];
   }
 
-  p_isa = &a2->super.isa;
+  v4 = a2;
   CSStore2::AttributedStringWriter::attributedString(this, a2);
   if (v2)
   {
@@ -5058,12 +5398,12 @@ id CSStore2::AttributedStringWriter::Separator(CSStore2::AttributedStringWriter 
 
 id CSStore2::AttributedStringWriter::Separator(char,NSString *)::$_0::operator()(unsigned int a1, id a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v16 = vdupq_n_s8(a1);
-  v17 = v16;
-  v14 = v16;
-  v15 = v16;
-  *__dst = v16;
+  v17 = *MEMORY[0x1E69E9840];
+  v15 = vdupq_n_s8(a1);
+  v16 = v15;
+  v13 = v15;
+  v14 = v15;
+  *__dst = v15;
   if (a2)
   {
     v2 = [a2 UTF8String];
@@ -5087,12 +5427,10 @@ id CSStore2::AttributedStringWriter::Separator(char,NSString *)::$_0::operator()
   }
 
   v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytesNoCopy:__dst length:80 encoding:1 freeWhenDone:0];
-  v11 = @"_CSVOutputType";
-  v12 = &unk_1F37D79E8;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+  v10 = @"_CSVOutputType";
+  v11 = &unk_1F37D79E8;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
   v8 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v6 attributes:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -5212,18 +5550,17 @@ uint64_t CSStore2::AttributedStringWriter::withWarningColors(uint64_t a1, uint64
 
 void ___ZN8CSStore222AttributedStringWriter6stringEP8NSStringj_block_invoke_2(uint64_t a1)
 {
-  v1 = *(a1 + 48);
   if (*(a1 + 40))
   {
-    v2 = *(a1 + 40);
+    v1 = *(a1 + 40);
   }
 
   else
   {
-    v2 = &stru_1F37D5878;
+    v1 = &stru_1F37D5878;
   }
 
-  CSStore2::AttributedStringWriter::string(*(a1 + 48), *(a1 + 32), &v2->isa);
+  CSStore2::AttributedStringWriter::string(*(a1 + 48), *(a1 + 32), &v1->isa);
 }
 
 void CSStore2::AttributedStringWriter::withReferenceToUnit(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -5237,7 +5574,7 @@ void CSStore2::AttributedStringWriter::withReferenceToUnit(uint64_t a1, uint64_t
 
 void CSStore2::AttributedStringWriter::withTextAndBackgroundColor(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
 {
-  v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
+  v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a3];
   v8[0] = MEMORY[0x1E69E9820];
   v8[1] = 3221225472;
   v8[2] = ___ZN8CSStore222AttributedStringWriter26withTextAndBackgroundColorEjjU13block_pointerFvvE_block_invoke;
@@ -5291,7 +5628,7 @@ void CSStore2::AttributedStringWriter::missingFlag(uint64_t a1, unint64_t a2, vo
   {
     v10 = [a3 copy];
     v17 = &v16;
-    v11 = std::__hash_table<std::__hash_value_type<unsigned long,NSString * {__strong}>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,NSString * {__strong}>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,NSString * {__strong}>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,NSString * {__strong}>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((a1 + 72), a2);
+    v11 = std::__hash_table<std::__hash_value_type<unsigned long,NSString * {__strong}>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,NSString * {__strong}>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,NSString * {__strong}>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,NSString * {__strong}>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((a1 + 72), a2, &v17);
     v12 = v11[3];
     v11[3] = v10;
 
@@ -5299,7 +5636,7 @@ void CSStore2::AttributedStringWriter::missingFlag(uint64_t a1, unint64_t a2, vo
     {
       v13 = *a4;
       v17 = &v16;
-      *(std::__hash_table<std::__hash_value_type<unsigned long,unsigned int>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned int>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((a1 + 112), v16) + 6) = v13;
+      *(std::__hash_table<std::__hash_value_type<unsigned long,unsigned int>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned int>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((a1 + 112), v16, &v17) + 6) = v13;
     }
 
     else
@@ -5309,32 +5646,32 @@ void CSStore2::AttributedStringWriter::missingFlag(uint64_t a1, unint64_t a2, vo
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long,NSString * {__strong}>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,NSString * {__strong}>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,NSString * {__strong}>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,NSString * {__strong}>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(void *a1, unint64_t a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long,NSString * {__strong}>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,NSString * {__strong}>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,NSString * {__strong}>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,NSString * {__strong}>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(float *a1, unint64_t a2, void **a3)
 {
-  v2 = a1[1];
-  if (!*&v2)
+  v3 = *(a1 + 2);
+  if (!*&v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -5342,79 +5679,79 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v8 >= *&v3)
       {
-        v7 %= *&v2;
+        v8 %= *&v3;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v8 &= *&v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-void sub_1B9D69334(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B9D69334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long,NSString * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long,NSString * {__strong}>,void *>>>>::~unique_ptr[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long,unsigned int>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned int>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(void *a1, unint64_t a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long,unsigned int>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned int>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(float *a1, unint64_t a2, void **a3)
 {
-  v2 = a1[1];
-  if (!*&v2)
+  v3 = *(a1 + 2);
+  if (!*&v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -5422,44 +5759,44 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v8 >= *&v3)
       {
-        v7 %= *&v2;
+        v8 %= *&v3;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v8 &= *&v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
 void std::__hash_table<std::__hash_value_type<unsigned long,unsigned int>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned int>>>::__erase_unique<unsigned long>(void *a1, unint64_t a2)
@@ -5602,45 +5939,37 @@ void *std::__hash_table<std::__hash_value_type<unsigned long,unsigned int>,std::
     return 0;
   }
 
-  result = *v5;
-  if (*v5)
+  for (result = *v5; result; result = *result)
   {
-    do
+    v7 = result[1];
+    if (v7 == a2)
     {
-      v7 = result[1];
-      if (v7 == a2)
+      if (result[2] == a2)
       {
-        if (result[2] == a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v3.u32[0] > 1uLL)
+      {
+        if (v7 >= *&v2)
         {
-          return result;
+          v7 %= *&v2;
         }
       }
 
       else
       {
-        if (v3.u32[0] > 1uLL)
-        {
-          if (v7 >= *&v2)
-          {
-            v7 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v7 &= *&v2 - 1;
-        }
-
-        if (v7 != v4)
-        {
-          return 0;
-        }
+        v7 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v7 != v4)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -5690,7 +6019,7 @@ void CSStore2::AttributedStringWriter::flag(uint64_t a1, unint64_t a2, void *a3,
   {
     v10 = [a3 copy];
     v17 = &v16;
-    v11 = std::__hash_table<std::__hash_value_type<unsigned long,NSString * {__strong}>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,NSString * {__strong}>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,NSString * {__strong}>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,NSString * {__strong}>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((a1 + 72), a2);
+    v11 = std::__hash_table<std::__hash_value_type<unsigned long,NSString * {__strong}>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,NSString * {__strong}>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,NSString * {__strong}>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,NSString * {__strong}>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((a1 + 72), a2, &v17);
     v12 = v11[3];
     v11[3] = v10;
 
@@ -5698,7 +6027,7 @@ void CSStore2::AttributedStringWriter::flag(uint64_t a1, unint64_t a2, void *a3,
     {
       v13 = *a4;
       v17 = &v16;
-      *(std::__hash_table<std::__hash_value_type<unsigned long,unsigned int>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned int>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((a1 + 112), v16) + 6) = v13;
+      *(std::__hash_table<std::__hash_value_type<unsigned long,unsigned int>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned int>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((a1 + 112), v16, &v17) + 6) = v13;
     }
 
     else
@@ -6000,9 +6329,9 @@ uint64_t CSStringBindingCopyCFStrings(uint64_t a1, void *a2)
   return v2;
 }
 
-void sub_1B9D6B1B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B9D6B1B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6019,16 +6348,16 @@ void __CSStringBindingCopyCFStrings_block_invoke(uint64_t a1, unsigned int a2)
   }
 }
 
-void sub_1B9D6B280(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1B9D6B280(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = _CSStore2DataContainer;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
 void CSStore2::VM::Deallocate(CSStore2::VM *this, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E69E9AC8];
   v3 = a2 + *MEMORY[0x1E69E9AC8] - 1;
   if (v3 == v3 % *MEMORY[0x1E69E9AC8])
@@ -6048,15 +6377,13 @@ void CSStore2::VM::Deallocate(CSStore2::VM *this, void *a2)
     v7 = CSStore2::GetLog(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 134218240;
-      v10 = v4;
-      v11 = 2048;
-      v12 = v6;
-      _os_log_error_impl(&dword_1B9D5B000, v7, OS_LOG_TYPE_ERROR, "Failed to deallocate %llu bytes with kernel error %llx.", &v9, 0x16u);
+      v8 = 134218240;
+      v9 = v4;
+      v10 = 2048;
+      v11 = v6;
+      _os_log_error_impl(&dword_1B9D5B000, v7, OS_LOG_TYPE_ERROR, "Failed to deallocate %llu bytes with kernel error %llx.", &v8, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t ___ZN8CSStore2L15IsAppleInternalEv_block_invoke()
@@ -6107,14 +6434,14 @@ NSUInteger CSStore2::HashMap<unsigned int,unsigned int,CSStore2::_IdentifierFunc
       v11 = 0;
     }
 
-    v12 = 0xFFFFFFFFLL;
+    v12 = -1;
     v13 = v8 >= v11;
     v14 = v8 - v11;
     if (v13 && !HIDWORD(v14))
     {
       if ((v14 + 1) > *(*(v10 + 8) + 12) || v14 == -1)
       {
-        v12 = 0xFFFFFFFFLL;
+        v12 = -1;
       }
 
       else
@@ -6123,7 +6450,7 @@ NSUInteger CSStore2::HashMap<unsigned int,unsigned int,CSStore2::_IdentifierFunc
       }
     }
 
-    CSStore2::HashMap<unsigned int,unsigned int,CSStore2::_IdentifierFunctions,1ull>::Create(v21, a2, v12, 1024, 0);
+    CSStore2::HashMap<unsigned int,unsigned int,CSStore2::_IdentifierFunctions,1ull>::Create(v21, a2, v12, 0x400u, 0);
     v16 = v21[0];
     if (v21[0])
     {
@@ -6154,14 +6481,14 @@ NSUInteger CSStore2::HashMap<unsigned int,unsigned int,CSStore2::_IdentifierFunc
 
 uint64_t CSStore2::Store::extend(CSStore2::Store *this, unsigned int a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v4 = CSStore2::Store::assertNotEnumeratingUnits(this);
   v5 = CSStore2::GetLog(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v28 = 134217984;
-    v29 = a2;
-    _os_log_debug_impl(&dword_1B9D5B000, v5, OS_LOG_TYPE_DEBUG, "Attempting to lengthen store by %llu bytes", &v28, 0xCu);
+    v27 = 134217984;
+    v28 = a2;
+    _os_log_debug_impl(&dword_1B9D5B000, v5, OS_LOG_TYPE_DEBUG, "Attempting to lengthen store by %llu bytes", &v27, 0xCu);
   }
 
   if (a2 + 3 >= 4)
@@ -6193,19 +6520,8 @@ uint64_t CSStore2::Store::extend(CSStore2::Store *this, unsigned int a2)
         v13 = 0x40000;
       }
 
-      if (v13 >= v9)
+      if (v13 >= v9 || ([MEMORY[0x1E696AAA8] currentHandler], v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x1E696AEC0], "stringWithUTF8String:", "BOOL CSStore2::Store::reserve(_CSStoreSize, _CSStoreSize *)"), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "handleFailureInFunction:file:lineNumber:description:", v22, @"CSStore+Store.mm", 866, @"New CSStore size is smaller than the old size!"), v22, v21, (v11 = *this) != 0))
       {
-        goto LABEL_13;
-      }
-
-      v22 = [MEMORY[0x1E696AAA8] currentHandler];
-      v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL CSStore2::Store::reserve(_CSStoreSize, _CSStoreSize *)"}];
-      [v22 handleFailureInFunction:v23 file:@"CSStore+Store.mm" lineNumber:866 description:@"New CSStore size is smaller than the old size!"];
-
-      v11 = *this;
-      if (*this)
-      {
-LABEL_13:
         v14 = *(v11 + 8);
       }
 
@@ -6245,16 +6561,16 @@ LABEL_13:
     Copy = CSStore2::VM::AllocateCopy(v14, v17, v13);
     if (!Copy)
     {
-      v24 = [MEMORY[0x1E696AAA8] currentHandler];
-      v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL CSStore2::Store::reserve(_CSStoreSize, _CSStoreSize *)"}];
-      [v24 handleFailureInFunction:v25 file:@"CSStore+Store.mm" lineNumber:871 description:@"Failed to create data for store extension!"];
+      v23 = [MEMORY[0x1E696AAA8] currentHandler];
+      v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"BOOL CSStore2::Store::reserve(_CSStoreSize, _CSStoreSize *)"}];
+      [v23 handleFailureInFunction:v24 file:@"CSStore+Store.mm" lineNumber:871 description:@"Failed to create data for store extension!"];
 
-      v27 = CSStore2::GetLog(v26);
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v26 = CSStore2::GetLog(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        v28 = 134217984;
-        v29 = v6;
-        _os_log_error_impl(&dword_1B9D5B000, v27, OS_LOG_TYPE_ERROR, "Failed to reserve %llu bytes of virtual memory", &v28, 0xCu);
+        v27 = 134217984;
+        v28 = v6;
+        _os_log_error_impl(&dword_1B9D5B000, v26, OS_LOG_TYPE_ERROR, "Failed to reserve %llu bytes of virtual memory", &v27, 0xCu);
       }
 
       abort();
@@ -6270,20 +6586,15 @@ LABEL_13:
   v8[4] = v19;
   if (v10 <= v9)
   {
-    result = 0;
+    return 0;
   }
 
-  else
-  {
-    result = v8 + v9;
-    ++v8[2];
-  }
-
-  v21 = *MEMORY[0x1E69E9840];
+  result = v8 + v9;
+  ++v8[2];
   return result;
 }
 
-int *CSStore2::HashMap<unsigned int,unsigned int,CSStore2::_IdentifierFunctions,1ull>::Create(int **a1, uint64_t a2, uint64_t a3, int a4, _DWORD *a5)
+unsigned int *CSStore2::HashMap<unsigned int,unsigned int,CSStore2::_IdentifierFunctions,1ull>::Create(unsigned int **a1, uint64_t a2, int a3, unsigned int a4, _DWORD *a5)
 {
   v7 = *(a2 + 24) + a4;
   if (v7 >= 0x2000)
@@ -6334,7 +6645,7 @@ void sub_1B9D6BBA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<CSStore2::HashMap<unsigned int,unsigned int,CSStore2::_IdentifierFunctions,1ull>::KeyValuePair,std::allocator<CSStore2::HashMap<unsigned int,unsigned int,CSStore2::_IdentifierFunctions,1ull>::KeyValuePair>>::push_back[abi:nn200100](uint64_t a1, void *a2)
+void std::vector<CSStore2::HashMap<unsigned int,unsigned int,CSStore2::_IdentifierFunctions,1ull>::KeyValuePair,std::allocator<CSStore2::HashMap<unsigned int,unsigned int,CSStore2::_IdentifierFunctions,1ull>::KeyValuePair>>::push_back[abi:nn200100](uint64_t a1, uint64_t *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -6578,7 +6889,7 @@ void ___ZN8CSStore25Store23CreateWithContentsOfURLEP5NSURLPU15__autoreleasingP7N
 uint64_t CSStore2::GarbageCollection::Collect(CSStore2::GarbageCollection *this, FILE **a2, CSStore2::Store *a3, void *a4)
 {
   v5 = a3;
-  v74 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   if (*this)
   {
     v8 = *(*this + 8);
@@ -6628,27 +6939,27 @@ uint64_t CSStore2::GarbageCollection::Collect(CSStore2::GarbageCollection *this,
     v18 = *v8;
     v19 = v8[2];
     *&buf[16] = v8[1];
-    v69 = v19;
+    v68 = v19;
     *buf = v18;
     v20 = v8[3];
     v21 = v8[4];
     v22 = v8[5];
-    v73 = *(v8 + 24);
-    v71 = v21;
-    v72 = v22;
-    v70 = v20;
-    v63 = 0;
-    v23 = CSStore2::Writer::seek(*a2, 100, 0, &v63);
-    v24 = v63;
+    v72 = *(v8 + 24);
+    v70 = v21;
+    v71 = v22;
+    v69 = v20;
+    v62 = 0;
+    v23 = CSStore2::Writer::seek(*a2, 100, 0, &v62);
+    v24 = v62;
     v25 = v24;
     if (!v23)
     {
       goto LABEL_38;
     }
 
-    v62 = v24;
-    v26 = CSStore2::GarbageCollection::WriteTableCommon(this, (*(*this + 8) + 20), &buf[20], a2, v5, &v62);
-    v27 = v62;
+    v61 = v24;
+    v26 = CSStore2::GarbageCollection::WriteTableCommon(this, (*(*this + 8) + 20), &buf[20], a2, v5, &v61);
+    v27 = v61;
 
     if (!v26)
     {
@@ -6670,9 +6981,9 @@ LABEL_38:
 
     *&buf[6] = v28;
     ++*&buf[8];
-    v61 = v27;
-    v44 = CSStore2::Writer::tell(*a2, &v61);
-    v45 = v61;
+    v60 = v27;
+    v44 = CSStore2::Writer::tell(*a2, &v60);
+    v45 = v60;
 
     if (!HIDWORD(v44))
     {
@@ -6682,9 +6993,9 @@ LABEL_38:
 
     *&buf[12] = v44;
     *&buf[16] = v44;
-    v60 = v45;
-    v46 = CSStore2::Writer::pwrite(a2, buf, 0x64uLL, 0, &v60);
-    v25 = v60;
+    v59 = v45;
+    v46 = CSStore2::Writer::pwrite(a2, buf, 0x64uLL, 0, &v59);
+    v25 = v59;
 
     if ((v46 & v14) != 1 || CSStore2::Writer::IO<int,__sFILE *,long long,int>(*a2, 0, 2))
     {
@@ -6696,47 +7007,47 @@ LABEL_38:
       goto LABEL_29;
     }
 
-    v59 = 0;
-    v50 = CSStore2::Writer::tell(*a2, &v59);
-    v51 = v59;
-    v53 = v51;
-    if (HIDWORD(v50))
+    v58 = 0;
+    v49 = CSStore2::Writer::tell(*a2, &v58);
+    v50 = v58;
+    v52 = v50;
+    if (HIDWORD(v49))
     {
-      LODWORD(v52) = *(v8 + 3);
-      v56 = (v52 - v50) * 0.0009765625;
-      v57 = CSStore2::GarbageCollection::GetGCLog(v51);
-      v54 = v57;
-      if (v56 >= 0.0)
+      LODWORD(v51) = *(v8 + 3);
+      v55 = (v51 - v49) * 0.0009765625;
+      v56 = CSStore2::GarbageCollection::GetGCLog(v50);
+      v53 = v56;
+      if (v55 >= 0.0)
       {
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
         {
-          *v66 = 134217984;
-          v67 = v56;
-          _os_log_impl(&dword_1B9D5B000, v54, OS_LOG_TYPE_INFO, "Saved %.3f KB.", v66, 0xCu);
+          *v65 = 134217984;
+          v66 = v55;
+          _os_log_impl(&dword_1B9D5B000, v53, OS_LOG_TYPE_INFO, "Saved %.3f KB.", v65, 0xCu);
         }
 
         goto LABEL_52;
       }
 
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
       {
-        *v66 = 134217984;
-        v67 = v56;
-        v55 = "Failed to save space, to the order of %.3f KB.";
+        *v65 = 134217984;
+        v66 = v55;
+        v54 = "Failed to save space, to the order of %.3f KB.";
         goto LABEL_49;
       }
     }
 
     else
     {
-      v54 = CSStore2::GarbageCollection::GetGCLog(v51);
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+      v53 = CSStore2::GarbageCollection::GetGCLog(v50);
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
       {
-        *v66 = 138412290;
-        v67 = *&v53;
-        v55 = "Failed to get file offset after GC: %@";
+        *v65 = 138412290;
+        v66 = *&v52;
+        v54 = "Failed to get file offset after GC: %@";
 LABEL_49:
-        _os_log_error_impl(&dword_1B9D5B000, v54, OS_LOG_TYPE_ERROR, v55, v66, 0xCu);
+        _os_log_error_impl(&dword_1B9D5B000, v53, OS_LOG_TYPE_ERROR, v54, v65, 0xCu);
       }
     }
 
@@ -6757,15 +7068,15 @@ LABEL_52:
   v29 = *v8;
   v30 = v8[2];
   *&buf[16] = v8[1];
-  v69 = v30;
+  v68 = v30;
   *buf = v29;
   v31 = v8[3];
   v32 = v8[4];
   v33 = v8[5];
-  v73 = *(v8 + 24);
-  v71 = v32;
-  v72 = v33;
-  v70 = v31;
+  v72 = *(v8 + 24);
+  v70 = v32;
+  v71 = v33;
+  v69 = v31;
   v34 = crc32(0x6E797267uLL, v8 + 100, *(v8 + 3) - 100);
   if (v34 >= 3uLL)
   {
@@ -6778,9 +7089,9 @@ LABEL_52:
   }
 
   *&buf[6] = v35;
-  v65 = 0;
-  v36 = CSStore2::Writer::pwrite(a2, buf, 0x64uLL, 0, &v65);
-  v37 = v65;
+  v64 = 0;
+  v36 = CSStore2::Writer::pwrite(a2, buf, 0x64uLL, 0, &v64);
+  v37 = v64;
   v25 = v37;
   if (!v36)
   {
@@ -6798,9 +7109,9 @@ LABEL_52:
     v39 = v38 / *MEMORY[0x1E69E9AC8] * *MEMORY[0x1E69E9AC8];
   }
 
-  v64 = v37;
-  v40 = CSStore2::Writer::pwrite(a2, v8 + 100, (v39 - 100), 100, &v64);
-  v41 = v64;
+  v63 = v37;
+  v40 = CSStore2::Writer::pwrite(a2, v8 + 100, (v39 - 100), 100, &v63);
+  v41 = v63;
 
   if (!v40)
   {
@@ -6811,9 +7122,9 @@ LABEL_52:
 
   v25 = v41;
 LABEL_29:
-  v58 = v25;
-  v42 = CSStore2::Writer::sync(a2, &v58);
-  v43 = v58;
+  v57 = v25;
+  v42 = CSStore2::Writer::sync(a2, &v57);
+  v43 = v57;
 
   v25 = v43;
 LABEL_39:
@@ -6823,13 +7134,12 @@ LABEL_39:
     *a4 = v25;
   }
 
-  v48 = *MEMORY[0x1E69E9840];
   return v42;
 }
 
 void CSStore2::Writer::~Writer(void **this)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (*(this + 8) == 1 && *this)
   {
     if (*(this + 9) == 1)
@@ -6838,10 +7148,10 @@ void CSStore2::Writer::~Writer(void **this)
       if ((v2 & 0x80000000) == 0)
       {
         v3 = v2;
-        bzero(v10, 0x400uLL);
-        if (CSStore2::Writer::IO<int,char *>(v3, v10) != -1)
+        bzero(v9, 0x400uLL);
+        if (CSStore2::Writer::IO<int,char *>(v3, v9) != -1)
         {
-          CSStore2::Writer::IO<int,char const*>(v10);
+          CSStore2::Writer::IO<int,char const*>(v9);
         }
       }
     }
@@ -6852,19 +7162,17 @@ void CSStore2::Writer::~Writer(void **this)
       v5 = CSStore2::GetLog(v4);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v7 = *__error();
-        v8 = __error();
-        v9 = strerror(*v8);
-        v10[0] = 67109378;
-        v10[1] = v7;
-        v11 = 2082;
-        v12 = v9;
-        _os_log_error_impl(&dword_1B9D5B000, v5, OS_LOG_TYPE_ERROR, "Failed to close file handle for store writer: %i (%{public}s).", v10, 0x12u);
+        v6 = *__error();
+        v7 = __error();
+        v8 = strerror(*v7);
+        v9[0] = 67109378;
+        v9[1] = v6;
+        v10 = 2082;
+        v11 = v8;
+        _os_log_error_impl(&dword_1B9D5B000, v5, OS_LOG_TYPE_ERROR, "Failed to close file handle for store writer: %i (%{public}s).", v9, 0x12u);
       }
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t CSStore2::Writer::IO<int,__sFILE *>(CSStore2 *a1, void *a2)
@@ -6925,11 +7233,11 @@ uint64_t CSStore2::Writer::IO<int,char *>(int a1, void *a2)
       operator delete(__p[0]);
     }
 
-    for (i = 0; i != -72; i -= 24)
+    for (i = 0; i != -9; i -= 3)
     {
-      if (v12[i + 23] < 0)
+      if (SHIBYTE(v12[i + 2]) < 0)
       {
-        operator delete(*&v12[i]);
+        operator delete(v12[i]);
       }
     }
   }
@@ -6996,7 +7304,7 @@ void sub_1B9D6CBA0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CSStore2::Writer::toString<char const*>(_BYTE *a1, const char **a2)
+uint64_t CSStore2::Writer::toString<char const*>(void *a1, const char **a2)
 {
   std::ostringstream::basic_ostringstream[abi:nn200100](&v7);
   v4 = *a2;
@@ -7017,14 +7325,14 @@ uint64_t CSStore2::Writer::toString<char const*>(_BYTE *a1, const char **a2)
   return MEMORY[0x1BFAE5C80](&v11);
 }
 
-void sub_1B9D6CD34(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B9D6CD34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t CSStore2::Writer::toString<int>(_BYTE *a1, unsigned int *a2)
+uint64_t CSStore2::Writer::toString<int>(void *a1, unsigned int *a2)
 {
   std::ostringstream::basic_ostringstream[abi:nn200100](&v5);
   MEMORY[0x1BFAE5BD0](&v5, *a2);
@@ -7043,9 +7351,9 @@ uint64_t CSStore2::Writer::toString<int>(_BYTE *a1, unsigned int *a2)
   return MEMORY[0x1BFAE5C80](&v9);
 }
 
-void sub_1B9D6CE98(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B9D6CE98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -7105,7 +7413,7 @@ void sub_1B9D6D078(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::ostringstream::str[abi:nn200100](_BYTE *__dst, uint64_t a2)
+void *std::ostringstream::str[abi:nn200100](void *__dst, uint64_t a2)
 {
   v2 = __dst;
   v3 = *(a2 + 104);
@@ -7127,7 +7435,7 @@ _BYTE *std::ostringstream::str[abi:nn200100](_BYTE *__dst, uint64_t a2)
     if ((v3 & 8) == 0)
     {
       v4 = 0;
-      __dst[23] = 0;
+      *(__dst + 23) = 0;
       goto LABEL_14;
     }
 
@@ -7147,14 +7455,14 @@ _BYTE *std::ostringstream::str[abi:nn200100](_BYTE *__dst, uint64_t a2)
     operator new();
   }
 
-  __dst[23] = v4;
+  *(__dst + 23) = v4;
   if (v4)
   {
     __dst = memmove(__dst, v8, v4);
   }
 
 LABEL_14:
-  v2[v4] = 0;
+  *(v2 + v4) = 0;
   return __dst;
 }
 
@@ -7290,18 +7598,18 @@ LABEL_27:
   return a1;
 }
 
-void sub_1B9D6D560(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+void sub_1B9D6D560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
 {
   if (a17 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x1BFAE5BA0](&a10);
+  MEMORY[0x1BFAE5BA0](&a10, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-uint64_t CSStore2::Writer::toString<char *>(_BYTE *a1, const char **a2)
+uint64_t CSStore2::Writer::toString<char *>(void *a1, const char **a2)
 {
   std::ostringstream::basic_ostringstream[abi:nn200100](&v7);
   v4 = *a2;
@@ -7322,14 +7630,14 @@ uint64_t CSStore2::Writer::toString<char *>(_BYTE *a1, const char **a2)
   return MEMORY[0x1BFAE5C80](&v11);
 }
 
-void sub_1B9D6D700(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B9D6D700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t CSStore2::Writer::toString<__sFILE *>(_BYTE *a1, void *a2)
+uint64_t CSStore2::Writer::toString<__sFILE *>(void *a1, void *a2)
 {
   std::ostringstream::basic_ostringstream[abi:nn200100](&v5);
   MEMORY[0x1BFAE5BC0](&v5, *a2);
@@ -7348,20 +7656,20 @@ uint64_t CSStore2::Writer::toString<__sFILE *>(_BYTE *a1, void *a2)
   return MEMORY[0x1BFAE5C80](&v9);
 }
 
-void sub_1B9D6D864(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B9D6D864(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t CSStore2::GarbageCollection::IsNeeded(CSStore2::GarbageCollection *this, const CSStore2::Store *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2020000000;
-  v14 = 0;
+  v16 = *MEMORY[0x1E69E9840];
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
+  v13 = 0;
   if (a2)
   {
     v5 = CSStore2::GarbageCollection::GetGCLog(this);
@@ -7376,15 +7684,15 @@ uint64_t CSStore2::GarbageCollection::IsNeeded(CSStore2::GarbageCollection *this
   {
     if (!*this || (v2 = *(*this + 8), v3 = *(v2 + 12), LODWORD(v2) = *(v2 + 16), v4 = v3 - v2, v3 <= v2) || v4 <= 0x80000)
     {
-      v9[0] = MEMORY[0x1E69E9820];
-      v9[1] = 3221225472;
-      v9[2] = ___ZN8CSStore217GarbageCollection8IsNeededERKNS_5StoreEh_block_invoke;
-      v9[3] = &unk_1E7ED3698;
-      v10 = a2;
-      v9[4] = &v11;
-      v9[5] = this;
-      CSStore2::Store::enumerateTables(this, v9);
-      v6 = *(v12 + 24);
+      v8[0] = MEMORY[0x1E69E9820];
+      v8[1] = 3221225472;
+      v8[2] = ___ZN8CSStore217GarbageCollection8IsNeededERKNS_5StoreEh_block_invoke;
+      v8[3] = &unk_1E7ED3698;
+      v9 = a2;
+      v8[4] = &v10;
+      v8[5] = this;
+      CSStore2::Store::enumerateTables(this, v8);
+      v6 = *(v11 + 24);
       goto LABEL_12;
     }
 
@@ -7392,22 +7700,21 @@ uint64_t CSStore2::GarbageCollection::IsNeeded(CSStore2::GarbageCollection *this
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v16 = v4;
+      v15 = v4;
       _os_log_impl(&dword_1B9D5B000, v5, OS_LOG_TYPE_INFO, "Store wastes %llu bytes. Will collect.", buf, 0xCu);
     }
   }
 
   v6 = 1;
-  *(v12 + 24) = 1;
+  *(v11 + 24) = 1;
 LABEL_12:
-  _Block_object_dispose(&v11, 8);
-  v7 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v10, 8);
   return v6 & 1;
 }
 
-void sub_1B9D6DA1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B9D6DA1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7491,99 +7798,97 @@ LABEL_13:
   return v13;
 }
 
-BOOL CSStore2::Writer::seek(FILE *a1, off_t a2, int a3, void *a4)
+BOOL CSStore2::Writer::seek(FILE *a1, off_t a2, uint64_t a3, void *a4)
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   v5 = CSStore2::Writer::IO<int,__sFILE *,long long,int>(a1, a2, a3);
   v6 = v5;
   if (a4 && v5)
   {
     v7 = MEMORY[0x1E696ABC0];
     v8 = *__error();
-    v12[0] = *MEMORY[0x1E696A278];
-    v12[1] = @"Line";
-    v13[0] = @"errno";
-    v13[1] = &unk_1F37D7CD0;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+    v11[0] = *MEMORY[0x1E696A278];
+    v11[1] = @"Line";
+    v12[0] = @"errno";
+    v12[1] = &unk_1F37D7CD0;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
     *a4 = [v7 errorWithDomain:*MEMORY[0x1E696A798] code:v8 userInfo:v9];
   }
 
-  result = v6 == 0;
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return v6 == 0;
 }
 
-uint64_t CSStore2::GarbageCollection::WriteTableCommon(CSStore2::Store *this, unsigned int *a2, uint64_t a3, FILE **a4, char a5, void *a6)
+uint64_t CSStore2::GarbageCollection::WriteTableCommon(CSStore2::Store *this, const CSStore2::Table *a2, uint64_t a3, FILE **a4, char a5, void *a6)
 {
-  v56[2] = *MEMORY[0x1E69E9840];
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x2020000000;
-  v50 = 1;
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x3032000000;
-  v44 = __Block_byref_object_copy__114;
-  v45 = __Block_byref_object_dispose__115;
+  v55[2] = *MEMORY[0x1E69E9840];
   v46 = 0;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x5812000000;
-  v36 = __Block_byref_object_copy__214;
-  v37 = __Block_byref_object_dispose__215;
-  v38 = "";
-  memset(v39, 0, sizeof(v39));
-  v40 = 1065353216;
+  v47 = &v46;
+  v48 = 0x2020000000;
+  v49 = 1;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x3032000000;
+  v43 = __Block_byref_object_copy__114;
+  v44 = __Block_byref_object_dispose__115;
+  v45 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x5812000000;
+  v35 = __Block_byref_object_copy__214;
+  v36 = __Block_byref_object_dispose__215;
+  v37 = "";
+  memset(v38, 0, sizeof(v38));
+  v39 = 1065353216;
   Table = *(this + 35);
   if (!Table)
   {
     Table = CSStore2::Store::getTable(this, &cfstr_Dictionary.isa);
   }
 
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = ___ZN8CSStore217GarbageCollection16WriteTableCommonERKNS_5StoreEPKNS_5TableEPS4_RNS_6WriterEhPU15__autoreleasingP7NSError_block_invoke;
-  v30[3] = &unk_1E7ED3670;
-  v31 = Table == a2;
-  v30[7] = a4;
-  v30[8] = this;
-  v30[4] = &v41;
-  v30[5] = &v47;
-  v32 = a5;
-  v30[6] = &v33;
-  CSStore2::Store::enumerateUnits(this, a2, v30);
-  if (*(v48 + 24) == 1)
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = ___ZN8CSStore217GarbageCollection16WriteTableCommonERKNS_5StoreEPKNS_5TableEPS4_RNS_6WriterEhPU15__autoreleasingP7NSError_block_invoke;
+  v29[3] = &unk_1E7ED3670;
+  v30 = Table == a2;
+  v29[7] = a4;
+  v29[8] = this;
+  v29[4] = &v40;
+  v29[5] = &v46;
+  v31 = a5;
+  v29[6] = &v32;
+  CSStore2::Store::enumerateUnits(this, a2, v29);
+  if (*(v47 + 24) == 1)
   {
-    v13 = (v42 + 5);
-    obj = v42[5];
+    v13 = (v41 + 5);
+    obj = v41[5];
     v14 = CSStore2::Writer::tell(*a4, &obj);
     objc_storeStrong(v13, obj);
     if (HIDWORD(v14))
     {
-      v15 = v34;
-      v16 = (v42 + 5);
-      v17 = v42[5];
-      v54 = 0;
-      v18 = CSStore2::Writer::tell(*a4, &v54);
-      v19 = v54;
+      v15 = v33;
+      v16 = (v41 + 5);
+      v17 = v41[5];
+      v53 = 0;
+      v18 = CSStore2::Writer::tell(*a4, &v53);
+      v19 = v53;
       if (HIDWORD(v18))
       {
-        v53 = 0;
-        CSStore2::HashMap<unsigned int,unsigned int,CSStore2::_IdentifierFunctions,1ull>::Create(v52, (v15 + 6), v18, 0, &v53);
-        v20 = v52[0];
-        if (v52[0])
+        v52 = 0;
+        CSStore2::HashMap<unsigned int,unsigned int,CSStore2::_IdentifierFunctions,1ull>::Create(v51, (v15 + 6), v18, 0, &v52);
+        v20 = v51[0];
+        if (v51[0])
         {
-          v51 = v19;
-          v21 = CSStore2::Writer::write(*a4, v52[0], v53, &v51);
-          v22 = v51;
+          v50 = v19;
+          v21 = CSStore2::Writer::write(*a4, v51[0], v52, &v50);
+          v22 = v50;
 
-          (v52[1])(v20);
+          (v51[1])(v20);
           if (v21)
           {
 
             objc_storeStrong(v16, v17);
             LOBYTE(a6) = 1;
-            *(v48 + 24) = 1;
+            *(v47 + 24) = 1;
             *(a3 + 76) = v14;
             goto LABEL_15;
           }
@@ -7594,11 +7899,11 @@ uint64_t CSStore2::GarbageCollection::WriteTableCommon(CSStore2::Store *this, un
         else
         {
           v23 = MEMORY[0x1E696ABC0];
-          v55[0] = *MEMORY[0x1E696A278];
-          v55[1] = @"Line";
-          v56[0] = @"kCSStoreAllocFailedErr";
-          v56[1] = &unk_1F37D7D00;
-          v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:v55 count:2];
+          v54[0] = *MEMORY[0x1E696A278];
+          v54[1] = @"Line";
+          v55[0] = @"kCSStoreAllocFailedErr";
+          v55[1] = &unk_1F37D7D00;
+          v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:v54 count:2];
           v25 = [v23 errorWithDomain:*MEMORY[0x1E696A768] code:-9493 userInfo:v24];
 
           v19 = v25;
@@ -7610,26 +7915,25 @@ uint64_t CSStore2::GarbageCollection::WriteTableCommon(CSStore2::Store *this, un
       objc_storeStrong(v16, v19);
     }
 
-    *(v48 + 24) = 0;
+    *(v47 + 24) = 0;
   }
 
   if (a6)
   {
-    *a6 = v42[5];
-    LOBYTE(a6) = *(v48 + 24);
+    *a6 = v41[5];
+    LOBYTE(a6) = *(v47 + 24);
   }
 
 LABEL_15:
-  _Block_object_dispose(&v33, 8);
-  std::__hash_table<std::__hash_value_type<unsigned long,unsigned int>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned int>>>::~__hash_table(v39);
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v32, 8);
+  std::__hash_table<std::__hash_value_type<unsigned long,unsigned int>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned int>>>::~__hash_table(v38);
+  _Block_object_dispose(&v40, 8);
 
-  _Block_object_dispose(&v47, 8);
-  v27 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v46, 8);
   return a6 & 1;
 }
 
-void sub_1B9D6E0C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, id a37)
+void sub_1B9D6E0C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, id a37)
 {
   _Block_object_dispose(&a21, 8);
   std::__hash_table<std::__hash_value_type<unsigned long,unsigned int>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned int>>>::~__hash_table(v39 + 48);
@@ -7641,7 +7945,7 @@ void sub_1B9D6E0C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t CSStore2::Writer::tell(FILE *a1, void *a2)
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   v3 = CSStore2::Writer::IO<long long,__sFILE *>(a1);
   if (v3 < 0x100000000)
   {
@@ -7656,22 +7960,22 @@ uint64_t CSStore2::Writer::tell(FILE *a1, void *a2)
 
     v11 = MEMORY[0x1E696ABC0];
     v12 = *__error();
-    v16[0] = *MEMORY[0x1E696A278];
-    v16[1] = @"Line";
-    v17[0] = @"errno";
-    v17[1] = &unk_1F37D7D30;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v15[0] = *MEMORY[0x1E696A278];
+    v15[1] = @"Line";
+    v16[0] = @"errno";
+    v16[1] = &unk_1F37D7D30;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
     v6 = [v11 errorWithDomain:*MEMORY[0x1E696A798] code:v12 userInfo:v5];
   }
 
   else
   {
     v4 = MEMORY[0x1E696ABC0];
-    v18[0] = *MEMORY[0x1E696A278];
-    v18[1] = @"Line";
-    v19[0] = @"ERANGE";
-    v19[1] = &unk_1F37D7D18;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
+    v17[0] = *MEMORY[0x1E696A278];
+    v17[1] = @"Line";
+    v18[0] = @"ERANGE";
+    v18[1] = &unk_1F37D7D18;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
     v6 = [v4 errorWithDomain:*MEMORY[0x1E696A798] code:34 userInfo:v5];
   }
 
@@ -7695,7 +7999,6 @@ uint64_t CSStore2::Writer::tell(FILE *a1, void *a2)
 
 LABEL_9:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9 | v8 | v10;
 }
 
@@ -7718,11 +8021,11 @@ uint64_t CSStore2::Writer::IO<int,__sFILE *,long long,int>(FILE *a1, off_t a2, i
       operator delete(__p[0]);
     }
 
-    for (i = 0; i != -72; i -= 24)
+    for (i = 0; i != -9; i -= 3)
     {
-      if (v14[i + 23] < 0)
+      if (SHIBYTE(v14[i + 2]) < 0)
       {
-        operator delete(*&v14[i]);
+        operator delete(v14[i]);
       }
     }
   }
@@ -7755,7 +8058,7 @@ void sub_1B9D6E43C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t CSStore2::Writer::sync(void **a1, void *a2)
 {
-  v55[2] = *MEMORY[0x1E69E9840];
+  v54[2] = *MEMORY[0x1E69E9840];
   v4 = CSStore2::Writer::IO<int,__sFILE *>(MEMORY[0x1E69E9878], *a1);
   v5 = v4;
   v6 = CSStore2::GetLog(v4);
@@ -7764,9 +8067,9 @@ uint64_t CSStore2::Writer::sync(void **a1, void *a2)
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v37 = *a1;
+      v36 = *a1;
       *buf = 134217984;
-      *v50 = v37;
+      *v49 = v36;
       _os_log_debug_impl(&dword_1B9D5B000, v7, OS_LOG_TYPE_DEBUG, "Successfully called fflush(%p)", buf, 0xCu);
     }
 
@@ -7785,40 +8088,40 @@ uint64_t CSStore2::Writer::sync(void **a1, void *a2)
         {
           if (v21)
           {
-            v38 = *__error();
-            v39 = __error();
-            v40 = strerror(*v39);
+            v37 = *__error();
+            v38 = __error();
+            v39 = strerror(*v38);
             *buf = 67109634;
-            *v50 = v16;
-            *&v50[4] = 1024;
-            *&v50[6] = v38;
-            LOWORD(v51[0]) = 2082;
-            *(v51 + 2) = v40;
+            *v49 = v16;
+            *&v49[4] = 1024;
+            *&v49[6] = v37;
+            LOWORD(v50[0]) = 2082;
+            *(v50 + 2) = v39;
             _os_log_error_impl(&dword_1B9D5B000, v20, OS_LOG_TYPE_ERROR, "Error calling fcntl(%i, F_FULLFSYNC): %i (%{public}s).", buf, 0x18u);
           }
 
           v22 = MEMORY[0x1E696ABC0];
           v23 = *__error();
-          v54[0] = *MEMORY[0x1E696A278];
-          v54[1] = @"Line";
-          v55[0] = @"errno";
-          v55[1] = &unk_1F37D7D48;
-          v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:v54 count:2];
+          v53[0] = *MEMORY[0x1E696A278];
+          v53[1] = @"Line";
+          v54[0] = @"errno";
+          v54[1] = &unk_1F37D7D48;
+          v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:v53 count:2];
           v11 = [v22 errorWithDomain:*MEMORY[0x1E696A798] code:v23 userInfo:v10];
           goto LABEL_5;
         }
 
         if (v21)
         {
-          v41 = *__error();
-          v42 = __error();
-          v43 = strerror(*v42);
+          v40 = *__error();
+          v41 = __error();
+          v42 = strerror(*v41);
           *buf = 67109634;
-          *v50 = v16;
-          *&v50[4] = 1024;
-          *&v50[6] = v41;
-          LOWORD(v51[0]) = 2082;
-          *(v51 + 2) = v43;
+          *v49 = v16;
+          *&v49[4] = 1024;
+          *&v49[6] = v40;
+          LOWORD(v50[0]) = 2082;
+          *(v50 + 2) = v42;
           _os_log_error_impl(&dword_1B9D5B000, v20, OS_LOG_TYPE_ERROR, "Error calling fcntl(%i, F_FULLFSYNC), trying fsync(): %i (%{public}s).", buf, 0x18u);
         }
 
@@ -7830,25 +8133,25 @@ uint64_t CSStore2::Writer::sync(void **a1, void *a2)
         {
           if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
-            v44 = *__error();
-            v45 = __error();
-            v46 = strerror(*v45);
+            v43 = *__error();
+            v44 = __error();
+            v45 = strerror(*v44);
             *buf = 67109634;
-            *v50 = v16;
-            *&v50[4] = 1024;
-            *&v50[6] = v44;
-            LOWORD(v51[0]) = 2082;
-            *(v51 + 2) = v46;
+            *v49 = v16;
+            *&v49[4] = 1024;
+            *&v49[6] = v43;
+            LOWORD(v50[0]) = 2082;
+            *(v50 + 2) = v45;
             _os_log_error_impl(&dword_1B9D5B000, v28, OS_LOG_TYPE_ERROR, "Error calling fsync(%i): %i (%{public}s).", buf, 0x18u);
           }
 
           v29 = MEMORY[0x1E696ABC0];
           v30 = *__error();
-          v52[0] = *MEMORY[0x1E696A278];
-          v52[1] = @"Line";
-          v53[0] = @"errno";
-          v53[1] = &unk_1F37D7D60;
-          v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:v52 count:2];
+          v51[0] = *MEMORY[0x1E696A278];
+          v51[1] = @"Line";
+          v52[0] = @"errno";
+          v52[1] = &unk_1F37D7D60;
+          v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:v51 count:2];
           v11 = [v29 errorWithDomain:*MEMORY[0x1E696A798] code:v30 userInfo:v10];
           goto LABEL_5;
         }
@@ -7856,7 +8159,7 @@ uint64_t CSStore2::Writer::sync(void **a1, void *a2)
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
         {
           *buf = 67109120;
-          *v50 = v16;
+          *v49 = v16;
           _os_log_debug_impl(&dword_1B9D5B000, v28, OS_LOG_TYPE_DEBUG, "Successfully called fsync(%i)", buf, 8u);
         }
       }
@@ -7867,7 +8170,7 @@ uint64_t CSStore2::Writer::sync(void **a1, void *a2)
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
           *buf = 67109120;
-          *v50 = v16;
+          *v49 = v16;
           _os_log_debug_impl(&dword_1B9D5B000, v24, OS_LOG_TYPE_DEBUG, "Successfully called fcntl(%i, F_FULLFSYNC)", buf, 8u);
         }
       }
@@ -7885,21 +8188,21 @@ uint64_t CSStore2::Writer::sync(void **a1, void *a2)
     v33 = __error();
     v34 = strerror(*v33);
     *buf = 134218498;
-    *v50 = v31;
-    *&v50[8] = 1024;
-    v51[0] = v32;
-    LOWORD(v51[1]) = 2082;
-    *(&v51[1] + 2) = v34;
+    *v49 = v31;
+    *&v49[8] = 1024;
+    v50[0] = v32;
+    LOWORD(v50[1]) = 2082;
+    *(&v50[1] + 2) = v34;
     _os_log_error_impl(&dword_1B9D5B000, v7, OS_LOG_TYPE_ERROR, "Error calling fflush(%p): %i (%{public}s).", buf, 0x1Cu);
   }
 
   v8 = MEMORY[0x1E696ABC0];
   v9 = *__error();
-  v47[0] = *MEMORY[0x1E696A278];
-  v47[1] = @"Line";
-  v48[0] = @"errno";
-  v48[1] = &unk_1F37D7D78;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:2];
+  v46[0] = *MEMORY[0x1E696A278];
+  v46[1] = @"Line";
+  v47[0] = @"errno";
+  v47[1] = &unk_1F37D7D78;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:v46 count:2];
   v11 = [v8 errorWithDomain:*MEMORY[0x1E696A798] code:v9 userInfo:v10];
 LABEL_5:
   v12 = v11;
@@ -7918,7 +8221,6 @@ LABEL_5:
 
 LABEL_29:
 
-  v35 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -7941,11 +8243,11 @@ uint64_t CSStore2::Writer::IO<int,int>(int a1)
       operator delete(__p[0]);
     }
 
-    for (i = 0; i != -72; i -= 24)
+    for (i = 0; i != -9; i -= 3)
     {
-      if (v10[i + 23] < 0)
+      if (SHIBYTE(v10[i + 2]) < 0)
       {
-        operator delete(*&v10[i]);
+        operator delete(v10[i]);
       }
     }
   }
@@ -8016,7 +8318,7 @@ void sub_1B9D6ECCC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CSStore2::Writer::toString<long long>(_BYTE *a1, void *a2)
+uint64_t CSStore2::Writer::toString<long long>(void *a1, void *a2)
 {
   std::ostringstream::basic_ostringstream[abi:nn200100](&v5);
   MEMORY[0x1BFAE5C00](&v5, *a2);
@@ -8035,9 +8337,9 @@ uint64_t CSStore2::Writer::toString<long long>(_BYTE *a1, void *a2)
   return MEMORY[0x1BFAE5C80](&v9);
 }
 
-void sub_1B9D6EE50(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B9D6EE50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -8140,89 +8442,89 @@ void ___ZN8CSStore217GarbageCollection16WriteTableCommonERKNS_5StoreEPKNS_5Table
   {
     if (*a2 >> 30 != 1)
     {
-      v79 = *(a1 + 56);
-      v80 = *(*(a1 + 32) + 8);
-      v82 = *(v80 + 40);
-      v81 = (v80 + 40);
-      v133 = v82;
-      v83 = a2[1] + 11;
-      if (v83 >= 4)
+      v80 = *(a1 + 56);
+      v81 = *(*(a1 + 32) + 8);
+      v83 = *(v81 + 40);
+      v82 = (v81 + 40);
+      v133 = v83;
+      v84 = a2[1] + 11;
+      if (v84 >= 4)
       {
-        v84 = v83 & 0xFFFFFFFC;
+        v85 = v84 & 0xFFFFFFFC;
       }
 
       else
       {
-        v84 = 4;
+        v85 = 4;
       }
 
-      v85 = CSStore2::Writer::write(*v79, a2, v84, &v133);
-      objc_storeStrong(v81, v133);
+      v86 = CSStore2::Writer::write(*v80, a2, v85, &v133);
+      objc_storeStrong(v82, v133);
       v6 = a1;
-      *(*(*(a1 + 40) + 8) + 24) = v85;
+      *(*(*(a1 + 40) + 8) + 24) = v86;
       goto LABEL_111;
     }
 
-    v41 = *(a1 + 56);
+    v42 = *(a1 + 56);
     v128 = *(a1 + 64);
-    v42 = *(a1 + 73);
-    v43 = *(*(a1 + 32) + 8);
-    v46 = *(v43 + 40);
-    v44 = (v43 + 40);
-    v45 = v46;
+    v43 = *(a1 + 73);
+    v44 = *(*(a1 + 32) + 8);
+    v47 = *(v44 + 40);
+    v45 = (v44 + 40);
+    v46 = v47;
     __nitems = 0;
-    v129 = CSStore2::Writer::tell(*v41, &__nitems);
-    v47 = __nitems;
+    v129 = CSStore2::Writer::tell(*v42, &__nitems);
+    v48 = __nitems;
     if (!HIDWORD(v129))
     {
       goto LABEL_109;
     }
 
-    v48 = a2[1] + 11;
-    if (v48 >= 4)
+    v49 = a2[1] + 11;
+    if (v49 >= 4)
     {
-      v49 = v48 & 0xFFFFFFFC;
+      v50 = v49 & 0xFFFFFFFC;
     }
 
     else
     {
-      v49 = 4;
+      v50 = 4;
     }
 
-    v50 = malloc_type_malloc(v49, 0x10000404247E4FDuLL);
-    v51 = v50;
-    if (!v50)
+    v51 = malloc_type_malloc(v50, 0x10000404247E4FDuLL);
+    v52 = v51;
+    if (!v51)
     {
-      v92 = MEMORY[0x1E696ABC0];
+      v93 = MEMORY[0x1E696ABC0];
       v144 = *MEMORY[0x1E696A278];
       v145 = @"Line";
       *&v146 = @"kCSStoreAllocFailedErr";
       *(&v146 + 1) = &unk_1F37D7CE8;
-      v93 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v146 forKeys:&v144 count:2];
-      v94 = [v92 errorWithDomain:*MEMORY[0x1E696A768] code:-9493 userInfo:v93];
+      v94 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v146 forKeys:&v144 count:2];
+      v95 = [v93 errorWithDomain:*MEMORY[0x1E696A768] code:-9493 userInfo:v94];
 
-      v47 = v94;
+      v48 = v95;
       goto LABEL_109;
     }
 
-    memcpy(v50, a2, v49);
-    v137 = v47;
-    v124 = v49;
-    v52 = CSStore2::Writer::seek(*v41, v49, 1, &v137);
-    v53 = v137;
+    memcpy(v51, a2, v50);
+    v137 = v48;
+    v124 = v50;
+    v53 = CSStore2::Writer::seek(*v42, v50, 1, &v137);
+    v54 = v137;
 
-    if (!v52)
+    if (!v53)
     {
       goto LABEL_108;
     }
 
-    v136 = v53;
-    v54 = CSStore2::GarbageCollection::WriteTableCommon(v128);
-    v55 = v136;
+    v136 = v54;
+    v55 = CSStore2::GarbageCollection::WriteTableCommon(v128, a2, v52, v42, v43, &v136);
+    v56 = v136;
 
-    if (!v54)
+    if (!v55)
     {
-      v53 = v55;
+      v54 = v56;
       goto LABEL_108;
     }
 
@@ -8237,65 +8539,65 @@ void ___ZN8CSStore217GarbageCollection16WriteTableCommonERKNS_5StoreEPKNS_5Table
       goto LABEL_146;
     }
 
-    StringCache = CSStore2::getStringCache(v128, v56);
+    StringCache = CSStore2::getStringCache(v128, v57);
     if (StringCache)
     {
       v146 = 0u;
       v147 = 0u;
       v148 = 1065353216;
-      v59 = *StringCache;
-      if (v59)
+      v60 = *StringCache;
+      if (v60)
       {
-        v60 = 0;
-        v61 = StringCache + 1;
-        v120 = v44;
-        *v122 = v51;
-        v118 = v41;
-        v119 = v45;
+        v61 = 0;
+        v62 = StringCache + 1;
+        v120 = v45;
+        *v122 = v52;
+        v118 = v42;
+        v119 = v46;
         do
         {
-          v62 = &v61[2 * v60];
-          v63 = *v62;
-          if (*v62 - 0x20000000 >= 0xE0000001)
+          v63 = &v62[2 * v61];
+          v64 = *v63;
+          if (*v63 - 0x20000000 >= 0xE0000001)
           {
-            v64 = v62[1];
-            if (!__CFADD__(v64, 8 * v63))
+            v65 = v63[1];
+            if (!__CFADD__(v65, 8 * v64))
             {
-              v65 = *(*v128 + 8);
-              v66 = *(v65 + 12);
-              if (v64 + 8 * v63 <= v66 && v66 > v64)
+              v66 = *(*v128 + 8);
+              v67 = *(v66 + 12);
+              if (v65 + 8 * v64 <= v67 && v67 > v65)
               {
-                v68 = 0;
-                v69 = v65 + v64;
+                v69 = 0;
+                v70 = v66 + v65;
                 do
                 {
-                  v70 = (v69 + 8 * v68);
-                  v71 = *v70;
-                  if (v71 && (*(v70 + 5) & 1) != 0)
+                  v71 = (v70 + 8 * v69);
+                  v72 = *v71;
+                  if (v72 && (*(v71 + 5) & 1) != 0)
                   {
                     if (!*(&v146 + 1))
                     {
                       goto LABEL_89;
                     }
 
-                    v72 = vcnt_s8(*(&v146 + 8));
-                    v72.i16[0] = vaddlv_u8(v72);
-                    if (v72.u32[0] > 1uLL)
+                    v73 = vcnt_s8(*(&v146 + 8));
+                    v73.i16[0] = vaddlv_u8(v73);
+                    if (v73.u32[0] > 1uLL)
                     {
-                      v73 = *v70;
-                      if (*(&v146 + 1) <= v71)
+                      v74 = *v71;
+                      if (*(&v146 + 1) <= v72)
                       {
-                        v73 = v71 % DWORD2(v146);
+                        v74 = v72 % DWORD2(v146);
                       }
                     }
 
                     else
                     {
-                      v73 = (DWORD2(v146) - 1) & v71;
+                      v74 = (DWORD2(v146) - 1) & v72;
                     }
 
-                    v74 = *(v146 + 8 * v73);
-                    if (!v74 || (v75 = *v74) == 0)
+                    v75 = *(v146 + 8 * v74);
+                    if (!v75 || (v76 = *v75) == 0)
                     {
 LABEL_89:
                       operator new();
@@ -8303,116 +8605,116 @@ LABEL_89:
 
                     while (1)
                     {
-                      v76 = v75[1];
-                      if (v76 == v71)
+                      v77 = v76[1];
+                      if (v77 == v72)
                       {
-                        if (*(v75 + 4) == v71)
+                        if (*(v76 + 4) == v72)
                         {
-                          *(v75 + 5) = v70[1];
-                          v63 = v61[2 * v60];
+                          *(v76 + 5) = v71[1];
+                          v64 = v62[2 * v61];
                           break;
                         }
                       }
 
                       else
                       {
-                        if (v72.u32[0] > 1uLL)
+                        if (v73.u32[0] > 1uLL)
                         {
-                          if (v76 >= *(&v146 + 1))
+                          if (v77 >= *(&v146 + 1))
                           {
-                            v76 %= *(&v146 + 1);
+                            v77 %= *(&v146 + 1);
                           }
                         }
 
                         else
                         {
-                          v76 &= *(&v146 + 1) - 1;
+                          v77 &= *(&v146 + 1) - 1;
                         }
 
-                        if (v76 != v73)
+                        if (v77 != v74)
                         {
                           goto LABEL_89;
                         }
                       }
 
-                      v75 = *v75;
-                      if (!v75)
+                      v76 = *v76;
+                      if (!v76)
                       {
                         goto LABEL_89;
                       }
                     }
                   }
 
-                  ++v68;
+                  ++v69;
                 }
 
-                while (v68 < v63);
-                v41 = v118;
-                v59 = *StringCache;
-                v44 = v120;
-                v51 = *v122;
-                v45 = v119;
-                v61 = StringCache + 1;
+                while (v69 < v64);
+                v42 = v118;
+                v60 = *StringCache;
+                v45 = v120;
+                v52 = *v122;
+                v46 = v119;
+                v62 = StringCache + 1;
               }
             }
           }
 
-          ++v60;
+          ++v61;
         }
 
-        while (v60 < v59);
+        while (v61 < v60);
       }
 
       *&v139[1] = 0;
-      v77 = CSStore2::Writer::tell(*v41, &v139[1]);
-      v78 = *&v139[1];
-      if (!HIDWORD(v77))
+      v78 = CSStore2::Writer::tell(*v42, &v139[1]);
+      v79 = *&v139[1];
+      if (!HIDWORD(v78))
       {
         std::__hash_table<std::__hash_value_type<unsigned long,unsigned int>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned int>>>::~__hash_table(&v146);
 LABEL_144:
-        v116 = v78;
+        v116 = v79;
         v112 = 0;
-        v109 = v78;
+        v109 = v79;
 LABEL_145:
 
-        v53 = v78;
-        v55 = v53;
+        v54 = v79;
+        v56 = v54;
         if (v112)
         {
 LABEL_146:
-          *&v146 = v55;
-          v117 = CSStore2::Writer::pwrite(v41, v51, v124, v129, &v146);
-          v97 = v146;
+          *&v146 = v56;
+          v117 = CSStore2::Writer::pwrite(v42, v52, v124, v129, &v146);
+          v98 = v146;
 
-          free(v51);
+          free(v52);
           if (v117)
           {
-            v96 = 1;
+            v97 = 1;
             goto LABEL_110;
           }
 
-          v47 = v97;
+          v48 = v98;
 LABEL_109:
-          v95 = v47;
-          v96 = 0;
-          v45 = v47;
-          v97 = v47;
+          v96 = v48;
+          v97 = 0;
+          v46 = v48;
+          v98 = v48;
 LABEL_110:
 
-          objc_storeStrong(v44, v45);
+          objc_storeStrong(v45, v46);
           v6 = a1;
-          *(*(*(a1 + 40) + 8) + 24) = v96;
+          *(*(*(a1 + 40) + 8) + 24) = v97;
           goto LABEL_111;
         }
 
 LABEL_108:
-        free(v51);
-        v47 = v53;
+        free(v52);
+        v48 = v54;
         goto LABEL_109;
       }
 
       v139[0] = 0;
-      CSStore2::HashMap<unsigned int,CSStore2::_StringCacheEntry,CSStore2::_StringFunctions,0ull>::Create(&v144, v128, &v146, v77, v139);
+      CSStore2::HashMap<unsigned int,CSStore2::_StringCacheEntry,CSStore2::_StringFunctions,0ull>::Create(&v144, v128, &v146, v78, v139);
       v110 = v144;
       if (!v144)
       {
@@ -8425,20 +8727,20 @@ LABEL_108:
         v115 = [v113 errorWithDomain:*MEMORY[0x1E696A768] code:-9493 userInfo:v114];
 
         std::__hash_table<std::__hash_value_type<unsigned long,unsigned int>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned int>>>::~__hash_table(&v146);
-        v78 = v115;
+        v79 = v115;
         goto LABEL_144;
       }
 
-      v51[20] = v77;
-      v142 = v78;
-      v111 = CSStore2::Writer::write(*v41, v110, v139[0], &v142);
+      v52[20] = v78;
+      v142 = v79;
+      v111 = CSStore2::Writer::write(*v42, v110, v139[0], &v142);
       v109 = v142;
 
       (v145)(v110);
       std::__hash_table<std::__hash_value_type<unsigned long,unsigned int>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned int>>>::~__hash_table(&v146);
       if (!v111)
       {
-        v78 = v109;
+        v79 = v109;
         goto LABEL_144;
       }
     }
@@ -8446,11 +8748,11 @@ LABEL_108:
     else
     {
       v109 = 0;
-      v51[20] = -1;
+      v52[20] = -1;
     }
 
     v112 = 1;
-    v78 = v55;
+    v79 = v56;
     goto LABEL_145;
   }
 
@@ -8606,30 +8908,31 @@ LABEL_38:
           }
 
           v35 = CSStore2::Writer::tell(*v9, &v134);
+          v36 = v35;
           v11 = v123;
           if (HIDWORD(v35))
           {
             LODWORD(__nitems) = 0;
             CSStore2::HashMap<unsigned int,unsigned int,CSStore2::Dictionary::_Functions,0ull>::Create(&v144, &v146, v35, 0, &__nitems);
-            v36 = v144;
+            v37 = v144;
             if (v144)
             {
-              v139[2] = v35;
-              if (CSStore2::Writer::write(*v9, v144, __nitems, &v134) && (v37 = CSStore2::Writer::tell(*v9, &v134), HIDWORD(v37)) && CSStore2::Writer::write(*v9, v121, 8uLL, &v134) && CSStore2::Writer::write(*v9, &v139[1], 8uLL, &v134))
+              v139[2] = v36;
+              if (CSStore2::Writer::write(*v9, v144, __nitems, &v134) && (v38 = CSStore2::Writer::tell(*v9, &v134), HIDWORD(v38)) && CSStore2::Writer::write(*v9, v121, 8uLL, &v134) && CSStore2::Writer::write(*v9, &v139[1], 8uLL, &v134))
               {
-                v38 = v37 & 0x100000000;
-                v39 = v37 & 0xFFFFFF00;
-                v40 = v37;
+                v39 = v38 & 0x100000000;
+                v40 = v38 & 0xFFFFFF00;
+                v41 = v38;
               }
 
               else
               {
-                v40 = 0;
-                v38 = 0;
+                v41 = 0;
                 v39 = 0;
+                v40 = 0;
               }
 
-              (v145)(v36);
+              (v145)(v37);
               goto LABEL_137;
             }
 
@@ -8642,48 +8945,48 @@ LABEL_38:
             v134 = [v107 errorWithDomain:*MEMORY[0x1E696A768] code:-9493 userInfo:v108];
           }
 
-          v40 = 0;
-          v38 = 0;
+          v41 = 0;
           v39 = 0;
+          v40 = 0;
 LABEL_137:
           std::__hash_table<std::__hash_value_type<unsigned long,unsigned int>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned int>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned int>>>::~__hash_table(&v146);
-          v90 = v38 | v40 | v39;
+          v91 = v39 | v41 | v40;
           goto LABEL_103;
         }
       }
 
-      v86 = MEMORY[0x1E696ABC0];
+      v87 = MEMORY[0x1E696ABC0];
       v144 = *MEMORY[0x1E696A278];
       v145 = @"Line";
       *&v146 = @"kCSStoreNotFoundErr";
       *(&v146 + 1) = &unk_1F37D7FB8;
-      v87 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v146 forKeys:&v144 count:2];
-      v134 = [v86 errorWithDomain:*MEMORY[0x1E696A768] code:-9499 userInfo:v87];
+      v88 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v146 forKeys:&v144 count:2];
+      v134 = [v87 errorWithDomain:*MEMORY[0x1E696A768] code:-9499 userInfo:v88];
     }
 
     else
     {
-      v88 = MEMORY[0x1E696ABC0];
+      v89 = MEMORY[0x1E696ABC0];
       v144 = *MEMORY[0x1E696A278];
       v145 = @"Line";
       *&v146 = @"kCSStoreNotFoundErr";
       *(&v146 + 1) = &unk_1F37D7FD0;
-      v89 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v146 forKeys:&v144 count:2];
-      v134 = [v88 errorWithDomain:*MEMORY[0x1E696A768] code:-9499 userInfo:v89];
+      v90 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v146 forKeys:&v144 count:2];
+      v134 = [v89 errorWithDomain:*MEMORY[0x1E696A768] code:-9499 userInfo:v90];
     }
 
-    v90 = 0;
+    v91 = 0;
 LABEL_103:
     objc_storeStrong(v11, v134);
-    v91 = v131;
+    v92 = v131;
     v6 = a1;
-    if (HIDWORD(v90))
+    if (HIDWORD(v91))
     {
-      v91 = v90;
+      v92 = v91;
     }
 
-    LODWORD(v131) = v91;
-    *(*(*(a1 + 40) + 8) + 24) = BYTE4(v90);
+    LODWORD(v131) = v92;
+    *(*(*(a1 + 40) + 8) + 24) = BYTE4(v91);
     goto LABEL_111;
   }
 
@@ -8694,32 +8997,32 @@ LABEL_111:
     goto LABEL_130;
   }
 
-  v98 = *(*(v6 + 48) + 8);
-  v99 = (4 * *a2);
-  v100 = v98[7];
-  if (!*&v100)
+  v99 = *(*(v6 + 48) + 8);
+  v100 = (4 * *a2);
+  v101 = v99[7];
+  if (!*&v101)
   {
     goto LABEL_129;
   }
 
-  v101 = vcnt_s8(v100);
-  v101.i16[0] = vaddlv_u8(v101);
-  if (v101.u32[0] > 1uLL)
+  v102 = vcnt_s8(v101);
+  v102.i16[0] = vaddlv_u8(v102);
+  if (v102.u32[0] > 1uLL)
   {
-    v102 = (4 * *a2);
-    if (*&v100 <= v99)
+    v103 = (4 * *a2);
+    if (*&v101 <= v100)
     {
-      v102 = v99 % v100.i32[0];
+      v103 = v100 % v101.i32[0];
     }
   }
 
   else
   {
-    v102 = (v100.i32[0] - 1) & v99;
+    v103 = (v101.i32[0] - 1) & v100;
   }
 
-  v103 = *(*&v98[6] + 8 * v102);
-  if (!v103 || (v104 = *v103) == 0)
+  v104 = *(*&v99[6] + 8 * v103);
+  if (!v104 || (v105 = *v104) == 0)
   {
 LABEL_129:
     operator new();
@@ -8727,52 +9030,50 @@ LABEL_129:
 
   while (1)
   {
-    v105 = v104[1];
-    if (v105 == v99)
+    v106 = v105[1];
+    if (v106 == v100)
     {
       break;
     }
 
-    if (v101.u32[0] > 1uLL)
+    if (v102.u32[0] > 1uLL)
     {
-      if (v105 >= *&v100)
+      if (v106 >= *&v101)
       {
-        v105 %= *&v100;
+        v106 %= *&v101;
       }
     }
 
     else
     {
-      v105 &= *&v100 - 1;
+      v106 &= *&v101 - 1;
     }
 
-    if (v105 != v102)
+    if (v106 != v103)
     {
       goto LABEL_129;
     }
 
 LABEL_128:
-    v104 = *v104;
-    if (!v104)
+    v105 = *v105;
+    if (!v105)
     {
       goto LABEL_129;
     }
   }
 
-  if (*(v104 + 4) != v99)
+  if (*(v105 + 4) != v100)
   {
     goto LABEL_128;
   }
 
   v6 = a1;
-  *(v104 + 5) = v131;
+  *(v105 + 5) = v131;
 LABEL_130:
   if ((*(*(*(v6 + 40) + 8) + 24) & 1) == 0)
   {
     *a3 = 1;
   }
-
-  v106 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1B9D701B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14)
@@ -8785,7 +9086,7 @@ void sub_1B9D701B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 BOOL CSStore2::Writer::write(FILE *__stream, const void *a2, size_t __nitems, void *a4)
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   v5 = __nitems;
   v6 = CSStore2::Writer::IO<unsigned long,void const*,unsigned long,unsigned long,__sFILE *>(a2, __nitems, __stream);
   v7 = v6;
@@ -8793,17 +9094,15 @@ BOOL CSStore2::Writer::write(FILE *__stream, const void *a2, size_t __nitems, vo
   {
     v8 = MEMORY[0x1E696ABC0];
     v9 = *__error();
-    v13[0] = *MEMORY[0x1E696A278];
-    v13[1] = @"Line";
-    v14[0] = @"errno";
-    v14[1] = &unk_1F37D7CB8;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+    v12[0] = *MEMORY[0x1E696A278];
+    v12[1] = @"Line";
+    v13[0] = @"errno";
+    v13[1] = &unk_1F37D7CB8;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
     *a4 = [v8 errorWithDomain:*MEMORY[0x1E696A798] code:v9 userInfo:v10];
   }
 
-  result = v7 == v5;
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return v7 == v5;
 }
 
 size_t CSStore2::Writer::IO<unsigned long,void const*,unsigned long,unsigned long,__sFILE *>(const void *a1, size_t __nitems, FILE *__stream)
@@ -8840,11 +9139,11 @@ size_t CSStore2::Writer::IO<unsigned long,void const*,unsigned long,unsigned lon
       operator delete(v18);
     }
 
-    for (i = 0; i != -96; i -= 24)
+    for (i = 0; i != -12; i -= 3)
     {
-      if (v13[i + 23] < 0)
+      if (SHIBYTE(v13[i + 2]) < 0)
       {
-        operator delete(*&v13[i]);
+        operator delete(v13[i]);
       }
     }
   }
@@ -8875,7 +9174,7 @@ void sub_1B9D70640(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 }
 
-uint64_t CSStore2::Writer::toString<unsigned long>(_BYTE *a1, void *a2)
+uint64_t CSStore2::Writer::toString<unsigned long>(void *a1, void *a2)
 {
   std::ostringstream::basic_ostringstream[abi:nn200100](&v5);
   MEMORY[0x1BFAE5BF0](&v5, *a2);
@@ -8894,9 +9193,9 @@ uint64_t CSStore2::Writer::toString<unsigned long>(_BYTE *a1, void *a2)
   return MEMORY[0x1BFAE5C80](&v9);
 }
 
-void sub_1B9D70810(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B9D70810(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -8908,10 +9207,10 @@ void ___ZN8CSStore217GarbageCollection8GetGCLogEv_block_invoke()
   CSStore2::GarbageCollection::GetGCLog(void)::result = v0;
 }
 
-void ___ZN8CSStore217GarbageCollection8IsNeededERKNS_5StoreEh_block_invoke(uint64_t a1, unsigned int *a2, _BYTE *a3)
+void ___ZN8CSStore217GarbageCollection8IsNeededERKNS_5StoreEh_block_invoke(uint64_t a1, CSStore2::Table *a2, _BYTE *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v3 = a2[19];
+  v15 = *MEMORY[0x1E69E9840];
+  v3 = *(a2 + 19);
   if (v3 != -1)
   {
     v5 = *(**(a1 + 40) + 8);
@@ -8926,9 +9225,9 @@ void ___ZN8CSStore217GarbageCollection8IsNeededERKNS_5StoreEh_block_invoke(uint6
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           v12 = CSStore2::Table::copyCFName(a2);
-          v14 = 136446210;
-          v15 = [(__CFString *)v12 UTF8String];
-          _os_log_impl(&dword_1B9D5B000, v11, OS_LOG_TYPE_INFO, "Identifier cache on table '%{public}s' is unbalanced. Will collect.", &v14, 0xCu);
+          v13 = 136446210;
+          v14 = [(__CFString *)v12 UTF8String];
+          _os_log_impl(&dword_1B9D5B000, v11, OS_LOG_TYPE_INFO, "Identifier cache on table '%{public}s' is unbalanced. Will collect.", &v13, 0xCu);
         }
 
         *(*(*(a1 + 32) + 8) + 24) = 1;
@@ -8936,8 +9235,6 @@ void ___ZN8CSStore217GarbageCollection8IsNeededERKNS_5StoreEh_block_invoke(uint6
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t CSStore2::HashMap<unsigned int,unsigned int,CSStore2::_IdentifierFunctions,1ull>::GetStatistics(unsigned int *a1)
@@ -8978,7 +9275,7 @@ uint64_t CSStore2::HashMap<unsigned int,unsigned int,CSStore2::_IdentifierFuncti
 
 uint64_t CSStore2::Store::collectGarbage(CSStore2::Store *this, CSStore2::Store *a2)
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   if (CSStore2::GarbageCollection::IsNeeded(this, a2))
   {
     v4 = [MEMORY[0x1E696AC08] defaultManager];
@@ -8994,9 +9291,9 @@ uint64_t CSStore2::Store::collectGarbage(CSStore2::Store *this, CSStore2::Store 
     v8 = CSStore2::GetLog([v6 getFileSystemRepresentation:buf maxLength:1024]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      *v57 = 136380675;
-      *v58 = buf;
-      _os_log_debug_impl(&dword_1B9D5B000, v8, OS_LOG_TYPE_DEBUG, "Creating temporary file for store writer at %{private}s", v57, 0xCu);
+      *v56 = 136380675;
+      *v57 = buf;
+      _os_log_debug_impl(&dword_1B9D5B000, v8, OS_LOG_TYPE_DEBUG, "Creating temporary file for store writer at %{private}s", v56, 0xCu);
     }
 
     if (softLinkMKBDeviceUnlockedSinceBoot() < 1)
@@ -9021,10 +9318,10 @@ uint64_t CSStore2::Store::collectGarbage(CSStore2::Store *this, CSStore2::Store 
       v26 = *__error();
       v27 = __error();
       v28 = strerror(*v27);
-      *v57 = 67109378;
-      *v58 = v26;
-      *&v58[4] = 2082;
-      *&v58[6] = v28;
+      *v56 = 67109378;
+      *v57 = v26;
+      *&v57[4] = 2082;
+      *&v57[6] = v28;
       v29 = "Failed to create file descriptor for store writer: %i (%{public}s).";
     }
 
@@ -9034,11 +9331,11 @@ uint64_t CSStore2::Store::collectGarbage(CSStore2::Store *this, CSStore2::Store 
       if (v12)
       {
 
-        v53 = 0;
-        v54 = v12;
-        v55 = 257;
-        v13 = CSStore2::GarbageCollection::Collect(this, &v54, a2, &v53);
-        v14 = v53;
+        v52 = 0;
+        v53 = v12;
+        v54 = 257;
+        v13 = CSStore2::GarbageCollection::Collect(this, &v53, a2, &v52);
+        v14 = v52;
         v15 = v14;
         if (!v13)
         {
@@ -9053,8 +9350,8 @@ uint64_t CSStore2::Store::collectGarbage(CSStore2::Store *this, CSStore2::Store 
           goto LABEL_51;
         }
 
-        CSStore2::Writer::sync(&v54, 0);
-        v16 = CSStore2::Writer::IO<int,__sFILE *>(MEMORY[0x1E69E9880], v54);
+        CSStore2::Writer::sync(&v53, 0);
+        v16 = CSStore2::Writer::IO<int,__sFILE *>(MEMORY[0x1E69E9880], v53);
         v17 = v16;
         if ((v16 & 0x80000000) != 0)
         {
@@ -9062,7 +9359,7 @@ uint64_t CSStore2::Store::collectGarbage(CSStore2::Store *this, CSStore2::Store 
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             buf[0].st_dev = 134217984;
-            *&buf[0].st_mode = v54;
+            *&buf[0].st_mode = v53;
             _os_log_error_impl(&dword_1B9D5B000, v20, OS_LOG_TYPE_ERROR, "Unsupported: file handle %p had neither an underlying buffer nor a file descriptor.", buf, 0xCu);
           }
 
@@ -9077,18 +9374,18 @@ uint64_t CSStore2::Store::collectGarbage(CSStore2::Store *this, CSStore2::Store 
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             v21 = strerror(v19);
-            *v57 = 67109634;
-            *v58 = v17;
-            *&v58[4] = 1024;
-            *&v58[6] = v19;
-            *&v58[10] = 2082;
-            *&v58[12] = v21;
+            *v56 = 67109634;
+            *v57 = v17;
+            *&v57[4] = 1024;
+            *&v57[6] = v19;
+            *&v57[10] = 2082;
+            *&v57[12] = v21;
             v22 = "Failed to stat fd %i: error %i %{public}s.";
 LABEL_17:
             v23 = v20;
             v24 = 24;
 LABEL_42:
-            _os_log_error_impl(&dword_1B9D5B000, v23, OS_LOG_TYPE_ERROR, v22, v57, v24);
+            _os_log_error_impl(&dword_1B9D5B000, v23, OS_LOG_TYPE_ERROR, v22, v56, v24);
           }
         }
 
@@ -9123,8 +9420,8 @@ LABEL_42:
                 goto LABEL_48;
               }
 
-              *v57 = 67109120;
-              *v58 = v17;
+              *v56 = 67109120;
+              *v57 = v17;
               v22 = "Failed to create NSData for mapped file %i.";
               v23 = v20;
               v24 = 8;
@@ -9140,12 +9437,12 @@ LABEL_42:
             }
 
             v48 = strerror(v47);
-            *v57 = 67109634;
-            *v58 = v17;
-            *&v58[4] = 1024;
-            *&v58[6] = v47;
-            *&v58[10] = 2082;
-            *&v58[12] = v48;
+            *v56 = 67109634;
+            *v57 = v17;
+            *&v57[4] = 1024;
+            *&v57[6] = v47;
+            *&v57[10] = 2082;
+            *&v57[12] = v48;
             v22 = "Failed to map fd %i: error %i %{public}s.";
             goto LABEL_17;
           }
@@ -9153,8 +9450,8 @@ LABEL_42:
           v20 = CSStore2::GetLog(buf[0].st_size);
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            *v57 = 134217984;
-            *v58 = buf[0].st_size;
+            *v56 = 134217984;
+            *v57 = buf[0].st_size;
             v22 = "Wrote a ludicrously long stream (%lli bytes) that cannot fit back in an NSData.";
             v23 = v20;
             v24 = 12;
@@ -9177,8 +9474,8 @@ LABEL_51:
 LABEL_52:
 
 LABEL_53:
-        CSStore2::Writer::~Writer(&v54);
-        goto LABEL_54;
+        CSStore2::Writer::~Writer(&v53);
+        return v10;
       }
 
       v30 = CSStore2::GetLog(0);
@@ -9187,11 +9484,11 @@ LABEL_53:
         v40 = *__error();
         v41 = __error();
         v42 = strerror(*v41);
-        *v57 = 67109378;
-        *v58 = v40;
-        *&v58[4] = 2082;
-        *&v58[6] = v42;
-        _os_log_error_impl(&dword_1B9D5B000, v30, OS_LOG_TYPE_ERROR, "Failed to create file handle from file descriptor for store writer: %i (%{public}s).", v57, 0x12u);
+        *v56 = 67109378;
+        *v57 = v40;
+        *&v57[4] = 2082;
+        *&v57[6] = v42;
+        _os_log_error_impl(&dword_1B9D5B000, v30, OS_LOG_TYPE_ERROR, "Failed to create file handle from file descriptor for store writer: %i (%{public}s).", v56, 0x12u);
       }
 
       v31 = CSStore2::Writer::IO<int,int>(MEMORY[0x1E69E9A00], v11);
@@ -9207,8 +9504,8 @@ LABEL_24:
 
 LABEL_25:
 LABEL_26:
-        v54 = 0;
-        v55 = 257;
+        v53 = 0;
+        v54 = 257;
         v15 = CSStore2::GetLog(v7);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
@@ -9223,261 +9520,16 @@ LABEL_26:
       v43 = *__error();
       v44 = __error();
       v45 = strerror(*v44);
-      *v57 = 67109378;
-      *v58 = v43;
-      *&v58[4] = 2082;
-      *&v58[6] = v45;
+      *v56 = 67109378;
+      *v57 = v43;
+      *&v57[4] = 2082;
+      *&v57[6] = v45;
       v29 = "Failed to close file descriptor for store writer: %i (%{public}s).";
     }
 
-    _os_log_error_impl(&dword_1B9D5B000, v25, OS_LOG_TYPE_ERROR, v29, v57, 0x12u);
+    _os_log_error_impl(&dword_1B9D5B000, v25, OS_LOG_TYPE_ERROR, v29, v56, 0x12u);
     goto LABEL_24;
   }
 
-  v10 = 1;
-LABEL_54:
-  v51 = *MEMORY[0x1E69E9840];
-  return v10;
-}
-
-void sub_1B9D71108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-
-  CSStore2::Writer::~Writer(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t CSStore2::Writer::IO<int,int,stat *>(int a1, stat *a2)
-{
-  v5 = fstat(a1, a2);
-  v10 = v5;
-  if (CSStore2::Writer::logIO == 1)
-  {
-    v11 = a1;
-    CSStore2::Writer::toString<int>(v8, &v11);
-    std::ostringstream::basic_ostringstream[abi:nn200100](&v12);
-    MEMORY[0x1BFAE5BC0](&v12, a2);
-    std::ostringstream::str[abi:nn200100](v9, &v12);
-    v12 = *MEMORY[0x1E69E54E8];
-    *(&v12 + *(v12 - 3)) = *(MEMORY[0x1E69E54E8] + 24);
-    v13 = MEMORY[0x1E69E5548] + 16;
-    if (v15 < 0)
-    {
-      operator delete(v14[7].__locale_);
-    }
-
-    v13 = MEMORY[0x1E69E5538] + 16;
-    std::locale::~locale(v14);
-    std::ostream::~ostream();
-    MEMORY[0x1BFAE5C80](_A8);
-    CSStore2::Writer::toString<int>(&v12, &v10);
-    CSStore2::Writer::logFunctionCall(*(_A8[25] + 8), v2, MEMORY[0x1E69E9A10], v8, 2, &v12);
-    if (SHIBYTE(v14[0].__locale_) < 0)
-    {
-      operator delete(v12);
-    }
-
-    for (i = 0; i != -48; i -= 24)
-    {
-      if (v9[i + 23] < 0)
-      {
-        operator delete(*&v8[i + 24]);
-      }
-    }
-  }
-
-  return v5;
-}
-
-void sub_1B9D713A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
-{
-  if (a24 < 0)
-  {
-    operator delete(__p);
-  }
-
-  v25 = 0;
-  while (1)
-  {
-    if (*(&a17 + v25 + 7) < 0)
-    {
-      operator delete(*(&a15 + v25));
-    }
-
-    v25 -= 24;
-    if (v25 == -48)
-    {
-      _Unwind_Resume(exception_object);
-    }
-  }
-}
-
-void *CSStore2::Writer::IO<void *,void *,unsigned long,int,int,int,long long>(size_t a1, int a2)
-{
-  v5 = mmap(0, a1, 1, 2, a2, 0);
-  v16 = v5;
-  if (CSStore2::Writer::logIO == 1)
-  {
-    __p[0] = 0;
-    var48[0] = a1;
-    v19 = 2;
-    v20 = 1;
-    v18 = a2;
-    v17 = 0;
-    CSStore2::Writer::toString<void *>(v10, __p);
-    CSStore2::Writer::toString<unsigned long>(v11, var48);
-    CSStore2::Writer::toString<int>(v12, &v20);
-    CSStore2::Writer::toString<int>(v13, &v19);
-    CSStore2::Writer::toString<int>(v14, &v18);
-    CSStore2::Writer::toString<long long>(v15, &v17);
-    CSStore2::Writer::toString<void *>(__p, &v16);
-    CSStore2::Writer::logFunctionCall(*(var48[9] + 8), v2, MEMORY[0x1E69E9A70], v10, 6, __p);
-    if (v9 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    for (i = 0; i != -144; i -= 24)
-    {
-      if (v15[i + 23] < 0)
-      {
-        operator delete(*&v15[i]);
-      }
-    }
-  }
-
-  return v5;
-}
-
-void sub_1B9D7159C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  v16 = 0;
-  while (1)
-  {
-    if (*(&a15 + v16 + 143) < 0)
-    {
-      operator delete(*(&a15 + v16 + 120));
-    }
-
-    v16 -= 24;
-    if (v16 == -144)
-    {
-      _Unwind_Resume(exception_object);
-    }
-  }
-}
-
-uint64_t CSStore2::Writer::toString<void *>(_BYTE *a1, void *a2)
-{
-  std::ostringstream::basic_ostringstream[abi:nn200100](&v5);
-  MEMORY[0x1BFAE5BC0](&v5, *a2);
-  std::ostringstream::str[abi:nn200100](a1, &v5);
-  v5 = *MEMORY[0x1E69E54E8];
-  *(&v5 + *(v5 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-  v6 = MEMORY[0x1E69E5548] + 16;
-  if (v8 < 0)
-  {
-    operator delete(v7[7].__locale_);
-  }
-
-  v6 = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v7);
-  std::ostream::~ostream();
-  return MEMORY[0x1BFAE5C80](&v9);
-}
-
-void sub_1B9D7175C(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::ostringstream::~ostringstream(va);
-  _Unwind_Resume(a1);
-}
-
-FILE *CSStore2::Writer::IO<__sFILE *,int,char const*>(int a1)
-{
-  v3 = fdopen(a1, "w");
-  v10 = v3;
-  if (CSStore2::Writer::logIO == 1)
-  {
-    v11 = a1;
-    __p[0] = "w";
-    CSStore2::Writer::toString<int>(v8, &v11);
-    CSStore2::Writer::toString<char const*>(v9, __p);
-    CSStore2::Writer::toString<__sFILE *>(__p, &v10);
-    CSStore2::Writer::logFunctionCall(*(vars0 + 8), v1, MEMORY[0x1E69E9870], v8, 2, __p);
-    if (v7 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    for (i = 0; i != -48; i -= 24)
-    {
-      if (v9[i + 23] < 0)
-      {
-        operator delete(*&v8[i + 24]);
-      }
-    }
-  }
-
-  return v3;
-}
-
-void sub_1B9D71870(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  v28 = 0;
-  while (1)
-  {
-    if (*(&a27 + v28) < 0)
-    {
-      operator delete(*(&a22 + v28));
-    }
-
-    v28 -= 24;
-    if (v28 == -48)
-    {
-      _Unwind_Resume(exception_object);
-    }
-  }
-}
-
-uint64_t CSStore2::Writer::IO<int,char *,int,int>(char *a1)
-{
-  v3 = mkstemp_dprotected_np(a1, 3, 0);
-  v11 = v3;
-  if (CSStore2::Writer::logIO == 1)
-  {
-    __p[0] = a1;
-    v12 = 0;
-    v13 = 3;
-    CSStore2::Writer::toString<char *>(v8, __p);
-    CSStore2::Writer::toString<int>(v9, &v13);
-    CSStore2::Writer::toString<int>(v10, &v12);
-    CSStore2::Writer::toString<int>(__p, &v11);
-    CSStore2::Writer::logFunctionCall(*(vars0 + 8), v1, MEMORY[0x1E69E98D8], v8, 3, __p);
-    if (v7 < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    for (i = 0; i != -72; i -= 24)
-    {
-      if (v10[i + 23] < 0)
-      {
-        operator delete(*&v10[i]);
-      }
-    }
-  }
-
-  return v3;
+  return 1;
 }

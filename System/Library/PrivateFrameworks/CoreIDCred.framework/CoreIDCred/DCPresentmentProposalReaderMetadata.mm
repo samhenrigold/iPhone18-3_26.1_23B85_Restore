@@ -119,36 +119,36 @@
 
 - (id)description
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAB68];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   v6 = [v3 stringWithFormat:@"<%@: %p ", v5, self];;
 
   dictionaryRepresentation = [(DCPresentmentProposalReaderMetadata *)self dictionaryRepresentation];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   allKeys = [dictionaryRepresentation allKeys];
   v9 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
   obj = v9;
-  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v22;
+    v12 = *v21;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * i);
+        v14 = *(*(&v20 + 1) + 8 * i);
         v15 = [dictionaryRepresentation objectForKeyedSubscript:v14];
         null = [MEMORY[0x277CBEB68] null];
         if ([v15 isEqual:null])
@@ -164,7 +164,7 @@
         [v6 appendFormat:@"%@ = %@; ", v14, v17];
       }
 
-      v11 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v11 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v11);
@@ -173,35 +173,31 @@
   [v6 deleteCharactersInRange:{objc_msgSend(v6, "length") - 2, 2}];
   [v6 appendString:@">"];
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v15[8] = *MEMORY[0x277D85DE8];
+  v14[8] = *MEMORY[0x277D85DE8];
   v3 = NSStringFromSelector(sel_identifier);
-  v15[0] = v3;
+  v14[0] = v3;
   v4 = NSStringFromSelector(sel_organization);
-  v15[1] = v4;
+  v14[1] = v4;
   v5 = NSStringFromSelector(sel_organizationalUnit);
-  v15[2] = v5;
+  v14[2] = v5;
   v6 = NSStringFromSelector(sel_iconData);
-  v15[3] = v6;
+  v14[3] = v6;
   v7 = NSStringFromSelector(sel_iconURL);
-  v15[4] = v7;
+  v14[4] = v7;
   v8 = NSStringFromSelector(sel_iconMediaType);
-  v15[5] = v8;
+  v14[5] = v8;
   v9 = NSStringFromSelector(sel_privacyPolicyURL);
-  v15[6] = v9;
+  v14[6] = v9;
   v10 = NSStringFromSelector(sel_merchantCategoryCode);
-  v15[7] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:8];
+  v14[7] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:8];
 
   v12 = [(DCPresentmentProposalReaderMetadata *)self dictionaryWithValuesForKeys:v11];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

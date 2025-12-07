@@ -40,7 +40,7 @@
   if ([(_UIFeedback *)&v10 isEqual:equalCopy])
   {
     v5 = equalCopy;
-    if (-[NSURL isEqual:](self->_fileURL, "isEqual:", v5[17]) && (canReuseCoreHapticsPlayer = self->_canReuseCoreHapticsPlayer, canReuseCoreHapticsPlayer == [v5 canReuseCoreHapticsPlayer]))
+    if (objc_msgSend_isEqual_(self->_fileURL) && (canReuseCoreHapticsPlayer = self->_canReuseCoreHapticsPlayer, canReuseCoreHapticsPlayer == [v5 canReuseCoreHapticsPlayer]))
     {
       disableEventUseVolumeEnvelope = self->_disableEventUseVolumeEnvelope;
       v8 = disableEventUseVolumeEnvelope == [v5 disableEventUseVolumeEnvelope];

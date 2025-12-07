@@ -346,7 +346,6 @@ LABEL_13:
       v5 = 0;
       do
       {
-        v6 = self->_indices.list[v5];
         PBDataWriterWriteUint32Field();
         ++v5;
       }
@@ -362,15 +361,14 @@ LABEL_13:
     PBDataWriterPlaceMark();
     if (self->_values.count)
     {
-      v7 = 0;
+      v6 = 0;
       do
       {
-        v8 = self->_values.list[v7];
         PBDataWriterWriteUint32Field();
-        ++v7;
+        ++v6;
       }
 
-      while (v7 < self->_values.count);
+      while (v6 < self->_values.count);
     }
 
     PBDataWriterRecallMark();
@@ -385,7 +383,6 @@ LABEL_13:
     }
 
 LABEL_17:
-    minValue = self->_minValue;
     PBDataWriterWriteFloatField();
     if ((*&self->_has & 1) == 0)
     {
@@ -395,7 +392,6 @@ LABEL_17:
     goto LABEL_14;
   }
 
-  length = self->_length;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) != 0)
@@ -407,7 +403,6 @@ LABEL_13:
   if (has)
   {
 LABEL_14:
-    bucketSize = self->_bucketSize;
     PBDataWriterWriteFloatField();
   }
 

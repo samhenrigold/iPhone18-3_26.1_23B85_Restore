@@ -149,7 +149,7 @@ LABEL_149:
 
 - (id)jsonDictionary
 {
-  v100[29] = *MEMORY[0x1E69E9840];
+  v99[29] = *MEMORY[0x1E69E9840];
   libraryType = [(BMMediaAnalysisPerLibrary *)self libraryType];
   if ([(BMMediaAnalysisPerLibrary *)self hasImageAssetCount])
   {
@@ -213,17 +213,7 @@ LABEL_149:
 
   if ([(BMMediaAnalysisPerLibrary *)self hasFavoritedMovieCount])
   {
-    v98 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary favoritedMovieCount](self, "favoritedMovieCount")}];
-  }
-
-  else
-  {
-    v98 = 0;
-  }
-
-  if ([(BMMediaAnalysisPerLibrary *)self hasSpatialMoviePercentage])
-  {
-    v97 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary spatialMoviePercentage](self, "spatialMoviePercentage")}];
+    v97 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary favoritedMovieCount](self, "favoritedMovieCount")}];
   }
 
   else
@@ -231,9 +221,9 @@ LABEL_149:
     v97 = 0;
   }
 
-  if ([(BMMediaAnalysisPerLibrary *)self hasCinematicMoviePercentage])
+  if ([(BMMediaAnalysisPerLibrary *)self hasSpatialMoviePercentage])
   {
-    v96 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary cinematicMoviePercentage](self, "cinematicMoviePercentage")}];
+    v96 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary spatialMoviePercentage](self, "spatialMoviePercentage")}];
   }
 
   else
@@ -241,9 +231,9 @@ LABEL_149:
     v96 = 0;
   }
 
-  if ([(BMMediaAnalysisPerLibrary *)self hasSlomoMoviePercentage])
+  if ([(BMMediaAnalysisPerLibrary *)self hasCinematicMoviePercentage])
   {
-    v95 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary slomoMoviePercentage](self, "slomoMoviePercentage")}];
+    v95 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary cinematicMoviePercentage](self, "cinematicMoviePercentage")}];
   }
 
   else
@@ -251,9 +241,9 @@ LABEL_149:
     v95 = 0;
   }
 
-  if ([(BMMediaAnalysisPerLibrary *)self hasTimelapsePercentage])
+  if ([(BMMediaAnalysisPerLibrary *)self hasSlomoMoviePercentage])
   {
-    v94 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary timelapsePercentage](self, "timelapsePercentage")}];
+    v94 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary slomoMoviePercentage](self, "slomoMoviePercentage")}];
   }
 
   else
@@ -261,9 +251,9 @@ LABEL_149:
     v94 = 0;
   }
 
-  if ([(BMMediaAnalysisPerLibrary *)self hasPortraitModePercentage])
+  if ([(BMMediaAnalysisPerLibrary *)self hasTimelapsePercentage])
   {
-    v93 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary portraitModePercentage](self, "portraitModePercentage")}];
+    v93 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary timelapsePercentage](self, "timelapsePercentage")}];
   }
 
   else
@@ -271,9 +261,9 @@ LABEL_149:
     v93 = 0;
   }
 
-  if ([(BMMediaAnalysisPerLibrary *)self hasLandscapeModePercentage])
+  if ([(BMMediaAnalysisPerLibrary *)self hasPortraitModePercentage])
   {
-    v92 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary landscapeModePercentage](self, "landscapeModePercentage")}];
+    v92 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary portraitModePercentage](self, "portraitModePercentage")}];
   }
 
   else
@@ -281,9 +271,9 @@ LABEL_149:
     v92 = 0;
   }
 
-  if ([(BMMediaAnalysisPerLibrary *)self hasWithHighlightsPercentage])
+  if ([(BMMediaAnalysisPerLibrary *)self hasLandscapeModePercentage])
   {
-    v91 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary withHighlightsPercentage](self, "withHighlightsPercentage")}];
+    v91 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary landscapeModePercentage](self, "landscapeModePercentage")}];
   }
 
   else
@@ -291,9 +281,9 @@ LABEL_149:
     v91 = 0;
   }
 
-  if ([(BMMediaAnalysisPerLibrary *)self hasWithPeoplePercentage])
+  if ([(BMMediaAnalysisPerLibrary *)self hasWithHighlightsPercentage])
   {
-    v90 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary withPeoplePercentage](self, "withPeoplePercentage")}];
+    v90 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary withHighlightsPercentage](self, "withHighlightsPercentage")}];
   }
 
   else
@@ -301,9 +291,9 @@ LABEL_149:
     v90 = 0;
   }
 
-  if ([(BMMediaAnalysisPerLibrary *)self hasWithPetsPercentage])
+  if ([(BMMediaAnalysisPerLibrary *)self hasWithPeoplePercentage])
   {
-    v89 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary withPetsPercentage](self, "withPetsPercentage")}];
+    v89 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary withPeoplePercentage](self, "withPeoplePercentage")}];
   }
 
   else
@@ -311,9 +301,9 @@ LABEL_149:
     v89 = 0;
   }
 
-  if ([(BMMediaAnalysisPerLibrary *)self hasWithNatureOrNaturalLandmarksPercentage])
+  if ([(BMMediaAnalysisPerLibrary *)self hasWithPetsPercentage])
   {
-    v88 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary withNatureOrNaturalLandmarksPercentage](self, "withNatureOrNaturalLandmarksPercentage")}];
+    v88 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary withPetsPercentage](self, "withPetsPercentage")}];
   }
 
   else
@@ -321,9 +311,9 @@ LABEL_149:
     v88 = 0;
   }
 
-  if ([(BMMediaAnalysisPerLibrary *)self hasWithSkylinePercentage])
+  if ([(BMMediaAnalysisPerLibrary *)self hasWithNatureOrNaturalLandmarksPercentage])
   {
-    v87 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary withSkylinePercentage](self, "withSkylinePercentage")}];
+    v87 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary withNatureOrNaturalLandmarksPercentage](self, "withNatureOrNaturalLandmarksPercentage")}];
   }
 
   else
@@ -331,9 +321,9 @@ LABEL_149:
     v87 = 0;
   }
 
-  if ([(BMMediaAnalysisPerLibrary *)self hasWthLandmarksPercentage])
+  if ([(BMMediaAnalysisPerLibrary *)self hasWithSkylinePercentage])
   {
-    v86 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary wthLandmarksPercentage](self, "wthLandmarksPercentage")}];
+    v86 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary withSkylinePercentage](self, "withSkylinePercentage")}];
   }
 
   else
@@ -341,9 +331,9 @@ LABEL_149:
     v86 = 0;
   }
 
-  if ([(BMMediaAnalysisPerLibrary *)self hasWithActionPercentage])
+  if ([(BMMediaAnalysisPerLibrary *)self hasWthLandmarksPercentage])
   {
-    v85 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary withActionPercentage](self, "withActionPercentage")}];
+    v85 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary wthLandmarksPercentage](self, "wthLandmarksPercentage")}];
   }
 
   else
@@ -351,9 +341,9 @@ LABEL_149:
     v85 = 0;
   }
 
-  if ([(BMMediaAnalysisPerLibrary *)self hasWithHighMotionPercentage])
+  if ([(BMMediaAnalysisPerLibrary *)self hasWithActionPercentage])
   {
-    v84 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary withHighMotionPercentage](self, "withHighMotionPercentage")}];
+    v84 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary withActionPercentage](self, "withActionPercentage")}];
   }
 
   else
@@ -361,9 +351,9 @@ LABEL_149:
     v84 = 0;
   }
 
-  if ([(BMMediaAnalysisPerLibrary *)self hasHighlightsWithPeoplePercentage])
+  if ([(BMMediaAnalysisPerLibrary *)self hasWithHighMotionPercentage])
   {
-    v83 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary highlightsWithPeoplePercentage](self, "highlightsWithPeoplePercentage")}];
+    v83 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary withHighMotionPercentage](self, "withHighMotionPercentage")}];
   }
 
   else
@@ -371,9 +361,9 @@ LABEL_149:
     v83 = 0;
   }
 
-  if ([(BMMediaAnalysisPerLibrary *)self hasHighlightsWithPetsPercentage])
+  if ([(BMMediaAnalysisPerLibrary *)self hasHighlightsWithPeoplePercentage])
   {
-    v82 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary highlightsWithPetsPercentage](self, "highlightsWithPetsPercentage")}];
+    v82 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary highlightsWithPeoplePercentage](self, "highlightsWithPeoplePercentage")}];
   }
 
   else
@@ -381,9 +371,9 @@ LABEL_149:
     v82 = 0;
   }
 
-  if ([(BMMediaAnalysisPerLibrary *)self hasHighlightsWithNatureOrNaturalLandmarksPercentage])
+  if ([(BMMediaAnalysisPerLibrary *)self hasHighlightsWithPetsPercentage])
   {
-    v81 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary highlightsWithNatureOrNaturalLandmarksPercentage](self, "highlightsWithNatureOrNaturalLandmarksPercentage")}];
+    v81 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary highlightsWithPetsPercentage](self, "highlightsWithPetsPercentage")}];
   }
 
   else
@@ -391,9 +381,9 @@ LABEL_149:
     v81 = 0;
   }
 
-  if ([(BMMediaAnalysisPerLibrary *)self hasHighlightsWithSkylinePercentage])
+  if ([(BMMediaAnalysisPerLibrary *)self hasHighlightsWithNatureOrNaturalLandmarksPercentage])
   {
-    v80 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary highlightsWithSkylinePercentage](self, "highlightsWithSkylinePercentage")}];
+    v80 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary highlightsWithNatureOrNaturalLandmarksPercentage](self, "highlightsWithNatureOrNaturalLandmarksPercentage")}];
   }
 
   else
@@ -401,9 +391,9 @@ LABEL_149:
     v80 = 0;
   }
 
-  if ([(BMMediaAnalysisPerLibrary *)self hasHighlightsWithLandmarksPercentage])
+  if ([(BMMediaAnalysisPerLibrary *)self hasHighlightsWithSkylinePercentage])
   {
-    v79 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary highlightsWithLandmarksPercentage](self, "highlightsWithLandmarksPercentage")}];
+    v79 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary highlightsWithSkylinePercentage](self, "highlightsWithSkylinePercentage")}];
   }
 
   else
@@ -411,9 +401,9 @@ LABEL_149:
     v79 = 0;
   }
 
-  if ([(BMMediaAnalysisPerLibrary *)self hasHighlightsWithActionPercentage])
+  if ([(BMMediaAnalysisPerLibrary *)self hasHighlightsWithLandmarksPercentage])
   {
-    v78 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary highlightsWithActionPercentage](self, "highlightsWithActionPercentage")}];
+    v78 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary highlightsWithLandmarksPercentage](self, "highlightsWithLandmarksPercentage")}];
   }
 
   else
@@ -421,9 +411,9 @@ LABEL_149:
     v78 = 0;
   }
 
-  if ([(BMMediaAnalysisPerLibrary *)self hasHighlightsWithHighMotionPercentage])
+  if ([(BMMediaAnalysisPerLibrary *)self hasHighlightsWithActionPercentage])
   {
-    v77 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary highlightsWithHighMotionPercentage](self, "highlightsWithHighMotionPercentage")}];
+    v77 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary highlightsWithActionPercentage](self, "highlightsWithActionPercentage")}];
   }
 
   else
@@ -431,277 +421,293 @@ LABEL_149:
     v77 = 0;
   }
 
-  v99[0] = @"libraryType";
+  if ([(BMMediaAnalysisPerLibrary *)self hasHighlightsWithHighMotionPercentage])
+  {
+    v76 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMediaAnalysisPerLibrary highlightsWithHighMotionPercentage](self, "highlightsWithHighMotionPercentage")}];
+  }
+
+  else
+  {
+    v76 = 0;
+  }
+
+  v98[0] = @"libraryType";
   null = libraryType;
   if (!libraryType)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v69 = null;
-  v100[0] = null;
-  v99[1] = @"imageAssetCount";
+  v68 = null;
+  v99[0] = null;
+  v98[1] = @"imageAssetCount";
   null2 = v4;
   if (!v4)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v68 = null2;
-  v100[1] = null2;
-  v99[2] = @"livePhotoAssetCount";
+  v67 = null2;
+  v99[1] = null2;
+  v98[2] = @"livePhotoAssetCount";
   null3 = v5;
   if (!v5)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v67 = null3;
-  v100[2] = null3;
-  v99[3] = @"movieAssetCount";
+  v66 = null3;
+  v99[2] = null3;
+  v98[3] = @"movieAssetCount";
   null4 = v6;
   if (!v6)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v66 = null4;
-  v100[3] = null4;
-  v99[4] = @"movieAssetDurations";
+  v65 = null4;
+  v99[3] = null4;
+  v98[4] = @"movieAssetDurations";
   null5 = v7;
   if (!v7)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v65 = null5;
-  v100[4] = null5;
-  v99[5] = @"editedMovieCount";
+  v64 = null5;
+  v99[4] = null5;
+  v98[5] = @"editedMovieCount";
   null6 = v8;
   if (!v8)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v64 = null6;
-  v100[5] = null6;
-  v99[6] = @"sharedMovieCount";
+  v63 = null6;
+  v99[5] = null6;
+  v98[6] = @"sharedMovieCount";
   null7 = v9;
   if (!v9)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v63 = null7;
-  v100[6] = null7;
-  v99[7] = @"favoritedMovieCount";
-  null8 = v98;
-  if (!v98)
+  v62 = null7;
+  v99[6] = null7;
+  v98[7] = @"favoritedMovieCount";
+  null8 = v97;
+  if (!v97)
   {
     null8 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v100[7] = null8;
-  v99[8] = @"spatialMoviePercentage";
-  null9 = v97;
-  if (!v97)
+  v99[7] = null8;
+  v98[8] = @"spatialMoviePercentage";
+  null9 = v96;
+  if (!v96)
   {
     null9 = [MEMORY[0x1E695DFB0] null];
   }
 
   v19 = v9;
-  v100[8] = null9;
-  v99[9] = @"cinematicMoviePercentage";
-  null10 = v96;
-  if (!v96)
+  v99[8] = null9;
+  v98[9] = @"cinematicMoviePercentage";
+  null10 = v95;
+  if (!v95)
   {
     null10 = [MEMORY[0x1E695DFB0] null];
   }
 
   v21 = v4;
-  v60 = null10;
-  v100[9] = null10;
-  v99[10] = @"slomoMoviePercentage";
-  null11 = v95;
-  if (!v95)
+  v59 = null10;
+  v99[9] = null10;
+  v98[10] = @"slomoMoviePercentage";
+  null11 = v94;
+  if (!v94)
   {
     null11 = [MEMORY[0x1E695DFB0] null];
   }
 
   v23 = v5;
-  v72 = null11;
-  v100[10] = null11;
-  v99[11] = @"timelapsePercentage";
-  null12 = v94;
-  if (!v94)
+  v71 = null11;
+  v99[10] = null11;
+  v98[11] = @"timelapsePercentage";
+  null12 = v93;
+  if (!v93)
   {
     null12 = [MEMORY[0x1E695DFB0] null];
   }
 
   v25 = libraryType;
-  v71 = null12;
-  v100[11] = null12;
-  v99[12] = @"portraitModePercentage";
-  null13 = v93;
-  if (!v93)
+  v70 = null12;
+  v99[11] = null12;
+  v98[12] = @"portraitModePercentage";
+  null13 = v92;
+  if (!v92)
   {
     null13 = [MEMORY[0x1E695DFB0] null];
   }
 
   v27 = null13;
-  v100[12] = null13;
-  v99[13] = @"landscapeModePercentage";
-  null14 = v92;
-  if (!v92)
+  v99[12] = null13;
+  v98[13] = @"landscapeModePercentage";
+  null14 = v91;
+  if (!v91)
   {
     null14 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v59 = null14;
-  v100[13] = null14;
-  v99[14] = @"withHighlightsPercentage";
-  null15 = v91;
-  if (!v91)
+  v58 = null14;
+  v99[13] = null14;
+  v98[14] = @"withHighlightsPercentage";
+  null15 = v90;
+  if (!v90)
   {
     null15 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v58 = null15;
-  v100[14] = null15;
-  v99[15] = @"withPeoplePercentage";
-  null16 = v90;
-  if (!v90)
+  v57 = null15;
+  v99[14] = null15;
+  v98[15] = @"withPeoplePercentage";
+  null16 = v89;
+  if (!v89)
   {
     null16 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v57 = null16;
-  v100[15] = null16;
-  v99[16] = @"withPetsPercentage";
-  null17 = v89;
-  if (!v89)
+  v56 = null16;
+  v99[15] = null16;
+  v98[16] = @"withPetsPercentage";
+  null17 = v88;
+  if (!v88)
   {
     null17 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v56 = null17;
-  v100[16] = null17;
-  v99[17] = @"withNatureOrNaturalLandmarksPercentage";
-  null18 = v88;
-  if (!v88)
+  v55 = null17;
+  v99[16] = null17;
+  v98[17] = @"withNatureOrNaturalLandmarksPercentage";
+  null18 = v87;
+  if (!v87)
   {
     null18 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v55 = null18;
-  v100[17] = null18;
-  v99[18] = @"withSkylinePercentage";
-  null19 = v87;
-  if (!v87)
+  v54 = null18;
+  v99[17] = null18;
+  v98[18] = @"withSkylinePercentage";
+  null19 = v86;
+  if (!v86)
   {
     null19 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v54 = null19;
-  v100[18] = null19;
-  v99[19] = @"wthLandmarksPercentage";
-  null20 = v86;
-  if (!v86)
+  v53 = null19;
+  v99[18] = null19;
+  v98[19] = @"wthLandmarksPercentage";
+  null20 = v85;
+  if (!v85)
   {
     null20 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v53 = null20;
-  v100[19] = null20;
-  v99[20] = @"withActionPercentage";
-  null21 = v85;
-  if (!v85)
+  v52 = null20;
+  v99[19] = null20;
+  v98[20] = @"withActionPercentage";
+  null21 = v84;
+  if (!v84)
   {
     null21 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v74 = v8;
-  v52 = null21;
-  v100[20] = null21;
-  v99[21] = @"withHighMotionPercentage";
-  null22 = v84;
-  if (!v84)
+  v73 = v8;
+  v51 = null21;
+  v99[20] = null21;
+  v98[21] = @"withHighMotionPercentage";
+  null22 = v83;
+  if (!v83)
   {
     null22 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v76 = v25;
-  v51 = null22;
-  v100[21] = null22;
-  v99[22] = @"highlightsWithPeoplePercentage";
-  null23 = v83;
-  if (!v83)
+  v75 = v25;
+  v50 = null22;
+  v99[21] = null22;
+  v98[22] = @"highlightsWithPeoplePercentage";
+  null23 = v82;
+  if (!v82)
   {
     null23 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v61 = null9;
-  v75 = v6;
-  v49 = null23;
-  v100[22] = null23;
-  v99[23] = @"highlightsWithPetsPercentage";
-  null24 = v82;
+  v60 = null9;
+  v74 = v6;
+  v48 = null23;
+  v99[22] = null23;
+  v98[23] = @"highlightsWithPetsPercentage";
+  null24 = v81;
   v39 = v23;
-  if (!v82)
+  if (!v81)
   {
     null24 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v73 = v21;
-  v100[23] = null24;
-  v99[24] = @"highlightsWithNatureOrNaturalLandmarksPercentage";
-  null25 = v81;
-  if (!v81)
+  v72 = v21;
+  v99[23] = null24;
+  v98[24] = @"highlightsWithNatureOrNaturalLandmarksPercentage";
+  null25 = v80;
+  if (!v80)
   {
     null25 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v62 = null8;
-  v100[24] = null25;
-  v99[25] = @"highlightsWithSkylinePercentage";
-  null26 = v80;
-  if (!v80)
+  v61 = null8;
+  v99[24] = null25;
+  v98[25] = @"highlightsWithSkylinePercentage";
+  null26 = v79;
+  if (!v79)
   {
     null26 = [MEMORY[0x1E695DFB0] null];
   }
 
   v42 = v39;
-  v100[25] = null26;
-  v99[26] = @"highlightsWithLandmarksPercentage";
-  null27 = v79;
-  if (!v79)
+  v99[25] = null26;
+  v98[26] = @"highlightsWithLandmarksPercentage";
+  null27 = v78;
+  if (!v78)
   {
     null27 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v100[26] = null27;
-  v99[27] = @"highlightsWithActionPercentage";
-  null28 = v78;
-  if (!v78)
+  v99[26] = null27;
+  v98[27] = @"highlightsWithActionPercentage";
+  null28 = v77;
+  if (!v77)
   {
     null28 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v100[27] = null28;
-  v99[28] = @"highlightsWithHighMotionPercentage";
-  null29 = v77;
-  if (!v77)
+  v99[27] = null28;
+  v98[28] = @"highlightsWithHighMotionPercentage";
+  null29 = v76;
+  if (!v76)
   {
     null29 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v100[28] = null29;
-  v70 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v100 forKeys:v99 count:{29, v49}];
-  if (!v77)
+  v99[28] = null29;
+  v69 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v99 forKeys:v98 count:{29, v48}];
+  if (!v76)
   {
   }
 
   v46 = v27;
+  if (!v77)
+  {
+
+    v46 = v27;
+  }
+
   if (!v78)
   {
 
@@ -788,8 +794,6 @@ LABEL_149:
 
   if (!v92)
   {
-
-    v46 = v27;
   }
 
   if (!v93)
@@ -808,11 +812,7 @@ LABEL_149:
   {
   }
 
-  if (!v97)
-  {
-  }
-
-  if (v98)
+  if (v97)
   {
     if (v19)
     {
@@ -826,7 +826,7 @@ LABEL_149:
     if (v19)
     {
 LABEL_187:
-      if (v74)
+      if (v73)
       {
         goto LABEL_188;
       }
@@ -835,7 +835,7 @@ LABEL_187:
     }
   }
 
-  if (v74)
+  if (v73)
   {
 LABEL_188:
     if (v7)
@@ -851,7 +851,7 @@ LABEL_198:
   if (v7)
   {
 LABEL_189:
-    if (v75)
+    if (v74)
     {
       goto LABEL_190;
     }
@@ -861,7 +861,7 @@ LABEL_189:
 
 LABEL_199:
 
-  if (v75)
+  if (v74)
   {
 LABEL_190:
     if (v42)
@@ -877,14 +877,14 @@ LABEL_200:
   if (v42)
   {
 LABEL_191:
-    if (v73)
+    if (v72)
     {
       goto LABEL_192;
     }
 
 LABEL_202:
 
-    if (v76)
+    if (v75)
     {
       goto LABEL_193;
     }
@@ -894,13 +894,13 @@ LABEL_202:
 
 LABEL_201:
 
-  if (!v73)
+  if (!v72)
   {
     goto LABEL_202;
   }
 
 LABEL_192:
-  if (v76)
+  if (v75)
   {
     goto LABEL_193;
   }
@@ -908,19 +908,18 @@ LABEL_192:
 LABEL_203:
 
 LABEL_193:
-  v47 = *MEMORY[0x1E69E9840];
 
-  return v70;
+  return v69;
 }
 
 - (BMMediaAnalysisPerLibrary)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v318[1] = *MEMORY[0x1E69E9840];
+  v317[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v6 = [dictionaryCopy objectForKeyedSubscript:@"libraryType"];
   if (!v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v259 = 0;
+    v258 = 0;
 LABEL_4:
     v7 = [dictionaryCopy objectForKeyedSubscript:@"imageAssetCount"];
     if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -930,31 +929,31 @@ LABEL_4:
       {
         if (!error)
         {
-          v258 = 0;
+          v257 = 0;
           v61 = 0;
           goto LABEL_128;
         }
 
-        v66 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v67 = *MEMORY[0x1E698F240];
-        v315 = *MEMORY[0x1E696A578];
-        v68 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"imageAssetCount"];
-        v316 = v68;
-        v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v316 forKeys:&v315 count:1];
-        v69 = v67;
-        v9 = v68;
-        v258 = 0;
+        v65 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v66 = *MEMORY[0x1E698F240];
+        v314 = *MEMORY[0x1E696A578];
+        v67 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"imageAssetCount"];
+        v315 = v67;
+        v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v315 forKeys:&v314 count:1];
+        v68 = v66;
+        v9 = v67;
+        v257 = 0;
         v61 = 0;
-        *error = [v66 initWithDomain:v69 code:2 userInfo:v8];
+        *error = [v65 initWithDomain:v68 code:2 userInfo:v8];
         goto LABEL_127;
       }
 
-      v258 = v7;
+      v257 = v7;
     }
 
     else
     {
-      v258 = 0;
+      v257 = 0;
     }
 
     v8 = [dictionaryCopy objectForKeyedSubscript:@"livePhotoAssetCount"];
@@ -970,16 +969,16 @@ LABEL_4:
           goto LABEL_127;
         }
 
-        v70 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v71 = *MEMORY[0x1E698F240];
-        v313 = *MEMORY[0x1E696A578];
-        v256 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"livePhotoAssetCount"];
-        v314 = v256;
-        v59 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v314 forKeys:&v313 count:1];
-        v72 = [v70 initWithDomain:v71 code:2 userInfo:v59];
+        v69 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v70 = *MEMORY[0x1E698F240];
+        v312 = *MEMORY[0x1E696A578];
+        v255 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"livePhotoAssetCount"];
+        v313 = v255;
+        v59 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v313 forKeys:&v312 count:1];
+        v71 = [v69 initWithDomain:v70 code:2 userInfo:v59];
         v9 = 0;
         v61 = 0;
-        *error = v72;
+        *error = v71;
 LABEL_126:
 
 LABEL_127:
@@ -1003,35 +1002,35 @@ LABEL_127:
         v59 = v10;
         if (!error)
         {
-          v256 = 0;
+          v255 = 0;
           v61 = 0;
           goto LABEL_126;
         }
 
-        v257 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v253 = *MEMORY[0x1E698F240];
-        v311 = *MEMORY[0x1E696A578];
+        v256 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v252 = *MEMORY[0x1E698F240];
+        v310 = *MEMORY[0x1E696A578];
         errorCopy = error;
-        v254 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"movieAssetCount"];
-        v312 = v254;
-        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v312 forKeys:&v311 count:1];
-        v74 = [v257 initWithDomain:v253 code:2 userInfo:v11];
-        v256 = 0;
+        v253 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"movieAssetCount"];
+        v311 = v253;
+        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v311 forKeys:&v310 count:1];
+        v73 = [v256 initWithDomain:v252 code:2 userInfo:v11];
+        v255 = 0;
         v61 = 0;
-        *errorCopy = v74;
+        *errorCopy = v73;
         goto LABEL_125;
       }
 
       errorCopy3 = error;
-      v252 = v10;
-      v256 = v10;
+      v251 = v10;
+      v255 = v10;
     }
 
     else
     {
       errorCopy3 = error;
-      v252 = v10;
-      v256 = 0;
+      v251 = v10;
+      v255 = 0;
     }
 
     v11 = [dictionaryCopy objectForKeyedSubscript:@"movieAssetDurations"];
@@ -1040,7 +1039,7 @@ LABEL_127:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v248 = v11;
+        v247 = v11;
         v11 = 0;
       }
 
@@ -1051,46 +1050,46 @@ LABEL_127:
         {
           if (!errorCopy3)
           {
-            v254 = 0;
+            v253 = 0;
             v61 = 0;
-            v59 = v252;
+            v59 = v251;
             goto LABEL_125;
           }
 
-          v255 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v219 = v9;
-          v75 = *MEMORY[0x1E698F240];
-          v309 = *MEMORY[0x1E696A578];
-          v249 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"movieAssetDurations"];
-          v310 = v249;
-          v76 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v310 forKeys:&v309 count:1];
-          v77 = v75;
-          v9 = v219;
-          v250 = v76;
-          v78 = [v255 initWithDomain:v77 code:2 userInfo:?];
-          v254 = 0;
+          v254 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v218 = v9;
+          v74 = *MEMORY[0x1E698F240];
+          v308 = *MEMORY[0x1E696A578];
+          v248 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"movieAssetDurations"];
+          v309 = v248;
+          v75 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v309 forKeys:&v308 count:1];
+          v76 = v74;
+          v9 = v218;
+          v249 = v75;
+          v77 = [v254 initWithDomain:v76 code:2 userInfo:?];
+          v253 = 0;
           v61 = 0;
-          *errorCopy3 = v78;
-          v59 = v252;
+          *errorCopy3 = v77;
+          v59 = v251;
 LABEL_124:
 
 LABEL_125:
           goto LABEL_126;
         }
 
-        v248 = v11;
+        v247 = v11;
         v11 = v11;
       }
     }
 
     else
     {
-      v248 = 0;
+      v247 = 0;
     }
 
     v12 = [dictionaryCopy objectForKeyedSubscript:@"editedMovieCount"];
-    v254 = v11;
-    v250 = v12;
+    v253 = v11;
+    v249 = v12;
     if (v12 && (v13 = v12, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -1098,58 +1097,58 @@ LABEL_125:
       {
         if (!errorCopy3)
         {
-          v249 = 0;
+          v248 = 0;
           v61 = 0;
-          v59 = v252;
-          v11 = v248;
+          v59 = v251;
+          v11 = v247;
           goto LABEL_124;
         }
 
-        v79 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v220 = v9;
-        v80 = *MEMORY[0x1E698F240];
-        v307 = *MEMORY[0x1E696A578];
-        v246 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"editedMovieCount"];
-        v308 = v246;
-        v81 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v308 forKeys:&v307 count:1];
-        v82 = v80;
-        v9 = v220;
-        v247 = v81;
-        v249 = 0;
+        v78 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v219 = v9;
+        v79 = *MEMORY[0x1E698F240];
+        v306 = *MEMORY[0x1E696A578];
+        v245 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"editedMovieCount"];
+        v307 = v245;
+        v80 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v307 forKeys:&v306 count:1];
+        v81 = v79;
+        v9 = v219;
+        v246 = v80;
+        v248 = 0;
         v61 = 0;
-        *errorCopy3 = [v79 initWithDomain:v82 code:2 userInfo:?];
+        *errorCopy3 = [v78 initWithDomain:v81 code:2 userInfo:?];
         goto LABEL_183;
       }
 
-      v249 = v13;
+      v248 = v13;
     }
 
     else
     {
-      v249 = 0;
+      v248 = 0;
     }
 
     v14 = [dictionaryCopy objectForKeyedSubscript:@"sharedMovieCount"];
-    v247 = v14;
+    v246 = v14;
     if (!v14 || (v15 = v14, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v246 = 0;
+      v245 = 0;
       goto LABEL_33;
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v246 = v15;
+      v245 = v15;
 LABEL_33:
       v16 = [dictionaryCopy objectForKeyedSubscript:@"favoritedMovieCount"];
       if (!v16 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
-        v216 = v16;
-        v244 = 0;
+        v215 = v16;
+        v243 = 0;
 LABEL_36:
         v17 = [dictionaryCopy objectForKeyedSubscript:@"spatialMoviePercentage"];
-        v218 = v17;
+        v217 = v17;
         if (v17 && (v18 = v17, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
         {
           objc_opt_class();
@@ -1157,287 +1156,287 @@ LABEL_36:
           {
             if (!errorCopy3)
             {
-              v217 = 0;
+              v216 = 0;
               v61 = 0;
-              v59 = v252;
-              v11 = v248;
-              v16 = v216;
+              v59 = v251;
+              v11 = v247;
+              v16 = v215;
               goto LABEL_121;
             }
 
-            v91 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v223 = v9;
-            v92 = *MEMORY[0x1E698F240];
-            v301 = *MEMORY[0x1E696A578];
-            v214 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"spatialMoviePercentage"];
-            v302 = v214;
-            v93 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v302 forKeys:&v301 count:1];
-            v94 = v92;
-            v9 = v223;
-            v215 = v93;
-            v217 = 0;
+            v90 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v222 = v9;
+            v91 = *MEMORY[0x1E698F240];
+            v300 = *MEMORY[0x1E696A578];
+            v213 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"spatialMoviePercentage"];
+            v301 = v213;
+            v92 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v301 forKeys:&v300 count:1];
+            v93 = v91;
+            v9 = v222;
+            v214 = v92;
+            v216 = 0;
             v61 = 0;
-            *errorCopy3 = [v91 initWithDomain:v94 code:2 userInfo:?];
+            *errorCopy3 = [v90 initWithDomain:v93 code:2 userInfo:?];
             goto LABEL_200;
           }
 
-          v217 = v18;
+          v216 = v18;
         }
 
         else
         {
-          v217 = 0;
+          v216 = 0;
         }
 
         v19 = [dictionaryCopy objectForKeyedSubscript:@"cinematicMoviePercentage"];
-        v215 = v19;
+        v214 = v19;
         if (!v19 || (v20 = v19, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
-          v214 = 0;
+          v213 = 0;
           goto LABEL_42;
         }
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v214 = v20;
+          v213 = v20;
 LABEL_42:
           v21 = [dictionaryCopy objectForKeyedSubscript:@"slomoMoviePercentage"];
-          v213 = v21;
+          v212 = v21;
           if (!v21 || (v22 = v21, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            v212 = 0;
+            v211 = 0;
             goto LABEL_45;
           }
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v212 = v22;
+            v211 = v22;
 LABEL_45:
             v23 = [dictionaryCopy objectForKeyedSubscript:@"timelapsePercentage"];
-            v211 = v23;
+            v210 = v23;
             if (!v23 || (v24 = v23, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              v210 = 0;
+              v209 = 0;
               goto LABEL_48;
             }
 
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v210 = v24;
+              v209 = v24;
 LABEL_48:
               v25 = [dictionaryCopy objectForKeyedSubscript:@"portraitModePercentage"];
-              v209 = v25;
+              v208 = v25;
               if (!v25 || (v26 = v25, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
               {
-                v208 = 0;
+                v207 = 0;
                 goto LABEL_51;
               }
 
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v208 = v26;
+                v207 = v26;
 LABEL_51:
                 v27 = [dictionaryCopy objectForKeyedSubscript:@"landscapeModePercentage"];
-                v207 = v27;
+                v206 = v27;
                 if (!v27 || (v28 = v27, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                 {
-                  v206 = 0;
+                  v205 = 0;
                   goto LABEL_54;
                 }
 
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v206 = v28;
+                  v205 = v28;
 LABEL_54:
                   v29 = [dictionaryCopy objectForKeyedSubscript:@"withHighlightsPercentage"];
-                  v205 = v29;
+                  v204 = v29;
                   if (!v29 || (v30 = v29, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                   {
-                    v204 = 0;
+                    v203 = 0;
                     goto LABEL_57;
                   }
 
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v204 = v30;
+                    v203 = v30;
 LABEL_57:
                     v31 = [dictionaryCopy objectForKeyedSubscript:@"withPeoplePercentage"];
-                    v203 = v31;
+                    v202 = v31;
                     if (!v31 || (v32 = v31, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                     {
-                      v202 = 0;
+                      v201 = 0;
                       goto LABEL_60;
                     }
 
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
-                      v202 = v32;
+                      v201 = v32;
 LABEL_60:
                       v33 = [dictionaryCopy objectForKeyedSubscript:@"withPetsPercentage"];
-                      v200 = v33;
+                      v199 = v33;
                       if (!v33 || (v34 = v33, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                       {
-                        v201 = 0;
+                        v200 = 0;
                         goto LABEL_63;
                       }
 
                       objc_opt_class();
                       if (objc_opt_isKindOfClass())
                       {
-                        v201 = v34;
+                        v200 = v34;
 LABEL_63:
                         v35 = [dictionaryCopy objectForKeyedSubscript:@"withNatureOrNaturalLandmarksPercentage"];
-                        v198 = v35;
+                        v197 = v35;
                         if (!v35 || (v36 = v35, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                         {
-                          v199 = 0;
+                          v198 = 0;
                           goto LABEL_66;
                         }
 
                         objc_opt_class();
                         if (objc_opt_isKindOfClass())
                         {
-                          v199 = v36;
+                          v198 = v36;
 LABEL_66:
                           v37 = [dictionaryCopy objectForKeyedSubscript:@"withSkylinePercentage"];
-                          v196 = v37;
+                          v195 = v37;
                           if (!v37 || (v38 = v37, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                           {
-                            v197 = 0;
+                            v196 = 0;
                             goto LABEL_69;
                           }
 
                           objc_opt_class();
                           if (objc_opt_isKindOfClass())
                           {
-                            v197 = v38;
+                            v196 = v38;
 LABEL_69:
                             v39 = [dictionaryCopy objectForKeyedSubscript:@"wthLandmarksPercentage"];
-                            v194 = v39;
+                            v193 = v39;
                             if (!v39 || (v40 = v39, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                             {
-                              v195 = 0;
+                              v194 = 0;
                               goto LABEL_72;
                             }
 
                             objc_opt_class();
                             if (objc_opt_isKindOfClass())
                             {
-                              v195 = v40;
+                              v194 = v40;
 LABEL_72:
                               v41 = [dictionaryCopy objectForKeyedSubscript:@"withActionPercentage"];
-                              v192 = v41;
+                              v191 = v41;
                               if (!v41 || (v42 = v41, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                               {
-                                v193 = 0;
+                                v192 = 0;
                                 goto LABEL_75;
                               }
 
                               objc_opt_class();
                               if (objc_opt_isKindOfClass())
                               {
-                                v193 = v42;
+                                v192 = v42;
 LABEL_75:
                                 v43 = [dictionaryCopy objectForKeyedSubscript:@"withHighMotionPercentage"];
-                                v190 = v43;
+                                v189 = v43;
                                 if (!v43 || (v44 = v43, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                                 {
-                                  v191 = 0;
+                                  v190 = 0;
                                   goto LABEL_78;
                                 }
 
                                 objc_opt_class();
                                 if (objc_opt_isKindOfClass())
                                 {
-                                  v191 = v44;
+                                  v190 = v44;
 LABEL_78:
                                   v45 = [dictionaryCopy objectForKeyedSubscript:@"highlightsWithPeoplePercentage"];
-                                  v188 = v45;
+                                  v187 = v45;
                                   if (!v45 || (v46 = v45, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                                   {
-                                    v189 = 0;
+                                    v188 = 0;
                                     goto LABEL_81;
                                   }
 
                                   objc_opt_class();
                                   if (objc_opt_isKindOfClass())
                                   {
-                                    v189 = v46;
+                                    v188 = v46;
 LABEL_81:
                                     v47 = [dictionaryCopy objectForKeyedSubscript:@"highlightsWithPetsPercentage"];
-                                    v186 = v47;
+                                    v185 = v47;
                                     if (!v47 || (v48 = v47, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                                     {
-                                      v187 = 0;
+                                      v186 = 0;
                                       goto LABEL_84;
                                     }
 
                                     objc_opt_class();
                                     if (objc_opt_isKindOfClass())
                                     {
-                                      v187 = v48;
+                                      v186 = v48;
 LABEL_84:
                                       v49 = [dictionaryCopy objectForKeyedSubscript:@"highlightsWithNatureOrNaturalLandmarksPercentage"];
-                                      v184 = v49;
+                                      v183 = v49;
                                       if (!v49 || (v50 = v49, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                                       {
-                                        v185 = 0;
+                                        v184 = 0;
                                         goto LABEL_87;
                                       }
 
                                       objc_opt_class();
                                       if (objc_opt_isKindOfClass())
                                       {
-                                        v185 = v50;
+                                        v184 = v50;
 LABEL_87:
                                         v51 = [dictionaryCopy objectForKeyedSubscript:@"highlightsWithSkylinePercentage"];
-                                        v181 = v51;
+                                        v180 = v51;
                                         if (!v51 || (v52 = v51, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                                         {
-                                          v183 = 0;
+                                          v182 = 0;
                                           goto LABEL_90;
                                         }
 
                                         objc_opt_class();
                                         if (objc_opt_isKindOfClass())
                                         {
-                                          v183 = v52;
+                                          v182 = v52;
 LABEL_90:
                                           v53 = [dictionaryCopy objectForKeyedSubscript:@"highlightsWithLandmarksPercentage"];
-                                          v179 = v53;
+                                          v178 = v53;
                                           if (!v53 || (v54 = v53, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                                           {
-                                            v182 = 0;
+                                            v181 = 0;
                                             goto LABEL_93;
                                           }
 
                                           objc_opt_class();
                                           if (objc_opt_isKindOfClass())
                                           {
-                                            v182 = v54;
+                                            v181 = v54;
 LABEL_93:
                                             v55 = [dictionaryCopy objectForKeyedSubscript:@"highlightsWithActionPercentage"];
-                                            v178 = v55;
+                                            v177 = v55;
                                             if (!v55 || (v56 = v55, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
                                             {
-                                              v180 = 0;
+                                              v179 = 0;
                                               goto LABEL_96;
                                             }
 
                                             objc_opt_class();
                                             if (objc_opt_isKindOfClass())
                                             {
-                                              v180 = v56;
+                                              v179 = v56;
 LABEL_96:
                                               v57 = [dictionaryCopy objectForKeyedSubscript:@"highlightsWithHighMotionPercentage"];
-                                              v177 = v57;
+                                              v176 = v57;
                                               if (v57)
                                               {
                                                 v58 = v57;
@@ -1445,23 +1444,23 @@ LABEL_96:
                                                 if ((objc_opt_isKindOfClass() & 1) == 0)
                                                 {
                                                   objc_opt_class();
-                                                  v59 = v252;
+                                                  v59 = v251;
                                                   if ((objc_opt_isKindOfClass() & 1) == 0)
                                                   {
                                                     if (errorCopy3)
                                                     {
-                                                      v171 = objc_alloc(MEMORY[0x1E696ABC0]);
-                                                      v243 = v9;
-                                                      v172 = *MEMORY[0x1E698F240];
-                                                      v261 = *MEMORY[0x1E696A578];
-                                                      v173 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"highlightsWithHighMotionPercentage"];
-                                                      v262 = v173;
-                                                      v174 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v262 forKeys:&v261 count:1];
+                                                      v170 = objc_alloc(MEMORY[0x1E696ABC0]);
+                                                      v242 = v9;
+                                                      v171 = *MEMORY[0x1E698F240];
+                                                      v260 = *MEMORY[0x1E696A578];
+                                                      v172 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"highlightsWithHighMotionPercentage"];
+                                                      v261 = v172;
+                                                      v173 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v261 forKeys:&v260 count:1];
+                                                      v174 = v170;
+                                                      v59 = v251;
                                                       v175 = v171;
-                                                      v59 = v252;
-                                                      v176 = v172;
-                                                      v9 = v243;
-                                                      *errorCopy3 = [v175 initWithDomain:v176 code:2 userInfo:v174];
+                                                      v9 = v242;
+                                                      *errorCopy3 = [v174 initWithDomain:v175 code:2 userInfo:v173];
                                                     }
 
                                                     v60 = 0;
@@ -1476,14 +1475,14 @@ LABEL_96:
                                                 v57 = 0;
                                               }
 
-                                              v59 = v252;
+                                              v59 = v251;
 LABEL_100:
                                               v60 = v57;
-                                              v61 = [(BMMediaAnalysisPerLibrary *)self initWithLibraryType:v259 imageAssetCount:v258 livePhotoAssetCount:v9 movieAssetCount:v256 movieAssetDurations:v11 editedMovieCount:v249 sharedMovieCount:v246 favoritedMovieCount:v244 spatialMoviePercentage:v217 cinematicMoviePercentage:v214 slomoMoviePercentage:v212 timelapsePercentage:v210 portraitModePercentage:v208 landscapeModePercentage:v206 withHighlightsPercentage:v204 withPeoplePercentage:v202 withPetsPercentage:v201 withNatureOrNaturalLandmarksPercentage:v199 withSkylinePercentage:v197 wthLandmarksPercentage:v195 withActionPercentage:v193 withHighMotionPercentage:v191 highlightsWithPeoplePercentage:v189 highlightsWithPetsPercentage:v187 highlightsWithNatureOrNaturalLandmarksPercentage:v185 highlightsWithSkylinePercentage:v183 highlightsWithLandmarksPercentage:v182 highlightsWithActionPercentage:v180 highlightsWithHighMotionPercentage:v57];
+                                              v61 = [(BMMediaAnalysisPerLibrary *)self initWithLibraryType:v258 imageAssetCount:v257 livePhotoAssetCount:v9 movieAssetCount:v255 movieAssetDurations:v11 editedMovieCount:v248 sharedMovieCount:v245 favoritedMovieCount:v243 spatialMoviePercentage:v216 cinematicMoviePercentage:v213 slomoMoviePercentage:v211 timelapsePercentage:v209 portraitModePercentage:v207 landscapeModePercentage:v205 withHighlightsPercentage:v203 withPeoplePercentage:v201 withPetsPercentage:v200 withNatureOrNaturalLandmarksPercentage:v198 withSkylinePercentage:v196 wthLandmarksPercentage:v194 withActionPercentage:v192 withHighMotionPercentage:v190 highlightsWithPeoplePercentage:v188 highlightsWithPetsPercentage:v186 highlightsWithNatureOrNaturalLandmarksPercentage:v184 highlightsWithSkylinePercentage:v182 highlightsWithLandmarksPercentage:v181 highlightsWithActionPercentage:v179 highlightsWithHighMotionPercentage:v57];
                                               self = v61;
 LABEL_101:
-                                              v11 = v248;
-                                              v16 = v216;
+                                              v11 = v247;
+                                              v16 = v215;
 
 LABEL_102:
 LABEL_103:
@@ -1523,608 +1522,607 @@ LABEL_123:
 
                                             if (errorCopy3)
                                             {
-                                              v167 = objc_alloc(MEMORY[0x1E696ABC0]);
-                                              v242 = v9;
-                                              v168 = *MEMORY[0x1E698F240];
-                                              v263 = *MEMORY[0x1E696A578];
+                                              v166 = objc_alloc(MEMORY[0x1E696ABC0]);
+                                              v241 = v9;
+                                              v167 = *MEMORY[0x1E698F240];
+                                              v262 = *MEMORY[0x1E696A578];
                                               v60 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"highlightsWithActionPercentage"];
-                                              v264 = v60;
-                                              v169 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v264 forKeys:&v263 count:1];
-                                              v170 = v168;
-                                              v9 = v242;
-                                              v177 = v169;
-                                              v180 = 0;
+                                              v263 = v60;
+                                              v168 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v263 forKeys:&v262 count:1];
+                                              v169 = v167;
+                                              v9 = v241;
+                                              v176 = v168;
+                                              v179 = 0;
                                               v61 = 0;
-                                              *errorCopy3 = [v167 initWithDomain:v170 code:2 userInfo:?];
-                                              v59 = v252;
+                                              *errorCopy3 = [v166 initWithDomain:v169 code:2 userInfo:?];
+                                              v59 = v251;
                                               goto LABEL_101;
                                             }
 
-                                            v180 = 0;
+                                            v179 = 0;
                                             v61 = 0;
 LABEL_285:
-                                            v59 = v252;
-                                            v11 = v248;
-                                            v16 = v216;
+                                            v59 = v251;
+                                            v11 = v247;
+                                            v16 = v215;
                                             goto LABEL_102;
                                           }
 
                                           if (errorCopy3)
                                           {
-                                            v163 = objc_alloc(MEMORY[0x1E696ABC0]);
-                                            v241 = v9;
-                                            v164 = *MEMORY[0x1E698F240];
-                                            v265 = *MEMORY[0x1E696A578];
-                                            v180 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"highlightsWithLandmarksPercentage"];
-                                            v266 = v180;
-                                            v165 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v266 forKeys:&v265 count:1];
-                                            v166 = v164;
-                                            v9 = v241;
-                                            v178 = v165;
-                                            v182 = 0;
+                                            v162 = objc_alloc(MEMORY[0x1E696ABC0]);
+                                            v240 = v9;
+                                            v163 = *MEMORY[0x1E698F240];
+                                            v264 = *MEMORY[0x1E696A578];
+                                            v179 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"highlightsWithLandmarksPercentage"];
+                                            v265 = v179;
+                                            v164 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v265 forKeys:&v264 count:1];
+                                            v165 = v163;
+                                            v9 = v240;
+                                            v177 = v164;
+                                            v181 = 0;
                                             v61 = 0;
-                                            *errorCopy3 = [v163 initWithDomain:v166 code:2 userInfo:?];
+                                            *errorCopy3 = [v162 initWithDomain:v165 code:2 userInfo:?];
                                             goto LABEL_285;
                                           }
 
-                                          v182 = 0;
+                                          v181 = 0;
                                           v61 = 0;
 LABEL_283:
-                                          v59 = v252;
-                                          v11 = v248;
-                                          v16 = v216;
+                                          v59 = v251;
+                                          v11 = v247;
+                                          v16 = v215;
                                           goto LABEL_103;
                                         }
 
                                         if (errorCopy3)
                                         {
-                                          v159 = objc_alloc(MEMORY[0x1E696ABC0]);
-                                          v240 = v9;
-                                          v160 = *MEMORY[0x1E698F240];
-                                          v267 = *MEMORY[0x1E696A578];
-                                          v182 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"highlightsWithSkylinePercentage"];
-                                          v268 = v182;
-                                          v161 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v268 forKeys:&v267 count:1];
-                                          v162 = v160;
-                                          v9 = v240;
-                                          v179 = v161;
-                                          v183 = 0;
+                                          v158 = objc_alloc(MEMORY[0x1E696ABC0]);
+                                          v239 = v9;
+                                          v159 = *MEMORY[0x1E698F240];
+                                          v266 = *MEMORY[0x1E696A578];
+                                          v181 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"highlightsWithSkylinePercentage"];
+                                          v267 = v181;
+                                          v160 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v267 forKeys:&v266 count:1];
+                                          v161 = v159;
+                                          v9 = v239;
+                                          v178 = v160;
+                                          v182 = 0;
                                           v61 = 0;
-                                          *errorCopy3 = [v159 initWithDomain:v162 code:2 userInfo:?];
+                                          *errorCopy3 = [v158 initWithDomain:v161 code:2 userInfo:?];
                                           goto LABEL_283;
                                         }
 
-                                        v183 = 0;
+                                        v182 = 0;
                                         v61 = 0;
 LABEL_281:
-                                        v59 = v252;
-                                        v11 = v248;
-                                        v16 = v216;
+                                        v59 = v251;
+                                        v11 = v247;
+                                        v16 = v215;
                                         goto LABEL_104;
                                       }
 
                                       if (errorCopy3)
                                       {
-                                        v155 = objc_alloc(MEMORY[0x1E696ABC0]);
-                                        v239 = v9;
-                                        v156 = *MEMORY[0x1E698F240];
-                                        v269 = *MEMORY[0x1E696A578];
-                                        v183 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"highlightsWithNatureOrNaturalLandmarksPercentage"];
-                                        v270 = v183;
-                                        v157 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v270 forKeys:&v269 count:1];
-                                        v158 = v156;
-                                        v9 = v239;
-                                        v181 = v157;
-                                        v185 = 0;
+                                        v154 = objc_alloc(MEMORY[0x1E696ABC0]);
+                                        v238 = v9;
+                                        v155 = *MEMORY[0x1E698F240];
+                                        v268 = *MEMORY[0x1E696A578];
+                                        v182 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"highlightsWithNatureOrNaturalLandmarksPercentage"];
+                                        v269 = v182;
+                                        v156 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v269 forKeys:&v268 count:1];
+                                        v157 = v155;
+                                        v9 = v238;
+                                        v180 = v156;
+                                        v184 = 0;
                                         v61 = 0;
-                                        *errorCopy3 = [v155 initWithDomain:v158 code:2 userInfo:?];
+                                        *errorCopy3 = [v154 initWithDomain:v157 code:2 userInfo:?];
                                         goto LABEL_281;
                                       }
 
-                                      v185 = 0;
+                                      v184 = 0;
                                       v61 = 0;
 LABEL_279:
-                                      v59 = v252;
-                                      v11 = v248;
-                                      v16 = v216;
+                                      v59 = v251;
+                                      v11 = v247;
+                                      v16 = v215;
                                       goto LABEL_105;
                                     }
 
                                     if (errorCopy3)
                                     {
-                                      v151 = objc_alloc(MEMORY[0x1E696ABC0]);
-                                      v238 = v9;
-                                      v152 = *MEMORY[0x1E698F240];
-                                      v271 = *MEMORY[0x1E696A578];
-                                      v185 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"highlightsWithPetsPercentage"];
-                                      v272 = v185;
-                                      v153 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v272 forKeys:&v271 count:1];
-                                      v154 = v152;
-                                      v9 = v238;
-                                      v184 = v153;
-                                      v187 = 0;
+                                      v150 = objc_alloc(MEMORY[0x1E696ABC0]);
+                                      v237 = v9;
+                                      v151 = *MEMORY[0x1E698F240];
+                                      v270 = *MEMORY[0x1E696A578];
+                                      v184 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"highlightsWithPetsPercentage"];
+                                      v271 = v184;
+                                      v152 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v271 forKeys:&v270 count:1];
+                                      v153 = v151;
+                                      v9 = v237;
+                                      v183 = v152;
+                                      v186 = 0;
                                       v61 = 0;
-                                      *errorCopy3 = [v151 initWithDomain:v154 code:2 userInfo:?];
+                                      *errorCopy3 = [v150 initWithDomain:v153 code:2 userInfo:?];
                                       goto LABEL_279;
                                     }
 
-                                    v187 = 0;
+                                    v186 = 0;
                                     v61 = 0;
 LABEL_277:
-                                    v59 = v252;
-                                    v11 = v248;
-                                    v16 = v216;
+                                    v59 = v251;
+                                    v11 = v247;
+                                    v16 = v215;
                                     goto LABEL_106;
                                   }
 
                                   if (errorCopy3)
                                   {
-                                    v147 = objc_alloc(MEMORY[0x1E696ABC0]);
-                                    v237 = v9;
-                                    v148 = *MEMORY[0x1E698F240];
-                                    v273 = *MEMORY[0x1E696A578];
-                                    v187 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"highlightsWithPeoplePercentage"];
-                                    v274 = v187;
-                                    v149 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v274 forKeys:&v273 count:1];
-                                    v150 = v148;
-                                    v9 = v237;
-                                    v186 = v149;
-                                    v189 = 0;
+                                    v146 = objc_alloc(MEMORY[0x1E696ABC0]);
+                                    v236 = v9;
+                                    v147 = *MEMORY[0x1E698F240];
+                                    v272 = *MEMORY[0x1E696A578];
+                                    v186 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"highlightsWithPeoplePercentage"];
+                                    v273 = v186;
+                                    v148 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v273 forKeys:&v272 count:1];
+                                    v149 = v147;
+                                    v9 = v236;
+                                    v185 = v148;
+                                    v188 = 0;
                                     v61 = 0;
-                                    *errorCopy3 = [v147 initWithDomain:v150 code:2 userInfo:?];
+                                    *errorCopy3 = [v146 initWithDomain:v149 code:2 userInfo:?];
                                     goto LABEL_277;
                                   }
 
-                                  v189 = 0;
+                                  v188 = 0;
                                   v61 = 0;
 LABEL_272:
-                                  v59 = v252;
-                                  v11 = v248;
-                                  v16 = v216;
+                                  v59 = v251;
+                                  v11 = v247;
+                                  v16 = v215;
                                   goto LABEL_107;
                                 }
 
                                 if (errorCopy3)
                                 {
-                                  v143 = objc_alloc(MEMORY[0x1E696ABC0]);
-                                  v236 = v9;
-                                  v144 = *MEMORY[0x1E698F240];
-                                  v275 = *MEMORY[0x1E696A578];
-                                  v189 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"withHighMotionPercentage"];
-                                  v276 = v189;
-                                  v145 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v276 forKeys:&v275 count:1];
-                                  v146 = v144;
-                                  v9 = v236;
-                                  v188 = v145;
-                                  v191 = 0;
+                                  v142 = objc_alloc(MEMORY[0x1E696ABC0]);
+                                  v235 = v9;
+                                  v143 = *MEMORY[0x1E698F240];
+                                  v274 = *MEMORY[0x1E696A578];
+                                  v188 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"withHighMotionPercentage"];
+                                  v275 = v188;
+                                  v144 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v275 forKeys:&v274 count:1];
+                                  v145 = v143;
+                                  v9 = v235;
+                                  v187 = v144;
+                                  v190 = 0;
                                   v61 = 0;
-                                  *errorCopy3 = [v143 initWithDomain:v146 code:2 userInfo:?];
+                                  *errorCopy3 = [v142 initWithDomain:v145 code:2 userInfo:?];
                                   goto LABEL_272;
                                 }
 
-                                v191 = 0;
+                                v190 = 0;
                                 v61 = 0;
 LABEL_268:
-                                v59 = v252;
-                                v11 = v248;
-                                v16 = v216;
+                                v59 = v251;
+                                v11 = v247;
+                                v16 = v215;
                                 goto LABEL_108;
                               }
 
                               if (errorCopy3)
                               {
-                                v139 = objc_alloc(MEMORY[0x1E696ABC0]);
-                                v235 = v9;
-                                v140 = *MEMORY[0x1E698F240];
-                                v277 = *MEMORY[0x1E696A578];
-                                v191 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"withActionPercentage"];
-                                v278 = v191;
-                                v141 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v278 forKeys:&v277 count:1];
-                                v142 = v140;
-                                v9 = v235;
-                                v190 = v141;
-                                v193 = 0;
+                                v138 = objc_alloc(MEMORY[0x1E696ABC0]);
+                                v234 = v9;
+                                v139 = *MEMORY[0x1E698F240];
+                                v276 = *MEMORY[0x1E696A578];
+                                v190 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"withActionPercentage"];
+                                v277 = v190;
+                                v140 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v277 forKeys:&v276 count:1];
+                                v141 = v139;
+                                v9 = v234;
+                                v189 = v140;
+                                v192 = 0;
                                 v61 = 0;
-                                *errorCopy3 = [v139 initWithDomain:v142 code:2 userInfo:?];
+                                *errorCopy3 = [v138 initWithDomain:v141 code:2 userInfo:?];
                                 goto LABEL_268;
                               }
 
-                              v193 = 0;
+                              v192 = 0;
                               v61 = 0;
 LABEL_264:
-                              v59 = v252;
-                              v11 = v248;
-                              v16 = v216;
+                              v59 = v251;
+                              v11 = v247;
+                              v16 = v215;
                               goto LABEL_109;
                             }
 
                             if (errorCopy3)
                             {
-                              v135 = objc_alloc(MEMORY[0x1E696ABC0]);
-                              v234 = v9;
-                              v136 = *MEMORY[0x1E698F240];
-                              v279 = *MEMORY[0x1E696A578];
-                              v193 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"wthLandmarksPercentage"];
-                              v280 = v193;
-                              v137 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v280 forKeys:&v279 count:1];
-                              v138 = v136;
-                              v9 = v234;
-                              v192 = v137;
-                              v195 = 0;
+                              v134 = objc_alloc(MEMORY[0x1E696ABC0]);
+                              v233 = v9;
+                              v135 = *MEMORY[0x1E698F240];
+                              v278 = *MEMORY[0x1E696A578];
+                              v192 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"wthLandmarksPercentage"];
+                              v279 = v192;
+                              v136 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v279 forKeys:&v278 count:1];
+                              v137 = v135;
+                              v9 = v233;
+                              v191 = v136;
+                              v194 = 0;
                               v61 = 0;
-                              *errorCopy3 = [v135 initWithDomain:v138 code:2 userInfo:?];
+                              *errorCopy3 = [v134 initWithDomain:v137 code:2 userInfo:?];
                               goto LABEL_264;
                             }
 
-                            v195 = 0;
+                            v194 = 0;
                             v61 = 0;
 LABEL_260:
-                            v59 = v252;
-                            v11 = v248;
-                            v16 = v216;
+                            v59 = v251;
+                            v11 = v247;
+                            v16 = v215;
                             goto LABEL_110;
                           }
 
                           if (errorCopy3)
                           {
-                            v131 = objc_alloc(MEMORY[0x1E696ABC0]);
-                            v233 = v9;
-                            v132 = *MEMORY[0x1E698F240];
-                            v281 = *MEMORY[0x1E696A578];
-                            v195 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"withSkylinePercentage"];
-                            v282 = v195;
-                            v133 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v282 forKeys:&v281 count:1];
-                            v134 = v132;
-                            v9 = v233;
-                            v194 = v133;
-                            v197 = 0;
+                            v130 = objc_alloc(MEMORY[0x1E696ABC0]);
+                            v232 = v9;
+                            v131 = *MEMORY[0x1E698F240];
+                            v280 = *MEMORY[0x1E696A578];
+                            v194 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"withSkylinePercentage"];
+                            v281 = v194;
+                            v132 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v281 forKeys:&v280 count:1];
+                            v133 = v131;
+                            v9 = v232;
+                            v193 = v132;
+                            v196 = 0;
                             v61 = 0;
-                            *errorCopy3 = [v131 initWithDomain:v134 code:2 userInfo:?];
+                            *errorCopy3 = [v130 initWithDomain:v133 code:2 userInfo:?];
                             goto LABEL_260;
                           }
 
-                          v197 = 0;
+                          v196 = 0;
                           v61 = 0;
 LABEL_254:
-                          v59 = v252;
-                          v11 = v248;
-                          v16 = v216;
+                          v59 = v251;
+                          v11 = v247;
+                          v16 = v215;
                           goto LABEL_111;
                         }
 
                         if (errorCopy3)
                         {
-                          v127 = objc_alloc(MEMORY[0x1E696ABC0]);
-                          v232 = v9;
-                          v128 = *MEMORY[0x1E698F240];
-                          v283 = *MEMORY[0x1E696A578];
-                          v197 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"withNatureOrNaturalLandmarksPercentage"];
-                          v284 = v197;
-                          v129 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v284 forKeys:&v283 count:1];
-                          v130 = v128;
-                          v9 = v232;
-                          v196 = v129;
-                          v199 = 0;
+                          v126 = objc_alloc(MEMORY[0x1E696ABC0]);
+                          v231 = v9;
+                          v127 = *MEMORY[0x1E698F240];
+                          v282 = *MEMORY[0x1E696A578];
+                          v196 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"withNatureOrNaturalLandmarksPercentage"];
+                          v283 = v196;
+                          v128 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v283 forKeys:&v282 count:1];
+                          v129 = v127;
+                          v9 = v231;
+                          v195 = v128;
+                          v198 = 0;
                           v61 = 0;
-                          *errorCopy3 = [v127 initWithDomain:v130 code:2 userInfo:?];
+                          *errorCopy3 = [v126 initWithDomain:v129 code:2 userInfo:?];
                           goto LABEL_254;
                         }
 
-                        v199 = 0;
+                        v198 = 0;
                         v61 = 0;
 LABEL_248:
-                        v59 = v252;
-                        v11 = v248;
-                        v16 = v216;
+                        v59 = v251;
+                        v11 = v247;
+                        v16 = v215;
                         goto LABEL_112;
                       }
 
                       if (errorCopy3)
                       {
-                        v123 = objc_alloc(MEMORY[0x1E696ABC0]);
-                        v231 = v9;
-                        v124 = *MEMORY[0x1E698F240];
-                        v285 = *MEMORY[0x1E696A578];
-                        v199 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"withPetsPercentage"];
-                        v286 = v199;
-                        v125 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v286 forKeys:&v285 count:1];
-                        v126 = v124;
-                        v9 = v231;
-                        v198 = v125;
-                        v201 = 0;
+                        v122 = objc_alloc(MEMORY[0x1E696ABC0]);
+                        v230 = v9;
+                        v123 = *MEMORY[0x1E698F240];
+                        v284 = *MEMORY[0x1E696A578];
+                        v198 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"withPetsPercentage"];
+                        v285 = v198;
+                        v124 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v285 forKeys:&v284 count:1];
+                        v125 = v123;
+                        v9 = v230;
+                        v197 = v124;
+                        v200 = 0;
                         v61 = 0;
-                        *errorCopy3 = [v123 initWithDomain:v126 code:2 userInfo:?];
+                        *errorCopy3 = [v122 initWithDomain:v125 code:2 userInfo:?];
                         goto LABEL_248;
                       }
 
-                      v201 = 0;
+                      v200 = 0;
                       v61 = 0;
 LABEL_242:
-                      v59 = v252;
-                      v11 = v248;
-                      v16 = v216;
+                      v59 = v251;
+                      v11 = v247;
+                      v16 = v215;
                       goto LABEL_113;
                     }
 
                     if (errorCopy3)
                     {
-                      v119 = objc_alloc(MEMORY[0x1E696ABC0]);
-                      v230 = v9;
-                      v120 = *MEMORY[0x1E698F240];
-                      v287 = *MEMORY[0x1E696A578];
-                      v201 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"withPeoplePercentage"];
-                      v288 = v201;
-                      v121 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v288 forKeys:&v287 count:1];
-                      v122 = v120;
-                      v9 = v230;
-                      v200 = v121;
-                      v202 = 0;
+                      v118 = objc_alloc(MEMORY[0x1E696ABC0]);
+                      v229 = v9;
+                      v119 = *MEMORY[0x1E698F240];
+                      v286 = *MEMORY[0x1E696A578];
+                      v200 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"withPeoplePercentage"];
+                      v287 = v200;
+                      v120 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v287 forKeys:&v286 count:1];
+                      v121 = v119;
+                      v9 = v229;
+                      v199 = v120;
+                      v201 = 0;
                       v61 = 0;
-                      *errorCopy3 = [v119 initWithDomain:v122 code:2 userInfo:?];
+                      *errorCopy3 = [v118 initWithDomain:v121 code:2 userInfo:?];
                       goto LABEL_242;
                     }
 
-                    v202 = 0;
+                    v201 = 0;
                     v61 = 0;
 LABEL_236:
-                    v59 = v252;
-                    v11 = v248;
-                    v16 = v216;
+                    v59 = v251;
+                    v11 = v247;
+                    v16 = v215;
                     goto LABEL_114;
                   }
 
                   if (errorCopy3)
                   {
-                    v115 = objc_alloc(MEMORY[0x1E696ABC0]);
-                    v229 = v9;
-                    v116 = *MEMORY[0x1E698F240];
-                    v289 = *MEMORY[0x1E696A578];
-                    v202 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"withHighlightsPercentage"];
-                    v290 = v202;
-                    v117 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v290 forKeys:&v289 count:1];
-                    v118 = v116;
-                    v9 = v229;
-                    v203 = v117;
-                    v204 = 0;
+                    v114 = objc_alloc(MEMORY[0x1E696ABC0]);
+                    v228 = v9;
+                    v115 = *MEMORY[0x1E698F240];
+                    v288 = *MEMORY[0x1E696A578];
+                    v201 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"withHighlightsPercentage"];
+                    v289 = v201;
+                    v116 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v289 forKeys:&v288 count:1];
+                    v117 = v115;
+                    v9 = v228;
+                    v202 = v116;
+                    v203 = 0;
                     v61 = 0;
-                    *errorCopy3 = [v115 initWithDomain:v118 code:2 userInfo:?];
+                    *errorCopy3 = [v114 initWithDomain:v117 code:2 userInfo:?];
                     goto LABEL_236;
                   }
 
-                  v204 = 0;
+                  v203 = 0;
                   v61 = 0;
 LABEL_230:
-                  v59 = v252;
-                  v11 = v248;
-                  v16 = v216;
+                  v59 = v251;
+                  v11 = v247;
+                  v16 = v215;
                   goto LABEL_115;
                 }
 
                 if (errorCopy3)
                 {
-                  v111 = objc_alloc(MEMORY[0x1E696ABC0]);
-                  v228 = v9;
-                  v112 = *MEMORY[0x1E698F240];
-                  v291 = *MEMORY[0x1E696A578];
-                  v204 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"landscapeModePercentage"];
-                  v292 = v204;
-                  v113 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v292 forKeys:&v291 count:1];
-                  v114 = v112;
-                  v9 = v228;
-                  v205 = v113;
-                  v206 = 0;
+                  v110 = objc_alloc(MEMORY[0x1E696ABC0]);
+                  v227 = v9;
+                  v111 = *MEMORY[0x1E698F240];
+                  v290 = *MEMORY[0x1E696A578];
+                  v203 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"landscapeModePercentage"];
+                  v291 = v203;
+                  v112 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v291 forKeys:&v290 count:1];
+                  v113 = v111;
+                  v9 = v227;
+                  v204 = v112;
+                  v205 = 0;
                   v61 = 0;
-                  *errorCopy3 = [v111 initWithDomain:v114 code:2 userInfo:?];
+                  *errorCopy3 = [v110 initWithDomain:v113 code:2 userInfo:?];
                   goto LABEL_230;
                 }
 
-                v206 = 0;
+                v205 = 0;
                 v61 = 0;
 LABEL_224:
-                v59 = v252;
-                v11 = v248;
-                v16 = v216;
+                v59 = v251;
+                v11 = v247;
+                v16 = v215;
                 goto LABEL_116;
               }
 
               if (errorCopy3)
               {
-                v107 = objc_alloc(MEMORY[0x1E696ABC0]);
-                v227 = v9;
-                v108 = *MEMORY[0x1E698F240];
-                v293 = *MEMORY[0x1E696A578];
-                v206 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"portraitModePercentage"];
-                v294 = v206;
-                v109 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v294 forKeys:&v293 count:1];
-                v110 = v108;
-                v9 = v227;
-                v207 = v109;
-                v208 = 0;
+                v106 = objc_alloc(MEMORY[0x1E696ABC0]);
+                v226 = v9;
+                v107 = *MEMORY[0x1E698F240];
+                v292 = *MEMORY[0x1E696A578];
+                v205 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"portraitModePercentage"];
+                v293 = v205;
+                v108 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v293 forKeys:&v292 count:1];
+                v109 = v107;
+                v9 = v226;
+                v206 = v108;
+                v207 = 0;
                 v61 = 0;
-                *errorCopy3 = [v107 initWithDomain:v110 code:2 userInfo:?];
+                *errorCopy3 = [v106 initWithDomain:v109 code:2 userInfo:?];
                 goto LABEL_224;
               }
 
-              v208 = 0;
+              v207 = 0;
               v61 = 0;
 LABEL_218:
-              v59 = v252;
-              v11 = v248;
-              v16 = v216;
+              v59 = v251;
+              v11 = v247;
+              v16 = v215;
               goto LABEL_117;
             }
 
             if (errorCopy3)
             {
-              v103 = objc_alloc(MEMORY[0x1E696ABC0]);
-              v226 = v9;
-              v104 = *MEMORY[0x1E698F240];
-              v295 = *MEMORY[0x1E696A578];
-              v208 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"timelapsePercentage"];
-              v296 = v208;
-              v105 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v296 forKeys:&v295 count:1];
-              v106 = v104;
-              v9 = v226;
-              v209 = v105;
-              v210 = 0;
+              v102 = objc_alloc(MEMORY[0x1E696ABC0]);
+              v225 = v9;
+              v103 = *MEMORY[0x1E698F240];
+              v294 = *MEMORY[0x1E696A578];
+              v207 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"timelapsePercentage"];
+              v295 = v207;
+              v104 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v295 forKeys:&v294 count:1];
+              v105 = v103;
+              v9 = v225;
+              v208 = v104;
+              v209 = 0;
               v61 = 0;
-              *errorCopy3 = [v103 initWithDomain:v106 code:2 userInfo:?];
+              *errorCopy3 = [v102 initWithDomain:v105 code:2 userInfo:?];
               goto LABEL_218;
             }
 
-            v210 = 0;
+            v209 = 0;
             v61 = 0;
 LABEL_212:
-            v59 = v252;
-            v11 = v248;
-            v16 = v216;
+            v59 = v251;
+            v11 = v247;
+            v16 = v215;
             goto LABEL_118;
           }
 
           if (errorCopy3)
           {
-            v99 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v225 = v9;
-            v100 = *MEMORY[0x1E698F240];
-            v297 = *MEMORY[0x1E696A578];
-            v210 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"slomoMoviePercentage"];
-            v298 = v210;
-            v101 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v298 forKeys:&v297 count:1];
-            v102 = v100;
-            v9 = v225;
-            v211 = v101;
-            v212 = 0;
+            v98 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v224 = v9;
+            v99 = *MEMORY[0x1E698F240];
+            v296 = *MEMORY[0x1E696A578];
+            v209 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"slomoMoviePercentage"];
+            v297 = v209;
+            v100 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v297 forKeys:&v296 count:1];
+            v101 = v99;
+            v9 = v224;
+            v210 = v100;
+            v211 = 0;
             v61 = 0;
-            *errorCopy3 = [v99 initWithDomain:v102 code:2 userInfo:?];
+            *errorCopy3 = [v98 initWithDomain:v101 code:2 userInfo:?];
             goto LABEL_212;
           }
 
-          v212 = 0;
+          v211 = 0;
           v61 = 0;
 LABEL_206:
-          v59 = v252;
-          v11 = v248;
-          v16 = v216;
+          v59 = v251;
+          v11 = v247;
+          v16 = v215;
           goto LABEL_119;
         }
 
         if (errorCopy3)
         {
-          v95 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v224 = v9;
-          v96 = *MEMORY[0x1E698F240];
-          v299 = *MEMORY[0x1E696A578];
-          v212 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"cinematicMoviePercentage"];
-          v300 = v212;
-          v97 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v300 forKeys:&v299 count:1];
-          v98 = v96;
-          v9 = v224;
-          v213 = v97;
-          v214 = 0;
+          v94 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v223 = v9;
+          v95 = *MEMORY[0x1E698F240];
+          v298 = *MEMORY[0x1E696A578];
+          v211 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"cinematicMoviePercentage"];
+          v299 = v211;
+          v96 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v299 forKeys:&v298 count:1];
+          v97 = v95;
+          v9 = v223;
+          v212 = v96;
+          v213 = 0;
           v61 = 0;
-          *errorCopy3 = [v95 initWithDomain:v98 code:2 userInfo:?];
+          *errorCopy3 = [v94 initWithDomain:v97 code:2 userInfo:?];
           goto LABEL_206;
         }
 
-        v214 = 0;
+        v213 = 0;
         v61 = 0;
 LABEL_200:
-        v59 = v252;
-        v11 = v248;
-        v16 = v216;
+        v59 = v251;
+        v11 = v247;
+        v16 = v215;
         goto LABEL_120;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v216 = v16;
-        v244 = v16;
+        v215 = v16;
+        v243 = v16;
         goto LABEL_36;
       }
 
       if (errorCopy3)
       {
-        v245 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v222 = v9;
-        v87 = *MEMORY[0x1E698F240];
-        v303 = *MEMORY[0x1E696A578];
-        v217 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"favoritedMovieCount"];
-        v304 = v217;
-        v88 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v304 forKeys:&v303 count:1];
-        v89 = v87;
-        v9 = v222;
-        v218 = v88;
-        v90 = [v245 initWithDomain:v89 code:2 userInfo:?];
-        v244 = 0;
+        v244 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v221 = v9;
+        v86 = *MEMORY[0x1E698F240];
+        v302 = *MEMORY[0x1E696A578];
+        v216 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"favoritedMovieCount"];
+        v303 = v216;
+        v87 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v303 forKeys:&v302 count:1];
+        v88 = v86;
+        v9 = v221;
+        v217 = v87;
+        v89 = [v244 initWithDomain:v88 code:2 userInfo:?];
+        v243 = 0;
         v61 = 0;
-        *errorCopy3 = v90;
-        v59 = v252;
-        v11 = v248;
+        *errorCopy3 = v89;
+        v59 = v251;
+        v11 = v247;
         goto LABEL_121;
       }
 
-      v244 = 0;
+      v243 = 0;
       v61 = 0;
 LABEL_189:
-      v59 = v252;
-      v11 = v248;
+      v59 = v251;
+      v11 = v247;
       goto LABEL_122;
     }
 
     if (errorCopy3)
     {
-      v83 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v221 = v9;
-      v84 = *MEMORY[0x1E698F240];
-      v305 = *MEMORY[0x1E696A578];
-      v244 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"sharedMovieCount"];
-      v306 = v244;
-      v85 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v306 forKeys:&v305 count:1];
-      v86 = v84;
-      v9 = v221;
-      v246 = 0;
+      v82 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v220 = v9;
+      v83 = *MEMORY[0x1E698F240];
+      v304 = *MEMORY[0x1E696A578];
+      v243 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"sharedMovieCount"];
+      v305 = v243;
+      v84 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v305 forKeys:&v304 count:1];
+      v85 = v83;
+      v9 = v220;
+      v245 = 0;
       v61 = 0;
-      *errorCopy3 = [v83 initWithDomain:v86 code:2 userInfo:v85];
-      v16 = v85;
+      *errorCopy3 = [v82 initWithDomain:v85 code:2 userInfo:v84];
+      v16 = v84;
       goto LABEL_189;
     }
 
-    v246 = 0;
+    v245 = 0;
     v61 = 0;
 LABEL_183:
-    v59 = v252;
-    v11 = v248;
+    v59 = v251;
+    v11 = v247;
     goto LABEL_123;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v259 = v6;
+    v258 = v6;
     goto LABEL_4;
   }
 
   if (!error)
   {
-    v259 = 0;
+    v258 = 0;
     v61 = 0;
     goto LABEL_129;
   }
 
-  v64 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v65 = *MEMORY[0x1E698F240];
-  v317 = *MEMORY[0x1E696A578];
-  v258 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"libraryType"];
-  v318[0] = v258;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v318 forKeys:&v317 count:1];
-  v259 = 0;
+  v63 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v64 = *MEMORY[0x1E698F240];
+  v316 = *MEMORY[0x1E696A578];
+  v257 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"libraryType"];
+  v317[0] = v257;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v317 forKeys:&v316 count:1];
+  v258 = 0;
   v61 = 0;
-  *error = [v64 initWithDomain:v65 code:2 userInfo:v7];
+  *error = [v63 initWithDomain:v64 code:2 userInfo:v7];
 LABEL_128:
 
 LABEL_129:
-  v62 = *MEMORY[0x1E69E9840];
   return v61;
 }
 
@@ -2140,207 +2138,179 @@ LABEL_129:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v33 = toCopy;
+  v5 = toCopy;
   if (self->_libraryType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasImageAssetCount)
   {
-    imageAssetCount = self->_imageAssetCount;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasLivePhotoAssetCount)
   {
-    livePhotoAssetCount = self->_livePhotoAssetCount;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasMovieAssetCount)
   {
-    movieAssetCount = self->_movieAssetCount;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasMovieAssetDurations)
   {
-    movieAssetDurations = self->_movieAssetDurations;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasEditedMovieCount)
   {
-    editedMovieCount = self->_editedMovieCount;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasSharedMovieCount)
   {
-    sharedMovieCount = self->_sharedMovieCount;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasFavoritedMovieCount)
   {
-    favoritedMovieCount = self->_favoritedMovieCount;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasSpatialMoviePercentage)
   {
-    spatialMoviePercentage = self->_spatialMoviePercentage;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasCinematicMoviePercentage)
   {
-    cinematicMoviePercentage = self->_cinematicMoviePercentage;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasSlomoMoviePercentage)
   {
-    slomoMoviePercentage = self->_slomoMoviePercentage;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasTimelapsePercentage)
   {
-    timelapsePercentage = self->_timelapsePercentage;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasPortraitModePercentage)
   {
-    portraitModePercentage = self->_portraitModePercentage;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasLandscapeModePercentage)
   {
-    landscapeModePercentage = self->_landscapeModePercentage;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasWithHighlightsPercentage)
   {
-    withHighlightsPercentage = self->_withHighlightsPercentage;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasWithPeoplePercentage)
   {
-    withPeoplePercentage = self->_withPeoplePercentage;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasWithPetsPercentage)
   {
-    withPetsPercentage = self->_withPetsPercentage;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasWithNatureOrNaturalLandmarksPercentage)
   {
-    withNatureOrNaturalLandmarksPercentage = self->_withNatureOrNaturalLandmarksPercentage;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasWithSkylinePercentage)
   {
-    withSkylinePercentage = self->_withSkylinePercentage;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasWthLandmarksPercentage)
   {
-    wthLandmarksPercentage = self->_wthLandmarksPercentage;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasWithActionPercentage)
   {
-    withActionPercentage = self->_withActionPercentage;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasWithHighMotionPercentage)
   {
-    withHighMotionPercentage = self->_withHighMotionPercentage;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasHighlightsWithPeoplePercentage)
   {
-    highlightsWithPeoplePercentage = self->_highlightsWithPeoplePercentage;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasHighlightsWithPetsPercentage)
   {
-    highlightsWithPetsPercentage = self->_highlightsWithPetsPercentage;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasHighlightsWithNatureOrNaturalLandmarksPercentage)
   {
-    highlightsWithNatureOrNaturalLandmarksPercentage = self->_highlightsWithNatureOrNaturalLandmarksPercentage;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasHighlightsWithSkylinePercentage)
   {
-    highlightsWithSkylinePercentage = self->_highlightsWithSkylinePercentage;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasHighlightsWithLandmarksPercentage)
   {
-    highlightsWithLandmarksPercentage = self->_highlightsWithLandmarksPercentage;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasHighlightsWithActionPercentage)
   {
-    highlightsWithActionPercentage = self->_highlightsWithActionPercentage;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 
   if (self->_hasHighlightsWithHighMotionPercentage)
   {
-    highlightsWithHighMotionPercentage = self->_highlightsWithHighMotionPercentage;
     PBDataWriterWriteInt32Field();
-    toCopy = v33;
+    toCopy = v5;
   }
 }
 
@@ -4284,138 +4254,134 @@ LABEL_389:
 
 + (id)protoFields
 {
-  v34[29] = *MEMORY[0x1E69E9840];
-  v33 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"libraryType" number:1 type:13 subMessageClass:0];
-  v34[0] = v33;
-  v32 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"imageAssetCount" number:2 type:2 subMessageClass:0];
-  v34[1] = v32;
-  v31 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"livePhotoAssetCount" number:3 type:2 subMessageClass:0];
-  v34[2] = v31;
-  v30 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"movieAssetCount" number:4 type:2 subMessageClass:0];
-  v34[3] = v30;
-  v29 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"movieAssetDurations" number:5 type:2 subMessageClass:0];
-  v34[4] = v29;
-  v28 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"editedMovieCount" number:6 type:2 subMessageClass:0];
-  v34[5] = v28;
-  v27 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"sharedMovieCount" number:7 type:2 subMessageClass:0];
-  v34[6] = v27;
-  v26 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"favoritedMovieCount" number:8 type:2 subMessageClass:0];
-  v34[7] = v26;
-  v25 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"spatialMoviePercentage" number:9 type:2 subMessageClass:0];
-  v34[8] = v25;
-  v24 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"cinematicMoviePercentage" number:10 type:2 subMessageClass:0];
-  v34[9] = v24;
-  v23 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"slomoMoviePercentage" number:11 type:2 subMessageClass:0];
-  v34[10] = v23;
-  v22 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"timelapsePercentage" number:12 type:2 subMessageClass:0];
-  v34[11] = v22;
-  v21 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"portraitModePercentage" number:13 type:2 subMessageClass:0];
-  v34[12] = v21;
-  v20 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"landscapeModePercentage" number:14 type:2 subMessageClass:0];
-  v34[13] = v20;
-  v19 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"withHighlightsPercentage" number:15 type:2 subMessageClass:0];
-  v34[14] = v19;
-  v18 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"withPeoplePercentage" number:16 type:2 subMessageClass:0];
-  v34[15] = v18;
-  v17 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"withPetsPercentage" number:17 type:2 subMessageClass:0];
-  v34[16] = v17;
-  v16 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"withNatureOrNaturalLandmarksPercentage" number:18 type:2 subMessageClass:0];
-  v34[17] = v16;
-  v15 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"withSkylinePercentage" number:19 type:2 subMessageClass:0];
-  v34[18] = v15;
-  v14 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"wthLandmarksPercentage" number:20 type:2 subMessageClass:0];
-  v34[19] = v14;
+  v33[29] = *MEMORY[0x1E69E9840];
+  v32 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"libraryType" number:1 type:13 subMessageClass:0];
+  v33[0] = v32;
+  v31 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"imageAssetCount" number:2 type:2 subMessageClass:0];
+  v33[1] = v31;
+  v30 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"livePhotoAssetCount" number:3 type:2 subMessageClass:0];
+  v33[2] = v30;
+  v29 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"movieAssetCount" number:4 type:2 subMessageClass:0];
+  v33[3] = v29;
+  v28 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"movieAssetDurations" number:5 type:2 subMessageClass:0];
+  v33[4] = v28;
+  v27 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"editedMovieCount" number:6 type:2 subMessageClass:0];
+  v33[5] = v27;
+  v26 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"sharedMovieCount" number:7 type:2 subMessageClass:0];
+  v33[6] = v26;
+  v25 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"favoritedMovieCount" number:8 type:2 subMessageClass:0];
+  v33[7] = v25;
+  v24 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"spatialMoviePercentage" number:9 type:2 subMessageClass:0];
+  v33[8] = v24;
+  v23 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"cinematicMoviePercentage" number:10 type:2 subMessageClass:0];
+  v33[9] = v23;
+  v22 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"slomoMoviePercentage" number:11 type:2 subMessageClass:0];
+  v33[10] = v22;
+  v21 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"timelapsePercentage" number:12 type:2 subMessageClass:0];
+  v33[11] = v21;
+  v20 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"portraitModePercentage" number:13 type:2 subMessageClass:0];
+  v33[12] = v20;
+  v19 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"landscapeModePercentage" number:14 type:2 subMessageClass:0];
+  v33[13] = v19;
+  v18 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"withHighlightsPercentage" number:15 type:2 subMessageClass:0];
+  v33[14] = v18;
+  v17 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"withPeoplePercentage" number:16 type:2 subMessageClass:0];
+  v33[15] = v17;
+  v16 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"withPetsPercentage" number:17 type:2 subMessageClass:0];
+  v33[16] = v16;
+  v15 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"withNatureOrNaturalLandmarksPercentage" number:18 type:2 subMessageClass:0];
+  v33[17] = v15;
+  v14 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"withSkylinePercentage" number:19 type:2 subMessageClass:0];
+  v33[18] = v14;
+  v13 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"wthLandmarksPercentage" number:20 type:2 subMessageClass:0];
+  v33[19] = v13;
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"withActionPercentage" number:21 type:2 subMessageClass:0];
-  v34[20] = v2;
+  v33[20] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"withHighMotionPercentage" number:22 type:2 subMessageClass:0];
-  v34[21] = v3;
+  v33[21] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"highlightsWithPeoplePercentage" number:23 type:2 subMessageClass:0];
-  v34[22] = v4;
+  v33[22] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"highlightsWithPetsPercentage" number:24 type:2 subMessageClass:0];
-  v34[23] = v5;
+  v33[23] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"highlightsWithNatureOrNaturalLandmarksPercentage" number:25 type:2 subMessageClass:0];
-  v34[24] = v6;
+  v33[24] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"highlightsWithSkylinePercentage" number:26 type:2 subMessageClass:0];
-  v34[25] = v7;
+  v33[25] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"highlightsWithLandmarksPercentage" number:27 type:2 subMessageClass:0];
-  v34[26] = v8;
+  v33[26] = v8;
   v9 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"highlightsWithActionPercentage" number:28 type:2 subMessageClass:0];
-  v34[27] = v9;
+  v33[27] = v9;
   v10 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"highlightsWithHighMotionPercentage" number:29 type:2 subMessageClass:0];
-  v34[28] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:29];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v33[28] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:29];
 
   return v11;
 }
 
 + (id)columns
 {
-  v34[29] = *MEMORY[0x1E69E9840];
-  v33 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"libraryType" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
-  v32 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"imageAssetCount" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:2 convertedType:0];
-  v31 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"livePhotoAssetCount" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:2 convertedType:0];
-  v30 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"movieAssetCount" dataType:0 requestOnly:0 fieldNumber:4 protoDataType:2 convertedType:0];
-  v29 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"movieAssetDurations" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:2 convertedType:0];
-  v28 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"editedMovieCount" dataType:0 requestOnly:0 fieldNumber:6 protoDataType:2 convertedType:0];
-  v27 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"sharedMovieCount" dataType:0 requestOnly:0 fieldNumber:7 protoDataType:2 convertedType:0];
-  v26 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"favoritedMovieCount" dataType:0 requestOnly:0 fieldNumber:8 protoDataType:2 convertedType:0];
-  v25 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"spatialMoviePercentage" dataType:0 requestOnly:0 fieldNumber:9 protoDataType:2 convertedType:0];
-  v24 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"cinematicMoviePercentage" dataType:0 requestOnly:0 fieldNumber:10 protoDataType:2 convertedType:0];
-  v23 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"slomoMoviePercentage" dataType:0 requestOnly:0 fieldNumber:11 protoDataType:2 convertedType:0];
-  v22 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"timelapsePercentage" dataType:0 requestOnly:0 fieldNumber:12 protoDataType:2 convertedType:0];
-  v21 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"portraitModePercentage" dataType:0 requestOnly:0 fieldNumber:13 protoDataType:2 convertedType:0];
-  v20 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"landscapeModePercentage" dataType:0 requestOnly:0 fieldNumber:14 protoDataType:2 convertedType:0];
-  v19 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"withHighlightsPercentage" dataType:0 requestOnly:0 fieldNumber:15 protoDataType:2 convertedType:0];
-  v18 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"withPeoplePercentage" dataType:0 requestOnly:0 fieldNumber:16 protoDataType:2 convertedType:0];
-  v17 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"withPetsPercentage" dataType:0 requestOnly:0 fieldNumber:17 protoDataType:2 convertedType:0];
-  v16 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"withNatureOrNaturalLandmarksPercentage" dataType:0 requestOnly:0 fieldNumber:18 protoDataType:2 convertedType:0];
-  v15 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"withSkylinePercentage" dataType:0 requestOnly:0 fieldNumber:19 protoDataType:2 convertedType:0];
+  v33[29] = *MEMORY[0x1E69E9840];
+  v32 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"libraryType" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
+  v31 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"imageAssetCount" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:2 convertedType:0];
+  v30 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"livePhotoAssetCount" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:2 convertedType:0];
+  v29 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"movieAssetCount" dataType:0 requestOnly:0 fieldNumber:4 protoDataType:2 convertedType:0];
+  v28 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"movieAssetDurations" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:2 convertedType:0];
+  v27 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"editedMovieCount" dataType:0 requestOnly:0 fieldNumber:6 protoDataType:2 convertedType:0];
+  v26 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"sharedMovieCount" dataType:0 requestOnly:0 fieldNumber:7 protoDataType:2 convertedType:0];
+  v25 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"favoritedMovieCount" dataType:0 requestOnly:0 fieldNumber:8 protoDataType:2 convertedType:0];
+  v24 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"spatialMoviePercentage" dataType:0 requestOnly:0 fieldNumber:9 protoDataType:2 convertedType:0];
+  v23 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"cinematicMoviePercentage" dataType:0 requestOnly:0 fieldNumber:10 protoDataType:2 convertedType:0];
+  v22 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"slomoMoviePercentage" dataType:0 requestOnly:0 fieldNumber:11 protoDataType:2 convertedType:0];
+  v21 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"timelapsePercentage" dataType:0 requestOnly:0 fieldNumber:12 protoDataType:2 convertedType:0];
+  v20 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"portraitModePercentage" dataType:0 requestOnly:0 fieldNumber:13 protoDataType:2 convertedType:0];
+  v19 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"landscapeModePercentage" dataType:0 requestOnly:0 fieldNumber:14 protoDataType:2 convertedType:0];
+  v18 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"withHighlightsPercentage" dataType:0 requestOnly:0 fieldNumber:15 protoDataType:2 convertedType:0];
+  v17 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"withPeoplePercentage" dataType:0 requestOnly:0 fieldNumber:16 protoDataType:2 convertedType:0];
+  v16 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"withPetsPercentage" dataType:0 requestOnly:0 fieldNumber:17 protoDataType:2 convertedType:0];
+  v15 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"withNatureOrNaturalLandmarksPercentage" dataType:0 requestOnly:0 fieldNumber:18 protoDataType:2 convertedType:0];
+  v14 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"withSkylinePercentage" dataType:0 requestOnly:0 fieldNumber:19 protoDataType:2 convertedType:0];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"wthLandmarksPercentage" dataType:0 requestOnly:0 fieldNumber:20 protoDataType:2 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"withActionPercentage" dataType:0 requestOnly:0 fieldNumber:21 protoDataType:2 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"withHighMotionPercentage" dataType:0 requestOnly:0 fieldNumber:22 protoDataType:2 convertedType:0];
-  v14 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"highlightsWithPeoplePercentage" dataType:0 requestOnly:0 fieldNumber:23 protoDataType:2 convertedType:0];
-  v13 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"highlightsWithPetsPercentage" dataType:0 requestOnly:0 fieldNumber:24 protoDataType:2 convertedType:0];
+  v13 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"highlightsWithPeoplePercentage" dataType:0 requestOnly:0 fieldNumber:23 protoDataType:2 convertedType:0];
+  v12 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"highlightsWithPetsPercentage" dataType:0 requestOnly:0 fieldNumber:24 protoDataType:2 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"highlightsWithNatureOrNaturalLandmarksPercentage" dataType:0 requestOnly:0 fieldNumber:25 protoDataType:2 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"highlightsWithSkylinePercentage" dataType:0 requestOnly:0 fieldNumber:26 protoDataType:2 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"highlightsWithLandmarksPercentage" dataType:0 requestOnly:0 fieldNumber:27 protoDataType:2 convertedType:0];
-  v12 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"highlightsWithActionPercentage" dataType:0 requestOnly:0 fieldNumber:28 protoDataType:2 convertedType:0];
+  v11 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"highlightsWithActionPercentage" dataType:0 requestOnly:0 fieldNumber:28 protoDataType:2 convertedType:0];
   v8 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"highlightsWithHighMotionPercentage" dataType:0 requestOnly:0 fieldNumber:29 protoDataType:2 convertedType:0];
-  v34[0] = v33;
-  v34[1] = v32;
-  v34[2] = v31;
-  v34[3] = v30;
-  v34[4] = v29;
-  v34[5] = v28;
-  v34[6] = v27;
-  v34[7] = v26;
-  v34[8] = v25;
-  v34[9] = v24;
-  v34[10] = v23;
-  v34[11] = v22;
-  v34[12] = v21;
-  v34[13] = v20;
-  v34[14] = v19;
-  v34[15] = v18;
-  v34[16] = v17;
-  v34[17] = v16;
-  v34[18] = v15;
-  v34[19] = v2;
-  v34[20] = v3;
-  v34[21] = v4;
-  v34[22] = v14;
-  v34[23] = v13;
-  v34[24] = v5;
-  v34[25] = v6;
-  v34[26] = v7;
-  v34[27] = v12;
-  v34[28] = v8;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:29];
+  v33[0] = v32;
+  v33[1] = v31;
+  v33[2] = v30;
+  v33[3] = v29;
+  v33[4] = v28;
+  v33[5] = v27;
+  v33[6] = v26;
+  v33[7] = v25;
+  v33[8] = v24;
+  v33[9] = v23;
+  v33[10] = v22;
+  v33[11] = v21;
+  v33[12] = v20;
+  v33[13] = v19;
+  v33[14] = v18;
+  v33[15] = v17;
+  v33[16] = v16;
+  v33[17] = v15;
+  v33[18] = v14;
+  v33[19] = v2;
+  v33[20] = v3;
+  v33[21] = v4;
+  v33[22] = v13;
+  v33[23] = v12;
+  v33[24] = v5;
+  v33[25] = v6;
+  v33[26] = v7;
+  v33[27] = v11;
+  v33[28] = v8;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:29];
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v11;
+  return v10;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

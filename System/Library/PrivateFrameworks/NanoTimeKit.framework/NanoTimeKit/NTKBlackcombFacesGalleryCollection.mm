@@ -178,7 +178,7 @@ LABEL_31:
   return v9;
 }
 
-void __53__NTKBlackcombFacesGalleryCollection_facesForDevice___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __53__NTKBlackcombFacesGalleryCollection_facesForDevice___block_invoke(uint64_t a1, void *a2, unint64_t a3)
 {
   v27[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
@@ -227,7 +227,7 @@ void __53__NTKBlackcombFacesGalleryCollection_facesForDevice___block_invoke(uint
 
     else
     {
-      if ((a3 - 2) >= 2)
+      if (a3 - 2 >= 2)
       {
         if (a3 == 4)
         {

@@ -7,7 +7,6 @@
 - (id)ams_addHeadersFromPromise:()AppleMediaServices;
 - (id)ams_modifyRequestWithBlock:()AppleMediaServices;
 - (uint64_t)ams_addCacheBusterParameterWithPreservedQueryEncoding:()AppleMediaServices;
-- (uint64_t)ams_addCachePolicyHeader;
 - (uint64_t)ams_addContentTypeHeaderForEncoding:()AppleMediaServices;
 - (uint64_t)ams_addForwardedForHeader;
 - (uint64_t)ams_addHeaders:()AppleMediaServices;
@@ -19,6 +18,7 @@
 - (void)ams_addAcceptLanguageHeader;
 - (void)ams_addAuthorizationHeaderForAccount:()AppleMediaServices;
 - (void)ams_addBiometricsHeadersForAccount:()AppleMediaServices options:;
+- (void)ams_addCachePolicyHeader;
 - (void)ams_addClientIdentifierHeaderForClient:()AppleMediaServices;
 - (void)ams_addClientVersionsForClient:()AppleMediaServices;
 - (void)ams_addContentLengthHeaderForData:()AppleMediaServices;
@@ -57,7 +57,7 @@
   [self setValue:v2 forHTTPHeaderField:@"Accept-Language"];
 }
 
-- (uint64_t)ams_addCachePolicyHeader
+- (void)ams_addCachePolicyHeader
 {
   result = os_variant_has_internal_content();
   if (result)

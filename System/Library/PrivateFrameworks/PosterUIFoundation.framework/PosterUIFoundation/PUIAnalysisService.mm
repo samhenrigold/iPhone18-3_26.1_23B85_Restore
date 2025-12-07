@@ -53,64 +53,64 @@
 
 - (id)executeAnalysisRequest:(id)request error:(id *)error
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   requestCopy = request;
-  v8 = PUILogAnalysisService();
+  v8 = PUILogAnalysisService(requestCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [(PUIAnalysisService *)a2 executeAnalysisRequest:requestCopy error:v8];
   }
 
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__4;
-  v32 = __Block_byref_object_dispose__4;
-  v33 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__4;
+  v31 = __Block_byref_object_dispose__4;
+  v32 = 0;
   underlyingConnection = self->_underlyingConnection;
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __51__PUIAnalysisService_executeAnalysisRequest_error___block_invoke;
-  v27[3] = &unk_1E78549A8;
-  v27[4] = &v28;
-  v10 = [(PUIServiceConnection *)underlyingConnection remoteObjectProxyWithErrorHandler:v27];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __51__PUIAnalysisService_executeAnalysisRequest_error___block_invoke;
+  v26[3] = &unk_1E78549A8;
+  v26[4] = &v27;
+  v10 = [(PUIServiceConnection *)underlyingConnection remoteObjectProxyWithErrorHandler:v26];
   v11 = v10;
-  v12 = v29[5];
+  v12 = v28[5];
   if (v10)
   {
     if (!v12)
     {
-      v26 = 0;
-      v13 = [v10 executeAnalysisRequest:requestCopy error:&v26];
-      v14 = v26;
+      v25 = 0;
+      v13 = [v10 executeAnalysisRequest:requestCopy error:&v25];
+      v14 = v25;
       v15 = v14;
       if (v14)
       {
         if (error)
         {
-          v16 = v14;
+          v14 = v14;
           *error = v15;
         }
 
-        v17 = PUILogAnalysisService();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v16 = PUILogAnalysisService(v14);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          v25 = NSStringFromSelector(a2);
+          v24 = NSStringFromSelector(a2);
           *buf = 138543874;
-          v35 = v25;
-          v36 = 2114;
-          v37 = requestCopy;
-          v38 = 2114;
-          v39 = v15;
-          _os_log_error_impl(&dword_1A8C85000, v17, OS_LOG_TYPE_ERROR, "Fail %{public}@:%{public}@: %{public}@", buf, 0x20u);
+          v34 = v24;
+          v35 = 2114;
+          v36 = requestCopy;
+          v37 = 2114;
+          v38 = v15;
+          _os_log_error_impl(&dword_1A8C85000, v16, OS_LOG_TYPE_ERROR, "Fail %{public}@:%{public}@: %{public}@", buf, 0x20u);
         }
       }
 
-      v18 = PUILogAnalysisService();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v17 = PUILogAnalysisService(v14);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
-        v19 = NSStringFromSelector(a2);
-        [(PUIAnalysisService *)v19 executeAnalysisRequest:requestCopy error:buf, v18];
+        v18 = NSStringFromSelector(a2);
+        [(PUIAnalysisService *)v18 executeAnalysisRequest:requestCopy error:buf, v17];
       }
 
       goto LABEL_21;
@@ -119,34 +119,35 @@
 
   else if (!v12)
   {
-    v20 = [MEMORY[0x1E696ABC0] errorWithDomain:@"_PUIAnalysisServiceXPCConnection" code:-1 userInfo:0];
-    v21 = v29[5];
-    v29[5] = v20;
+    v19 = [MEMORY[0x1E696ABC0] errorWithDomain:@"_PUIAnalysisServiceXPCConnection" code:-1 userInfo:0];
+    v20 = v28[5];
+    v28[5] = v19;
   }
 
   if (error)
   {
-    *error = v29[5];
+    v10 = v28[5];
+    *error = v10;
   }
 
-  v15 = PUILogAnalysisService();
+  v15 = PUILogAnalysisService(v10);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    v23 = NSStringFromSelector(a2);
-    v24 = v29[5];
+    v22 = NSStringFromSelector(a2);
+    v23 = v28[5];
     *buf = 138543874;
-    v35 = v23;
-    v36 = 2114;
-    v37 = requestCopy;
-    v38 = 2114;
-    v39 = v24;
+    v34 = v22;
+    v35 = 2114;
+    v36 = requestCopy;
+    v37 = 2114;
+    v38 = v23;
     _os_log_error_impl(&dword_1A8C85000, v15, OS_LOG_TYPE_ERROR, "Fail %{public}@:%{public}@: %{public}@", buf, 0x20u);
   }
 
   v13 = 0;
 LABEL_21:
 
-  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v27, 8);
 
   return v13;
 }
@@ -157,7 +158,7 @@ LABEL_21:
   requestCopy = request;
   completionCopy = completion;
   v9 = NSStringFromSelector(a2);
-  v10 = PUILogAnalysisService();
+  v10 = PUILogAnalysisService(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [PUIAnalysisService executeAnalysisRequest:completion:];
@@ -237,35 +238,36 @@ void __56__PUIAnalysisService_executeAnalysisRequest_completion___block_invoke(u
 {
   v5 = a2;
   v6 = a3;
-  if ([*(a1 + 32) signal])
+  v7 = [*(a1 + 32) signal];
+  if (v7)
   {
-    v7 = PUILogAnalysisService();
-    v8 = v7;
+    v8 = PUILogAnalysisService(v7);
+    v9 = v8;
     if (v6)
     {
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         __56__PUIAnalysisService_executeAnalysisRequest_completion___block_invoke_cold_1();
       }
     }
 
-    else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       __56__PUIAnalysisService_executeAnalysisRequest_completion___block_invoke_cold_2();
     }
 
-    v9 = *(*(*(a1 + 56) + 8) + 40);
-    if (v9)
+    v10 = *(*(*(a1 + 56) + 8) + 40);
+    if (v10)
     {
-      (*(v9 + 16))(v9, v5, v6);
-      v10 = *(*(a1 + 56) + 8);
-      v11 = *(v10 + 40);
-      *(v10 + 40) = 0;
+      (*(v10 + 16))(v10, v5, v6);
+      v11 = *(*(a1 + 56) + 8);
+      v12 = *(v11 + 40);
+      *(v11 + 40) = 0;
     }
 
-    v12 = *(*(a1 + 64) + 8);
-    v13 = *(v12 + 40);
-    *(v12 + 40) = 0;
+    v13 = *(*(a1 + 64) + 8);
+    v14 = *(v13 + 40);
+    *(v13 + 40) = 0;
   }
 }
 

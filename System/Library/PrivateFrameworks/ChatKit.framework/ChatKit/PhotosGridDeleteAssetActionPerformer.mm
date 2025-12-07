@@ -28,7 +28,7 @@
 + (id)localizedTitleForUseCase:(unint64_t)case actionManager:(id)manager
 {
   managerCopy = manager;
-  result = CKFrameworkBundle();
+  result = CKFrameworkBundle(managerCopy);
   if (result)
   {
     v6 = result;

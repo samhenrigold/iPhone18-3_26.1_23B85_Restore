@@ -246,10 +246,10 @@
       v29 = *bound;
       *buf = 134218496;
       elevationCopy = elevation;
-      v33 = 2048;
-      v34 = v28;
-      v35 = 2048;
-      v36 = v29;
+      v43 = 2048;
+      v44 = v28;
+      v45 = 2048;
+      v46 = v29;
       _os_log_impl(dword_100000000, v27, OS_LOG_TYPE_DEBUG, "currentAltitude,%f,thresholdLowerBound,%f,thresholdUpperBound,%f", buf, 0x20u);
     }
 
@@ -261,11 +261,21 @@
         sub_101960D60();
       }
 
-      v30 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 2, "[CLElevationThresholdManager thresholdBoundsForElevation:andAccuracy:upperBound:lowerBound:]", "%s\n", v30);
-      if (v30 != buf)
+      v30 = *lowerBound;
+      v31 = *bound;
+      v35 = 134218496;
+      elevationCopy2 = elevation;
+      v37 = 2048;
+      v38 = v30;
+      v39 = 2048;
+      v40 = v31;
+      LODWORD(v34) = 32;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4418, 2, "currentAltitude,%f,thresholdLowerBound,%f,thresholdUpperBound,%f", COERCE_DOUBLE(&v35), v34);
+      v33 = v32;
+      sub_100152C7C("Generic", 1, 0, 2, "[CLElevationThresholdManager thresholdBoundsForElevation:andAccuracy:upperBound:lowerBound:]", "%s\n", v32);
+      if (v33 != buf)
       {
-        free(v30);
+        free(v33);
       }
     }
   }
@@ -274,10 +284,10 @@
 - (void)insertClient:(id)client withThreshold:(float)threshold
 {
   *&v4 = threshold;
-  v5 = 0;
+  WORD4(v4) = 0;
   clientCopy = client;
-  LOBYTE(v7) = 0;
-  sub_1008BDBEC();
+  LOBYTE(v6) = 0;
+  sub_1008BDBEC(&self->_elevationThresholdMap, &v4);
 }
 
 - (BOOL)removeClient:(id)client
@@ -366,12 +376,14 @@
   if (begin_node != &self->_elevationThresholdMap.__tree_.__end_node_)
   {
     altitudeCopy = altitude;
+    *&v9 = 134219008;
+    v30 = v9;
     do
     {
-      v9 = begin_node[8];
+      v10 = begin_node[8];
       hysteresisBand = self->_hysteresisBand;
-      v12 = v9 <= (hysteresisBand + altitude) && v9 >= (altitude - hysteresisBand);
-      if ((begin_node[10] & 1) == 0 && !v12)
+      v13 = v10 <= (hysteresisBand + altitude) && v10 >= (altitude - hysteresisBand);
+      if ((begin_node[10] & 1) == 0 && !v13)
       {
         [CLElevationThresholdManager thresholdUpdated:"thresholdUpdated:initialized:above:" initialized:? above:?];
         if (qword_1025D4410 != -1)
@@ -379,24 +391,24 @@
           sub_101960D60();
         }
 
-        v13 = qword_1025D4418;
+        v14 = qword_1025D4418;
         if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEFAULT))
         {
           Current = CFAbsoluteTimeGetCurrent();
-          v15 = begin_node[8];
-          v16 = self->_hysteresisBand;
-          v17 = *(begin_node + 40);
-          *buf = 134219008;
-          v23 = Current;
-          v24 = 2048;
-          v25 = v15;
-          v26 = 2048;
-          v27 = altitudeCopy;
-          v28 = 2048;
-          v29 = v16;
-          v30 = 1024;
-          v31 = v17;
-          _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_DEFAULT, "threshold initialized,timestamp,%f,threshold,%f,altitude,%f,hysteresis,%f,initialized,%d", buf, 0x30u);
+          v16 = begin_node[8];
+          v17 = self->_hysteresisBand;
+          v18 = *(begin_node + 40);
+          *buf = v30;
+          v42 = Current;
+          v43 = 2048;
+          v44 = v16;
+          v45 = 2048;
+          v46 = altitudeCopy;
+          v47 = 2048;
+          v48 = v17;
+          v49 = 1024;
+          v50 = v18;
+          _os_log_impl(dword_100000000, v14, OS_LOG_TYPE_DEFAULT, "threshold initialized,timestamp,%f,threshold,%f,altitude,%f,hysteresis,%f,initialized,%d", buf, 0x30u);
         }
 
         if (sub_10000A100(121, 2))
@@ -407,44 +419,60 @@
             sub_101960D60();
           }
 
-          CFAbsoluteTimeGetCurrent();
-          v21 = _os_log_send_and_compose_impl();
-          sub_100152C7C("Generic", 1, 0, 2, "[CLElevationThresholdManager initializeThresholdsGivenAltitude:andAccuracy:]", "%s\n", v21);
-          if (v21 != buf)
+          v22 = qword_1025D4418;
+          v23 = CFAbsoluteTimeGetCurrent();
+          v24 = begin_node[8];
+          v25 = self->_hysteresisBand;
+          v26 = *(begin_node + 40);
+          v31 = v30;
+          v32 = v23;
+          v33 = 2048;
+          v34 = v24;
+          v35 = 2048;
+          v36 = altitudeCopy;
+          v37 = 2048;
+          v38 = v25;
+          v39 = 1024;
+          v40 = v26;
+          LODWORD(v29) = 48;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v22, 0, "threshold initialized,timestamp,%f,threshold,%f,altitude,%f,hysteresis,%f,initialized,%d", COERCE_DOUBLE(&v31), v29, *&v30, *(&v30 + 1));
+          v28 = v27;
+          sub_100152C7C("Generic", 1, 0, 2, "[CLElevationThresholdManager initializeThresholdsGivenAltitude:andAccuracy:]", "%s\n", v27);
+          if (v28 != buf)
           {
-            free(v21);
+            free(v28);
           }
         }
       }
 
-      v18 = *(begin_node + 1);
-      if (v18)
+      v19 = *(begin_node + 1);
+      if (v19)
       {
         do
         {
-          v19 = v18;
-          v18 = v18->__left_;
+          v20 = v19;
+          v19 = v19->__left_;
         }
 
-        while (v18);
+        while (v19);
       }
 
       else
       {
         do
         {
-          v19 = *(begin_node + 2);
-          v20 = v19->__left_ == begin_node;
-          begin_node = v19;
+          v20 = *(begin_node + 2);
+          v21 = v20->__left_ == begin_node;
+          begin_node = v20;
         }
 
-        while (!v20);
+        while (!v21);
       }
 
-      begin_node = v19;
+      begin_node = v20;
     }
 
-    while (v19 != p_end_node);
+    while (v20 != p_end_node);
   }
 }
 
@@ -605,39 +633,39 @@
     {
       *&v6[6].__left_ = CFAbsoluteTimeGetCurrent() - *&v6[9].__left_;
       v10 = *&v6[5].__left_;
-      v42 = 0;
-      v43 = 0;
+      v47 = 0;
+      v48 = 0;
       __p = 0;
       sub_1002AD2D8(&__p, qword_10265B028, qword_10265B030, (qword_10265B030 - qword_10265B028) >> 3);
-      sub_1008BD568(&__p, v44, v10);
+      sub_1008BD568(&__p, v49, v10);
       if (__p)
       {
-        v42 = __p;
+        v47 = __p;
         operator delete(__p);
       }
 
       v11 = *&v6[7].__left_;
+      v42 = 0;
+      v43 = 0;
+      v41 = 0;
+      sub_1002AD2D8(&v41, qword_10265B028, qword_10265B030, (qword_10265B030 - qword_10265B028) >> 3);
+      sub_1008BD568(&v41, v44, v11);
+      if (v41)
+      {
+        v42 = v41;
+        operator delete(v41);
+      }
+
+      v12 = *&v6[6].__left_;
       v37 = 0;
       v38 = 0;
       v36 = 0;
-      sub_1002AD2D8(&v36, qword_10265B028, qword_10265B030, (qword_10265B030 - qword_10265B028) >> 3);
-      sub_1008BD568(&v36, v39, v11);
+      sub_1002AD2D8(&v36, qword_10265B040, qword_10265B048, (qword_10265B048 - qword_10265B040) >> 3);
+      sub_1008BD568(&v36, v39, v12);
       if (v36)
       {
         v37 = v36;
         operator delete(v36);
-      }
-
-      v12 = *&v6[6].__left_;
-      v32 = 0;
-      v33 = 0;
-      v31 = 0;
-      sub_1002AD2D8(&v31, qword_10265B040, qword_10265B048, (qword_10265B048 - qword_10265B040) >> 3);
-      sub_1008BD568(&v31, v34, v12);
-      if (v31)
-      {
-        v32 = v31;
-        operator delete(v31);
       }
 
       if (qword_1025D4410 != -1)
@@ -654,96 +682,93 @@
         v18 = v6[6].__left_;
         v17 = v6[7].__left_;
         *buf = 134219008;
-        v57 = Current;
-        v58 = 2048;
-        v59 = v15;
-        v60 = 2048;
-        v61 = v16;
-        v62 = 2048;
-        v63 = v17;
-        v64 = 2048;
-        v65 = v18;
+        v62 = Current;
+        v63 = 2048;
+        v64 = v15;
+        v65 = 2048;
+        v66 = v16;
+        v67 = 2048;
+        v68 = v17;
+        v69 = 2048;
+        v70 = v18;
         _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_DEFAULT, "threshold crossing analytics,timestamp,%f,client,%p,deltaElevationToThreshold,%f,maxDeltaElevationToCrossing,%f,timeToCrossing,%f", buf, 0x34u);
       }
 
       if (sub_10000A100(121, 2))
       {
         sub_101960FD4(buf);
-        v19 = CFAbsoluteTimeGetCurrent();
-        v20 = v6[4].__left_;
-        v21 = v6[5].__left_;
-        v23 = v6[6].__left_;
-        v22 = v6[7].__left_;
-        v46 = 134219008;
-        v47 = v19;
-        v48 = 2048;
-        v49 = v20;
-        v50 = 2048;
-        v51 = v21;
-        v52 = 2048;
-        v53 = v22;
-        v54 = 2048;
-        v55 = v23;
-        v24 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "[CLElevationThresholdManager sendAnalyticsEventForId:]", "%s\n", v24);
-        if (v24 != buf)
+        v19 = qword_1025D4418;
+        v20 = CFAbsoluteTimeGetCurrent();
+        v21 = v6[4].__left_;
+        v22 = v6[5].__left_;
+        v24 = v6[6].__left_;
+        v23 = v6[7].__left_;
+        v51 = 134219008;
+        v52 = v20;
+        v53 = 2048;
+        v54 = v21;
+        v55 = 2048;
+        v56 = v22;
+        v57 = 2048;
+        v58 = v23;
+        v59 = 2048;
+        v60 = v24;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v19, 0, "threshold crossing analytics,timestamp,%f,client,%p,deltaElevationToThreshold,%f,maxDeltaElevationToCrossing,%f,timeToCrossing,%f", COERCE_DOUBLE(&v51), 52, v27, v28, v29);
+        v26 = v25;
+        sub_100152C7C("Generic", 1, 0, 2, "[CLElevationThresholdManager sendAnalyticsEventForId:]", "%s\n", v25);
+        if (v26 != buf)
         {
-          free(v24);
+          free(v26);
         }
+      }
+
+      if (SHIBYTE(v50) < 0)
+      {
+        sub_100007244(&v30, v49[0], v49[1]);
+      }
+
+      else
+      {
+        v30 = *v49;
+        v31 = v50;
       }
 
       if (SHIBYTE(v45) < 0)
       {
-        sub_100007244(&v25, v44[0], v44[1]);
+        sub_100007244(&v32, v44[0], v44[1]);
       }
 
       else
       {
-        v25 = *v44;
-        v26 = v45;
+        v32 = *v44;
+        v33 = v45;
       }
 
       if (SHIBYTE(v40) < 0)
       {
-        sub_100007244(&v27, v39[0], v39[1]);
+        sub_100007244(&v34, v39[0], v39[1]);
       }
 
       else
       {
-        v27 = *v39;
-        v28 = v40;
-      }
-
-      if (SHIBYTE(v35) < 0)
-      {
-        sub_100007244(&v29, v34[0], v34[1]);
-      }
-
-      else
-      {
-        v29 = *v34;
-        v30 = v35;
+        v34 = *v39;
+        v35 = v40;
       }
 
       AnalyticsSendEventLazy();
-      if (SHIBYTE(v30) < 0)
-      {
-        operator delete(v29);
-      }
-
-      if (SHIBYTE(v28) < 0)
-      {
-        operator delete(v27);
-      }
-
-      if (SHIBYTE(v26) < 0)
-      {
-        operator delete(v25);
-      }
-
       if (SHIBYTE(v35) < 0)
       {
-        operator delete(v34[0]);
+        operator delete(v34);
+      }
+
+      if (SHIBYTE(v33) < 0)
+      {
+        operator delete(v32);
+      }
+
+      if (SHIBYTE(v31) < 0)
+      {
+        operator delete(v30);
       }
 
       if (SHIBYTE(v40) < 0)
@@ -754,6 +779,11 @@
       if (SHIBYTE(v45) < 0)
       {
         operator delete(v44[0]);
+      }
+
+      if (SHIBYTE(v50) < 0)
+      {
+        operator delete(v49[0]);
       }
     }
   }

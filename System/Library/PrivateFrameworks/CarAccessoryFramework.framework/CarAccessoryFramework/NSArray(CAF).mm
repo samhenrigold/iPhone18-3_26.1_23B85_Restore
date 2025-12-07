@@ -6,34 +6,34 @@
 
 - (id)arrayRepresentation
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   selfCopy = self;
-  v4 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           dictionaryRepresentation = [v8 dictionaryRepresentation];
 LABEL_10:
           v10 = dictionaryRepresentation;
-          [v2 addObject:{dictionaryRepresentation, v13}];
+          [v2 addObject:{dictionaryRepresentation, v12}];
 
           continue;
         }
@@ -44,16 +44,14 @@ LABEL_10:
           goto LABEL_10;
         }
 
-        [v2 addObject:{v8, v13}];
+        [v2 addObject:{v8, v12}];
       }
 
-      v5 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

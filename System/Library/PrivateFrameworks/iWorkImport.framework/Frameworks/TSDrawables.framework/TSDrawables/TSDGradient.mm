@@ -489,7 +489,7 @@ LABEL_42:
 
   else
   {
-    return MEMORY[0x2821F9670]();
+    return (MEMORY[0x2821F9670])(self, sel_isAdvancedGradientIgnoringFlag);
   }
 }
 

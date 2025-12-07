@@ -1,11 +1,11 @@
 @interface NSBundle(SensorKitPrivate)
 + (void)sk_bundleWithIdentifier:()SensorKitPrivate;
+- (__CFString)sr_normalizedBundleIdentifier;
 - (uint64_t)sk_appName;
 - (uint64_t)sk_perCategoryDetailDescription;
 - (uint64_t)sk_requiredCategories;
 - (uint64_t)sk_studyName;
 - (uint64_t)sr_bundleType;
-- (uint64_t)sr_normalizedBundleIdentifier;
 - (void)sk_privacyURL;
 - (void)sk_usageDescription;
 @end
@@ -137,25 +137,25 @@
   return v3;
 }
 
-- (uint64_t)sr_normalizedBundleIdentifier
+- (__CFString)sr_normalizedBundleIdentifier
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DFF8] fileURLWithPath:@"/var/mobile/Library/Research/Studies/" isDirectory:1 relativeToURL:0];
   if (!self)
   {
-    goto LABEL_7;
+    return 0;
   }
 
   v3 = [(NSBundle *)self sr_bundleTypeWithPartnerAppDirectoryURL:v2];
   if (v3 == 1)
   {
-    v6 = @"com.apple.Research";
+    v5 = @"com.apple.Research";
     if (([objc_msgSend(self "bundleIdentifier")] & 1) == 0)
     {
-      v6 = @"com.appleinternal.health.Lime";
+      v5 = @"com.appleinternal.health.Lime";
       if (([objc_msgSend(self "bundleIdentifier")] & 1) == 0)
       {
-        v6 = [self objectForInfoDictionaryKey:@"SRStudyApplicationGroupIdentifier"];
+        v5 = [self objectForInfoDictionaryKey:@"SRStudyApplicationGroupIdentifier"];
       }
     }
 
@@ -164,29 +164,23 @@
       dispatch_once(&_MergedGlobals_6, &__block_literal_global_7);
     }
 
-    v7 = qword_1EE02AB38;
+    v6 = qword_1EE02AB38;
     if (os_log_type_enabled(qword_1EE02AB38, OS_LOG_TYPE_INFO))
     {
-      v9 = 138543618;
-      v10 = v6;
-      v11 = 2114;
+      v7 = 138543618;
+      v8 = v5;
+      v9 = 2114;
       bundleIdentifier = [self bundleIdentifier];
-      _os_log_impl(&dword_1C914D000, v7, OS_LOG_TYPE_INFO, "Found parent app %{public}@ for study %{public}@", &v9, 0x16u);
+      _os_log_impl(&dword_1C914D000, v6, OS_LOG_TYPE_INFO, "Found parent app %{public}@ for study %{public}@", &v7, 0x16u);
     }
 
-    goto LABEL_15;
+    return v5;
   }
 
   if (v3 != 2)
   {
-LABEL_7:
-    v6 = 0;
-LABEL_15:
-    v8 = *MEMORY[0x1E69E9840];
-    return v6;
+    return 0;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return [self bundleIdentifier];
 }

@@ -23,6 +23,7 @@
 + (id)mergeHTTPHeaders:(id)headers headerOverrides:(id)overrides;
 + (id)parseXHost:(id)host;
 + (id)sharedEmphemeralSession;
++ (id)stringFromLinkQualityValue:(int)value;
 + (id)stripWhitespace:(id)whitespace;
 + (id)timestampIdentifierToName:(unint64_t)name;
 + (int64_t)certificateDateIsValid:(__SecCertificate *)valid;
@@ -58,71 +59,73 @@
 {
   identifierCopy = identifier;
   nameCopy = name;
-  v12[0] = kSecClass;
-  v12[1] = kSecAttrService;
-  v13[0] = kSecClassGenericPassword;
-  v13[1] = identifierCopy;
-  v12[2] = kSecAttrAccount;
-  v12[3] = kSecMatchLimit;
-  v13[2] = nameCopy;
-  v13[3] = kSecMatchLimitOne;
-  v12[4] = kSecReturnData;
-  v13[4] = &__kCFBooleanTrue;
-  v7 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:5];
-  v11 = 0;
-  if (SecItemCopyMatching(v7, &v11) || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  v13[0] = kSecClass;
+  v13[1] = kSecAttrService;
+  v14[0] = kSecClassGenericPassword;
+  v14[1] = identifierCopy;
+  v13[2] = kSecAttrAccount;
+  v13[3] = kSecMatchLimit;
+  v14[2] = nameCopy;
+  v14[3] = kSecMatchLimitOne;
+  v13[4] = kSecReturnData;
+  v14[4] = &__kCFBooleanTrue;
+  v7 = [NSDictionary dictionaryWithObjects:v14 forKeys:v13 count:5];
+  v12 = 0;
+  isKindOfClass = SecItemCopyMatching(v7, &v12);
+  if (isKindOfClass || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v9 = nplog_obj();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = nplog_obj(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       sub_A8B4();
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v8 = v11;
+    v9 = v12;
   }
 
-  return v8;
+  return v9;
 }
 
 + (void)saveDataToKeychain:(id)keychain withIdentifier:(id)identifier accountName:(id)name
 {
   identifierCopy = identifier;
   nameCopy = name;
-  v18[0] = kSecClass;
-  v18[1] = kSecAttrService;
-  v19[0] = kSecClassGenericPassword;
-  v19[1] = identifierCopy;
-  v18[2] = kSecAttrAccount;
-  v19[2] = nameCopy;
+  v19[0] = kSecClass;
+  v19[1] = kSecAttrService;
+  v20[0] = kSecClassGenericPassword;
+  v20[1] = identifierCopy;
+  v19[2] = kSecAttrAccount;
+  v20[2] = nameCopy;
   keychainCopy = keychain;
-  v10 = [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:3];
-  v16[0] = kSecAttrService;
-  v16[1] = kSecAttrAccount;
-  v17[0] = identifierCopy;
-  v17[1] = nameCopy;
-  v16[2] = kSecValueData;
-  v16[3] = kSecAttrAccessible;
-  v17[2] = keychainCopy;
-  v17[3] = kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly;
-  v11 = [NSDictionary dictionaryWithObjects:v17 forKeys:v16 count:4];
+  v10 = [NSDictionary dictionaryWithObjects:v20 forKeys:v19 count:3];
+  v17[0] = kSecAttrService;
+  v17[1] = kSecAttrAccount;
+  v18[0] = identifierCopy;
+  v18[1] = nameCopy;
+  v17[2] = kSecValueData;
+  v17[3] = kSecAttrAccessible;
+  v18[2] = keychainCopy;
+  v18[3] = kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly;
+  v11 = [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:4];
 
   v12 = SecItemUpdate(v10, v11);
+  v13 = v12;
   if (v12 == -25300)
   {
-    v13 = [(__CFDictionary *)v11 mutableCopy];
-    [v13 setObject:kSecClassGenericPassword forKeyedSubscript:kSecClass];
-    v12 = SecItemAdd(v13, 0);
+    v14 = [(__CFDictionary *)v11 mutableCopy];
+    [v14 setObject:kSecClassGenericPassword forKeyedSubscript:kSecClass];
+    v13 = SecItemAdd(v14, 0);
   }
 
-  if (v12)
+  if (v13)
   {
-    v14 = nplog_obj();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = nplog_obj(v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_A91C();
     }
@@ -224,7 +227,7 @@ LABEL_18:
   if (v5 != -25300 && v5 != 0)
   {
     v7 = v5;
-    v8 = nplog_obj();
+    v8 = nplog_obj(v5);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 138412546;
@@ -252,7 +255,7 @@ LABEL_18:
   if (v8 != -25300 && v8 != 0)
   {
     v10 = v8;
-    v11 = nplog_obj();
+    v11 = nplog_obj(v8);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = 138412546;
@@ -267,20 +270,21 @@ LABEL_18:
 + (__SecKey)copyKeyFromKeychainWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v10[0] = kSecClass;
-  v10[1] = kSecAttrApplicationLabel;
-  v11[0] = kSecClassKey;
-  v11[1] = identifierCopy;
-  v10[2] = kSecMatchLimit;
-  v10[3] = kSecReturnRef;
-  v11[2] = kSecMatchLimitOne;
-  v11[3] = &__kCFBooleanTrue;
-  v4 = [NSDictionary dictionaryWithObjects:v11 forKeys:v10 count:4];
+  v11[0] = kSecClass;
+  v11[1] = kSecAttrApplicationLabel;
+  v12[0] = kSecClassKey;
+  v12[1] = identifierCopy;
+  v11[2] = kSecMatchLimit;
+  v11[3] = kSecReturnRef;
+  v12[2] = kSecMatchLimitOne;
+  v12[3] = &__kCFBooleanTrue;
+  v4 = [NSDictionary dictionaryWithObjects:v12 forKeys:v11 count:4];
   cf = 0;
-  if (SecItemCopyMatching(v4, &cf) || (v5 = CFGetTypeID(cf), v5 != SecKeyGetTypeID()))
+  TypeID = SecItemCopyMatching(v4, &cf);
+  if (TypeID || (v6 = CFGetTypeID(cf), TypeID = SecKeyGetTypeID(), v6 != TypeID))
   {
-    v7 = nplog_obj();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = nplog_obj(TypeID);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       sub_A8B4();
     }
@@ -290,33 +294,34 @@ LABEL_18:
       CFRelease(cf);
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v6 = cf;
+    v7 = cf;
   }
 
-  return v6;
+  return v7;
 }
 
 + (void)saveKeyToKeychain:(__SecKey *)keychain withIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v8[0] = kSecClass;
-  v8[1] = kSecAttrApplicationLabel;
-  v8[2] = kSecValueRef;
-  v8[3] = kSecAttrAccessible;
-  v9[0] = kSecClassKey;
-  v9[1] = identifierCopy;
-  v9[2] = keychain;
-  v9[3] = kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly;
-  v6 = [NSDictionary dictionaryWithObjects:v9 forKeys:v8 count:4];
-  if (SecItemAdd(v6, 0))
+  v9[0] = kSecClass;
+  v9[1] = kSecAttrApplicationLabel;
+  v9[2] = kSecValueRef;
+  v9[3] = kSecAttrAccessible;
+  v10[0] = kSecClassKey;
+  v10[1] = identifierCopy;
+  v10[2] = keychain;
+  v10[3] = kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly;
+  v6 = [NSDictionary dictionaryWithObjects:v10 forKeys:v9 count:4];
+  v7 = SecItemAdd(v6, 0);
+  if (v7)
   {
-    v7 = nplog_obj();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = nplog_obj(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_A984();
     }
@@ -335,7 +340,7 @@ LABEL_18:
   if (v5 != -25300 && v5 != 0)
   {
     v7 = v5;
-    v8 = nplog_obj();
+    v8 = nplog_obj(v5);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 138412546;
@@ -350,20 +355,21 @@ LABEL_18:
 + (id)copyItemIdentifiersFromKeychainWithAccountName:(id)name
 {
   nameCopy = name;
-  v22[0] = kSecClass;
-  v22[1] = kSecAttrAccount;
-  v23[0] = kSecClassGenericPassword;
-  v23[1] = nameCopy;
-  v22[2] = kSecMatchLimit;
-  v22[3] = kSecReturnAttributes;
-  v23[2] = kSecMatchLimitAll;
-  v23[3] = &__kCFBooleanTrue;
-  v4 = [NSDictionary dictionaryWithObjects:v23 forKeys:v22 count:4];
+  v23[0] = kSecClass;
+  v23[1] = kSecAttrAccount;
+  v24[0] = kSecClassGenericPassword;
+  v24[1] = nameCopy;
+  v23[2] = kSecMatchLimit;
+  v23[3] = kSecReturnAttributes;
+  v24[2] = kSecMatchLimitAll;
+  v24[3] = &__kCFBooleanTrue;
+  v4 = [NSDictionary dictionaryWithObjects:v24 forKeys:v23 count:4];
   result = 0;
-  if (SecItemCopyMatching(v4, &result) || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  isKindOfClass = SecItemCopyMatching(v4, &result);
+  if (isKindOfClass || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v5 = nplog_obj();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = nplog_obj(isKindOfClass);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       sub_A8B4();
     }
@@ -371,57 +377,57 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v5 = result;
-  v16 = 0u;
+  v6 = result;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v21 count:16];
-  if (!v6)
+  v20 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v22 count:16];
+  if (!v7)
   {
 LABEL_19:
-    v8 = 0;
+    v9 = 0;
     goto LABEL_20;
   }
 
-  v7 = v6;
-  v14 = v4;
-  v15 = nameCopy;
-  v8 = 0;
-  v9 = *v17;
+  v8 = v7;
+  v15 = v4;
+  v16 = nameCopy;
+  v9 = 0;
+  v10 = *v18;
   do
   {
-    for (i = 0; i != v7; i = i + 1)
+    for (i = 0; i != v8; i = i + 1)
     {
-      if (*v17 != v9)
+      if (*v18 != v10)
       {
-        objc_enumerationMutation(v5);
+        objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v16 + 1) + 8 * i);
+      v12 = *(*(&v17 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v12 = [v11 objectForKeyedSubscript:kSecAttrService];
+        v13 = [v12 objectForKeyedSubscript:kSecAttrService];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          if (!v8)
+          if (!v9)
           {
-            v8 = objc_alloc_init(NSMutableArray);
+            v9 = objc_alloc_init(NSMutableArray);
           }
 
-          [v8 addObject:{v12, v14, v15}];
+          [v9 addObject:{v13, v15, v16}];
         }
       }
     }
 
-    v7 = [v5 countByEnumeratingWithState:&v16 objects:v21 count:16];
+    v8 = [v6 countByEnumeratingWithState:&v17 objects:v22 count:16];
   }
 
-  while (v7);
-  v4 = v14;
-  nameCopy = v15;
+  while (v8);
+  v4 = v15;
+  nameCopy = v16;
 LABEL_20:
 
   if (result)
@@ -429,7 +435,7 @@ LABEL_20:
     CFRelease(result);
   }
 
-  return v8;
+  return v9;
 }
 
 + (int64_t)interfaceTypeOfInterface:(id)interface
@@ -688,10 +694,10 @@ LABEL_17:
     {
       v7 = 0;
       *&v5 = 138412290;
-      v13 = v5;
+      v14 = v5;
       do
       {
-        v8 = [v4 objectAtIndexedSubscript:{v7, v13}];
+        v8 = [v4 objectAtIndexedSubscript:{v7, v14}];
         v9 = [NPUtilities endpointFromString:v8 defaultPortString:0];
 
         if (v9)
@@ -706,13 +712,13 @@ LABEL_17:
 
         else
         {
-          v10 = nplog_obj();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          v11 = nplog_obj(v10);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
-            v11 = [v4 objectAtIndexedSubscript:v7];
-            *buf = v13;
-            v15 = v11;
-            _os_log_error_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "Invalid host specification: %@", buf, 0xCu);
+            v12 = [v4 objectAtIndexedSubscript:v7];
+            *buf = v14;
+            v16 = v12;
+            _os_log_error_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "Invalid host specification: %@", buf, 0xCu);
           }
         }
 
@@ -1287,31 +1293,32 @@ LABEL_18:
 {
   ratioCopy = ratio;
   bytes = 0;
-  if (SecRandomCopyBytes(kSecRandomDefault, 4uLL, &bytes) < 0)
+  v4 = SecRandomCopyBytes(kSecRandomDefault, 4uLL, &bytes);
+  if ((v4 & 0x80000000) != 0)
   {
-    v8 = nplog_obj();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = nplog_obj(v4);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_AA68(v8);
+      sub_AA68(v9);
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v4 = (bytes % 0x2710) / 10000.0;
-    v5 = nplog_obj();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v5 = (bytes % 0x2710) / 10000.0;
+    v6 = nplog_obj(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      sub_A9EC(v5, v4);
+      sub_A9EC(v6, v5);
     }
 
     [ratioCopy doubleValue];
-    v7 = v4 < v6;
+    v8 = v5 < v7;
   }
 
-  return v7;
+  return v8;
 }
 
 + (id)timestampIdentifierToName:(unint64_t)name
@@ -1442,7 +1449,7 @@ LABEL_16:
       {
         if (CFDateCompare(v11, v5, 0) == kCFCompareLessThan)
         {
-          v13 = nplog_obj();
+          v13 = nplog_obj(-1);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
@@ -1457,45 +1464,45 @@ LABEL_16:
 
 LABEL_23:
 
-          v20 = 0;
+          v22 = 0;
+          v23 = 0;
           v21 = 0;
-          v19 = 0;
           v14 = CFCalendarCreateWithIdentifier(kCFAllocatorDefault, kCFGregorianCalendar);
           if (v14)
           {
             v15 = v14;
-            CFCalendarDecomposeAbsoluteTime(v14, v4, "yMdHm", &v21 + 4, &v21, &v20 + 4, &v20, &v19);
-            v16 = nplog_obj();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
-            {
-              *buf = 67110144;
-              v23 = HIDWORD(v21);
-              v24 = 1024;
-              v25 = v21;
-              v26 = 1024;
-              v27 = HIDWORD(v20);
-              v28 = 1024;
-              v29 = v20;
-              v30 = 1024;
-              v31 = v19;
-              _os_log_impl(&dword_0, v16, OS_LOG_TYPE_INFO, "Certificate not valid before yr %d, mon %d, days %d, hours %d, min %d\n", buf, 0x20u);
-            }
-
-            CFCalendarDecomposeAbsoluteTime(v15, v8, "yMdHm", &v21 + 4, &v21, &v20 + 4, &v20, &v19);
-            v17 = nplog_obj();
+            v16 = CFCalendarDecomposeAbsoluteTime(v14, v4, "yMdHm", &v23 + 4, &v23, &v22 + 4, &v22, &v21);
+            v17 = nplog_obj(v16);
             if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
             {
               *buf = 67110144;
-              v23 = HIDWORD(v21);
-              v24 = 1024;
-              v25 = v21;
+              v25 = HIDWORD(v23);
               v26 = 1024;
-              v27 = HIDWORD(v20);
+              v27 = v23;
               v28 = 1024;
-              v29 = v20;
+              v29 = HIDWORD(v22);
               v30 = 1024;
-              v31 = v19;
-              _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "Certificate not valid after yr %d, mon %d, days %d, hours %d, min %d\n", buf, 0x20u);
+              v31 = v22;
+              v32 = 1024;
+              v33 = v21;
+              _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "Certificate not valid before yr %d, mon %d, days %d, hours %d, min %d\n", buf, 0x20u);
+            }
+
+            v18 = CFCalendarDecomposeAbsoluteTime(v15, v8, "yMdHm", &v23 + 4, &v23, &v22 + 4, &v22, &v21);
+            v19 = nplog_obj(v18);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+            {
+              *buf = 67110144;
+              v25 = HIDWORD(v23);
+              v26 = 1024;
+              v27 = v23;
+              v28 = 1024;
+              v29 = HIDWORD(v22);
+              v30 = 1024;
+              v31 = v22;
+              v32 = 1024;
+              v33 = v21;
+              _os_log_impl(&dword_0, v19, OS_LOG_TYPE_INFO, "Certificate not valid after yr %d, mon %d, days %d, hours %d, min %d\n", buf, 0x20u);
             }
 
             CFRelease(v15);
@@ -1506,7 +1513,7 @@ LABEL_23:
 
         if (v9 && CFDateCompare(v12, v9, 0) == kCFCompareGreaterThan)
         {
-          v13 = nplog_obj();
+          v13 = nplog_obj(1);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
@@ -1534,7 +1541,7 @@ LABEL_29:
 + (void)postNotification:(id)notification value:(unint64_t)value
 {
   notificationCopy = notification;
-  v6 = NPGetInternalQueue();
+  v6 = NPGetInternalQueue(notificationCopy);
   dispatch_assert_queue_V2(v6);
 
   out_token = -1;
@@ -1562,44 +1569,97 @@ LABEL_29:
   }
 
   v2 = CFPreferencesCopyAppValue(@"NSPTrueClientIPAddress", kCFPreferencesCurrentApplication);
-  if (v2 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  if (v2 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
   {
-    v3 = nplog_obj();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = nplog_obj(isKindOfClass);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 138543362;
-      v7 = v2;
-      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Detected true client ip address in preferences file: %{public}@", &v6, 0xCu);
+      v7 = 138543362;
+      v8 = v2;
+      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Detected true client ip address in preferences file: %{public}@", &v7, 0xCu);
     }
 
-    v4 = v2;
+    v5 = v2;
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
+}
+
++ (id)stringFromLinkQualityValue:(int)value
+{
+  v3 = @"Invalid";
+  v4 = @"Minimally Viable";
+  v5 = @"Poor";
+  v6 = @"Good";
+  if (value != 100)
+  {
+    v6 = @"Invalid";
+  }
+
+  if (value != 50)
+  {
+    v5 = v6;
+  }
+
+  if (value != 20)
+  {
+    v4 = v5;
+  }
+
+  if (value == 10)
+  {
+    v3 = @"Bad";
+  }
+
+  if (value == -1)
+  {
+    v3 = @"Unknown";
+  }
+
+  if (value == -2)
+  {
+    v3 = @"Off";
+  }
+
+  if (value <= 19)
+  {
+    v7 = v3;
+  }
+
+  else
+  {
+    v7 = v4;
+  }
+
+  v8 = [[NSString alloc] initWithFormat:@"%@ (%d)", v7, *&value];
+
+  return v8;
 }
 
 + (id)machoUUIDFromPID:(int)d
 {
-  v7 = 0;
-  memset(v6, 0, sizeof(v6));
-  v3 = 0;
-  if (proc_pidinfo(d, 17, 1uLL, v6, 56) == 56)
+  v8 = 0;
+  memset(v7, 0, sizeof(v7));
+  v3 = proc_pidinfo(d, 17, 1uLL, v7, 56);
+  v4 = 0;
+  if (v3 == 56)
   {
-    v3 = [[NSUUID alloc] initWithUUIDBytes:v6];
+    v3 = [[NSUUID alloc] initWithUUIDBytes:v7];
+    v4 = v3;
   }
 
-  v4 = nplog_obj();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = nplog_obj(v3);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_AB04();
   }
 
-  return v3;
+  return v4;
 }
 
 + (id)createMaskedIPv4Address:(id)address prefix:(unint64_t)prefix
@@ -1610,19 +1670,18 @@ LABEL_29:
     v7 = sub_5808(NPUtilities, prefix);
     if (v7)
     {
-      v11 = 0;
-      inet_pton(2, [addressCopy UTF8String], &v11 + 4);
-      inet_pton(2, [v7 UTF8String], &v11);
-      HIDWORD(v11) &= v11;
-      v8 = sub_5730(NPUtilities, &v11 + 4, 4uLL, 2);
+      v10 = 0;
+      inet_pton(2, [addressCopy UTF8String], &v10 + 4);
+      inet_pton(2, [v7 UTF8String], &v10);
+      HIDWORD(v10) &= v10;
+      v8 = sub_5730(NPUtilities, &v10 + 4, 4uLL, 2);
       goto LABEL_7;
     }
   }
 
   else
   {
-    v9 = 0;
-    v7 = nplog_obj();
+    v7 = nplog_obj(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       sub_AB6C(v7);
@@ -1655,7 +1714,7 @@ LABEL_7:
 
   else
   {
-    v6 = nplog_obj();
+    v6 = nplog_obj(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       sub_ABF0(v6);
@@ -1704,7 +1763,7 @@ LABEL_7:
   overridesCopy = overrides;
   if (overridesCopy)
   {
-    v23 = headersCopy;
+    v25 = headersCopy;
     if (headersCopy)
     {
       v7 = [[NSMutableDictionary alloc] initWithDictionary:headersCopy];
@@ -1717,48 +1776,50 @@ LABEL_7:
 
     v8 = v7;
     v9 = [overridesCopy componentsSeparatedByString:{@";", overridesCopy}];;
-    v25 = 0u;
-    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
+    v29 = 0u;
+    v30 = 0u;
+    v10 = [v9 countByEnumeratingWithState:&v27 objects:v35 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v26;
+      v12 = *v28;
       do
       {
         for (i = 0; i != v11; i = i + 1)
         {
-          if (*v26 != v12)
+          if (*v28 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = [*(*(&v25 + 1) + 8 * i) componentsSeparatedByString:@"="];
-          if ([v14 count]<= 2 && [v14 count])
+          v14 = [*(*(&v27 + 1) + 8 * i) componentsSeparatedByString:@"="];
+          v15 = [v14 count];
+          if (v15 <= 2 && (v15 = [v14 count]) != 0)
           {
             firstObject = [v14 firstObject];
-            v16 = [firstObject length];
+            v17 = [firstObject length];
 
-            if (!v16)
+            if (!v17)
             {
               goto LABEL_26;
             }
 
             firstObject2 = [v14 firstObject];
             lastObject = [v14 lastObject];
-            if (-[NSObject count](v14, "count") == &dword_0 + 1 || ![lastObject length])
+            v20 = [v14 count];
+            if (v20 == &dword_0 + 1 || (v20 = [lastObject length]) == 0)
             {
-              v20 = nplog_obj();
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+              v22 = nplog_obj(v20);
+              if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
               {
-                v24 = [v8 objectForKey:firstObject2];
+                v26 = [v8 objectForKey:firstObject2];
                 *buf = 138412546;
-                v30 = firstObject2;
-                v31 = 2112;
-                v32 = v24;
-                _os_log_debug_impl(&dword_0, v20, OS_LOG_TYPE_DEBUG, "Removing header %@ due to user-configured headers, current value is %@", buf, 0x16u);
+                v32 = firstObject2;
+                v33 = 2112;
+                v34 = v26;
+                _os_log_debug_impl(&dword_0, v22, OS_LOG_TYPE_DEBUG, "Removing header %@ due to user-configured headers, current value is %@", buf, 0x16u);
               }
 
               [v8 removeObjectForKey:firstObject2];
@@ -1766,26 +1827,25 @@ LABEL_7:
 
             else
             {
-              [v8 setValue:lastObject forKey:firstObject2];
-              v19 = nplog_obj();
-              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+              v21 = nplog_obj([v8 setValue:lastObject forKey:firstObject2]);
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412546;
-                v30 = firstObject2;
-                v31 = 2112;
-                v32 = lastObject;
-                _os_log_debug_impl(&dword_0, v19, OS_LOG_TYPE_DEBUG, "Adding/replacing header %@ with value %@ due to user-configured headers", buf, 0x16u);
+                v32 = firstObject2;
+                v33 = 2112;
+                v34 = lastObject;
+                _os_log_debug_impl(&dword_0, v21, OS_LOG_TYPE_DEBUG, "Adding/replacing header %@ with value %@ due to user-configured headers", buf, 0x16u);
               }
             }
           }
 
           else
           {
-            firstObject2 = nplog_obj();
+            firstObject2 = nplog_obj(v15);
             if (os_log_type_enabled(firstObject2, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v30 = v14;
+              v32 = v14;
               _os_log_error_impl(&dword_0, firstObject2, OS_LOG_TYPE_ERROR, "Skipping malformed header override: %@", buf, 0xCu);
             }
           }
@@ -1793,14 +1853,14 @@ LABEL_7:
 LABEL_26:
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v27 objects:v35 count:16];
       }
 
       while (v11);
     }
 
-    overridesCopy = v22;
-    headersCopy = v23;
+    overridesCopy = v24;
+    headersCopy = v25;
   }
 
   else

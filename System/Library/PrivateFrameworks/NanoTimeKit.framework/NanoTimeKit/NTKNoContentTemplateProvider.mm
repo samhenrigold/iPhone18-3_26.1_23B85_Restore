@@ -230,7 +230,7 @@ id __75__NTKNoContentTemplateProvider_largeRectangularEmptyTextProviderForDevice
   {
     _block_invoke___cachedDevice_54 = v2;
     _block_invoke___previousCLKDeviceVersion_54 = [v2 version];
-    v5 = __75__NTKNoContentTemplateProvider_largeRectangularEmptyTextProviderForDevice___block_invoke_2();
+    v5 = __75__NTKNoContentTemplateProvider_largeRectangularEmptyTextProviderForDevice___block_invoke_2(_block_invoke___previousCLKDeviceVersion_54, v2);
     v6 = _block_invoke_value_39;
     _block_invoke_value_39 = v5;
   }
@@ -241,14 +241,14 @@ id __75__NTKNoContentTemplateProvider_largeRectangularEmptyTextProviderForDevice
   return v7;
 }
 
-id __75__NTKNoContentTemplateProvider_largeRectangularEmptyTextProviderForDevice___block_invoke_2()
+id __75__NTKNoContentTemplateProvider_largeRectangularEmptyTextProviderForDevice___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   CLKValueForDeviceMetrics();
-  v1 = v0;
-  v2 = NTKClockFaceLocalizedString(@"LARGE_RECTANGULAR_NO_CONTENT", @"––––––––––––\n––––––––––––");
-  v3 = [MEMORY[0x277CBBB58] _dashTrackingTextProviderWithDashes:v2 tracking:v1];
+  v3 = v2;
+  v4 = NTKClockFaceLocalizedString(@"LARGE_RECTANGULAR_NO_CONTENT", @"––––––––––––\n––––––––––––");
+  v5 = [MEMORY[0x277CBBB58] _dashTrackingTextProviderWithDashes:v4 tracking:v3];
 
-  return v3;
+  return v5;
 }
 
 id __67__NTKNoContentTemplateProvider_graphicCircularEmptyImageForDevice___block_invoke(uint64_t a1, void *a2)
@@ -323,26 +323,27 @@ id __77__NTKNoContentTemplateProvider_graphicExtraLargeCircularEmptyImageForDevi
 
 id __77__NTKNoContentTemplateProvider_graphicExtraLargeCircularEmptyImageForDevice___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = NTKGraphicExtraLargeComplicationContentDiameter();
-  v4 = [MEMORY[0x277CBBAF8] metricsWithDevice:v2 identitySizeClass:2];
-  v12[0] = &unk_284183CB8;
-  v12[1] = &unk_284183CD0;
-  v13[0] = &unk_284189098;
-  v13[1] = &unk_284189098;
-  v12[2] = &unk_284183CE8;
-  v13[2] = &unk_2841890A8;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
-  [v4 scaledValue:v5 withOverrides:51.5];
-  v7 = v6;
+  NTKGraphicExtraLargeComplicationContentDiameter();
+  v4 = v3;
+  v5 = [MEMORY[0x277CBBAF8] metricsWithDevice:v2 identitySizeClass:2];
+  v13[0] = &unk_284183CB8;
+  v13[1] = &unk_284183CD0;
+  v14[0] = &unk_284189098;
+  v14[1] = &unk_284189098;
+  v13[2] = &unk_284183CE8;
+  v14[2] = &unk_2841890A8;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  [v5 scaledValue:v6 withOverrides:51.5];
+  v8 = v7;
 
   [v2 screenScale];
-  v9 = v8;
+  v10 = v9;
 
-  v10 = _richCircularEmptyImage(v3, v7, v9);
+  v11 = _richCircularEmptyImage(v4, v8, v10);
 
-  return v10;
+  return v11;
 }
 
 @end

@@ -246,22 +246,20 @@ LABEL_7:
 
 - (id)canonicalIdentifier
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   sourceLocale = [(_LTLocalePair *)self sourceLocale];
   _ltLocaleIdentifier = [sourceLocale _ltLocaleIdentifier];
-  v15[0] = _ltLocaleIdentifier;
+  v14[0] = _ltLocaleIdentifier;
   targetLocale = [(_LTLocalePair *)self targetLocale];
   _ltLocaleIdentifier2 = [targetLocale _ltLocaleIdentifier];
-  v15[1] = _ltLocaleIdentifier2;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[1] = _ltLocaleIdentifier2;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
 
   v8 = [v7 sortedArrayUsingSelector:sel_compare_];
   v9 = MEMORY[0x277CCACA8];
   v10 = [v8 objectAtIndexedSubscript:0];
   v11 = [v8 objectAtIndexedSubscript:1];
   v12 = [v9 stringWithFormat:@"%@-%@", v10, v11];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -315,33 +313,33 @@ LABEL_7:
 
 + (id)pairNamesForLocales:(id)locales
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   localesCopy = locales;
   array = [MEMORY[0x277CBEB18] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = localesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        _ltLocaleIdentifier = [*(*(&v15 + 1) + 8 * i) _ltLocaleIdentifier];
+        _ltLocaleIdentifier = [*(*(&v14 + 1) + 8 * i) _ltLocaleIdentifier];
         [array addObject:_ltLocaleIdentifier];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
@@ -349,79 +347,75 @@ LABEL_7:
 
   v12 = [self pairNamesForLocaleIdentifiers:array];
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 + (id)pairNamesForLocaleIdentifiers:(id)identifiers
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = [identifiers sortedArrayUsingSelector:sel_compare_];
   array = [MEMORY[0x277CBEB18] array];
   v5 = [v3 count];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = v3;
-  v18 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
-  if (v18)
+  v17 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+  if (v17)
   {
     v6 = 0;
-    v17 = *v27;
+    v16 = *v26;
     do
     {
-      for (i = 0; i != v18; ++i)
+      for (i = 0; i != v17; ++i)
       {
-        if (*v27 != v17)
+        if (*v26 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v26 + 1) + 8 * i);
+        v8 = *(*(&v25 + 1) + 8 * i);
+        v21 = 0u;
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v25 = 0u;
-        v20 = v6;
-        v21 = v5;
+        v19 = v6;
+        v20 = v5;
         v9 = [obj subarrayWithRange:{v6, v5}];
-        v10 = [v9 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v23;
+          v12 = *v22;
           do
           {
             for (j = 0; j != v11; ++j)
             {
-              if (*v23 != v12)
+              if (*v22 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@", v8, *(*(&v22 + 1) + 8 * j)];
+              v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@", v8, *(*(&v21 + 1) + 8 * j)];
               [array addObject:v14];
             }
 
-            v11 = [v9 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
           }
 
           while (v11);
         }
 
-        v6 = v20 + 1;
-        v5 = v21 - 1;
+        v6 = v19 + 1;
+        v5 = v20 - 1;
       }
 
-      v18 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v17 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
-    while (v18);
+    while (v17);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return array;
 }

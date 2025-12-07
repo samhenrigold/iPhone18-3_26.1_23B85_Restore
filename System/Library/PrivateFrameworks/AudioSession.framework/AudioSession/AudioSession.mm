@@ -32,19 +32,19 @@ void avas::WorkloopPool::dispatchCommon(os_unfair_lock_s *a1, uint64_t a2, void 
   std::allocate_shared[abi:ne200100]<avas::WorkloopPool::BlockInfo,std::allocator<avas::WorkloopPool::BlockInfo>,avas::WorkloopPool::DispatchID const&,void({block_pointer} {__strong}&)(void),std::shared_ptr<caulk::semaphore> const&,0>();
 }
 
-void ___ZN4avas12WorkloopPool14dispatchCommonERKNS0_10DispatchIDEU13block_pointerFvvEb_block_invoke(uint64_t a1)
+void ___ZN4avas12WorkloopPool14dispatchCommonERKNS0_10DispatchIDEU13block_pointerFvvEb_block_invoke(void *a1)
 {
-  v2 = *(a1 + 48);
+  v2 = a1[6];
   if (v2)
   {
     v3 = std::__shared_weak_count::lock(v2);
     if (v3)
     {
       v4 = v3;
-      v5 = *(a1 + 40);
+      v5 = a1[5];
       if (v5)
       {
-        avas::WorkloopPool::handleBlocks(v5, *(a1 + 32));
+        avas::WorkloopPool::handleBlocks(v5, a1[4]);
       }
 
       std::__shared_weak_count::__release_shared[abi:ne200100](v4);
@@ -62,42 +62,39 @@ void std::__shared_weak_count::__release_shared[abi:ne200100](std::__shared_weak
   }
 }
 
-void *std::deque<std::shared_ptr<avas::WorkloopPool::BlockInfo>>::push_back(void *result, __int128 *a2)
+void std::deque<std::shared_ptr<avas::WorkloopPool::BlockInfo>>::push_back(unint64_t *result, __int128 *a2)
 {
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  if (v5 == v6)
+  v4 = result[2];
+  v5 = result[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = 32 * (v5 - v6) - 1;
+    v6 = 32 * (v4 - v5) - 1;
   }
 
-  v8 = result[5];
-  v9 = v8 + result[4];
-  if (v7 == v9)
+  v7 = result[5];
+  v8 = v7 + result[4];
+  if (v6 == v8)
   {
-    result = std::deque<std::shared_ptr<avas::WorkloopPool::BlockInfo>>::__add_back_capacity(result);
-    v6 = v3[1];
-    v8 = v3[5];
-    v9 = v8 + v3[4];
+    std::deque<std::shared_ptr<avas::WorkloopPool::BlockInfo>>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = v7 + result[4];
   }
 
-  v10 = *a2;
-  *(*(v6 + ((v9 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v9) = *a2;
-  if (*(&v10 + 1))
+  v9 = *a2;
+  *(*(v5 + ((v8 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v8) = *a2;
+  if (*(&v9 + 1))
   {
-    atomic_fetch_add_explicit((*(&v10 + 1) + 8), 1uLL, memory_order_relaxed);
-    v8 = v3[5];
+    atomic_fetch_add_explicit((*(&v9 + 1) + 8), 1uLL, memory_order_relaxed);
+    v7 = result[5];
   }
 
-  v3[5] = v8 + 1;
-  return result;
+  result[5] = v7 + 1;
 }
 
 uint64_t __copy_helper_block_ea8_40c45_ZTSKNSt3__18weak_ptrIN4avas12WorkloopPoolEEE(uint64_t result, uint64_t a2)
@@ -171,7 +168,7 @@ void avas::WorkloopPool::handleBlocks(uint64_t a1, void *a2)
     }
 
     std::deque<std::shared_ptr<avas::WorkloopPool::BlockInfo>>::erase((a1 + 48), v6, v7);
-    std::__tree<avas::WorkloopPool::DispatchID>::__emplace_unique_key_args<avas::WorkloopPool::DispatchID,avas::WorkloopPool::DispatchID const&>(a1 + 96, v13);
+    std::__tree<avas::WorkloopPool::DispatchID>::__emplace_unique_key_args<avas::WorkloopPool::DispatchID,avas::WorkloopPool::DispatchID const&>(a1 + 96, v13, v13);
     os_unfair_lock_unlock((a1 + 16));
     (*(*(v13 + 16) + 16))();
     v14 = *(v13 + 24);
@@ -243,7 +240,7 @@ uint64_t std::__tree<avas::WorkloopPool::DispatchID>::find<avas::WorkloopPool::D
   return v5;
 }
 
-uint64_t *std::deque<std::shared_ptr<avas::WorkloopPool::BlockInfo>>::erase(int64x2_t *a1, char *a2, char *a3)
+void *std::deque<std::shared_ptr<avas::WorkloopPool::BlockInfo>>::erase(int64x2_t *a1, char *a2, char *a3)
 {
   v4 = a1[2].u64[0];
   v5 = a1->i64[1];
@@ -255,7 +252,7 @@ uint64_t *std::deque<std::shared_ptr<avas::WorkloopPool::BlockInfo>>::erase(int6
 
   else
   {
-    v7 = &(*v6)[16 * v4];
+    v7 = (*v6 + 16 * v4);
   }
 
   v35 = v6;
@@ -267,7 +264,7 @@ uint64_t *std::deque<std::shared_ptr<avas::WorkloopPool::BlockInfo>>::erase(int6
 
   else
   {
-    v8 = (&a3[-*a2] >> 4) + 32 * (a2 - v6) - ((v7 - *v6) >> 4);
+    v8 = (&a3[-*a2] >> 4) + 32 * (a2 - v6) - (&v7[-*v6] >> 4);
   }
 
   v9 = std::__deque_iterator<std::shared_ptr<avas::WorkloopPool::BlockInfo>,std::shared_ptr<avas::WorkloopPool::BlockInfo>*,std::shared_ptr<avas::WorkloopPool::BlockInfo>&,std::shared_ptr<avas::WorkloopPool::BlockInfo>**,long,256l>::operator+[abi:ne200100](&v35, v8);
@@ -281,14 +278,14 @@ uint64_t *std::deque<std::shared_ptr<avas::WorkloopPool::BlockInfo>>::erase(int6
     {
       v27 = 254 - v18;
       v20 = &v9[-(v27 >> 8)];
-      v21 = *v20 + 16 * ~v27;
+      v21 = (*v20 + 16 * ~v27);
     }
 
     else
     {
       v19 = v18 + 1;
       v20 = &v9[v19 >> 8];
-      v21 = *v20 + 16 * v19;
+      v21 = (*v20 + 16 * v19);
     }
 
     std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<std::shared_ptr<avas::WorkloopPool::BlockInfo>,std::shared_ptr<avas::WorkloopPool::BlockInfo>*,std::shared_ptr<avas::WorkloopPool::BlockInfo>&,std::shared_ptr<avas::WorkloopPool::BlockInfo>**,long,256l>,std::__deque_iterator<std::shared_ptr<avas::WorkloopPool::BlockInfo>,std::shared_ptr<avas::WorkloopPool::BlockInfo>*,std::shared_ptr<avas::WorkloopPool::BlockInfo>&,std::shared_ptr<avas::WorkloopPool::BlockInfo>**,long,256l>,0>(v35, v36, v9, v10, v20, v21, v37);
@@ -309,14 +306,14 @@ uint64_t *std::deque<std::shared_ptr<avas::WorkloopPool::BlockInfo>>::erase(int6
     {
       v22 = 254 - v14;
       v16 = &v9[-(v22 >> 8)];
-      v17 = &(*v16)[~v22];
+      v17 = (*v16 + 16 * ~v22);
     }
 
     else
     {
       v15 = v14 + 1;
       v16 = &v9[v15 >> 8];
-      v17 = &(*v16)[v15];
+      v17 = (*v16 + 16 * v15);
     }
 
     v23 = a1[2].i64[0] + v13;
@@ -329,7 +326,7 @@ uint64_t *std::deque<std::shared_ptr<avas::WorkloopPool::BlockInfo>>::erase(int6
 
     else
     {
-      v26 = &(*v25)[v23];
+      v26 = (*v25 + 16 * v23);
     }
 
     v37[0].n128_u64[0] = v11;
@@ -363,7 +360,7 @@ uint64_t *std::deque<std::shared_ptr<avas::WorkloopPool::BlockInfo>>::erase(int6
   return std::__deque_iterator<std::shared_ptr<avas::WorkloopPool::BlockInfo>,std::shared_ptr<avas::WorkloopPool::BlockInfo>*,std::shared_ptr<avas::WorkloopPool::BlockInfo>&,std::shared_ptr<avas::WorkloopPool::BlockInfo>**,long,256l>::operator+[abi:ne200100](v37, v8);
 }
 
-__n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<std::shared_ptr<avas::WorkloopPool::BlockInfo>,std::shared_ptr<avas::WorkloopPool::BlockInfo>*,std::shared_ptr<avas::WorkloopPool::BlockInfo>&,std::shared_ptr<avas::WorkloopPool::BlockInfo>**,long,256l>,std::__deque_iterator<std::shared_ptr<avas::WorkloopPool::BlockInfo>,std::shared_ptr<avas::WorkloopPool::BlockInfo>*,std::shared_ptr<avas::WorkloopPool::BlockInfo>&,std::shared_ptr<avas::WorkloopPool::BlockInfo>**,long,256l>,0>@<Q0>(char **a1@<X1>, char *a2@<X2>, char **a3@<X3>, char *a4@<X4>, char *a5@<X5>, uint64_t a6@<X6>, __n128 *a7@<X8>)
+__n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<std::shared_ptr<avas::WorkloopPool::BlockInfo>,std::shared_ptr<avas::WorkloopPool::BlockInfo>*,std::shared_ptr<avas::WorkloopPool::BlockInfo>&,std::shared_ptr<avas::WorkloopPool::BlockInfo>**,long,256l>,std::__deque_iterator<std::shared_ptr<avas::WorkloopPool::BlockInfo>,std::shared_ptr<avas::WorkloopPool::BlockInfo>*,std::shared_ptr<avas::WorkloopPool::BlockInfo>&,std::shared_ptr<avas::WorkloopPool::BlockInfo>**,long,256l>,0>@<Q0>(uint64_t *a1@<X1>, char *a2@<X2>, char **a3@<X3>, unint64_t a4@<X4>, char *a5@<X5>, char *a6@<X6>, __n128 *a7@<X8>)
 {
   if (a1 == a3)
   {
@@ -375,7 +372,7 @@ __n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne20010
 
   else
   {
-    v17 = a3 - 1;
+    v17 = (a3 - 1);
     v16 = *a3;
     v18 = a4;
     v13 = a5;
@@ -383,7 +380,7 @@ __n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne20010
     while (1)
     {
       std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::shared_ptr<avas::WorkloopPool::BlockInfo> *,std::__deque_iterator<std::shared_ptr<avas::WorkloopPool::BlockInfo>,std::shared_ptr<avas::WorkloopPool::BlockInfo> *,std::shared_ptr<avas::WorkloopPool::BlockInfo>&,std::shared_ptr<avas::WorkloopPool::BlockInfo> **,long,256l>,0>(v16, v18, v13, v14, &v21);
-      v14 = v22.n128_i64[1];
+      v14 = v22.n128_u64[1];
       v13 = v22.n128_u64[0];
       if (v17 == a1)
       {
@@ -392,10 +389,10 @@ __n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne20010
 
       v19 = *v17--;
       v16 = v19;
-      v18 = v19 + 4096;
+      v18 = (v19 + 4096);
     }
 
-    v12 = *v17 + 4096;
+    v12 = (*v17 + 4096);
     v11 = a2;
   }
 
@@ -407,7 +404,7 @@ __n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne20010
   return result;
 }
 
-uint64_t *std::__deque_iterator<std::shared_ptr<avas::WorkloopPool::BlockInfo>,std::shared_ptr<avas::WorkloopPool::BlockInfo>*,std::shared_ptr<avas::WorkloopPool::BlockInfo>&,std::shared_ptr<avas::WorkloopPool::BlockInfo>**,long,256l>::operator+[abi:ne200100](uint64_t a1, uint64_t a2)
+void *std::__deque_iterator<std::shared_ptr<avas::WorkloopPool::BlockInfo>,std::shared_ptr<avas::WorkloopPool::BlockInfo>*,std::shared_ptr<avas::WorkloopPool::BlockInfo>&,std::shared_ptr<avas::WorkloopPool::BlockInfo>**,long,256l>::operator+[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   result = *a1;
   if (a2)
@@ -416,20 +413,18 @@ uint64_t *std::__deque_iterator<std::shared_ptr<avas::WorkloopPool::BlockInfo>,s
     if (v4 < 1)
     {
       result -= (255 - v4) >> 8;
-      v6 = *result;
     }
 
     else
     {
       result += v4 >> 8;
-      v5 = *result;
     }
   }
 
   return result;
 }
 
-void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::shared_ptr<avas::WorkloopPool::BlockInfo> *,std::__deque_iterator<std::shared_ptr<avas::WorkloopPool::BlockInfo>,std::shared_ptr<avas::WorkloopPool::BlockInfo> *,std::shared_ptr<avas::WorkloopPool::BlockInfo>&,std::shared_ptr<avas::WorkloopPool::BlockInfo> **,long,256l>,0>@<X0>(char *a1@<X1>, char *a2@<X2>, char *a3@<X3>, uint64_t a4@<X4>, char **a5@<X8>)
+void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::shared_ptr<avas::WorkloopPool::BlockInfo> *,std::__deque_iterator<std::shared_ptr<avas::WorkloopPool::BlockInfo>,std::shared_ptr<avas::WorkloopPool::BlockInfo> *,std::shared_ptr<avas::WorkloopPool::BlockInfo>&,std::shared_ptr<avas::WorkloopPool::BlockInfo> **,long,256l>,0>@<X0>(char *a1@<X1>, char *a2@<X2>, char *a3@<X3>, char *a4@<X4>, char **a5@<X8>)
 {
   v5 = a3;
   if (a1 == a2)
@@ -440,7 +435,7 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
   else
   {
     v8 = a2;
-    v9 = a4 - *a3;
+    v9 = &a4[-*a3];
     if ((a2 - a1) >> 4 >= v9 >> 4)
     {
       v10 = v9 >> 4;
@@ -489,15 +484,15 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
   return result;
 }
 
-uint64_t std::__tree<avas::WorkloopPool::DispatchID>::__emplace_unique_key_args<avas::WorkloopPool::DispatchID,avas::WorkloopPool::DispatchID const&>(uint64_t a1, uint64_t a2)
+uint64_t std::__tree<avas::WorkloopPool::DispatchID>::__emplace_unique_key_args<avas::WorkloopPool::DispatchID,avas::WorkloopPool::DispatchID const&>(uint64_t a1, uint64_t a2, _OWORD *a3)
 {
-  v2 = *std::__tree<avas::WorkloopPool::DispatchID>::__find_equal<avas::WorkloopPool::DispatchID>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<avas::WorkloopPool::DispatchID>::__find_equal<avas::WorkloopPool::DispatchID>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t std::deque<std::shared_ptr<avas::WorkloopPool::BlockInfo>>::__maybe_remove_front_spare[abi:ne200100](uint64_t a1, int a2)
@@ -528,7 +523,7 @@ uint64_t std::deque<std::shared_ptr<avas::WorkloopPool::BlockInfo>>::__maybe_rem
   return v4 ^ 1u;
 }
 
-uint64_t *std::__tree<avas::WorkloopPool::DispatchID>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<avas::WorkloopPool::DispatchID>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -554,12 +549,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -573,22 +568,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -622,13 +617,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -911,31 +906,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -944,173 +938,173 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
@@ -1182,14 +1176,14 @@ id std::vector<NSObject  {objcproto20OS_dispatch_workloop}* {__strong}>::push_ba
   return result;
 }
 
-void sub_1DE89952C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE89952C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong}>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void CreateDispatchQueueWithTarget(uint64_t a1@<X0>, void *a2@<X1>, id *a3@<X8>)
+void CreateDispatchQueueWithTarget(uint64_t a1@<X0>, void *a2@<X1>, dispatch_queue_t *a3@<X8>)
 {
   target = a2;
   v5 = dispatch_queue_attr_make_initially_inactive(0);
@@ -1210,8 +1204,8 @@ void CreateDispatchQueueWithTarget(uint64_t a1@<X0>, void *a2@<X1>, id *a3@<X8>)
 
   if (!v8)
   {
-    v10 = _os_crash();
-    avas::WorkloopPool::WorkloopPool(v10);
+    _os_crash();
+    avas::WorkloopPool::WorkloopPool();
   }
 
   v9 = applesauce::dispatch::v1::queue::operator*(a3);
@@ -1225,7 +1219,7 @@ void sub_1DE899618(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id CreateRootDispatchQueue()
+id CreateRootDispatchQueue(unsigned int a1)
 {
   v5 = *MEMORY[0x1E69E9840];
   pthread_attr_init(&v4);
@@ -1234,11 +1228,10 @@ id CreateRootDispatchQueue()
   v3.sched_priority = 47;
   pthread_attr_setschedparam(&v4, &v3);
   pthread_attr_setschedpolicy(&v4, 4);
-  v0 = dispatch_pthread_root_queue_create();
+  v1 = dispatch_pthread_root_queue_create();
   pthread_attr_destroy(&v4);
-  v1 = *MEMORY[0x1E69E9840];
 
-  return v0;
+  return v1;
 }
 
 void sub_1DE899700(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, pthread_attr_t *a10)
@@ -1312,21 +1305,22 @@ id sessionManagerXPCCallbackInterface()
   return v0;
 }
 
-BOOL FormatNSErrorForReturn(int a1, void *a2, void *a3)
+BOOL FormatNSErrorForReturn(uint64_t a1, void *a2, void *a3)
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v4 = a1;
+  v12[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
-  if (!a1)
+  if (!v4)
   {
     goto LABEL_35;
   }
 
-  if (a1 > 1768386161)
+  if (v4 > 1768386161)
   {
-    if (a1 <= 1852794998)
+    if (v4 <= 1852794998)
     {
-      if (a1 == 1768386162)
+      if (v4 == 1768386162)
       {
         v7 = 0;
         goto LABEL_30;
@@ -1334,7 +1328,7 @@ BOOL FormatNSErrorForReturn(int a1, void *a2, void *a3)
 
       v8 = 1768843583;
 LABEL_19:
-      if (a1 != v8)
+      if (v4 != v8)
       {
         goto LABEL_36;
       }
@@ -1349,7 +1343,7 @@ LABEL_19:
       goto LABEL_30;
     }
 
-    if (a1 == 1852794999)
+    if (v4 == 1852794999)
     {
 LABEL_26:
       v7 = 561145203;
@@ -1362,19 +1356,19 @@ LABEL_26:
       goto LABEL_30;
     }
 
-    if (a1 == 1886681407)
+    if (v4 == 1886681407)
     {
 LABEL_13:
       v7 = 2003329396;
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
       {
-        FormatNSErrorForReturn(a1);
+        FormatNSErrorForReturn(v4);
       }
 
       goto LABEL_30;
     }
 
-    if (a1 != 1919839847)
+    if (v4 != 1919839847)
     {
       goto LABEL_36;
     }
@@ -1382,14 +1376,14 @@ LABEL_13:
 
   else
   {
-    if (a1 > 561145202)
+    if (v4 > 561145202)
     {
-      if (a1 != 561145203)
+      if (v4 != 561145203)
       {
-        if (a1 != 561211770 && a1 != 1063477620)
+        if (v4 != 561211770 && v4 != 1063477620)
         {
 LABEL_36:
-          v7 = a1;
+          v7 = v4;
           if (!a3)
           {
             goto LABEL_35;
@@ -1403,9 +1397,9 @@ LABEL_31:
           }
 
 LABEL_32:
-          v12 = *MEMORY[0x1E696A578];
-          v13[0] = v6;
-          v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+          v11 = *MEMORY[0x1E696A578];
+          v12[0] = v6;
+          v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
 LABEL_34:
           *a3 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:v7 userInfo:v9];
 
@@ -1418,7 +1412,7 @@ LABEL_34:
       goto LABEL_26;
     }
 
-    if (a1 != 560030580)
+    if (v4 != 560030580)
     {
       v8 = 560557673;
       goto LABEL_19;
@@ -1440,23 +1434,22 @@ LABEL_30:
 
 LABEL_35:
 
-  v10 = *MEMORY[0x1E69E9840];
-  return a1 == 0;
+  return v4 == 0;
 }
 
-void *std::deque<std::shared_ptr<avas::WorkloopPool::BlockInfo>>::__add_back_capacity(void *a1)
+void std::deque<std::shared_ptr<avas::WorkloopPool::BlockInfo>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x100;
   v3 = v1 - 256;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -1464,25 +1457,25 @@ void *std::deque<std::shared_ptr<avas::WorkloopPool::BlockInfo>>::__add_back_cap
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<std::unique_ptr<avas::client::PortPrefs>>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<std::unique_ptr<avas::client::PortPrefs>>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<std::shared_ptr<avas::WorkloopPool::BlockInfo> *,std::allocator<std::shared_ptr<avas::WorkloopPool::BlockInfo> *>>::emplace_back<std::shared_ptr<avas::WorkloopPool::BlockInfo> *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<std::shared_ptr<avas::WorkloopPool::BlockInfo> *,std::allocator<std::shared_ptr<avas::WorkloopPool::BlockInfo> *>>::emplace_back<std::shared_ptr<avas::WorkloopPool::BlockInfo> *&>(a1, &v9);
 }
 
 void sub_1DE899F40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -1506,14 +1499,13 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::unique_ptr<avas:
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-const void **std::__split_buffer<std::shared_ptr<avas::WorkloopPool::BlockInfo> *,std::allocator<std::shared_ptr<avas::WorkloopPool::BlockInfo> *> &>::emplace_front<std::shared_ptr<avas::WorkloopPool::BlockInfo> *&>(const void **result, void *a2)
+void std::__split_buffer<std::shared_ptr<avas::WorkloopPool::BlockInfo> *,std::allocator<std::shared_ptr<avas::WorkloopPool::BlockInfo> *> &>::emplace_front<std::shared_ptr<avas::WorkloopPool::BlockInfo> *&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -1526,29 +1518,28 @@ const void **std::__split_buffer<std::shared_ptr<avas::WorkloopPool::BlockInfo> 
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::unique_ptr<avas::client::PortPrefs>>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::unique_ptr<avas::client::PortPrefs>>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 uint64_t avas::IsStandardMXNotificationName(avas *this, NSString *a2)
@@ -1588,27 +1579,26 @@ uint64_t avas::IsStandardMXNotificationName(avas *this, NSString *a2)
   return v8;
 }
 
-void *std::__split_buffer<std::shared_ptr<avas::WorkloopPool::BlockInfo> *,std::allocator<std::shared_ptr<avas::WorkloopPool::BlockInfo> *> &>::emplace_back<std::shared_ptr<avas::WorkloopPool::BlockInfo> *>(void *result, void *a2)
+void std::__split_buffer<std::shared_ptr<avas::WorkloopPool::BlockInfo> *,std::allocator<std::shared_ptr<avas::WorkloopPool::BlockInfo> *> &>::emplace_back<std::shared_ptr<avas::WorkloopPool::BlockInfo> *>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::unique_ptr<avas::client::PortPrefs>>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::unique_ptr<avas::client::PortPrefs>>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -1617,18 +1607,17 @@ void *std::__split_buffer<std::shared_ptr<avas::WorkloopPool::BlockInfo> *,std::
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 __int128 *avas::GetMXNotificationNames(avas *this)
@@ -1645,46 +1634,46 @@ __int128 *avas::GetMXNotificationNames(avas *this)
   return &avas::GetMXNotificationNames(void)::mxNotificationNames;
 }
 
-void anonymous namespace::BuildMXNotificationsForPlatform(void *a1@<X8>)
+void anonymous namespace::BuildMXNotificationsForPlatform(uint64_t *__return_ptr a1@<X8>)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7[0] = *MEMORY[0x1E69AFB00];
-  v7[1] = *MEMORY[0x1E69AFB60];
-  v7[2] = *MEMORY[0x1E69AFB80];
-  v7[3] = *MEMORY[0x1E69AFB08];
-  v7[4] = *MEMORY[0x1E69AFAE0];
-  v7[5] = *MEMORY[0x1E69AFB70];
-  v7[6] = *MEMORY[0x1E69AFB68];
-  v7[7] = *MEMORY[0x1E69AEDA8];
-  v7[8] = *MEMORY[0x1E69AFB28];
-  v7[9] = *MEMORY[0x1E69AFB20];
-  v7[10] = *MEMORY[0x1E69AFC20];
-  v7[11] = *MEMORY[0x1E69AFBC8];
-  v7[12] = *MEMORY[0x1E69AFBB8];
-  v7[13] = *MEMORY[0x1E69AFBC0];
-  v7[14] = *MEMORY[0x1E69B0788];
-  v7[15] = *MEMORY[0x1E69AFBF8];
-  v7[16] = *MEMORY[0x1E69AFBD0];
-  v7[17] = *MEMORY[0x1E69AFB30];
-  v7[18] = *MEMORY[0x1E69AFBF0];
-  v7[19] = *MEMORY[0x1E69B0758];
-  v7[20] = *MEMORY[0x1E69AFB40];
-  v7[21] = *MEMORY[0x1E69AFB50];
-  v7[22] = *MEMORY[0x1E69AFB48];
-  v7[23] = *MEMORY[0x1E69AFB58];
-  v7[24] = *MEMORY[0x1E69AFB18];
-  v7[25] = *MEMORY[0x1E69AFB10];
-  v7[26] = *MEMORY[0x1E69AFC10];
-  v7[27] = *MEMORY[0x1E69AFBE0];
-  v7[28] = *MEMORY[0x1E69AFB38];
-  v7[29] = *MEMORY[0x1E69AFC08];
-  v7[30] = *MEMORY[0x1E69AFBE8];
-  v7[31] = *MEMORY[0x1E69AFB98];
-  v7[32] = *MEMORY[0x1E69AFC18];
+  v6 = *MEMORY[0x1E69E9840];
+  v5[0] = *MEMORY[0x1E69AFB00];
+  v5[1] = *MEMORY[0x1E69AFB60];
+  v5[2] = *MEMORY[0x1E69AFB80];
+  v5[3] = *MEMORY[0x1E69AFB08];
+  v5[4] = *MEMORY[0x1E69AFAE0];
+  v5[5] = *MEMORY[0x1E69AFB70];
+  v5[6] = *MEMORY[0x1E69AFB68];
+  v5[7] = *MEMORY[0x1E69AEDA8];
+  v5[8] = *MEMORY[0x1E69AFB28];
+  v5[9] = *MEMORY[0x1E69AFB20];
+  v5[10] = *MEMORY[0x1E69AFC20];
+  v5[11] = *MEMORY[0x1E69AFBC8];
+  v5[12] = *MEMORY[0x1E69AFBB8];
+  v5[13] = *MEMORY[0x1E69AFBC0];
+  v5[14] = *MEMORY[0x1E69B0788];
+  v5[15] = *MEMORY[0x1E69AFBF8];
+  v5[16] = *MEMORY[0x1E69AFBD0];
+  v5[17] = *MEMORY[0x1E69AFB30];
+  v5[18] = *MEMORY[0x1E69AFBF0];
+  v5[19] = *MEMORY[0x1E69B0758];
+  v5[20] = *MEMORY[0x1E69AFB40];
+  v5[21] = *MEMORY[0x1E69AFB50];
+  v5[22] = *MEMORY[0x1E69AFB48];
+  v5[23] = *MEMORY[0x1E69AFB58];
+  v5[24] = *MEMORY[0x1E69AFB18];
+  v5[25] = *MEMORY[0x1E69AFB10];
+  v5[26] = *MEMORY[0x1E69AFC10];
+  v5[27] = *MEMORY[0x1E69AFBE0];
+  v5[28] = *MEMORY[0x1E69AFB38];
+  v5[29] = *MEMORY[0x1E69AFC08];
+  v5[30] = *MEMORY[0x1E69AFBE8];
+  v5[31] = *MEMORY[0x1E69AFB98];
+  v5[32] = *MEMORY[0x1E69AFC18];
   a1[1] = 0;
   a1[2] = 0;
   *a1 = 0;
-  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(a1, v7, &v8, 0x21uLL);
+  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(a1, v5, &v6, 0x21uLL);
   for (i = 32; i != -1; --i)
   {
   }
@@ -1695,8 +1684,8 @@ void anonymous namespace::BuildMXNotificationsForPlatform(void *a1@<X8>)
 
   if (avas::AudioSessionMuteEnabled(void)::enabled == 1)
   {
-    v6[0] = *MEMORY[0x1E69AFBA0];
-    std::vector<NSString * {__strong}>::push_back[abi:ne200100](a1, v6);
+    v4[0] = *MEMORY[0x1E69AFBA0];
+    std::vector<NSString * {__strong}>::push_back[abi:ne200100](a1, v4);
   }
 
   {
@@ -1705,16 +1694,14 @@ void anonymous namespace::BuildMXNotificationsForPlatform(void *a1@<X8>)
 
   if (avas::EnhanceDialogueBriocheEnabled(void)::enhanceDialogueBriocheEnabled == 1)
   {
-    v5 = *MEMORY[0x1E69AFAF0];
-    std::vector<NSString * {__strong}>::push_back[abi:ne200100](a1, &v5);
+    v3 = *MEMORY[0x1E69AFAF0];
+    std::vector<NSString * {__strong}>::push_back[abi:ne200100](a1, &v3);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1DE89A760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1DE89A760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong}>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1729,7 +1716,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<objc_object  {objcpro
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::vector<NSString * {__strong}>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<NSString * {__strong}>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -1739,7 +1726,7 @@ void std::vector<NSString * {__strong}>::__vallocate[abi:ne200100](uint64_t a1, 
   std::vector<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(uint64_t *result, void **a2, void **a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1830,27 +1817,26 @@ void std::vector<objc_object  {objcproto39AVAudioNotificationCenterServerDelegat
   }
 }
 
-void *std::__split_buffer<std::shared_ptr<avas::WorkloopPool::BlockInfo> *,std::allocator<std::shared_ptr<avas::WorkloopPool::BlockInfo> *>>::emplace_back<std::shared_ptr<avas::WorkloopPool::BlockInfo> *&>(void *result, void *a2)
+void std::__split_buffer<std::shared_ptr<avas::WorkloopPool::BlockInfo> *,std::allocator<std::shared_ptr<avas::WorkloopPool::BlockInfo> *>>::emplace_back<std::shared_ptr<avas::WorkloopPool::BlockInfo> *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::unique_ptr<avas::client::PortPrefs>>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::unique_ptr<avas::client::PortPrefs>>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -1859,18 +1845,17 @@ void *std::__split_buffer<std::shared_ptr<avas::WorkloopPool::BlockInfo> *,std::
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::shared_ptr<avas::WorkloopPool::BlockInfo> *,std::shared_ptr<avas::WorkloopPool::BlockInfo> *,std::shared_ptr<avas::WorkloopPool::BlockInfo> *>(uint64_t a1, void *a2, void *a3, uint64_t a4)
@@ -1899,26 +1884,26 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
   return a3;
 }
 
-double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<std::shared_ptr<avas::WorkloopPool::BlockInfo>,std::shared_ptr<avas::WorkloopPool::BlockInfo>*,std::shared_ptr<avas::WorkloopPool::BlockInfo>&,std::shared_ptr<avas::WorkloopPool::BlockInfo>**,long,256l>,std::__move_impl<std::_ClassicAlgPolicy>::_MoveSegment<std::__deque_iterator<std::shared_ptr<avas::WorkloopPool::BlockInfo>,std::shared_ptr<avas::WorkloopPool::BlockInfo>*,std::shared_ptr<avas::WorkloopPool::BlockInfo>&,std::shared_ptr<avas::WorkloopPool::BlockInfo>**,long,256l>,std::__deque_iterator<std::shared_ptr<avas::WorkloopPool::BlockInfo>,std::shared_ptr<avas::WorkloopPool::BlockInfo>*,std::shared_ptr<avas::WorkloopPool::BlockInfo>&,std::shared_ptr<avas::WorkloopPool::BlockInfo>**,long,256l>>>(__int128 **a1, __int128 *a2, __int128 **a3, __int128 *a4, uint64_t a5)
+double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<std::shared_ptr<avas::WorkloopPool::BlockInfo>,std::shared_ptr<avas::WorkloopPool::BlockInfo>*,std::shared_ptr<avas::WorkloopPool::BlockInfo>&,std::shared_ptr<avas::WorkloopPool::BlockInfo>**,long,256l>,std::__move_impl<std::_ClassicAlgPolicy>::_MoveSegment<std::__deque_iterator<std::shared_ptr<avas::WorkloopPool::BlockInfo>,std::shared_ptr<avas::WorkloopPool::BlockInfo>*,std::shared_ptr<avas::WorkloopPool::BlockInfo>&,std::shared_ptr<avas::WorkloopPool::BlockInfo>**,long,256l>,std::__deque_iterator<std::shared_ptr<avas::WorkloopPool::BlockInfo>,std::shared_ptr<avas::WorkloopPool::BlockInfo>*,std::shared_ptr<avas::WorkloopPool::BlockInfo>&,std::shared_ptr<avas::WorkloopPool::BlockInfo>**,long,256l>>>(uint64_t *a1, __int128 *a2, uint64_t *a3, __int128 *a4, __int128 **a5)
 {
   if (a1 == a3)
   {
     v7 = *a5;
-    v8 = *(a5 + 8);
+    v8 = a5[1];
   }
 
   else
   {
     v10 = a1 + 1;
     v7 = *a5;
-    v8 = *(a5 + 8);
-    for (i = *a1 + 256; ; i = v12 + 256)
+    v8 = a5[1];
+    for (i = (*a1 + 4096); ; i = v12 + 256)
     {
       std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::shared_ptr<avas::WorkloopPool::BlockInfo> *,std::__deque_iterator<std::shared_ptr<avas::WorkloopPool::BlockInfo>,std::shared_ptr<avas::WorkloopPool::BlockInfo> *,std::shared_ptr<avas::WorkloopPool::BlockInfo>&,std::shared_ptr<avas::WorkloopPool::BlockInfo> **,long,256l>,0>(a2, i, v7, v8, &v14);
       v8 = *(&v15 + 1);
       v7 = v15;
       *a5 = v15;
-      *(a5 + 8) = v8;
+      a5[1] = v8;
       if (v10 == a3)
       {
         break;
@@ -2004,7 +1989,7 @@ __int128 *std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std
   return v5;
 }
 
-void std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::shared_ptr<avas::WorkloopPool::BlockInfo> *,std::__deque_iterator<std::shared_ptr<avas::WorkloopPool::BlockInfo>,std::shared_ptr<avas::WorkloopPool::BlockInfo> *,std::shared_ptr<avas::WorkloopPool::BlockInfo>&,std::shared_ptr<avas::WorkloopPool::BlockInfo> **,long,256l>,0>(__int128 *a1@<X1>, __int128 *a2@<X2>, __int128 *a3@<X3>, uint64_t a4@<X4>, __int128 **a5@<X8>)
+void std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::shared_ptr<avas::WorkloopPool::BlockInfo> *,std::__deque_iterator<std::shared_ptr<avas::WorkloopPool::BlockInfo>,std::shared_ptr<avas::WorkloopPool::BlockInfo> *,std::shared_ptr<avas::WorkloopPool::BlockInfo>&,std::shared_ptr<avas::WorkloopPool::BlockInfo> **,long,256l>,0>(__int128 *a1@<X1>, __int128 *a2@<X2>, __int128 *a3@<X3>, __int128 *a4@<X4>, __int128 **a5@<X8>)
 {
   v5 = a3;
   i = a1;
@@ -2034,7 +2019,7 @@ void std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::sha
     }
 
     a4 = v11;
-    if (*v5 + 4096 == v11)
+    if ((*v5 + 4096) == v11)
     {
       v15 = *(v5 + 1);
       v5 = (v5 + 8);
@@ -2204,14 +2189,14 @@ void sub_1DE89BC54(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void avas::server::SessionCollection::SessionPresentingIterator::GetAudioSessionInfo(avas::server::SessionCollection::SessionPresentingIterator *this@<X0>, void *a2@<X8>)
+void avas::server::SessionCollection::SessionPresentingIterator::GetAudioSessionInfo(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  v3 = *(this + 8);
+  v3 = this[8];
   if (v3)
   {
-    v4 = *(this + 9);
-    *a2 = v3;
-    a2[1] = v4;
+    v4 = this[9];
+    *a1 = v3;
+    a1[1] = v4;
     if (v4)
     {
       atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
@@ -2220,18 +2205,18 @@ void avas::server::SessionCollection::SessionPresentingIterator::GetAudioSession
 
   else
   {
-    v5 = *(this + 11);
+    v5 = this[11];
     if (v5)
     {
       v6 = (*(*v5 + 104))(v5);
 
-      avas::server::IONodeSessionInfo::GetSiblingSession(v6, a2);
+      avas::server::IONodeSessionInfo::GetSiblingSession(v6, a1);
     }
 
     else
     {
-      *a2 = 0;
-      a2[1] = 0;
+      *a1 = 0;
+      a1[1] = 0;
     }
   }
 }
@@ -2266,14 +2251,14 @@ void avas::NotificationDelegateCollection::GetDelegatesForNotifications(uint64_t
     v9 = [v8 filterPropertyNotifications:v5];
     if ([v9 count])
     {
-      v10 = v7;
-      v11 = v9;
-      std::vector<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>::push_back[abi:ne200100](a3, &v10);
+      *&v14 = v7;
+      *(&v14 + 1) = v9;
+      std::vector<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>::push_back[abi:ne200100](a3, &v14, v10, v11, v12, v13);
     }
   }
 }
 
-void sub_1DE89C274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, id a10)
+void sub_1DE89C274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9, id a10)
 {
   std::vector<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>::__destroy_vector::operator()[abi:ne200100](&a9);
 
@@ -2287,42 +2272,41 @@ void sub_1DE89C440(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void avas::NotificationDelegateCollection::GetDelegatesForInterruptions(avas::NotificationDelegateCollection *this@<X0>, void *a2@<X8>)
+void avas::NotificationDelegateCollection::GetDelegatesForInterruptions(uint64_t *__return_ptr a1@<X8>, avas::NotificationDelegateCollection *this@<X0>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   for (i = *(this + 2); i; i = *i)
   {
-    v4 = i[2];
-    v5 = i[3];
-    v6 = i[4];
-    if ([v6 wantsInterruptions])
+    v4 = i[3];
+    v5 = i[4];
+    if ([v5 wantsInterruptions])
     {
-      std::vector<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong}>::push_back[abi:ne200100](a2, &v5);
+      std::vector<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong}>::push_back[abi:ne200100](a1, &v4);
     }
   }
 }
 
-void sub_1DE89C678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE89C678(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
 
   std::__hash_table<avas::MatchedSession,avas::MatchedSessionHash,avas::MatchedSessionEqual,std::allocator<avas::MatchedSession>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1DE89C818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE89C818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
 
   std::__hash_table<avas::MatchedSession,avas::MatchedSessionHash,avas::MatchedSessionEqual,std::allocator<avas::MatchedSession>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1DE89C9AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE89C9AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
 
   std::__hash_table<avas::MatchedSession,avas::MatchedSessionHash,avas::MatchedSessionEqual,std::allocator<avas::MatchedSession>>::~__hash_table(va);
   _Unwind_Resume(a1);
@@ -2335,18 +2319,18 @@ void sub_1DE89CA5C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-unint64_t avas::NotificationDelegateCollection::AddDelegate(void *a1, void *a2)
+uint64_t avas::NotificationDelegateCollection::AddDelegate(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = a1[5] + 1;
-  a1[5] = v4;
-  v8[0] = v4;
-  v8[2] = v8;
-  v5 = std::__hash_table<std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1, v8);
+  v4 = *(a1 + 40) + 1;
+  *(a1 + 40) = v4;
+  v8 = v4;
+  v9 = &v8;
+  v5 = std::__hash_table<std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(a1, &v8, &std::piecewise_construct, &v9);
   v6 = v5[3];
   v5[3] = v3;
 
-  return v8[0];
+  return v8;
 }
 
 void sub_1DE89CCB8(_Unwind_Exception *a1)
@@ -2541,80 +2525,79 @@ void avas::server::IONodeSessionInfo::GetSiblingSession(os_unfair_lock_s *this@<
   os_unfair_lock_unlock(this + 8);
 }
 
-uint64_t std::vector<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>::push_back[abi:ne200100](void *a1, uint64_t a2)
+_OWORD *std::vector<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>::push_back[abi:ne200100](void *a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v3 = a1[1];
-  if (v3 >= a1[2])
+  v7 = a1[1];
+  if (v7 >= a1[2])
   {
-    result = std::vector<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>::__emplace_back_slow_path<NSArray * {__strong}>(a1, a2);
+    result = std::vector<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>::__emplace_back_slow_path<NSArray * {__strong}>(a1, a2, a3, a4, a5, a6);
   }
 
   else
   {
-    v4 = *a2;
-    *a2 = 0;
-    *(a2 + 8) = 0;
-    *v3 = v4;
-    result = (v3 + 1);
+    v8 = *a2;
+    *a2 = 0uLL;
+    *v7 = v8;
+    result = v7 + 1;
   }
 
   a1[1] = result;
   return result;
 }
 
-uint64_t std::vector<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>::__emplace_back_slow_path<NSArray * {__strong}>(void *a1, __int128 *a2)
+uint64_t std::vector<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>::__emplace_back_slow_path<NSArray * {__strong}>(void *a1, __int128 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = (v4 - *a1) >> 4;
-  v6 = v5 + 1;
-  if ((v5 + 1) >> 60)
+  v7 = *a1;
+  v8 = a1[1];
+  v9 = (v8 - *a1) >> 4;
+  v10 = v9 + 1;
+  if ((v9 + 1) >> 60)
   {
     std::vector<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>::__throw_length_error[abi:ne200100]();
   }
 
-  v8 = a1[2] - v3;
-  if (v8 >> 3 > v6)
+  v12 = a1[2] - v7;
+  if (v12 >> 3 > v10)
   {
-    v6 = v8 >> 3;
+    v10 = v12 >> 3;
   }
 
-  if (v8 >= 0x7FFFFFFFFFFFFFF0)
+  if (v12 >= 0x7FFFFFFFFFFFFFF0)
   {
-    v6 = 0xFFFFFFFFFFFFFFFLL;
+    v10 = 0xFFFFFFFFFFFFFFFLL;
   }
 
-  v17 = a1;
-  if (v6)
+  v21 = a1;
+  if (v10)
   {
-    std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>>(a1, v6);
+    std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>>(a1, v10);
   }
 
-  v14 = 0;
-  v15 = 16 * v5;
-  *(&v16 + 1) = 0;
-  v9 = *a2;
+  v18 = 0;
+  v19 = 16 * v9;
+  *(&v20 + 1) = 0;
+  v13 = *a2;
   *a2 = 0;
   *(a2 + 1) = 0;
-  *(16 * v5) = v9;
-  *&v16 = 16 * v5 + 16;
-  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>,NSArray * {__strong}*>(a1, v3, v4, 0);
-  v10 = *a1;
+  *(16 * v9) = v13;
+  *&v20 = 16 * v9 + 16;
+  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>,NSArray * {__strong}*>(a1, v7, v8, 0, a5, a6);
+  v14 = *a1;
   *a1 = 0;
-  v11 = a1[2];
-  v13 = v16;
-  *(a1 + 1) = v16;
-  *&v16 = v10;
-  *(&v16 + 1) = v11;
-  v14 = v10;
-  v15 = v10;
-  std::__split_buffer<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>::~__split_buffer(&v14);
-  return v13;
+  v15 = a1[2];
+  v17 = v20;
+  *(a1 + 1) = v20;
+  *&v20 = v14;
+  *(&v20 + 1) = v15;
+  v18 = v14;
+  v19 = v14;
+  std::__split_buffer<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>::~__split_buffer(&v18);
+  return v17;
 }
 
-void sub_1DE89D1D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1DE89D1D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2648,32 +2631,31 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   v1 = std::bad_array_new_length::bad_array_new_length(exception);
 }
 
-uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>,NSArray * {__strong}*>(uint64_t a1, void **a2, void **a3, _OWORD *a4)
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>,NSArray * {__strong}*>(uint64_t a1, void **a2, void **a3, __int128 *a4, uint64_t a5, uint64_t a6)
 {
-  v10 = a4;
-  v9 = a4;
-  v7[0] = a1;
-  v7[1] = &v9;
-  v7[2] = &v10;
+  v12 = a4;
+  v11 = a4;
+  v9[0] = a1;
+  v9[1] = &v11;
+  v9[2] = &v12;
   if (a2 != a3)
   {
-    v4 = a2;
+    v6 = a2;
     do
     {
-      v5 = *v4;
-      *v4 = 0;
-      v4[1] = 0;
-      v4 += 2;
-      *a4++ = v5;
+      v7 = *v6;
+      *v6 = 0;
+      *(v6++ + 1) = 0;
+      *a4++ = v7;
     }
 
-    while (v4 != a3);
-    v10 = a4;
+    while (v6 != a3);
+    v12 = a4;
   }
 
-  v8 = 1;
+  v10 = 1;
   std::__allocator_destroy[abi:ne200100]<std::allocator<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>,NSArray * {__strong}*,std::allocator<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>>(a1, a2, a3);
-  return std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>,NSArray * {__strong}*>>::~__exception_guard_exceptions[abi:ne200100](v7);
+  return std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>,NSArray * {__strong}*>>::~__exception_guard_exceptions[abi:ne200100](v9);
 }
 
 void std::__allocator_destroy[abi:ne200100]<std::allocator<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>,NSArray * {__strong}*,std::allocator<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>>(uint64_t a1, void **a2, void **a3)
@@ -2817,40 +2799,40 @@ id std::vector<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}
   return result;
 }
 
-void sub_1DE89D690(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE89D690(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong}>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(float *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = *(a1 + 2);
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -2858,47 +2840,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -2914,7 +2896,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,avas::Notificat
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -2922,7 +2904,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,avas::Notificat
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -2946,7 +2928,7 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,avas::Notificat
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -2987,7 +2969,7 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(a2);
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>>>::__erase_unique<unsigned long long>(void *a1, unint64_t *a2)
+uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>>>::__erase_unique<unsigned long long>(void *a1, unint64_t *a2)
 {
   result = std::__hash_table<std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,avas::NotificationDelegateCollection::NotificationDelegates>>>::find<unsigned long long>(a1, a2);
   if (result)
@@ -3030,45 +3012,37 @@ void *std::__hash_table<std::__hash_value_type<unsigned long long,avas::Notifica
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -3228,35 +3202,35 @@ void std::__hash_table<std::__hash_value_type<unsigned long long,avas::Notificat
   }
 }
 
-uint64_t *std::__hash_table<avas::MatchedSession,avas::MatchedSessionHash,avas::MatchedSessionEqual,std::allocator<avas::MatchedSession>>::__emplace_unique_key_args<avas::MatchedSession,avas::MatchedSession>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<avas::MatchedSession,avas::MatchedSessionHash,avas::MatchedSessionEqual,std::allocator<avas::MatchedSession>>::__emplace_unique_key_args<avas::MatchedSession,avas::MatchedSession>(void *a1, unsigned int *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a2[1];
-  v4 = v2 ^ (2 * v3);
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = *a2;
+  v4 = a2[1];
+  v5 = v3 ^ (2 * v4);
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_22;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = v2 ^ (2 * v3);
-    if (v4 >= *&v5)
+    v8 = v3 ^ (2 * v4);
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 + 0x1FFFFFFFFLL);
+    v8 = v5 & (*&v6 + 0x1FFFFFFFFLL);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_22:
     operator new();
@@ -3264,44 +3238,44 @@ LABEL_22:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_22;
     }
 
 LABEL_21:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_22;
     }
   }
 
-  if (*(v9 + 5) != v3 || *(v9 + 4) != v2)
+  if (*(v10 + 5) != v4 || *(v10 + 4) != v3)
   {
     goto LABEL_21;
   }
 
-  return v9;
+  return v10;
 }
 
 uint64_t std::__hash_table<avas::MatchedSession,avas::MatchedSessionHash,avas::MatchedSessionEqual,std::allocator<avas::MatchedSession>>::~__hash_table(uint64_t a1)
@@ -3353,14 +3327,14 @@ uint64_t avas::SetInProcessNotificationCenterServerFactory()
 
 id NSErrorWithString(NSString *a1, int a2)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = v3;
   if (v3)
   {
-    v9 = *MEMORY[0x1E696A578];
-    v10[0] = v3;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = *MEMORY[0x1E696A578];
+    v9[0] = v3;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   }
 
   else
@@ -3369,8 +3343,6 @@ id NSErrorWithString(NSString *a1, int a2)
   }
 
   v6 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:a2 userInfo:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -3410,21 +3382,19 @@ __int128 *avas::GetSpecialMXNotificationNames(avas *this)
   return &avas::GetSpecialMXNotificationNames(void)::mxNotificationNames;
 }
 
-void anonymous namespace::BuildSpecialMXNotificationNames(void *a1@<X8>)
+void anonymous namespace::BuildSpecialMXNotificationNames(uint64_t *__return_ptr a1@<X8>)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v5[0] = *MEMORY[0x1E69AFBB0];
-  v5[1] = *MEMORY[0x1E69AFBD8];
-  v5[2] = *MEMORY[0x1E69AFC00];
+  v4 = *MEMORY[0x1E69E9840];
+  v3[0] = *MEMORY[0x1E69AFBB0];
+  v3[1] = *MEMORY[0x1E69AFBD8];
+  v3[2] = *MEMORY[0x1E69AFC00];
   a1[1] = 0;
   a1[2] = 0;
   *a1 = 0;
-  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(a1, v5, &v6, 3uLL);
+  std::vector<NSString * {__strong}>::__init_with_size[abi:ne200100]<NSString * const {__strong}*,NSString * const {__strong}>(a1, v3, &v4, 3uLL);
   for (i = 2; i != -1; --i)
   {
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE89F424(_Unwind_Exception *a1)
@@ -3497,9 +3467,9 @@ void *std::vector<NSString * {__strong}>::push_back[abi:ne200100](void *result, 
   return result;
 }
 
-void sub_1DE89F534(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE89F534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong}>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3667,7 +3637,7 @@ uint64_t avas::client::SessionState::activationContext(avas::client::SessionStat
   return result;
 }
 
-uint64_t avas::client::SessionState::mutableActivationContext(avas::client::SessionState *this)
+avas::ActivationContext *avas::client::SessionState::mutableActivationContext(avas::client::SessionState *this)
 {
   if (!*(this + 26))
   {
@@ -5441,7 +5411,6 @@ void avas::client::SessionState::writeTo(avas::client::SessionState *this, PB::W
   v4 = *(this + 2);
   if (v4)
   {
-    v6 = *(this + 64);
     PB::Writer::writeVarInt(a2);
     v4 = *(this + 2);
     if ((v4 & 2) == 0)
@@ -5461,7 +5430,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v7 = *(this + 65);
   PB::Writer::writeVarInt(a2);
   v4 = *(this + 2);
   if ((v4 & 4) == 0)
@@ -5476,7 +5444,6 @@ LABEL_4:
   }
 
 LABEL_37:
-  v8 = *(this + 66);
   PB::Writer::writeVarInt(a2);
   v4 = *(this + 2);
   if ((v4 & 8) == 0)
@@ -5491,7 +5458,6 @@ LABEL_5:
   }
 
 LABEL_38:
-  v9 = *(this + 67);
   PB::Writer::writeVarInt(a2);
   v4 = *(this + 2);
   if ((v4 & 0x10) == 0)
@@ -5506,9 +5472,9 @@ LABEL_6:
   }
 
 LABEL_39:
-  caulk::xstring::as_std_string((this + 64), __p);
+  caulk::xstring::as_std_string(__p, (this + 64));
   PB::Writer::write();
-  if (v48 < 0)
+  if (v18 < 0)
   {
     operator delete(__p[0]);
   }
@@ -5526,9 +5492,9 @@ LABEL_7:
   }
 
 LABEL_42:
-  caulk::xstring::as_std_string((this + 80), __p);
+  caulk::xstring::as_std_string(__p, (this + 80));
   PB::Writer::write();
-  if (v48 < 0)
+  if (v18 < 0)
   {
     operator delete(__p[0]);
   }
@@ -5546,7 +5512,6 @@ LABEL_8:
   }
 
 LABEL_45:
-  v10 = *(this + 30);
   PB::Writer::writeVarInt(a2);
   v4 = *(this + 2);
   if ((v4 & 0x80) == 0)
@@ -5561,7 +5526,6 @@ LABEL_9:
   }
 
 LABEL_46:
-  v11 = *(this + 68);
   PB::Writer::writeVarInt(a2);
   v4 = *(this + 2);
   if ((v4 & 0x100) == 0)
@@ -5576,9 +5540,9 @@ LABEL_10:
   }
 
 LABEL_47:
-  caulk::xstring::as_std_string((this + 96), __p);
+  caulk::xstring::as_std_string(__p, (this + 96));
   PB::Writer::write();
-  if (v48 < 0)
+  if (v18 < 0)
   {
     operator delete(__p[0]);
   }
@@ -5587,7 +5551,6 @@ LABEL_47:
   if ((v4 & 0x200) != 0)
   {
 LABEL_11:
-    v5 = *(this + 69);
     PB::Writer::writeVarInt(a2);
     v4 = *(this + 2);
   }
@@ -5595,9 +5558,9 @@ LABEL_11:
 LABEL_12:
   if ((v4 & 0x400) != 0)
   {
-    caulk::xstring::as_std_string((this + 112), __p);
+    caulk::xstring::as_std_string(__p, (this + 112));
     PB::Writer::write();
-    if (v48 < 0)
+    if (v18 < 0)
     {
       operator delete(__p[0]);
     }
@@ -5607,9 +5570,9 @@ LABEL_12:
 
   if ((v4 & 0x800) != 0)
   {
-    caulk::xstring::as_std_string((this + 128), __p);
+    caulk::xstring::as_std_string(__p, (this + 128));
     PB::Writer::write();
-    if (v48 < 0)
+    if (v18 < 0)
     {
       operator delete(__p[0]);
     }
@@ -5619,9 +5582,9 @@ LABEL_12:
 
   if ((v4 & 0x1000) != 0)
   {
-    caulk::xstring::as_std_string((this + 144), __p);
+    caulk::xstring::as_std_string(__p, (this + 144));
     PB::Writer::write();
-    if (v48 < 0)
+    if (v18 < 0)
     {
       operator delete(__p[0]);
     }
@@ -5631,7 +5594,6 @@ LABEL_12:
 
   if ((v4 & 0x2000) != 0)
   {
-    v12 = *(this + 300);
     PB::Writer::write(a2);
     v4 = *(this + 2);
     if ((v4 & 0x4000) == 0)
@@ -5651,7 +5613,6 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  v13 = *(this + 301);
   PB::Writer::write(a2);
   v4 = *(this + 2);
   if ((v4 & 0x8000) == 0)
@@ -5666,7 +5627,6 @@ LABEL_27:
   }
 
 LABEL_53:
-  v14 = *(this + 302);
   PB::Writer::write(a2);
   v4 = *(this + 2);
   if ((v4 & 0x10000) == 0)
@@ -5681,7 +5641,6 @@ LABEL_28:
   }
 
 LABEL_54:
-  v15 = *(this + 70);
   PB::Writer::writeVarInt(a2);
   v4 = *(this + 2);
   if ((v4 & 0x20000) == 0)
@@ -5696,7 +5655,6 @@ LABEL_29:
   }
 
 LABEL_55:
-  v16 = *(this + 303);
   PB::Writer::write(a2);
   v4 = *(this + 2);
   if ((v4 & 0x40000) == 0)
@@ -5711,7 +5669,6 @@ LABEL_30:
   }
 
 LABEL_56:
-  v17 = *(this + 304);
   PB::Writer::write(a2);
   v4 = *(this + 2);
   if ((v4 & 0x80000) == 0)
@@ -5726,7 +5683,6 @@ LABEL_31:
   }
 
 LABEL_57:
-  v18 = *(this + 305);
   PB::Writer::write(a2);
   v4 = *(this + 2);
   if ((v4 & 0x100000) == 0)
@@ -5741,7 +5697,6 @@ LABEL_32:
   }
 
 LABEL_58:
-  v19 = *(this + 306);
   PB::Writer::write(a2);
   v4 = *(this + 2);
   if ((v4 & 0x200000) == 0)
@@ -5756,7 +5711,6 @@ LABEL_33:
   }
 
 LABEL_59:
-  v20 = *(this + 307);
   PB::Writer::write(a2);
   if ((*(this + 2) & 0x400000) == 0)
   {
@@ -5764,42 +5718,41 @@ LABEL_59:
   }
 
 LABEL_60:
-  caulk::xstring::as_std_string((this + 160), __p);
+  caulk::xstring::as_std_string(__p, (this + 160));
   PB::Writer::write();
-  if (v48 < 0)
+  if (v18 < 0)
   {
     operator delete(__p[0]);
   }
 
 LABEL_62:
-  v21 = *(this + 26);
-  if (v21)
+  v5 = *(this + 26);
+  if (v5)
   {
-    PB::Writer::writeSubmessage(a2, v21);
+    PB::Writer::writeSubmessage(a2, v5);
   }
 
-  v22 = *(this + 2);
-  if ((v22 & 0x800000) != 0)
+  v6 = *(this + 2);
+  if ((v6 & 0x800000) != 0)
   {
-    caulk::xstring::as_std_string((this + 176), __p);
+    caulk::xstring::as_std_string(__p, (this + 176));
     PB::Writer::write();
-    if (v48 < 0)
+    if (v18 < 0)
     {
       operator delete(__p[0]);
     }
 
-    v22 = *(this + 2);
+    v6 = *(this + 2);
   }
 
-  if ((v22 & 0x1000000) != 0)
+  if ((v6 & 0x1000000) != 0)
   {
-    v36 = *(this + 71);
     PB::Writer::writeVarInt(a2);
-    v22 = *(this + 2);
-    if ((v22 & 0x2000000) == 0)
+    v6 = *(this + 2);
+    if ((v6 & 0x2000000) == 0)
     {
 LABEL_70:
-      if ((v22 & 0x4000000) == 0)
+      if ((v6 & 0x4000000) == 0)
       {
         goto LABEL_71;
       }
@@ -5808,18 +5761,17 @@ LABEL_70:
     }
   }
 
-  else if ((v22 & 0x2000000) == 0)
+  else if ((v6 & 0x2000000) == 0)
   {
     goto LABEL_70;
   }
 
-  v37 = *(this + 308);
   PB::Writer::write(a2);
-  v22 = *(this + 2);
-  if ((v22 & 0x4000000) == 0)
+  v6 = *(this + 2);
+  if ((v6 & 0x4000000) == 0)
   {
 LABEL_71:
-    if ((v22 & 0x8000000) == 0)
+    if ((v6 & 0x8000000) == 0)
     {
       goto LABEL_72;
     }
@@ -5828,13 +5780,12 @@ LABEL_71:
   }
 
 LABEL_102:
-  v38 = *(this + 31);
   PB::Writer::writeVarInt(a2);
-  v22 = *(this + 2);
-  if ((v22 & 0x8000000) == 0)
+  v6 = *(this + 2);
+  if ((v6 & 0x8000000) == 0)
   {
 LABEL_72:
-    if ((v22 & 0x10000000) == 0)
+    if ((v6 & 0x10000000) == 0)
     {
       goto LABEL_74;
     }
@@ -5843,32 +5794,29 @@ LABEL_72:
   }
 
 LABEL_103:
-  v39 = *(this + 72);
   PB::Writer::writeVarInt(a2);
   if ((*(this + 2) & 0x10000000) != 0)
   {
 LABEL_73:
-    v23 = *(this + 309);
     PB::Writer::write(a2);
   }
 
 LABEL_74:
-  v24 = *(this + 27);
-  if (v24)
+  v7 = *(this + 27);
+  if (v7)
   {
-    PB::Writer::writeSubmessage(a2, v24);
+    PB::Writer::writeSubmessage(a2, v7);
   }
 
-  v25 = *(this + 2);
-  if ((v25 & 0x20000000) == 0)
+  v8 = *(this + 2);
+  if ((v8 & 0x20000000) == 0)
   {
-    if ((v25 & 0x40000000) == 0)
+    if ((v8 & 0x40000000) == 0)
     {
       goto LABEL_78;
     }
 
 LABEL_106:
-    v41 = *(this + 311);
     PB::Writer::write(a2);
     if ((*(this + 2) & 0x80000000) == 0)
     {
@@ -5878,16 +5826,15 @@ LABEL_106:
     goto LABEL_107;
   }
 
-  v40 = *(this + 310);
   PB::Writer::write(a2);
-  v25 = *(this + 2);
-  if ((v25 & 0x40000000) != 0)
+  v8 = *(this + 2);
+  if ((v8 & 0x40000000) != 0)
   {
     goto LABEL_106;
   }
 
 LABEL_78:
-  if ((v25 & 0x80000000) == 0)
+  if ((v8 & 0x80000000) == 0)
   {
     goto LABEL_79;
   }
@@ -5895,16 +5842,15 @@ LABEL_78:
 LABEL_107:
   PB::Writer::write(a2, *(this + 58));
 LABEL_79:
-  v26 = *(this + 3);
-  if ((v26 & 1) == 0)
+  v9 = *(this + 3);
+  if ((v9 & 1) == 0)
   {
-    if ((v26 & 2) == 0)
+    if ((v9 & 2) == 0)
     {
       goto LABEL_81;
     }
 
 LABEL_109:
-    v43 = *(this + 313);
     PB::Writer::write(a2);
     if ((*(this + 3) & 4) == 0)
     {
@@ -5914,61 +5860,58 @@ LABEL_109:
     goto LABEL_82;
   }
 
-  v42 = *(this + 312);
   PB::Writer::write(a2);
-  v26 = *(this + 3);
-  if ((v26 & 2) != 0)
+  v9 = *(this + 3);
+  if ((v9 & 2) != 0)
   {
     goto LABEL_109;
   }
 
 LABEL_81:
-  if ((v26 & 4) != 0)
+  if ((v9 & 4) != 0)
   {
 LABEL_82:
-    v27 = *(this + 314);
     PB::Writer::write(a2);
   }
 
 LABEL_83:
-  v28 = *(this + 2);
-  v29 = *(this + 3);
-  while (v28 != v29)
+  v10 = *(this + 2);
+  v11 = *(this + 3);
+  while (v10 != v11)
   {
-    v30 = *v28++;
-    PB::Writer::writeSubmessage(a2, v30);
+    v12 = *v10++;
+    PB::Writer::writeSubmessage(a2, v12);
   }
 
-  v31 = *(this + 5);
-  v32 = *(this + 6);
-  while (v31 != v32)
+  v13 = *(this + 5);
+  v14 = *(this + 6);
+  while (v13 != v14)
   {
-    v33 = *v31++;
-    PB::Writer::writeSubmessage(a2, v33);
+    v15 = *v13++;
+    PB::Writer::writeSubmessage(a2, v15);
   }
 
-  v34 = *(this + 3);
-  if ((v34 & 8) != 0)
+  v16 = *(this + 3);
+  if ((v16 & 8) != 0)
   {
-    caulk::xstring::as_std_string((this + 192), __p);
+    caulk::xstring::as_std_string(__p, (this + 192));
     PB::Writer::write();
-    if (v48 < 0)
+    if (v18 < 0)
     {
       operator delete(__p[0]);
     }
 
-    v34 = *(this + 3);
+    v16 = *(this + 3);
   }
 
-  if ((v34 & 0x10) != 0)
+  if ((v16 & 0x10) != 0)
   {
-    v44 = *(this + 315);
     PB::Writer::write(a2);
-    v34 = *(this + 3);
-    if ((v34 & 0x20) == 0)
+    v16 = *(this + 3);
+    if ((v16 & 0x20) == 0)
     {
 LABEL_95:
-      if ((v34 & 0x40) == 0)
+      if ((v16 & 0x40) == 0)
       {
         goto LABEL_96;
       }
@@ -5977,18 +5920,17 @@ LABEL_95:
     }
   }
 
-  else if ((v34 & 0x20) == 0)
+  else if ((v16 & 0x20) == 0)
   {
     goto LABEL_95;
   }
 
-  v45 = *(this + 316);
   PB::Writer::write(a2);
-  v34 = *(this + 3);
-  if ((v34 & 0x40) == 0)
+  v16 = *(this + 3);
+  if ((v16 & 0x40) == 0)
   {
 LABEL_96:
-    if ((v34 & 0x80) == 0)
+    if ((v16 & 0x80) == 0)
     {
       goto LABEL_97;
     }
@@ -5998,11 +5940,11 @@ LABEL_96:
 
 LABEL_113:
   PB::Writer::write(a2, *(this + 28));
-  v34 = *(this + 3);
-  if ((v34 & 0x80) == 0)
+  v16 = *(this + 3);
+  if ((v16 & 0x80) == 0)
   {
 LABEL_97:
-    if ((v34 & 0x100) == 0)
+    if ((v16 & 0x100) == 0)
     {
       return;
     }
@@ -6011,7 +5953,6 @@ LABEL_97:
   }
 
 LABEL_114:
-  v46 = *(this + 73);
   PB::Writer::writeVarInt(a2);
   if ((*(this + 3) & 0x100) == 0)
   {
@@ -6019,7 +5960,6 @@ LABEL_114:
   }
 
 LABEL_98:
-  v35 = *(this + 74);
   PB::Writer::writeVarInt(a2);
 }
 
@@ -6039,7 +5979,6 @@ uint64_t avas::client::SessionState::formatText(avas::client::SessionState *this
   v5 = *(this + 2);
   if (v5)
   {
-    v7 = *(this + 64);
     PB::TextFormatter::format(a2, "sessionToken");
     v5 = *(this + 2);
     if ((v5 & 2) == 0)
@@ -6059,7 +5998,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v8 = *(this + 65);
   PB::TextFormatter::format(a2, "generationCount");
   v5 = *(this + 2);
   if ((v5 & 4) == 0)
@@ -6074,7 +6012,6 @@ LABEL_4:
   }
 
 LABEL_37:
-  v9 = *(this + 66);
   PB::TextFormatter::format(a2, "originatingProcessToken");
   v5 = *(this + 2);
   if ((v5 & 8) == 0)
@@ -6089,7 +6026,6 @@ LABEL_5:
   }
 
 LABEL_38:
-  v10 = *(this + 67);
   PB::TextFormatter::format(a2, "processOwningIOResources");
   v5 = *(this + 2);
   if ((v5 & 0x10) == 0)
@@ -6104,9 +6040,9 @@ LABEL_6:
   }
 
 LABEL_39:
-  caulk::xstring::as_std_string((this + 64), __p);
+  caulk::xstring::as_std_string(__p, (this + 64));
   PB::TextFormatter::format();
-  if (v50 < 0)
+  if (v20 < 0)
   {
     operator delete(__p[0]);
   }
@@ -6124,9 +6060,9 @@ LABEL_7:
   }
 
 LABEL_42:
-  caulk::xstring::as_std_string((this + 80), __p);
+  caulk::xstring::as_std_string(__p, (this + 80));
   PB::TextFormatter::format();
-  if (v50 < 0)
+  if (v20 < 0)
   {
     operator delete(__p[0]);
   }
@@ -6144,7 +6080,6 @@ LABEL_8:
   }
 
 LABEL_45:
-  v11 = *(this + 30);
   PB::TextFormatter::format(a2, "categoryOptions");
   v5 = *(this + 2);
   if ((v5 & 0x80) == 0)
@@ -6159,7 +6094,6 @@ LABEL_9:
   }
 
 LABEL_46:
-  v12 = *(this + 68);
   PB::TextFormatter::format(a2, "routeSharingPolicy");
   v5 = *(this + 2);
   if ((v5 & 0x100) == 0)
@@ -6174,9 +6108,9 @@ LABEL_10:
   }
 
 LABEL_47:
-  caulk::xstring::as_std_string((this + 96), __p);
+  caulk::xstring::as_std_string(__p, (this + 96));
   PB::TextFormatter::format();
-  if (v50 < 0)
+  if (v20 < 0)
   {
     operator delete(__p[0]);
   }
@@ -6185,7 +6119,6 @@ LABEL_47:
   if ((v5 & 0x200) != 0)
   {
 LABEL_11:
-    v6 = *(this + 69);
     PB::TextFormatter::format(a2, "outputPortOverride");
     v5 = *(this + 2);
   }
@@ -6193,9 +6126,9 @@ LABEL_11:
 LABEL_12:
   if ((v5 & 0x400) != 0)
   {
-    caulk::xstring::as_std_string((this + 112), __p);
+    caulk::xstring::as_std_string(__p, (this + 112));
     PB::TextFormatter::format();
-    if (v50 < 0)
+    if (v20 < 0)
     {
       operator delete(__p[0]);
     }
@@ -6205,9 +6138,9 @@ LABEL_12:
 
   if ((v5 & 0x800) != 0)
   {
-    caulk::xstring::as_std_string((this + 128), __p);
+    caulk::xstring::as_std_string(__p, (this + 128));
     PB::TextFormatter::format();
-    if (v50 < 0)
+    if (v20 < 0)
     {
       operator delete(__p[0]);
     }
@@ -6217,9 +6150,9 @@ LABEL_12:
 
   if ((v5 & 0x1000) != 0)
   {
-    caulk::xstring::as_std_string((this + 144), __p);
+    caulk::xstring::as_std_string(__p, (this + 144));
     PB::TextFormatter::format();
-    if (v50 < 0)
+    if (v20 < 0)
     {
       operator delete(__p[0]);
     }
@@ -6229,7 +6162,6 @@ LABEL_12:
 
   if ((v5 & 0x2000) != 0)
   {
-    v13 = *(this + 300);
     PB::TextFormatter::format(a2, "allowHapticsAndSystemSoundsDuringRecording");
     v5 = *(this + 2);
     if ((v5 & 0x4000) == 0)
@@ -6249,7 +6181,6 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  v14 = *(this + 301);
   PB::TextFormatter::format(a2, "prefersNoInterruptionsFromSystemAlerts");
   v5 = *(this + 2);
   if ((v5 & 0x8000) == 0)
@@ -6264,7 +6195,6 @@ LABEL_27:
   }
 
 LABEL_53:
-  v15 = *(this + 302);
   PB::TextFormatter::format(a2, "microphoneFollowsCamera");
   v5 = *(this + 2);
   if ((v5 & 0x10000) == 0)
@@ -6279,7 +6209,6 @@ LABEL_28:
   }
 
 LABEL_54:
-  v16 = *(this + 70);
   PB::TextFormatter::format(a2, "aggregatedIOPreference");
   v5 = *(this + 2);
   if ((v5 & 0x20000) == 0)
@@ -6294,7 +6223,6 @@ LABEL_29:
   }
 
 LABEL_55:
-  v17 = *(this + 303);
   PB::TextFormatter::format(a2, "forceSoundCheck");
   v5 = *(this + 2);
   if ((v5 & 0x40000) == 0)
@@ -6309,7 +6237,6 @@ LABEL_30:
   }
 
 LABEL_56:
-  v18 = *(this + 304);
   PB::TextFormatter::format(a2, "usingLongFormAudio");
   v5 = *(this + 2);
   if ((v5 & 0x80000) == 0)
@@ -6324,7 +6251,6 @@ LABEL_31:
   }
 
 LABEL_57:
-  v19 = *(this + 305);
   PB::TextFormatter::format(a2, "allowAllBuiltInDataSources");
   v5 = *(this + 2);
   if ((v5 & 0x100000) == 0)
@@ -6339,7 +6265,6 @@ LABEL_32:
   }
 
 LABEL_58:
-  v20 = *(this + 306);
   PB::TextFormatter::format(a2, "fixHardwareFormatToMultiChannel");
   v5 = *(this + 2);
   if ((v5 & 0x200000) == 0)
@@ -6354,7 +6279,6 @@ LABEL_33:
   }
 
 LABEL_59:
-  v21 = *(this + 307);
   PB::TextFormatter::format(a2, "iAmTheAssistant");
   if ((*(this + 2) & 0x400000) == 0)
   {
@@ -6362,42 +6286,41 @@ LABEL_59:
   }
 
 LABEL_60:
-  caulk::xstring::as_std_string((this + 160), __p);
+  caulk::xstring::as_std_string(__p, (this + 160));
   PB::TextFormatter::format();
-  if (v50 < 0)
+  if (v20 < 0)
   {
     operator delete(__p[0]);
   }
 
 LABEL_62:
-  v22 = *(this + 26);
-  if (v22)
+  v6 = *(this + 26);
+  if (v6)
   {
-    (*(*v22 + 32))(v22, a2, "activationContext");
+    (*(*v6 + 32))(v6, a2, "activationContext");
   }
 
-  v23 = *(this + 2);
-  if ((v23 & 0x800000) != 0)
+  v7 = *(this + 2);
+  if ((v7 & 0x800000) != 0)
   {
-    caulk::xstring::as_std_string((this + 176), __p);
+    caulk::xstring::as_std_string(__p, (this + 176));
     PB::TextFormatter::format();
-    if (v50 < 0)
+    if (v20 < 0)
     {
       operator delete(__p[0]);
     }
 
-    v23 = *(this + 2);
+    v7 = *(this + 2);
   }
 
-  if ((v23 & 0x1000000) != 0)
+  if ((v7 & 0x1000000) != 0)
   {
-    v38 = *(this + 71);
     PB::TextFormatter::format(a2, "interruptionPriority");
-    v23 = *(this + 2);
-    if ((v23 & 0x2000000) == 0)
+    v7 = *(this + 2);
+    if ((v7 & 0x2000000) == 0)
     {
 LABEL_70:
-      if ((v23 & 0x4000000) == 0)
+      if ((v7 & 0x4000000) == 0)
       {
         goto LABEL_71;
       }
@@ -6406,18 +6329,17 @@ LABEL_70:
     }
   }
 
-  else if ((v23 & 0x2000000) == 0)
+  else if ((v7 & 0x2000000) == 0)
   {
     goto LABEL_70;
   }
 
-  v39 = *(this + 308);
   PB::TextFormatter::format(a2, "bypassRingerSwitchPolicy");
-  v23 = *(this + 2);
-  if ((v23 & 0x4000000) == 0)
+  v7 = *(this + 2);
+  if ((v7 & 0x4000000) == 0)
   {
 LABEL_71:
-    if ((v23 & 0x8000000) == 0)
+    if ((v7 & 0x8000000) == 0)
     {
       goto LABEL_72;
     }
@@ -6426,13 +6348,12 @@ LABEL_71:
   }
 
 LABEL_100:
-  v40 = *(this + 31);
   PB::TextFormatter::format(a2, "hardwareControlFlags");
-  v23 = *(this + 2);
-  if ((v23 & 0x8000000) == 0)
+  v7 = *(this + 2);
+  if ((v7 & 0x8000000) == 0)
   {
 LABEL_72:
-    if ((v23 & 0x10000000) == 0)
+    if ((v7 & 0x10000000) == 0)
     {
       goto LABEL_74;
     }
@@ -6441,32 +6362,29 @@ LABEL_72:
   }
 
 LABEL_101:
-  v41 = *(this + 72);
   PB::TextFormatter::format(a2, "reporterID");
   if ((*(this + 2) & 0x10000000) != 0)
   {
 LABEL_73:
-    v24 = *(this + 309);
     PB::TextFormatter::format(a2, "selectIndependentRoutingContext");
   }
 
 LABEL_74:
-  v25 = *(this + 27);
-  if (v25)
+  v8 = *(this + 27);
+  if (v8)
   {
-    (*(*v25 + 32))(v25, a2, "turnByTurnPref");
+    (*(*v8 + 32))(v8, a2, "turnByTurnPref");
   }
 
-  v26 = *(this + 2);
-  if ((v26 & 0x20000000) == 0)
+  v9 = *(this + 2);
+  if ((v9 & 0x20000000) == 0)
   {
-    if ((v26 & 0x40000000) == 0)
+    if ((v9 & 0x40000000) == 0)
     {
       goto LABEL_78;
     }
 
 LABEL_104:
-    v43 = *(this + 311);
     PB::TextFormatter::format(a2, "requiresNoAudioResources");
     if ((*(this + 2) & 0x80000000) == 0)
     {
@@ -6476,16 +6394,15 @@ LABEL_104:
     goto LABEL_105;
   }
 
-  v42 = *(this + 310);
   PB::TextFormatter::format(a2, "voiceProcessingRoutingEnabled");
-  v26 = *(this + 2);
-  if ((v26 & 0x40000000) != 0)
+  v9 = *(this + 2);
+  if ((v9 & 0x40000000) != 0)
   {
     goto LABEL_104;
   }
 
 LABEL_78:
-  if ((v26 & 0x80000000) == 0)
+  if ((v9 & 0x80000000) == 0)
   {
     goto LABEL_79;
   }
@@ -6493,16 +6410,15 @@ LABEL_78:
 LABEL_105:
   PB::TextFormatter::format(a2, "interruptionFadeDuration", *(this + 58));
 LABEL_79:
-  v27 = *(this + 3);
-  if (v27)
+  v10 = *(this + 3);
+  if (v10)
   {
-    v44 = *(this + 312);
     PB::TextFormatter::format(a2, "allowMixableAudioWhileRecording");
-    v27 = *(this + 3);
-    if ((v27 & 2) == 0)
+    v10 = *(this + 3);
+    if ((v10 & 2) == 0)
     {
 LABEL_81:
-      if ((v27 & 4) == 0)
+      if ((v10 & 4) == 0)
       {
         goto LABEL_83;
       }
@@ -6511,59 +6427,56 @@ LABEL_81:
     }
   }
 
-  else if ((v27 & 2) == 0)
+  else if ((v10 & 2) == 0)
   {
     goto LABEL_81;
   }
 
-  v45 = *(this + 313);
   PB::TextFormatter::format(a2, "recordingFromRemoteInput");
   if ((*(this + 3) & 4) != 0)
   {
 LABEL_82:
-    v28 = *(this + 314);
     PB::TextFormatter::format(a2, "prefersNoDucking");
   }
 
 LABEL_83:
-  v29 = *(this + 2);
-  v30 = *(this + 3);
-  while (v29 != v30)
+  v11 = *(this + 2);
+  v12 = *(this + 3);
+  while (v11 != v12)
   {
-    v31 = *v29++;
-    (*(*v31 + 32))(v31, a2, "portPrefs");
+    v13 = *v11++;
+    (*(*v13 + 32))(v13, a2, "portPrefs");
   }
 
-  v32 = *(this + 5);
-  v33 = *(this + 6);
-  while (v32 != v33)
+  v14 = *(this + 5);
+  v15 = *(this + 6);
+  while (v14 != v15)
   {
-    v34 = *v32++;
-    (*(*v34 + 32))(v34, a2, "ioControllerPrefs");
+    v16 = *v14++;
+    (*(*v16 + 32))(v16, a2, "ioControllerPrefs");
   }
 
-  v35 = *(this + 3);
-  if ((v35 & 8) != 0)
+  v17 = *(this + 3);
+  if ((v17 & 8) != 0)
   {
-    caulk::xstring::as_std_string((this + 192), __p);
+    caulk::xstring::as_std_string(__p, (this + 192));
     PB::TextFormatter::format();
-    if (v50 < 0)
+    if (v20 < 0)
     {
       operator delete(__p[0]);
     }
 
-    v35 = *(this + 3);
+    v17 = *(this + 3);
   }
 
-  if ((v35 & 0x10) != 0)
+  if ((v17 & 0x10) != 0)
   {
-    v46 = *(this + 315);
     PB::TextFormatter::format(a2, "wantsBackgroundAudio");
-    v35 = *(this + 3);
-    if ((v35 & 0x20) == 0)
+    v17 = *(this + 3);
+    if ((v17 & 0x20) == 0)
     {
 LABEL_93:
-      if ((v35 & 0x40) == 0)
+      if ((v17 & 0x40) == 0)
       {
         goto LABEL_94;
       }
@@ -6572,24 +6485,22 @@ LABEL_93:
     }
   }
 
-  else if ((v35 & 0x20) == 0)
+  else if ((v17 & 0x20) == 0)
   {
     goto LABEL_93;
   }
 
-  v47 = *(this + 316);
   PB::TextFormatter::format(a2, "wantsMicrophonePermission");
-  v35 = *(this + 3);
-  if ((v35 & 0x40) == 0)
+  v17 = *(this + 3);
+  if ((v17 & 0x40) == 0)
   {
 LABEL_94:
-    if ((v35 & 0x80) == 0)
+    if ((v17 & 0x80) == 0)
     {
       goto LABEL_95;
     }
 
 LABEL_112:
-    v48 = *(this + 73);
     PB::TextFormatter::format(a2, "preferredInputNumberOfChannels");
     if ((*(this + 3) & 0x100) == 0)
     {
@@ -6601,17 +6512,16 @@ LABEL_112:
 
 LABEL_111:
   PB::TextFormatter::format(a2, "preferredSampleRate", *(this + 28));
-  v35 = *(this + 3);
-  if ((v35 & 0x80) != 0)
+  v17 = *(this + 3);
+  if ((v17 & 0x80) != 0)
   {
     goto LABEL_112;
   }
 
 LABEL_95:
-  if ((v35 & 0x100) != 0)
+  if ((v17 & 0x100) != 0)
   {
 LABEL_96:
-    v36 = *(this + 74);
     PB::TextFormatter::format(a2, "preferredOutputNumberOfChannels");
   }
 
@@ -7287,9 +7197,9 @@ void avas::client::PortPrefs::writeTo(avas::client::PortPrefs *this, PB::Writer 
   v4 = *(this + 2);
   if (v4)
   {
-    caulk::xstring::as_std_string((this + 40), &__p);
+    caulk::xstring::as_std_string(&__p, (this + 40));
     PB::Writer::write();
-    if (v10 < 0)
+    if (v9 < 0)
     {
       operator delete(__p);
     }
@@ -7299,16 +7209,15 @@ void avas::client::PortPrefs::writeTo(avas::client::PortPrefs *this, PB::Writer 
 
   if ((v4 & 2) != 0)
   {
-    v5 = *(this + 14);
     PB::Writer::writeVarInt(a2);
   }
 
-  v7 = *(this + 2);
-  v6 = *(this + 3);
-  while (v7 != v6)
+  v6 = *(this + 2);
+  v5 = *(this + 3);
+  while (v6 != v5)
   {
-    v8 = *v7++;
-    PB::Writer::writeSubmessage(a2, v8);
+    v7 = *v6++;
+    PB::Writer::writeSubmessage(a2, v7);
   }
 }
 
@@ -7328,9 +7237,9 @@ uint64_t avas::client::PortPrefs::formatText(avas::client::PortPrefs *this, PB::
   v5 = *(this + 2);
   if (v5)
   {
-    caulk::xstring::as_std_string((this + 40), &__p);
+    caulk::xstring::as_std_string(&__p, (this + 40));
     PB::TextFormatter::format();
-    if (v12 < 0)
+    if (v11 < 0)
     {
       operator delete(__p);
     }
@@ -7340,16 +7249,15 @@ uint64_t avas::client::PortPrefs::formatText(avas::client::PortPrefs *this, PB::
 
   if ((v5 & 2) != 0)
   {
-    v6 = *(this + 14);
     PB::TextFormatter::format(a2, "dataSourceID");
   }
 
-  v7 = *(this + 2);
-  v8 = *(this + 3);
-  while (v7 != v8)
+  v6 = *(this + 2);
+  v7 = *(this + 3);
+  while (v6 != v7)
   {
-    v9 = *v7++;
-    (*(*v9 + 32))(v9, a2, "polarPatterns");
+    v8 = *v6++;
+    (*(*v8 + 32))(v8, a2, "polarPatterns");
   }
 
   return PB::TextFormatter::endObject(a2);
@@ -7841,14 +7749,12 @@ uint64_t avas::client::PolarPatternPref::writeTo(uint64_t this, PB::Writer *a2)
   v4 = *(this + 8);
   if (v4)
   {
-    v5 = *(this + 12);
     this = PB::Writer::writeVarInt(a2);
     v4 = *(v3 + 8);
   }
 
   if ((v4 & 2) != 0)
   {
-    v6 = *(v3 + 16);
 
     return PB::Writer::writeVarInt(a2);
   }
@@ -7862,14 +7768,12 @@ uint64_t avas::client::PolarPatternPref::formatText(avas::client::PolarPatternPr
   v5 = *(this + 2);
   if (v5)
   {
-    v6 = *(this + 3);
     PB::TextFormatter::format(a2, "dataSourceID");
     v5 = *(this + 2);
   }
 
   if ((v5 & 2) != 0)
   {
-    v7 = *(this + 4);
     PB::TextFormatter::format(a2, "polarPattern");
   }
 
@@ -7935,7 +7839,7 @@ __n128 avas::client::IOControllerPrefs::copy_from(__n128 *this, __n128 *a2)
   return result;
 }
 
-avas::client::StreamPrefs *avas::client::StreamPrefs::StreamPrefs(avas::client::StreamPrefs *this, caulk::xstring **a2)
+avas::client::StreamPrefs *avas::client::StreamPrefs::StreamPrefs(avas::client::StreamPrefs *this, const avas::client::StreamPrefs *a2)
 {
   *this = &unk_1F5998F00;
   *(this + 1) = 0u;
@@ -8444,7 +8348,6 @@ void avas::client::IOControllerPrefs::writeTo(avas::client::IOControllerPrefs *t
   v4 = *(this + 2);
   if (v4)
   {
-    v5 = *(this + 25);
     PB::Writer::writeVarInt(a2);
     v4 = *(this + 2);
     if ((v4 & 2) == 0)
@@ -8464,7 +8367,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v6 = *(this + 27);
   PB::Writer::writeVarInt(a2);
   v4 = *(this + 2);
   if ((v4 & 4) == 0)
@@ -8479,7 +8381,6 @@ LABEL_4:
   }
 
 LABEL_11:
-  v7 = *(this + 26);
   PB::Writer::writeVarInt(a2);
   v4 = *(this + 2);
   if ((v4 & 8) == 0)
@@ -8529,28 +8430,28 @@ LABEL_7:
   }
 
 LABEL_15:
-  caulk::xstring::as_std_string((this + 64), &__p);
+  caulk::xstring::as_std_string(&__p, (this + 64));
   PB::Writer::write();
-  if (v15 < 0)
+  if (v12 < 0)
   {
     operator delete(__p);
   }
 
 LABEL_17:
-  v8 = *(this + 2);
-  v9 = *(this + 3);
-  while (v8 != v9)
+  v5 = *(this + 2);
+  v6 = *(this + 3);
+  while (v5 != v6)
   {
-    v10 = *v8++;
-    PB::Writer::writeSubmessage(a2, v10);
+    v7 = *v5++;
+    PB::Writer::writeSubmessage(a2, v7);
   }
 
-  v12 = *(this + 5);
-  v11 = *(this + 6);
-  while (v12 != v11)
+  v9 = *(this + 5);
+  v8 = *(this + 6);
+  while (v9 != v8)
   {
-    v13 = *v12++;
-    PB::Writer::writeSubmessage(a2, v13);
+    v10 = *v9++;
+    PB::Writer::writeSubmessage(a2, v10);
   }
 }
 
@@ -8570,7 +8471,6 @@ uint64_t avas::client::IOControllerPrefs::formatText(avas::client::IOControllerP
   v5 = *(this + 2);
   if (v5)
   {
-    v6 = *(this + 25);
     PB::TextFormatter::format(a2, "sessionToken");
     v5 = *(this + 2);
     if ((v5 & 2) == 0)
@@ -8590,7 +8490,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v7 = *(this + 27);
   PB::TextFormatter::format(a2, "controllerType");
   v5 = *(this + 2);
   if ((v5 & 4) == 0)
@@ -8605,7 +8504,6 @@ LABEL_4:
   }
 
 LABEL_11:
-  v8 = *(this + 26);
   PB::TextFormatter::format(a2, "IOBufferFrameSize");
   v5 = *(this + 2);
   if ((v5 & 8) == 0)
@@ -8655,28 +8553,28 @@ LABEL_14:
   }
 
 LABEL_15:
-  caulk::xstring::as_std_string((this + 64), &__p);
+  caulk::xstring::as_std_string(&__p, (this + 64));
   PB::TextFormatter::format();
-  if (v17 < 0)
+  if (v14 < 0)
   {
     operator delete(__p);
   }
 
 LABEL_17:
-  v9 = *(this + 2);
-  v10 = *(this + 3);
+  v6 = *(this + 2);
+  v7 = *(this + 3);
+  while (v6 != v7)
+  {
+    v8 = *v6++;
+    (*(*v8 + 32))(v8, a2, "inputStreamPrefs");
+  }
+
+  v9 = *(this + 5);
+  v10 = *(this + 6);
   while (v9 != v10)
   {
     v11 = *v9++;
-    (*(*v11 + 32))(v11, a2, "inputStreamPrefs");
-  }
-
-  v12 = *(this + 5);
-  v13 = *(this + 6);
-  while (v12 != v13)
-  {
-    v14 = *v12++;
-    (*(*v14 + 32))(v14, a2, "outputStreamPrefs");
+    (*(*v11 + 32))(v11, a2, "outputStreamPrefs");
   }
 
   return PB::TextFormatter::endObject(a2);
@@ -8979,9 +8877,9 @@ double avas::client::StreamPrefs::StreamPrefs(avas::client::StreamPrefs *this)
   return result;
 }
 
-__n128 avas::client::StreamPrefs::copy_from(caulk::xstring **this, caulk::xstring **a2)
+__n128 avas::client::StreamPrefs::copy_from(avas::client::StreamPrefs *this, const avas::client::StreamPrefs *a2)
 {
-  v4 = a2[5];
+  v4 = *(a2 + 5);
   if (v4)
   {
     v5 = avas::client::StreamPrefs::mutableStreamFormat(this);
@@ -8990,7 +8888,7 @@ __n128 avas::client::StreamPrefs::copy_from(caulk::xstring **this, caulk::xstrin
 
   if (this != a2)
   {
-    std::vector<caulk::xstring>::__assign_with_size[abi:ne200100]<caulk::xstring*,caulk::xstring*>(this + 2, a2[2], a2[3], (a2[3] - a2[2]) >> 4);
+    std::vector<caulk::xstring>::__assign_with_size[abi:ne200100]<caulk::xstring*,caulk::xstring*>(this + 16, *(a2 + 2), *(a2 + 3), (*(a2 + 3) - *(a2 + 2)) >> 4);
   }
 
   *(this + 2) = *(a2 + 2);
@@ -9011,7 +8909,7 @@ uint64_t avas::client::StreamPrefs::streamFormat(avas::client::StreamPrefs *this
   return result;
 }
 
-uint64_t avas::client::StreamPrefs::mutableStreamFormat(avas::client::StreamPrefs *this)
+avas::StreamFormat *avas::client::StreamPrefs::mutableStreamFormat(avas::client::StreamPrefs *this)
 {
   if (!*(this + 5))
   {
@@ -9527,48 +9425,45 @@ void avas::client::StreamPrefs::writeTo(avas::client::StreamPrefs *this, PB::Wri
   v4 = *(this + 2);
   if (v4)
   {
-    v5 = *(this + 14);
     PB::Writer::writeVarInt(a2);
     v4 = *(this + 2);
   }
 
   if ((v4 & 2) != 0)
   {
-    v6 = *(this + 15);
     PB::Writer::writeVarInt(a2);
   }
 
-  v7 = *(this + 5);
-  if (v7)
+  v5 = *(this + 5);
+  if (v5)
   {
-    PB::Writer::writeSubmessage(a2, v7);
+    PB::Writer::writeSubmessage(a2, v5);
+  }
+
+  v6 = *(this + 2);
+  if ((v6 & 4) != 0)
+  {
+    PB::Writer::write(a2, *(this + 6));
+    v6 = *(this + 2);
+  }
+
+  if ((v6 & 8) != 0)
+  {
+    PB::Writer::writeVarInt(a2);
   }
 
   v8 = *(this + 2);
-  if ((v8 & 4) != 0)
+  v7 = *(this + 3);
+  while (v8 != v7)
   {
-    PB::Writer::write(a2, *(this + 6));
-    v8 = *(this + 2);
-  }
-
-  if ((v8 & 8) != 0)
-  {
-    v9 = *(this + 16);
-    PB::Writer::writeVarInt(a2);
-  }
-
-  v11 = *(this + 2);
-  v10 = *(this + 3);
-  while (v11 != v10)
-  {
-    caulk::xstring::as_std_string(v11, &__p);
+    caulk::xstring::as_std_string(&__p, v8);
     PB::Writer::write();
-    if (v13 < 0)
+    if (v10 < 0)
     {
       operator delete(__p);
     }
 
-    v11 = (v11 + 16);
+    v8 = (v8 + 16);
   }
 }
 
@@ -9588,42 +9483,39 @@ uint64_t avas::client::StreamPrefs::formatText(avas::client::StreamPrefs *this, 
   v5 = *(this + 2);
   if (v5)
   {
-    v6 = *(this + 14);
     PB::TextFormatter::format(a2, "streamToken");
     v5 = *(this + 2);
   }
 
   if ((v5 & 2) != 0)
   {
-    v7 = *(this + 15);
     PB::TextFormatter::format(a2, "DSPFlavor");
   }
 
-  v8 = *(this + 5);
-  if (v8)
+  v6 = *(this + 5);
+  if (v6)
   {
-    (*(*v8 + 32))(v8, a2, "streamFormat");
+    (*(*v6 + 32))(v6, a2, "streamFormat");
   }
 
-  v9 = *(this + 2);
-  if ((v9 & 4) != 0)
+  v7 = *(this + 2);
+  if ((v7 & 4) != 0)
   {
     PB::TextFormatter::format(a2, "scalarVolume", *(this + 6));
-    v9 = *(this + 2);
+    v7 = *(this + 2);
   }
 
-  if ((v9 & 8) != 0)
+  if ((v7 & 8) != 0)
   {
-    v10 = *(this + 16);
     PB::TextFormatter::format(a2, "muteState");
   }
 
-  v11 = *(this + 2);
-  for (i = *(this + 3); v11 != i; v11 = (v11 + 16))
+  v8 = *(this + 2);
+  for (i = *(this + 3); v8 != i; v8 = (v8 + 16))
   {
-    caulk::xstring::as_std_string(v11, &__p);
+    caulk::xstring::as_std_string(&__p, v8);
     PB::TextFormatter::format();
-    if (v15 < 0)
+    if (v12 < 0)
     {
       operator delete(__p);
     }
@@ -9909,4 +9801,14 @@ LABEL_21:
   }
 
   return (v4 & 1) == 0;
+}
+
+void sub_1DE8A6E8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
 }

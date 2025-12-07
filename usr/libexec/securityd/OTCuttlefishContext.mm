@@ -47,6 +47,7 @@
 - (int64_t)getCDPStatus:(id *)status;
 - (void)accountStateUpdated:(id)updated from:(id)from;
 - (void)areRecoveryKeysDistrusted:(id)distrusted;
+- (void)checkEscrowCheck:(BOOL)check reply:(id)reply;
 - (void)checkOctagonHealth:(BOOL)health repair:(BOOL)repair danglingPeerCleanup:(BOOL)cleanup caesarPeerCleanup:(BOOL)peerCleanup updateIdMS:(BOOL)s reply:(id)reply;
 - (void)checkTrustStatusAndPostRepairCFUIfNecessary:(id)necessary;
 - (void)clearContextState;
@@ -78,6 +79,7 @@
 - (void)preflightRecoverOctagonUsingRecoveryKey:(id)key reply:(id)reply;
 - (void)requestTrustedDeviceListRefresh;
 - (void)rerollWithReply:(id)reply;
+- (void)rpcAccountWideSettingsWithForceFetch:(BOOL)fetch reply:(id)reply;
 - (void)rpcCheckCustodianRecoveryKeyWithUUID:(id)d reply:(id)reply;
 - (void)rpcCheckInheritanceKeyWithUUID:(id)d reply:(id)reply;
 - (void)rpcCreateCustodianRecoveryKeyWithUUID:(id)d reply:(id)reply;
@@ -107,6 +109,7 @@
 - (void)rpcRemoveLocalSecureElementIdentityPeerID:(id)d reply:(id)reply;
 - (void)rpcRemoveRecoveryKey:(id)key;
 - (void)rpcReset:(int64_t)reset isGuitarfish:(BOOL)guitarfish reply:(id)reply;
+- (void)rpcResetAccountCDPContentsWithIdmsTargetContext:(id)context idmsCuttlefishPassword:(id)password notifyIdMS:(BOOL)s reply:(id)reply;
 - (void)rpcResetAndEstablish:(int64_t)establish idmsTargetContext:(id)context idmsCuttlefishPassword:(id)password notifyIdMS:(BOOL)s accountSettings:(id)settings isGuitarfish:(BOOL)guitarfish accountIsW:(BOOL)w reply:(id)self0;
 - (void)rpcSetAccountSetting:(id)setting reply:(id)reply;
 - (void)rpcSetLocalSecureElementIdentity:(id)identity reply:(id)reply;
@@ -248,6 +251,77 @@
   else
   {
     (replyCopy)[2](replyCopy, v6, 0);
+  }
+}
+
+- (void)rpcResetAccountCDPContentsWithIdmsTargetContext:(id)context idmsCuttlefishPassword:(id)password notifyIdMS:(BOOL)s reply:(id)reply
+{
+  sCopy = s;
+  contextCopy = context;
+  passwordCopy = password;
+  replyCopy = reply;
+  v13 = [(OTCuttlefishContext *)self errorIfNoCKAccount:0];
+  if (v13)
+  {
+    v14 = sub_100006274("octagon");
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v30 = v13;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "No cloudkit account present: %@", buf, 0xCu);
+    }
+
+    replyCopy[2](replyCopy, v13);
+  }
+
+  else
+  {
+    activeAccount = [(OTCuttlefishContext *)self activeAccount];
+    altDSID = [activeAccount altDSID];
+
+    if (altDSID)
+    {
+      authKitAdapter = [(OTCuttlefishContext *)self authKitAdapter];
+      v28 = 0;
+      v25 = [authKitAdapter accountIsDemoAccountByAltDSID:altDSID error:&v28];
+      v18 = v28;
+
+      if (v18)
+      {
+        v19 = sub_100006274("SecError");
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          v30 = v18;
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "octagon-authkit: failed to fetch demo account flag: %@", buf, 0xCu);
+        }
+      }
+
+      IsInternalRelease = SecIsInternalRelease();
+      cuttlefishXPCWrapper = [(OTCuttlefishContext *)self cuttlefishXPCWrapper];
+      activeAccount2 = [(OTCuttlefishContext *)self activeAccount];
+      v26[0] = _NSConcreteStackBlock;
+      v26[1] = 3221225472;
+      v26[2] = sub_1001262F4;
+      v26[3] = &unk_100337928;
+      v27 = replyCopy;
+      [cuttlefishXPCWrapper resetAccountCDPContentsWithSpecificUser:activeAccount2 idmsTargetContext:contextCopy idmsCuttlefishPassword:passwordCopy notifyIdMS:sCopy internalAccount:IsInternalRelease demoAccount:v25 reply:v26];
+    }
+
+    else
+    {
+      v23 = sub_100006274("authkit");
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      {
+        activeAccount3 = [(OTCuttlefishContext *)self activeAccount];
+        *buf = 138412290;
+        v30 = activeAccount3;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "No configured altDSID: %@", buf, 0xCu);
+      }
+
+      v18 = [NSError errorWithDomain:@"com.apple.security.octagon" code:59 description:@"No altDSID configured"];
+      replyCopy[2](replyCopy, v18);
+    }
   }
 }
 
@@ -590,6 +664,31 @@ LABEL_27:
 
   upgradeCopy[2](upgradeCopy, 0);
 LABEL_28:
+}
+
+- (void)checkEscrowCheck:(BOOL)check reply:(id)reply
+{
+  checkCopy = check;
+  replyCopy = reply;
+  v7 = sub_100006274("octagon-escrow-check");
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Beginning checking escrow check", buf, 2u);
+  }
+
+  v8 = [OTCheckEscrowOperation alloc];
+  operationDependencies = [(OTCuttlefishContext *)self operationDependencies];
+  followupHandler = [(OTCuttlefishContext *)self followupHandler];
+  v11 = [(OTCheckEscrowOperation *)v8 initWithDependencies:operationDependencies followupHandler:followupHandler isBackgroundCheck:checkCopy];
+
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_1001275B4;
+  v13[3] = &unk_100337E70;
+  v14 = replyCopy;
+  v12 = replyCopy;
+  [(OTCheckEscrowOperation *)v11 performEscrowCheck:v13];
 }
 
 - (void)checkOctagonHealth:(BOOL)health repair:(BOOL)repair danglingPeerCleanup:(BOOL)cleanup caesarPeerCleanup:(BOOL)peerCleanup updateIdMS:(BOOL)s reply:(id)reply
@@ -1266,6 +1365,55 @@ LABEL_12:
       v17 = [NSError errorWithDomain:@"com.apple.security.octagon" code:76 description:@"Octagon has not reached a ready state yet"];
       recoveryCopy[2](recoveryCopy, v17);
     }
+  }
+}
+
+- (void)rpcAccountWideSettingsWithForceFetch:(BOOL)fetch reply:(id)reply
+{
+  fetchCopy = fetch;
+  replyCopy = reply;
+  v7 = [(OTCuttlefishContext *)self errorIfNoCKAccount:0];
+  if (v7)
+  {
+    v8 = sub_100006274("octagon");
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v23 = v7;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "No cloudkit account present: %@", buf, 0xCu);
+    }
+
+    replyCopy[2](replyCopy, 0, v7);
+  }
+
+  else
+  {
+    sessionMetrics = [(OTCuttlefishContext *)self sessionMetrics];
+    flowID = [sessionMetrics flowID];
+
+    sessionMetrics2 = [(OTCuttlefishContext *)self sessionMetrics];
+    deviceSessionID = [sessionMetrics2 deviceSessionID];
+
+    v11 = sub_100006274("octagon-settings");
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 67109120;
+      LODWORD(v23) = fetchCopy;
+      _os_log_debug_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "Fetching account-wide settings with force: %{BOOL}d", buf, 8u);
+    }
+
+    cuttlefishXPCWrapper = [(OTCuttlefishContext *)self cuttlefishXPCWrapper];
+    activeAccount = [(OTCuttlefishContext *)self activeAccount];
+    containerName = [(OTCuttlefishContext *)self containerName];
+    contextID = [(OTCuttlefishContext *)self contextID];
+    v16 = [(OTCuttlefishContext *)self shouldSendMetricsForOctagon]!= 0;
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_10012A4B8;
+    v20[3] = &unk_100337D38;
+    v21 = replyCopy;
+    LOBYTE(v17) = v16;
+    [OTStashAccountSettingsOperation performWithAccountWide:1 forceFetch:fetchCopy cuttlefishXPCWrapper:cuttlefishXPCWrapper activeAccount:activeAccount containerName:containerName contextID:contextID flowID:flowID deviceSessionID:deviceSessionID canSendMetrics:v17 reply:v20];
   }
 }
 
@@ -4337,31 +4485,8 @@ LABEL_29:
   v10 = [(OTCuttlefishContext *)self extractStringKey:@"n" fromDictionary:requestCopy];
   v29 = [(OTCuttlefishContext *)self extractStringKey:@"v" fromDictionary:requestCopy];
   v28 = [(OTCuttlefishContext *)self extractStringKey:@"I" fromDictionary:requestCopy];
-  if (!v5)
+  if (!v5 || (-[OTCuttlefishContext deviceAdapter](self, "deviceAdapter"), v11 = objc_claimAutoreleasedReturnValue(), [v11 serialNumber], v27 = requestCopy, v12 = v10, v13 = v9, v14 = v8, v15 = v7, v16 = v6, v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "isEqualToString:", v5), v17, v6 = v16, v7 = v15, v8 = v14, v9 = v13, v10 = v12, requestCopy = v27, v11, (v18 & 1) != 0))
   {
-    goto LABEL_3;
-  }
-
-  deviceAdapter = [(OTCuttlefishContext *)self deviceAdapter];
-  [deviceAdapter serialNumber];
-  v27 = requestCopy;
-  v12 = v10;
-  v13 = v9;
-  v14 = v8;
-  v15 = v7;
-  v17 = v16 = v6;
-  v18 = [v17 isEqualToString:v5];
-
-  v6 = v16;
-  v7 = v15;
-  v8 = v14;
-  v9 = v13;
-  v10 = v12;
-  requestCopy = v27;
-
-  if (v18)
-  {
-LABEL_3:
     if (v6)
     {
       accountStateTracker = [(OTCuttlefishContext *)self accountStateTracker];
@@ -4869,7 +4994,7 @@ LABEL_7:
       }
 
       *buf = 138412290;
-      v250 = v25;
+      v249 = v25;
       _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Waiting for a CloudKit account; current state is %@", buf, 0xCu);
     }
 
@@ -4955,8 +5080,8 @@ LABEL_40:
     v38 = [OTUpdateTPHOperation alloc];
     operationDependencies = [(OTCuttlefishContext *)self operationDependencies];
     prepareInformation = [(OTCuttlefishContext *)self prepareInformation];
-    LOBYTE(v241) = 0;
-    v40 = [(OTUpdateTPHOperation *)v38 initWithDependencies:operationDependencies deviceInfo:prepareInformation intendedState:@"DetermineCDPState" peerUnknownState:0 determineCDPState:@"DetermineCDPState" errorState:@"DetermineCDPState" forceRefetch:v241 retryFlag:@"recd_push"];
+    LOBYTE(v240) = 0;
+    v40 = [(OTUpdateTPHOperation *)v38 initWithDependencies:operationDependencies deviceInfo:prepareInformation intendedState:@"DetermineCDPState" peerUnknownState:0 determineCDPState:@"DetermineCDPState" errorState:@"DetermineCDPState" forceRefetch:v240 retryFlag:@"recd_push"];
 LABEL_48:
     v15 = v40;
 
@@ -5236,8 +5361,8 @@ LABEL_104:
     v64 = [OTUpdateTPHOperation alloc];
     operationDependencies2 = [(OTCuttlefishContext *)self operationDependencies];
     prepareInformation2 = [(OTCuttlefishContext *)self prepareInformation];
-    LOBYTE(v241) = 0;
-    v15 = [(OTUpdateTPHOperation *)v64 initWithDependencies:operationDependencies2 deviceInfo:prepareInformation2 intendedState:@"Untrusted" peerUnknownState:@"PeerMissingFromServer" determineCDPState:0 errorState:@"Untrusted" forceRefetch:v241 retryFlag:@"recd_push"];
+    LOBYTE(v240) = 0;
+    v15 = [(OTUpdateTPHOperation *)v64 initWithDependencies:operationDependencies2 deviceInfo:prepareInformation2 intendedState:@"Untrusted" peerUnknownState:@"PeerMissingFromServer" determineCDPState:0 errorState:@"Untrusted" forceRefetch:v240 retryFlag:@"recd_push"];
 
     goto LABEL_8;
   }
@@ -5267,14 +5392,14 @@ LABEL_104:
       _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEFAULT, "Resetting cuttlefish", buf, 2u);
     }
 
-    v245 = [OTResetOperation alloc];
+    v244 = [OTResetOperation alloc];
     containerName = [(OTCuttlefishContext *)self containerName];
     contextID = [(OTCuttlefishContext *)self contextID];
     resetReason = self->_resetReason;
     accountType = self->_accountType;
     operationDependencies4 = [(OTCuttlefishContext *)self operationDependencies];
     cuttlefishXPCWrapper = [(OTCuttlefishContext *)self cuttlefishXPCWrapper];
-    v15 = [(OTResetOperation *)v245 init:containerName contextID:contextID reason:resetReason idmsTargetContext:0 idmsCuttlefishPassword:0 notifyIdMS:0 accountType:accountType intendedState:@"LocalReset" dependencies:operationDependencies4 errorState:@"Error" cuttlefishXPCWrapper:cuttlefishXPCWrapper];
+    v15 = [(OTResetOperation *)v244 init:containerName contextID:contextID reason:resetReason idmsTargetContext:0 idmsCuttlefishPassword:0 notifyIdMS:0 accountType:accountType intendedState:@"LocalReset" dependencies:operationDependencies4 errorState:@"Error" cuttlefishXPCWrapper:cuttlefishXPCWrapper];
 
     goto LABEL_8;
   }
@@ -5496,8 +5621,8 @@ LABEL_104:
     {
       v135 = [OTVouchWithBottleOperation alloc];
       operationDependencies19 = [(OTCuttlefishContext *)self operationDependencies];
-      LOBYTE(v241) = 1;
-      v15 = [(OTVouchWithBottleOperation *)v135 initWithDependencies:operationDependencies19 intendedState:@"InitiatorSetCDPBit" errorState:@"BecomeUntrusted" bottleID:self->_bottleID entropy:self->_entropy bottleSalt:self->_bottleSalt saveVoucher:v241];
+      LOBYTE(v240) = 1;
+      v15 = [(OTVouchWithBottleOperation *)v135 initWithDependencies:operationDependencies19 intendedState:@"InitiatorSetCDPBit" errorState:@"BecomeUntrusted" bottleID:self->_bottleID entropy:self->_entropy bottleSalt:self->_bottleSalt saveVoucher:v240];
 
       goto LABEL_8;
     }
@@ -5529,8 +5654,8 @@ LABEL_104:
       inheritanceKey = [(OTCuttlefishContext *)self inheritanceKey];
       prepareInformation8 = [(OTCuttlefishContext *)self prepareInformation];
       policyOverride6 = [(OTCuttlefishContext *)self policyOverride];
-      LOBYTE(v241) = 1;
-      v15 = [(OTPrepareAndRecoverTLKSharesForInheritancePeerOperation *)v143 initWithDependencies:operationDependencies22 intendedState:@"BecomeInherited" errorState:@"Error" ik:inheritanceKey deviceInfo:prepareInformation8 policyOverride:policyOverride6 isInheritedAccount:v241 epoch:1];
+      LOBYTE(v240) = 1;
+      v15 = [(OTPrepareAndRecoverTLKSharesForInheritancePeerOperation *)v143 initWithDependencies:operationDependencies22 intendedState:@"BecomeInherited" errorState:@"Error" ik:inheritanceKey deviceInfo:prepareInformation8 policyOverride:policyOverride6 isInheritedAccount:v240 epoch:1];
 
       goto LABEL_8;
     }
@@ -5597,68 +5722,67 @@ LABEL_104:
 
     if ([transitionCopy isEqualToString:@"ResetAndEstablish"])
     {
-      v244 = [OTResetOperation alloc];
+      v243 = [OTResetOperation alloc];
       containerName2 = [(OTCuttlefishContext *)self containerName];
       contextID2 = [(OTCuttlefishContext *)self contextID];
       idmsTargetContext = self->_idmsTargetContext;
       idmsCuttlefishPassword = self->_idmsCuttlefishPassword;
-      v242 = idmsCuttlefishPassword;
-      v243 = self->_resetReason;
+      v242 = self->_resetReason;
       notifyIdMS = self->_notifyIdMS;
-      v164 = self->_accountType;
+      v163 = self->_accountType;
       operationDependencies29 = [(OTCuttlefishContext *)self operationDependencies];
       cuttlefishXPCWrapper2 = [(OTCuttlefishContext *)self cuttlefishXPCWrapper];
-      v15 = [(OTResetOperation *)v244 init:containerName2 contextID:contextID2 reason:v243 idmsTargetContext:idmsTargetContext idmsCuttlefishPassword:v242 notifyIdMS:notifyIdMS accountType:v164 intendedState:@"EstablishEnableCDPBit" dependencies:operationDependencies29 errorState:@"Error" cuttlefishXPCWrapper:cuttlefishXPCWrapper2];
+      v15 = [(OTResetOperation *)v243 init:containerName2 contextID:contextID2 reason:v242 idmsTargetContext:idmsTargetContext idmsCuttlefishPassword:idmsCuttlefishPassword notifyIdMS:notifyIdMS accountType:v163 intendedState:@"EstablishEnableCDPBit" dependencies:operationDependencies29 errorState:@"Error" cuttlefishXPCWrapper:cuttlefishXPCWrapper2];
 
       goto LABEL_8;
     }
 
     if ([transitionCopy isEqualToString:@"ResetAnyMissingTLKCKKSViews"])
     {
-      v167 = [OTResetCKKSZonesLackingTLKsOperation alloc];
+      v166 = [OTResetCKKSZonesLackingTLKsOperation alloc];
       operationDependencies30 = [(OTCuttlefishContext *)self operationDependencies];
-      v15 = [(OTResetCKKSZonesLackingTLKsOperation *)v167 initWithDependencies:operationDependencies30 intendedState:@"ResetAndEstablish" errorState:@"Error"];
+      v15 = [(OTResetCKKSZonesLackingTLKsOperation *)v166 initWithDependencies:operationDependencies30 intendedState:@"ResetAndEstablish" errorState:@"Error"];
 
       goto LABEL_8;
     }
 
     if ([transitionCopy isEqualToString:@"EstablishEnableCDPBit"])
     {
-      v169 = [OTSetCDPBitOperation alloc];
+      v168 = [OTSetCDPBitOperation alloc];
       operationDependencies31 = [(OTCuttlefishContext *)self operationDependencies];
-      v15 = [(OTSetCDPBitOperation *)v169 initWithDependencies:operationDependencies31 intendedState:@"ReEnactDeviceList" errorState:@"Error"];
+      v15 = [(OTSetCDPBitOperation *)v168 initWithDependencies:operationDependencies31 intendedState:@"ReEnactDeviceList" errorState:@"Error"];
 
       goto LABEL_8;
     }
 
     if ([transitionCopy isEqualToString:@"ReEnactDeviceList"])
     {
-      v171 = [OTUpdateTrustedDeviceListOperation alloc];
+      v170 = [OTUpdateTrustedDeviceListOperation alloc];
       operationDependencies32 = [(OTCuttlefishContext *)self operationDependencies];
-      v15 = [(OTUpdateTrustedDeviceListOperation *)v171 initWithDependencies:operationDependencies32 intendedState:@"ReEnactPrepare" listUpdatesState:@"ReEnactPrepare" errorState:@"BecomeUntrusted" retryFlag:0];
+      v15 = [(OTUpdateTrustedDeviceListOperation *)v170 initWithDependencies:operationDependencies32 intendedState:@"ReEnactPrepare" listUpdatesState:@"ReEnactPrepare" errorState:@"BecomeUntrusted" retryFlag:0];
 
       goto LABEL_8;
     }
 
     if ([transitionCopy isEqualToString:@"ReEnactPrepare"])
     {
-      v173 = [OTPrepareOperation alloc];
+      v172 = [OTPrepareOperation alloc];
       operationDependencies33 = [(OTCuttlefishContext *)self operationDependencies];
       prepareInformation9 = [(OTCuttlefishContext *)self prepareInformation];
       policyOverride7 = [(OTCuttlefishContext *)self policyOverride];
       accountSettings4 = [(OTCuttlefishContext *)self accountSettings];
-      v15 = [(OTPrepareOperation *)v173 initWithDependencies:operationDependencies33 intendedState:@"ResetAndEstablishClearLocalContextState" errorState:@"Error" deviceInfo:prepareInformation9 policyOverride:policyOverride7 accountSettings:accountSettings4 epoch:0];
+      v15 = [(OTPrepareOperation *)v172 initWithDependencies:operationDependencies33 intendedState:@"ResetAndEstablishClearLocalContextState" errorState:@"Error" deviceInfo:prepareInformation9 policyOverride:policyOverride7 accountSettings:accountSettings4 epoch:0];
 
       goto LABEL_8;
     }
 
     if ([transitionCopy isEqualToString:@"ResetAndEstablishClearLocalContextState"])
     {
-      v178 = sub_100006274("octagon");
-      if (os_log_type_enabled(v178, OS_LOG_TYPE_DEFAULT))
+      v177 = sub_100006274("octagon");
+      if (os_log_type_enabled(v177, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v178, OS_LOG_TYPE_DEFAULT, "clear cuttlefish context state", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v177, OS_LOG_TYPE_DEFAULT, "clear cuttlefish context state", buf, 2u);
       }
 
       [(OTCuttlefishContext *)self clearContextState];
@@ -5668,45 +5792,45 @@ LABEL_104:
 
     if ([transitionCopy isEqualToString:@"ReEnactReadyToEstablish"])
     {
-      v179 = [OTEstablishOperation alloc];
+      v178 = [OTEstablishOperation alloc];
       operationDependencies34 = [(OTCuttlefishContext *)self operationDependencies];
-      v15 = [(OTEstablishOperation *)v179 initWithDependencies:operationDependencies34 intendedState:@"EscrowTriggerUpdate" ckksConflictState:@"EstablishCKKSReset" errorState:@"BecomeUntrusted"];
+      v15 = [(OTEstablishOperation *)v178 initWithDependencies:operationDependencies34 intendedState:@"EscrowTriggerUpdate" ckksConflictState:@"EstablishCKKSReset" errorState:@"BecomeUntrusted"];
 
       goto LABEL_8;
     }
 
     if ([transitionCopy isEqualToString:@"EstablishCKKSReset"])
     {
-      v181 = [OTLocalCKKSResetOperation alloc];
+      v180 = [OTLocalCKKSResetOperation alloc];
       operationDependencies35 = [(OTCuttlefishContext *)self operationDependencies];
-      v15 = [(OTLocalCKKSResetOperation *)v181 initWithDependencies:operationDependencies35 intendedState:@"EstablishAfterCKKSReset" errorState:@"BecomeUntrusted"];
+      v15 = [(OTLocalCKKSResetOperation *)v180 initWithDependencies:operationDependencies35 intendedState:@"EstablishAfterCKKSReset" errorState:@"BecomeUntrusted"];
 
       goto LABEL_8;
     }
 
     if ([transitionCopy isEqualToString:@"EstablishAfterCKKSReset"])
     {
-      v183 = [OTEstablishOperation alloc];
+      v182 = [OTEstablishOperation alloc];
       operationDependencies36 = [(OTCuttlefishContext *)self operationDependencies];
-      v15 = [(OTEstablishOperation *)v183 initWithDependencies:operationDependencies36 intendedState:@"EscrowTriggerUpdate" ckksConflictState:@"BecomeUntrusted" errorState:@"BecomeUntrusted"];
+      v15 = [(OTEstablishOperation *)v182 initWithDependencies:operationDependencies36 intendedState:@"EscrowTriggerUpdate" ckksConflictState:@"BecomeUntrusted" errorState:@"BecomeUntrusted"];
 
       goto LABEL_8;
     }
 
     if ([transitionCopy isEqualToString:@"EscrowTriggerUpdate"])
     {
-      v185 = [OTTriggerEscrowUpdateOperation alloc];
+      v184 = [OTTriggerEscrowUpdateOperation alloc];
       operationDependencies37 = [(OTCuttlefishContext *)self operationDependencies];
-      v15 = [(OTTriggerEscrowUpdateOperation *)v185 initWithDependencies:operationDependencies37 intendedState:@"BecomeReady" errorState:@"Error"];
+      v15 = [(OTTriggerEscrowUpdateOperation *)v184 initWithDependencies:operationDependencies37 intendedState:@"BecomeReady" errorState:@"Error"];
 
       goto LABEL_8;
     }
 
     if ([transitionCopy isEqualToString:@"HealthCheckLeaveClique"])
     {
-      v187 = [OTLeaveCliqueOperation alloc];
+      v186 = [OTLeaveCliqueOperation alloc];
       operationDependencies38 = [(OTCuttlefishContext *)self operationDependencies];
-      v15 = [(OTLeaveCliqueOperation *)v187 initWithDependencies:operationDependencies38 intendedState:@"BecomeUntrusted" errorState:@"BecomeUntrusted"];
+      v15 = [(OTLeaveCliqueOperation *)v186 initWithDependencies:operationDependencies38 intendedState:@"BecomeUntrusted" errorState:@"BecomeUntrusted"];
 
       goto LABEL_8;
     }
@@ -5716,8 +5840,8 @@ LABEL_104:
       if ([flagsCopy _onqueueContains:@"unlocked"])
       {
         [flagsCopy _onqueueRemoveFlag:@"unlocked"];
-        v189 = [NSString stringWithFormat:@"%@", @"initializing-after-initial-unlock"];
-        v15 = [OctagonStateTransitionOperation named:v189 entering:@"Initializing"];
+        v188 = [NSString stringWithFormat:@"%@", @"initializing-after-initial-unlock"];
+        v15 = [OctagonStateTransitionOperation named:v188 entering:@"Initializing"];
 
         goto LABEL_8;
       }
@@ -5729,73 +5853,73 @@ LABEL_104:
       {
         if ([transitionCopy isEqualToString:@"UpdateSOSPreapprovals"])
         {
-          v192 = sub_100006274("octagon");
-          if (os_log_type_enabled(v192, OS_LOG_TYPE_DEFAULT))
+          v191 = sub_100006274("octagon");
+          if (os_log_type_enabled(v191, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v192, OS_LOG_TYPE_DEFAULT, "Updating SOS preapprovals", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v191, OS_LOG_TYPE_DEFAULT, "Updating SOS preapprovals", buf, 2u);
           }
 
-          v193 = [OTSOSUpdatePreapprovalsOperation alloc];
+          v192 = [OTSOSUpdatePreapprovalsOperation alloc];
           operationDependencies39 = [(OTCuttlefishContext *)self operationDependencies];
-          v15 = [(OTSOSUpdatePreapprovalsOperation *)v193 initWithDependencies:operationDependencies39 intendedState:@"Ready" sosNotPresentState:@"Ready" errorState:@"Ready"];
+          v15 = [(OTSOSUpdatePreapprovalsOperation *)v192 initWithDependencies:operationDependencies39 intendedState:@"Ready" sosNotPresentState:@"Ready" errorState:@"Ready"];
 
           goto LABEL_8;
         }
 
         if ([transitionCopy isEqualToString:@"AssistCKKSTLKUpload"])
         {
-          v195 = [OTUploadNewCKKSTLKsOperation alloc];
+          v194 = [OTUploadNewCKKSTLKsOperation alloc];
           operationDependencies40 = [(OTCuttlefishContext *)self operationDependencies];
-          v15 = [(OTUploadNewCKKSTLKsOperation *)v195 initWithDependencies:operationDependencies40 intendedState:@"Ready" ckksConflictState:@"AssistCKKSTLKUploadCKKSReset" peerMissingState:@"ReadyUpdated" errorState:@"Ready"];
+          v15 = [(OTUploadNewCKKSTLKsOperation *)v194 initWithDependencies:operationDependencies40 intendedState:@"Ready" ckksConflictState:@"AssistCKKSTLKUploadCKKSReset" peerMissingState:@"ReadyUpdated" errorState:@"Ready"];
 
           goto LABEL_8;
         }
 
         if ([transitionCopy isEqualToString:@"AssistCKKSTLKUploadCKKSReset"])
         {
-          v197 = [OTLocalCKKSResetOperation alloc];
+          v196 = [OTLocalCKKSResetOperation alloc];
           operationDependencies41 = [(OTCuttlefishContext *)self operationDependencies];
-          v15 = [(OTLocalCKKSResetOperation *)v197 initWithDependencies:operationDependencies41 intendedState:@"AssistCKKSTLKUploadAfterCKKSReset" errorState:@"BecomeReady"];
+          v15 = [(OTLocalCKKSResetOperation *)v196 initWithDependencies:operationDependencies41 intendedState:@"AssistCKKSTLKUploadAfterCKKSReset" errorState:@"BecomeReady"];
 
           goto LABEL_8;
         }
 
         if ([transitionCopy isEqualToString:@"AssistCKKSTLKUploadAfterCKKSReset"])
         {
-          v199 = [OTUploadNewCKKSTLKsOperation alloc];
+          v198 = [OTUploadNewCKKSTLKsOperation alloc];
           operationDependencies42 = [(OTCuttlefishContext *)self operationDependencies];
-          v15 = [(OTUploadNewCKKSTLKsOperation *)v199 initWithDependencies:operationDependencies42 intendedState:@"Ready" ckksConflictState:@"Ready" peerMissingState:@"ReadyUpdated" errorState:@"Ready"];
+          v15 = [(OTUploadNewCKKSTLKsOperation *)v198 initWithDependencies:operationDependencies42 intendedState:@"Ready" ckksConflictState:@"Ready" peerMissingState:@"ReadyUpdated" errorState:@"Ready"];
 
           goto LABEL_8;
         }
 
         if ([transitionCopy isEqualToString:@"OctagonStateStashAccountSettingsForReroll"])
         {
-          v201 = [OTStashAccountSettingsOperation alloc];
+          v200 = [OTStashAccountSettingsOperation alloc];
           operationDependencies43 = [(OTCuttlefishContext *)self operationDependencies];
-          v15 = [(OTStashAccountSettingsOperation *)v201 initWithDependencies:operationDependencies43 intendedState:@"OctagonStateCreateIdentityForReroll" errorState:@"OctagonStateCreateIdentityForReroll" accountSettings:self accountWide:1 forceFetch:1];
+          v15 = [(OTStashAccountSettingsOperation *)v200 initWithDependencies:operationDependencies43 intendedState:@"OctagonStateCreateIdentityForReroll" errorState:@"OctagonStateCreateIdentityForReroll" accountSettings:self accountWide:1 forceFetch:1];
 
           goto LABEL_8;
         }
 
         if ([transitionCopy isEqualToString:@"OctagonStateCreateIdentityForReroll"])
         {
-          v203 = [OTPrepareOperation alloc];
+          v202 = [OTPrepareOperation alloc];
           operationDependencies44 = [(OTCuttlefishContext *)self operationDependencies];
           prepareInformation10 = [(OTCuttlefishContext *)self prepareInformation];
           policyOverride8 = [(OTCuttlefishContext *)self policyOverride];
           accountSettings5 = [(OTCuttlefishContext *)self accountSettings];
-          v15 = [(OTPrepareOperation *)v203 initWithDependencies:operationDependencies44 intendedState:@"OctagonStateVouchWithReroll" errorState:@"BecomeUntrusted" deviceInfo:prepareInformation10 policyOverride:policyOverride8 accountSettings:accountSettings5 epoch:1];
+          v15 = [(OTPrepareOperation *)v202 initWithDependencies:operationDependencies44 intendedState:@"OctagonStateVouchWithReroll" errorState:@"BecomeUntrusted" deviceInfo:prepareInformation10 policyOverride:policyOverride8 accountSettings:accountSettings5 epoch:1];
 
           goto LABEL_8;
         }
 
         if ([transitionCopy isEqualToString:@"OctagonStateVouchWithReroll"])
         {
-          v208 = [OTVouchWithRerollOperation alloc];
+          v207 = [OTVouchWithRerollOperation alloc];
           operationDependencies45 = [(OTCuttlefishContext *)self operationDependencies];
-          v15 = [(OTVouchWithRerollOperation *)v208 initWithDependencies:operationDependencies45 intendedState:@"InitiatorSetCDPBit" errorState:@"BecomeUntrusted" saveVoucher:1];
+          v15 = [(OTVouchWithRerollOperation *)v207 initWithDependencies:operationDependencies45 intendedState:@"InitiatorSetCDPBit" errorState:@"BecomeUntrusted" saveVoucher:1];
 
           goto LABEL_8;
         }
@@ -5812,11 +5936,11 @@ LABEL_104:
           {
             if ([transitionCopy isEqualToString:@"ReadyUpdated"])
             {
-              v216 = [OTUpdateTPHOperation alloc];
+              v215 = [OTUpdateTPHOperation alloc];
               operationDependencies46 = [(OTCuttlefishContext *)self operationDependencies];
               prepareInformation11 = [(OTCuttlefishContext *)self prepareInformation];
-              LOBYTE(v241) = 0;
-              v15 = [(OTUpdateTPHOperation *)v216 initWithDependencies:operationDependencies46 deviceInfo:prepareInformation11 intendedState:@"Ready" peerUnknownState:@"PeerMissingFromServer" determineCDPState:0 errorState:@"Ready" forceRefetch:v241 retryFlag:@"recd_push"];
+              LOBYTE(v240) = 0;
+              v15 = [(OTUpdateTPHOperation *)v215 initWithDependencies:operationDependencies46 deviceInfo:prepareInformation11 intendedState:@"Ready" peerUnknownState:@"PeerMissingFromServer" determineCDPState:0 errorState:@"Ready" forceRefetch:v240 retryFlag:@"recd_push"];
 
               goto LABEL_8;
             }
@@ -5830,11 +5954,11 @@ LABEL_33:
           if ([flagsCopy _onqueueContains:@"recd_push"])
           {
             [flagsCopy _onqueueRemoveFlag:@"recd_push"];
-            v215 = sub_100006274("octagon");
-            if (os_log_type_enabled(v215, OS_LOG_TYPE_DEFAULT))
+            v214 = sub_100006274("octagon");
+            if (os_log_type_enabled(v214, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v215, OS_LOG_TYPE_DEFAULT, "Updating TPH (while ready) due to push", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v214, OS_LOG_TYPE_DEFAULT, "Updating TPH (while ready) due to push", buf, 2u);
             }
 
             appleAccountSignOutOperation = [OctagonStateTransitionOperation named:@"octagon-update" entering:@"ReadyUpdated"];
@@ -5851,16 +5975,16 @@ LABEL_33:
           if ([flagsCopy _onqueueContains:@"attempt_machine_id_list"])
           {
             [flagsCopy _onqueueRemoveFlag:@"attempt_machine_id_list"];
-            v219 = sub_100006274("octagon");
-            if (os_log_type_enabled(v219, OS_LOG_TYPE_DEFAULT))
+            v218 = sub_100006274("octagon");
+            if (os_log_type_enabled(v218, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v219, OS_LOG_TYPE_DEFAULT, "Received an suggestion to update the machine ID list (while ready); updating trusted device list", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v218, OS_LOG_TYPE_DEFAULT, "Received an suggestion to update the machine ID list (while ready); updating trusted device list", buf, 2u);
             }
 
-            v220 = [OTUpdateTrustedDeviceListOperation alloc];
+            v219 = [OTUpdateTrustedDeviceListOperation alloc];
             operationDependencies47 = [(OTCuttlefishContext *)self operationDependencies];
-            v15 = [(OTUpdateTrustedDeviceListOperation *)v220 initWithDependencies:operationDependencies47 intendedState:@"Ready" listUpdatesState:@"ReadyUpdated" errorState:@"Ready" retryFlag:@"attempt_machine_id_list"];
+            v15 = [(OTUpdateTrustedDeviceListOperation *)v219 initWithDependencies:operationDependencies47 intendedState:@"Ready" listUpdatesState:@"ReadyUpdated" errorState:@"Ready" retryFlag:@"attempt_machine_id_list"];
 
             goto LABEL_8;
           }
@@ -5868,17 +5992,17 @@ LABEL_33:
           if ([flagsCopy _onqueueContains:@"passcode_stash_available"])
           {
             [flagsCopy _onqueueRemoveFlag:@"passcode_stash_available"];
-            v222 = sub_100006274("octagon-escrow-repair");
-            if (os_log_type_enabled(v222, OS_LOG_TYPE_DEFAULT))
+            v221 = sub_100006274("octagon-escrow-repair");
+            if (os_log_type_enabled(v221, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v222, OS_LOG_TYPE_DEFAULT, "passcode stash available, beginning escrow repair", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v221, OS_LOG_TYPE_DEFAULT, "passcode stash available, beginning escrow repair", buf, 2u);
             }
 
-            v223 = [OTEscrowRepairOperation alloc];
+            v222 = [OTEscrowRepairOperation alloc];
             operationDependencies48 = [(OTCuttlefishContext *)self operationDependencies];
             followupHandler = [(OTCuttlefishContext *)self followupHandler];
-            v15 = [(OTEscrowRepairOperation *)v223 initWithDependencies:operationDependencies48 intendedState:@"Ready" errorState:@"Ready" followupHandler:followupHandler contextType:self->_contextType];
+            v15 = [(OTEscrowRepairOperation *)v222 initWithDependencies:operationDependencies48 intendedState:@"Ready" errorState:@"Ready" followupHandler:followupHandler contextType:self->_contextType];
 
             goto LABEL_8;
           }
@@ -5889,24 +6013,24 @@ LABEL_33:
             sosAdapter5 = [(OTCuttlefishContext *)self sosAdapter];
             sosEnabled5 = [sosAdapter5 sosEnabled];
 
-            v228 = sub_100006274("octagon");
-            v229 = os_log_type_enabled(v228, OS_LOG_TYPE_DEFAULT);
+            v227 = sub_100006274("octagon");
+            v228 = os_log_type_enabled(v227, OS_LOG_TYPE_DEFAULT);
             if (sosEnabled5)
             {
-              if (v229)
+              if (v228)
               {
                 *buf = 0;
-                _os_log_impl(&_mh_execute_header, v228, OS_LOG_TYPE_DEFAULT, "Attempt SOS Update preapprovals again!", buf, 2u);
+                _os_log_impl(&_mh_execute_header, v227, OS_LOG_TYPE_DEFAULT, "Attempt SOS Update preapprovals again!", buf, 2u);
               }
 
               appleAccountSignOutOperation = [OctagonStateTransitionOperation named:@"attempt-sos-update-preapproval" entering:@"UpdateSOSPreapprovals"];
               goto LABEL_7;
             }
 
-            if (v229)
+            if (v228)
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v228, OS_LOG_TYPE_DEFAULT, "We are untrusted, but this platform doesn't support SOS.", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v227, OS_LOG_TYPE_DEFAULT, "We are untrusted, but this platform doesn't support SOS.", buf, 2u);
             }
           }
 
@@ -5916,35 +6040,35 @@ LABEL_33:
             sosAdapter6 = [(OTCuttlefishContext *)self sosAdapter];
             sosEnabled6 = [sosAdapter6 sosEnabled];
 
-            v232 = sub_100006274("octagon");
-            v233 = os_log_type_enabled(v232, OS_LOG_TYPE_DEFAULT);
+            v231 = sub_100006274("octagon");
+            v232 = os_log_type_enabled(v231, OS_LOG_TYPE_DEFAULT);
             if (sosEnabled6)
             {
-              if (v233)
+              if (v232)
               {
                 *buf = 0;
-                _os_log_impl(&_mh_execute_header, v232, OS_LOG_TYPE_DEFAULT, "Attempting SOS consistency checks", buf, 2u);
+                _os_log_impl(&_mh_execute_header, v231, OS_LOG_TYPE_DEFAULT, "Attempting SOS consistency checks", buf, 2u);
               }
 
               appleAccountSignOutOperation = [OctagonStateTransitionOperation named:@"attempt-sos-update-preapproval" entering:@"EnsureConsistency"];
               goto LABEL_7;
             }
 
-            if (v233)
+            if (v232)
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v232, OS_LOG_TYPE_DEFAULT, "Someone would like us to check SOS consistency, but this platform doesn't support SOS.", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v231, OS_LOG_TYPE_DEFAULT, "Someone would like us to check SOS consistency, but this platform doesn't support SOS.", buf, 2u);
             }
           }
 
           if ([flagsCopy _onqueueContains:@"attempt_ucv_upgrade"])
           {
             [flagsCopy _onqueueRemoveFlag:@"attempt_ucv_upgrade"];
-            v234 = sub_100006274("octagon");
-            if (os_log_type_enabled(v234, OS_LOG_TYPE_DEFAULT))
+            v233 = sub_100006274("octagon");
+            if (os_log_type_enabled(v233, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v234, OS_LOG_TYPE_DEFAULT, "Attempting user-view control upgrade", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v233, OS_LOG_TYPE_DEFAULT, "Attempting user-view control upgrade", buf, 2u);
             }
 
             appleAccountSignOutOperation = [OctagonStateTransitionOperation named:@"attempt-user-view-upgrade" entering:@"SetUserControllableViewsToPeerConsensus"];
@@ -5954,11 +6078,11 @@ LABEL_33:
           if ([flagsCopy _onqueueContains:@"policy_check_needed"])
           {
             [flagsCopy _onqueueRemoveFlag:@"policy_check_needed"];
-            v235 = sub_100006274("octagon");
-            if (os_log_type_enabled(v235, OS_LOG_TYPE_DEFAULT))
+            v234 = sub_100006274("octagon");
+            if (os_log_type_enabled(v234, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v235, OS_LOG_TYPE_DEFAULT, "Updating CKKS policy", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v234, OS_LOG_TYPE_DEFAULT, "Updating CKKS policy", buf, 2u);
             }
 
             appleAccountSignOutOperation = [OctagonStateTransitionOperation named:@"ckks-policy-update" entering:@"ReadyUpdated"];
@@ -5981,11 +6105,11 @@ LABEL_33:
 
           if ([flagsCopy _onqueueContains:@"account_available"])
           {
-            v236 = sub_100006274("octagon");
-            if (os_log_type_enabled(v236, OS_LOG_TYPE_DEFAULT))
+            v235 = sub_100006274("octagon");
+            if (os_log_type_enabled(v235, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v236, OS_LOG_TYPE_DEFAULT, "Removing 'account is available' flag", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v235, OS_LOG_TYPE_DEFAULT, "Removing 'account is available' flag", buf, 2u);
             }
 
             [flagsCopy _onqueueRemoveFlag:@"account_available"];
@@ -5993,11 +6117,11 @@ LABEL_33:
 
           if ([flagsCopy _onqueueContains:@"idms_level"])
           {
-            v237 = sub_100006274("octagon");
-            if (os_log_type_enabled(v237, OS_LOG_TYPE_DEFAULT))
+            v236 = sub_100006274("octagon");
+            if (os_log_type_enabled(v236, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v237, OS_LOG_TYPE_DEFAULT, "Removing 'IDMS level changed' flag", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v236, OS_LOG_TYPE_DEFAULT, "Removing 'IDMS level changed' flag", buf, 2u);
             }
 
             [flagsCopy _onqueueRemoveFlag:@"idms_level"];
@@ -6005,11 +6129,11 @@ LABEL_33:
 
           if ([flagsCopy _onqueueContains:@"cdp_enabled"])
           {
-            v238 = sub_100006274("octagon");
-            if (os_log_type_enabled(v238, OS_LOG_TYPE_DEFAULT))
+            v237 = sub_100006274("octagon");
+            if (os_log_type_enabled(v237, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v238, OS_LOG_TYPE_DEFAULT, "Removing 'CDP enabled' flag", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v237, OS_LOG_TYPE_DEFAULT, "Removing 'CDP enabled' flag", buf, 2u);
             }
 
             [flagsCopy _onqueueRemoveFlag:@"cdp_enabled"];
@@ -6017,33 +6141,33 @@ LABEL_33:
 
           if ([flagsCopy _onqueueContains:@"check_on_rtc_metrics"])
           {
-            v239 = sub_100006274("octagon-metrics");
-            if (os_log_type_enabled(v239, OS_LOG_TYPE_DEFAULT))
+            v238 = sub_100006274("octagon-metrics");
+            if (os_log_type_enabled(v238, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v239, OS_LOG_TYPE_DEFAULT, "Checking metrics", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v238, OS_LOG_TYPE_DEFAULT, "Checking metrics", buf, 2u);
             }
 
             [flagsCopy _onqueueRemoveFlag:@"check_on_rtc_metrics"];
             objc_initWeak(buf, self);
-            v247[0] = _NSConcreteStackBlock;
-            v247[1] = 3221225472;
-            v247[2] = sub_10013EF54;
-            v247[3] = &unk_100345338;
-            objc_copyWeak(&v248, buf);
-            v15 = [OctagonStateTransitionOperation named:@"check-on-metrics" intending:@"Ready" errorState:@"Ready" withBlockTakingSelf:v247];
-            objc_destroyWeak(&v248);
+            v246[0] = _NSConcreteStackBlock;
+            v246[1] = 3221225472;
+            v246[2] = sub_10013EF54;
+            v246[3] = &unk_100345338;
+            objc_copyWeak(&v247, buf);
+            v15 = [OctagonStateTransitionOperation named:@"check-on-metrics" intending:@"Ready" errorState:@"Ready" withBlockTakingSelf:v246];
+            objc_destroyWeak(&v247);
             objc_destroyWeak(buf);
             goto LABEL_8;
           }
 
           if ([flagsCopy _onqueueContains:@"reroll_identity"])
           {
-            v240 = sub_100006274("octagon");
-            if (os_log_type_enabled(v240, OS_LOG_TYPE_DEFAULT))
+            v239 = sub_100006274("octagon");
+            if (os_log_type_enabled(v239, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v240, OS_LOG_TYPE_DEFAULT, "Rerolling identity", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v239, OS_LOG_TYPE_DEFAULT, "Rerolling identity", buf, 2u);
             }
 
             [flagsCopy _onqueueRemoveFlag:@"reroll_identity"];
@@ -6052,16 +6176,16 @@ LABEL_33:
           }
         }
 
-        v210 = +[CKKSAnalytics logger];
-        v211 = +[NSDate date];
-        [v210 setDateProperty:v211 forKey:@"OALastKSR"];
+        v209 = +[CKKSAnalytics logger];
+        v210 = +[NSDate date];
+        [v209 setDateProperty:v210 forKey:@"OALastKSR"];
 
         launchSequence2 = [(OTCuttlefishContext *)self launchSequence];
         [launchSequence2 launch];
 
-        v213 = +[CKKSAnalytics logger];
+        v212 = +[CKKSAnalytics logger];
         launchSequence3 = [(OTCuttlefishContext *)self launchSequence];
-        [v213 noteLaunchSequence:launchSequence3];
+        [v212 noteLaunchSequence:launchSequence3];
 
         goto LABEL_33;
       }
@@ -6069,15 +6193,15 @@ LABEL_33:
       if ([flagsCopy _onqueueContains:@"unlocked"])
       {
         [flagsCopy _onqueueRemoveFlag:@"unlocked"];
-        v190 = [NSString stringWithFormat:@"%@", @"initializing-after-unlock"];
-        v15 = [OctagonStateTransitionOperation named:v190 entering:@"Initializing"];
+        v189 = [NSString stringWithFormat:@"%@", @"initializing-after-unlock"];
+        v15 = [OctagonStateTransitionOperation named:v189 entering:@"Initializing"];
 
         goto LABEL_8;
       }
     }
 
-    v191 = [[OctagonPendingFlag alloc] initWithFlag:@"unlocked" conditions:1];
-    [pendingFlagsCopy _onqueueHandlePendingFlagLater:v191];
+    v190 = [[OctagonPendingFlag alloc] initWithFlag:@"unlocked" conditions:1];
+    [pendingFlagsCopy _onqueueHandlePendingFlagLater:v190];
 
     goto LABEL_33;
   }
@@ -6285,18 +6409,7 @@ LABEL_8:
   stateMachine = [(OTCuttlefishContext *)self stateMachine];
   isPaused = [stateMachine isPaused];
 
-  if (!isPaused)
-  {
-    goto LABEL_6;
-  }
-
-  v7 = +[OTStates OctagonNotInCliqueStates];
-  stateMachine2 = [(OTCuttlefishContext *)self stateMachine];
-  currentState = [stateMachine2 currentState];
-  v10 = [NSSet setWithObject:currentState];
-  v11 = [v7 intersectsSet:v10];
-
-  if (v11)
+  if (isPaused && (+[OTStates OctagonNotInCliqueStates](OTStates, "OctagonNotInCliqueStates"), v7 = objc_claimAutoreleasedReturnValue(), -[OTCuttlefishContext stateMachine](self, "stateMachine"), v8 = objc_claimAutoreleasedReturnValue(), [v8 currentState], v9 = objc_claimAutoreleasedReturnValue(), +[NSSet setWithObject:](NSSet, "setWithObject:", v9), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v7, "intersectsSet:", v10), v10, v9, v8, v7, v11))
   {
     v12 = sub_100006274("octagon-leave-clique");
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
@@ -6310,14 +6423,13 @@ LABEL_8:
 
   else
   {
-LABEL_6:
     v13 = [OTLeaveCliqueOperation alloc];
     operationDependencies = [(OTCuttlefishContext *)self operationDependencies];
     v15 = [(OTLeaveCliqueOperation *)v13 initWithDependencies:operationDependencies intendedState:@"BecomeUntrusted" errorState:@"CheckTrustState"];
 
-    stateMachine3 = [(OTCuttlefishContext *)self stateMachine];
+    stateMachine2 = [(OTCuttlefishContext *)self stateMachine];
     v17 = +[OTStates OctagonInAccountStates];
-    [stateMachine3 doSimpleStateMachineRPC:@"leave-clique" op:v15 sourceStates:v17 reply:cliqueCopy];
+    [stateMachine2 doSimpleStateMachineRPC:@"leave-clique" op:v15 sourceStates:v17 reply:cliqueCopy];
   }
 }
 

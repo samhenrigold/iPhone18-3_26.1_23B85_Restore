@@ -97,20 +97,18 @@
 
 - (id)sf_monthAndYearOfManufacture
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"year";
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"year";
   v0 = MEMORY[0x277CCABB0];
   v1 = +[SFDeviceRegulatoryAttributes currentDeviceAttributes];
   v2 = [v0 numberWithUnsignedInteger:{objc_msgSend(v1, "yearOfManufacture")}];
-  v9[1] = @"month";
-  v10[0] = v2;
+  v8[1] = @"month";
+  v9[0] = v2;
   v3 = MEMORY[0x277CCABB0];
   v4 = +[SFDeviceRegulatoryAttributes currentDeviceAttributes];
   v5 = [v3 numberWithUnsignedInteger:{objc_msgSend(v4, "monthOfManufacture")}];
-  v10[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   return v6;
 }
@@ -122,9 +120,9 @@
     [UIDevice(SFAdditions) sf_configString];
   }
 
-  v1 = sf_configString___config;
+  v2 = sf_configString___config;
 
-  return v1;
+  return v2;
 }
 
 - (id)sf_colorCodedSerialNumber
@@ -185,9 +183,9 @@
     [UIDevice(SFAdditions) sf_deviceSubTypeString];
   }
 
-  v1 = sf_deviceSubTypeString_deviceSubTypeString;
+  v2 = sf_deviceSubTypeString_deviceSubTypeString;
 
-  return v1;
+  return v2;
 }
 
 - (id)sf_screenClassString
@@ -222,9 +220,9 @@
     [UIDevice(SFAdditions) sf_regionCode];
   }
 
-  v1 = sf_regionCode___regionCode;
+  v2 = sf_regionCode___regionCode;
 
-  return v1;
+  return v2;
 }
 
 - (id)sf_plantCode

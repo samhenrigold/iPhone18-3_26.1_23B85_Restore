@@ -35,8 +35,9 @@
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_1002DB1D0(disappear);
+  sub_1002DB1D0(disappearCopy, selfCopy);
 }
 
 - (_TtC6FindMy32FMOnboardingNavigationController)initWithNavigationBarClass:(Class)class toolbarClass:(Class)toolbarClass

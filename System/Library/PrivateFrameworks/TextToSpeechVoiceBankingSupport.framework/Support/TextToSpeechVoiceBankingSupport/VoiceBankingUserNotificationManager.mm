@@ -20,8 +20,8 @@
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(id)handler
 {
-  v9 = (*(*(sub_100001EE8(&qword_100035098, &qword_100027BC0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v9 = sub_100001EE8(&qword_100035098, &qword_100027BC0);
+  __chkstk_darwin(v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);
   v13 = swift_allocObject();
@@ -49,8 +49,8 @@
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(id)handler
 {
-  v9 = (*(*(sub_100001EE8(&qword_100035098, &qword_100027BC0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v9 = sub_100001EE8(&qword_100035098, &qword_100027BC0);
+  __chkstk_darwin(v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);
   v13 = swift_allocObject();

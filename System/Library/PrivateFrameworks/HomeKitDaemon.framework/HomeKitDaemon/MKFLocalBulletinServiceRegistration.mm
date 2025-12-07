@@ -6,7 +6,7 @@
 
 + (id)fetchServiceRegistrationForAccessoryUUID:(id)d serviceInstanceID:(id)iD managedObjectContext:(id)context
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   contextCopy = context;
@@ -23,9 +23,9 @@
   v16 = [v13 predicateWithFormat:@"(%K == %@) AND (%K == %@ OR %K == %@)", @"accessoryModelID", dCopy, @"serviceInstanceID", v14, @"serviceInstanceID", v15];
   [v12 setPredicate:v16];
 
-  v26 = 0;
-  v17 = [v11 executeFetchRequest:v12 error:&v26];
-  v18 = v26;
+  v25 = 0;
+  v17 = [v11 executeFetchRequest:v12 error:&v25];
+  v18 = v25;
   if (v17)
   {
     firstObject = [v17 firstObject];
@@ -40,21 +40,19 @@
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v28 = v23;
-      v29 = 2112;
-      v30 = dCopy;
-      v31 = 2112;
-      v32 = iDCopy;
-      v33 = 2112;
-      v34 = v18;
+      v27 = v23;
+      v28 = 2112;
+      v29 = dCopy;
+      v30 = 2112;
+      v31 = iDCopy;
+      v32 = 2112;
+      v33 = v18;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch local service registration for accessoryUUID: %@, serviceInstanceID: %@ error: %@", buf, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v20);
     firstObject = 0;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }

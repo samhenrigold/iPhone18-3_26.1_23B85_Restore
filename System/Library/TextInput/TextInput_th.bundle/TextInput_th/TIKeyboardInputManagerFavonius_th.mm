@@ -9,6 +9,7 @@
 - (void)registerLearning:(id)learning fullCandidate:(id)candidate keyboardState:(id)state mode:(id)mode;
 - (void)registerLearningForCompletion:(id)completion fullCompletion:(id)fullCompletion context:(id)context prefix:(id)prefix mode:(id)mode;
 - (void)setWordBoundary;
+- (void)textAccepted:(id)accepted fromPredictiveInputBar:(BOOL)bar withInput:(id)input;
 @end
 
 @implementation TIKeyboardInputManagerFavonius_th
@@ -124,6 +125,14 @@
 
     MEMORY[0x2A1C69AA8](v4, 0);
   }
+}
+
+- (void)textAccepted:(id)accepted fromPredictiveInputBar:(BOOL)bar withInput:(id)input
+{
+  v6.receiver = self;
+  v6.super_class = TIKeyboardInputManagerFavonius_th;
+  [(TIKeyboardInputManagerBase *)&v6 textAccepted:accepted fromPredictiveInputBar:bar withInput:input];
+  [(TIKeyboardInputManagerFavonius_th *)self setWordBoundary];
 }
 
 - (void)candidateRejected:(id)rejected

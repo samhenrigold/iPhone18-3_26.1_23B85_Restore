@@ -158,8 +158,8 @@ void __45__TUNearbyDeviceHandle_identifierDescription__block_invoke(uint64_t a1,
 
 - (NSDictionary)plistRepresentation
 {
-  v16[4] = *MEMORY[0x1E69E9840];
-  v15[0] = @"name";
+  v15[4] = *MEMORY[0x1E69E9840];
+  v14[0] = @"name";
   name = [(TUNearbyDeviceHandle *)self name];
   v4 = name;
   if (name)
@@ -172,14 +172,14 @@ void __45__TUNearbyDeviceHandle_identifierDescription__block_invoke(uint64_t a1,
     v5 = @"<nil>";
   }
 
-  v16[0] = v5;
-  v15[1] = @"deviceModel";
+  v15[0] = v5;
+  v14[1] = @"deviceModel";
   v6 = [MEMORY[0x1E696AD98] numberWithInteger:{-[TUNearbyDeviceHandle deviceModel](self, "deviceModel")}];
-  v16[1] = v6;
-  v15[2] = @"identifiers";
+  v15[1] = v6;
+  v14[2] = @"identifiers";
   identifierDescription = [(TUNearbyDeviceHandle *)self identifierDescription];
-  v16[2] = identifierDescription;
-  v15[3] = @"capabilities";
+  v15[2] = identifierDescription;
+  v14[3] = @"capabilities";
   capabilities = [(TUNearbyDeviceHandle *)self capabilities];
   v9 = [capabilities description];
   v10 = v9;
@@ -193,10 +193,8 @@ void __45__TUNearbyDeviceHandle_identifierDescription__block_invoke(uint64_t a1,
     v11 = @"<nil>";
   }
 
-  v16[3] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:4];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v15[3] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
 
   return v12;
 }

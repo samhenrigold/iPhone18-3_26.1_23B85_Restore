@@ -1,6 +1,8 @@
 @interface USOMatchInfo
 - (USOMatchInfo)initWithCoder:(id)coder;
 - (USOMatchInfo)initWithMatchSignalBitSet:(unsigned int)set;
+- (USOMatchInfo)initWithMatchSignalBitSet:(unsigned int)set matchScore:(float)score maxTokenCount:(unsigned int)count matchedTokenCount:(unsigned int)tokenCount maxStopWordCount:(unsigned int)wordCount matchedStopWordCount:(unsigned int)stopWordCount editDistance:(unsigned int)distance maxAliasCount:(unsigned int)self0 matchedAliasCount:(unsigned int)self1 matchedAliasTypes:(id)self2;
+- (void)addAliasType:(unsigned int)type;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -88,6 +90,78 @@
   }
 
   return v5;
+}
+
+- (void)addAliasType:(unsigned int)type
+{
+  matchedAliasTypes = self->_matchedAliasTypes;
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&type];
+  [(NSMutableArray *)matchedAliasTypes addObject:v4];
+}
+
+- (USOMatchInfo)initWithMatchSignalBitSet:(unsigned int)set matchScore:(float)score maxTokenCount:(unsigned int)count matchedTokenCount:(unsigned int)tokenCount maxStopWordCount:(unsigned int)wordCount matchedStopWordCount:(unsigned int)stopWordCount editDistance:(unsigned int)distance maxAliasCount:(unsigned int)self0 matchedAliasCount:(unsigned int)self1 matchedAliasTypes:(id)self2
+{
+  v12 = *&distance;
+  v13 = *&stopWordCount;
+  v14 = *&wordCount;
+  v15 = *&tokenCount;
+  v16 = *&count;
+  typesCopy = types;
+  v43.receiver = self;
+  v43.super_class = USOMatchInfo;
+  v21 = [(USOMatchInfo *)&v43 init];
+  v23 = v21;
+  if (v21)
+  {
+    v21->_matchSignalBitSet = set;
+    *&v22 = score;
+    v24 = [MEMORY[0x1E696AD98] numberWithFloat:v22];
+    matchScore = v23->_matchScore;
+    v23->_matchScore = v24;
+
+    v26 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v16];
+    maxTokenCount = v23->_maxTokenCount;
+    v23->_maxTokenCount = v26;
+
+    v28 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v15];
+    matchedTokenCount = v23->_matchedTokenCount;
+    v23->_matchedTokenCount = v28;
+
+    v30 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v14];
+    maxStopWordCount = v23->_maxStopWordCount;
+    v23->_maxStopWordCount = v30;
+
+    v32 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v13];
+    matchedStopWordCount = v23->_matchedStopWordCount;
+    v23->_matchedStopWordCount = v32;
+
+    v34 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v12];
+    editDistance = v23->_editDistance;
+    v23->_editDistance = v34;
+
+    v36 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:aliasCount];
+    maxAliasCount = v23->_maxAliasCount;
+    v23->_maxAliasCount = v36;
+
+    v38 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:matchedAliasCount];
+    matchedAliasCount = v23->_matchedAliasCount;
+    v23->_matchedAliasCount = v38;
+
+    if (typesCopy)
+    {
+      array = [typesCopy mutableCopy];
+    }
+
+    else
+    {
+      array = [MEMORY[0x1E695DF70] array];
+    }
+
+    matchedAliasTypes = v23->_matchedAliasTypes;
+    v23->_matchedAliasTypes = array;
+  }
+
+  return v23;
 }
 
 - (USOMatchInfo)initWithMatchSignalBitSet:(unsigned int)set

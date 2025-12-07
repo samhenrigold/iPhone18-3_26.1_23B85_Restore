@@ -82,7 +82,7 @@
   centerTranscriptButtonTextAttributes = [v4 centerTranscriptButtonTextAttributes];
 
   v6 = objc_alloc(MEMORY[0x1E696AAB0]);
-  v7 = CKFrameworkBundle();
+  v7 = CKFrameworkBundle(v6);
   v8 = [v7 localizedStringForKey:@"KT_MORE_TRANSCRIPT_LINK" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
   v9 = [v6 initWithString:v8 attributes:centerTranscriptButtonTextAttributes];
 
@@ -474,22 +474,22 @@
 
 - (id)learnMoreAction
 {
-  objc_initWeak(&location, self);
-  v2 = MEMORY[0x1E69DC628];
-  v3 = CKFrameworkBundle();
-  v4 = [v3 localizedStringForKey:@"KT_LEARN_MORE_ELLIPSES" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
-  v5 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"info.circle"];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __50__CKKeyTransparencyTranscriptCell_learnMoreAction__block_invoke;
-  v8[3] = &unk_1E72EBCD8;
-  objc_copyWeak(&v9, &location);
-  v6 = [v2 actionWithTitle:v4 image:v5 identifier:0 handler:v8];
+  inited = objc_initWeak(&location, self);
+  v3 = MEMORY[0x1E69DC628];
+  v4 = CKFrameworkBundle(inited);
+  v5 = [v4 localizedStringForKey:@"KT_LEARN_MORE_ELLIPSES" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
+  v6 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"info.circle"];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __50__CKKeyTransparencyTranscriptCell_learnMoreAction__block_invoke;
+  v9[3] = &unk_1E72EBCD8;
+  objc_copyWeak(&v10, &location);
+  v7 = [v3 actionWithTitle:v5 image:v6 identifier:0 handler:v9];
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
 
-  return v6;
+  return v7;
 }
 
 void __50__CKKeyTransparencyTranscriptCell_learnMoreAction__block_invoke(uint64_t a1)
@@ -502,22 +502,22 @@ void __50__CKKeyTransparencyTranscriptCell_learnMoreAction__block_invoke(uint64_
 
 - (id)reportToAppleAction
 {
-  objc_initWeak(&location, self);
-  v2 = MEMORY[0x1E69DC628];
-  v3 = CKFrameworkBundle();
-  v4 = [v3 localizedStringForKey:@"KT_REPORT_TO_APPLE_ELLIPSES" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
-  v5 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"exclamationmark.bubble"];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __54__CKKeyTransparencyTranscriptCell_reportToAppleAction__block_invoke;
-  v8[3] = &unk_1E72EBCD8;
-  objc_copyWeak(&v9, &location);
-  v6 = [v2 actionWithTitle:v4 image:v5 identifier:0 handler:v8];
+  inited = objc_initWeak(&location, self);
+  v3 = MEMORY[0x1E69DC628];
+  v4 = CKFrameworkBundle(inited);
+  v5 = [v4 localizedStringForKey:@"KT_REPORT_TO_APPLE_ELLIPSES" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
+  v6 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"exclamationmark.bubble"];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __54__CKKeyTransparencyTranscriptCell_reportToAppleAction__block_invoke;
+  v9[3] = &unk_1E72EBCD8;
+  objc_copyWeak(&v10, &location);
+  v7 = [v3 actionWithTitle:v5 image:v6 identifier:0 handler:v9];
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
 
-  return v6;
+  return v7;
 }
 
 void __54__CKKeyTransparencyTranscriptCell_reportToAppleAction__block_invoke(uint64_t a1)
@@ -530,22 +530,22 @@ void __54__CKKeyTransparencyTranscriptCell_reportToAppleAction__block_invoke(uin
 
 - (id)verifyConversationAction
 {
-  objc_initWeak(&location, self);
-  v2 = MEMORY[0x1E69DC628];
-  v3 = CKFrameworkBundle();
-  v4 = [v3 localizedStringForKey:@"KT_VERIFY_CONVERSATION_ELLIPSES" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
-  v5 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"person.crop.circle.badge.checkmark"];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __59__CKKeyTransparencyTranscriptCell_verifyConversationAction__block_invoke;
-  v8[3] = &unk_1E72EBCD8;
-  objc_copyWeak(&v9, &location);
-  v6 = [v2 actionWithTitle:v4 image:v5 identifier:0 handler:v8];
+  inited = objc_initWeak(&location, self);
+  v3 = MEMORY[0x1E69DC628];
+  v4 = CKFrameworkBundle(inited);
+  v5 = [v4 localizedStringForKey:@"KT_VERIFY_CONVERSATION_ELLIPSES" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
+  v6 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"person.crop.circle.badge.checkmark"];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __59__CKKeyTransparencyTranscriptCell_verifyConversationAction__block_invoke;
+  v9[3] = &unk_1E72EBCD8;
+  objc_copyWeak(&v10, &location);
+  v7 = [v3 actionWithTitle:v5 image:v6 identifier:0 handler:v9];
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
 
-  return v6;
+  return v7;
 }
 
 void __59__CKKeyTransparencyTranscriptCell_verifyConversationAction__block_invoke(uint64_t a1)
@@ -558,23 +558,23 @@ void __59__CKKeyTransparencyTranscriptCell_verifyConversationAction__block_invok
 
 - (id)clearWarningAction
 {
-  objc_initWeak(&location, self);
-  v2 = MEMORY[0x1E69DC628];
-  v3 = CKFrameworkBundle();
-  v4 = [v3 localizedStringForKey:@"KT_CLEAR_WARNING" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
-  v5 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"xmark"];
-  v8 = MEMORY[0x1E69E9820];
-  v9 = 3221225472;
-  v10 = __53__CKKeyTransparencyTranscriptCell_clearWarningAction__block_invoke;
-  v11 = &unk_1E72EBCD8;
-  objc_copyWeak(&v12, &location);
-  v6 = [v2 actionWithTitle:v4 image:v5 identifier:0 handler:&v8];
+  inited = objc_initWeak(&location, self);
+  v3 = MEMORY[0x1E69DC628];
+  v4 = CKFrameworkBundle(inited);
+  v5 = [v4 localizedStringForKey:@"KT_CLEAR_WARNING" value:&stru_1F04268F8 table:@"ChatKit-Key-Transparency"];
+  v6 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"xmark"];
+  v9 = MEMORY[0x1E69E9820];
+  v10 = 3221225472;
+  v11 = __53__CKKeyTransparencyTranscriptCell_clearWarningAction__block_invoke;
+  v12 = &unk_1E72EBCD8;
+  objc_copyWeak(&v13, &location);
+  v7 = [v3 actionWithTitle:v5 image:v6 identifier:0 handler:&v9];
 
-  [v6 setAttributes:{2, v8, v9, v10, v11}];
-  objc_destroyWeak(&v12);
+  [v7 setAttributes:{2, v9, v10, v11, v12}];
+  objc_destroyWeak(&v13);
   objc_destroyWeak(&location);
 
-  return v6;
+  return v7;
 }
 
 void __53__CKKeyTransparencyTranscriptCell_clearWarningAction__block_invoke(uint64_t a1)

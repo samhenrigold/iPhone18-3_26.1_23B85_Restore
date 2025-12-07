@@ -6,28 +6,28 @@
 
 - (NSArray)timelines
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   children = [(IKViewElement *)self children];
-  v3 = [children countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [children countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
     array = 0;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(children);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         elementName = [v8 elementName];
         v10 = [elementName isEqualToString:@"timeline"];
 
@@ -42,7 +42,7 @@
         }
       }
 
-      v4 = [children countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [children countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v4);
@@ -65,7 +65,6 @@
 
   v12 = v11;
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

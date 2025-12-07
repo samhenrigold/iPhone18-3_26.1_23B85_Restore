@@ -11,7 +11,7 @@
 
 - (void)__handleAddedDevice:(id)device
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   object = [deviceCopy object];
   objc_opt_class();
@@ -60,11 +60,11 @@
       {
         v20 = HMFGetLogIdentifier();
         shortDescription = [v7 shortDescription];
-        v23 = 138543618;
-        v24 = v20;
-        v25 = 2112;
-        v26 = shortDescription;
-        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Target device added to account: %@", &v23, 0x16u);
+        v22 = 138543618;
+        v23 = v20;
+        v24 = 2112;
+        v25 = shortDescription;
+        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Target device added to account: %@", &v22, 0x16u);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -75,13 +75,11 @@
   else
   {
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__handleAddedAccount:(id)account
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   userInfo = [accountCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:@"HMDAccountNotificationKey"];
@@ -102,12 +100,12 @@
   if (v8)
   {
     devices = [v8 devices];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __46____HMDDeviceController___handleAddedAccount___block_invoke;
-    v17[3] = &unk_27867B5F0;
-    v17[4] = self;
-    v10 = [devices hmf_objectPassingTest:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __46____HMDDeviceController___handleAddedAccount___block_invoke;
+    v16[3] = &unk_27867B5F0;
+    v16[4] = self;
+    v10 = [devices hmf_objectPassingTest:v16];
 
     if (v10)
     {
@@ -119,9 +117,9 @@
         v14 = HMFGetLogIdentifier();
         shortDescription = [v8 shortDescription];
         *buf = 138543618;
-        v19 = v14;
-        v20 = 2112;
-        v21 = shortDescription;
+        v18 = v14;
+        v19 = 2112;
+        v20 = shortDescription;
         _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Account added containing target device: %@", buf, 0x16u);
       }
 
@@ -129,13 +127,11 @@
       __HMDDeviceControllerUpdateDevice(selfCopy, v10);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -165,7 +161,7 @@
       {
         v20 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v31 = v20;
+        v30 = v20;
         _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_DEBUG, "%{public}@Registry is available", buf, 0xCu);
       }
 
@@ -183,7 +179,7 @@
         {
           v27 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v31 = v27;
+          v30 = v27;
           _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Device present in registry, updating", buf, 0xCu);
         }
 
@@ -195,20 +191,18 @@
 
   else
   {
-    v29.receiver = self;
-    v29.super_class = __HMDDeviceController;
-    [(__HMDDeviceController *)&v29 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
+    v28.receiver = self;
+    v28.super_class = __HMDDeviceController;
+    [(__HMDDeviceController *)&v28 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithDevice:(id)device completionHandler:(id)handler
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   handlerCopy = handler;
-  v30 = 0;
+  v29 = 0;
   device = [(HMDDeviceController *)self device];
   if (!device)
   {
@@ -218,40 +212,40 @@
   }
 
   accountRegistry = [(__HMDDeviceController *)self accountRegistry];
-  v10 = [accountRegistry deviceForDevice:device exists:&v30];
+  v10 = [accountRegistry deviceForDevice:device exists:&v29];
 
-  if (v30 != 1)
+  if (v29 != 1)
   {
     if ((objc_opt_respondsToSelector() & 1) == 0 || [device shouldMergeObject:deviceCopy])
     {
-      v18 = objc_autoreleasePoolPush();
+      v17 = objc_autoreleasePoolPush();
       selfCopy = self;
-      v20 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v19 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
-        v21 = HMFGetLogIdentifier();
+        v20 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v32 = v21;
-        v33 = 2112;
-        v34 = deviceCopy;
-        _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_DEBUG, "%{public}@Merging with device: %@", buf, 0x16u);
+        v31 = v20;
+        v32 = 2112;
+        v33 = deviceCopy;
+        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_DEBUG, "%{public}@Merging with device: %@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v18);
+      objc_autoreleasePoolPop(v17);
       if ([device mergeObject:deviceCopy])
       {
-        v22 = objc_autoreleasePoolPush();
-        v23 = selfCopy;
-        v24 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+        v21 = objc_autoreleasePoolPush();
+        v22 = selfCopy;
+        v23 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
-          v25 = HMFGetLogIdentifier();
+          v24 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v32 = v25;
-          _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Updated device", buf, 0xCu);
+          v31 = v24;
+          _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Updated device", buf, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v22);
+        objc_autoreleasePoolPop(v21);
       }
     }
 
@@ -273,20 +267,20 @@
       goto LABEL_9;
     }
 
-    v26 = objc_autoreleasePoolPush();
+    v25 = objc_autoreleasePoolPush();
     selfCopy2 = self;
-    v28 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+    v27 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
     {
-      v29 = HMFGetLogIdentifier();
+      v28 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v32 = v29;
-      v33 = 2112;
-      v34 = deviceCopy;
-      _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, "%{public}@Updating with device: %@", buf, 0x16u);
+      v31 = v28;
+      v32 = 2112;
+      v33 = deviceCopy;
+      _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_INFO, "%{public}@Updating with device: %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v26);
+    objc_autoreleasePoolPop(v25);
     [device updateWithDevice:deviceCopy];
 LABEL_20:
     v15 = 0;
@@ -305,11 +299,11 @@ LABEL_20:
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v32 = v14;
-    v33 = 2112;
-    v34 = device;
-    v35 = 2112;
-    v36 = v10;
+    v31 = v14;
+    v32 = 2112;
+    v33 = device;
+    v34 = 2112;
+    v35 = v10;
     _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Backed Device not equal to device: %@ != %@", buf, 0x20u);
   }
 
@@ -324,8 +318,6 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

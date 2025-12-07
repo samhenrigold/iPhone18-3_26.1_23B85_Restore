@@ -14,35 +14,35 @@
 + (id)websiteSpecifiersFromResults:(id)results showDetail:(BOOL)detail
 {
   detailCopy = detail;
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
-  v39 = objc_opt_new();
+  v38 = objc_opt_new();
   v5 = dispatch_group_create();
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
   obj = resultsCopy;
-  v6 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
+  v6 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
   v7 = 0x277CCA000uLL;
   if (v6)
   {
     v8 = v6;
     v9 = 0;
-    v36 = *v48;
-    v35 = *MEMORY[0x277D3FE58];
-    v33 = *MEMORY[0x277D6B668];
-    v32 = *MEMORY[0x277D6B670];
+    v35 = *v47;
+    v34 = *MEMORY[0x277D3FE58];
+    v32 = *MEMORY[0x277D6B668];
+    v31 = *MEMORY[0x277D6B670];
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v48 != v36)
+        if (*v47 != v35)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v47 + 1) + 8 * i);
+        v11 = *(*(&v46 + 1) + 8 * i);
         v12 = [v11 objectForKeyedSubscript:@"context"];
         v13 = [v11 objectForKeyedSubscript:@"sumHits"];
         integerValue = [v13 integerValue];
@@ -53,7 +53,7 @@
         v17 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:v12 target:self set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
         [v17 setIdentifier:v12];
         [v17 setObject:v12 forKeyedSubscript:@"PUIReportWebsiteKey"];
-        [v17 setObject:objc_opt_class() forKeyedSubscript:v35];
+        [v17 setObject:objc_opt_class() forKeyedSubscript:v34];
         [*(v7 + 2992) numberWithInteger:integerValue];
         v19 = v18 = v7;
         [v17 setObject:v19 forKeyedSubscript:@"PUITrackerBarValueKey"];
@@ -71,23 +71,23 @@
         if (detailCopy)
         {
           v21 = objc_opt_new();
-          [v21 setObject:&unk_28772B528 forKeyedSubscript:v33];
-          [v21 setObject:v12 forKeyedSubscript:v32];
+          [v21 setObject:&unk_28772B528 forKeyedSubscript:v32];
+          [v21 setObject:v12 forKeyedSubscript:v31];
           dispatch_group_enter(v5);
-          v44[0] = MEMORY[0x277D85DD0];
-          v44[1] = 3221225472;
-          v44[2] = __74__PUIReportWebsiteListController_websiteSpecifiersFromResults_showDetail___block_invoke;
-          v44[3] = &unk_279BA1FB8;
-          v45 = v17;
-          v46 = v5;
-          [PUITrackingReportManager queryWithOptions:v21 reply:v44];
+          v43[0] = MEMORY[0x277D85DD0];
+          v43[1] = 3221225472;
+          v43[2] = __74__PUIReportWebsiteListController_websiteSpecifiersFromResults_showDetail___block_invoke;
+          v43[3] = &unk_279BA1FB8;
+          v44 = v17;
+          v45 = v5;
+          [PUITrackingReportManager queryWithOptions:v21 reply:v43];
         }
 
         dispatch_group_wait(v5, 0xFFFFFFFFFFFFFFFFLL);
-        [v39 addObject:v17];
+        [v38 addObject:v17];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
+      v8 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
     }
 
     while (v8);
@@ -98,38 +98,37 @@
     v9 = 0;
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
-  v22 = v39;
-  v23 = [v22 countByEnumeratingWithState:&v40 objects:v51 count:16];
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v22 = v38;
+  v23 = [v22 countByEnumeratingWithState:&v39 objects:v50 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v41;
+    v25 = *v40;
     do
     {
       for (j = 0; j != v24; ++j)
       {
-        if (*v41 != v25)
+        if (*v40 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        v27 = *(*(&v40 + 1) + 8 * j);
+        v27 = *(*(&v39 + 1) + 8 * j);
         v28 = [*(v7 + 2992) numberWithInteger:v9];
         [v27 setObject:v28 forKeyedSubscript:@"PUITrackerBarCapacityKey"];
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v40 objects:v51 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v39 objects:v50 count:16];
     }
 
     while (v24);
   }
 
   v29 = [v22 copy];
-  v30 = *MEMORY[0x277D85DE8];
 
   return v29;
 }
@@ -235,7 +234,7 @@ void __83__PUIReportWebsiteListController_websiteSpecifiersWithLimit_showDetail_
 
 - (id)specifiers
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D3FC48];
   v4 = *(&self->super.super.super.super.super.isa + v3);
   if (!v4)
@@ -279,23 +278,23 @@ void __83__PUIReportWebsiteListController_websiteSpecifiersWithLimit_showDetail_
         v19 = objc_opt_new();
         [v19 setObject:&unk_28772B570 forKeyedSubscript:*MEMORY[0x277D6B668]];
         [v19 setObject:v18 forKeyedSubscript:*MEMORY[0x277D6B640]];
-        v59[0] = MEMORY[0x277D85DD0];
-        v59[1] = 3221225472;
-        v59[2] = __44__PUIReportWebsiteListController_specifiers__block_invoke;
-        v59[3] = &unk_279BA22E8;
-        v59[4] = self;
-        [PUITrackingReportManager queryWithOptions:v19 reply:v59];
+        v58[0] = MEMORY[0x277D85DD0];
+        v58[1] = 3221225472;
+        v58[2] = __44__PUIReportWebsiteListController_specifiers__block_invoke;
+        v58[3] = &unk_279BA22E8;
+        v58[4] = self;
+        [PUITrackingReportManager queryWithOptions:v19 reply:v58];
       }
 
       else
       {
         v20 = objc_opt_class();
-        v58[0] = MEMORY[0x277D85DD0];
-        v58[1] = 3221225472;
-        v58[2] = __44__PUIReportWebsiteListController_specifiers__block_invoke_3;
-        v58[3] = &unk_279BA2008;
-        v58[4] = self;
-        [v20 websiteSpecifiersWithLimit:0 showDetail:0 completion:v58];
+        v57[0] = MEMORY[0x277D85DD0];
+        v57[1] = 3221225472;
+        v57[2] = __44__PUIReportWebsiteListController_specifiers__block_invoke_3;
+        v57[3] = &unk_279BA2008;
+        v57[4] = self;
+        [v20 websiteSpecifiersWithLimit:0 showDetail:0 completion:v57];
       }
     }
 
@@ -310,30 +309,30 @@ void __83__PUIReportWebsiteListController_websiteSpecifiersWithLimit_showDetail_
     }
 
     [v10 addObjectsFromArray:v23];
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
     v55 = 0u;
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
     v25 = v23;
-    v26 = [v25 countByEnumeratingWithState:&v54 objects:v60 count:16];
+    v26 = [v25 countByEnumeratingWithState:&v53 objects:v59 count:16];
     v27 = v25;
     if (v26)
     {
       v28 = v26;
-      v51 = v11;
-      v52 = v10;
-      v53 = v3;
-      v29 = *v55;
+      v50 = v11;
+      v51 = v10;
+      v52 = v3;
+      v29 = *v54;
       while (2)
       {
         for (i = 0; i != v28; ++i)
         {
-          if (*v55 != v29)
+          if (*v54 != v29)
           {
             objc_enumerationMutation(v25);
           }
 
-          v31 = [*(*(&v54 + 1) + 8 * i) objectForKeyedSubscript:@"PUITrackerBarShowAppAttributedBadgeKey"];
+          v31 = [*(*(&v53 + 1) + 8 * i) objectForKeyedSubscript:@"PUITrackerBarShowAppAttributedBadgeKey"];
           bOOLValue = [v31 BOOLValue];
 
           if (bOOLValue)
@@ -373,7 +372,7 @@ void __83__PUIReportWebsiteListController_websiteSpecifiersWithLimit_showDetail_
           }
         }
 
-        v28 = [v25 countByEnumeratingWithState:&v54 objects:v60 count:16];
+        v28 = [v25 countByEnumeratingWithState:&v53 objects:v59 count:16];
         if (v28)
         {
           continue;
@@ -384,9 +383,9 @@ void __83__PUIReportWebsiteListController_websiteSpecifiersWithLimit_showDetail_
 
       v27 = v25;
 LABEL_22:
-      v10 = v52;
-      v3 = v53;
-      v11 = v51;
+      v10 = v51;
+      v3 = v52;
+      v11 = v50;
     }
 
     v48 = *(&self->super.super.super.super.super.isa + v3);
@@ -395,28 +394,25 @@ LABEL_22:
     v4 = *(&self->super.super.super.super.super.isa + v3);
   }
 
-  v49 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 void __44__PUIReportWebsiteListController_specifiers__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = objc_opt_class();
-  v6 = [v4 objectForKeyedSubscript:@"result"];
+  v3 = a2;
+  v4 = objc_opt_class();
+  v5 = [v3 objectForKeyedSubscript:@"result"];
 
-  v7 = [v5 websiteSpecifiersFromResults:v6 showDetail:0];
+  v6 = [v4 websiteSpecifiersFromResults:v5 showDetail:0];
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __44__PUIReportWebsiteListController_specifiers__block_invoke_2;
-  v9[3] = &unk_279BA10B0;
-  v9[4] = *(a1 + 32);
-  v10 = v7;
-  v8 = v7;
-  dispatch_async(MEMORY[0x277D85CD0], v9);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __44__PUIReportWebsiteListController_specifiers__block_invoke_2;
+  v8[3] = &unk_279BA10B0;
+  v8[4] = *(a1 + 32);
+  v9 = v6;
+  v7 = v6;
+  dispatch_async(MEMORY[0x277D85CD0], v8);
 }
 
 uint64_t __44__PUIReportWebsiteListController_specifiers__block_invoke_2(uint64_t a1)
@@ -498,7 +494,7 @@ uint64_t __44__PUIReportWebsiteListController_specifiers__block_invoke_5(uint64_
   [(PUIReportWebsiteListController *)self presentViewController:v3 animated:1 completion:0];
 }
 
-uint64_t __49__PUIReportWebsiteListController_sortByWasTapped__block_invoke(uint64_t a1)
+void *__49__PUIReportWebsiteListController_sortByWasTapped__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) alphabeticalSort];
   if (result)
@@ -512,7 +508,7 @@ uint64_t __49__PUIReportWebsiteListController_sortByWasTapped__block_invoke(uint
   return result;
 }
 
-uint64_t __49__PUIReportWebsiteListController_sortByWasTapped__block_invoke_2(uint64_t a1)
+void *__49__PUIReportWebsiteListController_sortByWasTapped__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) alphabeticalSort];
   if ((result & 1) == 0)

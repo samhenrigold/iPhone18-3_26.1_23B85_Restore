@@ -21,18 +21,16 @@
 
 - (LACCompanionAuthenticationEnvironmentProviding)environmentProvider
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___LACPhoneIntegrationSessionProcessor_environmentProvider);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (LACCompanionAuthenticationSessionMonitoring)monitor
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___LACPhoneIntegrationSessionProcessor_monitor);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (LACPhoneIntegrationSessionProcessor)initWithEnvironmentProvider:(id)provider monitor:(id)monitor

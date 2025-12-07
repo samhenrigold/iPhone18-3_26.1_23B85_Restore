@@ -54,7 +54,7 @@
   {
     objc_storeWeak(&v12->_database, databaseCopy);
     objc_storeWeak(&v13->_databaseProvider, providerCopy);
-    v14 = [contextCopy copy];
+    v14 = objc_msgSend_copy(contextCopy);
     rootContext = v13->_rootContext;
     v13->_rootContext = v14;
   }
@@ -130,12 +130,12 @@ LABEL_6:
 
 - (BOOL)performWithContext:(id)context error:(id *)error block:(id)block inaccessibilityHandler:(id)handler
 {
-  v189 = *MEMORY[0x277D85DE8];
+  v187 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   blockCopy = block;
   handlerCopy = handler;
   requiresProtectedData = [contextCopy requiresProtectedData];
-  v156 = contextCopy;
+  v154 = contextCopy;
   requiresWrite = [contextCopy requiresWrite];
   if (self->_performingMigration)
   {
@@ -180,10 +180,9 @@ LABEL_7:
 
     if (databaseSemaphoreLogging)
     {
-      v22 = *MEMORY[0x277CCC2A0];
-      v23 = _HKLogSignpostIDGenerate();
-      v24 = objc_loadWeakRetained(&self->_database);
-      configuration2 = [v24 configuration];
+      v22 = _HKLogSignpostIDGenerate();
+      v23 = objc_loadWeakRetained(&self->_database);
+      configuration2 = [v23 configuration];
       behavior2 = [configuration2 behavior];
       features2 = [behavior2 features];
       databaseSemaphoreLogging2 = [features2 databaseSemaphoreLogging];
@@ -191,54 +190,54 @@ LABEL_7:
       if (databaseSemaphoreLogging2)
       {
         _HKInitializeLogging();
-        v29 = *MEMORY[0x277CCC2A0];
+        v28 = *MEMORY[0x277CCC2A0];
         if (os_signpost_enabled(*MEMORY[0x277CCC2A0]))
         {
+          v29 = v28;
           v30 = v29;
-          v31 = v30;
-          if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
+          if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
           {
             currentThread = [MEMORY[0x277CCACC8] currentThread];
             [MEMORY[0x277CCACC8] threadPriority];
-            v34 = v33;
-            highPriority = [v156 highPriority];
-            requiresWrite2 = [v156 requiresWrite];
+            v33 = v32;
+            highPriority = [v154 highPriority];
+            requiresWrite2 = [v154 requiresWrite];
             if (highPriority)
             {
-              v37 = "high";
+              v36 = "high";
             }
 
             else
             {
-              v37 = "default";
+              v36 = "default";
             }
 
             if (requiresWrite2)
             {
-              v38 = "W";
+              v37 = "W";
             }
 
             else
             {
-              v38 = "O";
+              v37 = "O";
             }
 
             *buf = 138413314;
-            v172 = currentThread;
-            v173 = 2048;
-            v174 = v34;
+            v170 = currentThread;
+            v171 = 2048;
+            v172 = v33;
+            v173 = 2080;
+            v174 = v36;
             v175 = 2080;
             v176 = v37;
             v177 = 2080;
-            v178 = v38;
-            v179 = 2080;
-            *v180 = dispatch_queue_get_label(0);
-            _os_signpost_emit_with_name_impl(&dword_228986000, v31, OS_SIGNPOST_INTERVAL_BEGIN, v23, "hddatabase-semaphore", "thread: %@, priority: %f (%s), R%s, queue: %s", buf, 0x34u);
+            *v178 = dispatch_queue_get_label(0);
+            _os_signpost_emit_with_name_impl(&dword_228986000, v30, OS_SIGNPOST_INTERVAL_BEGIN, v22, "hddatabase-semaphore", "thread: %@, priority: %f (%s), R%s, queue: %s", buf, 0x34u);
           }
         }
       }
 
-      spid = v23;
+      spid = v22;
     }
 
     else
@@ -253,11 +252,11 @@ LABEL_7:
   aBlock[1] = 3221225472;
   aBlock[2] = __79__HDDatabaseTransaction_performWithContext_error_block_inaccessibilityHandler___block_invoke;
   aBlock[3] = &unk_278618968;
-  v170 = handlerCopy;
+  v168 = handlerCopy;
   handlerCopy = _Block_copy(aBlock);
   if (!requiresProtectedData || self->_protectedDatabase)
   {
-    v148 = 0;
+    v146 = 0;
     goto LABEL_29;
   }
 
@@ -267,19 +266,19 @@ LABEL_7:
     [currentHandler handleFailureInMethod:a2 object:self file:@"HDDatabaseTransaction.m" lineNumber:180 description:{@"Invalid parameter not satisfying: %@", @"_unprotectedDatabase == nil"}];
   }
 
-  v68 = objc_loadWeakRetained(&self->_databaseProvider);
-  v168 = 0;
-  v69 = [v68 checkOutProtectedDatabase:self error:&v168];
-  v70 = v168;
+  v67 = objc_loadWeakRetained(&self->_databaseProvider);
+  v166 = 0;
+  v68 = [v67 checkOutProtectedDatabase:self error:&v166];
+  v69 = v166;
   protectedDatabase = self->_protectedDatabase;
-  self->_protectedDatabase = v69;
+  self->_protectedDatabase = v68;
 
-  v72 = self->_protectedDatabase == 0;
-  v73 = objc_loadWeakRetained(&self->_database);
-  v74 = v73;
-  if (v72)
+  v71 = self->_protectedDatabase == 0;
+  v72 = objc_loadWeakRetained(&self->_database);
+  v73 = v72;
+  if (v71)
   {
-    configuration3 = [v73 configuration];
+    configuration3 = [v72 configuration];
     behavior3 = [configuration3 behavior];
     features3 = [behavior3 features];
     databaseSemaphoreLogging3 = [features3 databaseSemaphoreLogging];
@@ -287,26 +286,26 @@ LABEL_7:
     if (databaseSemaphoreLogging3)
     {
       _HKInitializeLogging();
-      v106 = *MEMORY[0x277CCC2A0];
+      v105 = *MEMORY[0x277CCC2A0];
       if (os_signpost_enabled(*MEMORY[0x277CCC2A0]))
       {
+        v106 = v105;
         v107 = v106;
-        v108 = v107;
-        if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v107))
+        if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v106))
         {
-          localizedDescription = [v70 localizedDescription];
+          localizedDescription = [v69 localizedDescription];
           *buf = 138412290;
-          v172 = localizedDescription;
-          _os_signpost_emit_with_name_impl(&dword_228986000, v108, OS_SIGNPOST_EVENT, spid, "hddatabase-semaphore", "unable to checkout ProtectedDatabase: %@", buf, 0xCu);
+          v170 = localizedDescription;
+          _os_signpost_emit_with_name_impl(&dword_228986000, v107, OS_SIGNPOST_EVENT, spid, "hddatabase-semaphore", "unable to checkout ProtectedDatabase: %@", buf, 0xCu);
         }
       }
     }
 
-    v14 = (handlerCopy[2].super.isa)(handlerCopy, v70, log);
+    v14 = (handlerCopy[2].super.isa)(handlerCopy, v69, log);
     goto LABEL_101;
   }
 
-  configuration4 = [v73 configuration];
+  configuration4 = [v72 configuration];
   behavior4 = [configuration4 behavior];
   features4 = [behavior4 features];
   databaseSemaphoreLogging4 = [features4 databaseSemaphoreLogging];
@@ -314,37 +313,37 @@ LABEL_7:
   if (databaseSemaphoreLogging4)
   {
     _HKInitializeLogging();
-    v79 = *MEMORY[0x277CCC2A0];
+    v78 = *MEMORY[0x277CCC2A0];
     if (os_signpost_enabled(*MEMORY[0x277CCC2A0]))
     {
+      v79 = v78;
       v80 = v79;
-      v81 = v80;
-      if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v80))
+      if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v79))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_228986000, v81, OS_SIGNPOST_EVENT, spid, "hddatabase-semaphore", "checked out ProtectedDatabase", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_228986000, v80, OS_SIGNPOST_EVENT, spid, "hddatabase-semaphore", "checked out ProtectedDatabase", buf, 2u);
       }
     }
   }
 
-  v82 = objc_loadWeakRetained(&self->_databaseProvider);
-  v167 = v70;
-  v83 = [v82 checkOutProtectedResources:self error:&v167];
-  v84 = v167;
+  v81 = objc_loadWeakRetained(&self->_databaseProvider);
+  v165 = v69;
+  v82 = [v81 checkOutProtectedResources:self error:&v165];
+  v83 = v165;
 
   protectedResources = self->_protectedResources;
-  self->_protectedResources = v83;
+  self->_protectedResources = v82;
 
   if (!self->_protectedResources)
   {
-    v110 = objc_loadWeakRetained(&self->_databaseProvider);
-    [v110 checkInDatabase:self->_protectedDatabase type:1 protectedResources:0];
+    v109 = objc_loadWeakRetained(&self->_databaseProvider);
+    [v109 checkInDatabase:self->_protectedDatabase type:1 protectedResources:0];
 
-    v111 = self->_protectedDatabase;
+    v110 = self->_protectedDatabase;
     self->_protectedDatabase = 0;
 
-    v112 = objc_loadWeakRetained(&self->_database);
-    configuration5 = [v112 configuration];
+    v111 = objc_loadWeakRetained(&self->_database);
+    configuration5 = [v111 configuration];
     behavior5 = [configuration5 behavior];
     features5 = [behavior5 features];
     databaseSemaphoreLogging5 = [features5 databaseSemaphoreLogging];
@@ -352,34 +351,34 @@ LABEL_7:
     if (databaseSemaphoreLogging5)
     {
       _HKInitializeLogging();
-      v117 = *MEMORY[0x277CCC2A0];
+      v116 = *MEMORY[0x277CCC2A0];
       if (os_signpost_enabled(*MEMORY[0x277CCC2A0]))
       {
+        v117 = v116;
         v118 = v117;
-        v119 = v118;
-        if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v118))
+        if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v117))
         {
-          localizedDescription2 = [v84 localizedDescription];
+          localizedDescription2 = [v83 localizedDescription];
           *buf = 138412290;
-          v172 = localizedDescription2;
-          _os_signpost_emit_with_name_impl(&dword_228986000, v119, OS_SIGNPOST_EVENT, spid, "hddatabase-semaphore", "unable to checkout ProtectedResources: %@", buf, 0xCu);
+          v170 = localizedDescription2;
+          _os_signpost_emit_with_name_impl(&dword_228986000, v118, OS_SIGNPOST_EVENT, spid, "hddatabase-semaphore", "unable to checkout ProtectedResources: %@", buf, 0xCu);
         }
       }
     }
 
-    v14 = (handlerCopy[2].super.isa)(handlerCopy, v84, log);
-    v70 = v84;
+    v14 = (handlerCopy[2].super.isa)(handlerCopy, v83, log);
+    v69 = v83;
 LABEL_101:
 
-    v57 = 0.0;
-    v121 = v170;
+    v56 = 0.0;
+    v120 = v168;
 LABEL_105:
 
     goto LABEL_106;
   }
 
-  v86 = objc_loadWeakRetained(&self->_database);
-  configuration6 = [v86 configuration];
+  v85 = objc_loadWeakRetained(&self->_database);
+  configuration6 = [v85 configuration];
   behavior6 = [configuration6 behavior];
   features6 = [behavior6 features];
   databaseSemaphoreLogging6 = [features6 databaseSemaphoreLogging];
@@ -387,15 +386,15 @@ LABEL_105:
   if (databaseSemaphoreLogging6)
   {
     _HKInitializeLogging();
-    v91 = *MEMORY[0x277CCC2A0];
+    v90 = *MEMORY[0x277CCC2A0];
     if (os_signpost_enabled(*MEMORY[0x277CCC2A0]))
     {
+      v91 = v90;
       v92 = v91;
-      v93 = v92;
-      if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v92))
+      if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v91))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_228986000, v93, OS_SIGNPOST_EVENT, spid, "hddatabase-semaphore", "checked out ProtectedResources", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_228986000, v92, OS_SIGNPOST_EVENT, spid, "hddatabase-semaphore", "checked out ProtectedResources", buf, 2u);
       }
     }
   }
@@ -403,24 +402,24 @@ LABEL_105:
   [(HDSQLiteDatabase *)self->_protectedDatabase setCacheScope:[(HDDatabaseTransaction *)self _resolveCacheScope:?]];
   [(HDSQLiteDatabase *)self->_protectedDatabase setTransactionInterruptRequested:0];
 
-  v148 = 1;
+  v146 = 1;
 LABEL_29:
   unprotectedDatabase = self->_unprotectedDatabase;
   if (!unprotectedDatabase)
   {
-    v40 = objc_loadWeakRetained(&self->_databaseProvider);
-    v166 = 0;
-    v41 = [v40 checkOutUnprotectedDatabase:self error:&v166];
-    v42 = v166;
-    v43 = self->_unprotectedDatabase;
-    self->_unprotectedDatabase = v41;
+    v39 = objc_loadWeakRetained(&self->_databaseProvider);
+    v164 = 0;
+    v40 = [v39 checkOutUnprotectedDatabase:self error:&v164];
+    v41 = v164;
+    v42 = self->_unprotectedDatabase;
+    self->_unprotectedDatabase = v40;
 
-    LODWORD(v40) = self->_unprotectedDatabase == 0;
-    v44 = objc_loadWeakRetained(&self->_database);
-    v45 = v44;
-    if (v40)
+    LODWORD(v39) = self->_unprotectedDatabase == 0;
+    v43 = objc_loadWeakRetained(&self->_database);
+    v44 = v43;
+    if (v39)
     {
-      configuration7 = [v44 configuration];
+      configuration7 = [v43 configuration];
       behavior7 = [configuration7 behavior];
       features7 = [behavior7 features];
       databaseSemaphoreLogging7 = [features7 databaseSemaphoreLogging];
@@ -428,26 +427,26 @@ LABEL_29:
       if (databaseSemaphoreLogging7)
       {
         _HKInitializeLogging();
-        v98 = *MEMORY[0x277CCC2A0];
+        v97 = *MEMORY[0x277CCC2A0];
         if (os_signpost_enabled(*MEMORY[0x277CCC2A0]))
         {
+          v98 = v97;
           v99 = v98;
-          v100 = v99;
-          if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v99))
+          if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v98))
           {
-            localizedDescription3 = [v42 localizedDescription];
+            localizedDescription3 = [v41 localizedDescription];
             *buf = 138412290;
-            v172 = localizedDescription3;
-            _os_signpost_emit_with_name_impl(&dword_228986000, v100, OS_SIGNPOST_EVENT, spid, "hddatabase-semaphore", "unable to checkout UnprotectedDatabase: %@", buf, 0xCu);
+            v170 = localizedDescription3;
+            _os_signpost_emit_with_name_impl(&dword_228986000, v99, OS_SIGNPOST_EVENT, spid, "hddatabase-semaphore", "unable to checkout UnprotectedDatabase: %@", buf, 0xCu);
           }
         }
       }
 
-      v14 = (handlerCopy[2].super.isa)(handlerCopy, v42, log);
+      v14 = (handlerCopy[2].super.isa)(handlerCopy, v41, log);
 
-      v57 = 0.0;
+      v56 = 0.0;
 LABEL_103:
-      if ((v148 & 1) == 0)
+      if ((v146 & 1) == 0)
       {
         goto LABEL_106;
       }
@@ -455,7 +454,7 @@ LABEL_103:
       goto LABEL_104;
     }
 
-    configuration8 = [v44 configuration];
+    configuration8 = [v43 configuration];
     behavior8 = [configuration8 behavior];
     features8 = [behavior8 features];
     databaseSemaphoreLogging8 = [features8 databaseSemaphoreLogging];
@@ -463,15 +462,15 @@ LABEL_103:
     if (databaseSemaphoreLogging8)
     {
       _HKInitializeLogging();
-      v50 = *MEMORY[0x277CCC2A0];
+      v49 = *MEMORY[0x277CCC2A0];
       if (os_signpost_enabled(*MEMORY[0x277CCC2A0]))
       {
+        v50 = v49;
         v51 = v50;
-        v52 = v51;
-        if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v51))
+        if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v50))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_228986000, v52, OS_SIGNPOST_EVENT, spid, "hddatabase-semaphore", "checked out UnprotectedDatabase", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_228986000, v51, OS_SIGNPOST_EVENT, spid, "hddatabase-semaphore", "checked out UnprotectedDatabase", buf, 2u);
         }
       }
     }
@@ -482,84 +481,84 @@ LABEL_103:
 
   if (isActive)
   {
-    v53 = 0;
+    v52 = 0;
   }
 
   else
   {
     statistics = [(HDDatabaseTransactionContext *)self->_rootContext statistics];
-    v53 = statistics != 0;
+    v52 = statistics != 0;
   }
 
   if (requiresProtectedData)
   {
-    v55 = 2;
+    v54 = 2;
   }
 
   else
   {
-    v55 = 1;
+    v54 = 1;
   }
 
-  v56 = [(HDDatabaseTransaction *)self databaseForEntityProtectionClass:v55];
+  v55 = [(HDDatabaseTransaction *)self databaseForEntityProtectionClass:v54];
+  v56 = 0.0;
   v57 = 0.0;
-  v58 = 0.0;
-  if (v53)
-  {
-    v58 = CFAbsoluteTimeGetCurrent();
-  }
-
-  v59 = isActive;
-  if (!isActive)
+  if (v52)
   {
     v57 = CFAbsoluteTimeGetCurrent();
-    v59 = 0;
   }
 
-  v165 = 0;
-  v159[0] = MEMORY[0x277D85DD0];
-  v159[1] = 3221225472;
-  v159[2] = __79__HDDatabaseTransaction_performWithContext_error_block_inaccessibilityHandler___block_invoke_322;
-  v159[3] = &unk_27862EDB0;
-  v161 = v55;
-  v162 = requiresWrite;
-  v159[4] = self;
-  v164 = !v59;
-  v163 = spid;
-  v160 = blockCopy;
-  v14 = [v56 performTransactionWithType:requiresWrite error:&v165 usingBlock:v159];
-  v60 = v165;
-  if (v53)
+  v58 = isActive;
+  if (!isActive)
   {
-    v61 = [[HDDatabaseTransactionStatistics alloc] _initWithStartTime:v58 endTime:CFAbsoluteTimeGetCurrent()];
+    v56 = CFAbsoluteTimeGetCurrent();
+    v58 = 0;
+  }
+
+  v163 = 0;
+  v157[0] = MEMORY[0x277D85DD0];
+  v157[1] = 3221225472;
+  v157[2] = __79__HDDatabaseTransaction_performWithContext_error_block_inaccessibilityHandler___block_invoke_322;
+  v157[3] = &unk_27862EDB0;
+  v159 = v54;
+  v160 = requiresWrite;
+  v157[4] = self;
+  v162 = !v58;
+  v161 = spid;
+  v158 = blockCopy;
+  v14 = [v55 performTransactionWithType:requiresWrite error:&v163 usingBlock:v157];
+  v59 = v163;
+  if (v52)
+  {
+    v60 = [[HDDatabaseTransactionStatistics alloc] _initWithStartTime:v57 endTime:CFAbsoluteTimeGetCurrent()];
     statistics2 = [(HDDatabaseTransactionContext *)self->_rootContext statistics];
-    [statistics2 _addTransactionStatistics:v61];
+    [statistics2 _addTransactionStatistics:v60];
   }
 
-  if (v60)
+  if (v59)
   {
-    v63 = 1;
+    v62 = 1;
   }
 
   else
   {
-    v63 = v14;
+    v62 = v14;
   }
 
-  if ((v63 & 1) == 0)
+  if ((v62 & 1) == 0)
   {
-    v60 = [MEMORY[0x277CCA9B8] hk_error:124 description:@"Transaction failure."];
+    v59 = [MEMORY[0x277CCA9B8] hk_error:124 description:@"Transaction failure."];
   }
 
-  if (v60)
+  if (v59)
   {
-    v64 = *MEMORY[0x277CCC2A0];
-    v65 = v60;
-    v66 = v64;
+    v63 = *MEMORY[0x277CCC2A0];
+    v64 = v59;
+    v65 = v63;
     if (log)
     {
-      v67 = v65;
-      log->isa = v65;
+      v66 = v64;
+      log->isa = v64;
     }
 
     else
@@ -570,25 +569,25 @@ LABEL_103:
 
   if (!unprotectedDatabase)
   {
-    v123 = objc_loadWeakRetained(&self->_databaseProvider);
-    [v123 checkInDatabase:self->_unprotectedDatabase type:0 protectedResources:0];
+    v122 = objc_loadWeakRetained(&self->_databaseProvider);
+    [v122 checkInDatabase:self->_unprotectedDatabase type:0 protectedResources:0];
 
-    v124 = self->_unprotectedDatabase;
+    v123 = self->_unprotectedDatabase;
     self->_unprotectedDatabase = 0;
 
     goto LABEL_103;
   }
 
-  if (v148)
+  if (v146)
   {
 LABEL_104:
-    v125 = objc_loadWeakRetained(&self->_databaseProvider);
-    [v125 checkInDatabase:self->_protectedDatabase type:1 protectedResources:self->_protectedResources];
+    v124 = objc_loadWeakRetained(&self->_databaseProvider);
+    [v124 checkInDatabase:self->_protectedDatabase type:1 protectedResources:self->_protectedResources];
 
-    v126 = self->_protectedDatabase;
+    v125 = self->_protectedDatabase;
     self->_protectedDatabase = 0;
 
-    v121 = self->_protectedResources;
+    v120 = self->_protectedResources;
     self->_protectedResources = 0;
     goto LABEL_105;
   }
@@ -599,59 +598,59 @@ LABEL_106:
     goto LABEL_120;
   }
 
-  v127 = v156;
-  v128 = CFAbsoluteTimeGetCurrent() - v57;
-  if (v57 - v15 > 5.0)
+  v126 = v154;
+  v127 = CFAbsoluteTimeGetCurrent() - v56;
+  if (v56 - v15 > 5.0)
   {
-    v129 = @"start";
+    v128 = @"start";
     goto LABEL_112;
   }
 
-  if (v57 > 0.0 && v128 > 5.0)
+  if (v56 > 0.0 && v127 > 5.0)
   {
-    v129 = @"work";
+    v128 = @"work";
 LABEL_112:
     _HKInitializeLogging();
-    v130 = *MEMORY[0x277CCC2A0];
+    v129 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
     {
-      loga = v130;
+      loga = v129;
+      v130 = HKDiagnosticStringFromDuration();
+      v150 = HKDiagnosticStringFromDuration();
       v131 = HKDiagnosticStringFromDuration();
-      v152 = HKDiagnosticStringFromDuration();
-      v132 = HKDiagnosticStringFromDuration();
-      requiresWrite3 = [v127 requiresWrite];
-      requiresProtectedData2 = [v127 requiresProtectedData];
-      highPriority2 = [v127 highPriority];
-      cacheScope = [v127 cacheScope];
-      journalType = [v127 journalType];
+      requiresWrite3 = [v126 requiresWrite];
+      requiresProtectedData2 = [v126 requiresProtectedData];
+      highPriority2 = [v126 highPriority];
+      cacheScope = [v126 cacheScope];
+      journalType = [v126 journalType];
       label = dispatch_queue_get_label(0);
       *buf = 138545666;
-      v172 = v129;
+      v170 = v128;
+      v171 = 2114;
+      v172 = v130;
       v173 = 2114;
-      v174 = v131;
+      v174 = v150;
       v175 = 2114;
-      v176 = v152;
-      v177 = 2114;
-      v178 = v132;
+      v176 = v131;
+      v177 = 1024;
+      *v178 = requiresWrite3;
+      *&v178[4] = 1024;
+      *&v178[6] = requiresProtectedData2;
       v179 = 1024;
-      *v180 = requiresWrite3;
-      *&v180[4] = 1024;
-      *&v180[6] = requiresProtectedData2;
-      v181 = 1024;
-      v182 = highPriority2;
+      v180 = highPriority2;
+      v181 = 2048;
+      v182 = cacheScope;
       v183 = 2048;
-      v184 = cacheScope;
-      v185 = 2048;
-      v186 = journalType;
-      v187 = 2082;
-      v188 = label;
+      v184 = journalType;
+      v185 = 2082;
+      v186 = label;
       _os_log_impl(&dword_228986000, loga, OS_LOG_TYPE_DEFAULT, "Long database transaction %{public}@ duration: duration=%{public}@, wait=%{public}@, work=%{public}@, write=%{BOOL}d, protected=%{BOOL}d, priority=%{BOOL}d, cache=%ld, journal=%ld, queue=%{public}s", buf, 0x5Au);
     }
   }
 
   *&self->_isActive = 0;
-  v138 = objc_loadWeakRetained(&self->_database);
-  configuration9 = [v138 configuration];
+  v137 = objc_loadWeakRetained(&self->_database);
+  configuration9 = [v137 configuration];
   behavior9 = [configuration9 behavior];
   features9 = [behavior9 features];
   databaseSemaphoreLogging9 = [features9 databaseSemaphoreLogging];
@@ -659,22 +658,21 @@ LABEL_112:
   if (databaseSemaphoreLogging9)
   {
     _HKInitializeLogging();
-    v143 = *MEMORY[0x277CCC2A0];
+    v142 = *MEMORY[0x277CCC2A0];
     if (os_signpost_enabled(*MEMORY[0x277CCC2A0]))
     {
+      v143 = v142;
       v144 = v143;
-      v145 = v144;
-      if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v144))
+      if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v143))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_228986000, v145, OS_SIGNPOST_INTERVAL_END, spid, "hddatabase-semaphore", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_228986000, v144, OS_SIGNPOST_INTERVAL_END, spid, "hddatabase-semaphore", "", buf, 2u);
       }
     }
   }
 
 LABEL_120:
 
-  v146 = *MEMORY[0x277D85DE8];
   return v14 & 1;
 }
 
@@ -715,29 +713,27 @@ uint64_t __79__HDDatabaseTransaction_performWithContext_error_block_inaccessibil
   if (*(a1 + 48) == 2)
   {
     v5 = [*(a1 + 32) unprotectedDatabase];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __79__HDDatabaseTransaction_performWithContext_error_block_inaccessibilityHandler___block_invoke_2;
-    v14[3] = &unk_27862ED88;
-    v17 = *(a1 + 72);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __79__HDDatabaseTransaction_performWithContext_error_block_inaccessibilityHandler___block_invoke_2;
+    v12[3] = &unk_27862ED88;
+    v15 = *(a1 + 72);
     v7 = *(a1 + 56);
     v6 = *(a1 + 64);
     v8 = *(a1 + 40);
-    v14[4] = *(a1 + 32);
-    v16 = v6;
-    v15 = v8;
-    v9 = [v5 performTransactionWithType:v7 error:a3 usingBlock:v14];
+    v12[4] = *(a1 + 32);
+    v14 = v6;
+    v13 = v8;
+    v9 = [v5 performTransactionWithType:v7 error:a3 usingBlock:v12];
 
     return v9;
   }
 
   else
   {
-    v12 = *(a1 + 32);
-    v11 = *(a1 + 40);
-    v13 = *(*(a1 + 40) + 16);
+    v11 = *(*(a1 + 40) + 16);
 
-    return v13();
+    return v11();
   }
 }
 
@@ -776,41 +772,40 @@ LABEL_8:
   }
 
 LABEL_9:
-  v10 = *(a1 + 32);
-  v11 = (*(*(a1 + 40) + 16))();
-  v12 = objc_loadWeakRetained((*(a1 + 32) + 8));
-  v13 = [v12 configuration];
-  v14 = [v13 behavior];
-  v15 = [v14 features];
-  if (![v15 databaseSemaphoreLogging])
+  v10 = (*(*(a1 + 40) + 16))();
+  v11 = objc_loadWeakRetained((*(a1 + 32) + 8));
+  v12 = [v11 configuration];
+  v13 = [v12 behavior];
+  v14 = [v13 features];
+  if (![v14 databaseSemaphoreLogging])
   {
 
 LABEL_16:
-    return v11;
+    return v10;
   }
 
-  v16 = *(a1 + 56);
+  v15 = *(a1 + 56);
 
-  if (v16 == 1)
+  if (v15 == 1)
   {
     _HKInitializeLogging();
-    v17 = *MEMORY[0x277CCC2A0];
+    v16 = *MEMORY[0x277CCC2A0];
     if (os_signpost_enabled(*MEMORY[0x277CCC2A0]))
     {
-      v18 = v17;
-      v12 = v18;
-      v19 = *(a1 + 48);
-      if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+      v17 = v16;
+      v11 = v17;
+      v18 = *(a1 + 48);
+      if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
       {
-        *v21 = 0;
-        _os_signpost_emit_with_name_impl(&dword_228986000, v12, OS_SIGNPOST_EVENT, v19, "hddatabase-semaphore", "outermost transaction block complete", v21, 2u);
+        *v20 = 0;
+        _os_signpost_emit_with_name_impl(&dword_228986000, v11, OS_SIGNPOST_EVENT, v18, "hddatabase-semaphore", "outermost transaction block complete", v20, 2u);
       }
 
       goto LABEL_16;
     }
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)onCommit:(id)commit orRollback:(id)rollback
@@ -835,7 +830,7 @@ LABEL_16:
       onCommitBlocks = self->_onCommitBlocks;
     }
 
-    v11 = [commitCopy copy];
+    v11 = objc_msgSend_copy(commitCopy);
     v12 = _Block_copy(v11);
     [(NSMutableArray *)onCommitBlocks addObject:v12];
   }
@@ -852,7 +847,7 @@ LABEL_16:
       onRollbackBlocks = self->_onRollbackBlocks;
     }
 
-    v16 = [rollbackCopy copy];
+    v16 = objc_msgSend_copy(rollbackCopy);
     v17 = _Block_copy(v16);
     [(NSMutableArray *)onRollbackBlocks addObject:v17];
   }
@@ -860,7 +855,7 @@ LABEL_16:
 
 - (void)transactionDidEndWithError:(id)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (self->_isActive)
   {
@@ -870,28 +865,28 @@ LABEL_16:
 
   if (errorCopy)
   {
-    v19 = 0uLL;
-    v20 = 0uLL;
-    v17 = 0uLL;
     v18 = 0uLL;
+    v19 = 0uLL;
+    v16 = 0uLL;
+    v17 = 0uLL;
     v6 = self->_onRollbackBlocks;
-    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v17 objects:v25 count:16];
+    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v16 objects:v24 count:16];
     if (v7)
     {
-      v8 = *v18;
+      v8 = *v17;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          (*(*(*(&v17 + 1) + 8 * i) + 16))();
+          (*(*(*(&v16 + 1) + 8 * i) + 16))();
         }
 
-        v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v16 objects:v24 count:16];
       }
 
       while (v7);
@@ -900,28 +895,28 @@ LABEL_16:
 
   else
   {
-    v23 = 0uLL;
-    v24 = 0uLL;
-    v21 = 0uLL;
     v22 = 0uLL;
+    v23 = 0uLL;
+    v20 = 0uLL;
+    v21 = 0uLL;
     v6 = self->_onCommitBlocks;
-    v10 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v10 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v10)
     {
-      v11 = *v22;
+      v11 = *v21;
       do
       {
         for (j = 0; j != v10; ++j)
         {
-          if (*v22 != v11)
+          if (*v21 != v11)
           {
             objc_enumerationMutation(v6);
           }
 
-          (*(*(*(&v21 + 1) + 8 * j) + 16))();
+          (*(*(*(&v20 + 1) + 8 * j) + 16))();
         }
 
-        v10 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v10 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
       while (v10);
@@ -933,8 +928,6 @@ LABEL_16:
 
   onRollbackBlocks = self->_onRollbackBlocks;
   self->_onRollbackBlocks = 0;
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestTransactionInterruption

@@ -7,23 +7,23 @@
 
 - (id)coreAnalyticsDictionary
 {
-  v16[7] = *MEMORY[0x277D85DE8];
-  v15[0] = @"numDailyDigests";
+  v15[7] = *MEMORY[0x277D85DE8];
+  v14[0] = @"numDailyDigests";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXNotificationManagementSettingsMetric numDailyDigests](self, "numDailyDigests")}];
-  v16[0] = v3;
-  v15[1] = @"numDigestApps";
+  v15[0] = v3;
+  v14[1] = @"numDigestApps";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXNotificationManagementSettingsMetric numDigestApps](self, "numDigestApps")}];
-  v16[1] = v4;
-  v15[2] = @"numConfiguredModes";
+  v15[1] = v4;
+  v14[2] = @"numConfiguredModes";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXNotificationManagementSettingsMetric numConfiguredModes](self, "numConfiguredModes")}];
-  v16[2] = v5;
-  v15[3] = @"hasOfferedDigest";
+  v15[2] = v5;
+  v14[3] = @"hasOfferedDigest";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXNotificationManagementSettingsMetric hasOfferedDigest](self, "hasOfferedDigest")}];
-  v16[3] = v6;
-  v15[4] = @"hasSetupDigest";
+  v15[3] = v6;
+  v14[4] = @"hasSetupDigest";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXNotificationManagementSettingsMetric hasSetupDigest](self, "hasSetupDigest")}];
-  v16[4] = v7;
-  v15[5] = @"areHighlightsEnabled";
+  v15[4] = v7;
+  v14[5] = @"areHighlightsEnabled";
   areHighlightsEnabled = [(ATXNotificationManagementSettingsMetric *)self areHighlightsEnabled];
   null = areHighlightsEnabled;
   if (!areHighlightsEnabled)
@@ -31,8 +31,8 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v16[5] = null;
-  v15[6] = @"areSummariesEnabled";
+  v15[5] = null;
+  v14[6] = @"areSummariesEnabled";
   areSummariesEnabled = [(ATXNotificationManagementSettingsMetric *)self areSummariesEnabled];
   null2 = areSummariesEnabled;
   if (!areSummariesEnabled)
@@ -40,8 +40,8 @@
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v16[6] = null2;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:7];
+  v15[6] = null2;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:7];
   if (!areSummariesEnabled)
   {
   }
@@ -49,8 +49,6 @@
   if (!areHighlightsEnabled)
   {
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

@@ -4,6 +4,7 @@
 - (void)getPeakPowerPressureLevelWithToken:(int)token;
 - (void)getThermalPressureLevelWithToken:(int)token;
 - (void)setCurrentPeakPowerPressureLevel:(unsigned int)level;
+- (void)setCurrentThermalLevel:(int)level;
 - (void)start;
 - (void)stop;
 - (void)synchronouslyReflectCurrentValue;
@@ -17,6 +18,20 @@
   v3.receiver = self;
   v3.super_class = _DKThermalPressureMonitor;
   [(_DKMonitor *)&v3 dealloc];
+}
+
+- (void)setCurrentThermalLevel:(int)level
+{
+  if (!self->_initialized || self->_lastThermalPressureLevel != level)
+  {
+    v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*&level];
+    userContext = [MEMORY[0x277CFE318] userContext];
+    keyPathForThermalPressureLevel = [MEMORY[0x277CFE338] keyPathForThermalPressureLevel];
+    [userContext setObject:v5 forKeyedSubscript:keyPathForThermalPressureLevel];
+
+    self->_lastThermalPressureLevel = level;
+    self->_initialized = 1;
+  }
 }
 
 - (void)setCurrentPeakPowerPressureLevel:(unsigned int)level

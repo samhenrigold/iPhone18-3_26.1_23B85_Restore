@@ -138,41 +138,48 @@
   memset(&slice, 0, sizeof(slice));
   [(UIImageView *)self->_disclosureView frame:*&width];
   v10 = v9;
-  v27.origin.x = x + 16.0;
-  v27.origin.y = y + 16.0;
-  v27.size.width = width + -32.0;
-  v27.size.height = height + -32.0;
-  CGRectDivide(v27, &slice, &remainder, v10, v8);
+  v12 = v11;
+  v36.origin.x = x + 16.0;
+  v36.origin.y = y + 16.0;
+  v36.size.width = width + -32.0;
+  v36.size.height = height + -32.0;
+  CGRectDivide(v36, &slice, &remainder, v10, v8);
   if (!self->_isTemplateLayout)
   {
-    PKSizeAlignedInRect();
+    v15.n128_u64[0] = *&slice.origin.x;
+    v16.n128_u64[0] = *&slice.origin.y;
+    v17.n128_u64[0] = *&slice.size.width;
+    v18.n128_u64[0] = *&slice.size.height;
+    v13.n128_f64[0] = v10;
+    v14.n128_u64[0] = v12;
+    PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v13, v14, v15, v16, v17, v18, v19);
     [(UIImageView *)self->_disclosureView setFrame:?];
   }
 
   CGRectDivide(remainder, &slice, &remainder, 16.0, v8);
   [(UILabel *)self->_titleLabel sizeThatFits:remainder.size.width, remainder.size.height];
-  v12 = v11;
+  v21 = v20;
   [(UILabel *)self->_amountLabel sizeThatFits:remainder.size.width, remainder.size.height];
-  v14 = v13;
+  v23 = v22;
   if (self->_subtitleText)
   {
     [(UILabel *)self->_subtitleLabel sizeThatFits:remainder.size.width, remainder.size.height];
-    v16 = v15;
+    v25 = v24;
   }
 
   else
   {
-    v16 = *(MEMORY[0x1E695F060] + 8);
+    v25 = *(MEMORY[0x1E695F060] + 8);
   }
 
   if (!self->_isTemplateLayout)
   {
-    CGRectDivide(remainder, &slice, &remainder, v12, CGRectMinYEdge);
+    CGRectDivide(remainder, &slice, &remainder, v21, CGRectMinYEdge);
     [(UILabel *)self->_titleLabel setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
     CGRectDivide(remainder, &slice, &remainder, 5.0, CGRectMinYEdge);
-    CGRectDivide(remainder, &slice, &remainder, v14, CGRectMinYEdge);
+    CGRectDivide(remainder, &slice, &remainder, v23, CGRectMinYEdge);
     [(UILabel *)self->_amountLabel setFrame:slice.origin.x, slice.origin.y, slice.size.width, slice.size.height];
-    if (v16 <= 0.0)
+    if (v25 <= 0.0)
     {
       p_slice = MEMORY[0x1E695F058];
     }
@@ -181,27 +188,27 @@
     {
       p_slice = &slice;
       CGRectDivide(remainder, &slice, &remainder, 5.0, CGRectMinYEdge);
-      CGRectDivide(remainder, &slice, &remainder, v16, CGRectMinYEdge);
+      CGRectDivide(remainder, &slice, &remainder, v25, CGRectMinYEdge);
     }
 
     [(UILabel *)self->_subtitleLabel setFrame:p_slice->origin.x, p_slice->origin.y, p_slice->size.width, p_slice->size.height];
   }
 
-  v18 = v12 + v14 + 5.0;
-  if (v16 > 0.0)
+  v27 = v21 + v23 + 5.0;
+  if (v25 > 0.0)
   {
-    v18 = v18 + v16 + 5.0;
+    v27 = v27 + v25 + 5.0;
   }
 
-  v19 = v18 + 32.0;
-  v28.origin.x = x;
-  v28.origin.y = y;
-  v28.size.width = v22;
-  v28.size.height = v23;
-  v20 = CGRectGetWidth(v28);
-  v21 = v19;
-  result.height = v21;
-  result.width = v20;
+  v28 = v27 + 32.0;
+  v37.origin.x = x;
+  v37.origin.y = y;
+  v37.size.width = v31;
+  v37.size.height = v32;
+  v29 = CGRectGetWidth(v37);
+  v30 = v28;
+  result.height = v30;
+  result.width = v29;
   return result;
 }
 

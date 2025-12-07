@@ -61,15 +61,15 @@
         sub_1018FF694();
       }
 
-      v17 = qword_1025D4418;
+      v20 = qword_1025D4418;
       if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_ERROR))
       {
         workoutElevationProfileCount = self->_workoutElevationProfileCount;
         *buf = 134218240;
-        v83 = Current;
-        v84 = 1024;
-        LODWORD(v85) = workoutElevationProfileCount;
-        _os_log_impl(dword_100000000, v17, OS_LOG_TYPE_ERROR, "#altimeter,received profile with null last element,now,%.3lf,smoothedWorkoutProfileCount,%d", buf, 0x12u);
+        v95 = Current;
+        v96 = 1024;
+        LODWORD(v97) = workoutElevationProfileCount;
+        _os_log_impl(dword_100000000, v20, OS_LOG_TYPE_ERROR, "#altimeter,received profile with null last element,now,%.3lf,smoothedWorkoutProfileCount,%d", buf, 0x12u);
       }
 
       if (!sub_10000A100(121, 0))
@@ -77,27 +77,16 @@
         goto LABEL_25;
       }
 
-LABEL_109:
       sub_1018FF6A8(buf);
-      v57 = selfCopy->_workoutElevationProfileCount;
-      v68 = 134218240;
-      v69 = Current;
-      v70 = 1024;
-      LODWORD(v71) = v57;
-      v58 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 0, "[CLElevationGainFromProfile computeAscendingDescendingSegments:]", "%s\n", v58);
-      if (v58 != buf)
-      {
-        free(v58);
-      }
-
-LABEL_25:
-      if (v14)
-      {
-        sub_100008080(v14);
-      }
-
-      goto LABEL_27;
+      v63 = selfCopy->_workoutElevationProfileCount;
+      v80 = 134218240;
+      v81 = Current;
+      v82 = 1024;
+      LODWORD(v83) = v63;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4418, 16, "#altimeter,received profile with null last element,now,%.3lf,smoothedWorkoutProfileCount,%d", COERCE_DOUBLE(&v80), 18);
+      v19 = v64;
+      sub_100152C7C("Generic", 1, 0, 0, "[CLElevationGainFromProfile computeAscendingDescendingSegments:]", "%s\n", v64);
+      goto LABEL_110;
     }
 
     if (*(v13 + 8) != 1.79769313e308 || *(v13 + 16) != 1.79769313e308 || *(v13 + 24))
@@ -112,9 +101,9 @@ LABEL_25:
       {
         v16 = self->_workoutElevationProfileCount;
         *buf = 134218240;
-        v83 = Current;
-        v84 = 1024;
-        LODWORD(v85) = v16;
+        v95 = Current;
+        v96 = 1024;
+        LODWORD(v97) = v16;
         _os_log_impl(dword_100000000, v15, OS_LOG_TYPE_ERROR, "#altimeter,received profile without end of workout indicator,now,%.3lf,smoothedWorkoutProfileCount,%d", buf, 0x12u);
       }
 
@@ -123,7 +112,28 @@ LABEL_25:
         goto LABEL_25;
       }
 
-      goto LABEL_109;
+      sub_1018FF6A8(buf);
+      v17 = selfCopy->_workoutElevationProfileCount;
+      v80 = 134218240;
+      v81 = Current;
+      v82 = 1024;
+      LODWORD(v83) = v17;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4418, 16, "#altimeter,received profile without end of workout indicator,now,%.3lf,smoothedWorkoutProfileCount,%d", COERCE_DOUBLE(&v80), 18);
+      v19 = v18;
+      sub_100152C7C("Generic", 1, 0, 0, "[CLElevationGainFromProfile computeAscendingDescendingSegments:]", "%s\n", v18);
+LABEL_110:
+      if (v19 != buf)
+      {
+        free(v19);
+      }
+
+LABEL_25:
+      if (v14)
+      {
+        sub_100008080(v14);
+      }
+
+      goto LABEL_27;
     }
 
     if (v14)
@@ -131,59 +141,59 @@ LABEL_25:
       sub_100008080(v14);
     }
 
-    v19 = (*(dataBuffers[79] + ((dataBuffers[82] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * dataBuffers[82]);
-    v21 = *v19;
-    v20 = v19[1];
-    if (v20)
+    v22 = (*(dataBuffers[79] + ((dataBuffers[82] >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * dataBuffers[82]);
+    v24 = *v22;
+    v23 = v22[1];
+    if (v23)
     {
-      atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    [(CLElevationGainFromProfile *)self computeAdjustedStartTimeFromElevationProfileStartTime:*v21];
-    v23 = v22;
-    [(CLElevationGainFromProfile *)selfCopy removeElevationProfileSegmentPointsFromTimestamp:v22 + -0.1];
+    [(CLElevationGainFromProfile *)self computeAdjustedStartTimeFromElevationProfileStartTime:*v24];
+    v26 = v25;
+    [(CLElevationGainFromProfile *)selfCopy removeElevationProfileSegmentPointsFromTimestamp:v25 + -0.1];
     begin = selfCopy->_elevationProfileSegmentTransitionPoints.__begin_;
     end = selfCopy->_elevationProfileSegmentTransitionPoints.__end_;
-    v26 = (end - 1);
-    v27 = (end - 2);
-    *v66 = Current;
-    v66[1] = &selfCopy;
+    v29 = (end - 1);
+    v30 = (end - 2);
+    *v78 = Current;
+    v78[1] = &selfCopy;
     if (begin == end)
     {
-      v26 = v21 + 1;
-      v27 = v21;
+      v29 = v24 + 1;
+      v30 = v24;
     }
 
-    v28 = *v27;
-    v63 = *v26;
+    v31 = *v30;
+    v75 = *v29;
     if (begin == end)
     {
-      goto LABEL_116;
+      goto LABEL_117;
     }
 
-    v29 = begin;
+    v32 = begin;
     do
     {
-      sub_100685D34(v66, v29, 0);
-      v29 += 2;
+      sub_100685D34(v78, v32, 0);
+      v32 += 2;
     }
 
-    while (v29 != end);
+    while (v32 != end);
     if (begin == end)
     {
-LABEL_116:
-      if ([(CLElevationGainFromProfile *)selfCopy addTransitionPointWithAltitude:v21[1] andTimestamp:*v21])
+LABEL_117:
+      if ([(CLElevationGainFromProfile *)selfCopy addTransitionPointWithAltitude:v24[1] andTimestamp:*v24])
       {
-        v30 = 1;
-        sub_100685D34(v66, selfCopy->_elevationProfileSegmentTransitionPoints.__end_ - 2, 1);
+        v34 = 1;
+        sub_100685D34(v78, selfCopy->_elevationProfileSegmentTransitionPoints.__end_ - 2, 1);
 LABEL_47:
-        if (dataBuffers[83] - 1 <= v30)
+        if (dataBuffers[83] - 1 <= v34)
         {
 LABEL_106:
           sub_100685F40(&selfCopy->_elevationProfileSegmentTransitionPoints.__begin_);
-          if (v20)
+          if (v23)
           {
-            sub_100008080(v20);
+            sub_100008080(v23);
           }
 
           LOBYTE(v11) = 1;
@@ -192,68 +202,72 @@ LABEL_106:
 
         if (v3)
         {
-          v33 = var1;
+          v37 = var1;
         }
 
         else
         {
-          v33 = 0;
+          v37 = 0;
         }
 
-        v62 = v33;
-        v34 = 0.5;
-        v35 = v63;
-        v36 = v28;
+        v73 = v37;
+        v38 = 0.5;
+        v74 = 134218240;
+        *&v33 = 134219520;
+        v70 = v33;
+        v39 = v75;
+        v40 = v31;
         while (1)
         {
-          v37 = *(*(dataBuffers[79] + (((v30 + dataBuffers[82]) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v30 + *(dataBuffers + 656)));
-          v64 = v37;
-          v38 = *(*(dataBuffers[79] + (((v30 + dataBuffers[82]) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v30 + *(dataBuffers + 656)) + 8);
-          if (*(&v37 + 1))
+          v41 = *(*(dataBuffers[79] + (((v34 + dataBuffers[82]) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v34 + *(dataBuffers + 656)));
+          v76 = v41;
+          v42 = *(*(dataBuffers[79] + (((v34 + dataBuffers[82]) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (v34 + *(dataBuffers + 656)) + 8);
+          if (*(&v41 + 1))
           {
-            atomic_fetch_add_explicit((*(&v37 + 1) + 8), 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit((*(&v41 + 1) + 8), 1uLL, memory_order_relaxed);
           }
 
-          v39 = v37;
-          if (!v37)
+          v43 = v41;
+          if (!v41)
           {
             if (qword_1025D4410 != -1)
             {
               sub_1018FF6EC();
             }
 
-            v40 = qword_1025D4418;
+            v44 = qword_1025D4418;
             if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_ERROR))
             {
-              v41 = selfCopy->_workoutElevationProfileCount;
-              *buf = 134218240;
-              v83 = Current;
-              v84 = 1024;
-              LODWORD(v85) = v41;
-              _os_log_impl(dword_100000000, v40, OS_LOG_TYPE_ERROR, "#altimeter,received profile with null pointer,now,%.3lf,smoothedWorkoutProfileCount,%d", buf, 0x12u);
+              v45 = selfCopy->_workoutElevationProfileCount;
+              *buf = v74;
+              v95 = Current;
+              v96 = 1024;
+              LODWORD(v97) = v45;
+              _os_log_impl(dword_100000000, v44, OS_LOG_TYPE_ERROR, "#altimeter,received profile with null pointer,now,%.3lf,smoothedWorkoutProfileCount,%d", buf, 0x12u);
             }
 
             if (sub_10000A100(121, 0))
             {
               sub_1018FF6A8(buf);
-              v51 = selfCopy->_workoutElevationProfileCount;
-              v68 = 134218240;
-              v69 = Current;
-              v70 = 1024;
-              LODWORD(v71) = v51;
-              v52 = _os_log_send_and_compose_impl();
-              sub_100152C7C("Generic", 1, 0, 0, "[CLElevationGainFromProfile computeAscendingDescendingSegments:]", "%s\n", v52);
-              if (v52 != buf)
+              v55 = selfCopy->_workoutElevationProfileCount;
+              v80 = v74;
+              v81 = Current;
+              v82 = 1024;
+              LODWORD(v83) = v55;
+              _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4418, 16, "#altimeter,received profile with null pointer,now,%.3lf,smoothedWorkoutProfileCount,%d", COERCE_DOUBLE(&v80), 18);
+              v57 = v56;
+              sub_100152C7C("Generic", 1, 0, 0, "[CLElevationGainFromProfile computeAscendingDescendingSegments:]", "%s\n", v56);
+              if (v57 != buf)
               {
-                free(v52);
+                free(v57);
               }
             }
           }
 
-          if (*v39 < v23)
+          if (*v43 < v26)
           {
-            v42 = 30;
-            if (!v38)
+            v46 = 30;
+            if (!v42)
             {
               goto LABEL_96;
             }
@@ -261,16 +275,16 @@ LABEL_106:
             goto LABEL_95;
           }
 
-          v43 = selfCopy;
-          if (v30 == dataBuffers[83] - 2)
+          v47 = selfCopy;
+          if (v34 == dataBuffers[83] - 2)
           {
-            if ([(CLElevationGainFromProfile *)selfCopy addTransitionPointWithAltitude:v39[1] andTimestamp:*v39])
+            if ([(CLElevationGainFromProfile *)selfCopy addTransitionPointWithAltitude:v43[1] andTimestamp:*v43])
             {
-              sub_100685D34(v66, selfCopy->_elevationProfileSegmentTransitionPoints.__end_ - 2, 1);
+              sub_100685D34(v78, selfCopy->_elevationProfileSegmentTransitionPoints.__end_ - 2, 1);
             }
 
-            v42 = 28;
-            if (!v38)
+            v46 = 28;
+            if (!v42)
             {
               goto LABEL_96;
             }
@@ -278,90 +292,92 @@ LABEL_106:
             goto LABEL_95;
           }
 
-          v65 = v64;
-          if (v38)
+          v77 = v76;
+          if (v42)
           {
-            atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v42->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          [(CLElevationGainFromProfile *)v43 getProfileSegmentingThresholdFromSmootherOutput:&v65 workoutType:var1, v3];
-          v45 = v44;
-          if (*(&v65 + 1))
+          [(CLElevationGainFromProfile *)v47 getProfileSegmentingThresholdFromSmootherOutput:&v77 workoutType:var1, v3];
+          v49 = v48;
+          if (*(&v77 + 1))
           {
-            sub_100008080(*(&v65 + 1));
+            sub_100008080(*(&v77 + 1));
           }
 
-          if (v45 != v34)
+          if (v49 != v38)
           {
             if (qword_1025D4410 != -1)
             {
               sub_1018FF6EC();
             }
 
-            v46 = qword_1025D4418;
+            v50 = qword_1025D4418;
             if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEFAULT))
             {
-              v47 = *v39;
-              v48 = *(v39 + 6);
-              v49 = selfCopy->_workoutElevationProfileCount;
-              *buf = 134219520;
-              v83 = Current;
-              v84 = 2048;
-              v85 = v47;
-              v86 = 2048;
-              v87 = v34;
-              v88 = 2048;
-              v89 = v45;
-              v90 = 1024;
-              v91 = v48;
-              v92 = 1024;
-              v93 = v62;
-              v94 = 1024;
-              v95 = v49;
-              _os_log_impl(dword_100000000, v46, OS_LOG_TYPE_DEFAULT, "#altimeter,workout segmentation threshold changed,now,%.3f,smootherTime,%.3f,previousThreshold,%.2f,newThreshold,%.2f,hmmState,%d,workoutType,%d,smoothedWorkoutProfileCount,%d", buf, 0x3Cu);
+              v51 = *v43;
+              v52 = *(v43 + 6);
+              v53 = selfCopy->_workoutElevationProfileCount;
+              *buf = v70;
+              v95 = Current;
+              v96 = 2048;
+              v97 = v51;
+              v98 = 2048;
+              v99 = v38;
+              v100 = 2048;
+              v101 = v49;
+              v102 = 1024;
+              v103 = v52;
+              v104 = 1024;
+              v105 = v73;
+              v106 = 1024;
+              v107 = v53;
+              _os_log_impl(dword_100000000, v50, OS_LOG_TYPE_DEFAULT, "#altimeter,workout segmentation threshold changed,now,%.3f,smootherTime,%.3f,previousThreshold,%.2f,newThreshold,%.2f,hmmState,%d,workoutType,%d,smoothedWorkoutProfileCount,%d", buf, 0x3Cu);
             }
 
             if (sub_10000A100(121, 2))
             {
               sub_1018FF6A8(buf);
-              v53 = *v39;
-              v54 = *(v39 + 6);
-              v55 = selfCopy->_workoutElevationProfileCount;
-              v68 = 134219520;
-              v69 = Current;
-              v70 = 2048;
-              v71 = v53;
-              v72 = 2048;
-              v73 = v34;
-              v74 = 2048;
-              v75 = v45;
-              v76 = 1024;
-              v77 = v54;
-              v78 = 1024;
-              v79 = v62;
-              v80 = 1024;
-              v81 = v55;
-              v56 = _os_log_send_and_compose_impl();
-              sub_100152C7C("Generic", 1, 0, 2, "[CLElevationGainFromProfile computeAscendingDescendingSegments:]", "%s\n", v56);
-              if (v56 != buf)
+              v58 = *v43;
+              v59 = *(v43 + 6);
+              v60 = selfCopy->_workoutElevationProfileCount;
+              v80 = v70;
+              v81 = Current;
+              v82 = 2048;
+              v83 = v58;
+              v84 = 2048;
+              v85 = v38;
+              v86 = 2048;
+              v87 = v49;
+              v88 = 1024;
+              v89 = v59;
+              v90 = 1024;
+              v91 = v73;
+              v92 = 1024;
+              v93 = v60;
+              LODWORD(v69) = 60;
+              _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4418, 0, "#altimeter,workout segmentation threshold changed,now,%.3f,smootherTime,%.3f,previousThreshold,%.2f,newThreshold,%.2f,hmmState,%d,workoutType,%d,smoothedWorkoutProfileCount,%d", COERCE_DOUBLE(&v80), v69, *&v70, *(&v70 + 1), v71, v72, v74);
+              v62 = v61;
+              sub_100152C7C("Generic", 1, 0, 2, "[CLElevationGainFromProfile computeAscendingDescendingSegments:]", "%s\n", v61);
+              if (v62 != buf)
               {
-                free(v56);
+                free(v62);
               }
             }
 
-            v34 = v45;
+            v38 = v49;
           }
 
-          v50 = v39[1];
-          if (v28 >= v36)
+          v54 = v43[1];
+          if (v31 >= v40)
           {
-            if (v50 < v63)
+            if (v54 < v75)
             {
-              v42 = 0;
-              v28 = *v39;
+              v46 = 0;
+              v31 = *v43;
 LABEL_88:
-              v63 = v50;
-              if (!v38)
+              v75 = v54;
+              if (!v42)
               {
                 goto LABEL_96;
               }
@@ -369,60 +385,60 @@ LABEL_88:
               goto LABEL_95;
             }
 
-            if (v50 <= v63 + v45)
+            if (v54 <= v75 + v49)
             {
               goto LABEL_100;
             }
 
-            v36 = *v39;
+            v40 = *v43;
             if ([CLElevationGainFromProfile addTransitionPointWithAltitude:selfCopy andTimestamp:"addTransitionPointWithAltitude:andTimestamp:"])
             {
-              sub_100685D34(v66, selfCopy->_elevationProfileSegmentTransitionPoints.__end_ - 2, 1);
+              sub_100685D34(v78, selfCopy->_elevationProfileSegmentTransitionPoints.__end_ - 2, 1);
             }
 
-            v42 = 0;
+            v46 = 0;
           }
 
           else
           {
-            if (v50 <= v35)
+            if (v54 <= v39)
             {
-              if (v50 < v35 - v45)
+              if (v54 < v39 - v49)
               {
-                v28 = *v39;
-                if ([(CLElevationGainFromProfile *)selfCopy addTransitionPointWithAltitude:v35 andTimestamp:v36])
+                v31 = *v43;
+                if ([(CLElevationGainFromProfile *)selfCopy addTransitionPointWithAltitude:v39 andTimestamp:v40])
                 {
-                  sub_100685D34(v66, selfCopy->_elevationProfileSegmentTransitionPoints.__end_ - 2, 1);
+                  sub_100685D34(v78, selfCopy->_elevationProfileSegmentTransitionPoints.__end_ - 2, 1);
                 }
 
-                v42 = 0;
+                v46 = 0;
                 goto LABEL_88;
               }
 
 LABEL_100:
-              v42 = 0;
-              if (!v38)
+              v46 = 0;
+              if (!v42)
               {
                 goto LABEL_96;
               }
 
 LABEL_95:
-              sub_100008080(v38);
+              sub_100008080(v42);
               goto LABEL_96;
             }
 
-            v42 = 0;
-            v36 = *v39;
+            v46 = 0;
+            v40 = *v43;
           }
 
-          v35 = v50;
-          if (v38)
+          v39 = v54;
+          if (v42)
           {
             goto LABEL_95;
           }
 
 LABEL_96:
-          if ((v42 == 30 || !v42) && dataBuffers[83] - 1 > ++v30)
+          if ((v46 == 30 || !v46) && dataBuffers[83] - 1 > ++v34)
           {
             continue;
           }
@@ -436,35 +452,36 @@ LABEL_96:
         sub_1018FF6EC();
       }
 
-      v31 = qword_1025D4418;
+      v35 = qword_1025D4418;
       if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_ERROR))
       {
-        v32 = selfCopy->_workoutElevationProfileCount;
+        v36 = selfCopy->_workoutElevationProfileCount;
         *buf = 134218240;
-        v83 = Current;
-        v84 = 1024;
-        LODWORD(v85) = v32;
-        _os_log_impl(dword_100000000, v31, OS_LOG_TYPE_ERROR, "#altimeter,could not add first transition point,now,%.3lf,smoothedWorkoutProfileCount,%d", buf, 0x12u);
+        v95 = Current;
+        v96 = 1024;
+        LODWORD(v97) = v36;
+        _os_log_impl(dword_100000000, v35, OS_LOG_TYPE_ERROR, "#altimeter,could not add first transition point,now,%.3lf,smoothedWorkoutProfileCount,%d", buf, 0x12u);
       }
 
       if (sub_10000A100(121, 0))
       {
         sub_1018FF6A8(buf);
-        v59 = selfCopy->_workoutElevationProfileCount;
-        v68 = 134218240;
-        v69 = Current;
-        v70 = 1024;
-        LODWORD(v71) = v59;
-        v60 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 0, "[CLElevationGainFromProfile computeAscendingDescendingSegments:]", "%s\n", v60);
-        if (v60 != buf)
+        v65 = selfCopy->_workoutElevationProfileCount;
+        v80 = 134218240;
+        v81 = Current;
+        v82 = 1024;
+        LODWORD(v83) = v65;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4418, 16, "#altimeter,could not add first transition point,now,%.3lf,smoothedWorkoutProfileCount,%d", COERCE_DOUBLE(&v80), 18);
+        v67 = v66;
+        sub_100152C7C("Generic", 1, 0, 0, "[CLElevationGainFromProfile computeAscendingDescendingSegments:]", "%s\n", v66);
+        if (v67 != buf)
         {
-          free(v60);
+          free(v67);
         }
       }
     }
 
-    v30 = 0;
+    v34 = 0;
     goto LABEL_47;
   }
 
@@ -478,9 +495,9 @@ LABEL_96:
   {
     v10 = self->_workoutElevationProfileCount;
     *buf = 134218240;
-    v83 = Current;
-    v84 = 1024;
-    LODWORD(v85) = v10;
+    v95 = Current;
+    v96 = 1024;
+    LODWORD(v97) = v10;
     _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEFAULT, "#altimeter,received profile with no usable elements,now,%.3lf,smoothedWorkoutProfileCount,%d", buf, 0x12u);
   }
 
@@ -509,13 +526,13 @@ LABEL_27:
     if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v20 = Current;
+      v21 = Current;
       _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_ERROR, "#altimeter,Invalid pointer received,now,%.3f", buf, 0xCu);
     }
 
     if (sub_10000A100(121, 0))
     {
-      sub_1018FF838();
+      sub_1018FF838(Current);
     }
 
     return self->_verticalToleranceInMetersDefault;
@@ -523,8 +540,8 @@ LABEL_27:
 
   var0 = a3.var0;
   v6 = *(a3.var0 + 1);
-  v16[0] = *a3.var0;
-  v16[1] = v6;
+  v17[0] = *a3.var0;
+  v17[1] = v6;
   if (v6)
   {
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -533,7 +550,7 @@ LABEL_27:
   if ((output.var0.var0 & 1) != 0 && a3.var1 == 4)
   {
     verticalToleranceInMetersCycling = self->_verticalToleranceInMetersCycling;
-    sub_1006862EC(v16, verticalToleranceInMetersCycling);
+    sub_1006862EC(v17, a2, verticalToleranceInMetersCycling);
   }
 
   else
@@ -542,7 +559,7 @@ LABEL_27:
     if (v11 == 1)
     {
       verticalToleranceInMetersCycling = self->_verticalToleranceInMetersRelaxed;
-      sub_1006862EC(v16, verticalToleranceInMetersCycling);
+      sub_1006862EC(v17, a2, verticalToleranceInMetersCycling);
     }
 
     else
@@ -559,7 +576,7 @@ LABEL_27:
         {
           v13 = **var0;
           *buf = 134217984;
-          v20 = v13;
+          v21 = v13;
           _os_log_impl(dword_100000000, v12, OS_LOG_TYPE_ERROR, "#altimeter,Could not determine vertical threshold,outputTime,%.3f", buf, 0xCu);
         }
 
@@ -567,13 +584,14 @@ LABEL_27:
         {
           sub_1018FF6A8(buf);
           v14 = **var0;
-          v17 = 134217984;
-          v18 = v14;
-          v15 = _os_log_send_and_compose_impl();
+          v18 = 134217984;
+          v19 = v14;
+          _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4418, 16, "#altimeter,Could not determine vertical threshold,outputTime,%.3f", COERCE_DOUBLE(&v18));
+          v16 = v15;
           sub_100152C7C("Generic", 1, 0, 0, "[CLElevationGainFromProfile getProfileSegmentingThresholdFromSmootherOutput:workoutType:]", "%s\n", v15);
-          if (v15 != buf)
+          if (v16 != buf)
           {
-            free(v15);
+            free(v16);
           }
         }
 
@@ -587,7 +605,7 @@ LABEL_27:
       }
 
       verticalToleranceInMetersCycling = self->_verticalToleranceInMetersDefault;
-      sub_1006862EC(v16, verticalToleranceInMetersCycling);
+      sub_1006862EC(v17, a2, verticalToleranceInMetersCycling);
     }
   }
 
@@ -702,19 +720,19 @@ LABEL_2:
         var2 = ascended->var2;
         v37 = descended->var2;
         *buf = 134219520;
-        v46 = var1;
-        v47 = 1024;
-        *v48 = var0;
-        *&v48[4] = 1024;
-        *&v48[6] = v34;
-        *v49 = 2048;
-        *&v49[2] = v35;
-        v50 = 1024;
-        v51 = var2;
-        v52 = 1024;
-        v53 = v37;
-        v54 = 2048;
-        v55 = v12;
+        v69 = var1;
+        v70 = 1024;
+        *v71 = var0;
+        *&v71[4] = 1024;
+        *&v71[6] = v34;
+        *v72 = 2048;
+        *&v72[2] = v35;
+        v73 = 1024;
+        v74 = var2;
+        v75 = 1024;
+        v76 = v37;
+        v77 = 2048;
+        v78 = v12;
         _os_log_impl(dword_100000000, v31, OS_LOG_TYPE_DEFAULT, "#altimeter,finished computing elevation gain from profile,timestamp,%.3f,batchedAscended,%d,batchedDescended,%d,delayedTimestamp,%.3f,delayedBatchedAscended,%d,delayedBatchedDescended,%d,now,%.3f", buf, 0x38u);
       }
 
@@ -726,11 +744,32 @@ LABEL_2:
           sub_1018FF6EC();
         }
 
-        v43 = _os_log_send_and_compose_impl();
-        sub_100152C7C("Generic", 1, 0, 2, "[CLElevationGainFromProfile computeElevationGainFromSegmentsAscended:descended:]", "%s\n", v43);
-        if (v43 != buf)
+        v47 = ascended->var1;
+        v48 = ascended->var0;
+        v49 = descended->var0;
+        v50 = ascended->var3;
+        v51 = ascended->var2;
+        v52 = descended->var2;
+        v57 = 134219520;
+        v58 = v47;
+        v59 = 1024;
+        *v60 = v48;
+        *&v60[4] = 1024;
+        *&v60[6] = v49;
+        *v61 = 2048;
+        *&v61[2] = v50;
+        v62 = 1024;
+        v63 = v51;
+        v64 = 1024;
+        v65 = v52;
+        v66 = 2048;
+        v67 = v12;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4418, 0, "#altimeter,finished computing elevation gain from profile,timestamp,%.3f,batchedAscended,%d,batchedDescended,%d,delayedTimestamp,%.3f,delayedBatchedAscended,%d,delayedBatchedDescended,%d,now,%.3f", COERCE_DOUBLE(&v57), 56);
+        v54 = v53;
+        sub_100152C7C("Generic", 1, 0, 2, "[CLElevationGainFromProfile computeElevationGainFromSegmentsAscended:descended:]", "%s\n", v53);
+        if (v54 != buf)
         {
-          free(v43);
+          free(v54);
         }
       }
 
@@ -751,11 +790,11 @@ LABEL_2:
     v40 = *v39;
     v41 = *(v39 + 2);
     *buf = 134218496;
-    v46 = v40;
-    v47 = 2048;
-    *v48 = v41;
-    *&v48[8] = 2048;
-    *v49 = v12;
+    v69 = v40;
+    v70 = 2048;
+    *v71 = v41;
+    *&v71[8] = 2048;
+    *v72 = v12;
     _os_log_impl(dword_100000000, v38, OS_LOG_TYPE_ERROR, "#altimeter,timestamp of transition point rolls back,lastTimestamp,%.3f,currentTimestamp,%.3f,now,%.3f", buf, 0x20u);
   }
 
@@ -768,11 +807,22 @@ LABEL_2:
       sub_1018FF6EC();
     }
 
-    v42 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 0, "[CLElevationGainFromProfile computeElevationGainFromSegmentsAscended:descended:]", "%s\n", v42);
-    if (v42 != buf)
+    v42 = (self->_elevationProfileSegmentTransitionPoints.__begin_ + v13);
+    v43 = *v42;
+    v44 = *(v42 + 2);
+    v57 = 134218496;
+    v58 = v43;
+    v59 = 2048;
+    *v60 = v44;
+    *&v60[8] = 2048;
+    *v61 = v12;
+    LODWORD(v56) = 32;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4418, 16, "#altimeter,timestamp of transition point rolls back,lastTimestamp,%.3f,currentTimestamp,%.3f,now,%.3f", COERCE_DOUBLE(&v57), v56);
+    v46 = v45;
+    sub_100152C7C("Generic", 1, 0, 0, "[CLElevationGainFromProfile computeElevationGainFromSegmentsAscended:descended:]", "%s\n", v45);
+    if (v46 != buf)
     {
-      free(v42);
+      free(v46);
     }
 
     goto LABEL_2;
@@ -845,7 +895,7 @@ LABEL_13:
 
   if (sub_10000A100(121, 2))
   {
-    sub_1018FFA70(self);
+    sub_1018FFA70(self, timestamp);
   }
 }
 

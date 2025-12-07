@@ -174,23 +174,23 @@
   handlerCopy = handler;
   if (paramsCopy)
   {
-    *&v19 = 0;
-    *(&v19 + 1) = &v19;
-    v20 = 0x2020000000;
-    v21 = 0;
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_10013A3B8;
-    v16[3] = &unk_1003299C0;
-    v17 = paramsCopy;
-    v18 = &v19;
-    [(PurchaseActionsDatabase *)self modifyUsingTransactionBlock:v16];
+    *&v18 = 0;
+    *(&v18 + 1) = &v18;
+    v19 = 0x2020000000;
+    v20 = 0;
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_10013A3B8;
+    v15[3] = &unk_1003299C0;
+    v16 = paramsCopy;
+    v17 = &v18;
+    [(PurchaseActionsDatabase *)self modifyUsingTransactionBlock:v15];
     if (handlerCopy)
     {
-      handlerCopy[2](handlerCopy, *(*(&v19 + 1) + 24));
+      handlerCopy[2](handlerCopy, *(*(&v18 + 1) + 24));
     }
 
-    _Block_object_dispose(&v19, 8);
+    _Block_object_dispose(&v18, 8);
   }
 
   else
@@ -204,31 +204,35 @@
     shouldLog = [v8 shouldLog];
     if ([v8 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      LODWORD(v10) = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      LODWORD(v10) = shouldLog;
     }
 
     oSLogObject = [v8 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
 
     if (v10)
     {
-      LODWORD(v19) = 138543362;
-      *(&v19 + 4) = objc_opt_class();
-      v12 = *(&v19 + 4);
-      LODWORD(v15) = 12;
-      v13 = _os_log_send_and_compose_impl();
+      LODWORD(v18) = 138543362;
+      *(&v18 + 4) = objc_opt_class();
+      v12 = *(&v18 + 4);
+      v13 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%{public}@]: Trying to insert a nil install attribution param", &v18, 12);
 
       if (v13)
       {
-        v14 = [NSString stringWithCString:v13 encoding:4, &v19, v15];
+        v14 = [NSString stringWithCString:v13 encoding:4];
         free(v13);
         SSFileLog();
       }
@@ -255,53 +259,57 @@
     shouldLog = [v8 shouldLog];
     if ([v8 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      LODWORD(v10) = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      LODWORD(v10) = shouldLog;
     }
 
     oSLogObject = [v8 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
 
     if (v10)
     {
-      v18 = 138543362;
-      v19 = objc_opt_class();
-      v12 = v19;
-      LODWORD(v14) = 12;
-      v13 = _os_log_send_and_compose_impl();
+      v17 = 138543362;
+      v18 = objc_opt_class();
+      v12 = v18;
+      v13 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%{public}@]: Trying to get install attribution param for a nil adamId", &v17, 12);
 
       if (!v13)
       {
-LABEL_14:
+LABEL_15:
 
         handlerCopy[2](handlerCopy, 0);
-        goto LABEL_15;
+        goto LABEL_16;
       }
 
-      oSLogObject = [NSString stringWithCString:v13 encoding:4, &v18, v14];
+      oSLogObject = [NSString stringWithCString:v13 encoding:4];
       free(v13);
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_10013A838;
-  v15[3] = &unk_100329920;
-  v16 = appCopy;
-  v17 = handlerCopy;
-  [(PurchaseActionsDatabase *)self readAsyncUsingTransactionBlock:v15];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_10013A838;
+  v14[3] = &unk_100329920;
+  v15 = appCopy;
+  v16 = handlerCopy;
+  [(PurchaseActionsDatabase *)self readAsyncUsingTransactionBlock:v14];
 
-LABEL_15:
+LABEL_16:
 }
 
 - (void)removeInstallAttributionParamsForApp:(id)app
@@ -319,49 +327,53 @@ LABEL_15:
     shouldLog = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
     oSLogObject = [v6 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
 
     if (v8)
     {
-      v15 = 138543362;
-      v16 = objc_opt_class();
-      v10 = v16;
-      LODWORD(v12) = 12;
-      v11 = _os_log_send_and_compose_impl();
+      v14 = 138543362;
+      v15 = objc_opt_class();
+      v10 = v15;
+      v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%{public}@]: Trying to remove install attribution param for a nil adamId", &v14, 12);
 
       if (!v11)
       {
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [NSString stringWithCString:v11 encoding:4, &v15, v12];
+      oSLogObject = [NSString stringWithCString:v11 encoding:4];
       free(v11);
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_10013AE74;
-  v13[3] = &unk_1003298A8;
-  v14 = appCopy;
-  [(PurchaseActionsDatabase *)self modifyUsingTransactionBlock:v13];
-  v6 = v14;
-LABEL_14:
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10013AE74;
+  v12[3] = &unk_1003298A8;
+  v13 = appCopy;
+  [(PurchaseActionsDatabase *)self modifyUsingTransactionBlock:v12];
+  v6 = v13;
+LABEL_15:
 }
 
 - (void)removeInstallAttributionParamsBeforeDate:(id)date
@@ -379,49 +391,53 @@ LABEL_14:
     shouldLog = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
     oSLogObject = [v6 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
 
     if (v8)
     {
-      v15 = 138543362;
-      v16 = objc_opt_class();
-      v10 = v16;
-      LODWORD(v12) = 12;
-      v11 = _os_log_send_and_compose_impl();
+      v14 = 138543362;
+      v15 = objc_opt_class();
+      v10 = v15;
+      v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%{public}@]: Trying to remove install attribution params before a nil date", &v14, 12);
 
       if (!v11)
       {
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [NSString stringWithCString:v11 encoding:4, &v15, v12];
+      oSLogObject = [NSString stringWithCString:v11 encoding:4];
       free(v11);
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_10013B1D0;
-  v13[3] = &unk_1003298A8;
-  v14 = dateCopy;
-  [(PurchaseActionsDatabase *)self modifyUsingTransactionBlock:v13];
-  v6 = v14;
-LABEL_14:
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10013B1D0;
+  v12[3] = &unk_1003298A8;
+  v13 = dateCopy;
+  [(PurchaseActionsDatabase *)self modifyUsingTransactionBlock:v12];
+  v6 = v13;
+LABEL_15:
 }
 
 - (void)insertInstallAttributionPingback:(id)pingback
@@ -439,49 +455,53 @@ LABEL_14:
     shouldLog = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
     oSLogObject = [v6 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
 
     if (v8)
     {
-      v15 = 138543362;
-      v16 = objc_opt_class();
-      v10 = v16;
-      LODWORD(v12) = 12;
-      v11 = _os_log_send_and_compose_impl();
+      v14 = 138543362;
+      v15 = objc_opt_class();
+      v10 = v15;
+      v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%{public}@]: Trying to insert a nil install attribution pingback", &v14, 12);
 
       if (!v11)
       {
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [NSString stringWithCString:v11 encoding:4, &v15, v12];
+      oSLogObject = [NSString stringWithCString:v11 encoding:4];
       free(v11);
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_10013B538;
-  v13[3] = &unk_1003298A8;
-  v14 = pingbackCopy;
-  [(PurchaseActionsDatabase *)self modifyUsingTransactionBlock:v13];
-  v6 = v14;
-LABEL_14:
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10013B538;
+  v12[3] = &unk_1003298A8;
+  v13 = pingbackCopy;
+  [(PurchaseActionsDatabase *)self modifyUsingTransactionBlock:v12];
+  v6 = v13;
+LABEL_15:
 }
 
 - (void)getInstallAttributionPingbackForApp:(id)app completionHandler:(id)handler
@@ -499,53 +519,57 @@ LABEL_14:
     shouldLog = [v8 shouldLog];
     if ([v8 shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      LODWORD(v10) = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      LODWORD(v10) = shouldLog;
     }
 
     oSLogObject = [v8 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
 
     if (v10)
     {
-      v18 = 138543362;
-      v19 = objc_opt_class();
-      v12 = v19;
-      LODWORD(v14) = 12;
-      v13 = _os_log_send_and_compose_impl();
+      v17 = 138543362;
+      v18 = objc_opt_class();
+      v12 = v18;
+      v13 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%{public}@]: Trying to get install attribution pingback for a nil adamId", &v17, 12);
 
       if (!v13)
       {
-LABEL_14:
+LABEL_15:
 
         handlerCopy[2](handlerCopy, 0);
-        goto LABEL_15;
+        goto LABEL_16;
       }
 
-      oSLogObject = [NSString stringWithCString:v13 encoding:4, &v18, v14];
+      oSLogObject = [NSString stringWithCString:v13 encoding:4];
       free(v13);
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_10013BA44;
-  v15[3] = &unk_100329920;
-  v16 = appCopy;
-  v17 = handlerCopy;
-  [(PurchaseActionsDatabase *)self readAsyncUsingTransactionBlock:v15];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_10013BA44;
+  v14[3] = &unk_100329920;
+  v15 = appCopy;
+  v16 = handlerCopy;
+  [(PurchaseActionsDatabase *)self readAsyncUsingTransactionBlock:v14];
 
-LABEL_15:
+LABEL_16:
 }
 
 - (void)setPingbackPendingForApp:(id)app
@@ -563,49 +587,53 @@ LABEL_15:
     shouldLog = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
     oSLogObject = [v6 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
 
     if (v8)
     {
-      v15 = 138543362;
-      v16 = objc_opt_class();
-      v10 = v16;
-      LODWORD(v12) = 12;
-      v11 = _os_log_send_and_compose_impl();
+      v14 = 138543362;
+      v15 = objc_opt_class();
+      v10 = v15;
+      v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%{public}@]: Trying to set pending = 1 on install attribution pingback for a nil adamId", &v14, 12);
 
       if (!v11)
       {
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [NSString stringWithCString:v11 encoding:4, &v15, v12];
+      oSLogObject = [NSString stringWithCString:v11 encoding:4];
       free(v11);
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_10013C064;
-  v13[3] = &unk_1003298A8;
-  v14 = appCopy;
-  [(PurchaseActionsDatabase *)self modifyUsingTransactionBlock:v13];
-  v6 = v14;
-LABEL_14:
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10013C064;
+  v12[3] = &unk_1003298A8;
+  v13 = appCopy;
+  [(PurchaseActionsDatabase *)self modifyUsingTransactionBlock:v12];
+  v6 = v13;
+LABEL_15:
 }
 
 - (void)getPendingInstallAttributionPingbacksWithCompletionHandler:(id)handler
@@ -634,49 +662,53 @@ LABEL_14:
     shouldLog = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
     oSLogObject = [v6 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
 
     if (v8)
     {
-      v15 = 138543362;
-      v16 = objc_opt_class();
-      v10 = v16;
-      LODWORD(v12) = 12;
-      v11 = _os_log_send_and_compose_impl();
+      v14 = 138543362;
+      v15 = objc_opt_class();
+      v10 = v15;
+      v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%{public}@]: Trying to remove install attribution pingbacks for a nil adamId", &v14, 12);
 
       if (!v11)
       {
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [NSString stringWithCString:v11 encoding:4, &v15, v12];
+      oSLogObject = [NSString stringWithCString:v11 encoding:4];
       free(v11);
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_10013C868;
-  v13[3] = &unk_1003298A8;
-  v14 = appCopy;
-  [(PurchaseActionsDatabase *)self modifyUsingTransactionBlock:v13];
-  v6 = v14;
-LABEL_14:
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10013C868;
+  v12[3] = &unk_1003298A8;
+  v13 = appCopy;
+  [(PurchaseActionsDatabase *)self modifyUsingTransactionBlock:v12];
+  v6 = v13;
+LABEL_15:
 }
 
 - (void)removeNonPendingInstallAttributionPingbacksBeforeDate:(id)date
@@ -694,49 +726,53 @@ LABEL_14:
     shouldLog = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
     oSLogObject = [v6 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
 
     if (v8)
     {
-      v15 = 138543362;
-      v16 = objc_opt_class();
-      v10 = v16;
-      LODWORD(v12) = 12;
-      v11 = _os_log_send_and_compose_impl();
+      v14 = 138543362;
+      v15 = objc_opt_class();
+      v10 = v15;
+      v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%{public}@]: Trying to remove non pending install attribution pingbacks before a nil date", &v14, 12);
 
       if (!v11)
       {
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [NSString stringWithCString:v11 encoding:4, &v15, v12];
+      oSLogObject = [NSString stringWithCString:v11 encoding:4];
       free(v11);
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_10013CBC4;
-  v13[3] = &unk_1003298A8;
-  v14 = dateCopy;
-  [(PurchaseActionsDatabase *)self modifyUsingTransactionBlock:v13];
-  v6 = v14;
-LABEL_14:
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10013CBC4;
+  v12[3] = &unk_1003298A8;
+  v13 = dateCopy;
+  [(PurchaseActionsDatabase *)self modifyUsingTransactionBlock:v12];
+  v6 = v13;
+LABEL_15:
 }
 
 - (void)incrementPingbackRetryCountForApp:(id)app
@@ -754,49 +790,53 @@ LABEL_14:
     shouldLog = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
     oSLogObject = [v6 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
 
     if (v8)
     {
-      v15 = 138543362;
-      v16 = objc_opt_class();
-      v10 = v16;
-      LODWORD(v12) = 12;
-      v11 = _os_log_send_and_compose_impl();
+      v14 = 138543362;
+      v15 = objc_opt_class();
+      v10 = v15;
+      v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%{public}@]: Trying to increment install attribution pingback retry count on a nil adamId", &v14, 12);
 
       if (!v11)
       {
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [NSString stringWithCString:v11 encoding:4, &v15, v12];
+      oSLogObject = [NSString stringWithCString:v11 encoding:4];
       free(v11);
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_10013CF2C;
-  v13[3] = &unk_1003298A8;
-  v14 = appCopy;
-  [(PurchaseActionsDatabase *)self modifyUsingTransactionBlock:v13];
-  v6 = v14;
-LABEL_14:
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10013CF2C;
+  v12[3] = &unk_1003298A8;
+  v13 = appCopy;
+  [(PurchaseActionsDatabase *)self modifyUsingTransactionBlock:v12];
+  v6 = v13;
+LABEL_15:
 }
 
 + (BOOL)_setupDatabase:(id)database

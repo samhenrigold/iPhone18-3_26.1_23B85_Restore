@@ -211,94 +211,94 @@ LABEL_29:
 
 - (int)computeBarycentricCoordinates
 {
-  v3 = 0;
-  v30 = 0;
-  memset(v29, 0, sizeof(v29));
-  v4 = self->_controlPointsWorld[1];
-  v5 = v29;
+  v4 = 0;
+  v31 = 0;
+  memset(v30, 0, sizeof(v30));
+  v5 = self->_controlPointsWorld[1];
+  v6 = v30;
   do
   {
-    v6 = 0;
-    v7 = self->_controlPointsWorld[0][v3];
+    v7 = 0;
+    v8 = self->_controlPointsWorld[0][v4];
     do
     {
-      *(v5 + v6 * 4) = v4[v6] - v7;
-      v6 += 3;
+      *(v6 + v7 * 4) = v5[v7] - v8;
+      v7 += 3;
     }
 
-    while (v6 != 9);
-    ++v3;
-    v5 = (v5 + 4);
+    while (v7 != 9);
     ++v4;
+    v6 = (v6 + 4);
+    ++v5;
   }
 
-  while (v3 != 3);
-  cva::SVD<cva::Matrix<float,0u,0u,false>,true>::SVD<cva::Matrix<float,3u,3u,false>>(v27, v29, 3);
-  if (v28)
+  while (v4 != 3);
+  cva::SVD<cva::Matrix<float,0u,0u,false>,true>::SVD<cva::Matrix<float,3u,3u,false>>(v28, v30, 3, 0, v2);
+  if (v29)
   {
-    cva::SVD<cva::Matrix<float,0u,0u,false>,true>::inverse(v27, &[VCPPnPSolver computeBarycentricCoordinates]::kThreshold, &v24);
-    v8 = v25;
-    v9 = v24;
-    if (v26)
+    cva::SVD<cva::Matrix<float,0u,0u,false>,true>::inverse(v28, &[VCPPnPSolver computeBarycentricCoordinates]::kThreshold, &v25);
+    v9 = v26;
+    v10 = v25;
+    if (v27)
     {
-      v10 = (v24 + 4);
+      v11 = (v25 + 4);
     }
 
     else
     {
-      v10 = 0;
-    }
-
-    v11 = (v24 + 4 * (v25 * v26) + 4);
-    if (!v26)
-    {
       v11 = 0;
     }
 
-    for (; v10 != v11; v10 += v8)
+    v12 = (v25 + 4 * (v26 * v27) + 4);
+    if (!v27)
     {
-      *v10 = -*v10;
+      v12 = 0;
+    }
+
+    for (; v11 != v12; v11 += v9)
+    {
+      *v11 = -*v11;
     }
 
     numPoints = self->_numPoints;
     if (numPoints >= 1)
     {
-      v13 = 0;
-      v14 = v8;
+      v14 = 0;
+      v15 = v9;
       pointsWorld = self->_pointsWorld;
-      v16 = 2 * v8;
+      v17 = 2 * v9;
       alphas = self->_alphas;
-      v18 = &v9[4 * v16];
-      v19 = &v9[4 * v14];
-      v20 = alphas + 1;
+      v19 = &v10[4 * v17];
+      v20 = &v10[4 * v15];
+      v21 = alphas + 1;
       do
       {
         for (i = 0; i != 3; ++i)
         {
-          v20[i] = ((*&v19[i * 4] * (pointsWorld[3 * v13 + 1] - self->_controlPointsWorld[0][1])) + (*&v9[i * 4] * (pointsWorld[3 * v13] - self->_controlPointsWorld[0][0]))) + (*&v18[i * 4] * (pointsWorld[3 * v13 + 2] - self->_controlPointsWorld[0][2]));
+          v21[i] = ((*&v20[i * 4] * (pointsWorld[3 * v14 + 1] - self->_controlPointsWorld[0][1])) + (*&v10[i * 4] * (pointsWorld[3 * v14] - self->_controlPointsWorld[0][0]))) + (*&v19[i * 4] * (pointsWorld[3 * v14 + 2] - self->_controlPointsWorld[0][2]));
         }
 
-        alphas[4 * v13] = ((1.0 - alphas[4 * v13 + 1]) - alphas[4 * v13 + 2]) - alphas[4 * v13 + 3];
-        ++v13;
-        v20 += 4;
+        alphas[4 * v14] = ((1.0 - alphas[4 * v14 + 1]) - alphas[4 * v14 + 2]) - alphas[4 * v14 + 3];
+        ++v14;
+        v21 += 4;
       }
 
-      while (v13 != numPoints);
+      while (v14 != numPoints);
     }
 
-    free(v9);
-    v22 = 0;
+    free(v10);
+    v23 = 0;
   }
 
   else
   {
-    v22 = -18;
+    v23 = -18;
   }
 
-  free(v27[6]);
-  free(v27[3]);
-  free(v27[0]);
-  return v22;
+  free(v28[6]);
+  free(v28[3]);
+  free(v28[0]);
+  return v23;
 }
 
 - (void)computeControlPointsCamera:(const float *)camera Vt:(void *)vt

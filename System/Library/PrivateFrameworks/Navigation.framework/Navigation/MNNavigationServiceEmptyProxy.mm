@@ -38,7 +38,7 @@
 
 - (void)forwardInvocation:(id)invocation
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   selector = [invocation selector];
   if ([(MNNavigationServiceEmptyProxy *)self _isSelectorValidForForwarding:selector])
   {
@@ -47,19 +47,16 @@
     {
       v6 = NSStringFromSelector(selector);
       peer = self->_peer;
-      v10 = 138412546;
-      v11 = v6;
-      v12 = 2112;
-      v13 = peer;
-      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "%@ is not allowed because %@ is missing the required entitlement.", &v10, 0x16u);
+      v8 = 138412546;
+      v9 = v6;
+      v10 = 2112;
+      v11 = peer;
+      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_ERROR, "%@ is not allowed because %@ is missing the required entitlement.", &v8, 0x16u);
     }
-
-    v8 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v9 = *MEMORY[0x1E69E9840];
 
     [(MNNavigationServiceEmptyProxy *)self doesNotRecognizeSelector:selector];
   }

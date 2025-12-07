@@ -185,7 +185,7 @@
   [(CKEffectPreviewCollectionViewController *)v21 displayEffectWithIdentifier:0];
   [(CKEffectPickerMacViewController *)self setEffectCollectionViewController:v21];
   v28 = objc_alloc_init(MEMORY[0x1E69DCC10]);
-  v29 = CKFrameworkBundle();
+  v29 = CKFrameworkBundle(v28);
   v30 = [v29 localizedStringForKey:@"EFFECT_PICKER_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
   [v28 setText:v30];
 

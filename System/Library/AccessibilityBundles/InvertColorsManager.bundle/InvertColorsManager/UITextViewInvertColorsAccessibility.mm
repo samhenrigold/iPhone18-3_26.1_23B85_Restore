@@ -1,6 +1,7 @@
 @interface UITextViewInvertColorsAccessibility
 - (BOOL)keyboardInputChanged:(id)changed;
 - (void)_accessibilityLoadInvertColors;
+- (void)_pasteAttributedString:(id)string pasteAsRichText:(BOOL)text;
 - (void)paste:(id)paste;
 - (void)setAttributedText:(id)text;
 @end
@@ -35,6 +36,14 @@
   v4.receiver = self;
   v4.super_class = UITextViewInvertColorsAccessibility;
   [(UITextViewInvertColorsAccessibility *)&v4 paste:paste];
+  [(UITextViewInvertColorsAccessibility *)self _accessibilityLoadInvertColors];
+}
+
+- (void)_pasteAttributedString:(id)string pasteAsRichText:(BOOL)text
+{
+  v5.receiver = self;
+  v5.super_class = UITextViewInvertColorsAccessibility;
+  [(UITextViewInvertColorsAccessibility *)&v5 _pasteAttributedString:string pasteAsRichText:text];
   [(UITextViewInvertColorsAccessibility *)self _accessibilityLoadInvertColors];
 }
 

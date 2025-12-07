@@ -123,30 +123,30 @@
 
 - (void)applicationWillEnterForegroundNotification:(id)notification
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   observers = [(NUExtensionAppActivityMonitor *)self observers];
   v5 = [observers copy];
 
-  v6 = [v5 countByEnumeratingWithState:&v44 objects:v51 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v43 objects:v50 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v45;
+    v8 = *v44;
     do
     {
       v9 = 0;
       do
       {
-        if (*v45 != v8)
+        if (*v44 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v44 + 1) + 8 * v9);
+        v10 = *(*(&v43 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
           [v10 activityObservingApplicationDidBecomeActive];
@@ -156,35 +156,35 @@
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v44 objects:v51 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v43 objects:v50 count:16];
     }
 
     while (v7);
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   observers2 = [(NUExtensionAppActivityMonitor *)self observers];
   v12 = [observers2 copy];
 
-  v13 = [v12 countByEnumeratingWithState:&v40 objects:v50 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v39 objects:v49 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v41;
+    v15 = *v40;
     do
     {
       v16 = 0;
       do
       {
-        if (*v41 != v15)
+        if (*v40 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v40 + 1) + 8 * v16);
+        v17 = *(*(&v39 + 1) + 8 * v16);
         if (objc_opt_respondsToSelector())
         {
           [v17 activityObservingApplicationWillEnterForeground];
@@ -194,35 +194,35 @@
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v40 objects:v50 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v39 objects:v49 count:16];
     }
 
     while (v14);
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   observers3 = [(NUExtensionAppActivityMonitor *)self observers];
   v19 = [observers3 copy];
 
-  v20 = [v19 countByEnumeratingWithState:&v36 objects:v49 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v35 objects:v48 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v37;
+    v22 = *v36;
     do
     {
       v23 = 0;
       do
       {
-        if (*v37 != v22)
+        if (*v36 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v36 + 1) + 8 * v23);
+        v24 = *(*(&v35 + 1) + 8 * v23);
         if (objc_opt_respondsToSelector())
         {
           [v24 activityObservingApplicationWindowDidBecomeForeground];
@@ -232,73 +232,71 @@
       }
 
       while (v21 != v23);
-      v21 = [v19 countByEnumeratingWithState:&v36 objects:v49 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v35 objects:v48 count:16];
     }
 
     while (v21);
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   windowForegroundObserverBlocks = [(NUExtensionAppActivityMonitor *)self windowForegroundObserverBlocks];
   v26 = [windowForegroundObserverBlocks copy];
 
-  v27 = [v26 countByEnumeratingWithState:&v32 objects:v48 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v31 objects:v47 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v33;
+    v29 = *v32;
     do
     {
       v30 = 0;
       do
       {
-        if (*v33 != v29)
+        if (*v32 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        (*(*(*(&v32 + 1) + 8 * v30++) + 16))();
+        (*(*(*(&v31 + 1) + 8 * v30++) + 16))();
       }
 
       while (v28 != v30);
-      v28 = [v26 countByEnumeratingWithState:&v32 objects:v48 count:16];
+      v28 = [v26 countByEnumeratingWithState:&v31 objects:v47 count:16];
     }
 
     while (v28);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applicationDidEnterBackgroundNotification:(id)notification
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   observers = [(NUExtensionAppActivityMonitor *)self observers];
   v5 = [observers copy];
 
-  v6 = [v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       v9 = 0;
       do
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * v9);
+        v10 = *(*(&v21 + 1) + 8 * v9);
         if (objc_opt_respondsToSelector())
         {
           [v10 activityObservingApplicationDidEnterBackground];
@@ -313,45 +311,43 @@
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v7);
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   windowBackgroundObserverBlocks = [(NUExtensionAppActivityMonitor *)self windowBackgroundObserverBlocks];
   v12 = [windowBackgroundObserverBlocks copy];
 
-  v13 = [v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v19;
+    v15 = *v18;
     do
     {
       v16 = 0;
       do
       {
-        if (*v19 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        (*(*(*(&v18 + 1) + 8 * v16++) + 16))();
+        (*(*(*(&v17 + 1) + 8 * v16++) + 16))();
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v14);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

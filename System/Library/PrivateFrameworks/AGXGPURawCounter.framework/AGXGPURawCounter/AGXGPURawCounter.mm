@@ -1,4 +1,4 @@
-uint64_t AGXGPURawCounter::createInstance(AGXGPURawCounter *this)
+AGXGPURawCounterImpl *AGXGPURawCounter::createInstance(AGXGPURawCounter *this)
 {
   os_unfair_lock_lock(&sAGXGPURawCounterLock);
   if (!sAGXGPURawCounterImpl)
@@ -30,49 +30,49 @@ uint64_t AGXGPURawCounter::destroyInstance(AGXGPURawCounter *this)
 
 size_t AGXGPURawCounterImpl::SourceImpl::RingBufferImpl::drain(AGXGPURawCounterImpl::SourceImpl::RingBufferImpl *this, int a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if ((a2 & 7) != 0)
   {
     fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** Amount of data to be drained must be aligned to 64-bits!\n", "AGXGPURawCounterImpl.mm", 352, "drain");
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v15 = "AGXGPURawCounterImpl.mm";
-      v16 = 1024;
-      v17 = 352;
-      v18 = 2080;
-      v19 = "drain";
+      v14 = "AGXGPURawCounterImpl.mm";
+      v15 = 1024;
+      v16 = 352;
+      v17 = 2080;
+      v18 = "drain";
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Amount of data to be drained must be aligned to 64-bits!\n", buf, 0x1Cu);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v15 = "AGXGPURawCounterImpl.mm";
-      v16 = 1024;
-      v17 = 352;
-      v18 = 2080;
-      v19 = "drain";
+      v14 = "AGXGPURawCounterImpl.mm";
+      v15 = 1024;
+      v16 = 352;
+      v17 = 2080;
+      v18 = "drain";
       _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** Amount of data to be drained must be aligned to 64-bits!\n", buf, 0x1Cu);
     }
 
-    v2 = 0;
+    return 0;
   }
 
   else
   {
     LODWORD(v2) = a2;
-    v13 = 0;
+    v12 = 0;
     *buf = 0;
-    (*(*this + 32))(this, buf, &v13);
-    if (v13 >= v2)
+    (*(*this + 32))(this, buf, &v12);
+    if (v12 >= v2)
     {
       v2 = v2;
     }
 
     else
     {
-      v2 = v13;
+      v2 = v12;
     }
 
     v4 = *(this + 3);
@@ -99,7 +99,6 @@ size_t AGXGPURawCounterImpl::SourceImpl::RingBufferImpl::drain(AGXGPURawCounterI
     sys_dcache_flush((v10 + 32), 8uLL);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -158,7 +157,7 @@ void AGXGPURawCounterImpl::SourceImpl::ringBufferFree(AGXGPURawCounterImpl::Sour
   }
 }
 
-uint64_t AGXGPURawCounterImpl::SourceImpl::ringBufferInit(AGXGPURawCounterImpl::SourceImpl *this, unint64_t a2, void *a3, uint64_t a4)
+uint64_t AGXGPURawCounterImpl::SourceImpl::ringBufferInit(AGXGPURawCounterImpl::SourceImpl *this, unint64_t a2, char *a3, uint64_t a4)
 {
   v4 = a4;
   v5 = (*(*this + 224))(this, a4);
@@ -182,7 +181,7 @@ uint64_t AGXGPURawCounterImpl::SourceImpl::ringBufferInit(AGXGPURawCounterImpl::
 
 BOOL AGXGPURawCounterImpl::SourceImpl::ringBufferAlloc(AGXGPURawCounterImpl::SourceImpl *this, int a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4 = *(this + 1572);
   if (v4 == a2)
   {
@@ -194,22 +193,21 @@ BOOL AGXGPURawCounterImpl::SourceImpl::ringBufferAlloc(AGXGPURawCounterImpl::Sou
       if (v5)
       {
         bzero(v5, 8 * *(this + 1572));
-        result = 1;
-        goto LABEL_19;
+        return 1;
       }
 
       fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** Fail to allocate ring buffer for source[%u]!\n", "AGXGPURawCounterImpl.mm", 2183, "ringBufferAlloc", *(this + 7));
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v16 = *(this + 7);
+        v15 = *(this + 7);
         *buf = 136315906;
-        v18 = "AGXGPURawCounterImpl.mm";
-        v19 = 1024;
-        v20 = 2183;
-        v21 = 2080;
-        v22 = "ringBufferAlloc";
-        v23 = 1024;
-        v24 = v16;
+        v17 = "AGXGPURawCounterImpl.mm";
+        v18 = 1024;
+        v19 = 2183;
+        v20 = 2080;
+        v21 = "ringBufferAlloc";
+        v22 = 1024;
+        v23 = v15;
         _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Fail to allocate ring buffer for source[%u]!\n", buf, 0x22u);
       }
 
@@ -218,13 +216,13 @@ BOOL AGXGPURawCounterImpl::SourceImpl::ringBufferAlloc(AGXGPURawCounterImpl::Sou
       {
         v12 = *(this + 7);
         *buf = 136315906;
-        v18 = "AGXGPURawCounterImpl.mm";
-        v19 = 1024;
-        v20 = 2183;
-        v21 = 2080;
-        v22 = "ringBufferAlloc";
-        v23 = 1024;
-        v24 = v12;
+        v17 = "AGXGPURawCounterImpl.mm";
+        v18 = 1024;
+        v19 = 2183;
+        v20 = 2080;
+        v21 = "ringBufferAlloc";
+        v22 = 1024;
+        v23 = v12;
         v9 = MEMORY[0x277D86220];
         v10 = "AGXGRC:AGXGRC:%s:%d:%s: *** Fail to allocate ring buffer for source[%u]!\n";
         goto LABEL_17;
@@ -237,13 +235,13 @@ BOOL AGXGPURawCounterImpl::SourceImpl::ringBufferAlloc(AGXGPURawCounterImpl::Sou
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315906;
-        v18 = "AGXGPURawCounterImpl.mm";
-        v19 = 1024;
-        v20 = 2176;
-        v21 = 2080;
-        v22 = "ringBufferAlloc";
-        v23 = 1024;
-        v24 = 0;
+        v17 = "AGXGPURawCounterImpl.mm";
+        v18 = 1024;
+        v19 = 2176;
+        v20 = 2080;
+        v21 = "ringBufferAlloc";
+        v22 = 1024;
+        v23 = 0;
         _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Invalid ring buffer count (%u)!\n", buf, 0x22u);
       }
 
@@ -251,13 +249,13 @@ BOOL AGXGPURawCounterImpl::SourceImpl::ringBufferAlloc(AGXGPURawCounterImpl::Sou
       if (result)
       {
         *buf = 136315906;
-        v18 = "AGXGPURawCounterImpl.mm";
-        v19 = 1024;
-        v20 = 2176;
-        v21 = 2080;
-        v22 = "ringBufferAlloc";
-        v23 = 1024;
-        v24 = 0;
+        v17 = "AGXGPURawCounterImpl.mm";
+        v18 = 1024;
+        v19 = 2176;
+        v20 = 2080;
+        v21 = "ringBufferAlloc";
+        v22 = 1024;
+        v23 = 0;
         v9 = MEMORY[0x277D86220];
         v10 = "AGXGRC:AGXGRC:%s:%d:%s: *** Invalid ring buffer count (%u)!\n";
 LABEL_17:
@@ -272,20 +270,20 @@ LABEL_17:
     fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** Inconsistent ring buffer count for source[%u]. (%u != %u)\n", "AGXGPURawCounterImpl.mm", 2167, "ringBufferAlloc", *(this + 7), v4, a2);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v14 = *(this + 7);
-      v15 = *(this + 1572);
+      v13 = *(this + 7);
+      v14 = *(this + 1572);
       *buf = 136316418;
-      v18 = "AGXGPURawCounterImpl.mm";
-      v19 = 1024;
-      v20 = 2167;
-      v21 = 2080;
-      v22 = "ringBufferAlloc";
-      v23 = 1024;
-      v24 = v14;
-      v25 = 1024;
-      v26 = v15;
-      v27 = 1024;
-      v28 = a2;
+      v17 = "AGXGPURawCounterImpl.mm";
+      v18 = 1024;
+      v19 = 2167;
+      v20 = 2080;
+      v21 = "ringBufferAlloc";
+      v22 = 1024;
+      v23 = v13;
+      v24 = 1024;
+      v25 = v14;
+      v26 = 1024;
+      v27 = a2;
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Inconsistent ring buffer count for source[%u]. (%u != %u)\n", buf, 0x2Eu);
     }
 
@@ -295,34 +293,32 @@ LABEL_17:
       v7 = *(this + 7);
       v8 = *(this + 1572);
       *buf = 136316418;
-      v18 = "AGXGPURawCounterImpl.mm";
-      v19 = 1024;
-      v20 = 2167;
-      v21 = 2080;
-      v22 = "ringBufferAlloc";
-      v23 = 1024;
-      v24 = v7;
-      v25 = 1024;
-      v26 = v8;
-      v27 = 1024;
-      v28 = a2;
+      v17 = "AGXGPURawCounterImpl.mm";
+      v18 = 1024;
+      v19 = 2167;
+      v20 = 2080;
+      v21 = "ringBufferAlloc";
+      v22 = 1024;
+      v23 = v7;
+      v24 = 1024;
+      v25 = v8;
+      v26 = 1024;
+      v27 = a2;
       v9 = MEMORY[0x277D86220];
       v10 = "AGXGRC:AGXGRC:%s:%d:%s: *** Inconsistent ring buffer count for source[%u]. (%u != %u)\n";
       v11 = 46;
 LABEL_18:
       _os_log_impl(&dword_23C542000, v9, OS_LOG_TYPE_INFO, v10, buf, v11);
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_19:
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void AGXGPURawCounterImpl::SourceImpl::postProcessReset(AGXGPURawCounterImpl::SourceImpl *this, int a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = *(this + 787);
   if (v2 && (v3 = *(v2 + 8)) != 0 && *(v2 + 24))
   {
@@ -426,730 +422,693 @@ void AGXGPURawCounterImpl::SourceImpl::postProcessReset(AGXGPURawCounterImpl::So
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v26 = "AGXGPURawCounterImpl.mm";
-      v27 = 1024;
-      v28 = 1899;
-      v29 = 2080;
-      v30 = "postProcessReset";
+      v25 = "AGXGPURawCounterImpl.mm";
+      v26 = 1024;
+      v27 = 1899;
+      v28 = 2080;
+      v29 = "postProcessReset";
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** chip dispatch table is not propertly set!\n", buf, 0x1Cu);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v26 = "AGXGPURawCounterImpl.mm";
-      v27 = 1024;
-      v28 = 1899;
-      v29 = 2080;
-      v30 = "postProcessReset";
+      v25 = "AGXGPURawCounterImpl.mm";
+      v26 = 1024;
+      v27 = 1899;
+      v28 = 2080;
+      v29 = "postProcessReset";
       _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** chip dispatch table is not propertly set!\n", buf, 0x1Cu);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 BOOL AGXGPURawCounterImpl::SourceImpl::postProcessData(AGXGPURawCounterImpl::SourceImpl *this, unsigned int a2, const unsigned __int8 *a3, unint64_t a4, unint64_t *a5, unint64_t a6, unsigned __int8 *a7, unint64_t a8, unint64_t a9, unint64_t *a10, BOOL a11)
 {
-  v149 = *MEMORY[0x277D85DE8];
+  v146 = *MEMORY[0x277D85DE8];
   v11 = *(this + 787);
   if (v11 && *(v11 + 16))
   {
-    if (*(this + 1572) > a2)
+    if (*(this + 1572) <= a2)
     {
-      result = 0;
-      if (!a3)
-      {
-        goto LABEL_24;
-      }
+      return 0;
+    }
 
-      if (!a4)
+    result = 0;
+    if (a3)
+    {
+      if (a4)
       {
-        goto LABEL_24;
-      }
-
-      if (!a5)
-      {
-        goto LABEL_24;
-      }
-
-      result = 0;
-      if (a6 >= a4)
-      {
-        goto LABEL_24;
-      }
-
-      if (!a7)
-      {
-        goto LABEL_24;
-      }
-
-      if (!a8)
-      {
-        goto LABEL_24;
-      }
-
-      result = 0;
-      if (a9 >= a8 || !a10)
-      {
-        goto LABEL_24;
-      }
-
-      if (*a5 < a4 && *a10 < a8 && (((a6 | a4) | *a5) & 7) == 0 && (((a9 | a8) | *a10) & 7) == 0)
-      {
-        v17 = this;
-        if ((*(**(this + 1) + 104))(*(this + 1)) <= a8)
+        if (a5)
         {
-          if ((*(*v17 + 128))(v17))
+          result = 0;
+          if (a6 < a4)
           {
-            v117 = 1;
-            v18 = v17;
-          }
-
-          else
-          {
-            v18 = v17;
-            v117 = *(v17 + 1556) != 0;
-          }
-
-          v20 = (*(*v18 + 128))(v18);
-          v112 = (*(*v18 + 128))(v18);
-          v110 = *(v18 + 1576);
-          v21 = (*(*v18 + 16))(v18);
-          if (((*(*v21 + 56))(v21) & 2) != 0)
-          {
-            v111 = ((*(*v17 + 96))(v17) >> 2) & 1;
-          }
-
-          else
-          {
-            v111 = 0;
-          }
-
-          v114 = v20;
-          if ((v20 & 2) != 0)
-          {
-            v22 = v17;
-            v113 = 8 * *(*(v17 + 787) + 56);
-          }
-
-          else
-          {
-            v113 = 0;
-            v22 = v17;
-          }
-
-          v115 = *(v22 + 794);
-          v118 = *(v22 + 1554);
-          v23 = *(v22 + 1555);
-          v24 = *(v22 + 1556);
-          v125 = 0;
-          {
-            v22 = v17;
-            if (v93)
+            if (a7)
             {
-              if (*(v17 + 9))
+              if (a8)
               {
-                v94 = 4096;
-              }
+                result = 0;
+                if (a9 < a8)
+                {
+                  if (a10)
+                  {
+                    if (*a5 < a4 && *a10 < a8 && (((a6 | a4) | *a5) & 7) == 0 && (((a9 | a8) | *a10) & 7) == 0)
+                    {
+                      v17 = this;
+                      if ((*(**(this + 1) + 104))(*(this + 1)) <= a8)
+                      {
+                        if ((*(*v17 + 128))(v17))
+                        {
+                          v114 = 1;
+                          v18 = v17;
+                        }
 
-              else
-              {
-                v94 = 2048;
-              }
+                        else
+                        {
+                          v18 = v17;
+                          v114 = *(v17 + 1556) != 0;
+                        }
 
-              AGXGPURawCounterImpl::SourceImpl::postProcessData(unsigned int,unsigned char const*,unsigned long long,unsigned long long *,unsigned long long,unsigned char *,unsigned long long,unsigned long long,unsigned long long *,BOOL)::kSrcSampleMaxSize = v94;
-              v22 = v17;
-            }
-          }
+                        v19 = (*(*v18 + 128))(v18);
+                        v109 = (*(*v18 + 128))(v18);
+                        v107 = *(v18 + 1576);
+                        v20 = (*(*v18 + 16))(v18);
+                        if (((*(*v20 + 56))(v20) & 2) != 0)
+                        {
+                          v108 = ((*(*v17 + 96))(v17) >> 2) & 1;
+                        }
 
-          {
-            v22 = v17;
-            if (v95)
-            {
-              if (*(v17 + 9))
-              {
-                v96 = 1;
-              }
+                        else
+                        {
+                          v108 = 0;
+                        }
 
-              else
-              {
-                v96 = 4;
-              }
+                        v111 = v19;
+                        if ((v19 & 2) != 0)
+                        {
+                          v21 = v17;
+                          v110 = 8 * *(*(v17 + 787) + 56);
+                        }
 
-              AGXGPURawCounterImpl::SourceImpl::postProcessData(unsigned int,unsigned char const*,unsigned long long,unsigned long long *,unsigned long long,unsigned char *,unsigned long long,unsigned long long,unsigned long long *,BOOL)::kSrcPayloadScale = v96;
-              v22 = v17;
-            }
-          }
+                        else
+                        {
+                          v110 = 0;
+                          v21 = v17;
+                        }
 
-          if (AGXGPURawCounterImpl::SourceImpl::postProcessData(unsigned int,unsigned char const*,unsigned long long,unsigned long long *,unsigned long long,unsigned char *,unsigned long long,unsigned long long,unsigned long long *,BOOL)::kSrcSampleMaxSize)
-          {
-            operator new();
-          }
+                        v112 = *(v21 + 794);
+                        v115 = *(v21 + 1554);
+                        v22 = *(v21 + 1555);
+                        v23 = *(v21 + 1556);
+                        v122 = 0;
+                        {
+                          v21 = v17;
+                          if (v90)
+                          {
+                            if (*(v17 + 9))
+                            {
+                              v91 = 4096;
+                            }
 
-          LOBYTE(v124[0]) = 0;
-          memset(v124 + 4, 0, 28);
-          v25 = (*(**(v22 + 1) + 104))(*(v22 + 1));
-          StackAllocator::init(v124, v25);
-          v26 = a5;
-          v27 = *a5;
-          v28 = *a10;
-          if (*a5 == a6)
-          {
-            result = 1;
-            v29 = a6;
-            goto LABEL_121;
-          }
+                            else
+                            {
+                              v91 = 2048;
+                            }
 
-          v105 = (v115 + 8 * (a2 << 8));
-          v106 = v24 + v23;
-          v102 = v118 != v24 + v23 || !v117;
-          v30 = v17;
-          v109 = v17 + 72;
-          __n = (8 * (v118 - (v24 + v23)));
-          v107 = (v118 - (v24 + v23));
-          v31 = 8 * v107;
-          v32 = a3;
-          while (1)
-          {
-            v29 = v27;
-            while (1)
-            {
-              v33 = (*(*(v30 + 787) + 32))(*&v32[v29]);
-              v34 = a6;
-              v35 = a4;
-              if (v33)
-              {
-                break;
-              }
+                            AGXGPURawCounterImpl::SourceImpl::postProcessData(unsigned int,unsigned char const*,unsigned long long,unsigned long long *,unsigned long long,unsigned char *,unsigned long long,unsigned long long,unsigned long long *,BOOL)::kSrcSampleMaxSize = v91;
+                            v21 = v17;
+                          }
+                        }
 
-              v29 = (v29 + 8) % a4;
-              v32 = a3;
-              v30 = v17;
-              if (v29 == a6)
-              {
-                result = 1;
-                v29 = a6;
-                goto LABEL_120;
-              }
-            }
+                        {
+                          v21 = v17;
+                          if (v92)
+                          {
+                            if (*(v17 + 9))
+                            {
+                              v93 = 1;
+                            }
 
-            v36 = a3;
-            v27 = v29;
-            v37 = v17;
-            while (1)
-            {
-              v27 = (v27 + 8) % v35;
-              if (v27 == v34)
-              {
-                break;
-              }
+                            else
+                            {
+                              v93 = 4;
+                            }
 
-              v38 = (*(*(v37 + 787) + 32))(*&v36[v27]);
-              v34 = a6;
-              v35 = a4;
-              v36 = a3;
-              v37 = v17;
-              if (v38)
-              {
-                goto LABEL_48;
-              }
-            }
+                            AGXGPURawCounterImpl::SourceImpl::postProcessData(unsigned int,unsigned char const*,unsigned long long,unsigned long long *,unsigned long long,unsigned char *,unsigned long long,unsigned long long,unsigned long long *,BOOL)::kSrcPayloadScale = v93;
+                            v21 = v17;
+                          }
+                        }
 
-            v27 = v34;
-            if (!a11)
-            {
-              break;
-            }
+                        if (AGXGPURawCounterImpl::SourceImpl::postProcessData(unsigned int,unsigned char const*,unsigned long long,unsigned long long *,unsigned long long,unsigned char *,unsigned long long,unsigned long long,unsigned long long *,BOOL)::kSrcSampleMaxSize)
+                        {
+                          operator new();
+                        }
+
+                        LOBYTE(v121[0]) = 0;
+                        memset(v121 + 4, 0, 28);
+                        v24 = (*(**(v21 + 1) + 104))(*(v21 + 1));
+                        StackAllocator::init(v121, v24);
+                        v25 = a5;
+                        v26 = *a5;
+                        v27 = *a10;
+                        if (*a5 == a6)
+                        {
+                          result = 1;
+                          v28 = a6;
+                          goto LABEL_121;
+                        }
+
+                        v102 = (v112 + 8 * (a2 << 8));
+                        v103 = v23 + v22;
+                        v99 = v115 != v23 + v22 || !v114;
+                        v29 = v17;
+                        v106 = v17 + 72;
+                        __n = (8 * (v115 - (v23 + v22)));
+                        v104 = (v115 - (v23 + v22));
+                        v30 = 8 * v104;
+                        v31 = a3;
+                        while (1)
+                        {
+                          v28 = v26;
+                          while (1)
+                          {
+                            v32 = (*(*(v29 + 787) + 32))(*&v31[v28]);
+                            v33 = a6;
+                            v34 = a4;
+                            if (v32)
+                            {
+                              break;
+                            }
+
+                            v28 = (v28 + 8) % a4;
+                            v31 = a3;
+                            v29 = v17;
+                            if (v28 == a6)
+                            {
+                              result = 1;
+                              v28 = a6;
+                              goto LABEL_120;
+                            }
+                          }
+
+                          v35 = a3;
+                          v26 = v28;
+                          v36 = v17;
+                          while (1)
+                          {
+                            v26 = (v26 + 8) % v34;
+                            if (v26 == v33)
+                            {
+                              break;
+                            }
+
+                            v37 = (*(*(v36 + 787) + 32))(*&v35[v26]);
+                            v33 = a6;
+                            v34 = a4;
+                            v35 = a3;
+                            v36 = v17;
+                            if (v37)
+                            {
+                              goto LABEL_48;
+                            }
+                          }
+
+                          v26 = v33;
+                          if (!a11)
+                          {
+                            break;
+                          }
 
 LABEL_48:
-            v39 = (v35 - v29);
-            v40 = (v35 - v29 + v27) % v35;
-            if (v40 < *(v37 + 1577))
-            {
-              result = 0;
+                          v38 = (v34 - v28);
+                          v39 = (v34 - v28 + v26) % v34;
+                          if (v39 < *(v36 + 1577))
+                          {
+                            result = 0;
 LABEL_120:
-              v26 = a5;
+                            v25 = a5;
 LABEL_121:
-              *v26 = v29;
-              *a10 = v28;
-              if (LOBYTE(v124[0]) == 1)
-              {
-                v88 = result;
-                free(v124[1]);
-                result = v88;
-              }
+                            *v25 = v28;
+                            *a10 = v27;
+                            if (LOBYTE(v121[0]) == 1)
+                            {
+                              v85 = result;
+                              free(v121[1]);
+                              return v85;
+                            }
 
-              goto LABEL_24;
-            }
+                            return result;
+                          }
 
-            v116 = v28;
-            if (v40 > AGXGPURawCounterImpl::SourceImpl::postProcessData(unsigned int,unsigned char const*,unsigned long long,unsigned long long *,unsigned long long,unsigned char *,unsigned long long,unsigned long long,unsigned long long *,BOOL)::kSrcSampleMaxSize)
-            {
-              v89 = (v35 - v29 + v27) % v35;
-              fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** Source sample size is unexpectedly larger than the maximum! (%llu > %u)\n", "AGXGPURawCounterImpl.mm", 1499, "postProcessData", v40, AGXGPURawCounterImpl::SourceImpl::postProcessData(unsigned int,unsigned char const*,unsigned long long,unsigned long long *,unsigned long long,unsigned char *,unsigned long long,unsigned long long,unsigned long long *,BOOL)::kSrcSampleMaxSize);
-              if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-              {
-                *v132 = 136316162;
-                v133 = "AGXGPURawCounterImpl.mm";
-                v134 = 1024;
-                v135 = 1499;
-                v136 = 2080;
-                v137 = "postProcessData";
-                v138 = 2048;
-                v139 = v89;
-                v140 = 1024;
-                LODWORD(v141) = AGXGPURawCounterImpl::SourceImpl::postProcessData(unsigned int,unsigned char const*,unsigned long long,unsigned long long *,unsigned long long,unsigned char *,unsigned long long,unsigned long long,unsigned long long *,BOOL)::kSrcSampleMaxSize;
-                _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Source sample size is unexpectedly larger than the maximum! (%llu > %u)\n", v132, 0x2Cu);
-              }
+                          v113 = v27;
+                          if (v39 > AGXGPURawCounterImpl::SourceImpl::postProcessData(unsigned int,unsigned char const*,unsigned long long,unsigned long long *,unsigned long long,unsigned char *,unsigned long long,unsigned long long,unsigned long long *,BOOL)::kSrcSampleMaxSize)
+                          {
+                            v86 = (v34 - v28 + v26) % v34;
+                            fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** Source sample size is unexpectedly larger than the maximum! (%llu > %u)\n", "AGXGPURawCounterImpl.mm", 1499, "postProcessData", v39, AGXGPURawCounterImpl::SourceImpl::postProcessData(unsigned int,unsigned char const*,unsigned long long,unsigned long long *,unsigned long long,unsigned char *,unsigned long long,unsigned long long,unsigned long long *,BOOL)::kSrcSampleMaxSize);
+                            if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+                            {
+                              *v129 = 136316162;
+                              v130 = "AGXGPURawCounterImpl.mm";
+                              v131 = 1024;
+                              v132 = 1499;
+                              v133 = 2080;
+                              v134 = "postProcessData";
+                              v135 = 2048;
+                              v136 = v86;
+                              v137 = 1024;
+                              LODWORD(v138) = AGXGPURawCounterImpl::SourceImpl::postProcessData(unsigned int,unsigned char const*,unsigned long long,unsigned long long *,unsigned long long,unsigned char *,unsigned long long,unsigned long long,unsigned long long *,BOOL)::kSrcSampleMaxSize;
+                              _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Source sample size is unexpectedly larger than the maximum! (%llu > %u)\n", v129, 0x2Cu);
+                            }
 
-              result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
-              if (result)
-              {
-                *v132 = 136316162;
-                v133 = "AGXGPURawCounterImpl.mm";
-                v134 = 1024;
-                v135 = 1499;
-                v136 = 2080;
-                v137 = "postProcessData";
-                v138 = 2048;
-                v139 = v89;
-                v140 = 1024;
-                LODWORD(v141) = AGXGPURawCounterImpl::SourceImpl::postProcessData(unsigned int,unsigned char const*,unsigned long long,unsigned long long *,unsigned long long,unsigned char *,unsigned long long,unsigned long long,unsigned long long *,BOOL)::kSrcSampleMaxSize;
-                v90 = MEMORY[0x277D86220];
-                v91 = "AGXGRC:AGXGRC:%s:%d:%s: *** Source sample size is unexpectedly larger than the maximum! (%llu > %u)\n";
-                v92 = 44;
+                            result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
+                            if (result)
+                            {
+                              *v129 = 136316162;
+                              v130 = "AGXGPURawCounterImpl.mm";
+                              v131 = 1024;
+                              v132 = 1499;
+                              v133 = 2080;
+                              v134 = "postProcessData";
+                              v135 = 2048;
+                              v136 = v86;
+                              v137 = 1024;
+                              LODWORD(v138) = AGXGPURawCounterImpl::SourceImpl::postProcessData(unsigned int,unsigned char const*,unsigned long long,unsigned long long *,unsigned long long,unsigned char *,unsigned long long,unsigned long long,unsigned long long *,BOOL)::kSrcSampleMaxSize;
+                              v87 = MEMORY[0x277D86220];
+                              v88 = "AGXGRC:AGXGRC:%s:%d:%s: *** Source sample size is unexpectedly larger than the maximum! (%llu > %u)\n";
+                              v89 = 44;
 LABEL_138:
-                _os_log_impl(&dword_23C542000, v90, OS_LOG_TYPE_INFO, v91, v132, v92);
+                              _os_log_impl(&dword_23C542000, v87, OS_LOG_TYPE_INFO, v88, v129, v89);
 LABEL_139:
-                result = 0;
-              }
+                              result = 0;
+                            }
 
 LABEL_140:
-              v26 = a5;
-              v28 = v116;
-              goto LABEL_121;
-            }
+                            v25 = a5;
+                            v27 = v113;
+                            goto LABEL_121;
+                          }
 
-            v108 = (v35 - v29 + v27) % v35;
-            if (v29 >= v27)
-            {
-              v41 = 0;
-              memcpy(0, &a3[v29], v39);
-              memcpy(v39, a3, v108 - v39);
-            }
+                          v105 = (v34 - v28 + v26) % v34;
+                          if (v28 >= v26)
+                          {
+                            v40 = 0;
+                            memcpy(0, &a3[v28], v38);
+                            memcpy(v38, a3, v105 - v38);
+                          }
 
-            else
-            {
-              v41 = &a3[v29];
-            }
+                          else
+                          {
+                            v40 = &a3[v28];
+                          }
 
-            v123 = *(*(v17 + 793) + 8 * a2);
-            v42 = (*(*(v17 + 787) + 16))(v41, &v127, &v123);
-            v43 = v127 & 0xF;
-            if (v43 != 5)
-            {
-              v45 = v42;
-              v99 = v31;
-              v100 = v41;
-              v46 = v108 - v42;
-              v47 = (*(v17 + 1579) + (v46 - v113) * AGXGPURawCounterImpl::SourceImpl::postProcessData(unsigned int,unsigned char const*,unsigned long long,unsigned long long *,unsigned long long,unsigned char *,unsigned long long,unsigned long long,unsigned long long *,BOOL)::kSrcPayloadScale);
-              v98 = ((a8 - a9 + 8 + v116) / a8 * a8 - (8 - a9 + v116));
-              result = v98 < v47;
-              if (v98 < v47)
-              {
-                goto LABEL_140;
-              }
+                          v120 = *(*(v17 + 793) + 8 * a2);
+                          v41 = (*(*(v17 + 787) + 16))(v40, &v124, &v120);
+                          v42 = v124 & 0xF;
+                          if (v42 != 5)
+                          {
+                            v44 = v41;
+                            v96 = v30;
+                            v97 = v40;
+                            v45 = v105 - v41;
+                            v46 = (*(v17 + 1579) + (v45 - v110) * AGXGPURawCounterImpl::SourceImpl::postProcessData(unsigned int,unsigned char const*,unsigned long long,unsigned long long *,unsigned long long,unsigned char *,unsigned long long,unsigned long long,unsigned long long *,BOOL)::kSrcPayloadScale);
+                            v95 = ((a8 - a9 + 8 + v113) / a8 * a8 - (8 - a9 + v113));
+                            result = v95 < v46;
+                            if (v95 < v46)
+                            {
+                              goto LABEL_140;
+                            }
 
-              if (v124[2] < v47)
-              {
-                fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** Potential intermediate buffer overflow! (bufferSize=%llu processedPayloadSizeMax=%llu)\n", "AGXGPURawCounterImpl.mm", 1579, "postProcessData", v124[2], v47);
-                if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-                {
-                  *v132 = 136316162;
-                  v133 = "AGXGPURawCounterImpl.mm";
-                  v134 = 1024;
-                  v135 = 1579;
-                  v136 = 2080;
-                  v137 = "postProcessData";
-                  v138 = 2048;
-                  v139 = v124[2];
-                  v140 = 2048;
-                  v141 = v47;
-                  _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Potential intermediate buffer overflow! (bufferSize=%llu processedPayloadSizeMax=%llu)\n", v132, 0x30u);
-                }
+                            if (v121[2] < v46)
+                            {
+                              fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** Potential intermediate buffer overflow! (bufferSize=%llu processedPayloadSizeMax=%llu)\n", "AGXGPURawCounterImpl.mm", 1579, "postProcessData", v121[2], v46);
+                              if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+                              {
+                                *v129 = 136316162;
+                                v130 = "AGXGPURawCounterImpl.mm";
+                                v131 = 1024;
+                                v132 = 1579;
+                                v133 = 2080;
+                                v134 = "postProcessData";
+                                v135 = 2048;
+                                v136 = v121[2];
+                                v137 = 2048;
+                                v138 = v46;
+                                _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Potential intermediate buffer overflow! (bufferSize=%llu processedPayloadSizeMax=%llu)\n", v129, 0x30u);
+                              }
 
-                result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
-                if (result)
-                {
-                  *v132 = 136316162;
-                  v133 = "AGXGPURawCounterImpl.mm";
-                  v134 = 1024;
-                  v135 = 1579;
-                  v136 = 2080;
-                  v137 = "postProcessData";
-                  v138 = 2048;
-                  v139 = v124[2];
-                  v140 = 2048;
-                  v141 = v47;
-                  v90 = MEMORY[0x277D86220];
-                  v91 = "AGXGRC:AGXGRC:%s:%d:%s: *** Potential intermediate buffer overflow! (bufferSize=%llu processedPayloadSizeMax=%llu)\n";
-                  v92 = 48;
-                  goto LABEL_138;
-                }
+                              result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
+                              if (result)
+                              {
+                                *v129 = 136316162;
+                                v130 = "AGXGPURawCounterImpl.mm";
+                                v131 = 1024;
+                                v132 = 1579;
+                                v133 = 2080;
+                                v134 = "postProcessData";
+                                v135 = 2048;
+                                v136 = v121[2];
+                                v137 = 2048;
+                                v138 = v46;
+                                v87 = MEMORY[0x277D86220];
+                                v88 = "AGXGRC:AGXGRC:%s:%d:%s: *** Potential intermediate buffer overflow! (bufferSize=%llu processedPayloadSizeMax=%llu)\n";
+                                v89 = 48;
+                                goto LABEL_138;
+                              }
 
-                goto LABEL_140;
-              }
+                              goto LABEL_140;
+                            }
 
-              v48 = *(v17 + 792);
-              if (v128 < *(v48 + 8 * a2))
-              {
-                goto LABEL_139;
-              }
+                            v47 = *(v17 + 792);
+                            if (v125 < *(v47 + 8 * a2))
+                            {
+                              goto LABEL_139;
+                            }
 
-              v124[3] = 0;
-              if (v46 < *(v17 + 1578))
-              {
-                goto LABEL_139;
-              }
+                            v121[3] = 0;
+                            if (v45 < *(v17 + 1578))
+                            {
+                              goto LABEL_139;
+                            }
 
-              v49 = v45;
-              if ((v114 & 2) != 0)
-              {
-                result = AGXGPURawCounterImpl::SourceImpl::generateKickTimestampSamples(v17, a2, *(v48 + 8 * a2), v128, v100, v45, v142, &v125);
-                if (!result)
-                {
-                  goto LABEL_140;
-                }
+                            v48 = v44;
+                            if ((v111 & 2) != 0)
+                            {
+                              result = AGXGPURawCounterImpl::SourceImpl::generateKickTimestampSamples(v17, a2, *(v47 + 8 * a2), v125, v97, v44, v139, &v122);
+                              if (!result)
+                              {
+                                goto LABEL_140;
+                              }
 
-                v49 += v113;
-                if (v124[1])
-                {
-                  v50 = (v124[1] + v124[3]);
-                }
+                              v48 += v110;
+                              if (v121[1])
+                              {
+                                v49 = (v121[1] + v121[3]);
+                              }
 
-                else
-                {
-                  v50 = 0;
-                }
+                              else
+                              {
+                                v49 = 0;
+                              }
 
-                v51 = AGXGPURawCounterImpl::SourceImpl::emitKickTimestampSamples(v17, a2, v142, v125, v128, v50);
-                StackAllocator::reserve(v124, v51);
-                v43 = v127 & 0xF;
-              }
+                              v50 = AGXGPURawCounterImpl::SourceImpl::emitKickTimestampSamples(v17, a2, v139, v122, v125, v49);
+                              StackAllocator::reserve(v121, v50);
+                              v42 = v124 & 0xF;
+                            }
 
-              if (v43 != 5)
-              {
-                v52 = (v100 + v49);
-                v132[0] = 0;
-                SampleType = generateSampleType(&v127, v132);
-                if (!v102 && SampleType >= 6u)
-                {
-                  goto LABEL_94;
-                }
-
-                v54 = SampleType;
-                *StackAllocator::reserve(v124, 8u) = 0x52544E4357525047;
-                v55 = (v110 & 1) != 0 ? StackAllocator::reserve(v124, 0x20u) : v126;
-                v56 = *(v17 + 7);
-                *v55 = v129;
-                v55[4] = 4;
-                *(v55 + 3) = -1519;
-                v57 = v127;
-                *(v55 + 1) = v128;
-                *(v55 + 4) = v130;
-                *(v55 + 5) = v57 >> 16;
-                v55[24] = v56;
-                v55[25] = a2;
-                v55[26] = v131 & 0x3F;
-                v55[5] = v54;
-                v58 = *(v17 + 1556);
-                v59 = (*(v17 + 1554) - v58);
-                v55[27] = *(v17 + 6216) - v58;
-                copyMetaCounterList(v124, v55, v109, *(v17 + 1555));
-                if (v118 == v106)
-                {
-LABEL_94:
-                  v64 = (v100 + v49);
+                            if (v42 != 5)
+                            {
+                              v51 = (v97 + v48);
+                              v129[0] = 0;
+                              SampleType = generateSampleType(&v124, v129);
+                              if (!v99 && SampleType >= 6u || ((v53 = SampleType, *StackAllocator::reserve(v121, 8u) = 0x52544E4357525047, (v107 & 1) != 0) ? (v54 = StackAllocator::reserve(v121, 0x20u)) : (v54 = v123), v55 = *(v17 + 7), *v54 = v126, v54[4] = 4, *(v54 + 3) = -1519, v56 = v124, *(v54 + 1) = v125, *(v54 + 4) = v127, *(v54 + 5) = v56 >> 16, v54[24] = v55, v54[25] = a2, v54[26] = v128 & 0x3F, v54[5] = v53, v54[27] = *(v17 + 6216) - *(v17 + 1556), copyMetaCounterList(v121, v54, v106, *(v17 + 1555)), v115 == v103))
+                              {
+                                v61 = (v97 + v48);
 LABEL_95:
-                  if (v117)
-                  {
-                    goto LABEL_96;
-                  }
-                }
+                                if (v114)
+                                {
+                                  goto LABEL_96;
+                                }
+                              }
 
-                else
-                {
-                  v60 = StackAllocator::reserve(v124, __n);
-                  v61 = v60;
-                  if ((*(v17 + 36) & 1) == 0)
-                  {
-                    bzero(v60, __n);
-                    v62 = 0;
-                    v97 = v132[0];
-                    v63 = v17;
-                    v64 = v52;
-                    while (1)
-                    {
-                      v65 = (v109 + 24 * (v62 + *(v63 + 1555)));
-                      v103 = v65[4] >> 3;
-                      v104 = v64;
-                      memcpy(v61, v64, v103);
-                      v63 = v17;
-                      if (v65[2] < *(*(v17 + 1) + 676))
-                      {
-                        break;
-                      }
+                              else
+                              {
+                                v57 = StackAllocator::reserve(v121, __n);
+                                v58 = v57;
+                                if ((*(v17 + 36) & 1) == 0)
+                                {
+                                  bzero(v57, __n);
+                                  v59 = 0;
+                                  v94 = v129[0];
+                                  v60 = v17;
+                                  v61 = v51;
+                                  while (1)
+                                  {
+                                    v62 = (v106 + 24 * (v59 + *(v60 + 1555)));
+                                    v100 = v62[4] >> 3;
+                                    v101 = v61;
+                                    memcpy(v58, v61, v100);
+                                    v60 = v17;
+                                    if (v62[2] < *(*(v17 + 1) + 676))
+                                    {
+                                      break;
+                                    }
 
-                      if (!v111 || (*(*v65 + 48) & 1) == 0)
-                      {
-                        if ((v112 & 4) == 0)
-                        {
-                          goto LABEL_78;
-                        }
+                                    if (!v108 || (*(*v62 + 48) & 1) == 0)
+                                    {
+                                      if ((v109 & 4) == 0)
+                                      {
+                                        goto LABEL_78;
+                                      }
 
-                        v69 = *v61;
-                        *&buf[8 * v62] = *v61;
-                        v68 = v69 - v105[v62];
+                                      v66 = *v58;
+                                      *&buf[8 * v59] = *v58;
+                                      v65 = v66 - v102[v59];
 LABEL_77:
-                        *v61 = v68;
-                        goto LABEL_78;
-                      }
+                                      *v58 = v65;
+                                      goto LABEL_78;
+                                    }
 
-                      if ((v112 & 4) != 0)
-                      {
-                        if ((v97 & 1) == 0)
-                        {
-                          v71 = *v61;
-                          *&buf[8 * v62] = *v61;
-                          *v61 = v71 - v105[v62];
-                          v63 = v17;
-                          goto LABEL_78;
-                        }
+                                    if ((v109 & 4) != 0)
+                                    {
+                                      if ((v94 & 1) == 0)
+                                      {
+                                        v68 = *v58;
+                                        *&buf[8 * v59] = *v58;
+                                        *v58 = v68 - v102[v59];
+                                        v60 = v17;
+                                        goto LABEL_78;
+                                      }
 
-                        v70 = v105[v62];
-                      }
+                                      v67 = v102[v59];
+                                    }
 
-                      else
-                      {
-                        if ((v97 & 1) == 0)
-                        {
-                          *v61 += v105[v62];
-                          *&buf[8 * v62] = 0;
-                          v63 = v17;
-                          goto LABEL_78;
-                        }
+                                    else
+                                    {
+                                      if ((v94 & 1) == 0)
+                                      {
+                                        *v58 += v102[v59];
+                                        *&buf[8 * v59] = 0;
+                                        v60 = v17;
+                                        goto LABEL_78;
+                                      }
 
-                        v70 = *v61;
-                      }
+                                      v67 = *v58;
+                                    }
 
-                      *&buf[8 * v62] = v70;
-                      *v61 = 0;
-                      v63 = v17;
+                                    *&buf[8 * v59] = v67;
+                                    *v58 = 0;
+                                    v60 = v17;
 LABEL_78:
-                      v64 = &v104[v103 & 0x1FFFFFFE];
-                      ++v61;
-                      if (v107 == ++v62)
-                      {
-                        goto LABEL_95;
-                      }
-                    }
+                                    v61 = &v101[v100 & 0x1FFFFFFE];
+                                    ++v58;
+                                    if (v104 == ++v59)
+                                    {
+                                      goto LABEL_95;
+                                    }
+                                  }
 
-                    if ((*(*v65 + 48) & 8) == 0)
-                    {
-                      goto LABEL_78;
-                    }
+                                  if ((*(*v62 + 48) & 8) == 0)
+                                  {
+                                    goto LABEL_78;
+                                  }
 
-                    v66 = 2 << (v65[3] - 1);
-                    v67 = *v61;
-                    *&buf[8 * v62] = *v61;
-                    v68 = (v67 - v105[v62]) & (v66 - 1);
-                    goto LABEL_77;
-                  }
+                                  v63 = 2 << (v62[3] - 1);
+                                  v64 = *v58;
+                                  *&buf[8 * v59] = *v58;
+                                  v65 = (v64 - v102[v59]) & (v63 - 1);
+                                  goto LABEL_77;
+                                }
 
-                  memcpy(v60, v52, __n);
-                  v64 = &v52[__n];
-                  if (v117)
-                  {
+                                memcpy(v57, v51, __n);
+                                v61 = &v51[__n];
+                                if (v114)
+                                {
 LABEL_96:
-                    v72 = v64;
-                    if ((v64 + 32) <= v100 + v108)
-                    {
-                      *StackAllocator::reserve(v124, 8u) = 0x52544E4357525047;
-                      v73 = (v110 & 1) != 0 ? StackAllocator::reserve(v124, 0x20u) : v126;
-                      v74 = v100 + v108 - v72;
-                      v75 = *(v17 + 7);
-                      *v73 = v129;
-                      v73[4] = 4;
-                      *(v73 + 3) = -1519;
-                      v76 = v127;
-                      *(v73 + 1) = v128;
-                      *(v73 + 4) = v130;
-                      *(v73 + 5) = v76 >> 16;
-                      v73[24] = v75;
-                      v73[25] = a2;
-                      v73[26] = v131 & 0x3F;
-                      v73[5] = 7;
-                      v73[27] = (v74 >> 3) & 0xFC;
-                      copyMetaCounterList(v124, v73, v109, *(v17 + 1555));
-                      v77 = StackAllocator::reserve(v124, v74 & 0xFFFFFFE0);
-                      if ((v74 & 0xFFFFFFE0) != 0 && v77 != 0)
-                      {
-                        memcpy(v77, v72, v74 & 0xFFFFFFE0);
+                                  v69 = v61;
+                                  if ((v61 + 32) <= v97 + v105)
+                                  {
+                                    *StackAllocator::reserve(v121, 8u) = 0x52544E4357525047;
+                                    v70 = (v107 & 1) != 0 ? StackAllocator::reserve(v121, 0x20u) : v123;
+                                    v71 = v97 + v105 - v69;
+                                    v72 = *(v17 + 7);
+                                    *v70 = v126;
+                                    v70[4] = 4;
+                                    *(v70 + 3) = -1519;
+                                    v73 = v124;
+                                    *(v70 + 1) = v125;
+                                    *(v70 + 4) = v127;
+                                    *(v70 + 5) = v73 >> 16;
+                                    v70[24] = v72;
+                                    v70[25] = a2;
+                                    v70[26] = v128 & 0x3F;
+                                    v70[5] = 7;
+                                    v70[27] = (v71 >> 3) & 0xFC;
+                                    copyMetaCounterList(v121, v70, v106, *(v17 + 1555));
+                                    v74 = StackAllocator::reserve(v121, v71 & 0xFFFFFFE0);
+                                    if ((v71 & 0xFFFFFFE0) != 0 && v74 != 0)
+                                    {
+                                      memcpy(v74, v69, v71 & 0xFFFFFFE0);
+                                    }
+                                  }
+                                }
+                              }
+                            }
+
+                            v76 = v121[3];
+                            if (v121[3] > v95)
+                            {
+                              fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** Insufficient free space in the final destination buffer!\n", "AGXGPURawCounterImpl.mm", 1836, "postProcessData");
+                              if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+                              {
+                                *v129 = 136315650;
+                                v130 = "AGXGPURawCounterImpl.mm";
+                                v131 = 1024;
+                                v132 = 1836;
+                                v133 = 2080;
+                                v134 = "postProcessData";
+                                _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Insufficient free space in the final destination buffer!\n", v129, 0x1Cu);
+                              }
+
+                              result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
+                              if (result)
+                              {
+                                *v129 = 136315650;
+                                v130 = "AGXGPURawCounterImpl.mm";
+                                v131 = 1024;
+                                v132 = 1836;
+                                v133 = 2080;
+                                v134 = "postProcessData";
+                                v87 = MEMORY[0x277D86220];
+                                v88 = "AGXGRC:AGXGRC:%s:%d:%s: *** Insufficient free space in the final destination buffer!\n";
+                                v89 = 28;
+                                goto LABEL_138;
+                              }
+
+                              goto LABEL_140;
+                            }
+
+                            if (v121[3] + v113 <= a8)
+                            {
+                              v79 = v121[1];
+                              v80 = &a7[v113];
+                              v78 = v121[3];
+                            }
+
+                            else
+                            {
+                              v77 = v121[1];
+                              memcpy(&a7[v113], v121[1], a8 - v113);
+                              v78 = &v76[-(a8 - v113)];
+                              v79 = &v77[a8 - v113];
+                              v80 = a7;
+                            }
+
+                            memcpy(v80, v79, v78);
+                            v29 = v17;
+                            v81 = a2;
+                            *(*(v17 + 792) + 8 * a2) = v125;
+                            if ((v124 & 0xF) != 5)
+                            {
+                              *(*(v17 + 793) + 8 * a2) = v120;
+                              if (v115 != v103)
+                              {
+                                memcpy(v102, buf, v96);
+                                v29 = v17;
+                                v81 = a2;
+                              }
+                            }
+
+                            v82 = v122;
+                            if (v122)
+                            {
+                              v83 = v139;
+                              do
+                              {
+                                v84 = *(v29 + 795) + 24 * (v83[17] + *(*(v29 + 787) + 40) * v81);
+                                *v84 = *v83;
+                                *(v84 + 16) = *(v83 + 2);
+                                v83 += 24;
+                                --v82;
+                              }
+
+                              while (v82);
+                            }
+
+                            v27 = (v121[3] + v113) % a8;
+                            v30 = v96;
+                            goto LABEL_118;
+                          }
+
+                          *(*(v17 + 792) + 8 * a2) = v125;
+                          *(*(v17 + 793) + 8 * a2) = v120;
+                          if (v115 != v103)
+                          {
+                            bzero(v102, v30);
+                          }
+
+                          if ((v111 & 2) != 0)
+                          {
+                            v43 = *(*(v17 + 787) + 40);
+                            bzero((*(v17 + 795) + 24 * v43 * a2), 24 * v43);
+                          }
+
+                          v29 = v17;
+                          v27 = v113;
+LABEL_118:
+                          result = 1;
+                          v31 = a3;
+                          if (v26 == a6)
+                          {
+                            v28 = a6;
+                            goto LABEL_120;
+                          }
+                        }
+
+                        result = 1;
+                        goto LABEL_120;
                       }
                     }
+
+                    return 0;
                   }
                 }
               }
-
-              v79 = v124[3];
-              if (v124[3] > v98)
-              {
-                fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** Insufficient free space in the final destination buffer!\n", "AGXGPURawCounterImpl.mm", 1836, "postProcessData");
-                if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-                {
-                  *v132 = 136315650;
-                  v133 = "AGXGPURawCounterImpl.mm";
-                  v134 = 1024;
-                  v135 = 1836;
-                  v136 = 2080;
-                  v137 = "postProcessData";
-                  _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Insufficient free space in the final destination buffer!\n", v132, 0x1Cu);
-                }
-
-                result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
-                if (result)
-                {
-                  *v132 = 136315650;
-                  v133 = "AGXGPURawCounterImpl.mm";
-                  v134 = 1024;
-                  v135 = 1836;
-                  v136 = 2080;
-                  v137 = "postProcessData";
-                  v90 = MEMORY[0x277D86220];
-                  v91 = "AGXGRC:AGXGRC:%s:%d:%s: *** Insufficient free space in the final destination buffer!\n";
-                  v92 = 28;
-                  goto LABEL_138;
-                }
-
-                goto LABEL_140;
-              }
-
-              if (v124[3] + v116 <= a8)
-              {
-                v82 = v124[1];
-                v83 = &a7[v116];
-                v81 = v124[3];
-              }
-
-              else
-              {
-                v80 = v124[1];
-                memcpy(&a7[v116], v124[1], a8 - v116);
-                v81 = &v79[-(a8 - v116)];
-                v82 = &v80[a8 - v116];
-                v83 = a7;
-              }
-
-              memcpy(v83, v82, v81);
-              v30 = v17;
-              v84 = a2;
-              *(*(v17 + 792) + 8 * a2) = v128;
-              if ((v127 & 0xF) != 5)
-              {
-                *(*(v17 + 793) + 8 * a2) = v123;
-                if (v118 != v106)
-                {
-                  memcpy(v105, buf, v99);
-                  v30 = v17;
-                  v84 = a2;
-                }
-              }
-
-              v85 = v125;
-              if (v125)
-              {
-                v86 = v142;
-                do
-                {
-                  v87 = *(v30 + 795) + 24 * (v86[17] + *(*(v30 + 787) + 40) * v84);
-                  *v87 = *v86;
-                  *(v87 + 16) = *(v86 + 2);
-                  v86 += 24;
-                  --v85;
-                }
-
-                while (v85);
-              }
-
-              v28 = (v124[3] + v116) % a8;
-              v31 = v99;
-              goto LABEL_118;
-            }
-
-            *(*(v17 + 792) + 8 * a2) = v128;
-            *(*(v17 + 793) + 8 * a2) = v123;
-            if (v118 != v106)
-            {
-              bzero(v105, v31);
-            }
-
-            if ((v114 & 2) != 0)
-            {
-              v44 = *(*(v17 + 787) + 40);
-              bzero((*(v17 + 795) + 24 * v44 * a2), 24 * v44);
-            }
-
-            v30 = v17;
-            v28 = v116;
-LABEL_118:
-            result = 1;
-            v32 = a3;
-            if (v27 == a6)
-            {
-              v29 = a6;
-              goto LABEL_120;
             }
           }
-
-          result = 1;
-          goto LABEL_120;
         }
       }
     }
-
-LABEL_23:
-    result = 0;
-    goto LABEL_24;
   }
 
-  fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** parseSampleHeader() is not set!\n", "AGXGPURawCounterImpl.mm", 1345, "postProcessData");
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  else
   {
-    *buf = 136315650;
-    v144 = "AGXGPURawCounterImpl.mm";
-    v145 = 1024;
-    v146 = 1345;
-    v147 = 2080;
-    v148 = "postProcessData";
-    _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** parseSampleHeader() is not set!\n", buf, 0x1Cu);
+    fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** parseSampleHeader() is not set!\n", "AGXGPURawCounterImpl.mm", 1345, "postProcessData");
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315650;
+      v141 = "AGXGPURawCounterImpl.mm";
+      v142 = 1024;
+      v143 = 1345;
+      v144 = 2080;
+      v145 = "postProcessData";
+      _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** parseSampleHeader() is not set!\n", buf, 0x1Cu);
+    }
+
+    result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
+    if (result)
+    {
+      *buf = 136315650;
+      v141 = "AGXGPURawCounterImpl.mm";
+      v142 = 1024;
+      v143 = 1345;
+      v144 = 2080;
+      v145 = "postProcessData";
+      _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** parseSampleHeader() is not set!\n", buf, 0x1Cu);
+      return 0;
+    }
   }
 
-  result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
-  if (result)
-  {
-    *buf = 136315650;
-    v144 = "AGXGPURawCounterImpl.mm";
-    v145 = 1024;
-    v146 = 1345;
-    v147 = 2080;
-    v148 = "postProcessData";
-    _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** parseSampleHeader() is not set!\n", buf, 0x1Cu);
-    goto LABEL_23;
-  }
-
-LABEL_24:
-  v19 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1190,11 +1149,11 @@ void StackAllocator::init(StackAllocator *this, uint64_t a2)
 
 BOOL AGXGPURawCounterImpl::SourceImpl::generateKickTimestampSamples(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6, uint64_t a7, unsigned int *a8)
 {
-  v112 = *MEMORY[0x277D85DE8];
+  v111 = *MEMORY[0x277D85DE8];
   v15 = a1[795];
   v16 = a1[787];
   v17 = *(v16 + 40);
-  bzero(v111, 0x280uLL);
+  bzero(v110, 0x280uLL);
   if (a3)
   {
     v18 = a3 - *(a1[1] + 704);
@@ -1210,7 +1169,7 @@ LABEL_6:
     {
 LABEL_34:
       *a8 = 0;
-      goto LABEL_97;
+      return 1;
     }
 
     goto LABEL_7;
@@ -1237,7 +1196,7 @@ LABEL_7:
   v24 = (*(v16 + 48) + 2);
   do
   {
-    v27 = &v111[80 * (v21 >> 1)];
+    v27 = &v110[80 * (v21 >> 1)];
     v28 = *(v27 + 18);
     if (v28 >= 2)
     {
@@ -1263,10 +1222,10 @@ LABEL_7:
         WORD1(buf[2]) = 2080;
         *(&buf[2] + 4) = "generateKickTimestampSamples";
         _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** Unexpected number of kickslot data to be added to the queue!\n", buf, 0x1Cu);
-        result = 0;
+        return 0;
       }
 
-      goto LABEL_98;
+      return result;
     }
 
     v29 = *(a5 + 8 * *(v24 - 2));
@@ -1345,14 +1304,14 @@ LABEL_9:
   v38 = 0;
   while (2)
   {
-    v42 = &v111[v38];
-    v43 = *&v111[v38 + 72];
+    v42 = &v110[v38];
+    v43 = *&v110[v38 + 72];
     if (v43)
     {
       v44 = v43 - 1;
       if (!*v23)
       {
-        v52 = v111[24 * v44 + 18 + v38];
+        v52 = v110[24 * v44 + 18 + v38];
         v49 = v52 - 8;
         v51 = v52 & 1;
         goto LABEL_45;
@@ -1361,27 +1320,27 @@ LABEL_9:
       v45 = *(v23 + 18);
       v46 = v45 - 8;
       v47 = v45 & 1;
-      v48 = v111[24 * v44 + 18 + v38];
+      v48 = v110[24 * v44 + 18 + v38];
       v49 = v48 - 8;
       if (v46 <= 5 && v47 == 0)
       {
         v54 = v48 & 1;
         if (v49 <= 5 && v54 == 0)
         {
-          v39 = &v111[24 * v43 + v38];
+          v39 = &v110[24 * v43 + v38];
           *(v42 + 18) = v43 + 1;
           v40 = *v23;
           v41 = *(v23 + 2);
           *(v39 + 2) = v41;
           *v39 = v40;
           v39[18] = BYTE2(v41) + 1;
-          *v39 = *&v111[24 * v44 + v38] - 1;
+          *v39 = *&v110[24 * v44 + v38] - 1;
         }
 
         else
         {
           v56 = *(v23 + 1);
-          v57 = &v111[24 * v44 + v38];
+          v57 = &v110[24 * v44 + v38];
           if (v56 != *(v57 + 1))
           {
             *(v57 + 1) = v56;
@@ -1412,23 +1371,23 @@ LABEL_45:
 
   v58 = 0;
   v59 = 0;
-  v109 = 0u;
-  v110 = 0u;
-  v107 = 0u;
   v108 = 0u;
-  v105 = 0u;
+  v109 = 0u;
   v106 = 0u;
-  v103 = 0u;
+  v107 = 0u;
   v104 = 0u;
-  v101 = 0u;
+  v105 = 0u;
   v102 = 0u;
+  v103 = 0u;
+  v100 = 0u;
+  v101 = 0u;
   memset(buf, 0, sizeof(buf));
   v60 = vdupq_n_s64(0x30uLL);
   v61 = vdupq_n_s64(4uLL);
-  v62 = v111;
+  v62 = v110;
   while (2)
   {
-    v63 = &v111[80 * v58];
+    v63 = &v110[80 * v58];
     v64 = *(v63 + 18);
     if (v64)
     {
@@ -1510,28 +1469,10 @@ LABEL_95:
         v86 = **v82;
         if (*v84 >= v86)
         {
-          if (*v84 > v86)
+          if (*v84 > v86 || *(v84 + 16) == *(v85 + 16) && ((v87 = *(v84 + 18), v88 = v87 - 8, v89 = v87 & 1, v88 <= 5) ? (v90 = v89 == 0) : (v90 = 0), v90 && ((v91 = *(v85 + 18), v92 = v91 - 8, v93 = v91 & 1, v92 <= 5) ? (v94 = v93 == 0) : (v94 = 1), !v94)))
           {
-            goto LABEL_75;
-          }
-
-          if (*(v84 + 16) == *(v85 + 16))
-          {
-            v87 = *(v84 + 18);
-            v88 = v87 - 8;
-            v89 = v87 & 1;
-            if (v88 <= 5 && v89 == 0)
-            {
-              v91 = *(v85 + 18);
-              v92 = v91 - 8;
-              v93 = v91 & 1;
-              if (v92 <= 5 && v93 != 0)
-              {
-LABEL_75:
-                buf[v76] = v85;
-                *v82 = v84;
-              }
-            }
+            buf[v76] = v85;
+            *v82 = v84;
           }
         }
 
@@ -1562,228 +1503,220 @@ LABEL_75:
   while (v77);
 LABEL_96:
   *v80 = v59;
-LABEL_97:
-  result = 1;
-LABEL_98:
-  v98 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 uint64_t AGXGPURawCounterImpl::SourceImpl::emitKickTimestampSamples(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a4, unint64_t a5, unint64_t *a6)
 {
-  v52 = *MEMORY[0x277D85DE8];
-  if (!a4)
+  v51 = *MEMORY[0x277D85DE8];
+  if (a4)
   {
-    result = 0;
-    goto LABEL_38;
-  }
-
-  v9 = 0;
-  v30 = a2;
-  v31 = a4;
-  v29 = a1 + 72;
-  v10 = MEMORY[0x277D86220];
-  v28 = a6;
-  v11 = a6;
-  do
-  {
-    v12 = a3 + 24 * v9;
-    v13 = *(v12 + 8);
-    if (!v13)
+    v9 = 0;
+    v29 = a2;
+    v30 = a4;
+    v28 = a1 + 72;
+    v10 = MEMORY[0x277D86220];
+    v27 = a6;
+    v11 = a6;
+    while (1)
     {
-      goto LABEL_3;
-    }
-
-    v14 = *(*(a1 + 8) + 704) + *v12;
-    if (v14 <= a5)
-    {
-      *v11++ = 0x52544E4357525047;
-      v18 = *(a1 + 6220);
-      if (!v18)
+      v12 = a3 + 24 * v9;
+      v13 = *(v12 + 8);
+      if (v13)
       {
-        goto LABEL_3;
-      }
+        v14 = *(*(a1 + 8) + 704) + *v12;
+        if (v14 > a5)
+        {
+          fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** kick_timestamp > rde_sample_timestamp, [%u] timestampMax=%16llx timestamp=%16llx type=%2u encoderId=%8x traceId=%8x slotIdx=%2u\n\n", "AGXGPURawCounterImpl.mm", 2562, "emitKickTimestampSamples", v9, a5, v14, *(v12 + 18), HIDWORD(v13), *(v12 + 8), *(v12 + 16));
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          {
+            v23 = *(v12 + 18);
+            v24 = *(v12 + 8);
+            v25 = *(v12 + 16);
+            *buf = 136317442;
+            v32 = "AGXGPURawCounterImpl.mm";
+            v33 = 1024;
+            v34 = 2562;
+            v35 = 2080;
+            v36 = "emitKickTimestampSamples";
+            v37 = 1024;
+            v38 = v9;
+            v39 = 2048;
+            v40 = a5;
+            v41 = 2048;
+            v42 = v14;
+            v43 = 1024;
+            v44 = v23;
+            v45 = 1024;
+            v46 = HIDWORD(v24);
+            v47 = 1024;
+            v48 = v24;
+            v49 = 1024;
+            v50 = v25;
+            _os_log_error_impl(&dword_23C542000, v10, OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** kick_timestamp > rde_sample_timestamp, [%u] timestampMax=%16llx timestamp=%16llx type=%2u encoderId=%8x traceId=%8x slotIdx=%2u\n\n", buf, 0x4Eu);
+          }
 
-      v19 = 0;
-      v20 = v29;
-      while (1)
-      {
-        v22 = *(*v20 + 32);
-        if (v22 > 3)
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+          {
+            v15 = *(v12 + 18);
+            v16 = *(v12 + 8);
+            v17 = *(v12 + 16);
+            *buf = 136317442;
+            v32 = "AGXGPURawCounterImpl.mm";
+            v33 = 1024;
+            v34 = 2562;
+            v35 = 2080;
+            v36 = "emitKickTimestampSamples";
+            v37 = 1024;
+            v38 = v9;
+            v39 = 2048;
+            v40 = a5;
+            v41 = 2048;
+            v42 = v14;
+            v43 = 1024;
+            v44 = v15;
+            v45 = 1024;
+            v46 = HIDWORD(v16);
+            v47 = 1024;
+            v48 = v16;
+            v49 = 1024;
+            v50 = v17;
+            _os_log_impl(&dword_23C542000, v10, OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** kick_timestamp > rde_sample_timestamp, [%u] timestampMax=%16llx timestamp=%16llx type=%2u encoderId=%8x traceId=%8x slotIdx=%2u\n\n", buf, 0x4Eu);
+          }
+
+          goto LABEL_3;
+        }
+
+        *v11++ = 0x52544E4357525047;
+        v18 = *(a1 + 6220);
+        if (v18)
         {
           break;
         }
+      }
 
-        if (v22 > 1)
+LABEL_3:
+      if (++v9 == v30)
+      {
+        return (v11 - v27);
+      }
+    }
+
+    v19 = 0;
+    v20 = v28;
+    while (1)
+    {
+      v22 = *(*v20 + 32);
+      if (v22 > 3)
+      {
+        break;
+      }
+
+      if (v22 > 1)
+      {
+        if (v22 == 2)
         {
-          if (v22 == 2)
-          {
-            v21 = *(v12 + 18);
-          }
+          v21 = *(v12 + 18);
+        }
 
-          else
-          {
-            v21 = *(v12 + 12);
-          }
+        else
+        {
+          v21 = *(v12 + 12);
+        }
 
 LABEL_13:
-          *v11 = v21;
-          goto LABEL_14;
-        }
-
-        if (v22)
-        {
-          if (v22 != 1)
-          {
-            goto LABEL_31;
-          }
-
-          *v11 = v14;
-        }
-
-        else
-        {
-          *v11 = 0;
-        }
-
-LABEL_14:
-        ++v19;
-        ++v11;
-        v20 += 24;
-        if (v19 >= v18)
-        {
-          goto LABEL_3;
-        }
+        *v11 = v21;
+        goto LABEL_14;
       }
 
-      if (v22 > 5)
+      if (v22)
       {
-        if (v22 == 6)
+        if (v22 != 1)
         {
-          v21 = *(a1 + 28);
+          goto LABEL_31;
         }
 
-        else
-        {
-          if (v22 != 7)
-          {
-LABEL_31:
-            fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** Unknown meta counter type!\n", "AGXGPURawCounterImpl.mm", 2605, "emitKickTimestampSamples");
-            if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-            {
-              *buf = 136315650;
-              v33 = "AGXGPURawCounterImpl.mm";
-              v34 = 1024;
-              v35 = 2605;
-              v36 = 2080;
-              v37 = "emitKickTimestampSamples";
-              _os_log_error_impl(&dword_23C542000, v10, OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Unknown meta counter type!\n", buf, 0x1Cu);
-            }
-
-            if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
-            {
-              *buf = 136315650;
-              v33 = "AGXGPURawCounterImpl.mm";
-              v34 = 1024;
-              v35 = 2605;
-              v36 = 2080;
-              v37 = "emitKickTimestampSamples";
-              _os_log_impl(&dword_23C542000, v10, OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** Unknown meta counter type!\n", buf, 0x1Cu);
-            }
-
-            *v11 = 0;
-            v18 = *(a1 + 6220);
-            goto LABEL_14;
-          }
-
-          v21 = v30;
-        }
-      }
-
-      else if (v22 == 4)
-      {
-        v21 = *(v12 + 8);
+        *v11 = v14;
       }
 
       else
       {
-        v21 = *(v12 + 16);
+        *v11 = 0;
       }
 
-      goto LABEL_13;
+LABEL_14:
+      ++v19;
+      ++v11;
+      v20 += 24;
+      if (v19 >= v18)
+      {
+        goto LABEL_3;
+      }
     }
 
-    fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** kick_timestamp > rde_sample_timestamp, [%u] timestampMax=%16llx timestamp=%16llx type=%2u encoderId=%8x traceId=%8x slotIdx=%2u\n\n", "AGXGPURawCounterImpl.mm", 2562, "emitKickTimestampSamples", v9, a5, v14, *(v12 + 18), HIDWORD(v13), *(v12 + 8), *(v12 + 16));
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (v22 > 5)
     {
-      v23 = *(v12 + 18);
-      v24 = *(v12 + 8);
-      v25 = *(v12 + 16);
-      *buf = 136317442;
-      v33 = "AGXGPURawCounterImpl.mm";
-      v34 = 1024;
-      v35 = 2562;
-      v36 = 2080;
-      v37 = "emitKickTimestampSamples";
-      v38 = 1024;
-      v39 = v9;
-      v40 = 2048;
-      v41 = a5;
-      v42 = 2048;
-      v43 = v14;
-      v44 = 1024;
-      v45 = v23;
-      v46 = 1024;
-      v47 = HIDWORD(v24);
-      v48 = 1024;
-      v49 = v24;
-      v50 = 1024;
-      v51 = v25;
-      _os_log_error_impl(&dword_23C542000, v10, OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** kick_timestamp > rde_sample_timestamp, [%u] timestampMax=%16llx timestamp=%16llx type=%2u encoderId=%8x traceId=%8x slotIdx=%2u\n\n", buf, 0x4Eu);
+      if (v22 == 6)
+      {
+        v21 = *(a1 + 28);
+      }
+
+      else
+      {
+        if (v22 != 7)
+        {
+LABEL_31:
+          fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** Unknown meta counter type!\n", "AGXGPURawCounterImpl.mm", 2605, "emitKickTimestampSamples");
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 136315650;
+            v32 = "AGXGPURawCounterImpl.mm";
+            v33 = 1024;
+            v34 = 2605;
+            v35 = 2080;
+            v36 = "emitKickTimestampSamples";
+            _os_log_error_impl(&dword_23C542000, v10, OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Unknown meta counter type!\n", buf, 0x1Cu);
+          }
+
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+          {
+            *buf = 136315650;
+            v32 = "AGXGPURawCounterImpl.mm";
+            v33 = 1024;
+            v34 = 2605;
+            v35 = 2080;
+            v36 = "emitKickTimestampSamples";
+            _os_log_impl(&dword_23C542000, v10, OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** Unknown meta counter type!\n", buf, 0x1Cu);
+          }
+
+          *v11 = 0;
+          v18 = *(a1 + 6220);
+          goto LABEL_14;
+        }
+
+        v21 = v29;
+      }
     }
 
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    else if (v22 == 4)
     {
-      v15 = *(v12 + 18);
-      v16 = *(v12 + 8);
-      v17 = *(v12 + 16);
-      *buf = 136317442;
-      v33 = "AGXGPURawCounterImpl.mm";
-      v34 = 1024;
-      v35 = 2562;
-      v36 = 2080;
-      v37 = "emitKickTimestampSamples";
-      v38 = 1024;
-      v39 = v9;
-      v40 = 2048;
-      v41 = a5;
-      v42 = 2048;
-      v43 = v14;
-      v44 = 1024;
-      v45 = v15;
-      v46 = 1024;
-      v47 = HIDWORD(v16);
-      v48 = 1024;
-      v49 = v16;
-      v50 = 1024;
-      v51 = v17;
-      _os_log_impl(&dword_23C542000, v10, OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** kick_timestamp > rde_sample_timestamp, [%u] timestampMax=%16llx timestamp=%16llx type=%2u encoderId=%8x traceId=%8x slotIdx=%2u\n\n", buf, 0x4Eu);
+      v21 = *(v12 + 8);
     }
 
-LABEL_3:
-    ++v9;
+    else
+    {
+      v21 = *(v12 + 16);
+    }
+
+    goto LABEL_13;
   }
 
-  while (v9 != v31);
-  result = (v11 - v28);
-LABEL_38:
-  v27 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 uint64_t StackAllocator::reserve(StackAllocator *this, unsigned int a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = *(this + 2);
   v3 = *(this + 3);
   if (v3 + a2 <= v4)
@@ -1797,17 +1730,17 @@ uint64_t StackAllocator::reserve(StackAllocator *this, unsigned int a2)
     fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** Error, reserving more than available memory! (%u > %llu)\n", "AGXGPURawCounterImpl.mm", 234, "reserve", a2, v4);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v9 = *(this + 2);
+      v8 = *(this + 2);
       *buf = 136316162;
-      v11 = "AGXGPURawCounterImpl.mm";
-      v12 = 1024;
-      v13 = 234;
-      v14 = 2080;
-      v15 = "reserve";
-      v16 = 1024;
-      v17 = a2;
-      v18 = 2048;
-      v19 = v9;
+      v10 = "AGXGPURawCounterImpl.mm";
+      v11 = 1024;
+      v12 = 234;
+      v13 = 2080;
+      v14 = "reserve";
+      v15 = 1024;
+      v16 = a2;
+      v17 = 2048;
+      v18 = v8;
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Error, reserving more than available memory! (%u > %llu)\n", buf, 0x2Cu);
     }
 
@@ -1815,22 +1748,21 @@ uint64_t StackAllocator::reserve(StackAllocator *this, unsigned int a2)
     {
       v6 = *(this + 2);
       *buf = 136316162;
-      v11 = "AGXGPURawCounterImpl.mm";
-      v12 = 1024;
-      v13 = 234;
-      v14 = 2080;
-      v15 = "reserve";
-      v16 = 1024;
-      v17 = a2;
-      v18 = 2048;
-      v19 = v6;
+      v10 = "AGXGPURawCounterImpl.mm";
+      v11 = 1024;
+      v12 = 234;
+      v13 = 2080;
+      v14 = "reserve";
+      v15 = 1024;
+      v16 = a2;
+      v17 = 2048;
+      v18 = v6;
       _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** Error, reserving more than available memory! (%u > %llu)\n", buf, 0x2Cu);
     }
 
-    result = 0;
+    return 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1864,7 +1796,7 @@ uint64_t generateSampleType(uint64_t *a1, BOOL *a2)
 
 void copyMetaCounterList(StackAllocator *a1, unsigned int *a2, uint64_t a3, unsigned int a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (a4)
   {
     v7 = StackAllocator::reserve(a1, 8 * a4);
@@ -1892,22 +1824,22 @@ LABEL_21:
               if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315650;
-                v15 = "AGXGPURawCounterImpl.mm";
-                v16 = 1024;
-                v17 = 1262;
-                v18 = 2080;
-                v19 = "copyMetaCounterList";
+                v14 = "AGXGPURawCounterImpl.mm";
+                v15 = 1024;
+                v16 = 1262;
+                v17 = 2080;
+                v18 = "copyMetaCounterList";
                 _os_log_error_impl(&dword_23C542000, v10, OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Unknown meta counter type!\n", buf, 0x1Cu);
               }
 
               if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
               {
                 *buf = 136315650;
-                v15 = "AGXGPURawCounterImpl.mm";
-                v16 = 1024;
-                v17 = 1262;
-                v18 = 2080;
-                v19 = "copyMetaCounterList";
+                v14 = "AGXGPURawCounterImpl.mm";
+                v15 = 1024;
+                v16 = 1262;
+                v17 = 2080;
+                v18 = "copyMetaCounterList";
                 _os_log_impl(&dword_23C542000, v10, OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** Unknown meta counter type!\n", buf, 0x1Cu);
               }
 
@@ -1966,11 +1898,9 @@ LABEL_4:
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t AGXGPURawCounterImpl::SourceImpl::postProcessData(AGXGPURawCounterImpl::SourceImpl *this, unsigned int a2, const unsigned __int8 *a3, uint64_t a4, unint64_t *a5, unsigned __int8 *a6, uint64_t a7, unint64_t *a8, BOOL a9)
+uint64_t AGXGPURawCounterImpl::SourceImpl::postProcessData(AGXGPURawCounterImpl::SourceImpl *this, uint64_t a2, const unsigned __int8 *a3, uint64_t a4, unint64_t *a5, unsigned __int8 *a6, uint64_t a7, unint64_t *a8, BOOL a9)
 {
   v9 = 0;
   if (!a3 || !a5 || !a6 || !a7 || !a8)
@@ -1980,7 +1910,7 @@ uint64_t AGXGPURawCounterImpl::SourceImpl::postProcessData(AGXGPURawCounterImpl:
 
   if (a4)
   {
-    v9 = (*(*this + 200))(this);
+    v9 = (*(*this + 200))(this, a2);
     *a5 = 0;
     *a8 = 0;
     return v9;
@@ -1993,7 +1923,7 @@ uint64_t AGXGPURawCounterImpl::SourceImpl::postProcessData(AGXGPURawCounterImpl:
 
 uint64_t AGXGPURawCounterImpl::SourceImpl::ringBuffer(AGXGPURawCounterImpl::SourceImpl *this, unsigned int a2)
 {
-  *&v23[5] = *MEMORY[0x277D85DE8];
+  *&v22[5] = *MEMORY[0x277D85DE8];
   if ((*(*this + 176))(this) <= a2)
   {
     v6 = *MEMORY[0x277D85DF8];
@@ -2001,36 +1931,36 @@ uint64_t AGXGPURawCounterImpl::SourceImpl::ringBuffer(AGXGPURawCounterImpl::Sour
     fprintf(v6, "AGXGRC:%s:%d:%s: *** Invalid ring buffer index (%u >= %u)\n", "AGXGPURawCounterImpl.mm", 1156, "ringBuffer", a2, v7);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v14 = (*(*this + 176))(this);
+      v13 = (*(*this + 176))(this);
       *buf = 136316162;
-      v17 = "AGXGPURawCounterImpl.mm";
-      v18 = 1024;
-      v19 = 1156;
-      v20 = 2080;
-      v21 = "ringBuffer";
-      v22 = 1024;
-      *v23 = a2;
-      v23[2] = 1024;
-      *&v23[3] = v14;
+      v16 = "AGXGPURawCounterImpl.mm";
+      v17 = 1024;
+      v18 = 1156;
+      v19 = 2080;
+      v20 = "ringBuffer";
+      v21 = 1024;
+      *v22 = a2;
+      v22[2] = 1024;
+      *&v22[3] = v13;
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Invalid ring buffer index (%u >= %u)\n", buf, 0x28u);
     }
 
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      goto LABEL_13;
+      return 0;
     }
 
     v8 = (*(*this + 176))(this);
     *buf = 136316162;
-    v17 = "AGXGPURawCounterImpl.mm";
-    v18 = 1024;
-    v19 = 1156;
-    v20 = 2080;
-    v21 = "ringBuffer";
-    v22 = 1024;
-    *v23 = a2;
-    v23[2] = 1024;
-    *&v23[3] = v8;
+    v16 = "AGXGPURawCounterImpl.mm";
+    v17 = 1024;
+    v18 = 1156;
+    v19 = 2080;
+    v20 = "ringBuffer";
+    v21 = 1024;
+    *v22 = a2;
+    v22[2] = 1024;
+    *&v22[3] = v8;
     v9 = MEMORY[0x277D86220];
     v10 = "AGXGRC:AGXGRC:%s:%d:%s: *** Invalid ring buffer index (%u >= %u)\n";
     v11 = 40;
@@ -2038,69 +1968,55 @@ uint64_t AGXGPURawCounterImpl::SourceImpl::ringBuffer(AGXGPURawCounterImpl::Sour
   }
 
   v4 = *(this + 785);
-  if (!v4)
+  if (v4)
   {
-    fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** Ring buffers have not been allocated. Was sampling ever started on source %s?\n", "AGXGPURawCounterImpl.mm", 1162, "ringBuffer", *(this + 2));
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      v15 = *(this + 2);
-      *buf = 136315906;
-      v17 = "AGXGPURawCounterImpl.mm";
-      v18 = 1024;
-      v19 = 1162;
-      v20 = 2080;
-      v21 = "ringBuffer";
-      v22 = 2080;
-      *v23 = v15;
-      _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Ring buffers have not been allocated. Was sampling ever started on source %s?\n", buf, 0x26u);
-    }
+    return *(v4 + 8 * a2);
+  }
 
-    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
-    {
-      goto LABEL_13;
-    }
+  fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** Ring buffers have not been allocated. Was sampling ever started on source %s?\n", "AGXGPURawCounterImpl.mm", 1162, "ringBuffer", *(this + 2));
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    v14 = *(this + 2);
+    *buf = 136315906;
+    v16 = "AGXGPURawCounterImpl.mm";
+    v17 = 1024;
+    v18 = 1162;
+    v19 = 2080;
+    v20 = "ringBuffer";
+    v21 = 2080;
+    *v22 = v14;
+    _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Ring buffers have not been allocated. Was sampling ever started on source %s?\n", buf, 0x26u);
+  }
 
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+  {
     v12 = *(this + 2);
     *buf = 136315906;
-    v17 = "AGXGPURawCounterImpl.mm";
-    v18 = 1024;
-    v19 = 1162;
-    v20 = 2080;
-    v21 = "ringBuffer";
-    v22 = 2080;
-    *v23 = v12;
+    v16 = "AGXGPURawCounterImpl.mm";
+    v17 = 1024;
+    v18 = 1162;
+    v19 = 2080;
+    v20 = "ringBuffer";
+    v21 = 2080;
+    *v22 = v12;
     v9 = MEMORY[0x277D86220];
     v10 = "AGXGRC:AGXGRC:%s:%d:%s: *** Ring buffers have not been allocated. Was sampling ever started on source %s?\n";
     v11 = 38;
 LABEL_12:
     _os_log_impl(&dword_23C542000, v9, OS_LOG_TYPE_INFO, v10, buf, v11);
-LABEL_13:
-    result = 0;
-    goto LABEL_14;
   }
 
-  result = *(v4 + 8 * a2);
-LABEL_14:
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
-uint64_t AGXGPURawCounterImpl::SourceImpl::calcBufferSizeWithRingBufferSize(AGXGPURawCounterImpl::SourceImpl *this, unint64_t a2)
+uint64_t AGXGPURawCounterImpl::SourceImpl::calcBufferSizeWithRingBufferSize(AGXGPURawCounterImpl::SourceImpl *this, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v2 = 0x40000000;
-    if (a2 < 0x40000000)
-    {
-      v2 = a2;
-    }
+    v2 = *(*this + 152);
 
-    v3 = v2 * *(this + 1572);
-    v4 = *(*this + 152);
-    v5 = *MEMORY[0x277D85DE8];
-
-    return v4();
+    return v2();
   }
 
   else
@@ -2109,33 +2025,32 @@ uint64_t AGXGPURawCounterImpl::SourceImpl::calcBufferSizeWithRingBufferSize(AGXG
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v9 = "AGXGPURawCounterImpl.mm";
-      v10 = 1024;
-      v11 = 1135;
-      v12 = 2080;
-      v13 = "calcBufferSizeWithRingBufferSize";
+      v5 = "AGXGPURawCounterImpl.mm";
+      v6 = 1024;
+      v7 = 1135;
+      v8 = 2080;
+      v9 = "calcBufferSizeWithRingBufferSize";
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** calcBufferSizeWithRingBufferSize should never be called with zero buffer size!\n", buf, 0x1Cu);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v9 = "AGXGPURawCounterImpl.mm";
-      v10 = 1024;
-      v11 = 1135;
-      v12 = 2080;
-      v13 = "calcBufferSizeWithRingBufferSize";
+      v5 = "AGXGPURawCounterImpl.mm";
+      v6 = 1024;
+      v7 = 1135;
+      v8 = 2080;
+      v9 = "calcBufferSizeWithRingBufferSize";
       _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** calcBufferSizeWithRingBufferSize should never be called with zero buffer size!\n", buf, 0x1Cu);
     }
 
-    v7 = *MEMORY[0x277D85DE8];
     return 0;
   }
 }
 
-unint64_t AGXGPURawCounterImpl::SourceImpl::alignBufferSize(AGXGPURawCounterImpl::SourceImpl *this, unint64_t a2, int a3)
+uint64_t AGXGPURawCounterImpl::SourceImpl::alignBufferSize(AGXGPURawCounterImpl::SourceImpl *this, unint64_t a2, int a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = *(this + 1572);
@@ -2166,7 +2081,7 @@ unint64_t AGXGPURawCounterImpl::SourceImpl::alignBufferSize(AGXGPURawCounterImpl
       v10 = 0;
     }
 
-    result = v10 + v8 * v3;
+    return v10 + v8 * v3;
   }
 
   else
@@ -2175,30 +2090,27 @@ unint64_t AGXGPURawCounterImpl::SourceImpl::alignBufferSize(AGXGPURawCounterImpl
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v14 = "AGXGPURawCounterImpl.mm";
-      v15 = 1024;
-      v16 = 1104;
-      v17 = 2080;
-      v18 = "alignBufferSize";
+      v13 = "AGXGPURawCounterImpl.mm";
+      v14 = 1024;
+      v15 = 1104;
+      v16 = 2080;
+      v17 = "alignBufferSize";
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** alignBufferSize should never be called with zero buffer size!\n", buf, 0x1Cu);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v14 = "AGXGPURawCounterImpl.mm";
-      v15 = 1024;
-      v16 = 1104;
-      v17 = 2080;
-      v18 = "alignBufferSize";
+      v13 = "AGXGPURawCounterImpl.mm";
+      v14 = 1024;
+      v15 = 1104;
+      v16 = 2080;
+      v17 = "alignBufferSize";
       _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** alignBufferSize should never be called with zero buffer size!\n", buf, 0x1Cu);
     }
 
-    result = 0;
+    return 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t AGXGPURawCounterImpl::SourceImpl::setBufferSize(AGXGPURawCounterImpl::SourceImpl *this, uint64_t a2)
@@ -2397,7 +2309,7 @@ LABEL_33:
 
 uint64_t AGXGPURawCounterImpl::SourceImpl::addTrigger(uint64_t a1, int a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = v5;
   if ((a2 - 1) < 2)
@@ -2430,26 +2342,26 @@ LABEL_7:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
-      v13 = "AGXGPURawCounterImpl.mm";
-      v14 = 1024;
-      v15 = 926;
-      v16 = 2080;
-      v17 = "addTrigger";
-      v18 = 1024;
-      v19 = a2;
+      v12 = "AGXGPURawCounterImpl.mm";
+      v13 = 1024;
+      v14 = 926;
+      v15 = 2080;
+      v16 = "addTrigger";
+      v17 = 1024;
+      v18 = a2;
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Error, adding unknown trigger (0x%x)\n", buf, 0x22u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 136315906;
-      v13 = "AGXGPURawCounterImpl.mm";
-      v14 = 1024;
-      v15 = 926;
-      v16 = 2080;
-      v17 = "addTrigger";
-      v18 = 1024;
-      v19 = a2;
+      v12 = "AGXGPURawCounterImpl.mm";
+      v13 = 1024;
+      v14 = 926;
+      v15 = 2080;
+      v16 = "addTrigger";
+      v17 = 1024;
+      v18 = a2;
       _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** Error, adding unknown trigger (0x%x)\n", buf, 0x22u);
     }
 
@@ -2458,7 +2370,6 @@ LABEL_7:
 
 LABEL_13:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -2504,9 +2415,10 @@ uint64_t AGXGPURawCounterImpl::SourceImpl::availableTriggers(AGXGPURawCounterImp
   }
 }
 
-uint64_t AGXGPURawCounterImpl::SourceImpl::addCounter(AGXGPURawCounterImpl::SourceImpl *this, const char *a2, unsigned int a3, unsigned int a4, uint64_t a5)
+uint64_t AGXGPURawCounterImpl::SourceImpl::addCounter(AGXGPURawCounterImpl::SourceImpl *this, const char *a2, uint64_t a3, unsigned int a4, uint64_t a5)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v7 = a3;
+  v56 = *MEMORY[0x277D85DE8];
   (*(*this + 40))(this, 0);
   if (!a2)
   {
@@ -2525,7 +2437,7 @@ uint64_t AGXGPURawCounterImpl::SourceImpl::addCounter(AGXGPURawCounterImpl::Sour
     result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
     if (!result)
     {
-      goto LABEL_83;
+      return result;
     }
 
     *buf = 136315650;
@@ -2540,8 +2452,8 @@ uint64_t AGXGPURawCounterImpl::SourceImpl::addCounter(AGXGPURawCounterImpl::Sour
     goto LABEL_13;
   }
 
-  v56 = 0;
-  v55 = 0u;
+  v55 = 0;
+  v54 = 0u;
   memset(buf, 0, sizeof(buf));
   if (a4 != -1)
   {
@@ -2550,42 +2462,42 @@ uint64_t AGXGPURawCounterImpl::SourceImpl::addCounter(AGXGPURawCounterImpl::Sour
       fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** Cannot add user defined counter (%s)! Both partition (0x%x) and select (0x%llx) must be specified!\n", "AGXGPURawCounterImpl.mm", 664, "addCounter", a2, a4, -1);
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        *v44 = 136316418;
-        v45 = "AGXGPURawCounterImpl.mm";
-        v46 = 1024;
-        v47 = 664;
-        v48 = 2080;
-        v49 = "addCounter";
-        v50 = 2080;
-        *v51 = a2;
-        *&v51[8] = 1024;
-        *v52 = a4;
-        *&v52[4] = 2048;
-        v53 = -1;
-        _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Cannot add user defined counter (%s)! Both partition (0x%x) and select (0x%llx) must be specified!\n", v44, 0x36u);
+        *v43 = 136316418;
+        v44 = "AGXGPURawCounterImpl.mm";
+        v45 = 1024;
+        v46 = 664;
+        v47 = 2080;
+        v48 = "addCounter";
+        v49 = 2080;
+        *v50 = a2;
+        *&v50[8] = 1024;
+        *v51 = a4;
+        *&v51[4] = 2048;
+        v52 = -1;
+        _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Cannot add user defined counter (%s)! Both partition (0x%x) and select (0x%llx) must be specified!\n", v43, 0x36u);
       }
 
       result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
       if (!result)
       {
-        goto LABEL_83;
+        return result;
       }
 
-      *v44 = 136316418;
-      v45 = "AGXGPURawCounterImpl.mm";
-      v46 = 1024;
-      v47 = 664;
-      v48 = 2080;
-      v49 = "addCounter";
-      v50 = 2080;
-      *v51 = a2;
-      *&v51[8] = 1024;
-      *v52 = a4;
-      *&v52[4] = 2048;
-      v53 = -1;
+      *v43 = 136316418;
+      v44 = "AGXGPURawCounterImpl.mm";
+      v45 = 1024;
+      v46 = 664;
+      v47 = 2080;
+      v48 = "addCounter";
+      v49 = 2080;
+      *v50 = a2;
+      *&v50[8] = 1024;
+      *v51 = a4;
+      *&v51[4] = 2048;
+      v52 = -1;
       v11 = MEMORY[0x277D86220];
       v12 = "AGXGRC:AGXGRC:%s:%d:%s: *** Cannot add user defined counter (%s)! Both partition (0x%x) and select (0x%llx) must be specified!\n";
-      v13 = v44;
+      v13 = v43;
       v14 = 54;
       goto LABEL_81;
     }
@@ -2595,35 +2507,35 @@ uint64_t AGXGPURawCounterImpl::SourceImpl::addCounter(AGXGPURawCounterImpl::Sour
       fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** Cannot add user defined counter (%s) using GPURawCounter internal partition!\n", "AGXGPURawCounterImpl.mm", 670, "addCounter", a2);
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        *v44 = 136315906;
-        v45 = "AGXGPURawCounterImpl.mm";
-        v46 = 1024;
-        v47 = 670;
-        v48 = 2080;
-        v49 = "addCounter";
-        v50 = 2080;
-        *v51 = a2;
-        _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Cannot add user defined counter (%s) using GPURawCounter internal partition!\n", v44, 0x26u);
+        *v43 = 136315906;
+        v44 = "AGXGPURawCounterImpl.mm";
+        v45 = 1024;
+        v46 = 670;
+        v47 = 2080;
+        v48 = "addCounter";
+        v49 = 2080;
+        *v50 = a2;
+        _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Cannot add user defined counter (%s) using GPURawCounter internal partition!\n", v43, 0x26u);
       }
 
       result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
       if (!result)
       {
-        goto LABEL_83;
+        return result;
       }
 
-      *v44 = 136315906;
-      v45 = "AGXGPURawCounterImpl.mm";
-      v46 = 1024;
-      v47 = 670;
-      v48 = 2080;
-      v49 = "addCounter";
-      v50 = 2080;
-      *v51 = a2;
+      *v43 = 136315906;
+      v44 = "AGXGPURawCounterImpl.mm";
+      v45 = 1024;
+      v46 = 670;
+      v47 = 2080;
+      v48 = "addCounter";
+      v49 = 2080;
+      *v50 = a2;
       v11 = MEMORY[0x277D86220];
       v12 = "AGXGRC:AGXGRC:%s:%d:%s: *** Cannot add user defined counter (%s) using GPURawCounter internal partition!\n";
 LABEL_80:
-      v13 = v44;
+      v13 = v43;
       v14 = 38;
       goto LABEL_81;
     }
@@ -2631,7 +2543,7 @@ LABEL_80:
     *buf = a2;
     *&buf[28] = a4;
     v15 = buf;
-    *&v55 = a5;
+    *&v54 = a5;
 LABEL_16:
     if (a4 == -1)
     {
@@ -2645,41 +2557,41 @@ LABEL_16:
           v28 = this + 24 * v16;
           *(v28 + 9) = v15;
           *(v28 + 20) = -1;
-          *(v28 + 84) = vdup_n_s32(a3);
+          *(v28 + 84) = vdup_n_s32(v7);
           *(this + 1554) = v27;
-          goto LABEL_64;
+          return 1;
         }
 
         fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** Insufficient space to add metadata counter (%s)!\n", "AGXGPURawCounterImpl.mm", 716, "addCounter", *v15);
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          v39 = *v15;
-          *v44 = 136315906;
-          v45 = "AGXGPURawCounterImpl.mm";
-          v46 = 1024;
-          v47 = 716;
-          v48 = 2080;
-          v49 = "addCounter";
-          v50 = 2080;
-          *v51 = v39;
-          _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Insufficient space to add metadata counter (%s)!\n", v44, 0x26u);
+          v38 = *v15;
+          *v43 = 136315906;
+          v44 = "AGXGPURawCounterImpl.mm";
+          v45 = 1024;
+          v46 = 716;
+          v47 = 2080;
+          v48 = "addCounter";
+          v49 = 2080;
+          *v50 = v38;
+          _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Insufficient space to add metadata counter (%s)!\n", v43, 0x26u);
         }
 
         result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
         if (!result)
         {
-          goto LABEL_83;
+          return result;
         }
 
         v17 = *v15;
-        *v44 = 136315906;
-        v45 = "AGXGPURawCounterImpl.mm";
-        v46 = 1024;
-        v47 = 716;
-        v48 = 2080;
-        v49 = "addCounter";
-        v50 = 2080;
-        *v51 = v17;
+        *v43 = 136315906;
+        v44 = "AGXGPURawCounterImpl.mm";
+        v45 = 1024;
+        v46 = 716;
+        v47 = 2080;
+        v48 = "addCounter";
+        v49 = 2080;
+        *v50 = v17;
         v11 = MEMORY[0x277D86220];
         v12 = "AGXGRC:AGXGRC:%s:%d:%s: *** Insufficient space to add metadata counter (%s)!\n";
       }
@@ -2689,33 +2601,33 @@ LABEL_16:
         fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** Metadata (%s) counter must be added before any other counters!\n", "AGXGPURawCounterImpl.mm", 710, "addCounter", *v15);
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          v38 = *v15;
-          *v44 = 136315906;
-          v45 = "AGXGPURawCounterImpl.mm";
-          v46 = 1024;
-          v47 = 710;
-          v48 = 2080;
-          v49 = "addCounter";
-          v50 = 2080;
-          *v51 = v38;
-          _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Metadata (%s) counter must be added before any other counters!\n", v44, 0x26u);
+          v37 = *v15;
+          *v43 = 136315906;
+          v44 = "AGXGPURawCounterImpl.mm";
+          v45 = 1024;
+          v46 = 710;
+          v47 = 2080;
+          v48 = "addCounter";
+          v49 = 2080;
+          *v50 = v37;
+          _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Metadata (%s) counter must be added before any other counters!\n", v43, 0x26u);
         }
 
         result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
         if (!result)
         {
-          goto LABEL_83;
+          return result;
         }
 
         v25 = *v15;
-        *v44 = 136315906;
-        v45 = "AGXGPURawCounterImpl.mm";
-        v46 = 1024;
-        v47 = 710;
-        v48 = 2080;
-        v49 = "addCounter";
-        v50 = 2080;
-        *v51 = v25;
+        *v43 = 136315906;
+        v44 = "AGXGPURawCounterImpl.mm";
+        v45 = 1024;
+        v46 = 710;
+        v47 = 2080;
+        v48 = "addCounter";
+        v49 = 2080;
+        *v50 = v25;
         v11 = MEMORY[0x277D86220];
         v12 = "AGXGRC:AGXGRC:%s:%d:%s: *** Metadata (%s) counter must be added before any other counters!\n";
       }
@@ -2728,33 +2640,33 @@ LABEL_16:
       fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** HW counter (%s) must be added before any shader profiler counters!\n", "AGXGPURawCounterImpl.mm", 801, "addCounter", *v15);
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v37 = *v15;
-        *v44 = 136315906;
-        v45 = "AGXGPURawCounterImpl.mm";
-        v46 = 1024;
-        v47 = 801;
-        v48 = 2080;
-        v49 = "addCounter";
-        v50 = 2080;
-        *v51 = v37;
-        _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** HW counter (%s) must be added before any shader profiler counters!\n", v44, 0x26u);
+        v36 = *v15;
+        *v43 = 136315906;
+        v44 = "AGXGPURawCounterImpl.mm";
+        v45 = 1024;
+        v46 = 801;
+        v47 = 2080;
+        v48 = "addCounter";
+        v49 = 2080;
+        *v50 = v36;
+        _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** HW counter (%s) must be added before any shader profiler counters!\n", v43, 0x26u);
       }
 
       result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
       if (!result)
       {
-        goto LABEL_83;
+        return result;
       }
 
       v24 = *v15;
-      *v44 = 136315906;
-      v45 = "AGXGPURawCounterImpl.mm";
-      v46 = 1024;
-      v47 = 801;
-      v48 = 2080;
-      v49 = "addCounter";
-      v50 = 2080;
-      *v51 = v24;
+      *v43 = 136315906;
+      v44 = "AGXGPURawCounterImpl.mm";
+      v45 = 1024;
+      v46 = 801;
+      v47 = 2080;
+      v48 = "addCounter";
+      v49 = 2080;
+      *v50 = v24;
       v11 = MEMORY[0x277D86220];
       v12 = "AGXGRC:AGXGRC:%s:%d:%s: *** HW counter (%s) must be added before any shader profiler counters!\n";
       goto LABEL_80;
@@ -2765,33 +2677,33 @@ LABEL_16:
       fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** Insufficient space to add HW counter (%s)!\n", "AGXGPURawCounterImpl.mm", 807, "addCounter", *v15);
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v40 = *v15;
-        *v44 = 136315906;
-        v45 = "AGXGPURawCounterImpl.mm";
-        v46 = 1024;
-        v47 = 807;
-        v48 = 2080;
-        v49 = "addCounter";
-        v50 = 2080;
-        *v51 = v40;
-        _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Insufficient space to add HW counter (%s)!\n", v44, 0x26u);
+        v39 = *v15;
+        *v43 = 136315906;
+        v44 = "AGXGPURawCounterImpl.mm";
+        v45 = 1024;
+        v46 = 807;
+        v47 = 2080;
+        v48 = "addCounter";
+        v49 = 2080;
+        *v50 = v39;
+        _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Insufficient space to add HW counter (%s)!\n", v43, 0x26u);
       }
 
       result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
       if (!result)
       {
-        goto LABEL_83;
+        return result;
       }
 
       v26 = *v15;
-      *v44 = 136315906;
-      v45 = "AGXGPURawCounterImpl.mm";
-      v46 = 1024;
-      v47 = 807;
-      v48 = 2080;
-      v49 = "addCounter";
-      v50 = 2080;
-      *v51 = v26;
+      *v43 = 136315906;
+      v44 = "AGXGPURawCounterImpl.mm";
+      v45 = 1024;
+      v46 = 807;
+      v47 = 2080;
+      v48 = "addCounter";
+      v49 = 2080;
+      *v50 = v26;
       v11 = MEMORY[0x277D86220];
       v12 = "AGXGRC:AGXGRC:%s:%d:%s: *** Insufficient space to add HW counter (%s)!\n";
       goto LABEL_80;
@@ -2799,117 +2711,113 @@ LABEL_16:
 
     if (a4)
     {
-      if ((a3 & 0xF) != 0 || a3 - 65 <= 0xFFFFFFBF)
+      if ((v7 & 0xF) != 0 || v7 - 65 <= 0xFFFFFFBF)
       {
         fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** counterWidth must be 16, 32, 48, or 64!\n", "AGXGPURawCounterImpl.mm", 819, "addCounter");
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          *v44 = 136315650;
-          v45 = "AGXGPURawCounterImpl.mm";
-          v46 = 1024;
-          v47 = 819;
-          v48 = 2080;
-          v49 = "addCounter";
-          _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** counterWidth must be 16, 32, 48, or 64!\n", v44, 0x1Cu);
+          *v43 = 136315650;
+          v44 = "AGXGPURawCounterImpl.mm";
+          v45 = 1024;
+          v46 = 819;
+          v47 = 2080;
+          v48 = "addCounter";
+          _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** counterWidth must be 16, 32, 48, or 64!\n", v43, 0x1Cu);
         }
 
         result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
         if (!result)
         {
-          goto LABEL_83;
+          return result;
         }
 
-        *v44 = 136315650;
-        v45 = "AGXGPURawCounterImpl.mm";
-        v46 = 1024;
-        v47 = 819;
-        v48 = 2080;
-        v49 = "addCounter";
+        *v43 = 136315650;
+        v44 = "AGXGPURawCounterImpl.mm";
+        v45 = 1024;
+        v46 = 819;
+        v47 = 2080;
+        v48 = "addCounter";
         v11 = MEMORY[0x277D86220];
         v12 = "AGXGRC:AGXGRC:%s:%d:%s: *** counterWidth must be 16, 32, 48, or 64!\n";
-        v13 = v44;
+        v13 = v43;
 LABEL_13:
         v14 = 28;
 LABEL_81:
         _os_log_impl(&dword_23C542000, v11, OS_LOG_TYPE_INFO, v12, v13, v14);
-        goto LABEL_82;
+        return 0;
       }
     }
 
     else
     {
-      a3 = 64;
+      v7 = 64;
     }
 
-    if (a3 < 0x21 || (v15[6] & 0x10) == 0)
+    if (v7 < 0x21 || (v15[6] & 0x10) == 0)
     {
-      if (a4 < *(*(this + 1) + 676) || a3 == 64)
+      if (a4 < *(*(this + 1) + 676) || v7 == 64)
       {
-        v33 = a3;
+        v32 = v7;
       }
 
       else
       {
-        v33 = a3 + 16;
+        v32 = v7 + 16;
       }
 
-      if (!perfCtrSamplerAddSourceCounter(*(this + 7), v15, a3, v33))
+      if (!perfCtrSamplerAddSourceCounter(*(this + 7), v15, v7, v32))
       {
         if (v15 == buf)
         {
-          v34 = 0;
+          v33 = 0;
         }
 
         else
         {
-          v34 = v15;
+          v33 = v15;
         }
 
-        v35 = *(this + 1554);
-        v36 = this + 24 * v35;
-        *(v36 + 9) = v34;
-        *(v36 + 20) = a4;
-        *(v36 + 21) = a3;
-        *(v36 + 22) = v33;
-        *(this + 1554) = v35 + 1;
-LABEL_64:
-        result = 1;
-        goto LABEL_83;
+        v34 = *(this + 1554);
+        v35 = this + 24 * v34;
+        *(v35 + 9) = v33;
+        *(v35 + 20) = a4;
+        *(v35 + 21) = v7;
+        *(v35 + 22) = v32;
+        *(this + 1554) = v34 + 1;
+        return 1;
       }
 
-LABEL_82:
-      result = 0;
-      goto LABEL_83;
+      return 0;
     }
 
     fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** counterWidth must be <= 32 as %s has only 32 valid bits\n", "AGXGPURawCounterImpl.mm", 825, "addCounter", a2);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      *v44 = 136315906;
-      v45 = "AGXGPURawCounterImpl.mm";
-      v46 = 1024;
-      v47 = 825;
-      v48 = 2080;
-      v49 = "addCounter";
-      v50 = 2080;
-      *v51 = a2;
-      _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** counterWidth must be <= 32 as %s has only 32 valid bits\n", v44, 0x26u);
+      *v43 = 136315906;
+      v44 = "AGXGPURawCounterImpl.mm";
+      v45 = 1024;
+      v46 = 825;
+      v47 = 2080;
+      v48 = "addCounter";
+      v49 = 2080;
+      *v50 = a2;
+      _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** counterWidth must be <= 32 as %s has only 32 valid bits\n", v43, 0x26u);
     }
 
     result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
     if (!result)
     {
-      goto LABEL_83;
+      return result;
     }
 
-    *v44 = 136315906;
-    v45 = "AGXGPURawCounterImpl.mm";
-    v46 = 1024;
-    v47 = 825;
-    v48 = 2080;
-    v49 = "addCounter";
-    v50 = 2080;
-    *v51 = a2;
+    *v43 = 136315906;
+    v44 = "AGXGPURawCounterImpl.mm";
+    v45 = 1024;
+    v46 = 825;
+    v47 = 2080;
+    v48 = "addCounter";
+    v49 = 2080;
+    *v50 = a2;
     v11 = MEMORY[0x277D86220];
     v12 = "AGXGRC:AGXGRC:%s:%d:%s: *** counterWidth must be <= 32 as %s has only 32 valid bits\n";
     goto LABEL_80;
@@ -2918,7 +2826,7 @@ LABEL_82:
   result = bsearch_b(a2, *(this + 7), *(this + 12), 0x18uLL, &__block_literal_global);
   if (!result)
   {
-    goto LABEL_83;
+    return result;
   }
 
   v15 = (*(*(this + 1) + 128) + 56 * *(*(this + 5) - 0x5555555555555555 * ((result - *(this + 7)) >> 1)));
@@ -2928,12 +2836,12 @@ LABEL_82:
     goto LABEL_16;
   }
 
-  v43 = *(this + 1554);
+  v42 = *(this + 1554);
   v18 = *(this + 1556);
   *(this + 1556) = 0;
-  v41 = *(this + 9);
-  v42 = v18;
-  if (v41)
+  v40 = *(this + 9);
+  v41 = v18;
+  if (v40)
   {
     v19 = 2;
   }
@@ -2958,7 +2866,7 @@ LABEL_82:
     {
       AGXGPURawCounterImpl::SourceImpl::addCounter(char const*,unsigned int,unsigned int,unsigned long long)::uscProfileDataName[21] = 48;
       AGXGPURawCounterImpl::SourceImpl::addCounter(char const*,unsigned int,unsigned int,unsigned long long)::uscProfileDataName[22] = v22 | 0x30;
-      if ((AGXGPURawCounterImpl::SourceImpl::addCounter(this, AGXGPURawCounterImpl::SourceImpl::addCounter(char const*,unsigned int,unsigned int,unsigned long long)::uscProfileDataName, 0x20u, 0xFFFFFFFF, 0xFFFFFFFFFFFFFFFFLL) & 1) == 0)
+      if ((AGXGPURawCounterImpl::SourceImpl::addCounter(this, AGXGPURawCounterImpl::SourceImpl::addCounter(char const*,unsigned int,unsigned int,unsigned long long)::uscProfileDataName, 32, 0xFFFFFFFF, -1) & 1) == 0)
       {
         goto LABEL_59;
       }
@@ -2972,7 +2880,7 @@ LABEL_82:
       break;
     }
 
-    if (!AGXGPURawCounterImpl::SourceImpl::addCounter(this, (&obfuscatedUSCProfileName(unsigned int,unsigned int)::obfuscatedUSCProfileNameList[v21])[v23], 0x20u, 0xFFFFFFFF, 0xFFFFFFFFFFFFFFFFLL))
+    if (!AGXGPURawCounterImpl::SourceImpl::addCounter(this, (&obfuscatedUSCProfileName(unsigned int,unsigned int)::obfuscatedUSCProfileNameList[v21])[v23], 32, 0xFFFFFFFF, -1))
     {
       goto LABEL_59;
     }
@@ -2989,45 +2897,45 @@ LABEL_35:
   fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** Error, invalid uscIndex (%u >= %u) and/or invalid regIndex (%u >= %u)!\n", "AGXGPURawCounterImpl.mm", 4722, "obfuscatedUSCProfileName", v23, 10, v22, 8);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    *v44 = 136316674;
-    v45 = "AGXGPURawCounterImpl.mm";
-    v46 = 1024;
-    v47 = 4722;
-    v48 = 2080;
-    v49 = "obfuscatedUSCProfileName";
-    v50 = 1024;
-    *v51 = v23;
-    *&v51[4] = 1024;
-    *&v51[6] = 10;
-    *v52 = 1024;
-    *&v52[2] = v22;
-    LOWORD(v53) = 1024;
-    *(&v53 + 2) = 8;
-    _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Error, invalid uscIndex (%u >= %u) and/or invalid regIndex (%u >= %u)!\n", v44, 0x34u);
+    *v43 = 136316674;
+    v44 = "AGXGPURawCounterImpl.mm";
+    v45 = 1024;
+    v46 = 4722;
+    v47 = 2080;
+    v48 = "obfuscatedUSCProfileName";
+    v49 = 1024;
+    *v50 = v23;
+    *&v50[4] = 1024;
+    *&v50[6] = 10;
+    *v51 = 1024;
+    *&v51[2] = v22;
+    LOWORD(v52) = 1024;
+    *(&v52 + 2) = 8;
+    _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Error, invalid uscIndex (%u >= %u) and/or invalid regIndex (%u >= %u)!\n", v43, 0x34u);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    *v44 = 136316674;
-    v45 = "AGXGPURawCounterImpl.mm";
-    v46 = 1024;
-    v47 = 4722;
-    v48 = 2080;
-    v49 = "obfuscatedUSCProfileName";
-    v50 = 1024;
-    *v51 = v23;
-    *&v51[4] = 1024;
-    *&v51[6] = 10;
-    *v52 = 1024;
-    *&v52[2] = v22;
-    LOWORD(v53) = 1024;
-    *(&v53 + 2) = 8;
-    _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** Error, invalid uscIndex (%u >= %u) and/or invalid regIndex (%u >= %u)!\n", v44, 0x34u);
+    *v43 = 136316674;
+    v44 = "AGXGPURawCounterImpl.mm";
+    v45 = 1024;
+    v46 = 4722;
+    v47 = 2080;
+    v48 = "obfuscatedUSCProfileName";
+    v49 = 1024;
+    *v50 = v23;
+    *&v50[4] = 1024;
+    *&v50[6] = 10;
+    *v51 = 1024;
+    *&v51[2] = v22;
+    LOWORD(v52) = 1024;
+    *(&v52 + 2) = 8;
+    _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** Error, invalid uscIndex (%u >= %u) and/or invalid regIndex (%u >= %u)!\n", v43, 0x34u);
   }
 
 LABEL_59:
-  *(this + 1556) = v42;
-  if (v41)
+  *(this + 1556) = v41;
+  if (v40)
   {
     v29 = 4;
   }
@@ -3038,17 +2946,15 @@ LABEL_59:
   }
 
   v30 = *(this + 1554);
-  if (v29 + v43 == v30)
+  if (v29 + v42 == v30)
   {
-    *(this + 1556) = v29 + v42;
-    goto LABEL_64;
+    *(this + 1556) = v29 + v41;
+    return 1;
   }
 
-  bzero(this + 24 * v43 + 72, 24 * (v30 - v43));
+  bzero(this + 24 * v42 + 72, 24 * (v30 - v42));
   result = 0;
-  *(this + 1554) = v43;
-LABEL_83:
-  v31 = *MEMORY[0x277D85DE8];
+  *(this + 1554) = v42;
   return result;
 }
 
@@ -3231,7 +3137,7 @@ uint64_t AGXGPURawCounterImpl::populateFeaturesDict(AGXGPURawCounterImpl *this, 
 
 BOOL AGXGPURawCounterImpl::stopSampling(AGXGPURawCounterImpl *this)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (sAGXGPURawCounterImpl != this)
   {
     fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: !!! AGXGPURawCounterImpl is not initialized!\n", "AGXGPURawCounterImpl.mm", 4062, "virtual BOOL AGXGPURawCounterImpl::stopSampling()");
@@ -3263,8 +3169,8 @@ BOOL AGXGPURawCounterImpl::stopSampling(AGXGPURawCounterImpl *this)
   v2 = *(this + 164);
   if (v2)
   {
+    v12 = 0u;
     v13 = 0u;
-    v14 = 0u;
     memset(outputStruct, 0, sizeof(outputStruct));
     LODWORD(outputStruct[0]) = 9;
     v3 = *(sAGXGPURawCounterImpl + 88);
@@ -3277,7 +3183,7 @@ BOOL AGXGPURawCounterImpl::stopSampling(AGXGPURawCounterImpl *this)
       {
 LABEL_5:
         *(this + 344) = 256;
-        goto LABEL_6;
+        return v2 != 0;
       }
     }
 
@@ -3286,51 +3192,48 @@ LABEL_5:
       v4 = v2;
     }
 
-    v7 = 0;
-    v8 = this + 144;
+    v6 = 0;
+    v7 = this + 144;
     do
     {
-      v9 = *&v8[8 * v7];
-      if (v9)
+      v8 = *&v7[8 * v6];
+      if (v8)
       {
-        if ((*(*v9 + 144))(v9))
+        if ((*(*v8 + 144))(v8))
         {
+          v12 = 0u;
           v13 = 0u;
-          v14 = 0u;
           outputStruct[0] = 3uLL;
           outputStruct[1] = 0u;
-          BYTE4(outputStruct[0]) = v7;
+          BYTE4(outputStruct[0]) = v6;
           *&outputStruct[1] = 0;
-          v10 = *(sAGXGPURawCounterImpl + 88);
-          if (v10)
+          v9 = *(sAGXGPURawCounterImpl + 88);
+          if (v9)
           {
             outputStructCnt = 64;
-            IOConnectCallStructMethod(v10, 0x105u, outputStruct, 0x40uLL, outputStruct, &outputStructCnt);
+            IOConnectCallStructMethod(v9, 0x105u, outputStruct, 0x40uLL, outputStruct, &outputStructCnt);
           }
 
-          (*(**&v8[8 * v7] + 48))(*&v8[8 * v7]);
+          (*(**&v7[8 * v6] + 48))(*&v7[8 * v6]);
         }
 
-        (*(**&v8[8 * v7] + 40))(*&v8[8 * v7], 0);
+        (*(**&v7[8 * v6] + 40))(*&v7[8 * v6], 0);
         v4 = *(this + 164);
       }
 
-      ++v7;
+      ++v6;
     }
 
-    while (v7 < v4);
+    while (v6 < v4);
     goto LABEL_5;
   }
 
-LABEL_6:
-  result = v2 != 0;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return v2 != 0;
 }
 
 uint64_t AGXGPURawCounterImpl::startSampling(AGXGPURawCounterImpl *this)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (sAGXGPURawCounterImpl != this)
   {
     fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: !!! AGXGPURawCounterImpl is not initialized!\n", "AGXGPURawCounterImpl.mm", 3924, "virtual BOOL AGXGPURawCounterImpl::startSampling()");
@@ -3362,7 +3265,7 @@ uint64_t AGXGPURawCounterImpl::startSampling(AGXGPURawCounterImpl *this)
   v2 = *(this + 164);
   if (!v2)
   {
-    goto LABEL_49;
+    return 0;
   }
 
   if (*(this + 688) == 1)
@@ -3389,10 +3292,10 @@ uint64_t AGXGPURawCounterImpl::startSampling(AGXGPURawCounterImpl *this)
       WORD1(buf[1]) = 2080;
       *(&buf[1] + 4) = "startSampling";
       _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** Sampling has been started! Stop sampling before starting again.\n", buf, 0x1Cu);
-      goto LABEL_49;
+      return 0;
     }
 
-    goto LABEL_52;
+    return result;
   }
 
   v4 = 0;
@@ -3561,7 +3464,7 @@ LABEL_50:
     result = 0;
 LABEL_51:
     *(this + 688) = 1;
-    goto LABEL_52;
+    return result;
   }
 
 LABEL_37:
@@ -3587,22 +3490,22 @@ LABEL_37:
     if (!IOConnectCallStructMethod(v26, 0x105u, buf, 0x40uLL, buf, &outputStructCnt))
     {
       LODWORD(buf[0]) = 8;
-      v32 = *(sAGXGPURawCounterImpl + 88);
-      if (v32)
+      v31 = *(sAGXGPURawCounterImpl + 88);
+      if (v31)
       {
         outputStructCnt = 64;
-        v33 = IOConnectCallStructMethod(v32, 0x105u, buf, 0x40uLL, buf, &outputStructCnt);
-        v34 = *(sAGXGPURawCounterImpl + 88);
+        v32 = IOConnectCallStructMethod(v31, 0x105u, buf, 0x40uLL, buf, &outputStructCnt);
+        v33 = *(sAGXGPURawCounterImpl + 88);
         LODWORD(buf[0]) = 11;
         memset(buf + 4, 0, 48);
         buf[3] = 0u;
-        if (v34)
+        if (v33)
         {
           outputStructCnt = 64;
-          IOConnectCallStructMethod(v34, 0x105u, buf, 0x40uLL, buf, &outputStructCnt);
+          IOConnectCallStructMethod(v33, 0x105u, buf, 0x40uLL, buf, &outputStructCnt);
         }
 
-        if (!v33)
+        if (!v32)
         {
           result = 1;
           goto LABEL_51;
@@ -3636,74 +3539,68 @@ LABEL_37:
     }
   }
 
-LABEL_49:
-  result = 0;
-LABEL_52:
-  v31 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 uint64_t AGXGPURawCounterImpl::gpuPerfState(AGXGPURawCounterImpl *this)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (sAGXGPURawCounterImpl != this)
   {
     fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: !!! AGXGPURawCounterImpl is not initialized!\n", "AGXGPURawCounterImpl.mm", 3917, "virtual uint32_t AGXGPURawCounterImpl::gpuPerfState() const");
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v4 = "AGXGPURawCounterImpl.mm";
-      v5 = 1024;
-      v6 = 3917;
-      v7 = 2080;
-      v8 = "virtual uint32_t AGXGPURawCounterImpl::gpuPerfState() const";
+      v3 = "AGXGPURawCounterImpl.mm";
+      v4 = 1024;
+      v5 = 3917;
+      v6 = 2080;
+      v7 = "virtual uint32_t AGXGPURawCounterImpl::gpuPerfState() const";
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: !!! AGXGPURawCounterImpl is not initialized!\n", buf, 0x1Cu);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v4 = "AGXGPURawCounterImpl.mm";
-      v5 = 1024;
-      v6 = 3917;
-      v7 = 2080;
-      v8 = "virtual uint32_t AGXGPURawCounterImpl::gpuPerfState() const";
+      v3 = "AGXGPURawCounterImpl.mm";
+      v4 = 1024;
+      v5 = 3917;
+      v6 = 2080;
+      v7 = "virtual uint32_t AGXGPURawCounterImpl::gpuPerfState() const";
       _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: !!! AGXGPURawCounterImpl is not initialized!\n", buf, 0x1Cu);
     }
 
     abort();
   }
 
-  result = *(this + 174);
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  return *(this + 174);
 }
 
 uint64_t AGXGPURawCounterImpl::setGPUPerfState(AGXGPURawCounterImpl *this, int a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (sAGXGPURawCounterImpl != this)
   {
     fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: !!! AGXGPURawCounterImpl is not initialized!\n", "AGXGPURawCounterImpl.mm", 3909, "virtual BOOL AGXGPURawCounterImpl::setGPUPerfState(uint32_t)");
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v5 = "AGXGPURawCounterImpl.mm";
-      v6 = 1024;
-      v7 = 3909;
-      v8 = 2080;
-      v9 = "virtual BOOL AGXGPURawCounterImpl::setGPUPerfState(uint32_t)";
+      v4 = "AGXGPURawCounterImpl.mm";
+      v5 = 1024;
+      v6 = 3909;
+      v7 = 2080;
+      v8 = "virtual BOOL AGXGPURawCounterImpl::setGPUPerfState(uint32_t)";
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: !!! AGXGPURawCounterImpl is not initialized!\n", buf, 0x1Cu);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v5 = "AGXGPURawCounterImpl.mm";
-      v6 = 1024;
-      v7 = 3909;
-      v8 = 2080;
-      v9 = "virtual BOOL AGXGPURawCounterImpl::setGPUPerfState(uint32_t)";
+      v4 = "AGXGPURawCounterImpl.mm";
+      v5 = 1024;
+      v6 = 3909;
+      v7 = 2080;
+      v8 = "virtual BOOL AGXGPURawCounterImpl::setGPUPerfState(uint32_t)";
       _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: !!! AGXGPURawCounterImpl is not initialized!\n", buf, 0x1Cu);
     }
 
@@ -3711,71 +3608,68 @@ uint64_t AGXGPURawCounterImpl::setGPUPerfState(AGXGPURawCounterImpl *this, int a
   }
 
   *(this + 174) = a2;
-  v2 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t AGXGPURawCounterImpl::flags(AGXGPURawCounterImpl *this)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (sAGXGPURawCounterImpl != this)
   {
     fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: !!! AGXGPURawCounterImpl is not initialized!\n", "AGXGPURawCounterImpl.mm", 3903, "virtual uint32_t AGXGPURawCounterImpl::flags() const");
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v4 = "AGXGPURawCounterImpl.mm";
-      v5 = 1024;
-      v6 = 3903;
-      v7 = 2080;
-      v8 = "virtual uint32_t AGXGPURawCounterImpl::flags() const";
+      v3 = "AGXGPURawCounterImpl.mm";
+      v4 = 1024;
+      v5 = 3903;
+      v6 = 2080;
+      v7 = "virtual uint32_t AGXGPURawCounterImpl::flags() const";
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: !!! AGXGPURawCounterImpl is not initialized!\n", buf, 0x1Cu);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v4 = "AGXGPURawCounterImpl.mm";
-      v5 = 1024;
-      v6 = 3903;
-      v7 = 2080;
-      v8 = "virtual uint32_t AGXGPURawCounterImpl::flags() const";
+      v3 = "AGXGPURawCounterImpl.mm";
+      v4 = 1024;
+      v5 = 3903;
+      v6 = 2080;
+      v7 = "virtual uint32_t AGXGPURawCounterImpl::flags() const";
       _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: !!! AGXGPURawCounterImpl is not initialized!\n", buf, 0x1Cu);
     }
 
     abort();
   }
 
-  result = *(this + 173);
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  return *(this + 173);
 }
 
 uint64_t AGXGPURawCounterImpl::setFlags(AGXGPURawCounterImpl *this, int a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (sAGXGPURawCounterImpl != this)
   {
     fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: !!! AGXGPURawCounterImpl is not initialized!\n", "AGXGPURawCounterImpl.mm", 3890, "virtual BOOL AGXGPURawCounterImpl::setFlags(uint32_t)");
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v5 = "AGXGPURawCounterImpl.mm";
-      v6 = 1024;
-      v7 = 3890;
-      v8 = 2080;
-      v9 = "virtual BOOL AGXGPURawCounterImpl::setFlags(uint32_t)";
+      v4 = "AGXGPURawCounterImpl.mm";
+      v5 = 1024;
+      v6 = 3890;
+      v7 = 2080;
+      v8 = "virtual BOOL AGXGPURawCounterImpl::setFlags(uint32_t)";
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: !!! AGXGPURawCounterImpl is not initialized!\n", buf, 0x1Cu);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v5 = "AGXGPURawCounterImpl.mm";
-      v6 = 1024;
-      v7 = 3890;
-      v8 = 2080;
-      v9 = "virtual BOOL AGXGPURawCounterImpl::setFlags(uint32_t)";
+      v4 = "AGXGPURawCounterImpl.mm";
+      v5 = 1024;
+      v6 = 3890;
+      v7 = 2080;
+      v8 = "virtual BOOL AGXGPURawCounterImpl::setFlags(uint32_t)";
       _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: !!! AGXGPURawCounterImpl is not initialized!\n", buf, 0x1Cu);
     }
 
@@ -3783,7 +3677,6 @@ uint64_t AGXGPURawCounterImpl::setFlags(AGXGPURawCounterImpl *this, int a2)
   }
 
   *(this + 173) = (*(*this + 40))(this) & a2;
-  v2 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -3816,7 +3709,7 @@ uint64_t AGXGPURawCounterImpl::availableFlags(AGXGPURawCounterImpl *this)
 
 uint64_t AGXGPURawCounterImpl::setOptions(AGXGPURawCounterImpl *this, NSDictionary *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (sAGXGPURawCounterImpl != this)
   {
@@ -3824,22 +3717,22 @@ uint64_t AGXGPURawCounterImpl::setOptions(AGXGPURawCounterImpl *this, NSDictiona
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v24 = "AGXGPURawCounterImpl.mm";
-      v25 = 1024;
-      v26 = 3827;
-      v27 = 2080;
-      v28 = "virtual BOOL AGXGPURawCounterImpl::setOptions(NSDictionary *__strong)";
+      v23 = "AGXGPURawCounterImpl.mm";
+      v24 = 1024;
+      v25 = 3827;
+      v26 = 2080;
+      v27 = "virtual BOOL AGXGPURawCounterImpl::setOptions(NSDictionary *__strong)";
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: !!! AGXGPURawCounterImpl is not initialized!\n", buf, 0x1Cu);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v24 = "AGXGPURawCounterImpl.mm";
-      v25 = 1024;
-      v26 = 3827;
-      v27 = 2080;
-      v28 = "virtual BOOL AGXGPURawCounterImpl::setOptions(NSDictionary *__strong)";
+      v23 = "AGXGPURawCounterImpl.mm";
+      v24 = 1024;
+      v25 = 3827;
+      v26 = 2080;
+      v27 = "virtual BOOL AGXGPURawCounterImpl::setOptions(NSDictionary *__strong)";
       _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: !!! AGXGPURawCounterImpl is not initialized!\n", buf, 0x1Cu);
     }
 
@@ -3942,35 +3835,34 @@ LABEL_11:
 
   v20 = (*(*this + 48))(this, v7);
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 uint64_t AGXGPURawCounterImpl::sourceList(int64x2_t *a1, uint64_t a2, unsigned int a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (sAGXGPURawCounterImpl != a1)
   {
     fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: !!! AGXGPURawCounterImpl is not initialized!\n", "AGXGPURawCounterImpl.mm", 3805, "virtual uint32_t AGXGPURawCounterImpl::sourceList(Source **, uint32_t)");
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v21 = "AGXGPURawCounterImpl.mm";
-      v22 = 1024;
-      v23 = 3805;
-      v24 = 2080;
-      v25 = "virtual uint32_t AGXGPURawCounterImpl::sourceList(Source **, uint32_t)";
+      v20 = "AGXGPURawCounterImpl.mm";
+      v21 = 1024;
+      v22 = 3805;
+      v23 = 2080;
+      v24 = "virtual uint32_t AGXGPURawCounterImpl::sourceList(Source **, uint32_t)";
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: !!! AGXGPURawCounterImpl is not initialized!\n", buf, 0x1Cu);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v21 = "AGXGPURawCounterImpl.mm";
-      v22 = 1024;
-      v23 = 3805;
-      v24 = 2080;
-      v25 = "virtual uint32_t AGXGPURawCounterImpl::sourceList(Source **, uint32_t)";
+      v20 = "AGXGPURawCounterImpl.mm";
+      v21 = 1024;
+      v22 = 3805;
+      v23 = 2080;
+      v24 = "virtual uint32_t AGXGPURawCounterImpl::sourceList(Source **, uint32_t)";
       _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: !!! AGXGPURawCounterImpl is not initialized!\n", buf, 0x1Cu);
     }
 
@@ -3980,8 +3872,7 @@ uint64_t AGXGPURawCounterImpl::sourceList(int64x2_t *a1, uint64_t a2, unsigned i
   v4 = a1[41].u32[0];
   if (!v4)
   {
-    result = 0;
-    goto LABEL_21;
+    return 0;
   }
 
   if (a2)
@@ -4032,7 +3923,7 @@ uint64_t AGXGPURawCounterImpl::sourceList(int64x2_t *a1, uint64_t a2, unsigned i
       result = vaddvq_s32(vaddq_s32(v11, v9));
       if (v7 == v4)
       {
-        goto LABEL_21;
+        return result;
       }
     }
 
@@ -4062,8 +3953,6 @@ uint64_t AGXGPURawCounterImpl::sourceList(int64x2_t *a1, uint64_t a2, unsigned i
     while (v16);
   }
 
-LABEL_21:
-  v19 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4283,12 +4172,11 @@ void sub_23C54BCB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t AGXGPURawCounterImpl::init(AGXGPURawCounterImpl *this, int a2)
+uint64_t AGXGPURawCounterImpl::init(AGXGPURawCounterImpl *this, uint64_t a2)
 {
-  v246[325] = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v244[325] = *MEMORY[0x277D85DE8];
   bzero(__s1, 0xB00uLL);
-  v242 = 0u;
-  v243 = 0u;
   v240 = 0u;
   v241 = 0u;
   v238 = 0u;
@@ -4317,10 +4205,12 @@ uint64_t AGXGPURawCounterImpl::init(AGXGPURawCounterImpl *this, int a2)
   v217 = 0u;
   v214 = 0u;
   v215 = 0u;
-  *v212 = 0u;
+  v212 = 0u;
   v213 = 0u;
-  memset(v211, 0, sizeof(v211));
-  *(this + 2) = a2;
+  *v210 = 0u;
+  v211 = 0u;
+  memset(v209, 0, sizeof(v209));
+  *(this + 2) = v2;
   v4 = IOGPUDeviceCreate();
   *(this + 2) = v4;
   if (!v4)
@@ -4385,7 +4275,6 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v10 = *(this + 2);
   Connect = IOGPUDeviceGetConnect();
   *(this + 22) = Connect;
   if (!Connect)
@@ -4421,17 +4310,17 @@ LABEL_11:
   *outputStructCnt = 64;
   memset(buf, 0, 64);
   buf[4] = 1;
-  v12 = Connect;
+  v10 = Connect;
   if (IOConnectCallStructMethod(Connect, 0x105u, buf, 0x40uLL, buf, outputStructCnt))
   {
     memset(&buf[4], 0, 60);
     *buf = 11;
-    IOConnectCallStructMethod(v12, 0x105u, buf, *outputStructCnt, buf, outputStructCnt);
+    IOConnectCallStructMethod(v10, 0x105u, buf, *outputStructCnt, buf, outputStructCnt);
     goto LABEL_12;
   }
 
   CFProperty = IORegistryEntryCreateCFProperty(*(this + 2), @"AbsTimeOffset", 0, 0);
-  v14 = CFProperty;
+  v12 = CFProperty;
   if (!CFProperty || !CFNumberGetValue(CFProperty, kCFNumberSInt64Type, this + 704))
   {
     fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** ((cfAbsTimeOffset = (CFNumberRef)IORegistryEntryCreateCFProperty(_acceleratorPort, @AbsTimeOffset, NULL, 0)) != NULL) && CFNumberGetValue(cfAbsTimeOffset, kCFNumberSInt64Type, (void*)(&_samplingState.absTimeOffset))\n", "AGXGPURawCounterImpl.mm", 2785, "init");
@@ -4457,7 +4346,7 @@ LABEL_11:
       _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** ((cfAbsTimeOffset = (CFNumberRef)IORegistryEntryCreateCFProperty(_acceleratorPort, @AbsTimeOffset, NULL, 0)) != NULL) && CFNumberGetValue(cfAbsTimeOffset, kCFNumberSInt64Type, (void*)(&_samplingState.absTimeOffset))\n", buf, 0x1Cu);
     }
 
-    if (!v14)
+    if (!v12)
     {
       goto LABEL_12;
     }
@@ -4465,34 +4354,34 @@ LABEL_11:
     goto LABEL_39;
   }
 
-  CFRelease(v14);
-  v15 = *(this + 22);
-  v16 = *MEMORY[0x277CBECE8];
+  CFRelease(v12);
+  v13 = *(this + 22);
+  v14 = *MEMORY[0x277CBECE8];
   Mutable = CFDataCreateMutable(*MEMORY[0x277CBECE8], 0x4000);
   memset(buf, 0, 64);
   *buf = 12;
   *&buf[8] = CFDataGetMutableBytePtr(Mutable);
   *&buf[16] = 0x4000;
-  if (!v15 && (v15 = *(sAGXGPURawCounterImpl + 88)) == 0 || (*outputStructCnt = 64, IOConnectCallStructMethod(v15, 0x105u, buf, 0x40uLL, buf, outputStructCnt)))
+  if (!v13 && (v13 = *(sAGXGPURawCounterImpl + 88)) == 0 || (*outputStructCnt = 64, IOConnectCallStructMethod(v13, 0x105u, buf, 0x40uLL, buf, outputStructCnt)))
   {
-    v14 = 0;
+    v12 = 0;
 LABEL_27:
-    v18 = 1;
+    v16 = 1;
     goto LABEL_28;
   }
 
   CFDataSetLength(Mutable, *&buf[16]);
-  v14 = CFPropertyListCreateWithData(v16, Mutable, 0, 0, 0);
+  v12 = CFPropertyListCreateWithData(v14, Mutable, 0, 0, 0);
   CFRelease(Mutable);
-  if (!v14)
+  if (!v12)
   {
     goto LABEL_27;
   }
 
-  Value = CFDictionaryGetValue(v14, @"num_cores");
-  if (!Value || !CFNumberGetValue(Value, kCFNumberSInt32Type, this + 100) || (v20 = CFDictionaryGetValue(v14, @"num_mgpus")) == 0 || !CFNumberGetValue(v20, kCFNumberSInt32Type, this + 96) || (v21 = CFDictionaryGetValue(v14, @"gpu_gen")) == 0 || !CFNumberGetValue(v21, kCFNumberSInt32Type, this + 92))
+  Value = CFDictionaryGetValue(v12, @"num_cores");
+  if (!Value || !CFNumberGetValue(Value, kCFNumberSInt32Type, this + 100) || (v18 = CFDictionaryGetValue(v12, @"num_mgpus")) == 0 || !CFNumberGetValue(v18, kCFNumberSInt32Type, this + 96) || (v19 = CFDictionaryGetValue(v12, @"gpu_gen")) == 0 || !CFNumberGetValue(v19, kCFNumberSInt32Type, this + 92))
   {
-    v18 = 0;
+    v16 = 0;
 LABEL_28:
     fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** ((cfCoreConfig = createInternalCoreConfigDict(_sharedConnection)) != NULL) && ((cfCoreNum = (CFNumberRef)CFDictionaryGetValue(cfCoreConfig, @num_cores)) != NULL) && CFNumberGetValue(cfCoreNum, kCFNumberSInt32Type, (void*)(&_coreNum)) && ((cfMGPUNum = (CFNumberRef)CFDictionaryGetValue(cfCoreConfig, @num_mgpus)) != NULL) && CFNumberGetValue(cfMGPUNum, kCFNumberSInt32Type, (void*)(&_mgpuNum)) && ((cfGPUGen = (CFNumberRef)CFDictionaryGetValue(cfCoreConfig, @gpu_gen)) != NULL) && CFNumberGetValue(cfGPUGen, kCFNumberSInt32Type, (void*)(&_gpuGeneration))\n", "AGXGPURawCounterImpl.mm", 2799, "init");
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -4517,7 +4406,7 @@ LABEL_28:
       _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** ((cfCoreConfig = createInternalCoreConfigDict(_sharedConnection)) != NULL) && ((cfCoreNum = (CFNumberRef)CFDictionaryGetValue(cfCoreConfig, @num_cores)) != NULL) && CFNumberGetValue(cfCoreNum, kCFNumberSInt32Type, (void*)(&_coreNum)) && ((cfMGPUNum = (CFNumberRef)CFDictionaryGetValue(cfCoreConfig, @num_mgpus)) != NULL) && CFNumberGetValue(cfMGPUNum, kCFNumberSInt32Type, (void*)(&_mgpuNum)) && ((cfGPUGen = (CFNumberRef)CFDictionaryGetValue(cfCoreConfig, @gpu_gen)) != NULL) && CFNumberGetValue(cfGPUGen, kCFNumberSInt32Type, (void*)(&_gpuGeneration))\n", buf, 0x1Cu);
     }
 
-    if (v18)
+    if (v16)
     {
       goto LABEL_12;
     }
@@ -4526,29 +4415,29 @@ LABEL_28:
   }
 
   *(this + 26) = *(this + 25) / *(this + 24);
-  v22 = CFDictionaryGetValue(v14, @"core_mask_list");
-  v23 = v22;
-  if (v22)
+  v20 = CFDictionaryGetValue(v12, @"core_mask_list");
+  v21 = v20;
+  if (v20)
   {
-    Count = CFArrayGetCount(v22);
+    Count = CFArrayGetCount(v20);
     *outputStructCnt = 0;
     *(this + 27) = 0;
-    v25 = Count;
+    v23 = Count;
     if (Count)
     {
-      v26 = 0;
+      v24 = 0;
       while (1)
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(v23, v26);
+        ValueAtIndex = CFArrayGetValueAtIndex(v21, v24);
         if (!ValueAtIndex || !CFNumberGetValue(ValueAtIndex, kCFNumberSInt32Type, outputStructCnt))
         {
           break;
         }
 
-        v28 = vcnt_s8(*outputStructCnt);
-        v28.i16[0] = vaddlv_u8(v28);
-        *(this + 27) += v28.i32[0];
-        if (v25 == ++v26)
+        v26 = vcnt_s8(*outputStructCnt);
+        v26.i16[0] = vaddlv_u8(v26);
+        *(this + 27) += v26.i32[0];
+        if (v23 == ++v24)
         {
           goto LABEL_56;
         }
@@ -4578,7 +4467,7 @@ LABEL_28:
       }
 
 LABEL_39:
-      CFRelease(v14);
+      CFRelease(v12);
       goto LABEL_12;
     }
   }
@@ -4589,9 +4478,9 @@ LABEL_39:
   }
 
 LABEL_56:
-  objc_storeStrong(this + 14, v14);
-  CFRelease(v14);
-  v29 = (this + 656);
+  objc_storeStrong(this + 14, v12);
+  CFRelease(v12);
+  v27 = (this + 656);
   if (perfCtrSamplerGetSourceNum(this + 164, *(this + 22)))
   {
     fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** perfCtrSamplerGetSourceNum(&_sourceNum, _sharedConnection) == KERN_SUCCESS\n", "AGXGPURawCounterImpl.mm", 2843, "init");
@@ -4622,7 +4511,7 @@ LABEL_56:
     goto LABEL_11;
   }
 
-  if (*v29 >= 0x41)
+  if (*v27 >= 0x41)
   {
     fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** _sourceNum <= AGXGPURawCounterImpl::kSourceNumMax\n", "AGXGPURawCounterImpl.mm", 2845, "init");
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -4652,16 +4541,16 @@ LABEL_56:
     goto LABEL_11;
   }
 
-  if (!*v29)
+  if (!*v27)
   {
 LABEL_319:
     v7 = 1;
-    goto LABEL_13;
+    return v7 & 1;
   }
 
-  v30 = IORegistryEntryCreateCFProperty(*(this + 2), @"PerfCtrPartitionInfoList", 0, 0);
-  v31 = v30;
-  if (!v30 || (v32 = CFArrayGetCount(v30), (*(this + 168) = v32) == 0) || (v33 = malloc_type_malloc(44 * v32, 0x1000040D4159EFEuLL), (*(this + 83) = v33) == 0))
+  v28 = IORegistryEntryCreateCFProperty(*(this + 2), @"PerfCtrPartitionInfoList", 0, 0);
+  v29 = v28;
+  if (!v28 || (v30 = CFArrayGetCount(v28), (*(this + 168) = v30) == 0) || (v31 = malloc_type_malloc(44 * v30, 0x1000040D4159EFEuLL), (*(this + 83) = v31) == 0))
   {
     fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** ((cfPartitionInfoList = (CFArrayRef)IORegistryEntryCreateCFProperty(_acceleratorPort, @PerfCtrPartitionInfoList, NULL, 0)) != NULL) && ((_partitionInfoNum = (uint32_t)CFArrayGetCount(cfPartitionInfoList)) != 0) && ((_partitionInfoList = (PartitionInfo*)malloc(sizeof(PartitionInfo) * _partitionInfoNum)) != NULL)\n", "AGXGPURawCounterImpl.mm", 2860, "init");
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -4683,49 +4572,49 @@ LABEL_319:
       *&buf[14] = 2860;
       *&buf[18] = 2080;
       *&buf[20] = "init";
-      v57 = MEMORY[0x277D86220];
-      v58 = "AGXGRC:AGXGRC:%s:%d:%s: *** ((cfPartitionInfoList = (CFArrayRef)IORegistryEntryCreateCFProperty(_acceleratorPort, @PerfCtrPartitionInfoList, NULL, 0)) != NULL) && ((_partitionInfoNum = (uint32_t)CFArrayGetCount(cfPartitionInfoList)) != 0) && ((_partitionInfoList = (PartitionInfo*)malloc(sizeof(PartitionInfo) * _partitionInfoNum)) != NULL)\n";
+      v55 = MEMORY[0x277D86220];
+      v56 = "AGXGRC:AGXGRC:%s:%d:%s: *** ((cfPartitionInfoList = (CFArrayRef)IORegistryEntryCreateCFProperty(_acceleratorPort, @PerfCtrPartitionInfoList, NULL, 0)) != NULL) && ((_partitionInfoNum = (uint32_t)CFArrayGetCount(cfPartitionInfoList)) != 0) && ((_partitionInfoList = (PartitionInfo*)malloc(sizeof(PartitionInfo) * _partitionInfoNum)) != NULL)\n";
       goto LABEL_114;
     }
 
     goto LABEL_115;
   }
 
-  bzero(v33, 44 * *(this + 168));
-  v34 = 2;
+  bzero(v31, 44 * *(this + 168));
+  v32 = 2;
   if (*(this + 23) >= 0xEu)
   {
     if (*(this + 24) < 2u)
     {
-      v34 = 2;
+      v32 = 2;
     }
 
     else
     {
-      v34 = 3;
+      v32 = 3;
     }
   }
 
-  *(this + 169) = v34;
+  *(this + 169) = v32;
   if (*(this + 168))
   {
-    v35 = 0;
+    v33 = 0;
     while (1)
     {
-      v36 = CFArrayGetValueAtIndex(v31, v35);
-      v37 = v36;
-      if (!v36)
+      v34 = CFArrayGetValueAtIndex(v29, v33);
+      v35 = v34;
+      if (!v34)
       {
         break;
       }
 
-      v38 = CFDictionaryGetValue(v36, @"index");
-      v39 = CFDictionaryGetValue(v37, @"name");
-      v40 = CFDictionaryGetValue(v37, @"free_num");
-      v41 = CFDictionaryGetValue(v37, @"source_mask");
-      v42 = v41;
+      v36 = CFDictionaryGetValue(v34, @"index");
+      v37 = CFDictionaryGetValue(v35, @"name");
+      v38 = CFDictionaryGetValue(v35, @"free_num");
+      v39 = CFDictionaryGetValue(v35, @"source_mask");
+      v40 = v39;
       *outputStructCnt = 0;
-      if (!v38 && !v40 && !v41)
+      if (!v36 && !v38 && !v39)
       {
         fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** (cfIndex != NULL) || (cfFreeNum != NULL) || (cfSourceMask != NULL)\n", "AGXGPURawCounterImpl.mm", 2878, "init");
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -4750,33 +4639,33 @@ LABEL_319:
         *&buf[14] = 2878;
         *&buf[18] = 2080;
         *&buf[20] = "init";
-        v57 = MEMORY[0x277D86220];
-        v58 = "AGXGRC:AGXGRC:%s:%d:%s: *** (cfIndex != NULL) || (cfFreeNum != NULL) || (cfSourceMask != NULL)\n";
+        v55 = MEMORY[0x277D86220];
+        v56 = "AGXGRC:AGXGRC:%s:%d:%s: *** (cfIndex != NULL) || (cfFreeNum != NULL) || (cfSourceMask != NULL)\n";
         goto LABEL_114;
       }
 
-      if (!CFNumberGetValue(v38, kCFNumberSInt32Type, outputStructCnt))
+      if (!CFNumberGetValue(v36, kCFNumberSInt32Type, outputStructCnt))
       {
         goto LABEL_117;
       }
 
-      v43 = *outputStructCnt;
+      v41 = *outputStructCnt;
       if (*outputStructCnt >= *(this + 168))
       {
         goto LABEL_117;
       }
 
-      if (v39)
+      if (v37)
       {
-        if (!CFStringGetCString(v39, (*(this + 83) + 44 * *outputStructCnt + 4), 32, 0x8000100u))
+        if (!CFStringGetCString(v37, (*(this + 83) + 44 * *outputStructCnt + 4), 32, 0x8000100u))
         {
           goto LABEL_117;
         }
 
-        v43 = *outputStructCnt;
+        v41 = *outputStructCnt;
       }
 
-      if (!CFNumberGetValue(v40, kCFNumberSInt32Type, (*(this + 83) + 44 * v43 + 36)) || !CFNumberGetValue(v42, kCFNumberSInt32Type, (*(this + 83) + 44 * *outputStructCnt + 40)))
+      if (!CFNumberGetValue(v38, kCFNumberSInt32Type, (*(this + 83) + 44 * v41 + 36)) || !CFNumberGetValue(v40, kCFNumberSInt32Type, (*(this + 83) + 44 * *outputStructCnt + 40)))
       {
 LABEL_117:
         fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** CFNumberGetValue (cfIndex, kCFNumberSInt32Type, &index) && (index < _partitionInfoNum) && ((cfName == NULL) || CFStringGetCString(cfName, _partitionInfoList[index].name, sizeof(_partitionInfoList[index].name), kCFStringEncodingUTF8)) && CFNumberGetValue (cfFreeNum, kCFNumberSInt32Type, &_partitionInfoList[index].availableCounterNum) && CFNumberGetValue (cfSourceMask, kCFNumberSInt32Type, &_partitionInfoList[index].sourceMask)\n", "AGXGPURawCounterImpl.mm", 2884, "init");
@@ -4799,23 +4688,23 @@ LABEL_117:
           *&buf[14] = 2884;
           *&buf[18] = 2080;
           *&buf[20] = "init";
-          v57 = MEMORY[0x277D86220];
-          v58 = "AGXGRC:AGXGRC:%s:%d:%s: *** CFNumberGetValue (cfIndex, kCFNumberSInt32Type, &index) && (index < _partitionInfoNum) && ((cfName == NULL) || CFStringGetCString(cfName, _partitionInfoList[index].name, sizeof(_partitionInfoList[index].name), kCFStringEncodingUTF8)) && CFNumberGetValue (cfFreeNum, kCFNumberSInt32Type, &_partitionInfoList[index].availableCounterNum) && CFNumberGetValue (cfSourceMask, kCFNumberSInt32Type, &_partitionInfoList[index].sourceMask)\n";
+          v55 = MEMORY[0x277D86220];
+          v56 = "AGXGRC:AGXGRC:%s:%d:%s: *** CFNumberGetValue (cfIndex, kCFNumberSInt32Type, &index) && (index < _partitionInfoNum) && ((cfName == NULL) || CFStringGetCString(cfName, _partitionInfoList[index].name, sizeof(_partitionInfoList[index].name), kCFStringEncodingUTF8)) && CFNumberGetValue (cfFreeNum, kCFNumberSInt32Type, &_partitionInfoList[index].availableCounterNum) && CFNumberGetValue (cfSourceMask, kCFNumberSInt32Type, &_partitionInfoList[index].sourceMask)\n";
           goto LABEL_114;
         }
 
 LABEL_115:
-        if (!v31)
+        if (!v29)
         {
           goto LABEL_12;
         }
 
 LABEL_116:
-        CFRelease(v31);
+        CFRelease(v29);
         goto LABEL_12;
       }
 
-      if (++v35 >= *(this + 168))
+      if (++v33 >= *(this + 168))
       {
         goto LABEL_84;
       }
@@ -4844,29 +4733,29 @@ LABEL_116:
     *&buf[14] = 2870;
     *&buf[18] = 2080;
     *&buf[20] = "init";
-    v57 = MEMORY[0x277D86220];
-    v58 = "AGXGRC:AGXGRC:%s:%d:%s: *** info != NULL\n";
+    v55 = MEMORY[0x277D86220];
+    v56 = "AGXGRC:AGXGRC:%s:%d:%s: *** info != NULL\n";
 LABEL_114:
-    _os_log_impl(&dword_23C542000, v57, OS_LOG_TYPE_INFO, v58, buf, 0x1Cu);
+    _os_log_impl(&dword_23C542000, v55, OS_LOG_TYPE_INFO, v56, buf, 0x1Cu);
     goto LABEL_115;
   }
 
 LABEL_84:
-  CFRelease(v31);
-  v44 = objc_autoreleasePoolPush();
-  v45 = IORegistryEntryCreateCFProperty(*(this + 2), @"MetalPluginName", 0, 0);
-  v31 = v45;
-  if (!v45 || !CFStringGetCString(v45, buf, 256, 0x8000100u))
+  CFRelease(v29);
+  v42 = objc_autoreleasePoolPush();
+  v43 = IORegistryEntryCreateCFProperty(*(this + 2), @"MetalPluginName", 0, 0);
+  v29 = v43;
+  if (!v43 || !CFStringGetCString(v43, buf, 256, 0x8000100u))
   {
     fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** ((cfMmetalPluginName = (CFStringRef)IORegistryEntryCreateCFProperty(_acceleratorPort, @MetalPluginName, NULL, 0)) != NULL) && CFStringGetCString(cfMmetalPluginName, metalPluginName, sizeof(metalPluginName), kCFStringEncodingUTF8)\n", "AGXGPURawCounterImpl.mm", 2904, "init");
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *outputStructCnt = 136315650;
       *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-      v206 = 1024;
-      v207 = 2904;
-      v208 = 2080;
-      v209 = "init";
+      v204 = 1024;
+      v205 = 2904;
+      v206 = 2080;
+      v207 = "init";
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** ((cfMmetalPluginName = (CFStringRef)IORegistryEntryCreateCFProperty(_acceleratorPort, @MetalPluginName, NULL, 0)) != NULL) && CFStringGetCString(cfMmetalPluginName, metalPluginName, sizeof(metalPluginName), kCFStringEncodingUTF8)\n", outputStructCnt, 0x1Cu);
     }
 
@@ -4874,15 +4763,15 @@ LABEL_84:
     {
       *outputStructCnt = 136315650;
       *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-      v206 = 1024;
-      v207 = 2904;
-      v208 = 2080;
-      v209 = "init";
+      v204 = 1024;
+      v205 = 2904;
+      v206 = 2080;
+      v207 = "init";
       _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** ((cfMmetalPluginName = (CFStringRef)IORegistryEntryCreateCFProperty(_acceleratorPort, @MetalPluginName, NULL, 0)) != NULL) && CFStringGetCString(cfMmetalPluginName, metalPluginName, sizeof(metalPluginName), kCFStringEncodingUTF8)\n", outputStructCnt, 0x1Cu);
     }
 
-    objc_autoreleasePoolPop(v44);
-    if (!v31)
+    objc_autoreleasePoolPop(v42);
+    if (!v29)
     {
       goto LABEL_12;
     }
@@ -4890,20 +4779,20 @@ LABEL_84:
     goto LABEL_116;
   }
 
-  CFRelease(v31);
-  v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"/AppleInternal/Library/AGX/Performance/%s/AGXMetalPerfCounters.plist", buf];
-  v47 = v46;
-  if (!v46)
+  CFRelease(v29);
+  v44 = [MEMORY[0x277CCACA8] stringWithFormat:@"/AppleInternal/Library/AGX/Performance/%s/AGXMetalPerfCounters.plist", buf];
+  v45 = v44;
+  if (!v44)
   {
     fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** plistPath != nil\n", "AGXGPURawCounterImpl.mm", 2910, "init");
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *outputStructCnt = 136315650;
       *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-      v206 = 1024;
-      v207 = 2910;
-      v208 = 2080;
-      v209 = "init";
+      v204 = 1024;
+      v205 = 2910;
+      v206 = 2080;
+      v207 = "init";
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** plistPath != nil\n", outputStructCnt, 0x1Cu);
     }
 
@@ -4911,38 +4800,38 @@ LABEL_84:
     {
       *outputStructCnt = 136315650;
       *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-      v206 = 1024;
-      v207 = 2910;
-      v208 = 2080;
-      v209 = "init";
+      v204 = 1024;
+      v205 = 2910;
+      v206 = 2080;
+      v207 = "init";
       _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** plistPath != nil\n", outputStructCnt, 0x1Cu);
     }
 
     goto LABEL_266;
   }
 
-  v48 = v46;
-  theDict = cfDictionaryCreateFromPlist([v47 UTF8String]);
+  v46 = v44;
+  theDict = cfDictionaryCreateFromPlist([v45 UTF8String]);
   if (theDict)
   {
     goto LABEL_88;
   }
 
-  v59 = MEMORY[0x277CCA8D8];
-  v60 = [MEMORY[0x277CCACA8] stringWithFormat:@"/System/Library/Extensions/%s.bundle", buf, 0];
-  v61 = [v59 bundleWithPath:v60];
+  v57 = MEMORY[0x277CCA8D8];
+  v58 = [MEMORY[0x277CCACA8] stringWithFormat:@"/System/Library/Extensions/%s.bundle", buf, 0];
+  v59 = [v57 bundleWithPath:v58];
 
-  if (!v61)
+  if (!v59)
   {
     fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** driverBundle != nil\n", "AGXGPURawCounterImpl.mm", 2921, "init");
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *outputStructCnt = 136315650;
       *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-      v206 = 1024;
-      v207 = 2921;
-      v208 = 2080;
-      v209 = "init";
+      v204 = 1024;
+      v205 = 2921;
+      v206 = 2080;
+      v207 = "init";
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** driverBundle != nil\n", outputStructCnt, 0x1Cu);
     }
 
@@ -4950,42 +4839,42 @@ LABEL_84:
     {
       *outputStructCnt = 136315650;
       *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-      v206 = 1024;
-      v207 = 2921;
-      v208 = 2080;
-      v209 = "init";
+      v204 = 1024;
+      v205 = 2921;
+      v206 = 2080;
+      v207 = "init";
       _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** driverBundle != nil\n", outputStructCnt, 0x1Cu);
     }
 
     goto LABEL_266;
   }
 
-  v62 = [v61 pathForResource:@"AGXMetalPerfCounters" ofType:@"plist"];
+  v60 = [v59 pathForResource:@"AGXMetalPerfCounters" ofType:@"plist"];
 
-  v63 = v62;
-  theDict = cfDictionaryCreateFromPlist([v62 UTF8String]);
+  v61 = v60;
+  theDict = cfDictionaryCreateFromPlist([v60 UTF8String]);
 
   if (theDict)
   {
-    v47 = v62;
+    v45 = v60;
     goto LABEL_88;
   }
 
-  v147 = MEMORY[0x277CCA8D8];
-  v148 = [MEMORY[0x277CCACA8] stringWithFormat:@"/System/Library/Extensions/%s.bundle", buf, 0];
-  v149 = [v147 bundleWithPath:v148];
+  v145 = MEMORY[0x277CCA8D8];
+  v146 = [MEMORY[0x277CCACA8] stringWithFormat:@"/System/Library/Extensions/%s.bundle", buf, 0];
+  v147 = [v145 bundleWithPath:v146];
 
-  if (!v149)
+  if (!v147)
   {
     fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** driverBundle != nil\n", "AGXGPURawCounterImpl.mm", 2935, "init");
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *outputStructCnt = 136315650;
       *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-      v206 = 1024;
-      v207 = 2935;
-      v208 = 2080;
-      v209 = "init";
+      v204 = 1024;
+      v205 = 2935;
+      v206 = 2080;
+      v207 = "init";
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** driverBundle != nil\n", outputStructCnt, 0x1Cu);
     }
 
@@ -4993,20 +4882,20 @@ LABEL_84:
     {
       *outputStructCnt = 136315650;
       *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-      v206 = 1024;
-      v207 = 2935;
-      v208 = 2080;
-      v209 = "init";
+      v204 = 1024;
+      v205 = 2935;
+      v206 = 2080;
+      v207 = "init";
       _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** driverBundle != nil\n", outputStructCnt, 0x1Cu);
     }
 
     goto LABEL_265;
   }
 
-  v47 = [v149 pathForResource:@"AGXMetalPerfCountersExternal" ofType:@"plist"];
+  v45 = [v147 pathForResource:@"AGXMetalPerfCountersExternal" ofType:@"plist"];
 
-  v150 = v47;
-  theDict = cfDictionaryCreateFromPlist([v47 UTF8String]);
+  v148 = v45;
+  theDict = cfDictionaryCreateFromPlist([v45 UTF8String]);
   if (!theDict)
   {
     fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** (cfDict = cfDictionaryCreateFromPlist([plistPath UTF8String])) != NULL\n", "AGXGPURawCounterImpl.mm", 2941, "init");
@@ -5014,10 +4903,10 @@ LABEL_84:
     {
       *outputStructCnt = 136315650;
       *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-      v206 = 1024;
-      v207 = 2941;
-      v208 = 2080;
-      v209 = "init";
+      v204 = 1024;
+      v205 = 2941;
+      v206 = 2080;
+      v207 = "init";
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** (cfDict = cfDictionaryCreateFromPlist([plistPath UTF8String])) != NULL\n", outputStructCnt, 0x1Cu);
     }
 
@@ -5025,33 +4914,33 @@ LABEL_84:
     {
       *outputStructCnt = 136315650;
       *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-      v206 = 1024;
-      v207 = 2941;
-      v208 = 2080;
-      v209 = "init";
+      v204 = 1024;
+      v205 = 2941;
+      v206 = 2080;
+      v207 = "init";
       _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** (cfDict = cfDictionaryCreateFromPlist([plistPath UTF8String])) != NULL\n", outputStructCnt, 0x1Cu);
     }
 
-    v62 = v47;
+    v60 = v45;
 LABEL_265:
 
 LABEL_266:
-    objc_autoreleasePoolPop(v44);
+    objc_autoreleasePoolPop(v42);
     goto LABEL_12;
   }
 
   *(this + 120) = 1;
 
 LABEL_88:
-  objc_autoreleasePoolPop(v44);
-  v49 = *v29;
-  if (*v29)
+  objc_autoreleasePoolPop(v42);
+  v47 = *v27;
+  if (*v27)
   {
-    v50 = 0;
-    v51 = __s1;
+    v48 = 0;
+    v49 = __s1;
     do
     {
-      if (perfCtrSamplerGetSourceInfo(v50, v51, *(this + 22)))
+      if (perfCtrSamplerGetSourceInfo(v48, v49, *(this + 22)))
       {
         fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** perfCtrSamplerGetSourceInfo(sourceIdx, &sourceInfo, _sharedConnection) == KERN_SUCCESS\n", "AGXGPURawCounterImpl.mm", 2959, "init");
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -5080,38 +4969,38 @@ LABEL_88:
         goto LABEL_342;
       }
 
-      ++v50;
-      v49 = *v29;
-      v51 += 11;
+      ++v48;
+      v47 = *v27;
+      v49 += 11;
     }
 
-    while (v50 < *v29);
+    while (v48 < *v27);
   }
 
   buf[0] = 0;
   memset(&buf[4], 0, 28);
-  if (v49 == 1)
+  if (v47 == 1)
   {
-    v52 = 1;
+    v50 = 1;
   }
 
   else
   {
-    v52 = ~(-1 << v49) & 6;
+    v50 = ~(-1 << v47) & 6;
   }
 
-  v195 = v52;
+  v193 = v50;
   if (*(this + 120))
   {
-    v53 = "_423ccc54aeb6a01f9abb7b533d6542a7d502c505be6e14c69056cc6886c4d1b5";
+    v51 = "_423ccc54aeb6a01f9abb7b533d6542a7d502c505be6e14c69056cc6886c4d1b5";
   }
 
   else
   {
-    v53 = "GBL_USC_PROFILE_DATA_00_USC_00";
+    v51 = "GBL_USC_PROFILE_DATA_00_USC_00";
   }
 
-  theString2 = CFStringCreateWithCString(v16, v53, 0x8000100u);
+  theString2 = CFStringCreateWithCString(v14, v51, 0x8000100u);
   if (!theString2)
   {
     fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** (cfShaderProfilerCounterName = CFStringCreateWithCString(kCFAllocatorDefault, shaderProfilerCounterName, kCFStringEncodingUTF8)) != NULL\n", "AGXGPURawCounterImpl.mm", 2982, "init");
@@ -5119,10 +5008,10 @@ LABEL_88:
     {
       *outputStructCnt = 136315650;
       *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-      v206 = 1024;
-      v207 = 2982;
-      v208 = 2080;
-      v209 = "init";
+      v204 = 1024;
+      v205 = 2982;
+      v206 = 2080;
+      v207 = "init";
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** (cfShaderProfilerCounterName = CFStringCreateWithCString(kCFAllocatorDefault, shaderProfilerCounterName, kCFStringEncodingUTF8)) != NULL\n", outputStructCnt, 0x1Cu);
     }
 
@@ -5130,10 +5019,10 @@ LABEL_88:
     {
       *outputStructCnt = 136315650;
       *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-      v206 = 1024;
-      v207 = 2982;
-      v208 = 2080;
-      v209 = "init";
+      v204 = 1024;
+      v205 = 2982;
+      v206 = 2080;
+      v207 = "init";
       _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** (cfShaderProfilerCounterName = CFStringCreateWithCString(kCFAllocatorDefault, shaderProfilerCounterName, kCFStringEncodingUTF8)) != NULL\n", outputStructCnt, 0x1Cu);
     }
 
@@ -5141,59 +5030,59 @@ LABEL_88:
     goto LABEL_284;
   }
 
-  v54 = *v29;
-  if (!v54)
+  v52 = *v27;
+  if (!v52)
   {
-    v56 = 0;
+    v54 = 0;
     goto LABEL_166;
   }
 
-  if (v54 > 7)
+  if (v52 > 7)
   {
-    v55 = v54 & 0xFFFFFFF8;
-    v65 = v246;
-    v66 = 0uLL;
-    v67.i64[0] = 0x1F0000001FLL;
-    v67.i64[1] = 0x1F0000001FLL;
-    v68 = v55;
+    v53 = v52 & 0xFFFFFFF8;
+    v63 = v244;
+    v64 = 0uLL;
+    v65.i64[0] = 0x1F0000001FLL;
+    v65.i64[1] = 0x1F0000001FLL;
+    v66 = v53;
+    v67 = 0uLL;
+    v68 = 0uLL;
     v69 = 0uLL;
-    v70 = 0uLL;
-    v71 = 0uLL;
     do
     {
-      v72.i32[0] = *(v65 - 44);
-      v72.i32[1] = *(v65 - 33);
-      v72.i32[2] = *(v65 - 22);
-      v72.i32[3] = *(v65 - 11);
-      v73.i32[0] = *v65;
-      v73.i32[1] = v65[11];
-      v73.i32[2] = v65[22];
-      v73.i32[3] = v65[33];
-      v74 = vbicq_s8(v72, vceqzq_s32(vandq_s8(v72, v67)));
-      v75 = vbicq_s8(v73, vceqzq_s32(vandq_s8(v73, v67)));
-      v76.i64[0] = v74.u32[0];
-      v76.i64[1] = v74.u32[1];
-      v77 = v76;
-      v76.i64[0] = v74.u32[2];
-      v76.i64[1] = v74.u32[3];
-      v78 = v76;
-      v76.i64[0] = v75.u32[0];
-      v76.i64[1] = v75.u32[1];
-      v79 = v76;
-      v76.i64[0] = v75.u32[2];
-      v76.i64[1] = v75.u32[3];
-      v69 = vorrq_s8(v69, v78);
-      v66 = vorrq_s8(v66, v77);
-      v71 = vorrq_s8(v71, v76);
-      v70 = vorrq_s8(v70, v79);
-      v65 += 88;
-      v68 -= 8;
+      v70.i32[0] = *(v63 - 44);
+      v70.i32[1] = *(v63 - 33);
+      v70.i32[2] = *(v63 - 22);
+      v70.i32[3] = *(v63 - 11);
+      v71.i32[0] = *v63;
+      v71.i32[1] = v63[11];
+      v71.i32[2] = v63[22];
+      v71.i32[3] = v63[33];
+      v72 = vbicq_s8(v70, vceqzq_s32(vandq_s8(v70, v65)));
+      v73 = vbicq_s8(v71, vceqzq_s32(vandq_s8(v71, v65)));
+      v74.i64[0] = v72.u32[0];
+      v74.i64[1] = v72.u32[1];
+      v75 = v74;
+      v74.i64[0] = v72.u32[2];
+      v74.i64[1] = v72.u32[3];
+      v76 = v74;
+      v74.i64[0] = v73.u32[0];
+      v74.i64[1] = v73.u32[1];
+      v77 = v74;
+      v74.i64[0] = v73.u32[2];
+      v74.i64[1] = v73.u32[3];
+      v67 = vorrq_s8(v67, v76);
+      v64 = vorrq_s8(v64, v75);
+      v69 = vorrq_s8(v69, v74);
+      v68 = vorrq_s8(v68, v77);
+      v63 += 88;
+      v66 -= 8;
     }
 
-    while (v68);
-    v80 = vorrq_s8(vorrq_s8(v70, v66), vorrq_s8(v71, v69));
-    v56 = vorr_s8(*v80.i8, *&vextq_s8(v80, v80, 8uLL));
-    if (v55 == v54)
+    while (v66);
+    v78 = vorrq_s8(vorrq_s8(v68, v64), vorrq_s8(v69, v67));
+    v54 = vorr_s8(*v78.i8, *&vextq_s8(v78, v78, 8uLL));
+    if (v53 == v52)
     {
       goto LABEL_166;
     }
@@ -5201,92 +5090,92 @@ LABEL_88:
 
   else
   {
-    v55 = 0;
-    v56 = 0;
+    v53 = 0;
+    v54 = 0;
   }
 
-  v81 = v54 - v55;
-  v82 = &__s1[11 * v55 + 10];
+  v79 = v52 - v53;
+  v80 = &__s1[11 * v53 + 10];
   do
   {
-    v84 = *v82;
-    v82 += 11;
-    LODWORD(v83) = v84;
-    if ((v84 & 0x1F) != 0)
+    v82 = *v80;
+    v80 += 11;
+    LODWORD(v81) = v82;
+    if ((v82 & 0x1F) != 0)
     {
-      v83 = v83;
+      v81 = v81;
     }
 
     else
     {
-      v83 = 0;
+      v81 = 0;
     }
 
-    *&v56 |= v83;
-    --v81;
+    *&v54 |= v81;
+    --v79;
   }
 
-  while (v81);
+  while (v79);
 LABEL_166:
   *&buf[4] = 8;
   *&buf[16] = 0;
   theArray = CFDictionaryGetValue(theDict, @"DeviceCounters");
-  if (theArray && (v85 = CFArrayGetCount(theArray), (v199 = v85) != 0))
+  if (theArray && (v83 = CFArrayGetCount(theArray), (v197 = v83) != 0))
   {
-    v196 = 0;
-    v197 = 0;
-    v86 = 1;
+    v194 = 0;
+    v195 = 0;
+    v84 = 1;
     while (2)
     {
-      v87 = 0;
-      v200 = 0;
-      v198 = v86;
+      v85 = 0;
+      v198 = 0;
+      v196 = v84;
       do
       {
-        v89 = CFArrayGetValueAtIndex(theArray, v87);
-        if (v89 && (v90 = CFDictionaryGetValue(theDict, v89), (v91 = v90) != 0))
+        v87 = CFArrayGetValueAtIndex(theArray, v85);
+        if (v87 && (v88 = CFDictionaryGetValue(theDict, v87), (v89 = v88) != 0))
         {
-          v92 = CFDictionaryGetValue(v90, @"Partition");
-          v93 = CFDictionaryGetValue(v91, @"Select");
-          v94 = &stru_284F298A0;
+          v90 = CFDictionaryGetValue(v88, @"Partition");
+          v91 = CFDictionaryGetValue(v89, @"Select");
+          v92 = &stru_284F298A0;
           if ((*(this + 120) & 1) == 0)
           {
-            v94 = CFDictionaryGetValue(v91, @"Description");
+            v92 = CFDictionaryGetValue(v89, @"Description");
           }
 
-          v95 = CFDictionaryGetValue(v91, @"Flag");
-          v96 = 1;
+          v93 = CFDictionaryGetValue(v89, @"Flag");
+          v94 = 1;
         }
 
         else
         {
-          v92 = 0;
-          v96 = 0;
+          v90 = 0;
+          v94 = 0;
+          v91 = 0;
           v93 = 0;
-          v95 = 0;
           if (*(this + 120))
           {
-            v94 = &stru_284F298A0;
+            v92 = &stru_284F298A0;
           }
 
           else
           {
-            v94 = 0;
+            v92 = 0;
           }
         }
 
         valuePtr = 0;
-        if (!v96 || !v92 || !v93 || !v94)
+        if (!v94 || !v90 || !v91 || !v92)
         {
           fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** (cfPerfCtrInfo != NULL) && (cfPerfCtrPartition != NULL) && (cfPerfCtrSelect != NULL) && (cfPerfCtrDesc != NULL)\n", "AGXGPURawCounterImpl.mm", 3026, "init");
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
             *outputStructCnt = 136315650;
             *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-            v206 = 1024;
-            v207 = 3026;
-            v208 = 2080;
-            v209 = "init";
+            v204 = 1024;
+            v205 = 3026;
+            v206 = 2080;
+            v207 = "init";
             _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** (cfPerfCtrInfo != NULL) && (cfPerfCtrPartition != NULL) && (cfPerfCtrSelect != NULL) && (cfPerfCtrDesc != NULL)\n", outputStructCnt, 0x1Cu);
           }
 
@@ -5294,29 +5183,29 @@ LABEL_166:
           {
             *outputStructCnt = 136315650;
             *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-            v206 = 1024;
-            v207 = 3026;
-            v208 = 2080;
-            v209 = "init";
-            v145 = MEMORY[0x277D86220];
-            v146 = "AGXGRC:AGXGRC:%s:%d:%s: *** (cfPerfCtrInfo != NULL) && (cfPerfCtrPartition != NULL) && (cfPerfCtrSelect != NULL) && (cfPerfCtrDesc != NULL)\n";
+            v204 = 1024;
+            v205 = 3026;
+            v206 = 2080;
+            v207 = "init";
+            v143 = MEMORY[0x277D86220];
+            v144 = "AGXGRC:AGXGRC:%s:%d:%s: *** (cfPerfCtrInfo != NULL) && (cfPerfCtrPartition != NULL) && (cfPerfCtrSelect != NULL) && (cfPerfCtrDesc != NULL)\n";
             goto LABEL_283;
           }
 
           goto LABEL_284;
         }
 
-        if (!CFNumberGetValue(v92, kCFNumberSInt32Type, &valuePtr + 4) || (v97 = HIDWORD(valuePtr), HIDWORD(valuePtr) >= *(this + 168)))
+        if (!CFNumberGetValue(v90, kCFNumberSInt32Type, &valuePtr + 4) || (v95 = HIDWORD(valuePtr), HIDWORD(valuePtr) >= *(this + 168)))
         {
           fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** CFNumberGetValue(cfPerfCtrPartition, kCFNumberSInt32Type, &perfCtrPartition) && (perfCtrPartition < _partitionInfoNum)\n", "AGXGPURawCounterImpl.mm", 3027, "init");
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
             *outputStructCnt = 136315650;
             *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-            v206 = 1024;
-            v207 = 3027;
-            v208 = 2080;
-            v209 = "init";
+            v204 = 1024;
+            v205 = 3027;
+            v206 = 2080;
+            v207 = "init";
             _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** CFNumberGetValue(cfPerfCtrPartition, kCFNumberSInt32Type, &perfCtrPartition) && (perfCtrPartition < _partitionInfoNum)\n", outputStructCnt, 0x1Cu);
           }
 
@@ -5324,31 +5213,31 @@ LABEL_166:
           {
             *outputStructCnt = 136315650;
             *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-            v206 = 1024;
-            v207 = 3027;
-            v208 = 2080;
-            v209 = "init";
-            v145 = MEMORY[0x277D86220];
-            v146 = "AGXGRC:AGXGRC:%s:%d:%s: *** CFNumberGetValue(cfPerfCtrPartition, kCFNumberSInt32Type, &perfCtrPartition) && (perfCtrPartition < _partitionInfoNum)\n";
+            v204 = 1024;
+            v205 = 3027;
+            v206 = 2080;
+            v207 = "init";
+            v143 = MEMORY[0x277D86220];
+            v144 = "AGXGRC:AGXGRC:%s:%d:%s: *** CFNumberGetValue(cfPerfCtrPartition, kCFNumberSInt32Type, &perfCtrPartition) && (perfCtrPartition < _partitionInfoNum)\n";
             goto LABEL_283;
           }
 
           goto LABEL_284;
         }
 
-        if (v95)
+        if (v93)
         {
-          if (!CFNumberGetValue(v95, kCFNumberSInt32Type, &valuePtr))
+          if (!CFNumberGetValue(v93, kCFNumberSInt32Type, &valuePtr))
           {
             fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** (cfPerfCtrFlag == NULL) || CFNumberGetValue(cfPerfCtrFlag, kCFNumberSInt32Type, &perfCtrFlag)\n", "AGXGPURawCounterImpl.mm", 3028, "init");
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
               *outputStructCnt = 136315650;
               *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-              v206 = 1024;
-              v207 = 3028;
-              v208 = 2080;
-              v209 = "init";
+              v204 = 1024;
+              v205 = 3028;
+              v206 = 2080;
+              v207 = "init";
               _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** (cfPerfCtrFlag == NULL) || CFNumberGetValue(cfPerfCtrFlag, kCFNumberSInt32Type, &perfCtrFlag)\n", outputStructCnt, 0x1Cu);
             }
 
@@ -5356,54 +5245,54 @@ LABEL_166:
             {
               *outputStructCnt = 136315650;
               *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-              v206 = 1024;
-              v207 = 3028;
-              v208 = 2080;
-              v209 = "init";
-              v145 = MEMORY[0x277D86220];
-              v146 = "AGXGRC:AGXGRC:%s:%d:%s: *** (cfPerfCtrFlag == NULL) || CFNumberGetValue(cfPerfCtrFlag, kCFNumberSInt32Type, &perfCtrFlag)\n";
+              v204 = 1024;
+              v205 = 3028;
+              v206 = 2080;
+              v207 = "init";
+              v143 = MEMORY[0x277D86220];
+              v144 = "AGXGRC:AGXGRC:%s:%d:%s: *** (cfPerfCtrFlag == NULL) || CFNumberGetValue(cfPerfCtrFlag, kCFNumberSInt32Type, &perfCtrFlag)\n";
               goto LABEL_283;
             }
 
             goto LABEL_284;
           }
 
-          v97 = HIDWORD(valuePtr);
+          v95 = HIDWORD(valuePtr);
         }
 
-        v98 = *(*(this + 83) + 44 * v97 + 40);
-        if (v98)
+        v96 = *(*(this + 83) + 44 * v95 + 40);
+        if (v96)
         {
-          if (v198)
+          if (v196)
           {
-            Length = CFStringGetLength(v89);
+            Length = CFStringGetLength(v87);
             *&buf[16] += ((Length + 1) + *&buf[4] - 1) & -*&buf[4];
-            v100 = CFStringGetLength(v94);
-            *&buf[16] += ((v100 + 1) + *&buf[4] - 1) & -*&buf[4];
-            v196 |= v98;
-            v88 = v197 || CFStringCompare(v89, theString2, 0) == kCFCompareEqualTo;
-            v197 = v88;
+            v98 = CFStringGetLength(v92);
+            *&buf[16] += ((v98 + 1) + *&buf[4] - 1) & -*&buf[4];
+            v194 |= v96;
+            v86 = v195 || CFStringCompare(v87, theString2, 0) == kCFCompareEqualTo;
+            v195 = v86;
           }
 
           else
           {
-            v101 = *(this + 16);
-            v102 = CFStringGetLength(v89);
-            v103 = v101 + 56 * v200;
-            *(v103 + 16) = v102;
-            v104 = StackAllocator::reserve(buf, v102 + 1);
-            *v103 = v104;
-            if (!v104)
+            v99 = *(this + 16);
+            v100 = CFStringGetLength(v87);
+            v101 = v99 + 56 * v198;
+            *(v101 + 16) = v100;
+            v102 = StackAllocator::reserve(buf, v100 + 1);
+            *v101 = v102;
+            if (!v102)
             {
               fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** (counterDesc.name = (char*)(allocator.reserve(counterDesc.nameLen + 1))) != NULL\n", "AGXGPURawCounterImpl.mm", 3063, "init");
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
                 *outputStructCnt = 136315650;
                 *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-                v206 = 1024;
-                v207 = 3063;
-                v208 = 2080;
-                v209 = "init";
+                v204 = 1024;
+                v205 = 3063;
+                v206 = 2080;
+                v207 = "init";
                 _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** (counterDesc.name = (char*)(allocator.reserve(counterDesc.nameLen + 1))) != NULL\n", outputStructCnt, 0x1Cu);
               }
 
@@ -5411,34 +5300,34 @@ LABEL_166:
               {
                 *outputStructCnt = 136315650;
                 *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-                v206 = 1024;
-                v207 = 3063;
-                v208 = 2080;
-                v209 = "init";
-                v145 = MEMORY[0x277D86220];
-                v146 = "AGXGRC:AGXGRC:%s:%d:%s: *** (counterDesc.name = (char*)(allocator.reserve(counterDesc.nameLen + 1))) != NULL\n";
+                v204 = 1024;
+                v205 = 3063;
+                v206 = 2080;
+                v207 = "init";
+                v143 = MEMORY[0x277D86220];
+                v144 = "AGXGRC:AGXGRC:%s:%d:%s: *** (counterDesc.name = (char*)(allocator.reserve(counterDesc.nameLen + 1))) != NULL\n";
                 goto LABEL_283;
               }
 
               goto LABEL_284;
             }
 
-            CFStringGetCString(v89, v104, (*(v103 + 16) + 1), 0x8000100u);
-            v105 = CFStringGetLength(v94);
-            *(v103 + 20) = v105;
-            v106 = StackAllocator::reserve(buf, v105 + 1);
-            *(v103 + 8) = v106;
-            if (!v106)
+            CFStringGetCString(v87, v102, (*(v101 + 16) + 1), 0x8000100u);
+            v103 = CFStringGetLength(v92);
+            *(v101 + 20) = v103;
+            v104 = StackAllocator::reserve(buf, v103 + 1);
+            *(v101 + 8) = v104;
+            if (!v104)
             {
               fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** (counterDesc.description = (char*)(allocator.reserve(counterDesc.descriptionLen + 1))) != NULL\n", "AGXGPURawCounterImpl.mm", 3068, "init");
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
                 *outputStructCnt = 136315650;
                 *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-                v206 = 1024;
-                v207 = 3068;
-                v208 = 2080;
-                v209 = "init";
+                v204 = 1024;
+                v205 = 3068;
+                v206 = 2080;
+                v207 = "init";
                 _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** (counterDesc.description = (char*)(allocator.reserve(counterDesc.descriptionLen + 1))) != NULL\n", outputStructCnt, 0x1Cu);
               }
 
@@ -5446,189 +5335,189 @@ LABEL_166:
               {
                 *outputStructCnt = 136315650;
                 *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-                v206 = 1024;
-                v207 = 3068;
-                v208 = 2080;
-                v209 = "init";
-                v145 = MEMORY[0x277D86220];
-                v146 = "AGXGRC:AGXGRC:%s:%d:%s: *** (counterDesc.description = (char*)(allocator.reserve(counterDesc.descriptionLen + 1))) != NULL\n";
+                v204 = 1024;
+                v205 = 3068;
+                v206 = 2080;
+                v207 = "init";
+                v143 = MEMORY[0x277D86220];
+                v144 = "AGXGRC:AGXGRC:%s:%d:%s: *** (counterDesc.description = (char*)(allocator.reserve(counterDesc.descriptionLen + 1))) != NULL\n";
                 goto LABEL_283;
               }
 
               goto LABEL_284;
             }
 
-            CFStringGetCString(v94, v106, (*(v103 + 20) + 1), 0x8000100u);
-            CFNumberGetValue(v92, kCFNumberSInt64Type, (v103 + 28));
-            CFNumberGetValue(v93, kCFNumberSInt64Type, (v103 + 32));
-            *(v103 + 40) = v98;
-            v107 = valuePtr;
+            CFStringGetCString(v92, v104, (*(v101 + 20) + 1), 0x8000100u);
+            CFNumberGetValue(v90, kCFNumberSInt64Type, (v101 + 28));
+            CFNumberGetValue(v91, kCFNumberSInt64Type, (v101 + 32));
+            *(v101 + 40) = v96;
+            v105 = valuePtr;
             if ((valuePtr & 8) != 0)
             {
-              v109 = 1;
+              v107 = 1;
             }
 
             else
             {
-              v108 = *(v103 + 28);
-              if (v108)
+              v106 = *(v101 + 28);
+              if (v106)
               {
-                v109 = v108 >= *(this + 169);
+                v107 = v106 >= *(this + 169);
               }
 
               else
               {
-                v109 = sAGXSWCounterValueTypeList[*(v103 + 32)];
+                v107 = sAGXSWCounterValueTypeList[*(v101 + 32)];
               }
             }
 
-            *(v103 + 24) = v109;
-            *(v103 + 48) = v107;
+            *(v101 + 24) = v107;
+            *(v101 + 48) = v105;
           }
 
-          ++v200;
+          ++v198;
         }
 
-        ++v87;
+        ++v85;
       }
 
-      while (v199 != v87);
-      if ((v198 & 1) == 0)
+      while (v197 != v85);
+      if ((v196 & 1) == 0)
       {
-        v119 = 0;
-        v120 = &dword_278BC00E8;
+        v117 = 0;
+        v118 = &dword_278BC00E8;
         while (1)
         {
-          v121 = *(this + 16) + 56 * (v200 + v119);
-          v122 = *(v120 - 2);
-          v123 = strlen(v122);
-          *(v121 + 16) = v123;
-          v124 = (v123 + 1);
-          v125 = StackAllocator::reserve(buf, v124);
-          v126 = v125;
-          if (v124)
+          v119 = *(this + 16) + 56 * (v198 + v117);
+          v120 = *(v118 - 2);
+          v121 = strlen(v120);
+          *(v119 + 16) = v121;
+          v122 = (v121 + 1);
+          v123 = StackAllocator::reserve(buf, v122);
+          v124 = v123;
+          if (v122)
           {
-            v127 = v125 == 0;
+            v125 = v123 == 0;
           }
 
           else
           {
-            v127 = 1;
+            v125 = 1;
           }
 
-          if (!v127)
+          if (!v125)
           {
-            memcpy(v125, v122, v124);
+            memcpy(v123, v120, v122);
           }
 
-          *v121 = v126;
-          v128 = *(v120 - 1);
-          v129 = strlen(v128);
-          *(v121 + 20) = v129;
-          v130 = (v129 + 1);
-          v131 = StackAllocator::reserve(buf, v130);
-          v132 = v131;
-          if (v130)
+          *v119 = v124;
+          v126 = *(v118 - 1);
+          v127 = strlen(v126);
+          *(v119 + 20) = v127;
+          v128 = (v127 + 1);
+          v129 = StackAllocator::reserve(buf, v128);
+          v130 = v129;
+          if (v128)
           {
-            v133 = v131 == 0;
+            v131 = v129 == 0;
           }
 
           else
           {
-            v133 = 1;
+            v131 = 1;
           }
 
-          if (!v133)
+          if (!v131)
           {
-            memcpy(v131, v128, v130);
+            memcpy(v129, v126, v128);
           }
 
-          *(v121 + 8) = v132;
-          if (!v132 || *v121 == 0)
+          *(v119 + 8) = v130;
+          if (!v130 || *v119 == 0)
           {
             break;
           }
 
-          v135 = *v120;
-          v120 += 6;
-          *(v121 + 24) = v135;
-          *(v121 + 28) = -1;
-          *(v121 + 32) = v119;
-          *(v121 + 40) = v56;
-          if (++v119 == 8)
+          v133 = *v118;
+          v118 += 6;
+          *(v119 + 24) = v133;
+          *(v119 + 28) = -1;
+          *(v119 + 32) = v117;
+          *(v119 + 40) = v54;
+          if (++v117 == 8)
           {
-            v136 = v200 + 8;
-            if (v197 && *(this + 26))
+            v134 = v198 + 8;
+            if (v195 && *(this + 26))
             {
-              v137 = 0;
+              v135 = 0;
               while (1)
               {
-                v138 = *(this + 16) + 56 * (v200 + 8 + v137);
-                *(v138 + 16) = 27;
-                v139 = StackAllocator::reserve(buf, 0x1Cu);
-                if (v139)
+                v136 = *(this + 16) + 56 * (v198 + 8 + v135);
+                *(v136 + 16) = 27;
+                v137 = StackAllocator::reserve(buf, 0x1Cu);
+                if (v137)
                 {
-                  strcpy(v139, "GRC_SHADER_PROFILER_DATA_00");
+                  strcpy(v137, "GRC_SHADER_PROFILER_DATA_00");
                 }
 
-                *v138 = v139;
-                *(v138 + 20) = 64;
-                v140 = StackAllocator::reserve(buf, 0x41u);
-                if (!v140)
+                *v136 = v137;
+                *(v136 + 20) = 64;
+                v138 = StackAllocator::reserve(buf, 0x41u);
+                if (!v138)
                 {
                   break;
                 }
 
-                strcpy(v140, "Virtual counter to read shader profiler trace buffer from USC 00");
-                *(v138 + 8) = v140;
-                v141 = *v138;
-                if (!*v138)
+                strcpy(v138, "Virtual counter to read shader profiler trace buffer from USC 00");
+                *(v136 + 8) = v138;
+                v139 = *v136;
+                if (!*v136)
                 {
                   goto LABEL_347;
                 }
 
-                *(v138 + 24) = 1;
-                v142 = v137 / 0xA + 48;
-                *(v141 + (*(v138 + 16) - 2)) = v142;
-                v143 = (v137 % 0xA) | 0x30;
-                *(*v138 + (*(v138 + 16) - 1)) = v143;
-                *(*(v138 + 8) + (*(v138 + 20) - 2)) = v142;
-                *(*(v138 + 8) + (*(v138 + 20) - 1)) = v143;
-                *(v138 + 28) = -2;
-                *(v138 + 32) = v137;
-                *(v138 + 40) = v195;
-                if (++v137 >= *(this + 26))
+                *(v136 + 24) = 1;
+                v140 = v135 / 0xA + 48;
+                *(v139 + (*(v136 + 16) - 2)) = v140;
+                v141 = (v135 % 0xA) | 0x30;
+                *(*v136 + (*(v136 + 16) - 1)) = v141;
+                *(*(v136 + 8) + (*(v136 + 20) - 2)) = v140;
+                *(*(v136 + 8) + (*(v136 + 20) - 1)) = v141;
+                *(v136 + 28) = -2;
+                *(v136 + 32) = v135;
+                *(v136 + 40) = v193;
+                if (++v135 >= *(this + 26))
                 {
-                  v136 = v200 + 8 + v137;
+                  v134 = v198 + 8 + v135;
                   goto LABEL_236;
                 }
               }
 
-              *(v138 + 8) = 0;
+              *(v136 + 8) = 0;
 LABEL_347:
               fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** (counterDesc.name != NULL) && (counterDesc.description != NULL)\n", "AGXGPURawCounterImpl.mm", 3168, "init");
-              v188 = MEMORY[0x277D86220];
-              v189 = MEMORY[0x277D86220];
-              if (os_log_type_enabled(v188, OS_LOG_TYPE_ERROR))
+              v186 = MEMORY[0x277D86220];
+              v187 = MEMORY[0x277D86220];
+              if (os_log_type_enabled(v186, OS_LOG_TYPE_ERROR))
               {
                 *outputStructCnt = 136315650;
                 *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-                v206 = 1024;
-                v207 = 3168;
-                v208 = 2080;
-                v209 = "init";
+                v204 = 1024;
+                v205 = 3168;
+                v206 = 2080;
+                v207 = "init";
                 _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** (counterDesc.name != NULL) && (counterDesc.description != NULL)\n", outputStructCnt, 0x1Cu);
               }
 
-              v190 = v188;
-              if (os_log_type_enabled(v188, OS_LOG_TYPE_INFO))
+              v188 = v186;
+              if (os_log_type_enabled(v186, OS_LOG_TYPE_INFO))
               {
                 *outputStructCnt = 136315650;
                 *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-                v206 = 1024;
-                v207 = 3168;
-                v208 = 2080;
-                v209 = "init";
+                v204 = 1024;
+                v205 = 3168;
+                v206 = 2080;
+                v207 = "init";
                 _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** (counterDesc.name != NULL) && (counterDesc.description != NULL)\n", outputStructCnt, 0x1Cu);
               }
             }
@@ -5636,7 +5525,7 @@ LABEL_347:
             else
             {
 LABEL_236:
-              if (*&buf[16] == *&buf[24] && v136 == *(this + 34))
+              if (*&buf[16] == *&buf[24] && v134 == *(this + 34))
               {
                 buf[0] = 0;
                 memset(&buf[4], 0, 28);
@@ -5644,28 +5533,28 @@ LABEL_236:
               }
 
               fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** (allocator.free() == 0) && (perfCtrIdx == _masterCounterNum)\n", "AGXGPURawCounterImpl.mm", 3185, "init");
-              v192 = MEMORY[0x277D86220];
-              v193 = MEMORY[0x277D86220];
-              if (os_log_type_enabled(v192, OS_LOG_TYPE_ERROR))
+              v190 = MEMORY[0x277D86220];
+              v191 = MEMORY[0x277D86220];
+              if (os_log_type_enabled(v190, OS_LOG_TYPE_ERROR))
               {
                 *outputStructCnt = 136315650;
                 *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-                v206 = 1024;
-                v207 = 3185;
-                v208 = 2080;
-                v209 = "init";
+                v204 = 1024;
+                v205 = 3185;
+                v206 = 2080;
+                v207 = "init";
                 _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** (allocator.free() == 0) && (perfCtrIdx == _masterCounterNum)\n", outputStructCnt, 0x1Cu);
               }
 
-              v194 = v192;
-              if (os_log_type_enabled(v192, OS_LOG_TYPE_INFO))
+              v192 = v190;
+              if (os_log_type_enabled(v190, OS_LOG_TYPE_INFO))
               {
                 *outputStructCnt = 136315650;
                 *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-                v206 = 1024;
-                v207 = 3185;
-                v208 = 2080;
-                v209 = "init";
+                v204 = 1024;
+                v205 = 3185;
+                v206 = 2080;
+                v207 = "init";
                 _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** (allocator.free() == 0) && (perfCtrIdx == _masterCounterNum)\n", outputStructCnt, 0x1Cu);
               }
             }
@@ -5679,10 +5568,10 @@ LABEL_236:
         {
           *outputStructCnt = 136315650;
           *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-          v206 = 1024;
-          v207 = 3147;
-          v208 = 2080;
-          v209 = "init";
+          v204 = 1024;
+          v205 = 3147;
+          v206 = 2080;
+          v207 = "init";
           _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** (counterDesc.name != NULL) && (counterDesc.description != NULL)\n", outputStructCnt, 0x1Cu);
         }
 
@@ -5690,49 +5579,49 @@ LABEL_236:
         {
           *outputStructCnt = 136315650;
           *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-          v206 = 1024;
-          v207 = 3147;
-          v208 = 2080;
-          v209 = "init";
-          v145 = MEMORY[0x277D86220];
-          v146 = "AGXGRC:AGXGRC:%s:%d:%s: *** (counterDesc.name != NULL) && (counterDesc.description != NULL)\n";
+          v204 = 1024;
+          v205 = 3147;
+          v206 = 2080;
+          v207 = "init";
+          v143 = MEMORY[0x277D86220];
+          v144 = "AGXGRC:AGXGRC:%s:%d:%s: *** (counterDesc.name != NULL) && (counterDesc.description != NULL)\n";
           goto LABEL_283;
         }
 
         break;
       }
 
-      if (v200 && v196)
+      if (v198 && v194)
       {
-        v110 = -*&buf[4];
-        v111 = vdupq_n_s64(*&buf[4]);
-        v112 = vdupq_n_s64(v110);
-        v113 = vandq_s8(vaddq_s64(v111, xmmword_23C553C00), v112);
-        v114 = vandq_s8(vaddq_s64(v111, xmmword_23C553BF0), v112);
-        v114.i64[0] *= 3;
-        v114.i64[1] *= 2;
-        v115 = vaddvq_s64(vaddq_s64(v114, vaddq_s64(vandq_s8(vaddq_s64(v111, xmmword_23C553C20), v112), vaddq_s64(vaddq_s64(v113, v113), vandq_s8(vaddq_s64(v111, xmmword_23C553C10), v112))))) + ((*&buf[4] + 95) & v110) + ((*&buf[4] + 52) & v110) + ((*&buf[4] + 56) & v110) + *&buf[16];
-        v116 = v200 + 8;
-        if (v197)
+        v108 = -*&buf[4];
+        v109 = vdupq_n_s64(*&buf[4]);
+        v110 = vdupq_n_s64(v108);
+        v111 = vandq_s8(vaddq_s64(v109, xmmword_23C553C00), v110);
+        v112 = vandq_s8(vaddq_s64(v109, xmmword_23C553BF0), v110);
+        v112.i64[0] *= 3;
+        v112.i64[1] *= 2;
+        v113 = vaddvq_s64(vaddq_s64(v112, vaddq_s64(vandq_s8(vaddq_s64(v109, xmmword_23C553C20), v110), vaddq_s64(vaddq_s64(v111, v111), vandq_s8(vaddq_s64(v109, xmmword_23C553C10), v110))))) + ((*&buf[4] + 95) & v108) + ((*&buf[4] + 52) & v108) + ((*&buf[4] + 56) & v108) + *&buf[16];
+        v114 = v198 + 8;
+        if (v195)
         {
-          v117 = *(this + 26);
-          if (v117)
+          v115 = *(this + 26);
+          if (v115)
           {
-            v118 = ((*&buf[4] + 27) & v110) + ((*&buf[4] + 64) & v110);
-            v115 += v118 + v118 * (v117 - 1);
-            v116 = v117 + v200 + 8;
+            v116 = ((*&buf[4] + 27) & v108) + ((*&buf[4] + 64) & v108);
+            v113 += v116 + v116 * (v115 - 1);
+            v114 = v115 + v198 + 8;
           }
         }
 
-        *&buf[16] = ((*&buf[4] + 56 * v116 - 1) & v110) + v115;
+        *&buf[16] = ((*&buf[4] + 56 * v114 - 1) & v108) + v113;
         StackAllocator::init(buf, *&buf[16]);
         *(this + 16) = *&buf[8];
-        *(this + 34) = v116;
-        if (StackAllocator::reserve(buf, 56 * v116))
+        *(this + 34) = v114;
+        if (StackAllocator::reserve(buf, 56 * v114))
         {
 LABEL_239:
-          v86 = 0;
-          if (v198)
+          v84 = 0;
+          if (v196)
           {
             continue;
           }
@@ -5740,7 +5629,7 @@ LABEL_239:
           CFRelease(theDict);
           CFRelease(theString2);
           qsort_b(*(this + 16), *(this + 34), 0x38uLL, &__block_literal_global_149);
-          v144 = 0;
+          v142 = 0;
           theString2 = 0;
           theDict = 0;
           goto LABEL_285;
@@ -5751,10 +5640,10 @@ LABEL_239:
         {
           *outputStructCnt = 136315650;
           *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-          v206 = 1024;
-          v207 = 3131;
-          v208 = 2080;
-          v209 = "init";
+          v204 = 1024;
+          v205 = 3131;
+          v206 = 2080;
+          v207 = "init";
           _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** allocator.reserve(sizeof(CounterDescImpl) * _masterCounterNum) != NULL\n", outputStructCnt, 0x1Cu);
         }
 
@@ -5762,12 +5651,12 @@ LABEL_239:
         {
           *outputStructCnt = 136315650;
           *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-          v206 = 1024;
-          v207 = 3131;
-          v208 = 2080;
-          v209 = "init";
-          v145 = MEMORY[0x277D86220];
-          v146 = "AGXGRC:AGXGRC:%s:%d:%s: *** allocator.reserve(sizeof(CounterDescImpl) * _masterCounterNum) != NULL\n";
+          v204 = 1024;
+          v205 = 3131;
+          v206 = 2080;
+          v207 = "init";
+          v143 = MEMORY[0x277D86220];
+          v144 = "AGXGRC:AGXGRC:%s:%d:%s: *** allocator.reserve(sizeof(CounterDescImpl) * _masterCounterNum) != NULL\n";
           goto LABEL_283;
         }
       }
@@ -5779,10 +5668,10 @@ LABEL_239:
         {
           *outputStructCnt = 136315650;
           *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-          v206 = 1024;
-          v207 = 3101;
-          v208 = 2080;
-          v209 = "init";
+          v204 = 1024;
+          v205 = 3101;
+          v206 = 2080;
+          v207 = "init";
           _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** (perfCtrIdx != 0) && (sourceMaskAll != 0)\n", outputStructCnt, 0x1Cu);
         }
 
@@ -5790,12 +5679,12 @@ LABEL_239:
         {
           *outputStructCnt = 136315650;
           *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-          v206 = 1024;
-          v207 = 3101;
-          v208 = 2080;
-          v209 = "init";
-          v145 = MEMORY[0x277D86220];
-          v146 = "AGXGRC:AGXGRC:%s:%d:%s: *** (perfCtrIdx != 0) && (sourceMaskAll != 0)\n";
+          v204 = 1024;
+          v205 = 3101;
+          v206 = 2080;
+          v207 = "init";
+          v143 = MEMORY[0x277D86220];
+          v144 = "AGXGRC:AGXGRC:%s:%d:%s: *** (perfCtrIdx != 0) && (sourceMaskAll != 0)\n";
           goto LABEL_283;
         }
       }
@@ -5811,10 +5700,10 @@ LABEL_239:
     {
       *outputStructCnt = 136315650;
       *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-      v206 = 1024;
-      v207 = 3004;
-      v208 = 2080;
-      v209 = "init";
+      v204 = 1024;
+      v205 = 3004;
+      v206 = 2080;
+      v207 = "init";
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** ((perfCtrList = (CFArrayRef)CFDictionaryGetValue(cfDict, @DeviceCounters)) != NULL) && ((perfCtrNum = (uint32_t)CFArrayGetCount(perfCtrList)) != 0)\n", outputStructCnt, 0x1Cu);
     }
 
@@ -5822,84 +5711,84 @@ LABEL_239:
     {
       *outputStructCnt = 136315650;
       *&outputStructCnt[4] = "AGXGPURawCounterImpl.mm";
-      v206 = 1024;
-      v207 = 3004;
-      v208 = 2080;
-      v209 = "init";
-      v145 = MEMORY[0x277D86220];
-      v146 = "AGXGRC:AGXGRC:%s:%d:%s: *** ((perfCtrList = (CFArrayRef)CFDictionaryGetValue(cfDict, @DeviceCounters)) != NULL) && ((perfCtrNum = (uint32_t)CFArrayGetCount(perfCtrList)) != 0)\n";
+      v204 = 1024;
+      v205 = 3004;
+      v206 = 2080;
+      v207 = "init";
+      v143 = MEMORY[0x277D86220];
+      v144 = "AGXGRC:AGXGRC:%s:%d:%s: *** ((perfCtrList = (CFArrayRef)CFDictionaryGetValue(cfDict, @DeviceCounters)) != NULL) && ((perfCtrNum = (uint32_t)CFArrayGetCount(perfCtrList)) != 0)\n";
 LABEL_283:
-      _os_log_impl(&dword_23C542000, v145, OS_LOG_TYPE_INFO, v146, outputStructCnt, 0x1Cu);
+      _os_log_impl(&dword_23C542000, v143, OS_LOG_TYPE_INFO, v144, outputStructCnt, 0x1Cu);
     }
   }
 
 LABEL_284:
-  v144 = 6;
+  v142 = 6;
 LABEL_285:
   if (buf[0] == 1)
   {
     free(*&buf[8]);
   }
 
-  if (v144 == 6)
+  if (v142 == 6)
   {
     goto LABEL_342;
   }
 
-  v151 = *(this + 34);
-  if (v151)
+  v149 = *(this + 34);
+  if (v149)
   {
-    v152 = *(this + 164);
-    if (!v152)
+    v150 = *(this + 164);
+    if (!v150)
     {
       goto LABEL_316;
     }
 
-    v153 = 0;
-    v154 = *(this + 16);
+    v151 = 0;
+    v152 = *(this + 16);
     do
     {
-      v155 = *(v154 + 56 * v153 + 40);
-      v156 = v211;
-      v157 = v245;
-      v158 = v152;
+      v153 = *(v152 + 56 * v151 + 40);
+      v154 = v209;
+      v155 = v243;
+      v156 = v150;
       do
       {
-        v159 = *v157;
-        v157 += 11;
-        if ((v155 & v159) != 0)
+        v157 = *v155;
+        v155 += 11;
+        if ((v153 & v157) != 0)
         {
-          ++*v156;
+          ++*v154;
         }
 
-        ++v156;
-        --v158;
+        ++v154;
+        --v156;
       }
 
-      while (v158);
-      ++v153;
+      while (v156);
+      ++v151;
     }
 
-    while (v153 != v151);
+    while (v151 != v149);
   }
 
   else
   {
-    v152 = *v29;
-    if (!v152)
+    v150 = *v27;
+    if (!v150)
     {
       goto LABEL_316;
     }
   }
 
-  for (i = 0; i < v152; ++i)
+  for (i = 0; i < v150; ++i)
   {
-    v161 = v211[i];
-    if (v161)
+    v159 = v209[i];
+    if (v159)
     {
-      v162 = malloc_type_malloc(4 * v161, 0x100004052888210uLL);
-      v212[i] = v162;
-      if (!v162)
+      v160 = malloc_type_malloc(4 * v159, 0x100004052888210uLL);
+      v210[i] = v160;
+      if (!v160)
       {
         fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** sourceCounterIdxList[i] != NULL\n", "AGXGPURawCounterImpl.mm", 3243, "init");
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -5927,91 +5816,91 @@ LABEL_285:
         goto LABEL_342;
       }
 
-      v211[i] = 0;
-      v152 = *v29;
+      v209[i] = 0;
+      v150 = *v27;
     }
   }
 
-  v163 = *(this + 34);
-  if (v163)
+  v161 = *(this + 34);
+  if (v161)
   {
-    if (v152)
+    if (v150)
     {
-      v164 = 0;
-      v165 = *(this + 16);
-      v166 = 1;
+      v162 = 0;
+      v163 = *(this + 16);
+      v164 = 1;
       do
       {
-        if (v166)
+        if (v164)
         {
-          v167 = 0;
-          v168 = *(v165 + 56 * v164 + 40);
-          v169 = v245;
+          v165 = 0;
+          v166 = *(v163 + 56 * v162 + 40);
+          v167 = v243;
           do
           {
-            v170 = *v169;
-            v169 += 11;
-            if ((v168 & v170) != 0)
+            v168 = *v167;
+            v167 += 11;
+            if ((v166 & v168) != 0)
             {
-              v171 = v211[v167];
-              *(v212[v167] + v171) = v164;
-              v211[v167] = v171 + 1;
-              v152 = *v29;
+              v169 = v209[v165];
+              *(v210[v165] + v169) = v162;
+              v209[v165] = v169 + 1;
+              v150 = *v27;
             }
 
-            ++v167;
+            ++v165;
           }
 
-          while (v167 < v152);
-          v163 = *(this + 34);
-          v166 = v152;
+          while (v165 < v150);
+          v161 = *(this + 34);
+          v164 = v150;
         }
 
-        ++v164;
+        ++v162;
       }
 
-      while (v164 < v163);
+      while (v162 < v161);
       goto LABEL_317;
     }
 
 LABEL_316:
     *(this + 170) = 0x4000;
     v7 = 1;
-    goto LABEL_13;
+    return v7 & 1;
   }
 
 LABEL_317:
   *(this + 170) = 0x4000;
-  if (!v152)
+  if (!v150)
   {
     goto LABEL_319;
   }
 
-  v172 = 0;
-  v173 = __s1;
-  v174 = v212;
+  v170 = 0;
+  v171 = __s1;
+  v172 = v210;
   while (1)
   {
-    if (!*(v173 + 8))
+    if (!*(v171 + 8))
     {
-      free(*v174);
-      v175 = v174;
+      free(*v172);
+      v173 = v172;
       goto LABEL_321;
     }
 
-    v176 = AGXGPURawCounterImpl::chipDispatchTableForSource(*(this + 23), *(this + 24), *(this + 26), v173, v64);
-    if (!v176)
+    v174 = AGXGPURawCounterImpl::chipDispatchTableForSource(*(this + 23), *(this + 24), *(this + 26), v171, v62);
+    if (!v174)
     {
       break;
     }
 
-    v177 = this + 8 * v172;
-    if (*(v177 + 18))
+    v175 = this + 8 * v170;
+    if (*(v175 + 18))
     {
       fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** _sourceList[sourceIdx] == nullptr\n", "AGXGPURawCounterImpl.mm", 3285, "init");
-      v182 = MEMORY[0x277D86220];
-      v183 = MEMORY[0x277D86220];
-      if (os_log_type_enabled(v182, OS_LOG_TYPE_ERROR))
+      v180 = MEMORY[0x277D86220];
+      v181 = MEMORY[0x277D86220];
+      if (os_log_type_enabled(v180, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
         *&buf[4] = "AGXGPURawCounterImpl.mm";
@@ -6022,8 +5911,8 @@ LABEL_317:
         _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** _sourceList[sourceIdx] == nullptr\n", buf, 0x1Cu);
       }
 
-      v184 = v182;
-      if (os_log_type_enabled(v182, OS_LOG_TYPE_INFO))
+      v182 = v180;
+      if (os_log_type_enabled(v180, OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
         *&buf[4] = "AGXGPURawCounterImpl.mm";
@@ -6037,14 +5926,14 @@ LABEL_317:
       goto LABEL_341;
     }
 
-    v178 = (*v176)(this, v172, v173, *v174, v211[v172], v176);
-    *(v177 + 18) = v178;
-    if (!v178)
+    v176 = (*v174)(this, v170, v171, *v172, v209[v170], v174);
+    *(v175 + 18) = v176;
+    if (!v176)
     {
       fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** (_sourceList[sourceIdx] = chipDispatchTable->createSource( this, sourceIdx, &sourceInfo, sourceCounterIdxList[sourceIdx], sourceCounterIdxNum [sourceIdx], chipDispatchTable)) != nullptr\n", "AGXGPURawCounterImpl.mm", 3292, "init");
-      v185 = MEMORY[0x277D86220];
-      v186 = MEMORY[0x277D86220];
-      if (os_log_type_enabled(v185, OS_LOG_TYPE_ERROR))
+      v183 = MEMORY[0x277D86220];
+      v184 = MEMORY[0x277D86220];
+      if (os_log_type_enabled(v183, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
         *&buf[4] = "AGXGPURawCounterImpl.mm";
@@ -6055,8 +5944,8 @@ LABEL_317:
         _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** (_sourceList[sourceIdx] = chipDispatchTable->createSource( this, sourceIdx, &sourceInfo, sourceCounterIdxList[sourceIdx], sourceCounterIdxNum [sourceIdx], chipDispatchTable)) != nullptr\n", buf, 0x1Cu);
       }
 
-      v187 = v185;
-      if (os_log_type_enabled(v185, OS_LOG_TYPE_INFO))
+      v185 = v183;
+      if (os_log_type_enabled(v183, OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
         *&buf[4] = "AGXGPURawCounterImpl.mm";
@@ -6070,23 +5959,23 @@ LABEL_317:
       goto LABEL_341;
     }
 
-    v175 = &v212[v172];
+    v173 = &v210[v170];
 LABEL_321:
-    *v175 = 0;
+    *v173 = 0;
+    ++v170;
     ++v172;
-    ++v174;
-    v173 += 44;
+    v171 += 44;
     v7 = 1;
-    if (v172 >= *v29)
+    if (v170 >= *v27)
     {
-      goto LABEL_13;
+      return v7 & 1;
     }
   }
 
   fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** chipDispatchTable != nullptr\n", "AGXGPURawCounterImpl.mm", 3284, "init");
-  v179 = MEMORY[0x277D86220];
-  v180 = MEMORY[0x277D86220];
-  if (os_log_type_enabled(v179, OS_LOG_TYPE_ERROR))
+  v177 = MEMORY[0x277D86220];
+  v178 = MEMORY[0x277D86220];
+  if (os_log_type_enabled(v177, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315650;
     *&buf[4] = "AGXGPURawCounterImpl.mm";
@@ -6097,8 +5986,8 @@ LABEL_321:
     _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** chipDispatchTable != nullptr\n", buf, 0x1Cu);
   }
 
-  v181 = v179;
-  if (os_log_type_enabled(v179, OS_LOG_TYPE_INFO))
+  v179 = v177;
+  if (os_log_type_enabled(v177, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
     *&buf[4] = "AGXGPURawCounterImpl.mm";
@@ -6123,8 +6012,12 @@ LABEL_342:
   }
 
 LABEL_12:
-  free(v212[0]);
-  free(v212[1]);
+  free(v210[0]);
+  free(v210[1]);
+  free(v211);
+  free(*(&v211 + 1));
+  free(v212);
+  free(*(&v212 + 1));
   free(v213);
   free(*(&v213 + 1));
   free(v214);
@@ -6183,14 +6076,8 @@ LABEL_12:
   free(*(&v240 + 1));
   free(v241);
   free(*(&v241 + 1));
-  free(v242);
-  free(*(&v242 + 1));
-  free(v243);
-  free(*(&v243 + 1));
   AGXGPURawCounterImpl::free(this);
   v7 = 0;
-LABEL_13:
-  v8 = *MEMORY[0x277D85DE8];
   return v7 & 1;
 }
 
@@ -6303,7 +6190,7 @@ uint64_t perfCtrSamplerGetSourceInfo(unsigned __int8 a1, uint64_t a2, mach_port_
 uint64_t AGXGPURawCounterImpl::chipDispatchTableForSource(AGXGPURawCounterImpl *this, unsigned int a2, unsigned int a3, char *__s1, const char *a5)
 {
   v8 = this;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   {
     AGXGPURawCounterImpl::chipDispatchTableForSource(unsigned int,unsigned int,unsigned int,char const*)const::sourceToDispatchMapList = xmmword_23C553C30;
     dword_27E1F77C0 = 999;
@@ -6483,8 +6370,7 @@ uint64_t AGXGPURawCounterImpl::chipDispatchTableForSource(AGXGPURawCounterImpl *
   {
     if (*v9 == v8 && *(v9 + 1) <= a2 && *(v9 + 2) >= a2 && *(v9 + 3) <= a3 && *(v9 + 4) >= a3 && !strncmp(__s1, *(v9 + 3), *(v9 + 8)))
     {
-      result = *(v9 + 5);
-      goto LABEL_16;
+      return *(v9 + 5);
     }
 
     v9 += 3;
@@ -6496,37 +6382,34 @@ uint64_t AGXGPURawCounterImpl::chipDispatchTableForSource(AGXGPURawCounterImpl *
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 136316162;
-    v14 = "AGXGPURawCounterImpl.mm";
-    v15 = 1024;
-    v16 = 3529;
-    v17 = 2080;
-    v18 = "chipDispatchTableForSource";
-    v19 = 1024;
-    v20 = v8;
-    v21 = 2080;
-    v22 = __s1;
+    v13 = "AGXGPURawCounterImpl.mm";
+    v14 = 1024;
+    v15 = 3529;
+    v16 = 2080;
+    v17 = "chipDispatchTableForSource";
+    v18 = 1024;
+    v19 = v8;
+    v20 = 2080;
+    v21 = __s1;
     _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Fail to find dispatch table for gpuGen=%u sourceName=%s\n", buf, 0x2Cu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136316162;
-    v14 = "AGXGPURawCounterImpl.mm";
-    v15 = 1024;
-    v16 = 3529;
-    v17 = 2080;
-    v18 = "chipDispatchTableForSource";
-    v19 = 1024;
-    v20 = v8;
-    v21 = 2080;
-    v22 = __s1;
+    v13 = "AGXGPURawCounterImpl.mm";
+    v14 = 1024;
+    v15 = 3529;
+    v16 = 2080;
+    v17 = "chipDispatchTableForSource";
+    v18 = 1024;
+    v19 = v8;
+    v20 = 2080;
+    v21 = __s1;
     _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** Fail to find dispatch table for gpuGen=%u sourceName=%s\n", buf, 0x2Cu);
   }
 
-  result = 0;
-LABEL_16:
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 void AGXGPURawCounterImpl::free(AGXGPURawCounterImpl *this)
@@ -6679,17 +6562,17 @@ void AGXGPURawCounterImpl::SourceAPSImpl::RingBufferAPSImpl::~RingBufferAPSImpl(
 
 void AGXGPURawCounterImpl::SourceAPSImpl::setOptionsPerUSCMasks(AGXGPURawCounterImpl::SourceAPSImpl *this, NSDictionary *a2)
 {
-  v46 = *MEMORY[0x277D85DE8];
-  v37 = a2;
-  [(NSDictionary *)v37 objectForKeyedSubscript:@"USCConfigOverride"];
-  v39 = v38 = this;
+  v45 = *MEMORY[0x277D85DE8];
+  v36 = a2;
+  [(NSDictionary *)v36 objectForKeyedSubscript:@"USCConfigOverride"];
+  v38 = v37 = this;
   v3 = *(this + 1);
   v4 = *(v3 + 104);
   v5 = *(v3 + 96);
-  v6 = [v39 objectForKeyedSubscript:@"mGPUMask"];
-  if (v6 && ([v39 objectForKeyedSubscript:@"USCNumPerMGPU"], v7 = objc_claimAutoreleasedReturnValue(), v7, v6, v7))
+  v6 = [v38 objectForKeyedSubscript:@"mGPUMask"];
+  if (v6 && ([v38 objectForKeyedSubscript:@"USCNumPerMGPU"], v7 = objc_claimAutoreleasedReturnValue(), v7, v6, v7))
   {
-    v8 = [v39 objectForKeyedSubscript:@"USCNumPerMGPU"];
+    v8 = [v38 objectForKeyedSubscript:@"USCNumPerMGPU"];
     v9 = [v8 unsignedIntValue];
 
     if (v9 <= v4)
@@ -6701,20 +6584,20 @@ void AGXGPURawCounterImpl::SourceAPSImpl::setOptionsPerUSCMasks(AGXGPURawCounter
 
   else
   {
-    v11 = [v39 objectForKeyedSubscript:@"USCMaskForMGPU"];
+    v11 = [v38 objectForKeyedSubscript:@"USCMaskForMGPU"];
     v12 = [v11 count];
 
     if (v12)
     {
       v10 = 0;
 LABEL_7:
-      v40 = [*(*(v38 + 1) + 112) objectForKeyedSubscript:@"core_mask_list"];
+      v39 = [*(*(v37 + 1) + 112) objectForKeyedSubscript:@"core_mask_list"];
       if (v10)
       {
-        v13 = [v39 objectForKeyedSubscript:@"USCNumPerMGPU"];
+        v13 = [v38 objectForKeyedSubscript:@"USCNumPerMGPU"];
         v14 = [v13 unsignedIntValue];
 
-        v15 = [v39 objectForKeyedSubscript:@"mGPUMask"];
+        v15 = [v38 objectForKeyedSubscript:@"mGPUMask"];
         v16 = [v15 unsignedIntValue];
 
         if (!v14 || !v16)
@@ -6730,7 +6613,7 @@ LABEL_7:
           {
             if (v18)
             {
-              v19 = [v40 objectAtIndexedSubscript:v17];
+              v19 = [v39 objectAtIndexedSubscript:v17];
               v20 = [v19 unsignedIntValue];
 
               v21.i32[0] = v20;
@@ -6764,7 +6647,7 @@ LABEL_7:
                 v25 = 0;
               }
 
-              *(v38 + v17 + 3184) = v25;
+              *(v37 + v17 + 3184) = v25;
             }
 
             if (++v17 >= v5)
@@ -6781,32 +6664,32 @@ LABEL_7:
 
       else
       {
-        [v39 objectForKeyedSubscript:@"USCMaskForMGPU"];
+        [v38 objectForKeyedSubscript:@"USCMaskForMGPU"];
+        v42 = 0u;
         v43 = 0u;
-        v44 = 0u;
-        v41 = 0u;
-        v26 = v42 = 0u;
-        v27 = [v26 countByEnumeratingWithState:&v41 objects:v45 count:16];
+        v40 = 0u;
+        v26 = v41 = 0u;
+        v27 = [v26 countByEnumeratingWithState:&v40 objects:v44 count:16];
         if (v27)
         {
-          v28 = *v42;
+          v28 = *v41;
           do
           {
             for (i = 0; i != v27; ++i)
             {
-              if (*v42 != v28)
+              if (*v41 != v28)
               {
                 objc_enumerationMutation(v26);
               }
 
-              v30 = *(*(&v41 + 1) + 8 * i);
+              v30 = *(*(&v40 + 1) + 8 * i);
               v31 = [v30 intValue];
               if (v31 < v5)
               {
                 v32 = [v26 objectForKeyedSubscript:v30];
                 v33 = [v32 unsignedIntValue];
 
-                v34 = [v40 objectAtIndexedSubscript:v31];
+                v34 = [v39 objectAtIndexedSubscript:v31];
                 v35 = [v34 unsignedIntValue];
 
                 if ((v33 & ~v35) != 0)
@@ -6815,46 +6698,43 @@ LABEL_7:
                   goto LABEL_37;
                 }
 
-                *(v38 + v31 + 3184) = v35 & v33;
+                *(v37 + v31 + 3184) = v35 & v33;
               }
             }
 
-            v27 = [v26 countByEnumeratingWithState:&v41 objects:v45 count:16];
+            v27 = [v26 countByEnumeratingWithState:&v40 objects:v44 count:16];
           }
 
           while (v27);
         }
       }
 
-      *(v38 + 6388) = 1;
+      *(v37 + 6388) = 1;
 LABEL_37:
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t AGXGPURawCounterImpl::SourceAPSImpl::ringBufferInit(AGXGPURawCounterImpl::SourceAPSImpl *this, unint64_t a2, void *a3, uint64_t a4)
+uint64_t AGXGPURawCounterImpl::SourceAPSImpl::ringBufferInit(AGXGPURawCounterImpl::SourceAPSImpl *this, uint64_t a2, char *a3, uint64_t a4)
 {
   v4 = a4;
-  v6 = (*(*this + 224))(this, a4);
-  if (v6)
+  v5 = (*(*this + 224))(this, a4);
+  if (v5)
   {
-    v7 = v4 == 0;
+    v6 = v4 == 0;
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
-  if (!v7)
+  if (!v6)
   {
-    v8 = 16 * (0u % *(*(this + 1) + 104) + 16 * (0u / *(*(this + 1) + 104)));
     operator new();
   }
 
-  return v6;
+  return v5;
 }
 
 void AGXGPURawCounterImpl::SourceAPSImpl::fillKernelConfigData(uint64_t a1, uint64_t a2)
@@ -6946,51 +6826,50 @@ uint64_t ___ZN20AGXGPURawCounterImpl13SourceAPSImpl20fillKernelConfigDataEP28AGX
 
 BOOL AGXGPURawCounterImpl::SourceAPSImpl::postProcessData(AGXGPURawCounterImpl::SourceAPSImpl *this, unsigned int a2, const unsigned __int8 *a3, unint64_t a4, unint64_t *a5, unint64_t a6, unsigned __int8 *a7, unint64_t a8, unint64_t a9, unint64_t *a10, BOOL a11)
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   v11 = *(this + 1572);
   if (v11 <= a2)
   {
     fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** Invalid ring buffer index (%u >= %u)!\n", "AGXGPURawCounterSourceAPSImpl.mm", 642, "postProcessData", a2, v11);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v32 = *(this + 1572);
+      v31 = *(this + 1572);
       *buf = 136316162;
-      v55 = "AGXGPURawCounterSourceAPSImpl.mm";
-      v56 = 1024;
-      v57 = 642;
-      v58 = 2080;
-      v59 = "postProcessData";
-      v60 = 1024;
-      *v61 = a2;
-      *&v61[4] = 1024;
-      *&v61[6] = v32;
+      v54 = "AGXGPURawCounterSourceAPSImpl.mm";
+      v55 = 1024;
+      v56 = 642;
+      v57 = 2080;
+      v58 = "postProcessData";
+      v59 = 1024;
+      *v60 = a2;
+      *&v60[4] = 1024;
+      *&v60[6] = v31;
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Invalid ring buffer index (%u >= %u)!\n", buf, 0x28u);
     }
 
     result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
     if (!result)
     {
-      goto LABEL_26;
+      return result;
     }
 
     v24 = *(this + 1572);
     *buf = 136316162;
-    v55 = "AGXGPURawCounterSourceAPSImpl.mm";
-    v56 = 1024;
-    v57 = 642;
-    v58 = 2080;
-    v59 = "postProcessData";
-    v60 = 1024;
-    *v61 = a2;
-    *&v61[4] = 1024;
-    *&v61[6] = v24;
+    v54 = "AGXGPURawCounterSourceAPSImpl.mm";
+    v55 = 1024;
+    v56 = 642;
+    v57 = 2080;
+    v58 = "postProcessData";
+    v59 = 1024;
+    *v60 = a2;
+    *&v60[4] = 1024;
+    *&v60[6] = v24;
     v20 = MEMORY[0x277D86220];
     v21 = "AGXGRC:AGXGRC:%s:%d:%s: *** Invalid ring buffer index (%u >= %u)!\n";
     v25 = 40;
 LABEL_25:
     _os_log_impl(&dword_23C542000, v20, OS_LOG_TYPE_INFO, v21, buf, v25);
-    result = 0;
-    goto LABEL_26;
+    return 0;
   }
 
   if (!a3 || !a4 || !a5 || a6 >= a4 || !a7 || !a8 || a8 <= a9 || !a10)
@@ -6999,58 +6878,58 @@ LABEL_25:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136317698;
-      v55 = "AGXGPURawCounterSourceAPSImpl.mm";
-      v56 = 1024;
-      v57 = 649;
-      v58 = 2080;
-      v59 = "postProcessData";
-      v60 = 2048;
-      *v61 = a3;
-      *&v61[8] = 2048;
-      v62 = a4;
-      v63 = 2048;
-      v64 = a5;
-      v65 = 2048;
-      v66 = a6;
-      v67 = 2048;
-      v68 = a7;
-      v69 = 2048;
-      v70 = a8;
-      v71 = 2048;
-      v72 = a9;
-      v73 = 2048;
-      v74 = a10;
+      v54 = "AGXGPURawCounterSourceAPSImpl.mm";
+      v55 = 1024;
+      v56 = 649;
+      v57 = 2080;
+      v58 = "postProcessData";
+      v59 = 2048;
+      *v60 = a3;
+      *&v60[8] = 2048;
+      v61 = a4;
+      v62 = 2048;
+      v63 = a5;
+      v64 = 2048;
+      v65 = a6;
+      v66 = 2048;
+      v67 = a7;
+      v68 = 2048;
+      v69 = a8;
+      v70 = 2048;
+      v71 = a9;
+      v72 = 2048;
+      v73 = a10;
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** All parameters must be non-zero! (src=%p size=%llu read=0x%p write=%llu dst=0x%p size=%llu read=%llu write=%p\n", buf, 0x6Cu);
     }
 
     result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
     if (!result)
     {
-      goto LABEL_26;
+      return result;
     }
 
     *buf = 136317698;
-    v55 = "AGXGPURawCounterSourceAPSImpl.mm";
-    v56 = 1024;
-    v57 = 649;
-    v58 = 2080;
-    v59 = "postProcessData";
-    v60 = 2048;
-    *v61 = a3;
-    *&v61[8] = 2048;
-    v62 = a4;
-    v63 = 2048;
-    v64 = a5;
-    v65 = 2048;
-    v66 = a6;
-    v67 = 2048;
-    v68 = a7;
-    v69 = 2048;
-    v70 = a8;
-    v71 = 2048;
-    v72 = a9;
-    v73 = 2048;
-    v74 = a10;
+    v54 = "AGXGPURawCounterSourceAPSImpl.mm";
+    v55 = 1024;
+    v56 = 649;
+    v57 = 2080;
+    v58 = "postProcessData";
+    v59 = 2048;
+    *v60 = a3;
+    *&v60[8] = 2048;
+    v61 = a4;
+    v62 = 2048;
+    v63 = a5;
+    v64 = 2048;
+    v65 = a6;
+    v66 = 2048;
+    v67 = a7;
+    v68 = 2048;
+    v69 = a8;
+    v70 = 2048;
+    v71 = a9;
+    v72 = 2048;
+    v73 = a10;
     v20 = MEMORY[0x277D86220];
     v21 = "AGXGRC:AGXGRC:%s:%d:%s: *** All parameters must be non-zero! (src=%p size=%llu read=0x%p write=%llu dst=0x%p size=%llu read=%llu write=%p\n";
     v25 = 108;
@@ -7065,47 +6944,47 @@ LABEL_25:
     fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** srcRead and/or dstWrite is out of bound! (*srcRead=%llu size=%llu *dstWrite=%llu size=%llu\n", "AGXGPURawCounterSourceAPSImpl.mm", 655, "postProcessData", v15, a4, *a10, a8);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v45 = *a5;
-      v46 = *a10;
+      v44 = *a5;
+      v45 = *a10;
       *buf = 136316674;
-      v55 = "AGXGPURawCounterSourceAPSImpl.mm";
-      v56 = 1024;
-      v57 = 655;
-      v58 = 2080;
-      v59 = "postProcessData";
-      v60 = 2048;
-      *v61 = v45;
-      *&v61[8] = 2048;
-      v62 = a4;
-      v63 = 2048;
-      v64 = v46;
-      v65 = 2048;
-      v66 = a8;
+      v54 = "AGXGPURawCounterSourceAPSImpl.mm";
+      v55 = 1024;
+      v56 = 655;
+      v57 = 2080;
+      v58 = "postProcessData";
+      v59 = 2048;
+      *v60 = v44;
+      *&v60[8] = 2048;
+      v61 = a4;
+      v62 = 2048;
+      v63 = v45;
+      v64 = 2048;
+      v65 = a8;
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** srcRead and/or dstWrite is out of bound! (*srcRead=%llu size=%llu *dstWrite=%llu size=%llu\n", buf, 0x44u);
     }
 
     result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
     if (!result)
     {
-      goto LABEL_26;
+      return result;
     }
 
-    v30 = *a5;
-    v31 = *a10;
+    v29 = *a5;
+    v30 = *a10;
     *buf = 136316674;
-    v55 = "AGXGPURawCounterSourceAPSImpl.mm";
-    v56 = 1024;
-    v57 = 655;
-    v58 = 2080;
-    v59 = "postProcessData";
-    v60 = 2048;
-    *v61 = v30;
-    *&v61[8] = 2048;
-    v62 = a4;
-    v63 = 2048;
-    v64 = v31;
-    v65 = 2048;
-    v66 = a8;
+    v54 = "AGXGPURawCounterSourceAPSImpl.mm";
+    v55 = 1024;
+    v56 = 655;
+    v57 = 2080;
+    v58 = "postProcessData";
+    v59 = 2048;
+    *v60 = v29;
+    *&v60[8] = 2048;
+    v61 = a4;
+    v62 = 2048;
+    v63 = v30;
+    v64 = 2048;
+    v65 = a8;
     v20 = MEMORY[0x277D86220];
     v21 = "AGXGRC:AGXGRC:%s:%d:%s: *** srcRead and/or dstWrite is out of bound! (*srcRead=%llu size=%llu *dstWrite=%llu size=%llu\n";
     v25 = 68;
@@ -7118,11 +6997,11 @@ LABEL_25:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v55 = "AGXGPURawCounterSourceAPSImpl.mm";
-      v56 = 1024;
-      v57 = 661;
-      v58 = 2080;
-      v59 = "postProcessData";
+      v54 = "AGXGPURawCounterSourceAPSImpl.mm";
+      v55 = 1024;
+      v56 = 661;
+      v57 = 2080;
+      v58 = "postProcessData";
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** srcSize/Read/Write is not aligned to 64-bits!\n", buf, 0x1Cu);
     }
 
@@ -7130,11 +7009,11 @@ LABEL_25:
     if (result)
     {
       *buf = 136315650;
-      v55 = "AGXGPURawCounterSourceAPSImpl.mm";
-      v56 = 1024;
-      v57 = 661;
-      v58 = 2080;
-      v59 = "postProcessData";
+      v54 = "AGXGPURawCounterSourceAPSImpl.mm";
+      v55 = 1024;
+      v56 = 661;
+      v57 = 2080;
+      v58 = "postProcessData";
       v20 = MEMORY[0x277D86220];
       v21 = "AGXGRC:AGXGRC:%s:%d:%s: *** srcSize/Read/Write is not aligned to 64-bits!\n";
 LABEL_36:
@@ -7149,11 +7028,11 @@ LABEL_36:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v55 = "AGXGPURawCounterSourceAPSImpl.mm";
-      v56 = 1024;
-      v57 = 667;
-      v58 = 2080;
-      v59 = "postProcessData";
+      v54 = "AGXGPURawCounterSourceAPSImpl.mm";
+      v55 = 1024;
+      v56 = 667;
+      v57 = 2080;
+      v58 = "postProcessData";
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** dstSize/Read/Write is not aligned to 64-bits!\n", buf, 0x1Cu);
     }
 
@@ -7161,11 +7040,11 @@ LABEL_36:
     if (result)
     {
       *buf = 136315650;
-      v55 = "AGXGPURawCounterSourceAPSImpl.mm";
-      v56 = 1024;
-      v57 = 667;
-      v58 = 2080;
-      v59 = "postProcessData";
+      v54 = "AGXGPURawCounterSourceAPSImpl.mm";
+      v55 = 1024;
+      v56 = 667;
+      v57 = 2080;
+      v58 = "postProcessData";
       v20 = MEMORY[0x277D86220];
       v21 = "AGXGRC:AGXGRC:%s:%d:%s: *** dstSize/Read/Write is not aligned to 64-bits!\n";
       goto LABEL_36;
@@ -7176,86 +7055,84 @@ LABEL_36:
   {
     if ((a6 + a4 - v15) % a4 >= (a8 - a9 + v16) / a8 * a8 - (v16 - a9) - 8)
     {
-      v33 = (a8 - a9 + v16) / a8 * a8 - (v16 - a9) - 8;
+      v32 = (a8 - a9 + v16) / a8 * a8 - (v16 - a9) - 8;
     }
 
     else
     {
-      v33 = (a6 + a4 - v15) % a4;
+      v32 = (a6 + a4 - v15) % a4;
     }
 
-    if (v33 + v15 <= a4)
+    if (v32 + v15 <= a4)
     {
-      v40 = &a3[v15];
-      if (v33 + v16 <= a8)
+      v39 = &a3[v15];
+      if (v32 + v16 <= a8)
       {
-        v44 = &a7[v16];
-        v43 = &a3[v15];
-        v42 = v33;
+        v43 = &a7[v16];
+        v42 = &a3[v15];
+        v41 = v32;
       }
 
       else
       {
-        memcpy(&a7[v16], v40, a8 - v16);
-        v42 = v33 - v18;
-        v43 = &v40[v18];
-        v44 = a7;
+        memcpy(&a7[v16], v39, a8 - v16);
+        v41 = v32 - v18;
+        v42 = &v39[v18];
+        v43 = a7;
       }
 
-      memcpy(v44, v43, v42);
-      v48 = v33;
+      memcpy(v43, v42, v41);
+      v47 = v32;
     }
 
     else
     {
-      v34 = &a3[v15];
+      v33 = &a3[v15];
       if (v16 + v17 <= a8)
       {
-        v38 = a7;
-        v39 = &a7[v16];
-        v37 = &a3[v15];
-        v36 = a4 - *a5;
+        v37 = a7;
+        v38 = &a7[v16];
+        v36 = &a3[v15];
+        v35 = a4 - *a5;
       }
 
       else
       {
-        memcpy(&a7[v16], v34, a8 - v16);
-        v36 = v17 - v18;
-        v37 = &v34[v18];
+        memcpy(&a7[v16], v33, a8 - v16);
+        v35 = v17 - v18;
+        v36 = &v33[v18];
+        v37 = a7;
         v38 = a7;
-        v39 = a7;
       }
 
-      memcpy(v39, v37, v36);
-      v47 = (*a10 + v17) % a8;
-      *a10 = v47;
-      v48 = v33 - v17;
-      v49 = a3;
-      if (v47 + v48 <= a8)
+      memcpy(v38, v36, v35);
+      v46 = (*a10 + v17) % a8;
+      *a10 = v46;
+      v47 = v32 - v17;
+      v48 = a3;
+      if (v46 + v47 <= a8)
       {
-        v52 = &v38[v47];
-        v51 = v48;
+        v51 = &v37[v46];
+        v50 = v47;
       }
 
       else
       {
-        v50 = a8 - v47;
-        memcpy(&v38[v47], a3, a8 - v47);
-        v51 = v48 - v50;
-        v49 = &a3[v50];
-        v52 = v38;
+        v49 = a8 - v46;
+        memcpy(&v37[v46], a3, a8 - v46);
+        v50 = v47 - v49;
+        v48 = &a3[v49];
+        v51 = v37;
       }
 
-      memcpy(v52, v49, v51);
+      memcpy(v51, v48, v50);
     }
 
-    *a10 = (*a10 + v48) % a8;
-    *a5 = (*a5 + v33) % a4;
-    result = 1;
+    *a10 = (*a10 + v47) % a8;
+    *a5 = (*a5 + v32) % a4;
+    return 1;
   }
 
-LABEL_26:
-  v29 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7305,22 +7182,14 @@ uint64_t AGXGPURawCounterImpl::SourceAPSImpl::flushRingBuffers(AGXGPURawCounterI
   return result;
 }
 
-uint64_t AGXGPURawCounterImpl::SourceAPSImpl::calcBufferSizeWithRingBufferSize(AGXGPURawCounterImpl::SourceAPSImpl *this, unint64_t a2)
+uint64_t AGXGPURawCounterImpl::SourceAPSImpl::calcBufferSizeWithRingBufferSize(AGXGPURawCounterImpl::SourceAPSImpl *this, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v2 = 268419072;
-    if (a2 < 0xFFFC000)
-    {
-      v2 = a2;
-    }
+    v2 = *(*this + 152);
 
-    v3 = v2 * *(*(this + 1) + 108);
-    v4 = *(*this + 152);
-    v5 = *MEMORY[0x277D85DE8];
-
-    return v4();
+    return v2();
   }
 
   else
@@ -7329,33 +7198,32 @@ uint64_t AGXGPURawCounterImpl::SourceAPSImpl::calcBufferSizeWithRingBufferSize(A
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v9 = "AGXGPURawCounterSourceAPSImpl.mm";
-      v10 = 1024;
-      v11 = 574;
-      v12 = 2080;
-      v13 = "calcBufferSizeWithRingBufferSize";
+      v5 = "AGXGPURawCounterSourceAPSImpl.mm";
+      v6 = 1024;
+      v7 = 574;
+      v8 = 2080;
+      v9 = "calcBufferSizeWithRingBufferSize";
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** calcBufferSizeWithRingBufferSize should never be called with zero buffer size!\n", buf, 0x1Cu);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v9 = "AGXGPURawCounterSourceAPSImpl.mm";
-      v10 = 1024;
-      v11 = 574;
-      v12 = 2080;
-      v13 = "calcBufferSizeWithRingBufferSize";
+      v5 = "AGXGPURawCounterSourceAPSImpl.mm";
+      v6 = 1024;
+      v7 = 574;
+      v8 = 2080;
+      v9 = "calcBufferSizeWithRingBufferSize";
       _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** calcBufferSizeWithRingBufferSize should never be called with zero buffer size!\n", buf, 0x1Cu);
     }
 
-    v7 = *MEMORY[0x277D85DE8];
     return 0;
   }
 }
 
 unint64_t AGXGPURawCounterImpl::SourceAPSImpl::alignBufferSize(AGXGPURawCounterImpl::SourceAPSImpl *this, unint64_t a2, int a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = *(this + 1);
@@ -7390,7 +7258,7 @@ unint64_t AGXGPURawCounterImpl::SourceAPSImpl::alignBufferSize(AGXGPURawCounterI
       v9 = 0;
     }
 
-    result = v9 + v7 * v4;
+    return v9 + v7 * v4;
   }
 
   else
@@ -7399,30 +7267,27 @@ unint64_t AGXGPURawCounterImpl::SourceAPSImpl::alignBufferSize(AGXGPURawCounterI
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v13 = "AGXGPURawCounterSourceAPSImpl.mm";
-      v14 = 1024;
-      v15 = 540;
-      v16 = 2080;
-      v17 = "alignBufferSize";
+      v12 = "AGXGPURawCounterSourceAPSImpl.mm";
+      v13 = 1024;
+      v14 = 540;
+      v15 = 2080;
+      v16 = "alignBufferSize";
       _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** alignBufferSize should never be called with zero buffer size!\n", buf, 0x1Cu);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v13 = "AGXGPURawCounterSourceAPSImpl.mm";
-      v14 = 1024;
-      v15 = 540;
-      v16 = 2080;
-      v17 = "alignBufferSize";
+      v12 = "AGXGPURawCounterSourceAPSImpl.mm";
+      v13 = 1024;
+      v14 = 540;
+      v15 = 2080;
+      v16 = "alignBufferSize";
       _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** alignBufferSize should never be called with zero buffer size!\n", buf, 0x1Cu);
     }
 
-    result = 0;
+    return 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t AGXGPURawCounterImpl::SourceAPSImpl::setBufferSize(AGXGPURawCounterImpl::SourceAPSImpl *this, unint64_t a2)
@@ -7595,16 +7460,16 @@ uint64_t AGXGPURawCounterImpl::SourceAPSImpl::addTrigger(uint64_t a1, int a2, vo
 
 uint64_t ___ZN20AGXGPURawCounterImpl13SourceAPSImpl10addTriggerEN16AGXGPURawCounter11TriggerTypeEP12NSDictionary_block_invoke(uint64_t a1, unsigned int a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 48);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = ___ZN20AGXGPURawCounterImpl13SourceAPSImpl10addTriggerEN16AGXGPURawCounter11TriggerTypeEP12NSDictionary_block_invoke_2;
-  v18[3] = &unk_278BC0420;
-  v21 = a2;
-  v19 = *(a1 + 32);
-  v20 = *(a1 + 40);
-  v5 = MEMORY[0x23EED5830](v18);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = ___ZN20AGXGPURawCounterImpl13SourceAPSImpl10addTriggerEN16AGXGPURawCounter11TriggerTypeEP12NSDictionary_block_invoke_2;
+  v17[3] = &unk_278BC0420;
+  v20 = a2;
+  v18 = *(a1 + 32);
+  v19 = *(a1 + 40);
+  v5 = MEMORY[0x23EED5830](v17);
   v6 = v5;
   v7 = v4 + 28 * a2 + 6392;
   v8 = *(a1 + 56);
@@ -7635,15 +7500,15 @@ LABEL_4:
   fprintf(*MEMORY[0x277D85DF8], "AGXGRC:%s:%d:%s: *** Error, adding unknown trigger (0x%x)\n", "AGXGPURawCounterSourceAPSImpl.mm", 310, "addTrigger_block_invoke", v8);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v17 = *(a1 + 56);
+    v16 = *(a1 + 56);
     *buf = 136315906;
-    v23 = "AGXGPURawCounterSourceAPSImpl.mm";
-    v24 = 1024;
-    v25 = 310;
-    v26 = 2080;
-    v27 = "addTrigger_block_invoke";
-    v28 = 1024;
-    v29 = v17;
+    v22 = "AGXGPURawCounterSourceAPSImpl.mm";
+    v23 = 1024;
+    v24 = 310;
+    v25 = 2080;
+    v26 = "addTrigger_block_invoke";
+    v27 = 1024;
+    v28 = v16;
     _os_log_error_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "AGXGRC:AGXGRC:%s:%d:%s: *** Error, adding unknown trigger (0x%x)\n", buf, 0x22u);
   }
 
@@ -7651,20 +7516,19 @@ LABEL_4:
   {
     v14 = *(a1 + 56);
     *buf = 136315906;
-    v23 = "AGXGPURawCounterSourceAPSImpl.mm";
-    v24 = 1024;
-    v25 = 310;
-    v26 = 2080;
-    v27 = "addTrigger_block_invoke";
-    v28 = 1024;
-    v29 = v14;
+    v22 = "AGXGPURawCounterSourceAPSImpl.mm";
+    v23 = 1024;
+    v24 = 310;
+    v25 = 2080;
+    v26 = "addTrigger_block_invoke";
+    v27 = 1024;
+    v28 = v14;
     _os_log_impl(&dword_23C542000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "AGXGRC:AGXGRC:%s:%d:%s: *** Error, adding unknown trigger (0x%x)\n", buf, 0x22u);
   }
 
   v13 = 0;
 LABEL_10:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

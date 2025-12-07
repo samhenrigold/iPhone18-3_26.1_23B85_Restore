@@ -189,80 +189,81 @@
     v20 = +[SSDevice currentDevice];
     uniqueDeviceIdentifier = [v20 uniqueDeviceIdentifier];
 
-    if ([uniqueDeviceIdentifier length])
+    v22 = [uniqueDeviceIdentifier length];
+    if (v22)
     {
-      [v18 setObject:uniqueDeviceIdentifier forKey:@"guid"];
+      v22 = [v18 setObject:uniqueDeviceIdentifier forKey:@"guid"];
     }
 
-    if (!self->_requestingBundleID || (-[objc_class standardDefaults](off_1003834E0(), "standardDefaults"), v22 = objc_claimAutoreleasedReturnValue(), [v22 mediaLibraryAccessApplicationIdentifiersWithTCCAcceptanceDates], v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v23, "objectForKey:", self->_requestingBundleID), v24 = objc_claimAutoreleasedReturnValue(), v23, v22, (v25 = v24) == 0))
+    if (!self->_requestingBundleID || ([off_1003834E0(v22) standardDefaults], v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v23, "mediaLibraryAccessApplicationIdentifiersWithTCCAcceptanceDates"), v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v24, "objectForKey:", self->_requestingBundleID), v25 = objc_claimAutoreleasedReturnValue(), v24, v23, (v26 = v25) == 0))
     {
-      v25 = +[NSDate date];
+      v26 = +[NSDate date];
     }
 
-    v67 = v25;
-    [v25 timeIntervalSince1970];
-    v27 = [NSString stringWithFormat:@"%lld", llround(v26 * 1000.0)];
-    [v18 setObject:v27 forKey:@"tcc-acceptance-date"];
+    v67 = v26;
+    [v26 timeIntervalSince1970];
+    v28 = [NSString stringWithFormat:@"%lld", llround(v27 * 1000.0)];
+    [v18 setObject:v28 forKey:@"tcc-acceptance-date"];
 
-    v28 = [NSJSONSerialization dataWithJSONObject:v18 options:1 error:0];
+    v29 = [NSJSONSerialization dataWithJSONObject:v18 options:1 error:0];
     [v10 setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    v66 = v28;
-    [v10 setHTTPBody:v28];
+    v66 = v29;
+    [v10 setHTTPBody:v29];
     [v10 setHTTPMethod:@"POST"];
     [v10 setURLBagKey:@"createMusicToken"];
     [v8 setRequestProperties:v10];
     v73 = 0;
-    LODWORD(v28) = [(CloudServiceAPITokenOperation *)self runSubOperation:v8 returningError:&v73];
-    v29 = v73;
+    LODWORD(v29) = [(CloudServiceAPITokenOperation *)self runSubOperation:v8 returningError:&v73];
+    v30 = v73;
     v70 = v18;
     v68 = uniqueDeviceIdentifier;
-    v72 = v29;
-    if (!v28)
+    v72 = v30;
+    if (!v29)
     {
-      if (v29)
+      if (v30)
       {
-        userInfo = [v29 userInfo];
-        v42 = [userInfo objectForKeyedSubscript:SSErrorHTTPStatusCodeKey];
+        userInfo = [v30 userInfo];
+        v43 = [userInfo objectForKeyedSubscript:SSErrorHTTPStatusCodeKey];
 
         if (objc_opt_respondsToSelector())
         {
-          integerValue = [v42 integerValue];
-          v44 = integerValue == 403;
+          integerValue = [v43 integerValue];
+          v45 = integerValue == 403;
           if (integerValue == 403)
           {
-            v45 = 107;
+            v46 = 107;
           }
 
           else
           {
-            v45 = 109;
+            v46 = 109;
           }
         }
 
         else
         {
-          v44 = 0;
-          v45 = 109;
+          v45 = 0;
+          v46 = 109;
         }
 
         v81 = NSUnderlyingErrorKey;
         v82 = v72;
-        v48 = [NSDictionary dictionaryWithObjects:&v82 forKeys:&v81 count:1];
+        v49 = [NSDictionary dictionaryWithObjects:&v82 forKeys:&v81 count:1];
       }
 
       else
       {
-        v48 = 0;
-        v44 = 0;
-        v45 = 109;
+        v49 = 0;
+        v45 = 0;
+        v46 = 109;
       }
 
-      v49 = [NSError errorWithDomain:SSErrorDomain code:v45 userInfo:v48];
-      v7 = [[SSVCloudServiceAPITokenResponse alloc] initWithToken:0 error:v49];
+      v50 = [NSError errorWithDomain:SSErrorDomain code:v46 userInfo:v49];
+      v7 = [[SSVCloudServiceAPITokenResponse alloc] initWithToken:0 error:v50];
 
-      if (!v44)
+      if (!v45)
       {
-        goto LABEL_58;
+        goto LABEL_59;
       }
 
       goto LABEL_45;
@@ -283,131 +284,134 @@
     v65 = v5;
     if (statusCode == 403)
     {
-      v34 = [output objectForKey:@"error_description"];
-      v35 = v34;
-      v36 = &stru_10033CC30;
-      if (v34)
+      v35 = [output objectForKey:@"error_description"];
+      v36 = v35;
+      v37 = &stru_10033CC30;
+      if (v35)
       {
-        v36 = v34;
+        v37 = v35;
       }
 
-      v37 = v36;
+      v38 = v37;
 
-      v38 = SSErrorDomain;
+      v39 = SSErrorDomain;
       v83 = NSLocalizedDescriptionKey;
-      v84 = v37;
-      v39 = [NSDictionary dictionaryWithObjects:&v84 forKeys:&v83 count:1];
-      v40 = [NSError errorWithDomain:v38 code:107 userInfo:v39];
+      v84 = v38;
+      v40 = [NSDictionary dictionaryWithObjects:&v84 forKeys:&v83 count:1];
+      v41 = [NSError errorWithDomain:v39 code:107 userInfo:v40];
     }
 
     else
     {
       if ([response statusCode] == 200)
       {
-        v46 = [output objectForKey:@"music_token"];
+        v47 = [output objectForKey:@"music_token"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v47 = v46;
-          v40 = 0;
+          v48 = v47;
+          v41 = 0;
         }
 
         else
         {
-          v40 = [NSError errorWithDomain:SSErrorDomain code:100 userInfo:0];
-          v47 = 0;
+          v41 = [NSError errorWithDomain:SSErrorDomain code:100 userInfo:0];
+          v48 = 0;
         }
 
 LABEL_44:
-        v7 = [[SSVCloudServiceAPITokenResponse alloc] initWithToken:v47 error:v40];
+        v7 = [[SSVCloudServiceAPITokenResponse alloc] initWithToken:v48 error:v41];
 
         v5 = v65;
         if (statusCode != 403)
         {
-LABEL_58:
+LABEL_59:
 
-          goto LABEL_59;
+          goto LABEL_60;
         }
 
 LABEL_45:
-        v50 = TCCAccessSetForBundleId();
-        v51 = +[SSLogConfig sharedDaemonConfig];
-        if (!v51)
+        v51 = TCCAccessSetForBundleId();
+        v52 = +[SSLogConfig sharedDaemonConfig];
+        if (!v52)
         {
-          v51 = +[SSLogConfig sharedConfig];
+          v52 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog = [v51 shouldLog];
-        if ([v51 shouldLogToDisk])
+        LODWORD(v53) = [v52 shouldLog];
+        if ([v52 shouldLogToDisk])
         {
-          shouldLog |= 2u;
+          LODWORD(v53) = v53 | 2;
         }
 
-        oSLogObject = [v51 OSLogObject];
-        if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+        oSLogObject = [v52 OSLogObject];
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
         {
-          shouldLog &= 2u;
+          v53 = v53;
         }
 
-        if (shouldLog)
+        else
         {
-          v54 = objc_opt_class();
+          v53 &= 2u;
+        }
+
+        if (v53)
+        {
+          v55 = objc_opt_class();
           requestingBundleID = self->_requestingBundleID;
-          v56 = @"succeeded";
+          v57 = @"succeeded";
           v75 = 138543874;
-          v76 = v54;
+          v76 = v55;
           v77 = 2114;
-          if (!v50)
+          if (!v51)
           {
-            v56 = @"failed";
+            v57 = @"failed";
           }
 
           v78 = requestingBundleID;
           v79 = 2114;
-          v80 = v56;
-          v57 = v54;
-          LODWORD(v64) = 32;
-          v63 = &v75;
-          v58 = _os_log_send_and_compose_impl();
+          v80 = v57;
+          v58 = v55;
+          v59 = _os_log_send_and_compose_impl(v53, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%{public}@: Got 403 status code while requesting user token for bundle ID: %{public}@. Just reset TCC access with status: %{public}@.", &v75, 32);
 
-          if (!v58)
+          if (!v59)
           {
-            goto LABEL_57;
+            goto LABEL_58;
           }
 
-          oSLogObject = [NSString stringWithCString:v58 encoding:4, &v75, v64];
-          free(v58);
-          v63 = oSLogObject;
+          oSLogObject = [NSString stringWithCString:v59 encoding:4];
+          free(v59);
+          v64 = oSLogObject;
           SSFileLog();
         }
 
-LABEL_57:
-        goto LABEL_58;
+LABEL_58:
+        goto LABEL_59;
       }
 
-      v40 = [NSError errorWithDomain:SSErrorDomain code:109 userInfo:0];
+      v41 = [NSError errorWithDomain:SSErrorDomain code:109 userInfo:0];
     }
 
-    v47 = 0;
+    v48 = 0;
     goto LABEL_44;
   }
 
   v8 = [NSError errorWithDomain:SSErrorDomain code:114 userInfo:0];
   v7 = [[SSVCloudServiceAPITokenResponse alloc] initWithToken:0 error:v8];
-LABEL_59:
+LABEL_60:
 
   [(CloudServiceAPITokenOperation *)self lock];
-  v59 = objc_retainBlock(self->_responseBlock);
+  v60 = objc_retainBlock(self->_responseBlock);
   responseBlock = self->_responseBlock;
   self->_responseBlock = 0;
 
   [(CloudServiceAPITokenOperation *)self unlock];
-  v59[2](v59, v7);
+  v60[2](v60, v7);
   error = [v7 error];
   [(CloudServiceAPITokenOperation *)self setError:error];
 
   error2 = [v7 error];
-  [(CloudServiceAPITokenOperation *)self setSuccess:error2 != 0, v63];
+  [(CloudServiceAPITokenOperation *)self setSuccess:error2 != 0, v64];
 }
 
 @end

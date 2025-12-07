@@ -32,10 +32,10 @@
 
 - (void)popToViewController:(id)controller animated:(BOOL)animated destinationClass:(Class)class
 {
-  swift_getObjCClassMetadata();
+  ObjCClassMetadata = swift_getObjCClassMetadata();
   controllerCopy = controller;
   selfCopy = self;
-  sub_18F5A0(controllerCopy);
+  sub_18F5A0(controllerCopy, ObjCClassMetadata);
 }
 
 @end

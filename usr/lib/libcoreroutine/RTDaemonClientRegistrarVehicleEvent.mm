@@ -97,16 +97,16 @@
   dispatch_async(queue, v7);
 }
 
-void __66__RTDaemonClientRegistrarVehicleEvent_onVehicleEventNotification___block_invoke(uint64_t a1)
+void __66__RTDaemonClientRegistrarVehicleEvent_onVehicleEventNotification___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v3 = [*(a1 + 40) delegate];
+    v4 = [*(a1 + 40) delegate];
     if (objc_opt_respondsToSelector())
     {
-      v2 = [*(a1 + 32) vehicleEvents];
-      [v3 vehicleEventRegistrar:*(a1 + 40) didReceiveVehicleEvents:v2 error:0];
+      v3 = [*(a1 + 32) vehicleEvents];
+      [v4 vehicleEventRegistrar:*(a1 + 40) didReceiveVehicleEvents:v3 error:0];
     }
   }
 }

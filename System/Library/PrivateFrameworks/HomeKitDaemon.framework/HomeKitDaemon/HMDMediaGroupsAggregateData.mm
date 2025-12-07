@@ -211,7 +211,7 @@ uint64_t __35__HMDMediaGroupsAggregateData_hash__block_invoke_3(uint64_t a1, voi
 
 - (id)encodedMediaGroupEvents
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   groups = [(HMDMediaGroupsAggregateData *)self groups];
   v4 = [groups count];
 
@@ -221,26 +221,26 @@ uint64_t __35__HMDMediaGroupsAggregateData_hash__block_invoke_3(uint64_t a1, voi
     groups2 = [(HMDMediaGroupsAggregateData *)self groups];
     v7 = [v5 arrayWithCapacity:{objc_msgSend(groups2, "count")}];
 
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     groups3 = [(HMDMediaGroupsAggregateData *)self groups];
-    v9 = [groups3 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v9 = [groups3 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v23;
+      v11 = *v22;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v23 != v11)
+          if (*v22 != v11)
           {
             objc_enumerationMutation(groups3);
           }
 
-          v13 = *(*(&v22 + 1) + 8 * i);
+          v13 = *(*(&v21 + 1) + 8 * i);
           v14 = objc_alloc(MEMORY[0x277CD1BC0]);
           encodeToProtoBufferData = [v13 encodeToProtoBufferData];
           v16 = [v14 initWithData:encodeToProtoBufferData];
@@ -251,7 +251,7 @@ uint64_t __35__HMDMediaGroupsAggregateData_hash__block_invoke_3(uint64_t a1, voi
           }
         }
 
-        v10 = [groups3 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v10 = [groups3 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v10);
@@ -265,18 +265,16 @@ uint64_t __35__HMDMediaGroupsAggregateData_hash__block_invoke_3(uint64_t a1, voi
     encodeToProtoBufferData2 = [groups3 encodeToProtoBufferData];
     v19 = [v17 initWithData:encodeToProtoBufferData2];
 
-    v27[0] = v19;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+    v26[0] = v19;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)encodedDestinationControllerEvents
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   destinationControllersData = [(HMDMediaGroupsAggregateData *)self destinationControllersData];
   v4 = [destinationControllersData count];
 
@@ -292,11 +290,9 @@ uint64_t __35__HMDMediaGroupsAggregateData_hash__block_invoke_3(uint64_t a1, voi
     v7 = objc_alloc(MEMORY[0x277CD1BB8]);
     encodeToProtoBufferData = [destinationControllersData2 encodeToProtoBufferData];
     v9 = [v7 initWithData:encodeToProtoBufferData];
-    v12[0] = v9;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v11[0] = v9;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -315,7 +311,7 @@ id __65__HMDMediaGroupsAggregateData_encodedDestinationControllerEvents__block_i
 
 - (id)encodedDestinationEvents
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   destinations = [(HMDMediaGroupsAggregateData *)self destinations];
   v4 = [destinations count];
 
@@ -331,11 +327,9 @@ id __65__HMDMediaGroupsAggregateData_encodedDestinationControllerEvents__block_i
     v7 = objc_alloc(MEMORY[0x277CD1BA8]);
     encodeToProtoBufferData = [destinations2 encodeToProtoBufferData];
     v9 = [v7 initWithData:encodeToProtoBufferData];
-    v12[0] = v9;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v11[0] = v9;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -402,7 +396,7 @@ id __71__HMDMediaGroupsAggregateData_decodeMediaGroupsWithEncodedMediaGroups___b
 
 - (id)decodeDestinationControllersWithEncodedDestinationControllers:(id)controllers
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   controllersCopy = controllers;
   v5 = [controllersCopy na_map:&__block_literal_global_6_84048];
   v6 = [v5 count];
@@ -427,18 +421,16 @@ id __71__HMDMediaGroupsAggregateData_decodeMediaGroupsWithEncodedMediaGroups___b
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v17 = 138543618;
-      v18 = v14;
-      v19 = 2112;
-      v20 = controllersCopy;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode destination controllers data in proto data: %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v14;
+      v18 = 2112;
+      v19 = controllersCopy;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode destination controllers data in proto data: %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
     v10 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -457,7 +449,7 @@ id __93__HMDMediaGroupsAggregateData_decodeDestinationControllersWithEncodedDest
 
 - (id)decodeDestinationsWithEncodedDestinations:(id)destinations
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   destinationsCopy = destinations;
   v5 = [destinationsCopy na_map:&__block_literal_global_84052];
   v6 = [v5 count];
@@ -482,18 +474,16 @@ id __93__HMDMediaGroupsAggregateData_decodeDestinationControllersWithEncodedDest
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v17 = 138543618;
-      v18 = v14;
-      v19 = 2112;
-      v20 = destinationsCopy;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode destinations in proto data: %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v14;
+      v18 = 2112;
+      v19 = destinationsCopy;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode destinations in proto data: %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
     v10 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -512,7 +502,7 @@ id __73__HMDMediaGroupsAggregateData_decodeDestinationsWithEncodedDestinations__
 
 - (HMDMediaGroupsAggregateData)initWithProtoBufferData:(id)data
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = [objc_alloc(MEMORY[0x277CD1BB0]) initWithData:dataCopy];
   v6 = v5;
@@ -539,18 +529,17 @@ id __73__HMDMediaGroupsAggregateData_decodeDestinationsWithEncodedDestinations__
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v17;
-      v22 = 2112;
-      v23 = dataCopy;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode event data: %@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v17;
+      v21 = 2112;
+      v22 = dataCopy;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode event data: %@", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
     v14 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -587,15 +576,15 @@ uint64_t __51__HMDMediaGroupsAggregateData_groupWithIdentifier___block_invoke(ui
   v11 = [(HMDMediaGroupsAggregateData *)&v19 init];
   if (v11)
   {
-    v12 = [destinationsCopy copy];
+    v12 = objc_msgSend_copy(destinationsCopy);
     destinations = v11->_destinations;
     v11->_destinations = v12;
 
-    v14 = [dataCopy copy];
+    v14 = objc_msgSend_copy(dataCopy);
     destinationControllersData = v11->_destinationControllersData;
     v11->_destinationControllersData = v14;
 
-    v16 = [groupsCopy copy];
+    v16 = objc_msgSend_copy(groupsCopy);
     groups = v11->_groups;
     v11->_groups = v16;
   }

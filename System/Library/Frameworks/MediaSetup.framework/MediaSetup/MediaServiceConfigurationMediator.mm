@@ -15,21 +15,21 @@
   v9.receiver = self;
   v9.super_class = MediaServiceConfigurationMediator;
   v5 = [(MediaServiceConfigurationMediator *)&v9 init];
+  v6 = v5;
   if (v5)
   {
-    v6 = _MSLogingFacility();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _MSLogingFacility(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       v11 = "[MediaServiceConfigurationMediator initWithServiceDelegate:]";
-      _os_log_impl(&dword_23986C000, v6, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+      _os_log_impl(&dword_23986C000, v7, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
     }
 
-    objc_storeWeak(&v5->_delegate, delegateCopy);
+    objc_storeWeak(&v6->_delegate, delegateCopy);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v6;
 }
 
 - (void)serviceSettingDidUpdate:(id)update homeUserID:(id)d

@@ -29,14 +29,18 @@
 - (void)beginDictation;
 - (void)cancelButtonClicked:(id)clicked;
 - (void)clearLastSearchedText;
+- (void)clearSearchFieldWhyQuery:(unint64_t)query allowZKW:(BOOL)w;
 - (void)commitSearch;
 - (void)dictationButtonPressed;
 - (void)didMoveToWindow;
 - (void)enableDictationIfRequired;
 - (void)escapeKeyPressed;
+- (void)focusSearchFieldAndBeginDictation:(BOOL)dictation selectAll:(BOOL)all withReason:(unint64_t)reason;
 - (void)highlightResultAfterUnmarkingText;
 - (void)performTestSearchWithQuery:(id)query event:(unint64_t)event queryKind:(unint64_t)kind;
 - (void)performTransition:(int64_t)transition willBeDisplayed:(BOOL)displayed;
+- (void)queryContextDidChange:(id)change fromPreviousQueryId:(unint64_t)id allowZKW:(BOOL)w;
+- (void)removeCompletionAndHighlightAsTyped:(BOOL)typed;
 - (void)resignKeyboardForProcessState;
 - (void)restoreSearchText:(id)text searchEntity:(id)entity;
 - (void)returnKeyPressed;
@@ -47,15 +51,19 @@
 - (void)setResponderForKeyboardInput:(id)input;
 - (void)setSearchEntity:(id)entity fromSuggestion:(BOOL)suggestion;
 - (void)setUseClearTokens:(BOOL)tokens;
+- (void)showCancelButton:(BOOL)button animated:(BOOL)animated;
 - (void)switchToSuggestions;
 - (void)textDidChange:(id)change;
+- (void)textDidChange:(id)change whyQuery:(unint64_t)query allowZKW:(BOOL)w queryKind:(unint64_t)kind;
 - (void)textDidChange:(id)change whyQuery:(unint64_t)query allowZKW:(BOOL)w sourcePreference:(unint64_t)preference searchEntities:(id)entities queryKind:(unint64_t)kind;
 - (void)textFieldDidBeginEditing;
 - (void)textPasteConfigurationSupporting:(id)supporting transformPasteItem:(id)item;
 - (void)tlk_updateForAppearance:(id)appearance;
 - (void)traitCollectionDidChange:(id)change;
 - (void)triggerSearchForUnlock;
+- (void)unfocusSearchFieldWithReason:(unint64_t)reason afterCommit:(BOOL)commit;
 - (void)updateDictationButtonEnabledStatus;
+- (void)updateFocusResult:(id)result cardSection:(id)section focusIsOnFirstResult:(BOOL)firstResult;
 - (void)updateSearchFieldModel;
 - (void)updateWithCommand:(id)command;
 @end
@@ -395,7 +403,7 @@
 
 - (id)markedTextArray
 {
-  v26[3] = *MEMORY[0x277D85DE8];
+  v25[3] = *MEMORY[0x277D85DE8];
   searchField = [(SPUISearchHeader *)self searchField];
   markedTextRange = [searchField markedTextRange];
 
@@ -450,10 +458,10 @@
         v12 = v22;
       }
 
-      v26[0] = v14;
-      v26[1] = v5;
-      v26[2] = v12;
-      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:3];
+      v25[0] = v14;
+      v25[1] = v5;
+      v25[2] = v12;
+      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:3];
     }
 
     else
@@ -466,8 +474,6 @@
   {
     v23 = 0;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -628,6 +634,13 @@
   return optOutOfGoButton;
 }
 
+- (void)removeCompletionAndHighlightAsTyped:(BOOL)typed
+{
+  typedCopy = typed;
+  delegate = [(SPUISearchHeader *)self delegate];
+  [delegate removeCompletionAndHighlightAsTyped:typedCopy];
+}
+
 - (void)setActiveInterfaceOrientation:(int64_t)orientation
 {
   if (self->_activeInterfaceOrientation != orientation)
@@ -767,7 +780,7 @@ LABEL_7:
 
 uint64_t __34__SPUISearchHeader_textDidChange___block_invoke(uint64_t a1)
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) lastSearchText];
   if (![v2 isEqualToString:v3])
@@ -785,9 +798,9 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  v27 = [*(a1 + 32) length];
+  v25 = [*(a1 + 32) length];
 
-  if (v27)
+  if (v25)
   {
     goto LABEL_26;
   }
@@ -804,8 +817,7 @@ LABEL_5:
 LABEL_7:
     v10 = 1;
 LABEL_8:
-    v11 = *(a1 + 40);
-    v12 = [objc_opt_class() asYouTypeSearchQueryKind];
+    v11 = [objc_opt_class() asYouTypeSearchQueryKind];
     if (v10)
     {
       [*(a1 + 40) setOffersCompletions:1];
@@ -813,56 +825,56 @@ LABEL_8:
 
     if (![*(a1 + 40) offersCompletions])
     {
-      v12 = 9;
+      v11 = 9;
     }
 
-    v13 = [*(a1 + 40) textInputMode];
+    v12 = [*(a1 + 40) textInputMode];
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
 
     if (isKindOfClass)
     {
-      v15 = [*(a1 + 40) searchField];
-      if ([v15 isInDictationMode])
+      v14 = [*(a1 + 40) searchField];
+      if ([v14 isInDictationMode])
       {
-        v16 = 4;
+        v15 = 4;
       }
 
       else
       {
-        v16 = 5;
+        v15 = 5;
       }
     }
 
     else
     {
-      v16 = 1;
+      v15 = 1;
     }
 
-    v17 = [*(a1 + 40) searchField];
-    v18 = [v17 searchEntity];
+    v16 = [*(a1 + 40) searchField];
+    v17 = [v16 searchEntity];
 
-    v19 = [*(a1 + 40) delegate];
-    v20 = [v19 currentQueryContext];
+    v18 = [*(a1 + 40) delegate];
+    v19 = [v18 currentQueryContext];
 
-    v21 = [*(a1 + 40) previousQueryID];
-    v22 = [MEMORY[0x277D65D70] updateQueryContext:v20 withSearchString:*(a1 + 32) showSuggestions:1 view:*(a1 + 56)];
+    v20 = [*(a1 + 40) previousQueryID];
+    v21 = [MEMORY[0x277D65D70] updateQueryContext:v19 withSearchString:*(a1 + 32) showSuggestions:1 view:*(a1 + 56)];
 
-    if (v18)
+    if (v17)
     {
-      v28[0] = v18;
-      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
-      [v22 setSearchEntities:v23];
+      v26[0] = v17;
+      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+      [v21 setSearchEntities:v22];
     }
 
     else
     {
-      [v22 setSearchEntities:0];
+      [v21 setSearchEntities:0];
     }
 
-    [v22 setWhyQuery:v16];
-    [v22 setQueryKind:v12];
-    [*(a1 + 40) queryContextDidChange:v22 fromPreviousQueryId:v21 allowZKW:1];
+    [v21 setWhyQuery:v15];
+    [v21 setQueryKind:v11];
+    [*(a1 + 40) queryContextDidChange:v21 fromPreviousQueryId:v20 allowZKW:1];
 
     goto LABEL_25;
   }
@@ -873,9 +885,9 @@ LABEL_8:
     goto LABEL_7;
   }
 
-  v24 = [*(a1 + 40) searchEntity];
+  v23 = [*(a1 + 40) searchEntity];
 
-  if (v9 == v24)
+  if (v9 == v23)
   {
     v10 = 0;
     goto LABEL_8;
@@ -887,9 +899,7 @@ LABEL_25:
 
 LABEL_26:
   [*(a1 + 40) updateSearchFieldModel];
-  result = [*(a1 + 40) setSearchTextScheduledForProcessing:0];
-  v26 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) setSearchTextScheduledForProcessing:0];
 }
 
 - (void)textDidChange:(id)change whyQuery:(unint64_t)query allowZKW:(BOOL)w sourcePreference:(unint64_t)preference searchEntities:(id)entities queryKind:(unint64_t)kind
@@ -954,6 +964,28 @@ LABEL_26:
   }
 
   [(SPUISearchHeader *)self queryContextDidChange:v22 fromPreviousQueryId:[(SPUISearchHeader *)self previousQueryID] allowZKW:wCopy];
+}
+
+- (void)textDidChange:(id)change whyQuery:(unint64_t)query allowZKW:(BOOL)w queryKind:(unint64_t)kind
+{
+  wCopy = w;
+  v16[1] = *MEMORY[0x277D85DE8];
+  changeCopy = change;
+  searchField = [(SPUISearchHeader *)self searchField];
+  searchEntity = [searchField searchEntity];
+  if (searchEntity)
+  {
+    searchField2 = [(SPUISearchHeader *)self searchField];
+    searchEntity2 = [searchField2 searchEntity];
+    v16[0] = searchEntity2;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    [(SPUISearchHeader *)self textDidChange:changeCopy whyQuery:query allowZKW:wCopy sourcePreference:0 searchEntities:v15 queryKind:kind];
+  }
+
+  else
+  {
+    [(SPUISearchHeader *)self textDidChange:changeCopy whyQuery:query allowZKW:wCopy sourcePreference:0 searchEntities:0 queryKind:kind];
+  }
 }
 
 - (void)cancelButtonClicked:(id)clicked
@@ -1246,15 +1278,14 @@ void __72__SPUISearchHeader_textPasteConfigurationSupporting_transformPasteItem_
 
 void __72__SPUISearchHeader_textPasteConfigurationSupporting_transformPasteItem___block_invoke_2(uint64_t a1)
 {
-  v7 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:*(a1 + 32) error:0];
+  v6 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:*(a1 + 32) error:0];
   v2 = [*(a1 + 40) searchField];
-  v3 = *(a1 + 40);
-  v4 = [objc_opt_class() tokenFromSearchEntity:v7];
-  v5 = [*(a1 + 40) searchField];
-  v6 = [v5 tokens];
-  [v2 insertToken:v4 atIndex:{objc_msgSend(v6, "count")}];
+  v3 = [objc_opt_class() tokenFromSearchEntity:v6];
+  v4 = [*(a1 + 40) searchField];
+  v5 = [v4 tokens];
+  [v2 insertToken:v3 atIndex:{objc_msgSend(v5, "count")}];
 
-  [*(a1 + 40) setLastSearchEntity:v7];
+  [*(a1 + 40) setLastSearchEntity:v6];
   [*(a1 + 40) commitSearch];
   [*(a1 + 48) setNoResult];
 }
@@ -1357,6 +1388,109 @@ void __34__SPUISearchHeader_beginDictation__block_invoke(uint64_t a1)
   }
 }
 
+- (void)focusSearchFieldAndBeginDictation:(BOOL)dictation selectAll:(BOOL)all withReason:(unint64_t)reason
+{
+  allCopy = all;
+  searchField = [(SPUISearchHeader *)self searchField];
+  [searchField updateRightView];
+
+  if (allCopy)
+  {
+    v9 = 3;
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  searchField2 = [(SPUISearchHeader *)self searchField];
+  [searchField2 setTextSelectionBehavior:v9];
+
+  v11 = MEMORY[0x277D65D40];
+  v12 = *(MEMORY[0x277D65D40] + 32);
+  if (!v12)
+  {
+    SPUIInitLogging();
+    v12 = *(v11 + 32);
+  }
+
+  if (os_signpost_enabled(v12))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&dword_26B837000, v12, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "firstResponder", "", buf, 2u);
+  }
+
+  [SPUISearchHeader logInvokeWithReason:reason];
+  [(SPUISearchHeader *)self setInvokeReason:reason];
+  *buf = 0;
+  v23 = buf;
+  v24 = 0x2020000000;
+  v25 = 0;
+  v13 = [MEMORY[0x277D65D28] pageDotInvokeEnabled] ^ 1;
+  if (reason > 1)
+  {
+    LOBYTE(v13) = 1;
+  }
+
+  if (v13)
+  {
+    searchField3 = [(SPUISearchHeader *)self searchField];
+    becomeFirstResponder = [searchField3 becomeFirstResponder];
+    v23[24] = becomeFirstResponder;
+  }
+
+  else
+  {
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __75__SPUISearchHeader_focusSearchFieldAndBeginDictation_selectAll_withReason___block_invoke;
+    v21[3] = &unk_279D06D18;
+    v21[4] = self;
+    v21[5] = buf;
+    [MEMORY[0x277D75D18] performWithoutAnimation:v21];
+  }
+
+  if (v23[24] == 1)
+  {
+    v16 = *(v11 + 32);
+    if (!v16)
+    {
+      SPUIInitLogging();
+      v16 = *(v11 + 32);
+    }
+
+    if (os_signpost_enabled(v16))
+    {
+      *v20 = 0;
+      _os_signpost_emit_with_name_impl(&dword_26B837000, v16, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "firstResponder", " enableTelemetry=YES ", v20, 2u);
+    }
+  }
+
+  else
+  {
+    v17 = *(v11 + 16);
+    if (!v17)
+    {
+      SPUIInitLogging();
+      v17 = *(v11 + 16);
+    }
+
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      __34__SPUISearchHeader_beginDictation__block_invoke_cold_1(v17);
+    }
+  }
+
+  searchField4 = [(SPUISearchHeader *)self searchField];
+  [searchField4 setTextSelectionBehavior:0];
+
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter postNotificationName:SPUIBringingUpKB object:0];
+
+  _Block_object_dispose(buf, 8);
+}
+
 void __75__SPUISearchHeader_focusSearchFieldAndBeginDictation_selectAll_withReason___block_invoke(uint64_t a1)
 {
   v2 = [MEMORY[0x277D756A8] activeKeyboardSceneDelegate];
@@ -1371,7 +1505,7 @@ void __75__SPUISearchHeader_focusSearchFieldAndBeginDictation_selectAll_withReas
 
 + (void)logInvokeWithReason:(unint64_t)reason
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (reason > 5)
   {
     v3 = 0;
@@ -1392,17 +1526,15 @@ void __75__SPUISearchHeader_focusSearchFieldAndBeginDictation_selectAll_withReas
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_26B837000, v5, OS_LOG_TYPE_DEFAULT, "invoke reason %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_26B837000, v5, OS_LOG_TYPE_DEFAULT, "invoke reason %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)logDismissalWithReason:(unint64_t)reason
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (reason > 5)
   {
     v3 = 0;
@@ -1423,12 +1555,10 @@ void __75__SPUISearchHeader_focusSearchFieldAndBeginDictation_selectAll_withReas
 
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_26B837000, v5, OS_LOG_TYPE_DEFAULT, "dismissal reason %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_26B837000, v5, OS_LOG_TYPE_DEFAULT, "dismissal reason %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isFirstResponder
@@ -1437,6 +1567,41 @@ void __75__SPUISearchHeader_focusSearchFieldAndBeginDictation_selectAll_withReas
   isFirstResponder = [searchField isFirstResponder];
 
   return isFirstResponder;
+}
+
+- (void)unfocusSearchFieldWithReason:(unint64_t)reason afterCommit:(BOOL)commit
+{
+  if (![MEMORY[0x277D75658] isInHardwareKeyboardMode] || (objc_msgSend(MEMORY[0x277D65D28], "enableFloatingWindow") & 1) == 0)
+  {
+    if (reason || [(SPUISearchHeader *)self invokeReason]!= 1)
+    {
+      if ([(SPUISearchHeader *)self isFirstResponder])
+      {
+        [SPUISearchHeader logDismissalWithReason:reason];
+        searchField = [(SPUISearchHeader *)self searchField];
+        [searchField resignFirstResponder];
+      }
+    }
+
+    else
+    {
+      v6 = *(MEMORY[0x277D65D40] + 16);
+      if (!v6)
+      {
+        v7 = MEMORY[0x277D65D40];
+        SPUIInitLogging();
+        v6 = *(v7 + 16);
+      }
+
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_26B837000, v6, OS_LOG_TYPE_DEFAULT, "ignoring keyboard dismissal since viewDidAppear", buf, 2u);
+      }
+
+      [(SPUISearchHeader *)self isFirstResponder];
+    }
+  }
 }
 
 - (void)resignKeyboardForProcessState
@@ -1450,7 +1615,7 @@ void __75__SPUISearchHeader_focusSearchFieldAndBeginDictation_selectAll_withReas
 
 - (void)updateWithCommand:(id)command
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   commandCopy = command;
   [(SPUISearchHeader *)self setLastSearchText:0];
   [(SPUISearchHeader *)self setLastSearchEntity:0];
@@ -1527,8 +1692,8 @@ void __75__SPUISearchHeader_focusSearchFieldAndBeginDictation_selectAll_withReas
       }
 
       v14 = MEMORY[0x277D65D70];
-      v24[0] = commandCopy;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+      v23[0] = commandCopy;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
       v5 = [v14 queryContextWithPerformEntityQueryCommands:v15 view:self];
 
       [(SPUISearchHeader *)self queryContextDidChange:v5 fromPreviousQueryId:[(SPUISearchHeader *)self queryId] allowZKW:1];
@@ -1540,8 +1705,6 @@ LABEL_16:
   {
     [(SPUISearchHeader *)self unfocusSearchFieldWithReason:3];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)getClearTriggerEventForQueryContext:(id)context
@@ -1593,6 +1756,73 @@ LABEL_16:
   return v8;
 }
 
+- (void)queryContextDidChange:(id)change fromPreviousQueryId:(unint64_t)id allowZKW:(BOOL)w
+{
+  wCopy = w;
+  changeCopy = change;
+  searchEntities = [changeCopy searchEntities];
+  firstObject = [searchEntities firstObject];
+  [(SPUISearchHeader *)self setSearchEntity:firstObject];
+
+  searchEntity = [(SPUISearchHeader *)self searchEntity];
+  -[SPUISearchHeader setUseClearTokens:](self, "setUseClearTokens:", [searchEntity isServerEntitySearch]);
+
+  searchEntity2 = [(SPUISearchHeader *)self searchEntity];
+
+  if (!searchEntity2)
+  {
+    [(SPUISearchHeader *)self setOffersCompletions:1];
+  }
+
+  v13 = [(SPUISearchHeader *)self getClearTriggerEventForQueryContext:changeCopy];
+  searchString = [changeCopy searchString];
+  if ([searchString length] || !wCopy)
+  {
+    goto LABEL_7;
+  }
+
+  searchEntities2 = [changeCopy searchEntities];
+  v16 = [searchEntities2 count];
+
+  if (!v16)
+  {
+    [SPUIFeedbackManager didClearInputWithEvent:v13 withQueryId:id];
+    searchString = +[SPUISearchModel sharedGeneralInstance];
+    [searchString clear];
+LABEL_7:
+  }
+
+  kdebug_trace();
+  v17 = [objc_alloc(MEMORY[0x277D4C270]) initWithEvent:@"com.apple.spotlight.keystroke" timeInterval:0 queryId:{objc_msgSend(changeCopy, "queryIdent")}];
+  v18 = +[SPUIFeedbackManager feedbackListener];
+  [v18 reportFeedback:v17 queryId:{objc_msgSend(changeCopy, "queryIdent")}];
+
+  v19 = SPLogForSPLogCategoryTelemetry();
+  queryIdent = [changeCopy queryIdent];
+  if ((queryIdent - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+  {
+    v21 = queryIdent;
+    if (os_signpost_enabled(v19))
+    {
+      *v25 = 0;
+      _os_signpost_emit_with_name_impl(&dword_26B837000, v19, OS_SIGNPOST_EVENT, v21, "keystroke", " enableTelemetry=YES ", v25, 2u);
+    }
+  }
+
+  [changeCopy setWhyClear:v13];
+  markedTextArray = [(SPUISearchHeader *)self markedTextArray];
+  [changeCopy setMarkedTextArray:markedTextArray];
+
+  [(SPUISearchHeader *)self addInputMethodInformationToQueryContext:changeCopy];
+  searchField = [(SPUISearchHeader *)self searchField];
+  [searchField updateRightView];
+
+  [(SPUISearchHeader *)self updateSearchFieldModel];
+  -[SPUISearchHeader setPreviousQueryID:](self, "setPreviousQueryID:", [changeCopy queryIdent]);
+  delegate = [(SPUISearchHeader *)self delegate];
+  [delegate queryContextDidChange:changeCopy fromSearchHeader:self allowZKW:wCopy];
+}
+
 - (void)setUseClearTokens:(BOOL)tokens
 {
   if (self->_useClearTokens != tokens)
@@ -1600,6 +1830,24 @@ LABEL_16:
     self->_useClearTokens = tokens;
     [(SPUISearchHeader *)self tlk_updateWithCurrentAppearance];
   }
+}
+
+- (void)clearSearchFieldWhyQuery:(unint64_t)query allowZKW:(BOOL)w
+{
+  wCopy = w;
+  searchField = [(SPUISearchHeader *)self searchField];
+  [searchField setText:0];
+
+  searchField2 = [(SPUISearchHeader *)self searchField];
+  [searchField2 clearAllTokens];
+
+  searchField3 = [(SPUISearchHeader *)self searchField];
+  textIncludingTokens = [searchField3 textIncludingTokens];
+  -[SPUISearchHeader textDidChange:whyQuery:allowZKW:queryKind:](self, "textDidChange:whyQuery:allowZKW:queryKind:", textIncludingTokens, query, wCopy, [objc_opt_class() asYouTypeSearchQueryKind]);
+
+  [(SPUISearchHeader *)self setSearchEntity:0];
+
+  [(SPUISearchHeader *)self clearLastSearchedText];
 }
 
 - (void)setLegibilitySettings:(id)settings
@@ -1739,6 +1987,31 @@ LABEL_5:
   return isActive;
 }
 
+- (void)showCancelButton:(BOOL)button animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  buttonCopy = button;
+  if (([MEMORY[0x277D65D28] enableFloatingWindow] & 1) != 0 || objc_msgSend(MEMORY[0x277D65D28], "bottomSearchFieldEnabled"))
+  {
+    buttonCopy = 0;
+  }
+
+  cancelButtonTrailingConstraint = [(SPUISearchHeader *)self cancelButtonTrailingConstraint];
+  [cancelButtonTrailingConstraint setActive:buttonCopy];
+
+  searchFieldTrailingConstraint = [(SPUISearchHeader *)self searchFieldTrailingConstraint];
+  [searchFieldTrailingConstraint setActive:buttonCopy ^ 1];
+
+  [(SPUISearchHeader *)self tlk_updateWithCurrentAppearance];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __46__SPUISearchHeader_showCancelButton_animated___block_invoke;
+  v9[3] = &unk_279D06D40;
+  v9[4] = self;
+  v10 = buttonCopy;
+  [MEMORY[0x277D4C898] performAnimatableChanges:v9 animated:animatedCopy];
+}
+
 uint64_t __46__SPUISearchHeader_showCancelButton_animated___block_invoke(uint64_t a1, double a2)
 {
   LOBYTE(a2) = *(a1 + 40);
@@ -1840,6 +2113,15 @@ LABEL_14:
   [(SPUISearchHeader *)self textDidChange:queryCopy whyQuery:event allowZKW:1 sourcePreference:0 searchEntities:0 queryKind:kind];
   searchField = [(SPUISearchHeader *)self searchField];
   [searchField setText:queryCopy];
+}
+
+- (void)updateFocusResult:(id)result cardSection:(id)section focusIsOnFirstResult:(BOOL)firstResult
+{
+  firstResultCopy = firstResult;
+  sectionCopy = section;
+  resultCopy = result;
+  searchField = [(SPUISearchHeader *)self searchField];
+  [searchField updateFocusResult:resultCopy cardSection:sectionCopy focusIsOnFirstResult:firstResultCopy];
 }
 
 - (BOOL)completionResultIsPotentiallyPunchout

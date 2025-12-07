@@ -119,7 +119,7 @@
       v61 = drawing3;
       if (drawing3)
       {
-        [drawing3 orientationTransform];
+        objc_msgSend_orientationTransform(drawing3);
       }
 
       else
@@ -160,7 +160,7 @@
     [v38 setVersionOutOfDate:{maxDocumentVersion > objc_msgSend(MEMORY[0x1E69B7750], "serializationVersion")}];
 
     memset(&v127, 0, sizeof(v127));
-    [self previewImageOrientationTransform];
+    objc_msgSend_previewImageOrientationTransform(self);
     v123 = 0u;
     v124 = 0u;
     v121 = 0u;

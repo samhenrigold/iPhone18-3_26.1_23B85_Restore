@@ -139,7 +139,7 @@ LABEL_17:
   v7.super_class = SBCenterWindowToSlideOverSwitcherModifier;
   v3 = [(SBSwitcherModifier *)&v7 handleSceneReadyEvent:event];
   v4 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:64 updateMode:3];
-  v5 = SBAppendSwitcherModifierResponse(v4, v3);
+  v5 = SBAppendSwitcherModifierResponse();
 
   return v5;
 }
@@ -152,7 +152,7 @@ LABEL_17:
   if (self->_kind)
   {
     v4 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-    v5 = SBAppendSwitcherModifierResponse(v4, transitionWillBegin);
+    v5 = SBAppendSwitcherModifierResponse();
 
     if (self->_kind == 2 && !self->_isInSecondStageOfDosidoAnimation)
     {

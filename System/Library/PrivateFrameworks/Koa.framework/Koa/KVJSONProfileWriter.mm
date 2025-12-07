@@ -54,7 +54,7 @@
 
 - (BOOL)addItem:(id)item error:(id *)error
 {
-  v110[1] = *MEMORY[0x277D85DE8];
+  v109[1] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   v11 = self->_itemIdx + 1;
   self->_itemIdx = v11;
@@ -91,10 +91,10 @@ LABEL_14:
     else
     {
       v97 = MEMORY[0x277CCA9B8];
-      v109 = *MEMORY[0x277CCA450];
+      v108 = *MEMORY[0x277CCA450];
       v98 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v69, @"Invalid item %@", v71, v72, v73, itemCopy);
-      v110[0] = v98;
-      v101 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v99, v110, &v109, 1, v100);
+      v109[0] = v98;
+      v101 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v99, v109, &v108, 1, v100);
       v104 = objc_msgSend_errorWithDomain_code_userInfo_(v97, v102, @"com.apple.koa.profile", 7, v101, v103);
       if (error && v104)
       {
@@ -125,7 +125,6 @@ LABEL_14:
   v96 = 0;
 LABEL_15:
 
-  v107 = *MEMORY[0x277D85DE8];
   return v96;
 }
 

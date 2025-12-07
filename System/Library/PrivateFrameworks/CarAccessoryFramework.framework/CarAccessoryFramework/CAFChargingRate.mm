@@ -13,6 +13,7 @@
 - (CAFMeasurementRange)powerMeasurementRange;
 - (NSMeasurement)chargingSpeed;
 - (NSMeasurement)power;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -190,6 +191,60 @@
   isInvalid = [chargingSpeedCharacteristic isInvalid];
 
   return isInvalid;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000030000028"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    powerCharacteristic = [(CAFChargingRate *)self powerCharacteristic];
+    uniqueIdentifier2 = [powerCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      power = [(CAFChargingRate *)self power];
+      [observers chargingRateService:self didUpdatePower:power];
+LABEL_8:
+
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x000000004000000A"])
+  {
+LABEL_9:
+
+    goto LABEL_10;
+  }
+
+  uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+  chargingSpeedCharacteristic = [(CAFChargingRate *)self chargingSpeedCharacteristic];
+  uniqueIdentifier4 = [chargingSpeedCharacteristic uniqueIdentifier];
+  v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+  if (v17)
+  {
+    observers = [(CAFService *)self observers];
+    power = [(CAFChargingRate *)self chargingSpeed];
+    [observers chargingRateService:self didUpdateChargingSpeed:power];
+    goto LABEL_8;
+  }
+
+LABEL_10:
+  v18.receiver = self;
+  v18.super_class = CAFChargingRate;
+  [(CAFService *)&v18 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForPower

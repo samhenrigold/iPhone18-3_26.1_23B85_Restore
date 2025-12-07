@@ -11,8 +11,8 @@
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  indexPath = [(PUTileIdentifier *)self indexPath];
-  pu_shortDescription = [indexPath pu_shortDescription];
+  v6 = objc_msgSend_indexPath(self);
+  pu_shortDescription = [v6 pu_shortDescription];
   tileKind = [(PUTileIdentifier *)self tileKind];
   dataSourceIdentifier = [(PUTileIdentifier *)self dataSourceIdentifier];
   v10 = [v3 stringWithFormat:@"<%@: %p indexPath: %@; tileKind: %@; dataSourceIdentifier: %@>", v5, self, pu_shortDescription, tileKind, dataSourceIdentifier];;

@@ -5,6 +5,7 @@
 - (id)specifiers;
 - (void)launchHealthAppOnboardingWithSpecifier:(id)specifier;
 - (void)setWithNotificationsEnabled:(id)enabled specifier:(id)specifier;
+- (void)viewIsAppearing:(BOOL)appearing;
 - (void)viewWillAppear:(BOOL)appear;
 @end
 
@@ -55,6 +56,24 @@
   return result;
 }
 
+- (void)viewIsAppearing:(BOOL)appearing
+{
+  appearingCopy = appearing;
+  sub_51C8();
+  sub_51B8();
+  sub_51A8();
+  if ((swift_task_isCurrentExecutor() & 1) == 0)
+  {
+    swift_task_reportUnexpectedExecutor();
+  }
+
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for SettingsViewController();
+  selfCopy = self;
+  [(SettingsViewController *)&v6 viewIsAppearing:appearingCopy];
+  [(SettingsViewController *)selfCopy reloadSpecifiers:v6.receiver];
+}
+
 - (void)viewWillAppear:(BOOL)appear
 {
   appearCopy = appear;
@@ -80,11 +99,10 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  v4 = *&self->BPSListController_opaque[OBJC_IVAR____TtC31NanoHealthBalanceBridgeSettings22SettingsViewController_settings];
   selfCopy = self;
-  v6 = [objc_allocWithZone(NSNumber) initWithBool:sub_5028() & 1];
+  v5 = [objc_allocWithZone(NSNumber) initWithBool:sub_5028() & 1];
 
-  return v6;
+  return v5;
 }
 
 - (void)setWithNotificationsEnabled:(id)enabled specifier:(id)specifier
@@ -97,7 +115,6 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  v6 = *&self->BPSListController_opaque[OBJC_IVAR____TtC31NanoHealthBalanceBridgeSettings22SettingsViewController_settings];
   enabledCopy = enabled;
   selfCopy = self;
   [enabledCopy BOOLValue];
@@ -130,7 +147,7 @@
 
   v4 = __chkstk_darwin(isCurrentExecutor);
   __chkstk_darwin(v4);
-  sub_355C();
+  sub_355C(0);
   selfCopy = self;
   sub_4F78();
   sub_29E0(v9);

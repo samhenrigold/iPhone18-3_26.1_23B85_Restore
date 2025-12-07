@@ -22,9 +22,9 @@ id getWKContentRuleListStoreClass()
   return v1;
 }
 
-void sub_257F682B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_257F682B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -37,10 +37,10 @@ void sub_257F68BC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_257F68E94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_257F68E94(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MEAppExtensionsController;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -129,16 +129,16 @@ uint64_t _reload(uint64_t a1, void *a2)
   return [a2 _scheduleContentRuleListReload];
 }
 
-void sub_257F6DCE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_257F6DCE8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = MEContentRuleListManager;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_257F6DE04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_257F6DE04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -159,7 +159,7 @@ void sub_257F6E554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_257F6EA04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_257F6EA04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -185,66 +185,55 @@ void sub_257F6ECA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 Class __getWKContentRuleListStoreClass_block_invoke(uint64_t a1)
 {
-  v8[9] = *MEMORY[0x277D85DE8];
-  v8[0] = 0;
+  v7[9] = *MEMORY[0x277D85DE8];
+  v7[0] = 0;
   if (!WebKitLibraryCore_frameworkLibrary)
   {
-    v8[1] = MEMORY[0x277D85DD0];
-    v8[2] = 3221225472;
-    v8[3] = __WebKitLibraryCore_block_invoke;
-    v8[4] = &__block_descriptor_40_e5_v8__0l;
-    v8[5] = v8;
-    v8[7] = 0;
-    v8[8] = 0;
-    v8[6] = "/System/Library/Frameworks/WebKit.framework/WebKit";
+    v7[1] = MEMORY[0x277D85DD0];
+    v7[2] = 3221225472;
+    v7[3] = __WebKitLibraryCore_block_invoke;
+    v7[4] = &__block_descriptor_40_e5_v8__0l;
+    v7[5] = v7;
+    v7[7] = 0;
+    v7[8] = 0;
+    v7[6] = "/System/Library/Frameworks/WebKit.framework/WebKit";
     WebKitLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!WebKitLibraryCore_frameworkLibrary)
   {
-    v4 = [MEMORY[0x277CCA890] currentHandler];
-    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *WebKitLibrary(void)"];
-    [v4 handleFailureInFunction:v5 file:@"MEContentRuleListManager.m" lineNumber:21 description:{@"%s", v8[0]}];
+    v3 = [MEMORY[0x277CCA890] currentHandler];
+    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void *WebKitLibrary(void)"];
+    [v3 handleFailureInFunction:v4 file:@"MEContentRuleListManager.m" lineNumber:21 description:{@"%s", v7[0]}];
 
     goto LABEL_10;
   }
 
-  if (v8[0])
+  if (v7[0])
   {
-    free(v8[0]);
+    free(v7[0]);
   }
 
   result = objc_getClass("WKContentRuleListStore");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    v6 = [MEMORY[0x277CCA890] currentHandler];
-    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Class getWKContentRuleListStoreClass(void)_block_invoke"];
-    [v6 handleFailureInFunction:v7 file:@"MEContentRuleListManager.m" lineNumber:23 description:{@"Unable to find class %s", "WKContentRuleListStore"}];
+    v5 = [MEMORY[0x277CCA890] currentHandler];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Class getWKContentRuleListStoreClass(void)_block_invoke"];
+    [v5 handleFailureInFunction:v6 file:@"MEContentRuleListManager.m" lineNumber:23 description:{@"Unable to find class %s", "WKContentRuleListStore"}];
 
 LABEL_10:
     __break(1u);
   }
 
   getWKContentRuleListStoreClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __WebKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   WebKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_1@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 40);
   return result;
 }
 
@@ -276,16 +265,16 @@ void sub_257F71898(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id MEMailExtensionsLog()
+id MEMailExtensionsLog(uint64_t a1)
 {
   if (MEMailExtensionsLog_onceToken != -1)
   {
     MEMailExtensionsLog_cold_1();
   }
 
-  v1 = MEMailExtensionsLog_os_log;
+  v2 = MEMailExtensionsLog_os_log;
 
-  return v1;
+  return v2;
 }
 
 void __MEMailExtensionsLog_block_invoke()
@@ -358,7 +347,7 @@ void sub_257F789B0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_257F78D80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id a21)
+void sub_257F78D80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id a21)
 {
   v27 = v24;
 
@@ -382,10 +371,10 @@ void sub_257F79DC4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_257F7A278(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_257F7A278(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MERemoteExtensionContext;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 

@@ -10,13 +10,13 @@
 
 - (void)startObserving
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E698D0A0];
   v4 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v12 = "[SASCallRouteObserver startObserving]";
+    v11 = "[SASCallRouteObserver startObserving]";
     _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
@@ -29,10 +29,10 @@
     block[1] = 3221225472;
     block[2] = __38__SASCallRouteObserver_startObserving__block_invoke;
     block[3] = &unk_1E82F36D0;
-    objc_copyWeak(&v10, buf);
+    objc_copyWeak(&v9, buf);
     dispatch_async(queue, block);
 
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v9);
     objc_destroyWeak(buf);
   }
 
@@ -42,22 +42,20 @@
     if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v12 = "[SASCallRouteObserver startObserving]";
+      v11 = "[SASCallRouteObserver startObserving]";
       _os_log_impl(&dword_1C8137000, v7, OS_LOG_TYPE_DEFAULT, "%s SIC not enabled, not observing call route", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopObserving
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[SASCallRouteObserver stopObserving]";
+    v9 = "[SASCallRouteObserver stopObserving]";
     _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
@@ -70,14 +68,12 @@
     block[1] = 3221225472;
     block[2] = __37__SASCallRouteObserver_stopObserving__block_invoke;
     block[3] = &unk_1E82F36D0;
-    objc_copyWeak(&v8, buf);
+    objc_copyWeak(&v7, buf);
     dispatch_async(queue, block);
 
-    objc_destroyWeak(&v8);
+    objc_destroyWeak(&v7);
     objc_destroyWeak(buf);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (SASCallRouteObserver)init
@@ -163,7 +159,7 @@ void __37__SASCallRouteObserver_stopObserving__block_invoke(uint64_t a1)
 
 void __61__SASCallRouteObserver__updateCallAudioRouteAllowedForRoute___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -173,7 +169,7 @@ void __61__SASCallRouteObserver__updateCallAudioRouteAllowedForRoute___block_inv
       if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v25 = "[SASCallRouteObserver _updateCallAudioRouteAllowedForRoute:]_block_invoke";
+        v24 = "[SASCallRouteObserver _updateCallAudioRouteAllowedForRoute:]_block_invoke";
         _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s built-in route in-call with echo cancellation", buf, 0xCu);
       }
 
@@ -190,27 +186,27 @@ void __61__SASCallRouteObserver__updateCallAudioRouteAllowedForRoute___block_inv
       v6 = [MEMORY[0x1E69AED08] sharedAVSystemController];
       v7 = [v6 pickableRoutesForCategory:*MEMORY[0x1E698D298] andMode:@"SpeechRecognition"];
 
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       v8 = v7;
-      v5 = [v8 countByEnumeratingWithState:&v20 objects:v30 count:16];
+      v5 = [v8 countByEnumeratingWithState:&v19 objects:v29 count:16];
       if (v5)
       {
-        v9 = *v21;
+        v9 = *v20;
         v10 = MEMORY[0x1E69AEC80];
         while (2)
         {
           for (i = 0; i != v5; ++i)
           {
-            if (*v21 != v9)
+            if (*v20 != v9)
             {
               objc_enumerationMutation(v8);
             }
 
-            v12 = *(*(&v20 + 1) + 8 * i);
-            v13 = [v12 objectForKeyedSubscript:{*v10, v20}];
+            v12 = *(*(&v19 + 1) + 8 * i);
+            v13 = [v12 objectForKeyedSubscript:{*v10, v19}];
             v14 = [v13 BOOLValue];
 
             if (v14)
@@ -222,7 +218,7 @@ void __61__SASCallRouteObserver__updateCallAudioRouteAllowedForRoute___block_inv
             }
           }
 
-          v5 = [v8 countByEnumeratingWithState:&v20 objects:v30 count:16];
+          v5 = [v8 countByEnumeratingWithState:&v19 objects:v29 count:16];
           if (v5)
           {
             continue;
@@ -238,9 +234,9 @@ LABEL_23:
       if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v25 = "[SASCallRouteObserver _updateCallAudioRouteAllowedForRoute:]_block_invoke";
-        v26 = 1024;
-        v27 = v5;
+        v24 = "[SASCallRouteObserver _updateCallAudioRouteAllowedForRoute:]_block_invoke";
+        v25 = 1024;
+        v26 = v5;
         _os_log_impl(&dword_1C8137000, v16, OS_LOG_TYPE_DEFAULT, "%s bluetooth route in-call, supportsDoAP=%i", buf, 0x12u);
       }
 
@@ -259,7 +255,7 @@ LABEL_23:
       if (([WeakRetained isCallAudioRouteAllowed] & 1) == 0)
       {
 LABEL_28:
-        [WeakRetained setIsCallAudioRouteAllowed:{v5, v20}];
+        [WeakRetained setIsCallAudioRouteAllowed:{v5, v19}];
         goto LABEL_29;
       }
     }
@@ -269,11 +265,11 @@ LABEL_28:
     {
       v18 = *(a1 + 32);
       *buf = 136315650;
-      v25 = "[SASCallRouteObserver _updateCallAudioRouteAllowedForRoute:]_block_invoke";
-      v26 = 1024;
-      v27 = v4;
-      v28 = 2112;
-      v29 = v18;
+      v24 = "[SASCallRouteObserver _updateCallAudioRouteAllowedForRoute:]_block_invoke";
+      v25 = 1024;
+      v26 = v4;
+      v27 = 2112;
+      v28 = v18;
       _os_log_impl(&dword_1C8137000, v17, OS_LOG_TYPE_DEFAULT, "%s Updating isCallAudioRouteAllowed: %i for route %@", buf, 0x1Cu);
     }
 
@@ -281,8 +277,6 @@ LABEL_28:
   }
 
 LABEL_29:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -2,6 +2,7 @@
 + (id)new;
 - (CCMutableRepeatedBool)init;
 - (id)copyWithZone:(_NSZone *)zone;
+- (void)appendBoolValue:(BOOL)value;
 @end
 
 @implementation CCMutableRepeatedBool
@@ -18,6 +19,14 @@
   v3.receiver = self;
   v3.super_class = &OBJC_METACLASS___CCMutableRepeatedBool;
   return objc_msgSendSuper2(&v3, sel__new);
+}
+
+- (void)appendBoolValue:(BOOL)value
+{
+  valueCopy = value;
+  values = [(CCRepeatedFieldValue *)self values];
+  v4 = [objc_alloc(MEMORY[0x1E696AD98]) initWithBool:valueCopy];
+  [values addObject:v4];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

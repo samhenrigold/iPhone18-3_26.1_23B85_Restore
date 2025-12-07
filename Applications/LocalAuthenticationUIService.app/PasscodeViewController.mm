@@ -9,9 +9,11 @@
 - (void)_layoutGlyph;
 - (void)_processPasscodeEntryResult:(int64_t)result;
 - (void)_scheduleTimerIfNecessaryAndUpdateSubtitle;
+- (void)_setGlyphState:(int64_t)state animated:(BOOL)animated;
 - (void)_setupGlyph;
 - (void)_setupView;
 - (void)_showBackoffScreenWithMinsUntilUnblocked:(int)unblocked;
+- (void)_showGlyph:(BOOL)glyph animated:(BOOL)animated;
 - (void)_showPasscodeScreen;
 - (void)_switchToBackoffScreen:(id)screen animated:(BOOL)animated;
 - (void)_updateStyle;
@@ -20,7 +22,11 @@
 - (void)mechanismEvent:(int64_t)event value:(id)value reply:(id)reply;
 - (void)passcodeViewPasscodeDidChange:(id)change;
 - (void)passcodeViewPasscodeEntered:(id)entered;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation PasscodeViewController
@@ -234,72 +240,107 @@ LABEL_24:
 
     if (isActive)
     {
-      if ((LADynamicIslandAvailable() & 1) == 0)
+      if ((LADynamicIslandAvailable(v8, v9) & 1) == 0)
       {
-        v23 = LACLogPasscodeUI();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v25 = LACLogPasscodeUI();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v30) = 0;
-          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "no glyph on passcode screen without dynamic island", &v30, 2u);
+          LOWORD(v34) = 0;
+          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "no glyph on passcode screen without dynamic island", &v34, 2u);
         }
 
         goto LABEL_12;
       }
 
-      v8 = +[LAUIPearlGlyphStaticConfiguration createSystemApertureConfiguration];
-      [v8 setInitialStyle:4];
-      [v8 setSecureVariantEnabled:1];
-      v9 = [[LAUIPearlGlyphView alloc] initWithConfiguration:v8];
+      v10 = +[LAUIPearlGlyphStaticConfiguration createSystemApertureConfiguration];
+      [v10 setInitialStyle:4];
+      [v10 setSecureVariantEnabled:1];
+      v11 = [[LAUIPearlGlyphView alloc] initWithConfiguration:v10];
       glyphView = self->_glyphView;
-      self->_glyphView = v9;
+      self->_glyphView = v11;
 
-      v11 = [FaceIdToastViewController alloc];
-      v12 = self->_glyphView;
-      v13 = [NSBundle bundleForClass:objc_opt_class()];
-      v14 = [v13 localizedStringForKey:@"PEARL" value:&stru_1000ADB50 table:@"MobileUI"];
-      v15 = LACLightweightUIModeNone;
+      v13 = [FaceIdToastViewController alloc];
+      v14 = self->_glyphView;
+      v15 = [NSBundle bundleForClass:objc_opt_class()];
+      v16 = [v15 localizedStringForKey:@"PEARL" value:&stru_1000ADB50 table:@"MobileUI"];
+      v17 = LACLightweightUIModeNone;
       options = [(TransitionViewController *)self options];
-      v17 = [NSNumber numberWithInteger:LACPolicyOptionSecureUIRecording];
-      v18 = [options objectForKeyedSubscript:v17];
-      v19 = -[FaceIdToastViewController initWithGlyph:presentingController:title:lightweightUIMode:secureUIRecording:](v11, "initWithGlyph:presentingController:title:lightweightUIMode:secureUIRecording:", v12, self, v14, v15, [v18 BOOLValue]);
+      v19 = [NSNumber numberWithInteger:LACPolicyOptionSecureUIRecording];
+      v20 = [options objectForKeyedSubscript:v19];
+      v21 = -[FaceIdToastViewController initWithGlyph:presentingController:title:lightweightUIMode:secureUIRecording:](v13, "initWithGlyph:presentingController:title:lightweightUIMode:secureUIRecording:", v14, self, v16, v17, [v20 BOOLValue]);
       toastController = self->_toastController;
-      self->_toastController = v19;
+      self->_toastController = v21;
 
-      v21 = LACLogPasscodeUI();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v23 = LACLogPasscodeUI();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = self->_toastController;
-        v30 = 138412290;
-        v31 = v22;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "glyph created on passcode screen: %@", &v30, 0xCu);
+        v24 = self->_toastController;
+        v34 = 138412290;
+        v35 = v24;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "glyph created on passcode screen: %@", &v34, 0xCu);
       }
     }
 
-    v23 = +[LAUIPearlGlyphStaticConfiguration createDefaultConfiguration];
-    [v23 setInitialStyle:3];
-    v24 = [[LAUIPearlGlyphView alloc] initWithConfiguration:v23];
-    v25 = self->_glyphView;
-    self->_glyphView = v24;
+    v25 = +[LAUIPearlGlyphStaticConfiguration createDefaultConfiguration];
+    [v25 setInitialStyle:3];
+    v26 = [[LAUIPearlGlyphView alloc] initWithConfiguration:v25];
+    v27 = self->_glyphView;
+    self->_glyphView = v26;
 
-    v26 = LADynamicIslandAvailable();
-    v27 = 56.0;
-    if (!v26)
+    v30 = LADynamicIslandAvailable(v28, v29);
+    v31 = 56.0;
+    if (!v30)
     {
-      v27 = 48.0;
+      v31 = 48.0;
     }
 
-    [(LAUIPearlGlyphView *)self->_glyphView setFrame:0.0, v27, 32.0, 32.0];
+    [(LAUIPearlGlyphView *)self->_glyphView setFrame:0.0, v31, 32.0, 32.0];
     [(PasscodeViewController *)self _setGlyphState:1 animated:0];
-    v28 = LACLogPasscodeUI();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v32 = LACLogPasscodeUI();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = self->_glyphView;
-      v30 = 138412290;
-      v31 = v29;
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "glyph created on passcode screen: %@", &v30, 0xCu);
+      v33 = self->_glyphView;
+      v34 = 138412290;
+      v35 = v33;
+      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "glyph created on passcode screen: %@", &v34, 0xCu);
     }
 
 LABEL_12:
+  }
+}
+
+- (void)_showGlyph:(BOOL)glyph animated:(BOOL)animated
+{
+  toastController = self->_toastController;
+  if (toastController)
+  {
+    if (glyph)
+    {
+      [(PresentationViewController *)toastController presentOnParentViewController:self animated:animated completionHandler:&__block_literal_global_2];
+    }
+
+    else
+    {
+      [(FaceIdToastViewController *)toastController dismissWithDelay:&__block_literal_global_61 completion:animated, 0.0];
+    }
+  }
+
+  else
+  {
+    [(LAUIPearlGlyphView *)self->_glyphView setHidden:!glyph, animated];
+  }
+}
+
+- (void)_setGlyphState:(int64_t)state animated:(BOOL)animated
+{
+  if (self->_toastController)
+  {
+    [(FaceIdToastViewController *)self->_toastController setGlyphState:state animated:animated];
+  }
+
+  else
+  {
+    [(LAUIPearlGlyphView *)self->_glyphView setState:state animated:animated];
   }
 }
 
@@ -645,6 +686,30 @@ void __54__PasscodeViewController__processPasscodeEntryResult___block_invoke_8(u
   }
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = PasscodeViewController;
+  [(TransitionViewController *)&v8 viewWillAppear:appear];
+  if (self->_toastController)
+  {
+    [(PasscodeViewController *)self _showGlyph:1 animated:1];
+    [(PasscodeViewController *)self _setGlyphState:1 animated:1];
+  }
+
+  objc_initWeak(&location, self);
+  backoffCounter = [(TransitionViewController *)self backoffCounter];
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = __41__PasscodeViewController_viewWillAppear___block_invoke;
+  v5[3] = &unk_1000AA398;
+  objc_copyWeak(&v6, &location);
+  [backoffCounter currentBackoffErrorWithReply:v5];
+
+  objc_destroyWeak(&v6);
+  objc_destroyWeak(&location);
+}
+
 void __41__PasscodeViewController_viewWillAppear___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -680,6 +745,51 @@ void __41__PasscodeViewController_viewWillAppear___block_invoke_2(uint64_t a1)
     }
 
     WeakRetained = v3;
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = PasscodeViewController;
+  [(TransitionViewController *)&v5 viewDidAppear:appear];
+  if (!self->_isBlocked)
+  {
+    [(PasscodeView *)self->_passcodeView becomeFirstResponder];
+  }
+
+  if ([(TransitionViewController *)self policy]== 1010)
+  {
+    v4 = +[TransitionViewController rootController];
+    [v4 idleTimerDisable:1];
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = PasscodeViewController;
+  [(PasscodeViewController *)&v6 viewWillDisappear:disappear];
+  [(PasscodeViewController *)self _showGlyph:0 animated:0];
+  if ([(PasscodeViewController *)self _hasBlurredBackground])
+  {
+    v4 = +[TransitionViewController rootController];
+    _remoteViewControllerProxy = [v4 _remoteViewControllerProxy];
+
+    [_remoteViewControllerProxy setWallpaperTunnelActive:0];
+    [_remoteViewControllerProxy setWallpaperStyle:1 withDuration:0.0];
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = PasscodeViewController;
+  [(TransitionViewController *)&v5 viewDidDisappear:disappear];
+  if ([(TransitionViewController *)self policy]== 1010)
+  {
+    v4 = +[TransitionViewController rootController];
+    [v4 idleTimerDisable:0];
   }
 }
 
@@ -877,12 +987,11 @@ id __45__PasscodeViewController__showPasscodeScreen__block_invoke(uint64_t a1)
 
 id __67__PasscodeViewController__showBackoffScreenWithMinsUntilUnblocked___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [NSBundle bundleForClass:objc_opt_class()];
-  v4 = [v3 localizedStringForKey:@"MINUTES_TO_UNBLOCK" value:&stru_1000ADB50 table:@"MobileUI"];
-  v5 = [NSString localizedStringWithFormat:v4, *(a1 + 40)];
+  v2 = [NSBundle bundleForClass:objc_opt_class()];
+  v3 = [v2 localizedStringForKey:@"MINUTES_TO_UNBLOCK" value:&stru_1000ADB50 table:@"MobileUI"];
+  v4 = [NSString localizedStringWithFormat:v3, *(a1 + 40)];
 
-  return v5;
+  return v4;
 }
 
 - (int64_t)preferredStatusBarStyle

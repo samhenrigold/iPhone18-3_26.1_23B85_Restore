@@ -6,7 +6,7 @@
 
 - (NSObject)initWithChallenge:(void *)challenge nonce:(void *)nonce tokenKey:(void *)key keyID:(void *)d authenticator:
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v11 = a2;
   challengeCopy = challenge;
   nonceCopy = nonce;
@@ -29,7 +29,7 @@
 
     *md = 136315138;
     *&md[4] = "[NSPPrivateAccessTokenResponse initWithChallenge:nonce:tokenKey:keyID:authenticator:]";
-    v26 = "%s called with null challenge";
+    v25 = "%s called with null challenge";
     goto LABEL_45;
   }
 
@@ -43,7 +43,7 @@
 
     *md = 136315138;
     *&md[4] = "[NSPPrivateAccessTokenResponse initWithChallenge:nonce:tokenKey:keyID:authenticator:]";
-    v26 = "%s called with null tokenKey";
+    v25 = "%s called with null tokenKey";
     goto LABEL_45;
   }
 
@@ -57,7 +57,7 @@
 
     *md = 136315138;
     *&md[4] = "[NSPPrivateAccessTokenResponse initWithChallenge:nonce:tokenKey:keyID:authenticator:]";
-    v26 = "%s called with null authenticator";
+    v25 = "%s called with null authenticator";
     goto LABEL_45;
   }
 
@@ -78,7 +78,7 @@
 
       *md = 136315138;
       *&md[4] = "[NSPPrivateAccessTokenResponse initWithChallenge:nonce:tokenKey:keyID:authenticator:]";
-      v26 = "%s called with null nonce";
+      v25 = "%s called with null nonce";
       goto LABEL_45;
     }
 
@@ -88,12 +88,12 @@ LABEL_9:
       selfCopy2 = [v11 challengeData];
       if (([v11 tokenType] == 2 || objc_msgSend(v11, "tokenType") == 3 || objc_msgSend(v11, "tokenType") == 58796) && !selfCopy2)
       {
-        v27 = nplog_obj();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+        v26 = nplog_obj();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
         {
           *md = 136315138;
           *&md[4] = "[NSPPrivateAccessTokenResponse initWithChallenge:nonce:tokenKey:keyID:authenticator:]";
-          _os_log_fault_impl(&dword_1AE7E2000, v27, OS_LOG_TYPE_FAULT, "%s called with null challengeData", md, 0xCu);
+          _os_log_fault_impl(&dword_1AE7E2000, v26, OS_LOG_TYPE_FAULT, "%s called with null challengeData", md, 0xCu);
         }
 
         selfCopy2 = 0;
@@ -103,21 +103,21 @@ LABEL_9:
 
       else
       {
-        v29.receiver = self;
-        v29.super_class = NSPPrivateAccessTokenResponse;
-        v18 = [&v29 init];
+        v28.receiver = self;
+        v28.super_class = NSPPrivateAccessTokenResponse;
+        v18 = [&v28 init];
         if (v18)
         {
           v19 = v18;
           v20 = objc_alloc_init(MEMORY[0x1E695DF88]);
-          v28 = __rev16([v11 tokenType]);
-          [v20 appendBytes:&v28 length:2];
+          v27 = __rev16([v11 tokenType]);
+          [v20 appendBytes:&v27 length:2];
           if ([v11 tokenType] == 2 || objc_msgSend(v11, "tokenType") == 3 || objc_msgSend(v11, "tokenType") == 58796)
           {
             [v20 appendData:challengeCopy];
             *md = 0u;
-            v31 = 0u;
-            CC_SHA256([selfCopy2 bytes], objc_msgSend(selfCopy2, "length"), md);
+            v30 = 0u;
+            CC_SHA256([selfCopy2 bytes], [selfCopy2 length], md);
             [v20 appendBytes:md length:32];
           }
 
@@ -129,7 +129,7 @@ LABEL_9:
           else
           {
             *md = 0u;
-            v31 = 0u;
+            v30 = 0u;
             CC_SHA256([nonceCopy bytes], objc_msgSend(nonceCopy, "length"), md);
             [v20 appendBytes:md length:32];
           }
@@ -165,9 +165,9 @@ LABEL_9:
 
     *md = 136315138;
     *&md[4] = "[NSPPrivateAccessTokenResponse initWithChallenge:nonce:tokenKey:keyID:authenticator:]";
-    v26 = "%s called with null (nonce.length == 4)";
+    v25 = "%s called with null (nonce.length == 4)";
 LABEL_45:
-    _os_log_fault_impl(&dword_1AE7E2000, selfCopy, OS_LOG_TYPE_FAULT, v26, md, 0xCu);
+    _os_log_fault_impl(&dword_1AE7E2000, selfCopy, OS_LOG_TYPE_FAULT, v25, md, 0xCu);
     goto LABEL_47;
   }
 
@@ -181,7 +181,7 @@ LABEL_45:
 
     *md = 136315138;
     *&md[4] = "[NSPPrivateAccessTokenResponse initWithChallenge:nonce:tokenKey:keyID:authenticator:]";
-    v26 = "%s called with null nonce";
+    v25 = "%s called with null nonce";
     goto LABEL_45;
   }
 
@@ -195,7 +195,7 @@ LABEL_45:
   {
     *md = 136315138;
     *&md[4] = "[NSPPrivateAccessTokenResponse initWithChallenge:nonce:tokenKey:keyID:authenticator:]";
-    v26 = "%s called with null (nonce.length == 32)";
+    v25 = "%s called with null (nonce.length == 32)";
     goto LABEL_45;
   }
 
@@ -205,7 +205,6 @@ LABEL_47:
 LABEL_22:
 
 LABEL_23:
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 

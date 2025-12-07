@@ -12,20 +12,20 @@
 
 - (MTRPluginClientXPCProxy)initWithClient:(id)client
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   clientCopy = client;
-  v10.receiver = self;
-  v10.super_class = MTRPluginClientXPCProxy;
-  v5 = [(MTRPluginClientXPCProxy *)&v10 init];
+  v9.receiver = self;
+  v9.super_class = MTRPluginClientXPCProxy;
+  v5 = [(MTRPluginClientXPCProxy *)&v9 init];
   if (v5)
   {
     v6 = matterPluginLog_default;
     if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v12 = v5;
-      v13 = 2112;
-      v14 = clientCopy;
+      v11 = v5;
+      v12 = 2112;
+      v13 = clientCopy;
       _os_log_impl(&dword_25830F000, v6, OS_LOG_TYPE_DEFAULT, "%@ initWithClient %@", buf, 0x16u);
     }
 
@@ -33,7 +33,6 @@
     v7 = v5;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -140,34 +139,32 @@ void __49__MTRPluginClientXPCProxy_callRemoteProxyObject___block_invoke(uint64_t
 
 void __49__MTRPluginClientXPCProxy_callRemoteProxyObject___block_invoke_cold_1(void *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v1 = objc_begin_catch(a1);
   v2 = matterPluginLog_default;
   if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_ERROR))
   {
-    v4 = 138412290;
-    v5 = v1;
-    _os_log_error_impl(&dword_25830F000, v2, OS_LOG_TYPE_ERROR, "Exception calling remote proxy: %@", &v4, 0xCu);
+    v3 = 138412290;
+    v4 = v1;
+    _os_log_error_impl(&dword_25830F000, v2, OS_LOG_TYPE_ERROR, "Exception calling remote proxy: %@", &v3, 0xCu);
   }
 
   objc_end_catch();
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)forwardInvocation:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   objc_begin_catch(a1);
   v4 = matterPluginLog_default;
   if (os_log_type_enabled(matterPluginLog_default, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = a3;
-    _os_log_impl(&dword_25830F000, v4, OS_LOG_TYPE_DEFAULT, "Exception forwarding MTRXPCClientProtocol method: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = a3;
+    _os_log_impl(&dword_25830F000, v4, OS_LOG_TYPE_DEFAULT, "Exception forwarding MTRXPCClientProtocol method: %@", &v5, 0xCu);
   }
 
   objc_end_catch();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

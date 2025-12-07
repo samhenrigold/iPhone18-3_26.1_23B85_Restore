@@ -17,7 +17,7 @@
 - (id)_evaluateVideoAttributes:(id *)attributes
 {
   v4 = [NUVideoAttributes alloc];
-  [(NUTrimNode *)self range];
+  objc_msgSend_range(self);
   v9 = v7;
   v10 = v8;
   v5 = [(NUVideoAttributes *)v4 initWithDuration:&v9];
@@ -78,15 +78,15 @@
   if (v5)
   {
     memset(&v28, 0, sizeof(v28));
-    [v5 livePhotoKeyFrameTime];
+    objc_msgSend_livePhotoKeyFrameTime(v5);
     if (0 >> 96)
     {
-      [(NUTrimNode *)self range];
+      objc_msgSend_range(self);
       time = v28;
       if (CMTimeRangeContainsTime(&range, &time))
       {
         memset(&range, 0, 24);
-        [(NUTrimNode *)self range];
+        objc_msgSend_range(self);
         time = v26;
         lhs = v28;
         CMTimeSubtract(&range.start, &lhs, &time);
@@ -170,7 +170,7 @@
   if (v6)
   {
     tracks = [v6 tracks];
-    [(NUTrimNode *)self range];
+    objc_msgSend_range(self);
     v29 = 0;
     v9 = [NUVideoUtilities trimCompositionTracks:tracks toRange:buf error:&v29];
     v10 = v29;
@@ -338,7 +338,7 @@
             memset(buf, 0, 48);
             if (v15)
             {
-              [v15 timeRange];
+              objc_msgSend_timeRange(v15);
             }
 
             else
@@ -347,8 +347,8 @@
               memset(time1, 0, sizeof(time1));
             }
 
-            [v6 timeRange];
-            [NUVideoUtilities conformRange:time1 inRange:&time2];
+            objc_msgSend_timeRange(v6);
+            objc_msgSend_conformRange_inRange_(NUVideoUtilities);
             v16 = buf[12];
             if ((buf[12] & 1) == 0)
             {
@@ -492,14 +492,14 @@ LABEL_7:
 
   if (stateCopy)
   {
-    [stateCopy time];
+    objc_msgSend_time(stateCopy);
     if ((BYTE4(v18) & 0x1D) == 1 && (self->_range.start.flags & 0x1D) == 1)
     {
       v10 = [stateCopy copy];
 
       if (v10)
       {
-        [v10 time];
+        objc_msgSend_time(v10);
       }
 
       else

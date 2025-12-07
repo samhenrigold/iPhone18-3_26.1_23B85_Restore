@@ -83,24 +83,7 @@
   if (stringCopy)
   {
     v8 = objc_msgSend_componentsSeparatedByString_(stringCopy, v6, @" ");
-    if (objc_msgSend_count(v8, v9, v10) != 2)
-    {
-      goto LABEL_9;
-    }
-
-    v30 = 0;
-    v12 = MEMORY[0x277CCAC80];
-    v13 = objc_msgSend_objectAtIndex_(v8, v11, 0);
-    v15 = objc_msgSend_scannerWithString_(v12, v14, v13);
-    v17 = objc_msgSend_scanInteger_(v15, v16, &v30);
-
-    if (!v17)
-    {
-      goto LABEL_9;
-    }
-
-    v20 = v30;
-    if (v30 >= -1 && v20 <= objc_msgSend_saveSequenceCount(storeCopy, v18, v19) && (objc_msgSend_objectAtIndexedSubscript_(v8, v21, 1), v22 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend_intValue(v22, v23, v24), v22, v25 != -1))
+    if (objc_msgSend_count(v8, v9, v10) == 2 && (v30 = 0, v12 = MEMORY[0x277CCAC80], objc_msgSend_objectAtIndex_(v8, v11, 0), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend_scannerWithString_(v12, v14, v13), v15 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend_scanInteger_(v15, v16, &v30), v15, v13, v17) && (v20 = v30, v30 >= -1) && v20 <= objc_msgSend_saveSequenceCount(storeCopy, v18, v19) && (objc_msgSend_objectAtIndexedSubscript_(v8, v21, 1), v22 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend_intValue(v22, v23, v24), v22, v25 != -1))
     {
       v26 = [ABAssistantSyncAnchor alloc];
       v28 = objc_msgSend_initWithSequenceNumber_contactLegacyIdentifier_(v26, v27, v30, v25);
@@ -113,7 +96,6 @@
 
     else
     {
-LABEL_9:
     }
   }
 

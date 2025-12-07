@@ -25,27 +25,35 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFClimateControlsLockedObservable.climateControlsLockedService(_:didUpdateLockState:)();
+  CAFClimateControlsLockedObservable.climateControlsLockedService(_:didUpdateLockState:)(selfCopy, state);
 }
 
 - (void)climateControlsLockedService:(id)service didUpdateVehicleLayoutKey:(id)key
 {
   if (key)
   {
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v8 = v7;
+  }
+
+  else
+  {
+    v6 = 0;
+    v8 = 0;
   }
 
   serviceCopy = service;
   selfCopy = self;
-  CAFClimateControlsLockedObservable.climateControlsLockedService(_:didUpdateVehicleLayoutKey:)();
+  CAFClimateControlsLockedObservable.climateControlsLockedService(_:didUpdateVehicleLayoutKey:)(selfCopy, v6, v8);
 }
 
 - (void)climateControlsLockedService:(id)service didUpdateName:(id)name
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v8 = v7;
   serviceCopy = service;
   selfCopy = self;
-  CAFClimateControlsLockedObservable.climateControlsLockedService(_:didUpdateName:)();
+  CAFClimateControlsLockedObservable.climateControlsLockedService(_:didUpdateName:)(selfCopy, v6, v8);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

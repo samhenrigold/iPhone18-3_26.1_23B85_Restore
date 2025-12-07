@@ -52,7 +52,7 @@
   {
     if (!v5)
     {
-      [SBFlashlightActivityManager initWithWindowScene:? flashlightController:?];
+      [SBFlashlightActivityManager initWithWindowScene:self flashlightController:?];
     }
 
     v9.receiver = self;
@@ -70,27 +70,28 @@
 
 - (void)_updateFlashlightElementsForReason:(uint64_t)reason
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v4 = v3;
   if (!reason || *(reason + 80) != 1)
   {
     goto LABEL_36;
   }
 
-  v4 = SBLogFlashlightHUD();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = SBLogFlashlightHUD(v3);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     reasonCopy3 = reason;
-    v35 = 2114;
-    v36 = v3;
-    _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "(%{public}@) Updating flashlight elements for reason: '%{public}@'", buf, 0x16u);
+    v37 = 2114;
+    v38 = v4;
+    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "(%{public}@) Updating flashlight elements for reason: '%{public}@'", buf, 0x16u);
   }
 
   canTurnFlashlight = [(SBFlashlightActivityManager *)reason _canTurnFlashlightOn];
   level = [*(reason + 96) level];
   state = [(SBSystemActionCompoundPreviewAssertion *)*(reason + 32) state];
-  v8 = state;
+  v9 = state;
   shouldRemainActiveWhileFlashlightIsOff = (level != 0) | ((level != 0) | canTurnFlashlight ^ 1) ^ 1;
   if (!((level != 0) | (canTurnFlashlight ^ 1) & 1) && (state & 1) == 0)
   {
@@ -101,63 +102,64 @@
   isValid = [*(reason + 40) isValid];
   if (!(isValid & 1 | ((shouldRemainActiveWhileFlashlightIsOff & 1) == 0)))
   {
-    v13 = SBLogFlashlightHUD();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = SBLogFlashlightHUD(isValid);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
       reasonCopy3 = reason;
-      v35 = 2114;
-      v36 = v3;
-      _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "(%{public}@) Creating flashlight activity for reason: '%{public}@'", buf, 0x16u);
+      v37 = 2114;
+      v38 = v4;
+      _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "(%{public}@) Creating flashlight activity for reason: '%{public}@'", buf, 0x16u);
     }
 
     if (*(reason + 81) == 1)
     {
-      v14 = objc_loadWeakRetained((reason + 24));
-      if (v14)
+      v15 = objc_loadWeakRetained((reason + 24));
+      v16 = v15;
+      if (v15)
       {
-        v15 = SBLogFlashlightHUD();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+        v17 = SBLogFlashlightHUD(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
-          [(SBFlashlightActivityManager *)reason _updateFlashlightElementsForReason:v14, v15];
+          [(SBFlashlightActivityManager *)reason _updateFlashlightElementsForReason:v16, v17];
         }
       }
 
       else
       {
-        v16 = [SBDynamicFlashlightActivityElement alloc];
+        v18 = [SBDynamicFlashlightActivityElement alloc];
         _dynamicFlashlightState = [(SBFlashlightActivityManager *)reason _dynamicFlashlightState];
-        v18 = *(reason + 88);
-        coverSheetViewController = [v18 coverSheetViewController];
+        v20 = *(reason + 88);
+        coverSheetViewController = [v20 coverSheetViewController];
         isBeamWidthSupported = [*(reason + 96) isBeamWidthSupported];
 
-        v14 = [(SBDynamicFlashlightActivityElement *)v16 initWithState:_dynamicFlashlightState coverSheetViewController:coverSheetViewController fixedWidth:isBeamWidthSupported ^ 1u];
-        [(SBFlashlightActivityElement *)v14 setDelegate:reason];
-        objc_storeWeak((reason + 24), v14);
+        v16 = [(SBDynamicFlashlightActivityElement *)v18 initWithState:_dynamicFlashlightState coverSheetViewController:coverSheetViewController fixedWidth:isBeamWidthSupported ^ 1u];
+        [(SBFlashlightActivityElement *)v16 setDelegate:reason];
+        objc_storeWeak((reason + 24), v16);
       }
     }
 
     else
     {
-      v14 = [[SBFlashlightActivityElement alloc] initWithFlashlightOn:level != 0];
-      [(SBFlashlightActivityElement *)v14 setDelegate:reason];
-      objc_storeWeak((reason + 8), v14);
+      v16 = [[SBFlashlightActivityElement alloc] initWithFlashlightOn:level != 0];
+      [(SBFlashlightActivityElement *)v16 setDelegate:reason];
+      objc_storeWeak((reason + 8), v16);
     }
 
     systemApertureController = [*(reason + 88) systemApertureController];
-    v22 = [systemApertureController registerElement:v14];
-    v23 = *(reason + 40);
-    *(reason + 40) = v22;
+    v24 = [systemApertureController registerElement:v16];
+    v25 = *(reason + 40);
+    *(reason + 40) = v24;
 
     objc_initWeak(buf, reason);
-    v24 = *(reason + 40);
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __66__SBFlashlightActivityManager__updateFlashlightElementsForReason___block_invoke;
-    v31[3] = &unk_2783B4B88;
-    objc_copyWeak(&v32, buf);
-    [v24 addInvalidationBlock:v31];
-    objc_destroyWeak(&v32);
+    v26 = *(reason + 40);
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __66__SBFlashlightActivityManager__updateFlashlightElementsForReason___block_invoke;
+    v33[3] = &unk_2783B4B88;
+    objc_copyWeak(&v34, buf);
+    [v26 addInvalidationBlock:v33];
+    objc_destroyWeak(&v34);
     objc_destroyWeak(buf);
 
 LABEL_24:
@@ -167,7 +169,7 @@ LABEL_24:
     }
 
 LABEL_25:
-    [(SBFlashlightActivityManager *)reason _updateFlashlightElementsForReason:v3];
+    [(SBFlashlightActivityManager *)reason _updateFlashlightElementsForReason:v4];
     goto LABEL_26;
   }
 
@@ -176,54 +178,54 @@ LABEL_25:
     goto LABEL_24;
   }
 
-  v12 = SBLogFlashlightHUD();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = SBLogFlashlightHUD(isValid);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     reasonCopy3 = reason;
-    v35 = 2114;
-    v36 = v3;
-    _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "(%{public}@) Invalidating flashlight activity for reason: '%{public}@'", buf, 0x16u);
+    v37 = 2114;
+    v38 = v4;
+    _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "(%{public}@) Invalidating flashlight activity for reason: '%{public}@'", buf, 0x16u);
   }
 
-  [*(reason + 40) invalidateWithReason:v3];
+  [*(reason + 40) invalidateWithReason:v4];
   if (canTurnFlashlight)
   {
     goto LABEL_25;
   }
 
-  [(SBFlashlightActivityManager *)reason _showFlashlightUnavailableAlertForReason:v3];
+  [(SBFlashlightActivityManager *)reason _showFlashlightUnavailableAlertForReason:v4];
 LABEL_26:
-  v25 = objc_loadWeakRetained((reason + 8));
-  v26 = v25;
-  if (v25)
-  {
-    [v25 setFlashlightOn:level != 0];
-    [v26 setPreviewing:v8 & 1];
-    [v26 setUrgent:HIBYTE(v8) & 1];
-    [v26 setExpanding:BYTE1(v8) & 1];
-    [v26 setProminent:HIWORD(v8) & 1];
-  }
-
-  v27 = objc_loadWeakRetained((reason + 16));
+  v27 = objc_loadWeakRetained((reason + 8));
   v28 = v27;
   if (v27)
   {
-    [v27 setProminent:HIWORD(v8) & 1];
+    [v27 setFlashlightOn:level != 0];
+    [v28 setPreviewing:v9 & 1];
+    [v28 setUrgent:HIBYTE(v9) & 1];
+    [v28 setExpanding:BYTE1(v9) & 1];
+    [v28 setProminent:HIWORD(v9) & 1];
   }
 
-  v29 = objc_loadWeakRetained((reason + 24));
+  v29 = objc_loadWeakRetained((reason + 16));
+  v30 = v29;
   if (v29)
   {
+    [v29 setProminent:HIWORD(v9) & 1];
+  }
+
+  v31 = objc_loadWeakRetained((reason + 24));
+  if (v31)
+  {
     _dynamicFlashlightState2 = [(SBFlashlightActivityManager *)reason _dynamicFlashlightState];
-    [v29 setFlashlightState:_dynamicFlashlightState2];
-    [v29 setPreviewing:v8 & 1];
-    [v29 setUrgent:HIBYTE(v8) & 1];
-    [v29 setExpanding:BYTE1(v8) & 1];
-    [v29 setProminent:HIWORD(v8) & 1];
+    [v31 setFlashlightState:_dynamicFlashlightState2];
+    [v31 setPreviewing:v9 & 1];
+    [v31 setUrgent:HIBYTE(v9) & 1];
+    [v31 setExpanding:BYTE1(v9) & 1];
+    [v31 setProminent:HIWORD(v9) & 1];
     if ([_dynamicFlashlightState2 isOn] && (*(reason + 64) & 1) == 0)
     {
-      [v29 takeAlertingAssertionWithReason:@"SBFlashlightActivityManager: state -> on"];
+      [v31 takeAlertingAssertionWithReason:@"SBFlashlightActivityManager: state -> on"];
     }
 
     *(reason + 64) = [_dynamicFlashlightState2 isOn];
@@ -240,7 +242,7 @@ LABEL_36:
   {
     if (!v3)
     {
-      [SBFlashlightActivityManager previewFlashlightActivityForReason:?];
+      [(SBFlashlightActivityManager *)sel_previewFlashlightActivityForReason_ previewFlashlightActivityForReason:reason];
     }
 
     if (*(reason + 80) == 1)
@@ -302,7 +304,7 @@ void __66__SBFlashlightActivityManager_previewFlashlightActivityForReason___bloc
   {
     if (!v3)
     {
-      [SBFlashlightActivityManager toggleFlashlightForReason:?];
+      [(SBFlashlightActivityManager *)sel_toggleFlashlightForReason_ toggleFlashlightForReason:reason];
     }
 
     if (([(SBFlashlightActivityManager *)reason _canTurnFlashlightOn]& 1) != 0)
@@ -323,7 +325,7 @@ void __66__SBFlashlightActivityManager_previewFlashlightActivityForReason___bloc
 
 - (void)_showFlashlightUnavailableAlertForReason:(uint64_t)reason
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (reason && *(reason + 80) == 1)
   {
@@ -331,18 +333,19 @@ void __66__SBFlashlightActivityManager_previewFlashlightActivityForReason___bloc
     alertHost = [WeakRetained alertHost];
     alertAssertion = [alertHost alertAssertion];
 
-    LODWORD(alertHost) = [alertAssertion isValid];
-    v7 = SBLogFlashlightHUD();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    isValid = [alertAssertion isValid];
+    LODWORD(alertHost) = isValid;
+    v8 = SBLogFlashlightHUD(isValid);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
     if (alertHost)
     {
-      if (v8)
+      if (v9)
       {
         *buf = 138543618;
         reasonCopy2 = reason;
-        v18 = 2114;
-        v19 = v3;
-        _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@) Resetting invalidation timer for flashlight-unavailable alert for reason: '%{public}@'", buf, 0x16u);
+        v19 = 2114;
+        v20 = v3;
+        _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "(%{public}@) Resetting invalidation timer for flashlight-unavailable alert for reason: '%{public}@'", buf, 0x16u);
       }
 
       [alertAssertion resetAutomaticInvalidationTimer];
@@ -350,31 +353,31 @@ void __66__SBFlashlightActivityManager_previewFlashlightActivityForReason___bloc
 
     else
     {
-      if (v8)
+      if (v9)
       {
         *buf = 138543618;
         reasonCopy2 = reason;
-        v18 = 2114;
-        v19 = v3;
-        _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@) Showing flashlight-unavailable alert for reason: '%{public}@'", buf, 0x16u);
+        v19 = 2114;
+        v20 = v3;
+        _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "(%{public}@) Showing flashlight-unavailable alert for reason: '%{public}@'", buf, 0x16u);
       }
 
-      v9 = +[SBFlashlightAlertElement flashlightUnavailableAlert];
-      objc_storeWeak((reason + 16), v9);
+      v10 = +[SBFlashlightAlertElement flashlightUnavailableAlert];
+      objc_storeWeak((reason + 16), v10);
       systemApertureController = [*(reason + 88) systemApertureController];
-      v11 = [systemApertureController registerElement:v9];
-      v12 = *(reason + 48);
-      *(reason + 48) = v11;
+      v12 = [systemApertureController registerElement:v10];
+      v13 = *(reason + 48);
+      *(reason + 48) = v12;
 
       objc_initWeak(buf, reason);
-      v13 = *(reason + 48);
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __72__SBFlashlightActivityManager__showFlashlightUnavailableAlertForReason___block_invoke;
-      v14[3] = &unk_2783B4B88;
-      objc_copyWeak(&v15, buf);
-      [v13 addInvalidationBlock:v14];
-      objc_destroyWeak(&v15);
+      v14 = *(reason + 48);
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __72__SBFlashlightActivityManager__showFlashlightUnavailableAlertForReason___block_invoke;
+      v15[3] = &unk_2783B4B88;
+      objc_copyWeak(&v16, buf);
+      [v14 addInvalidationBlock:v15];
+      objc_destroyWeak(&v16);
       objc_destroyWeak(buf);
     }
   }
@@ -654,19 +657,19 @@ LABEL_6:
   return v1 & 1;
 }
 
-- (void)initWithWindowScene:(const char *)a1 flashlightController:.cold.1(const char *a1)
+- (void)initWithWindowScene:(const char *)a1 flashlightController:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"windowScene != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"windowScene != ((void *)0)", v11, v12);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -710,10 +713,14 @@ LABEL_6:
   result = [*(a1 + 48) isValid];
   if (result)
   {
-    v5 = SBLogFlashlightHUD();
+    v5 = SBLogFlashlightHUD(result);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      OUTLINED_FUNCTION_1_29(&dword_21ED4E000, v6, v7, "(%{public}@) Invalidating flashlight-unavailable alert for reason: '%{public}@'", v8, v9, v10, v11, 2u);
+      *v12 = 138543618;
+      *&v12[4] = a1;
+      *&v12[12] = 2114;
+      *&v12[14] = a2;
+      OUTLINED_FUNCTION_1_29(&dword_21ED4E000, v6, v7, "(%{public}@) Invalidating flashlight-unavailable alert for reason: '%{public}@'", v8, v9, v10, v11, *v12, *&v12[8], *&v12[16]);
     }
 
     return [*(a1 + 48) invalidateWithReason:a2];
@@ -722,37 +729,37 @@ LABEL_6:
   return result;
 }
 
-- (void)previewFlashlightActivityForReason:(const char *)a1 .cold.1(const char *a1)
+- (void)previewFlashlightActivityForReason:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"reason != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"reason != ((void *)0)", v12, v13);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v13, v14);
   }
 
-  v11 = v2;
-  [v2 UTF8String];
+  v12 = v3;
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)toggleFlashlightForReason:(const char *)a1 .cold.1(const char *a1)
+- (void)toggleFlashlightForReason:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"reason != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"reason != ((void *)0)", v11, v12);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -761,14 +768,14 @@ LABEL_6:
 {
   v4 = *(a1 + 96);
   v5 = [*(a1 + 96) level];
-  v6 = SBLogFlashlightHUD();
+  v6 = SBLogFlashlightHUD(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (v5)
   {
     if (v7)
     {
       OUTLINED_FUNCTION_2_32();
-      OUTLINED_FUNCTION_1_29(&dword_21ED4E000, v8, v9, "(%{public}@) Toggling flashlight OFF for reason: '%{public}@'", v10, v11, v12, v13, v20);
+      OUTLINED_FUNCTION_1_29(&dword_21ED4E000, v8, v9, "(%{public}@) Toggling flashlight OFF for reason: '%{public}@'", v10, v11, v12, v13);
     }
 
     [v4 turnFlashlightOffForReason:a2 withCoolDown:1];
@@ -779,7 +786,7 @@ LABEL_6:
     if (v7)
     {
       OUTLINED_FUNCTION_2_32();
-      OUTLINED_FUNCTION_1_29(&dword_21ED4E000, v14, v15, "(%{public}@) Toggling flashlight ON for reason: '%{public}@'", v16, v17, v18, v19, v20);
+      OUTLINED_FUNCTION_1_29(&dword_21ED4E000, v14, v15, "(%{public}@) Toggling flashlight ON for reason: '%{public}@'", v16, v17, v18, v19);
     }
 
     [v4 turnFlashlightOnForReason:a2];

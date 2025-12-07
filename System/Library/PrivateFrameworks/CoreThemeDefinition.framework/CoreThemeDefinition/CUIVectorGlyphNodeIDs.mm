@@ -5,37 +5,36 @@
 
 id ____CUIVectorGlyphNodeIDs_block_invoke()
 {
-  v2[27] = *MEMORY[0x277D85DE8];
-  v2[0] = @"Ultralight-L";
-  v2[1] = @"Ultralight-M";
-  v2[2] = @"Ultralight-S";
-  v2[3] = @"Thin-L";
-  v2[4] = @"Thin-M";
-  v2[5] = @"Thin-S";
-  v2[6] = @"Light-L";
-  v2[7] = @"Light-M";
-  v2[8] = @"Light-S";
-  v2[9] = @"Regular-L";
-  v2[10] = @"Regular-M";
-  v2[11] = @"Regular-S";
-  v2[12] = @"Medium-L";
-  v2[13] = @"Medium-M";
-  v2[14] = @"Medium-S";
-  v2[15] = @"Semibold-L";
-  v2[16] = @"Semibold-M";
-  v2[17] = @"Semibold-S";
-  v2[18] = @"Bold-L";
-  v2[19] = @"Bold-M";
-  v2[20] = @"Bold-S";
-  v2[21] = @"Heavy-L";
-  v2[22] = @"Heavy-M";
-  v2[23] = @"Heavy-S";
-  v2[24] = @"Black-L";
-  v2[25] = @"Black-M";
-  v2[26] = @"Black-S";
-  result = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:27];
+  v1[27] = *MEMORY[0x277D85DE8];
+  v1[0] = @"Ultralight-L";
+  v1[1] = @"Ultralight-M";
+  v1[2] = @"Ultralight-S";
+  v1[3] = @"Thin-L";
+  v1[4] = @"Thin-M";
+  v1[5] = @"Thin-S";
+  v1[6] = @"Light-L";
+  v1[7] = @"Light-M";
+  v1[8] = @"Light-S";
+  v1[9] = @"Regular-L";
+  v1[10] = @"Regular-M";
+  v1[11] = @"Regular-S";
+  v1[12] = @"Medium-L";
+  v1[13] = @"Medium-M";
+  v1[14] = @"Medium-S";
+  v1[15] = @"Semibold-L";
+  v1[16] = @"Semibold-M";
+  v1[17] = @"Semibold-S";
+  v1[18] = @"Bold-L";
+  v1[19] = @"Bold-M";
+  v1[20] = @"Bold-S";
+  v1[21] = @"Heavy-L";
+  v1[22] = @"Heavy-M";
+  v1[23] = @"Heavy-S";
+  v1[24] = @"Black-L";
+  v1[25] = @"Black-M";
+  v1[26] = @"Black-S";
+  result = [MEMORY[0x277CBEA60] arrayWithObjects:v1 count:27];
   __CUIVectorGlyphNodeIDs__CUIVectorGlyphNodeIDs = result;
-  v1 = *MEMORY[0x277D85DE8];
   return result;
 }
 

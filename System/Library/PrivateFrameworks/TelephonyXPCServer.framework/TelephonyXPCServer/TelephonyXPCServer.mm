@@ -117,7 +117,7 @@ void TelephonyXPC::ServerPowerObserver::init(TelephonyXPC::ServerPowerObserver *
 uint64_t TelephonyXPC::ServerPowerObserver::ServerPowerObserver(uint64_t a1, uint64_t a2)
 {
   ctu::OsLogContext::OsLogContext(v7, "com.apple.telephony", "ServerPowerObserver");
-  ctu::SharedLoggable<TelephonyXPC::ServerPowerObserver,ctu::OsLogLogger>::SharedLoggable<ctu::OsLogContext>(a1, "ServerPowerObserver", QOS_CLASS_DEFAULT);
+  ctu::SharedLoggable<TelephonyXPC::ServerPowerObserver,ctu::OsLogLogger>::SharedLoggable<ctu::OsLogContext>(a1, "ServerPowerObserver", 21, v7);
   ctu::OsLogContext::~OsLogContext(v7);
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
@@ -139,7 +139,7 @@ uint64_t TelephonyXPC::ServerPowerObserver::ServerPowerObserver(uint64_t a1, uin
   return a1;
 }
 
-void *ctu::SharedLoggable<TelephonyXPC::ServerPowerObserver,ctu::OsLogLogger>::SharedLoggable<ctu::OsLogContext>(void *a1, const char *a2, dispatch_qos_class_t a3)
+void *ctu::SharedLoggable<TelephonyXPC::ServerPowerObserver,ctu::OsLogLogger>::SharedLoggable<ctu::OsLogContext>(void *a1, const char *a2, uint64_t a3, const ctu::OsLogContext *a4)
 {
   object = 0;
   ctu::SharedSynchronizable<TelephonyXPC::ServerPowerObserver>::SharedSynchronizable(a1, a2, a3, &object);
@@ -312,7 +312,7 @@ void sub_26D2A2DF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ___ZN12TelephonyXPC19ServerPowerObserver4initEv_block_invoke_2(void *a1, int a2, int a3, const void **a4)
+void ___ZN12TelephonyXPC19ServerPowerObserver4initEv_block_invoke_2(void *a1, uint64_t a2, uint64_t a3, const void **a4)
 {
   v6 = a1[6];
   if (!v6)
@@ -321,6 +321,8 @@ void ___ZN12TelephonyXPC19ServerPowerObserver4initEv_block_invoke_2(void *a1, in
     goto LABEL_7;
   }
 
+  v7 = a3;
+  v8 = a2;
   v9 = a1[4];
   v10 = std::__shared_weak_count::lock(v6);
   if (!v10 || !a1[5])
@@ -346,7 +348,7 @@ LABEL_7:
   }
 
   v12 = v11;
-  TelephonyXPC::ServerPowerObserver::handlePowerNotification_sync(v9, &v12, a2, a3);
+  TelephonyXPC::ServerPowerObserver::handlePowerNotification_sync(v9, &v12, v8, v7);
   if (v11)
   {
     _Block_release(v11);
@@ -370,7 +372,7 @@ void sub_26D2A2F64(_Unwind_Exception *a1)
 
 void TelephonyXPC::ServerPowerObserver::handlePowerNotification_sync(uint64_t a1, uint64_t a2, int a3, int a4)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (a3 <= -536870273)
   {
     if (a3 == -536870320 || a3 == -536870315)
@@ -451,12 +453,12 @@ LABEL_20:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     block = __PAIR64__(a3, 67109888);
-    LOWORD(v25) = 1024;
-    *(&v25 + 2) = v9;
-    HIWORD(v25) = 1024;
-    LODWORD(v26) = v10;
-    WORD2(v26) = 1024;
-    *(&v26 + 6) = a4;
+    LOWORD(v24) = 1024;
+    *(&v24 + 2) = v9;
+    HIWORD(v24) = 1024;
+    LODWORD(v25) = v10;
+    WORD2(v25) = 1024;
+    *(&v25 + 6) = a4;
     _os_log_debug_impl(&dword_26D2A2000, v11, OS_LOG_TYPE_DEBUG, "#D Power Notification [%x] Event [%d] PowerState [%d] Forced Sleep [%d]", &block, 0x1Au);
     if ((v8 & 1) == 0)
     {
@@ -465,7 +467,7 @@ LABEL_20:
 
 LABEL_52:
     (*(*a2 + 16))();
-    goto LABEL_53;
+    return;
   }
 
   if (v8)
@@ -508,9 +510,9 @@ LABEL_22:
 
   v17 = *(a1 + 72);
   block = MEMORY[0x277D85DD0];
-  v25 = 1174405120;
-  *&v26 = ___ZNK8dispatch8callbackIU13block_pointerFvN12TelephonyXPC19ServerPowerObserver10PowerEventENS2_10PowerStateENS_13group_sessionEEEclIJS3_S4_S5_EEEvDpT__block_invoke;
-  *(&v26 + 1) = &__block_descriptor_tmp_21;
+  v24 = 1174405120;
+  *&v25 = ___ZNK8dispatch8callbackIU13block_pointerFvN12TelephonyXPC19ServerPowerObserver10PowerEventENS2_10PowerStateENS_13group_sessionEEEclIJS3_S4_S5_EEEvDpT__block_invoke;
+  *(&v25 + 1) = &__block_descriptor_tmp_21;
   if (v16)
   {
     v18 = _Block_copy(v16);
@@ -521,8 +523,8 @@ LABEL_22:
     v18 = 0;
   }
 
-  v29 = v9;
-  v30 = v14;
+  v28 = v9;
+  v29 = v14;
   aBlock = v18;
   group = v13;
   if (v13)
@@ -561,22 +563,22 @@ LABEL_22:
   }
 
   v19 = *(a1 + 16);
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 1174405120;
-  v22[2] = ___ZN12TelephonyXPC19ServerPowerObserver28handlePowerNotification_syncEN8dispatch5blockIU13block_pointerFvbEEEjb_block_invoke;
-  v22[3] = &__block_descriptor_tmp_14;
-  v22[4] = a1;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 1174405120;
+  v21[2] = ___ZN12TelephonyXPC19ServerPowerObserver28handlePowerNotification_syncEN8dispatch5blockIU13block_pointerFvbEEEjb_block_invoke;
+  v21[3] = &__block_descriptor_tmp_14;
+  v21[4] = a1;
   v20 = *a2;
   if (*a2)
   {
     v20 = _Block_copy(v20);
   }
 
-  v23 = v20;
-  dispatch_group_notify(v13, v19, v22);
-  if (v23)
+  v22 = v20;
+  dispatch_group_notify(v13, v19, v21);
+  if (v22)
   {
-    _Block_release(v23);
+    _Block_release(v22);
   }
 
   if (v13)
@@ -585,9 +587,6 @@ LABEL_22:
     dispatch_release(v13);
     dispatch_release(v13);
   }
-
-LABEL_53:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void sub_26D2A335C(_Unwind_Exception *a1, int a2)
@@ -1160,58 +1159,58 @@ void TelephonyXPC::Server::~Server(TelephonyXPC::Server *this)
   operator delete(this);
 }
 
-void TelephonyXPC::Server::create(xpc_object_t *a1@<X0>, uint64_t a2@<X2>, void *a3@<X8>)
+void TelephonyXPC::Server::create(xpc_object_t *a1@<X0>, uint64_t a3@<X2>, void *x8_0@<X8>)
 {
-  v5 = *a1;
-  v9 = v5;
-  if (v5)
-  {
-    xpc_retain(v5);
-  }
-
-  else
-  {
-    v5 = xpc_null_create();
-    v9 = v5;
-  }
-
-  if (*a2)
-  {
-    v6 = _Block_copy(*a2);
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v7 = *(a2 + 8);
-  v8[0] = v6;
-  v8[1] = v7;
-  if (v7)
-  {
-    dispatch_retain(v7);
-  }
-
-  TelephonyXPC::Server::create(&v9, v8, a3);
-  if (v7)
-  {
-    dispatch_release(v7);
-  }
-
+  v6 = *a1;
+  v10 = v6;
   if (v6)
   {
-    _Block_release(v6);
+    xpc_retain(v6);
   }
 
-  xpc_release(v5);
+  else
+  {
+    v6 = xpc_null_create();
+    v10 = v6;
+  }
+
+  if (*a3)
+  {
+    v7 = _Block_copy(*a3);
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v8 = *(a3 + 8);
+  v9[0] = v7;
+  v9[1] = v8;
+  if (v8)
+  {
+    dispatch_retain(v8);
+  }
+
+  TelephonyXPC::Server::create(&v10, v9, x8_0);
+  if (v8)
+  {
+    dispatch_release(v8);
+  }
+
+  if (v7)
+  {
+    _Block_release(v7);
+  }
+
+  xpc_release(v6);
 }
 
-void sub_26D2A3F94(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26D2A3F94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   dispatch::callback<void({block_pointer})(TelephonyXPC::Server::ServerStatus)>::~callback(va);
-  xpc_release(v2);
+  xpc_release(v3);
   _Unwind_Resume(a1);
 }
 
@@ -1683,9 +1682,9 @@ LABEL_92:
   }
 }
 
-void sub_26D2A4818(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, xpc_object_t object, char a12, uint64_t a13, uint64_t a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, xpc_object_t a28)
+void sub_26D2A4818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, xpc_object_t object, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, xpc_object_t a28)
 {
-  (*(*v28 + 32))(v28);
+  (*(*v28 + 32))(v28, a2, a3, a4, a5, a6, a7, a8);
   dispatch::callback<void({block_pointer})(TelephonyXPC::Server::ServerStatus)>::~callback(&a12);
   TelephonyXPC::Server::State::Parameters::~Parameters(&a14);
   TelephonyXPC::Server::State::Parameters::~Parameters(&a28);
@@ -2210,7 +2209,7 @@ LABEL_10:
 
 void TelephonyXPC::Server::State::handleServerError_sync(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 72);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -2220,7 +2219,7 @@ void TelephonyXPC::Server::State::handleServerError_sync(uint64_t a1, void *a2)
     free(v5);
     v6 = SHIBYTE(__p[2]) >= 0 ? __p : __p[0];
     *buf = 136315138;
-    v18 = v6;
+    v17 = v6;
     _os_log_impl(&dword_26D2A2000, v4, OS_LOG_TYPE_DEFAULT, "#I Server error: %s", buf, 0xCu);
     if (SHIBYTE(__p[2]) < 0)
     {
@@ -2256,7 +2255,7 @@ void TelephonyXPC::Server::State::handleServerError_sync(uint64_t a1, void *a2)
   }
 
   aBlock = v10;
-  v16 = 3;
+  v15 = 3;
   dispatch_async(v9, __p);
   if (aBlock)
   {
@@ -2268,14 +2267,12 @@ void TelephonyXPC::Server::State::handleServerError_sync(uint64_t a1, void *a2)
     _Block_release(v8);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v12, "ServerStateError");
-  TelephonyXPC::Server::State::broadcastServerState(a1, v12);
-  if (v13 < 0)
+  std::string::basic_string[abi:ne200100]<0>(v11, "ServerStateError");
+  TelephonyXPC::Server::State::broadcastServerState(a1, v11);
+  if (v12 < 0)
   {
-    operator delete(v12[0]);
+    operator delete(v11[0]);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_26D2A55C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -2389,7 +2386,7 @@ LABEL_21:
         count = 0;
       }
 
-      v42 = v3;
+      v41 = v3;
       xpc::array::iterator::iterator(v49, buf, count);
       xpc_release(*buf);
       v16 = 0;
@@ -2467,7 +2464,7 @@ LABEL_21:
 
       xpc_release(v49[0]);
       xpc_release(v50);
-      v3 = v42;
+      v3 = v41;
     }
 
     else
@@ -2514,15 +2511,15 @@ LABEL_56:
       operator delete(v55);
     }
 
-    std::set<std::string>::set[abi:ne200100](v44, &v45);
-    TelephonyXPC::ServerClientState::setClientEntitlements(buf, v44);
-    std::__tree<std::string>::destroy(v44, v44[1]);
+    std::set<std::string>::set[abi:ne200100](v43, &v45);
+    TelephonyXPC::ServerClientState::setClientEntitlements(buf, v43);
+    std::__tree<std::string>::destroy(v43, v44);
     v28 = *(a1 + 72);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
-      v41 = *v3;
+      v40 = *v3;
       LODWORD(v55) = 134217984;
-      *(&v55 + 4) = v41;
+      *(&v55 + 4) = v40;
       _os_log_debug_impl(&dword_26D2A2000, v28, OS_LOG_TYPE_DEBUG, "#D New client %p", &v55, 0xCu);
     }
 
@@ -2633,7 +2630,6 @@ LABEL_70:
   }
 
   std::__tree<std::string>::destroy(&v45, v46[0]);
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void sub_26D2A5C70(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, xpc_object_t a25, uint64_t a26, uint64_t a27, xpc_object_t a28, uint64_t a29, xpc_object_t object, uint64_t a31, xpc_object_t a32, xpc_object_t a33)
@@ -2648,9 +2644,9 @@ void sub_26D2A5C70(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void TelephonyXPC::Server::State::handleClientError_sync(void *a1, xpc_object_t *a2, xpc::object *a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
+  v37 = 0xAAAAAAAAAAAAAAAALL;
   v38 = 0xAAAAAAAAAAAAAAAALL;
-  v39 = 0xAAAAAAAAAAAAAAAALL;
   v6 = *a2;
   if (*a2)
   {
@@ -2662,47 +2658,47 @@ void TelephonyXPC::Server::State::handleClientError_sync(void *a1, xpc_object_t 
     v6 = xpc_null_create();
   }
 
-  TelephonyXPC::Server::State::getClientState_sync(&v38, a1, v6);
+  TelephonyXPC::Server::State::getClientState_sync(&v37, a1, v6);
   xpc_release(v6);
-  if (!v38)
+  if (!v37)
   {
     goto LABEL_53;
   }
 
-  if (*(v38 + 23) < 0)
+  if (*(v37 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v40, *v38, *(v38 + 8));
+    std::string::__init_copy_ctor_external(&v39, *v37, *(v37 + 8));
   }
 
   else
   {
-    v7 = *v38;
-    v40.__r_.__value_.__r.__words[2] = *(v38 + 16);
-    *&v40.__r_.__value_.__l.__data_ = v7;
+    v7 = *v37;
+    v39.__r_.__value_.__r.__words[2] = *(v37 + 16);
+    *&v39.__r_.__value_.__l.__data_ = v7;
   }
 
-  v8 = std::string::insert(&v40, 0, "Client '", 8uLL);
+  v8 = std::string::insert(&v39, 0, "Client '", 8uLL);
   v9 = *&v8->__r_.__value_.__l.__data_;
-  v41.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
-  *&v41.__r_.__value_.__l.__data_ = v9;
+  v40.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
+  *&v40.__r_.__value_.__l.__data_ = v9;
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v10 = std::string::append(&v41, "' ", 2uLL);
+  v10 = std::string::append(&v40, "' ", 2uLL);
   v11 = *&v10->__r_.__value_.__l.__data_;
-  v37 = v10->__r_.__value_.__r.__words[2];
+  v36 = v10->__r_.__value_.__r.__words[2];
   *__p = v11;
   v10->__r_.__value_.__l.__size_ = 0;
   v10->__r_.__value_.__r.__words[2] = 0;
   v10->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v41.__r_.__value_.__l.__data_);
-  }
-
   if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v40.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v39.__r_.__value_.__l.__data_);
   }
 
   v12 = *a3;
@@ -2717,13 +2713,13 @@ void TelephonyXPC::Server::State::handleClientError_sync(void *a1, xpc_object_t 
       }
 
       v29 = __p;
-      if (v37 < 0)
+      if (v36 < 0)
       {
         v29 = __p[0];
       }
 
-      LODWORD(v41.__r_.__value_.__l.__data_) = 136315138;
-      *(v41.__r_.__value_.__r.__words + 4) = v29;
+      LODWORD(v40.__r_.__value_.__l.__data_) = 136315138;
+      *(v40.__r_.__value_.__r.__words + 4) = v29;
       v30 = "#D %s connection interrupted";
     }
 
@@ -2739,25 +2735,25 @@ void TelephonyXPC::Server::State::handleClientError_sync(void *a1, xpc_object_t 
           goto LABEL_51;
         }
 
-        xpc::object::to_string(&v41, a3);
+        xpc::object::to_string(&v40, a3);
         v16 = __p;
-        if (v37 < 0)
+        if (v36 < 0)
         {
           v16 = __p[0];
         }
 
-        v17 = (v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v41 : v41.__r_.__value_.__r.__words[0];
-        LODWORD(v40.__r_.__value_.__l.__data_) = 136315394;
-        *(v40.__r_.__value_.__r.__words + 4) = v16;
-        WORD2(v40.__r_.__value_.__r.__words[1]) = 2080;
-        *(&v40.__r_.__value_.__r.__words[1] + 6) = v17;
-        _os_log_debug_impl(&dword_26D2A2000, v14, OS_LOG_TYPE_DEBUG, "#D %s %s", &v40, 0x16u);
-        if ((SHIBYTE(v41.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        v17 = (v40.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v40 : v40.__r_.__value_.__r.__words[0];
+        LODWORD(v39.__r_.__value_.__l.__data_) = 136315394;
+        *(v39.__r_.__value_.__r.__words + 4) = v16;
+        WORD2(v39.__r_.__value_.__r.__words[1]) = 2080;
+        *(&v39.__r_.__value_.__r.__words[1] + 6) = v17;
+        _os_log_debug_impl(&dword_26D2A2000, v14, OS_LOG_TYPE_DEBUG, "#D %s %s", &v39, 0x16u);
+        if ((SHIBYTE(v40.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           goto LABEL_51;
         }
 
-        v18 = v41.__r_.__value_.__r.__words[0];
+        v18 = v40.__r_.__value_.__r.__words[0];
         goto LABEL_50;
       }
 
@@ -2767,32 +2763,32 @@ void TelephonyXPC::Server::State::handleClientError_sync(void *a1, xpc_object_t 
       }
 
       v31 = __p;
-      if (v37 < 0)
+      if (v36 < 0)
       {
         v31 = __p[0];
       }
 
-      LODWORD(v41.__r_.__value_.__l.__data_) = 136315138;
-      *(v41.__r_.__value_.__r.__words + 4) = v31;
+      LODWORD(v40.__r_.__value_.__l.__data_) = 136315138;
+      *(v40.__r_.__value_.__r.__words + 4) = v31;
       v30 = "#D %s will be terminated";
     }
 
-    _os_log_debug_impl(&dword_26D2A2000, v14, OS_LOG_TYPE_DEBUG, v30, &v41, 0xCu);
+    _os_log_debug_impl(&dword_26D2A2000, v14, OS_LOG_TYPE_DEBUG, v30, &v40, 0xCu);
     goto LABEL_51;
   }
 
   v19 = a1[9];
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
-    v35 = __p;
-    if (v37 < 0)
+    v34 = __p;
+    if (v36 < 0)
     {
-      v35 = __p[0];
+      v34 = __p[0];
     }
 
-    LODWORD(v41.__r_.__value_.__l.__data_) = 136315138;
-    *(v41.__r_.__value_.__r.__words + 4) = v35;
-    _os_log_debug_impl(&dword_26D2A2000, v19, OS_LOG_TYPE_DEBUG, "#D %s disappeared", &v41, 0xCu);
+    LODWORD(v40.__r_.__value_.__l.__data_) = 136315138;
+    *(v40.__r_.__value_.__r.__words + 4) = v34;
+    _os_log_debug_impl(&dword_26D2A2000, v19, OS_LOG_TYPE_DEBUG, "#D %s disappeared", &v40, 0xCu);
   }
 
   v20 = a1[28];
@@ -2860,18 +2856,16 @@ void TelephonyXPC::Server::State::handleClientError_sync(void *a1, xpc_object_t 
 LABEL_50:
   operator delete(v18);
 LABEL_51:
-  if (SHIBYTE(v37) < 0)
+  if (SHIBYTE(v36) < 0)
   {
     operator delete(__p[0]);
   }
 
 LABEL_53:
-  if (v39)
+  if (v38)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v39);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v38);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void sub_26D2A61A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, std::__shared_weak_count *a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30)
@@ -3198,7 +3192,7 @@ void ___ZN12TelephonyXPC6Server5State4initEv_block_invoke_2(void *a1)
   }
 }
 
-void sub_26D2A68D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15, char a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_26D2A68D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   dispatch::callback<void({block_pointer})(void)>::~callback(&a16);
   if (a15)
@@ -3238,11 +3232,11 @@ void __destroy_helper_block_e8_40c39_ZTSNSt3__18weak_ptrIN3ctu9XpcServerEEE(uint
   }
 }
 
-void ___ZN12TelephonyXPC6Server5State4initEv_block_invoke_18(uint64_t a1, int a2, unsigned int a3, NSObject **a4)
+void ___ZN12TelephonyXPC6Server5State4initEv_block_invoke_18(uint64_t a1, unsigned int a2, unsigned int a3, NSObject **a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v7 = *(a1 + 32);
-  memset(&v25, 0, sizeof(v25));
+  memset(&v24, 0, sizeof(v24));
   v8 = *(v7 + 72);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
@@ -3257,7 +3251,7 @@ void ___ZN12TelephonyXPC6Server5State4initEv_block_invoke_18(uint64_t a1, int a2
     }
 
     *buf = 136315138;
-    v27 = v9;
+    v26 = v9;
     _os_log_impl(&dword_26D2A2000, v8, OS_LOG_TYPE_DEFAULT, "#I Power state: %s", buf, 0xCu);
   }
 
@@ -3293,29 +3287,29 @@ void ___ZN12TelephonyXPC6Server5State4initEv_block_invoke_18(uint64_t a1, int a2
     v10 = "EventSystemShuttingDown";
     v11 = 23;
 LABEL_16:
-    std::string::__assign_external(&v25, v10, v11);
+    std::string::__assign_external(&v24, v10, v11);
     goto LABEL_19;
   }
 
-  if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
   {
-    v25.__r_.__value_.__l.__size_ = 20;
-    v12 = v25.__r_.__value_.__r.__words[0];
+    v24.__r_.__value_.__l.__size_ = 20;
+    v12 = v24.__r_.__value_.__r.__words[0];
   }
 
   else
   {
-    *(&v25.__r_.__value_.__s + 23) = 20;
-    v12 = &v25;
+    *(&v24.__r_.__value_.__s + 23) = 20;
+    v12 = &v24;
   }
 
   strcpy(v12, "EventSystemPoweredOn");
 LABEL_19:
-  size = HIBYTE(v25.__r_.__value_.__r.__words[2]);
-  v14 = HIBYTE(v25.__r_.__value_.__r.__words[2]);
-  if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  size = HIBYTE(v24.__r_.__value_.__r.__words[2]);
+  v14 = HIBYTE(v24.__r_.__value_.__r.__words[2]);
+  if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    size = v25.__r_.__value_.__l.__size_;
+    size = v24.__r_.__value_.__l.__size_;
   }
 
   if (size)
@@ -3334,19 +3328,19 @@ LABEL_19:
       }
 
       *buf = 136315138;
-      v27 = v16;
+      v26 = v16;
       _os_log_impl(&dword_26D2A2000, v15, OS_LOG_TYPE_DEFAULT, "#I Sending server power event: %s", buf, 0xCu);
-      v14 = HIBYTE(v25.__r_.__value_.__r.__words[2]);
+      v14 = HIBYTE(v24.__r_.__value_.__r.__words[2]);
     }
 
     if (v14 < 0)
     {
-      std::string::__init_copy_ctor_external(&v24, v25.__r_.__value_.__l.__data_, v25.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v23, v24.__r_.__value_.__l.__data_, v24.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      v24 = v25;
+      v23 = v24;
     }
 
     aBlock[0] = MEMORY[0x277D85DD0];
@@ -3368,9 +3362,9 @@ LABEL_19:
       dispatch_retain(*(v7 + 24));
     }
 
-    v23[0] = v18;
-    v23[1] = v19;
-    TelephonyXPC::Server::State::broadcast(v7, &v24, v23);
+    v22[0] = v18;
+    v22[1] = v19;
+    TelephonyXPC::Server::State::broadcast(v7, &v23, v22);
     if (v19)
     {
       dispatch_release(v19);
@@ -3381,9 +3375,9 @@ LABEL_19:
       _Block_release(v18);
     }
 
-    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v24.__r_.__value_.__l.__data_);
+      operator delete(v23.__r_.__value_.__l.__data_);
     }
 
     if (group)
@@ -3396,12 +3390,10 @@ LABEL_19:
     }
   }
 
-  if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v25.__r_.__value_.__l.__data_);
+    operator delete(v24.__r_.__value_.__l.__data_);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void sub_26D2A6C54(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, dispatch_group_t group, char a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28)
@@ -3559,7 +3551,7 @@ LABEL_5:
 
 void ___ZN12TelephonyXPC6Server5State5startEv_block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (!*(v1 + 168))
   {
@@ -3589,8 +3581,8 @@ void ___ZN12TelephonyXPC6Server5State5startEv_block_invoke(uint64_t a1)
     v7 = *(v1 + 184);
     __p[0] = MEMORY[0x277D85DD0];
     __p[1] = 1174405120;
-    v14 = ___ZNK8dispatch8callbackIU13block_pointerFvN12TelephonyXPC6Server12ServerStatusEEEclIJS3_EEEvDpT__block_invoke;
-    v15 = &__block_descriptor_tmp_29;
+    v13 = ___ZNK8dispatch8callbackIU13block_pointerFvN12TelephonyXPC6Server12ServerStatusEEEclIJS3_EEEvDpT__block_invoke;
+    v14 = &__block_descriptor_tmp_29;
     if (v6)
     {
       v8 = _Block_copy(v6);
@@ -3602,7 +3594,7 @@ void ___ZN12TelephonyXPC6Server5State5startEv_block_invoke(uint64_t a1)
     }
 
     aBlock = v8;
-    v17 = 1;
+    v16 = 1;
     dispatch_async(v7, __p);
     if (aBlock)
     {
@@ -3616,7 +3608,7 @@ void ___ZN12TelephonyXPC6Server5State5startEv_block_invoke(uint64_t a1)
 
     std::string::basic_string[abi:ne200100]<0>(__p, "ServerStateStarted");
     TelephonyXPC::Server::State::broadcastServerState(v1, __p);
-    if (SHIBYTE(v14) < 0)
+    if (SHIBYTE(v13) < 0)
     {
       operator delete(__p[0]);
     }
@@ -3636,12 +3628,10 @@ void ___ZN12TelephonyXPC6Server5State5startEv_block_invoke(uint64_t a1)
       }
 
       *buf = 136315138;
-      v19 = v11;
+      v18 = v11;
       _os_log_impl(&dword_26D2A2000, v9, OS_LOG_TYPE_DEFAULT, "#I %s", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void sub_26D2A7194(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -3728,7 +3718,7 @@ void TelephonyXPC::Server::State::broadcastServerState(void *a1, const char *a2)
   xpc_release(v5);
 }
 
-void sub_26D2A7358(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+void sub_26D2A7358(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
 {
   dispatch::callback<void({block_pointer})(void)>::~callback(&a10);
   xpc_release(v18);
@@ -3760,8 +3750,8 @@ xpc_object_t xpc::dict::object_proxy::operator=(xpc_object_t *a1, xpc_object_t x
 
 void ___ZN12TelephonyXPC6Server5State9broadcastENSt3__112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEEN3xpc4dictEN8dispatch8callbackIU13block_pointerFvvEEE_block_invoke(uint64_t a1)
 {
-  v66 = *MEMORY[0x277D85DE8];
-  v33 = *(a1 + 32);
+  v65 = *MEMORY[0x277D85DE8];
+  v32 = *(a1 + 32);
   v2 = xpc_dictionary_create(0, 0, 0);
   v3 = MEMORY[0x277D86468];
   if (v2 || (v2 = xpc_null_create()) != 0)
@@ -3786,11 +3776,11 @@ void ___ZN12TelephonyXPC6Server5State9broadcastENSt3__112basic_stringIcNS2_11cha
 
   xpc_release(v2);
   v4 = MEMORY[0x26D6B9FB0](*(a1 + 40)) == v3;
-  v5 = v33;
+  v5 = v32;
   if (v4)
   {
     v6 = *(a1 + 40);
-    v58 = v6;
+    v57 = v6;
     if (v6)
     {
       xpc_retain(v6);
@@ -3798,27 +3788,27 @@ void ___ZN12TelephonyXPC6Server5State9broadcastENSt3__112basic_stringIcNS2_11cha
 
     else
     {
-      v58 = xpc_null_create();
+      v57 = xpc_null_create();
     }
 
-    xpc::dict::object_proxy::operator=(&v59, message, "eventData", &v58);
-    xpc_release(v59);
-    v59 = 0;
+    xpc::dict::object_proxy::operator=(&v58, message, "eventData", &v57);
     xpc_release(v58);
     v58 = 0;
+    xpc_release(v57);
+    v57 = 0;
   }
 
-  v56 = xpc_string_create("eventNotification");
-  if (!v56)
+  v55 = xpc_string_create("eventNotification");
+  if (!v55)
   {
-    v56 = xpc_null_create();
+    v55 = xpc_null_create();
   }
 
-  xpc::dict::object_proxy::operator=(&v57, message, "command", &v56);
-  xpc_release(v57);
-  v57 = 0;
+  xpc::dict::object_proxy::operator=(&v56, message, "command", &v55);
   xpc_release(v56);
   v56 = 0;
+  xpc_release(v55);
+  v55 = 0;
   v7 = (a1 + 48);
   v8 = (a1 + 48);
   if (*(a1 + 71) < 0)
@@ -3826,36 +3816,36 @@ void ___ZN12TelephonyXPC6Server5State9broadcastENSt3__112basic_stringIcNS2_11cha
     v8 = *v7;
   }
 
-  v54 = xpc_string_create(v8);
-  if (!v54)
+  v53 = xpc_string_create(v8);
+  if (!v53)
   {
-    v54 = xpc_null_create();
+    v53 = xpc_null_create();
   }
 
-  xpc::dict::object_proxy::operator=(&v55, message, "event", &v54);
-  xpc_release(v55);
-  v55 = 0;
+  xpc::dict::object_proxy::operator=(&v54, message, "event", &v53);
   xpc_release(v54);
   v54 = 0;
+  xpc_release(v53);
+  v53 = 0;
   group = dispatch_group_create();
-  v9 = v33[2];
-  if (!v9 || (v31 = v33[1], (v10 = std::__shared_weak_count::lock(v9)) == 0))
+  v9 = v32[2];
+  if (!v9 || (v30 = v32[1], (v10 = std::__shared_weak_count::lock(v9)) == 0))
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
   atomic_fetch_add_explicit(&v10->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  v32 = v10;
+  v31 = v10;
   std::__shared_weak_count::__release_shared[abi:ne200100](v10);
-  v11 = v33[27];
-  if (v11 != v33 + 28)
+  v11 = v32[27];
+  if (v11 != v32 + 28)
   {
     do
     {
+      v51 = 0xAAAAAAAAAAAAAAAALL;
       v52 = 0xAAAAAAAAAAAAAAAALL;
-      v53 = 0xAAAAAAAAAAAAAAAALL;
       v12 = v11[4];
-      v51 = v12;
+      v50 = v12;
       if (v12)
       {
         xpc_retain(v12);
@@ -3864,13 +3854,13 @@ void ___ZN12TelephonyXPC6Server5State9broadcastENSt3__112basic_stringIcNS2_11cha
       else
       {
         v12 = xpc_null_create();
-        v51 = v12;
+        v50 = v12;
       }
 
       v13 = v11[5];
       v14 = v11[6];
-      v52 = v13;
-      v53 = v14;
+      v51 = v13;
+      v52 = v14;
       if (v14)
       {
         atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -3886,8 +3876,8 @@ void ___ZN12TelephonyXPC6Server5State9broadcastENSt3__112basic_stringIcNS2_11cha
         v12 = xpc_null_create();
       }
 
-      v50[0] = v13;
-      v50[1] = v14;
+      v49[0] = v13;
+      v49[1] = v14;
       if (v14)
       {
         atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -3895,17 +3885,17 @@ void ___ZN12TelephonyXPC6Server5State9broadcastENSt3__112basic_stringIcNS2_11cha
 
       if (*(a1 + 71) < 0)
       {
-        std::string::__init_copy_ctor_external(&v49, *(a1 + 48), *(a1 + 56));
+        std::string::__init_copy_ctor_external(&v48, *(a1 + 48), *(a1 + 56));
       }
 
       else
       {
-        *&v49.__r_.__value_.__l.__data_ = *v7;
-        v49.__r_.__value_.__r.__words[2] = *(a1 + 64);
+        *&v48.__r_.__value_.__l.__data_ = *v7;
+        v48.__r_.__value_.__r.__words[2] = *(a1 + 64);
       }
 
       v15 = *(a1 + 40);
-      v48 = v15;
+      v47 = v15;
       if (v15)
       {
         xpc_retain(v15);
@@ -3914,15 +3904,15 @@ void ___ZN12TelephonyXPC6Server5State9broadcastENSt3__112basic_stringIcNS2_11cha
       else
       {
         v15 = xpc_null_create();
-        v48 = v15;
+        v47 = v15;
       }
 
-      isNotificationRegistered_sync = TelephonyXPC::ServerClientState::isNotificationRegistered_sync(v50, &v49, &v48);
+      isNotificationRegistered_sync = TelephonyXPC::ServerClientState::isNotificationRegistered_sync(v49, &v48, &v47);
       xpc_release(v15);
-      v48 = 0;
-      if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
+      v47 = 0;
+      if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v49.__r_.__value_.__l.__data_);
+        operator delete(v48.__r_.__value_.__l.__data_);
         if (isNotificationRegistered_sync)
         {
 LABEL_42:
@@ -3937,38 +3927,38 @@ LABEL_42:
 
             if (*(v13 + 23) < 0)
             {
-              std::string::__init_copy_ctor_external(&v47, *v13, *(v13 + 8));
+              std::string::__init_copy_ctor_external(&v46, *v13, *(v13 + 8));
             }
 
             else
             {
               v19 = *v13;
-              v47.__r_.__value_.__r.__words[2] = *(v13 + 16);
-              *&v47.__r_.__value_.__l.__data_ = v19;
+              v46.__r_.__value_.__r.__words[2] = *(v13 + 16);
+              *&v46.__r_.__value_.__l.__data_ = v19;
             }
 
-            v20 = SHIBYTE(v47.__r_.__value_.__r.__words[2]);
-            v21 = v47.__r_.__value_.__r.__words[0];
+            v20 = SHIBYTE(v46.__r_.__value_.__r.__words[2]);
+            v21 = v46.__r_.__value_.__r.__words[0];
             SystemTime = TelephonyUtilGetSystemTime();
             *buf = 136315650;
-            v23 = &v47;
+            v23 = &v46;
             if (v20 < 0)
             {
               v23 = v21;
             }
 
-            v61 = v18;
-            v62 = 2080;
-            v63 = v23;
-            v64 = 2048;
-            v65 = SystemTime;
+            v60 = v18;
+            v61 = 2080;
+            v62 = v23;
+            v63 = 2048;
+            v64 = SystemTime;
             _os_log_impl(&dword_26D2A2000, v17, OS_LOG_TYPE_DEFAULT, "#I Sending %s to %s at %llu", buf, 0x20u);
-            if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v47.__r_.__value_.__l.__data_);
+              operator delete(v46.__r_.__value_.__l.__data_);
             }
 
-            v5 = v33;
+            v5 = v32;
           }
 
           if (*(a1 + 72) && *(a1 + 80))
@@ -3980,11 +3970,11 @@ LABEL_42:
             handler[2] = ___ZN12TelephonyXPC6Server5State9broadcastENSt3__112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEEN3xpc4dictEN8dispatch8callbackIU13block_pointerFvvEEE_block_invoke_31;
             handler[3] = &__block_descriptor_tmp_33;
             handler[4] = v5;
-            handler[5] = v31;
-            v42 = v32;
-            atomic_fetch_add_explicit(&v32->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-            v43 = v13;
-            v44 = v14;
+            handler[5] = v30;
+            v41 = v31;
+            atomic_fetch_add_explicit(&v31->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+            v42 = v13;
+            v43 = v14;
             if (v14)
             {
               atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -4001,21 +3991,21 @@ LABEL_42:
               __p.__r_.__value_.__r.__words[2] = *(a1 + 64);
             }
 
-            v46 = group;
+            v45 = group;
             xpc_connection_send_message_with_reply(v12, message, v24, handler);
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__p.__r_.__value_.__l.__data_);
             }
 
-            if (v44)
+            if (v43)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v44);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v43);
             }
 
-            if (v42)
+            if (v41)
             {
-              std::__shared_weak_count::__release_weak(v42);
+              std::__shared_weak_count::__release_weak(v41);
             }
           }
 
@@ -4037,12 +4027,12 @@ LABEL_42:
       }
 
       xpc_release(v12);
-      if (v53)
+      if (v52)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v53);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v52);
       }
 
-      xpc_release(v51);
+      xpc_release(v50);
       v25 = v11[1];
       if (v25)
       {
@@ -4070,7 +4060,7 @@ LABEL_42:
       v11 = v26;
     }
 
-    while (v26 != v33 + 28);
+    while (v26 != v32 + 28);
   }
 
   if (*(a1 + 72) && *(a1 + 80))
@@ -4081,18 +4071,18 @@ LABEL_42:
     block[2] = ___ZN12TelephonyXPC6Server5State9broadcastENSt3__112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEEN3xpc4dictEN8dispatch8callbackIU13block_pointerFvvEEE_block_invoke_34;
     block[3] = &__block_descriptor_tmp_35;
     block[4] = v5;
-    block[5] = v31;
-    v37 = v32;
-    atomic_fetch_add_explicit(&v32->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    block[5] = v30;
+    v36 = v31;
+    atomic_fetch_add_explicit(&v31->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     if (*(a1 + 71) < 0)
     {
-      std::string::__init_copy_ctor_external(&v38, *(a1 + 48), *(a1 + 56));
+      std::string::__init_copy_ctor_external(&v37, *(a1 + 48), *(a1 + 56));
     }
 
     else
     {
-      *&v38.__r_.__value_.__l.__data_ = *v7;
-      v38.__r_.__value_.__r.__words[2] = *(a1 + 64);
+      *&v37.__r_.__value_.__l.__data_ = *v7;
+      v37.__r_.__value_.__r.__words[2] = *(a1 + 64);
     }
 
     v28 = *(a1 + 72);
@@ -4120,21 +4110,20 @@ LABEL_42:
       _Block_release(aBlock);
     }
 
-    if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v38.__r_.__value_.__l.__data_);
+      operator delete(v37.__r_.__value_.__l.__data_);
     }
 
-    if (v37)
+    if (v36)
     {
-      std::__shared_weak_count::__release_weak(v37);
+      std::__shared_weak_count::__release_weak(v36);
     }
   }
 
   dispatch_release(group);
-  std::__shared_weak_count::__release_weak(v32);
+  std::__shared_weak_count::__release_weak(v31);
   xpc_release(message);
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void sub_26D2A7AB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::__shared_weak_count *a13, uint64_t a14, uint64_t a15, xpc_object_t object, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, std::__shared_weak_count *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, std::__shared_weak_count *a36, uint64_t a37, uint64_t a38, void *__p, uint64_t a40, int a41, __int16 a42, char a43, char a44, uint64_t a45, void *a46, uint64_t a47, int a48, __int16 a49, char a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, int a55, __int16 a56, char a57, char a58)
@@ -4151,7 +4140,7 @@ void sub_26D2A7AB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ___ZN12TelephonyXPC6Server5State9broadcastENSt3__112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEEN3xpc4dictEN8dispatch8callbackIU13block_pointerFvvEEE_block_invoke_31(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 48);
   if (v2 && (v3 = *(a1 + 32), (v4 = std::__shared_weak_count::lock(v2)) != 0))
   {
@@ -4184,19 +4173,19 @@ void ___ZN12TelephonyXPC6Server5State9broadcastENSt3__112basic_stringIcNS2_11cha
           p_p = __p.__r_.__value_.__r.__words[0];
         }
 
-        v12 = (a1 + 72);
+        v11 = (a1 + 72);
         if (*(a1 + 95) < 0)
         {
-          v12 = *v12;
+          v11 = *v11;
         }
 
         SystemTime = TelephonyUtilGetSystemTime();
         *buf = 136315650;
-        v17 = p_p;
-        v18 = 2080;
-        v19 = v12;
-        v20 = 2048;
-        v21 = SystemTime;
+        v15 = p_p;
+        v16 = 2080;
+        v17 = v11;
+        v18 = 2048;
+        v19 = SystemTime;
         _os_log_impl(&dword_26D2A2000, v6, OS_LOG_TYPE_DEFAULT, "#I %s responded to %s at %llu", buf, 0x20u);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -4207,13 +4196,11 @@ void ___ZN12TelephonyXPC6Server5State9broadcastENSt3__112basic_stringIcNS2_11cha
 
     dispatch_group_leave(*(a1 + 96));
     std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-    v14 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     v9 = *(a1 + 96);
-    v10 = *MEMORY[0x277D85DE8];
 
     dispatch_group_leave(v9);
   }
@@ -4290,7 +4277,7 @@ void __destroy_helper_block_e8_40c39_ZTSNSt3__18weak_ptrIN3ctu9XpcServerEEE56c39
 
 void ___ZN12TelephonyXPC6Server5State9broadcastENSt3__112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEEN3xpc4dictEN8dispatch8callbackIU13block_pointerFvvEEE_block_invoke_34(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 48);
   if (v2)
   {
@@ -4309,9 +4296,9 @@ void ___ZN12TelephonyXPC6Server5State9broadcastENSt3__112basic_stringIcNS2_11cha
             v6 = *v6;
           }
 
-          LODWORD(v12) = 136315138;
-          *(&v12 + 4) = v6;
-          _os_log_impl(&dword_26D2A2000, v5, OS_LOG_TYPE_DEFAULT, "#I All clients responded to %s", &v12, 0xCu);
+          LODWORD(v11) = 136315138;
+          *(&v11 + 4) = v6;
+          _os_log_impl(&dword_26D2A2000, v5, OS_LOG_TYPE_DEFAULT, "#I All clients responded to %s", &v11, 0xCu);
         }
       }
     }
@@ -4334,10 +4321,10 @@ void ___ZN12TelephonyXPC6Server5State9broadcastENSt3__112basic_stringIcNS2_11cha
   }
 
   v9 = *(a1 + 88);
-  *&v12 = MEMORY[0x277D85DD0];
-  *(&v12 + 1) = 1174405120;
-  v13 = ___ZNK8dispatch8callbackIU13block_pointerFvvEEclIJEEEvDpT__block_invoke;
-  v14 = &__block_descriptor_tmp_38;
+  *&v11 = MEMORY[0x277D85DD0];
+  *(&v11 + 1) = 1174405120;
+  v12 = ___ZNK8dispatch8callbackIU13block_pointerFvvEEclIJEEEvDpT__block_invoke;
+  v13 = &__block_descriptor_tmp_38;
   if (v8)
   {
     v10 = _Block_copy(v8);
@@ -4349,7 +4336,7 @@ void ___ZN12TelephonyXPC6Server5State9broadcastENSt3__112basic_stringIcNS2_11cha
   }
 
   aBlock = v10;
-  dispatch_async(v9, &v12);
+  dispatch_async(v9, &v11);
   if (aBlock)
   {
     _Block_release(aBlock);
@@ -4364,8 +4351,6 @@ void ___ZN12TelephonyXPC6Server5State9broadcastENSt3__112basic_stringIcNS2_11cha
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v4);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_26D2A8098(_Unwind_Exception *a1, int a2)
@@ -4580,7 +4565,7 @@ void __destroy_helper_block_e8_32c43_ZTSN8dispatch5blockIU13block_pointerFvvEEE(
 
 void ___ZN12TelephonyXPC6Server5State17setCommandHandlerENSt3__112basic_stringIcNS2_11char_traitsIcEENS2_9allocatorIcEEEEN8dispatch8callbackIU13block_pointerFvNS_17ServerClientStateEN3xpc4dictENSA_IU13block_pointerFviSD_EEEEEE_block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(v2 + 72);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -4591,16 +4576,16 @@ void ___ZN12TelephonyXPC6Server5State17setCommandHandlerENSt3__112basic_stringIc
       v4 = *v4;
     }
 
-    v17 = 136315138;
-    v18 = v4;
-    _os_log_impl(&dword_26D2A2000, v3, OS_LOG_TYPE_DEFAULT, "#I Registered command %s", &v17, 0xCu);
+    v16 = 136315138;
+    v17 = v4;
+    _os_log_impl(&dword_26D2A2000, v3, OS_LOG_TYPE_DEFAULT, "#I Registered command %s", &v16, 0xCu);
   }
 
   v6 = (v2 + 248);
   v5 = *(v2 + 248);
   if (!v5)
   {
-    v7 = (v2 + 248);
+    v7 = v2 + 248;
 LABEL_13:
     v8 = operator new(0x48uLL);
     v9 = v8;
@@ -4639,7 +4624,7 @@ LABEL_13:
     while (1)
     {
       v7 = v5;
-      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((a1 + 40), v5 + 4) & 0x80) == 0)
+      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((a1 + 40), v5 + 32) & 0x80) == 0)
       {
         break;
       }
@@ -4652,13 +4637,13 @@ LABEL_13:
       }
     }
 
-    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v7 + 4, (a1 + 40)) & 0x80) == 0)
+    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((v7 + 32), (a1 + 40)) & 0x80) == 0)
     {
       break;
     }
 
-    v6 = v7 + 1;
-    v5 = v7[1];
+    v6 = (v7 + 8);
+    v5 = *(v7 + 8);
     if (!v5)
     {
       goto LABEL_13;
@@ -4697,8 +4682,6 @@ LABEL_19:
   {
     dispatch_release(v15);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __copy_helper_block_e8_40c67_ZTSKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE64c121_ZTSN8dispatch8callbackIU13block_pointerFvN12TelephonyXPC17ServerClientStateEN3xpc4dictENS0_IU13block_pointerFviS4_EEEEEE(uint64_t a1, uint64_t a2)
@@ -4753,7 +4736,7 @@ void __destroy_helper_block_e8_40c67_ZTSKNSt3__112basic_stringIcNS_11char_traits
   }
 }
 
-uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(void *a1, void **a2)
+uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(uint64_t ***a1, char *a2)
 {
   v2 = *(a1 + 23);
   v3 = a1[1];
@@ -4763,7 +4746,7 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
     v2 = v3;
   }
 
-  v4 = *(a2 + 23);
+  v4 = a2[23];
   if (v4 >= 0)
   {
     v5 = a2;
@@ -4776,12 +4759,12 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
 
   if (v4 >= 0)
   {
-    v6 = *(a2 + 23);
+    v6 = a2[23];
   }
 
   else
   {
-    v6 = a2[1];
+    v6 = *(a2 + 1);
   }
 
   return std::operator<=>[abi:ne200100]<char,std::char_traits<char>>(a1, v2, v5, v6);
@@ -4832,12 +4815,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -4851,22 +4834,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -4900,13 +4883,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -4966,7 +4949,7 @@ uint64_t dispatch::callback<void({block_pointer})(TelephonyXPC::ServerClientStat
 
 void ___ZN12TelephonyXPC6Server5State20handleNewClient_syncEN3xpc10connectionE_block_invoke(uint64_t a1, void **a2, void **a3)
 {
-  v106 = *MEMORY[0x277D85DE8];
+  v105 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = *a2;
   object = v5;
@@ -4981,7 +4964,7 @@ void ___ZN12TelephonyXPC6Server5State20handleNewClient_syncEN3xpc10connectionE_b
   }
 
   v6 = *a3;
-  v80 = v6;
+  v79 = v6;
   if (v6)
   {
     xpc_retain(v6);
@@ -4989,11 +4972,11 @@ void ___ZN12TelephonyXPC6Server5State20handleNewClient_syncEN3xpc10connectionE_b
 
   else
   {
-    v80 = xpc_null_create();
+    v79 = xpc_null_create();
   }
 
+  v82 = 0xAAAAAAAAAAAAAAAALL;
   v83 = 0xAAAAAAAAAAAAAAAALL;
-  v84 = 0xAAAAAAAAAAAAAAAALL;
   v7 = object;
   if (object)
   {
@@ -5005,9 +4988,9 @@ void ___ZN12TelephonyXPC6Server5State20handleNewClient_syncEN3xpc10connectionE_b
     v7 = xpc_null_create();
   }
 
-  TelephonyXPC::Server::State::getClientState_sync(&v83, v4, v7);
+  TelephonyXPC::Server::State::getClientState_sync(&v82, v4, v7);
   xpc_release(v7);
-  v8 = v83;
+  v8 = v82;
   v9 = *(v4 + 72);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
   if (v8)
@@ -5031,7 +5014,7 @@ void ___ZN12TelephonyXPC6Server5State20handleNewClient_syncEN3xpc10connectionE_b
 
     v26 = SHIBYTE(block.__r_.__value_.__r.__words[2]);
     v27 = block.__r_.__value_.__r.__words[0];
-    xpc::object::to_string(&__p, &v80);
+    xpc::object::to_string(&__p, &v79);
     p_block = &block;
     if (v26 < 0)
     {
@@ -5059,7 +5042,7 @@ void ___ZN12TelephonyXPC6Server5State20handleNewClient_syncEN3xpc10connectionE_b
     xpc::object::to_string(&block, &object);
     v21 = SHIBYTE(block.__r_.__value_.__r.__words[2]);
     v22 = block.__r_.__value_.__r.__words[0];
-    xpc::object::to_string(&__p, &v80);
+    xpc::object::to_string(&__p, &v79);
     p_block = &block;
     if (v21 < 0)
     {
@@ -5093,10 +5076,10 @@ void ___ZN12TelephonyXPC6Server5State20handleNewClient_syncEN3xpc10connectionE_b
   }
 
 LABEL_15:
-  original = v80;
-  if (v80)
+  original = v79;
+  if (v79)
   {
-    xpc_retain(v80);
+    xpc_retain(v79);
     v11 = original;
   }
 
@@ -5127,7 +5110,7 @@ LABEL_15:
   memset(buf, 170, 24);
   __p.__r_.__value_.__r.__words[0] = &original;
   __p.__r_.__value_.__l.__size_ = "command";
-  xpc::dict::object_proxy::operator xpc::object(&__p, &v87);
+  xpc::dict::object_proxy::operator xpc::object(&__p, &v86);
   memset(&block, 0, sizeof(block));
   xpc::dyn_cast_or_default();
   if (SHIBYTE(block.__r_.__value_.__r.__words[2]) < 0)
@@ -5135,7 +5118,7 @@ LABEL_15:
     operator delete(block.__r_.__value_.__l.__data_);
   }
 
-  xpc_release(v87.__r_.__value_.__l.__data_);
+  xpc_release(v86.__r_.__value_.__l.__data_);
   v15 = *(v4 + 248);
   if (v15)
   {
@@ -5154,8 +5137,8 @@ LABEL_15:
     while (v15);
     if (v16 != v4 + 248 && (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(buf, (v16 + 32)) & 0x80) == 0)
     {
-      v87.__r_.__value_.__r.__words[0] = 0xAAAAAAAAAAAAAAAALL;
-      v87.__r_.__value_.__l.__size_ = 0xAAAAAAAAAAAAAAAALL;
+      v86.__r_.__value_.__r.__words[0] = 0xAAAAAAAAAAAAAAAALL;
+      v86.__r_.__value_.__l.__size_ = 0xAAAAAAAAAAAAAAAALL;
       if (v14)
       {
         xpc_retain(v14);
@@ -5167,7 +5150,7 @@ LABEL_15:
         v18 = xpc_null_create();
       }
 
-      TelephonyXPC::Server::State::getClientState_sync(&v87, v4, v18);
+      TelephonyXPC::Server::State::getClientState_sync(&v86, v4, v18);
       xpc_release(v18);
       reply = xpc_dictionary_create_reply(original);
       if (reply || (reply = xpc_null_create()) != 0)
@@ -5191,13 +5174,13 @@ LABEL_15:
       }
 
       xpc_release(reply);
+      v84 = 0xAAAAAAAAAAAAAAAALL;
       v85 = 0xAAAAAAAAAAAAAAAALL;
-      v86 = 0xAAAAAAAAAAAAAAAALL;
       __p.__r_.__value_.__r.__words[0] = MEMORY[0x277D85DD0];
       __p.__r_.__value_.__l.__size_ = 1174405120;
       __p.__r_.__value_.__r.__words[2] = ___ZN12TelephonyXPC6Server5State24handlePublicMessage_syncEN3xpc10connectionERNS2_4dictE_block_invoke;
-      v94 = &__block_descriptor_tmp_43;
-      v95 = v20;
+      v93 = &__block_descriptor_tmp_43;
+      v94 = v20;
       if (v20)
       {
         xpc_retain(v20);
@@ -5205,10 +5188,10 @@ LABEL_15:
 
       else
       {
-        v95 = xpc_null_create();
+        v94 = xpc_null_create();
       }
 
-      v96 = v14;
+      v95 = v14;
       if (v14)
       {
         xpc_retain(v14);
@@ -5216,7 +5199,7 @@ LABEL_15:
 
       else
       {
-        v96 = xpc_null_create();
+        v95 = xpc_null_create();
       }
 
       v28 = _Block_copy(&__p);
@@ -5226,14 +5209,14 @@ LABEL_15:
         dispatch_retain(*(v4 + 24));
       }
 
-      v78 = v20;
-      v85 = v28;
-      v86 = v29;
+      v77 = v20;
+      v84 = v28;
+      v85 = v29;
       qos_class = qos_class_self();
-      v30 = *&v87.__r_.__value_.__l.__data_;
-      if (v87.__r_.__value_.__l.__size_)
+      v30 = *&v86.__r_.__value_.__l.__data_;
+      if (v86.__r_.__value_.__l.__size_)
       {
-        atomic_fetch_add_explicit((v87.__r_.__value_.__l.__size_ + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v86.__r_.__value_.__l.__size_ + 8), 1uLL, memory_order_relaxed);
       }
 
       v31 = original;
@@ -5280,7 +5263,7 @@ LABEL_69:
         block.__r_.__value_.__r.__words[0] = MEMORY[0x277D85DD0];
         block.__r_.__value_.__l.__size_ = 1174405120;
         block.__r_.__value_.__r.__words[2] = ___ZNK8dispatch8callbackIU13block_pointerFvN12TelephonyXPC17ServerClientStateEN3xpc4dictENS0_IU13block_pointerFviS4_EEEEEclIJS2_S4_S7_EEEv11qos_class_tDpT__block_invoke;
-        v100 = &__block_descriptor_tmp_44;
+        v99 = &__block_descriptor_tmp_44;
         if (v34)
         {
           v35 = _Block_copy(v34);
@@ -5291,14 +5274,14 @@ LABEL_69:
           v35 = 0;
         }
 
-        v101 = v35;
-        *v102 = v30;
+        v100 = v35;
+        *v101 = v30;
         if (*(&v30 + 1))
         {
           atomic_fetch_add_explicit((*(&v30 + 1) + 8), 1uLL, memory_order_relaxed);
         }
 
-        *&v102[16] = v31;
+        *&v101[16] = v31;
         if (v31)
         {
           xpc_retain(v31);
@@ -5307,8 +5290,8 @@ LABEL_69:
 LABEL_82:
             v36 = _Block_copy(v32);
 LABEL_85:
-            *&v102[24] = v36;
-            v103 = v29;
+            *&v101[24] = v36;
+            v102 = v29;
             if (v29)
             {
               dispatch_retain(v29);
@@ -5321,26 +5304,26 @@ LABEL_85:
               _Block_release(v37);
             }
 
-            if (v103)
+            if (v102)
             {
-              dispatch_release(v103);
+              dispatch_release(v102);
             }
 
-            if (*&v102[24])
+            if (*&v101[24])
             {
-              _Block_release(*&v102[24]);
+              _Block_release(*&v101[24]);
             }
 
-            xpc_release(*&v102[16]);
-            *&v102[16] = 0;
-            if (*&v102[8])
+            xpc_release(*&v101[16]);
+            *&v101[16] = 0;
+            if (*&v101[8])
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](*&v102[8]);
+              std::__shared_weak_count::__release_shared[abi:ne200100](*&v101[8]);
             }
 
-            if (v101)
+            if (v100)
             {
-              _Block_release(v101);
+              _Block_release(v100);
             }
 
             if (v34)
@@ -5381,14 +5364,14 @@ LABEL_85:
               _Block_release(v28);
             }
 
-            xpc_release(v96);
-            v96 = 0;
             xpc_release(v95);
             v95 = 0;
-            xpc_release(v78);
-            if (v87.__r_.__value_.__l.__size_)
+            xpc_release(v94);
+            v94 = 0;
+            xpc_release(v77);
+            if (v86.__r_.__value_.__l.__size_)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v87.__r_.__value_.__l.__size_);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v86.__r_.__value_.__l.__size_);
             }
 
             goto LABEL_111;
@@ -5397,7 +5380,7 @@ LABEL_85:
 
         else
         {
-          *&v102[16] = xpc_null_create();
+          *&v101[16] = xpc_null_create();
           if (v32)
           {
             goto LABEL_82;
@@ -5441,7 +5424,7 @@ LABEL_114:
   memset(buf, 170, 24);
   __p.__r_.__value_.__r.__words[0] = &original;
   __p.__r_.__value_.__l.__size_ = "command";
-  xpc::dict::object_proxy::operator xpc::object(&__p, &v87);
+  xpc::dict::object_proxy::operator xpc::object(&__p, &v86);
   memset(&block, 0, sizeof(block));
   xpc::dyn_cast_or_default();
   if (SHIBYTE(block.__r_.__value_.__r.__words[2]) < 0)
@@ -5449,7 +5432,7 @@ LABEL_114:
     operator delete(block.__r_.__value_.__l.__data_);
   }
 
-  xpc_release(v87.__r_.__value_.__l.__data_);
+  xpc_release(v86.__r_.__value_.__l.__data_);
   v42 = buf[23];
   v43 = buf[23];
   if ((buf[23] & 0x80u) != 0)
@@ -5507,11 +5490,11 @@ LABEL_154:
         __p.__r_.__value_.__r.__words[0] = 0xAAAAAAAAAAAAAAAALL;
         block.__r_.__value_.__r.__words[0] = &original;
         block.__r_.__value_.__l.__size_ = "eventList";
-        xpc::dict::object_proxy::operator xpc::object(&block, &v85);
+        xpc::dict::object_proxy::operator xpc::object(&block, &v84);
         xpc::bridge();
-        ctu::cf::CFSharedRef<__CFArray const>::CFSharedRef<void const,void>(&__p, v87.__r_.__value_.__l.__data_);
-        ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,void const>::~SharedRef(&v87.__r_.__value_.__l.__data_);
-        xpc_release(v85);
+        ctu::cf::CFSharedRef<__CFArray const>::CFSharedRef<void const,void>(&__p, v86.__r_.__value_.__l.__data_);
+        ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,void const>::~SharedRef(&v86.__r_.__value_.__l.__data_);
+        xpc_release(v84);
         if (__p.__r_.__value_.__r.__words[0])
         {
           if (v41)
@@ -5525,14 +5508,14 @@ LABEL_154:
             v54 = xpc_null_create();
           }
 
-          v92 = __p.__r_.__value_.__r.__words[0];
+          v91 = __p.__r_.__value_.__r.__words[0];
           if (__p.__r_.__value_.__r.__words[0])
           {
             CFRetain(__p.__r_.__value_.__l.__data_);
           }
 
-          TelephonyXPC::Server::State::registerNotification(v4, v54, 1, &v92);
-          ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray const>::~SharedRef(&v92);
+          TelephonyXPC::Server::State::registerNotification(v4, v54, 1, &v91);
+          ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray const>::~SharedRef(&v91);
           xpc_release(v54);
           v57 = 0;
           goto LABEL_184;
@@ -5570,11 +5553,11 @@ LABEL_138:
           __p.__r_.__value_.__r.__words[0] = 0xAAAAAAAAAAAAAAAALL;
           block.__r_.__value_.__r.__words[0] = &original;
           block.__r_.__value_.__l.__size_ = "eventList";
-          xpc::dict::object_proxy::operator xpc::object(&block, &v85);
+          xpc::dict::object_proxy::operator xpc::object(&block, &v84);
           xpc::bridge();
-          ctu::cf::CFSharedRef<__CFArray const>::CFSharedRef<void const,void>(&__p, v87.__r_.__value_.__l.__data_);
-          ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,void const>::~SharedRef(&v87.__r_.__value_.__l.__data_);
-          xpc_release(v85);
+          ctu::cf::CFSharedRef<__CFArray const>::CFSharedRef<void const,void>(&__p, v86.__r_.__value_.__l.__data_);
+          ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,void const>::~SharedRef(&v86.__r_.__value_.__l.__data_);
+          xpc_release(v84);
           if (__p.__r_.__value_.__r.__words[0])
           {
             if (v41)
@@ -5588,14 +5571,14 @@ LABEL_138:
               v50 = xpc_null_create();
             }
 
-            v92 = __p.__r_.__value_.__r.__words[0];
+            v91 = __p.__r_.__value_.__r.__words[0];
             if (__p.__r_.__value_.__r.__words[0])
             {
               CFRetain(__p.__r_.__value_.__l.__data_);
             }
 
-            TelephonyXPC::Server::State::registerNotification(v4, v50, 0, &v92);
-            ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray const>::~SharedRef(&v92);
+            TelephonyXPC::Server::State::registerNotification(v4, v50, 0, &v91);
+            ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray const>::~SharedRef(&v91);
             xpc_release(v50);
             v57 = 0;
             goto LABEL_184;
@@ -5620,9 +5603,9 @@ LABEL_184:
     }
 
     memset(&__p, 170, sizeof(__p));
-    v87.__r_.__value_.__r.__words[0] = &original;
-    v87.__r_.__value_.__l.__size_ = "clientName";
-    xpc::dict::object_proxy::operator xpc::object(&v87, &v85);
+    v86.__r_.__value_.__r.__words[0] = &original;
+    v86.__r_.__value_.__l.__size_ = "clientName";
+    xpc::dict::object_proxy::operator xpc::object(&v86, &v84);
     memset(&block, 0, sizeof(block));
     xpc::dyn_cast_or_default();
     if (SHIBYTE(block.__r_.__value_.__r.__words[2]) < 0)
@@ -5630,7 +5613,7 @@ LABEL_184:
       operator delete(block.__r_.__value_.__l.__data_);
     }
 
-    xpc_release(v85);
+    xpc_release(v84);
     block.__r_.__value_.__r.__words[0] = 0xAAAAAAAAAAAAAAAALL;
     block.__r_.__value_.__l.__size_ = 0xAAAAAAAAAAAAAAAALL;
     if (v41)
@@ -5665,17 +5648,17 @@ LABEL_184:
 
     v57 = 0;
 LABEL_185:
-    v90 = xpc_int64_create(v57);
-    if (!v90)
+    v89 = xpc_int64_create(v57);
+    if (!v89)
     {
-      v90 = xpc_null_create();
+      v89 = xpc_null_create();
     }
 
-    xpc::dict::object_proxy::operator=(&v91, v45, "commandResult", &v90);
-    xpc_release(v91);
-    v91 = 0;
+    xpc::dict::object_proxy::operator=(&v90, v45, "commandResult", &v89);
     xpc_release(v90);
     v90 = 0;
+    xpc_release(v89);
+    v89 = 0;
     v59 = *(v4 + 72);
     if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
     {
@@ -5736,17 +5719,17 @@ LABEL_193:
         }
 
         xpc_release(v64);
-        v88 = xpc_string_create("ServerStateStarted");
-        if (!v88)
+        v87 = xpc_string_create("ServerStateStarted");
+        if (!v87)
         {
-          v88 = xpc_null_create();
+          v87 = xpc_null_create();
         }
 
-        xpc::dict::object_proxy::operator=(&v89, v65, "KeyServerState", &v88);
-        xpc_release(v89);
-        v89 = 0;
+        xpc::dict::object_proxy::operator=(&v88, v65, "KeyServerState", &v87);
         xpc_release(v88);
         v88 = 0;
+        xpc_release(v87);
+        v87 = 0;
         if (v41)
         {
           xpc_retain(v41);
@@ -5758,7 +5741,7 @@ LABEL_193:
           v67 = xpc_null_create();
         }
 
-        std::string::basic_string[abi:ne200100]<0>(&v87, "EventServerStateChange");
+        std::string::basic_string[abi:ne200100]<0>(&v86, "EventServerStateChange");
         if (v65)
         {
           xpc_retain(v65);
@@ -5770,14 +5753,14 @@ LABEL_193:
           v68 = xpc_null_create();
         }
 
+        v84 = 0;
         v85 = 0;
-        v86 = 0;
         block.__r_.__value_.__r.__words[0] = MEMORY[0x277D85DD0];
         block.__r_.__value_.__l.__size_ = 1174405120;
         block.__r_.__value_.__r.__words[2] = ___ZN12TelephonyXPC6Server5State7unicastEN3xpc10connectionENSt3__112basic_stringIcNS4_11char_traitsIcEENS4_9allocatorIcEEEENS2_4dictEN8dispatch8callbackIU13block_pointerFvvEEE_block_invoke;
-        v100 = &__block_descriptor_tmp_54;
-        v101 = v4;
-        *v102 = v68;
+        v99 = &__block_descriptor_tmp_54;
+        v100 = v4;
+        *v101 = v68;
         if (v68)
         {
           xpc_retain(v68);
@@ -5785,20 +5768,20 @@ LABEL_193:
 
         else
         {
-          *v102 = xpc_null_create();
+          *v101 = xpc_null_create();
         }
 
-        if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v86.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(&v102[8], v87.__r_.__value_.__l.__data_, v87.__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(&v101[8], v86.__r_.__value_.__l.__data_, v86.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          *&v102[8] = v87;
+          *&v101[8] = v86;
         }
 
-        v103 = v67;
+        v102 = v67;
         if (v67)
         {
           xpc_retain(v67);
@@ -5806,13 +5789,13 @@ LABEL_193:
 
         else
         {
-          v103 = xpc_null_create();
+          v102 = xpc_null_create();
         }
 
-        v69 = v85;
-        if (v85)
+        v69 = v84;
+        if (v84)
         {
-          v70 = _Block_copy(v85);
+          v70 = _Block_copy(v84);
         }
 
         else
@@ -5820,12 +5803,12 @@ LABEL_193:
           v70 = 0;
         }
 
-        v71 = v86;
-        v104 = v70;
-        v105 = v86;
-        if (v86)
+        v71 = v85;
+        v103 = v70;
+        v104 = v85;
+        if (v85)
         {
-          dispatch_retain(v86);
+          dispatch_retain(v85);
         }
 
         v72 = *(v4 + 16);
@@ -5839,36 +5822,36 @@ LABEL_193:
         __p.__r_.__value_.__r.__words[0] = MEMORY[0x277D85DD0];
         __p.__r_.__value_.__l.__size_ = 1174405120;
         __p.__r_.__value_.__r.__words[2] = ___ZNK3ctu20SharedSynchronizableINS_9XpcServerEE15execute_wrappedEU13block_pointerFvvE_block_invoke;
-        v94 = &__block_descriptor_tmp_37;
-        v96 = v73;
-        v97 = v75;
+        v93 = &__block_descriptor_tmp_37;
+        v95 = v73;
+        v96 = v75;
         atomic_fetch_add_explicit(&v75->__shared_owners_, 1uLL, memory_order_relaxed);
-        v95 = &block;
+        v94 = &block;
         dispatch_async(v76, &__p);
-        if (v97)
+        if (v96)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v97);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v96);
         }
 
         std::__shared_weak_count::__release_shared[abi:ne200100](v75);
-        if (v105)
-        {
-          dispatch_release(v105);
-        }
-
         if (v104)
         {
-          _Block_release(v104);
+          dispatch_release(v104);
         }
 
-        xpc_release(v103);
-        v103 = 0;
-        if ((v102[31] & 0x80000000) != 0)
+        if (v103)
         {
-          operator delete(*&v102[8]);
+          _Block_release(v103);
         }
 
-        xpc_release(*v102);
+        xpc_release(v102);
+        v102 = 0;
+        if ((v101[31] & 0x80000000) != 0)
+        {
+          operator delete(*&v101[8]);
+        }
+
+        xpc_release(*v101);
         if (v71)
         {
           dispatch_release(v71);
@@ -5880,9 +5863,9 @@ LABEL_193:
         }
 
         xpc_release(v68);
-        if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v86.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v87.__r_.__value_.__l.__data_);
+          operator delete(v86.__r_.__value_.__l.__data_);
         }
 
         xpc_release(v67);
@@ -5903,15 +5886,14 @@ LABEL_243:
   xpc_release(v41);
 LABEL_247:
   xpc_release(original);
-  if (v84)
+  if (v83)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v84);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v83);
   }
 
-  xpc_release(v80);
-  v80 = 0;
+  xpc_release(v79);
+  v79 = 0;
   xpc_release(object);
-  v77 = *MEMORY[0x277D85DE8];
 }
 
 void sub_26D2A9900(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, xpc_object_t a9, uint64_t a10, xpc_object_t a11, xpc_object_t a12, xpc_object_t a13, uint64_t a14, std::__shared_weak_count *a15, xpc_object_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, xpc_object_t a36, xpc_object_t a37, uint64_t a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, uint64_t a45, void *a46, uint64_t a47, int a48, __int16 a49, char a50, char a51, uint64_t a52, uint64_t a53, xpc_object_t object)
@@ -5985,7 +5967,7 @@ void **xpc::array::iterator::iterator(void **a1, void **a2, void *a3)
   return a1;
 }
 
-uint64_t *std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(uint64_t **a1, void **a2, uint64_t a3)
+uint64_t *std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(uint64_t ***a1, uint64_t ***a2, uint64_t a3)
 {
   v8 = 0xAAAAAAAAAAAAAAAALL;
   result = std::__tree<std::string>::__find_equal<std::string>(a1, &v8, a2);
@@ -6000,7 +5982,7 @@ uint64_t *std::__tree<std::string>::__emplace_unique_key_args<std::string,std::s
   return result;
 }
 
-void *std::__tree<std::string>::__find_equal<std::string>(uint64_t a1, void *a2, void **a3)
+char *std::__tree<std::string>::__find_equal<std::string>(uint64_t a1, char **a2, uint64_t ***a3)
 {
   v5 = (a1 + 8);
   v4 = *(a1 + 8);
@@ -6011,7 +5993,7 @@ void *std::__tree<std::string>::__find_equal<std::string>(uint64_t a1, void *a2,
       while (1)
       {
         v7 = v4;
-        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, (v4 + 32)) & 0x80) == 0)
+        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, v4 + 32) & 0x80) == 0)
         {
           break;
         }
@@ -6029,8 +6011,8 @@ void *std::__tree<std::string>::__find_equal<std::string>(uint64_t a1, void *a2,
         break;
       }
 
-      v5 = v7 + 1;
-      v4 = v7[1];
+      v5 = v7 + 8;
+      v4 = *(v7 + 1);
     }
 
     while (v4);
@@ -6073,7 +6055,7 @@ void sub_26D2A9F3C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__tree<std::string>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::string>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -6118,7 +6100,7 @@ uint64_t *std::set<std::string>::set[abi:ne200100](uint64_t *a1, uint64_t a2)
   return a1;
 }
 
-uint64_t *std::set<std::string>::insert[abi:ne200100]<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>>(uint64_t *result, void **a2, void **a3)
+uint64_t *std::set<std::string>::insert[abi:ne200100]<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>>(uint64_t *result, char *a2, char *a3)
 {
   if (a2 != a3)
   {
@@ -6126,8 +6108,8 @@ uint64_t *std::set<std::string>::insert[abi:ne200100]<std::__tree_const_iterator
     v5 = result;
     do
     {
-      result = std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(v5, (v5 + 1), v4 + 4, (v4 + 4));
-      v6 = v4[1];
+      result = std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(v5, (v5 + 8), v4 + 32, (v4 + 32));
+      v6 = *(v4 + 1);
       if (v6)
       {
         do
@@ -6143,7 +6125,7 @@ uint64_t *std::set<std::string>::insert[abi:ne200100]<std::__tree_const_iterator
       {
         do
         {
-          v7 = v4[2];
+          v7 = *(v4 + 2);
           v8 = *v7 == v4;
           v4 = v7;
         }
@@ -6160,7 +6142,7 @@ uint64_t *std::set<std::string>::insert[abi:ne200100]<std::__tree_const_iterator
   return result;
 }
 
-uint64_t *std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(uint64_t **a1, uint64_t a2, void **a3, uint64_t a4)
+uint64_t *std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,std::string const&>(uint64_t **a1, uint64_t *a2, char *a3, uint64_t a4)
 {
   v9 = 0xAAAAAAAAAAAAAAAALL;
   v10 = 0xAAAAAAAAAAAAAAAALL;
@@ -6177,10 +6159,10 @@ uint64_t *std::__tree<std::string>::__emplace_hint_unique_key_args<std::string,s
   return result;
 }
 
-void **std::__tree<std::string>::__find_equal<std::string>(void *a1, uint64_t a2, void ***a3, uint64_t *a4, void **a5)
+char *std::__tree<std::string>::__find_equal<std::string>(uint64_t **a1, uint64_t *a2, char **a3, uint64_t *a4, char *a5)
 {
   v9 = (a1 + 1);
-  if (a1 + 1 == a2 || (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a5, (a2 + 32)) & 0x80) != 0)
+  if (a1 + 1 == a2 || (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a5, a2 + 32) & 0x80) != 0)
   {
     if (*a1 == a2)
     {
@@ -6233,18 +6215,18 @@ void **std::__tree<std::string>::__find_equal<std::string>(void *a1, uint64_t a2
     }
   }
 
-  if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((a2 + 32), a5) & 0x80) == 0)
+  if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2 + 4, a5) & 0x80) == 0)
   {
     *a3 = a2;
     *a4 = a2;
     return a4;
   }
 
-  a4 = (a2 + 8);
-  v13 = *(a2 + 8);
+  a4 = a2 + 1;
+  v13 = a2[1];
   if (v13)
   {
-    v14 = *(a2 + 8);
+    v14 = a2[1];
     do
     {
       v15 = v14;
@@ -6284,7 +6266,7 @@ LABEL_29:
     return a4;
   }
 
-  if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a5, v15 + 4) & 0x80) != 0)
+  if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a5, v15 + 32) & 0x80) != 0)
   {
     v13 = *a4;
     goto LABEL_29;
@@ -6510,7 +6492,7 @@ void ___ZNK8dispatch8callbackIU13block_pointerFvN12TelephonyXPC17ServerClientSta
   }
 }
 
-void sub_26D2AA700(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, xpc_object_t object, uint64_t a13, std::__shared_weak_count *a14)
+void sub_26D2AA700(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, xpc_object_t object, uint64_t a13, std::__shared_weak_count *a14)
 {
   dispatch::callback<void({block_pointer})(int,xpc::dict)>::~callback(&a10);
   xpc_release(object);
@@ -6674,12 +6656,12 @@ const void **ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrele
 
 void ___ZN12TelephonyXPC6Server5State20registerNotificationEN3xpc10connectionEbN3ctu2cf11CFSharedRefIK9__CFArrayEE_block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = (a1 + 40);
   v4 = *(a1 + 40);
+  v11 = 0xAAAAAAAAAAAAAAAALL;
   v12 = 0xAAAAAAAAAAAAAAAALL;
-  v13 = 0xAAAAAAAAAAAAAAAALL;
   if (v4)
   {
     xpc_retain(v4);
@@ -6690,14 +6672,14 @@ void ___ZN12TelephonyXPC6Server5State20registerNotificationEN3xpc10connectionEbN
     v4 = xpc_null_create();
   }
 
-  TelephonyXPC::Server::State::getClientState_sync(&v12, v2, v4);
+  TelephonyXPC::Server::State::getClientState_sync(&v11, v2, v4);
   xpc_release(v4);
-  if (v12)
+  if (v11)
   {
     v5 = *(a1 + 56);
-    ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray const>::SharedRef(&v11, (a1 + 48));
-    TelephonyXPC::ServerClientState::registerNotification_sync(&v12, v5, &v11);
-    ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray const>::~SharedRef(&v11);
+    ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray const>::SharedRef(&v10, (a1 + 48));
+    TelephonyXPC::ServerClientState::registerNotification_sync(&v11, v5, &v10);
+    ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray const>::~SharedRef(&v10);
   }
 
   else if (MEMORY[0x26D6B9FB0](*v3) == MEMORY[0x277D86450])
@@ -6706,23 +6688,21 @@ void ___ZN12TelephonyXPC6Server5State20registerNotificationEN3xpc10connectionEbN
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       xpc::object::to_string(__p, v3);
-      v8 = v10 >= 0 ? __p : __p[0];
+      v7 = v9 >= 0 ? __p : __p[0];
       *buf = 136315138;
-      v15 = v8;
+      v14 = v7;
       _os_log_debug_impl(&dword_26D2A2000, v6, OS_LOG_TYPE_DEBUG, "#D %s is not in client list", buf, 0xCu);
-      if (v10 < 0)
+      if (v9 < 0)
       {
         operator delete(__p[0]);
       }
     }
   }
 
-  if (v13)
+  if (v12)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void sub_26D2AABB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, std::__shared_weak_count *a14)
@@ -6784,7 +6764,7 @@ const void **ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::c
 
 void ___ZN12TelephonyXPC6Server5State7unicastEN3xpc10connectionENSt3__112basic_stringIcNS4_11char_traitsIcEENS4_9allocatorIcEEEENS2_4dictEN8dispatch8callbackIU13block_pointerFvvEEE_block_invoke(uint64_t a1)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = xpc_dictionary_create(0, 0, 0);
   v4 = MEMORY[0x277D86468];
@@ -6812,7 +6792,7 @@ void ___ZN12TelephonyXPC6Server5State7unicastEN3xpc10connectionENSt3__112basic_s
   if (MEMORY[0x26D6B9FB0](*(a1 + 40)) == v4)
   {
     v6 = *(a1 + 40);
-    v55 = v6;
+    v54 = v6;
     if (v6)
     {
       xpc_retain(v6);
@@ -6820,27 +6800,27 @@ void ___ZN12TelephonyXPC6Server5State7unicastEN3xpc10connectionENSt3__112basic_s
 
     else
     {
-      v55 = xpc_null_create();
+      v54 = xpc_null_create();
     }
 
-    xpc::dict::object_proxy::operator=(&v56, v5, "eventData", &v55);
-    xpc_release(v56);
-    v56 = 0;
+    xpc::dict::object_proxy::operator=(&v55, v5, "eventData", &v54);
     xpc_release(v55);
     v55 = 0;
+    xpc_release(v54);
+    v54 = 0;
   }
 
-  v53 = xpc_string_create("eventNotification");
-  if (!v53)
+  v52 = xpc_string_create("eventNotification");
+  if (!v52)
   {
-    v53 = xpc_null_create();
+    v52 = xpc_null_create();
   }
 
-  xpc::dict::object_proxy::operator=(&v54, v5, "command", &v53);
-  xpc_release(v54);
-  v54 = 0;
+  xpc::dict::object_proxy::operator=(&v53, v5, "command", &v52);
   xpc_release(v53);
   v53 = 0;
+  xpc_release(v52);
+  v52 = 0;
   v7 = (a1 + 48);
   v8 = (a1 + 48);
   if (*(a1 + 71) < 0)
@@ -6848,17 +6828,17 @@ void ___ZN12TelephonyXPC6Server5State7unicastEN3xpc10connectionENSt3__112basic_s
     v8 = *v7;
   }
 
-  v51 = xpc_string_create(v8);
-  if (!v51)
+  v50 = xpc_string_create(v8);
+  if (!v50)
   {
-    v51 = xpc_null_create();
+    v50 = xpc_null_create();
   }
 
-  xpc::dict::object_proxy::operator=(&v52, v5, "event", &v51);
-  xpc_release(v52);
-  v52 = 0;
+  xpc::dict::object_proxy::operator=(&v51, v5, "event", &v50);
   xpc_release(v51);
   v51 = 0;
+  xpc_release(v50);
+  v50 = 0;
   v9 = dispatch_group_create();
   v10 = v2[2];
   if (!v10 || (v11 = v2[1], (v12 = std::__shared_weak_count::lock(v10)) == 0))
@@ -6869,8 +6849,8 @@ void ___ZN12TelephonyXPC6Server5State7unicastEN3xpc10connectionENSt3__112basic_s
   v13 = v12;
   atomic_fetch_add_explicit(&v12->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+  v48 = 0xAAAAAAAAAAAAAAAALL;
   v49 = 0xAAAAAAAAAAAAAAAALL;
-  v50 = 0xAAAAAAAAAAAAAAAALL;
   v14 = *(a1 + 72);
   if (v14)
   {
@@ -6882,21 +6862,21 @@ void ___ZN12TelephonyXPC6Server5State7unicastEN3xpc10connectionENSt3__112basic_s
     v14 = xpc_null_create();
   }
 
-  TelephonyXPC::Server::State::getClientState_sync(&v49, v2, v14);
+  TelephonyXPC::Server::State::getClientState_sync(&v48, v2, v14);
   xpc_release(v14);
   if (*(a1 + 71) < 0)
   {
-    std::string::__init_copy_ctor_external(&v48, *(a1 + 48), *(a1 + 56));
+    std::string::__init_copy_ctor_external(&v47, *(a1 + 48), *(a1 + 56));
   }
 
   else
   {
-    *&v48.__r_.__value_.__l.__data_ = *v7;
-    v48.__r_.__value_.__r.__words[2] = *(a1 + 64);
+    *&v47.__r_.__value_.__l.__data_ = *v7;
+    v47.__r_.__value_.__r.__words[2] = *(a1 + 64);
   }
 
   v15 = *(a1 + 40);
-  v47 = v15;
+  v46 = v15;
   if (v15)
   {
     xpc_retain(v15);
@@ -6905,15 +6885,15 @@ void ___ZN12TelephonyXPC6Server5State7unicastEN3xpc10connectionENSt3__112basic_s
   else
   {
     v15 = xpc_null_create();
-    v47 = v15;
+    v46 = v15;
   }
 
-  isNotificationRegistered_sync = TelephonyXPC::ServerClientState::isNotificationRegistered_sync(&v49, &v48, &v47);
+  isNotificationRegistered_sync = TelephonyXPC::ServerClientState::isNotificationRegistered_sync(&v48, &v47, &v46);
   xpc_release(v15);
-  v47 = 0;
-  if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
+  v46 = 0;
+  if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v48.__r_.__value_.__l.__data_);
+    operator delete(v47.__r_.__value_.__l.__data_);
     if (!isNotificationRegistered_sync)
     {
       goto LABEL_58;
@@ -6934,45 +6914,45 @@ void ___ZN12TelephonyXPC6Server5State7unicastEN3xpc10connectionENSt3__112basic_s
       v18 = *v7;
     }
 
-    v33 = v5;
+    v32 = v5;
     v19 = v9;
     v20 = v11;
-    if (*(v49 + 23) < 0)
+    if (*(v48 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v46, *v49, *(v49 + 1));
+      std::string::__init_copy_ctor_external(&v45, *v48, *(v48 + 1));
     }
 
     else
     {
-      v21 = *v49;
-      v46.__r_.__value_.__r.__words[2] = *(v49 + 2);
-      *&v46.__r_.__value_.__l.__data_ = v21;
+      v21 = *v48;
+      v45.__r_.__value_.__r.__words[2] = *(v48 + 2);
+      *&v45.__r_.__value_.__l.__data_ = v21;
     }
 
-    v22 = SHIBYTE(v46.__r_.__value_.__r.__words[2]);
-    v23 = v46.__r_.__value_.__r.__words[0];
+    v22 = SHIBYTE(v45.__r_.__value_.__r.__words[2]);
+    v23 = v45.__r_.__value_.__r.__words[0];
     SystemTime = TelephonyUtilGetSystemTime();
     *buf = 136315650;
-    v25 = &v46;
+    v25 = &v45;
     if (v22 < 0)
     {
       v25 = v23;
     }
 
-    v58 = v18;
-    v59 = 2080;
-    v60 = v25;
-    v61 = 2048;
-    v62 = SystemTime;
+    v57 = v18;
+    v58 = 2080;
+    v59 = v25;
+    v60 = 2048;
+    v61 = SystemTime;
     _os_log_impl(&dword_26D2A2000, v17, OS_LOG_TYPE_DEFAULT, "#I Sending %s to %s at %llu", buf, 0x20u);
-    if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v46.__r_.__value_.__l.__data_);
+      operator delete(v45.__r_.__value_.__l.__data_);
     }
 
     v11 = v20;
     v9 = v19;
-    v5 = v33;
+    v5 = v32;
   }
 
   if (*(a1 + 80) && *(a1 + 88))
@@ -6986,13 +6966,13 @@ void ___ZN12TelephonyXPC6Server5State7unicastEN3xpc10connectionENSt3__112basic_s
     handler[3] = &__block_descriptor_tmp_51;
     handler[4] = v2;
     handler[5] = v11;
-    v41 = v13;
+    v40 = v13;
     atomic_fetch_add_explicit(&v13->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    v41 = v48;
     v42 = v49;
-    v43 = v50;
-    if (v50)
+    if (v49)
     {
-      atomic_fetch_add_explicit(&v50->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v49->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     if (*(a1 + 71) < 0)
@@ -7006,21 +6986,21 @@ void ___ZN12TelephonyXPC6Server5State7unicastEN3xpc10connectionENSt3__112basic_s
       __p.__r_.__value_.__r.__words[2] = *(a1 + 64);
     }
 
-    v45 = v9;
+    v44 = v9;
     xpc_connection_send_message_with_reply(v26, v5, v27, handler);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (v43)
+    if (v42)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v43);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v42);
     }
 
-    if (v41)
+    if (v40)
     {
-      std::__shared_weak_count::__release_weak(v41);
+      std::__shared_weak_count::__release_weak(v40);
     }
   }
 
@@ -7039,10 +7019,10 @@ LABEL_58:
     block[3] = &__block_descriptor_tmp_53;
     block[4] = v2;
     block[5] = v11;
-    v35 = v13;
+    v34 = v13;
     atomic_fetch_add_explicit(&v13->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     v29 = *(a1 + 72);
-    v36 = v29;
+    v35 = v29;
     if (v29)
     {
       xpc_retain(v29);
@@ -7050,18 +7030,18 @@ LABEL_58:
 
     else
     {
-      v36 = xpc_null_create();
+      v35 = xpc_null_create();
     }
 
     if (*(a1 + 71) < 0)
     {
-      std::string::__init_copy_ctor_external(&v37, *(a1 + 48), *(a1 + 56));
+      std::string::__init_copy_ctor_external(&v36, *(a1 + 48), *(a1 + 56));
     }
 
     else
     {
-      *&v37.__r_.__value_.__l.__data_ = *v7;
-      v37.__r_.__value_.__r.__words[2] = *(a1 + 64);
+      *&v36.__r_.__value_.__l.__data_ = *v7;
+      v36.__r_.__value_.__r.__words[2] = *(a1 + 64);
     }
 
     v30 = *(a1 + 80);
@@ -7089,28 +7069,27 @@ LABEL_58:
       _Block_release(aBlock);
     }
 
-    if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v37.__r_.__value_.__l.__data_);
+      operator delete(v36.__r_.__value_.__l.__data_);
     }
 
-    xpc_release(v36);
-    v36 = 0;
-    if (v35)
+    xpc_release(v35);
+    v35 = 0;
+    if (v34)
     {
-      std::__shared_weak_count::__release_weak(v35);
+      std::__shared_weak_count::__release_weak(v34);
     }
   }
 
   dispatch_release(v9);
-  if (v50)
+  if (v49)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v50);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v49);
   }
 
   std::__shared_weak_count::__release_weak(v13);
   xpc_release(v5);
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void sub_26D2AB310(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, xpc_object_t object, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, xpc_object_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, std::__shared_weak_count *a30, uint64_t a31, std::__shared_weak_count *a32, void *__p, uint64_t a34, int a35, __int16 a36, char a37, char a38, uint64_t a39, void *a40, uint64_t a41, int a42, __int16 a43, char a44, char a45, uint64_t a46)
@@ -7138,7 +7117,7 @@ void sub_26D2AB310(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ___ZN12TelephonyXPC6Server5State7unicastEN3xpc10connectionENSt3__112basic_stringIcNS4_11char_traitsIcEENS4_9allocatorIcEEEENS2_4dictEN8dispatch8callbackIU13block_pointerFvvEEE_block_invoke_48(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 48);
   if (v2 && (v3 = *(a1 + 32), (v4 = std::__shared_weak_count::lock(v2)) != 0))
   {
@@ -7171,19 +7150,19 @@ void ___ZN12TelephonyXPC6Server5State7unicastEN3xpc10connectionENSt3__112basic_s
           p_p = __p.__r_.__value_.__r.__words[0];
         }
 
-        v12 = (a1 + 72);
+        v11 = (a1 + 72);
         if (*(a1 + 95) < 0)
         {
-          v12 = *v12;
+          v11 = *v11;
         }
 
         SystemTime = TelephonyUtilGetSystemTime();
         *buf = 136315650;
-        v17 = p_p;
-        v18 = 2080;
-        v19 = v12;
-        v20 = 2048;
-        v21 = SystemTime;
+        v15 = p_p;
+        v16 = 2080;
+        v17 = v11;
+        v18 = 2048;
+        v19 = SystemTime;
         _os_log_impl(&dword_26D2A2000, v6, OS_LOG_TYPE_DEFAULT, "#I %s responded to %s at %llu", buf, 0x20u);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -7194,13 +7173,11 @@ void ___ZN12TelephonyXPC6Server5State7unicastEN3xpc10connectionENSt3__112basic_s
 
     dispatch_group_leave(*(a1 + 96));
     std::__shared_weak_count::__release_shared[abi:ne200100](v5);
-    v14 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     v9 = *(a1 + 96);
-    v10 = *MEMORY[0x277D85DE8];
 
     dispatch_group_leave(v9);
   }
@@ -7208,7 +7185,7 @@ void ___ZN12TelephonyXPC6Server5State7unicastEN3xpc10connectionENSt3__112basic_s
 
 void ___ZN12TelephonyXPC6Server5State7unicastEN3xpc10connectionENSt3__112basic_stringIcNS4_11char_traitsIcEENS4_9allocatorIcEEEENS2_4dictEN8dispatch8callbackIU13block_pointerFvvEEE_block_invoke_52(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 48);
   if (v2)
   {
@@ -7223,7 +7200,7 @@ void ___ZN12TelephonyXPC6Server5State7unicastEN3xpc10connectionENSt3__112basic_s
         {
           xpc::object::to_string(__p, (a1 + 56));
           v6 = __p[0];
-          if (SHIBYTE(v14) >= 0)
+          if (SHIBYTE(v13) >= 0)
           {
             v6 = __p;
           }
@@ -7235,11 +7212,11 @@ void ___ZN12TelephonyXPC6Server5State7unicastEN3xpc10connectionENSt3__112basic_s
           }
 
           *buf = 136315394;
-          v18 = v6;
-          v19 = 2080;
-          v20 = v7;
+          v17 = v6;
+          v18 = 2080;
+          v19 = v7;
           _os_log_impl(&dword_26D2A2000, v5, OS_LOG_TYPE_DEFAULT, "#I Client %s responded to %s", buf, 0x16u);
-          if (SHIBYTE(v14) < 0)
+          if (SHIBYTE(v13) < 0)
           {
             operator delete(__p[0]);
           }
@@ -7267,8 +7244,8 @@ void ___ZN12TelephonyXPC6Server5State7unicastEN3xpc10connectionENSt3__112basic_s
   v10 = *(a1 + 96);
   __p[0] = MEMORY[0x277D85DD0];
   __p[1] = 1174405120;
-  v14 = ___ZNK8dispatch8callbackIU13block_pointerFvvEEclIJEEEvDpT__block_invoke;
-  v15 = &__block_descriptor_tmp_38;
+  v13 = ___ZNK8dispatch8callbackIU13block_pointerFvvEEclIJEEEvDpT__block_invoke;
+  v14 = &__block_descriptor_tmp_38;
   if (v9)
   {
     v11 = _Block_copy(v9);
@@ -7295,8 +7272,6 @@ void ___ZN12TelephonyXPC6Server5State7unicastEN3xpc10connectionENSt3__112basic_s
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v4);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __copy_helper_block_e8_40c39_ZTSNSt3__18weak_ptrIN3ctu9XpcServerEEE56c23_ZTSKN3xpc10connectionE64c67_ZTSKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE88c46_ZTSN8dispatch8callbackIU13block_pointerFvvEEE(uint64_t a1, uint64_t a2)
@@ -7561,31 +7536,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -7594,158 +7568,158 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (v19 && (v19[3] & 1) == 0)
+      v18 = *(v7 + 8);
+      if (v18 && (*(v18 + 24) & 1) == 0)
       {
 LABEL_58:
-        v18 = v7;
+        v17 = v7;
       }
 
       else
       {
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_71;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_58;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_67;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (v24 && (v24[3] & 1) == 0)
+  if (v23 && (*(v23 + 24) & 1) == 0)
   {
 LABEL_67:
-    v25 = v7;
+    v24 = v7;
     goto LABEL_68;
   }
 
-  *(v25 + 24) = 1;
-  *(v7 + 24) = 0;
-  v33 = *v25;
-  v7[1] = *v25;
-  if (v33)
-  {
-    *(v33 + 16) = v7;
-  }
-
-  v34 = v7[2];
-  v25[2] = v34;
-  v34[*v34 != v7] = v25;
-  *v25 = v7;
-  v7[2] = v25;
-  v24 = v7;
-LABEL_68:
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
   *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  *(v7 + 24) = 0;
+  v32 = *v24;
+  *(v7 + 8) = *v24;
+  if (v32)
   {
-    *(v35 + 16) = v29;
+    *(v32 + 16) = v7;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v33 = *(v7 + 16);
+  *(v24 + 16) = v33;
+  v33[*v33 != v7] = v24;
+  *v24 = v7;
+  *(v7 + 16) = v24;
+  v23 = v7;
+LABEL_68:
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
+  {
+    *(v34 + 16) = v28;
+  }
+
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_71:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
@@ -7884,7 +7858,7 @@ uint64_t TelephonyXPC::ServerClientState::isNotificationRegistered_sync(uint64_t
     object = xpc_null_create();
   }
 
-  isNotificationRegistered = TelephonyXPC::ServerClientState::State::isNotificationRegistered(v4, &v9.__r_.__value_.__l.__data_, &object);
+  isNotificationRegistered = TelephonyXPC::ServerClientState::State::isNotificationRegistered(v4, &v9, &object);
   xpc_release(object);
   object = 0;
   if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
@@ -7906,7 +7880,7 @@ void sub_26D2AC158(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t TelephonyXPC::ServerClientState::State::isNotificationRegistered(uint64_t a1, void **a2, void *a3)
+uint64_t TelephonyXPC::ServerClientState::State::isNotificationRegistered(uint64_t a1, char *a2, void *a3)
 {
   v5 = std::__tree<std::__value_type<std::string,xpc::dict>,std::__map_value_compare<std::string,std::__value_type<std::string,xpc::dict>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,xpc::dict>>>::find<std::string>(a1 + 32, a2);
   if (a1 + 40 == v5)
@@ -7972,11 +7946,12 @@ uint64_t TelephonyXPC::ServerClientState::State::isNotificationRegistered(uint64
   return v9;
 }
 
-void sub_26D2AC2EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, xpc_object_t object, char a15)
+void sub_26D2AC2EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, xpc_object_t object, ...)
 {
+  va_start(va, object);
   xpc_release(object);
-  _Block_object_dispose(&a15, 8);
-  xpc_release(v15);
+  _Block_object_dispose(va, 8);
+  xpc_release(v14);
   _Unwind_Resume(a1);
 }
 
@@ -8001,9 +7976,9 @@ const void **TelephonyXPC::ServerClientState::registerNotification_sync(void **a
   return ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray const>::~SharedRef(&theArray);
 }
 
-void sub_26D2AC3C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26D2AC3C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::SharedRef<__CFArray const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFArray const>::~SharedRef(va);
   _Unwind_Resume(a1);
 }
@@ -8036,7 +8011,7 @@ void TelephonyXPC::ServerClientState::setClientEntitlements(uint64_t *a1, uint64
   std::__tree<std::string>::destroy(&v3, v4);
 }
 
-BOOL TelephonyXPC::ServerClientState::isClientEntitled(void *a1, void **a2)
+BOOL TelephonyXPC::ServerClientState::isClientEntitled(void *a1, char *a2)
 {
   v2 = (*a1 + 64);
   v3 = *v2;
@@ -8237,7 +8212,7 @@ void __destroy_helper_block_e8_32r40c15_ZTSN3xpc4dictE(uint64_t a1)
   _Block_object_dispose(v2, 8);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,xpc::dict>,std::__map_value_compare<std::string,std::__value_type<std::string,xpc::dict>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,xpc::dict>>>::find<std::string>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,xpc::dict>,std::__map_value_compare<std::string,std::__value_type<std::string,xpc::dict>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,xpc::dict>>>::find<std::string>(uint64_t a1, char *a2)
 {
   v2 = a1 + 8;
   v3 = *(a1 + 8);
@@ -8316,11 +8291,11 @@ uint64_t TelephonyXPC::ServerClientState::State::registerNotificationApplier(Tel
     object = xpc_null_create();
   }
 
-  v8 = (a2 + 40);
+  v8 = a2 + 40;
   v7 = *(a2 + 5);
   if (!v7)
   {
-    v9 = (a2 + 40);
+    v9 = a2 + 40;
 LABEL_19:
     v10 = operator new(0x40uLL);
     v11 = v10;
@@ -8357,7 +8332,7 @@ LABEL_19:
     while (1)
     {
       v9 = v7;
-      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, v7 + 4) & 0x80) == 0)
+      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, v7 + 32) & 0x80) == 0)
       {
         break;
       }
@@ -8370,13 +8345,13 @@ LABEL_19:
       }
     }
 
-    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v9 + 4, &__p.__r_.__value_.__l.__data_) & 0x80) == 0)
+    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v9 + 4, &__p) & 0x80) == 0)
     {
       break;
     }
 
-    v8 = v9 + 1;
-    v7 = v9[1];
+    v8 = v9 + 8;
+    v7 = *(v9 + 1);
     if (!v7)
     {
       goto LABEL_19;
@@ -8520,7 +8495,7 @@ const void **ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::
   return a1;
 }
 
-uint64_t *std::__tree<std::string>::__assign_multi<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>>(uint64_t *result, void *a2, void *a3)
+uint64_t ***std::__tree<std::string>::__assign_multi<std::__tree_const_iterator<std::string,std::__tree_node<std::string,void *> *,long>>(uint64_t ***result, void *a2, void *a3)
 {
   v5 = result;
   if (result[2])
@@ -8645,14 +8620,14 @@ uint64_t *std::__tree<std::string>::__assign_multi<std::__tree_const_iterator<st
   return result;
 }
 
-void sub_26D2AD054(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26D2AD054(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<std::string>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *std::__tree<std::string>::__find_leaf_high(uint64_t a1, void *a2, void *a3)
+void *std::__tree<std::string>::__find_leaf_high(uint64_t a1, void *a2, uint64_t ***a3)
 {
   v5 = (a1 + 8);
   v4 = *(a1 + 8);

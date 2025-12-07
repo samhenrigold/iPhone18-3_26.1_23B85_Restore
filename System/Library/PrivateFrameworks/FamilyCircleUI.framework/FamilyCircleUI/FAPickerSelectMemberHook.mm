@@ -14,19 +14,16 @@
 
 - (RUIServerHookDelegate)delegate
 {
-  v3 = OBJC_IVAR___FAPickerSelectMemberHook_delegate;
   swift_beginAccess();
-  v4 = *(self + v3);
-  v5 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v5;
+  return v2;
 }
 
 - (void)setDelegate:(id)delegate
 {
   v5 = OBJC_IVAR___FAPickerSelectMemberHook_delegate;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = delegate;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();
@@ -78,7 +75,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_21BB5AEC4(v7);
+  sub_21BB5AEC4(v7, v8);
 }
 
 - (BOOL)shouldMatchElement:(id)element
@@ -115,7 +112,7 @@
     v14 = *(v12 + 1);
 
     v13(modelCopy);
-    sub_21BB5AEC4(v13);
+    sub_21BB5AEC4(v13, v14);
   }
 
   v8[2](v8, 1, 0);

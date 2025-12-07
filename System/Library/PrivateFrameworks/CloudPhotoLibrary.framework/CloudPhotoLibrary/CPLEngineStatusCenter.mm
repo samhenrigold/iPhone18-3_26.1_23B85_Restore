@@ -3,6 +3,8 @@
 - (BOOL)deleteRecordsForScopeIndex:(int64_t)index maxCount:(int64_t)count deletedCount:(int64_t *)deletedCount error:(id *)error;
 - (BOOL)discardNotificationForRecordWithScopedIdentifier:(id)identifier error:(id *)error;
 - (BOOL)hasStatusChanges;
+- (BOOL)notifyStatusForRecordHasChanged:(id)changed persist:(BOOL)persist error:(id *)error;
+- (BOOL)notifyStatusForRecordViewHasChanged:(id)changed persist:(BOOL)persist error:(id *)error;
 - (BOOL)notifyStatusForRecordWithScopedIdentifierHasChanged:(id)changed recordClass:(Class)class persist:(BOOL)persist error:(id *)error;
 - (CPLEngineStatusCenter)initWithEngineStore:(id)store name:(id)name;
 - (id)_allScopedIdentifierInCollection:(id)collection withScopeIdentifier:(id)identifier;
@@ -28,10 +30,10 @@
 
 - (void)writeTransactionDidSucceed
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v29.receiver = self;
-  v29.super_class = CPLEngineStatusCenter;
-  [(CPLEngineStorage *)&v29 writeTransactionDidSucceed];
+  v32 = *MEMORY[0x1E69E9840];
+  v28.receiver = self;
+  v28.super_class = CPLEngineStatusCenter;
+  [(CPLEngineStorage *)&v28 writeTransactionDidSucceed];
   if ([(NSMutableSet *)self->_persistedScopedIdentifiers count])
   {
     v3 = 1;
@@ -72,36 +74,36 @@
       if (os_log_type_enabled(__CPLStorageOSLogDomain_result_20554, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v32 = v9;
+        v31 = v9;
         _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_DEFAULT, "Too many pending transient notifications, dropping %lu of them", buf, 0xCu);
       }
     }
 
-    v24 = v3;
+    v23 = v3;
     allValues = [(NSMutableDictionary *)self->_transientStatuses allValues];
     v12 = [allValues sortedArrayUsingComparator:&__block_literal_global_20556];
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v13 = v12;
-    v14 = [v13 countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v26;
+      v16 = *v25;
 LABEL_12:
       v17 = 0;
       while (1)
       {
-        if (*v26 != v16)
+        if (*v25 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
         v18 = self->_transientStatuses;
-        record = [*(*(&v25 + 1) + 8 * v17) record];
+        record = [*(*(&v24 + 1) + 8 * v17) record];
         scopedIdentifier = [record scopedIdentifier];
         [(NSMutableDictionary *)v18 removeObjectForKey:scopedIdentifier];
 
@@ -112,7 +114,7 @@ LABEL_12:
 
         if (v15 == ++v17)
         {
-          v15 = [v13 countByEnumeratingWithState:&v25 objects:v30 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v24 objects:v29 count:16];
           if (v15)
           {
             goto LABEL_12;
@@ -123,7 +125,7 @@ LABEL_12:
       }
     }
 
-    v3 = v24;
+    v3 = v23;
   }
 
   if (v3)
@@ -132,13 +134,11 @@ LABEL_12:
     engineLibrary = [engineStore engineLibrary];
     [engineLibrary notifyAttachedObjectsHasStatusChanges];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)allStatusChanges
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   if ([(NSMutableDictionary *)self->_transientStatuses count]|| [(NSMutableSet *)self->_pendingDeletedTransientStatuses count])
   {
@@ -166,45 +166,45 @@ LABEL_12:
       v8 = v7;
     }
 
-    v29[0] = 0;
-    v29[1] = v29;
-    v29[2] = 0x2020000000;
-    v29[3] = 0;
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __41__CPLEngineStatusCenter_allStatusChanges__block_invoke;
-    v25[3] = &unk_1E861F710;
-    v25[4] = self;
-    v26 = v3;
-    v27 = v29;
-    v28 = v8;
-    [(NSMutableDictionary *)v6 enumerateKeysAndObjectsUsingBlock:v25];
+    v28[0] = 0;
+    v28[1] = v28;
+    v28[2] = 0x2020000000;
+    v28[3] = 0;
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __41__CPLEngineStatusCenter_allStatusChanges__block_invoke;
+    v24[3] = &unk_1E861F710;
+    v24[4] = self;
+    v25 = v3;
+    v26 = v28;
+    v27 = v8;
+    [(NSMutableDictionary *)v6 enumerateKeysAndObjectsUsingBlock:v24];
 
-    _Block_object_dispose(v29, 8);
+    _Block_object_dispose(v28, 8);
   }
 
   platformObject = [(CPLEngineStorage *)self platformObject];
   v10 = [platformObject statusChangesMaximumCount:10000];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v21 objects:v30 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v20 objects:v29 count:16];
   if (v12)
   {
-    v13 = *v22;
+    v13 = *v21;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v22 != v13)
+        if (*v21 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * i);
+        v15 = *(*(&v20 + 1) + 8 * i);
         record = [v15 record];
         scopedIdentifier = [record scopedIdentifier];
 
@@ -218,13 +218,11 @@ LABEL_12:
         }
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v21 objects:v30 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v20 objects:v29 count:16];
     }
 
     while (v12);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -249,49 +247,49 @@ void __41__CPLEngineStatusCenter_allStatusChanges__block_invoke(uint64_t a1, uin
 
 - (id)status
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if ([(NSMutableDictionary *)self->_transientStatuses count])
   {
     v3 = objc_alloc(MEMORY[0x1E696AD60]);
-    v24.receiver = self;
-    v24.super_class = CPLEngineStatusCenter;
-    status = [(CPLEngineStorage *)&v24 status];
+    v23.receiver = self;
+    v23.super_class = CPLEngineStatusCenter;
+    status = [(CPLEngineStorage *)&v23 status];
     status2 = [v3 initWithFormat:@"%@\n%lu transient:", status, -[NSMutableDictionary count](self->_transientStatuses, "count")];
 
     v6 = objc_alloc_init(MEMORY[0x1E696AB50]);
     transientStatuses = self->_transientStatuses;
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __31__CPLEngineStatusCenter_status__block_invoke;
-    v22[3] = &unk_1E861F758;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __31__CPLEngineStatusCenter_status__block_invoke;
+    v21[3] = &unk_1E861F758;
     v8 = v6;
-    v23 = v8;
-    [(NSMutableDictionary *)transientStatuses enumerateKeysAndObjectsUsingBlock:v22];
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
+    v22 = v8;
+    [(NSMutableDictionary *)transientStatuses enumerateKeysAndObjectsUsingBlock:v21];
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     allObjects = [v8 allObjects];
     v10 = [allObjects sortedArrayUsingSelector:sel_compare_];
 
-    v11 = [v10 countByEnumeratingWithState:&v18 objects:v25 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v17 objects:v24 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v19;
+      v13 = *v18;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v19 != v13)
+          if (*v18 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          [status2 appendFormat:@"\n\t%@: %lu", *(*(&v18 + 1) + 8 * i), objc_msgSend(v8, "countForObject:", *(*(&v18 + 1) + 8 * i))];
+          [status2 appendFormat:@"\n\t%@: %lu", *(*(&v17 + 1) + 8 * i), objc_msgSend(v8, "countForObject:", *(*(&v17 + 1) + 8 * i))];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v18 objects:v25 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v17 objects:v24 count:16];
       }
 
       while (v12);
@@ -300,12 +298,10 @@ void __41__CPLEngineStatusCenter_allStatusChanges__block_invoke(uint64_t a1, uin
 
   else
   {
-    v17.receiver = self;
-    v17.super_class = CPLEngineStatusCenter;
-    status2 = [(CPLEngineStorage *)&v17 status];
+    v16.receiver = self;
+    v16.super_class = CPLEngineStatusCenter;
+    status2 = [(CPLEngineStorage *)&v16 status];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return status2;
 }
@@ -611,27 +607,27 @@ uint64_t __51__CPLEngineStatusCenter_writeTransactionDidSucceed__block_invoke(ui
 
 - (BOOL)acknowledgeChangedStatuses:(id)statuses error:(id *)error
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = statuses;
-  v5 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v5 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v27;
+    v7 = *v26;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v27 != v7)
+        if (*v26 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v26 + 1) + 8 * i);
+        v9 = *(*(&v25 + 1) + 8 * i);
         record = [v9 record];
         scopedIdentifier = [record scopedIdentifier];
 
@@ -659,9 +655,9 @@ uint64_t __51__CPLEngineStatusCenter_writeTransactionDidSucceed__block_invoke(ui
           }
         }
 
-        v25 = 0;
+        v24 = 0;
         platformObject = [(CPLEngineStorage *)self platformObject];
-        v19 = [platformObject acknowledgeChangedStatus:v9 hasBeenDeleted:&v25 error:error];
+        v19 = [platformObject acknowledgeChangedStatus:v9 hasBeenDeleted:&v24 error:error];
 
         if (!v19)
         {
@@ -670,13 +666,13 @@ uint64_t __51__CPLEngineStatusCenter_writeTransactionDidSucceed__block_invoke(ui
           goto LABEL_20;
         }
 
-        if (v25 == 1)
+        if (v24 == 1)
         {
           [(NSMutableSet *)self->_persistedScopedIdentifiers removeObject:scopedIdentifier];
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v6 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v6)
       {
         continue;
@@ -689,7 +685,6 @@ uint64_t __51__CPLEngineStatusCenter_writeTransactionDidSucceed__block_invoke(ui
   v20 = 1;
 LABEL_20:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -704,31 +699,31 @@ LABEL_20:
 
 - (id)statusesForRecordsWithScopedIdentifiers:(id)identifiers
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   v5 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(identifiersCopy, "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v6 = identifiersCopy;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       v10 = 0;
       do
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * v10);
-        v12 = [(NSMutableDictionary *)self->_pendingTransientStatuses objectForKeyedSubscript:v11, v19];
+        v11 = *(*(&v18 + 1) + 8 * v10);
+        v12 = [(NSMutableDictionary *)self->_pendingTransientStatuses objectForKeyedSubscript:v11, v18];
         if (v12 || ([(NSMutableDictionary *)self->_transientStatuses objectForKeyedSubscript:v11], (v12 = objc_claimAutoreleasedReturnValue()) != 0))
         {
           platformObject = v12;
@@ -759,14 +754,12 @@ LABEL_20:
       }
 
       while (v8 != v10);
-      v16 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v16 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
       v8 = v16;
     }
 
     while (v16);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -811,29 +804,29 @@ LABEL_20:
 
 - (id)_allScopedIdentifierInCollection:(id)collection withScopeIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   collectionCopy = collection;
   identifierCopy = identifier;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v7 = [collectionCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [collectionCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(collectionCopy);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         scopeIdentifier = [v12 scopeIdentifier];
         v14 = [scopeIdentifier isEqualToString:identifierCopy];
 
@@ -848,7 +841,7 @@ LABEL_20:
         }
       }
 
-      v8 = [collectionCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [collectionCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
@@ -859,14 +852,12 @@ LABEL_20:
     v9 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)statusChanges
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if ([(NSMutableDictionary *)self->_transientStatuses count]|| [(NSMutableSet *)self->_pendingDeletedTransientStatuses count])
   {
     v3 = [(NSMutableSet *)self->_pendingDeletedTransientStatuses count];
@@ -893,59 +884,59 @@ LABEL_20:
       v7 = v6;
     }
 
-    v28[0] = 0;
-    v28[1] = v28;
-    v28[2] = 0x2020000000;
-    v28[3] = 0;
+    v27[0] = 0;
+    v27[1] = v27;
+    v27[2] = 0x2020000000;
+    v27[3] = 0;
     v8 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v7];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __38__CPLEngineStatusCenter_statusChanges__block_invoke;
-    v24[3] = &unk_1E861F710;
-    v24[4] = self;
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __38__CPLEngineStatusCenter_statusChanges__block_invoke;
+    v23[3] = &unk_1E861F710;
+    v23[4] = self;
     v9 = v8;
-    v25 = v9;
-    v26 = v28;
-    v27 = v7;
-    [(NSMutableDictionary *)v5 enumerateKeysAndObjectsUsingBlock:v24];
+    v24 = v9;
+    v25 = v27;
+    v26 = v7;
+    [(NSMutableDictionary *)v5 enumerateKeysAndObjectsUsingBlock:v23];
     v10 = [v9 count];
-    v11 = v25;
+    v11 = v24;
     if (v10)
     {
       v12 = v9;
 
-      _Block_object_dispose(v28, 8);
+      _Block_object_dispose(v27, 8);
       goto LABEL_20;
     }
 
-    _Block_object_dispose(v28, 8);
+    _Block_object_dispose(v27, 8);
   }
 
   platformObject = [(CPLEngineStorage *)self platformObject];
   v14 = [platformObject statusChangesMaximumCount:1000];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v5 = v14;
-  v15 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v20 objects:v29 count:16];
+  v15 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v19 objects:v28 count:16];
   if (v15)
   {
-    v16 = *v21;
+    v16 = *v20;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v21 != v16)
+        if (*v20 != v16)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(CPLEngineStatusCenter *)self _fillStatus:*(*(&v20 + 1) + 8 * i), v20];
+        [(CPLEngineStatusCenter *)self _fillStatus:*(*(&v19 + 1) + 8 * i), v19];
       }
 
-      v15 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v20 objects:v29 count:16];
+      v15 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v19 objects:v28 count:16];
     }
 
     while (v15);
@@ -953,8 +944,6 @@ LABEL_20:
 
   v12 = v5;
 LABEL_20:
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -1045,6 +1034,28 @@ LABEL_16:
 LABEL_17:
 
   return v18;
+}
+
+- (BOOL)notifyStatusForRecordViewHasChanged:(id)changed persist:(BOOL)persist error:(id *)error
+{
+  persistCopy = persist;
+  changedCopy = changed;
+  scopedIdentifier = [changedCopy scopedIdentifier];
+  recordClass = [changedCopy recordClass];
+
+  LOBYTE(error) = [(CPLEngineStatusCenter *)self notifyStatusForRecordWithScopedIdentifierHasChanged:scopedIdentifier recordClass:recordClass persist:persistCopy error:error];
+  return error;
+}
+
+- (BOOL)notifyStatusForRecordHasChanged:(id)changed persist:(BOOL)persist error:(id *)error
+{
+  persistCopy = persist;
+  changedCopy = changed;
+  scopedIdentifier = [changedCopy scopedIdentifier];
+  v10 = objc_opt_class();
+
+  LOBYTE(error) = [(CPLEngineStatusCenter *)self notifyStatusForRecordWithScopedIdentifierHasChanged:scopedIdentifier recordClass:v10 persist:persistCopy error:error];
+  return error;
 }
 
 - (BOOL)hasStatusChanges

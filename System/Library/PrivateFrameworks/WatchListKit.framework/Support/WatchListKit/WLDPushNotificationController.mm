@@ -48,7 +48,7 @@
 
 void __37__WLDPushNotificationController_init__block_invoke(uint64_t a1)
 {
-  v2 = WLDDispatchQueue();
+  v2 = WLDDispatchQueue(a1);
   dispatch_assert_queue_V2(v2);
 
   v3 = WLKPushNotificationsLogObject();
@@ -64,7 +64,7 @@ void __37__WLDPushNotificationController_init__block_invoke(uint64_t a1)
   v6 = *(a1 + 32);
   v7 = v6[2];
   v8 = [v6 _portNameForEnvironmentName:v7];
-  v9 = WLDDispatchQueue();
+  v9 = WLDDispatchQueue(v8);
   v10 = [v5 initWithEnvironmentName:v7 namedDelegatePort:v8 queue:v9];
   v11 = *(a1 + 32);
   v12 = *(v11 + 8);
@@ -171,7 +171,7 @@ void __37__WLDPushNotificationController_init__block_invoke(uint64_t a1)
 
 - (void)registerOpportunisticTopics
 {
-  v3 = WLDDispatchQueue();
+  v3 = WLDDispatchQueue(self);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = __60__WLDPushNotificationController_registerOpportunisticTopics__block_invoke;
@@ -650,7 +650,7 @@ LABEL_13:
 
 - (void)_registerOpportunisticTopics
 {
-  v3 = WLDDispatchQueue();
+  v3 = WLDDispatchQueue(self);
   dispatch_assert_queue_V2(v3);
 
   opportunisticTopics = [(APSConnection *)self->_connection opportunisticTopics];
@@ -1524,12 +1524,12 @@ void __76__WLDPushNotificationController__postNotificationToUser_title_body_opti
 - (void)_loadURLBagWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  v16[0] = 0;
-  v16[1] = v16;
-  v16[2] = 0x3032000000;
-  v16[3] = __Block_byref_object_copy__2;
-  v16[4] = __Block_byref_object_dispose__2;
-  v17 = [[WLKTransactionScope alloc] initWithIdentifier:@"WLDPushNotificationController._loadURLBagWithCompletionHandler"];
+  v17[0] = 0;
+  v17[1] = v17;
+  v17[2] = 0x3032000000;
+  v17[3] = __Block_byref_object_copy__2;
+  v17[4] = __Block_byref_object_dispose__2;
+  v18 = [[WLKTransactionScope alloc] initWithIdentifier:@"WLDPushNotificationController._loadURLBagWithCompletionHandler"];
   v5 = +[TVAppBag app];
   v6 = [v5 stringForKey:kBagKeyPushNotificationsEnvironment];
 
@@ -1537,24 +1537,24 @@ void __76__WLDPushNotificationController__postNotificationToUser_title_body_opti
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v19 = v6;
+    v20 = v6;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "WLDPushNotificationController - Configuration: %@", buf, 0xCu);
   }
 
-  v8 = WLDDispatchQueue();
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = __66__WLDPushNotificationController__loadURLBagWithCompletionHandler___block_invoke;
-  v11[3] = &unk_100045958;
-  v12 = v6;
+  v9 = WLDDispatchQueue(v8);
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = __66__WLDPushNotificationController__loadURLBagWithCompletionHandler___block_invoke;
+  v12[3] = &unk_100045958;
+  v13 = v6;
   selfCopy = self;
-  v14 = handlerCopy;
-  v15 = v16;
-  v9 = handlerCopy;
-  v10 = v6;
-  dispatch_async(v8, v11);
+  v15 = handlerCopy;
+  v16 = v17;
+  v10 = handlerCopy;
+  v11 = v6;
+  dispatch_async(v9, v12);
 
-  _Block_object_dispose(v16, 8);
+  _Block_object_dispose(v17, 8);
 }
 
 void __66__WLDPushNotificationController__loadURLBagWithCompletionHandler___block_invoke(void *a1)

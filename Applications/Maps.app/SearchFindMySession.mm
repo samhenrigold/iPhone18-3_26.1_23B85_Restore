@@ -6,7 +6,7 @@
 
 - (_TtC4Maps19SearchFindMySession)init
 {
-  v3 = sub_1000CE6B8(&unk_10190BA50);
+  v3 = sub_1000CE6B8(&unk_10190BA50, &unk_1011E4800);
   __chkstk_darwin(v3 - 8);
   v5 = &v12 - v4;
   *(&self->super.isa + OBJC_IVAR____TtC4Maps19SearchFindMySession_session) = 0;

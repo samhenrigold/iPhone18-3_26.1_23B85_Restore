@@ -27,8 +27,8 @@ void __48__CKRecipientGenerator_sharedRecipientGenerator__block_invoke()
   sharedRecipientGenerator_sSharedRecipientGenerator = v0;
 
   v2 = sharedRecipientGenerator_sSharedRecipientGenerator;
-  v3 = CKPreferredAddressTypes();
-  [v2 setSearchABPropertyTypes:v3];
+  v4 = CKPreferredAddressTypes(v3);
+  [v2 setSearchABPropertyTypes:v4];
 }
 
 - (id)recipientWithContact:(id)contact
@@ -138,7 +138,7 @@ LABEL_6:
 
 - (id)recipientWithAddress:(id)address
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   addressCopy = address;
   if (addressCopy)
   {
@@ -166,40 +166,41 @@ LABEL_6:
     v12 = [mEMORY[0x1E69A5A80] __ck_bestAccountForAddress:v10];
 
     v13 = [v12 imHandleWithID:v10];
-    if (CKIsRunningInFullCKClient() || CKIsRunningUnitTests())
+    v14 = CKIsRunningInFullCKClient();
+    if (v14 || CKIsRunningUnitTests(v14, v15))
     {
-      v14 = [[CKIMComposeRecipient alloc] initWithHandle:v13];
+      v16 = [[CKIMComposeRecipient alloc] initWithHandle:v13];
     }
 
     else
     {
-      v14 = [objc_alloc(MEMORY[0x1E6996408]) initWithContact:v5 address:addressCopy kind:v7];
+      v16 = [objc_alloc(MEMORY[0x1E6996408]) initWithContact:v5 address:addressCopy kind:v7];
     }
 
-    v9 = v14;
+    v9 = v16;
     if (v6)
     {
-      v15 = MEMORY[0x193AF4FE0](1);
-      v16 = v15;
-      [(CKIMComposeRecipient *)v9 setCountryCode:v16];
-      if (v15)
+      v17 = MEMORY[0x193AF4FE0](1);
+      v18 = v17;
+      [(CKIMComposeRecipient *)v9 setCountryCode:v18];
+      if (v17)
       {
-        CFRelease(v16);
+        CFRelease(v18);
       }
     }
 
     if ((!v13 || !v5) && IMOSLoggingEnabled())
     {
-      v17 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v19 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
-        v19 = 138412802;
-        v20 = addressCopy;
-        v21 = 2112;
-        v22 = v13;
+        v21 = 138412802;
+        v22 = addressCopy;
         v23 = 2112;
-        v24 = v5;
-        _os_log_impl(&dword_19020E000, v17, OS_LOG_TYPE_INFO, "Address %@ matched to nil handle (%@) or contact (%@)", &v19, 0x20u);
+        v24 = v13;
+        v25 = 2112;
+        v26 = v5;
+        _os_log_impl(&dword_19020E000, v19, OS_LOG_TYPE_INFO, "Address %@ matched to nil handle (%@) or contact (%@)", &v21, 0x20u);
       }
     }
   }
@@ -211,9 +212,9 @@ LABEL_6:
       v8 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v19 = 136315138;
-        v20 = "[CKRecipientGenerator recipientWithAddress:]";
-        _os_log_impl(&dword_19020E000, v8, OS_LOG_TYPE_INFO, "%s given nil address", &v19, 0xCu);
+        v21 = 136315138;
+        v22 = "[CKRecipientGenerator recipientWithAddress:]";
+        _os_log_impl(&dword_19020E000, v8, OS_LOG_TYPE_INFO, "%s given nil address", &v21, 0xCu);
       }
     }
 

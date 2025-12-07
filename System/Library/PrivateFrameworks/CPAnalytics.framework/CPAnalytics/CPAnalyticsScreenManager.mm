@@ -377,7 +377,7 @@ LABEL_10:
 
 - (void)_handleUnknownViewIfNeeded:(id)needed
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   neededCopy = needed;
   v5 = [neededCopy propertyForKey:@"className"];
   namesOfViewsToIgnore = [(CPAnalyticsScreenManager *)self namesOfViewsToIgnore];
@@ -411,9 +411,9 @@ LABEL_8:
     v13 = CPAnalyticsLog();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v16 = 138412290;
-      v17 = v5;
-      _os_log_debug_impl(&dword_24260A000, v13, OS_LOG_TYPE_DEBUG, "Unknown view: %@. Add this view to 'appState' destination in CP Analytics config.", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = v5;
+      _os_log_debug_impl(&dword_24260A000, v13, OS_LOG_TYPE_DEBUG, "Unknown view: %@. Add this view to 'appState' destination in CP Analytics config.", &v15, 0xCu);
     }
 
     cpAnalyticsInstance2 = [(CPAnalyticsScreenManager *)self cpAnalyticsInstance];
@@ -423,8 +423,6 @@ LABEL_8:
   }
 
 LABEL_9:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateCurrentTabIdentifier:(id)identifier
@@ -525,7 +523,7 @@ LABEL_9:
 
 - (void)updateWithConfig:(id)config
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   configCopy = config;
   v5 = [configCopy objectForKeyedSubscript:@"trackViews"];
   objc_opt_class();
@@ -537,33 +535,33 @@ LABEL_9:
     namesOfViewsToIgnore = [(CPAnalyticsScreenManager *)self namesOfViewsToIgnore];
     v9 = [namesOfViewsToIgnore copy];
 
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     v10 = v7;
-    v11 = [v10 countByEnumeratingWithState:&v38 objects:v45 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v37 objects:v44 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v39;
+      v13 = *v38;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v39 != v13)
+          if (*v38 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v38 + 1) + 8 * i);
+          v15 = *(*(&v37 + 1) + 8 * i);
           if ([v9 containsObject:v15])
           {
             p_super = CPAnalyticsLog();
             if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v44 = v15;
+              v43 = v15;
               _os_log_error_impl(&dword_24260A000, p_super, OS_LOG_TYPE_ERROR, "View %@ is in ignore list. It cannot be tracked.", buf, 0xCu);
             }
 
@@ -572,7 +570,7 @@ LABEL_9:
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v38 objects:v45 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v37 objects:v44 count:16];
         if (v12)
         {
           continue;
@@ -599,33 +597,33 @@ LABEL_9:
     namesOfViewsToTrack = [(CPAnalyticsScreenManager *)self namesOfViewsToTrack];
     v9 = [namesOfViewsToTrack copy];
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     v24 = v22;
-    v25 = [v24 countByEnumeratingWithState:&v34 objects:v42 count:16];
+    v25 = [v24 countByEnumeratingWithState:&v33 objects:v41 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v35;
+      v27 = *v34;
       while (2)
       {
         for (j = 0; j != v26; ++j)
         {
-          if (*v35 != v27)
+          if (*v34 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          v29 = *(*(&v34 + 1) + 8 * j);
-          if ([v9 containsObject:{v29, v34}])
+          v29 = *(*(&v33 + 1) + 8 * j);
+          if ([v9 containsObject:{v29, v33}])
           {
             p_super = CPAnalyticsLog();
             if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v44 = v29;
+              v43 = v29;
               _os_log_error_impl(&dword_24260A000, p_super, OS_LOG_TYPE_ERROR, "View %@ is in track list. It cannot be ignored.", buf, 0xCu);
             }
 
@@ -634,7 +632,7 @@ LABEL_9:
           }
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v34 objects:v42 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v33 objects:v41 count:16];
         if (v26)
         {
           continue;
@@ -651,8 +649,6 @@ LABEL_9:
     self->_namesOfViewsToIgnore = v31;
 LABEL_27:
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (CPAnalyticsScreenManager)initWithConfig:(id)config cpAnalyticsInstance:(id)instance
@@ -685,7 +681,7 @@ LABEL_27:
 
 + (BOOL)_isValidTabIdentifierChangedEvent:(id)event
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   name = [eventCopy name];
   v5 = [@"com.apple.photos.CPAnalytics.tabIdentifierChanged" isEqualToString:name];
@@ -701,11 +697,11 @@ LABEL_27:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
         name2 = [eventCopy name];
-        v12 = 138412546;
-        v13 = v6;
-        v14 = 2112;
-        v15 = name2;
-        _os_log_debug_impl(&dword_24260A000, v8, OS_LOG_TYPE_DEBUG, "Tab identifier description '%@' is not a string for event %@.", &v12, 0x16u);
+        v11 = 138412546;
+        v12 = v6;
+        v13 = 2112;
+        v14 = name2;
+        _os_log_debug_impl(&dword_24260A000, v8, OS_LOG_TYPE_DEBUG, "Tab identifier description '%@' is not a string for event %@.", &v11, 0x16u);
       }
     }
   }
@@ -715,7 +711,6 @@ LABEL_27:
     isKindOfClass = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return isKindOfClass & 1;
 }
 
@@ -729,7 +724,7 @@ LABEL_27:
 
 + (BOOL)isValidScreenViewEvent:(id)event
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   name = [eventCopy name];
   if ([@"com.apple.photos.CPAnalytics.viewDidAppear" isEqualToString:name])
@@ -762,11 +757,11 @@ LABEL_13:
       if (os_log_type_enabled(name4, OS_LOG_TYPE_DEBUG))
       {
         name3 = [eventCopy name];
-        v13 = 138412546;
-        v14 = v8;
-        v15 = 2112;
-        v16 = name3;
-        _os_log_debug_impl(&dword_24260A000, name4, OS_LOG_TYPE_DEBUG, "View ID '%@' is not a number for event %@.", &v13, 0x16u);
+        v12 = 138412546;
+        v13 = v8;
+        v14 = 2112;
+        v15 = name3;
+        _os_log_debug_impl(&dword_24260A000, name4, OS_LOG_TYPE_DEBUG, "View ID '%@' is not a number for event %@.", &v12, 0x16u);
       }
     }
 
@@ -781,11 +776,11 @@ LABEL_12:
       }
 
       name4 = [eventCopy name];
-      v13 = 138412546;
-      v14 = v7;
-      v15 = 2112;
-      v16 = name4;
-      _os_log_debug_impl(&dword_24260A000, v8, OS_LOG_TYPE_DEBUG, "Class name '%@' is not a string for event %@.", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v7;
+      v14 = 2112;
+      v15 = name4;
+      _os_log_debug_impl(&dword_24260A000, v8, OS_LOG_TYPE_DEBUG, "Class name '%@' is not a string for event %@.", &v12, 0x16u);
     }
 
     goto LABEL_12;
@@ -793,7 +788,6 @@ LABEL_12:
 
 LABEL_14:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

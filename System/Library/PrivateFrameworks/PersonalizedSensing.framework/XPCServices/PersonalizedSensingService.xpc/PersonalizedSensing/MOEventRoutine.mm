@@ -371,7 +371,7 @@
 
 - (id)description
 {
-  v17 = [NSString alloc];
+  v16 = [NSString alloc];
   mask = [(NSString *)self->_placeName mask];
   placeNameConfidence = self->_placeNameConfidence;
   v5 = [MOEventRoutine descriptionOfMode:[(MOEventRoutine *)self mode]];
@@ -379,14 +379,13 @@
   isHighConfidence = self->_isHighConfidence;
   isInvalid = self->_isInvalid;
   isPreOnboardedVisit = self->_isPreOnboardedVisit;
-  v16 = *&self->_poiCategory;
+  v15 = *&self->_poiCategory;
   placeSource = self->_placeSource;
   v11 = [objc_opt_class() stringOfPlaceInferencePlaceType:self->_placeType];
   v12 = [objc_opt_class() stringOfMapItemPlaceType:self->_mapItemPlaceType];
-  placeUserType = self->_placeUserType;
-  v14 = [v17 initWithFormat:@"placeName, %@, confidence, %f, locationMode, %@, new place, %lu, isHighConfidence, %d, isInvalid, %d, isPreOnboardedVisit, %d, poiCategory, %@, categoryMuid, %@, placeSource, %lu, placeType, %@, mapItemPlaceType, %@, userType, %lu, predominantWeather %@, familiarityIndexLOI, %.2f, mapItem, %lu", mask, *&placeNameConfidence, v5, placeDiscovery, isHighConfidence, isInvalid, isPreOnboardedVisit, v16, placeSource, v11, v12, placeUserType, self->_predominantWeather, *&self->_familiarityIndexLOI, self->_mapItemID];
+  v13 = [v16 initWithFormat:@"placeName, %@, confidence, %f, locationMode, %@, new place, %lu, isHighConfidence, %d, isInvalid, %d, isPreOnboardedVisit, %d, poiCategory, %@, categoryMuid, %@, placeSource, %lu, placeType, %@, mapItemPlaceType, %@, userType, %lu, predominantWeather %@, familiarityIndexLOI, %.2f, mapItem, %lu", mask, *&placeNameConfidence, v5, placeDiscovery, isHighConfidence, isInvalid, isPreOnboardedVisit, v15, placeSource, v11, v12, self->_placeUserType, self->_predominantWeather, *&self->_familiarityIndexLOI, self->_mapItemID];
 
-  return v14;
+  return v13;
 }
 
 - (BOOL)fallbackToAddressFormattingWithFormatOption:(id)option preferredCategories:(id)categories poiCategoryBlocklist:(id)blocklist mediumConfidenceThreshold:(double)threshold aoiConfidenceThreshold:(double)confidenceThreshold

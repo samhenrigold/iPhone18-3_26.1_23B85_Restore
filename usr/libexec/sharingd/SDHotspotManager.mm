@@ -31,6 +31,7 @@
 - (void)onqueue_cleanUpFailedNetworkBringUp;
 - (void)onqueue_handleHostAPChanged:(id)changed;
 - (void)onqueue_handleSwitchConditionsChanged;
+- (void)onqueue_startTetheringWithCompletionHandler:(id)handler modelID:(id)d productVersion:(id)version canConnectOn5GHz:(BOOL)hz retry:(BOOL)retry;
 - (void)onqueue_updateHostAPNetwork;
 - (void)onqueue_updateTetheringSupported;
 - (void)personalHotspotAllowedChanged:(id)changed;
@@ -797,6 +798,176 @@ LABEL_21:
   v15 = dCopy;
   v16 = handlerCopy;
   dispatch_async(workQueue, block);
+}
+
+- (void)onqueue_startTetheringWithCompletionHandler:(id)handler modelID:(id)d productVersion:(id)version canConnectOn5GHz:(BOOL)hz retry:(BOOL)retry
+{
+  retryCopy = retry;
+  hzCopy = hz;
+  handlerCopy = handler;
+  dCopy = d;
+  versionCopy = version;
+  v39 = 0;
+  if ([(SDHotspotManager *)self isTetheringSupported])
+  {
+    v15 = tethering_log();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Updating password if needed", buf, 2u);
+    }
+
+    hotspotPassword = [(SDHotspotManager *)self hotspotPassword];
+    v17 = tethering_log();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Checking WiFi power", buf, 2u);
+    }
+
+    v18 = +[SDStatusMonitor sharedMonitor];
+    wirelessEnabled = [v18 wirelessEnabled];
+
+    if ((wirelessEnabled & 1) == 0)
+    {
+      v20 = tethering_log();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Turning on Wifi", buf, 2u);
+      }
+
+      v21 = +[SDStatusMonitor sharedMonitor];
+      [v21 setWirelessEnabled:1];
+    }
+
+    v22 = tethering_log();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Fetching WiFi manager", buf, 2u);
+    }
+
+    v23 = +[SDStatusMonitor sharedMonitor];
+    wifiManager = [v23 wifiManager];
+
+    if (wifiManager)
+    {
+      if ([(SDHotspotManager *)self takePowerAssertion]|| retryCopy)
+      {
+        [(SDHotspotManager *)self clearQueuedDiscoveryRequest];
+        Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+        if (Mutable)
+        {
+          v27 = Mutable;
+          CFDictionaryAddValue(Mutable, @"SOFTAP_ENABLE", kCFBooleanTrue);
+          if (hzCopy)
+          {
+            v28 = kCFBooleanFalse;
+          }
+
+          else
+          {
+            v28 = kCFBooleanTrue;
+          }
+
+          CFDictionaryAddValue(v27, @"SOFTAP_FORCE_2_4G_CHANNEL", v28);
+          CFDictionaryAddValue(v27, @"SOFTAP_IMMEDIATE_DISABLE", kCFBooleanFalse);
+          if (dCopy)
+          {
+            CFDictionaryAddValue(v27, @"SOFTAP_SOFTAP_CAP_MODEL", dCopy);
+          }
+
+          if (versionCopy)
+          {
+            CFDictionaryAddValue(v27, @"SOFTAP_SOFTAP_OS_VER", versionCopy);
+          }
+
+          v29 = tethering_log();
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            v43 = v27;
+            _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Setting MIS Discovery state to YES, params: %@", buf, 0xCu);
+          }
+
+          WiFiManagerClientSetMISDiscoveryStateExt();
+          self->_startedHostAP = 1;
+          CFRelease(v27);
+        }
+
+        else
+        {
+          v30 = tethering_log();
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+          {
+            sub_1001CB784();
+          }
+        }
+
+        [(SDMISManager *)self->_misManager getState:&v39 + 4 andReason:&v39];
+        if (HIDWORD(v39) == 1022)
+        {
+          [(SDMISManager *)self->_misManager setState:1023];
+          self->_flippedHotspotSwitch = 1;
+        }
+
+        [(SDHotspotManager *)self onqueue_updateHostAPNetwork];
+        hostAPNetwork = [(SDHotspotManager *)self hostAPNetwork];
+
+        v32 = tethering_log();
+        v33 = os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
+        if (hostAPNetwork)
+        {
+          if (v33)
+          {
+            *buf = 0;
+            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Network already up", buf, 2u);
+          }
+
+          hotspotName = [(SDHotspotManager *)self hotspotName];
+          hotspotPassword2 = [(SDHotspotManager *)self hotspotPassword];
+          hotspotChannel = [(SDHotspotManager *)self hotspotChannel];
+          handlerCopy[2](handlerCopy, hotspotName, hotspotPassword2, hotspotChannel, 0);
+
+          [(SDHotspotManager *)self turnOffDiscovery];
+          if (self->_startedHostAP)
+          {
+            self->_startedHostAP = 0;
+          }
+        }
+
+        else
+        {
+          if (v33)
+          {
+            *buf = 0;
+            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Bringing up the network, queuing handler", buf, 2u);
+          }
+
+          handlers = self->_handlers;
+          v38 = [handlerCopy copy];
+          [(NSMutableArray *)handlers addObject:v38];
+
+          [(SDHotspotManager *)self restartNetworkTimer];
+        }
+      }
+
+      else
+      {
+        [(SDHotspotManager *)self queueDiscoveryRequestWithCompletionHandler:handlerCopy modelID:dCopy productVersion:versionCopy canConnectOn5GHz:hzCopy];
+      }
+    }
+  }
+
+  else
+  {
+    v40 = NSLocalizedDescriptionKey;
+    v41 = @"Tethering is not supported";
+    hotspotPassword = [NSDictionary dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+    v25 = [NSError errorWithDomain:NSPOSIXErrorDomain code:45 userInfo:hotspotPassword];
+    (handlerCopy)[2](handlerCopy, 0, 0, 0, v25);
+  }
 }
 
 - (void)stopTethering

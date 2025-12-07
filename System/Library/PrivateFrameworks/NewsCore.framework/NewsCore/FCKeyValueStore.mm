@@ -27,6 +27,7 @@
 - (void)replaceContentsWithDictionary:(id)dictionary;
 - (void)save;
 - (void)saveWithCompletionHandler:(id)handler;
+- (void)setBoolValue:(BOOL)value forKey:(id)key;
 - (void)setJSONEncodingHandlersWithObjectHandler:(id)handler arrayObjectHandler:(id)objectHandler dictionaryKeyHandler:(id)keyHandler dictionaryValueHandler:(id)valueHandler;
 - (void)setObject:(id)object forKey:(id)key;
 - (void)setObjects:(id)objects forKeys:(id)keys;
@@ -42,7 +43,7 @@ uint64_t __26__FCKeyValueStore_allKeys__block_invoke(uint64_t a1, void *a2)
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v3, v5);
 }
 
 - (id)allKeys
@@ -67,7 +68,7 @@ uint64_t __26__FCKeyValueStore_allKeys__block_invoke(uint64_t a1, void *a2)
 
 - (void)_save
 {
-  v84[2] = *MEMORY[0x1E69E9840];
+  v83[2] = *MEMORY[0x1E69E9840];
   if (self && (*(self + 80) & 4) == 0)
   {
     [*(self + 64) lock];
@@ -87,31 +88,31 @@ uint64_t __26__FCKeyValueStore_allKeys__block_invoke(uint64_t a1, void *a2)
     {
       storeDirectory = [self storeDirectory];
       selfCopy = self;
-      v68 = [storeDirectory stringByAppendingPathComponent:*(self + 32)];
+      v67 = [storeDirectory stringByAppendingPathComponent:*(self + 32)];
 
       dictionary = [MEMORY[0x1E695DF90] dictionary];
       dictionary2 = [MEMORY[0x1E695DF90] dictionary];
+      v71 = 0u;
       v72 = 0u;
       v73 = 0u;
       v74 = 0u;
-      v75 = 0u;
-      v67 = v2;
+      v66 = v2;
       v5 = v2;
-      v6 = [v5 countByEnumeratingWithState:&v72 objects:v78 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v71 objects:v77 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v73;
+        v8 = *v72;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v73 != v8)
+            if (*v72 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            v10 = *(*(&v72 + 1) + 8 * i);
+            v10 = *(*(&v71 + 1) + 8 * i);
             v11 = [v5 objectForKey:v10];
             v12 = v11;
             if (v11 && [v11 conformsToProtocol:&unk_1F2EB3F08])
@@ -142,13 +143,13 @@ uint64_t __26__FCKeyValueStore_allKeys__block_invoke(uint64_t a1, void *a2)
                         {
                           v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@ is not supported by this key-value store", objc_opt_class()];
                           *buf = 136315906;
-                          v80 = "[FCKeyValueStore _save]";
-                          v81 = 2080;
-                          v82 = "FCKeyValueStore.m";
-                          v83 = 1024;
-                          LODWORD(v84[0]) = 624;
-                          WORD2(v84[0]) = 2114;
-                          *(v84 + 6) = v14;
+                          v79 = "[FCKeyValueStore _save]";
+                          v80 = 2080;
+                          v81 = "FCKeyValueStore.m";
+                          v82 = 1024;
+                          LODWORD(v83[0]) = 624;
+                          WORD2(v83[0]) = 2114;
+                          *(v83 + 6) = v14;
                           _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
                         }
                       }
@@ -162,7 +163,7 @@ uint64_t __26__FCKeyValueStore_allKeys__block_invoke(uint64_t a1, void *a2)
             }
           }
 
-          v7 = [v5 countByEnumeratingWithState:&v72 objects:v78 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v71 objects:v77 count:16];
         }
 
         while (v7);
@@ -175,7 +176,7 @@ uint64_t __26__FCKeyValueStore_allKeys__block_invoke(uint64_t a1, void *a2)
         dispatch_once(&qword_1EDB27A58, &__block_literal_global_190);
       }
 
-      v16 = v68;
+      v16 = v67;
       if (_MergedGlobals_216 == 1 && [self shouldExportJSONSidecar])
       {
         v17 = [(FCKeyValueStore *)self fc_jsonEncodableDictionaryWithDictionary:v15];
@@ -187,45 +188,45 @@ uint64_t __26__FCKeyValueStore_allKeys__block_invoke(uint64_t a1, void *a2)
           v20 = [v19 URLByAppendingPathComponent:@"automation_cloudkit_data" isDirectory:1];
 
           defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-          v77 = 0;
-          [defaultManager createDirectoryAtURL:v20 withIntermediateDirectories:1 attributes:0 error:&v77];
-          v22 = v77;
+          v76 = 0;
+          [defaultManager createDirectoryAtURL:v20 withIntermediateDirectories:1 attributes:0 error:&v76];
+          v22 = v76;
 
           if (v22 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            v58 = objc_alloc(MEMORY[0x1E696AEC0]);
+            v57 = objc_alloc(MEMORY[0x1E696AEC0]);
             localizedDescription = [v22 localizedDescription];
-            v60 = [v58 initWithFormat:@"Error creating directy at path %@ : %@", v20, localizedDescription];
+            v59 = [v57 initWithFormat:@"Error creating directy at path %@ : %@", v20, localizedDescription];
             *buf = 136315906;
-            v80 = "[FCKeyValueStore _maybeSaveJSONRepresentationWithDictionary:]";
-            v81 = 2080;
-            v82 = "FCKeyValueStore.m";
-            v83 = 1024;
-            LODWORD(v84[0]) = 581;
-            WORD2(v84[0]) = 2114;
-            *(v84 + 6) = v60;
+            v79 = "[FCKeyValueStore _maybeSaveJSONRepresentationWithDictionary:]";
+            v80 = 2080;
+            v81 = "FCKeyValueStore.m";
+            v82 = 1024;
+            LODWORD(v83[0]) = 581;
+            WORD2(v83[0]) = 2114;
+            *(v83 + 6) = v59;
             _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
           }
 
           v23 = [*(selfCopy + 32) stringByAppendingPathExtension:@"json"];
           v24 = [v20 URLByAppendingPathComponent:v23];
 
-          v76 = 0;
-          [fc_jsonString writeToURL:v24 atomically:1 encoding:4 error:&v76];
-          v25 = v76;
+          v75 = 0;
+          [fc_jsonString writeToURL:v24 atomically:1 encoding:4 error:&v75];
+          v25 = v75;
           if (v25 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            v61 = objc_alloc(MEMORY[0x1E696AEC0]);
+            v60 = objc_alloc(MEMORY[0x1E696AEC0]);
             localizedDescription2 = [v25 localizedDescription];
-            v62 = [v61 initWithFormat:@"Error generating JSON : %@", localizedDescription2];
+            v61 = [v60 initWithFormat:@"Error generating JSON : %@", localizedDescription2];
             *buf = 136315906;
-            v80 = "[FCKeyValueStore _maybeSaveJSONRepresentationWithDictionary:]";
-            v81 = 2080;
-            v82 = "FCKeyValueStore.m";
-            v83 = 1024;
-            LODWORD(v84[0]) = 589;
-            WORD2(v84[0]) = 2114;
-            *(v84 + 6) = v62;
+            v79 = "[FCKeyValueStore _maybeSaveJSONRepresentationWithDictionary:]";
+            v80 = 2080;
+            v81 = "FCKeyValueStore.m";
+            v82 = 1024;
+            LODWORD(v83[0]) = 589;
+            WORD2(v83[0]) = 2114;
+            *(v83 + 6) = v61;
             _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
           }
         }
@@ -242,32 +243,32 @@ uint64_t __26__FCKeyValueStore_allKeys__block_invoke(uint64_t a1, void *a2)
         v30 = v27;
         v31 = [dictionary count];
         *buf = 138543618;
-        v80 = v28;
-        v81 = 2048;
-        v82 = v31;
+        v79 = v28;
+        v80 = 2048;
+        v81 = v31;
         _os_log_impl(&dword_1B63EF000, v30, OS_LOG_TYPE_DEFAULT, "Key-value store <%{public}@> will save %lu pairs", buf, 0x16u);
       }
 
-      v71 = 0;
-      v32 = [MEMORY[0x1E696AE40] dataWithPropertyList:dictionary2 format:200 options:0 error:&v71];
-      v33 = v71;
+      v70 = 0;
+      v32 = [MEMORY[0x1E696AE40] dataWithPropertyList:dictionary2 format:200 options:0 error:&v70];
+      v33 = v70;
       [v26 setPlistSidecar:v32];
 
       if ([dictionary2 count] && v33)
       {
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v53 = objc_alloc(MEMORY[0x1E696AEC0]);
-          v54 = *(selfCopy + 32);
-          v55 = [v53 initWithFormat:@"failed to serialize %@ key-value store plist with error: %@", v54, v33];
+          v52 = objc_alloc(MEMORY[0x1E696AEC0]);
+          v53 = *(selfCopy + 32);
+          v54 = [v52 initWithFormat:@"failed to serialize %@ key-value store plist with error: %@", v53, v33];
           *buf = 136315906;
-          v80 = "[FCKeyValueStore _save]";
-          v81 = 2080;
-          v82 = "FCKeyValueStore.m";
-          v83 = 1024;
-          LODWORD(v84[0]) = 649;
-          WORD2(v84[0]) = 2114;
-          *(v84 + 6) = v55;
+          v79 = "[FCKeyValueStore _save]";
+          v80 = 2080;
+          v81 = "FCKeyValueStore.m";
+          v82 = 1024;
+          LODWORD(v83[0]) = 649;
+          WORD2(v83[0]) = 2114;
+          *(v83 + 6) = v54;
           _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
         }
 
@@ -276,9 +277,9 @@ uint64_t __26__FCKeyValueStore_allKeys__block_invoke(uint64_t a1, void *a2)
         {
           v35 = *(selfCopy + 32);
           *buf = 138543618;
-          v80 = v35;
-          v81 = 2114;
-          v82 = v33;
+          v79 = v35;
+          v80 = 2114;
+          v81 = v33;
           v36 = v34;
           _os_log_error_impl(&dword_1B63EF000, v36, OS_LOG_TYPE_ERROR, "failed to serialize %{public}@ key-value store plist with error: %{public}@", buf, 0x16u);
         }
@@ -288,14 +289,14 @@ uint64_t __26__FCKeyValueStore_allKeys__block_invoke(uint64_t a1, void *a2)
       {
         Current = CFAbsoluteTimeGetCurrent();
         v38 = objc_alloc_init(FCKeyValueStoreWriter);
-        if ([(FCKeyValueStoreWriter *)v38 writeKVS:v26 codables:dictionary toFile:v68 size:selfCopy + 40])
+        if ([(FCKeyValueStoreWriter *)v38 writeKVS:v26 codables:dictionary toFile:v67 size:selfCopy + 40])
         {
-          v39 = [MEMORY[0x1E695DFF8] fileURLWithPath:v68 isDirectory:0];
+          v39 = [MEMORY[0x1E695DFF8] fileURLWithPath:v67 isDirectory:0];
           v40 = [MEMORY[0x1E696AD98] numberWithInt:(*(selfCopy + 80) & 1) == 0];
           v41 = *MEMORY[0x1E695E300];
-          v70 = 0;
-          v42 = [v39 setResourceValue:v40 forKey:v41 error:&v70];
-          v64 = v70;
+          v69 = 0;
+          v42 = [v39 setResourceValue:v40 forKey:v41 error:&v69];
+          v63 = v69;
 
           if ((v42 & 1) == 0)
           {
@@ -303,9 +304,9 @@ uint64_t __26__FCKeyValueStore_allKeys__block_invoke(uint64_t a1, void *a2)
             if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543618;
-              v80 = v39;
-              v81 = 2114;
-              v82 = v64;
+              v79 = v39;
+              v80 = 2114;
+              v81 = v63;
               _os_log_error_impl(&dword_1B63EF000, v43, OS_LOG_TYPE_ERROR, "Failed to set backup status for %{public}@ -- %{public}@", buf, 0x16u);
             }
           }
@@ -317,17 +318,17 @@ uint64_t __26__FCKeyValueStore_allKeys__block_invoke(uint64_t a1, void *a2)
             v46 = v39;
             v47 = *(selfCopy + 32);
             v48 = MEMORY[0x1E696AAF0];
-            v63 = v47;
+            v62 = v47;
             v49 = v45;
             v50 = [v48 stringFromByteCount:objc_msgSend(selfCopy countStyle:{"storeSize"), 0}];
             *buf = 138543874;
-            v80 = v47;
+            v79 = v47;
             v39 = v46;
-            v81 = 2048;
-            v82 = ((v44 - Current) * 1000.0);
-            v16 = v68;
-            v83 = 2114;
-            v84[0] = v50;
+            v80 = 2048;
+            v81 = ((v44 - Current) * 1000.0);
+            v16 = v67;
+            v82 = 2114;
+            v83[0] = v50;
             _os_log_impl(&dword_1B63EF000, v49, OS_LOG_TYPE_DEFAULT, "Key-value store <%{public}@> did save in %lums with size %{public}@", buf, 0x20u);
           }
         }
@@ -337,20 +338,18 @@ uint64_t __26__FCKeyValueStore_allKeys__block_invoke(uint64_t a1, void *a2)
           v51 = FCDefaultLog;
           if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
           {
-            v56 = *(selfCopy + 32);
+            v55 = *(selfCopy + 32);
             *buf = 138543362;
-            v80 = v56;
-            v57 = v51;
-            _os_log_error_impl(&dword_1B63EF000, v57, OS_LOG_TYPE_ERROR, "Failed to save key-value store <%{public}@>", buf, 0xCu);
+            v79 = v55;
+            v56 = v51;
+            _os_log_error_impl(&dword_1B63EF000, v56, OS_LOG_TYPE_ERROR, "Failed to save key-value store <%{public}@>", buf, 0xCu);
           }
         }
       }
 
-      v2 = v67;
+      v2 = v66;
     }
   }
-
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 - (NSDictionary)asDictionary
@@ -380,7 +379,7 @@ uint64_t __31__FCKeyValueStore_asDictionary__block_invoke(uint64_t a1, void *a2)
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v3, v5);
 }
 
 void __35__FCKeyValueStore_shouldDumpToJSON__block_invoke()
@@ -489,19 +488,19 @@ void __35__FCKeyValueStore_shouldDumpToJSON__block_invoke()
 - (FCKeyValueStore)initWithName:(id)name directory:(id)directory version:(unint64_t)version options:(unint64_t)options classRegistry:(id)registry migrator:(id)migrator savePolicy:(id)policy
 {
   policyCopy3 = policy;
-  v129 = *MEMORY[0x1E69E9840];
+  v128 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   directoryCopy = directory;
   registryCopy = registry;
   migratorCopy = migrator;
   policyCopy2 = policy;
-  v105.receiver = self;
-  v105.super_class = FCKeyValueStore;
-  v20 = [(FCKeyValueStore *)&v105 init];
+  v104.receiver = self;
+  v104.super_class = FCKeyValueStore;
+  v20 = [(FCKeyValueStore *)&v104 init];
   v21 = v20;
   if (v20)
   {
-    v102 = registryCopy;
+    v101 = registryCopy;
     objc_storeStrong(&v20->_name, name);
     v21->_clientVersion = version;
     v21->_optionsMask = options;
@@ -519,15 +518,15 @@ void __35__FCKeyValueStore_shouldDumpToJSON__block_invoke()
       if ((v26 & 1) == 0 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         v87 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"failed to create cache directory with error: %@", v27];
-        *v122 = 136315906;
-        *&v122[4] = "[FCKeyValueStore _initializeStoreDirectoryWithName:]";
-        v123 = 2080;
-        v124 = "FCKeyValueStore.m";
-        v125 = 1024;
-        v126 = 689;
-        v127 = 2114;
-        v128 = v87;
-        _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v122, 0x26u);
+        *v121 = 136315906;
+        *&v121[4] = "[FCKeyValueStore _initializeStoreDirectoryWithName:]";
+        v122 = 2080;
+        v123 = "FCKeyValueStore.m";
+        v124 = 1024;
+        v125 = 689;
+        v126 = 2114;
+        v127 = v87;
+        _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v121, 0x26u);
       }
     }
 
@@ -552,11 +551,11 @@ void __35__FCKeyValueStore_shouldDumpToJSON__block_invoke()
       v21->_storeURL = 0;
     }
 
-    registryCopy = v102;
+    registryCopy = v101;
 
-    if (v102)
+    if (v101)
     {
-      v35 = v102;
+      v35 = v101;
     }
 
     else
@@ -579,43 +578,43 @@ void __35__FCKeyValueStore_shouldDumpToJSON__block_invoke()
     Current = CFAbsoluteTimeGetCurrent();
     v43 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v41];
     v44 = v43;
-    v101 = v43;
+    v100 = v43;
     if (!v43)
     {
       goto LABEL_60;
     }
 
-    v99 = v41;
+    v98 = v41;
     v21->_storeSize = [v43 length];
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     v46 = [objc_alloc(MEMORY[0x1E69B6E78]) initWithData:v44];
-    v100 = v46;
+    v99 = v46;
     if (v46 && (v47 = v46, [v46 version] == 7))
     {
-      v93 = v39;
-      v95 = directoryCopy;
-      v97 = nameCopy;
-      v113 = 0u;
-      v114 = 0u;
-      v111 = 0u;
+      v92 = v39;
+      v94 = directoryCopy;
+      v96 = nameCopy;
       v112 = 0u;
+      v113 = 0u;
+      v110 = 0u;
+      v111 = 0u;
       keyValuePairs = [v47 keyValuePairs];
-      v49 = [keyValuePairs countByEnumeratingWithState:&v111 objects:v122 count:16];
+      v49 = [keyValuePairs countByEnumeratingWithState:&v110 objects:v121 count:16];
       if (v49)
       {
         v50 = v49;
         v51 = MEMORY[0x1E69E9C10];
-        v52 = *v112;
+        v52 = *v111;
         do
         {
           for (i = 0; i != v50; ++i)
           {
-            if (*v112 != v52)
+            if (*v111 != v52)
             {
               objc_enumerationMutation(keyValuePairs);
             }
 
-            v54 = *(*(&v111 + 1) + 8 * i);
+            v54 = *(*(&v110 + 1) + 8 * i);
             v55 = [v54 key];
 
             if (!v55 && os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
@@ -623,12 +622,12 @@ void __35__FCKeyValueStore_shouldDumpToJSON__block_invoke()
               v61 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"WARNING: the key value store should never contain an entry without a key"];
               *buf = 136315906;
               *&buf[4] = "[FCKeyValueStore _loadFromDisk]";
-              v116 = 2080;
-              v117 = COERCE_DOUBLE("FCKeyValueStore.m");
-              v118 = 1024;
-              v119 = 470;
-              v120 = 2114;
-              v121 = v61;
+              v115 = 2080;
+              v116 = COERCE_DOUBLE("FCKeyValueStore.m");
+              v117 = 1024;
+              v118 = 470;
+              v119 = 2114;
+              v120 = v61;
               _os_log_error_impl(&dword_1B63EF000, v51, OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
             }
 
@@ -640,12 +639,12 @@ void __35__FCKeyValueStore_shouldDumpToJSON__block_invoke()
               v62 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"no class to decode KVS value type %lu", objc_msgSend(v54, "valueType")];
               *buf = 136315906;
               *&buf[4] = "[FCKeyValueStore _loadFromDisk]";
-              v116 = 2080;
-              v117 = COERCE_DOUBLE("FCKeyValueStore.m");
-              v118 = 1024;
-              v119 = 473;
-              v120 = 2114;
-              v121 = v62;
+              v115 = 2080;
+              v116 = COERCE_DOUBLE("FCKeyValueStore.m");
+              v117 = 1024;
+              v118 = 473;
+              v119 = 2114;
+              v120 = v62;
               _os_log_error_impl(&dword_1B63EF000, v51, OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
             }
 
@@ -662,35 +661,35 @@ void __35__FCKeyValueStore_shouldDumpToJSON__block_invoke()
             }
           }
 
-          v50 = [keyValuePairs countByEnumeratingWithState:&v111 objects:v122 count:16];
+          v50 = [keyValuePairs countByEnumeratingWithState:&v110 objects:v121 count:16];
         }
 
         while (v50);
       }
 
-      plistSidecar = [v100 plistSidecar];
+      plistSidecar = [v99 plistSidecar];
 
       if (plistSidecar)
       {
         v64 = MEMORY[0x1E696AE40];
-        plistSidecar2 = [v100 plistSidecar];
-        v110 = 0;
-        v66 = [v64 propertyListWithData:plistSidecar2 options:0 format:0 error:&v110];
+        plistSidecar2 = [v99 plistSidecar];
+        v109 = 0;
+        v66 = [v64 propertyListWithData:plistSidecar2 options:0 format:0 error:&v109];
 
         [dictionary addEntriesFromDictionary:v66];
       }
 
-      version = [v100 version];
-      clientVersion = [v100 clientVersion];
-      directoryCopy = v95;
-      nameCopy = v97;
-      v39 = v93;
+      version = [v99 version];
+      clientVersion = [v99 clientVersion];
+      directoryCopy = v94;
+      nameCopy = v96;
+      v39 = v92;
     }
 
     else
     {
-      *v122 = 0;
-      v69 = [MEMORY[0x1E696AE40] propertyListWithData:v44 options:0 format:0 error:v122];
+      *v121 = 0;
+      v69 = [MEMORY[0x1E696AE40] propertyListWithData:v44 options:0 format:0 error:v121];
       v70 = [v69 objectForKey:@"data"];
       [dictionary addEntriesFromDictionary:v70];
       v71 = [v69 objectForKey:@"version"];
@@ -707,13 +706,13 @@ void __35__FCKeyValueStore_shouldDumpToJSON__block_invoke()
       name = v21->_name;
       *buf = 138412546;
       *&buf[4] = name;
-      v116 = 2048;
-      v117 = v73 - Current;
+      v115 = 2048;
+      v116 = v73 - Current;
       v76 = v74;
       _os_log_impl(&dword_1B63EF000, v76, OS_LOG_TYPE_INFO, "Loaded %@ cache in %f ms", buf, 0x16u);
     }
 
-    v41 = v99;
+    v41 = v98;
     if (version == 7)
     {
       if (clientVersion == v21->_clientVersion)
@@ -722,7 +721,7 @@ void __35__FCKeyValueStore_shouldDumpToJSON__block_invoke()
 LABEL_59:
 
         policyCopy3 = policy;
-        registryCopy = v102;
+        registryCopy = v101;
 LABEL_60:
 
         v89 = [v39 dictionaryWithDictionary:v44];
@@ -750,12 +749,12 @@ LABEL_60:
         v88 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"must have a migrator in order to migrate between KVS client versions"];
         *buf = 136315906;
         *&buf[4] = "[FCKeyValueStore _loadFromDisk]";
-        v116 = 2080;
-        v117 = COERCE_DOUBLE("FCKeyValueStore.m");
-        v118 = 1024;
-        v119 = 523;
-        v120 = 2114;
-        v121 = v88;
+        v115 = 2080;
+        v116 = COERCE_DOUBLE("FCKeyValueStore.m");
+        v117 = 1024;
+        v118 = 523;
+        v119 = 2114;
+        v120 = v88;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
         if ((v21->_optionsMask & 2) != 0)
@@ -764,31 +763,31 @@ LABEL_60:
 LABEL_45:
           if ([(FCKeyValueStoreMigrating *)migrator keyValueStore:v21 canMigrateFromVersion:clientVersion])
           {
-            v94 = v39;
-            v96 = directoryCopy;
-            v98 = nameCopy;
-            v108 = 0u;
-            v109 = 0u;
-            v106 = 0u;
+            v93 = v39;
+            v95 = directoryCopy;
+            v97 = nameCopy;
             v107 = 0u;
+            v108 = 0u;
+            v105 = 0u;
+            v106 = 0u;
             allKeys = [dictionary allKeys];
             v79 = [allKeys copy];
 
-            v80 = [v79 countByEnumeratingWithState:&v106 objects:buf count:16];
+            v80 = [v79 countByEnumeratingWithState:&v105 objects:buf count:16];
             if (v80)
             {
               v81 = v80;
-              v82 = *v107;
+              v82 = *v106;
               do
               {
                 for (j = 0; j != v81; ++j)
                 {
-                  if (*v107 != v82)
+                  if (*v106 != v82)
                   {
                     objc_enumerationMutation(v79);
                   }
 
-                  v84 = *(*(&v106 + 1) + 8 * j);
+                  v84 = *(*(&v105 + 1) + 8 * j);
                   v85 = [dictionary objectForKey:v84];
                   v86 = [(FCKeyValueStoreMigrating *)v21->_migrator keyValueStore:v21 migrateObject:v85 forKey:v84 fromVersion:clientVersion];
                   if (v86)
@@ -802,17 +801,17 @@ LABEL_45:
                   }
                 }
 
-                v81 = [v79 countByEnumeratingWithState:&v106 objects:buf count:16];
+                v81 = [v79 countByEnumeratingWithState:&v105 objects:buf count:16];
               }
 
               while (v81);
             }
 
             v44 = dictionary;
-            directoryCopy = v96;
-            nameCopy = v98;
-            v39 = v94;
-            v41 = v99;
+            directoryCopy = v95;
+            nameCopy = v97;
+            v39 = v93;
+            v41 = v98;
             goto LABEL_59;
           }
         }
@@ -826,7 +825,6 @@ LABEL_45:
 
 LABEL_61:
 
-  v91 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -851,7 +849,7 @@ LABEL_61:
 
 - (void)setObject:(id)object forKey:(id)key
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   keyCopy = key;
   v8 = keyCopy;
@@ -859,13 +857,13 @@ LABEL_61:
   {
     if (objectCopy)
     {
-      v11[0] = MEMORY[0x1E69E9820];
-      v11[1] = 3221225472;
-      v11[2] = __36__FCKeyValueStore_setObject_forKey___block_invoke_2;
-      v11[3] = &unk_1E7C47FB8;
-      v12 = keyCopy;
-      v13 = objectCopy;
-      [(FCKeyValueStore *)self _maybeWriteObjectsByKey:v11];
+      v10[0] = MEMORY[0x1E69E9820];
+      v10[1] = 3221225472;
+      v10[2] = __36__FCKeyValueStore_setObject_forKey___block_invoke_2;
+      v10[3] = &unk_1E7C47FB8;
+      v11 = keyCopy;
+      v12 = objectCopy;
+      [(FCKeyValueStore *)self _maybeWriteObjectsByKey:v10];
     }
 
     else
@@ -878,17 +876,15 @@ LABEL_61:
   {
     v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "key"];
     *buf = 136315906;
-    v15 = "[FCKeyValueStore setObject:forKey:]";
-    v16 = 2080;
-    v17 = "FCKeyValueStore.m";
-    v18 = 1024;
-    v19 = 146;
-    v20 = 2114;
-    v21 = v9;
+    v14 = "[FCKeyValueStore setObject:forKey:]";
+    v15 = 2080;
+    v16 = "FCKeyValueStore.m";
+    v17 = 1024;
+    v18 = 146;
+    v19 = 2114;
+    v20 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __36__FCKeyValueStore_setObject_forKey___block_invoke_2(uint64_t a1, void *a2)
@@ -907,7 +903,7 @@ BOOL __36__FCKeyValueStore_setObject_forKey___block_invoke_2(uint64_t a1, void *
 
 - (void)_maybeWriteObjectsByKey:(uint64_t)key
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (key)
   {
@@ -929,7 +925,7 @@ BOOL __36__FCKeyValueStore_setObject_forKey___block_invoke_2(uint64_t a1, void *
         {
           v9 = *(key + 32);
           *buf = 138412290;
-          v16 = v9;
+          v15 = v9;
           v10 = v8;
           _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "Key-value store <%@> will schedule save", buf, 0xCu);
         }
@@ -938,22 +934,20 @@ BOOL __36__FCKeyValueStore_setObject_forKey___block_invoke_2(uint64_t a1, void *
         objc_opt_class();
         objc_opt_self();
         v12 = FCPersistenceQueue();
-        v14[0] = MEMORY[0x1E69E9820];
-        v14[1] = 3221225472;
-        v14[2] = __43__FCKeyValueStore__maybeWriteObjectsByKey___block_invoke;
-        v14[3] = &unk_1E7C36EA0;
-        v14[4] = key;
-        [v11 scheduleSaveOnQueue:v12 handler:v14];
+        v13[0] = MEMORY[0x1E69E9820];
+        v13[1] = 3221225472;
+        v13[2] = __43__FCKeyValueStore__maybeWriteObjectsByKey___block_invoke;
+        v13[3] = &unk_1E7C36EA0;
+        v13[4] = key;
+        [v11 scheduleSaveOnQueue:v12 handler:v13];
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setObjects:(id)objects forKeys:(id)keys
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   keysCopy = keys;
   v8 = keysCopy;
@@ -972,15 +966,15 @@ BOOL __36__FCKeyValueStore_setObject_forKey___block_invoke_2(uint64_t a1, void *
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "objects"];
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "objects"];
     *buf = 136315906;
-    v14 = "[FCKeyValueStore setObjects:forKeys:]";
-    v15 = 2080;
-    v16 = "FCKeyValueStore.m";
-    v17 = 1024;
-    v18 = 170;
-    v19 = 2114;
-    v20 = v11;
+    v13 = "[FCKeyValueStore setObjects:forKeys:]";
+    v14 = 2080;
+    v15 = "FCKeyValueStore.m";
+    v16 = 1024;
+    v17 = 170;
+    v18 = 2114;
+    v19 = v10;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -989,22 +983,20 @@ BOOL __36__FCKeyValueStore_setObject_forKey___block_invoke_2(uint64_t a1, void *
 LABEL_7:
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "keys"];
+      v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "keys"];
       *buf = 136315906;
-      v14 = "[FCKeyValueStore setObjects:forKeys:]";
-      v15 = 2080;
-      v16 = "FCKeyValueStore.m";
-      v17 = 1024;
-      v18 = 171;
-      v19 = 2114;
-      v20 = v12;
+      v13 = "[FCKeyValueStore setObjects:forKeys:]";
+      v14 = 2080;
+      v15 = "FCKeyValueStore.m";
+      v16 = 1024;
+      v17 = 171;
+      v18 = 2114;
+      v19 = v11;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
   }
 
 LABEL_9:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addEntriesFromDictionary:(id)dictionary
@@ -1107,29 +1099,29 @@ void __49__FCKeyValueStore_replaceContentsWithDictionary___block_invoke_2(uint64
 
 void __50__FCKeyValueStore_updateObjectsForKeys_withBlock___block_invoke_2(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
-        v10 = [v3 objectForKey:{v9, v13}];
+        v9 = *(*(&v12 + 1) + 8 * i);
+        v10 = [v3 objectForKey:{v9, v12}];
         if (v10)
         {
           v11 = (*(*(a1 + 40) + 16))();
@@ -1137,13 +1129,11 @@ void __50__FCKeyValueStore_updateObjectsForKeys_withBlock___block_invoke_2(uint6
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)objectForKey:(id)key
@@ -1230,6 +1220,15 @@ uint64_t __34__FCKeyValueStore_objectsForKeys___block_invoke(uint64_t a1, void *
   *(v4 + 40) = v3;
 
   return MEMORY[0x1EEE66BB8](v3, v5);
+}
+
+- (void)setBoolValue:(BOOL)value forKey:(id)key
+{
+  valueCopy = value;
+  v6 = MEMORY[0x1E696AD98];
+  keyCopy = key;
+  v8 = [v6 numberWithBool:valueCopy];
+  [(FCKeyValueStore *)self setObject:v8 forKey:keyCopy];
 }
 
 - (BOOL)BOOLValueForKey:(id)key

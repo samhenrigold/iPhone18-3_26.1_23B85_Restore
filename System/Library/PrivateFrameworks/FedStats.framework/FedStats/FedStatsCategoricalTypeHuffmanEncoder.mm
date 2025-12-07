@@ -49,7 +49,7 @@
 
 + (id)instanceWithParameters:(id)parameters error:(id *)error
 {
-  v89[4] = *MEMORY[0x277D85DE8];
+  v88[4] = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   v7 = [parametersCopy objectForKey:@"fileName"];
   if (!v7)
@@ -104,10 +104,10 @@ LABEL_8:
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v87 = 0;
-              v13 = [FedStatsSQLiteDatabase databaseWithURL:v9 mode:114 error:&v87];
-              v14 = v87;
-              v77 = v14;
+              v86 = 0;
+              v13 = [FedStatsSQLiteDatabase databaseWithURL:v9 mode:114 error:&v86];
+              v14 = v86;
+              v76 = v14;
               if (!v13)
               {
                 if (error)
@@ -124,173 +124,173 @@ LABEL_8:
                 goto LABEL_64;
               }
 
-              v75 = v12;
+              v74 = v12;
               [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT COUNT(1) AS %@ FROM SQLITE_MASTER WHERE type == 'table' AND name == '%@'", @"tableCount", v10];
-              v86 = 0;
-              v70 = v76 = v13;
+              v85 = 0;
+              v69 = v75 = v13;
               v15 = [v13 runQuery:? error:?];
-              v65 = 0;
+              v64 = 0;
               if (!v15 || ([v15 next], (v16 = objc_claimAutoreleasedReturnValue()) == 0))
               {
                 if (error)
                 {
-                  *error = [FedStatsError errorWithCode:101 underlyingError:v65 description:@"Cannot query list of tables in Huffman database"];
+                  *error = [FedStatsError errorWithCode:101 underlyingError:v64 description:@"Cannot query list of tables in Huffman database"];
                 }
 
                 goto LABEL_61;
               }
 
-              v62 = v16;
+              v61 = v16;
               v17 = [v16 objectForKey:@"tableCount"];
               v18 = v17;
               if (v17 && [v17 unsignedIntegerValue] == 1)
               {
 
                 [MEMORY[0x277CCACA8] stringWithFormat:@"columnCount", v10, v11];
-                v70 = v85 = 0;
-                v19 = [v76 runQuery:? error:?];
-                v65 = 0;
+                v69 = v84 = 0;
+                v19 = [v75 runQuery:? error:?];
+                v64 = 0;
                 if (!v19 || ([v19 next], (v20 = objc_claimAutoreleasedReturnValue()) == 0))
                 {
                   if (error)
                   {
-                    *error = [FedStatsError errorWithCode:101 underlyingError:v65 description:@"Cannot query list of columns in Huffman database table"];
+                    *error = [FedStatsError errorWithCode:101 underlyingError:v64 description:@"Cannot query list of columns in Huffman database table"];
                   }
 
                   goto LABEL_61;
                 }
 
-                v60 = v20;
+                v59 = v20;
                 v21 = [v20 objectForKey:@"columnCount"];
                 v22 = v21;
                 if (v21 && [v21 unsignedIntegerValue] == 1)
                 {
 
-                  [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT COUNT(1) AS %@ FROM PRAGMA_TABLE_XINFO('%@') WHERE name == '%@'", @"columnCount", v10, v75];
-                  v66 = v84 = 0;
-                  v23 = [v76 runQuery:? error:?];
-                  v71 = 0;
+                  [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT COUNT(1) AS %@ FROM PRAGMA_TABLE_XINFO('%@') WHERE name == '%@'", @"columnCount", v10, v74];
+                  v65 = v83 = 0;
+                  v23 = [v75 runQuery:? error:?];
+                  v70 = 0;
                   if (v23 && ([v23 next], (v24 = objc_claimAutoreleasedReturnValue()) != 0))
                   {
                     v25 = v24;
-                    v63 = [v24 objectForKey:@"columnCount"];
-                    if (v63 && [v63 unsignedIntegerValue] == 1)
+                    v62 = [v24 objectForKey:@"columnCount"];
+                    if (v62 && [v62 unsignedIntegerValue] == 1)
                     {
 
-                      [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT %@ FROM '%@' WHERE %@ == %@ ORDER BY RANDOM() LIMIT 1", v75, v10, v11, @"<ET>"];
-                      v67 = v83 = 0;
-                      v26 = [v76 runQuery:? error:?];
-                      v72 = 0;
+                      [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT %@ FROM '%@' WHERE %@ == %@ ORDER BY RANDOM() LIMIT 1", v74, v10, v11, @"<ET>"];
+                      v66 = v82 = 0;
+                      v26 = [v75 runQuery:? error:?];
+                      v71 = 0;
                       if (v26 && ([v26 next], (v27 = objc_claimAutoreleasedReturnValue()) != 0))
                       {
                         v28 = v27;
-                        v56 = [v27 objectForKey:v75];
+                        v55 = [v27 objectForKey:v74];
 
                         v29 = 1;
                       }
 
                       else if (error)
                       {
-                        [FedStatsError errorWithCode:101 underlyingError:v72 description:@"Cannot query end token in Huffman database table"];
-                        v56 = 0;
+                        [FedStatsError errorWithCode:101 underlyingError:v71 description:@"Cannot query end token in Huffman database table"];
+                        v55 = 0;
                         *error = v29 = 0;
                       }
 
                       else
                       {
-                        v56 = 0;
+                        v55 = 0;
                         v29 = 0;
                       }
 
                       if (v29)
                       {
-                        [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT %@ FROM '%@' WHERE %@ == %@ ORDER BY RANDOM() LIMIT 1", v75, v10, v11, @"<UT>"];
-                        v68 = v82 = 0;
-                        v42 = [v76 runQuery:? error:?];
-                        v73 = 0;
-                        if (v42 && ([v42 next], (v43 = objc_claimAutoreleasedReturnValue()) != 0))
+                        [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT %@ FROM '%@' WHERE %@ == %@ ORDER BY RANDOM() LIMIT 1", v74, v10, v11, @"<UT>"];
+                        v67 = v81 = 0;
+                        v41 = [v75 runQuery:? error:?];
+                        v72 = 0;
+                        if (v41 && ([v41 next], (v42 = objc_claimAutoreleasedReturnValue()) != 0))
                         {
-                          v44 = v43;
-                          v55 = [v43 objectForKey:v75];
+                          v43 = v42;
+                          v54 = [v42 objectForKey:v74];
 
-                          v45 = 1;
+                          v44 = 1;
                         }
 
                         else if (error)
                         {
-                          [FedStatsError errorWithCode:101 underlyingError:v73 description:@"Cannot query unknown token in Huffman database table"];
-                          v55 = 0;
-                          *error = v45 = 0;
+                          [FedStatsError errorWithCode:101 underlyingError:v72 description:@"Cannot query unknown token in Huffman database table"];
+                          v54 = 0;
+                          *error = v44 = 0;
                         }
 
                         else
                         {
-                          v55 = 0;
-                          v45 = 0;
+                          v54 = 0;
+                          v44 = 0;
                         }
 
-                        if (v45)
+                        if (v44)
                         {
                           dictionary = [MEMORY[0x277CBEB38] dictionary];
-                          v89[0] = @"<BT>";
-                          v89[1] = @"<number>";
-                          v89[2] = @"<person>";
-                          v89[3] = @"<location>";
-                          [MEMORY[0x277CBEA60] arrayWithObjects:v89 count:4];
+                          v88[0] = @"<BT>";
+                          v88[1] = @"<number>";
+                          v88[2] = @"<person>";
+                          v88[3] = @"<location>";
+                          [MEMORY[0x277CBEA60] arrayWithObjects:v88 count:4];
+                          v77 = 0u;
                           v78 = 0u;
                           v79 = 0u;
-                          v80 = 0u;
-                          obj = v81 = 0u;
-                          v46 = v75;
-                          v61 = [obj countByEnumeratingWithState:&v78 objects:v88 count:16];
-                          if (v61)
+                          obj = v80 = 0u;
+                          v45 = v74;
+                          v60 = [obj countByEnumeratingWithState:&v77 objects:v87 count:16];
+                          if (v60)
                           {
-                            v58 = *v79;
+                            v57 = *v78;
                             do
                             {
-                              for (i = 0; i != v61; ++i)
+                              for (i = 0; i != v60; ++i)
                               {
-                                if (*v79 != v58)
+                                if (*v78 != v57)
                                 {
                                   objc_enumerationMutation(obj);
                                 }
 
-                                v69 = *(*(&v78 + 1) + 8 * i);
-                                v74 = [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT %@ FROM '%@' WHERE %@ == %@ ORDER BY RANDOM() LIMIT 1", v46, v10, v11, v69];
-                                v64 = [v76 runQuery:? error:?];
-                                next = [v64 next];
-                                v49 = next;
+                                v68 = *(*(&v77 + 1) + 8 * i);
+                                v73 = [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT %@ FROM '%@' WHERE %@ == %@ ORDER BY RANDOM() LIMIT 1", v45, v10, v11, v68];
+                                v63 = [v75 runQuery:? error:?];
+                                next = [v63 next];
+                                v48 = next;
                                 if (next)
                                 {
-                                  v50 = [next objectForKeyedSubscript:v46];
-                                  [dictionary setObject:v50 forKeyedSubscript:v69];
+                                  v49 = [next objectForKeyedSubscript:v45];
+                                  [dictionary setObject:v49 forKeyedSubscript:v68];
 
-                                  v46 = v75;
+                                  v45 = v74;
                                 }
 
                                 else
                                 {
-                                  [dictionary setObject:&stru_285E0CF98 forKeyedSubscript:v69];
+                                  [dictionary setObject:&stru_285E0CF98 forKeyedSubscript:v68];
                                 }
                               }
 
-                              v61 = [obj countByEnumeratingWithState:&v78 objects:v88 count:16];
+                              v60 = [obj countByEnumeratingWithState:&v77 objects:v87 count:16];
                             }
 
-                            while (v61);
+                            while (v60);
                           }
 
-                          v51 = [parametersCopy objectForKey:@"exploreUnknownToken"];
-                          if (!v51 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+                          v50 = [parametersCopy objectForKey:@"exploreUnknownToken"];
+                          if (!v50 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
                           {
-                            v52 = [MEMORY[0x277CCABB0] numberWithBool:0];
+                            v51 = [MEMORY[0x277CCABB0] numberWithBool:0];
 
-                            v51 = v52;
+                            v50 = v51;
                           }
 
-                          v53 = [self alloc];
-                          LOBYTE(v54) = [v51 BOOLValue];
-                          v31 = [v53 initWithHuffmanEncoderDatabase:v76 tableName:v10 lookupColumnName:v11 codeColumnName:v75 unknownTokenBitString:v55 endTokenBitString:v56 specialTokenBitStrings:dictionary exploreUnknownToken:v54];
+                          v52 = [self alloc];
+                          LOBYTE(v53) = [v50 BOOLValue];
+                          v31 = [v52 initWithHuffmanEncoderDatabase:v75 tableName:v10 lookupColumnName:v11 codeColumnName:v74 unknownTokenBitString:v54 endTokenBitString:v55 specialTokenBitStrings:dictionary exploreUnknownToken:v53];
                         }
 
                         else
@@ -308,31 +308,31 @@ LABEL_8:
                     }
 
                     if (error)
-                      v41 = {;
-                      *error = [FedStatsError errorWithCode:101 description:v41];
+                      v40 = {;
+                      *error = [FedStatsError errorWithCode:101 description:v40];
                     }
                   }
 
                   else if (error)
                   {
-                    *error = [FedStatsError errorWithCode:101 underlyingError:v71 description:@"Cannot query list of columns in Huffman database table"];
+                    *error = [FedStatsError errorWithCode:101 underlyingError:v70 description:@"Cannot query list of columns in Huffman database table"];
                   }
 
-                  v37 = v66;
+                  v37 = v65;
 LABEL_62:
 
                   v31 = 0;
 LABEL_63:
-                  v12 = v75;
-                  v13 = v76;
+                  v12 = v74;
+                  v13 = v75;
 LABEL_64:
 
                   goto LABEL_65;
                 }
 
                 if (error)
-                  v40 = {;
-                  *error = [FedStatsError errorWithCode:101 description:v40];
+                  v39 = {;
+                  *error = [FedStatsError errorWithCode:101 description:v39];
                 }
               }
 
@@ -345,7 +345,7 @@ LABEL_64:
               }
 
 LABEL_61:
-              v37 = v70;
+              v37 = v69;
               goto LABEL_62;
             }
 
@@ -404,7 +404,6 @@ LABEL_66:
 LABEL_67:
 
 LABEL_68:
-  v38 = *MEMORY[0x277D85DE8];
 
   return v31;
 }
@@ -451,36 +450,36 @@ LABEL_68:
 
 - (id)preEncode:(id)encode
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   encodeCopy = encode;
   v5 = encodeCopy;
   if (encodeCopy)
   {
     v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(encodeCopy, "count") + 1}];
+    v41 = 0u;
     v42 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
-    v33 = v5;
+    v32 = v5;
     v7 = v5;
-    v37 = [v7 countByEnumeratingWithState:&v42 objects:v47 count:16];
-    if (v37)
+    v36 = [v7 countByEnumeratingWithState:&v41 objects:v46 count:16];
+    if (v36)
     {
-      v8 = *v43;
+      v8 = *v42;
       v9 = 0x277CCA000uLL;
-      v35 = v7;
-      v36 = v6;
-      v34 = *v43;
+      v34 = v7;
+      v35 = v6;
+      v33 = *v42;
       do
       {
-        for (i = 0; i != v37; ++i)
+        for (i = 0; i != v36; ++i)
         {
-          if (*v43 != v8)
+          if (*v42 != v8)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v42 + 1) + 8 * i);
+          v11 = *(*(&v41 + 1) + 8 * i);
           v12 = [(FedStatsCategoricalTypeHuffmanEncoder *)self codeForToken:v11];
           unknownTokenBitString = [(FedStatsCategoricalTypeHuffmanEncoder *)self unknownTokenBitString];
           v14 = [unknownTokenBitString isEqual:v12];
@@ -495,41 +494,41 @@ LABEL_68:
               v20 = [explorationTokenizer2 tokenize:v15];
 
               v21 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v20, "count")}];
+              v37 = 0u;
               v38 = 0u;
               v39 = 0u;
               v40 = 0u;
-              v41 = 0u;
               v22 = v20;
-              v23 = [v22 countByEnumeratingWithState:&v38 objects:v46 count:16];
+              v23 = [v22 countByEnumeratingWithState:&v37 objects:v45 count:16];
               if (v23)
               {
                 v24 = v23;
-                v25 = *v39;
+                v25 = *v38;
                 do
                 {
                   for (j = 0; j != v24; ++j)
                   {
-                    if (*v39 != v25)
+                    if (*v38 != v25)
                     {
                       objc_enumerationMutation(v22);
                     }
 
-                    v27 = [(FedStatsCategoricalTypeHuffmanEncoder *)self codeForToken:*(*(&v38 + 1) + 8 * j)];
+                    v27 = [(FedStatsCategoricalTypeHuffmanEncoder *)self codeForToken:*(*(&v37 + 1) + 8 * j)];
                     [v21 addObject:v27];
                   }
 
-                  v24 = [v22 countByEnumeratingWithState:&v38 objects:v46 count:16];
+                  v24 = [v22 countByEnumeratingWithState:&v37 objects:v45 count:16];
                 }
 
                 while (v24);
               }
 
               v28 = [v21 componentsJoinedByString:&stru_285E0CF98];
-              v6 = v36;
-              [v36 addObject:v28];
+              v6 = v35;
+              [v35 addObject:v28];
 
-              v8 = v34;
-              v7 = v35;
+              v8 = v33;
+              v7 = v34;
               v9 = 0x277CCA000;
             }
 
@@ -545,10 +544,10 @@ LABEL_68:
           }
         }
 
-        v37 = [v7 countByEnumeratingWithState:&v42 objects:v47 count:16];
+        v36 = [v7 countByEnumeratingWithState:&v41 objects:v46 count:16];
       }
 
-      while (v37);
+      while (v36);
     }
 
     endTokenBitString = [(FedStatsCategoricalTypeHuffmanEncoder *)self endTokenBitString];
@@ -556,7 +555,7 @@ LABEL_68:
 
     v30 = [v6 componentsJoinedByString:&stru_285E0CF98];
 
-    v5 = v33;
+    v5 = v32;
   }
 
   else
@@ -564,14 +563,12 @@ LABEL_68:
     v30 = 0;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
-
   return v30;
 }
 
 + (id)mutateParameters:(id)parameters usingFieldValues:(id)values assetURLs:(id)ls requiredFields:(id *)fields assetNames:(id *)names error:(id *)error
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   valuesCopy = values;
   lsCopy = ls;
@@ -586,17 +583,17 @@ LABEL_68:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v31 = 0;
-    v17 = [FedStatsCategoricalTypeAssetSpecifier assetSpecifierWithKey:v16 requiredForCollectionKey:0 error:&v31];
-    v18 = v31;
+    v30 = 0;
+    v17 = [FedStatsCategoricalTypeAssetSpecifier assetSpecifierWithKey:v16 requiredForCollectionKey:0 error:&v30];
+    v18 = v30;
     v19 = v18;
     if (v17)
     {
       if (valuesCopy)
       {
-        v30 = v18;
-        v20 = [v17 assetSpecifierValueForDataPoint:valuesCopy error:&v30];
-        v29 = v30;
+        v29 = v18;
+        v20 = [v17 assetSpecifierValueForDataPoint:valuesCopy error:&v29];
+        v28 = v29;
 
         if (v20)
         {
@@ -622,8 +619,8 @@ LABEL_68:
           {
             if (names)
             {
-              v32[0] = v20;
-              *names = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+              v31[0] = v20;
+              *names = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
             }
 
             error = parametersCopy;
@@ -633,8 +630,8 @@ LABEL_68:
         else if (error)
         {
           v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"Cannot process asset specifier '%@'", v16];
-          v24 = v29;
-          *error = [FedStatsError errorWithCode:300 underlyingError:v29 description:v25];
+          v24 = v28;
+          *error = [FedStatsError errorWithCode:300 underlyingError:v28 description:v25];
 
           error = 0;
 LABEL_27:
@@ -642,7 +639,7 @@ LABEL_27:
           goto LABEL_28;
         }
 
-        v24 = v29;
+        v24 = v28;
         goto LABEL_27;
       }
 
@@ -677,8 +674,6 @@ LABEL_28:
   }
 
 LABEL_29:
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return error;
 }

@@ -95,8 +95,8 @@
 
 - (void)reset
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v3 = SLDaemonLogHandle();
+  v15 = *MEMORY[0x277D85DE8];
+  v3 = SLDaemonLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -104,37 +104,35 @@
   }
 
   [(NSUserDefaults *)self->_defaults removePersistentDomainForName:self->_suiteName];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   allKeys = [(NSMutableDictionary *)self->_cache allKeys];
-  v5 = [allKeys countByEnumeratingWithState:&v10 objects:v15 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v9 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        [(NSMutableDictionary *)self->_cache setObject:self->_nilValue forKeyedSubscript:*(*(&v10 + 1) + 8 * v8++)];
+        [(NSMutableDictionary *)self->_cache setObject:self->_nilValue forKeyedSubscript:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [allKeys countByEnumeratingWithState:&v10 objects:v15 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v9 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

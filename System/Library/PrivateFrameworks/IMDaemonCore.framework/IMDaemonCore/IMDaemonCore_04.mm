@@ -1,265 +1,6 @@
-void sub_22B616F08(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  block[0] = MEMORY[0x277D85DD0];
-  block[1] = 3221225472;
-  block[2] = sub_22B616FB8;
-  block[3] = &unk_2787037B8;
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  v8 = v3;
-  v9 = v4;
-  v10 = v5;
-  v6 = v3;
-  dispatch_async(MEMORY[0x277D85CD0], block);
-}
-
-void sub_22B616FB8(uint64_t a1)
-{
-  v2 = [*(a1 + 32) objectForKey:@"aliasMap"];
-  v3 = [*(a1 + 32) objectForKey:@"historyToken"];
-  [*(a1 + 40) setHistoryToken:v3];
-  v4 = *(a1 + 40);
-  v8 = 0;
-  v9 = 0;
-  [v4 _chatGUIDsThatNeedRemerging:&v9 chatDictionaryArray:&v8 aliasMap:v2];
-  v5 = v9;
-  v6 = v8;
-  v7 = *(a1 + 48);
-  if (v7)
-  {
-    (*(v7 + 16))(v7, v5, v6);
-  }
-}
-
-void sub_22B61711C(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  block[0] = MEMORY[0x277D85DD0];
-  block[1] = 3221225472;
-  block[2] = sub_22B6171CC;
-  block[3] = &unk_2787037B8;
-  v4 = *(a1 + 40);
-  block[4] = *(a1 + 32);
-  v7 = v3;
-  v8 = v4;
-  v5 = v3;
-  dispatch_async(MEMORY[0x277D85CD0], block);
-}
-
-void sub_22B6171CC(uint64_t a1)
-{
-  v5 = 0;
-  v6 = 0;
-  [*(a1 + 32) _chatGUIDsThatNeedRemerging:&v6 chatDictionaryArray:&v5 aliasMap:*(a1 + 40)];
-  v2 = v6;
-  v3 = v5;
-  v4 = *(a1 + 48);
-  if (v4)
-  {
-    (*(v4 + 16))(v4, v2, v3);
-  }
-}
-
-void sub_22B618354(uint64_t a1, void *a2)
-{
-  v53 = *MEMORY[0x277D85DE8];
-  v2 = a2;
-  v24 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v2, "count")}];
-  v45 = 0u;
-  v46 = 0u;
-  v47 = 0u;
-  v48 = 0u;
-  obj = v2;
-  v36 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
-  if (v36)
-  {
-    v35 = *v46;
-    v34 = *MEMORY[0x277D19800];
-    v33 = *MEMORY[0x277D197A8];
-    v32 = *MEMORY[0x277D19940];
-    v31 = *MEMORY[0x277D19808];
-    v30 = *MEMORY[0x277D198E0];
-    v29 = *MEMORY[0x277D19788];
-    v28 = *MEMORY[0x277D19950];
-    v27 = *MEMORY[0x277D19870];
-    v26 = *MEMORY[0x277D19878];
-    v25 = *MEMORY[0x277D19908];
-    do
-    {
-      for (i = 0; i != v36; ++i)
-      {
-        if (*v46 != v35)
-        {
-          objc_enumerationMutation(obj);
-        }
-
-        v4 = *(*(&v45 + 1) + 8 * i);
-        v5 = [v4 objectForKeyedSubscript:v34];
-        v38 = [v4 objectForKeyedSubscript:v33];
-        v39 = [v4 objectForKeyedSubscript:v32];
-        v37 = [v4 objectForKeyedSubscript:v31];
-        v6 = [v4 objectForKeyedSubscript:v30];
-        v7 = [v4 objectForKeyedSubscript:v29];
-        v8 = [v4 objectForKeyedSubscript:v28];
-        v9 = [v8 integerValue];
-
-        v10 = [v4 objectForKeyedSubscript:v27];
-        v11 = [v4 objectForKeyedSubscript:v26];
-        v12 = [v4 objectForKeyedSubscript:v25];
-        if (v5)
-        {
-          [v24 addObject:v5];
-          v13 = [*(a1 + 32) _bestServiceSessionForService:v39 accountID:v7];
-          [v13 didDeleteChatGUID:v5 chatIdentifier:v38 style:v9 groupID:v37 originalGroupID:v6 properties:v12 lastAddressedLocalHandle:v10 lastAddressedSIMID:v11];
-          v14 = [*(a1 + 32) _cachedChatWithGUID:v5];
-          if (v14)
-          {
-            [*(a1 + 32) _evictCachedChat:v14];
-          }
-        }
-
-        else
-        {
-          if (IMOSLoggingEnabled())
-          {
-            v15 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
-            {
-              *buf = 138412290;
-              v51 = v4;
-              _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Received incomplete deleted chat fragment %@ - skipping", buf, 0xCu);
-            }
-          }
-
-          v13 = [MEMORY[0x277D1AAA8] sharedInstance];
-          [v13 forceAutoBugCaptureWithSubType:@"ChatDeletion" errorPayload:0 type:@"Functional" context:@"Received incomplete deleted chat fragment"];
-        }
-      }
-
-      v36 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
-    }
-
-    while (v36);
-  }
-
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v16 = v24;
-  v17 = [v16 countByEnumeratingWithState:&v41 objects:v49 count:16];
-  if (v17)
-  {
-    v18 = *v42;
-    do
-    {
-      for (j = 0; j != v17; ++j)
-      {
-        if (*v42 != v18)
-        {
-          objc_enumerationMutation(v16);
-        }
-
-        v20 = [*(a1 + 32) _cachedChatWithGUID:*(*(&v41 + 1) + 8 * j)];
-        if (v20)
-        {
-          [*(a1 + 32) _evictCachedChat:v20];
-        }
-      }
-
-      v17 = [v16 countByEnumeratingWithState:&v41 objects:v49 count:16];
-    }
-
-    while (v17);
-  }
-
-  v21 = *(a1 + 40);
-  if (v21)
-  {
-    (*(v21 + 16))(v21, v16);
-  }
-
-  v22 = *MEMORY[0x277D85DE8];
-}
-
-void sub_22B618A8C(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  if (v3)
-  {
-    v4 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      sub_22B7D6804(v3, v4, v5, v6, v7, v8, v9, v10);
-    }
-  }
-
-  v11 = *(a1 + 32);
-  if (v11)
-  {
-    (*(v11 + 16))();
-  }
-}
-
-void sub_22B618E94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *exc_buf, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
-{
-  if (a2 == 1)
-  {
-    objc_begin_catch(a1);
-    objc_end_catch();
-    JUMPOUT(0x22B618C54);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void *sub_22B618EF8(uint64_t a1, uint64_t a2)
-{
-  result = _Block_copy(*(a2 + 40));
-  *(a1 + 40) = result;
-  return result;
-}
-
-void sub_22B618F2C(uint64_t a1)
-{
-  v2 = *(*(*(a1 + 48) + 8) + 24);
-  if (v2 >= [*(a1 + 32) count])
-  {
-    v6 = *(*(a1 + 56) + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = 0;
-  }
-
-  else
-  {
-    v3 = *(a1 + 32);
-    v4 = *(*(*(a1 + 48) + 8) + 24);
-    if (([v3 count] - v4) <= 0x64)
-    {
-      v5 = [*(a1 + 32) count] - *(*(*(a1 + 48) + 8) + 24);
-    }
-
-    else
-    {
-      v5 = 100;
-    }
-
-    v8 = [v3 subarrayWithRange:{v4, v5}];
-    v9 = *(a1 + 40);
-    v10 = *(a1 + 64);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = sub_22B619074;
-    v11[3] = &unk_278706600;
-    v12 = *(a1 + 48);
-    [v9 _updatePendingReviewForChatsWithGUIDsInBackground:v8 pendingReview:v10 completionBlock:v11];
-  }
-}
-
 id sub_22B6196A0(uint64_t a1, void *a2)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) objectForKeyedSubscript:v3];
   v5 = v4;
@@ -270,13 +11,11 @@ id sub_22B6196A0(uint64_t a1, void *a2)
 
   else
   {
-    v10[0] = v3;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+    v9[0] = v3;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   }
 
   v7 = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -302,38 +41,36 @@ void sub_22B619A90(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 
 void sub_22B619F28(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v10 = 0u;
-  v11 = 0u;
-  v8 = 0u;
+  v12 = *MEMORY[0x277D85DE8];
   v9 = 0u;
+  v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
   v2 = [*(*(a1 + 32) + 24) allValues];
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) handleSMSSendResult:*(a1 + 40) sent:*(a1 + 48)];
+        [*(*(&v7 + 1) + 8 * v6++) handleSMSSendResult:*(a1 + 40) sent:*(a1 + 48)];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_22B61A870()
@@ -366,7 +103,7 @@ void sub_22B61BBFC(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void *sub_22B61BFD4()
+uint64_t (*sub_22B61BFD4())(void, void, void, void)
 {
   result = MEMORY[0x231897B50]("PLLogRegisteredEvent", @"PowerLog");
   off_281422590 = result;
@@ -377,7 +114,6 @@ void sub_22B61C8E8(id *a1, uint64_t a2)
 {
   if (a2 != 2)
   {
-    v7 = a1[6];
     v6 = *(a1[6] + 2);
     goto LABEL_5;
   }
@@ -395,37 +131,37 @@ LABEL_5:
     return;
   }
 
-  v8 = [a1[5] properties];
-  v9 = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
-  v10 = [v9 isOneChatEnabled];
+  v7 = [a1[5] properties];
+  v8 = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
+  v9 = [v8 isOneChatEnabled];
 
-  if ((v10 & 1) == 0)
+  if ((v9 & 1) == 0)
   {
-    v11 = +[IMDChatRegistry sharedInstance];
-    v12 = [a1[5] chatIdentifier];
-    v13 = [v11 existingSMSChatForID:v12 withChatStyle:{objc_msgSend(a1[5], "style")}];
-    v14 = [v13 properties];
+    v10 = +[IMDChatRegistry sharedInstance];
+    v11 = [a1[5] chatIdentifier];
+    v12 = [v10 existingSMSChatForID:v11 withChatStyle:{objc_msgSend(a1[5], "style")}];
+    v13 = [v12 properties];
 
-    v8 = v14;
+    v7 = v13;
   }
 
-  v15 = [v8 objectForKey:*MEMORY[0x277D198A0]];
-  v16 = v15;
-  if (v15 && ([v15 timeIntervalSinceNow], v17 < 86400.0))
+  v14 = [v7 objectForKey:*MEMORY[0x277D198A0]];
+  v15 = v14;
+  if (v14 && ([v14 timeIntervalSinceNow], v16 < 86400.0))
   {
     (*(a1[6] + 2))();
   }
 
   else
   {
-    v18 = +[IMDFamilyManager sharedManager];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = sub_22B61CB2C;
-    v19[3] = &unk_2787066A0;
-    v21 = a1[6];
-    v20 = a1[4];
-    [v18 familyHandlesWithCompletion:v19];
+    v17 = +[IMDFamilyManager sharedManager];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = sub_22B61CB2C;
+    v18[3] = &unk_2787066A0;
+    v20 = a1[6];
+    v19 = a1[4];
+    [v17 familyHandlesWithCompletion:v18];
   }
 }
 
@@ -450,7 +186,7 @@ void sub_22B61E1DC(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_22B61E210(uint64_t a1)
+void *sub_22B61E210(uint64_t a1)
 {
   if ([*(a1 + 32) isMemberOfClass:objc_opt_class()])
   {
@@ -460,7 +196,6 @@ uint64_t sub_22B61E210(uint64_t a1)
   result = [*(a1 + 32) isMemberOfClass:objc_opt_class()];
   if (result)
   {
-    v4 = *(a1 + 32);
     v3 = *(a1 + 40);
 
     return MEMORY[0x2821F9670](v3, sel__handleModifyRecordsOperation_);
@@ -478,7 +213,7 @@ uint64_t sub_22B61EE50()
 
 void sub_22B61F37C(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (IMOSLoggingEnabled())
@@ -487,28 +222,28 @@ void sub_22B61F37C(uint64_t a1, void *a2, void *a3)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v21 = v5;
-      v22 = 2112;
-      v23 = v6;
+      v20 = v5;
+      v21 = 2112;
+      v22 = v6;
       _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Fetch operation records %@ fetchError %@", buf, 0x16u);
     }
   }
 
   if (!v6)
   {
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = sub_22B61F5A0;
-    v17[3] = &unk_2787037B8;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = sub_22B61F5A0;
+    v16[3] = &unk_2787037B8;
     v10 = v5;
     v11 = *(a1 + 32);
     v12 = *(a1 + 40);
-    v18[0] = v10;
-    v18[1] = v11;
-    v19 = v12;
-    dispatch_async(MEMORY[0x277D85CD0], v17);
+    v17[0] = v10;
+    v17[1] = v11;
+    v18 = v12;
+    dispatch_async(MEMORY[0x277D85CD0], v16);
 
-    v9 = v18;
+    v9 = v17;
     goto LABEL_9;
   }
 
@@ -521,20 +256,18 @@ void sub_22B61F37C(uint64_t a1, void *a2, void *a3)
     block[1] = 3221225472;
     block[2] = sub_22B61F7AC;
     block[3] = &unk_2787028B0;
-    v16 = *(a1 + 40);
-    v15 = v6;
+    v15 = *(a1 + 40);
+    v14 = v6;
     dispatch_async(MEMORY[0x277D85CD0], block);
 
-    v9 = &v16;
+    v9 = &v15;
 LABEL_9:
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B61F5A0(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) _rampUpRecordID];
   v4 = [v2 objectForKey:v3];
@@ -558,11 +291,11 @@ void sub_22B61F5A0(uint64_t a1)
           v10 = @"YES";
         }
 
-        v14 = 138412546;
-        v15 = v10;
-        v16 = 2048;
-        v17 = v8;
-        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Fetch ramp state - featurePromoted: %@ retryAfter: %ld", &v14, 0x16u);
+        v13 = 138412546;
+        v14 = v10;
+        v15 = 2048;
+        v16 = v8;
+        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Fetch ramp state - featurePromoted: %@ retryAfter: %ld", &v13, 0x16u);
       }
     }
   }
@@ -574,8 +307,8 @@ void sub_22B61F5A0(uint64_t a1)
       v11 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v14) = 0;
-        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Couldn't find CKRecord for ramp. Defaulting to not ramped in", &v14, 2u);
+        LOWORD(v13) = 0;
+        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Couldn't find CKRecord for ramp. Defaulting to not ramped in", &v13, 2u);
       }
     }
 
@@ -588,8 +321,6 @@ void sub_22B61F5A0(uint64_t a1)
   {
     (*(v12 + 16))(v12, v6, v8, 0);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B61FC90(uint64_t a1, void *a2)
@@ -605,8 +336,7 @@ void sub_22B61FC90(uint64_t a1, void *a2)
     }
   }
 
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 40);
+  v5 = *(a1 + 40);
   im_dispatch_after();
 }
 
@@ -621,9 +351,10 @@ uint64_t sub_22B61FFA4(uint64_t a1)
   return result;
 }
 
-void sub_22B61FFC4(uint64_t a1, int a2, int a3)
+void sub_22B61FFC4(uint64_t a1, uint64_t a2, int a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  v25 = *MEMORY[0x277D85DE8];
   if (!a2 || (a3 & 1) != 0)
   {
     v8 = [*(a1 + 32) retryTimer];
@@ -640,7 +371,7 @@ void sub_22B61FFC4(uint64_t a1, int a2, int a3)
           v12 = [*(a1 + 32) retryTimer];
           v13 = [v12 fireDate];
           *buf = 138412290;
-          v23 = v13;
+          v22 = v13;
           _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Not fetching from server, next one is firing at %@", buf, 0xCu);
         }
       }
@@ -669,7 +400,7 @@ void sub_22B61FFC4(uint64_t a1, int a2, int a3)
         if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           v16 = @"NO";
-          if (a2)
+          if (v4)
           {
             v17 = @"YES";
           }
@@ -685,21 +416,21 @@ void sub_22B61FFC4(uint64_t a1, int a2, int a3)
           }
 
           *buf = 138412546;
-          v23 = v17;
-          v24 = 2112;
-          v25 = v16;
+          v22 = v17;
+          v23 = 2112;
+          v24 = v16;
           _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Cached values: featurePromoted(%@) is not YES, or we had a server error last time(%@) so fetching from server", buf, 0x16u);
         }
       }
 
       v18 = [*(a1 + 32) ckQueue];
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = sub_22B620398;
-      v20[3] = &unk_278703808;
-      v20[4] = *(a1 + 32);
-      v21 = *(a1 + 40);
-      dispatch_async(v18, v20);
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = sub_22B620398;
+      v19[3] = &unk_278703808;
+      v19[4] = *(a1 + 32);
+      v20 = *(a1 + 40);
+      dispatch_async(v18, v19);
     }
   }
 
@@ -731,8 +462,6 @@ LABEL_12:
       (*(*(a1 + 40) + 16))();
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B620398(uint64_t a1)
@@ -849,7 +578,7 @@ LABEL_27:
 LABEL_28:
 }
 
-uint64_t sub_22B620694(uint64_t a1)
+void *sub_22B620694(uint64_t a1)
 {
   result = [*(a1 + 32) _writeRampStatePromoted:*(a1 + 48) hadServerError:0];
   if (*(a1 + 40))
@@ -859,12 +588,11 @@ uint64_t sub_22B620694(uint64_t a1)
       v3 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        *v5 = 0;
-        _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "calling recordFetchedCompletionBlock", v5, 2u);
+        *v4 = 0;
+        _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "calling recordFetchedCompletionBlock", v4, 2u);
       }
     }
 
-    v4 = *(a1 + 48);
     return (*(*(a1 + 40) + 16))();
   }
 
@@ -889,15 +617,15 @@ uint64_t sub_22B620E48()
   return MEMORY[0x2821F96F8]();
 }
 
-void IMDSetInconsistencyHandler(uint64_t a1)
+void IMDSetInconsistencyHandler(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_22B4CC000, v2, OS_LOG_TYPE_INFO, "Setting inconsistency handler", buf, 2u);
+      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Setting inconsistency handler", buf, 2u);
     }
   }
 
@@ -933,13 +661,13 @@ void *sub_22B621634(uint64_t a1)
 
 void IMDNoticedInconsistency(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (qword_281421458 != -1)
   {
     sub_22B7D6910();
   }
 
-  v15[5] = &a9;
+  v14[5] = &a9;
   v11 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:a2 arguments:&a9];
   v12 = [MEMORY[0x277D19298] registration];
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
@@ -953,24 +681,23 @@ void IMDNoticedInconsistency(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v17 = v11;
+      v16 = v11;
       _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
     }
   }
 
   IMLogBacktrace();
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = sub_22B62180C;
-  v15[3] = &unk_278704F90;
-  v15[4] = a1;
-  dispatch_async(qword_281421418, v15);
-  v14 = *MEMORY[0x277D85DE8];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = sub_22B62180C;
+  v14[3] = &unk_278704F90;
+  v14[4] = a1;
+  dispatch_async(qword_281421418, v14);
 }
 
 void sub_22B62180C(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = sub_22B621948(*(a1 + 32), 1);
   [v2 setCount:{objc_msgSend(v2, "count") + 1}];
   if (IMOSLoggingEnabled())
@@ -979,15 +706,13 @@ void sub_22B62180C(uint64_t a1)
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = *(a1 + 32);
-      v6 = 138412546;
-      v7 = v4;
-      v8 = 2048;
-      v9 = [v2 count];
-      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Noticed inconsistency at context %@ (count = %llu)", &v6, 0x16u);
+      v5 = 138412546;
+      v6 = v4;
+      v7 = 2048;
+      v8 = [v2 count];
+      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Noticed inconsistency at context %@ (count = %llu)", &v5, 0x16u);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 id sub_22B621948(uint64_t a1, int a2)
@@ -1022,9 +747,9 @@ id sub_22B621948(uint64_t a1, int a2)
   return v6;
 }
 
-void sub_22B621A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22B621A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1046,7 +771,7 @@ void IMDInconsistencyResolved(uint64_t a1)
 
 void sub_22B621B30(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = sub_22B621948(*(a1 + 32), 0);
   if (v2)
   {
@@ -1057,17 +782,15 @@ void sub_22B621B30(uint64_t a1)
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
         v5 = *(a1 + 32);
-        v7 = 138412290;
-        v8 = v5;
-        _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Resolving inconsistency at context %@", &v7, 0xCu);
+        v6 = 138412290;
+        v7 = v5;
+        _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Resolving inconsistency at context %@", &v6, 0xCu);
       }
     }
 
     [qword_281421428 removeObject:v3];
     sub_22B621C28();
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B621C28()
@@ -1124,7 +847,7 @@ LABEL_2:
 
 void sub_22B621DC8()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   qword_281421418 = dispatch_queue_create(0, 0);
   qword_281421428 = [MEMORY[0x277CBEB18] array];
   v0 = CFPreferencesCopyValue(@"LastJettisonTimeInterval", @"com.apple.imagent", *MEMORY[0x277CBF040], *MEMORY[0x277CBF030]);
@@ -1141,16 +864,14 @@ void sub_22B621DC8()
     v3 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v5 = 138412290;
-      v6 = qword_281421420;
-      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Finished initialization, last jettison was %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = qword_281421420;
+      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Finished initialization, last jettison was %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t sub_22B621F44(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *sub_22B621F44(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 context];
   if (result == *(a1 + 32))
@@ -1164,7 +885,7 @@ uint64_t sub_22B621F44(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 
 void sub_22B621F9C()
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   dispatch_source_set_event_handler(qword_27D8CFF30, 0);
   dispatch_release(qword_27D8CFF30);
   qword_27D8CFF30 = 0;
@@ -1173,52 +894,52 @@ void sub_22B621F9C()
     v0 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v12[0]) = 0;
-      _os_log_impl(&dword_22B4CC000, v0, OS_LOG_TYPE_INFO, "Checking our inconsistencies to see if it's time to jettison state", v12, 2u);
+      LOWORD(v11[0]) = 0;
+      _os_log_impl(&dword_22B4CC000, v0, OS_LOG_TYPE_INFO, "Checking our inconsistencies to see if it's time to jettison state", v11, 2u);
     }
   }
 
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
-  v34 = 0;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3052000000;
-  v28 = sub_22B4D7750;
-  v29 = sub_22B4D7904;
   v30 = 0;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3052000000;
-  v22 = sub_22B4D7750;
-  v23 = sub_22B4D7904;
-  v24 = [MEMORY[0x277CBEB18] array];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3052000000;
-  v16 = sub_22B4D7750;
-  v17 = sub_22B4D7904;
-  v18 = [MEMORY[0x277CBEB18] array];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = sub_22B6224AC;
-  v12[3] = &unk_278706800;
-  v12[4] = &v13;
-  v12[5] = &v25;
-  v12[6] = &v31;
-  v12[7] = &v19;
-  [qword_281421428 enumerateObjectsUsingBlock:v12];
-  if (*(v32 + 24) == 1)
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3052000000;
+  v27 = sub_22B4D7750;
+  v28 = sub_22B4D7904;
+  v29 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3052000000;
+  v21 = sub_22B4D7750;
+  v22 = sub_22B4D7904;
+  v23 = [MEMORY[0x277CBEB18] array];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3052000000;
+  v15 = sub_22B4D7750;
+  v16 = sub_22B4D7904;
+  v17 = [MEMORY[0x277CBEB18] array];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = sub_22B6224AC;
+  v11[3] = &unk_278706800;
+  v11[4] = &v12;
+  v11[5] = &v24;
+  v11[6] = &v30;
+  v11[7] = &v18;
+  [qword_281421428 enumerateObjectsUsingBlock:v11];
+  if (*(v31 + 24) == 1)
   {
     if (IMOSLoggingEnabled())
     {
       v1 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
       {
-        v2 = v26[5];
+        v2 = v25[5];
         *buf = 138412290;
-        v36 = v2;
+        v35 = v2;
         _os_log_impl(&dword_22B4CC000, v1, OS_LOG_TYPE_INFO, "Too many inconsistencies found in imagent, jettisoning state and starting over (reason: %@)", buf, 0xCu);
       }
     }
@@ -1247,41 +968,40 @@ void sub_22B621F9C()
       v7 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        v8 = v20[5];
+        v8 = v19[5];
         *buf = 138412290;
-        v36 = v8;
+        v35 = v8;
         _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Inconsistencies aren't bad enough to merit a jettison (reasons: %@)", buf, 0xCu);
       }
     }
 
-    if ([v14[5] count])
+    if ([v13[5] count])
     {
       if (IMOSLoggingEnabled())
       {
         v9 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
-          v10 = v14[5];
+          v10 = v13[5];
           *buf = 138412290;
-          v36 = v10;
+          v35 = v10;
           _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Removing expired inconsistencies: %@", buf, 0xCu);
         }
       }
 
-      [qword_281421428 removeObjectsInArray:v14[5]];
+      [qword_281421428 removeObjectsInArray:v13[5]];
     }
 
     sub_22B621C28();
   }
 
-  _Block_object_dispose(&v13, 8);
-  _Block_object_dispose(&v19, 8);
-  _Block_object_dispose(&v25, 8);
-  _Block_object_dispose(&v31, 8);
-  v11 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v30, 8);
 }
 
-uint64_t sub_22B6224AC(void *a1, void *a2, uint64_t a3, _BYTE *a4)
+void *sub_22B6224AC(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   if (![a2 context])
   {
@@ -1310,24 +1030,24 @@ LABEL_7:
   return result;
 }
 
-id IMFileTransferFromIMDAttachmentRecordRef(void *a1)
+id IMFileTransferFromIMDAttachmentRecordRef(void *a1, uint64_t a2)
 {
   v62 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     if (!IMOSLoggingEnabled())
     {
-      goto LABEL_14;
+      return 0;
     }
 
-    v13 = OSLogHandleForIMFoundationCategory();
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v14 = OSLogHandleForIMFoundationCategory();
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      goto LABEL_14;
+      return 0;
     }
 
     *buf = 0;
-    v14 = "Unable to create IMFileTransfer from NULL IMDAttachmentRecordRef.";
+    v15 = "Unable to create IMFileTransfer from NULL IMDAttachmentRecordRef.";
     goto LABEL_13;
   }
 
@@ -1353,100 +1073,96 @@ id IMFileTransferFromIMDAttachmentRecordRef(void *a1)
   v19 = 0;
   v20 = 0;
   v18 = 0;
-  v1 = [a1 previewGenerationState];
+  v2 = [a1 previewGenerationState];
   _IMDAttachmentRecordBulkCopy();
   if (![v39 length])
   {
 
     if (!IMOSLoggingEnabled())
     {
-      goto LABEL_14;
+      return 0;
     }
 
-    v13 = OSLogHandleForIMFoundationCategory();
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v14 = OSLogHandleForIMFoundationCategory();
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      goto LABEL_14;
+      return 0;
     }
 
     *buf = 0;
-    v14 = "This transfer doesn't have a guid, returning nil.";
+    v15 = "This transfer doesn't have a guid, returning nil.";
 LABEL_13:
-    _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, v14, buf, 2u);
-LABEL_14:
-    v2 = 0;
-    goto LABEL_15;
+    _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, v15, buf, 2u);
+    return 0;
   }
 
-  v2 = objc_alloc_init(MEMORY[0x277D1A9C0]);
-  [v2 setGuid:v39];
-  [v2 _setLocalPath:v37];
-  [v2 setType:v36];
-  [v2 setCreatedDate:{objc_msgSend(MEMORY[0x277CBEAA8], "dateWithTimeIntervalSinceReferenceDate:", v33)}];
-  [v2 _setStartDate:{objc_msgSend(MEMORY[0x277CBEAA8], "dateWithTimeIntervalSinceReferenceDate:", v32)}];
-  [v2 _setTransferState:v31];
-  [v2 setPreviewGenerationState:v1];
-  [v2 setIsIncoming:v30 == 0];
-  [v2 setUserInfo:v34];
-  [v2 setTotalBytes:v29];
+  v3 = objc_alloc_init(MEMORY[0x277D1A9C0]);
+  [v3 setGuid:v39];
+  [v3 _setLocalPath:v37];
+  [v3 setType:v36];
+  [v3 setCreatedDate:{objc_msgSend(MEMORY[0x277CBEAA8], "dateWithTimeIntervalSinceReferenceDate:", v33)}];
+  [v3 _setStartDate:{objc_msgSend(MEMORY[0x277CBEAA8], "dateWithTimeIntervalSinceReferenceDate:", v32)}];
+  [v3 _setTransferState:v31];
+  [v3 setPreviewGenerationState:v2];
+  [v3 setIsIncoming:v30 == 0];
+  [v3 setUserInfo:v34];
+  [v3 setTotalBytes:v29];
   if ([v38 length])
   {
-    [v2 setFilename:v38];
+    [v3 setFilename:v38];
   }
 
-  [v2 setIsSticker:v28 != 0];
-  [v2 setStickerUserInfo:v27];
-  [v2 setAttributionInfo:v26];
-  [v2 setHideAttachment:v25 != 0];
-  [v2 setCloudKitSyncState:v24];
-  [v2 setCloudKitServerChangeTokenBlob:v23];
-  [v2 setCloudKitRecordID:v22];
-  [v2 setOriginalGUID:v21];
-  [v2 setCommSafetySensitive:v20];
-  [v2 setAdaptiveImageGlyphContentIdentifier:v19];
-  [v2 setAdaptiveImageGlyphContentDescription:v18];
+  [v3 setIsSticker:v28 != 0];
+  [v3 setStickerUserInfo:v27];
+  [v3 setAttributionInfo:v26];
+  [v3 setHideAttachment:v25 != 0];
+  [v3 setCloudKitSyncState:v24];
+  [v3 setCloudKitServerChangeTokenBlob:v23];
+  [v3 setCloudKitRecordID:v22];
+  [v3 setOriginalGUID:v21];
+  [v3 setCommSafetySensitive:v20];
+  [v3 setAdaptiveImageGlyphContentIdentifier:v19];
+  [v3 setAdaptiveImageGlyphContentDescription:v18];
 
-  v3 = IMAttachmentsLogHandle();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = IMAttachmentsLogHandle();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = [v2 transferState];
-    v4 = [v2 cloudKitSyncState];
-    v5 = [objc_msgSend(v2 "localURL")];
-    v6 = [v2 transferredFilename];
-    v7 = [v2 guid];
-    v8 = [v2 error];
-    v9 = [v2 totalBytes];
-    v10 = [v2 createdDate];
-    v11 = [v2 commSafetySensitive];
-    v12 = [v2 updateReason];
+    v17 = [v3 transferState];
+    v5 = [v3 cloudKitSyncState];
+    v6 = [objc_msgSend(v3 "localURL")];
+    v7 = [v3 transferredFilename];
+    v8 = [v3 guid];
+    v9 = [v3 error];
+    v10 = [v3 totalBytes];
+    v11 = [v3 createdDate];
+    v12 = [v3 commSafetySensitive];
+    v13 = [v3 updateReason];
     *buf = 134220546;
-    v41 = v2;
+    v41 = v3;
     v42 = 2048;
     v43 = v17;
     v44 = 2048;
-    v45 = v4;
+    v45 = v5;
     v46 = 2112;
-    v47 = v5;
+    v47 = v6;
     v48 = 2112;
-    v49 = v6;
+    v49 = v7;
     v50 = 2112;
-    v51 = v7;
+    v51 = v8;
     v52 = 1024;
-    v53 = v8;
+    v53 = v9;
     v54 = 1024;
-    v55 = v9;
+    v55 = v10;
     v56 = 2112;
-    v57 = v10;
+    v57 = v11;
     v58 = 1024;
-    v59 = v11;
+    v59 = v12;
     v60 = 2048;
-    v61 = v12;
-    _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_DEFAULT, "From attachment record, created [IMFileTransfer: %p  state: %ld  sync state: %ld  local path: %@  transferred name: %@  guid: %@  error: %d  total bytes: %d  created: %@ commSafety: %d update reason: %ld]", buf, 0x64u);
+    v61 = v13;
+    _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_DEFAULT, "From attachment record, created [IMFileTransfer: %p  state: %ld  sync state: %ld  local path: %@  transferred name: %@  guid: %@  error: %d  total bytes: %d  created: %@ commSafety: %d update reason: %ld]", buf, 0x64u);
   }
 
-LABEL_15:
-  v15 = *MEMORY[0x277D85DE8];
-  return v2;
+  return v3;
 }
 
 void sub_22B622A78(_Unwind_Exception *exception_object, int a2)
@@ -1463,18 +1179,18 @@ void sub_22B622A78(_Unwind_Exception *exception_object, int a2)
 
 uint64_t IMDAttachmentRecordRefFromIMFileTransfer(void *a1, uint64_t a2, uint64_t a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     if (!IMOSLoggingEnabled())
     {
-      goto LABEL_31;
+      return 0;
     }
 
     v8 = OSLogHandleForIMFoundationCategory();
     if (!os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      goto LABEL_31;
+      return 0;
     }
 
     *buf = 0;
@@ -1484,9 +1200,7 @@ uint64_t IMDAttachmentRecordRefFromIMFileTransfer(void *a1, uint64_t a2, uint64_
     v12 = 2;
 LABEL_30:
     _os_log_impl(&dword_22B4CC000, v10, v11, v9, buf, v12);
-LABEL_31:
-    v20 = 0;
-    goto LABEL_32;
+    return 0;
   }
 
   v6 = IMAttachmentsLogHandle();
@@ -1526,16 +1240,16 @@ LABEL_13:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3052000000;
-  v27 = sub_22B4D7760;
-  v28 = sub_22B4D7910;
-  v29 = 0;
+  v26 = sub_22B4D7760;
+  v27 = sub_22B4D7910;
+  v28 = 0;
   v13 = [MEMORY[0x277D18EE8] sharedInstance];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = sub_22B6232B0;
-  v25[3] = &unk_278706828;
-  v25[4] = buf;
-  [v13 saveAttachmentsForTransfer:a1 chatGUID:a2 storeAtExternalLocation:a3 completion:v25];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = sub_22B6232B0;
+  v24[3] = &unk_278706828;
+  v24[4] = buf;
+  [v13 saveAttachmentsForTransfer:a1 chatGUID:a2 storeAtExternalLocation:a3 completion:v24];
   if (*(*&buf[8] + 40) && (v14 = [MEMORY[0x277CCAA00] defaultManager], objc_msgSend(v14, "fileExistsAtPath:", *(*&buf[8] + 40))))
   {
     if (![objc_msgSend(a1 "localPath")] || (v15 = objc_msgSend(a1, "localPath"), !objc_msgSend(v15, "isEqualToString:", *(*&buf[8] + 40))) || objc_msgSend(a1, "isSticker"))
@@ -1551,8 +1265,8 @@ LABEL_13:
     v16 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      *v24 = 0;
-      _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Persisting transfer failed.", v24, 2u);
+      *v23 = 0;
+      _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Persisting transfer failed.", v23, 2u);
     }
   }
 
@@ -1570,19 +1284,19 @@ LABEL_23:
 
     if (![a1 isFinished])
     {
-      goto LABEL_31;
+      return 0;
     }
 
     v18 = -[IMDFileTransferCenter transferForGUID:](+[IMDFileTransferCenter sharedInstance](IMDFileTransferCenter, "sharedInstance"), "transferForGUID:", [MEMORY[0x277D1A9C0] guidByStrippingAuxPrefix:{objc_msgSend(a1, "guid")}]);
     if ([objc_msgSend(v18 "createAndPersistLivePhotoBundleIfNecessary")])
     {
-      goto LABEL_31;
+      return 0;
     }
 
     v19 = IMFileTransferLogHandle();
     if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_31;
+      return 0;
     }
 
     *buf = 138412546;
@@ -1620,22 +1334,20 @@ LABEL_23:
   [a1 adaptiveImageGlyphContentDescription];
   [a1 previewGenerationState];
   v20 = IMDAttachmentRecordCreate();
-  v23 = IMAttachmentsLogHandle();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v22 = IMAttachmentsLogHandle();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     *&buf[4] = v20;
     *&buf[12] = 2112;
     *&buf[14] = a1;
-    _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_DEFAULT, "Created: %@ from imfiletransfer: %@", buf, 0x16u);
+    _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_DEFAULT, "Created: %@ from imfiletransfer: %@", buf, 0x16u);
   }
 
-LABEL_32:
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
-uint64_t _IMDShouldSaveAttachmentStoreAtExternalLocation(void *a1, void *a2, char a3)
+uint64_t _IMDShouldSaveAttachmentStoreAtExternalLocation(void *a1, void *a2, uint64_t a3)
 {
   if (a2)
   {
@@ -1664,8 +1376,9 @@ uint64_t _IMDShouldSaveAttachmentStoreAtExternalLocation(void *a1, void *a2, cha
 
   else
   {
+    v7 = a3;
     v8 = (![a1 isIncoming] || objc_msgSend(a1, "transferState") >= 4) && objc_msgSend(a1, "transferState") != 0;
-    v6 = a3 | v8;
+    v6 = v7 | v8;
   }
 
   return v6 & 1;
@@ -1673,14 +1386,14 @@ uint64_t _IMDShouldSaveAttachmentStoreAtExternalLocation(void *a1, void *a2, cha
 
 uint64_t IMDUpdateIMFileTransferFromIMFileTransfer(void *a1, const void *a2, void *a3, uint64_t a4, uint64_t a5)
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   v10 = IMAttachmentsLogHandle();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v34 = [a1 transferState];
-    v33 = [a3 transferState];
-    v32 = [a1 cloudKitSyncState];
-    v31 = [a3 cloudKitSyncState];
+    v33 = [a1 transferState];
+    v32 = [a3 transferState];
+    v31 = [a1 cloudKitSyncState];
+    v30 = [a3 cloudKitSyncState];
     if ([objc_msgSend(objc_msgSend(a1 "localURL")])
     {
       v11 = [a3 localURL];
@@ -1692,43 +1405,43 @@ uint64_t IMDUpdateIMFileTransferFromIMFileTransfer(void *a1, const void *a2, voi
     }
 
     *buf = 134222594;
-    *&buf[4] = v34;
+    *&buf[4] = v33;
     *&buf[12] = 2048;
-    *&buf[14] = v33;
+    *&buf[14] = v32;
     *&buf[22] = 2048;
-    v42 = v32;
-    *v43 = 2048;
-    *&v43[2] = v31;
-    *&v43[10] = 2112;
-    *&v43[12] = v11;
-    v44 = 2112;
-    v45 = [a1 transferredFilename];
-    v46 = 2112;
-    v47 = [a3 transferredFilename];
-    v48 = 2112;
-    v49 = [a1 guid];
-    v50 = 2112;
-    v51 = [a3 guid];
-    v52 = 1024;
-    v53 = [a1 error];
-    v54 = 1024;
-    v55 = [a3 error];
-    v56 = 1024;
-    v57 = [a1 totalBytes];
-    v58 = 1024;
-    v59 = [a3 totalBytes];
-    v60 = 2112;
-    v61 = [a1 createdDate];
-    v62 = 2112;
-    v63 = [a3 createdDate];
-    v64 = 1024;
-    v65 = [a1 commSafetySensitive];
-    v66 = 1024;
-    v67 = [a3 commSafetySensitive];
-    v68 = 1024;
-    v69 = [a1 updateReason];
-    v70 = 1024;
-    v71 = [a3 updateReason];
+    v41 = v31;
+    *v42 = 2048;
+    *&v42[2] = v30;
+    *&v42[10] = 2112;
+    *&v42[12] = v11;
+    v43 = 2112;
+    v44 = [a1 transferredFilename];
+    v45 = 2112;
+    v46 = [a3 transferredFilename];
+    v47 = 2112;
+    v48 = [a1 guid];
+    v49 = 2112;
+    v50 = [a3 guid];
+    v51 = 1024;
+    v52 = [a1 error];
+    v53 = 1024;
+    v54 = [a3 error];
+    v55 = 1024;
+    v56 = [a1 totalBytes];
+    v57 = 1024;
+    v58 = [a3 totalBytes];
+    v59 = 2112;
+    v60 = [a1 createdDate];
+    v61 = 2112;
+    v62 = [a3 createdDate];
+    v63 = 1024;
+    v64 = [a1 commSafetySensitive];
+    v65 = 1024;
+    v66 = [a3 commSafetySensitive];
+    v67 = 1024;
+    v68 = [a1 updateReason];
+    v69 = 1024;
+    v70 = [a3 updateReason];
     _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_DEFAULT, "Updating transfer: [state: %ld -> %ld sync state: %ld -> %ld local path: %@ transferred name: %@ -> %@ guid: %@ -> %@ error: %d -> %d total bytes: %d -> %d created: %@ -> %@ commSafety: %d -> %d update reason: %d -> %d]", buf, 0xA0u);
     a4 = a4;
   }
@@ -1764,25 +1477,25 @@ uint64_t IMDUpdateIMFileTransferFromIMFileTransfer(void *a1, const void *a2, voi
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3052000000;
-    v42 = sub_22B4D7760;
-    *v43 = sub_22B4D7910;
-    *&v43[8] = 0;
+    v41 = sub_22B4D7760;
+    *v42 = sub_22B4D7910;
+    *&v42[8] = 0;
     v16 = [MEMORY[0x277D18EE8] sharedInstance];
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = sub_22B623D34;
-    v36[3] = &unk_278706828;
-    v36[4] = buf;
-    [v16 saveAttachmentsForTransfer:a3 chatGUID:a5 storeAtExternalLocation:a4 completion:v36];
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = sub_22B623D34;
+    v35[3] = &unk_278706828;
+    v35[4] = buf;
+    [v16 saveAttachmentsForTransfer:a3 chatGUID:a5 storeAtExternalLocation:a4 completion:v35];
     if (*(*&buf[8] + 40) && (v17 = [MEMORY[0x277CCAA00] defaultManager], objc_msgSend(v17, "fileExistsAtPath:", *(*&buf[8] + 40))))
     {
       v18 = IMAttachmentsLogHandle();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         v19 = *(*&buf[8] + 40);
-        *v37 = 138412290;
-        v38 = v19;
-        _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_DEFAULT, " Storing transfer at path: %@", v37, 0xCu);
+        *v36 = 138412290;
+        v37 = v19;
+        _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_DEFAULT, " Storing transfer at path: %@", v36, 0xCu);
       }
 
       [a1 _setLocalPath:*(*&buf[8] + 40)];
@@ -1798,8 +1511,8 @@ uint64_t IMDUpdateIMFileTransferFromIMFileTransfer(void *a1, const void *a2, voi
       v22 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
-        *v37 = 0;
-        _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "Persisting transfer failed.", v37, 2u);
+        *v36 = 0;
+        _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "Persisting transfer failed.", v36, 2u);
       }
     }
 
@@ -1811,9 +1524,9 @@ uint64_t IMDUpdateIMFileTransferFromIMFileTransfer(void *a1, const void *a2, voi
         v24 = IMAttachmentsLogHandle();
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
-          *v37 = 138412290;
-          v38 = a1;
-          _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_DEFAULT, " File eligible for purging: %@", v37, 0xCu);
+          *v36 = 138412290;
+          v37 = a1;
+          _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_DEFAULT, " File eligible for purging: %@", v36, 0xCu);
         }
 
         if (*(*&buf[8] + 40))
@@ -1828,11 +1541,11 @@ uint64_t IMDUpdateIMFileTransferFromIMFileTransfer(void *a1, const void *a2, voi
         v26 = IMAttachmentsLogHandle();
         if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
-          *v37 = 138412546;
-          v38 = a1;
-          v39 = 1024;
-          v40 = v23;
-          _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_DEFAULT, " File NOT eligible for purging: %@, updatedPurgeableState: %{BOOL}d", v37, 0x12u);
+          *v36 = 138412546;
+          v37 = a1;
+          v38 = 1024;
+          v39 = v23;
+          _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_DEFAULT, " File NOT eligible for purging: %@, updatedPurgeableState: %{BOOL}d", v36, 0x12u);
         }
       }
     }
@@ -1885,18 +1598,24 @@ uint64_t IMDUpdateIMFileTransferFromIMFileTransfer(void *a1, const void *a2, voi
 
   else
   {
-    v29 = IMAttachmentsLogHandle();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v28 = IMAttachmentsLogHandle();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = [a1 guid];
+      v29 = [a1 guid];
       *buf = 138412290;
-      *&buf[4] = v30;
-      _os_log_impl(&dword_22B4CC000, v29, OS_LOG_TYPE_DEFAULT, "Unable to find an attachment record for guid: %@.", buf, 0xCu);
+      *&buf[4] = v29;
+      _os_log_impl(&dword_22B4CC000, v28, OS_LOG_TYPE_DEFAULT, "Unable to find an attachment record for guid: %@.", buf, 0xCu);
     }
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return 1;
+}
+
+void sub_22B623CE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
+{
+  va_start(va, a48);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 IMDAttachmentStore *sub_22B623D7C()
@@ -1908,12 +1627,12 @@ IMDAttachmentStore *sub_22B623D7C()
 
 void sub_22B6249BC(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   v4 = 0;
-  v5 = 0;
   v1 = [MEMORY[0x277CBEBC0] fileURLWithPath:*(a1 + 32)];
-  [v1 getResourceValue:&v5 forKey:*MEMORY[0x277CBEA40] error:&v4];
-  if (v4)
+  [v1 getResourceValue:&v4 forKey:*MEMORY[0x277CBEA40] error:&v3];
+  if (v3)
   {
     if (IMOSLoggingEnabled())
     {
@@ -1921,7 +1640,7 @@ void sub_22B6249BC(uint64_t a1)
       if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v7 = v4;
+        v6 = v3;
         _os_log_impl(&dword_22B4CC000, v2, OS_LOG_TYPE_INFO, "Error checking if filesystem supports case sensitivity: %@", buf, 0xCu);
       }
     }
@@ -1929,10 +1648,8 @@ void sub_22B6249BC(uint64_t a1)
 
   else
   {
-    byte_2814225A0 = [v5 BOOLValue];
+    byte_2814225A0 = [v4 BOOLValue];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_22B624D20()
@@ -1942,7 +1659,7 @@ uint64_t sub_22B624D20()
   return result;
 }
 
-uint64_t sub_22B624D50(uint64_t a1, void *a2)
+void *sub_22B624D50(uint64_t a1, void *a2)
 {
   result = [a2 response];
   if (!result)
@@ -1960,9 +1677,9 @@ uint64_t sub_22B624D50(uint64_t a1, void *a2)
   return result;
 }
 
-void sub_22B62560C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_22B62560C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1976,37 +1693,33 @@ id sub_22B625638(uint64_t a1, void *a2)
 
 void sub_22B6263D8(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = IMAttachmentsLogHandle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&dword_22B4CC000, v2, OS_LOG_TYPE_DEFAULT, "Finished reindexing %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_impl(&dword_22B4CC000, v2, OS_LOG_TYPE_DEFAULT, "Finished reindexing %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B6268E8(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v4 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v5 = [*(a1 + 32) count];
-      v7 = 134218242;
-      v8 = v5;
-      v9 = 2112;
-      v10 = a2;
-      _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Deleted %lu attachments from indexes with error: %@", &v7, 0x16u);
+      v6 = 134218242;
+      v7 = v5;
+      v8 = 2112;
+      v9 = a2;
+      _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Deleted %lu attachments from indexes with error: %@", &v6, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_22B627540()
@@ -2040,9 +1753,9 @@ id sub_22B627778()
   return v1;
 }
 
-void sub_22B627840(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22B627840(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2069,9 +1782,9 @@ void sub_22B627858(uint64_t a1, void *a2, uint64_t a3)
   *(v9 + 40) = 0;
 }
 
-void sub_22B627AE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22B627AE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2100,9 +1813,9 @@ id sub_22B627B00()
   return v1;
 }
 
-void sub_22B627BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22B627BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2136,40 +1849,35 @@ Class sub_22B627C88(uint64_t a1)
 
 void sub_22B627CE0()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1[0] = 0;
+  v3 = *MEMORY[0x277D85DE8];
+  v0[0] = 0;
   if (!qword_27D8CFF50)
   {
-    v1[1] = MEMORY[0x277D85DD0];
-    v1[2] = 3221225472;
-    v1[3] = sub_22B627DD4;
-    v1[4] = &unk_278702AF8;
-    v1[5] = v1;
-    v2 = xmmword_2787068C0;
-    v3 = 0;
+    v0[1] = MEMORY[0x277D85DD0];
+    v0[2] = 3221225472;
+    v0[3] = sub_22B627DD4;
+    v0[4] = &unk_278702AF8;
+    v0[5] = v0;
+    v1 = xmmword_2787068C0;
+    v2 = 0;
     qword_27D8CFF50 = _sl_dlopen();
   }
 
   if (!qword_27D8CFF50)
   {
-    sub_22B7D6D60(v1);
+    sub_22B7D6D60(v0);
   }
 
-  if (v1[0])
+  if (v0[0])
   {
-    free(v1[0]);
+    free(v0[0]);
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_22B627DD4(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_27D8CFF50 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2201,9 +1909,9 @@ Class sub_22B627EA0(uint64_t a1)
   return result;
 }
 
-void sub_22B6281FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_22B6281FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2225,31 +1933,31 @@ void sub_22B628224(uint64_t a1, uint64_t a2)
 
 void sub_22B6282A8(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{2 * objc_msgSend(v5, "count")}];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       v11 = 0;
       do
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [*(*(&v21 + 1) + 8 * v11) rangeValue];
+        v12 = [*(*(&v20 + 1) + 8 * v11) rangeValue];
         v14 = v13;
         v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%tu", v12];
         [v6 addObject:v15];
@@ -2261,7 +1969,7 @@ void sub_22B6282A8(uint64_t a1, void *a2, void *a3)
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v9);
@@ -2270,13 +1978,11 @@ void sub_22B6282A8(uint64_t a1, void *a2, void *a3)
   v17 = *(a1 + 32);
   v18 = [v4 stringValue];
   [v17 setObject:v6 forKey:v18];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-void sub_22B628750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_22B628750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2336,7 +2042,7 @@ void sub_22B628780(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 
 void sub_22B62894C(double a1, uint64_t a2, uint64_t a3, void *a4, void *a5)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v7 = a4;
   v8 = a5;
   if (qword_2814225B8 != -1)
@@ -2350,13 +2056,11 @@ void sub_22B62894C(double a1, uint64_t a2, uint64_t a3, void *a4, void *a5)
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = [qword_2814225B0 loggableOverviewForKey:@"com.apple.madrid"];
-      v12 = 138412290;
-      v13 = v10;
-      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Messages ahead in the receive queue: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v10;
+      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Messages ahead in the receive queue: %@", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_22B628AA0()
@@ -2430,10 +2134,10 @@ void sub_22B62CE80(_Unwind_Exception *a1, int a2)
 
 void sub_22B62F534(uint64_t a1, void *a2, void *a3, void *a4, void *a5, char a6, uint64_t a7, void *a8)
 {
-  v38 = *MEMORY[0x277D85DE8];
-  v30 = a2;
+  v37 = *MEMORY[0x277D85DE8];
+  v29 = a2;
   v14 = a3;
-  v31 = a4;
+  v30 = a4;
   v15 = a5;
   v16 = a8;
   if (v15 || (a6 & 1) == 0)
@@ -2445,9 +2149,9 @@ void sub_22B62F534(uint64_t a1, void *a2, void *a3, void *a4, void *a5, char a6,
       {
         v26 = [*(a1 + 32) localURL];
         *buf = 138412546;
-        v33 = v26;
-        v34 = 2112;
-        v35 = v15;
+        v32 = v26;
+        v33 = 2112;
+        v34 = v15;
         _os_log_impl(&dword_22B4CC000, v25, OS_LOG_TYPE_INFO, "Failed to transcode HQ asset %@ to LQ for watch relay with error %@", buf, 0x16u);
       }
     }
@@ -2464,11 +2168,11 @@ void sub_22B62F534(uint64_t a1, void *a2, void *a3, void *a4, void *a5, char a6,
       {
         v20 = [*(a1 + 32) guid];
         *buf = 138412802;
-        v33 = v20;
-        v34 = 2112;
-        v35 = v17;
-        v36 = 2048;
-        v37 = [v18 length];
+        v32 = v20;
+        v33 = 2112;
+        v34 = v17;
+        v35 = 2048;
+        v36 = [v18 length];
         _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, "Relaying LQ transcode of transfer GUID %@ at path %@ size %llu to watch", buf, 0x20u);
       }
     }
@@ -2483,13 +2187,11 @@ void sub_22B62F534(uint64_t a1, void *a2, void *a3, void *a4, void *a5, char a6,
 
     if (![*(a1 + 48) count])
     {
-      LOBYTE(v29) = *(a1 + 97);
-      LOBYTE(v28) = 1;
-      [*(a1 + 56) _relayMessageToPeers:*(a1 + 64) forChat:*(a1 + 72) serviceName:*(a1 + 80) requiredCapabilities:*(a1 + 88) reflectOnly:*(a1 + 96) excludesWatch:0 onlyWatch:v28 overridingAttachmentData:*(a1 + 40) skipServiceForSending:v29];
+      LOBYTE(v28) = *(a1 + 97);
+      LOBYTE(v27) = 1;
+      [*(a1 + 56) _relayMessageToPeers:*(a1 + 64) forChat:*(a1 + 72) serviceName:*(a1 + 80) requiredCapabilities:*(a1 + 88) reflectOnly:*(a1 + 96) excludesWatch:0 onlyWatch:v27 overridingAttachmentData:*(a1 + 40) skipServiceForSending:v28];
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B62F7DC(_Unwind_Exception *a1, int a2)
@@ -2519,12 +2221,12 @@ void sub_22B62FD28(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, i
 
 void sub_22B630FE8(uint64_t a1, void *a2, int a3, void *a4, void *a5, void *a6, void *a7, void *a8, void *a9, uint64_t a10)
 {
-  v44 = *MEMORY[0x277D85DE8];
-  v35 = a2;
-  v37 = a4;
-  v36 = a5;
+  v42 = *MEMORY[0x277D85DE8];
+  v33 = a2;
+  v35 = a4;
+  v34 = a5;
   value = a6;
-  v39 = a7;
+  v37 = a7;
   v17 = a8;
   v18 = a9;
   if (IMOSLoggingEnabled())
@@ -2539,9 +2241,9 @@ void sub_22B630FE8(uint64_t a1, void *a2, int a3, void *a4, void *a5, void *a6, 
       }
 
       *buf = 138412546;
-      v41 = v20;
-      v42 = 2112;
-      v43 = v37;
+      v39 = v20;
+      v40 = 2112;
+      v41 = v35;
       _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, "MMS dictionary uploaded complected with success: %@ and error %@", buf, 0x16u);
     }
   }
@@ -2553,9 +2255,9 @@ void sub_22B630FE8(uint64_t a1, void *a2, int a3, void *a4, void *a5, void *a6, 
       CFDictionarySetValue(*(a1 + 32), IMDRelayMessageAttachmentDictionaryOwnerIDKey, value);
     }
 
-    if (v39)
+    if (v37)
     {
-      CFDictionarySetValue(*(a1 + 32), IMDRelayMessageAttachmentDictionarySignatureKey, v39);
+      CFDictionarySetValue(*(a1 + 32), IMDRelayMessageAttachmentDictionarySignatureKey, v37);
     }
 
     if (v17)
@@ -2580,35 +2282,32 @@ void sub_22B630FE8(uint64_t a1, void *a2, int a3, void *a4, void *a5, void *a6, 
       CFDictionarySetValue(*(a1 + 32), IMDRelayMessageItemDictionaryServiceKey, v22);
     }
 
-    v23 = *(a1 + 32);
-    v24 = JWEncodeDictionary();
-    if ([v24 length])
+    v23 = JWEncodeDictionary();
+    if ([v23 length])
     {
-      v25 = MEMORY[0x277CBEB38];
-      v26 = [MEMORY[0x277CCABB0] numberWithInteger:141];
-      v27 = [*(a1 + 48) objectForKey:IMDCTMessageDictionaryGUIDKey];
-      v28 = IDSGetUUIDData();
-      v29 = [MEMORY[0x277CCABB0] numberWithDouble:*MEMORY[0x277D18828]];
-      v30 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 96)];
-      v31 = [v25 dictionaryWithObjectsAndKeys:{*MEMORY[0x277D18660], MEMORY[0x277CBEC38], *MEMORY[0x277D18648], v26, *MEMORY[0x277D18588], v28, *MEMORY[0x277D18668], v24, *MEMORY[0x277D18598], v29, *MEMORY[0x277D18650], @"_SMSServiceRelayToWatchOnly", v30, 0}];
+      v24 = MEMORY[0x277CBEB38];
+      v25 = [MEMORY[0x277CCABB0] numberWithInteger:141];
+      v26 = [*(a1 + 48) objectForKey:IMDCTMessageDictionaryGUIDKey];
+      v27 = IDSGetUUIDData();
+      v28 = [MEMORY[0x277CCABB0] numberWithDouble:*MEMORY[0x277D18828]];
+      v29 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 96)];
+      v30 = [v24 dictionaryWithObjectsAndKeys:{*MEMORY[0x277D18660], MEMORY[0x277CBEC38], *MEMORY[0x277D18648], v25, *MEMORY[0x277D18588], v27, *MEMORY[0x277D18668], v23, *MEMORY[0x277D18598], v28, *MEMORY[0x277D18650], @"_SMSServiceRelayToWatchOnly", v29, 0}];
 
       if ([*(a1 + 56) count])
       {
-        [v31 setObject:*(a1 + 56) forKey:@"requiredCapabilitiesForSMSRelay"];
+        [v30 setObject:*(a1 + 56) forKey:@"requiredCapabilitiesForSMSRelay"];
       }
 
       if ([*(a1 + 64) count])
       {
-        [v31 setObject:*(a1 + 64) forKey:@"excludedCapabilitiesForSMSRelay"];
+        [v30 setObject:*(a1 + 64) forKey:@"excludedCapabilitiesForSMSRelay"];
       }
 
-      v32 = *(a1 + 72);
-      v33 = [*(a1 + 48) objectForKey:IMDCTMessageDictionaryGUIDKey];
-      [v32 sendDataToPeers:v31 guid:v33 forcedCallerID:*(a1 + 80) shouldFilterRecepients:1 requestProxySend:0 dontSendTo:*(a1 + 88) sentToDevices:0];
+      v31 = *(a1 + 72);
+      v32 = [*(a1 + 48) objectForKey:IMDCTMessageDictionaryGUIDKey];
+      [v31 sendDataToPeers:v30 guid:v32 forcedCallerID:*(a1 + 80) shouldFilterRecepients:1 requestProxySend:0 dontSendTo:*(a1 + 88) sentToDevices:0];
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_22B633BE0()
@@ -2618,16 +2317,17 @@ uint64_t sub_22B633BE0()
   return MEMORY[0x2821F96F8]();
 }
 
-void sub_22B634BC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_22B634BC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
+  va_start(va, a34);
   _Block_object_dispose(&a31, 8);
-  _Block_object_dispose(&a35, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_22B634C1C(uint64_t a1, uint64_t a2)
 {
-  v3 = sub_22B4DAEE8(a2);
+  v3 = sub_22B4DAEE8(a2, a2);
   if (v3)
   {
     [*(a1 + 32) addObject:v3];
@@ -2662,8 +2362,9 @@ void sub_22B634C78(uint64_t a1, void *a2)
   [v5 addObject:v9];
 }
 
-void sub_22B635080(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_22B635080(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   if (a2 == 1)
   {
     objc_begin_catch(exc_buf);
@@ -2671,7 +2372,7 @@ void sub_22B635080(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, i
     JUMPOUT(0x22B635034);
   }
 
-  _Block_object_dispose(&a15, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(exc_buf);
 }
 
@@ -2681,16 +2382,16 @@ void sub_22B6350C4(uint64_t a1, void *a2)
   *(*(*(a1 + 32) + 8) + 24) = [v3 unreadCount];
 }
 
-void sub_22B6357E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22B6357E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22B635960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22B635960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2718,23 +2419,23 @@ void sub_22B635B44(uint64_t a1)
   (*(v1 + 16))(v1, v2);
 }
 
-void sub_22B635E24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22B635E24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22B6361FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22B6361FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_22B636218(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   if (v7)
@@ -2744,9 +2445,9 @@ void sub_22B636218(uint64_t a1, void *a2, void *a3)
       v8 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        v12 = 138412290;
-        v13 = v7;
-        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Error copying chats from grouped handles: %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v7;
+        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Error copying chats from grouped handles: %@", &v11, 0xCu);
       }
     }
 
@@ -2759,8 +2460,6 @@ void sub_22B636218(uint64_t a1, void *a2, void *a3)
   {
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B63673C(uint64_t a1, void *a2, void *a3)
@@ -2787,7 +2486,7 @@ void sub_22B63673C(uint64_t a1, void *a2, void *a3)
 
 void sub_22B637520(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -2804,13 +2503,11 @@ void sub_22B637520(uint64_t a1, void *a2)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 32);
-      v8 = 138412290;
-      v9 = v6;
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Finished adding %@ to Spotlight", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Finished adding %@ to Spotlight", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_22B63A76C()
@@ -2822,7 +2519,7 @@ uint64_t sub_22B63A76C()
 
 void sub_22B63B1B4(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (IMOSLoggingEnabled())
@@ -2830,11 +2527,11 @@ void sub_22B63B1B4(uint64_t a1, void *a2, void *a3)
     v7 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v15 = 138412546;
-      v16 = v5;
-      v17 = 2112;
-      v18 = v6;
-      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Received ack: %@, metadata: %@", &v15, 0x16u);
+      v13 = 138412546;
+      v14 = v5;
+      v15 = 2112;
+      v16 = v6;
+      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Received ack: %@, metadata: %@", &v13, 0x16u);
     }
   }
 
@@ -2855,18 +2552,17 @@ void sub_22B63B1B4(uint64_t a1, void *a2, void *a3)
       }
 
       v11 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(*(a1 + 32), "messageID")}];
-      v15 = 138412546;
-      v16 = v10;
-      v17 = 2112;
-      v18 = v11;
-      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Message sent notification: success %@ messageID %@", &v15, 0x16u);
+      v13 = 138412546;
+      v14 = v10;
+      v15 = 2112;
+      v16 = v11;
+      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Message sent notification: success %@ messageID %@", &v13, 0x16u);
     }
   }
 
   if (*(a1 + 40))
   {
     v12 = *(a1 + 48);
-    v13 = *(a1 + 56);
     if (v8)
     {
       [v12 _processMessageSent:? forSession:?];
@@ -2877,8 +2573,6 @@ void sub_22B63B1B4(uint64_t a1, void *a2, void *a3)
       [v12 _processMessageSendFailure:? forSession:?];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B63B81C(_Unwind_Exception *a1, int a2)
@@ -2895,7 +2589,7 @@ void sub_22B63B81C(_Unwind_Exception *a1, int a2)
 
 void sub_22B63D948(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (IMOSLoggingEnabled())
@@ -2904,9 +2598,9 @@ void sub_22B63D948(uint64_t a1, void *a2, void *a3)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v29 = v5;
-      v30 = 2112;
-      v31 = v6;
+      v27 = v5;
+      v28 = 2112;
+      v29 = v6;
       _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Received ack: %@, metadata: %@", buf, 0x16u);
     }
   }
@@ -2929,9 +2623,9 @@ void sub_22B63D948(uint64_t a1, void *a2, void *a3)
 
       v11 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(*(a1 + 32), "messageID")}];
       *buf = 138412546;
-      v29 = v10;
-      v30 = 2112;
-      v31 = v11;
+      v27 = v10;
+      v28 = 2112;
+      v29 = v11;
       _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Message sent notification: success %@ messageID %@", buf, 0x16u);
     }
   }
@@ -2939,32 +2633,31 @@ void sub_22B63D948(uint64_t a1, void *a2, void *a3)
   if (*(a1 + 40))
   {
     v12 = *(a1 + 48);
-    v13 = *(a1 + 56);
     if (v8)
     {
       [v12 _processMessageSent:? forSession:?];
-      v14 = *(a1 + 72);
-      if (v14 == 8)
+      v13 = *(a1 + 72);
+      if (v13 == 8)
       {
-        v19 = *(a1 + 48);
-        v20 = +[IMDChorosController serviceTypeKey];
-        v21 = [MEMORY[0x277CCABB0] numberWithInteger:{*(a1 + 72), v20}];
-        v24[1] = *MEMORY[0x277CC42F0];
-        v25[0] = v21;
-        v25[1] = *(a1 + 64);
-        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
-        [v19 locationUpdateDelivered:v22];
+        v18 = *(a1 + 48);
+        v19 = +[IMDChorosController serviceTypeKey];
+        v20 = [MEMORY[0x277CCABB0] numberWithInteger:{*(a1 + 72), v19}];
+        v22[1] = *MEMORY[0x277CC42F0];
+        v23[0] = v20;
+        v23[1] = *(a1 + 64);
+        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
+        [v18 locationUpdateDelivered:v21];
       }
 
-      else if (v14 == 1)
+      else if (v13 == 1)
       {
-        v15 = *(a1 + 48);
-        v16 = +[IMDChorosController serviceTypeKey];
-        v26 = v16;
-        v17 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 72)];
-        v27 = v17;
-        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
-        [v15 locationUpdateDelivered:v18];
+        v14 = *(a1 + 48);
+        v15 = +[IMDChorosController serviceTypeKey];
+        v24 = v15;
+        v16 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 72)];
+        v25 = v16;
+        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+        [v14 locationUpdateDelivered:v17];
       }
     }
 
@@ -2973,13 +2666,11 @@ void sub_22B63D948(uint64_t a1, void *a2, void *a3)
       [v12 _processMessageSendFailure:? forSession:?];
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B63E080(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   if (IMOSLoggingEnabled())
@@ -2987,11 +2678,11 @@ void sub_22B63E080(uint64_t a1, void *a2, void *a3)
     v6 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v11 = 138412546;
-      v12 = v4;
-      v13 = 2112;
-      v14 = v5;
-      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Received ack: %@, metadata: %@", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = v4;
+      v12 = 2112;
+      v13 = v5;
+      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Received ack: %@, metadata: %@", &v10, 0x16u);
     }
   }
 
@@ -3007,13 +2698,11 @@ void sub_22B63E080(uint64_t a1, void *a2, void *a3)
         v9 = @"YES";
       }
 
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Message sent notification: success %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Message sent notification: success %@", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_22B63FD14()
@@ -3035,28 +2724,28 @@ void sub_22B6411EC(uint64_t a1)
 
 Class sub_22B641334(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!qword_27D8CFFA0)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = sub_22B641460;
-    v4[4] = &unk_278702AF8;
-    v4[5] = v4;
-    v5 = xmmword_278706C40;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = sub_22B641460;
+    v3[4] = &unk_278702AF8;
+    v3[5] = v3;
+    v4 = xmmword_278706C40;
+    v5 = 0;
     qword_27D8CFFA0 = _sl_dlopen();
   }
 
   if (!qword_27D8CFFA0)
   {
-    sub_22B7D7D70(v4);
+    sub_22B7D7D70(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("DMFEmergencyModeMonitor");
@@ -3067,17 +2756,13 @@ Class sub_22B641334(uint64_t a1)
   }
 
   qword_27D8CFF98 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t sub_22B641460(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_27D8CFFA0 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3107,7 +2792,7 @@ void sub_22B641648(uint64_t a1, void *a2)
 
 void sub_22B641778(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state])
   {
@@ -3128,9 +2813,9 @@ void sub_22B641778(uint64_t a1, void *a2)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = [v6 GUID];
-        v12 = 138412290;
-        v13 = v8;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing delivery receipt %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v8;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing delivery receipt %@", &v11, 0xCu);
       }
     }
 
@@ -3146,8 +2831,6 @@ void sub_22B641778(uint64_t a1, void *a2)
   {
     (*(v10 + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B641A64(uint64_t a1, void *a2)
@@ -3176,7 +2859,7 @@ void sub_22B641A64(uint64_t a1, void *a2)
 
 void sub_22B641B94(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state])
   {
@@ -3197,9 +2880,9 @@ void sub_22B641B94(uint64_t a1, void *a2)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = [v6 GUID];
-        v12 = 138412290;
-        v13 = v8;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing chat session close %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v8;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing chat session close %@", &v11, 0xCu);
       }
     }
 
@@ -3215,8 +2898,6 @@ void sub_22B641B94(uint64_t a1, void *a2)
   {
     (*(v10 + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B641EB4(uint64_t a1, void *a2)
@@ -3245,7 +2926,7 @@ void sub_22B641EB4(uint64_t a1, void *a2)
 
 void sub_22B641FE4(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state])
   {
@@ -3272,9 +2953,9 @@ void sub_22B641FE4(uint64_t a1, void *a2)
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         v9 = [v6 GUID];
-        v13 = 138412290;
-        v14 = v9;
-        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Finished processing read receipt %@", &v13, 0xCu);
+        v12 = 138412290;
+        v13 = v9;
+        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Finished processing read receipt %@", &v12, 0xCu);
       }
     }
 
@@ -3290,8 +2971,6 @@ void sub_22B641FE4(uint64_t a1, void *a2)
   {
     (*(v11 + 16))();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B642300(uint64_t a1, void *a2)
@@ -3320,7 +2999,7 @@ void sub_22B642300(uint64_t a1, void *a2)
 
 void sub_22B642430(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state])
   {
@@ -3341,9 +3020,9 @@ void sub_22B642430(uint64_t a1, void *a2)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = [v6 GUID];
-        v12 = 138412290;
-        v13 = v8;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing mark unread request %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v8;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing mark unread request %@", &v11, 0xCu);
       }
     }
 
@@ -3359,8 +3038,6 @@ void sub_22B642430(uint64_t a1, void *a2)
   {
     (*(v10 + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B64271C(uint64_t a1, void *a2)
@@ -3389,7 +3066,7 @@ void sub_22B64271C(uint64_t a1, void *a2)
 
 void sub_22B64284C(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state])
   {
@@ -3410,9 +3087,9 @@ void sub_22B64284C(uint64_t a1, void *a2)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = [v6 GUID];
-        v12 = 138412290;
-        v13 = v8;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing played receipt %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v8;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing played receipt %@", &v11, 0xCu);
       }
     }
 
@@ -3428,8 +3105,6 @@ void sub_22B64284C(uint64_t a1, void *a2)
   {
     (*(v10 + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B642B38(uint64_t a1, void *a2)
@@ -3458,7 +3133,7 @@ void sub_22B642B38(uint64_t a1, void *a2)
 
 void sub_22B642C68(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state])
   {
@@ -3479,9 +3154,9 @@ void sub_22B642C68(uint64_t a1, void *a2)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = [v6 GUID];
-        v12 = 138412290;
-        v13 = v8;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing delivered quietly receipt %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v8;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing delivered quietly receipt %@", &v11, 0xCu);
       }
     }
 
@@ -3497,8 +3172,6 @@ void sub_22B642C68(uint64_t a1, void *a2)
   {
     (*(v10 + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B642F54(uint64_t a1, void *a2)
@@ -3527,7 +3200,7 @@ void sub_22B642F54(uint64_t a1, void *a2)
 
 void sub_22B643084(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state])
   {
@@ -3548,9 +3221,9 @@ void sub_22B643084(uint64_t a1, void *a2)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = [v6 GUID];
-        v12 = 138412290;
-        v13 = v8;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing notify recipient command %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v8;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing notify recipient command %@", &v11, 0xCu);
       }
     }
 
@@ -3566,8 +3239,6 @@ void sub_22B643084(uint64_t a1, void *a2)
   {
     (*(v10 + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B643370(uint64_t a1, void *a2)
@@ -3596,7 +3267,7 @@ void sub_22B643370(uint64_t a1, void *a2)
 
 void sub_22B6434A0(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state])
   {
@@ -3617,9 +3288,9 @@ void sub_22B6434A0(uint64_t a1, void *a2)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = [v6 editCommandGUID];
-        v12 = 138412290;
-        v13 = v8;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing edit message command %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v8;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing edit message command %@", &v11, 0xCu);
       }
     }
 
@@ -3635,8 +3306,6 @@ void sub_22B6434A0(uint64_t a1, void *a2)
   {
     (*(v10 + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B64378C(uint64_t a1, void *a2)
@@ -3665,7 +3334,7 @@ void sub_22B64378C(uint64_t a1, void *a2)
 
 void sub_22B6438BC(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state])
   {
@@ -3686,9 +3355,9 @@ void sub_22B6438BC(uint64_t a1, void *a2)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = [v6 GUID];
-        v12 = 138412290;
-        v13 = v8;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing recover junk command %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v8;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing recover junk command %@", &v11, 0xCu);
       }
     }
 
@@ -3704,8 +3373,6 @@ void sub_22B6438BC(uint64_t a1, void *a2)
   {
     (*(v10 + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B643BA8(uint64_t a1, void *a2)
@@ -3734,7 +3401,7 @@ void sub_22B643BA8(uint64_t a1, void *a2)
 
 void sub_22B643CD8(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state])
   {
@@ -3755,9 +3422,9 @@ void sub_22B643CD8(uint64_t a1, void *a2)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = [v6 GUID];
-        v12 = 138412290;
-        v13 = v8;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished reposition sticker command %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v8;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished reposition sticker command %@", &v11, 0xCu);
       }
     }
 
@@ -3773,8 +3440,6 @@ void sub_22B643CD8(uint64_t a1, void *a2)
   {
     (*(v10 + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B643FC4(uint64_t a1, void *a2)
@@ -3803,7 +3468,7 @@ void sub_22B643FC4(uint64_t a1, void *a2)
 
 void sub_22B6440F4(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state])
   {
@@ -3824,9 +3489,9 @@ void sub_22B6440F4(uint64_t a1, void *a2)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = [v6 GUID];
-        v12 = 138412290;
-        v13 = v8;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished scheduled message update command %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v8;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished scheduled message update command %@", &v11, 0xCu);
       }
     }
 
@@ -3842,8 +3507,6 @@ void sub_22B6440F4(uint64_t a1, void *a2)
   {
     (*(v10 + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B6443E0(uint64_t a1, void *a2)
@@ -3872,7 +3535,7 @@ void sub_22B6443E0(uint64_t a1, void *a2)
 
 void sub_22B644510(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state])
   {
@@ -3893,9 +3556,9 @@ void sub_22B644510(uint64_t a1, void *a2)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = [v6 GUID];
-        v12 = 138412290;
-        v13 = v8;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished iml to im association command %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v8;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished iml to im association command %@", &v11, 0xCu);
       }
     }
 
@@ -3911,8 +3574,6 @@ void sub_22B644510(uint64_t a1, void *a2)
   {
     (*(v10 + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B6447FC(uint64_t a1, void *a2)
@@ -3941,7 +3602,7 @@ void sub_22B6447FC(uint64_t a1, void *a2)
 
 void sub_22B64492C(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state])
   {
@@ -3962,9 +3623,9 @@ void sub_22B64492C(uint64_t a1, void *a2)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = [v6 GUID];
-        v12 = 138412290;
-        v13 = v8;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing accept chat command %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v8;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing accept chat command %@", &v11, 0xCu);
       }
     }
 
@@ -3980,8 +3641,6 @@ void sub_22B64492C(uint64_t a1, void *a2)
   {
     (*(v10 + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B644C18(uint64_t a1, void *a2)
@@ -4010,7 +3669,7 @@ void sub_22B644C18(uint64_t a1, void *a2)
 
 void sub_22B644D48(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state])
   {
@@ -4030,9 +3689,9 @@ void sub_22B644D48(uint64_t a1, void *a2)
       v7 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        v11 = 138412290;
-        v12 = v6;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing transcript background command %@", &v11, 0xCu);
+        v10 = 138412290;
+        v11 = v6;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing transcript background command %@", &v10, 0xCu);
       }
     }
 
@@ -4048,8 +3707,6 @@ void sub_22B644D48(uint64_t a1, void *a2)
   {
     (*(v9 + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B645014(uint64_t a1, void *a2)
@@ -4078,7 +3735,7 @@ void sub_22B645014(uint64_t a1, void *a2)
 
 void sub_22B645144(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state])
   {
@@ -4099,9 +3756,9 @@ void sub_22B645144(uint64_t a1, void *a2)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = [v6 GUID];
-        v12 = 138412290;
-        v13 = v8;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing junk chat command %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v8;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing junk chat command %@", &v11, 0xCu);
       }
     }
 
@@ -4117,8 +3774,6 @@ void sub_22B645144(uint64_t a1, void *a2)
   {
     (*(v10 + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B645430(uint64_t a1, void *a2)
@@ -4147,7 +3802,7 @@ void sub_22B645430(uint64_t a1, void *a2)
 
 void sub_22B645560(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state])
   {
@@ -4168,9 +3823,9 @@ void sub_22B645560(uint64_t a1, void *a2)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = [v6 GUID];
-        v12 = 138412290;
-        v13 = v8;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing priority message command %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v8;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing priority message command %@", &v11, 0xCu);
       }
     }
 
@@ -4186,8 +3841,6 @@ void sub_22B645560(uint64_t a1, void *a2)
   {
     (*(v10 + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B64584C(uint64_t a1, void *a2)
@@ -4216,7 +3869,7 @@ void sub_22B64584C(uint64_t a1, void *a2)
 
 void sub_22B64597C(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state])
   {
@@ -4237,9 +3890,9 @@ void sub_22B64597C(uint64_t a1, void *a2)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = [v6 GUID];
-        v12 = 138412290;
-        v13 = v8;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing mark as reviewed command %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v8;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing mark as reviewed command %@", &v11, 0xCu);
       }
     }
 
@@ -4255,8 +3908,6 @@ void sub_22B64597C(uint64_t a1, void *a2)
   {
     (*(v10 + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B645D38(_Unwind_Exception *a1, int a2)
@@ -4273,7 +3924,7 @@ void sub_22B645D38(_Unwind_Exception *a1, int a2)
 
 void sub_22B645D6C(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (IMOSLoggingEnabled())
   {
@@ -4282,7 +3933,7 @@ void sub_22B645D6C(uint64_t a1, void *a2)
     {
       v5 = [*(a1 + 32) GUID];
       *buf = 138412290;
-      v26 = v5;
+      v25 = v5;
       _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Starting message pipeline (%@)", buf, 0xCu);
     }
   }
@@ -4294,7 +3945,7 @@ void sub_22B645D6C(uint64_t a1, void *a2)
     {
       v7 = qos_class_self();
       *buf = 67109120;
-      LODWORD(v26) = v7;
+      LODWORD(v25) = v7;
       _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Starting message qos is (%u)", buf, 8u);
     }
   }
@@ -4316,22 +3967,20 @@ void sub_22B645D6C(uint64_t a1, void *a2)
   }
 
   v13 = [*(a1 + 48) runWithInput:*(a1 + 32)];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = sub_22B64602C;
-  v18[3] = &unk_278706CB0;
-  v19 = *(a1 + 32);
-  v23 = v11;
-  v21 = *(a1 + 56);
-  v22 = v3;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = sub_22B64602C;
+  v17[3] = &unk_278706CB0;
+  v18 = *(a1 + 32);
+  v22 = v11;
+  v20 = *(a1 + 56);
+  v21 = v3;
   v14 = *(a1 + 40);
   v15 = *(a1 + 64);
-  v20 = v14;
-  v24 = v15;
+  v19 = v14;
+  v23 = v15;
   v16 = v3;
-  [v13 registerCompletionBlock:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  [v13 registerCompletionBlock:v17];
 }
 
 void sub_22B645FF8(_Unwind_Exception *a1, int a2)
@@ -4348,7 +3997,7 @@ void sub_22B645FF8(_Unwind_Exception *a1, int a2)
 
 void sub_22B64602C(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state])
   {
@@ -4369,9 +4018,9 @@ void sub_22B64602C(uint64_t a1, void *a2)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = [v6 GUID];
-        v22 = 138412290;
-        v23 = v8;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing message %@", &v22, 0xCu);
+        v21 = 138412290;
+        v22 = v8;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing message %@", &v21, 0xCu);
       }
     }
 
@@ -4381,9 +4030,9 @@ void sub_22B64602C(uint64_t a1, void *a2)
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         v10 = qos_class_self();
-        v22 = 67109120;
-        LODWORD(v23) = v10;
-        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Finished message qos is (%u)", &v22, 8u);
+        v21 = 67109120;
+        LODWORD(v22) = v10;
+        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Finished message qos is (%u)", &v21, 8u);
       }
     }
 
@@ -4398,11 +4047,11 @@ void sub_22B64602C(uint64_t a1, void *a2)
         if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           v15 = [v6 GUID];
-          v22 = 138412546;
-          v23 = v15;
-          v24 = 2048;
-          v25 = v12 - v13;
-          _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "From-storage message %@ took %f seconds to process", &v22, 0x16u);
+          v21 = 138412546;
+          v22 = v15;
+          v23 = 2048;
+          v24 = v12 - v13;
+          _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "From-storage message %@ took %f seconds to process", &v21, 0x16u);
         }
       }
     }
@@ -4425,11 +4074,9 @@ void sub_22B64602C(uint64_t a1, void *a2)
   v20 = *(a1 + 72);
   if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
-    LOWORD(v22) = 0;
-    _os_signpost_emit_with_name_impl(&dword_22B4CC000, v19, OS_SIGNPOST_INTERVAL_END, v20, "receivePipeline", "", &v22, 2u);
+    LOWORD(v21) = 0;
+    _os_signpost_emit_with_name_impl(&dword_22B4CC000, v19, OS_SIGNPOST_INTERVAL_END, v20, "receivePipeline", "", &v21, 2u);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B6464B0(uint64_t a1, void *a2)
@@ -4458,7 +4105,7 @@ void sub_22B6464B0(uint64_t a1, void *a2)
 
 void sub_22B6465E0(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state])
   {
@@ -4479,9 +4126,9 @@ void sub_22B6465E0(uint64_t a1, void *a2)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = [v6 syndicationAction];
-        v12 = 138412290;
-        v13 = v8;
-        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing SyndicationAction %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v8;
+        _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished processing SyndicationAction %@", &v11, 0xCu);
       }
     }
 
@@ -4497,8 +4144,6 @@ void sub_22B6465E0(uint64_t a1, void *a2)
   {
     (*(v10 + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 IMDLocationSharingController *sub_22B64679C()
@@ -4530,7 +4175,7 @@ void sub_22B646B78(uint64_t a1, uint64_t a2, void *a3)
 
 uint64_t sub_22B646C20(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   Weak = objc_loadWeak((a1 + 40));
   if (IMOSLoggingEnabled())
   {
@@ -4539,11 +4184,11 @@ uint64_t sub_22B646C20(uint64_t a1)
     {
       v4 = *(a1 + 32);
       v5 = *(a1 + 48);
-      v11 = 138412546;
-      v12 = v4;
-      v13 = 2048;
-      v14 = v5;
-      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "FindMyLocateSession friendShipUpdateCallback. updateFriend: %@, updateType: %lu", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = v4;
+      v12 = 2048;
+      v13 = v5;
+      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "FindMyLocateSession friendShipUpdateCallback. updateFriend: %@, updateType: %lu", &v10, 0x16u);
     }
   }
 
@@ -4559,9 +4204,7 @@ uint64_t sub_22B646C20(uint64_t a1)
     v8 = 0;
   }
 
-  result = [Weak _postFMLFriendshipChangeForHandleID:v8 handleType:objc_msgSend(*(a1 + 32) updateType:"handleType") isFromMessages:{*(a1 + 48), v6}];
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return [Weak _postFMLFriendshipChangeForHandleID:v8 handleType:objc_msgSend(*(a1 + 32) updateType:"handleType") isFromMessages:{*(a1 + 48), v6}];
 }
 
 void sub_22B646E70(uint64_t a1, uint64_t a2)
@@ -4586,39 +4229,38 @@ void sub_22B646E70(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_22B6475B4(uint64_t a1, void *a2)
+void *sub_22B6475B4(uint64_t a1, void *a2)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = [a2 firstObject];
   result = [+[IMDChatRegistry sharedInstance](IMDChatRegistry addItem:"addItem:toChat:" toChat:*(a1 + 32), *(a1 + 40)];
-  if (!v3)
+  if (v3)
   {
-    v11 = +[IMDChatRegistry sharedInstance];
-    v13[0] = [*(a1 + 32) guid];
-    result = -[IMDChatRegistry moveMessagesWithGUIDsToRecentlyDeleted:deleteDate:](v11, "moveMessagesWithGUIDsToRecentlyDeleted:deleteDate:", [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1], objc_msgSend(*(a1 + 32), "time"));
-    goto LABEL_7;
+    if (*(a1 + 48) == 1)
+    {
+      v5 = -[IMDBroadcasterProviding broadcasterForChatListenersUsingBlackholeRegistry:](+[IMDBroadcastController sharedProvider](IMDBroadcastController, "sharedProvider"), "broadcasterForChatListenersUsingBlackholeRegistry:", [*(a1 + 40) isBlackholed]);
+      v6 = [*(a1 + 40) accountID];
+      v7 = [*(a1 + 40) chatIdentifier];
+      v8 = [*(a1 + 40) style];
+      v9 = *(a1 + 32);
+
+      return [v5 account:v6 chat:v7 style:v8 messageUpdated:v9];
+    }
   }
 
-  if (*(a1 + 48) != 1)
+  else
   {
-LABEL_7:
-    v12 = *MEMORY[0x277D85DE8];
-    return result;
+    v10 = +[IMDChatRegistry sharedInstance];
+    v11[0] = [*(a1 + 32) guid];
+    return -[IMDChatRegistry moveMessagesWithGUIDsToRecentlyDeleted:deleteDate:](v10, "moveMessagesWithGUIDsToRecentlyDeleted:deleteDate:", [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1], objc_msgSend(*(a1 + 32), "time"));
   }
 
-  v5 = -[IMDBroadcasterProviding broadcasterForChatListenersUsingBlackholeRegistry:](+[IMDBroadcastController sharedProvider](IMDBroadcastController, "sharedProvider"), "broadcasterForChatListenersUsingBlackholeRegistry:", [*(a1 + 40) isBlackholed]);
-  v6 = [*(a1 + 40) accountID];
-  v7 = [*(a1 + 40) chatIdentifier];
-  v8 = [*(a1 + 40) style];
-  v9 = *(a1 + 32);
-  v10 = *MEMORY[0x277D85DE8];
-
-  return [v5 account:v6 chat:v7 style:v8 messageUpdated:v9];
+  return result;
 }
 
-void sub_22B647DB8(uint64_t a1, int a2)
+void sub_22B647DB8(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = IMLocationLogHandle();
@@ -4627,9 +4269,9 @@ void sub_22B647DB8(uint64_t a1, int a2)
       v4 = *(a1 + 32);
       v5 = [*(a1 + 40) identifier];
       *buf = 138412546;
-      v14 = v4;
-      v15 = 2112;
-      v16 = v5;
+      v13 = v4;
+      v14 = 2112;
+      v15 = v5;
       _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_DEFAULT, " ** Sent location sharing payload: %@  to ID: %@", buf, 0x16u);
     }
   }
@@ -4646,30 +4288,26 @@ void sub_22B647DB8(uint64_t a1, int a2)
       v10 = *(a1 + 32);
       v11 = [*(a1 + 40) identifier];
       *buf = 138412546;
-      v14 = v10;
-      v15 = 2112;
-      v16 = v11;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v11;
       _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_DEFAULT, " ** Could not send location sharing payload: %@  to ID: %@ - immediately failed.", buf, 0x16u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B64810C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = IMLocationLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
-    v8 = a2;
-    v9 = 2112;
-    v10 = a3;
-    _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_DEFAULT, "Mapping packet ingested by FMF: responseID %@ error %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = a2;
+    v8 = 2112;
+    v9 = a3;
+    _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_DEFAULT, "Mapping packet ingested by FMF: responseID %@ error %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_22B648C44()
@@ -4681,30 +4319,30 @@ uint64_t sub_22B648C44()
 
 void sub_22B649250(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) _chatRegistry];
   v4 = [v3 messagesToUploadToCloudKitWithLimit:{objc_msgSend(*v2, "_numberOfMessagesToUpload")}];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   obj = v4;
-  v5 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v5 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v5)
   {
-    v6 = *v27;
+    v6 = *v26;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v27 != v6)
+        if (*v26 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v26 + 1) + 8 * i);
+        v8 = *(*(&v25 + 1) + 8 * i);
         v9 = objc_autoreleasePoolPush();
         v10 = [*(a1 + 32) _messageZoneID];
         v11 = [*(a1 + 32) _messageRecordSalt];
@@ -4719,7 +4357,7 @@ void sub_22B649250(uint64_t a1)
             {
               v20 = [v8 guid];
               *buf = 138412290;
-              v31 = v20;
+              v30 = v20;
               _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, "**** Message [%@] could not be converted to CKRecord, marking it as clean and moving on.", buf, 0xCu);
             }
           }
@@ -4741,7 +4379,7 @@ void sub_22B649250(uint64_t a1)
               v22 = [v12 objectAtIndexedSubscript:0];
               v23 = [v22 _stringForKey:@"guid"];
               *buf = 138412290;
-              v31 = v23;
+              v30 = v23;
               _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "**** Message %@ is too big. Marking it as clean and moving on", buf, 0xCu);
             }
           }
@@ -4770,18 +4408,16 @@ LABEL_21:
         objc_autoreleasePoolPop(v9);
       }
 
-      v5 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v5 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
     }
 
     while (v5);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B6497B8(uint64_t a1, char a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = a3;
   *(*(*(a1 + 40) + 8) + 24) = a2;
   if ((*(*(*(a1 + 40) + 8) + 24) & 1) == 0 && IMOSLoggingEnabled())
@@ -4789,15 +4425,13 @@ void sub_22B6497B8(uint64_t a1, char a2, void *a3)
     v6 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v8 = 138412290;
-      v9 = v5;
-      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Error creating message zone %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Error creating message zone %@", &v7, 0xCu);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_22B649E4C(uint64_t a1)
@@ -4813,7 +4447,7 @@ uint64_t sub_22B649E4C(uint64_t a1)
 
 void sub_22B649EAC(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setRecordsWriteFailed:{objc_msgSend(*(a1 + 32), "recordsWriteFailed") + 1}];
   v2 = [*(a1 + 32) _ckUtilitiesInstance];
   v3 = [v2 extractServerRecordFromCKServerErrorRecordChanged:*(a1 + 40)];
@@ -4841,18 +4475,16 @@ void sub_22B649EAC(uint64_t a1)
         v12 = [v11 recordName];
         v13 = [*(a1 + 48) recordID];
         v14 = [v13 recordName];
-        v16 = 138412546;
-        v17 = v12;
-        v18 = 2112;
-        v19 = v14;
-        _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Conflicting serverRecord was different than the one being updated (server: %@, local: %@)", &v16, 0x16u);
+        v15 = 138412546;
+        v16 = v12;
+        v17 = 2112;
+        v18 = v14;
+        _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Conflicting serverRecord was different than the one being updated (server: %@, local: %@)", &v15, 0x16u);
       }
     }
 
     [MEMORY[0x277D1AA28] resetSyncStateForMessage:*(a1 + 48) toState:2];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_22B64A0B8(uint64_t a1)
@@ -4891,17 +4523,9 @@ uint64_t sub_22B64A1C0(uint64_t a1)
   return [v2 resetSyncStateForMessage:v3 toState:2];
 }
 
-uint64_t sub_22B64AC38(uint64_t a1)
-{
-  v1 = *(a1 + 56);
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 48);
-  return MEMORY[0x2821F9670](*(a1 + 32), sel__processModifyRecordsCompletion_deletedRecordIDs_operationError_isLastBatchOfWrite_activity_writeCompletionBlock_);
-}
-
 void sub_22B64ADC4(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = a1 + 32;
   [*(a1 + 32) setRecordsRead:{objc_msgSend(*(a1 + 32), "recordsRead") + 1}];
   v3 = [*(v2 + 8) _stringForKey:@"chatID"];
@@ -4930,11 +4554,11 @@ void sub_22B64ADC4(uint64_t a1)
       v12 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v15 = 138412546;
-        v16 = v3;
-        v17 = 1024;
-        v18 = [v11 intValue];
-        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Found parentChatID: %@, updatedLastMessageCount: %d", &v15, 0x12u);
+        v14 = 138412546;
+        v15 = v3;
+        v16 = 1024;
+        v17 = [v11 intValue];
+        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Found parentChatID: %@, updatedLastMessageCount: %d", &v14, 0x12u);
       }
     }
 
@@ -4947,8 +4571,6 @@ void sub_22B64ADC4(uint64_t a1)
     v10 = [v4 _chatRegistry];
     [v10 processMessageUsingCKRecord:*(a1 + 40)];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B64B16C(_Unwind_Exception *a1, int a2)
@@ -4985,148 +4607,144 @@ uint64_t sub_22B64BD18(uint64_t a1)
   return [v3 setLatestSyncToken:0];
 }
 
-void sub_22B64BEC0(uint64_t a1)
+void sub_22B64BEC0(uint64_t a1, uint64_t a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       if (*(a1 + 88))
       {
-        v3 = @"YES";
+        v4 = @"YES";
       }
 
       else
       {
-        v3 = @"NO";
+        v4 = @"NO";
       }
 
-      v4 = *(a1 + 32);
-      v5 = *(a1 + 40);
+      v5 = *(a1 + 32);
+      v6 = *(a1 + 40);
       *buf = 138412802;
+      v31 = v5;
+      v32 = 2112;
       v33 = v4;
       v34 = 2112;
-      v35 = v3;
-      v36 = 2112;
-      v37 = v5;
-      _os_log_impl(&dword_22B4CC000, v2, OS_LOG_TYPE_INFO, "processArchivedRecordsFetchCompletionZoneID serverChangeToken %@ moreComing %@ recordZoneError %@", buf, 0x20u);
+      v35 = v6;
+      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "processArchivedRecordsFetchCompletionZoneID serverChangeToken %@ moreComing %@ recordZoneError %@", buf, 0x20u);
     }
   }
 
-  v6 = *(a1 + 48);
+  v7 = *(a1 + 48);
   if (*(a1 + 40))
   {
-    v7 = [v6 errorAnalyzer];
-    v8 = [v7 CKPartialError:*(a1 + 40) hasErrorCode:&unk_283F4EC18];
+    v8 = [v7 errorAnalyzer];
+    v9 = [v8 CKPartialError:*(a1 + 40) hasErrorCode:&unk_283F4EC18];
 
-    v9 = IMOSLoggingEnabled();
-    if (v8)
+    v10 = IMOSLoggingEnabled();
+    if (v9)
     {
-      if (v9)
+      if (v10)
       {
-        v10 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+        v11 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Record Zone Error says that the change token has expired", buf, 2u);
+          _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Record Zone Error says that the change token has expired", buf, 2u);
         }
       }
 
       [*(a1 + 48) _resetArvchivedRecordSyncToken];
-      v11 = [*(a1 + 48) ckQueue];
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = sub_22B64C38C;
-      v24[3] = &unk_278706DC0;
-      v24[4] = *(a1 + 48);
-      v27 = *(a1 + 72);
-      v25 = *(a1 + 56);
-      v26 = *(a1 + 64);
-      dispatch_async(v11, v24);
+      v12 = [*(a1 + 48) ckQueue];
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = sub_22B64C38C;
+      v22[3] = &unk_278706DC0;
+      v22[4] = *(a1 + 48);
+      v25 = *(a1 + 72);
+      v23 = *(a1 + 56);
+      v24 = *(a1 + 64);
+      dispatch_async(v12, v22);
     }
 
     else
     {
-      if (v9)
+      if (v10)
       {
-        v16 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+        v17 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
-          v17 = *(a1 + 40);
+          v18 = *(a1 + 40);
           *buf = 138412290;
-          v33 = v17;
-          _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "//---** Error fetching archived messages: %@", buf, 0xCu);
+          v31 = v18;
+          _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "//---** Error fetching archived messages: %@", buf, 0xCu);
         }
       }
 
-      v18 = *(a1 + 64);
-      if (v18)
+      v19 = *(a1 + 64);
+      if (v19)
       {
-        (*(v18 + 16))(v18, 0, 0, *(a1 + 40));
+        (*(v19 + 16))(v19, 0, 0, *(a1 + 40));
       }
     }
   }
 
   else
   {
-    [v6 setArchivedRecordSyncToken:*(a1 + 32)];
-    v12 = *(a1 + 88);
-    v13 = IMOSLoggingEnabled();
-    if (v12)
+    [v7 setArchivedRecordSyncToken:*(a1 + 32)];
+    v13 = *(a1 + 88);
+    v14 = IMOSLoggingEnabled();
+    if (v13)
     {
-      if (v13)
+      if (v14)
       {
-        v14 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+        v15 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "There are more changes to fetch from archived zone. Kicking off another batch of fetching", buf, 2u);
+          _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "There are more changes to fetch from archived zone. Kicking off another batch of fetching", buf, 2u);
         }
       }
 
-      v15 = [*(a1 + 48) ckQueue];
+      v16 = [*(a1 + 48) ckQueue];
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = sub_22B64C370;
       block[3] = &unk_278706DC0;
       block[4] = *(a1 + 48);
-      v31 = *(a1 + 72);
-      v29 = *(a1 + 56);
-      v30 = *(a1 + 64);
-      dispatch_async(v15, block);
+      v29 = *(a1 + 72);
+      v27 = *(a1 + 56);
+      v28 = *(a1 + 64);
+      dispatch_async(v16, block);
     }
 
     else
     {
-      if (v13)
+      if (v14)
       {
-        v19 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+        v20 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, "No more archived records to fetch. Resetting defaults to fetch archived records", buf, 2u);
+          _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "No more archived records to fetch. Resetting defaults to fetch archived records", buf, 2u);
         }
       }
 
-      v20 = *MEMORY[0x277D19A08];
-      v21 = *MEMORY[0x277D19BE0];
       IMSetDomainBoolForKey();
-      v22 = *(a1 + 64);
-      if (v22)
+      v21 = *(a1 + 64);
+      if (v21)
       {
-        (*(v22 + 16))(v22, 1, 1, 0);
+        (*(v21 + 16))(v21, 1, 1, 0);
       }
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B64C940(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (IMOSLoggingEnabled())
   {
@@ -5135,17 +4753,15 @@ void sub_22B64C940(uint64_t a1, void *a2)
     {
       v5 = [v3 recordID];
       v6 = [v3 _stringForKey:@"guid"];
-      v8 = 138412546;
-      v9 = v5;
-      v10 = 2112;
-      v11 = v6;
-      _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Fetch archived record %@ guid %@", &v8, 0x16u);
+      v7 = 138412546;
+      v8 = v5;
+      v9 = 2112;
+      v10 = v6;
+      _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Fetch archived record %@ guid %@", &v7, 0x16u);
     }
   }
 
   [*(a1 + 32) _processRecordChange:v3];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B64CA80(uint64_t a1, void *a2, void *a3)
@@ -5163,51 +4779,51 @@ void sub_22B64CA80(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_22B64CE54(uint64_t a1)
+void sub_22B64CE54(uint64_t a1, uint64_t a2)
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       if (*(a1 + 96))
       {
-        v3 = @"YES";
+        v4 = @"YES";
       }
 
       else
       {
-        v3 = @"NO";
+        v4 = @"NO";
       }
 
-      v5 = *(a1 + 32);
-      v4 = *(a1 + 40);
+      v6 = *(a1 + 32);
+      v5 = *(a1 + 40);
       if (*(a1 + 97))
       {
-        v6 = @"YES";
+        v7 = @"YES";
       }
 
       else
       {
-        v6 = @"NO";
+        v7 = @"NO";
       }
 
-      v7 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 72)];
-      v8 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 80)];
+      v8 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 72)];
+      v9 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 80)];
       *buf = 138413570;
+      v50 = v6;
+      v51 = 2112;
+      v52 = v4;
+      v53 = 2112;
       v54 = v5;
       v55 = 2112;
-      v56 = v3;
+      v56 = v7;
       v57 = 2112;
-      v58 = v4;
+      v58 = v8;
       v59 = 2112;
-      v60 = v6;
-      v61 = 2112;
-      v62 = v7;
-      v63 = 2112;
-      v64 = v8;
-      _os_log_impl(&dword_22B4CC000, v2, OS_LOG_TYPE_INFO, "recordZoneFetchCompletionBlock serverChangeToken %@ moreComing %@ recordZoneError %@ archivedRecordsHintIsPresent %@, currentBatchCount %@ maxNumberOfBatches:%@", buf, 0x3Eu);
+      v60 = v9;
+      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "recordZoneFetchCompletionBlock serverChangeToken %@ moreComing %@ recordZoneError %@ archivedRecordsHintIsPresent %@, currentBatchCount %@ maxNumberOfBatches:%@", buf, 0x3Eu);
     }
   }
 
@@ -5215,101 +4831,99 @@ void sub_22B64CE54(uint64_t a1)
   {
     if (IMOSLoggingEnabled())
     {
-      v9 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v10 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Setting shouldFetchArchivedRecords to true", buf, 2u);
+        _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Setting shouldFetchArchivedRecords to true", buf, 2u);
       }
     }
 
-    v10 = *MEMORY[0x277D19A08];
-    v11 = *MEMORY[0x277D19BE0];
     IMSetDomainBoolForKey();
   }
 
-  v12 = [*(a1 + 48) errorAnalyzer];
-  v13 = [v12 errorIndicatesZoneNotCreated:*(a1 + 40)];
+  v11 = [*(a1 + 48) errorAnalyzer];
+  v12 = [v11 errorIndicatesZoneNotCreated:*(a1 + 40)];
 
-  v14 = [*(a1 + 48) errorAnalyzer];
-  v15 = [v14 errorIndicatesUserDeletedZone:*(a1 + 40)];
+  v13 = [*(a1 + 48) errorAnalyzer];
+  v14 = [v13 errorIndicatesUserDeletedZone:*(a1 + 40)];
 
-  v16 = *(a1 + 48);
+  v15 = *(a1 + 48);
   if (*(a1 + 40))
   {
-    v17 = [v16 errorAnalyzer];
-    v18 = [v17 CKPartialError:*(a1 + 40) hasErrorCode:&unk_283F4EC18];
+    v16 = [v15 errorAnalyzer];
+    v17 = [v16 CKPartialError:*(a1 + 40) hasErrorCode:&unk_283F4EC18];
 
-    if (v18)
+    if (v17)
     {
       if (IMOSLoggingEnabled())
       {
-        v19 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+        v18 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, "Record Zone Error says that the change token has expired", buf, 2u);
+          _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "Record Zone Error says that the change token has expired", buf, 2u);
         }
       }
 
       [*(a1 + 48) clearLocalSyncState:17];
-      v20 = *(a1 + 64);
-      if (v20)
+      v19 = *(a1 + 64);
+      if (v19)
       {
 LABEL_24:
-        (*(v20 + 16))(v20, 0, 0, 0, *(a1 + 40));
+        (*(v19 + 16))(v19, 0, 0, 0, *(a1 + 40));
       }
     }
 
     else
     {
-      v26 = IMOSLoggingEnabled();
-      if ((v13 | v15))
+      v25 = IMOSLoggingEnabled();
+      if ((v12 | v14))
       {
-        if (v26)
+        if (v25)
         {
-          v27 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+          v26 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
           {
-            v28 = @"zone not created";
-            v29 = *(a1 + 40);
-            if (v15)
+            v27 = @"zone not created";
+            v28 = *(a1 + 40);
+            if (v14)
             {
-              v28 = @"user deleted zone";
+              v27 = @"user deleted zone";
             }
 
             *buf = 138412546;
-            v54 = v28;
-            v55 = 2112;
-            v56 = v29;
-            _os_log_impl(&dword_22B4CC000, v27, OS_LOG_TYPE_INFO, "We got a %@ error while fetching messages. %@", buf, 0x16u);
+            v50 = v27;
+            v51 = 2112;
+            v52 = v28;
+            _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_INFO, "We got a %@ error while fetching messages. %@", buf, 0x16u);
           }
         }
 
-        if (v15)
+        if (v14)
         {
           if (IMOSLoggingEnabled())
           {
-            v30 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+            v29 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_22B4CC000, v30, OS_LOG_TYPE_INFO, "Resetting local message sync state & last sync date after received user deleted zone error", buf, 2u);
+              _os_log_impl(&dword_22B4CC000, v29, OS_LOG_TYPE_INFO, "Resetting local message sync state & last sync date after received user deleted zone error", buf, 2u);
             }
           }
 
           [*(a1 + 48) clearLocalSyncState:3];
-          v31 = [*(a1 + 48) ckUtilities];
-          [v31 resetLastSyncDate];
+          v30 = [*(a1 + 48) ckUtilities];
+          [v30 resetLastSyncDate];
         }
 
         if (IMOSLoggingEnabled())
         {
-          v32 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+          v31 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_INFO, "Messages zone does not exist. Attempting to create one", buf, 2u);
+            _os_log_impl(&dword_22B4CC000, v31, OS_LOG_TYPE_INFO, "Messages zone does not exist. Attempting to create one", buf, 2u);
           }
         }
 
@@ -5322,39 +4936,39 @@ LABEL_24:
         {
           if (IMOSLoggingEnabled())
           {
-            v38 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+            v37 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_22B4CC000, v38, OS_LOG_TYPE_INFO, "//---** Error creating  messages zone", buf, 2u);
+              _os_log_impl(&dword_22B4CC000, v37, OS_LOG_TYPE_INFO, "//---** Error creating  messages zone", buf, 2u);
             }
           }
 
-          v39 = *(a1 + 64);
-          if (v39)
+          v38 = *(a1 + 64);
+          if (v38)
           {
-            v40 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D19D18] code:1 userInfo:0];
-            (*(v39 + 16))(v39, 0, 0, 0, v40);
+            v39 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D19D18] code:1 userInfo:0];
+            (*(v38 + 16))(v38, 0, 0, 0, v39);
           }
         }
       }
 
       else
       {
-        if (v26)
+        if (v25)
         {
-          v36 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+          v35 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
           {
-            v37 = *(a1 + 40);
+            v36 = *(a1 + 40);
             *buf = 138412290;
-            v54 = v37;
-            _os_log_impl(&dword_22B4CC000, v36, OS_LOG_TYPE_INFO, "//---** Error fetching messages: %@", buf, 0xCu);
+            v50 = v36;
+            _os_log_impl(&dword_22B4CC000, v35, OS_LOG_TYPE_INFO, "//---** Error fetching messages: %@", buf, 0xCu);
           }
         }
 
-        v20 = *(a1 + 64);
-        if (v20)
+        v19 = *(a1 + 64);
+        if (v19)
         {
           goto LABEL_24;
         }
@@ -5364,91 +4978,87 @@ LABEL_24:
 
   else
   {
-    [v16 setLatestSyncToken:*(a1 + 32)];
-    v21 = *(a1 + 96);
-    v22 = IMOSLoggingEnabled();
-    if (v21)
+    [v15 setLatestSyncToken:*(a1 + 32)];
+    v20 = *(a1 + 96);
+    v21 = IMOSLoggingEnabled();
+    if (v20)
     {
-      if (v22)
+      if (v21)
       {
-        v23 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+        v22 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "There are more changes to fetch. Kicking off another batch of fetching", buf, 2u);
+          _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "There are more changes to fetch. Kicking off another batch of fetching", buf, 2u);
         }
       }
 
       [*(a1 + 48) syncBatchCompleted:*(a1 + 72)];
-      v24 = [*(a1 + 48) ckQueue];
-      v48[0] = MEMORY[0x277D85DD0];
-      v48[1] = 3221225472;
-      v48[2] = sub_22B64D770;
-      v48[3] = &unk_278706E58;
-      v25 = *(a1 + 88);
-      v48[4] = *(a1 + 48);
-      v51 = v25;
-      v52 = *(a1 + 72);
-      v49 = *(a1 + 56);
-      v50 = *(a1 + 64);
-      dispatch_async(v24, v48);
+      v23 = [*(a1 + 48) ckQueue];
+      v44[0] = MEMORY[0x277D85DD0];
+      v44[1] = 3221225472;
+      v44[2] = sub_22B64D770;
+      v44[3] = &unk_278706E58;
+      v24 = *(a1 + 88);
+      v44[4] = *(a1 + 48);
+      v47 = v24;
+      v48 = *(a1 + 72);
+      v45 = *(a1 + 56);
+      v46 = *(a1 + 64);
+      dispatch_async(v23, v44);
     }
 
     else
     {
-      if (v22)
+      if (v21)
       {
-        v33 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+        v32 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_22B4CC000, v33, OS_LOG_TYPE_INFO, "Done fetching changes from message zone.", buf, 2u);
+          _os_log_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_INFO, "Done fetching changes from message zone.", buf, 2u);
         }
       }
 
-      v34 = *(a1 + 80);
-      if (v34 >= 1 && *(a1 + 72) <= v34)
+      v33 = *(a1 + 80);
+      if (v33 >= 1 && *(a1 + 72) <= v33)
       {
         if (IMOSLoggingEnabled())
         {
-          v41 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+          v40 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_22B4CC000, v41, OS_LOG_TYPE_INFO, "Done fetching changes from message zone during an initial sync. Let's not write up", buf, 2u);
+            _os_log_impl(&dword_22B4CC000, v40, OS_LOG_TYPE_INFO, "Done fetching changes from message zone during an initial sync. Let's not write up", buf, 2u);
           }
         }
 
-        v35 = 0;
+        v34 = 0;
       }
 
       else
       {
-        v35 = 1;
+        v34 = 1;
       }
 
-      v42 = *MEMORY[0x277D19A08];
-      v43 = *MEMORY[0x277D19BE0];
-      v44 = IMGetDomainBoolForKeyWithDefaultValue();
-      if (v44 && IMOSLoggingEnabled())
+      v41 = IMGetDomainBoolForKeyWithDefaultValue();
+      if (v41 && IMOSLoggingEnabled())
       {
-        v45 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+        v42 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_22B4CC000, v45, OS_LOG_TYPE_INFO, "Done fetching live records. Will now fetch archived records", buf, 2u);
+          _os_log_impl(&dword_22B4CC000, v42, OS_LOG_TYPE_INFO, "Done fetching live records. Will now fetch archived records", buf, 2u);
         }
       }
 
-      v46 = *(a1 + 64);
-      if (v46)
+      v43 = *(a1 + 64);
+      if (v43)
       {
-        (*(v46 + 16))(v46, 1, v44, v35, 0);
+        (*(v43 + 16))(v43, 1, v41, v34, 0);
       }
     }
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B64E2B0(_Unwind_Exception *exc_buf, int a2)
@@ -5482,7 +5092,7 @@ void sub_22B64E3B0(uint64_t a1, void *a2, void *a3, void *a4)
 
 void sub_22B64E474(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   if (IMOSLoggingEnabled())
@@ -5490,15 +5100,13 @@ void sub_22B64E474(uint64_t a1, void *a2, void *a3)
     v6 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v8 = 138412546;
-      v9 = v4;
-      v10 = 2112;
-      v11 = v5;
-      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "*** Deleted recordID %@ type %@", &v8, 0x16u);
+      v7 = 138412546;
+      v8 = v4;
+      v9 = 2112;
+      v10 = v5;
+      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "*** Deleted recordID %@ type %@", &v7, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B64E56C(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5, void *a6)
@@ -5508,16 +5116,14 @@ void sub_22B64E56C(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5, void 
   v13 = a6;
   v14 = a4;
   v15 = a3;
-  v19 = a2;
-  v16 = [v11 _shouldFetchArchivedRecords:v12];
-  v17 = *(a1 + 40);
-  LOBYTE(v18) = v16;
-  [*(a1 + 32) _processRecordZoneFetchCompletionZoneID:v19 serverChangeToken:v15 clientChangeTokenData:v14 moreComing:a5 NSError:v13 syncType:*(a1 + 64) currentBatchCount:*(a1 + 72) maxNumberOfBatches:*(a1 + 80) shouldFetchArchivedRecords:v18 activity:v17 completionBlock:*(a1 + 48)];
+  v17 = a2;
+  LOBYTE(v16) = [v11 _shouldFetchArchivedRecords:v12];
+  [*(a1 + 32) _processRecordZoneFetchCompletionZoneID:v17 serverChangeToken:v15 clientChangeTokenData:v14 moreComing:a5 NSError:v13 syncType:*(a1 + 64) currentBatchCount:*(a1 + 72) maxNumberOfBatches:*(a1 + 80) shouldFetchArchivedRecords:v16 activity:*(a1 + 40) completionBlock:*(a1 + 48)];
 }
 
 void sub_22B64E730(uint64_t a1, int a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (IMOSLoggingEnabled())
   {
@@ -5530,15 +5136,13 @@ void sub_22B64E730(uint64_t a1, int a2, void *a3)
         v6 = @"YES";
       }
 
-      v8 = 138412546;
-      v9 = v6;
-      v10 = 2112;
-      v11 = v4;
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Finished a sync of deletes because we had an incompatible message earlier (%@): %@", &v8, 0x16u);
+      v7 = 138412546;
+      v8 = v6;
+      v9 = 2112;
+      v10 = v4;
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Finished a sync of deletes because we had an incompatible message earlier (%@): %@", &v7, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B64EC4C(uint64_t a1)
@@ -5556,7 +5160,7 @@ void sub_22B64EC4C(uint64_t a1)
 
 void sub_22B64ECE0(uint64_t a1, int a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (IMOSLoggingEnabled())
   {
@@ -5570,26 +5174,24 @@ void sub_22B64ECE0(uint64_t a1, int a2, void *a3)
       }
 
       *buf = 138412546;
-      v16 = v7;
-      v17 = 2112;
-      v18 = v5;
+      v15 = v7;
+      v16 = 2112;
+      v17 = v5;
       _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Completed message write %@ %@", buf, 0x16u);
     }
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = sub_22B64EE68;
-  v11[3] = &unk_278706EF0;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = sub_22B64EE68;
+  v10[3] = &unk_278706EF0;
   v8 = *(a1 + 40);
-  v11[4] = *(a1 + 32);
-  v14 = a2;
-  v12 = v5;
-  v13 = v8;
+  v10[4] = *(a1 + 32);
+  v13 = a2;
+  v11 = v5;
+  v12 = v8;
   v9 = v5;
-  dispatch_async(MEMORY[0x277D85CD0], v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  dispatch_async(MEMORY[0x277D85CD0], v10);
 }
 
 uint64_t sub_22B64EE68(uint64_t a1)
@@ -5598,11 +5200,9 @@ uint64_t sub_22B64EE68(uint64_t a1)
   result = *(a1 + 48);
   if (result)
   {
-    v3 = *(a1 + 56);
-    v4 = *(a1 + 40);
-    v5 = *(result + 16);
+    v3 = *(result + 16);
 
-    return v5();
+    return v3();
   }
 
   return result;
@@ -5712,7 +5312,7 @@ void sub_22B64F300(uint64_t a1)
 
 void sub_22B64F674(uint64_t a1, int a2, uint64_t a3, char a4, void *a5)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v9 = a5;
   if (v9 || !a2)
   {
@@ -5732,9 +5332,9 @@ void sub_22B64F674(uint64_t a1, int a2, uint64_t a3, char a4, void *a5)
         }
 
         *buf = 138412546;
-        v37 = v9;
-        v38 = 2112;
-        v39 = v20;
+        v36 = v9;
+        v37 = 2112;
+        v38 = v20;
         _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, "******** Failed fetching live messages with CKError %@ completionBlockCalledWhenFetchFailed %@", buf, 0x16u);
       }
     }
@@ -5744,14 +5344,14 @@ void sub_22B64F674(uint64_t a1, int a2, uint64_t a3, char a4, void *a5)
     block[2] = sub_22B64FD9C;
     block[3] = &unk_278706F18;
     block[4] = *(a1 + 32);
-    v17 = v27;
+    v17 = v26;
     v21 = *(a1 + 48);
     v22 = *(a1 + 64);
-    v27[0] = v21;
-    v27[1] = v22;
-    v28 = a2;
-    v18 = &v26;
-    v26 = v9;
+    v26[0] = v21;
+    v26[1] = v22;
+    v27 = a2;
+    v18 = &v25;
+    v25 = v9;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 
@@ -5760,37 +5360,35 @@ void sub_22B64F674(uint64_t a1, int a2, uint64_t a3, char a4, void *a5)
     v10 = *(a1 + 72);
     v12 = *(a1 + 32);
     v11 = *(a1 + 40);
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = sub_22B64F918;
-    v29[3] = &unk_278706F40;
-    v33 = a3;
-    v34 = a4;
-    v29[4] = v12;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = sub_22B64F918;
+    v28[3] = &unk_278706F40;
+    v32 = a3;
+    v33 = a4;
+    v28[4] = v12;
     v13 = *(a1 + 48);
-    v35 = a2;
+    v34 = a2;
     v14 = *(a1 + 80);
-    v30 = 0;
-    v32 = v14;
-    v24 = *(a1 + 56);
+    v29 = 0;
+    v31 = v14;
+    v23 = *(a1 + 56);
     *&v15 = *(a1 + 40);
     *(&v15 + 1) = v13;
-    *&v16 = v24;
+    *&v16 = v23;
     *(&v16 + 1) = *(a1 + 64);
-    v31[1] = v16;
-    v31[0] = v15;
-    [v12 _fetchArchivedRecordsIfNeeded:a3 currentBatchCount:0 maxNumberOfBatches:v10 activity:v11 withCompletionBlock:v29];
+    v30[1] = v16;
+    v30[0] = v15;
+    [v12 _fetchArchivedRecordsIfNeeded:a3 currentBatchCount:0 maxNumberOfBatches:v10 activity:v11 withCompletionBlock:v28];
 
-    v17 = v31 + 1;
-    v18 = &v30;
+    v17 = v30 + 1;
+    v18 = &v29;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B64F918(uint64_t a1, uint64_t a2, int a3, void *a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v6 = a4;
   if (v6 || !a3)
   {
@@ -5810,9 +5408,9 @@ void sub_22B64F918(uint64_t a1, uint64_t a2, int a3, void *a4)
         }
 
         *buf = 138412546;
-        v26 = v6;
-        v27 = 2112;
-        v28 = v11;
+        v25 = v6;
+        v26 = 2112;
+        v27 = v11;
         _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "******** Failed fetching archived messages with CKError %@ completionBlockCalledWhenFetchFailed %@", buf, 0x16u);
       }
     }
@@ -5824,10 +5422,10 @@ void sub_22B64F918(uint64_t a1, uint64_t a2, int a3, void *a4)
     block[4] = *(a1 + 32);
     v12 = *(a1 + 56);
     v13 = *(a1 + 72);
-    v18 = v12;
-    v19 = v13;
-    v20 = a3;
-    v17 = v6;
+    v17 = v12;
+    v18 = v13;
+    v19 = a3;
+    v16 = v6;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 
@@ -5878,19 +5476,17 @@ void sub_22B64F918(uint64_t a1, uint64_t a2, int a3, void *a4)
         }
       }
 
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = sub_22B64FCCC;
-      v21[3] = &unk_278706EF0;
-      v21[4] = *(a1 + 32);
-      v23 = *(a1 + 56);
-      v24 = *(a1 + 90);
-      v22 = *(a1 + 40);
-      dispatch_async(MEMORY[0x277D85CD0], v21);
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = sub_22B64FCCC;
+      v20[3] = &unk_278706EF0;
+      v20[4] = *(a1 + 32);
+      v22 = *(a1 + 56);
+      v23 = *(a1 + 90);
+      v21 = *(a1 + 40);
+      dispatch_async(MEMORY[0x277D85CD0], v20);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_22B64FCCC(uint64_t a1)
@@ -5899,17 +5495,15 @@ uint64_t sub_22B64FCCC(uint64_t a1)
   result = *(a1 + 48);
   if (result)
   {
-    v3 = *(a1 + 56);
-    v4 = *(a1 + 40);
-    v5 = *(result + 16);
+    v3 = *(result + 16);
 
-    return v5();
+    return v3();
   }
 
   return result;
 }
 
-uint64_t sub_22B64FD28(uint64_t a1)
+void *sub_22B64FD28(uint64_t a1)
 {
   result = [*(a1 + 32) _noteSyncEnded];
   if (*(a1 + 48))
@@ -5918,18 +5512,16 @@ uint64_t sub_22B64FD28(uint64_t a1)
     if ((*(v3 + 24) & 1) == 0)
     {
       *(v3 + 24) = 1;
-      v4 = *(a1 + 64);
-      v5 = *(a1 + 40);
-      v6 = *(*(a1 + 48) + 16);
+      v4 = *(*(a1 + 48) + 16);
 
-      return v6();
+      return v4();
     }
   }
 
   return result;
 }
 
-uint64_t sub_22B64FD9C(uint64_t a1)
+void *sub_22B64FD9C(uint64_t a1)
 {
   result = [*(a1 + 32) _noteSyncEnded];
   if (*(a1 + 48))
@@ -5938,11 +5530,9 @@ uint64_t sub_22B64FD9C(uint64_t a1)
     if ((*(v3 + 24) & 1) == 0)
     {
       *(v3 + 24) = 1;
-      v4 = *(a1 + 64);
-      v5 = *(a1 + 40);
-      v6 = *(*(a1 + 48) + 16);
+      v4 = *(*(a1 + 48) + 16);
 
-      return v6();
+      return v4();
     }
   }
 
@@ -5961,29 +5551,29 @@ uint64_t sub_22B64FFA0(uint64_t a1)
 
 void sub_22B65031C(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v26 objects:v33 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v25 objects:v32 count:16];
   if (v4)
   {
-    v5 = *v27;
+    v5 = *v26;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v27 != v5)
+        if (*v26 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
         if (v2)
         {
-          v7 = *(*(&v26 + 1) + 8 * i);
+          v7 = *(*(&v25 + 1) + 8 * i);
           v8 = [v7 recordName];
           v9 = v8 == 0;
 
@@ -5995,7 +5585,7 @@ void sub_22B65031C(uint64_t a1)
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v26 objects:v33 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v25 objects:v32 count:16];
     }
 
     while (v4);
@@ -6022,38 +5612,38 @@ void sub_22B65031C(uint64_t a1)
     }
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v14 = v2;
-  v15 = [(__CFArray *)v14 countByEnumeratingWithState:&v22 objects:v32 count:16];
+  v15 = [(__CFArray *)v14 countByEnumeratingWithState:&v21 objects:v31 count:16];
   if (v15)
   {
-    v16 = *v23;
+    v16 = *v22;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v23 != v16)
+        if (*v22 != v16)
         {
           objc_enumerationMutation(v14);
         }
 
-        v18 = *(*(&v22 + 1) + 8 * j);
+        v18 = *(*(&v21 + 1) + 8 * j);
         if (IMOSLoggingEnabled())
         {
           v19 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v31 = v18;
+            v30 = v18;
             _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, "Deleted recordIDs %@", buf, 0xCu);
           }
         }
       }
 
-      v15 = [(__CFArray *)v14 countByEnumeratingWithState:&v22 objects:v32 count:16];
+      v15 = [(__CFArray *)v14 countByEnumeratingWithState:&v21 objects:v31 count:16];
     }
 
     while (v15);
@@ -6061,8 +5651,6 @@ void sub_22B65031C(uint64_t a1)
 
   v20 = [*(a1 + 48) _sharedIMDMessageStore];
   [v20 deleteMessagesFromTombStoneTableWithRecordIDs:v14];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B650DCC(uint64_t a1)
@@ -6081,7 +5669,7 @@ void sub_22B650DCC(uint64_t a1)
 
 void sub_22B650E6C(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = IMOSLoggingEnabled();
   if (v3)
@@ -6092,7 +5680,7 @@ void sub_22B650E6C(uint64_t a1, void *a2)
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v15 = v3;
+        v14 = v3;
         _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "********* Error while deleting messages %@", buf, 0xCu);
       }
     }
@@ -6101,8 +5689,8 @@ void sub_22B650E6C(uint64_t a1, void *a2)
     block[1] = 3221225472;
     block[2] = sub_22B65109C;
     block[3] = &unk_2787028B0;
-    v13 = *(a1 + 40);
-    v12 = v3;
+    v12 = *(a1 + 40);
+    v11 = v3;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 
@@ -6118,17 +5706,15 @@ void sub_22B650E6C(uint64_t a1, void *a2)
       }
     }
 
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = sub_22B6510C0;
-    v9[3] = &unk_278703808;
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = sub_22B6510C0;
+    v8[3] = &unk_278703808;
     v7 = *(a1 + 40);
-    v9[4] = *(a1 + 32);
-    v10 = v7;
-    dispatch_async(MEMORY[0x277D85CD0], v9);
+    v8[4] = *(a1 + 32);
+    v9 = v7;
+    dispatch_async(MEMORY[0x277D85CD0], v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_22B65109C(uint64_t a1)
@@ -6149,17 +5735,9 @@ uint64_t sub_22B6512B0()
   return MEMORY[0x2821F96F8]();
 }
 
-uint64_t sub_22B651768(void *a1)
-{
-  v1 = a1[5];
-  v3 = a1[6];
-  v2 = a1[7];
-  return MEMORY[0x2821F9670](a1[4], sel__onReadComplete_error_activity_completion_);
-}
-
 void sub_22B6518F4(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setRecordsRead:{objc_msgSend(*(a1 + 32), "recordsRead") + 1}];
   v2 = [*(a1 + 40) _dateForKey:@"deleteDate"];
   v3 = [*(a1 + 40) _stringForKey:@"guid"];
@@ -6182,9 +5760,9 @@ void sub_22B6518F4(uint64_t a1)
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v14 = v2;
-        v15 = 2112;
-        v16 = v4;
+        v13 = v2;
+        v14 = 2112;
+        v15 = v4;
         _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Recently Deleted | Failed reading recoverable message record. deleteDate: %@ and messageGUID:%@ cannot be nil", buf, 0x16u);
       }
     }
@@ -6202,16 +5780,14 @@ void sub_22B6518F4(uint64_t a1)
     else
     {
       v9 = +[IMDChatRegistry sharedInstance];
-      v12 = v4;
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+      v11 = v4;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
       [v9 moveMessagesWithGUIDsToRecentlyDeleted:v10 deleteDate:v2];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-void sub_22B65208C(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_22B65208C(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
 {
   if (a2 == 1)
   {
@@ -6244,52 +5820,52 @@ void sub_22B652168(void *a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
   }
 }
 
-void sub_22B652A74(uint64_t a1)
+void sub_22B652A74(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_22B4CC000, v2, OS_LOG_TYPE_INFO, "Attempting to create recoverable message zone", buf, 2u);
+      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Attempting to create recoverable message zone", buf, 2u);
     }
   }
 
   if ([*(a1 + 32) _zoneCreated])
   {
-    v3 = 0;
+    v4 = 0;
   }
 
   else
   {
     if (IMOSLoggingEnabled())
     {
-      v4 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v5 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        *v7 = 0;
-        _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "** Failed to create recoverable message zone **", v7, 2u);
+        *v8 = 0;
+        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "** Failed to create recoverable message zone **", v8, 2u);
       }
     }
 
-    v3 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.Messages.recoverableMessageSync" code:1 userInfo:0];
+    v4 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.Messages.recoverableMessageSync" code:1 userInfo:0];
   }
 
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v3;
+  v6 = *(*(a1 + 40) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v4;
 }
 
-uint64_t sub_22B652CFC(uint64_t a1)
+uint64_t sub_22B652CFC(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_22B4CC000, v2, OS_LOG_TYPE_INFO, "Resetting the sync token to nil", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Resetting the sync token to nil", v5, 2u);
     }
   }
 
@@ -6299,7 +5875,7 @@ uint64_t sub_22B652CFC(uint64_t a1)
 
 void sub_22B652F64(uint64_t a1, char a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = a3;
   *(*(*(a1 + 40) + 8) + 24) = a2;
   if ((*(*(*(a1 + 40) + 8) + 24) & 1) == 0 && IMOSLoggingEnabled())
@@ -6307,15 +5883,13 @@ void sub_22B652F64(uint64_t a1, char a2, void *a3)
     v6 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v8 = 138412290;
-      v9 = v5;
-      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Error creating recoverable message zone %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Error creating recoverable message zone %@", &v7, 0xCu);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B653350(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -6341,7 +5915,7 @@ void sub_22B653BCC(uint64_t a1)
 
 void sub_22B653C6C(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = IMOSLoggingEnabled();
   if (v3)
@@ -6352,7 +5926,7 @@ void sub_22B653C6C(uint64_t a1, void *a2)
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v15 = v3;
+        v14 = v3;
         _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Recently Deleted | ********* Error while deleting recoverable messages %@", buf, 0xCu);
       }
     }
@@ -6361,8 +5935,8 @@ void sub_22B653C6C(uint64_t a1, void *a2)
     block[1] = 3221225472;
     block[2] = sub_22B653E9C;
     block[3] = &unk_2787028B0;
-    v13 = *(a1 + 40);
-    v12 = v3;
+    v12 = *(a1 + 40);
+    v11 = v3;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 
@@ -6378,17 +5952,15 @@ void sub_22B653C6C(uint64_t a1, void *a2)
       }
     }
 
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = sub_22B653EC0;
-    v9[3] = &unk_278703808;
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = sub_22B653EC0;
+    v8[3] = &unk_278703808;
     v7 = *(a1 + 40);
-    v9[4] = *(a1 + 32);
-    v10 = v7;
-    dispatch_async(MEMORY[0x277D85CD0], v9);
+    v8[4] = *(a1 + 32);
+    v9 = v7;
+    dispatch_async(MEMORY[0x277D85CD0], v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_22B653E9C(uint64_t a1)
@@ -6437,7 +6009,7 @@ void sub_22B654B64(uint64_t a1)
 
 void sub_22B654CDC(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) createCKRecordforRecoverableMessageMetadata:v3 zoneID:*(a1 + 40) recordNameToPartIndexAndRowID:*(a1 + 48)];
   if (v4)
@@ -6452,9 +6024,9 @@ void sub_22B654CDC(uint64_t a1, void *a2)
       v5 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v12 = 138412290;
-        v13 = v3;
-        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "IMDCKRecoverableMessageSyncController | Recently Deleted: marking clean: Using partIndex fallback: could not convert message to CKRecord with metadata: %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v3;
+        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "IMDCKRecoverableMessageSyncController | Recently Deleted: marking clean: Using partIndex fallback: could not convert message to CKRecord with metadata: %@", &v11, 0xCu);
       }
     }
 
@@ -6465,35 +6037,33 @@ void sub_22B654CDC(uint64_t a1, void *a2)
     v10 = +[IMDChatRegistry sharedInstance];
     [v10 updateRecoverableMessageSyncState:1 forMessageRowID:v7 onPartIndex:v9];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B655078(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v26 objects:v33 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v25 objects:v32 count:16];
   if (v4)
   {
-    v5 = *v27;
+    v5 = *v26;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v27 != v5)
+        if (*v26 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
         if (v2)
         {
-          v7 = *(*(&v26 + 1) + 8 * i);
+          v7 = *(*(&v25 + 1) + 8 * i);
           v8 = [v7 recordName];
           v9 = v8 == 0;
 
@@ -6505,7 +6075,7 @@ void sub_22B655078(uint64_t a1)
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v26 objects:v33 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v25 objects:v32 count:16];
     }
 
     while (v4);
@@ -6532,38 +6102,38 @@ void sub_22B655078(uint64_t a1)
     }
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v14 = v2;
-  v15 = [(__CFArray *)v14 countByEnumeratingWithState:&v22 objects:v32 count:16];
+  v15 = [(__CFArray *)v14 countByEnumeratingWithState:&v21 objects:v31 count:16];
   if (v15)
   {
-    v16 = *v23;
+    v16 = *v22;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v23 != v16)
+        if (*v22 != v16)
         {
           objc_enumerationMutation(v14);
         }
 
-        v18 = *(*(&v22 + 1) + 8 * j);
+        v18 = *(*(&v21 + 1) + 8 * j);
         if (IMOSLoggingEnabled())
         {
           v19 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v31 = v18;
+            v30 = v18;
             _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, "Deleted recoverable recordIDs %@", buf, 0xCu);
           }
         }
       }
 
-      v15 = [(__CFArray *)v14 countByEnumeratingWithState:&v22 objects:v32 count:16];
+      v15 = [(__CFArray *)v14 countByEnumeratingWithState:&v21 objects:v31 count:16];
     }
 
     while (v15);
@@ -6571,8 +6141,6 @@ void sub_22B655078(uint64_t a1)
 
   v20 = +[IMDChatRegistry sharedInstance];
   [v20 clearRecoverableMessageTombStones];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_22B655998(uint64_t a1)
@@ -6592,16 +6160,16 @@ uint64_t sub_22B655BBC()
   return MEMORY[0x2821F96F8]();
 }
 
-id IMDaemonCoreBundle()
+id IMDaemonCoreBundle(uint64_t a1)
 {
   if (qword_27D8CFFA8 != -1)
   {
     sub_22B7D7EFC();
   }
 
-  v1 = qword_27D8CFFB0;
+  v2 = qword_27D8CFFB0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_22B656034()
@@ -6611,16 +6179,16 @@ uint64_t sub_22B656034()
   return MEMORY[0x2821F96F8]();
 }
 
-id sub_22B656090()
+id sub_22B656090(uint64_t a1)
 {
   if (qword_281421490 != -1)
   {
     sub_22B7D7F10();
   }
 
-  v1 = qword_281421498;
+  v2 = qword_281421498;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_22B6560D4()
@@ -6632,16 +6200,15 @@ uint64_t sub_22B6560D4()
 
 void sub_22B656110(void *a1)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"action";
-  v5[1] = @"time";
-  v6[0] = @"incomingMessageProcessedByDaemon";
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"action";
+  v4[1] = @"time";
+  v5[0] = @"incomingMessageProcessedByDaemon";
   v2 = [MEMORY[0x277CCABB0] numberWithDouble:?];
-  v6[1] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
+  v5[1] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   [a1 postCoreAutomationNotificationWithDictionary:v3 withVerboseLogging:1];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_22B656BB0(uint64_t a1, void *a2)
@@ -6674,7 +6241,7 @@ uint64_t sub_22B658DB8(uint64_t a1, void *a2)
 
 void sub_22B658DF8(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _storeEditedMessage:*(a1 + 40) editedPartIndex:*(a1 + 96) editType:*(a1 + 104) previousMessage:*(a1 + 48) updateChats:*(a1 + 56)];
   if (IMOSLoggingEnabled())
   {
@@ -6683,7 +6250,7 @@ void sub_22B658DF8(uint64_t a1)
     {
       v4 = *(a1 + 64);
       *buf = 138412290;
-      v12 = v4;
+      v11 = v4;
       _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Successfully edited message and translation with GUID=%@", buf, 0xCu);
     }
   }
@@ -6693,20 +6260,17 @@ void sub_22B658DF8(uint64_t a1)
   v6 = [v2 copy];
   [v5 setMessageItems:v6];
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = sub_22B658FA0;
-  v8[3] = &unk_278702FA0;
-  v9 = *(a1 + 88);
-  v10 = *(a1 + 72);
-  dispatch_async(MEMORY[0x277D85CD0], v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = sub_22B658FA0;
+  v7[3] = &unk_278702FA0;
+  v8 = *(a1 + 88);
+  v9 = *(a1 + 72);
+  dispatch_async(MEMORY[0x277D85CD0], v7);
 }
 
 uint64_t sub_22B65A588(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_281421038 = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -6714,7 +6278,7 @@ uint64_t sub_22B65A588(uint64_t a1)
 
 void sub_22B65ADAC(uint64_t a1, unint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = a3;
   [*(a1 + 32) _savePreviousDeviceState:*(a1 + 40)];
   if (IMOSLoggingEnabled())
@@ -6736,9 +6300,9 @@ void sub_22B65ADAC(uint64_t a1, unint64_t a2, void *a3)
       }
 
       *buf = 138412546;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v10;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v10;
       _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "Finished checking iCloud backup state with result: %@ %@", buf, 0x16u);
       if (v6)
       {
@@ -6751,8 +6315,6 @@ void sub_22B65ADAC(uint64_t a1, unint64_t a2, void *a3)
   {
     (*(v11 + 16))(v11, a2, v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 __CFString *NSStringFromIMDCKBackupControllerResult(unint64_t a1)
@@ -6876,7 +6438,7 @@ void sub_22B65C324(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_22B65C40C()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   qword_27D8CFFB8 = MEMORY[0x231897B40](@"MBManager", @"MobileBackup");
   if (IMOSLoggingEnabled())
   {
@@ -6893,18 +6455,16 @@ void sub_22B65C40C()
         v1 = @"NO";
       }
 
-      v3 = 138412290;
-      v4 = v1;
-      _os_log_impl(&dword_22B4CC000, v0, OS_LOG_TYPE_INFO, "Loaded MBManagerClass: %@", &v3, 0xCu);
+      v2 = 138412290;
+      v3 = v1;
+      _os_log_impl(&dword_22B4CC000, v0, OS_LOG_TYPE_INFO, "Loaded MBManagerClass: %@", &v2, 0xCu);
     }
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B65C5D4()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   off_27D8CFFC8 = MEMORY[0x231897B50]("BYSetupAssistantNeedsToRun", @"SetupAssistant");
   if (IMOSLoggingEnabled())
   {
@@ -6921,13 +6481,11 @@ void sub_22B65C5D4()
         v1 = @"NO";
       }
 
-      v3 = 138412290;
-      v4 = v1;
-      _os_log_impl(&dword_22B4CC000, v0, OS_LOG_TYPE_INFO, "Linked BYSetupAssistantNeedsToRun ok: %@", &v3, 0xCu);
+      v2 = 138412290;
+      v3 = v1;
+      _os_log_impl(&dword_22B4CC000, v0, OS_LOG_TYPE_INFO, "Linked BYSetupAssistantNeedsToRun ok: %@", &v2, 0xCu);
     }
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 id _IMCreatePredicateWithDeviceUDIDAndDeviceUUID(void *a1, void *a2)
@@ -6972,7 +6530,7 @@ LABEL_9:
 
 void sub_22B65D038(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = IMOSLoggingEnabled();
@@ -6984,11 +6542,11 @@ void sub_22B65D038(uint64_t a1, void *a2, void *a3)
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         v9 = [*(a1 + 32) predicateFormat];
-        v14 = 138412546;
-        v15 = v9;
-        v16 = 2112;
-        v17 = v6;
-        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Failed to update cloudkit with query '%@', with error: %@", &v14, 0x16u);
+        v13 = 138412546;
+        v14 = v9;
+        v15 = 2112;
+        v16 = v6;
+        _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Failed to update cloudkit with query '%@', with error: %@", &v13, 0x16u);
       }
     }
   }
@@ -7001,9 +6559,9 @@ void sub_22B65D038(uint64_t a1, void *a2, void *a3)
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         v11 = [*(a1 + 32) predicateFormat];
-        v14 = 138412290;
-        v15 = v11;
-        _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Successfully updated cloudkit with query: '%@'", &v14, 0xCu);
+        v13 = 138412290;
+        v14 = v11;
+        _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Successfully updated cloudkit with query: '%@'", &v13, 0xCu);
       }
     }
 
@@ -7015,8 +6573,6 @@ void sub_22B65D038(uint64_t a1, void *a2, void *a3)
   {
     (*(v12 + 16))(v12, v6 == 0, v6);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22B65D1E8(_Unwind_Exception *a1, int a2)
@@ -7131,7 +6687,7 @@ LABEL_9:
 
 uint64_t sub_22B65ED84(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [a1 cloudKitServerChangeTokenBlob];
   v3 = [v2 length];
 
@@ -7139,9 +6695,9 @@ uint64_t sub_22B65ED84(void *a1)
   {
     v4 = objc_alloc(MEMORY[0x277CCAAC8]);
     v5 = [a1 cloudKitServerChangeTokenBlob];
-    v11 = 0;
-    v6 = [v4 initForReadingFromData:v5 error:&v11];
-    v7 = v11;
+    v10 = 0;
+    v6 = [v4 initForReadingFromData:v5 error:&v10];
+    v7 = v10;
 
     v3 = [objc_alloc(MEMORY[0x277CBC5A0]) initWithCoder:v6];
     if (v7 && IMOSLoggingEnabled())
@@ -7150,13 +6706,12 @@ uint64_t sub_22B65ED84(void *a1)
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v13 = v7;
+        v12 = v7;
         _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Failed to unarchive ckrecord. Error: %@", buf, 0xCu);
       }
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -7171,7 +6726,6 @@ id sub_22B65EEE4(void *a1)
 
 id sub_22B65EF40(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = a3;
   if (v3 && ([MEMORY[0x277CCAA00] defaultManager], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "path"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v4, "fileExistsAtPath:", v5), v5, v4, v6))
   {
@@ -7183,8 +6737,6 @@ id sub_22B65EF40(uint64_t a1, uint64_t a2, void *a3)
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -7228,7 +6780,7 @@ void sub_22B65F16C(void *a1, uint64_t a2, void *a3)
 
 id sub_22B65F210(void *a1, uint64_t a2, void *a3, void *a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = [a1 cloudKitRecordID];
@@ -7252,9 +6804,9 @@ LABEL_4:
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           v12 = [a1 cloudKitRecordID];
-          v21 = 138412290;
-          v22 = v12;
-          _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Record ID from existing cloudKitRecordID: %@", &v21, 0xCu);
+          v20 = 138412290;
+          v21 = v12;
+          _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Record ID from existing cloudKitRecordID: %@", &v20, 0xCu);
         }
       }
 
@@ -7270,8 +6822,8 @@ LABEL_4:
         v16 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v21) = 0;
-          _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "No cloudKitRecordID, derived record ID", &v21, 2u);
+          LOWORD(v20) = 0;
+          _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "No cloudKitRecordID, derived record ID", &v20, 2u);
         }
       }
 
@@ -7287,15 +6839,13 @@ LABEL_4:
     v18 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "Cannot generate record ID because salt is nil.", &v21, 2u);
+      LOWORD(v20) = 0;
+      _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "Cannot generate record ID because salt is nil.", &v20, 2u);
     }
   }
 
   v15 = 0;
 LABEL_20:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -7312,8 +6862,8 @@ uint64_t sub_22B65F4B8(void *a1)
 
 id sub_22B65F508(void *a1, uint64_t a2, void *a3, void *a4)
 {
-  v100 = *MEMORY[0x277D85DE8];
-  v95 = a3;
+  v99 = *MEMORY[0x277D85DE8];
+  v94 = a3;
   v6 = a4;
   v7 = [a1 _copyCKRecordFromExistingCKMetadata];
   if (v7)
@@ -7328,9 +6878,9 @@ id sub_22B65F508(void *a1, uint64_t a2, void *a3, void *a4)
         v11 = [v10 recordName];
         v12 = [a1 guid];
         *buf = 138412546;
-        v97 = v11;
-        v98 = 2112;
-        v99 = v12;
+        v96 = v11;
+        v97 = 2112;
+        v98 = v12;
         _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Initialed CKRecord %@ for transfer %@ using record data from DB", buf, 0x16u);
       }
     }
@@ -7353,7 +6903,7 @@ id sub_22B65F508(void *a1, uint64_t a2, void *a3, void *a4)
     }
 
     v16 = [a1 _ckUniqueID];
-    v17 = [CKRecordUtilities recordIDUsingSalt:v6 zoneID:v95 guid:v16];
+    v17 = [CKRecordUtilities recordIDUsingSalt:v6 zoneID:v94 guid:v16];
 
     v18 = objc_alloc(MEMORY[0x277CBC5A0]);
     v19 = [MEMORY[0x277D1A9C0] _recordType];
@@ -7481,9 +7031,9 @@ LABEL_34:
               if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412546;
-                v97 = v73;
-                v98 = 2112;
-                v99 = v67;
+                v96 = v73;
+                v97 = 2112;
+                v98 = v67;
                 _os_log_impl(&dword_22B4CC000, v74, OS_LOG_TYPE_INFO, "**** File a radar **** Asset last path component %@ from url %@ is empty", buf, 0x16u);
               }
             }
@@ -7497,7 +7047,7 @@ LABEL_34:
             if (os_log_type_enabled(v76, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v97 = v67;
+              v96 = v67;
               _os_log_impl(&dword_22B4CC000, v76, OS_LOG_TYPE_INFO, "**** File a radar **** Asset last path component from url %@ is nil so cannot save it to metadata", buf, 0xCu);
             }
           }
@@ -7515,7 +7065,7 @@ LABEL_34:
           if (os_log_type_enabled(v75, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v97 = v67;
+            v96 = v67;
             _os_log_impl(&dword_22B4CC000, v75, OS_LOG_TYPE_INFO, "IMFileTransfer_CKRecord **** Transfer did not have URL or asset was missing on disk. URL %@", buf, 0xCu);
           }
         }
@@ -7527,7 +7077,7 @@ LABEL_34:
           {
             v79 = [a1 localPath];
             *buf = 138412290;
-            v97 = v79;
+            v96 = v79;
             _os_log_impl(&dword_22B4CC000, v78, OS_LOG_TYPE_INFO, "Transfer file path %@", buf, 0xCu);
           }
         }
@@ -7551,7 +7101,7 @@ LABEL_34:
                 {
                   v86 = [a1 guid];
                   *buf = 138412290;
-                  v97 = v86;
+                  v96 = v86;
                   _os_log_impl(&dword_22B4CC000, v85, OS_LOG_TYPE_INFO, "%@ transfer has an aux video asset", buf, 0xCu);
                 }
               }
@@ -7572,7 +7122,7 @@ LABEL_34:
                 if (os_log_type_enabled(v90, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412290;
-                  v97 = v81;
+                  v96 = v81;
                   _os_log_impl(&dword_22B4CC000, v90, OS_LOG_TYPE_INFO, "**** File a radar **** Aux asset last path component from url %@ is nil so cannot save it to metadata", buf, 0xCu);
                 }
               }
@@ -7644,13 +7194,12 @@ LABEL_34:
   v38 = 0;
 LABEL_82:
 
-  v93 = *MEMORY[0x277D85DE8];
   return v38;
 }
 
 id sub_22B6601E4(uint64_t a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = [v3 _dataForKey:@"cm"];
   v5 = [v4 length];
@@ -7678,17 +7227,15 @@ id sub_22B6601E4(uint64_t a1, uint64_t a2, void *a3)
         v10 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
-          v13 = 138412290;
-          v14 = v3;
-          _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "No transfer metadata found for record:%@", &v13, 0xCu);
+          v12 = 138412290;
+          v13 = v3;
+          _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "No transfer metadata found for record:%@", &v12, 0xCu);
         }
       }
 
       v7 = 0;
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -7701,7 +7248,7 @@ void sub_22B66036C(void *a1, uint64_t a2, void *a3)
 
 void sub_22B6603C4(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a3;
   if (v3)
   {
@@ -7712,9 +7259,9 @@ void sub_22B6603C4(uint64_t a1, uint64_t a2, void *a3)
     if (v6)
     {
       v7 = [MEMORY[0x277CCAA00] defaultManager];
-      v13 = 0;
-      v8 = [v7 removeItemAtURL:v3 error:&v13];
-      v9 = v13;
+      v12 = 0;
+      v8 = [v7 removeItemAtURL:v3 error:&v12];
+      v9 = v12;
 
       v10 = IMOSLoggingEnabled();
       if (v8)
@@ -7725,7 +7272,7 @@ void sub_22B6603C4(uint64_t a1, uint64_t a2, void *a3)
           if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v15 = v3;
+            v14 = v3;
             _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Cleaned up attachment asset at %@", buf, 0xCu);
           }
 
@@ -7739,9 +7286,9 @@ LABEL_11:
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v15 = v3;
-          v16 = 2112;
-          v17 = v9;
+          v14 = v3;
+          v15 = 2112;
+          v16 = v9;
           _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Failed cleaning up attachment asset at %@, error %@", buf, 0x16u);
         }
 
@@ -7749,13 +7296,11 @@ LABEL_11:
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_22B660598(void *a1, uint64_t a2, void *a3)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [v4 _assetForKey:@"lqa"];
   if (!v5)
@@ -7767,9 +7312,9 @@ uint64_t sub_22B660598(void *a1, uint64_t a2, void *a3)
   {
     v9 = [MEMORY[0x277CCAA00] defaultManager];
     v10 = [a1 localPath];
-    v42 = 0;
-    v11 = [v9 attributesOfItemAtPath:v10 error:&v42];
-    v12 = v42;
+    v41 = 0;
+    v11 = [v9 attributesOfItemAtPath:v10 error:&v41];
+    v12 = v41;
 
     if (v12)
     {
@@ -7780,9 +7325,9 @@ uint64_t sub_22B660598(void *a1, uint64_t a2, void *a3)
         {
           v14 = [a1 localPath];
           *buf = 138412546;
-          v44 = v14;
-          v45 = 2112;
-          v46 = v12;
+          v43 = v14;
+          v44 = 2112;
+          v45 = v12;
           _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Could not read file attributes of existing attachment at %@, %@", buf, 0x16u);
         }
       }
@@ -7800,9 +7345,9 @@ uint64_t sub_22B660598(void *a1, uint64_t a2, void *a3)
         {
           v29 = [v19 path];
           *buf = 138412546;
-          v44 = v29;
-          v45 = 2112;
-          v46 = 0;
+          v43 = v29;
+          v44 = 2112;
+          v45 = 0;
           _os_log_impl(&dword_22B4CC000, v28, OS_LOG_TYPE_INFO, "Could not find file of the asset at %@, %@", buf, 0x16u);
         }
       }
@@ -7813,9 +7358,9 @@ uint64_t sub_22B660598(void *a1, uint64_t a2, void *a3)
 
     v23 = [MEMORY[0x277CCAA00] defaultManager];
     v24 = [v19 path];
-    v41 = 0;
-    v25 = [v23 attributesOfItemAtPath:v24 error:&v41];
-    v12 = v41;
+    v40 = 0;
+    v25 = [v23 attributesOfItemAtPath:v24 error:&v40];
+    v12 = v40;
 
     if (v12)
     {
@@ -7826,9 +7371,9 @@ uint64_t sub_22B660598(void *a1, uint64_t a2, void *a3)
         {
           v27 = [v19 path];
           *buf = 138412546;
-          v44 = v27;
-          v45 = 2112;
-          v46 = v12;
+          v43 = v27;
+          v44 = 2112;
+          v45 = v12;
           _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_INFO, "Could not read file attributes of new attachment at %@, %@", buf, 0x16u);
         }
       }
@@ -7855,9 +7400,9 @@ LABEL_42:
         if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v44 = v33;
-          v45 = 2112;
-          v46 = v31;
+          v43 = v33;
+          v44 = 2112;
+          v45 = v31;
           _os_log_impl(&dword_22B4CC000, v38, OS_LOG_TYPE_INFO, "Missing file size to compare: cloud size %@ local size %@", buf, 0x16u);
         }
       }
@@ -7875,11 +7420,11 @@ LABEL_42:
       if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
       {
         *buf = 138412802;
-        v44 = @"YES";
-        v45 = 2112;
-        v46 = v33;
-        v47 = 2112;
-        v48 = v31;
+        v43 = @"YES";
+        v44 = 2112;
+        v45 = v33;
+        v46 = 2112;
+        v47 = v31;
         _os_log_impl(&dword_22B4CC000, v37, OS_LOG_TYPE_INFO, "Found a better asset in CKRecord %@, cloud size %@ local size %@", buf, 0x20u);
       }
     }
@@ -7895,9 +7440,9 @@ LABEL_42:
         v16 = [a1 guid];
         v17 = [a1 localPath];
         *buf = 138412546;
-        v44 = v16;
-        v45 = 2112;
-        v46 = v17;
+        v43 = v16;
+        v44 = 2112;
+        v45 = v17;
         _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "For attachment %@ local file not found at %@", buf, 0x16u);
       }
     }
@@ -7907,13 +7452,12 @@ LABEL_42:
 
 LABEL_43:
 
-  v39 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 BOOL sub_22B660BBC(void *a1, uint64_t a2, void *a3)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [v4 _assetForKey:@"lqa"];
   if (v5)
@@ -7926,9 +7470,9 @@ BOOL sub_22B660BBC(void *a1, uint64_t a2, void *a3)
     {
       v9 = [MEMORY[0x277CCAA00] defaultManager];
       v10 = [a1 localPath];
-      v37 = 0;
-      v11 = [v9 attributesOfItemAtPath:v10 error:&v37];
-      v12 = v37;
+      v36 = 0;
+      v11 = [v9 attributesOfItemAtPath:v10 error:&v36];
+      v12 = v36;
 
       if (v12)
       {
@@ -7939,9 +7483,9 @@ BOOL sub_22B660BBC(void *a1, uint64_t a2, void *a3)
           {
             v14 = [a1 localPath];
             *buf = 138412546;
-            v39 = v14;
-            v40 = 2112;
-            v41 = v12;
+            v38 = v14;
+            v39 = 2112;
+            v40 = v12;
             _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Could not read file attributes of local attachment at %@, %@", buf, 0x16u);
           }
         }
@@ -7954,9 +7498,9 @@ BOOL sub_22B660BBC(void *a1, uint64_t a2, void *a3)
         {
           v20 = [MEMORY[0x277CCAA00] defaultManager];
           v21 = [v16 path];
-          v36 = 0;
-          v22 = [v20 attributesOfItemAtPath:v21 error:&v36];
-          v12 = v36;
+          v35 = 0;
+          v22 = [v20 attributesOfItemAtPath:v21 error:&v35];
+          v12 = v35;
 
           if (v12)
           {
@@ -7967,9 +7511,9 @@ BOOL sub_22B660BBC(void *a1, uint64_t a2, void *a3)
               {
                 v24 = [v16 path];
                 *buf = 138412546;
-                v39 = v24;
-                v40 = 2112;
-                v41 = v12;
+                v38 = v24;
+                v39 = 2112;
+                v40 = v12;
                 _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "Could not read file attributes of new attachment at %@, %@", buf, 0x16u);
               }
             }
@@ -7992,11 +7536,11 @@ BOOL sub_22B660BBC(void *a1, uint64_t a2, void *a3)
                 if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412802;
-                  v39 = @"YES";
-                  v40 = 2112;
-                  v41 = v28;
-                  v42 = 2112;
-                  v43 = v30;
+                  v38 = @"YES";
+                  v39 = 2112;
+                  v40 = v28;
+                  v41 = 2112;
+                  v42 = v30;
                   _os_log_impl(&dword_22B4CC000, v33, OS_LOG_TYPE_INFO, "Local asset is bigger than the one in CKRecord %@, taking %@ over %@", buf, 0x20u);
                 }
               }
@@ -8016,7 +7560,7 @@ BOOL sub_22B660BBC(void *a1, uint64_t a2, void *a3)
             {
               v26 = [v16 path];
               *buf = 138412290;
-              v39 = v26;
+              v38 = v26;
               _os_log_impl(&dword_22B4CC000, v25, OS_LOG_TYPE_INFO, "Can't find incoming attachment from CKRecord at %@", buf, 0xCu);
             }
           }
@@ -8036,13 +7580,12 @@ LABEL_33:
   v15 = 0;
 LABEL_34:
 
-  v34 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 void sub_22B66108C(void *a1, uint64_t a2, void *a3)
 {
-  v102[1] = *MEMORY[0x277D85DE8];
+  v101[1] = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (IMOSLoggingEnabled())
   {
@@ -8054,19 +7597,19 @@ void sub_22B66108C(void *a1, uint64_t a2, void *a3)
     }
   }
 
-  v84 = [MEMORY[0x277D1A9C0] transferMetaDataFromRecord:v4];
+  v83 = [MEMORY[0x277D1A9C0] transferMetaDataFromRecord:v4];
   v6 = JWDecodeDictionary();
-  v83 = [v6 objectForKey:@"aguid"];
-  v81 = [v6 objectForKey:@"t"];
-  v80 = [v6 objectForKey:@"mimet"];
-  v82 = [v6 objectForKey:@"fn"];
+  v82 = [v6 objectForKey:@"aguid"];
+  v80 = [v6 objectForKey:@"t"];
+  v79 = [v6 objectForKey:@"mimet"];
+  v81 = [v6 objectForKey:@"fn"];
   v7 = [v6 objectForKey:@"vers"];
   v8 = [v7 integerValue] > 0;
 
   if (v8)
   {
-    v78 = [v4 _assetForKey:@"lqa"];
-    if (v78)
+    v77 = [v4 _assetForKey:@"lqa"];
+    if (v77)
     {
       v9 = [v6 objectForKey:@"pathc"];
       if ([(__CFString *)v9 length])
@@ -8085,19 +7628,19 @@ void sub_22B66108C(void *a1, uint64_t a2, void *a3)
           if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v94 = v10;
+            v93 = v10;
             _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "CKRecord did not have a lastPathComponent, using %@ from filename", buf, 0xCu);
           }
         }
       }
 
-      v79 = IMDCopyAttachmentPersistentPath();
-      if (-[__CFString length](v10, "length") && -[__CFString length](v79, "length") && ([v78 fileURL], v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 == 0, v19, !v20))
+      v78 = IMDCopyAttachmentPersistentPath();
+      if (-[__CFString length](v10, "length") && -[__CFString length](v78, "length") && ([v77 fileURL], v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 == 0, v19, !v20))
       {
         v21 = [MEMORY[0x277CCAA00] defaultManager];
-        v90 = 0;
-        v22 = [v21 removeItemAtPath:v79 error:&v90];
-        v23 = v90;
+        v89 = 0;
+        v22 = [v21 removeItemAtPath:v78 error:&v89];
+        v23 = v89;
 
         if (v23)
         {
@@ -8116,53 +7659,53 @@ void sub_22B66108C(void *a1, uint64_t a2, void *a3)
           {
             v26 = @"NO";
             *buf = 138412802;
-            v94 = v79;
-            v95 = 2112;
+            v93 = v78;
+            v94 = 2112;
             if (v22)
             {
               v26 = @"YES";
             }
 
-            v96 = v26;
-            v97 = 2112;
-            v98 = v23;
+            v95 = v26;
+            v96 = 2112;
+            v97 = v23;
             _os_log_impl(&dword_22B4CC000, v25, OS_LOG_TYPE_INFO, "Failed to remove existing file at %@ to replace with version from CKRecord, sucess %@ error %@", buf, 0x20u);
           }
         }
 
-        v27 = [(__CFString *)v79 stringByDeletingLastPathComponent];
+        v27 = [(__CFString *)v78 stringByDeletingLastPathComponent];
         IMSharedHelperEnsureDirectoryExistsAtPath();
 
         v28 = [MEMORY[0x277CCAA00] defaultManager];
-        v29 = [v78 fileURL];
-        v30 = [MEMORY[0x277CBEBC0] fileURLWithPath:v79];
-        v89 = 0;
-        LOBYTE(v27) = [v28 moveItemAtURL:v29 toURL:v30 error:&v89];
-        v74 = v89;
+        v29 = [v77 fileURL];
+        v30 = [MEMORY[0x277CBEBC0] fileURLWithPath:v78];
+        v88 = 0;
+        LOBYTE(v27) = [v28 moveItemAtURL:v29 toURL:v30 error:&v88];
+        v73 = v88;
 
         if (v27)
         {
-          [a1 _setLocalPath:v79];
+          [a1 _setLocalPath:v78];
           if (IMOSLoggingEnabled())
           {
             v31 = OSLogHandleForIMFoundationCategory();
             if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
             {
               *buf = 138412546;
-              v94 = v83;
-              v95 = 2112;
-              v96 = v79;
+              v93 = v82;
+              v94 = 2112;
+              v95 = v78;
               _os_log_impl(&dword_22B4CC000, v31, OS_LOG_TYPE_INFO, "Created transfer %@, finalAssetPath %@", buf, 0x16u);
             }
           }
 
           v32 = [MEMORY[0x277CCAA00] defaultManager];
-          v101 = *MEMORY[0x277CCA1B0];
-          v102[0] = *MEMORY[0x277CCA1A0];
-          v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v102 forKeys:&v101 count:1];
-          v88 = 0;
-          v34 = [v32 setAttributes:v33 ofItemAtPath:v79 error:&v88];
-          v35 = v88;
+          v100 = *MEMORY[0x277CCA1B0];
+          v101[0] = *MEMORY[0x277CCA1A0];
+          v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v101 forKeys:&v100 count:1];
+          v87 = 0;
+          v34 = [v32 setAttributes:v33 ofItemAtPath:v78 error:&v87];
+          v35 = v87;
 
           if ((v34 & 1) == 0 && IMOSLoggingEnabled())
           {
@@ -8170,9 +7713,9 @@ void sub_22B66108C(void *a1, uint64_t a2, void *a3)
             if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
             {
               *buf = 138412546;
-              v94 = v79;
-              v95 = 2112;
-              v96 = v35;
+              v93 = v78;
+              v94 = 2112;
+              v95 = v35;
               _os_log_impl(&dword_22B4CC000, v36, OS_LOG_TYPE_INFO, "Failed making file class C: %@ with error %@", buf, 0x16u);
             }
           }
@@ -8180,7 +7723,7 @@ void sub_22B66108C(void *a1, uint64_t a2, void *a3)
 
         else
         {
-          v40 = [v78 fileURL];
+          v40 = [v77 fileURL];
           v35 = [v40 path];
 
           if (IMOSLoggingEnabled())
@@ -8189,16 +7732,16 @@ void sub_22B66108C(void *a1, uint64_t a2, void *a3)
             if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
             {
               *buf = 138412802;
-              v94 = v35;
-              v95 = 2112;
-              v96 = v79;
-              v97 = 2112;
-              v98 = v74;
+              v93 = v35;
+              v94 = 2112;
+              v95 = v78;
+              v96 = 2112;
+              v97 = v73;
               _os_log_impl(&dword_22B4CC000, v41, OS_LOG_TYPE_INFO, "Failed to move file from %@ to %@, error %@", buf, 0x20u);
             }
           }
 
-          [MEMORY[0x277D1A9C0] cleanUpAsset:{v78, v74}];
+          [MEMORY[0x277D1A9C0] cleanUpAsset:{v77, v73}];
         }
       }
 
@@ -8207,15 +7750,15 @@ void sub_22B66108C(void *a1, uint64_t a2, void *a3)
         v37 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
         {
-          v38 = [v78 fileURL];
+          v38 = [v77 fileURL];
           *buf = 138413058;
-          v94 = v83;
-          v95 = 2112;
-          v96 = v10;
-          v97 = 2112;
-          v98 = v79;
-          v99 = 2112;
-          v100 = v38;
+          v93 = v82;
+          v94 = 2112;
+          v95 = v10;
+          v96 = 2112;
+          v97 = v78;
+          v98 = 2112;
+          v99 = v38;
           _os_log_impl(&dword_22B4CC000, v37, OS_LOG_TYPE_INFO, "Failed to write asset to disk because of nil path! Asset from ckrecord with guid %@ has path %@, finalAssetPath %@ and asset fileURL %@", buf, 0x2Au);
         }
       }
@@ -8223,7 +7766,7 @@ void sub_22B66108C(void *a1, uint64_t a2, void *a3)
 
     else
     {
-      v79 = 0;
+      v78 = 0;
     }
 
     v42 = [v4 _assetForKey:@"avid"];
@@ -8246,22 +7789,22 @@ void sub_22B66108C(void *a1, uint64_t a2, void *a3)
           if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v94 = v44;
+            v93 = v44;
             _os_log_impl(&dword_22B4CC000, v46, OS_LOG_TYPE_INFO, "CKRecord did not have a auxVideoLastPathComponent, using %@ from auxVideoPath", buf, 0xCu);
           }
         }
       }
 
-      v47 = [(__CFString *)v79 stringByDeletingLastPathComponent];
+      v47 = [(__CFString *)v78 stringByDeletingLastPathComponent];
       v48 = [(__CFString *)v44 im_lastPathComponent];
       v49 = [v47 stringByAppendingPathComponent:v48];
 
       if (-[__CFString length](v44, "length") && -[__CFString length](v49, "length") && ([v42 fileURL], v50 = objc_claimAutoreleasedReturnValue(), v51 = v50 == 0, v50, !v51))
       {
         v52 = [MEMORY[0x277CCAA00] defaultManager];
-        v87 = 0;
-        v53 = [v52 removeItemAtPath:v49 error:&v87];
-        v54 = v87;
+        v86 = 0;
+        v53 = [v52 removeItemAtPath:v49 error:&v86];
+        v54 = v86;
 
         if (v54)
         {
@@ -8280,16 +7823,16 @@ void sub_22B66108C(void *a1, uint64_t a2, void *a3)
           {
             v57 = @"NO";
             *buf = 138412802;
-            v94 = v49;
-            v95 = 2112;
+            v93 = v49;
+            v94 = 2112;
             if (v53)
             {
               v57 = @"YES";
             }
 
-            v96 = v57;
-            v97 = 2112;
-            v98 = v54;
+            v95 = v57;
+            v96 = 2112;
+            v97 = v54;
             _os_log_impl(&dword_22B4CC000, v56, OS_LOG_TYPE_INFO, "Failed to remove existing aux file at %@ to replace with version from CKRecord, success %@ error %@", buf, 0x20u);
           }
         }
@@ -8300,9 +7843,9 @@ void sub_22B66108C(void *a1, uint64_t a2, void *a3)
         v59 = [MEMORY[0x277CCAA00] defaultManager];
         v60 = [v42 fileURL];
         v61 = [MEMORY[0x277CBEBC0] fileURLWithPath:v49];
-        v86 = 0;
-        LOBYTE(v58) = [v59 moveItemAtURL:v60 toURL:v61 error:&v86];
-        v76 = v86;
+        v85 = 0;
+        LOBYTE(v58) = [v59 moveItemAtURL:v60 toURL:v61 error:&v85];
+        v75 = v85;
 
         v62 = IMOSLoggingEnabled();
         if (v58)
@@ -8313,20 +7856,20 @@ void sub_22B66108C(void *a1, uint64_t a2, void *a3)
             if (os_log_type_enabled(v63, OS_LOG_TYPE_INFO))
             {
               *buf = 138412546;
-              v94 = v83;
-              v95 = 2112;
-              v96 = v49;
+              v93 = v82;
+              v94 = 2112;
+              v95 = v49;
               _os_log_impl(&dword_22B4CC000, v63, OS_LOG_TYPE_INFO, "Stored aux video for transfer %@, finalAssetPath %@", buf, 0x16u);
             }
           }
 
           v64 = [MEMORY[0x277CCAA00] defaultManager];
-          v91 = *MEMORY[0x277CCA1B0];
-          v92 = *MEMORY[0x277CCA1A0];
-          v65 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v92 forKeys:&v91 count:1];
-          v85 = 0;
-          v66 = [v64 setAttributes:v65 ofItemAtPath:v49 error:&v85];
-          v67 = v85;
+          v90 = *MEMORY[0x277CCA1B0];
+          v91 = *MEMORY[0x277CCA1A0];
+          v65 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v91 forKeys:&v90 count:1];
+          v84 = 0;
+          v66 = [v64 setAttributes:v65 ofItemAtPath:v49 error:&v84];
+          v67 = v84;
 
           if ((v66 & 1) == 0 && IMOSLoggingEnabled())
           {
@@ -8334,9 +7877,9 @@ void sub_22B66108C(void *a1, uint64_t a2, void *a3)
             if (os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
             {
               *buf = 138412546;
-              v94 = v49;
-              v95 = 2112;
-              v96 = v67;
+              v93 = v49;
+              v94 = 2112;
+              v95 = v67;
               _os_log_impl(&dword_22B4CC000, v68, OS_LOG_TYPE_INFO, "Failed making file class C: %@ with error %@", buf, 0x16u);
             }
           }
@@ -8351,16 +7894,16 @@ void sub_22B66108C(void *a1, uint64_t a2, void *a3)
             {
               v72 = [v42 fileURL];
               *buf = 138412802;
-              v94 = v72;
-              v95 = 2112;
-              v96 = v49;
-              v97 = 2112;
-              v98 = v76;
+              v93 = v72;
+              v94 = 2112;
+              v95 = v49;
+              v96 = 2112;
+              v97 = v75;
               _os_log_impl(&dword_22B4CC000, v71, OS_LOG_TYPE_INFO, "Failed to move file from %@ to %@ error %@", buf, 0x20u);
             }
           }
 
-          [MEMORY[0x277D1A9C0] cleanUpAsset:{v42, v76}];
+          [MEMORY[0x277D1A9C0] cleanUpAsset:{v42, v75}];
         }
       }
 
@@ -8375,13 +7918,13 @@ void sub_22B66108C(void *a1, uint64_t a2, void *a3)
           if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
           {
             *buf = 138413058;
-            v94 = v83;
-            v95 = 2112;
-            v96 = v44;
-            v97 = 2112;
-            v98 = v49;
-            v99 = 2112;
-            v100 = v54;
+            v93 = v82;
+            v94 = 2112;
+            v95 = v44;
+            v96 = 2112;
+            v97 = v49;
+            v98 = 2112;
+            v99 = v54;
             _os_log_impl(&dword_22B4CC000, v70, OS_LOG_TYPE_INFO, "Failed to write aux asset to disk because of nil path! Asset from ckrecord with guid %@ has path %@, finalAssetPath %@ and asset fileURL %@", buf, 0x2Au);
           }
         }
@@ -8391,7 +7934,7 @@ void sub_22B66108C(void *a1, uint64_t a2, void *a3)
     }
   }
 
-  else if (v82)
+  else if (v81)
   {
     v11 = [v4 _assetForKey:@"lqa"];
     v12 = v11;
@@ -8401,16 +7944,16 @@ void sub_22B66108C(void *a1, uint64_t a2, void *a3)
       v14 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfURL:v13];
       if (v14)
       {
-        v15 = [MEMORY[0x277CBEBC0] fileURLWithPath:v82];
+        v15 = [MEMORY[0x277CBEBC0] fileURLWithPath:v81];
         if (([v14 writeToURL:v15 atomically:0] & 1) == 0 && IMOSLoggingEnabled())
         {
           v16 = OSLogHandleForIMFoundationCategory();
           if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;
-            v94 = v82;
-            v95 = 2112;
-            v96 = v83;
+            v93 = v81;
+            v94 = 2112;
+            v95 = v82;
             _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Failed to write record image asset to %@ GUID:%@", buf, 0x16u);
           }
         }
@@ -8426,43 +7969,41 @@ void sub_22B66108C(void *a1, uint64_t a2, void *a3)
     if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v94 = v83;
+      v93 = v82;
       _os_log_impl(&dword_22B4CC000, v39, OS_LOG_TYPE_INFO, "Got IMFileTransfer record with guid %@ with no file name", buf, 0xCu);
     }
   }
 
   [MEMORY[0x277D1A9C0] cleanUpAssetsOnDiskForRecord:v4];
-
-  v73 = *MEMORY[0x277D85DE8];
 }
 
 id sub_22B661FC8(id a1, uint64_t a2, void *a3, int a4)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = v6;
   if (v6 && ([v6 recordType], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277D1A9C0], "_recordType"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "isEqualToString:", v9), v9, v8, (v10 & 1) != 0))
   {
-    v45.receiver = a1;
-    v45.super_class = &off_283F9C7A0;
-    v11 = objc_msgSendSuper2(&v45, sel_init);
+    v44.receiver = a1;
+    v44.super_class = &off_283F9C7A0;
+    v11 = objc_msgSendSuper2(&v44, sel_init);
     if (v11)
     {
-      v42 = [MEMORY[0x277D1A9C0] transferMetaDataFromRecord:v7];
+      v41 = [MEMORY[0x277D1A9C0] transferMetaDataFromRecord:v7];
       v12 = JWDecodeDictionary();
-      v43 = [v12 objectForKey:@"aguid"];
-      v44 = [v12 objectForKey:@"tn"];
-      v37 = [v12 objectForKey:@"fn"];
-      v41 = [v12 objectForKey:@"t"];
-      v40 = [v12 objectForKey:@"ui"];
+      v42 = [v12 objectForKey:@"aguid"];
+      v43 = [v12 objectForKey:@"tn"];
+      v36 = [v12 objectForKey:@"fn"];
+      v40 = [v12 objectForKey:@"t"];
+      v39 = [v12 objectForKey:@"ui"];
       v13 = [v12 objectForKey:@"cdt"];
-      v36 = [v13 longLongValue];
+      v35 = [v13 longLongValue];
 
       v14 = [v12 objectForKey:@"sdt"];
-      v35 = [v14 longLongValue];
+      v34 = [v14 longLongValue];
 
       v15 = [v12 objectForKey:@"st"];
-      v34 = [v15 integerValue];
+      v33 = [v15 integerValue];
 
       v16 = [v12 objectForKey:@"ig"];
       v17 = [v16 BOOLValue];
@@ -8473,31 +8014,31 @@ id sub_22B661FC8(id a1, uint64_t a2, void *a3, int a4)
       v20 = [v12 objectForKey:@"is"];
       v21 = [v20 BOOLValue];
 
-      v39 = [v12 objectForKey:@"sui"];
-      v38 = [v12 objectForKey:@"aui"];
+      v38 = [v12 objectForKey:@"sui"];
+      v37 = [v12 objectForKey:@"aui"];
       v22 = [v12 objectForKey:@"ha"];
       v23 = [v22 BOOLValue];
 
-      [v11 setGuid:v43];
-      [v11 setType:v41];
-      v24 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v36];
+      [v11 setGuid:v42];
+      [v11 setType:v40];
+      v24 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v35];
       [v11 setCreatedDate:v24];
 
-      v25 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v35];
+      v25 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:v34];
       [v11 _setStartDate:v25];
 
-      [v11 _setTransferState:v34];
+      [v11 _setTransferState:v33];
       [v11 setIsIncoming:v17];
-      [v11 setUserInfo:v40];
+      [v11 setUserInfo:v39];
       [v11 setTotalBytes:v19];
-      if ([v44 length])
+      if ([v43 length])
       {
-        [v11 setFilename:v44];
+        [v11 setFilename:v43];
       }
 
       [v11 setIsSticker:v21];
-      [v11 setStickerUserInfo:v39];
-      [v11 setAttributionInfo:v38];
+      [v11 setStickerUserInfo:v38];
+      [v11 setAttributionInfo:v37];
       [v11 setHideAttachment:v23];
       [v11 setCloudKitSyncState:1];
       v26 = [v7 copyEncodedSystemFields];
@@ -8512,9 +8053,9 @@ id sub_22B661FC8(id a1, uint64_t a2, void *a3, int a4)
         if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v47 = v43;
-          v48 = 2112;
-          v49 = v37;
+          v46 = v42;
+          v47 = 2112;
+          v48 = v36;
           _os_log_impl(&dword_22B4CC000, v29, OS_LOG_TYPE_INFO, "Trying to create imfiletransfer ckrecord with guid %@ and filename %@", buf, 0x16u);
         }
       }
@@ -8537,7 +8078,7 @@ id sub_22B661FC8(id a1, uint64_t a2, void *a3, int a4)
       if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v47 = v7;
+        v46 = v7;
         _os_log_impl(&dword_22B4CC000, v31, OS_LOG_TYPE_INFO, "Invalid record passed to initWithCKRecord %@", buf, 0xCu);
       }
     }
@@ -8545,7 +8086,6 @@ id sub_22B661FC8(id a1, uint64_t a2, void *a3, int a4)
     v30 = 0;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
@@ -8565,7 +8105,7 @@ uint64_t sub_22B662528(uint64_t a1, uint64_t a2, void *a3)
 
 id sub_22B662598(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a3;
   if ([MEMORY[0x277D1A9C0] _recordIsInvalid:v3])
   {
@@ -8574,9 +8114,9 @@ id sub_22B662598(uint64_t a1, uint64_t a2, void *a3)
       v4 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
-        v10 = 138412290;
-        v11 = v3;
-        _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Invalid record passed to utiTypeForRecord %@", &v10, 0xCu);
+        v9 = 138412290;
+        v10 = v3;
+        _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Invalid record passed to utiTypeForRecord %@", &v9, 0xCu);
       }
     }
 
@@ -8590,14 +8130,12 @@ id sub_22B662598(uint64_t a1, uint64_t a2, void *a3)
     v5 = [v7 objectForKey:@"t"];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 uint64_t sub_22B6626E0(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a3;
   if ([MEMORY[0x277D1A9C0] _recordIsInvalid:v3])
   {
@@ -8606,9 +8144,9 @@ uint64_t sub_22B6626E0(uint64_t a1, uint64_t a2, void *a3)
       v4 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
-        v11 = 138412290;
-        v12 = v3;
-        _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Invalid record passed to sizeOfAssetForRecord %@", &v11, 0xCu);
+        v10 = 138412290;
+        v11 = v3;
+        _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Invalid record passed to sizeOfAssetForRecord %@", &v10, 0xCu);
       }
     }
 
@@ -8623,13 +8161,12 @@ uint64_t sub_22B6626E0(uint64_t a1, uint64_t a2, void *a3)
     v5 = [v8 longLongValue];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 id sub_22B66282C(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a3;
   if ([MEMORY[0x277D1A9C0] _recordIsInvalid:v3])
   {
@@ -8638,9 +8175,9 @@ id sub_22B66282C(uint64_t a1, uint64_t a2, void *a3)
       v4 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
-        v10 = 138412290;
-        v11 = v3;
-        _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Invalid record passed to transferGUIDOfRecord %@", &v10, 0xCu);
+        v9 = 138412290;
+        v10 = v3;
+        _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Invalid record passed to transferGUIDOfRecord %@", &v9, 0xCu);
       }
     }
 
@@ -8654,14 +8191,12 @@ id sub_22B66282C(uint64_t a1, uint64_t a2, void *a3)
     v5 = [v7 objectForKey:@"aguid"];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 uint64_t sub_22B662974(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a3;
   if ([MEMORY[0x277D1A9C0] _recordIsInvalid:v3])
   {
@@ -8670,9 +8205,9 @@ uint64_t sub_22B662974(uint64_t a1, uint64_t a2, void *a3)
       v4 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
-        v12 = 138412290;
-        v13 = v3;
-        _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Invalid record passed to attachmentRecordHasAsset %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v3;
+        _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Invalid record passed to attachmentRecordHasAsset %@", &v11, 0xCu);
       }
     }
 
@@ -8696,13 +8231,12 @@ uint64_t sub_22B662974(uint64_t a1, uint64_t a2, void *a3)
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 void sub_22B662AEC(void *a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ([MEMORY[0x277D1A9C0] _recordIsInvalid:v4])
   {
@@ -8711,9 +8245,9 @@ void sub_22B662AEC(void *a1, uint64_t a2, void *a3)
       v5 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
-        v9 = 138412290;
-        v10 = v4;
-        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Invalid record passed to cleanUpAssetsOnDiskForRecord: %@", &v9, 0xCu);
+        v8 = 138412290;
+        v9 = v4;
+        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Invalid record passed to cleanUpAssetsOnDiskForRecord: %@", &v8, 0xCu);
       }
     }
   }
@@ -8726,13 +8260,11 @@ void sub_22B662AEC(void *a1, uint64_t a2, void *a3)
     v7 = [v4 _assetForKey:@"avid"];
     [a1 cleanUpAsset:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 id sub_22B662C34(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a3;
   if ([MEMORY[0x277D1A9C0] _recordIsInvalid:v3])
   {
@@ -8741,9 +8273,9 @@ id sub_22B662C34(uint64_t a1, uint64_t a2, void *a3)
       v4 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
-        v10 = 138412290;
-        v11 = v3;
-        _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Invalid record passed to md5HashForRecord: %@", &v10, 0xCu);
+        v9 = 138412290;
+        v10 = v3;
+        _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Invalid record passed to md5HashForRecord: %@", &v9, 0xCu);
       }
     }
 
@@ -8757,14 +8289,12 @@ id sub_22B662C34(uint64_t a1, uint64_t a2, void *a3)
     v5 = [v7 objectForKey:@"mdh"];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 uint64_t sub_22B662D7C(uint64_t a1, uint64_t a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a3;
   if ([MEMORY[0x277D1A9C0] _recordIsInvalid:v3])
   {
@@ -8774,7 +8304,7 @@ uint64_t sub_22B662D7C(uint64_t a1, uint64_t a2, void *a3)
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v29 = v3;
+        v28 = v3;
         _os_log_impl(&dword_22B4CC000, v4, OS_LOG_TYPE_INFO, "Invalid record passed to md5HashForRecord: %@", buf, 0xCu);
       }
     }
@@ -8802,7 +8332,7 @@ uint64_t sub_22B662D7C(uint64_t a1, uint64_t a2, void *a3)
           {
             v14 = [MEMORY[0x277CCAA00] defaultManager];
             v15 = [v13 path];
-            v27 = v12;
+            v26 = v12;
             v16 = [v14 fileExistsAtPath:v15];
 
             if (v16)
@@ -8816,7 +8346,7 @@ uint64_t sub_22B662D7C(uint64_t a1, uint64_t a2, void *a3)
               v18 = 0;
             }
 
-            v12 = v27;
+            v12 = v26;
           }
 
           else
@@ -8835,7 +8365,7 @@ uint64_t sub_22B662D7C(uint64_t a1, uint64_t a2, void *a3)
               v22 = [v3 recordID];
               v23 = [v22 recordName];
               *buf = 138412290;
-              v29 = v23;
+              v28 = v23;
               _os_log_impl(&dword_22B4CC000, v21, OS_LOG_TYPE_INFO, "IMFileTransfer_CKRecord *** asset was nil for record id: %@", buf, 0xCu);
             }
           }
@@ -8852,9 +8382,9 @@ uint64_t sub_22B662D7C(uint64_t a1, uint64_t a2, void *a3)
           if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;
-            v29 = v9;
-            v30 = 2112;
-            v31 = v10;
+            v28 = v9;
+            v29 = 2112;
+            v30 = v10;
             _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, "IMFileTransfer_CKRecord *** fileName [%@] or utiType [%@] is nil", buf, 0x16u);
           }
         }
@@ -8869,9 +8399,9 @@ uint64_t sub_22B662D7C(uint64_t a1, uint64_t a2, void *a3)
         if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v29 = v18;
-          v30 = 2112;
-          v31 = v8;
+          v28 = v18;
+          v29 = 2112;
+          v30 = v8;
           _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "We failed to validate md5HashOfCKAsset: %@ md5HashStoredOnRecord: %@", buf, 0x16u);
         }
       }
@@ -8885,7 +8415,7 @@ uint64_t sub_22B662D7C(uint64_t a1, uint64_t a2, void *a3)
         if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v29 = v3;
+          v28 = v3;
           _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "We didn't have an md5 hash for fetched record: %@", buf, 0xCu);
         }
       }
@@ -8894,6 +8424,412 @@ uint64_t sub_22B662D7C(uint64_t a1, uint64_t a2, void *a3)
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v5;
+}
+
+void sub_22B66327C(_Unwind_Exception *exc_buf, int a2)
+{
+  if (a2 == v2)
+  {
+    objc_begin_catch(exc_buf);
+    objc_end_catch();
+    JUMPOUT(0x22B663188);
+  }
+
+  objc_end_catch();
+  _Unwind_Resume(exc_buf);
+}
+
+IMDReplayController *sub_22B66336C()
+{
+  result = objc_alloc_init(IMDReplayController);
+  qword_281421040 = result;
+  return result;
+}
+
+void sub_22B663CA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22B663CD0(uint64_t a1)
+{
+  if (!--*(*(*(a1 + 40) + 8) + 24))
+  {
+    block[5] = v1;
+    block[6] = v2;
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = sub_22B663D74;
+    block[3] = &unk_278704F90;
+    block[4] = *(a1 + 32);
+    dispatch_async(MEMORY[0x277D85CD0], block);
+  }
+}
+
+dispatch_workloop_t IMDCreateWorkloop(void *a1)
+{
+  v1 = [a1 UTF8String];
+
+  return dispatch_workloop_create(v1);
+}
+
+void sub_22B667B7C(id *a1, uint64_t a2)
+{
+  v14 = *MEMORY[0x277D85DE8];
+  if (IMOSLoggingEnabled())
+  {
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    {
+      v4 = a1[4];
+      *buf = 138412290;
+      v13 = v4;
+      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Releasing replicated message %@", buf, 0xCu);
+    }
+  }
+
+  v5 = +[IMPendingReplicatedMessageCache sharedCache];
+  v6 = a1[4];
+  v7 = [a1[5] service];
+  v8 = [v7 internalName];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = sub_22B667D28;
+  v9[3] = &unk_2787073C0;
+  v10 = a1[4];
+  v11 = a1[6];
+  [v5 releasePendingMessageWithGUID:v6 serviceName:v8 chat:0 completion:v9];
+}
+
+uint64_t sub_22B667D28(uint64_t a1, uint64_t a2)
+{
+  v8 = *MEMORY[0x277D85DE8];
+  if (IMOSLoggingEnabled())
+  {
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    {
+      v4 = *(a1 + 32);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "Processing %@ after replicated message release", &v6, 0xCu);
+    }
+  }
+
+  return (*(*(a1 + 40) + 16))();
+}
+
+void sub_22B6681D8(_Unwind_Exception *a1, int a2)
+{
+  if (a2 == 1)
+  {
+    objc_begin_catch(a1);
+    objc_end_catch();
+    JUMPOUT(0x22B668164);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_22B668224(uint64_t a1, uint64_t a2)
+{
+  v8 = *MEMORY[0x277D85DE8];
+  if (IMOSLoggingEnabled())
+  {
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    {
+      v4 = [*(a1 + 32) guid];
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_22B4CC000, v3, OS_LOG_TYPE_INFO, "** Performing delayed replication for %@", &v6, 0xCu);
+    }
+  }
+
+  v5 = [*(a1 + 40) replicationProxy];
+  [v5 sendMessage:*(a1 + 32) toChat:*(a1 + 48) style:*(a1 + 56)];
+}
+
+void sub_22B6690DC(_Unwind_Exception *a1, int a2)
+{
+  if (a2 == 1)
+  {
+    objc_begin_catch(a1);
+    objc_end_catch();
+    JUMPOUT(0x22B6690CCLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_22B669220(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v16 - 64), 8);
+  _Unwind_Resume(a1);
+}
+
+void *sub_22B669244(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+{
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = sub_22B6692E8;
+  v8[3] = &unk_278707410;
+  v10 = *(a1 + 48);
+  v9 = *(a1 + 32);
+  result = [a2 enumerateKeysAndObjectsUsingBlock:{v8, a4}];
+  if (*(*(*(a1 + 48) + 8) + 24) == 1)
+  {
+    *a5 = 1;
+  }
+
+  return result;
+}
+
+void sub_22B6692E8(uint64_t a1, void *a2, void *a3, _BYTE *a4)
+{
+  v14 = *MEMORY[0x277D85DE8];
+  v7 = a2;
+  v8 = a3;
+  if ([v7 isEqualToString:*MEMORY[0x277D19160]])
+  {
+    if (++*(*(*(a1 + 40) + 8) + 24) < 2uLL)
+    {
+      goto LABEL_14;
+    }
+
+    if (IMOSLoggingEnabled())
+    {
+      v9 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      {
+        LOWORD(v12) = 0;
+        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "Message body has more than one message part", &v12, 2u);
+      }
+    }
+
+    v10 = [*(a1 + 32) replicationRequiredForMultipleMessageParts];
+  }
+
+  else
+  {
+    if (IMOSLoggingEnabled())
+    {
+      v11 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      {
+        v12 = 138412290;
+        v13 = v7;
+        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Message body has attribute %@", &v12, 0xCu);
+      }
+    }
+
+    v10 = [*(a1 + 32) replicationRequiredForMessageBodyAttributeName:v7];
+  }
+
+  *(*(*(a1 + 48) + 8) + 24) = v10;
+LABEL_14:
+  if (*(*(*(a1 + 48) + 8) + 24) == 1)
+  {
+    *a4 = 1;
+  }
+}
+
+uint64_t sub_22B66A028()
+{
+  qword_281421048 = objc_alloc_init(IMDCKSyncController);
+
+  return MEMORY[0x2821F96F8]();
+}
+
+uint64_t sub_22B66A1C8(uint64_t a1)
+{
+  v2 = objc_alloc_init(IMDCKInitialMessageSyncController);
+  v3 = qword_27D8CFFD8;
+  qword_27D8CFFD8 = v2;
+
+  v4 = qword_27D8CFFD8;
+  v5 = *(a1 + 32);
+
+  return [v4 setDelegate:v5];
+}
+
+uint64_t sub_22B66A474(uint64_t a1)
+{
+  v2 = objc_alloc_init(IMDCKInitialAttachmentSyncController);
+  v3 = qword_27D8CFFF0;
+  qword_27D8CFFF0 = v2;
+
+  v4 = qword_27D8CFFF0;
+  v5 = *(a1 + 32);
+
+  return [v4 setDelegate:v5];
+}
+
+void sub_22B66A690(_Unwind_Exception *a1, int a2)
+{
+  if (a2 == 1)
+  {
+    objc_begin_catch(a1);
+    objc_end_catch();
+    JUMPOUT(0x22B66A64CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_22B66A974(uint64_t a1, uint64_t a2, void *a3)
+{
+  v19 = *MEMORY[0x277D85DE8];
+  v5 = a3;
+  if (IMOSLoggingEnabled())
+  {
+    v6 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    {
+      v15 = 134218242;
+      v16 = a2;
+      v17 = 2112;
+      v18 = v5;
+      _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "Account status is: %ld. Error: %@", &v15, 0x16u);
+    }
+  }
+
+  if (*(a1 + 40) == 1)
+  {
+    if (a2 == 4)
+    {
+      v9 = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
+      v10 = [v9 isMessagesIniCloudVersion2];
+
+      if (v10)
+      {
+        v11 = [*(a1 + 32) syncResumer];
+        [v11 attemptToResumeSyncOnAccountUpdateIfAppropriate];
+      }
+
+      else
+      {
+        v12 = [MEMORY[0x277D1A990] sharedInstance];
+        v13 = [v12 getBoolFromDomain:*MEMORY[0x277D19A08] forKey:*MEMORY[0x277D19A78]];
+
+        if (v13)
+        {
+          if (IMOSLoggingEnabled())
+          {
+            v14 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+            {
+              LOWORD(v15) = 0;
+              _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Account status update, and we stopped syncing due to bad account status.", &v15, 2u);
+            }
+          }
+
+          [*(a1 + 32) beginPeriodicSyncWithChecks:1 priority:*MEMORY[0x277D86348] reason:@"Account.update"];
+        }
+      }
+    }
+
+    else if (a2 == 1)
+    {
+      v7 = +[IMDCKRecordSaltManager sharedInstance];
+      [v7 clearLocalSyncState];
+
+      v8 = +[IMDAttachmentStore sharedInstance];
+      [v8 markAllAttachmentsAsNotPurgeable];
+    }
+
+    [*(a1 + 32) _attemptToMigrateACAccountEnablementOnce];
+  }
+
+  else if (a2 == 4)
+  {
+    [*(a1 + 32) _attemptToEnableMiCByDefaultOnce];
+  }
+}
+
+void sub_22B66B3D4(uint64_t a1, void *a2, void *a3)
+{
+  *&v19[5] = *MEMORY[0x277D85DE8];
+  v5 = a2;
+  v6 = a3;
+  [*(a1 + 32) setIsFetchingExitForEnablement:0];
+  if (v6)
+  {
+    v7 = *(a1 + 40);
+    if (v7 < [*(a1 + 32) _maxRetryAttemptsToEnableMiCByDefault])
+    {
+      [*(a1 + 32) _retryIntervalToEnableMicByDefaultForAttempt:*(a1 + 40)];
+      v9 = v8;
+      if (IMOSLoggingEnabled())
+      {
+        v10 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+        {
+          v11 = *(a1 + 40);
+          *buf = 67109376;
+          v19[0] = v11;
+          LOWORD(v19[1]) = 2048;
+          *(&v19[1] + 2) = v9;
+          _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Enable MiC by default: failed to get exit record attempt %d, trying again in %0.02f seconds", buf, 0x12u);
+        }
+      }
+
+      im_dispatch_after();
+      goto LABEL_24;
+    }
+
+    if (IMOSLoggingEnabled())
+    {
+      v14 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      {
+        v15 = *(a1 + 40);
+        *buf = 67109120;
+        v19[0] = v15;
+        _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Enable MiC by default: failed to get exit record attempt %d, done", buf, 8u);
+      }
+    }
+
+LABEL_13:
+    [*(a1 + 32) _setHasTriedToEnableMiCByDefault];
+    goto LABEL_24;
+  }
+
+  v12 = IMOSLoggingEnabled();
+  if (v5)
+  {
+    if (v12)
+    {
+      v13 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412290;
+        *v19 = v5;
+        _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Enable MiC by default: Exit record found with date %@, won't try again", buf, 0xCu);
+      }
+    }
+
+    goto LABEL_13;
+  }
+
+  if (v12)
+  {
+    v16 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Enable MiC by default: All Checks Passed, Enabling!!", buf, 2u);
+    }
+  }
+
+  v17 = [*(a1 + 32) ckUtilities];
+  [v17 setCloudKitSyncingEnabled:1];
+
+  [*(a1 + 32) _setHasTriedToEnableMiCByDefault];
+LABEL_24:
 }

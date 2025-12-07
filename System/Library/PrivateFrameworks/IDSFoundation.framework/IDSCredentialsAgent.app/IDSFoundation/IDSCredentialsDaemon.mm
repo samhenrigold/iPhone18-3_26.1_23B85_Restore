@@ -196,7 +196,7 @@
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v16 = v5;
+          v15 = v5;
           _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "Adding Loader %@", buf, 0xCu);
         }
 
@@ -210,13 +210,12 @@
         {
           uniqueIDToCredentialLoaderMap = self->_uniqueIDToCredentialLoaderMap;
           *buf = 138412290;
-          v16 = uniqueIDToCredentialLoaderMap;
+          v15 = uniqueIDToCredentialLoaderMap;
           _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "New map %@", buf, 0xCu);
         }
 
         if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
         {
-          v14 = self->_uniqueIDToCredentialLoaderMap;
           _IDSLogV();
         }
       }
@@ -234,7 +233,7 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v10 = dCopy;
+      v9 = dCopy;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "Removing Loader for uniqueID %@", buf, 0xCu);
     }
 
@@ -248,13 +247,12 @@
     {
       uniqueIDToCredentialLoaderMap = self->_uniqueIDToCredentialLoaderMap;
       *buf = 138412290;
-      v10 = uniqueIDToCredentialLoaderMap;
+      v9 = uniqueIDToCredentialLoaderMap;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "New map %@", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
     {
-      v8 = self->_uniqueIDToCredentialLoaderMap;
       _IDSLogV();
     }
 

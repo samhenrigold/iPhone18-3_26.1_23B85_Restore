@@ -100,7 +100,7 @@ LABEL_6:
 
 void __77__SCKPMediaControlCardSectionViewController__updatePlatterForHashedRouteUID___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -112,23 +112,23 @@ void __77__SCKPMediaControlCardSectionViewController__updatePlatterForHashedRout
     {
       v10 = *(a1 + 32);
       *buf = 138412546;
-      v16 = v10;
-      v17 = 2112;
-      v18 = v7;
+      v15 = v10;
+      v16 = 2112;
+      v17 = v7;
       _os_log_impl(&dword_26950D000, v9, OS_LOG_TYPE_DEFAULT, "Decoded routeUID: %@ => %@", buf, 0x16u);
     }
 
     if (v7)
     {
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __77__SCKPMediaControlCardSectionViewController__updatePlatterForHashedRouteUID___block_invoke_7;
-      v12[3] = &unk_279C601A0;
-      objc_copyWeak(&v14, (a1 + 40));
-      v13 = v7;
-      dispatch_async(MEMORY[0x277D85CD0], v12);
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __77__SCKPMediaControlCardSectionViewController__updatePlatterForHashedRouteUID___block_invoke_7;
+      v11[3] = &unk_279C601A0;
+      objc_copyWeak(&v13, (a1 + 40));
+      v12 = v7;
+      dispatch_async(MEMORY[0x277D85CD0], v11);
 
-      objc_destroyWeak(&v14);
+      objc_destroyWeak(&v13);
     }
 
     else if (os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
@@ -141,8 +141,6 @@ void __77__SCKPMediaControlCardSectionViewController__updatePlatterForHashedRout
   {
     __77__SCKPMediaControlCardSectionViewController__updatePlatterForHashedRouteUID___block_invoke_cold_2();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __77__SCKPMediaControlCardSectionViewController__updatePlatterForHashedRouteUID___block_invoke_7(uint64_t a1)
@@ -153,14 +151,14 @@ void __77__SCKPMediaControlCardSectionViewController__updatePlatterForHashedRout
 
 - (void)_updatePlatterForRouteUID:(id)d
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = *MEMORY[0x277CF93F0];
   if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = dCopy;
-    _os_log_impl(&dword_26950D000, v5, OS_LOG_TYPE_DEFAULT, "update platter for routeUID: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = dCopy;
+    _os_log_impl(&dword_26950D000, v5, OS_LOG_TYPE_DEFAULT, "update platter for routeUID: %@", &v11, 0xCu);
   }
 
   view = [(SCKPMediaControlCardSectionViewController *)self view];
@@ -185,8 +183,6 @@ void __77__SCKPMediaControlCardSectionViewController__updatePlatterForHashedRout
     objc_storeStrong(&self->_mediaPlatterViewController, v9);
     [(SCKPMediaControlCardSectionViewController *)self _updateActiveSystemEndpointForRouteUID:dCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_nowPlayingViewControllerWithRouteUID:(id)d
@@ -264,24 +260,23 @@ LABEL_11:
 
 - (void)traitCollectionDidChange:(id)change
 {
-  v12.receiver = self;
-  v12.super_class = SCKPMediaControlCardSectionViewController;
+  v11.receiver = self;
+  v11.super_class = SCKPMediaControlCardSectionViewController;
   changeCopy = change;
-  [(SCKPMediaControlCardSectionViewController *)&v12 traitCollectionDidChange:changeCopy];
-  v5 = [(SCKPMediaControlCardSectionViewController *)self traitCollection:v12.receiver];
+  [(SCKPMediaControlCardSectionViewController *)&v11 traitCollectionDidChange:changeCopy];
+  v5 = [(SCKPMediaControlCardSectionViewController *)self traitCollection:v11.receiver];
   v6 = [changeCopy hasDifferentColorAppearanceComparedToTraitCollection:v5];
 
   if (v6)
   {
     getMRUNowPlayingViewControllerClass();
     v7 = self->_mediaPlatterViewController;
-    mediaPlatterViewController = self->_mediaPlatterViewController;
     if (objc_opt_isKindOfClass())
     {
-      v9 = objc_alloc(getMRUVisualStylingProviderClass());
+      v8 = objc_alloc(getMRUVisualStylingProviderClass());
       _nowPlayingVisualStylingProvider = [(SCKPMediaControlCardSectionViewController *)self _nowPlayingVisualStylingProvider];
-      v11 = [v9 initWithVisualStylingProvider:_nowPlayingVisualStylingProvider];
-      [(UIViewController *)v7 setStylingProvider:v11];
+      v10 = [v8 initWithVisualStylingProvider:_nowPlayingVisualStylingProvider];
+      [(UIViewController *)v7 setStylingProvider:v10];
     }
   }
 }
@@ -289,28 +284,29 @@ LABEL_11:
 - (void)_updateActiveSystemEndpointForRouteUID:(id)d
 {
   dCopy = d;
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
   v4 = getMRAVEndpointUpdateActiveSystemEndpointForOutputDeviceUIDWithReasonSymbolLoc_ptr;
-  v10 = getMRAVEndpointUpdateActiveSystemEndpointForOutputDeviceUIDWithReasonSymbolLoc_ptr;
+  v11 = getMRAVEndpointUpdateActiveSystemEndpointForOutputDeviceUIDWithReasonSymbolLoc_ptr;
   if (!getMRAVEndpointUpdateActiveSystemEndpointForOutputDeviceUIDWithReasonSymbolLoc_ptr)
   {
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __getMRAVEndpointUpdateActiveSystemEndpointForOutputDeviceUIDWithReasonSymbolLoc_block_invoke;
-    v6[3] = &unk_279C60140;
-    v6[4] = &v7;
-    __getMRAVEndpointUpdateActiveSystemEndpointForOutputDeviceUIDWithReasonSymbolLoc_block_invoke(v6);
-    v4 = v8[3];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __getMRAVEndpointUpdateActiveSystemEndpointForOutputDeviceUIDWithReasonSymbolLoc_block_invoke;
+    v7[3] = &unk_279C60140;
+    v7[4] = &v8;
+    __getMRAVEndpointUpdateActiveSystemEndpointForOutputDeviceUIDWithReasonSymbolLoc_block_invoke(v7);
+    v4 = v9[3];
   }
 
-  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v8, 8);
   if (!v4)
   {
-    v5 = [SCKPMediaControlCardSectionViewController _updateActiveSystemEndpointForRouteUID:];
-    _Block_object_dispose(&v7, 8);
-    _Unwind_Resume(v5);
+    [SCKPMediaControlCardSectionViewController _updateActiveSystemEndpointForRouteUID:];
+    v6 = v5;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v6);
   }
 
   (v4)(dCopy, 0, @"SCKPMediaControlCardSectionViewController", 0, &__block_literal_global_1);
@@ -334,35 +330,11 @@ void __84__SCKPMediaControlCardSectionViewController__updateActiveSystemEndpoint
   return WeakRetained;
 }
 
-void __77__SCKPMediaControlCardSectionViewController__updatePlatterForHashedRouteUID___block_invoke_cold_1()
+- (void)_updateActiveSystemEndpointForRouteUID:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __77__SCKPMediaControlCardSectionViewController__updatePlatterForHashedRouteUID___block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (uint64_t)_updateActiveSystemEndpointForRouteUID:.cold.1()
-{
-  dlerror();
-  v0 = abort_report_np();
-  return __84__SCKPMediaControlCardSectionViewController__updateActiveSystemEndpointForRouteUID___block_invoke_cold_1(v0);
-}
-
-void __84__SCKPMediaControlCardSectionViewController__updateActiveSystemEndpointForRouteUID___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  __84__SCKPMediaControlCardSectionViewController__updateActiveSystemEndpointForRouteUID___block_invoke_cold_1();
 }
 
 @end

@@ -31,41 +31,44 @@ void __72___LTStabilizationTranslationRequest__startTranslationWithService_done_
   }
 }
 
-void __72___LTStabilizationTranslationRequest__startTranslationWithService_done___block_invoke_2(uint64_t a1)
+void __72___LTStabilizationTranslationRequest__startTranslationWithService_done___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = (a1 + 32);
-  v3 = *(a1 + 32);
-  v4 = _LTOSLogSpeech();
-  v5 = v4;
-  if (v3)
+  v3 = (a1 + 32);
+  v4 = *(a1 + 32);
+  v5 = _LTOSLogSpeech(a1, a2);
+  v6 = v5;
+  if (v4)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v7 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    if (v7)
     {
-      __72___LTStabilizationTranslationRequest__startTranslationWithService_done___block_invoke_2_cold_1(v2, v5);
-    }
-  }
-
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
-  {
-    __72___LTStabilizationTranslationRequest__startTranslationWithService_done___block_invoke_2_cold_2(v5);
-  }
-
-  v6 = *(a1 + 40);
-  if (*(v6 + 120) == 1)
-  {
-    v7 = _LTOSLogSpeech();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      __72___LTStabilizationTranslationRequest__startTranslationWithService_done___block_invoke_2_cold_3(v7);
+      __72___LTStabilizationTranslationRequest__startTranslationWithService_done___block_invoke_2_cold_1(v3, v6);
     }
   }
 
   else
   {
-    *(v6 + 120) = 1;
+    v7 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
+    if (v7)
+    {
+      __72___LTStabilizationTranslationRequest__startTranslationWithService_done___block_invoke_2_cold_2(v6);
+    }
+  }
+
+  v9 = *(a1 + 40);
+  if (*(v9 + 120) == 1)
+  {
+    v10 = _LTOSLogSpeech(v7, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      __72___LTStabilizationTranslationRequest__startTranslationWithService_done___block_invoke_2_cold_3(v10);
+    }
+  }
+
+  else
+  {
+    *(v9 + 120) = 1;
     [*(a1 + 48) setGeneration:{objc_msgSend(*(a1 + 40), "generation")}];
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 48);
     (*(*(*(a1 + 40) + 128) + 16))();
     (*(*(a1 + 56) + 16))();
   }
@@ -79,18 +82,17 @@ void __66___LTStabilizationTranslationRequest__translationFailedWithError___bloc
   {
     if (*(WeakRetained + 120) == 1)
     {
-      v4 = _LTOSLogSpeech();
+      v4 = _LTOSLogSpeech(WeakRetained, v2);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
-        *v6 = 0;
-        _os_log_impl(&dword_23AAF5000, v4, OS_LOG_TYPE_INFO, "Got an error in stabilization request, but already called the completion handler so ignoring it", v6, 2u);
+        *v5 = 0;
+        _os_log_impl(&dword_23AAF5000, v4, OS_LOG_TYPE_INFO, "Got an error in stabilization request, but already called the completion handler so ignoring it", v5, 2u);
       }
     }
 
     else
     {
       *(WeakRetained + 120) = 1;
-      v5 = *(a1 + 32);
       (*(*(WeakRetained + 16) + 16))();
     }
   }
@@ -98,12 +100,11 @@ void __66___LTStabilizationTranslationRequest__translationFailedWithError___bloc
 
 void __72___LTStabilizationTranslationRequest__startTranslationWithService_done___block_invoke_2_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_23AAF5000, a2, OS_LOG_TYPE_ERROR, "Got error when trying to translate with stabilization: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_23AAF5000, a2, OS_LOG_TYPE_ERROR, "Got error when trying to translate with stabilization: %@", &v3, 0xCu);
 }
 
 @end

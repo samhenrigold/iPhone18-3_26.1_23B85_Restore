@@ -24,7 +24,7 @@ uint64_t __45___NSIPCallbackSerialization_sendBeginBlock___block_invoke(uint64_t
   return result;
 }
 
-uint64_t __43___NSIPCallbackSerialization_sendEndBlock___block_invoke(uint64_t a1)
+void *__43___NSIPCallbackSerialization_sendEndBlock___block_invoke(uint64_t a1)
 {
   atomic_store(1u, (*(a1 + 32) + 17));
   v3 = *(a1 + 32);

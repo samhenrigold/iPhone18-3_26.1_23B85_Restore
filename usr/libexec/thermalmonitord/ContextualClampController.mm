@@ -77,31 +77,8 @@
     if (byte_1000AB2F8 == 1)
     {
       v10 = qword_1000AB718;
-      if (!os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_DEFAULT))
+      if (!os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_DEFAULT) || ((lowTempPerfCapCPU = self->_lowTempPerfCapCPU, lowTempPerfCapGPU = self->_lowTempPerfCapGPU, v13 = self->_lowTempPerfCapBL, !self->_rearCameraPowered) ? (frontCameraPowered = self->_frontCameraPowered) : (frontCameraPowered = 1), v18 = 67110400, *v19 = cameraFloorCPU, *&v19[4] = 1024, *&v19[6] = lowTempPerfCapCPU, *v20 = 1024, *&v20[2] = cameraFloorGPU, v21 = 1024, v22 = lowTempPerfCapGPU, v23 = 1024, v24 = v13, v25 = 1024, v26 = frontCameraPowered, _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "<Notice> Clamp: CPU [%d, %d], GPU [%d, %d], BL [%d] (camera %d)", &v18, 0x26u), (byte_1000AB2F8 & 1) != 0))
       {
-        goto LABEL_21;
-      }
-
-      lowTempPerfCapCPU = self->_lowTempPerfCapCPU;
-      lowTempPerfCapGPU = self->_lowTempPerfCapGPU;
-      v13 = self->_lowTempPerfCapBL;
-      v14 = self->_rearCameraPowered || self->_frontCameraPowered;
-      v18 = 67110400;
-      *v19 = cameraFloorCPU;
-      *&v19[4] = 1024;
-      *&v19[6] = lowTempPerfCapCPU;
-      *v20 = 1024;
-      *&v20[2] = cameraFloorGPU;
-      v21 = 1024;
-      v22 = lowTempPerfCapGPU;
-      v23 = 1024;
-      v24 = v13;
-      v25 = 1024;
-      v26 = v14;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "<Notice> Clamp: CPU [%d, %d], GPU [%d, %d], BL [%d] (camera %d)", &v18, 0x26u);
-      if (byte_1000AB2F8)
-      {
-LABEL_21:
         v15 = qword_1000AB718;
         if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_DEFAULT))
         {

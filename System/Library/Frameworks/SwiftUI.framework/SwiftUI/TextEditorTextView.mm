@@ -13,7 +13,7 @@
   interactionCopy = interaction;
   sessionCopy = session;
   selfCopy = self;
-  TextEditorTextView.findInteraction(_:didBegin:)(interactionCopy, sessionCopy, &selRef_findInteraction_didBeginFindSession_);
+  TextEditorTextView.findInteraction(_:didBegin:)(interactionCopy, sessionCopy, &selRef_findInteraction_didBeginFindSession_, &unk_1F00044E0, partial apply for closure #3 in UICollectionViewListCoordinator.collectionView(_:willPerformPreviewActionForMenuWith:animator:));
 }
 
 - (void)findInteraction:(id)interaction didEndFindSession:(id)session
@@ -21,7 +21,7 @@
   interactionCopy = interaction;
   sessionCopy = session;
   selfCopy = self;
-  TextEditorTextView.findInteraction(_:didBegin:)(interactionCopy, sessionCopy, &selRef_findInteraction_didEndFindSession_);
+  TextEditorTextView.findInteraction(_:didBegin:)(interactionCopy, sessionCopy, &selRef_findInteraction_didEndFindSession_, &unk_1F00044B8, partial apply for closure #1 in View.actionSheet(isPresented:content:));
 }
 
 - (BOOL)supportsTextReplacement

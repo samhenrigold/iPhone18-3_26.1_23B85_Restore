@@ -44,7 +44,7 @@
   v4 = backendXPC;
   if (backendXPC)
   {
-    [backendXPC backend];
+    objc_msgSend_backend(backendXPC);
   }
 
   else
@@ -67,95 +67,94 @@
       break;
     }
 
-    v7 = **lpsrc[0];
-    v9 = lpsrc[1];
-    if (v8)
+    v8 = lpsrc[1];
+    if (v7)
     {
-      v13 = v8;
+      v12 = v7;
       if (lpsrc[1])
       {
         atomic_fetch_add_explicit(lpsrc[1] + 1, 1uLL, memory_order_relaxed);
       }
 
-      *&v29 = 0x200000001;
-      sub_1000B03A8("header_ignore_fields_t", 2, &v29, 2);
-      v13[98] = 2;
-      if (v9)
+      *&v27 = 0x200000001;
+      sub_1000B03A8("header_ignore_fields_t", 2, &v27, 2);
+      v12[98] = 2;
+      if (v8)
       {
-        sub_10000367C(v9);
+        sub_10000367C(v8);
       }
 
 LABEL_25:
       if (self->_header.__ptr_)
       {
         backendXPC2 = [(DiskImageParamsXPC *)self backendXPC];
-        v15 = backendXPC2;
+        v14 = backendXPC2;
         if (backendXPC2)
         {
-          [backendXPC2 backend];
+          objc_msgSend_backend(backendXPC2);
         }
 
         else
         {
-          v25 = 0;
-          v26 = 0;
+          v23 = 0;
+          v24 = 0;
         }
 
-        sub_10019A824(&v25, &v28);
-        sub_10004B28C(&v28, &v29);
-        if (*(&v28 + 1))
+        sub_10019A824(&v23, &v26);
+        sub_10004B28C(&v26, &v27);
+        if (*(&v26 + 1))
         {
-          sub_10000367C(*(&v28 + 1));
+          sub_10000367C(*(&v26 + 1));
         }
 
-        if (v26)
+        if (v24)
         {
-          sub_10000367C(v26);
+          sub_10000367C(v24);
         }
 
-        v17 = v29;
-        if (v29)
+        v16 = v27;
+        if (v27)
         {
-          sub_1001593CC(*(v29 + 40));
-          atomic_store(*(*(v17 + 40) + 16), (*(v17 + 40) + 64));
+          sub_1001593CC(*(v27 + 40));
+          atomic_store(*(*(v16 + 40) + 16), (*(v16 + 40) + 64));
         }
 
-        if (*(&v29 + 1))
+        if (*(&v27 + 1))
         {
-          sub_10000367C(*(&v29 + 1));
+          sub_10000367C(*(&v27 + 1));
         }
 
         backendXPC3 = [(DiskImageParamsXPC *)self backendXPC];
-        v19 = backendXPC3;
+        v18 = backendXPC3;
         if (backendXPC3)
         {
-          [backendXPC3 backend];
-          v20 = v29;
+          objc_msgSend_backend(backendXPC3);
+          v19 = v27;
         }
 
         else
         {
-          v20 = 0;
-          v29 = 0uLL;
+          v19 = 0;
+          v27 = 0uLL;
         }
 
-        v21 = (*(*v20 + 40))(v20);
-        if (*(&v29 + 1))
+        v20 = (*(*v19 + 40))(v19);
+        if (*(&v27 + 1))
         {
-          sub_10000367C(*(&v29 + 1));
+          sub_10000367C(*(&v27 + 1));
         }
 
-        if (v21)
+        if (v20)
         {
           backendXPC4 = [(DiskImageParamsXPC *)self backendXPC];
           if (backendXPC4)
           {
-            [backendXPC4 backend];
+            objc_msgSend_backend(backendXPC4);
           }
 
           else
           {
-            v29 = 0uLL;
+            v27 = 0uLL;
           }
 
           operator new();
@@ -164,15 +163,14 @@ LABEL_25:
         backendXPC5 = [(DiskImageParamsXPC *)self backendXPC];
         if (backendXPC5)
         {
-          [backendXPC5 backend];
+          objc_msgSend_backend(backendXPC5);
         }
 
         else
         {
-          v29 = 0uLL;
+          v27 = 0uLL;
         }
 
-        ptr = self->_header.__ptr_;
         operator new();
       }
 
@@ -181,13 +179,13 @@ LABEL_25:
       backendXPC6 = [(DiskImageParamsXPC *)self backendXPC];
       if (backendXPC6)
       {
-        [backendXPC6 backend];
+        objc_msgSend_backend(backendXPC6);
       }
 
       else
       {
-        v25 = 0;
-        v26 = 0;
+        v23 = 0;
+        v24 = 0;
       }
 
       operator new();
@@ -204,22 +202,22 @@ LABEL_10:
       sub_10000367C(v5);
     }
 
-    sub_10019AD28(lpsrc, &v29);
-    v10 = v29;
-    v29 = 0uLL;
-    v11 = lpsrc[1];
-    *lpsrc = v10;
-    if (v11)
+    sub_10019AD28(lpsrc, &v27);
+    v9 = v27;
+    v27 = 0uLL;
+    v10 = lpsrc[1];
+    *lpsrc = v9;
+    if (v10)
     {
-      sub_10000367C(v11);
-      v12 = lpsrc[0];
-      if (*(&v29 + 1))
+      sub_10000367C(v10);
+      v11 = lpsrc[0];
+      if (*(&v27 + 1))
       {
-        sub_10000367C(*(&v29 + 1));
+        sub_10000367C(*(&v27 + 1));
       }
 
-      v5 = v9;
-      if (v12 == v6)
+      v5 = v8;
+      if (v11 == v6)
       {
         goto LABEL_25;
       }
@@ -227,43 +225,39 @@ LABEL_10:
 
     else
     {
-      v5 = v9;
-      if (v10 == v6)
+      v5 = v8;
+      if (v9 == v6)
       {
         goto LABEL_25;
       }
     }
   }
 
-  v9 = lpsrc[1];
+  v8 = lpsrc[1];
   if (!lpsrc[1])
   {
     goto LABEL_10;
   }
 
 LABEL_9:
-  atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+  atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   goto LABEL_10;
 }
 
 - (int)setSizeWithDiskImage:(void *)image newSize:(unint64_t)size
 {
-  v12[0].receiver = self;
-  v12[0].super_class = DiskImageParamsASIF_XPC;
-  v5 = [(objc_super *)v12 setSizeWithDiskImage:image newSize:size];
+  v8[0].receiver = self;
+  v8[0].super_class = DiskImageParamsASIF_XPC;
+  v5 = [(objc_super *)v8 setSizeWithDiskImage:image newSize:size];
   if (!v5)
   {
-    v6 = *(image + 36);
-    v7 = *(image + 11);
-    v8 = *(image + 4);
-    v14 = *(image + 3);
-    v15 = v8;
-    *v16 = *(image + 5);
-    *&v16[14] = *(image + 94);
-    v12[1] = *(image + 104);
-    v13 = *(image + 15);
-    v9 = *(image + 34);
-    v10 = *(image + 16);
+    v6 = *(image + 4);
+    v10 = *(image + 3);
+    v11 = v6;
+    *v12 = *(image + 5);
+    *&v12[14] = *(image + 94);
+    v8[1] = *(image + 104);
+    v9 = *(image + 15);
     operator new();
   }
 

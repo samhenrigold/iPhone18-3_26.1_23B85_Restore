@@ -129,23 +129,23 @@
 {
   if (*&ref->coordinate != 0x7FFFFFFF && (*&ref->coordinate & 0xFFFF00000000) != 0x7FFF00000000 && *&ref->_tableUID != 0 && *(functions + 3) != 0)
   {
-    v10 = objc_msgSend_calcEngine(self, a2, functions, ref, v4);
-    v15 = objc_msgSend_dependencyTracker(v10, v11, v12, v13, v14);
+    v9 = objc_msgSend_calcEngine(self, a2, functions, ref);
+    v13 = objc_msgSend_dependencyTracker(v9, v10, v11, v12);
 
     pthread_mutex_lock(&self->_mutex);
     for (i = *(functions + 2); i; i = *i)
     {
-      v18 = *(i + 8);
-      if (!sub_2210C3024(&self->_cellRefsUsingFunction.__table_.__bucket_list_.__ptr_, &v18))
+      v16 = *(i + 8);
+      if (!sub_2210C3024(&self->_cellRefsUsingFunction.__table_.__bucket_list_.__ptr_, &v16))
       {
         operator new();
       }
 
-      v19 = &v18;
-      v17 = sub_22115DBD8(&self->_cellRefsUsingFunction.__table_.__bucket_list_.__ptr_, &v18)[3];
-      if (v17)
+      v17 = &v16;
+      v15 = sub_22115DBD8(&self->_cellRefsUsingFunction.__table_.__bucket_list_.__ptr_, &v16, &unk_2217E0538, &v17)[3];
+      if (v15)
       {
-        TSCEReferenceSet::insertRef(v17, ref);
+        TSCEReferenceSet::insertRef(v15, ref);
       }
     }
 
@@ -156,27 +156,27 @@
 - (void)addFunctionUsesInFormula:(id)formula atCellRef:(const TSCECellRef *)ref outContainsVolatileFunction:(BOOL *)function
 {
   formulaCopy = formula;
-  TSCEFormulaRewriteContext::TSCEFormulaRewriteContext(&v29, 0, ref);
-  v13 = objc_msgSend_const_astNodeArray(formulaCopy, v9, v10, v11, v12);
-  sub_22115D634(v27, v13, &v29);
-  TSCEASTStreamIterator::rewrite(v27, v14, v15, v16, v17);
-  v26 = 154;
-  if (sub_2210C3024(v28, &v26) || (v25 = 97, sub_2210C3024(v28, &v25)) || (v24 = 118, sub_2210C3024(v28, &v24)) || (v23 = 119, sub_2210C3024(v28, &v23)))
+  TSCEFormulaRewriteContext::TSCEFormulaRewriteContext(&v26, 0, ref);
+  v12 = objc_msgSend_const_astNodeArray(formulaCopy, v9, v10, v11);
+  sub_22115D634(v24, v12, &v26);
+  TSCEASTStreamIterator::rewrite(v24, v13, v14, v15);
+  v23 = 154;
+  if (sub_2210C3024(v25, &v23) || (v22 = 97, sub_2210C3024(v25, &v22)) || (v21 = 118, sub_2210C3024(v25, &v21)) || (v20 = 119, sub_2210C3024(v25, &v20)))
   {
-    v20 = 1;
+    v17 = 1;
   }
 
   else
   {
-    v22 = 346;
-    v20 = sub_2210C3024(v28, &v22) != 0;
+    v19 = 346;
+    v17 = sub_2210C3024(v25, &v19) != 0;
   }
 
-  *function = v20;
-  objc_msgSend_addUseOfFunctions_atCellRef_(self, v18, v28, ref, v19);
-  v27[0] = &unk_2834A22D0;
-  sub_2210BDEC0(v28);
-  TSCEASTStreamIterator::~TSCEASTStreamIterator(v27, v21);
+  *function = v17;
+  objc_msgSend_addUseOfFunctions_atCellRef_(self, v16, v25, ref);
+  v24[0] = &unk_2834A22D0;
+  sub_2210BDEC0(v25);
+  TSCEASTStreamIterator::~TSCEASTStreamIterator(v24, v18);
 }
 
 - (void)dirtyCellsUsingFunction:(unsigned __int16)function
@@ -185,15 +185,15 @@
   pthread_mutex_lock(&self->_mutex);
   if (sub_2210C3024(&self->_cellRefsUsingFunction.__table_.__bucket_list_.__ptr_, &functionCopy))
   {
-    v22 = &functionCopy;
-    v4 = sub_22115DBD8(&self->_cellRefsUsingFunction.__table_.__bucket_list_.__ptr_, &functionCopy)[3];
+    v18 = &functionCopy;
+    v4 = sub_22115DBD8(&self->_cellRefsUsingFunction.__table_.__bucket_list_.__ptr_, &functionCopy, &unk_2217E0538, &v18)[3];
     if (v4)
     {
       v5 = [TSCEReferenceSetWrapper alloc];
-      v9 = objc_msgSend_initWithReferenceSet_(v5, v6, v4, v7, v8);
-      objc_msgSend_beginBatchingGroupCellDirtying(self->_calcEngine, v10, v11, v12, v13);
-      objc_msgSend_markCellRefsAsDirty_(self->_calcEngine, v14, v9, v15, v16);
-      objc_msgSend_endBatchingGroupCellDirtying(self->_calcEngine, v17, v18, v19, v20);
+      v8 = objc_msgSend_initWithReferenceSet_(v5, v6, v4, v7);
+      objc_msgSend_beginBatchingGroupCellDirtying(self->_calcEngine, v9, v10, v11);
+      objc_msgSend_markCellRefsAsDirty_(self->_calcEngine, v12, v8, v13);
+      objc_msgSend_endBatchingGroupCellDirtying(self->_calcEngine, v14, v15, v16);
     }
   }
 
@@ -206,18 +206,18 @@
   pthread_mutex_lock(&self->_mutex);
   if (sub_2210C3024(&self->_cellRefsUsingFunction.__table_.__bucket_list_.__ptr_, &functionCopy))
   {
-    v14 = &functionCopy;
-    v8 = sub_22115DBD8(&self->_cellRefsUsingFunction.__table_.__bucket_list_.__ptr_, &functionCopy)[3];
-    if (v8)
+    v13 = &functionCopy;
+    v7 = sub_22115DBD8(&self->_cellRefsUsingFunction.__table_.__bucket_list_.__ptr_, &functionCopy, &unk_2217E0538, &v13)[3];
+    if (v7)
     {
-      v9 = objc_msgSend_upgradingFormulasMinion(self->_calcEngine, v4, v5, v6, v7);
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = sub_22115D46C;
-      v11[3] = &unk_27845FBD8;
-      v12 = v9;
-      v10 = v9;
-      TSCEReferenceSet::foreachCellRef(v8, v11);
+      v8 = objc_msgSend_upgradingFormulasMinion(self->_calcEngine, v4, v5, v6);
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = sub_22115D46C;
+      v10[3] = &unk_27845FBD8;
+      v11 = v8;
+      v9 = v8;
+      TSCEReferenceSet::foreachCellRef(v7, v10);
     }
   }
 
@@ -228,19 +228,19 @@
 {
   v3 = MEMORY[0x277CCAB68];
   v4 = objc_opt_class();
-  v11 = objc_msgSend_stringWithFormat_(v3, v5, @"<%@>", v6, v7, v4);
+  v9 = objc_msgSend_stringWithFormat_(v3, v5, @"<%@>", v6, v4);
   for (i = self->_cellRefsUsingFunction.__table_.__first_node_.__next_; i; i = *i)
   {
-    v13 = objc_msgSend_englishFunctionNameFromFunctionIndex_(TSCEFunctionSpec, v8, i[8], v9, v10);
-    v14 = *(i + 3);
-    if (v14)
+    v11 = objc_msgSend_englishFunctionNameFromFunctionIndex_(TSCEFunctionSpec, v7, i[8], v8);
+    v12 = *(i + 3);
+    if (v12)
     {
-      v15 = TSCEReferenceSet::description(v14);
-      objc_msgSend_appendFormat_(v11, v16, @"\n  %@ used at: %@", v17, v18, v13, v15);
+      v13 = TSCEReferenceSet::description(v12);
+      objc_msgSend_appendFormat_(v9, v14, @"\n  %@ used at: %@", v15, v11, v13);
     }
   }
 
-  return v11;
+  return v9;
 }
 
 - (id).cxx_construct

@@ -39,13 +39,13 @@
   return v6;
 }
 
-uint64_t __57__MDMDaemonXPCInvalidationManager_initWithXPCConnection___block_invoke(uint64_t a1)
+uint64_t __57__MDMDaemonXPCInvalidationManager_initWithXPCConnection___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *DMCLogObjects();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v4 = *DMCLogObjects();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_2561F5000, v2, OS_LOG_TYPE_DEFAULT, "MDMDaemonXPCInvalidationManager: invalidationHandler called", v4, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_2561F5000, v4, OS_LOG_TYPE_DEFAULT, "MDMDaemonXPCInvalidationManager: invalidationHandler called", v6, 2u);
   }
 
   return [*(a1 + 32) _executeInvalidationHandlers];
@@ -114,40 +114,38 @@ void __72__MDMDaemonXPCInvalidationManager_unregisterInvalidationHandlerForTask_
 
 void __63__MDMDaemonXPCInvalidationManager__executeInvalidationHandlers__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v1 = [*(a1 + 32) invalidationHandlers];
   v2 = [v1 allValues];
 
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        (*(*(*(&v8 + 1) + 8 * v6++) + 16))();
+        (*(*(*(&v7 + 1) + 8 * v6++) + 16))();
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (NSXPCConnection)xpcConnection

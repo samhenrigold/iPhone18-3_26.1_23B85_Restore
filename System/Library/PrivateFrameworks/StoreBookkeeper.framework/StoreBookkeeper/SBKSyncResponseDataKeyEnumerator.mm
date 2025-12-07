@@ -2,6 +2,7 @@
 - (SBKSyncResponseDataKeyEnumerator)initWithResponseData:(id)data;
 - (void)_processDeletedKey:(id)key isDirty:(BOOL *)dirty;
 - (void)_processNextKey;
+- (void)_processUpdatedKey:(id)key isConflict:(BOOL)conflict isDirty:(BOOL *)dirty;
 - (void)enumerateKeysInResponseForTransaction:(id)transaction completionBlock:(id)block;
 @end
 
@@ -55,6 +56,18 @@ LABEL_8:
   keyCopy = key;
   transactionProcessor = [(SBKSyncTransaction *)transaction transactionProcessor];
   [transactionProcessor transaction:self->_transaction processDeletedKey:keyCopy isDirty:dirty];
+}
+
+- (void)_processUpdatedKey:(id)key isConflict:(BOOL)conflict isDirty:(BOOL *)dirty
+{
+  conflictCopy = conflict;
+  keyCopy = key;
+  v8 = [(SBKSyncResponseData *)self->_responseData payloadDataForUpdateResponseKey:?];
+  if (v8)
+  {
+    transactionProcessor = [(SBKSyncTransaction *)self->_transaction transactionProcessor];
+    [transactionProcessor transaction:self->_transaction processUpdatedKey:keyCopy data:v8 conflict:conflictCopy isDirty:dirty];
+  }
 }
 
 - (void)enumerateKeysInResponseForTransaction:(id)transaction completionBlock:(id)block

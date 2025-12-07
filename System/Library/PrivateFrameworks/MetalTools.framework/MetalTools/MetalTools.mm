@@ -1,4 +1,4 @@
-uint64_t logHeap(char *a1, int a2)
+uint64_t logHeap(char *a1, unsigned int a2)
 {
   if (a2 >= 1)
   {
@@ -14,7 +14,7 @@ uint64_t logHeap(char *a1, int a2)
 
       printf("%20u %20u|", *(v5 - 1), *v5);
       ++v3;
-      v5 += 2;
+      v5 += 8;
     }
 
     while (v4 != v3);
@@ -239,7 +239,7 @@ LABEL_43:
   return result;
 }
 
-uint64_t MTL4AccelerationStructureTypeFromDescriptor()
+uint64_t MTL4AccelerationStructureTypeFromDescriptor(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -272,66 +272,66 @@ void std::__throw_bad_variant_access[abi:ne200100]()
   __cxa_throw(exception, MEMORY[0x277D82768], std::bad_variant_access::~bad_variant_access);
 }
 
-uint64_t _prepareBinaryLinkedFunctions(void *a1, uint64_t a2)
+void *_prepareBinaryLinkedFunctions(void *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = [a1 binaryLinkedFunctions];
-  result = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  result = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (result)
   {
     v5 = result;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) initImageData:a2];
+        [*(*(&v8 + 1) + 8 * v7) initImageData:a2];
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);
-      result = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      result = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
       v5 = result;
     }
 
     while (result);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t MTLGPUDebugSetValidationChecksOptions(uint64_t a1, void *a2, void *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v37 = 1;
-  v38[0] = "all";
-  v38[1] = 1;
-  v38[2] = "none";
-  v38[3] = 2;
-  v35 = 0;
+  *&v42 = *MEMORY[0x277D85DE8];
+  v38 = 1;
+  *&v39 = "all";
+  *(&v39 + 1) = 1;
+  v40 = "none";
+  v41 = 2;
   v36 = 0;
+  v37 = 0;
   __p = 0;
-  std::vector<std::pair<char const*,MTLShaderValidationState>>::__init_with_size[abi:ne200100]<std::pair<char const*,MTLShaderValidationState> const*,std::pair<char const*,MTLShaderValidationState> const*>(&__p, v38, &v39, 2uLL);
-  v6 = MTLGetEnvCase<MTLShaderValidationState>("MTL_SHADER_VALIDATION_DEFAULT_STATE", &v37, &__p);
+  std::vector<std::pair<char const*,MTLShaderValidationState>>::__init_with_size[abi:ne200100]<std::pair<char const*,MTLShaderValidationState> const*,std::pair<char const*,MTLShaderValidationState> const*>(&__p, &v39, &v42, 2uLL);
+  v6 = MTLGetEnvCase<MTLShaderValidationState>("MTL_SHADER_VALIDATION_DEFAULT_STATE", &v38, &__p);
   if (__p)
   {
-    v35 = __p;
+    v36 = __p;
     operator delete(__p);
   }
 
   if ((v6 & 1) == 0)
   {
-    v37 = 1;
+    v38 = 1;
   }
 
   generatePipelineHashWithDescriptor();
@@ -382,21 +382,21 @@ LABEL_14:
 LABEL_15:
   [v8 appendString:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"\n\t{ Shader Validation UID: %@ }", v7)}];
 LABEL_16:
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v28 = ___ZL37MTLGPUDebugSetValidationChecksOptionsP17MTLGPUDebugDeviceP22MTL4PipelineDescriptorS2__block_invoke_3;
-  v29 = &unk_2787B38A8;
-  v30 = a2;
-  v31 = a1;
-  v32 = a3;
-  v33 = v8;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v22 = ___ZL37MTLGPUDebugSetValidationChecksOptionsP17MTLGPUDebugDeviceP22MTL4PipelineDescriptorS2__block_invoke_4;
-  v23 = &unk_2787B38D0;
-  v24 = a2;
-  v25 = a3;
-  v26 = v8;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v29 = ___ZL37MTLGPUDebugSetValidationChecksOptionsP17MTLGPUDebugDeviceP22MTL4PipelineDescriptorS2__block_invoke_3;
+  v30 = &unk_2787B38A8;
+  v31 = a2;
+  v32 = a1;
+  v33 = a3;
+  v34 = v8;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v23 = ___ZL37MTLGPUDebugSetValidationChecksOptionsP17MTLGPUDebugDeviceP22MTL4PipelineDescriptorS2__block_invoke_4;
+  v24 = &unk_2787B38D0;
+  v25 = a2;
+  v26 = a3;
+  v27 = v8;
   v13 = *(a1 + 688);
   v14 = [a2 label];
   if (v13)
@@ -441,7 +441,7 @@ LABEL_38:
         [v8 appendString:@"\nWarning: Pipeline requested to have shader validation checks both enabled and disabled."];
       }
 
-      if (v37 == 1)
+      if (v38 == 1)
       {
       }
 
@@ -451,7 +451,7 @@ LABEL_38:
 LABEL_33:
     if ([objc_msgSend(a2 "options")] == 1)
     {
-      if (v37 == 1)
+      if (v38 == 1)
       {
       }
 
@@ -460,12 +460,12 @@ LABEL_33:
 
     if ([objc_msgSend(a2 "options")] == 2)
     {
-      if (v37 == 2)
+      if (v38 == 2)
       {
       }
     }
 
-    else if (v37 != 2)
+    else if (v38 != 2)
     {
       goto LABEL_42;
     }
@@ -489,7 +489,7 @@ LABEL_29:
         [v8 appendString:@"\nWarning: Pipeline requested to have shader validation checks both enabled and disabled."];
       }
 
-      if (v37 == 2)
+      if (v38 == 2)
       {
       }
 
@@ -500,25 +500,24 @@ LABEL_29:
   }
 
   [v8 appendString:@"\nWarning: Pipeline requested to have shader validation checks both enabled and disabled."];
-  if (v37 != 2)
+  if (v38 != 2)
   {
 LABEL_42:
-    v28(v27);
+    v18 = v29(v28);
     goto LABEL_43;
   }
 
 LABEL_49:
-  v22(v21);
+  v18 = v23(v22);
 LABEL_43:
-  v18 = MTLGPUDebugLog();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v20 = MTLGPUDebugLog(v18, v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
-    MTLGPUDebugSetValidationChecksOptions(v8, v18);
+    MTLGPUDebugSetValidationChecksOptions(v8, v20);
   }
 
   [objc_msgSend(a2 "options")];
   [objc_msgSend(a3 "options")];
-  v19 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -532,7 +531,7 @@ void sub_22E1077A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-__CFString *getFunctionDescriptorName(void *a1)
+__CFString *getFunctionDescriptorName(void *a1, uint64_t a2)
 {
   objc_opt_class();
   while ((objc_opt_isKindOfClass() & 1) == 0)
@@ -552,9 +551,9 @@ __CFString *getFunctionDescriptorName(void *a1)
         return &stru_2841C04D0;
       }
 
-      v3 = [a1 functionGraph];
+      v4 = [a1 functionGraph];
 
-      return [v3 functionName];
+      return [v4 functionName];
     }
 
     if ([a1 specializedName])
@@ -624,7 +623,7 @@ uint64_t ___ZL37MTLGPUDebugSetValidationChecksOptionsP17MTLGPUDebugDeviceP22MTL4
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v5 = @"\n\t{ function name: %@ }";
+    v6 = @"\n\t{ function name: %@ }";
   }
 
   else
@@ -632,7 +631,7 @@ uint64_t ___ZL37MTLGPUDebugSetValidationChecksOptionsP17MTLGPUDebugDeviceP22MTL4
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v5 = @"\n\t{ function specializedName: %@ }";
+      v6 = @"\n\t{ function specializedName: %@ }";
     }
 
     else
@@ -644,13 +643,13 @@ uint64_t ___ZL37MTLGPUDebugSetValidationChecksOptionsP17MTLGPUDebugDeviceP22MTL4
         return result;
       }
 
-      v5 = @"\n\t{ functionGraph name: %@ }";
+      v6 = @"\n\t{ functionGraph name: %@ }";
     }
   }
 
-  v7 = [MEMORY[0x277CCACA8] stringWithFormat:v5, getFunctionDescriptorName(a2)];
+  v8 = [MEMORY[0x277CCACA8] stringWithFormat:v6, getFunctionDescriptorName(a2, v5)];
 
-  return [a3 appendString:v7];
+  return [a3 appendString:v8];
 }
 
 uint64_t ___ZL37MTLGPUDebugSetValidationChecksOptionsP17MTLGPUDebugDeviceP22MTL4PipelineDescriptorS2__block_invoke_3(uint64_t a1)
@@ -687,7 +686,7 @@ uint64_t ___ZL37MTLGPUDebugSetValidationChecksOptionsP17MTLGPUDebugDeviceP22MTL4
   return [v2 appendString:@"\nDisabling checks."];
 }
 
-uint64_t std::vector<std::pair<char const*,MTLShaderValidationState>>::__init_with_size[abi:ne200100]<std::pair<char const*,MTLShaderValidationState> const*,std::pair<char const*,MTLShaderValidationState> const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<char const*,MTLShaderValidationState>>::__init_with_size[abi:ne200100]<std::pair<char const*,MTLShaderValidationState> const*,std::pair<char const*,MTLShaderValidationState> const*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -709,7 +708,7 @@ void sub_22E108AB0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::pair<char const*,MTLShaderValidationState>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<char const*,MTLShaderValidationState>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -750,7 +749,7 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x277D82778], MEMORY[0x277D82620]);
 }
 
-uint64_t ___ZZL18WrapDynamicLibraryIZ45__MTL4GPUDebugCompiler_wrapDynamicLibraries__E3__0EP25MTLGPUDebugDynamicLibraryP17MTLGPUDebugDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke(uint64_t a1)
+MTLGPUDebugDynamicLibrary *___ZZL18WrapDynamicLibraryIZ45__MTL4GPUDebugCompiler_wrapDynamicLibraries__E3__0EP25MTLGPUDebugDynamicLibraryP17MTLGPUDebugDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke(uint64_t a1)
 {
   v2 = [MTLGPUDebugDynamicLibrary alloc];
   v3 = *(a1 + 32);
@@ -759,7 +758,7 @@ uint64_t ___ZZL18WrapDynamicLibraryIZ45__MTL4GPUDebugCompiler_wrapDynamicLibrari
   return [(MTLGPUDebugDynamicLibrary *)v2 initWithDynamicLibrary:v3 device:v4];
 }
 
-uint64_t ___ZZL18WrapDynamicLibraryIZ48__MTL4GPUDebugCompiler_newDynamicLibrary_error__E3__2EP25MTLGPUDebugDynamicLibraryP17MTLGPUDebugDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke(uint64_t a1)
+MTLGPUDebugDynamicLibrary *___ZZL18WrapDynamicLibraryIZ48__MTL4GPUDebugCompiler_newDynamicLibrary_error__E3__2EP25MTLGPUDebugDynamicLibraryP17MTLGPUDebugDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke(uint64_t a1)
 {
   v2 = [MTLGPUDebugDynamicLibrary alloc];
   v3 = *(a1 + 32);
@@ -768,7 +767,7 @@ uint64_t ___ZZL18WrapDynamicLibraryIZ48__MTL4GPUDebugCompiler_newDynamicLibrary_
   return [(MTLGPUDebugDynamicLibrary *)v2 initWithDynamicLibrary:v3 device:v4];
 }
 
-uint64_t ___ZZL18WrapDynamicLibraryIZ55__MTL4GPUDebugCompiler_newDynamicLibraryWithURL_error__E3__3EP25MTLGPUDebugDynamicLibraryP17MTLGPUDebugDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke(uint64_t a1)
+MTLGPUDebugDynamicLibrary *___ZZL18WrapDynamicLibraryIZ55__MTL4GPUDebugCompiler_newDynamicLibraryWithURL_error__E3__3EP25MTLGPUDebugDynamicLibraryP17MTLGPUDebugDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke(uint64_t a1)
 {
   v2 = [MTLGPUDebugDynamicLibrary alloc];
   v3 = *(a1 + 32);
@@ -777,17 +776,17 @@ uint64_t ___ZZL18WrapDynamicLibraryIZ55__MTL4GPUDebugCompiler_newDynamicLibraryW
   return [(MTLGPUDebugDynamicLibrary *)v2 initWithDynamicLibrary:v3 device:v4];
 }
 
-void *std::vector<objc_object  {objcproto19MTLGPUDebugViewable}*>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<objc_object  {objcproto19MTLGPUDebugViewable}*>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<objc_object  {objcproto19MTLGPUDebugViewable}*>::__vallocate[abi:ne200100](result, a2);
+    std::vector<objc_object  {objcproto19MTLGPUDebugViewable}*>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_22E109320(_Unwind_Exception *exception_object)
@@ -802,7 +801,7 @@ void sub_22E109320(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<objc_object  {objcproto19MTLGPUDebugViewable}*>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<objc_object  {objcproto19MTLGPUDebugViewable}*>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -832,17 +831,17 @@ void sub_22E10AD14(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<unsigned long>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<unsigned long>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned long>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned long>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_22E10E3DC(_Unwind_Exception *exception_object)
@@ -857,7 +856,7 @@ void sub_22E10E3DC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned long>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<unsigned long>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -909,96 +908,93 @@ uint64_t newFunctionLogLocationFromDebugLocation(uint64_t a1)
   return [v2 initWithDebugLocation:a1];
 }
 
-void *newNonToolchainInlinedStackTraceFromDebugLocation(void *a1)
+void *newNonToolchainInlinedStackTraceFromDebugLocation(void *a1, uint64_t a2)
 {
   if (!a1)
   {
     return 0;
   }
 
-  v1 = a1;
-  v2 = objc_opt_new();
+  v2 = a1;
+  v3 = objc_opt_new();
   do
   {
-    v3 = [objc_alloc(MEMORY[0x277CD70B0]) initWithDebugLocation:v1];
-    v4 = [objc_msgSend(objc_msgSend(v3 "URL")];
-    if (([v4 containsString:@".xctoolchain/"] & 1) == 0 && (objc_msgSend(v4, "containsString:", @"GPUCompiler.framework/") & 1) == 0 && (!objc_msgSend(v2, "count") || (objc_msgSend(objc_msgSend(v3, "description"), "isEqual:", objc_msgSend(objc_msgSend(v2, "lastObject"), "description")) & 1) == 0))
+    v4 = [objc_alloc(MEMORY[0x277CD70B0]) initWithDebugLocation:v2];
+    v5 = [objc_msgSend(objc_msgSend(v4 "URL")];
+    if (([v5 containsString:@".xctoolchain/"] & 1) == 0 && (objc_msgSend(v5, "containsString:", @"GPUCompiler.framework/") & 1) == 0 && (!objc_msgSend(v3, "count") || (objc_msgSend(objc_msgSend(v4, "description"), "isEqual:", objc_msgSend(objc_msgSend(v3, "lastObject"), "description")) & 1) == 0))
     {
-      [v2 addObject:v3];
+      [v3 addObject:v4];
     }
 
-    v1 = [v1 inlinedAt];
+    v2 = [v2 inlinedAt];
   }
 
-  while (v1);
-  return v2;
+  while (v2);
+  return v3;
 }
 
-void *newRuntimeStackTrace(id **a1)
+void *newRuntimeStackTrace(id **a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (a1[1] == *a1)
   {
-    v2 = 0;
-    goto LABEL_20;
+    return 0;
   }
 
-  v2 = objc_opt_new();
-  v3 = *a1;
-  v4 = a1[1];
-  if (v4 - *a1 == 8)
+  v4 = objc_opt_new();
+  v5 = *a1;
+  v6 = a1[1];
+  if (v6 - *a1 == 8)
   {
-    v5 = [objc_msgSend(objc_msgSend(*v3 "scope")];
-    v3 = *a1;
-    if (v5)
+    v7 = [objc_msgSend(objc_msgSend(*v5 "scope")];
+    v5 = *a1;
+    if (v7)
     {
-      v6 = [objc_alloc(MEMORY[0x277CD70B0]) initWithDebugLocation:*v3];
-      [v2 addObject:v6];
+      v8 = [objc_alloc(MEMORY[0x277CD70B0]) initWithDebugLocation:*v5];
+      [v4 addObject:v8];
 
-      goto LABEL_20;
+      return v4;
     }
 
-    v4 = a1[1];
+    v6 = a1[1];
   }
 
-  for (; v3 != v4; ++v3)
+  for (; v5 != v6; ++v5)
   {
-    v7 = newNonToolchainInlinedStackTraceFromDebugLocation(*v3);
-    v15 = 0u;
+    v9 = newNonToolchainInlinedStackTraceFromDebugLocation(*v5, v3);
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v8)
+    v19 = 0u;
+    v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    if (v10)
     {
-      v9 = v8;
-      v10 = *v16;
+      v11 = v10;
+      v12 = *v17;
       do
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v16 != v10)
+          if (*v17 != v12)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v9);
           }
 
-          v12 = *(*(&v15 + 1) + 8 * i);
-          if (([objc_msgSend(v12 "functionName")] & 1) == 0 && (!objc_msgSend(v2, "count") || (objc_msgSend(objc_msgSend(v12, "description"), "isEqual:", objc_msgSend(objc_msgSend(v2, "lastObject"), "description")) & 1) == 0))
+          v14 = *(*(&v16 + 1) + 8 * i);
+          if (([objc_msgSend(v14 "functionName")] & 1) == 0 && (!objc_msgSend(v4, "count") || (objc_msgSend(objc_msgSend(v14, "description"), "isEqual:", objc_msgSend(objc_msgSend(v4, "lastObject"), "description")) & 1) == 0))
           {
-            [v2 addObject:v12];
+            [v4 addObject:v14];
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
-      while (v9);
+      while (v11);
     }
   }
 
-LABEL_20:
-  v13 = *MEMORY[0x277D85DE8];
-  return v2;
+  return v4;
 }
 
 uint64_t resourceUsageForBuffer(MTLGPUDebugBuffer *a1, uint64_t a2, BufferUsageTable *a3)
@@ -1037,16 +1033,14 @@ LABEL_7:
   return BufferUsageTable::getUsage(v4, a1);
 }
 
-MTLGPUDebugBufferErrorLog *MTLGPUDebugReadReportBuffer(uint64_t a1, unsigned __int8 **a2, uint64_t a3, void *a4)
+MTLGPUDebugBufferErrorLog *MTLGPUDebugReadReportBuffer(uint64_t a1, char **a2, uint64_t a3, void *a4)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v4 = *a2;
   v5 = **a2;
   if (!**a2)
   {
-LABEL_50:
-    v32 = 0;
-    goto LABEL_51;
+    return 0;
   }
 
   v8 = a1 + 264;
@@ -1066,7 +1060,7 @@ LABEL_50:
     }
 
     [(MTLGPUDebugBufferErrorLog *)v10 setOperation:v11];
-    resolvedSharedPacketData::resolvedSharedPacketData(v47, v4, a1, v10, a4);
+    resolvedSharedPacketData::resolvedSharedPacketData(v46, v4, a1, v10, a4);
     v12 = *(v4 + 10);
     if ((*(v8 + 22) & 0x80) != 0)
     {
@@ -1093,7 +1087,7 @@ LABEL_50:
       v26 = *(v8 + 20);
     }
 
-    if ((v26 & 0x8800000) == 0x800000 || (v45 = 0u, v46 = 0u, v43 = 0u, v44 = 0u, v27 = v48, (v28 = [v48 countByEnumeratingWithState:&v43 objects:v50 count:16]) == 0))
+    if ((v26 & 0x8800000) == 0x800000 || (v44 = 0u, v45 = 0u, v42 = 0u, v43 = 0u, v27 = v47, (v28 = [v47 countByEnumeratingWithState:&v42 objects:v49 count:16]) == 0))
     {
 LABEL_42:
       v31 = 0;
@@ -1101,17 +1095,17 @@ LABEL_42:
 
     else
     {
-      v29 = *v44;
+      v29 = *v43;
 LABEL_35:
       v30 = 0;
       while (1)
       {
-        if (*v44 != v29)
+        if (*v43 != v29)
         {
           objc_enumerationMutation(v27);
         }
 
-        v31 = *(*(&v43 + 1) + 8 * v30);
+        v31 = *(*(&v42 + 1) + 8 * v30);
         if (![v31 type] && objc_msgSend(v31, "index") == *(v4 + 48))
         {
           break;
@@ -1119,7 +1113,7 @@ LABEL_35:
 
         if (v28 == ++v30)
         {
-          v28 = [v27 countByEnumeratingWithState:&v43 objects:v50 count:16];
+          v28 = [v27 countByEnumeratingWithState:&v42 objects:v49 count:16];
           if (v28)
           {
             goto LABEL_35;
@@ -1150,29 +1144,29 @@ LABEL_35:
     }
 
     [(MTLGPUDebugBufferErrorLog *)v14 setOperation:v15];
-    resolvedSharedPacketData::resolvedSharedPacketData(v47, v4, a1, v14, a4);
+    resolvedSharedPacketData::resolvedSharedPacketData(v46, v4, a1, v14, a4);
     [(MTLGPUDebugBufferErrorLog *)v14 setOffset:*(v4 + 10)];
     if ((*(v8 + 20) & 0x8800000) != 0x800000)
     {
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
       v40 = 0u;
-      v16 = v48;
-      v17 = [v48 countByEnumeratingWithState:&v39 objects:v49 count:16];
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
+      v16 = v47;
+      v17 = [v47 countByEnumeratingWithState:&v38 objects:v48 count:16];
       if (v17)
       {
-        v18 = *v40;
+        v18 = *v39;
 LABEL_15:
         v19 = 0;
         while (1)
         {
-          if (*v40 != v18)
+          if (*v39 != v18)
           {
             objc_enumerationMutation(v16);
           }
 
-          v20 = *(*(&v39 + 1) + 8 * v19);
+          v20 = *(*(&v38 + 1) + 8 * v19);
           if (![v20 type] && objc_msgSend(v20, "index") == *(v4 + 48))
           {
             break;
@@ -1180,7 +1174,7 @@ LABEL_15:
 
           if (v17 == ++v19)
           {
-            v17 = [v16 countByEnumeratingWithState:&v39 objects:v49 count:16];
+            v17 = [v16 countByEnumeratingWithState:&v38 objects:v48 count:16];
             if (v17)
             {
               goto LABEL_15;
@@ -1201,16 +1195,16 @@ LABEL_15:
   {
     if (v22 == 7)
     {
-      v38 = objc_alloc_init(MTLGPUDebugStackOverflowErrorLog);
-      resolvedSharedPacketData::resolvedSharedPacketData(v47, v4, a1, v38, a4);
-      v21 = v38;
+      v37 = objc_alloc_init(MTLGPUDebugStackOverflowErrorLog);
+      resolvedSharedPacketData::resolvedSharedPacketData(v46, v4, a1, v37, a4);
+      v21 = v37;
       goto LABEL_44;
     }
 
     if (v22 == 8)
     {
       v33 = objc_alloc_init(MTLGPUDebugAccelerationStructureErrorLog);
-      resolvedSharedPacketData::resolvedSharedPacketData(v47, v4, a1, v33, a4);
+      resolvedSharedPacketData::resolvedSharedPacketData(v46, v4, a1, v33, a4);
       [(MTLGPUDebugAccelerationStructureErrorLog *)v33 setExpectedAccelerationStructureType:*(v4 + 10)];
       [(MTLGPUDebugAccelerationStructureErrorLog *)v33 setActualAccelerationStructureType:*(v4 + 11)];
       v21 = v33;
@@ -1222,39 +1216,44 @@ LABEL_15:
 
   if (v22 == 5)
   {
-    v37 = objc_alloc_init(MTLGPUDebugTextureErrorLog);
-    resolvedSharedPacketData::resolvedSharedPacketData(v47, v4, a1, v37, a4);
-    [(MTLGPUDebugTextureErrorLog *)v37 setExpectedTextureType:v4[80]];
-    [(MTLGPUDebugTextureErrorLog *)v37 setActualTextureType:v4[84]];
-    [(MTLGPUDebugTextureErrorLog *)v37 setErrorReason:*(v4 + 22)];
-    v21 = v37;
+    v36 = objc_alloc_init(MTLGPUDebugTextureErrorLog);
+    resolvedSharedPacketData::resolvedSharedPacketData(v46, v4, a1, v36, a4);
+    [(MTLGPUDebugTextureErrorLog *)v36 setExpectedTextureType:v4[80]];
+    [(MTLGPUDebugTextureErrorLog *)v36 setActualTextureType:v4[84]];
+    [(MTLGPUDebugTextureErrorLog *)v36 setErrorReason:*(v4 + 22)];
+    v21 = v36;
     goto LABEL_44;
   }
 
   if (v22 != 6)
   {
 LABEL_48:
-    v34 = MTLGPUDebugLog();
+    v34 = MTLGPUDebugLog(a1, a2);
     if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       MTLGPUDebugReadReportBuffer_cold_1(v34);
     }
 
-    goto LABEL_50;
+    return 0;
   }
 
   v23 = objc_alloc_init(MTLGPUDebugTrapErrorLog);
-  resolvedSharedPacketData::resolvedSharedPacketData(v47, v4, a1, v23, a4);
+  resolvedSharedPacketData::resolvedSharedPacketData(v46, v4, a1, v23, a4);
   v21 = v23;
 LABEL_44:
   v32 = v21;
-  resolvedSharedPacketData::~resolvedSharedPacketData(v47);
-LABEL_51:
-  v35 = *MEMORY[0x277D85DE8];
+  resolvedSharedPacketData::~resolvedSharedPacketData(v46);
   return v32;
 }
 
-uint64_t *GPUDebugFunctionInfo::GPUDebugFunctionInfo(uint64_t *a1, void *a2, uint64_t a3, uint64_t a4)
+void sub_22E10F5C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  resolvedSharedPacketData::~resolvedSharedPacketData(va);
+  _Unwind_Resume(a1);
+}
+
+void *GPUDebugFunctionInfo::GPUDebugFunctionInfo(void *a1, void *a2, uint64_t a3, void *a4)
 {
   *a1 = @"<unnamed>";
   a1[1] = @"<unknown>";
@@ -1440,8 +1439,8 @@ uint64_t resolvedSharedPacketData::resolvedSharedPacketData(uint64_t a1, uint64_
 LABEL_14:
   *(a1 + 136) = v17;
 LABEL_15:
-  v44 = a5;
-  v45 = v10;
+  v46 = a5;
+  v47 = v10;
   v18 = 0;
   v19 = a2 + 40;
   do
@@ -1531,46 +1530,46 @@ LABEL_15:
   v35 = *v10;
   [a4 setImage:*v9];
   [a4 setCallIndex:*(a1 + 96)];
-  [a4 setEncoderLabel:{std::__hash_table<std::__hash_value_type<unsigned int, NSString *>, std::__unordered_map_hasher<unsigned int, std::__hash_value_type<unsigned int, NSString *>, std::hash<unsigned int>, std::equal_to<unsigned int>, true>, std::__unordered_map_equal<unsigned int, std::__hash_value_type<unsigned int, NSString *>, std::equal_to<unsigned int>, std::hash<unsigned int>, true>, std::allocator<std::__hash_value_type<unsigned int, NSString *>>>::find<unsigned int>(v44, v11)[3]}];
-  v36 = *(a1 + 112);
-  if (*(a1 + 120) != v36)
+  [a4 setEncoderLabel:{std::__hash_table<std::__hash_value_type<unsigned int, NSString *>, std::__unordered_map_hasher<unsigned int, std::__hash_value_type<unsigned int, NSString *>, std::hash<unsigned int>, std::equal_to<unsigned int>, true>, std::__unordered_map_equal<unsigned int, std::__hash_value_type<unsigned int, NSString *>, std::equal_to<unsigned int>, std::hash<unsigned int>, true>, std::allocator<std::__hash_value_type<unsigned int, NSString *>>>::find<unsigned int>(v46, v11)[3]}];
+  v37 = *(a1 + 112);
+  if (*(a1 + 120) != v37)
   {
-    v37 = newNonToolchainInlinedStackTraceFromDebugLocation(*v36);
-    v38 = newRuntimeStackTrace((a1 + 112));
-    v39 = [a3 argumentBuffersSupport];
-    v40 = v37;
-    if (v39 == 1)
+    v38 = newNonToolchainInlinedStackTraceFromDebugLocation(*v37, v36);
+    v40 = newRuntimeStackTrace((a1 + 112), v39);
+    v41 = [a3 argumentBuffersSupport];
+    v42 = v38;
+    if (v41 == 1)
     {
       if ((a3[285] & 2) != 0)
       {
-        v40 = v38;
+        v42 = v40;
       }
 
       else
       {
-        v40 = v37;
+        v42 = v38;
       }
     }
 
-    [a4 setErrorStackTrace:v40];
-    if (v37)
+    [a4 setErrorStackTrace:v42];
+    if (v38)
     {
-      v41 = [v37 objectAtIndexedSubscript:0];
+      v43 = [v38 objectAtIndexedSubscript:0];
     }
 
     else
     {
-      v41 = 0;
+      v43 = 0;
     }
 
-    [a4 setDebugLocation:v41];
+    [a4 setDebugLocation:v43];
   }
 
   [a4 setFunction:*(a1 + 40)];
   [a4 setType:0];
   [a4 setFunctionName:*(a1 + 56)];
   [a4 setFunctionType:*(a1 + 64)];
-  [a4 setPipelineIdentifier:*v45];
+  [a4 setPipelineIdentifier:*v47];
   return a1;
 }
 
@@ -1673,7 +1672,7 @@ void sub_22E118710(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantIndirection<MTLLegacySV::VertexEncoderClass>>(uint64_t a1, unint64_t *a2, id *a3, uint64_t a4, uint64_t a5)
+void *MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantIndirection<MTLLegacySV::VertexEncoderClass>>(uint64_t a1, unint64_t *a2, id *a3, uint64_t a4, uint64_t a5)
 {
   [a3[2] setVertexBytes:a1 length:248 atIndex:a4];
   result = [a3[2] setVertexBytes:a1 + 744 length:248 atIndex:a5];
@@ -1712,7 +1711,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantIndirection<MTLLegacySV::FragmentEncoderClass>>(uint64_t a1, unint64_t *a2, id *a3, uint64_t a4, uint64_t a5)
+void *MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantIndirection<MTLLegacySV::FragmentEncoderClass>>(uint64_t a1, unint64_t *a2, id *a3, uint64_t a4, uint64_t a5)
 {
   [a3[2] setFragmentBytes:a1 length:248 atIndex:a4];
   result = [a3[2] setFragmentBytes:a1 + 744 length:248 atIndex:a5];
@@ -1751,7 +1750,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantIndirection<MTLLegacySV::TileEncoderClass>>(uint64_t a1, unint64_t *a2, id *a3, uint64_t a4, uint64_t a5)
+void *MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantIndirection<MTLLegacySV::TileEncoderClass>>(uint64_t a1, unint64_t *a2, id *a3, uint64_t a4, uint64_t a5)
 {
   [a3[2] setTileBytes:a1 length:248 atIndex:a4];
   result = [a3[2] setTileBytes:a1 + 744 length:248 atIndex:a5];
@@ -1790,7 +1789,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantIndirection<MTLLegacySV::ObjectEncoderClass>>(uint64_t a1, unint64_t *a2, id *a3, uint64_t a4, uint64_t a5)
+void *MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantIndirection<MTLLegacySV::ObjectEncoderClass>>(uint64_t a1, unint64_t *a2, id *a3, uint64_t a4, uint64_t a5)
 {
   [a3[2] setObjectBytes:a1 length:248 atIndex:a4];
   result = [a3[2] setObjectBytes:a1 + 744 length:248 atIndex:a5];
@@ -1829,7 +1828,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantIndirection<MTLLegacySV::MeshEncoderClass>>(uint64_t a1, unint64_t *a2, id *a3, uint64_t a4, uint64_t a5)
+void *MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantIndirection<MTLLegacySV::MeshEncoderClass>>(uint64_t a1, unint64_t *a2, id *a3, uint64_t a4, uint64_t a5)
 {
   [a3[2] setMeshBytes:a1 length:248 atIndex:a4];
   result = [a3[2] setMeshBytes:a1 + 744 length:248 atIndex:a5];
@@ -1868,7 +1867,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantT2<MTLLegacySV::VertexEncoderClass>>(uint64_t a1, unint64_t *a2, void *a3, uint64_t a4, uint64_t a5)
+void *MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantT2<MTLLegacySV::VertexEncoderClass>>(uint64_t a1, unint64_t *a2, void *a3, uint64_t a4, uint64_t a5)
 {
   v12 = *a2;
   v13 = a3;
@@ -1911,13 +1910,13 @@ LABEL_6:
 uint64_t MTLLegacySV::EncoderVariantT2<MTLLegacySV::VertexEncoderClass>::setResources(id *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v11 = 0;
-  v9 = [objc_msgSend(*a1 "commandBuffer")];
+  v9 = [objc_msgSend(*a1 commandBuffer];
   [*(*a1 + 2) setVertexBuffer:v9 offset:v11 atIndex:0];
   [*(*a1 + 2) setVertexBytes:a2 + 992 length:124 atIndex:a4];
   return [*(*a1 + 2) setVertexBytes:a2 + 744 length:248 atIndex:a5];
 }
 
-uint64_t MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantT2<MTLLegacySV::FragmentEncoderClass>>(uint64_t a1, unint64_t *a2, void *a3, uint64_t a4, uint64_t a5)
+void *MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantT2<MTLLegacySV::FragmentEncoderClass>>(uint64_t a1, unint64_t *a2, void *a3, uint64_t a4, uint64_t a5)
 {
   v12 = *a2;
   v13 = a3;
@@ -1960,13 +1959,13 @@ LABEL_6:
 uint64_t MTLLegacySV::EncoderVariantT2<MTLLegacySV::FragmentEncoderClass>::setResources(id *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v11 = 0;
-  v9 = [objc_msgSend(*a1 "commandBuffer")];
+  v9 = [objc_msgSend(*a1 commandBuffer];
   [*(*a1 + 2) setFragmentBuffer:v9 offset:v11 atIndex:0];
   [*(*a1 + 2) setFragmentBytes:a2 + 992 length:124 atIndex:a4];
   return [*(*a1 + 2) setFragmentBytes:a2 + 744 length:248 atIndex:a5];
 }
 
-uint64_t MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantT2<MTLLegacySV::TileEncoderClass>>(uint64_t a1, unint64_t *a2, void *a3, uint64_t a4, uint64_t a5)
+void *MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantT2<MTLLegacySV::TileEncoderClass>>(uint64_t a1, unint64_t *a2, void *a3, uint64_t a4, uint64_t a5)
 {
   v12 = *a2;
   v13 = a3;
@@ -2009,13 +2008,13 @@ LABEL_6:
 uint64_t MTLLegacySV::EncoderVariantT2<MTLLegacySV::TileEncoderClass>::setResources(id *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v11 = 0;
-  v9 = [objc_msgSend(*a1 "commandBuffer")];
+  v9 = [objc_msgSend(*a1 commandBuffer];
   [*(*a1 + 2) setTileBuffer:v9 offset:v11 atIndex:0];
   [*(*a1 + 2) setTileBytes:a2 + 992 length:124 atIndex:a4];
   return [*(*a1 + 2) setTileBytes:a2 + 744 length:248 atIndex:a5];
 }
 
-uint64_t MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantT2<MTLLegacySV::ObjectEncoderClass>>(uint64_t a1, unint64_t *a2, void *a3, uint64_t a4, uint64_t a5)
+void *MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantT2<MTLLegacySV::ObjectEncoderClass>>(uint64_t a1, unint64_t *a2, void *a3, uint64_t a4, uint64_t a5)
 {
   v12 = *a2;
   v13 = a3;
@@ -2058,13 +2057,13 @@ LABEL_6:
 uint64_t MTLLegacySV::EncoderVariantT2<MTLLegacySV::ObjectEncoderClass>::setResources(id *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v11 = 0;
-  v9 = [objc_msgSend(*a1 "commandBuffer")];
+  v9 = [objc_msgSend(*a1 commandBuffer];
   [*(*a1 + 2) setObjectBuffer:v9 offset:v11 atIndex:0];
   [*(*a1 + 2) setObjectBytes:a2 + 992 length:124 atIndex:a4];
   return [*(*a1 + 2) setObjectBytes:a2 + 744 length:248 atIndex:a5];
 }
 
-uint64_t MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantT2<MTLLegacySV::MeshEncoderClass>>(uint64_t a1, unint64_t *a2, void *a3, uint64_t a4, uint64_t a5)
+void *MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantT2<MTLLegacySV::MeshEncoderClass>>(uint64_t a1, unint64_t *a2, void *a3, uint64_t a4, uint64_t a5)
 {
   v12 = *a2;
   v13 = a3;
@@ -2107,13 +2106,13 @@ LABEL_6:
 uint64_t MTLLegacySV::EncoderVariantT2<MTLLegacySV::MeshEncoderClass>::setResources(id *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v11 = 0;
-  v9 = [objc_msgSend(*a1 "commandBuffer")];
+  v9 = [objc_msgSend(*a1 commandBuffer];
   [*(*a1 + 2) setMeshBuffer:v9 offset:v11 atIndex:0];
   [*(*a1 + 2) setMeshBytes:a2 + 992 length:124 atIndex:a4];
   return [*(*a1 + 2) setMeshBytes:a2 + 744 length:248 atIndex:a5];
 }
 
-uint64_t MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantT1AGX<MTLLegacySV::VertexEncoderClass>>(uint64_t a1, unint64_t *a2, void *a3)
+void *MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantT1AGX<MTLLegacySV::VertexEncoderClass>>(uint64_t a1, unint64_t *a2, void *a3)
 {
   v10 = *a2;
   v11 = a3;
@@ -2167,7 +2166,7 @@ uint64_t MTLLegacySV::EncoderVariantT1AGX<MTLLegacySV::VertexEncoderClass>::setR
   return [v7 setVertexBytes:a2 + 1120 length:496 atIndex:31];
 }
 
-uint64_t MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantT1AGX<MTLLegacySV::FragmentEncoderClass>>(uint64_t a1, unint64_t *a2, void *a3)
+void *MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantT1AGX<MTLLegacySV::FragmentEncoderClass>>(uint64_t a1, unint64_t *a2, void *a3)
 {
   v10 = *a2;
   v11 = a3;
@@ -2229,7 +2228,7 @@ uint64_t MTLLegacySV::EncoderVariantT1AGX<MTLLegacySV::FragmentEncoderClass>::se
   return [v9 setFragmentBytes:a2 + 1120 length:496 atIndex:31];
 }
 
-uint64_t MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantT1AGX<MTLLegacySV::TileEncoderClass>>(uint64_t a1, unint64_t *a2, void *a3)
+void *MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantT1AGX<MTLLegacySV::TileEncoderClass>>(uint64_t a1, unint64_t *a2, void *a3)
 {
   v10 = *a2;
   v11 = a3;
@@ -2291,7 +2290,7 @@ uint64_t MTLLegacySV::EncoderVariantT1AGX<MTLLegacySV::TileEncoderClass>::setRes
   return [v9 setTileBytes:a2 + 1120 length:496 atIndex:31];
 }
 
-uint64_t MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantT1AGX<MTLLegacySV::ObjectEncoderClass>>(uint64_t a1, unint64_t *a2, void *a3)
+void *MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantT1AGX<MTLLegacySV::ObjectEncoderClass>>(uint64_t a1, unint64_t *a2, void *a3)
 {
   v10 = *a2;
   v11 = a3;
@@ -2353,7 +2352,7 @@ uint64_t MTLLegacySV::EncoderVariantT1AGX<MTLLegacySV::ObjectEncoderClass>::setR
   return [v9 setObjectBytes:a2 + 1120 length:496 atIndex:31];
 }
 
-uint64_t MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantT1AGX<MTLLegacySV::MeshEncoderClass>>(uint64_t a1, unint64_t *a2, void *a3)
+void *MTLLegacySVStageBufferHandles::flush<MTLLegacySV::EncoderVariantT1AGX<MTLLegacySV::MeshEncoderClass>>(uint64_t a1, unint64_t *a2, void *a3)
 {
   v10 = *a2;
   v11 = a3;
@@ -2417,12 +2416,12 @@ uint64_t MTLLegacySV::EncoderVariantT1AGX<MTLLegacySV::MeshEncoderClass>::setRes
 
 void emitKernelTelemetry(MTLTelemetryDevice *a1)
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CD7168])
   {
     if (*MEMORY[0x277CD7168] != 1)
     {
-      goto LABEL_22;
+      return;
     }
 
     kernelDistribution = a1->kernelDistribution;
@@ -2514,50 +2513,47 @@ void emitKernelTelemetry(MTLTelemetryDevice *a1)
     }
 
     *buf = 67113984;
-    v47 = v36;
-    v48 = 1024;
-    v49 = v35;
-    v50 = 2048;
-    v51 = v28;
-    v52 = 2048;
-    v53 = v26;
-    v54 = 1024;
-    v55 = v25;
-    v56 = 1024;
-    v57 = v38;
-    v58 = 1024;
-    v59 = v37;
-    v60 = 2048;
-    v61 = v27;
-    v62 = 2048;
-    v63 = v30;
-    v64 = 1024;
-    v65 = v29;
-    v66 = 1024;
-    v67 = v40;
-    v68 = 1024;
-    v69 = v39;
-    v70 = 2048;
-    v71 = v34;
-    v72 = 2048;
-    v73 = v32;
-    v74 = 1024;
-    v75 = v31;
-    v76 = 1024;
-    v77 = v41;
-    v78 = 1024;
-    v79 = v42;
-    v80 = 2048;
-    v81 = v33;
-    v82 = 2048;
-    v83 = v44;
-    v84 = 1024;
-    v85 = v43;
+    v46 = v36;
+    v47 = 1024;
+    v48 = v35;
+    v49 = 2048;
+    v50 = v28;
+    v51 = 2048;
+    v52 = v26;
+    v53 = 1024;
+    v54 = v25;
+    v55 = 1024;
+    v56 = v38;
+    v57 = 1024;
+    v58 = v37;
+    v59 = 2048;
+    v60 = v27;
+    v61 = 2048;
+    v62 = v30;
+    v63 = 1024;
+    v64 = v29;
+    v65 = 1024;
+    v66 = v40;
+    v67 = 1024;
+    v68 = v39;
+    v69 = 2048;
+    v70 = v34;
+    v71 = 2048;
+    v72 = v32;
+    v73 = 1024;
+    v74 = v31;
+    v75 = 1024;
+    v76 = v41;
+    v77 = 1024;
+    v78 = v42;
+    v79 = 2048;
+    v80 = v33;
+    v81 = 2048;
+    v82 = v44;
+    v83 = 1024;
+    v84 = v43;
     _os_log_impl(&dword_22E0FF000, v23, OS_LOG_TYPE_DEFAULT, "Kernel, minPBAllocation=%d, maxPBAllocation=%d, avgPBAllocation=%f, totalPBAllocation=%lld, countPBAllocation=%d, minSPMRenderCount=%d, maxSPMRenderCount=%d, avgSPMRenderCount=%f, totalSPMRenderCount=%lld, countSPMRenderCount=%d, minTiledSceneBytes=%d, maxTiledSceneBytes=%d, avgTiledSceneBytes=%f, totalTiledSceneBytes=%lld, countTiledSceneBytes=%d, minRenderCount=%d, maxRenderCount=%d, avgRenderCount=%f, totalRenderCount=%lld, countRenderCount=%d", buf, 0x9Au);
   }
-
-LABEL_22:
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t getKernelTelemetryState(MTLTelemetryKernelStateRec *a1)
@@ -2623,17 +2619,17 @@ void sub_22E11DA3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<objc_object  {objcproto15MTLResidencySet}*>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<objc_object  {objcproto15MTLResidencySet}*>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<objc_object  {objcproto19MTLGPUDebugViewable}*>::__vallocate[abi:ne200100](result, a2);
+    std::vector<objc_object  {objcproto19MTLGPUDebugViewable}*>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_22E11E1D8(_Unwind_Exception *exception_object)
@@ -2687,7 +2683,7 @@ void *ResourceUsageTable::alloc(ResourceUsageTable *this, MTLGPUDebugDevice *a2,
   return result;
 }
 
-uint64_t BufferUsageTable::setUsage(BufferUsageTable *this, unsigned int a2, char a3)
+_BYTE *BufferUsageTable::setUsage(BufferUsageTable *this, unsigned int a2, char a3)
 {
   if ((a3 & 4) != 0)
   {
@@ -2700,7 +2696,7 @@ uint64_t BufferUsageTable::setUsage(BufferUsageTable *this, unsigned int a2, cha
   }
 
   result = [(MTLBuffer *)this->_backingMemory contents];
-  *(result + (a2 >> 2)) |= v4 << (2 * (a2 & 3));
+  result[a2 >> 2] |= v4 << (2 * (a2 & 3));
   return result;
 }
 
@@ -2721,7 +2717,7 @@ _BYTE *BufferUsageTable::alloc(BufferUsageTable *this, MTLGPUDebugDevice *a2, in
   return result;
 }
 
-uint64_t BufferUsageTable::addResource(BufferUsageTable *this, MTLGPUDebugDevice *a2, MTLGPUDebugBuffer *a3, char a4)
+_BYTE *BufferUsageTable::addResource(BufferUsageTable *this, MTLGPUDebugDevice *a2, MTLGPUDebugBuffer *a3, char a4)
 {
   for (i = a3; ; i = a3)
   {
@@ -2741,7 +2737,7 @@ uint64_t BufferUsageTable::addResource(BufferUsageTable *this, MTLGPUDebugDevice
   }
 
   result = [(MTLBuffer *)this->_backingMemory contents];
-  *(result + (v10 >> 2)) |= a4 << (2 * (v10 & 3));
+  result[v10 >> 2] |= a4 << (2 * (v10 & 3));
   return result;
 }
 
@@ -2773,7 +2769,7 @@ TextureUsageTable *TextureUsageTable::setUsage(TextureUsageTable *this, unsigned
   return this;
 }
 
-uint64_t TextureUsageTable::addResource(TextureUsageTable *this, MTLGPUDebugDevice *a2, unsigned int a3, char a4)
+_BYTE *TextureUsageTable::addResource(TextureUsageTable *this, MTLGPUDebugDevice *a2, unsigned int a3, char a4)
 {
   v8 = a3 >> 2;
   for (i = this->_backingMemory; ; i = this->_backingMemory)
@@ -2795,7 +2791,7 @@ uint64_t TextureUsageTable::addResource(TextureUsageTable *this, MTLGPUDebugDevi
     }
 
     result = [(MTLBuffer *)this->_backingMemory contents];
-    *(result + v8) |= a4 << (2 * (a3 & 3));
+    result[v8] |= a4 << (2 * (a3 & 3));
   }
 
   return result;
@@ -2820,20 +2816,20 @@ TextureTypeTable *TextureTypeTable::setType(TextureTypeTable *this, unint64_t a2
   return this;
 }
 
-unint64_t TextureTypeTable::removeResource(TextureTypeTable *this, MTLGPUDebugDevice *a2, MTLGPUDebugTexture *a3)
+_BYTE *TextureTypeTable::removeResource(TextureTypeTable *this, MTLGPUDebugDevice *a2, MTLGPUDebugTexture *a3)
 {
   result = [(MTLGPUDebugTexture *)a3 gpuIdentifier];
   if (result)
   {
     v5 = result;
     result = [(MTLBuffer *)this->_backingMemory contents];
-    *(result + (v5 >> 1)) |= 15 << (4 * (v5 & 1));
+    result[v5 >> 1] |= 15 << (4 * (v5 & 1));
   }
 
   return result;
 }
 
-unint64_t TextureTypeTable::addResource(TextureTypeTable *this, MTLGPUDebugDevice *a2, MTLGPUDebugTexture *a3)
+_BYTE *TextureTypeTable::addResource(TextureTypeTable *this, MTLGPUDebugDevice *a2, MTLGPUDebugTexture *a3)
 {
   for (i = a3; ; i = a3)
   {
@@ -2852,7 +2848,7 @@ unint64_t TextureTypeTable::addResource(TextureTypeTable *this, MTLGPUDebugDevic
   {
     v10 = result;
     result = [(MTLBuffer *)this->_backingMemory contents];
-    *(result + (v8 >> 1)) = *(result + (v8 >> 1)) & ~(15 << (4 * (v8 & 1))) | (v10 << (4 * (v8 & 1)));
+    result[v8 >> 1] = result[v8 >> 1] & ~(15 << (4 * (v8 & 1))) | (v10 << (4 * (v8 & 1)));
   }
 
   return result;
@@ -3078,7 +3074,7 @@ HeapUsageTable *HeapUsageTable::apply(HeapUsageTable *this, BufferUsageTable *a2
   return this;
 }
 
-uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsageTableS3_S3_S3_R16TextureTypeTableS5_S5_S5__block_invoke(uint64_t result, unsigned int *a2, int a3)
+_BYTE *___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsageTableS3_S3_S3_R16TextureTypeTableS5_S5_S5__block_invoke(_BYTE *result, unsigned int *a2, int a3)
 {
   if (a3)
   {
@@ -3088,7 +3084,7 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
     {
       v7 = *a2++;
       v6 = v7;
-      v8 = *(*(v5 + 40) + 16);
+      v8 = *(*(v5 + 5) + 16);
       if ((v8 & 4) != 0)
       {
         LODWORD(v9) = v8 & 2 | 1;
@@ -3096,11 +3092,11 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
 
       else
       {
-        v9 = *(*(v5 + 40) + 16);
+        v9 = *(*(v5 + 5) + 16);
       }
 
-      result = [**(v5 + 32) contents];
-      *(result + (v6 >> 2)) |= v9 << (2 * (v6 & 3));
+      result = [**(v5 + 4) contents];
+      result[v6 >> 2] |= v9 << (2 * (v6 & 3));
       --v3;
     }
 
@@ -3110,7 +3106,7 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
   return result;
 }
 
-uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsageTableS3_S3_S3_R16TextureTypeTableS5_S5_S5__block_invoke_2(uint64_t result, unsigned int *a2, int a3)
+_BYTE *___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsageTableS3_S3_S3_R16TextureTypeTableS5_S5_S5__block_invoke_2(_BYTE *result, unsigned int *a2, int a3)
 {
   if (a3)
   {
@@ -3120,7 +3116,7 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
     {
       v7 = *a2++;
       v6 = v7;
-      v8 = *(*(v5 + 40) + 16);
+      v8 = *(*(v5 + 5) + 16);
       if ((v8 & 4) != 0)
       {
         LODWORD(v9) = v8 & 2 | 1;
@@ -3128,11 +3124,11 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
 
       else
       {
-        v9 = *(*(v5 + 40) + 16);
+        v9 = *(*(v5 + 5) + 16);
       }
 
-      result = [**(v5 + 32) contents];
-      *(result + (v6 >> 2)) |= v9 << (2 * (v6 & 3));
+      result = [**(v5 + 4) contents];
+      result[v6 >> 2] |= v9 << (2 * (v6 & 3));
       --v3;
     }
 
@@ -3142,7 +3138,7 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
   return result;
 }
 
-uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsageTableS3_S3_S3_R16TextureTypeTableS5_S5_S5__block_invoke_3(uint64_t result, unsigned int *a2, int a3)
+_BYTE *___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsageTableS3_S3_S3_R16TextureTypeTableS5_S5_S5__block_invoke_3(_BYTE *result, unsigned int *a2, int a3)
 {
   if (a3)
   {
@@ -3153,7 +3149,7 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
       v6 = *a2;
       if (v6)
       {
-        v7 = *(*(v5 + 40) + 16);
+        v7 = *(*(v5 + 5) + 16);
         if ((v7 & 4) != 0)
         {
           LODWORD(v8) = v7 & 2 | 1;
@@ -3161,17 +3157,17 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
 
         else
         {
-          v8 = *(*(v5 + 40) + 16);
+          v8 = *(*(v5 + 5) + 16);
         }
 
-        result = [**(v5 + 32) contents];
-        *(result + (v6 >> 2)) |= v8 << (2 * (v6 & 3));
+        result = [**(v5 + 4) contents];
+        result[v6 >> 2] |= v8 << (2 * (v6 & 3));
         v9 = *a2;
         if (v9)
         {
           v10 = a2[2];
-          result = [**(v5 + 48) contents];
-          *(result + (v9 >> 1)) = *(result + (v9 >> 1)) & ~(15 << (4 * (v9 & 1))) | (v10 << (4 * (v9 & 1)));
+          result = [**(v5 + 6) contents];
+          result[v9 >> 1] = result[v9 >> 1] & ~(15 << (4 * (v9 & 1))) | (v10 << (4 * (v9 & 1)));
         }
       }
 
@@ -3185,7 +3181,7 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
   return result;
 }
 
-uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsageTableS3_S3_S3_R16TextureTypeTableS5_S5_S5__block_invoke_4(uint64_t result, unsigned int *a2, int a3)
+_BYTE *___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsageTableS3_S3_S3_R16TextureTypeTableS5_S5_S5__block_invoke_4(_BYTE *result, unsigned int *a2, int a3)
 {
   if (a3)
   {
@@ -3195,7 +3191,7 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
     {
       v7 = *a2++;
       v6 = v7;
-      v8 = *(*(v5 + 40) + 16);
+      v8 = *(*(v5 + 5) + 16);
       if ((v8 & 4) != 0)
       {
         LODWORD(v9) = v8 & 2 | 1;
@@ -3203,11 +3199,11 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
 
       else
       {
-        v9 = *(*(v5 + 40) + 16);
+        v9 = *(*(v5 + 5) + 16);
       }
 
-      result = [**(v5 + 32) contents];
-      *(result + (v6 >> 2)) |= v9 << (2 * (v6 & 3));
+      result = [**(v5 + 4) contents];
+      result[v6 >> 2] |= v9 << (2 * (v6 & 3));
       --v3;
     }
 
@@ -3217,7 +3213,7 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
   return result;
 }
 
-uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsageTableS3_S3_S3_R16TextureTypeTableS5_S5_S5__block_invoke_5(uint64_t result, unsigned int *a2, int a3)
+_BYTE *___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsageTableS3_S3_S3_R16TextureTypeTableS5_S5_S5__block_invoke_5(_BYTE *result, unsigned int *a2, int a3)
 {
   if (a3)
   {
@@ -3227,7 +3223,7 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
     {
       v7 = *a2++;
       v6 = v7;
-      v8 = *(*(v5 + 40) + 16);
+      v8 = *(*(v5 + 5) + 16);
       if ((v8 & 4) != 0)
       {
         LODWORD(v9) = v8 & 2 | 1;
@@ -3235,11 +3231,11 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
 
       else
       {
-        v9 = *(*(v5 + 40) + 16);
+        v9 = *(*(v5 + 5) + 16);
       }
 
-      result = [**(v5 + 32) contents];
-      *(result + (v6 >> 2)) |= v9 << (2 * (v6 & 3));
+      result = [**(v5 + 4) contents];
+      result[v6 >> 2] |= v9 << (2 * (v6 & 3));
       --v3;
     }
 
@@ -3249,7 +3245,7 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
   return result;
 }
 
-uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsageTableS3_S3_S3_R16TextureTypeTableS5_S5_S5__block_invoke_6(uint64_t result, unsigned int *a2, int a3)
+_BYTE *___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsageTableS3_S3_S3_R16TextureTypeTableS5_S5_S5__block_invoke_6(_BYTE *result, unsigned int *a2, int a3)
 {
   if (a3)
   {
@@ -3260,7 +3256,7 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
       v6 = *a2;
       if (v6)
       {
-        v7 = *(*(v5 + 40) + 16);
+        v7 = *(*(v5 + 5) + 16);
         if ((v7 & 4) != 0)
         {
           LODWORD(v8) = v7 & 2 | 1;
@@ -3268,17 +3264,17 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
 
         else
         {
-          v8 = *(*(v5 + 40) + 16);
+          v8 = *(*(v5 + 5) + 16);
         }
 
-        result = [**(v5 + 32) contents];
-        *(result + (v6 >> 2)) |= v8 << (2 * (v6 & 3));
+        result = [**(v5 + 4) contents];
+        result[v6 >> 2] |= v8 << (2 * (v6 & 3));
         v9 = *a2;
         if (v9)
         {
           v10 = a2[2];
-          result = [**(v5 + 48) contents];
-          *(result + (v9 >> 1)) = *(result + (v9 >> 1)) & ~(15 << (4 * (v9 & 1))) | (v10 << (4 * (v9 & 1)));
+          result = [**(v5 + 6) contents];
+          result[v9 >> 1] = result[v9 >> 1] & ~(15 << (4 * (v9 & 1))) | (v10 << (4 * (v9 & 1)));
         }
       }
 
@@ -3292,7 +3288,7 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
   return result;
 }
 
-uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsageTableS3_S3_S3_R16TextureTypeTableS5_S5_S5__block_invoke_7(uint64_t result, unsigned int *a2, int a3)
+_BYTE *___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsageTableS3_S3_S3_R16TextureTypeTableS5_S5_S5__block_invoke_7(_BYTE *result, unsigned int *a2, int a3)
 {
   if (a3)
   {
@@ -3302,7 +3298,7 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
     {
       v7 = *a2++;
       v6 = v7;
-      v8 = *(*(v5 + 40) + 16);
+      v8 = *(*(v5 + 5) + 16);
       if ((v8 & 4) != 0)
       {
         LODWORD(v9) = v8 & 2 | 1;
@@ -3310,11 +3306,11 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
 
       else
       {
-        v9 = *(*(v5 + 40) + 16);
+        v9 = *(*(v5 + 5) + 16);
       }
 
-      result = [**(v5 + 32) contents];
-      *(result + (v6 >> 2)) |= v9 << (2 * (v6 & 3));
+      result = [**(v5 + 4) contents];
+      result[v6 >> 2] |= v9 << (2 * (v6 & 3));
       --v3;
     }
 
@@ -3324,7 +3320,7 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
   return result;
 }
 
-uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsageTableS3_S3_S3_R16TextureTypeTableS5_S5_S5__block_invoke_8(uint64_t result, unsigned int *a2, int a3)
+_BYTE *___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsageTableS3_S3_S3_R16TextureTypeTableS5_S5_S5__block_invoke_8(_BYTE *result, unsigned int *a2, int a3)
 {
   if (a3)
   {
@@ -3334,7 +3330,7 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
     {
       v7 = *a2++;
       v6 = v7;
-      v8 = *(*(v5 + 40) + 16);
+      v8 = *(*(v5 + 5) + 16);
       if ((v8 & 4) != 0)
       {
         LODWORD(v9) = v8 & 2 | 1;
@@ -3342,11 +3338,11 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
 
       else
       {
-        v9 = *(*(v5 + 40) + 16);
+        v9 = *(*(v5 + 5) + 16);
       }
 
-      result = [**(v5 + 32) contents];
-      *(result + (v6 >> 2)) |= v9 << (2 * (v6 & 3));
+      result = [**(v5 + 4) contents];
+      result[v6 >> 2] |= v9 << (2 * (v6 & 3));
       --v3;
     }
 
@@ -3356,7 +3352,7 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
   return result;
 }
 
-uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsageTableS3_S3_S3_R16TextureTypeTableS5_S5_S5__block_invoke_9(uint64_t result, unsigned int *a2, int a3)
+_BYTE *___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsageTableS3_S3_S3_R16TextureTypeTableS5_S5_S5__block_invoke_9(_BYTE *result, unsigned int *a2, int a3)
 {
   if (a3)
   {
@@ -3367,7 +3363,7 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
       v6 = *a2;
       if (v6)
       {
-        v7 = *(*(v5 + 40) + 16);
+        v7 = *(*(v5 + 5) + 16);
         if ((v7 & 4) != 0)
         {
           LODWORD(v8) = v7 & 2 | 1;
@@ -3375,17 +3371,17 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
 
         else
         {
-          v8 = *(*(v5 + 40) + 16);
+          v8 = *(*(v5 + 5) + 16);
         }
 
-        result = [**(v5 + 32) contents];
-        *(result + (v6 >> 2)) |= v8 << (2 * (v6 & 3));
+        result = [**(v5 + 4) contents];
+        result[v6 >> 2] |= v8 << (2 * (v6 & 3));
         v9 = *a2;
         if (v9)
         {
           v10 = a2[2];
-          result = [**(v5 + 48) contents];
-          *(result + (v9 >> 1)) = *(result + (v9 >> 1)) & ~(15 << (4 * (v9 & 1))) | (v10 << (4 * (v9 & 1)));
+          result = [**(v5 + 6) contents];
+          result[v9 >> 1] = result[v9 >> 1] & ~(15 << (4 * (v9 & 1))) | (v10 << (4 * (v9 & 1)));
         }
       }
 
@@ -3399,7 +3395,7 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
   return result;
 }
 
-uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsageTableS3_S3_S3_R16TextureTypeTableS5_S5_S5__block_invoke_10(uint64_t result, unsigned int *a2, int a3)
+_BYTE *___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsageTableS3_S3_S3_R16TextureTypeTableS5_S5_S5__block_invoke_10(_BYTE *result, unsigned int *a2, int a3)
 {
   if (a3)
   {
@@ -3409,7 +3405,7 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
     {
       v7 = *a2++;
       v6 = v7;
-      v8 = *(*(v5 + 40) + 16);
+      v8 = *(*(v5 + 5) + 16);
       if ((v8 & 4) != 0)
       {
         LODWORD(v9) = v8 & 2 | 1;
@@ -3417,11 +3413,11 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
 
       else
       {
-        v9 = *(*(v5 + 40) + 16);
+        v9 = *(*(v5 + 5) + 16);
       }
 
-      result = [**(v5 + 32) contents];
-      *(result + (v6 >> 2)) |= v9 << (2 * (v6 & 3));
+      result = [**(v5 + 4) contents];
+      result[v6 >> 2] |= v9 << (2 * (v6 & 3));
       --v3;
     }
 
@@ -3431,7 +3427,7 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
   return result;
 }
 
-uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsageTableS3_S3_S3_R16TextureTypeTableS5_S5_S5__block_invoke_11(uint64_t result, unsigned int *a2, int a3)
+_BYTE *___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsageTableS3_S3_S3_R16TextureTypeTableS5_S5_S5__block_invoke_11(_BYTE *result, unsigned int *a2, int a3)
 {
   if (a3)
   {
@@ -3441,7 +3437,7 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
     {
       v7 = *a2++;
       v6 = v7;
-      v8 = *(*(v5 + 40) + 16);
+      v8 = *(*(v5 + 5) + 16);
       if ((v8 & 4) != 0)
       {
         LODWORD(v9) = v8 & 2 | 1;
@@ -3449,11 +3445,11 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
 
       else
       {
-        v9 = *(*(v5 + 40) + 16);
+        v9 = *(*(v5 + 5) + 16);
       }
 
-      result = [**(v5 + 32) contents];
-      *(result + (v6 >> 2)) |= v9 << (2 * (v6 & 3));
+      result = [**(v5 + 4) contents];
+      result[v6 >> 2] |= v9 << (2 * (v6 & 3));
       --v3;
     }
 
@@ -3463,7 +3459,7 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
   return result;
 }
 
-uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsageTableS3_S3_S3_R16TextureTypeTableS5_S5_S5__block_invoke_12(uint64_t result, unsigned int *a2, int a3)
+_BYTE *___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsageTableS3_S3_S3_R16TextureTypeTableS5_S5_S5__block_invoke_12(_BYTE *result, unsigned int *a2, int a3)
 {
   if (a3)
   {
@@ -3474,7 +3470,7 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
       v6 = *a2;
       if (v6)
       {
-        v7 = *(*(v5 + 40) + 16);
+        v7 = *(*(v5 + 5) + 16);
         if ((v7 & 4) != 0)
         {
           LODWORD(v8) = v7 & 2 | 1;
@@ -3482,17 +3478,17 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
 
         else
         {
-          v8 = *(*(v5 + 40) + 16);
+          v8 = *(*(v5 + 5) + 16);
         }
 
-        result = [**(v5 + 32) contents];
-        *(result + (v6 >> 2)) |= v8 << (2 * (v6 & 3));
+        result = [**(v5 + 4) contents];
+        result[v6 >> 2] |= v8 << (2 * (v6 & 3));
         v9 = *a2;
         if (v9)
         {
           v10 = a2[2];
-          result = [**(v5 + 48) contents];
-          *(result + (v9 >> 1)) = *(result + (v9 >> 1)) & ~(15 << (4 * (v9 & 1))) | (v10 << (4 * (v9 & 1)));
+          result = [**(v5 + 6) contents];
+          result[v9 >> 1] = result[v9 >> 1] & ~(15 << (4 * (v9 & 1))) | (v10 << (4 * (v9 & 1)));
         }
       }
 
@@ -3506,15 +3502,15 @@ uint64_t ___ZN14HeapUsageTable5applyER16BufferUsageTableS1_S1_S1_R17TextureUsage
   return result;
 }
 
-uint64_t __copy_helper_atomic_property_(void *a1, uint64_t *a2)
+uint64_t *__copy_helper_atomic_property_(uint64_t *a1, uint64_t a2)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  return std::vector<MetalBuffer>::__init_with_size[abi:ne200100]<MetalBuffer*,MetalBuffer*>(a1, *a2, a2[1], (a2[1] - *a2) >> 4);
+  return std::vector<MetalBuffer>::__init_with_size[abi:ne200100]<MetalBuffer*,MetalBuffer*>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 4);
 }
 
-char **__assign_helper_atomic_property_(char **result, char **a2)
+uint64_t *__assign_helper_atomic_property_(uint64_t *result, char **a2)
 {
   if (result != a2)
   {
@@ -3524,12 +3520,12 @@ char **__assign_helper_atomic_property_(char **result, char **a2)
   return result;
 }
 
-void __assign_helper_atomic_property__6(uint64_t a1, uint64_t a2)
+void __assign_helper_atomic_property__6(uint64_t result, uint64_t a2)
 {
-  if (a1 != a2)
+  if (result != a2)
   {
-    *(a1 + 32) = *(a2 + 32);
-    std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<unsigned int,NSString *>,void *> *>>(a1, *(a2 + 16), 0);
+    *(result + 32) = *(a2 + 32);
+    std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<unsigned int,NSString *>,void *> *>>(result, *(a2 + 16), 0);
   }
 }
 
@@ -3543,7 +3539,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<HeapUsageTable::HeapU
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<MetalBuffer>::__init_with_size[abi:ne200100]<MetalBuffer*,MetalBuffer*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<MetalBuffer>::__init_with_size[abi:ne200100]<MetalBuffer*,MetalBuffer*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3565,7 +3561,7 @@ void sub_22E120334(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<MetalBuffer>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<MetalBuffer>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -3585,7 +3581,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<MetalBuffer>>(uint64_
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<MetalBuffer>::__assign_with_size[abi:ne200100]<MetalBuffer*,MetalBuffer*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<MetalBuffer>::__assign_with_size[abi:ne200100]<MetalBuffer*,MetalBuffer*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -3648,13 +3644,13 @@ void *std::vector<MetalBuffer>::__assign_with_size[abi:ne200100]<MetalBuffer*,Me
       v11 = v6[1];
     }
 
-    v14 = a3 - v13;
+    v14 = (a3 - v13);
     if (a3 != v13)
     {
-      result = memmove(v11, v13, v14 - 4);
+      result = memmove(v11, v13, (v14 - 4));
     }
 
-    v15 = &v11[v14];
+    v15 = &v14[v11];
   }
 
   v6[1] = v15;
@@ -3669,13 +3665,13 @@ uint64_t std::unordered_map<unsigned int,NSString *>::unordered_map(uint64_t a1,
   std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int const,NSString *> const&>(a1, i + 4);
+    std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int const,NSString *> const&>(a1, i + 4, i + 1);
   }
 
   return a1;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -3691,7 +3687,7 @@ void std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__un
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -3699,7 +3695,7 @@ void std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__un
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -3723,7 +3719,7 @@ void std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__un
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -3750,33 +3746,33 @@ void std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__un
   *(a1 + 8) = 0;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int const,NSString *> const&>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int const,NSString *> const&>(void *a1, unsigned int *a2, _OWORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % v3.i32[0];
+      v6 = v3 % v4.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v6 = (v4.i32[0] - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -3784,44 +3780,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 void std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<unsigned int,NSString *>,void *> *>>(void *a1, uint64_t *a2, uint64_t *a3)
@@ -3870,7 +3866,7 @@ void std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__un
 LABEL_11:
   if (a2 != a3)
   {
-    std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::__emplace_multi<std::pair<unsigned int const,NSString *> const&>();
+    std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::__emplace_multi<std::pair<unsigned int const,NSString *> const&>(a1, a2 + 1);
   }
 }
 
@@ -4052,7 +4048,7 @@ LABEL_19:
   return result;
 }
 
-void std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::__rehash<false>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::__rehash<false>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -4068,7 +4064,7 @@ void std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__un
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -4076,7 +4072,7 @@ void std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__un
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -4100,7 +4096,7 @@ void std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__un
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::__do_rehash<false>(a1, prime);
+      std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::__do_rehash<false>(result, prime);
     }
   }
 }
@@ -4127,33 +4123,33 @@ void std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__un
   *(a1 + 8) = 0;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::__emplace_unique_key_args<unsigned int,unsigned int &,NSString *&>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::__emplace_unique_key_args<unsigned int,unsigned int &,NSString *&>(void *a1, unsigned int *a2, _DWORD *a3, void *a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % v3.i32[0];
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -4161,44 +4157,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void *std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::clear(void *result)
@@ -4317,7 +4313,7 @@ unint64_t MTLGPUDebugStageBufferHandles::setBuffer(MTLGPUDebugStageBufferHandles
   return result;
 }
 
-uint64_t MTLGPUDebugStageBufferHandles::setBufferOffset(MTLGPUDebugStageBufferHandles *this, unint64_t a2, uint64_t a3)
+char *MTLGPUDebugStageBufferHandles::setBufferOffset(MTLGPUDebugStageBufferHandles *this, unint64_t a2, uint64_t a3)
 {
   this->needsFlush = 1;
   v6 = &this->handles[a3];
@@ -4328,12 +4324,12 @@ uint64_t MTLGPUDebugStageBufferHandles::setBufferOffset(MTLGPUDebugStageBufferHa
   *(v7 + 248) = [v6[31] length] - a2;
   result = [v6[31] underlyingGPUAddress];
   v9 = this + 16 * a3;
-  *(v9 + 140) = result + a2;
-  *(v9 + 141) = result + a2 + *(v7 + 248);
+  *(v9 + 140) = &result[a2];
+  *(v9 + 141) = &result[a2 + *(v7 + 248)];
   return result;
 }
 
-uint64_t MTLGPUDebugStageBufferHandles::setBufferOffset(MTLGPUDebugStageBufferHandles *this, unint64_t a2, unint64_t a3, uint64_t a4)
+char *MTLGPUDebugStageBufferHandles::setBufferOffset(MTLGPUDebugStageBufferHandles *this, unint64_t a2, unint64_t a3, uint64_t a4)
 {
   this->needsFlush = 1;
   v7 = &this->handles[a4];
@@ -4344,8 +4340,8 @@ uint64_t MTLGPUDebugStageBufferHandles::setBufferOffset(MTLGPUDebugStageBufferHa
   *(v8 + 248) = [v7[31] length] - a2;
   result = [v7[31] underlyingGPUAddress];
   v10 = this + 16 * a4;
-  *(v10 + 140) = result + a2;
-  *(v10 + 141) = result + a2 + *(v8 + 248);
+  *(v10 + 140) = &result[a2];
+  *(v10 + 141) = &result[a2 + *(v8 + 248)];
   return result;
 }
 
@@ -4449,8 +4445,8 @@ uint64_t MTLGPUDebugTileThreadgroup::setupTableEntries(uint64_t a1, unsigned int
 void emitSamplerDistribution(MTLTelemetryDevice *a1, MTLTelemetrySamplerDistributionRec *a2)
 {
   v3 = 0;
-  v92 = MTLSamplerAddressModeClampToEdge;
-  v169 = *MEMORY[0x277D85DE8];
+  v91 = MTLSamplerAddressModeClampToEdge;
+  v168 = *MEMORY[0x277D85DE8];
   do
   {
     v4 = MTLCompareFunctionNever;
@@ -4470,8 +4466,8 @@ void emitSamplerDistribution(MTLTelemetryDevice *a1, MTLTelemetrySamplerDistribu
           goto LABEL_39;
         }
 
-        v90 = stringifyMTLTelemetryWrapMode(v92);
-        v88 = stringifyMTLTelemetryCompareFunc(v4);
+        v89 = stringifyMTLTelemetryWrapMode(v91);
+        v87 = stringifyMTLTelemetryCompareFunc(v4);
         v7 = samplerDistribution + v3 + v5;
         v8 = *(v7 + 328);
         v9 = *(v7 + 163);
@@ -4550,14 +4546,14 @@ void emitSamplerDistribution(MTLTelemetryDevice *a1, MTLTelemetrySamplerDistribu
           v45 = 0.0;
         }
 
-        printf("\n\nSampler, wrapMode=%s, compareFunc=%s, total=%u, minMipFilter=%u, maxMipFilter=%u, avgMipFilter=%f, totalMipFilter=%llu, countMipFilter=%u, minTriLinearFilter=%u, maxTriLinearFilter=%u, avgTriLinearFilter=%f, totalTriLinearFilter=%llu, countTriLinearFilter=%u, minNormalizedCoords=%u, maxNormalizedCoords=%u, avgNormalizedCoords=%f, totalNormalizedCoords=%llu, countNormalizedCoords=%u, minMaxAniso=%u, maxMaxAniso=%u, avgMaxAniso=%f, totalMaxAniso=%llu, countMaxAniso=%u, minLodMinClamp=%.2f, maxLodMinClamp=%.2f, avgLodMinClamp=%f, totalLodMinClamp=%.2f, countLodMinClamp=%u, minLodMaxClamp=%.2f, maxLodMaxClamp=%.2f, avgLodMaxClamp=%f, totalLodMaxClamp=%.2f, countLodMaxClamp=%u, minLodAvg=%u, maxLodAvg=%u, avgLodAvg=%f, totalLodAvg=%llu, countLodAvg=%u", v90, v88, samplerDistribution->var0, v12, v13, v11, v9, v8, v14, v15, v10, v17, v16, v19, v20, v24, v22, v21, v25, v26, v23, v28, v27, v30, v31, v35, v33, v32, v36, v37, v34, v39, v38, v41, v42, v45, v44, v43);
+        printf("\n\nSampler, wrapMode=%s, compareFunc=%s, total=%u, minMipFilter=%u, maxMipFilter=%u, avgMipFilter=%f, totalMipFilter=%llu, countMipFilter=%u, minTriLinearFilter=%u, maxTriLinearFilter=%u, avgTriLinearFilter=%f, totalTriLinearFilter=%llu, countTriLinearFilter=%u, minNormalizedCoords=%u, maxNormalizedCoords=%u, avgNormalizedCoords=%f, totalNormalizedCoords=%llu, countNormalizedCoords=%u, minMaxAniso=%u, maxMaxAniso=%u, avgMaxAniso=%f, totalMaxAniso=%llu, countMaxAniso=%u, minLodMinClamp=%.2f, maxLodMinClamp=%.2f, avgLodMinClamp=%f, totalLodMinClamp=%.2f, countLodMinClamp=%u, minLodMaxClamp=%.2f, maxLodMaxClamp=%.2f, avgLodMaxClamp=%f, totalLodMaxClamp=%.2f, countLodMaxClamp=%u, minLodAvg=%u, maxLodAvg=%u, avgLodAvg=%f, totalLodAvg=%llu, countLodAvg=%u", v89, v87, samplerDistribution->var0, v12, v13, v11, v9, v8, v14, v15, v10, v17, v16, v19, v20, v24, v22, v21, v25, v26, v23, v28, v27, v30, v31, v35, v33, v32, v36, v37, v34, v39, v38, v41, v42, v45, v44, v43);
       }
 
       v46 = [(MTLTelemetryDevice *)a1 telemetryLog];
       if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
       {
-        v91 = stringifyMTLTelemetryWrapMode(v92);
-        v89 = stringifyMTLTelemetryCompareFunc(v4);
+        v90 = stringifyMTLTelemetryWrapMode(v91);
+        v88 = stringifyMTLTelemetryCompareFunc(v4);
         v47 = samplerDistribution + v3 + v5;
         v48 = *(v47 + 328);
         v49 = *(v47 + 163);
@@ -4571,8 +4567,8 @@ void emitSamplerDistribution(MTLTelemetryDevice *a1, MTLTelemetrySamplerDistribu
         var0 = a1->samplerDistribution->var0;
         v53 = *(v47 + 324);
         v54 = *(v47 + 325);
-        v86 = *(v47 + 330);
-        v87 = *(v47 + 331);
+        v85 = *(v47 + 330);
+        v86 = *(v47 + 331);
         v55 = *(v47 + 334);
         v56 = *(v47 + 166);
         if (v55)
@@ -4638,82 +4634,82 @@ void emitSamplerDistribution(MTLTelemetryDevice *a1, MTLTelemetrySamplerDistribu
         }
 
         *buf = 136324610;
-        v94 = v91;
-        v95 = 2080;
-        v170 = v81;
-        v96 = v89;
-        v97 = 1024;
-        v98 = var0;
-        v99 = 1024;
-        v100 = v53;
-        v101 = 1024;
-        v102 = v54;
-        v103 = 2048;
-        v104 = v51;
-        v105 = 2048;
-        v106 = v49;
-        v107 = 1024;
-        v108 = v48;
-        v109 = 1024;
-        v110 = v86;
-        v111 = 1024;
-        v112 = v87;
-        v113 = 2048;
-        v114 = v50;
-        v115 = 2048;
-        v116 = v56;
-        v117 = 1024;
-        v118 = v55;
-        v119 = 1024;
-        v120 = v58;
-        v121 = 1024;
-        v122 = v59;
-        v123 = 2048;
-        v124 = v63;
-        v125 = 2048;
-        v126 = v61;
-        v127 = 1024;
-        v128 = v60;
-        v129 = 1024;
-        v130 = v64;
-        v131 = 1024;
-        v132 = v65;
-        v133 = 2048;
-        v134 = v62;
-        v135 = 2048;
-        v136 = v67;
-        v137 = 1024;
-        v138 = v66;
-        v139 = 2048;
-        v140 = v69;
-        v141 = 2048;
-        v142 = v70;
-        v143 = 2048;
-        v144 = v74;
-        v145 = 2048;
-        v146 = v72;
-        v147 = 1024;
-        v148 = v71;
-        v149 = 2048;
-        v150 = v75;
-        v151 = 2048;
-        v152 = v76;
-        v153 = 2048;
-        v154 = v73;
-        v155 = 2048;
-        v156 = v78;
-        v157 = 1024;
-        v158 = v77;
-        v159 = 1024;
-        v160 = v80;
-        v161 = 1024;
-        v162 = v81;
-        v163 = 2048;
-        v164 = v84;
-        v165 = 2048;
-        v166 = v83;
-        v167 = 1024;
-        v168 = v82;
+        v93 = v90;
+        v94 = 2080;
+        v169 = v81;
+        v95 = v88;
+        v96 = 1024;
+        v97 = var0;
+        v98 = 1024;
+        v99 = v53;
+        v100 = 1024;
+        v101 = v54;
+        v102 = 2048;
+        v103 = v51;
+        v104 = 2048;
+        v105 = v49;
+        v106 = 1024;
+        v107 = v48;
+        v108 = 1024;
+        v109 = v85;
+        v110 = 1024;
+        v111 = v86;
+        v112 = 2048;
+        v113 = v50;
+        v114 = 2048;
+        v115 = v56;
+        v116 = 1024;
+        v117 = v55;
+        v118 = 1024;
+        v119 = v58;
+        v120 = 1024;
+        v121 = v59;
+        v122 = 2048;
+        v123 = v63;
+        v124 = 2048;
+        v125 = v61;
+        v126 = 1024;
+        v127 = v60;
+        v128 = 1024;
+        v129 = v64;
+        v130 = 1024;
+        v131 = v65;
+        v132 = 2048;
+        v133 = v62;
+        v134 = 2048;
+        v135 = v67;
+        v136 = 1024;
+        v137 = v66;
+        v138 = 2048;
+        v139 = v69;
+        v140 = 2048;
+        v141 = v70;
+        v142 = 2048;
+        v143 = v74;
+        v144 = 2048;
+        v145 = v72;
+        v146 = 1024;
+        v147 = v71;
+        v148 = 2048;
+        v149 = v75;
+        v150 = 2048;
+        v151 = v76;
+        v152 = 2048;
+        v153 = v73;
+        v154 = 2048;
+        v155 = v78;
+        v156 = 1024;
+        v157 = v77;
+        v158 = 1024;
+        v159 = v80;
+        v160 = 1024;
+        v161 = v81;
+        v162 = 2048;
+        v163 = v84;
+        v164 = 2048;
+        v165 = v83;
+        v166 = 1024;
+        v167 = v82;
         _os_log_impl(&dword_22E0FF000, v46, OS_LOG_TYPE_DEFAULT, "Sampler, wrapMode=%s, compareFunc=%s, total=%u, minMipFilter=%u, maxMipFilter=%u, avgMipFilter=%f, totalMipFilter=%llu, countMipFilter=%u, minTriLinearFilter=%u, maxTriLinearFilter=%u, avgTriLinearFilter=%f, totalTriLinearFilter=%llu, countTriLinearFilter=%u, minNormalizedCoords=%u, maxNormalizedCoords=%u, avgNormalizedCoords=%f, totalNormalizedCoords=%llu, countNormalizedCoords=%u, minMaxAniso=%u, maxMaxAniso=%u, avgMaxAniso=%f, totalMaxAniso=%llu, countMaxAniso=%u, minLodMinClamp=%.2f, maxLodMinClamp=%.2f, avgLodMinClamp=%f, totalLodMinClamp=%.2f, countLodMinClamp=%u, minLodMaxClamp=%.2f, maxLodMaxClamp=%.2f, avgLodMaxClamp=%f, totalLodMaxClamp=%.2f, countLodMaxClamp=%u, minLodAvg=%u, maxLodAvg=%u, avgLodAvg=%f, totalLodAvg=%llu, countLodAvg=%u", buf, 0x136u);
       }
 
@@ -4724,11 +4720,10 @@ LABEL_39:
 
     while (v5);
     v3 += 1280;
-    ++v92;
+    ++v91;
   }
 
-  while (v92 != (MTLSamplerAddressModeClampToBorderColor|MTLSamplerAddressModeRepeat));
-  v85 = *MEMORY[0x277D85DE8];
+  while (v91 != (MTLSamplerAddressModeClampToBorderColor|MTLSamplerAddressModeRepeat));
 }
 
 void sub_22E122B80(_Unwind_Exception *exception_object)
@@ -4916,17 +4911,17 @@ void sub_22E12B724(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<objc_object  {objcproto11MTLResource}*>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<objc_object  {objcproto11MTLResource}*>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<objc_object  {objcproto19MTLGPUDebugViewable}*>::__vallocate[abi:ne200100](result, a2);
+    std::vector<objc_object  {objcproto19MTLGPUDebugViewable}*>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_22E12B7E0(_Unwind_Exception *exception_object)
@@ -4941,17 +4936,17 @@ void sub_22E12B7E0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<objc_object  {objcproto7MTLHeap}*>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<objc_object  {objcproto7MTLHeap}*>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<objc_object  {objcproto19MTLGPUDebugViewable}*>::__vallocate[abi:ne200100](result, a2);
+    std::vector<objc_object  {objcproto19MTLGPUDebugViewable}*>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_22E12B858(_Unwind_Exception *exception_object)
@@ -4966,17 +4961,17 @@ void sub_22E12B858(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<objc_object  {objcproto23MTLVisibleFunctionTable}*>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<objc_object  {objcproto23MTLVisibleFunctionTable}*>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<objc_object  {objcproto19MTLGPUDebugViewable}*>::__vallocate[abi:ne200100](result, a2);
+    std::vector<objc_object  {objcproto19MTLGPUDebugViewable}*>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_22E12B8D0(_Unwind_Exception *exception_object)
@@ -4991,17 +4986,17 @@ void sub_22E12B8D0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<objc_object  {objcproto28MTLIntersectionFunctionTable}*>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<objc_object  {objcproto28MTLIntersectionFunctionTable}*>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<objc_object  {objcproto19MTLGPUDebugViewable}*>::__vallocate[abi:ne200100](result, a2);
+    std::vector<objc_object  {objcproto19MTLGPUDebugViewable}*>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_22E12B948(_Unwind_Exception *exception_object)
@@ -5018,202 +5013,201 @@ void sub_22E12B948(_Unwind_Exception *exception_object)
 
 id unwrapAccelerationStructureDescriptor(void *a1)
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v1 = [a1 copy];
   v2 = objc_opt_class();
-  v42 = v1;
+  v39 = v1;
   if ([v2 isSubclassOfClass:objc_opt_class()])
   {
-    v61 = 0u;
-    v62 = 0u;
+    v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
+    v56 = 0u;
+    v57 = 0u;
     v3 = [v1 geometryDescriptors];
-    v4 = [v3 countByEnumeratingWithState:&v59 objects:v67 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v56 objects:v64 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = 0x277CD6000uLL;
-      v7 = *v60;
+      v6 = *v57;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v60 != v7)
+          if (*v57 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v9 = *(*(&v59 + 1) + 8 * i);
-          [v9 setPrimitiveDataBuffer:{objc_msgSend(objc_msgSend(v9, "primitiveDataBuffer"), "baseObject")}];
-          v10 = objc_opt_class();
-          v11 = *(v6 + 3168);
-          if ([v10 isSubclassOfClass:objc_opt_class()])
+          v8 = *(*(&v56 + 1) + 8 * i);
+          [v8 setPrimitiveDataBuffer:{objc_msgSend(objc_msgSend(v8, "primitiveDataBuffer"), "baseObject")}];
+          v9 = objc_opt_class();
+          if ([v9 isSubclassOfClass:objc_opt_class()])
           {
-            [v9 setVertexBuffer:{objc_msgSend(objc_msgSend(v9, "vertexBuffer"), "baseObject")}];
-            [v9 setIndexBuffer:{objc_msgSend(objc_msgSend(v9, "indexBuffer"), "baseObject")}];
-            [v9 setTransformationMatrixBuffer:{objc_msgSend(objc_msgSend(v9, "transformationMatrixBuffer"), "baseObject")}];
-            continue;
-          }
-
-          v12 = objc_opt_class();
-          if ([v12 isSubclassOfClass:objc_opt_class()])
-          {
-            v57 = 0u;
-            v58 = 0u;
-            v55 = 0u;
-            v56 = 0u;
-            v13 = [v9 vertexBuffers];
-            v14 = [v13 countByEnumeratingWithState:&v55 objects:v66 count:16];
-            if (v14)
-            {
-              v15 = v14;
-              v16 = *v56;
-              do
-              {
-                for (j = 0; j != v15; ++j)
-                {
-                  if (*v56 != v16)
-                  {
-                    objc_enumerationMutation(v13);
-                  }
-
-                  [*(*(&v55 + 1) + 8 * j) setBuffer:{objc_msgSend(objc_msgSend(*(*(&v55 + 1) + 8 * j), "buffer"), "baseObject")}];
-                }
-
-                v15 = [v13 countByEnumeratingWithState:&v55 objects:v66 count:16];
-              }
-
-              while (v15);
-            }
-
-            [v9 setIndexBuffer:{objc_msgSend(objc_msgSend(v9, "indexBuffer"), "baseObject")}];
-            [v9 setTransformationMatrixBuffer:{objc_msgSend(objc_msgSend(v9, "transformationMatrixBuffer"), "baseObject")}];
-LABEL_18:
-            v6 = 0x277CD6000;
-            continue;
-          }
-
-          v18 = objc_opt_class();
-          if ([v18 isSubclassOfClass:objc_opt_class()])
-          {
-            v53 = 0u;
-            v54 = 0u;
-            v51 = 0u;
-            v52 = 0u;
-            v19 = [v9 boundingBoxBuffers];
-            v20 = [v19 countByEnumeratingWithState:&v51 objects:v65 count:16];
-            if (v20)
-            {
-              v21 = v20;
-              v22 = *v52;
-              do
-              {
-                for (k = 0; k != v21; ++k)
-                {
-                  if (*v52 != v22)
-                  {
-                    objc_enumerationMutation(v19);
-                  }
-
-                  [*(*(&v51 + 1) + 8 * k) setBuffer:{objc_msgSend(objc_msgSend(*(*(&v51 + 1) + 8 * k), "buffer"), "baseObject")}];
-                }
-
-                v21 = [v19 countByEnumeratingWithState:&v51 objects:v65 count:16];
-              }
-
-              while (v21);
-            }
+            [v8 setVertexBuffer:{objc_msgSend(objc_msgSend(v8, "vertexBuffer"), "baseObject")}];
+            [v8 setIndexBuffer:{objc_msgSend(objc_msgSend(v8, "indexBuffer"), "baseObject")}];
+            [v8 setTransformationMatrixBuffer:{objc_msgSend(objc_msgSend(v8, "transformationMatrixBuffer"), "baseObject")}];
           }
 
           else
           {
-            v24 = objc_opt_class();
-            if ([v24 isSubclassOfClass:objc_opt_class()])
+            v10 = objc_opt_class();
+            if ([v10 isSubclassOfClass:objc_opt_class()])
             {
-              [v9 setBoundingBoxBuffer:{objc_msgSend(objc_msgSend(v9, "boundingBoxBuffer"), "baseObject")}];
+              v54 = 0u;
+              v55 = 0u;
+              v52 = 0u;
+              v53 = 0u;
+              v11 = [v8 vertexBuffers];
+              v12 = [v11 countByEnumeratingWithState:&v52 objects:v63 count:16];
+              if (v12)
+              {
+                v13 = v12;
+                v14 = *v53;
+                do
+                {
+                  for (j = 0; j != v13; ++j)
+                  {
+                    if (*v53 != v14)
+                    {
+                      objc_enumerationMutation(v11);
+                    }
+
+                    [*(*(&v52 + 1) + 8 * j) setBuffer:{objc_msgSend(objc_msgSend(*(*(&v52 + 1) + 8 * j), "buffer"), "baseObject")}];
+                  }
+
+                  v13 = [v11 countByEnumeratingWithState:&v52 objects:v63 count:16];
+                }
+
+                while (v13);
+              }
+
+              [v8 setIndexBuffer:{objc_msgSend(objc_msgSend(v8, "indexBuffer"), "baseObject")}];
+              [v8 setTransformationMatrixBuffer:{objc_msgSend(objc_msgSend(v8, "transformationMatrixBuffer"), "baseObject")}];
             }
 
             else
             {
-              v25 = objc_opt_class();
-              if ([v25 isSubclassOfClass:objc_opt_class()])
+              v16 = objc_opt_class();
+              if ([v16 isSubclassOfClass:objc_opt_class()])
               {
-                [v9 setControlPointBuffer:{objc_msgSend(objc_msgSend(v9, "controlPointBuffer"), "baseObject")}];
-                [v9 setRadiusBuffer:{objc_msgSend(objc_msgSend(v9, "radiusBuffer"), "baseObject")}];
-                [v9 setIndexBuffer:{objc_msgSend(objc_msgSend(v9, "indexBuffer"), "baseObject")}];
+                v50 = 0u;
+                v51 = 0u;
+                v48 = 0u;
+                v49 = 0u;
+                v17 = [v8 boundingBoxBuffers];
+                v18 = [v17 countByEnumeratingWithState:&v48 objects:v62 count:16];
+                if (v18)
+                {
+                  v19 = v18;
+                  v20 = *v49;
+                  do
+                  {
+                    for (k = 0; k != v19; ++k)
+                    {
+                      if (*v49 != v20)
+                      {
+                        objc_enumerationMutation(v17);
+                      }
+
+                      [*(*(&v48 + 1) + 8 * k) setBuffer:{objc_msgSend(objc_msgSend(*(*(&v48 + 1) + 8 * k), "buffer"), "baseObject")}];
+                    }
+
+                    v19 = [v17 countByEnumeratingWithState:&v48 objects:v62 count:16];
+                  }
+
+                  while (v19);
+                }
               }
 
               else
               {
-                v26 = objc_opt_class();
-                if ([v26 isSubclassOfClass:objc_opt_class()])
+                v22 = objc_opt_class();
+                if ([v22 isSubclassOfClass:objc_opt_class()])
                 {
-                  v49 = 0u;
-                  v50 = 0u;
-                  v47 = 0u;
-                  v48 = 0u;
-                  v27 = [v9 controlPointBuffers];
-                  v28 = [v27 countByEnumeratingWithState:&v47 objects:v64 count:16];
-                  if (v28)
+                  [v8 setBoundingBoxBuffer:{objc_msgSend(objc_msgSend(v8, "boundingBoxBuffer"), "baseObject")}];
+                }
+
+                else
+                {
+                  v23 = objc_opt_class();
+                  if ([v23 isSubclassOfClass:objc_opt_class()])
                   {
-                    v29 = v28;
-                    v30 = *v48;
-                    do
-                    {
-                      for (m = 0; m != v29; ++m)
-                      {
-                        if (*v48 != v30)
-                        {
-                          objc_enumerationMutation(v27);
-                        }
-
-                        [*(*(&v47 + 1) + 8 * m) setBuffer:{objc_msgSend(objc_msgSend(*(*(&v47 + 1) + 8 * m), "buffer"), "baseObject")}];
-                      }
-
-                      v29 = [v27 countByEnumeratingWithState:&v47 objects:v64 count:16];
-                    }
-
-                    while (v29);
+                    [v8 setControlPointBuffer:{objc_msgSend(objc_msgSend(v8, "controlPointBuffer"), "baseObject")}];
+                    [v8 setRadiusBuffer:{objc_msgSend(objc_msgSend(v8, "radiusBuffer"), "baseObject")}];
+                    [v8 setIndexBuffer:{objc_msgSend(objc_msgSend(v8, "indexBuffer"), "baseObject")}];
                   }
 
-                  v45 = 0u;
-                  v46 = 0u;
-                  v43 = 0u;
-                  v44 = 0u;
-                  v32 = [v9 radiusBuffers];
-                  v33 = [v32 countByEnumeratingWithState:&v43 objects:v63 count:16];
-                  if (v33)
+                  else
                   {
-                    v34 = v33;
-                    v35 = *v44;
-                    do
+                    v24 = objc_opt_class();
+                    if ([v24 isSubclassOfClass:objc_opt_class()])
                     {
-                      for (n = 0; n != v34; ++n)
+                      v46 = 0u;
+                      v47 = 0u;
+                      v44 = 0u;
+                      v45 = 0u;
+                      v25 = [v8 controlPointBuffers];
+                      v26 = [v25 countByEnumeratingWithState:&v44 objects:v61 count:16];
+                      if (v26)
                       {
-                        if (*v44 != v35)
+                        v27 = v26;
+                        v28 = *v45;
+                        do
                         {
-                          objc_enumerationMutation(v32);
+                          for (m = 0; m != v27; ++m)
+                          {
+                            if (*v45 != v28)
+                            {
+                              objc_enumerationMutation(v25);
+                            }
+
+                            [*(*(&v44 + 1) + 8 * m) setBuffer:{objc_msgSend(objc_msgSend(*(*(&v44 + 1) + 8 * m), "buffer"), "baseObject")}];
+                          }
+
+                          v27 = [v25 countByEnumeratingWithState:&v44 objects:v61 count:16];
                         }
 
-                        [*(*(&v43 + 1) + 8 * n) setBuffer:{objc_msgSend(objc_msgSend(*(*(&v43 + 1) + 8 * n), "buffer"), "baseObject")}];
+                        while (v27);
                       }
 
-                      v34 = [v32 countByEnumeratingWithState:&v43 objects:v63 count:16];
+                      v42 = 0u;
+                      v43 = 0u;
+                      v40 = 0u;
+                      v41 = 0u;
+                      v30 = [v8 radiusBuffers];
+                      v31 = [v30 countByEnumeratingWithState:&v40 objects:v60 count:16];
+                      if (v31)
+                      {
+                        v32 = v31;
+                        v33 = *v41;
+                        do
+                        {
+                          for (n = 0; n != v32; ++n)
+                          {
+                            if (*v41 != v33)
+                            {
+                              objc_enumerationMutation(v30);
+                            }
+
+                            [*(*(&v40 + 1) + 8 * n) setBuffer:{objc_msgSend(objc_msgSend(*(*(&v40 + 1) + 8 * n), "buffer"), "baseObject")}];
+                          }
+
+                          v32 = [v30 countByEnumeratingWithState:&v40 objects:v60 count:16];
+                        }
+
+                        while (v32);
+                      }
+
+                      [v8 setIndexBuffer:{objc_msgSend(objc_msgSend(v8, "indexBuffer"), "baseObject")}];
                     }
-
-                    while (v34);
                   }
-
-                  [v9 setIndexBuffer:{objc_msgSend(objc_msgSend(v9, "indexBuffer"), "baseObject")}];
-                  goto LABEL_18;
                 }
               }
             }
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v59 objects:v67 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v56 objects:v64 count:16];
       }
 
       while (v5);
@@ -5222,20 +5216,20 @@ LABEL_18:
 
   else
   {
-    v37 = objc_opt_class();
-    if ([v37 isSubclassOfClass:objc_opt_class()])
+    v35 = objc_opt_class();
+    if ([v35 isSubclassOfClass:objc_opt_class()])
     {
       [v1 setInstanceDescriptorBuffer:{objc_msgSend(objc_msgSend(v1, "instanceDescriptorBuffer"), "baseObject")}];
       if ([objc_msgSend(v1 "instancedAccelerationStructures")])
       {
-        v38 = 0;
+        v36 = 0;
         do
         {
           [objc_msgSend(v1 "instancedAccelerationStructures")];
-          ++v38;
+          ++v36;
         }
 
-        while (v38 < [objc_msgSend(v1 "instancedAccelerationStructures")]);
+        while (v36 < [objc_msgSend(v1 "instancedAccelerationStructures")]);
       }
 
       [v1 setMotionTransformBuffer:{objc_msgSend(objc_msgSend(v1, "motionTransformBuffer"), "baseObject")}];
@@ -5243,8 +5237,8 @@ LABEL_18:
 
     else
     {
-      v39 = objc_opt_class();
-      if ([v39 isSubclassOfClass:objc_opt_class()])
+      v37 = objc_opt_class();
+      if ([v37 isSubclassOfClass:objc_opt_class()])
       {
         [v1 setInstanceDescriptorBuffer:{objc_msgSend(objc_msgSend(v1, "instanceDescriptorBuffer"), "baseObject")}];
         [v1 setInstanceCountBuffer:{objc_msgSend(objc_msgSend(v1, "instanceCountBuffer"), "baseObject")}];
@@ -5254,9 +5248,7 @@ LABEL_18:
     }
   }
 
-  result = v42;
-  v41 = *MEMORY[0x277D85DE8];
-  return result;
+  return v39;
 }
 
 void sub_22E12DA88(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -5279,7 +5271,7 @@ void sub_22E12DB94(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t MTLAccelerationStructureTypeFromDescriptor(MTLAccelerationStructureDescriptor *a1)
+uint64_t MTLAccelerationStructureTypeFromDescriptor(MTLAccelerationStructureDescriptor *a1, uint64_t a2)
 {
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -5346,33 +5338,33 @@ MTLGPUDebugTexture *CreateTexture(void *a1, void *a2)
   return v4;
 }
 
-void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(void *a1, unint64_t *a2)
+void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(void *a1, unint64_t *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -5380,47 +5372,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-uint64_t *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__erase_unique<unsigned long long>(void *a1, unint64_t *a2)
+uint64_t std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__erase_unique<unsigned long long>(void *a1, unint64_t *a2)
 {
   result = std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::find<unsigned long long>(a1, a2);
   if (result)
@@ -5463,45 +5455,37 @@ void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::eq
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -5639,7 +5623,7 @@ uint64_t std::unordered_set<unsigned long long>::unordered_set(uint64_t a1, uint
   std::__hash_table<std::__hash_value_type<unsigned int,NSString *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,NSString *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,NSString *>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(a1, i + 2);
+    std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(a1, i + 2, i + 2);
   }
 
   return a1;
@@ -5672,7 +5656,7 @@ void *DebugCompileOptions(MTLGPUDebugDevice *a1, MTLCompileOptions *a2)
   return v3;
 }
 
-uint64_t MTLGPUDebugLog(void)
+uint64_t MTLGPUDebugLog(uint64_t a1, uint64_t a2)
 {
   if (MTLGPUDebugLog(void)::onceToken != -1)
   {
@@ -5773,20 +5757,20 @@ unint64_t GPUDebugBufferDescriptorHeap::createHandle(std::mutex *this, MTLGPUDeb
   return v5;
 }
 
-void std::vector<MTLGPUDebugBuffer *>::resize(void *a1, unint64_t a2)
+void std::vector<MTLGPUDebugBuffer *>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<MTLGPUDebugBuffer *>::__append(a1, a2 - v2);
+    std::vector<MTLGPUDebugBuffer *>::__append(result, a2 - v2);
   }
 }
 
@@ -5886,10 +5870,10 @@ void GPUDebugBufferDescriptorHeap::freeBufferHandle(std::mutex *this, uint64_t a
   std::mutex::unlock(this);
 }
 
-void GPUDebugConstantBufferCache::getOrCreateBuffer(GPUDebugConstantBufferCache *this@<X0>, NSData *a2@<X1>, uint64_t a3@<X8>)
+void GPUDebugConstantBufferCache::getOrCreateBuffer(uint64_t *__return_ptr a1@<X8>, GPUDebugConstantBufferCache *this@<X0>, NSData *a3@<X1>)
 {
   std::mutex::lock((this + 8));
-  *this += [(NSData *)a2 length];
+  *this += [(NSData *)a3 length];
   if (MTLGPUDebugLog(void)::onceToken != -1)
   {
     MTLGPUDebugLog();
@@ -5897,18 +5881,18 @@ void GPUDebugConstantBufferCache::getOrCreateBuffer(GPUDebugConstantBufferCache 
 
   if (os_log_type_enabled(MTLGPUDebugLog(void)::logObject, OS_LOG_TYPE_DEBUG))
   {
-    GPUDebugConstantBufferCache::getOrCreateBuffer(this);
+    GPUDebugConstantBufferCache::getOrCreateBuffer();
   }
 
   v6 = *(this + 14);
   if ((v6[286] & 0x80) != 0)
   {
-    v7 = [v6 newBufferWithLength:-[NSData length](a2 options:{"length"), 0}];
+    v7 = [v6 newBufferWithLength:-[NSData length](a3 options:{"length"), 0}];
   }
 
   else
   {
-    v7 = [v6 newInternalBufferWithLength:-[NSData length](a2 options:{"length"), 0}];
+    v7 = [v6 newInternalBufferWithLength:-[NSData length](a3 options:{"length"), 0}];
   }
 
   v8 = v7;
@@ -5917,9 +5901,9 @@ void GPUDebugConstantBufferCache::getOrCreateBuffer(GPUDebugConstantBufferCache 
   v9[2] = ___ZN27GPUDebugConstantBufferCache17getOrCreateBufferEP6NSData_block_invoke;
   v9[3] = &unk_2787B3AB8;
   v9[4] = v7;
-  [(NSData *)a2 enumerateByteRangesUsingBlock:v9];
-  *(a3 + 32) = 0;
-  *(a3 + 40) = v8;
+  [(NSData *)a3 enumerateByteRangesUsingBlock:v9];
+  a1[4] = 0;
+  a1[5] = v8;
   std::mutex::unlock((this + 8));
 }
 
@@ -5994,16 +5978,16 @@ void GlobalResidentBufferList::removeBuffer(uint64_t a1, void *a2)
   std::mutex::lock((a1 + 16));
   [*(*a1 + 680) removeAllocation:{objc_msgSend(a2, "baseObject")}];
   [*(*a1 + 680) commit];
-  std::list<objc_object  {objcproto9MTLBuffer}*>::remove(a1 + 80, &v4);
+  std::list<objc_object  {objcproto9MTLBuffer}*>::remove((a1 + 80), &v4);
   std::mutex::unlock((a1 + 16));
 }
 
-void *std::list<objc_object  {objcproto9MTLBuffer}*>::remove(uint64_t a1, void *a2)
+void *std::list<objc_object  {objcproto9MTLBuffer}*>::remove(void *a1, void *a2)
 {
   v10[0] = v10;
   v10[1] = v10;
   v10[2] = 0;
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (v2 != a1)
   {
     do
@@ -6050,9 +6034,9 @@ void *std::list<objc_object  {objcproto9MTLBuffer}*>::remove(uint64_t a1, void *
   return std::__list_imp<objc_object  {objcproto9MTLBuffer}*>::clear(v10);
 }
 
-void sub_22E130BBC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22E130BBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__list_imp<objc_object  {objcproto9MTLBuffer}*>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -6069,7 +6053,7 @@ void sub_22E131964(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void LogInstrumentationFailures(MTLGPUDebugImageData *a1, MTLDebugInstrumentationData *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (a1 && a2)
   {
     [(MTLGPUDebugImageData *)a1 functionType];
@@ -6084,15 +6068,15 @@ void LogInstrumentationFailures(MTLGPUDebugImageData *a1, MTLDebugInstrumentatio
       v5 = MTLGPUDebugLog(void)::logObject;
       if (os_log_type_enabled(MTLGPUDebugLog(void)::logObject, OS_LOG_TYPE_INFO))
       {
-        v15 = 136315394;
-        v16 = v4;
-        v17 = 2080;
-        v18 = [(NSString *)[(MTLGPUDebugImageData *)a1 loadedImageName] UTF8String];
+        v14 = 136315394;
+        v15 = v4;
+        v16 = 2080;
+        v17 = [(NSString *)[(MTLGPUDebugImageData *)a1 loadedImageName] UTF8String];
         v6 = "Fatal failure when instrumenting %s %s:\n\tFunction is not instrumented and faults will not be detected.";
         v7 = v5;
         v8 = 22;
 LABEL_19:
-        _os_log_impl(&dword_22E0FF000, v7, OS_LOG_TYPE_INFO, v6, &v15, v8);
+        _os_log_impl(&dword_22E0FF000, v7, OS_LOG_TYPE_INFO, v6, &v14, v8);
       }
     }
 
@@ -6118,20 +6102,20 @@ LABEL_19:
         }
 
         v12 = [(MTLDebugInstrumentationData *)a2 hasGlobalConstantsInstrumentationFailures];
-        v15 = 136315906;
+        v14 = 136315906;
         v13 = "\n\tFaults from reading global constant variables will not be detected.";
-        v16 = v4;
+        v15 = v4;
         if (!v12)
         {
           v13 = "";
         }
 
-        v17 = 2080;
-        v18 = v10;
-        v19 = 2080;
-        v20 = v11;
-        v21 = 2080;
-        v22 = v13;
+        v16 = 2080;
+        v17 = v10;
+        v18 = 2080;
+        v19 = v11;
+        v20 = 2080;
+        v21 = v13;
         v6 = "Partial failure when instrumenting %s %s:%s%s";
         v7 = v9;
         v8 = 42;
@@ -6139,22 +6123,20 @@ LABEL_19:
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t MTLGPUDebugSetValidationChecksOptions(uint64_t a1, void *a2, void *a3, void *a4, void *a5, uint64_t a6, void *a7)
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v37 = 1;
+  v42 = *MEMORY[0x277D85DE8];
+  v36 = 1;
   *c.count = "all";
   *c.hash = 1;
   *&c.hash[2] = "none";
   *&c.hash[4] = 2;
-  *&v42 = 0;
+  *&v41 = 0;
   md = 0uLL;
   std::vector<std::pair<char const*,MTLShaderValidationState>>::__init_with_size[abi:ne200100]<std::pair<char const*,MTLShaderValidationState> const*,std::pair<char const*,MTLShaderValidationState> const*>(&md, &c, &c.hash[6], 2uLL);
-  v11 = MTLGetEnvCase<MTLShaderValidationState>("MTL_SHADER_VALIDATION_DEFAULT_STATE", &v37, &md);
+  v11 = MTLGetEnvCase<MTLShaderValidationState>("MTL_SHADER_VALIDATION_DEFAULT_STATE", &v36, &md);
   if (md)
   {
     *(&md + 1) = md;
@@ -6163,13 +6145,12 @@ uint64_t MTLGPUDebugSetValidationChecksOptions(uint64_t a1, void *a2, void *a3, 
 
   if ((v11 & 1) == 0)
   {
-    v37 = 1;
+    v36 = 1;
   }
 
   if (!a2)
   {
-    v19 = 0;
-    goto LABEL_71;
+    return 0;
   }
 
   v12 = objc_opt_new();
@@ -6207,8 +6188,8 @@ uint64_t MTLGPUDebugSetValidationChecksOptions(uint64_t a1, void *a2, void *a3, 
   }
 
   CC_SHA256_Final(&md, &c);
-  v38 = md;
-  v39 = v42;
+  v37 = md;
+  v38 = v41;
   v19 = _MTLRequestHashToString();
   if (MTLGetEnvDefault())
   {
@@ -6231,16 +6212,16 @@ uint64_t MTLGPUDebugSetValidationChecksOptions(uint64_t a1, void *a2, void *a3, 
     [v12 appendString:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"\n\t{ Shader Validation UID: %@ }", v19)}];
   }
 
-  v31 = v12;
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v33 = ___ZL37MTLGPUDebugSetValidationChecksOptionsP17MTLGPUDebugDevicePU22objcproto11MTLFunction11objc_objectS2_S2_P8NSString19MTLShaderValidationS5_Rm_block_invoke_2;
-  v34 = &unk_2787B3BF8;
-  v35 = v12;
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v29 = ___ZL37MTLGPUDebugSetValidationChecksOptionsP17MTLGPUDebugDevicePU22objcproto11MTLFunction11objc_objectS2_S2_P8NSString19MTLShaderValidationS5_Rm_block_invoke_3;
-  v30 = &unk_2787B3BF8;
+  v30 = v12;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v32 = ___ZL37MTLGPUDebugSetValidationChecksOptionsP17MTLGPUDebugDevicePU22objcproto11MTLFunction11objc_objectS2_S2_P8NSString19MTLShaderValidationS5_Rm_block_invoke_2;
+  v33 = &unk_2787B3BF8;
+  v34 = v12;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v28 = ___ZL37MTLGPUDebugSetValidationChecksOptionsP17MTLGPUDebugDevicePU22objcproto11MTLFunction11objc_objectS2_S2_P8NSString19MTLShaderValidationS5_Rm_block_invoke_3;
+  v29 = &unk_2787B3BF8;
   v20 = *(a1 + 688);
   if (!v20)
   {
@@ -6305,9 +6286,9 @@ LABEL_35:
   if (v20 && v22)
   {
     [v12 appendString:@"\nWarning: Pipeline requested to have shader validation checks both enabled and disabled."];
-    if (v37 != 2)
+    if (v36 != 2)
     {
-      if (v37 == 1)
+      if (v36 == 1)
       {
         goto LABEL_64;
       }
@@ -6328,7 +6309,7 @@ LABEL_43:
       [v12 appendString:@"\nWarning: Pipeline requested to have shader validation checks both enabled and disabled."];
     }
 
-    if (v37 == 1)
+    if (v36 == 1)
     {
     }
 
@@ -6342,7 +6323,7 @@ LABEL_43:
       [v12 appendString:@"\nWarning: Pipeline requested to have shader validation checks both enabled and disabled."];
     }
 
-    if (v37 == 2)
+    if (v36 == 2)
     {
     }
 
@@ -6352,7 +6333,7 @@ LABEL_43:
 LABEL_54:
   if (a6 == 2)
   {
-    if (v37 == 2)
+    if (v36 == 2)
     {
     }
 
@@ -6361,27 +6342,27 @@ LABEL_54:
 
   if (a6 == 1)
   {
-    if (v37 == 1)
+    if (v36 == 1)
     {
     }
 
     goto LABEL_64;
   }
 
-  if (v37 == 2)
+  if (v36 == 2)
   {
 LABEL_66:
-    v29(v28, a7);
+    v28(v27, a7);
     goto LABEL_67;
   }
 
-  if (v37 != 1)
+  if (v36 != 1)
   {
     goto LABEL_65;
   }
 
 LABEL_64:
-  v33(v32, a7);
+  v32(v31, a7);
 LABEL_67:
   if (MTLGPUDebugLog(void)::onceToken != -1)
   {
@@ -6393,8 +6374,6 @@ LABEL_67:
     MTLGPUDebugSetValidationChecksOptions(v12);
   }
 
-LABEL_71:
-  v23 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -6459,7 +6438,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t std::vector<std::pair<char const*,MTLBoundsCheck::FailMode>>::__init_with_size[abi:ne200100]<std::pair<char const*,MTLBoundsCheck::FailMode> const*,std::pair<char const*,MTLBoundsCheck::FailMode> const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<char const*,MTLBoundsCheck::FailMode>>::__init_with_size[abi:ne200100]<std::pair<char const*,MTLBoundsCheck::FailMode> const*,std::pair<char const*,MTLBoundsCheck::FailMode> const*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6481,7 +6460,7 @@ void sub_22E1377B0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::pair<char const*,MTLBoundsCheck::FailMode>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<char const*,MTLBoundsCheck::FailMode>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -6503,7 +6482,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<char const*
 
 uint64_t MTLGPUDebugParsePerPSOList(const std::string *a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB58]);
   if ((a1->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
@@ -6527,46 +6506,46 @@ uint64_t MTLGPUDebugParsePerPSOList(const std::string *a1)
     MTLGPUDebugParsePerPSOList();
   }
 
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v17, a1, 24);
-  if (!*(&v19[0].__locale_ + *(v17[0] - 24)))
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v16, a1, 24);
+  if (!*(&v18[0].__locale_ + *(v16[0] - 24)))
   {
     *&v5 = 138412290;
-    v13 = v5;
+    v12 = v5;
     while (1)
     {
+      v13 = 0;
       v14 = 0;
       v15 = 0;
-      v16 = 0;
-      std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v17, &v14, 0x2Cu);
-      if (SHIBYTE(v16) < 0)
+      std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v16, &v13, 0x2Cu);
+      if (SHIBYTE(v15) < 0)
       {
         break;
       }
 
-      if (HIBYTE(v16))
+      if (HIBYTE(v15))
       {
-        v10 = &v14;
+        v9 = &v13;
 LABEL_18:
-        v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:{v10, v13}];
+        v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:{v9, v12}];
         if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v13;
-          v23 = v11;
+          *buf = v12;
+          v22 = v10;
           _os_log_debug_impl(&dword_22E0FF000, v4, OS_LOG_TYPE_DEBUG, "[METAL SHADER VALIDATION] Storing PSO: %@", buf, 0xCu);
         }
 
-        if (v16 >= 0)
+        if (v15 >= 0)
         {
-          v12 = &v14;
+          v11 = &v13;
         }
 
         else
         {
-          v12 = v14;
+          v11 = v13;
         }
 
-        [v2 addObject:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithUTF8String:", v12)}];
-        if ((SHIBYTE(v16) & 0x80000000) == 0)
+        [v2 addObject:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithUTF8String:", v11)}];
+        if ((SHIBYTE(v15) & 0x80000000) == 0)
         {
           goto LABEL_25;
         }
@@ -6575,52 +6554,51 @@ LABEL_18:
       }
 
 LABEL_25:
-      if (*(&v19[0].__locale_ + *(v17[0] - 24)))
+      if (*(&v18[0].__locale_ + *(v16[0] - 24)))
       {
         goto LABEL_9;
       }
     }
 
-    if (v15)
+    if (v14)
     {
-      v10 = v14;
+      v9 = v13;
       goto LABEL_18;
     }
 
 LABEL_24:
-    operator delete(v14);
+    operator delete(v13);
     goto LABEL_25;
   }
 
 LABEL_9:
   v6 = [v2 copy];
-  v17[0] = *MEMORY[0x277D82818];
+  v16[0] = *MEMORY[0x277D82818];
   v7 = *(MEMORY[0x277D82818] + 72);
-  *(v17 + *(v17[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-  v17[2] = v7;
-  v18 = MEMORY[0x277D82878] + 16;
-  if (v20 < 0)
+  *(v16 + *(v16[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+  v16[2] = v7;
+  v17 = MEMORY[0x277D82878] + 16;
+  if (v19 < 0)
   {
-    operator delete(v19[7].__locale_);
+    operator delete(v18[7].__locale_);
   }
 
-  v18 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v19);
+  v17 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v18);
   std::iostream::~basic_iostream();
-  MEMORY[0x2318E4900](&v21);
-  v8 = *MEMORY[0x277D85DE8];
+  MEMORY[0x2318E4900](&v20);
   return v6;
 }
 
-void sub_22E137B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *__p, uint64_t a5, int a6, __int16 a7, char a8, char a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+void sub_22E137B98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *__p, uint64_t a5, int a6, __int16 a7, char a8, char a9, char a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  va_start(va, a25);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a10, MEMORY[0x277D82818]);
+  va_start(va, a30);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a15, MEMORY[0x277D82818]);
   MEMORY[0x2318E4900](va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -6634,18 +6612,19 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-uint64_t *std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](uint64_t *a1, const std::string *a2, int a3)
+uint64_t *std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](uint64_t *a1, const std::string *a2, uint64_t a3)
 {
+  v3 = a3;
   a1[22] = 0;
   v6 = MEMORY[0x277D82890] + 104;
   a1[16] = MEMORY[0x277D82890] + 104;
@@ -6673,7 +6652,7 @@ uint64_t *std::basic_stringstream<char,std::char_traits<char>,std::allocator<cha
   *a1 = v13;
   a1[16] = v6;
   a1[2] = v8;
-  std::stringbuf::basic_stringbuf[abi:ne200100]((a1 + 3), a2, a3);
+  std::stringbuf::basic_stringbuf[abi:ne200100]((a1 + 3), a2, v3);
   return a1;
 }
 
@@ -7083,7 +7062,7 @@ void std::__call_once_proxy[abi:ne200100]<std::tuple<-[MTLGPUDebugDevice instrum
   *(*v1 + 71) = *v1;
 }
 
-uint64_t ___ZZL18WrapDynamicLibraryIZ60__MTLGPUDebugDevice_newDynamicLibraryWithURL_options_error__E4__15EP25MTLGPUDebugDynamicLibraryP17MTLGPUDebugDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke(uint64_t a1)
+MTLGPUDebugDynamicLibrary *___ZZL18WrapDynamicLibraryIZ60__MTLGPUDebugDevice_newDynamicLibraryWithURL_options_error__E4__15EP25MTLGPUDebugDynamicLibraryP17MTLGPUDebugDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke(uint64_t a1)
 {
   v2 = [MTLGPUDebugDynamicLibrary alloc];
   v3 = *(a1 + 32);
@@ -7092,7 +7071,7 @@ uint64_t ___ZZL18WrapDynamicLibraryIZ60__MTLGPUDebugDevice_newDynamicLibraryWith
   return [(MTLGPUDebugDynamicLibrary *)v2 initWithDynamicLibrary:v3 device:v4];
 }
 
-uint64_t ___ZZL18WrapDynamicLibraryIZ59__MTLGPUDebugDevice_newDynamicLibraryWithDescriptor_error__E4__16EP25MTLGPUDebugDynamicLibraryP17MTLGPUDebugDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke(uint64_t a1)
+MTLGPUDebugDynamicLibrary *___ZZL18WrapDynamicLibraryIZ59__MTLGPUDebugDevice_newDynamicLibraryWithDescriptor_error__E4__16EP25MTLGPUDebugDynamicLibraryP17MTLGPUDebugDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke(uint64_t a1)
 {
   v2 = [MTLGPUDebugDynamicLibrary alloc];
   v3 = *(a1 + 32);
@@ -7101,7 +7080,7 @@ uint64_t ___ZZL18WrapDynamicLibraryIZ59__MTLGPUDebugDevice_newDynamicLibraryWith
   return [(MTLGPUDebugDynamicLibrary *)v2 initWithDynamicLibrary:v3 device:v4];
 }
 
-uint64_t ___ZZL18WrapDynamicLibraryIZ45__MTLGPUDebugDevice_newDynamicLibrary_error__E4__17EP25MTLGPUDebugDynamicLibraryP17MTLGPUDebugDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke(uint64_t a1)
+MTLGPUDebugDynamicLibrary *___ZZL18WrapDynamicLibraryIZ45__MTLGPUDebugDevice_newDynamicLibrary_error__E4__17EP25MTLGPUDebugDynamicLibraryP17MTLGPUDebugDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke(uint64_t a1)
 {
   v2 = [MTLGPUDebugDynamicLibrary alloc];
   v3 = *(a1 + 32);
@@ -7110,7 +7089,7 @@ uint64_t ___ZZL18WrapDynamicLibraryIZ45__MTLGPUDebugDevice_newDynamicLibrary_err
   return [(MTLGPUDebugDynamicLibrary *)v2 initWithDynamicLibrary:v3 device:v4];
 }
 
-uint64_t ___ZZL18WrapDynamicLibraryIZ63__MTLGPUDebugDevice_newDynamicLibrary_computeDescriptor_error__E4__18EP25MTLGPUDebugDynamicLibraryP17MTLGPUDebugDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke(uint64_t a1)
+MTLGPUDebugDynamicLibrary *___ZZL18WrapDynamicLibraryIZ63__MTLGPUDebugDevice_newDynamicLibrary_computeDescriptor_error__E4__18EP25MTLGPUDebugDynamicLibraryP17MTLGPUDebugDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke(uint64_t a1)
 {
   v2 = [MTLGPUDebugDynamicLibrary alloc];
   v3 = *(a1 + 32);
@@ -7119,7 +7098,7 @@ uint64_t ___ZZL18WrapDynamicLibraryIZ63__MTLGPUDebugDevice_newDynamicLibrary_com
   return [(MTLGPUDebugDynamicLibrary *)v2 initWithDynamicLibrary:v3 device:v4];
 }
 
-uint64_t ___ZZL18WrapDynamicLibraryIZ83__MTLGPUDebugDevice_loadDynamicLibrariesForFunction_insertLibraries_options_error__E4__19EP25MTLGPUDebugDynamicLibraryP17MTLGPUDebugDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke(uint64_t a1)
+MTLGPUDebugDynamicLibrary *___ZZL18WrapDynamicLibraryIZ83__MTLGPUDebugDevice_loadDynamicLibrariesForFunction_insertLibraries_options_error__E4__19EP25MTLGPUDebugDynamicLibraryP17MTLGPUDebugDeviceT_ENKUlS5_E_clIPU28objcproto17MTLDynamicLibrary11objc_objectEEDaS5__block_invoke(uint64_t a1)
 {
   v2 = [MTLGPUDebugDynamicLibrary alloc];
   v3 = *(a1 + 32);
@@ -7130,100 +7109,92 @@ uint64_t ___ZZL18WrapDynamicLibraryIZ83__MTLGPUDebugDevice_loadDynamicLibrariesF
 
 void *unwrapLinkedFunctions(MTLLinkedFunctions *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if (a1)
+  v15 = *MEMORY[0x277D85DE8];
+  if (!a1)
   {
-    v2 = [MEMORY[0x277CD6EB8] linkedFunctions];
-    [v2 setFunctions:{unwrapArray(-[MTLLinkedFunctions functions](a1, "functions"))}];
-    [v2 setBinaryFunctions:{unwrapArray(-[MTLLinkedFunctions binaryFunctions](a1, "binaryFunctions"))}];
-    [v2 setPrivateFunctions:{unwrapArray(-[MTLLinkedFunctions privateFunctions](a1, "privateFunctions"))}];
-    if ([(MTLLinkedFunctions *)a1 groups])
+    return 0;
+  }
+
+  v2 = [MEMORY[0x277CD6EB8] linkedFunctions];
+  [v2 setFunctions:{unwrapArray(-[MTLLinkedFunctions functions](a1, "functions"))}];
+  [v2 setBinaryFunctions:{unwrapArray(-[MTLLinkedFunctions binaryFunctions](a1, "binaryFunctions"))}];
+  [v2 setPrivateFunctions:{unwrapArray(-[MTLLinkedFunctions privateFunctions](a1, "privateFunctions"))}];
+  if ([(MTLLinkedFunctions *)a1 groups])
+  {
+    v3 = [MEMORY[0x277CBEB38] dictionary];
+    v10 = 0u;
+    v11 = 0u;
+    v12 = 0u;
+    v13 = 0u;
+    v4 = [(MTLLinkedFunctions *)a1 groups];
+    v5 = [(NSDictionary *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    if (v5)
     {
-      v3 = [MEMORY[0x277CBEB38] dictionary];
-      v11 = 0u;
-      v12 = 0u;
-      v13 = 0u;
-      v14 = 0u;
-      v4 = [(MTLLinkedFunctions *)a1 groups];
-      v5 = [(NSDictionary *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
-      if (v5)
+      v6 = v5;
+      v7 = *v11;
+      do
       {
-        v6 = v5;
-        v7 = *v12;
+        v8 = 0;
         do
         {
-          v8 = 0;
-          do
+          if (*v11 != v7)
           {
-            if (*v12 != v7)
-            {
-              objc_enumerationMutation(v4);
-            }
-
-            [v3 setValue:unwrapArray(-[NSDictionary objectForKeyedSubscript:](-[MTLLinkedFunctions groups](a1 forKey:{"groups"), "objectForKeyedSubscript:", *(*(&v11 + 1) + 8 * v8))), *(*(&v11 + 1) + 8 * v8)}];
-            ++v8;
+            objc_enumerationMutation(v4);
           }
 
-          while (v6 != v8);
-          v6 = [(NSDictionary *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+          [v3 setValue:unwrapArray(-[NSDictionary objectForKeyedSubscript:](-[MTLLinkedFunctions groups](a1 forKey:{"groups"), "objectForKeyedSubscript:", *(*(&v10 + 1) + 8 * v8))), *(*(&v10 + 1) + 8 * v8)}];
+          ++v8;
         }
 
-        while (v6);
+        while (v6 != v8);
+        v6 = [(NSDictionary *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
-      [v2 setGroups:v3];
+      while (v6);
     }
+
+    [v2 setGroups:v3];
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 void *unwrapArray(NSArray *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (a1)
+  v13 = *MEMORY[0x277D85DE8];
+  if (!a1)
   {
-    v2 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](a1, "count")}];
-    v9 = 0u;
-    v10 = 0u;
-    v11 = 0u;
-    v12 = 0u;
-    v3 = [(NSArray *)a1 countByEnumeratingWithState:&v9 objects:v13 count:16];
-    if (v3)
-    {
-      v4 = v3;
-      v5 = *v10;
-      do
-      {
-        for (i = 0; i != v4; ++i)
-        {
-          if (*v10 != v5)
-          {
-            objc_enumerationMutation(a1);
-          }
+    return 0;
+  }
 
-          [v2 addObject:{objc_msgSend(*(*(&v9 + 1) + 8 * i), "baseObject")}];
+  v2 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](a1, "count")}];
+  v8 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v3 = [(NSArray *)a1 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  if (v3)
+  {
+    v4 = v3;
+    v5 = *v9;
+    do
+    {
+      for (i = 0; i != v4; ++i)
+      {
+        if (*v9 != v5)
+        {
+          objc_enumerationMutation(a1);
         }
 
-        v4 = [(NSArray *)a1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        [v2 addObject:{objc_msgSend(*(*(&v8 + 1) + 8 * i), "baseObject")}];
       }
 
-      while (v4);
+      v4 = [(NSArray *)a1 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
+
+    while (v4);
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v7 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -7257,17 +7228,17 @@ void sub_22E146810(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<objc_object  {objcproto17MTLFunctionHandle}*>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<objc_object  {objcproto17MTLFunctionHandle}*>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<objc_object  {objcproto19MTLGPUDebugViewable}*>::__vallocate[abi:ne200100](result, a2);
+    std::vector<objc_object  {objcproto19MTLGPUDebugViewable}*>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_22E1468C4(_Unwind_Exception *exception_object)
@@ -7282,17 +7253,17 @@ void sub_22E1468C4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<objc_object  {objcproto9MTLBuffer}*>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<objc_object  {objcproto9MTLBuffer}*>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<objc_object  {objcproto19MTLGPUDebugViewable}*>::__vallocate[abi:ne200100](result, a2);
+    std::vector<objc_object  {objcproto19MTLGPUDebugViewable}*>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_22E14693C(_Unwind_Exception *exception_object)
@@ -7307,7 +7278,7 @@ void sub_22E14693C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7329,11 +7300,11 @@ void sub_22E14C988(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void checkBuffer(uint64_t a1, uint64_t a2, void *a3, unint64_t a4, char a5, uint64_t a6)
+void checkBuffer(void *result, void *a2, void *a3, unint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (a3)
   {
-    if (([a3 conformsToProtocol:&unk_284222E68] & 1) == 0)
+    if (([a3 conformsToProtocol:{&unk_284222E68, a4, a5}] & 1) == 0)
     {
       v10 = a6;
       _MTLMessageContextPush_();
@@ -7359,25 +7330,25 @@ LABEL_10:
   }
 }
 
-uint64_t checkBufferRange(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t checkBufferRange(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
 {
   if (a3)
   {
     if (a4)
     {
-      return result;
+      return v5;
     }
   }
 
   else if (a5)
   {
-    return result;
+    return v5;
   }
 
   return _MTLMessageContextPush_();
 }
 
-void checkAccelerationStructure(uint64_t a1, uint64_t a2, void *a3, char a4, uint64_t a5)
+void checkAccelerationStructure(void *result, void *a2, void *a3, uint64_t a4, uint64_t a5)
 {
   if (!a3)
   {
@@ -7389,7 +7360,7 @@ void checkAccelerationStructure(uint64_t a1, uint64_t a2, void *a3, char a4, uin
     goto LABEL_7;
   }
 
-  if (([a3 conformsToProtocol:&unk_2842285B8] & 1) == 0)
+  if (([a3 conformsToProtocol:{&unk_2842285B8, a4}] & 1) == 0)
   {
     v8 = a5;
     _MTLMessageContextPush_();
@@ -7402,7 +7373,7 @@ LABEL_7:
   }
 }
 
-uint64_t checkMotionParameter(uint64_t a1, void *a2, void *a3)
+void *checkMotionParameter(uint64_t a1, void *a2, void *a3)
 {
   if (([a2 supportsPrimitiveMotionBlur] & 1) == 0)
   {
@@ -7474,44 +7445,44 @@ uint64_t checkPrimitiveData(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
   return result;
 }
 
-uint64_t checkMTL4AccelerationStructureDescriptor(void *a1, void *a2, int a3)
+uint64_t checkMTL4AccelerationStructureDescriptor(void *a1, void *a2, uint64_t a3)
 {
+  v3 = a3;
   v8 = 0;
   memset(v7, 0, sizeof(v7));
   _MTLMessageContextBegin_();
-  checkMTL4AccelerationStructureDescriptorWithRefitOptions(v7, a1, a2, a3, 3);
+  checkMTL4AccelerationStructureDescriptorWithRefitOptions(v7, a1, a2, v3, 3);
   return _MTLMessageContextEnd();
 }
 
 uint64_t checkMTL4AccelerationStructureDescriptorWithRefitOptions(uint64_t a1, void *a2, void *a3, int a4, int a5)
 {
-  v170 = *MEMORY[0x277D85DE8];
+  v167 = *MEMORY[0x277D85DE8];
   if (!a3)
   {
-    v11 = *MEMORY[0x277D85DE8];
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   v8 = objc_opt_class();
   if (![v8 isSubclassOfClass:objc_opt_class()])
   {
-    v13 = objc_opt_class();
-    if ([v13 isSubclassOfClass:objc_opt_class()])
+    v12 = objc_opt_class();
+    if ([v12 isSubclassOfClass:objc_opt_class()])
     {
-      v14 = [a3 usage];
-      v15 = [a3 instanceCount];
-      if ((v14 & 4) != 0)
+      v13 = [a3 usage];
+      v14 = [a3 instanceCount];
+      if ((v13 & 4) != 0)
       {
-        if (v15 >> 30)
+        if (v14 >> 30)
         {
-LABEL_319:
+LABEL_318:
           checkMTL4AccelerationStructureDescriptorWithRefitOptions();
         }
       }
 
-      else if (v15 >> 24)
+      else if (v14 >> 24)
       {
-        goto LABEL_319;
+        goto LABEL_318;
       }
 
       if (([a3 instanceDescriptorType] - 3) >= 2)
@@ -7519,11 +7490,11 @@ LABEL_319:
         checkMTL4AccelerationStructureDescriptorWithRefitOptions(a3);
       }
 
-      v115 = MTLAccelerationStructureInstanceDescriptorSize([a3 instanceDescriptorType]);
-      if ([a3 instanceDescriptorStride] && objc_msgSend(a3, "instanceDescriptorStride") < v115)
+      v114 = MTLAccelerationStructureInstanceDescriptorSize([a3 instanceDescriptorType]);
+      if ([a3 instanceDescriptorStride] && objc_msgSend(a3, "instanceDescriptorStride") < v114)
       {
-        v146 = [a3 instanceDescriptorStride];
-        v158 = v115;
+        v143 = [a3 instanceDescriptorStride];
+        v155 = v114;
         _MTLMessageContextPush_();
       }
 
@@ -7544,21 +7515,21 @@ LABEL_319:
 
       if (a4)
       {
-        v116 = [a3 instanceDescriptorBuffer];
-        checkBufferRange(a1, v117, v116, v117, 0);
-        v118 = [a3 instanceDescriptorStride];
-        if (v118)
+        v115 = [a3 instanceDescriptorBuffer];
+        checkBufferRange(a1, v116, v115, v116, 0);
+        v117 = [a3 instanceDescriptorStride];
+        if (v117)
         {
-          v119 = v118;
+          v118 = v117;
         }
 
         else
         {
-          v119 = v115;
+          v118 = v114;
         }
 
         [a3 instanceDescriptorBuffer];
-        if (v120 < v119 * [a3 instanceCount])
+        if (v119 < v118 * [a3 instanceCount])
         {
           checkMTL4AccelerationStructureDescriptorWithRefitOptions();
         }
@@ -7570,15 +7541,15 @@ LABEL_319:
             _MTLMessageContextPush_();
           }
 
-          v121 = [a3 motionTransformType];
-          if (v121)
+          v120 = [a3 motionTransformType];
+          if (v120)
           {
-            v122 = (v121 == 1) << 6;
+            v121 = (v120 == 1) << 6;
           }
 
           else
           {
-            v122 = 48;
+            v121 = 48;
           }
 
           if ([a3 motionTransformStride])
@@ -7588,61 +7559,61 @@ LABEL_319:
               checkMTL4AccelerationStructureDescriptorWithRefitOptions(a3);
             }
 
-            if ([a3 motionTransformStride] < v122)
+            if ([a3 motionTransformStride] < v121)
             {
-              v156 = [a3 motionTransformStride];
-              v159 = v122;
+              v153 = [a3 motionTransformStride];
+              v156 = v121;
               _MTLMessageContextPush_();
             }
 
-            v122 = [a3 motionTransformStride];
+            v121 = [a3 motionTransformStride];
           }
 
-          v123 = [a3 motionTransformBuffer];
-          checkBufferRange(a1, v124, v123, v124, 0);
+          v122 = [a3 motionTransformBuffer];
+          checkBufferRange(a1, v123, v122, v123, 0);
           [a3 motionTransformBuffer];
-          v126 = v125;
+          v125 = v124;
           result = [a3 motionTransformCount];
-          if (v126 < result * v122)
+          if (v125 < result * v121)
           {
-            result = checkMTL4AccelerationStructureDescriptorWithRefitOptions();
+            return checkMTL4AccelerationStructureDescriptorWithRefitOptions();
           }
         }
       }
 
-      goto LABEL_317;
+      return result;
     }
 
-    v112 = objc_opt_class();
-    if ([v112 isSubclassOfClass:objc_opt_class()])
+    v111 = objc_opt_class();
+    if ([v111 isSubclassOfClass:objc_opt_class()])
     {
-      v113 = [a3 usage];
-      v114 = [a3 maxInstanceCount];
-      if ((v113 & 4) != 0)
+      v112 = [a3 usage];
+      v113 = [a3 maxInstanceCount];
+      if ((v112 & 4) != 0)
       {
-        if (!(v114 >> 30))
+        if (!(v113 >> 30))
         {
-          goto LABEL_280;
+          goto LABEL_279;
         }
       }
 
-      else if (!(v114 >> 24))
+      else if (!(v113 >> 24))
       {
-        goto LABEL_280;
+        goto LABEL_279;
       }
 
       checkMTL4AccelerationStructureDescriptorWithRefitOptions();
-LABEL_280:
+LABEL_279:
       if ([a3 instanceDescriptorType] != 3 && objc_msgSend(a3, "instanceDescriptorType") != 4)
       {
         checkMTL4AccelerationStructureDescriptorWithRefitOptions(a3);
       }
 
-      v128 = MTLAccelerationStructureInstanceDescriptorSize([a3 instanceDescriptorType]);
-      if ([a3 instanceDescriptorStride] && objc_msgSend(a3, "instanceDescriptorStride") < v128)
+      v126 = MTLAccelerationStructureInstanceDescriptorSize([a3 instanceDescriptorType]);
+      if ([a3 instanceDescriptorStride] && objc_msgSend(a3, "instanceDescriptorStride") < v126)
       {
-        v146 = [a3 instanceDescriptorStride];
-        v158 = v128;
+        v143 = [a3 instanceDescriptorStride];
+        v155 = v126;
         _MTLMessageContextPush_();
       }
 
@@ -7663,29 +7634,29 @@ LABEL_280:
 
       if (a4)
       {
-        v129 = [a3 instanceDescriptorBuffer];
-        checkBufferRange(a1, v130, v129, v130, 0);
-        v131 = [a3 instanceDescriptorStride];
-        if (v131)
+        v127 = [a3 instanceDescriptorBuffer];
+        checkBufferRange(a1, v128, v127, v128, 0);
+        v129 = [a3 instanceDescriptorStride];
+        if (v129)
         {
-          v132 = v131;
+          v130 = v129;
         }
 
         else
         {
-          v132 = v128;
+          v130 = v126;
         }
 
         [a3 instanceDescriptorBuffer];
-        if (v133 < v132 * [a3 maxInstanceCount])
+        if (v131 < v130 * [a3 maxInstanceCount])
         {
           checkMTL4AccelerationStructureDescriptorWithRefitOptions();
         }
 
-        v134 = [a3 instanceCountBuffer];
-        checkBufferRange(a1, v135, v134, v135, 0);
+        v132 = [a3 instanceCountBuffer];
+        checkBufferRange(a1, v133, v132, v133, 0);
         [a3 instanceCountBuffer];
-        if (v136 <= 3)
+        if (v134 <= 3)
         {
           checkMTL4AccelerationStructureDescriptorWithRefitOptions(a3);
         }
@@ -7697,15 +7668,15 @@ LABEL_280:
             _MTLMessageContextPush_();
           }
 
-          v137 = [a3 motionTransformType];
-          if (v137)
+          v135 = [a3 motionTransformType];
+          if (v135)
           {
-            v138 = (v137 == 1) << 6;
+            v136 = (v135 == 1) << 6;
           }
 
           else
           {
-            v138 = 48;
+            v136 = 48;
           }
 
           if ([a3 motionTransformStride])
@@ -7715,39 +7686,38 @@ LABEL_280:
               checkMTL4AccelerationStructureDescriptorWithRefitOptions(a3);
             }
 
-            if ([a3 motionTransformStride] < v138)
+            if ([a3 motionTransformStride] < v136)
             {
-              v157 = [a3 motionTransformStride];
-              v160 = v138;
+              v154 = [a3 motionTransformStride];
+              v157 = v136;
               _MTLMessageContextPush_();
             }
 
-            v138 = [a3 motionTransformStride];
+            v136 = [a3 motionTransformStride];
           }
 
-          v139 = [a3 motionTransformBuffer];
-          checkBufferRange(a1, v140, v139, v140, 0);
+          v137 = [a3 motionTransformBuffer];
+          checkBufferRange(a1, v138, v137, v138, 0);
           [a3 motionTransformBuffer];
-          if (v141 < [a3 maxMotionTransformCount] * v138)
+          if (v139 < [a3 maxMotionTransformCount] * v136)
           {
             checkMTL4AccelerationStructureDescriptorWithRefitOptions();
           }
 
-          v142 = [a3 motionTransformCountBuffer];
-          checkBufferRange(a1, v143, v142, v143, 0);
+          v140 = [a3 motionTransformCountBuffer];
+          checkBufferRange(a1, v141, v140, v141, 0);
           result = [a3 motionTransformCountBuffer];
-          if (v144 <= 3)
+          if (v142 <= 3)
           {
-            result = checkMTL4AccelerationStructureDescriptorWithRefitOptions(a3);
+            return checkMTL4AccelerationStructureDescriptorWithRefitOptions(a3);
           }
         }
       }
 
-      goto LABEL_317;
+      return result;
     }
 
-    v127 = *MEMORY[0x277D85DE8];
-LABEL_9:
+LABEL_8:
 
     return _MTLMessageContextPush_();
   }
@@ -7763,43 +7733,43 @@ LABEL_9:
   {
     if (v10 >> 30)
     {
-LABEL_318:
+LABEL_317:
       checkMTL4AccelerationStructureDescriptorWithRefitOptions();
     }
   }
 
   else if (v10 >> 24)
   {
-    goto LABEL_318;
+    goto LABEL_317;
   }
 
-  v167 = 0u;
-  v168 = 0u;
+  v164 = 0u;
   v165 = 0u;
-  v166 = 0u;
+  v162 = 0u;
+  v163 = 0u;
   obj = [a3 geometryDescriptors];
-  v16 = [obj countByEnumeratingWithState:&v165 objects:v169 count:16];
-  if (!v16)
+  v15 = [obj countByEnumeratingWithState:&v162 objects:v166 count:16];
+  if (!v15)
   {
-    v18 = 0;
-    goto LABEL_240;
+    v17 = 0;
+    goto LABEL_239;
   }
 
-  v17 = v16;
-  v18 = 0;
-  v162 = a5 & a4;
-  v19 = *v166;
+  v16 = v15;
+  v17 = 0;
+  v159 = a5 & a4;
+  v18 = *v163;
   do
   {
-    v20 = 0;
+    v19 = 0;
     do
     {
-      if (*v166 != v19)
+      if (*v163 != v18)
       {
         objc_enumerationMutation(obj);
       }
 
-      v21 = *(*(&v165 + 1) + 8 * v20);
+      v20 = *(*(&v162 + 1) + 8 * v19);
       [objc_msgSend(a3 "geometryDescriptors")];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -7807,124 +7777,124 @@ LABEL_318:
         _MTLMessageContextPush_();
       }
 
-      v22 = objc_opt_class();
-      if ([v22 isSubclassOfClass:objc_opt_class()])
+      v21 = objc_opt_class();
+      if ([v21 isSubclassOfClass:objc_opt_class()])
       {
-        if ([v21 intersectionFunctionTableOffset] >> 24)
+        if ([v20 intersectionFunctionTableOffset] >> 24)
         {
-          checkMTL4AccelerationStructureDescriptorWithRefitOptions(v21);
+          checkMTL4AccelerationStructureDescriptorWithRefitOptions(v20);
         }
 
-        v23 = [v21 vertexFormat];
-        v24 = [v21 vertexStride];
-        if (MTLAttributeFormatComponentCount(v23) <= 1)
+        v22 = [v20 vertexFormat];
+        v23 = [v20 vertexStride];
+        if (MTLAttributeFormatComponentCount(v22) <= 1)
         {
           _MTLMessageContextPush_();
         }
 
-        v25 = MTLAttributeFormatSize(v23);
-        if (v24 && v25 > v24)
+        v24 = MTLAttributeFormatSize(v22);
+        if (v23 && v24 > v23)
         {
-          v146 = v24;
-          v158 = v25;
+          v143 = v23;
+          v155 = v24;
           _MTLMessageContextPush_();
         }
 
-        v26 = MTLAttributeFormatAlignment(v23);
-        if (v24 % v26)
+        v25 = MTLAttributeFormatAlignment(v22);
+        if (v23 % v25)
         {
-          v146 = v24;
-          v158 = v26;
+          v143 = v23;
+          v155 = v25;
           _MTLMessageContextPush_();
         }
 
-        v28 = [v21 transformationMatrixBuffer];
-        v29 = v27;
-        if (v28)
-        {
-          if (v27)
-          {
-            goto LABEL_36;
-          }
-
-          v147 = @"Transformation buffer";
-          v158 = 0;
-LABEL_226:
-          _MTLMessageContextPush_();
-          goto LABEL_37;
-        }
-
+        v27 = [v20 transformationMatrixBuffer];
+        v28 = v26;
         if (v27)
         {
-          v147 = 0;
-          v158 = v27;
-          _MTLMessageContextPush_();
-LABEL_36:
-          if (&v29[-1].length + 7 <= 0x2E)
+          if (v26)
           {
-            v147 = v29;
-            goto LABEL_226;
+            goto LABEL_35;
           }
 
-LABEL_37:
-          if ((v28 & 3) != 0)
+          v144 = @"Transformation buffer";
+          v155 = 0;
+LABEL_225:
+          _MTLMessageContextPush_();
+          goto LABEL_36;
+        }
+
+        if (v26)
+        {
+          v144 = 0;
+          v155 = v26;
+          _MTLMessageContextPush_();
+LABEL_35:
+          if (&v28[-1].length + 7 <= 0x2E)
           {
-            v147 = v28;
+            v144 = v28;
+            goto LABEL_225;
+          }
+
+LABEL_36:
+          if ((v27 & 3) != 0)
+          {
+            v144 = v27;
             _MTLMessageContextPush_();
           }
         }
 
-        if ([v21 transformationMatrixLayout] == 1 && (objc_msgSend(a2, "supportsRayTracingMatrixLayout") & 1) == 0)
+        if ([v20 transformationMatrixLayout] == 1 && (objc_msgSend(a2, "supportsRayTracingMatrixLayout") & 1) == 0)
         {
           _MTLMessageContextPush_();
         }
 
-        if (v162)
+        if (v159)
         {
-          v44 = [v21 vertexBuffer];
-          checkBufferRange(a1, v45, v44, v45, 0);
-          if (([v21 vertexBuffer] & 3) != 0)
+          v43 = [v20 vertexBuffer];
+          checkBufferRange(a1, v44, v43, v44, 0);
+          if (([v20 vertexBuffer] & 3) != 0)
           {
-            checkMTL4AccelerationStructureDescriptorWithRefitOptions(v21);
+            checkMTL4AccelerationStructureDescriptorWithRefitOptions(v20);
           }
 
-          if ([v21 indexBuffer])
+          if ([v20 indexBuffer])
           {
-            if ([v21 indexBuffer] && !v46)
+            if ([v20 indexBuffer] && !v45)
             {
-              v146 = @"index buffer";
-              v158 = 0;
+              v143 = @"index buffer";
+              v155 = 0;
               _MTLMessageContextPush_();
             }
 
-            v47 = [v21 indexType];
-            if (v47)
+            v46 = [v20 indexType];
+            if (v46)
             {
-              v48 = 4;
+              v47 = 4;
             }
 
             else
             {
-              v48 = 2;
+              v47 = 2;
             }
 
-            if (((v48 - 1) & [v21 indexBuffer]) != 0)
+            if (((v47 - 1) & [v20 indexBuffer]) != 0)
             {
-              v149 = [v21 indexBuffer];
-              v158 = v48;
+              v146 = [v20 indexBuffer];
+              v155 = v47;
               _MTLMessageContextPush_();
             }
 
-            v49 = 3 * [v21 triangleCount];
-            v50 = 1;
-            if (v47)
+            v48 = 3 * [v20 triangleCount];
+            v49 = 1;
+            if (v46)
             {
-              v50 = 2;
+              v49 = 2;
             }
 
-            v51 = v49 << v50;
-            [v21 indexBuffer];
-            if (v51 > v52)
+            v50 = v48 << v49;
+            [v20 indexBuffer];
+            if (v50 > v51)
             {
               checkMTL4AccelerationStructureDescriptorWithRefitOptions();
             }
@@ -7932,634 +7902,631 @@ LABEL_37:
 
           else
           {
-            v65 = [v21 vertexStride];
-            v66 = [v21 vertexFormat];
-            if (!v65)
+            v64 = [v20 vertexStride];
+            v65 = [v20 vertexFormat];
+            if (!v64)
             {
-              v65 = MTLAttributeFormatSize(v66);
+              v64 = MTLAttributeFormatSize(v65);
             }
 
-            v67 = 3 * v65 * [v21 triangleCount];
-            [v21 vertexBuffer];
-            if (v68 < v67)
+            v66 = 3 * v64 * [v20 triangleCount];
+            [v20 vertexBuffer];
+            if (v67 < v66)
             {
               checkMTL4AccelerationStructureDescriptorWithRefitOptions();
             }
           }
         }
 
+LABEL_113:
+        v53 = [v20 triangleCount];
 LABEL_114:
-        v54 = [v21 triangleCount];
-LABEL_115:
-        v69 = v54;
+        v68 = v53;
         if ((a5 & 2) == 0)
         {
-          goto LABEL_117;
+          goto LABEL_116;
         }
 
-LABEL_116:
-        checkPrimitiveData(a1, v55, v21, v69);
-        goto LABEL_117;
+LABEL_115:
+        checkPrimitiveData(a1, v54, v20, v68);
+        goto LABEL_116;
       }
 
-      v30 = objc_opt_class();
-      if ([v30 isSubclassOfClass:objc_opt_class()])
+      v29 = objc_opt_class();
+      if ([v29 isSubclassOfClass:objc_opt_class()])
       {
-        if ([v21 intersectionFunctionTableOffset] >> 24)
+        if ([v20 intersectionFunctionTableOffset] >> 24)
         {
-          checkMTL4AccelerationStructureDescriptorWithRefitOptions(v21);
+          checkMTL4AccelerationStructureDescriptorWithRefitOptions(v20);
         }
 
         checkMotionParameter(a1, a2, a3);
-        v31 = [v21 vertexFormat];
-        v32 = [v21 vertexStride];
-        if (MTLAttributeFormatComponentCount(v31) <= 1)
+        v30 = [v20 vertexFormat];
+        v31 = [v20 vertexStride];
+        if (MTLAttributeFormatComponentCount(v30) <= 1)
         {
           _MTLMessageContextPush_();
         }
 
-        v33 = MTLAttributeFormatSize(v31);
-        if (v32 && v33 > v32)
+        v32 = MTLAttributeFormatSize(v30);
+        if (v31 && v32 > v31)
         {
-          v146 = v32;
-          v158 = v33;
+          v143 = v31;
+          v155 = v32;
           _MTLMessageContextPush_();
         }
 
-        v34 = MTLAttributeFormatAlignment(v31);
-        if (v32 % v34)
+        v33 = MTLAttributeFormatAlignment(v30);
+        if (v31 % v33)
         {
-          v146 = v32;
-          v158 = v34;
+          v143 = v31;
+          v155 = v33;
           _MTLMessageContextPush_();
         }
 
-        v36 = [v21 transformationMatrixBuffer];
-        v37 = v35;
-        if (v36)
-        {
-          if (v35)
-          {
-            goto LABEL_51;
-          }
-
-          v148 = @"Transformation buffer";
-          v158 = 0;
-LABEL_230:
-          _MTLMessageContextPush_();
-          goto LABEL_52;
-        }
-
+        v35 = [v20 transformationMatrixBuffer];
+        v36 = v34;
         if (v35)
         {
-          v148 = 0;
-          v158 = v35;
+          if (v34)
+          {
+            goto LABEL_50;
+          }
+
+          v145 = @"Transformation buffer";
+          v155 = 0;
+LABEL_229:
           _MTLMessageContextPush_();
+          goto LABEL_51;
+        }
+
+        if (v34)
+        {
+          v145 = 0;
+          v155 = v34;
+          _MTLMessageContextPush_();
+LABEL_50:
+          if (&v36[-1].length + 7 <= 0x2E)
+          {
+            v145 = v36;
+            goto LABEL_229;
+          }
+
 LABEL_51:
-          if (&v37[-1].length + 7 <= 0x2E)
+          if ((v35 & 3) != 0)
           {
-            v148 = v37;
-            goto LABEL_230;
-          }
-
-LABEL_52:
-          if ((v36 & 3) != 0)
-          {
-            v148 = v36;
+            v145 = v35;
             _MTLMessageContextPush_();
           }
         }
 
-        if ([v21 transformationMatrixLayout] == 1 && (objc_msgSend(a2, "supportsRayTracingMatrixLayout") & 1) == 0)
+        if ([v20 transformationMatrixLayout] == 1 && (objc_msgSend(a2, "supportsRayTracingMatrixLayout") & 1) == 0)
         {
           _MTLMessageContextPush_();
         }
 
-        v56 = [v21 vertexStride];
-        v57 = [v21 vertexFormat];
-        if (!v56)
+        v55 = [v20 vertexStride];
+        v56 = [v20 vertexFormat];
+        if (!v55)
         {
-          MTLAttributeFormatSize(v57);
+          MTLAttributeFormatSize(v56);
         }
 
-        if (a4 && [v21 indexBuffer])
+        if (a4 && [v20 indexBuffer])
         {
-          if ([v21 indexBuffer] && !v58)
+          if ([v20 indexBuffer] && !v57)
           {
-            v146 = @"index buffer";
-            v158 = 0;
+            v143 = @"index buffer";
+            v155 = 0;
             _MTLMessageContextPush_();
           }
 
-          v59 = [v21 indexType];
-          if (v59)
+          v58 = [v20 indexType];
+          if (v58)
           {
-            v60 = 4;
+            v59 = 4;
           }
 
           else
           {
-            v60 = 2;
+            v59 = 2;
           }
 
-          if (((v60 - 1) & [v21 indexBuffer]) != 0)
+          if (((v59 - 1) & [v20 indexBuffer]) != 0)
           {
-            v150 = [v21 indexBuffer];
-            v158 = v60;
+            v147 = [v20 indexBuffer];
+            v155 = v59;
             _MTLMessageContextPush_();
           }
 
-          v61 = 3 * [v21 triangleCount];
-          v62 = 1;
-          if (v59)
+          v60 = 3 * [v20 triangleCount];
+          v61 = 1;
+          if (v58)
           {
-            v62 = 2;
+            v61 = 2;
           }
 
-          v63 = v61 << v62;
-          [v21 indexBuffer];
-          if (v63 > v64)
+          v62 = v60 << v61;
+          [v20 indexBuffer];
+          if (v62 > v63)
           {
             checkMTL4AccelerationStructureDescriptorWithRefitOptions();
           }
         }
 
-        goto LABEL_114;
+        goto LABEL_113;
       }
 
-      v38 = objc_opt_class();
-      if ([v38 isSubclassOfClass:objc_opt_class()])
+      v37 = objc_opt_class();
+      if ([v37 isSubclassOfClass:objc_opt_class()])
       {
-        if ([v21 boundingBoxStride] <= 0x17)
+        if ([v20 boundingBoxStride] <= 0x17)
         {
-          checkMTL4AccelerationStructureDescriptorWithRefitOptions(v21);
+          checkMTL4AccelerationStructureDescriptorWithRefitOptions(v20);
         }
 
-        if (([v21 boundingBoxStride] & 3) != 0)
+        if (([v20 boundingBoxStride] & 3) != 0)
         {
-          checkMTL4AccelerationStructureDescriptorWithRefitOptions(v21);
+          checkMTL4AccelerationStructureDescriptorWithRefitOptions(v20);
         }
 
         if (a4)
         {
-          v39 = [v21 boundingBoxBuffer];
-          checkBufferRange(a1, v40, v39, v40, 0);
-          if (([v21 boundingBoxBuffer] & 3) != 0)
+          v38 = [v20 boundingBoxBuffer];
+          checkBufferRange(a1, v39, v38, v39, 0);
+          if (([v20 boundingBoxBuffer] & 3) != 0)
           {
-            checkMTL4AccelerationStructureDescriptorWithRefitOptions(v21);
+            checkMTL4AccelerationStructureDescriptorWithRefitOptions(v20);
           }
 
-          [v21 boundingBoxBuffer];
-          v42 = v41;
-          v43 = [v21 boundingBoxStride];
-          if (v42 < [v21 boundingBoxCount] * v43)
+          [v20 boundingBoxBuffer];
+          v41 = v40;
+          v42 = [v20 boundingBoxStride];
+          if (v41 < [v20 boundingBoxCount] * v42)
           {
-            checkMTL4AccelerationStructureDescriptorWithRefitOptions(v21);
+            checkMTL4AccelerationStructureDescriptorWithRefitOptions(v20);
           }
         }
 
-LABEL_89:
-        v54 = [v21 boundingBoxCount];
-        goto LABEL_115;
+LABEL_88:
+        v53 = [v20 boundingBoxCount];
+        goto LABEL_114;
       }
 
-      v53 = objc_opt_class();
-      if ([v53 isSubclassOfClass:objc_opt_class()])
+      v52 = objc_opt_class();
+      if ([v52 isSubclassOfClass:objc_opt_class()])
       {
         checkMotionParameter(a1, a2, a3);
-        if ([v21 boundingBoxStride] <= 0x17)
+        if ([v20 boundingBoxStride] <= 0x17)
         {
-          checkMTL4AccelerationStructureDescriptorWithRefitOptions(v21);
+          checkMTL4AccelerationStructureDescriptorWithRefitOptions(v20);
         }
 
-        if (([v21 boundingBoxStride] & 3) != 0)
+        if (([v20 boundingBoxStride] & 3) != 0)
         {
-          checkMTL4AccelerationStructureDescriptorWithRefitOptions(v21);
+          checkMTL4AccelerationStructureDescriptorWithRefitOptions(v20);
         }
 
-        goto LABEL_89;
+        goto LABEL_88;
       }
 
-      v70 = objc_opt_class();
-      if ([v70 isSubclassOfClass:objc_opt_class()])
+      v69 = objc_opt_class();
+      if ([v69 isSubclassOfClass:objc_opt_class()])
       {
-        if ([v21 intersectionFunctionTableOffset] >> 24)
+        if ([v20 intersectionFunctionTableOffset] >> 24)
         {
-          checkMTL4AccelerationStructureDescriptorWithRefitOptions(v21);
+          checkMTL4AccelerationStructureDescriptorWithRefitOptions(v20);
         }
 
-        v71 = [v21 curveBasis];
-        v72 = [v21 segmentControlPointCount];
-        if (v71 > 1)
+        v70 = [v20 curveBasis];
+        v71 = [v20 segmentControlPointCount];
+        if (v70 > 1)
         {
-          if (v71 == 2)
+          if (v70 == 2)
           {
-            if (v72 == 2)
+            if (v71 == 2)
             {
-              goto LABEL_149;
+              goto LABEL_148;
             }
 
-            v146 = v72;
+            v143 = v71;
           }
 
-          else if (v71 == 3)
+          else if (v70 == 3)
           {
-            if ((v72 - 5) > 0xFFFFFFFFFFFFFFFDLL)
+            if ((v71 - 5) > 0xFFFFFFFFFFFFFFFDLL)
             {
-              goto LABEL_149;
+              goto LABEL_148;
             }
 
-            v146 = v72;
+            v143 = v71;
           }
         }
 
         else
         {
-          if (v71)
+          if (v70)
           {
-            if (v71 != 1)
+            if (v70 != 1)
             {
-              goto LABEL_145;
+              goto LABEL_144;
             }
 
-            if (v72 != 4)
+            if (v71 != 4)
             {
-              v146 = v72;
-              goto LABEL_145;
+              v143 = v71;
+              goto LABEL_144;
             }
 
-LABEL_149:
-            if ([v21 curveType] && objc_msgSend(v21, "curveType") != 1)
+LABEL_148:
+            if ([v20 curveType] && objc_msgSend(v20, "curveType") != 1)
             {
               _MTLMessageContextPush_();
             }
 
-            if ([v21 curveEndCaps] && objc_msgSend(v21, "curveEndCaps") != 1 && objc_msgSend(v21, "curveEndCaps") != 2)
+            if ([v20 curveEndCaps] && objc_msgSend(v20, "curveEndCaps") != 1 && objc_msgSend(v20, "curveEndCaps") != 2)
             {
               _MTLMessageContextPush_();
             }
 
-            v76 = [v21 controlPointFormat];
-            v77 = [v21 controlPointStride];
-            if (MTLAttributeFormatComponentCount(v76) <= 1)
+            v75 = [v20 controlPointFormat];
+            v76 = [v20 controlPointStride];
+            if (MTLAttributeFormatComponentCount(v75) <= 1)
             {
               _MTLMessageContextPush_();
             }
 
-            v78 = MTLAttributeFormatSize(v76);
-            if (v77 && v78 > v77)
+            v77 = MTLAttributeFormatSize(v75);
+            if (v76 && v77 > v76)
             {
-              v151 = v77;
-              v158 = v78;
+              v148 = v76;
+              v155 = v77;
               _MTLMessageContextPush_();
             }
 
-            v79 = MTLAttributeFormatAlignment(v76);
-            if (v77 % v79)
+            v78 = MTLAttributeFormatAlignment(v75);
+            if (v76 % v78)
             {
-              v151 = v77;
-              v158 = v79;
+              v148 = v76;
+              v155 = v78;
               _MTLMessageContextPush_();
             }
 
-            v80 = [v21 radiusFormat];
-            v81 = [v21 radiusStride];
-            if (MTLAttributeFormatComponentCount(v80) != 1)
+            v79 = [v20 radiusFormat];
+            v80 = [v20 radiusStride];
+            if (MTLAttributeFormatComponentCount(v79) != 1)
             {
               _MTLMessageContextPush_();
             }
 
-            v82 = MTLAttributeFormatSize(v80);
-            if (v81 && v82 > v81)
+            v81 = MTLAttributeFormatSize(v79);
+            if (v80 && v81 > v80)
             {
-              v152 = v81;
-              v158 = v82;
+              v149 = v80;
+              v155 = v81;
               _MTLMessageContextPush_();
             }
 
-            v83 = MTLAttributeFormatAlignment(v80);
-            if (v81 % v83)
+            v82 = MTLAttributeFormatAlignment(v79);
+            if (v80 % v82)
             {
-              v152 = v81;
-              v158 = v83;
+              v149 = v80;
+              v155 = v82;
               _MTLMessageContextPush_();
             }
 
-            if (v162)
+            if (v159)
             {
-              v84 = [v21 controlPointBuffer];
-              checkBufferRange(a1, v85, v84, v85, 0);
-              v86 = [v21 radiusBuffer];
-              checkBufferRange(a1, v87, v86, v87, 0);
-              v88 = [v21 indexBuffer];
-              checkBufferRange(a1, v89, v88, v89, 0);
-              if (([v21 controlPointBuffer] & 3) != 0)
+              v83 = [v20 controlPointBuffer];
+              checkBufferRange(a1, v84, v83, v84, 0);
+              v85 = [v20 radiusBuffer];
+              checkBufferRange(a1, v86, v85, v86, 0);
+              v87 = [v20 indexBuffer];
+              checkBufferRange(a1, v88, v87, v88, 0);
+              if (([v20 controlPointBuffer] & 3) != 0)
               {
-                checkMTL4AccelerationStructureDescriptorWithRefitOptions(v21);
+                checkMTL4AccelerationStructureDescriptorWithRefitOptions(v20);
               }
 
-              if (([v21 radiusBuffer] & 3) != 0)
+              if (([v20 radiusBuffer] & 3) != 0)
               {
-                checkMTL4AccelerationStructureDescriptorWithRefitOptions(v21);
+                checkMTL4AccelerationStructureDescriptorWithRefitOptions(v20);
               }
 
-              v90 = [v21 indexType];
-              if (v90)
+              v89 = [v20 indexType];
+              if (v89)
               {
-                v91 = 4;
+                v90 = 4;
               }
 
               else
               {
-                v91 = 2;
+                v90 = 2;
               }
 
-              if (((v91 - 1) & [v21 indexBuffer]) != 0)
+              if (((v90 - 1) & [v20 indexBuffer]) != 0)
               {
-                v153 = [v21 indexBuffer];
-                v158 = v91;
+                v150 = [v20 indexBuffer];
+                v155 = v90;
                 _MTLMessageContextPush_();
               }
 
-              v92 = [v21 segmentCount];
-              v93 = 1;
-              if (v90)
+              v91 = [v20 segmentCount];
+              v92 = 1;
+              if (v89)
               {
-                v93 = 2;
+                v92 = 2;
               }
 
-              v94 = v92 << v93;
-              [v21 indexBuffer];
-              if (v94 > v95)
+              v93 = v91 << v92;
+              [v20 indexBuffer];
+              if (v93 > v94)
               {
-LABEL_221:
+LABEL_220:
                 checkMTL4AccelerationStructureDescriptorWithRefitOptions();
               }
             }
 
-LABEL_222:
-            v54 = [v21 segmentCount];
-            goto LABEL_115;
+LABEL_221:
+            v53 = [v20 segmentCount];
+            goto LABEL_114;
           }
 
-          if ((v72 - 5) > 0xFFFFFFFFFFFFFFFDLL)
+          if ((v71 - 5) > 0xFFFFFFFFFFFFFFFDLL)
           {
-            goto LABEL_149;
+            goto LABEL_148;
           }
 
-          v146 = v72;
+          v143 = v71;
         }
 
-LABEL_145:
+LABEL_144:
         _MTLMessageContextPush_();
-        goto LABEL_149;
+        goto LABEL_148;
       }
 
-      v73 = objc_opt_class();
-      if ([v73 isSubclassOfClass:objc_opt_class()])
+      v72 = objc_opt_class();
+      if ([v72 isSubclassOfClass:objc_opt_class()])
       {
-        if ([v21 intersectionFunctionTableOffset] >> 24)
+        if ([v20 intersectionFunctionTableOffset] >> 24)
         {
-          checkMTL4AccelerationStructureDescriptorWithRefitOptions(v21);
+          checkMTL4AccelerationStructureDescriptorWithRefitOptions(v20);
         }
 
-        v74 = [v21 curveBasis];
-        v75 = [v21 segmentControlPointCount];
-        if (v74 > 1)
+        v73 = [v20 curveBasis];
+        v74 = [v20 segmentControlPointCount];
+        if (v73 > 1)
         {
-          if (v74 == 2)
+          if (v73 == 2)
           {
-            if (v75 == 2)
+            if (v74 == 2)
             {
-              goto LABEL_188;
+              goto LABEL_187;
             }
 
-            v146 = v75;
+            v143 = v74;
           }
 
-          else if (v74 == 3)
+          else if (v73 == 3)
           {
-            if ((v75 - 5) > 0xFFFFFFFFFFFFFFFDLL)
+            if ((v74 - 5) > 0xFFFFFFFFFFFFFFFDLL)
             {
-              goto LABEL_188;
+              goto LABEL_187;
             }
 
-            v146 = v75;
+            v143 = v74;
           }
         }
 
         else
         {
-          if (v74)
+          if (v73)
           {
-            if (v74 != 1)
+            if (v73 != 1)
             {
-              goto LABEL_184;
+              goto LABEL_183;
             }
 
-            if (v75 != 4)
+            if (v74 != 4)
             {
-              v146 = v75;
-              goto LABEL_184;
+              v143 = v74;
+              goto LABEL_183;
             }
 
-LABEL_188:
-            if ([v21 curveType] && objc_msgSend(v21, "curveType") != 1)
+LABEL_187:
+            if ([v20 curveType] && objc_msgSend(v20, "curveType") != 1)
             {
               _MTLMessageContextPush_();
             }
 
-            if ([v21 curveEndCaps] && objc_msgSend(v21, "curveEndCaps") != 1 && objc_msgSend(v21, "curveEndCaps") != 2)
+            if ([v20 curveEndCaps] && objc_msgSend(v20, "curveEndCaps") != 1 && objc_msgSend(v20, "curveEndCaps") != 2)
             {
               _MTLMessageContextPush_();
             }
 
             checkMotionParameter(a1, a2, a3);
-            v96 = [v21 controlPointFormat];
-            v97 = [v21 controlPointStride];
-            if (MTLAttributeFormatComponentCount(v96) <= 1)
+            v95 = [v20 controlPointFormat];
+            v96 = [v20 controlPointStride];
+            if (MTLAttributeFormatComponentCount(v95) <= 1)
             {
               _MTLMessageContextPush_();
             }
 
-            v98 = MTLAttributeFormatSize(v96);
-            if (v97 && v98 > v97)
+            v97 = MTLAttributeFormatSize(v95);
+            if (v96 && v97 > v96)
             {
-              v154 = v97;
-              v158 = v98;
+              v151 = v96;
+              v155 = v97;
               _MTLMessageContextPush_();
             }
 
-            v99 = MTLAttributeFormatAlignment(v96);
-            if (v97 % v99)
+            v98 = MTLAttributeFormatAlignment(v95);
+            if (v96 % v98)
             {
-              v154 = v97;
-              v158 = v99;
+              v151 = v96;
+              v155 = v98;
               _MTLMessageContextPush_();
             }
 
-            v100 = [v21 radiusFormat];
-            v101 = [v21 radiusStride];
-            if (MTLAttributeFormatComponentCount(v100) != 1)
+            v99 = [v20 radiusFormat];
+            v100 = [v20 radiusStride];
+            if (MTLAttributeFormatComponentCount(v99) != 1)
             {
               _MTLMessageContextPush_();
             }
 
-            v102 = MTLAttributeFormatSize(v100);
-            if (v101 && v102 > v101)
+            v101 = MTLAttributeFormatSize(v99);
+            if (v100 && v101 > v100)
             {
-              v152 = v101;
-              v158 = v102;
+              v149 = v100;
+              v155 = v101;
               _MTLMessageContextPush_();
             }
 
-            v103 = MTLAttributeFormatAlignment(v100);
-            if (v101 % v103)
+            v102 = MTLAttributeFormatAlignment(v99);
+            if (v100 % v102)
             {
-              v152 = v101;
-              v158 = v103;
+              v149 = v100;
+              v155 = v102;
               _MTLMessageContextPush_();
             }
 
             if (a4)
             {
-              if ([v21 indexBuffer] && !v104)
+              if ([v20 indexBuffer] && !v103)
               {
-                v152 = @"index buffer";
-                v158 = 0;
+                v149 = @"index buffer";
+                v155 = 0;
                 _MTLMessageContextPush_();
               }
 
-              v105 = [v21 indexType];
-              if (v105)
+              v104 = [v20 indexType];
+              if (v104)
               {
-                v106 = 4;
+                v105 = 4;
               }
 
               else
               {
-                v106 = 2;
+                v105 = 2;
               }
 
-              if (((v106 - 1) & [v21 indexBuffer]) != 0)
+              if (((v105 - 1) & [v20 indexBuffer]) != 0)
               {
-                v155 = [v21 indexBuffer];
-                v158 = v106;
+                v152 = [v20 indexBuffer];
+                v155 = v105;
                 _MTLMessageContextPush_();
               }
 
-              v107 = [v21 segmentCount];
-              v108 = 1;
-              if (v105)
+              v106 = [v20 segmentCount];
+              v107 = 1;
+              if (v104)
               {
-                v108 = 2;
+                v107 = 2;
               }
 
-              v109 = v107 << v108;
-              [v21 indexBuffer];
-              if (v109 > v110)
+              v108 = v106 << v107;
+              [v20 indexBuffer];
+              if (v108 > v109)
               {
-                goto LABEL_221;
+                goto LABEL_220;
               }
             }
 
-            goto LABEL_222;
+            goto LABEL_221;
           }
 
-          if ((v75 - 5) > 0xFFFFFFFFFFFFFFFDLL)
+          if ((v74 - 5) > 0xFFFFFFFFFFFFFFFDLL)
           {
-            goto LABEL_188;
+            goto LABEL_187;
           }
 
-          v146 = v75;
+          v143 = v74;
         }
 
-LABEL_184:
+LABEL_183:
         _MTLMessageContextPush_();
-        goto LABEL_188;
+        goto LABEL_187;
       }
 
       _MTLMessageContextPush_();
-      v69 = 0;
+      v68 = 0;
       if ((a5 & 2) != 0)
       {
-        goto LABEL_116;
+        goto LABEL_115;
       }
 
-LABEL_117:
-      v18 += v69;
-      ++v20;
+LABEL_116:
+      v17 += v68;
+      ++v19;
     }
 
-    while (v17 != v20);
-    v111 = [obj countByEnumeratingWithState:&v165 objects:v169 count:16];
-    v17 = v111;
+    while (v16 != v19);
+    v110 = [obj countByEnumeratingWithState:&v162 objects:v166 count:16];
+    v16 = v110;
   }
 
-  while (v111);
-LABEL_240:
+  while (v110);
+LABEL_239:
   result = [a3 usage];
   if ((result & 4) != 0)
   {
-    if (v18 >> 30)
+    if (v17 >> 30)
     {
-      goto LABEL_244;
+      return _MTLMessageContextPush_();
     }
   }
 
-  else if (v18 >> 28)
+  else if (v17 >> 28)
   {
-LABEL_244:
-    result = _MTLMessageContextPush_();
+    return _MTLMessageContextPush_();
   }
 
-LABEL_317:
-  v145 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t *std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int &>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int &>(uint64_t a1, unsigned int *a2, _DWORD *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 28);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<unsigned int>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<unsigned int>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -8585,12 +8552,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -8604,22 +8571,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -8653,13 +8620,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -8712,7 +8679,7 @@ void std::__tree<unsigned int>::destroy(uint64_t a1, void *a2)
   }
 }
 
-uint64_t OUTLINED_FUNCTION_7()
+uint64_t OUTLINED_FUNCTION_7(uint64_t a1, uint64_t a2, uint64_t a3)
 {
 
   return _MTLMessageContextPush_();
@@ -8740,7 +8707,7 @@ MTLLegacySVTexture *CreateTexture(void *a1, uint64_t a2)
 
 void emitDepthStencilDistribution(MTLTelemetryDevice *a1, MTLTelemetryDepthStateDistributionRec *a2, MTLTelemetryStencilStateDistributionRec *a3, MTLTelemetryStencilStateDistributionRec *a4)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   var0 = a2->var0;
   if (a2->var0)
   {
@@ -8767,10 +8734,10 @@ void emitDepthStencilDistribution(MTLTelemetryDevice *a1, MTLTelemetryDepthState
       }
 
 LABEL_9:
-      v35 = v7;
-      v36 = v6;
+      v34 = v7;
+      v35 = v6;
       v14 = 0;
-      v34 = v8;
+      v33 = v8;
       do
       {
         v15 = off_2787B3EB0[v14];
@@ -8795,13 +8762,13 @@ LABEL_9:
         {
           v18 = (*v7)[-64];
           *buf = 136315906;
-          v38 = v10;
-          v39 = 2080;
-          *v40 = v15;
-          *&v40[8] = 1024;
-          v41 = var0;
-          v42 = 1024;
-          v43 = v18;
+          v37 = v10;
+          v38 = 2080;
+          *v39 = v15;
+          *&v39[8] = 1024;
+          v40 = var0;
+          v41 = 1024;
+          v42 = v18;
           _os_log_impl(&dword_22E0FF000, v17, OS_LOG_TYPE_DEFAULT, "FrontFaceStencilFail, compareMode=%s, operation=%s, total=%u, count=%u", buf, 0x22u);
         }
 
@@ -8826,13 +8793,13 @@ LABEL_16:
         {
           v20 = *v7;
           *buf = 136315906;
-          v38 = v10;
-          v39 = 2080;
-          *v40 = v15;
-          *&v40[8] = 1024;
-          v41 = var0;
-          v42 = 1024;
-          v43 = v20;
+          v37 = v10;
+          v38 = 2080;
+          *v39 = v15;
+          *&v39[8] = 1024;
+          v40 = var0;
+          v41 = 1024;
+          v42 = v20;
           _os_log_impl(&dword_22E0FF000, v19, OS_LOG_TYPE_DEFAULT, "FrontFaceDepthFail, compareMode=%s, operation=%s, total=%u, count=%u", buf, 0x22u);
         }
 
@@ -8858,13 +8825,13 @@ LABEL_22:
         {
           v23 = (*v7)[64];
           *buf = 136315906;
-          v38 = v10;
-          v39 = 2080;
-          *v40 = v15;
-          *&v40[8] = 1024;
-          v41 = var0;
-          v42 = 1024;
-          v43 = v23;
+          v37 = v10;
+          v38 = 2080;
+          *v39 = v15;
+          *&v39[8] = 1024;
+          v40 = var0;
+          v41 = 1024;
+          v42 = v23;
           _os_log_impl(&dword_22E0FF000, v22, OS_LOG_TYPE_DEFAULT, "FrontFaceDepthStencilPass, compareMode=%s, operation=%s, total=%u, count=%u", buf, 0x22u);
         }
 
@@ -8890,13 +8857,13 @@ LABEL_28:
         {
           v26 = (*v8)[-64];
           *buf = 136315906;
-          v38 = v10;
-          v39 = 2080;
-          *v40 = v15;
-          *&v40[8] = 1024;
-          v41 = var0;
-          v42 = 1024;
-          v43 = v26;
+          v37 = v10;
+          v38 = 2080;
+          *v39 = v15;
+          *&v39[8] = 1024;
+          v40 = var0;
+          v41 = 1024;
+          v42 = v26;
           _os_log_impl(&dword_22E0FF000, v25, OS_LOG_TYPE_DEFAULT, "BackFaceStencilFail, compareMode=%s, operation=%s, total=%u, count=%u", buf, 0x22u);
         }
 
@@ -8921,13 +8888,13 @@ LABEL_34:
         {
           v28 = *v8;
           *buf = 136315906;
-          v38 = v10;
-          v39 = 2080;
-          *v40 = v15;
-          *&v40[8] = 1024;
-          v41 = var0;
-          v42 = 1024;
-          v43 = v28;
+          v37 = v10;
+          v38 = 2080;
+          *v39 = v15;
+          *&v39[8] = 1024;
+          v40 = var0;
+          v41 = 1024;
+          v42 = v28;
           _os_log_impl(&dword_22E0FF000, v27, OS_LOG_TYPE_DEFAULT, "BackFaceDepthFail, compareMode=%s, operation=%s, total=%u, count=%u", buf, 0x22u);
         }
 
@@ -8953,13 +8920,13 @@ LABEL_40:
         {
           v31 = (*v8)[64];
           *buf = 136315906;
-          v38 = v10;
-          v39 = 2080;
-          *v40 = v15;
-          *&v40[8] = 1024;
-          v41 = var0;
-          v42 = 1024;
-          v43 = v31;
+          v37 = v10;
+          v38 = 2080;
+          *v39 = v15;
+          *&v39[8] = 1024;
+          v40 = var0;
+          v41 = 1024;
+          v42 = v31;
           _os_log_impl(&dword_22E0FF000, v30, OS_LOG_TYPE_DEFAULT, "BackFaceDepthStencilPass, compareMode=%s, operation=%s, total=%u, count=%u", buf, 0x22u);
         }
 
@@ -8970,12 +8937,12 @@ LABEL_46:
       }
 
       while (v14 != 8);
-      v6 = v36 + 1;
-      v7 = v35 + 1;
-      v8 = v34 + 1;
-      if (v36 == 7)
+      v6 = v35 + 1;
+      v7 = v34 + 1;
+      v8 = v33 + 1;
+      if (v35 == 7)
       {
-        goto LABEL_48;
+        return;
       }
     }
 
@@ -8986,19 +8953,16 @@ LABEL_7:
     {
       v13 = var1[v6];
       *buf = 136315650;
-      v38 = v10;
-      v39 = 1024;
-      *v40 = var0;
-      *&v40[4] = 1024;
-      *&v40[6] = v13;
+      v37 = v10;
+      v38 = 1024;
+      *v39 = var0;
+      *&v39[4] = 1024;
+      *&v39[6] = v13;
       _os_log_impl(&dword_22E0FF000, v12, OS_LOG_TYPE_DEFAULT, "DepthState, compareMode=%s, total=%u, count=%u", buf, 0x18u);
     }
 
     goto LABEL_9;
   }
-
-LABEL_48:
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22E15C270(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -9151,7 +9115,7 @@ void sub_22E160D0C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *buildBaseVector@<X0>(uint64_t a1@<X0>, unint64_t a2@<X2>, void *a3@<X8>)
+uint64_t *buildBaseVector@<X0>(uint64_t a1@<X0>, unint64_t a2@<X2>, uint64_t *a3@<X8>)
 {
   result = std::vector<objc_object  {objcproto28MTLIntersectionFunctionTable}*>::vector[abi:ne200100](a3, a2);
   if (a2)
@@ -9241,17 +9205,17 @@ void sub_22E1615C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<objc_object  {objcproto22MTLRenderPipelineState}*>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<objc_object  {objcproto22MTLRenderPipelineState}*>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<objc_object  {objcproto19MTLGPUDebugViewable}*>::__vallocate[abi:ne200100](result, a2);
+    std::vector<objc_object  {objcproto19MTLGPUDebugViewable}*>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_22E1616CC(_Unwind_Exception *exception_object)
@@ -9266,36 +9230,30 @@ void sub_22E1616CC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<MTLViewport>::reserve(void *result, unint64_t a2)
+void std::vector<MTLViewport>::reserve(void *a1, unint64_t a2)
 {
-  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 4) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 4) < a2)
   {
     if (a2 < 0x555555555555556)
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<MTLViewport>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<MTLViewport>>(a1, a2);
     }
 
     std::vector<std::pair<char const*,MTLShaderValidationState>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void *std::vector<MTLScissorRect>::reserve(void *result, unint64_t a2)
+void std::vector<MTLScissorRect>::reserve(void *a1, unint64_t a2, __n128 a3)
 {
-  if (a2 > (result[2] - *result) >> 5)
+  if (a2 > (a1[2] - *a1) >> 5)
   {
     if (!(a2 >> 59))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<MTLScissorRect>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<MTLScissorRect>>(a1, a2);
     }
 
     std::vector<std::pair<char const*,MTLShaderValidationState>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<MTLViewport>>(uint64_t a1, unint64_t a2)
@@ -9318,48 +9276,48 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<MTLScissorRect>>(uint
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long &>(uint64_t a1, unint64_t *a2)
+void *std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long &>(uint64_t a1, unint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t OUTLINED_FUNCTION_0_2()
+uint64_t OUTLINED_FUNCTION_0_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
 
   return _MTLMessageContextPush_();
@@ -9418,61 +9376,53 @@ void *std::unordered_map<objc_object  {objcproto13MTLAllocation}*,anonymous name
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void *std::vector<objc_object  {objcproto13MTLAllocation}*>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<objc_object  {objcproto13MTLAllocation}*>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<objc_object  {objcproto19MTLGPUDebugViewable}*>::__vallocate[abi:ne200100](result, a2);
+    std::vector<objc_object  {objcproto19MTLGPUDebugViewable}*>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_22E16A204(_Unwind_Exception *exception_object)
@@ -9507,7 +9457,7 @@ void sub_22E16B05C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t anonymous namespace::anonymous namespace::BufferUsageTable::addResource(id *a1, void *a2, void *a3, char a4)
+_BYTE *anonymous namespace::anonymous namespace::BufferUsageTable::addResource(id *a1, void *a2, void *a3, char a4)
 {
   for (i = a3; ; i = a3)
   {
@@ -9528,7 +9478,7 @@ uint64_t anonymous namespace::anonymous namespace::BufferUsageTable::addResource
     }
 
     result = [*a1 contents];
-    *(result + (v11 >> 2)) |= a4 << (2 * (v11 & 3));
+    result[v11 >> 2] |= a4 << (2 * (v11 & 3));
   }
 
   return result;
@@ -9544,7 +9494,7 @@ void sub_22E16B200(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t anonymous namespace::anonymous namespace::BufferUsageTable::addResource(id *a1, void *a2, char a3)
+_BYTE *anonymous namespace::anonymous namespace::BufferUsageTable::addResource(id *a1, void *a2, char a3)
 {
   result = [a2 accelerationStructureHandle];
   v6 = result;
@@ -9556,7 +9506,7 @@ uint64_t anonymous namespace::anonymous namespace::BufferUsageTable::addResource
     }
 
     result = [*a1 contents];
-    *(result + (v6 >> 2)) |= a3 << (2 * (v6 & 3));
+    result[v6 >> 2] |= a3 << (2 * (v6 & 3));
   }
 
   return result;
@@ -9572,7 +9522,7 @@ void sub_22E16B3C4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t anonymous namespace::anonymous namespace::TextureUsageTable::addResource(id *a1, void *a2, void *a3, char a4)
+_BYTE *anonymous namespace::anonymous namespace::TextureUsageTable::addResource(id *a1, void *a2, void *a3, char a4)
 {
   for (i = a3; ; i = a3)
   {
@@ -9593,14 +9543,15 @@ uint64_t anonymous namespace::anonymous namespace::TextureUsageTable::addResourc
     }
 
     result = [*a1 contents];
-    *(result + (v11 >> 2)) |= a4 << (2 * (v11 & 3));
+    result[v11 >> 2] |= a4 << (2 * (v11 & 3));
   }
 
   return result;
 }
 
-void sub_22E16CF64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
+void sub_22E16CF64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
+  va_start(va, a15);
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&a9);
   _Unwind_Resume(a1);
 }
@@ -9616,7 +9567,7 @@ void anonymous namespace::anonymous namespace::ResourceUsageTable::realloc(id *a
   }
 }
 
-uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke(uint64_t result, unsigned int *a2, int a3)
+_BYTE *___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke(_BYTE *result, unsigned int *a2, int a3)
 {
   if (a3)
   {
@@ -9627,7 +9578,7 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
       v6 = *a2;
       if (v6)
       {
-        v7 = *(*(v5 + 40) + 16);
+        v7 = *(*(v5 + 5) + 16);
         if ((v7 & 4) != 0)
         {
           LOBYTE(v8) = v7 & 2 | 1;
@@ -9635,11 +9586,11 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
 
         else
         {
-          v8 = *(*(v5 + 40) + 16);
+          v8 = *(*(v5 + 5) + 16);
         }
 
-        result = [**(v5 + 32) contents];
-        *(result + (v6 >> 2)) |= v8 << (2 * (v6 & 3));
+        result = [**(v5 + 4) contents];
+        result[v6 >> 2] |= v8 << (2 * (v6 & 3));
       }
 
       ++a2;
@@ -9652,7 +9603,7 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
   return result;
 }
 
-uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_2(uint64_t result, unsigned int *a2, int a3)
+_BYTE *___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_2(_BYTE *result, unsigned int *a2, int a3)
 {
   if (a3)
   {
@@ -9663,7 +9614,7 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
       v6 = *a2;
       if (v6)
       {
-        v7 = *(*(v5 + 40) + 16);
+        v7 = *(*(v5 + 5) + 16);
         if ((v7 & 4) != 0)
         {
           LOBYTE(v8) = v7 & 2 | 1;
@@ -9671,11 +9622,11 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
 
         else
         {
-          v8 = *(*(v5 + 40) + 16);
+          v8 = *(*(v5 + 5) + 16);
         }
 
-        result = [**(v5 + 32) contents];
-        *(result + (v6 >> 2)) |= v8 << (2 * (v6 & 3));
+        result = [**(v5 + 4) contents];
+        result[v6 >> 2] |= v8 << (2 * (v6 & 3));
       }
 
       ++a2;
@@ -9688,7 +9639,7 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
   return result;
 }
 
-uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_3(uint64_t result, unsigned int *a2, int a3)
+_BYTE *___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_3(_BYTE *result, unsigned int *a2, int a3)
 {
   if (a3)
   {
@@ -9699,7 +9650,7 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
       v6 = *a2;
       if (v6)
       {
-        v7 = *(*(v5 + 40) + 16);
+        v7 = *(*(v5 + 5) + 16);
         if ((v7 & 4) != 0)
         {
           LOBYTE(v8) = v7 & 2 | 1;
@@ -9707,11 +9658,11 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
 
         else
         {
-          v8 = *(*(v5 + 40) + 16);
+          v8 = *(*(v5 + 5) + 16);
         }
 
-        result = [**(v5 + 32) contents];
-        *(result + (v6 >> 2)) |= v8 << (2 * (v6 & 3));
+        result = [**(v5 + 4) contents];
+        result[v6 >> 2] |= v8 << (2 * (v6 & 3));
       }
 
       ++a2;
@@ -9724,7 +9675,7 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
   return result;
 }
 
-uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_4(uint64_t result, unsigned int *a2, int a3)
+_BYTE *___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_4(_BYTE *result, unsigned int *a2, int a3)
 {
   if (a3)
   {
@@ -9735,7 +9686,7 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
       v6 = *a2;
       if (v6)
       {
-        v7 = *(*(v5 + 40) + 16);
+        v7 = *(*(v5 + 5) + 16);
         if ((v7 & 4) != 0)
         {
           LOBYTE(v8) = v7 & 2 | 1;
@@ -9743,11 +9694,11 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
 
         else
         {
-          v8 = *(*(v5 + 40) + 16);
+          v8 = *(*(v5 + 5) + 16);
         }
 
-        result = [**(v5 + 32) contents];
-        *(result + (v6 >> 2)) |= v8 << (2 * (v6 & 3));
+        result = [**(v5 + 4) contents];
+        result[v6 >> 2] |= v8 << (2 * (v6 & 3));
       }
 
       ++a2;
@@ -9760,7 +9711,7 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
   return result;
 }
 
-uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_5(uint64_t result, unsigned int *a2, int a3)
+_BYTE *___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_5(_BYTE *result, unsigned int *a2, int a3)
 {
   if (a3)
   {
@@ -9771,7 +9722,7 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
       v6 = *a2;
       if (v6)
       {
-        v7 = *(*(v5 + 40) + 16);
+        v7 = *(*(v5 + 5) + 16);
         if ((v7 & 4) != 0)
         {
           LOBYTE(v8) = v7 & 2 | 1;
@@ -9779,11 +9730,11 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
 
         else
         {
-          v8 = *(*(v5 + 40) + 16);
+          v8 = *(*(v5 + 5) + 16);
         }
 
-        result = [**(v5 + 32) contents];
-        *(result + (v6 >> 2)) |= v8 << (2 * (v6 & 3));
+        result = [**(v5 + 4) contents];
+        result[v6 >> 2] |= v8 << (2 * (v6 & 3));
       }
 
       ++a2;
@@ -9796,7 +9747,7 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
   return result;
 }
 
-uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_6(uint64_t result, unsigned int *a2, int a3)
+_BYTE *___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_6(_BYTE *result, unsigned int *a2, int a3)
 {
   if (a3)
   {
@@ -9807,7 +9758,7 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
       v6 = *a2;
       if (v6)
       {
-        v7 = *(*(v5 + 40) + 16);
+        v7 = *(*(v5 + 5) + 16);
         if ((v7 & 4) != 0)
         {
           LOBYTE(v8) = v7 & 2 | 1;
@@ -9815,11 +9766,83 @@ uint64_t ___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUs
 
         else
         {
-          v8 = *(*(v5 + 40) + 16);
+          v8 = *(*(v5 + 5) + 16);
         }
 
-        result = [**(v5 + 32) contents];
-        *(result + (v6 >> 2)) |= v8 << (2 * (v6 & 3));
+        result = [**(v5 + 4) contents];
+        result[v6 >> 2] |= v8 << (2 * (v6 & 3));
+      }
+
+      ++a2;
+      --v3;
+    }
+
+    while (v3);
+  }
+
+  return result;
+}
+
+_BYTE *___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_7(_BYTE *result, unsigned int *a2, int a3)
+{
+  if (a3)
+  {
+    v3 = a3;
+    v5 = result;
+    do
+    {
+      v6 = *a2;
+      if (v6)
+      {
+        v7 = *(*(v5 + 5) + 16);
+        if ((v7 & 4) != 0)
+        {
+          LOBYTE(v8) = v7 & 2 | 1;
+        }
+
+        else
+        {
+          v8 = *(*(v5 + 5) + 16);
+        }
+
+        result = [**(v5 + 4) contents];
+        result[v6 >> 2] |= v8 << (2 * (v6 & 3));
+      }
+
+      ++a2;
+      --v3;
+    }
+
+    while (v3);
+  }
+
+  return result;
+}
+
+_BYTE *___ZN12_GLOBAL__N_112_GLOBAL__N_114HeapUsageTable5applyERNS0_16BufferUsageTableES3_S3_S3_RNS0_17TextureUsageTableES5_S5_S5__block_invoke_8(_BYTE *result, unsigned int *a2, int a3)
+{
+  if (a3)
+  {
+    v3 = a3;
+    v5 = result;
+    do
+    {
+      v6 = *a2;
+      if (v6)
+      {
+        v7 = *(*(v5 + 5) + 16);
+        if ((v7 & 4) != 0)
+        {
+          LOBYTE(v8) = v7 & 2 | 1;
+        }
+
+        else
+        {
+          v8 = *(*(v5 + 5) + 16);
+        }
+
+        result = [**(v5 + 4) contents];
+        result[v6 >> 2] |= v8 << (2 * (v6 & 3));
       }
 
       ++a2;

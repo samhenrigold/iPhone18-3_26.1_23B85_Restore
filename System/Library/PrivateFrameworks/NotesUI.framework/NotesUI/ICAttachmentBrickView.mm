@@ -711,7 +711,7 @@ LABEL_13:
 
       if (metadata)
       {
-        v15 = [metadata objectForKeyedSubscript:*MEMORY[0x1E69B73F8]];
+        v15 = objc_msgSend_objectForKeyedSubscript_(metadata);
 
         if (v15)
         {
@@ -1007,11 +1007,11 @@ void __61__ICAttachmentBrickView_didFailFetchingMetadataNotification___block_inv
 {
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
-  v11 = [userInfo objectForKeyedSubscript:@"ICAudioPlaybackNotificationTimeKey"];
+  v11 = objc_msgSend_objectForKeyedSubscript_(userInfo);
 
   userInfo2 = [notificationCopy userInfo];
 
-  v7 = [userInfo2 objectForKeyedSubscript:@"ICAudioPlaybackNotificationDurationKey"];
+  v7 = objc_msgSend_objectForKeyedSubscript_(userInfo2);
 
   [v11 floatValue];
   v9 = v8;

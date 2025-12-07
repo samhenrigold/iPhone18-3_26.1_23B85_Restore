@@ -7,19 +7,16 @@ uint64_t __routingContextResilientRemote_CopySelectedBufferedEndpointForTesting_
 {
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  VTable = CMBaseObjectGetVTable();
-  v6 = *(*(VTable + 16) + 192);
-  if (!v6)
+  v5 = *(*(CMBaseObjectGetVTable() + 16) + 192);
+  if (!v5)
   {
     return 4294954514;
   }
 
-  v7 = *(VTable + 16) + 192;
-
-  return v6(a2, v3, v4);
+  return v5(a2, v3, v4);
 }
 
-uint64_t __routingContext_CopySelectedBufferedEndpointForTesting_block_invoke(void *a1)
+CFTypeRef __routingContext_CopySelectedBufferedEndpointForTesting_block_invoke(void *a1)
 {
   result = FigRoutingManagerCopySelectedBufferedEndpointForTesting(*(a1[5] + 8), a1[6]);
   *(*(a1[4] + 8) + 24) = result;

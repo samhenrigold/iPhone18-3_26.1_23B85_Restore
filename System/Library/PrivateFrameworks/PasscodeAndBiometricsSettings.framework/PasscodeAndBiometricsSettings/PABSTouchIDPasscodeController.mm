@@ -16,6 +16,7 @@
 - (void)cancelModalFlowWithCompletion:(id)completion;
 - (void)configureBiometricTemplateMatching;
 - (void)dealloc;
+- (void)enrollResult:(int)result bkIdentity:(id)identity;
 - (void)enrollmentControllerDidDismiss;
 - (void)event:(int64_t)event params:(id)params reply:(id)reply;
 - (void)highlightFingerprintSpecifier:(id)specifier;
@@ -29,6 +30,8 @@
 - (void)unhighlightFingerprintSpecifiersAfterDelay:(double)delay;
 - (void)updateAddFingerprintSpecifier;
 - (void)updateWithReplacedUUIDs:(id)ds;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 @end
 
 @implementation PABSTouchIDPasscodeController
@@ -206,30 +209,30 @@ void __76__PABSTouchIDPasscodeController_unhighlightFingerprintSpecifiersAfterDe
 
 void __76__PABSTouchIDPasscodeController_unhighlightFingerprintSpecifiersAfterDelay___block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v1 = [*(a1 + 32) anyObject];
   v2 = [v1 specifiers];
 
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     v6 = *MEMORY[0x277D40148];
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         v9 = [v8 propertyForKey:v6];
         if ([v9 isHighlighted])
         {
@@ -242,13 +245,11 @@ void __76__PABSTouchIDPasscodeController_unhighlightFingerprintSpecifiersAfterDe
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupMatching
@@ -272,7 +273,7 @@ void __76__PABSTouchIDPasscodeController_unhighlightFingerprintSpecifiersAfterDe
 
 void __47__PABSTouchIDPasscodeController__setupMatching__block_invoke(uint64_t a1)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = +[PABSBiometrics identities];
   if ([v3 count])
@@ -295,9 +296,9 @@ void __47__PABSTouchIDPasscodeController__setupMatching__block_invoke(uint64_t a
       v10 = v9;
       if (v8)
       {
-        v16 = @"BKOptionMatchAuthTokenToBypassPasscodeBiolockout";
-        v17[0] = v8;
-        v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+        v15 = @"BKOptionMatchAuthTokenToBypassPasscodeBiolockout";
+        v16[0] = v8;
+        v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
         v12 = [v10 match:0 withOptions:v11];
       }
 
@@ -311,9 +312,9 @@ void __47__PABSTouchIDPasscodeController__setupMatching__block_invoke(uint64_t a
         v13 = PABSLogForCategory(0);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          v15[0] = 67109120;
-          v15[1] = v12;
-          _os_log_impl(&dword_25E0E9000, v13, OS_LOG_TYPE_DEFAULT, "Failed to start matching: %i", v15, 8u);
+          v14[0] = 67109120;
+          v14[1] = v12;
+          _os_log_impl(&dword_25E0E9000, v13, OS_LOG_TYPE_DEFAULT, "Failed to start matching: %i", v14, 8u);
         }
       }
     }
@@ -322,8 +323,6 @@ void __47__PABSTouchIDPasscodeController__setupMatching__block_invoke(uint64_t a
   else
   {
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cancelMatching
@@ -335,6 +334,29 @@ void __47__PABSTouchIDPasscodeController__setupMatching__block_invoke(uint64_t a
   [highlightMatcher2 cancel];
 
   [(PABSTouchIDPasscodeController *)self setHighlightMatcher:0];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = PABSTouchIDPasscodeController;
+  [(PABSPasscodeLockController *)&v5 viewDidAppear:appear];
+  enrollContainerController = [(PABSBiometricController *)self enrollContainerController];
+
+  if (!enrollContainerController)
+  {
+    [(PABSTouchIDPasscodeController *)self _setupMatching];
+  }
+
+  [(PABSTouchIDPasscodeController *)self configureBiometricTemplateMatching];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = PABSTouchIDPasscodeController;
+  [(PABSTouchIDPasscodeController *)&v4 viewDidDisappear:disappear];
+  [(PABSTouchIDPasscodeController *)self _cancelMatching];
 }
 
 - (void)enrollmentControllerDidDismiss
@@ -427,7 +449,7 @@ void __67__PABSTouchIDPasscodeController_configureBiometricTemplateMatching__blo
 
 - (void)matchBiometricIdentitiesWithBiometricTemplates
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   storedBiometricTemplates = [(PABSBiometricController *)self storedBiometricTemplates];
   if ([storedBiometricTemplates count])
   {
@@ -436,26 +458,26 @@ void __67__PABSTouchIDPasscodeController_configureBiometricTemplateMatching__blo
 
     if (v4)
     {
-      v19 = 0u;
-      v20 = 0u;
       v17 = 0u;
       v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
       specifiers2 = [(PABSTouchIDPasscodeController *)self specifiers];
-      v6 = [specifiers2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [specifiers2 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v18;
+        v8 = *v16;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v18 != v8)
+            if (*v16 != v8)
             {
               objc_enumerationMutation(specifiers2);
             }
 
-            v10 = *(*(&v17 + 1) + 8 * i);
+            v10 = *(*(&v15 + 1) + 8 * i);
             v11 = [v10 propertyForKey:@"FingerprintIdentity"];
             if (v11)
             {
@@ -467,19 +489,16 @@ void __67__PABSTouchIDPasscodeController_configureBiometricTemplateMatching__blo
             }
           }
 
-          v7 = [specifiers2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v7 = [specifiers2 countByEnumeratingWithState:&v15 objects:v19 count:16];
         }
 
         while (v7);
       }
     }
-
-    v14 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v15 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -616,7 +635,7 @@ void __67__PABSTouchIDPasscodeController_configureBiometricTemplateMatching__blo
 
 - (BOOL)isBiometricIdentityMatchingGovernmentIDTemplate:(id)template
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   templateCopy = template;
   storedBiometricTemplates = [(PABSBiometricController *)self storedBiometricTemplates];
   if ([storedBiometricTemplates count])
@@ -625,26 +644,26 @@ void __67__PABSTouchIDPasscodeController_configureBiometricTemplateMatching__blo
 
     if (currentBiometricTemplateFetchStatus != 4)
     {
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
       storedBiometricTemplates2 = [(PABSBiometricController *)self storedBiometricTemplates];
-      v8 = [storedBiometricTemplates2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [storedBiometricTemplates2 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v18;
+        v10 = *v17;
         while (2)
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v18 != v10)
+            if (*v17 != v10)
             {
               objc_enumerationMutation(storedBiometricTemplates2);
             }
 
-            v12 = *(*(&v17 + 1) + 8 * i);
+            v12 = *(*(&v16 + 1) + 8 * i);
             uuid = [templateCopy uuid];
             LOBYTE(v12) = [v12 isEqual:uuid];
 
@@ -656,7 +675,7 @@ void __67__PABSTouchIDPasscodeController_configureBiometricTemplateMatching__blo
             }
           }
 
-          v9 = [storedBiometricTemplates2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v9 = [storedBiometricTemplates2 countByEnumeratingWithState:&v16 objects:v20 count:16];
           if (v9)
           {
             continue;
@@ -675,13 +694,12 @@ void __67__PABSTouchIDPasscodeController_configureBiometricTemplateMatching__blo
   v14 = 0;
 LABEL_14:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (id)fingerprintSpecifiers
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   emptyGroupSpecifier = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
   [emptyGroupSpecifier setIdentifier:@"FINGERPRINTS"];
@@ -692,30 +710,30 @@ LABEL_14:
   v6 = +[PABSBiometrics sharedInstance];
   v7 = [v6 identitiesForIdentityType:1];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [(PABSTouchIDPasscodeController *)self _fingerprintSpecifierForIdentity:*(*(&v20 + 1) + 8 * i)];
+        v13 = [(PABSTouchIDPasscodeController *)self _fingerprintSpecifierForIdentity:*(*(&v19 + 1) + 8 * i)];
         [array addObject:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
@@ -731,14 +749,13 @@ LABEL_14:
   [v16 setProperty:v17 forKey:*MEMORY[0x277D3FF38]];
 
   [array addObject:v16];
-  v18 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (LAContext)authContext
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   specifier = [(PABSTouchIDPasscodeController *)self specifier];
   v4 = [specifier objectForKeyedSubscript:*MEMORY[0x277D40100]];
 
@@ -747,36 +764,36 @@ LABEL_14:
   {
     if (!authContext)
     {
-      v21 = 0;
-      v22 = &v21;
-      v23 = 0x2050000000;
+      v20 = 0;
+      v21 = &v20;
+      v22 = 0x2050000000;
       v6 = getLAContextClass_softClass_0;
-      v24 = getLAContextClass_softClass_0;
+      v23 = getLAContextClass_softClass_0;
       if (!getLAContextClass_softClass_0)
       {
         *&buf = MEMORY[0x277D85DD0];
         *(&buf + 1) = 3221225472;
-        v28 = __getLAContextClass_block_invoke_0;
-        v29 = &unk_279A03148;
-        v30 = &v21;
+        v27 = __getLAContextClass_block_invoke_0;
+        v28 = &unk_279A03148;
+        v29 = &v20;
         __getLAContextClass_block_invoke_0(&buf);
-        v6 = v22[3];
+        v6 = v21[3];
       }
 
       v7 = v6;
-      _Block_object_dispose(&v21, 8);
+      _Block_object_dispose(&v20, 8);
       v8 = objc_opt_new();
       v9 = self->_authContext;
       self->_authContext = v8;
 
       [(LAContext *)self->_authContext setUiDelegate:self];
       v10 = self->_authContext;
-      v25 = &unk_286FD6B40;
-      v26 = &unk_286FD6B58;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-      v20 = 0;
-      v12 = [(LAContext *)v10 evaluatePolicy:1007 options:v11 error:&v20];
-      v13 = v20;
+      v24 = &unk_286FD6B40;
+      v25 = &unk_286FD6B58;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+      v19 = 0;
+      v12 = [(LAContext *)v10 evaluatePolicy:1007 options:v11 error:&v19];
+      v13 = v19;
 
       if (v13)
       {
@@ -808,8 +825,6 @@ LABEL_14:
 
     v16 = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -949,7 +964,7 @@ void __47__PABSTouchIDPasscodeController_addEnrollment___block_invoke_113(uint64
 
 - (void)proceedToAddEnrollment:(id)enrollment
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   enrollmentCopy = enrollment;
   [enrollmentCopy setObject:MEMORY[0x277CBEC28] forKeyedSubscript:*MEMORY[0x277D3FF38]];
   v5 = PABSLogForCategory(0);
@@ -957,7 +972,7 @@ void __47__PABSTouchIDPasscodeController_addEnrollment___block_invoke_113(uint64
   {
     identifier = [enrollmentCopy identifier];
     *buf = 138412290;
-    v12 = identifier;
+    v11 = identifier;
     _os_log_impl(&dword_25E0E9000, v5, OS_LOG_TYPE_DEFAULT, "%@: - Reloading -", buf, 0xCu);
   }
 
@@ -968,13 +983,11 @@ void __47__PABSTouchIDPasscodeController_addEnrollment___block_invoke_113(uint64
   block[1] = 3221225472;
   block[2] = __56__PABSTouchIDPasscodeController_proceedToAddEnrollment___block_invoke;
   block[3] = &unk_279A031D0;
-  objc_copyWeak(&v10, buf);
+  objc_copyWeak(&v9, buf);
   dispatch_async(v7, block);
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v9);
   objc_destroyWeak(buf);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __56__PABSTouchIDPasscodeController_proceedToAddEnrollment___block_invoke(uint64_t a1)
@@ -1054,32 +1067,32 @@ void __56__PABSTouchIDPasscodeController_proceedToAddEnrollment___block_invoke_2
 
 - (void)matchResult:(id)result
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (result)
   {
     uuid = [result uuid];
     if (uuid)
     {
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
       specifiers = [(PABSTouchIDPasscodeController *)self specifiers];
-      v6 = [specifiers countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [specifiers countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v18;
+        v8 = *v17;
         while (2)
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v18 != v8)
+            if (*v17 != v8)
             {
               objc_enumerationMutation(specifiers);
             }
 
-            v10 = *(*(&v17 + 1) + 8 * i);
+            v10 = *(*(&v16 + 1) + 8 * i);
             v11 = [v10 propertyForKey:@"FingerprintIdentity"];
             v12 = v11;
             if (v11)
@@ -1101,7 +1114,7 @@ void __56__PABSTouchIDPasscodeController_proceedToAddEnrollment___block_invoke_2
             }
           }
 
-          v7 = [specifiers countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v7 = [specifiers countByEnumeratingWithState:&v16 objects:v20 count:16];
           if (v7)
           {
             continue;
@@ -1114,8 +1127,6 @@ void __56__PABSTouchIDPasscodeController_proceedToAddEnrollment___block_invoke_2
 LABEL_18:
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)statusMessage:(unsigned int)message
@@ -1128,7 +1139,7 @@ LABEL_18:
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   if (context == @"BiometricTemplateFetchingState")
   {
@@ -1155,12 +1166,112 @@ LABEL_18:
 
   else
   {
-    v13.receiver = self;
-    v13.super_class = PABSTouchIDPasscodeController;
-    [(PABSTouchIDPasscodeController *)&v13 observeValueForKeyPath:pathCopy ofObject:object change:change context:context];
+    v12.receiver = self;
+    v12.super_class = PABSTouchIDPasscodeController;
+    [(PABSTouchIDPasscodeController *)&v12 observeValueForKeyPath:pathCopy ofObject:object change:change context:context];
+  }
+}
+
+- (void)enrollResult:(int)result bkIdentity:(id)identity
+{
+  v4 = *&result;
+  v25 = *MEMORY[0x277D85DE8];
+  identityCopy = identity;
+  v7 = PABSLogForCategory(0);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v4];
+    LODWORD(buf) = 138412290;
+    *(&buf + 4) = v8;
+    _os_log_impl(&dword_25E0E9000, v7, OS_LOG_TYPE_DEFAULT, "Finished Mesa enroll: Result [%@]", &buf, 0xCu);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
+  if (v4 > 3)
+  {
+    if (v4 == 4)
+    {
+      v17 = 0;
+      v18 = &v17;
+      v19 = 0x2050000000;
+      v9 = getBYFlowSkipControllerClass_softClass;
+      v20 = getBYFlowSkipControllerClass_softClass;
+      if (!getBYFlowSkipControllerClass_softClass)
+      {
+        *&buf = MEMORY[0x277D85DD0];
+        *(&buf + 1) = 3221225472;
+        v22 = __getBYFlowSkipControllerClass_block_invoke;
+        v23 = &unk_279A03148;
+        v24 = &v17;
+        __getBYFlowSkipControllerClass_block_invoke(&buf);
+        v9 = v18[3];
+      }
+
+      v10 = v9;
+      _Block_object_dispose(&v17, 8);
+      v11 = objc_alloc_init(v9);
+      v17 = 0;
+      v18 = &v17;
+      v19 = 0x2020000000;
+      v12 = getBYFlowSkipIdentifierTouchIDSymbolLoc_ptr;
+      v20 = getBYFlowSkipIdentifierTouchIDSymbolLoc_ptr;
+      if (!getBYFlowSkipIdentifierTouchIDSymbolLoc_ptr)
+      {
+        *&buf = MEMORY[0x277D85DD0];
+        *(&buf + 1) = 3221225472;
+        v22 = __getBYFlowSkipIdentifierTouchIDSymbolLoc_block_invoke;
+        v23 = &unk_279A03148;
+        v24 = &v17;
+        v13 = SetupAssistantLibrary();
+        v14 = dlsym(v13, "BYFlowSkipIdentifierTouchID");
+        *(v24[1] + 24) = v14;
+        getBYFlowSkipIdentifierTouchIDSymbolLoc_ptr = *(v24[1] + 24);
+        v12 = v18[3];
+      }
+
+      _Block_object_dispose(&v17, 8);
+      if (!v12)
+      {
+        [PABSTouchIDPasscodeController enrollResult:bkIdentity:];
+        __break(1u);
+      }
+
+      [v11 didCompleteFlow:*v12];
+
+      if ([(PABSBiometricController *)self isPasscodeSet])
+      {
+        [(PABSBiometricController *)self completeModalFlow];
+      }
+
+      else
+      {
+        [(PABSBiometricController *)self pushPasscodePane];
+      }
+    }
+
+    else if (v4 == 8)
+    {
+      [(PABSBiometricController *)self hideCancelButton];
+    }
+  }
+
+  else if (v4 == 1)
+  {
+    if (identityCopy)
+    {
+      [(PABSBiometricController *)self enrollmentCompletedForIdentity:identityCopy];
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __57__PABSTouchIDPasscodeController_enrollResult_bkIdentity___block_invoke;
+      v15[3] = &unk_279A03008;
+      v16 = identityCopy;
+      [(PABSBiometricController *)self setModalFlowCancelCompletion:v15];
+    }
+  }
+
+  else if (v4 == 3)
+  {
+    [(PABSTouchIDPasscodeController *)self cancelModalFlowWithCompletion:0];
+  }
 }
 
 void __57__PABSTouchIDPasscodeController_enrollResult_bkIdentity___block_invoke(uint64_t a1)
@@ -1169,11 +1280,11 @@ void __57__PABSTouchIDPasscodeController_enrollResult_bkIdentity___block_invoke(
   [v2 removeIdentity:*(a1 + 32) completion:0];
 }
 
-- (uint64_t)enrollResult:bkIdentity:.cold.1()
+- (void)enrollResult:bkIdentity:.cold.1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return __79__PABSFingerprintController_fetchBiometricTemplateForCurrentBiometricIdentity___block_invoke_2_cold_1(v0);
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  __79__PABSFingerprintController_fetchBiometricTemplateForCurrentBiometricIdentity___block_invoke_2_cold_1(v1, v2);
 }
 
 @end

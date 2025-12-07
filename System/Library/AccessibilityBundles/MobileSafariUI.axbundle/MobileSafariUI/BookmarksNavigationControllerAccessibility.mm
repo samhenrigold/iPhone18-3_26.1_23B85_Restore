@@ -114,56 +114,55 @@ LABEL_12:
 
 - (void)transitionConductor:(id)conductor didEndTransitionFromView:(id)view toView:(id)toView
 {
-  v8 = *MEMORY[0x29EDC7F10];
   toViewCopy = toView;
   viewCopy = view;
   conductorCopy = conductor;
   _UIAccessibilityBlockPostingOfNotification();
-  v12.receiver = self;
-  v12.super_class = BookmarksNavigationControllerAccessibility;
-  [(BookmarksNavigationControllerAccessibility *)&v12 transitionConductor:conductorCopy didEndTransitionFromView:viewCopy toView:toViewCopy];
+  v11.receiver = self;
+  v11.super_class = BookmarksNavigationControllerAccessibility;
+  [(BookmarksNavigationControllerAccessibility *)&v11 transitionConductor:conductorCopy didEndTransitionFromView:viewCopy toView:toViewCopy];
 
   _UIAccessibilityUnblockPostingOfNotification();
 }
 
 - (BOOL)accessibilityPerformEscape
 {
-  v35 = *MEMORY[0x29EDCA608];
+  v34 = *MEMORY[0x29EDCA608];
   v3 = [(BookmarksNavigationControllerAccessibility *)self safeValueForKey:@"_bookmarksNavigationControllerDelegate"];
   if ((AXDeviceIsPad() & 1) != 0 || (objc_opt_respondsToSelector() & 1) == 0)
   {
-    v27 = 0;
+    v26 = 0;
     v6 = [*MEMORY[0x29EDC8008] safeValueForKey:@"_browserWindowController"];
     v5 = __UIAccessibilitySafeClass();
 
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     obj = [v5 safeArrayForKey:@"browserControllers"];
-    v7 = [obj countByEnumeratingWithState:&v23 objects:v34 count:16];
+    v7 = [obj countByEnumeratingWithState:&v22 objects:v33 count:16];
     if (v7)
     {
       v8 = v7;
-      v20 = v5;
-      v21 = v3;
-      v9 = *v24;
+      v19 = v5;
+      v20 = v3;
+      v9 = *v23;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v24 != v9)
+          if (*v23 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v23 + 1) + 8 * i);
-          v27 = 0;
+          v11 = *(*(&v22 + 1) + 8 * i);
+          v26 = 0;
           objc_opt_class();
           v12 = [v11 safeValueForKey:@"rootViewController"];
           v13 = __UIAccessibilityCastAsClass();
 
-          if (v27 == 1)
+          if (v26 == 1)
           {
             abort();
           }
@@ -180,7 +179,7 @@ LABEL_12:
           }
         }
 
-        v8 = [obj countByEnumeratingWithState:&v23 objects:v34 count:16];
+        v8 = [obj countByEnumeratingWithState:&v22 objects:v33 count:16];
         if (v8)
         {
           continue;
@@ -191,8 +190,8 @@ LABEL_12:
 
       accessibilityPerformEscape = 0;
 LABEL_16:
-      v5 = v20;
-      v3 = v21;
+      v5 = v19;
+      v3 = v20;
     }
 
     else
@@ -203,18 +202,17 @@ LABEL_16:
 
   else
   {
-    v28 = MEMORY[0x29EDCA5F8];
-    v29 = 3221225472;
-    v30 = __72__BookmarksNavigationControllerAccessibility_accessibilityPerformEscape__block_invoke;
-    v31 = &unk_29F2D7B48;
-    v32 = v3;
+    v27 = MEMORY[0x29EDCA5F8];
+    v28 = 3221225472;
+    v29 = __72__BookmarksNavigationControllerAccessibility_accessibilityPerformEscape__block_invoke;
+    v30 = &unk_29F2D7B48;
+    v31 = v3;
     selfCopy = self;
     AXPerformSafeBlock();
     accessibilityPerformEscape = 1;
-    v5 = v32;
+    v5 = v31;
   }
 
-  v18 = *MEMORY[0x29EDCA608];
   return accessibilityPerformEscape;
 }
 

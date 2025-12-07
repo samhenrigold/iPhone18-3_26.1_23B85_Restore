@@ -82,7 +82,7 @@
 
 - (void)requestServiceWithNodeCodeList:(id)list completionHandler:(id)handler
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   listCopy = list;
   handlerCopy = handler;
   v9 = _os_activity_create(&dword_23728C000, "NFCFeliCaTag requestServiceWithNodeCodeList:completionHandler:", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
@@ -95,46 +95,46 @@
   v11 = objc_opt_new();
   if ([listCopy count] && objc_msgSend(listCopy, "count") < 0x21)
   {
-    v21 = a2;
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
+    v20 = a2;
     v28 = 0u;
-    v14 = listCopy;
-    v15 = [v14 countByEnumeratingWithState:&v27 objects:v35 count:16];
-    if (v15)
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v13 = listCopy;
+    v14 = [v13 countByEnumeratingWithState:&v26 objects:v34 count:16];
+    if (v14)
     {
-      v16 = v15;
-      v17 = *v28;
+      v15 = v14;
+      v16 = *v27;
       while (2)
       {
-        for (i = 0; i != v16; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v28 != v17)
+          if (*v27 != v16)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v13);
           }
 
-          v19 = *(*(&v27 + 1) + 8 * i);
-          if ([v19 length] != 2)
+          v18 = *(*(&v26 + 1) + 8 * i);
+          if ([v18 length] != 2)
           {
-            v24[0] = MEMORY[0x277D85DD0];
-            v24[1] = 3221225472;
-            v24[2] = sub_2372A8434;
-            v24[3] = &unk_278A29BE8;
-            v24[4] = self;
-            v25 = handlerCopy;
-            v26 = v21;
-            [(NFCTag *)self dispatchOnDelegateQueueAsync:v24];
+            v23[0] = MEMORY[0x277D85DD0];
+            v23[1] = 3221225472;
+            v23[2] = sub_2372A8434;
+            v23[3] = &unk_278A29BE8;
+            v23[4] = self;
+            v24 = handlerCopy;
+            v25 = v20;
+            [(NFCTag *)self dispatchOnDelegateQueueAsync:v23];
 
             goto LABEL_5;
           }
 
-          [v11 appendData:v19];
+          [v11 appendData:v18];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v27 objects:v35 count:16];
-        if (v16)
+        v15 = [v13 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        if (v15)
         {
           continue;
         }
@@ -148,33 +148,32 @@
     identifier = [(NFCTag *)self identifier];
     [v10 appendData:identifier];
 
-    LOBYTE(state.opaque[0]) = [v14 count];
+    LOBYTE(state.opaque[0]) = [v13 count];
     [v10 appendBytes:&state length:1];
     [v10 appendData:v11];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = sub_2372A85E4;
-    v22[3] = &unk_278A29C10;
-    v23 = handlerCopy;
-    [(NFCFeliCaTag *)self sendFeliCaCommandPacket:v10 completionHandler:v22];
-    v12 = v23;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = sub_2372A85E4;
+    v21[3] = &unk_278A29C10;
+    v22 = handlerCopy;
+    [(NFCFeliCaTag *)self sendFeliCaCommandPacket:v10 completionHandler:v21];
+    v12 = v22;
   }
 
   else
   {
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = sub_2372A8284;
-    v31[3] = &unk_278A29BE8;
-    v31[4] = self;
-    v32 = handlerCopy;
-    v33 = a2;
-    [(NFCTag *)self dispatchOnDelegateQueueAsync:v31];
-    v12 = v32;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = sub_2372A8284;
+    v30[3] = &unk_278A29BE8;
+    v30[4] = self;
+    v31 = handlerCopy;
+    v32 = a2;
+    [(NFCTag *)self dispatchOnDelegateQueueAsync:v30];
+    v12 = v31;
   }
 
 LABEL_5:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestResponseWithCompletionHandler:(id)handler
@@ -202,7 +201,7 @@ LABEL_5:
 
 - (void)readWithoutEncryptionWithServiceCodeList:(id)list blockList:(id)blockList completionHandler:(id)handler
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   listCopy = list;
   blockListCopy = blockList;
   handlerCopy = handler;
@@ -214,38 +213,38 @@ LABEL_5:
 
   if ([listCopy count] && objc_msgSend(listCopy, "count") < 0x11)
   {
-    v32 = a2;
+    v31 = a2;
     v13 = objc_opt_new();
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
     v14 = listCopy;
-    v15 = [v14 countByEnumeratingWithState:&v45 objects:v54 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v44 objects:v53 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v46;
+      v17 = *v45;
       while (2)
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v46 != v17)
+          if (*v45 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v45 + 1) + 8 * i);
+          v19 = *(*(&v44 + 1) + 8 * i);
           if ([v19 length] != 2)
           {
-            v42[0] = MEMORY[0x277D85DD0];
-            v42[1] = 3221225472;
-            v42[2] = sub_2372A910C;
-            v42[3] = &unk_278A29BE8;
-            v42[4] = self;
-            v43 = handlerCopy;
-            v44 = v32;
-            [(NFCTag *)self dispatchOnDelegateQueueAsync:v42];
+            v41[0] = MEMORY[0x277D85DD0];
+            v41[1] = 3221225472;
+            v41[2] = sub_2372A910C;
+            v41[3] = &unk_278A29BE8;
+            v41[4] = self;
+            v42 = handlerCopy;
+            v43 = v31;
+            [(NFCTag *)self dispatchOnDelegateQueueAsync:v41];
 
             v20 = v14;
             goto LABEL_25;
@@ -254,7 +253,7 @@ LABEL_5:
           [v13 appendData:v19];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v45 objects:v54 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v44 objects:v53 count:16];
         if (v16)
         {
           continue;
@@ -264,41 +263,41 @@ LABEL_5:
       }
     }
 
-    v30 = handlerCopy;
+    v29 = handlerCopy;
 
     v20 = objc_opt_new();
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
-    v31 = blockListCopy;
+    v30 = blockListCopy;
     v21 = blockListCopy;
-    v22 = [v21 countByEnumeratingWithState:&v38 objects:v53 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v37 objects:v52 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v39;
+      v24 = *v38;
       while (2)
       {
         for (j = 0; j != v23; ++j)
         {
-          if (*v39 != v24)
+          if (*v38 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          v26 = *(*(&v38 + 1) + 8 * j);
+          v26 = *(*(&v37 + 1) + 8 * j);
           if ([v26 length] != 2 && objc_msgSend(v26, "length") != 3)
           {
-            v35[0] = MEMORY[0x277D85DD0];
-            v35[1] = 3221225472;
-            v35[2] = sub_2372A92C4;
-            v35[3] = &unk_278A29BE8;
-            handlerCopy = v30;
-            v35[4] = self;
-            v36 = v30;
-            v37 = v32;
-            [(NFCTag *)self dispatchOnDelegateQueueAsync:v35];
+            v34[0] = MEMORY[0x277D85DD0];
+            v34[1] = 3221225472;
+            v34[2] = sub_2372A92C4;
+            v34[3] = &unk_278A29BE8;
+            handlerCopy = v29;
+            v34[4] = self;
+            v35 = v29;
+            v36 = v31;
+            [(NFCTag *)self dispatchOnDelegateQueueAsync:v34];
 
             goto LABEL_24;
           }
@@ -306,7 +305,7 @@ LABEL_5:
           [v20 appendData:v26];
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v38 objects:v53 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v37 objects:v52 count:16];
         if (v23)
         {
           continue;
@@ -327,38 +326,36 @@ LABEL_5:
     LOBYTE(state.opaque[0]) = [v21 count];
     [v27 appendBytes:&state length:1];
     [v27 appendData:v20];
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = sub_2372A947C;
-    v33[3] = &unk_278A29C10;
-    handlerCopy = v30;
-    v34 = v30;
-    [(NFCFeliCaTag *)self sendFeliCaCommandPacket:v27 completionHandler:v33];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = sub_2372A947C;
+    v32[3] = &unk_278A29C10;
+    handlerCopy = v29;
+    v33 = v29;
+    [(NFCFeliCaTag *)self sendFeliCaCommandPacket:v27 completionHandler:v32];
 
 LABEL_24:
-    blockListCopy = v31;
+    blockListCopy = v30;
 LABEL_25:
   }
 
   else
   {
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = sub_2372A8F54;
-    v49[3] = &unk_278A29BE8;
-    v49[4] = self;
-    v50 = handlerCopy;
-    v51 = a2;
-    [(NFCTag *)self dispatchOnDelegateQueueAsync:v49];
-    v13 = v50;
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = sub_2372A8F54;
+    v48[3] = &unk_278A29BE8;
+    v48[4] = self;
+    v49 = handlerCopy;
+    v50 = a2;
+    [(NFCTag *)self dispatchOnDelegateQueueAsync:v48];
+    v13 = v49;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeWithoutEncryptionWithServiceCodeList:(id)list blockList:(id)blockList blockData:(id)data completionHandler:(id)handler
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   listCopy = list;
   blockListCopy = blockList;
   dataCopy = data;
@@ -371,53 +368,53 @@ LABEL_25:
 
   if ([listCopy count] && objc_msgSend(listCopy, "count") < 0x11)
   {
-    v18 = [blockListCopy count];
-    if (v18 == [dataCopy count])
+    v17 = [blockListCopy count];
+    if (v17 == [dataCopy count])
     {
       if ([blockListCopy count] < 0x100)
       {
-        v41 = dataCopy;
+        v40 = dataCopy;
         v16 = objc_opt_new();
+        v62 = 0u;
         v63 = 0u;
         v64 = 0u;
         v65 = 0u;
-        v66 = 0u;
         obj = listCopy;
-        v19 = [obj countByEnumeratingWithState:&v63 objects:v79 count:16];
-        if (v19)
+        v18 = [obj countByEnumeratingWithState:&v62 objects:v78 count:16];
+        if (v18)
         {
-          v20 = v19;
-          v21 = *v64;
+          v19 = v18;
+          v20 = *v63;
           while (2)
           {
-            for (i = 0; i != v20; ++i)
+            for (i = 0; i != v19; ++i)
             {
-              if (*v64 != v21)
+              if (*v63 != v20)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v23 = *(*(&v63 + 1) + 8 * i);
-              if ([v23 length] != 2)
+              v22 = *(*(&v62 + 1) + 8 * i);
+              if ([v22 length] != 2)
               {
-                v60[0] = MEMORY[0x277D85DD0];
-                v60[1] = 3221225472;
-                v60[2] = sub_2372AA32C;
-                v60[3] = &unk_278A29BE8;
-                v60[4] = self;
-                v61 = handlerCopy;
-                v62 = a2;
-                [(NFCTag *)self dispatchOnDelegateQueueAsync:v60];
-                v37 = v61;
-                v24 = obj;
+                v59[0] = MEMORY[0x277D85DD0];
+                v59[1] = 3221225472;
+                v59[2] = sub_2372AA32C;
+                v59[3] = &unk_278A29BE8;
+                v59[4] = self;
+                v60 = handlerCopy;
+                v61 = a2;
+                [(NFCTag *)self dispatchOnDelegateQueueAsync:v59];
+                v36 = v60;
+                v23 = obj;
                 goto LABEL_39;
               }
 
-              [v16 appendData:v23];
+              [v16 appendData:v22];
             }
 
-            v20 = [obj countByEnumeratingWithState:&v63 objects:v79 count:16];
-            if (v20)
+            v19 = [obj countByEnumeratingWithState:&v62 objects:v78 count:16];
+            if (v19)
             {
               continue;
             }
@@ -426,48 +423,48 @@ LABEL_25:
           }
         }
 
-        v24 = objc_opt_new();
+        v23 = objc_opt_new();
+        v55 = 0u;
         v56 = 0u;
         v57 = 0u;
         v58 = 0u;
-        v59 = 0u;
-        v39 = blockListCopy;
-        v42 = blockListCopy;
-        v25 = [v42 countByEnumeratingWithState:&v56 objects:v78 count:16];
-        if (v25)
+        v38 = blockListCopy;
+        v41 = blockListCopy;
+        v24 = [v41 countByEnumeratingWithState:&v55 objects:v77 count:16];
+        if (v24)
         {
-          v26 = v25;
-          v27 = *v57;
+          v25 = v24;
+          v26 = *v56;
           while (2)
           {
-            for (j = 0; j != v26; ++j)
+            for (j = 0; j != v25; ++j)
             {
-              if (*v57 != v27)
+              if (*v56 != v26)
               {
-                objc_enumerationMutation(v42);
+                objc_enumerationMutation(v41);
               }
 
-              v29 = *(*(&v56 + 1) + 8 * j);
-              if ([v29 length] != 2 && objc_msgSend(v29, "length") != 3)
+              v28 = *(*(&v55 + 1) + 8 * j);
+              if ([v28 length] != 2 && objc_msgSend(v28, "length") != 3)
               {
-                v53[0] = MEMORY[0x277D85DD0];
-                v53[1] = 3221225472;
-                v53[2] = sub_2372AA4CC;
-                v53[3] = &unk_278A29BE8;
-                v53[4] = self;
-                v54 = handlerCopy;
-                v55 = a2;
-                [(NFCTag *)self dispatchOnDelegateQueueAsync:v53];
+                v52[0] = MEMORY[0x277D85DD0];
+                v52[1] = 3221225472;
+                v52[2] = sub_2372AA4CC;
+                v52[3] = &unk_278A29BE8;
+                v52[4] = self;
+                v53 = handlerCopy;
+                v54 = a2;
+                [(NFCTag *)self dispatchOnDelegateQueueAsync:v52];
 
-                v37 = v42;
+                v36 = v41;
                 goto LABEL_37;
               }
 
-              [v24 appendData:v29];
+              [v23 appendData:v28];
             }
 
-            v26 = [v42 countByEnumeratingWithState:&v56 objects:v78 count:16];
-            if (v26)
+            v25 = [v41 countByEnumeratingWithState:&v55 objects:v77 count:16];
+            if (v25)
             {
               continue;
             }
@@ -476,48 +473,48 @@ LABEL_25:
           }
         }
 
-        v38 = objc_opt_new();
+        v37 = objc_opt_new();
+        v48 = 0u;
         v49 = 0u;
         v50 = 0u;
         v51 = 0u;
-        v52 = 0u;
-        v40 = v41;
-        v30 = [v40 countByEnumeratingWithState:&v49 objects:v77 count:16];
-        if (v30)
+        v39 = v40;
+        v29 = [v39 countByEnumeratingWithState:&v48 objects:v76 count:16];
+        if (v29)
         {
-          v31 = v30;
-          v32 = *v50;
+          v30 = v29;
+          v31 = *v49;
           while (2)
           {
-            for (k = 0; k != v31; ++k)
+            for (k = 0; k != v30; ++k)
             {
-              if (*v50 != v32)
+              if (*v49 != v31)
               {
-                objc_enumerationMutation(v40);
+                objc_enumerationMutation(v39);
               }
 
-              v34 = *(*(&v49 + 1) + 8 * k);
-              if ([v34 length] != 16)
+              v33 = *(*(&v48 + 1) + 8 * k);
+              if ([v33 length] != 16)
               {
-                v46[0] = MEMORY[0x277D85DD0];
-                v46[1] = 3221225472;
-                v46[2] = sub_2372AA66C;
-                v46[3] = &unk_278A29BE8;
-                v46[4] = self;
-                v47 = handlerCopy;
-                v48 = a2;
-                [(NFCTag *)self dispatchOnDelegateQueueAsync:v46];
+                v45[0] = MEMORY[0x277D85DD0];
+                v45[1] = 3221225472;
+                v45[2] = sub_2372AA66C;
+                v45[3] = &unk_278A29BE8;
+                v45[4] = self;
+                v46 = handlerCopy;
+                v47 = a2;
+                [(NFCTag *)self dispatchOnDelegateQueueAsync:v45];
 
-                v37 = v38;
-                blockListCopy = v39;
+                v36 = v37;
+                blockListCopy = v38;
                 goto LABEL_39;
               }
 
-              [v24 appendData:v34];
+              [v23 appendData:v33];
             }
 
-            v31 = [v40 countByEnumeratingWithState:&v49 objects:v77 count:16];
-            if (v31)
+            v30 = [v39 countByEnumeratingWithState:&v48 objects:v76 count:16];
+            if (v30)
             {
               continue;
             }
@@ -527,74 +524,72 @@ LABEL_25:
         }
 
         LOBYTE(state.opaque[0]) = 8;
-        v35 = [objc_alloc(MEMORY[0x277CBEB28]) initWithBytes:&state length:1];
+        v34 = [objc_alloc(MEMORY[0x277CBEB28]) initWithBytes:&state length:1];
         identifier = [(NFCTag *)self identifier];
-        [v35 appendData:identifier];
+        [v34 appendData:identifier];
 
         LOBYTE(state.opaque[0]) = [obj count];
-        [v35 appendBytes:&state length:1];
-        [v35 appendData:v16];
-        LOBYTE(state.opaque[0]) = [v42 count];
-        [v35 appendBytes:&state length:1];
-        [v35 appendData:v24];
-        v37 = v38;
-        [v35 appendData:v38];
-        v44[0] = MEMORY[0x277D85DD0];
-        v44[1] = 3221225472;
-        v44[2] = sub_2372AA80C;
-        v44[3] = &unk_278A29C10;
-        v45 = handlerCopy;
-        [(NFCFeliCaTag *)self sendFeliCaCommandPacket:v35 completionHandler:v44];
+        [v34 appendBytes:&state length:1];
+        [v34 appendData:v16];
+        LOBYTE(state.opaque[0]) = [v41 count];
+        [v34 appendBytes:&state length:1];
+        [v34 appendData:v23];
+        v36 = v37;
+        [v34 appendData:v37];
+        v43[0] = MEMORY[0x277D85DD0];
+        v43[1] = 3221225472;
+        v43[2] = sub_2372AA80C;
+        v43[3] = &unk_278A29C10;
+        v44 = handlerCopy;
+        [(NFCFeliCaTag *)self sendFeliCaCommandPacket:v34 completionHandler:v43];
 
 LABEL_37:
-        blockListCopy = v39;
+        blockListCopy = v38;
 LABEL_39:
 
-        dataCopy = v41;
+        dataCopy = v40;
       }
 
       else
       {
-        v67[0] = MEMORY[0x277D85DD0];
-        v67[1] = 3221225472;
-        v67[2] = sub_2372AA18C;
-        v67[3] = &unk_278A29BE8;
-        v67[4] = self;
-        v68 = handlerCopy;
-        v69 = a2;
-        [(NFCTag *)self dispatchOnDelegateQueueAsync:v67];
-        v16 = v68;
+        v66[0] = MEMORY[0x277D85DD0];
+        v66[1] = 3221225472;
+        v66[2] = sub_2372AA18C;
+        v66[3] = &unk_278A29BE8;
+        v66[4] = self;
+        v67 = handlerCopy;
+        v68 = a2;
+        [(NFCTag *)self dispatchOnDelegateQueueAsync:v66];
+        v16 = v67;
       }
     }
 
     else
     {
-      v70[0] = MEMORY[0x277D85DD0];
-      v70[1] = 3221225472;
-      v70[2] = sub_2372A9FEC;
-      v70[3] = &unk_278A29BE8;
-      v71 = handlerCopy;
-      v70[4] = self;
-      v72 = a2;
-      [(NFCTag *)self dispatchOnDelegateQueueAsync:v70];
-      v16 = v71;
+      v69[0] = MEMORY[0x277D85DD0];
+      v69[1] = 3221225472;
+      v69[2] = sub_2372A9FEC;
+      v69[3] = &unk_278A29BE8;
+      v70 = handlerCopy;
+      v69[4] = self;
+      v71 = a2;
+      [(NFCTag *)self dispatchOnDelegateQueueAsync:v69];
+      v16 = v70;
     }
   }
 
   else
   {
-    v73[0] = MEMORY[0x277D85DD0];
-    v73[1] = 3221225472;
-    v73[2] = sub_2372A9E4C;
-    v73[3] = &unk_278A29BE8;
-    v74 = handlerCopy;
-    v73[4] = self;
-    v75 = a2;
-    [(NFCTag *)self dispatchOnDelegateQueueAsync:v73];
-    v16 = v74;
+    v72[0] = MEMORY[0x277D85DD0];
+    v72[1] = 3221225472;
+    v72[2] = sub_2372A9E4C;
+    v72[3] = &unk_278A29BE8;
+    v73 = handlerCopy;
+    v72[4] = self;
+    v74 = a2;
+    [(NFCTag *)self dispatchOnDelegateQueueAsync:v72];
+    v16 = v73;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestSystemCodeWithCompletionHandler:(id)handler
@@ -622,7 +617,7 @@ LABEL_39:
 
 - (void)requestServiceV2WithNodeCodeList:(id)list completionHandler:(id)handler
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   listCopy = list;
   handlerCopy = handler;
   v9 = _os_activity_create(&dword_23728C000, "NFCFeliCaTag requestServiceV2WithNodeCodeList:completionHandler:", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
@@ -635,46 +630,46 @@ LABEL_39:
   v11 = objc_opt_new();
   if ([listCopy count] && objc_msgSend(listCopy, "count") < 0x21)
   {
-    v21 = a2;
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
+    v20 = a2;
     v28 = 0u;
-    v14 = listCopy;
-    v15 = [v14 countByEnumeratingWithState:&v27 objects:v35 count:16];
-    if (v15)
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v13 = listCopy;
+    v14 = [v13 countByEnumeratingWithState:&v26 objects:v34 count:16];
+    if (v14)
     {
-      v16 = v15;
-      v17 = *v28;
+      v15 = v14;
+      v16 = *v27;
       while (2)
       {
-        for (i = 0; i != v16; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v28 != v17)
+          if (*v27 != v16)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v13);
           }
 
-          v19 = *(*(&v27 + 1) + 8 * i);
-          if ([v19 length] != 2)
+          v18 = *(*(&v26 + 1) + 8 * i);
+          if ([v18 length] != 2)
           {
-            v24[0] = MEMORY[0x277D85DD0];
-            v24[1] = 3221225472;
-            v24[2] = sub_2372AB1E0;
-            v24[3] = &unk_278A29BE8;
-            v24[4] = self;
-            v25 = handlerCopy;
-            v26 = v21;
-            [(NFCTag *)self dispatchOnDelegateQueueAsync:v24];
+            v23[0] = MEMORY[0x277D85DD0];
+            v23[1] = 3221225472;
+            v23[2] = sub_2372AB1E0;
+            v23[3] = &unk_278A29BE8;
+            v23[4] = self;
+            v24 = handlerCopy;
+            v25 = v20;
+            [(NFCTag *)self dispatchOnDelegateQueueAsync:v23];
 
             goto LABEL_5;
           }
 
-          [v11 appendData:v19];
+          [v11 appendData:v18];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v27 objects:v35 count:16];
-        if (v16)
+        v15 = [v13 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        if (v15)
         {
           continue;
         }
@@ -688,33 +683,32 @@ LABEL_39:
     identifier = [(NFCTag *)self identifier];
     [v10 appendData:identifier];
 
-    LOBYTE(state.opaque[0]) = [v14 count];
+    LOBYTE(state.opaque[0]) = [v13 count];
     [v10 appendBytes:&state length:1];
     [v10 appendData:v11];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = sub_2372AB3B8;
-    v22[3] = &unk_278A29C10;
-    v23 = handlerCopy;
-    [(NFCFeliCaTag *)self sendFeliCaCommandPacket:v10 completionHandler:v22];
-    v12 = v23;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = sub_2372AB3B8;
+    v21[3] = &unk_278A29C10;
+    v22 = handlerCopy;
+    [(NFCFeliCaTag *)self sendFeliCaCommandPacket:v10 completionHandler:v21];
+    v12 = v22;
   }
 
   else
   {
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = sub_2372AB008;
-    v31[3] = &unk_278A29BE8;
-    v31[4] = self;
-    v32 = handlerCopy;
-    v33 = a2;
-    [(NFCTag *)self dispatchOnDelegateQueueAsync:v31];
-    v12 = v32;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = sub_2372AB008;
+    v30[3] = &unk_278A29BE8;
+    v30[4] = self;
+    v31 = handlerCopy;
+    v32 = a2;
+    [(NFCTag *)self dispatchOnDelegateQueueAsync:v30];
+    v12 = v31;
   }
 
 LABEL_5:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestSpecificationVersionWithCompletionHandler:(id)handler

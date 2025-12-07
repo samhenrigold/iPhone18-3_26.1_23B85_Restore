@@ -413,7 +413,7 @@ LABEL_39:
       renderTarget = self->_renderTarget;
       if (renderTarget)
       {
-        [(TSDMetalRenderTarget *)renderTarget orthoProjectionWithVerticalFlip:0];
+        objc_msgSend_orthoProjectionWithVerticalFlip_(renderTarget);
         renderTarget = self->_renderTarget;
         v55 = vcvt_hight_f32_f64(vcvt_f32_f64(v72), v73);
         v56 = vcvt_hight_f32_f64(vcvt_f32_f64(v70), v71);

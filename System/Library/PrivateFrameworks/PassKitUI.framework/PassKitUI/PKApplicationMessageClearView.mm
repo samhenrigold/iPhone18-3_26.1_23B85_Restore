@@ -59,15 +59,17 @@ void __47__PKApplicationMessageClearView_initWithTitle___block_invoke(uint64_t a
 
 - (void)layoutSubviews
 {
-  v9.receiver = self;
-  v9.super_class = PKApplicationMessageClearView;
-  [(PKApplicationMessageClearView *)&v9 layoutSubviews];
+  v12.receiver = self;
+  v12.super_class = PKApplicationMessageClearView;
+  [(PKApplicationMessageClearView *)&v12 layoutSubviews];
   [(PKApplicationMessageClearView *)self bounds];
-  PKFloatRoundToPixel();
-  v4 = v3;
+  v4.n128_u64[0] = 0.5;
+  v5.n128_f64[0] = (v3 - self->_titleFittingWidth) * 0.5;
+  PKFloatRoundToPixel(v5, v4);
+  v7 = v6;
   if ([(PKApplicationMessageClearView *)self _shouldReverseLayoutDirection])
   {
-    v5 = fmax(v4, 8.0);
+    v8 = fmax(v7, 8.0);
     titleFittingWidth = self->_titleFittingWidth;
   }
 
@@ -75,12 +77,12 @@ void __47__PKApplicationMessageClearView_initWithTitle___block_invoke(uint64_t a
   {
     [(PKApplicationMessageClearView *)self bounds];
     titleFittingWidth = self->_titleFittingWidth;
-    v5 = fmin(v4, v7 + -8.0 - titleFittingWidth);
+    v8 = fmin(v7, v10 + -8.0 - titleFittingWidth);
   }
 
   title = self->_title;
   [(PKApplicationMessageClearView *)self bounds];
-  [(UILabel *)title setFrame:v5, 0.0, titleFittingWidth];
+  [(UILabel *)title setFrame:v8, 0.0, titleFittingWidth];
 }
 
 - (CGSize)sizeThatFits:(CGSize)result

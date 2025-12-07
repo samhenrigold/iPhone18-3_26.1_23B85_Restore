@@ -3,7 +3,7 @@
 - (NSArray)participantDestinationIDs;
 - (NSString)UUID;
 - (_TtC13callservicesd32SimulatedIDSGroupSessionProvider)initWithGroupUUID:(id)d participantDestinationIDs:(id)ds localMember:(id)member queue:(id)queue simulatedConversationManager:(id)manager;
-- (uint64_t)allowParticipants:;
+- (uint64_t)allowParticipants:(uint64_t)participants;
 - (unint64_t)aliasForParticipantID:(unint64_t)d salt:(id)salt;
 - (void)addAliasesToConversationContainer:(id)container withSalt:(id)salt;
 - (void)participantIDForAlias:(unint64_t)alias salt:(id)salt completion:(id)completion;
@@ -22,7 +22,7 @@
 
 @implementation SimulatedIDSGroupSessionProvider
 
-- (uint64_t)allowParticipants:
+- (uint64_t)allowParticipants:(uint64_t)participants
 {
   static Array._unconditionallyBridgeFromObjectiveC(_:)();
 }
@@ -30,8 +30,7 @@
 - (_TtC13callservicesd32SimulatedIDSGroupSessionProvider)initWithGroupUUID:(id)d participantDestinationIDs:(id)ds localMember:(id)member queue:(id)queue simulatedConversationManager:(id)manager
 {
   v10 = type metadata accessor for UUID();
-  v11 = *(*(v10 - 8) + 64);
-  __chkstk_darwin(v10 - 8, v12);
+  __chkstk_darwin(v10 - 8);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   static Array._unconditionallyBridgeFromObjectiveC(_:)();
   memberCopy = member;
@@ -54,7 +53,7 @@
 - (NSString)UUID
 {
   selfCopy = self;
-  sub_1003BD018();
+  sub_1003BD018(selfCopy);
 
   v3 = String._bridgeToObjectiveC()();
 
@@ -72,7 +71,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1003BD0E8();
+  sub_1003BD0E8(delegate);
 }
 
 - (void)setPreferences:(id)preferences
@@ -82,22 +81,23 @@
 
 - (void)updateParticipantDestinationIDs:(id)ds withContextData:(id)data triggeredLocally:(BOOL)locally
 {
-  static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  locallyCopy = locally;
+  v8 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   if (data)
   {
     dataCopy = data;
     data = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-    v10 = v9;
+    v13 = v12;
   }
 
   else
   {
-    v10 = 0xF000000000000000;
+    v13 = 0xF000000000000000;
   }
 
-  sub_1003BD804();
-  sub_100290B6C(data, v10);
+  sub_1003BD804(v8, data, v13, locallyCopy, v10);
+  sub_100290B6C(data, v13);
 }
 
 - (void)updateParticipantDestinationIDs:(id)ds withContextData:(id)data requiredCapabilities:(id)capabilities requiredLackOfCapabilities:(id)ofCapabilities triggeredLocally:(BOOL)locally

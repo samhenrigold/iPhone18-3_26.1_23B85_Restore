@@ -140,7 +140,7 @@ void __98__ACDPluginAnalyticsSender_openTapToRadarWithAlertTitle_alertDescriptio
 
 + (void)_selected_PostTapToRadar:(id)radar description:(id)description
 {
-  v21[7] = *MEMORY[0x277D85DE8];
+  v20[7] = *MEMORY[0x277D85DE8];
   radarCopy = radar;
   descriptionCopy = description;
   if (ACIsInternal())
@@ -149,21 +149,21 @@ void __98__ACDPluginAnalyticsSender_openTapToRadarWithAlertTitle_alertDescriptio
     [v7 setScheme:@"tap-to-radar"];
     [v7 setHost:@"new"];
     v8 = [MEMORY[0x277CCAD18] queryItemWithName:@"BundleID" value:@"com.apple.accounts"];
-    v20 = radarCopy;
-    v21[0] = v8;
+    v19 = radarCopy;
+    v20[0] = v8;
     v9 = [MEMORY[0x277CCAD18] queryItemWithName:@"Title" value:radarCopy];
-    v21[1] = v9;
+    v20[1] = v9;
     v10 = [MEMORY[0x277CCAD18] queryItemWithName:@"Description" value:descriptionCopy];
-    v21[2] = v10;
+    v20[2] = v10;
     v11 = [MEMORY[0x277CCAD18] queryItemWithName:@"Classification" value:@"Crash/Hang/Data Loss"];
-    v21[3] = v11;
+    v20[3] = v11;
     v12 = [MEMORY[0x277CCAD18] queryItemWithName:@"ComponentName" value:@"Accounts"];
-    v21[4] = v12;
+    v20[4] = v12;
     v13 = [MEMORY[0x277CCAD18] queryItemWithName:@"ComponentVersion" value:@"iOS"];
-    v21[5] = v13;
+    v20[5] = v13;
     v14 = [MEMORY[0x277CCAD18] queryItemWithName:@"ComponentID" value:@"990749"];
-    v21[6] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:7];
+    v20[6] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:7];
     [v7 setQueryItems:v15];
 
     v16 = [v7 URL];
@@ -175,7 +175,7 @@ void __98__ACDPluginAnalyticsSender_openTapToRadarWithAlertTitle_alertDescriptio
       [defaultWorkspace openURL:v18 configuration:0 completionHandler:&__block_literal_global_7];
     }
 
-    radarCopy = v20;
+    radarCopy = v19;
   }
 
   else
@@ -186,8 +186,6 @@ void __98__ACDPluginAnalyticsSender_openTapToRadarWithAlertTitle_alertDescriptio
       +[ACDPluginAnalyticsSender _selected_PostTapToRadar:description:];
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -48,7 +48,7 @@ LABEL_11:
 + (id)medicalRecordTypesWithOptions:(unint64_t)options
 {
   optionsCopy = options;
-  v25[11] = *MEMORY[0x1E69E9840];
+  v24[11] = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E695DF70] arrayWithArray:MEMORY[0x1E695E0F0]];
   if ((optionsCopy & 0x20) != 0)
   {
@@ -60,33 +60,33 @@ LABEL_11:
 
   else
   {
-    v9 = MEMORY[0x1E695DF70];
-    v24 = +[HKAllergyRecordType allergyRecordType];
-    v25[0] = v24;
-    v23 = +[HKClinicalNoteRecordType clinicalNoteRecordType];
-    v25[1] = v23;
-    v22 = +[HKConditionRecordType conditionRecordType];
-    v25[2] = v22;
-    v21 = +[HKCoverageRecordType coverageRecordType];
-    v25[3] = v21;
-    v20 = +[HKDiagnosticTestReportType diagnosticTestReportType];
-    v25[4] = v20;
-    v10 = +[HKDiagnosticTestResultType diagnosticTestResultType];
-    v25[5] = v10;
-    v11 = +[HKMedicationDispenseRecordType medicationDispenseRecordType];
-    v25[6] = v11;
-    v12 = +[HKMedicationOrderType medicationOrderType];
-    v25[7] = v12;
-    v13 = +[HKMedicationRecordType medicationRecordType];
-    v25[8] = v13;
-    v14 = +[HKProcedureRecordType procedureRecordType];
-    v25[9] = v14;
-    v15 = +[HKVaccinationRecordType vaccinationRecordType];
-    v25[10] = v15;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:11];
-    v17 = [v9 arrayWithArray:v16];
+    v8 = MEMORY[0x1E695DF70];
+    v23 = +[HKAllergyRecordType allergyRecordType];
+    v24[0] = v23;
+    v22 = +[HKClinicalNoteRecordType clinicalNoteRecordType];
+    v24[1] = v22;
+    v21 = +[HKConditionRecordType conditionRecordType];
+    v24[2] = v21;
+    v20 = +[HKCoverageRecordType coverageRecordType];
+    v24[3] = v20;
+    v19 = +[HKDiagnosticTestReportType diagnosticTestReportType];
+    v24[4] = v19;
+    v9 = +[HKDiagnosticTestResultType diagnosticTestResultType];
+    v24[5] = v9;
+    v10 = +[HKMedicationDispenseRecordType medicationDispenseRecordType];
+    v24[6] = v10;
+    v11 = +[HKMedicationOrderType medicationOrderType];
+    v24[7] = v11;
+    v12 = +[HKMedicationRecordType medicationRecordType];
+    v24[8] = v12;
+    v13 = +[HKProcedureRecordType procedureRecordType];
+    v24[9] = v13;
+    v14 = +[HKVaccinationRecordType vaccinationRecordType];
+    v24[10] = v14;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:11];
+    v16 = [v8 arrayWithArray:v15];
 
-    v4 = v17;
+    v4 = v16;
     if ((optionsCopy & 1) == 0)
     {
 LABEL_3:
@@ -99,8 +99,8 @@ LABEL_3:
     }
   }
 
-  v18 = +[HKUnknownRecordType unknownRecordType];
-  [v4 addObject:v18];
+  v17 = +[HKUnknownRecordType unknownRecordType];
+  [v4 addObject:v17];
 
   if ((optionsCopy & 4) == 0)
   {
@@ -114,8 +114,8 @@ LABEL_4:
   }
 
 LABEL_11:
-  v19 = +[HKSignedClinicalDataRecordType signedClinicalDataRecordType];
-  [v4 addObject:v19];
+  v18 = +[HKSignedClinicalDataRecordType signedClinicalDataRecordType];
+  [v4 addObject:v18];
 
   if ((optionsCopy & 2) != 0)
   {
@@ -126,8 +126,6 @@ LABEL_5:
 
 LABEL_6:
   v6 = [v4 copy];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -287,55 +285,13 @@ LABEL_6:
 - (BOOL)canAttachFileOfType:(id)type size:(unint64_t)size error:(id *)error
 {
   typeCopy = type;
-  if ([(HKObjectType *)self code]!= 257)
+  if (-[HKObjectType code](self, "code") == 257 && (([MEMORY[0x1E6982C40] typeWithFilenameExtension:@"heic"], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(typeCopy, "conformsToType:", v9), v9, v10) || (objc_msgSend(MEMORY[0x1E6982C40], "typeWithFilenameExtension:", @"img"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(typeCopy, "conformsToType:", v11), v11, v12) || (objc_msgSend(MEMORY[0x1E6982C40], "typeWithFilenameExtension:", @"jpeg"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(typeCopy, "conformsToType:", v13), v13, v14) || (objc_msgSend(MEMORY[0x1E6982C40], "typeWithFilenameExtension:", @"pdf"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(typeCopy, "conformsToType:", v15), v15, v16) || (objc_msgSend(MEMORY[0x1E6982C40], "typeWithFilenameExtension:", @"png"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(typeCopy, "conformsToType:", v17), v17, v18) || (objc_msgSend(MEMORY[0x1E6982C40], "typeWithFilenameExtension:", @"tiff"), v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(typeCopy, "conformsToType:", v19), v19, v20)))
   {
-    goto LABEL_9;
-  }
-
-  v9 = [MEMORY[0x1E6982C40] typeWithFilenameExtension:@"heic"];
-  v10 = [typeCopy conformsToType:v9];
-
-  if (v10)
-  {
-    goto LABEL_8;
-  }
-
-  v11 = [MEMORY[0x1E6982C40] typeWithFilenameExtension:@"img"];
-  v12 = [typeCopy conformsToType:v11];
-
-  if (v12)
-  {
-    goto LABEL_8;
-  }
-
-  v13 = [MEMORY[0x1E6982C40] typeWithFilenameExtension:@"jpeg"];
-  v14 = [typeCopy conformsToType:v13];
-
-  if (v14)
-  {
-    goto LABEL_8;
-  }
-
-  v15 = [MEMORY[0x1E6982C40] typeWithFilenameExtension:@"pdf"];
-  v16 = [typeCopy conformsToType:v15];
-
-  if (v16)
-  {
-    goto LABEL_8;
-  }
-
-  v17 = [MEMORY[0x1E6982C40] typeWithFilenameExtension:@"png"];
-  v18 = [typeCopy conformsToType:v17];
-
-  if (v18 || ([MEMORY[0x1E6982C40] typeWithFilenameExtension:@"tiff"], v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(typeCopy, "conformsToType:", v19), v19, v20))
-  {
-LABEL_8:
     v21 = _HKValidateFileSize(size, error);
   }
 
   else
   {
-LABEL_9:
     v22 = [MEMORY[0x1E696ABC0] hk_error:3 format:@"Content Type is not supported"];
     v23 = v22;
     if (v22)

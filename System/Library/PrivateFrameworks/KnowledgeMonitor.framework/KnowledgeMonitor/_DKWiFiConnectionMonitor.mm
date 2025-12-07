@@ -107,7 +107,7 @@ LABEL_6:
 
 - (void)_handleKnownNetworkProfileChangedEvent:(id)event
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   info = [eventCopy info];
   v6 = [info objectForKeyedSubscript:*MEMORY[0x277D02A98]];
@@ -123,7 +123,7 @@ LABEL_6:
     if (os_log_type_enabled(contextChannel, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v32 = networkName;
+      v31 = networkName;
       _os_log_impl(&dword_22595A000, contextChannel, OS_LOG_TYPE_INFO, "Forgetting wifi networks with SSID: %@", buf, 0xCu);
     }
 
@@ -134,9 +134,9 @@ LABEL_6:
 
     v16 = [MEMORY[0x277CFE260] predicateForEventsWithStringValue:networkName];
     v17 = MEMORY[0x277CCA920];
-    v30[0] = v15;
-    v30[1] = v16;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
+    v29[0] = v15;
+    v29[1] = v16;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
     v19 = [v17 andPredicateWithSubpredicates:v18];
 
     historicalDeletingHandler = [(_DKWiFiConnectionMonitor *)self historicalDeletingHandler];
@@ -148,16 +148,14 @@ LABEL_6:
     wiFi = [wireless WiFi];
     pruner = [wiFi pruner];
 
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __67___DKWiFiConnectionMonitor__handleKnownNetworkProfileChangedEvent___block_invoke;
-    v28[3] = &unk_27856F458;
-    v29 = networkName;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __67___DKWiFiConnectionMonitor__handleKnownNetworkProfileChangedEvent___block_invoke;
+    v27[3] = &unk_27856F458;
+    v28 = networkName;
     v26 = networkName;
-    [pruner deleteWithPolicy:@"forget-this-network" eventsPassingTest:v28];
+    [pruner deleteWithPolicy:@"forget-this-network" eventsPassingTest:v27];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop

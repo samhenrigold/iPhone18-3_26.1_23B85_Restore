@@ -401,8 +401,8 @@ void __54__HUGridFlowLayout_layoutAttributesForElementsInRect___block_invoke(uin
 
     v21 = MEMORY[0x277CBEB98];
     indexPathsByItems2 = [(HUGridFlowLayout *)self indexPathsByItems];
-    allKeys = [indexPathsByItems2 allKeys];
-    v24 = [v21 setWithArray:allKeys];
+    v23 = objc_msgSend_allKeys(indexPathsByItems2);
+    v24 = [v21 setWithArray:v23];
 
     [v10 intersectSet:v24];
     v25 = HFLogForCategory();
@@ -567,7 +567,7 @@ void __54__HUGridFlowLayout_layoutAttributesForElementsInRect___block_invoke(uin
 
     if (v9)
     {
-      [v9 transform];
+      objc_msgSend_transform(v9);
       v44 = v47;
       v45 = v48;
       v46 = v49;
@@ -632,7 +632,7 @@ void __54__HUGridFlowLayout_layoutAttributesForElementsInRect___block_invoke(uin
           [v5 frame];
           if (delegate)
           {
-            [delegate collectionView:collectionView11 gridLayout:self transformForItemAtIndexPath:indexPath cellFrame:? scrollDistance:? offset:?];
+            objc_msgSend_collectionView_gridLayout_transformForItemAtIndexPath_cellFrame_scrollDistance_offset_(delegate);
           }
 
           else

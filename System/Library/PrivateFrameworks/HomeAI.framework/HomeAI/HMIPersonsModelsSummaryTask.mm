@@ -14,16 +14,15 @@
 
 - (void)mainInsideAutoreleasePool
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = +[HMIPersonsModelManager sharedInstance];
   homeUUID = [(HMIHomeTask *)self homeUUID];
-  v11 = 0;
-  v5 = [v3 summaryForHomeUUID:homeUUID error:&v11];
-  v6 = v11;
+  v5 = [v3 summaryForHomeUUID:? error:?];
+  v6 = 0;
 
   if (v5)
   {
-    [HMIAnalytics sendEventForPersonsModels:v5];
+    [HMIAnalytics sendEventForPersonsModels:?];
     [(HMFOperation *)self finish];
   }
 
@@ -36,14 +35,14 @@
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v13 = v10;
-      v14 = 2112;
-      v15 = v6;
+      v12 = v10;
+      v13 = 2112;
+      v14 = v6;
       _os_log_impl(&dword_22D12F000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to generate persons model summary, error:%@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
-    [(HMFOperation *)selfCopy cancelWithError:v6];
+    [(HMFOperation *)selfCopy cancelWithError:?];
   }
 }
 

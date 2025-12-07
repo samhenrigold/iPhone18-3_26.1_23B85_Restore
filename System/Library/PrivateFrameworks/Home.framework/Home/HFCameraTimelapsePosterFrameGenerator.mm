@@ -74,23 +74,23 @@
     {
       objc_initWeak(location, self);
       generationQueue = [(HFCameraTimelapsePosterFrameGenerator *)self generationQueue];
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __96__HFCameraTimelapsePosterFrameGenerator_generatePosterFramesForHighQualityClip_withStep_atSize___block_invoke;
-      v22[3] = &unk_277DFEDB0;
-      objc_copyWeak(v26, location);
-      v23 = v12;
-      v24 = clipCopy;
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __96__HFCameraTimelapsePosterFrameGenerator_generatePosterFramesForHighQualityClip_withStep_atSize___block_invoke;
+      v21[3] = &unk_277DFEDB0;
+      objc_copyWeak(v25, location);
+      v22 = v12;
+      v23 = clipCopy;
       v18 = v13;
-      v25 = v18;
-      v26[1] = *&width;
-      v26[2] = *&height;
-      dispatch_async(generationQueue, v22);
+      v24 = v18;
+      v25[1] = *&width;
+      v25[2] = *&height;
+      dispatch_async(generationQueue, v21);
 
-      v19 = v25;
+      v19 = v24;
       v13 = v18;
 
-      objc_destroyWeak(v26);
+      objc_destroyWeak(v25);
       objc_destroyWeak(location);
     }
   }
@@ -111,8 +111,6 @@
     v13 = MEMORY[0x277CBEBF8];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
@@ -127,7 +125,7 @@ void __96__HFCameraTimelapsePosterFrameGenerator_generatePosterFramesForHighQual
 {
   height = size.height;
   width = size.width;
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   clipCopy = clip;
   qualityClipCopy = qualityClip;
   offsetsCopy = offsets;
@@ -154,18 +152,16 @@ void __96__HFCameraTimelapsePosterFrameGenerator_generatePosterFramesForHighQual
     v24 = HFLogForCategory(0x19uLL);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v27 = 138412546;
-      v28 = clipCopy;
-      v29 = 2112;
-      v30 = qualityClipCopy;
-      _os_log_error_impl(&dword_20D9BF000, v24, OS_LOG_TYPE_ERROR, "Error: No file for timelapse clip %@ for clip %@", &v27, 0x16u);
+      v26 = 138412546;
+      v27 = clipCopy;
+      v28 = 2112;
+      v29 = qualityClipCopy;
+      _os_log_error_impl(&dword_20D9BF000, v24, OS_LOG_TYPE_ERROR, "Error: No file for timelapse clip %@ for clip %@", &v26, 0x16u);
     }
 
     delegate = [(HFCameraTimelapsePosterFrameGenerator *)self delegate];
     [delegate failedToFindTimelapseClipForHighQualityClip:qualityClipCopy];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_generatePosterFramesForAsset:(id)asset forOffsets:(id)offsets atSize:(CGSize)size withHighQualityClip:(id)clip andTimelapseOffset:(double)offset
@@ -255,7 +251,7 @@ void __128__HFCameraTimelapsePosterFrameGenerator__generatePosterFramesForAsset_
   array = [MEMORY[0x277CBEB18] array];
   if (step)
   {
-    [clipCopy duration];
+    objc_msgSend_duration(clipCopy);
     if (v7 > 0.0)
     {
       v8 = 0.0;
@@ -266,7 +262,7 @@ void __128__HFCameraTimelapsePosterFrameGenerator__generatePosterFramesForAsset_
         [array addObject:v10];
 
         v8 = stepCopy;
-        [clipCopy duration];
+        objc_msgSend_duration(clipCopy);
         stepCopy += step;
       }
 
@@ -285,40 +281,38 @@ void __128__HFCameraTimelapsePosterFrameGenerator__generatePosterFramesForAsset_
 
 - (id)_generateTimelapseOffsetsFromOffsets:(id)offsets forTimelapseDiff:(double)diff
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   offsetsCopy = offsets;
   array = [MEMORY[0x277CBEB18] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v7 = offsetsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v16 + 1) + 8 * i) doubleValue];
+        [*(*(&v15 + 1) + 8 * i) doubleValue];
         diff = [MEMORY[0x277CCABB0] numberWithDouble:v12 - diff];
         [array addObject:diff];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return array;
 }

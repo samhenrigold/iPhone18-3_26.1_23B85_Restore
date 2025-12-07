@@ -224,7 +224,7 @@ LABEL_12:
     v8 = v7;
     if (v6 == v7)
     {
-      v10 = 1;
+      isEqual = 1;
     }
 
     else
@@ -241,22 +241,22 @@ LABEL_12:
 
       if (v9)
       {
-        v10 = 0;
+        isEqual = 0;
       }
 
       else
       {
-        v10 = [(CUINamedVectorGlyph *)v6 isEqual:v7];
+        isEqual = objc_msgSend_isEqual_(v6);
       }
     }
   }
 
   else
   {
-    v10 = 0;
+    isEqual = 0;
   }
 
-  return v10;
+  return isEqual;
 }
 
 - (_UIImageCUIVectorGlyphContent)contentWithCGImage:(CGImage *)image

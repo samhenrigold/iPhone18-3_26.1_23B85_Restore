@@ -20,30 +20,29 @@
 - (void)transportRequest:(unint64_t)request data:(NSData *)data completion:(id)completion
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECC26270, &unk_1DB127910);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x1EEE9AC00](v9 - 8);
-  v12 = &v20 - v11;
-  v13 = _Block_copy(completion);
-  v14 = swift_allocObject();
-  v14[2] = request;
-  v14[3] = data;
-  v14[4] = v13;
-  v14[5] = self;
-  v15 = sub_1DB126490();
-  (*(*(v15 - 8) + 56))(v12, 1, 1, v15);
+  v11 = &v19 - v10;
+  v12 = _Block_copy(completion);
+  v13 = swift_allocObject();
+  v13[2] = request;
+  v13[3] = data;
+  v13[4] = v12;
+  v13[5] = self;
+  v14 = sub_1DB126490();
+  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
+  v15 = swift_allocObject();
+  v15[2] = 0;
+  v15[3] = 0;
+  v15[4] = &unk_1DB128670;
+  v15[5] = v13;
   v16 = swift_allocObject();
   v16[2] = 0;
   v16[3] = 0;
-  v16[4] = &unk_1DB128670;
-  v16[5] = v14;
-  v17 = swift_allocObject();
-  v17[2] = 0;
-  v17[3] = 0;
-  v17[4] = &unk_1DB127E20;
-  v17[5] = v16;
+  v16[4] = &unk_1DB127E20;
+  v16[5] = v15;
   dataCopy = data;
   selfCopy = self;
-  sub_1DB11F730(0, 0, v12, &unk_1DB128690, v17);
+  sub_1DB11F730(0, 0, v11, &unk_1DB128690, v16);
 }
 
 - (_TtC22ActivityAwardsServices11XPCEndpoint)init

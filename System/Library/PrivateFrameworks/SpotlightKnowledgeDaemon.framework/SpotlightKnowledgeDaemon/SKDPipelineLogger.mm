@@ -63,7 +63,7 @@ void __36__SKDPipelineLogger_initWithDomain___block_invoke()
 
 - (void)logEvent:(id)event level:(unint64_t)level
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   powerLogger = [(SKDPipelineLogger *)self powerLogger];
   [powerLogger logEvent:eventCopy level:level];
@@ -91,17 +91,17 @@ void __36__SKDPipelineLogger_initWithDomain___block_invoke()
     v17 = gDefaultLog;
     if (os_log_type_enabled(gDefaultLog, OS_LOG_TYPE_ERROR))
     {
-      v26 = 138413058;
-      v27 = typeMessage;
-      v28 = 2112;
-      v29 = statusMessage;
-      v30 = 2112;
-      v31 = v13;
-      v32 = 2112;
-      v33 = message;
+      v25 = 138413058;
+      v26 = typeMessage;
+      v27 = 2112;
+      v28 = statusMessage;
+      v29 = 2112;
+      v30 = v13;
+      v31 = 2112;
+      v32 = message;
       v18 = "skg-events: e=%@;s=%@;i=%@;err=%@\n";
 LABEL_6:
-      _os_log_error_impl(&dword_231B25000, v17, OS_LOG_TYPE_ERROR, v18, &v26, 0x2Au);
+      _os_log_error_impl(&dword_231B25000, v17, OS_LOG_TYPE_ERROR, v18, &v25, 0x2Au);
       goto LABEL_23;
     }
 
@@ -121,15 +121,15 @@ LABEL_6:
       v20 = gDefaultLog;
       if (os_log_type_enabled(gDefaultLog, OS_LOG_TYPE_DEBUG))
       {
-        v26 = 138413058;
-        v27 = typeMessage;
-        v28 = 2112;
-        v29 = statusMessage;
-        v30 = 2112;
-        v31 = v13;
-        v32 = 2112;
-        v33 = message;
-        _os_log_debug_impl(&dword_231B25000, v20, OS_LOG_TYPE_DEBUG, "skg-events: e=%@;s=%@;i=%@;m=%@;\n", &v26, 0x2Au);
+        v25 = 138413058;
+        v26 = typeMessage;
+        v27 = 2112;
+        v28 = statusMessage;
+        v29 = 2112;
+        v30 = v13;
+        v31 = 2112;
+        v32 = message;
+        _os_log_debug_impl(&dword_231B25000, v20, OS_LOG_TYPE_DEBUG, "skg-events: e=%@;s=%@;i=%@;m=%@;\n", &v25, 0x2Au);
       }
 
       goto LABEL_23;
@@ -146,18 +146,18 @@ LABEL_6:
       goto LABEL_23;
     }
 
-    v26 = 138413058;
-    v27 = typeMessage;
-    v28 = 2112;
-    v29 = statusMessage;
-    v30 = 2112;
-    v31 = v13;
-    v32 = 2112;
-    v33 = message;
+    v25 = 138413058;
+    v26 = typeMessage;
+    v27 = 2112;
+    v28 = statusMessage;
+    v29 = 2112;
+    v30 = v13;
+    v31 = 2112;
+    v32 = message;
     v22 = v24;
     v23 = OS_LOG_TYPE_INFO;
 LABEL_22:
-    _os_log_impl(&dword_231B25000, v22, v23, "skg-events: e=%@;s=%@;i=%@;m=%@;\n", &v26, 0x2Au);
+    _os_log_impl(&dword_231B25000, v22, v23, "skg-events: e=%@;s=%@;i=%@;m=%@;\n", &v25, 0x2Au);
     goto LABEL_23;
   }
 
@@ -169,14 +169,14 @@ LABEL_22:
       goto LABEL_23;
     }
 
-    v26 = 138413058;
-    v27 = typeMessage;
-    v28 = 2112;
-    v29 = statusMessage;
-    v30 = 2112;
-    v31 = v13;
-    v32 = 2112;
-    v33 = message;
+    v25 = 138413058;
+    v26 = typeMessage;
+    v27 = 2112;
+    v28 = statusMessage;
+    v29 = 2112;
+    v30 = v13;
+    v31 = 2112;
+    v32 = message;
     v18 = "skg-events: e=%@;s=%@;i=%@;m=%@;\n";
     goto LABEL_6;
   }
@@ -186,14 +186,14 @@ LABEL_22:
     v21 = gDefaultLog;
     if (os_log_type_enabled(gDefaultLog, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = 138413058;
-      v27 = typeMessage;
-      v28 = 2112;
-      v29 = statusMessage;
-      v30 = 2112;
-      v31 = v13;
-      v32 = 2112;
-      v33 = message;
+      v25 = 138413058;
+      v26 = typeMessage;
+      v27 = 2112;
+      v28 = statusMessage;
+      v29 = 2112;
+      v30 = v13;
+      v31 = 2112;
+      v32 = message;
       v22 = v21;
       v23 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_22;
@@ -201,8 +201,6 @@ LABEL_22:
   }
 
 LABEL_23:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)trackingEventBeginWithName:(id)name event:(id)event

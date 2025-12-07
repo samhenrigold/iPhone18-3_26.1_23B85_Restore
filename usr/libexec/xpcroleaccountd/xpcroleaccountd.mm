@@ -91,7 +91,7 @@ void *sub_100000B78(const char *a1, uint64_t a2, uint64_t a3, void *a4, ssize_t 
   return v12;
 }
 
-uint64_t xpc_support_relax_roleaccount_policy()
+uint64_t xpc_support_relax_roleaccount_policy(uint64_t a1, uint64_t a2)
 {
   if (qword_10000C030 != -1)
   {
@@ -126,9 +126,13 @@ void *sub_100000D10(size_t size, malloc_type_id_t type_id)
       break;
     }
 
-    if (*__error() != 12 && *__error())
+    if (*__error() != 12)
     {
-      sub_1000027E4();
+      v5 = *__error();
+      if (v5)
+      {
+        sub_1000027E4(v5);
+      }
     }
   }
 
@@ -152,26 +156,26 @@ void start(int a1, uint64_t a2)
       sub_100000F84();
     }
 
-    sub_100000EA4();
-    v6 = sub_100000F00();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_100000EA4();
+    v8 = sub_100000F00(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a2 + 8);
-      v8 = 136446210;
-      v9 = v7;
-      _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "invoked with unknown argument: %{public}s", &v8, 0xCu);
+      v9 = *(a2 + 8);
+      v10 = 136446210;
+      v11 = v9;
+      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "invoked with unknown argument: %{public}s", &v10, 0xCu);
     }
   }
 
   else
   {
-    sub_100000EA4();
-    v5 = sub_100000F00();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v5 = sub_100000EA4();
+    v6 = sub_100000F00(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = 67109120;
-      LODWORD(v9) = a1;
-      _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "unexpected argument count, exiting: %d", &v8, 8u);
+      v10 = 67109120;
+      LODWORD(v11) = a1;
+      _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "unexpected argument count, exiting: %d", &v10, 8u);
     }
   }
 
@@ -192,16 +196,16 @@ uint64_t sub_100000EA4()
   return result;
 }
 
-id sub_100000F00()
+id sub_100000F00(uint64_t a1)
 {
   if (qword_10000C048 != -1)
   {
     sub_100002800();
   }
 
-  v1 = qword_10000C040;
+  v2 = qword_10000C040;
 
-  return v1;
+  return v2;
 }
 
 void sub_100000F44()
@@ -214,9 +218,9 @@ void sub_100000F44()
 
 void sub_100000F84()
 {
-  v8[0] = "/private/var/db/com.apple.xpc.roleaccountd.staging";
-  v8[1] = 0;
-  v0 = fts_open(v8, 0, 0);
+  v5[0] = "/private/var/db/com.apple.xpc.roleaccountd.staging";
+  v5[1] = 0;
+  v0 = fts_open(v5, 0, 0);
   if (!v0)
   {
     if (*__error())
@@ -231,33 +235,33 @@ void sub_100000F84()
   v2 = fts_read(v0);
   if (v2)
   {
-    v4 = v2;
+    v3 = v2;
     do
     {
-      if (v4->fts_level && v4->fts_info != 1)
+      if (v3->fts_level && v3->fts_info != 1)
       {
-        if (lchflags(v4->fts_path, 0) == -1)
+        if (lchflags(v3->fts_path, 0) == -1)
         {
-          v6 = *__error();
+          __error();
           _os_assumes_log();
         }
 
-        if (remove(v4->fts_path, v5) == -1)
+        if (remove(v3->fts_path, v4) == -1)
         {
-          v7 = *__error();
+          __error();
           _os_assumes_log();
         }
       }
 
-      v4 = fts_read(v1);
+      v3 = fts_read(v1);
     }
 
-    while (v4);
+    while (v3);
   }
 
   if (fts_close(v1) == -1)
   {
-    v3 = *__error();
+    __error();
     _os_assumes_log();
   }
 
@@ -280,34 +284,34 @@ void sub_1000010C4(id a1, OS_xpc_object *a2)
     pid = xpc_connection_get_pid(v5);
     v7 = xpc_connection_copy_entitlement_value();
 
-    v8 = sub_100000F00();
-    v9 = v8;
+    v9 = sub_100000F00(v8);
+    v10 = v9;
     if (v7 == &_xpc_BOOL_true)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         *buf = 67109120;
-        LODWORD(v14) = pid;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "pid[%d]: accepting incoming conncection", buf, 8u);
+        LODWORD(v15) = pid;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "pid[%d]: accepting incoming conncection", buf, 8u);
       }
 
       handler[0] = _NSConcreteStackBlock;
       handler[1] = 3221225472;
       handler[2] = sub_1000012F4;
       handler[3] = &unk_100008470;
-      v10 = v5;
-      v12 = v10;
-      xpc_connection_set_event_handler(v10, handler);
-      xpc_connection_activate(v10);
+      v11 = v5;
+      v13 = v11;
+      xpc_connection_set_event_handler(v11, handler);
+      xpc_connection_activate(v11);
     }
 
     else
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v14) = pid;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "pid[%d]: refusing incoming connection - process doesn't have xpcproxy entitlements", buf, 8u);
+        LODWORD(v15) = pid;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "pid[%d]: refusing incoming connection - process doesn't have xpcproxy entitlements", buf, 8u);
       }
 
       xpc_connection_cancel(v5);
@@ -317,11 +321,11 @@ void sub_1000010C4(id a1, OS_xpc_object *a2)
   else
   {
     v3 = xpc_copy_description(v2);
-    v4 = sub_100000F00();
+    v4 = sub_100000F00(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v14 = v3;
+      v15 = v3;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "connection error: %s", buf, 0xCu);
     }
 
@@ -349,7 +353,7 @@ void sub_1000012F4(uint64_t a1, void *a2)
         {
           if (sandbox_extension_consume() == -1)
           {
-            v20 = sub_100000F00();
+            v20 = sub_100000F00(-1);
             if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
               sub_100002ECC();
@@ -358,10 +362,10 @@ void sub_1000012F4(uint64_t a1, void *a2)
             goto LABEL_46;
           }
 
-          v68[0] = 0;
+          v84[0] = 0;
           v11 = xpc_bundle_create();
           property = xpc_bundle_get_property();
-          v66 = v11;
+          v82 = v11;
           if (property)
           {
             v13 = property;
@@ -374,42 +378,43 @@ void sub_1000012F4(uint64_t a1, void *a2)
               if (!string)
               {
 LABEL_28:
-                LODWORD(v68[0]) = pid;
-                v68[1] = v13;
-                v68[2] = v15;
-                v68[3] = string;
+                LODWORD(v84[0]) = pid;
+                v84[1] = v13;
+                v84[2] = v15;
+                v84[3] = string;
 
                 v24 = sub_1000020AC("/private/var/db/com.apple.xpc.roleaccountd.staging");
-                if (v24 || (v65 = v13, (v24 = sub_1000020AC("/private/var/db/com.apple.xpc.roleaccountd.staging/exec")) != 0))
+                if (v24 || (v81 = v13, (v24 = sub_1000020AC("/private/var/db/com.apple.xpc.roleaccountd.staging/exec")) != 0))
                 {
                   v25 = v24;
 LABEL_31:
                   v23 = 0;
                   *__error() = v25;
 LABEL_32:
-                  v22 = v66;
+                  v22 = v82;
                   goto LABEL_33;
                 }
 
-                v34 = sub_1000020AC("/private/var/db/com.apple.xpc.roleaccountd.staging/tmp");
-                if (v34)
+                v38 = sub_1000020AC("/private/var/db/com.apple.xpc.roleaccountd.staging/tmp");
+                if (v38)
                 {
-                  v25 = v34;
+                  v25 = v38;
                   goto LABEL_31;
                 }
 
                 bzero(__str, 0x400uLL);
                 memset(buf, 0, 144);
-                if (lstat(v15, buf))
+                v40 = lstat(v15, buf);
+                if (v40)
                 {
-                  v36 = sub_100000F00();
-                  if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+                  v42 = sub_100000F00(v40);
+                  if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
                   {
                     sub_100002884();
                   }
 
-                  v37 = *__error();
-                  if (v37)
+                  v43 = *__error();
+                  if (v43)
                   {
                     goto LABEL_74;
                   }
@@ -419,112 +424,117 @@ LABEL_32:
                 {
                   st_ino = buf[0].st_ino;
                   st_dev = buf[0].st_dev;
-                  v40 = xpc_support_relax_roleaccount_policy();
-                  v41 = &unk_100003EAF;
-                  if (v40)
+                  v46 = xpc_support_relax_roleaccount_policy(v40, v41);
+                  v47 = &unk_100003EAF;
+                  if (v46)
                   {
-                    v41 = "-relaxed";
+                    v47 = "-relaxed";
                   }
 
-                  snprintf(__str, 0x400uLL, "%s/%d.%lld%s.xpc", "/private/var/db/com.apple.xpc.roleaccountd.staging/exec", st_dev, st_ino, v41);
+                  snprintf(__str, 0x400uLL, "%s/%d.%lld%s.xpc", "/private/var/db/com.apple.xpc.roleaccountd.staging/exec", st_dev, st_ino, v47);
                 }
 
-                memset(&v67, 0, sizeof(v67));
-                if (!lstat(__str, &v67))
+                memset(&v83, 0, sizeof(v83));
+                if (!lstat(__str, &v83))
                 {
-                  v23 = sub_100001E80(v68, __str);
+                  v23 = sub_100001E80(v84, __str);
                   goto LABEL_32;
                 }
 
                 bzero(buf, 0x400uLL);
                 memset(out, 0, sizeof(out));
                 uuid_generate(out);
-                memset(&v74, 0, 37);
-                uuid_unparse(out, &v74);
-                snprintf(buf, 0x400uLL, "%s/%s", "/private/var/db/com.apple.xpc.roleaccountd.staging/tmp", &v74);
-                v42 = sub_100000F00();
-                if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+                memset(&v90, 0, 37);
+                uuid_unparse(out, &v90);
+                v48 = snprintf(buf, 0x400uLL, "%s/%s", "/private/var/db/com.apple.xpc.roleaccountd.staging/tmp", &v90);
+                v49 = sub_100000F00(v48);
+                if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
                 {
-                  *v71 = 136315138;
-                  v72 = buf;
-                  _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_INFO, "staging area for bundle: %s", v71, 0xCu);
+                  *v87 = 136315138;
+                  v88 = buf;
+                  _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_INFO, "staging area for bundle: %s", v87, 0xCu);
                 }
 
-                v43 = copyfile_state_alloc();
-                copyfile_state_set(v43, 6u, sub_1000022EC);
-                v44 = copyfile(v13, buf, v43, 0xC800Fu);
-                copyfile_state_free(v43);
-                if (v44)
+                v50 = copyfile_state_alloc();
+                copyfile_state_set(v50, 6u, sub_1000022EC);
+                v51 = copyfile(v13, buf, v50, 0xC800Fu);
+                v52 = copyfile_state_free(v50);
+                if (v51)
                 {
-                  v45 = sub_100000F00();
-                  if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+                  v53 = sub_100000F00(v52);
+                  if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
                   {
                     sub_100002910();
                   }
 
-                  v46 = *__error();
-                  if (v46)
+                  v54 = *__error();
+                  if (v54)
                   {
-                    v37 = v46;
+                    v43 = v54;
                   }
 
                   else
                   {
-                    v37 = 79;
+                    v43 = 79;
                   }
 
 LABEL_74:
                   v23 = 0;
-                  *__error() = v37;
+                  *__error() = v43;
                   goto LABEL_32;
                 }
 
-                v47 = xpc_bundle_create();
+                v55 = xpc_bundle_create();
                 path = xpc_bundle_get_path();
                 if (!sub_1000023F0(path))
                 {
                   goto LABEL_111;
                 }
 
-                v49 = xpc_bundle_get_info_dictionary();
-                if (v49)
+                v57 = xpc_bundle_get_info_dictionary();
+                if (v57)
                 {
                   cf = _CFXPCCreateCFObjectFromXPCObject();
                   if (cf)
                   {
-                    v50 = CFGetTypeID(cf);
-                    if (v50 == CFDictionaryGetTypeID())
+                    v58 = CFGetTypeID(cf);
+                    TypeID = CFDictionaryGetTypeID();
+                    if (v58 == TypeID)
                     {
 
-                      v51 = [cf objectForKeyedSubscript:@"XPCService"];
-                      if (v51 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+                      v60 = [cf objectForKeyedSubscript:@"XPCService"];
+                      v61 = v60;
+                      if (v60 && (objc_opt_class(), v60 = objc_opt_isKindOfClass(), (v60 & 1) != 0))
                       {
-                        v52 = [v51 objectForKeyedSubscript:@"_RoleAccount"];
-                        if (v52 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+                        v62 = [v61 objectForKeyedSubscript:@"_RoleAccount"];
+                        v63 = v62;
+                        if (v62 && (objc_opt_class(), v62 = objc_opt_isKindOfClass(), (v62 & 1) != 0))
                         {
-                          v53 = [v51 objectForKeyedSubscript:@"ServiceType"];
-                          if (!v53)
+                          v64 = [v61 objectForKeyedSubscript:@"ServiceType"];
+                          if (!v64)
                           {
 LABEL_87:
 
-                            v54 = sub_100000F00();
-                            if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
+                            v68 = sub_100000F00(v67);
+                            if (os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
                             {
-                              v74.st_dev = 136315138;
-                              *&v74.st_mode = __str;
-                              _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_INFO, "moving staging area to secured destination: %s", &v74, 0xCu);
+                              v90.st_dev = 136315138;
+                              *&v90.st_mode = __str;
+                              _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_INFO, "moving staging area to secured destination: %s", &v90, 0xCu);
                             }
 
-                            rename(buf, __str, v55);
-                            if (!v56)
+                            rename(buf, __str, v69);
+                            if (!v70)
                             {
                               goto LABEL_125;
                             }
 
-                            if (*__error() == 66)
+                            v71 = __error();
+                            if (*v71 == 66)
                             {
-                              memset(&v74, 0, sizeof(v74));
-                              if (!lstat(v65, &v74) && (v74.st_mode & 0xF000) == 0x4000 && !v74.st_uid)
+                              memset(&v90, 0, sizeof(v90));
+                              v72 = lstat(v81, &v90);
+                              if (!v72 && (v90.st_mode & 0xF000) == 0x4000 && !v90.st_uid)
                               {
                                 sub_100002290(buf);
 LABEL_125:
@@ -532,25 +542,25 @@ LABEL_125:
                                 goto LABEL_112;
                               }
 
-                              v57 = sub_100000F00();
-                              if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+                              v73 = sub_100000F00(v72);
+                              if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
                               {
                                 sub_100002B5C();
                               }
 
-                              v58 = 1;
+                              v74 = 1;
                             }
 
                             else
                             {
-                              v63 = sub_100000F00();
-                              if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+                              v79 = sub_100000F00(v71);
+                              if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
                               {
                                 sub_100002AD8();
                               }
 
-                              v58 = *__error();
-                              if (!v58)
+                              v74 = *__error();
+                              if (!v74)
                               {
                                 goto LABEL_125;
                               }
@@ -558,22 +568,24 @@ LABEL_125:
 
                             sub_100002290(buf);
                             v23 = 0;
-                            *__error() = v58;
+                            *__error() = v74;
 LABEL_112:
 
                             goto LABEL_32;
                           }
 
                           objc_opt_class();
-                          if (objc_opt_isKindOfClass())
+                          isKindOfClass = objc_opt_isKindOfClass();
+                          if (isKindOfClass)
                           {
-                            if (([v53 isEqualToString:@"Application"]& 1) != 0)
+                            v66 = [v64 isEqualToString:@"Application"];
+                            if (v66)
                             {
                               goto LABEL_87;
                             }
 
-                            v62 = sub_100000F00();
-                            if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+                            v78 = sub_100000F00(v66);
+                            if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
                             {
                               sub_100002A68();
                             }
@@ -581,8 +593,8 @@ LABEL_112:
 
                           else
                           {
-                            v62 = sub_100000F00();
-                            if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+                            v78 = sub_100000F00(isKindOfClass);
+                            if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
                             {
                               sub_1000029F8();
                             }
@@ -591,8 +603,8 @@ LABEL_112:
 
                         else
                         {
-                          v53 = sub_100000F00();
-                          if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+                          v64 = sub_100000F00(v62);
+                          if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
                           {
                             sub_100002B98();
                           }
@@ -601,20 +613,20 @@ LABEL_112:
 
                       else
                       {
-                        v61 = sub_100000F00();
-                        if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+                        v77 = sub_100000F00(v60);
+                        if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
                         {
                           sub_100002C08();
                         }
                       }
 
-                      v49 = cf;
+                      v57 = cf;
                     }
 
                     else
                     {
-                      v60 = sub_100000F00();
-                      if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+                      v76 = sub_100000F00(TypeID);
+                      if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
                       {
                         sub_1000029BC();
                       }
@@ -625,8 +637,8 @@ LABEL_112:
                     goto LABEL_110;
                   }
 
-                  v59 = sub_100000F00();
-                  if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+                  v75 = sub_100000F00(0);
+                  if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
                   {
                     sub_100002C78();
                   }
@@ -634,8 +646,8 @@ LABEL_112:
 
                 else
                 {
-                  v59 = sub_100000F00();
-                  if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+                  v75 = sub_100000F00(0);
+                  if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
                   {
                     sub_100002CB4();
                   }
@@ -662,8 +674,8 @@ LABEL_111:
                 goto LABEL_28;
               }
 
-              v35 = sub_100000F00();
-              if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+              v39 = sub_100000F00(0);
+              if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
               {
                 sub_100002814();
               }
@@ -671,16 +683,17 @@ LABEL_111:
               v21 = 109;
 LABEL_26:
 
-              v22 = v66;
+              v22 = v82;
               v23 = 0;
               *__error() = v21;
 LABEL_33:
 
               v26 = *__error();
-              if (sandbox_extension_release() == -1)
+              v27 = sandbox_extension_release();
+              if (v27 == -1)
               {
-                v27 = sub_100000F00();
-                if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+                v28 = sub_100000F00(v27);
+                if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
                 {
                   sub_100002DD0();
                 }
@@ -690,52 +703,53 @@ LABEL_33:
               if (v23)
               {
                 executable_path = xpc_bundle_get_executable_path();
-                if (sub_1000023F0(executable_path))
+                v30 = sub_1000023F0(executable_path);
+                if (v30)
                 {
-                  v29 = sub_100002760(executable_path);
+                  v31 = sub_100002760(executable_path);
 
-                  if (v29)
+                  if (v31)
                   {
-                    xpc_dictionary_set_string(v9, "Path", v29);
+                    xpc_dictionary_set_string(v9, "Path", v31);
                     xpc_dictionary_set_uint64(v9, "Retval", 0);
-                    v30 = sub_100000F00();
-                    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+                    v33 = sub_100000F00(v32);
+                    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
                     {
                       buf[0].st_dev = 67109378;
                       *&buf[0].st_mode = pid;
                       LOWORD(buf[0].st_ino) = 2082;
-                      *(&buf[0].st_ino + 2) = v29;
-                      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "pid[%d]: successfully staged: %{public}s", buf, 0x12u);
+                      *(&buf[0].st_ino + 2) = v31;
+                      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "pid[%d]: successfully staged: %{public}s", buf, 0x12u);
                     }
 
 LABEL_50:
 
                     xpc_connection_send_message(v6, v9);
-                    free(v29);
+                    free(v31);
 
                     goto LABEL_51;
                   }
 
 LABEL_47:
-                  v32 = __error();
-                  xpc_dictionary_set_uint64(v9, "Retval", *v32);
-                  v30 = sub_100000F00();
-                  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+                  v35 = __error();
+                  xpc_dictionary_set_uint64(v9, "Retval", *v35);
+                  v33 = sub_100000F00(v36);
+                  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
                   {
-                    v33 = *__error();
+                    v37 = *__error();
                     buf[0].st_dev = 67109376;
                     *&buf[0].st_mode = pid;
                     LOWORD(buf[0].st_ino) = 1024;
-                    *(&buf[0].st_ino + 2) = v33;
-                    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "pid[%d]: failed: %{errno}d", buf, 0xEu);
+                    *(&buf[0].st_ino + 2) = v37;
+                    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "pid[%d]: failed: %{errno}d", buf, 0xEu);
                   }
 
-                  v29 = 0;
+                  v31 = 0;
                   goto LABEL_50;
                 }
 
-                v31 = sub_100000F00();
-                if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+                v34 = sub_100000F00(v30);
+                if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
                 {
                   sub_100002E5C();
                 }
@@ -745,7 +759,7 @@ LABEL_46:
               goto LABEL_47;
             }
 
-            v17 = sub_100000F00();
+            v17 = sub_100000F00(0);
             if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
               sub_100002CF0();
@@ -754,7 +768,7 @@ LABEL_46:
 
           else
           {
-            v17 = sub_100000F00();
+            v17 = sub_100000F00(0);
             if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
               sub_100002D60();
@@ -765,7 +779,7 @@ LABEL_46:
           goto LABEL_26;
         }
 
-        v19 = sub_100000F00();
+        v19 = sub_100000F00(0);
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           sub_100002F74();
@@ -774,7 +788,7 @@ LABEL_46:
 
       else
       {
-        v18 = sub_100000F00();
+        v18 = sub_100000F00(0);
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           sub_100002FE4();
@@ -791,62 +805,65 @@ LABEL_51:
 
 id sub_100001E80(int *a1, const char *a2)
 {
-  v4 = (*(a1 + 2) + strlen(*(a1 + 1)) + 1);
-  v5 = sub_100000F00();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
-  {
-    v6 = *a1;
-    *buf = 67109378;
-    v16 = v6;
-    v17 = 2082;
-    v18 = a2;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "pid[%d]: secured service bundle exists: [%{public}s]", buf, 0x12u);
-  }
-
-  bzero(buf, 0x400uLL);
-  snprintf(buf, 0x400uLL, "%s/%s", a2, v4);
-  v7 = sub_100000F00();
+  v4 = *(a1 + 2);
+  v5 = strlen(*(a1 + 1));
+  v6 = (v4 + v5 + 1);
+  v7 = sub_100000F00(v5);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = *a1;
-    v14.st_dev = 67109378;
-    *&v14.st_mode = v8;
-    LOWORD(v14.st_ino) = 2080;
-    *(&v14.st_ino + 2) = buf;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "pid[%d]: secured service bundle executable: %s", &v14, 0x12u);
+    *buf = 67109378;
+    v20 = v8;
+    v21 = 2082;
+    v22 = a2;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "pid[%d]: secured service bundle exists: [%{public}s]", buf, 0x12u);
   }
 
-  memset(&v14, 0, sizeof(v14));
-  if (lstat(buf, &v14))
+  bzero(buf, 0x400uLL);
+  v9 = snprintf(buf, 0x400uLL, "%s/%s", a2, v6);
+  v10 = sub_100000F00(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v9 = sub_100000F00();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = *a1;
+    v18.st_dev = 67109378;
+    *&v18.st_mode = v11;
+    LOWORD(v18.st_ino) = 2080;
+    *(&v18.st_ino + 2) = buf;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "pid[%d]: secured service bundle executable: %s", &v18, 0x12u);
+  }
+
+  memset(&v18, 0, sizeof(v18));
+  v12 = lstat(buf, &v18);
+  if (v12)
+  {
+    v13 = sub_100000F00(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_100003058();
     }
 
-    v10 = 0;
+    v14 = 0;
   }
 
-  else if (!v14.st_uid && (v14.st_mode & 0x40) != 0)
+  else if (!v18.st_uid && (v18.st_mode & 0x40) != 0)
   {
-    v10 = xpc_bundle_create();
+    v14 = xpc_bundle_create();
   }
 
   else
   {
-    v11 = sub_100000F00();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v15 = sub_100000F00(v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      sub_1000030DC(&v14, &v14.st_uid);
+      sub_1000030DC();
     }
 
-    v12 = __error();
-    v10 = 0;
-    *v12 = 1;
+    v16 = __error();
+    v14 = 0;
+    *v16 = 1;
   }
 
-  return v10;
+  return v14;
 }
 
 uint64_t sub_1000020AC(char *a1)
@@ -856,46 +873,47 @@ uint64_t sub_1000020AC(char *a1)
     return 0;
   }
 
-  if (*__error() == 17)
+  v3 = __error();
+  if (*v3 == 17)
   {
-    memset(&v16, 0, sizeof(v16));
-    v3 = lstat(a1, &v16);
-    st_mode = v16.st_mode;
-    st_uid = v16.st_uid;
-    v7 = v16.st_mode != 16832 || v16.st_uid != 0;
-    if (!v3 && v7)
+    memset(&v17, 0, sizeof(v17));
+    v4 = lstat(a1, &v17);
+    st_mode = v17.st_mode;
+    st_uid = v17.st_uid;
+    v8 = v17.st_mode != 16832 || v17.st_uid != 0;
+    if (!v4 && v8)
     {
-      v8 = sub_100000F00();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = sub_100000F00(v4);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v10 = st_mode & 0xF000;
-        v11 = st_mode & 0xFFF;
-        v12 = st_uid != 0;
-        v13 = v11 != 448;
-        v14 = v10 != 0x4000;
-        v15 = strrchr(a1, 47);
+        v11 = st_mode & 0xF000;
+        v12 = st_mode & 0xFFF;
+        v13 = st_uid != 0;
+        v14 = v12 != 448;
+        v15 = v11 != 0x4000;
+        v16 = strrchr(a1, 47);
         *buf = 136315906;
-        v18 = v15;
-        v19 = 1024;
-        v20 = v14;
-        v21 = 1024;
-        v22 = v13;
-        v23 = 1024;
-        v24 = v12;
-        _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "bad ownership/permissions on staging area (%s) (%d,%d,%d)", buf, 0x1Eu);
+        v19 = v16;
+        v20 = 1024;
+        v21 = v15;
+        v22 = 1024;
+        v23 = v14;
+        v24 = 1024;
+        v25 = v13;
+        _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "bad ownership/permissions on staging area (%s) (%d,%d,%d)", buf, 0x1Eu);
       }
 
       *__error() = 1;
       return *__error();
     }
 
-    if ((v3 & 0x80000000) == 0)
+    if ((v4 & 0x80000000) == 0)
     {
       return 0;
     }
 
-    v9 = sub_100000F00();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100000F00(v4);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1000031F0(a1);
     }
@@ -903,8 +921,8 @@ uint64_t sub_1000020AC(char *a1)
 
   else
   {
-    v9 = sub_100000F00();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100000F00(v3);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_100003160(a1);
     }
@@ -915,10 +933,11 @@ uint64_t sub_1000020AC(char *a1)
 
 void sub_100002290(const char *a1)
 {
-  if (removefile(a1, 0, 1u))
+  v1 = removefile(a1, 0, 1u);
+  if (v1)
   {
-    v1 = sub_100000F00();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v2 = sub_100000F00(v1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_100003280();
     }
@@ -932,13 +951,14 @@ uint64_t sub_1000022EC(int a1, int a2, int a3, int a4, char *a5)
     return 0;
   }
 
-  v11 = v5;
-  v12 = v6;
-  memset(&v10, 0, sizeof(v10));
-  if (lchown(a5, 0, 0))
+  v13 = v5;
+  v14 = v6;
+  memset(&v12, 0, sizeof(v12));
+  v8 = lchown(a5, 0, 0);
+  if (v8)
   {
-    v8 = sub_100000F00();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100000F00(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_100003308();
     }
@@ -948,10 +968,11 @@ LABEL_12:
     return 2;
   }
 
-  if (lstat(a5, &v10))
+  v11 = lstat(a5, &v12);
+  if (v11)
   {
-    v8 = sub_100000F00();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100000F00(v11);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10000338C();
     }
@@ -959,10 +980,10 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  if ((v10.st_mode & 0xF000) == 0xA000)
+  if ((v12.st_mode & 0xF000) == 0xA000)
   {
-    v8 = sub_100000F00();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100000F00(v11);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_100003410();
     }
@@ -985,10 +1006,11 @@ uint64_t sub_1000023F0(char *cStr)
     v2 = CFDictionaryCreate(0, keys, values, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     if (v2)
     {
-      if (MISValidateSignatureAndCopyInfo())
+      v3 = MISValidateSignatureAndCopyInfo();
+      if (v3)
       {
-        v3 = sub_100000F00();
-        if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+        v4 = sub_100000F00(v3);
+        if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
         {
           sub_10000344C();
         }
@@ -997,18 +1019,18 @@ uint64_t sub_1000023F0(char *cStr)
       else
       {
         Value = CFDictionaryGetValue(0, kMISValidationInfoEntitlements);
-        v6 = Value;
-        if (Value && (v7 = CFGetTypeID(Value), v7 == CFDictionaryGetTypeID()))
+        v7 = Value;
+        if (Value && (v8 = CFGetTypeID(Value), Value = CFDictionaryGetTypeID(), v8 == Value))
         {
-          v8 = CFDictionaryGetValue(v6, @"com.apple.private.xpc.role-account");
-          if (v8 && v8 == kCFBooleanTrue)
+          v9 = CFDictionaryGetValue(v7, @"com.apple.private.xpc.role-account");
+          if (v9 && v9 == kCFBooleanTrue)
           {
-            v9 = 1;
+            v10 = 1;
             goto LABEL_20;
           }
 
-          v3 = sub_100000F00();
-          if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+          v4 = sub_100000F00(v9);
+          if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
           {
             sub_1000034C0();
           }
@@ -1016,8 +1038,8 @@ uint64_t sub_1000023F0(char *cStr)
 
         else
         {
-          v3 = sub_100000F00();
-          if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+          v4 = sub_100000F00(Value);
+          if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
           {
             sub_1000034FC();
           }
@@ -1027,8 +1049,8 @@ uint64_t sub_1000023F0(char *cStr)
 
     else
     {
-      v3 = sub_100000F00();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v4 = sub_100000F00(0);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         sub_100003538();
       }
@@ -1037,8 +1059,8 @@ uint64_t sub_1000023F0(char *cStr)
 
   else
   {
-    v4 = sub_100000F00();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_100000F00(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_100003574();
     }
@@ -1046,7 +1068,7 @@ uint64_t sub_1000023F0(char *cStr)
     v2 = 0;
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_20:
   if (v2)
   {
@@ -1058,7 +1080,7 @@ LABEL_20:
     CFRelease(v1);
   }
 
-  return v9;
+  return v10;
 }
 
 void sub_100002624(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, CFTypeRef cf)
@@ -1093,9 +1115,10 @@ char *sub_100002760(const char *a1)
 
     if (*__error() != 12)
     {
-      if (*__error())
+      v3 = *__error();
+      if (v3)
       {
-        sub_1000027E4();
+        sub_1000027E4(v3);
       }
     }
 
@@ -1112,7 +1135,7 @@ void sub_1000027B4()
   __break(1u);
 }
 
-void sub_1000027E4()
+void sub_1000027E4(int a1)
 {
   _os_assert_log();
   _os_crash();
@@ -1129,15 +1152,15 @@ void sub_100002814()
 void sub_100002884()
 {
   sub_100002714();
-  v0 = *__error();
+  __error();
   sub_1000026F0();
   sub_100002688();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 void sub_100002910()
 {
-  v5 = *__error();
+  __error();
   sub_100002688();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x14u);
 }
@@ -1165,10 +1188,10 @@ void sub_100002A68()
 
 void sub_100002AD8()
 {
-  v0 = *__error();
+  __error();
   sub_100002730();
   sub_100002688();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_100002B5C()
@@ -1223,10 +1246,10 @@ void sub_100002D60()
 void sub_100002DD0()
 {
   sub_100002714();
-  v0 = *__error();
+  __error();
   sub_1000026F0();
   sub_100002688();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 void sub_100002E5C()
@@ -1239,7 +1262,7 @@ void sub_100002E5C()
 void sub_100002ECC()
 {
   sub_100002714();
-  v5 = *__error();
+  __error();
   sub_100002688();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
@@ -1253,61 +1276,59 @@ void sub_100002F74()
 
 void sub_100003058()
 {
-  v0 = *__error();
+  __error();
   sub_100002730();
   sub_100002688();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1000030DC(uint64_t a1, unsigned int *a2)
+void sub_1000030DC()
 {
-  v2 = *(a1 + 4);
-  v3 = *a2;
   sub_100002730();
   sub_1000026BC();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
 void sub_100003160(char *a1)
 {
   strrchr(a1, 47);
-  v1 = *__error();
-  sub_1000026CC();
-  sub_100002688();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-}
-
-void sub_1000031F0(char *a1)
-{
-  strrchr(a1, 47);
-  v1 = *__error();
-  sub_1000026CC();
-  sub_100002688();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-}
-
-void sub_100003280()
-{
-  v0 = *__error();
+  __error();
   sub_1000026CC();
   sub_100002688();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
 }
 
+void sub_1000031F0(char *a1)
+{
+  strrchr(a1, 47);
+  __error();
+  sub_1000026CC();
+  sub_100002688();
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+}
+
+void sub_100003280()
+{
+  __error();
+  sub_1000026CC();
+  sub_100002688();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
 void sub_100003308()
 {
-  v0 = *__error();
+  __error();
   sub_100002730();
   sub_100002688();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10000338C()
 {
-  v0 = *__error();
+  __error();
   sub_100002730();
   sub_100002688();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_100003410()

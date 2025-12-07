@@ -62,16 +62,16 @@ uint64_t __33__RTTNanoSettings_sharedInstance__block_invoke()
 
 - (void)_setValue:(id)value forPreferenceKey:(id)key
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   keyCopy = key;
   v8 = AXLogRTT();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v18 = valueCopy;
-    v19 = 2112;
-    v20 = keyCopy;
+    v17 = valueCopy;
+    v18 = 2112;
+    v19 = keyCopy;
     _os_log_impl(&dword_261754000, v8, OS_LOG_TYPE_INFO, "Setting value '%@' for key: '%@'", buf, 0x16u);
   }
 
@@ -80,31 +80,27 @@ uint64_t __33__RTTNanoSettings_sharedInstance__block_invoke()
   v10 = objc_opt_new();
   v11 = *MEMORY[0x277D81E48];
   v12 = MEMORY[0x277CBEB98];
-  v16 = keyCopy;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+  v15 = keyCopy;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
   v14 = [v12 setWithArray:v13];
   [v10 synchronizeNanoDomain:v11 keys:v14];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)valueForPreferenceKey:(id)key andContext:(id)context
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   synchronize = [(NPSDomainAccessor *)self->_domainAccessor synchronize];
   v7 = [(NPSDomainAccessor *)self->_domainAccessor objectForKey:keyCopy];
   v8 = AXLogRTT();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v11 = 138412546;
-    v12 = v7;
-    v13 = 2112;
-    v14 = keyCopy;
-    _os_log_impl(&dword_261754000, v8, OS_LOG_TYPE_INFO, "Retrieved value '%@' for key: '%@'", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v7;
+    v12 = 2112;
+    v13 = keyCopy;
+    _os_log_impl(&dword_261754000, v8, OS_LOG_TYPE_INFO, "Retrieved value '%@' for key: '%@'", &v10, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

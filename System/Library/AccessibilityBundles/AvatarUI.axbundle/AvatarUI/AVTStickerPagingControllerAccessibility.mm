@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)loadView;
+- (void)stickerSheetController:(id)controller didInteractWithStickerItem:(id)item atIndex:(int64_t)index byPeeling:(BOOL)peeling;
 @end
 
 @implementation AVTStickerPagingControllerAccessibility
@@ -34,6 +35,16 @@
   v3.super_class = AVTStickerPagingControllerAccessibility;
   [(AVTStickerPagingControllerAccessibility *)&v3 loadView];
   [(AVTStickerPagingControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
+}
+
+- (void)stickerSheetController:(id)controller didInteractWithStickerItem:(id)item atIndex:(int64_t)index byPeeling:(BOOL)peeling
+{
+  v8.receiver = self;
+  v8.super_class = AVTStickerPagingControllerAccessibility;
+  [(AVTStickerPagingControllerAccessibility *)&v8 stickerSheetController:controller didInteractWithStickerItem:item atIndex:index byPeeling:peeling];
+  v6 = *MEMORY[0x29EDC7EA8];
+  v7 = accessibilityLocalizedString(@"announcement.selected.sticker");
+  UIAccessibilityPostNotification(v6, v7);
 }
 
 @end

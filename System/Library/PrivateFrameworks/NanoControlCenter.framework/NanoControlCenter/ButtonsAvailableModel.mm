@@ -18,7 +18,7 @@
   *(&self->super.isa + OBJC_IVAR____TtC17NanoControlCenter21ButtonsAvailableModel_allowedButtonsForConfiguration) = MEMORY[0x277D84FA0];
   sub_25B004264();
   v5.receiver = self;
-  v5.super_class = type metadata accessor for ButtonsAvailableModel();
+  v5.super_class = type metadata accessor for ButtonsAvailableModel(0);
   v3 = [(ButtonsAvailableModel *)&v5 init];
 
   return v3;

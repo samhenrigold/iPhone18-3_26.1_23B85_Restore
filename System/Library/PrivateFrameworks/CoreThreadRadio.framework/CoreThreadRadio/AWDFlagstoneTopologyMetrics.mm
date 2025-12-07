@@ -175,81 +175,75 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v16 = toCopy;
+  v9 = toCopy;
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v16;
+    toCopy = v9;
   }
 
   if (self->_header)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v16;
+    toCopy = v9;
   }
 
   if (self->_nodeCounts.count)
   {
-    v6 = 0;
+    v5 = 0;
     do
     {
-      v7 = self->_nodeCounts.list[v6];
       PBDataWriterWriteUint32Field();
-      toCopy = v16;
-      ++v6;
+      toCopy = v9;
+      ++v5;
     }
 
-    while (v6 < self->_nodeCounts.count);
+    while (v5 < self->_nodeCounts.count);
   }
 
   if (self->_routerCounts.count)
   {
-    v8 = 0;
+    v6 = 0;
     do
     {
-      v9 = self->_routerCounts.list[v8];
       PBDataWriterWriteUint32Field();
-      toCopy = v16;
-      ++v8;
+      toCopy = v9;
+      ++v6;
     }
 
-    while (v8 < self->_routerCounts.count);
+    while (v6 < self->_routerCounts.count);
   }
 
   if (self->_fEDCounts.count)
   {
-    v10 = 0;
+    v7 = 0;
     do
     {
-      v11 = self->_fEDCounts.list[v10];
       PBDataWriterWriteUint32Field();
-      toCopy = v16;
-      ++v10;
+      toCopy = v9;
+      ++v7;
     }
 
-    while (v10 < self->_fEDCounts.count);
+    while (v7 < self->_fEDCounts.count);
   }
 
   if (self->_sEDCounts.count)
   {
-    v12 = 0;
+    v8 = 0;
     do
     {
-      v13 = self->_sEDCounts.list[v12];
       PBDataWriterWriteUint32Field();
-      toCopy = v16;
-      ++v12;
+      toCopy = v9;
+      ++v8;
     }
 
-    while (v12 < self->_sEDCounts.count);
+    while (v8 < self->_sEDCounts.count);
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    maxChangeinNodeCount = self->_maxChangeinNodeCount;
     PBDataWriterWriteUint32Field();
-    toCopy = v16;
+    toCopy = v9;
     if ((*&self->_has & 4) == 0)
     {
 LABEL_19:
@@ -263,9 +257,8 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  percTopologyChangeTimeInstances = self->_percTopologyChangeTimeInstances;
   PBDataWriterWriteUint32Field();
-  toCopy = v16;
+  toCopy = v9;
 
 LABEL_21:
 }
@@ -410,7 +403,6 @@ LABEL_25:
     goto LABEL_22;
   }
 
-  v5 = *(equalCopy + 128);
   if (*&self->_has)
   {
     if ((*(equalCopy + 128) & 1) == 0 || self->_timestamp != *(equalCopy + 13))
@@ -422,7 +414,7 @@ LABEL_25:
   else if (*(equalCopy + 128))
   {
 LABEL_22:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_23;
   }
 
@@ -445,7 +437,7 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v7 = (*(equalCopy + 128) & 4) == 0;
+  v6 = (*(equalCopy + 128) & 4) == 0;
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 128) & 4) == 0 || self->_percTopologyChangeTimeInstances != *(equalCopy + 31))
@@ -453,12 +445,12 @@ LABEL_22:
       goto LABEL_22;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_23:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

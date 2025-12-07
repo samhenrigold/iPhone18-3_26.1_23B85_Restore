@@ -22,9 +22,9 @@
   promptCopy = prompt;
   styleCopy = style;
   paletteCopy = palette;
-  v24.receiver = self;
-  v24.super_class = PUIStyleConfiguration;
-  v16 = [(PUIStyleConfiguration *)&v24 init];
+  v25.receiver = self;
+  v25.super_class = PUIStyleConfiguration;
+  v16 = [(PUIStyleConfiguration *)&v25 init];
   if (v16)
   {
     if (identifierCopy)
@@ -42,17 +42,17 @@
 
     if (promptCopy)
     {
-      v19 = promptCopy;
+      v20 = promptCopy;
       prompt = v16->_prompt;
-      v16->_prompt = v19;
+      v16->_prompt = v20;
     }
 
     else
     {
-      prompt = PUIBundle();
-      v21 = [prompt localizedStringForKey:@"EDIT_COLOR_PICKER_DEFAULT_PROMPT" value:&stru_1F1C6DED8 table:0];
-      v22 = v16->_prompt;
-      v16->_prompt = v21;
+      prompt = PUIBundle(v19);
+      v22 = [prompt localizedStringForKey:@"EDIT_COLOR_PICKER_DEFAULT_PROMPT" value:&stru_1F1C6DED8 table:0];
+      v23 = v16->_prompt;
+      v16->_prompt = v22;
     }
 
     objc_storeStrong(&v16->_selectedStyle, style);

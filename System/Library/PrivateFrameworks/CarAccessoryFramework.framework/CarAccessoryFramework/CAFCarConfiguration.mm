@@ -106,16 +106,16 @@
   cachedDescription = [(CAFCarConfiguration *)self cachedDescription];
   [cachedDescription setNeedsRefreshDescription];
 
-  v10 = CAFGeneralLogging();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = CAFGeneralLogging(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [CAFCarConfiguration updateConfiguration:pluginConfig:];
   }
 
   delegate = [(CAFCarConfiguration *)self delegate];
-  v12 = objc_opt_respondsToSelector();
+  v13 = objc_opt_respondsToSelector();
 
-  if (v12)
+  if (v13)
   {
     delegate2 = [(CAFCarConfiguration *)self delegate];
     pluginConfigs2 = [(CAFCarConfiguration *)self pluginConfigs];
@@ -127,25 +127,25 @@
 
 - (BOOL)updateConfiguration:(id)configuration
 {
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __43__CAFCarConfiguration_updateConfiguration___block_invoke;
-  v11[3] = &unk_27890F3C0;
-  v11[4] = self;
-  [configuration enumerateKeysAndObjectsUsingBlock:v11];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __43__CAFCarConfiguration_updateConfiguration___block_invoke;
+  v12[3] = &unk_27890F3C0;
+  v12[4] = self;
+  [configuration enumerateKeysAndObjectsUsingBlock:v12];
   cachedDescription = [(CAFCarConfiguration *)self cachedDescription];
   [cachedDescription setNeedsRefreshDescription];
 
-  v5 = CAFGeneralLogging();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = CAFGeneralLogging(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [CAFCarConfiguration updateConfiguration:];
   }
 
   delegate = [(CAFCarConfiguration *)self delegate];
-  v7 = objc_opt_respondsToSelector();
+  v8 = objc_opt_respondsToSelector();
 
-  if (v7)
+  if (v8)
   {
     delegate2 = [(CAFCarConfiguration *)self delegate];
     pluginConfigs = [(CAFCarConfiguration *)self pluginConfigs];
@@ -174,23 +174,23 @@ void __43__CAFCarConfiguration_updateConfiguration___block_invoke(uint64_t a1, v
     else
     {
 
-      v8 = CAFGeneralLogging();
+      v8 = CAFGeneralLogging(v12);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         __43__CAFCarConfiguration_updateConfiguration___block_invoke_cold_1(v7, v8);
       }
     }
 
-    v10 = v7;
+    v11 = v7;
   }
 
   else
   {
 
-    v10 = CAFGeneralLogging();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = CAFGeneralLogging(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __43__CAFCarConfiguration_updateConfiguration___block_invoke_cold_2(v10);
+      __43__CAFCarConfiguration_updateConfiguration___block_invoke_cold_2(v11);
     }
   }
 }
@@ -244,29 +244,28 @@ void __43__CAFCarConfiguration_updateConfiguration___block_invoke(uint64_t a1, v
 
 + (id)getUUID:(id)d instanceID:(id)iD
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   iDCopy = iD;
   longLongValue = [d longLongValue];
   longLongValue2 = [iDCopy longLongValue];
 
-  v11[0] = BYTE3(longLongValue);
-  v11[1] = BYTE2(longLongValue);
-  v11[2] = BYTE1(longLongValue);
-  v11[3] = longLongValue;
-  v11[4] = BYTE5(longLongValue);
-  v11[5] = BYTE4(longLongValue);
-  v11[6] = HIBYTE(longLongValue);
-  v11[7] = BYTE6(longLongValue);
-  v11[8] = HIBYTE(longLongValue2);
-  v11[9] = BYTE6(longLongValue2);
-  v11[10] = BYTE5(longLongValue2);
-  v11[11] = BYTE4(longLongValue2);
-  v11[12] = BYTE3(longLongValue2);
-  v11[13] = BYTE2(longLongValue2);
-  v11[14] = BYTE1(longLongValue2);
-  v11[15] = longLongValue2;
-  v8 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v11];
-  v9 = *MEMORY[0x277D85DE8];
+  v10[0] = BYTE3(longLongValue);
+  v10[1] = BYTE2(longLongValue);
+  v10[2] = BYTE1(longLongValue);
+  v10[3] = longLongValue;
+  v10[4] = BYTE5(longLongValue);
+  v10[5] = BYTE4(longLongValue);
+  v10[6] = HIBYTE(longLongValue);
+  v10[7] = BYTE6(longLongValue);
+  v10[8] = HIBYTE(longLongValue2);
+  v10[9] = BYTE6(longLongValue2);
+  v10[10] = BYTE5(longLongValue2);
+  v10[11] = BYTE4(longLongValue2);
+  v10[12] = BYTE3(longLongValue2);
+  v10[13] = BYTE2(longLongValue2);
+  v10[14] = BYTE1(longLongValue2);
+  v10[15] = longLongValue2;
+  v8 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v10];
 
   return v8;
 }
@@ -274,7 +273,7 @@ void __43__CAFCarConfiguration_updateConfiguration___block_invoke(uint64_t a1, v
 - (void)setDelegate:(id)delegate
 {
   delegateCopy = delegate;
-  v5 = CAFGeneralLogging();
+  v5 = CAFGeneralLogging(delegateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [CAFCarConfiguration setDelegate:];
@@ -372,40 +371,36 @@ void __43__CAFCarConfiguration_updateConfiguration___block_invoke(uint64_t a1, v
 
 - (void)updateConfiguration:pluginConfig:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_7();
-  _os_log_debug_impl(&dword_231618000, v0, OS_LOG_TYPE_DEBUG, "%s %@ updating delegate", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_231618000, v0, OS_LOG_TYPE_DEBUG, "%s %@ updating delegate", v1, 0x16u);
 }
 
 - (void)updateConfiguration:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_7();
-  _os_log_debug_impl(&dword_231618000, v0, OS_LOG_TYPE_DEBUG, "%s %@ updating delegate", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_231618000, v0, OS_LOG_TYPE_DEBUG, "%s %@ updating delegate", v1, 0x16u);
 }
 
 void __43__CAFCarConfiguration_updateConfiguration___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_231618000, a2, OS_LOG_TYPE_ERROR, "Parsing configuration from pluginID: %@ failed for pluginConfig", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_231618000, a2, OS_LOG_TYPE_ERROR, "Parsing configuration from pluginID: %@ failed for pluginConfig", &v2, 0xCu);
 }
 
 - (void)setDelegate:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3[0] = 136315650;
+  v5 = *MEMORY[0x277D85DE8];
+  v2[0] = 136315650;
   OUTLINED_FUNCTION_0_7();
-  v4 = 2048;
-  v5 = v0;
-  _os_log_debug_impl(&dword_231618000, v1, OS_LOG_TYPE_DEBUG, "%s %@ updating delegate to %p", v3, 0x20u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2048;
+  v4 = v0;
+  _os_log_debug_impl(&dword_231618000, v1, OS_LOG_TYPE_DEBUG, "%s %@ updating delegate to %p", v2, 0x20u);
 }
 
 @end

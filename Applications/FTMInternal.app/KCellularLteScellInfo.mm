@@ -577,7 +577,6 @@ LABEL_19:
   has = self->_has;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x100) == 0)
@@ -597,7 +596,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  phyCellId = self->_phyCellId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -612,7 +610,6 @@ LABEL_4:
   }
 
 LABEL_28:
-  dlFreq = self->_dlFreq;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -627,7 +624,6 @@ LABEL_5:
   }
 
 LABEL_29:
-  ulFreq = self->_ulFreq;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -642,7 +638,6 @@ LABEL_6:
   }
 
 LABEL_30:
-  dlBw = self->_dlBw;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -657,7 +652,6 @@ LABEL_7:
   }
 
 LABEL_31:
-  ulBw = self->_ulBw;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -672,7 +666,6 @@ LABEL_8:
   }
 
 LABEL_32:
-  cellId = self->_cellId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -687,7 +680,6 @@ LABEL_9:
   }
 
 LABEL_33:
-  freqBandInd = self->_freqBandInd;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -702,7 +694,6 @@ LABEL_10:
   }
 
 LABEL_34:
-  trackingAreaCode = self->_trackingAreaCode;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -717,7 +708,6 @@ LABEL_11:
   }
 
 LABEL_35:
-  numMncDigits = self->_numMncDigits;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -732,7 +722,6 @@ LABEL_12:
   }
 
 LABEL_36:
-  selPlmnMcc = self->_selPlmnMcc;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -747,7 +736,6 @@ LABEL_13:
   }
 
 LABEL_37:
-  selPlmnMnc = self->_selPlmnMnc;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -762,7 +750,6 @@ LABEL_14:
   }
 
 LABEL_38:
-  tddSfAssignment = self->_tddSfAssignment;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -777,7 +764,6 @@ LABEL_15:
   }
 
 LABEL_39:
-  tddSsfPatterns = self->_tddSsfPatterns;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -792,7 +778,6 @@ LABEL_16:
   }
 
 LABEL_40:
-  prioOfCampedLteBand = self->_prioOfCampedLteBand;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -807,12 +792,10 @@ LABEL_17:
   }
 
 LABEL_41:
-  hstCellInfo = self->_hstCellInfo;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x80) != 0)
   {
 LABEL_18:
-    numSubs = self->_numSubs;
     PBDataWriterWriteUint32Field();
   }
 
@@ -824,7 +807,6 @@ LABEL_19:
 
   if ((*(&self->_has + 1) & 0x10) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 }

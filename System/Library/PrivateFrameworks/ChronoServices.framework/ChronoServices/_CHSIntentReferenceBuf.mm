@@ -683,26 +683,7 @@ LABEL_29:
     {
       v7 = objc_autoreleasePoolPush();
       stableHash = [(_CHSIntentReferenceBuf *)self stableHash];
-      if (stableHash != [v6 stableHash])
-      {
-        goto LABEL_12;
-      }
-
-      intentData = [(_CHSIntentReferenceBuf *)self intentData];
-      intentData2 = [v6 intentData];
-      if (intentData | intentData2)
-      {
-        v11 = [intentData isEqual:intentData2];
-
-        if (!v11)
-        {
-          goto LABEL_12;
-        }
-      }
-
-      schemaData = [(_CHSIntentReferenceBuf *)self schemaData];
-      schemaData2 = [v6 schemaData];
-      if (!(schemaData | schemaData2) || (v14 = [schemaData isEqual:schemaData2], schemaData2, schemaData, v14))
+      if (stableHash == [v6 stableHash] && ((-[_CHSIntentReferenceBuf intentData](self, "intentData"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "intentData"), v10 = objc_claimAutoreleasedReturnValue(), !(v9 | v10)) || (v11 = objc_msgSend(v9, "isEqual:", v10), v10, v9, v11)) && ((-[_CHSIntentReferenceBuf schemaData](self, "schemaData"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "schemaData"), v13 = objc_claimAutoreleasedReturnValue(), !(v12 | v13)) || (v14 = objc_msgSend(v12, "isEqual:", v13), v13, v12, v14)))
       {
         partialIntentData = [(_CHSIntentReferenceBuf *)self partialIntentData];
         partialIntentData2 = [v6 partialIntentData];
@@ -719,7 +700,6 @@ LABEL_29:
 
       else
       {
-LABEL_12:
         v17 = 0;
       }
 

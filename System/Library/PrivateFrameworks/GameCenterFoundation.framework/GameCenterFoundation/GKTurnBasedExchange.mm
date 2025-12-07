@@ -116,7 +116,7 @@
 
 - (id)description
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   if (description_onceToken_622 != -1)
   {
     [GKTurnBasedExchange description];
@@ -132,29 +132,29 @@
     v6 = v5;
   }
 
-  v35 = v6;
+  v34 = v6;
   array = [MEMORY[0x277CBEB18] array];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   selfCopy = self;
   recipients = [(GKTurnBasedExchange *)self recipients];
-  v9 = [recipients countByEnumeratingWithState:&v41 objects:v45 count:16];
+  v9 = [recipients countByEnumeratingWithState:&v40 objects:v44 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v42;
+    v11 = *v41;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v42 != v11)
+        if (*v41 != v11)
         {
           objc_enumerationMutation(recipients);
         }
 
-        v13 = *(*(&v41 + 1) + 8 * i);
+        v13 = *(*(&v40 + 1) + 8 * i);
         v14 = MEMORY[0x277CCACA8];
         internal = [v13 internal];
         playerID = [internal playerID];
@@ -173,15 +173,15 @@
         [array addObject:v19];
       }
 
-      v10 = [recipients countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v10 = [recipients countByEnumeratingWithState:&v40 objects:v44 count:16];
     }
 
     while (v10);
   }
 
-  v33 = MEMORY[0x277CCACA8];
+  v32 = MEMORY[0x277CCACA8];
   v20 = objc_opt_class();
-  v40 = NSStringFromClass(v20);
+  v39 = NSStringFromClass(v20);
   exchangeID = [(GKTurnBasedExchange *)selfCopy exchangeID];
   sendDate = [(GKTurnBasedExchange *)selfCopy sendDate];
   timeoutDate = [(GKTurnBasedExchange *)selfCopy timeoutDate];
@@ -200,33 +200,29 @@
   data = [(GKTurnBasedExchange *)selfCopy data];
   v27 = [data length];
   replies = [(GKTurnBasedExchange *)selfCopy replies];
-  v29 = [v33 stringWithFormat:@"<%@ %p - exchangeID:%@ status:%@ sendDate:%@ timeoutDate:%@ completionDate:%@ sender:%@ recipients:%@ message:%@ data.length:%ld replies:%@>", v40, selfCopy, exchangeID, v35, sendDate, timeoutDate, completionDate, sender2, array, message, v27, replies];
+  v29 = [v32 stringWithFormat:@"<%@ %p - exchangeID:%@ status:%@ sendDate:%@ timeoutDate:%@ completionDate:%@ sender:%@ recipients:%@ message:%@ data.length:%ld replies:%@>", v39, selfCopy, exchangeID, v34, sendDate, timeoutDate, completionDate, sender2, array, message, v27, replies];
 
   if (!playerID2)
   {
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v29;
 }
 
 void __34__GKTurnBasedExchange_description__block_invoke()
 {
-  v4[4] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_283B33298;
-  v3[1] = &unk_283B332B0;
-  v4[0] = @"Unknown";
-  v4[1] = @"Active";
-  v3[2] = &unk_283B332C8;
-  v3[3] = &unk_283B332E0;
-  v4[2] = @"Complete";
-  v4[3] = @"X-Canceled";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:4];
+  v3[4] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_283B33298;
+  v2[1] = &unk_283B332B0;
+  v3[0] = @"Unknown";
+  v3[1] = @"Active";
+  v2[2] = &unk_283B332C8;
+  v2[3] = &unk_283B332E0;
+  v3[2] = @"Complete";
+  v3[3] = @"X-Canceled";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:4];
   v1 = description_statusEnumLookupDict;
   description_statusEnumLookupDict = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)instanceMethodSignatureForSelector:(SEL)selector
@@ -335,27 +331,27 @@ void __34__GKTurnBasedExchange_description__block_invoke()
 
 - (void)_updateInternalFromMatchInternal:(id)internal
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   exchanges = [internal exchanges];
-  v5 = [exchanges countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [exchanges countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(exchanges);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         exchangeID = [(GKTurnBasedExchange *)self exchangeID];
         exchangeID2 = [v9 exchangeID];
         v12 = [exchangeID isEqualToString:exchangeID2];
@@ -367,7 +363,7 @@ void __34__GKTurnBasedExchange_description__block_invoke()
         }
       }
 
-      v6 = [exchanges countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [exchanges countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -378,8 +374,6 @@ void __34__GKTurnBasedExchange_description__block_invoke()
   }
 
 LABEL_11:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelWithLocalizableMessageKey:(NSString *)key arguments:(NSArray *)arguments completionHandler:(void *)completionHandler

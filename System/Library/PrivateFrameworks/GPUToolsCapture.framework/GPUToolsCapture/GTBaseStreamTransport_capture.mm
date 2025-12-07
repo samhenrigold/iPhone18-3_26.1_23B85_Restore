@@ -577,7 +577,6 @@ LABEL_5:
     [(GTTransportMessage_capture *)v14 _setSerial:self->_tmu->var0.var2 replySerial:self->_tmu->var0.var3 transport:self];
     [(GTTransportMessage_capture *)v14 _setTransportSize:v9];
     objc_autoreleasePoolPop(v3);
-    messageBuffer = self->_messageBuffer;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -588,9 +587,9 @@ LABEL_5:
     self->_messageBuffer = 0;
     [(GTTransport_capture *)self _dispatchMessage:v14];
 
-    v17 = self->_tmu;
-    *&v17->var3 = xmmword_2975A0;
-    v17->var5 = 0;
+    v16 = self->_tmu;
+    *&v16->var3 = xmmword_2975A0;
+    v16->var5 = 0;
     return;
   }
 

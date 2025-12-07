@@ -12,7 +12,7 @@
 + (Class)classForValueType:(id)type
 {
   typeCopy = type;
-  if (([typeCopy isEqualToString:@"text"] & 1) != 0 || (objc_msgSend(typeCopy, "isEqualToString:", @"date") & 1) != 0 || objc_msgSend(typeCopy, "isEqualToString:", @"currency"))
+  if ((objc_msgSend_isEqualToString_(typeCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(typeCopy) & 1) != 0 || objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = objc_opt_class();
   }
@@ -121,15 +121,15 @@ LABEL_10:
     v8 = v13;
     if (v6 == v13)
     {
-      v10 = 1;
+      isEqualToString = 1;
     }
 
     else
     {
-      v10 = 0;
+      isEqualToString = 0;
       if (v6 && v13)
       {
-        v10 = [(NSString *)v6 isEqualToString:v13];
+        isEqualToString = objc_msgSend_isEqualToString_(v6);
       }
     }
 
@@ -148,22 +148,22 @@ LABEL_10:
 
   if (!v9)
   {
-    v11 = [(NSString *)v6 isEqualToString:v7];
+    v11 = objc_msgSend_isEqualToString_(v6);
 
     if (!v11)
     {
-      v10 = 0;
+      isEqualToString = 0;
       goto LABEL_16;
     }
 
     goto LABEL_10;
   }
 
-  v10 = 0;
+  isEqualToString = 0;
 LABEL_15:
 
 LABEL_16:
-  return v10;
+  return isEqualToString;
 }
 
 - (unint64_t)hash

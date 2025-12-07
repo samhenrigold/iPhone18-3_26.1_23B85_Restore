@@ -524,7 +524,7 @@ LABEL_13:
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "%s : %i : Use Mock Cross platform channel over IDS", buf, 0x12u);
     }
 
-    v11 = sub_10037E00C();
+    v11 = sub_10037E00C(KmlSharingTransport);
     sub_1003CD554(v11, v9, identifierCopy);
     goto LABEL_13;
   }

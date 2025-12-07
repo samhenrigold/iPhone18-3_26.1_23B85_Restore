@@ -21,7 +21,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   discoveryIdleTimer = [(HMDRapportOverBLEMessageTransport *)self discoveryIdleTimer];
 
@@ -32,33 +32,33 @@
 
   else
   {
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     deviceContextCache = [(HMDRapportOverBLEMessageTransport *)self deviceContextCache];
-    v7 = [deviceContextCache countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v7 = [deviceContextCache countByEnumeratingWithState:&v30 objects:v38 count:16];
     if (v7)
     {
       v9 = v7;
-      v10 = *v32;
+      v10 = *v31;
       *&v8 = 138543618;
-      v26 = v8;
+      v25 = v8;
       selfCopy = self;
-      v29 = fireCopy;
-      v27 = *v32;
+      v28 = fireCopy;
+      v26 = *v31;
       do
       {
         v11 = 0;
-        v30 = v9;
+        v29 = v9;
         do
         {
-          if (*v32 != v10)
+          if (*v31 != v10)
           {
             objc_enumerationMutation(deviceContextCache);
           }
 
-          v12 = *(*(&v31 + 1) + 8 * v11);
+          v12 = *(*(&v30 + 1) + 8 * v11);
           deviceContextCache2 = [(HMDRapportOverBLEMessageTransport *)self deviceContextCache];
           v14 = [deviceContextCache2 objectForKeyedSubscript:v12];
           idleTimer = [v14 idleTimer];
@@ -75,43 +75,41 @@
               [deviceContextCache3 objectForKeyedSubscript:v12];
               v22 = v21 = deviceContextCache;
               device = [v22 device];
-              *buf = v26;
-              v36 = v19;
-              v37 = 2112;
-              v38 = device;
+              *buf = v25;
+              v35 = v19;
+              v36 = 2112;
+              v37 = device;
               _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@RapportOverBLE Client %@ idle timer fired, removing from cache", buf, 0x16u);
 
               deviceContextCache = v21;
-              v10 = v27;
+              v10 = v26;
 
               self = selfCopy;
-              fireCopy = v29;
+              fireCopy = v28;
             }
 
             objc_autoreleasePoolPop(v16);
             deviceContextCache4 = [(HMDRapportOverBLEMessageTransport *)selfCopy2 deviceContextCache];
             [deviceContextCache4 removeObjectForKey:v12];
 
-            v9 = v30;
+            v9 = v29;
           }
 
           ++v11;
         }
 
         while (v9 != v11);
-        v9 = [deviceContextCache countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v9 = [deviceContextCache countByEnumeratingWithState:&v30 objects:v38 count:16];
       }
 
       while (v9);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createBLEClientForDevice:(id)device
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -120,9 +118,9 @@
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v27 = v8;
-    v28 = 2112;
-    v29 = deviceCopy;
+    v26 = v8;
+    v27 = 2112;
+    v28 = deviceCopy;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@RapportOverBLE Creating BLE client for device: %@", buf, 0x16u);
   }
 
@@ -136,45 +134,43 @@
 
   idsDeviceIdentifier = [deviceCopy idsDeviceIdentifier];
   objc_initWeak(buf, selfCopy);
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __63__HMDRapportOverBLEMessageTransport__createBLEClientForDevice___block_invoke;
-  v23[3] = &unk_278686B48;
-  objc_copyWeak(&v25, buf);
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __63__HMDRapportOverBLEMessageTransport__createBLEClientForDevice___block_invoke;
+  v22[3] = &unk_278686B48;
+  objc_copyWeak(&v24, buf);
   v12 = idsDeviceIdentifier;
-  v24 = v12;
-  [v9 setDisconnectHandler:v23];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __63__HMDRapportOverBLEMessageTransport__createBLEClientForDevice___block_invoke_137;
-  v20[3] = &unk_278686B48;
-  objc_copyWeak(&v22, buf);
+  v23 = v12;
+  [v9 setDisconnectHandler:v22];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __63__HMDRapportOverBLEMessageTransport__createBLEClientForDevice___block_invoke_137;
+  v19[3] = &unk_278686B48;
+  objc_copyWeak(&v21, buf);
   v13 = v12;
-  v21 = v13;
-  [v9 setInterruptionHandler:v20];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __63__HMDRapportOverBLEMessageTransport__createBLEClientForDevice___block_invoke_138;
-  v17[3] = &unk_278686B48;
-  objc_copyWeak(&v19, buf);
+  v20 = v13;
+  [v9 setInterruptionHandler:v19];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __63__HMDRapportOverBLEMessageTransport__createBLEClientForDevice___block_invoke_138;
+  v16[3] = &unk_278686B48;
+  objc_copyWeak(&v18, buf);
   v14 = deviceCopy;
-  v18 = v14;
-  [v9 setInvalidationHandler:v17];
+  v17 = v14;
+  [v9 setInvalidationHandler:v16];
 
-  objc_destroyWeak(&v19);
-  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v21);
 
-  objc_destroyWeak(&v25);
+  objc_destroyWeak(&v24);
   objc_destroyWeak(buf);
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 void __63__HMDRapportOverBLEMessageTransport__createBLEClientForDevice___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = objc_autoreleasePoolPush();
   v4 = WeakRetained;
@@ -183,20 +179,19 @@ void __63__HMDRapportOverBLEMessageTransport__createBLEClientForDevice___block_i
   {
     v6 = HMFGetLogIdentifier();
     v7 = *(a1 + 32);
-    v9 = 138543618;
-    v10 = v6;
-    v11 = 2114;
-    v12 = v7;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@RapportOverBLE client disconnected for device: %{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v6;
+    v10 = 2114;
+    v11 = v7;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@RapportOverBLE client disconnected for device: %{public}@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HMDRapportOverBLEMessageTransport__createBLEClientForDevice___block_invoke_137(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = objc_autoreleasePoolPush();
   v4 = WeakRetained;
@@ -205,20 +200,19 @@ void __63__HMDRapportOverBLEMessageTransport__createBLEClientForDevice___block_i
   {
     v6 = HMFGetLogIdentifier();
     v7 = *(a1 + 32);
-    v9 = 138543618;
-    v10 = v6;
-    v11 = 2114;
-    v12 = v7;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@RapportOverBLE client interrupted for device: %{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v6;
+    v10 = 2114;
+    v11 = v7;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@RapportOverBLE client interrupted for device: %{public}@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HMDRapportOverBLEMessageTransport__createBLEClientForDevice___block_invoke_138(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = objc_autoreleasePoolPush();
   v4 = WeakRetained;
@@ -227,15 +221,14 @@ void __63__HMDRapportOverBLEMessageTransport__createBLEClientForDevice___block_i
   {
     v6 = HMFGetLogIdentifier();
     v7 = [*(a1 + 32) idsDeviceIdentifier];
-    v9 = 138543618;
-    v10 = v6;
-    v11 = 2114;
-    v12 = v7;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@RapportOverBLE client invalidated for device: %{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v6;
+    v10 = 2114;
+    v11 = v7;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@RapportOverBLE client invalidated for device: %{public}@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_IDSIdentifierForDestination:(id)destination
@@ -303,7 +296,7 @@ void __63__HMDRapportOverBLEMessageTransport__createBLEClientForDevice___block_i
 
 - (void)didReceiveRequest:(id)request options:(id)options responseHandler:(id)handler
 {
-  v123 = *MEMORY[0x277D85DE8];
+  v122 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   optionsCopy = options;
   handlerCopy = handler;
@@ -312,17 +305,17 @@ void __63__HMDRapportOverBLEMessageTransport__createBLEClientForDevice___block_i
   aBlock[2] = __79__HMDRapportOverBLEMessageTransport_didReceiveRequest_options_responseHandler___block_invoke;
   aBlock[3] = &unk_278688DD0;
   v11 = handlerCopy;
-  v112 = v11;
+  v111 = v11;
   v12 = _Block_copy(aBlock);
-  v109[0] = MEMORY[0x277D85DD0];
-  v109[1] = 3221225472;
-  v109[2] = __79__HMDRapportOverBLEMessageTransport_didReceiveRequest_options_responseHandler___block_invoke_2;
-  v109[3] = &unk_278677570;
+  v108[0] = MEMORY[0x277D85DD0];
+  v108[1] = 3221225472;
+  v108[2] = __79__HMDRapportOverBLEMessageTransport_didReceiveRequest_options_responseHandler___block_invoke_2;
+  v108[3] = &unk_278677570;
   v13 = v12;
-  v110 = v13;
-  v14 = _Block_copy(v109);
+  v109 = v13;
+  v14 = _Block_copy(v108);
   v15 = [(HMDRapportOverBLEMessageTransport *)self _rpOptions:optionsCopy stringForKey:*MEMORY[0x277D442D0]];
-  v107 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v15];
+  v106 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v15];
   v16 = objc_autoreleasePoolPush();
   selfCopy = self;
   v18 = HMFGetOSLogHandle();
@@ -330,38 +323,38 @@ void __63__HMDRapportOverBLEMessageTransport__createBLEClientForDevice___block_i
   {
     v19 = HMFGetLogIdentifier();
     *buf = 138544386;
-    v114 = v19;
-    v115 = 2112;
-    v116 = requestCopy;
-    v117 = 2160;
-    v118 = 1752392040;
-    v119 = 2112;
-    v120 = v107;
-    v121 = 2112;
-    v122 = optionsCopy;
+    v113 = v19;
+    v114 = 2112;
+    v115 = requestCopy;
+    v116 = 2160;
+    v117 = 1752392040;
+    v118 = 2112;
+    v119 = v106;
+    v120 = 2112;
+    v121 = optionsCopy;
     _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@RapportOverBLE Received BLE message: %@, from: %{mask.hash}@, with options: %@", buf, 0x34u);
   }
 
   objc_autoreleasePoolPop(v16);
-  v108 = 0;
-  v20 = [HMDRemoteMessageSerialization remoteMessageWithDictionary:requestCopy isHH2Payload:1 error:&v108];
-  v106 = v108;
+  v107 = 0;
+  v20 = [HMDRemoteMessageSerialization remoteMessageWithDictionary:requestCopy isHH2Payload:1 error:&v107];
+  v105 = v107;
   if (v20)
   {
     if (v15)
     {
-      if (v107)
+      if (v106)
       {
-        v105 = [(HMDRapportOverBLEMessageTransport *)selfCopy _rpOptions:optionsCopy stringForKey:*MEMORY[0x277D442A0]];
-        if (v105)
+        v104 = [(HMDRapportOverBLEMessageTransport *)selfCopy _rpOptions:optionsCopy stringForKey:*MEMORY[0x277D442A0]];
+        if (v104)
         {
           accountRegistry = [(HMDRemoteMessageTransport *)selfCopy accountRegistry];
-          v22 = [accountRegistry deviceForIDSIdentifier:v107];
+          v22 = [accountRegistry deviceForIDSIdentifier:v106];
 
           if (v22)
           {
             remoteDestinationString = [v22 remoteDestinationString];
-            v99 = v22;
+            v98 = v22;
             if (remoteDestinationString)
             {
               (*(v13 + 2))(v13, 0);
@@ -374,7 +367,7 @@ void __63__HMDRapportOverBLEMessageTransport__createBLEClientForDevice___block_i
 
               [requestCopy hmf_dataForKey:@"kIDSMessageResponseErrorDataKey"];
               v26 = contexta = v11;
-              v97 = v24;
+              v96 = v24;
               [v24 setObject:v26 forKeyedSubscript:@"kIDSMessageResponseErrorDataKey"];
 
               internal = [v20 internal];
@@ -383,12 +376,12 @@ void __63__HMDRapportOverBLEMessageTransport__createBLEClientForDevice___block_i
               v28 = [HMDRemoteDeviceMessageDestination alloc];
               destination = [v20 destination];
               target = [destination target];
-              v96 = [(HMDRemoteDeviceMessageDestination *)v28 initWithTarget:target device:v99];
+              v95 = [(HMDRemoteDeviceMessageDestination *)v28 initWithTarget:target device:v98];
 
-              [v20 setDestination:v96];
+              [v20 setDestination:v95];
               [v20 setSecure:1];
-              v95 = [HMDDeviceHandle deviceHandleForDeviceIdentifier:v107];
-              v31 = [[HMDRemoteMessageSenderContext alloc] initWithDeviceHandle:v95 accountHandle:0 accountIdentifier:0 deviceVersion:0 pairingIdentityIdentifier:v105];
+              v94 = [HMDDeviceHandle deviceHandleForDeviceIdentifier:v106];
+              v31 = [[HMDRemoteMessageSenderContext alloc] initWithDeviceHandle:v94 accountHandle:0 accountIdentifier:0 deviceVersion:0 pairingIdentityIdentifier:v104];
               [v20 setSenderContext:v31];
 
               v32 = +[HMDMetricsManager sharedLogEventSubmitter];
@@ -421,9 +414,9 @@ void __63__HMDRapportOverBLEMessageTransport__createBLEClientForDevice___block_i
                 v91 = v13;
                 v93 = v92 = v11;
                 *buf = 138543618;
-                v114 = v93;
-                v115 = 2112;
-                v116 = v20;
+                v113 = v93;
+                v114 = 2112;
+                v115 = v20;
                 _os_log_impl(&dword_229538000, v87, OS_LOG_TYPE_ERROR, "%{public}@RapportOverBLE Could not find remote destination for incoming message: %@", buf, 0x16u);
 
                 v11 = v92;
@@ -438,7 +431,7 @@ void __63__HMDRapportOverBLEMessageTransport__createBLEClientForDevice___block_i
               v14[2](v14, 2, 3210);
             }
 
-            v22 = v99;
+            v22 = v98;
           }
 
           else
@@ -457,13 +450,13 @@ void __63__HMDRapportOverBLEMessageTransport__createBLEClientForDevice___block_i
               v82 = v13;
               v84 = v83 = v11;
               *buf = 138544130;
-              v114 = v84;
-              v115 = 2160;
-              v116 = 1752392040;
-              v117 = 2112;
-              v118 = v78;
-              v119 = 2112;
-              v120 = v77;
+              v113 = v84;
+              v114 = 2160;
+              v115 = 1752392040;
+              v116 = 2112;
+              v117 = v78;
+              v118 = 2112;
+              v119 = v77;
               _os_log_impl(&dword_229538000, v76, OS_LOG_TYPE_ERROR, "%{public}@RapportOverBLE Could not find source device for sender IDS DeviceID: %{mask.hash}@ message: %@", buf, 0x2Au);
 
               v11 = v83;
@@ -496,11 +489,11 @@ void __63__HMDRapportOverBLEMessageTransport__createBLEClientForDevice___block_i
             v72 = v13;
             v74 = v73 = v11;
             *buf = 138543874;
-            v114 = v74;
-            v115 = 2112;
-            v116 = v20;
-            v117 = 2112;
-            v118 = v69;
+            v113 = v74;
+            v114 = 2112;
+            v115 = v20;
+            v116 = 2112;
+            v117 = v69;
             _os_log_impl(&dword_229538000, v68, OS_LOG_TYPE_ERROR, "%{public}@RapportOverBLE Rejecting incoming BLE message, %@, because pairing identity identifier is missing in options: %@", buf, 0x20u);
 
             v11 = v73;
@@ -531,11 +524,11 @@ void __63__HMDRapportOverBLEMessageTransport__createBLEClientForDevice___block_i
           v63 = v13;
           v65 = v64 = v11;
           *buf = 138543874;
-          v114 = v65;
-          v115 = 2112;
-          v116 = v20;
-          v117 = 2112;
-          v118 = v60;
+          v113 = v65;
+          v114 = 2112;
+          v115 = v20;
+          v116 = 2112;
+          v117 = v60;
           _os_log_impl(&dword_229538000, v59, OS_LOG_TYPE_ERROR, "%{public}@RapportOverBLE Rejecting incoming BLE message, %@, because IDS Device ID is an invalid UUID in options: %@", buf, 0x20u);
 
           v11 = v64;
@@ -565,11 +558,11 @@ void __63__HMDRapportOverBLEMessageTransport__createBLEClientForDevice___block_i
         v54 = v13;
         v56 = v55 = v11;
         *buf = 138543874;
-        v114 = v56;
-        v115 = 2112;
-        v116 = v20;
-        v117 = 2112;
-        v118 = v51;
+        v113 = v56;
+        v114 = 2112;
+        v115 = v20;
+        v116 = 2112;
+        v117 = v51;
         _os_log_impl(&dword_229538000, v50, OS_LOG_TYPE_ERROR, "%{public}@RapportOverBLE Rejecting incoming BLE message, %@, because IDS Device ID is missing in options: %@", buf, 0x20u);
 
         v11 = v55;
@@ -599,15 +592,15 @@ void __63__HMDRapportOverBLEMessageTransport__createBLEClientForDevice___block_i
       v45 = v13;
       v47 = v46 = v11;
       *buf = 138544386;
-      v114 = v47;
-      v115 = 2112;
-      v116 = requestCopy;
-      v117 = 2160;
-      v118 = 1752392040;
-      v119 = 2112;
-      v120 = v107;
-      v121 = 2112;
-      v122 = v106;
+      v113 = v47;
+      v114 = 2112;
+      v115 = requestCopy;
+      v116 = 2160;
+      v117 = 1752392040;
+      v118 = 2112;
+      v119 = v106;
+      v120 = 2112;
+      v121 = v105;
       _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_ERROR, "%{public}@RapportOverBLE Dropping invalid BLE message, %@, from: %{mask.hash}@, error: %@", buf, 0x34u);
 
       v11 = v46;
@@ -620,8 +613,6 @@ void __63__HMDRapportOverBLEMessageTransport__createBLEClientForDevice___block_i
 
     objc_autoreleasePoolPop(v39);
   }
-
-  v94 = *MEMORY[0x277D85DE8];
 }
 
 void __79__HMDRapportOverBLEMessageTransport_didReceiveRequest_options_responseHandler___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -686,7 +677,7 @@ void __79__HMDRapportOverBLEMessageTransport_didReceiveRequest_options_responseH
 
 void __56__HMDRapportOverBLEMessageTransport__newDiscoveryClient__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = objc_autoreleasePoolPush();
   v3 = WeakRetained;
@@ -694,20 +685,18 @@ void __56__HMDRapportOverBLEMessageTransport__newDiscoveryClient__block_invoke(u
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@RapportOverBLE discovery client interrupted", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@RapportOverBLE discovery client interrupted", &v6, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   [v3 _deactivateDiscoveryClient];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __56__HMDRapportOverBLEMessageTransport__newDiscoveryClient__block_invoke_130(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = objc_autoreleasePoolPush();
@@ -716,22 +705,20 @@ void __56__HMDRapportOverBLEMessageTransport__newDiscoveryClient__block_invoke_1
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@RapportOverBLE discovery client found device: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@RapportOverBLE discovery client found device: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   [v6 foundDevice:v3];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __56__HMDRapportOverBLEMessageTransport__newDiscoveryClient__block_invoke_132(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (v3)
@@ -742,11 +729,11 @@ void __56__HMDRapportOverBLEMessageTransport__newDiscoveryClient__block_invoke_1
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v3;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@RapportOverBLE activated BLE discovery client with error: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v3;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@RapportOverBLE activated BLE discovery client with error: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -759,18 +746,17 @@ void __56__HMDRapportOverBLEMessageTransport__newDiscoveryClient__block_invoke_1
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v12;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@RapportOverBLE activated BLE discovery client activated sucessfully", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v12;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@RapportOverBLE activated BLE discovery client activated sucessfully", &v13, 0xCu);
   }
 
   objc_autoreleasePoolPop(v9);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deactivateDiscoveryClient
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   discoveryClient = [(HMDRapportOverBLEMessageTransport *)self discoveryClient];
 
   if (discoveryClient)
@@ -781,9 +767,9 @@ void __56__HMDRapportOverBLEMessageTransport__newDiscoveryClient__block_invoke_1
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v7;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@RapportOverBLE Shutting down discovery client.", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v7;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@RapportOverBLE Shutting down discovery client.", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -791,13 +777,11 @@ void __56__HMDRapportOverBLEMessageTransport__newDiscoveryClient__block_invoke_1
     discoveryClient = selfCopy->_discoveryClient;
     selfCopy->_discoveryClient = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendMessagesToDevice:(id)device messages:(id)messages
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   messagesCopy = messages;
   deviceWrapperFactory = [(HMDRapportOverBLEMessageTransport *)self deviceWrapperFactory];
@@ -805,27 +789,27 @@ void __56__HMDRapportOverBLEMessageTransport__newDiscoveryClient__block_invoke_1
   v10 = [deviceWrapperFactory makeWrapperWithClient:v9];
 
   v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v12 = messagesCopy;
-  v13 = [v12 countByEnumeratingWithState:&v32 objects:v42 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v31 objects:v41 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v33;
+    v15 = *v32;
     do
     {
       v16 = 0;
       do
       {
-        if (*v33 != v15)
+        if (*v32 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        message = [*(*(&v32 + 1) + 8 * v16) message];
+        message = [*(*(&v31 + 1) + 8 * v16) message];
         identifier = [message identifier];
         [v11 addObject:identifier];
 
@@ -833,7 +817,7 @@ void __56__HMDRapportOverBLEMessageTransport__newDiscoveryClient__block_invoke_1
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v32 objects:v42 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v31 objects:v41 count:16];
     }
 
     while (v14);
@@ -847,34 +831,32 @@ void __56__HMDRapportOverBLEMessageTransport__newDiscoveryClient__block_invoke_1
     v22 = HMFGetLogIdentifier();
     identifier2 = [deviceCopy identifier];
     *buf = 138543874;
-    v37 = v22;
-    v38 = 2112;
-    v39 = identifier2;
-    v40 = 2112;
-    v41 = v11;
+    v36 = v22;
+    v37 = 2112;
+    v38 = identifier2;
+    v39 = 2112;
+    v40 = v11;
     _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@RapportOverBLE Trying to activate client for device: %@ for messages %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v19);
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __68__HMDRapportOverBLEMessageTransport__sendMessagesToDevice_messages___block_invoke;
-  v28[3] = &unk_278683340;
-  v28[4] = selfCopy;
-  v29 = deviceCopy;
-  v30 = v10;
-  v31 = v12;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __68__HMDRapportOverBLEMessageTransport__sendMessagesToDevice_messages___block_invoke;
+  v27[3] = &unk_278683340;
+  v27[4] = selfCopy;
+  v28 = deviceCopy;
+  v29 = v10;
+  v30 = v12;
   v24 = v12;
   v25 = v10;
   v26 = deviceCopy;
-  [v25 activateWithCompletion:v28];
-
-  v27 = *MEMORY[0x277D85DE8];
+  [v25 activateWithCompletion:v27];
 }
 
 void __68__HMDRapportOverBLEMessageTransport__sendMessagesToDevice_messages___block_invoke(id *a1, void *a2)
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = a1[4];
@@ -887,39 +869,39 @@ void __68__HMDRapportOverBLEMessageTransport__sendMessagesToDevice_messages___bl
       v8 = HMFGetLogIdentifier();
       v9 = [a1[5] identifier];
       *buf = 138543874;
-      v72 = v8;
-      v73 = 2112;
-      v74 = v9;
-      v75 = 2112;
-      v76 = v3;
+      v71 = v8;
+      v72 = 2112;
+      v73 = v9;
+      v74 = 2112;
+      v75 = v3;
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@RapportOverBLE Failed to activate Rapport client for device: %@, error: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
     [a1[6] invalidate];
-    v67 = 0u;
-    v68 = 0u;
     v66 = 0u;
+    v67 = 0u;
     v65 = 0u;
+    v64 = 0u;
     v10 = a1[7];
-    v11 = [v10 countByEnumeratingWithState:&v65 objects:v70 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v64 objects:v69 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v66;
+      v13 = *v65;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v66 != v13)
+          if (*v65 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v65 + 1) + 8 * i);
+          v15 = *(*(&v64 + 1) + 8 * i);
           if (v15)
           {
-            v16 = [*(*(&v65 + 1) + 8 * i) completionHandler];
+            v16 = [*(*(&v64 + 1) + 8 * i) completionHandler];
 
             if (v16)
             {
@@ -933,7 +915,7 @@ void __68__HMDRapportOverBLEMessageTransport__sendMessagesToDevice_messages___bl
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v65 objects:v70 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v64 objects:v69 count:16];
       }
 
       while (v12);
@@ -947,37 +929,37 @@ void __68__HMDRapportOverBLEMessageTransport__sendMessagesToDevice_messages___bl
       v19 = HMFGetLogIdentifier();
       v20 = [a1[5] identifier];
       *buf = 138543618;
-      v72 = v19;
-      v73 = 2112;
-      v74 = v20;
+      v71 = v19;
+      v72 = 2112;
+      v73 = v20;
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@RapportOverBLE client for device: %@ activated successfully", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
-    v63 = 0u;
-    v64 = 0u;
-    v61 = 0u;
     v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
     v10 = a1[7];
-    v56 = [v10 countByEnumeratingWithState:&v61 objects:v69 count:16];
-    if (v56)
+    v55 = [v10 countByEnumeratingWithState:&v60 objects:v68 count:16];
+    if (v55)
     {
-      v55 = *v62;
-      v53 = *MEMORY[0x277D442F0];
+      v54 = *v61;
+      v52 = *MEMORY[0x277D442F0];
       while (2)
       {
-        for (j = 0; j != v56; ++j)
+        for (j = 0; j != v55; ++j)
         {
-          if (*v62 != v55)
+          if (*v61 != v54)
           {
             objc_enumerationMutation(v10);
           }
 
-          v22 = *(*(&v61 + 1) + 8 * j);
+          v22 = *(*(&v60 + 1) + 8 * j);
           v23 = [v22 message];
-          v60 = 0;
-          v24 = [HMDRemoteMessageSerialization dictionaryForMessage:v23 isHH2Payload:1 error:&v60];
-          v25 = v60;
+          v59 = 0;
+          v24 = [HMDRemoteMessageSerialization dictionaryForMessage:v23 isHH2Payload:1 error:&v59];
+          v25 = v59;
 
           if (!v24)
           {
@@ -990,11 +972,11 @@ void __68__HMDRapportOverBLEMessageTransport__sendMessagesToDevice_messages___bl
               v48 = [v22 message];
               v49 = [v48 identifier];
               *buf = 138543874;
-              v72 = v47;
-              v73 = 2114;
-              v74 = v49;
-              v75 = 2112;
-              v76 = v25;
+              v71 = v47;
+              v72 = 2114;
+              v73 = v49;
+              v74 = 2112;
+              v75 = v25;
               _os_log_impl(&dword_229538000, v46, OS_LOG_TYPE_ERROR, "%{public}@RapportOverBLE Failed to serialize message %{public}@ with error: %@", buf, 0x20u);
             }
 
@@ -1020,29 +1002,29 @@ void __68__HMDRapportOverBLEMessageTransport__sendMessagesToDevice_messages___bl
             v31 = [v22 message];
             [v31 timeout];
             v32 = [v30 numberWithDouble:?];
-            [v26 setObject:v32 forKeyedSubscript:v53];
+            [v26 setObject:v32 forKeyedSubscript:v52];
           }
 
-          v57 = v26;
-          v58 = v25;
+          v56 = v26;
+          v57 = v25;
           v33 = objc_autoreleasePoolPush();
           v34 = a1[4];
           v35 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
           {
             HMFGetLogIdentifier();
-            v36 = v54 = v33;
+            v36 = v53 = v33;
             v37 = [v22 message];
             [v37 identifier];
             v39 = v38 = a1;
             *buf = 138543618;
-            v72 = v36;
-            v73 = 2112;
-            v74 = v39;
+            v71 = v36;
+            v72 = 2112;
+            v73 = v39;
             _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_DEFAULT, "%{public}@RapportOverBLE trying to send message %@", buf, 0x16u);
 
             a1 = v38;
-            v33 = v54;
+            v33 = v53;
           }
 
           objc_autoreleasePoolPop(v33);
@@ -1058,11 +1040,11 @@ void __68__HMDRapportOverBLEMessageTransport__sendMessagesToDevice_messages___bl
           aBlock[4] = a1[4];
           aBlock[5] = v22;
           v43 = _Block_copy(aBlock);
-          [a1[6] sendRequestID:@"com.apple.home.hh2.messaging.ble" request:v24 options:v57 responseHandler:v43];
+          [a1[6] sendRequestID:@"com.apple.home.hh2.messaging.ble" request:v24 options:v56 responseHandler:v43];
         }
 
-        v56 = [v10 countByEnumeratingWithState:&v61 objects:v69 count:16];
-        if (v56)
+        v55 = [v10 countByEnumeratingWithState:&v60 objects:v68 count:16];
+        if (v55)
         {
           continue;
         }
@@ -1074,13 +1056,11 @@ LABEL_37:
       v3 = 0;
     }
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 void __68__HMDRapportOverBLEMessageTransport__sendMessagesToDevice_messages___block_invoke_127(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -1091,20 +1071,20 @@ void __68__HMDRapportOverBLEMessageTransport__sendMessagesToDevice_messages___bl
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     HMFGetLogIdentifier();
-    v14 = v21 = v7;
+    v14 = v20 = v7;
     v15 = [*(a1 + 40) message];
     v16 = [v15 identifier];
     *buf = 138544130;
-    v23 = v14;
-    v24 = 2112;
-    v25 = v16;
-    v26 = 1024;
-    v27 = [v10 unsignedIntValue];
-    v28 = 2112;
-    v29 = v9;
+    v22 = v14;
+    v23 = 2112;
+    v24 = v16;
+    v25 = 1024;
+    v26 = [v10 unsignedIntValue];
+    v27 = 2112;
+    v28 = v9;
     _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@RapportOverBLE Message: %@ with xid:0x%X completed with error: %@", buf, 0x26u);
 
-    v7 = v21;
+    v7 = v20;
   }
 
   objc_autoreleasePoolPop(v11);
@@ -1119,13 +1099,11 @@ void __68__HMDRapportOverBLEMessageTransport__sendMessagesToDevice_messages___bl
       (*(v18 + 16))(v18, v9);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)foundDevice:(id)device
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   indexSet = [MEMORY[0x277CCAB58] indexSet];
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -1170,11 +1148,11 @@ void __68__HMDRapportOverBLEMessageTransport__sendMessagesToDevice_messages___bl
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       v21 = HMFGetLogIdentifier();
-      v27 = 138543618;
-      v28 = v21;
-      v29 = 2048;
-      v30 = [v6 count];
-      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@RapportOverBLE Sending %lu queued messages", &v27, 0x16u);
+      v26 = 138543618;
+      v27 = v21;
+      v28 = 2048;
+      v29 = [v6 count];
+      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@RapportOverBLE Sending %lu queued messages", &v26, 0x16u);
     }
 
     objc_autoreleasePoolPop(v18);
@@ -1196,8 +1174,6 @@ void __68__HMDRapportOverBLEMessageTransport__sendMessagesToDevice_messages___bl
   {
     [(HMDRapportOverBLEMessageTransport *)self _deactivateDiscoveryClient];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createOrKickContext:(id)context
@@ -1233,7 +1209,7 @@ void __68__HMDRapportOverBLEMessageTransport__sendMessagesToDevice_messages___bl
 
 - (void)_sendMessage:(id)message completionHandler:(id)handler
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   handlerCopy = handler;
   v8 = [(HMDRemoteMessageTransport *)self remoteMessageFromMessage:messageCopy];
@@ -1250,7 +1226,7 @@ void __68__HMDRapportOverBLEMessageTransport__sendMessagesToDevice_messages___bl
     v15 = [[RapportOverBLEQueuedMessage alloc] initWithMessage:v9 withCompletion:handlerCopy];
     if (v13 && device)
     {
-      v34 = v11;
+      v33 = v11;
       idleTimer = [v13 idleTimer];
       [idleTimer kick];
 
@@ -1260,25 +1236,25 @@ void __68__HMDRapportOverBLEMessageTransport__sendMessagesToDevice_messages___bl
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         HMFGetLogIdentifier();
-        v20 = v32 = v17;
+        v20 = v31 = v17;
         identifier = [v9 identifier];
         *buf = 138543874;
-        v38 = v20;
-        v39 = 2112;
-        v40 = device;
-        v41 = 2112;
-        v42 = identifier;
+        v37 = v20;
+        v38 = 2112;
+        v39 = device;
+        v40 = 2112;
+        v41 = identifier;
         _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@RapportOverBLE Device %@ is in the cache, sending message %@ now", buf, 0x20u);
 
-        v17 = v32;
+        v17 = v31;
       }
 
       objc_autoreleasePoolPop(v17);
-      v36 = v15;
-      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+      v35 = v15;
+      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
       [(HMDRapportOverBLEMessageTransport *)selfCopy _sendMessagesToDevice:device messages:v22];
 
-      v11 = v34;
+      v11 = v33;
     }
 
     else
@@ -1289,17 +1265,17 @@ void __68__HMDRapportOverBLEMessageTransport__sendMessagesToDevice_messages___bl
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         HMFGetLogIdentifier();
-        v28 = v33 = v25;
+        v28 = v32 = v25;
         [v9 identifier];
-        v29 = v35 = v11;
+        v29 = v34 = v11;
         *buf = 138543618;
-        v38 = v28;
-        v39 = 2112;
-        v40 = v29;
+        v37 = v28;
+        v38 = 2112;
+        v39 = v29;
         _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@RapportOverBLE Device is NOT in the cache, queueing message %@ now", buf, 0x16u);
 
-        v11 = v35;
-        v25 = v33;
+        v11 = v34;
+        v25 = v32;
       }
 
       objc_autoreleasePoolPop(v25);
@@ -1319,8 +1295,6 @@ void __68__HMDRapportOverBLEMessageTransport__sendMessagesToDevice_messages___bl
       v23[2](v23, v24);
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendMessage:(id)message completionHandler:(id)handler

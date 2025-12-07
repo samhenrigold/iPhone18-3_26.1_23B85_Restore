@@ -13,11 +13,11 @@
   v10 = [(HDCloudSyncSequenceState *)&v16 init];
   if (v10)
   {
-    v11 = [saveCopy copy];
+    v11 = objc_msgSend_copy(saveCopy);
     recordsToSave = v10->_recordsToSave;
     v10->_recordsToSave = v11;
 
-    v13 = [deleteCopy copy];
+    v13 = objc_msgSend_copy(deleteCopy);
     recordIDsToDelete = v10->_recordIDsToDelete;
     v10->_recordIDsToDelete = v13;
 

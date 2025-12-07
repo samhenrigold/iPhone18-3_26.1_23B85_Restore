@@ -41,32 +41,28 @@
 
 + (void)sendNewRecordingDuration:(double)duration
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   if (RCShouldSendAnalyticsEventForKey(@"com.apple.voicememos.lastSendEvent.newRecording.duration"))
   {
-    v7 = @"duration";
+    v6 = @"duration";
     v4 = [MEMORY[0x277CCABB0] numberWithDouble:duration];
-    v8[0] = v4;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v7[0] = v4;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
     AnalyticsSendEvent();
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)sendRecordingsCount:(int64_t)count
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   if (RCShouldSendAnalyticsEventForKey(@"com.apple.voicememos.lastSendEvent.recordings.count"))
   {
-    v7 = @"libraryCount";
+    v6 = @"libraryCount";
     v4 = [MEMORY[0x277CCABB0] numberWithInteger:count];
-    v8[0] = v4;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v7[0] = v4;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
     AnalyticsSendEvent();
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)sendDidTrimVoiceMemo

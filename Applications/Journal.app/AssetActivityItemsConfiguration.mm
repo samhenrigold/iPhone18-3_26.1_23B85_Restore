@@ -18,7 +18,7 @@
   selfCopy = self;
   sub_1001F42FC();
 
-  sub_1000065A8(0, &unk_100AD8660);
+  sub_1000065A8(0, &unk_100AD8660, NSItemProvider_ptr);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -28,27 +28,27 @@
 {
   keyCopy = key;
   selfCopy = self;
-  sub_1001F43E8(index, v15);
+  sub_1001F43E8(index, v16);
 
-  v8 = v16;
-  if (v16)
+  v8 = v17;
+  if (v17)
   {
-    v9 = sub_10000CA14(v15, v16);
+    v9 = sub_10000CA14(v16, v17);
     v10 = *(v8 - 8);
-    __chkstk_darwin(v9);
-    v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v10 + 16))(v12);
-    v13 = _bridgeAnythingToObjectiveC<A>(_:)();
-    (*(v10 + 8))(v12, v8);
-    sub_10000BA7C(v15);
+    v11 = __chkstk_darwin(v9);
+    v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v10 + 16))(v13, v11);
+    v14 = _bridgeAnythingToObjectiveC<A>(_:)();
+    (*(v10 + 8))(v13, v8);
+    sub_10000BA7C(v16);
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v13;
+  return v14;
 }
 
 @end

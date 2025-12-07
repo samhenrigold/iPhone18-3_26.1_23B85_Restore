@@ -52,14 +52,12 @@
 
 - (NSString)identifier
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   localeIdentifier = [(HKOntologyLocalizedEducationContentSection *)self localeIdentifier];
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lld", self->_sectionType, localeIdentifier];
-  v9[1] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v8[1] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
   v6 = [v5 componentsJoinedByString:@"/"];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -156,7 +154,7 @@
 + (id)sectionByMerging:(id)merging sectionToMergeFrom:(id)from options:(unint64_t)options
 {
   optionsCopy = options;
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   mergingCopy = merging;
   fromCopy = from;
   v10 = fromCopy;
@@ -182,13 +180,13 @@ LABEL_24:
 
   sectionDataTypeMapping = [mergingCopy sectionDataTypeMapping];
   sectionDataTypeMapping2 = [v10 sectionDataTypeMapping];
-  v39 = [sectionDataTypeMapping mutableCopy];
+  v38 = [sectionDataTypeMapping mutableCopy];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   v14 = sectionDataTypeMapping2;
-  v15 = [v14 countByEnumeratingWithState:&v40 objects:v44 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v39 objects:v43 count:16];
   if (!v15)
   {
 
@@ -198,27 +196,27 @@ LABEL_26:
   }
 
   v16 = v15;
-  v36 = v10;
-  v37 = mergingCopy;
+  v35 = v10;
+  v36 = mergingCopy;
   v17 = 0;
-  v18 = *v41;
+  v18 = *v40;
   do
   {
     v19 = 0;
     do
     {
-      if (*v41 != v18)
+      if (*v40 != v18)
       {
         objc_enumerationMutation(v14);
       }
 
-      v20 = *(*(&v40 + 1) + 8 * v19);
-      v21 = [sectionDataTypeMapping objectForKeyedSubscript:{v20, v36, v37}];
+      v20 = *(*(&v39 + 1) + 8 * v19);
+      v21 = [sectionDataTypeMapping objectForKeyedSubscript:{v20, v35, v36}];
       v22 = [v14 objectForKeyedSubscript:v20];
       v23 = v22;
       if (!v21 || (v24 = [v22 version], v24 > objc_msgSend(v21, "version")) || (v25 = objc_msgSend(v23, "version"), v26 = objc_msgSend(v21, "version"), (optionsCopy & 1) == 0) && v25 == v26 && (objc_msgSend(v23, "timestamp"), v28 = v27, objc_msgSend(v21, "timestamp"), v28 > v29))
       {
-        [v39 setObject:v23 forKeyedSubscript:v20];
+        [v38 setObject:v23 forKeyedSubscript:v20];
         v17 = 1;
       }
 
@@ -226,25 +224,24 @@ LABEL_26:
     }
 
     while (v16 != v19);
-    v30 = [v14 countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v30 = [v14 countByEnumeratingWithState:&v39 objects:v43 count:16];
     v16 = v30;
   }
 
   while (v30);
 
-  v10 = v36;
-  mergingCopy = v37;
+  v10 = v35;
+  mergingCopy = v36;
   if ((v17 & 1) == 0)
   {
     goto LABEL_26;
   }
 
-  v31 = -[HKOntologyLocalizedEducationContentSection initWithSectionDataTypeMapping:sectionType:]([HKOntologyLocalizedEducationContentSection alloc], "initWithSectionDataTypeMapping:sectionType:", v39, [v37 sectionType]);
+  v31 = -[HKOntologyLocalizedEducationContentSection initWithSectionDataTypeMapping:sectionType:]([HKOntologyLocalizedEducationContentSection alloc], "initWithSectionDataTypeMapping:sectionType:", v38, [v36 sectionType]);
 LABEL_27:
   v33 = v31;
 
 LABEL_28:
-  v34 = *MEMORY[0x1E69E9840];
 
   return v33;
 }

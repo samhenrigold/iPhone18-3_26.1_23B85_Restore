@@ -155,7 +155,7 @@ void e1000_release_nvm_82575(uint64_t a1)
   e1000_release_swfw_sync_82575(a1, 1);
 }
 
-uint64_t e1000_valid_led_default_82575(uint64_t a1, __int16 *a2)
+uint64_t e1000_valid_led_default_82575(uint64_t a1, unsigned __int16 *a2)
 {
   result = (*(a1 + 1160))(a1, 4, 1, a2);
   if (!result)
@@ -2479,17 +2479,18 @@ uint64_t e1000_phy_hw_reset_sgmii_82575(uint64_t a1)
   return e1000_initialize_M88E1512_phy(a1);
 }
 
-uint64_t e1000_read_phy_reg_sgmii_82575(uint64_t a1, unsigned int a2, _WORD *a3)
+uint64_t e1000_read_phy_reg_sgmii_82575(uint64_t a1, uint64_t a2, _WORD *a3)
 {
   if (a2 > 0xFF)
   {
     return 4294967292;
   }
 
+  v5 = a2;
   result = (*(a1 + 896))();
   if (!result)
   {
-    phy_reg_i2c = e1000_read_phy_reg_i2c(a1, a2, a3);
+    phy_reg_i2c = e1000_read_phy_reg_i2c(a1, v5, a3);
     (*(a1 + 1000))(a1);
     return phy_reg_i2c;
   }
@@ -2497,17 +2498,19 @@ uint64_t e1000_read_phy_reg_sgmii_82575(uint64_t a1, unsigned int a2, _WORD *a3)
   return result;
 }
 
-uint64_t e1000_write_phy_reg_sgmii_82575(uint64_t a1, unsigned int a2, unsigned int a3)
+uint64_t e1000_write_phy_reg_sgmii_82575(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2 > 0xFF)
   {
     return 4294967292;
   }
 
+  v4 = a3;
+  v5 = a2;
   result = (*(a1 + 896))();
   if (!result)
   {
-    v7 = e1000_write_phy_reg_i2c(a1, a2, a3);
+    v7 = e1000_write_phy_reg_i2c(a1, v5, v4);
     (*(a1 + 1000))(a1);
     return v7;
   }
@@ -2515,12 +2518,13 @@ uint64_t e1000_write_phy_reg_sgmii_82575(uint64_t a1, unsigned int a2, unsigned 
   return result;
 }
 
-uint64_t e1000_read_phy_reg_82580(uint64_t a1, unsigned int a2, _WORD *a3)
+uint64_t e1000_read_phy_reg_82580(uint64_t a1, uint64_t a2, _WORD *a3)
 {
+  v4 = a2;
   result = (*(a1 + 896))();
   if (!result)
   {
-    phy_reg_mdic = e1000_read_phy_reg_mdic(a1, a2, a3);
+    phy_reg_mdic = e1000_read_phy_reg_mdic(a1, v4, a3);
     (*(a1 + 1000))(a1);
     return phy_reg_mdic;
   }
@@ -2528,12 +2532,14 @@ uint64_t e1000_read_phy_reg_82580(uint64_t a1, unsigned int a2, _WORD *a3)
   return result;
 }
 
-uint64_t e1000_write_phy_reg_82580(uint64_t a1, unsigned int a2, int a3)
+uint64_t e1000_write_phy_reg_82580(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v4 = a2;
   result = (*(a1 + 896))();
   if (!result)
   {
-    v7 = e1000_write_phy_reg_mdic(a1, a2, a3);
+    v7 = e1000_write_phy_reg_mdic(a1, v4, v3);
     (*(a1 + 1000))(a1);
     return v7;
   }
@@ -3236,13 +3242,14 @@ void e1000_release_swfw_sync_i210(uint64_t a1, int a2)
   e1000_put_hw_semaphore_generic(a1);
 }
 
-uint64_t e1000_read_nvm_srrd_i210(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t a4)
+uint64_t e1000_read_nvm_srrd_i210(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4)
 {
   if (!a3)
   {
     return 0;
   }
 
+  v6 = a2;
   v8 = 0;
   while (!(*(a1 + 1152))(a1))
   {
@@ -3252,7 +3259,7 @@ uint64_t e1000_read_nvm_srrd_i210(uint64_t a1, unsigned int a2, unsigned int a3,
       v9 = 512;
     }
 
-    nvm_eerd = e1000_read_nvm_eerd(a1, a2, v9, (a4 + 2 * v8));
+    nvm_eerd = e1000_read_nvm_eerd(a1, v6, v9, (a4 + 2 * v8));
     (*(a1 + 1168))(a1);
     if (nvm_eerd)
     {
@@ -3269,13 +3276,14 @@ uint64_t e1000_read_nvm_srrd_i210(uint64_t a1, unsigned int a2, unsigned int a3,
   return 13;
 }
 
-uint64_t e1000_write_nvm_srwr_i210(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t a4)
+uint64_t e1000_write_nvm_srwr_i210(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4)
 {
   if (!a3)
   {
     return 0;
   }
 
+  v6 = a2;
   v8 = 0;
   while (1)
   {
@@ -3290,7 +3298,7 @@ uint64_t e1000_write_nvm_srwr_i210(uint64_t a1, unsigned int a2, unsigned int a3
       v9 = 512;
     }
 
-    v10 = e1000_write_nvm_srwr(a1, a2, v9, a4 + 2 * v8);
+    v10 = e1000_write_nvm_srwr(a1, v6, v9, a4 + 2 * v8);
     (*(a1 + 1168))(a1);
     if (v10)
     {
@@ -3307,7 +3315,7 @@ uint64_t e1000_write_nvm_srwr_i210(uint64_t a1, unsigned int a2, unsigned int a3
   return 0xFFFFFFFFLL;
 }
 
-uint64_t e1000_write_nvm_srwr(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t a4)
+uint64_t e1000_write_nvm_srwr(uint64_t a1, unsigned int a2, signed int a3, uint64_t a4)
 {
   v6 = *(a1 + 1232);
   v7 = v6 >= a2;
@@ -3373,7 +3381,7 @@ uint64_t e1000_validate_nvm_checksum_i210(uint64_t a1)
 uint64_t e1000_update_nvm_checksum_i210(uint64_t a1)
 {
   v9 = 0;
-  v2 = e1000_read_nvm_eerd(a1, 0, 1u, &v9);
+  v2 = e1000_read_nvm_eerd(a1, 0, 1, &v9);
   if (!v2)
   {
     if ((*(a1 + 1152))(a1))
@@ -3388,7 +3396,7 @@ uint64_t e1000_update_nvm_checksum_i210(uint64_t a1)
       do
       {
         v5 = v3;
-        v6 = e1000_read_nvm_eerd(a1, v3, 1u, &v9);
+        v6 = e1000_read_nvm_eerd(a1, v3, 1, &v9);
         if (v6)
         {
           v2 = v6;
@@ -3402,7 +3410,7 @@ uint64_t e1000_update_nvm_checksum_i210(uint64_t a1)
 
       while (v5 < 0x3E);
       v10 = -17734 - v4;
-      v7 = e1000_write_nvm_srwr(a1, 0x3Fu, 1u, &v10);
+      v7 = e1000_write_nvm_srwr(a1, 0x3Fu, 1, &v10);
       (*(a1 + 1168))(a1);
       if (v7)
       {
@@ -3629,7 +3637,7 @@ uint64_t e1000_get_cfg_done_i210(uint64_t a1)
   return 0;
 }
 
-uint64_t e1000_valid_led_default_i210(uint64_t a1, __int16 *a2)
+uint64_t e1000_valid_led_default_i210(uint64_t a1, unsigned __int16 *a2)
 {
   result = (*(a1 + 1160))(a1, 4, 1, a2);
   if (!result)
@@ -3654,7 +3662,7 @@ uint64_t e1000_valid_led_default_i210(uint64_t a1, __int16 *a2)
   return result;
 }
 
-uint64_t e1000_read_invm_i210(uint64_t a1, int a2, uint64_t a3, __int16 *a4)
+uint64_t e1000_read_invm_i210(uint64_t a1, uint64_t a2, uint64_t a3, __int16 *a4)
 {
   v6 = (a1 + 0x2000);
   if (a2 > 13)
@@ -3686,7 +3694,7 @@ uint64_t e1000_read_invm_i210(uint64_t a1, int a2, uint64_t a3, __int16 *a4)
     {
       switch(a2)
       {
-        case 19:
+        case 0x13:
           result = e1000_read_invm_word_i210(a1, 19, a4);
           if (!result)
           {
@@ -3696,7 +3704,7 @@ uint64_t e1000_read_invm_i210(uint64_t a1, int a2, uint64_t a3, __int16 *a4)
           result = 0;
           v8 = 193;
           goto LABEL_29;
-        case 28:
+        case 0x1C:
           result = e1000_read_invm_word_i210(a1, 28, a4);
           if (!result)
           {
@@ -3706,7 +3714,7 @@ uint64_t e1000_read_invm_i210(uint64_t a1, int a2, uint64_t a3, __int16 *a4)
           result = 0;
           v8 = 388;
           goto LABEL_29;
-        case 31:
+        case 0x1F:
           result = e1000_read_invm_word_i210(a1, 31, a4);
           if (!result)
           {
@@ -3817,9 +3825,6 @@ uint64_t e1000_read_invm_word_i210(uint64_t a1, int a2, _WORD *a3)
 
 void DriverKit_AppleEthernetE1000_IVars::updateCarrier(IOPCIDevice **this)
 {
-  v11 = 0;
-  v12 = 0;
-  v10 = 0;
   readData = 0;
   IOPCIDevice::MemoryRead32(this[2], 0, 8uLL, &readData);
   __dmb(1u);
@@ -3855,55 +3860,17 @@ void DriverKit_AppleEthernetE1000_IVars::updateCarrier(IOPCIDevice **this)
     e1000_read_phy_reg(this);
     e1000_read_phy_reg(this);
     e1000_read_phy_reg(this);
-    if ((~HIWORD(v10) & 0x300) != 0)
+    if ((pcindkll & 4) != 0)
     {
-      if ((v10 & 0x1000000) != 0)
-      {
-        if ((pcindkll & 4) == 0)
-        {
-          v3 = 1;
-          goto LABEL_21;
-        }
-
-        DriverKit_AppleEthernetE1000_IVars::updateCarrier(&readData);
-      }
-
-      else if ((v10 & 0x2000000) != 0)
-      {
-        if ((pcindkll & 4) == 0)
-        {
-          v3 = 2;
-          goto LABEL_21;
-        }
-
-        DriverKit_AppleEthernetE1000_IVars::updateCarrier(&readData);
-      }
-
-      else
-      {
-        if ((pcindkll & 4) == 0)
-        {
-          v3 = 0;
-          goto LABEL_21;
-        }
-
-        DriverKit_AppleEthernetE1000_IVars::updateCarrier(&readData);
-      }
+      DriverKit_AppleEthernetE1000_IVars::updateCarrier(&readData);
+      v3 = readData;
     }
 
     else
     {
-      if ((pcindkll & 4) == 0)
-      {
-        v3 = 3;
-        goto LABEL_21;
-      }
-
-      DriverKit_AppleEthernetE1000_IVars::updateCarrier(&readData);
+      v3 = 0;
     }
 
-    v3 = readData;
-LABEL_21:
     *(this + 220) = v3;
     v4 = *(this + 71);
     if (v4 >= 29)
@@ -3924,7 +3891,6 @@ LABEL_21:
       }
     }
 
-    v9 = 0;
     e1000_get_speed_and_duplex(this);
     if ((pcindkll & 4) != 0)
     {
@@ -3947,12 +3913,12 @@ LABEL_21:
 
     if ((pcindkll & 4) != 0)
     {
-      DriverKit_AppleEthernetE1000_IVars::updateCarrier(&v9 + 1, &v9);
+      DriverKit_AppleEthernetE1000_IVars::updateCarrier();
     }
 
-    if (v9 == 2)
+    if (*(this + 220))
     {
-      v5 = 1048608;
+      v5 = 6291488;
     }
 
     else
@@ -3960,51 +3926,18 @@ LABEL_21:
       v5 = 2097184;
     }
 
-    if (*(this + 220))
-    {
-      v6 = v5 | 0x400000;
-    }
-
-    else
-    {
-      v6 = v5;
-    }
-
-    if (HIWORD(v9) > 0x3E7u)
-    {
-      if (HIWORD(v9) == 1000)
-      {
-        v6 = v6 | 0x10;
-      }
-
-      else if (HIWORD(v9) == 2500)
-      {
-        v6 = v6 | 0x16;
-      }
-    }
-
-    else if (HIWORD(v9) == 10)
-    {
-      v6 = v6 | 3;
-    }
-
-    else if (HIWORD(v9) == 100)
-    {
-      v6 = v6 | 6;
-    }
-
-    v7 = *(this + 71);
-    if (v7 == 36)
+    v6 = *(this + 71);
+    if (v6 == 36)
     {
       if (*(this + 1377))
       {
-LABEL_63:
+LABEL_42:
         if ((pcindkll & 4) != 0)
         {
           DriverKit_AppleEthernetE1000_IVars::updateCarrier();
         }
 
-        (this[1200]->IOService::OSObject::OSMetaClassBase::__vftable[2].release)(this[1200], 3, v6);
+        (this[1200]->IOService::OSObject::OSMetaClassBase::__vftable[2].release)(this[1200], 3, v5);
         (this[1200]->IOService::OSObject::OSMetaClassBase::__vftable[2].isEqualTo)(this[1200], 100);
         if ((pcindkll & 4) != 0)
         {
@@ -4015,12 +3948,12 @@ LABEL_63:
       }
     }
 
-    else if (v7 < 29 || (*(this + 1378) & 1) != 0)
+    else if (v6 < 29 || (*(this + 1378) & 1) != 0)
     {
-      goto LABEL_63;
+      goto LABEL_42;
     }
 
-    v8 = 10;
+    v7 = 10;
     while (1)
     {
       readData = 0;
@@ -4032,14 +3965,14 @@ LABEL_63:
       }
 
       IODelay(0x64uLL);
-      if (!--v8)
+      if (!--v7)
       {
-        goto LABEL_63;
+        goto LABEL_42;
       }
     }
 
-    v6 = v6 | 0x800000;
-    goto LABEL_63;
+    v5 = v5 | 0x800000;
+    goto LABEL_42;
   }
 
   if ((pcindkll & 4) != 0)
@@ -4099,16 +4032,17 @@ uint64_t DriverKit_AppleEthernetE1000_IVars::getSupportedMediaArray(DriverKit_Ap
   return 0;
 }
 
-void DriverKit_AppleEthernetE1000_IVars::selMed(DriverKit_AppleEthernetE1000_IVars *this, int a2)
+void DriverKit_AppleEthernetE1000_IVars::selMed(uint64_t this, uint64_t a2)
 {
+  v2 = a2;
   if ((pcindkll & 4) != 0)
   {
     DriverKit_AppleEthernetE1000_IVars::selMed();
   }
 
   *(this + 851) = 1;
-  *(this + 221) = 0;
-  v4 = *(this + 71);
+  *(this + 884) = 0;
+  v4 = *(this + 284);
   if (v4 == 36)
   {
     *(this + 1377) = 1;
@@ -4119,13 +4053,13 @@ void DriverKit_AppleEthernetE1000_IVars::selMed(DriverKit_AppleEthernetE1000_IVa
     *(this + 1378) = 1;
   }
 
-  if (a2 <= 5242933)
+  if (v2 <= 5242933)
   {
-    if (a2 > 2097186)
+    if (v2 > 2097186)
     {
-      if (a2 > 5242914)
+      if (v2 > 5242914)
       {
-        switch(a2)
+        switch(v2)
         {
           case 5242915:
             v9 = 2;
@@ -4136,28 +4070,28 @@ void DriverKit_AppleEthernetE1000_IVars::selMed(DriverKit_AppleEthernetE1000_IVa
           case 5242928:
             v7 = 32;
 LABEL_55:
-            *(this + 560) = v7;
+            *(this + 1120) = v7;
             *(this + 846) = v7;
 LABEL_60:
-            *(this + 221) = 3;
+            *(this + 884) = 3;
             goto LABEL_73;
           default:
             goto LABEL_76;
         }
 
         *(this + 846) = v9;
-        *(this + 560) = v9;
+        *(this + 1120) = v9;
         goto LABEL_60;
       }
 
-      if (a2 == 2097187)
+      if (v2 == 2097187)
       {
         v8 = 1;
       }
 
       else
       {
-        if (a2 != 2097190)
+        if (v2 != 2097190)
         {
           goto LABEL_76;
         }
@@ -4166,9 +4100,9 @@ LABEL_60:
       }
     }
 
-    else if (a2 <= 1048613)
+    else if (v2 <= 1048613)
     {
-      if (a2 == 32)
+      if (v2 == 32)
       {
         *(this + 846) = 8;
         if (v4 == 36)
@@ -4181,8 +4115,8 @@ LABEL_60:
           v10 = 47;
         }
 
-        *(this + 560) = v10;
-        *(this + 221) = 3;
+        *(this + 1120) = v10;
+        *(this + 884) = 3;
         if (v4 < 29 || v4 == 36)
         {
           goto LABEL_73;
@@ -4191,7 +4125,7 @@ LABEL_60:
         goto LABEL_70;
       }
 
-      if (a2 != 1048611)
+      if (v2 != 1048611)
       {
         goto LABEL_76;
       }
@@ -4201,16 +4135,16 @@ LABEL_60:
 
     else
     {
-      if (a2 != 1048614)
+      if (v2 != 1048614)
       {
-        if (a2 == 1048624)
+        if (v2 == 1048624)
         {
           v6 = 32;
         }
 
         else
         {
-          if (a2 != 1048630)
+          if (v2 != 1048630)
           {
             goto LABEL_76;
           }
@@ -4218,7 +4152,7 @@ LABEL_60:
           v6 = 128;
         }
 
-        *(this + 560) = v6;
+        *(this + 1120) = v6;
         goto LABEL_64;
       }
 
@@ -4226,58 +4160,58 @@ LABEL_60:
     }
 
     *(this + 846) = v8;
-    *(this + 560) = v8;
+    *(this + 1120) = v8;
     goto LABEL_73;
   }
 
-  if (a2 > 13631535)
+  if (v2 > 13631535)
   {
-    if (a2 <= 134217765)
+    if (v2 <= 134217765)
     {
-      if (a2 != 13631536)
+      if (v2 != 13631536)
       {
-        if (a2 != 13631542)
+        if (v2 != 13631542)
         {
-          if (a2 == 134217763)
+          if (v2 == 134217763)
           {
             *(this + 851) = 0;
             v5 = 2;
 LABEL_53:
             *(this + 846) = v5;
-            *(this + 560) = 0;
+            *(this + 1120) = 0;
             goto LABEL_73;
           }
 
           goto LABEL_76;
         }
 
-        *(this + 560) = 128;
+        *(this + 1120) = 128;
         *(this + 846) = 0x80;
-        *(this + 221) = 3;
+        *(this + 884) = 3;
 LABEL_62:
         *(this + 1377) = 0;
         goto LABEL_73;
       }
 
-      *(this + 560) = 32;
+      *(this + 1120) = 32;
       *(this + 846) = 32;
       goto LABEL_48;
     }
 
-    if (a2 == 134217766)
+    if (v2 == 134217766)
     {
       *(this + 851) = 0;
       v5 = 8;
       goto LABEL_53;
     }
 
-    if (a2 != 134217776)
+    if (v2 != 134217776)
     {
-      if (a2 == 134217782)
+      if (v2 == 134217782)
       {
         *(this + 851) = 0;
         *(this + 846) = 0x80;
-        *(this + 221) = 0;
+        *(this + 884) = 0;
         goto LABEL_73;
       }
 
@@ -4291,17 +4225,17 @@ LABEL_64:
     goto LABEL_73;
   }
 
-  if (a2 <= 9437231)
+  if (v2 <= 9437231)
   {
-    if (a2 != 5242934)
+    if (v2 != 5242934)
     {
-      if (a2 != 9437222)
+      if (v2 != 9437222)
       {
         goto LABEL_76;
       }
 
       *(this + 846) = 8;
-      *(this + 560) = 8;
+      *(this + 1120) = 8;
 LABEL_49:
       if (v4 == 36)
       {
@@ -4322,21 +4256,21 @@ LABEL_70:
     goto LABEL_55;
   }
 
-  switch(a2)
+  switch(v2)
   {
     case 9437232:
-      *(this + 560) = 32;
+      *(this + 1120) = 32;
       *(this + 846) = 32;
       goto LABEL_49;
     case 9437238:
-      *(this + 560) = 128;
+      *(this + 1120) = 128;
       *(this + 846) = 0x80;
       goto LABEL_62;
     case 13631526:
       *(this + 846) = 8;
-      *(this + 560) = 8;
+      *(this + 1120) = 8;
 LABEL_48:
-      *(this + 221) = 3;
+      *(this + 884) = 3;
       goto LABEL_49;
   }
 
@@ -4354,7 +4288,7 @@ LABEL_73:
   }
 }
 
-uint64_t DriverKit_AppleEthernetE1000_IVars::handleChosenMedia(DriverKit_AppleEthernetE1000_IVars *this, int a2)
+uint64_t DriverKit_AppleEthernetE1000_IVars::handleChosenMedia(DriverKit_AppleEthernetE1000_IVars *this, uint64_t a2)
 {
   if ((pcindkll & 4) != 0)
   {
@@ -4894,7 +4828,7 @@ uint64_t e1000_read_nvm_microwire(uint64_t a1, unsigned int a2, int a3, uint64_t
   return ready;
 }
 
-uint64_t e1000_read_nvm_eerd(uint64_t a1, unsigned int a2, unsigned int a3, _WORD *a4)
+uint64_t e1000_read_nvm_eerd(uint64_t a1, unsigned int a2, signed int a3, _WORD *a4)
 {
   v6 = *(a1 + 1232);
   v7 = v6 >= a2;
@@ -4935,7 +4869,7 @@ uint64_t e1000_read_nvm_eerd(uint64_t a1, unsigned int a2, unsigned int a3, _WOR
   return result;
 }
 
-uint64_t e1000_write_nvm_spi(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t a4)
+uint64_t e1000_write_nvm_spi(uint64_t a1, unsigned int a2, signed int a3, uint64_t a4)
 {
   v4 = *(a1 + 1232);
   v5 = v4 >= a2;
@@ -5282,13 +5216,14 @@ uint64_t e1000_read_pba_num_generic(uint64_t a1, _DWORD *a2)
   return result;
 }
 
-uint64_t e1000_read_pba_raw(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, unsigned __int16 *a5)
+uint64_t e1000_read_pba_raw(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, unsigned __int16 *a5)
 {
   if (!a5)
   {
     return 4294967292;
   }
 
+  v7 = a3;
   if (a2)
   {
     if (a3 < 0xA)
@@ -5316,18 +5251,17 @@ uint64_t e1000_read_pba_raw(uint64_t a1, uint64_t a2, unsigned int a3, unsigned 
   {
     if (*(a5 + 1))
     {
-      v13 = 0;
-      result = e1000_get_pba_block_size(a1, a2, a3, &v13);
+      v12 = 0;
+      result = e1000_get_pba_block_size(a1, a2, v7, &v12);
       if (result)
       {
         return result;
       }
 
-      if (v13 <= a4)
+      if (v12 <= a4)
       {
         if (!a2)
         {
-          v12 = *(a5 + 1);
           result = e1000_read_nvm(a1);
           if (result)
           {
@@ -5337,9 +5271,9 @@ uint64_t e1000_read_pba_raw(uint64_t a1, uint64_t a2, unsigned int a3, unsigned 
           return 0;
         }
 
-        if (a5[1] + v13 < a3)
+        if (a5[1] + v12 < v7)
         {
-          memcpy(*(a5 + 1), (a2 + 2 * a5[1]), 2 * v13);
+          memcpy(*(a5 + 1), (a2 + 2 * a5[1]), 2 * v12);
           return 0;
         }
       }
@@ -5446,7 +5380,6 @@ uint64_t e1000_write_pba_raw(uint64_t a1, uint64_t a2, unsigned int a3, __int16 
     {
       if (!a2)
       {
-        v11 = *v9;
         result = e1000_write_nvm(a1);
         if (result)
         {
@@ -5698,12 +5631,12 @@ uint64_t e1000_init_hw_base(uint64_t a1)
   return v8;
 }
 
-void e1000_power_down_phy_copper_base(uint64_t a1)
+void e1000_power_down_phy_copper_base(uint64_t result)
 {
-  if (*(a1 + 920) && !e1000_enable_mng_pass_thru(a1) && !(*(a1 + 920))(a1))
+  if (*(result + 920) && !e1000_enable_mng_pass_thru(result) && !(*(result + 920))(result))
   {
 
-    e1000_power_down_phy_copper(a1);
+    e1000_power_down_phy_copper(result);
   }
 }
 
@@ -7417,13 +7350,15 @@ void e1000_lower_mdi_clk_82543(uint64_t a1, _DWORD *a2)
 uint64_t e1000_read_mbx(uint64_t a1)
 {
   v1 = *(a1 + 1272);
-  if (!v1)
+  if (v1)
+  {
+    return v1();
+  }
+
+  else
   {
     return 4294967281;
   }
-
-  *(a1 + 1356);
-  return v1();
 }
 
 uint64_t e1000_write_mbx(uint64_t a1, uint64_t a2, unsigned int a3)
@@ -7530,7 +7465,7 @@ uint64_t e1000_write_posted_mbx(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
 
   if (*(a1 + 1348))
   {
-    result = v4(a1);
+    result = v4(a1, a2, a3);
     if (result)
     {
       return result;
@@ -7606,8 +7541,9 @@ uint64_t e1000_init_mbx_params_pf(uint64_t a1)
   return 0;
 }
 
-uint64_t e1000_read_mbx_pf(uint64_t a1, uint32_t *a2, int a3, int a4)
+uint64_t e1000_read_mbx_pf(uint64_t a1, uint32_t *a2, int a3, uint64_t a4)
 {
+  v4 = a4;
   LODWORD(v5) = a3;
   v8 = e1000_obtain_mbx_lock_pf(a1, a4);
   if (!v8)
@@ -7615,7 +7551,7 @@ uint64_t e1000_read_mbx_pf(uint64_t a1, uint32_t *a2, int a3, int a4)
     if (v5)
     {
       v5 = v5;
-      v9 = (a4 << 6) + 2048;
+      v9 = (v4 << 6) + 2048;
       do
       {
         readData = 0;
@@ -7894,14 +7830,14 @@ LABEL_71:
     }
 
     __dmb(2u);
-    v17 = 4 * a4 + 3072;
-    if (a4 > 1859)
+    v17 = 4 * v4 + 3072;
+    if (v4 > 1859)
     {
-      if (a4 <= 2817)
+      if (v4 <= 2817)
       {
-        if (a4 > 2565)
+        if (v4 > 2565)
         {
-          switch(a4)
+          switch(v4)
           {
             case 2566:
               v18 = *(a1 + 284) <= 1;
@@ -7925,7 +7861,7 @@ LABEL_71:
 
         else
         {
-          switch(a4)
+          switch(v4)
           {
             case 1860:
               v18 = *(a1 + 284) <= 1;
@@ -7948,9 +7884,9 @@ LABEL_71:
         }
       }
 
-      else if (a4 <= 2823)
+      else if (v4 <= 2823)
       {
-        switch(a4)
+        switch(v4)
         {
           case 2818:
             v18 = *(a1 + 284) <= 1;
@@ -7972,9 +7908,9 @@ LABEL_71:
         }
       }
 
-      else if (a4 > 4607)
+      else if (v4 > 4607)
       {
-        if (a4 == 4736)
+        if (v4 == 4736)
         {
           v18 = *(a1 + 284) <= 1;
           v19 = 1536;
@@ -7983,7 +7919,7 @@ LABEL_71:
 
         else
         {
-          if (a4 != 4608)
+          if (v4 != 4608)
           {
             goto LABEL_138;
           }
@@ -7994,7 +7930,7 @@ LABEL_71:
         }
       }
 
-      else if (a4 == 2824)
+      else if (v4 == 2824)
       {
         v18 = *(a1 + 284) <= 1;
         v19 = 1088;
@@ -8003,7 +7939,7 @@ LABEL_71:
 
       else
       {
-        if (a4 != 4480)
+        if (v4 != 4480)
         {
           goto LABEL_138;
         }
@@ -8014,11 +7950,11 @@ LABEL_71:
       }
     }
 
-    else if (a4 <= 1793)
+    else if (v4 <= 1793)
     {
-      if (a4 > 1541)
+      if (v4 > 1541)
       {
-        switch(a4)
+        switch(v4)
         {
           case 1542:
             v18 = *(a1 + 284) <= 1;
@@ -8042,7 +7978,7 @@ LABEL_71:
 
       else
       {
-        switch(a4)
+        switch(v4)
         {
           case 1368:
             v18 = *(a1 + 284) <= 1;
@@ -8065,9 +8001,9 @@ LABEL_71:
       }
     }
 
-    else if (a4 <= 1799)
+    else if (v4 <= 1799)
     {
-      switch(a4)
+      switch(v4)
       {
         case 1794:
           v18 = *(a1 + 284) <= 1;
@@ -8089,9 +8025,9 @@ LABEL_71:
       }
     }
 
-    else if (a4 > 1856)
+    else if (v4 > 1856)
     {
-      if (a4 == 1857)
+      if (v4 == 1857)
       {
         v18 = *(a1 + 284) <= 1;
         v19 = 316;
@@ -8100,7 +8036,7 @@ LABEL_71:
 
       else
       {
-        if (a4 != 1858)
+        if (v4 != 1858)
         {
           goto LABEL_138;
         }
@@ -8113,9 +8049,9 @@ LABEL_71:
 
     else
     {
-      if (a4 != 1800)
+      if (v4 != 1800)
       {
-        if (a4 == 1856)
+        if (v4 == 1856)
         {
           v18 = *(a1 + 284) <= 1;
           v19 = 312;
@@ -8151,18 +8087,19 @@ LABEL_135:
   return v8;
 }
 
-uint64_t e1000_write_mbx_pf(uint64_t a1, uint32_t *a2, int a3, int a4)
+uint64_t e1000_write_mbx_pf(uint64_t a1, uint32_t *a2, int a3, uint64_t a4)
 {
+  v4 = a4;
   LODWORD(v5) = a3;
   v8 = e1000_obtain_mbx_lock_pf(a1, a4);
   if (!v8)
   {
-    if (!e1000_check_for_bit_pf(a1, 1 << a4))
+    if (!e1000_check_for_bit_pf(a1, 1 << v4))
     {
       ++*(a1 + 1340);
     }
 
-    if (!e1000_check_for_bit_pf(a1, 0x10000 << a4))
+    if (!e1000_check_for_bit_pf(a1, 0x10000 << v4))
     {
       ++*(a1 + 1336);
     }
@@ -8170,7 +8107,7 @@ uint64_t e1000_write_mbx_pf(uint64_t a1, uint32_t *a2, int a3, int a4)
     if (v5)
     {
       v5 = v5;
-      v9 = (a4 << 6) + 2048;
+      v9 = (v4 << 6) + 2048;
       do
       {
         __dmb(2u);
@@ -8448,14 +8385,14 @@ LABEL_75:
     }
 
     __dmb(2u);
-    v18 = 4 * a4 + 3072;
-    if (a4 > 1859)
+    v18 = 4 * v4 + 3072;
+    if (v4 > 1859)
     {
-      if (a4 <= 2817)
+      if (v4 <= 2817)
       {
-        if (a4 > 2565)
+        if (v4 > 2565)
         {
-          switch(a4)
+          switch(v4)
           {
             case 2566:
               v19 = *(a1 + 284) <= 1;
@@ -8479,7 +8416,7 @@ LABEL_75:
 
         else
         {
-          switch(a4)
+          switch(v4)
           {
             case 1860:
               v19 = *(a1 + 284) <= 1;
@@ -8502,9 +8439,9 @@ LABEL_75:
         }
       }
 
-      else if (a4 <= 2823)
+      else if (v4 <= 2823)
       {
-        switch(a4)
+        switch(v4)
         {
           case 2818:
             v19 = *(a1 + 284) <= 1;
@@ -8526,9 +8463,9 @@ LABEL_75:
         }
       }
 
-      else if (a4 > 4607)
+      else if (v4 > 4607)
       {
-        if (a4 == 4736)
+        if (v4 == 4736)
         {
           v19 = *(a1 + 284) <= 1;
           v18 = 1536;
@@ -8537,7 +8474,7 @@ LABEL_75:
 
         else
         {
-          if (a4 != 4608)
+          if (v4 != 4608)
           {
             goto LABEL_141;
           }
@@ -8548,7 +8485,7 @@ LABEL_75:
         }
       }
 
-      else if (a4 == 2824)
+      else if (v4 == 2824)
       {
         v19 = *(a1 + 284) <= 1;
         v18 = 1088;
@@ -8557,7 +8494,7 @@ LABEL_75:
 
       else
       {
-        if (a4 != 4480)
+        if (v4 != 4480)
         {
           goto LABEL_141;
         }
@@ -8568,11 +8505,11 @@ LABEL_75:
       }
     }
 
-    else if (a4 <= 1793)
+    else if (v4 <= 1793)
     {
-      if (a4 > 1541)
+      if (v4 > 1541)
       {
-        switch(a4)
+        switch(v4)
         {
           case 1542:
             v19 = *(a1 + 284) <= 1;
@@ -8596,7 +8533,7 @@ LABEL_75:
 
       else
       {
-        switch(a4)
+        switch(v4)
         {
           case 1368:
             v19 = *(a1 + 284) <= 1;
@@ -8619,9 +8556,9 @@ LABEL_75:
       }
     }
 
-    else if (a4 <= 1799)
+    else if (v4 <= 1799)
     {
-      switch(a4)
+      switch(v4)
       {
         case 1794:
           v19 = *(a1 + 284) <= 1;
@@ -8643,9 +8580,9 @@ LABEL_75:
       }
     }
 
-    else if (a4 > 1856)
+    else if (v4 > 1856)
     {
-      if (a4 == 1857)
+      if (v4 == 1857)
       {
         v19 = *(a1 + 284) <= 1;
         v18 = 316;
@@ -8654,7 +8591,7 @@ LABEL_75:
 
       else
       {
-        if (a4 != 1858)
+        if (v4 != 1858)
         {
           goto LABEL_141;
         }
@@ -8667,9 +8604,9 @@ LABEL_75:
 
     else
     {
-      if (a4 != 1800)
+      if (v4 != 1800)
       {
-        if (a4 == 1856)
+        if (v4 == 1856)
         {
           v19 = *(a1 + 284) <= 1;
           v18 = 312;

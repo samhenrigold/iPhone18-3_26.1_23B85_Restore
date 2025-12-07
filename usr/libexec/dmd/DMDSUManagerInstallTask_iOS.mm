@@ -6,6 +6,7 @@
 - (BOOL)startDownloadWithError:(id *)error;
 - (BOOL)startInstallWithError:(id *)error;
 - (DMDSUManagerInstallTask_iOS)init;
+- (id)availableUpdateWithVersion:(id)version useDelay:(BOOL)delay error:(id *)error;
 - (id)currentStatusWithError:(id *)error;
 @end
 
@@ -338,6 +339,139 @@ LABEL_11:
   _Block_object_dispose(&v27, 8);
 
   return v9 & 1;
+}
+
+- (id)availableUpdateWithVersion:(id)version useDelay:(BOOL)delay error:(id *)error
+{
+  delayCopy = delay;
+  versionCopy = version;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x3032000000;
+  v43 = sub_10007129C;
+  v44 = sub_1000712AC;
+  v45 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = sub_10007129C;
+  v38 = sub_1000712AC;
+  v39 = 0;
+  v9 = dispatch_semaphore_create(0);
+  v10 = objc_opt_new();
+  [v10 setIdentifier:@"com.apple.mdm"];
+  [v10 setForced:1];
+  [v10 setRequestedPMV:versionCopy];
+  [v10 setMDMUseDelayPeriod:delayCopy];
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
+  {
+    v11 = @"NO";
+    if (delayCopy)
+    {
+      v11 = @"YES";
+    }
+
+    *buf = 138412290;
+    v53 = v11;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_INFO, "available-os-updates useDelay=%@", buf, 0xCu);
+  }
+
+  softwareUpdateServices = [(DMDSUManagerInstallTask_iOS *)self softwareUpdateServices];
+  v30[0] = _NSConcreteStackBlock;
+  v30[1] = 3221225472;
+  v30[2] = sub_100071814;
+  v30[3] = &unk_1000CFEB8;
+  v32 = &v40;
+  v33 = &v34;
+  v13 = v9;
+  v31 = v13;
+  [softwareUpdateServices scanForUpdates:v10 withResult:v30];
+
+  v14 = dispatch_time(0, 120000000000);
+  if (dispatch_semaphore_wait(v13, v14))
+  {
+    if (error)
+    {
+LABEL_7:
+      DMFErrorWithCodeAndUserInfo();
+      *error = v15 = 0;
+      goto LABEL_22;
+    }
+
+    goto LABEL_21;
+  }
+
+  if (v41[5])
+  {
+    v16 = [DMFOSUpdate alloc];
+    v15 = [v16 initWithDescriptor:v41[5]];
+    goto LABEL_22;
+  }
+
+  if (error)
+  {
+    domain = [v35[5] domain];
+    v18 = [domain isEqualToString:SUErrorDomain];
+
+    v19 = v35[5];
+    if (!v18)
+    {
+      if (!v19)
+      {
+        goto LABEL_7;
+      }
+
+      v46 = NSUnderlyingErrorKey;
+      v47 = v19;
+      v23 = [NSDictionary dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+      v24 = DMFErrorWithCodeAndUserInfo();
+      *error = v24;
+
+      goto LABEL_21;
+    }
+
+    if ([v19 code] == 3 || objc_msgSend(v35[5], "code") == 63 || objc_msgSend(v35[5], "code") == 55)
+    {
+      v20 = v35[5];
+      if (v20)
+      {
+        v50 = NSUnderlyingErrorKey;
+        v51 = v20;
+        v21 = [NSDictionary dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+        v22 = DMFErrorWithCodeAndUserInfo();
+        *error = v22;
+
+        goto LABEL_21;
+      }
+    }
+
+    else
+    {
+      v27 = v35[5];
+      if (v27)
+      {
+        v48 = NSUnderlyingErrorKey;
+        v49 = v27;
+        v28 = [NSDictionary dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+        v29 = DMFErrorWithCodeAndUserInfo();
+        *error = v29;
+
+        goto LABEL_21;
+      }
+    }
+
+    v25 = DMFErrorWithCodeAndUserInfo();
+    *error = v25;
+  }
+
+LABEL_21:
+  v15 = 0;
+LABEL_22:
+
+  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v40, 8);
+
+  return v15;
 }
 
 - (BOOL)startDownloadWithError:(id *)error

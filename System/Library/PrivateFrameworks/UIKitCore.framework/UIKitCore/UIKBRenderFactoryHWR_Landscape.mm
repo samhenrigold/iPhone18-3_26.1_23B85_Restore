@@ -100,11 +100,11 @@
     if ([(UIKBRenderFactory10Key_Round *)self useRoundCorner])
     {
       [v7 removeAllRenderEffects];
-      geometry = [v7 geometry];
-      [geometry setRoundRectCorners:-1];
+      v8 = objc_msgSend_geometry(v7);
+      [v8 setRoundRectCorners:-1];
 
-      geometry2 = [v7 geometry];
-      [geometry2 setRoundRectRadius:5.0];
+      v9 = objc_msgSend_geometry(v7);
+      [v9 setRoundRectRadius:5.0];
 
       v10 = 1.0;
       v11 = 0.5;
@@ -118,23 +118,23 @@
       v10 = -0.5;
     }
 
-    geometry3 = [v7 geometry];
-    [geometry3 paddedFrame];
+    v13 = objc_msgSend_geometry(v7);
+    [v13 paddedFrame];
     v15 = v14 + v12;
     v17 = v16 + v11;
     v19 = v18 + v12;
     v21 = v20 + v10;
-    geometry4 = [v7 geometry];
-    [geometry4 setPaddedFrame:{v15, v19, v17, v21}];
+    v22 = objc_msgSend_geometry(v7);
+    [v22 setPaddedFrame:{v15, v19, v17, v21}];
   }
 
   if (-[UIKBRenderFactory10Key_Round useRoundCorner](self, "useRoundCorner") && [keyCopy interactionType] == 4)
   {
-    geometry5 = [v7 geometry];
-    [geometry5 setRoundRectCorners:2];
+    v23 = objc_msgSend_geometry(v7);
+    [v23 setRoundRectCorners:2];
 
-    geometry6 = [v7 geometry];
-    [geometry6 setRoundRectRadius:5.0];
+    v24 = objc_msgSend_geometry(v7);
+    [v24 setRoundRectRadius:5.0];
   }
 
   return v7;

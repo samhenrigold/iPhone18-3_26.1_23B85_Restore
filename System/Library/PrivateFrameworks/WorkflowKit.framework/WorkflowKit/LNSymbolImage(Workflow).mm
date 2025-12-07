@@ -8,29 +8,29 @@
 
 - (id)wf_image
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   configurationSpecification = [self configurationSpecification];
   platform = [configurationSpecification platform];
-  v4 = [platform isEqualToString:@"UIKit"];
+  isEqualToString = objc_msgSend_isEqualToString_(platform);
 
-  if (v4)
+  if (isEqualToString)
   {
     v5 = MEMORY[0x1E696ACD0];
     UIColorClass = getUIColorClass();
     colorization = [self colorization];
     foreground = [colorization foreground];
     platformSpecificData = [foreground platformSpecificData];
-    v32 = 0;
-    v10 = [v5 unarchivedObjectOfClass:UIColorClass fromData:platformSpecificData error:&v32];
-    v11 = v32;
+    v31 = 0;
+    v10 = [v5 unarchivedObjectOfClass:UIColorClass fromData:platformSpecificData error:&v31];
+    v11 = v31;
 
     v12 = MEMORY[0x1E696ACD0];
     UIImageSymbolConfigurationClass = getUIImageSymbolConfigurationClass();
     configurationSpecification2 = [self configurationSpecification];
     platformSpecificData2 = [configurationSpecification2 platformSpecificData];
-    v31 = v11;
-    v16 = [v12 unarchivedObjectOfClass:UIImageSymbolConfigurationClass fromData:platformSpecificData2 error:&v31];
-    v17 = v31;
+    v30 = v11;
+    v16 = [v12 unarchivedObjectOfClass:UIImageSymbolConfigurationClass fromData:platformSpecificData2 error:&v30];
+    v17 = v30;
 
     if (v16)
     {
@@ -48,9 +48,9 @@
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v34 = "[LNSymbolImage(Workflow) wf_image]";
-        v35 = 2112;
-        v36 = v17;
+        v33 = "[LNSymbolImage(Workflow) wf_image]";
+        v34 = 2112;
+        v35 = v17;
         _os_log_impl(&dword_1CA256000, v19, OS_LOG_TYPE_ERROR, "%s Failed to decode symbol configuration or tintColor data: %@", buf, 0x16u);
       }
     }
@@ -88,8 +88,6 @@
   }
 
   v28 = [v25 imageWithDisplayStyle:{objc_msgSend(self, "wfImageDisplayStyleFromLNImageDisplayStyle:", objc_msgSend(self, "displayStyle"))}];
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v28;
 }

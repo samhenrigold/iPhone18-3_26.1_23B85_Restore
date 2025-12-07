@@ -1,7 +1,7 @@
 @interface HazeEstimation
 - (HazeEstimation)initWithMetalContext:(id)context;
 - (SourceROI)hazeROI;
-- (__n128)calculateHazeValues:(uint64_t)values pixels:(int)pixels thresh:(float32x4_t *)thresh properties:(void *)properties;
+- (__n128)calculateHazeValues:(uint64_t)values pixels:(unsigned int)pixels thresh:(float32x4_t *)thresh properties:(void *)properties;
 - (int)allocInternalData;
 - (int)configure;
 - (int)createShaders;
@@ -111,15 +111,15 @@ LABEL_6:
   contextCopy = context;
   if (!contextCopy)
   {
-    FigDebugAssert3();
-    v20 = 0;
-    v19 = 0;
-    v17 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, v19.receiver, v19.super_class, v20, *&v21[1], v22, v23);
+    v25 = 0;
+    v24 = 0;
+    v18 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
 
 LABEL_13:
-    v9 = 0;
+    v10 = 0;
     goto LABEL_7;
   }
 
@@ -128,47 +128,47 @@ LABEL_13:
   device = self->_device;
   self->_device = device;
 
-  v18.receiver = self;
-  v18.super_class = HazeEstimation;
-  v8 = [(HazeEstimation *)&v18 init];
-  v9 = v8;
-  if (!v8)
+  v19.receiver = self;
+  v19.super_class = HazeEstimation;
+  v9 = [(HazeEstimation *)&v19 init];
+  v10 = v9;
+  if (!v9)
   {
     [HazeEstimation initWithMetalContext:];
     goto LABEL_7;
   }
 
-  createShaders = [(HazeEstimation *)v8 createShaders];
+  createShaders = [(HazeEstimation *)v9 createShaders];
   if (createShaders)
   {
-    [(HazeEstimation *)createShaders initWithMetalContext:v9];
+    [(HazeEstimation *)createShaders initWithMetalContext:v10];
     goto LABEL_13;
   }
 
-  v11 = objc_opt_new();
-  hazeProperties = v9->_hazeProperties;
-  v9->_hazeProperties = v11;
+  v12 = objc_opt_new();
+  hazeProperties = v10->_hazeProperties;
+  v10->_hazeProperties = v12;
 
-  if (!v9->_hazeProperties)
+  if (!v10->_hazeProperties)
   {
-    [HazeEstimation initWithMetalContext:v9];
+    [HazeEstimation initWithMetalContext:v10];
     goto LABEL_13;
   }
 
-  v9->_hazeConfigured = 0;
-  configure = [(HazeEstimation *)v9 configure];
+  v10->_hazeConfigured = 0;
+  configure = [(HazeEstimation *)v10 configure];
   if (configure)
   {
-    [(HazeEstimation *)configure initWithMetalContext:v9];
+    [(HazeEstimation *)configure initWithMetalContext:v10];
     goto LABEL_13;
   }
 
-  commandQueue = [(FigMetalContext *)v9->_metalContext commandQueue];
-  commandQueue = v9->_commandQueue;
-  v9->_commandQueue = commandQueue;
+  commandQueue = [(FigMetalContext *)v10->_metalContext commandQueue];
+  commandQueue = v10->_commandQueue;
+  v10->_commandQueue = commandQueue;
 
 LABEL_7:
-  return v9;
+  return v10;
 }
 
 - (int)run
@@ -176,7 +176,7 @@ LABEL_7:
   allocInternalData = [(HazeEstimation *)self allocInternalData];
   if (allocInternalData)
   {
-    v5 = allocInternalData;
+    v6 = allocInternalData;
     [HazeEstimation run];
   }
 
@@ -185,23 +185,24 @@ LABEL_7:
     prepareThumbnail = [(HazeEstimation *)self prepareThumbnail];
     if (prepareThumbnail)
     {
-      v5 = prepareThumbnail;
+      v6 = prepareThumbnail;
       [HazeEstimation run];
     }
 
     else
     {
       v5 = [(HazeEstimation *)self estimateHaze:[(MTLBuffer *)self->_hazeInternalBuffer contents]+ 48];
+      v6 = v5;
       if (v5)
       {
-        [HazeEstimation run];
+        [(HazeEstimation *)v5 run];
       }
     }
   }
 
   FigMetalDecRef();
   FigMetalDecRef();
-  return v5;
+  return v6;
 }
 
 - (int)prepareThumbnail
@@ -330,7 +331,7 @@ LABEL_16:
   return v22;
 }
 
-- (__n128)calculateHazeValues:(uint64_t)values pixels:(int)pixels thresh:(float32x4_t *)thresh properties:(void *)properties
+- (__n128)calculateHazeValues:(uint64_t)values pixels:(unsigned int)pixels thresh:(float32x4_t *)thresh properties:(void *)properties
 {
   propertiesCopy = properties;
   pixelsCopy = pixels;
@@ -446,9 +447,9 @@ LABEL_16:
 - (uint64_t)createShaders
 {
   OUTLINED_FUNCTION_2_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   OUTLINED_FUNCTION_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *self = result;
   return result;
 }
@@ -456,65 +457,65 @@ LABEL_16:
 - (uint64_t)allocInternalData
 {
   OUTLINED_FUNCTION_2_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   OUTLINED_FUNCTION_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *self = result;
   return result;
-}
-
-- (void)initWithMetalContext:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
-{
-  OUTLINED_FUNCTION_3_0();
-  FigDebugAssert3();
-}
-
-- (void)initWithMetalContext:(uint64_t)a1 .cold.2(uint64_t a1, void *a2)
-{
-  OUTLINED_FUNCTION_3_0();
-  FigDebugAssert3();
 }
 
 - (void)initWithMetalContext:(void *)a1 .cold.3(void *a1)
 {
   OUTLINED_FUNCTION_2_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v4, v5, v6, v7, v8, vars0, vars8);
   OUTLINED_FUNCTION_8();
-  FigSignalErrorAtGM();
+  FigSignalErrorAtGM(v2);
 }
 
 - (void)prepareThumbnail
 {
   OUTLINED_FUNCTION_1();
-  LODWORD(v10) = 0;
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v26, v29, v32, v38, v40, v41, v42);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v27, v30, v33, v35, v36, v37);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[HazeEstimation prepareThumbnail]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: commandBuffer is nil.", v25, v28, v31, v34);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v25, v28, v31, v34, SHIDWORD(v34), v39);
 }
 
 - (void)estimateHaze:.cold.1()
 {
   OUTLINED_FUNCTION_1();
-  LODWORD(v10) = 0;
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v26, v29, v32, v38, v40, v41, v42);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v27, v30, v33, v35, v36, v37);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[HazeEstimation estimateHaze:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithm >>>> %s: smallPixelsPtr is nil", v25, v28, v31, v34);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v25, v28, v31, v34, SHIDWORD(v34), v39);
 }
 
 @end

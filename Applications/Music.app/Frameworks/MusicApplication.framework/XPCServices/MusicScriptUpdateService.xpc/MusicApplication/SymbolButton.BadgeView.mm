@@ -29,7 +29,7 @@
 - (double)alpha
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for SymbolButton.BadgeView();
+  v3.super_class = type metadata accessor for SymbolButton.BadgeView(0, a2);
   [(SymbolButton.BadgeView *)&v3 alpha];
   return result;
 }
@@ -37,7 +37,7 @@
 - (void)setAlpha:(double)alpha
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for SymbolButton.BadgeView();
+  v6.super_class = type metadata accessor for SymbolButton.BadgeView(0, a2);
   v4 = v6.receiver;
   [(SymbolButton.BadgeView *)&v6 setAlpha:alpha];
   v5 = *&v4[OBJC_IVAR____TtCC11MusicCoreUI12SymbolButtonP33_0D6450BB937596549C350B7D294A2A939BadgeView_punchOutView];
@@ -49,7 +49,7 @@
 {
   hiddenCopy = hidden;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for SymbolButton.BadgeView();
+  v5.super_class = type metadata accessor for SymbolButton.BadgeView(0, a2);
   v4 = v5.receiver;
   [(SymbolButton.BadgeView *)&v5 setHidden:hiddenCopy];
   [*&v4[OBJC_IVAR____TtCC11MusicCoreUI12SymbolButtonP33_0D6450BB937596549C350B7D294A2A939BadgeView_punchOutView] setHidden:{objc_msgSend(v4, "isHidden", v5.receiver, v5.super_class)}];
@@ -58,7 +58,7 @@
 - (void)didMoveToSuperview
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for SymbolButton.BadgeView();
+  v5.super_class = type metadata accessor for SymbolButton.BadgeView(0, a2);
   v2 = v5.receiver;
   [(SymbolButton.BadgeView *)&v5 didMoveToSuperview];
   superview = [v2 superview];
@@ -76,17 +76,17 @@
 
 - (void)layoutSubviews
 {
-  v3 = sub_100003ABC(&qword_100610D00);
-  __chkstk_darwin(v3 - 8);
-  v5 = &v9 - v4;
-  v6 = type metadata accessor for SymbolButton.BadgeView();
+  sub_100003ABC(&qword_100610D00, &qword_1004DB780);
+  __chkstk_darwin();
+  v4 = &v9 - v3;
+  v6 = type metadata accessor for SymbolButton.BadgeView(0, v5);
   v9.receiver = self;
   v9.super_class = v6;
   selfCopy = self;
   [(SymbolButton.BadgeView *)&v9 layoutSubviews];
   sub_1004BCED4();
   v8 = sub_1004BCEE4();
-  (*(*(v8 - 8) + 56))(v5, 0, 1, v8);
+  (*(*(v8 - 8) + 56))(v4, 0, 1, v8);
   sub_1004BCEF4();
   sub_1003B61B4();
 }

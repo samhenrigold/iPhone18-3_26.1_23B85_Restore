@@ -87,44 +87,44 @@ void __60___EXHostViewControllerSession__internalQueue_prepareToHost__block_invo
   *(v8 + 40) = v9;
 }
 
-uint64_t __60___EXHostViewControllerSession__internalQueue_prepareToHost__block_invoke_147(uint64_t a1)
+uint64_t __60___EXHostViewControllerSession__internalQueue_prepareToHost__block_invoke_147(void *a1, uint64_t a2, uint64_t a3)
 {
-  if (*(a1 + 32))
+  if (a1[4])
   {
-    v2 = [*(*(*(a1 + 56) + 8) + 40) sceneEndpoint];
-    if (v2)
+    v4 = [*(*(a1[7] + 8) + 40) sceneEndpoint];
+    if (v4)
     {
-      v3 = *(a1 + 40);
+      v5 = a1[5];
 
-      if (v3)
+      if (v5)
       {
-        [*(a1 + 48) setSceneSessionConnection:*(a1 + 40)];
-        [*(a1 + 48) setExtensionProcess:*(a1 + 32)];
-        v4 = [*(*(*(a1 + 56) + 8) + 40) sceneEndpoint];
-        [*(a1 + 48) setRemoteViewControllerEndpoint:v4];
+        [a1[6] setSceneSessionConnection:a1[5]];
+        [a1[6] setExtensionProcess:a1[4]];
+        v6 = [*(*(a1[7] + 8) + 40) sceneEndpoint];
+        [a1[6] setRemoteViewControllerEndpoint:v6];
 
 LABEL_8:
-        v5 = *(a1 + 48);
+        v7 = a1[6];
 
-        return [v5 setState:2];
+        return [v7 setState:2];
       }
     }
 
-    if (*(a1 + 32) && [*(a1 + 48) requiresFBSceneHosting])
+    if (a1[4] && [a1[6] requiresFBSceneHosting])
     {
-      [*(a1 + 48) setExtensionProcess:*(a1 + 32)];
+      [a1[6] setExtensionProcess:a1[4]];
       goto LABEL_8;
     }
   }
 
-  v7 = _EXDefaultLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v9 = _EXDefaultLog();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    __60___EXHostViewControllerSession__internalQueue_prepareToHost__block_invoke_147_cold_1(a1);
+    __60___EXHostViewControllerSession__internalQueue_prepareToHost__block_invoke_147_cold_1();
   }
 
-  [*(a1 + 48) setError:*(*(*(a1 + 64) + 8) + 40)];
-  return [*(a1 + 48) setState:5];
+  [a1[6] setError:*(*(a1[8] + 8) + 40)];
+  return [a1[6] setState:5];
 }
 
 void __59___EXHostViewControllerSession_requestRemoteViewController__block_invoke_155(uint64_t a1, void *a2, void *a3)
@@ -163,7 +163,7 @@ void __59___EXHostViewControllerSession_requestRemoteViewController__block_invok
   [*v9 setState:v11];
 }
 
-uint64_t __67___EXHostViewControllerSession_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
+void *__67___EXHostViewControllerSession_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) shouldAcceptXPCConnection:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -172,48 +172,37 @@ uint64_t __67___EXHostViewControllerSession_listener_shouldAcceptNewConnection__
 
 void __60___EXHostViewControllerSession__internalQueue_prepareToHost__block_invoke_137_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __60___EXHostViewControllerSession__internalQueue_prepareToHost__block_invoke_138_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __60___EXHostViewControllerSession__internalQueue_prepareToHost__block_invoke_147_cold_1(uint64_t a1)
+void __60___EXHostViewControllerSession__internalQueue_prepareToHost__block_invoke_147_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(*(*(a1 + 64) + 8) + 40);
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __59___EXHostViewControllerSession_requestRemoteViewController__block_invoke_155_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __59___EXHostViewControllerSession_requestRemoteViewController__block_invoke_155_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

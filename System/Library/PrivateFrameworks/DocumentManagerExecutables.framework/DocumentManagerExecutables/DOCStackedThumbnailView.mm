@@ -22,7 +22,7 @@
   if (*(self + v3))
   {
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd, &_sSo7DOCNode_pMR);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -39,7 +39,7 @@
   nodesCopy = nodes;
   if (nodes)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd, &_sSo7DOCNode_pMR);
     nodesCopy = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   }
 

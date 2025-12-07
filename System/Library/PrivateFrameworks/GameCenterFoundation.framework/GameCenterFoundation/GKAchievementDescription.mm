@@ -275,41 +275,41 @@ void __77__GKAchievementDescription_loadAchievementDescriptionsWithCompletionHan
 
 void __85__GKAchievementDescription_loadAchievementDescriptionsForGame_withCompletionHandler___block_invoke_49(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ([v5 count] >= 1)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v20;
+      v10 = *v19;
       do
       {
         v11 = 0;
         do
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * v11);
+          v12 = *(*(&v18 + 1) + 8 * v11);
           v13 = [GKAchievementDescription alloc];
-          v14 = [(GKAchievementDescription *)v13 initWithInternalRepresentation:v12, v19];
+          v14 = [(GKAchievementDescription *)v13 initWithInternalRepresentation:v12, v18];
           [*(a1 + 32) addObject:v14];
 
           ++v11;
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v9);
@@ -322,7 +322,6 @@ void __85__GKAchievementDescription_loadAchievementDescriptionsForGame_withCompl
   v17 = v6;
 
   dispatch_group_leave(*(a1 + 40));
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __85__GKAchievementDescription_loadAchievementDescriptionsForGame_withCompletionHandler___block_invoke_2(uint64_t result)

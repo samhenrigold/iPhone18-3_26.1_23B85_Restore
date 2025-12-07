@@ -52,7 +52,7 @@ uint64_t __45__PLGameModeService_initOperatorDependancies__block_invoke(uint64_t
 
 - (void)updateGameMode
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   state64 = 0;
   consoleModeListener = [(PLGameModeService *)self consoleModeListener];
   state = notify_get_state([consoleModeListener stateToken], &state64);
@@ -68,7 +68,7 @@ uint64_t __45__PLGameModeService_initOperatorDependancies__block_invoke(uint64_t
 
 LABEL_10:
 
-    goto LABEL_11;
+    return;
   }
 
   v6 = state64;
@@ -76,7 +76,7 @@ LABEL_10:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109120;
-    v16 = v6 != 0;
+    v15 = v6 != 0;
     _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "Console Mode state: %d", buf, 8u);
   }
 
@@ -88,38 +88,34 @@ LABEL_10:
     {
       previousGameModeState = [(PLGameModeService *)self previousGameModeState];
       *buf = 67109120;
-      v16 = previousGameModeState;
+      v15 = previousGameModeState;
       _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "self.previousGameModeState: %d", buf, 8u);
     }
 
-    v13 = @"gameMode";
+    v12 = @"gameMode";
     v5 = [MEMORY[0x277CCABB0] numberWithBool:v6 != 0];
-    v14 = v5;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+    v13 = v5;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
     [(PLGameModeService *)self postGameModeStatusChangeNotification:v9];
 
     goto LABEL_10;
   }
-
-LABEL_11:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)postGameModeStatusChangeNotification:(id)notification
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = PLLogGameMode();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [notificationCopy objectForKeyedSubscript:@"gameMode"];
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEFAULT, "Sent game mode notification to submodules: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEFAULT, "Sent game mode notification to submodules: %@", &v7, 0xCu);
   }
 
   [MEMORY[0x277D3F258] postNotificationName:@"PLGameModeNotification" object:self userInfo:notificationCopy];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

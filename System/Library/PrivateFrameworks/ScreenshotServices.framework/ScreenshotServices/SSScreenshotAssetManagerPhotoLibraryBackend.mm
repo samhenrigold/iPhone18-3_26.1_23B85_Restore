@@ -246,19 +246,19 @@ LABEL_14:
   [v8 setUseRecoverableStagingDirectory:1];
   [v8 setShouldCreateScreenshot:v7];
   v9 = [MEMORY[0x1E6978698] creationRequestForAssetFromImageData:v6 options:v8];
-  if (_SSLinksInPhotosEnabled())
+  if (_SSLinksInPhotosEnabled(v9, v10))
   {
-    v10 = [*(a1 + 32) applicationBundleID];
-    [v9 setImportedByBundleIdentifier:v10];
+    v11 = [*(a1 + 32) applicationBundleID];
+    [v9 setImportedByBundleIdentifier:v11];
   }
 
-  v11 = [*(a1 + 32) assetDescription];
-  [v9 setAssetDescription:v11];
+  v12 = [*(a1 + 32) assetDescription];
+  [v9 setAssetDescription:v12];
 
-  v12 = [v9 placeholderForCreatedAsset];
-  v13 = *(*(a1 + 56) + 8);
-  v14 = *(v13 + 40);
-  *(v13 + 40) = v12;
+  v13 = [v9 placeholderForCreatedAsset];
+  v14 = *(*(a1 + 56) + 8);
+  v15 = *(v14 + 40);
+  *(v14 + 40) = v13;
 
   objc_autoreleasePoolPop(v2);
 }
@@ -649,34 +649,35 @@ void __162__SSScreenshotAssetManagerPhotoLibraryBackend_updateImageData_withModi
 
   while ((v23 & 1) != 0);
   v24 = [MEMORY[0x1E695DFF8] fileURLWithPath:v10];
-  v37 = 0;
-  [locationCopy writeToURL:v24 options:0 error:&v37];
-  v25 = v37;
+  v38 = 0;
+  [locationCopy writeToURL:v24 options:0 error:&v38];
+  v25 = v38;
   if ([descriptionCopy length])
   {
     err = 0;
-    v39 = 0;
-    v40 = &v39;
-    v41 = 0x2020000000;
+    v40 = 0;
+    v41 = &v40;
+    v42 = 0x2020000000;
     v26 = getMAImageCaptioningSetCaptionSymbolLoc_ptr;
-    v42 = getMAImageCaptioningSetCaptionSymbolLoc_ptr;
+    v43 = getMAImageCaptioningSetCaptionSymbolLoc_ptr;
     if (!getMAImageCaptioningSetCaptionSymbolLoc_ptr)
     {
-      v38[0] = MEMORY[0x1E69E9820];
-      v38[1] = 3221225472;
-      v38[2] = __getMAImageCaptioningSetCaptionSymbolLoc_block_invoke;
-      v38[3] = &unk_1E8590188;
-      v38[4] = &v39;
-      __getMAImageCaptioningSetCaptionSymbolLoc_block_invoke(v38);
-      v26 = v40[3];
+      v39[0] = MEMORY[0x1E69E9820];
+      v39[1] = 3221225472;
+      v39[2] = __getMAImageCaptioningSetCaptionSymbolLoc_block_invoke;
+      v39[3] = &unk_1E8590188;
+      v39[4] = &v40;
+      __getMAImageCaptioningSetCaptionSymbolLoc_block_invoke(v39);
+      v26 = v41[3];
     }
 
-    _Block_object_dispose(&v39, 8);
+    _Block_object_dispose(&v40, 8);
     if (!v26)
     {
-      v32 = [SSScreenshotAssetManagerPhotoLibraryBackend saveImageDataToTemporaryLocation:withName:imageDescription:completionHandler:];
-      _Block_object_dispose(&v39, 8);
-      _Unwind_Resume(v32);
+      [SSScreenshotAssetManagerPhotoLibraryBackend saveImageDataToTemporaryLocation:withName:imageDescription:completionHandler:];
+      v33 = v32;
+      _Block_object_dispose(&v40, 8);
+      _Unwind_Resume(v33);
     }
 
     if ((v26(v24, descriptionCopy, &err) & 1) == 0)
@@ -897,6 +898,13 @@ void __99__SSScreenshotAssetManagerPhotoLibraryBackend_imageForPreviouslyRegiste
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
+void __162__SSScreenshotAssetManagerPhotoLibraryBackend_updateImageData_withModificationData_forEntryWithIdentifier_registrationOptions_imageDescription_completionHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 48);
+  OUTLINED_FUNCTION_4(&dword_1D9E04000, a2, a3, "Asset update failed: photo library is nil for identifier %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void __162__SSScreenshotAssetManagerPhotoLibraryBackend_updateImageData_withModificationData_forEntryWithIdentifier_registrationOptions_imageDescription_completionHandler___block_invoke_cold_2(uint64_t a1, void *a2)
 {
   v2 = [a2 description];
@@ -922,11 +930,11 @@ void __162__SSScreenshotAssetManagerPhotoLibraryBackend_updateImageData_withModi
   _os_log_error_impl(&dword_1D9E04000, v1, OS_LOG_TYPE_ERROR, "Could not set image description for a file %@ with error %@", v2, 0x16u);
 }
 
-- (uint64_t)saveImageDataToTemporaryLocation:withName:imageDescription:completionHandler:.cold.3()
+- (void)saveImageDataToTemporaryLocation:withName:imageDescription:completionHandler:.cold.3()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return [SSScreenshotAssetManagerPhotoLibraryBackend saveImageDataToTemporaryLocation:v0 withName:? imageDescription:? completionHandler:?];
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  [SSScreenshotAssetManagerPhotoLibraryBackend saveImageDataToTemporaryLocation:v1 withName:v2 imageDescription:? completionHandler:?];
 }
 
 - (void)saveImageDataToTemporaryLocation:(uint64_t)a1 withName:(void *)a2 imageDescription:completionHandler:.cold.4(uint64_t a1, void *a2)

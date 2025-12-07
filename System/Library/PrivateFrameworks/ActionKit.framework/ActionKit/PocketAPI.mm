@@ -5,6 +5,8 @@
 - (BOOL)isLoggedIn;
 - (NSString)URLScheme;
 - (PocketAPI)init;
+- (id)methodOperationWithAPIMethod:(id)method forHTTPMethod:(int)pMethod arguments:(id)arguments delegate:(id)delegate;
+- (id)methodOperationWithAPIMethod:(id)method forHTTPMethod:(int)pMethod arguments:(id)arguments handler:(id)handler;
 - (id)pkt_actionDictionaryWithName:(id)name parameters:(id)parameters;
 - (id)pkt_deviceName;
 - (id)pkt_deviceOSVersion;
@@ -15,6 +17,8 @@
 - (id)saveOperationWithURL:(id)l title:(id)title tweetID:(id)d delegate:(id)delegate;
 - (id)saveOperationWithURL:(id)l title:(id)title tweetID:(id)d handler:(id)handler;
 - (unint64_t)appID;
+- (void)callAPIMethod:(id)method withHTTPMethod:(int)pMethod arguments:(id)arguments delegate:(id)delegate;
+- (void)callAPIMethod:(id)method withHTTPMethod:(int)pMethod arguments:(id)arguments handler:(id)handler;
 - (void)dealloc;
 - (void)loginWithDelegate:(id)delegate;
 - (void)loginWithHandler:(id)handler;
@@ -328,6 +332,14 @@
   [(PocketAPI *)self didChangeValueForKey:@"username"];
 }
 
+- (id)methodOperationWithAPIMethod:(id)method forHTTPMethod:(int)pMethod arguments:(id)arguments handler:(id)handler
+{
+  v7 = *&pMethod;
+  v10 = [PocketAPIBlockDelegate delegateWithResponseHandler:handler];
+
+  return [(PocketAPI *)self methodOperationWithAPIMethod:method forHTTPMethod:v7 arguments:arguments delegate:v10];
+}
+
 - (id)saveOperationWithURL:(id)l title:(id)title tweetID:(id)d handler:(id)handler
 {
   v10 = [PocketAPIBlockDelegate delegateWithSaveHandler:handler];
@@ -347,6 +359,14 @@
   v6 = [PocketAPIBlockDelegate delegateWithSaveHandler:handler];
 
   return [(PocketAPI *)self saveOperationWithURL:l delegate:v6];
+}
+
+- (void)callAPIMethod:(id)method withHTTPMethod:(int)pMethod arguments:(id)arguments handler:(id)handler
+{
+  v7 = *&pMethod;
+  v10 = [PocketAPIBlockDelegate delegateWithResponseHandler:handler];
+
+  [(PocketAPI *)self callAPIMethod:method withHTTPMethod:v7 arguments:arguments delegate:v10];
 }
 
 - (void)saveURL:(id)l withTitle:(id)title tweetID:(id)d handler:(id)handler
@@ -377,6 +397,18 @@
   [(PocketAPI *)self loginWithDelegate:v4];
 }
 
+- (id)methodOperationWithAPIMethod:(id)method forHTTPMethod:(int)pMethod arguments:(id)arguments delegate:(id)delegate
+{
+  v8 = *&pMethod;
+  v11 = objc_alloc_init(PocketAPIOperation);
+  [(PocketAPIOperation *)v11 setAPI:self];
+  [(PocketAPIOperation *)v11 setDelegate:delegate];
+  [(PocketAPIOperation *)v11 setAPIMethod:method];
+  [(PocketAPIOperation *)v11 setHTTPMethod:v8];
+  -[PocketAPIOperation setArguments:](v11, "setArguments:", [MEMORY[0x277CBEAC0] dictionaryWithDictionary:arguments]);
+  return v11;
+}
+
 - (id)saveOperationWithURL:(id)l title:(id)title tweetID:(id)d delegate:(id)delegate
 {
   if (!l || ![l absoluteString])
@@ -403,6 +435,14 @@
   v15 = [dictionary copy];
 
   return [(PocketAPI *)self methodOperationWithAPIMethod:@"add" forHTTPMethod:1 arguments:v15 delegate:delegate];
+}
+
+- (void)callAPIMethod:(id)method withHTTPMethod:(int)pMethod arguments:(id)arguments delegate:(id)delegate
+{
+  operationQueue = self->operationQueue;
+  v7 = [(PocketAPI *)self methodOperationWithAPIMethod:method forHTTPMethod:*&pMethod arguments:arguments delegate:delegate];
+
+  [(NSOperationQueue *)operationQueue addOperation:v7];
 }
 
 - (void)saveURL:(id)l withTitle:(id)title tweetID:(id)d delegate:(id)delegate
@@ -604,7 +644,7 @@
 
 + (id)pkt_hashForConsumerKey:(id)key accessToken:(id)token
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@", key, token), "dataUsingEncoding:", 4];
   CC_SHA1([v4 bytes], objc_msgSend(v4, "length"), md);
   v5 = [MEMORY[0x277CCAB68] stringWithCapacity:20];
@@ -613,7 +653,6 @@
     [v5 appendFormat:@"%02x", md[i]];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

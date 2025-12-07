@@ -87,11 +87,11 @@
         v14 = *(*(&v20 + 1) + 8 * i);
         v15 = [(NSMutableDictionary *)self->_queue_requestByID objectForKeyedSubscript:v14];
         [(NSMutableDictionary *)self->_queue_requestByID setObject:0 forKeyedSubscript:v14];
-        options = [v15 options];
-        v17 = options;
-        if (options)
+        v16 = objc_msgSend_options(v15);
+        v17 = v16;
+        if (v16)
         {
-          [options preferredDuration];
+          objc_msgSend_preferredDuration(v16);
         }
 
         else
@@ -282,7 +282,7 @@ void __42__PXFlexMusicMediaProvider_cancelRequest___block_invoke(uint64_t a1)
   v14 = [[_PXFlexMusicMediaProviderRequest alloc] initWithAsset:v13 options:optionsCopy requestID:_nextRequestID resultHandler:handlerCopy];
   if (optionsCopy)
   {
-    [(PXAudioRequestOptions *)optionsCopy maximumDuration];
+    objc_msgSend_maximumDuration(optionsCopy);
     if ((BYTE4(v32) & 0x1D) == 1)
     {
       v15 = PLAudioPlaybackGetLog();
@@ -293,7 +293,7 @@ void __42__PXFlexMusicMediaProvider_cancelRequest___block_invoke(uint64_t a1)
       }
     }
 
-    [(PXAudioRequestOptions *)optionsCopy fadeOutDuration];
+    objc_msgSend_fadeOutDuration(optionsCopy);
     if ((BYTE4(v29) & 0x1D) == 1)
     {
       v16 = PLAudioPlaybackGetLog();

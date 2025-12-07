@@ -360,7 +360,6 @@ LABEL_13:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    assocRequest = self->_assocRequest;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -380,7 +379,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  assocResponse = self->_assocResponse;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -395,7 +393,6 @@ LABEL_4:
   }
 
 LABEL_16:
-  reassocRequest = self->_reassocRequest;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -410,7 +407,6 @@ LABEL_5:
   }
 
 LABEL_17:
-  reassocResponse = self->_reassocResponse;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -425,7 +421,6 @@ LABEL_6:
   }
 
 LABEL_18:
-  probeRequest = self->_probeRequest;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -440,7 +435,6 @@ LABEL_7:
   }
 
 LABEL_19:
-  probeResponse = self->_probeResponse;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -455,7 +449,6 @@ LABEL_8:
   }
 
 LABEL_20:
-  beacon = self->_beacon;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -470,7 +463,6 @@ LABEL_9:
   }
 
 LABEL_21:
-  aTIM = self->_aTIM;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -485,7 +477,6 @@ LABEL_10:
   }
 
 LABEL_22:
-  disassoc = self->_disassoc;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -497,7 +488,6 @@ LABEL_11:
     }
 
 LABEL_24:
-    deauth = self->_deauth;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 2) == 0)
     {
@@ -508,7 +498,6 @@ LABEL_24:
   }
 
 LABEL_23:
-  auth = self->_auth;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x40) != 0)
@@ -523,7 +512,6 @@ LABEL_12:
   }
 
 LABEL_25:
-  action = self->_action;
 
   PBDataWriterWriteUint64Field();
 }

@@ -90,7 +90,7 @@ void __61___UIBarCustomizationItemReservoirView_setExpanded_animated___block_inv
   v10 = v9;
   if (v9)
   {
-    [v9 transform];
+    objc_msgSend_transform(v9);
   }
 
   else

@@ -32,20 +32,19 @@ void __36__MessageActivityViewController_log__block_invoke(uint64_t a1)
 
 - (MessageActivityViewController)initWithActivityItems:(id)items applicationActivities:(id)activities
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   activitiesCopy = activities;
-  v12.receiver = self;
-  v12.super_class = MessageActivityViewController;
-  v8 = [(MessageActivityViewController *)&v12 initWithActivityItems:itemsCopy applicationActivities:activitiesCopy];
+  v11.receiver = self;
+  v11.super_class = MessageActivityViewController;
+  v8 = [(MessageActivityViewController *)&v11 initWithActivityItems:itemsCopy applicationActivities:activitiesCopy];
   if (v8)
   {
-    v13[0] = *MEMORY[0x277D54780];
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = *MEMORY[0x277D54780];
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     [(MessageActivityViewController *)v8 setExcludedActivityTypes:v9];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

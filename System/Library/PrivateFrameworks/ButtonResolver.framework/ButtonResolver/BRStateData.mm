@@ -86,7 +86,7 @@
 
 - (id)propertyList
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
   dictionary3 = [MEMORY[0x277CBEB38] dictionary];
@@ -100,71 +100,70 @@
   }
 
   [dictionary setObject:objc_msgSend(v6 forKey:{"stringWithFormat:", @"%s;", v8), @"Enabled"}];
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   speedConfigs = [(BRStateData *)self speedConfigs];
-  v10 = [(NSMutableDictionary *)speedConfigs countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v10 = [(NSMutableDictionary *)speedConfigs countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v26;
+    v12 = *v25;
     do
     {
       v13 = 0;
       do
       {
-        if (*v26 != v12)
+        if (*v25 != v12)
         {
           objc_enumerationMutation(speedConfigs);
         }
 
-        [dictionary2 setObject:-[NSMutableDictionary objectForKeyedSubscript:](-[BRStateData speedConfigs](self forKey:{"speedConfigs"), "objectForKeyedSubscript:", *(*(&v25 + 1) + 8 * v13)), objc_msgSend(*(*(&v25 + 1) + 8 * v13), "stringValue")}];
+        [dictionary2 setObject:-[NSMutableDictionary objectForKeyedSubscript:](-[BRStateData speedConfigs](self forKey:{"speedConfigs"), "objectForKeyedSubscript:", *(*(&v24 + 1) + 8 * v13)), objc_msgSend(*(*(&v24 + 1) + 8 * v13), "stringValue")}];
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [(NSMutableDictionary *)speedConfigs countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v11 = [(NSMutableDictionary *)speedConfigs countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v11);
   }
 
   [dictionary setObject:dictionary2 forKey:@"ButtonConfigsForSpeeds"];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   speedSlots = [(BRStateData *)self speedSlots];
-  v15 = [(NSMutableDictionary *)speedSlots countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v15 = [(NSMutableDictionary *)speedSlots countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v22;
+    v17 = *v21;
     do
     {
       v18 = 0;
       do
       {
-        if (*v22 != v17)
+        if (*v21 != v17)
         {
           objc_enumerationMutation(speedSlots);
         }
 
-        [dictionary3 setObject:-[NSMutableDictionary objectForKeyedSubscript:](-[BRStateData speedSlots](self forKey:{"speedSlots"), "objectForKeyedSubscript:", *(*(&v21 + 1) + 8 * v18)), objc_msgSend(*(*(&v21 + 1) + 8 * v18), "stringValue")}];
+        [dictionary3 setObject:-[NSMutableDictionary objectForKeyedSubscript:](-[BRStateData speedSlots](self forKey:{"speedSlots"), "objectForKeyedSubscript:", *(*(&v20 + 1) + 8 * v18)), objc_msgSend(*(*(&v20 + 1) + 8 * v18), "stringValue")}];
         ++v18;
       }
 
       while (v16 != v18);
-      v16 = [(NSMutableDictionary *)speedSlots countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v16 = [(NSMutableDictionary *)speedSlots countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v16);
   }
 
   [dictionary setObject:dictionary3 forKey:@"SlotsForSpeeds"];
-  v19 = *MEMORY[0x277D85DE8];
   return dictionary;
 }
 

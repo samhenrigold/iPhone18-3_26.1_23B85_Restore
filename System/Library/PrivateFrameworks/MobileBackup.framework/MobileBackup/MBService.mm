@@ -154,7 +154,7 @@ LABEL_2:
 
       if (!--v16)
       {
-        goto LABEL_56;
+        goto LABEL_55;
       }
 
       if ([*v17 isError:v50 withCode:307])
@@ -164,14 +164,22 @@ LABEL_2:
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Updating account after an Account-Moved response from service", buf, 2u);
-          _MBLog();
+          _MBLog(@"I ", "Updating account after an Account-Moved response from service");
         }
 
         updateAppleAccountSync = [(MBServiceAccount *)self->_account updateAppleAccountSync];
         if (updateAppleAccountSync)
         {
           v50 = [*v17 errorWithCode:300 error:updateAppleAccountSync format:@"Error updating account after Account-Moved response"];
-          goto LABEL_56;
+LABEL_55:
+          if (!error)
+          {
+            return 0;
+          }
+
+          v15 = 0;
+          *error = v50;
+          return v15;
         }
       }
 
@@ -179,7 +187,7 @@ LABEL_2:
       {
         if (![*v17 isError:v50 withCode:13])
         {
-          goto LABEL_56;
+          goto LABEL_55;
         }
 
         v27 = MBGetDefaultLog();
@@ -191,25 +199,17 @@ LABEL_2:
             *buf = 138412290;
             v52 = pathCopy;
             _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Locked response for a path without a backup: %@", buf, 0xCu);
-            goto LABEL_55;
+            _MBLog(@"Df", "Locked response for a path without a backup: %@", pathCopy);
           }
 
-LABEL_56:
-          if (!error)
-          {
-            return 0;
-          }
-
-          v15 = 0;
-          *error = v50;
-          return v15;
+          goto LABEL_55;
         }
 
         if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "Attempting to re-acquire lock after a Locked response from service", buf, 2u);
-          _MBLog();
+          _MBLog(@"I ", "Attempting to re-acquire lock after a Locked response from service");
         }
 
         v29 = [(MBService *)self lockForBackupUDID:v11];
@@ -224,12 +224,10 @@ LABEL_56:
             *buf = 138412290;
             v52 = v32;
             _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Attempt to re-acquire lock failed: %@", buf, 0xCu);
-            [*v17 descriptionForError:v48];
-LABEL_55:
-            _MBLog();
+            _MBLog(@"Df", "Attempt to re-acquire lock failed: %@", [*v17 descriptionForError:v48]);
           }
 
-          goto LABEL_56;
+          goto LABEL_55;
         }
 
         if ([v29 state] == 1)
@@ -323,13 +321,11 @@ LABEL_55:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      selfCopy3 = self;
-      v31 = 2112;
+      selfCopy2 = self;
+      v27 = 2112;
       messageCopy = message;
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "%@: %@", buf, 0x16u);
-      selfCopy2 = self;
-      messageCopy2 = message;
-      _MBLog();
+      _MBLog(@"Db", "%@: %@", self, message);
     }
   }
 
@@ -356,13 +352,11 @@ LABEL_13:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412546;
-        selfCopy3 = self;
-        v31 = 2112;
+        selfCopy2 = self;
+        v27 = 2112;
         messageCopy = v19;
         _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "%@: %@", buf, 0x16u);
-        selfCopy4 = self;
-        v28 = v19;
-        _MBLog();
+        _MBLog(@"Db", "%@: %@", self, v19);
         if (!error)
         {
           goto LABEL_21;

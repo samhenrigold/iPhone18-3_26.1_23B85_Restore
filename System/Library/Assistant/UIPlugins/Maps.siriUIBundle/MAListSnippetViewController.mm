@@ -10,6 +10,7 @@
 - (void)loadView;
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations;
 - (void)locationManagerDidChangeAuthorization:(id)authorization;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation MAListSnippetViewController
@@ -73,25 +74,8 @@
     city2 = [location city];
   }
 
-  if (center)
+  if (center || ([itemCopy location], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "latitude"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "doubleValue"), v15 = v14, objc_msgSend(itemCopy, "location"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "longitude"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "doubleValue"), v19 = CLLocationCoordinate2DMake(v15, v18), v24 = v19, v17, v16, v13, v12, CLLocationCoordinate2DGetDistanceFrom(), v20 >= 5000.0))
   {
-    goto LABEL_7;
-  }
-
-  location2 = [itemCopy location];
-  latitude = [location2 latitude];
-  [latitude doubleValue];
-  v15 = v14;
-  location3 = [itemCopy location];
-  longitude = [location3 longitude];
-  [longitude doubleValue];
-  v19 = CLLocationCoordinate2DMake(v15, v18);
-  v24 = v19;
-
-  CLLocationCoordinate2DGetDistanceFrom();
-  if (v20 >= 5000.0)
-  {
-LABEL_7:
     v22 = [(MAListSnippetViewController *)self _nearCityString:city2, v24, *&location.latitude, *&location.longitude];
   }
 
@@ -123,6 +107,14 @@ LABEL_7:
   [(MAListSnippetView *)v5 _ma_updateSemanticContentAttribute];
   [(MAListSnippetView *)v5 _mapkit_setNeedsLayout];
   [(MAListSnippetViewController *)self setView:v5];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = MAListSnippetViewController;
+  [(MABaseSnippetViewController *)&v4 viewDidAppear:appear];
+  [(MABaseSnippetViewController *)self captureUserAction:2015];
 }
 
 - (void)_updateTitleAndSubtitleWithCompletionHandler:(id)handler

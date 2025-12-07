@@ -44,9 +44,9 @@
   if (!result)
   {
     v6 = [self alloc];
-    v9 = objc_msgSend_initWithMeshSource_(v6, v7, ref, v8);
+    v8 = objc_msgSend_initWithMeshSource_(v6, v7, ref);
 
-    return v9;
+    return v8;
   }
 
   return result;
@@ -54,28 +54,28 @@
 
 - (VFXMeshSource)initWithMeshSource:(__CFXMeshSource *)source
 {
-  v12.receiver = self;
-  v12.super_class = VFXMeshSource;
-  v4 = [(VFXMeshSource *)&v12 init];
+  v18.receiver = self;
+  v18.super_class = VFXMeshSource;
+  v4 = [(VFXMeshSource *)&v18 init];
   if (source)
   {
     v4->_meshSource = CFRetain(source);
-    v4->_data = sub_1AF1AE6E8(source);
-    v10 = 0u;
-    v11 = 0u;
-    sub_1AF1AE1A8(source, &v10);
-    v5 = sub_1AF1AE3D8(source);
-    v6 = sub_1AF2E4E18(v5);
-    v7 = v11;
-    v4->_semantic = &v6->isa;
-    v4->_vectorCount = v7;
-    v4->_componentType = BYTE7(v11);
-    v4->_componentCount = BYTE8(v11);
-    v4->_mkSemantic = sub_1AF1AF854(source);
+    v4->_data = sub_1AF1AE6E8(source, v5);
+    v16 = 0u;
+    v17 = 0u;
+    sub_1AF1AE1A8(source, v6, &v16);
+    v8 = sub_1AF1AE3D8(source, v7);
+    v9 = sub_1AF2E4E18(v8);
+    v10 = v17;
+    v4->_semantic = &v9->isa;
+    v4->_vectorCount = v10;
+    v4->_componentType = BYTE7(v17);
+    v4->_componentCount = BYTE8(v17);
+    v4->_mkSemantic = sub_1AF1AF854(source, v11);
     sub_1AF16CDFC(source, v4);
-    v8 = sub_1AF1AF080(source);
-    v4->_dataOffset = sub_1AF1CB564(v8);
-    v4->_dataStride = sub_1AF121B74(v8);
+    v13 = sub_1AF1AF080(source, v12);
+    v4->_dataOffset = sub_1AF1CB564(v13, v14);
+    v4->_dataStride = sub_1AF121B74(v13);
   }
 
   return v4;
@@ -87,7 +87,7 @@
   if (meshSource)
   {
     sub_1AF16CDFC(meshSource, 0);
-    objc_msgSend_postReleaseCommandWithCFXObject_(VFXTransaction, v4, self->_meshSource, v5);
+    objc_msgSend_postReleaseCommandWithCFXObject_(VFXTransaction, v4, self->_meshSource);
   }
 
   colorSpace = self->_colorSpace;
@@ -97,9 +97,9 @@
     self->_colorSpace = 0;
   }
 
-  v7.receiver = self;
-  v7.super_class = VFXMeshSource;
-  [(VFXMeshSource *)&v7 dealloc];
+  v6.receiver = self;
+  v6.super_class = VFXMeshSource;
+  [(VFXMeshSource *)&v6 dealloc];
 }
 
 - (NSString)description
@@ -107,11 +107,11 @@
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v9 = objc_msgSend_semantic(self, v6, v7, v8);
-  v13 = objc_msgSend_vectorCount(self, v10, v11, v12);
-  v14 = sub_1AF2883D8(self->_componentType);
-  v18 = objc_msgSend_componentsPerVector(self, v15, v16, v17);
-  return objc_msgSend_stringWithFormat_(v3, v19, @"<%@: %p | semantic=%@ vectors=%d %@x%d>", v20, v5, self, v9, v13, v14, v18);
+  v8 = objc_msgSend_semantic(self, v6, v7);
+  v11 = objc_msgSend_vectorCount(self, v9, v10);
+  v13 = sub_1AF2883D8(self->_componentType, v12);
+  v16 = objc_msgSend_componentsPerVector(self, v14, v15);
+  return objc_msgSend_stringWithFormat_(v3, v17, @"<%@: %p | semantic=%@ vectors=%d %@x%d>", v5, self, v8, v11, v13, v16);
 }
 
 + (id)dataByConvertingDoublesToFloats:(const double *)floats count:(int64_t)count
@@ -181,13 +181,13 @@
 - (VFXMeshSource)initWithData:(id)data semantic:(id)semantic colorSpace:(CGColorSpace *)space vectorCount:(int64_t)count floatComponents:(BOOL)components componentsPerVector:(int64_t)vector bytesPerComponent:(int64_t)component dataOffset:(int64_t)self0 dataStride:(int64_t)self1
 {
   componentsCopy = components;
-  dataCopy = data;
   offsetCopy = offset;
   strideCopy = stride;
-  if ((sub_1AF2E54B8(semantic, a2, data, semantic) & 1) == 0)
+  v20 = sub_1AF2E54B8(semantic, a2);
+  if ((v20 & 1) == 0)
   {
-    v24 = sub_1AF0D5194();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v26 = sub_1AF0D5194(v20, v21);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDF6228();
     }
@@ -197,16 +197,17 @@
 
   v37.receiver = self;
   v37.super_class = VFXMeshSource;
-  self = [(VFXMeshSource *)&v37 init];
-  if (self)
+  v22 = [(VFXMeshSource *)&v37 init];
+  self = v22;
+  if (v22)
   {
     componentCopy = component;
     if (component == 8)
     {
       if (offsetCopy || strideCopy && 8 * vector != strideCopy)
       {
-        v23 = sub_1AF0D5194();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        v25 = sub_1AF0D5194(v22, v23);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           sub_1AFDF625C();
         }
@@ -216,21 +217,21 @@ LABEL_11:
         return 0;
       }
 
-      v25 = objc_opt_class();
-      v29 = objc_msgSend_bytes(dataCopy, v26, v27, v28);
-      dataCopy = objc_msgSend_dataByConvertingDoublesToFloats_count_(v25, v30, v29, vector * count);
+      v27 = objc_opt_class();
+      v30 = objc_msgSend_bytes(data, v28, v29);
+      data = objc_msgSend_dataByConvertingDoublesToFloats_count_(v27, v31, v30, vector * count);
       strideCopy = 4 * vector;
       stride = 4 * vector;
       componentCopy = 4;
     }
 
-    if (space && objc_msgSend_isEqualToString_(semantic, v20, @"kGeometrySourceSemanticColor", v21))
+    if (space && objc_msgSend_isEqualToString_(semantic, v23, @"kGeometrySourceSemanticColor"))
     {
-      dataCopy = objc_msgSend_dataByConvertingColorData_colorSpace_newColorSpace_vectorCount_componentsPerVector_bytesPerComponent_dataOffset_dataStride_newDataOffset_newDataStride_(self, v31, dataCopy, space, &self->_colorSpace, count, vector, componentCopy, offsetCopy, strideCopy, &offset, &stride);
+      data = objc_msgSend_dataByConvertingColorData_colorSpace_newColorSpace_vectorCount_componentsPerVector_bytesPerComponent_dataOffset_dataStride_newDataOffset_newDataStride_(self, v32, data, space, &self->_colorSpace, count, vector, componentCopy, offsetCopy, strideCopy, &offset, &stride);
     }
 
-    self->_data = dataCopy;
-    self->_semantic = objc_msgSend_copy(semantic, v32, v33, v34);
+    self->_data = data;
+    self->_semantic = objc_msgSend_copy(semantic, v33, v34);
     self->_vectorCount = count;
     self->_componentType = sub_1AF288ADC(componentCopy, 1, componentsCopy);
     self->_componentCount = vector;
@@ -251,33 +252,34 @@ LABEL_11:
 {
   componentCountCopy = componentCount;
   typeCopy = type;
-  if (sub_1AF2E54B8(semantic, a2, data, semantic))
+  v16 = sub_1AF2E54B8(semantic, a2);
+  if (v16)
   {
-    v23.receiver = self;
-    v23.super_class = VFXMeshSource;
-    v16 = [(VFXMeshSource *)&v23 init];
-    if (v16)
+    v25.receiver = self;
+    v25.super_class = VFXMeshSource;
+    v18 = [(VFXMeshSource *)&v25 init];
+    if (v18)
     {
       strideCopy = stride;
-      v16->_data = data;
-      v16->_semantic = objc_msgSend_copy(semantic, v18, v19, v20);
-      v16->_vectorCount = count;
-      v16->_componentType = typeCopy;
-      v16->_componentCount = componentCountCopy;
-      v16->_dataOffset = offset;
+      v18->_data = data;
+      v18->_semantic = objc_msgSend_copy(semantic, v20, v21);
+      v18->_vectorCount = count;
+      v18->_componentType = typeCopy;
+      v18->_componentCount = componentCountCopy;
+      v18->_dataOffset = offset;
       if (!stride)
       {
-        strideCopy = sub_1AF288070(typeCopy) * v16->_componentCount;
+        strideCopy = sub_1AF288070(typeCopy, v22) * v18->_componentCount;
       }
 
-      v16->_dataStride = strideCopy;
+      v18->_dataStride = strideCopy;
     }
   }
 
   else
   {
-    v21 = sub_1AF0D5194();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v23 = sub_1AF0D5194(v16, v17);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDF6228();
     }
@@ -285,39 +287,40 @@ LABEL_11:
     return 0;
   }
 
-  return v16;
+  return v18;
 }
 
 - (VFXMeshSource)initWithBuffer:(id)buffer vertexFormat:(unint64_t)format semantic:(id)semantic vertexCount:(int64_t)count dataOffset:(int64_t)offset dataStride:(int64_t)stride
 {
-  if (sub_1AF2E54B8(semantic, a2, buffer, format))
+  v15 = sub_1AF2E54B8(semantic, a2);
+  if (v15)
   {
-    v22.receiver = self;
-    v22.super_class = VFXMeshSource;
-    v15 = [(VFXMeshSource *)&v22 init];
-    if (v15)
+    v27.receiver = self;
+    v27.super_class = VFXMeshSource;
+    v17 = [(VFXMeshSource *)&v27 init];
+    if (v17)
     {
-      v15->_mtlBuffer = buffer;
-      v15->_semantic = objc_msgSend_copy(semantic, v16, v17, v18);
-      v15->_vectorCount = count;
-      v15->_mtlVertexFormat = format;
-      v19 = sub_1AF1F1980(format);
-      v15->_componentType = sub_1AF28844C(v19);
-      v15->_componentCount = sub_1AF2884B4(v19);
-      v15->_dataOffset = offset;
+      v17->_mtlBuffer = buffer;
+      v17->_semantic = objc_msgSend_copy(semantic, v18, v19);
+      v17->_vectorCount = count;
+      v17->_mtlVertexFormat = format;
+      v21 = sub_1AF1F1980(format, v20);
+      v17->_componentType = sub_1AF28844C(v21, v22);
+      v17->_componentCount = sub_1AF2884B4(v21, v23);
+      v17->_dataOffset = offset;
       if (!stride)
       {
-        stride = sub_1AF288070(v19);
+        stride = sub_1AF288070(v21, v24);
       }
 
-      v15->_dataStride = stride;
+      v17->_dataStride = stride;
     }
   }
 
   else
   {
-    v20 = sub_1AF0D5194();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v25 = sub_1AF0D5194(v15, v16);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDF6228();
     }
@@ -325,7 +328,7 @@ LABEL_11:
     return 0;
   }
 
-  return v15;
+  return v17;
 }
 
 + (id)meshSourceWithData:(id)data semantic:(id)semantic vectorCount:(int64_t)count floatComponents:(BOOL)components componentsPerVector:(int64_t)vector bytesPerComponent:(int64_t)component dataOffset:(int64_t)offset dataStride:(int64_t)self0
@@ -350,7 +353,7 @@ LABEL_11:
 {
   v4 = v3;
   v9 = 0;
-  v6 = objc_msgSend_dataWithVector3Array_count_bytesPerComponent_(vertices, count, v2, v3, &v9);
+  v6 = objc_msgSend_dataWithVector3Array_count_bytesPerComponent_(vertices, count, v2);
   return objc_msgSend_meshSourceWithData_semantic_vectorCount_floatComponents_componentsPerVector_bytesPerComponent_dataOffset_dataStride_(vertices, v7, v6, @"kGeometrySourceSemanticPosition", v4, 1, 3, v9, 0, 16);
 }
 
@@ -358,7 +361,7 @@ LABEL_11:
 {
   v4 = v3;
   v9 = 0;
-  v6 = objc_msgSend_dataWithVector3Array_count_bytesPerComponent_(normals, count, v2, v3, &v9);
+  v6 = objc_msgSend_dataWithVector3Array_count_bytesPerComponent_(normals, count, v2);
   return objc_msgSend_meshSourceWithData_semantic_vectorCount_floatComponents_componentsPerVector_bytesPerComponent_dataOffset_dataStride_(normals, v7, v6, @"kGeometrySourceSemanticNormal", v4, 1, 3, v9, 0, 16);
 }
 
@@ -373,7 +376,7 @@ LABEL_11:
 {
   dataStrideCopy2 = dataStride;
   offsetCopy2 = offset;
-  sub_1AF16425C();
+  sub_1AF16425C(self, a2);
   ColorSpace = CGColorTransformGetColorSpace();
   v20 = *colorSpace;
   if (*colorSpace != ColorSpace)
@@ -402,8 +405,8 @@ LABEL_11:
     goto LABEL_19;
   }
 
-  v36 = 3 * component;
-  v25 = component * vector;
+  v35 = 3 * component;
+  v24 = component * vector;
   if (stride)
   {
     strideCopy = stride;
@@ -415,12 +418,12 @@ LABEL_11:
   }
 
   dataCopy = data;
-  v27 = objc_msgSend_bytes(data, v22, v23, v24) + offset;
-  v38 = v25 * count;
-  v28 = malloc_type_malloc(v25 * count, 0x100004077774924uLL);
+  v26 = objc_msgSend_bytes(data, v22, v23) + offset;
+  v37 = v24 * count;
+  v27 = malloc_type_malloc(v24 * count, 0x100004077774924uLL);
   if (!CGColorTransformConvertData())
   {
-    free(v28);
+    free(v27);
     dataStrideCopy2 = dataStride;
     offsetCopy2 = offset;
     data = dataCopy;
@@ -431,105 +434,107 @@ LABEL_19:
   }
 
   *dataOffset = 0;
-  *dataStride = v25;
+  *dataStride = v24;
   if (vector == 4)
   {
-    v30 = v28;
+    v29 = v27;
     if (count >= 1)
     {
-      v31 = &v28[v36];
-      v32 = (v27 + v36);
+      v30 = &v27[v35];
+      v31 = (v26 + v35);
       do
       {
-        memcpy(v31, v32, component);
-        v31 += v25;
-        v32 += strideCopy;
+        memcpy(v30, v31, component);
+        v30 += v24;
+        v31 += strideCopy;
         --count;
       }
 
       while (count);
     }
 
-    v33 = MEMORY[0x1E695DEF0];
-    v34 = v30;
+    v32 = MEMORY[0x1E695DEF0];
+    v33 = v29;
   }
 
   else
   {
-    v33 = MEMORY[0x1E695DEF0];
-    v34 = v28;
+    v32 = MEMORY[0x1E695DEF0];
+    v33 = v27;
   }
 
-  return objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(v33, v29, v34, v38, 1);
+  return objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(v32, v28, v33, v37, 1);
 }
 
 + (id)meshSourceWithColorComponents:(const float *)components count:(int64_t)count hasAlpha:(BOOL)alpha colorSpace:(CGColorSpace *)space
 {
   alphaCopy = alpha;
-  sub_1AF16425C();
+  selfCopy = self;
+  sub_1AF16425C(self, a2);
   ColorSpace = CGColorTransformGetColorSpace();
+  v13 = ColorSpace;
   if (!space)
   {
-    space = sub_1AF164420();
+    space = sub_1AF164420(ColorSpace, v12);
   }
 
   if (alphaCopy)
   {
-    v12 = 4;
+    v14 = 4;
   }
 
   else
   {
-    v12 = 3;
+    v14 = 3;
   }
 
-  if (CFEqual(space, ColorSpace))
+  if (CFEqual(space, v13))
   {
-    v14 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v13, components, 4 * v12 * count);
+    v16 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v15, components, 4 * v14 * count);
   }
 
   else
   {
-    selfCopy = self;
-    v15 = malloc_type_malloc(4 * v12 * count, 0x100004052888210uLL);
-    v28 = 4 * v12;
-    v27 = 4 * v12;
+    v31 = selfCopy;
+    v17 = malloc_type_malloc(4 * v14 * count, 0x100004052888210uLL);
+    v30 = 4 * v14;
+    v29 = 4 * v14;
     if (CGColorTransformConvertData())
     {
       if (count >= 1 && alphaCopy)
       {
-        v17 = v15 + 3;
-        v18 = components + 3;
+        v19 = v17 + 3;
+        v20 = components + 3;
         countCopy = count;
         do
         {
-          v20 = *v18;
-          v18 += 4;
-          *v17 = v20;
-          v17 += 4;
+          v22 = *v20;
+          v20 += 4;
+          *v19 = v22;
+          v19 += 4;
           --countCopy;
         }
 
         while (countCopy);
       }
 
-      v21 = objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(MEMORY[0x1E695DEF0], v16, v15, 4 * v12 * count, 1, v27, v15, 96, v28);
+      v23 = objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(MEMORY[0x1E695DEF0], v18, v17, 4 * v14 * count, 1, v29, v17, 96, v30);
     }
 
     else
     {
-      free(v15);
-      v21 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v22, components, 4 * v12 * count, v27, v15, 96, v28);
+      free(v17);
+      v23 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v24, components, 4 * v14 * count, v29, v17, 96, v30);
     }
 
-    v14 = v21;
-    self = selfCopy;
+    v16 = v23;
+    selfCopy = v31;
   }
 
-  v23 = [self alloc];
-  v25 = objc_msgSend_initWithData_semantic_colorSpace_vectorCount_floatComponents_componentsPerVector_bytesPerComponent_dataOffset_dataStride_(v23, v24, v14, @"kGeometrySourceSemanticColor", ColorSpace, count, 1, v12, 4, 0, 4 * v12);
+  v25 = [selfCopy alloc];
+  v27 = objc_msgSend_initWithData_semantic_colorSpace_vectorCount_floatComponents_componentsPerVector_bytesPerComponent_dataOffset_dataStride_(v25, v26, v16, @"kGeometrySourceSemanticColor", v13, count, 1, v14, 4, 0, 4 * v14);
 
-  return v25;
+  return v27;
 }
 
 + (id)geometrySourceWithColorData:(id)data colorSpace:(CGColorSpace *)space vectorCount:(int64_t)count floatComponents:(BOOL)components componentsPerVector:(int64_t)vector bytesPerComponent:(int64_t)component dataOffset:(int64_t)offset dataStride:(int64_t)self0
@@ -553,7 +558,7 @@ LABEL_19:
 
   else
   {
-    v18 = sub_1AF0D5194();
+    v18 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDF6290();
@@ -572,8 +577,8 @@ LABEL_19:
 
   if (!format)
   {
-    v18 = sub_1AF0D5194();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v16 = sub_1AF0D5194(self, a2);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDF62C4();
     }
@@ -581,20 +586,20 @@ LABEL_19:
     return 0;
   }
 
-  v6 = sub_1AF1F1980(format);
-  v10 = objc_msgSend_meshSource(source, v7, v8, v9);
-  v11 = sub_1AF1AF184(v10, v6, 0);
-  if (!v11)
+  v6 = sub_1AF1F1980(format, a2);
+  v9 = objc_msgSend_meshSource(source, v7, v8);
+  v10 = sub_1AF1AF184(v9, v6, 0);
+  if (!v10)
   {
     NSLog(&cfstr_Modelsourcewit.isa);
     return 0;
   }
 
-  v12 = v11;
-  v13 = [self alloc];
-  v16 = objc_msgSend_initWithMeshSource_(v13, v14, v12, v15);
+  v11 = v10;
+  v12 = [self alloc];
+  v14 = objc_msgSend_initWithMeshSource_(v12, v13, v11);
 
-  return v16;
+  return v14;
 }
 
 - (id)mkSemantic
@@ -615,67 +620,67 @@ LABEL_19:
 
 - (void)setMkSemantic:(id)semantic
 {
-  if (objc_msgSend_isEqualToString_(semantic, a2, *MEMORY[0x1E6974AE0], v3))
+  if (objc_msgSend_isEqualToString_(semantic, a2, *MEMORY[0x1E6974AE0]))
   {
-    v8 = 0;
+    v6 = 0;
   }
 
-  else if (objc_msgSend_isEqualToString_(semantic, v6, *MEMORY[0x1E6974B28], v7))
+  else if (objc_msgSend_isEqualToString_(semantic, v5, *MEMORY[0x1E6974B28]))
   {
-    v8 = 1;
+    v6 = 1;
   }
 
-  else if (objc_msgSend_isEqualToString_(semantic, v9, *MEMORY[0x1E6974B38], v10))
+  else if (objc_msgSend_isEqualToString_(semantic, v7, *MEMORY[0x1E6974B38]))
   {
-    v8 = 2;
+    v6 = 2;
   }
 
-  else if (objc_msgSend_isEqualToString_(semantic, v11, *MEMORY[0x1E6974B18], v12))
+  else if (objc_msgSend_isEqualToString_(semantic, v8, *MEMORY[0x1E6974B18]))
   {
-    v8 = 3;
+    v6 = 3;
   }
 
-  else if (objc_msgSend_isEqualToString_(semantic, v13, @"aoCoord", v14))
+  else if (objc_msgSend_isEqualToString_(semantic, v9, @"aoCoord"))
   {
-    v8 = 4;
+    v6 = 4;
   }
 
-  else if (objc_msgSend_isEqualToString_(semantic, v15, *MEMORY[0x1E6974AF8], v16))
+  else if (objc_msgSend_isEqualToString_(semantic, v10, *MEMORY[0x1E6974AF8]))
   {
-    v8 = 5;
+    v6 = 5;
   }
 
-  else if (objc_msgSend_isEqualToString_(semantic, v17, *MEMORY[0x1E6974B20], v18))
+  else if (objc_msgSend_isEqualToString_(semantic, v11, *MEMORY[0x1E6974B20]))
   {
-    v8 = 6;
+    v6 = 6;
   }
 
-  else if (objc_msgSend_isEqualToString_(semantic, v19, *MEMORY[0x1E6974B30], v20))
+  else if (objc_msgSend_isEqualToString_(semantic, v12, *MEMORY[0x1E6974B30]))
   {
-    v8 = 7;
+    v6 = 7;
   }
 
-  else if (objc_msgSend_isEqualToString_(semantic, v21, *MEMORY[0x1E6974AE8], v22))
+  else if (objc_msgSend_isEqualToString_(semantic, v13, *MEMORY[0x1E6974AE8]))
   {
-    v8 = 8;
+    v6 = 8;
   }
 
-  else if (objc_msgSend_isEqualToString_(semantic, v23, @"lightmapCoord", v24))
+  else if (objc_msgSend_isEqualToString_(semantic, v14, @"lightmapCoord"))
   {
-    v8 = 9;
+    v6 = 9;
   }
 
   else
   {
-    v8 = 0;
+    v6 = 0;
   }
 
-  self->_mkSemantic = v8;
+  self->_mkSemantic = v6;
   meshSource = self->_meshSource;
   if (meshSource)
   {
 
-    sub_1AF1AF89C(meshSource, v8);
+    sub_1AF1AF89C(meshSource, v6);
   }
 }
 
@@ -687,11 +692,11 @@ LABEL_19:
     result = self->_mtlBuffer;
     if (result)
     {
-      v6 = MEMORY[0x1E695DEF0];
-      v7 = objc_msgSend_contents(result, a2, v2, v3);
-      v12 = objc_msgSend_length(self->_mtlBuffer, v8, v9, v10);
+      v5 = MEMORY[0x1E695DEF0];
+      v6 = objc_msgSend_contents(result, a2, v2);
+      v10 = objc_msgSend_length(self->_mtlBuffer, v7, v8);
 
-      return objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(v6, v11, v7, v12, 0);
+      return objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(v5, v9, v6, v10, 0);
     }
   }
 
@@ -700,10 +705,10 @@ LABEL_19:
 
 - (void)_printData
 {
-  v4 = objc_msgSend_meshSource(self, a2, v2, v3);
-  v5 = sub_1AF1AE6EC(v4);
+  v3 = objc_msgSend_meshSource(self, a2, v2);
+  v5 = sub_1AF1AE6EC(v3, v4);
 
-  sub_1AF1AF380(v4, v5);
+  sub_1AF1AF380(v3, v5);
 }
 
 - (void)_clearCFXCache
@@ -713,16 +718,16 @@ LABEL_19:
     meshSource = self->_meshSource;
     if (meshSource)
     {
-      if (!sub_1AF1B72E0(meshSource, a2, v2, v3))
+      if (!sub_1AF1B72E0(meshSource, a2, v2))
       {
-        v6 = self->_meshSource;
-        if (v6)
+        v5 = self->_meshSource;
+        if (v5)
         {
-          sub_1AF16CDFC(v6, 0);
-          v7 = self->_meshSource;
-          if (v7)
+          sub_1AF16CDFC(v5, 0);
+          v6 = self->_meshSource;
+          if (v6)
           {
-            CFRelease(v7);
+            CFRelease(v6);
             self->_meshSource = 0;
           }
         }
@@ -736,7 +741,7 @@ LABEL_19:
   world = self->_world;
   if (world == reference)
   {
-    v6 = self->_worldReferenceCounter + 1;
+    v5 = self->_worldReferenceCounter + 1;
   }
 
   else
@@ -746,11 +751,11 @@ LABEL_19:
       self->_worldReferenceCounter = 0;
     }
 
-    objc_msgSend_setWorld_(self, a2, reference, v3);
-    v6 = 1;
+    objc_msgSend_setWorld_(self, a2, reference);
+    v5 = 1;
   }
 
-  self->_worldReferenceCounter = v6;
+  self->_worldReferenceCounter = v5;
 }
 
 - (void)removeWorldReference:(id)reference
@@ -761,21 +766,21 @@ LABEL_19:
     worldReferenceCounter = self->_worldReferenceCounter;
     if (worldReferenceCounter)
     {
-      v7 = worldReferenceCounter - 1;
-      self->_worldReferenceCounter = v7;
-      if (!v7)
+      v6 = worldReferenceCounter - 1;
+      self->_worldReferenceCounter = v6;
+      if (!v6)
       {
 
-        objc_msgSend_setWorld_(self, a2, 0, v3);
+        objc_msgSend_setWorld_(self, a2, 0);
       }
     }
 
     else
     {
-      v8 = sub_1AF0D5194();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v7 = sub_1AF0D5194(self, a2);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        sub_1AFDF4930(self, p_world, v8);
+        sub_1AFDF4930(self, p_world, v7);
       }
     }
   }
@@ -818,7 +823,7 @@ LABEL_19:
     return self->_world;
   }
 
-  result = objc_msgSend_worldRef(self, a2, v2, v3);
+  result = objc_msgSend_worldRef(self, a2, v2);
   if (result)
   {
 
@@ -830,9 +835,9 @@ LABEL_19:
 
 - (__CFXWorld)worldRef
 {
-  v4 = objc_msgSend___CFObject(self, a2, v2, v3);
+  v3 = objc_msgSend___CFObject(self, a2, v2);
 
-  return sub_1AF1C3FAC(v4);
+  return sub_1AF1C3FAC(v3, v4);
 }
 
 - (__CFXMeshSource)meshSource
@@ -842,19 +847,19 @@ LABEL_19:
     if (self->_componentType)
     {
       mtlBuffer = self->_mtlBuffer;
-      v7 = sub_1AF2E4E38(self->_semantic, a2, v2, v3);
+      v5 = sub_1AF2E4E38(self->_semantic, a2);
       if (mtlBuffer)
       {
-        v8 = sub_1AF1F2F0C(v7, self->_mtlBuffer, self->_mtlVertexFormat, self->_vectorCount, self->_dataStride, self->_dataOffset);
+        v6 = sub_1AF1F2F0C(v5, self->_mtlBuffer, self->_mtlVertexFormat, self->_vectorCount, self->_dataStride, self->_dataOffset);
       }
 
       else
       {
-        v8 = sub_1AF1ADC58(v7, self->_data, self->_componentType, self->_componentCount, self->_vectorCount, self->_dataStride, self->_dataOffset);
+        v6 = sub_1AF1ADC58(v5, self->_data, self->_componentType, self->_componentCount, self->_vectorCount, self->_dataStride, self->_dataOffset);
       }
 
-      self->_meshSource = v8;
-      sub_1AF1AF89C(v8, self->_mkSemantic);
+      self->_meshSource = v6;
+      sub_1AF1AF89C(v6, self->_mkSemantic);
       meshSource = self->_meshSource;
       if (meshSource)
       {
@@ -864,8 +869,8 @@ LABEL_19:
 
     else
     {
-      v9 = sub_1AF0D5194();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v7 = sub_1AF0D5194(self, a2);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         sub_1AFDF62F8();
       }
@@ -879,18 +884,18 @@ LABEL_19:
 {
   countCopy = count;
   v12 = dstStride * count;
-  v13 = objc_msgSend_dataWithCapacity_(MEMORY[0x1E695DF88], a2, dstStride * count, count);
-  objc_msgSend_setLength_(v13, v14, v12, v15);
-  v19 = objc_msgSend_mutableBytes(v13, v16, v17, v18);
-  v23 = objc_msgSend_bytes(data, v20, v21, v22);
+  v13 = objc_msgSend_dataWithCapacity_(MEMORY[0x1E695DF88], a2, dstStride * count);
+  objc_msgSend_setLength_(v13, v14, v12);
+  v17 = objc_msgSend_mutableBytes(v13, v15, v16);
+  v20 = objc_msgSend_bytes(data, v18, v19);
   if (countCopy)
   {
-    v24 = (v23 + offset);
+    v21 = (v20 + offset);
     do
     {
-      memcpy(v19, v24, dstStride);
-      v24 += stride;
-      v19 += dstStride;
+      memcpy(v17, v21, dstStride);
+      v21 += stride;
+      v17 += dstStride;
       --countCopy;
     }
 
@@ -902,161 +907,165 @@ LABEL_19:
 
 - (void)encodeWithCoder:(id)coder
 {
-  LOWORD(v6) = self->_componentType;
+  LOWORD(v5) = self->_componentType;
   dataOffset = self->_dataOffset;
   dataStride = self->_dataStride;
-  v9 = objc_msgSend_data(self, a2, coder, v3);
-  if (v9)
+  v8 = objc_msgSend_data(self, a2, coder);
+  if (v8)
   {
-    v13 = v9;
+    v11 = v8;
     if (self->_encodeDataAsHalf)
     {
       componentType = self->_componentType;
-      if (componentType != sub_1AF28844C(componentType))
+      v13 = sub_1AF28844C(componentType, v9);
+      if (componentType != v13)
       {
-        v15 = sub_1AF0D5194();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+        v15 = sub_1AF0D5194(v13, v14);
+        v13 = os_log_type_enabled(v15, OS_LOG_TYPE_FAULT);
+        if (v13)
         {
-          sub_1AFDF632C(v15, v16, v17, v18, v19, v20, v21, v22);
+          sub_1AFDF632C(v15, v14, v16, v17, v18, v19, v20, v21);
         }
       }
 
       if (self->_componentType == 14)
       {
-        v23 = v13;
-        sub_1AF288070(14);
+        v22 = v11;
+        sub_1AF288070(14, v23);
       }
 
       else
       {
         if (self->_componentCount - 2 >= 3)
         {
-          v30 = sub_1AF0D5194();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
+          v29 = sub_1AF0D5194(v13, v14);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
           {
-            sub_1AFDF63A4(v30, v31, v32, v33, v34, v35, v36, v37);
+            sub_1AFDF63A4(v29, v30, v31, v32, v33, v34, v35, v36);
           }
         }
 
         v38 = sub_1AF1AF184(self->_meshSource, *&asc_1AFF8173E[2 * self->_componentCount - 4], 0);
         if (!v38)
         {
-          v39 = sub_1AF0D5194();
+          v39 = sub_1AF0D5194(0, v37);
           if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
           {
-            sub_1AFDF641C(v39, v40, v41, v42, v43, v44, v45, v46);
+            sub_1AFDF641C(v39, v37, v40, v41, v42, v43, v44, v45);
           }
         }
 
-        v47 = sub_1AF1AF080(v38);
-        v48 = sub_1AF1CAED8(v47);
-        v6 = sub_1AF28844C(v48);
-        dataStride = sub_1AF121B74(v47);
-        dataOffset = sub_1AF1CB564(v47);
-        if (v6 != 14)
+        v46 = sub_1AF1AF080(v38, v37);
+        v47 = sub_1AF1CAED8(v46);
+        v5 = sub_1AF28844C(v47, v48);
+        dataStride = sub_1AF121B74(v46);
+        v50 = sub_1AF1CB564(v46, v49);
+        dataOffset = v50;
+        if (v5 != 14)
         {
-          v49 = sub_1AF0D5194();
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_FAULT))
+          v52 = sub_1AF0D5194(v50, v51);
+          if (os_log_type_enabled(v52, OS_LOG_TYPE_FAULT))
           {
-            sub_1AFDF6494(v49, v50, v51, v52, v53, v54, v55, v56);
+            sub_1AFDF6494(v52, v51, v53, v54, v55, v56, v57, v58);
           }
         }
 
-        sub_1AF288070(v6);
-        v23 = sub_1AF1AE6E8(v38);
+        sub_1AF288070(v5, v51);
+        v22 = sub_1AF1AE6E8(v38, v59);
         CFRelease(v38);
       }
 
-      v87 = vImageEncodeVectorOptionsCreate();
+      v90 = vImageEncodeVectorOptionsCreate();
       vImageEncodeVectorOptionsSetQuantization();
-      v86 = 0;
-      objc_msgSend_bytes(v23, v57, v58, v59);
-      objc_msgSend_length(v23, v60, v61, v62);
-      v63 = vImageEncodeVectorHalf();
+      v89 = 0;
+      objc_msgSend_bytes(v22, v60, v61);
+      objc_msgSend_length(v22, v62, v63);
+      v64 = vImageEncodeVectorHalf();
 
-      if (!v63)
+      if (!v64)
       {
-        v64 = sub_1AF0D5194();
-        if (os_log_type_enabled(v64, OS_LOG_TYPE_FAULT))
+        v67 = sub_1AF0D5194(v65, v66);
+        if (os_log_type_enabled(v67, OS_LOG_TYPE_FAULT))
         {
-          sub_1AFDF650C(v64, v65, v66, v67, v68, v69, v70, v71);
+          sub_1AFDF650C(v67, v68, v69, v70, v71, v72, v73, v74);
         }
       }
 
       vImageEncodeVectorOptionsFree();
-      v73 = objc_msgSend_dataWithBytesNoCopy_length_(MEMORY[0x1E695DEF0], v72, v86, v63);
-      objc_msgSend_encodeObject_forKey_(coder, v74, v73, @"cdata");
+      v76 = objc_msgSend_dataWithBytesNoCopy_length_(MEMORY[0x1E695DEF0], v75, v89, v64);
+      objc_msgSend_encodeObject_forKey_(coder, v77, v76, @"cdata");
     }
 
     else
     {
-      v24 = objc_msgSend_bytesPerComponent(self, v10, v11, v12);
-      v29 = objc_msgSend_componentsPerVector(self, v25, v26, v27) * v24;
-      if (v29 < self->_dataStride)
+      v24 = objc_msgSend_bytesPerComponent(self, v9, v10);
+      v28 = objc_msgSend_componentsPerVector(self, v25, v26) * v24;
+      if (v28 < self->_dataStride)
       {
-        v13 = objc_msgSend__uninterleaveData_count_srcOffset_srcStride_dstStride_(self, v28, v13, self->_vectorCount, self->_dataOffset);
+        v11 = objc_msgSend__uninterleaveData_count_srcOffset_srcStride_dstStride_(self, v27, v11, self->_vectorCount, self->_dataOffset);
         dataOffset = 0;
-        dataStride = v29;
+        dataStride = v28;
       }
 
-      objc_msgSend_encodeObject_forKey_(coder, v28, v13, @"data");
+      objc_msgSend_encodeObject_forKey_(coder, v27, v11, @"data");
     }
   }
 
   semantic = self->_semantic;
   if (semantic)
   {
-    objc_msgSend_encodeObject_forKey_(coder, v10, semantic, @"semantic");
+    objc_msgSend_encodeObject_forKey_(coder, v9, semantic, @"semantic");
   }
 
-  objc_msgSend_encodeInteger_forKey_(coder, v10, self->_vectorCount, @"vectorCount");
-  v86 = 0;
-  v87 = 0;
-  v85 = 0;
-  if (sub_1AF288A0C(v6, &v87, &v86, &v85))
+  objc_msgSend_encodeInteger_forKey_(coder, v9, self->_vectorCount, @"vectorCount");
+  v89 = 0;
+  v90 = 0;
+  v88 = 0;
+  if (sub_1AF288A0C(v5, &v90, &v89, &v88))
   {
-    objc_msgSend_encodeBool_forKey_(coder, v76, v85, @"floatComponents");
-    objc_msgSend_encodeInteger_forKey_(coder, v77, v87, @"bytesPerComponent");
+    objc_msgSend_encodeBool_forKey_(coder, v79, v88, @"floatComponents");
+    objc_msgSend_encodeInteger_forKey_(coder, v80, v90, @"bytesPerComponent");
   }
 
   else
   {
-    objc_msgSend_encodeInteger_forKey_(coder, v76, v6, @"componentType");
+    objc_msgSend_encodeInteger_forKey_(coder, v79, v5, @"componentType");
   }
 
-  objc_msgSend_encodeInteger_forKey_(coder, v78, self->_componentCount, @"componentsPerVector");
-  objc_msgSend_encodeInteger_forKey_(coder, v79, dataOffset, @"dataOffset");
-  objc_msgSend_encodeInteger_forKey_(coder, v80, dataStride, @"dataStride");
-  objc_msgSend_encodeInt_forKey_(coder, v81, self->_mkSemantic, @"mkSemantic");
+  objc_msgSend_encodeInteger_forKey_(coder, v81, self->_componentCount, @"componentsPerVector");
+  objc_msgSend_encodeInteger_forKey_(coder, v82, dataOffset, @"dataOffset");
+  objc_msgSend_encodeInteger_forKey_(coder, v83, dataStride, @"dataStride");
+  objc_msgSend_encodeInt_forKey_(coder, v84, self->_mkSemantic, @"mkSemantic");
   colorSpace = self->_colorSpace;
   if (colorSpace)
   {
-    v83 = CGColorSpaceCopyPropertyList(colorSpace);
-    objc_msgSend_encodeObject_forKey_(coder, v84, v83, @"colorSpace");
-    CFRelease(v83);
+    v86 = CGColorSpaceCopyPropertyList(colorSpace);
+    objc_msgSend_encodeObject_forKey_(coder, v87, v86, @"colorSpace");
+    CFRelease(v86);
   }
 }
 
 - (VFXMeshSource)initWithCoder:(id)coder
 {
-  v98.receiver = self;
-  v98.super_class = VFXMeshSource;
-  v7 = [(VFXMeshSource *)&v98 init];
-  if (v7)
+  v83.receiver = self;
+  v83.super_class = VFXMeshSource;
+  v6 = [(VFXMeshSource *)&v83 init];
+  if (v6)
   {
-    v8 = objc_msgSend_immediateMode(VFXTransaction, v4, v5, v6);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v9, 1, v10);
-    v11 = objc_opt_class();
-    v13 = objc_msgSend_vfx_decodeObjectOfClass_forKey_(coder, v12, v11, @"semantic");
-    if (objc_msgSend_isEqualToString_(v13, v14, @"kGeometrySourceSemanticVertex", v15))
+    v7 = objc_msgSend_immediateMode(VFXTransaction, v4, v5);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v8, 1);
+    v9 = objc_opt_class();
+    v11 = objc_msgSend_vfx_decodeObjectOfClass_forKey_(coder, v10, v9, @"semantic");
+    if (objc_msgSend_isEqualToString_(v11, v12, @"kGeometrySourceSemanticVertex"))
     {
-      v13 = @"kGeometrySourceSemanticPosition";
+      v11 = @"kGeometrySourceSemanticPosition";
     }
 
-    if ((sub_1AF2E54B8(v13, v16, v17, v18) & 1) == 0)
+    v14 = sub_1AF2E54B8(v11, v13);
+    if ((v14 & 1) == 0)
     {
-      v33 = sub_1AF0D5194();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v24 = sub_1AF0D5194(v14, v15);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         sub_1AFDF6228();
       }
@@ -1064,19 +1073,19 @@ LABEL_19:
       goto LABEL_12;
     }
 
-    v7->_semantic = v13;
-    v7->_vectorCount = objc_msgSend_decodeIntegerForKey_(coder, v19, @"vectorCount", v20);
-    v7->_dataOffset = objc_msgSend_decodeIntegerForKey_(coder, v21, @"dataOffset", v22);
-    v7->_dataStride = objc_msgSend_decodeIntegerForKey_(coder, v23, @"dataStride", v24);
-    v7->_componentCount = objc_msgSend_decodeIntegerForKey_(coder, v25, @"componentsPerVector", v26);
-    v29 = objc_msgSend_decodeIntegerForKey_(coder, v27, @"componentType", v28);
-    v7->_componentType = v29;
-    if (v29)
+    v6->_semantic = v11;
+    v6->_vectorCount = objc_msgSend_decodeIntegerForKey_(coder, v16, @"vectorCount");
+    v6->_dataOffset = objc_msgSend_decodeIntegerForKey_(coder, v17, @"dataOffset");
+    v6->_dataStride = objc_msgSend_decodeIntegerForKey_(coder, v18, @"dataStride");
+    v6->_componentCount = objc_msgSend_decodeIntegerForKey_(coder, v19, @"componentsPerVector");
+    v21 = objc_msgSend_decodeIntegerForKey_(coder, v20, @"componentType");
+    v6->_componentType = v21;
+    if (v21)
     {
-      if (v29 < 0 || (v29 & 0x7FFEu) >= 0x2EuLL)
+      if (v21 < 0 || (v21 & 0x7FFEu) >= 0x2EuLL)
       {
-        v32 = sub_1AF0D5194();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v23 = sub_1AF0D5194(v21, v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           sub_1AFDF6584();
         }
@@ -1087,44 +1096,46 @@ LABEL_19:
 
     else
     {
-      v37 = objc_msgSend_decodeBoolForKey_(coder, v30, @"floatComponents", v31);
-      v40 = objc_msgSend_decodeIntegerForKey_(coder, v38, @"bytesPerComponent", v39);
-      v7->_componentType = sub_1AF288ADC(v40, 1, v37);
+      v27 = objc_msgSend_decodeBoolForKey_(coder, v22, @"floatComponents");
+      v29 = objc_msgSend_decodeIntegerForKey_(coder, v28, @"bytesPerComponent");
+      v6->_componentType = sub_1AF288ADC(v29, 1, v27);
     }
 
-    v41 = objc_opt_class();
-    v43 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v42, v41, @"cdata");
-    v7->_encodeDataAsHalf = v43 != 0;
-    if (v43)
+    v30 = objc_opt_class();
+    v32 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v31, v30, @"cdata");
+    v6->_encodeDataAsHalf = v32 != 0;
+    if (v32)
     {
-      v44 = v43;
-      componentType = v7->_componentType;
-      v46 = sub_1AF28844C(componentType);
-      v47 = componentType != v46;
-      if (componentType != v46)
+      v34 = v32;
+      componentType = v6->_componentType;
+      v36 = sub_1AF28844C(componentType, v33);
+      v37 = componentType != v36;
+      if (componentType != v36)
       {
-        v48 = sub_1AF0D5194();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        v38 = sub_1AF0D5194(v36, v25);
+        v36 = os_log_type_enabled(v38, OS_LOG_TYPE_ERROR);
+        if (v36)
         {
           sub_1AFDF65B8();
         }
       }
 
-      if (v7->_componentType != 14)
+      if (v6->_componentType != 14)
       {
-        v49 = sub_1AF0D5194();
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+        v39 = sub_1AF0D5194(v36, v25);
+        v36 = os_log_type_enabled(v39, OS_LOG_TYPE_ERROR);
+        if (v36)
         {
           sub_1AFDF65EC();
         }
 
-        v47 = 1;
+        v37 = 1;
       }
 
-      if (v7->_componentCount - 2 >= 3)
+      if (v6->_componentCount - 2 >= 3)
       {
-        v85 = sub_1AF0D5194();
-        if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+        v72 = sub_1AF0D5194(v36, v25);
+        if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
         {
           sub_1AFDF6620();
         }
@@ -1132,46 +1143,48 @@ LABEL_19:
         goto LABEL_12;
       }
 
-      if (v47)
+      if (v37)
       {
 LABEL_12:
-        objc_msgSend_setImmediateMode_(VFXTransaction, v34, v8, v35);
+        objc_msgSend_setImmediateMode_(VFXTransaction, v25, v7);
 LABEL_13:
 
         return 0;
       }
 
-      sub_1AF288070(v7->_componentType);
-      v50 = v7->_dataStride * v7->_vectorCount;
-      v51 = malloc_type_malloc(v50, 0x26F14FD4uLL);
-      objc_msgSend_bytes(v44, v52, v53, v54);
-      objc_msgSend_length(v44, v55, v56, v57);
-      if (vImageDecodeVectorHalf() != v50)
+      sub_1AF288070(v6->_componentType, v25);
+      v40 = v6->_dataStride * v6->_vectorCount;
+      v41 = malloc_type_malloc(v40, 0x26F14FD4uLL);
+      objc_msgSend_bytes(v34, v42, v43);
+      objc_msgSend_length(v34, v44, v45);
+      v46 = vImageDecodeVectorHalf();
+      if (v46 != v40)
       {
-        v58 = sub_1AF0D5194();
-        if (os_log_type_enabled(v58, OS_LOG_TYPE_FAULT))
+        v48 = sub_1AF0D5194(v46, v47);
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_FAULT))
         {
-          sub_1AFDF6654(v58, v59, v60, v61, v62, v63, v64, v65);
+          sub_1AFDF6654(v48, v49, v50, v51, v52, v53, v54, v55);
         }
       }
 
-      v66 = objc_alloc(MEMORY[0x1E695DEF0]);
-      v68 = objc_msgSend_initWithBytesNoCopy_length_freeWhenDone_(v66, v67, v51, v50, 1);
+      v56 = objc_alloc(MEMORY[0x1E695DEF0]);
+      v58 = objc_msgSend_initWithBytesNoCopy_length_freeWhenDone_(v56, v57, v41, v40, 1);
     }
 
     else
     {
-      v72 = objc_opt_class();
-      v68 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v73, v72, @"data");
+      v61 = objc_opt_class();
+      v58 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v62, v61, @"data");
     }
 
-    v7->_data = v68;
-    v74 = objc_msgSend_bytesPerComponent(v7, v69, v70, v71);
-    v78 = objc_msgSend_componentsPerVector(v7, v75, v76, v77);
-    if (objc_msgSend_length(v7->_data, v79, v80, v81) < (v7->_dataOffset + v78 * v74 + (v7->_vectorCount - 1) * v7->_dataStride))
+    v6->_data = v58;
+    v63 = objc_msgSend_bytesPerComponent(v6, v59, v60);
+    v66 = objc_msgSend_componentsPerVector(v6, v64, v65);
+    v69 = objc_msgSend_length(v6->_data, v67, v68);
+    if (v69 < v6->_dataOffset + v66 * v63 + (v6->_vectorCount - 1) * v6->_dataStride)
     {
-      v84 = sub_1AF0D5194();
-      if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
+      v71 = sub_1AF0D5194(v69, v70);
+      if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
       {
         sub_1AFDF66CC();
       }
@@ -1179,309 +1192,309 @@ LABEL_13:
       goto LABEL_12;
     }
 
-    v7->_mkSemantic = objc_msgSend_decodeIntForKey_(coder, v82, @"mkSemantic", v83);
-    v88 = objc_msgSend_decodePropertyListForKey_(coder, v86, @"colorSpace", v87);
-    if (v88)
+    v6->_mkSemantic = objc_msgSend_decodeIntForKey_(coder, v70, @"mkSemantic");
+    v74 = objc_msgSend_decodePropertyListForKey_(coder, v73, @"colorSpace");
+    if (v74)
     {
-      v91 = CGColorSpaceCreateWithPropertyList(v88);
-      if (v91)
+      v76 = CGColorSpaceCreateWithPropertyList(v74);
+      if (v76)
       {
-        v92 = v91;
-        data = v7->_data;
-        vectorCount = v7->_vectorCount;
-        componentCount = v7->_componentCount;
-        v96 = sub_1AF288518(v7->_componentType);
-        v7->_data = objc_msgSend_dataByConvertingColorData_colorSpace_newColorSpace_vectorCount_componentsPerVector_bytesPerComponent_dataOffset_dataStride_newDataOffset_newDataStride_(v7, v97, data, v92, &v7->_colorSpace, vectorCount, componentCount, v96, v7->_dataOffset, v7->_dataStride, &v7->_dataOffset, &v7->_dataStride);
-        CFRelease(v92);
+        v77 = v76;
+        data = v6->_data;
+        vectorCount = v6->_vectorCount;
+        componentCount = v6->_componentCount;
+        v81 = sub_1AF288518(v6->_componentType, v75);
+        v6->_data = objc_msgSend_dataByConvertingColorData_colorSpace_newColorSpace_vectorCount_componentsPerVector_bytesPerComponent_dataOffset_dataStride_newDataOffset_newDataStride_(v6, v82, data, v77, &v6->_colorSpace, vectorCount, componentCount, v81, v6->_dataOffset, v6->_dataStride, &v6->_dataOffset, &v6->_dataStride);
+        CFRelease(v77);
       }
     }
 
-    objc_msgSend_setImmediateMode_(VFXTransaction, v89, v8, v90);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v75, v7);
   }
 
-  return v7;
+  return v6;
 }
 
 + (id)meshSourceWithMDLVertexAttribute:(id)attribute mesh:(id)mesh
 {
-  v6 = objc_msgSend_vertexDescriptor(mesh, a2, attribute, mesh);
-  v13 = (objc_msgSend_format(attribute, v7, v8, v9) >> 16) & 0xF;
-  if (v13 >= 5)
+  v6 = objc_msgSend_vertexDescriptor(mesh, a2, attribute);
+  v11 = (objc_msgSend_format(attribute, v7, v8) >> 16) & 0xF;
+  if (v11 >= 5)
   {
-    v14 = 0;
-    v15 = 2;
-    if (v13 >= 9)
+    v12 = 0;
+    v13 = 2;
+    if (v11 >= 9)
     {
-      v16 = v13 - 11;
-      if (v16)
+      v14 = v11 - 11;
+      if (v14)
       {
-        v14 = v16 < 0xFFFFFFFE;
-        v15 = 4;
+        v12 = v14 < 0xFFFFFFFE;
+        v13 = 4;
       }
     }
   }
 
   else
   {
-    v14 = 0;
-    v15 = 1;
+    v12 = 0;
+    v13 = 1;
   }
 
-  v17 = objc_msgSend_name(attribute, v10, v11, v12);
-  v20 = objc_msgSend_containsString_(v17, v18, *MEMORY[0x1E6974B28], v19);
-  v24 = MEMORY[0x1E6974AF8];
-  if (v20)
+  v15 = objc_msgSend_name(attribute, v9, v10);
+  v17 = objc_msgSend_containsString_(v15, v16, *MEMORY[0x1E6974B28]);
+  v20 = MEMORY[0x1E6974AF8];
+  if (v17)
   {
-    v25 = VFXMeshSourceSemanticPosition;
+    v21 = VFXMeshSourceSemanticPosition;
   }
 
   else
   {
-    if ((objc_msgSend_containsString_(v17, v21, *MEMORY[0x1E6974B18], v23) & 1) == 0)
+    if ((objc_msgSend_containsString_(v15, v18, *MEMORY[0x1E6974B18]) & 1) == 0)
     {
-      if (objc_msgSend_containsString_(v17, v21, *MEMORY[0x1E6974B38], v23))
+      if (objc_msgSend_containsString_(v15, v18, *MEMORY[0x1E6974B38]))
       {
-        v25 = VFXMeshSourceSemanticTexcoord;
+        v21 = VFXMeshSourceSemanticTexcoord;
         goto LABEL_14;
       }
 
-      if (objc_msgSend_containsString_(v17, v21, *MEMORY[0x1E6974B30], v23))
+      if (objc_msgSend_containsString_(v15, v18, *MEMORY[0x1E6974B30]))
       {
-        v25 = VFXMeshSourceSemanticTangent;
+        v21 = VFXMeshSourceSemanticTangent;
         goto LABEL_14;
       }
 
-      v26 = @"aoCoord";
-      if (objc_msgSend_isEqualToString_(v17, v21, @"aoCoord", v23) & 1) != 0 || (v26 = @"lightmapCoord", (objc_msgSend_isEqualToString_(v17, v21, @"lightmapCoord", v23)))
+      v22 = @"aoCoord";
+      if (objc_msgSend_isEqualToString_(v15, v18, @"aoCoord") & 1) != 0 || (v22 = @"lightmapCoord", (objc_msgSend_isEqualToString_(v15, v18, @"lightmapCoord")))
       {
-        v25 = VFXMeshSourceSemanticTexcoord;
+        v21 = VFXMeshSourceSemanticTexcoord;
         goto LABEL_15;
       }
 
-      if (objc_msgSend_containsString_(v17, v21, *v24, v23) & 1) != 0 || (objc_msgSend_containsString_(v17, v21, *MEMORY[0x1E6974B20], v23))
+      if (objc_msgSend_containsString_(v15, v18, *v20) & 1) != 0 || (v135 = objc_msgSend_containsString_(v15, v18, *MEMORY[0x1E6974B20]), (v135))
       {
-        v25 = VFXMeshSourceSemanticColor;
+        v21 = VFXMeshSourceSemanticColor;
         goto LABEL_14;
       }
 
-      v172 = sub_1AF0D5194();
-      if (os_log_type_enabled(v172, OS_LOG_TYPE_ERROR))
+      v136 = sub_1AF0D5194(v135, v18);
+      if (os_log_type_enabled(v136, OS_LOG_TYPE_ERROR))
       {
-        sub_1AFDF6934(v17, v172);
+        sub_1AFDF6934(v15, v136);
       }
     }
 
-    v25 = VFXMeshSourceSemanticNormal;
+    v21 = VFXMeshSourceSemanticNormal;
   }
 
 LABEL_14:
-  v26 = @"unknown";
+  v22 = @"unknown";
 LABEL_15:
-  v27 = *v25;
-  v28 = objc_msgSend_layouts(v6, v21, v22, v23);
-  v32 = objc_msgSend_bufferIndex(attribute, v29, v30, v31);
-  v35 = objc_msgSend_objectAtIndexedSubscript_(v28, v33, v32, v34);
-  v39 = objc_msgSend_stride(v35, v36, v37, v38);
-  v43 = objc_msgSend_format(attribute, v40, v41, v42);
-  v47 = objc_msgSend_offset(attribute, v44, v45, v46);
-  v51 = objc_msgSend_name(attribute, v48, v49, v50);
-  if (objc_msgSend_containsString_(v51, v52, *v24, v53) && objc_msgSend_format(attribute, v54, v55, v56) == 65540)
+  v23 = *v21;
+  v24 = objc_msgSend_layouts(v6, v18, v19);
+  v27 = objc_msgSend_bufferIndex(attribute, v25, v26);
+  v29 = objc_msgSend_objectAtIndexedSubscript_(v24, v28, v27);
+  v32 = objc_msgSend_stride(v29, v30, v31);
+  v35 = objc_msgSend_format(attribute, v33, v34);
+  v38 = objc_msgSend_offset(attribute, v36, v37);
+  v41 = objc_msgSend_name(attribute, v39, v40);
+  if (objc_msgSend_containsString_(v41, v42, *v20) && objc_msgSend_format(attribute, v43, v44) == 65540)
   {
-    v57 = objc_msgSend_vertexBuffers(mesh, v54, v55, v56);
-    v61 = objc_msgSend_bufferIndex(attribute, v58, v59, v60);
-    v64 = objc_msgSend_objectAtIndexedSubscript_(v57, v62, v61, v63);
-    v68 = objc_msgSend_map(v64, v65, v66, v67);
-    v72 = objc_msgSend_bytes(v68, v69, v70, v71);
-    v76 = objc_msgSend_vertexBuffers(mesh, v73, v74, v75);
-    v80 = objc_msgSend_bufferIndex(attribute, v77, v78, v79);
-    v83 = objc_msgSend_objectAtIndexedSubscript_(v76, v81, v80, v82);
-    v87 = objc_msgSend_length(v83, v84, v85, v86);
-    if (objc_msgSend_format(attribute, v88, v89, v90) == 786436)
+    v45 = objc_msgSend_vertexBuffers(mesh, v43, v44);
+    v48 = objc_msgSend_bufferIndex(attribute, v46, v47);
+    v50 = objc_msgSend_objectAtIndexedSubscript_(v45, v49, v48);
+    v53 = objc_msgSend_map(v50, v51, v52);
+    v56 = objc_msgSend_bytes(v53, v54, v55);
+    v59 = objc_msgSend_vertexBuffers(mesh, v57, v58);
+    v62 = objc_msgSend_bufferIndex(attribute, v60, v61);
+    v64 = objc_msgSend_objectAtIndexedSubscript_(v59, v63, v62);
+    v67 = objc_msgSend_length(v64, v65, v66);
+    if (objc_msgSend_format(attribute, v68, v69) == 786436)
     {
       __p = 0;
-      v174 = 0;
-      v175 = 0;
-      if (v87 >= 0x10)
+      v138 = 0;
+      v139 = 0;
+      if (v67 >= 0x10)
       {
-        v94 = 4 * (v87 >> 4);
-        sub_1AF2F8E14(&__p, v94);
-        v95 = 0;
-        v96 = (v72 + 8);
+        v72 = 4 * (v67 >> 4);
+        sub_1AF2F8E14(&__p, v72);
+        v73 = 0;
+        v74 = (v56 + 8);
         do
         {
-          *(__p + v95) = (*(v96 - 2) * 255.0);
-          *(__p + v95 + 1) = (*(v96 - 1) * 255.0);
-          *(__p + v95 + 2) = (*v96 * 255.0);
-          *(__p + v95 + 3) = (v96[1] * 255.0);
-          v95 += 4;
-          v96 += 4;
+          *(__p + v73) = (*(v74 - 2) * 255.0);
+          *(__p + v73 + 1) = (*(v74 - 1) * 255.0);
+          *(__p + v73 + 2) = (*v74 * 255.0);
+          *(__p + v73 + 3) = (v74[1] * 255.0);
+          v73 += 4;
+          v74 += 4;
         }
 
-        while (v94 != v95);
+        while (v72 != v73);
       }
     }
 
     else
     {
-      if (objc_msgSend_format(attribute, v91, v92, v93) != 786435)
+      if (objc_msgSend_format(attribute, v70, v71) != 786435)
       {
-        if (objc_msgSend_format(attribute, v91, v148, v149) == 65539)
+        if (objc_msgSend_format(attribute, v70, v113) == 65539)
         {
-          v156 = v87 / 3;
+          v119 = v67 / 3;
           __p = 0;
-          v174 = 0;
-          v175 = 0;
-          sub_1AF121C28(&__p, 4 * (v87 / 3));
-          v159 = __p;
-          if (v87 >= 3)
+          v138 = 0;
+          v139 = 0;
+          sub_1AF121C28(&__p, 4 * (v67 / 3));
+          v122 = __p;
+          if (v67 >= 3)
           {
-            v160 = (__p + 8);
-            v161 = (v72 + 2);
+            v123 = (__p + 8);
+            v124 = (v56 + 2);
             do
             {
-              LOBYTE(v158) = *(v161 - 2);
-              *&v162 = LODWORD(v158) / 255.0;
-              *(v160 - 2) = *&v162;
-              LOBYTE(v162) = *(v161 - 1);
-              *&v163 = v162 / 255.0;
-              *(v160 - 1) = *&v163;
-              LOBYTE(v163) = *v161;
-              v158 = v163 / 255.0;
-              *v160 = v158;
-              v160[1] = 1.0;
-              v160 += 4;
-              v161 += 3;
-              --v156;
+              LOBYTE(v121) = *(v124 - 2);
+              *&v125 = LODWORD(v121) / 255.0;
+              *(v123 - 2) = *&v125;
+              LOBYTE(v125) = *(v124 - 1);
+              *&v126 = v125 / 255.0;
+              *(v123 - 1) = *&v126;
+              LOBYTE(v126) = *v124;
+              v121 = v126 / 255.0;
+              *v123 = v121;
+              v123[1] = 1.0;
+              v123 += 4;
+              v124 += 3;
+              --v119;
             }
 
-            while (v156);
+            while (v119);
           }
         }
 
         else
         {
-          if (objc_msgSend_format(attribute, v153, v154, v155) != 65540)
+          if (objc_msgSend_format(attribute, v117, v118) != 65540)
           {
             return 0;
           }
 
           __p = 0;
-          v174 = 0;
-          v175 = 0;
-          sub_1AF121C28(&__p, v87 & 0xFFFFFFFFFFFFFFFCLL);
-          v159 = __p;
-          if (v87 >= 4)
+          v138 = 0;
+          v139 = 0;
+          sub_1AF121C28(&__p, v67 & 0xFFFFFFFFFFFFFFFCLL);
+          v122 = __p;
+          if (v67 >= 4)
           {
-            v165 = v87 >> 2;
-            v166 = (v72 + 3);
-            v167 = (__p + 8);
+            v128 = v67 >> 2;
+            v129 = (v56 + 3);
+            v130 = (__p + 8);
             do
             {
-              LOBYTE(v164) = *(v166 - 3);
-              *&v168 = LODWORD(v164) / 255.0;
-              *(v167 - 2) = *&v168;
-              LOBYTE(v168) = *(v166 - 2);
-              *&v169 = v168 / 255.0;
-              *(v167 - 1) = *&v169;
-              LOBYTE(v169) = *(v166 - 1);
-              *&v170 = v169 / 255.0;
-              *v167 = *&v170;
-              LOBYTE(v170) = *v166;
-              v164 = v170 / 255.0;
-              v167[1] = v164;
-              v166 += 4;
-              v167 += 4;
-              --v165;
+              LOBYTE(v127) = *(v129 - 3);
+              *&v131 = LODWORD(v127) / 255.0;
+              *(v130 - 2) = *&v131;
+              LOBYTE(v131) = *(v129 - 2);
+              *&v132 = v131 / 255.0;
+              *(v130 - 1) = *&v132;
+              LOBYTE(v132) = *(v129 - 1);
+              *&v133 = v132 / 255.0;
+              *v130 = *&v133;
+              LOBYTE(v133) = *v129;
+              v127 = v133 / 255.0;
+              v130[1] = v127;
+              v129 += 4;
+              v130 += 4;
+              --v128;
             }
 
-            while (v165);
+            while (v128);
           }
         }
 
-        v133 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v157, v159, v174 - v159);
+        v102 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v120, v122, v138 - v122);
         if (__p)
         {
-          v174 = __p;
+          v138 = __p;
           operator delete(__p);
         }
 
-        v47 = 0;
-        v14 = 1;
-        v39 = 16;
-        v97 = 4;
-        v15 = 4;
+        v38 = 0;
+        v12 = 1;
+        v32 = 16;
+        v75 = 4;
+        v13 = 4;
         goto LABEL_23;
       }
 
       __p = 0;
-      v174 = 0;
-      v175 = 0;
-      if (v87 >= 0xC)
+      v138 = 0;
+      v139 = 0;
+      if (v67 >= 0xC)
       {
-        v150 = 4 * (v87 / 0xC);
-        sub_1AF2F8E14(&__p, v150);
-        v151 = 0;
-        v152 = (v72 + 4);
+        v114 = 4 * (v67 / 0xC);
+        sub_1AF2F8E14(&__p, v114);
+        v115 = 0;
+        v116 = (v56 + 4);
         do
         {
-          *(__p + v151) = (*(v152 - 1) * 255.0);
-          *(__p + v151 + 1) = (*v152 * 255.0);
-          *(__p + v151 + 2) = (v152[1] * 255.0);
-          *(__p + v151 + 3) = -1;
-          v151 += 4;
-          v152 += 3;
+          *(__p + v115) = (*(v116 - 1) * 255.0);
+          *(__p + v115 + 1) = (*v116 * 255.0);
+          *(__p + v115 + 2) = (v116[1] * 255.0);
+          *(__p + v115 + 3) = -1;
+          v115 += 4;
+          v116 += 3;
         }
 
-        while (v150 != v151);
+        while (v114 != v115);
       }
     }
 
-    v133 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v91, __p, v174 - __p);
+    v102 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v70, __p, v138 - __p);
     if (__p)
     {
-      v174 = __p;
+      v138 = __p;
       operator delete(__p);
     }
 
-    v47 = 0;
-    v14 = 0;
-    v15 = 1;
-    v97 = 4;
-    v39 = 4;
+    v38 = 0;
+    v12 = 0;
+    v13 = 1;
+    v75 = 4;
+    v32 = 4;
   }
 
   else
   {
-    v97 = v43 & 7;
-    v98 = objc_msgSend_vertexBuffers(mesh, v54, v55, v56);
-    v102 = objc_msgSend_bufferIndex(attribute, v99, v100, v101);
-    v105 = objc_msgSend_objectAtIndexedSubscript_(v98, v103, v102, v104);
-    v109 = objc_msgSend_map(v105, v106, v107, v108);
-    v113 = objc_msgSend_bytes(v109, v110, v111, v112);
-    v117 = objc_msgSend_vertexBuffers(mesh, v114, v115, v116);
-    v121 = objc_msgSend_bufferIndex(attribute, v118, v119, v120);
-    v124 = objc_msgSend_objectAtIndexedSubscript_(v117, v122, v121, v123);
-    v128 = objc_msgSend_length(v124, v125, v126, v127);
-    v133 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v129, v113, v128);
+    v75 = v35 & 7;
+    v76 = objc_msgSend_vertexBuffers(mesh, v43, v44);
+    v79 = objc_msgSend_bufferIndex(attribute, v77, v78);
+    v81 = objc_msgSend_objectAtIndexedSubscript_(v76, v80, v79);
+    v84 = objc_msgSend_map(v81, v82, v83);
+    v87 = objc_msgSend_bytes(v84, v85, v86);
+    v90 = objc_msgSend_vertexBuffers(mesh, v88, v89);
+    v93 = objc_msgSend_bufferIndex(attribute, v91, v92);
+    v95 = objc_msgSend_objectAtIndexedSubscript_(v90, v94, v93);
+    v98 = objc_msgSend_length(v95, v96, v97);
+    v102 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v99, v87, v98);
   }
 
 LABEL_23:
-  if (!v133)
+  if (!v102)
   {
     return 0;
   }
 
-  v134 = objc_msgSend_length(v133, v130, v131, v132) / v39;
-  if (objc_msgSend_isEqualToString_(v27, v135, @"kGeometrySourceSemanticTexcoord", v136))
+  v103 = objc_msgSend_length(v102, v100, v101) / v32;
+  if (objc_msgSend_isEqualToString_(v23, v104, @"kGeometrySourceSemanticTexcoord"))
   {
-    v140 = objc_msgSend_format(attribute, v137, v138, v139);
-    v144 = objc_msgSend_bytes(v133, v141, v142, v143);
-    sub_1AF2F07B4(v140, v144, v47, v39, v134);
+    v107 = objc_msgSend_format(attribute, v105, v106);
+    v110 = objc_msgSend_bytes(v102, v108, v109);
+    sub_1AF2F07B4(v107, v110, v38, v32, v103);
   }
 
-  v145 = objc_msgSend_meshSourceWithData_semantic_vectorCount_floatComponents_componentsPerVector_bytesPerComponent_dataOffset_dataStride_(VFXMeshSource, v137, v133, v27, v134, v14, v97, v15, v47, v39);
-  objc_msgSend_setMkSemantic_(v145, v146, v26, v147);
-  return v145;
+  v111 = objc_msgSend_meshSourceWithData_semantic_vectorCount_floatComponents_componentsPerVector_bytesPerComponent_dataOffset_dataStride_(VFXMeshSource, v105, v102, v23, v103, v12, v75, v13, v38, v32);
+  objc_msgSend_setMkSemantic_(v111, v112, v22);
+  return v111;
 }
 
 @end

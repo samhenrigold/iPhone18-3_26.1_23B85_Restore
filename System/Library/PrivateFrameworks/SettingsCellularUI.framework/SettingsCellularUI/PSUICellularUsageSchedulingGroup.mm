@@ -133,27 +133,26 @@ LABEL_7:
 
 void __68__PSUICellularUsageSchedulingGroup_calculateUsageWithForcedRefresh___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) getLogger];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 134217984;
-    v9 = v3;
+    v8 = v3;
     _os_log_impl(&dword_2658DE000, v2, OS_LOG_TYPE_DEFAULT, "Device data usage fetch complete: %p", buf, 0xCu);
   }
 
   v4 = dispatch_get_global_queue(25, 0);
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __68__PSUICellularUsageSchedulingGroup_calculateUsageWithForcedRefresh___block_invoke_6;
-  v6[3] = &unk_279BAA050;
-  objc_copyWeak(&v7, (a1 + 40));
-  v6[4] = *(a1 + 32);
-  dispatch_async(v4, v6);
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __68__PSUICellularUsageSchedulingGroup_calculateUsageWithForcedRefresh___block_invoke_6;
+  v5[3] = &unk_279BAA050;
+  objc_copyWeak(&v6, (a1 + 40));
+  v5[4] = *(a1 + 32);
+  dispatch_async(v4, v5);
 
-  objc_destroyWeak(&v7);
-  v5 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v6);
 }
 
 void __68__PSUICellularUsageSchedulingGroup_calculateUsageWithForcedRefresh___block_invoke_6(uint64_t a1)

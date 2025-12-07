@@ -357,7 +357,6 @@ LABEL_34:
   CFRelease(v6);
   v7 = sub_42468(from, qword_A35E8, "hiding-state", 0);
   v8 = &kCFBooleanTrue;
-  mColumnVisibilities = self->mColumnVisibilities;
   if (v7)
   {
     v8 = &kCFBooleanFalse;
@@ -377,7 +376,6 @@ LABEL_34:
   CFRelease(v6);
   v7 = sub_42468(from, qword_A35E8, "hiding-state", 0);
   v8 = &kCFBooleanTrue;
-  mRowVisibilities = self->mRowVisibilities;
   if (v7)
   {
     v8 = &kCFBooleanFalse;

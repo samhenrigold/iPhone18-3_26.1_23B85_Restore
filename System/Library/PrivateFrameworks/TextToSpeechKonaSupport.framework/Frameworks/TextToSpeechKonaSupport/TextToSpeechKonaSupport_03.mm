@@ -1,1010 +1,3 @@
-uint64_t DeltaProc_process_sentences(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v102 = *MEMORY[0x277D85DE8];
-  LODWORD(v92) = 0;
-  OUTLINED_FUNCTION_4_13(a1, a2, a3, a4, a5, a6, a7, a8, v45);
-  OUTLINED_FUNCTION_1_14(v10, v11, v12, v13, v14, v15, v16, v17, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100);
-  v18 = setjmp(v8);
-  if (v18 || OUTLINED_FUNCTION_0_15(v18, v19, v20, v21, v22, v23, v24, v25, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, v85, v87, v89, v91, *v93, v93[4], *v95, *&v95[4], v95[6], v97, SWORD2(v97), SBYTE6(v97), SHIBYTE(v97), v99, v101))
-  {
-    goto LABEL_3;
-  }
-
-  fence_15(a1);
-  v29 = OUTLINED_FUNCTION_11_13();
-  starttest(v29, v30);
-  v31 = OUTLINED_FUNCTION_8_13();
-  move_i(v31, v32, 3);
-  v33 = OUTLINED_FUNCTION_8_13();
-  if (!process_input(v33, v34, v35, v36, v37, v38, v39, v40))
-  {
-    goto LABEL_10;
-  }
-
-  v41 = *(a1 + 104);
-  if (v41)
-  {
-    v42 = OUTLINED_FUNCTION_12_13(v41);
-  }
-
-  else
-  {
-    v43 = OUTLINED_FUNCTION_10_13();
-    v42 = vback(v43, v44);
-  }
-
-  if (v42 != 1)
-  {
-LABEL_3:
-    v26 = 94;
-  }
-
-  else
-  {
-LABEL_10:
-    v26 = 0;
-  }
-
-  vretproc(a1);
-  v27 = *MEMORY[0x277D85DE8];
-  return v26;
-}
-
-uint64_t no_words_in_delta(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v35 = *MEMORY[0x277D85DE8];
-  v30[0] = 0;
-  v30[1] = 0;
-  OUTLINED_FUNCTION_4_13(a1, a2, a3, a4, a5, a6, a7, a8, v29[0]);
-  OUTLINED_FUNCTION_6_13();
-  bzero(v34, v9);
-  if (setjmp(v34) || ventproc(a1, v29, v33, v32, v31, v34) || (push_ptr_init(a1, v30), fence_15(a1), *(a1 + 2446) != 1))
-  {
-LABEL_15:
-    v26 = 94;
-  }
-
-  else
-  {
-    while (2)
-    {
-      v10 = OUTLINED_FUNCTION_8_13();
-      starttest(v10, v11);
-      lpta_loadpn(a1, a1 + 1400);
-      lpta_mover();
-      v12 = OUTLINED_FUNCTION_9_13();
-      lpta_storep(v12, v13);
-      v14 = OUTLINED_FUNCTION_9_13();
-      if (text_index(v14, v15))
-      {
-        v16 = *(a1 + 104);
-        if (v16)
-        {
-          v17 = OUTLINED_FUNCTION_12_13(v16);
-        }
-
-        else
-        {
-          v18 = OUTLINED_FUNCTION_10_13();
-          v17 = vback(v18, v19);
-        }
-
-        switch(v17)
-        {
-          case 1:
-            continue;
-          case 2:
-            goto LABEL_9;
-          case 3:
-            goto LABEL_13;
-          case 4:
-            goto LABEL_12;
-          case 5:
-            goto LABEL_14;
-          default:
-            goto LABEL_15;
-        }
-      }
-
-      break;
-    }
-
-LABEL_9:
-    if (!lpta_loadp_setscan_l(a1, a1 + 1384) && !advance_tok(a1))
-    {
-      handle_pause(a1, (a1 + 1400), v20, v21, v22, v23, v24, v25);
-LABEL_12:
-      resetStreamArrayC(a1);
-    }
-
-LABEL_13:
-    clear_delta(a1);
-LABEL_14:
-    v26 = 0;
-    *(a1 + 2410) = 0;
-    *(a1 + 2402) = 0;
-  }
-
-  vretproc(a1);
-  v27 = *MEMORY[0x277D85DE8];
-  return v26;
-}
-
-uint64_t apply_rules(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v92 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4_13(a1, a2, a3, a4, a5, a6, a7, a8, v35);
-  OUTLINED_FUNCTION_1_14(v10, v11, v12, v13, v14, v15, v16, v17, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v88, v90);
-  v18 = setjmp(v8);
-  if (v18 || OUTLINED_FUNCTION_0_15(v18, v19, v20, v21, v22, v23, v24, v25, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, *v83, v83[4], *v85, *&v85[4], v85[6], v87, SWORD2(v87), SBYTE6(v87), SHIBYTE(v87), v89, v91))
-  {
-LABEL_3:
-    vretproc(a1);
-    result = 94;
-    goto LABEL_4;
-  }
-
-  v28 = OUTLINED_FUNCTION_17_10();
-  init_symbolic_vars(v28);
-  while (2)
-  {
-    startloop(a1, 2);
-    lpta_loadpn(a1, a1 + 1400);
-    lpta_mover();
-    lpta_storep(a1, a1 + 640);
-LABEL_7:
-    v29 = OUTLINED_FUNCTION_9_13();
-    bspush_ca(v29);
-    if (lpta_loadp_setscan_r(a1, a1 + 640) || advance_tok(a1))
-    {
-LABEL_14:
-      v31 = *(a1 + 104);
-      if (v31)
-      {
-        v32 = OUTLINED_FUNCTION_12_13(v31);
-      }
-
-      else
-      {
-        v33 = OUTLINED_FUNCTION_10_13();
-        v32 = vback(v33, v34);
-      }
-
-      switch(v32)
-      {
-        case 1:
-          continue;
-        case 2:
-          goto LABEL_18;
-        case 3:
-          goto LABEL_10;
-        case 4:
-          goto LABEL_13;
-        case 5:
-          goto LABEL_9;
-        case 6:
-          goto LABEL_11;
-        case 7:
-          goto LABEL_7;
-        case 8:
-          goto LABEL_19;
-        case 9:
-          goto LABEL_21;
-        case 10:
-          goto LABEL_23;
-        case 11:
-          goto LABEL_24;
-        default:
-          goto LABEL_3;
-      }
-    }
-
-    break;
-  }
-
-LABEL_9:
-  savescptr(a1, 5, a1 + 656);
-LABEL_10:
-  run_text_module(a1);
-LABEL_11:
-  starttest(a1, 4);
-  OUTLINED_FUNCTION_14_11();
-  if (!v30)
-  {
-    starttest_e(a1, 4);
-    run_speech_module(a1);
-  }
-
-LABEL_13:
-  if (forall_adv_upto_r(a1, 2, 3, 7, 2, a1 + 640))
-  {
-    goto LABEL_14;
-  }
-
-LABEL_18:
-  printouts(a1);
-LABEL_19:
-  if (*(a1 + 3430) == 1)
-  {
-    pause();
-  }
-
-LABEL_21:
-  if (*(a1 + 3426) == 1)
-  {
-    pause();
-  }
-
-LABEL_23:
-  init_delta(a1);
-LABEL_24:
-  vretproc(a1);
-  result = 0;
-LABEL_4:
-  v27 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t text_index(uint64_t a1, __int16 *a2)
-{
-  v27 = *MEMORY[0x277D85DE8];
-  v21 = 0;
-  v22 = 0;
-  v19 = 65532;
-  v20 = 65532;
-  OUTLINED_FUNCTION_7_13();
-  bzero(v18, v4);
-  OUTLINED_FUNCTION_6_13();
-  bzero(v26, v5);
-  if (setjmp(v26) || ventproc(a1, v18, v25, v24, v23, v26))
-  {
-    v6 = 94;
-  }
-
-  else
-  {
-    v9 = OUTLINED_FUNCTION_9_13();
-    get_parm(v9, v10, a2, -6);
-    fence_15(a1);
-    v11 = OUTLINED_FUNCTION_9_13();
-    get_indices(v11, v12, &v20, v13, v14, v15);
-    v16 = OUTLINED_FUNCTION_8_13();
-    synthesizingWord(v16, v17);
-    v6 = 0;
-  }
-
-  vretproc(a1);
-  v7 = *MEMORY[0x277D85DE8];
-  return v6;
-}
-
-uint64_t clear_delta(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_2_14(*MEMORY[0x277D85DE8], v26);
-  OUTLINED_FUNCTION_1_14(v3, v4, v5, v6, v7, v8, v9, v10, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81);
-  v11 = setjmp(v1);
-  if (v11 || OUTLINED_FUNCTION_0_15(v11, v12, v13, v14, v15, v16, v17, v18, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, *v74, v74[4], *v76, *&v76[4], v76[6], v78, SWORD2(v78), SBYTE6(v78), SHIBYTE(v78), v80, v82))
-  {
-LABEL_9:
-    v23 = 94;
-  }
-
-  else
-  {
-    fence_15(a1);
-    starttest(a1, 1);
-    delete_2_more(a1);
-    while (1)
-    {
-      OUTLINED_FUNCTION_3_14();
-      if (!delete_2pt(a1, 1))
-      {
-        break;
-      }
-
-      v19 = a1[13];
-      if (v19)
-      {
-        v20 = OUTLINED_FUNCTION_12_13(v19);
-      }
-
-      else
-      {
-        v21 = OUTLINED_FUNCTION_10_13();
-        v20 = vback(v21, v22);
-      }
-
-      if (v20 != 1)
-      {
-        goto LABEL_9;
-      }
-    }
-
-    v23 = 0;
-  }
-
-  vretproc(a1);
-  v24 = *MEMORY[0x277D85DE8];
-  return v23;
-}
-
-uint64_t run_text_module(uint64_t a1)
-{
-  OUTLINED_FUNCTION_2_14(*MEMORY[0x277D85DE8], v33);
-  OUTLINED_FUNCTION_1_14(v3, v4, v5, v6, v7, v8, v9, v10, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v88);
-  v11 = setjmp(v1);
-  if (v11 || OUTLINED_FUNCTION_0_15(v11, v12, v13, v14, v15, v16, v17, v18, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, *v81, v81[4], *v83, *&v83[4], v83[6], v85, SWORD2(v85), SBYTE6(v85), SHIBYTE(v85), v87, v89))
-  {
-    v19 = 94;
-  }
-
-  else
-  {
-    v22 = OUTLINED_FUNCTION_17_10();
-    init_tm_vars(v22);
-    word_level_rules(a1, a1 + 3912, a1 + 3928, v23, v24, v25, v26, v27);
-    phrase_level_rules(a1, a1 + 3944, a1 + 3960, v28, v29, v30, v31, v32);
-    v19 = 0;
-  }
-
-  vretproc(a1);
-  v20 = *MEMORY[0x277D85DE8];
-  return v19;
-}
-
-uint64_t run_speech_module(uint64_t a1)
-{
-  v52 = *MEMORY[0x277D85DE8];
-  memset(v47, 0, sizeof(v47));
-  OUTLINED_FUNCTION_7_13();
-  bzero(v46, v2);
-  OUTLINED_FUNCTION_6_13();
-  bzero(v51, v3);
-  if (setjmp(v51) || ventproc(a1, v46, v50, v49, v48, v51))
-  {
-LABEL_3:
-    vretproc(a1);
-    result = 94;
-  }
-
-  else
-  {
-    v6 = OUTLINED_FUNCTION_8_13();
-    push_ptr_init(v6, v7);
-    v8 = OUTLINED_FUNCTION_9_13();
-    push_ptr_init(v8, v9);
-    fence_15(a1);
-    v10 = OUTLINED_FUNCTION_11_13();
-    starttest(v10, v11);
-    OUTLINED_FUNCTION_11_13();
-    bspush_ca_boa();
-    v12 = init_word_vars(a1) == 0;
-    while (2)
-    {
-      v13 = *(a1 + 104);
-      if (v13)
-      {
-        v14 = OUTLINED_FUNCTION_12_13(v13);
-        v22 = v21;
-      }
-
-      else
-      {
-        v14 = vback(a1, v12);
-        v22 = 0;
-      }
-
-      switch(v14)
-      {
-        case 1:
-          startloop(a1, 3);
-          lpta_loadpn(a1, a1 + 672);
-          lpta_mover();
-          lpta_storep(a1, a1 + 768);
-          lpta_loadpn(a1, a1 + 688);
-          lpta_mover();
-          v23 = OUTLINED_FUNCTION_8_13();
-          lpta_storep(v23, v24);
-          v25 = OUTLINED_FUNCTION_16_11();
-          v28 = forall_to_test(v25, v26, v27);
-          v12 = v22;
-          if (v28)
-          {
-            continue;
-          }
-
-          goto LABEL_11;
-        case 2:
-          bspop_boa(a1);
-          goto LABEL_3;
-        case 3:
-          goto LABEL_20;
-        case 4:
-          goto LABEL_14;
-        case 5:
-          goto LABEL_19;
-        case 6:
-          goto LABEL_13;
-        case 7:
-          goto LABEL_15;
-        case 8:
-          goto LABEL_16;
-        case 9:
-          goto LABEL_17;
-        case 10:
-LABEL_11:
-          bspush_ca(a1);
-          v29 = lpta_loadp_setscan_r(a1, a1 + 768);
-          v12 = v22;
-          if (v29)
-          {
-            continue;
-          }
-
-          v30 = advance_tok(a1);
-          v12 = v22;
-          if (v30)
-          {
-            continue;
-          }
-
-LABEL_13:
-          savescptr(a1, 6, a1 + 784);
-LABEL_14:
-          init_syll_vars(a1);
-LABEL_15:
-          generate_durations(a1);
-LABEL_16:
-          generate_intonation(a1);
-LABEL_17:
-          starttest(a1, 5);
-          if (*(a1 + 3438) == *(a1 + 3434))
-          {
-            starttest_e(a1, 5);
-            generate_acoustic_vals(a1, v31, v32, v33, v34, v35, v36, v37);
-          }
-
-LABEL_19:
-          v38 = forto_adv_upto_r(a1, 3, 4, 10, 7, a1 + 768);
-          v12 = v22;
-          if (v38)
-          {
-            continue;
-          }
-
-LABEL_20:
-          if (*(a1 + 3438) != *(a1 + 3434))
-          {
-            goto LABEL_26;
-          }
-
-          if (!lpta_loadp_setscan_r(a1, a1 + 656) && !advanc(a1))
-          {
-LABEL_23:
-            savescptr(a1, 13, v47);
-          }
-
-LABEL_24:
-          starttest(a1, 14);
-          v39 = OUTLINED_FUNCTION_9_13();
-          lpta_loadpn(v39, v40);
-          OUTLINED_FUNCTION_10_13();
-          lpta_ctxtl();
-          v41 = OUTLINED_FUNCTION_8_13();
-          lpta_storep(v41, v42);
-          v43 = OUTLINED_FUNCTION_8_13();
-          v45 = text_index(v43, v44);
-          v12 = v22;
-          if (v45)
-          {
-            continue;
-          }
-
-LABEL_25:
-          handle_pause(a1, v47, v15, v16, v17, v18, v19, v20);
-LABEL_26:
-          vretproc(a1);
-          result = 0;
-          break;
-        case 11:
-        case 15:
-          goto LABEL_26;
-        case 12:
-          goto LABEL_24;
-        case 13:
-          goto LABEL_23;
-        case 14:
-          goto LABEL_25;
-        default:
-          goto LABEL_3;
-      }
-
-      break;
-    }
-  }
-
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t printouts(uint64_t a1)
-{
-  OUTLINED_FUNCTION_2_14(*MEMORY[0x277D85DE8], v21);
-  OUTLINED_FUNCTION_1_14(v3, v4, v5, v6, v7, v8, v9, v10, v22, v24, v26, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76);
-  v11 = setjmp(v1);
-  if (v11 || OUTLINED_FUNCTION_0_15(v11, v12, v13, v14, v15, v16, v17, v18, v23, v25, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, *v69, v69[4], *v71, *&v71[4], v71[6], v73, SWORD2(v73), SBYTE6(v73), SHIBYTE(v73), v75, v77))
-  {
-    vretproc(a1);
-    result = 94;
-  }
-
-  else
-  {
-    fence_15(a1);
-    if (*(a1 + 3450) == 1)
-    {
-      print_spr();
-    }
-
-    vretproc(a1);
-    result = 0;
-  }
-
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t init_delta(uint64_t a1)
-{
-  v55 = *MEMORY[0x277D85DE8];
-  v50[0] = 0;
-  v50[1] = 0;
-  v49[0] = 0;
-  v49[1] = 0;
-  OUTLINED_FUNCTION_7_13();
-  bzero(v48, v2);
-  OUTLINED_FUNCTION_6_13();
-  bzero(v54, v3);
-  if (!setjmp(v54) && !ventproc(a1, v48, v53, v52, v51, v54))
-  {
-    v6 = OUTLINED_FUNCTION_8_13();
-    push_ptr_init(v6, v7);
-    v8 = OUTLINED_FUNCTION_9_13();
-    push_ptr_init(v8, v9);
-    v10 = OUTLINED_FUNCTION_17_10();
-    resetStreamArrayC(v10);
-    while (2)
-    {
-      v11 = OUTLINED_FUNCTION_15_11();
-      if (!lpta_loadp_setscan_r(v11, v12))
-      {
-        *(a1 + 136) = 1;
-        *(a1 + 112) = *(a1 + 368);
-        *(a1 + 128) = 0;
-        if (!test_ptr(a1) && !lpta_loadp_setscan_r(a1, a1 + 1256))
-        {
-          *(a1 + 136) = 1;
-          if (!OUTLINED_FUNCTION_13_13())
-          {
-            initdelta(a1, 9u, byte_2806BB0CB);
-            init_vars(a1);
-LABEL_45:
-            vretproc(a1);
-            result = 0;
-            goto LABEL_4;
-          }
-        }
-      }
-
-LABEL_10:
-      OUTLINED_FUNCTION_14_11();
-      if (v13)
-      {
-        if (!lpta_loadp_setscan_l(a1, a1 + 1256) && !OUTLINED_FUNCTION_19_8())
-        {
-          advance_tok(a1);
-        }
-
-LABEL_15:
-        *(a1 + 1906) = 0;
-        copyvar(a1, (a1 + 2408), (a1 + 1904));
-      }
-
-LABEL_16:
-      starttest(a1, 6);
-      OUTLINED_FUNCTION_14_11();
-      if (v13)
-      {
-LABEL_18:
-        OUTLINED_FUNCTION_3_14();
-        v14 = OUTLINED_FUNCTION_5_13();
-        if (delete_2pt(v14, 2))
-        {
-          goto LABEL_40;
-        }
-
-        OUTLINED_FUNCTION_3_14();
-        v15 = OUTLINED_FUNCTION_5_13();
-        if (delete_2pt(v15, 3))
-        {
-          goto LABEL_40;
-        }
-
-        OUTLINED_FUNCTION_3_14();
-        v16 = OUTLINED_FUNCTION_5_13();
-        if (delete_2pt(v16, 5))
-        {
-          goto LABEL_40;
-        }
-
-        OUTLINED_FUNCTION_3_14();
-        v17 = OUTLINED_FUNCTION_5_13();
-        if (delete_2pt(v17, 6))
-        {
-          goto LABEL_40;
-        }
-
-        OUTLINED_FUNCTION_3_14();
-        v18 = OUTLINED_FUNCTION_5_13();
-        if (delete_2pt(v18, 7))
-        {
-          goto LABEL_40;
-        }
-
-        OUTLINED_FUNCTION_3_14();
-        v19 = OUTLINED_FUNCTION_5_13();
-        if (delete_2pt(v19, 8))
-        {
-          goto LABEL_40;
-        }
-
-        OUTLINED_FUNCTION_18_9();
-        v20 = OUTLINED_FUNCTION_10_13();
-        if (delete_2pt(v20, v21))
-        {
-          goto LABEL_40;
-        }
-
-        OUTLINED_FUNCTION_3_14();
-        v22 = OUTLINED_FUNCTION_5_13();
-        if (delete_2pt(v22, 4))
-        {
-          goto LABEL_40;
-        }
-      }
-
-      else
-      {
-        v23 = OUTLINED_FUNCTION_11_13();
-        starttest_l(v23, v24);
-        delete_2_more(a1);
-      }
-
-LABEL_26:
-      OUTLINED_FUNCTION_18_9();
-      v25 = OUTLINED_FUNCTION_5_13();
-      if (!delete_2pt(v25, 1))
-      {
-        *(a1 + 2304) = *(a1 + 3352);
-        *(a1 + 2402) = 0;
-        startloop(a1, 9);
-        lpta_loadpn(a1, a1 + 1256);
-        lpta_mover();
-        v26 = OUTLINED_FUNCTION_8_13();
-        lpta_storep(v26, v27);
-LABEL_28:
-        bspush_ca(a1);
-        v28 = OUTLINED_FUNCTION_5_13();
-        if (!lpta_loadp_setscan_r(v28, v50) && !advance_tok(a1))
-        {
-LABEL_30:
-          savescptr(a1, 12, v49);
-          if (!OUTLINED_FUNCTION_19_8())
-          {
-LABEL_31:
-            starttest(a1, 13);
-            v29 = OUTLINED_FUNCTION_5_13();
-            if (!lpta_loadp_setscan_r(v29, v50) && !advance_tok(a1))
-            {
-              OUTLINED_FUNCTION_19_8();
-            }
-
-LABEL_34:
-            c_assvar(a1, (a1 + 2400));
-            *(a1 + 2402) = *(a1 + 1920) - *(a1 + 2410);
-            v30 = OUTLINED_FUNCTION_8_13();
-            lpta_rpta_loadp(v30, v31, v49);
-            insert_2ptv();
-            if (!v32)
-            {
-LABEL_35:
-              v33 = OUTLINED_FUNCTION_11_13();
-              if (!forall_adv_upto_r(v33, v34, 10, 14, v35, v50))
-              {
-LABEL_36:
-                *(a1 + 2410) = 0;
-                starttest(a1, 15);
-                v36 = OUTLINED_FUNCTION_15_11();
-                if (lpta_loadp_setscan_r(v36, v37))
-                {
-                  goto LABEL_45;
-                }
-
-LABEL_39:
-                while (!test_string_s())
-                {
-                  bspush_ca_scan(a1, 16);
-                }
-              }
-            }
-          }
-        }
-      }
-
-LABEL_40:
-      v38 = *(a1 + 104);
-      if (v38)
-      {
-        v39 = OUTLINED_FUNCTION_12_13(v38);
-      }
-
-      else
-      {
-        v40 = OUTLINED_FUNCTION_10_13();
-        v39 = vback(v40, v41);
-      }
-
-      switch(v39)
-      {
-        case 1:
-          continue;
-        case 2:
-          goto LABEL_10;
-        case 3:
-        case 15:
-          goto LABEL_45;
-        case 4:
-          goto LABEL_16;
-        case 5:
-          goto LABEL_15;
-        case 6:
-          goto LABEL_18;
-        case 7:
-        case 8:
-          goto LABEL_26;
-        case 9:
-          goto LABEL_36;
-        case 10:
-          goto LABEL_31;
-        case 11:
-          goto LABEL_35;
-        case 12:
-          goto LABEL_30;
-        case 13:
-          goto LABEL_34;
-        case 14:
-          goto LABEL_28;
-        case 16:
-          v42 = OUTLINED_FUNCTION_16_11();
-          savescptr(v42, v43, v44);
-          v45 = OUTLINED_FUNCTION_15_11();
-          lpta_rpta_loadp(v45, v46, v50);
-          v47 = OUTLINED_FUNCTION_5_13();
-          if (!delete_2pt(v47, 1))
-          {
-            goto LABEL_45;
-          }
-
-          goto LABEL_40;
-        case 17:
-          goto LABEL_39;
-        default:
-          goto LABEL_3;
-      }
-    }
-  }
-
-LABEL_3:
-  vretproc(a1);
-  result = 94;
-LABEL_4:
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t get_indices(uint64_t a1, __int16 *a2, __int16 *a3, __int16 *a4, __int16 *a5, uint64_t a6)
-{
-  v30 = *MEMORY[0x277D85DE8];
-  v25[0] = 0;
-  v25[1] = 0;
-  v23 = 0;
-  v24 = 0;
-  v22 = 65532;
-  OUTLINED_FUNCTION_7_13();
-  bzero(v21, v12);
-  OUTLINED_FUNCTION_6_13();
-  bzero(v29, v13);
-  if (setjmp(v29) || ventproc(a1, v21, v28, v27, v26, v29))
-  {
-    v14 = 94;
-  }
-
-  else
-  {
-    get_parm(a1, v25, a2, -6);
-    get_parm(a1, &v24 + 4, a3, -4);
-    get_parm(a1, &v24, a4, -4);
-    get_parm(a1, &v23 + 4, a5, -4);
-    v17 = OUTLINED_FUNCTION_16_11();
-    get_parm(v17, v18, v19, -4);
-    fence_15(a1);
-    v20 = OUTLINED_FUNCTION_5_13();
-    if (!lpta_loadp_setscan_l(v20, v25) && !OUTLINED_FUNCTION_19_8() && !advance_tok(a1))
-    {
-      *(a1 + 1906) = 0;
-      copyvar(a1, &v22, (a1 + 1904));
-      HIWORD(v24) = HIWORD(v22) - WORD1(v24);
-      WORD1(v24) = HIWORD(v22);
-    }
-
-    a3[1] = HIWORD(v24);
-    a4[1] = WORD1(v24);
-    a5[1] = HIWORD(v23);
-    *(a6 + 2) = WORD1(v23);
-    v14 = 0;
-  }
-
-  vretproc(a1);
-  v15 = *MEMORY[0x277D85DE8];
-  return v14;
-}
-
-uint64_t delete_2_more(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_2_14(*MEMORY[0x277D85DE8], v32);
-  OUTLINED_FUNCTION_1_14(v3, v4, v5, v6, v7, v8, v9, v10, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, v85, v87);
-  v11 = setjmp(v1);
-  if (v11 || OUTLINED_FUNCTION_0_15(v11, v12, v13, v14, v15, v16, v17, v18, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76, v78, *v80, v80[4], *v82, *&v82[4], v82[6], v84, SWORD2(v84), SBYTE6(v84), SHIBYTE(v84), v86, v88))
-  {
-    goto LABEL_14;
-  }
-
-  fence_15(a1);
-  OUTLINED_FUNCTION_3_14();
-  v19 = OUTLINED_FUNCTION_5_13();
-  if (delete_2pt(v19, 2))
-  {
-    goto LABEL_18;
-  }
-
-  OUTLINED_FUNCTION_3_14();
-  v20 = OUTLINED_FUNCTION_5_13();
-  if (delete_2pt(v20, 3))
-  {
-    goto LABEL_18;
-  }
-
-  OUTLINED_FUNCTION_3_14();
-  v21 = OUTLINED_FUNCTION_5_13();
-  if (delete_2pt(v21, 4))
-  {
-    goto LABEL_18;
-  }
-
-  OUTLINED_FUNCTION_3_14();
-  v22 = OUTLINED_FUNCTION_5_13();
-  if (delete_2pt(v22, 5))
-  {
-    goto LABEL_18;
-  }
-
-  OUTLINED_FUNCTION_3_14();
-  v23 = OUTLINED_FUNCTION_5_13();
-  if (delete_2pt(v23, 6) || (OUTLINED_FUNCTION_3_14(), v24 = OUTLINED_FUNCTION_5_13(), delete_2pt(v24, 7)) || (OUTLINED_FUNCTION_18_9(), v25 = OUTLINED_FUNCTION_10_13(), delete_2pt(v25, v26)) || (OUTLINED_FUNCTION_3_14(), v27 = 0, delete_2pt(a1, 8)))
-  {
-LABEL_18:
-    if (a1[13])
-    {
-      a1[13] = 0;
-    }
-
-    else
-    {
-      v28 = OUTLINED_FUNCTION_10_13();
-      vback(v28, v29);
-    }
-
-LABEL_14:
-    v27 = 94;
-  }
-
-  vretproc(a1);
-  v30 = *MEMORY[0x277D85DE8];
-  return v27;
-}
-
-uint64_t DeltaProc_end(uint64_t a1)
-{
-  OUTLINED_FUNCTION_2_14(*MEMORY[0x277D85DE8], v23);
-  OUTLINED_FUNCTION_1_14(v3, v4, v5, v6, v7, v8, v9, v10, v24, v26, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76, v78);
-  v11 = setjmp(v1);
-  if (v11 || OUTLINED_FUNCTION_0_15(v11, v12, v13, v14, v15, v16, v17, v18, v25, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, *v71, v71[4], *v73, *&v73[4], v73[6], v75, SWORD2(v75), SBYTE6(v75), SHIBYTE(v75), v77, v79))
-  {
-    v19 = 94;
-  }
-
-  else
-  {
-    v22 = OUTLINED_FUNCTION_17_10();
-    close_platform(v22);
-    v19 = 0;
-  }
-
-  vretproc(a1);
-  v20 = *MEMORY[0x277D85DE8];
-  return v19;
-}
-
-uint64_t DeltaProc_getInputCharCount(uint64_t a1)
-{
-  OUTLINED_FUNCTION_2_14(*MEMORY[0x277D85DE8], v22);
-  OUTLINED_FUNCTION_1_14(v3, v4, v5, v6, v7, v8, v9, v10, v23, v25, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77);
-  v11 = setjmp(v1);
-  if (v11 || OUTLINED_FUNCTION_0_15(v11, v12, v13, v14, v15, v16, v17, v18, v24, v26, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, *v70, v70[4], *v72, *&v72[4], v72[6], v74, SWORD2(v74), SBYTE6(v74), SHIBYTE(v74), v76, v78))
-  {
-    v19 = 94;
-  }
-
-  else
-  {
-    fence_15(a1);
-    v19 = 0;
-  }
-
-  vretproc(a1);
-  v20 = *MEMORY[0x277D85DE8];
-  return v19;
-}
-
-uint64_t OUTLINED_FUNCTION_0_15(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, int a32, char a33, int a34, __int16 a35, char a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, char a42)
-{
-
-  return ventproc(v42, &a9, &a40, &a36, &a33, &a42);
-}
-
-void OUTLINED_FUNCTION_1_14(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
-{
-
-  bzero(&a36, 0xC0uLL);
-}
-
-void OUTLINED_FUNCTION_2_14(uint64_t a1@<X8>, uint64_t a2)
-{
-  *(v2 - 40) = a1;
-
-  bzero(&a2, 0xB8uLL);
-}
-
-uint64_t OUTLINED_FUNCTION_3_14()
-{
-
-  return lpta_rpta_loadp(v0, v0 + 344, v0 + 1384);
-}
-
-void OUTLINED_FUNCTION_4_13(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
-{
-
-  bzero(&a9, 0xB8uLL);
-}
-
-uint64_t OUTLINED_FUNCTION_13_13()
-{
-  v0[14] = v0[174];
-  v0[16] = 0;
-
-  return test_ptr(v0);
-}
-
 uint64_t OUTLINED_FUNCTION_18_9()
 {
 
@@ -1031,40 +24,40 @@ void *fence_16(uint64_t a1, int a2, uint64_t a3)
   return result;
 }
 
-void normalize_text()
+void normalize_text(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_114();
   OUTLINED_FUNCTION_11_14();
-  v116 = *MEMORY[0x277D85DE8];
+  v154 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_78_1();
-  OUTLINED_FUNCTION_16_12(v1, v2, v3, v4, v5, v6, v7, v8, v70, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100);
+  OUTLINED_FUNCTION_16_12(v4, v5, v6, v7, v8, v9, v10, v11, v131, v133[0], v133[1], v133[2], v133[3], v133[4], v133[5], v133[6], v133[7], v133[8], v133[9], v133[10], v133[11], v133[12], v133[13], v133[14], v133[15], v133[16], v133[17], v133[18], v133[19], v133[20], v133[21], v133[22], v134[0], v134[1], v135, v136, v137, v138);
   OUTLINED_FUNCTION_57_1();
-  bzero(v115, v9);
-  v10 = setjmp(v115);
-  if (v10 || OUTLINED_FUNCTION_92_0(v10, &v72, v11, v12, v13, v14, v15, v16, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, v103[0], v103[1], v104[0], v104[1], v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115[0]))
+  bzero(v153, v12);
+  v13 = setjmp(v153);
+  if (v13 || OUTLINED_FUNCTION_92_0(v13, v133, v14, v15, v16, v17, v18, v19, v132, v133[0], v133[1], v133[2], v133[3], v133[4], v133[5], v133[6], v133[7], v133[8], v133[9], v133[10], v133[11], v133[12], v133[13], v133[14], v133[15], v133[16], v133[17], v133[18], v133[19], v133[20], v133[21], v133[22], v134[0], v134[1], v135, v136, v137, v138, v139, v140, v141[0], v141[1], v142[0], v142[1], v143, v144, v145, v146, v147, v148, v149, v150, v151, v152, v153[0]))
   {
     goto LABEL_3;
   }
 
-  v18 = OUTLINED_FUNCTION_72_1();
-  get_parm(v18, v19, v20, -6);
-  OUTLINED_FUNCTION_62_1(v21, v103);
-  v22 = OUTLINED_FUNCTION_107();
-  push_ptr_init(v22, v23);
-  v24 = OUTLINED_FUNCTION_87_1();
+  v20 = OUTLINED_FUNCTION_72_1();
+  get_parm(v20, v21, v22, -6);
+  OUTLINED_FUNCTION_62_1(v23, v141);
+  v24 = OUTLINED_FUNCTION_107();
   push_ptr_init(v24, v25);
-  v26 = OUTLINED_FUNCTION_86_1();
+  v26 = OUTLINED_FUNCTION_87_1();
   push_ptr_init(v26, v27);
-  v28 = OUTLINED_FUNCTION_104();
+  v28 = OUTLINED_FUNCTION_86_1();
   push_ptr_init(v28, v29);
-  fence_16(v0, 0, &_MergedGlobals_1_0);
-  v102 = *(v0 + 3352);
-  v100 = v102;
-  if (*(v0 + 2386) == 1 && !lpta_loadp_setscan_r(v0, v104))
+  v30 = OUTLINED_FUNCTION_104();
+  push_ptr_init(v30, v31);
+  fence_16(v3, 0, &_MergedGlobals_1_0);
+  v140 = *(v3 + 3352);
+  v138 = v140;
+  if (*(v3 + 2386) == 1 && !lpta_loadp_setscan_r(v3, v142, 1))
   {
-    *(v0 + 136) = 1;
-    v30 = OUTLINED_FUNCTION_12_14();
-    if (!test_ptr(v30))
+    *(v3 + 136) = 1;
+    v32 = OUTLINED_FUNCTION_12_14();
+    if (!test_ptr(v32, v33, v34))
     {
       goto LABEL_56;
     }
@@ -1072,46 +65,46 @@ void normalize_text()
 
   OUTLINED_FUNCTION_153();
 LABEL_8:
-  *(v0 + 2430) = 0;
-  count_input(v0, v0 + 2424);
+  *(v3 + 2430) = 0;
+  count_input(v3, v3 + 2424);
 LABEL_9:
-  v31 = OUTLINED_FUNCTION_55_1();
-  startloop(v31, v32);
-  lpta_loadpn(v0, v104);
+  v35 = OUTLINED_FUNCTION_55_1();
+  startloop(v35, v36);
+  lpta_loadpn(v3, v142);
   OUTLINED_FUNCTION_96_0();
   lpta_mover();
-  v33 = OUTLINED_FUNCTION_64_1();
-  lpta_storep(v33, v34);
-  v35 = OUTLINED_FUNCTION_140();
-  lpta_loadpn(v35, v36);
+  v37 = OUTLINED_FUNCTION_64_1();
+  lpta_storep(v37, v38, v39);
+  v40 = OUTLINED_FUNCTION_140();
+  lpta_loadpn(v40, v41);
   OUTLINED_FUNCTION_96_0();
   lpta_mover();
-  v37 = OUTLINED_FUNCTION_74_1();
-  lpta_storep(v37, v38);
+  v42 = OUTLINED_FUNCTION_74_1();
+  lpta_storep(v42, v43, v44);
   while (1)
   {
     while (1)
     {
 LABEL_10:
-      v39 = OUTLINED_FUNCTION_64_1();
-      if (forall_to_test(v39, v40, &v97))
+      v45 = OUTLINED_FUNCTION_64_1();
+      if (forall_to_test(v45, v46, &v135))
       {
 LABEL_13:
         while (2)
         {
-          v44 = *(v0 + 104);
-          if (v44)
+          v53 = *(v3 + 104);
+          if (v53)
           {
-            v45 = OUTLINED_FUNCTION_65_1(v44);
+            v54 = OUTLINED_FUNCTION_65_1(v53);
           }
 
           else
           {
-            v46 = OUTLINED_FUNCTION_130();
-            v45 = vback(v46, v47);
+            v55 = OUTLINED_FUNCTION_130();
+            v54 = vback(v55, v56);
           }
 
-          switch(v45)
+          switch(v54)
           {
             case 1:
               goto LABEL_8;
@@ -1121,7 +114,7 @@ LABEL_13:
               goto LABEL_19;
             case 6:
               OUTLINED_FUNCTION_115();
-              if (forto_adv_upto_r(v0, v48, 5, 41, 1, &v101))
+              if (forto_adv_upto_r(v3, v57, 5, 41, 1, &v139))
               {
                 continue;
               }
@@ -1200,10 +193,10 @@ LABEL_13:
       }
 
 LABEL_11:
-      v41 = OUTLINED_FUNCTION_112();
-      bspush_ca(v41);
-      v42 = OUTLINED_FUNCTION_64_1();
-      if (lpta_loadp_setscan_r(v42, v43) || advance_tok(v0))
+      v47 = OUTLINED_FUNCTION_112();
+      bspush_ca(v47);
+      v48 = OUTLINED_FUNCTION_64_1();
+      if (lpta_loadp_setscan_r(v48, v49, 1) || advance_tok(v3, v50, v51, v52))
       {
         goto LABEL_13;
       }
@@ -1212,118 +205,118 @@ LABEL_19:
       OUTLINED_FUNCTION_64_1();
       reset_token_vars();
 LABEL_20:
-      OUTLINED_FUNCTION_64_1();
-      merge_adjacent_spaces();
+      v58 = OUTLINED_FUNCTION_64_1();
+      merge_adjacent_spaces(v58, v59, v60, v61);
 LABEL_21:
-      v49 = OUTLINED_FUNCTION_17_11();
-      if (!space(v51, v49, v50))
+      v62 = OUTLINED_FUNCTION_17_11();
+      if (!space(v64, v62, v63))
       {
         break;
       }
 
 LABEL_22:
-      OUTLINED_FUNCTION_17_11();
-      process_annotation();
-      if (!v52)
+      v65 = OUTLINED_FUNCTION_17_11();
+      process_annotation(v65, v66, v67);
+      if (!v68)
       {
         break;
       }
 
 LABEL_23:
-      OUTLINED_FUNCTION_17_11();
-      ellipsis();
-      if (!v53)
+      v69 = OUTLINED_FUNCTION_17_11();
+      ellipsis(v69, v70, v71);
+      if (!v72)
       {
         break;
       }
 
 LABEL_24:
-      OUTLINED_FUNCTION_64_1();
-      three_letter_extension();
-      if (v54)
+      v73 = OUTLINED_FUNCTION_64_1();
+      three_letter_extension(v73, v74, v75, v76);
+      if (v77)
       {
 LABEL_25:
-        OUTLINED_FUNCTION_17_11();
-        interpret_single_char_modes();
-        if (!v55)
+        v78 = OUTLINED_FUNCTION_17_11();
+        interpret_single_char_modes(v78, v79, v80);
+        if (!v81)
         {
           break;
         }
 
 LABEL_26:
-        OUTLINED_FUNCTION_64_1();
-        tok_lookup();
-        if (v56)
+        v82 = OUTLINED_FUNCTION_64_1();
+        tok_lookup(v82, v83, v84, v85);
+        if (v86)
         {
 LABEL_27:
-          OUTLINED_FUNCTION_17_11();
-          if (!punctuation())
+          v87 = OUTLINED_FUNCTION_17_11();
+          if (!punctuation(v87))
           {
             break;
           }
 
 LABEL_28:
-          OUTLINED_FUNCTION_17_11();
-          if (!parenthesis())
+          v88 = OUTLINED_FUNCTION_17_11();
+          if (!parenthesis(v88))
           {
             break;
           }
 
 LABEL_29:
-          OUTLINED_FUNCTION_17_11();
-          apostrophe();
-          if (!v57)
+          v89 = OUTLINED_FUNCTION_17_11();
+          apostrophe(v89, v90, v91);
+          if (!v92)
           {
             break;
           }
 
 LABEL_30:
-          OUTLINED_FUNCTION_64_1();
-          if (email_address())
+          v93 = OUTLINED_FUNCTION_64_1();
+          if (email_address(v93))
           {
 LABEL_31:
-            OUTLINED_FUNCTION_64_1();
-            URL();
-            if (v58)
+            v94 = OUTLINED_FUNCTION_64_1();
+            URL(v94, v95, v96, v97);
+            if (v98)
             {
 LABEL_32:
-              OUTLINED_FUNCTION_64_1();
-              if (is_pathname())
+              v99 = OUTLINED_FUNCTION_64_1();
+              if (is_pathname(v99))
               {
 LABEL_33:
-                OUTLINED_FUNCTION_17_11();
-                if (letter_sequence())
+                v100 = OUTLINED_FUNCTION_17_11();
+                if (letter_sequence(v100))
                 {
 LABEL_34:
                   OUTLINED_FUNCTION_17_11();
                   if (convert_digits_to_words())
                   {
 LABEL_35:
-                    OUTLINED_FUNCTION_17_11();
-                    hyphen();
-                    if (v59)
+                    v101 = OUTLINED_FUNCTION_17_11();
+                    hyphen(v101, v102, v103);
+                    if (v104)
                     {
 LABEL_36:
-                      OUTLINED_FUNCTION_17_11();
-                      slash();
-                      if (v60)
+                      v105 = OUTLINED_FUNCTION_17_11();
+                      slash(v105, v106, v107);
+                      if (v108)
                       {
 LABEL_37:
-                        OUTLINED_FUNCTION_17_11();
-                        quote_mark();
-                        if (v61)
+                        v109 = OUTLINED_FUNCTION_17_11();
+                        quote_mark(v109, v110, v111);
+                        if (v112)
                         {
 LABEL_38:
-                          OUTLINED_FUNCTION_17_11();
-                          if (span_inverted_punct())
+                          v113 = OUTLINED_FUNCTION_17_11();
+                          if (span_inverted_punct(v113))
                           {
 LABEL_39:
-                            OUTLINED_FUNCTION_17_11();
-                            if (bracket())
+                            v114 = OUTLINED_FUNCTION_17_11();
+                            if (bracket(v114))
                             {
 LABEL_40:
-                              OUTLINED_FUNCTION_17_11();
-                              misc_chars();
+                              v115 = OUTLINED_FUNCTION_17_11();
+                              misc_chars(v115, v116, v117);
                             }
                           }
                         }
@@ -1339,73 +332,73 @@ LABEL_40:
         }
       }
 
-      forall_cont_from(v0);
+      forall_cont_from();
     }
 
 LABEL_41:
-    OUTLINED_FUNCTION_17_11();
-    init_ptr_End_reproc_string();
+    v118 = OUTLINED_FUNCTION_17_11();
+    init_ptr_End_reproc_string(v118);
 LABEL_42:
-    if (*(v0 + 2614) - 10 >= 0xFFFFFFF7)
+    if (*(v3 + 2614) - 10 >= 0xFFFFFFF7)
     {
       OUTLINED_FUNCTION_17_11();
       build_words();
     }
 
 LABEL_44:
-    *(v0 + 2456) = v100;
-    v62 = OUTLINED_FUNCTION_91_0();
-    lpta_loadpn(v62, v63);
-    rpta_loadpn(v0, v0 + 1384);
-    if (!compare_ptas(v0) && !testeq(v0))
+    *(v3 + 2456) = v138;
+    v119 = OUTLINED_FUNCTION_91_0();
+    lpta_loadpn(v119, v120);
+    rpta_loadpn(v3, v3 + 1384);
+    if (!compare_ptas(v3) && !testeq(v3))
     {
-      *(v0 + 2430) = 1;
+      *(v3 + 2430) = 1;
     }
 
 LABEL_47:
-    v64 = OUTLINED_FUNCTION_91_0();
-    if (!forced_synthesis(v64, v65))
+    v121 = OUTLINED_FUNCTION_91_0();
+    if (!forced_synthesis(v121, v122))
     {
       goto LABEL_3;
     }
 
 LABEL_48:
-    if (*(v0 + 2538))
+    if (*(v3 + 2538))
     {
-      OUTLINED_FUNCTION_17_11();
-      build_phrases();
+      v123 = OUTLINED_FUNCTION_17_11();
+      build_phrases(v123, v124, v125);
     }
 
 LABEL_50:
-    if (*(v0 + 2430) == 1)
+    if (*(v3 + 2430) == 1)
     {
       break;
     }
 
 LABEL_51:
-    if (*(v0 + 2390) == 1)
+    if (*(v3 + 2390) == 1)
     {
       goto LABEL_3;
     }
 
 LABEL_52:
-    v66 = OUTLINED_FUNCTION_91_0();
-    lpta_loadpn(v66, v67);
+    v126 = OUTLINED_FUNCTION_91_0();
+    lpta_loadpn(v126, v127);
     OUTLINED_FUNCTION_96_0();
     lpta_mover();
-    v68 = OUTLINED_FUNCTION_81_1();
-    lpta_storep(v68, v69);
-    forall_cont_from(v0);
+    v128 = OUTLINED_FUNCTION_81_1();
+    lpta_storep(v128, v129, v130);
+    forall_cont_from();
   }
 
-  if (!*(v0 + 2386))
+  if (!*(v3 + 2386))
   {
-    create_final_sync();
+    create_final_sync(v3);
     goto LABEL_3;
   }
 
 LABEL_55:
-  if (*(v0 + 2390))
+  if (*(v3 + 2390))
   {
     goto LABEL_3;
   }
@@ -1413,106 +406,104 @@ LABEL_55:
 LABEL_56:
   handle_end_of_delta();
 LABEL_3:
-  vretproc(v0);
-  v17 = *MEMORY[0x277D85DE8];
+  vretproc(v3);
   OUTLINED_FUNCTION_113();
 }
 
 uint64_t handle_end_of_delta()
 {
   OUTLINED_FUNCTION_76_1();
-  v156 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_20_8(v2, v3, v4, v5, v6, v7, v8, v9, v47, v51, v55, v59, v63, v67, v71, v75, v79, v83, v87, v91, v95, v99, v103, v107, v111, v115, v119, v123, v127, v131, v135, v139, v143);
+  OUTLINED_FUNCTION_20_8(v2, v3, v4, v5, v6, v7, v8, v9, v50, v54, v58, v62, v66, v70, v74, v78, v82, v86, v90, v94, v98, v102, v106, v110, v114, v118, v122, v126, v130, v134, v138, v142, v146);
   OUTLINED_FUNCTION_57_1();
-  OUTLINED_FUNCTION_158(v10, v11, v12, v13, v14, v15, v16, v17, v48, v52, v56, v60, v64, v68, v72, v76, v80, v84, v88, v92, v96, v100, v104, v108, v112, v116, v120, v124, v128, v132, v136, v140, v144, v146, v148, v150, v152, v154);
+  OUTLINED_FUNCTION_158(v10, v11, v12, v13, v14, v15, v16, v17, v51, v55, v59, v63, v67, v71, v75, v79, v83, v87, v91, v95, v99, v103, v107, v111, v115, v119, v123, v127, v131, v135, v139, v143, v147, v149, v151, v153, v155);
   v18 = setjmp(v1);
   if (v18)
   {
     goto LABEL_3;
   }
 
-  v26 = OUTLINED_FUNCTION_25_8(v18, v19, v20, v21, v22, v23, v24, v25, v49, v53, v57, v61, v65, v69, v73, v77, v81, v85, v89, v93, v97, v101, v105, v109, v113, v117, v121, v125, v129, v133, v137, v141, v145, *v147, v147[4], *v149, *&v149[4], v149[6], v151, SWORD2(v151), SBYTE6(v151), SHIBYTE(v151), v153, v155);
+  v26 = OUTLINED_FUNCTION_25_8(v18, v19, v20, v21, v22, v23, v24, v25, v52, v56, v60, v64, v68, v72, v76, v80, v84, v88, v92, v96, v100, v104, v108, v112, v116, v120, v124, v128, v132, v136, v140, v144, v148, v150, SHIDWORD(v150), v152, SWORD2(v152), SHIWORD(v152), v154, SWORD2(v154), SBYTE6(v154), SHIBYTE(v154), v156, v157);
   if (v26)
   {
     goto LABEL_3;
   }
 
-  OUTLINED_FUNCTION_19_9(v26, v27, v28, v29, v30, v31, v32, v33, v50, v54, v58, v62, v66, v70, v74, v78, v82, v86, v90, v94, v98, v102, v106, v110, v114, v118, v122, v126, v130, v134, v138, v142);
-  v36 = OUTLINED_FUNCTION_73_1();
-  fence_16(v36, v37, v38);
-  v39 = OUTLINED_FUNCTION_42_1();
-  starttest(v39, v40);
+  OUTLINED_FUNCTION_19_9(v26, v27, v28, v29, v30, v31, v32, v33, v53, v57, v61, v65, v69, v73, v77, v81, v85, v89, v93, v97, v101, v105, v109, v113, v117, v121, v125, v129, v133, v137, v141, v145);
+  v35 = OUTLINED_FUNCTION_73_1();
+  fence_16(v35, v36, v37);
+  v38 = OUTLINED_FUNCTION_42_1();
+  starttest(v38, v39);
   bspush_ca_boa();
-  v41 = OUTLINED_FUNCTION_55_1();
-  if (!lpta_loadp_setscan_l(v41, v42))
+  v40 = OUTLINED_FUNCTION_55_1();
+  if (!lpta_loadp_setscan_l(v40, v41, 2))
   {
-    advance_tok(v0);
+    advance_tok(v0, v42, v43, v44);
   }
 
-  v43 = *(v0 + 104);
-  if (v43)
+  v45 = *(v0 + 104);
+  if (v45)
   {
-    v44 = OUTLINED_FUNCTION_65_1(v43);
+    v46 = OUTLINED_FUNCTION_65_1(v45);
   }
 
   else
   {
-    v45 = OUTLINED_FUNCTION_130();
-    v44 = vback(v45, v46);
+    v47 = OUTLINED_FUNCTION_130();
+    v46 = vback(v47, v48);
   }
 
-  switch(v44)
+  if (v46 != 3)
   {
-    case 3:
-LABEL_15:
-      vretproc(v0);
-      result = 0;
-      goto LABEL_4;
-    case 2:
+    if (v46 == 2)
+    {
       bspop_boa(v0);
       *(v0 + 2446) = 1;
-      goto LABEL_15;
-    case 1:
-      OUTLINED_FUNCTION_66_1();
-      create_sentence();
-      goto LABEL_15;
+    }
+
+    else
+    {
+      if (v46 != 1)
+      {
+LABEL_3:
+        vretproc(v0);
+        return 94;
+      }
+
+      v49 = OUTLINED_FUNCTION_66_1();
+      create_sentence(v49);
+    }
   }
 
-LABEL_3:
   vretproc(v0);
-  result = 94;
-LABEL_4:
-  v35 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 uint64_t reset_token_vars()
 {
   OUTLINED_FUNCTION_76_1();
-  v149 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_20_8(v2, v3, v4, v5, v6, v7, v8, v9, v40, v44, v48, v52, v56, v60, v64, v68, v72, v76, v80, v84, v88, v92, v96, v100, v104, v108, v112, v116, v120, v124, v128, v132, v136);
+  OUTLINED_FUNCTION_20_8(v2, v3, v4, v5, v6, v7, v8, v9, v39, v43, v47, v51, v55, v59, v63, v67, v71, v75, v79, v83, v87, v91, v95, v99, v103, v107, v111, v115, v119, v123, v127, v131, v135);
   OUTLINED_FUNCTION_57_1();
-  OUTLINED_FUNCTION_158(v10, v11, v12, v13, v14, v15, v16, v17, v41, v45, v49, v53, v57, v61, v65, v69, v73, v77, v81, v85, v89, v93, v97, v101, v105, v109, v113, v117, v121, v125, v129, v133, v137, v139, v141, v143, v145, v147);
+  OUTLINED_FUNCTION_158(v10, v11, v12, v13, v14, v15, v16, v17, v40, v44, v48, v52, v56, v60, v64, v68, v72, v76, v80, v84, v88, v92, v96, v100, v104, v108, v112, v116, v120, v124, v128, v132, v136, v138, v140, v142, v144);
   v18 = setjmp(v1);
-  if (v18 || (v26 = OUTLINED_FUNCTION_25_8(v18, v19, v20, v21, v22, v23, v24, v25, v42, v46, v50, v54, v58, v62, v66, v70, v74, v78, v82, v86, v90, v94, v98, v102, v106, v110, v114, v118, v122, v126, v130, v134, v138, *v140, v140[4], *v142, *&v142[4], v142[6], v144, SWORD2(v144), SBYTE6(v144), SHIBYTE(v144), v146, v148), v26))
+  if (v18 || (v26 = OUTLINED_FUNCTION_25_8(v18, v19, v20, v21, v22, v23, v24, v25, v41, v45, v49, v53, v57, v61, v65, v69, v73, v77, v81, v85, v89, v93, v97, v101, v105, v109, v113, v117, v121, v125, v129, v133, v137, v139, SHIDWORD(v139), v141, SWORD2(v141), SHIWORD(v141), v143, SWORD2(v143), SBYTE6(v143), SHIBYTE(v143), v145, v146), v26))
   {
     vretproc(v0);
-    result = 94;
+    return 94;
   }
 
   else
   {
-    OUTLINED_FUNCTION_43_1(v26, v27, v28, v29, v30, v31, v32, v33, v43, v47, v51, v55, v59, v63, v67, v71, v75, v79, v83, v87, v91, v95, v99, v103, v107, v111, v115, v119, v123, v127, v131, v135);
-    v36 = OUTLINED_FUNCTION_73_1();
-    fence_16(v36, v37, v38);
+    OUTLINED_FUNCTION_43_1(v26, v27, v28, v29, v30, v31, v32, v33, v42, v46, v50, v54, v58, v62, v66, v70, v74, v78, v82, v86, v90, v94, v98, v102, v106, v110, v114, v118, v122, v126, v130, v134);
+    v35 = OUTLINED_FUNCTION_73_1();
+    fence_16(v35, v36, v37);
     v0[1453] = 0;
-    v39 = v0[1455];
-    if (v39 != 1)
+    v38 = v0[1455];
+    if (v38 != 1)
     {
-      LOWORD(v39) = v0[1457] == 1 && !v0[1307];
+      LOWORD(v38) = v0[1457] == 1 && !v0[1307];
     }
 
-    v0[1457] = v39;
+    v0[1457] = v38;
     v0[1455] = 0;
     if (v0[1307])
     {
@@ -1530,96 +521,93 @@ uint64_t reset_token_vars()
     v0[1257] = 0;
     v0[1403] = 0;
     vretproc(v0);
-    result = 0;
+    return 0;
   }
-
-  v35 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-void merge_adjacent_spaces()
+void merge_adjacent_spaces(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   OUTLINED_FUNCTION_114();
   OUTLINED_FUNCTION_76_1();
-  v88 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_16_12(v1, v2, v3, v4, v5, v6, v7, v8, v46, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76);
+  v58 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_16_12(v6, v7, v8, v9, v10, v11, v12, v13, v50, v52[0], v52[1], v52[2], v52[3], v52[4], v52[5], v52[6], v52[7], v52[8], v52[9], v52[10], v52[11], v52[12], v52[13], v52[14], v52[15], v52[16], v52[17], v52[18], v52[19], v52[20], v52[21], v52[22], v53, v54, v55[0], v55[1], v56[0], v56[1]);
   OUTLINED_FUNCTION_57_1();
-  bzero(v87, v9);
-  v10 = setjmp(v87);
-  if (!v10 && !OUTLINED_FUNCTION_34_3(v10, &v48, v11, v12, v13, v14, v15, v16, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87[0]))
+  bzero(v57, v14);
+  v15 = setjmp(v57);
+  if (!v15 && !OUTLINED_FUNCTION_34_3(v15, v52, v16, v17, v18, v19, v20, v21, v51, v52[0], v52[1], v52[2], v52[3], v52[4], v52[5], v52[6], v52[7], v52[8], v52[9], v52[10], v52[11], v52[12], v52[13], v52[14], v52[15], v52[16], v52[17], v52[18], v52[19], v52[20], v52[21], v52[22], v53, v54, v55[0], v55[1], v56[0], v56[1], v56[2], SHIDWORD(v56[2]), v56[3], SWORD2(v56[3]), SHIWORD(v56[3]), v56[4], SWORD2(v56[4]), SBYTE6(v56[4]), SHIBYTE(v56[4]), v56[5], v57[0]))
   {
     OUTLINED_FUNCTION_21_8();
-    v18 = OUTLINED_FUNCTION_86_1();
-    push_ptr_init(v18, v19);
-    v20 = OUTLINED_FUNCTION_104();
-    push_ptr_init(v20, v21);
-    v22 = OUTLINED_FUNCTION_73_1();
-    fence_16(v22, v23, v24);
+    v22 = OUTLINED_FUNCTION_86_1();
+    push_ptr_init(v22, v23);
+    v24 = OUTLINED_FUNCTION_104();
+    push_ptr_init(v24, v25);
+    v26 = OUTLINED_FUNCTION_73_1();
+    fence_16(v26, v27, v28);
     OUTLINED_FUNCTION_103();
-    v25 = OUTLINED_FUNCTION_55_1();
-    if (!lpta_loadp_setscan_l(v25, v26))
+    v29 = OUTLINED_FUNCTION_55_1();
+    if (!lpta_loadp_setscan_l(v29, v30, v5))
     {
       OUTLINED_FUNCTION_4_14();
       if (!test_string_s())
       {
-        v27 = 0;
+        v31 = 0;
         OUTLINED_FUNCTION_143();
         while (2)
         {
-          v28 = OUTLINED_FUNCTION_55_1();
-          savescptr(v28, v29, v30);
+          v32 = OUTLINED_FUNCTION_55_1();
+          savescptr(v32, v33, v34);
           OUTLINED_FUNCTION_47_1();
-          v31 = test_string_s();
-          v32 = v27;
-          if (!v31)
+          v35 = test_string_s();
+          v36 = v31;
+          if (!v35)
           {
 LABEL_8:
-            v33 = OUTLINED_FUNCTION_112();
-            savescptr(v33, v34, &v73);
-            v35 = OUTLINED_FUNCTION_142();
-            starttest_l(v35, v36);
+            v37 = OUTLINED_FUNCTION_112();
+            savescptr(v37, v38, v55);
+            v39 = OUTLINED_FUNCTION_142();
+            starttest_l(v39, v40);
             OUTLINED_FUNCTION_84_1();
             bspush_ca_boa();
-            if (lpta_loadp_setscan_l(v0, &v71))
+            if (lpta_loadp_setscan_l(v4, &v53, 0))
             {
-              v32 = v27;
+              v36 = v31;
             }
 
             else
             {
-              v32 = 1;
+              v36 = 1;
             }
           }
 
-          v27 = v32;
+          v31 = v36;
 LABEL_12:
-          v37 = v0[13];
-          if (v37)
+          v41 = v4[13];
+          if (v41)
           {
-            OUTLINED_FUNCTION_65_1(v37);
+            OUTLINED_FUNCTION_65_1(v41);
           }
 
           else
           {
-            vback(v0, v27);
-            v27 = 0;
+            vback(v4, v31);
+            v31 = 0;
           }
 
           OUTLINED_FUNCTION_152();
-          if (!(!v40 & v39))
+          if (!(!v44 & v43))
           {
-            switch(v38)
+            switch(v42)
             {
               case 1:
                 continue;
               case 2:
                 goto LABEL_8;
               case 3:
-                bspop_boa(v0);
-                v41 = OUTLINED_FUNCTION_74_1();
-                lpta_rpta_loadp(v41, v42, &v75);
-                v43 = OUTLINED_FUNCTION_47_1();
-                if (insert_2pt_s(v43, v44, v45, &_MergedGlobals_10, 0))
+                bspop_boa(v4);
+                v45 = OUTLINED_FUNCTION_74_1();
+                lpta_rpta_loadp(v45, v46, v56);
+                v47 = OUTLINED_FUNCTION_47_1();
+                if (insert_2pt_s(v47, v48, v49, &_MergedGlobals_10, 0))
                 {
                   goto LABEL_12;
                 }
@@ -1637,95 +625,92 @@ LABEL_12:
   }
 
 LABEL_3:
-  vretproc(v0);
-  v17 = *MEMORY[0x277D85DE8];
+  vretproc(v4);
   OUTLINED_FUNCTION_113();
 }
 
 std::__fs::filesystem::space_info *__cdecl space(std::__fs::filesystem::space_info *__return_ptr retstr, const std::__fs::filesystem::path *__p, std::error_code *__ec)
 {
   OUTLINED_FUNCTION_11_14();
-  v5 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_14(v6, v7, v8, v9, v10, v11, v12, v13, v56, v61, v66, v71, v76, v81, v86, v91, v96, v101, v106, v111, v116, v121, v126, v131, v136, v141, v146, v151, v156, v161, v166, v171, v176, v180, v183);
-  OUTLINED_FUNCTION_26_8(v14, v15, v16, v17, v18, v19, v20, v21, v57, v62, v67, v72, v77, v82, v87, v92, v97, v102, v107, v112, v117, v122, v127, v132, v137, v142, v147, v152, v157, v162, v167, v172, v177, v181, v184, v186, v188, v190, v192, v194);
+  OUTLINED_FUNCTION_5_14(v5, v6, v7, v8, v9, v10, v11, v12, v55, v60, v65, v70, v75, v80, v85, v90, v95, v100, v105, v110, v115, v120, v125, v130, v135, v140, v145, v150, v155, v160, v165, v170, v175, v179, v182);
+  OUTLINED_FUNCTION_26_8(v13, v14, v15, v16, v17, v18, v19, v20, v56, v61, v66, v71, v76, v81, v86, v91, v96, v101, v106, v111, v116, v121, v126, v131, v136, v141, v146, v151, v156, v161, v166, v171, v176, v180, v183, v185, v187, v189, v191);
   if (!setjmp(v4))
   {
     OUTLINED_FUNCTION_0_16();
-    if (!OUTLINED_FUNCTION_132(v22, v23, v24, v25, v26, v27, v28, v29, v58, v63, v68, v73, v78, v83, v88, v93, v98, v103, v108, v113, v118, v123, v128, v133, v138, v143, v148, v153, v158, v163, v168, v173, v178, v182, v185, v187, v189, v191, v193, v195))
+    if (!OUTLINED_FUNCTION_132(v21, v22, v23, v24, v25, v26, v27, v28, v57, v62, v67, v72, v77, v82, v87, v92, v97, v102, v107, v112, v117, v122, v127, v132, v137, v142, v147, v152, v157, v162, v167, v172, v177, v181, v184, v186, v188, v190, v192))
     {
-      v30 = OUTLINED_FUNCTION_13_14();
-      get_parm(v30, v31, v32, -6);
-      OUTLINED_FUNCTION_43_1(v33, v34, v35, v36, v37, v38, v39, v40, v59, v64, v69, v74, v79, v84, v89, v94, v99, v104, v109, v114, v119, v124, v129, v134, v139, v144, v149, v154, v159, v164, v169, v174);
+      v29 = OUTLINED_FUNCTION_13_14();
+      get_parm(v29, v30, v31, -6);
+      OUTLINED_FUNCTION_43_1(v32, v33, v34, v35, v36, v37, v38, v39, v58, v63, v68, v73, v78, v83, v88, v93, v98, v103, v108, v113, v118, v123, v128, v133, v138, v143, v148, v153, v158, v163, v168, v173);
       fence_16(v3, 0, &_MergedGlobals_1_0);
-      v41 = OUTLINED_FUNCTION_29_5();
-      if (!lpta_loadp_setscan_r(v41, v42))
+      v40 = OUTLINED_FUNCTION_29_5();
+      if (!lpta_loadp_setscan_r(v40, v41, v42))
       {
         OUTLINED_FUNCTION_4_14();
         if (!test_string_s())
         {
           OUTLINED_FUNCTION_75_1();
-          v45 = OUTLINED_FUNCTION_83_1();
-          savescptr(v45, v46, v47);
-          OUTLINED_FUNCTION_61_1(v48, v49, v50, v51, v52, v53, v54, v55, v60, v65, v70, v75, v80, v85, v90, v95, v100, v105, v110, v115, v120, v125, v130, v135, v140, v145, v150, v155, v160, v165, v170, v175, v179);
+          v44 = OUTLINED_FUNCTION_83_1();
+          savescptr(v44, v45, v46);
+          OUTLINED_FUNCTION_61_1(v47, v48, v49, v50, v51, v52, v53, v54, v59, v64, v69, v74, v79, v84, v89, v94, v99, v104, v109, v114, v119, v124, v129, v134, v139, v144, v149, v154, v159, v164, v169, v174, v178);
         }
       }
     }
   }
 
   vretproc(v3);
-  v43 = *MEMORY[0x277D85DE8];
   return OUTLINED_FUNCTION_105();
 }
 
-void ellipsis()
+void ellipsis(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_114();
-  v48 = v1;
+  v60 = v4;
   OUTLINED_FUNCTION_76_1();
-  v66 = *MEMORY[0x277D85DE8];
-  v53 = 0;
-  v54 = 0;
-  v51 = 0;
-  v52 = 0;
+  v78 = *MEMORY[0x277D85DE8];
+  v65 = 0;
+  v66 = 0;
+  v63 = 0;
+  v64 = 0;
   OUTLINED_FUNCTION_58_1();
-  bzero(v50, v2);
+  bzero(v62, v5);
   OUTLINED_FUNCTION_57_1();
-  bzero(v65, v3);
-  v4 = setjmp(v65);
-  if (v4)
+  bzero(v77, v6);
+  v7 = setjmp(v77);
+  if (v7)
   {
     goto LABEL_4;
   }
 
-  v11 = OUTLINED_FUNCTION_69_1(v4, v50, v5, v6, v7, v8, v9, v10, v44, v45, v46, v47, v48, v50[0], v50[1], v50[2], v50[3], v50[4], v50[5], v50[6], v50[7], v50[8], v50[9], v50[10], v50[11], v50[12], v50[13], v50[14], v50[15], v50[16], v50[17], v50[18], v50[19], v50[20], v50[21], v50[22], v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65[0]);
-  if (v11)
+  v14 = OUTLINED_FUNCTION_69_1(v7, v62, v8, v9, v10, v11, v12, v13, v56, v57, v58, v59, v60, v62[0], v62[1], v62[2], v62[3], v62[4], v62[5], v62[6], v62[7], v62[8], v62[9], v62[10], v62[11], v62[12], v62[13], v62[14], v62[15], v62[16], v62[17], v62[18], v62[19], v62[20], v62[21], v62[22], v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77[0]);
+  if (v14)
   {
     goto LABEL_4;
   }
 
-  OUTLINED_FUNCTION_62_1(v11, &v53);
-  v12 = OUTLINED_FUNCTION_87_1();
-  get_parm(v12, v13, v49, -6);
-  fence_16(v0, 0, &_MergedGlobals_1_0);
-  if (*(v0 + 2754) == *(v0 + 2742))
+  OUTLINED_FUNCTION_62_1(v14, &v65);
+  v15 = OUTLINED_FUNCTION_87_1();
+  get_parm(v15, v16, v61, -6);
+  fence_16(v3, 0, &_MergedGlobals_1_0);
+  if (*(v3 + 2754) == *(v3 + 2742))
   {
     goto LABEL_4;
   }
 
   while (2)
   {
-    v15 = OUTLINED_FUNCTION_134();
-    starttest(v15, v16);
-    v17 = OUTLINED_FUNCTION_141();
-    if (lpta_loadp_setscan_r(v17, v18))
+    v17 = OUTLINED_FUNCTION_134();
+    starttest(v17, v18);
+    v19 = OUTLINED_FUNCTION_141();
+    if (lpta_loadp_setscan_r(v19, v20, 1))
     {
 LABEL_4:
-      vretproc(v0);
+      vretproc(v3);
       goto LABEL_5;
     }
 
-    v19 = OUTLINED_FUNCTION_111();
-    bspush_ca_scan(v19, v20);
+    v21 = OUTLINED_FUNCTION_111();
+    bspush_ca_scan(v21, v22);
     OUTLINED_FUNCTION_108();
     if (!test_string_s())
     {
@@ -1738,24 +723,24 @@ LABEL_28:
           break;
         }
 
-        v39 = OUTLINED_FUNCTION_70_1();
-        bspush_ca_scan(v39, v40);
+        v47 = OUTLINED_FUNCTION_70_1();
+        bspush_ca_scan(v47, v48);
       }
     }
 
 LABEL_8:
-    v21 = *(v0 + 104);
-    if (v21)
+    v23 = *(v3 + 104);
+    if (v23)
     {
-      v22 = OUTLINED_FUNCTION_65_1(v21);
+      v24 = OUTLINED_FUNCTION_65_1(v23);
     }
 
     else
     {
-      v22 = OUTLINED_FUNCTION_133();
+      v24 = OUTLINED_FUNCTION_133();
     }
 
-    switch(v22)
+    switch(v24)
     {
       case 1:
         continue;
@@ -1765,8 +750,8 @@ LABEL_8:
       case 16:
         goto LABEL_32;
       case 4:
-        v35 = OUTLINED_FUNCTION_106();
-        bspush_ca_scan(v35, v36);
+        v43 = OUTLINED_FUNCTION_106();
+        bspush_ca_scan(v43, v44);
         OUTLINED_FUNCTION_108();
         if (test_string_s())
         {
@@ -1777,25 +762,25 @@ LABEL_8:
       case 5:
       case 7:
       case 9:
-        v23 = OUTLINED_FUNCTION_112();
-        savescptr(v23, v24, &v51);
-        *(v0 + 2614) = *(v0 + 2658);
-        *(v0 + 136) = 1;
+        v25 = OUTLINED_FUNCTION_112();
+        savescptr(v25, v26, &v63);
+        *(v3 + 2614) = *(v3 + 2658);
+        *(v3 + 136) = 1;
         OUTLINED_FUNCTION_12_14();
         if (lpta_tstctxtl())
         {
           goto LABEL_14;
         }
 
-        v25 = OUTLINED_FUNCTION_135();
-        setscan_l(v25);
-        if (v26)
+        v27 = OUTLINED_FUNCTION_135();
+        setscan_l(v27, v28, v29);
+        if (v30)
         {
           goto LABEL_14;
         }
 
-        OUTLINED_FUNCTION_87_1();
-        skip_punct_and_delimiters();
+        v55 = OUTLINED_FUNCTION_87_1();
+        skip_punct_and_delimiters(v55);
         goto LABEL_32;
       case 6:
         goto LABEL_28;
@@ -1808,7 +793,7 @@ LABEL_8:
             break;
           }
 
-          bspush_ca_scan(v0, 7);
+          bspush_ca_scan(v3, 7);
         }
 
         goto LABEL_8;
@@ -1822,54 +807,54 @@ LABEL_25:
             break;
           }
 
-          v37 = OUTLINED_FUNCTION_84_1();
-          bspush_ca_scan(v37, v38);
+          v45 = OUTLINED_FUNCTION_84_1();
+          bspush_ca_scan(v45, v46);
         }
 
         goto LABEL_8;
       case 11:
 LABEL_14:
-        OUTLINED_FUNCTION_81_1();
-        skip_delimiters();
+        v31 = OUTLINED_FUNCTION_81_1();
+        skip_delimiters(v31);
         goto LABEL_15;
       case 14:
 LABEL_15:
-        v27 = OUTLINED_FUNCTION_71_1();
-        starttest(v27, v28);
-        v29 = OUTLINED_FUNCTION_81_1();
-        if (lpta_loadp_setscan_r(v29, v30))
+        v32 = OUTLINED_FUNCTION_71_1();
+        starttest(v32, v33);
+        v34 = OUTLINED_FUNCTION_81_1();
+        if (lpta_loadp_setscan_r(v34, v35, 1))
         {
           goto LABEL_30;
         }
 
         OUTLINED_FUNCTION_108();
         OUTLINED_FUNCTION_116();
-        if (testFldeq(v31, v32, v33, v34) || advance_tok(v0))
+        if (testFldeq(v36, v37, v38, v39) || advance_tok(v3, v40, v41, v42))
         {
           goto LABEL_8;
         }
 
-        v41 = OUTLINED_FUNCTION_53_1();
-        if (!lpta_loadp_setscan_r(v41, v42))
+        v50 = OUTLINED_FUNCTION_53_1();
+        if (!lpta_loadp_setscan_r(v50, v51, v52))
         {
           OUTLINED_FUNCTION_4_14();
           if (!test_string_s())
           {
-            *(v0 + 2766) = *(v0 + 2770);
-            OUTLINED_FUNCTION_87_1();
-            punctuation();
+            *(v3 + 2766) = *(v3 + 2770);
+            v54 = OUTLINED_FUNCTION_87_1();
+            punctuation(v54);
           }
         }
 
         break;
       case 15:
 LABEL_30:
-        OUTLINED_FUNCTION_87_1();
-        build_phrase_final_structure();
+        v49 = OUTLINED_FUNCTION_87_1();
+        build_phrase_final_structure(v49);
         goto LABEL_31;
       case 17:
 LABEL_31:
-        *(v0 + 2766) = *(v0 + 2770);
+        *(v3 + 2766) = *(v3 + 2770);
         break;
       default:
         goto LABEL_4;
@@ -1879,128 +864,127 @@ LABEL_31:
   }
 
 LABEL_32:
-  *(v49 + 8) = v52;
-  vretproc(v0);
+  *(v61 + 8) = v64;
+  vretproc(v3);
 LABEL_5:
-  v14 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_113();
 }
 
-void three_letter_extension()
+void three_letter_extension(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   OUTLINED_FUNCTION_114();
   OUTLINED_FUNCTION_76_1();
-  v69 = *MEMORY[0x277D85DE8];
-  v64[0] = 0;
-  v64[1] = 0;
-  v63[0] = 0;
-  v63[1] = 0;
+  v82 = *MEMORY[0x277D85DE8];
+  v77[0] = 0;
+  v77[1] = 0;
+  v76[0] = 0;
+  v76[1] = 0;
   OUTLINED_FUNCTION_78_1();
   OUTLINED_FUNCTION_58_1();
-  bzero(v58, v1);
+  bzero(v71, v5);
   OUTLINED_FUNCTION_57_1();
-  bzero(v68, v2);
-  if (!setjmp(v68))
+  bzero(v81, v6);
+  if (!setjmp(v81))
   {
-    v3 = ventproc(v0, v58, v67, v66, v65, v68);
-    if (!v3)
+    v7 = ventproc(v4, v71, v80, v79, v78, v81);
+    if (!v7)
     {
-      OUTLINED_FUNCTION_62_1(v3, v64);
-      push_ptr_init(v0, v63);
-      v4 = OUTLINED_FUNCTION_128();
-      push_ptr_init(v4, v5);
-      push_ptr_init(v0, v61);
-      v6 = OUTLINED_FUNCTION_107();
-      push_ptr_init(v6, v7);
-      fence_16(v0, 0, &_MergedGlobals_1_0);
-      if (*(v0 + 2746) == *(v0 + 2742))
+      OUTLINED_FUNCTION_62_1(v7, v77);
+      push_ptr_init(v4, v76);
+      v8 = OUTLINED_FUNCTION_128();
+      push_ptr_init(v8, v9);
+      push_ptr_init(v4, v74);
+      v10 = OUTLINED_FUNCTION_107();
+      push_ptr_init(v10, v11);
+      fence_16(v4, 0, &_MergedGlobals_1_0);
+      if (*(v4 + 2746) == *(v4 + 2742))
       {
-        v8 = 0;
+        v12 = 0;
         OUTLINED_FUNCTION_166();
-        v57 = v9;
+        v70 = v13;
         while (2)
         {
-          starttest(v0, v9);
-          v10 = OUTLINED_FUNCTION_74_1();
-          bspush_ca(v10);
-          v11 = OUTLINED_FUNCTION_70_1();
-          v13 = lpta_loadp_setscan_l(v11, v12);
-          v14 = v8;
-          if (!v13)
+          starttest(v4, v13);
+          v14 = OUTLINED_FUNCTION_74_1();
+          bspush_ca(v14);
+          v15 = OUTLINED_FUNCTION_70_1();
+          v17 = lpta_loadp_setscan_l(v15, v16, 2);
+          v18 = v12;
+          if (!v17)
           {
 LABEL_6:
-            v8 = v14;
-            v15 = OUTLINED_FUNCTION_74_1();
-            if (!lpta_loadp_setscan_r(v15, v16))
+            v12 = v18;
+            v19 = OUTLINED_FUNCTION_74_1();
+            if (!lpta_loadp_setscan_r(v19, v20, 1))
             {
               OUTLINED_FUNCTION_4_14();
-              v17 = test_string_s();
-              v18 = v8;
-              if (!v17)
+              v21 = test_string_s();
+              v22 = v12;
+              if (!v21)
               {
 LABEL_8:
-                v8 = v18;
-                v19 = OUTLINED_FUNCTION_134();
-                savescptr(v19, v20, v63);
-                v21 = OUTLINED_FUNCTION_111();
-                bspush_ca_scan(v21, v22);
-                v23 = OUTLINED_FUNCTION_106();
-                bspush_ca_scan(v23, v24);
-                v25 = OUTLINED_FUNCTION_51_1();
-                v27 = testFldeq(v25, v26, 3, 1);
-                v28 = v8;
-                if (!v27)
+                v12 = v22;
+                v23 = OUTLINED_FUNCTION_134();
+                savescptr(v23, v24, v76);
+                v25 = OUTLINED_FUNCTION_111();
+                bspush_ca_scan(v25, v26);
+                v27 = OUTLINED_FUNCTION_106();
+                bspush_ca_scan(v27, v28);
+                v29 = OUTLINED_FUNCTION_51_1();
+                v31 = testFldeq(v29, v30, 3, 1);
+                v32 = v12;
+                if (!v31)
                 {
 LABEL_9:
-                  v8 = v28;
+                  v12 = v32;
                   bspush_ca_scan_boa();
-                  v29 = OUTLINED_FUNCTION_51_1();
-                  if (!testFldeq(v29, v30, 0, 73))
+                  v33 = OUTLINED_FUNCTION_51_1();
+                  if (!testFldeq(v33, v34, 0, 73))
                   {
-                    v8 = 1;
+                    v12 = 1;
                   }
                 }
               }
             }
           }
 
-          v31 = v8;
+          v35 = v12;
 LABEL_12:
-          v32 = *(v0 + 104);
-          if (v32)
+          v36 = *(v4 + 104);
+          if (v36)
           {
-            v33 = OUTLINED_FUNCTION_65_1(v32);
-            v8 = v34;
+            v37 = OUTLINED_FUNCTION_65_1(v36);
+            v12 = v38;
           }
 
           else
           {
-            v33 = vback(v0, v31);
-            v8 = 0;
+            v37 = vback(v4, v35);
+            v12 = 0;
           }
 
-          v14 = v8;
-          switch(v33)
+          v18 = v12;
+          switch(v37)
           {
             case 1:
-              v9 = v57;
+              v13 = v70;
               continue;
             case 2:
-              *(v0 + 2504) = v60;
-              *(v0 + 2726) = *(v0 + 2730);
-              vretproc(v0);
+              *(v4 + 2504) = v73;
+              *(v4 + 2726) = *(v4 + 2730);
+              vretproc(v4);
               goto LABEL_34;
             case 4:
-              v35 = OUTLINED_FUNCTION_74_1();
-              v37 = lpta_loadp_setscan_l(v35, v36);
-              v31 = v8;
-              if (!v37)
+              v39 = OUTLINED_FUNCTION_74_1();
+              v41 = lpta_loadp_setscan_l(v39, v40, 1);
+              v35 = v12;
+              if (!v41)
               {
                 OUTLINED_FUNCTION_4_14();
-                v38 = test_string_s();
-                v14 = v8;
-                v31 = v8;
-                if (!v38)
+                v42 = test_string_s();
+                v18 = v12;
+                v35 = v12;
+                if (!v42)
                 {
                   goto LABEL_6;
                 }
@@ -2010,13 +994,13 @@ LABEL_12:
             case 5:
               goto LABEL_6;
             case 6:
-              v18 = v8;
+              v22 = v12;
               goto LABEL_8;
             case 7:
               OUTLINED_FUNCTION_4_14();
-              v43 = test_string_s();
-              v31 = v8;
-              if (v43)
+              v50 = test_string_s();
+              v35 = v12;
+              if (v50)
               {
                 goto LABEL_12;
               }
@@ -2025,10 +1009,10 @@ LABEL_12:
             case 8:
               goto LABEL_29;
             case 9:
-              bspop_boa(v0);
-              v50 = advance_tok(v0);
-              v31 = v8;
-              if (v50)
+              bspop_boa(v4);
+              v64 = advance_tok(v4, v61, v62, v63);
+              v35 = v12;
+              if (v64)
               {
                 goto LABEL_12;
               }
@@ -2036,43 +1020,43 @@ LABEL_12:
               goto LABEL_28;
             case 10:
 LABEL_28:
-              v51 = OUTLINED_FUNCTION_54_1();
-              savescptr(v51, v52, v62);
+              v65 = OUTLINED_FUNCTION_54_1();
+              savescptr(v65, v66, v75);
 LABEL_29:
-              v53 = OUTLINED_FUNCTION_51_1();
-              v55 = testFldeq(v53, v54, 3, 1);
-              v31 = v8;
-              if (!v55)
+              v67 = OUTLINED_FUNCTION_51_1();
+              v69 = testFldeq(v67, v68, 3, 1);
+              v35 = v12;
+              if (!v69)
               {
                 goto LABEL_30;
               }
 
               goto LABEL_12;
             case 11:
-              bspop_boa(v0);
-              v39 = advance_tok(v0);
-              v31 = v8;
-              if (v39)
+              bspop_boa(v4);
+              v46 = advance_tok(v4, v43, v44, v45);
+              v35 = v12;
+              if (v46)
               {
                 goto LABEL_12;
               }
 
-              v40 = OUTLINED_FUNCTION_51_1();
-              v42 = testFldeq(v40, v41, 3, 1);
-              v31 = v8;
-              if (v42)
+              v47 = OUTLINED_FUNCTION_51_1();
+              v49 = testFldeq(v47, v48, 3, 1);
+              v35 = v12;
+              if (v49)
               {
                 goto LABEL_12;
               }
 
 LABEL_30:
-              v28 = v8;
+              v32 = v12;
               goto LABEL_9;
             case 12:
-              bspop_boa(v0);
-              v46 = advance_tok(v0);
-              v31 = v8;
-              if (v46)
+              bspop_boa(v4);
+              v56 = advance_tok(v4, v53, v54, v55);
+              v35 = v12;
+              if (v56)
               {
                 goto LABEL_12;
               }
@@ -2082,15 +1066,15 @@ LABEL_30:
               goto LABEL_25;
             case 14:
 LABEL_23:
-              v44 = OUTLINED_FUNCTION_81_1();
-              savescptr(v44, v45, v61);
+              v51 = OUTLINED_FUNCTION_81_1();
+              savescptr(v51, v52, v74);
 LABEL_25:
-              v47 = OUTLINED_FUNCTION_91_0();
-              savescptr(v47, v48, v59);
-              OUTLINED_FUNCTION_84_1();
-              v49 = end_of_word();
-              v31 = v8;
-              if (!v49)
+              v57 = OUTLINED_FUNCTION_91_0();
+              savescptr(v57, v58, v72);
+              v59 = OUTLINED_FUNCTION_84_1();
+              v60 = end_of_word(v59);
+              v35 = v12;
+              if (!v60)
               {
                 goto LABEL_33;
               }
@@ -2105,82 +1089,81 @@ LABEL_25:
   }
 
 LABEL_33:
-  vretproc(v0);
+  vretproc(v4);
 LABEL_34:
-  v56 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_113();
 }
 
-void interpret_single_char_modes()
+void interpret_single_char_modes(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_114();
   OUTLINED_FUNCTION_11_14();
-  v90 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_18_10(v2, v3, v4, v5, v6, v7, v8, v9, v55, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84);
+  v88[30] = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_18_10(v5, v6, v7, v8, v9, v10, v11, v12, v68, v71[0], v71[1], v71[2], v71[3], v71[4], v71[5], v71[6], v71[7], v71[8], v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88[0], v88[1]);
   OUTLINED_FUNCTION_57_1();
-  OUTLINED_FUNCTION_177(v10, v11, v12, v13, v14, v15, v16, v17, v56, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89);
-  v18 = setjmp(v1);
-  if (v18)
+  OUTLINED_FUNCTION_177(v13, v14, v15, v16, v17, v18, v19, v20, v69, v71[0], v71[1], v71[2], v71[3], v71[4], v71[5], v71[6], v71[7], v71[8], v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88[0], v88[1], v88[2], v88[3], v88[4], v88[5]);
+  v21 = setjmp(v4);
+  if (v21)
   {
     goto LABEL_4;
   }
 
-  if (OUTLINED_FUNCTION_44_1(v18, &v58, v19, v20, v21, v22, v23, v24, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, SBYTE4(v85), v86, SWORD2(v86), SBYTE6(v86), v87, SWORD2(v87), SBYTE6(v87), SHIBYTE(v87), v88, v89))
+  if (OUTLINED_FUNCTION_44_1(v21, v71, v22, v23, v24, v25, v26, v27, v70, v71[0], v71[1], v71[2], v71[3], v71[4], v71[5], v71[6], v71[7], v71[8], v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88[0], v88[1], v88[2], SHIDWORD(v88[2]), v88[3], SWORD2(v88[3]), SHIWORD(v88[3]), v88[4], SWORD2(v88[4]), SBYTE6(v88[4]), SHIBYTE(v88[4]), v88[5], v88[6]))
   {
     goto LABEL_4;
   }
 
-  v25 = OUTLINED_FUNCTION_72_1();
-  get_parm(v25, v26, v27, -6);
-  OUTLINED_FUNCTION_62_1(v28, &v81);
-  fence_16(v0, 0, &_MergedGlobals_1_0);
-  v29 = *(v0 + 2742);
-  if (*(v0 + 2746) == v29)
+  v28 = OUTLINED_FUNCTION_72_1();
+  get_parm(v28, v29, v30, -6);
+  OUTLINED_FUNCTION_62_1(v31, &v86);
+  fence_16(v3, 0, &_MergedGlobals_1_0);
+  v32 = *(v3 + 2742);
+  if (*(v3 + 2746) == v32)
   {
     goto LABEL_4;
   }
 
   while (2)
   {
-    if (*(v0 + 2754) == v29)
+    if (*(v3 + 2754) == v32)
     {
-      OUTLINED_FUNCTION_124();
-      single_chars_token();
+      v67 = OUTLINED_FUNCTION_124();
+      single_chars_token(v67);
       goto LABEL_24;
     }
 
 LABEL_6:
-    v31 = OUTLINED_FUNCTION_55_1();
-    starttest(v31, v32);
-    v33 = OUTLINED_FUNCTION_156();
-    if (lpta_loadp_setscan_r(v33, v34))
+    v33 = OUTLINED_FUNCTION_55_1();
+    starttest(v33, v34);
+    v35 = OUTLINED_FUNCTION_156();
+    if (lpta_loadp_setscan_r(v35, v36, 1))
     {
 LABEL_21:
-      v51 = OUTLINED_FUNCTION_86_1();
-      lpta_loadpn(v51, v52);
-      v53 = OUTLINED_FUNCTION_104();
-      rpta_loadpn(v53, v54);
-      if (!compare_ptas(v0) && !testeq(v0))
+      v60 = OUTLINED_FUNCTION_86_1();
+      lpta_loadpn(v60, v61);
+      v62 = OUTLINED_FUNCTION_104();
+      rpta_loadpn(v62, v63);
+      if (!compare_ptas(v3) && !testeq(v3))
       {
         break;
       }
 
 LABEL_23:
-      OUTLINED_FUNCTION_124();
-      single_chars();
+      v64 = OUTLINED_FUNCTION_124();
+      single_chars(v64, v65, v66);
 LABEL_24:
-      OUTLINED_FUNCTION_95_0(v82);
+      OUTLINED_FUNCTION_95_0(v87);
       break;
     }
 
 LABEL_7:
-    v35 = OUTLINED_FUNCTION_64_1();
-    bspush_ca_scan(v35, v36);
+    v37 = OUTLINED_FUNCTION_64_1();
+    bspush_ca_scan(v37, v38);
 LABEL_8:
-    v37 = OUTLINED_FUNCTION_81_1();
-    savescptr(v37, v38, &v81);
-    v39 = OUTLINED_FUNCTION_84_1();
-    bspush_ca_scan(v39, v40);
+    v39 = OUTLINED_FUNCTION_81_1();
+    savescptr(v39, v40, &v86);
+    v41 = OUTLINED_FUNCTION_84_1();
+    bspush_ca_scan(v41, v42);
     OUTLINED_FUNCTION_39_1();
     if (!test_string_s())
     {
@@ -2188,21 +1171,21 @@ LABEL_8:
     }
 
 LABEL_9:
-    v41 = *(v0 + 104);
-    if (v41)
+    v43 = *(v3 + 104);
+    if (v43)
     {
-      v42 = OUTLINED_FUNCTION_65_1(v41);
+      v44 = OUTLINED_FUNCTION_65_1(v43);
     }
 
     else
     {
-      v42 = OUTLINED_FUNCTION_133();
+      v44 = OUTLINED_FUNCTION_133();
     }
 
-    switch(v42)
+    switch(v44)
     {
       case 1:
-        v29 = *(v0 + 2742);
+        v32 = *(v3 + 2742);
         continue;
       case 2:
       case 4:
@@ -2214,7 +1197,7 @@ LABEL_9:
       case 6:
         goto LABEL_7;
       case 7:
-        if (!advance_tok(v0))
+        if (!advance_tok(v3, v45, v46, v47))
         {
           goto LABEL_7;
         }
@@ -2223,21 +1206,20 @@ LABEL_9:
       case 8:
         goto LABEL_8;
       case 9:
-        v43 = OUTLINED_FUNCTION_91_0();
-        bspush_ca_scan(v43, v44);
+        v48 = OUTLINED_FUNCTION_91_0();
+        bspush_ca_scan(v48, v49);
         OUTLINED_FUNCTION_96_0();
         OUTLINED_FUNCTION_116();
-        if (!testFldeq(v45, v46, v47, v48) && !advance_tok(v0))
+        if (!testFldeq(v50, v51, v52, v53) && !advance_tok(v3, v54, v55, v56))
         {
           goto LABEL_21;
         }
 
         goto LABEL_9;
       case 10:
-        *(v0 + 136) = 1;
-        v49 = *(v0 + 1392);
-        v50 = OUTLINED_FUNCTION_12_14();
-        if (!test_ptr(v50))
+        *(v3 + 136) = 1;
+        v57 = OUTLINED_FUNCTION_12_14();
+        if (!test_ptr(v57, v58, v59))
         {
           goto LABEL_21;
         }
@@ -2251,92 +1233,90 @@ LABEL_9:
   }
 
 LABEL_4:
-  vretproc(v0);
-  v30 = *MEMORY[0x277D85DE8];
+  vretproc(v3);
   OUTLINED_FUNCTION_154();
   OUTLINED_FUNCTION_113();
 }
 
-void tok_lookup()
+void tok_lookup(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   OUTLINED_FUNCTION_114();
   OUTLINED_FUNCTION_76_1();
-  v199 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_10_14(v2, v3, v4, v5, v6, v7, v8, v9, v121, v124, v127, v130, v133, v136, v139, v142, v145, v148, v151, v154, v157, v160, v163, v166, v169, v172, v175, v178, v181, v184, v187, v190, v191, v192, v193);
+  v222 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_10_14(v6, v7, v8, v9, v10, v11, v12, v13, v145, v148, v151, v154, v157, v160, v163, v166, v169, v172, v175, v178, v181, v184, v187, v190, v193, v196, v199, v202, v205, v208, v211, v214, v215, v216, v217);
   OUTLINED_FUNCTION_57_1();
-  OUTLINED_FUNCTION_164(v10, v11, v12, v13, v14, v15, v16, v17, v122, v125, v128, v131, v134, v137, v140, v143, v146, v149, v152, v155, v158, v161, v164, v167, v170, v173, v176, v179, v182, v185, v188, v190, v191, v192, v193, v194, v195, v196, v197, v198);
-  if (!setjmp(v1))
+  OUTLINED_FUNCTION_164(v14, v15, v16, v17, v18, v19, v20, v21, v146, v149, v152, v155, v158, v161, v164, v167, v170, v173, v176, v179, v182, v185, v188, v191, v194, v197, v200, v203, v206, v209, v212, v214, v215, v216, v217, v218, v219, v220, v221);
+  if (!setjmp(v5))
   {
     OUTLINED_FUNCTION_0_16();
-    v26 = OUTLINED_FUNCTION_132(v18, v19, v20, v21, v22, v23, v24, v25, v123, v126, v129, v132, v135, v138, v141, v144, v147, v150, v153, v156, v159, v162, v165, v168, v171, v174, v177, v180, v183, v186, v189, v190, v191, v192, v193, v194, v195, v196, v197, v198);
-    if (!v26)
+    v30 = OUTLINED_FUNCTION_132(v22, v23, v24, v25, v26, v27, v28, v29, v147, v150, v153, v156, v159, v162, v165, v168, v171, v174, v177, v180, v183, v186, v189, v192, v195, v198, v201, v204, v207, v210, v213, v214, v215, v216, v217, v218, v219, v220, v221);
+    if (!v30)
     {
-      OUTLINED_FUNCTION_62_1(v26, &v192);
-      v28 = OUTLINED_FUNCTION_66_1();
-      push_ptr_init(v28, v29);
-      fence_16(v0, 0, &_MergedGlobals_1_0);
-      v30 = *(v0 + 5110);
+      OUTLINED_FUNCTION_62_1(v30, &v216);
+      v31 = OUTLINED_FUNCTION_66_1();
+      push_ptr_init(v31, v32);
+      fence_16(v4, 0, &_MergedGlobals_1_0);
       OUTLINED_FUNCTION_88_1();
-      if (v31 || (OUTLINED_FUNCTION_180(), OUTLINED_FUNCTION_150(), compare_ptas(v0)) || testneq(v0))
+      if (v33 || (OUTLINED_FUNCTION_180(), OUTLINED_FUNCTION_150(), compare_ptas(v4)) || testneq(v4))
       {
-        v32 = 0;
+        v34 = 0;
         OUTLINED_FUNCTION_143();
         OUTLINED_FUNCTION_145();
         while (2)
         {
-          v33 = OUTLINED_FUNCTION_55_1();
-          starttest(v33, v34);
-          v35 = OUTLINED_FUNCTION_29_5();
-          if (!lpta_loadp_setscan_r(v35, v36))
+          v35 = OUTLINED_FUNCTION_55_1();
+          starttest(v35, v36);
+          v37 = OUTLINED_FUNCTION_29_5();
+          if (!lpta_loadp_setscan_r(v37, v38, v39))
           {
 LABEL_9:
-            v37 = OUTLINED_FUNCTION_70_1();
-            bspush_ca_scan(v37, v38);
+            v40 = OUTLINED_FUNCTION_70_1();
+            bspush_ca_scan(v40, v41);
             OUTLINED_FUNCTION_64_1();
             bspush_ca_scan_boa();
-            v39 = OUTLINED_FUNCTION_51_1();
-            if (testFldeq(v39, v40, 0, 72))
+            v42 = OUTLINED_FUNCTION_51_1();
+            if (testFldeq(v42, v43, 0, 72))
             {
-              v41 = v32;
+              LODWORD(v44) = v34;
             }
 
             else
             {
-              v41 = 1;
+              LODWORD(v44) = 1;
             }
 
 LABEL_12:
-            v42 = *(v0 + 104);
-            if (v42)
+            v45 = *(v4 + 104);
+            if (v45)
             {
-              v43 = OUTLINED_FUNCTION_65_1(v42);
-              v45 = v44;
+              v46 = OUTLINED_FUNCTION_65_1(v45);
+              v49 = v44;
             }
 
             else
             {
-              v43 = vback(v0, v41);
-              v45 = 0;
+              v46 = vback(v4, v44);
+              v49 = 0;
             }
 
-            v32 = v45;
-            switch(v43)
+            v34 = v49;
+            switch(v46)
             {
               case 1:
-                v32 = v45;
+                v34 = v49;
                 continue;
               case 3:
                 OUTLINED_FUNCTION_36_2();
                 bspush_ca_scan_boa();
-                v46 = OUTLINED_FUNCTION_9_14();
-                v49 = 4;
+                v50 = OUTLINED_FUNCTION_9_14();
+                v53 = 4;
                 goto LABEL_53;
               case 4:
-                bspop_boa(v0);
-                v56 = advance_tok(v0);
-                v32 = v45;
-                v41 = v45;
-                if (!v56)
+                bspop_boa(v4);
+                v66 = advance_tok(v4, v63, v64, v65);
+                v34 = v49;
+                LODWORD(v44) = v49;
+                if (!v66)
                 {
                   goto LABEL_9;
                 }
@@ -2345,17 +1325,17 @@ LABEL_12:
               case 5:
                 goto LABEL_9;
               case 6:
-                bspop_boa(v0);
+                bspop_boa(v4);
                 OUTLINED_FUNCTION_27_6();
                 bspush_ca_scan_boa();
-                v46 = OUTLINED_FUNCTION_6_14();
-                v49 = 72;
+                v50 = OUTLINED_FUNCTION_6_14();
+                v53 = 72;
                 goto LABEL_53;
               case 7:
-                bspop_boa(v0);
-                v59 = advance_tok(v0);
-                v41 = v45;
-                if (v59)
+                bspop_boa(v4);
+                v72 = advance_tok(v4, v69, v70, v71);
+                LODWORD(v44) = v49;
+                if (v72)
                 {
                   goto LABEL_12;
                 }
@@ -2363,15 +1343,15 @@ LABEL_12:
                 goto LABEL_27;
               case 8:
 LABEL_27:
-                v60 = OUTLINED_FUNCTION_83_1();
-                savescptr(v60, v61, v62);
+                v73 = OUTLINED_FUNCTION_83_1();
+                savescptr(v73, v74, v75);
                 goto LABEL_28;
               case 9:
 LABEL_28:
-                v63 = OUTLINED_FUNCTION_45_1();
-                starttest(v63, v64);
-                v65 = OUTLINED_FUNCTION_31_4();
-                if (lpta_loadp_setscan_l(v65, v66))
+                v76 = OUTLINED_FUNCTION_45_1();
+                starttest(v76, v77);
+                v78 = OUTLINED_FUNCTION_31_4();
+                if (lpta_loadp_setscan_l(v78, v79, v80))
                 {
                   goto LABEL_29;
                 }
@@ -2379,50 +1359,50 @@ LABEL_28:
                 goto LABEL_30;
               case 10:
 LABEL_29:
-                v67 = OUTLINED_FUNCTION_52_1();
-                startloop(v67, v68);
+                v81 = OUTLINED_FUNCTION_52_1();
+                startloop(v81, v82);
                 goto LABEL_42;
               case 11:
-                v54 = OUTLINED_FUNCTION_32_3();
-                bspush_ca_scan(v54, v55);
+                v61 = OUTLINED_FUNCTION_32_3();
+                bspush_ca_scan(v61, v62);
                 goto LABEL_36;
               case 12:
                 goto LABEL_37;
               case 13:
-                v74 = OUTLINED_FUNCTION_33_3();
-                bspush_ca_scan(v74, v75);
+                v88 = OUTLINED_FUNCTION_33_3();
+                bspush_ca_scan(v88, v89);
                 goto LABEL_36;
               case 14:
-                v76 = OUTLINED_FUNCTION_46_1();
-                bspush_ca_scan(v76, v77);
+                v91 = OUTLINED_FUNCTION_46_1();
+                bspush_ca_scan(v91, v92);
                 goto LABEL_36;
               case 15:
-                v57 = OUTLINED_FUNCTION_41_1();
-                bspush_ca_scan(v57, v58);
+                v67 = OUTLINED_FUNCTION_41_1();
+                bspush_ca_scan(v67, v68);
                 goto LABEL_36;
               case 16:
                 goto LABEL_36;
               case 17:
 LABEL_30:
-                v69 = OUTLINED_FUNCTION_40_1();
-                bspush_ca_scan(v69, v70);
+                v83 = OUTLINED_FUNCTION_40_1();
+                bspush_ca_scan(v83, v84);
 LABEL_36:
                 OUTLINED_FUNCTION_4_14();
-                v78 = test_string_s();
-                v41 = v45;
-                if (v78)
+                v93 = test_string_s();
+                LODWORD(v44) = v49;
+                if (v93)
                 {
                   goto LABEL_12;
                 }
 
 LABEL_37:
-                v79 = OUTLINED_FUNCTION_52_1();
-                bspush_ca_scan(v79, v80);
+                v94 = OUTLINED_FUNCTION_52_1();
+                bspush_ca_scan(v94, v95);
                 OUTLINED_FUNCTION_98_0();
-                v81 = OUTLINED_FUNCTION_12_14();
-                v82 = test_ptr(v81);
-                v41 = v45;
-                if (!v82)
+                v96 = OUTLINED_FUNCTION_12_14();
+                v99 = test_ptr(v96, v97, v98);
+                LODWORD(v44) = v49;
+                if (!v99)
                 {
                   goto LABEL_3;
                 }
@@ -2438,40 +1418,40 @@ LABEL_37:
               case 22:
                 goto LABEL_45;
               case 23:
-                OUTLINED_FUNCTION_50_1();
-                if (!tok_dict_entry())
+                v90 = OUTLINED_FUNCTION_50_1();
+                if (!tok_dict_entry(v90))
                 {
                   goto LABEL_3;
                 }
 
                 goto LABEL_48;
               case 24:
-                bspop_boa(v0);
+                bspop_boa(v4);
                 goto LABEL_48;
               case 25:
                 goto LABEL_49;
               case 26:
-                v71 = OUTLINED_FUNCTION_83_1();
-                savescptr(v71, v72, v73);
+                v85 = OUTLINED_FUNCTION_83_1();
+                savescptr(v85, v86, v87);
                 goto LABEL_49;
               case 27:
-                v83 = OUTLINED_FUNCTION_3_15();
-                v87 = testFldeq(v83, v84, v85, v86);
-                v41 = v45;
-                if (v87)
+                v100 = OUTLINED_FUNCTION_3_15();
+                v104 = testFldeq(v100, v101, v102, v103);
+                v44 = v49;
+                if (v104)
                 {
                   goto LABEL_12;
                 }
 
                 goto LABEL_40;
               case 28:
-                bspop_boa(v0);
+                bspop_boa(v4);
                 goto LABEL_40;
               case 29:
 LABEL_40:
-                v88 = advance_tok(v0);
-                v41 = v45;
-                if (!v88)
+                v105 = advance_tok(v4, v44, v47, v48);
+                LODWORD(v44) = v49;
+                if (!v105)
                 {
                   goto LABEL_51;
                 }
@@ -2480,10 +1460,10 @@ LABEL_40:
               case 30:
                 goto LABEL_51;
               case 32:
-                bspop_boa(v0);
-                v50 = advance_tok(v0);
-                v41 = v45;
-                if (v50)
+                bspop_boa(v4);
+                v57 = advance_tok(v4, v54, v55, v56);
+                LODWORD(v44) = v49;
+                if (v57)
                 {
                   goto LABEL_12;
                 }
@@ -2491,8 +1471,8 @@ LABEL_40:
                 goto LABEL_18;
               case 33:
 LABEL_18:
-                v51 = OUTLINED_FUNCTION_83_1();
-                savescptr(v51, v52, v53);
+                v58 = OUTLINED_FUNCTION_83_1();
+                savescptr(v58, v59, v60);
                 break;
               default:
                 goto LABEL_3;
@@ -2501,86 +1481,86 @@ LABEL_18:
             while (1)
             {
 LABEL_42:
-              v89 = OUTLINED_FUNCTION_66_1();
-              lpta_loadpn(v89, v90);
-              v91 = OUTLINED_FUNCTION_67_1();
-              rpta_loadpn(v91, v92);
-              if (!compare_ptas(v0) && !testeq(v0))
+              v106 = OUTLINED_FUNCTION_66_1();
+              lpta_loadpn(v106, v107);
+              v108 = OUTLINED_FUNCTION_67_1();
+              rpta_loadpn(v108, v109);
+              if (!compare_ptas(v4) && !testeq(v4))
               {
                 goto LABEL_3;
               }
 
 LABEL_44:
-              v93 = OUTLINED_FUNCTION_52_1();
-              starttest(v93, v94);
-              v95 = OUTLINED_FUNCTION_31_4();
-              if (lpta_loadp_setscan_l(v95, v96))
+              v110 = OUTLINED_FUNCTION_52_1();
+              starttest(v110, v111);
+              v112 = OUTLINED_FUNCTION_31_4();
+              if (lpta_loadp_setscan_l(v112, v113, v114))
               {
                 break;
               }
 
-              v100 = OUTLINED_FUNCTION_9_14();
-              v103 = testFldeq(v100, v101, v102, 4);
-              v41 = v45;
-              if (v103)
+              v119 = OUTLINED_FUNCTION_9_14();
+              v122 = testFldeq(v119, v120, v121, 4);
+              LODWORD(v44) = v49;
+              if (v122)
               {
                 goto LABEL_12;
               }
 
-              v104 = advance_tok(v0);
-              v41 = v45;
-              if (v104)
+              v125 = advance_tok(v4, v49, v123, v124);
+              LODWORD(v44) = v49;
+              if (v125)
               {
                 goto LABEL_12;
               }
 
 LABEL_48:
-              v105 = OUTLINED_FUNCTION_52_1();
-              starttest(v105, v106);
-              v107 = OUTLINED_FUNCTION_31_4();
-              if (!lpta_loadp_setscan_l(v107, v108))
+              v126 = OUTLINED_FUNCTION_52_1();
+              starttest(v126, v127);
+              v128 = OUTLINED_FUNCTION_31_4();
+              if (!lpta_loadp_setscan_l(v128, v129, v130))
               {
 LABEL_51:
-                v112 = OUTLINED_FUNCTION_49_1();
-                bspush_ca_scan(v112, v113);
-                v114 = OUTLINED_FUNCTION_52_1();
-                bspush_ca_scan(v114, v115);
-                v116 = OUTLINED_FUNCTION_1_15();
-                v120 = testFldeq(v116, v117, v118, v119);
-                v41 = v45;
-                if (v120)
+                v136 = OUTLINED_FUNCTION_49_1();
+                bspush_ca_scan(v136, v137);
+                v138 = OUTLINED_FUNCTION_52_1();
+                bspush_ca_scan(v138, v139);
+                v140 = OUTLINED_FUNCTION_1_15();
+                v144 = testFldeq(v140, v141, v142, v143);
+                LODWORD(v44) = v49;
+                if (v144)
                 {
                   goto LABEL_12;
                 }
 
                 OUTLINED_FUNCTION_52_1();
                 bspush_ca_scan_boa();
-                v46 = OUTLINED_FUNCTION_6_14();
-                v49 = 73;
+                v50 = OUTLINED_FUNCTION_6_14();
+                v53 = 73;
 LABEL_53:
-                v99 = testFldeq(v46, v47, v48, v49);
+                v118 = testFldeq(v50, v51, v52, v53);
                 goto LABEL_54;
               }
 
 LABEL_49:
-              v109 = OUTLINED_FUNCTION_52_1();
-              starttest(v109, v110);
-              if (!lpta_loadp_setscan_l(v0, &v190))
+              v131 = OUTLINED_FUNCTION_52_1();
+              starttest(v131, v132);
+              if (!lpta_loadp_setscan_l(v4, &v214, 1))
               {
                 OUTLINED_FUNCTION_52_1();
                 bspush_ca_scan_boa();
-                *(v0 + 136) = 1;
-                v111 = OUTLINED_FUNCTION_12_14();
-                v99 = test_ptr(v111);
+                *(v4 + 136) = 1;
+                v133 = OUTLINED_FUNCTION_12_14();
+                v118 = test_ptr(v133, v134, v135);
 LABEL_54:
-                if (v99)
+                if (v118)
                 {
-                  v41 = v45;
+                  LODWORD(v44) = v49;
                 }
 
                 else
                 {
-                  v41 = 1;
+                  LODWORD(v44) = 1;
                 }
 
                 goto LABEL_12;
@@ -2588,12 +1568,12 @@ LABEL_54:
             }
 
 LABEL_45:
-            v97 = OUTLINED_FUNCTION_52_1();
-            starttest(v97, v98);
+            v115 = OUTLINED_FUNCTION_52_1();
+            starttest(v115, v116);
             OUTLINED_FUNCTION_52_1();
             bspush_ca_boa();
-            OUTLINED_FUNCTION_66_1();
-            v99 = end_of_word();
+            v117 = OUTLINED_FUNCTION_66_1();
+            v118 = end_of_word(v117);
             goto LABEL_54;
           }
 
@@ -2604,448 +1584,427 @@ LABEL_45:
   }
 
 LABEL_3:
-  vretproc(v0);
-  v27 = *MEMORY[0x277D85DE8];
+  vretproc(v4);
   OUTLINED_FUNCTION_113();
 }
 
-uint64_t punctuation()
+uint64_t punctuation(uint64_t a1)
 {
   OUTLINED_FUNCTION_11_14();
-  v161 = *MEMORY[0x277D85DE8];
-  v158 = 0;
-  v159 = 0;
-  OUTLINED_FUNCTION_10_14(v1, v2, v3, v4, v5, v6, v7, v8, v106, v108, v110, v112, v114, v116, v118, v120, v122, v124, v126, v128, v130, v132, v134, v136, v138, v140, v142, v144, v146, v148, v150, v152, v154, v156, v157);
+  v180 = *MEMORY[0x277D85DE8];
+  v177 = 0;
+  v178 = 0;
+  OUTLINED_FUNCTION_10_14(v2, v3, v4, v5, v6, v7, v8, v9, v125, v127, v129, v131, v133, v135, v137, v139, v141, v143, v145, v147, v149, v151, v153, v155, v157, v159, v161, v163, v165, v167, v169, v171, v173, v175, v176);
   OUTLINED_FUNCTION_57_1();
-  bzero(v160, v9);
-  if (!setjmp(v160))
+  bzero(v179, v10);
+  if (setjmp(v179) || (OUTLINED_FUNCTION_119(), ventproc(v1, v11, v12, v13, v14, v179)) || (v15 = OUTLINED_FUNCTION_13_14(), get_parm(v15, v16, v17, -6), OUTLINED_FUNCTION_62_1(v18, &v175), v19 = OUTLINED_FUNCTION_66_1(), push_ptr_init(v19, v20), fence_16(v1, 0, &_MergedGlobals_1_0), v21 = OUTLINED_FUNCTION_110(), starttest(v21, v22), v23 = OUTLINED_FUNCTION_54_1(), lpta_loadp_setscan_r(v23, v24, 1)))
   {
-    OUTLINED_FUNCTION_119();
-    if (!ventproc(v0, v10, v11, v12, v13, v160))
+LABEL_4:
+    vretproc(v1);
+    return 94;
+  }
+
+  v26 = OUTLINED_FUNCTION_9_14();
+  if (testFldeq(v26, v27, v28, 4))
+  {
+    v32 = 0;
+    goto LABEL_59;
+  }
+
+  v32 = 0;
+  v33 = 0;
+  if (advance_tok(v1, v29, v30, v31))
+  {
+    goto LABEL_59;
+  }
+
+  while (2)
+  {
+    OUTLINED_FUNCTION_75_1();
+    v34 = OUTLINED_FUNCTION_72_1();
+    savescptr(v34, v35, v36);
+    *(v1 + 2614) = *(v1 + 2650);
+    v37 = OUTLINED_FUNCTION_56_1();
+    read_punct_by_name(v37, v38, &v175);
+    if (v39)
     {
-      v14 = OUTLINED_FUNCTION_13_14();
-      get_parm(v14, v15, v16, -6);
-      OUTLINED_FUNCTION_62_1(v17, &v156);
-      v18 = OUTLINED_FUNCTION_66_1();
-      push_ptr_init(v18, v19);
-      fence_16(v0, 0, &_MergedGlobals_1_0);
-      v20 = OUTLINED_FUNCTION_110();
-      starttest(v20, v21);
-      v22 = OUTLINED_FUNCTION_54_1();
-      if (!lpta_loadp_setscan_r(v22, v23))
+LABEL_9:
+      v47 = OUTLINED_FUNCTION_7_14();
+      if (lpta_loadp_setscan_r(v47, v48, v49) || (OUTLINED_FUNCTION_4_14(), test_string_s()))
       {
-        v26 = OUTLINED_FUNCTION_9_14();
-        if (testFldeq(v26, v27, v28, 4))
+LABEL_11:
+        v50 = OUTLINED_FUNCTION_7_14();
+        if (lpta_loadp_setscan_r(v50, v51, v52) || (OUTLINED_FUNCTION_4_14(), test_string_s()))
         {
-          v29 = 0;
-          goto LABEL_60;
-        }
-
-        v29 = 0;
-        v30 = 0;
-        if (advance_tok(v0))
-        {
-          goto LABEL_60;
-        }
-
-        while (2)
-        {
-          OUTLINED_FUNCTION_75_1();
-          v31 = OUTLINED_FUNCTION_72_1();
-          savescptr(v31, v32, v33);
-          *(v0 + 2614) = *(v0 + 2650);
-          OUTLINED_FUNCTION_56_1();
-          read_punct_by_name();
-          if (!v34)
+LABEL_13:
+          v53 = OUTLINED_FUNCTION_7_14();
+          if (!lpta_loadp_setscan_r(v53, v54, v55))
           {
-LABEL_53:
-            OUTLINED_FUNCTION_131(v34, v35, v36, v37, v38, v39, v40, v41, v107, v109, v111, v113, v115, v117, v119, v121, v123, v125, v127, v129, v131, v133, v135, v137, v139, v141, v143, v145, v147, v149, v151, v153, v155, v156, v157);
-            result = 0;
-            goto LABEL_5;
-          }
-
-LABEL_10:
-          v42 = OUTLINED_FUNCTION_7_14();
-          if (lpta_loadp_setscan_r(v42, v43) || (OUTLINED_FUNCTION_4_14(), test_string_s()))
-          {
-LABEL_12:
-            v44 = OUTLINED_FUNCTION_7_14();
-            if (lpta_loadp_setscan_r(v44, v45) || (OUTLINED_FUNCTION_4_14(), test_string_s()))
+            OUTLINED_FUNCTION_4_14();
+            if (!test_string_s())
             {
-LABEL_14:
-              v46 = OUTLINED_FUNCTION_7_14();
-              if (!lpta_loadp_setscan_r(v46, v47))
+              *(v1 + 2538) = *(v1 + 2574);
+              v75 = OUTLINED_FUNCTION_38_2();
+              starttest_l(v75, v76);
+              v77 = OUTLINED_FUNCTION_14_12();
+              v80 = lpta_loadp_setscan_r(v77, v78, v79);
+              v70 = 13;
+              v81 = v33;
+              if (!v80)
               {
-                OUTLINED_FUNCTION_4_14();
-                if (!test_string_s())
+                while (1)
                 {
-                  *(v0 + 2538) = *(v0 + 2574);
-                  v64 = OUTLINED_FUNCTION_38_2();
-                  starttest_l(v64, v65);
-                  v66 = OUTLINED_FUNCTION_14_12();
-                  v68 = lpta_loadp_setscan_r(v66, v67);
-                  v59 = 13;
-                  v69 = v30;
-                  if (!v68)
+                  v32 = v81;
+                  v83 = OUTLINED_FUNCTION_37_2();
+                  bspush_ca_scan(v83, v84);
+                  OUTLINED_FUNCTION_4_14();
+                  v85 = test_string_s();
+                  v40 = v32;
+                  if (v85)
                   {
-                    while (1)
-                    {
-                      v29 = v69;
-                      v71 = OUTLINED_FUNCTION_37_2();
-                      bspush_ca_scan(v71, v72);
-                      OUTLINED_FUNCTION_4_14();
-                      v73 = test_string_s();
-                      v35 = v29;
-                      if (v73)
-                      {
-                        break;
-                      }
-
-LABEL_27:
-                      v30 = v35;
-                      v74 = OUTLINED_FUNCTION_40_1();
-                      bspush_ca_scan(v74, v75);
-LABEL_25:
-                      v69 = v30;
-                    }
-
-LABEL_60:
-                    v30 = v29;
-LABEL_61:
-                    v98 = *(v0 + 104);
-                    if (v98)
-                    {
-                      v34 = OUTLINED_FUNCTION_60_1(v98);
-                    }
-
-                    else
-                    {
-                      v34 = vback(v0, v30);
-                      v30 = 0;
-                    }
-
-                    v35 = v30;
-                    v62 = v30;
-                    switch(v34)
-                    {
-                      case 2:
-                        continue;
-                      case 3:
-                        goto LABEL_10;
-                      case 4:
-                        goto LABEL_12;
-                      case 5:
-                      case 13:
-                      case 24:
-                        goto LABEL_41;
-                      case 6:
-                        goto LABEL_14;
-                      case 7:
-                        goto LABEL_16;
-                      case 8:
-                        goto LABEL_55;
-                      case 9:
-                        OUTLINED_FUNCTION_4_14();
-                        v99 = test_string_s();
-                        v35 = v30;
-                        if (!v99)
-                        {
-                          goto LABEL_27;
-                        }
-
-                        goto LABEL_61;
-                      case 10:
-                        goto LABEL_27;
-                      case 11:
-                        OUTLINED_FUNCTION_109();
-                        v94 = OUTLINED_FUNCTION_59_1();
-                        savescptr(v94, v95, v96);
-                        *(v0 + 2538) = *(v0 + 2578);
-LABEL_55:
-                        v97 = 13;
-                        goto LABEL_56;
-                      case 12:
-                        goto LABEL_25;
-                      case 14:
-                        bspop_boa(v0);
-                        goto LABEL_75;
-                      case 15:
-                        goto LABEL_34;
-                      case 16:
-                        goto LABEL_19;
-                      case 17:
-                        OUTLINED_FUNCTION_118();
-                        v100 = OUTLINED_FUNCTION_59_1();
-                        savescptr(v100, v101, v102);
-                        *(v0 + 2538) = *(v0 + 2594);
-                        goto LABEL_19;
-                      case 18:
-                        v29 = v30;
-                        goto LABEL_31;
-                      case 19:
-                        goto LABEL_73;
-                      case 20:
-                        v103 = OUTLINED_FUNCTION_59_1();
-                        savescptr(v103, v104, v105);
-                        *(v0 + 2538) = *(v0 + 2578);
-LABEL_73:
-                        OUTLINED_FUNCTION_148();
-LABEL_56:
-                        v59 = v97;
-                        goto LABEL_57;
-                      case 21:
-                        OUTLINED_FUNCTION_4_14();
-                        v62 = v30;
-                        if (!test_string_s())
-                        {
-                          goto LABEL_28;
-                        }
-
-                        goto LABEL_61;
-                      case 22:
-                      case 23:
-                        goto LABEL_28;
-                      case 25:
-                        bspop_boa(v0);
-                        if (*(v0 + 2578) != *(v0 + 2538))
-                        {
-                          goto LABEL_33;
-                        }
-
-LABEL_75:
-                        v70 = *(v0 + 2582);
-                        break;
-                      case 26:
-LABEL_33:
-                        v70 = *(v0 + 2598);
-                        break;
-                      case 27:
-                        goto LABEL_36;
-                      case 28:
-                        goto LABEL_42;
-                      case 29:
-                        goto LABEL_43;
-                      case 30:
-                        goto LABEL_48;
-                      case 31:
-                        goto LABEL_46;
-                      case 32:
-                        goto LABEL_47;
-                      case 33:
-                      case 34:
-                        goto LABEL_53;
-                      default:
-                        goto LABEL_4;
-                    }
-
-                    goto LABEL_40;
+                    break;
                   }
 
-LABEL_57:
-                  starttest(v0, v59);
-                  OUTLINED_FUNCTION_55_1();
-                  bspush_ca_boa();
-                  OUTLINED_FUNCTION_56_1();
-                  if (end_of_sentence())
-                  {
-                    v29 = v30;
-                  }
-
-                  else
-                  {
-                    v29 = 1;
-                  }
-
-                  goto LABEL_60;
+LABEL_26:
+                  v33 = v40;
+                  v86 = OUTLINED_FUNCTION_40_1();
+                  bspush_ca_scan(v86, v87);
+LABEL_24:
+                  v81 = v33;
                 }
-              }
 
-LABEL_16:
-              v48 = OUTLINED_FUNCTION_7_14();
-              if (!lpta_loadp_setscan_r(v48, v49))
-              {
-                OUTLINED_FUNCTION_4_14();
-                if (!test_string_s())
+LABEL_59:
+                v33 = v32;
+LABEL_60:
+                v117 = *(v1 + 104);
+                if (v117)
                 {
-                  *(v0 + 2538) = *(v0 + 2590);
-                  v50 = OUTLINED_FUNCTION_41_1();
-                  starttest_l(v50, v51);
-                  v52 = OUTLINED_FUNCTION_14_12();
-                  v29 = v30;
-                  if (!lpta_loadp_setscan_r(v52, v53))
-                  {
-LABEL_31:
-                    while (1)
-                    {
-                      OUTLINED_FUNCTION_4_14();
-                      if (test_string_s())
-                      {
-                        break;
-                      }
+                  v39 = OUTLINED_FUNCTION_60_1(v117);
+                }
 
-                      v80 = OUTLINED_FUNCTION_54_1();
-                      bspush_ca_scan(v80, v81);
+                else
+                {
+                  v39 = vback(v1, v33);
+                  v33 = 0;
+                }
+
+                v40 = v33;
+                v73 = v33;
+                switch(v39)
+                {
+                  case 2:
+                    continue;
+                  case 3:
+                    goto LABEL_9;
+                  case 4:
+                    goto LABEL_11;
+                  case 5:
+                  case 13:
+                  case 24:
+                    goto LABEL_40;
+                  case 6:
+                    goto LABEL_13;
+                  case 7:
+                    goto LABEL_15;
+                  case 8:
+                    goto LABEL_54;
+                  case 9:
+                    OUTLINED_FUNCTION_4_14();
+                    v118 = test_string_s();
+                    v40 = v33;
+                    if (!v118)
+                    {
+                      goto LABEL_26;
                     }
 
                     goto LABEL_60;
-                  }
-
-LABEL_19:
-                  v54 = OUTLINED_FUNCTION_52_1();
-                  starttest(v54, v55);
-                  v56 = OUTLINED_FUNCTION_14_12();
-                  lpta_loadp_setscan_r(v56, v57);
-                  OUTLINED_FUNCTION_148();
-                  v59 = v58;
-                  if (!v60)
-                  {
-                    OUTLINED_FUNCTION_4_14();
-                    test_string_s();
+                  case 10:
+                    goto LABEL_26;
+                  case 11:
+                    OUTLINED_FUNCTION_109();
+                    v112 = OUTLINED_FUNCTION_59_1();
+                    savescptr(v112, v113, v114);
+                    *(v1 + 2538) = *(v1 + 2578);
+LABEL_54:
+                    v115 = 13;
+                    goto LABEL_55;
+                  case 12:
+                    goto LABEL_24;
+                  case 14:
+                    bspop_boa(v1);
+                    goto LABEL_74;
+                  case 15:
+                    goto LABEL_33;
+                  case 16:
+                    goto LABEL_18;
+                  case 17:
+                    OUTLINED_FUNCTION_118();
+                    v119 = OUTLINED_FUNCTION_59_1();
+                    savescptr(v119, v120, v121);
+                    *(v1 + 2538) = *(v1 + 2594);
+                    goto LABEL_18;
+                  case 18:
+                    v32 = v33;
+                    goto LABEL_30;
+                  case 19:
+                    goto LABEL_72;
+                  case 20:
+                    v122 = OUTLINED_FUNCTION_59_1();
+                    savescptr(v122, v123, v124);
+                    *(v1 + 2538) = *(v1 + 2578);
+LABEL_72:
                     OUTLINED_FUNCTION_148();
-                    v59 = v61;
-                    v62 = v30;
-                    if (!v63)
+LABEL_55:
+                    v70 = v115;
+                    goto LABEL_56;
+                  case 21:
+                    OUTLINED_FUNCTION_4_14();
+                    v73 = v33;
+                    if (!test_string_s())
                     {
-                      do
-                      {
-LABEL_28:
-                        v76 = OUTLINED_FUNCTION_55_1();
-                        bspush_ca_scan(v76, v77);
-                        v78 = OUTLINED_FUNCTION_54_1();
-                        bspush_ca_scan(v78, v79);
-                        OUTLINED_FUNCTION_4_14();
-                      }
-
-                      while (!test_string_s());
-                      v29 = v62;
-                      goto LABEL_60;
+                      goto LABEL_27;
                     }
-                  }
 
-                  goto LABEL_57;
+                    goto LABEL_60;
+                  case 22:
+                  case 23:
+                    goto LABEL_27;
+                  case 25:
+                    bspop_boa(v1);
+                    if (*(v1 + 2578) != *(v1 + 2538))
+                    {
+                      goto LABEL_32;
+                    }
+
+LABEL_74:
+                    v82 = *(v1 + 2582);
+                    break;
+                  case 26:
+LABEL_32:
+                    v82 = *(v1 + 2598);
+                    break;
+                  case 27:
+                    goto LABEL_35;
+                  case 28:
+                    goto LABEL_41;
+                  case 29:
+                    goto LABEL_42;
+                  case 30:
+                    goto LABEL_47;
+                  case 31:
+                    goto LABEL_45;
+                  case 32:
+                    goto LABEL_46;
+                  case 33:
+                  case 34:
+                    goto LABEL_52;
+                  default:
+                    goto LABEL_4;
                 }
+
+                goto LABEL_39;
               }
 
-LABEL_34:
-              v82 = OUTLINED_FUNCTION_7_14();
-              if (lpta_loadp_setscan_r(v82, v83) || (OUTLINED_FUNCTION_4_14(), test_string_s()))
+LABEL_56:
+              starttest(v1, v70);
+              OUTLINED_FUNCTION_55_1();
+              bspush_ca_boa();
+              v116 = OUTLINED_FUNCTION_56_1();
+              if (end_of_sentence(v116))
               {
-LABEL_36:
-                v84 = OUTLINED_FUNCTION_7_14();
-                if (lpta_loadp_setscan_r(v84, v85) || (OUTLINED_FUNCTION_4_14(), test_string_s()))
-                {
-LABEL_41:
-                  OUTLINED_FUNCTION_67_1();
-                  skip_punct_and_delimiters();
-LABEL_42:
-                  OUTLINED_FUNCTION_67_1();
-                  v34 = build_phrase_final_structure();
-LABEL_43:
-                  if (*(v0 + 2546) == *(v0 + 2538))
-                  {
-                    v86 = OUTLINED_FUNCTION_67_1();
-                    lpta_loadpn(v86, v87);
-                    rpta_loadpn(v0, v0 + 1384);
-                    v34 = compare_ptas(v0);
-                    if (v34 || (v34 = testeq(v0), v34))
-                    {
-LABEL_46:
-                      if (!*(v0 + 2766))
-                      {
-LABEL_47:
-                        *(v0 + 2538) = 0;
-                        v88 = OUTLINED_FUNCTION_56_1();
-                        lpta_loadpn(v88, v89);
-                        OUTLINED_FUNCTION_94_0();
-                        lpta_ctxtl();
-                        v90 = OUTLINED_FUNCTION_66_1();
-                        lpta_storep(v90, v91);
-                        OUTLINED_FUNCTION_98_0();
-                        OUTLINED_FUNCTION_12_14();
-                        v34 = proj_def();
-                      }
-                    }
-                  }
-
-LABEL_48:
-                  if (*(v0 + 2570) == *(v0 + 2538))
-                  {
-                    v92 = OUTLINED_FUNCTION_7_14();
-                    v34 = lpta_loadp_setscan_r(v92, v93);
-                    if (!v34)
-                    {
-                      v34 = advance_tok(v0);
-                      if (!v34)
-                      {
-                        OUTLINED_FUNCTION_4_14();
-                        v34 = test_string_s();
-                        if (!v34)
-                        {
-                          OUTLINED_FUNCTION_172();
-                        }
-                      }
-                    }
-                  }
-
-                  goto LABEL_53;
-                }
-
-                v70 = *(v0 + 2546);
+                v32 = v33;
               }
 
               else
               {
-                v70 = *(v0 + 2586);
+                v32 = 1;
               }
 
-LABEL_40:
-              *(v0 + 2538) = v70;
-              goto LABEL_41;
+              goto LABEL_59;
             }
           }
 
-          break;
-        }
+LABEL_15:
+          v56 = OUTLINED_FUNCTION_7_14();
+          if (!lpta_loadp_setscan_r(v56, v57, v58))
+          {
+            OUTLINED_FUNCTION_4_14();
+            if (!test_string_s())
+            {
+              *(v1 + 2538) = *(v1 + 2590);
+              v59 = OUTLINED_FUNCTION_41_1();
+              starttest_l(v59, v60);
+              v61 = OUTLINED_FUNCTION_14_12();
+              v32 = v33;
+              if (!lpta_loadp_setscan_r(v61, v62, v63))
+              {
+LABEL_30:
+                while (1)
+                {
+                  OUTLINED_FUNCTION_4_14();
+                  if (test_string_s())
+                  {
+                    break;
+                  }
 
-        v70 = *(v0 + 2570);
-        goto LABEL_40;
+                  v92 = OUTLINED_FUNCTION_54_1();
+                  bspush_ca_scan(v92, v93);
+                }
+
+                goto LABEL_59;
+              }
+
+LABEL_18:
+              v64 = OUTLINED_FUNCTION_52_1();
+              starttest(v64, v65);
+              v66 = OUTLINED_FUNCTION_14_12();
+              lpta_loadp_setscan_r(v66, v67, v68);
+              OUTLINED_FUNCTION_148();
+              v70 = v69;
+              if (!v71)
+              {
+                OUTLINED_FUNCTION_4_14();
+                test_string_s();
+                OUTLINED_FUNCTION_148();
+                v70 = v72;
+                v73 = v33;
+                if (!v74)
+                {
+                  do
+                  {
+LABEL_27:
+                    v88 = OUTLINED_FUNCTION_55_1();
+                    bspush_ca_scan(v88, v89);
+                    v90 = OUTLINED_FUNCTION_54_1();
+                    bspush_ca_scan(v90, v91);
+                    OUTLINED_FUNCTION_4_14();
+                  }
+
+                  while (!test_string_s());
+                  v32 = v73;
+                  goto LABEL_59;
+                }
+              }
+
+              goto LABEL_56;
+            }
+          }
+
+LABEL_33:
+          v94 = OUTLINED_FUNCTION_7_14();
+          if (lpta_loadp_setscan_r(v94, v95, v96) || (OUTLINED_FUNCTION_4_14(), test_string_s()))
+          {
+LABEL_35:
+            v97 = OUTLINED_FUNCTION_7_14();
+            if (lpta_loadp_setscan_r(v97, v98, v99) || (OUTLINED_FUNCTION_4_14(), test_string_s()))
+            {
+LABEL_40:
+              v100 = OUTLINED_FUNCTION_67_1();
+              skip_punct_and_delimiters(v100);
+LABEL_41:
+              v101 = OUTLINED_FUNCTION_67_1();
+              v39 = build_phrase_final_structure(v101);
+LABEL_42:
+              if (*(v1 + 2546) == *(v1 + 2538))
+              {
+                v102 = OUTLINED_FUNCTION_67_1();
+                lpta_loadpn(v102, v103);
+                rpta_loadpn(v1, v1 + 1384);
+                v39 = compare_ptas(v1);
+                if (v39 || (v39 = testeq(v1), v39))
+                {
+LABEL_45:
+                  if (!*(v1 + 2766))
+                  {
+LABEL_46:
+                    *(v1 + 2538) = 0;
+                    v104 = OUTLINED_FUNCTION_56_1();
+                    lpta_loadpn(v104, v105);
+                    OUTLINED_FUNCTION_94_0();
+                    lpta_ctxtl();
+                    v106 = OUTLINED_FUNCTION_66_1();
+                    lpta_storep(v106, v107, v108);
+                    OUTLINED_FUNCTION_98_0();
+                    OUTLINED_FUNCTION_12_14();
+                    v39 = proj_def();
+                  }
+                }
+              }
+
+LABEL_47:
+              if (*(v1 + 2570) == *(v1 + 2538))
+              {
+                v109 = OUTLINED_FUNCTION_7_14();
+                v39 = lpta_loadp_setscan_r(v109, v110, v111);
+                if (!v39)
+                {
+                  v39 = advance_tok(v1, v40, v41, v42);
+                  if (!v39)
+                  {
+                    OUTLINED_FUNCTION_4_14();
+                    v39 = test_string_s();
+                    if (!v39)
+                    {
+                      OUTLINED_FUNCTION_172();
+                    }
+                  }
+                }
+              }
+
+              break;
+            }
+
+            v82 = *(v1 + 2546);
+          }
+
+          else
+          {
+            v82 = *(v1 + 2586);
+          }
+
+LABEL_39:
+          *(v1 + 2538) = v82;
+          goto LABEL_40;
+        }
       }
+
+      v82 = *(v1 + 2570);
+      goto LABEL_39;
     }
+
+    break;
   }
 
-LABEL_4:
-  vretproc(v0);
-  result = 94;
-LABEL_5:
-  v25 = *MEMORY[0x277D85DE8];
-  return result;
+LABEL_52:
+  OUTLINED_FUNCTION_131(v39, v40, v41, v42, v43, v44, v45, v46, v126, v128, v130, v132, v134, v136, v138, v140, v142, v144, v146, v148, v150, v152, v154, v156, v158, v160, v162, v164, v166, v168, v170, v172, v174, v175, v176);
+  return 0;
 }
 
-uint64_t parenthesis()
+uint64_t parenthesis(uint64_t a1)
 {
   OUTLINED_FUNCTION_11_14();
-  v146 = *MEMORY[0x277D85DE8];
-  v144 = 0;
-  v145 = 0;
-  v142 = 0;
-  v143 = 0;
-  OUTLINED_FUNCTION_10_14(v2, v3, v4, v5, v6, v7, v8, v9, v115, v116, v117, v118, v119, v120, v121, v122, v123, v124, v125, v126, v127, v128, v129, v130, v131, v132, v133, v134, v135, v136, v137, v138, v139, v140, v141);
+  v170 = *MEMORY[0x277D85DE8];
+  v168 = 0;
+  v169 = 0;
+  v166 = 0;
+  v167 = 0;
+  OUTLINED_FUNCTION_10_14(v3, v4, v5, v6, v7, v8, v9, v10, v139, v140, v141, v142, v143, v144, v145, v146, v147, v148, v149, v150, v151, v152, v153, v154, v155, v156, v157, v158, v159, v160, v161, v162, v163, v164, v165);
   OUTLINED_FUNCTION_57_1();
-  OUTLINED_FUNCTION_161(v10, v11);
-  if (setjmp(v1))
+  OUTLINED_FUNCTION_161(v11, v12);
+  if (setjmp(v2))
   {
     goto LABEL_3;
   }
 
   OUTLINED_FUNCTION_82_1();
-  if (OUTLINED_FUNCTION_160(v12, v13, v14, v15, v16))
+  if (OUTLINED_FUNCTION_160(v13, v14, v15, v16, v17))
   {
     goto LABEL_3;
   }
 
   v19 = OUTLINED_FUNCTION_13_14();
   get_parm(v19, v20, v21, -6);
-  OUTLINED_FUNCTION_62_1(v22, &v142);
+  OUTLINED_FUNCTION_62_1(v22, &v166);
   v23 = OUTLINED_FUNCTION_56_1();
   push_ptr_init(v23, v24);
   v25 = OUTLINED_FUNCTION_67_1();
@@ -3059,67 +2018,66 @@ uint64_t parenthesis()
   v34 = OUTLINED_FUNCTION_54_1();
   v36 = 0;
   v37 = 0;
-  if (lpta_loadp_setscan_r(v34, v35))
+  if (lpta_loadp_setscan_r(v34, v35, 1))
   {
-LABEL_6:
+LABEL_5:
     v38 = OUTLINED_FUNCTION_53_1();
-    if (lpta_loadp_setscan_r(v38, v39) || (OUTLINED_FUNCTION_4_14(), v40 = v37, test_string_s()))
+    if (lpta_loadp_setscan_r(v38, v39, v40) || (OUTLINED_FUNCTION_4_14(), LODWORD(v41) = v37, test_string_s()))
     {
 LABEL_3:
-      vretproc(v0);
-      result = 94;
-      goto LABEL_4;
+      vretproc(v1);
+      return 94;
     }
 
-LABEL_8:
-    v41 = OUTLINED_FUNCTION_72_1();
-    savescptr(v41, v42, v43);
-    v44 = OUTLINED_FUNCTION_52_1();
-    starttest(v44, v45);
-    OUTLINED_FUNCTION_72_1();
-    if (in_quotes())
+LABEL_7:
+    v42 = OUTLINED_FUNCTION_72_1();
+    savescptr(v42, v43, v44);
+    v45 = OUTLINED_FUNCTION_52_1();
+    starttest(v45, v46);
+    v47 = OUTLINED_FUNCTION_72_1();
+    if (in_quotes(v47))
     {
-LABEL_9:
-      v46 = OUTLINED_FUNCTION_49_1();
-      starttest(v46, v47);
+LABEL_8:
+      v48 = OUTLINED_FUNCTION_49_1();
+      starttest(v48, v49);
       OUTLINED_FUNCTION_52_1();
       bspush_ca_boa();
-      OUTLINED_FUNCTION_85_1();
-      v48 = end_of_word();
-      goto LABEL_10;
+      v50 = OUTLINED_FUNCTION_85_1();
+      v51 = end_of_word(v50);
+      goto LABEL_9;
     }
 
     OUTLINED_FUNCTION_52_1();
     bspush_ca_boa();
-    v49 = OUTLINED_FUNCTION_53_1();
-    if (lpta_loadp_setscan_l(v49, v50))
+    v52 = OUTLINED_FUNCTION_53_1();
+    if (lpta_loadp_setscan_l(v52, v53, v54))
     {
-      v36 = v40;
+      v36 = v41;
     }
 
     else
     {
-      v51 = OUTLINED_FUNCTION_52_1();
-      bspush_ca_scan(v51, v52);
+      v55 = OUTLINED_FUNCTION_52_1();
+      bspush_ca_scan(v55, v56);
       OUTLINED_FUNCTION_4_14();
-      v53 = test_string_s();
-      v54 = v40;
-      v36 = v40;
-      if (!v53)
+      v57 = test_string_s();
+      v58 = v41;
+      v36 = v41;
+      if (!v57)
       {
-LABEL_16:
-        v40 = v54;
+LABEL_15:
+        LODWORD(v41) = v58;
         OUTLINED_FUNCTION_125();
-        v55 = OUTLINED_FUNCTION_72_1();
-        savescptr(v55, v56, v57);
+        v59 = OUTLINED_FUNCTION_72_1();
+        savescptr(v59, v60, v61);
         OUTLINED_FUNCTION_52_1();
         bspush_ca_boa();
-        OUTLINED_FUNCTION_55_1();
-        beg_of_word();
-LABEL_10:
-        if (v48)
+        v62 = OUTLINED_FUNCTION_55_1();
+        beg_of_word(v62, v63, v64, v65);
+LABEL_9:
+        if (v51)
         {
-          v36 = v40;
+          v36 = v41;
         }
 
         else
@@ -3132,7 +2090,7 @@ LABEL_10:
 
   else
   {
-LABEL_18:
+LABEL_17:
     OUTLINED_FUNCTION_175();
     while (1)
     {
@@ -3142,106 +2100,106 @@ LABEL_18:
         break;
       }
 
-      v58 = OUTLINED_FUNCTION_54_1();
-      bspush_ca_scan(v58, v59);
+      v66 = OUTLINED_FUNCTION_54_1();
+      bspush_ca_scan(v66, v67);
     }
   }
 
-  v60 = v36;
+  v68 = v36;
   while (2)
   {
-    v61 = *(v0 + 104);
-    if (v61)
+    v69 = *(v1 + 104);
+    if (v69)
     {
-      v62 = OUTLINED_FUNCTION_65_1(v61);
-      v40 = v63;
+      v70 = OUTLINED_FUNCTION_65_1(v69);
+      v41 = v71;
     }
 
     else
     {
-      v62 = vback(v0, v60);
-      v40 = 0;
+      v70 = vback(v1, v68);
+      v41 = 0;
     }
 
-    v54 = v40;
-    switch(v62)
+    v58 = v41;
+    switch(v70)
     {
       case 1:
-        v37 = v40;
-        goto LABEL_6;
+        v37 = v41;
+        goto LABEL_5;
       case 2:
         OUTLINED_FUNCTION_75_1();
-        v75 = OUTLINED_FUNCTION_123();
-        savescptr(v75, v76, v77);
-        v78 = OUTLINED_FUNCTION_52_1();
-        starttest(v78, v79);
-        v80 = OUTLINED_FUNCTION_53_1();
-        if (lpta_loadp_setscan_l(v80, v81))
+        v87 = OUTLINED_FUNCTION_123();
+        savescptr(v87, v88, v89);
+        v90 = OUTLINED_FUNCTION_52_1();
+        starttest(v90, v91);
+        v92 = OUTLINED_FUNCTION_53_1();
+        if (lpta_loadp_setscan_l(v92, v93, v94))
         {
-          goto LABEL_32;
+          goto LABEL_31;
         }
 
-        goto LABEL_35;
+        goto LABEL_34;
       case 3:
-        v36 = v40;
-        goto LABEL_18;
+        v36 = v41;
+        goto LABEL_17;
       case 4:
-LABEL_32:
-        v82 = OUTLINED_FUNCTION_37_2();
-        starttest(v82, v83);
-        OUTLINED_FUNCTION_123();
-        if (in_quotes())
+LABEL_31:
+        v95 = OUTLINED_FUNCTION_37_2();
+        starttest(v95, v96);
+        v97 = OUTLINED_FUNCTION_123();
+        if (in_quotes(v97))
         {
-          goto LABEL_55;
+          goto LABEL_54;
         }
 
         OUTLINED_FUNCTION_45_1();
         bspush_ca_boa();
-        v84 = OUTLINED_FUNCTION_28_5();
-        v86 = lpta_loadp_setscan_r(v84, v85);
-        v60 = v40;
-        if (v86)
+        v98 = OUTLINED_FUNCTION_28_5();
+        v101 = lpta_loadp_setscan_r(v98, v99, v100);
+        v68 = v41;
+        if (v101)
         {
           continue;
         }
 
-        v87 = OUTLINED_FUNCTION_40_1();
-        bspush_ca_scan(v87, v88);
-        goto LABEL_40;
+        v102 = OUTLINED_FUNCTION_40_1();
+        bspush_ca_scan(v102, v103);
+        goto LABEL_39;
       case 5:
-LABEL_35:
+LABEL_34:
         OUTLINED_FUNCTION_93_0();
-        v89 = OUTLINED_FUNCTION_90_1();
-        savescptr(v89, v90, v91);
-        goto LABEL_36;
+        v104 = OUTLINED_FUNCTION_90_1();
+        savescptr(v104, v105, v106);
+        goto LABEL_35;
       case 6:
-LABEL_36:
-        v92 = OUTLINED_FUNCTION_36_2();
-        v95 = test_synch(v92, v93, 1u, v94);
-        v60 = v40;
-        if (!v95)
+LABEL_35:
+        v107 = OUTLINED_FUNCTION_36_2();
+        v110 = test_synch(v107, v108, 1, v109);
+        v68 = v41;
+        if (!v110)
         {
-          v96 = OUTLINED_FUNCTION_7_14();
-          v98 = lpta_loadp_setscan_r(v96, v97);
-          v60 = v40;
-          if (!v98)
+          v111 = OUTLINED_FUNCTION_7_14();
+          v114 = lpta_loadp_setscan_r(v111, v112, v113);
+          v68 = v41;
+          if (!v114)
           {
             OUTLINED_FUNCTION_51_1();
-            v99 = test_string_s();
-            v60 = v40;
-            if (!v99)
+            v115 = test_string_s();
+            v68 = v41;
+            if (!v115)
             {
-              goto LABEL_58;
+              goto LABEL_57;
             }
           }
         }
 
         continue;
       case 7:
-LABEL_58:
-        v112 = OUTLINED_FUNCTION_123();
-        savescptr(v112, v113, v114);
-        goto LABEL_59;
+LABEL_57:
+        v136 = OUTLINED_FUNCTION_123();
+        savescptr(v136, v137, v138);
+        goto LABEL_58;
       case 8:
       case 14:
       case 16:
@@ -3249,187 +2207,181 @@ LABEL_58:
       case 25:
       case 28:
       case 32:
-        goto LABEL_59;
+        goto LABEL_58;
       case 9:
-LABEL_55:
+LABEL_54:
         OUTLINED_FUNCTION_98_0();
         OUTLINED_FUNCTION_12_14();
         if (lpta_tstctxtl())
         {
-          goto LABEL_57;
+          goto LABEL_56;
         }
 
-        v110 = OUTLINED_FUNCTION_135();
-        setscan_l(v110);
-        if (v111)
+        v131 = OUTLINED_FUNCTION_135();
+        setscan_l(v131, v132, v133);
+        if (v134)
         {
-          goto LABEL_57;
+          goto LABEL_56;
         }
 
-        goto LABEL_59;
+        goto LABEL_58;
       case 10:
       case 20:
       case 27:
-        bspop_boa(v0);
-        OUTLINED_FUNCTION_123();
-        single_chars();
-        goto LABEL_59;
+        bspop_boa(v1);
+        v125 = OUTLINED_FUNCTION_123();
+        single_chars(v125, v126, v127);
+        goto LABEL_58;
       case 11:
-LABEL_40:
+LABEL_39:
         OUTLINED_FUNCTION_4_14();
-        v100 = test_string_s();
-        v60 = v40;
-        if (!v100)
+        v116 = test_string_s();
+        v68 = v41;
+        if (!v116)
         {
-          goto LABEL_41;
+          goto LABEL_40;
         }
 
         continue;
       case 12:
-LABEL_41:
-        v101 = OUTLINED_FUNCTION_72_1();
-        savescptr(v101, v102, v103);
+LABEL_40:
+        v117 = OUTLINED_FUNCTION_72_1();
+        savescptr(v117, v118, v119);
         OUTLINED_FUNCTION_32_3();
         bspush_ca_boa();
-        OUTLINED_FUNCTION_55_1();
-        if (end_of_word())
+        v120 = OUTLINED_FUNCTION_55_1();
+        if (end_of_word(v120))
         {
-          v60 = v40;
+          v68 = v41;
         }
 
         else
         {
-          v60 = 1;
+          v68 = 1;
         }
 
         continue;
       case 13:
       case 23:
-        bspop_boa(v0);
-        v60 = 1;
+        bspop_boa(v1);
+        v68 = 1;
         continue;
       case 15:
-LABEL_57:
-        OUTLINED_FUNCTION_85_1();
-        build_phrase_final_structure();
-        goto LABEL_59;
+LABEL_56:
+        v135 = OUTLINED_FUNCTION_85_1();
+        build_phrase_final_structure(v135);
+        goto LABEL_58;
       case 18:
-        goto LABEL_8;
+        goto LABEL_7;
       case 19:
-        goto LABEL_9;
+        goto LABEL_8;
       case 21:
         OUTLINED_FUNCTION_4_14();
-        v104 = test_string_s();
-        v54 = v40;
-        v60 = v40;
-        if (!v104)
+        v121 = test_string_s();
+        v58 = v41;
+        v68 = v41;
+        if (!v121)
         {
-          goto LABEL_16;
+          goto LABEL_15;
         }
 
         continue;
       case 22:
-        goto LABEL_16;
+        goto LABEL_15;
       case 26:
-        OUTLINED_FUNCTION_85_1();
-        skip_delimiters();
-        goto LABEL_28;
+        v72 = OUTLINED_FUNCTION_85_1();
+        skip_delimiters(v72);
+        goto LABEL_27;
       case 29:
-LABEL_28:
-        v64 = OUTLINED_FUNCTION_52_1();
-        starttest(v64, v65);
-        v66 = OUTLINED_FUNCTION_28_5();
-        if (lpta_loadp_setscan_r(v66, v67))
+LABEL_27:
+        v73 = OUTLINED_FUNCTION_52_1();
+        starttest(v73, v74);
+        v75 = OUTLINED_FUNCTION_28_5();
+        if (lpta_loadp_setscan_r(v75, v76, v77))
         {
-          goto LABEL_50;
+          goto LABEL_49;
         }
 
-        v68 = OUTLINED_FUNCTION_52_1();
-        bspush_ca_scan(v68, v69);
-        v70 = OUTLINED_FUNCTION_9_14();
-        v73 = testFldeq(v70, v71, v72, 4);
-        v60 = v40;
-        if (v73)
+        v78 = OUTLINED_FUNCTION_52_1();
+        bspush_ca_scan(v78, v79);
+        v80 = OUTLINED_FUNCTION_9_14();
+        v83 = testFldeq(v80, v81, v82, 4);
+        v68 = v41;
+        if (v83)
         {
           continue;
         }
 
-        v74 = advance_tok(v0);
-LABEL_47:
-        v60 = v40;
-        if (!v74)
+        v86 = advance_tok(v1, v41, v84, v85);
+LABEL_46:
+        v68 = v41;
+        if (!v86)
         {
-          goto LABEL_59;
+          goto LABEL_58;
         }
 
         continue;
       case 30:
-LABEL_50:
-        OUTLINED_FUNCTION_85_1();
-        if (end_of_sentence())
+LABEL_49:
+        v128 = OUTLINED_FUNCTION_85_1();
+        if (end_of_sentence(v128))
         {
-          goto LABEL_51;
+          goto LABEL_50;
         }
 
-        goto LABEL_59;
+        goto LABEL_58;
       case 31:
         OUTLINED_FUNCTION_98_0();
-        v105 = *(v0 + 1392);
-        v106 = OUTLINED_FUNCTION_12_14();
-        v74 = test_ptr(v106);
-        goto LABEL_47;
+        v122 = OUTLINED_FUNCTION_12_14();
+        v86 = test_ptr(v122, v123, v124);
+        goto LABEL_46;
       case 33:
-LABEL_51:
-        v107 = *(v0 + 5098);
+LABEL_50:
         OUTLINED_FUNCTION_170();
-        if (!v109 && *(v0 + 5114) != v108 && *(v0 + 5102) != v108)
+        if (!v130 && *(v1 + 5114) != v129 && *(v1 + 5102) != v129)
         {
           OUTLINED_FUNCTION_172();
         }
 
-LABEL_59:
-        OUTLINED_FUNCTION_137(v143);
+LABEL_58:
+        OUTLINED_FUNCTION_137(v167);
         result = 0;
         break;
       default:
         goto LABEL_3;
     }
 
-    break;
+    return result;
   }
-
-LABEL_4:
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-void apostrophe()
+void apostrophe(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_114();
   OUTLINED_FUNCTION_11_14();
-  v90 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_16_12(v1, v2, v3, v4, v5, v6, v7, v8, v48, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78);
+  v92 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_16_12(v4, v5, v6, v7, v8, v9, v10, v11, v59, v61[0], v61[1], v61[2], v61[3], v61[4], v61[5], v61[6], v61[7], v61[8], v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76[0], v76[1], v77, v78, v79, v80);
   OUTLINED_FUNCTION_57_1();
-  bzero(v89, v9);
-  v10 = setjmp(v89);
-  if (v10)
+  bzero(v91, v12);
+  v13 = setjmp(v91);
+  if (v13)
   {
     goto LABEL_5;
   }
 
-  if (OUTLINED_FUNCTION_34_3(v10, &v50, v11, v12, v13, v14, v15, v16, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89[0]))
+  if (OUTLINED_FUNCTION_34_3(v13, v61, v14, v15, v16, v17, v18, v19, v60, v61[0], v61[1], v61[2], v61[3], v61[4], v61[5], v61[6], v61[7], v61[8], v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76[0], v76[1], v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91[0]))
   {
     goto LABEL_5;
   }
 
-  v17 = OUTLINED_FUNCTION_13_14();
-  get_parm(v17, v18, v19, -6);
-  OUTLINED_FUNCTION_62_1(v20, &v75);
-  v21 = OUTLINED_FUNCTION_104();
-  push_ptr_init(v21, v22);
-  fence_16(v0, 0, &_MergedGlobals_1_0);
-  v23 = OUTLINED_FUNCTION_29_5();
-  if (lpta_loadp_setscan_r(v23, v24))
+  v20 = OUTLINED_FUNCTION_13_14();
+  get_parm(v20, v21, v22, -6);
+  OUTLINED_FUNCTION_62_1(v23, &v77);
+  v24 = OUTLINED_FUNCTION_104();
+  push_ptr_init(v24, v25);
+  fence_16(v3, 0, &_MergedGlobals_1_0);
+  v26 = OUTLINED_FUNCTION_29_5();
+  if (lpta_loadp_setscan_r(v26, v27, v28))
   {
     goto LABEL_5;
   }
@@ -3443,16 +2395,16 @@ void apostrophe()
   OUTLINED_FUNCTION_175();
   while (2)
   {
-    v26 = OUTLINED_FUNCTION_54_1();
-    savescptr(v26, v27, &v75);
-    v28 = OUTLINED_FUNCTION_81_1();
-    starttest(v28, v29);
-    v30 = OUTLINED_FUNCTION_74_1();
-    if (lpta_loadp_setscan_l(v30, v31))
+    v29 = OUTLINED_FUNCTION_54_1();
+    savescptr(v29, v30, &v77);
+    v31 = OUTLINED_FUNCTION_81_1();
+    starttest(v31, v32);
+    v33 = OUTLINED_FUNCTION_74_1();
+    if (lpta_loadp_setscan_l(v33, v34, 1))
     {
 LABEL_8:
-      v32 = OUTLINED_FUNCTION_74_1();
-      lpta_rpta_loadp(v32, v33, &v75);
+      v35 = OUTLINED_FUNCTION_74_1();
+      lpta_rpta_loadp(v35, v36, &v77);
       OUTLINED_FUNCTION_80_1();
       if (!mark_s())
       {
@@ -3463,27 +2415,27 @@ LABEL_8:
     else
     {
 LABEL_10:
-      v34 = OUTLINED_FUNCTION_84_1();
-      savescptr(v34, v35, &v73);
-      v36 = OUTLINED_FUNCTION_64_1();
-      bspush_ca_scan(v36, v37);
+      v37 = OUTLINED_FUNCTION_84_1();
+      savescptr(v37, v38, v76);
+      v39 = OUTLINED_FUNCTION_64_1();
+      bspush_ca_scan(v39, v40);
       OUTLINED_FUNCTION_24_8();
       if (!test_string_s())
       {
 LABEL_11:
-        v38 = OUTLINED_FUNCTION_91_0();
-        if (!lpta_loadp_setscan_r(v38, v39) && !advance_tok(v0))
+        v41 = OUTLINED_FUNCTION_91_0();
+        if (!lpta_loadp_setscan_r(v41, v42, 1) && !advance_tok(v3, v43, v44, v45))
         {
-          v46 = OUTLINED_FUNCTION_112();
-          bspush_ca_scan(v46, v47);
+          v54 = OUTLINED_FUNCTION_112();
+          bspush_ca_scan(v54, v55);
           OUTLINED_FUNCTION_24_8();
           if (!test_string_s())
           {
 LABEL_22:
-            OUTLINED_FUNCTION_138();
-            single_chars();
+            v56 = OUTLINED_FUNCTION_138();
+            single_chars(v56, v57, v58);
 LABEL_23:
-            OUTLINED_FUNCTION_95_0(v76);
+            OUTLINED_FUNCTION_95_0(v78);
             break;
           }
         }
@@ -3491,18 +2443,18 @@ LABEL_23:
     }
 
 LABEL_12:
-    v40 = *(v0 + 104);
-    if (v40)
+    v46 = *(v3 + 104);
+    if (v46)
     {
-      v41 = OUTLINED_FUNCTION_65_1(v40);
+      v47 = OUTLINED_FUNCTION_65_1(v46);
     }
 
     else
     {
-      v41 = OUTLINED_FUNCTION_133();
+      v47 = OUTLINED_FUNCTION_133();
     }
 
-    switch(v41)
+    switch(v47)
     {
       case 2:
         continue;
@@ -3511,10 +2463,9 @@ LABEL_12:
       case 4:
         goto LABEL_10;
       case 5:
-        *(v0 + 136) = 1;
-        v42 = *(v0 + 1408);
-        v43 = OUTLINED_FUNCTION_12_14();
-        if (!test_ptr(v43))
+        *(v3 + 136) = 1;
+        v48 = OUTLINED_FUNCTION_12_14();
+        if (!test_ptr(v48, v49, v50))
         {
           goto LABEL_11;
         }
@@ -3523,10 +2474,9 @@ LABEL_12:
       case 6:
         goto LABEL_11;
       case 7:
-        *(v0 + 136) = 1;
-        v44 = *(v0 + 1392);
-        v45 = OUTLINED_FUNCTION_12_14();
-        if (!test_ptr(v45))
+        *(v3 + 136) = 1;
+        v51 = OUTLINED_FUNCTION_12_14();
+        if (!test_ptr(v51, v52, v53))
         {
           goto LABEL_22;
         }
@@ -3543,52 +2493,51 @@ LABEL_12:
   }
 
 LABEL_5:
-  vretproc(v0);
-  v25 = *MEMORY[0x277D85DE8];
+  vretproc(v3);
   OUTLINED_FUNCTION_173();
   OUTLINED_FUNCTION_113();
 }
 
-uint64_t email_address()
+uint64_t email_address(uint64_t a1)
 {
   OUTLINED_FUNCTION_76_1();
-  v236 = *MEMORY[0x277D85DE8];
-  v231[0] = 0;
-  v231[1] = 0;
-  v230[0] = 0;
-  v230[1] = 0;
-  v229[0] = 0;
-  v229[1] = 0;
-  memset(v228, 0, sizeof(v228));
-  OUTLINED_FUNCTION_10_14(v1, v2, v3, v4, v5, v6, v7, v8, v201, v202, v203, v204, v205, v206, v207, v208, v209, v210, v211, v212, v213, v214, v215, v216, v217, v218, v219, v220, v221, v222, v223, v224, v225, v226, v227);
+  v277 = *MEMORY[0x277D85DE8];
+  v272[0] = 0;
+  v272[1] = 0;
+  v271[0] = 0;
+  v271[1] = 0;
+  v270[0] = 0;
+  v270[1] = 0;
+  memset(v269, 0, sizeof(v269));
+  OUTLINED_FUNCTION_10_14(v2, v3, v4, v5, v6, v7, v8, v9, v242, v243, v244, v245, v246, v247, v248, v249, v250, v251, v252, v253, v254, v255, v256, v257, v258, v259, v260, v261, v262, v263, v264, v265, v266, v267, v268);
   OUTLINED_FUNCTION_57_1();
-  bzero(v235, v9);
-  if (setjmp(v235))
+  bzero(v276, v10);
+  if (setjmp(v276))
   {
     goto LABEL_5;
   }
 
-  v10 = ventproc(v0, &v201, v234, v233, v232, v235);
-  if (v10)
+  v11 = ventproc(v1, &v242, v275, v274, v273, v276);
+  if (v11)
   {
     goto LABEL_5;
   }
 
-  OUTLINED_FUNCTION_62_1(v10, v231);
-  v11 = OUTLINED_FUNCTION_151();
-  push_ptr_init(v11, v12);
-  push_ptr_init(v0, v229);
-  v13 = OUTLINED_FUNCTION_85_1();
-  push_ptr_init(v13, v14);
-  v15 = OUTLINED_FUNCTION_56_1();
-  push_ptr_init(v15, v16);
-  v17 = OUTLINED_FUNCTION_67_1();
-  push_ptr_init(v17, v18);
-  v19 = OUTLINED_FUNCTION_66_1();
-  push_ptr_init(v19, v20);
-  fence_16(v0, 0, &_MergedGlobals_1_0);
+  OUTLINED_FUNCTION_62_1(v11, v272);
+  v12 = OUTLINED_FUNCTION_151();
+  push_ptr_init(v12, v13);
+  push_ptr_init(v1, v270);
+  v14 = OUTLINED_FUNCTION_85_1();
+  push_ptr_init(v14, v15);
+  v16 = OUTLINED_FUNCTION_56_1();
+  push_ptr_init(v16, v17);
+  v18 = OUTLINED_FUNCTION_67_1();
+  push_ptr_init(v18, v19);
+  v20 = OUTLINED_FUNCTION_66_1();
+  push_ptr_init(v20, v21);
+  fence_16(v1, 0, &_MergedGlobals_1_0);
   OUTLINED_FUNCTION_99_0();
-  if (v21)
+  if (v22)
   {
     goto LABEL_5;
   }
@@ -3600,205 +2549,145 @@ uint64_t email_address()
     starttest(v25, v26);
     v27 = OUTLINED_FUNCTION_55_1();
     v29 = v24;
-    if (lpta_loadp_setscan_r(v27, v28))
+    if (lpta_loadp_setscan_r(v27, v28, 1))
     {
 LABEL_5:
-      vretproc(v0);
-      result = 94;
-      goto LABEL_6;
+      vretproc(v1);
+      return 94;
     }
 
-LABEL_8:
+LABEL_7:
     while (1)
     {
-      bspush_ca_scan(v0, 3);
+      bspush_ca_scan(v1, 3);
       v30 = OUTLINED_FUNCTION_51_1();
       v32 = testFldeq(v30, v31, 3, 1);
-      v33 = v29;
+      v35 = v29;
       if (v32)
       {
         break;
       }
 
-LABEL_9:
-      v29 = v33;
-      if (advance_tok(v0))
+LABEL_8:
+      v29 = v35;
+      if (advance_tok(v1, v33, v35, v34))
       {
         break;
       }
 
-      v197 = OUTLINED_FUNCTION_70_1();
-      bspush_ca_scan(v197, v198);
+      v233 = OUTLINED_FUNCTION_70_1();
+      bspush_ca_scan(v233, v234);
     }
 
-    v34 = v29;
-LABEL_11:
-    v35 = v0[13];
-    if (v35)
+    LODWORD(v33) = v29;
+LABEL_10:
+    v36 = v1[13];
+    if (v36)
     {
-      v36 = OUTLINED_FUNCTION_65_1(v35);
-      v24 = v37;
+      v37 = OUTLINED_FUNCTION_65_1(v36);
+      v24 = v33;
     }
 
     else
     {
-      v36 = vback(v0, v34);
+      v37 = vback(v1, v33);
       v24 = 0;
     }
 
-    v33 = v24;
-    switch(v36)
+    v35 = v24;
+    switch(v37)
     {
       case 1:
         continue;
       case 3:
-        v109 = OUTLINED_FUNCTION_22_8();
-        bspush_ca_scan(v109, v110);
-        v111 = OUTLINED_FUNCTION_3_15();
-        goto LABEL_47;
+        v127 = OUTLINED_FUNCTION_22_8();
+        bspush_ca_scan(v127, v128);
+        v129 = OUTLINED_FUNCTION_3_15();
+        goto LABEL_46;
       case 4:
-        goto LABEL_9;
+        goto LABEL_8;
       case 5:
-        v115 = OUTLINED_FUNCTION_36_2();
-        bspush_ca_scan(v115, v116);
-        v111 = OUTLINED_FUNCTION_6_14();
-        v114 = 75;
-        goto LABEL_47;
+        v133 = OUTLINED_FUNCTION_36_2();
+        bspush_ca_scan(v133, v134);
+        v129 = OUTLINED_FUNCTION_6_14();
+        v132 = 75;
+        goto LABEL_46;
       case 6:
-        v111 = OUTLINED_FUNCTION_6_14();
-        v114 = 63;
-LABEL_47:
-        v117 = testFldeq(v111, v112, v113, v114);
+        v129 = OUTLINED_FUNCTION_6_14();
+        v132 = 63;
+LABEL_46:
+        v135 = testFldeq(v129, v130, v131, v132);
+        v35 = v24;
         v33 = v24;
-        v34 = v24;
-        if (!v117)
+        if (!v135)
         {
-          goto LABEL_9;
+          goto LABEL_8;
         }
 
-        goto LABEL_11;
+        goto LABEL_10;
       case 7:
       case 14:
-        v43 = OUTLINED_FUNCTION_37_2();
-        bspush_ca_scan(v43, v44);
+        v42 = OUTLINED_FUNCTION_37_2();
+        bspush_ca_scan(v42, v43);
         OUTLINED_FUNCTION_4_14();
-        v45 = test_string_s();
-        v34 = v24;
-        if (v45)
+        v44 = test_string_s();
+        LODWORD(v33) = v24;
+        if (v44)
         {
-          goto LABEL_11;
-        }
-
-        goto LABEL_90;
-      case 8:
-        v29 = v24;
-        goto LABEL_8;
-      case 9:
-        savescptr(v0, 9, v230);
-        OUTLINED_FUNCTION_4_14();
-        v120 = test_string_s();
-        v34 = v24;
-        if (v120)
-        {
-          goto LABEL_11;
-        }
-
-        goto LABEL_51;
-      case 10:
-        v76 = OUTLINED_FUNCTION_35_2();
-        bspush_ca_scan(v76, v77);
-        v72 = OUTLINED_FUNCTION_3_15();
-        goto LABEL_91;
-      case 11:
-        goto LABEL_92;
-      case 12:
-        v70 = OUTLINED_FUNCTION_32_3();
-        bspush_ca_scan(v70, v71);
-        v72 = OUTLINED_FUNCTION_6_14();
-        v75 = 75;
-        goto LABEL_91;
-      case 13:
-        v72 = OUTLINED_FUNCTION_6_14();
-        v75 = 63;
-        goto LABEL_91;
-      case 15:
-LABEL_90:
-        while (2)
-        {
-          v191 = OUTLINED_FUNCTION_45_1();
-          bspush_ca_scan(v191, v192);
-          v72 = OUTLINED_FUNCTION_1_15();
-LABEL_91:
-          v193 = testFldeq(v72, v73, v74, v75);
-          v34 = v24;
-          if (!v193)
-          {
-LABEL_92:
-            v194 = advance_tok(v0);
-            v34 = v24;
-            if (!v194)
-            {
-              v195 = OUTLINED_FUNCTION_33_3();
-              bspush_ca_scan(v195, v196);
-              continue;
-            }
-          }
-
-          break;
-        }
-
-        goto LABEL_11;
-      case 16:
-LABEL_51:
-        savescptr(v0, 16, v229);
-        goto LABEL_86;
-      case 17:
-        v78 = OUTLINED_FUNCTION_52_1();
-        bspush_ca_scan(v78, v79);
-        v80 = OUTLINED_FUNCTION_3_15();
-        goto LABEL_87;
-      case 18:
-        goto LABEL_88;
-      case 19:
-        v118 = OUTLINED_FUNCTION_52_1();
-        bspush_ca_scan(v118, v119);
-        v80 = OUTLINED_FUNCTION_6_14();
-        v83 = 75;
-        goto LABEL_87;
-      case 20:
-        v80 = OUTLINED_FUNCTION_6_14();
-        v83 = 63;
-        goto LABEL_87;
-      case 21:
-        OUTLINED_FUNCTION_4_14();
-        v121 = test_string_s();
-        v34 = v24;
-        if (v121)
-        {
-          goto LABEL_11;
+          goto LABEL_10;
         }
 
         goto LABEL_89;
-      case 22:
-LABEL_86:
+      case 8:
+        v29 = v24;
+        goto LABEL_7;
+      case 9:
+        savescptr(v1, 9, v271);
+        OUTLINED_FUNCTION_4_14();
+        v138 = test_string_s();
+        LODWORD(v33) = v24;
+        if (v138)
+        {
+          goto LABEL_10;
+        }
+
+        goto LABEL_50;
+      case 10:
+        v87 = OUTLINED_FUNCTION_35_2();
+        bspush_ca_scan(v87, v88);
+        v83 = OUTLINED_FUNCTION_3_15();
+        goto LABEL_90;
+      case 11:
+        goto LABEL_91;
+      case 12:
+        v81 = OUTLINED_FUNCTION_32_3();
+        bspush_ca_scan(v81, v82);
+        v83 = OUTLINED_FUNCTION_6_14();
+        v86 = 75;
+        goto LABEL_90;
+      case 13:
+        v83 = OUTLINED_FUNCTION_6_14();
+        v86 = 63;
+        goto LABEL_90;
+      case 15:
+LABEL_89:
         while (2)
         {
-          v185 = OUTLINED_FUNCTION_52_1();
-          bspush_ca_scan(v185, v186);
-          v80 = OUTLINED_FUNCTION_1_15();
-LABEL_87:
-          v187 = testFldeq(v80, v81, v82, v83);
-          v34 = v24;
-          if (!v187)
+          v227 = OUTLINED_FUNCTION_45_1();
+          bspush_ca_scan(v227, v228);
+          v83 = OUTLINED_FUNCTION_1_15();
+LABEL_90:
+          v229 = testFldeq(v83, v84, v85, v86);
+          v33 = v24;
+          if (!v229)
           {
-LABEL_88:
-            v188 = advance_tok(v0);
-            v34 = v24;
-            if (!v188)
+LABEL_91:
+            v230 = advance_tok(v1, v33, v35, v34);
+            LODWORD(v33) = v24;
+            if (!v230)
             {
-LABEL_89:
-              v189 = OUTLINED_FUNCTION_52_1();
-              bspush_ca_scan(v189, v190);
+              v231 = OUTLINED_FUNCTION_33_3();
+              bspush_ca_scan(v231, v232);
               continue;
             }
           }
@@ -3806,186 +2695,245 @@ LABEL_89:
           break;
         }
 
-        goto LABEL_11;
+        goto LABEL_10;
+      case 16:
+LABEL_50:
+        savescptr(v1, 16, v270);
+        goto LABEL_85;
+      case 17:
+        v89 = OUTLINED_FUNCTION_52_1();
+        bspush_ca_scan(v89, v90);
+        v91 = OUTLINED_FUNCTION_3_15();
+        goto LABEL_86;
+      case 18:
+        goto LABEL_87;
+      case 19:
+        v136 = OUTLINED_FUNCTION_52_1();
+        bspush_ca_scan(v136, v137);
+        v91 = OUTLINED_FUNCTION_6_14();
+        v94 = 75;
+        goto LABEL_86;
+      case 20:
+        v91 = OUTLINED_FUNCTION_6_14();
+        v94 = 63;
+        goto LABEL_86;
+      case 21:
+        OUTLINED_FUNCTION_4_14();
+        v139 = test_string_s();
+        LODWORD(v33) = v24;
+        if (v139)
+        {
+          goto LABEL_10;
+        }
+
+        goto LABEL_88;
+      case 22:
+LABEL_85:
+        while (2)
+        {
+          v221 = OUTLINED_FUNCTION_52_1();
+          bspush_ca_scan(v221, v222);
+          v91 = OUTLINED_FUNCTION_1_15();
+LABEL_86:
+          v223 = testFldeq(v91, v92, v93, v94);
+          v33 = v24;
+          if (!v223)
+          {
+LABEL_87:
+            v224 = advance_tok(v1, v33, v35, v34);
+            LODWORD(v33) = v24;
+            if (!v224)
+            {
+LABEL_88:
+              v225 = OUTLINED_FUNCTION_52_1();
+              bspush_ca_scan(v225, v226);
+              continue;
+            }
+          }
+
+          break;
+        }
+
+        goto LABEL_10;
       case 23:
-        v84 = OUTLINED_FUNCTION_1_15();
-        v88 = testFldeq(v84, v85, v86, v87);
-        v34 = v24;
-        if (v88)
+        v95 = OUTLINED_FUNCTION_1_15();
+        v99 = testFldeq(v95, v96, v97, v98);
+        LODWORD(v33) = v24;
+        if (v99)
         {
-          goto LABEL_11;
+          goto LABEL_10;
         }
 
-        v89 = advance_tok(v0);
-        v34 = v24;
-        if (v89)
-        {
-          goto LABEL_11;
-        }
-
-        v90 = OUTLINED_FUNCTION_1_15();
-        v94 = testFldeq(v90, v91, v92, v93);
-        v34 = v24;
-        if (v94)
-        {
-          goto LABEL_11;
-        }
-
-        v95 = advance_tok(v0);
-        v34 = v24;
-        if (v95)
-        {
-          goto LABEL_11;
-        }
-
-        v96 = OUTLINED_FUNCTION_52_1();
-        bspush_ca_scan(v96, v97);
-        v98 = OUTLINED_FUNCTION_1_15();
-        v102 = testFldeq(v98, v99, v100, v101);
-        v34 = v24;
+        v102 = advance_tok(v1, v24, v100, v101);
+        LODWORD(v33) = v24;
         if (v102)
         {
-          goto LABEL_11;
+          goto LABEL_10;
         }
 
-        v103 = advance_tok(v0);
-        v34 = v24;
-        if (v103)
+        v103 = OUTLINED_FUNCTION_1_15();
+        v107 = testFldeq(v103, v104, v105, v106);
+        LODWORD(v33) = v24;
+        if (v107)
         {
-          goto LABEL_11;
+          goto LABEL_10;
         }
 
-        goto LABEL_40;
+        v110 = advance_tok(v1, v24, v108, v109);
+        LODWORD(v33) = v24;
+        if (v110)
+        {
+          goto LABEL_10;
+        }
+
+        v111 = OUTLINED_FUNCTION_52_1();
+        bspush_ca_scan(v111, v112);
+        v113 = OUTLINED_FUNCTION_1_15();
+        v117 = testFldeq(v113, v114, v115, v116);
+        LODWORD(v33) = v24;
+        if (v117)
+        {
+          goto LABEL_10;
+        }
+
+        v120 = advance_tok(v1, v24, v118, v119);
+        LODWORD(v33) = v24;
+        if (v120)
+        {
+          goto LABEL_10;
+        }
+
+        goto LABEL_39;
       case 24:
-LABEL_40:
-        v104 = OUTLINED_FUNCTION_123();
-        savescptr(v104, v105, v106);
-        goto LABEL_41;
+LABEL_39:
+        v121 = OUTLINED_FUNCTION_123();
+        savescptr(v121, v122, v123);
+        goto LABEL_40;
       case 25:
-LABEL_41:
-        v107 = OUTLINED_FUNCTION_49_1();
-        starttest(v107, v108);
+LABEL_40:
+        v124 = OUTLINED_FUNCTION_49_1();
+        starttest(v124, v125);
         OUTLINED_FUNCTION_52_1();
         bspush_ca_boa();
-        OUTLINED_FUNCTION_85_1();
-        if (end_of_word())
+        v126 = OUTLINED_FUNCTION_85_1();
+        if (end_of_word(v126))
         {
-          v34 = v24;
+          LODWORD(v33) = v24;
         }
 
         else
         {
-          v34 = 1;
+          LODWORD(v33) = 1;
         }
 
-        goto LABEL_11;
+        goto LABEL_10;
       case 26:
-        v130 = OUTLINED_FUNCTION_52_1();
-        starttest(v130, v131);
-        v132 = OUTLINED_FUNCTION_28_5();
-        if (!lpta_loadp_setscan_r(v132, v133))
+        v150 = OUTLINED_FUNCTION_52_1();
+        starttest(v150, v151);
+        v152 = OUTLINED_FUNCTION_28_5();
+        if (!lpta_loadp_setscan_r(v152, v153, v154))
         {
           OUTLINED_FUNCTION_4_14();
           if (!test_string_s())
           {
-            goto LABEL_60;
+            goto LABEL_59;
           }
         }
 
-        goto LABEL_61;
+        goto LABEL_60;
       case 27:
-        bspop_boa(v0);
+        bspop_boa(v1);
         goto LABEL_5;
       case 28:
-        goto LABEL_61;
+        goto LABEL_60;
       case 29:
-LABEL_60:
-        savescptr(v0, 29, v228);
-        v134 = OUTLINED_FUNCTION_85_1();
-        lpta_rpta_loadp(v134, v135, v228);
+LABEL_59:
+        savescptr(v1, 29, v269);
+        v155 = OUTLINED_FUNCTION_85_1();
+        lpta_rpta_loadp(v155, v156, v269);
         OUTLINED_FUNCTION_9_14();
-        v136 = mark_s();
-        v34 = v24;
-        if (v136)
+        v157 = mark_s();
+        LODWORD(v33) = v24;
+        if (v157)
         {
-          goto LABEL_11;
+          goto LABEL_10;
         }
 
-LABEL_61:
-        v137 = OUTLINED_FUNCTION_52_1();
-        startloop(v137, v138);
-        copyvar(v0, v228, v231);
-        copyvar(v0, &v224, v230);
+LABEL_60:
+        v158 = OUTLINED_FUNCTION_52_1();
+        startloop(v158, v159);
+        copyvar(v1, v269, v272);
+        copyvar(v1, &v265, v271);
         break;
       case 30:
-        goto LABEL_96;
+        goto LABEL_95;
       case 31:
-        goto LABEL_67;
+        goto LABEL_66;
       case 32:
         OUTLINED_FUNCTION_171();
-        v46 = OUTLINED_FUNCTION_122();
-        v51 = forto_adv_r(v46, v47, v48, v49, 1, v50);
-        v34 = v24;
-        if (v51)
+        v45 = OUTLINED_FUNCTION_122();
+        v50 = forto_adv_r(v45, v46, v47, v48, 1, v49);
+        LODWORD(v33) = v24;
+        if (v50)
         {
-          goto LABEL_11;
+          goto LABEL_10;
         }
 
-        goto LABEL_96;
+        goto LABEL_95;
       case 33:
-        goto LABEL_66;
+        goto LABEL_65;
       case 34:
-        goto LABEL_68;
+        goto LABEL_67;
       case 35:
-        goto LABEL_74;
+        goto LABEL_73;
       case 36:
-        v122 = OUTLINED_FUNCTION_59_1();
-        savescptr(v122, v123, v124);
-        v125 = OUTLINED_FUNCTION_4_14();
-        v128 = testFldeq(v125, v126, v127, 2);
-        v34 = v24;
-        if (v128)
+        v140 = OUTLINED_FUNCTION_59_1();
+        savescptr(v140, v141, v142);
+        v143 = OUTLINED_FUNCTION_4_14();
+        v146 = testFldeq(v143, v144, v145, 2);
+        LODWORD(v33) = v24;
+        if (v146)
         {
-          goto LABEL_11;
+          goto LABEL_10;
         }
 
-        v129 = advance_tok(v0);
-        v34 = v24;
-        if (v129)
+        v149 = advance_tok(v1, v24, v147, v148);
+        LODWORD(v33) = v24;
+        if (v149)
         {
-          goto LABEL_11;
+          goto LABEL_10;
         }
 
-        goto LABEL_20;
+        goto LABEL_19;
       case 37:
-        goto LABEL_81;
+        goto LABEL_80;
       case 38:
-        goto LABEL_20;
+        goto LABEL_19;
       case 39:
-        v52 = OUTLINED_FUNCTION_59_1();
-        savescptr(v52, v53, v54);
-        goto LABEL_20;
+        v51 = OUTLINED_FUNCTION_59_1();
+        savescptr(v51, v52, v53);
+        goto LABEL_19;
       case 40:
-        goto LABEL_77;
+        goto LABEL_76;
       case 41:
-        goto LABEL_24;
+        goto LABEL_23;
       case 42:
       case 43:
       case 45:
       case 46:
-        goto LABEL_69;
+        goto LABEL_68;
       case 44:
-        goto LABEL_28;
+        goto LABEL_27;
       case 47:
-        goto LABEL_70;
+        goto LABEL_69;
       case 48:
-        goto LABEL_63;
+        goto LABEL_62;
       case 49:
-        goto LABEL_64;
+        goto LABEL_63;
       case 50:
-        goto LABEL_97;
+        goto LABEL_96;
       case 51:
-        goto LABEL_98;
+        goto LABEL_97;
       default:
         goto LABEL_5;
     }
@@ -3995,235 +2943,232 @@ LABEL_61:
 
   while (1)
   {
+LABEL_62:
+    v160 = OUTLINED_FUNCTION_83_1();
+    v163 = forall_to_test(v160, v161, v162);
+    LODWORD(v33) = v24;
+    if (v163)
+    {
+      goto LABEL_10;
+    }
+
 LABEL_63:
-    v139 = OUTLINED_FUNCTION_83_1();
-    v142 = forall_to_test(v139, v140, v141);
-    v34 = v24;
-    if (v142)
+    v164 = OUTLINED_FUNCTION_52_1();
+    bspush_ca(v164);
+    v165 = OUTLINED_FUNCTION_7_14();
+    v168 = lpta_loadp_setscan_r(v165, v166, v167);
+    LODWORD(v33) = v24;
+    if (v168)
     {
-      goto LABEL_11;
+      goto LABEL_10;
     }
 
-LABEL_64:
-    v143 = OUTLINED_FUNCTION_52_1();
-    bspush_ca(v143);
-    v144 = OUTLINED_FUNCTION_7_14();
-    v146 = lpta_loadp_setscan_r(v144, v145);
-    v34 = v24;
-    if (v146)
+    v171 = advance_tok(v1, v24, v169, v170);
+    LODWORD(v33) = v24;
+    if (v171)
     {
-      goto LABEL_11;
+      goto LABEL_10;
     }
 
-    v147 = advance_tok(v0);
-    v34 = v24;
-    if (v147)
-    {
-      goto LABEL_11;
-    }
-
+LABEL_65:
+    v172 = OUTLINED_FUNCTION_59_1();
+    savescptr(v172, v173, v174);
 LABEL_66:
-    v148 = OUTLINED_FUNCTION_59_1();
-    savescptr(v148, v149, v150);
-LABEL_67:
-    v151 = OUTLINED_FUNCTION_52_1();
-    starttest(v151, v152);
-    v153 = OUTLINED_FUNCTION_7_14();
-    if (lpta_loadp_setscan_r(v153, v154))
+    v175 = OUTLINED_FUNCTION_52_1();
+    starttest(v175, v176);
+    v177 = OUTLINED_FUNCTION_7_14();
+    if (lpta_loadp_setscan_r(v177, v178, v179))
     {
-LABEL_68:
+LABEL_67:
       OUTLINED_FUNCTION_8_14();
       char_name();
-      goto LABEL_69;
+      goto LABEL_68;
     }
 
-    v160 = OUTLINED_FUNCTION_1_15();
-    v164 = testFldeq(v160, v161, v162, v163);
-    v34 = v24;
-    if (v164)
+    v186 = OUTLINED_FUNCTION_1_15();
+    v190 = testFldeq(v186, v187, v188, v189);
+    LODWORD(v33) = v24;
+    if (v190)
     {
-      goto LABEL_11;
+      goto LABEL_10;
     }
 
-    v165 = advance_tok(v0);
-    v34 = v24;
-    if (v165)
+    v193 = advance_tok(v1, v24, v191, v192);
+    LODWORD(v33) = v24;
+    if (v193)
     {
-      goto LABEL_11;
+      goto LABEL_10;
     }
 
-    v166 = OUTLINED_FUNCTION_52_1();
-    starttest(v166, v167);
-    v168 = OUTLINED_FUNCTION_14_12();
-    if (!lpta_loadp_setscan_r(v168, v169))
+    v194 = OUTLINED_FUNCTION_52_1();
+    starttest(v194, v195);
+    v196 = OUTLINED_FUNCTION_14_12();
+    if (!lpta_loadp_setscan_r(v196, v197, v198))
     {
-LABEL_81:
+LABEL_80:
       while (1)
       {
-        v182 = OUTLINED_FUNCTION_4_14();
-        if (testFldeq(v182, v183, v184, 1) || advance_tok(v0))
+        v215 = OUTLINED_FUNCTION_4_14();
+        if (testFldeq(v215, v216, v217, 1) || advance_tok(v1, v218, v219, v220))
         {
           break;
         }
 
-        v180 = OUTLINED_FUNCTION_52_1();
-        bspush_ca_scan(v180, v181);
+        v213 = OUTLINED_FUNCTION_52_1();
+        bspush_ca_scan(v213, v214);
       }
 
-      goto LABEL_83;
+      goto LABEL_82;
     }
 
-LABEL_74:
-    v170 = OUTLINED_FUNCTION_52_1();
-    starttest(v170, v171);
-    v172 = OUTLINED_FUNCTION_14_12();
-    if (!lpta_loadp_setscan_r(v172, v173))
+LABEL_73:
+    v199 = OUTLINED_FUNCTION_52_1();
+    starttest(v199, v200);
+    v201 = OUTLINED_FUNCTION_14_12();
+    if (!lpta_loadp_setscan_r(v201, v202, v203))
     {
-LABEL_77:
+LABEL_76:
       while (1)
       {
-        v176 = OUTLINED_FUNCTION_1_15();
-        if (testFldeq(v176, v177, v178, v179) || advance_tok(v0))
+        v206 = OUTLINED_FUNCTION_1_15();
+        if (testFldeq(v206, v207, v208, v209) || advance_tok(v1, v210, v211, v212))
         {
           break;
         }
 
-        v174 = OUTLINED_FUNCTION_52_1();
-        bspush_ca_scan(v174, v175);
+        v204 = OUTLINED_FUNCTION_52_1();
+        bspush_ca_scan(v204, v205);
       }
 
-LABEL_83:
-      v34 = v24;
-      goto LABEL_11;
+LABEL_82:
+      LODWORD(v33) = v24;
+      goto LABEL_10;
     }
 
-LABEL_20:
-    v55 = OUTLINED_FUNCTION_67_1();
-    lpta_loadpn(v55, v56);
-    v57 = OUTLINED_FUNCTION_151();
-    rpta_loadpn(v57, v58);
-    if (!compare_ptas(v0) && !testeq(v0))
+LABEL_19:
+    v54 = OUTLINED_FUNCTION_67_1();
+    lpta_loadpn(v54, v55);
+    v56 = OUTLINED_FUNCTION_151();
+    rpta_loadpn(v56, v57);
+    if (!compare_ptas(v1) && !testeq(v1))
     {
-      v59 = OUTLINED_FUNCTION_56_1();
-      lpta_loadpn(v59, v60);
-      rpta_loadpn(v0, v231);
-      if (!compare_ptas(v0) && !testeq(v0))
+      v58 = OUTLINED_FUNCTION_56_1();
+      lpta_loadpn(v58, v59);
+      rpta_loadpn(v1, v272);
+      if (!compare_ptas(v1) && !testeq(v1))
       {
-        goto LABEL_29;
+        goto LABEL_28;
       }
     }
 
-LABEL_24:
-    v61 = OUTLINED_FUNCTION_52_1();
-    starttest(v61, v62);
-    v63 = OUTLINED_FUNCTION_7_14();
-    if (!lpta_loadp_setscan_r(v63, v64) && !advance_tok(v0) && !advance_tok(v0))
+LABEL_23:
+    v60 = OUTLINED_FUNCTION_52_1();
+    starttest(v60, v61);
+    v62 = OUTLINED_FUNCTION_7_14();
+    if (!lpta_loadp_setscan_r(v62, v63, v64) && !advance_tok(v1, v65, v66, v67) && !advance_tok(v1, v68, v69, v70))
     {
-      v65 = OUTLINED_FUNCTION_52_1();
-      bspush_ca_scan(v65, v66);
-      v67 = advance_tok(v0);
-      v34 = v24;
-      if (v67)
+      v71 = OUTLINED_FUNCTION_52_1();
+      bspush_ca_scan(v71, v72);
+      v76 = advance_tok(v1, v73, v74, v75);
+      LODWORD(v33) = v24;
+      if (v76)
       {
-        goto LABEL_11;
+        goto LABEL_10;
+      }
+
+LABEL_27:
+      OUTLINED_FUNCTION_98_0();
+      v77 = OUTLINED_FUNCTION_12_14();
+      v80 = test_ptr(v77, v78, v79);
+      LODWORD(v33) = v24;
+      if (v80)
+      {
+        goto LABEL_10;
       }
 
 LABEL_28:
-      OUTLINED_FUNCTION_98_0();
-      v68 = OUTLINED_FUNCTION_12_14();
-      v69 = test_ptr(v68);
-      v34 = v24;
-      if (v69)
-      {
-        goto LABEL_11;
-      }
-
-LABEL_29:
-      spell_out_sequence();
+      spell_out_sequence(v1);
     }
 
-LABEL_69:
-    v155 = OUTLINED_FUNCTION_67_1();
-    lpta_loadpn(v155, v156);
-    v157 = OUTLINED_FUNCTION_151();
-    rpta_loadpn(v157, v158);
-    v36 = compare_ptas(v0);
-    if (!v36)
+LABEL_68:
+    v180 = OUTLINED_FUNCTION_67_1();
+    lpta_loadpn(v180, v181);
+    v182 = OUTLINED_FUNCTION_151();
+    rpta_loadpn(v182, v183);
+    v37 = compare_ptas(v1);
+    if (!v37)
     {
-      v36 = testeq(v0);
-      if (!v36)
+      v37 = testeq(v1);
+      if (!v37)
       {
         break;
       }
     }
 
-LABEL_70:
-    OUTLINED_FUNCTION_102(v36, v37, v33, v38, v39, v40, v41, v42, v201, v202, v203, v204, v205, v206, v207, v208, v209, v210, v211, v212, v213, v214, v215, v216, v217, v218, v219, v220, v221, v222, v223, v224, v225, v226, v227);
-    v159 = OUTLINED_FUNCTION_129();
-    insert_l(v159);
+LABEL_69:
+    OUTLINED_FUNCTION_102(v37, v33, v35, v34, v38, v39, v40, v41, v242, v243, v244, v245, v246, v247, v248, v249, v250, v251, v252, v253, v254, v255, v256, v257, v258, v259, v260, v261, v262, v263, v264, v265, v266, v267, v268);
+    v184 = OUTLINED_FUNCTION_129();
+    insert_l(v184, v185);
     OUTLINED_FUNCTION_171();
-    forall_cont_from(v0);
+    forall_cont_from();
   }
 
+LABEL_95:
+  OUTLINED_FUNCTION_136();
+  OUTLINED_FUNCTION_117();
+  v235 = OUTLINED_FUNCTION_129();
+  insert_l(v235, v236);
+  char_name();
 LABEL_96:
   OUTLINED_FUNCTION_136();
   OUTLINED_FUNCTION_117();
-  v199 = OUTLINED_FUNCTION_129();
-  insert_l(v199);
-  char_name();
+  v237 = OUTLINED_FUNCTION_129();
+  insert_l(v237, v238);
+  v239 = OUTLINED_FUNCTION_123();
+  process_hostname(v239, v240, v241);
 LABEL_97:
-  OUTLINED_FUNCTION_136();
-  OUTLINED_FUNCTION_117();
-  v200 = OUTLINED_FUNCTION_129();
-  insert_l(v200);
-  OUTLINED_FUNCTION_123();
-  process_hostname();
-LABEL_98:
-  vretproc(v0);
-  result = 0;
-LABEL_6:
-  v23 = *MEMORY[0x277D85DE8];
-  return result;
+  vretproc(v1);
+  return 0;
 }
 
-void URL()
+void URL(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   OUTLINED_FUNCTION_114();
   OUTLINED_FUNCTION_76_1();
-  v142 = *MEMORY[0x277D85DE8];
-  v129 = 0;
-  v130 = 0;
-  OUTLINED_FUNCTION_16_12(v1, v2, v3, v4, v5, v6, v7, v8, v98, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118, v119, v120, v121, v122, v123, v124, v125, v126, v127, v128);
+  v133 = *MEMORY[0x277D85DE8];
+  v120 = 0;
+  v121 = 0;
+  OUTLINED_FUNCTION_16_12(v5, v6, v7, v8, v9, v10, v11, v12, v112, v114[0], v114[1], v114[2], v114[3], v114[4], v114[5], v114[6], v114[7], v114[8], v114[9], v114[10], v114[11], v114[12], v114[13], v114[14], v114[15], v114[16], v114[17], v114[18], v114[19], v114[20], v114[21], v114[22], v115, v116, v117, v118, v119[0], v119[1]);
   OUTLINED_FUNCTION_57_1();
-  bzero(v141, v9);
-  v10 = setjmp(v141);
-  if (!v10)
+  bzero(v132, v13);
+  v14 = setjmp(v132);
+  if (!v14)
   {
-    v17 = OUTLINED_FUNCTION_69_1(v10, &v100, v11, v12, v13, v14, v15, v16, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118, v119, v120, v121, v122, v123, v124, v125, v126, v127, v128, v129, v130, v131, v132, v133, v134, v135, v136, v137, v138, v139, v140, v141[0]);
-    if (!v17)
+    v21 = OUTLINED_FUNCTION_69_1(v14, v114, v15, v16, v17, v18, v19, v20, v113, v114[0], v114[1], v114[2], v114[3], v114[4], v114[5], v114[6], v114[7], v114[8], v114[9], v114[10], v114[11], v114[12], v114[13], v114[14], v114[15], v114[16], v114[17], v114[18], v114[19], v114[20], v114[21], v114[22], v115, v116, v117, v118, v119[0], v119[1], v120, v121, v122, v123, v124, v125, v126, v127, v128, v129, v130, v131, v132[0]);
+    if (!v21)
     {
-      OUTLINED_FUNCTION_62_1(v17, &v129);
-      v18 = OUTLINED_FUNCTION_87_1();
-      push_ptr_init(v18, v19);
-      v20 = OUTLINED_FUNCTION_86_1();
-      push_ptr_init(v20, v21);
-      v22 = OUTLINED_FUNCTION_104();
+      OUTLINED_FUNCTION_62_1(v21, &v120);
+      v22 = OUTLINED_FUNCTION_87_1();
       push_ptr_init(v22, v23);
-      fence_16(v0, 0, &_MergedGlobals_1_0);
+      v24 = OUTLINED_FUNCTION_86_1();
+      push_ptr_init(v24, v25);
+      v26 = OUTLINED_FUNCTION_104();
+      push_ptr_init(v26, v27);
+      fence_16(v4, 0, &_MergedGlobals_1_0);
       OUTLINED_FUNCTION_99_0();
-      if (!v24)
+      if (!v28)
       {
         OUTLINED_FUNCTION_168();
 LABEL_6:
-        v26 = OUTLINED_FUNCTION_55_1();
-        starttest(v26, v27);
-        v28 = OUTLINED_FUNCTION_141();
-        if (!lpta_loadp_setscan_r(v28, v29))
+        v29 = OUTLINED_FUNCTION_55_1();
+        starttest(v29, v30);
+        v31 = OUTLINED_FUNCTION_141();
+        if (!lpta_loadp_setscan_r(v31, v32, 1))
         {
-          v30 = OUTLINED_FUNCTION_64_1();
-          bspush_ca_scan(v30, v31);
-          v32 = OUTLINED_FUNCTION_81_1();
-          bspush_ca_scan(v32, v33);
+          v33 = OUTLINED_FUNCTION_64_1();
+          bspush_ca_scan(v33, v34);
+          v35 = OUTLINED_FUNCTION_81_1();
+          bspush_ca_scan(v35, v36);
           OUTLINED_FUNCTION_51_1();
 LABEL_8:
           if (!test_string_s())
@@ -4233,37 +3178,37 @@ LABEL_9:
             if (!test_string_s())
             {
 LABEL_10:
-              v34 = OUTLINED_FUNCTION_91_0();
-              savescptr(v34, v35, &v127);
+              v37 = OUTLINED_FUNCTION_91_0();
+              savescptr(v37, v38, v119);
               OUTLINED_FUNCTION_51_1();
               if (!test_string_s())
               {
 LABEL_11:
-                v36 = OUTLINED_FUNCTION_112();
-                savescptr(v36, v37, &v129);
+                v39 = OUTLINED_FUNCTION_112();
+                savescptr(v39, v40, &v120);
 LABEL_12:
                 while (1)
                 {
-                  v38 = OUTLINED_FUNCTION_74_1();
-                  bspush_ca_scan(v38, v39);
-                  v40 = OUTLINED_FUNCTION_51_1();
-                  v42 = 3;
-                  v43 = 1;
+                  v41 = OUTLINED_FUNCTION_74_1();
+                  bspush_ca_scan(v41, v42);
+                  v43 = OUTLINED_FUNCTION_51_1();
+                  v45 = 3;
+                  v46 = 1;
 LABEL_13:
-                  if (testFldeq(v40, v41, v42, v43))
+                  if (testFldeq(v43, v44, v45, v46))
                   {
                     break;
                   }
 
 LABEL_51:
-                  if (advance_tok(v0))
+                  if (advance_tok(v4, v47, v48, v49))
                   {
                     goto LABEL_14;
                   }
 
-                  v93 = OUTLINED_FUNCTION_54_1();
+                  v106 = OUTLINED_FUNCTION_54_1();
 LABEL_53:
-                  bspush_ca_scan(v93, v94);
+                  bspush_ca_scan(v106, v107);
                 }
               }
             }
@@ -4272,18 +3217,18 @@ LABEL_53:
           while (1)
           {
 LABEL_14:
-            v44 = *(v0 + 104);
-            if (v44)
+            v50 = *(v4 + 104);
+            if (v50)
             {
-              v45 = OUTLINED_FUNCTION_65_1(v44);
+              v51 = OUTLINED_FUNCTION_65_1(v50);
             }
 
             else
             {
-              v45 = OUTLINED_FUNCTION_133();
+              v51 = OUTLINED_FUNCTION_133();
             }
 
-            switch(v45)
+            switch(v51)
             {
               case 1:
                 goto LABEL_6;
@@ -4307,21 +3252,21 @@ LABEL_14:
               case 8:
                 goto LABEL_12;
               case 9:
-                v89 = OUTLINED_FUNCTION_40_1();
-                bspush_ca_scan(v89, v90);
-                v40 = OUTLINED_FUNCTION_3_15();
+                v102 = OUTLINED_FUNCTION_40_1();
+                bspush_ca_scan(v102, v103);
+                v43 = OUTLINED_FUNCTION_3_15();
                 goto LABEL_13;
               case 10:
                 goto LABEL_51;
               case 11:
-                v91 = OUTLINED_FUNCTION_35_2();
-                bspush_ca_scan(v91, v92);
-                v40 = OUTLINED_FUNCTION_6_14();
-                v43 = 75;
+                v104 = OUTLINED_FUNCTION_35_2();
+                bspush_ca_scan(v104, v105);
+                v43 = OUTLINED_FUNCTION_6_14();
+                v46 = 75;
                 goto LABEL_13;
               case 12:
-                v40 = OUTLINED_FUNCTION_6_14();
-                v43 = 63;
+                v43 = OUTLINED_FUNCTION_6_14();
+                v46 = 63;
                 goto LABEL_13;
               case 13:
                 OUTLINED_FUNCTION_4_14();
@@ -4330,38 +3275,38 @@ LABEL_14:
                   continue;
                 }
 
-                v93 = OUTLINED_FUNCTION_33_3();
+                v106 = OUTLINED_FUNCTION_33_3();
                 goto LABEL_53;
               case 14:
                 goto LABEL_43;
               case 15:
-                v54 = OUTLINED_FUNCTION_3_15();
+                v60 = OUTLINED_FUNCTION_3_15();
                 goto LABEL_44;
               case 16:
                 do
                 {
-                  if (advance_tok(v0))
+                  if (advance_tok(v4, v47, v48, v49))
                   {
                     break;
                   }
 
-                  v87 = OUTLINED_FUNCTION_52_1();
-                  bspush_ca_scan(v87, v88);
+                  v100 = OUTLINED_FUNCTION_52_1();
+                  bspush_ca_scan(v100, v101);
 LABEL_43:
-                  v85 = OUTLINED_FUNCTION_46_1();
-                  bspush_ca_scan(v85, v86);
-                  v54 = OUTLINED_FUNCTION_1_15();
+                  v98 = OUTLINED_FUNCTION_46_1();
+                  bspush_ca_scan(v98, v99);
+                  v60 = OUTLINED_FUNCTION_1_15();
 LABEL_44:
                   ;
                 }
 
-                while (!testFldeq(v54, v55, v56, v57));
+                while (!testFldeq(v60, v61, v62, v63));
                 continue;
               case 17:
                 OUTLINED_FUNCTION_118();
-                savescptr(v0, v58, &v125);
-                OUTLINED_FUNCTION_84_1();
-                if (end_of_word())
+                savescptr(v4, v64, &v117);
+                v65 = OUTLINED_FUNCTION_84_1();
+                if (end_of_word(v65))
                 {
                   continue;
                 }
@@ -4369,35 +3314,35 @@ LABEL_44:
                 goto LABEL_28;
               case 18:
 LABEL_28:
-                v59 = OUTLINED_FUNCTION_87_1();
-                lpta_loadpn(v59, v60);
+                v66 = OUTLINED_FUNCTION_87_1();
+                lpta_loadpn(v66, v67);
                 OUTLINED_FUNCTION_150();
-                if (!compare_ptas(v0) && !testneq(v0))
+                if (!compare_ptas(v4) && !testneq(v4))
                 {
-                  v61 = OUTLINED_FUNCTION_147();
-                  lpta_rpta_loadp(v61, v62, v63);
-                  v64 = OUTLINED_FUNCTION_6_14();
-                  if (!delete_2pt(v64, v65))
+                  v68 = OUTLINED_FUNCTION_147();
+                  lpta_rpta_loadp(v68, v69, v70);
+                  v71 = OUTLINED_FUNCTION_6_14();
+                  if (!delete_2pt(v71, v72, v73, v74))
                   {
-                    v66 = OUTLINED_FUNCTION_147();
-                    lpta_rpta_loadp(v66, v67, v68);
-                    v69 = OUTLINED_FUNCTION_51_1();
-                    insert_2pt_s(v69, v70, 5, v71, v72);
+                    v75 = OUTLINED_FUNCTION_147();
+                    lpta_rpta_loadp(v75, v76, v77);
+                    v78 = OUTLINED_FUNCTION_51_1();
+                    insert_2pt_s(v78, v79, 5, v80, v81);
                   }
                 }
 
                 goto LABEL_32;
               case 19:
 LABEL_32:
-                OUTLINED_FUNCTION_138();
-                process_hostname();
+                v82 = OUTLINED_FUNCTION_138();
+                process_hostname(v82, v83, v84);
                 goto LABEL_33;
               case 20:
 LABEL_33:
-                v73 = OUTLINED_FUNCTION_52_1();
-                starttest(v73, v74);
-                v75 = OUTLINED_FUNCTION_53_1();
-                if (!lpta_loadp_setscan_r(v75, v76))
+                v85 = OUTLINED_FUNCTION_52_1();
+                starttest(v85, v86);
+                v87 = OUTLINED_FUNCTION_53_1();
+                if (!lpta_loadp_setscan_r(v87, v88, v89))
                 {
                   OUTLINED_FUNCTION_4_14();
                   if (!test_string_s())
@@ -4409,37 +3354,37 @@ LABEL_33:
                 goto LABEL_5;
               case 22:
                 OUTLINED_FUNCTION_125();
-                v95 = OUTLINED_FUNCTION_68_1();
-                savescptr(v95, v96, v97);
-                OUTLINED_FUNCTION_68_1();
-                process_pathname();
+                v108 = OUTLINED_FUNCTION_68_1();
+                savescptr(v108, v109, v110);
+                v111 = OUTLINED_FUNCTION_68_1();
+                process_pathname(v111);
                 goto LABEL_5;
               case 23:
-                v77 = OUTLINED_FUNCTION_52_1();
-                bspush_ca_scan(v77, v78);
-                v48 = OUTLINED_FUNCTION_3_15();
+                v90 = OUTLINED_FUNCTION_52_1();
+                bspush_ca_scan(v90, v91);
+                v54 = OUTLINED_FUNCTION_3_15();
                 goto LABEL_40;
               case 24:
                 goto LABEL_41;
               case 25:
-                v79 = OUTLINED_FUNCTION_49_1();
-                bspush_ca_scan(v79, v80);
-                v48 = OUTLINED_FUNCTION_6_14();
-                v51 = 75;
+                v92 = OUTLINED_FUNCTION_49_1();
+                bspush_ca_scan(v92, v93);
+                v54 = OUTLINED_FUNCTION_6_14();
+                v57 = 75;
                 goto LABEL_40;
               case 26:
-                v52 = OUTLINED_FUNCTION_52_1();
-                bspush_ca_scan(v52, v53);
-                v48 = OUTLINED_FUNCTION_6_14();
-                v51 = 63;
+                v58 = OUTLINED_FUNCTION_52_1();
+                bspush_ca_scan(v58, v59);
+                v54 = OUTLINED_FUNCTION_6_14();
+                v57 = 63;
                 goto LABEL_40;
               case 27:
-                v48 = OUTLINED_FUNCTION_6_14();
-                v51 = 65;
+                v54 = OUTLINED_FUNCTION_6_14();
+                v57 = 65;
                 goto LABEL_40;
               case 28:
-                v46 = OUTLINED_FUNCTION_52_1();
-                bspush_ca_scan(v46, v47);
+                v52 = OUTLINED_FUNCTION_52_1();
+                bspush_ca_scan(v52, v53);
                 OUTLINED_FUNCTION_4_14();
                 if (test_string_s())
                 {
@@ -4458,20 +3403,20 @@ LABEL_33:
 
             while (1)
             {
-              v81 = OUTLINED_FUNCTION_52_1();
-              bspush_ca_scan(v81, v82);
+              v94 = OUTLINED_FUNCTION_52_1();
+              bspush_ca_scan(v94, v95);
 LABEL_39:
-              v83 = OUTLINED_FUNCTION_52_1();
-              bspush_ca_scan(v83, v84);
-              v48 = OUTLINED_FUNCTION_1_15();
+              v96 = OUTLINED_FUNCTION_52_1();
+              bspush_ca_scan(v96, v97);
+              v54 = OUTLINED_FUNCTION_1_15();
 LABEL_40:
-              if (testFldeq(v48, v49, v50, v51))
+              if (testFldeq(v54, v55, v56, v57))
               {
                 break;
               }
 
 LABEL_41:
-              if (advance_tok(v0))
+              if (advance_tok(v4, v47, v48, v49))
               {
                 goto LABEL_14;
               }
@@ -4483,311 +3428,310 @@ LABEL_41:
   }
 
 LABEL_5:
-  vretproc(v0);
-  v25 = *MEMORY[0x277D85DE8];
+  vretproc(v4);
   OUTLINED_FUNCTION_113();
 }
 
-uint64_t is_pathname()
+uint64_t is_pathname(uint64_t a1)
 {
   OUTLINED_FUNCTION_76_1();
-  v124 = *MEMORY[0x277D85DE8];
-  v119[0] = 0;
-  v119[1] = 0;
-  v117[0] = 0;
-  v117[1] = 0;
-  v118 = 0;
-  v116[0] = 0;
-  v116[1] = 0;
-  v115[0] = 0;
-  v115[1] = 0;
+  v138 = *MEMORY[0x277D85DE8];
+  v133[0] = 0;
+  v133[1] = 0;
+  v131[0] = 0;
+  v131[1] = 0;
+  v132 = 0;
+  v130[0] = 0;
+  v130[1] = 0;
+  v129[0] = 0;
+  v129[1] = 0;
   OUTLINED_FUNCTION_48_1();
-  v110 = 0;
-  v111 = 0;
-  v112 = 0;
+  v124 = 0;
+  v125 = 0;
+  v126 = 0;
   OUTLINED_FUNCTION_58_1();
-  bzero(v109, v1);
-  OUTLINED_FUNCTION_57_1();
   bzero(v123, v2);
-  if (!setjmp(v123))
+  OUTLINED_FUNCTION_57_1();
+  bzero(v137, v3);
+  if (!setjmp(v137))
   {
-    v3 = ventproc(v0, v109, v122, v121, v120, v123);
-    if (!v3)
+    v4 = ventproc(v1, v123, v136, v135, v134, v137);
+    if (!v4)
     {
-      OUTLINED_FUNCTION_62_1(v3, v119);
-      WORD2(v118) = 0;
-      LODWORD(v118) = 0;
-      LODWORD(v117[0]) = -65535;
-      v4 = OUTLINED_FUNCTION_128();
-      push_ptr_init(v4, v5);
-      push_ptr_init(v0, v115);
-      v6 = OUTLINED_FUNCTION_107();
-      push_ptr_init(v6, v7);
-      v8 = OUTLINED_FUNCTION_87_1();
-      push_ptr_init(v8, v9);
-      v10 = OUTLINED_FUNCTION_86_1();
-      push_ptr_init(v10, v11);
-      WORD2(v112) = 0;
-      LODWORD(v112) = 0;
-      LODWORD(v110) = -65535;
-      v12 = OUTLINED_FUNCTION_73_1();
-      fence_16(v12, v13, v14);
+      OUTLINED_FUNCTION_62_1(v4, v133);
+      WORD2(v132) = 0;
+      LODWORD(v132) = 0;
+      LODWORD(v131[0]) = -65535;
+      v5 = OUTLINED_FUNCTION_128();
+      push_ptr_init(v5, v6);
+      push_ptr_init(v1, v129);
+      v7 = OUTLINED_FUNCTION_107();
+      push_ptr_init(v7, v8);
+      v9 = OUTLINED_FUNCTION_87_1();
+      push_ptr_init(v9, v10);
+      v11 = OUTLINED_FUNCTION_86_1();
+      push_ptr_init(v11, v12);
+      WORD2(v126) = 0;
+      LODWORD(v126) = 0;
+      LODWORD(v124) = -65535;
+      v13 = OUTLINED_FUNCTION_73_1();
+      fence_16(v13, v14, v15);
       OUTLINED_FUNCTION_99_0();
-      if (!v15)
+      if (!v16)
       {
-        v18 = 0;
-LABEL_7:
+        LODWORD(v18) = 0;
+LABEL_6:
         v19 = OUTLINED_FUNCTION_71_1();
         starttest(v19, v20);
         v21 = OUTLINED_FUNCTION_55_1();
-        if (!lpta_loadp_setscan_l(v21, v22))
+        if (!lpta_loadp_setscan_l(v21, v22, 1))
         {
-LABEL_8:
-          savescptr(v0, 3, v113);
+LABEL_7:
+          savescptr(v1, 3, v127);
           OUTLINED_FUNCTION_64_1();
           bspush_ca_scan_boa();
           v23 = OUTLINED_FUNCTION_51_1();
-          if (!testFldeq(v23, v24, 3, 1) && !advance_tok(v0))
+          if (!testFldeq(v23, v24, 3, 1) && !advance_tok(v1, v25, v26, v27))
           {
-            v18 = 1;
+            LODWORD(v18) = 1;
           }
 
-          v25 = v18;
+          LODWORD(v28) = v18;
           while (1)
           {
-LABEL_12:
-            v26 = *(v0 + 104);
-            if (v26)
+LABEL_11:
+            v29 = *(v1 + 104);
+            if (v29)
             {
-              v27 = OUTLINED_FUNCTION_65_1(v26);
+              v30 = OUTLINED_FUNCTION_65_1(v29);
               v18 = v28;
             }
 
             else
             {
-              v27 = vback(v0, v25);
+              v30 = vback(v1, v28);
               v18 = 0;
             }
 
-            switch(v27)
+            switch(v30)
             {
               case 1:
-                goto LABEL_7;
+                goto LABEL_6;
               case 3:
-                goto LABEL_8;
+                goto LABEL_7;
               case 4:
-                bspop_boa(v0);
-                v29 = OUTLINED_FUNCTION_53_1();
-                v31 = lpta_loadp_setscan_r(v29, v30);
-                v25 = v18;
-                if (v31)
+                bspop_boa(v1);
+                v33 = OUTLINED_FUNCTION_53_1();
+                v36 = lpta_loadp_setscan_r(v33, v34, v35);
+                LODWORD(v28) = v18;
+                if (v36)
                 {
                   continue;
                 }
 
-                v32 = OUTLINED_FUNCTION_22_8();
-                bspush_ca_scan(v32, v33);
-                v34 = OUTLINED_FUNCTION_36_2();
-                bspush_ca_scan(v34, v35);
-                goto LABEL_29;
+                v37 = OUTLINED_FUNCTION_22_8();
+                bspush_ca_scan(v37, v38);
+                v39 = OUTLINED_FUNCTION_36_2();
+                bspush_ca_scan(v39, v40);
+                goto LABEL_28;
               case 5:
-                goto LABEL_30;
+                goto LABEL_29;
               case 6:
-LABEL_29:
+LABEL_28:
                 OUTLINED_FUNCTION_4_14();
-                v64 = test_string_s();
-                v25 = v18;
-                if (v64)
-                {
-                  continue;
-                }
-
-LABEL_30:
-                v65 = OUTLINED_FUNCTION_27_6();
-                bspush_ca_scan(v65, v66);
-                v67 = OUTLINED_FUNCTION_1_15();
-                v71 = testFldeq(v67, v68, v69, v70);
-                v25 = v18;
-                if (v71)
-                {
-                  continue;
-                }
-
-                v72 = advance_tok(v0);
-                v25 = v18;
+                v72 = test_string_s();
+                LODWORD(v28) = v18;
                 if (v72)
                 {
                   continue;
                 }
 
-LABEL_32:
-                savescptr(v0, 8, v116);
-                OUTLINED_FUNCTION_4_14();
-                v73 = test_string_s();
-                v25 = v18;
-                if (v73)
+LABEL_29:
+                v73 = OUTLINED_FUNCTION_27_6();
+                bspush_ca_scan(v73, v74);
+                v75 = OUTLINED_FUNCTION_1_15();
+                v79 = testFldeq(v75, v76, v77, v78);
+                LODWORD(v28) = v18;
+                if (v79)
                 {
                   continue;
                 }
 
-LABEL_33:
-                savescptr(v0, 7, v115);
-                v74 = OUTLINED_FUNCTION_37_2();
-                bspush_ca_scan(v74, v75);
-LABEL_34:
-                OUTLINED_FUNCTION_4_14();
-                v76 = test_string_s();
-                v25 = v18;
-                if (v76)
-                {
-                  continue;
-                }
-
-LABEL_35:
-                v77 = savetok(v0, v117);
-                v25 = v18;
-                if (v77)
-                {
-                  continue;
-                }
-
-LABEL_46:
-                while (1)
-                {
-                  v96 = OUTLINED_FUNCTION_40_1();
-                  bspush_ca_scan(v96, v97);
-                  v44 = OUTLINED_FUNCTION_1_15();
-LABEL_47:
-                  v98 = testFldeq(v44, v45, v46, v47);
-                  v25 = v18;
-                  if (v98)
-                  {
-                    goto LABEL_12;
-                  }
-
-LABEL_48:
-                  v99 = advance_tok(v0);
-                  v25 = v18;
-                  if (v99)
-                  {
-                    goto LABEL_12;
-                  }
-
-                  v100 = OUTLINED_FUNCTION_41_1();
-                  bspush_ca_scan(v100, v101);
-                }
-
-              case 7:
-                goto LABEL_33;
-              case 8:
-                goto LABEL_32;
-              case 9:
-                goto LABEL_34;
-              case 10:
-                goto LABEL_35;
-              case 11:
-                v50 = OUTLINED_FUNCTION_32_3();
-                bspush_ca_scan(v50, v51);
-                v44 = OUTLINED_FUNCTION_3_15();
-                goto LABEL_47;
-              case 12:
-                goto LABEL_48;
-              case 13:
-                v78 = OUTLINED_FUNCTION_33_3();
-                bspush_ca_scan(v78, v79);
-                v44 = OUTLINED_FUNCTION_6_14();
-                v47 = 75;
-                goto LABEL_47;
-              case 14:
-                v42 = OUTLINED_FUNCTION_46_1();
-                bspush_ca_scan(v42, v43);
-                v44 = OUTLINED_FUNCTION_6_14();
-                v47 = 63;
-                goto LABEL_47;
-              case 15:
-                v44 = OUTLINED_FUNCTION_6_14();
-                v47 = 65;
-                goto LABEL_47;
-              case 16:
-                v80 = OUTLINED_FUNCTION_52_1();
-                bspush_ca_scan(v80, v81);
-                v82 = advance_tok(v0);
-                v25 = v18;
+                v82 = advance_tok(v1, v18, v80, v81);
+                LODWORD(v28) = v18;
                 if (v82)
                 {
                   continue;
                 }
 
-                v83 = OUTLINED_FUNCTION_66_1();
-                v85 = savetok(v83, v84);
-                v25 = v18;
-                if (v85)
+LABEL_31:
+                savescptr(v1, 8, v130);
+                OUTLINED_FUNCTION_4_14();
+                v83 = test_string_s();
+                LODWORD(v28) = v18;
+                if (v83)
                 {
                   continue;
                 }
 
-                v86 = OUTLINED_FUNCTION_83_1();
-                v89 = testeq_tvars(v86, v87, v88);
-                v25 = v18;
-                if (v89)
+LABEL_32:
+                savescptr(v1, 7, v129);
+                v84 = OUTLINED_FUNCTION_37_2();
+                bspush_ca_scan(v84, v85);
+LABEL_33:
+                OUTLINED_FUNCTION_4_14();
+                v86 = test_string_s();
+                LODWORD(v28) = v18;
+                if (v86)
                 {
                   continue;
                 }
 
-                goto LABEL_41;
-              case 17:
+LABEL_34:
+                v87 = savetok(v1, v131);
+                LODWORD(v28) = v18;
+                if (v87)
+                {
+                  continue;
+                }
+
+LABEL_45:
+                while (1)
+                {
+                  v109 = OUTLINED_FUNCTION_40_1();
+                  bspush_ca_scan(v109, v110);
+                  v49 = OUTLINED_FUNCTION_1_15();
+LABEL_46:
+                  v111 = testFldeq(v49, v50, v51, v52);
+                  v28 = v18;
+                  if (v111)
+                  {
+                    goto LABEL_11;
+                  }
+
+LABEL_47:
+                  v112 = advance_tok(v1, v28, v31, v32);
+                  LODWORD(v28) = v18;
+                  if (v112)
+                  {
+                    goto LABEL_11;
+                  }
+
+                  v113 = OUTLINED_FUNCTION_41_1();
+                  bspush_ca_scan(v113, v114);
+                }
+
+              case 7:
+                goto LABEL_32;
+              case 8:
+                goto LABEL_31;
+              case 9:
+                goto LABEL_33;
+              case 10:
+                goto LABEL_34;
+              case 11:
+                v55 = OUTLINED_FUNCTION_32_3();
+                bspush_ca_scan(v55, v56);
+                v49 = OUTLINED_FUNCTION_3_15();
                 goto LABEL_46;
+              case 12:
+                goto LABEL_47;
+              case 13:
+                v88 = OUTLINED_FUNCTION_33_3();
+                bspush_ca_scan(v88, v89);
+                v49 = OUTLINED_FUNCTION_6_14();
+                v52 = 75;
+                goto LABEL_46;
+              case 14:
+                v47 = OUTLINED_FUNCTION_46_1();
+                bspush_ca_scan(v47, v48);
+                v49 = OUTLINED_FUNCTION_6_14();
+                v52 = 63;
+                goto LABEL_46;
+              case 15:
+                v49 = OUTLINED_FUNCTION_6_14();
+                v52 = 65;
+                goto LABEL_46;
+              case 16:
+                v90 = OUTLINED_FUNCTION_52_1();
+                bspush_ca_scan(v90, v91);
+                v95 = advance_tok(v1, v92, v93, v94);
+                LODWORD(v28) = v18;
+                if (v95)
+                {
+                  continue;
+                }
+
+                v96 = OUTLINED_FUNCTION_66_1();
+                v98 = savetok(v96, v97);
+                LODWORD(v28) = v18;
+                if (v98)
+                {
+                  continue;
+                }
+
+                v99 = OUTLINED_FUNCTION_83_1();
+                v102 = testeq_tvars(v99, v100, v101);
+                LODWORD(v28) = v18;
+                if (v102)
+                {
+                  continue;
+                }
+
+                goto LABEL_40;
+              case 17:
+                goto LABEL_45;
               case 18:
-                goto LABEL_42;
+                goto LABEL_41;
               case 19:
-LABEL_41:
-                savescptr(v0, 19, v114);
-                goto LABEL_42;
+LABEL_40:
+                savescptr(v1, 19, v128);
+                goto LABEL_41;
               case 20:
-                v48 = OUTLINED_FUNCTION_52_1();
-                bspush_ca_scan(v48, v49);
-                v38 = OUTLINED_FUNCTION_3_15();
-                goto LABEL_43;
+                v53 = OUTLINED_FUNCTION_52_1();
+                bspush_ca_scan(v53, v54);
+                v43 = OUTLINED_FUNCTION_3_15();
+                goto LABEL_42;
               case 21:
-                goto LABEL_44;
+                goto LABEL_43;
               case 22:
-                v36 = OUTLINED_FUNCTION_52_1();
-                bspush_ca_scan(v36, v37);
-                v38 = OUTLINED_FUNCTION_6_14();
-                v41 = 75;
-                goto LABEL_43;
+                v41 = OUTLINED_FUNCTION_52_1();
+                bspush_ca_scan(v41, v42);
+                v43 = OUTLINED_FUNCTION_6_14();
+                v46 = 75;
+                goto LABEL_42;
               case 23:
-                v62 = OUTLINED_FUNCTION_52_1();
-                bspush_ca_scan(v62, v63);
-                v38 = OUTLINED_FUNCTION_6_14();
-                v41 = 63;
-                goto LABEL_43;
+                v70 = OUTLINED_FUNCTION_52_1();
+                bspush_ca_scan(v70, v71);
+                v43 = OUTLINED_FUNCTION_6_14();
+                v46 = 63;
+                goto LABEL_42;
               case 24:
-                v38 = OUTLINED_FUNCTION_6_14();
-                v41 = 65;
-                goto LABEL_43;
+                v43 = OUTLINED_FUNCTION_6_14();
+                v46 = 65;
+                goto LABEL_42;
               case 25:
-                v52 = OUTLINED_FUNCTION_49_1();
-                bspush_ca_scan(v52, v53);
-                v54 = advance_tok(v0);
-                v25 = v18;
-                if (v54)
+                v57 = OUTLINED_FUNCTION_49_1();
+                bspush_ca_scan(v57, v58);
+                v62 = advance_tok(v1, v59, v60, v61);
+                LODWORD(v28) = v18;
+                if (v62)
                 {
                   continue;
                 }
 
-                v55 = OUTLINED_FUNCTION_66_1();
-                v57 = savetok(v55, v56);
-                v25 = v18;
-                if (v57)
+                v63 = OUTLINED_FUNCTION_66_1();
+                v65 = savetok(v63, v64);
+                LODWORD(v28) = v18;
+                if (v65)
                 {
                   continue;
                 }
 
-                v58 = OUTLINED_FUNCTION_83_1();
-                v61 = testeq_tvars(v58, v59, v60);
-                v25 = v18;
-                if (v61)
+                v66 = OUTLINED_FUNCTION_83_1();
+                v69 = testeq_tvars(v66, v67, v68);
+                LODWORD(v28) = v18;
+                if (v69)
                 {
                   continue;
                 }
@@ -4796,69 +3740,68 @@ LABEL_41:
               case 26:
                 break;
               case 27:
-                v102 = OUTLINED_FUNCTION_120();
-                savescptr(v102, v103, v104);
-                v105 = OUTLINED_FUNCTION_128();
-                lpta_loadpn(v105, v106);
+                v115 = OUTLINED_FUNCTION_120();
+                savescptr(v115, v116, v117);
+                v118 = OUTLINED_FUNCTION_128();
+                lpta_loadpn(v118, v119);
                 OUTLINED_FUNCTION_150();
-                if (compare_ptas(v0) || testneq(v0))
+                if (compare_ptas(v1) || testneq(v1))
                 {
-                  goto LABEL_52;
+                  goto LABEL_51;
                 }
 
                 OUTLINED_FUNCTION_155();
                 char_name();
-                goto LABEL_56;
+                goto LABEL_55;
               case 28:
-LABEL_52:
-                v107 = OUTLINED_FUNCTION_107();
-                lpta_loadpn(v107, v108);
+LABEL_51:
+                v120 = OUTLINED_FUNCTION_107();
+                lpta_loadpn(v120, v121);
                 OUTLINED_FUNCTION_150();
-                if (!compare_ptas(v0) && !testneq(v0))
+                if (!compare_ptas(v1) && !testneq(v1))
                 {
-                  goto LABEL_56;
+                  goto LABEL_55;
                 }
 
                 goto LABEL_5;
               case 29:
               case 30:
               case 32:
-LABEL_56:
-                *(v0 + 2726) = *(v0 + 2730);
-                OUTLINED_FUNCTION_120();
-                process_pathname();
-                goto LABEL_57;
+LABEL_55:
+                *(v1 + 2726) = *(v1 + 2730);
+                v122 = OUTLINED_FUNCTION_120();
+                process_pathname(v122);
+                goto LABEL_56;
               case 33:
-LABEL_57:
-                vretproc(v0);
-                result = 0;
-                goto LABEL_6;
+LABEL_56:
+                vretproc(v1);
+                return 0;
               default:
                 goto LABEL_5;
             }
 
             while (1)
             {
-              v94 = OUTLINED_FUNCTION_52_1();
-              bspush_ca_scan(v94, v95);
+              v107 = OUTLINED_FUNCTION_52_1();
+              bspush_ca_scan(v107, v108);
+LABEL_41:
+              v103 = OUTLINED_FUNCTION_52_1();
+              bspush_ca_scan(v103, v104);
+              v43 = OUTLINED_FUNCTION_1_15();
 LABEL_42:
-              v90 = OUTLINED_FUNCTION_52_1();
-              bspush_ca_scan(v90, v91);
-              v38 = OUTLINED_FUNCTION_1_15();
-LABEL_43:
-              v92 = testFldeq(v38, v39, v40, v41);
-              v25 = v18;
-              if (v92)
+              v105 = testFldeq(v43, v44, v45, v46);
+              v28 = v18;
+              if (v105)
               {
                 break;
               }
 
-LABEL_44:
-              v93 = advance_tok(v0);
-              v25 = v18;
-              if (v93)
+LABEL_43:
+              v106 = advance_tok(v1, v28, v31, v32);
+              LODWORD(v28) = v18;
+              if (v106)
               {
-                goto LABEL_12;
+                goto LABEL_11;
               }
             }
           }
@@ -4868,54 +3811,27 @@ LABEL_44:
   }
 
 LABEL_5:
-  vretproc(v0);
-  result = 94;
-LABEL_6:
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
+  vretproc(v1);
+  return 94;
 }
 
-uint64_t letter_sequence()
+uint64_t letter_sequence(uint64_t a1)
 {
   OUTLINED_FUNCTION_11_14();
-  v144 = *MEMORY[0x277D85DE8];
-  v131 = 0;
-  v132 = 0;
-  v129 = 0;
-  v130 = 0;
-  OUTLINED_FUNCTION_10_14(v2, v3, v4, v5, v6, v7, v8, v9, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118, v119, v120, v121, v122, v123, v124, v125, v126, v127, v128);
+  v165 = *MEMORY[0x277D85DE8];
+  v152 = 0;
+  v153 = 0;
+  v150 = 0;
+  v151 = 0;
+  OUTLINED_FUNCTION_10_14(v3, v4, v5, v6, v7, v8, v9, v10, v125, v126, v127, v128, v129, v130, v131, v132, v133, v134, v135, v136, v137, v138, v139, v140, v141, v142, v143, v144, v145, v146, v147, v148[0], v148[1], v148[2], v149);
   OUTLINED_FUNCTION_57_1();
-  bzero(v143, v10);
-  v11 = setjmp(v143);
-  if (v11)
-  {
-    goto LABEL_6;
-  }
-
-  if (OUTLINED_FUNCTION_89_1(v11, &v102, v12, v13, v14, v15, v16, v17, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118, v119, v120, v121, v122, v123, v124, v125, v126, v127, v128, v129, v130, v131, v132, v133, v134, v135, v136, v137, v138, v139, v140, v141, v142, v143[0]))
-  {
-    goto LABEL_6;
-  }
-
-  v18 = OUTLINED_FUNCTION_72_1();
-  get_parm(v18, v19, v20, -6);
-  v21 = OUTLINED_FUNCTION_56_1();
-  OUTLINED_FUNCTION_126(v21, v22);
-  v23 = OUTLINED_FUNCTION_67_1();
-  push_ptr_init(v23, v24);
-  v25 = OUTLINED_FUNCTION_66_1();
-  push_ptr_init(v25, v26);
-  fence_16(v0, 0, &_MergedGlobals_1_0);
-  v128 = *(v0 + 3352);
-  v27 = OUTLINED_FUNCTION_42_1();
-  starttest(v27, v28);
-  v29 = *(v0 + 5114);
-  OUTLINED_FUNCTION_170();
-  if (v31 || *(v0 + 5118) == v30 || (v32 = OUTLINED_FUNCTION_28_5(), lpta_loadp_setscan_r(v32, v33)))
+  bzero(v164, v11);
+  v12 = setjmp(v164);
+  if (v12 || OUTLINED_FUNCTION_89_1(v12, &v125, v13, v14, v15, v16, v17, v18, v125, v126, v127, v128, v129, v130, v131, v132, v133, v134, v135, v136, v137, v138, v139, v140, v141, v142, v143, v144, v145, v146, v147, v148[0], v148[1], v148[2], v149, v150, v151, v152, v153, v154, v155, v156, v157, v158, v159, v160, v161, v162, v163, v164[0]) || (v19 = OUTLINED_FUNCTION_72_1(), get_parm(v19, v20, v21, -6), v22 = OUTLINED_FUNCTION_56_1(), OUTLINED_FUNCTION_126(v22, v23), v24 = OUTLINED_FUNCTION_67_1(), push_ptr_init(v24, v25), v26 = OUTLINED_FUNCTION_66_1(), push_ptr_init(v26, v27), fence_16(v1, 0, &_MergedGlobals_1_0), v149 = *(v1 + 3352), v28 = OUTLINED_FUNCTION_42_1(), starttest(v28, v29), OUTLINED_FUNCTION_170(), v31) || *(v1 + 5118) == v30 || (v32 = OUTLINED_FUNCTION_28_5(), lpta_loadp_setscan_r(v32, v33, v34)))
   {
 LABEL_6:
-    vretproc(v0);
-    result = 94;
+    vretproc(v1);
+    return 94;
   }
 
   else
@@ -4927,333 +3843,329 @@ LABEL_6:
       while (1)
       {
         v37 = OUTLINED_FUNCTION_1_15();
-        if (testFldeq(v37, v38, v39, v40) || advance_tok(v0))
+        if (testFldeq(v37, v38, v39, v40) || advance_tok(v1, v41, v42, v43))
         {
           break;
         }
 
-        v41 = OUTLINED_FUNCTION_54_1();
-        bspush_ca_scan(v41, v42);
+        v44 = OUTLINED_FUNCTION_54_1();
+        bspush_ca_scan(v44, v45);
       }
 
-      v43 = v36;
-LABEL_13:
-      v44 = *(v0 + 104);
-      if (v44)
+      v46 = v36;
+LABEL_12:
+      v47 = *(v1 + 104);
+      if (v47)
       {
-        v45 = OUTLINED_FUNCTION_65_1(v44);
-        v47 = v46;
+        v48 = OUTLINED_FUNCTION_65_1(v47);
+        v50 = v49;
       }
 
       else
       {
-        v45 = vback(v0, v43);
-        v47 = 0;
+        v48 = vback(v1, v46);
+        v50 = 0;
       }
 
-      v48 = 1;
-      switch(v45)
+      v51 = 1;
+      switch(v48)
       {
         case 2:
           OUTLINED_FUNCTION_75_1();
-          v49 = OUTLINED_FUNCTION_90_1();
-          savescptr(v49, v50, v51);
-          goto LABEL_18;
+          v52 = OUTLINED_FUNCTION_90_1();
+          savescptr(v52, v53, v54);
+          goto LABEL_17;
         case 3:
-          v36 = v47;
+          v36 = v50;
           continue;
         case 4:
-LABEL_18:
-          *(v0 + 2614) = *(v0 + 2634);
-          OUTLINED_FUNCTION_56_1();
-          process_final_parenthetical();
-          goto LABEL_19;
+LABEL_17:
+          *(v1 + 2614) = *(v1 + 2634);
+          v55 = OUTLINED_FUNCTION_56_1();
+          process_final_parenthetical(v55, v56, v56);
+          goto LABEL_18;
         case 5:
-LABEL_19:
-          OUTLINED_FUNCTION_23_8();
-          process_final_apostrophe();
-          goto LABEL_20;
+LABEL_18:
+          v57 = OUTLINED_FUNCTION_23_8();
+          process_final_apostrophe(v57, v58, v59);
+          goto LABEL_19;
         case 6:
-LABEL_20:
-          v52 = OUTLINED_FUNCTION_27_6();
-          starttest(v52, v53);
-          v54 = OUTLINED_FUNCTION_38_2();
-          bspush_ca(v54);
-          v55 = *(v0 + 5094);
-          goto LABEL_37;
+LABEL_19:
+          v60 = OUTLINED_FUNCTION_27_6();
+          starttest(v60, v61);
+          v62 = OUTLINED_FUNCTION_38_2();
+          bspush_ca(v62);
+          v63 = *(v1 + 5094);
+          goto LABEL_36;
         case 7:
-          v76 = OUTLINED_FUNCTION_41_1();
-          starttest(v76, v77);
-          v78 = OUTLINED_FUNCTION_28_5();
-          if (lpta_loadp_setscan_r(v78, v79))
+          v91 = OUTLINED_FUNCTION_41_1();
+          starttest(v91, v92);
+          v93 = OUTLINED_FUNCTION_28_5();
+          if (lpta_loadp_setscan_r(v93, v94, v95))
           {
-            goto LABEL_41;
+            goto LABEL_40;
           }
 
-          bspush_boa(v0);
-          goto LABEL_62;
+          bspush_boa(v1);
+          goto LABEL_61;
         case 8:
-          v72 = OUTLINED_FUNCTION_45_1();
-          bspush_ca(v72);
-          v55 = *(v0 + 5130);
-          goto LABEL_37;
+          v87 = OUTLINED_FUNCTION_45_1();
+          bspush_ca(v87);
+          v63 = *(v1 + 5130);
+          goto LABEL_36;
         case 9:
-          goto LABEL_38;
+          goto LABEL_37;
         case 10:
-          v74 = OUTLINED_FUNCTION_40_1();
-          bspush_ca(v74);
-          v55 = *(v0 + 5102);
-          goto LABEL_37;
+          v89 = OUTLINED_FUNCTION_40_1();
+          bspush_ca(v89);
+          v63 = *(v1 + 5102);
+          goto LABEL_36;
         case 11:
-          v73 = OUTLINED_FUNCTION_35_2();
-          bspush_ca(v73);
-          v55 = *(v0 + 5106);
-          goto LABEL_37;
+          v88 = OUTLINED_FUNCTION_35_2();
+          bspush_ca(v88);
+          v63 = *(v1 + 5106);
+          goto LABEL_36;
         case 12:
-          v69 = OUTLINED_FUNCTION_32_3();
-          bspush_ca(v69);
-          v55 = *(v0 + 5110);
-          goto LABEL_37;
+          v82 = OUTLINED_FUNCTION_32_3();
+          bspush_ca(v82);
+          v63 = *(v1 + 5110);
+          goto LABEL_36;
         case 13:
-          v67 = OUTLINED_FUNCTION_33_3();
-          bspush_ca(v67);
-          v55 = *(v0 + 5122);
-          goto LABEL_37;
+          v80 = OUTLINED_FUNCTION_33_3();
+          bspush_ca(v80);
+          v63 = *(v1 + 5122);
+          goto LABEL_36;
         case 14:
-          v55 = *(v0 + 5098);
+          v63 = *(v1 + 5098);
+LABEL_36:
+          v46 = v50;
+          if (v63 != *(v1 + 5090))
+          {
+            goto LABEL_12;
+          }
+
 LABEL_37:
-          v43 = v47;
-          if (v55 != *(v0 + 5090))
-          {
-            goto LABEL_13;
-          }
-
-LABEL_38:
           OUTLINED_FUNCTION_23_8();
-          v75 = monetary_exp();
-          v43 = v47;
-          if (!v75)
-          {
-            goto LABEL_69;
-          }
-
-          goto LABEL_13;
-        case 15:
-        case 19:
-          goto LABEL_69;
-        case 16:
-LABEL_41:
-          v80 = *(v0 + 5118);
-          OUTLINED_FUNCTION_88_1();
-          if (v31)
-          {
-            goto LABEL_43;
-          }
-
-          abbreviation();
-          if (v81)
-          {
-            goto LABEL_43;
-          }
-
-          goto LABEL_69;
-        case 17:
-          bspush_nboa(v0);
-          v56 = OUTLINED_FUNCTION_3_15();
-          v60 = testFldeq(v56, v57, v58, v59);
-          v43 = v47;
-          if (v60)
-          {
-            goto LABEL_13;
-          }
-
-          v61 = advance_tok(v0);
-          v43 = v47;
-          if (v61)
-          {
-            goto LABEL_13;
-          }
-
-          OUTLINED_FUNCTION_23_8();
-          spell_out_alphanum();
-          goto LABEL_69;
-        case 18:
-LABEL_62:
-          while (1)
-          {
-            v97 = OUTLINED_FUNCTION_4_14();
-            if (testFldeq(v97, v98, v99, 2) || advance_tok(v0))
-            {
-              break;
-            }
-
-            v100 = OUTLINED_FUNCTION_52_1();
-            bspush_ca_scan(v100, v101);
-          }
-
-          v43 = v47;
-          goto LABEL_13;
-        case 20:
-LABEL_43:
-          v82 = *(v0 + 5118);
-          OUTLINED_FUNCTION_88_1();
-          if (v31)
-          {
-            goto LABEL_47;
-          }
-
-          if (*(v0 + 2618) == 1)
-          {
-            reset_endptr();
-          }
-
-LABEL_46:
-          OUTLINED_FUNCTION_23_8();
-          convert_to_lowercase();
-LABEL_47:
-          v83 = OUTLINED_FUNCTION_52_1();
-          starttest(v83, v84);
-          v85 = OUTLINED_FUNCTION_52_1();
-          bspush_ca(v85);
-          v66 = *(v0 + 5102);
-LABEL_48:
-          v43 = v47;
-          if (v66 != *(v0 + 5090))
-          {
-            goto LABEL_13;
-          }
-
-LABEL_49:
-          OUTLINED_FUNCTION_23_8();
-          v86 = convert_roman_num();
-          v43 = v47;
-          if (!v86)
+          v90 = monetary_exp();
+          v46 = v50;
+          if (!v90)
           {
             goto LABEL_68;
           }
 
-          goto LABEL_13;
-        case 21:
-          goto LABEL_47;
-        case 22:
-          goto LABEL_46;
-        case 23:
-          v87 = *(v0 + 5118);
+          goto LABEL_12;
+        case 15:
+        case 19:
+          goto LABEL_68;
+        case 16:
+LABEL_40:
           OUTLINED_FUNCTION_88_1();
           if (v31)
           {
-            goto LABEL_54;
+            goto LABEL_42;
           }
 
-          OUTLINED_FUNCTION_23_8();
-          acronym();
-          if (v88)
+          abbreviation(v1, &v152, &v150, v148);
+          if (v96)
           {
-            goto LABEL_54;
-          }
-
-          goto LABEL_68;
-        case 24:
-          v65 = OUTLINED_FUNCTION_49_1();
-          bspush_ca(v65);
-          v66 = *(v0 + 5110);
-          goto LABEL_48;
-        case 25:
-          goto LABEL_49;
-        case 26:
-          v68 = OUTLINED_FUNCTION_52_1();
-          bspush_ca(v68);
-          v66 = *(v0 + 5122);
-          goto LABEL_48;
-        case 27:
-          v66 = *(v0 + 5098);
-          goto LABEL_48;
-        case 28:
-        case 36:
-          goto LABEL_68;
-        case 29:
-LABEL_54:
-          OUTLINED_FUNCTION_23_8();
-          if (single_letter())
-          {
-            goto LABEL_55;
+            goto LABEL_42;
           }
 
           goto LABEL_68;
-        case 30:
-LABEL_55:
-          v89 = OUTLINED_FUNCTION_52_1();
-          starttest(v89, v90);
-          v91 = *(v0 + 5114);
-          OUTLINED_FUNCTION_170();
-          if (!v31 && *(v0 + 5118) != v92)
+        case 17:
+          bspush_nboa(v1);
+          v64 = OUTLINED_FUNCTION_3_15();
+          v68 = testFldeq(v64, v65, v66, v67);
+          v46 = v50;
+          if (v68)
           {
-            v93 = OUTLINED_FUNCTION_85_1();
-            if (!lpta_loadp_setscan_r(v93, v94))
+            goto LABEL_12;
+          }
+
+          v71 = advance_tok(v1, v50, v69, v70);
+          v46 = v50;
+          if (v71)
+          {
+            goto LABEL_12;
+          }
+
+          v124 = OUTLINED_FUNCTION_23_8();
+          spell_out_alphanum(v124);
+          goto LABEL_68;
+        case 18:
+LABEL_61:
+          while (1)
+          {
+            v114 = OUTLINED_FUNCTION_4_14();
+            if (testFldeq(v114, v115, v116, 2) || advance_tok(v1, v117, v118, v119))
             {
-              goto LABEL_58;
+              break;
             }
+
+            v120 = OUTLINED_FUNCTION_52_1();
+            bspush_ca_scan(v120, v121);
+          }
+
+          v46 = v50;
+          goto LABEL_12;
+        case 20:
+LABEL_42:
+          OUTLINED_FUNCTION_88_1();
+          if (v31)
+          {
+            goto LABEL_46;
+          }
+
+          if (*(v1 + 2618) == 1)
+          {
+            reset_endptr(v1, &v152, &v150, v1 + 2512);
+          }
+
+LABEL_45:
+          v97 = OUTLINED_FUNCTION_23_8();
+          convert_to_lowercase(v97);
+LABEL_46:
+          v98 = OUTLINED_FUNCTION_52_1();
+          starttest(v98, v99);
+          v100 = OUTLINED_FUNCTION_52_1();
+          bspush_ca(v100);
+          v79 = *(v1 + 5102);
+LABEL_47:
+          v46 = v50;
+          if (v79 != *(v1 + 5090))
+          {
+            goto LABEL_12;
+          }
+
+LABEL_48:
+          OUTLINED_FUNCTION_23_8();
+          v101 = convert_roman_num();
+          v46 = v50;
+          if (!v101)
+          {
+            goto LABEL_67;
+          }
+
+          goto LABEL_12;
+        case 21:
+          goto LABEL_46;
+        case 22:
+          goto LABEL_45;
+        case 23:
+          OUTLINED_FUNCTION_88_1();
+          if (v31)
+          {
+            goto LABEL_53;
+          }
+
+          v102 = OUTLINED_FUNCTION_23_8();
+          acronym(v102, v103, v104);
+          if (v105)
+          {
+            goto LABEL_53;
           }
 
           goto LABEL_67;
-        case 31:
-LABEL_67:
-          *(v0 + 2670) = *(v0 + 2694);
-          goto LABEL_68;
-        case 32:
-          bspop_boa(v0);
-          v48 = 3;
-          goto LABEL_58;
-        case 33:
-          bspop_boa(v0);
-          v62 = advance_tok(v0);
-          v43 = v47;
-          if (v62)
+        case 24:
+          v78 = OUTLINED_FUNCTION_49_1();
+          bspush_ca(v78);
+          v79 = *(v1 + 5110);
+          goto LABEL_47;
+        case 25:
+          goto LABEL_48;
+        case 26:
+          v81 = OUTLINED_FUNCTION_52_1();
+          bspush_ca(v81);
+          v79 = *(v1 + 5122);
+          goto LABEL_47;
+        case 27:
+          v79 = *(v1 + 5098);
+          goto LABEL_47;
+        case 28:
+        case 36:
+          goto LABEL_67;
+        case 29:
+LABEL_53:
+          v106 = OUTLINED_FUNCTION_23_8();
+          if (single_letter(v106))
           {
-            goto LABEL_13;
+            goto LABEL_54;
           }
 
-          v63 = OUTLINED_FUNCTION_52_1();
-          bspush_ca_scan(v63, v64);
-          goto LABEL_58;
+          goto LABEL_67;
+        case 30:
+LABEL_54:
+          v107 = OUTLINED_FUNCTION_52_1();
+          starttest(v107, v108);
+          OUTLINED_FUNCTION_170();
+          if (!v31 && *(v1 + 5118) != v109)
+          {
+            v110 = OUTLINED_FUNCTION_85_1();
+            if (!lpta_loadp_setscan_r(v110, v111, 1))
+            {
+              goto LABEL_57;
+            }
+          }
+
+          goto LABEL_66;
+        case 31:
+LABEL_66:
+          *(v1 + 2670) = *(v1 + 2694);
+          goto LABEL_67;
+        case 32:
+          bspop_boa(v1);
+          v51 = 3;
+          goto LABEL_57;
+        case 33:
+          bspop_boa(v1);
+          v75 = advance_tok(v1, v72, v73, v74);
+          v46 = v50;
+          if (v75)
+          {
+            goto LABEL_12;
+          }
+
+          v76 = OUTLINED_FUNCTION_52_1();
+          bspush_ca_scan(v76, v77);
+          goto LABEL_57;
         case 34:
           OUTLINED_FUNCTION_98_0();
-          v70 = OUTLINED_FUNCTION_12_14();
-          v71 = test_ptr(v70);
-          v43 = v47;
-          if (v71)
+          v83 = OUTLINED_FUNCTION_12_14();
+          v86 = test_ptr(v83, v84, v85);
+          v46 = v50;
+          if (v86)
           {
-            goto LABEL_13;
+            goto LABEL_12;
           }
 
-          OUTLINED_FUNCTION_23_8();
-          spell_out_sequence();
-LABEL_68:
+          v123 = OUTLINED_FUNCTION_23_8();
+          spell_out_sequence(v123);
+LABEL_67:
           OUTLINED_FUNCTION_23_8();
           normalize_letters();
-LABEL_69:
-          OUTLINED_FUNCTION_56_1();
-          separate_tokens();
-          goto LABEL_70;
+LABEL_68:
+          v122 = OUTLINED_FUNCTION_56_1();
+          separate_tokens(v122);
+          goto LABEL_69;
         case 35:
-LABEL_58:
+LABEL_57:
           bspush_ca_scan_boa();
-          v95 = OUTLINED_FUNCTION_51_1();
-          if (testFldeq(v95, v96, 4, v48))
+          v112 = OUTLINED_FUNCTION_51_1();
+          if (testFldeq(v112, v113, 4, v51))
           {
-            v43 = v47;
+            v46 = v50;
           }
 
           else
           {
-            v43 = 1;
+            v46 = 1;
           }
 
-          goto LABEL_13;
+          goto LABEL_12;
         case 37:
-LABEL_70:
-          *(v1 + 8) = v132;
-          OUTLINED_FUNCTION_137(v130);
+LABEL_69:
+          *(v2 + 8) = v153;
+          OUTLINED_FUNCTION_137(v151);
           result = 0;
           break;
         default:
@@ -5264,96 +4176,76 @@ LABEL_70:
     }
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void hyphen()
+void hyphen(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_114();
   OUTLINED_FUNCTION_11_14();
-  v77 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_48_1();
   OUTLINED_FUNCTION_58_1();
-  bzero(v60, v1);
+  bzero(v69, v4);
   OUTLINED_FUNCTION_57_1();
-  bzero(v76, v2);
-  v3 = setjmp(v76);
-  if (v3)
-  {
-    goto LABEL_4;
-  }
-
-  if (OUTLINED_FUNCTION_69_1(v3, v60, v4, v5, v6, v7, v8, v9, v57, v58, v59, v60[0], v60[1], v60[2], v60[3], v60[4], v60[5], v60[6], v60[7], v60[8], v60[9], v60[10], v60[11], v60[12], v60[13], v60[14], v60[15], v60[16], v60[17], v60[18], v60[19], v60[20], v60[21], v60[22], v61[0], v61[1], v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76[0]))
-  {
-    goto LABEL_4;
-  }
-
-  v10 = OUTLINED_FUNCTION_13_14();
-  get_parm(v10, v11, v12, -6);
-  OUTLINED_FUNCTION_62_1(v13, &v62);
-  v14 = OUTLINED_FUNCTION_86_1();
-  push_ptr_init(v14, v15);
-  fence_16(v0, 0, &_MergedGlobals_1_0);
-  v16 = OUTLINED_FUNCTION_110();
-  starttest(v16, v17);
-  v18 = OUTLINED_FUNCTION_54_1();
-  if (lpta_loadp_setscan_r(v18, v19))
+  bzero(v74, v5);
+  v6 = setjmp(v74);
+  if (v6 || OUTLINED_FUNCTION_69_1(v6, v69, v7, v8, v9, v10, v11, v12, v66, v67, v68, v69[0], v69[1], v69[2], v69[3], v69[4], v69[5], v69[6], v69[7], v69[8], v69[9], v69[10], v69[11], v69[12], v69[13], v69[14], v69[15], v69[16], v69[17], v69[18], v69[19], v69[20], v69[21], v69[22], *v70, *&v70[8], *v71, v72, *v73, *&v73[8], *&v73[16], *&v73[20], *&v73[24], *&v73[28], *&v73[30], *&v73[32], *&v73[36], v73[38], v73[39], *&v73[40], v74[0]) || (v13 = OUTLINED_FUNCTION_13_14(), get_parm(v13, v14, v15, -6), OUTLINED_FUNCTION_62_1(v16, v71), v17 = OUTLINED_FUNCTION_86_1(), push_ptr_init(v17, v18), fence_16(v3, 0, &_MergedGlobals_1_0), v19 = OUTLINED_FUNCTION_110(), starttest(v19, v20), v21 = OUTLINED_FUNCTION_54_1(), lpta_loadp_setscan_r(v21, v22, 1)))
   {
 LABEL_4:
-    vretproc(v0);
+    vretproc(v3);
   }
 
   else
   {
-    v21 = 0;
+    v23 = 0;
     OUTLINED_FUNCTION_75_1();
     while (1)
     {
-      v23 = v22;
-      bspush_ca_scan(v0, v22);
+      v25 = v24;
+      bspush_ca_scan(v3, v24);
       OUTLINED_FUNCTION_24_8();
-      v24 = test_string_s();
-      v25 = v21;
-      v26 = v21;
-      if (v24)
+      v26 = test_string_s();
+      v27 = v23;
+      v28 = v23;
+      if (v26)
       {
         break;
       }
 
 LABEL_26:
-      v21 = v25;
-      v49 = OUTLINED_FUNCTION_111();
-      bspush_ca_scan(v49, v50);
+      v23 = v27;
+      v55 = OUTLINED_FUNCTION_111();
+      bspush_ca_scan(v55, v56);
 LABEL_27:
-      v22 = v23;
+      v24 = v25;
     }
 
     while (2)
     {
-      v27 = *(v0 + 104);
-      if (v27)
+      v29 = *(v3 + 104);
+      if (v29)
       {
-        v28 = OUTLINED_FUNCTION_65_1(v27);
-        v21 = v29;
+        v30 = OUTLINED_FUNCTION_65_1(v29);
+        v23 = v31;
       }
 
       else
       {
-        v28 = vback(v0, v26);
-        v21 = 0;
+        v30 = vback(v3, v28);
+        v23 = 0;
       }
 
-      v25 = v21;
-      switch(v28)
+      v27 = v23;
+      switch(v30)
       {
         case 2:
-          v30 = OUTLINED_FUNCTION_106();
-          bspush_ca_scan(v30, v31);
+          v32 = OUTLINED_FUNCTION_106();
+          bspush_ca_scan(v32, v33);
           OUTLINED_FUNCTION_24_8();
-          v32 = test_string_s();
-          v26 = v21;
-          if (v32)
+          v34 = test_string_s();
+          v28 = v23;
+          if (v34)
           {
             continue;
           }
@@ -5362,35 +4254,35 @@ LABEL_27:
         case 3:
           goto LABEL_26;
         case 4:
-          v44 = OUTLINED_FUNCTION_84_1();
-          bspush_ca_scan(v44, v45);
+          v50 = OUTLINED_FUNCTION_84_1();
+          bspush_ca_scan(v50, v51);
           OUTLINED_FUNCTION_24_8();
           goto LABEL_23;
         case 5:
 LABEL_25:
-          v47 = OUTLINED_FUNCTION_112();
-          savescptr(v47, v48, v61);
-          v25 = v21;
+          v53 = OUTLINED_FUNCTION_112();
+          savescptr(v53, v54, v70);
+          v27 = v23;
           goto LABEL_26;
         case 6:
           OUTLINED_FUNCTION_24_8();
 LABEL_23:
-          v46 = test_string_s();
-          v25 = v21;
-          v26 = v21;
-          if (!v46)
+          v52 = test_string_s();
+          v27 = v23;
+          v28 = v23;
+          if (!v52)
           {
             goto LABEL_26;
           }
 
           continue;
         case 7:
-          v33 = OUTLINED_FUNCTION_27_6();
-          savescptr(v33, v34, &v62);
-          v35 = OUTLINED_FUNCTION_156();
-          lpta_loadpn(v35, v36);
+          v35 = OUTLINED_FUNCTION_27_6();
+          savescptr(v35, v36, v71);
+          v37 = OUTLINED_FUNCTION_156();
+          lpta_loadpn(v37, v38);
           OUTLINED_FUNCTION_150();
-          if (compare_ptas(v0) || testneq(v0))
+          if (compare_ptas(v3) || testneq(v3))
           {
             goto LABEL_17;
           }
@@ -5400,29 +4292,29 @@ LABEL_23:
           goto LABEL_27;
         case 9:
 LABEL_17:
-          v37 = OUTLINED_FUNCTION_70_1();
-          starttest(v37, v38);
+          v39 = OUTLINED_FUNCTION_70_1();
+          starttest(v39, v40);
           OUTLINED_FUNCTION_74_1();
           bspush_ca_boa();
-          v39 = OUTLINED_FUNCTION_54_1();
-          v41 = lpta_loadp_setscan_r(v39, v40);
-          v26 = v21;
-          if (!v41)
+          v41 = OUTLINED_FUNCTION_54_1();
+          v43 = lpta_loadp_setscan_r(v41, v42, 1);
+          v28 = v23;
+          if (!v43)
           {
-            v42 = advance_tok(v0);
-            v26 = v21;
-            if (!v42)
+            v46 = advance_tok(v3, v23, v44, v45);
+            v28 = v23;
+            if (!v46)
             {
-              *(v0 + 136) = 1;
-              v43 = OUTLINED_FUNCTION_12_14();
-              if (test_ptr(v43))
+              *(v3 + 136) = 1;
+              v47 = OUTLINED_FUNCTION_12_14();
+              if (test_ptr(v47, v48, v49))
               {
-                v26 = v21;
+                v28 = v23;
               }
 
               else
               {
-                v26 = 1;
+                v28 = 1;
               }
             }
           }
@@ -5436,13 +4328,13 @@ LABEL_17:
           goto LABEL_37;
         case 12:
           OUTLINED_FUNCTION_79_1();
-          if (!v51)
+          if (!v58)
           {
             goto LABEL_34;
           }
 
-          v52 = OUTLINED_FUNCTION_53_1();
-          if (lpta_loadp_setscan_r(v52, v53))
+          v59 = OUTLINED_FUNCTION_53_1();
+          if (lpta_loadp_setscan_r(v59, v60, v61))
           {
             goto LABEL_34;
           }
@@ -5455,22 +4347,22 @@ LABEL_17:
 
           goto LABEL_35;
         case 13:
-          bspop_boa(v0);
+          bspop_boa(v3);
 LABEL_29:
-          OUTLINED_FUNCTION_101();
+          v57 = OUTLINED_FUNCTION_101();
           goto LABEL_36;
         case 15:
 LABEL_34:
-          OUTLINED_FUNCTION_101();
-          shortdash();
+          v62 = OUTLINED_FUNCTION_101();
+          shortdash(v62);
           break;
         case 16:
 LABEL_35:
-          v54 = OUTLINED_FUNCTION_72_1();
-          savescptr(v54, v55, v56);
-          OUTLINED_FUNCTION_72_1();
+          v63 = OUTLINED_FUNCTION_72_1();
+          savescptr(v63, v64, v65);
+          v57 = OUTLINED_FUNCTION_72_1();
 LABEL_36:
-          longdash();
+          longdash(v57);
           break;
         default:
           goto LABEL_4;
@@ -5480,50 +4372,29 @@ LABEL_36:
     }
 
 LABEL_37:
-    OUTLINED_FUNCTION_137(v63);
+    OUTLINED_FUNCTION_137(v72);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_113();
 }
 
-void slash()
+void slash(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_114();
   OUTLINED_FUNCTION_11_14();
-  v93 = *MEMORY[0x277D85DE8];
-  v80 = 0;
-  v81 = 0;
-  v78 = 0;
-  v79 = 0;
-  OUTLINED_FUNCTION_10_14(v1, v2, v3, v4, v5, v6, v7, v8, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77);
+  v111 = *MEMORY[0x277D85DE8];
+  v98 = 0;
+  v99 = 0;
+  v96 = 0;
+  v97 = 0;
+  OUTLINED_FUNCTION_10_14(v4, v5, v6, v7, v8, v9, v10, v11, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95);
   OUTLINED_FUNCTION_57_1();
-  bzero(v92, v9);
-  v10 = setjmp(v92);
-  if (v10)
-  {
-    goto LABEL_5;
-  }
-
-  if (OUTLINED_FUNCTION_89_1(v10, &v51, v11, v12, v13, v14, v15, v16, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92[0]))
-  {
-    goto LABEL_5;
-  }
-
-  v17 = OUTLINED_FUNCTION_13_14();
-  get_parm(v17, v18, v19, -6);
-  v20 = OUTLINED_FUNCTION_56_1();
-  OUTLINED_FUNCTION_126(v20, v21);
-  v22 = OUTLINED_FUNCTION_67_1();
-  push_ptr_init(v22, v23);
-  v24 = OUTLINED_FUNCTION_66_1();
-  push_ptr_init(v24, v25);
-  fence_16(v0, 0, &_MergedGlobals_1_0);
-  v26 = OUTLINED_FUNCTION_29_5();
-  if (lpta_loadp_setscan_r(v26, v27) || (OUTLINED_FUNCTION_4_14(), test_string_s()))
+  bzero(v110, v12);
+  v13 = setjmp(v110);
+  if (v13 || OUTLINED_FUNCTION_89_1(v13, &v69, v14, v15, v16, v17, v18, v19, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110[0]) || (v20 = OUTLINED_FUNCTION_13_14(), get_parm(v20, v21, v22, -6), v23 = OUTLINED_FUNCTION_56_1(), OUTLINED_FUNCTION_126(v23, v24), v25 = OUTLINED_FUNCTION_67_1(), push_ptr_init(v25, v26), v27 = OUTLINED_FUNCTION_66_1(), push_ptr_init(v27, v28), fence_16(v3, 0, &_MergedGlobals_1_0), v29 = OUTLINED_FUNCTION_29_5(), lpta_loadp_setscan_r(v29, v30, v31)) || (OUTLINED_FUNCTION_4_14(), test_string_s()))
   {
 LABEL_5:
-    vretproc(v0);
+    vretproc(v3);
   }
 
   else
@@ -5531,43 +4402,43 @@ LABEL_5:
     OUTLINED_FUNCTION_143();
     while (2)
     {
-      v29 = OUTLINED_FUNCTION_55_1();
-      savescptr(v29, v30, &v78);
+      v32 = OUTLINED_FUNCTION_55_1();
+      savescptr(v32, v33, &v96);
       OUTLINED_FUNCTION_99_0();
-      if (!v31)
+      if (!v34)
       {
 LABEL_9:
-        v32 = OUTLINED_FUNCTION_70_1();
-        starttest(v32, v33);
-        v34 = OUTLINED_FUNCTION_29_5();
-        if (!lpta_loadp_setscan_r(v34, v35))
+        v35 = OUTLINED_FUNCTION_70_1();
+        starttest(v35, v36);
+        v37 = OUTLINED_FUNCTION_29_5();
+        if (!lpta_loadp_setscan_r(v37, v38, v39))
         {
 LABEL_10:
           while (1)
           {
-            v36 = OUTLINED_FUNCTION_1_15();
-            if (testFldeq(v36, v37, v38, v39) || advance_tok(v0))
+            v40 = OUTLINED_FUNCTION_1_15();
+            if (testFldeq(v40, v41, v42, v43) || advance_tok(v3, v44, v45, v46))
             {
               break;
             }
 
-            v42 = OUTLINED_FUNCTION_64_1();
-            bspush_ca_scan(v42, v43);
+            v50 = OUTLINED_FUNCTION_64_1();
+            bspush_ca_scan(v50, v51);
           }
 
 LABEL_12:
-          v40 = *(v0 + 104);
-          if (v40)
+          v47 = *(v3 + 104);
+          if (v47)
           {
-            v41 = OUTLINED_FUNCTION_65_1(v40);
+            v48 = OUTLINED_FUNCTION_65_1(v47);
           }
 
           else
           {
-            v41 = OUTLINED_FUNCTION_133();
+            v48 = OUTLINED_FUNCTION_133();
           }
 
-          switch(v41)
+          switch(v48)
           {
             case 2:
               continue;
@@ -5577,15 +4448,15 @@ LABEL_12:
             case 8:
               goto LABEL_21;
             case 5:
-              savescptr(v0, 5, &v76);
-              OUTLINED_FUNCTION_81_1();
-              if (end_of_word())
+              savescptr(v3, 5, &v94);
+              v49 = OUTLINED_FUNCTION_81_1();
+              if (end_of_word(v49))
               {
                 goto LABEL_12;
               }
 
-              OUTLINED_FUNCTION_8_14();
-              if (slash_before_measure())
+              v52 = OUTLINED_FUNCTION_8_14();
+              if (slash_before_measure(v52))
               {
                 goto LABEL_20;
               }
@@ -5595,11 +4466,11 @@ LABEL_12:
               goto LABEL_10;
             case 7:
 LABEL_20:
-              *(v0 + 136) = 1;
-              *(v0 + 112) = v79;
-              *(v0 + 128) = 0;
-              v45 = OUTLINED_FUNCTION_129();
-              insert_r(v45);
+              *(v3 + 136) = 1;
+              *(v3 + 112) = v97;
+              *(v3 + 128) = 0;
+              v54 = OUTLINED_FUNCTION_129();
+              insert_r(v54, v55, 6, v56, v57);
               break;
             case 9:
               goto LABEL_22;
@@ -5623,97 +4494,96 @@ LABEL_21:
     OUTLINED_FUNCTION_23_8();
     char_name();
 LABEL_22:
-    OUTLINED_FUNCTION_56_1();
-    separate_tokens();
+    v58 = OUTLINED_FUNCTION_56_1();
+    separate_tokens(v58);
 LABEL_23:
-    *(v0 + 2614) = *(v0 + 2646);
-    v46 = OUTLINED_FUNCTION_85_1();
-    if (!lpta_loadp_setscan_l(v46, v47) && !advance_tok(v0))
+    *(v3 + 2614) = *(v3 + 2646);
+    v59 = OUTLINED_FUNCTION_85_1();
+    if (!lpta_loadp_setscan_l(v59, v60, 2) && !advance_tok(v3, v61, v62, v63))
     {
 LABEL_25:
-      v48 = OUTLINED_FUNCTION_72_1();
-      savescptr(v48, v49, v50);
-      OUTLINED_FUNCTION_55_1();
-      if (!mark_word_stress())
+      v64 = OUTLINED_FUNCTION_72_1();
+      savescptr(v64, v65, v66);
+      v67 = OUTLINED_FUNCTION_55_1();
+      if (!mark_word_stress(v67))
       {
-        OUTLINED_FUNCTION_123();
-        mark_word_str_annot();
+        v68 = OUTLINED_FUNCTION_123();
+        mark_word_str_annot(v68);
       }
     }
 
 LABEL_27:
-    OUTLINED_FUNCTION_137(v79);
+    OUTLINED_FUNCTION_137(v97);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_113();
 }
 
-void quote_mark()
+void quote_mark(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_114();
   OUTLINED_FUNCTION_11_14();
-  v84 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_18_10(v2, v3, v4, v5, v6, v7, v8, v9, v48, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78);
+  v78 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_18_10(v5, v6, v7, v8, v9, v10, v11, v12, v50, v54[0], v54[1], v54[2], v54[3], v54[4], v54[5], v54[6], v54[7], v54[8], v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72);
   OUTLINED_FUNCTION_57_1();
-  OUTLINED_FUNCTION_177(v10, v11, v12, v13, v14, v15, v16, v17, v49, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83);
-  v18 = setjmp(v1);
-  if (!v18 && !OUTLINED_FUNCTION_44_1(v18, &v52, v19, v20, v21, v22, v23, v24, v50, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, SBYTE4(v79), v80, SWORD2(v80), SBYTE6(v80), v81, SWORD2(v81), SBYTE6(v81), SHIBYTE(v81), v82, v83))
+  OUTLINED_FUNCTION_177(v13, v14, v15, v16, v17, v18, v19, v20, v51, v54[0], v54[1], v54[2], v54[3], v54[4], v54[5], v54[6], v54[7], v54[8], v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76);
+  v21 = setjmp(v4);
+  if (!v21 && !OUTLINED_FUNCTION_44_1(v21, v54, v22, v23, v24, v25, v26, v27, v52, v54[0], v54[1], v54[2], v54[3], v54[4], v54[5], v54[6], v54[7], v54[8], v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, SHIDWORD(v73), v74, SWORD2(v74), SHIWORD(v74), v75, SWORD2(v75), SBYTE6(v75), SHIBYTE(v75), v76, v77))
   {
-    v25 = OUTLINED_FUNCTION_13_14();
-    get_parm(v25, v26, v27, -6);
-    OUTLINED_FUNCTION_62_1(v28, &v75);
-    fence_16(v0, 0, &_MergedGlobals_1_0);
-    v29 = OUTLINED_FUNCTION_110();
-    starttest(v29, v30);
-    v31 = OUTLINED_FUNCTION_54_1();
-    if (!lpta_loadp_setscan_r(v31, v32))
+    v28 = OUTLINED_FUNCTION_13_14();
+    get_parm(v28, v29, v30, -6);
+    OUTLINED_FUNCTION_62_1(v31, &v69);
+    fence_16(v3, 0, &_MergedGlobals_1_0);
+    v32 = OUTLINED_FUNCTION_110();
+    starttest(v32, v33);
+    v34 = OUTLINED_FUNCTION_54_1();
+    if (!lpta_loadp_setscan_r(v34, v35, 1))
     {
-      v34 = OUTLINED_FUNCTION_15_12();
-      bspush_ca_scan(v34, v35);
+      v36 = OUTLINED_FUNCTION_15_12();
+      bspush_ca_scan(v36, v37);
       OUTLINED_FUNCTION_4_14();
       if (test_string_s())
       {
         while (2)
         {
-          v36 = *(v0 + 104);
-          if (v36)
+          v38 = *(v3 + 104);
+          if (v38)
           {
-            v37 = OUTLINED_FUNCTION_65_1(v36);
+            v39 = OUTLINED_FUNCTION_65_1(v38);
           }
 
           else
           {
-            v37 = OUTLINED_FUNCTION_133();
+            v39 = OUTLINED_FUNCTION_133();
           }
 
-          switch(v37)
+          switch(v39)
           {
             case 2:
-              v38 = OUTLINED_FUNCTION_55_1();
-              bspush_ca_scan(v38, v39);
+              v40 = OUTLINED_FUNCTION_55_1();
+              bspush_ca_scan(v40, v41);
               OUTLINED_FUNCTION_4_14();
               goto LABEL_16;
             case 3:
               break;
             case 4:
-              v44 = OUTLINED_FUNCTION_64_1();
-              bspush_ca_scan(v44, v45);
-              OUTLINED_FUNCTION_4_14();
-              goto LABEL_16;
-            case 5:
-              v46 = OUTLINED_FUNCTION_81_1();
+              v46 = OUTLINED_FUNCTION_64_1();
               bspush_ca_scan(v46, v47);
               OUTLINED_FUNCTION_4_14();
               goto LABEL_16;
+            case 5:
+              v48 = OUTLINED_FUNCTION_81_1();
+              bspush_ca_scan(v48, v49);
+              OUTLINED_FUNCTION_4_14();
+              goto LABEL_16;
             case 6:
-              v40 = OUTLINED_FUNCTION_91_0();
-              bspush_ca_scan(v40, v41);
+              v42 = OUTLINED_FUNCTION_91_0();
+              bspush_ca_scan(v42, v43);
               OUTLINED_FUNCTION_4_14();
               goto LABEL_16;
             case 7:
-              v42 = OUTLINED_FUNCTION_54_1();
-              bspush_ca_scan(v42, v43);
+              v44 = OUTLINED_FUNCTION_54_1();
+              bspush_ca_scan(v44, v45);
               OUTLINED_FUNCTION_4_14();
               goto LABEL_16;
             case 8:
@@ -5735,117 +4605,108 @@ LABEL_16:
         }
       }
 
-      OUTLINED_FUNCTION_162(3, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75);
+      OUTLINED_FUNCTION_162(3, v53, v54[0], v54[1], v54[2], v54[3], v54[4], v54[5], v54[6], v54[7], v54[8], v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68);
 LABEL_18:
-      OUTLINED_FUNCTION_95_0(v76);
+      OUTLINED_FUNCTION_95_0(v70);
     }
   }
 
 LABEL_4:
-  vretproc(v0);
-  v33 = *MEMORY[0x277D85DE8];
+  vretproc(v3);
   OUTLINED_FUNCTION_154();
   OUTLINED_FUNCTION_113();
 }
 
-uint64_t span_inverted_punct()
+uint64_t span_inverted_punct(uint64_t a1)
 {
   OUTLINED_FUNCTION_11_14();
-  v2 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_14(v3, v4, v5, v6, v7, v8, v9, v10, v53, v57, v61, v65, v69, v73, v77, v81, v85, v89, v93, v97, v101, v105, v109, v113, v117, v121, v125, v129, v133, v137, v141, v145, v149, v153, v156);
-  OUTLINED_FUNCTION_26_8(v11, v12, v13, v14, v15, v16, v17, v18, v54, v58, v62, v66, v70, v74, v78, v82, v86, v90, v94, v98, v102, v106, v110, v114, v118, v122, v126, v130, v134, v138, v142, v146, v150, v154, v157, v159, v161, v163, v165, v167);
-  if (setjmp(v1))
+  OUTLINED_FUNCTION_5_14(v3, v4, v5, v6, v7, v8, v9, v10, v54, v58, v62, v66, v70, v74, v78, v82, v86, v90, v94, v98, v102, v106, v110, v114, v118, v122, v126, v130, v134, v138, v142, v146, v150, v154, v157);
+  OUTLINED_FUNCTION_26_8(v11, v12, v13, v14, v15, v16, v17, v18, v55, v59, v63, v67, v71, v75, v79, v83, v87, v91, v95, v99, v103, v107, v111, v115, v119, v123, v127, v131, v135, v139, v143, v147, v151, v155, v158, v160, v162, v164, v166);
+  if (setjmp(v2))
   {
     goto LABEL_4;
   }
 
   OUTLINED_FUNCTION_0_16();
-  if (OUTLINED_FUNCTION_132(v19, v20, v21, v22, v23, v24, v25, v26, v55, v59, v63, v67, v71, v75, v79, v83, v87, v91, v95, v99, v103, v107, v111, v115, v119, v123, v127, v131, v135, v139, v143, v147, v151, v155, v158, v160, v162, v164, v166, v168))
+  if (OUTLINED_FUNCTION_132(v19, v20, v21, v22, v23, v24, v25, v26, v56, v60, v64, v68, v72, v76, v80, v84, v88, v92, v96, v100, v104, v108, v112, v116, v120, v124, v128, v132, v136, v140, v144, v148, v152, v156, v159, v161, v163, v165, v167))
   {
     goto LABEL_4;
   }
 
   v27 = OUTLINED_FUNCTION_13_14();
   get_parm(v27, v28, v29, -6);
-  OUTLINED_FUNCTION_43_1(v30, v31, v32, v33, v34, v35, v36, v37, v56, v60, v64, v68, v72, v76, v80, v84, v88, v92, v96, v100, v104, v108, v112, v116, v120, v124, v128, v132, v136, v140, v144, v148);
-  fence_16(v0, 0, &_MergedGlobals_1_0);
+  OUTLINED_FUNCTION_43_1(v30, v31, v32, v33, v34, v35, v36, v37, v57, v61, v65, v69, v73, v77, v81, v85, v89, v93, v97, v101, v105, v109, v113, v117, v121, v125, v129, v133, v137, v141, v145, v149);
+  fence_16(v1, 0, &_MergedGlobals_1_0);
   v38 = OUTLINED_FUNCTION_110();
   starttest(v38, v39);
   v40 = OUTLINED_FUNCTION_54_1();
-  if (lpta_loadp_setscan_r(v40, v41))
+  if (lpta_loadp_setscan_r(v40, v41, 1))
   {
     goto LABEL_4;
   }
 
-  v44 = OUTLINED_FUNCTION_15_12();
-  bspush_ca_scan(v44, v45);
+  v43 = OUTLINED_FUNCTION_15_12();
+  bspush_ca_scan(v43, v44);
   OUTLINED_FUNCTION_4_14();
-  if (!test_string_s())
+  if (test_string_s())
   {
-    goto LABEL_15;
-  }
-
-  while (1)
-  {
-    v46 = *(v0 + 104);
-    v47 = v46 ? OUTLINED_FUNCTION_65_1(v46) : OUTLINED_FUNCTION_133();
-    if (v47 != 2)
+    while (1)
     {
-      break;
+      v45 = *(v1 + 104);
+      v46 = v45 ? OUTLINED_FUNCTION_65_1(v45) : OUTLINED_FUNCTION_133();
+      if (v46 != 2)
+      {
+        break;
+      }
+
+      OUTLINED_FUNCTION_4_14();
+      if (!test_string_s())
+      {
+        goto LABEL_14;
+      }
     }
 
-    OUTLINED_FUNCTION_4_14();
-    if (!test_string_s())
+    if ((v46 - 4) < 3)
     {
-      goto LABEL_15;
-    }
-  }
-
-  if ((v47 - 4) < 3)
-  {
-    goto LABEL_17;
-  }
-
-  if (v47 == 3)
-  {
-LABEL_15:
-    v48 = OUTLINED_FUNCTION_83_1();
-    savescptr(v48, v49, v50);
-    v51 = *(v0 + 5098);
-    OUTLINED_FUNCTION_88_1();
-    if (!v52)
-    {
-      OUTLINED_FUNCTION_50_1();
-      single_chars();
+      goto LABEL_16;
     }
 
-LABEL_17:
-    OUTLINED_FUNCTION_137(v152);
-    result = 0;
-    goto LABEL_5;
-  }
-
+    if (v46 != 3)
+    {
 LABEL_4:
-  vretproc(v0);
-  result = 94;
-LABEL_5:
-  v43 = *MEMORY[0x277D85DE8];
-  return result;
+      vretproc(v1);
+      return 94;
+    }
+  }
+
+LABEL_14:
+  v47 = OUTLINED_FUNCTION_83_1();
+  savescptr(v47, v48, v49);
+  OUTLINED_FUNCTION_88_1();
+  if (!v50)
+  {
+    v51 = OUTLINED_FUNCTION_50_1();
+    single_chars(v51, v52, v53);
+  }
+
+LABEL_16:
+  OUTLINED_FUNCTION_137(v153);
+  return 0;
 }
 
-uint64_t bracket()
+uint64_t bracket(uint64_t a1)
 {
   OUTLINED_FUNCTION_11_14();
-  v148 = *MEMORY[0x277D85DE8];
-  v144[0] = 0;
-  v144[1] = 0;
-  v142 = 0;
-  v143 = 0;
-  OUTLINED_FUNCTION_10_14(v2, v3, v4, v5, v6, v7, v8, v9, v141[0], v141[1], v141[2], v141[3], v141[4], v141[5], v141[6], v141[7], v141[8], v141[9], v141[10], v141[11], v141[12], v141[13], v141[14], v141[15], v141[16], v141[17], v141[18], v141[19], v141[20], v141[21], v141[22], v141[23], v141[24], v141[25], v141[26]);
+  v175 = *MEMORY[0x277D85DE8];
+  v171[0] = 0;
+  v171[1] = 0;
+  v169 = 0;
+  v170 = 0;
+  OUTLINED_FUNCTION_10_14(v3, v4, v5, v6, v7, v8, v9, v10, v168[0], v168[1], v168[2], v168[3], v168[4], v168[5], v168[6], v168[7], v168[8], v168[9], v168[10], v168[11], v168[12], v168[13], v168[14], v168[15], v168[16], v168[17], v168[18], v168[19], v168[20], v168[21], v168[22], v168[23], v168[24], v168[25], v168[26]);
   OUTLINED_FUNCTION_57_1();
-  OUTLINED_FUNCTION_161(v10, v11);
-  v12 = setjmp(v1);
-  if (!v12 && !OUTLINED_FUNCTION_160(v12, v141, v147, v146, v145))
+  OUTLINED_FUNCTION_161(v11, v12);
+  v13 = setjmp(v2);
+  if (!v13 && !OUTLINED_FUNCTION_160(v13, v168, v174, v173, v172))
   {
     v15 = OUTLINED_FUNCTION_13_14();
     get_parm(v15, v16, v17, -6);
@@ -5859,22 +4720,22 @@ uint64_t bracket()
     v25 = OUTLINED_FUNCTION_73_1();
     fence_16(v25, v26, v27);
     v28 = OUTLINED_FUNCTION_29_5();
-    if (lpta_loadp_setscan_r(v28, v29) || (OUTLINED_FUNCTION_4_14(), v24 = 0, v30 = 0, test_string_s()))
+    if (lpta_loadp_setscan_r(v28, v29, v30) || (OUTLINED_FUNCTION_4_14(), v24 = 0, v31 = 0, test_string_s()))
     {
       while (2)
       {
-        v31 = OUTLINED_FUNCTION_27_6();
-        starttest(v31, v32);
-        v33 = OUTLINED_FUNCTION_28_5();
-        if (lpta_loadp_setscan_r(v33, v34))
+        v32 = OUTLINED_FUNCTION_27_6();
+        starttest(v32, v33);
+        v34 = OUTLINED_FUNCTION_28_5();
+        if (lpta_loadp_setscan_r(v34, v35, v36))
         {
 LABEL_7:
-          v35 = OUTLINED_FUNCTION_28_5();
-          if (lpta_loadp_setscan_r(v35, v36) || (OUTLINED_FUNCTION_4_14(), v37 = test_string_s(), v38 = v24, v37))
+          v37 = OUTLINED_FUNCTION_28_5();
+          if (lpta_loadp_setscan_r(v37, v38, v39) || (OUTLINED_FUNCTION_4_14(), v40 = test_string_s(), v41 = v24, v40))
           {
 LABEL_9:
-            v39 = OUTLINED_FUNCTION_28_5();
-            if (lpta_loadp_setscan_r(v39, v40))
+            v42 = OUTLINED_FUNCTION_28_5();
+            if (lpta_loadp_setscan_r(v42, v43, v44))
             {
               goto LABEL_3;
             }
@@ -5886,13 +4747,13 @@ LABEL_9:
             }
 
 LABEL_11:
-            v41 = v24;
-            v42 = OUTLINED_FUNCTION_72_1();
-            savescptr(v42, v43, v44);
-            v45 = OUTLINED_FUNCTION_52_1();
-            starttest(v45, v46);
-            v47 = OUTLINED_FUNCTION_55_1();
-            if (!lpta_loadp_setscan_r(v47, v48))
+            v45 = v24;
+            v46 = OUTLINED_FUNCTION_72_1();
+            savescptr(v46, v47, v48);
+            v49 = OUTLINED_FUNCTION_52_1();
+            starttest(v49, v50);
+            v51 = OUTLINED_FUNCTION_55_1();
+            if (!lpta_loadp_setscan_r(v51, v52, 1))
             {
 LABEL_12:
               v24 = &unk_2806BB0F7;
@@ -5904,8 +4765,8 @@ LABEL_12:
                   break;
                 }
 
-                v49 = OUTLINED_FUNCTION_54_1();
-                bspush_ca_scan(v49, v50);
+                v53 = OUTLINED_FUNCTION_54_1();
+                bspush_ca_scan(v53, v54);
               }
 
               goto LABEL_42;
@@ -5915,43 +4776,43 @@ LABEL_12:
           }
 
 LABEL_27:
-          v24 = v38;
-          v77 = OUTLINED_FUNCTION_90_1();
-          savescptr(v77, v78, v79);
-          v80 = OUTLINED_FUNCTION_32_3();
-          starttest(v80, v81);
-          if (*(v0 + 2642) == *(v0 + 2610))
+          v24 = v41;
+          v88 = OUTLINED_FUNCTION_90_1();
+          savescptr(v88, v89, v90);
+          v91 = OUTLINED_FUNCTION_32_3();
+          starttest(v91, v92);
+          if (*(v1 + 2642) == *(v1 + 2610))
           {
-            v82 = OUTLINED_FUNCTION_7_14();
-            if (!lpta_loadp_setscan_r(v82, v83))
+            v93 = OUTLINED_FUNCTION_7_14();
+            if (!lpta_loadp_setscan_r(v93, v94, v95))
             {
-              v106 = OUTLINED_FUNCTION_3_15();
-              if (!testFldeq(v106, v107, v108, v109))
+              v121 = OUTLINED_FUNCTION_3_15();
+              if (!testFldeq(v121, v122, v123, v124))
               {
-                LODWORD(v30) = v24;
-                if (advance_tok(v0))
+                LODWORD(v31) = v24;
+                if (advance_tok(v1, v125, v126, v127))
                 {
                   goto LABEL_43;
                 }
 
 LABEL_70:
-                OUTLINED_FUNCTION_23_8();
-                single_chars();
+                v165 = OUTLINED_FUNCTION_23_8();
+                single_chars(v165, v166, v167);
                 goto LABEL_71;
               }
 
 LABEL_32:
-              LODWORD(v30) = v24;
+              LODWORD(v31) = v24;
               goto LABEL_43;
             }
           }
 
 LABEL_29:
-          v84 = OUTLINED_FUNCTION_41_1();
-          starttest(v84, v85);
-          v86 = OUTLINED_FUNCTION_7_14();
-          v41 = v24;
-          if (!lpta_loadp_setscan_r(v86, v87))
+          v96 = OUTLINED_FUNCTION_41_1();
+          starttest(v96, v97);
+          v98 = OUTLINED_FUNCTION_7_14();
+          v45 = v24;
+          if (!lpta_loadp_setscan_r(v98, v99, v100))
           {
 LABEL_39:
             v24 = &unk_2806BB0F6;
@@ -5963,78 +4824,78 @@ LABEL_39:
                 break;
               }
 
-              v110 = OUTLINED_FUNCTION_54_1();
-              bspush_ca_scan(v110, v111);
+              v128 = OUTLINED_FUNCTION_54_1();
+              bspush_ca_scan(v128, v129);
             }
 
 LABEL_42:
-            LODWORD(v30) = v41;
+            LODWORD(v31) = v45;
             goto LABEL_43;
           }
 
 LABEL_30:
-          v88 = OUTLINED_FUNCTION_52_1();
-          starttest(v88, v89);
-          v90 = OUTLINED_FUNCTION_7_14();
-          lpta_loadp_setscan_r(v90, v91);
+          v101 = OUTLINED_FUNCTION_52_1();
+          starttest(v101, v102);
+          v103 = OUTLINED_FUNCTION_7_14();
+          lpta_loadp_setscan_r(v103, v104, v105);
           OUTLINED_FUNCTION_174();
-          if (v94)
+          if (v108)
           {
 LABEL_31:
-            v95 = OUTLINED_FUNCTION_46_1();
-            starttest(v95, v96);
+            v109 = OUTLINED_FUNCTION_46_1();
+            starttest(v109, v110);
             OUTLINED_FUNCTION_52_1();
             bspush_ca_boa();
-            v97 = OUTLINED_FUNCTION_7_14();
-            if (lpta_loadp_setscan_r(v97, v98))
+            v111 = OUTLINED_FUNCTION_7_14();
+            if (lpta_loadp_setscan_r(v111, v112, v113))
             {
               goto LABEL_32;
             }
 
-            v99 = OUTLINED_FUNCTION_49_1();
-            bspush_ca_scan(v99, v100);
-            v101 = OUTLINED_FUNCTION_1_15();
-            v105 = testFldeq(v101, v102, v103, v104);
-            v92 = 73;
-            v93 = v24;
-            LODWORD(v30) = v24;
-            if (v105)
+            v114 = OUTLINED_FUNCTION_49_1();
+            bspush_ca_scan(v114, v115);
+            v116 = OUTLINED_FUNCTION_1_15();
+            v120 = testFldeq(v116, v117, v118, v119);
+            v106 = 73;
+            v107 = v24;
+            LODWORD(v31) = v24;
+            if (v120)
             {
               goto LABEL_43;
             }
           }
 
 LABEL_67:
-          LODWORD(v30) = v93;
-          v24 = v92;
+          LODWORD(v31) = v107;
+          v24 = v106;
           bspush_ca_scan_boa();
-          v138 = OUTLINED_FUNCTION_6_14();
-          if (!testFldeq(v138, v139, v140, v24))
+          v162 = OUTLINED_FUNCTION_6_14();
+          if (!testFldeq(v162, v163, v164, v24))
           {
-            LODWORD(v30) = 1;
+            LODWORD(v31) = 1;
           }
 
 LABEL_43:
-          v112 = v30;
+          LODWORD(v130) = v31;
 LABEL_44:
-          v113 = *(v0 + 104);
-          if (v113)
+          v131 = *(v1 + 104);
+          if (v131)
           {
-            v114 = OUTLINED_FUNCTION_60_1(v113);
+            v132 = OUTLINED_FUNCTION_60_1(v131);
           }
 
           else
           {
-            v114 = vback(v0, v112);
+            v132 = vback(v1, v130);
             v24 = 0;
           }
 
-          switch(v114)
+          switch(v132)
           {
             case 1:
               continue;
             case 2:
-              v30 = v24;
+              v31 = v24;
               goto LABEL_18;
             case 3:
             case 6:
@@ -6052,8 +4913,8 @@ LABEL_44:
             case 7:
               goto LABEL_7;
             case 8:
-              v115 = OUTLINED_FUNCTION_45_1();
-              bspush_ca_scan(v115, v116);
+              v135 = OUTLINED_FUNCTION_45_1();
+              bspush_ca_scan(v135, v136);
               goto LABEL_49;
             case 9:
             case 17:
@@ -6061,9 +4922,9 @@ LABEL_44:
             case 10:
 LABEL_49:
               OUTLINED_FUNCTION_4_14();
-              v117 = test_string_s();
-              v112 = v24;
-              if (!v117)
+              v137 = test_string_s();
+              LODWORD(v130) = v24;
+              if (!v137)
               {
                 goto LABEL_16;
               }
@@ -6072,28 +4933,28 @@ LABEL_49:
             case 11:
               goto LABEL_9;
             case 12:
-              v38 = v24;
+              v41 = v24;
               goto LABEL_27;
             case 13:
               goto LABEL_29;
             case 16:
               goto LABEL_30;
             case 18:
-              v41 = v24;
+              v45 = v24;
               goto LABEL_39;
             case 19:
               goto LABEL_31;
             case 20:
-              bspop_boa(v0);
-              v118 = advance_tok(v0);
-              v112 = v24;
-              if (v118)
+              bspop_boa(v1);
+              v141 = advance_tok(v1, v138, v139, v140);
+              LODWORD(v130) = v24;
+              if (v141)
               {
                 goto LABEL_44;
               }
 
-              v119 = OUTLINED_FUNCTION_52_1();
-              bspush_ca_scan(v119, v120);
+              v142 = OUTLINED_FUNCTION_52_1();
+              bspush_ca_scan(v142, v143);
               goto LABEL_53;
             case 21:
               OUTLINED_FUNCTION_174();
@@ -6101,12 +4962,12 @@ LABEL_49:
             case 22:
 LABEL_53:
               OUTLINED_FUNCTION_125();
-              v121 = OUTLINED_FUNCTION_59_1();
-              savescptr(v121, v122, v123);
+              v144 = OUTLINED_FUNCTION_59_1();
+              savescptr(v144, v145, v146);
               OUTLINED_FUNCTION_4_14();
-              v124 = test_string_s();
-              v112 = v24;
-              if (!v124)
+              v147 = test_string_s();
+              LODWORD(v130) = v24;
+              if (!v147)
               {
                 goto LABEL_61;
               }
@@ -6114,36 +4975,36 @@ LABEL_53:
               goto LABEL_44;
             case 23:
 LABEL_61:
-              v130 = OUTLINED_FUNCTION_72_1();
-              savescptr(v130, v131, v132);
-              OUTLINED_FUNCTION_63_1();
+              v153 = OUTLINED_FUNCTION_72_1();
+              savescptr(v153, v154, v155);
+              v87 = OUTLINED_FUNCTION_63_1();
               goto LABEL_25;
             case 25:
-              bspop_boa(v0);
+              bspop_boa(v1);
               goto LABEL_70;
             case 26:
-              v125 = OUTLINED_FUNCTION_3_15();
-              v129 = testFldeq(v125, v126, v127, v128);
-              v112 = v24;
-              if (v129)
+              v148 = OUTLINED_FUNCTION_3_15();
+              v152 = testFldeq(v148, v149, v150, v151);
+              v130 = v24;
+              if (v152)
               {
                 goto LABEL_44;
               }
 
               goto LABEL_58;
             case 27:
-              bspop_boa(v0);
+              bspop_boa(v1);
               goto LABEL_58;
             case 28:
 LABEL_58:
-              if (advance_tok(v0))
+              if (advance_tok(v1, v130, v133, v134))
               {
-                v112 = v24;
+                LODWORD(v130) = v24;
               }
 
               else
               {
-                v112 = 1;
+                LODWORD(v130) = 1;
               }
 
               goto LABEL_44;
@@ -6152,14 +5013,13 @@ LABEL_58:
             case 32:
               goto LABEL_70;
             case 33:
-              v133 = OUTLINED_FUNCTION_90_1();
-              savescptr(v133, v134, v135);
-              if (!lpta_loadp_setscan_l(v0, v144))
+              v156 = OUTLINED_FUNCTION_90_1();
+              savescptr(v156, v157, v158);
+              if (!lpta_loadp_setscan_l(v1, v171, 1))
               {
-                *(v0 + 136) = 1;
-                v136 = *(v0 + 1408);
-                v137 = OUTLINED_FUNCTION_12_14();
-                if (!test_ptr(v137))
+                *(v1 + 136) = 1;
+                v159 = OUTLINED_FUNCTION_12_14();
+                if (!test_ptr(v159, v160, v161))
                 {
                   goto LABEL_70;
                 }
@@ -6167,7 +5027,7 @@ LABEL_58:
 
               goto LABEL_71;
             case 34:
-              v41 = v24;
+              v45 = v24;
               goto LABEL_12;
             default:
               goto LABEL_3;
@@ -6177,43 +5037,43 @@ LABEL_58:
         break;
       }
 
-      v51 = OUTLINED_FUNCTION_38_2();
-      bspush_ca_scan(v51, v52);
+      v55 = OUTLINED_FUNCTION_38_2();
+      bspush_ca_scan(v55, v56);
       OUTLINED_FUNCTION_4_14();
-      LODWORD(v30) = v24;
+      LODWORD(v31) = v24;
       if (test_string_s())
       {
         goto LABEL_43;
       }
 
 LABEL_16:
-      v53 = OUTLINED_FUNCTION_90_1();
-      savescptr(v53, v54, v55);
+      v57 = OUTLINED_FUNCTION_90_1();
+      savescptr(v57, v58, v59);
     }
 
     else
     {
 LABEL_18:
       OUTLINED_FUNCTION_75_1();
-      v24 = &v142;
-      v56 = OUTLINED_FUNCTION_72_1();
-      savescptr(v56, v57, v58);
-      v59 = OUTLINED_FUNCTION_52_1();
-      starttest_l(v59, v60);
-      v61 = OUTLINED_FUNCTION_55_1();
-      if (!lpta_loadp_setscan_r(v61, v62))
+      v24 = &v169;
+      v60 = OUTLINED_FUNCTION_72_1();
+      savescptr(v60, v61, v62);
+      v63 = OUTLINED_FUNCTION_52_1();
+      starttest_l(v63, v64);
+      v65 = OUTLINED_FUNCTION_55_1();
+      if (!lpta_loadp_setscan_r(v65, v66, 1))
       {
-        v63 = OUTLINED_FUNCTION_1_15();
-        if (!testFldeq(v63, v64, v65, v66))
+        v67 = OUTLINED_FUNCTION_1_15();
+        if (!testFldeq(v67, v68, v69, v70))
         {
-          v24 = v30;
-          if (!advance_tok(v0))
+          v24 = v31;
+          if (!advance_tok(v1, v71, v72, v73))
           {
 LABEL_21:
-            LODWORD(v30) = v24;
+            LODWORD(v31) = v24;
             OUTLINED_FUNCTION_115();
-            v67 = OUTLINED_FUNCTION_59_1();
-            savescptr(v67, v68, v69);
+            v74 = OUTLINED_FUNCTION_59_1();
+            savescptr(v74, v75, v76);
             OUTLINED_FUNCTION_4_14();
             if (test_string_s())
             {
@@ -6221,16 +5081,16 @@ LABEL_21:
             }
 
 LABEL_22:
-            LODWORD(v30) = v24;
+            LODWORD(v31) = v24;
             OUTLINED_FUNCTION_93_0();
-            v70 = OUTLINED_FUNCTION_83_1();
-            savescptr(v70, v71, v72);
-            v73 = OUTLINED_FUNCTION_1_15();
-            if (!testFldeq(v73, v74, v75, v76) && !advance_tok(v0))
+            v77 = OUTLINED_FUNCTION_83_1();
+            savescptr(v77, v78, v79);
+            v80 = OUTLINED_FUNCTION_1_15();
+            if (!testFldeq(v80, v81, v82, v83) && !advance_tok(v1, v84, v85, v86))
             {
-              OUTLINED_FUNCTION_50_1();
+              v87 = OUTLINED_FUNCTION_50_1();
 LABEL_25:
-              delete_inp_from_left();
+              delete_inp_from_left(v87);
               goto LABEL_71;
             }
           }
@@ -6241,50 +5101,49 @@ LABEL_25:
     }
 
 LABEL_71:
-    OUTLINED_FUNCTION_95_0(v143);
+    OUTLINED_FUNCTION_95_0(v170);
   }
 
 LABEL_3:
-  vretproc(v0);
-  v13 = *MEMORY[0x277D85DE8];
+  vretproc(v1);
   return OUTLINED_FUNCTION_173();
 }
 
-void misc_chars()
+void misc_chars(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_114();
   OUTLINED_FUNCTION_11_14();
-  v77 = *MEMORY[0x277D85DE8];
-  v64 = 0;
-  v65 = 0;
-  v62 = 0;
-  v63 = 0;
-  HIDWORD(v61) = 0;
+  v89 = *MEMORY[0x277D85DE8];
+  v76 = 0;
+  v77 = 0;
+  v74 = 0;
+  v75 = 0;
+  HIDWORD(v73) = 0;
   OUTLINED_FUNCTION_58_1();
-  bzero(v60, v1);
+  bzero(v72, v4);
   OUTLINED_FUNCTION_57_1();
-  bzero(v76, v2);
-  v3 = setjmp(v76);
-  if (v3 || OUTLINED_FUNCTION_34_3(v3, v60, v4, v5, v6, v7, v8, v9, v58, v59, v60[0], v60[1], v60[2], v60[3], v60[4], v60[5], v60[6], v60[7], v60[8], v60[9], v60[10], v60[11], v60[12], v60[13], v60[14], v60[15], v60[16], v60[17], v60[18], v60[19], v60[20], v60[21], v60[22], v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76[0]))
+  bzero(v88, v5);
+  v6 = setjmp(v88);
+  if (v6 || OUTLINED_FUNCTION_34_3(v6, v72, v7, v8, v9, v10, v11, v12, v70, v71, v72[0], v72[1], v72[2], v72[3], v72[4], v72[5], v72[6], v72[7], v72[8], v72[9], v72[10], v72[11], v72[12], v72[13], v72[14], v72[15], v72[16], v72[17], v72[18], v72[19], v72[20], v72[21], v72[22], v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88[0]))
   {
     goto LABEL_3;
   }
 
-  v11 = OUTLINED_FUNCTION_13_14();
-  get_parm(v11, v12, v13, -6);
-  OUTLINED_FUNCTION_62_1(v14, &v62);
-  HIDWORD(v61) = 65532;
-  fence_16(v0, 0, &_MergedGlobals_1_0);
-  v15 = OUTLINED_FUNCTION_29_5();
-  if (!lpta_loadp_setscan_r(v15, v16))
+  v13 = OUTLINED_FUNCTION_13_14();
+  get_parm(v13, v14, v15, -6);
+  OUTLINED_FUNCTION_62_1(v16, &v74);
+  HIDWORD(v73) = 65532;
+  fence_16(v3, 0, &_MergedGlobals_1_0);
+  v17 = OUTLINED_FUNCTION_29_5();
+  if (!lpta_loadp_setscan_r(v17, v18, v19))
   {
     OUTLINED_FUNCTION_4_14();
     if (!test_string_s())
     {
 LABEL_27:
       OUTLINED_FUNCTION_75_1();
-      v55 = OUTLINED_FUNCTION_138();
-      savescptr(v55, v56, v57);
+      v67 = OUTLINED_FUNCTION_138();
+      savescptr(v67, v68, v69);
       goto LABEL_28;
     }
   }
@@ -6292,94 +5151,93 @@ LABEL_27:
   OUTLINED_FUNCTION_153();
   while (2)
   {
-    v17 = OUTLINED_FUNCTION_55_1();
-    if (!lpta_loadp_setscan_r(v17, v18))
+    v20 = OUTLINED_FUNCTION_55_1();
+    if (!lpta_loadp_setscan_r(v20, v21, 1))
     {
       OUTLINED_FUNCTION_4_14();
       if (!test_string_s())
       {
 LABEL_9:
-        v19 = OUTLINED_FUNCTION_106();
-        savescptr(v19, v20, &v62);
-        v21 = OUTLINED_FUNCTION_112();
-        starttest(v21, v22);
-        v23 = OUTLINED_FUNCTION_74_1();
-        move_i(v23, v24, v25);
+        v22 = OUTLINED_FUNCTION_106();
+        savescptr(v22, v23, &v74);
+        v24 = OUTLINED_FUNCTION_112();
+        starttest(v24, v25);
+        v26 = OUTLINED_FUNCTION_74_1();
+        move_i(v26, v27, v28);
         goto LABEL_10;
       }
     }
 
 LABEL_15:
-    v29 = OUTLINED_FUNCTION_55_1();
-    if (lpta_loadp_setscan_r(v29, v30) || (OUTLINED_FUNCTION_4_14(), test_string_s()))
+    v35 = OUTLINED_FUNCTION_55_1();
+    if (lpta_loadp_setscan_r(v35, v36, 1) || (OUTLINED_FUNCTION_4_14(), test_string_s()))
     {
 LABEL_17:
-      v31 = OUTLINED_FUNCTION_55_1();
-      if (lpta_loadp_setscan_r(v31, v32) || (OUTLINED_FUNCTION_4_14(), test_string_s()))
+      v37 = OUTLINED_FUNCTION_55_1();
+      if (lpta_loadp_setscan_r(v37, v38, 1) || (OUTLINED_FUNCTION_4_14(), test_string_s()))
       {
 LABEL_23:
-        v50 = OUTLINED_FUNCTION_53_1();
-        if (!lpta_loadp_setscan_r(v50, v51) && !advance_tok(v0))
+        v55 = OUTLINED_FUNCTION_53_1();
+        if (!lpta_loadp_setscan_r(v55, v56, v57) && !advance_tok(v3, v58, v59, v60))
         {
 LABEL_25:
           OUTLINED_FUNCTION_118();
-          v52 = OUTLINED_FUNCTION_138();
-          savescptr(v52, v53, v54);
+          v61 = OUTLINED_FUNCTION_138();
+          savescptr(v61, v62, v63);
         }
       }
 
       else
       {
 LABEL_19:
-        v33 = OUTLINED_FUNCTION_84_1();
-        savescptr(v33, v34, &v62);
-        v35 = OUTLINED_FUNCTION_70_1();
-        starttest(v35, v36);
-        v37 = *(v0 + 5130);
+        v39 = OUTLINED_FUNCTION_84_1();
+        savescptr(v39, v40, &v74);
+        v41 = OUTLINED_FUNCTION_70_1();
+        starttest(v41, v42);
         OUTLINED_FUNCTION_170();
-        if (!v39 && *(v0 + 5110) != v38)
+        if (!v44 && *(v3 + 5110) != v43)
         {
-          v40 = OUTLINED_FUNCTION_74_1();
-          move_i(v40, v41, v42);
+          v45 = OUTLINED_FUNCTION_74_1();
+          move_i(v45, v46, v47);
           goto LABEL_10;
         }
       }
 
 LABEL_26:
-      OUTLINED_FUNCTION_138();
-      single_chars();
+      v64 = OUTLINED_FUNCTION_138();
+      single_chars(v64, v65, v66);
       goto LABEL_28;
     }
 
 LABEL_22:
-    v43 = OUTLINED_FUNCTION_91_0();
-    savescptr(v43, v44, &v62);
-    v45 = OUTLINED_FUNCTION_54_1();
-    starttest(v45, v46);
-    v47 = OUTLINED_FUNCTION_74_1();
-    move_i(v47, v48, v49);
+    v48 = OUTLINED_FUNCTION_91_0();
+    savescptr(v48, v49, &v74);
+    v50 = OUTLINED_FUNCTION_54_1();
+    starttest(v50, v51);
+    v52 = OUTLINED_FUNCTION_74_1();
+    move_i(v52, v53, v54);
 LABEL_10:
-    OUTLINED_FUNCTION_64_1();
-    convert_monetary_exp();
-    if (!v26)
+    v29 = OUTLINED_FUNCTION_64_1();
+    convert_monetary_exp(v29, v30, &v74, v31, &v73 + 4);
+    if (!v32)
     {
 LABEL_28:
-      OUTLINED_FUNCTION_95_0(v63);
+      OUTLINED_FUNCTION_95_0(v75);
       break;
     }
 
-    v27 = *(v0 + 104);
-    if (v27)
+    v33 = *(v3 + 104);
+    if (v33)
     {
-      v28 = OUTLINED_FUNCTION_65_1(v27);
+      v34 = OUTLINED_FUNCTION_65_1(v33);
     }
 
     else
     {
-      v28 = OUTLINED_FUNCTION_133();
+      v34 = OUTLINED_FUNCTION_133();
     }
 
-    switch(v28)
+    switch(v34)
     {
       case 1:
         continue;
@@ -6415,129 +5273,107 @@ LABEL_28:
   }
 
 LABEL_3:
-  vretproc(v0);
-  v10 = *MEMORY[0x277D85DE8];
+  vretproc(v3);
   OUTLINED_FUNCTION_173();
   OUTLINED_FUNCTION_113();
 }
 
-uint64_t init_ptr_End_reproc_string()
+uint64_t init_ptr_End_reproc_string(uint64_t a1)
 {
   OUTLINED_FUNCTION_11_14();
-  v170 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_10_14(v2, v3, v4, v5, v6, v7, v8, v9, v54, v58, v62, v66, v70, v74, v78, v82, v86, v90, v94, v98, v102, v106, v110, v114, v118, v122, v126, v130, v134, v138, v142, v146, v150, v153, v156);
-  OUTLINED_FUNCTION_26_8(v10, v11, v12, v13, v14, v15, v16, v17, v55, v59, v63, v67, v71, v75, v79, v83, v87, v91, v95, v99, v103, v107, v111, v115, v119, v123, v127, v131, v135, v139, v143, v147, v151, v154, v157, v160, v162, v164, v166, v168);
-  if (!setjmp(v1))
+  OUTLINED_FUNCTION_10_14(v3, v4, v5, v6, v7, v8, v9, v10, v59, v63, v67, v71, v75, v79, v83, v87, v91, v95, v99, v103, v107, v111, v115, v119, v123, v127, v131, v135, v139, v143, v147, v151, v155, v158, v161);
+  OUTLINED_FUNCTION_26_8(v11, v12, v13, v14, v15, v16, v17, v18, v60, v64, v68, v72, v76, v80, v84, v88, v92, v96, v100, v104, v108, v112, v116, v120, v124, v128, v132, v136, v140, v144, v148, v152, v156, v159, v162, v165, v167, v169, v171);
+  if (setjmp(v2) || (OUTLINED_FUNCTION_0_16(), OUTLINED_FUNCTION_132(v19, v20, v21, v22, v23, v24, v25, v26, v61, v65, v69, v73, v77, v81, v85, v89, v93, v97, v101, v105, v109, v113, v117, v121, v125, v129, v133, v137, v141, v145, v149, v153, v157, v160, v163, v166, v168, v170, v172)) || (v28 = OUTLINED_FUNCTION_63_1(), get_parm(v28, v29, v30, -6), OUTLINED_FUNCTION_43_1(v31, v32, v33, v34, v35, v36, v37, v38, v62, v66, v70, v74, v78, v82, v86, v90, v94, v98, v102, v106, v110, v114, v118, v122, v126, v130, v134, v138, v142, v146, v150, v154), fence_16(v1, 0, &_MergedGlobals_1_0), v39 = OUTLINED_FUNCTION_130(), fence_16(v39, v40, v41), OUTLINED_FUNCTION_180(), OUTLINED_FUNCTION_150(), !compare_ptas(v1)) && !testeq(v1))
   {
-    OUTLINED_FUNCTION_0_16();
-    if (!OUTLINED_FUNCTION_132(v18, v19, v20, v21, v22, v23, v24, v25, v56, v60, v64, v68, v72, v76, v80, v84, v88, v92, v96, v100, v104, v108, v112, v116, v120, v124, v128, v132, v136, v140, v144, v148, v152, v155, v158, v161, v163, v165, v167, v169))
+LABEL_3:
+    vretproc(v1);
+    return 94;
+  }
+
+  OUTLINED_FUNCTION_143();
+LABEL_7:
+  *(v1 + 136) = 1;
+  *(v1 + 112) = v164;
+  *(v1 + 128) = 0;
+  v42 = OUTLINED_FUNCTION_135();
+  addfence(v42, v43);
+  v44 = OUTLINED_FUNCTION_55_1();
+  starttest_l(v44, v45);
+  v46 = OUTLINED_FUNCTION_54_1();
+  if (!lpta_loadp_setscan_l(v46, v47, 1))
+  {
+    while (2)
     {
-      v28 = OUTLINED_FUNCTION_63_1();
-      get_parm(v28, v29, v30, -6);
-      OUTLINED_FUNCTION_43_1(v31, v32, v33, v34, v35, v36, v37, v38, v57, v61, v65, v69, v73, v77, v81, v85, v89, v93, v97, v101, v105, v109, v113, v117, v121, v125, v129, v133, v137, v141, v145, v149);
-      fence_16(v0, 0, &_MergedGlobals_1_0);
-      v39 = OUTLINED_FUNCTION_130();
-      fence_16(v39, v40, v41);
-      OUTLINED_FUNCTION_180();
-      OUTLINED_FUNCTION_150();
-      if (compare_ptas(v0) || testeq(v0))
+      v48 = OUTLINED_FUNCTION_70_1();
+      bspush_ca_scan(v48, v49);
+      *(v1 + 136) = 1;
+      *(v1 + 112) = *(v1 + 2504);
+      *(v1 + 128) = 0;
+      if (test_ptr(v1, v50, v51))
       {
-        OUTLINED_FUNCTION_143();
-LABEL_8:
-        *(v0 + 136) = 1;
-        *(v0 + 112) = v159;
-        *(v0 + 128) = 0;
-        v42 = OUTLINED_FUNCTION_135();
-        addfence(v42, v43);
-        v44 = OUTLINED_FUNCTION_55_1();
-        starttest_l(v44, v45);
-        v46 = OUTLINED_FUNCTION_54_1();
-        if (!lpta_loadp_setscan_l(v46, v47))
+LABEL_9:
+        if (*(v1 + 104))
         {
-          while (2)
+          *(v1 + 104) = 0;
+        }
+
+        else
+        {
+          OUTLINED_FUNCTION_133();
+        }
+
+        OUTLINED_FUNCTION_152();
+        if (!(!v57 & v56))
+        {
+          switch(v55)
           {
-            v48 = OUTLINED_FUNCTION_70_1();
-            bspush_ca_scan(v48, v49);
-            *(v0 + 136) = 1;
-            *(v0 + 112) = *(v0 + 2504);
-            *(v0 + 128) = 0;
-            if (test_ptr(v0))
-            {
-LABEL_10:
-              if (*(v0 + 104))
+            case 1:
+              goto LABEL_18;
+            case 2:
+              continue;
+            case 3:
+              if (!advance_tok(v1, v52, v53, v54))
               {
-                *(v0 + 104) = 0;
+                continue;
               }
 
-              else
-              {
-                OUTLINED_FUNCTION_133();
-              }
-
-              OUTLINED_FUNCTION_152();
-              if (!(!v52 & v51))
-              {
-                switch(v50)
-                {
-                  case 1:
-                    goto LABEL_19;
-                  case 2:
-                    continue;
-                  case 3:
-                    if (!advance_tok(v0))
-                    {
-                      continue;
-                    }
-
-                    goto LABEL_10;
-                  default:
-                    goto LABEL_8;
-                }
-              }
-
-              goto LABEL_3;
-            }
-
-            break;
-          }
-
-          *(v0 + 2504) = *(v0 + 3352);
-          *(v0 + 2726) = 0;
-          if (*(v0 + 2670) == 1)
-          {
-            *(v0 + 2670) = 0;
+              goto LABEL_9;
+            default:
+              goto LABEL_7;
           }
         }
 
-LABEL_19:
-        OUTLINED_FUNCTION_98_0();
-        v53 = OUTLINED_FUNCTION_12_14();
-        remfence(v53, 5);
-        vretproc(v0);
-        result = 0;
-        goto LABEL_4;
+        goto LABEL_3;
       }
+
+      break;
+    }
+
+    *(v1 + 2504) = *(v1 + 3352);
+    *(v1 + 2726) = 0;
+    if (*(v1 + 2670) == 1)
+    {
+      *(v1 + 2670) = 0;
     }
   }
 
-LABEL_3:
-  vretproc(v0);
-  result = 94;
-LABEL_4:
-  v27 = *MEMORY[0x277D85DE8];
-  return result;
+LABEL_18:
+  OUTLINED_FUNCTION_98_0();
+  v58 = OUTLINED_FUNCTION_12_14();
+  remfence(v58, 5);
+  vretproc(v1);
+  return 0;
 }
 
-uint64_t create_final_sync()
+uint64_t create_final_sync(uint64_t a1)
 {
   OUTLINED_FUNCTION_76_1();
-  v144 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_10_14(v2, v3, v4, v5, v6, v7, v8, v9, v52, v55, v58, v61, v64, v67, v70, v73, v76, v79, v82, v85, v88, v91, v94, v97, v100, v103, v106, v109, v112, v115, v118, v121, v124, v127, v130);
-  OUTLINED_FUNCTION_26_8(v10, v11, v12, v13, v14, v15, v16, v17, v53, v56, v59, v62, v65, v68, v71, v74, v77, v80, v83, v86, v89, v92, v95, v98, v101, v104, v107, v110, v113, v116, v119, v122, v125, v128, v131, v134, v136, v138, v140, v142);
-  if (!setjmp(v1))
+  OUTLINED_FUNCTION_10_14(v3, v4, v5, v6, v7, v8, v9, v10, v56, v59, v62, v65, v68, v71, v74, v77, v80, v83, v86, v89, v92, v95, v98, v101, v104, v107, v110, v113, v116, v119, v122, v125, v128, v131, v134);
+  OUTLINED_FUNCTION_26_8(v11, v12, v13, v14, v15, v16, v17, v18, v57, v60, v63, v66, v69, v72, v75, v78, v81, v84, v87, v90, v93, v96, v99, v102, v105, v108, v111, v114, v117, v120, v123, v126, v129, v132, v135, v138, v140, v142, v144);
+  if (!setjmp(v2))
   {
     OUTLINED_FUNCTION_0_16();
-    if (!OUTLINED_FUNCTION_132(v18, v19, v20, v21, v22, v23, v24, v25, v54, v57, v60, v63, v66, v69, v72, v75, v78, v81, v84, v87, v90, v93, v96, v99, v102, v105, v108, v111, v114, v117, v120, v123, v126, v129, v132, v135, v137, v139, v141, v143))
+    if (!OUTLINED_FUNCTION_132(v19, v20, v21, v22, v23, v24, v25, v26, v58, v61, v64, v67, v70, v73, v76, v79, v82, v85, v88, v91, v94, v97, v100, v103, v106, v109, v112, v115, v118, v121, v124, v127, v130, v133, v136, v139, v141, v143, v145))
     {
       v28 = OUTLINED_FUNCTION_54_1();
       OUTLINED_FUNCTION_126(v28, v29);
@@ -6545,40 +5381,40 @@ uint64_t create_final_sync()
       OUTLINED_FUNCTION_127(v30, v31);
       v32 = OUTLINED_FUNCTION_73_1();
       fence_16(v32, v33, v34);
-      *(v0 + 168) = 1;
+      *(v1 + 168) = 1;
       OUTLINED_FUNCTION_117();
       v35 = OUTLINED_FUNCTION_47_1();
-      insert_l(v35);
-      v36 = OUTLINED_FUNCTION_54_1();
-      lpta_storep(v36, v37);
-      v38 = OUTLINED_FUNCTION_142();
-      starttest(v38, v39);
-      v40 = OUTLINED_FUNCTION_70_1();
-      v42 = 0;
-      if (lpta_loadp_setscan_l(v40, v41))
+      insert_l(v35, v36);
+      v37 = OUTLINED_FUNCTION_54_1();
+      lpta_storep(v37, v38, v39);
+      v40 = OUTLINED_FUNCTION_142();
+      starttest(v40, v41);
+      v42 = OUTLINED_FUNCTION_70_1();
+      v44 = 0;
+      if (lpta_loadp_setscan_l(v42, v43, 2))
       {
 LABEL_6:
-        v45 = OUTLINED_FUNCTION_110();
-        starttest(v45, v46);
-        v47 = OUTLINED_FUNCTION_66_1();
-        if (lpta_loadp_setscan_l(v47, v48))
+        v47 = OUTLINED_FUNCTION_110();
+        starttest(v47, v48);
+        v49 = OUTLINED_FUNCTION_66_1();
+        if (lpta_loadp_setscan_l(v49, v50, 4))
         {
 LABEL_16:
-          OUTLINED_FUNCTION_95_0(v133);
+          OUTLINED_FUNCTION_95_0(v137);
           goto LABEL_3;
         }
 
         OUTLINED_FUNCTION_22_8();
         bspush_ca_scan_boa();
-        v43 = advanc(v0);
-        if (v43)
+        v45 = advanc(v1);
+        if (v45)
         {
-          v44 = v42;
+          v46 = v44;
         }
 
         else
         {
-          v44 = 1;
+          v46 = 1;
         }
       }
 
@@ -6586,41 +5422,41 @@ LABEL_16:
       {
         OUTLINED_FUNCTION_15_12();
         bspush_ca_scan_boa();
-        v43 = advanc(v0);
-        v44 = !v43;
+        v45 = advanc(v1);
+        v46 = !v45;
       }
 
-      if (*(v0 + 104))
+      if (*(v1 + 104))
       {
-        v49 = OUTLINED_FUNCTION_144(v43, v44);
+        v51 = OUTLINED_FUNCTION_144(v45, v46);
       }
 
       else
       {
-        v50 = vback(v0, v44);
-        v49 = 0;
+        v52 = vback(v1, v46);
+        v51 = 0;
       }
 
-      v42 = v49;
-      switch(v50)
+      v44 = v51;
+      switch(v52)
       {
         case 1:
           goto LABEL_6;
         case 2:
-          bspop_boa(v0);
-          OUTLINED_FUNCTION_50_1();
-          project_word_boundary_sync();
+          bspop_boa(v1);
+          v53 = OUTLINED_FUNCTION_50_1();
+          project_word_boundary_sync(v53);
           goto LABEL_16;
         case 3:
         case 4:
           goto LABEL_16;
         case 5:
-          bspop_boa(v0);
-          *(v0 + 168) = 1;
-          *(v0 + 144) = v133;
-          *(v0 + 136) = 1;
-          v51 = OUTLINED_FUNCTION_12_14();
-          proj_l(v51);
+          bspop_boa(v1);
+          *(v1 + 168) = 1;
+          *(v1 + 144) = v137;
+          *(v1 + 136) = 1;
+          v54 = OUTLINED_FUNCTION_12_14();
+          proj_l(v54, 4, v55);
           goto LABEL_16;
         default:
           break;
@@ -6629,83 +5465,81 @@ LABEL_16:
   }
 
 LABEL_3:
-  vretproc(v0);
-  v26 = *MEMORY[0x277D85DE8];
+  vretproc(v1);
   return OUTLINED_FUNCTION_105();
 }
 
-uint64_t single_chars_token()
+uint64_t single_chars_token(uint64_t a1)
 {
   OUTLINED_FUNCTION_11_14();
-  v202 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_10_14(v2, v3, v4, v5, v6, v7, v8, v9, v62, v67, v72, v77, v82, v87, v92, v97, v102, v107, v112, v117, v122, v127, v132, v137, v142, v147, v152, v157, v162, v167, v172, v177, v182, v186, v189);
-  OUTLINED_FUNCTION_26_8(v10, v11, v12, v13, v14, v15, v16, v17, v63, v68, v73, v78, v83, v88, v93, v98, v103, v108, v113, v118, v123, v128, v133, v138, v143, v148, v153, v158, v163, v168, v173, v178, v183, v187, v190, v192, v194, v196, v198, v200);
-  if (!setjmp(v1))
+  OUTLINED_FUNCTION_10_14(v3, v4, v5, v6, v7, v8, v9, v10, v68, v73, v78, v83, v88, v93, v98, v103, v108, v113, v118, v123, v128, v133, v138, v143, v148, v153, v158, v163, v168, v173, v178, v183, v188, v192, v195);
+  OUTLINED_FUNCTION_26_8(v11, v12, v13, v14, v15, v16, v17, v18, v69, v74, v79, v84, v89, v94, v99, v104, v109, v114, v119, v124, v129, v134, v139, v144, v149, v154, v159, v164, v169, v174, v179, v184, v189, v193, v196, v198, v200, v202, v204);
+  if (!setjmp(v2))
   {
     OUTLINED_FUNCTION_0_16();
-    if (!OUTLINED_FUNCTION_132(v18, v19, v20, v21, v22, v23, v24, v25, v64, v69, v74, v79, v84, v89, v94, v99, v104, v109, v114, v119, v124, v129, v134, v139, v144, v149, v154, v159, v164, v169, v174, v179, v184, v188, v191, v193, v195, v197, v199, v201))
+    if (!OUTLINED_FUNCTION_132(v19, v20, v21, v22, v23, v24, v25, v26, v70, v75, v80, v85, v90, v95, v100, v105, v110, v115, v120, v125, v130, v135, v140, v145, v150, v155, v160, v165, v170, v175, v180, v185, v190, v194, v197, v199, v201, v203, v205))
     {
       v28 = OUTLINED_FUNCTION_13_14();
       get_parm(v28, v29, v30, -6);
-      OUTLINED_FUNCTION_43_1(v31, v32, v33, v34, v35, v36, v37, v38, v65, v70, v75, v80, v85, v90, v95, v100, v105, v110, v115, v120, v125, v130, v135, v140, v145, v150, v155, v160, v165, v170, v175, v180);
-      fence_16(v0, 0, &_MergedGlobals_1_0);
+      OUTLINED_FUNCTION_43_1(v31, v32, v33, v34, v35, v36, v37, v38, v71, v76, v81, v86, v91, v96, v101, v106, v111, v116, v121, v126, v131, v136, v141, v146, v151, v156, v161, v166, v171, v176, v181, v186);
+      fence_16(v1, 0, &_MergedGlobals_1_0);
       v39 = OUTLINED_FUNCTION_110();
       starttest(v39, v40);
       v41 = OUTLINED_FUNCTION_54_1();
-      if (lpta_loadp_setscan_r(v41, v42))
+      if (lpta_loadp_setscan_r(v41, v42, 1))
       {
 LABEL_5:
-        OUTLINED_FUNCTION_50_1();
-        single_chars();
+        v43 = OUTLINED_FUNCTION_50_1();
+        single_chars(v43, v44, v45);
 LABEL_6:
-        OUTLINED_FUNCTION_61_1(v43, v44, v45, v46, v47, v48, v49, v50, v66, v71, v76, v81, v86, v91, v96, v101, v106, v111, v116, v121, v126, v131, v136, v141, v146, v151, v156, v161, v166, v171, v176, v181, v185);
+        OUTLINED_FUNCTION_61_1(v46, v47, v48, v49, v50, v51, v52, v53, v72, v77, v82, v87, v92, v97, v102, v107, v112, v117, v122, v127, v132, v137, v142, v147, v152, v157, v162, v167, v172, v177, v182, v187, v191);
       }
 
       else
       {
-        v51 = 0;
+        v54 = 0;
         while (2)
         {
-          v52 = v51;
-          v53 = OUTLINED_FUNCTION_54_1();
-          bspush_ca_scan(v53, v54);
+          v55 = v54;
+          v56 = OUTLINED_FUNCTION_54_1();
+          bspush_ca_scan(v56, v57);
           OUTLINED_FUNCTION_70_1();
           bspush_ca_scan_boa();
-          v55 = OUTLINED_FUNCTION_51_1();
-          if (!testFldeq(v55, v56, 0, 72))
+          v58 = OUTLINED_FUNCTION_51_1();
+          if (!testFldeq(v58, v59, 0, 72))
           {
-            v52 = 1;
+            v55 = 1;
           }
 
 LABEL_10:
-          v57 = v0[13];
-          if (v57)
+          v60 = v1[13];
+          if (v60)
           {
-            v43 = OUTLINED_FUNCTION_65_1(v57);
-            v52 = v44;
+            v46 = OUTLINED_FUNCTION_65_1(v60);
+            v55 = v47;
           }
 
           else
           {
-            v43 = vback(v0, v52);
-            v52 = 0;
+            v46 = vback(v1, v55);
+            v55 = 0;
           }
 
-          v51 = v52;
-          switch(v43)
+          v54 = v55;
+          switch(v46)
           {
             case 1:
               goto LABEL_5;
             case 2:
               OUTLINED_FUNCTION_75_1();
-              v59 = OUTLINED_FUNCTION_83_1();
-              savescptr(v59, v60, v61);
+              v65 = OUTLINED_FUNCTION_83_1();
+              savescptr(v65, v66, v67);
               goto LABEL_5;
             case 3:
-              bspop_boa(v0);
-              v58 = advance_tok(v0);
-              v51 = v52;
-              if (!v58)
+              bspop_boa(v1);
+              v64 = advance_tok(v1, v61, v62, v63);
+              v54 = v55;
+              if (!v64)
               {
                 continue;
               }
@@ -6724,222 +5558,221 @@ LABEL_10:
   }
 
 LABEL_3:
-  vretproc(v0);
-  v26 = *MEMORY[0x277D85DE8];
+  vretproc(v1);
   return OUTLINED_FUNCTION_105();
 }
 
-void single_chars()
+void single_chars(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_114();
-  v74 = v1;
+  v89 = v4;
   OUTLINED_FUNCTION_76_1();
-  v88 = *MEMORY[0x277D85DE8];
+  v103 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_169();
-  v76[1] = 0;
-  *v77 = 0;
-  v76[0] = 0;
+  v91[1] = 0;
+  *v92 = 0;
+  v91[0] = 0;
   OUTLINED_FUNCTION_58_1();
-  bzero(v75, v2);
+  bzero(v90, v5);
   OUTLINED_FUNCTION_57_1();
-  bzero(v87, v3);
-  if (setjmp(v87) || ventproc(v0, v75, v86, v85, v84, v87))
+  bzero(v102, v6);
+  if (setjmp(v102) || ventproc(v3, v90, v101, v100, v99, v102))
   {
 LABEL_3:
-    vretproc(v0);
+    vretproc(v3);
   }
 
   else
   {
-    v5 = OUTLINED_FUNCTION_74_1();
-    OUTLINED_FUNCTION_126(v5, v6);
-    v7 = OUTLINED_FUNCTION_84_1();
-    get_parm(v7, v8, v74, -6);
-    v81[0] = -4;
-    v79 = -4;
-    v9 = OUTLINED_FUNCTION_70_1();
-    push_ptr_init(v9, v10);
-    v11 = OUTLINED_FUNCTION_151();
+    v7 = OUTLINED_FUNCTION_74_1();
+    OUTLINED_FUNCTION_126(v7, v8);
+    v9 = OUTLINED_FUNCTION_84_1();
+    get_parm(v9, v10, v89, -6);
+    v96[0] = -4;
+    v94 = -4;
+    v11 = OUTLINED_FUNCTION_70_1();
     push_ptr_init(v11, v12);
-    v13 = OUTLINED_FUNCTION_54_1();
+    v13 = OUTLINED_FUNCTION_151();
     push_ptr_init(v13, v14);
-    v15 = 0;
-    v16 = OUTLINED_FUNCTION_73_1();
-    fence_16(v16, v17, v18);
-    v81[1] = 0;
-    v80 = 0;
-    OUTLINED_FUNCTION_74_1();
-    single_chars_count_inp();
+    v15 = OUTLINED_FUNCTION_54_1();
+    push_ptr_init(v15, v16);
+    v17 = 0;
+    v18 = OUTLINED_FUNCTION_73_1();
+    fence_16(v18, v19, v20);
+    v96[1] = 0;
+    v95 = 0;
+    v21 = OUTLINED_FUNCTION_74_1();
+    single_chars_count_inp(v21, v22, v97, v23);
     OUTLINED_FUNCTION_75_1();
-    v73 = v19;
+    v88 = v24;
     while (2)
     {
-      startloop(v0, v19);
-      v20 = OUTLINED_FUNCTION_74_1();
-      lpta_loadpn(v20, v21);
+      startloop(v3, v24);
+      v25 = OUTLINED_FUNCTION_74_1();
+      lpta_loadpn(v25, v26);
       OUTLINED_FUNCTION_80_1();
       lpta_mover();
-      v22 = OUTLINED_FUNCTION_70_1();
-      lpta_storep(v22, v23);
-      v24 = OUTLINED_FUNCTION_84_1();
-      lpta_loadpn(v24, v25);
+      v27 = OUTLINED_FUNCTION_70_1();
+      lpta_storep(v27, v28, v29);
+      v30 = OUTLINED_FUNCTION_84_1();
+      lpta_loadpn(v30, v31);
       OUTLINED_FUNCTION_80_1();
       lpta_mover();
-      v26 = OUTLINED_FUNCTION_54_1();
-      lpta_storep(v26, v27);
+      v32 = OUTLINED_FUNCTION_54_1();
+      lpta_storep(v32, v33, v34);
       while (1)
       {
 LABEL_7:
-        v28 = OUTLINED_FUNCTION_70_1();
-        v30 = forall_to_test(v28, v29, v76);
-        v31 = v15;
-        if (v30)
+        v35 = OUTLINED_FUNCTION_70_1();
+        v37 = forall_to_test(v35, v36, v91);
+        v38 = v17;
+        if (v37)
         {
           goto LABEL_19;
         }
 
 LABEL_8:
-        v15 = v31;
-        bspush_ca(v0);
-        v32 = OUTLINED_FUNCTION_70_1();
-        if (lpta_loadp_setscan_r(v32, v33))
+        v17 = v38;
+        bspush_ca(v3);
+        v39 = OUTLINED_FUNCTION_70_1();
+        if (lpta_loadp_setscan_r(v39, v40, 1))
         {
           goto LABEL_19;
         }
 
-        v34 = advance_tok(v0);
-        v35 = v15;
-        if (v34)
+        v44 = advance_tok(v3, v41, v42, v43);
+        v45 = v17;
+        if (v44)
         {
           goto LABEL_19;
         }
 
 LABEL_10:
-        v15 = v35;
-        v36 = OUTLINED_FUNCTION_157();
-        savescptr(v36, v37, v77);
+        v17 = v45;
+        v46 = OUTLINED_FUNCTION_157();
+        savescptr(v46, v47, v92);
 LABEL_11:
         OUTLINED_FUNCTION_70_1();
         char_name();
 LABEL_12:
-        --v80;
-        v38 = OUTLINED_FUNCTION_70_1();
-        single_chars_forced_syn(v38, v39, v77, v82, v81, &v79);
+        --v95;
+        v48 = OUTLINED_FUNCTION_70_1();
+        single_chars_forced_syn(v48, v49, v92, v97, v96, &v94);
 LABEL_13:
-        v40 = v15;
-        v41 = 1;
-        if (*(v0 + 2422) == 1)
+        v50 = v17;
+        v51 = 1;
+        if (*(v3 + 2422) == 1)
         {
           break;
         }
 
 LABEL_41:
-        v15 = v40;
+        v17 = v50;
         OUTLINED_FUNCTION_75_1();
-        forall_cont_from(v0);
+        forall_cont_from();
       }
 
 LABEL_14:
-      if (v41 != 1 && *(v0 + 2642) != *(v0 + 2614))
+      if (v51 != 1 && *(v3 + 2642) != *(v3 + 2614))
       {
-        v42 = OUTLINED_FUNCTION_134();
-        starttest(v42, v43);
+        v52 = OUTLINED_FUNCTION_134();
+        starttest(v52, v53);
         OUTLINED_FUNCTION_111();
         bspush_ca_boa();
-        v44 = OUTLINED_FUNCTION_54_1();
-        if (!lpta_loadp_setscan_r(v44, v45))
+        v54 = OUTLINED_FUNCTION_54_1();
+        if (!lpta_loadp_setscan_r(v54, v55, 1))
         {
-          v46 = OUTLINED_FUNCTION_106();
-          bspush_ca_scan(v46, v47);
+          v56 = OUTLINED_FUNCTION_106();
+          bspush_ca_scan(v56, v57);
           OUTLINED_FUNCTION_24_8();
           if (!test_string_s())
           {
 LABEL_18:
-            LODWORD(v15) = 1;
+            LODWORD(v17) = 1;
           }
         }
 
 LABEL_19:
-        v48 = v15;
+        v58 = v17;
 LABEL_20:
-        v49 = *(v0 + 104);
-        if (v49)
+        v59 = *(v3 + 104);
+        if (v59)
         {
-          v50 = OUTLINED_FUNCTION_65_1(v49);
-          v15 = v51;
+          v60 = OUTLINED_FUNCTION_65_1(v59);
+          v17 = v61;
         }
 
         else
         {
-          v50 = vback(v0, v48);
-          v15 = 0;
+          v60 = vback(v3, v58);
+          v17 = 0;
         }
 
-        switch(v50)
+        switch(v60)
         {
           case 1:
-            v19 = v73;
+            v24 = v88;
             continue;
           case 2:
             goto LABEL_37;
           case 3:
             goto LABEL_11;
           case 4:
-            v52 = OUTLINED_FUNCTION_15_12();
-            v54 = forto_adv_upto_r(v52, v53, 3, 10, 1, v78);
-            v48 = v15;
-            if (v54)
+            v62 = OUTLINED_FUNCTION_15_12();
+            v64 = forto_adv_upto_r(v62, v63, 3, 10, 1, v93);
+            v58 = v17;
+            if (v64)
             {
               goto LABEL_20;
             }
 
 LABEL_37:
-            v41 = *(v0 + 2422);
+            v51 = *(v3 + 2422);
             goto LABEL_14;
           case 5:
-            v35 = v15;
+            v45 = v17;
             goto LABEL_10;
           case 6:
             goto LABEL_12;
           case 7:
             goto LABEL_13;
           case 8:
-            v40 = v15;
+            v50 = v17;
             goto LABEL_41;
           case 9:
             goto LABEL_7;
           case 10:
-            v31 = v15;
+            v38 = v17;
             goto LABEL_8;
           case 11:
             goto LABEL_44;
           case 12:
-            bspop_boa(v0);
-            v60 = OUTLINED_FUNCTION_40_1();
-            starttest_l(v60, v61);
+            bspop_boa(v3);
+            v71 = OUTLINED_FUNCTION_40_1();
+            starttest_l(v71, v72);
             OUTLINED_FUNCTION_71_1();
             bspush_ca_boa();
-            v48 = v15;
-            if (*(v0 + 2634) == *(v0 + 2614))
+            v58 = v17;
+            if (*(v3 + 2634) == *(v3 + 2614))
             {
-              v62 = OUTLINED_FUNCTION_54_1();
-              v64 = lpta_loadp_setscan_r(v62, v63);
-              v48 = v15;
-              if (!v64)
+              v73 = OUTLINED_FUNCTION_54_1();
+              v75 = lpta_loadp_setscan_r(v73, v74, 1);
+              v58 = v17;
+              if (!v75)
               {
-                v65 = OUTLINED_FUNCTION_80_1();
-                v67 = testFldeq(v65, v66, 3, 1);
-                v48 = v15;
-                if (!v67)
+                v76 = OUTLINED_FUNCTION_80_1();
+                v78 = testFldeq(v76, v77, 3, 1);
+                v58 = v17;
+                if (!v78)
                 {
-                  if (advance_tok(v0))
+                  if (advance_tok(v3, v17, v79, v80))
                   {
-                    v48 = v15;
+                    v58 = v17;
                   }
 
                   else
                   {
-                    v48 = 1;
+                    v58 = 1;
                   }
                 }
               }
@@ -6947,37 +5780,36 @@ LABEL_37:
 
             goto LABEL_20;
           case 13:
-            v55 = OUTLINED_FUNCTION_64_1();
-            bspush_ca_scan(v55, v56);
-            *(v0 + 136) = 1;
-            v57 = *(v0 + 1392);
-            v58 = OUTLINED_FUNCTION_12_14();
-            v59 = test_ptr(v58);
+            v65 = OUTLINED_FUNCTION_64_1();
+            bspush_ca_scan(v65, v66);
+            *(v3 + 136) = 1;
+            v67 = OUTLINED_FUNCTION_12_14();
+            v70 = test_ptr(v67, v68, v69);
             goto LABEL_35;
           case 14:
             goto LABEL_18;
           case 15:
             OUTLINED_FUNCTION_80_1();
             OUTLINED_FUNCTION_116();
-            v72 = testFldeq(v68, v69, v70, v71);
-            v48 = v15;
-            if (v72)
+            v85 = testFldeq(v81, v82, v83, v84);
+            v58 = v17;
+            if (v85)
             {
               goto LABEL_20;
             }
 
-            v59 = advance_tok(v0);
+            v70 = advance_tok(v3, v17, v86, v87);
 LABEL_35:
-            v48 = v15;
-            if (!v59)
+            v58 = v17;
+            if (!v70)
             {
               goto LABEL_18;
             }
 
             goto LABEL_20;
           case 16:
-            bspop_boa(v0);
-            separate_tokens();
+            bspop_boa(v3);
+            separate_tokens(v3);
             goto LABEL_44;
           default:
             goto LABEL_3;
@@ -6988,41 +5820,39 @@ LABEL_35:
     }
 
 LABEL_44:
-    *(v0 + 2614) = *(v0 + 2638);
-    *(v74 + 8) = v83;
-    vretproc(v0);
+    *(v3 + 2614) = *(v3 + 2638);
+    *(v89 + 8) = v98;
+    vretproc(v3);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_113();
 }
 
-uint64_t end_of_word()
+uint64_t end_of_word(uint64_t a1)
 {
   OUTLINED_FUNCTION_76_1();
-  v2 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_14(v3, v4, v5, v6, v7, v8, v9, v10, v54, v57, v60, v63, v66, v69, v72, v75, v78, v81, v84, v87, v90, v93, v96, v99, v102, v105, v108, v111, v114, v117, v120, v123, v124, v125, v126);
+  OUTLINED_FUNCTION_5_14(v4, v5, v6, v7, v8, v9, v10, v11, v59, v62, v65, v68, v71, v74, v77, v80, v83, v86, v89, v92, v95, v98, v101, v104, v107, v110, v113, v116, v119, v122, v125, v128, v129, v130, v131);
   OUTLINED_FUNCTION_57_1();
-  OUTLINED_FUNCTION_164(v11, v12, v13, v14, v15, v16, v17, v18, v55, v58, v61, v64, v67, v70, v73, v76, v79, v82, v85, v88, v91, v94, v97, v100, v103, v106, v109, v112, v115, v118, v121, v123, v124, v125, v126, v127, v128, v129, v130, v131);
-  if (!setjmp(v1))
+  OUTLINED_FUNCTION_164(v12, v13, v14, v15, v16, v17, v18, v19, v60, v63, v66, v69, v72, v75, v78, v81, v84, v87, v90, v93, v96, v99, v102, v105, v108, v111, v114, v117, v120, v123, v126, v128, v129, v130, v131, v132, v133, v134, v135);
+  if (!setjmp(v3))
   {
     OUTLINED_FUNCTION_0_16();
-    if (!OUTLINED_FUNCTION_132(v19, v20, v21, v22, v23, v24, v25, v26, v56, v59, v62, v65, v68, v71, v74, v77, v80, v83, v86, v89, v92, v95, v98, v101, v104, v107, v110, v113, v116, v119, v122, v123, v124, v125, v126, v127, v128, v129, v130, v131))
+    if (!OUTLINED_FUNCTION_132(v20, v21, v22, v23, v24, v25, v26, v27, v61, v64, v67, v70, v73, v76, v79, v82, v85, v88, v91, v94, v97, v100, v103, v106, v109, v112, v115, v118, v121, v124, v127, v128, v129, v130, v131, v132, v133, v134, v135))
     {
       OUTLINED_FUNCTION_21_8();
       v29 = OUTLINED_FUNCTION_66_1();
       push_ptr_init(v29, v30);
-      fence_16(v0, 0, &_MergedGlobals_1_0);
+      fence_16(v1, 0, &_MergedGlobals_1_0);
       v31 = OUTLINED_FUNCTION_100();
       starttest(v31, v32);
       v33 = OUTLINED_FUNCTION_55_1();
-      if (lpta_loadp_setscan_r(v33, v34))
+      if (lpta_loadp_setscan_r(v33, v34, v2))
       {
 LABEL_5:
         v35 = OUTLINED_FUNCTION_27_6();
         starttest(v35, v36);
         v37 = OUTLINED_FUNCTION_14_12();
-        if (lpta_loadp_setscan_r(v37, v38))
+        if (lpta_loadp_setscan_r(v37, v38, v39))
         {
           goto LABEL_3;
         }
@@ -7036,21 +5866,21 @@ LABEL_6:
             break;
           }
 
-          v39 = OUTLINED_FUNCTION_55_1();
-          bspush_ca_scan(v39, v40);
+          v40 = OUTLINED_FUNCTION_55_1();
+          bspush_ca_scan(v40, v41);
         }
       }
 
       else
       {
-        v41 = OUTLINED_FUNCTION_15_12();
-        bspush_ca_scan(v41, v42);
-        bspush_ca_scan(v0, 3);
-        v43 = OUTLINED_FUNCTION_51_1();
-        if (!testFldeq(v43, v44, 3, 4))
+        v42 = OUTLINED_FUNCTION_15_12();
+        bspush_ca_scan(v42, v43);
+        bspush_ca_scan(v1, 3);
+        v44 = OUTLINED_FUNCTION_51_1();
+        if (!testFldeq(v44, v45, 3, 4))
         {
 LABEL_9:
-          if (!advance_tok(v0))
+          if (!advance_tok(v1, v46, v47, v48))
           {
             goto LABEL_3;
           }
@@ -7059,34 +5889,33 @@ LABEL_9:
 
       while (2)
       {
-        v45 = *(v0 + 104);
-        if (v45)
+        v49 = *(v1 + 104);
+        if (v49)
         {
-          v46 = OUTLINED_FUNCTION_65_1(v45);
+          v50 = OUTLINED_FUNCTION_65_1(v49);
         }
 
         else
         {
-          v46 = OUTLINED_FUNCTION_133();
+          v50 = OUTLINED_FUNCTION_133();
         }
 
-        switch(v46)
+        switch(v50)
         {
           case 1:
             goto LABEL_5;
           case 2:
-            *(v0 + 136) = 1;
-            v47 = *(v0 + 1392);
-            v48 = OUTLINED_FUNCTION_12_14();
-            if (test_ptr(v48))
+            *(v1 + 136) = 1;
+            v51 = OUTLINED_FUNCTION_12_14();
+            if (test_ptr(v51, v52, v53))
             {
               continue;
             }
 
             break;
           case 3:
-            v49 = OUTLINED_FUNCTION_130();
-            if (!testFldeq(v49, v50, 3, 5))
+            v54 = OUTLINED_FUNCTION_130();
+            if (!testFldeq(v54, v55, 3, 5))
             {
               goto LABEL_9;
             }
@@ -7095,10 +5924,10 @@ LABEL_9:
           case 4:
             goto LABEL_9;
           case 8:
-            v51 = OUTLINED_FUNCTION_55_1();
-            savescptr(v51, v52, &v123);
-            v53 = OUTLINED_FUNCTION_54_1();
-            if (end_of_word(v53))
+            v56 = OUTLINED_FUNCTION_55_1();
+            savescptr(v56, v57, &v128);
+            v58 = OUTLINED_FUNCTION_54_1();
+            if (end_of_word(v58))
             {
               continue;
             }
@@ -7116,161 +5945,154 @@ LABEL_9:
   }
 
 LABEL_3:
-  vretproc(v0);
-  v27 = *MEMORY[0x277D85DE8];
+  vretproc(v1);
   return OUTLINED_FUNCTION_105();
 }
 
-uint64_t tok_dict_entry()
+uint64_t tok_dict_entry(uint64_t a1)
 {
   OUTLINED_FUNCTION_11_14();
-  v2 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_14(v3, v4, v5, v6, v7, v8, v9, v10, v40, v44, v48, v52, v56, v60, v64, v68, v72, v76, v80, v84, v88, v92, v96, v100, v104, v108, v112, v116, v120, v124, v128, v132, v133, v134, v135);
-  OUTLINED_FUNCTION_26_8(v11, v12, v13, v14, v15, v16, v17, v18, v41, v45, v49, v53, v57, v61, v65, v69, v73, v77, v81, v85, v89, v93, v97, v101, v105, v109, v113, v117, v121, v125, v129, v132, v133, v134, v135, v136, v137, v138, v139, v140);
-  if (setjmp(v1) || (OUTLINED_FUNCTION_0_16(), OUTLINED_FUNCTION_132(v19, v20, v21, v22, v23, v24, v25, v26, v42, v46, v50, v54, v58, v62, v66, v70, v74, v78, v82, v86, v90, v94, v98, v102, v106, v110, v114, v118, v122, v126, v130, v132, v133, v134, v135, v136, v137, v138, v139, v140)) || ((v27 = OUTLINED_FUNCTION_63_1(), get_parm(v27, v28, v29, -6), OUTLINED_FUNCTION_43_1(v30, v31, v32, v33, v34, v35, v36, v37, v43, v47, v51, v55, v59, v63, v67, v71, v75, v79, v83, v87, v91, v95, v99, v103, v107, v111, v115, v119, v123, v127, v131, v132), fence_16(v0, 0, &_MergedGlobals_1_0), *(v0 + 5398) != 1) || callUserDictLookup(v0, v0 + 4032, &v134, &v132)) && (OUTLINED_FUNCTION_50_1(), tok_dict()))
+  OUTLINED_FUNCTION_5_14(v3, v4, v5, v6, v7, v8, v9, v10, v39, v43, v47, v51, v55, v59, v63, v67, v71, v75, v79, v83, v87, v91, v95, v99, v103, v107, v111, v115, v119, v123, v127, v131, v132, v133[0], v133[1]);
+  OUTLINED_FUNCTION_26_8(v11, v12, v13, v14, v15, v16, v17, v18, v40, v44, v48, v52, v56, v60, v64, v68, v72, v76, v80, v84, v88, v92, v96, v100, v104, v108, v112, v116, v120, v124, v128, v131, v132, v133[0], v133[1], v133[2], v133[3], v133[4], v133[5]);
+  if (setjmp(v2) || (OUTLINED_FUNCTION_0_16(), OUTLINED_FUNCTION_132(v19, v20, v21, v22, v23, v24, v25, v26, v41, v45, v49, v53, v57, v61, v65, v69, v73, v77, v81, v85, v89, v93, v97, v101, v105, v109, v113, v117, v121, v125, v129, v131, v132, v133[0], v133[1], v133[2], v133[3], v133[4], v133[5])) || ((v27 = OUTLINED_FUNCTION_63_1(), get_parm(v27, v28, v29, -6), OUTLINED_FUNCTION_43_1(v30, v31, v32, v33, v34, v35, v36, v37, v42, v46, v50, v54, v58, v62, v66, v70, v74, v78, v82, v86, v90, v94, v98, v102, v106, v110, v114, v118, v122, v126, v130, v131), fence_16(v1, 0, &_MergedGlobals_1_0), *(v1 + 5398) != 1) || callUserDictLookup(v1, v1 + 4032, v133, &v131)) && (OUTLINED_FUNCTION_50_1(), tok_dict()))
   {
-    vretproc(v0);
-    result = 94;
+    vretproc(v1);
+    return 94;
   }
 
   else
   {
-    *(v0 + 2504) = v133;
-    *(v0 + 2726) = *(v0 + 2734);
-    vretproc(v0);
-    result = 0;
+    *(v1 + 2504) = v132;
+    *(v1 + 2726) = *(v1 + 2734);
+    vretproc(v1);
+    return 0;
   }
-
-  v39 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-uint64_t spell_out_sequence()
+uint64_t spell_out_sequence(uint64_t a1)
 {
   OUTLINED_FUNCTION_11_14();
-  v2 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_14(v3, v4, v5, v6, v7, v8, v9, v10, v51, v56, v61, v66, v71, v76, v81, v86, v91, v96, v101, v106, v111, v116, v121, v126, v131, v136, v141, v146, v151, v156, v161, v166, v171, v175, v178);
-  OUTLINED_FUNCTION_26_8(v11, v12, v13, v14, v15, v16, v17, v18, v52, v57, v62, v67, v72, v77, v82, v87, v92, v97, v102, v107, v112, v117, v122, v127, v132, v137, v142, v147, v152, v157, v162, v167, v172, v176, v179, v181, v183, v185, v187, v189);
-  if (!setjmp(v1))
+  OUTLINED_FUNCTION_5_14(v3, v4, v5, v6, v7, v8, v9, v10, v53, v58, v63, v68, v73, v78, v83, v88, v93, v98, v103, v108, v113, v118, v123, v128, v133, v138, v143, v148, v153, v158, v163, v168, v173, v177, v180);
+  OUTLINED_FUNCTION_26_8(v11, v12, v13, v14, v15, v16, v17, v18, v54, v59, v64, v69, v74, v79, v84, v89, v94, v99, v104, v109, v114, v119, v124, v129, v134, v139, v144, v149, v154, v159, v164, v169, v174, v178, v181, v183, v185, v187, v189);
+  if (!setjmp(v2))
   {
     OUTLINED_FUNCTION_0_16();
-    if (!OUTLINED_FUNCTION_132(v19, v20, v21, v22, v23, v24, v25, v26, v53, v58, v63, v68, v73, v78, v83, v88, v93, v98, v103, v108, v113, v118, v123, v128, v133, v138, v143, v148, v153, v158, v163, v168, v173, v177, v180, v182, v184, v186, v188, v190))
+    if (!OUTLINED_FUNCTION_132(v19, v20, v21, v22, v23, v24, v25, v26, v55, v60, v65, v70, v75, v80, v85, v90, v95, v100, v105, v110, v115, v120, v125, v130, v135, v140, v145, v150, v155, v160, v165, v170, v175, v179, v182, v184, v186, v188, v190))
     {
-      v29 = OUTLINED_FUNCTION_13_14();
-      get_parm(v29, v30, v31, -6);
-      OUTLINED_FUNCTION_19_9(v32, v33, v34, v35, v36, v37, v38, v39, v54, v59, v64, v69, v74, v79, v84, v89, v94, v99, v104, v109, v114, v119, v124, v129, v134, v139, v144, v149, v154, v159, v164, v169);
-      v40 = OUTLINED_FUNCTION_73_1();
-      fence_16(v40, v41, v42);
-      *(v0 + 2742) = *(v0 + 2754);
-      OUTLINED_FUNCTION_13_14();
-      single_chars();
+      v28 = OUTLINED_FUNCTION_13_14();
+      get_parm(v28, v29, v30, -6);
+      OUTLINED_FUNCTION_19_9(v31, v32, v33, v34, v35, v36, v37, v38, v56, v61, v66, v71, v76, v81, v86, v91, v96, v101, v106, v111, v116, v121, v126, v131, v136, v141, v146, v151, v156, v161, v166, v171);
+      v39 = OUTLINED_FUNCTION_73_1();
+      fence_16(v39, v40, v41);
+      *(v1 + 2742) = *(v1 + 2754);
+      v42 = OUTLINED_FUNCTION_13_14();
+      single_chars(v42, v43, v44);
       OUTLINED_FUNCTION_167();
-      OUTLINED_FUNCTION_61_1(v43, v44, v45, v46, v47, v48, v49, v50, v55, v60, v65, v70, v75, v80, v85, v90, v95, v100, v105, v110, v115, v120, v125, v130, v135, v140, v145, v150, v155, v160, v165, v170, v174);
+      OUTLINED_FUNCTION_61_1(v45, v46, v47, v48, v49, v50, v51, v52, v57, v62, v67, v72, v77, v82, v87, v92, v97, v102, v107, v112, v117, v122, v127, v132, v137, v142, v147, v152, v157, v162, v167, v172, v176);
     }
   }
 
-  vretproc(v0);
-  v27 = *MEMORY[0x277D85DE8];
+  vretproc(v1);
   return OUTLINED_FUNCTION_105();
 }
 
-void process_hostname()
+void process_hostname(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_114();
   OUTLINED_FUNCTION_11_14();
-  v108 = *MEMORY[0x277D85DE8];
-  v103[0] = 0;
-  v103[1] = 0;
-  v101 = 0;
-  v102 = 0;
-  v100[0] = 0;
-  v100[1] = 0;
+  v140 = *MEMORY[0x277D85DE8];
+  v135[0] = 0;
+  v135[1] = 0;
+  v133 = 0;
+  v134 = 0;
+  v132[0] = 0;
+  v132[1] = 0;
   OUTLINED_FUNCTION_169();
   OUTLINED_FUNCTION_58_1();
-  bzero(v94, v1);
+  bzero(v126, v4);
   OUTLINED_FUNCTION_57_1();
-  bzero(v107, v2);
-  if (!setjmp(v107) && !ventproc(v0, v94, v106, v105, v104, v107))
+  bzero(v139, v5);
+  if (!setjmp(v139) && !ventproc(v3, v126, v138, v137, v136, v139))
   {
-    v4 = OUTLINED_FUNCTION_70_1();
-    OUTLINED_FUNCTION_127(v4, v5);
-    v6 = OUTLINED_FUNCTION_64_1();
-    OUTLINED_FUNCTION_126(v6, v7);
-    v8 = OUTLINED_FUNCTION_55_1();
-    push_ptr_init(v8, v9);
-    v10 = OUTLINED_FUNCTION_54_1();
+    v6 = OUTLINED_FUNCTION_70_1();
+    OUTLINED_FUNCTION_127(v6, v7);
+    v8 = OUTLINED_FUNCTION_64_1();
+    OUTLINED_FUNCTION_126(v8, v9);
+    v10 = OUTLINED_FUNCTION_55_1();
     push_ptr_init(v10, v11);
-    v12 = OUTLINED_FUNCTION_71_1();
+    v12 = OUTLINED_FUNCTION_54_1();
     push_ptr_init(v12, v13);
-    push_ptr_init(v0, v97);
-    v14 = OUTLINED_FUNCTION_128();
+    v14 = OUTLINED_FUNCTION_71_1();
     push_ptr_init(v14, v15);
-    v16 = OUTLINED_FUNCTION_73_1();
-    fence_16(v16, v17, v18);
-    *(v0 + 2504) = v102;
-    *(v0 + 2726) = *(v0 + 2730);
-    startloop(v0, 1);
-    v19 = OUTLINED_FUNCTION_55_1();
-    copyvar(v19, v20, v103);
-    v21 = OUTLINED_FUNCTION_71_1();
-    copyvar(v21, v22, &v101);
+    push_ptr_init(v3, v129);
+    v16 = OUTLINED_FUNCTION_128();
+    push_ptr_init(v16, v17);
+    v18 = OUTLINED_FUNCTION_73_1();
+    fence_16(v18, v19, v20);
+    *(v3 + 2504) = v134;
+    *(v3 + 2726) = *(v3 + 2730);
+    startloop(v3, 1);
+    v21 = OUTLINED_FUNCTION_55_1();
+    copyvar(v21, v22, v135);
+    v23 = OUTLINED_FUNCTION_71_1();
+    copyvar(v23, v24, &v133);
 LABEL_5:
     while (1)
     {
-      v23 = OUTLINED_FUNCTION_55_1();
-      if (forall_to_test(v23, v24, v98))
+      v25 = OUTLINED_FUNCTION_55_1();
+      if (forall_to_test(v25, v26, v130))
       {
         break;
       }
 
 LABEL_6:
-      bspush_ca(v0);
-      v25 = OUTLINED_FUNCTION_55_1();
-      if (lpta_loadp_setscan_r(v25, v26) || advance_tok(v0))
+      bspush_ca(v3);
+      v27 = OUTLINED_FUNCTION_55_1();
+      if (lpta_loadp_setscan_r(v27, v28, 1) || advance_tok(v3, v29, v30, v31))
       {
         break;
       }
 
 LABEL_8:
-      savescptr(v0, 4, v99);
+      savescptr(v3, 4, v131);
 LABEL_9:
-      v27 = OUTLINED_FUNCTION_81_1();
-      starttest(v27, v28);
-      v29 = OUTLINED_FUNCTION_55_1();
-      if (lpta_loadp_setscan_r(v29, v30))
+      v32 = OUTLINED_FUNCTION_81_1();
+      starttest(v32, v33);
+      v34 = OUTLINED_FUNCTION_55_1();
+      if (lpta_loadp_setscan_r(v34, v35, 1))
       {
 LABEL_10:
-        starttest(v0, 21);
-        v31 = OUTLINED_FUNCTION_55_1();
-        if (!lpta_loadp_setscan_r(v31, v32))
+        starttest(v3, 21);
+        v36 = OUTLINED_FUNCTION_55_1();
+        if (!lpta_loadp_setscan_r(v36, v37, 1))
         {
 LABEL_37:
           while (1)
           {
-            v60 = OUTLINED_FUNCTION_77_1();
-            if (testFldeq(v60, v61, v62, 2) || advance_tok(v0))
+            v76 = OUTLINED_FUNCTION_77_1();
+            if (testFldeq(v76, v77, v78, 2) || advance_tok(v3, v79, v80, v81))
             {
               break;
             }
 
-            v58 = OUTLINED_FUNCTION_71_1();
-            bspush_ca_scan(v58, v59);
+            v74 = OUTLINED_FUNCTION_71_1();
+            bspush_ca_scan(v74, v75);
           }
 
           break;
         }
 
 LABEL_11:
-        v33 = OUTLINED_FUNCTION_55_1();
-        if (!lpta_loadp_setscan_r(v33, v34))
+        v38 = OUTLINED_FUNCTION_55_1();
+        if (!lpta_loadp_setscan_r(v38, v39, 1))
         {
           OUTLINED_FUNCTION_97_0();
           if (!test_string_s())
           {
-            *(v0 + 168) = 1;
+            *(v3 + 168) = 1;
             OUTLINED_FUNCTION_117();
-            v35 = OUTLINED_FUNCTION_97_0();
-            insert_l(v35);
+            v40 = OUTLINED_FUNCTION_97_0();
+            insert_l(v40, v41);
           }
         }
 
@@ -7278,156 +6100,155 @@ LABEL_14:
         OUTLINED_FUNCTION_55_1();
         char_name();
 LABEL_15:
-        *(v0 + 168) = 1;
+        *(v3 + 168) = 1;
         OUTLINED_FUNCTION_117();
-        v36 = OUTLINED_FUNCTION_97_0();
-        insert_l(v36);
+        v42 = OUTLINED_FUNCTION_97_0();
+        insert_l(v42, v43);
       }
 
       else
       {
-        v37 = OUTLINED_FUNCTION_77_1();
-        if (testFldeq(v37, v38, v39, 1) || advance_tok(v0))
+        v44 = OUTLINED_FUNCTION_77_1();
+        if (testFldeq(v44, v45, v46, 1) || advance_tok(v3, v47, v48, v49))
         {
           break;
         }
 
-        starttest(v0, 6);
-        v40 = OUTLINED_FUNCTION_55_1();
-        if (!lpta_loadp_setscan_r(v40, v41))
+        starttest(v3, 6);
+        v50 = OUTLINED_FUNCTION_55_1();
+        if (!lpta_loadp_setscan_r(v50, v51, 1))
         {
 LABEL_22:
           while (1)
           {
-            v46 = OUTLINED_FUNCTION_97_0();
-            if (testFldeq(v46, v47, 1, 1) || advance_tok(v0))
+            v56 = OUTLINED_FUNCTION_97_0();
+            if (testFldeq(v56, v57, 1, 1) || advance_tok(v3, v58, v59, v60))
             {
               break;
             }
 
-            v44 = OUTLINED_FUNCTION_64_1();
-            bspush_ca_scan(v44, v45);
+            v54 = OUTLINED_FUNCTION_64_1();
+            bspush_ca_scan(v54, v55);
           }
 
           break;
         }
 
 LABEL_19:
-        starttest(v0, 9);
-        v42 = OUTLINED_FUNCTION_55_1();
-        if (!lpta_loadp_setscan_r(v42, v43))
+        starttest(v3, 9);
+        v52 = OUTLINED_FUNCTION_55_1();
+        if (!lpta_loadp_setscan_r(v52, v53, 1))
         {
 LABEL_46:
           while (1)
           {
-            v66 = OUTLINED_FUNCTION_77_1();
-            if (testFldeq(v66, v67, v68, 1) || advance_tok(v0))
+            v85 = OUTLINED_FUNCTION_77_1();
+            if (testFldeq(v85, v86, v87, 1) || advance_tok(v3, v88, v89, v90))
             {
               break;
             }
 
-            bspush_ca_scan(v0, 10);
+            bspush_ca_scan(v3, 10);
           }
 
           break;
         }
 
 LABEL_50:
-        v69 = OUTLINED_FUNCTION_157();
-        starttest(v69, v70);
-        v71 = OUTLINED_FUNCTION_55_1();
-        if (!lpta_loadp_setscan_r(v71, v72))
+        v91 = OUTLINED_FUNCTION_157();
+        starttest(v91, v92);
+        v93 = OUTLINED_FUNCTION_55_1();
+        if (!lpta_loadp_setscan_r(v93, v94, 1))
         {
-          v73 = OUTLINED_FUNCTION_77_1();
-          if (testFldeq(v73, v74, v75, 1) || advance_tok(v0))
+          v95 = OUTLINED_FUNCTION_77_1();
+          if (testFldeq(v95, v96, v97, 1) || advance_tok(v3, v98, v99, v100))
           {
             break;
           }
 
 LABEL_53:
-          v76 = OUTLINED_FUNCTION_134();
-          savescptr(v76, v77, v97);
-          v78 = OUTLINED_FUNCTION_77_1();
-          if (testFldeq(v78, v79, v80, 1))
+          v101 = OUTLINED_FUNCTION_134();
+          savescptr(v101, v102, v129);
+          v103 = OUTLINED_FUNCTION_77_1();
+          if (testFldeq(v103, v104, v105, 1))
           {
             break;
           }
 
-          if (advance_tok(v0))
+          if (advance_tok(v3, v106, v107, v108))
           {
             break;
           }
 
-          v81 = OUTLINED_FUNCTION_111();
-          bspush_ca_scan(v81, v82);
-          v83 = OUTLINED_FUNCTION_77_1();
-          if (testFldeq(v83, v84, v85, 1) || advance_tok(v0))
+          v109 = OUTLINED_FUNCTION_111();
+          bspush_ca_scan(v109, v110);
+          v111 = OUTLINED_FUNCTION_77_1();
+          if (testFldeq(v111, v112, v113, 1) || advance_tok(v3, v114, v115, v116))
           {
             break;
           }
 
 LABEL_57:
-          v86 = OUTLINED_FUNCTION_106();
-          savescptr(v86, v87, v95);
+          v117 = OUTLINED_FUNCTION_106();
+          savescptr(v117, v118, v127);
 LABEL_58:
-          *(v0 + 136) = 1;
-          v88 = OUTLINED_FUNCTION_12_14();
-          if (test_ptr(v88))
+          *(v3 + 136) = 1;
+          v119 = OUTLINED_FUNCTION_12_14();
+          if (test_ptr(v119, v120, v121))
           {
             break;
           }
 
-          v89 = OUTLINED_FUNCTION_112();
-          bspush_ca(v89);
-          v90 = *(v0 + 5094);
+          v122 = OUTLINED_FUNCTION_112();
+          bspush_ca(v122);
 LABEL_41:
           OUTLINED_FUNCTION_88_1();
-          if (!v65)
+          if (!v83)
           {
             break;
           }
 
 LABEL_43:
-          OUTLINED_FUNCTION_55_1();
-          spell_out_sequence();
+          v84 = OUTLINED_FUNCTION_55_1();
+          spell_out_sequence(v84);
 LABEL_44:
-          v96 = *(v0 + 3352);
+          v128 = *(v3 + 3352);
         }
       }
 
 LABEL_61:
-      v92 = OUTLINED_FUNCTION_54_1();
-      lpta_loadpn(v92, v93);
-      rpta_loadpn(v0, &v101);
-      if (!compare_ptas(v0) && !testeq(v0))
+      v124 = OUTLINED_FUNCTION_54_1();
+      lpta_loadpn(v124, v125);
+      rpta_loadpn(v3, &v133);
+      if (!compare_ptas(v3) && !testeq(v3))
       {
         goto LABEL_3;
       }
 
 LABEL_63:
-      forall_cont_from(v0);
+      forall_cont_from();
     }
 
     while (2)
     {
-      v48 = *(v0 + 104);
-      if (v48)
+      v61 = *(v3 + 104);
+      if (v61)
       {
-        v49 = OUTLINED_FUNCTION_65_1(v48);
+        v62 = OUTLINED_FUNCTION_65_1(v61);
       }
 
       else
       {
-        v49 = vback(v0, 0);
+        v62 = vback(v3, 0);
       }
 
-      switch(v49)
+      switch(v62)
       {
         case 2:
           goto LABEL_9;
         case 3:
           OUTLINED_FUNCTION_121();
-          if (forto_adv_r(v0, v50, v51, 28, v52, v100))
+          if (forto_adv_r(v3, v63, v64, 28, v65, v132))
           {
             continue;
           }
@@ -7440,9 +6261,9 @@ LABEL_63:
         case 6:
           goto LABEL_19;
         case 7:
-          savescptr(v0, 7, v99);
-          v55 = OUTLINED_FUNCTION_4_14();
-          if (!testFldeq(v55, v56, v57, 2) && !advance_tok(v0))
+          savescptr(v3, 7, v131);
+          v68 = OUTLINED_FUNCTION_4_14();
+          if (!testFldeq(v68, v69, v70, 2) && !advance_tok(v3, v71, v72, v73))
           {
             goto LABEL_50;
           }
@@ -7453,7 +6274,7 @@ LABEL_63:
         case 9:
           goto LABEL_50;
         case 10:
-          savescptr(v0, 10, v99);
+          savescptr(v3, 10, v131);
           goto LABEL_50;
         case 11:
           goto LABEL_46;
@@ -7467,17 +6288,16 @@ LABEL_63:
         case 15:
           goto LABEL_57;
         case 16:
-          v63 = OUTLINED_FUNCTION_52_1();
-          bspush_ca(v63);
-          v64 = *(v0 + 5106);
+          v82 = OUTLINED_FUNCTION_52_1();
+          bspush_ca(v82);
           goto LABEL_41;
         case 17:
           goto LABEL_43;
         case 18:
-          v53 = OUTLINED_FUNCTION_128();
-          lpta_loadpn(v53, v54);
+          v66 = OUTLINED_FUNCTION_128();
+          lpta_loadpn(v66, v67);
           OUTLINED_FUNCTION_150();
-          if (!compare_ptas(v0) && !testeq(v0))
+          if (!compare_ptas(v3) && !testeq(v3))
           {
             goto LABEL_43;
           }
@@ -7489,7 +6309,7 @@ LABEL_63:
           goto LABEL_11;
         case 22:
           OUTLINED_FUNCTION_125();
-          savescptr(v0, v91, v99);
+          savescptr(v3, v123, v131);
           goto LABEL_61;
         case 23:
           goto LABEL_37;
@@ -7512,28 +6332,27 @@ LABEL_63:
   }
 
 LABEL_3:
-  vretproc(v0);
-  v3 = *MEMORY[0x277D85DE8];
+  vretproc(v3);
   OUTLINED_FUNCTION_113();
 }
 
-uint64_t process_pathname()
+uint64_t process_pathname(uint64_t a1)
 {
   OUTLINED_FUNCTION_11_14();
-  v123[30] = *MEMORY[0x277D85DE8];
-  v123[0] = 0;
-  v123[1] = 0;
-  v121 = 0;
-  v122 = 0;
-  v119 = 0;
-  v120 = 0;
-  OUTLINED_FUNCTION_10_14(v2, v3, v4, v5, v6, v7, v8, v9, v69, v71, v73, v75, v77, v79, v81, v83, v85, v87, v89, v91, v93, v95, v97, v99, v101, v103, v105, v107, v109, v111, v113, v115, v116, v117, v118);
+  v127[30] = *MEMORY[0x277D85DE8];
+  v127[0] = 0;
+  v127[1] = 0;
+  v125 = 0;
+  v126 = 0;
+  v123 = 0;
+  v124 = 0;
+  OUTLINED_FUNCTION_10_14(v3, v4, v5, v6, v7, v8, v9, v10, v73, v75, v77, v79, v81, v83, v85, v87, v89, v91, v93, v95, v97, v99, v101, v103, v105, v107, v109, v111, v113, v115, v117, v119, v120, v121, v122);
   OUTLINED_FUNCTION_57_1();
-  OUTLINED_FUNCTION_161(v10, v11);
-  if (!setjmp(v1))
+  OUTLINED_FUNCTION_161(v11, v12);
+  if (!setjmp(v2))
   {
     OUTLINED_FUNCTION_82_1();
-    if (!OUTLINED_FUNCTION_160(v12, v13, v14, v15, v16))
+    if (!OUTLINED_FUNCTION_160(v13, v14, v15, v16, v17))
     {
       v19 = OUTLINED_FUNCTION_13_14();
       get_parm(v19, v20, v21, -6);
@@ -7544,90 +6363,91 @@ uint64_t process_pathname()
       push_ptr_init(v24, v25);
       v26 = OUTLINED_FUNCTION_70_1();
       push_ptr_init(v26, v27);
-      fence_16(v0, 0, &_MergedGlobals_1_0);
+      fence_16(v1, 0, &_MergedGlobals_1_0);
       v28 = OUTLINED_FUNCTION_42_1();
       startloop(v28, v29);
       v30 = OUTLINED_FUNCTION_71_1();
-      copyvar(v30, v31, v123);
+      copyvar(v30, v31, v127);
       v32 = OUTLINED_FUNCTION_70_1();
-      copyvar(v32, v33, &v121);
+      copyvar(v32, v33, &v125);
       v34 = OUTLINED_FUNCTION_71_1();
-      if (!forall_to_test(v34, v35, &v115))
+      if (!forall_to_test(v34, v35, &v119))
       {
 LABEL_6:
         v36 = OUTLINED_FUNCTION_52_1();
         bspush_ca(v36);
         v37 = OUTLINED_FUNCTION_7_14();
-        if (!lpta_loadp_setscan_r(v37, v38))
+        if (lpta_loadp_setscan_r(v37, v38, v39))
         {
-          OUTLINED_FUNCTION_4_14();
-          if (!test_string_s())
-          {
+          goto LABEL_15;
+        }
+
+        OUTLINED_FUNCTION_4_14();
+        if (test_string_s())
+        {
+          goto LABEL_15;
+        }
+
 LABEL_8:
-            OUTLINED_FUNCTION_115();
-            v39 = OUTLINED_FUNCTION_59_1();
-            savescptr(v39, v40, v41);
+        OUTLINED_FUNCTION_115();
+        v40 = OUTLINED_FUNCTION_59_1();
+        savescptr(v40, v41, v42);
 LABEL_9:
-            v42 = OUTLINED_FUNCTION_22_8();
-            starttest(v42, v43);
-            OUTLINED_FUNCTION_8_14();
-            v44 = char_name();
+        v43 = OUTLINED_FUNCTION_22_8();
+        starttest(v43, v44);
+        OUTLINED_FUNCTION_8_14();
+        v45 = char_name();
 LABEL_10:
-            OUTLINED_FUNCTION_102(v44, v45, v46, v47, v48, v49, v50, v51, v70, v72, v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v104, v106, v108, v110, v112, v114, v115, v116, v117, v118);
-            v52 = OUTLINED_FUNCTION_129();
-            insert_l(v52);
+        OUTLINED_FUNCTION_102(v45, v46, v47, v48, v49, v50, v51, v52, v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v104, v106, v108, v110, v112, v114, v116, v118, v119, v120, v121, v122);
+        v53 = OUTLINED_FUNCTION_129();
+        insert_l(v53, v54);
 LABEL_11:
-            OUTLINED_FUNCTION_121();
-            v53 = OUTLINED_FUNCTION_122();
-            if (forto_adv_r(v53, v54, v55, v56, v57, v58))
+        OUTLINED_FUNCTION_121();
+        v55 = OUTLINED_FUNCTION_122();
+        if (!forto_adv_r(v55, v56, v57, v58, v59, v60))
+        {
+LABEL_12:
+          v61 = OUTLINED_FUNCTION_27_6();
+          starttest(v61, v62);
+          v63 = OUTLINED_FUNCTION_28_5();
+          if (!lpta_loadp_setscan_l(v63, v64, v65))
+          {
+            v66 = OUTLINED_FUNCTION_38_2();
+            bspush_ca_scan(v66, v67);
+LABEL_14:
+            OUTLINED_FUNCTION_4_14();
+            if (test_string_s())
             {
               goto LABEL_15;
             }
 
-LABEL_12:
-            v59 = OUTLINED_FUNCTION_27_6();
-            starttest(v59, v60);
-            v61 = OUTLINED_FUNCTION_28_5();
-            if (!lpta_loadp_setscan_l(v61, v62))
-            {
-              v63 = OUTLINED_FUNCTION_38_2();
-              bspush_ca_scan(v63, v64);
-LABEL_14:
-              OUTLINED_FUNCTION_4_14();
-              if (test_string_s())
-              {
-                goto LABEL_15;
-              }
-
 LABEL_19:
-              v66 = OUTLINED_FUNCTION_68_1();
-              savescptr(v66, v67, v68);
-              OUTLINED_FUNCTION_71_1();
-              delete_inp_from_left();
-            }
+            v69 = OUTLINED_FUNCTION_68_1();
+            savescptr(v69, v70, v71);
+            v72 = OUTLINED_FUNCTION_71_1();
+            delete_inp_from_left(v72);
+          }
 
 LABEL_20:
-            *(v0 + 2504) = v122;
-            vretproc(v0);
-            result = 0;
-            goto LABEL_4;
-          }
+          *(v1 + 2504) = v126;
+          vretproc(v1);
+          return 0;
         }
       }
 
 LABEL_15:
-      v65 = *(v0 + 104);
-      if (v65)
+      v68 = *(v1 + 104);
+      if (v68)
       {
-        v44 = OUTLINED_FUNCTION_65_1(v65);
+        v45 = OUTLINED_FUNCTION_65_1(v68);
       }
 
       else
       {
-        v44 = OUTLINED_FUNCTION_133();
+        v45 = OUTLINED_FUNCTION_133();
       }
 
-      switch(v44)
+      switch(v45)
       {
         case 1:
           goto LABEL_12;
@@ -7653,58 +6473,55 @@ LABEL_15:
     }
   }
 
-  vretproc(v0);
-  result = 94;
-LABEL_4:
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  vretproc(v1);
+  return 94;
 }
 
-void process_final_parenthetical()
+void process_final_parenthetical(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_114();
   OUTLINED_FUNCTION_11_14();
-  v77 = *MEMORY[0x277D85DE8];
-  v74 = 0;
-  v75 = 0;
-  v72 = 0;
-  v73 = 0;
-  v71[0] = 0;
-  v71[1] = 0;
-  OUTLINED_FUNCTION_10_14(v1, v2, v3, v4, v5, v6, v7, v8, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v70[0], v70[1]);
+  v84 = *MEMORY[0x277D85DE8];
+  v81 = 0;
+  v82 = 0;
+  v79 = 0;
+  v80 = 0;
+  v78[0] = 0;
+  v78[1] = 0;
+  OUTLINED_FUNCTION_10_14(v4, v5, v6, v7, v8, v9, v10, v11, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v77[0], v77[1]);
   OUTLINED_FUNCTION_57_1();
-  bzero(v76, v9);
-  if (setjmp(v76))
+  bzero(v83, v12);
+  if (setjmp(v83))
   {
     goto LABEL_7;
   }
 
   OUTLINED_FUNCTION_82_1();
-  if (ventproc(v0, v10, v11, v12, v13, v76))
+  if (ventproc(v3, v13, v14, v15, v16, v83))
   {
     goto LABEL_7;
   }
 
-  v14 = OUTLINED_FUNCTION_72_1();
-  get_parm(v14, v15, v16, -6);
-  OUTLINED_FUNCTION_62_1(v17, &v72);
-  v18 = OUTLINED_FUNCTION_56_1();
-  push_ptr_init(v18, v19);
-  v20 = OUTLINED_FUNCTION_67_1();
-  push_ptr_init(v20, v21);
-  v22 = OUTLINED_FUNCTION_66_1();
-  push_ptr_init(v22, v23);
-  fence_16(v0, 0, &_MergedGlobals_1_0);
+  v17 = OUTLINED_FUNCTION_72_1();
+  get_parm(v17, v18, v19, -6);
+  OUTLINED_FUNCTION_62_1(v20, &v79);
+  v21 = OUTLINED_FUNCTION_56_1();
+  push_ptr_init(v21, v22);
+  v23 = OUTLINED_FUNCTION_67_1();
+  push_ptr_init(v23, v24);
+  v25 = OUTLINED_FUNCTION_66_1();
+  push_ptr_init(v25, v26);
+  fence_16(v3, 0, &_MergedGlobals_1_0);
   OUTLINED_FUNCTION_79_1();
-  if (!v24)
+  if (!v27)
   {
     goto LABEL_7;
   }
 
-  v25 = OUTLINED_FUNCTION_15_12();
-  starttest(v25, v26);
-  v27 = OUTLINED_FUNCTION_28_5();
-  if (lpta_loadp_setscan_r(v27, v28))
+  v28 = OUTLINED_FUNCTION_15_12();
+  starttest(v28, v29);
+  v30 = OUTLINED_FUNCTION_28_5();
+  if (lpta_loadp_setscan_r(v30, v31, v32))
   {
     goto LABEL_7;
   }
@@ -7717,8 +6534,8 @@ void process_final_parenthetical()
 
   while (2)
   {
-    v30 = OUTLINED_FUNCTION_55_1();
-    savescptr(v30, v31, v71);
+    v33 = OUTLINED_FUNCTION_55_1();
+    savescptr(v33, v34, v78);
     OUTLINED_FUNCTION_4_14();
     if (test_string_s())
     {
@@ -7726,24 +6543,24 @@ void process_final_parenthetical()
     }
 
 LABEL_9:
-    v32 = OUTLINED_FUNCTION_64_1();
-    savescptr(v32, v33, v70);
+    v35 = OUTLINED_FUNCTION_64_1();
+    savescptr(v35, v36, v77);
     OUTLINED_FUNCTION_4_14();
     if (test_string_s())
     {
 LABEL_10:
-      v34 = *(v0 + 104);
-      if (v34)
+      v37 = *(v3 + 104);
+      if (v37)
       {
-        v35 = OUTLINED_FUNCTION_65_1(v34);
+        v38 = OUTLINED_FUNCTION_65_1(v37);
       }
 
       else
       {
-        v35 = OUTLINED_FUNCTION_133();
+        v38 = OUTLINED_FUNCTION_133();
       }
 
-      switch(v35)
+      switch(v38)
       {
         case 3:
           continue;
@@ -7774,72 +6591,71 @@ LABEL_10:
 
 LABEL_14:
   OUTLINED_FUNCTION_93_0();
-  v36 = OUTLINED_FUNCTION_83_1();
-  savescptr(v36, v37, v38);
+  v39 = OUTLINED_FUNCTION_83_1();
+  savescptr(v39, v40, v41);
 LABEL_15:
-  OUTLINED_FUNCTION_66_1();
-  if (!end_of_word())
+  v42 = OUTLINED_FUNCTION_66_1();
+  if (!end_of_word(v42))
   {
-    OUTLINED_FUNCTION_23_8();
-    delete_inp_from_right();
+    v43 = OUTLINED_FUNCTION_23_8();
+    delete_inp_from_right(v43);
 LABEL_17:
-    OUTLINED_FUNCTION_50_1();
-    delete_inp_from_left();
+    v44 = OUTLINED_FUNCTION_50_1();
+    delete_inp_from_left(v44);
 LABEL_18:
-    v73 = v69;
-    v39 = OUTLINED_FUNCTION_28_5();
-    if (!lpta_loadp_setscan_r(v39, v40))
+    v80 = v76;
+    v45 = OUTLINED_FUNCTION_28_5();
+    if (!lpta_loadp_setscan_r(v45, v46, v47))
     {
       OUTLINED_FUNCTION_4_14();
       if (!test_string_s())
       {
 LABEL_20:
         OUTLINED_FUNCTION_109();
-        v41 = OUTLINED_FUNCTION_123();
-        savescptr(v41, v42, v43);
+        v48 = OUTLINED_FUNCTION_123();
+        savescptr(v48, v49, v50);
       }
     }
   }
 
 LABEL_21:
-  OUTLINED_FUNCTION_95_0(v73);
+  OUTLINED_FUNCTION_95_0(v80);
 LABEL_7:
-  vretproc(v0);
-  v29 = *MEMORY[0x277D85DE8];
+  vretproc(v3);
   OUTLINED_FUNCTION_113();
 }
 
-void process_final_apostrophe()
+void process_final_apostrophe(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_114();
   OUTLINED_FUNCTION_11_14();
-  v86 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_16_12(v1, v2, v3, v4, v5, v6, v7, v8, v44, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74);
+  v55 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_16_12(v4, v5, v6, v7, v8, v9, v10, v11, v46, v48[0], v48[1], v48[2], v48[3], v48[4], v48[5], v48[6], v48[7], v48[8], v48[9], v48[10], v48[11], v48[12], v48[13], v48[14], v48[15], v48[16], v48[17], v48[18], v48[19], v48[20], v48[21], v48[22], v49, v50, v51, v52, v53[0], v53[1]);
   OUTLINED_FUNCTION_57_1();
-  bzero(v85, v9);
-  v10 = setjmp(v85);
-  if (v10 || OUTLINED_FUNCTION_34_3(v10, &v46, v11, v12, v13, v14, v15, v16, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85[0]))
+  bzero(v54, v12);
+  v13 = setjmp(v54);
+  if (v13 || OUTLINED_FUNCTION_34_3(v13, v48, v14, v15, v16, v17, v18, v19, v47, v48[0], v48[1], v48[2], v48[3], v48[4], v48[5], v48[6], v48[7], v48[8], v48[9], v48[10], v48[11], v48[12], v48[13], v48[14], v48[15], v48[16], v48[17], v48[18], v48[19], v48[20], v48[21], v48[22], v49, v50, v51, v52, v53[0], v53[1], v53[2], SHIDWORD(v53[2]), v53[3], SWORD2(v53[3]), SHIWORD(v53[3]), v53[4], SWORD2(v53[4]), SBYTE6(v53[4]), SHIBYTE(v53[4]), v53[5], v54[0]))
   {
     goto LABEL_3;
   }
 
-  v18 = OUTLINED_FUNCTION_72_1();
-  get_parm(v18, v19, v20, -6);
+  v20 = OUTLINED_FUNCTION_72_1();
+  get_parm(v20, v21, v22, -6);
   OUTLINED_FUNCTION_21_8();
-  v21 = OUTLINED_FUNCTION_54_1();
-  push_ptr_init(v21, v22);
-  v23 = OUTLINED_FUNCTION_73_1();
-  fence_16(v23, v24, v25);
-  v26 = OUTLINED_FUNCTION_142();
-  startloop(v26, v27);
+  v23 = OUTLINED_FUNCTION_54_1();
+  push_ptr_init(v23, v24);
+  v25 = OUTLINED_FUNCTION_73_1();
+  fence_16(v25, v26, v27);
+  v28 = OUTLINED_FUNCTION_142();
+  startloop(v28, v29);
   while (2)
   {
     while (1)
     {
-      v28 = OUTLINED_FUNCTION_142();
-      bspush_ca(v28);
-      v29 = OUTLINED_FUNCTION_55_1();
-      if (lpta_loadp_setscan_l(v29, v30))
+      v30 = OUTLINED_FUNCTION_142();
+      bspush_ca(v30);
+      v31 = OUTLINED_FUNCTION_55_1();
+      if (lpta_loadp_setscan_l(v31, v32, 1))
       {
         break;
       }
@@ -7851,44 +6667,44 @@ void process_final_apostrophe()
       }
 
 LABEL_8:
-      v31 = OUTLINED_FUNCTION_84_1();
-      savescptr(v31, v32, &v69);
+      v33 = OUTLINED_FUNCTION_84_1();
+      savescptr(v33, v34, &v49);
 LABEL_9:
-      v33 = OUTLINED_FUNCTION_13_14();
-      lpta_rpta_loadp(v33, v34, v35);
+      v35 = OUTLINED_FUNCTION_13_14();
+      lpta_rpta_loadp(v35, v36, v37);
       OUTLINED_FUNCTION_108();
       if (mark_s())
       {
         break;
       }
 
-      v72 = v70;
-      v42 = OUTLINED_FUNCTION_142();
-      while_iterate(v42, v43, 2);
+      v52 = v50;
+      v44 = OUTLINED_FUNCTION_142();
+      while_iterate(v44, v45, 2);
     }
 
-    v36 = *(v0 + 104);
-    if (v36)
+    v38 = *(v3 + 104);
+    if (v38)
     {
-      OUTLINED_FUNCTION_65_1(v36);
+      OUTLINED_FUNCTION_65_1(v38);
     }
 
     else
     {
-      v37 = OUTLINED_FUNCTION_96_0();
-      vback(v37, v38);
+      v39 = OUTLINED_FUNCTION_96_0();
+      vback(v39, v40);
     }
 
     OUTLINED_FUNCTION_152();
-    if (!v41 & v40)
+    if (!v43 & v42)
     {
 LABEL_3:
-      vretproc(v0);
+      vretproc(v3);
     }
 
     else
     {
-      switch(v39)
+      switch(v41)
       {
         case 1:
           goto LABEL_9;
@@ -7897,7 +6713,7 @@ LABEL_3:
         case 3:
           continue;
         default:
-          OUTLINED_FUNCTION_137(v72);
+          OUTLINED_FUNCTION_137(v52);
           break;
       }
     }
@@ -7905,112 +6721,109 @@ LABEL_3:
     break;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_113();
 }
 
-uint64_t spell_out_alphanum()
+uint64_t spell_out_alphanum(uint64_t a1)
 {
   OUTLINED_FUNCTION_11_14();
-  v2 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_14(v3, v4, v5, v6, v7, v8, v9, v10, v51, v56, v61, v66, v71, v76, v81, v86, v91, v96, v101, v106, v111, v116, v121, v126, v131, v136, v141, v146, v151, v156, v161, v166, v171, v175, v178);
-  OUTLINED_FUNCTION_26_8(v11, v12, v13, v14, v15, v16, v17, v18, v52, v57, v62, v67, v72, v77, v82, v87, v92, v97, v102, v107, v112, v117, v122, v127, v132, v137, v142, v147, v152, v157, v162, v167, v172, v176, v179, v181, v183, v185, v187, v189);
-  if (!setjmp(v1))
+  OUTLINED_FUNCTION_5_14(v3, v4, v5, v6, v7, v8, v9, v10, v53, v58, v63, v68, v73, v78, v83, v88, v93, v98, v103, v108, v113, v118, v123, v128, v133, v138, v143, v148, v153, v158, v163, v168, v173, v177, v180);
+  OUTLINED_FUNCTION_26_8(v11, v12, v13, v14, v15, v16, v17, v18, v54, v59, v64, v69, v74, v79, v84, v89, v94, v99, v104, v109, v114, v119, v124, v129, v134, v139, v144, v149, v154, v159, v164, v169, v174, v178, v181, v183, v185, v187, v189);
+  if (!setjmp(v2))
   {
     OUTLINED_FUNCTION_0_16();
-    if (!OUTLINED_FUNCTION_132(v19, v20, v21, v22, v23, v24, v25, v26, v53, v58, v63, v68, v73, v78, v83, v88, v93, v98, v103, v108, v113, v118, v123, v128, v133, v138, v143, v148, v153, v158, v163, v168, v173, v177, v180, v182, v184, v186, v188, v190))
+    if (!OUTLINED_FUNCTION_132(v19, v20, v21, v22, v23, v24, v25, v26, v55, v60, v65, v70, v75, v80, v85, v90, v95, v100, v105, v110, v115, v120, v125, v130, v135, v140, v145, v150, v155, v160, v165, v170, v175, v179, v182, v184, v186, v188, v190))
     {
-      v29 = OUTLINED_FUNCTION_13_14();
-      get_parm(v29, v30, v31, -6);
-      OUTLINED_FUNCTION_19_9(v32, v33, v34, v35, v36, v37, v38, v39, v54, v59, v64, v69, v74, v79, v84, v89, v94, v99, v104, v109, v114, v119, v124, v129, v134, v139, v144, v149, v154, v159, v164, v169);
-      v40 = OUTLINED_FUNCTION_73_1();
-      fence_16(v40, v41, v42);
-      *(v0 + 2742) = *(v0 + 2750);
-      OUTLINED_FUNCTION_13_14();
-      single_chars();
+      v28 = OUTLINED_FUNCTION_13_14();
+      get_parm(v28, v29, v30, -6);
+      OUTLINED_FUNCTION_19_9(v31, v32, v33, v34, v35, v36, v37, v38, v56, v61, v66, v71, v76, v81, v86, v91, v96, v101, v106, v111, v116, v121, v126, v131, v136, v141, v146, v151, v156, v161, v166, v171);
+      v39 = OUTLINED_FUNCTION_73_1();
+      fence_16(v39, v40, v41);
+      *(v1 + 2742) = *(v1 + 2750);
+      v42 = OUTLINED_FUNCTION_13_14();
+      single_chars(v42, v43, v44);
       OUTLINED_FUNCTION_167();
-      OUTLINED_FUNCTION_61_1(v43, v44, v45, v46, v47, v48, v49, v50, v55, v60, v65, v70, v75, v80, v85, v90, v95, v100, v105, v110, v115, v120, v125, v130, v135, v140, v145, v150, v155, v160, v165, v170, v174);
+      OUTLINED_FUNCTION_61_1(v45, v46, v47, v48, v49, v50, v51, v52, v57, v62, v67, v72, v77, v82, v87, v92, v97, v102, v107, v112, v117, v122, v127, v132, v137, v142, v147, v152, v157, v162, v167, v172, v176);
     }
   }
 
-  vretproc(v0);
-  v27 = *MEMORY[0x277D85DE8];
+  vretproc(v1);
   return OUTLINED_FUNCTION_105();
 }
 
-void abbreviation()
+void abbreviation(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   OUTLINED_FUNCTION_114();
   OUTLINED_FUNCTION_146();
-  v91 = *MEMORY[0x277D85DE8];
+  v96 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_78_1();
-  v73 = 0;
-  v74 = 0;
+  v88 = 0;
+  v89 = 0;
   OUTLINED_FUNCTION_58_1();
-  bzero(v72, v2);
+  bzero(v87, v6);
   OUTLINED_FUNCTION_57_1();
-  bzero(v90, v3);
-  v4 = setjmp(v90);
-  if (!v4 && !OUTLINED_FUNCTION_92_0(v4, v72, v5, v6, v7, v8, v9, v10, v67, v68, v69, v70, v71, v72[0], v72[1], v72[2], v72[3], v72[4], v72[5], v72[6], v72[7], v72[8], v72[9], v72[10], v72[11], v72[12], v72[13], v72[14], v72[15], v72[16], v72[17], v72[18], v72[19], v72[20], v72[21], v72[22], v73, v74, v75, v76, v77, v78, v79[0], v79[1], v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90[0]))
+  bzero(v95, v7);
+  v8 = setjmp(v95);
+  if (!v8 && !OUTLINED_FUNCTION_92_0(v8, v87, v9, v10, v11, v12, v13, v14, v82, v83, v84, v85, v86, v87[0], v87[1], v87[2], v87[3], v87[4], v87[5], v87[6], v87[7], v87[8], v87[9], v87[10], v87[11], v87[12], v87[13], v87[14], v87[15], v87[16], v87[17], v87[18], v87[19], v87[20], v87[21], v87[22], v88, v89, v90, v91, v92, v93, v94[0], v94[1], v94[2], SHIDWORD(v94[2]), v94[3], SWORD2(v94[3]), SHIWORD(v94[3]), v94[4], SWORD2(v94[4]), SBYTE6(v94[4]), SHIBYTE(v94[4]), v94[5], v95[0]))
   {
-    v11 = OUTLINED_FUNCTION_128();
-    OUTLINED_FUNCTION_159(v11, v12);
-    v13 = OUTLINED_FUNCTION_72_1();
-    get_parm(v13, v14, v15, -6);
-    OUTLINED_FUNCTION_62_1(v16, &v75);
-    v17 = OUTLINED_FUNCTION_87_1();
-    push_ptr_init(v17, v18);
-    fence_16(v0, 0, &_MergedGlobals_1_0);
-    if (*(v0 + 2282) != *(v0 + 5390))
+    v15 = OUTLINED_FUNCTION_128();
+    OUTLINED_FUNCTION_159(v15, v16);
+    v17 = OUTLINED_FUNCTION_72_1();
+    get_parm(v17, v18, v19, -6);
+    OUTLINED_FUNCTION_62_1(v20, &v90);
+    v21 = OUTLINED_FUNCTION_87_1();
+    push_ptr_init(v21, v22);
+    fence_16(v4, 0, &_MergedGlobals_1_0);
+    if (*(v4 + 2282) != *(v4 + 5390))
     {
-      v19 = 0;
+      v23 = 0;
       OUTLINED_FUNCTION_166();
       OUTLINED_FUNCTION_165();
       while (2)
       {
         OUTLINED_FUNCTION_99_0();
-        if (!v20)
+        if (!v24)
         {
 LABEL_6:
           OUTLINED_FUNCTION_155();
           count_chars();
 LABEL_7:
-          v21 = OUTLINED_FUNCTION_157();
-          starttest(v21, v22);
-          v23 = OUTLINED_FUNCTION_134();
-          bspush_ca(v23);
-          v24 = v19;
-          if (*(v0 + 5110) == *(v0 + 5090))
+          v25 = OUTLINED_FUNCTION_157();
+          starttest(v25, v26);
+          v27 = OUTLINED_FUNCTION_134();
+          bspush_ca(v27);
+          v28 = v23;
+          if (*(v4 + 5110) == *(v4 + 5090))
           {
 LABEL_8:
-            v19 = v24;
-            v25 = OUTLINED_FUNCTION_111();
-            starttest(v25, v26);
-            v27 = lpta_loadp_setscan_r(v0, v79);
-            v28 = v19;
-            if (v27)
+            v23 = v28;
+            v29 = OUTLINED_FUNCTION_111();
+            starttest(v29, v30);
+            v31 = lpta_loadp_setscan_r(v4, v94, 1);
+            v32 = v23;
+            if (v31)
             {
 LABEL_30:
-              v54 = OUTLINED_FUNCTION_84_1();
-              starttest(v54, v55);
+              v64 = OUTLINED_FUNCTION_84_1();
+              starttest(v64, v65);
               OUTLINED_FUNCTION_64_1();
               bspush_ca_boa();
-              if (!end_of_word())
+              if (!end_of_word(v4))
               {
-                v19 = 1;
+                v23 = 1;
               }
             }
 
             else
             {
 LABEL_9:
-              v19 = v28;
+              v23 = v32;
               for (i = OUTLINED_FUNCTION_106(); ; i = OUTLINED_FUNCTION_91_0())
               {
-                bspush_ca_scan(i, v30);
+                bspush_ca_scan(i, v34);
 LABEL_11:
-                v31 = OUTLINED_FUNCTION_1_15();
-                if (testFldeq(v31, v32, v33, v34) || advance_tok(v0))
+                v35 = OUTLINED_FUNCTION_1_15();
+                if (testFldeq(v35, v36, v37, v38) || advance_tok(v4, v39, v40, v41))
                 {
                   break;
                 }
@@ -8019,25 +6832,25 @@ LABEL_11:
           }
 
 LABEL_14:
-          v35 = v19;
+          v42 = v23;
 LABEL_15:
-          v36 = *(v0 + 104);
-          if (v36)
+          v43 = *(v4 + 104);
+          if (v43)
           {
-            v37 = OUTLINED_FUNCTION_65_1(v36);
-            v19 = v38;
+            v44 = OUTLINED_FUNCTION_65_1(v43);
+            v23 = v45;
           }
 
           else
           {
-            v37 = vback(v0, v35);
-            v19 = 0;
+            v44 = vback(v4, v42);
+            v23 = 0;
           }
 
-          v39 = v37 - 1;
-          v24 = v19;
-          v28 = v19;
-          switch(v39)
+          v46 = v44 - 1;
+          v28 = v23;
+          v32 = v23;
+          switch(v46)
           {
             case 0:
               continue;
@@ -8049,9 +6862,9 @@ LABEL_15:
             case 6:
               goto LABEL_30;
             case 4:
-              v24 = v19;
-              v35 = v19;
-              if (*(v0 + 5122) == *(v0 + 5090))
+              v28 = v23;
+              v42 = v23;
+              if (*(v4 + 5122) == *(v4 + 5090))
               {
                 goto LABEL_8;
               }
@@ -8062,23 +6875,23 @@ LABEL_15:
             case 7:
               while (1)
               {
-                v48 = OUTLINED_FUNCTION_1_15();
-                if (testFldeq(v48, v49, v50, v51) || advance_tok(v0))
+                v55 = OUTLINED_FUNCTION_1_15();
+                if (testFldeq(v55, v56, v57, v58) || advance_tok(v4, v59, v60, v61))
                 {
                   break;
                 }
 
-                v46 = OUTLINED_FUNCTION_54_1();
-                bspush_ca_scan(v46, v47);
+                v53 = OUTLINED_FUNCTION_54_1();
+                bspush_ca_scan(v53, v54);
               }
 
               goto LABEL_14;
             case 8:
               OUTLINED_FUNCTION_4_14();
-              v40 = test_string_s();
-              v28 = v19;
-              v35 = v19;
-              if (!v40)
+              v47 = test_string_s();
+              v32 = v23;
+              v42 = v23;
+              if (!v47)
               {
                 goto LABEL_9;
               }
@@ -8089,14 +6902,14 @@ LABEL_15:
             case 10:
               goto LABEL_9;
             case 11:
-              v41 = OUTLINED_FUNCTION_35_2();
-              savescptr(v41, v42, &v77);
-              v43 = OUTLINED_FUNCTION_74_1();
-              bspush_ca_scan(v43, v44);
+              v48 = OUTLINED_FUNCTION_35_2();
+              savescptr(v48, v49, &v92);
+              v50 = OUTLINED_FUNCTION_74_1();
+              bspush_ca_scan(v50, v51);
               OUTLINED_FUNCTION_4_14();
-              v45 = test_string_s();
-              v35 = v19;
-              if (v45)
+              v52 = test_string_s();
+              v42 = v23;
+              if (v52)
               {
                 goto LABEL_15;
               }
@@ -8104,8 +6917,8 @@ LABEL_15:
               goto LABEL_29;
             case 12:
 LABEL_29:
-              v52 = OUTLINED_FUNCTION_32_3();
-              savescptr(v52, v53, &v73);
+              v62 = OUTLINED_FUNCTION_32_3();
+              savescptr(v62, v63, &v88);
               goto LABEL_30;
             case 13:
               OUTLINED_FUNCTION_155();
@@ -8116,14 +6929,14 @@ LABEL_29:
 
               goto LABEL_41;
             case 14:
-              bspop_boa(v0);
+              bspop_boa(v4);
               goto LABEL_44;
             case 15:
 LABEL_33:
-              lpta_loadpn(v0, &v77);
-              v56 = OUTLINED_FUNCTION_87_1();
-              rpta_loadpn(v56, v57);
-              if (compare_ptas(v0) || testneq(v0))
+              lpta_loadpn(v4, &v92);
+              v66 = OUTLINED_FUNCTION_87_1();
+              rpta_loadpn(v66, v67);
+              if (compare_ptas(v4) || testneq(v4))
               {
                 goto LABEL_40;
               }
@@ -8131,31 +6944,31 @@ LABEL_33:
               OUTLINED_FUNCTION_120();
               if (!user_abbr_dict())
               {
-                v78 = v74;
+                v93 = v89;
 LABEL_41:
                 OUTLINED_FUNCTION_155();
-                process_trailing_period();
+                process_trailing_period(v4, v80, v81, &v90);
 LABEL_42:
-                *(v0 + 2670) = *(v0 + 2678);
-                *(v1 + 8) = v78;
-                OUTLINED_FUNCTION_137(v76);
+                *(v4 + 2670) = *(v4 + 2678);
+                *(v5 + 8) = v93;
+                OUTLINED_FUNCTION_137(v91);
                 goto LABEL_45;
               }
 
 LABEL_36:
-              if (*(v0 + 2618) == 1)
+              if (*(v4 + 2618) == 1)
               {
-                v58 = OUTLINED_FUNCTION_53_1();
-                if (!lpta_loadp_setscan_l(v58, v59) && !advance_tok(v0))
+                v68 = OUTLINED_FUNCTION_53_1();
+                if (!lpta_loadp_setscan_l(v68, v69, v70) && !advance_tok(v4, v71, v72, v73))
                 {
 LABEL_39:
-                  savescptr(v0, 21, &v77);
+                  savescptr(v4, 21, &v92);
                 }
               }
 
 LABEL_40:
               OUTLINED_FUNCTION_155();
-              if (!abbr(v0, v60, v61, &v73, v62, v63, v64, v65))
+              if (!abbr(v4, v74, v75, &v88, v76, v77, v78, v79))
               {
                 goto LABEL_41;
               }
@@ -8183,29 +6996,28 @@ LABEL_40:
   }
 
 LABEL_44:
-  vretproc(v0);
+  vretproc(v4);
 LABEL_45:
-  v66 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_113();
 }
 
-uint64_t convert_to_lowercase()
+uint64_t convert_to_lowercase(uint64_t a1)
 {
   OUTLINED_FUNCTION_11_14();
-  v482[30] = *MEMORY[0x277D85DE8];
-  v482[0] = 0;
-  v482[1] = 0;
-  v481[0] = 0;
-  v481[1] = 0;
-  v480[4] = 0;
-  v480[5] = 0;
-  OUTLINED_FUNCTION_10_14(v2, v3, v4, v5, v6, v7, v8, v9, v457, v458, v459, v460, v461, v462, v463, v464, v465, v466, v467, v468, v469, v470, v471, v472, v473, v474, v475, v476, v477, v478, v479, v480[0], v480[1], v480[2], v480[3]);
+  v543[30] = *MEMORY[0x277D85DE8];
+  v543[0] = 0;
+  v543[1] = 0;
+  v542[0] = 0;
+  v542[1] = 0;
+  v541[4] = 0;
+  v541[5] = 0;
+  OUTLINED_FUNCTION_10_14(v3, v4, v5, v6, v7, v8, v9, v10, v518, v519, v520, v521, v522, v523, v524, v525, v526, v527, v528, v529, v530, v531, v532, v533, v534, v535, v536, v537, v538, v539, v540, v541[0], v541[1], v541[2], v541[3]);
   OUTLINED_FUNCTION_57_1();
-  OUTLINED_FUNCTION_161(v10, v11);
-  if (setjmp(v1) || (OUTLINED_FUNCTION_82_1(), OUTLINED_FUNCTION_160(v12, v13, v14, v15, v16)))
+  OUTLINED_FUNCTION_161(v11, v12);
+  if (setjmp(v2) || (OUTLINED_FUNCTION_82_1(), OUTLINED_FUNCTION_160(v13, v14, v15, v16, v17)))
   {
 LABEL_3:
-    v17 = 94;
+    v18 = 94;
   }
 
   else
@@ -8219,379 +7031,379 @@ LABEL_3:
     push_ptr_init(v25, v26);
     v27 = OUTLINED_FUNCTION_70_1();
     push_ptr_init(v27, v28);
-    fence_16(v0, 0, &_MergedGlobals_1_0);
+    fence_16(v1, 0, &_MergedGlobals_1_0);
     v29 = OUTLINED_FUNCTION_42_1();
     startloop(v29, v30);
     v31 = OUTLINED_FUNCTION_71_1();
-    copyvar(v31, v32, v482);
+    copyvar(v31, v32, v543);
     v33 = OUTLINED_FUNCTION_70_1();
-    copyvar(v33, v34, v481);
+    copyvar(v33, v34, v542);
     v35 = OUTLINED_FUNCTION_71_1();
-    if (!forall_to_test(v35, v36, v480))
+    if (!forall_to_test(v35, v36, v541))
     {
 LABEL_6:
       v37 = OUTLINED_FUNCTION_52_1();
       bspush_ca(v37);
       v38 = OUTLINED_FUNCTION_7_14();
-      if (!lpta_loadp_setscan_r(v38, v39))
+      if (!lpta_loadp_setscan_r(v38, v39, v40))
       {
-        v40 = OUTLINED_FUNCTION_1_15();
-        if (!testFldeq(v40, v41, v42, v43))
+        v41 = OUTLINED_FUNCTION_1_15();
+        if (!testFldeq(v41, v42, v43, v44))
         {
-          v44 = OUTLINED_FUNCTION_4_14();
-          if (!testFldeq(v44, v45, v46, 2) && !advance_tok(v0))
+          v45 = OUTLINED_FUNCTION_4_14();
+          if (!testFldeq(v45, v46, v47, 2) && !advance_tok(v1, v48, v49, v50))
           {
 LABEL_10:
             OUTLINED_FUNCTION_115();
-            v47 = OUTLINED_FUNCTION_59_1();
-            savescptr(v47, v48, v49);
+            v51 = OUTLINED_FUNCTION_59_1();
+            savescptr(v51, v52, v53);
 LABEL_11:
-            v50 = OUTLINED_FUNCTION_22_8();
-            starttest(v50, v51);
-            v52 = OUTLINED_FUNCTION_7_14();
-            if (lpta_loadp_setscan_r(v52, v53) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v54 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v54, v55, v56), OUTLINED_FUNCTION_6_14(), mark_s()))
+            v54 = OUTLINED_FUNCTION_22_8();
+            starttest(v54, v55);
+            v56 = OUTLINED_FUNCTION_7_14();
+            if (lpta_loadp_setscan_r(v56, v57, v58) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v59 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v59, v60, v61), OUTLINED_FUNCTION_6_14(), mark_s()))
             {
 LABEL_14:
-              v57 = OUTLINED_FUNCTION_36_2();
-              starttest(v57, v58);
-              v59 = OUTLINED_FUNCTION_7_14();
-              if (lpta_loadp_setscan_r(v59, v60) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v61 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v61, v62, v63), OUTLINED_FUNCTION_6_14(), mark_s()))
+              v62 = OUTLINED_FUNCTION_36_2();
+              starttest(v62, v63);
+              v64 = OUTLINED_FUNCTION_7_14();
+              if (lpta_loadp_setscan_r(v64, v65, v66) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v67 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v67, v68, v69), OUTLINED_FUNCTION_6_14(), mark_s()))
               {
 LABEL_17:
-                v64 = OUTLINED_FUNCTION_27_6();
-                starttest(v64, v65);
-                v66 = OUTLINED_FUNCTION_7_14();
-                if (lpta_loadp_setscan_r(v66, v67) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v68 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v68, v69, v70), OUTLINED_FUNCTION_6_14(), mark_s()))
+                v70 = OUTLINED_FUNCTION_27_6();
+                starttest(v70, v71);
+                v72 = OUTLINED_FUNCTION_7_14();
+                if (lpta_loadp_setscan_r(v72, v73, v74) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v75 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v75, v76, v77), OUTLINED_FUNCTION_6_14(), mark_s()))
                 {
 LABEL_20:
-                  v71 = OUTLINED_FUNCTION_38_2();
-                  starttest(v71, v72);
-                  v73 = OUTLINED_FUNCTION_7_14();
-                  if (lpta_loadp_setscan_r(v73, v74) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v75 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v75, v76, v77), OUTLINED_FUNCTION_6_14(), mark_s()))
+                  v78 = OUTLINED_FUNCTION_38_2();
+                  starttest(v78, v79);
+                  v80 = OUTLINED_FUNCTION_7_14();
+                  if (lpta_loadp_setscan_r(v80, v81, v82) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v83 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v83, v84, v85), OUTLINED_FUNCTION_6_14(), mark_s()))
                   {
 LABEL_23:
-                    v78 = OUTLINED_FUNCTION_37_2();
-                    starttest(v78, v79);
-                    v80 = OUTLINED_FUNCTION_7_14();
-                    if (lpta_loadp_setscan_r(v80, v81) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v82 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v82, v83, v84), OUTLINED_FUNCTION_6_14(), mark_s()))
+                    v86 = OUTLINED_FUNCTION_37_2();
+                    starttest(v86, v87);
+                    v88 = OUTLINED_FUNCTION_7_14();
+                    if (lpta_loadp_setscan_r(v88, v89, v90) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v91 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v91, v92, v93), OUTLINED_FUNCTION_6_14(), mark_s()))
                     {
 LABEL_26:
-                      v85 = OUTLINED_FUNCTION_45_1();
-                      starttest(v85, v86);
-                      v87 = OUTLINED_FUNCTION_7_14();
-                      if (lpta_loadp_setscan_r(v87, v88) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v89 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v89, v90, v91), OUTLINED_FUNCTION_6_14(), mark_s()))
+                      v94 = OUTLINED_FUNCTION_45_1();
+                      starttest(v94, v95);
+                      v96 = OUTLINED_FUNCTION_7_14();
+                      if (lpta_loadp_setscan_r(v96, v97, v98) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v99 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v99, v100, v101), OUTLINED_FUNCTION_6_14(), mark_s()))
                       {
 LABEL_29:
-                        v92 = OUTLINED_FUNCTION_40_1();
-                        starttest(v92, v93);
-                        v94 = OUTLINED_FUNCTION_7_14();
-                        if (lpta_loadp_setscan_r(v94, v95) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v96 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v96, v97, v98), OUTLINED_FUNCTION_6_14(), mark_s()))
+                        v102 = OUTLINED_FUNCTION_40_1();
+                        starttest(v102, v103);
+                        v104 = OUTLINED_FUNCTION_7_14();
+                        if (lpta_loadp_setscan_r(v104, v105, v106) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v107 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v107, v108, v109), OUTLINED_FUNCTION_6_14(), mark_s()))
                         {
 LABEL_32:
-                          v99 = OUTLINED_FUNCTION_35_2();
-                          starttest(v99, v100);
-                          v101 = OUTLINED_FUNCTION_7_14();
-                          if (lpta_loadp_setscan_r(v101, v102) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v103 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v103, v104, v105), OUTLINED_FUNCTION_6_14(), mark_s()))
+                          v110 = OUTLINED_FUNCTION_35_2();
+                          starttest(v110, v111);
+                          v112 = OUTLINED_FUNCTION_7_14();
+                          if (lpta_loadp_setscan_r(v112, v113, v114) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v115 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v115, v116, v117), OUTLINED_FUNCTION_6_14(), mark_s()))
                           {
 LABEL_35:
-                            v106 = OUTLINED_FUNCTION_32_3();
-                            starttest(v106, v107);
-                            v108 = OUTLINED_FUNCTION_7_14();
-                            if (lpta_loadp_setscan_r(v108, v109) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v110 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v110, v111, v112), OUTLINED_FUNCTION_6_14(), mark_s()))
+                            v118 = OUTLINED_FUNCTION_32_3();
+                            starttest(v118, v119);
+                            v120 = OUTLINED_FUNCTION_7_14();
+                            if (lpta_loadp_setscan_r(v120, v121, v122) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v123 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v123, v124, v125), OUTLINED_FUNCTION_6_14(), mark_s()))
                             {
 LABEL_38:
-                              v113 = OUTLINED_FUNCTION_33_3();
-                              starttest(v113, v114);
-                              v115 = OUTLINED_FUNCTION_7_14();
-                              if (lpta_loadp_setscan_r(v115, v116) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v117 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v117, v118, v119), OUTLINED_FUNCTION_6_14(), mark_s()))
+                              v126 = OUTLINED_FUNCTION_33_3();
+                              starttest(v126, v127);
+                              v128 = OUTLINED_FUNCTION_7_14();
+                              if (lpta_loadp_setscan_r(v128, v129, v130) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v131 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v131, v132, v133), OUTLINED_FUNCTION_6_14(), mark_s()))
                               {
 LABEL_41:
-                                v120 = OUTLINED_FUNCTION_46_1();
-                                starttest(v120, v121);
-                                v122 = OUTLINED_FUNCTION_7_14();
-                                if (lpta_loadp_setscan_r(v122, v123) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v124 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v124, v125, v126), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                v134 = OUTLINED_FUNCTION_46_1();
+                                starttest(v134, v135);
+                                v136 = OUTLINED_FUNCTION_7_14();
+                                if (lpta_loadp_setscan_r(v136, v137, v138) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v139 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v139, v140, v141), OUTLINED_FUNCTION_6_14(), mark_s()))
                                 {
 LABEL_44:
-                                  v127 = OUTLINED_FUNCTION_41_1();
-                                  starttest(v127, v128);
-                                  v129 = OUTLINED_FUNCTION_7_14();
-                                  if (lpta_loadp_setscan_r(v129, v130) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v131 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v131, v132, v133), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                  v142 = OUTLINED_FUNCTION_41_1();
+                                  starttest(v142, v143);
+                                  v144 = OUTLINED_FUNCTION_7_14();
+                                  if (lpta_loadp_setscan_r(v144, v145, v146) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v147 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v147, v148, v149), OUTLINED_FUNCTION_6_14(), mark_s()))
                                   {
 LABEL_47:
-                                    v134 = OUTLINED_FUNCTION_52_1();
-                                    starttest(v134, v135);
-                                    v136 = OUTLINED_FUNCTION_7_14();
-                                    if (lpta_loadp_setscan_r(v136, v137) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v138 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v138, v139, v140), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                    v150 = OUTLINED_FUNCTION_52_1();
+                                    starttest(v150, v151);
+                                    v152 = OUTLINED_FUNCTION_7_14();
+                                    if (lpta_loadp_setscan_r(v152, v153, v154) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v155 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v155, v156, v157), OUTLINED_FUNCTION_6_14(), mark_s()))
                                     {
 LABEL_50:
-                                      v141 = OUTLINED_FUNCTION_52_1();
-                                      starttest(v141, v142);
-                                      v143 = OUTLINED_FUNCTION_7_14();
-                                      if (lpta_loadp_setscan_r(v143, v144) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v145 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v145, v146, v147), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                      v158 = OUTLINED_FUNCTION_52_1();
+                                      starttest(v158, v159);
+                                      v160 = OUTLINED_FUNCTION_7_14();
+                                      if (lpta_loadp_setscan_r(v160, v161, v162) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v163 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v163, v164, v165), OUTLINED_FUNCTION_6_14(), mark_s()))
                                       {
 LABEL_53:
-                                        v148 = OUTLINED_FUNCTION_52_1();
-                                        starttest(v148, v149);
-                                        v150 = OUTLINED_FUNCTION_7_14();
-                                        if (lpta_loadp_setscan_r(v150, v151) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v152 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v152, v153, v154), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                        v166 = OUTLINED_FUNCTION_52_1();
+                                        starttest(v166, v167);
+                                        v168 = OUTLINED_FUNCTION_7_14();
+                                        if (lpta_loadp_setscan_r(v168, v169, v170) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v171 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v171, v172, v173), OUTLINED_FUNCTION_6_14(), mark_s()))
                                         {
 LABEL_56:
-                                          v155 = OUTLINED_FUNCTION_52_1();
-                                          starttest(v155, v156);
-                                          v157 = OUTLINED_FUNCTION_7_14();
-                                          if (lpta_loadp_setscan_r(v157, v158) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v159 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v159, v160, v161), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                          v174 = OUTLINED_FUNCTION_52_1();
+                                          starttest(v174, v175);
+                                          v176 = OUTLINED_FUNCTION_7_14();
+                                          if (lpta_loadp_setscan_r(v176, v177, v178) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v179 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v179, v180, v181), OUTLINED_FUNCTION_6_14(), mark_s()))
                                           {
 LABEL_59:
-                                            v162 = OUTLINED_FUNCTION_52_1();
-                                            starttest(v162, v163);
-                                            v164 = OUTLINED_FUNCTION_7_14();
-                                            if (lpta_loadp_setscan_r(v164, v165) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v166 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v166, v167, v168), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                            v182 = OUTLINED_FUNCTION_52_1();
+                                            starttest(v182, v183);
+                                            v184 = OUTLINED_FUNCTION_7_14();
+                                            if (lpta_loadp_setscan_r(v184, v185, v186) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v187 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v187, v188, v189), OUTLINED_FUNCTION_6_14(), mark_s()))
                                             {
 LABEL_62:
-                                              v169 = OUTLINED_FUNCTION_52_1();
-                                              starttest(v169, v170);
-                                              v171 = OUTLINED_FUNCTION_7_14();
-                                              if (lpta_loadp_setscan_r(v171, v172) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v173 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v173, v174, v175), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                              v190 = OUTLINED_FUNCTION_52_1();
+                                              starttest(v190, v191);
+                                              v192 = OUTLINED_FUNCTION_7_14();
+                                              if (lpta_loadp_setscan_r(v192, v193, v194) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v195 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v195, v196, v197), OUTLINED_FUNCTION_6_14(), mark_s()))
                                               {
 LABEL_65:
-                                                v176 = OUTLINED_FUNCTION_52_1();
-                                                starttest(v176, v177);
-                                                v178 = OUTLINED_FUNCTION_7_14();
-                                                if (lpta_loadp_setscan_r(v178, v179) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v180 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v180, v181, v182), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                v198 = OUTLINED_FUNCTION_52_1();
+                                                starttest(v198, v199);
+                                                v200 = OUTLINED_FUNCTION_7_14();
+                                                if (lpta_loadp_setscan_r(v200, v201, v202) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v203 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v203, v204, v205), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                 {
 LABEL_68:
-                                                  v183 = OUTLINED_FUNCTION_52_1();
-                                                  starttest(v183, v184);
-                                                  v185 = OUTLINED_FUNCTION_7_14();
-                                                  if (lpta_loadp_setscan_r(v185, v186) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v187 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v187, v188, v189), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                  v206 = OUTLINED_FUNCTION_52_1();
+                                                  starttest(v206, v207);
+                                                  v208 = OUTLINED_FUNCTION_7_14();
+                                                  if (lpta_loadp_setscan_r(v208, v209, v210) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v211 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v211, v212, v213), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                   {
 LABEL_71:
-                                                    v190 = OUTLINED_FUNCTION_52_1();
-                                                    starttest(v190, v191);
-                                                    v192 = OUTLINED_FUNCTION_7_14();
-                                                    if (lpta_loadp_setscan_r(v192, v193) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v194 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v194, v195, v196), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                    v214 = OUTLINED_FUNCTION_52_1();
+                                                    starttest(v214, v215);
+                                                    v216 = OUTLINED_FUNCTION_7_14();
+                                                    if (lpta_loadp_setscan_r(v216, v217, v218) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v219 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v219, v220, v221), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                     {
 LABEL_74:
-                                                      v197 = OUTLINED_FUNCTION_49_1();
-                                                      starttest(v197, v198);
-                                                      v199 = OUTLINED_FUNCTION_7_14();
-                                                      if (lpta_loadp_setscan_r(v199, v200) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v201 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v201, v202, v203), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                      v222 = OUTLINED_FUNCTION_49_1();
+                                                      starttest(v222, v223);
+                                                      v224 = OUTLINED_FUNCTION_7_14();
+                                                      if (lpta_loadp_setscan_r(v224, v225, v226) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v227 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v227, v228, v229), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                       {
 LABEL_77:
-                                                        v204 = OUTLINED_FUNCTION_52_1();
-                                                        starttest(v204, v205);
-                                                        v206 = OUTLINED_FUNCTION_7_14();
-                                                        if (lpta_loadp_setscan_r(v206, v207) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v208 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v208, v209, v210), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                        v230 = OUTLINED_FUNCTION_52_1();
+                                                        starttest(v230, v231);
+                                                        v232 = OUTLINED_FUNCTION_7_14();
+                                                        if (lpta_loadp_setscan_r(v232, v233, v234) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v235 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v235, v236, v237), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                         {
 LABEL_80:
-                                                          v211 = OUTLINED_FUNCTION_52_1();
-                                                          starttest(v211, v212);
-                                                          v213 = OUTLINED_FUNCTION_7_14();
-                                                          if (lpta_loadp_setscan_r(v213, v214) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v215 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v215, v216, v217), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                          v238 = OUTLINED_FUNCTION_52_1();
+                                                          starttest(v238, v239);
+                                                          v240 = OUTLINED_FUNCTION_7_14();
+                                                          if (lpta_loadp_setscan_r(v240, v241, v242) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v243 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v243, v244, v245), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                           {
 LABEL_83:
-                                                            v218 = OUTLINED_FUNCTION_52_1();
-                                                            starttest(v218, v219);
-                                                            v220 = OUTLINED_FUNCTION_7_14();
-                                                            if (lpta_loadp_setscan_r(v220, v221) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v222 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v222, v223, v224), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                            v246 = OUTLINED_FUNCTION_52_1();
+                                                            starttest(v246, v247);
+                                                            v248 = OUTLINED_FUNCTION_7_14();
+                                                            if (lpta_loadp_setscan_r(v248, v249, v250) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v251 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v251, v252, v253), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                             {
 LABEL_86:
-                                                              v225 = OUTLINED_FUNCTION_52_1();
-                                                              starttest(v225, v226);
-                                                              v227 = OUTLINED_FUNCTION_7_14();
-                                                              if (lpta_loadp_setscan_r(v227, v228) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v229 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v229, v230, v231), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                              v254 = OUTLINED_FUNCTION_52_1();
+                                                              starttest(v254, v255);
+                                                              v256 = OUTLINED_FUNCTION_7_14();
+                                                              if (lpta_loadp_setscan_r(v256, v257, v258) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v259 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v259, v260, v261), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                               {
 LABEL_89:
-                                                                v232 = OUTLINED_FUNCTION_52_1();
-                                                                starttest(v232, v233);
-                                                                v234 = OUTLINED_FUNCTION_7_14();
-                                                                if (lpta_loadp_setscan_r(v234, v235) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v236 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v236, v237, v238), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                v262 = OUTLINED_FUNCTION_52_1();
+                                                                starttest(v262, v263);
+                                                                v264 = OUTLINED_FUNCTION_7_14();
+                                                                if (lpta_loadp_setscan_r(v264, v265, v266) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v267 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v267, v268, v269), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                 {
 LABEL_92:
-                                                                  v239 = OUTLINED_FUNCTION_52_1();
-                                                                  starttest(v239, v240);
-                                                                  v241 = OUTLINED_FUNCTION_7_14();
-                                                                  if (lpta_loadp_setscan_r(v241, v242) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v243 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v243, v244, v245), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                  v270 = OUTLINED_FUNCTION_52_1();
+                                                                  starttest(v270, v271);
+                                                                  v272 = OUTLINED_FUNCTION_7_14();
+                                                                  if (lpta_loadp_setscan_r(v272, v273, v274) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v275 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v275, v276, v277), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                   {
 LABEL_95:
-                                                                    v246 = OUTLINED_FUNCTION_52_1();
-                                                                    starttest(v246, v247);
-                                                                    v248 = OUTLINED_FUNCTION_7_14();
-                                                                    if (lpta_loadp_setscan_r(v248, v249) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v250 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v250, v251, v252), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                    v278 = OUTLINED_FUNCTION_52_1();
+                                                                    starttest(v278, v279);
+                                                                    v280 = OUTLINED_FUNCTION_7_14();
+                                                                    if (lpta_loadp_setscan_r(v280, v281, v282) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v283 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v283, v284, v285), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                     {
 LABEL_98:
-                                                                      v253 = OUTLINED_FUNCTION_52_1();
-                                                                      starttest(v253, v254);
-                                                                      v255 = OUTLINED_FUNCTION_7_14();
-                                                                      if (lpta_loadp_setscan_r(v255, v256) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v257 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v257, v258, v259), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                      v286 = OUTLINED_FUNCTION_52_1();
+                                                                      starttest(v286, v287);
+                                                                      v288 = OUTLINED_FUNCTION_7_14();
+                                                                      if (lpta_loadp_setscan_r(v288, v289, v290) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v291 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v291, v292, v293), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                       {
 LABEL_101:
-                                                                        v260 = OUTLINED_FUNCTION_52_1();
-                                                                        starttest(v260, v261);
-                                                                        v262 = OUTLINED_FUNCTION_7_14();
-                                                                        if (lpta_loadp_setscan_r(v262, v263) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v264 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v264, v265, v266), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                        v294 = OUTLINED_FUNCTION_52_1();
+                                                                        starttest(v294, v295);
+                                                                        v296 = OUTLINED_FUNCTION_7_14();
+                                                                        if (lpta_loadp_setscan_r(v296, v297, v298) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v299 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v299, v300, v301), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                         {
 LABEL_104:
-                                                                          v267 = OUTLINED_FUNCTION_52_1();
-                                                                          starttest(v267, v268);
-                                                                          v269 = OUTLINED_FUNCTION_7_14();
-                                                                          if (lpta_loadp_setscan_r(v269, v270) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v271 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v271, v272, v273), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                          v302 = OUTLINED_FUNCTION_52_1();
+                                                                          starttest(v302, v303);
+                                                                          v304 = OUTLINED_FUNCTION_7_14();
+                                                                          if (lpta_loadp_setscan_r(v304, v305, v306) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v307 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v307, v308, v309), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                           {
 LABEL_107:
-                                                                            v274 = OUTLINED_FUNCTION_52_1();
-                                                                            starttest(v274, v275);
-                                                                            v276 = OUTLINED_FUNCTION_7_14();
-                                                                            if (lpta_loadp_setscan_r(v276, v277) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v278 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v278, v279, v280), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                            v310 = OUTLINED_FUNCTION_52_1();
+                                                                            starttest(v310, v311);
+                                                                            v312 = OUTLINED_FUNCTION_7_14();
+                                                                            if (lpta_loadp_setscan_r(v312, v313, v314) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v315 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v315, v316, v317), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                             {
 LABEL_110:
-                                                                              v281 = OUTLINED_FUNCTION_52_1();
-                                                                              starttest(v281, v282);
-                                                                              v283 = OUTLINED_FUNCTION_7_14();
-                                                                              if (lpta_loadp_setscan_r(v283, v284) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v285 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v285, v286, v287), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                              v318 = OUTLINED_FUNCTION_52_1();
+                                                                              starttest(v318, v319);
+                                                                              v320 = OUTLINED_FUNCTION_7_14();
+                                                                              if (lpta_loadp_setscan_r(v320, v321, v322) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v323 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v323, v324, v325), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                               {
 LABEL_113:
-                                                                                v288 = OUTLINED_FUNCTION_52_1();
-                                                                                starttest(v288, v289);
-                                                                                v290 = OUTLINED_FUNCTION_7_14();
-                                                                                if (lpta_loadp_setscan_r(v290, v291) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v292 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v292, v293, v294), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                                v326 = OUTLINED_FUNCTION_52_1();
+                                                                                starttest(v326, v327);
+                                                                                v328 = OUTLINED_FUNCTION_7_14();
+                                                                                if (lpta_loadp_setscan_r(v328, v329, v330) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v331 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v331, v332, v333), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                                 {
 LABEL_116:
-                                                                                  v295 = OUTLINED_FUNCTION_52_1();
-                                                                                  starttest(v295, v296);
-                                                                                  v297 = OUTLINED_FUNCTION_7_14();
-                                                                                  if (lpta_loadp_setscan_r(v297, v298) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v299 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v299, v300, v301), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                                  v334 = OUTLINED_FUNCTION_52_1();
+                                                                                  starttest(v334, v335);
+                                                                                  v336 = OUTLINED_FUNCTION_7_14();
+                                                                                  if (lpta_loadp_setscan_r(v336, v337, v338) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v339 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v339, v340, v341), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                                   {
 LABEL_119:
-                                                                                    v302 = OUTLINED_FUNCTION_52_1();
-                                                                                    starttest(v302, v303);
-                                                                                    v304 = OUTLINED_FUNCTION_7_14();
-                                                                                    if (lpta_loadp_setscan_r(v304, v305) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v306 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v306, v307, v308), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                                    v342 = OUTLINED_FUNCTION_52_1();
+                                                                                    starttest(v342, v343);
+                                                                                    v344 = OUTLINED_FUNCTION_7_14();
+                                                                                    if (lpta_loadp_setscan_r(v344, v345, v346) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v347 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v347, v348, v349), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                                     {
 LABEL_122:
-                                                                                      v309 = OUTLINED_FUNCTION_52_1();
-                                                                                      starttest(v309, v310);
-                                                                                      v311 = OUTLINED_FUNCTION_7_14();
-                                                                                      if (lpta_loadp_setscan_r(v311, v312) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v313 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v313, v314, v315), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                                      v350 = OUTLINED_FUNCTION_52_1();
+                                                                                      starttest(v350, v351);
+                                                                                      v352 = OUTLINED_FUNCTION_7_14();
+                                                                                      if (lpta_loadp_setscan_r(v352, v353, v354) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v355 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v355, v356, v357), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                                       {
 LABEL_125:
-                                                                                        v316 = OUTLINED_FUNCTION_52_1();
-                                                                                        starttest(v316, v317);
-                                                                                        v318 = OUTLINED_FUNCTION_7_14();
-                                                                                        if (lpta_loadp_setscan_r(v318, v319) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v320 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v320, v321, v322), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                                        v358 = OUTLINED_FUNCTION_52_1();
+                                                                                        starttest(v358, v359);
+                                                                                        v360 = OUTLINED_FUNCTION_7_14();
+                                                                                        if (lpta_loadp_setscan_r(v360, v361, v362) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v363 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v363, v364, v365), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                                         {
 LABEL_128:
-                                                                                          v323 = OUTLINED_FUNCTION_52_1();
-                                                                                          starttest(v323, v324);
-                                                                                          v325 = OUTLINED_FUNCTION_7_14();
-                                                                                          if (lpta_loadp_setscan_r(v325, v326) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v327 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v327, v328, v329), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                                          v366 = OUTLINED_FUNCTION_52_1();
+                                                                                          starttest(v366, v367);
+                                                                                          v368 = OUTLINED_FUNCTION_7_14();
+                                                                                          if (lpta_loadp_setscan_r(v368, v369, v370) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v371 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v371, v372, v373), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                                           {
 LABEL_131:
-                                                                                            v330 = OUTLINED_FUNCTION_52_1();
-                                                                                            starttest(v330, v331);
-                                                                                            v332 = OUTLINED_FUNCTION_7_14();
-                                                                                            if (lpta_loadp_setscan_r(v332, v333) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v334 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v334, v335, v336), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                                            v374 = OUTLINED_FUNCTION_52_1();
+                                                                                            starttest(v374, v375);
+                                                                                            v376 = OUTLINED_FUNCTION_7_14();
+                                                                                            if (lpta_loadp_setscan_r(v376, v377, v378) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v379 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v379, v380, v381), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                                             {
 LABEL_134:
-                                                                                              v337 = OUTLINED_FUNCTION_52_1();
-                                                                                              starttest(v337, v338);
-                                                                                              v339 = OUTLINED_FUNCTION_7_14();
-                                                                                              if (lpta_loadp_setscan_r(v339, v340) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v341 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v341, v342, v343), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                                              v382 = OUTLINED_FUNCTION_52_1();
+                                                                                              starttest(v382, v383);
+                                                                                              v384 = OUTLINED_FUNCTION_7_14();
+                                                                                              if (lpta_loadp_setscan_r(v384, v385, v386) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v387 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v387, v388, v389), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                                               {
 LABEL_137:
-                                                                                                v344 = OUTLINED_FUNCTION_52_1();
-                                                                                                starttest(v344, v345);
-                                                                                                v346 = OUTLINED_FUNCTION_7_14();
-                                                                                                if (lpta_loadp_setscan_r(v346, v347) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v348 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v348, v349, v350), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                                                v390 = OUTLINED_FUNCTION_52_1();
+                                                                                                starttest(v390, v391);
+                                                                                                v392 = OUTLINED_FUNCTION_7_14();
+                                                                                                if (lpta_loadp_setscan_r(v392, v393, v394) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v395 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v395, v396, v397), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                                                 {
 LABEL_140:
-                                                                                                  v351 = OUTLINED_FUNCTION_52_1();
-                                                                                                  starttest(v351, v352);
-                                                                                                  v353 = OUTLINED_FUNCTION_7_14();
-                                                                                                  if (lpta_loadp_setscan_r(v353, v354) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v355 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v355, v356, v357), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                                                  v398 = OUTLINED_FUNCTION_52_1();
+                                                                                                  starttest(v398, v399);
+                                                                                                  v400 = OUTLINED_FUNCTION_7_14();
+                                                                                                  if (lpta_loadp_setscan_r(v400, v401, v402) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v403 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v403, v404, v405), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                                                   {
 LABEL_143:
-                                                                                                    v358 = OUTLINED_FUNCTION_52_1();
-                                                                                                    starttest(v358, v359);
-                                                                                                    v360 = OUTLINED_FUNCTION_7_14();
-                                                                                                    if (lpta_loadp_setscan_r(v360, v361) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v362 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v362, v363, v364), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                                                    v406 = OUTLINED_FUNCTION_52_1();
+                                                                                                    starttest(v406, v407);
+                                                                                                    v408 = OUTLINED_FUNCTION_7_14();
+                                                                                                    if (lpta_loadp_setscan_r(v408, v409, v410) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v411 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v411, v412, v413), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                                                     {
 LABEL_146:
-                                                                                                      v365 = OUTLINED_FUNCTION_52_1();
-                                                                                                      starttest(v365, v366);
-                                                                                                      v367 = OUTLINED_FUNCTION_7_14();
-                                                                                                      if (lpta_loadp_setscan_r(v367, v368) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v369 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v369, v370, v371), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                                                      v414 = OUTLINED_FUNCTION_52_1();
+                                                                                                      starttest(v414, v415);
+                                                                                                      v416 = OUTLINED_FUNCTION_7_14();
+                                                                                                      if (lpta_loadp_setscan_r(v416, v417, v418) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v419 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v419, v420, v421), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                                                       {
 LABEL_149:
-                                                                                                        v372 = OUTLINED_FUNCTION_52_1();
-                                                                                                        starttest(v372, v373);
-                                                                                                        v374 = OUTLINED_FUNCTION_7_14();
-                                                                                                        if (lpta_loadp_setscan_r(v374, v375) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v376 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v376, v377, v378), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                                                        v422 = OUTLINED_FUNCTION_52_1();
+                                                                                                        starttest(v422, v423);
+                                                                                                        v424 = OUTLINED_FUNCTION_7_14();
+                                                                                                        if (lpta_loadp_setscan_r(v424, v425, v426) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v427 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v427, v428, v429), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                                                         {
 LABEL_152:
-                                                                                                          v379 = OUTLINED_FUNCTION_52_1();
-                                                                                                          starttest(v379, v380);
-                                                                                                          v381 = OUTLINED_FUNCTION_7_14();
-                                                                                                          if (lpta_loadp_setscan_r(v381, v382) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v383 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v383, v384, v385), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                                                          v430 = OUTLINED_FUNCTION_52_1();
+                                                                                                          starttest(v430, v431);
+                                                                                                          v432 = OUTLINED_FUNCTION_7_14();
+                                                                                                          if (lpta_loadp_setscan_r(v432, v433, v434) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v435 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v435, v436, v437), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                                                           {
 LABEL_155:
-                                                                                                            v386 = OUTLINED_FUNCTION_52_1();
-                                                                                                            starttest(v386, v387);
-                                                                                                            v388 = OUTLINED_FUNCTION_7_14();
-                                                                                                            if (lpta_loadp_setscan_r(v388, v389) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v390 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v390, v391, v392), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                                                            v438 = OUTLINED_FUNCTION_52_1();
+                                                                                                            starttest(v438, v439);
+                                                                                                            v440 = OUTLINED_FUNCTION_7_14();
+                                                                                                            if (lpta_loadp_setscan_r(v440, v441, v442) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v443 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v443, v444, v445), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                                                             {
 LABEL_158:
-                                                                                                              v393 = OUTLINED_FUNCTION_52_1();
-                                                                                                              starttest(v393, v394);
-                                                                                                              v395 = OUTLINED_FUNCTION_7_14();
-                                                                                                              if (lpta_loadp_setscan_r(v395, v396) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v397 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v397, v398, v399), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                                                              v446 = OUTLINED_FUNCTION_52_1();
+                                                                                                              starttest(v446, v447);
+                                                                                                              v448 = OUTLINED_FUNCTION_7_14();
+                                                                                                              if (lpta_loadp_setscan_r(v448, v449, v450) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v451 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v451, v452, v453), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                                                               {
 LABEL_161:
-                                                                                                                v400 = OUTLINED_FUNCTION_52_1();
-                                                                                                                starttest(v400, v401);
-                                                                                                                v402 = OUTLINED_FUNCTION_7_14();
-                                                                                                                if (lpta_loadp_setscan_r(v402, v403) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v404 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v404, v405, v406), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                                                                v454 = OUTLINED_FUNCTION_52_1();
+                                                                                                                starttest(v454, v455);
+                                                                                                                v456 = OUTLINED_FUNCTION_7_14();
+                                                                                                                if (lpta_loadp_setscan_r(v456, v457, v458) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v459 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v459, v460, v461), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                                                                 {
 LABEL_164:
-                                                                                                                  v407 = OUTLINED_FUNCTION_52_1();
-                                                                                                                  starttest(v407, v408);
-                                                                                                                  v409 = OUTLINED_FUNCTION_7_14();
-                                                                                                                  if (lpta_loadp_setscan_r(v409, v410) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v411 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v411, v412, v413), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                                                                  v462 = OUTLINED_FUNCTION_52_1();
+                                                                                                                  starttest(v462, v463);
+                                                                                                                  v464 = OUTLINED_FUNCTION_7_14();
+                                                                                                                  if (lpta_loadp_setscan_r(v464, v465, v466) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v467 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v467, v468, v469), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                                                                   {
 LABEL_167:
-                                                                                                                    v414 = OUTLINED_FUNCTION_52_1();
-                                                                                                                    starttest(v414, v415);
-                                                                                                                    v416 = OUTLINED_FUNCTION_7_14();
-                                                                                                                    if (lpta_loadp_setscan_r(v416, v417) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v418 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v418, v419, v420), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                                                                    v470 = OUTLINED_FUNCTION_52_1();
+                                                                                                                    starttest(v470, v471);
+                                                                                                                    v472 = OUTLINED_FUNCTION_7_14();
+                                                                                                                    if (lpta_loadp_setscan_r(v472, v473, v474) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v475 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v475, v476, v477), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                                                                     {
 LABEL_170:
-                                                                                                                      v421 = OUTLINED_FUNCTION_52_1();
-                                                                                                                      starttest(v421, v422);
-                                                                                                                      v423 = OUTLINED_FUNCTION_7_14();
-                                                                                                                      if (lpta_loadp_setscan_r(v423, v424) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v425 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v425, v426, v427), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                                                                      v478 = OUTLINED_FUNCTION_52_1();
+                                                                                                                      starttest(v478, v479);
+                                                                                                                      v480 = OUTLINED_FUNCTION_7_14();
+                                                                                                                      if (lpta_loadp_setscan_r(v480, v481, v482) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v483 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v483, v484, v485), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                                                                       {
 LABEL_173:
-                                                                                                                        v428 = OUTLINED_FUNCTION_52_1();
-                                                                                                                        starttest(v428, v429);
-                                                                                                                        v430 = OUTLINED_FUNCTION_7_14();
-                                                                                                                        if (lpta_loadp_setscan_r(v430, v431) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v432 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v432, v433, v434), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                                                                        v486 = OUTLINED_FUNCTION_52_1();
+                                                                                                                        starttest(v486, v487);
+                                                                                                                        v488 = OUTLINED_FUNCTION_7_14();
+                                                                                                                        if (lpta_loadp_setscan_r(v488, v489, v490) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v491 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v491, v492, v493), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                                                                         {
 LABEL_176:
-                                                                                                                          v435 = OUTLINED_FUNCTION_52_1();
-                                                                                                                          starttest(v435, v436);
-                                                                                                                          v437 = OUTLINED_FUNCTION_7_14();
-                                                                                                                          if (lpta_loadp_setscan_r(v437, v438) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v439 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v439, v440, v441), OUTLINED_FUNCTION_6_14(), mark_s()))
+                                                                                                                          v494 = OUTLINED_FUNCTION_52_1();
+                                                                                                                          starttest(v494, v495);
+                                                                                                                          v496 = OUTLINED_FUNCTION_7_14();
+                                                                                                                          if (lpta_loadp_setscan_r(v496, v497, v498) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v499 = OUTLINED_FUNCTION_8_14(), lpta_rpta_loadp(v499, v500, v501), OUTLINED_FUNCTION_6_14(), mark_s()))
                                                                                                                           {
 LABEL_179:
-                                                                                                                            v442 = OUTLINED_FUNCTION_52_1();
-                                                                                                                            starttest(v442, v443);
-                                                                                                                            v444 = OUTLINED_FUNCTION_7_14();
-                                                                                                                            if (!lpta_loadp_setscan_r(v444, v445))
+                                                                                                                            v502 = OUTLINED_FUNCTION_52_1();
+                                                                                                                            starttest(v502, v503);
+                                                                                                                            v504 = OUTLINED_FUNCTION_7_14();
+                                                                                                                            if (!lpta_loadp_setscan_r(v504, v505, v506))
                                                                                                                             {
                                                                                                                               OUTLINED_FUNCTION_4_14();
                                                                                                                               if (!test_string_s())
                                                                                                                               {
-                                                                                                                                v446 = OUTLINED_FUNCTION_8_14();
-                                                                                                                                lpta_rpta_loadp(v446, v447, v448);
+                                                                                                                                v507 = OUTLINED_FUNCTION_8_14();
+                                                                                                                                lpta_rpta_loadp(v507, v508, v509);
                                                                                                                                 OUTLINED_FUNCTION_6_14();
                                                                                                                                 mark_s();
                                                                                                                               }
@@ -8655,10 +7467,10 @@ LABEL_179:
 
 LABEL_182:
             OUTLINED_FUNCTION_121();
-            v449 = OUTLINED_FUNCTION_122();
-            if (!forto_adv_r(v449, v450, v451, v452, v453, v454))
+            v510 = OUTLINED_FUNCTION_122();
+            if (!forto_adv_r(v510, v511, v512, v513, v514, v515))
             {
-              v17 = 0;
+              v18 = 0;
               goto LABEL_4;
             }
           }
@@ -8666,19 +7478,19 @@ LABEL_182:
       }
     }
 
-    v455 = *(v0 + 104);
-    if (v455)
+    v516 = *(v1 + 104);
+    if (v516)
     {
-      v456 = OUTLINED_FUNCTION_65_1(v455);
+      v517 = OUTLINED_FUNCTION_65_1(v516);
     }
 
     else
     {
-      v456 = OUTLINED_FUNCTION_133();
+      v517 = OUTLINED_FUNCTION_133();
     }
 
-    v17 = 0;
-    switch(v456)
+    v18 = 0;
+    switch(v517)
     {
       case 1:
         break;
@@ -8808,67 +7620,64 @@ LABEL_182:
   }
 
 LABEL_4:
-  vretproc(v0);
-  v18 = *MEMORY[0x277D85DE8];
-  return v17;
+  vretproc(v1);
+  return v18;
 }
 
-void acronym()
+void acronym(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_114();
   OUTLINED_FUNCTION_11_14();
-  v90 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_18_10(v2, v3, v4, v5, v6, v7, v8, v9, v55, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84);
+  v77 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_18_10(v5, v6, v7, v8, v9, v10, v11, v12, v64, *v67, *&v67[8], *&v67[16], *&v67[24], *&v67[32], *&v67[40], *&v67[48], *&v67[56], *&v67[64], *&v67[72], *&v67[80], *&v67[88], *&v67[96], *&v67[104], *&v67[112], *&v67[120], *&v67[128], *&v67[136], *&v67[144], *&v67[152], *&v67[160], *&v67[168], *&v67[176], *v68, v69, *v70, v71);
   OUTLINED_FUNCTION_57_1();
-  OUTLINED_FUNCTION_177(v10, v11, v12, v13, v14, v15, v16, v17, v56, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89);
-  v18 = setjmp(v1);
-  if (v18)
+  OUTLINED_FUNCTION_177(v13, v14, v15, v16, v17, v18, v19, v20, v65, *v67, *&v67[8], *&v67[16], *&v67[24], *&v67[32], *&v67[40], *&v67[48], *&v67[56], *&v67[64], *&v67[72], *&v67[80], *&v67[88], *&v67[96], *&v67[104], *&v67[112], *&v67[120], *&v67[128], *&v67[136], *&v67[144], *&v67[152], *&v67[160], *&v67[168], *&v67[176], *v68, v69, *v70, v71, v72, v73, v74, v75);
+  v21 = setjmp(v4);
+  if (v21)
   {
     goto LABEL_4;
   }
 
-  if (OUTLINED_FUNCTION_44_1(v18, &v58, v19, v20, v21, v22, v23, v24, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83, v84, v85, SBYTE4(v85), v86, SWORD2(v86), SBYTE6(v86), v87, SWORD2(v87), SBYTE6(v87), SHIBYTE(v87), v88, v89))
+  if (OUTLINED_FUNCTION_44_1(v21, v67, v22, v23, v24, v25, v26, v27, v66, *v67, *&v67[8], *&v67[16], *&v67[24], *&v67[32], *&v67[40], *&v67[48], *&v67[56], *&v67[64], *&v67[72], *&v67[80], *&v67[88], *&v67[96], *&v67[104], *&v67[112], *&v67[120], *&v67[128], *&v67[136], *&v67[144], *&v67[152], *&v67[160], *&v67[168], *&v67[176], *v68, v69, *v70, v71, v72, SHIDWORD(v72), v73, SWORD2(v73), SHIWORD(v73), v74, SWORD2(v74), SBYTE6(v74), SHIBYTE(v74), v75, v76))
   {
     goto LABEL_4;
   }
 
-  v25 = OUTLINED_FUNCTION_72_1();
-  get_parm(v25, v26, v27, -6);
-  OUTLINED_FUNCTION_62_1(v28, &v81);
-  fence_16(v0, 0, &_MergedGlobals_1_0);
-  if (*(v0 + 2282) == *(v0 + 5394))
+  v28 = OUTLINED_FUNCTION_72_1();
+  get_parm(v28, v29, v30, -6);
+  OUTLINED_FUNCTION_62_1(v31, v68);
+  fence_16(v3, 0, &_MergedGlobals_1_0);
+  if (*(v3 + 2282) == *(v3 + 5394))
   {
     goto LABEL_4;
   }
 
-  v30 = 0;
+  v32 = 0;
   while (2)
   {
-    v31 = *(v0 + 5118);
     OUTLINED_FUNCTION_88_1();
-    if (v32)
+    if (v33)
     {
       goto LABEL_4;
     }
 
 LABEL_8:
-    v33 = OUTLINED_FUNCTION_55_1();
-    starttest(v33, v34);
-    v35 = *(v0 + 5094);
+    v34 = OUTLINED_FUNCTION_55_1();
+    starttest(v34, v35);
     OUTLINED_FUNCTION_88_1();
-    if (v32 || (v36 = OUTLINED_FUNCTION_54_1(), lpta_loadp_setscan_l(v36, v37)))
+    if (v33 || (v36 = OUTLINED_FUNCTION_54_1(), lpta_loadp_setscan_l(v36, v37, 1)))
     {
 LABEL_4:
-      vretproc(v0);
+      vretproc(v3);
       goto LABEL_5;
     }
 
     v38 = OUTLINED_FUNCTION_39_1();
     if (!testFldeq(v38, v39, v40, 2))
     {
-      v49 = advance_tok(v0);
-      v41 = v30;
-      if (v49)
+      v54 = advance_tok(v3, v41, v42, v43);
+      v44 = v32;
+      if (v54)
       {
         goto LABEL_12;
       }
@@ -8876,33 +7685,33 @@ LABEL_4:
 LABEL_23:
       while (1)
       {
-        v52 = OUTLINED_FUNCTION_39_1();
-        if (testFldeq(v52, v53, v54, 2) || advance_tok(v0))
+        v57 = OUTLINED_FUNCTION_39_1();
+        if (testFldeq(v57, v58, v59, 2) || advance_tok(v3, v60, v61, v62))
         {
           break;
         }
 
-        v50 = OUTLINED_FUNCTION_64_1();
-        bspush_ca_scan(v50, v51);
+        v55 = OUTLINED_FUNCTION_64_1();
+        bspush_ca_scan(v55, v56);
       }
     }
 
-    v41 = v30;
+    v44 = v32;
 LABEL_12:
-    v42 = *(v0 + 104);
-    if (v42)
+    v45 = *(v3 + 104);
+    if (v45)
     {
-      v43 = OUTLINED_FUNCTION_65_1(v42);
-      v30 = v44;
+      v46 = OUTLINED_FUNCTION_65_1(v45);
+      v32 = v47;
     }
 
     else
     {
-      v43 = vback(v0, v41);
-      v30 = 0;
+      v46 = vback(v3, v44);
+      v32 = 0;
     }
 
-    switch(v43)
+    switch(v46)
     {
       case 1:
         continue;
@@ -8911,45 +7720,45 @@ LABEL_12:
       case 3:
         goto LABEL_8;
       case 5:
-        *(v0 + 136) = 1;
-        v45 = OUTLINED_FUNCTION_12_14();
-        v46 = test_ptr(v45);
-        v41 = v30;
-        if (v46)
+        *(v3 + 136) = 1;
+        v48 = OUTLINED_FUNCTION_12_14();
+        v51 = test_ptr(v48, v49, v50);
+        v44 = v32;
+        if (v51)
         {
           goto LABEL_12;
         }
 
 LABEL_17:
-        v47 = OUTLINED_FUNCTION_81_1();
-        starttest(v47, v48);
+        v52 = OUTLINED_FUNCTION_81_1();
+        starttest(v52, v53);
         OUTLINED_FUNCTION_74_1();
         bspush_ca_boa();
         OUTLINED_FUNCTION_84_1();
         if (acrotest())
         {
-          v41 = v30;
+          v44 = v32;
         }
 
         else
         {
-          v41 = 1;
+          v44 = 1;
         }
 
         goto LABEL_12;
       case 6:
         goto LABEL_23;
       case 7:
-        *(v0 + 2670) = *(v0 + 2682);
-        OUTLINED_FUNCTION_124();
-        spell_out_sequence();
+        *(v3 + 2670) = *(v3 + 2682);
+        v63 = OUTLINED_FUNCTION_124();
+        spell_out_sequence(v63);
         goto LABEL_27;
       case 8:
-        bspop_boa(v0);
+        bspop_boa(v3);
         goto LABEL_4;
       case 9:
 LABEL_27:
-        set_letter_name_wordcats(v0);
+        set_letter_name_wordcats(v3);
         break;
       case 10:
         goto LABEL_28;
@@ -8961,142 +7770,128 @@ LABEL_27:
   }
 
 LABEL_28:
-  OUTLINED_FUNCTION_137(v82);
+  OUTLINED_FUNCTION_137(v69);
 LABEL_5:
-  v29 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_113();
 }
 
-uint64_t single_letter()
+uint64_t single_letter(uint64_t a1)
 {
   OUTLINED_FUNCTION_11_14();
-  v2 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_14(v3, v4, v5, v6, v7, v8, v9, v10, v43, v47, v51, v55, v59, v63, v67, v71, v75, v79, v83, v87, v91, v95, v99, v103, v107, v111, v115, v119, v123, v127, v131, v135, v139, v143, v146);
-  OUTLINED_FUNCTION_26_8(v11, v12, v13, v14, v15, v16, v17, v18, v44, v48, v52, v56, v60, v64, v68, v72, v76, v80, v84, v88, v92, v96, v100, v104, v108, v112, v116, v120, v124, v128, v132, v136, v140, v144, v147, v149, v151, v153, v155, v157);
-  if (setjmp(v1))
+  OUTLINED_FUNCTION_5_14(v3, v4, v5, v6, v7, v8, v9, v10, v53, v57, v61, v65, v69, v73, v77, v81, v85, v89, v93, v97, v101, v105, v109, v113, v117, v121, v125, v129, v133, v137, v141, v145, v146, v147, v148);
+  OUTLINED_FUNCTION_26_8(v11, v12, v13, v14, v15, v16, v17, v18, v54, v58, v62, v66, v70, v74, v78, v82, v86, v90, v94, v98, v102, v106, v110, v114, v118, v122, v126, v130, v134, v138, v142, v145, v146, v147, v148, v149, v150, v151, v152);
+  if (setjmp(v2) || (OUTLINED_FUNCTION_0_16(), OUTLINED_FUNCTION_132(v19, v20, v21, v22, v23, v24, v25, v26, v55, v59, v63, v67, v71, v75, v79, v83, v87, v91, v95, v99, v103, v107, v111, v115, v119, v123, v127, v131, v135, v139, v143, v145, v146, v147, v148, v149, v150, v151, v152)) || (v27 = OUTLINED_FUNCTION_13_14(), get_parm(v27, v28, v29, -6), OUTLINED_FUNCTION_43_1(v30, v31, v32, v33, v34, v35, v36, v37, v56, v60, v64, v68, v72, v76, v80, v84, v88, v92, v96, v100, v104, v108, v112, v116, v120, v124, v128, v132, v136, v140, v144, v145), fence_16(v1, 0, &_MergedGlobals_1_0), v38 = OUTLINED_FUNCTION_29_5(), lpta_loadp_setscan_r(v38, v39, v40)) || advance_tok(v1, v41, v42, v43) || (OUTLINED_FUNCTION_98_0(), v44 = OUTLINED_FUNCTION_12_14(), test_ptr(v44, v45, v46)))
   {
-    goto LABEL_6;
-  }
-
-  OUTLINED_FUNCTION_0_16();
-  if (OUTLINED_FUNCTION_132(v19, v20, v21, v22, v23, v24, v25, v26, v45, v49, v53, v57, v61, v65, v69, v73, v77, v81, v85, v89, v93, v97, v101, v105, v109, v113, v117, v121, v125, v129, v133, v137, v141, v145, v148, v150, v152, v154, v156, v158) || (v27 = OUTLINED_FUNCTION_13_14(), get_parm(v27, v28, v29, -6), OUTLINED_FUNCTION_43_1(v30, v31, v32, v33, v34, v35, v36, v37, v46, v50, v54, v58, v62, v66, v70, v74, v78, v82, v86, v90, v94, v98, v102, v106, v110, v114, v118, v122, v126, v130, v134, v138), fence_16(v0, 0, &_MergedGlobals_1_0), v38 = OUTLINED_FUNCTION_29_5(), lpta_loadp_setscan_r(v38, v39)) || advance_tok(v0) || (OUTLINED_FUNCTION_98_0(), v40 = OUTLINED_FUNCTION_12_14(), test_ptr(v40)))
-  {
-LABEL_6:
-    vretproc(v0);
-    result = 94;
+    vretproc(v1);
+    return 94;
   }
 
   else
   {
-    *(v0 + 2670) = *(v0 + 2690);
-    OUTLINED_FUNCTION_55_1();
-    single_chars();
-    OUTLINED_FUNCTION_55_1();
-    process_trailing_period();
-    OUTLINED_FUNCTION_137(v142);
-    result = 0;
+    *(v1 + 2670) = *(v1 + 2690);
+    v48 = OUTLINED_FUNCTION_55_1();
+    single_chars(v48, v49, &v145);
+    v50 = OUTLINED_FUNCTION_55_1();
+    process_trailing_period(v50, v51, &v145, v52);
+    OUTLINED_FUNCTION_137(v146);
+    return 0;
   }
-
-  v42 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-uint64_t separate_tokens()
+uint64_t separate_tokens(uint64_t a1)
 {
   OUTLINED_FUNCTION_76_1();
-  v146 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_20_8(v2, v3, v4, v5, v6, v7, v8, v9, v37, v41, v45, v49, v53, v57, v61, v65, v69, v73, v77, v81, v85, v89, v93, v97, v101, v105, v109, v113, v117, v121, v125, v129, v133);
+  OUTLINED_FUNCTION_20_8(v3, v4, v5, v6, v7, v8, v9, v10, v39, v43, v47, v51, v55, v59, v63, v67, v71, v75, v79, v83, v87, v91, v95, v99, v103, v107, v111, v115, v119, v123, v127, v131, v135);
   OUTLINED_FUNCTION_57_1();
-  OUTLINED_FUNCTION_158(v10, v11, v12, v13, v14, v15, v16, v17, v38, v42, v46, v50, v54, v58, v62, v66, v70, v74, v78, v82, v86, v90, v94, v98, v102, v106, v110, v114, v118, v122, v126, v130, v134, v136, v138, v140, v142, v144);
-  v18 = setjmp(v1);
-  if (v18 || (v26 = OUTLINED_FUNCTION_25_8(v18, v19, v20, v21, v22, v23, v24, v25, v39, v43, v47, v51, v55, v59, v63, v67, v71, v75, v79, v83, v87, v91, v95, v99, v103, v107, v111, v115, v119, v123, v127, v131, v135, *v137, v137[4], *v139, *&v139[4], v139[6], v141, SWORD2(v141), SBYTE6(v141), SHIBYTE(v141), v143, v145), v26) || (OUTLINED_FUNCTION_19_9(v26, v27, v28, v29, v30, v31, v32, v33, v40, v44, v48, v52, v56, v60, v64, v68, v72, v76, v80, v84, v88, v92, v96, v100, v104, v108, v112, v116, v120, v124, v128, v132), fence_16(v0, 0, &_MergedGlobals_1_0), OUTLINED_FUNCTION_55_1(), !end_of_word()))
+  OUTLINED_FUNCTION_158(v11, v12, v13, v14, v15, v16, v17, v18, v40, v44, v48, v52, v56, v60, v64, v68, v72, v76, v80, v84, v88, v92, v96, v100, v104, v108, v112, v116, v120, v124, v128, v132, v136, v138, v140, v142, v144);
+  v19 = setjmp(v2);
+  if (v19 || (v27 = OUTLINED_FUNCTION_25_8(v19, v20, v21, v22, v23, v24, v25, v26, v41, v45, v49, v53, v57, v61, v65, v69, v73, v77, v81, v85, v89, v93, v97, v101, v105, v109, v113, v117, v121, v125, v129, v133, v137, v139, SHIDWORD(v139), v141, SWORD2(v141), SHIWORD(v141), v143, SWORD2(v143), SBYTE6(v143), SHIBYTE(v143), v145, v146), v27) || (OUTLINED_FUNCTION_19_9(v27, v28, v29, v30, v31, v32, v33, v34, v42, v46, v50, v54, v58, v62, v66, v70, v74, v78, v82, v86, v90, v94, v98, v102, v106, v110, v114, v118, v122, v126, v130, v134), fence_16(v1, 0, &_MergedGlobals_1_0), v37 = OUTLINED_FUNCTION_55_1(), !end_of_word(v37)))
   {
-    v34 = 94;
+    v35 = 94;
   }
 
   else
   {
     OUTLINED_FUNCTION_136();
     OUTLINED_FUNCTION_117();
-    v34 = 0;
-    insert_l(v0);
+    v35 = 0;
+    insert_l(v1, v38);
   }
 
-  vretproc(v0);
-  v35 = *MEMORY[0x277D85DE8];
-  return v34;
+  vretproc(v1);
+  return v35;
 }
 
-void process_trailing_period()
+void process_trailing_period(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   OUTLINED_FUNCTION_114();
-  v1 = v0;
-  v84 = *MEMORY[0x277D85DE8];
-  v71 = 0;
-  v72 = 0;
-  OUTLINED_FUNCTION_16_12(v0, v2, v3, v4, v5, v6, v7, v8, v40, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70);
+  v5 = v4;
+  v66 = *MEMORY[0x277D85DE8];
+  v53 = 0;
+  v54 = 0;
+  OUTLINED_FUNCTION_16_12(v4, v6, v7, v8, v9, v10, v11, v12, v45, v47[0], v47[1], v47[2], v47[3], v47[4], v47[5], v47[6], v47[7], v47[8], v47[9], v47[10], v47[11], v47[12], v47[13], v47[14], v47[15], v47[16], v47[17], v47[18], v47[19], v47[20], v47[21], v47[22], v48, v49, v50[0], v50[1], v51, v52);
   OUTLINED_FUNCTION_57_1();
-  bzero(v83, v9);
-  v10 = setjmp(v83);
-  if (!v10 && !OUTLINED_FUNCTION_69_1(v10, &v42, v11, v12, v13, v14, v15, v16, v41, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77, v78, v79, v80, v81, v82, v83[0]))
+  bzero(v65, v13);
+  v14 = setjmp(v65);
+  if (!v14 && !OUTLINED_FUNCTION_69_1(v14, v47, v15, v16, v17, v18, v19, v20, v46, v47[0], v47[1], v47[2], v47[3], v47[4], v47[5], v47[6], v47[7], v47[8], v47[9], v47[10], v47[11], v47[12], v47[13], v47[14], v47[15], v47[16], v47[17], v47[18], v47[19], v47[20], v47[21], v47[22], v48, v49, v50[0], v50[1], v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63, v64, v65[0]))
   {
-    v17 = OUTLINED_FUNCTION_107();
-    OUTLINED_FUNCTION_159(v17, v18);
-    v19 = OUTLINED_FUNCTION_54_1();
-    OUTLINED_FUNCTION_126(v19, v20);
-    v21 = OUTLINED_FUNCTION_72_1();
-    get_parm(v21, v22, v23, -6);
-    v24 = OUTLINED_FUNCTION_104();
-    push_ptr_init(v24, v25);
-    fence_16(v1, 0, &_MergedGlobals_1_0);
-    v26 = OUTLINED_FUNCTION_29_5();
-    if (!lpta_loadp_setscan_r(v26, v27))
+    v21 = OUTLINED_FUNCTION_107();
+    OUTLINED_FUNCTION_159(v21, v22);
+    v23 = OUTLINED_FUNCTION_54_1();
+    OUTLINED_FUNCTION_126(v23, v24);
+    v25 = OUTLINED_FUNCTION_72_1();
+    get_parm(v25, v26, v27, -6);
+    v28 = OUTLINED_FUNCTION_104();
+    push_ptr_init(v28, v29);
+    fence_16(v5, 0, &_MergedGlobals_1_0);
+    v30 = OUTLINED_FUNCTION_29_5();
+    if (!lpta_loadp_setscan_r(v30, v31, v32))
     {
       OUTLINED_FUNCTION_4_14();
       if (!test_string_s())
       {
         OUTLINED_FUNCTION_168();
-        v29 = 0;
+        v33 = 0;
         while (2)
         {
-          v30 = OUTLINED_FUNCTION_54_1();
-          savescptr(v30, v31, &v65);
-          v32 = OUTLINED_FUNCTION_70_1();
-          if (lpta_loadp_setscan_r(v32, v33) || (OUTLINED_FUNCTION_51_1(), test_string_s()))
+          v34 = OUTLINED_FUNCTION_54_1();
+          savescptr(v34, v35, &v48);
+          v36 = OUTLINED_FUNCTION_70_1();
+          if (lpta_loadp_setscan_r(v36, v37, 1) || (OUTLINED_FUNCTION_51_1(), test_string_s()))
           {
 LABEL_9:
-            v34 = OUTLINED_FUNCTION_81_1();
-            starttest(v34, v35);
+            v38 = OUTLINED_FUNCTION_81_1();
+            starttest(v38, v39);
             OUTLINED_FUNCTION_74_1();
             bspush_ca_boa();
-            OUTLINED_FUNCTION_84_1();
-            v36 = end_of_sentence();
-            if (v36)
+            v40 = OUTLINED_FUNCTION_84_1();
+            v41 = end_of_sentence(v40);
+            if (v41)
             {
-              v37 = v29;
+              v42 = v33;
             }
 
             else
             {
-              v37 = 1;
+              v42 = 1;
             }
 
-            if (v1[13])
+            if (v5[13])
             {
-              v38 = OUTLINED_FUNCTION_144(v36, v37);
+              v43 = OUTLINED_FUNCTION_144(v41, v42);
             }
 
             else
             {
-              v39 = vback(v1, v37);
-              v38 = 0;
+              v44 = vback(v5, v42);
+              v43 = 0;
             }
 
-            v29 = v38;
-            switch(v39)
+            v33 = v43;
+            switch(v44)
             {
               case 2:
-                v29 = v38;
+                v33 = v43;
                 continue;
               case 3:
                 goto LABEL_9;
@@ -9104,8 +7899,8 @@ LABEL_9:
               case 6:
                 goto LABEL_18;
               case 5:
-                bspop_boa(v1);
-                v70 = v66;
+                bspop_boa(v5);
+                v52 = v49;
                 goto LABEL_18;
               default:
                 goto LABEL_5;
@@ -9115,7 +7910,7 @@ LABEL_9:
           else
           {
 LABEL_18:
-            OUTLINED_FUNCTION_95_0(v70);
+            OUTLINED_FUNCTION_95_0(v52);
           }
 
           break;
@@ -9125,32 +7920,31 @@ LABEL_18:
   }
 
 LABEL_5:
-  vretproc(v1);
-  v28 = *MEMORY[0x277D85DE8];
+  vretproc(v5);
   OUTLINED_FUNCTION_113();
 }
 
 uint64_t set_letter_name_wordcats(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_58_1();
-  bzero(v8, v2);
+  bzero(v7, v2);
   OUTLINED_FUNCTION_57_1();
-  bzero(v12, v3);
-  if (setjmp(v12) || ventproc(a1, v8, v11, v10, v9, v12))
+  bzero(v11, v3);
+  if (setjmp(v11) || ventproc(a1, v7, v10, v9, v8, v11))
   {
     vretproc(a1);
-    result = 94;
+    return 94;
   }
 
   else
   {
     fence_16(a1, 0, &_MergedGlobals_1_0);
     OUTLINED_FUNCTION_79_1();
-    if (v6)
+    if (v5)
     {
-      v7 = OUTLINED_FUNCTION_94_0();
-      npush_s(v7);
+      v6 = OUTLINED_FUNCTION_94_0();
+      npush_s(v6);
       *(a1 + 3602) = 1;
       npop(a1, (a1 + 3600));
       npush_s(a1);
@@ -9159,52 +7953,49 @@ uint64_t set_letter_name_wordcats(uint64_t a1)
     }
 
     vretproc(a1);
-    result = 0;
+    return 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-void read_punct_by_name()
+void read_punct_by_name(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_114();
   OUTLINED_FUNCTION_11_14();
-  v96 = *MEMORY[0x277D85DE8];
-  v83 = 0;
-  v84 = 0;
-  v81 = 0;
-  v82 = 0;
+  v122 = *MEMORY[0x277D85DE8];
+  v109 = 0;
+  v110 = 0;
+  v107 = 0;
+  v108 = 0;
   OUTLINED_FUNCTION_58_1();
-  bzero(v80, v1);
+  bzero(v106, v4);
   OUTLINED_FUNCTION_57_1();
-  bzero(v95, v2);
-  v3 = setjmp(v95);
-  if (v3 || OUTLINED_FUNCTION_69_1(v3, v80, v4, v5, v6, v7, v8, v9, v75, v76, v77, v78, v79, v80[0], v80[1], v80[2], v80[3], v80[4], v80[5], v80[6], v80[7], v80[8], v80[9], v80[10], v80[11], v80[12], v80[13], v80[14], v80[15], v80[16], v80[17], v80[18], v80[19], v80[20], v80[21], v80[22], v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95[0]))
+  bzero(v121, v5);
+  v6 = setjmp(v121);
+  if (v6 || OUTLINED_FUNCTION_69_1(v6, v106, v7, v8, v9, v10, v11, v12, v101, v102, v103, v104, v105, v106[0], v106[1], v106[2], v106[3], v106[4], v106[5], v106[6], v106[7], v106[8], v106[9], v106[10], v106[11], v106[12], v106[13], v106[14], v106[15], v106[16], v106[17], v106[18], v106[19], v106[20], v106[21], v106[22], v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118, v119, v120, v121[0]))
   {
 LABEL_3:
-    vretproc(v0);
+    vretproc(v3);
   }
 
   else
   {
-    v11 = OUTLINED_FUNCTION_72_1();
-    get_parm(v11, v12, v13, -6);
+    v13 = OUTLINED_FUNCTION_72_1();
+    get_parm(v13, v14, v15, -6);
     OUTLINED_FUNCTION_21_8();
-    v14 = OUTLINED_FUNCTION_73_1();
-    fence_16(v14, v15, v16);
-    v17 = OUTLINED_FUNCTION_139();
-    starttest(v17, v18);
-    v19 = OUTLINED_FUNCTION_55_1();
-    if (lpta_loadp_setscan_r(v19, v20))
+    v16 = OUTLINED_FUNCTION_73_1();
+    fence_16(v16, v17, v18);
+    v19 = OUTLINED_FUNCTION_139();
+    starttest(v19, v20);
+    v21 = OUTLINED_FUNCTION_55_1();
+    if (lpta_loadp_setscan_r(v21, v22, 1))
     {
 LABEL_6:
-      v21 = OUTLINED_FUNCTION_52_1();
-      starttest(v21, v22);
+      v23 = OUTLINED_FUNCTION_52_1();
+      starttest(v23, v24);
       OUTLINED_FUNCTION_22_8();
       bspush_ca_boa();
-      OUTLINED_FUNCTION_87_1();
-      end_of_word();
+      v25 = OUTLINED_FUNCTION_87_1();
+      end_of_word(v25);
     }
 
     else
@@ -9213,147 +8004,147 @@ LABEL_46:
       OUTLINED_FUNCTION_143();
       while (1)
       {
-        v70 = OUTLINED_FUNCTION_9_14();
-        if (testFldeq(v70, v71, v72, 4) || advance_tok(v0))
+        v93 = OUTLINED_FUNCTION_9_14();
+        if (testFldeq(v93, v94, v95, 4) || advance_tok(v3, v96, v97, v98))
         {
           break;
         }
 
-        v73 = OUTLINED_FUNCTION_55_1();
-        bspush_ca_scan(v73, v74);
+        v99 = OUTLINED_FUNCTION_55_1();
+        bspush_ca_scan(v99, v100);
       }
     }
 
     OUTLINED_FUNCTION_165();
     while (2)
     {
-      v24 = *(v0 + 104);
-      if (v24)
+      v27 = *(v3 + 104);
+      if (v27)
       {
-        v25 = OUTLINED_FUNCTION_60_1(v24);
+        v28 = OUTLINED_FUNCTION_60_1(v27);
       }
 
       else
       {
-        v25 = vback(v0, v23);
+        v28 = vback(v3, v26);
       }
 
-      switch(v25)
+      switch(v28)
       {
         case 1:
           goto LABEL_6;
         case 2:
           OUTLINED_FUNCTION_75_1();
-          v64 = OUTLINED_FUNCTION_120();
-          savescptr(v64, v65, v66);
+          v76 = OUTLINED_FUNCTION_120();
+          savescptr(v76, v77, v78);
           goto LABEL_6;
         case 3:
           goto LABEL_46;
         case 4:
-          v67 = OUTLINED_FUNCTION_53_1();
-          if (lpta_loadp_setscan_r(v67, v68))
+          v79 = OUTLINED_FUNCTION_53_1();
+          if (lpta_loadp_setscan_r(v79, v80, v81))
           {
             goto LABEL_43;
           }
 
-          if (advance_tok(v0))
+          if (advance_tok(v3, v82, v83, v84))
           {
             goto LABEL_43;
           }
 
           OUTLINED_FUNCTION_98_0();
-          v69 = OUTLINED_FUNCTION_12_14();
-          if (test_ptr(v69))
+          v85 = OUTLINED_FUNCTION_12_14();
+          if (test_ptr(v85, v86, v87))
           {
             goto LABEL_43;
           }
 
-          OUTLINED_FUNCTION_101();
-          if (in_quotes())
+          v88 = OUTLINED_FUNCTION_101();
+          if (in_quotes(v88))
           {
             goto LABEL_43;
           }
 
           goto LABEL_44;
         case 5:
-          bspop_boa(v0);
-          v26 = OUTLINED_FUNCTION_157();
-          starttest(v26, v27);
-          v28 = OUTLINED_FUNCTION_54_1();
-          if (lpta_loadp_setscan_l(v28, v29))
+          bspop_boa(v3);
+          v29 = OUTLINED_FUNCTION_157();
+          starttest(v29, v30);
+          v31 = OUTLINED_FUNCTION_54_1();
+          if (lpta_loadp_setscan_l(v31, v32, 1))
           {
             goto LABEL_13;
           }
 
           OUTLINED_FUNCTION_134();
           bspush_ca_scan_boa();
-          v60 = OUTLINED_FUNCTION_111();
+          v69 = OUTLINED_FUNCTION_111();
           goto LABEL_33;
         case 6:
 LABEL_13:
-          v30 = OUTLINED_FUNCTION_84_1();
-          starttest(v30, v31);
-          v32 = OUTLINED_FUNCTION_54_1();
-          if (lpta_loadp_setscan_r(v32, v33))
+          v33 = OUTLINED_FUNCTION_84_1();
+          starttest(v33, v34);
+          v35 = OUTLINED_FUNCTION_54_1();
+          if (lpta_loadp_setscan_r(v35, v36, 1))
           {
             goto LABEL_44;
           }
 
-          v34 = OUTLINED_FUNCTION_91_0();
-          bspush_ca_scan(v34, v35);
+          v37 = OUTLINED_FUNCTION_91_0();
+          bspush_ca_scan(v37, v38);
           OUTLINED_FUNCTION_39_1();
           goto LABEL_20;
         case 7:
-          bspop_boa(v0);
-          v50 = OUTLINED_FUNCTION_81_1();
-          starttest(v50, v51);
+          bspop_boa(v3);
+          v59 = OUTLINED_FUNCTION_81_1();
+          starttest(v59, v60);
           OUTLINED_FUNCTION_64_1();
           bspush_ca_boa();
-          v52 = OUTLINED_FUNCTION_54_1();
-          v54 = lpta_loadp_setscan_r(v52, v53);
-          v23 = 0;
-          if (v54)
+          v61 = OUTLINED_FUNCTION_54_1();
+          v63 = lpta_loadp_setscan_r(v61, v62, 1);
+          v26 = 0;
+          if (v63)
           {
             continue;
           }
 
           OUTLINED_FUNCTION_39_1();
-          v55 = test_string_s();
-          v23 = 0;
-          if (v55)
+          v64 = test_string_s();
+          v26 = 0;
+          if (v64)
           {
             continue;
           }
 
-          v56 = OUTLINED_FUNCTION_106();
-          bspush_ca_scan(v56, v57);
-          v36 = OUTLINED_FUNCTION_39_1();
+          v65 = OUTLINED_FUNCTION_106();
+          bspush_ca_scan(v65, v66);
+          v39 = OUTLINED_FUNCTION_39_1();
           goto LABEL_16;
         case 8:
-          v36 = OUTLINED_FUNCTION_96_0();
-          v38 = 3;
+          v39 = OUTLINED_FUNCTION_96_0();
+          v41 = 3;
 LABEL_16:
-          v39 = 1;
+          v42 = 1;
           goto LABEL_17;
         case 9:
-          v58 = OUTLINED_FUNCTION_37_2();
-          v41 = test_synch(v58, v59, 1u, &unk_2806BB0E8);
+          v67 = OUTLINED_FUNCTION_37_2();
+          v46 = test_synch(v67, v68, 1, &unk_2806BB0E8);
           goto LABEL_30;
         case 10:
           while (1)
           {
-            v62 = OUTLINED_FUNCTION_96_0();
-            if (testFldeq(v62, v63, 3, 2) || advance_tok(v0))
+            v71 = OUTLINED_FUNCTION_96_0();
+            if (testFldeq(v71, v72, 3, 2) || advance_tok(v3, v73, v74, v75))
             {
               break;
             }
 
-            v60 = OUTLINED_FUNCTION_74_1();
+            v69 = OUTLINED_FUNCTION_74_1();
 LABEL_33:
-            bspush_ca_scan(v60, v61);
+            bspush_ca_scan(v69, v70);
           }
 
-          v23 = 0;
+          v26 = 0;
           continue;
         case 11:
         case 15:
@@ -9363,38 +8154,38 @@ LABEL_33:
         case 19:
           goto LABEL_44;
         case 13:
-          bspop_boa(v0);
+          bspop_boa(v3);
           goto LABEL_3;
         case 14:
-          v45 = OUTLINED_FUNCTION_39_1();
-          v48 = testFldeq(v45, v46, v47, 2);
-          v23 = 0;
-          if (v48)
+          v52 = OUTLINED_FUNCTION_39_1();
+          v55 = testFldeq(v52, v53, v54, 2);
+          v26 = 0;
+          if (v55)
           {
             continue;
           }
 
-          v49 = advance_tok(v0);
-          v23 = 0;
-          if (v49)
+          v58 = advance_tok(v3, 0, v56, v57);
+          v26 = 0;
+          if (v58)
           {
             continue;
           }
 
-          v36 = OUTLINED_FUNCTION_39_1();
-          v39 = 2;
+          v39 = OUTLINED_FUNCTION_39_1();
+          v42 = 2;
 LABEL_17:
-          v40 = testFldeq(v36, v37, v38, v39);
-          v23 = 0;
-          if (!v40)
+          v43 = testFldeq(v39, v40, v41, v42);
+          v26 = 0;
+          if (!v43)
           {
-            v41 = advance_tok(v0);
+            v46 = advance_tok(v3, 0, v44, v45);
 LABEL_30:
-            v23 = 0;
-            if (!v41)
+            v26 = 0;
+            if (!v46)
             {
 LABEL_31:
-              v23 = 1;
+              v26 = 1;
             }
           }
 
@@ -9402,9 +8193,9 @@ LABEL_31:
         case 17:
           OUTLINED_FUNCTION_39_1();
 LABEL_20:
-          v42 = test_string_s();
-          v23 = 0;
-          if (!v42)
+          v47 = test_string_s();
+          v26 = 0;
+          if (!v47)
           {
             goto LABEL_21;
           }
@@ -9412,11 +8203,11 @@ LABEL_20:
           continue;
         case 18:
 LABEL_21:
-          *(v0 + 136) = 1;
-          v43 = OUTLINED_FUNCTION_12_14();
-          v44 = test_ptr(v43);
-          v23 = 0;
-          if (!v44)
+          *(v3 + 136) = 1;
+          v48 = OUTLINED_FUNCTION_12_14();
+          v51 = test_ptr(v48, v49, v50);
+          v26 = 0;
+          if (!v51)
           {
             goto LABEL_3;
           }
@@ -9424,17 +8215,17 @@ LABEL_21:
           continue;
         case 20:
 LABEL_43:
-          OUTLINED_FUNCTION_101();
-          if (in_brackets())
+          v89 = OUTLINED_FUNCTION_101();
+          if (in_brackets(v89))
           {
             goto LABEL_3;
           }
 
 LABEL_44:
-          OUTLINED_FUNCTION_101();
-          single_chars();
+          v90 = OUTLINED_FUNCTION_101();
+          single_chars(v90, v91, v92);
 LABEL_45:
-          OUTLINED_FUNCTION_137(v82);
+          OUTLINED_FUNCTION_137(v108);
           break;
         case 22:
           goto LABEL_45;
@@ -9446,47 +8237,45 @@ LABEL_45:
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_113();
 }
 
-uint64_t end_of_sentence()
+uint64_t end_of_sentence(uint64_t a1)
 {
   OUTLINED_FUNCTION_76_1();
-  v2 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_14(v3, v4, v5, v6, v7, v8, v9, v10, v200, v203, v206, v209, v212, v215, v218, v221, v224, v227, v230, v233, v236, v239, v242, v245, v248, v251, v254, v257, v260, v263, v266, v269, v272, v275, v276);
+  OUTLINED_FUNCTION_5_14(v3, v4, v5, v6, v7, v8, v9, v10, v213, v216, v219, v222, v225, v228, v231, v234, v237, v240, v243, v246, v249, v252, v255, v258, v261, v264, v267, v270, v273, v276, v279, v282, v285, v288[0], v288[1]);
   OUTLINED_FUNCTION_57_1();
-  OUTLINED_FUNCTION_164(v11, v12, v13, v14, v15, v16, v17, v18, v201, v204, v207, v210, v213, v216, v219, v222, v225, v228, v231, v234, v237, v240, v243, v246, v249, v252, v255, v258, v261, v264, v267, v270, v273, v275, v276, v277, v278, v279, v280, v281);
-  if (setjmp(v1))
+  OUTLINED_FUNCTION_164(v11, v12, v13, v14, v15, v16, v17, v18, v214, v217, v220, v223, v226, v229, v232, v235, v238, v241, v244, v247, v250, v253, v256, v259, v262, v265, v268, v271, v274, v277, v280, v283, v286, v288[0], v288[1], v288[2], v288[3], v288[4], v288[5]);
+  if (setjmp(v2))
   {
     goto LABEL_3;
   }
 
   OUTLINED_FUNCTION_0_16();
-  v27 = OUTLINED_FUNCTION_132(v19, v20, v21, v22, v23, v24, v25, v26, v202, v205, v208, v211, v214, v217, v220, v223, v226, v229, v232, v235, v238, v241, v244, v247, v250, v253, v256, v259, v262, v265, v268, v271, v274, v275, v276, v277, v278, v279, v280, v281);
+  v27 = OUTLINED_FUNCTION_132(v19, v20, v21, v22, v23, v24, v25, v26, v215, v218, v221, v224, v227, v230, v233, v236, v239, v242, v245, v248, v251, v254, v257, v260, v263, v266, v269, v272, v275, v278, v281, v284, v287, v288[0], v288[1], v288[2], v288[3], v288[4], v288[5]);
   if (v27)
   {
     goto LABEL_3;
   }
 
-  OUTLINED_FUNCTION_62_1(v27, &v275);
-  v30 = OUTLINED_FUNCTION_66_1();
-  push_ptr_init(v30, v31);
-  v32 = 0;
-  v33 = OUTLINED_FUNCTION_73_1();
-  fence_16(v33, v34, v35);
-  v36 = OUTLINED_FUNCTION_42_1();
-  starttest(v36, v37);
-  v38 = OUTLINED_FUNCTION_15_12();
-  bspush_ca(v38);
-  v39 = 0;
-  if (*(v0 + 5102) != *(v0 + 5090))
+  OUTLINED_FUNCTION_62_1(v27, v288);
+  v29 = OUTLINED_FUNCTION_66_1();
+  push_ptr_init(v29, v30);
+  v31 = 0;
+  v32 = OUTLINED_FUNCTION_73_1();
+  fence_16(v32, v33, v34);
+  v35 = OUTLINED_FUNCTION_42_1();
+  starttest(v35, v36);
+  v37 = OUTLINED_FUNCTION_15_12();
+  bspush_ca(v37);
+  v38 = 0;
+  if (*(v1 + 5102) != *(v1 + 5090))
   {
-LABEL_107:
-    v61 = v39;
+LABEL_106:
+    LODWORD(v52) = v38;
     while (2)
     {
-      v50 = *(v0 + 104);
+      v50 = *(v1 + 104);
       if (v50)
       {
         v51 = OUTLINED_FUNCTION_60_1(v50);
@@ -9494,16 +8283,16 @@ LABEL_107:
 
       else
       {
-        v51 = vback(v0, v61);
-        v1 = 0;
+        v51 = vback(v1, v52);
+        v2 = 0;
       }
 
-      v32 = v1;
-      v47 = v1;
-      v39 = v1;
-      v52 = v1;
-      v53 = v1;
-      v54 = v1;
+      v31 = v2;
+      v47 = v2;
+      v38 = v2;
+      v53 = v2;
+      v54 = v2;
+      v55 = v2;
       switch(v51)
       {
         case 1:
@@ -9513,108 +8302,108 @@ LABEL_107:
         case 60:
         case 87:
         case 88:
-          goto LABEL_83;
+          goto LABEL_82;
         case 2:
-          v70 = OUTLINED_FUNCTION_52_1();
-          bspush_ca(v70);
-          v71 = *(v0 + 5110);
-          goto LABEL_22;
+          v71 = OUTLINED_FUNCTION_52_1();
+          bspush_ca(v71);
+          v72 = *(v1 + 5110);
+          goto LABEL_21;
         case 3:
           break;
         case 4:
-          v74 = OUTLINED_FUNCTION_22_8();
-          bspush_ca(v74);
-          v71 = *(v0 + 5122);
-          goto LABEL_22;
+          v75 = OUTLINED_FUNCTION_22_8();
+          bspush_ca(v75);
+          v72 = *(v1 + 5122);
+          goto LABEL_21;
         case 5:
-          v71 = *(v0 + 5098);
-LABEL_22:
-          v32 = v1;
-          v61 = v1;
-          if (v71 == *(v0 + 5090))
+          v72 = *(v1 + 5098);
+LABEL_21:
+          v31 = v2;
+          LODWORD(v52) = v2;
+          if (v72 == *(v1 + 5090))
           {
             break;
           }
 
           continue;
         case 6:
-          LODWORD(v32) = v1;
-          goto LABEL_87;
+          LODWORD(v31) = v2;
+          goto LABEL_86;
         case 7:
           OUTLINED_FUNCTION_4_14();
-          v75 = test_string_s();
-          v47 = v1;
-          v61 = v1;
-          if (!v75)
+          v76 = test_string_s();
+          v47 = v2;
+          LODWORD(v52) = v2;
+          if (!v76)
           {
-            goto LABEL_8;
+            goto LABEL_7;
           }
 
           continue;
         case 8:
-          goto LABEL_8;
+          goto LABEL_7;
         case 9:
         case 13:
-          goto LABEL_34;
+          goto LABEL_33;
         case 10:
-          goto LABEL_7;
+          goto LABEL_6;
         case 11:
         case 22:
-          goto LABEL_40;
+          goto LABEL_39;
         case 12:
-          v89 = OUTLINED_FUNCTION_33_3();
-          bspush_ca_scan(v89, v90);
-          goto LABEL_33;
+          v92 = OUTLINED_FUNCTION_33_3();
+          bspush_ca_scan(v92, v93);
+          goto LABEL_32;
         case 14:
-          v68 = OUTLINED_FUNCTION_46_1();
-          bspush_ca_scan(v68, v69);
-          goto LABEL_33;
+          v69 = OUTLINED_FUNCTION_46_1();
+          bspush_ca_scan(v69, v70);
+          goto LABEL_32;
         case 15:
-          v72 = OUTLINED_FUNCTION_41_1();
-          bspush_ca_scan(v72, v73);
-          goto LABEL_33;
+          v73 = OUTLINED_FUNCTION_41_1();
+          bspush_ca_scan(v73, v74);
+          goto LABEL_32;
         case 16:
-LABEL_33:
+LABEL_32:
           OUTLINED_FUNCTION_4_14();
-          v91 = test_string_s();
-          v61 = v1;
-          if (v91)
+          v94 = test_string_s();
+          LODWORD(v52) = v2;
+          if (v94)
           {
             continue;
           }
 
           do
           {
-LABEL_34:
-            v92 = OUTLINED_FUNCTION_40_1();
-            bspush_ca_scan(v92, v93);
-            v94 = OUTLINED_FUNCTION_35_2();
-            bspush_ca_scan(v94, v95);
+LABEL_33:
+            v95 = OUTLINED_FUNCTION_40_1();
+            bspush_ca_scan(v95, v96);
+            v97 = OUTLINED_FUNCTION_35_2();
+            bspush_ca_scan(v97, v98);
             OUTLINED_FUNCTION_4_14();
           }
 
           while (!test_string_s());
-          goto LABEL_46;
+          goto LABEL_45;
         case 17:
           OUTLINED_FUNCTION_118();
-          v77 = OUTLINED_FUNCTION_68_1();
-          savescptr(v77, v78, v79);
-          v80 = OUTLINED_FUNCTION_52_1();
-          starttest(v80, v81);
-          v82 = OUTLINED_FUNCTION_71_1();
-          if (lpta_loadp_setscan_r(v82, v83))
+          v78 = OUTLINED_FUNCTION_68_1();
+          savescptr(v78, v79, v80);
+          v81 = OUTLINED_FUNCTION_52_1();
+          starttest(v81, v82);
+          v83 = OUTLINED_FUNCTION_71_1();
+          if (lpta_loadp_setscan_r(v83, v84, 1))
           {
-            goto LABEL_83;
+            goto LABEL_82;
           }
 
-          v84 = OUTLINED_FUNCTION_4_14();
-          v87 = testFldeq(v84, v85, v86, 1);
-          v61 = v1;
-          if (!v87)
+          v85 = OUTLINED_FUNCTION_4_14();
+          v88 = testFldeq(v85, v86, v87, 1);
+          LODWORD(v52) = v2;
+          if (!v88)
           {
-            v88 = advance_tok(v0);
-            v61 = v1;
-            if (!v88)
+            v91 = advance_tok(v1, v2, v89, v90);
+            LODWORD(v52) = v2;
+            if (!v91)
             {
               goto LABEL_3;
             }
@@ -9624,15 +8413,15 @@ LABEL_34:
         case 18:
         case 20:
         case 21:
-          v99 = OUTLINED_FUNCTION_52_1();
-          bspush_ca_scan(v99, v100);
-LABEL_40:
+          v102 = OUTLINED_FUNCTION_52_1();
+          bspush_ca_scan(v102, v103);
+LABEL_39:
           OUTLINED_FUNCTION_4_14();
-          v101 = test_string_s();
-          v61 = v1;
-          if (!v101)
+          v104 = test_string_s();
+          LODWORD(v52) = v2;
+          if (!v104)
           {
-            goto LABEL_41;
+            goto LABEL_40;
           }
 
           continue;
@@ -9640,358 +8429,356 @@ LABEL_40:
         case 23:
           do
           {
-LABEL_41:
-            v102 = OUTLINED_FUNCTION_52_1();
-            bspush_ca_scan(v102, v103);
-            v104 = OUTLINED_FUNCTION_52_1();
-            bspush_ca_scan(v104, v105);
+LABEL_40:
+            v105 = OUTLINED_FUNCTION_52_1();
+            bspush_ca_scan(v105, v106);
+            v107 = OUTLINED_FUNCTION_52_1();
+            bspush_ca_scan(v107, v108);
             OUTLINED_FUNCTION_4_14();
           }
 
           while (!test_string_s());
-          goto LABEL_46;
+          goto LABEL_45;
         case 27:
-          LODWORD(v32) = v1;
-          goto LABEL_88;
+          LODWORD(v31) = v2;
+          goto LABEL_87;
         case 28:
-          goto LABEL_79;
+          goto LABEL_78;
         case 29:
           OUTLINED_FUNCTION_4_14();
-          v76 = test_string_s();
-          v39 = v1;
-          v61 = v1;
-          if (!v76)
+          v77 = test_string_s();
+          v38 = v2;
+          LODWORD(v52) = v2;
+          if (!v77)
           {
-            goto LABEL_99;
+            goto LABEL_98;
           }
 
           continue;
         case 30:
         case 31:
-          goto LABEL_99;
+          goto LABEL_98;
         case 32:
-          goto LABEL_80;
+          goto LABEL_79;
         case 33:
           do
           {
+            v159 = OUTLINED_FUNCTION_52_1();
+            bspush_ca_scan(v159, v160);
+LABEL_78:
             v156 = OUTLINED_FUNCTION_52_1();
             bspush_ca_scan(v156, v157);
 LABEL_79:
-            v153 = OUTLINED_FUNCTION_52_1();
-            bspush_ca_scan(v153, v154);
-LABEL_80:
             OUTLINED_FUNCTION_4_14();
-            v155 = test_string_s();
-            v61 = v1;
+            v158 = test_string_s();
+            LODWORD(v52) = v2;
           }
 
-          while (!v155);
+          while (!v158);
           continue;
         case 34:
         case 35:
         case 37:
         case 38:
-          goto LABEL_76;
+          goto LABEL_75;
         case 36:
-          goto LABEL_78;
+          goto LABEL_77;
         case 39:
           while (1)
           {
             OUTLINED_FUNCTION_4_14();
-            v150 = test_string_s();
-            v61 = v1;
-            if (v150)
+            v153 = test_string_s();
+            LODWORD(v52) = v2;
+            if (v153)
             {
               break;
             }
 
-LABEL_78:
+LABEL_77:
+            v154 = OUTLINED_FUNCTION_52_1();
+            bspush_ca_scan(v154, v155);
+LABEL_75:
             v151 = OUTLINED_FUNCTION_52_1();
             bspush_ca_scan(v151, v152);
-LABEL_76:
-            v148 = OUTLINED_FUNCTION_52_1();
-            bspush_ca_scan(v148, v149);
           }
 
           continue;
         case 40:
         case 78:
-          goto LABEL_60;
+          goto LABEL_59;
         case 41:
-          LODWORD(v32) = v1;
-          goto LABEL_89;
+          LODWORD(v31) = v2;
+          goto LABEL_88;
         case 42:
         case 48:
-          v118 = OUTLINED_FUNCTION_52_1();
-          bspush_ca_scan(v118, v119);
-          goto LABEL_52;
+          v121 = OUTLINED_FUNCTION_52_1();
+          bspush_ca_scan(v121, v122);
+          goto LABEL_51;
         case 43:
           OUTLINED_FUNCTION_4_14();
-          v117 = test_string_s();
-          v52 = v1;
-          v61 = v1;
-          if (!v117)
+          v120 = test_string_s();
+          LODWORD(v53) = v2;
+          LODWORD(v52) = v2;
+          if (!v120)
           {
-            goto LABEL_102;
+            goto LABEL_101;
           }
 
           continue;
         case 44:
         case 45:
-          goto LABEL_102;
+          goto LABEL_101;
         case 46:
         case 50:
-          goto LABEL_69;
+          goto LABEL_68;
         case 47:
         case 51:
         case 54:
         case 56:
-          goto LABEL_73;
+          goto LABEL_72;
         case 49:
-          goto LABEL_71;
+          goto LABEL_70;
         case 52:
           while (1)
           {
-            v140 = OUTLINED_FUNCTION_52_1();
-            bspush_ca_scan(v140, v141);
-LABEL_71:
-            OUTLINED_FUNCTION_4_14();
-            v142 = test_string_s();
-            v61 = v1;
-            if (v142)
-            {
-              break;
-            }
-
-LABEL_69:
-            v138 = OUTLINED_FUNCTION_52_1();
-            bspush_ca_scan(v138, v139);
-          }
-
-          continue;
-        case 53:
-LABEL_52:
-          OUTLINED_FUNCTION_4_14();
-          v120 = test_string_s();
-          v61 = v1;
-          if (!v120)
-          {
-            goto LABEL_73;
-          }
-
-          continue;
-        case 55:
-          goto LABEL_75;
-        case 57:
-          while (1)
-          {
+            v143 = OUTLINED_FUNCTION_52_1();
+            bspush_ca_scan(v143, v144);
+LABEL_70:
             OUTLINED_FUNCTION_4_14();
             v145 = test_string_s();
-            v61 = v1;
+            LODWORD(v52) = v2;
             if (v145)
             {
               break;
             }
 
-LABEL_75:
+LABEL_68:
+            v141 = OUTLINED_FUNCTION_52_1();
+            bspush_ca_scan(v141, v142);
+          }
+
+          continue;
+        case 53:
+LABEL_51:
+          OUTLINED_FUNCTION_4_14();
+          v123 = test_string_s();
+          LODWORD(v52) = v2;
+          if (!v123)
+          {
+            goto LABEL_72;
+          }
+
+          continue;
+        case 55:
+          goto LABEL_74;
+        case 57:
+          while (1)
+          {
+            OUTLINED_FUNCTION_4_14();
+            v148 = test_string_s();
+            LODWORD(v52) = v2;
+            if (v148)
+            {
+              break;
+            }
+
+LABEL_74:
+            v149 = OUTLINED_FUNCTION_52_1();
+            bspush_ca_scan(v149, v150);
+LABEL_72:
             v146 = OUTLINED_FUNCTION_52_1();
             bspush_ca_scan(v146, v147);
-LABEL_73:
-            v143 = OUTLINED_FUNCTION_52_1();
-            bspush_ca_scan(v143, v144);
           }
 
           continue;
         case 58:
-          v130 = OUTLINED_FUNCTION_52_1();
-          bspush_ca_scan(v130, v131);
-LABEL_60:
+          v133 = OUTLINED_FUNCTION_52_1();
+          bspush_ca_scan(v133, v134);
+LABEL_59:
           OUTLINED_FUNCTION_4_14();
-          v57 = test_string_s();
-          goto LABEL_61;
+          v59 = test_string_s();
+          goto LABEL_60;
         case 59:
         case 77:
           OUTLINED_FUNCTION_98_0();
-          v55 = *(v0 + 1392);
           v56 = OUTLINED_FUNCTION_12_14();
-          v57 = test_ptr(v56);
-          goto LABEL_61;
+          v59 = test_ptr(v56, v57, v58);
+          goto LABEL_60;
         case 61:
-          LODWORD(v32) = v1;
-          goto LABEL_90;
+          LODWORD(v31) = v2;
+          goto LABEL_89;
         case 62:
         case 68:
-          v106 = OUTLINED_FUNCTION_52_1();
-          bspush_ca_scan(v106, v107);
-          goto LABEL_44;
+          v109 = OUTLINED_FUNCTION_52_1();
+          bspush_ca_scan(v109, v110);
+          goto LABEL_43;
         case 63:
           OUTLINED_FUNCTION_4_14();
-          v132 = test_string_s();
-          v53 = v1;
-          v61 = v1;
-          if (!v132)
+          v135 = test_string_s();
+          v54 = v2;
+          LODWORD(v52) = v2;
+          if (!v135)
           {
-            goto LABEL_105;
+            goto LABEL_104;
           }
 
           continue;
         case 64:
         case 65:
-          goto LABEL_105;
+          goto LABEL_104;
         case 66:
         case 70:
-          goto LABEL_65;
+          goto LABEL_64;
         case 67:
         case 71:
         case 76:
-          goto LABEL_45;
+          goto LABEL_44;
         case 69:
-          goto LABEL_67;
+          goto LABEL_66;
         case 72:
           while (1)
           {
-            v135 = OUTLINED_FUNCTION_52_1();
-            bspush_ca_scan(v135, v136);
-LABEL_67:
+            v138 = OUTLINED_FUNCTION_52_1();
+            bspush_ca_scan(v138, v139);
+LABEL_66:
             OUTLINED_FUNCTION_4_14();
-            v137 = test_string_s();
-            v61 = v1;
-            if (v137)
+            v140 = test_string_s();
+            LODWORD(v52) = v2;
+            if (v140)
             {
               break;
             }
 
-LABEL_65:
-            v133 = OUTLINED_FUNCTION_52_1();
-            bspush_ca_scan(v133, v134);
+LABEL_64:
+            v136 = OUTLINED_FUNCTION_52_1();
+            bspush_ca_scan(v136, v137);
           }
 
           continue;
         case 73:
         case 75:
-LABEL_44:
+LABEL_43:
           OUTLINED_FUNCTION_4_14();
-          v108 = test_string_s();
-          v61 = v1;
-          if (!v108)
+          v111 = test_string_s();
+          LODWORD(v52) = v2;
+          if (!v111)
           {
             do
             {
-LABEL_45:
-              v109 = OUTLINED_FUNCTION_52_1();
-              bspush_ca_scan(v109, v110);
-              v111 = OUTLINED_FUNCTION_52_1();
-              bspush_ca_scan(v111, v112);
+LABEL_44:
+              v112 = OUTLINED_FUNCTION_52_1();
+              bspush_ca_scan(v112, v113);
+              v114 = OUTLINED_FUNCTION_52_1();
+              bspush_ca_scan(v114, v115);
               OUTLINED_FUNCTION_4_14();
             }
 
             while (!test_string_s());
-LABEL_46:
-            v61 = v1;
+LABEL_45:
+            LODWORD(v52) = v2;
           }
 
           continue;
         case 74:
-          v58 = OUTLINED_FUNCTION_52_1();
-          bspush_ca_scan(v58, v59);
+          v60 = OUTLINED_FUNCTION_52_1();
+          bspush_ca_scan(v60, v61);
           OUTLINED_FUNCTION_51_1();
-          v60 = test_string_s();
-          v61 = v1;
-          if (v60)
+          v62 = test_string_s();
+          LODWORD(v52) = v2;
+          if (v62)
           {
             continue;
           }
 
-          v62 = OUTLINED_FUNCTION_52_1();
-          bspush_ca_scan(v62, v63);
-          v64 = OUTLINED_FUNCTION_52_1();
-          bspush_ca_scan(v64, v65);
-          v66 = OUTLINED_FUNCTION_52_1();
-          bspush_ca_scan(v66, v67);
-          goto LABEL_55;
+          v63 = OUTLINED_FUNCTION_52_1();
+          bspush_ca_scan(v63, v64);
+          v65 = OUTLINED_FUNCTION_52_1();
+          bspush_ca_scan(v65, v66);
+          v67 = OUTLINED_FUNCTION_52_1();
+          bspush_ca_scan(v67, v68);
+          goto LABEL_54;
         case 79:
-          goto LABEL_56;
+          goto LABEL_55;
         case 80:
         case 81:
         case 82:
-          v121 = OUTLINED_FUNCTION_52_1();
-          bspush_ca_scan(v121, v122);
-          goto LABEL_55;
+          v124 = OUTLINED_FUNCTION_52_1();
+          bspush_ca_scan(v124, v125);
+          goto LABEL_54;
         case 83:
-LABEL_55:
+LABEL_54:
           OUTLINED_FUNCTION_4_14();
-          v123 = test_string_s();
-          v61 = v1;
-          if (!v123)
+          v126 = test_string_s();
+          LODWORD(v52) = v2;
+          if (!v126)
           {
-LABEL_56:
-            v124 = OUTLINED_FUNCTION_52_1();
-            bspush_ca_scan(v124, v125);
+LABEL_55:
+            v127 = OUTLINED_FUNCTION_52_1();
+            bspush_ca_scan(v127, v128);
             OUTLINED_FUNCTION_52_1();
             bspush_ca_scan_boa();
-            v126 = OUTLINED_FUNCTION_1_15();
-            if (testFldeq(v126, v127, v128, v129))
+            v129 = OUTLINED_FUNCTION_1_15();
+            if (testFldeq(v129, v130, v131, v132))
             {
-              v61 = v1;
+              LODWORD(v52) = v2;
             }
 
             else
             {
-              v61 = 1;
+              LODWORD(v52) = 1;
             }
           }
 
           continue;
         case 84:
-          v113 = OUTLINED_FUNCTION_4_14();
-          v116 = testFldeq(v113, v114, v115, 2);
-          v61 = v1;
-          if (v116)
+          v116 = OUTLINED_FUNCTION_4_14();
+          v119 = testFldeq(v116, v117, v118, 2);
+          v52 = v2;
+          if (v119)
           {
             continue;
           }
 
-          goto LABEL_48;
+          goto LABEL_47;
         case 85:
-          bspop_boa(v0);
-          goto LABEL_48;
+          bspop_boa(v1);
+          goto LABEL_47;
         case 86:
-LABEL_48:
-          v57 = advance_tok(v0);
-LABEL_61:
-          v61 = v1;
-          if (!v57)
+LABEL_47:
+          v59 = advance_tok(v1, v52, v47, v53);
+LABEL_60:
+          LODWORD(v52) = v2;
+          if (!v59)
           {
-            goto LABEL_83;
+            goto LABEL_82;
           }
 
           continue;
         case 90:
-          goto LABEL_95;
+          goto LABEL_94;
         case 91:
         case 92:
         case 93:
-          v96 = OUTLINED_FUNCTION_52_1();
-          bspush_ca_scan(v96, v97);
-          goto LABEL_37;
+          v99 = OUTLINED_FUNCTION_52_1();
+          bspush_ca_scan(v99, v100);
+          goto LABEL_36;
         case 94:
-LABEL_37:
+LABEL_36:
           OUTLINED_FUNCTION_4_14();
-          v98 = test_string_s();
-          v54 = v1;
-          v61 = v1;
-          if (!v98)
+          v101 = test_string_s();
+          v55 = v2;
+          LODWORD(v52) = v2;
+          if (!v101)
           {
-            goto LABEL_95;
+            goto LABEL_94;
           }
 
           continue;
         case 95:
-          bspop_boa(v0);
-LABEL_83:
-          vretproc(v0);
-          result = 0;
-          goto LABEL_4;
+          bspop_boa(v1);
+LABEL_82:
+          vretproc(v1);
+          return 0;
         default:
           goto LABEL_3;
       }
@@ -10000,154 +8787,1314 @@ LABEL_83:
     }
   }
 
-  v40 = OUTLINED_FUNCTION_36_2();
-  starttest(v40, v41);
-  v42 = OUTLINED_FUNCTION_14_12();
-  v1 = v32;
-  if (!lpta_loadp_setscan_r(v42, v43))
+  v39 = OUTLINED_FUNCTION_36_2();
+  starttest(v39, v40);
+  v41 = OUTLINED_FUNCTION_14_12();
+  v2 = v31;
+  if (!lpta_loadp_setscan_r(v41, v42, v43))
   {
-LABEL_7:
+LABEL_6:
     while (1)
     {
       v44 = OUTLINED_FUNCTION_27_6();
       bspush_ca_scan(v44, v45);
       OUTLINED_FUNCTION_4_14();
       v46 = test_string_s();
-      v47 = v1;
-      v39 = v1;
+      v47 = v2;
+      v38 = v2;
       if (v46)
       {
         break;
       }
 
-LABEL_8:
-      v1 = v47;
+LABEL_7:
+      v2 = v47;
       v48 = OUTLINED_FUNCTION_37_2();
       bspush_ca_scan(v48, v49);
     }
 
-    goto LABEL_107;
+    goto LABEL_106;
+  }
+
+LABEL_86:
+  v161 = OUTLINED_FUNCTION_52_1();
+  starttest(v161, v162);
+  v163 = OUTLINED_FUNCTION_14_12();
+  v38 = v31;
+  if (!lpta_loadp_setscan_r(v163, v164, v165))
+  {
+LABEL_98:
+    v2 = 29;
+    do
+    {
+      v201 = OUTLINED_FUNCTION_71_1();
+      bspush_ca_scan(v201, v202);
+      v203 = OUTLINED_FUNCTION_55_1();
+      bspush_ca_scan(v203, v204);
+      OUTLINED_FUNCTION_4_14();
+    }
+
+    while (!test_string_s());
+    goto LABEL_106;
   }
 
 LABEL_87:
-  v158 = OUTLINED_FUNCTION_52_1();
-  starttest(v158, v159);
-  v160 = OUTLINED_FUNCTION_14_12();
-  v39 = v32;
-  if (!lpta_loadp_setscan_r(v160, v161))
+  v166 = OUTLINED_FUNCTION_52_1();
+  starttest(v166, v167);
+  v168 = OUTLINED_FUNCTION_14_12();
+  v171 = lpta_loadp_setscan_r(v168, v169, v170);
+  LODWORD(v53) = v31;
+  if (!v171)
   {
-LABEL_99:
-    v1 = 29;
+LABEL_101:
+    v38 = v53;
+    v2 = 43;
     do
     {
-      v188 = OUTLINED_FUNCTION_71_1();
-      bspush_ca_scan(v188, v189);
-      v190 = OUTLINED_FUNCTION_55_1();
-      bspush_ca_scan(v190, v191);
+      v205 = OUTLINED_FUNCTION_71_1();
+      bspush_ca_scan(v205, v206);
+      v207 = OUTLINED_FUNCTION_55_1();
+      bspush_ca_scan(v207, v208);
       OUTLINED_FUNCTION_4_14();
     }
 
     while (!test_string_s());
-    goto LABEL_107;
+    goto LABEL_106;
   }
 
 LABEL_88:
-  v162 = OUTLINED_FUNCTION_52_1();
-  starttest(v162, v163);
-  v164 = OUTLINED_FUNCTION_14_12();
-  v166 = lpta_loadp_setscan_r(v164, v165);
-  v52 = v32;
-  if (!v166)
+  v172 = OUTLINED_FUNCTION_52_1();
+  starttest(v172, v173);
+  v174 = OUTLINED_FUNCTION_14_12();
+  v177 = lpta_loadp_setscan_r(v174, v175, v176);
+  v54 = v31;
+  if (!v177)
   {
-LABEL_102:
-    v39 = v52;
-    v1 = 43;
+LABEL_104:
+    v38 = v54;
+    v2 = 63;
     do
     {
-      v192 = OUTLINED_FUNCTION_71_1();
-      bspush_ca_scan(v192, v193);
-      v194 = OUTLINED_FUNCTION_55_1();
-      bspush_ca_scan(v194, v195);
+      v209 = OUTLINED_FUNCTION_71_1();
+      bspush_ca_scan(v209, v210);
+      v211 = OUTLINED_FUNCTION_55_1();
+      bspush_ca_scan(v211, v212);
       OUTLINED_FUNCTION_4_14();
     }
 
     while (!test_string_s());
-    goto LABEL_107;
+    goto LABEL_106;
   }
 
 LABEL_89:
-  v167 = OUTLINED_FUNCTION_52_1();
-  starttest(v167, v168);
-  v169 = OUTLINED_FUNCTION_14_12();
-  v171 = lpta_loadp_setscan_r(v169, v170);
-  v53 = v32;
-  if (!v171)
+  v178 = OUTLINED_FUNCTION_52_1();
+  starttest(v178, v179);
+  if (*(v1 + 2638) != *(v1 + 2614) && *(v1 + 2710) != *(v1 + 2698))
   {
-LABEL_105:
-    v39 = v53;
-    v1 = 63;
-    do
-    {
-      v196 = OUTLINED_FUNCTION_71_1();
-      bspush_ca_scan(v196, v197);
-      v198 = OUTLINED_FUNCTION_55_1();
-      bspush_ca_scan(v198, v199);
-      OUTLINED_FUNCTION_4_14();
-    }
-
-    while (!test_string_s());
-    goto LABEL_107;
-  }
-
-LABEL_90:
-  v172 = OUTLINED_FUNCTION_52_1();
-  starttest(v172, v173);
-  if (*(v0 + 2638) != *(v0 + 2614) && *(v0 + 2710) != *(v0 + 2698))
-  {
-    v174 = OUTLINED_FUNCTION_14_12();
-    if (!lpta_loadp_setscan_r(v174, v175))
+    v180 = OUTLINED_FUNCTION_14_12();
+    if (!lpta_loadp_setscan_r(v180, v181, v182))
     {
       OUTLINED_FUNCTION_51_1();
       if (!test_string_s())
       {
-        v176 = OUTLINED_FUNCTION_52_1();
-        bspush_ca_scan(v176, v177);
-        v178 = OUTLINED_FUNCTION_52_1();
-        bspush_ca_scan(v178, v179);
+        v183 = OUTLINED_FUNCTION_52_1();
+        bspush_ca_scan(v183, v184);
+        v185 = OUTLINED_FUNCTION_52_1();
+        bspush_ca_scan(v185, v186);
         OUTLINED_FUNCTION_4_14();
-        v180 = test_string_s();
-        v54 = v32;
-        v39 = v32;
-        if (!v180)
+        v187 = test_string_s();
+        v55 = v31;
+        v38 = v31;
+        if (!v187)
         {
-LABEL_95:
-          v181 = v54;
-          v182 = OUTLINED_FUNCTION_4_14();
-          if (testFldeq(v182, v183, v184, 2) || advance_tok(v0) || (OUTLINED_FUNCTION_52_1(), bspush_ca_scan_boa(), v185 = OUTLINED_FUNCTION_4_14(), testFldeq(v185, v186, v187, 2)))
+LABEL_94:
+          v188 = v55;
+          v189 = OUTLINED_FUNCTION_4_14();
+          if (testFldeq(v189, v190, v191, 2) || advance_tok(v1, v192, v193, v194) || (OUTLINED_FUNCTION_52_1(), bspush_ca_scan_boa(), v195 = OUTLINED_FUNCTION_4_14(), testFldeq(v195, v196, v197, 2)))
           {
-            v39 = v181;
+            v38 = v188;
           }
 
-          else if (advance_tok(v0))
+          else if (advance_tok(v1, v198, v199, v200))
           {
-            v39 = v181;
+            v38 = v188;
           }
 
           else
           {
-            v39 = 1;
+            v38 = 1;
           }
         }
 
-        goto LABEL_107;
+        goto LABEL_106;
       }
     }
   }
 
 LABEL_3:
-  vretproc(v0);
-  result = 94;
-LABEL_4:
-  v29 = *MEMORY[0x277D85DE8];
-  return result;
+  vretproc(v1);
+  return 94;
+}
+
+uint64_t skip_punct_and_delimiters(uint64_t a1)
+{
+  OUTLINED_FUNCTION_76_1();
+  v121 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_10_14(v3, v4, v5, v6, v7, v8, v9, v10, v69, v71, v73, v75, v77, v79, v81, v83, v85, v87, v89, v91, v93, v95, v97, v99, v101, v103, v105, v107, v109, v111, v113, v115, v117, v119, v120);
+  OUTLINED_FUNCTION_57_1();
+  OUTLINED_FUNCTION_179(v11, v12);
+  if (setjmp(v2) || (OUTLINED_FUNCTION_0_16(), v18 = OUTLINED_FUNCTION_178(v13, v14, v15, v16, v17), v18))
+  {
+LABEL_3:
+    vretproc(v1);
+    return 94;
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_62_1(v18, &v119);
+    v20 = OUTLINED_FUNCTION_66_1();
+    push_ptr_init(v20, v21);
+    fence_16(v1, 0, &_MergedGlobals_1_0);
+    v22 = OUTLINED_FUNCTION_42_1();
+    starttest(v22, v23);
+    v24 = OUTLINED_FUNCTION_15_12();
+    bspush_ca(v24);
+LABEL_5:
+    OUTLINED_FUNCTION_88_1();
+    if (!v25)
+    {
+      while (1)
+      {
+        v41 = *(v1 + 104);
+        if (v41)
+        {
+          v31 = OUTLINED_FUNCTION_65_1(v41);
+        }
+
+        else
+        {
+          v31 = OUTLINED_FUNCTION_133();
+        }
+
+        switch(v31)
+        {
+          case 1:
+          case 7:
+            goto LABEL_29;
+          case 2:
+            v60 = OUTLINED_FUNCTION_52_1();
+            bspush_ca(v60);
+            goto LABEL_5;
+          case 3:
+            goto LABEL_7;
+          case 4:
+            v52 = OUTLINED_FUNCTION_22_8();
+            bspush_ca(v52);
+            goto LABEL_5;
+          case 5:
+            v55 = OUTLINED_FUNCTION_36_2();
+            bspush_ca(v55);
+            goto LABEL_5;
+          case 6:
+            goto LABEL_5;
+          case 8:
+            v42 = OUTLINED_FUNCTION_45_1();
+            bspush_ca_scan(v42, v43);
+            OUTLINED_FUNCTION_4_14();
+            if (test_string_s())
+            {
+              continue;
+            }
+
+            break;
+          case 9:
+            goto LABEL_27;
+          case 10:
+            v58 = OUTLINED_FUNCTION_35_2();
+            bspush_ca_scan(v58, v59);
+            goto LABEL_9;
+          case 11:
+            break;
+          case 12:
+            v53 = OUTLINED_FUNCTION_32_3();
+            bspush_ca_scan(v53, v54);
+            goto LABEL_9;
+          case 13:
+            v56 = OUTLINED_FUNCTION_33_3();
+            bspush_ca_scan(v56, v57);
+            goto LABEL_9;
+          case 14:
+            v50 = OUTLINED_FUNCTION_46_1();
+            bspush_ca_scan(v50, v51);
+            goto LABEL_9;
+          case 15:
+            v44 = OUTLINED_FUNCTION_9_14();
+            if (!testFldeq(v44, v45, v46, 4) && !advance_tok(v1, v47, v48, v49))
+            {
+              goto LABEL_27;
+            }
+
+            continue;
+          case 16:
+            v66 = OUTLINED_FUNCTION_59_1();
+            savescptr(v66, v67, v68);
+            goto LABEL_29;
+          case 17:
+            goto LABEL_8;
+          default:
+            goto LABEL_3;
+        }
+
+        OUTLINED_FUNCTION_109();
+        v61 = OUTLINED_FUNCTION_83_1();
+        savescptr(v61, v62, v63);
+        do
+        {
+LABEL_27:
+          v64 = OUTLINED_FUNCTION_41_1();
+          bspush_ca_scan(v64, v65);
+LABEL_8:
+          v39 = OUTLINED_FUNCTION_38_2();
+          bspush_ca_scan(v39, v40);
+LABEL_9:
+          OUTLINED_FUNCTION_4_14();
+        }
+
+        while (!test_string_s());
+      }
+    }
+
+LABEL_7:
+    v26 = OUTLINED_FUNCTION_27_6();
+    starttest(v26, v27);
+    v28 = OUTLINED_FUNCTION_14_12();
+    v31 = lpta_loadp_setscan_r(v28, v29, v30);
+    if (!v31)
+    {
+      goto LABEL_8;
+    }
+
+LABEL_29:
+    OUTLINED_FUNCTION_131(v31, v32, v33, v34, v35, v36, v37, v38, v70, v72, v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v104, v106, v108, v110, v112, v114, v116, v118, v119, v120);
+    return 0;
+  }
+}
+
+uint64_t build_phrase_final_structure(uint64_t a1)
+{
+  OUTLINED_FUNCTION_76_1();
+  OUTLINED_FUNCTION_5_14(v4, v5, v6, v7, v8, v9, v10, v11, v56, v60, v64, v68, v72, v76, v80, v84, v88, v92, v96, v100, v104, v108, v112, v116, v120, v124, v128, v132, v136, v140, v144, v148, v152, v156, v160);
+  OUTLINED_FUNCTION_57_1();
+  OUTLINED_FUNCTION_164(v12, v13, v14, v15, v16, v17, v18, v19, v57, v61, v65, v69, v73, v77, v81, v85, v89, v93, v97, v101, v105, v109, v113, v117, v121, v125, v129, v133, v137, v141, v145, v149, v153, v157, v161, v164, v166, v168, v170);
+  if (setjmp(v2))
+  {
+    goto LABEL_3;
+  }
+
+  OUTLINED_FUNCTION_0_16();
+  if (OUTLINED_FUNCTION_132(v20, v21, v22, v23, v24, v25, v26, v27, v58, v62, v66, v70, v74, v78, v82, v86, v90, v94, v98, v102, v106, v110, v114, v118, v122, v126, v130, v134, v138, v142, v146, v150, v154, v158, v162, v165, v167, v169, v171))
+  {
+    goto LABEL_3;
+  }
+
+  OUTLINED_FUNCTION_21_8();
+  v29 = OUTLINED_FUNCTION_66_1();
+  push_ptr_init(v29, v30);
+  fence_16(v1, 0, &_MergedGlobals_1_0);
+  OUTLINED_FUNCTION_103();
+  v31 = OUTLINED_FUNCTION_55_1();
+  v33 = lpta_loadp_setscan_r(v31, v32, v3);
+  if (v33)
+  {
+    goto LABEL_5;
+  }
+
+  OUTLINED_FUNCTION_15_12();
+  bspush_ca_scan_boa();
+  v41 = OUTLINED_FUNCTION_6_14();
+  v44 = !testFldeq(v41, v42, v43, 72);
+  while (1)
+  {
+    v45 = *(v1 + 104);
+    if (v45)
+    {
+      v33 = OUTLINED_FUNCTION_60_1(v45);
+    }
+
+    else
+    {
+      v33 = vback(v1, v44);
+      v44 = 0;
+    }
+
+    if (v33 != 2)
+    {
+      break;
+    }
+
+    bspop_boa(v1);
+    if (!advance_tok(v1, v46, v47, v48))
+    {
+      *(v1 + 136) = 1;
+      *(v1 + 112) = v163;
+      *(v1 + 128) = 0;
+      v49 = OUTLINED_FUNCTION_129();
+      insert_r(v49, v50, v50, v51, v52);
+      v53 = OUTLINED_FUNCTION_66_1();
+      v33 = rpta_storep(v53, v54, v55);
+      goto LABEL_5;
+    }
+  }
+
+  if (v33 == 1)
+  {
+LABEL_5:
+    if (!*(v1 + 2538))
+    {
+      OUTLINED_FUNCTION_172();
+    }
+  }
+
+  else if (v33 != 3)
+  {
+LABEL_3:
+    vretproc(v1);
+    return 94;
+  }
+
+  OUTLINED_FUNCTION_131(v33, v34, v35, v36, v37, v38, v39, v40, v59, v63, v67, v71, v75, v79, v83, v87, v91, v95, v99, v103, v107, v111, v115, v119, v123, v127, v131, v135, v139, v143, v147, v151, v155, v159, v163);
+  return 0;
+}
+
+uint64_t in_quotes(uint64_t a1)
+{
+  OUTLINED_FUNCTION_11_14();
+  OUTLINED_FUNCTION_5_14(v3, v4, v5, v6, v7, v8, v9, v10, v57, v61, v65, v69, v73, v77, v81, v85, v89, v93, v97, v101, v105, v109, v113, v117, v121, v125, v129, v133, v137, v141, v145, v149, v153, v156, v159);
+  OUTLINED_FUNCTION_26_8(v11, v12, v13, v14, v15, v16, v17, v18, v58, v62, v66, v70, v74, v78, v82, v86, v90, v94, v98, v102, v106, v110, v114, v118, v122, v126, v130, v134, v138, v142, v146, v150, v154, v157, v160, v162, v164, v166, v168);
+  if (!setjmp(v2))
+  {
+    OUTLINED_FUNCTION_0_16();
+    if (!OUTLINED_FUNCTION_132(v19, v20, v21, v22, v23, v24, v25, v26, v59, v63, v67, v71, v75, v79, v83, v87, v91, v95, v99, v103, v107, v111, v115, v119, v123, v127, v131, v135, v139, v143, v147, v151, v155, v158, v161, v163, v165, v167, v169))
+    {
+      v27 = OUTLINED_FUNCTION_13_14();
+      get_parm(v27, v28, v29, -6);
+      OUTLINED_FUNCTION_43_1(v30, v31, v32, v33, v34, v35, v36, v37, v60, v64, v68, v72, v76, v80, v84, v88, v92, v96, v100, v104, v108, v112, v116, v120, v124, v128, v132, v136, v140, v144, v148, v152);
+      fence_16(v1, 0, &_MergedGlobals_1_0);
+      v38 = OUTLINED_FUNCTION_29_5();
+      if (lpta_loadp_setscan_l(v38, v39, v40) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v41 = OUTLINED_FUNCTION_31_4(), lpta_loadp_setscan_r(v41, v42, v43)) || (OUTLINED_FUNCTION_4_14(), test_string_s()))
+      {
+        v44 = OUTLINED_FUNCTION_14_12();
+        if (lpta_loadp_setscan_l(v44, v45, v46) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v47 = OUTLINED_FUNCTION_31_4(), lpta_loadp_setscan_r(v47, v48, v49)) || (OUTLINED_FUNCTION_4_14(), test_string_s()))
+        {
+          v50 = OUTLINED_FUNCTION_14_12();
+          if (!lpta_loadp_setscan_l(v50, v51, v52))
+          {
+            OUTLINED_FUNCTION_4_14();
+            if (!test_string_s())
+            {
+              v53 = OUTLINED_FUNCTION_31_4();
+              if (!lpta_loadp_setscan_r(v53, v54, v55))
+              {
+                OUTLINED_FUNCTION_4_14();
+                test_string_s();
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  vretproc(v1);
+  return OUTLINED_FUNCTION_105();
+}
+
+uint64_t in_brackets(uint64_t a1)
+{
+  OUTLINED_FUNCTION_11_14();
+  OUTLINED_FUNCTION_5_14(v3, v4, v5, v6, v7, v8, v9, v10, v57, v61, v65, v69, v73, v77, v81, v85, v89, v93, v97, v101, v105, v109, v113, v117, v121, v125, v129, v133, v137, v141, v145, v149, v153, v156, v159);
+  OUTLINED_FUNCTION_26_8(v11, v12, v13, v14, v15, v16, v17, v18, v58, v62, v66, v70, v74, v78, v82, v86, v90, v94, v98, v102, v106, v110, v114, v118, v122, v126, v130, v134, v138, v142, v146, v150, v154, v157, v160, v162, v164, v166, v168);
+  if (!setjmp(v2))
+  {
+    OUTLINED_FUNCTION_0_16();
+    if (!OUTLINED_FUNCTION_132(v19, v20, v21, v22, v23, v24, v25, v26, v59, v63, v67, v71, v75, v79, v83, v87, v91, v95, v99, v103, v107, v111, v115, v119, v123, v127, v131, v135, v139, v143, v147, v151, v155, v158, v161, v163, v165, v167, v169))
+    {
+      v27 = OUTLINED_FUNCTION_13_14();
+      get_parm(v27, v28, v29, -6);
+      OUTLINED_FUNCTION_43_1(v30, v31, v32, v33, v34, v35, v36, v37, v60, v64, v68, v72, v76, v80, v84, v88, v92, v96, v100, v104, v108, v112, v116, v120, v124, v128, v132, v136, v140, v144, v148, v152);
+      fence_16(v1, 0, &_MergedGlobals_1_0);
+      v38 = OUTLINED_FUNCTION_29_5();
+      if (lpta_loadp_setscan_l(v38, v39, v40) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v41 = OUTLINED_FUNCTION_31_4(), lpta_loadp_setscan_r(v41, v42, v43)) || (OUTLINED_FUNCTION_4_14(), test_string_s()))
+      {
+        v44 = OUTLINED_FUNCTION_14_12();
+        if (lpta_loadp_setscan_l(v44, v45, v46) || (OUTLINED_FUNCTION_4_14(), test_string_s()) || (v47 = OUTLINED_FUNCTION_31_4(), lpta_loadp_setscan_r(v47, v48, v49)) || (OUTLINED_FUNCTION_4_14(), test_string_s()))
+        {
+          v50 = OUTLINED_FUNCTION_14_12();
+          if (!lpta_loadp_setscan_l(v50, v51, v52))
+          {
+            OUTLINED_FUNCTION_4_14();
+            if (!test_string_s())
+            {
+              v53 = OUTLINED_FUNCTION_31_4();
+              if (!lpta_loadp_setscan_r(v53, v54, v55))
+              {
+                OUTLINED_FUNCTION_4_14();
+                test_string_s();
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  vretproc(v1);
+  return OUTLINED_FUNCTION_105();
+}
+
+void beg_of_word(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  OUTLINED_FUNCTION_114();
+  OUTLINED_FUNCTION_76_1();
+  v74 = *MEMORY[0x277D85DE8];
+  v61 = 0;
+  v62 = 0;
+  OUTLINED_FUNCTION_58_1();
+  bzero(v60, v6);
+  OUTLINED_FUNCTION_57_1();
+  bzero(v73, v7);
+  v8 = setjmp(v73);
+  if (!v8 && !OUTLINED_FUNCTION_44_1(v8, v60, v9, v10, v11, v12, v13, v14, v57, v58, v59, v60[0], v60[1], v60[2], v60[3], v60[4], v60[5], v60[6], v60[7], v60[8], v60[9], v60[10], v60[11], v60[12], v60[13], v60[14], v60[15], v60[16], v60[17], v60[18], v60[19], v60[20], v60[21], v60[22], v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73[0]))
+  {
+    OUTLINED_FUNCTION_21_8();
+    fence_16(v4, 0, &_MergedGlobals_1_0);
+    v15 = OUTLINED_FUNCTION_100();
+    starttest(v15, v16);
+    v17 = OUTLINED_FUNCTION_55_1();
+    if (lpta_loadp_setscan_l(v17, v18, v5))
+    {
+LABEL_5:
+      v19 = OUTLINED_FUNCTION_38_2();
+      starttest(v19, v20);
+      v21 = OUTLINED_FUNCTION_37_2();
+      bspush_ca(v21);
+      OUTLINED_FUNCTION_88_1();
+      if (v22)
+      {
+LABEL_7:
+        v23 = OUTLINED_FUNCTION_53_1();
+        if (!lpta_loadp_setscan_l(v23, v24, v25))
+        {
+          do
+          {
+LABEL_11:
+            v28 = OUTLINED_FUNCTION_71_1();
+            bspush_ca_scan(v28, v29);
+            v30 = OUTLINED_FUNCTION_55_1();
+            bspush_ca_scan(v30, v31);
+            OUTLINED_FUNCTION_4_14();
+          }
+
+          while (!test_string_s());
+        }
+      }
+    }
+
+    else
+    {
+      v26 = OUTLINED_FUNCTION_15_12();
+      bspush_ca_scan(v26, v27);
+      OUTLINED_FUNCTION_4_14();
+      if (!test_string_s())
+      {
+        goto LABEL_3;
+      }
+    }
+
+    OUTLINED_FUNCTION_153();
+    OUTLINED_FUNCTION_165();
+    while (2)
+    {
+      v32 = *(v4 + 104);
+      if (v32)
+      {
+        v33 = OUTLINED_FUNCTION_65_1(v32);
+      }
+
+      else
+      {
+        v33 = OUTLINED_FUNCTION_133();
+      }
+
+      switch(v33)
+      {
+        case 1:
+          goto LABEL_5;
+        case 2:
+          v34 = OUTLINED_FUNCTION_111();
+          bspush_ca_scan(v34, v35);
+          OUTLINED_FUNCTION_30_4();
+          goto LABEL_27;
+        case 4:
+          v41 = OUTLINED_FUNCTION_106();
+          bspush_ca_scan(v41, v42);
+          OUTLINED_FUNCTION_30_4();
+          goto LABEL_27;
+        case 5:
+          v37 = OUTLINED_FUNCTION_112();
+          bspush_ca_scan(v37, v38);
+          OUTLINED_FUNCTION_30_4();
+          goto LABEL_27;
+        case 6:
+        case 22:
+          OUTLINED_FUNCTION_30_4();
+LABEL_27:
+          if (!test_string_s())
+          {
+            break;
+          }
+
+          continue;
+        case 9:
+          v36 = OUTLINED_FUNCTION_91_0();
+          bspush_ca(v36);
+          goto LABEL_23;
+        case 10:
+          goto LABEL_7;
+        case 11:
+          v43 = OUTLINED_FUNCTION_55_1();
+          bspush_ca(v43);
+          goto LABEL_23;
+        case 12:
+LABEL_23:
+          OUTLINED_FUNCTION_88_1();
+          if (!v22)
+          {
+            continue;
+          }
+
+          goto LABEL_7;
+        case 13:
+          v48 = OUTLINED_FUNCTION_64_1();
+          bspush_ca_scan(v48, v49);
+          *(v4 + 136) = 1;
+          v50 = OUTLINED_FUNCTION_12_14();
+          if (test_ptr(v50, v51, v52))
+          {
+            continue;
+          }
+
+          goto LABEL_3;
+        case 14:
+          v44 = OUTLINED_FUNCTION_74_1();
+          bspush_ca_scan(v44, v45);
+          OUTLINED_FUNCTION_30_4();
+          goto LABEL_36;
+        case 15:
+        case 21:
+          goto LABEL_11;
+        case 16:
+          v53 = OUTLINED_FUNCTION_84_1();
+          bspush_ca_scan(v53, v54);
+          OUTLINED_FUNCTION_30_4();
+          goto LABEL_36;
+        case 17:
+          v46 = OUTLINED_FUNCTION_71_1();
+          bspush_ca_scan(v46, v47);
+          OUTLINED_FUNCTION_30_4();
+          goto LABEL_36;
+        case 18:
+          v55 = OUTLINED_FUNCTION_70_1();
+          bspush_ca_scan(v55, v56);
+          OUTLINED_FUNCTION_30_4();
+          goto LABEL_36;
+        case 19:
+          v39 = OUTLINED_FUNCTION_81_1();
+          bspush_ca_scan(v39, v40);
+          OUTLINED_FUNCTION_30_4();
+          goto LABEL_36;
+        case 20:
+          OUTLINED_FUNCTION_30_4();
+LABEL_36:
+          if (!test_string_s())
+          {
+            goto LABEL_11;
+          }
+
+          continue;
+        default:
+          goto LABEL_3;
+      }
+
+      break;
+    }
+  }
+
+LABEL_3:
+  vretproc(v4);
+  OUTLINED_FUNCTION_154();
+  OUTLINED_FUNCTION_113();
+}
+
+uint64_t skip_delimiters(uint64_t a1)
+{
+  OUTLINED_FUNCTION_76_1();
+  v113 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_10_14(v3, v4, v5, v6, v7, v8, v9, v10, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, v85, v87, v89, v91, v93, v95, v97, v99, v101, v103, v105, v107, v109, v111, v112);
+  OUTLINED_FUNCTION_57_1();
+  OUTLINED_FUNCTION_179(v11, v12);
+  if (setjmp(v2) || (OUTLINED_FUNCTION_0_16(), v18 = OUTLINED_FUNCTION_178(v13, v14, v15, v16, v17), v18))
+  {
+LABEL_3:
+    vretproc(v1);
+    return 94;
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_62_1(v18, &v111);
+    v20 = OUTLINED_FUNCTION_66_1();
+    push_ptr_init(v20, v21);
+    fence_16(v1, 0, &_MergedGlobals_1_0);
+    v22 = OUTLINED_FUNCTION_42_1();
+    starttest(v22, v23);
+    v24 = OUTLINED_FUNCTION_15_12();
+    bspush_ca(v24);
+LABEL_6:
+    OUTLINED_FUNCTION_88_1();
+    if (!v25)
+    {
+      while (1)
+      {
+        v41 = *(v1 + 104);
+        if (v41)
+        {
+          v31 = OUTLINED_FUNCTION_65_1(v41);
+        }
+
+        else
+        {
+          v31 = OUTLINED_FUNCTION_133();
+        }
+
+        switch(v31)
+        {
+          case 1:
+          case 7:
+            goto LABEL_25;
+          case 2:
+            v52 = OUTLINED_FUNCTION_52_1();
+            bspush_ca(v52);
+            goto LABEL_6;
+          case 3:
+            goto LABEL_8;
+          case 4:
+            v51 = OUTLINED_FUNCTION_22_8();
+            bspush_ca(v51);
+            goto LABEL_6;
+          case 5:
+            v55 = OUTLINED_FUNCTION_36_2();
+            bspush_ca(v55);
+            goto LABEL_6;
+          case 6:
+            goto LABEL_6;
+          case 8:
+            v42 = OUTLINED_FUNCTION_45_1();
+            bspush_ca_scan(v42, v43);
+            OUTLINED_FUNCTION_4_14();
+            if (test_string_s())
+            {
+              continue;
+            }
+
+            break;
+          case 9:
+            goto LABEL_17;
+          case 10:
+            v49 = OUTLINED_FUNCTION_35_2();
+            bspush_ca_scan(v49, v50);
+            goto LABEL_10;
+          case 11:
+            break;
+          case 12:
+            v53 = OUTLINED_FUNCTION_32_3();
+            bspush_ca_scan(v53, v54);
+            goto LABEL_10;
+          case 13:
+            v56 = OUTLINED_FUNCTION_33_3();
+            bspush_ca_scan(v56, v57);
+            goto LABEL_10;
+          case 14:
+            goto LABEL_10;
+          case 15:
+            v58 = OUTLINED_FUNCTION_59_1();
+            savescptr(v58, v59, v60);
+            goto LABEL_25;
+          case 16:
+            goto LABEL_9;
+          default:
+            goto LABEL_3;
+        }
+
+        OUTLINED_FUNCTION_109();
+        v44 = OUTLINED_FUNCTION_83_1();
+        savescptr(v44, v45, v46);
+        do
+        {
+LABEL_17:
+          v47 = OUTLINED_FUNCTION_46_1();
+          bspush_ca_scan(v47, v48);
+LABEL_9:
+          v39 = OUTLINED_FUNCTION_38_2();
+          bspush_ca_scan(v39, v40);
+LABEL_10:
+          OUTLINED_FUNCTION_4_14();
+        }
+
+        while (!test_string_s());
+      }
+    }
+
+LABEL_8:
+    v26 = OUTLINED_FUNCTION_27_6();
+    starttest(v26, v27);
+    v28 = OUTLINED_FUNCTION_14_12();
+    v31 = lpta_loadp_setscan_r(v28, v29, v30);
+    if (!v31)
+    {
+      goto LABEL_9;
+    }
+
+LABEL_25:
+    OUTLINED_FUNCTION_131(v31, v32, v33, v34, v35, v36, v37, v38, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v104, v106, v108, v110, v111, v112);
+    return 0;
+  }
+}
+
+uint64_t longdash(uint64_t a1)
+{
+  OUTLINED_FUNCTION_11_14();
+  OUTLINED_FUNCTION_5_14(v3, v4, v5, v6, v7, v8, v9, v10, v71, v76, v81, v86, v91, v96, v101, v106, v111, v116, v121, v126, v131, v136, v141, v146, v151, v156, v161, v166, v171, v176, v181, v186, v191, v195, v198);
+  OUTLINED_FUNCTION_26_8(v11, v12, v13, v14, v15, v16, v17, v18, v72, v77, v82, v87, v92, v97, v102, v107, v112, v117, v122, v127, v132, v137, v142, v147, v152, v157, v162, v167, v172, v177, v182, v187, v192, v196, v199, v201, v203, v205, v207);
+  if (setjmp(v2))
+  {
+    goto LABEL_3;
+  }
+
+  OUTLINED_FUNCTION_0_16();
+  if (OUTLINED_FUNCTION_132(v19, v20, v21, v22, v23, v24, v25, v26, v73, v78, v83, v88, v93, v98, v103, v108, v113, v118, v123, v128, v133, v138, v143, v148, v153, v158, v163, v168, v173, v178, v183, v188, v193, v197, v200, v202, v204, v206, v208))
+  {
+    goto LABEL_3;
+  }
+
+  v28 = OUTLINED_FUNCTION_63_1();
+  get_parm(v28, v29, v30, -6);
+  OUTLINED_FUNCTION_19_9(v31, v32, v33, v34, v35, v36, v37, v38, v74, v79, v84, v89, v94, v99, v104, v109, v114, v119, v124, v129, v134, v139, v144, v149, v154, v159, v164, v169, v174, v179, v184, v189);
+  fence_16(v1, 0, &_MergedGlobals_1_0);
+  OUTLINED_FUNCTION_103();
+  v39 = OUTLINED_FUNCTION_55_1();
+  v41 = lpta_loadp_setscan_r(v39, v40, v2);
+  if (v41)
+  {
+LABEL_20:
+    OUTLINED_FUNCTION_61_1(v41, v42, v43, v44, v45, v46, v47, v48, v75, v80, v85, v90, v95, v100, v105, v110, v115, v120, v125, v130, v135, v140, v145, v150, v155, v160, v165, v170, v175, v180, v185, v190, v194);
+    goto LABEL_3;
+  }
+
+  OUTLINED_FUNCTION_15_12();
+  bspush_ca_scan_boa();
+  OUTLINED_FUNCTION_80_1();
+  OUTLINED_FUNCTION_116();
+  v56 = !testFldeq(v49, v50, v51, v52) && !advance_tok(v1, v53, v54, v55);
+  v57 = v56;
+  while (2)
+  {
+    v58 = *(v1 + 104);
+    if (v58)
+    {
+      OUTLINED_FUNCTION_65_1(v58);
+      v60 = v59;
+    }
+
+    else
+    {
+      vback(v1, v57);
+      v60 = 0;
+    }
+
+    OUTLINED_FUNCTION_152();
+    if (!(!v63 & v62))
+    {
+      switch(v61)
+      {
+        case 1:
+          bspop_boa(v1);
+          OUTLINED_FUNCTION_54_1();
+          bspush_ca_boa();
+          *(v1 + 136) = 1;
+          OUTLINED_FUNCTION_12_14();
+          v64 = lpta_tstctxtl();
+          v57 = v60;
+          if (!v64)
+          {
+            v65 = OUTLINED_FUNCTION_135();
+            setscan_l(v65, v66, v67);
+            if (v68)
+            {
+              v57 = v60;
+            }
+
+            else
+            {
+              v57 = 1;
+            }
+          }
+
+          continue;
+        case 2:
+          bspop_boa(v1);
+          *(v1 + 2614) = *(v1 + 2662);
+          v69 = OUTLINED_FUNCTION_66_1();
+          skip_delimiters(v69);
+          break;
+        case 3:
+          break;
+        default:
+          goto LABEL_20;
+      }
+
+      v70 = OUTLINED_FUNCTION_66_1();
+      v41 = build_phrase_final_structure(v70);
+      goto LABEL_20;
+    }
+
+    break;
+  }
+
+LABEL_3:
+  vretproc(v1);
+  return OUTLINED_FUNCTION_105();
+}
+
+uint64_t shortdash(uint64_t a1)
+{
+  OUTLINED_FUNCTION_11_14();
+  OUTLINED_FUNCTION_10_14(v3, v4, v5, v6, v7, v8, v9, v10, v157, v158, v159, v160, v161, v162, v163, v164, v165, v166, v167, v168, v169, v170, v171, v172, v173, v174, v175, v176, v177, v178, v179, v180, v181, v182, v183);
+  OUTLINED_FUNCTION_57_1();
+  OUTLINED_FUNCTION_161(v11, v12);
+  if (!setjmp(v2))
+  {
+    OUTLINED_FUNCTION_119();
+    if (!OUTLINED_FUNCTION_160(v13, v14, v15, v16, v17))
+    {
+      v19 = OUTLINED_FUNCTION_56_1();
+      OUTLINED_FUNCTION_127(v19, v20);
+      OUTLINED_FUNCTION_21_8();
+      v21 = OUTLINED_FUNCTION_66_1();
+      push_ptr_init(v21, v22);
+      v23 = 0;
+      v24 = OUTLINED_FUNCTION_73_1();
+      fence_16(v24, v25, v26);
+      v27 = OUTLINED_FUNCTION_139();
+      starttest(v27, v28);
+      v29 = OUTLINED_FUNCTION_55_1();
+      if (!lpta_loadp_setscan_r(v29, v30, 1))
+      {
+        v75 = OUTLINED_FUNCTION_3_15();
+        if (testFldeq(v75, v76, v77, v78) || advance_tok(v1, v79, v80, v81))
+        {
+          v31 = 0;
+        }
+
+        else
+        {
+          v84 = OUTLINED_FUNCTION_110();
+          starttest(v84, v85);
+          OUTLINED_FUNCTION_52_1();
+          bspush_ca_boa();
+          v86 = OUTLINED_FUNCTION_56_1();
+          v31 = lpta_loadp_setscan_l(v86, v87, 2) == 0;
+        }
+
+        goto LABEL_31;
+      }
+
+      while (2)
+      {
+        v31 = v23;
+        v32 = OUTLINED_FUNCTION_22_8();
+        starttest(v32, v33);
+        v34 = OUTLINED_FUNCTION_14_12();
+        if (lpta_loadp_setscan_r(v34, v35, v36))
+        {
+LABEL_6:
+          v37 = OUTLINED_FUNCTION_8_14();
+          if (!in_quotes(v37))
+          {
+LABEL_67:
+            v152 = OUTLINED_FUNCTION_8_14();
+            single_chars(v152, v153, v154);
+            goto LABEL_68;
+          }
+
+LABEL_7:
+          lpta_loadpn(v1, v1 + 1400);
+          v38 = OUTLINED_FUNCTION_56_1();
+          rpta_loadpn(v38, v39);
+          OUTLINED_FUNCTION_94_0();
+          rpta_ctxtl();
+          if (!compare_ptas(v1) && !testeq(v1))
+          {
+            goto LABEL_68;
+          }
+
+LABEL_9:
+          v40 = OUTLINED_FUNCTION_35_2();
+          starttest(v40, v41);
+          v42 = OUTLINED_FUNCTION_7_14();
+          v45 = lpta_loadp_setscan_l(v42, v43, v44);
+          v46 = v31;
+          if (!v45)
+          {
+LABEL_51:
+            v120 = OUTLINED_FUNCTION_83_1();
+            savescptr(v120, v121, v122);
+            OUTLINED_FUNCTION_4_14();
+            if (test_string_s())
+            {
+              goto LABEL_31;
+            }
+
+            v123 = OUTLINED_FUNCTION_31_4();
+            if (lpta_loadp_setscan_r(v123, v124, v125))
+            {
+              goto LABEL_31;
+            }
+
+            if (advance_tok(v1, v126, v127, v128))
+            {
+              goto LABEL_31;
+            }
+
+            OUTLINED_FUNCTION_98_0();
+            v129 = OUTLINED_FUNCTION_12_14();
+            if (test_ptr(v129, v130, v131))
+            {
+              goto LABEL_31;
+            }
+
+            v132 = OUTLINED_FUNCTION_33_3();
+            bspush_ca_scan(v132, v133);
+            OUTLINED_FUNCTION_4_14();
+            if (test_string_s())
+            {
+              goto LABEL_31;
+            }
+
+LABEL_56:
+            *(v1 + 2614) = *(v1 + 2662);
+            OUTLINED_FUNCTION_172();
+LABEL_68:
+            OUTLINED_FUNCTION_95_0(v184);
+            goto LABEL_3;
+          }
+
+LABEL_10:
+          v31 = v46;
+          v47 = OUTLINED_FUNCTION_41_1();
+          starttest(v47, v48);
+          v49 = OUTLINED_FUNCTION_14_12();
+          if (lpta_loadp_setscan_r(v49, v50, v51))
+          {
+LABEL_11:
+            OUTLINED_FUNCTION_79_1();
+            if (v52)
+            {
+              v53 = OUTLINED_FUNCTION_14_12();
+              if (!lpta_loadp_setscan_r(v53, v54, v55))
+              {
+                OUTLINED_FUNCTION_9_14();
+                if (!test_string_s())
+                {
+                  goto LABEL_68;
+                }
+              }
+            }
+
+LABEL_15:
+            v56 = OUTLINED_FUNCTION_52_1();
+            starttest(v56, v57);
+            v58 = OUTLINED_FUNCTION_14_12();
+            v61 = lpta_loadp_setscan_r(v58, v59, v60);
+            v62 = v31;
+            if (v61)
+            {
+LABEL_16:
+              v31 = v62;
+              v63 = OUTLINED_FUNCTION_52_1();
+              starttest(v63, v64);
+              v65 = OUTLINED_FUNCTION_14_12();
+              if (!lpta_loadp_setscan_r(v65, v66, v67))
+              {
+                v68 = OUTLINED_FUNCTION_52_1();
+                bspush_ca_scan(v68, v69);
+                OUTLINED_FUNCTION_4_14();
+                v70 = test_string_s();
+                v71 = v31;
+                if (!v70)
+                {
+LABEL_64:
+                  v31 = v71;
+                  OUTLINED_FUNCTION_4_14();
+                  if (!test_string_s())
+                  {
+                    goto LABEL_68;
+                  }
+                }
+
+LABEL_31:
+                LODWORD(v88) = v31;
+LABEL_32:
+                v89 = *(v1 + 104);
+                if (v89)
+                {
+                  v90 = OUTLINED_FUNCTION_60_1(v89);
+                }
+
+                else
+                {
+                  v90 = vback(v1, v88);
+                  v31 = 0;
+                }
+
+                v92 = v31;
+                switch(v90)
+                {
+                  case 1:
+                    v23 = v31;
+                    continue;
+                  case 2:
+                  case 4:
+                  case 8:
+                  case 10:
+                  case 20:
+                    goto LABEL_68;
+                  case 3:
+                    bspop_boa(v1);
+                    *(v1 + 2822) = *(v1 + 2838);
+                    goto LABEL_67;
+                  case 5:
+                    goto LABEL_6;
+                  case 6:
+                    bspush_nboa(v1);
+                    v93 = OUTLINED_FUNCTION_3_15();
+                    v97 = testFldeq(v93, v94, v95, v96);
+                    LODWORD(v88) = v31;
+                    if (!v97)
+                    {
+                      v100 = advance_tok(v1, v31, v98, v99);
+                      LODWORD(v88) = v31;
+                      if (!v100)
+                      {
+                        goto LABEL_67;
+                      }
+                    }
+
+                    goto LABEL_32;
+                  case 7:
+                    goto LABEL_20;
+                  case 9:
+                    goto LABEL_7;
+                  case 11:
+                    goto LABEL_9;
+                  case 12:
+                    v46 = v31;
+                    goto LABEL_10;
+                  case 13:
+                    goto LABEL_51;
+                  case 14:
+                    OUTLINED_FUNCTION_98_0();
+                    v113 = OUTLINED_FUNCTION_12_14();
+                    v116 = test_ptr(v113, v114, v115);
+                    LODWORD(v88) = v31;
+                    if (!v116)
+                    {
+                      goto LABEL_56;
+                    }
+
+                    goto LABEL_32;
+                  case 15:
+                    goto LABEL_56;
+                  case 16:
+                    goto LABEL_11;
+                  case 17:
+                    bspush_nboa(v1);
+                    goto LABEL_46;
+                  case 18:
+                    goto LABEL_27;
+                  case 19:
+                    OUTLINED_FUNCTION_98_0();
+                    v105 = OUTLINED_FUNCTION_12_14();
+                    v108 = test_ptr(v105, v106, v107);
+                    goto LABEL_49;
+                  case 21:
+                    goto LABEL_15;
+                  case 22:
+                    v62 = v31;
+                    goto LABEL_16;
+                  case 23:
+                    goto LABEL_57;
+                  case 24:
+                    OUTLINED_FUNCTION_98_0();
+                    v109 = OUTLINED_FUNCTION_12_14();
+                    v112 = test_ptr(v109, v110, v111);
+                    v92 = v31;
+                    LODWORD(v88) = v31;
+                    if (!v112)
+                    {
+                      goto LABEL_60;
+                    }
+
+                    goto LABEL_32;
+                  case 25:
+                    goto LABEL_60;
+                  case 26:
+LABEL_46:
+                    v117 = OUTLINED_FUNCTION_52_1();
+                    bspush_ca_scan(v117, v118);
+                    v101 = OUTLINED_FUNCTION_1_15();
+                    goto LABEL_47;
+                  case 27:
+                    v72 = v31;
+                    goto LABEL_73;
+                  case 28:
+                    v101 = OUTLINED_FUNCTION_3_15();
+LABEL_47:
+                    v119 = testFldeq(v101, v102, v103, v104);
+                    v88 = v31;
+                    if (!v119)
+                    {
+                      goto LABEL_48;
+                    }
+
+                    goto LABEL_32;
+                  case 29:
+LABEL_48:
+                    v108 = advance_tok(v1, v88, v92, v91);
+LABEL_49:
+                    LODWORD(v88) = v31;
+                    if (!v108)
+                    {
+                      goto LABEL_68;
+                    }
+
+                    goto LABEL_32;
+                  case 30:
+                    goto LABEL_67;
+                  case 31:
+                    v71 = v31;
+                    goto LABEL_64;
+                  default:
+                    goto LABEL_3;
+                }
+              }
+
+              goto LABEL_67;
+            }
+
+LABEL_57:
+            v134 = OUTLINED_FUNCTION_83_1();
+            savescptr(v134, v135, v136);
+            v137 = OUTLINED_FUNCTION_9_14();
+            if (testFldeq(v137, v138, v139, 4))
+            {
+              goto LABEL_31;
+            }
+
+            if (advance_tok(v1, v140, v141, v142))
+            {
+              goto LABEL_31;
+            }
+
+            v143 = OUTLINED_FUNCTION_52_1();
+            bspush_ca_scan(v143, v144);
+            OUTLINED_FUNCTION_4_14();
+            v145 = test_string_s();
+            v92 = v31;
+            if (v145)
+            {
+              goto LABEL_31;
+            }
+
+LABEL_60:
+            v31 = v92;
+            v146 = OUTLINED_FUNCTION_31_4();
+            if (lpta_loadp_setscan_l(v146, v147, v148))
+            {
+              goto LABEL_31;
+            }
+
+            v72 = v31;
+            if (advance_tok(v1, v149, v150, v151))
+            {
+              goto LABEL_31;
+            }
+
+            do
+            {
+LABEL_73:
+              v155 = OUTLINED_FUNCTION_55_1();
+              bspush_ca_scan(v155, v156);
+              OUTLINED_FUNCTION_4_14();
+            }
+
+            while (!test_string_s());
+          }
+
+          else
+          {
+            bspush_boa(v1);
+LABEL_27:
+            v72 = v31;
+            do
+            {
+              v82 = OUTLINED_FUNCTION_55_1();
+              bspush_ca_scan(v82, v83);
+              OUTLINED_FUNCTION_4_14();
+            }
+
+            while (!test_string_s());
+          }
+        }
+
+        else
+        {
+          bspush_boa(v1);
+LABEL_20:
+          v72 = v31;
+          while (1)
+          {
+            OUTLINED_FUNCTION_4_14();
+            if (test_string_s())
+            {
+              break;
+            }
+
+            v73 = OUTLINED_FUNCTION_54_1();
+            bspush_ca_scan(v73, v74);
+          }
+        }
+
+        break;
+      }
+
+      v31 = v72;
+      goto LABEL_31;
+    }
+  }
+
+LABEL_3:
+  vretproc(v1);
+  return OUTLINED_FUNCTION_154();
 }

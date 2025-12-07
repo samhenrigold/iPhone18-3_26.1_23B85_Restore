@@ -42,20 +42,20 @@
 
 - (FCLegacyFeedPersonalizer)initWithFeedPersonalizer:(id)personalizer functionProvider:(id)provider
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   personalizerCopy = personalizer;
   providerCopy = provider;
   if (!personalizerCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "feedPersonalizer"];
+    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "feedPersonalizer"];
     *buf = 136315906;
-    v17 = "[FCLegacyFeedPersonalizer initWithFeedPersonalizer:functionProvider:]";
-    v18 = 2080;
-    v19 = "FCLegacyFeedPersonalizer.m";
-    v20 = 1024;
-    v21 = 28;
-    v22 = 2114;
-    v23 = v13;
+    v16 = "[FCLegacyFeedPersonalizer initWithFeedPersonalizer:functionProvider:]";
+    v17 = 2080;
+    v18 = "FCLegacyFeedPersonalizer.m";
+    v19 = 1024;
+    v20 = 28;
+    v21 = 2114;
+    v22 = v12;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (providerCopy)
@@ -71,22 +71,22 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "functionProvider"];
+    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "functionProvider"];
     *buf = 136315906;
-    v17 = "[FCLegacyFeedPersonalizer initWithFeedPersonalizer:functionProvider:]";
-    v18 = 2080;
-    v19 = "FCLegacyFeedPersonalizer.m";
-    v20 = 1024;
-    v21 = 29;
-    v22 = 2114;
-    v23 = v14;
+    v16 = "[FCLegacyFeedPersonalizer initWithFeedPersonalizer:functionProvider:]";
+    v17 = 2080;
+    v18 = "FCLegacyFeedPersonalizer.m";
+    v19 = 1024;
+    v20 = 29;
+    v21 = 2114;
+    v22 = v13;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
-  v15.receiver = self;
-  v15.super_class = FCLegacyFeedPersonalizer;
-  v9 = [(FCLegacyFeedPersonalizer *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = FCLegacyFeedPersonalizer;
+  v9 = [(FCLegacyFeedPersonalizer *)&v14 init];
   v10 = v9;
   if (v9)
   {
@@ -94,7 +94,6 @@ LABEL_6:
     objc_storeStrong(&v10->_functionProvider, provider);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

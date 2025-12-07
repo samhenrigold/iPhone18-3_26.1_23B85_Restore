@@ -23,7 +23,7 @@
   viewCopy = view;
   cellCopy = cell;
   selfCopy = self;
-  sub_100345638();
+  sub_100345638(v11);
 
   (*(v9 + 8))(v11, v8);
 }
@@ -37,7 +37,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_100344ACC(viewCopy);
+  sub_100344ACC(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 }

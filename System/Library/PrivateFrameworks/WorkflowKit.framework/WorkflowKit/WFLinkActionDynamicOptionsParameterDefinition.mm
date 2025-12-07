@@ -11,7 +11,7 @@
 
 - (id)parameterStateFromLinkValue:(id)value
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   value = [valueCopy value];
   if (value)
@@ -38,19 +38,17 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       valueType2 = [(WFLinkActionParameterDefinition *)self valueType];
-      v21 = 136315650;
-      v22 = "[WFLinkActionDynamicOptionsParameterDefinition parameterStateFromLinkValue:]";
-      v23 = 2114;
-      v24 = value;
-      v25 = 2114;
-      v26 = valueType2;
+      v20 = 136315650;
+      v21 = "[WFLinkActionDynamicOptionsParameterDefinition parameterStateFromLinkValue:]";
+      v22 = 2114;
+      v23 = value;
+      v24 = 2114;
+      v25 = valueType2;
     }
   }
 
   v16 = 0;
 LABEL_8:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -170,10 +168,10 @@ LABEL_8:
 
 uint64_t __114__WFLinkActionDynamicOptionsParameterDefinition_defaultSerializedRepresentationFromParameterMetadataDefaultValue___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 identifier];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 identifier];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (WFLinkActionDynamicOptionsParameterDefinition)initWithParameterMetadata:(id)metadata

@@ -58,80 +58,79 @@
 
 - (id)persistentStoreCoordinator
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   flags = self->_flags;
   if ((flags & 0xA) != 0)
   {
-    result = 0;
-LABEL_3:
-    v4 = *MEMORY[0x1E69E9840];
-    return result;
+    return 0;
   }
 
   if (flags)
   {
-    v15 = 0u;
-    v16 = 0u;
     v13 = 0u;
     v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     generationIdentifier = self->_generationIdentifier;
-    result = [generationIdentifier countByEnumeratingWithState:&v13 objects:v17 count:16];
+    result = [generationIdentifier countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (result)
     {
-      v10 = result;
-      v11 = *v14;
+      v8 = result;
+      v9 = *v12;
 LABEL_10:
-      v12 = 0;
+      v10 = 0;
       while (1)
       {
-        if (*v14 != v11)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(generationIdentifier);
         }
 
-        result = [*(*(&v13 + 1) + 8 * v12) persistentStoreCoordinator];
+        result = [*(*(&v11 + 1) + 8 * v10) persistentStoreCoordinator];
         if (result)
         {
           break;
         }
 
-        if (v10 == ++v12)
+        if (v8 == ++v10)
         {
-          v10 = [generationIdentifier countByEnumeratingWithState:&v13 objects:v17 count:16];
+          v8 = [generationIdentifier countByEnumeratingWithState:&v11 objects:v15 count:16];
           result = 0;
-          if (v10)
+          if (v8)
           {
             goto LABEL_10;
           }
 
-          goto LABEL_3;
+          return result;
         }
       }
     }
-
-    goto LABEL_3;
-  }
-
-  store = self->_store;
-  if (store)
-  {
-    WeakRetained = objc_loadWeakRetained(&store->_object);
   }
 
   else
   {
-    WeakRetained = 0;
+    store = self->_store;
+    if (store)
+    {
+      WeakRetained = objc_loadWeakRetained(&store->_object);
+    }
+
+    else
+    {
+      WeakRetained = 0;
+    }
+
+    _persistentStoreCoordinator = [WeakRetained _persistentStoreCoordinator];
+
+    return _persistentStoreCoordinator;
   }
 
-  _persistentStoreCoordinator = [WeakRetained _persistentStoreCoordinator];
-
-  v8 = *MEMORY[0x1E69E9840];
-  return _persistentStoreCoordinator;
+  return result;
 }
 
 - (void)dealloc
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if ((*&self->_flags & 0xF) == 4)
   {
     store = self->_store;
@@ -152,10 +151,9 @@ LABEL_10:
   self->_generationIdentifier = 0;
 
   self->_store = 0;
-  v6.receiver = self;
-  v6.super_class = _NSQueryGenerationToken;
-  [(_NSQueryGenerationToken *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = _NSQueryGenerationToken;
+  [(_NSQueryGenerationToken *)&v5 dealloc];
 }
 
 - (void)_initWithValue:(int)value singleton:
@@ -358,10 +356,9 @@ LABEL_10:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if ((*&self->_flags & 2) != 0)
   {
-    v6 = *MEMORY[0x1E69E9840];
 
     return self;
   }
@@ -374,41 +371,41 @@ LABEL_10:
     *(v3 + 16) = v4 & 0xFFFC | *&self->_flags & 1;
     if (*&self->_flags)
     {
-      v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
       generationIdentifier = self->_generationIdentifier;
+      v15 = 0u;
+      v16 = 0u;
       v17 = 0u;
       v18 = 0u;
-      v19 = 0u;
-      v20 = 0u;
-      v10 = [generationIdentifier countByEnumeratingWithState:&v17 objects:v21 count:16];
-      if (v10)
+      v9 = [generationIdentifier countByEnumeratingWithState:&v15 objects:v19 count:16];
+      if (v9)
       {
-        v11 = v10;
-        v12 = *v18;
+        v10 = v9;
+        v11 = *v16;
         do
         {
-          v13 = 0;
+          v12 = 0;
           do
           {
-            if (*v18 != v12)
+            if (*v16 != v11)
             {
               objc_enumerationMutation(generationIdentifier);
             }
 
-            v14 = [*(*(&v17 + 1) + 8 * v13) copy];
-            [v8 addObject:v14];
+            v13 = [*(*(&v15 + 1) + 8 * v12) copy];
+            [v7 addObject:v13];
 
-            ++v13;
+            ++v12;
           }
 
-          while (v11 != v13);
-          v11 = [generationIdentifier countByEnumeratingWithState:&v17 objects:v21 count:16];
+          while (v10 != v12);
+          v10 = [generationIdentifier countByEnumeratingWithState:&v15 objects:v19 count:16];
         }
 
-        while (v11);
+        while (v10);
       }
 
-      *(v3 + 3) = v8;
+      *(v3 + 3) = v7;
       v5 = *(v3 + 16);
     }
 
@@ -421,7 +418,6 @@ LABEL_10:
     }
 
     *(v3 + 16) = v5 | 8;
-    v15 = *MEMORY[0x1E69E9840];
     return v3;
   }
 }
@@ -461,101 +457,100 @@ LABEL_10:
 
 - (id)description
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   if (*&self->_flags)
   {
-    v6 = [MEMORY[0x1E696AD60] stringWithString:@"<NSQueryGenerationToken : {"];
+    v5 = [MEMORY[0x1E696AD60] stringWithString:@"<NSQueryGenerationToken : {"];
+    v14 = 0u;
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
-    v19 = 0u;
     generationIdentifier = self->_generationIdentifier;
-    v8 = [generationIdentifier countByEnumeratingWithState:&v16 objects:v20 count:16];
-    if (v8)
+    v7 = [generationIdentifier countByEnumeratingWithState:&v14 objects:v18 count:16];
+    if (v7)
     {
-      v9 = v8;
-      v10 = *v17;
-      v11 = @"%p";
+      v8 = v7;
+      v9 = *v15;
+      v10 = @"%p";
       do
       {
-        for (i = 0; i != v9; ++i)
+        v11 = 0;
+        do
         {
-          if (*v17 != v10)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(generationIdentifier);
           }
 
-          [v6 appendFormat:v11, *(*(&v16 + 1) + 8 * i)];
-          v11 = @", %p";
+          [v5 appendFormat:v10, *(*(&v14 + 1) + 8 * v11++)];
+          v10 = @", %p";
         }
 
-        v9 = [generationIdentifier countByEnumeratingWithState:&v16 objects:v20 count:16];
-        v11 = @", %p";
+        while (v8 != v11);
+        v8 = [generationIdentifier countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v10 = @", %p";
       }
 
-      while (v9);
+      while (v8);
     }
 
-    [v6 appendString:@"}>"];
-    v5 = v6;
+    [v5 appendString:@"}>"];
+    v4 = v5;
   }
 
   else
   {
-    storeIdentifier = self->_storeIdentifier;
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<NSQueryGenerationToken : %@/%@>", storeIdentifier, self->_generationIdentifier];
+    v4 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self->_storeIdentifier, self->_generationIdentifier);
   }
 
-  v13 = v5;
+  v12 = v4;
   objc_autoreleasePoolPop(v3);
-  result = v13;
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  return v12;
 }
 
 - (_WORD)_generationalComponentForStore:(uint64_t)store
 {
   storeCopy = store;
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (store)
   {
     v4 = *(store + 32);
     if (v4)
     {
-      v17 = 0u;
-      v18 = 0u;
-      v15 = 0u;
       v16 = 0u;
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
       v7 = *(store + 24);
-      v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v16;
+        v10 = *v15;
         while (2)
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v16 != v10)
+            if (*v15 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = [(_NSQueryGenerationToken *)*(*(&v15 + 1) + 8 * i) _generationalComponentForStore:a2];
+            v12 = [(_NSQueryGenerationToken *)*(*(&v14 + 1) + 8 * i) _generationalComponentForStore:a2];
             if (v12)
             {
               storeCopy = v12;
               if ((v12[16] & 2) == 0)
               {
-                storeCopy = v12;
+                return v12;
               }
 
-              goto LABEL_21;
+              return storeCopy;
             }
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
           storeCopy = 0;
           if (v9)
           {
@@ -568,7 +563,7 @@ LABEL_10:
 
       else
       {
-        storeCopy = 0;
+        return 0;
       }
     }
 
@@ -592,18 +587,15 @@ LABEL_10:
     }
   }
 
-LABEL_21:
-  v13 = *MEMORY[0x1E69E9840];
   return storeCopy;
 }
 
 - (uint64_t)_expectedStores
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    array = 0;
-    goto LABEL_17;
+    return 0;
   }
 
   v2 = *(self + 32);
@@ -613,120 +605,114 @@ LABEL_21:
     if ((v2 & 1) == 0)
     {
       v4 = *(self + 8);
-      v5 = *MEMORY[0x1E69E9840];
 
       return [v3 arrayWithObject:v4];
     }
 
     array = [MEMORY[0x1E695DF70] array];
+    v13 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    v19 = 0u;
-    v10 = *(self + 24);
-    v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
-    if (v11)
+    v8 = *(self + 24);
+    v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    if (v9)
     {
-      v12 = v11;
-      v13 = *v17;
+      v10 = v9;
+      v11 = *v14;
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v13)
+          if (*v14 != v11)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v8);
           }
 
-          [array addObjectsFromArray:-[_NSQueryGenerationToken _expectedStores](*(*(&v16 + 1) + 8 * i))];
+          [array addObjectsFromArray:-[_NSQueryGenerationToken _expectedStores](*(*(&v13 + 1) + 8 * i))];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
-      while (v12);
+      while (v10);
     }
 
-LABEL_17:
-    v15 = *MEMORY[0x1E69E9840];
     return array;
   }
 
-  v7 = MEMORY[0x1E695DF70];
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = MEMORY[0x1E695DF70];
 
-  return [v7 array];
+  return [v6 array];
 }
 
 - (void)_makeConcrete:(uint64_t)concrete
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (concrete)
   {
     v3 = *(concrete + 32);
     if ((v3 & 2) == 0)
     {
-      if ((v3 & 1) == 0)
+      if (v3)
       {
-        if (!a2)
+        v13 = 0u;
+        v14 = 0u;
+        v11 = 0u;
+        v12 = 0u;
+        v6 = *(concrete + 24);
+        v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        if (v7)
         {
-
-          *(concrete + 16) = 0;
-          goto LABEL_17;
-        }
-
-        v5 = v3 & 0xFFF4;
-        goto LABEL_15;
-      }
-
-      v14 = 0u;
-      v15 = 0u;
-      v12 = 0u;
-      v13 = 0u;
-      v6 = *(concrete + 24);
-      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
-      if (v7)
-      {
-        v8 = v7;
-        v9 = *v13;
-        do
-        {
-          for (i = 0; i != v8; ++i)
+          v8 = v7;
+          v9 = *v12;
+          do
           {
-            if (*v13 != v9)
+            for (i = 0; i != v8; ++i)
             {
-              objc_enumerationMutation(v6);
+              if (*v12 != v9)
+              {
+                objc_enumerationMutation(v6);
+              }
+
+              [(_NSQueryGenerationToken *)*(*(&v11 + 1) + 8 * i) _makeConcrete:a2];
             }
 
-            [(_NSQueryGenerationToken *)*(*(&v12 + 1) + 8 * i) _makeConcrete:a2];
+            v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
           }
 
-          v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+          while (v8);
         }
 
-        while (v8);
+        if (a2)
+        {
+          v5 = *(concrete + 32) & 0xFFF7;
+          goto LABEL_15;
+        }
       }
 
-      if (a2)
+      else
       {
-        v5 = *(concrete + 32) & 0xFFF7;
+        if (a2)
+        {
+          v5 = v3 & 0xFFF4;
 LABEL_15:
-        *(concrete + 32) = v5;
+          *(concrete + 32) = v5;
+          return;
+        }
+
+        *(concrete + 16) = 0;
       }
     }
   }
-
-LABEL_17:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_moor:(uint64_t)_moor error:
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    v12 = 0;
-    goto LABEL_31;
+    return 0;
   }
 
   v4 = *(self + 32);
@@ -734,30 +720,30 @@ LABEL_17:
   {
     if (v4)
     {
-      v29 = 0uLL;
-      v30 = 0uLL;
-      v27 = 0uLL;
       v28 = 0uLL;
+      v29 = 0uLL;
+      v26 = 0uLL;
+      v27 = 0uLL;
       v13 = *(self + 24);
-      v14 = [v13 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v26 objects:v31 count:16];
       if (v14)
       {
         v15 = v14;
         v16 = 0;
-        v17 = *v28;
+        v17 = *v27;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v28 != v17)
+            if (*v27 != v17)
             {
               objc_enumerationMutation(v13);
             }
 
-            v16 += [(_NSQueryGenerationToken *)*(*(&v27 + 1) + 8 * i) _moor:a2 error:_moor];
+            v16 += [(_NSQueryGenerationToken *)*(*(&v26 + 1) + 8 * i) _moor:a2 error:_moor];
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v27 objects:v32 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v26 objects:v31 count:16];
         }
 
         while (v15);
@@ -772,11 +758,11 @@ LABEL_17:
       goto LABEL_30;
     }
 
-    v25 = 0uLL;
-    v26 = 0uLL;
-    v23 = 0uLL;
     v24 = 0uLL;
-    v7 = [a2 countByEnumeratingWithState:&v23 objects:v31 count:16];
+    v25 = 0uLL;
+    v22 = 0uLL;
+    v23 = 0uLL;
+    v7 = [a2 countByEnumeratingWithState:&v22 objects:v30 count:16];
     if (!v7)
     {
 LABEL_27:
@@ -785,17 +771,17 @@ LABEL_27:
     }
 
     v8 = v7;
-    v9 = *v24;
+    v9 = *v23;
 LABEL_6:
     v10 = 0;
     while (1)
     {
-      if (*v24 != v9)
+      if (*v23 != v9)
       {
         objc_enumerationMutation(a2);
       }
 
-      v11 = *(*(&v23 + 1) + 8 * v10);
+      v11 = *(*(&v22 + 1) + 8 * v10);
       if ([*(self + 8) isEqual:{objc_msgSend(v11, "identifier")}])
       {
         break;
@@ -803,7 +789,7 @@ LABEL_6:
 
       if (v8 == ++v10)
       {
-        v8 = [a2 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v8 = [a2 countByEnumeratingWithState:&v22 objects:v30 count:16];
         v12 = 0;
         if (v8)
         {
@@ -838,14 +824,12 @@ LABEL_6:
   v12 = 1;
 LABEL_30:
   [(_NSQueryGenerationToken *)self _makeConcrete:v12];
-LABEL_31:
-  v21 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (_WORD)_storesForRequestRoutingFrom:(uint64_t *)from error:
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   if (result)
   {
     v4 = result;
@@ -854,21 +838,21 @@ LABEL_31:
       goto LABEL_9;
     }
 
-    v22 = 0;
-    v6 = [(_NSQueryGenerationToken *)result _moor:a2 error:&v22];
+    v21 = 0;
+    v6 = [(_NSQueryGenerationToken *)result _moor:a2 error:&v21];
     v7 = v6;
     if (from && !v6)
     {
-      v8 = v22;
-      if (!v22)
+      v8 = v21;
+      if (!v21)
       {
         v9 = MEMORY[0x1E696ABC0];
         v10 = *MEMORY[0x1E696A250];
-        v24[0] = @"reason";
-        v24[1] = @"expected stores";
-        v25[0] = @"Can't reattach all stores specified by token";
-        v25[1] = [(_NSQueryGenerationToken *)v4 _expectedStores];
-        v8 = [v9 errorWithDomain:v10 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v25, v24, 2)}];
+        v23[0] = @"reason";
+        v23[1] = @"expected stores";
+        v24[0] = @"Can't reattach all stores specified by token";
+        v24[1] = [(_NSQueryGenerationToken *)v4 _expectedStores];
+        v8 = [v9 errorWithDomain:v10 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v24, v23, 2)}];
       }
 
       *from = v8;
@@ -876,49 +860,48 @@ LABEL_31:
 
     if (!v7)
     {
-      result = 0;
+      return 0;
     }
 
     else
     {
 LABEL_9:
       v11 = [a2 mutableCopy];
+      v17 = 0u;
       v18 = 0u;
       v19 = 0u;
       v20 = 0u;
-      v21 = 0u;
-      v12 = [a2 countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v12 = [a2 countByEnumeratingWithState:&v17 objects:v22 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v19;
+        v14 = *v18;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v19 != v14)
+            if (*v18 != v14)
             {
               objc_enumerationMutation(a2);
             }
 
-            v16 = *(*(&v18 + 1) + 8 * i);
+            v16 = *(*(&v17 + 1) + 8 * i);
             if (![(_NSQueryGenerationToken *)v4 _generationalComponentForStore:v16])
             {
               [v11 removeObject:v16];
             }
           }
 
-          v13 = [a2 countByEnumeratingWithState:&v18 objects:v23 count:16];
+          v13 = [a2 countByEnumeratingWithState:&v17 objects:v22 count:16];
         }
 
         while (v13);
       }
 
-      result = v11;
+      return v11;
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return result;
 }
 

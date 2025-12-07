@@ -72,16 +72,16 @@ void sub_10000113C(id a1)
   qword_1000107F8 = v1;
 }
 
-id sub_100001684()
+id sub_100001684(uint64_t a1)
 {
   if (qword_1000106B0 != -1)
   {
     sub_100004984();
   }
 
-  v1 = qword_1000106B8;
+  v2 = qword_1000106B8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100001974(uint64_t a1, void *a2)
@@ -112,37 +112,37 @@ void sub_100002454(id *a1, void *a2, void *a3)
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
-  v27 = v5;
+  v26 = v5;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     goto LABEL_15;
   }
 
-  v8 = [a1[4] objectForKeyedSubscript:v27];
+  v8 = [a1[4] objectForKeyedSubscript:v26];
   v9 = [v8 objectForKeyedSubscript:@"ReceivingLocationInformationTimeStarted"];
 
   v10 = a1[4];
   if (!v9)
   {
-    v21 = [v10 objectForKeyedSubscript:v27];
-    v22 = [v21 objectForKeyedSubscript:@"ReceivingLocationInformationTimeStopped"];
+    v20 = [v10 objectForKeyedSubscript:v26];
+    v21 = [v20 objectForKeyedSubscript:@"ReceivingLocationInformationTimeStopped"];
 
-    if (v22)
+    if (v21)
     {
-      v23 = [a1[4] objectForKeyedSubscript:v27];
-      v13 = [v23 objectForKeyedSubscript:@"ReceivingLocationInformationTimeStopped"];
+      v22 = [a1[4] objectForKeyedSubscript:v26];
+      v13 = [v22 objectForKeyedSubscript:@"ReceivingLocationInformationTimeStopped"];
 
       if (v13)
       {
         [v13 doubleValue];
-        v25 = v24;
+        v24 = v23;
         [a1[5] timeIntervalSinceReferenceDate];
-        v15 = v27;
+        v15 = v26;
         v12 = 0;
         v14 = 0;
-        v16 = v27;
-        if (v25 > v26)
+        v16 = v26;
+        if (v24 > v25)
         {
           goto LABEL_4;
         }
@@ -152,7 +152,7 @@ void sub_100002454(id *a1, void *a2, void *a3)
 
 LABEL_16:
       v14 = 0;
-      v16 = v27;
+      v16 = v26;
       goto LABEL_17;
     }
 
@@ -161,39 +161,38 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v11 = [v10 objectForKeyedSubscript:v27];
+  v11 = [v10 objectForKeyedSubscript:v26];
   v12 = [v11 objectForKeyedSubscript:@"ReceivingLocationInformationTimeStarted"];
 
   v13 = 0;
   v14 = 0;
-  v15 = v27;
-  v16 = v27;
+  v15 = v26;
+  v16 = v26;
   if (v12)
   {
 LABEL_4:
     v17 = [v15 containsString:@"/"];
-    v18 = a1[6];
     if (v17)
+    {
+      v18 = 0;
+    }
+
+    else
+    {
+      v18 = v26;
+    }
+
+    if (v17)
+    {
+      v19 = v26;
+    }
+
+    else
     {
       v19 = 0;
     }
 
-    else
-    {
-      v19 = v27;
-    }
-
-    if (v17)
-    {
-      v20 = v27;
-    }
-
-    else
-    {
-      v20 = 0;
-    }
-
-    v16 = [a1[6] getLocalizedNameForBundleID:v19 bundlePath:v20];
+    v16 = [a1[6] getLocalizedNameForBundleID:v18 bundlePath:v19];
 
     [a1[7] addObject:v16];
     v14 = v12;

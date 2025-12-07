@@ -40,7 +40,7 @@
   climateSceneCopy = climateScene;
   engineCopy = engine;
   swift_unknownObjectRetain();
-  return DBClimateOverlayController.init(windowScene:windowFrame:climateScene:layoutEngine:environment:)(sceneCopy, climateSceneCopy, engineCopy, x, y, width, height);
+  return DBClimateOverlayController.init(windowScene:windowFrame:climateScene:layoutEngine:environment:)(sceneCopy, climateSceneCopy, engineCopy, environment, x, y, width, height);
 }
 
 - (BOOL)isDeactivated

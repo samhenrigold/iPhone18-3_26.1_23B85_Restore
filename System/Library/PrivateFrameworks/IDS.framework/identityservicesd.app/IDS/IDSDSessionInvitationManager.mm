@@ -2845,7 +2845,7 @@ LABEL_31:
 {
   destinationCopy = destination;
   prefixedURI = [destinationCopy prefixedURI];
-  v6 = [prefixedURI isEqualToIgnoringCase:IDSDefaultPairedDevice];
+  v6 = objc_msgSend_isEqualToIgnoringCase_(prefixedURI);
 
   if ((v6 & 1) == 0)
   {

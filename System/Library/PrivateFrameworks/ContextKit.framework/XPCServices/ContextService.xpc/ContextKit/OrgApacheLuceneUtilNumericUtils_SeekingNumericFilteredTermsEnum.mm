@@ -18,7 +18,7 @@
     sub_1000169C0();
   }
 
-  if (v5 == OrgApacheLuceneIndexTermsEnum_SeekStatusEnum_values_)
+  if (v5 == OrgApacheLuceneIndexTermsEnum_SeekStatusEnum_values_[0])
   {
     goto LABEL_8;
   }
@@ -30,7 +30,7 @@
     sub_1000169CC();
   }
 
-  if (v6 != OrgApacheLuceneIndexFilteredTermsEnum_AcceptStatusEnum_values_)
+  if (v6 != OrgApacheLuceneIndexFilteredTermsEnum_AcceptStatusEnum_values_[0])
   {
 LABEL_8:
     if ((atomic_load_explicit(OrgApacheLuceneIndexTermsEnum_SeekStatusEnum__initialized, memory_order_acquire) & 1) == 0)
@@ -38,7 +38,7 @@ LABEL_8:
       sub_1000169C0();
     }
 
-    return OrgApacheLuceneIndexTermsEnum_SeekStatusEnum_values_;
+    return OrgApacheLuceneIndexTermsEnum_SeekStatusEnum_values_[0];
   }
 
   return v5;

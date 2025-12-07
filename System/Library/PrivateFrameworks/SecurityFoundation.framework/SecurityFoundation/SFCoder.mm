@@ -30,10 +30,7 @@
 
 - (void)setOptions:(id)options
 {
-  v4 = [options copy];
-  coderInternal = self->_coderInternal;
-  v6 = coderInternal[1];
-  coderInternal[1] = v4;
+  *(self->_coderInternal + 1) = [options copy];
 
   MEMORY[0x2821F96F8]();
 }

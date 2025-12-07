@@ -1,8 +1,18 @@
 @interface FCModifyPuzzleTypeSettingsCommand
 - (BOOL)mergeLocalRecord:(id)record withRemoteRecord:(id)remoteRecord;
+- (FCModifyPuzzleTypeSettingsCommand)initWithPuzzleTypeSettingsEntries:(id)entries merge:(BOOL)merge;
 @end
 
 @implementation FCModifyPuzzleTypeSettingsCommand
+
+- (FCModifyPuzzleTypeSettingsCommand)initWithPuzzleTypeSettingsEntries:(id)entries merge:(BOOL)merge
+{
+  mergeCopy = merge;
+  v6 = [entries fc_arrayByTransformingWithBlock:&__block_literal_global_47];
+  v7 = [(FCModifyRecordsCommand *)self initWithLocalRecords:v6 merge:mergeCopy];
+
+  return v7;
+}
 
 - (BOOL)mergeLocalRecord:(id)record withRemoteRecord:(id)remoteRecord
 {

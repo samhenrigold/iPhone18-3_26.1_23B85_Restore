@@ -42,8 +42,8 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v3 = APUIDefaultFrameworkLog();
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = APUIDefaultFrameworkLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -51,10 +51,9 @@
     _os_log_impl(&dword_1AEA18000, v3, OS_LOG_TYPE_DEFAULT, "destroying controller %@", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = APEnablementController;
-  [(APEnablementController *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = APEnablementController;
+  [(APEnablementController *)&v4 dealloc];
 }
 
 - (NSString)description
@@ -98,59 +97,57 @@
 
 - (void)_didCompleteWithError:(id)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   errorCopy = error;
-  v5 = APUIDefaultFrameworkLog();
+  v5 = APUIDefaultFrameworkLog(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     subject = self->_subject;
     feature = self->_feature;
     action = self->_action;
     *buf = 138413058;
-    v22 = subject;
-    v23 = 2048;
-    v24 = feature;
-    v25 = 2048;
-    v26 = action;
-    v27 = 2112;
-    v28 = errorCopy;
+    v21 = subject;
+    v22 = 2048;
+    v23 = feature;
+    v24 = 2048;
+    v25 = action;
+    v26 = 2112;
+    v27 = errorCopy;
     _os_log_impl(&dword_1AEA18000, v5, OS_LOG_TYPE_DEFAULT, "enablement controller for %@ feature %lld enablement %lld complete with error %@", buf, 0x2Au);
   }
 
   os_unfair_lock_lock(&self->_lock);
   allObjects = [(NSHashTable *)self->_observers allObjects];
   os_unfair_lock_unlock(&self->_lock);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v10 = allObjects;
-  v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       v14 = 0;
       do
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [*(*(&v16 + 1) + 8 * v14++) enablementController:self didCompleteWithError:{errorCopy, v16}];
+        [*(*(&v15 + 1) + 8 * v14++) enablementController:self didCompleteWithError:{errorCopy, v15}];
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v12);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_setNoLongerWaitingForService
@@ -164,53 +161,50 @@
 
 - (void)remoteAlertHandleDidActivate:(id)activate
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   activateCopy = activate;
-  v5 = APUIDefaultFrameworkLog();
+  v5 = APUIDefaultFrameworkLog(activateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
-    v8 = activateCopy;
-    v9 = 2112;
+    v6 = 138412546;
+    v7 = activateCopy;
+    v8 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_1AEA18000, v5, OS_LOG_TYPE_DEFAULT, "handle %@ activated for %@", &v7, 0x16u);
+    _os_log_impl(&dword_1AEA18000, v5, OS_LOG_TYPE_DEFAULT, "handle %@ activated for %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)remoteAlertHandleDidDeactivate:(id)deactivate
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   deactivateCopy = deactivate;
-  v5 = APUIDefaultFrameworkLog();
+  v5 = APUIDefaultFrameworkLog(deactivateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
-    v8 = deactivateCopy;
-    v9 = 2112;
+    v6 = 138412546;
+    v7 = deactivateCopy;
+    v8 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_1AEA18000, v5, OS_LOG_TYPE_DEFAULT, "handle %@ deactivated for %@", &v7, 0x16u);
+    _os_log_impl(&dword_1AEA18000, v5, OS_LOG_TYPE_DEFAULT, "handle %@ deactivated for %@", &v6, 0x16u);
   }
 
   [deactivateCopy invalidate];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)remoteAlertHandle:(id)handle didInvalidateWithError:(id)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   errorCopy = error;
-  v8 = APUIDefaultFrameworkLog();
+  v8 = APUIDefaultFrameworkLog(errorCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v18 = handleCopy;
-    v19 = 2112;
+    v17 = handleCopy;
+    v18 = 2112;
     selfCopy = self;
-    v21 = 2112;
-    v22 = errorCopy;
+    v20 = 2112;
+    v21 = errorCopy;
     _os_log_impl(&dword_1AEA18000, v8, OS_LOG_TYPE_DEFAULT, "handle %@ invalidated for %@: %@", buf, 0x20u);
   }
 
@@ -218,9 +212,9 @@
   {
     v9 = MEMORY[0x1E696ABC0];
     v10 = *MEMORY[0x1E696A798];
-    v15 = *MEMORY[0x1E696A278];
-    v16 = @"remote alert for enablement flow invalidated before completion";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+    v14 = *MEMORY[0x1E696A278];
+    v15 = @"remote alert for enablement flow invalidated before completion";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
     v12 = [v9 errorWithDomain:v10 code:4 userInfo:v11];
 
     [(APEnablementController *)self _didCompleteWithError:v12];
@@ -236,20 +230,18 @@
   }
 
   [(SBSRemoteAlertHandle *)self->_alertHandle unregisterObserver:self];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleServiceConnectionEvent:(id)event
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   eventCopy = event;
-  v5 = APUIDefaultFrameworkLog();
+  v5 = APUIDefaultFrameworkLog(eventCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = eventCopy;
-    _os_log_impl(&dword_1AEA18000, v5, OS_LOG_TYPE_DEFAULT, "handle service connection event: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = eventCopy;
+    _os_log_impl(&dword_1AEA18000, v5, OS_LOG_TYPE_DEFAULT, "handle service connection event: %@", &v9, 0xCu);
   }
 
   if ([(APEnablementController *)self _setNoLongerWaitingForService])
@@ -258,31 +250,27 @@
     reply = xpc_dictionary_create_reply(eventCopy);
     xpc_connection_send_message(serviceConnection, reply);
 
-    [(APEnablementController *)self _didCompleteWithError:0];
-    v8 = APUIDefaultFrameworkLog();
+    v8 = APUIDefaultFrameworkLog([(APEnablementController *)self _didCompleteWithError:0]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_1AEA18000, v8, OS_LOG_TYPE_DEFAULT, "waiting for service and service is done; invalidating handle", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_1AEA18000, v8, OS_LOG_TYPE_DEFAULT, "waiting for service and service is done; invalidating handle", &v9, 2u);
     }
 
     [(SBSRemoteAlertHandle *)self->_alertHandle invalidate];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginFlow
 {
-  OUTLINED_FUNCTION_5(self, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_5(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_1AEA18000, v1, v2, "bogus enablement action %lld", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1AEA18000, v0, v1, "bogus enablement action %lld", v2, v3, v4, v5);
 }
 
 void __35__APEnablementController_beginFlow__block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = MEMORY[0x1B270BFC0]();
   if (v5 != MEMORY[0x1E69E9E68])
@@ -291,7 +279,7 @@ void __35__APEnablementController_beginFlow__block_invoke(uint64_t a1, void *a2)
     if (v5 == MEMORY[0x1E69E9E98])
     {
       string = xpc_dictionary_get_string(v4, *MEMORY[0x1E69E9E28]);
-      v7 = APUIDefaultFrameworkLog();
+      v7 = APUIDefaultFrameworkLog(string);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
@@ -303,7 +291,7 @@ void __35__APEnablementController_beginFlow__block_invoke(uint64_t a1, void *a2)
 
     else
     {
-      v7 = APUIDefaultFrameworkLog();
+      v7 = APUIDefaultFrameworkLog(v5);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
@@ -317,7 +305,7 @@ LABEL_10:
     goto LABEL_12;
   }
 
-  v9 = APUIDefaultFrameworkLog();
+  v9 = APUIDefaultFrameworkLog(v5);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -335,20 +323,18 @@ LABEL_10:
   xpc_connection_set_event_handler(v11, handler);
   xpc_connection_resume(*(*(a1 + 32) + 72));
 LABEL_12:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __35__APEnablementController_beginFlow__block_invoke_35(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
-  v6 = APUIDefaultFrameworkLog();
+  v6 = APUIDefaultFrameworkLog(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
   if (a2)
   {
     if (v7)
     {
-      __35__APEnablementController_beginFlow__block_invoke_35_cold_2(a1);
+      __35__APEnablementController_beginFlow__block_invoke_35_cold_2();
     }
 
     aBlock[0] = MEMORY[0x1E69E9820];
@@ -400,7 +386,7 @@ void __35__APEnablementController_beginFlow__block_invoke_35(uint64_t a1, char a
   {
     if (v7)
     {
-      __35__APEnablementController_beginFlow__block_invoke_35_cold_1(a1);
+      __35__APEnablementController_beginFlow__block_invoke_35_cold_1();
     }
 
     [*(a1 + 32) _didCompleteWithError:v5];
@@ -410,16 +396,17 @@ void __35__APEnablementController_beginFlow__block_invoke_35(uint64_t a1, char a
 void __35__APEnablementController_beginFlow__block_invoke_36(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if ((a2 & 1) == 0)
   {
-    v6 = APUIDefaultFrameworkLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = APUIDefaultFrameworkLog(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __35__APEnablementController_beginFlow__block_invoke_36_cold_1(a1);
+      __35__APEnablementController_beginFlow__block_invoke_36_cold_1();
     }
   }
 
-  [*(a1 + 32) _didCompleteWithError:v5];
+  [*(a1 + 32) _didCompleteWithError:v6];
 }
 
 void __35__APEnablementController_beginFlow__block_invoke_38(uint64_t a1, char a2, void *a3)
@@ -446,7 +433,7 @@ void __35__APEnablementController_beginFlow__block_invoke_38(uint64_t a1, char a
 
 void __35__APEnablementController_beginFlow__block_invoke_2(uint64_t a1, char a2, void *a3)
 {
-  v7 = a3;
+  v6 = a3;
   if (a2 & 1) != 0 || (*(a1 + 48))
   {
     v5 = *(*(a1 + 32) + 16);
@@ -454,11 +441,6 @@ void __35__APEnablementController_beginFlow__block_invoke_2(uint64_t a1, char a2
 
   else
   {
-    if (*(*(*(a1 + 40) + 8) + 40))
-    {
-      v6 = *(*(*(a1 + 40) + 8) + 40);
-    }
-
     v5 = *(*(a1 + 32) + 16);
   }
 
@@ -475,31 +457,26 @@ void __35__APEnablementController_beginFlow__block_invoke_2(uint64_t a1, char a2
   [(APOneshotObserverAdapter *)v11 kickoff];
 }
 
-void __35__APEnablementController_beginFlow__block_invoke_35_cold_1(uint64_t a1)
+void __35__APEnablementController_beginFlow__block_invoke_35_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(*(a1 + 32) + 32);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __35__APEnablementController_beginFlow__block_invoke_35_cold_2(uint64_t a1)
+void __35__APEnablementController_beginFlow__block_invoke_35_cold_2()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_1AEA18000, v1, OS_LOG_TYPE_ERROR, "authenticated, now disabling feature %lld for %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1AEA18000, v0, OS_LOG_TYPE_ERROR, "authenticated, now disabling feature %lld for %@", v1, 0x16u);
 }
 
-void __35__APEnablementController_beginFlow__block_invoke_36_cold_1(uint64_t a1)
+void __35__APEnablementController_beginFlow__block_invoke_36_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 @end

@@ -19,11 +19,12 @@
   v2 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC8AppStore30ArcadeFooterCollectionViewCell_buttonActionBlock);
   if (v2)
   {
+    v3 = *&self->riverView[OBJC_IVAR____TtC8AppStore30ArcadeFooterCollectionViewCell_buttonActionBlock];
     selfCopy = self;
-    v4 = sub_10000827C(v2);
-    v2(v4);
+    v5 = sub_10000827C(v2, v3);
+    v2(v5);
 
-    sub_10001F63C(v2);
+    sub_10001F63C(v2, v3);
   }
 }
 
@@ -36,7 +37,7 @@
 
 - (void)touchesBegan:(id)began withEvent:(id)event
 {
-  sub_100005744(0, &qword_100981660);
+  sub_100005744(0, &qword_100981660, UITouch_ptr);
   sub_10008DB40();
   v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   eventCopy = event;
@@ -46,7 +47,7 @@
 
 - (void)touchesEnded:(id)ended withEvent:(id)event
 {
-  sub_100005744(0, &qword_100981660);
+  sub_100005744(0, &qword_100981660, UITouch_ptr);
   sub_10008DB40();
   static Set._unconditionallyBridgeFromObjectiveC(_:)();
   v6 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC8AppStore30ArcadeFooterCollectionViewCell_footnoteView);
@@ -63,7 +64,7 @@
   isa = Set._bridgeToObjectiveC()().super.isa;
 
   v11.receiver = selfCopy;
-  v11.super_class = type metadata accessor for ArcadeFooterCollectionViewCell();
+  v11.super_class = type metadata accessor for ArcadeFooterCollectionViewCell(0);
   [(ArcadeFooterCollectionViewCell *)&v11 touchesEnded:isa withEvent:eventCopy];
 }
 

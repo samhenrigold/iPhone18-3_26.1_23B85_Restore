@@ -31,7 +31,7 @@
 - (void)prepareForReuse
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for FullScreenMultiPinMapCollectionViewCell();
+  v3.super_class = type metadata accessor for FullScreenMultiPinMapCollectionViewCell(0);
   v2 = v3.receiver;
   [(FullScreenMultiPinMapCollectionViewCell *)&v3 prepareForReuse];
   v2[OBJC_IVAR____TtC7Journal39FullScreenMultiPinMapCollectionViewCell_prefersMapFocused] = 0;
@@ -41,7 +41,7 @@
 {
   if (*(&self->super.super.super.super.super.super.isa + OBJC_IVAR____TtC7Journal39FullScreenMultiPinMapCollectionViewCell_prefersMapFocused) == 1)
   {
-    sub_1000F24EC(&unk_100AD4780);
+    sub_1000F24EC(&unk_100AD4780, &unk_100941070);
     v3 = swift_allocObject();
     *(v3 + 16) = xmmword_100941D50;
     v4 = *(&self->super.super.super.super.super.super.isa + OBJC_IVAR____TtC7Journal39FullScreenMultiPinMapCollectionViewCell_mapView);
@@ -49,7 +49,7 @@
     v5 = v4;
   }
 
-  sub_1000F24EC(&unk_100ADD5A0);
+  sub_1000F24EC(&unk_100ADD5A0, &unk_1009432C0);
   v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v6.super.isa;

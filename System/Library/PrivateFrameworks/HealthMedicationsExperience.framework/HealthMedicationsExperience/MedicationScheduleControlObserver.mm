@@ -10,7 +10,6 @@
 {
   if (*(&self->super.isa + OBJC_IVAR____TtC27HealthMedicationsExperience33MedicationScheduleControlObserver_observerOptions))
   {
-    v3 = *(&self->super.isa + OBJC_IVAR____TtC27HealthMedicationsExperience33MedicationScheduleControlObserver_scheduleChangedSubject);
     sub_1D165A76C();
     sub_1D165A848();
     selfCopy = self;
@@ -22,7 +21,6 @@
 {
   if ((*(&self->super.isa + OBJC_IVAR____TtC27HealthMedicationsExperience33MedicationScheduleControlObserver_observerOptions) & 2) != 0)
   {
-    v5 = *(&self->super.isa + OBJC_IVAR____TtC27HealthMedicationsExperience33MedicationScheduleControlObserver_scheduleChangedSubject);
     sub_1D165A76C();
     sub_1D165A848();
     selfCopy = self;

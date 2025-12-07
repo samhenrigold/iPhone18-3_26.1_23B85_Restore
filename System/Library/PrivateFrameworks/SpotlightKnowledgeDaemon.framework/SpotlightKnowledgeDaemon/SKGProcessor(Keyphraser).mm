@@ -50,16 +50,16 @@ LABEL_5:
 
 - (uint64_t)generateKeyphrasesForRecord:()Keyphraser processedItem:processorFlags:cancelBlock:
 {
-  v213[1] = *MEMORY[0x277D85DE8];
+  v211[1] = *MEMORY[0x277D85DE8];
   v9 = a3;
-  v151 = a4;
-  v129 = a6;
-  v183 = 0;
-  v184 = &v183;
-  v185 = 0x2020000000;
-  v186 = 1;
+  v149 = a4;
+  v127 = a6;
+  v181 = 0;
+  v182 = &v181;
+  v183 = 0x2020000000;
+  v184 = 1;
   context = objc_autoreleasePoolPush();
-  textContentLanguage = [v151 textContentLanguage];
+  textContentLanguage = [v149 textContentLanguage];
 
   if ([self recordContainsValue:v9 key:@"kMDItemTextContent"] & 1) != 0 || (objc_msgSend(self, "recordContainsValue:key:", v9, @"_kMDItemSnippet"))
   {
@@ -75,7 +75,7 @@ LABEL_5:
   if (textContentLanguage)
   {
     v12 = MEMORY[0x277CBEAF8];
-    textContentLanguage2 = [v151 textContentLanguage];
+    textContentLanguage2 = [v149 textContentLanguage];
     currentLocale = [v12 localeWithLocaleIdentifier:textContentLanguage2];
   }
 
@@ -92,18 +92,18 @@ LABEL_5:
 
   if (!currentLocale)
   {
-    v126 = 0;
+    v124 = 0;
     goto LABEL_174;
   }
 
   LanguageID = SILanguagesGetLanguageID();
   Language = SILanguagesGetLanguage();
-  v126 = LanguageID - 2 < 0x39;
-  v147 = currentLocale;
+  v124 = LanguageID - 2 < 0x39;
+  v145 = currentLocale;
   if (LanguageID - 2 >= 0x39)
   {
     mEMORY[0x277D657A0] = [MEMORY[0x277D657A0] sharedContext];
-    [v151 setDidProcessKeyphrases:{objc_msgSend(mEMORY[0x277D657A0], "enableKeyphrases")}];
+    [v149 setDidProcessKeyphrases:{objc_msgSend(mEMORY[0x277D657A0], "enableKeyphrases")}];
     goto LABEL_173;
   }
 
@@ -125,27 +125,27 @@ LABEL_5:
 
   if ((v19 & (textContentLanguage != 0)) != 0)
   {
-    v213[0] = v17;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v213 count:1];
+    v211[0] = v17;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v211 count:1];
     loadLanguageModels(v21);
   }
 
-  if (([self recordContainsValue:v9 key:@"_kMDItemTextContentIsTranscribed"] & 1) != 0 || (objc_msgSend(v151, "bundleIdentifier"), v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "isEqualToString:", @"com.apple.mobilephone"), v22, v23))
+  if (([self recordContainsValue:v9 key:@"_kMDItemTextContentIsTranscribed"] & 1) != 0 || (objc_msgSend(v149, "bundleIdentifier"), v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "isEqualToString:", @"com.apple.mobilephone"), v22, v23))
   {
-    [v151 setIsTranscribedText:1];
+    [v149 setIsTranscribedText:1];
   }
 
   mEMORY[0x277D657A0]2 = [MEMORY[0x277D657A0] sharedContext];
   keyphraseExcludeBundles = [mEMORY[0x277D657A0]2 keyphraseExcludeBundles];
-  bundleIdentifier = [v151 bundleIdentifier];
+  bundleIdentifier = [v149 bundleIdentifier];
   v27 = [keyphraseExcludeBundles containsObject:bundleIdentifier];
 
-  bundleIdentifier2 = [v151 bundleIdentifier];
+  bundleIdentifier2 = [v149 bundleIdentifier];
   if (bundleIdentifier2)
   {
     mEMORY[0x277D657A0]3 = [MEMORY[0x277D657A0] sharedContext];
     keyphraseIncludeBundles = [mEMORY[0x277D657A0]3 keyphraseIncludeBundles];
-    bundleIdentifier3 = [v151 bundleIdentifier];
+    bundleIdentifier3 = [v149 bundleIdentifier];
     if ([keyphraseIncludeBundles containsObject:bundleIdentifier3])
     {
       v32 = 0;
@@ -153,7 +153,7 @@ LABEL_5:
 
     else
     {
-      bundleIdentifier4 = [v151 bundleIdentifier];
+      bundleIdentifier4 = [v149 bundleIdentifier];
       v32 = [bundleIdentifier4 hasPrefix:@"com.apple."];
     }
   }
@@ -166,88 +166,88 @@ LABEL_5:
   mEMORY[0x277D657A0]4 = [MEMORY[0x277D657A0] sharedContext];
   if (v27 & 1 | (([mEMORY[0x277D657A0]4 enableKeyphrases] & 1) == 0) | v32 & 1)
   {
-    v140 = 0;
+    v138 = 0;
   }
 
   else
   {
-    v140 = [v151 isTranscribedText] ^ 1;
+    v138 = [v149 isTranscribedText] ^ 1;
   }
 
   mEMORY[0x277D657A0]5 = [MEMORY[0x277D657A0] sharedContext];
   enableExtractions = [mEMORY[0x277D657A0]5 enableExtractions];
 
   v37 = enableExtractions & (v27 ^ 1);
-  if (!(v37 & 1 | ((v140 & 1) == 0)))
+  if (!(v37 & 1 | ((v138 & 1) == 0)))
   {
-    protectionClass = [v151 protectionClass];
+    protectionClass = [v149 protectionClass];
     if (protectionClass)
     {
-      protectionClass2 = [v151 protectionClass];
+      protectionClass2 = [v149 protectionClass];
       if ([protectionClass2 isEqualToString:*MEMORY[0x277CCA190]])
       {
-        v140 = 0;
+        v138 = 0;
       }
 
       else
       {
-        protectionClass3 = [v151 protectionClass];
+        protectionClass3 = [v149 protectionClass];
         v41 = [protectionClass3 isEqualToString:*MEMORY[0x277CCA198]];
 
-        v140 &= v41 ^ 1;
+        v138 &= v41 ^ 1;
       }
     }
   }
 
   forceEntityExtraction = [self forceEntityExtraction];
-  v123 = [self copyTextContentFromRecord:v9];
-  v118 = v123;
-  if (!v123)
+  v121 = [self copyTextContentFromRecord:v9];
+  v116 = v121;
+  if (!v121)
   {
-    v123 = [self copySnippetFromRecord:v9];
+    v121 = [self copySnippetFromRecord:v9];
   }
 
-  bundleIdentifier5 = [v151 bundleIdentifier];
-  v128 = [bundleIdentifier5 isEqualToString:@"com.apple.mobilecal"];
+  bundleIdentifier5 = [v149 bundleIdentifier];
+  v126 = [bundleIdentifier5 isEqualToString:@"com.apple.mobilecal"];
 
-  v181 = 0u;
-  v182 = 0u;
+  v179 = 0u;
   v180 = 0u;
-  v142 = (a5 >> 9) & 1 & (forceEntityExtraction | v37);
-  if (v142)
+  v178 = 0u;
+  v140 = (a5 >> 9) & 1 & (forceEntityExtraction | v37);
+  if (v140)
   {
     if ([self recordContainsValue:v9 key:@"kMDItemLatitude"] && objc_msgSend(self, "recordContainsValue:key:", v9, @"kMDItemLongitude"))
     {
       v43 = [self copyDoubleValueFromRecord:v9 key:@"kMDItemLatitude"];
       v44 = [self copyDoubleValueFromRecord:v9 key:@"kMDItemLongitude"];
       [v43 doubleValue];
-      *&v180 = v45;
+      *&v178 = v45;
       [v44 doubleValue];
-      *(&v181 + 1) = v46;
+      *(&v179 + 1) = v46;
     }
 
-    v178 = 0u;
-    v179 = 0u;
     v176 = 0u;
     v177 = 0u;
+    v174 = 0u;
+    v175 = 0u;
     mEMORY[0x277D657A0]6 = [MEMORY[0x277D657A0] sharedContext];
     keyphraseOptionalExtractionAttributes = [mEMORY[0x277D657A0]6 keyphraseOptionalExtractionAttributes];
 
     v49 = 0;
-    v50 = [keyphraseOptionalExtractionAttributes countByEnumeratingWithState:&v176 objects:v212 count:16];
+    v50 = [keyphraseOptionalExtractionAttributes countByEnumeratingWithState:&v174 objects:v210 count:16];
     if (v50)
     {
-      v51 = *v177;
+      v51 = *v175;
       do
       {
         for (i = 0; i != v50; ++i)
         {
-          if (*v177 != v51)
+          if (*v175 != v51)
           {
             objc_enumerationMutation(keyphraseOptionalExtractionAttributes);
           }
 
-          v53 = *(*(&v176 + 1) + 8 * i);
+          v53 = *(*(&v174 + 1) + 8 * i);
           mEMORY[0x277D65798] = [MEMORY[0x277D65798] sharedProcessor];
           v55 = [mEMORY[0x277D65798] recordContainsValue:v9 key:v53];
 
@@ -268,7 +268,7 @@ LABEL_5:
           }
         }
 
-        v50 = [keyphraseOptionalExtractionAttributes countByEnumeratingWithState:&v176 objects:v212 count:16];
+        v50 = [keyphraseOptionalExtractionAttributes countByEnumeratingWithState:&v174 objects:v210 count:16];
       }
 
       while (v50);
@@ -280,74 +280,74 @@ LABEL_5:
     v49 = 0;
   }
 
-  if (![v123 length] && !objc_msgSend(v49, "count"))
+  if (![v121 length] && !objc_msgSend(v49, "count"))
   {
     goto LABEL_170;
   }
 
-  v170 = 0;
-  v171 = &v170;
-  v172 = 0x3032000000;
-  v173 = __Block_byref_object_copy__21;
-  v174 = __Block_byref_object_dispose__21;
-  v175 = objc_alloc_init(SKGEntityRanker);
+  v168 = 0;
+  v169 = &v168;
+  v170 = 0x3032000000;
+  v171 = __Block_byref_object_copy__21;
+  v172 = __Block_byref_object_dispose__21;
+  v173 = objc_alloc_init(SKGEntityRanker);
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __97__SKGProcessor_Keyphraser__generateKeyphrasesForRecord_processedItem_processorFlags_cancelBlock___block_invoke;
   aBlock[3] = &unk_27893EEC8;
-  v169 = &v183;
-  v137 = v129;
-  v168 = v137;
-  v134 = _Block_copy(aBlock);
-  if (v142)
+  v167 = &v181;
+  v135 = v127;
+  v166 = v135;
+  v132 = _Block_copy(aBlock);
+  if (v140)
   {
-    v166[0] = MEMORY[0x277D85DD0];
-    v166[1] = 3221225472;
-    v166[2] = __97__SKGProcessor_Keyphraser__generateKeyphrasesForRecord_processedItem_processorFlags_cancelBlock___block_invoke_2;
-    v166[3] = &unk_27893EEF0;
-    v166[4] = &v170;
-    v143 = _Block_copy(v166);
+    v164[0] = MEMORY[0x277D85DD0];
+    v164[1] = 3221225472;
+    v164[2] = __97__SKGProcessor_Keyphraser__generateKeyphrasesForRecord_processedItem_processorFlags_cancelBlock___block_invoke_2;
+    v164[3] = &unk_27893EEF0;
+    v164[4] = &v168;
+    v141 = _Block_copy(v164);
   }
 
   else
   {
-    v143 = 0;
+    v141 = 0;
   }
 
-  if ((forceEntityExtraction | v140) & bOOLValue)
+  if ((forceEntityExtraction | v138) & bOOLValue)
   {
-    v160[0] = MEMORY[0x277D85DD0];
-    v160[1] = 3221225472;
-    v160[2] = __97__SKGProcessor_Keyphraser__generateKeyphrasesForRecord_processedItem_processorFlags_cancelBlock___block_invoke_37;
-    v160[3] = &unk_27893EF18;
-    v161 = v147;
-    v162 = v151;
-    v164 = &v170;
-    v165 = &v183;
-    v163 = v137;
-    v120 = _Block_copy(v160);
+    v158[0] = MEMORY[0x277D85DD0];
+    v158[1] = 3221225472;
+    v158[2] = __97__SKGProcessor_Keyphraser__generateKeyphrasesForRecord_processedItem_processorFlags_cancelBlock___block_invoke_37;
+    v158[3] = &unk_27893EF18;
+    v159 = v145;
+    v160 = v149;
+    v162 = &v168;
+    v163 = &v181;
+    v161 = v135;
+    v118 = _Block_copy(v158);
   }
 
   else
   {
-    v120 = 0;
+    v118 = 0;
   }
 
-  v58 = *(v184 + 24);
-  if (v58 == 1 && v143 && v123)
+  v58 = *(v182 + 24);
+  if (v58 == 1 && v141 && v121)
   {
-    v59 = enumerateEntityInfo(mEMORY[0x277D657A0], currentTimezone, v147, v123, 0, &v180, v143, v134);
-    if ((v128 & 1) != 0 || (v60 = v59, [self forceEntityExtraction]))
+    v59 = enumerateEntityInfo(mEMORY[0x277D657A0], currentTimezone, v145, v121, 0, &v178, v141, v132);
+    if ((v126 & 1) != 0 || (v60 = v59, [self forceEntityExtraction]))
     {
-      v60 = enumerateAirportCodes(v123, v143);
+      v60 = enumerateAirportCodes(v121, v141);
     }
 
-    v61 = v184;
-    v62 = *(v184 + 24);
-    if (v137 && (v62 & 1) != 0)
+    v61 = v182;
+    v62 = *(v182 + 24);
+    if (v135 && (v62 & 1) != 0)
     {
-      v58 = (*(v137 + 2))(v137, @"processTextContentFromRecord:keyphraser:entities") ^ 1;
-      v61 = v184;
+      v58 = (*(v135 + 2))(v135, @"processTextContentFromRecord:keyphraser:entities") ^ 1;
+      v61 = v182;
     }
 
     else
@@ -363,178 +363,177 @@ LABEL_5:
     *(v61 + 24) = v58;
   }
 
-  if (!v58 || !v120 || !v123)
+  if (!v58 || !v118 || !v121)
   {
     goto LABEL_131;
   }
 
-  v63 = [v123 componentsSeparatedByString:@"\n"];
-  v124 = [v63 count];
+  v63 = [v121 componentsSeparatedByString:@"\n"];
+  v122 = [v63 count];
   lock = (&sLMLock_0 + 4 * LanguageID);
   os_unfair_lock_lock(lock);
-  v64 = sLanguageModels_0[LanguageID];
-  v65 = SILanguageModelRetain();
-  if (!v65)
+  v64 = SILanguageModelRetain();
+  if (!v64)
   {
     goto LABEL_130;
   }
 
-  v122 = v65;
-  if (!v124)
+  v120 = v64;
+  if (!v122)
   {
     goto LABEL_129;
   }
 
-  v66 = 0;
-  v121 = v134 + 2;
-  v116 = xmmword_231C220E0;
+  v65 = 0;
+  v119 = v132 + 2;
+  v114 = xmmword_231C220E0;
   do
   {
-    v145 = v66;
-    v135 = [v63 objectAtIndexedSubscript:v116];
+    v143 = v65;
+    v133 = [v63 objectAtIndexedSubscript:v114];
     whitespaceCharacterSet = [MEMORY[0x277CCA900] whitespaceCharacterSet];
-    v150 = [v135 stringByTrimmingCharactersInSet:whitespaceCharacterSet];
+    v148 = [v133 stringByTrimmingCharactersInSet:whitespaceCharacterSet];
 
-    v146 = v145 + 1;
-    if (![v150 length])
+    v144 = v143 + 1;
+    if (![v148 length])
     {
       goto LABEL_126;
     }
 
-    if (v118)
+    if (v116)
     {
-      v68 = 0;
+      v67 = 0;
     }
 
     else
     {
-      v68 = v146 == v124;
+      v67 = v144 == v122;
     }
 
-    v69 = v68;
-    v130 = v69;
-    v132 = v120;
-    v133 = v143;
-    v70 = v134;
-    v206 = 0;
-    v207 = &v206;
-    v208 = 0x2020000000;
-    v209 = 1;
-    v139 = [v150 length];
-    v71 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v125 = +[SKGDataDetector sharedDetector];
-    v203[0] = MEMORY[0x277D85DD0];
-    v203[1] = 3221225472;
-    v203[2] = __enumerateKeyphraseInfo_block_invoke_0;
-    v203[3] = &unk_27893EF90;
-    v141 = v71;
-    v204 = v141;
-    v136 = v70;
-    v205 = v136;
-    if (([v125 enumerateDetectedDataInString:v150 locale:v147 referenceDate:mEMORY[0x277D657A0] referenceTimezone:currentTimezone entityBlock:0 rangeBlock:v203] & 1) == 0)
+    v68 = v67;
+    v128 = v68;
+    v130 = v118;
+    v131 = v141;
+    v69 = v132;
+    v204 = 0;
+    v205 = &v204;
+    v206 = 0x2020000000;
+    v207 = 1;
+    v137 = [v148 length];
+    v70 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v123 = +[SKGDataDetector sharedDetector];
+    v201[0] = MEMORY[0x277D85DD0];
+    v201[1] = 3221225472;
+    v201[2] = __enumerateKeyphraseInfo_block_invoke_0;
+    v201[3] = &unk_27893EF90;
+    v139 = v70;
+    v202 = v139;
+    v134 = v69;
+    v203 = v134;
+    if (([v123 enumerateDetectedDataInString:v148 locale:v145 referenceDate:mEMORY[0x277D657A0] referenceTimezone:currentTimezone entityBlock:0 rangeBlock:v201] & 1) == 0)
     {
-      *(v207 + 24) = 0;
+      *(v205 + 24) = 0;
     }
 
-    if (!*(v207 + 24) || (*v121)(v136))
+    if (!*(v205 + 24) || (*v119)(v134))
     {
-      v72 = 1;
+      v71 = 1;
       goto LABEL_121;
     }
 
-    firstObject = [v141 firstObject];
-    v74 = 0;
-    v201[0] = 0;
-    v201[1] = v201;
-    v201[2] = 0x3010000000;
-    v201[3] = &unk_231C4157F;
-    v202 = v116;
+    firstObject = [v139 firstObject];
+    v73 = 0;
+    v199[0] = 0;
+    v199[1] = v199;
+    v199[2] = 0x3010000000;
+    v199[3] = &unk_231C4157F;
+    v200 = v114;
     while (firstObject)
     {
       rangeValue = [firstObject rangeValue];
-      v77 = v76;
-      if (rangeValue != v74)
+      v76 = v75;
+      if (rangeValue != v73)
       {
         goto LABEL_104;
       }
 
-      [v141 removeObjectAtIndex:0];
-      if ([v141 count])
+      [v139 removeObjectAtIndex:0];
+      if ([v139 count])
       {
-        v78 = [v141 objectAtIndexedSubscript:0];
+        v77 = [v139 objectAtIndexedSubscript:0];
       }
 
       else
       {
-        v78 = 0;
+        v77 = 0;
       }
 
-      v74 += v77;
-      firstObject = v78;
+      v73 += v76;
+      firstObject = v77;
 LABEL_115:
-      if (v74 >= v139)
+      if (v73 >= v137)
       {
         goto LABEL_120;
       }
     }
 
-    v77 = 0;
-    rangeValue = v139;
-    if (v139 != v74)
+    v76 = 0;
+    rangeValue = v137;
+    if (v137 != v73)
     {
 LABEL_104:
-      v79 = [v150 substringWithRange:{v74, rangeValue - v74}];
-      v187 = MEMORY[0x277D85DD0];
-      v188 = 3221225472;
-      v189 = __enumerateKeyphraseInfo_block_invoke_2_0;
-      v190 = &unk_27893EFE0;
-      v196 = v201;
-      v192 = 0;
-      v191 = 0;
-      v193 = v132;
-      v197 = &v206;
-      v198 = v122;
-      v199 = v147;
-      v200 = v130;
-      v194 = v133;
-      v80 = v136;
-      v195 = v80;
-      v81 = SITextTokenizerEnumerateTokensInString();
-      v82 = v207;
-      *(v207 + 24) = v81;
-      if (v81)
+      v78 = [v148 substringWithRange:{v73, rangeValue - v73}];
+      v185 = MEMORY[0x277D85DD0];
+      v186 = 3221225472;
+      v187 = __enumerateKeyphraseInfo_block_invoke_2_0;
+      v188 = &unk_27893EFE0;
+      v194 = v199;
+      v190 = 0;
+      v189 = 0;
+      v191 = v130;
+      v195 = &v204;
+      v196 = v120;
+      v197 = v145;
+      v198 = v128;
+      v192 = v131;
+      v79 = v134;
+      v193 = v79;
+      v80 = SITextTokenizerEnumerateTokensInString();
+      v81 = v205;
+      *(v205 + 24) = v80;
+      if (v80)
       {
-        if (!(*v121)(v80))
+        if (!(*v119)(v79))
         {
           if (firstObject)
           {
-            [v141 removeObjectAtIndex:0];
-            v74 = v77 + rangeValue;
-            if ([v141 count])
+            [v139 removeObjectAtIndex:0];
+            v73 = v76 + rangeValue;
+            if ([v139 count])
             {
-              v84 = [v141 objectAtIndexedSubscript:0];
+              v83 = [v139 objectAtIndexedSubscript:0];
 
-              v83 = 1;
-              firstObject = v84;
+              v82 = 1;
+              firstObject = v83;
             }
 
             else
             {
 
               firstObject = 0;
-              v83 = 1;
+              v82 = 1;
             }
           }
 
           else
           {
-            v83 = 1;
-            v74 = rangeValue;
+            v82 = 1;
+            v73 = rangeValue;
           }
 
 LABEL_108:
 
-          if ((v83 & 1) == 0)
+          if ((v82 & 1) == 0)
           {
             goto LABEL_120;
           }
@@ -542,107 +541,107 @@ LABEL_108:
           goto LABEL_115;
         }
 
-        v82 = v207;
+        v81 = v205;
       }
 
-      v83 = 0;
-      *(v82 + 24) = 0;
+      v82 = 0;
+      *(v81 + 24) = 0;
       goto LABEL_108;
     }
 
     firstObject = 0;
 LABEL_120:
-    v85 = *(v207 + 24);
-    _Block_object_dispose(v201, 8);
+    v84 = *(v205 + 24);
+    _Block_object_dispose(v199, 8);
 
-    v72 = v85 == 0;
+    v71 = v84 == 0;
 LABEL_121:
 
-    _Block_object_dispose(&v206, 8);
-    v86 = v184;
-    v87 = *(v184 + 24);
-    if (v137 && (v87 & 1) != 0)
+    _Block_object_dispose(&v204, 8);
+    v85 = v182;
+    v86 = *(v182 + 24);
+    if (v135 && (v86 & 1) != 0)
     {
-      v87 = (*(v137 + 2))(v137, @"processTextContentFromRecord:keyphraser:text") ^ 1;
-      v86 = v184;
+      v86 = (*(v135 + 2))(v135, @"processTextContentFromRecord:keyphraser:text") ^ 1;
+      v85 = v182;
     }
 
     else
     {
-      LOBYTE(v87) = v87 != 0;
+      LOBYTE(v86) = v86 != 0;
     }
 
-    *(v86 + 24) = v87 & 1;
-    if (v72 || (v87 & 1) == 0)
+    *(v85 + 24) = v86 & 1;
+    if (v71 || (v86 & 1) == 0)
     {
-      [v151 clearKeyphrases];
+      [v149 clearKeyphrases];
 
       break;
     }
 
 LABEL_126:
 
-    v66 = v146;
+    v65 = v144;
   }
 
-  while (v146 != v124);
+  while (v144 != v122);
 LABEL_129:
   SILanguageModelRelease();
 LABEL_130:
   os_unfair_lock_unlock(lock);
 
-  LOBYTE(v58) = *(v184 + 24);
+  LOBYTE(v58) = *(v182 + 24);
 LABEL_131:
-  if ((v58 & 1) != 0 && v143 && [v49 count])
+  if ((v58 & 1) != 0 && v141 && [v49 count])
   {
-    v158 = 0u;
-    v159 = 0u;
     v156 = 0u;
     v157 = 0u;
-    v88 = v49;
-    v89 = [v88 countByEnumeratingWithState:&v156 objects:v211 count:16];
-    if (v89)
+    v154 = 0u;
+    v155 = 0u;
+    v87 = v49;
+    v88 = [v87 countByEnumeratingWithState:&v154 objects:v209 count:16];
+    if (v88)
     {
-      v90 = *v157;
+      v89 = *v155;
 LABEL_136:
-      v91 = 0;
+      v90 = 0;
       while (1)
       {
-        if (*v157 != v90)
+        if (*v155 != v89)
         {
-          objc_enumerationMutation(v88);
+          objc_enumerationMutation(v87);
         }
 
-        v92 = *(*(&v156 + 1) + 8 * v91);
-        v93 = enumerateEntityInfo(0, 0, v147, v92, 1, &v180, v143, v134);
-        if ((v128 & 1) != 0 || (v94 = v93, [self forceEntityExtraction]))
+        v91 = *(*(&v154 + 1) + 8 * v90);
+        v92 = enumerateEntityInfo(0, 0, v145, v91, 1, &v178, v141, v132);
+        if ((v126 & 1) != 0 || (v93 = v92, [self forceEntityExtraction]))
         {
-          v94 = enumerateAirportCodes(v92, v143);
+          v93 = enumerateAirportCodes(v91, v141);
         }
 
-        v95 = v184;
-        v96 = *(v184 + 24);
-        if (v137 && (v96 & 1) != 0)
+        v94 = v182;
+        v95 = *(v182 + 24);
+        if (v135 && (v95 & 1) != 0)
         {
-          v97 = (*(v137 + 2))(v137, @"processTextContentFromRecord:keyphraser:optionalText") ^ 1;
-          v95 = v184;
+          v96 = (*(v135 + 2))(v135, @"processTextContentFromRecord:keyphraser:optionalText") ^ 1;
+          v94 = v182;
         }
 
         else
         {
-          v97 = v96 != 0;
+          v96 = v95 != 0;
         }
 
-        *(v95 + 24) = v97;
-        if (!v94 || v97 == 0)
+        *(v94 + 24) = v96;
+        if (!v93 || v96 == 0)
         {
           break;
         }
 
-        if (v89 == ++v91)
+        if (v88 == ++v90)
         {
-          v89 = [v88 countByEnumeratingWithState:&v156 objects:v211 count:16];
-          if (v89)
+          v88 = [v87 countByEnumeratingWithState:&v154 objects:v209 count:16];
+          if (v88)
           {
             goto LABEL_136;
           }
@@ -653,96 +652,95 @@ LABEL_136:
     }
   }
 
-  if (*(v184 + 24) == 1)
+  if (*(v182 + 24) == 1)
   {
-    v99 = [self copyStringValueFromRecord:v9 key:@"_SKGTestLocation"];
-    v100 = v99;
-    if (v99)
+    v98 = [self copyStringValueFromRecord:v9 key:@"_SKGTestLocation"];
+    v99 = v98;
+    if (v98)
     {
-      v101 = [v99 componentsSeparatedByString:{@", "}];
-      if ([v101 count] == 3)
+      v100 = [v98 componentsSeparatedByString:{@", "}];
+      if ([v100 count] == 3)
       {
-        v102 = [(SKGEntity *)[SKGAddress alloc] initWithScore:1.0];
-        [(SKGAddress *)v102 setAddress:v100];
-        v103 = [v101 objectAtIndexedSubscript:0];
-        [(SKGAddress *)v102 setCity:v103];
+        v101 = [(SKGEntity *)[SKGAddress alloc] initWithScore:1.0];
+        [(SKGAddress *)v101 setAddress:v99];
+        v102 = [v100 objectAtIndexedSubscript:0];
+        [(SKGAddress *)v101 setCity:v102];
 
-        v104 = [v101 objectAtIndexedSubscript:1];
-        [(SKGAddress *)v102 setArea:v104];
+        v103 = [v100 objectAtIndexedSubscript:1];
+        [(SKGAddress *)v101 setArea:v103];
 
-        v105 = [v101 objectAtIndexedSubscript:2];
-        [(SKGAddress *)v102 setCountry:v105];
+        v104 = [v100 objectAtIndexedSubscript:2];
+        [(SKGAddress *)v101 setCountry:v104];
 
-        v106 = +[SKGDataDetector sharedDetector];
-        v107 = [v106 locationFromAddress:v102 locale:v147];
+        v105 = +[SKGDataDetector sharedDetector];
+        v106 = [v105 locationFromAddress:v101 locale:v145];
 
-        if (v107)
+        if (v106)
         {
-          [v171[5] addEntity:v107];
+          [v169[5] addEntity:v106];
         }
       }
     }
 
-    if (v184[3])
+    if (v182[3])
     {
-      [v171[5] keyphrases];
-      v154 = 0u;
-      v155 = 0u;
+      [v169[5] keyphrases];
       v152 = 0u;
-      v108 = v153 = 0u;
-      v109 = [v108 countByEnumeratingWithState:&v152 objects:v210 count:16];
-      if (v109)
+      v153 = 0u;
+      v150 = 0u;
+      v107 = v151 = 0u;
+      v108 = [v107 countByEnumeratingWithState:&v150 objects:v208 count:16];
+      if (v108)
       {
-        v110 = *v153;
+        v109 = *v151;
         do
         {
-          for (j = 0; j != v109; ++j)
+          for (j = 0; j != v108; ++j)
           {
-            if (*v153 != v110)
+            if (*v151 != v109)
             {
-              objc_enumerationMutation(v108);
+              objc_enumerationMutation(v107);
             }
 
-            [v151 addKeyphrase:*(*(&v152 + 1) + 8 * j)];
+            [v149 addKeyphrase:*(*(&v150 + 1) + 8 * j)];
           }
 
-          v109 = [v108 countByEnumeratingWithState:&v152 objects:v210 count:16];
+          v108 = [v107 countByEnumeratingWithState:&v150 objects:v208 count:16];
         }
 
-        while (v109);
+        while (v108);
       }
 
-      [v171[5] updateWithEntities:v151];
+      [v169[5] updateWithEntities:v149];
     }
   }
 
-  _Block_object_dispose(&v170, 8);
+  _Block_object_dispose(&v168, 8);
 LABEL_170:
-  if (*(v184 + 24) == 1)
+  if (*(v182 + 24) == 1)
   {
     mEMORY[0x277D657A0]7 = [MEMORY[0x277D657A0] sharedContext];
-    [v151 setDidProcessKeyphrases:{objc_msgSend(mEMORY[0x277D657A0]7, "enableKeyphrases")}];
+    [v149 setDidProcessKeyphrases:{objc_msgSend(mEMORY[0x277D657A0]7, "enableKeyphrases")}];
   }
 
 LABEL_173:
-  currentLocale = v147;
+  currentLocale = v145;
 LABEL_174:
 
   objc_autoreleasePoolPop(context);
-  if (v126)
+  if (v124)
   {
-    v113 = *(v184 + 24);
+    v112 = *(v182 + 24);
   }
 
   else
   {
-    v113 = 1;
+    v112 = 1;
   }
 
-  _Block_object_dispose(&v183, 8);
+  _Block_object_dispose(&v181, 8);
 
-  v114 = *MEMORY[0x277D85DE8];
-  return v113 & 1;
+  return v112 & 1;
 }
 
 - (id)loadedLocales
@@ -756,23 +754,22 @@ LABEL_174:
     if (sLanguageModels_0[v1])
     {
       v3 = SILanguagesGetLanguage();
-      v4 = sRegions_0[v1];
-      v5 = SILanguagesGetRegion();
-      v6 = MEMORY[0x277CBEAF8];
-      if (v5)
+      v4 = SILanguagesGetRegion();
+      v5 = MEMORY[0x277CBEAF8];
+      if (v4)
       {
-        v7 = v5;
+        v6 = v4;
       }
 
       else
       {
-        v7 = @"US";
+        v6 = @"US";
       }
 
-      v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", v3, v7];
-      v9 = [v6 localeWithLocaleIdentifier:v8];
+      v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_%@", v3, v6];
+      v8 = [v5 localeWithLocaleIdentifier:v7];
 
-      [v0 addObject:v9];
+      [v0 addObject:v8];
     }
 
     os_unfair_lock_unlock(v2);

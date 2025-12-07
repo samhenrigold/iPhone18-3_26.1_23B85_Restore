@@ -37,13 +37,14 @@ void __39__CARAppearanceManager__mainScreenInfo__block_invoke(uint64_t a1, void 
 
 - (BOOL)locationBasedNightMode
 {
-  if ([(CARAppearanceManager *)self locationNightModeDisabled])
+  locationNightModeDisabled = [(CARAppearanceManager *)self locationNightModeDisabled];
+  if (locationNightModeDisabled)
   {
-    v3 = CarAppearanceLogging();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = CarAppearanceLogging(locationNightModeDisabled);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_1C81FC000, v3, OS_LOG_TYPE_DEFAULT, "Location night mode is disabled, ignoring actual value", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_1C81FC000, v4, OS_LOG_TYPE_DEFAULT, "Location night mode is disabled, ignoring actual value", v7, 2u);
     }
 
     return 0;
@@ -268,7 +269,7 @@ void __102__CARAppearanceManager_initWithScreens_initialSystemNightMode_initialL
 
 void __60__CARAppearanceManager_handleNightModeUpdateWithParameters___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 identifier];
   if ([v4 isEqualToString:*(a1 + 32)])
@@ -277,118 +278,119 @@ void __60__CARAppearanceManager_handleNightModeUpdateWithParameters___block_invo
 
   else
   {
-    v5 = [v3 supportsPerDisplayNightMode];
+    v6 = [v3 supportsPerDisplayNightMode];
 
-    if (v5)
+    if (v6)
     {
       goto LABEL_12;
     }
   }
 
-  v6 = CarAppearanceLogging();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = CarAppearanceLogging(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 40);
-    if (v7)
+    v8 = *(a1 + 40);
+    if (v8)
     {
-      v8 = [v7 BOOLValue];
-      v9 = @"NO";
-      if (v8)
+      v9 = [v8 BOOLValue];
+      v10 = @"NO";
+      if (v9)
       {
-        v9 = @"YES";
+        v10 = @"YES";
       }
     }
 
     else
     {
-      v9 = @"unset";
+      v10 = @"unset";
     }
 
-    v13 = 138543618;
-    v14 = v3;
-    v15 = 2114;
-    v16 = v9;
-    _os_log_impl(&dword_1C81FC000, v6, OS_LOG_TYPE_DEFAULT, "Updating night mode for screenInfo: %{public}@, night mode: %{public}@", &v13, 0x16u);
+    v14 = 138543618;
+    v15 = v3;
+    v16 = 2114;
+    v17 = v10;
+    _os_log_impl(&dword_1C81FC000, v7, OS_LOG_TYPE_DEFAULT, "Updating night mode for screenInfo: %{public}@, night mode: %{public}@", &v14, 0x16u);
   }
 
-  v10 = [*(a1 + 48) nightModeDictionary];
-  v11 = *(a1 + 40);
-  v12 = [v3 identifier];
-  [v10 setObject:v11 forKey:v12];
+  v11 = [*(a1 + 48) nightModeDictionary];
+  v12 = *(a1 + 40);
+  v13 = [v3 identifier];
+  [v11 setObject:v12 forKey:v13];
 
 LABEL_12:
 }
 
 - (void)handleUIAppearanceUpdateWithParameters:(id)parameters
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   v5 = [parametersCopy objectForKey:@"uuid"];
   v6 = [(CARAppearanceManager *)self _screenInfoForScreenUUID:v5];
   if (![(CARAppearanceManager *)self _useVehicleDataProtocolAppearance:v5])
   {
-    if ([v6 supportsAppearanceMode])
+    supportsAppearanceMode = [v6 supportsAppearanceMode];
+    if (supportsAppearanceMode)
     {
-      v7 = [parametersCopy objectForKey:@"appearanceMode"];
+      v8 = [parametersCopy objectForKey:@"appearanceMode"];
 
-      if (v7)
+      if (v8)
       {
-        v8 = [parametersCopy objectForKey:@"appearanceMode"];
-        unsignedIntegerValue = [v8 unsignedIntegerValue];
+        v9 = [parametersCopy objectForKey:@"appearanceMode"];
+        unsignedIntegerValue = [v9 unsignedIntegerValue];
 
-        v10 = [objc_opt_class() _carUserInterfaceStyleForAppearanceMode:unsignedIntegerValue];
-        v11 = CarAppearanceLogging();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v11 = [objc_opt_class() _carUserInterfaceStyleForAppearanceMode:unsignedIntegerValue];
+        v12 = CarAppearanceLogging(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = [CARSessionConfiguration descriptionForUserInterfaceStyle:v10];
-          v23 = 138543618;
-          v24 = v6;
-          v25 = 2114;
-          v26 = v12;
-          _os_log_impl(&dword_1C81FC000, v11, OS_LOG_TYPE_DEFAULT, "UI Appearance update for screen: %{public}@ has style: %{public}@", &v23, 0x16u);
+          v13 = [CARSessionConfiguration descriptionForUserInterfaceStyle:v11];
+          v26 = 138543618;
+          v27 = v6;
+          v28 = 2114;
+          v29 = v13;
+          _os_log_impl(&dword_1C81FC000, v12, OS_LOG_TYPE_DEFAULT, "UI Appearance update for screen: %{public}@ has style: %{public}@", &v26, 0x16u);
         }
       }
 
       else
       {
-        v10 = -1;
+        v11 = -1;
       }
 
-      v14 = [parametersCopy objectForKey:@"appearanceSetting"];
+      v15 = [parametersCopy objectForKey:@"appearanceSetting"];
 
-      if (v14)
+      if (v15)
       {
-        v15 = [parametersCopy objectForKey:@"appearanceSetting"];
-        integerValue = [v15 integerValue];
+        v17 = [parametersCopy objectForKey:@"appearanceSetting"];
+        integerValue = [v17 integerValue];
 
-        v17 = CarAppearanceLogging();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v20 = CarAppearanceLogging(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = [objc_opt_class() _descriptionForAppearanceSetting:integerValue];
-          v23 = 138543618;
-          v24 = v6;
-          v25 = 2114;
-          v26 = v18;
-          _os_log_impl(&dword_1C81FC000, v17, OS_LOG_TYPE_DEFAULT, "UI Appearance update for screen: %{public}@ has setting: %{public}@", &v23, 0x16u);
+          v21 = [objc_opt_class() _descriptionForAppearanceSetting:integerValue];
+          v26 = 138543618;
+          v27 = v6;
+          v28 = 2114;
+          v29 = v21;
+          _os_log_impl(&dword_1C81FC000, v20, OS_LOG_TYPE_DEFAULT, "UI Appearance update for screen: %{public}@ has setting: %{public}@", &v26, 0x16u);
         }
 
-        if ((v10 - 1) <= 1 && integerValue <= 2)
+        if ((v11 - 1) <= 1 && integerValue <= 2)
         {
           appearanceModeDictionary = [(CARAppearanceManager *)self appearanceModeDictionary];
-          v20 = [MEMORY[0x1E696AD98] numberWithInteger:v10];
-          [appearanceModeDictionary setObject:v20 forKey:v5];
+          v23 = [MEMORY[0x1E696AD98] numberWithInteger:v11];
+          [appearanceModeDictionary setObject:v23 forKey:v5];
 
           appearanceModeSettingDictionary = [(CARAppearanceManager *)self appearanceModeSettingDictionary];
-          v22 = [MEMORY[0x1E696AD98] numberWithInteger:integerValue];
-          [appearanceModeSettingDictionary setObject:v22 forKey:v5];
+          v25 = [MEMORY[0x1E696AD98] numberWithInteger:integerValue];
+          [appearanceModeSettingDictionary setObject:v25 forKey:v5];
 
           [(CARAppearanceManager *)self _resolveUIStylesAndNotify:1];
           goto LABEL_19;
         }
       }
 
-      v13 = CarAppearanceLogging();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      v14 = CarAppearanceLogging(v16);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
         [CARAppearanceManager handleUIAppearanceUpdateWithParameters:];
       }
@@ -396,8 +398,8 @@ LABEL_12:
 
     else
     {
-      v13 = CarAppearanceLogging();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      v14 = CarAppearanceLogging(supportsAppearanceMode);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
         [CARAppearanceManager handleUIAppearanceUpdateWithParameters:];
       }
@@ -409,74 +411,75 @@ LABEL_19:
 
 - (void)handleMapAppearanceUpdateWithParameters:(id)parameters
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   v5 = [parametersCopy objectForKey:@"uuid"];
   v6 = [(CARAppearanceManager *)self _screenInfoForScreenUUID:v5];
   if (![(CARAppearanceManager *)self _useVehicleDataProtocolAppearance:v5])
   {
-    if ([v6 supportsMapAppearanceMode])
+    supportsMapAppearanceMode = [v6 supportsMapAppearanceMode];
+    if (supportsMapAppearanceMode)
     {
-      v7 = [parametersCopy objectForKey:@"appearanceMode"];
+      v8 = [parametersCopy objectForKey:@"appearanceMode"];
 
-      if (v7)
+      if (v8)
       {
-        v8 = [parametersCopy objectForKey:@"appearanceMode"];
-        unsignedIntegerValue = [v8 unsignedIntegerValue];
+        v9 = [parametersCopy objectForKey:@"appearanceMode"];
+        unsignedIntegerValue = [v9 unsignedIntegerValue];
 
-        v10 = [objc_opt_class() _carUserInterfaceStyleForAppearanceMode:unsignedIntegerValue];
-        v11 = CarAppearanceLogging();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v11 = [objc_opt_class() _carUserInterfaceStyleForAppearanceMode:unsignedIntegerValue];
+        v12 = CarAppearanceLogging(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = [CARSessionConfiguration descriptionForUserInterfaceStyle:v10];
-          v23 = 138543618;
-          v24 = v6;
-          v25 = 2114;
-          v26 = v12;
-          _os_log_impl(&dword_1C81FC000, v11, OS_LOG_TYPE_DEFAULT, "Map Appearance update for screen: %{public}@ has style: %{public}@", &v23, 0x16u);
+          v13 = [CARSessionConfiguration descriptionForUserInterfaceStyle:v11];
+          v26 = 138543618;
+          v27 = v6;
+          v28 = 2114;
+          v29 = v13;
+          _os_log_impl(&dword_1C81FC000, v12, OS_LOG_TYPE_DEFAULT, "Map Appearance update for screen: %{public}@ has style: %{public}@", &v26, 0x16u);
         }
       }
 
       else
       {
-        v10 = -1;
+        v11 = -1;
       }
 
-      v14 = [parametersCopy objectForKey:@"appearanceSetting"];
+      v15 = [parametersCopy objectForKey:@"appearanceSetting"];
 
-      if (v14)
+      if (v15)
       {
-        v15 = [parametersCopy objectForKey:@"appearanceSetting"];
-        integerValue = [v15 integerValue];
+        v17 = [parametersCopy objectForKey:@"appearanceSetting"];
+        integerValue = [v17 integerValue];
 
-        v17 = CarAppearanceLogging();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v20 = CarAppearanceLogging(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = [objc_opt_class() _descriptionForAppearanceSetting:integerValue];
-          v23 = 138543618;
-          v24 = v6;
-          v25 = 2114;
-          v26 = v18;
-          _os_log_impl(&dword_1C81FC000, v17, OS_LOG_TYPE_DEFAULT, "Map Appearance update for screen: %{public}@ has setting: %{public}@", &v23, 0x16u);
+          v21 = [objc_opt_class() _descriptionForAppearanceSetting:integerValue];
+          v26 = 138543618;
+          v27 = v6;
+          v28 = 2114;
+          v29 = v21;
+          _os_log_impl(&dword_1C81FC000, v20, OS_LOG_TYPE_DEFAULT, "Map Appearance update for screen: %{public}@ has setting: %{public}@", &v26, 0x16u);
         }
 
-        if ((v10 - 1) <= 1 && integerValue <= 2)
+        if ((v11 - 1) <= 1 && integerValue <= 2)
         {
           mapAppearanceModeDictionary = [(CARAppearanceManager *)self mapAppearanceModeDictionary];
-          v20 = [MEMORY[0x1E696AD98] numberWithInteger:v10];
-          [mapAppearanceModeDictionary setObject:v20 forKey:v5];
+          v23 = [MEMORY[0x1E696AD98] numberWithInteger:v11];
+          [mapAppearanceModeDictionary setObject:v23 forKey:v5];
 
           mapAppearanceModeSettingDictionary = [(CARAppearanceManager *)self mapAppearanceModeSettingDictionary];
-          v22 = [MEMORY[0x1E696AD98] numberWithInteger:integerValue];
-          [mapAppearanceModeSettingDictionary setObject:v22 forKey:v5];
+          v25 = [MEMORY[0x1E696AD98] numberWithInteger:integerValue];
+          [mapAppearanceModeSettingDictionary setObject:v25 forKey:v5];
 
           [(CARAppearanceManager *)self _resolveMapsStylesAndNotify:1];
           goto LABEL_19;
         }
       }
 
-      v13 = CarAppearanceLogging();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      v14 = CarAppearanceLogging(v16);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
         [CARAppearanceManager handleMapAppearanceUpdateWithParameters:];
       }
@@ -484,8 +487,8 @@ LABEL_19:
 
     else
     {
-      v13 = CarAppearanceLogging();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      v14 = CarAppearanceLogging(supportsMapAppearanceMode);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
         [CARAppearanceManager handleMapAppearanceUpdateWithParameters:];
       }
@@ -498,20 +501,20 @@ LABEL_19:
 - (void)handleLocationBasedNightModeUpdate:(BOOL)update
 {
   updateCopy = update;
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   _mainScreenInfo = [(CARAppearanceManager *)self _mainScreenInfo];
   identifier = [_mainScreenInfo identifier];
   v7 = [(CARAppearanceManager *)self _useVehicleDataProtocolAppearance:identifier];
 
   if (!v7)
   {
-    v8 = CarAppearanceLogging();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = CarAppearanceLogging(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = NSStringFromBOOL();
-      v10 = 138543362;
-      v11 = v9;
-      _os_log_impl(&dword_1C81FC000, v8, OS_LOG_TYPE_DEFAULT, "Location night mode update: %{public}@", &v10, 0xCu);
+      v10 = NSStringFromBOOL();
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_1C81FC000, v9, OS_LOG_TYPE_DEFAULT, "Location night mode update: %{public}@", &v11, 0xCu);
     }
 
     [(CARAppearanceManager *)self setLocationBasedNightMode:updateCopy];
@@ -524,7 +527,7 @@ LABEL_19:
 {
   v20 = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v7 = CarAppearanceLogging();
+  v7 = CarAppearanceLogging(dCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [MEMORY[0x1E696AD98] numberWithInteger:appearance];
@@ -557,11 +560,11 @@ LABEL_19:
 
   if (!v5)
   {
-    v6 = CarAppearanceLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = CarAppearanceLogging(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_1C81FC000, v6, OS_LOG_TYPE_DEFAULT, "Disabling location night mode, further updates will be ignored", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_1C81FC000, v7, OS_LOG_TYPE_DEFAULT, "Disabling location night mode, further updates will be ignored", v8, 2u);
     }
 
     [(CARAppearanceManager *)self setLocationNightModeDisabled:1];
@@ -629,7 +632,7 @@ void __49__CARAppearanceManager__screenInfoForScreenUUID___block_invoke(uint64_t
 
 - (void)_setInitialDisplayNightModeForScreen:(id)screen
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   screenCopy = screen;
   screenInfoResponse = [screenCopy screenInfoResponse];
   v6 = [screenInfoResponse objectForKey:@"nightMode"];
@@ -639,38 +642,38 @@ void __49__CARAppearanceManager__screenInfoForScreenUUID___block_invoke(uint64_t
     v7 = [screenInfoResponse objectForKey:@"nightMode"];
     bOOLValue = [v7 BOOLValue];
 
-    v9 = CarAppearanceLogging();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = CarAppearanceLogging(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = NSStringFromBOOL();
-      v14 = 138543618;
-      v15 = v10;
-      v16 = 2114;
-      v17 = screenCopy;
-      _os_log_impl(&dword_1C81FC000, v9, OS_LOG_TYPE_DEFAULT, "Screen has nightMode key with value: %{public}@ for screenInfo: %{public}@", &v14, 0x16u);
+      v11 = NSStringFromBOOL();
+      v15 = 138543618;
+      v16 = v11;
+      v17 = 2114;
+      v18 = screenCopy;
+      _os_log_impl(&dword_1C81FC000, v10, OS_LOG_TYPE_DEFAULT, "Screen has nightMode key with value: %{public}@ for screenInfo: %{public}@", &v15, 0x16u);
     }
 
     nightModeDictionary = [(CARAppearanceManager *)self nightModeDictionary];
-    v12 = [MEMORY[0x1E696AD98] numberWithBool:bOOLValue];
+    v13 = [MEMORY[0x1E696AD98] numberWithBool:bOOLValue];
     identifier = [screenCopy identifier];
-    [nightModeDictionary setObject:v12 forKey:identifier];
+    [nightModeDictionary setObject:v13 forKey:identifier];
   }
 }
 
 - (void)_setInitialUIAppearanceNumberForScreen:(id)screen
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   screenCopy = screen;
   screenInfoResponse = [screenCopy screenInfoResponse];
   v6 = [screenInfoResponse objectForKey:@"uiAppearanceMode"];
   if (v6 && (v7 = v6, [screenInfoResponse objectForKey:@"uiAppearanceSetting"], v8 = objc_claimAutoreleasedReturnValue(), v8, v7, v8))
   {
-    v9 = CarAppearanceLogging();
+    v9 = CarAppearanceLogging(v6);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = 138543362;
-      v27 = screenCopy;
-      _os_log_impl(&dword_1C81FC000, v9, OS_LOG_TYPE_DEFAULT, "Screen has appearanceMode key: %{public}@", &v26, 0xCu);
+      v27 = 138543362;
+      v28 = screenCopy;
+      _os_log_impl(&dword_1C81FC000, v9, OS_LOG_TYPE_DEFAULT, "Screen has appearanceMode key: %{public}@", &v27, 0xCu);
     }
 
     v10 = objc_opt_class();
@@ -680,75 +683,75 @@ void __49__CARAppearanceManager__screenInfoForScreenUUID___block_invoke(uint64_t
     v13 = [screenInfoResponse objectForKey:@"uiAppearanceSetting"];
     integerValue = [v13 integerValue];
 
-    v15 = CarAppearanceLogging();
-    appearanceModeSettingDictionary = v15;
+    v16 = CarAppearanceLogging(v15);
+    appearanceModeSettingDictionary = v16;
     if ((v12 - 1) > 1 || integerValue > 2)
     {
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
-        v26 = 134349570;
-        v27 = v12;
-        v28 = 2050;
-        v29 = integerValue;
-        v30 = 2112;
-        v31 = screenCopy;
-        _os_log_fault_impl(&dword_1C81FC000, appearanceModeSettingDictionary, OS_LOG_TYPE_FAULT, "Invalid initial style (%{public}lu), setting (%{public}lu) for screenInfo: %@", &v26, 0x20u);
+        v27 = 134349570;
+        v28 = v12;
+        v29 = 2050;
+        v30 = integerValue;
+        v31 = 2112;
+        v32 = screenCopy;
+        _os_log_fault_impl(&dword_1C81FC000, appearanceModeSettingDictionary, OS_LOG_TYPE_FAULT, "Invalid initial style (%{public}lu), setting (%{public}lu) for screenInfo: %@", &v27, 0x20u);
       }
     }
 
     else
     {
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = [CARSessionConfiguration descriptionForUserInterfaceStyle:v12];
-        v20 = [objc_opt_class() _descriptionForAppearanceSetting:integerValue];
-        v26 = 138543874;
-        v27 = v19;
-        v28 = 2114;
-        v29 = v20;
-        v30 = 2114;
-        v31 = screenCopy;
-        _os_log_impl(&dword_1C81FC000, appearanceModeSettingDictionary, OS_LOG_TYPE_DEFAULT, "Initial ui appearance style is: %{public}@, setting: %{public}@, for screenInfo: %{public}@", &v26, 0x20u);
+        v20 = [CARSessionConfiguration descriptionForUserInterfaceStyle:v12];
+        v21 = [objc_opt_class() _descriptionForAppearanceSetting:integerValue];
+        v27 = 138543874;
+        v28 = v20;
+        v29 = 2114;
+        v30 = v21;
+        v31 = 2114;
+        v32 = screenCopy;
+        _os_log_impl(&dword_1C81FC000, appearanceModeSettingDictionary, OS_LOG_TYPE_DEFAULT, "Initial ui appearance style is: %{public}@, setting: %{public}@, for screenInfo: %{public}@", &v27, 0x20u);
       }
 
       appearanceModeDictionary = [(CARAppearanceManager *)self appearanceModeDictionary];
-      v22 = [MEMORY[0x1E696AD98] numberWithInteger:v12];
+      v23 = [MEMORY[0x1E696AD98] numberWithInteger:v12];
       identifier = [screenCopy identifier];
-      [appearanceModeDictionary setObject:v22 forKey:identifier];
+      [appearanceModeDictionary setObject:v23 forKey:identifier];
 
       appearanceModeSettingDictionary = [(CARAppearanceManager *)self appearanceModeSettingDictionary];
-      v24 = [MEMORY[0x1E696AD98] numberWithInteger:integerValue];
+      v25 = [MEMORY[0x1E696AD98] numberWithInteger:integerValue];
       identifier2 = [screenCopy identifier];
-      [appearanceModeSettingDictionary setObject:v24 forKey:identifier2];
+      [appearanceModeSettingDictionary setObject:v25 forKey:identifier2];
     }
   }
 
   else
   {
-    appearanceModeSettingDictionary = CarAppearanceLogging();
+    appearanceModeSettingDictionary = CarAppearanceLogging(v6);
     if (os_log_type_enabled(appearanceModeSettingDictionary, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = 138543362;
-      v27 = screenCopy;
-      _os_log_impl(&dword_1C81FC000, appearanceModeSettingDictionary, OS_LOG_TYPE_DEFAULT, "No initial appearance mode for screenInfo: %{public}@", &v26, 0xCu);
+      v27 = 138543362;
+      v28 = screenCopy;
+      _os_log_impl(&dword_1C81FC000, appearanceModeSettingDictionary, OS_LOG_TYPE_DEFAULT, "No initial appearance mode for screenInfo: %{public}@", &v27, 0xCu);
     }
   }
 }
 
 - (void)_setInitialMapAppearanceNumberForScreen:(id)screen
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   screenCopy = screen;
   screenInfoResponse = [screenCopy screenInfoResponse];
   v6 = [screenInfoResponse objectForKey:@"mapAppearanceMode"];
   if (v6 && (v7 = v6, [screenInfoResponse objectForKey:@"mapAppearanceSetting"], v8 = objc_claimAutoreleasedReturnValue(), v8, v7, v8))
   {
-    v9 = CarAppearanceLogging();
+    v9 = CarAppearanceLogging(v6);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = 138543362;
-      v27 = screenCopy;
-      _os_log_impl(&dword_1C81FC000, v9, OS_LOG_TYPE_DEFAULT, "Screen has mapAppearanceMode key: %{public}@", &v26, 0xCu);
+      v27 = 138543362;
+      v28 = screenCopy;
+      _os_log_impl(&dword_1C81FC000, v9, OS_LOG_TYPE_DEFAULT, "Screen has mapAppearanceMode key: %{public}@", &v27, 0xCu);
     }
 
     v10 = objc_opt_class();
@@ -758,57 +761,57 @@ void __49__CARAppearanceManager__screenInfoForScreenUUID___block_invoke(uint64_t
     v13 = [screenInfoResponse objectForKey:@"mapAppearanceSetting"];
     integerValue = [v13 integerValue];
 
-    v15 = CarAppearanceLogging();
-    mapAppearanceModeSettingDictionary = v15;
+    v16 = CarAppearanceLogging(v15);
+    mapAppearanceModeSettingDictionary = v16;
     if ((v12 - 1) > 1 || integerValue > 2)
     {
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
-        v26 = 134349570;
-        v27 = v12;
-        v28 = 2050;
-        v29 = integerValue;
-        v30 = 2114;
-        v31 = screenCopy;
-        _os_log_fault_impl(&dword_1C81FC000, mapAppearanceModeSettingDictionary, OS_LOG_TYPE_FAULT, "Invalid initial map appearance style (%{public}lu), setting (%{public}lu) for screenInfo: %{public}@", &v26, 0x20u);
+        v27 = 134349570;
+        v28 = v12;
+        v29 = 2050;
+        v30 = integerValue;
+        v31 = 2114;
+        v32 = screenCopy;
+        _os_log_fault_impl(&dword_1C81FC000, mapAppearanceModeSettingDictionary, OS_LOG_TYPE_FAULT, "Invalid initial map appearance style (%{public}lu), setting (%{public}lu) for screenInfo: %{public}@", &v27, 0x20u);
       }
     }
 
     else
     {
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = [CARSessionConfiguration descriptionForUserInterfaceStyle:v12];
-        v20 = [objc_opt_class() _descriptionForAppearanceSetting:integerValue];
-        v26 = 138543874;
-        v27 = v19;
-        v28 = 2114;
-        v29 = v20;
-        v30 = 2114;
-        v31 = screenCopy;
-        _os_log_impl(&dword_1C81FC000, mapAppearanceModeSettingDictionary, OS_LOG_TYPE_DEFAULT, "Initial map appearance style is: %{public}@, setting: %{public}@, for screenInfo: %{public}@", &v26, 0x20u);
+        v20 = [CARSessionConfiguration descriptionForUserInterfaceStyle:v12];
+        v21 = [objc_opt_class() _descriptionForAppearanceSetting:integerValue];
+        v27 = 138543874;
+        v28 = v20;
+        v29 = 2114;
+        v30 = v21;
+        v31 = 2114;
+        v32 = screenCopy;
+        _os_log_impl(&dword_1C81FC000, mapAppearanceModeSettingDictionary, OS_LOG_TYPE_DEFAULT, "Initial map appearance style is: %{public}@, setting: %{public}@, for screenInfo: %{public}@", &v27, 0x20u);
       }
 
       mapAppearanceModeDictionary = [(CARAppearanceManager *)self mapAppearanceModeDictionary];
-      v22 = [MEMORY[0x1E696AD98] numberWithInteger:v12];
+      v23 = [MEMORY[0x1E696AD98] numberWithInteger:v12];
       identifier = [screenCopy identifier];
-      [mapAppearanceModeDictionary setObject:v22 forKey:identifier];
+      [mapAppearanceModeDictionary setObject:v23 forKey:identifier];
 
       mapAppearanceModeSettingDictionary = [(CARAppearanceManager *)self mapAppearanceModeSettingDictionary];
-      v24 = [MEMORY[0x1E696AD98] numberWithInteger:integerValue];
+      v25 = [MEMORY[0x1E696AD98] numberWithInteger:integerValue];
       identifier2 = [screenCopy identifier];
-      [mapAppearanceModeSettingDictionary setObject:v24 forKey:identifier2];
+      [mapAppearanceModeSettingDictionary setObject:v25 forKey:identifier2];
     }
   }
 
   else
   {
-    mapAppearanceModeSettingDictionary = CarAppearanceLogging();
+    mapAppearanceModeSettingDictionary = CarAppearanceLogging(v6);
     if (os_log_type_enabled(mapAppearanceModeSettingDictionary, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = 138543362;
-      v27 = screenCopy;
-      _os_log_impl(&dword_1C81FC000, mapAppearanceModeSettingDictionary, OS_LOG_TYPE_DEFAULT, "No initial map appearance mode for screenInfo: %{public}@", &v26, 0xCu);
+      v27 = 138543362;
+      v28 = screenCopy;
+      _os_log_impl(&dword_1C81FC000, mapAppearanceModeSettingDictionary, OS_LOG_TYPE_DEFAULT, "No initial map appearance mode for screenInfo: %{public}@", &v27, 0xCu);
     }
   }
 }
@@ -827,14 +830,14 @@ void __49__CARAppearanceManager__screenInfoForScreenUUID___block_invoke(uint64_t
 
 void __50__CARAppearanceManager__resolveUIStylesAndNotify___block_invoke(uint64_t a1, void *a2)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 identifier];
   if (([*(a1 + 32) _useVehicleDataProtocolAppearance:v4] & 1) == 0)
   {
     v5 = [*(a1 + 32) currentEffectiveUIStyle];
     v6 = [v5 objectForKey:v4];
-    v35 = [v6 integerValue];
+    v36 = [v6 integerValue];
 
     v7 = [*(a1 + 32) locationBasedNightMode];
     v8 = [*(a1 + 32) nightModeDictionary];
@@ -848,7 +851,7 @@ void __50__CARAppearanceManager__resolveUIStylesAndNotify___block_invoke(uint64_
     v14 = [v13 objectForKey:v4];
 
     v15 = [v14 integerValue];
-    v36 = v14;
+    v37 = v14;
     if (v12 && v14)
     {
       v16 = [v12 integerValue];
@@ -919,7 +922,7 @@ void __50__CARAppearanceManager__resolveUIStylesAndNotify___block_invoke(uint64_
       v21 = v16;
     }
 
-    v22 = CarAppearanceLogging();
+    v22 = CarAppearanceLogging(v16);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       v23 = [CARSessionConfiguration descriptionForUserInterfaceStyle:v21];
@@ -927,45 +930,45 @@ void __50__CARAppearanceManager__resolveUIStylesAndNotify___block_invoke(uint64_
       v25 = NSStringFromBOOL();
       v26 = NSStringFromBOOL();
       *buf = 138544642;
-      v39 = v23;
-      v40 = 2114;
-      v41 = v3;
-      v42 = 2114;
-      v43 = v12;
-      v44 = 2114;
-      v45 = v24;
-      v46 = 2114;
-      v47 = v25;
-      v48 = 2114;
-      v49 = v26;
+      v40 = v23;
+      v41 = 2114;
+      v42 = v3;
+      v43 = 2114;
+      v44 = v12;
+      v45 = 2114;
+      v46 = v24;
+      v47 = 2114;
+      v48 = v25;
+      v49 = 2114;
+      v50 = v26;
       _os_log_impl(&dword_1C81FC000, v22, OS_LOG_TYPE_DEFAULT, "Resolved ui style: %{public}@ for screen: %{public}@ with ui appearance value: %{public}@, appearance setting: %{public}@, location night mode: %{public}@, display night mode: %{public}@", buf, 0x3Eu);
     }
 
-    if (v21 != v35)
+    if (v21 != v36)
     {
-      v27 = CarAppearanceLogging();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v28 = CarAppearanceLogging(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
-        v28 = [CARSessionConfiguration descriptionForUserInterfaceStyle:v21];
-        v29 = NSStringFromBOOL();
+        v29 = [CARSessionConfiguration descriptionForUserInterfaceStyle:v21];
+        v30 = NSStringFromBOOL();
         *buf = 138543618;
-        v39 = v28;
-        v40 = 2114;
-        v41 = v29;
-        _os_log_impl(&dword_1C81FC000, v27, OS_LOG_TYPE_DEFAULT, "UI Style has been updated, setting effective style to %{public}@, will notify: %{public}@", buf, 0x16u);
+        v40 = v29;
+        v41 = 2114;
+        v42 = v30;
+        _os_log_impl(&dword_1C81FC000, v28, OS_LOG_TYPE_DEFAULT, "UI Style has been updated, setting effective style to %{public}@, will notify: %{public}@", buf, 0x16u);
       }
 
-      v30 = [*(a1 + 32) currentEffectiveUIStyle];
-      v31 = [MEMORY[0x1E696AD98] numberWithInteger:v21];
-      [v30 setObject:v31 forKey:v4];
+      v31 = [*(a1 + 32) currentEffectiveUIStyle];
+      v32 = [MEMORY[0x1E696AD98] numberWithInteger:v21];
+      [v31 setObject:v32 forKey:v4];
 
       if (*(a1 + 40) == 1)
       {
-        v32 = [*(a1 + 32) delegate];
-        v33 = *(a1 + 32);
-        v37 = v4;
-        v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
-        [v32 appearanceManager:v33 didUpdateUIAppearanceStyle:v21 forScreenUUIDs:v34];
+        v33 = [*(a1 + 32) delegate];
+        v34 = *(a1 + 32);
+        v38 = v4;
+        v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
+        [v33 appearanceManager:v34 didUpdateUIAppearanceStyle:v21 forScreenUUIDs:v35];
       }
     }
 
@@ -987,14 +990,14 @@ void __50__CARAppearanceManager__resolveUIStylesAndNotify___block_invoke(uint64_
 
 void __52__CARAppearanceManager__resolveMapsStylesAndNotify___block_invoke(uint64_t a1, void *a2)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 identifier];
   if (([*(a1 + 32) _useVehicleDataProtocolAppearance:v4] & 1) == 0)
   {
     v5 = [*(a1 + 32) currentEffectiveMapStyle];
     v6 = [v5 objectForKey:v4];
-    v34 = [v6 integerValue];
+    v35 = [v6 integerValue];
 
     v7 = [*(a1 + 32) locationBasedNightMode];
     v8 = [*(a1 + 32) nightModeDictionary];
@@ -1041,7 +1044,7 @@ void __52__CARAppearanceManager__resolveMapsStylesAndNotify___block_invoke(uint6
 
       if (v20 == 1)
       {
-        v21 = CarAppearanceLogging();
+        v21 = CarAppearanceLogging(v15);
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
@@ -1057,50 +1060,50 @@ void __52__CARAppearanceManager__resolveMapsStylesAndNotify___block_invoke(uint6
       }
     }
 
-    v22 = CarAppearanceLogging();
+    v22 = CarAppearanceLogging(v15);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       v23 = [CARSessionConfiguration descriptionForUserInterfaceStyle:v16];
       v24 = NSStringFromBOOL();
       v25 = NSStringFromBOOL();
       *buf = 138544386;
-      v37 = v23;
-      v38 = 2114;
-      v39 = v3;
-      v40 = 2114;
-      v41 = v12;
-      v42 = 2114;
-      v43 = v24;
-      v44 = 2114;
-      v45 = v25;
+      v38 = v23;
+      v39 = 2114;
+      v40 = v3;
+      v41 = 2114;
+      v42 = v12;
+      v43 = 2114;
+      v44 = v24;
+      v45 = 2114;
+      v46 = v25;
       _os_log_impl(&dword_1C81FC000, v22, OS_LOG_TYPE_DEFAULT, "Resolved map style: %{public}@ for screen: %{public}@ with ui appearance value: %{public}@, location night mode: %{public}@, display night mode: %{public}@", buf, 0x34u);
     }
 
-    if (v16 != v34)
+    if (v16 != v35)
     {
-      v26 = CarAppearanceLogging();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v27 = CarAppearanceLogging(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = [CARSessionConfiguration descriptionForUserInterfaceStyle:v16];
-        v28 = NSStringFromBOOL();
+        v28 = [CARSessionConfiguration descriptionForUserInterfaceStyle:v16];
+        v29 = NSStringFromBOOL();
         *buf = 138543618;
-        v37 = v27;
-        v38 = 2114;
-        v39 = v28;
-        _os_log_impl(&dword_1C81FC000, v26, OS_LOG_TYPE_DEFAULT, "Map Style has been updated, setting effective style to %{public}@, will notify: %{public}@", buf, 0x16u);
+        v38 = v28;
+        v39 = 2114;
+        v40 = v29;
+        _os_log_impl(&dword_1C81FC000, v27, OS_LOG_TYPE_DEFAULT, "Map Style has been updated, setting effective style to %{public}@, will notify: %{public}@", buf, 0x16u);
       }
 
-      v29 = [*(a1 + 32) currentEffectiveMapStyle];
-      v30 = [MEMORY[0x1E696AD98] numberWithInteger:v16];
-      [v29 setObject:v30 forKey:v4];
+      v30 = [*(a1 + 32) currentEffectiveMapStyle];
+      v31 = [MEMORY[0x1E696AD98] numberWithInteger:v16];
+      [v30 setObject:v31 forKey:v4];
 
       if (*(a1 + 40) == 1)
       {
-        v31 = [*(a1 + 32) delegate];
-        v32 = *(a1 + 32);
-        v35 = v4;
-        v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
-        [v31 appearanceManager:v32 didUpdateMapAppearanceStyle:v16 forScreenUUIDs:v33];
+        v32 = [*(a1 + 32) delegate];
+        v33 = *(a1 + 32);
+        v36 = v4;
+        v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
+        [v32 appearanceManager:v33 didUpdateMapAppearanceStyle:v16 forScreenUUIDs:v34];
       }
     }
   }

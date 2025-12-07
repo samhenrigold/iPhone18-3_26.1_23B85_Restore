@@ -333,8 +333,6 @@ void __38__BrightnessSystemClientInternal_init__block_invoke_2(uint64_t a1, uint
     __os_log_helper_16_2_1_8_66(v5, a2);
     _os_log_error_impl(&dword_1DE8E5000, v3, OS_LOG_TYPE_ERROR, "_connection synchronousRemoteObjectProxyWithErrorHandler error: %{public}@", v5, 0xCu);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 void __38__BrightnessSystemClientInternal_init__block_invoke_70(uint64_t a1, uint64_t a2)
@@ -369,8 +367,6 @@ void __38__BrightnessSystemClientInternal_init__block_invoke_70(uint64_t a1, uin
     __os_log_helper_16_2_1_8_66(v6, a2);
     _os_log_error_impl(&dword_1DE8E5000, v3, OS_LOG_TYPE_ERROR, "_connection remoteObjectProxyWithErrorHandler error: %{public}@", v6, 0xCu);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setProperty:(id)property forKey:(id)key
@@ -447,124 +443,121 @@ void __38__BrightnessSystemClientInternal_init__block_invoke_70(uint64_t a1, uin
     v26 = 1;
   }
 
-  *MEMORY[0x1E69E9840];
   return v26 & 1;
 }
 
 - (BOOL)setSyncProperty:(id)property forKey:(id)key
 {
-  v21 = &v39;
-  v53 = *MEMORY[0x1E69E9840];
+  v20 = &v38;
+  v52 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v49 = a2;
+  v48 = a2;
   propertyCopy = property;
   keyCopy = key;
-  v46 = 0;
-  v40[0] = 0;
-  v40[1] = v40;
-  v41 = 1375731712;
-  v42 = 48;
-  v43 = __Block_byref_object_copy__1;
-  v44 = __Block_byref_object_dispose__1;
   v45 = 0;
+  v39[0] = 0;
+  v39[1] = v39;
+  v40 = 1375731712;
+  v41 = 48;
+  v42 = __Block_byref_object_copy__1;
+  v43 = __Block_byref_object_dispose__1;
+  v44 = 0;
   obj = self;
   objc_sync_enter(self);
   if (selfCopy->_remote)
   {
-    v19 = [*(v21 + 60) copy];
-    v38 = v19;
-    v18 = objc_alloc(MEMORY[0x1E695DEC8]);
-    v17 = [v18 initWithObjects:{*(v21 + 68), 0}];
-    v37 = v17;
-    if (*(*(v21 + 84) + 49))
+    v18 = [*(v20 + 60) copy];
+    v37 = v18;
+    v17 = objc_alloc(MEMORY[0x1E695DEC8]);
+    v16 = [v17 initWithObjects:{*(v20 + 68), 0}];
+    v36 = v16;
+    if (*(*(v20 + 84) + 49))
     {
       block = MEMORY[0x1E69E9820];
-      v28 = -1073741824;
-      v29 = 0;
-      v30 = __57__BrightnessSystemClientInternal_setSyncProperty_forKey___block_invoke;
-      v31 = &unk_1E867B4A8;
-      v32 = *(v21 + 84);
-      v33 = v38;
-      v34 = v37;
-      v35 = v40;
-      v36 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INTERACTIVE, 0, &block);
-      if (v36)
+      v27 = -1073741824;
+      v28 = 0;
+      v29 = __57__BrightnessSystemClientInternal_setSyncProperty_forKey___block_invoke;
+      v30 = &unk_1E867B4A8;
+      v31 = *(v20 + 84);
+      v32 = v37;
+      v33 = v36;
+      v34 = v39;
+      v35 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INTERACTIVE, 0, &block);
+      if (v35)
       {
-        dispatch_sync(*(*(v21 + 84) + 56), v36);
-        _Block_release(v36);
+        dispatch_sync(*(*(v20 + 84) + 56), v35);
+        _Block_release(v35);
       }
     }
 
     else
     {
-      oslog = *(*(v21 + 84) + 64);
+      oslog = *(*(v20 + 84) + 64);
       type = OS_LOG_TYPE_FAULT;
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_FAULT))
       {
         log = oslog;
-        *v15 = type;
-        buf = v24;
-        __os_log_helper_16_0_0(v24);
-        _os_log_fault_impl(&dword_1DE8E5000, log, v15[0], "non-sycnhronous remote unsupported for set sycn property", buf, 2u);
+        *v14 = type;
+        buf = v23;
+        __os_log_helper_16_0_0(v23);
+        _os_log_fault_impl(&dword_1DE8E5000, log, v14[0], "non-sycnhronous remote unsupported for set sycn property", buf, 2u);
       }
     }
 
-    MEMORY[0x1E69E5920](v38);
     MEMORY[0x1E69E5920](v37);
-    *v21 = 0;
+    MEMORY[0x1E69E5920](v36);
+    *v20 = 0;
   }
 
   else
   {
-    v51 = v46 & 1;
-    *v21 = 1;
+    v50 = v45 & 1;
+    *v20 = 1;
   }
 
   objc_sync_exit(obj);
-  if (!*v21)
+  if (!*v20)
   {
-    if (*(*(v21 + 12) + 40) == *MEMORY[0x1E695E738])
+    if (*(*(v20 + 12) + 40) == *MEMORY[0x1E695E738])
     {
-      MEMORY[0x1E69E5920](*(*(v21 + 12) + 40));
-      *(*(v21 + 12) + 40) = 0;
+      MEMORY[0x1E69E5920](*(*(v20 + 12) + 40));
+      *(*(v20 + 12) + 40) = 0;
     }
 
     else
     {
-      v12 = *(*(v21 + 12) + 40);
-      v13 = objc_opt_class();
+      v11 = *(*(v20 + 12) + 40);
+      v12 = objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
       if (isKindOfClass)
       {
-        bOOLValue = [*(*(v21 + 12) + 40) BOOLValue];
-        v46 = bOOLValue;
-        MEMORY[0x1E69E5920](*(*(v21 + 12) + 40));
+        bOOLValue = [*(*(v20 + 12) + 40) BOOLValue];
+        v45 = bOOLValue;
+        MEMORY[0x1E69E5920](*(*(v20 + 12) + 40));
       }
 
       else
       {
-        v23 = *(*(v21 + 84) + 64);
-        v22 = OS_LOG_TYPE_FAULT;
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+        v22 = *(*(v20 + 84) + 64);
+        v21 = OS_LOG_TYPE_FAULT;
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
         {
-          v7 = v23;
-          *v8 = v22;
-          v4 = *(*(v21 + 12) + 40);
-          v9 = v52;
-          __os_log_helper_16_2_1_8_64(v52, v4);
-          _os_log_fault_impl(&dword_1DE8E5000, v7, v8[0], "unexpected result from setProperty (sync): %@", v9, 0xCu);
+          v6 = v22;
+          *v7 = v21;
+          v4 = *(*(v20 + 12) + 40);
+          v8 = v51;
+          __os_log_helper_16_2_1_8_64(v51, v4);
+          _os_log_fault_impl(&dword_1DE8E5000, v6, v7[0], "unexpected result from setProperty (sync): %@", v8, 0xCu);
         }
       }
     }
 
-    v51 = v46 & 1;
-    *v21 = 1;
+    v50 = v45 & 1;
+    *v20 = 1;
   }
 
-  _Block_object_dispose(v40, 8);
-  v6 = v51;
-  *MEMORY[0x1E69E9840];
-  return v51 & 1;
+  _Block_object_dispose(v39, 8);
+  return v50 & 1;
 }
 
 uint64_t __57__BrightnessSystemClientInternal_setSyncProperty_forKey___block_invoke(void *a1)
@@ -583,7 +576,7 @@ uint64_t __57__BrightnessSystemClientInternal_setSyncProperty_forKey___block_inv
   return [v2 clientSetSYNCPropertyWithKey:v3 property:v4 reply:?];
 }
 
-uint64_t __57__BrightnessSystemClientInternal_setSyncProperty_forKey___block_invoke_2(uint64_t a1, void *a2, void *a3)
+void *__57__BrightnessSystemClientInternal_setSyncProperty_forKey___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   result = [a3 code];
   if (!result)
@@ -597,36 +590,36 @@ uint64_t __57__BrightnessSystemClientInternal_setSyncProperty_forKey___block_inv
 
 - (id)copyPropertyForKey:(id)key
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v46 = a2;
+  v44 = a2;
   keyCopy = key;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 1375731712;
-  v41 = 48;
-  v42 = __Block_byref_object_copy__1;
-  v43 = __Block_byref_object_dispose__1;
-  v44 = 0;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 1375731712;
+  v39 = 48;
+  v40 = __Block_byref_object_copy__1;
+  v41 = __Block_byref_object_dispose__1;
+  v42 = 0;
   objc_sync_enter(self);
   if (selfCopy->_remote)
   {
-    v36 = [keyCopy copy];
+    v34 = [keyCopy copy];
     if (selfCopy->_useSynchronousRemote)
     {
       block = MEMORY[0x1E69E9820];
-      v28 = -1073741824;
-      v29 = 0;
-      v30 = __53__BrightnessSystemClientInternal_copyPropertyForKey___block_invoke;
-      v31 = &unk_1E867B7A0;
-      v32 = selfCopy;
-      v33 = v36;
-      v34 = &v38;
-      v35 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INTERACTIVE, 0, &block);
-      dispatch_sync(selfCopy->_serialQueue, v35);
-      if (v35)
+      v26 = -1073741824;
+      v27 = 0;
+      v28 = __53__BrightnessSystemClientInternal_copyPropertyForKey___block_invoke;
+      v29 = &unk_1E867B7A0;
+      v30 = selfCopy;
+      v31 = v34;
+      v32 = &v36;
+      v33 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INTERACTIVE, 0, &block);
+      dispatch_sync(selfCopy->_serialQueue, v33);
+      if (v33)
       {
-        _Block_release(v35);
+        _Block_release(v33);
       }
     }
 
@@ -636,21 +629,21 @@ uint64_t __57__BrightnessSystemClientInternal_setSyncProperty_forKey___block_inv
       selfCopy->copyPropertyForKeyCompleted = 0;
       [(NSCondition *)selfCopy->copyPropertyForKeyWaitCondition unlock];
       remote = selfCopy->_remote;
-      v20 = MEMORY[0x1E69E9820];
-      v21 = -1073741824;
-      v22 = 0;
-      v23 = __53__BrightnessSystemClientInternal_copyPropertyForKey___block_invoke_3;
-      v24 = &unk_1E867B7C8;
-      v26 = &v38;
-      v25 = selfCopy;
-      [remote clientCopyPropertyWithKey:v36 reply:?];
+      v18 = MEMORY[0x1E69E9820];
+      v19 = -1073741824;
+      v20 = 0;
+      v21 = __53__BrightnessSystemClientInternal_copyPropertyForKey___block_invoke_3;
+      v22 = &unk_1E867B7C8;
+      v24 = &v36;
+      v23 = selfCopy;
+      [remote clientCopyPropertyWithKey:v34 reply:?];
       [(NSCondition *)selfCopy->copyPropertyForKeyWaitCondition lock];
       while (!selfCopy->copyPropertyForKeyCompleted)
       {
-        v19 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceNow:10.0];
-        v18 = ![(NSCondition *)selfCopy->copyPropertyForKeyWaitCondition waitUntilDate:v19];
-        MEMORY[0x1E69E5920](v19);
-        if (v18)
+        v17 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceNow:10.0];
+        v16 = ![(NSCondition *)selfCopy->copyPropertyForKeyWaitCondition waitUntilDate:v17];
+        MEMORY[0x1E69E5920](v17);
+        if (v16)
         {
           if (selfCopy->_logHandle)
           {
@@ -677,9 +670,9 @@ uint64_t __57__BrightnessSystemClientInternal_setSyncProperty_forKey___block_inv
           if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
           {
             log = oslog;
-            v11 = type;
-            __os_log_helper_16_0_0(v15);
-            _os_log_impl(&dword_1DE8E5000, log, v11, "copyPropertyForKeyWaitCondition waitUntilDate timeout", v15, 2u);
+            v9 = type;
+            __os_log_helper_16_0_0(v13);
+            _os_log_impl(&dword_1DE8E5000, log, v9, "copyPropertyForKeyWaitCondition waitUntilDate timeout", v13, 2u);
           }
 
           break;
@@ -690,59 +683,56 @@ uint64_t __57__BrightnessSystemClientInternal_setSyncProperty_forKey___block_inv
       [(NSCondition *)selfCopy->copyPropertyForKeyWaitCondition unlock];
     }
 
-    MEMORY[0x1E69E5920](v36);
-    v37 = 0;
+    MEMORY[0x1E69E5920](v34);
+    v35 = 0;
   }
 
   else
   {
-    v48 = 0;
-    v37 = 1;
+    v46 = 0;
+    v35 = 1;
   }
 
   objc_sync_exit(self);
-  if (!v37)
+  if (!v35)
   {
     if ([keyCopy isEqual:@"DisplayBrightness"])
     {
-      v9 = v39[5];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         if (selfCopy->_logHandle)
         {
-          v8 = selfCopy->_logHandle;
+          v7 = selfCopy->_logHandle;
         }
 
         else
         {
-          v7 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
-          v8 = v7;
+          v6 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+          v7 = v6;
         }
 
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v4 = v39[5];
-          v6 = objc_opt_class();
-          __os_log_helper_16_2_1_8_64(v49, v6);
-          _os_log_impl(&dword_1DE8E5000, v8, OS_LOG_TYPE_DEFAULT, "Value of the key, kCBDisplayBrightnessKey, is NOT a dictionary class (is a %@ object)", v49, 0xCu);
+          v5 = objc_opt_class();
+          __os_log_helper_16_2_1_8_64(v47, v5);
+          _os_log_impl(&dword_1DE8E5000, v7, OS_LOG_TYPE_DEFAULT, "Value of the key, kCBDisplayBrightnessKey, is NOT a dictionary class (is a %@ object)", v47, 0xCu);
         }
       }
     }
 
-    if (v39[5] == *MEMORY[0x1E695E738])
+    if (v37[5] == *MEMORY[0x1E695E738])
     {
-      CFRelease(v39[5]);
-      v39[5] = 0;
+      CFRelease(v37[5]);
+      v37[5] = 0;
     }
 
-    v48 = v39[5];
-    v37 = 1;
+    v46 = v37[5];
+    v35 = 1;
   }
 
-  _Block_object_dispose(&v38, 8);
-  *MEMORY[0x1E69E9840];
-  return v48;
+  _Block_object_dispose(&v36, 8);
+  return v46;
 }
 
 uint64_t __53__BrightnessSystemClientInternal_copyPropertyForKey___block_invoke(void *a1)
@@ -894,11 +884,11 @@ uint64_t __53__BrightnessSystemClientInternal_copyPropertyForKey___block_invoke_
   }
 }
 
-uint64_t __63__BrightnessSystemClientInternal_addPropertiesForNotification___block_invoke(uint64_t result, uint64_t a2)
+id *__63__BrightnessSystemClientInternal_addPropertiesForNotification___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addKeyToClientProperties:a2];
+    return [result[4] addKeyToClientProperties:a2];
   }
 
   return result;
@@ -925,11 +915,11 @@ uint64_t __63__BrightnessSystemClientInternal_addPropertiesForNotification___blo
   }
 }
 
-uint64_t __67__BrightnessSystemClientInternal_removePropertiesFromNotification___block_invoke(uint64_t result, uint64_t a2)
+id *__67__BrightnessSystemClientInternal_removePropertiesFromNotification___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) removeKeyFromClientProperties:a2];
+    return [result[4] removeKeyFromClientProperties:a2];
   }
 
   return result;

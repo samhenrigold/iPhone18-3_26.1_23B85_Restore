@@ -4,7 +4,6 @@
 + (void)_sendABTestingEnabledStateToProcessPool:(uint64_t)pool;
 - (BOOL)_animationsAreEnabled;
 - (BOOL)_canScrollToTopInView:(uint64_t)view;
-- (BOOL)_hasPresentedViewController;
 - (BOOL)_isInContinuousMode;
 - (BOOL)_isScrolledToThresholdForContinuousPrefetching;
 - (BOOL)_isTabBarShown;
@@ -167,8 +166,11 @@
 - (id)_nonBlankCurrentTabs;
 - (id)_openURLNavigationIntentForSceneConnectionOptions:(uint64_t)options;
 - (id)_participantsListForCollaborationView:(id *)view;
+- (id)_sceneSession;
 - (id)_screenTimeHostingViewControllerForTabDocument:(id)document;
 - (id)_screenTimeOverlayViewControllerForTabDocument:(void *)document;
+- (id)_shareButtonEnabled;
+- (id)_shouldShowBookmarksBar;
 - (id)_sidebarViewController;
 - (id)_stringByRemovingContentBetweenZeroWidthSpacesForText:(uint64_t)text;
 - (id)_tabDocumentForNextContinuousItem;
@@ -181,7 +183,9 @@
 - (id)_titleForToggleWebpageStatusBar;
 - (id)_topContinuousReadingBanner;
 - (id)_topNavigationBar;
+- (id)_updateConfiguration;
 - (id)_updateContinuousReadingViewControllerFrame;
+- (id)_updateLibraryTypeForNewDocument;
 - (id)_visibleAppBanner;
 - (id)activeLibraryType;
 - (id)activeTabUUIDString;
@@ -196,6 +200,7 @@
 - (id)currentContentUUIDForNavigationBar:(id)bar;
 - (id)detachFromScene;
 - (id)downloadsViewControllerForActionPanel:(id)panel;
+- (id)effectiveNewDocumentShortcutBehavior;
 - (id)existingUnnamedTabGroupForProfileWithIdentifier:(id)identifier;
 - (id)imageForNewDefaultWindowCommand;
 - (id)itemProviderForNavigationBar:(id)bar;
@@ -245,6 +250,7 @@
 - (uint64_t)_currentBarContentMode;
 - (uint64_t)_currentlyEditingText;
 - (uint64_t)_dismissTransientUIAnimated:(uint64_t)animated dismissalOptions:(void *)options completionHandler:;
+- (uint64_t)_hasPresentedViewController;
 - (uint64_t)_isReaderModeFormatMenuItemAvailable;
 - (uint64_t)_isShowingCollectionInSidebar:(id *)sidebar;
 - (uint64_t)_isStartPageOverriddenByExtensionInTabDocument:(uint64_t)document;
@@ -254,30 +260,24 @@
 - (uint64_t)_obscuredInsetsIncludeRefreshControl;
 - (uint64_t)_prefersShowingBookmarksBar;
 - (uint64_t)_setShowingOverlayForBanner:(int)banner showing:;
-- (uint64_t)_shareButtonEnabled;
 - (uint64_t)_shouldHideBarsForSizeChange;
 - (uint64_t)_shouldHideCatalogViewControllerForSizeChange;
 - (uint64_t)_shouldPresentViewControllerUsingAdaptivePopover:(uint64_t)IsPad;
 - (uint64_t)_shouldShowBarsForSizeChange;
-- (uint64_t)_shouldShowBookmarksBar;
-- (uint64_t)_shouldShowBookmarksBarForViewSize:(uint64_t)size;
+- (uint64_t)_shouldShowBookmarksBarForViewSize:(double)size;
 - (uint64_t)_shouldShowCollectionInSidebar;
 - (uint64_t)_shouldShowNewReadingListBehaviorAlert;
 - (uint64_t)_shouldShowSidebarForSizeChange;
 - (uint64_t)_shouldShowSidebarForSizeChangeToSize:(double)size;
 - (uint64_t)_shouldUseTabBar;
-- (uint64_t)_showOrHideSidebarInLandscapeIfNecessary;
 - (uint64_t)_spawnNewTabFromPinnedTabIfNeededForSpeculativeDocument:(uint64_t)document;
-- (uint64_t)_tabIndexForKeyCommand:(uint64_t)command;
-- (uint64_t)_updateConfiguration;
 - (uint64_t)_updateContinuousReadingViewControllerFrame;
 - (uint64_t)_updateDisableBarHiding;
-- (uint64_t)_updateLibraryTypeForNewDocument;
 - (uint64_t)_wantsURLFieldAutoFocus;
-- (uint64_t)effectiveNewDocumentShortcutBehavior;
 - (uint64_t)handleOpenURLContextsForReadingListWidget:(void *)widget;
 - (uint64_t)shouldShowSidebarInLandscape;
 - (unint64_t)_shouldShowTabBar;
+- (unint64_t)_tabIndexForKeyCommand:(unint64_t)command;
 - (unint64_t)downloadsCount;
 - (unint64_t)numberOfTabsInCurrentTabBar;
 - (unint64_t)popUpPolicyForTabDocument:(id)document;
@@ -325,11 +325,11 @@
 - (void)_focusNavigationBarForVoiceSearch:(void *)search completionHandler:;
 - (void)_focusNavigationBarWithCompletionHandler:(uint64_t)handler;
 - (void)_fullyRemoveDigitalHealthTreatmentForTabDocumentIfNecessary:(void *)necessary;
-- (void)_goBackAllowingNewTabToSpawnIfNeeded:(id *)needed;
+- (void)_goBackAllowingNewTabToSpawnIfNeeded:(id *)result;
 - (void)_goForwardAllowingNewTabToSpawnIfNeeded:(id *)needed;
 - (void)_hasUnviewedDownloadsDidChange:(id)change;
 - (void)_hideDigitalHealthOverlayForTabDocument:(id *)document;
-- (void)_hideReaderForTabDocument:(char)document animated:(uint64_t)animated deactivationMode:(void *)mode completion:;
+- (void)_hideReaderForTabDocument:(uint64_t)document animated:(uint64_t)animated deactivationMode:(void *)mode completion:;
 - (void)_initSubviews;
 - (void)_insertScreenTimeLockoutShieldIntoContentViewForTab:(uint64_t)tab animated:;
 - (void)_invalidatePreviewDocumentCloseTimer;
@@ -386,8 +386,7 @@
 - (void)_requestActivationOfBrowserController:(id *)controller;
 - (void)_requestQueryResultsOnTabDocument:(void *)document forText:(uint64_t)text contentType:(void *)type pageMetadata:;
 - (void)_restoreDigitalHealthFunctionalityAfterAppTransition;
-- (void)_rootViewControllerViewTransitionFromSize:(uint64_t)size includingSidebar:(int)sidebar animated:(uint64_t)animated;
-- (void)_sceneSession;
+- (void)_rootViewControllerViewTransitionFromSize:(uint64_t)size includingSidebar:(double)sidebar animated:;
 - (void)_scheduleAutoFillInternalFeedbackToastDismissal;
 - (void)_searchTabs;
 - (void)_sendPDFRepresentationForScreenshotWithTabDocument:(void *)document;
@@ -400,15 +399,16 @@
 - (void)_setReaderVisible:(void *)visible forTabDocument:(uint64_t)document deactivationMode:(char)mode animated:(void *)animated completion:;
 - (void)_setSheetPresentationIfNeededForController:(uint64_t)controller;
 - (void)_setShowBookmarksBar:(uint64_t)bar;
-- (void)_setShowingAppBanner:(int)banner isShowing:;
+- (void)_setShowingAppBanner:(uint64_t)banner isShowing:;
 - (void)_setShowingPrivateBrowsingPrivacyProtectionsBanner:(int)banner isShowing:;
-- (void)_setShowingTabBar:(char)bar animated:;
+- (void)_setShowingTabBar:(uint64_t)bar animated:;
 - (void)_setSidebarUIProxy:(uint64_t)proxy;
 - (void)_showDefaultBrowserSheetIfNecessary;
 - (void)_showDigitalHealthOverlayForTabDocument:(uint64_t)document withPolicy:(uint64_t)policy animated:;
 - (void)_showNoRecentSearchesView:(id)view;
+- (void)_showOrHideSidebarInLandscapeIfNecessary;
 - (void)_showPrivateBrowsingExplanationSheetIfNecessary;
-- (void)_showReaderForTabDocument:(char)document animated:(void *)animated completion:;
+- (void)_showReaderForTabDocument:(uint64_t)document animated:(void *)animated completion:;
 - (void)_showSummarizeButtonIfNeeded;
 - (void)_siriReadThisMenuInvocation;
 - (void)_siriReadThisVocalInvocation;
@@ -1047,13 +1047,13 @@ LABEL_7:
   return v4;
 }
 
-- (uint64_t)_updateConfiguration
+- (id)_updateConfiguration
 {
   if (result)
   {
     v1 = result;
-    v2 = *(result + 48);
-    *(result + 48) = 0;
+    v2 = result[6];
+    result[6] = 0;
 
     configuration = [v1 configuration];
     allowsKeyboardCorrectionLearning = [configuration allowsKeyboardCorrectionLearning];
@@ -1745,16 +1745,16 @@ LABEL_9:
 
 - (void)_updateUnifiedBar
 {
-  if (self)
+  if (result)
   {
-    if ([self[33] usingUnifiedBar])
+    if ([result[33] usingUnifiedBar])
     {
-      tabBarDisplayMode = [self tabBarDisplayMode];
-      tabBarManager = [self tabBarManager];
+      tabBarDisplayMode = [result tabBarDisplayMode];
+      tabBarManager = [result tabBarManager];
       [tabBarManager setDisplayMode:tabBarDisplayMode];
     }
 
-    [(BrowserController *)self _updateUnifiedBarBackgroundVisibility];
+    [(BrowserController *)result _updateUnifiedBarBackgroundVisibility];
   }
 }
 
@@ -2505,7 +2505,7 @@ LABEL_30:
   v10 = *MEMORY[0x277D85DE8];
   if (self->_speculativeLoadURL)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXPageLoading();
+    v3 = WBS_LOG_CHANNEL_PREFIXPageLoading(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       speculativeLoadURL = self->_speculativeLoadURL;
@@ -2623,7 +2623,7 @@ LABEL_30:
   return v4;
 }
 
-- (uint64_t)_showOrHideSidebarInLandscapeIfNecessary
+- (void)_showOrHideSidebarInLandscapeIfNecessary
 {
   if (result)
   {
@@ -2944,7 +2944,7 @@ LABEL_30:
   }
 }
 
-- (uint64_t)_shouldShowBookmarksBar
+- (id)_shouldShowBookmarksBar
 {
   selfCopy = self;
   if (self)
@@ -3107,7 +3107,7 @@ void __56__BrowserController__setNeedsSnapshotUpdateForActiveTab__block_invoke(u
   [BrowserController updateFocusForTab:"updateFocusForTab:webViewCanTakeFocus:" webViewCanTakeFocus:?];
 }
 
-- (BOOL)_hasPresentedViewController
+- (uint64_t)_hasPresentedViewController
 {
   selfCopy = self;
   if (self)
@@ -3728,12 +3728,12 @@ LABEL_7:
   }
 }
 
-- (uint64_t)_updateLibraryTypeForNewDocument
+- (id)_updateLibraryTypeForNewDocument
 {
   if (result)
   {
     v1 = result;
-    result = [*(result + 328) updatingTabGroupTabs];
+    result = [result[41] updatingTabGroupTabs];
     if ((result & 1) == 0)
     {
       [(BrowserController *)v1 _setLibraryForCatalogViewController];
@@ -3967,10 +3967,10 @@ LABEL_7:
   objc_destroyWeak(&location);
 }
 
-uint64_t __39__BrowserController_didEnterBackground__block_invoke_2(uint64_t a1)
+uint64_t __39__BrowserController_didEnterBackground__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __39__BrowserController_didEnterBackground__block_invoke_2_cold_1();
   }
@@ -4096,17 +4096,18 @@ BOOL __36__BrowserController_isAnyPageLoaded__block_invoke(uint64_t a1, void *a2
   return v3;
 }
 
-- (void)_setShowingAppBanner:(int)banner isShowing:
+- (void)_setShowingAppBanner:(uint64_t)banner isShowing:
 {
+  bannerCopy = banner;
   v6 = a2;
   if (self)
   {
     [(BrowserController *)self _updateNavigationBarSeparator];
     if (v6)
     {
-      if (([(BrowserController *)self _setShowingOverlayForBanner:v6 showing:banner]& 1) == 0)
+      if (([(BrowserController *)self _setShowingOverlayForBanner:v6 showing:bannerCopy]& 1) == 0)
       {
-        if (banner)
+        if (bannerCopy)
         {
           v5 = v6;
         }
@@ -4322,7 +4323,7 @@ LABEL_8:
   return pageFormatMenuController;
 }
 
-- (void)_setShowingTabBar:(char)bar animated:
+- (void)_setShowingTabBar:(uint64_t)bar animated:
 {
   if (self)
   {
@@ -4351,7 +4352,7 @@ LABEL_8:
       v20 = v12;
       v13 = view;
       v21 = v13;
-      [(UIView *)0.25 safari_animate:v10 withDuration:bar animations:&v14];
+      [(UIView *)v10 safari_animate:bar withDuration:&v14 animations:0.25];
       [self[33] didToggleTabBar];
     }
   }
@@ -4752,160 +4753,160 @@ LABEL_12:
   return selfCopy;
 }
 
-- (void)_rootViewControllerViewTransitionFromSize:(uint64_t)size includingSidebar:(int)sidebar animated:(uint64_t)animated
+- (void)_rootViewControllerViewTransitionFromSize:(uint64_t)size includingSidebar:(double)sidebar animated:
 {
-  if (size)
+  if (self)
   {
     if ([MEMORY[0x277D49A08] isSolariumEnabled])
     {
-      _shouldUseNarrowLayout = [size _shouldUseNarrowLayout];
-      v7 = _shouldUseNarrowLayout ^ SFWidthIsNarrow();
+      _shouldUseNarrowLayout = [self _shouldUseNarrowLayout];
+      v8 = _shouldUseNarrowLayout ^ SFWidthIsNarrow();
     }
 
     else
     {
-      v7 = 1;
+      v8 = 1;
     }
 
-    WeakRetained = objc_loadWeakRetained((size + 368));
-    view = [*(size + 264) view];
+    WeakRetained = objc_loadWeakRetained((self + 368));
+    view = [*(self + 264) view];
     [view frame];
-    v10 = v9;
-    v12 = v11;
+    v11 = v10;
+    v13 = v12;
 
-    if ([size isPresentingModalBookmarksController] && objc_msgSend(size, "bookmarksPresentationStyleForViewOfSize:", v10, v12) && (objc_msgSend(*(size + 144), "importHandler"), v13 = objc_claimAutoreleasedReturnValue(), v13, !v13))
+    if ([self isPresentingModalBookmarksController] && objc_msgSend(self, "bookmarksPresentationStyleForViewOfSize:", v11, v13) && (objc_msgSend(*(self + 144), "importHandler"), v14 = objc_claimAutoreleasedReturnValue(), v14, !v14))
     {
-      [size setPresentingModalBookmarksController:0 withExclusiveCollection:0 bookmarkUUIDString:0 animated:animated];
+      [self setPresentingModalBookmarksController:0 withExclusiveCollection:0 bookmarkUUIDString:0 animated:size];
     }
 
-    else if (([(BrowserController *)size _shouldHideCatalogViewControllerForSizeChange]& v7) == 1)
+    else if (([(BrowserController *)self _shouldHideCatalogViewControllerForSizeChange]& v8) == 1)
     {
-      v14 = objc_alloc_init(CatalogViewControllerState);
-      v15 = *(size + 440);
-      *(size + 440) = v14;
+      v15 = objc_alloc_init(CatalogViewControllerState);
+      v16 = *(self + 440);
+      *(self + 440) = v15;
 
-      [*(size + 440) setFavoritesState:*(size + 840)];
-      _catalogViewController = [(BrowserController *)size _catalogViewController];
-      [_catalogViewController beginTransitionToNewSizeClassWithState:*(size + 440)];
-      if ([size favoritesAreEmbedded])
+      [*(self + 440) setFavoritesState:*(self + 840)];
+      _catalogViewController = [(BrowserController *)self _catalogViewController];
+      [_catalogViewController beginTransitionToNewSizeClassWithState:*(self + 440)];
+      if ([self favoritesAreEmbedded])
       {
         [_catalogViewController dismissCompletionsForSizeClassTransition];
       }
 
       else
       {
-        [size setFavoritesState:0];
-        [WeakRetained browserController:size setCatalogViewController:0];
+        [self setFavoritesState:0];
+        [WeakRetained browserController:self setCatalogViewController:0];
       }
     }
 
     if ((_SFDeviceIsPad() & 1) == 0)
     {
-      [*(size + 168) dismissMenu];
+      [*(self + 168) dismissMenu];
     }
 
-    v17 = objc_loadWeakRetained((size + 352));
-    navigationController = [v17 navigationController];
+    v18 = objc_loadWeakRetained((self + 352));
+    navigationController = [v18 navigationController];
     presentationController = [navigationController presentationController];
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
 
     if (isKindOfClass)
     {
-      [v17 dismissViewControllerAnimated:1 completion:0];
+      [v18 dismissViewControllerAnimated:1 completion:0];
     }
 
-    view2 = [*(size + 264) view];
+    view2 = [*(self + 264) view];
     [view2 layoutIfNeeded];
 
-    [size setUsesNarrowLayout:{objc_msgSend(size, "_shouldUseNarrowLayout")}];
-    tabContentContainerView = [(BrowserController *)size tabContentContainerView];
+    [self setUsesNarrowLayout:{objc_msgSend(self, "_shouldUseNarrowLayout")}];
+    tabContentContainerView = [(BrowserController *)self tabContentContainerView];
     [tabContentContainerView bounds];
-    v24 = v23;
-    v26 = v25;
-    v28 = v27;
-    v30 = v29;
+    v25 = v24;
+    v27 = v26;
+    v29 = v28;
+    v31 = v30;
 
-    v31 = *(size + 264);
-    contentContainerView = [v31 contentContainerView];
-    [v31 sidebarObscuredInsetsForRect:contentContainerView inCoordinateSpace:{v24, v26, v28, v30}];
-    v34 = v33;
-    v36 = v35;
-    v38 = v37;
-    v40 = v39;
+    v32 = *(self + 264);
+    contentContainerView = [v32 contentContainerView];
+    [v32 sidebarObscuredInsetsForRect:contentContainerView inCoordinateSpace:{v25, v27, v29, v31}];
+    v35 = v34;
+    v37 = v36;
+    v39 = v38;
+    v41 = v40;
 
-    activeTabDocument = [*(size + 328) activeTabDocument];
+    activeTabDocument = [*(self + 328) activeTabDocument];
     view3 = [activeTabDocument view];
-    [view3 setFrame:{v24 + v36, v26 + v34, v28 - (v36 + v40), v30 - (v34 + v38)}];
+    [view3 setFrame:{v25 + v37, v27 + v35, v29 - (v37 + v41), v31 - (v35 + v39)}];
 
-    if (sidebar && ([MEMORY[0x277D49A08] isSolariumEnabled] & 1) == 0)
+    if (a2 && ([MEMORY[0x277D49A08] isSolariumEnabled] & 1) == 0)
     {
-      [*(size + 768) setShowingSidebar:-[BrowserController _shouldShowSidebarForSizeChange](size) completion:0];
+      [*(self + 768) setShowingSidebar:-[BrowserController _shouldShowSidebarForSizeChange](self) completion:0];
     }
 
-    [size updateContinuousPreviewViewFrame];
-    [size updateDynamicBarGeometry];
-    if ([(BrowserController *)size _shouldShowBarsForSizeChange])
+    [self updateContinuousPreviewViewFrame];
+    [self updateDynamicBarGeometry];
+    if ([(BrowserController *)self _shouldShowBarsForSizeChange])
     {
-      [size showBars];
+      [self showBars];
     }
 
-    else if ([(BrowserController *)size _shouldHideBarsForSizeChange])
+    else if ([(BrowserController *)self _shouldHideBarsForSizeChange])
     {
-      [(BrowserController *)size hideBarsForRotation];
+      [(BrowserController *)self hideBarsForRotation];
     }
 
-    [(BrowserController *)size _updateCurrentPageBannerViewIfNeeded];
-    [(BrowserController *)size _updateContinuousReadingViewControllerFrame];
-    [size updateExposedScrollViewRect];
-    [*(size + 264) updateWebViewSizeAttributes];
-    v43 = *(size + 709);
-    [(BrowserController *)size updateUsesTabBar];
-    [(BrowserController *)size _updateUnifiedBar];
-    [size updateCollaborationButton];
-    [WeakRetained browserControllerLayOutCatalogView:size];
-    _catalogViewController2 = [(BrowserController *)size _catalogViewController];
+    [(BrowserController *)self _updateCurrentPageBannerViewIfNeeded];
+    [(BrowserController *)self _updateContinuousReadingViewControllerFrame];
+    [self updateExposedScrollViewRect];
+    [*(self + 264) updateWebViewSizeAttributes];
+    v44 = *(self + 709);
+    [(BrowserController *)self updateUsesTabBar];
+    [(BrowserController *)self _updateUnifiedBar];
+    [self updateCollaborationButton];
+    [WeakRetained browserControllerLayOutCatalogView:self];
+    _catalogViewController2 = [(BrowserController *)self _catalogViewController];
     [_catalogViewController2 updatePreferredContentSize];
     [_catalogViewController2 didUpdateObscuredInsetsForSizeTransition];
     view4 = [_catalogViewController2 view];
     [view4 layoutIfNeeded];
 
-    _topNavigationBar = [(BrowserController *)size _topNavigationBar];
+    _topNavigationBar = [(BrowserController *)self _topNavigationBar];
     if (_topNavigationBar)
     {
       [_catalogViewController2 setNavigationBar:_topNavigationBar];
     }
 
     [_catalogViewController2 updateStartPageTopSpacing];
-    [(BrowserController *)size _updateButtonsAnimatingTabBar:v43];
-    view5 = [*(size + 264) view];
+    [(BrowserController *)self _updateButtonsAnimatingTabBar:v44];
+    view5 = [*(self + 264) view];
     [view5 layoutMargins];
-    v49 = v48;
-    v51 = v50;
-    v53 = v52;
-    v55 = v54;
-    activeTabDocument2 = [*(size + 328) activeTabDocument];
+    v50 = v49;
+    v52 = v51;
+    v54 = v53;
+    v56 = v55;
+    activeTabDocument2 = [*(self + 328) activeTabDocument];
     appBanner = [activeTabDocument2 appBanner];
-    [appBanner setLayoutMargins:{v49, v51, v53, v55}];
+    [appBanner setLayoutMargins:{v50, v52, v54, v56}];
 
-    [(BrowserController *)size _updateAppInfoOverlayFrame];
-    [size updateScrollToTopView];
-    tabBar = [*(size + 264) tabBar];
-    activeTabDocument3 = [*(size + 328) activeTabDocument];
+    [(BrowserController *)self _updateAppInfoOverlayFrame];
+    [self updateScrollToTopView];
+    tabBar = [*(self + 264) tabBar];
+    activeTabDocument3 = [*(self + 328) activeTabDocument];
     tabBarItem = [activeTabDocument3 tabBarItem];
     [tabBar scrollToItem:tabBarItem animated:0];
 
-    if (([size _shouldUseNarrowLayout] & 1) == 0 && objc_msgSend(size, "isShowingReader"))
+    if (([self _shouldUseNarrowLayout] & 1) == 0 && objc_msgSend(self, "isShowingReader"))
     {
-      [(BrowserController *)size _contentContainerViewFrameDidChange];
+      [(BrowserController *)self _contentContainerViewFrameDidChange];
     }
 
-    [(BrowserController *)size _updateDigitalHealthViewFrame];
-    contentContainerView2 = [*(size + 264) contentContainerView];
+    [(BrowserController *)self _updateDigitalHealthViewFrame];
+    contentContainerView2 = [*(self + 264) contentContainerView];
     [contentContainerView2 layoutIfNeeded];
 
-    [(BrowserController *)size updateWebViewObscuredInsets];
-    [(BrowserController *)size _updateScribbleOverlayIfNeeded];
+    [(BrowserController *)self updateWebViewObscuredInsets];
+    [(BrowserController *)self _updateScribbleOverlayIfNeeded];
   }
 }
 
@@ -4924,7 +4925,7 @@ LABEL_12:
   height = size.height;
   width = size.width;
   self->_freezeWebViewUpdatesForSizeTransition = 1;
-  v6 = [(BrowserController *)self _shouldShowBookmarksBarForViewSize:?];
+  v6 = [(BrowserController *)self _shouldShowBookmarksBarForViewSize:a2, size.width];
   [(BrowserController *)self _setShowBookmarksBar:v6];
   objb = [(BrowserRootViewController *)self->_rootViewController traitCollection];
   self->_rootViewControllerVerticalSizeClassBeforeSizeTransition = [objb verticalSizeClass];
@@ -5038,7 +5039,7 @@ LABEL_6:
 void __88__BrowserController_rootViewControllerViewTransitionFromSize_includingSidebar_animated___block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 112) = 0;
-  [BrowserController _rootViewControllerViewTransitionFromSize:*(a1 + 56) includingSidebar:*(a1 + 57) animated:?];
+  [(BrowserController *)*(a1 + 32) _rootViewControllerViewTransitionFromSize:*(a1 + 57) includingSidebar:*(a1 + 40) animated:?];
   *(*(a1 + 32) + 112) = 1;
 }
 
@@ -5119,9 +5120,10 @@ void __88__BrowserController_rootViewControllerViewTransitionFromSize_includingS
 
 - (void)updateShowingTabBarAnimated:(BOOL)animated
 {
+  animatedCopy = animated;
   shouldShowTab = [(BrowserController *)self _shouldShowTabBar];
 
-  [(BrowserController *)&self->super.super.super.isa _setShowingTabBar:animated animated:?];
+  [(BrowserController *)&self->super.super.super.isa _setShowingTabBar:animatedCopy animated:?];
 }
 
 - (void)animateLinkImage:(CGImage *)image fromRect:(CGRect)rect inView:(id)view toBarItem:(int64_t)item
@@ -5245,18 +5247,18 @@ LABEL_7:
   if (self->_privateBrowsingAvailable != availability)
   {
     self->_privateBrowsingAvailable = availability;
-    [(TabController *)self->_tabController privateBrowsingAvailabilityDidChange];
+    privateBrowsingAvailabilityDidChange = [(TabController *)self->_tabController privateBrowsingAvailabilityDidChange];
     if (self->_privateBrowsingAvailable)
     {
-      v5 = +[LaunchStateController sharedController];
-      if ([v5 hasCompletedLaunch])
+      v7 = +[LaunchStateController sharedController];
+      if ([v7 hasCompletedLaunch])
       {
         firedExtensionOpenEventForPrivateWindow = self->_firedExtensionOpenEventForPrivateWindow;
 
         if (!firedExtensionOpenEventForPrivateWindow)
         {
-          v7 = +[Application sharedApplication];
-          defaultWebExtensionsController = [v7 defaultWebExtensionsController];
+          v9 = +[Application sharedApplication];
+          defaultWebExtensionsController = [v9 defaultWebExtensionsController];
           [defaultWebExtensionsController didOpenWindow:self->_privateExtensionWindow];
 
           self->_firedExtensionOpenEventForPrivateWindow = 1;
@@ -5270,11 +5272,11 @@ LABEL_7:
 
     if (!availability && self->_privateBrowsingEnabled)
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = WBS_LOG_CHANNEL_PREFIXTabGroup(privateBrowsingAvailabilityDidChange, v6);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        *v14 = 0;
-        _os_log_impl(&dword_215819000, v9, OS_LOG_TYPE_DEFAULT, "Will switch to local tab group because current browsing mode is unavailable.", v14, 2u);
+        *v16 = 0;
+        _os_log_impl(&dword_215819000, v11, OS_LOG_TYPE_DEFAULT, "Will switch to local tab group because current browsing mode is unavailable.", v16, 2u);
       }
 
       [(TabController *)self->_tabController selectLocalTabGroup];
@@ -6435,8 +6437,8 @@ void __48__BrowserController_dismissToastViewController___block_invoke_3(uint64_
 - (void)cloudSharingController:(id)controller failedToSaveShareWithError:(id)error
 {
   errorCopy = error;
-  v5 = WBS_LOG_CHANNEL_PREFIXTabs();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = WBS_LOG_CHANNEL_PREFIXTabs(errorCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [errorCopy safari_privacyPreservingDescription];
     objc_claimAutoreleasedReturnValue();
@@ -6469,7 +6471,7 @@ void __48__BrowserController_dismissToastViewController___block_invoke_3(uint64_
   aBlock[2] = __81__BrowserController_setFavoritesState_forVoiceSearch_animated_completionHandler___block_invoke;
   aBlock[3] = &unk_2781D6330;
   v10 = handlerCopy;
-  v147 = v10;
+  v149 = v10;
   v11 = _Block_copy(aBlock);
   if (self->_favoritesState == state)
   {
@@ -6478,8 +6480,8 @@ void __48__BrowserController_dismissToastViewController___block_invoke_3(uint64_
     goto LABEL_119;
   }
 
-  v87 = v11;
-  v88 = v10;
+  v89 = v11;
+  v90 = v10;
   WeakRetained = objc_loadWeakRetained(&self->_uiDelegate);
   if (objc_opt_respondsToSelector())
   {
@@ -6488,22 +6490,22 @@ void __48__BrowserController_dismissToastViewController___block_invoke_3(uint64_
 
   favoritesState = self->_favoritesState;
   v15 = objc_alloc_init(MEMORY[0x277D49B60]);
-  v142[0] = MEMORY[0x277D85DD0];
-  v142[1] = 3221225472;
-  v142[2] = __81__BrowserController_setFavoritesState_forVoiceSearch_animated_completionHandler___block_invoke_2;
-  v142[3] = &unk_2781D6270;
-  v91 = WeakRetained;
-  v143 = v91;
+  v144[0] = MEMORY[0x277D85DD0];
+  v144[1] = 3221225472;
+  v144[2] = __81__BrowserController_setFavoritesState_forVoiceSearch_animated_completionHandler___block_invoke_2;
+  v144[3] = &unk_2781D6270;
+  v93 = WeakRetained;
+  v145 = v93;
   selfCopy = self;
-  v145 = favoritesState;
-  v89 = v15;
-  [v15 setHandler:v142];
+  v147 = favoritesState;
+  v91 = v15;
+  [v15 setHandler:v144];
   v16 = objc_loadWeakRetained(&self->_scene);
-  v103 = 0;
-  v90 = v16;
+  v105 = 0;
+  v92 = v16;
   if (animatedCopy && v16)
   {
-    v103 = [v16 activationState] == 0;
+    v105 = [v16 activationState] == 0;
   }
 
   v17 = [(BrowserController *)self browserViewControllerShouldTemporarilyHideBottomToolbar:self->_rootViewController];
@@ -6535,12 +6537,12 @@ void __48__BrowserController_dismissToastViewController___block_invoke_3(uint64_
   if (isFavoritesFieldFocused2)
   {
     dispatch_group_enter(group);
-    v140[0] = MEMORY[0x277D85DD0];
-    v140[1] = 3221225472;
-    v140[2] = __81__BrowserController_setFavoritesState_forVoiceSearch_animated_completionHandler___block_invoke_3;
-    v140[3] = &unk_2781D60B8;
-    v141 = group;
-    [(BrowserController *)self _dismissTransientUIAnimated:v103 dismissalOptions:1 completionHandler:v140];
+    v142[0] = MEMORY[0x277D85DD0];
+    v142[1] = 3221225472;
+    v142[2] = __81__BrowserController_setFavoritesState_forVoiceSearch_animated_completionHandler___block_invoke_3;
+    v142[3] = &unk_2781D60B8;
+    v143 = group;
+    [(BrowserController *)self _dismissTransientUIAnimated:v105 dismissalOptions:1 completionHandler:v142];
   }
 
   _topNavigationBar = [(BrowserController *)&self->super.super.super.isa _topNavigationBar];
@@ -6628,7 +6630,7 @@ LABEL_29:
     createCatalogViewControllerIfNeeded = [(BrowserController *)self createCatalogViewControllerIfNeeded];
 
     [createCatalogViewControllerIfNeeded setUsesPopoverStyleForFavorites:favoritesAreShowingInPopover];
-    [v91 browserController:self setCatalogViewController:createCatalogViewControllerIfNeeded];
+    [v93 browserController:self setCatalogViewController:createCatalogViewControllerIfNeeded];
     view3 = [createCatalogViewControllerIfNeeded view];
 
     view2 = view3;
@@ -6649,20 +6651,21 @@ LABEL_29:
       [documentAndTopBarsContainerView addSubview:view2];
     }
 
-    [v91 browserControllerLayOutCatalogView:self];
+    [v93 browserControllerLayOutCatalogView:self];
     v37 = [(SearchStateCache *)self->_searchStateCache cachedCompletionListForTabDocument:activeTabDocument];
     if (v37)
     {
       activeTabDocument2 = [(TabController *)self->_tabController activeTabDocument];
       [activeTabDocument2 setHaveRestoredCompletionList:1];
 
-      if ([v37 shouldRestoreCachedCompletions])
+      shouldRestoreCachedCompletions = [v37 shouldRestoreCachedCompletions];
+      if (shouldRestoreCachedCompletions)
       {
-        v39 = WBS_LOG_CHANNEL_PREFIXOther();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+        v41 = WBS_LOG_CHANNEL_PREFIXOther(shouldRestoreCachedCompletions, v40);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_215819000, v39, OS_LOG_TYPE_INFO, "Restoring completions from the cache", buf, 2u);
+          _os_log_impl(&dword_215819000, v41, OS_LOG_TYPE_INFO, "Restoring completions from the cache", buf, 2u);
         }
 
         [v37 setDelegate:_catalogViewController];
@@ -6684,12 +6687,12 @@ LABEL_29:
 
       else
       {
-        v45 = WBS_LOG_CHANNEL_PREFIXOther();
+        v47 = WBS_LOG_CHANNEL_PREFIXOther(shouldRestoreCachedCompletions, v40);
         v30 = 1;
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_215819000, v45, OS_LOG_TYPE_INFO, "Completions from the cache were no longer valid, update and show new completions", buf, 2u);
+          _os_log_impl(&dword_215819000, v47, OS_LOG_TYPE_INFO, "Completions from the cache were no longer valid, update and show new completions", buf, 2u);
         }
       }
 
@@ -6709,7 +6712,7 @@ LABEL_29:
       v30 = 0;
     }
 
-    [view2 setAlpha:!v103];
+    [view2 setAlpha:!v105];
   }
 
   else
@@ -6721,86 +6724,86 @@ LABEL_29:
     }
 
     dispatch_group_enter(group);
-    v131[0] = MEMORY[0x277D85DD0];
-    v131[1] = 3221225472;
-    v131[2] = __81__BrowserController_setFavoritesState_forVoiceSearch_animated_completionHandler___block_invoke_177;
-    v131[3] = &unk_2781D6358;
-    v138 = popoverIsDismissing;
-    v132 = _catalogViewController;
+    v133[0] = MEMORY[0x277D85DD0];
+    v133[1] = 3221225472;
+    v133[2] = __81__BrowserController_setFavoritesState_forVoiceSearch_animated_completionHandler___block_invoke_177;
+    v133[3] = &unk_2781D6358;
+    v140 = popoverIsDismissing;
+    v134 = _catalogViewController;
     selfCopy2 = self;
-    v134 = group;
-    v41 = view2;
-    v135 = v41;
-    v136 = _topNavigationBar;
-    v137 = v91;
-    v42 = _Block_copy(v131);
-    v43 = v42;
-    if (v103)
+    v136 = group;
+    v43 = view2;
+    v137 = v43;
+    v138 = _topNavigationBar;
+    v139 = v93;
+    v44 = _Block_copy(v133);
+    v45 = v44;
+    if (v105)
     {
-      v44 = MEMORY[0x277D75D18];
+      v46 = MEMORY[0x277D75D18];
+      v131[0] = MEMORY[0x277D85DD0];
+      v131[1] = 3221225472;
+      v131[2] = __81__BrowserController_setFavoritesState_forVoiceSearch_animated_completionHandler___block_invoke_2_178;
+      v131[3] = &unk_2781D60B8;
+      v132 = v43;
       v129[0] = MEMORY[0x277D85DD0];
       v129[1] = 3221225472;
-      v129[2] = __81__BrowserController_setFavoritesState_forVoiceSearch_animated_completionHandler___block_invoke_2_178;
-      v129[3] = &unk_2781D60B8;
-      v130 = v41;
-      v127[0] = MEMORY[0x277D85DD0];
-      v127[1] = 3221225472;
-      v127[2] = __81__BrowserController_setFavoritesState_forVoiceSearch_animated_completionHandler___block_invoke_3_179;
-      v127[3] = &unk_2781D6380;
-      v128 = v43;
-      [v44 animateWithDuration:5 delay:v129 options:v127 animations:0.3 completion:0.0];
+      v129[2] = __81__BrowserController_setFavoritesState_forVoiceSearch_animated_completionHandler___block_invoke_3_179;
+      v129[3] = &unk_2781D6380;
+      v130 = v45;
+      [v46 animateWithDuration:5 delay:v131 options:v129 animations:0.3 completion:0.0];
     }
 
     else
     {
-      (*(v42 + 2))(v42);
+      (*(v44 + 2))(v44);
     }
 
     v31 = 0;
     v30 = 0;
-    v37 = v132;
+    v37 = v134;
   }
 
-  [(BrowserRootViewController *)self->_rootViewController updateThemeColorIfNeededAnimated:v103];
-  if ((v103 & isShowingFavorites2 & 1) == 0)
+  [(BrowserRootViewController *)self->_rootViewController updateThemeColorIfNeededAnimated:v105];
+  if ((v105 & isShowingFavorites2 & 1) == 0)
   {
     [(BrowserController *)&self->super.super.super.isa _updateUnifiedBarBackgroundVisibility];
   }
 
 LABEL_65:
-  v47 = MEMORY[0x277D75D18];
-  v121[0] = MEMORY[0x277D85DD0];
-  v121[1] = 3221225472;
-  v121[2] = __81__BrowserController_setFavoritesState_forVoiceSearch_animated_completionHandler___block_invoke_4;
-  v121[3] = &unk_2781D63A8;
+  v49 = MEMORY[0x277D75D18];
+  v123[0] = MEMORY[0x277D85DD0];
+  v123[1] = 3221225472;
+  v123[2] = __81__BrowserController_setFavoritesState_forVoiceSearch_animated_completionHandler___block_invoke_4;
+  v123[3] = &unk_2781D63A8;
   stateCopy = state;
-  v125 = popoverIsDismissing;
-  v48 = group;
-  v122 = v48;
-  v49 = _catalogViewController;
-  v123 = v49;
-  v126 = v31;
-  [v47 performWithoutAnimation:v121];
+  v127 = popoverIsDismissing;
+  v50 = group;
+  v124 = v50;
+  v51 = _catalogViewController;
+  v125 = v51;
+  v128 = v31;
+  [v49 performWithoutAnimation:v123];
   capsuleViewController = [(BrowserRootViewController *)self->_rootViewController capsuleViewController];
   if (capsuleViewController)
   {
-    dispatch_group_enter(v48);
+    dispatch_group_enter(v50);
     if (favoritesFieldShouldBeExpanded2)
     {
-      v51 = 2;
+      v53 = 2;
     }
 
     else
     {
-      v51 = 0;
+      v53 = 0;
     }
 
-    v119[0] = MEMORY[0x277D85DD0];
-    v119[1] = 3221225472;
-    v119[2] = __81__BrowserController_setFavoritesState_forVoiceSearch_animated_completionHandler___block_invoke_7;
-    v119[3] = &unk_2781D60B8;
-    v120 = v48;
-    [capsuleViewController transitionToState:v51 animated:v103 completionHandler:v119];
+    v121[0] = MEMORY[0x277D85DD0];
+    v121[1] = 3221225472;
+    v121[2] = __81__BrowserController_setFavoritesState_forVoiceSearch_animated_completionHandler___block_invoke_7;
+    v121[3] = &unk_2781D60B8;
+    v122 = v50;
+    [capsuleViewController transitionToState:v53 animated:v105 completionHandler:v121];
   }
 
   if (((v31 | (![(BrowserController *)self _animationsAreEnabled]|| !isFavoritesFieldFocused2)) & 1) == 0)
@@ -6814,10 +6817,10 @@ LABEL_65:
 
   if (unifiedField)
   {
-    v54 = unifiedField;
+    v56 = unifiedField;
 
-    [v49 setTextField:v54];
-    textField = v54;
+    [v51 setTextField:v56];
+    textField = v56;
   }
 
   if (v30)
@@ -6829,7 +6832,7 @@ LABEL_65:
       currentSearchQueryAllowingQueryThatLooksLikeURL2 = [activeTabDocument currentSearchQueryAllowingQueryThatLooksLikeURL];
     }
 
-    [v49 setQueryString:currentSearchQueryAllowingQueryThatLooksLikeURL2 forUpdatingCompletionListOnRestore:1];
+    [v51 setQueryString:currentSearchQueryAllowingQueryThatLooksLikeURL2 forUpdatingCompletionListOnRestore:1];
     if (!currentSearchQuery2)
     {
     }
@@ -6844,91 +6847,91 @@ LABEL_65:
 
   if (displayMode && ((favoritesFieldShouldBeExpanded ^ favoritesFieldShouldBeExpanded2 ^ 1) & 1) == 0 && activeItem == unifiedTabBarItem)
   {
-    v63 = v89;
+    v65 = v91;
     if (favoritesFieldShouldBeExpanded2)
     {
       [tabBarManager setCompletionItemIcon:0];
     }
 
-    dispatch_group_enter(v48);
-    v117[0] = MEMORY[0x277D85DD0];
-    v117[1] = 3221225472;
-    v117[2] = __81__BrowserController_setFavoritesState_forVoiceSearch_animated_completionHandler___block_invoke_8;
-    v117[3] = &unk_2781D60B8;
-    v118 = v48;
-    [tabBarManager setActiveItemIsExpanded:favoritesFieldShouldBeExpanded2 animated:v103 completionHandler:v117];
-    v64 = v118;
+    dispatch_group_enter(v50);
+    v119[0] = MEMORY[0x277D85DD0];
+    v119[1] = 3221225472;
+    v119[2] = __81__BrowserController_setFavoritesState_forVoiceSearch_animated_completionHandler___block_invoke_8;
+    v119[3] = &unk_2781D60B8;
+    v120 = v50;
+    [tabBarManager setActiveItemIsExpanded:favoritesFieldShouldBeExpanded2 animated:v105 completionHandler:v119];
+    v66 = v120;
     goto LABEL_103;
   }
 
   if (displayMode)
   {
-    v65 = 0;
+    v67 = 0;
   }
 
   else
   {
-    v65 = favoritesFieldShouldBeExpanded ^ favoritesFieldShouldBeExpanded2;
+    v67 = favoritesFieldShouldBeExpanded ^ favoritesFieldShouldBeExpanded2;
   }
 
-  v63 = v89;
-  if (v65 == 1)
+  v65 = v91;
+  if (v67 == 1)
   {
     navigationBar = [(BrowserRootViewController *)self->_rootViewController navigationBar];
-    v64 = navigationBar;
-    if (v103)
+    v66 = navigationBar;
+    if (v105)
     {
       item = [navigationBar item];
       textWhenExpanded = [item textWhenExpanded];
 
       if (favoritesFieldShouldBeExpanded2)
       {
-        v69 = [textWhenExpanded length];
-        v70 = 0;
+        v71 = [textWhenExpanded length];
+        v72 = 0;
       }
 
       else
       {
-        v86 = textWhenExpanded;
+        v88 = textWhenExpanded;
         text = [textField text];
-        v74 = [text isEqualToString:textWhenExpanded];
+        v76 = [text isEqualToString:textWhenExpanded];
 
-        if (v74)
+        if (v76)
         {
           selectedTextRange = [textField selectedTextRange];
           beginningOfDocument = [textField beginningOfDocument];
           start = [selectedTextRange start];
-          v70 = [textField offsetFromPosition:beginningOfDocument toPosition:start];
+          v72 = [textField offsetFromPosition:beginningOfDocument toPosition:start];
 
           beginningOfDocument2 = [textField beginningOfDocument];
-          v78 = [selectedTextRange end];
-          v79 = [textField offsetFromPosition:beginningOfDocument2 toPosition:v78];
+          v80 = [selectedTextRange end];
+          v81 = [textField offsetFromPosition:beginningOfDocument2 toPosition:v80];
 
-          v69 = v79 - v70;
+          v71 = v81 - v72;
         }
 
         else
         {
-          v69 = 0;
-          v70 = 0x7FFFFFFFFFFFFFFFLL;
+          v71 = 0;
+          v72 = 0x7FFFFFFFFFFFFFFFLL;
         }
 
-        textWhenExpanded = v86;
+        textWhenExpanded = v88;
       }
 
-      if (!v64)
+      if (!v66)
       {
         goto LABEL_102;
       }
 
-      dispatch_group_enter(v48);
-      v115[0] = MEMORY[0x277D85DD0];
-      v115[1] = 3221225472;
-      v115[2] = __81__BrowserController_setFavoritesState_forVoiceSearch_animated_completionHandler___block_invoke_9;
-      v115[3] = &unk_2781D60B8;
-      v116 = v48;
-      [v64 setExpanded:favoritesFieldShouldBeExpanded2 textFieldSelectionRange:v70 completionHandler:v69, v115];
-      v72 = &v116;
+      dispatch_group_enter(v50);
+      v117[0] = MEMORY[0x277D85DD0];
+      v117[1] = 3221225472;
+      v117[2] = __81__BrowserController_setFavoritesState_forVoiceSearch_animated_completionHandler___block_invoke_9;
+      v117[3] = &unk_2781D60B8;
+      v118 = v50;
+      [v66 setExpanded:favoritesFieldShouldBeExpanded2 textFieldSelectionRange:v72 completionHandler:v71, v117];
+      v74 = &v118;
     }
 
     else
@@ -6940,30 +6943,30 @@ LABEL_103:
         goto LABEL_104;
       }
 
-      dispatch_group_enter(v48);
-      v71 = MEMORY[0x277D75D18];
-      v111[0] = MEMORY[0x277D85DD0];
-      v111[1] = 3221225472;
-      v111[2] = __81__BrowserController_setFavoritesState_forVoiceSearch_animated_completionHandler___block_invoke_10;
-      v111[3] = &unk_2781D63D0;
-      v112 = v64;
-      v114 = favoritesFieldShouldBeExpanded2;
-      v113 = v48;
-      [v71 performWithoutAnimation:v111];
-      v72 = &v112;
+      dispatch_group_enter(v50);
+      v73 = MEMORY[0x277D75D18];
+      v113[0] = MEMORY[0x277D85DD0];
+      v113[1] = 3221225472;
+      v113[2] = __81__BrowserController_setFavoritesState_forVoiceSearch_animated_completionHandler___block_invoke_10;
+      v113[3] = &unk_2781D63D0;
+      v114 = v66;
+      v116 = favoritesFieldShouldBeExpanded2;
+      v115 = v50;
+      [v73 performWithoutAnimation:v113];
+      v74 = &v114;
     }
 
 LABEL_102:
-    v63 = v89;
+    v65 = v91;
     goto LABEL_103;
   }
 
 LABEL_104:
-  if (favoritesAreShowingInPopover || !v103 || isShowingFavorites & 1 | ((isShowingFavorites2 & 1) == 0) && (isFavoritesFieldFocused || !isFavoritesFieldFocused2))
+  if (favoritesAreShowingInPopover || !v105 || isShowingFavorites & 1 | ((isShowingFavorites2 & 1) == 0) && (isFavoritesFieldFocused || !isFavoritesFieldFocused2))
   {
     if (searchCopy)
     {
-      [v49 toggleVoiceSearch];
+      [v51 toggleVoiceSearch];
     }
 
     else if (isFavoritesFieldFocused2)
@@ -6979,28 +6982,28 @@ LABEL_104:
 
   else
   {
-    dispatch_group_enter(v48);
-    v80 = dispatch_time(0, 10000000);
+    dispatch_group_enter(v50);
+    v82 = dispatch_time(0, 10000000);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __81__BrowserController_setFavoritesState_forVoiceSearch_animated_completionHandler___block_invoke_12;
     block[3] = &unk_2781D6420;
-    v108 = isFavoritesFieldFocused;
+    v110 = isFavoritesFieldFocused;
     block[4] = self;
-    v109 = searchCopy;
-    v105 = textField;
-    v110 = isShowingFavorites;
-    v106 = view2;
-    v107 = v48;
-    dispatch_after(v80, MEMORY[0x277D85CD0], block);
+    v111 = searchCopy;
+    v107 = textField;
+    v112 = isShowingFavorites;
+    v108 = view2;
+    v109 = v50;
+    dispatch_after(v82, MEMORY[0x277D85CD0], block);
   }
 
   [(BrowserController *)self updateDynamicBarGeometry];
   [(BrowserController *)self updateScrollToTopView];
-  [(BrowserController *)self _updateButtonsAnimatingTabBar:v103];
+  [(BrowserController *)self _updateButtonsAnimatingTabBar:v105];
   if ([(BrowserRootViewController *)self->_rootViewController usingUnifiedBar]&& self->_usesNarrowLayout)
   {
-    [(_SFBarManager *)self->_barManager performCoalescedUpdatesNowAnimated:v103];
+    [(_SFBarManager *)self->_barManager performCoalescedUpdatesNowAnimated:v105];
   }
 
   if ((isShowingFavorites2 & 1) == 0)
@@ -7008,12 +7011,12 @@ LABEL_104:
     [activeTabDocument presentNextDialogIfNeeded];
   }
 
-  v81 = MEMORY[0x277D85CD0];
-  v82 = MEMORY[0x277D85CD0];
-  v12 = v87;
-  dispatch_group_notify(v48, v81, v87);
+  v83 = MEMORY[0x277D85CD0];
+  v84 = MEMORY[0x277D85CD0];
+  v12 = v89;
+  dispatch_group_notify(v50, v83, v89);
 
-  v10 = v88;
+  v10 = v90;
 LABEL_119:
 }
 
@@ -7493,11 +7496,11 @@ LABEL_13:
 
   if ((v7 & 1) == 0)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = WBS_LOG_CHANNEL_PREFIXTabGroup(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_215819000, v8, OS_LOG_TYPE_DEFAULT, "Will switch tab group for change to web view fullscreen.", v10, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_215819000, v10, OS_LOG_TYPE_DEFAULT, "Will switch tab group for change to web view fullscreen.", v12, 2u);
     }
 
     [*(*self + 41) setActiveTabGroupUUID:tabGroupUUID];
@@ -7698,7 +7701,7 @@ void __41__BrowserController__didChangePowerState__block_invoke(uint64_t a1)
   attributionCopy = attribution;
   applicationCopy = application;
   lCopy = l;
-  [(BrowserController *)self _loadURL:lCopy inExternalApplication:applicationCopy forImageAttribution:attributionCopy];
+  [(BrowserController *)&self->super.super.super.isa _loadURL:lCopy inExternalApplication:applicationCopy forImageAttribution:attributionCopy];
   if (applicationCopy)
   {
     mEMORY[0x277D4A808] = [MEMORY[0x277D4A808] sharedRecorder];
@@ -7713,7 +7716,7 @@ void __41__BrowserController__didChangePowerState__block_invoke(uint64_t a1)
   {
     if (l)
     {
-      WeakRetained = objc_loadWeakRetained((self + 904));
+      WeakRetained = objc_loadWeakRetained(self + 113);
       [WeakRetained openURL:v10 options:0 completionHandler:0];
       v8 = WeakRetained;
     }
@@ -7741,7 +7744,7 @@ void __41__BrowserController__didChangePowerState__block_invoke(uint64_t a1)
 
 - (void)_loadIntentAsSpeculativeLoadIfNeeded:(void *)needed
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (needed)
@@ -7772,33 +7775,33 @@ LABEL_3:
 
       if (!v11)
       {
-        v14 = WBS_LOG_CHANNEL_PREFIXTabs();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+        v16 = WBS_LOG_CHANNEL_PREFIXTabs(v12, v13);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
-          v15 = needed[54];
-          v16 = needed[115];
-          v17 = [v4 URL];
-          safari_userVisibleString2 = [v17 safari_userVisibleString];
+          v17 = needed[54];
+          v18 = needed[115];
+          v19 = [v4 URL];
+          safari_userVisibleString2 = [v19 safari_userVisibleString];
           text2 = [v4 text];
-          v20 = 138740739;
-          v21 = v15;
-          v22 = 2117;
-          v23 = v16;
+          v22 = 138740739;
+          v23 = v17;
           v24 = 2117;
-          v25 = safari_userVisibleString2;
+          v25 = v18;
           v26 = 2117;
-          v27 = text2;
-          _os_log_impl(&dword_215819000, v14, OS_LOG_TYPE_INFO, "Cached speculative load URL %{sensitive}@ or document %{sensitive}@ doesn't match either expectation %{sensitive}@ or %{sensitive}@", &v20, 0x2Au);
+          v27 = safari_userVisibleString2;
+          v28 = 2117;
+          v29 = text2;
+          _os_log_impl(&dword_215819000, v16, OS_LOG_TYPE_INFO, "Cached speculative load URL %{sensitive}@ or document %{sensitive}@ doesn't match either expectation %{sensitive}@ or %{sensitive}@", &v22, 0x2Au);
         }
 
         goto LABEL_3;
       }
 
       mEMORY[0x277D4A808] = [MEMORY[0x277D4A808] sharedRecorder];
-      v12 = MEMORY[0x277CBEBC0];
+      v14 = MEMORY[0x277CBEBC0];
       text3 = [v4 text];
-      v13 = [v12 URLWithString:text3];
-      [mEMORY[0x277D4A808] didActualizeImpressionForURL:v13 provenance:{objc_msgSend(v4, "provenance")}];
+      v15 = [v14 URLWithString:text3];
+      [mEMORY[0x277D4A808] didActualizeImpressionForURL:v15 provenance:{objc_msgSend(v4, "provenance")}];
     }
   }
 
@@ -7833,7 +7836,7 @@ LABEL_9:
   _Block_object_dispose(&v11, 8);
 }
 
-void __78__BrowserController_catalogViewController_willRepositionPopoverToRect_inView___block_invoke(uint64_t *a1, void *a2, double a3, double a4, double a5, double a6)
+void __78__BrowserController_catalogViewController_willRepositionPopoverToRect_inView___block_invoke(void *a1, void *a2, double a3, double a4, double a5, double a6)
 {
   v11 = a2;
   v12 = [(BrowserController *)a1[4] _popoverPresentationVerticalOffset];
@@ -7918,7 +7921,7 @@ void __79__BrowserController_catalogViewController_mightSelectCompletionItem_for
 
 - (void)_updateSpeculativeLoadURL:(uint64_t)l
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (l)
   {
@@ -7962,37 +7965,37 @@ void __79__BrowserController_catalogViewController_mightSelectCompletionItem_for
                   webView2 = v12;
                   if (![safari_highLevelDomainFromHost2 caseInsensitiveCompare:safari_highLevelDomainFromHost])
                   {
-                    v19 = WBS_LOG_CHANNEL_PREFIXPageLoading();
-                    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+                    v20 = WBS_LOG_CHANNEL_PREFIXPageLoading(0, v19);
+                    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
                     {
                       *buf = 0;
-                      _os_log_impl(&dword_215819000, v19, OS_LOG_TYPE_INFO, "Using the related web view off the speculative load TabDocument", buf, 2u);
+                      _os_log_impl(&dword_215819000, v20, OS_LOG_TYPE_INFO, "Using the related web view off the speculative load TabDocument", buf, 2u);
                     }
 
                     webView2 = [*(l + 920) webView];
                   }
                 }
 
-                v20 = *(l + 920);
+                v21 = *(l + 920);
               }
 
               else
               {
-                v20 = 0;
+                v21 = 0;
                 webView2 = v12;
               }
 
-              v22 = v20;
-              v23 = [[TabDocument alloc] initForBackgroundLoadingWithBrowserController:l relatedWebView:webView2 webViewToCloneSessionStorageFrom:v12];
-              v24 = *(l + 920);
-              *(l + 920) = v23;
+              v23 = v21;
+              v24 = [[TabDocument alloc] initForBackgroundLoadingWithBrowserController:l relatedWebView:webView2 webViewToCloneSessionStorageFrom:v12];
+              v25 = *(l + 920);
+              *(l + 920) = v24;
 
               [*(l + 920) setShouldKeepIgnoredSiriSuggestedSitesOnLoad:1];
               unifiedField = [l unifiedField];
               text = [unifiedField text];
-              v27 = text == 0;
+              v28 = text == 0;
 
-              if (!v27)
+              if (!v28)
               {
                 text2 = [unifiedField text];
                 personalizationData = [*(l + 920) personalizationData];
@@ -8014,31 +8017,31 @@ void __79__BrowserController_catalogViewController_mightSelectCompletionItem_for
               currentItem = [_backForwardList currentItem];
               objc_storeWeak((l + 32), currentItem);
 
-              v36 = googleSearchEngine();
-              v37 = [v36 urlAttributingToSafariIfValidSearchURL:v11];
+              v37 = googleSearchEngine();
+              v38 = [v37 urlAttributingToSafariIfValidSearchURL:v11];
 
-              v11 = v37;
-              v38 = WBS_LOG_CHANNEL_PREFIXPageLoading();
-              if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+              v11 = v38;
+              v41 = WBS_LOG_CHANNEL_PREFIXPageLoading(v39, v40);
+              if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
               {
                 *buf = 141558275;
-                v42 = 1752392040;
-                v43 = 2117;
-                v44 = v37;
-                _os_log_impl(&dword_215819000, v38, OS_LOG_TYPE_INFO, "Speculatively load URL: %{sensitive, mask.hash}@", buf, 0x16u);
+                v45 = 1752392040;
+                v46 = 2117;
+                v47 = v38;
+                _os_log_impl(&dword_215819000, v41, OS_LOG_TYPE_INFO, "Speculatively load URL: %{sensitive, mask.hash}@", buf, 0x16u);
               }
 
-              v39 = [*(l + 920) loadURL:v37 userDriven:1];
+              v42 = [*(l + 920) loadURL:v38 userDriven:1];
               [*(l + 920) beginSuppressingProgressAnimation];
-              if (v22)
+              if (v23)
               {
-                [(BrowserController *)l _closeSpeculativelyLoadedDocument:v22];
+                [(BrowserController *)l _closeSpeculativelyLoadedDocument:v23];
               }
             }
 
             else
             {
-              v21 = *(l + 432);
+              v22 = *(l + 432);
               *(l + 432) = 0;
             }
           }
@@ -8335,11 +8338,11 @@ uint64_t __96__BrowserController_catalogViewController_presentViewControllerWith
   }
 }
 
-uint64_t __60__BrowserController_catalogViewController_focusNextKeyView___block_invoke(uint64_t result, int a2)
+id *__60__BrowserController_catalogViewController_focusNextKeyView___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) cancelFavoritesAnimated:0];
+    return [result[4] cancelFavoritesAnimated:0];
   }
 
   return result;
@@ -9167,7 +9170,7 @@ void __48__BrowserController_setUpWithURL_launchOptions___block_invoke_2(uint64_
 
 - (void)userDefaultsDidChangeValueForKey:(id)key
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if ([keyCopy isEqualToString:*MEMORY[0x277D292A8]])
   {
@@ -9250,65 +9253,70 @@ LABEL_29:
       goto LABEL_29;
     }
 
-    if ([keyCopy isEqualToString:*MEMORY[0x277D29090]])
+    v9 = [keyCopy isEqualToString:*MEMORY[0x277D29090]];
+    if (v9)
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXLayout();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = WBS_LOG_CHANNEL_PREFIXLayout(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = stringForCurrentCapsuleLayoutPreference();
-        v15 = 138543362;
-        v16 = v10;
-        _os_log_impl(&dword_215819000, v9, OS_LOG_TYPE_DEFAULT, "Changing Capsule Layout to: %{public}@", &v15, 0xCu);
+        v12 = stringForCurrentCapsuleLayoutPreference();
+        v19 = 138543362;
+        v20 = v12;
+        _os_log_impl(&dword_215819000, v11, OS_LOG_TYPE_DEFAULT, "Changing Capsule Layout to: %{public}@", &v19, 0xCu);
       }
 
       [(BrowserRootViewController *)self->_rootViewController capsuleLayoutStyleChanged];
     }
 
-    else if ([keyCopy isEqualToString:*MEMORY[0x277D29018]])
-    {
-      v11 = WBS_LOG_CHANNEL_PREFIXLayout();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-      {
-        v12 = stringForCurrentTabBarLayoutPreference();
-        v15 = 138543362;
-        v16 = v12;
-        _os_log_impl(&dword_215819000, v11, OS_LOG_TYPE_DEFAULT, "Changing Tab Bar Layout to: %{public}@", &v15, 0xCu);
-      }
-
-      [(BrowserController *)self updateUsesTabBar];
-      [(BrowserController *)&self->super.super.super.isa _updateUnifiedBar];
-      [(BrowserController *)self _updateButtonsAnimatingTabBar:?];
-      [(BrowserRootViewController *)self->_rootViewController updateThemeColorIfNeededAnimated:0];
-      _catalogViewController = [(BrowserController *)&self->super.super.super.isa _catalogViewController];
-      [_catalogViewController updateStartPageTopSpacing];
-    }
-
     else
     {
-      if ([keyCopy isEqualToString:*MEMORY[0x277D290A0]])
+      v13 = [keyCopy isEqualToString:*MEMORY[0x277D29018]];
+      if (v13)
       {
-        [(BrowserRootViewController *)self->_rootViewController updateUsesWebpageStatusBar];
-        goto LABEL_13;
+        v15 = WBS_LOG_CHANNEL_PREFIXLayout(v13, v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        {
+          v16 = stringForCurrentTabBarLayoutPreference();
+          v19 = 138543362;
+          v20 = v16;
+          _os_log_impl(&dword_215819000, v15, OS_LOG_TYPE_DEFAULT, "Changing Tab Bar Layout to: %{public}@", &v19, 0xCu);
+        }
+
+        [(BrowserController *)self updateUsesTabBar];
+        [(BrowserController *)&self->super.super.super.isa _updateUnifiedBar];
+        [(BrowserController *)self _updateButtonsAnimatingTabBar:?];
+        [(BrowserRootViewController *)self->_rootViewController updateThemeColorIfNeededAnimated:0];
+        _catalogViewController = [(BrowserController *)&self->super.super.super.isa _catalogViewController];
+        [_catalogViewController updateStartPageTopSpacing];
       }
 
-      if ([keyCopy isEqualToString:*MEMORY[0x277D29080]])
+      else
       {
-        tabBarManager = [MEMORY[0x277D28BF0] sharedProvider];
-        [tabBarManager clearCachedMenuForPersona:0];
-        goto LABEL_29;
-      }
+        if ([keyCopy isEqualToString:*MEMORY[0x277D290A0]])
+        {
+          [(BrowserRootViewController *)self->_rootViewController updateUsesWebpageStatusBar];
+          goto LABEL_13;
+        }
 
-      if ([keyCopy isEqualToString:*MEMORY[0x277D28F78]])
-      {
-        _bookmarksBarLabelButtonDisplayStyle = [(BrowserController *)self _bookmarksBarLabelButtonDisplayStyle];
-        tabBarManager = [(BrowserRootViewController *)self->_rootViewController bookmarksBar];
-        [tabBarManager setButtonStyle:_bookmarksBarLabelButtonDisplayStyle];
-        goto LABEL_29;
-      }
+        if ([keyCopy isEqualToString:*MEMORY[0x277D29080]])
+        {
+          tabBarManager = [MEMORY[0x277D28BF0] sharedProvider];
+          [tabBarManager clearCachedMenuForPersona:0];
+          goto LABEL_29;
+        }
 
-      if (([keyCopy isEqualToString:*MEMORY[0x277D29028]] & 1) != 0 || objc_msgSend(keyCopy, "isEqualToString:", @"DebugBarCollapsingBehavior"))
-      {
-        [(BrowserController *)self _updateDisableBarHiding];
+        if ([keyCopy isEqualToString:*MEMORY[0x277D28F78]])
+        {
+          _bookmarksBarLabelButtonDisplayStyle = [(BrowserController *)self _bookmarksBarLabelButtonDisplayStyle];
+          tabBarManager = [(BrowserRootViewController *)self->_rootViewController bookmarksBar];
+          [tabBarManager setButtonStyle:_bookmarksBarLabelButtonDisplayStyle];
+          goto LABEL_29;
+        }
+
+        if (([keyCopy isEqualToString:*MEMORY[0x277D29028]] & 1) != 0 || objc_msgSend(keyCopy, "isEqualToString:", @"DebugBarCollapsingBehavior"))
+        {
+          [(BrowserController *)self _updateDisableBarHiding];
+        }
       }
     }
   }
@@ -9431,7 +9439,7 @@ LABEL_13:
   {
     [(BrowserController *)self writePrivateBrowsingEnabled:enabledCopy];
     self->_privateBrowsingEnabled = enabledCopy;
-    [(BrowserController *)self _updateConfiguration];
+    [(BrowserController *)&self->super.super.super.isa _updateConfiguration];
     [(BrowserController *)self _updateAddTabMenuProvider];
     v6 = +[Application sharedApplication];
     -[_SFBrowserSavedState setSecureDeleteEnabled:](self->_savedState, "setSecureDeleteEnabled:", [v6 usesPrivateBrowsingModeInAnyWindow]);
@@ -9565,11 +9573,11 @@ LABEL_6:
 
   if (v4)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = WBS_LOG_CHANNEL_PREFIXTabGroup(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_215819000, v5, OS_LOG_TYPE_DEFAULT, "Will switch tab group for change to cloud tabs enabled.", v6, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_215819000, v7, OS_LOG_TYPE_DEFAULT, "Will switch tab group for change to cloud tabs enabled.", v8, 2u);
     }
 
     WeakRetained = [(TabController *)self->_tabController activeTabGroupUUID];
@@ -9660,18 +9668,18 @@ void __51__BrowserController__updateButtonsAnimatingTabBar___block_invoke(uint64
   [*(*v5 + 848) setAllBarItemsAreDisabled:v15 != 0];
 }
 
-- (uint64_t)_shareButtonEnabled
+- (id)_shareButtonEnabled
 {
   selfCopy = self;
   if (self)
   {
-    activeTabDocument = [*(self + 328) activeTabDocument];
+    activeTabDocument = [self[41] activeTabDocument];
     if ([activeTabDocument isBlank])
     {
       urlForSharing = +[FeatureManager sharedFeatureManager];
       if ([urlForSharing areSharedTabGroupsEnabled])
       {
-        activeTabGroup = [*(selfCopy + 328) activeTabGroup];
+        activeTabGroup = [selfCopy[41] activeTabGroup];
         selfCopy = [activeTabGroup isNamed];
       }
 
@@ -10034,15 +10042,15 @@ LABEL_17:
   }
 }
 
-- (void)_goBackAllowingNewTabToSpawnIfNeeded:(id *)needed
+- (void)_goBackAllowingNewTabToSpawnIfNeeded:(id *)result
 {
-  if (needed)
+  if (result)
   {
-    [needed dismissTransientUIAnimated:1];
-    activeTabDocument = [needed[41] activeTabDocument];
+    [result dismissTransientUIAnimated:1];
+    activeTabDocument = [result[41] activeTabDocument];
     [activeTabDocument goBackAllowingNewTabToSpawnIfNeeded:a2];
 
-    [(BrowserController *)needed _presentReaderTriggeredAppReviewPromptIfNeeded];
+    [(BrowserController *)result _presentReaderTriggeredAppReviewPromptIfNeeded];
   }
 }
 
@@ -10206,23 +10214,24 @@ LABEL_17:
 
 - (void)_closeSpeculativelyLoadedDocument:(uint64_t)document
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v5 = v3;
   if (document)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXPageLoading();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v6 = WBS_LOG_CHANNEL_PREFIXPageLoading(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v5 = *(document + 432);
-      v6 = 141558275;
-      v7 = 1752392040;
-      v8 = 2117;
-      v9 = v5;
-      _os_log_impl(&dword_215819000, v4, OS_LOG_TYPE_INFO, "Closing speculative load TabDocument: %{sensitive, mask.hash}@", &v6, 0x16u);
+      v7 = *(document + 432);
+      v8 = 141558275;
+      v9 = 1752392040;
+      v10 = 2117;
+      v11 = v7;
+      _os_log_impl(&dword_215819000, v6, OS_LOG_TYPE_INFO, "Closing speculative load TabDocument: %{sensitive, mask.hash}@", &v8, 0x16u);
     }
 
-    [v3 setClosed:1];
-    [v3 willClose];
+    [v5 setClosed:1];
+    [v5 willClose];
   }
 }
 
@@ -10316,12 +10325,12 @@ LABEL_17:
   if (self)
   {
     [self setFavoritesState:0 animated:1];
-    [*(self + 328) replaceTabDocument:v8 withTabDocument:documentCopy committingSpeculativeLoad:1];
-    navigationBar = [*(self + 264) navigationBar];
+    [self[41] replaceTabDocument:v8 withTabDocument:documentCopy committingSpeculativeLoad:1];
+    navigationBar = [self[33] navigationBar];
     [navigationBar setNeedsLayout];
     [navigationBar layoutIfNeeded];
     [v8 hideFindOnPage];
-    if (*(self + 184) != documentCopy)
+    if (self[23] != documentCopy)
     {
       [documentCopy endSuppressingProgressAnimation];
       [documentCopy animateProgressForCompletedDocument];
@@ -10380,11 +10389,11 @@ LABEL_17:
 
 - (void)toggleAlwaysShowBookmarksBarMessageReceived
 {
-  shouldShowBookmarks = [(BrowserController *)&self->super.super.super.isa _shouldShowBookmarksBar];
+  _shouldShowBookmarksBar = [(BrowserController *)&self->super.super.super.isa _shouldShowBookmarksBar];
   bookmarksBar = [(BrowserRootViewController *)self->_rootViewController bookmarksBar];
-  if (((shouldShowBookmarks ^ (bookmarksBar == 0)) & 1) == 0)
+  if (((_shouldShowBookmarksBar ^ (bookmarksBar == 0)) & 1) == 0)
   {
-    [(BrowserController *)self _setShowBookmarksBar:?];
+    [(BrowserController *)self _setShowBookmarksBar:_shouldShowBookmarksBar];
     [(BrowserController *)self _contentContainerViewFrameDidChange];
     [(BrowserController *)&self->super.super.super.isa _updateCurrentPageBannerViewIfNeeded];
     [(BrowserController *)self updateDynamicBarGeometry];
@@ -10408,13 +10417,13 @@ LABEL_17:
 {
   collectionCopy = collection;
   shouldShowCollectionIn = [(BrowserController *)self _shouldShowCollectionInSidebar];
-  v5 = &OBJC_IVAR___BrowserController__modalBookmarksController;
+  v6 = &OBJC_IVAR___BrowserController__modalBookmarksController;
   if (shouldShowCollectionIn)
   {
-    v5 = &OBJC_IVAR___BrowserController__libraryController;
+    v6 = &OBJC_IVAR___BrowserController__libraryController;
   }
 
-  [*(&self->super.super.super.isa + *v5) setCurrentCollection:collectionCopy];
+  [*(&self->super.super.super.isa + *v6) setCurrentCollection:collectionCopy];
 }
 
 - (OneStepBookmarkingController)oneStepBookmarkingController
@@ -10670,11 +10679,12 @@ id __49__BrowserController_oneStepBookmarkingController__block_invoke(uint64_t a
 
 - (void)setShowingReader:(BOOL)reader animated:(BOOL)animated forTabDocument:(id)document completion:(id)completion
 {
+  animatedCopy = animated;
   documentCopy = document;
   completionCopy = completion;
   if (!reader)
   {
-    [(BrowserController *)&self->super.super.super.isa _hideReaderForTabDocument:documentCopy animated:animated deactivationMode:1 completion:completionCopy];
+    [(BrowserController *)&self->super.super.super.isa _hideReaderForTabDocument:documentCopy animated:animatedCopy deactivationMode:1 completion:completionCopy];
     dateReaderOpened = [(BrowserController *)self appReviewPromptManager];
     activeTabDocument = [(TabController *)self->_tabController activeTabDocument];
     readerViewTopScrollOffset = [activeTabDocument readerViewTopScrollOffset];
@@ -10693,7 +10703,7 @@ LABEL_7:
 
     v12 = documentCopy;
 LABEL_6:
-    [(BrowserController *)&self->super.super.super.isa _showReaderForTabDocument:v12 animated:animated completion:completionCopy];
+    [(BrowserController *)&self->super.super.super.isa _showReaderForTabDocument:v12 animated:animatedCopy completion:completionCopy];
     v18 = [MEMORY[0x277CBEAA8] now];
     dateReaderOpened = self->_dateReaderOpened;
     self->_dateReaderOpened = v18;
@@ -10720,24 +10730,26 @@ LABEL_6:
 LABEL_8:
 }
 
-- (void)_hideReaderForTabDocument:(char)document animated:(uint64_t)animated deactivationMode:(void *)mode completion:
+- (void)_hideReaderForTabDocument:(uint64_t)document animated:(uint64_t)animated deactivationMode:(void *)mode completion:
 {
+  documentCopy = document;
   v10 = a2;
   modeCopy = mode;
   if (self)
   {
-    [(BrowserController *)self _setReaderVisible:v10 forTabDocument:animated deactivationMode:document animated:modeCopy completion:?];
+    [(BrowserController *)self _setReaderVisible:v10 forTabDocument:animated deactivationMode:documentCopy animated:modeCopy completion:?];
     [self updatePullToRefreshIsEnabled];
   }
 }
 
-- (void)_showReaderForTabDocument:(char)document animated:(void *)animated completion:
+- (void)_showReaderForTabDocument:(uint64_t)document animated:(void *)animated completion:
 {
+  documentCopy = document;
   v8 = a2;
   animatedCopy = animated;
   if (self)
   {
-    [(BrowserController *)self _setReaderVisible:v8 forTabDocument:0 deactivationMode:document animated:animatedCopy completion:?];
+    [(BrowserController *)self _setReaderVisible:v8 forTabDocument:0 deactivationMode:documentCopy animated:animatedCopy completion:?];
   }
 }
 
@@ -10888,10 +10900,11 @@ void __65__BrowserController_checkSummarizationStateToShowSummarizeButton__block
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __65__BrowserController_checkSummarizationStateToShowSummarizeButton__block_invoke_cold_1();
     }
@@ -10910,11 +10923,11 @@ void __49__BrowserController__showSummarizeButtonIfNeeded__block_invoke(uint64_t
   v2 = _WBSLocalizedString();
   [v1 setOnDeviceSummaryButtonWithTitle:v2];
 
-  v3 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v5 = WBS_LOG_CHANNEL_PREFIXBrowsingAssistant(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_215819000, v3, OS_LOG_TYPE_INFO, "Safari displayed summarize button", v4, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_215819000, v5, OS_LOG_TYPE_INFO, "Safari displayed summarize button", v6, 2u);
   }
 }
 
@@ -11363,38 +11376,38 @@ uint64_t __74__BrowserController__newReadingListBehaviorAlertControllerWithCompl
   completionCopy = completion;
   WeakRetained = objc_loadWeakRetained(&self->_uiDelegate);
   v14 = objc_alloc_init(MEMORY[0x277D49B60]);
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __65__BrowserController_snapshotTabDocument_size_options_completion___block_invoke;
-  v37[3] = &unk_2781D60B8;
-  v37[4] = self;
-  [v14 setHandler:v37];
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __65__BrowserController_snapshotTabDocument_size_options_completion___block_invoke;
+  v39[3] = &unk_2781D60B8;
+  v39[4] = self;
+  v15 = [v14 setHandler:v39];
   if (!documentCopy)
   {
-    v20 = WBS_LOG_CHANNEL_PREFIXTabSnapshots();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = WBS_LOG_CHANNEL_PREFIXTabSnapshots(v15, v16);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [BrowserController snapshotTabDocument:size:options:completion:];
     }
 
-    v21 = 2;
+    v23 = 2;
     goto LABEL_16;
   }
 
-  v15 = [WeakRetained browserController:self tabSnapshotContentProviderForTabDocument:documentCopy];
-  if (!v15)
+  v17 = [WeakRetained browserController:self tabSnapshotContentProviderForTabDocument:documentCopy];
+  if (!v17)
   {
-    v21 = 1;
+    v23 = 1;
 LABEL_16:
-    completionCopy[2](completionCopy, 0, v21);
+    completionCopy[2](completionCopy, 0, v23);
     goto LABEL_31;
   }
 
-  v36 = objc_alloc_init(TabSnapshotGenerator);
-  v16 = [WeakRetained tabSnapshotGeneratorDelegateForBrowserController:self];
-  [(TabSnapshotGenerator *)v36 setDelegate:v16];
+  v38 = objc_alloc_init(TabSnapshotGenerator);
+  v18 = [WeakRetained tabSnapshotGeneratorDelegateForBrowserController:self];
+  [(TabSnapshotGenerator *)v38 setDelegate:v18];
 
-  if (![documentCopy isActive] || (objc_opt_respondsToSelector() & 1) != 0 && objc_msgSend(v15, "checkAndResetIfNextSnapshotRequiresScreenUpdates"))
+  if (![documentCopy isActive] || (objc_opt_respondsToSelector() & 1) != 0 && objc_msgSend(v17, "checkAndResetIfNextSnapshotRequiresScreenUpdates"))
   {
     options |= 0x20uLL;
   }
@@ -11407,7 +11420,7 @@ LABEL_16:
   tabCollectionViewManager = [(TabController *)self->_tabController tabCollectionViewManager];
   tabThumbnailCollectionView = [tabCollectionViewManager tabThumbnailCollectionView];
 
-  v35 = tabThumbnailCollectionView;
+  v37 = tabThumbnailCollectionView;
   if (objc_opt_respondsToSelector())
   {
     isPerformingReducedMotionTransition = [tabThumbnailCollectionView isPerformingReducedMotionTransition];
@@ -11432,46 +11445,46 @@ LABEL_16:
 
   if (self->_shouldAwaitAnimationCompletionForNextSnapshot)
   {
-    v24 = optionsCopy2 | 0x100;
+    v26 = optionsCopy2 | 0x100;
   }
 
   else
   {
-    v24 = optionsCopy2;
+    v26 = optionsCopy2;
   }
 
-  v25 = [TabSnapshotRequest alloc];
+  v27 = [TabSnapshotRequest alloc];
   uuid = [documentCopy uuid];
-  height = [(TabSnapshotRequest *)v25 initWithSize:v24 options:uuid identifier:width, height];
+  height = [(TabSnapshotRequest *)v27 initWithSize:v26 options:uuid identifier:width, height];
 
-  v28 = objc_alloc(MEMORY[0x277D28DA8]);
+  v30 = objc_alloc(MEMORY[0x277D28DA8]);
   uuid2 = [documentCopy uuid];
-  v30 = [v28 initWithIdentifier:uuid2];
+  v32 = [v30 initWithIdentifier:uuid2];
 
   if ([MEMORY[0x277D49A08] isSolariumEnabled] && _SFDeviceIsPad())
   {
     [(_SFWebView *)self->_webView safeAreaInsets];
     UIEdgeInsetsMax();
-    [v30 setHorizontalObscuredInsets:?];
+    [v32 setHorizontalObscuredInsets:?];
   }
 
   [(BrowserController *)self windowSize];
-  [v30 setWindowSize:?];
+  [v32 setWindowSize:?];
   uUID = [(BrowserController *)self UUID];
-  [v30 setWindowUUID:uUID];
+  [v32 setWindowUUID:uUID];
 
   activeTabDocument = [(TabController *)self->_tabController activeTabDocument];
 
   if (activeTabDocument == documentCopy)
   {
-    v33 = MEMORY[0x277CCABB0];
+    v35 = MEMORY[0x277CCABB0];
     [(BrowserRootViewController *)self->_rootViewController bannerHeightIncludedInSnapshot];
-    v34 = [v33 numberWithDouble:?];
-    [v30 setIncludedBannerHeight:v34];
+    v36 = [v35 numberWithDouble:?];
+    [v32 setIncludedBannerHeight:v36];
   }
 
-  [(TabSnapshotRequest *)height setMetadata:v30];
-  [(TabSnapshotGenerator *)v36 snapshotWithRequest:height contentProvider:v15 completion:completionCopy];
+  [(TabSnapshotRequest *)height setMetadata:v32];
+  [(TabSnapshotGenerator *)v38 snapshotWithRequest:height contentProvider:v17 completion:completionCopy];
 
 LABEL_31:
 }
@@ -11993,7 +12006,7 @@ LABEL_31:
   uuid2 = [tabCopy uuid];
   v9 = WBSIsEqual();
 
-  if ((v9 & 1) == 0 || [(BrowserController *)self isFavoritesFieldFocused]|| [(BrowserController *)self _hasPresentedViewController])
+  if ((v9 & 1) == 0 || [(BrowserController *)self isFavoritesFieldFocused]|| ([(BrowserController *)self _hasPresentedViewController]& 1) != 0)
   {
     goto LABEL_19;
   }
@@ -12649,7 +12662,7 @@ LABEL_172:
 
                           if (sel_openNewTabOrWindow_ == action)
                           {
-                            effectiveNewDocumentShortcutBehavior = [(BrowserController *)self effectiveNewDocumentShortcutBehavior];
+                            effectiveNewDocumentShortcutBehavior = [(BrowserController *)&self->super.super.super.isa effectiveNewDocumentShortcutBehavior];
                             if (effectiveNewDocumentShortcutBehavior == 1)
                             {
                               v47 = supportsMultipleScenes;
@@ -13102,12 +13115,12 @@ LABEL_8:
   return v2;
 }
 
-- (uint64_t)effectiveNewDocumentShortcutBehavior
+- (id)effectiveNewDocumentShortcutBehavior
 {
   selfCopy = self;
   if (self)
   {
-    WeakRetained = objc_loadWeakRetained((self + 368));
+    WeakRetained = objc_loadWeakRetained(self + 46);
     if (objc_opt_respondsToSelector() & 1) != 0 && ([WeakRetained browserControllerIsFullscreen:selfCopy])
     {
       selfCopy = 0;
@@ -13312,7 +13325,7 @@ LABEL_10:
   v55.super_class = BrowserController;
   [(BrowserController *)&v55 validateCommand:commandCopy];
   action = [commandCopy action];
-  effectiveNewDocumentShortcutBehavior = [(BrowserController *)self effectiveNewDocumentShortcutBehavior];
+  effectiveNewDocumentShortcutBehavior = [(BrowserController *)&self->super.super.super.isa effectiveNewDocumentShortcutBehavior];
   if (action == sel_closeAllTabsMatchingSearch_)
   {
     _closeAllTabsMatchingSearchLabel = [(BrowserController *)self _closeAllTabsMatchingSearchLabel];
@@ -13837,7 +13850,7 @@ LABEL_43:
   }
 }
 
-- (uint64_t)_tabIndexForKeyCommand:(uint64_t)command
+- (unint64_t)_tabIndexForKeyCommand:(unint64_t)command
 {
   v3 = a2;
   v4 = v3;
@@ -13948,6 +13961,7 @@ LABEL_43:
   if (collection)
   {
     currentBookmarksCollection = [collection currentBookmarksCollection];
+    v6 = currentBookmarksCollection;
     if (*(collection + 720) == 1)
     {
       [*(collection + 328) selectPrivateTabGroup];
@@ -13955,11 +13969,11 @@ LABEL_43:
 
     else
     {
-      v5 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = WBS_LOG_CHANNEL_PREFIXTabGroup(currentBookmarksCollection, v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v8 = 0;
-        _os_log_impl(&dword_215819000, v5, OS_LOG_TYPE_DEFAULT, "Will switch to local tab group because start page collection visibility was toggled.", v8, 2u);
+        *v10 = 0;
+        _os_log_impl(&dword_215819000, v7, OS_LOG_TYPE_DEFAULT, "Will switch to local tab group because start page collection visibility was toggled.", v10, 2u);
       }
 
       [*(collection + 328) selectLocalTabGroup];
@@ -13967,13 +13981,13 @@ LABEL_43:
 
     if (WBSIsEqual())
     {
-      v6 = 0;
+      v8 = 0;
     }
 
     else
     {
       isShowingSidebar = [*(collection + 768) isShowingSidebar];
-      v6 = v3;
+      v8 = v3;
       if (!isShowingSidebar)
       {
         if ([collection _bookmarksPresentationStyle])
@@ -13985,7 +13999,7 @@ LABEL_43:
       }
     }
 
-    [collection setCurrentBookmarksCollection:v6];
+    [collection setCurrentBookmarksCollection:v8];
 LABEL_11:
   }
 }
@@ -14126,9 +14140,10 @@ LABEL_11:
 {
   if (pressed)
   {
+    v2 = a2;
     activeTabDocument = [pressed[41] activeTabDocument];
     titleForNewBookmark = [activeTabDocument titleForNewBookmark];
-    [(BrowserController *)pressed _addBookmarkForCurrentTabKeyPressed:a2 title:titleForNewBookmark];
+    [(BrowserController *)pressed _addBookmarkForCurrentTabKeyPressed:v2 title:titleForNewBookmark];
   }
 }
 
@@ -15446,7 +15461,7 @@ uint64_t __34__BrowserController_closeAllTabs___block_invoke(uint64_t a1)
 - (void)openNewTabOrWindow:(id)window
 {
   windowCopy = window;
-  if ([(BrowserController *)self effectiveNewDocumentShortcutBehavior])
+  if ([(BrowserController *)&self->super.super.super.isa effectiveNewDocumentShortcutBehavior])
   {
     [(BrowserController *)self openNewWindowInFrontmostProfile:windowCopy];
   }
@@ -16585,7 +16600,7 @@ void __67__BrowserController_tabDocument_didReceiveAssistantContentOptions___blo
 - (void)handleSearchResult:(id)result
 {
   _sf_punchoutURL = [result _sf_punchoutURL];
-  [(BrowserController *)self _loadURL:_sf_punchoutURL inExternalApplication:0 forImageAttribution:0];
+  [(BrowserController *)&self->super.super.super.isa _loadURL:_sf_punchoutURL inExternalApplication:0 forImageAttribution:0];
 }
 
 - (void)navigationBarFormatMenuButtonBecameUnavailable:(id)unavailable
@@ -17539,7 +17554,7 @@ void __61__BrowserController__perSiteLockdownModePreferenceDidChange___block_inv
       v14->_libraryController = v61;
     }
 
-    [(BrowserController *)v14 _updateConfiguration];
+    [(BrowserController *)&v14->super.super.super.isa _updateConfiguration];
     defaultCenter = [MEMORY[0x277CCA9A0] defaultCenter];
     [defaultCenter addObserver:v14 selector:sel__perSitePreferencesDidChange_ name:*MEMORY[0x277D29288] object:0];
 
@@ -18010,11 +18025,11 @@ id __42__BrowserController__libraryConfiguration__block_invoke_2(uint64_t a1, ui
   [(_SFBrowserSavedState *)savedState updateSceneID:windowStateData];
 }
 
-void __34__BrowserController_adoptSceneID___block_invoke(uint64_t a1, char a2)
+void __34__BrowserController_adoptSceneID___block_invoke(uint64_t result, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXTabs();
+    v2 = WBS_LOG_CHANNEL_PREFIXTabs(result, a2);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __34__BrowserController_adoptSceneID___block_invoke_cold_1();
@@ -18065,8 +18080,8 @@ uint64_t __32__BrowserController_closeWindow__block_invoke(uint64_t a1, void *a2
 void __32__BrowserController_closeWindow__block_invoke_958(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = WBS_LOG_CHANNEL_PREFIXTabs();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXTabs(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [v2 safari_privacyPreservingDescription];
     objc_claimAutoreleasedReturnValue();
@@ -18089,7 +18104,7 @@ void __32__BrowserController_closeWindow__block_invoke_958(uint64_t a1, void *a2
   return WeakRetained;
 }
 
-- (void)_sceneSession
+- (id)_sceneSession
 {
   selfCopy = self;
   v19 = *MEMORY[0x277D85DE8];
@@ -18863,7 +18878,7 @@ uint64_t __55__BrowserController_shareDidUpdateForTabGroupWithUUID___block_invok
   if (userInterfaceStyle != userInterfaceStyle2)
   {
     [(TabCollectionViewProviding *)self->_tabCollectionViewProvider setSnapshotInvalidationIsPostponed:1];
-    [(BrowserController *)self _updateConfiguration];
+    [(BrowserController *)&self->super.super.super.isa _updateConfiguration];
     v22 = 0u;
     v23 = 0u;
     v20 = 0u;
@@ -18979,8 +18994,8 @@ uint64_t __55__BrowserController_shareDidUpdateForTabGroupWithUUID___block_invok
 
   else
   {
-    shouldShowBookmarks = [(BrowserController *)&self->super.super.super.isa _shouldShowBookmarksBar];
-    [(BrowserController *)self _setShowBookmarksBar:?];
+    _shouldShowBookmarksBar = [(BrowserController *)&self->super.super.super.isa _shouldShowBookmarksBar];
+    [(BrowserController *)self _setShowBookmarksBar:_shouldShowBookmarksBar];
     v4 = 1;
   }
 
@@ -19130,21 +19145,21 @@ uint64_t __55__BrowserController_shareDidUpdateForTabGroupWithUUID___block_invok
 
 void __75__BrowserController_addBookmarkNavController_didFinishWithResult_bookmark___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = v6;
+  v8 = v6;
   if (v5)
   {
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __75__BrowserController_addBookmarkNavController_didFinishWithResult_bookmark___block_invoke_1022;
-    v9[3] = &unk_2781D61F8;
-    v10 = *(a1 + 32);
-    v11 = v5;
-    dispatch_async(MEMORY[0x277D85CD0], v9);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __75__BrowserController_addBookmarkNavController_didFinishWithResult_bookmark___block_invoke_1022;
+    v10[3] = &unk_2781D61F8;
+    v11 = *(a1 + 32);
+    v12 = v5;
+    dispatch_async(MEMORY[0x277D85CD0], v10);
 
-    v8 = v10;
+    v9 = v11;
   }
 
   else
@@ -19154,10 +19169,10 @@ void __75__BrowserController_addBookmarkNavController_didFinishWithResult_bookma
       goto LABEL_4;
     }
 
-    v8 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [v7 safari_privacyPreservingDescription];
+      [v8 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __75__BrowserController_addBookmarkNavController_didFinishWithResult_bookmark___block_invoke_cold_1();
     }
@@ -20056,11 +20071,11 @@ uint64_t __74__BrowserController_toggleBookmarksPresentationWithCollection_compl
   }
 }
 
-uint64_t __44__BrowserController_editBookmarksKeyPressed__block_invoke(uint64_t result, int a2)
+void *__44__BrowserController_editBookmarksKeyPressed__block_invoke(void *result, int a2)
 {
   if (a2)
   {
-    return [*(*(result + 32) + 912) toggleEditBookmarks];
+    return [*(result[4] + 912) toggleEditBookmarks];
   }
 
   return result;
@@ -20821,11 +20836,11 @@ void __86__BrowserController_presentPrintControllerForTabDocument_frame_initiate
 
 - (void)handleNavigationIntent:(id)intent completion:(id)completion
 {
-  v130 = *MEMORY[0x277D85DE8];
+  v134 = *MEMORY[0x277D85DE8];
   intentCopy = intent;
   completionCopy = completion;
-  v7 = WBS_LOG_CHANNEL_PREFIXPageLoading();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = WBS_LOG_CHANNEL_PREFIXPageLoading(completionCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [intentCopy privacyPreservingDescription];
     objc_claimAutoreleasedReturnValue();
@@ -20848,13 +20863,13 @@ void __86__BrowserController_presentPrintControllerForTabDocument_frame_initiate
       safari_bestURLForUserTypedString = 0;
     }
 
-    else if ([intentCopy type] != 4 || (objc_msgSend(intentCopy, "text"), v10 = objc_claimAutoreleasedReturnValue(), v11 = WBSUnifiedFieldInputTypeForString(), v10, safari_bestURLForUserTypedString = 0, v11) && v11 != 3)
+    else if ([intentCopy type] != 4 || (objc_msgSend(intentCopy, "text"), v11 = objc_claimAutoreleasedReturnValue(), v12 = WBSUnifiedFieldInputTypeForString(), v11, safari_bestURLForUserTypedString = 0, v12) && v12 != 3)
     {
-      v12 = [intentCopy URL];
-      v13 = v12;
-      if (v12)
+      v13 = [intentCopy URL];
+      v14 = v13;
+      if (v13)
       {
-        safari_bestURLForUserTypedString = v12;
+        safari_bestURLForUserTypedString = v13;
       }
 
       else
@@ -20880,88 +20895,88 @@ void __86__BrowserController_presentPrintControllerForTabDocument_frame_initiate
     singleUnpinnedBlankTab = [(TabController *)self->_tabController singleUnpinnedBlankTab];
   }
 
-  v122 = 0;
-  v123 = &v122;
-  v124 = 0x3032000000;
-  v125 = __Block_byref_object_copy__3;
-  v126 = __Block_byref_object_dispose__3;
-  v127 = 0;
-  v120[0] = 0;
-  v120[1] = v120;
-  v120[2] = 0x2020000000;
-  v121 = 0;
+  v126 = 0;
+  v127 = &v126;
+  v128 = 0x3032000000;
+  v129 = __Block_byref_object_copy__3;
+  v130 = __Block_byref_object_dispose__3;
+  v131 = 0;
+  v124[0] = 0;
+  v124[1] = v124;
+  v124[2] = 0x2020000000;
+  v125 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __55__BrowserController_handleNavigationIntent_completion___block_invoke;
   aBlock[3] = &unk_2781D6D78;
-  v17 = singleUnpinnedBlankTab;
-  v117 = v17;
-  v119 = v120;
-  v18 = activeTabDocument;
-  v118 = v18;
-  v19 = _Block_copy(aBlock);
+  v18 = singleUnpinnedBlankTab;
+  v121 = v18;
+  v123 = v124;
+  v19 = activeTabDocument;
+  v122 = v19;
+  v20 = _Block_copy(aBlock);
+  v114[0] = MEMORY[0x277D85DD0];
+  v114[1] = 3221225472;
+  v114[2] = __55__BrowserController_handleNavigationIntent_completion___block_invoke_2;
+  v114[3] = &unk_2781D6DA0;
+  v21 = v20;
+  v118 = v21;
+  v22 = intentCopy;
+  v115 = v22;
+  v119 = v124;
+  v23 = v18;
+  v116 = v23;
+  selfCopy = self;
+  v24 = _Block_copy(v114);
   v110[0] = MEMORY[0x277D85DD0];
   v110[1] = 3221225472;
-  v110[2] = __55__BrowserController_handleNavigationIntent_completion___block_invoke_2;
-  v110[3] = &unk_2781D6DA0;
-  v20 = v19;
-  v114 = v20;
-  v21 = intentCopy;
-  v111 = v21;
-  v115 = v120;
-  v22 = v17;
-  v112 = v22;
-  selfCopy = self;
-  v23 = _Block_copy(v110);
-  v106[0] = MEMORY[0x277D85DD0];
-  v106[1] = 3221225472;
-  v106[2] = __55__BrowserController_handleNavigationIntent_completion___block_invoke_3;
-  v106[3] = &unk_2781D6DC8;
-  v106[4] = self;
-  v82 = v20;
-  v108 = v82;
-  v81 = v22;
-  v107 = v81;
-  v109 = v120;
-  v24 = _Block_copy(v106);
-  v101[0] = MEMORY[0x277D85DD0];
-  v101[1] = 3221225472;
-  v101[2] = __55__BrowserController_handleNavigationIntent_completion___block_invoke_4;
-  v101[3] = &unk_2781D6E40;
-  v25 = completionCopy;
-  v104 = v25;
-  v105 = &v122;
-  v101[4] = self;
-  v26 = v21;
-  v102 = v26;
-  v27 = v18;
-  v103 = v27;
-  v86 = _Block_copy(v101);
-  v96[0] = MEMORY[0x277D85DD0];
-  v96[1] = 3221225472;
-  v96[2] = __55__BrowserController_handleNavigationIntent_completion___block_invoke_8;
-  v96[3] = &unk_2781D6E90;
-  v96[4] = self;
-  v28 = v26;
-  v97 = v28;
-  v29 = v24;
-  v98 = v29;
-  v84 = v23;
-  v99 = v84;
-  v100 = &v122;
-  v85 = _Block_copy(v96);
-  if ([v28 type] == 9)
+  v110[2] = __55__BrowserController_handleNavigationIntent_completion___block_invoke_3;
+  v110[3] = &unk_2781D6DC8;
+  v110[4] = self;
+  v86 = v21;
+  v112 = v86;
+  v85 = v23;
+  v111 = v85;
+  v113 = v124;
+  v25 = _Block_copy(v110);
+  v105[0] = MEMORY[0x277D85DD0];
+  v105[1] = 3221225472;
+  v105[2] = __55__BrowserController_handleNavigationIntent_completion___block_invoke_4;
+  v105[3] = &unk_2781D6E40;
+  v26 = completionCopy;
+  v108 = v26;
+  v109 = &v126;
+  v105[4] = self;
+  v27 = v22;
+  v106 = v27;
+  v28 = v19;
+  v107 = v28;
+  v90 = _Block_copy(v105);
+  v100[0] = MEMORY[0x277D85DD0];
+  v100[1] = 3221225472;
+  v100[2] = __55__BrowserController_handleNavigationIntent_completion___block_invoke_8;
+  v100[3] = &unk_2781D6E90;
+  v100[4] = self;
+  v29 = v27;
+  v101 = v29;
+  v30 = v25;
+  v102 = v30;
+  v88 = v24;
+  v103 = v88;
+  v104 = &v126;
+  v89 = _Block_copy(v100);
+  if ([v29 type] == 9)
   {
-    if ([v28 externalURLSourceApplicationIsSpotlight])
+    if ([v29 externalURLSourceApplicationIsSpotlight])
     {
       tabDocumentForSpotlightSearch = [(TabController *)self->_tabController tabDocumentForSpotlightSearch];
       if (tabDocumentForSpotlightSearch)
       {
-        v31 = v123[5];
-        v123[5] = tabDocumentForSpotlightSearch;
+        v32 = v127[5];
+        v127[5] = tabDocumentForSpotlightSearch;
         activeTabDocument8 = tabDocumentForSpotlightSearch;
 
-        [(TabDocumentDropHandler *)activeTabDocument8 handleNavigationIntent:v28 completion:v86];
+        [(TabDocumentDropHandler *)activeTabDocument8 handleNavigationIntent:v29 completion:v90];
 LABEL_71:
 
         goto LABEL_72;
@@ -20969,50 +20984,50 @@ LABEL_71:
     }
 
     tabController = self->_tabController;
-    v34 = [v28 URL];
-    activeTabDocument8 = [(TabController *)tabController tabDocumentForURL:v34 forceUnhibernate:1];
+    v35 = [v29 URL];
+    activeTabDocument8 = [(TabController *)tabController tabDocumentForURL:v35 forceUnhibernate:1];
 
     if (activeTabDocument8)
     {
-      objc_storeStrong(v123 + 5, activeTabDocument8);
+      objc_storeStrong(v127 + 5, activeTabDocument8);
       [(TabDocumentDropHandler *)activeTabDocument8 unhibernate];
-      [(TabDocumentDropHandler *)activeTabDocument8 handleNavigationIntent:v28 completion:v86];
+      [(TabDocumentDropHandler *)activeTabDocument8 handleNavigationIntent:v29 completion:v90];
       goto LABEL_71;
     }
   }
 
-  if ([v28 type] != 3)
+  if ([v29 type] != 3)
   {
-    if ([v28 type] == 11)
+    if ([v29 type] == 11)
     {
-      if (([v28 shouldPromptBeforeHandling] & 1) == 0)
+      if (([v29 shouldPromptBeforeHandling] & 1) == 0)
       {
-        v85[2]();
-        v38 = 1;
+        v89[2]();
+        v39 = 1;
         goto LABEL_45;
       }
 
-      v39 = [TabDocumentDropHandler alloc];
+      v40 = [TabDocumentDropHandler alloc];
       viewControllerToPresentFrom = [(BrowserController *)self viewControllerToPresentFrom];
-      activeTabDocument8 = [(TabDocumentDropHandler *)v39 initWithAlertPresentationViewController:viewControllerToPresentFrom];
+      activeTabDocument8 = [(TabDocumentDropHandler *)v40 initWithAlertPresentationViewController:viewControllerToPresentFrom];
 
-      navigationIntents = [v28 navigationIntents];
-      v42 = [navigationIntents count];
-      v93[0] = MEMORY[0x277D85DD0];
-      v93[1] = 3221225472;
-      v93[2] = __55__BrowserController_handleNavigationIntent_completion___block_invoke_10;
-      v93[3] = &unk_2781D6C00;
-      v94 = v85;
-      v95 = v86;
-      [(TabDocumentDropHandler *)activeTabDocument8 promptIfNeededToConfirmNumberOfNavigationIntents:v42 withCompletionHandler:v93];
+      navigationIntents = [v29 navigationIntents];
+      v43 = [navigationIntents count];
+      v97[0] = MEMORY[0x277D85DD0];
+      v97[1] = 3221225472;
+      v97[2] = __55__BrowserController_handleNavigationIntent_completion___block_invoke_10;
+      v97[3] = &unk_2781D6C00;
+      v98 = v89;
+      v99 = v90;
+      [(TabDocumentDropHandler *)activeTabDocument8 promptIfNeededToConfirmNumberOfNavigationIntents:v43 withCompletionHandler:v97];
 
-      v43 = v94;
+      v44 = v98;
 LABEL_70:
 
       goto LABEL_71;
     }
 
-    policy = [v28 policy];
+    policy = [v29 policy];
     if (policy > 4)
     {
       if (policy != 5)
@@ -21022,19 +21037,19 @@ LABEL_70:
           goto LABEL_72;
         }
 
-        activeTabDocument8 = [v28 URL];
+        activeTabDocument8 = [v29 URL];
         if (!activeTabDocument8)
         {
-          v67 = WBS_LOG_CHANNEL_PREFIXPageLoading();
-          if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
+          v69 = WBS_LOG_CHANNEL_PREFIXPageLoading(0, v54);
+          if (os_log_type_enabled(v69, OS_LOG_TYPE_INFO))
           {
-            privacyPreservingDescription = [v28 privacyPreservingDescription];
+            privacyPreservingDescription = [v29 privacyPreservingDescription];
             *buf = 138543362;
-            v129 = privacyPreservingDescription;
-            _os_log_impl(&dword_215819000, v67, OS_LOG_TYPE_INFO, "Unable to download intent because there's no URL: %{public}@", buf, 0xCu);
+            v133 = privacyPreservingDescription;
+            _os_log_impl(&dword_215819000, v69, OS_LOG_TYPE_INFO, "Unable to download intent because there's no URL: %{public}@", buf, 0xCu);
           }
 
-          (*(v86 + 2))(v86, 0);
+          (*(v90 + 2))(v90, 0);
           goto LABEL_71;
         }
 
@@ -21044,25 +21059,25 @@ LABEL_70:
         [activeTabDocument3 setNextLoadComesFromSearchPage:isSearchPage];
 
         activeTabDocument4 = [(TabController *)self->_tabController activeTabDocument];
-        sourceElementInfo = [v28 sourceElementInfo];
+        sourceElementInfo = [v29 sourceElementInfo];
         [activeTabDocument4 animateElementToDownloadsBarItemSoon:sourceElementInfo];
 
         mEMORY[0x277CDB7A0] = [MEMORY[0x277CDB7A0] sharedDownloadDispatcher];
         activeTabDocument5 = [(TabController *)self->_tabController activeTabDocument];
         webView = [activeTabDocument5 webView];
-        v43 = [mEMORY[0x277CDB7A0] startDownloadFromWebView:webView URL:activeTabDocument8];
+        v44 = [mEMORY[0x277CDB7A0] startDownloadFromWebView:webView URL:activeTabDocument8];
 
         mEMORY[0x277CDB7A8] = [MEMORY[0x277CDB7A8] sharedManager];
-        [v43 setDelegate:mEMORY[0x277CDB7A8]];
+        [v44 setDelegate:mEMORY[0x277CDB7A8]];
 
-        [v43 setExplicitlySaved:1];
-        (*(v86 + 2))(v86, 1);
+        [v44 setExplicitlySaved:1];
+        (*(v90 + 2))(v90, 1);
         goto LABEL_70;
       }
 
-      activeTabDocument8 = [v28 URL];
-      text2 = [v28 text];
-      v66 = text2;
+      activeTabDocument8 = [v29 URL];
+      text2 = [v29 text];
+      v68 = text2;
       if (text2)
       {
         safari_userVisibleString = text2;
@@ -21076,76 +21091,76 @@ LABEL_70:
       if (activeTabDocument8)
       {
         mainBookmarkCollection = [MEMORY[0x277D7B5A8] mainBookmarkCollection];
-        v70 = [(WebBookmarkCollection *)mainBookmarkCollection saveReadingListBookmarkWithTitle:safari_userVisibleString address:activeTabDocument8];
+        v74 = [(WebBookmarkCollection *)mainBookmarkCollection saveReadingListBookmarkWithTitle:safari_userVisibleString address:activeTabDocument8];
 
-        if (v70)
+        if (v74)
         {
           mEMORY[0x277D499B8] = [MEMORY[0x277D499B8] sharedLogger];
           [mEMORY[0x277D499B8] didAddReadingListItemWithMethod:5];
         }
 
         activeTabDocument6 = [(TabController *)self->_tabController activeTabDocument];
-        sourceElementInfo2 = [v28 sourceElementInfo];
+        sourceElementInfo2 = [v29 sourceElementInfo];
         [activeTabDocument6 animateElement:sourceElementInfo2 toBarItem:3];
       }
 
       else
       {
-        activeTabDocument6 = WBS_LOG_CHANNEL_PREFIXPageLoading();
+        activeTabDocument6 = WBS_LOG_CHANNEL_PREFIXPageLoading(v71, v72);
         if (os_log_type_enabled(activeTabDocument6, OS_LOG_TYPE_INFO))
         {
-          privacyPreservingDescription2 = [v28 privacyPreservingDescription];
+          privacyPreservingDescription2 = [v29 privacyPreservingDescription];
           *buf = 138543362;
-          v129 = privacyPreservingDescription2;
+          v133 = privacyPreservingDescription2;
           _os_log_impl(&dword_215819000, activeTabDocument6, OS_LOG_TYPE_INFO, "Unable to add intent to reading list because there's no URL: %{public}@", buf, 0xCu);
         }
       }
 
-      (*(v86 + 2))(v86, activeTabDocument8 != 0);
+      (*(v90 + 2))(v90, activeTabDocument8 != 0);
 LABEL_69:
-      v43 = safari_userVisibleString;
+      v44 = safari_userVisibleString;
       goto LABEL_70;
     }
 
     if ((policy - 1) < 4)
     {
-      safari_userVisibleString = [v28 webClip];
-      if (!safari_userVisibleString || ([(TabController *)self->_tabController switchToTabDocumentForWebClip:safari_userVisibleString], (v45 = objc_claimAutoreleasedReturnValue()) == 0))
+      safari_userVisibleString = [v29 webClip];
+      if (!safari_userVisibleString || ([(TabController *)self->_tabController switchToTabDocumentForWebClip:safari_userVisibleString], (v46 = objc_claimAutoreleasedReturnValue()) == 0))
       {
-        v45 = (*(v84 + 2))(v84, 0);
+        v46 = (*(v88 + 2))(v88, 0);
       }
 
-      if ([v28 shouldRelateToSourceTab])
+      if ([v29 shouldRelateToSourceTab])
       {
         browserWindowController = [(BrowserController *)self browserWindowController];
-        sourceWindowUUID = [v28 sourceWindowUUID];
-        v78 = [browserWindowController browserControllerWithUUID:sourceWindowUUID];
+        sourceWindowUUID = [v29 sourceWindowUUID];
+        v82 = [browserWindowController browserControllerWithUUID:sourceWindowUUID];
 
-        tabController = [v78 tabController];
-        sourceTabUUID = [v28 sourceTabUUID];
-        v77 = [tabController tabDocumentWithUUID:sourceTabUUID];
+        tabController = [v82 tabController];
+        sourceTabUUID = [v29 sourceTabUUID];
+        v81 = [tabController tabDocumentWithUUID:sourceTabUUID];
 
-        trackerInfo = [v77 trackerInfo];
+        trackerInfo = [v81 trackerInfo];
         queryParameterFilteringDataQueue = [trackerInfo queryParameterFilteringDataQueue];
-        trackerInfo2 = [v45 trackerInfo];
+        trackerInfo2 = [v46 trackerInfo];
         queryParameterFilteringDataQueue2 = [trackerInfo2 queryParameterFilteringDataQueue];
         [queryParameterFilteringDataQueue transferPendingDataToQueue:queryParameterFilteringDataQueue2];
       }
 
       activeTabDocument7 = [(TabController *)self->_tabController activeTabDocument];
-      [v45 setNextLoadComesFromSearchPage:{objc_msgSend(activeTabDocument7, "isSearchPage")}];
+      [v46 setNextLoadComesFromSearchPage:{objc_msgSend(activeTabDocument7, "isSearchPage")}];
 
-      v87[0] = MEMORY[0x277D85DD0];
-      v87[1] = 3221225472;
-      v87[2] = __55__BrowserController_handleNavigationIntent_completion___block_invoke_11;
-      v87[3] = &unk_2781D6EB8;
-      v88 = v28;
-      v92 = &v122;
-      activeTabDocument8 = v45;
-      v89 = activeTabDocument8;
+      v91[0] = MEMORY[0x277D85DD0];
+      v91[1] = 3221225472;
+      v91[2] = __55__BrowserController_handleNavigationIntent_completion___block_invoke_11;
+      v91[3] = &unk_2781D6EB8;
+      v92 = v29;
+      v96 = &v126;
+      activeTabDocument8 = v46;
+      v93 = activeTabDocument8;
       selfCopy2 = self;
-      v91 = v86;
-      [(TabDocumentDropHandler *)activeTabDocument8 handleNavigationIntent:v88 completion:v87];
+      v95 = v90;
+      [(TabDocumentDropHandler *)activeTabDocument8 handleNavigationIntent:v92 completion:v91];
 
       goto LABEL_69;
     }
@@ -21156,19 +21171,19 @@ LABEL_69:
     }
 
     activeTabDocument8 = [(TabController *)self->_tabController activeTabDocument];
-    objc_storeStrong(v123 + 5, activeTabDocument8);
+    objc_storeStrong(v127 + 5, activeTabDocument8);
     [(TabDocumentDropHandler *)activeTabDocument8 setNextLoadComesFromSearchPage:[(TabDocumentDropHandler *)activeTabDocument8 isSearchPage]];
-    bookmark = [v28 bookmark];
+    bookmark = [v29 bookmark];
     localAttributes = [bookmark localAttributes];
     if (localAttributes)
     {
-      bookmark2 = [v28 bookmark];
+      bookmark2 = [v29 bookmark];
       isReadingListItem = [bookmark2 isReadingListItem];
 
       if (!isReadingListItem)
       {
 LABEL_55:
-        [(TabDocumentDropHandler *)activeTabDocument8 handleNavigationIntent:v28 completion:v86];
+        [(TabDocumentDropHandler *)activeTabDocument8 handleNavigationIntent:v29 completion:v90];
         goto LABEL_71;
       }
 
@@ -21179,18 +21194,18 @@ LABEL_55:
     goto LABEL_55;
   }
 
-  recentlyClosedTabStateData = [v28 recentlyClosedTabStateData];
-  v36 = (*(v29 + 2))(v29, 0, recentlyClosedTabStateData);
-  v37 = v123[5];
-  v123[5] = v36;
+  recentlyClosedTabStateData = [v29 recentlyClosedTabStateData];
+  v37 = (*(v30 + 2))(v30, 0, recentlyClosedTabStateData);
+  v38 = v127[5];
+  v127[5] = v37;
 
-  v38 = v123[5] != 0;
+  v39 = v127[5] != 0;
 LABEL_45:
-  (*(v86 + 2))(v86, v38);
+  (*(v90 + 2))(v90, v39);
 LABEL_72:
 
-  _Block_object_dispose(v120, 8);
-  _Block_object_dispose(&v122, 8);
+  _Block_object_dispose(v124, 8);
+  _Block_object_dispose(&v126, 8);
 }
 
 uint64_t __55__BrowserController_handleNavigationIntent_completion___block_invoke(uint64_t a1)
@@ -21917,7 +21932,7 @@ LABEL_8:
       [(BrowserRootViewController *)self->_rootViewController stopRefreshing];
       [(BrowserController *)self updateInterface];
       [(BrowserController *)self _sendPDFRepresentationForScreenshotWithTabDocument:documentCopy];
-      if (![(BrowserController *)self isShowingFavorites]&& ![(BrowserController *)self _hasPresentedViewController])
+      if (![(BrowserController *)self isShowingFavorites]&& ([(BrowserController *)self _hasPresentedViewController]& 1) == 0)
       {
         tabThumbnailCollectionView = [(TabCollectionViewProviding *)self->_tabCollectionViewProvider tabThumbnailCollectionView];
         presentationState = [tabThumbnailCollectionView presentationState];
@@ -21948,7 +21963,7 @@ LABEL_8:
 - (void)_sendPDFRepresentationForScreenshotWithTabDocument:(void *)document
 {
   v3 = a2;
-  v4 = v3;
+  v5 = v3;
   if (document)
   {
     if (document[5])
@@ -21956,65 +21971,66 @@ LABEL_8:
       webView = [v3 webView];
       scrollView = [webView scrollView];
       [scrollView visibleBounds];
-      v8 = v7;
-      v10 = v9;
-      v12 = v11;
+      v9 = v8;
+      v11 = v10;
+      v13 = v12;
       [scrollView zoomScale];
-      v14 = v13;
+      v15 = v14;
       [scrollView contentSize];
-      v16 = v15;
+      v17 = v16;
       [scrollView contentOffset];
-      v18 = v17;
+      v19 = v18;
       objc_initWeak(&location, document);
-      v19 = v16 / v14 - (*&v12 + v18 / v14);
-      if ([webView _isDisplayingPDF])
+      _isDisplayingPDF = [webView _isDisplayingPDF];
+      v22 = v17 / v15 - (*&v13 + v19 / v15);
+      if (_isDisplayingPDF)
       {
-        v27[0] = MEMORY[0x277D85DD0];
-        v27[1] = 3221225472;
-        v27[2] = __72__BrowserController__sendPDFRepresentationForScreenshotWithTabDocument___block_invoke;
-        v27[3] = &unk_2781D7148;
-        v20 = v28;
-        objc_copyWeak(v28, &location);
-        v28[1] = 1;
-        v28[2] = v8;
-        v28[3] = *&v19;
-        v28[4] = v10;
-        v28[5] = v12;
-        [webView _getMainResourceDataWithCompletionHandler:v27];
+        v30[0] = MEMORY[0x277D85DD0];
+        v30[1] = 3221225472;
+        v30[2] = __72__BrowserController__sendPDFRepresentationForScreenshotWithTabDocument___block_invoke;
+        v30[3] = &unk_2781D7148;
+        v23 = v31;
+        objc_copyWeak(v31, &location);
+        v31[1] = 1;
+        v31[2] = v9;
+        v31[3] = *&v22;
+        v31[4] = v11;
+        v31[5] = v13;
+        [webView _getMainResourceDataWithCompletionHandler:v30];
       }
 
       else
       {
-        v21 = WBS_LOG_CHANNEL_PREFIXPrinting();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        v24 = WBS_LOG_CHANNEL_PREFIXPrinting(_isDisplayingPDF, v21);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_215819000, v21, OS_LOG_TYPE_INFO, "Generating Screenshot PDF for Markup", buf, 2u);
+          _os_log_impl(&dword_215819000, v24, OS_LOG_TYPE_INFO, "Generating Screenshot PDF for Markup", buf, 2u);
         }
 
-        printController = [v4 printController];
-        v24[0] = MEMORY[0x277D85DD0];
-        v24[1] = 3221225472;
-        v24[2] = __72__BrowserController__sendPDFRepresentationForScreenshotWithTabDocument___block_invoke_1188;
-        v24[3] = &unk_2781D7170;
-        v20 = v25;
-        objc_copyWeak(v25, &location);
-        v25[1] = 1;
-        v25[2] = v8;
-        v25[3] = *&v19;
-        v25[4] = v10;
-        v25[5] = v12;
-        [printController getPDFDataForUsage:2 withCompletion:v24];
+        printController = [v5 printController];
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __72__BrowserController__sendPDFRepresentationForScreenshotWithTabDocument___block_invoke_1188;
+        v27[3] = &unk_2781D7170;
+        v23 = v28;
+        objc_copyWeak(v28, &location);
+        v28[1] = 1;
+        v28[2] = v9;
+        v28[3] = *&v22;
+        v28[4] = v11;
+        v28[5] = v13;
+        [printController getPDFDataForUsage:2 withCompletion:v27];
       }
 
-      objc_destroyWeak(v20);
+      objc_destroyWeak(v23);
       objc_destroyWeak(&location);
     }
 
     else
     {
-      v23 = WBS_LOG_CHANNEL_PREFIXPrinting();
-      [BrowserController _sendPDFRepresentationForScreenshotWithTabDocument:v23];
+      v26 = WBS_LOG_CHANNEL_PREFIXPrinting(v3, v4);
+      [BrowserController _sendPDFRepresentationForScreenshotWithTabDocument:v26];
     }
   }
 }
@@ -22022,13 +22038,14 @@ LABEL_8:
 - (void)tabDocumentDidCommitNavigation:(id)navigation
 {
   navigationCopy = navigation;
+  v6 = navigationCopy;
   if (self->_blockRequestingScreenshotPDFData)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXPrinting();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = WBS_LOG_CHANNEL_PREFIXPrinting(navigationCopy, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_215819000, v5, OS_LOG_TYPE_DEFAULT, "A tab committed a navigation before we could generate a screenshot PDF; calling and clearing completionHandler without a PDF", v7, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_215819000, v7, OS_LOG_TYPE_DEFAULT, "A tab committed a navigation before we could generate a screenshot PDF; calling and clearing completionHandler without a PDF", v9, 2u);
     }
 
     (*(self->_blockRequestingScreenshotPDFData + 2))(*MEMORY[0x277CBF398], *(MEMORY[0x277CBF398] + 8), *(MEMORY[0x277CBF398] + 16), *(MEMORY[0x277CBF398] + 24));
@@ -22036,7 +22053,7 @@ LABEL_8:
     self->_blockRequestingScreenshotPDFData = 0;
   }
 
-  [(TabController *)self->_tabController updateWBTabWithTab:navigationCopy notify:0 persist:0];
+  [(TabController *)self->_tabController updateWBTabWithTab:v6 notify:0 persist:0];
 }
 
 - (void)webViewDidFirstVisuallyNonEmptyLayoutForTabDocument:(id)document
@@ -22120,112 +22137,116 @@ LABEL_8:
 
 - (BOOL)tabDocumentShouldHandleAuthentication:(id)authentication
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   authenticationCopy = authentication;
   if (self->_speculativeLoadDocument == authenticationCopy)
   {
-    [(BrowserController *)self cancelSpeculativeLoad];
-    v5 = WBS_LOG_CHANNEL_PREFIXPageLoading();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    cancelSpeculativeLoad = [(BrowserController *)self cancelSpeculativeLoad];
+    v7 = WBS_LOG_CHANNEL_PREFIXPageLoading(cancelSpeculativeLoad, v10);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 134217984;
-      v19 = authenticationCopy;
-      v6 = "TabDocument %p: returning NO for tabDocumentShouldHandleAuthentication because speculative load.";
+      v30 = 134217984;
+      v31 = authenticationCopy;
+      v8 = "TabDocument %p: returning NO for tabDocumentShouldHandleAuthentication because speculative load.";
       goto LABEL_20;
     }
   }
 
   else if ([(BrowserController *)self isContinuousReadingDocument:authenticationCopy])
   {
-    [(BrowserController *)self clearDocumentForContinuousReading:authenticationCopy];
-    v5 = WBS_LOG_CHANNEL_PREFIXPageLoading();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v5 = [(BrowserController *)self clearDocumentForContinuousReading:authenticationCopy];
+    v7 = WBS_LOG_CHANNEL_PREFIXPageLoading(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 134217984;
-      v19 = authenticationCopy;
-      v6 = "TabDocument %p: returning NO for tabDocumentShouldHandleAuthentication because reader.";
+      v30 = 134217984;
+      v31 = authenticationCopy;
+      v8 = "TabDocument %p: returning NO for tabDocumentShouldHandleAuthentication because reader.";
 LABEL_20:
-      _os_log_impl(&dword_215819000, v5, OS_LOG_TYPE_DEFAULT, v6, &v18, 0xCu);
-    }
-  }
-
-  else if ([(BrowserController *)self isControlledByAutomation])
-  {
-    v5 = WBS_LOG_CHANNEL_PREFIXPageLoading();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-    {
-      v18 = 134217984;
-      v19 = authenticationCopy;
-      v6 = "TabDocument %p: returning NO for tabDocumentShouldHandleAuthentication because isControlledByAutomation.";
-      goto LABEL_20;
+      _os_log_impl(&dword_215819000, v7, OS_LOG_TYPE_DEFAULT, v8, &v30, 0xCu);
     }
   }
 
   else
   {
-    viewControllerToPresentFrom = [(BrowserController *)self viewControllerToPresentFrom];
-    presentedViewController = [viewControllerToPresentFrom presentedViewController];
-
-    if (presentedViewController && NSClassFromString(@"OBWelcomeController") && (-[BrowserController viewControllerToPresentFrom](self, "viewControllerToPresentFrom"), v9 = objc_claimAutoreleasedReturnValue(), [v9 presentedViewController], v10 = objc_claimAutoreleasedReturnValue(), isKindOfClass = objc_opt_isKindOfClass(), v10, v9, (isKindOfClass & 1) != 0))
+    isControlledByAutomation = [(BrowserController *)self isControlledByAutomation];
+    if (isControlledByAutomation)
     {
-      v5 = WBS_LOG_CHANNEL_PREFIXPageLoading();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = WBS_LOG_CHANNEL_PREFIXPageLoading(isControlledByAutomation, v12);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 134217984;
-        v19 = authenticationCopy;
-        v6 = "TabDocument %p: returning NO for tabDocumentShouldHandleAuthentication because presentedViewController.";
+        v30 = 134217984;
+        v31 = authenticationCopy;
+        v8 = "TabDocument %p: returning NO for tabDocumentShouldHandleAuthentication because isControlledByAutomation.";
         goto LABEL_20;
       }
     }
 
     else
     {
-      tabThumbnailCollectionView = [(TabCollectionViewProviding *)self->_tabCollectionViewProvider tabThumbnailCollectionView];
-      if ([tabThumbnailCollectionView presentationState] == 1)
+      viewControllerToPresentFrom = [(BrowserController *)self viewControllerToPresentFrom];
+      presentedViewController = [viewControllerToPresentFrom presentedViewController];
+
+      if (presentedViewController && NSClassFromString(@"OBWelcomeController") && (-[BrowserController viewControllerToPresentFrom](self, "viewControllerToPresentFrom"), v15 = objc_claimAutoreleasedReturnValue(), [v15 presentedViewController], v16 = objc_claimAutoreleasedReturnValue(), isKindOfClass = objc_opt_isKindOfClass(), v16, v15, (isKindOfClass & 1) != 0))
       {
+        v7 = WBS_LOG_CHANNEL_PREFIXPageLoading(v18, v19);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        {
+          v30 = 134217984;
+          v31 = authenticationCopy;
+          v8 = "TabDocument %p: returning NO for tabDocumentShouldHandleAuthentication because presentedViewController.";
+          goto LABEL_20;
+        }
       }
 
       else
       {
-        presentationState = [tabThumbnailCollectionView presentationState];
-
-        if (presentationState != 2)
+        tabThumbnailCollectionView = [(TabCollectionViewProviding *)self->_tabCollectionViewProvider tabThumbnailCollectionView];
+        if ([tabThumbnailCollectionView presentationState] == 1)
         {
-          if (!-[TabDocument isPrivateBrowsingEnabled](authenticationCopy, "isPrivateBrowsingEnabled") || (+[Application sharedApplication](Application, "sharedApplication"), v16 = objc_claimAutoreleasedReturnValue(), v17 = [v16 isPrivateBrowsingLocked], v16, !v17))
-          {
-            v14 = 1;
-            goto LABEL_22;
-          }
-
-          v5 = WBS_LOG_CHANNEL_PREFIXPageLoading();
-          if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-          {
-            v18 = 134217984;
-            v19 = authenticationCopy;
-            v6 = "TabDocument %p: returning NO for tabDocumentShouldHandleAuthentication because locked private browsing.";
-            goto LABEL_20;
-          }
-
-          goto LABEL_21;
         }
-      }
 
-      v5 = WBS_LOG_CHANNEL_PREFIXPageLoading();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-      {
-        v18 = 134217984;
-        v19 = authenticationCopy;
-        v6 = "TabDocument %p: returning NO for tabDocumentShouldHandleAuthentication because tabThumbnailCollectionView.";
-        goto LABEL_20;
+        else
+        {
+          presentationState = [tabThumbnailCollectionView presentationState];
+
+          if (presentationState != 2)
+          {
+            if (!-[TabDocument isPrivateBrowsingEnabled](authenticationCopy, "isPrivateBrowsingEnabled") || (+[Application sharedApplication](Application, "sharedApplication"), v26 = objc_claimAutoreleasedReturnValue(), v27 = [v26 isPrivateBrowsingLocked], v26, !v27))
+            {
+              v24 = 1;
+              goto LABEL_22;
+            }
+
+            v7 = WBS_LOG_CHANNEL_PREFIXPageLoading(v28, v29);
+            if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+            {
+              v30 = 134217984;
+              v31 = authenticationCopy;
+              v8 = "TabDocument %p: returning NO for tabDocumentShouldHandleAuthentication because locked private browsing.";
+              goto LABEL_20;
+            }
+
+            goto LABEL_21;
+          }
+        }
+
+        v7 = WBS_LOG_CHANNEL_PREFIXPageLoading(v21, v22);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        {
+          v30 = 134217984;
+          v31 = authenticationCopy;
+          v8 = "TabDocument %p: returning NO for tabDocumentShouldHandleAuthentication because tabThumbnailCollectionView.";
+          goto LABEL_20;
+        }
       }
     }
   }
 
 LABEL_21:
-  v14 = 0;
+  v24 = 0;
 LABEL_22:
 
-  return v14;
+  return v24;
 }
 
 - (BOOL)tabDocumentShouldHandleCertificateError:(id)error
@@ -22448,7 +22469,7 @@ void __80__BrowserController_tabDocumentDidChangeMediaState_needsUpdateGlobalAud
 
 - (void)_siriReadThisVocalInvocation
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   if (!self)
   {
     return;
@@ -22482,10 +22503,11 @@ void __80__BrowserController_tabDocumentDidChangeMediaState_needsUpdateGlobalAud
 LABEL_7:
   v11 = activeSiriReaderSessionIdentifier2;
 
-  v22 = objc_alloc_init(getSiriReaderConnectionClass());
+  v24 = objc_alloc_init(getSiriReaderConnectionClass());
   siriReaderPlaybackStateForActiveTab = [self siriReaderPlaybackStateForActiveTab];
   webView = [activeTabDocument webView];
   title = [webView title];
+  v16 = title;
   if (siriReaderPlaybackStateForActiveTab <= 3 && siriReaderPlaybackStateForActiveTab != 1)
   {
     mEMORY[0x277D28D48] = [MEMORY[0x277D28D48] sharedPlaybackController];
@@ -22493,38 +22515,38 @@ LABEL_7:
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v34 = 0x3032000000;
-    v35 = __Block_byref_object_copy__3;
-    v36 = __Block_byref_object_dispose__3;
-    v37 = 0;
-    v16 = objc_alloc_init(MEMORY[0x277CD46E0]);
+    v36 = 0x3032000000;
+    v37 = __Block_byref_object_copy__3;
+    v38 = __Block_byref_object_dispose__3;
+    v39 = 0;
+    v18 = objc_alloc_init(MEMORY[0x277CD46E0]);
     objc_initWeak(&location, self);
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __49__BrowserController__siriReadThisVocalInvocation__block_invoke;
     aBlock[3] = &unk_2781D7238;
-    objc_copyWeak(&v31, &location);
+    objc_copyWeak(&v33, &location);
     p_buf = &buf;
-    v25 = v22;
-    v26 = title;
-    v17 = v11;
-    v27 = v17;
-    v28 = readerContext;
-    v29 = activeTabDocument;
-    v18 = _Block_copy(aBlock);
-    v19 = [webView URL];
-    [v16 startFetchingMetadataForURL:v19 completionHandler:v18];
+    v27 = v24;
+    v28 = v16;
+    v19 = v11;
+    v29 = v19;
+    v30 = readerContext;
+    v31 = activeTabDocument;
+    v20 = _Block_copy(aBlock);
+    v21 = [webView URL];
+    [v18 startFetchingMetadataForURL:v21 completionHandler:v20];
 
     activeTabDocument2 = [self[41] activeTabDocument];
-    [activeTabDocument2 setLastSiriReaderSessionIdentifier:v17];
+    [activeTabDocument2 setLastSiriReaderSessionIdentifier:v19];
 
-    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v33);
     objc_destroyWeak(&location);
 
     _Block_object_dispose(&buf, 8);
   }
 
-  This = WBS_LOG_CHANNEL_PREFIXSiriReadThis();
+  This = WBS_LOG_CHANNEL_PREFIXSiriReadThis(title, v15);
   if (os_log_type_enabled(This, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf) = 138412290;
@@ -22562,15 +22584,16 @@ LABEL_7:
 
 void __71__BrowserController__extractTextFromReaderWebViewOfTab_withCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXSiriReadThis();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXSiriReadThis(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [v6 safari_privacyPreservingDescription];
+      [v8 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __71__BrowserController__extractTextFromReaderWebViewOfTab_withCompletion___block_invoke_cold_1();
     }
@@ -22578,16 +22601,16 @@ void __71__BrowserController__extractTextFromReaderWebViewOfTab_withCompletion__
 
   else
   {
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __71__BrowserController__extractTextFromReaderWebViewOfTab_withCompletion___block_invoke_1127;
-    v10[3] = &unk_2781D6F28;
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 48);
-    v10[4] = *(a1 + 40);
-    v11 = v9;
-    v12 = *(a1 + 56);
-    [v8 _getContentsAsStringWithCompletionHandler:v10];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __71__BrowserController__extractTextFromReaderWebViewOfTab_withCompletion___block_invoke_1127;
+    v12[3] = &unk_2781D6F28;
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 48);
+    v12[4] = *(a1 + 40);
+    v13 = v11;
+    v14 = *(a1 + 56);
+    [v10 _getContentsAsStringWithCompletionHandler:v12];
   }
 }
 
@@ -22595,12 +22618,13 @@ void __71__BrowserController__extractTextFromReaderWebViewOfTab_withCompletion__
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXSiriReadThis();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXSiriReadThis(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [v6 safari_privacyPreservingDescription];
+      [v8 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __71__BrowserController__extractTextFromReaderWebViewOfTab_withCompletion___block_invoke_1127_cold_1();
     }
@@ -22608,53 +22632,53 @@ void __71__BrowserController__extractTextFromReaderWebViewOfTab_withCompletion__
     goto LABEL_15;
   }
 
-  v7 = [(BrowserController *)*(a1 + 32) _stringByRemovingContentBetweenZeroWidthSpacesForText:v5];
-  if ([v7 length])
+  v9 = [(BrowserController *)*(a1 + 32) _stringByRemovingContentBetweenZeroWidthSpacesForText:v5];
+  if ([v9 length])
   {
-    v8 = v7;
+    v10 = v9;
   }
 
   else
   {
-    v8 = v5;
+    v10 = v5;
   }
 
-  objc_storeStrong((*(a1 + 32) + 808), v8);
-  v9 = [*(a1 + 40) uuid];
-  v10 = [v9 UUIDString];
-  v11 = [v10 isEqualToString:*(*(a1 + 32) + 584)];
+  objc_storeStrong((*(a1 + 32) + 808), v10);
+  v11 = [*(a1 + 40) uuid];
+  v12 = [v11 UUIDString];
+  v13 = [v12 isEqualToString:*(*(a1 + 32) + 584)];
 
-  if (v11)
+  if (v13)
   {
     [(BrowserController *)*(a1 + 32) _siriReadThisVocalInvocation];
-    v12 = &OBJC_IVAR___BrowserController__tabUUIDStringForSiriReadThisVocalInvocation;
+    v14 = &OBJC_IVAR___BrowserController__tabUUIDStringForSiriReadThisVocalInvocation;
   }
 
   else
   {
-    v13 = [*(a1 + 40) uuid];
-    v14 = [v13 UUIDString];
-    v15 = [v14 isEqualToString:*(*(a1 + 32) + 592)];
+    v15 = [*(a1 + 40) uuid];
+    v16 = [v15 UUIDString];
+    v17 = [v16 isEqualToString:*(*(a1 + 32) + 592)];
 
-    if (!v15)
+    if (!v17)
     {
       goto LABEL_13;
     }
 
     [(BrowserController *)*(a1 + 32) _siriReadThisMenuInvocation];
-    v12 = &OBJC_IVAR___BrowserController__tabUUIDStringForSiriReadThisMenuInvocation;
+    v14 = &OBJC_IVAR___BrowserController__tabUUIDStringForSiriReadThisMenuInvocation;
   }
 
-  v16 = *(a1 + 32);
-  v17 = *v12;
-  v18 = *(v16 + v17);
-  *(v16 + v17) = 0;
+  v18 = *(a1 + 32);
+  v19 = *v14;
+  v20 = *(v18 + v19);
+  *(v18 + v19) = 0;
 
 LABEL_13:
-  v19 = *(a1 + 48);
-  if (v19)
+  v21 = *(a1 + 48);
+  if (v21)
   {
-    (*(v19 + 16))();
+    (*(v21 + 16))();
   }
 
 LABEL_15:
@@ -22662,38 +22686,39 @@ LABEL_15:
 
 - (id)_stringByRemovingContentBetweenZeroWidthSpacesForText:(uint64_t)text
 {
-  v9[4] = *MEMORY[0x277D85DE8];
+  v11[4] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (text)
   {
-    v9[0] = 0;
-    v4 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"\\u200B.*?\\u200B" options:8 error:v9];
-    v5 = v9[0];
+    v11[0] = 0;
+    v4 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"\\u200B.*?\\u200B" options:8 error:v11];
+    v5 = v11[0];
+    v7 = v5;
     if (v5)
     {
-      v6 = WBS_LOG_CHANNEL_PREFIXSiriReadThis();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = WBS_LOG_CHANNEL_PREFIXSiriReadThis(v5, v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [v5 safari_privacyPreservingDescription];
+        [v7 safari_privacyPreservingDescription];
         objc_claimAutoreleasedReturnValue();
         [BrowserController _stringByRemovingContentBetweenZeroWidthSpacesForText:];
       }
 
-      v7 = 0;
+      v9 = 0;
     }
 
     else
     {
-      v7 = [v4 stringByReplacingMatchesInString:v3 options:0 range:0 withTemplate:{objc_msgSend(v3, "length"), &stru_2827BF158}];
+      v9 = [v4 stringByReplacingMatchesInString:v3 options:0 range:0 withTemplate:{objc_msgSend(v3, "length"), &stru_2827BF158}];
     }
   }
 
   else
   {
-    v7 = 0;
+    v9 = 0;
   }
 
-  return v7;
+  return v9;
 }
 
 - (NSArray)tabsWithSound
@@ -22976,28 +23001,28 @@ void __64__BrowserController_tabDocumentShouldCloseAndSwitchToParentTab___block_
 
 - (void)tabDocumentCommitPreviewedDocument:(id)document
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   documentCopy = document;
   v5 = WBS_LOG_CHANNEL_PREFIXUserInteraction();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     previewDocument = self->_previewDocument;
-    v16 = 134218240;
-    v17 = previewDocument;
-    v18 = 2048;
-    v19 = documentCopy;
-    _os_log_impl(&dword_215819000, v5, OS_LOG_TYPE_DEFAULT, "Committing link preview %p to load in source tab %p", &v16, 0x16u);
+    v17 = 134218240;
+    v18 = previewDocument;
+    v19 = 2048;
+    v20 = documentCopy;
+    _os_log_impl(&dword_215819000, v5, OS_LOG_TYPE_DEFAULT, "Committing link preview %p to load in source tab %p", &v17, 0x16u);
   }
 
   tabController = [(BrowserController *)self tabController];
   activeTabDocument = [tabController activeTabDocument];
 
-  v9 = self->_previewDocument;
-  if (v9)
+  v10 = self->_previewDocument;
+  if (v10)
   {
     tabController = self->_tabController;
-    v11 = [(TabDocument *)v9 URL];
-    LODWORD(tabController) = [(TabController *)tabController trySwitchingToPinnedTabOnNavigationToURL:v11];
+    v12 = [(TabDocument *)v10 URL];
+    LODWORD(tabController) = [(TabController *)tabController trySwitchingToPinnedTabOnNavigationToURL:v12];
 
     if (tabController)
     {
@@ -23012,7 +23037,7 @@ void __64__BrowserController_tabDocumentShouldCloseAndSwitchToParentTab___block_
         [activeTabDocument willClose];
       }
 
-      v13 = self->_previewDocument;
+      v14 = self->_previewDocument;
       self->_previewDocument = 0;
 
       [(BrowserController *)self _invalidatePreviewDocumentCloseTimer];
@@ -23026,8 +23051,8 @@ void __64__BrowserController_tabDocumentShouldCloseAndSwitchToParentTab___block_
 
   else
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXTabs();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v13 = WBS_LOG_CHANNEL_PREFIXTabs(0, v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       [BrowserController tabDocumentCommitPreviewedDocument:];
     }
@@ -23206,8 +23231,8 @@ LABEL_10:
   tabDocumentCopy = tabDocument;
   if (!tabDocumentCopy)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXTabView();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v9 = WBS_LOG_CHANNEL_PREFIXTabView(0, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       [BrowserController switchFromTabDocument:toTabDocument:];
     }
@@ -23268,7 +23293,7 @@ LABEL_10:
       [(BrowserController *)self updateFavoritesForNewDocument];
     }
 
-    [(BrowserController *)self _updateLibraryTypeForNewDocument];
+    [(BrowserController *)&self->super.super.super.isa _updateLibraryTypeForNewDocument];
     dialogController = [tabDocumentCopy dialogController];
     [dialogController presentNextDialogIfNeeded];
 
@@ -23285,8 +23310,8 @@ LABEL_10:
 
         if (presentationState != 2)
         {
-          v20 = [MEMORY[0x277CBEB98] setWithObject:tabDocumentCopy];
-          [(BrowserController *)self _updateDigitalHealthOverlayForTabDocuments:v20];
+          v21 = [MEMORY[0x277CBEB98] setWithObject:tabDocumentCopy];
+          [(BrowserController *)self _updateDigitalHealthOverlayForTabDocuments:v21];
 
           [(BrowserController *)&self->super.super.super.isa _presentPendingViewControllerForActiveTab];
         }
@@ -23297,9 +23322,9 @@ LABEL_10:
     [(BrowserController *)self _updateSceneTitle];
     mEMORY[0x277CDB7A8] = [MEMORY[0x277CDB7A8] sharedManager];
     [mEMORY[0x277CDB7A8] totalProgress];
-    v23 = v22;
+    v24 = v23;
     unifiedTabBarItem = [tabDocumentCopy unifiedTabBarItem];
-    [unifiedTabBarItem setDownloadProgress:v23];
+    [unifiedTabBarItem setDownloadProgress:v24];
 
     [(BrowserController *)&self->super.super.super.isa _updateUnifiedBarBackgroundVisibility];
     [(BrowserRootViewController *)self->_rootViewController updateThemeColorIfNeededAnimated:0];
@@ -23498,8 +23523,8 @@ LABEL_16:
 void __51__BrowserController_tabDocumentShouldBecomeActive___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = WBS_LOG_CHANNEL_PREFIXMediaCapture();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXMediaCapture(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [v2 safari_privacyPreservingDescription];
     objc_claimAutoreleasedReturnValue();
@@ -23706,21 +23731,21 @@ id __55__BrowserController_loadCloudTabsForDeviceRestoration___block_invoke(uint
   }
 }
 
-void __60__BrowserController_setAppBannerPinnedToTop_forTabDocument___block_invoke(uint64_t a1)
+void __60__BrowserController_setAppBannerPinnedToTop_forTabDocument___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x277D75D18];
+  v3 = MEMORY[0x277D75D18];
   [objc_opt_class() unpinAnimationDuration];
-  v4 = v3;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __60__BrowserController_setAppBannerPinnedToTop_forTabDocument___block_invoke_2;
-  v7[3] = &unk_2781D63D0;
-  v5 = *(a1 + 32);
-  v10 = *(a1 + 48);
-  v6 = *(a1 + 40);
-  v8 = v5;
+  v5 = v4;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __60__BrowserController_setAppBannerPinnedToTop_forTabDocument___block_invoke_2;
+  v8[3] = &unk_2781D63D0;
+  v6 = *(a1 + 32);
+  v11 = *(a1 + 48);
+  v7 = *(a1 + 40);
   v9 = v6;
-  [v2 animateWithDuration:4 delay:v7 options:0 animations:v4 completion:0.0];
+  v10 = v7;
+  [v3 animateWithDuration:4 delay:v8 options:0 animations:v5 completion:0.0];
 }
 
 void __60__BrowserController_setAppBannerPinnedToTop_forTabDocument___block_invoke_2(uint64_t a1)
@@ -24307,9 +24332,10 @@ LABEL_9:
 - (void)markReadingListBookmark:(id)bookmark asRead:(BOOL)read postNotification:(BOOL)notification
 {
   notificationCopy = notification;
+  readCopy = read;
   bookmarkCopy = bookmark;
   mainBookmarkCollection = [MEMORY[0x277D7B5A8] mainBookmarkCollection];
-  [(WebBookmarkCollection *)mainBookmarkCollection markReadingListBookmark:bookmarkCopy asRead:read postNotification:notificationCopy];
+  [(WebBookmarkCollection *)mainBookmarkCollection markReadingListBookmark:bookmarkCopy asRead:readCopy postNotification:notificationCopy];
 }
 
 - (void)continuousReadingViewController:(id)controller scrollViewDidScroll:(id)scroll
@@ -24778,12 +24804,12 @@ void __59__BrowserController__requestActivationOfBrowserController___block_invok
 
 - (void)scene:(id)scene willConnectToSession:(id)session options:(id)options
 {
-  v103[1] = *MEMORY[0x277D85DE8];
+  v115[1] = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   sessionCopy = session;
   optionsCopy = options;
-  v9 = WBS_LOG_CHANNEL_PREFIXTabs();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = WBS_LOG_CHANNEL_PREFIXTabs(optionsCopy, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     persistentIdentifier = [sessionCopy persistentIdentifier];
     uUID = [(BrowserController *)self UUID];
@@ -24791,28 +24817,28 @@ void __59__BrowserController__requestActivationOfBrowserController___block_invok
     *&buf[4] = persistentIdentifier;
     *&buf[12] = 2114;
     *&buf[14] = uUID;
-    _os_log_impl(&dword_215819000, v9, OS_LOG_TYPE_DEFAULT, "Connecting to scene session with sceneID = %{public}@, uuid = %{public}@", buf, 0x16u);
+    _os_log_impl(&dword_215819000, v10, OS_LOG_TYPE_DEFAULT, "Connecting to scene session with sceneID = %{public}@, uuid = %{public}@", buf, 0x16u);
   }
 
-  v12 = sceneCopy;
-  [v12 setDelegate:self];
-  screenshotService = [v12 screenshotService];
+  v13 = sceneCopy;
+  [v13 setDelegate:self];
+  screenshotService = [v13 screenshotService];
   [screenshotService setDelegate:self];
 
-  [v12 setActivityItemsConfigurationSource:self];
-  objc_storeWeak(&self->_scene, v12);
+  [v13 setActivityItemsConfigurationSource:self];
+  objc_storeWeak(&self->_scene, v13);
   intentSceneConfigurationCompletion = self->_intentSceneConfigurationCompletion;
   if (intentSceneConfigurationCompletion)
   {
-    intentSceneConfigurationCompletion[2](intentSceneConfigurationCompletion, v12);
-    v15 = self->_intentSceneConfigurationCompletion;
+    intentSceneConfigurationCompletion[2](intentSceneConfigurationCompletion, v13);
+    v16 = self->_intentSceneConfigurationCompletion;
     self->_intentSceneConfigurationCompletion = 0;
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_uiDelegate);
-  [WeakRetained browserController:self willConnectToScene:v12 session:sessionCopy options:optionsCopy];
-  v17 = [WeakRetained sidebarUIProxyForBrowserController:self];
-  [(BrowserController *)self _setSidebarUIProxy:v17];
+  [WeakRetained browserController:self willConnectToScene:v13 session:sessionCopy options:optionsCopy];
+  v18 = [WeakRetained sidebarUIProxyForBrowserController:self];
+  [(BrowserController *)self _setSidebarUIProxy:v18];
 
   if (!self->_didConnectToScene)
   {
@@ -24822,24 +24848,24 @@ void __59__BrowserController__requestActivationOfBrowserController___block_invok
 
   if (objc_opt_respondsToSelector())
   {
-    [WeakRetained browserController:self didConnectToScene:v12 session:sessionCopy options:optionsCopy];
+    [WeakRetained browserController:self didConnectToScene:v13 session:sessionCopy options:optionsCopy];
   }
 
   [(WBWindowState *)self->_windowState setNewlyCreated:0];
-  v88 = objc_loadWeakRetained(&self->_browserWindowController);
+  v100 = objc_loadWeakRetained(&self->_browserWindowController);
   if (!optionsCopy)
   {
     anyObject = 0;
 LABEL_14:
-    v19 = 0;
+    v20 = 0;
     goto LABEL_16;
   }
 
-  v18 = [MEMORY[0x277CC1EF0] _sf_windowCreationActivityFromSceneConnectionOptions:optionsCopy];
-  if (v18)
+  v19 = [MEMORY[0x277CC1EF0] _sf_windowCreationActivityFromSceneConnectionOptions:optionsCopy];
+  if (v19)
   {
-    anyObject = v18;
-    if ([v88 modeForNewWindowUserActivity:?] == 1)
+    anyObject = v19;
+    if ([v100 modeForNewWindowUserActivity:?] == 1)
     {
       [(BrowserController *)self setPrivateBrowsingEnabled:1];
     }
@@ -24852,45 +24878,47 @@ LABEL_14:
 
   userActivityController = self->_userActivityController;
   activityType = [anyObject activityType];
-  v19 = [(UserActivityController *)userActivityController willContinueUserActivityWithType:activityType];
+  v20 = [(UserActivityController *)userActivityController willContinueUserActivityWithType:activityType];
 
 LABEL_16:
   shortcutItem = [optionsCopy shortcutItem];
+  v26 = shortcutItem;
   if (shortcutItem)
   {
-    v24 = WBS_LOG_CHANNEL_PREFIXTabs();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v27 = WBS_LOG_CHANNEL_PREFIXTabs(shortcutItem, v25);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      type = [shortcutItem type];
+      type = [v26 type];
       *buf = 138543362;
       *&buf[4] = type;
-      _os_log_impl(&dword_215819000, v24, OS_LOG_TYPE_DEFAULT, "Handling session connection as shortcutItem of type: %{public}@", buf, 0xCu);
+      _os_log_impl(&dword_215819000, v27, OS_LOG_TYPE_DEFAULT, "Handling session connection as shortcutItem of type: %{public}@", buf, 0xCu);
     }
 
-    [(BrowserController *)self windowScene:v12 performActionForShortcutItem:shortcutItem completionHandler:&__block_literal_global_1161];
+    [(BrowserController *)self windowScene:v13 performActionForShortcutItem:v26 completionHandler:&__block_literal_global_1161];
     goto LABEL_44;
   }
 
-  if (!v19)
+  if (!v20)
   {
     _sf_windowCreationNavigationIntent = [anyObject _sf_windowCreationNavigationIntent];
-    if (_sf_windowCreationNavigationIntent || ([(BrowserController *)self _openURLNavigationIntentForSceneConnectionOptions:optionsCopy], (_sf_windowCreationNavigationIntent = objc_claimAutoreleasedReturnValue()) != 0))
+    v33 = _sf_windowCreationNavigationIntent;
+    if (_sf_windowCreationNavigationIntent || ([(BrowserController *)self _openURLNavigationIntentForSceneConnectionOptions:optionsCopy], _sf_windowCreationNavigationIntent = objc_claimAutoreleasedReturnValue(), (v33 = _sf_windowCreationNavigationIntent) != 0))
     {
-      v29 = WBS_LOG_CHANNEL_PREFIXTabs();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v34 = WBS_LOG_CHANNEL_PREFIXTabs(_sf_windowCreationNavigationIntent, v32);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
-        privacyPreservingDescription = [_sf_windowCreationNavigationIntent privacyPreservingDescription];
+        privacyPreservingDescription = [v33 privacyPreservingDescription];
         *buf = 138543362;
         *&buf[4] = privacyPreservingDescription;
-        _os_log_impl(&dword_215819000, v29, OS_LOG_TYPE_DEFAULT, "Handling session connection as navigationIntent: %{public}@", buf, 0xCu);
+        _os_log_impl(&dword_215819000, v34, OS_LOG_TYPE_DEFAULT, "Handling session connection as navigationIntent: %{public}@", buf, 0xCu);
       }
 
-      if ([_sf_windowCreationNavigationIntent policy] == 4)
+      if ([v33 policy] == 4)
       {
         browserWindowController = [(BrowserController *)self browserWindowController];
-        sourceWindowUUID = [_sf_windowCreationNavigationIntent sourceWindowUUID];
-        v33 = [browserWindowController browserControllerWithUUID:sourceWindowUUID];
-        activeProfileIdentifier = [v33 activeProfileIdentifier];
+        sourceWindowUUID = [v33 sourceWindowUUID];
+        v38 = [browserWindowController browserControllerWithUUID:sourceWindowUUID];
+        activeProfileIdentifier = [v38 activeProfileIdentifier];
 
         if ([activeProfileIdentifier length])
         {
@@ -24898,10 +24926,10 @@ LABEL_16:
         }
       }
 
-      if ([_sf_windowCreationNavigationIntent type] == 9)
+      if ([v33 type] == 9)
       {
-        v35 = [_sf_windowCreationNavigationIntent URL];
-        safari_composedIdentifierAndProfileIdentifierInSafariWebExtensionURL = [v35 safari_composedIdentifierAndProfileIdentifierInSafariWebExtensionURL];
+        v40 = [v33 URL];
+        safari_composedIdentifierAndProfileIdentifierInSafariWebExtensionURL = [v40 safari_composedIdentifierAndProfileIdentifierInSafariWebExtensionURL];
         second = [safari_composedIdentifierAndProfileIdentifierInSafariWebExtensionURL second];
 
         if ([second length])
@@ -24916,21 +24944,21 @@ LABEL_16:
       }
 
       uRLContexts = [optionsCopy URLContexts];
-      v39 = [(BrowserController *)self handleOpenURLContextsForReadingListWidget:uRLContexts];
+      v44 = [(BrowserController *)self handleOpenURLContextsForReadingListWidget:uRLContexts];
 
-      if ((v39 & 1) == 0)
+      if ((v44 & 1) == 0)
       {
-        v40 = +[Application sharedApplication];
-        needsFocusProfileUpdate = [v40 needsFocusProfileUpdate];
+        v45 = +[Application sharedApplication];
+        needsFocusProfileUpdate = [v45 needsFocusProfileUpdate];
 
         if (needsFocusProfileUpdate)
         {
-          objc_storeStrong(&self->_navigationIntentPendingProfileUpdate, _sf_windowCreationNavigationIntent);
+          objc_storeStrong(&self->_navigationIntentPendingProfileUpdate, v33);
         }
 
         else
         {
-          [(BrowserController *)self handleNavigationIntent:_sf_windowCreationNavigationIntent completion:0];
+          [(BrowserController *)self handleNavigationIntent:v33 completion:0];
         }
       }
 
@@ -24946,17 +24974,17 @@ LABEL_16:
     else
     {
       _sf_windowCreationTabGroupUUID = [anyObject _sf_windowCreationTabGroupUUID];
-      v48 = _sf_windowCreationTabGroupUUID == 0;
+      v55 = _sf_windowCreationTabGroupUUID == 0;
 
-      if (v48)
+      if (v55)
       {
         safari_windowCreationTabUUIDs = [anyObject safari_windowCreationTabUUIDs];
         if (safari_windowCreationTabUUIDs)
         {
           safari_windowCreationSelectedTabUUID = [anyObject safari_windowCreationSelectedTabUUID];
           _sf_windowCreationSourceBrowserControllerUUID = [anyObject _sf_windowCreationSourceBrowserControllerUUID];
-          v62 = [v88 browserControllerWithUUID:_sf_windowCreationSourceBrowserControllerUUID];
-          tabController = [v62 tabController];
+          v71 = [v100 browserControllerWithUUID:_sf_windowCreationSourceBrowserControllerUUID];
+          tabController = [v71 tabController];
 
           activeProfileIdentifier2 = [tabController activeProfileIdentifier];
           [(BrowserController *)self setActiveProfileIdentifier:activeProfileIdentifier2];
@@ -24964,31 +24992,31 @@ LABEL_16:
           *buf = 0;
           *&buf[8] = buf;
           *&buf[16] = 0x3032000000;
-          v100 = __Block_byref_object_copy__3;
-          v101 = __Block_byref_object_dispose__3;
-          v102 = 0;
-          v94[0] = MEMORY[0x277D85DD0];
-          v94[1] = 3221225472;
-          v94[2] = __56__BrowserController_scene_willConnectToSession_options___block_invoke_1162;
-          v94[3] = &unk_2781D70B0;
-          v64 = tabController;
-          v95 = v64;
+          v112 = __Block_byref_object_copy__3;
+          v113 = __Block_byref_object_dispose__3;
+          v114 = 0;
+          v106[0] = MEMORY[0x277D85DD0];
+          v106[1] = 3221225472;
+          v106[2] = __56__BrowserController_scene_willConnectToSession_options___block_invoke_1162;
+          v106[3] = &unk_2781D70B0;
+          v73 = tabController;
+          v107 = v73;
           selfCopy = self;
-          v80 = safari_windowCreationSelectedTabUUID;
-          v97 = v80;
-          v98 = buf;
-          v65 = [safari_windowCreationTabUUIDs safari_mapAndFilterObjectsUsingBlock:v94];
-          v66 = v65;
+          v92 = safari_windowCreationSelectedTabUUID;
+          v109 = v92;
+          v110 = buf;
+          v74 = [safari_windowCreationTabUUIDs safari_mapAndFilterObjectsUsingBlock:v106];
+          v75 = v74;
           tabController = self->_tabController;
-          v68 = *(*&buf[8] + 40);
-          firstObject = v68;
-          if (!v68)
+          v77 = *(*&buf[8] + 40);
+          firstObject = v77;
+          if (!v77)
           {
-            firstObject = [v65 firstObject];
+            firstObject = [v74 firstObject];
           }
 
-          [(TabController *)tabController replaceBlankActiveTabWithTabs:v66 andSelectTab:firstObject];
-          if (!v68)
+          [(TabController *)tabController replaceBlankActiveTabWithTabs:v75 andSelectTab:firstObject];
+          if (!v77)
           {
           }
 
@@ -24998,28 +25026,29 @@ LABEL_16:
         else
         {
           _sf_windowCreationRecentlyClosedTabUUID = [anyObject _sf_windowCreationRecentlyClosedTabUUID];
-          v80 = _sf_windowCreationRecentlyClosedTabUUID;
+          v92 = _sf_windowCreationRecentlyClosedTabUUID;
           if (_sf_windowCreationRecentlyClosedTabUUID)
           {
-            v75 = [(_SFBrowserSavedState *)self->_savedState tabStateDataForUUID:_sf_windowCreationRecentlyClosedTabUUID];
-            if (v75)
+            v85 = [(_SFBrowserSavedState *)self->_savedState tabStateDataForUUID:_sf_windowCreationRecentlyClosedTabUUID];
+            v87 = v85;
+            if (v85)
             {
-              v76 = WBS_LOG_CHANNEL_PREFIXTabs();
-              if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
+              v88 = WBS_LOG_CHANNEL_PREFIXTabs(v85, v86);
+              if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&dword_215819000, v76, OS_LOG_TYPE_DEFAULT, "Handling session connection as window creation from recently closed tab", buf, 2u);
+                _os_log_impl(&dword_215819000, v88, OS_LOG_TYPE_DEFAULT, "Handling session connection as window creation from recently closed tab", buf, 2u);
               }
 
-              [(_SFBrowserSavedState *)self->_savedState loadSessionStateDataAndRemoveRecentlyClosedTab:v75];
-              v77 = [[TabDocument alloc] initWithTabStateData:v75 hibernated:0 browserController:self];
-              [(TabController *)self->_tabController replaceBlankActiveTabWithTab:v77];
+              [(_SFBrowserSavedState *)self->_savedState loadSessionStateDataAndRemoveRecentlyClosedTab:v87];
+              v89 = [[TabDocument alloc] initWithTabStateData:v87 hibernated:0 browserController:self];
+              [(TabController *)self->_tabController replaceBlankActiveTabWithTab:v89];
             }
 
             else
             {
-              v79 = WBS_LOG_CHANNEL_PREFIXTabs();
-              if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+              v91 = WBS_LOG_CHANNEL_PREFIXTabs(0, v86);
+              if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
               {
                 [BrowserController scene:willConnectToSession:options:];
               }
@@ -25028,11 +25057,11 @@ LABEL_16:
 
           else
           {
-            v78 = WBS_LOG_CHANNEL_PREFIXTabs();
-            if (os_log_type_enabled(v78, OS_LOG_TYPE_INFO))
+            v90 = WBS_LOG_CHANNEL_PREFIXTabs(0, v83);
+            if (os_log_type_enabled(v90, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_215819000, v78, OS_LOG_TYPE_INFO, "Not handling session connection as a navigation", buf, 2u);
+              _os_log_impl(&dword_215819000, v90, OS_LOG_TYPE_INFO, "Not handling session connection as a navigation", buf, 2u);
             }
           }
         }
@@ -25041,30 +25070,30 @@ LABEL_16:
       }
     }
 
-    v49 = WBS_LOG_CHANNEL_PREFIXTabs();
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+    v56 = WBS_LOG_CHANNEL_PREFIXTabs(v52, v53);
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_215819000, v49, OS_LOG_TYPE_DEFAULT, "Handling session connection as window creation from tab", buf, 2u);
+      _os_log_impl(&dword_215819000, v56, OS_LOG_TYPE_DEFAULT, "Handling session connection as window creation from tab", buf, 2u);
     }
 
     _sf_windowCreationTabUUID2 = [anyObject _sf_windowCreationTabUUID];
     safari_windowCreationTabUUIDs = _sf_windowCreationTabUUID2;
     if (_sf_windowCreationTabUUID2)
     {
-      v51 = self->_tabController;
+      v58 = self->_tabController;
       uUIDString = [_sf_windowCreationTabUUID2 UUIDString];
-      v80 = [(TabController *)v51 wbTabWithUUID:uUIDString];
+      v92 = [(TabController *)v58 wbTabWithUUID:uUIDString];
     }
 
     else
     {
-      v80 = 0;
+      v92 = 0;
     }
 
     _sf_windowCreationTabGroupUUID2 = [anyObject _sf_windowCreationTabGroupUUID];
     uUIDString2 = [_sf_windowCreationTabGroupUUID2 UUIDString];
-    if (uUIDString2 || ([v80 tabGroupUUID], (uUIDString2 = objc_claimAutoreleasedReturnValue()) != 0))
+    if (uUIDString2 || ([v92 tabGroupUUID], (uUIDString2 = objc_claimAutoreleasedReturnValue()) != 0))
     {
       tabGroupManager = [(TabController *)self->_tabController tabGroupManager];
       uUIDString3 = [tabGroupManager tabGroupWithUUID:uUIDString2];
@@ -25077,16 +25106,16 @@ LABEL_16:
       {
         uUIDString2 = 0;
         profileIdentifier = 0;
-        [(TabController *)self->_tabController setActiveProfileIdentifier:0];
+        v62 = [(TabController *)self->_tabController setActiveProfileIdentifier:0];
 LABEL_61:
         if (_sf_windowCreationTabGroupUUID2)
         {
-          v55 = WBS_LOG_CHANNEL_PREFIXTabs();
-          if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+          v64 = WBS_LOG_CHANNEL_PREFIXTabs(v62, v63);
+          if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
             *&buf[4] = _sf_windowCreationTabGroupUUID2;
-            _os_log_impl(&dword_215819000, v55, OS_LOG_TYPE_DEFAULT, "Connecting a scene session with explicit tab group: %{public}@", buf, 0xCu);
+            _os_log_impl(&dword_215819000, v64, OS_LOG_TYPE_DEFAULT, "Connecting a scene session with explicit tab group: %{public}@", buf, 0xCu);
           }
 
           if (safari_windowCreationTabUUIDs)
@@ -25110,32 +25139,32 @@ LABEL_71:
 LABEL_72:
 
 LABEL_73:
-            _sf_windowCreationNavigationIntent = 0;
+            v33 = 0;
 LABEL_43:
 
             goto LABEL_44;
           }
 
           _sf_windowCreationSourceBrowserControllerUUID2 = [anyObject _sf_windowCreationSourceBrowserControllerUUID];
-          v58 = [v88 browserControllerWithUUID:_sf_windowCreationSourceBrowserControllerUUID2];
-          tabController2 = [v58 tabController];
+          v67 = [v100 browserControllerWithUUID:_sf_windowCreationSourceBrowserControllerUUID2];
+          tabController2 = [v67 tabController];
 
-          v59 = [tabController2 tabWithUUID:safari_windowCreationTabUUIDs];
-          tabController3 = v59;
-          if (v59)
+          v68 = [tabController2 tabWithUUID:safari_windowCreationTabUUIDs];
+          tabController3 = v68;
+          if (v68)
           {
-            -[BrowserController setPrivateBrowsingEnabled:](self, "setPrivateBrowsingEnabled:", [v59 isPrivateBrowsingEnabled]);
+            -[BrowserController setPrivateBrowsingEnabled:](self, "setPrivateBrowsingEnabled:", [v68 isPrivateBrowsingEnabled]);
             [(TabController *)self->_tabController replaceBlankActiveTabWithTab:tabController3];
           }
 
-          else if (v80)
+          else if (v92)
           {
-            -[BrowserController setPrivateBrowsingEnabled:](self, "setPrivateBrowsingEnabled:", [v80 isPrivateBrowsing]);
-            v71 = self->_tabController;
-            v103[0] = v80;
-            v72 = [MEMORY[0x277CBEA60] arrayWithObjects:v103 count:1];
+            -[BrowserController setPrivateBrowsingEnabled:](self, "setPrivateBrowsingEnabled:", [v92 isPrivateBrowsing]);
+            v80 = self->_tabController;
+            v115[0] = v92;
+            v81 = [MEMORY[0x277CBEA60] arrayWithObjects:v115 count:1];
             activeTabGroup = [(TabController *)self->_tabController activeTabGroup];
-            [(TabController *)v71 moveWBTabs:v72 toTabGroup:activeTabGroup];
+            [(TabController *)v80 moveWBTabs:v81 toTabGroup:activeTabGroup];
 
             tabController3 = 0;
             [(TabController *)self->_tabController removeSingleBlankTabFromActiveTabGroup];
@@ -25147,26 +25176,26 @@ LABEL_43:
 
       tabGroupManager = [(TabController *)self->_tabController pinnedTabsManager];
       uUIDString3 = [safari_windowCreationTabUUIDs UUIDString];
-      v70 = [tabGroupManager containerForTabWithUUID:uUIDString3];
-      profileIdentifier = [v70 activeProfileIdentifier];
+      v79 = [tabGroupManager containerForTabWithUUID:uUIDString3];
+      profileIdentifier = [v79 activeProfileIdentifier];
 
       uUIDString2 = 0;
     }
 
-    [(TabController *)self->_tabController setActiveProfileIdentifier:profileIdentifier];
+    v62 = [(TabController *)self->_tabController setActiveProfileIdentifier:profileIdentifier];
     goto LABEL_61;
   }
 
-  v26 = WBS_LOG_CHANNEL_PREFIXTabs();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v29 = WBS_LOG_CHANNEL_PREFIXTabs(0, v25);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     activityType2 = [anyObject activityType];
     *buf = 138543362;
     *&buf[4] = activityType2;
-    _os_log_impl(&dword_215819000, v26, OS_LOG_TYPE_DEFAULT, "Handling session connection as generic NSUserActivity of type: %{public}@", buf, 0xCu);
+    _os_log_impl(&dword_215819000, v29, OS_LOG_TYPE_DEFAULT, "Handling session connection as generic NSUserActivity of type: %{public}@", buf, 0xCu);
   }
 
-  [(BrowserController *)self scene:v12 continueUserActivity:anyObject];
+  [(BrowserController *)self scene:v13 continueUserActivity:anyObject];
 LABEL_44:
 
   [(BrowserController *)self _updateSceneTitle];
@@ -25181,20 +25210,20 @@ LABEL_44:
   }
 
   [(BrowserController *)self _showDefaultBrowserSheetIfNecessary];
-  v42 = +[LaunchStateController sharedController];
-  v91[0] = MEMORY[0x277D85DD0];
-  v91[1] = 3221225472;
-  v91[2] = __56__BrowserController_scene_willConnectToSession_options___block_invoke_1164;
-  v91[3] = &unk_2781D61F8;
-  v91[4] = self;
-  v43 = sessionCopy;
-  v92 = v43;
-  [v42 doAfterUIBecomesActive:v91];
+  v47 = +[LaunchStateController sharedController];
+  v103[0] = MEMORY[0x277D85DD0];
+  v103[1] = 3221225472;
+  v103[2] = __56__BrowserController_scene_willConnectToSession_options___block_invoke_1164;
+  v103[3] = &unk_2781D61F8;
+  v103[4] = self;
+  v48 = sessionCopy;
+  v104 = v48;
+  [v47 doAfterUIBecomesActive:v103];
 
   cloudKitShareMetadata = [optionsCopy cloudKitShareMetadata];
   if (cloudKitShareMetadata)
   {
-    [(BrowserController *)self windowScene:v12 userDidAcceptCloudKitShareWithMetadata:cloudKitShareMetadata];
+    [(BrowserController *)self windowScene:v13 userDidAcceptCloudKitShareWithMetadata:cloudKitShareMetadata];
   }
 
   mEMORY[0x277D7B588] = [MEMORY[0x277D7B588] sharedProxy];
@@ -25789,19 +25818,19 @@ LABEL_13:
     if ([second length])
     {
       v22 = *(*self + 720);
-      [*(*self + 41) setActiveProfileIdentifier:second];
-      if (v22 && [*self isInDefaultProfile] && (objc_msgSend(safari_composedIdentifierAndProfileIdentifierInSafariWebExtensionURL, "first"), v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(defaultWebExtensionsController, "webExtensionForComposedIdentifier:", v23), v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "allowedInPrivateBrowsing"), v24, v23, v25))
+      v23 = [*(*self + 41) setActiveProfileIdentifier:second];
+      if (v22 && (v23 = [*self isInDefaultProfile], v23) && (objc_msgSend(safari_composedIdentifierAndProfileIdentifierInSafariWebExtensionURL, "first"), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(defaultWebExtensionsController, "webExtensionForComposedIdentifier:", v25), v26 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend(v26, "allowedInPrivateBrowsing"), v26, v25, v27))
       {
         [*(*self + 41) selectPrivateTabGroup];
       }
 
       else
       {
-        v26 = WBS_LOG_CHANNEL_PREFIXTabGroup();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        v28 = WBS_LOG_CHANNEL_PREFIXTabGroup(v23, v24);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
-          *v29 = 0;
-          _os_log_impl(&dword_215819000, v26, OS_LOG_TYPE_DEFAULT, "Will switch to local tab group for navigation intent handling.", v29, 2u);
+          *v31 = 0;
+          _os_log_impl(&dword_215819000, v28, OS_LOG_TYPE_DEFAULT, "Will switch to local tab group for navigation intent handling.", v31, 2u);
         }
 
         [*(*self + 41) selectLocalTabGroup];
@@ -25809,15 +25838,15 @@ LABEL_13:
     }
 
     prefersOpenInNewWindow = [v2 prefersOpenInNewWindow];
-    v28 = *self;
+    v30 = *self;
     if (prefersOpenInNewWindow)
     {
-      [v28 dispatchNavigationIntent:v4];
+      [v30 dispatchNavigationIntent:v4];
     }
 
     else
     {
-      [v28 handleNavigationIntent:v4 completion:0];
+      [v30 handleNavigationIntent:v4 completion:0];
     }
   }
 }
@@ -25828,7 +25857,8 @@ LABEL_13:
   safari_browserDefaults = [MEMORY[0x277CBEBD0] safari_browserDefaults];
   v5 = [safari_browserDefaults BOOLForKey:*MEMORY[0x277D49C48]];
 
-  if ([v3 needsFocusedTabGroupUpdate])
+  needsFocusedTabGroupUpdate = [v3 needsFocusedTabGroupUpdate];
+  if (needsFocusedTabGroupUpdate)
   {
     if (v5)
     {
@@ -25837,11 +25867,11 @@ LABEL_13:
 
     else
     {
-      v6 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = WBS_LOG_CHANNEL_PREFIXSiriLink(needsFocusedTabGroupUpdate, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v12 = 0;
-        _os_log_impl(&dword_215819000, v6, OS_LOG_TYPE_DEFAULT, "Overriding Focus to open external links in default tab group", v12, 2u);
+        *v14 = 0;
+        _os_log_impl(&dword_215819000, v8, OS_LOG_TYPE_DEFAULT, "Overriding Focus to open external links in default tab group", v14, 2u);
       }
 
       [v3 setNeedsFocusedTabGroupUpdate:0];
@@ -25851,9 +25881,9 @@ LABEL_13:
   activeTabGroup = [(TabController *)self->_tabController activeTabGroup];
   uuid = [activeTabGroup uuid];
   focusedTabGroupUUIDString = [v3 focusedTabGroupUUIDString];
-  v10 = [uuid isEqualToString:focusedTabGroupUUIDString];
+  v12 = [uuid isEqualToString:focusedTabGroupUUIDString];
 
-  return v5 & v10;
+  return v5 & v12;
 }
 
 - (void)windowScene:(id)scene performActionForShortcutItem:(id)item completionHandler:(id)handler
@@ -25890,17 +25920,18 @@ LABEL_13:
 - (void)screenshotService:(id)service generatePDFRepresentationWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v6 = WBS_LOG_CHANNEL_PREFIXPrinting();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = WBS_LOG_CHANNEL_PREFIXPrinting(completionCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_215819000, v6, OS_LOG_TYPE_DEFAULT, "User took a screenshot, will attempt to generate a PDF representation", buf, 2u);
+    _os_log_impl(&dword_215819000, v7, OS_LOG_TYPE_DEFAULT, "User took a screenshot, will attempt to generate a PDF representation", buf, 2u);
   }
 
   tabController = [(BrowserController *)self tabController];
   activeTabDocument = [tabController activeTabDocument];
 
-  if ([activeTabDocument isBlank])
+  isBlank = [activeTabDocument isBlank];
+  if (isBlank)
   {
     goto LABEL_9;
   }
@@ -25919,8 +25950,8 @@ LABEL_13:
 
 LABEL_8:
 LABEL_9:
-    v12 = WBS_LOG_CHANNEL_PREFIXPrinting();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v15 = WBS_LOG_CHANNEL_PREFIXPrinting(isBlank, v11);
+    if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_12:
       (*(completionCopy + 2))(completionCopy, 0, 0, *MEMORY[0x277CBF398], *(MEMORY[0x277CBF398] + 8), *(MEMORY[0x277CBF398] + 16), *(MEMORY[0x277CBF398] + 24));
@@ -25928,9 +25959,9 @@ LABEL_12:
     }
 
     *buf = 0;
-    v13 = "Not returning a webpage PDF representation because Safari isn't showing a webpage right now";
+    v16 = "Not returning a webpage PDF representation because Safari isn't showing a webpage right now";
 LABEL_11:
-    _os_log_impl(&dword_215819000, v12, OS_LOG_TYPE_DEFAULT, v13, buf, 2u);
+    _os_log_impl(&dword_215819000, v15, OS_LOG_TYPE_DEFAULT, v16, buf, 2u);
     goto LABEL_12;
   }
 
@@ -25942,64 +25973,66 @@ LABEL_11:
     goto LABEL_9;
   }
 
-  if ([(BrowserController *)self _isWindowLockedForPrivateBrowsing])
+  isWindowLockedForPrivate = [(BrowserController *)self _isWindowLockedForPrivateBrowsing];
+  if (isWindowLockedForPrivate)
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXPrinting();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v15 = WBS_LOG_CHANNEL_PREFIXPrinting(isWindowLockedForPrivate, v20);
+    if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_12;
     }
 
     *buf = 0;
-    v13 = "Not returning a webpage PDF representation because Private Browsing is locked";
+    v16 = "Not returning a webpage PDF representation because Private Browsing is locked";
     goto LABEL_11;
   }
 
   if (self->_blockRequestingScreenshotPDFData)
   {
-    v16 = WBS_LOG_CHANNEL_PREFIXPrinting();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v21 = WBS_LOG_CHANNEL_PREFIXPrinting(isWindowLockedForPrivate, v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_215819000, v16, OS_LOG_TYPE_INFO, "There's an existing pending screenshot PDF request; will use the in-progress PDF generation for the original and new requests", buf, 2u);
+      _os_log_impl(&dword_215819000, v21, OS_LOG_TYPE_INFO, "There's an existing pending screenshot PDF request; will use the in-progress PDF generation for the original and new requests", buf, 2u);
     }
 
-    v17 = _Block_copy(self->_blockRequestingScreenshotPDFData);
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __79__BrowserController_screenshotService_generatePDFRepresentationWithCompletion___block_invoke;
-    v25[3] = &unk_2781D7120;
-    v26 = v17;
-    v27 = completionCopy;
-    v18 = v17;
-    v19 = _Block_copy(v25);
+    v22 = _Block_copy(self->_blockRequestingScreenshotPDFData);
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __79__BrowserController_screenshotService_generatePDFRepresentationWithCompletion___block_invoke;
+    v32[3] = &unk_2781D7120;
+    v33 = v22;
+    v34 = completionCopy;
+    v23 = v22;
+    v24 = _Block_copy(v32);
     blockRequestingScreenshotPDFData = self->_blockRequestingScreenshotPDFData;
-    self->_blockRequestingScreenshotPDFData = v19;
+    self->_blockRequestingScreenshotPDFData = v24;
   }
 
   else
   {
-    v21 = _Block_copy(completionCopy);
-    v22 = self->_blockRequestingScreenshotPDFData;
-    self->_blockRequestingScreenshotPDFData = v21;
+    v26 = _Block_copy(completionCopy);
+    v27 = self->_blockRequestingScreenshotPDFData;
+    self->_blockRequestingScreenshotPDFData = v26;
 
-    if ([activeTabDocument isLoading])
+    isLoading = [activeTabDocument isLoading];
+    if (isLoading)
     {
-      v23 = WBS_LOG_CHANNEL_PREFIXPrinting();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v30 = WBS_LOG_CHANNEL_PREFIXPrinting(isLoading, v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_215819000, v23, OS_LOG_TYPE_DEFAULT, "User took a screenshot while the page was loading; will process request when pageload finishes", buf, 2u);
+        _os_log_impl(&dword_215819000, v30, OS_LOG_TYPE_DEFAULT, "User took a screenshot while the page was loading; will process request when pageload finishes", buf, 2u);
       }
     }
 
     else
     {
-      v24 = WBS_LOG_CHANNEL_PREFIXPrinting();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v31 = WBS_LOG_CHANNEL_PREFIXPrinting(isLoading, v29);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_215819000, v24, OS_LOG_TYPE_DEFAULT, "User took a screenshot and the page is done loading; generating a PDF now", buf, 2u);
+        _os_log_impl(&dword_215819000, v31, OS_LOG_TYPE_DEFAULT, "User took a screenshot and the page is done loading; generating a PDF now", buf, 2u);
       }
 
       [(BrowserController *)self _sendPDFRepresentationForScreenshotWithTabDocument:activeTabDocument];
@@ -26018,85 +26051,85 @@ void __79__BrowserController_screenshotService_generatePDFRepresentationWithComp
 
 void __72__BrowserController__sendPDFRepresentationForScreenshotWithTabDocument___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v8 = WeakRetained;
+  v9 = WeakRetained;
   if (WeakRetained && WeakRetained[5])
   {
     if (v6)
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXPrinting();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = WBS_LOG_CHANNEL_PREFIXPrinting(WeakRetained, v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138543362;
-        v15 = v6;
-        _os_log_impl(&dword_215819000, v9, OS_LOG_TYPE_DEFAULT, "Error getting data for existing PDF: %{public}@; calling and clearing completionHandler without a PDF", &v14, 0xCu);
+        v15 = 138543362;
+        v16 = v6;
+        _os_log_impl(&dword_215819000, v10, OS_LOG_TYPE_DEFAULT, "Error getting data for existing PDF: %{public}@; calling and clearing completionHandler without a PDF", &v15, 0xCu);
       }
 
-      (*(v8[5] + 16))(*MEMORY[0x277CBF398], *(MEMORY[0x277CBF398] + 8), *(MEMORY[0x277CBF398] + 16), *(MEMORY[0x277CBF398] + 24));
-      v10 = v8[5];
-      v8[5] = 0;
+      (*(v9[5] + 16))(*MEMORY[0x277CBF398], *(MEMORY[0x277CBF398] + 8), *(MEMORY[0x277CBF398] + 16), *(MEMORY[0x277CBF398] + 24));
+      v11 = v9[5];
+      v9[5] = 0;
     }
 
     else
     {
-      v12 = WBS_LOG_CHANNEL_PREFIXPrinting();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = WBS_LOG_CHANNEL_PREFIXPrinting(WeakRetained, v8);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 134217984;
-        v15 = [v5 length];
-        _os_log_impl(&dword_215819000, v12, OS_LOG_TYPE_DEFAULT, "Webpage was already displaying a PDF, using existing PDF data of length %zu", &v14, 0xCu);
+        v15 = 134217984;
+        v16 = [v5 length];
+        _os_log_impl(&dword_215819000, v13, OS_LOG_TYPE_DEFAULT, "Webpage was already displaying a PDF, using existing PDF data of length %zu", &v15, 0xCu);
       }
 
-      (*(v8[5] + 16))(*(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72));
-      v13 = v8[5];
-      v8[5] = 0;
+      (*(v9[5] + 16))(*(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72));
+      v14 = v9[5];
+      v9[5] = 0;
     }
   }
 
   else
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXPrinting();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = WBS_LOG_CHANNEL_PREFIXPrinting(WeakRetained, v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138543362;
-      v15 = v8;
-      _os_log_impl(&dword_215819000, v11, OS_LOG_TYPE_DEFAULT, "Finished generating PDF but pending request block has been cleared on %{public}@; not calling completionHandler", &v14, 0xCu);
+      v15 = 138543362;
+      v16 = v9;
+      _os_log_impl(&dword_215819000, v12, OS_LOG_TYPE_DEFAULT, "Finished generating PDF but pending request block has been cleared on %{public}@; not calling completionHandler", &v15, 0xCu);
     }
   }
 }
 
 void __72__BrowserController__sendPDFRepresentationForScreenshotWithTabDocument___block_invoke_1188(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = WeakRetained;
+  v6 = WeakRetained;
   if (WeakRetained && WeakRetained[5])
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXPrinting();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = WBS_LOG_CHANNEL_PREFIXPrinting(WeakRetained, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134217984;
-      v10 = [v3 length];
-      _os_log_impl(&dword_215819000, v6, OS_LOG_TYPE_DEFAULT, "Got PDF data from WebKit of length %zu; calling completionHandler", &v9, 0xCu);
+      v10 = 134217984;
+      v11 = [v3 length];
+      _os_log_impl(&dword_215819000, v7, OS_LOG_TYPE_DEFAULT, "Got PDF data from WebKit of length %zu; calling completionHandler", &v10, 0xCu);
     }
 
-    (*(v5[5] + 16))(*(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72));
-    v7 = v5[5];
-    v5[5] = 0;
+    (*(v6[5] + 16))(*(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72));
+    v8 = v6[5];
+    v6[5] = 0;
   }
 
   else
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXPrinting();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = WBS_LOG_CHANNEL_PREFIXPrinting(WeakRetained, v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543362;
-      v10 = v5;
-      _os_log_impl(&dword_215819000, v8, OS_LOG_TYPE_DEFAULT, "Finished generating PDF but pending request block has been cleared on %{public}@; not calling completionHandler", &v9, 0xCu);
+      v10 = 138543362;
+      v11 = v6;
+      _os_log_impl(&dword_215819000, v9, OS_LOG_TYPE_DEFAULT, "Finished generating PDF but pending request block has been cleared on %{public}@; not calling completionHandler", &v10, 0xCu);
     }
   }
 }
@@ -26953,20 +26986,20 @@ LABEL_7:
   stringCopy = string;
   dCopy = d;
   mainBookmarkCollection = [MEMORY[0x277D7B5A8] mainBookmarkCollection];
-  v9 = [mainBookmarkCollection bookmarkWithUUID:stringCopy];
-  if (v9)
+  v10 = [mainBookmarkCollection bookmarkWithUUID:stringCopy];
+  if (v10)
   {
     if (dCopy)
     {
-      v10 = [(TabController *)self->_tabController tabWithUUID:dCopy];
-      if (v10)
+      v12 = [(TabController *)self->_tabController tabWithUUID:dCopy];
+      if (v12)
       {
 LABEL_8:
         builder = [MEMORY[0x277D28F40] builder];
         [builder setPreferredTabOrder:1];
-        if (v10)
+        if (v12)
         {
-          [(TabController *)self->_tabController setActiveTab:v10 animated:1];
+          [(TabController *)self->_tabController setActiveTab:v12 animated:1];
           [(BrowserController *)self dismissTransientUIAnimated:1];
         }
 
@@ -26975,14 +27008,14 @@ LABEL_8:
           [builder setPrefersOpenInNewTab:1];
         }
 
-        v14 = [builder navigationIntentWithBookmark:v9];
-        [(BrowserController *)self dispatchNavigationIntent:v14];
+        v16 = [builder navigationIntentWithBookmark:v10];
+        [(BrowserController *)self dispatchNavigationIntent:v16];
 
         goto LABEL_14;
       }
 
-      v11 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = WBS_LOG_CHANNEL_PREFIXSiriLink(0, v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [dCopy UUIDString];
         objc_claimAutoreleasedReturnValue();
@@ -26990,12 +27023,12 @@ LABEL_8:
       }
     }
 
-    v10 = 0;
+    v12 = 0;
     goto LABEL_8;
   }
 
-  v13 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v15 = WBS_LOG_CHANNEL_PREFIXSiriLink(0, v9);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     [BrowserController openBookmarkWithUUIDString:inTabWithUUID:];
   }
@@ -27113,11 +27146,11 @@ LABEL_14:
   {
 
 LABEL_7:
-    This = WBS_LOG_CHANNEL_PREFIXSiriReadThis();
+    This = WBS_LOG_CHANNEL_PREFIXSiriReadThis(v6, v7);
     if (os_log_type_enabled(This, OS_LOG_TYPE_INFO))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_215819000, This, OS_LOG_TYPE_INFO, "Safari Reader is not available for the currently active tab.", v10, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_215819000, This, OS_LOG_TYPE_INFO, "Safari Reader is not available for the currently active tab.", v12, 2u);
     }
 
     return 0;
@@ -27131,42 +27164,42 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v6 = WBS_LOG_CHANNEL_PREFIXSiriReadThis();
-  v7 = 1;
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v8 = WBS_LOG_CHANNEL_PREFIXSiriReadThis(v6, v7);
+  v9 = 1;
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_215819000, v6, OS_LOG_TYPE_INFO, "Safari Reader is available for the currently active tab.", buf, 2u);
+    _os_log_impl(&dword_215819000, v8, OS_LOG_TYPE_INFO, "Safari Reader is available for the currently active tab.", buf, 2u);
   }
 
-  return v7;
+  return v9;
 }
 
 - (BOOL)canReadActiveLanguage
 {
-  v29[3] = *MEMORY[0x277D85DE8];
+  v31[3] = *MEMORY[0x277D85DE8];
   activeDocument = [(BrowserController *)self activeDocument];
   translationContext = [activeDocument translationContext];
   lastDeterminedWebpageLanguage = [translationContext lastDeterminedWebpageLanguage];
 
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2050000000;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2050000000;
   v5 = getAFPreferencesClass(void)::softClass;
-  v26 = getAFPreferencesClass(void)::softClass;
+  v28 = getAFPreferencesClass(void)::softClass;
   if (!getAFPreferencesClass(void)::softClass)
   {
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = ___ZL21getAFPreferencesClassv_block_invoke;
-    v28 = &unk_2781D60E0;
-    v29[0] = &v23;
+    v30 = &unk_2781D60E0;
+    v31[0] = &v25;
     ___ZL21getAFPreferencesClassv_block_invoke(buf);
-    v5 = v24[3];
+    v5 = v26[3];
   }
 
   v6 = v5;
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v25, 8);
   sharedPreferences = [objc_opt_class() sharedPreferences];
   outputVoice = [sharedPreferences outputVoice];
 
@@ -27179,36 +27212,25 @@ LABEL_7:
 
   if (v13)
   {
-    v14 = 1;
+    v16 = 1;
   }
 
   else if (outputVoice)
   {
-    v14 = 0;
+    v16 = 0;
   }
 
   else
   {
     mEMORY[0x277D28D50] = [MEMORY[0x277D28D50] sharedVoiceUtilities];
     downloadedSiriVoiceLanguages = [mEMORY[0x277D28D50] downloadedSiriVoiceLanguages];
-    v14 = [downloadedSiriVoiceLanguages containsObject:lastDeterminedWebpageLanguage];
+    v16 = [downloadedSiriVoiceLanguages containsObject:lastDeterminedWebpageLanguage];
   }
 
-  This = WBS_LOG_CHANNEL_PREFIXSiriReadThis();
+  This = WBS_LOG_CHANNEL_PREFIXSiriReadThis(v14, v15);
   if (os_log_type_enabled(This, OS_LOG_TYPE_INFO))
   {
     if (v13)
-    {
-      v18 = @"YES";
-    }
-
-    else
-    {
-      v18 = @"NO";
-    }
-
-    v19 = v18;
-    if (v14)
     {
       v20 = @"YES";
     }
@@ -27219,18 +27241,29 @@ LABEL_7:
     }
 
     v21 = v20;
+    if (v16)
+    {
+      v22 = @"YES";
+    }
+
+    else
+    {
+      v22 = @"NO";
+    }
+
+    v23 = v22;
     *buf = 138544130;
     *&buf[4] = outputVoice;
     *&buf[12] = 2114;
     *&buf[14] = lastDeterminedWebpageLanguage;
     *&buf[22] = 2114;
-    v28 = v19;
-    LOWORD(v29[0]) = 2114;
-    *(v29 + 2) = v21;
+    v30 = v21;
+    LOWORD(v31[0]) = 2114;
+    *(v31 + 2) = v23;
     _os_log_impl(&dword_215819000, This, OS_LOG_TYPE_INFO, "Completed analysis: voice = %{public}@; determinedLanguage: %{public}@; voiceLanguageMatchesTextLanguage = %{public}@; canRead = %{public}@", buf, 0x2Au);
   }
 
-  return v14;
+  return v16;
 }
 
 - (void)siriReadThisVocalInvocation
@@ -27300,17 +27333,17 @@ void __49__BrowserController__siriReadThisVocalInvocation__block_invoke(uint64_t
     block[1] = 3221225472;
     block[2] = __49__BrowserController__siriReadThisVocalInvocation__block_invoke_2;
     block[3] = &unk_2781D60B8;
-    v22 = *(a1 + 64);
+    v24 = *(a1 + 64);
     dispatch_async(MEMORY[0x277D85CD0], block);
-    This = WBS_LOG_CHANNEL_PREFIXSiriReadThis();
+    This = WBS_LOG_CHANNEL_PREFIXSiriReadThis(v18, v19);
     if (os_log_type_enabled(This, OS_LOG_TYPE_DEFAULT))
     {
-      *v20 = 0;
-      _os_log_impl(&dword_215819000, This, OS_LOG_TYPE_DEFAULT, "Safari requested starting playback", v20, 2u);
+      *v22 = 0;
+      _os_log_impl(&dword_215819000, This, OS_LOG_TYPE_DEFAULT, "Safari requested starting playback", v22, 2u);
     }
 
-    v19 = [MEMORY[0x277D28D48] sharedPlaybackController];
-    [v19 setCurrentPlaybackState:1];
+    v21 = [MEMORY[0x277D28D48] sharedPlaybackController];
+    [v21 setCurrentPlaybackState:1];
   }
 }
 
@@ -27387,17 +27420,17 @@ void __48__BrowserController__siriReadThisMenuInvocation__block_invoke(uint64_t 
     block[1] = 3221225472;
     block[2] = __48__BrowserController__siriReadThisMenuInvocation__block_invoke_2;
     block[3] = &unk_2781D60B8;
-    v22 = *(a1 + 64);
+    v24 = *(a1 + 64);
     dispatch_async(MEMORY[0x277D85CD0], block);
-    This = WBS_LOG_CHANNEL_PREFIXSiriReadThis();
+    This = WBS_LOG_CHANNEL_PREFIXSiriReadThis(v18, v19);
     if (os_log_type_enabled(This, OS_LOG_TYPE_DEFAULT))
     {
-      *v20 = 0;
-      _os_log_impl(&dword_215819000, This, OS_LOG_TYPE_DEFAULT, "Safari requested starting playback", v20, 2u);
+      *v22 = 0;
+      _os_log_impl(&dword_215819000, This, OS_LOG_TYPE_DEFAULT, "Safari requested starting playback", v22, 2u);
     }
 
-    v19 = [MEMORY[0x277D28D48] sharedPlaybackController];
-    [v19 setCurrentPlaybackState:1];
+    v21 = [MEMORY[0x277D28D48] sharedPlaybackController];
+    [v21 setCurrentPlaybackState:1];
   }
 }
 
@@ -27492,18 +27525,18 @@ void __69__BrowserController_createNewTabWithURL_isPrivate_completionHandler___b
 
 - (void)openTabWithUUID:(id)d
 {
-  v4 = [(TabController *)self->_tabController tabWithUUID:d];
-  if (v4)
+  v5 = [(TabController *)self->_tabController tabWithUUID:d];
+  if (v5)
   {
-    [(TabController *)self->_tabController setActiveTab:v4 animated:1];
+    [(TabController *)self->_tabController setActiveTab:v5 animated:1];
     tabThumbnailCollectionView = [(TabCollectionViewProviding *)self->_tabCollectionViewProvider tabThumbnailCollectionView];
     [tabThumbnailCollectionView dismissAnimated:1];
   }
 
   else
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXSiriLink(0, v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [BrowserController openTabWithUUID:];
     }
@@ -27536,17 +27569,17 @@ void __69__BrowserController_createNewTabWithURL_isPrivate_completionHandler___b
 id __40__BrowserController_closeTabsWithUUIDs___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = [*(*(a1 + 32) + 328) tabWithUUID:v3];
-  if (!v4)
+  v5 = [*(*(a1 + 32) + 328) tabWithUUID:v3];
+  if (!v5)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXSiriLink();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXSiriLink(0, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __40__BrowserController_closeTabsWithUUIDs___block_invoke_cold_1();
     }
   }
 
-  return v4;
+  return v5;
 }
 
 - (id)createNewTabGroupWithTitle:(id)title
@@ -27994,14 +28027,14 @@ void __75__BrowserController_playbackStateDidChangeForSiriReaderPlaybackControll
   return WeakRetained;
 }
 
-- (uint64_t)_shouldShowBookmarksBarForViewSize:(uint64_t)size
+- (uint64_t)_shouldShowBookmarksBarForViewSize:(double)size
 {
-  if (!size || !_SFDeviceIsPad() || a2 <= *MEMORY[0x277D29130])
+  if (!self || !_SFDeviceIsPad() || size <= *MEMORY[0x277D29130])
   {
     return 0;
   }
 
-  return [(BrowserController *)size _prefersShowingBookmarksBar];
+  return [(BrowserController *)self _prefersShowingBookmarksBar];
 }
 
 - (BOOL)_isScrolledToThresholdForContinuousPrefetching
@@ -28338,7 +28371,7 @@ uint64_t __48__BrowserController__setShowingTabBar_animated___block_invoke_cold_
   OUTLINED_FUNCTION_0_2(&dword_215819000, v3, v4, "Trying to present catalog popover in place when it is already presented by: %{public}@", v5);
 }
 
-uint64_t __51__BrowserController__updateButtonsAnimatingTabBar___block_invoke_cold_1(void *a1)
+void *__51__BrowserController__updateButtonsAnimatingTabBar___block_invoke_cold_1(void *a1)
 {
   OUTLINED_FUNCTION_8(a1);
   result = [*(*v2 + 848) setContentMode:-[BrowserController _currentBarContentMode](*v2)];

@@ -3,6 +3,7 @@
 - (AVAudioSessionManager)init;
 - (BOOL)trackDaemonPID:(int)d;
 - (id).cxx_construct;
+- (void)triggerMediaServicesResetNotifications:(int)notifications daemonName:(id)name;
 @end
 
 @implementation AVAudioSessionManager
@@ -65,6 +66,45 @@ LABEL_8:
 
   os_unfair_lock_unlock(&self->_state.mMutex.m_lock);
   return v6;
+}
+
+- (void)triggerMediaServicesResetNotifications:(int)notifications daemonName:(id)name
+{
+  v4 = *&notifications;
+  v17 = *MEMORY[0x1E69E9840];
+  nameCopy = name;
+  if ([(AVAudioSessionManager *)self trackDaemonPID:v4])
+  {
+    v7 = CADeprecated::TSingleton<avfaudio::SessionMap>::instance();
+    avfaudio::SessionMap::ValidSessions(v7);
+    v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v8 = v13 = 0u;
+    v9 = [v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    if (v9)
+    {
+      v10 = *v13;
+      do
+      {
+        v11 = 0;
+        do
+        {
+          if (*v13 != v10)
+          {
+            objc_enumerationMutation(v8);
+          }
+
+          [*(*(&v12 + 1) + 8 * v11++) handleMediaDaemonTerminationEvent:v4 daemonName:{nameCopy, v12}];
+        }
+
+        while (v9 != v11);
+        v9 = [v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      }
+
+      while (v9);
+    }
+  }
 }
 
 - (id).cxx_construct

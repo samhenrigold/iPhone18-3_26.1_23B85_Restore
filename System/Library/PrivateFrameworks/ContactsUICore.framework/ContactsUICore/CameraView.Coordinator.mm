@@ -8,11 +8,11 @@
 
 - (void)imagePickerController:(id)controller didFinishPickingMediaWithInfo:(id)info
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C6110);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB0C6110, &qword_1A34DB600);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v14 - v6;
   type metadata accessor for InfoKey(0);
-  sub_1A33770A8(&qword_1EB0C5050, type metadata accessor for InfoKey);
+  sub_1A33770A8(&qword_1EB0C5050, type metadata accessor for InfoKey, &unk_1A34DA870);
   v8 = sub_1A34CCF90();
   v9 = sub_1A34CD4A0();
   (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
@@ -30,7 +30,7 @@
 
 - (void)imagePickerControllerDidCancel:(id)cancel
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8978);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB0C8978, &unk_1A34EAC00);
   v6 = v5 - 8;
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v15 - v7;
@@ -45,7 +45,7 @@
   os_unfair_lock_lock((v10 + v12));
   sub_1A329A478(v10 + v11);
   os_unfair_lock_unlock((v10 + v12));
-  sub_1A3288FDC(v8, &unk_1EB0C8978);
+  sub_1A3288FDC(v8, &unk_1EB0C8978, &unk_1A34EAC00);
 }
 
 - (_TtCV14ContactsUICoreP33_E066430AB25D5268401BEB757E69D30410CameraView11Coordinator)init

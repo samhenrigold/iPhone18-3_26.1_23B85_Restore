@@ -28,21 +28,19 @@
 
 - (id)inputTensorNames
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = kABPK2DBreakthroughInputTensorName;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = kABPK2DBreakthroughInputTensorName;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
 - (id)outputTensorNames
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = kABPK2DBreakthroughOutputHeatmapsTensorName;
-  v5[1] = kABPK2DBreakthroughOutputAffinityMapsTensorName;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = kABPK2DBreakthroughOutputHeatmapsTensorName;
+  v4[1] = kABPK2DBreakthroughOutputAffinityMapsTensorName;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }

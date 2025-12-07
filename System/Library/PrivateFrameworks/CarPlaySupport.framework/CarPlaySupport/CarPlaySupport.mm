@@ -742,7 +742,7 @@ uint64_t sub_242FED6F0()
 
 uint64_t sub_242FED744(uint64_t a1, uint64_t a2)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAOyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAOyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGSgMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAOyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGSgMR);
   OUTLINED_FUNCTION_1();
   (*(v4 + 16))(a2, a1);
   return a2;
@@ -750,7 +750,7 @@ uint64_t sub_242FED744(uint64_t a1, uint64_t a2)
 
 uint64_t sub_242FED7AC(uint64_t a1)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAOyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAOyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGSgMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAOyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGSgMR);
   OUTLINED_FUNCTION_1();
   (*(v2 + 8))(a1);
   return a1;
@@ -773,7 +773,7 @@ uint64_t sub_242FED844@<X0>(uint64_t *a1@<X8>)
 
 uint64_t sub_242FED874(uint64_t a1, uint64_t a2)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAOyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAOyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAOyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGMR);
   OUTLINED_FUNCTION_1();
   (*(v4 + 32))(a2, a1);
   return a2;
@@ -789,7 +789,7 @@ uint64_t sub_242FED950()
 
 uint64_t sub_242FED990(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd, &_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMR);
   if (*(*(v6 - 8) + 84) == a2)
   {
 
@@ -810,7 +810,7 @@ uint64_t sub_242FED990(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_242FEDA48(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd);
+  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMd, &_s7SwiftUI11EnvironmentVyAA11ColorSchemeOGMR);
   if (*(*(result - 8) + 84) == a3)
   {
 
@@ -834,7 +834,7 @@ uint64_t sub_242FEDB04@<X0>(_BYTE *a1@<X8>)
 
 uint64_t sub_242FEDB34(uint64_t a1, uint64_t a2)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0VyAA08ModifiedD0VyAA5ImageVAA14_PaddingLayoutVGG_14CarPlaySupport013ContactActionhG033_E85FB5A4CE27235491446378D391A496LLVQo_AeAEAFyQrqd__AaGRd__lFQOyAIyAKyAmA06_FrameL0VGG_AUQo_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0VyAA08ModifiedD0VyAA5ImageVAA14_PaddingLayoutVGG_14CarPlaySupport013ContactActionhG033_E85FB5A4CE27235491446378D391A496LLVQo_AeAEAFyQrqd__AaGRd__lFQOyAIyAKyAmA06_FrameL0VGG_AUQo_GMd, &_s7SwiftUI19_ConditionalContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0VyAA08ModifiedD0VyAA5ImageVAA14_PaddingLayoutVGG_14CarPlaySupport013ContactActionhG033_E85FB5A4CE27235491446378D391A496LLVQo_AeAEAFyQrqd__AaGRd__lFQOyAIyAKyAmA06_FrameL0VGG_AUQo_GMR);
   OUTLINED_FUNCTION_0_1();
   (*(v4 + 16))(a2, a1);
   return a2;
@@ -842,7 +842,7 @@ uint64_t sub_242FEDB34(uint64_t a1, uint64_t a2)
 
 uint64_t sub_242FEDB9C(uint64_t a1)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0VyAA08ModifiedD0VyAA5ImageVAA14_PaddingLayoutVGG_14CarPlaySupport013ContactActionhG033_E85FB5A4CE27235491446378D391A496LLVQo_AeAEAFyQrqd__AaGRd__lFQOyAIyAKyAmA06_FrameL0VGG_AUQo_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0VyAA08ModifiedD0VyAA5ImageVAA14_PaddingLayoutVGG_14CarPlaySupport013ContactActionhG033_E85FB5A4CE27235491446378D391A496LLVQo_AeAEAFyQrqd__AaGRd__lFQOyAIyAKyAmA06_FrameL0VGG_AUQo_GMd, &_s7SwiftUI19_ConditionalContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0VyAA08ModifiedD0VyAA5ImageVAA14_PaddingLayoutVGG_14CarPlaySupport013ContactActionhG033_E85FB5A4CE27235491446378D391A496LLVQo_AeAEAFyQrqd__AaGRd__lFQOyAIyAKyAmA06_FrameL0VGG_AUQo_GMR);
   OUTLINED_FUNCTION_0_1();
   (*(v2 + 8))(a1);
   return a1;
@@ -2215,7 +2215,7 @@ BOOL CPSAlertUsesMinimalStyle(id obj)
   return v7;
 }
 
-uint64_t CPUIPressesContainsPressType(void *a1, uint64_t a2)
+uint64_t CPUIPressesContainsPressType(void *a1, void *a2)
 {
   v18 = *MEMORY[0x277D85DE8];
   location = 0;
@@ -2454,7 +2454,7 @@ id _CPAppIdentifierFromTeamAppTuple(id obj)
       v14 = _CPAppIdentifierFromTeamAppTuple_teamPrefixLength;
       v29 = &v6;
       v13 = 2 * _CPAppIdentifierFromTeamAppTuple_teamPrefixLength;
-      MEMORY[0x28223BE20]();
+      MEMORY[0x28223BE20](v1);
       v15 = &v6 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
       v28 = v14;
       v3 = *(v2 + 2792);
@@ -3186,7 +3186,7 @@ void CPSGlassView.glassTintColor.didset()
   }
 }
 
-void (*CPSGlassView.glassTintColor.modify(void *a1))(void **a1, char a2)
+void (*CPSGlassView.glassTintColor.modify(uint64_t *a1))(void **a1, char a2)
 {
   v3 = __swift_coroFrameAllocStub(0x28uLL);
   *a1 = v3;
@@ -3281,28 +3281,28 @@ uint64_t CPSGlassView.updateBackground()()
   v2 = type metadata accessor for _Glass._GlassVariant();
   OUTLINED_FUNCTION_0();
   v4 = v3;
-  v5 = (MEMORY[0x28223BE20])();
-  v7 = &v18[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x28223BE20](v5);
-  v8 = type metadata accessor for _Glass();
+  v6 = MEMORY[0x28223BE20](v5);
+  v8 = &v19[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x28223BE20](v6);
+  v9 = type metadata accessor for _Glass();
   OUTLINED_FUNCTION_0();
-  v10 = v9;
-  MEMORY[0x28223BE20](v11);
-  v13 = &v18[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v11 = v10;
+  MEMORY[0x28223BE20](v12);
+  v14 = &v19[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
   static _Glass._GlassVariant.regular.getter();
   _Glass._GlassVariant.excludingShadow()();
-  (*(v4 + 8))(v7, v2);
+  (*(v4 + 8))(v8, v2);
   _Glass.init(_:smoothness:)();
-  v14 = OBJC_IVAR____TtC14CarPlaySupport12CPSGlassView_glassTintColor;
+  v15 = OBJC_IVAR____TtC14CarPlaySupport12CPSGlassView_glassTintColor;
   swift_beginAccess();
-  v15 = *(v1 + v14);
-  v19[3] = v8;
-  v19[4] = MEMORY[0x277D74E20];
-  __swift_allocate_boxed_opaque_existential_1(v19);
-  v16 = v15;
+  v16 = *(v1 + v15);
+  v20[3] = v9;
+  v20[4] = MEMORY[0x277D74E20];
+  __swift_allocate_boxed_opaque_existential_1(v20);
+  v17 = v16;
   _Glass.tint(_:)();
 
-  (*(v10 + 8))(v13, v8);
+  (*(v11 + 8))(v14, v9);
   return UIView._background.setter();
 }
 
@@ -3489,7 +3489,7 @@ Swift::Void __swiftcall CPSPointsOfInterestPickerCell.didUpdateFocus(in:with:)(U
 uint64_t CPSPointsOfInterestPickerCell.updateConfiguration(using:)()
 {
   v1 = v0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit25UIBackgroundConfigurationVSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s5UIKit25UIBackgroundConfigurationVSgMd, &_s5UIKit25UIBackgroundConfigurationVSgMR);
   MEMORY[0x28223BE20](v2 - 8);
   v29 = &v25 - v3;
   type metadata accessor for UIBackgroundConfiguration();
@@ -3498,7 +3498,7 @@ uint64_t CPSPointsOfInterestPickerCell.updateConfiguration(using:)()
   v28 = v4;
   MEMORY[0x28223BE20](v4);
   v7 = &v25 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI22UIHostingConfigurationVyAA6VStackVyAA9TupleViewVyAA15ModifiedContentVyAA0G0PAAE10fontWeightyQrAA4FontV0K0VSgFQOyAIyAIyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAUyANSgGG_Qo_AA016_ForegroundStyleQ0VyAA5ColorVGGSg_AIyA_A5_GSgA9_tGGAA05EmptyG0VGMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI22UIHostingConfigurationVyAA6VStackVyAA9TupleViewVyAA15ModifiedContentVyAA0G0PAAE10fontWeightyQrAA4FontV0K0VSgFQOyAIyAIyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAUyANSgGG_Qo_AA016_ForegroundStyleQ0VyAA5ColorVGGSg_AIyA_A5_GSgA9_tGGAA05EmptyG0VGMd, &_s7SwiftUI22UIHostingConfigurationVyAA6VStackVyAA9TupleViewVyAA15ModifiedContentVyAA0G0PAAE10fontWeightyQrAA4FontV0K0VSgFQOyAIyAIyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAUyANSgGG_Qo_AA016_ForegroundStyleQ0VyAA5ColorVGGSg_AIyA_A5_GSgA9_tGGAA05EmptyG0VGMR);
   OUTLINED_FUNCTION_5();
   v10 = v9;
   MEMORY[0x28223BE20](v11);
@@ -3523,12 +3523,12 @@ uint64_t CPSPointsOfInterestPickerCell.updateConfiguration(using:)()
   }
 
   v26 = v16;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6VStackVyAA9TupleViewVyAA15ModifiedContentVyAA0E0PAAE10fontWeightyQrAA4FontV0I0VSgFQOyAGyAGyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGASyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGSg_AGyAYA3_GSgA7_tGGMd);
-  lazy protocol witness table accessor for type VStack<TupleView<(ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type VStack<TupleView<(ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?)>> and conformance VStack<A>, &_s7SwiftUI6VStackVyAA9TupleViewVyAA15ModifiedContentVyAA0E0PAAE10fontWeightyQrAA4FontV0I0VSgFQOyAGyAGyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGASyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGSg_AGyAYA3_GSgA7_tGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6VStackVyAA9TupleViewVyAA15ModifiedContentVyAA0E0PAAE10fontWeightyQrAA4FontV0I0VSgFQOyAGyAGyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGASyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGSg_AGyAYA3_GSgA7_tGGMd, &_s7SwiftUI6VStackVyAA9TupleViewVyAA15ModifiedContentVyAA0E0PAAE10fontWeightyQrAA4FontV0I0VSgFQOyAGyAGyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGASyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGSg_AGyAYA3_GSgA7_tGGMR);
+  lazy protocol witness table accessor for type VStack<TupleView<(ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type VStack<TupleView<(ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?)>> and conformance VStack<A>, &_s7SwiftUI6VStackVyAA9TupleViewVyAA15ModifiedContentVyAA0E0PAAE10fontWeightyQrAA4FontV0I0VSgFQOyAGyAGyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGASyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGSg_AGyAYA3_GSgA7_tGGMd, &_s7SwiftUI6VStackVyAA9TupleViewVyAA15ModifiedContentVyAA0E0PAAE10fontWeightyQrAA4FontV0I0VSgFQOyAGyAGyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGASyALSgGG_Qo_AA016_ForegroundStyleO0VyAA5ColorVGGSg_AGyAYA3_GSgA7_tGGMR, MEMORY[0x277CE1198]);
   UIHostingConfiguration<>.init(content:)();
   static Edge.Set.all.getter();
   v30[3] = v8;
-  v30[4] = lazy protocol witness table accessor for type VStack<TupleView<(ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type UIHostingConfiguration<VStack<TupleView<(ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?)>>, EmptyView> and conformance UIHostingConfiguration<A, B>, &_s7SwiftUI22UIHostingConfigurationVyAA6VStackVyAA9TupleViewVyAA15ModifiedContentVyAA0G0PAAE10fontWeightyQrAA4FontV0K0VSgFQOyAIyAIyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAUyANSgGG_Qo_AA016_ForegroundStyleQ0VyAA5ColorVGGSg_AIyA_A5_GSgA9_tGGAA05EmptyG0VGMd);
+  v30[4] = lazy protocol witness table accessor for type VStack<TupleView<(ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type UIHostingConfiguration<VStack<TupleView<(ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?)>>, EmptyView> and conformance UIHostingConfiguration<A, B>, &_s7SwiftUI22UIHostingConfigurationVyAA6VStackVyAA9TupleViewVyAA15ModifiedContentVyAA0G0PAAE10fontWeightyQrAA4FontV0K0VSgFQOyAIyAIyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAUyANSgGG_Qo_AA016_ForegroundStyleQ0VyAA5ColorVGGSg_AIyA_A5_GSgA9_tGGAA05EmptyG0VGMd, &_s7SwiftUI22UIHostingConfigurationVyAA6VStackVyAA9TupleViewVyAA15ModifiedContentVyAA0G0PAAE10fontWeightyQrAA4FontV0K0VSgFQOyAIyAIyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAUyANSgGG_Qo_AA016_ForegroundStyleQ0VyAA5ColorVGGSg_AIyA_A5_GSgA9_tGGAA05EmptyG0VGMR, MEMORY[0x277CDE1C0]);
   __swift_allocate_boxed_opaque_existential_1(v30);
   UIHostingConfiguration.margins(_:_:)();
   (*(v10 + 8))(v13, v8);
@@ -3556,7 +3556,7 @@ uint64_t CPSPointsOfInterestPickerCell.updateConfiguration(using:)()
   return (*(v22 + 8))(v7, v21);
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -3568,16 +3568,17 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
   return result;
 }
 
-uint64_t closure #1 in CPSPointsOfInterestPickerCell.updateConfiguration(using:)@<X0>(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+uint64_t closure #1 in CPSPointsOfInterestPickerCell.updateConfiguration(using:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
+  v3 = a2;
   *a3 = static HorizontalAlignment.leading.getter();
   *(a3 + 8) = 0;
   *(a3 + 16) = 1;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA05TupleD0VyAA15ModifiedContentVyAA0D0PAAE10fontWeightyQrAA4FontV0L0VSgFQOyAKyAKyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAWyAPSgGG_Qo_AA016_ForegroundStyleR0VyAA5ColorVGGSg_AKyA1_A7_GSgA11_tGGMd);
-  return closure #1 in closure #1 in CPSPointsOfInterestPickerCell.updateConfiguration(using:)(a1, a2, a3 + *(v6 + 44));
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA05TupleD0VyAA15ModifiedContentVyAA0D0PAAE10fontWeightyQrAA4FontV0L0VSgFQOyAKyAKyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAWyAPSgGG_Qo_AA016_ForegroundStyleR0VyAA5ColorVGGSg_AKyA1_A7_GSgA11_tGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA05TupleD0VyAA15ModifiedContentVyAA0D0PAAE10fontWeightyQrAA4FontV0L0VSgFQOyAKyAKyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAWyAPSgGG_Qo_AA016_ForegroundStyleR0VyAA5ColorVGGSg_AKyA1_A7_GSgA11_tGGMR);
+  return closure #1 in closure #1 in CPSPointsOfInterestPickerCell.updateConfiguration(using:)(a1, v3, a3 + *(v6 + 44));
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -3593,16 +3594,16 @@ uint64_t closure #1 in closure #1 in CPSPointsOfInterestPickerCell.updateConfigu
 {
   LODWORD(v3) = a2;
   v89 = a3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE10fontWeightyQrAA4FontV0E0VSgFQOyAA15ModifiedContentVyAKyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAOyAFSgGG_Qo_Md);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE10fontWeightyQrAA4FontV0E0VSgFQOyAA15ModifiedContentVyAKyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAOyAFSgGG_Qo_Md, &_s7SwiftUI4ViewPAAE10fontWeightyQrAA4FontV0E0VSgFQOyAA15ModifiedContentVyAKyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAOyAFSgGG_Qo_MR);
   v98 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v97 = &v79 - v6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAOyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAOyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAOyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGMR);
   v8 = MEMORY[0x28223BE20](v7);
   v10 = &v79 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v8);
   v12 = &v79 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAOyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGSgMd);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAOyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGSgMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAOyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGSgMR);
   v14 = MEMORY[0x28223BE20](v13 - 8);
   v99 = &v79 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v14);
@@ -3652,7 +3653,7 @@ uint64_t closure #1 in closure #1 in CPSPointsOfInterestPickerCell.updateConfigu
     v103[7] = v31;
     v103[8] = v3;
     static Font.Weight.medium.getter();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>> and conformance <> ModifiedContent<A, B>();
     v32 = v97;
     View.fontWeight(_:)();
@@ -3829,7 +3830,7 @@ LABEL_18:
   sub_242FED744(v100, v99);
   v67 = v89;
   sub_242FED744(v66, v89);
-  v68 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAOyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGSg_ACyAUA_GSgA3_tMd);
+  v68 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAOyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGSg_ACyAUA_GSgA3_tMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE10fontWeightyQrAA4FontV0G0VSgFQOyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAOyAHSgGG_Qo_AA016_ForegroundStyleM0VyAA5ColorVGGSg_ACyAUA_GSgA3_tMR);
   v69 = *(v68 + 48);
   v101[0] = v98;
   v101[1] = v97;
@@ -3969,7 +3970,7 @@ id CPSPointsOfInterestPickerCell.__deallocating_deinit()
 
 uint64_t outlined init with copy of ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGAA016_ForegroundStyleI0VyAA5ColorVGGSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGAA016_ForegroundStyleI0VyAA5ColorVGGSgMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGAA016_ForegroundStyleI0VyAA5ColorVGGSgMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -3991,9 +3992,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGMd, &_s7SwiftUI15ModifiedContentVyACyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGAGyAA4FontVSgGGMR);
     lazy protocol witness table accessor for type ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type VStack<TupleView<(ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Font?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMd);
+    lazy protocol witness table accessor for type VStack<TupleView<(ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Font?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVyAA4FontVSgGMR, MEMORY[0x277CE0868]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>> and conformance <> ModifiedContent<A, B>);
   }
@@ -4006,8 +4007,8 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Text, _E
   result = lazy protocol witness table cache variable for type ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGMd);
-    lazy protocol witness table accessor for type VStack<TupleView<(ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Int?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVySiSgGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGMd, &_s7SwiftUI15ModifiedContentVyAA4TextVAA30_EnvironmentKeyWritingModifierVySiSgGGMR);
+    lazy protocol witness table accessor for type VStack<TupleView<(ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?)>> and conformance VStack<A>(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<Int?> and conformance _EnvironmentKeyWritingModifier<A>, &_s7SwiftUI30_EnvironmentKeyWritingModifierVySiSgGMd, &_s7SwiftUI30_EnvironmentKeyWritingModifierVySiSgGMR, MEMORY[0x277CE0868]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>> and conformance <> ModifiedContent<A, B>);
   }
@@ -4015,13 +4016,13 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Text, _E
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type VStack<TupleView<(ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?)>> and conformance VStack<A>(unint64_t *a1, uint64_t a2)
+uint64_t lazy protocol witness table accessor for type VStack<TupleView<(ModifiedContent<<<opaque return type of View.fontWeight(_:)>>.0, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?, ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?)>> and conformance VStack<A>(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    v4 = OUTLINED_FUNCTION_7(0, a2);
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(v4);
+    v6 = OUTLINED_FUNCTION_7(0, a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(v6, v7);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -4032,9 +4033,9 @@ uint64_t lazy protocol witness table accessor for type VStack<TupleView<(Modifie
 uint64_t outlined destroy of ModifiedContent<ModifiedContent<ModifiedContent<Text, _EnvironmentKeyWritingModifier<Int?>>, _EnvironmentKeyWritingModifier<Font?>>, _ForegroundStyleModifier<Color>>?(uint64_t a1, uint64_t a2)
 {
   v3 = OUTLINED_FUNCTION_7(a1, a2);
-  __swift_instantiateConcreteTypeFromMangledNameV2(v3);
+  __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
   OUTLINED_FUNCTION_1();
-  (*(v4 + 8))(a1);
+  (*(v5 + 8))(a1);
   return a1;
 }
 
@@ -4082,11 +4083,11 @@ uint64_t ContactButtonRepresentation.colorScheme.getter@<X0>(uint64_t a1@<X8>)
   v5 = v4;
   MEMORY[0x28223BE20](v6);
   v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMR);
   OUTLINED_FUNCTION_0_1();
   MEMORY[0x28223BE20](v9);
   v11 = &v15 - v10;
-  outlined init with copy of Environment<ColorScheme>.Content(v1 + OBJC_IVAR___CPSContactButtonRepresentation__colorScheme, &v15 - v10, &_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd);
+  outlined init with copy of Environment<ColorScheme>.Content(v1 + OBJC_IVAR___CPSContactButtonRepresentation__colorScheme, &v15 - v10, &_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMR);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     type metadata accessor for ColorScheme();
@@ -4138,7 +4139,7 @@ id ContactButtonRepresentation.init(identifier:title:image:type:)(uint64_t a1, u
 {
   v10 = OBJC_IVAR___CPSContactButtonRepresentation__colorScheme;
   *&v5[v10] = swift_getKeyPath();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMR);
   swift_storeEnumTagMultiPayload();
   v11 = &v5[OBJC_IVAR___CPSContactButtonRepresentation_title];
   *v11 = 0;
@@ -4272,7 +4273,7 @@ LABEL_12:
   v29 = v23;
   ButtonStyleConfiguration.label.getter();
   static Glass.regular.getter();
-  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type ButtonStyleConfiguration.Label and conformance ButtonStyleConfiguration.Label, MEMORY[0x277CDE278]);
+  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type ButtonStyleConfiguration.Label and conformance ButtonStyleConfiguration.Label, MEMORY[0x277CDE278], MEMORY[0x277CDE270]);
   lazy protocol witness table accessor for type Circle and conformance Circle();
   v31 = v40;
   v30 = v41;
@@ -4280,12 +4281,12 @@ LABEL_12:
   (*(v7 + 8))(v9, v42);
   (*(v10 + 8))(v12, v31);
   v32 = static Edge.Set.all.getter();
-  v33 = v30 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11glassEffect_2inQrAA5GlassV_qd__tAA5ShapeRd__lFQOyAA24ButtonStyleConfigurationV5LabelV_AA6CircleVQo_AA011_BackgroundL8ModifierVyAA5ColorVGGMd) + 36);
+  v33 = v30 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11glassEffect_2inQrAA5GlassV_qd__tAA5ShapeRd__lFQOyAA24ButtonStyleConfigurationV5LabelV_AA6CircleVQo_AA011_BackgroundL8ModifierVyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11glassEffect_2inQrAA5GlassV_qd__tAA5ShapeRd__lFQOyAA24ButtonStyleConfigurationV5LabelV_AA6CircleVQo_AA011_BackgroundL8ModifierVyAA5ColorVGGMR) + 36);
   *v33 = v29;
   *(v33 + 8) = v32;
-  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11glassEffect_2inQrAA5GlassV_qd__tAA5ShapeRd__lFQOyAA24ButtonStyleConfigurationV5LabelV_AA6CircleVQo_AA011_BackgroundL8ModifierVyAA5ColorVGGAA011_ForegroundlQ0VyAUGGMd);
+  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11glassEffect_2inQrAA5GlassV_qd__tAA5ShapeRd__lFQOyAA24ButtonStyleConfigurationV5LabelV_AA6CircleVQo_AA011_BackgroundL8ModifierVyAA5ColorVGGAA011_ForegroundlQ0VyAUGGMd, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11glassEffect_2inQrAA5GlassV_qd__tAA5ShapeRd__lFQOyAA24ButtonStyleConfigurationV5LabelV_AA6CircleVQo_AA011_BackgroundL8ModifierVyAA5ColorVGGAA011_ForegroundlQ0VyAUGGMR);
   *(v30 + *(v34 + 36)) = v44;
-  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE11glassEffect_2inQrAA5GlassV_qd__tAA5ShapeRd__lFQOyAA24ButtonStyleConfigurationV5LabelV_AA6CircleVQo_AA011_BackgroundL8ModifierVyAA5ColorVGGAA011_ForegroundlQ0VyAUGGAA05_ClipG0VyAPGGMd);
+  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE11glassEffect_2inQrAA5GlassV_qd__tAA5ShapeRd__lFQOyAA24ButtonStyleConfigurationV5LabelV_AA6CircleVQo_AA011_BackgroundL8ModifierVyAA5ColorVGGAA011_ForegroundlQ0VyAUGGAA05_ClipG0VyAPGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE11glassEffect_2inQrAA5GlassV_qd__tAA5ShapeRd__lFQOyAA24ButtonStyleConfigurationV5LabelV_AA6CircleVQo_AA011_BackgroundL8ModifierVyAA5ColorVGGAA011_ForegroundlQ0VyAUGGAA05_ClipG0VyAPGGMR);
   *(v30 + *(result + 36)) = 256;
   return result;
 }
@@ -4297,10 +4298,10 @@ uint64_t ContactActionButtonView.colorScheme.getter@<X0>(uint64_t a1@<X8>)
   v5 = *(v4 - 8);
   MEMORY[0x28223BE20](v4);
   v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMR);
   MEMORY[0x28223BE20](v8);
   v10 = &v14 - v9;
-  outlined init with copy of Environment<ColorScheme>.Content(v2, &v14 - v9, &_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd);
+  outlined init with copy of Environment<ColorScheme>.Content(v2, &v14 - v9, &_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMR);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     v11 = type metadata accessor for ColorScheme();
@@ -4325,170 +4326,172 @@ uint64_t ContactActionButtonView.body.getter@<X0>(uint64_t a1@<X8>)
   *a1 = static HorizontalAlignment.center.getter();
   *(a1 + 8) = 0x4010000000000000;
   *(a1 + 16) = 0;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA05TupleD0VyAA19_ConditionalContentVyAA0D0PAAE11buttonStyleyQrqd__AA06ButtonL0Rd__lFQOyAA0M0VyAA08ModifiedJ0VyAA5ImageVAA08_PaddingG0VGG_14CarPlaySupport013ContactActionmL033_E85FB5A4CE27235491446378D391A496LLVQo_AmAEANyQrqd__AaORd__lFQOyAQyASyAuA06_FrameG0VGG_A1_Qo_G_ASyAA4TextVA4_GtGGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA05TupleD0VyAA19_ConditionalContentVyAA0D0PAAE11buttonStyleyQrqd__AA06ButtonL0Rd__lFQOyAA0M0VyAA08ModifiedJ0VyAA5ImageVAA08_PaddingG0VGG_14CarPlaySupport013ContactActionmL033_E85FB5A4CE27235491446378D391A496LLVQo_AmAEANyQrqd__AaORd__lFQOyAQyASyAuA06_FrameG0VGG_A1_Qo_G_ASyAA4TextVA4_GtGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_VStackLayoutVAA05TupleD0VyAA19_ConditionalContentVyAA0D0PAAE11buttonStyleyQrqd__AA06ButtonL0Rd__lFQOyAA0M0VyAA08ModifiedJ0VyAA5ImageVAA08_PaddingG0VGG_14CarPlaySupport013ContactActionmL033_E85FB5A4CE27235491446378D391A496LLVQo_AmAEANyQrqd__AaORd__lFQOyAQyASyAuA06_FrameG0VGG_A1_Qo_G_ASyAA4TextVA4_GtGGMR);
   return closure #1 in ContactActionButtonView.body.getter(v1, a1 + *(v3 + 44));
 }
 
 uint64_t closure #1 in ContactActionButtonView.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v68 = a2;
-  v64 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVyAA15ModifiedContentVyAA5ImageVAA12_FrameLayoutVGGMd);
-  v56 = *(v64 - 8);
-  MEMORY[0x28223BE20](v64);
-  v4 = &v54 - v3;
-  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA06ButtonE0Rd__lFQOyAA0F0VyAA15ModifiedContentVyAA5ImageVAA12_FrameLayoutVGG_14CarPlaySupport013ContactActionfE033_E85FB5A4CE27235491446378D391A496LLVQo_Md);
-  v58 = *(v65 - 8);
-  MEMORY[0x28223BE20](v65);
-  v57 = &v54 - v5;
-  v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyAA0I0VyAA08ModifiedD0VyAA5ImageVAA14_PaddingLayoutVGG_14CarPlaySupport013ContactActioniH033_E85FB5A4CE27235491446378D391A496LLVQo_AgAEAHyQrqd__AaIRd__lFQOyAKyAMyAoA06_FrameM0VGG_AWQo__GMd);
-  MEMORY[0x28223BE20](v61);
-  v63 = &v54 - v6;
+  v70 = a2;
+  v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVyAA15ModifiedContentVyAA5ImageVAA12_FrameLayoutVGGMd, &_s7SwiftUI6ButtonVyAA15ModifiedContentVyAA5ImageVAA12_FrameLayoutVGGMR);
+  v58 = *(v66 - 8);
+  MEMORY[0x28223BE20](v66);
+  v4 = &v56 - v3;
+  v67 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA06ButtonE0Rd__lFQOyAA0F0VyAA15ModifiedContentVyAA5ImageVAA12_FrameLayoutVGG_14CarPlaySupport013ContactActionfE033_E85FB5A4CE27235491446378D391A496LLVQo_Md, &_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA06ButtonE0Rd__lFQOyAA0F0VyAA15ModifiedContentVyAA5ImageVAA12_FrameLayoutVGG_14CarPlaySupport013ContactActionfE033_E85FB5A4CE27235491446378D391A496LLVQo_MR);
+  v60 = *(v67 - 8);
+  MEMORY[0x28223BE20](v67);
+  v59 = &v56 - v5;
+  v63 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentV7StorageOyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyAA0I0VyAA08ModifiedD0VyAA5ImageVAA14_PaddingLayoutVGG_14CarPlaySupport013ContactActioniH033_E85FB5A4CE27235491446378D391A496LLVQo_AgAEAHyQrqd__AaIRd__lFQOyAKyAMyAoA06_FrameM0VGG_AWQo__GMd, &_s7SwiftUI19_ConditionalContentV7StorageOyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonH0Rd__lFQOyAA0I0VyAA08ModifiedD0VyAA5ImageVAA14_PaddingLayoutVGG_14CarPlaySupport013ContactActioniH033_E85FB5A4CE27235491446378D391A496LLVQo_AgAEAHyQrqd__AaIRd__lFQOyAKyAMyAoA06_FrameM0VGG_AWQo__GMR);
+  MEMORY[0x28223BE20](v63);
+  v65 = &v56 - v6;
   v7 = type metadata accessor for ContactActionButtonView(0);
   v8 = v7 - 8;
   v9 = *(v7 - 8);
   v10 = *(v9 + 64);
   MEMORY[0x28223BE20](v7);
-  v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVyAA15ModifiedContentVyAA5ImageVAA14_PaddingLayoutVGGMd);
-  v55 = *(v59 - 8);
-  MEMORY[0x28223BE20](v59);
-  v12 = &v54 - v11;
-  v62 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA06ButtonE0Rd__lFQOyAA0F0VyAA15ModifiedContentVyAA5ImageVAA14_PaddingLayoutVGG_14CarPlaySupport013ContactActionfE033_E85FB5A4CE27235491446378D391A496LLVQo_Md);
-  v13 = *(v62 - 8);
-  MEMORY[0x28223BE20](v62);
-  v15 = &v54 - v14;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0VyAA08ModifiedD0VyAA5ImageVAA14_PaddingLayoutVGG_14CarPlaySupport013ContactActionhG033_E85FB5A4CE27235491446378D391A496LLVQo_AeAEAFyQrqd__AaGRd__lFQOyAIyAKyAmA06_FrameL0VGG_AUQo_GMd);
+  v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6ButtonVyAA15ModifiedContentVyAA5ImageVAA14_PaddingLayoutVGGMd, &_s7SwiftUI6ButtonVyAA15ModifiedContentVyAA5ImageVAA14_PaddingLayoutVGGMR);
+  v57 = *(v61 - 8);
+  MEMORY[0x28223BE20](v61);
+  v12 = &v56 - v11;
+  v64 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA06ButtonE0Rd__lFQOyAA0F0VyAA15ModifiedContentVyAA5ImageVAA14_PaddingLayoutVGG_14CarPlaySupport013ContactActionfE033_E85FB5A4CE27235491446378D391A496LLVQo_Md, &_s7SwiftUI4ViewPAAE11buttonStyleyQrqd__AA06ButtonE0Rd__lFQOyAA0F0VyAA15ModifiedContentVyAA5ImageVAA14_PaddingLayoutVGG_14CarPlaySupport013ContactActionfE033_E85FB5A4CE27235491446378D391A496LLVQo_MR);
+  v13 = *(v64 - 8);
+  MEMORY[0x28223BE20](v64);
+  v15 = &v56 - v14;
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0VyAA08ModifiedD0VyAA5ImageVAA14_PaddingLayoutVGG_14CarPlaySupport013ContactActionhG033_E85FB5A4CE27235491446378D391A496LLVQo_AeAEAFyQrqd__AaGRd__lFQOyAIyAKyAmA06_FrameL0VGG_AUQo_GMd, &_s7SwiftUI19_ConditionalContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0VyAA08ModifiedD0VyAA5ImageVAA14_PaddingLayoutVGG_14CarPlaySupport013ContactActionhG033_E85FB5A4CE27235491446378D391A496LLVQo_AeAEAFyQrqd__AaGRd__lFQOyAIyAKyAmA06_FrameL0VGG_AUQo_GMR);
   v17 = MEMORY[0x28223BE20](v16 - 8);
-  v67 = &v54 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v69 = &v56 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v17);
-  v66 = &v54 - v19;
-  v60 = *(a1 + *(v8 + 32));
-  v20 = *(v60 + OBJC_IVAR___CPSContactButtonRepresentation_type);
-  outlined init with copy of ContactActionButtonView(a1, &v54 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v68 = &v56 - v19;
+  v62 = *(a1 + *(v8 + 32));
+  v20 = *(v62 + OBJC_IVAR___CPSContactButtonRepresentation_type);
+  outlined init with copy of ContactActionButtonView(a1, &v56 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
   v21 = (*(v9 + 80) + 16) & ~*(v9 + 80);
   v22 = swift_allocObject();
-  v23 = outlined init with take of ContactActionButtonView(&v54 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v22 + v21);
+  v23 = outlined init with take of ContactActionButtonView(&v56 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v22 + v21);
   MEMORY[0x28223BE20](v23);
-  *(&v54 - 2) = a1;
+  *(&v56 - 2) = a1;
   if (v20 == 3)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA5ImageVAA12_FrameLayoutVGMd);
-    lazy protocol witness table accessor for type ModifiedContent<Image, _PaddingLayout> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<Image, _FrameLayout> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVyAA5ImageVAA12_FrameLayoutVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA5ImageVAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA5ImageVAA12_FrameLayoutVGMR);
+    lazy protocol witness table accessor for type ModifiedContent<Image, _PaddingLayout> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<Image, _FrameLayout> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVyAA5ImageVAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA5ImageVAA12_FrameLayoutVGMR);
     Button.init(action:label:)();
     KeyPath = swift_getKeyPath();
-    LOBYTE(v75) = 0;
-    v24 = lazy protocol witness table accessor for type [ContactButtonRepresentation] and conformance [A](&lazy protocol witness table cache variable for type Button<ModifiedContent<Image, _FrameLayout>> and conformance Button<A>, &_s7SwiftUI6ButtonVyAA15ModifiedContentVyAA5ImageVAA12_FrameLayoutVGGMd);
-    v25 = lazy protocol witness table accessor for type ContactActionButtonStyle and conformance ContactActionButtonStyle();
-    v26 = v57;
-    v27 = v64;
+    LOBYTE(v77) = 0;
+    v24 = MEMORY[0x277CDF028];
+    v25 = lazy protocol witness table accessor for type [ContactButtonRepresentation] and conformance [A](&lazy protocol witness table cache variable for type Button<ModifiedContent<Image, _FrameLayout>> and conformance Button<A>, &_s7SwiftUI6ButtonVyAA15ModifiedContentVyAA5ImageVAA12_FrameLayoutVGGMd, &_s7SwiftUI6ButtonVyAA15ModifiedContentVyAA5ImageVAA12_FrameLayoutVGGMR, MEMORY[0x277CDF028]);
+    v26 = lazy protocol witness table accessor for type ContactActionButtonStyle and conformance ContactActionButtonStyle();
+    v27 = v59;
+    v28 = v66;
     View.buttonStyle<A>(_:)();
 
-    (*(v56 + 8))(v4, v27);
-    v28 = v58;
-    v29 = v65;
-    (*(v58 + 16))(v63, v26, v65);
+    (*(v58 + 8))(v4, v28);
+    v29 = v60;
+    v30 = v67;
+    (*(v60 + 16))(v65, v27, v67);
     swift_storeEnumTagMultiPayload();
-    v30 = lazy protocol witness table accessor for type [ContactButtonRepresentation] and conformance [A](&lazy protocol witness table cache variable for type Button<ModifiedContent<Image, _PaddingLayout>> and conformance Button<A>, &_s7SwiftUI6ButtonVyAA15ModifiedContentVyAA5ImageVAA14_PaddingLayoutVGGMd);
-    KeyPath = v59;
-    v75 = &unk_2855A57F0;
-    v76 = v30;
-    v77 = v25;
+    v31 = lazy protocol witness table accessor for type [ContactButtonRepresentation] and conformance [A](&lazy protocol witness table cache variable for type Button<ModifiedContent<Image, _PaddingLayout>> and conformance Button<A>, &_s7SwiftUI6ButtonVyAA15ModifiedContentVyAA5ImageVAA14_PaddingLayoutVGGMd, &_s7SwiftUI6ButtonVyAA15ModifiedContentVyAA5ImageVAA14_PaddingLayoutVGGMR, v24);
+    KeyPath = v61;
+    v77 = &unk_2855A57F0;
+    v78 = v31;
+    v79 = v26;
     swift_getOpaqueTypeConformance2();
-    KeyPath = v27;
-    v75 = &unk_2855A57F0;
-    v76 = v24;
-    v77 = v25;
+    KeyPath = v28;
+    v77 = &unk_2855A57F0;
+    v78 = v25;
+    v79 = v26;
     swift_getOpaqueTypeConformance2();
-    v31 = v66;
+    v32 = v68;
     _ConditionalContent<>.init(storage:)();
-    (*(v28 + 8))(v26, v29);
+    (*(v29 + 8))(v27, v30);
   }
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA5ImageVAA14_PaddingLayoutVGMd);
-    lazy protocol witness table accessor for type ModifiedContent<Image, _PaddingLayout> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<Image, _PaddingLayout> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVyAA5ImageVAA14_PaddingLayoutVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA5ImageVAA14_PaddingLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA5ImageVAA14_PaddingLayoutVGMR);
+    lazy protocol witness table accessor for type ModifiedContent<Image, _PaddingLayout> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<Image, _PaddingLayout> and conformance <> ModifiedContent<A, B>, &_s7SwiftUI15ModifiedContentVyAA5ImageVAA14_PaddingLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA5ImageVAA14_PaddingLayoutVGMR);
     Button.init(action:label:)();
     KeyPath = swift_getKeyPath();
-    LOBYTE(v75) = 0;
-    v32 = lazy protocol witness table accessor for type [ContactButtonRepresentation] and conformance [A](&lazy protocol witness table cache variable for type Button<ModifiedContent<Image, _PaddingLayout>> and conformance Button<A>, &_s7SwiftUI6ButtonVyAA15ModifiedContentVyAA5ImageVAA14_PaddingLayoutVGGMd);
-    v33 = lazy protocol witness table accessor for type ContactActionButtonStyle and conformance ContactActionButtonStyle();
-    v34 = v59;
+    LOBYTE(v77) = 0;
+    v33 = MEMORY[0x277CDF028];
+    v34 = lazy protocol witness table accessor for type [ContactButtonRepresentation] and conformance [A](&lazy protocol witness table cache variable for type Button<ModifiedContent<Image, _PaddingLayout>> and conformance Button<A>, &_s7SwiftUI6ButtonVyAA15ModifiedContentVyAA5ImageVAA14_PaddingLayoutVGGMd, &_s7SwiftUI6ButtonVyAA15ModifiedContentVyAA5ImageVAA14_PaddingLayoutVGGMR, MEMORY[0x277CDF028]);
+    v35 = lazy protocol witness table accessor for type ContactActionButtonStyle and conformance ContactActionButtonStyle();
+    v36 = v61;
     View.buttonStyle<A>(_:)();
 
-    (*(v55 + 8))(v12, v34);
-    v35 = v62;
-    (*(v13 + 16))(v63, v15, v62);
+    (*(v57 + 8))(v12, v36);
+    v37 = v64;
+    (*(v13 + 16))(v65, v15, v64);
     swift_storeEnumTagMultiPayload();
-    KeyPath = v34;
-    v75 = &unk_2855A57F0;
-    v76 = v32;
-    v77 = v33;
+    KeyPath = v36;
+    v77 = &unk_2855A57F0;
+    v78 = v34;
+    v79 = v35;
     swift_getOpaqueTypeConformance2();
-    v36 = lazy protocol witness table accessor for type [ContactButtonRepresentation] and conformance [A](&lazy protocol witness table cache variable for type Button<ModifiedContent<Image, _FrameLayout>> and conformance Button<A>, &_s7SwiftUI6ButtonVyAA15ModifiedContentVyAA5ImageVAA12_FrameLayoutVGGMd);
-    KeyPath = v64;
-    v75 = &unk_2855A57F0;
-    v76 = v36;
-    v77 = v33;
+    v38 = lazy protocol witness table accessor for type [ContactButtonRepresentation] and conformance [A](&lazy protocol witness table cache variable for type Button<ModifiedContent<Image, _FrameLayout>> and conformance Button<A>, &_s7SwiftUI6ButtonVyAA15ModifiedContentVyAA5ImageVAA12_FrameLayoutVGGMd, &_s7SwiftUI6ButtonVyAA15ModifiedContentVyAA5ImageVAA12_FrameLayoutVGGMR, v33);
+    KeyPath = v66;
+    v77 = &unk_2855A57F0;
+    v78 = v38;
+    v79 = v35;
     swift_getOpaqueTypeConformance2();
-    v31 = v66;
+    v32 = v68;
     _ConditionalContent<>.init(storage:)();
-    (*(v13 + 8))(v15, v35);
+    (*(v13 + 8))(v15, v37);
   }
 
   KeyPath = ContactButtonRepresentation.buttonTitle.getter();
-  v75 = v37;
+  v77 = v39;
   lazy protocol witness table accessor for type String and conformance String();
-  v38 = Text.init<A>(_:)();
-  v40 = v39;
+  v40 = Text.init<A>(_:)();
   v42 = v41;
+  v44 = v43;
   static Font.caption.getter();
-  v43 = Text.font(_:)();
-  v45 = v44;
+  v45 = Text.font(_:)();
   v47 = v46;
   v49 = v48;
+  v51 = v50;
 
-  outlined consume of Text.Storage(v38, v40, v42 & 1);
+  outlined consume of Text.Storage(v40, v42, v44 & 1);
 
   static Alignment.center.getter();
   _FrameLayout.init(width:height:alignment:)();
-  v50 = v67;
-  sub_242FEDB34(v31, v67);
-  v51 = v68;
-  sub_242FEDB34(v50, v68);
-  v52 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0VyAA08ModifiedD0VyAA5ImageVAA14_PaddingLayoutVGG_14CarPlaySupport013ContactActionhG033_E85FB5A4CE27235491446378D391A496LLVQo_AeAEAFyQrqd__AaGRd__lFQOyAIyAKyAmA06_FrameL0VGG_AUQo_G_AKyAA4TextVAXGtMd) + 48);
-  *&__src[0] = v43;
-  *(&__src[0] + 1) = v45;
-  LOBYTE(__src[1]) = v47 & 1;
-  *(&__src[1] + 1) = v72[0];
-  DWORD1(__src[1]) = *(v72 + 3);
-  *(&__src[1] + 1) = v49;
-  __src[4] = v71;
-  __src[3] = v70;
-  __src[2] = v69;
-  memcpy((v51 + v52), __src, 0x50uLL);
-  outlined init with copy of Environment<ColorScheme>.Content(__src, &KeyPath, &_s7SwiftUI15ModifiedContentVyAA4TextVAA12_FrameLayoutVGMd);
-  sub_242FEDB9C(v31);
-  KeyPath = v43;
-  v75 = v45;
-  LOBYTE(v76) = v47 & 1;
-  *(&v76 + 1) = v72[0];
-  HIDWORD(v76) = *(v72 + 3);
-  v77 = v49;
-  v78 = v69;
-  v79 = v70;
+  v52 = v69;
+  sub_242FEDB34(v32, v69);
+  v53 = v70;
+  sub_242FEDB34(v52, v70);
+  v54 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19_ConditionalContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0VyAA08ModifiedD0VyAA5ImageVAA14_PaddingLayoutVGG_14CarPlaySupport013ContactActionhG033_E85FB5A4CE27235491446378D391A496LLVQo_AeAEAFyQrqd__AaGRd__lFQOyAIyAKyAmA06_FrameL0VGG_AUQo_G_AKyAA4TextVAXGtMd, &_s7SwiftUI19_ConditionalContentVyAA4ViewPAAE11buttonStyleyQrqd__AA06ButtonG0Rd__lFQOyAA0H0VyAA08ModifiedD0VyAA5ImageVAA14_PaddingLayoutVGG_14CarPlaySupport013ContactActionhG033_E85FB5A4CE27235491446378D391A496LLVQo_AeAEAFyQrqd__AaGRd__lFQOyAIyAKyAmA06_FrameL0VGG_AUQo_G_AKyAA4TextVAXGtMR) + 48);
+  *&__src[0] = v45;
+  *(&__src[0] + 1) = v47;
+  LOBYTE(__src[1]) = v49 & 1;
+  *(&__src[1] + 1) = v74[0];
+  DWORD1(__src[1]) = *(v74 + 3);
+  *(&__src[1] + 1) = v51;
+  __src[4] = v73;
+  __src[3] = v72;
+  __src[2] = v71;
+  memcpy((v53 + v54), __src, 0x50uLL);
+  outlined init with copy of Environment<ColorScheme>.Content(__src, &KeyPath, &_s7SwiftUI15ModifiedContentVyAA4TextVAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA4TextVAA12_FrameLayoutVGMR);
+  sub_242FEDB9C(v32);
+  KeyPath = v45;
+  v77 = v47;
+  LOBYTE(v78) = v49 & 1;
+  *(&v78 + 1) = v74[0];
+  HIDWORD(v78) = *(v74 + 3);
+  v79 = v51;
   v80 = v71;
-  outlined destroy of Environment<ColorScheme>(&KeyPath, &_s7SwiftUI15ModifiedContentVyAA4TextVAA12_FrameLayoutVGMd);
-  return sub_242FEDB9C(v50);
+  v81 = v72;
+  v82 = v73;
+  outlined destroy of Environment<ColorScheme>(&KeyPath, &_s7SwiftUI15ModifiedContentVyAA4TextVAA12_FrameLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA4TextVAA12_FrameLayoutVGMR);
+  return sub_242FEDB9C(v52);
 }
 
-uint64_t closure #2 in closure #1 in ContactActionButtonView.body.getter@<X0>(uint64_t a1@<X8>)
+void closure #2 in closure #1 in ContactActionButtonView.body.getter(uint64_t a1@<X8>)
 {
   v2 = type metadata accessor for ColorScheme();
   v3 = *(v2 - 8);
   v4 = MEMORY[0x28223BE20](v2);
-  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v4);
-  v8 = &v19 - v7;
+  v8 = &v18 - v7;
   type metadata accessor for ContactActionButtonView(0);
   ContactActionButtonView.colorScheme.getter(v8);
   (*(v3 + 104))(v6, *MEMORY[0x277CDF3C0], v2);
@@ -4511,33 +4514,32 @@ uint64_t closure #2 in closure #1 in ContactActionButtonView.body.getter@<X0>(ui
 
   v13 = Image.init(uiImage:)();
   LOBYTE(v12) = static Edge.Set.all.getter();
-  result = EdgeInsets.init(_all:)();
+  EdgeInsets.init(_all:)();
   *a1 = v13;
   *(a1 + 8) = v12;
-  *(a1 + 16) = v15;
-  *(a1 + 24) = v16;
-  *(a1 + 32) = v17;
-  *(a1 + 40) = v18;
+  *(a1 + 16) = v14;
+  *(a1 + 24) = v15;
+  *(a1 + 32) = v16;
+  *(a1 + 40) = v17;
   *(a1 + 48) = 0;
-  return result;
 }
 
-void closure #1 in closure #1 in ContactActionButtonView.body.getter(uint64_t a1)
+void closure #1 in closure #1 in ContactActionButtonView.body.getter(uint64_t a1, uint64_t a2)
 {
-  v2 = type metadata accessor for UUID();
+  v3 = type metadata accessor for UUID();
   OUTLINED_FUNCTION_1_0();
-  v4 = v3;
-  MEMORY[0x28223BE20](v5);
-  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for ContactActionButtonView(0);
-  v9 = *(a1 + *(v8 + 20));
-  v10 = *(a1 + *(v8 + 24));
-  v11 = OBJC_IVAR___CPSContactButtonRepresentation_identifier;
+  v5 = v4;
+  MEMORY[0x28223BE20](v6);
+  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for ContactActionButtonView(0);
+  v10 = *(a1 + *(v9 + 20));
+  v11 = *(a1 + *(v9 + 24));
+  v12 = OBJC_IVAR___CPSContactButtonRepresentation_identifier;
   swift_beginAccess();
-  (*(v4 + 16))(v7, v10 + v11, v2);
+  (*(v5 + 16))(v8, v11 + v12, v3);
   isa = UUID._bridgeToObjectiveC()().super.isa;
-  (*(v4 + 8))(v7, v2);
-  [v9 tappedButton_];
+  (*(v5 + 8))(v8, v3);
+  [v10 tappedButton_];
 }
 
 double closure #4 in closure #1 in ContactActionButtonView.body.getter@<D0>(uint64_t a1@<X8>)
@@ -4599,10 +4601,10 @@ double ContactActionsView.body.getter@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, u
   *a3 = static VerticalAlignment.center.getter();
   *(a3 + 8) = 0;
   *(a3 + 16) = 1;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA05TupleD0VyAA6SpacerV_AA7ForEachVySay14CarPlaySupport27ContactButtonRepresentationCG10Foundation4UUIDVAIyAN0o6ActionpD033_E85FB5A4CE27235491446378D391A496LLV_AKtGGtGGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA05TupleD0VyAA6SpacerV_AA7ForEachVySay14CarPlaySupport27ContactButtonRepresentationCG10Foundation4UUIDVAIyAN0o6ActionpD033_E85FB5A4CE27235491446378D391A496LLV_AKtGGtGGMd, &_s7SwiftUI13_VariadicViewO4TreeVy_AA13_HStackLayoutVAA05TupleD0VyAA6SpacerV_AA7ForEachVySay14CarPlaySupport27ContactButtonRepresentationCG10Foundation4UUIDVAIyAN0o6ActionpD033_E85FB5A4CE27235491446378D391A496LLV_AKtGGtGGMR);
   closure #1 in ContactActionsView.body.getter(a1, a2, (a3 + *(v6 + 44)));
   LOBYTE(a2) = static Edge.Set.all.getter();
-  v7 = a3 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_AA7ForEachVySay14CarPlaySupport27ContactButtonRepresentationCG10Foundation4UUIDVAGyAL0n6ActionoG033_E85FB5A4CE27235491446378D391A496LLV_AItGGtGGAA14_PaddingLayoutVGMd) + 36);
+  v7 = a3 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_AA7ForEachVySay14CarPlaySupport27ContactButtonRepresentationCG10Foundation4UUIDVAGyAL0n6ActionoG033_E85FB5A4CE27235491446378D391A496LLV_AItGGtGGAA14_PaddingLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_AA7ForEachVySay14CarPlaySupport27ContactButtonRepresentationCG10Foundation4UUIDVAGyAL0n6ActionoG033_E85FB5A4CE27235491446378D391A496LLV_AItGGtGGAA14_PaddingLayoutVGMR) + 36);
   *v7 = a2;
   result = 0.0;
   *(v7 + 8) = 0u;
@@ -4614,7 +4616,7 @@ double ContactActionsView.body.getter@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, u
 uint64_t closure #1 in ContactActionsView.body.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   v20 = a3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7ForEachVySay14CarPlaySupport27ContactButtonRepresentationCG10Foundation4UUIDVAA9TupleViewVyAD0h6ActioniN033_E85FB5A4CE27235491446378D391A496LLV_AA6SpacerVtGGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7ForEachVySay14CarPlaySupport27ContactButtonRepresentationCG10Foundation4UUIDVAA9TupleViewVyAD0h6ActioniN033_E85FB5A4CE27235491446378D391A496LLV_AA6SpacerVtGGMd, &_s7SwiftUI7ForEachVySay14CarPlaySupport27ContactButtonRepresentationCG10Foundation4UUIDVAA9TupleViewVyAD0h6ActioniN033_E85FB5A4CE27235491446378D391A496LLV_AA6SpacerVtGGMR);
   v6 = *(v5 - 8);
   v7 = MEMORY[0x28223BE20](v5);
   v9 = v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -4627,11 +4629,11 @@ uint64_t closure #1 in ContactActionsView.body.getter@<X0>(uint64_t a1@<X0>, uin
   *(v12 + 24) = a2;
   swift_bridgeObjectRetain_n();
   swift_unknownObjectRetain();
-  v19[0] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay14CarPlaySupport27ContactButtonRepresentationCGMd);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVy14CarPlaySupport019ContactActionButtonD033_E85FB5A4CE27235491446378D391A496LLV_AA6SpacerVtGMd);
-  lazy protocol witness table accessor for type [ContactButtonRepresentation] and conformance [A](&lazy protocol witness table cache variable for type [ContactButtonRepresentation] and conformance [A], &_sSay14CarPlaySupport27ContactButtonRepresentationCGMd);
-  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
-  lazy protocol witness table accessor for type [ContactButtonRepresentation] and conformance [A](&lazy protocol witness table cache variable for type TupleView<(ContactActionButtonView, Spacer)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVy14CarPlaySupport019ContactActionButtonD033_E85FB5A4CE27235491446378D391A496LLV_AA6SpacerVtGMd);
+  v19[0] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay14CarPlaySupport27ContactButtonRepresentationCGMd, &_sSay14CarPlaySupport27ContactButtonRepresentationCGMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI9TupleViewVy14CarPlaySupport019ContactActionButtonD033_E85FB5A4CE27235491446378D391A496LLV_AA6SpacerVtGMd, &_s7SwiftUI9TupleViewVy14CarPlaySupport019ContactActionButtonD033_E85FB5A4CE27235491446378D391A496LLV_AA6SpacerVtGMR);
+  lazy protocol witness table accessor for type [ContactButtonRepresentation] and conformance [A](&lazy protocol witness table cache variable for type [ContactButtonRepresentation] and conformance [A], &_sSay14CarPlaySupport27ContactButtonRepresentationCGMd, &_sSay14CarPlaySupport27ContactButtonRepresentationCGMR, MEMORY[0x277D83980]);
+  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC9600]);
+  lazy protocol witness table accessor for type [ContactButtonRepresentation] and conformance [A](&lazy protocol witness table cache variable for type TupleView<(ContactActionButtonView, Spacer)> and conformance TupleView<A>, &_s7SwiftUI9TupleViewVy14CarPlaySupport019ContactActionButtonD033_E85FB5A4CE27235491446378D391A496LLV_AA6SpacerVtGMd, &_s7SwiftUI9TupleViewVy14CarPlaySupport019ContactActionButtonD033_E85FB5A4CE27235491446378D391A496LLV_AA6SpacerVtGMR, MEMORY[0x277CE14C0]);
   ForEach<>.init(_:id:content:)();
   v13 = *(v6 + 16);
   v13(v9, v11, v5);
@@ -4639,20 +4641,20 @@ uint64_t closure #1 in ContactActionsView.body.getter@<X0>(uint64_t a1@<X0>, uin
   *v20 = 0;
   *(v14 + 8) = 1;
   v15 = v14;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6SpacerV_AA7ForEachVySay14CarPlaySupport27ContactButtonRepresentationCG10Foundation4UUIDVAA9TupleViewVyAF0i6ActionjO033_E85FB5A4CE27235491446378D391A496LLV_ACtGGtMd);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI6SpacerV_AA7ForEachVySay14CarPlaySupport27ContactButtonRepresentationCG10Foundation4UUIDVAA9TupleViewVyAF0i6ActionjO033_E85FB5A4CE27235491446378D391A496LLV_ACtGGtMd, &_s7SwiftUI6SpacerV_AA7ForEachVySay14CarPlaySupport27ContactButtonRepresentationCG10Foundation4UUIDVAA9TupleViewVyAF0i6ActionjO033_E85FB5A4CE27235491446378D391A496LLV_ACtGGtMR);
   v13(&v15[*(v16 + 48)], v9, v5);
   v17 = *(v6 + 8);
   v17(v11, v5);
   return (v17)(v9, v5);
 }
 
-uint64_t key path setter for ContactButtonRepresentation.identifier : ContactButtonRepresentation(uint64_t a1)
+uint64_t key path setter for ContactButtonRepresentation.identifier : ContactButtonRepresentation(uint64_t a1, uint64_t a2)
 {
-  v2 = type metadata accessor for UUID();
-  MEMORY[0x28223BE20](v2);
-  v4 = &v7 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v5 + 16))(v4, a1);
-  return ContactButtonRepresentation.identifier.setter(v4);
+  v3 = type metadata accessor for UUID();
+  MEMORY[0x28223BE20](v3);
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v6 + 16))(v5, a1);
+  return ContactButtonRepresentation.identifier.setter(v5);
 }
 
 uint64_t closure #1 in closure #1 in ContactActionsView.body.getter@<X0>(void **a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
@@ -4665,13 +4667,13 @@ uint64_t closure #1 in closure #1 in ContactActionsView.body.getter@<X0>(void **
   v12 = (&v17 - v11);
   v13 = *a1;
   *v12 = swift_getKeyPath();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMR);
   swift_storeEnumTagMultiPayload();
   *(v12 + *(v7 + 28)) = a2;
   *(v12 + *(v7 + 32)) = v13;
   outlined init with copy of ContactActionButtonView(v12, v10);
   outlined init with copy of ContactActionButtonView(v10, a3);
-  v14 = a3 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s14CarPlaySupport23ContactActionButtonView33_E85FB5A4CE27235491446378D391A496LLV_7SwiftUI6SpacerVtMd) + 48);
+  v14 = a3 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s14CarPlaySupport23ContactActionButtonView33_E85FB5A4CE27235491446378D391A496LLV_7SwiftUI6SpacerVtMd, &_s14CarPlaySupport23ContactActionButtonView33_E85FB5A4CE27235491446378D391A496LLV_7SwiftUI6SpacerVtMR) + 48);
   *v14 = 0;
   *(v14 + 8) = 1;
   swift_unknownObjectRetain();
@@ -4700,13 +4702,13 @@ unint64_t lazy protocol witness table accessor for type ContactButtonType and co
   return result;
 }
 
-void type metadata completion function for ContactButtonRepresentation()
+void type metadata completion function for ContactButtonRepresentation(uint64_t a1)
 {
   type metadata accessor for Environment<ColorScheme>.Content(319, &lazy cache variable for type metadata for Environment<ColorScheme>.Content, MEMORY[0x277CDF458]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for UUID();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_updateClassMetadata2();
     }
@@ -4783,7 +4785,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t type metadata accessor for ContactButtonRepresentation(uint64_t a1, uint64_t *a2)
+uint64_t type metadata accessor for ContactButtonRepresentation(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -4808,16 +4810,16 @@ uint64_t outlined destroy of ContactActionButtonView(uint64_t a1)
   return a1;
 }
 
-void type metadata completion function for ContactActionButtonView()
+void type metadata completion function for ContactActionButtonView(uint64_t a1)
 {
   type metadata accessor for Environment<ColorScheme>.Content(319, &lazy cache variable for type metadata for Environment<ColorScheme>, MEMORY[0x277CDF468]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for ContactActionHandling();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for ContactButtonRepresentation(319);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -4855,8 +4857,8 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<HStack<T
   result = lazy protocol witness table cache variable for type ModifiedContent<HStack<TupleView<(Spacer, ForEach<[ContactButtonRepresentation], UUID, TupleView<(ContactActionButtonView, Spacer)>>)>>, _PaddingLayout> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<HStack<TupleView<(Spacer, ForEach<[ContactButtonRepresentation], UUID, TupleView<(ContactActionButtonView, Spacer)>>)>>, _PaddingLayout> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_AA7ForEachVySay14CarPlaySupport27ContactButtonRepresentationCG10Foundation4UUIDVAGyAL0n6ActionoG033_E85FB5A4CE27235491446378D391A496LLV_AItGGtGGAA14_PaddingLayoutVGMd);
-    lazy protocol witness table accessor for type [ContactButtonRepresentation] and conformance [A](&lazy protocol witness table cache variable for type HStack<TupleView<(Spacer, ForEach<[ContactButtonRepresentation], UUID, TupleView<(ContactActionButtonView, Spacer)>>)>> and conformance HStack<A>, &_s7SwiftUI6HStackVyAA9TupleViewVyAA6SpacerV_AA7ForEachVySay14CarPlaySupport27ContactButtonRepresentationCG10Foundation4UUIDVAEyAJ0l6ActionmE033_E85FB5A4CE27235491446378D391A496LLV_AGtGGtGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_AA7ForEachVySay14CarPlaySupport27ContactButtonRepresentationCG10Foundation4UUIDVAGyAL0n6ActionoG033_E85FB5A4CE27235491446378D391A496LLV_AItGGtGGAA14_PaddingLayoutVGMd, &_s7SwiftUI15ModifiedContentVyAA6HStackVyAA9TupleViewVyAA6SpacerV_AA7ForEachVySay14CarPlaySupport27ContactButtonRepresentationCG10Foundation4UUIDVAGyAL0n6ActionoG033_E85FB5A4CE27235491446378D391A496LLV_AItGGtGGAA14_PaddingLayoutVGMR);
+    lazy protocol witness table accessor for type [ContactButtonRepresentation] and conformance [A](&lazy protocol witness table cache variable for type HStack<TupleView<(Spacer, ForEach<[ContactButtonRepresentation], UUID, TupleView<(ContactActionButtonView, Spacer)>>)>> and conformance HStack<A>, &_s7SwiftUI6HStackVyAA9TupleViewVyAA6SpacerV_AA7ForEachVySay14CarPlaySupport27ContactButtonRepresentationCG10Foundation4UUIDVAEyAJ0l6ActionmE033_E85FB5A4CE27235491446378D391A496LLV_AGtGGtGGMd, "|\"", MEMORY[0x277CE1138]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<HStack<TupleView<(Spacer, ForEach<[ContactButtonRepresentation], UUID, TupleView<(ContactActionButtonView, Spacer)>>)>>, _PaddingLayout> and conformance <> ModifiedContent<A, B>);
   }
@@ -4894,19 +4896,19 @@ uint64_t outlined consume of Text.Storage(uint64_t a1, uint64_t a2, char a3)
   }
 }
 
-uint64_t outlined init with copy of Environment<ColorScheme>.Content(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t outlined init with copy of Environment<ColorScheme>.Content(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(a3);
+  __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
   OUTLINED_FUNCTION_0_1();
-  (*(v5 + 16))(a2, a1);
+  (*(v6 + 16))(a2, a1);
   return a2;
 }
 
-uint64_t outlined destroy of Environment<ColorScheme>(uint64_t a1, uint64_t *a2)
+uint64_t outlined destroy of Environment<ColorScheme>(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(a2);
+  __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
   OUTLINED_FUNCTION_0_1();
-  (*(v3 + 8))(a1);
+  (*(v4 + 8))(a1);
   return a1;
 }
 
@@ -4916,7 +4918,7 @@ uint64_t objectdestroy_24Tm()
   v2 = *(*(v1 - 8) + 80);
   v3 = (v2 + 16) & ~v2;
   v4 = *(*(v1 - 8) + 64);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMd, &_s7SwiftUI11EnvironmentV7ContentOyAA11ColorSchemeO_GMR);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     type metadata accessor for ColorScheme();
@@ -4933,12 +4935,12 @@ uint64_t objectdestroy_24Tm()
   return MEMORY[0x2821FE8E8](v0, v3 + v4, v2 | 7);
 }
 
-uint64_t lazy protocol witness table accessor for type ModifiedContent<Image, _PaddingLayout> and conformance <> ModifiedContent<A, B>(unint64_t *a1, uint64_t *a2)
+uint64_t lazy protocol witness table accessor for type ModifiedContent<Image, _PaddingLayout> and conformance <> ModifiedContent<A, B>(unint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -5014,16 +5016,16 @@ uint64_t storeEnumTagSinglePayload for ContactActionButtonStyle(uint64_t result,
   return result;
 }
 
-uint64_t outlined consume of Environment<Bool>.Content(uint64_t a1, char a2)
+uint64_t outlined consume of Environment<Bool>.Content(uint64_t result, char a2)
 {
   if ((a2 & 1) == 0)
   {
   }
 
-  return result;
+  return v2;
 }
 
-uint64_t lazy protocol witness table accessor for type UUID and conformance UUID(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type UUID and conformance UUID(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -5053,9 +5055,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<<<opaque return type of View.glassEffect<A>(_:in:)>>.0, _BackgroundStyleModifier<Color>>, _ForegroundStyleModifier<Color>>, _ClipEffect<Circle>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<<<opaque return type of View.glassEffect<A>(_:in:)>>.0, _BackgroundStyleModifier<Color>>, _ForegroundStyleModifier<Color>>, _ClipEffect<Circle>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE11glassEffect_2inQrAA5GlassV_qd__tAA5ShapeRd__lFQOyAA24ButtonStyleConfigurationV5LabelV_AA6CircleVQo_AA011_BackgroundL8ModifierVyAA5ColorVGGAA011_ForegroundlQ0VyAUGGAA05_ClipG0VyAPGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE11glassEffect_2inQrAA5GlassV_qd__tAA5ShapeRd__lFQOyAA24ButtonStyleConfigurationV5LabelV_AA6CircleVQo_AA011_BackgroundL8ModifierVyAA5ColorVGGAA011_ForegroundlQ0VyAUGGAA05_ClipG0VyAPGGMd, &_s7SwiftUI15ModifiedContentVyACyACyAA4ViewPAAE11glassEffect_2inQrAA5GlassV_qd__tAA5ShapeRd__lFQOyAA24ButtonStyleConfigurationV5LabelV_AA6CircleVQo_AA011_BackgroundL8ModifierVyAA5ColorVGGAA011_ForegroundlQ0VyAUGGAA05_ClipG0VyAPGGMR);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<<<opaque return type of View.glassEffect<A>(_:in:)>>.0, _BackgroundStyleModifier<Color>>, _ForegroundStyleModifier<Color>> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type [ContactButtonRepresentation] and conformance [A](&lazy protocol witness table cache variable for type _ClipEffect<Circle> and conformance _ClipEffect<A>, &_s7SwiftUI11_ClipEffectVyAA6CircleVGMd);
+    lazy protocol witness table accessor for type [ContactButtonRepresentation] and conformance [A](&lazy protocol witness table cache variable for type _ClipEffect<Circle> and conformance _ClipEffect<A>, &_s7SwiftUI11_ClipEffectVyAA6CircleVGMd, &_s7SwiftUI11_ClipEffectVyAA6CircleVGMR, MEMORY[0x277CDF4F0]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<<<opaque return type of View.glassEffect<A>(_:in:)>>.0, _BackgroundStyleModifier<Color>>, _ForegroundStyleModifier<Color>>, _ClipEffect<Circle>> and conformance <> ModifiedContent<A, B>);
   }
@@ -5068,9 +5070,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<<<opaque return type of View.glassEffect<A>(_:in:)>>.0, _BackgroundStyleModifier<Color>>, _ForegroundStyleModifier<Color>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<<<opaque return type of View.glassEffect<A>(_:in:)>>.0, _BackgroundStyleModifier<Color>>, _ForegroundStyleModifier<Color>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11glassEffect_2inQrAA5GlassV_qd__tAA5ShapeRd__lFQOyAA24ButtonStyleConfigurationV5LabelV_AA6CircleVQo_AA011_BackgroundL8ModifierVyAA5ColorVGGAA011_ForegroundlQ0VyAUGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11glassEffect_2inQrAA5GlassV_qd__tAA5ShapeRd__lFQOyAA24ButtonStyleConfigurationV5LabelV_AA6CircleVQo_AA011_BackgroundL8ModifierVyAA5ColorVGGAA011_ForegroundlQ0VyAUGGMd, &_s7SwiftUI15ModifiedContentVyACyAA4ViewPAAE11glassEffect_2inQrAA5GlassV_qd__tAA5ShapeRd__lFQOyAA24ButtonStyleConfigurationV5LabelV_AA6CircleVQo_AA011_BackgroundL8ModifierVyAA5ColorVGGAA011_ForegroundlQ0VyAUGGMR);
     lazy protocol witness table accessor for type ModifiedContent<<<opaque return type of View.glassEffect<A>(_:in:)>>.0, _BackgroundStyleModifier<Color>> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type [ContactButtonRepresentation] and conformance [A](&lazy protocol witness table cache variable for type _ForegroundStyleModifier<Color> and conformance _ForegroundStyleModifier<A>, &_s7SwiftUI24_ForegroundStyleModifierVyAA5ColorVGMd);
+    lazy protocol witness table accessor for type [ContactButtonRepresentation] and conformance [A](&lazy protocol witness table cache variable for type _ForegroundStyleModifier<Color> and conformance _ForegroundStyleModifier<A>, &_s7SwiftUI24_ForegroundStyleModifierVyAA5ColorVGMd, &_s7SwiftUI24_ForegroundStyleModifierVyAA5ColorVGMR, MEMORY[0x277CE0740]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<<<opaque return type of View.glassEffect<A>(_:in:)>>.0, _BackgroundStyleModifier<Color>>, _ForegroundStyleModifier<Color>> and conformance <> ModifiedContent<A, B>);
   }
@@ -5083,12 +5085,12 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<<<opaque
   result = lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.glassEffect<A>(_:in:)>>.0, _BackgroundStyleModifier<Color>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.glassEffect<A>(_:in:)>>.0, _BackgroundStyleModifier<Color>> and conformance <> ModifiedContent<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11glassEffect_2inQrAA5GlassV_qd__tAA5ShapeRd__lFQOyAA24ButtonStyleConfigurationV5LabelV_AA6CircleVQo_AA011_BackgroundL8ModifierVyAA5ColorVGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11glassEffect_2inQrAA5GlassV_qd__tAA5ShapeRd__lFQOyAA24ButtonStyleConfigurationV5LabelV_AA6CircleVQo_AA011_BackgroundL8ModifierVyAA5ColorVGGMd, &_s7SwiftUI15ModifiedContentVyAA4ViewPAAE11glassEffect_2inQrAA5GlassV_qd__tAA5ShapeRd__lFQOyAA24ButtonStyleConfigurationV5LabelV_AA6CircleVQo_AA011_BackgroundL8ModifierVyAA5ColorVGGMR);
     type metadata accessor for ButtonStyleConfiguration.Label();
-    lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type ButtonStyleConfiguration.Label and conformance ButtonStyleConfiguration.Label, MEMORY[0x277CDE278]);
+    lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type ButtonStyleConfiguration.Label and conformance ButtonStyleConfiguration.Label, MEMORY[0x277CDE278], MEMORY[0x277CDE270]);
     lazy protocol witness table accessor for type Circle and conformance Circle();
     swift_getOpaqueTypeConformance2();
-    lazy protocol witness table accessor for type [ContactButtonRepresentation] and conformance [A](&lazy protocol witness table cache variable for type _BackgroundStyleModifier<Color> and conformance _BackgroundStyleModifier<A>, &_s7SwiftUI24_BackgroundStyleModifierVyAA5ColorVGMd);
+    lazy protocol witness table accessor for type [ContactButtonRepresentation] and conformance [A](&lazy protocol witness table cache variable for type _BackgroundStyleModifier<Color> and conformance _BackgroundStyleModifier<A>, &_s7SwiftUI24_BackgroundStyleModifierVyAA5ColorVGMd, &_s7SwiftUI24_BackgroundStyleModifierVyAA5ColorVGMR, MEMORY[0x277CE0728]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<<<opaque return type of View.glassEffect<A>(_:in:)>>.0, _BackgroundStyleModifier<Color>> and conformance <> ModifiedContent<A, B>);
   }
@@ -5096,12 +5098,12 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<<<opaque
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type [ContactButtonRepresentation] and conformance [A](unint64_t *a1, uint64_t *a2)
+uint64_t lazy protocol witness table accessor for type [ContactButtonRepresentation] and conformance [A](unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -5314,7 +5316,7 @@ objc_class *one-time initialization function for actionConfiguration()
 
 id static UIViewController.contactActionHostingController(delegate:contactButtons:)(uint64_t a1, uint64_t a2)
 {
-  objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19UIHostingControllerCy14CarPlaySupport18ContactActionsViewVGMd));
+  objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19UIHostingControllerCy14CarPlaySupport18ContactActionsViewVGMd, _s7SwiftUI19UIHostingControllerCy14CarPlaySupport18ContactActionsViewVGMR));
 
   swift_unknownObjectRetain();
   v2 = UIHostingController.init(rootView:)();
@@ -5336,36 +5338,36 @@ id static UIViewController.contactActionHostingController(delegate:contactButton
   return result;
 }
 
-id @objc static UIViewController.contactActionHostingController(delegate:contactButtons:)()
+id @objc static UIViewController.contactActionHostingController(delegate:contactButtons:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   type metadata accessor for ContactButtonRepresentation(0);
-  v0 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  v1 = swift_unknownObjectRetain();
-  v2 = static UIViewController.contactActionHostingController(delegate:contactButtons:)(v1, v0);
+  v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v5 = swift_unknownObjectRetain();
+  v6 = static UIViewController.contactActionHostingController(delegate:contactButtons:)(v5, v4);
   swift_unknownObjectRelease();
 
-  return v2;
+  return v6;
 }
 
-void UIViewController.updateHostingController(delegate:contactButtons:)()
+void UIViewController.updateHostingController(delegate:contactButtons:)(uint64_t a1, uint64_t a2)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19UIHostingControllerCy14CarPlaySupport18ContactActionsViewVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19UIHostingControllerCy14CarPlaySupport18ContactActionsViewVGMd, _s7SwiftUI19UIHostingControllerCy14CarPlaySupport18ContactActionsViewVGMR);
   if (swift_dynamicCastClass())
   {
-    v1 = v0;
+    v3 = v2;
 
     swift_unknownObjectRetain();
     dispatch thunk of UIHostingController.rootView.setter();
   }
 }
 
-uint64_t @objc UIViewController.updateHostingController(delegate:contactButtons:)(void *a1)
+uint64_t @objc UIViewController.updateHostingController(delegate:contactButtons:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   type metadata accessor for ContactButtonRepresentation(0);
-  static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   swift_unknownObjectRetain();
-  v2 = a1;
-  UIViewController.updateHostingController(delegate:contactButtons:)();
+  v7 = a1;
+  UIViewController.updateHostingController(delegate:contactButtons:)(a3, v6);
   swift_unknownObjectRelease();
 }
 

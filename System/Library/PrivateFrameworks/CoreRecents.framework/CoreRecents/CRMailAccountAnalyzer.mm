@@ -2,6 +2,7 @@
 - (BOOL)isAddressRestricted:(id)restricted;
 - (CRMailAccountAnalyzer)init;
 - (CRMailAccountAnalyzer)initWithLocale:(id)locale;
+- (void)addAddress:(id)address isRestricted:(BOOL)restricted;
 - (void)dealloc;
 @end
 
@@ -33,6 +34,19 @@
   v3.receiver = self;
   v3.super_class = CRMailAccountAnalyzer;
   [(CRMailAccountAnalyzer *)&v3 dealloc];
+}
+
+- (void)addAddress:(id)address isRestricted:(BOOL)restricted
+{
+  restrictedCopy = restricted;
+  v6 = [(CRMailAccountAnalyzer *)self normalizeAddress:address];
+  if (([-[CNCache objectForKey:onCacheMiss:](self->_cache objectForKey:v6 onCacheMiss:{&stru_10002D3D0), "isEqualToNumber:", &__kCFBooleanTrue}] & 1) == 0)
+  {
+    cache = self->_cache;
+    v8 = [NSNumber numberWithBool:restrictedCopy];
+
+    [(CNCache *)cache setObject:v8 forKey:v6];
+  }
 }
 
 - (BOOL)isAddressRestricted:(id)restricted

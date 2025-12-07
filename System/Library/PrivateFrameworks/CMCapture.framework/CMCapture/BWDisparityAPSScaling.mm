@@ -98,74 +98,87 @@
     {
       v18 = *(self + 8);
       v19 = *(self + 40);
-      v44.origin.x = OUTLINED_FUNCTION_1_88();
-      if (!CGRectIsEmpty(v44))
+      v48.origin.x = OUTLINED_FUNCTION_1_88();
+      if (!CGRectIsEmpty(v48))
       {
         FigCaptureUnityRect();
-        v45.origin.x = OUTLINED_FUNCTION_1_88();
-        CGRectIntersection(v45, v46);
+        v49.origin.x = OUTLINED_FUNCTION_1_88();
+        CGRectIntersection(v49, v50);
         v20 = OUTLINED_FUNCTION_0_79();
-        CVPixelBufferGetWidth(v20);
-        CVPixelBufferGetHeight(a2);
-        FigCaptureDenormalizeCropRect(scale, disatance, rect, v12);
-        v21 = OUTLINED_FUNCTION_0_79();
-        PixelFormatType = CVPixelBufferGetPixelFormatType(v21);
-        v23 = FigDepthBytesPerPixelForDepthFormat(PixelFormatType);
+        Width = CVPixelBufferGetWidth(v20);
+        Height = CVPixelBufferGetHeight(a2);
+        FigCaptureDenormalizeCropRect(Width | (Height << 32), scale, disatance, rect, v12);
+        v23 = OUTLINED_FUNCTION_0_79();
+        PixelFormatType = CVPixelBufferGetPixelFormatType(v23);
+        v25 = FigDepthBytesPerPixelForDepthFormat(PixelFormatType);
         BytesPerRow = CVPixelBufferGetBytesPerRow(a2);
         IOSurface = CVPixelBufferGetIOSurface(a2);
-        if (!IOSurface || (v26 = IOSurface, IOSurfaceLock(IOSurface, 5u, 0)))
+        if (IOSurface)
         {
-          fig_log_get_emitter();
-          OUTLINED_FUNCTION_2_33();
-          FigDebugAssert3();
+          v28 = IOSurface;
+          v29 = IOSurfaceLock(IOSurface, 5u, 0);
+          if (v29)
+          {
+            v46 = v29;
+            fig_log_get_emitter();
+            OUTLINED_FUNCTION_2_33();
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v46);
+          }
+
+          else
+          {
+            buffer = v28;
+            v30 = llround(v12);
+            BaseAddress = IOSurfaceGetBaseAddress(v28);
+            array = [MEMORY[0x1E695DF70] array];
+            if (v30 >= 1)
+            {
+              v34 = 0;
+              v35 = llround(rect);
+              v36 = BytesPerRow / v25;
+              v37 = BaseAddress + 2 * BytesPerRow / v25 * llround(disatance) + 2 * llround(scale);
+              v38 = v36 * v19;
+              do
+              {
+                if (v35 >= 1)
+                {
+                  for (i = 0; i < v35; i += v19)
+                  {
+                    LOWORD(_D0) = *(v37 + 2 * i);
+                    __asm { FCVT            S0, H0 }
+
+                    [array addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", _D0)}];
+                  }
+                }
+
+                v37 += 2 * v38;
+                v34 += v19;
+              }
+
+              while (v34 < v30);
+            }
+
+            IOSurfaceUnlock(buffer, 5u, 0);
+            v44 = [array sortedArrayUsingSelector:sel_compare_];
+            [objc_msgSend(v44 objectAtIndexedSubscript:{fmaxf(floorf((v18 * objc_msgSend(v44, "count")) / 100.0) + -1.0, 0.0)), "floatValue"}];
+            v17 = *&result;
+          }
         }
 
         else
         {
-          buffer = v26;
-          v27 = llround(v12);
-          BaseAddress = IOSurfaceGetBaseAddress(v26);
-          array = [MEMORY[0x1E695DF70] array];
-          if (v27 >= 1)
-          {
-            v31 = 0;
-            v32 = llround(rect);
-            v33 = BytesPerRow / v23;
-            v34 = BaseAddress + 2 * BytesPerRow / v23 * llround(disatance) + 2 * llround(scale);
-            v35 = v33 * v19;
-            do
-            {
-              if (v32 >= 1)
-              {
-                for (i = 0; i < v32; i += v19)
-                {
-                  LOWORD(_D0) = *(v34 + 2 * i);
-                  __asm { FCVT            S0, H0 }
-
-                  [array addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", _D0)}];
-                }
-              }
-
-              v34 += 2 * v35;
-              v31 += v19;
-            }
-
-            while (v31 < v27);
-          }
-
-          IOSurfaceUnlock(buffer, 5u, 0);
-          v41 = [array sortedArrayUsingSelector:sel_compare_];
-          [objc_msgSend(v41 objectAtIndexedSubscript:{fmaxf(floorf((v18 * objc_msgSend(v41, "count")) / 100.0) + -1.0, 0.0)), "floatValue"}];
-          v17 = *&result;
+          fig_log_get_emitter();
+          OUTLINED_FUNCTION_2_33();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0);
         }
       }
     }
 
     v14 = 1.0;
-    v42 = 1.0 / fmaxf(v17 * a8, 0.001);
-    if (v42 > *(self + 24) && v42 < *(self + 28))
+    v45 = 1.0 / fmaxf(v17 * a8, 0.001);
+    if (v45 > *(self + 24) && v45 < *(self + 28))
     {
-      v14 = (1.0 / fmaxf(a7, 0.001)) * v42;
+      v14 = (1.0 / fmaxf(a7, 0.001)) * v45;
       if (v14 >= *(self + 36))
       {
         v14 = *(self + 36);
@@ -204,10 +217,11 @@
   return v8;
 }
 
-- (void)initWithPortType:(void *)a1 sensorIDString:.cold.1(void *a1)
+- (void)initWithPortType:(const char *)a1 sensorIDString:.cold.1(const char *a1)
 {
   fig_log_get_emitter();
-  FigDebugAssert3();
+  v2 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v1, v3, a1, v6, v7, vars0, vars8);
 }
 
 @end

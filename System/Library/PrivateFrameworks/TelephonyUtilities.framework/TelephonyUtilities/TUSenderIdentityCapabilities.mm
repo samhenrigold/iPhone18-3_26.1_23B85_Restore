@@ -39,6 +39,12 @@
 - (void)invalidateAndRefreshWiFiCallingProvisioningURL;
 - (void)isThumperCallingAllowedOnDefaultPairedSecondaryDevice;
 - (void)requestPinFromPrimaryDeviceForThumperCalling;
+- (void)setThumperCallingAllowed:(BOOL)allowed onSecondaryDeviceWithID:(id)d;
+- (void)setThumperCallingAllowedOnDefaultPairedSecondaryDevice:(BOOL)device;
+- (void)setThumperCallingEnabled:(BOOL)enabled;
+- (void)setVoLTECallingEnabled:(BOOL)enabled;
+- (void)setWiFiCallingEnabled:(BOOL)enabled;
+- (void)setWiFiCallingRoamingEnabled:(BOOL)enabled;
 @end
 
 @implementation TUSenderIdentityCapabilities
@@ -467,9 +473,60 @@
   return v16;
 }
 
+- (void)setVoLTECallingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v9 = *MEMORY[0x1E69E9840];
+  v5 = TUDefaultLog(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v8[0] = 67109120;
+    v8[1] = enabledCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Asked to set VoLTE calling enabled to %d", v8, 8u);
+  }
+
+  client = [(TUSenderIdentityCapabilities *)self client];
+  senderIdentityUUID = [(TUSenderIdentityCapabilities *)self senderIdentityUUID];
+  [client setVoLTECallingEnabled:enabledCopy forSenderIdentityWithUUID:senderIdentityUUID];
+}
+
+- (void)setWiFiCallingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v9 = *MEMORY[0x1E69E9840];
+  v5 = TUDefaultLog(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v8[0] = 67109120;
+    v8[1] = enabledCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Asked to set WiFi calling enabled to %d", v8, 8u);
+  }
+
+  client = [(TUSenderIdentityCapabilities *)self client];
+  senderIdentityUUID = [(TUSenderIdentityCapabilities *)self senderIdentityUUID];
+  [client setWiFiCallingEnabled:enabledCopy forSenderIdentityWithUUID:senderIdentityUUID];
+}
+
+- (void)setWiFiCallingRoamingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v9 = *MEMORY[0x1E69E9840];
+  v5 = TUDefaultLog(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v8[0] = 67109120;
+    v8[1] = enabledCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Asked to set WiFi calling roaming enabled to %d", v8, 8u);
+  }
+
+  client = [(TUSenderIdentityCapabilities *)self client];
+  senderIdentityUUID = [(TUSenderIdentityCapabilities *)self senderIdentityUUID];
+  [client setWiFiCallingRoamingEnabled:enabledCopy forSenderIdentityWithUUID:senderIdentityUUID];
+}
+
 - (void)invalidateAndRefreshWiFiCallingProvisioningURL
 {
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -481,9 +538,26 @@
   [client invalidateAndRefreshWiFiCallingProvisioningURLForSenderIdentityWithUUID:senderIdentityUUID];
 }
 
+- (void)setThumperCallingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v9 = *MEMORY[0x1E69E9840];
+  v5 = TUDefaultLog(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v8[0] = 67109120;
+    v8[1] = enabledCopy;
+    _os_log_impl(&dword_1956FD000, v5, OS_LOG_TYPE_DEFAULT, "Asked to set Thumper calling enabled to %d", v8, 8u);
+  }
+
+  client = [(TUSenderIdentityCapabilities *)self client];
+  senderIdentityUUID = [(TUSenderIdentityCapabilities *)self senderIdentityUUID];
+  [client setThumperCallingEnabled:enabledCopy forSenderIdentityWithUUID:senderIdentityUUID];
+}
+
 - (void)invalidateAndRefreshThumperCallingProvisioningURL
 {
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -495,9 +569,64 @@
   [client invalidateAndRefreshThumperCallingProvisioningURLForSenderIdentityWithUUID:senderIdentityUUID];
 }
 
+- (void)setThumperCallingAllowed:(BOOL)allowed onSecondaryDeviceWithID:(id)d
+{
+  allowedCopy = allowed;
+  v17 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  client = [(TUSenderIdentityCapabilities *)self client];
+  state = [client state];
+  supportsPrimaryCalling = [state supportsPrimaryCalling];
+
+  if ((supportsPrimaryCalling & 1) == 0)
+  {
+    [TUSenderIdentityCapabilities setThumperCallingAllowed:onSecondaryDeviceWithID:];
+  }
+
+  v11 = TUDefaultLog(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v14[0] = 67109378;
+    v14[1] = allowedCopy;
+    v15 = 2112;
+    v16 = dCopy;
+    _os_log_impl(&dword_1956FD000, v11, OS_LOG_TYPE_DEFAULT, "Asked to set Thumper calling allowed to %d on secondary device with ID %@", v14, 0x12u);
+  }
+
+  client2 = [(TUSenderIdentityCapabilities *)self client];
+  senderIdentityUUID = [(TUSenderIdentityCapabilities *)self senderIdentityUUID];
+  [client2 setThumperCallingAllowed:allowedCopy onSecondaryDeviceWithID:dCopy forSenderIdentityWithUUID:senderIdentityUUID];
+}
+
+- (void)setThumperCallingAllowedOnDefaultPairedSecondaryDevice:(BOOL)device
+{
+  deviceCopy = device;
+  v13 = *MEMORY[0x1E69E9840];
+  client = [(TUSenderIdentityCapabilities *)self client];
+  state = [client state];
+  supportsPrimaryCalling = [state supportsPrimaryCalling];
+
+  if ((supportsPrimaryCalling & 1) == 0)
+  {
+    [TUSenderIdentityCapabilities setThumperCallingAllowedOnDefaultPairedSecondaryDevice:];
+  }
+
+  v9 = TUDefaultLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v12[0] = 67109120;
+    v12[1] = deviceCopy;
+    _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "Asked to set Thumper calling allowed on paired secondary device to %d", v12, 8u);
+  }
+
+  client2 = [(TUSenderIdentityCapabilities *)self client];
+  senderIdentityUUID = [(TUSenderIdentityCapabilities *)self senderIdentityUUID];
+  [client2 setThumperCallingAllowedOnDefaultPairedDevice:deviceCopy forSenderIdentityWithUUID:senderIdentityUUID];
+}
+
 - (void)requestPinFromPrimaryDeviceForThumperCalling
 {
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -510,7 +639,7 @@
 
 - (void)cancelPinRequestFromPrimaryDeviceForThumperCalling
 {
-  v3 = TUDefaultLog();
+  v3 = TUDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -523,7 +652,7 @@
 
 - (void)_sendNotificationsAndCallbacksComparingToOldSenderIdentityCapabilities:(id)capabilities
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v83 = *MEMORY[0x1E69E9840];
   capabilitiesCopy = capabilities;
   isWiFiCallingEnabled = [capabilitiesCopy isWiFiCallingEnabled];
   isVoLTECallingEnabled = [capabilitiesCopy isVoLTECallingEnabled];
@@ -570,149 +699,149 @@
   thumperCallingCapabilitiesState4 = [state4 thumperCallingCapabilitiesState];
   supportsDefaultPairedDevice2 = [thumperCallingCapabilitiesState4 supportsDefaultPairedDevice];
 
-  v25 = 0x1E696A000;
+  v26 = 0x1E696A000;
   if (isWiFiCallingEnabled != isWiFiCallingEnabled2)
   {
-    v26 = TUDefaultLog();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v27 = TUDefaultLog(v25);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      *v62 = isWiFiCallingEnabled;
-      *&v62[4] = 1024;
-      *&v62[6] = isWiFiCallingEnabled2;
-      _os_log_impl(&dword_1956FD000, v26, OS_LOG_TYPE_DEFAULT, "WiFi capabilities changed from %d to %d", buf, 0xEu);
+      *v64 = isWiFiCallingEnabled;
+      *&v64[4] = 1024;
+      *&v64[6] = isWiFiCallingEnabled2;
+      _os_log_impl(&dword_1956FD000, v27, OS_LOG_TYPE_DEFAULT, "WiFi capabilities changed from %d to %d", buf, 0xEu);
     }
 
     client = [(TUSenderIdentityCapabilities *)self client];
-    v60[0] = MEMORY[0x1E69E9820];
-    v60[1] = 3221225472;
-    v60[2] = __103__TUSenderIdentityCapabilities__sendNotificationsAndCallbacksComparingToOldSenderIdentityCapabilities___block_invoke;
-    v60[3] = &unk_1E7424DA0;
-    v60[4] = self;
-    [client performDelegateCallbackBlock:v60];
+    v62[0] = MEMORY[0x1E69E9820];
+    v62[1] = 3221225472;
+    v62[2] = __103__TUSenderIdentityCapabilities__sendNotificationsAndCallbacksComparingToOldSenderIdentityCapabilities___block_invoke;
+    v62[3] = &unk_1E7424DA0;
+    v62[4] = self;
+    [client performDelegateCallbackBlock:v62];
 
-    v25 = 0x1E696A000uLL;
+    v26 = 0x1E696A000uLL;
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     [defaultCenter postNotificationName:@"TUCallCapabilitiesWiFiCallingChangedNotification" object:0];
   }
 
   if (isVoLTECallingEnabled != isVoLTECallingEnabled2)
   {
-    v29 = TUDefaultLog();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v30 = TUDefaultLog(v25);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109376;
-      *v62 = isVoLTECallingEnabled;
-      *&v62[4] = 1024;
-      *&v62[6] = isVoLTECallingEnabled2;
-      _os_log_impl(&dword_1956FD000, v29, OS_LOG_TYPE_DEFAULT, "VoLTE capabilities changed from %d to %d", buf, 0xEu);
+      *v64 = isVoLTECallingEnabled;
+      *&v64[4] = 1024;
+      *&v64[6] = isVoLTECallingEnabled2;
+      _os_log_impl(&dword_1956FD000, v30, OS_LOG_TYPE_DEFAULT, "VoLTE capabilities changed from %d to %d", buf, 0xEu);
     }
 
     client2 = [(TUSenderIdentityCapabilities *)self client];
-    v59[0] = MEMORY[0x1E69E9820];
-    v59[1] = 3221225472;
-    v59[2] = __103__TUSenderIdentityCapabilities__sendNotificationsAndCallbacksComparingToOldSenderIdentityCapabilities___block_invoke_12;
-    v59[3] = &unk_1E7424DA0;
-    v59[4] = self;
-    [client2 performDelegateCallbackBlock:v59];
+    v61[0] = MEMORY[0x1E69E9820];
+    v61[1] = 3221225472;
+    v61[2] = __103__TUSenderIdentityCapabilities__sendNotificationsAndCallbacksComparingToOldSenderIdentityCapabilities___block_invoke_12;
+    v61[3] = &unk_1E7424DA0;
+    v61[4] = self;
+    [client2 performDelegateCallbackBlock:v61];
 
-    defaultCenter2 = [*(v25 + 3464) defaultCenter];
+    defaultCenter2 = [*(v26 + 3464) defaultCenter];
     [defaultCenter2 postNotificationName:@"TUCallCapabilitiesVoLTECallingChangedNotification" object:0];
   }
 
   if (supportsThumperCalling != supportsThumperCalling2 || ((supportsThumperCallingOverCellularData ^ supportsThumperCallingOverCellularData2) & 1) != 0 || ((isThumperCallingEnabled ^ isThumperCallingEnabled2) & 1) != 0 || provisioningStatus != provisioningStatus2 || ((supportsDefaultPairedDevice ^ supportsDefaultPairedDevice2) & 1) != 0 || isAssociated != isAssociated2)
   {
-    v32 = TUDefaultLog();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v33 = TUDefaultLog(v25);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67111936;
-      *v62 = supportsThumperCalling;
-      *&v62[4] = 1024;
-      *&v62[6] = supportsThumperCallingOverCellularData;
-      LOWORD(v63) = 1024;
-      *(&v63 + 2) = isThumperCallingEnabled;
-      HIWORD(v63) = 1024;
-      v64 = provisioningStatus;
-      v65 = 1024;
-      v66 = isAssociated;
+      *v64 = supportsThumperCalling;
+      *&v64[4] = 1024;
+      *&v64[6] = supportsThumperCallingOverCellularData;
+      LOWORD(v65) = 1024;
+      *(&v65 + 2) = isThumperCallingEnabled;
+      HIWORD(v65) = 1024;
+      v66 = provisioningStatus;
       v67 = 1024;
-      v68 = supportsDefaultPairedDevice;
+      v68 = isAssociated;
       v69 = 1024;
-      v70 = supportsThumperCalling2;
+      v70 = supportsDefaultPairedDevice;
       v71 = 1024;
-      v72 = supportsThumperCallingOverCellularData2;
+      v72 = supportsThumperCalling2;
       v73 = 1024;
-      v74 = isThumperCallingEnabled2;
+      v74 = supportsThumperCallingOverCellularData2;
       v75 = 1024;
-      v76 = provisioningStatus2;
+      v76 = isThumperCallingEnabled2;
       v77 = 1024;
-      v78 = isAssociated2;
+      v78 = provisioningStatus2;
       v79 = 1024;
-      v80 = supportsDefaultPairedDevice2;
-      _os_log_impl(&dword_1956FD000, v32, OS_LOG_TYPE_DEFAULT, "Thumper capabilities changed from (supported=%d overCellularData=%d enabled=%d provisioningStatus=%d, associated=%d, supportsDefaultPairedDevice=%d) to (supported=%d overCellularData=%d enabled=%d provisioningStatus=%d, associated=%d, supportsDefaultPairedDevice=%d)", buf, 0x4Au);
+      v80 = isAssociated2;
+      v81 = 1024;
+      v82 = supportsDefaultPairedDevice2;
+      _os_log_impl(&dword_1956FD000, v33, OS_LOG_TYPE_DEFAULT, "Thumper capabilities changed from (supported=%d overCellularData=%d enabled=%d provisioningStatus=%d, associated=%d, supportsDefaultPairedDevice=%d) to (supported=%d overCellularData=%d enabled=%d provisioningStatus=%d, associated=%d, supportsDefaultPairedDevice=%d)", buf, 0x4Au);
     }
 
     client3 = [(TUSenderIdentityCapabilities *)self client];
-    v58[0] = MEMORY[0x1E69E9820];
-    v58[1] = 3221225472;
-    v58[2] = __103__TUSenderIdentityCapabilities__sendNotificationsAndCallbacksComparingToOldSenderIdentityCapabilities___block_invoke_15;
-    v58[3] = &unk_1E7424DA0;
-    v58[4] = self;
-    [client3 performDelegateCallbackBlock:v58];
+    v60[0] = MEMORY[0x1E69E9820];
+    v60[1] = 3221225472;
+    v60[2] = __103__TUSenderIdentityCapabilities__sendNotificationsAndCallbacksComparingToOldSenderIdentityCapabilities___block_invoke_15;
+    v60[3] = &unk_1E7424DA0;
+    v60[4] = self;
+    [client3 performDelegateCallbackBlock:v60];
 
-    defaultCenter3 = [*(v25 + 3464) defaultCenter];
+    defaultCenter3 = [*(v26 + 3464) defaultCenter];
     [defaultCenter3 postNotificationName:@"TUCallCapabilitiesThumperCallingChangedNotification" object:0];
   }
 
-  if ((TUObjectsAreEqualOrNil(provisioningURL, provisioningURL3) & 1) == 0)
+  v36 = TUObjectsAreEqualOrNil(provisioningURL, provisioningURL3);
+  if ((v36 & 1) == 0)
   {
-    v35 = TUDefaultLog();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v37 = TUDefaultLog(v36);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      *v62 = provisioningURL;
-      *&v62[8] = 2112;
-      v63 = provisioningURL3;
-      _os_log_impl(&dword_1956FD000, v35, OS_LOG_TYPE_DEFAULT, "WiFi calling URL changed from %@ to %@", buf, 0x16u);
+      *v64 = provisioningURL;
+      *&v64[8] = 2112;
+      v65 = provisioningURL3;
+      _os_log_impl(&dword_1956FD000, v37, OS_LOG_TYPE_DEFAULT, "WiFi calling URL changed from %@ to %@", buf, 0x16u);
     }
 
     client4 = [(TUSenderIdentityCapabilities *)self client];
-    v57[0] = MEMORY[0x1E69E9820];
-    v57[1] = 3221225472;
-    v57[2] = __103__TUSenderIdentityCapabilities__sendNotificationsAndCallbacksComparingToOldSenderIdentityCapabilities___block_invoke_18;
-    v57[3] = &unk_1E7424DA0;
-    v57[4] = self;
-    [client4 performDelegateCallbackBlock:v57];
+    v59[0] = MEMORY[0x1E69E9820];
+    v59[1] = 3221225472;
+    v59[2] = __103__TUSenderIdentityCapabilities__sendNotificationsAndCallbacksComparingToOldSenderIdentityCapabilities___block_invoke_18;
+    v59[3] = &unk_1E7424DA0;
+    v59[4] = self;
+    [client4 performDelegateCallbackBlock:v59];
 
-    defaultCenter4 = [*(v25 + 3464) defaultCenter];
+    defaultCenter4 = [*(v26 + 3464) defaultCenter];
     [defaultCenter4 postNotificationName:@"TUCallCapabilitiesWiFiCallingProvisioningURLChangedNotification" object:0];
   }
 
-  if ((TUObjectsAreEqualOrNil(provisioningURL2, provisioningURL4) & 1) == 0)
+  v40 = TUObjectsAreEqualOrNil(provisioningURL2, provisioningURL4);
+  if ((v40 & 1) == 0)
   {
-    v38 = TUDefaultLog();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+    v41 = TUDefaultLog(v40);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      *v62 = provisioningURL2;
-      *&v62[8] = 2112;
-      v63 = provisioningURL4;
-      _os_log_impl(&dword_1956FD000, v38, OS_LOG_TYPE_DEFAULT, "Thumper calling URL changed from %@ to %@", buf, 0x16u);
+      *v64 = provisioningURL2;
+      *&v64[8] = 2112;
+      v65 = provisioningURL4;
+      _os_log_impl(&dword_1956FD000, v41, OS_LOG_TYPE_DEFAULT, "Thumper calling URL changed from %@ to %@", buf, 0x16u);
     }
 
     client5 = [(TUSenderIdentityCapabilities *)self client];
-    v56[0] = MEMORY[0x1E69E9820];
-    v56[1] = 3221225472;
-    v56[2] = __103__TUSenderIdentityCapabilities__sendNotificationsAndCallbacksComparingToOldSenderIdentityCapabilities___block_invoke_21;
-    v56[3] = &unk_1E7424DA0;
-    v56[4] = self;
-    [client5 performDelegateCallbackBlock:v56];
+    v58[0] = MEMORY[0x1E69E9820];
+    v58[1] = 3221225472;
+    v58[2] = __103__TUSenderIdentityCapabilities__sendNotificationsAndCallbacksComparingToOldSenderIdentityCapabilities___block_invoke_21;
+    v58[3] = &unk_1E7424DA0;
+    v58[4] = self;
+    [client5 performDelegateCallbackBlock:v58];
 
-    defaultCenter5 = [*(v25 + 3464) defaultCenter];
+    defaultCenter5 = [*(v26 + 3464) defaultCenter];
     [defaultCenter5 postNotificationName:@"TUCallCapabilitiesThumperCallingProvisioningURLChangedNotification" object:0];
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 void __103__TUSenderIdentityCapabilities__sendNotificationsAndCallbacksComparingToOldSenderIdentityCapabilities___block_invoke(uint64_t a1, void *a2)

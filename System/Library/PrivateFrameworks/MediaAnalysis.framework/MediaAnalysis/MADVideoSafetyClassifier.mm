@@ -127,7 +127,7 @@ void __67__MADVideoSafetyClassifier_mergeScoresForLabelsA_scoresForLabelsB___blo
 
 + (id)analyzeVideoAssetOnDemandWithURL:(id)l localIdentifier:(id)identifier timeRange:(id *)range cancelBlock:(id)block andProgressHandler:(id)handler
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   lCopy = l;
   identifierCopy = identifier;
   blockCopy = block;
@@ -136,17 +136,17 @@ void __67__MADVideoSafetyClassifier_mergeScoresForLabelsA_scoresForLabelsB___blo
   if ((range->var0.var2 & 1) != 0 && (range->var1.var2 & 1) != 0 && !range->var1.var3 && (range->var1.var0 & 0x8000000000000000) == 0)
   {
     context = objc_autoreleasePoolPush();
-    v43 = objc_alloc_init(MEMORY[0x1E69AE4F0]);
-    [v43 setRequiresScoresAndLabels:1];
-    [v43 setEnableGoreViolenceDetection:_os_feature_enabled_impl()];
+    v45 = objc_alloc_init(MEMORY[0x1E69AE4F0]);
+    [v45 setRequiresScoresAndLabels:1];
+    [v45 setEnableGoreViolenceDetection:_os_feature_enabled_impl()];
     mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
     bundleIdentifier = [mainBundle bundleIdentifier];
     v20 = [MADServiceVideoAsset assetWithURL:lCopy identifier:identifierCopy clientBundleID:bundleIdentifier clientTeamID:0];
 
-    v42 = v20;
+    v44 = v20;
     if (!v20)
     {
-      v29 = 0;
+      v31 = 0;
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         LODWORD(buf) = 138412290;
@@ -158,24 +158,24 @@ void __67__MADVideoSafetyClassifier_mergeScoresForLabelsA_scoresForLabelsB___blo
     }
 
     [v20 setUserSafetyEligible:1];
-    v46 = 0;
-    v47 = &v46;
-    v48 = 0x2020000000;
-    v49 = -1;
+    v48 = 0;
+    v49 = &v48;
+    v50 = 0x2020000000;
+    v51 = -1;
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v57 = 0x3032000000;
-    v58 = __Block_byref_object_copy__49;
-    v59 = __Block_byref_object_dispose__49;
-    v60 = 0;
+    v59 = 0x3032000000;
+    v60 = __Block_byref_object_copy__49;
+    v61 = __Block_byref_object_dispose__49;
+    v62 = 0;
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __118__MADVideoSafetyClassifier_analyzeVideoAssetOnDemandWithURL_localIdentifier_timeRange_cancelBlock_andProgressHandler___block_invoke;
     aBlock[3] = &unk_1E8350520;
-    aBlock[4] = &v46;
+    aBlock[4] = &v48;
     aBlock[5] = &buf;
-    v40 = _Block_copy(aBlock);
-    v21 = [(MADServiceVideoProcessingSubtask *)MADServiceVideoSafetyProcessingTask taskWithRequest:v43 forAsset:v20 cancelBlock:blockCopy progressHandler:handlerCopy andCompletionHandler:v40];
+    v42 = _Block_copy(aBlock);
+    v21 = [(MADServiceVideoProcessingSubtask *)MADServiceVideoSafetyProcessingTask taskWithRequest:v45 forAsset:v20 cancelBlock:blockCopy progressHandler:handlerCopy andCompletionHandler:v42];
     v22 = v21;
     if (!v21)
     {
@@ -185,43 +185,43 @@ void __67__MADVideoSafetyClassifier_mergeScoresForLabelsA_scoresForLabelsB___blo
       }
 
       LOWORD(var0.var0) = 0;
-      v27 = MEMORY[0x1E69E9C10];
-      v28 = "Failed to create the safety analyze task";
+      v29 = MEMORY[0x1E69E9C10];
+      v30 = "Failed to create the safety analyze task";
       goto LABEL_27;
     }
 
-    v39 = v21;
-    [v21 setEnablePowerLog:0];
-    v23 = VCPSignPostLog();
+    v41 = v21;
+    v23 = VCPSignPostLog([v21 setEnablePowerLog:0]);
     v24 = os_signpost_id_generate(v23);
 
-    v25 = VCPSignPostLog();
-    v26 = v25;
-    if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
+    v26 = VCPSignPostLog(v25);
+    v27 = v26;
+    if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
     {
       LOWORD(var0.var0) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v26, OS_SIGNPOST_INTERVAL_BEGIN, v24, "MADServiceVideoSafetyProcessingTask_Run", "", &var0, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_BEGIN, v24, "MADServiceVideoSafetyProcessingTask_Run", "", &var0, 2u);
     }
 
-    if ([v39 run])
+    v28 = [v41 run];
+    if (v28)
     {
       if (MediaAnalysisLogLevel() >= 3)
       {
-        v22 = v39;
+        v22 = v41;
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           LOWORD(var0.var0) = 0;
-          v27 = MEMORY[0x1E69E9C10];
-          v28 = "Failed to run the safety analyze task";
+          v29 = MEMORY[0x1E69E9C10];
+          v30 = "Failed to run the safety analyze task";
 LABEL_27:
-          _os_log_impl(&dword_1C9B70000, v27, OS_LOG_TYPE_ERROR, v28, &var0, 2u);
+          _os_log_impl(&dword_1C9B70000, v29, OS_LOG_TYPE_ERROR, v30, &var0, 2u);
         }
 
 LABEL_37:
 
         _Block_object_dispose(&buf, 8);
-        _Block_object_dispose(&v46, 8);
-        v29 = v42;
+        _Block_object_dispose(&v48, 8);
+        v31 = v44;
 LABEL_38:
 
         objc_autoreleasePoolPop(context);
@@ -231,47 +231,47 @@ LABEL_38:
 
     else
     {
-      v30 = VCPSignPostLog();
-      v31 = v30;
-      if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
+      v32 = VCPSignPostLog(v28);
+      v33 = v32;
+      if (v24 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
       {
         LOWORD(var0.var0) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v31, OS_SIGNPOST_INTERVAL_END, v24, "MADServiceVideoSafetyProcessingTask_Run", "", &var0, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v33, OS_SIGNPOST_INTERVAL_END, v24, "MADServiceVideoSafetyProcessingTask_Run", "", &var0, 2u);
       }
 
-      v32 = [objc_opt_class() safetyScoresForLabels:*(*(&buf + 1) + 40)];
-      if (v32)
+      v34 = [objc_opt_class() safetyScoresForLabels:*(*(&buf + 1) + 40)];
+      if (v34)
       {
-        v33 = v32;
+        v35 = v34;
       }
 
       else
       {
-        v33 = MEMORY[0x1E695E0F8];
+        v35 = MEMORY[0x1E695E0F8];
       }
 
-      v54[0] = @"Sensitivity";
-      v34 = [MEMORY[0x1E696AD98] numberWithShort:*(v47 + 12)];
-      v54[1] = @"SensitivitySceneResults";
-      v55[0] = v34;
-      v55[1] = v33;
-      v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:v54 count:2];
+      v56[0] = @"Sensitivity";
+      v36 = [MEMORY[0x1E696AD98] numberWithShort:*(v49 + 12)];
+      v56[1] = @"SensitivitySceneResults";
+      v57[0] = v36;
+      v57[1] = v35;
+      v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v57 forKeys:v56 count:2];
 
-      v52[0] = @"start";
+      v54[0] = @"start";
       var0 = range->var0;
-      v35 = CMTimeToNSDictionary(&var0);
-      v53[0] = v35;
-      v52[1] = @"duration";
+      v37 = CMTimeToNSDictionary(&var0);
+      v55[0] = v37;
+      v54[1] = @"duration";
       var0 = range->var1;
-      v36 = CMTimeToNSDictionary(&var0);
-      v52[2] = @"attributes";
-      v53[1] = v36;
-      v53[2] = v38;
-      v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:v52 count:3];
-      [array addObject:v37];
+      v38 = CMTimeToNSDictionary(&var0);
+      v54[2] = @"attributes";
+      v55[1] = v38;
+      v55[2] = v40;
+      v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:v54 count:3];
+      [array addObject:v39];
     }
 
-    v22 = v39;
+    v22 = v41;
     goto LABEL_37;
   }
 
@@ -282,9 +282,9 @@ LABEL_38:
   }
 
 LABEL_7:
-  v50 = @"SafetyResults";
-  v51 = array;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:{1, v38}];
+  v52 = @"SafetyResults";
+  v53 = array;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:{1, v40}];
 
   return v16;
 }

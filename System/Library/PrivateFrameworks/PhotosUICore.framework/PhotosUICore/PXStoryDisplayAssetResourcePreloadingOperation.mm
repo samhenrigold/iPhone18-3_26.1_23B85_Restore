@@ -19,11 +19,11 @@
 
   if ([v3 exaggerateResourceDownloadTimes])
   {
-    [(PXStoryDisplayAssetResourcePreloadingOperation *)self startTime];
+    objc_msgSend_startTime(self);
     if (v6 > 0.0 && ([(PXStoryDisplayAssetResourcePreloadingOperation *)self isCancelled]& 1) == 0)
     {
       mach_absolute_time();
-      [(PXStoryDisplayAssetResourcePreloadingOperation *)self startTime];
+      objc_msgSend_startTime(self);
       PXTimebaseConversionFactor();
     }
   }

@@ -74,9 +74,7 @@
       v155 = v21;
       v156 = 2048;
       downloadID = [(DownloadHandle *)v145 downloadID];
-      LODWORD(v129) = 22;
-      v128 = &v154;
-      v23 = _os_log_send_and_compose_impl();
+      v23 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: We have a normal download: %lld", &v154, 22);
 
       if (!v23)
       {
@@ -86,7 +84,7 @@ LABEL_18:
         goto LABEL_64;
       }
 
-      oSLogObject = [NSString stringWithCString:v23 encoding:4, &v154, v129];
+      oSLogObject = [NSString stringWithCString:v23 encoding:4];
       free(v23);
       v128 = oSLogObject;
       SSFileLog();
@@ -169,18 +167,16 @@ LABEL_22:
       v155 = v34;
       v156 = 2048;
       downloadID = [(DownloadHandle *)v145 downloadID];
-      LODWORD(v129) = 22;
-      v128 = &v154;
-      v38 = _os_log_send_and_compose_impl();
+      v38 = _os_log_send_and_compose_impl(v33, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: We have an existing shared download: %lld", &v154, 22);
 
       storeItemIdentifier = v36;
       downloadPermalink = v35;
 
       if (v38)
       {
-        v129 = [NSString stringWithCString:v38 encoding:4, &v154, v129];
+        v39 = [NSString stringWithCString:v38 encoding:4];
         free(v38);
-        v128 = v129;
+        v128 = v39;
         SSFileLog();
       }
     }
@@ -229,15 +225,13 @@ LABEL_22:
       v155 = v44;
       v156 = 2048;
       downloadID = [(DownloadHandle *)v145 downloadID];
-      LODWORD(v129) = 22;
-      v128 = &v154;
-      v46 = _os_log_send_and_compose_impl();
+      v46 = _os_log_send_and_compose_impl(v43, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%@: We have a new shared download: %lld", &v154, 22);
 
       if (v46)
       {
-        v1292 = [NSString stringWithCString:v46 encoding:4, &v154, v129];
+        v47 = [NSString stringWithCString:v46 encoding:4];
         free(v46);
-        v128 = v1292;
+        v128 = v47;
         SSFileLog();
       }
 
@@ -296,8 +290,7 @@ LABEL_22:
   v156 = 2112;
   downloadID = v57;
   LODWORD(v129) = 22;
-  v128 = &v154;
-  v58 = _os_log_send_and_compose_impl();
+  v58 = _os_log_send_and_compose_impl(v52, 0, 0, 0, &_mh_execute_header, oSLogObject4, 1, "%@: Shared book container location is: %@", &v154, v129);
 
   storeItemIdentifier = v55;
   downloadPermalink = v54;
@@ -305,7 +298,7 @@ LABEL_22:
   v59 = v135;
   if (v58)
   {
-    oSLogObject4 = [NSString stringWithCString:v58 encoding:4, &v154, v129];
+    oSLogObject4 = [NSString stringWithCString:v58 encoding:4];
     free(v58);
     v128 = oSLogObject4;
     SSFileLog();
@@ -450,8 +443,7 @@ LABEL_82:
       v158 = 2112;
       v159 = v83;
       LODWORD(v129) = 32;
-      v128 = &v154;
-      v92 = _os_log_send_and_compose_impl();
+      v92 = _os_log_send_and_compose_impl(v88, 0, 0, 0, &_mh_execute_header, oSLogObject5, 1, "%@: Writing EPR data for download: %lld to path: %@", &v154, v129);
 
       v8 = &CFDictionaryGetValue_ptr;
       if (!v92)
@@ -459,7 +451,7 @@ LABEL_82:
         goto LABEL_95;
       }
 
-      oSLogObject5 = [NSString stringWithCString:v92 encoding:4, &v154, v129];
+      oSLogObject5 = [NSString stringWithCString:v92 encoding:4];
       free(v92);
       v128 = oSLogObject5;
       SSFileLog();
@@ -529,8 +521,7 @@ LABEL_95:
       v160 = 2112;
       v161 = v95;
       LODWORD(v129) = 42;
-      v128 = &v154;
-      v106 = _os_log_send_and_compose_impl();
+      v106 = _os_log_send_and_compose_impl(v100, 0, 0, 0, &_mh_execute_header, oSLogObject6, 0, "%@: Error EPR data for download: %lld to path: %@ error: %@", &v154, v129);
 
       if (!v106)
       {
@@ -602,8 +593,7 @@ LABEL_143:
             downloadID = v111;
             v119 = v118;
             LODWORD(v129) = 22;
-            v128 = &v154;
-            v120 = _os_log_send_and_compose_impl();
+            v120 = _os_log_send_and_compose_impl(v117, 0, 0, 0, &_mh_execute_header, oSLogObject7, 1, "%@: Successfully staged path: %s", &v154, v129);
 
             if (!v120)
             {
@@ -625,7 +615,7 @@ LABEL_140:
               goto LABEL_143;
             }
 
-            oSLogObject7 = [NSString stringWithCString:v120 encoding:4, &v154, v129];
+            oSLogObject7 = [NSString stringWithCString:v120 encoding:4];
             free(v120);
             v128 = oSLogObject7;
             SSFileLog();
@@ -665,8 +655,7 @@ LABEL_140:
           downloadID = v146;
           v125 = v124;
           LODWORD(v129) = 22;
-          v128 = &v154;
-          v126 = _os_log_send_and_compose_impl();
+          v126 = _os_log_send_and_compose_impl(v123, 0, 0, 0, &_mh_execute_header, oSLogObject8, 1, "%@: Failed to stage path: %llu", &v154, v129);
 
           v127 = v136;
           if (!v126)
@@ -679,7 +668,7 @@ LABEL_139:
             goto LABEL_140;
           }
 
-          oSLogObject8 = [NSString stringWithCString:v126 encoding:4, &v154, v129];
+          oSLogObject8 = [NSString stringWithCString:v126 encoding:4];
           free(v126);
           v128 = oSLogObject8;
           SSFileLog();
@@ -693,7 +682,7 @@ LABEL_139:
         goto LABEL_139;
       }
 
-      oSLogObject6 = [NSString stringWithCString:v106 encoding:4, &v154, v129];
+      oSLogObject6 = [NSString stringWithCString:v106 encoding:4];
       free(v106);
       v128 = oSLogObject6;
       SSFileLog();
@@ -746,10 +735,9 @@ LABEL_144:
 
     if (v8)
     {
-      v21 = 136315138;
-      v22 = v2;
-      LODWORD(v20) = 12;
-      v9 = _os_log_send_and_compose_impl();
+      v20 = 136315138;
+      v21 = v2;
+      v9 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "Using system group container path is %s", &v20);
 
       if (!v9)
       {
@@ -764,7 +752,7 @@ LABEL_14:
         goto LABEL_28;
       }
 
-      oSLogObject = [NSString stringWithCString:v9 encoding:4, &v21, v20];
+      oSLogObject = [NSString stringWithCString:v9 encoding:4];
       free(v9);
       SSFileLog();
     }
@@ -804,14 +792,13 @@ LABEL_14:
     goto LABEL_26;
   }
 
-  v21 = 134217984;
-  v22 = 1;
-  LODWORD(v20) = 12;
-  v18 = _os_log_send_and_compose_impl();
+  v20 = 134217984;
+  v21 = 1;
+  v18 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "Error getting system group container: %llu", &v20);
 
   if (v18)
   {
-    oSLogObject2 = [NSString stringWithCString:v18 encoding:4, &v21, v20];
+    oSLogObject2 = [NSString stringWithCString:v18 encoding:4];
     free(v18);
     SSFileLog();
 LABEL_26:
@@ -860,10 +847,9 @@ LABEL_28:
 
     if (v8)
     {
-      v19 = 136315138;
-      v20 = v2;
-      LODWORD(v18) = 12;
-      v9 = _os_log_send_and_compose_impl();
+      v18 = 136315138;
+      v19 = v2;
+      v9 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "Using system group container path is: %s", &v18);
 
       if (!v9)
       {
@@ -876,7 +862,7 @@ LABEL_14:
         goto LABEL_28;
       }
 
-      oSLogObject = [NSString stringWithCString:v9 encoding:4, &v19, v18];
+      oSLogObject = [NSString stringWithCString:v9 encoding:4];
       free(v9);
       SSFileLog();
     }
@@ -916,14 +902,13 @@ LABEL_14:
     goto LABEL_26;
   }
 
-  v19 = 134217984;
-  v20 = 1;
-  LODWORD(v18) = 12;
-  v16 = _os_log_send_and_compose_impl();
+  v18 = 134217984;
+  v19 = 1;
+  v16 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "Error getting system group container: %llu", &v18);
 
   if (v16)
   {
-    oSLogObject2 = [NSString stringWithCString:v16 encoding:4, &v19, v18];
+    oSLogObject2 = [NSString stringWithCString:v16 encoding:4];
     free(v16);
     SSFileLog();
 LABEL_26:
@@ -976,13 +961,11 @@ LABEL_28:
       v46 = v21;
       v47 = 2112;
       v48 = manifestPath;
-      LODWORD(v43) = 22;
-      v42 = &v45;
-      v24 = _os_log_send_and_compose_impl();
+      v24 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Updating purchase manifest: %@", &v45, 22);
 
       if (v24)
       {
-        v25 = [NSString stringWithCString:v24 encoding:4, &v45, v43];
+        v25 = [NSString stringWithCString:v24 encoding:4];
         free(v24);
         v42 = v25;
         SSFileLog();
@@ -999,7 +982,7 @@ LABEL_28:
     v38 = [_bookManifest manifestEntriesWithProperty:@"Path" equalToValue:destinationFileName limitCount:1];
     if ([v38 count])
     {
-      goto LABEL_47;
+      goto LABEL_48;
     }
 
     _existingManifestEntry = [(InstallEBookDownloadOperation *)self _existingManifestEntry];
@@ -1016,11 +999,11 @@ LABEL_28:
     }
 
     v27 = _bookManifest;
-LABEL_46:
+LABEL_47:
     [v27 synchronizeData];
 
-LABEL_47:
-    goto LABEL_48;
+LABEL_48:
+    goto LABEL_49;
   }
 
   if (!v8)
@@ -1032,16 +1015,21 @@ LABEL_47:
   shouldLog2 = [v9 shouldLog];
   if ([v9 shouldLogToDisk])
   {
-    v11 = shouldLog2 | 2;
+    LODWORD(v11) = shouldLog2 | 2;
   }
 
   else
   {
-    v11 = shouldLog2;
+    LODWORD(v11) = shouldLog2;
   }
 
   oSLogObject2 = [v9 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  {
+    v11 = v11;
+  }
+
+  else
   {
     v11 &= 2u;
   }
@@ -1055,22 +1043,20 @@ LABEL_47:
     v46 = v13;
     v47 = 2112;
     v48 = manifestPath2;
-    LODWORD(v43) = 22;
-    v42 = &v45;
-    v16 = _os_log_send_and_compose_impl();
+    v16 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Updating purchase manifest at shared path: %@", &v45, 22);
 
     if (!v16)
     {
-      goto LABEL_13;
+      goto LABEL_14;
     }
 
-    oSLogObject2 = [NSString stringWithCString:v16 encoding:4, &v45, v43];
+    oSLogObject2 = [NSString stringWithCString:v16 encoding:4];
     free(v16);
     v42 = oSLogObject2;
     SSFileLog();
   }
 
-LABEL_13:
+LABEL_14:
   [(InstallEBookDownloadOperation *)self _removeDuplicateEntry:_bookManifest];
   if (itemCopy)
   {
@@ -1128,30 +1114,29 @@ LABEL_13:
       v47 = 2112;
       v48 = manifestPath3;
       LODWORD(v43) = 22;
-      v42 = &v45;
-      v36 = _os_log_send_and_compose_impl();
+      v36 = _os_log_send_and_compose_impl(v32, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%@: Updating shared manifest at path: %@", &v45, v43);
 
       if (!v36)
       {
-LABEL_39:
+LABEL_40:
 
         [(InstallEBookDownloadOperation *)self _removeDuplicateEntry:v27];
         v37 = [(InstallEBookDownloadOperation *)self _newManifestEntry:1 withFileName:0];
         [v27 addManifestEntry:v37];
         v38 = v27;
-        goto LABEL_46;
+        goto LABEL_47;
       }
 
-      oSLogObject3 = [NSString stringWithCString:v36 encoding:4, &v45, v43];
+      oSLogObject3 = [NSString stringWithCString:v36 encoding:4];
       free(v36);
       v42 = oSLogObject3;
       SSFileLog();
     }
 
-    goto LABEL_39;
+    goto LABEL_40;
   }
 
-LABEL_48:
+LABEL_49:
 }
 
 - (id)_bookManifest
@@ -1319,9 +1304,7 @@ LABEL_17:
       v146 = path2;
       v147 = 2112;
       v148 = v15;
-      LODWORD(v118) = 32;
-      v116 = &v143;
-      v25 = _os_log_send_and_compose_impl();
+      v25 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Moved file URL: %@ to downloads directory: %@", &v143, 32);
 
       v10 = v129;
       assetCopy = v131;
@@ -1333,7 +1316,7 @@ LABEL_16:
         goto LABEL_17;
       }
 
-      oSLogObject = [NSString stringWithCString:v25 encoding:4, &v143, v118];
+      oSLogObject = [NSString stringWithCString:v25 encoding:4];
       free(v25);
       v116 = oSLogObject;
       SSFileLog();
@@ -1377,7 +1360,7 @@ LABEL_18:
       v146 = localPath;
       v44 = v43;
       LODWORD(v118) = 22;
-      v45 = _os_log_send_and_compose_impl();
+      v45 = _os_log_send_and_compose_impl(v42, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Could not install non-existant file: %@", &v143, v118);
 
       errorCopy3 = error;
       if (!v45)
@@ -1385,7 +1368,7 @@ LABEL_18:
         goto LABEL_73;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v45 encoding:4, &v143, v118];
+      oSLogObject2 = [NSString stringWithCString:v45 encoding:4];
       free(v45);
       SSFileLog();
     }
@@ -1488,15 +1471,14 @@ LABEL_73:
     v146 = v38;
     v52 = v51;
     LODWORD(v118) = 22;
-    v117 = &v143;
-    v53 = _os_log_send_and_compose_impl();
+    v53 = _os_log_send_and_compose_impl(v50, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%@: Saving Book to : %@", &v143, v118);
 
     if (!v53)
     {
       goto LABEL_48;
     }
 
-    oSLogObject3 = [NSString stringWithCString:v53 encoding:4, &v143, v118];
+    oSLogObject3 = [NSString stringWithCString:v53 encoding:4];
     free(v53);
     v117 = oSLogObject3;
     SSFileLog();
@@ -1541,7 +1523,7 @@ LABEL_48:
         v146 = v38;
         v61 = v60;
         LODWORD(v118) = 22;
-        v62 = _os_log_send_and_compose_impl();
+        v62 = _os_log_send_and_compose_impl(v59, 0, 0, 0, &_mh_execute_header, oSLogObject4, 1, "%@: Book already at destination: %@", &v143, v118);
 
         if (!v62)
         {
@@ -1554,7 +1536,7 @@ LABEL_102:
           goto LABEL_136;
         }
 
-        oSLogObject4 = [NSString stringWithCString:v62 encoding:4, &v143, v118];
+        oSLogObject4 = [NSString stringWithCString:v62 encoding:4];
         free(v62);
         SSFileLog();
       }
@@ -1595,7 +1577,7 @@ LABEL_102:
       v148 = v38;
       v81 = v80;
       LODWORD(v118) = 32;
-      v82 = _os_log_send_and_compose_impl();
+      v82 = _os_log_send_and_compose_impl(v79, 0, 0, 0, &_mh_execute_header, oSLogObject5, 1, "%@: Moving file: %@ to path: %@", &v143, v118);
 
       if (!v82)
       {
@@ -1611,7 +1593,7 @@ LABEL_101:
         goto LABEL_102;
       }
 
-      oSLogObject5 = [NSString stringWithCString:v82 encoding:4, &v143, v118];
+      oSLogObject5 = [NSString stringWithCString:v82 encoding:4];
       free(v82);
       SSFileLog();
     }
@@ -1666,7 +1648,7 @@ LABEL_101:
       v72 = v71;
       LODWORD(v118) = 22;
       v73 = 1;
-      v74 = _os_log_send_and_compose_impl();
+      v74 = _os_log_send_and_compose_impl(v70, 0, 0, 0, &_mh_execute_header, oSLogObject6, 1, "%@: Installed file: %@", &v143, v118);
 
       if (!v74)
       {
@@ -1675,7 +1657,7 @@ LABEL_101:
         goto LABEL_118;
       }
 
-      oSLogObject6 = [NSString stringWithCString:v74 encoding:4, &v143, v118];
+      oSLogObject6 = [NSString stringWithCString:v74 encoding:4];
       free(v74);
       SSFileLog();
     }
@@ -1730,7 +1712,7 @@ LABEL_118:
         v146 = v38;
         v100 = v99;
         LODWORD(v118) = 22;
-        v101 = _os_log_send_and_compose_impl();
+        v101 = _os_log_send_and_compose_impl(v98, 0, 0, 0, &_mh_execute_header, oSLogObject7, 1, "%@: Book already at destination: %@", &v143, v118);
 
         if (!v101)
         {
@@ -1744,7 +1726,7 @@ LABEL_133:
           goto LABEL_134;
         }
 
-        oSLogObject7 = [NSString stringWithCString:v101 encoding:4, &v143, v118];
+        oSLogObject7 = [NSString stringWithCString:v101 encoding:4];
         free(v101);
         SSFileLog();
       }
@@ -1786,7 +1768,7 @@ LABEL_133:
       v148 = v38;
       v106 = v105;
       LODWORD(v118) = 32;
-      v107 = _os_log_send_and_compose_impl();
+      v107 = _os_log_send_and_compose_impl(v104, 0, 0, 0, &_mh_execute_header, oSLogObject8, 1, "%@: Moving file: %@ to path: %@", &v143, v118);
 
       if (!v107)
       {
@@ -1801,7 +1783,7 @@ LABEL_132:
         goto LABEL_133;
       }
 
-      oSLogObject8 = [NSString stringWithCString:v107 encoding:4, &v143, v118];
+      oSLogObject8 = [NSString stringWithCString:v107 encoding:4];
       free(v107);
       SSFileLog();
     }
@@ -1848,11 +1830,11 @@ LABEL_132:
   v148 = v122;
   v89 = v87;
   LODWORD(v118) = 32;
-  v90 = _os_log_send_and_compose_impl();
+  v90 = _os_log_send_and_compose_impl(v86, 0, 0, 0, &_mh_execute_header, oSLogObject9, 0, "%@: Failing install after unzip failure for file: %@, error: %@", &v143, v118);
 
   if (v90)
   {
-    oSLogObject9 = [NSString stringWithCString:v90 encoding:4, &v143, v118];
+    oSLogObject9 = [NSString stringWithCString:v90 encoding:4];
     free(v90);
     SSFileLog();
 LABEL_104:

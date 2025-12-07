@@ -212,7 +212,7 @@ LABEL_22:
     [CRLAssertionHandler handleFailureInFunction:v9 file:v10 lineNumber:1798 isFatal:0 description:"Unable to determine item time because the item's timebase is NULL."];
   }
 
-  [(CRLAVPlayerControllerVideoDisplayBarrier *)self lastItemTime];
+  objc_msgSend_lastItemTime(self);
   v13 = v15;
   v11 = CMTimeCompare(&v13, &time) == 0;
   time = v15;

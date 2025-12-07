@@ -27,9 +27,11 @@
 
 - (void)_commonInit
 {
-  self->_queue = dispatch_queue_create("ImageItemProvider Downloader", 0);
+  v3 = dispatch_queue_create("ImageItemProvider Downloader", 0);
+  queue = self->_queue;
+  self->_queue = v3;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v3, queue);
 }
 
 + (NSArray)writableTypeIdentifiersForItemProvider

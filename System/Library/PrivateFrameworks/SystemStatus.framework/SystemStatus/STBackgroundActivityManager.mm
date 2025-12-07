@@ -3,6 +3,7 @@
 - (NSSet)activeBackgroundActivities;
 - (STBackgroundActivityManager)initWithDefaults:(id)defaults;
 - (id)_allValidBackgroundActivitiesInPrecedenceScope:(unint64_t)scope;
+- (id)_descriptionBuilderWithMultilinePrefix:(id)prefix forDebug:(BOOL)debug;
 - (id)debugDescriptionWithMultilinePrefix:(id)prefix;
 - (id)descriptionWithMultilinePrefix:(id)prefix;
 - (id)resolvedBackgroundActivityFromBackgroundActivities:(id)activities inPrecedenceScope:(unint64_t)scope;
@@ -47,39 +48,37 @@
 
 - (void)_updateBackgroundActivitiesForClients
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   activeBackgroundActivities = [(STBackgroundActivityManager *)self activeBackgroundActivities];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = self->_subscribedClients;
-  v5 = [(NSHashTable *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [(NSHashTable *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) activeBackgroundActivitiesDidUpdate:{activeBackgroundActivities, v10}];
+        [*(*(&v9 + 1) + 8 * v8++) activeBackgroundActivitiesDidUpdate:{activeBackgroundActivities, v9}];
       }
 
       while (v6 != v8);
-      v6 = [(NSHashTable *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [(NSHashTable *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __45__STBackgroundActivityManager_sharedInstance__block_invoke(uint64_t a1)
@@ -136,40 +135,38 @@ void __45__STBackgroundActivityManager_sharedInstance__block_invoke(uint64_t a1)
 
 - (void)_forceResetBackgroundActivitiesForClients
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   activeBackgroundActivities = [(STBackgroundActivityManager *)self activeBackgroundActivities];
   v4 = [MEMORY[0x1E695DFD8] set];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v5 = self->_subscribedClients;
-  v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * i);
-        [v10 activeBackgroundActivitiesDidUpdate:{v4, v12}];
+        v10 = *(*(&v11 + 1) + 8 * i);
+        [v10 activeBackgroundActivitiesDidUpdate:{v4, v11}];
         [v10 activeBackgroundActivitiesDidUpdate:activeBackgroundActivities];
       }
 
-      v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addBackgroundActivityClient:(id)client
@@ -201,100 +198,100 @@ void __45__STBackgroundActivityManager_sharedInstance__block_invoke(uint64_t a1)
 
 void __78__STBackgroundActivityManager__allValidBackgroundActivitiesInPrecedenceScope___block_invoke()
 {
-  v10[35] = *MEMORY[0x1E69E9840];
-  v10[0] = @"com.apple.systemstatus.background-activity.SatelliteSOS";
-  v10[1] = @"com.apple.systemstatus.background-activity.SatelliteSOSDisconnected";
-  v10[2] = @"com.apple.systemstatus.background-activity.Sysdiagnose";
-  v10[3] = @"com.apple.systemstatus.background-activity.ScreenReplayRecording";
-  v10[4] = @"com.apple.systemstatus.background-activity.VideoConferenceRinging";
-  v10[5] = @"com.apple.systemstatus.background-activity.CallRinging";
-  v10[6] = @"com.apple.systemstatus.background-activity.InVideoConference";
-  v10[7] = @"com.apple.systemstatus.background-activity.InCall";
-  v10[8] = @"com.apple.systemstatus.background-activity.CallRecording";
-  v10[9] = @"com.apple.systemstatus.background-activity.VideoConferenceHandoff";
-  v10[10] = @"com.apple.systemstatus.background-activity.CallHandoff";
-  v10[11] = @"com.apple.systemstatus.background-activity.CallScreening";
-  v10[12] = @"com.apple.systemstatus.background-activity.ActivePushToTalkCall";
-  v10[13] = @"com.apple.systemstatus.background-activity.DeveloperTools";
-  v10[14] = @"com.apple.systemstatus.background-activity.AirPrint";
-  v10[15] = @"com.apple.systemstatus.background-activity.Tethering";
-  v10[16] = @"com.apple.systemstatus.background-activity.guestpass";
-  v10[17] = @"com.apple.systemstatus.background-activity.SharePlay";
-  v10[18] = @"com.apple.systemstatus.background-activity.SharePlayScreenSharing";
-  v10[19] = @"com.apple.systemstatus.background-activity.ScreenSharing";
-  v10[20] = @"com.apple.systemstatus.background-activity.VideoOut";
-  v10[21] = @"com.apple.systemstatus.background-activity.SharePlayInactive";
-  v10[22] = @"com.apple.systemstatus.background-activity.CellularSOS";
-  v10[23] = @"com.apple.systemstatus.background-activity.WebRTCCapture";
-  v10[24] = @"com.apple.systemstatus.background-activity.WebRTCAudioCapture";
-  v10[25] = @"com.apple.systemstatus.background-activity.FullScreenWebRTCCapture";
-  v10[26] = @"com.apple.systemstatus.background-activity.FullScreenWebRTCAudioCapture";
-  v10[27] = @"com.apple.systemstatus.background-activity.Recording";
-  v10[28] = @"com.apple.systemstatus.background-activity.workout";
-  v10[29] = @"com.apple.systemstatus.background-activity.BackgroundLocation";
-  v10[30] = @"com.apple.systemstatus.background-activity.NearbyInteractions";
-  v10[31] = @"com.apple.systemstatus.background-activity.Playgrounds";
-  v10[32] = @"com.apple.systemstatus.background-activity.IdlePushToTalkCall";
-  v10[33] = @"com.apple.systemstatus.background-activity.replaykit.callrecording.recording";
-  v10[34] = @"com.apple.systemstatus.background-activity.replaykit.callrecording.ready";
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:35];
+  v9[35] = *MEMORY[0x1E69E9840];
   v9[0] = @"com.apple.systemstatus.background-activity.SatelliteSOS";
   v9[1] = @"com.apple.systemstatus.background-activity.SatelliteSOSDisconnected";
-  v9[6] = @"com.apple.systemstatus.background-activity.VideoConferenceRinging";
-  v9[7] = @"com.apple.systemstatus.background-activity.CallRinging";
-  v9[12] = @"com.apple.systemstatus.background-activity.InVideoConference";
-  v9[13] = @"com.apple.systemstatus.background-activity.InCall";
-  v9[2] = @"com.apple.systemstatus.background-activity.Diagnostics";
-  v9[3] = @"com.apple.systemstatus.background-activity.Sysdiagnose";
-  v9[4] = @"com.apple.systemstatus.background-activity.ScreenSharingServer";
-  v9[5] = @"com.apple.systemstatus.background-activity.ScreenReplayRecording";
-  v9[8] = @"com.apple.systemstatus.background-activity.continuitycapture.streaming-video";
-  v9[9] = @"com.apple.systemstatus.background-activity.continuitycapture.streaming-audio";
-  v9[10] = @"com.apple.systemstatus.background-activity.continuitycapture.mic-only";
-  v9[11] = @"com.apple.systemstatus.background-activity.continuitycapture.streaming-none";
-  v9[14] = @"com.apple.systemstatus.background-activity.CallRecording";
-  v9[15] = @"com.apple.systemstatus.background-activity.ActivePushToTalkCall";
-  v9[16] = @"com.apple.systemstatus.background-activity.CallHandoff";
-  v9[17] = @"com.apple.systemstatus.background-activity.VideoConferenceHandoff";
-  v9[18] = @"com.apple.systemstatus.background-activity.CallScreening";
-  v9[19] = @"com.apple.systemstatus.background-activity.Navigation";
-  v9[20] = @"com.apple.systemstatus.background-activity.Navigation";
-  v9[21] = @"com.apple.systemstatus.background-activity.CellularSOS";
-  v9[22] = @"com.apple.systemstatus.background-activity.DeveloperTools";
-  v9[23] = @"com.apple.systemstatus.background-activity.AirPrint";
-  v9[24] = @"com.apple.systemstatus.background-activity.WebRTCCapture";
-  v9[25] = @"com.apple.systemstatus.background-activity.WebRTCAudioCapture";
-  v9[26] = @"com.apple.systemstatus.background-activity.FullScreenWebRTCCapture";
-  v9[27] = @"com.apple.systemstatus.background-activity.FullScreenWebRTCAudioCapture";
-  v9[28] = @"com.apple.systemstatus.background-activity.Recording";
-  v9[29] = @"com.apple.systemstatus.background-activity.HearingAidRecording";
-  v9[30] = @"com.apple.systemstatus.background-activity.LoggingCapture";
-  v9[31] = @"com.apple.systemstatus.background-activity.Tethering";
-  v9[32] = @"com.apple.systemstatus.background-activity.guestpass";
-  v9[33] = @"com.apple.systemstatus.background-activity.SharePlay";
-  v9[34] = @"com.apple.systemstatus.background-activity.SharePlayScreenSharing";
-  v9[35] = @"com.apple.systemstatus.background-activity.SharePlayInactive";
-  v9[36] = @"com.apple.systemstatus.background-activity.ScreenSharing";
-  v9[37] = @"com.apple.systemstatus.background-activity.VideoOut";
-  v9[38] = @"com.apple.systemstatus.background-activity.CarPlay";
-  v9[39] = @"com.apple.mediaremoted.background-activity.routed-audio-pulse";
-  v9[40] = @"com.apple.mediaremoted.background-activity.routed-video";
-  v9[41] = @"com.apple.mediaremoted.background-activity.routed-video-pulse";
-  v9[42] = @"com.apple.mediaremoted.background-activity.routed-audio";
-  v9[43] = @"com.apple.systemstatus.background-activity.AutoAirPlayReady";
-  v9[44] = @"com.apple.systemstatus.background-activity.AutoAirPlayPlaying";
-  v9[45] = @"com.apple.systemstatus.background-activity.AssistantEyesFree";
-  v9[46] = @"com.apple.systemstatus.background-activity.workout";
-  v9[47] = @"com.apple.systemstatus.background-activity.InWorkout";
-  v9[48] = @"com.apple.systemstatus.background-activity.BackgroundLocation";
-  v9[49] = @"com.apple.systemstatus.background-activity.NearbyInteractions";
-  v9[50] = @"com.apple.systemstatus.background-activity.Playgrounds";
-  v9[51] = @"com.apple.systemstatus.background-activity.IdlePushToTalkCall";
-  v9[52] = @"com.apple.activityprogress.backgroundui";
-  v9[53] = @"com.apple.systemstatus.background-activity.replaykit.callrecording.recording";
-  v9[54] = @"com.apple.systemstatus.background-activity.replaykit.callrecording.ready";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:55];
-  v1 = [MEMORY[0x1E695DFB8] orderedSetWithArray:v8];
+  v9[2] = @"com.apple.systemstatus.background-activity.Sysdiagnose";
+  v9[3] = @"com.apple.systemstatus.background-activity.ScreenReplayRecording";
+  v9[4] = @"com.apple.systemstatus.background-activity.VideoConferenceRinging";
+  v9[5] = @"com.apple.systemstatus.background-activity.CallRinging";
+  v9[6] = @"com.apple.systemstatus.background-activity.InVideoConference";
+  v9[7] = @"com.apple.systemstatus.background-activity.InCall";
+  v9[8] = @"com.apple.systemstatus.background-activity.CallRecording";
+  v9[9] = @"com.apple.systemstatus.background-activity.VideoConferenceHandoff";
+  v9[10] = @"com.apple.systemstatus.background-activity.CallHandoff";
+  v9[11] = @"com.apple.systemstatus.background-activity.CallScreening";
+  v9[12] = @"com.apple.systemstatus.background-activity.ActivePushToTalkCall";
+  v9[13] = @"com.apple.systemstatus.background-activity.DeveloperTools";
+  v9[14] = @"com.apple.systemstatus.background-activity.AirPrint";
+  v9[15] = @"com.apple.systemstatus.background-activity.Tethering";
+  v9[16] = @"com.apple.systemstatus.background-activity.guestpass";
+  v9[17] = @"com.apple.systemstatus.background-activity.SharePlay";
+  v9[18] = @"com.apple.systemstatus.background-activity.SharePlayScreenSharing";
+  v9[19] = @"com.apple.systemstatus.background-activity.ScreenSharing";
+  v9[20] = @"com.apple.systemstatus.background-activity.VideoOut";
+  v9[21] = @"com.apple.systemstatus.background-activity.SharePlayInactive";
+  v9[22] = @"com.apple.systemstatus.background-activity.CellularSOS";
+  v9[23] = @"com.apple.systemstatus.background-activity.WebRTCCapture";
+  v9[24] = @"com.apple.systemstatus.background-activity.WebRTCAudioCapture";
+  v9[25] = @"com.apple.systemstatus.background-activity.FullScreenWebRTCCapture";
+  v9[26] = @"com.apple.systemstatus.background-activity.FullScreenWebRTCAudioCapture";
+  v9[27] = @"com.apple.systemstatus.background-activity.Recording";
+  v9[28] = @"com.apple.systemstatus.background-activity.workout";
+  v9[29] = @"com.apple.systemstatus.background-activity.BackgroundLocation";
+  v9[30] = @"com.apple.systemstatus.background-activity.NearbyInteractions";
+  v9[31] = @"com.apple.systemstatus.background-activity.Playgrounds";
+  v9[32] = @"com.apple.systemstatus.background-activity.IdlePushToTalkCall";
+  v9[33] = @"com.apple.systemstatus.background-activity.replaykit.callrecording.recording";
+  v9[34] = @"com.apple.systemstatus.background-activity.replaykit.callrecording.ready";
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:35];
+  v8[0] = @"com.apple.systemstatus.background-activity.SatelliteSOS";
+  v8[1] = @"com.apple.systemstatus.background-activity.SatelliteSOSDisconnected";
+  v8[6] = @"com.apple.systemstatus.background-activity.VideoConferenceRinging";
+  v8[7] = @"com.apple.systemstatus.background-activity.CallRinging";
+  v8[12] = @"com.apple.systemstatus.background-activity.InVideoConference";
+  v8[13] = @"com.apple.systemstatus.background-activity.InCall";
+  v8[2] = @"com.apple.systemstatus.background-activity.Diagnostics";
+  v8[3] = @"com.apple.systemstatus.background-activity.Sysdiagnose";
+  v8[4] = @"com.apple.systemstatus.background-activity.ScreenSharingServer";
+  v8[5] = @"com.apple.systemstatus.background-activity.ScreenReplayRecording";
+  v8[8] = @"com.apple.systemstatus.background-activity.continuitycapture.streaming-video";
+  v8[9] = @"com.apple.systemstatus.background-activity.continuitycapture.streaming-audio";
+  v8[10] = @"com.apple.systemstatus.background-activity.continuitycapture.mic-only";
+  v8[11] = @"com.apple.systemstatus.background-activity.continuitycapture.streaming-none";
+  v8[14] = @"com.apple.systemstatus.background-activity.CallRecording";
+  v8[15] = @"com.apple.systemstatus.background-activity.ActivePushToTalkCall";
+  v8[16] = @"com.apple.systemstatus.background-activity.CallHandoff";
+  v8[17] = @"com.apple.systemstatus.background-activity.VideoConferenceHandoff";
+  v8[18] = @"com.apple.systemstatus.background-activity.CallScreening";
+  v8[19] = @"com.apple.systemstatus.background-activity.Navigation";
+  v8[20] = @"com.apple.systemstatus.background-activity.Navigation";
+  v8[21] = @"com.apple.systemstatus.background-activity.CellularSOS";
+  v8[22] = @"com.apple.systemstatus.background-activity.DeveloperTools";
+  v8[23] = @"com.apple.systemstatus.background-activity.AirPrint";
+  v8[24] = @"com.apple.systemstatus.background-activity.WebRTCCapture";
+  v8[25] = @"com.apple.systemstatus.background-activity.WebRTCAudioCapture";
+  v8[26] = @"com.apple.systemstatus.background-activity.FullScreenWebRTCCapture";
+  v8[27] = @"com.apple.systemstatus.background-activity.FullScreenWebRTCAudioCapture";
+  v8[28] = @"com.apple.systemstatus.background-activity.Recording";
+  v8[29] = @"com.apple.systemstatus.background-activity.HearingAidRecording";
+  v8[30] = @"com.apple.systemstatus.background-activity.LoggingCapture";
+  v8[31] = @"com.apple.systemstatus.background-activity.Tethering";
+  v8[32] = @"com.apple.systemstatus.background-activity.guestpass";
+  v8[33] = @"com.apple.systemstatus.background-activity.SharePlay";
+  v8[34] = @"com.apple.systemstatus.background-activity.SharePlayScreenSharing";
+  v8[35] = @"com.apple.systemstatus.background-activity.SharePlayInactive";
+  v8[36] = @"com.apple.systemstatus.background-activity.ScreenSharing";
+  v8[37] = @"com.apple.systemstatus.background-activity.VideoOut";
+  v8[38] = @"com.apple.systemstatus.background-activity.CarPlay";
+  v8[39] = @"com.apple.mediaremoted.background-activity.routed-audio-pulse";
+  v8[40] = @"com.apple.mediaremoted.background-activity.routed-video";
+  v8[41] = @"com.apple.mediaremoted.background-activity.routed-video-pulse";
+  v8[42] = @"com.apple.mediaremoted.background-activity.routed-audio";
+  v8[43] = @"com.apple.systemstatus.background-activity.AutoAirPlayReady";
+  v8[44] = @"com.apple.systemstatus.background-activity.AutoAirPlayPlaying";
+  v8[45] = @"com.apple.systemstatus.background-activity.AssistantEyesFree";
+  v8[46] = @"com.apple.systemstatus.background-activity.workout";
+  v8[47] = @"com.apple.systemstatus.background-activity.InWorkout";
+  v8[48] = @"com.apple.systemstatus.background-activity.BackgroundLocation";
+  v8[49] = @"com.apple.systemstatus.background-activity.NearbyInteractions";
+  v8[50] = @"com.apple.systemstatus.background-activity.Playgrounds";
+  v8[51] = @"com.apple.systemstatus.background-activity.IdlePushToTalkCall";
+  v8[52] = @"com.apple.activityprogress.backgroundui";
+  v8[53] = @"com.apple.systemstatus.background-activity.replaykit.callrecording.recording";
+  v8[54] = @"com.apple.systemstatus.background-activity.replaykit.callrecording.ready";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:55];
+  v1 = [MEMORY[0x1E695DFB8] orderedSetWithArray:v7];
   v2 = qword_1ED7F5DA8;
   qword_1ED7F5DA8 = v1;
 
@@ -305,8 +302,6 @@ void __78__STBackgroundActivityManager__allValidBackgroundActivitiesInPrecedence
   v5 = [qword_1ED7F5DB0 copy];
   v6 = qword_1ED7F5DA0;
   qword_1ED7F5DA0 = v5;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)validBackgroundActivitiesForBackgroundActivities:(id)activities
@@ -441,106 +436,103 @@ void __68__STBackgroundActivityManager_recordBundlesChangedForBundleManager___bl
 
 - (void)_updateSupportedBackgroundActivitiesAndVisualDescriptorsFromBundleRecords
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   recordIdentifiers = [(STBundleManager *)self->_bundleManager recordIdentifiers];
   v5 = STSystemStatusLogBundleLoading();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v40 = recordIdentifiers;
+    v36 = recordIdentifiers;
     _os_log_impl(&dword_1DA9C2000, v5, OS_LOG_TYPE_DEFAULT, "Bundle manager reports background activity bundle identifiers changed: %{public}@", buf, 0xCu);
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   obj = recordIdentifiers;
-  v6 = [obj countByEnumeratingWithState:&v35 objects:v44 count:16];
+  v6 = [obj countByEnumeratingWithState:&v31 objects:v40 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v36;
-    v9 = 0x1E85DD000uLL;
-    v26 = *v36;
+    v8 = *v32;
+    v22 = *v32;
     selfCopy = self;
     do
     {
-      v10 = 0;
-      v28 = v7;
+      v9 = 0;
+      v24 = v7;
       do
       {
-        if (*v36 != v8)
+        if (*v32 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v35 + 1) + 8 * v10);
-        v12 = [(STBundleManager *)self->_bundleManager bundleRecordForRecordIdentifier:v11];
-        v13 = *(v9 + 1888);
+        v10 = *(*(&v31 + 1) + 8 * v9);
+        v11 = [(STBundleManager *)self->_bundleManager bundleRecordForRecordIdentifier:v10];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v30 = v10;
-          v33 = 0u;
-          v34 = 0u;
-          v31 = 0u;
-          v32 = 0u;
-          backgroundActivityIdentifiers = [v12 backgroundActivityIdentifiers];
-          v15 = [backgroundActivityIdentifiers countByEnumeratingWithState:&v31 objects:v43 count:16];
-          if (v15)
+          v26 = v9;
+          v29 = 0u;
+          v30 = 0u;
+          v27 = 0u;
+          v28 = 0u;
+          backgroundActivityIdentifiers = [v11 backgroundActivityIdentifiers];
+          v13 = [backgroundActivityIdentifiers countByEnumeratingWithState:&v27 objects:v39 count:16];
+          if (v13)
           {
-            v16 = v15;
-            v17 = *v32;
+            v14 = v13;
+            v15 = *v28;
             do
             {
-              for (i = 0; i != v16; ++i)
+              for (i = 0; i != v14; ++i)
               {
-                if (*v32 != v17)
+                if (*v28 != v15)
                 {
                   objc_enumerationMutation(backgroundActivityIdentifiers);
                 }
 
-                v19 = *(*(&v31 + 1) + 8 * i);
-                v20 = [v12 visualDescriptorForBackgroundActivityWithIdentifier:v19];
-                if (v20)
+                v17 = *(*(&v27 + 1) + 8 * i);
+                v18 = [v11 visualDescriptorForBackgroundActivityWithIdentifier:v17];
+                if (v18)
                 {
-                  [(NSDictionary *)dictionary setValue:v20 forKey:v19];
-                  v21 = STSystemStatusLogBundleLoading();
-                  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+                  [(NSDictionary *)dictionary setValue:v18 forKey:v17];
+                  v19 = STSystemStatusLogBundleLoading();
+                  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138543618;
-                    v40 = v19;
-                    v41 = 2114;
-                    v42 = v20;
-                    _os_log_debug_impl(&dword_1DA9C2000, v21, OS_LOG_TYPE_DEBUG, "Background activity identifier %{public}@ associated with visual descriptor %{public}@", buf, 0x16u);
+                    v36 = v17;
+                    v37 = 2114;
+                    v38 = v18;
+                    _os_log_debug_impl(&dword_1DA9C2000, v19, OS_LOG_TYPE_DEBUG, "Background activity identifier %{public}@ associated with visual descriptor %{public}@", buf, 0x16u);
                   }
                 }
 
                 else
                 {
-                  v21 = STSystemStatusLogBundleLoading();
-                  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+                  v19 = STSystemStatusLogBundleLoading();
+                  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138477827;
-                    v40 = v19;
-                    _os_log_error_impl(&dword_1DA9C2000, v21, OS_LOG_TYPE_ERROR, "No valid visual descriptor for background activity '%{private}@'", buf, 0xCu);
+                    v36 = v17;
+                    _os_log_error_impl(&dword_1DA9C2000, v19, OS_LOG_TYPE_ERROR, "No valid visual descriptor for background activity '%{private}@'", buf, 0xCu);
                   }
                 }
               }
 
-              v16 = [backgroundActivityIdentifiers countByEnumeratingWithState:&v31 objects:v43 count:16];
+              v14 = [backgroundActivityIdentifiers countByEnumeratingWithState:&v27 objects:v39 count:16];
             }
 
-            while (v16);
-            v8 = v26;
+            while (v14);
+            v8 = v22;
             self = selfCopy;
-            v9 = 0x1E85DD000;
-            v7 = v28;
+            v7 = v24;
           }
 
-          v10 = v30;
+          v9 = v26;
         }
 
         else
@@ -549,32 +541,29 @@ void __68__STBackgroundActivityManager_recordBundlesChangedForBundleManager___bl
           if (os_log_type_enabled(backgroundActivityIdentifiers, OS_LOG_TYPE_ERROR))
           {
             *buf = 138477827;
-            v40 = v11;
+            v36 = v10;
             _os_log_error_impl(&dword_1DA9C2000, backgroundActivityIdentifiers, OS_LOG_TYPE_ERROR, "Bundle %{private}@ is of unexpected type, expected 'BackgroundActivities'", buf, 0xCu);
           }
         }
 
-        ++v10;
+        ++v9;
       }
 
-      while (v10 != v7);
-      v7 = [obj countByEnumeratingWithState:&v35 objects:v44 count:16];
+      while (v9 != v7);
+      v7 = [obj countByEnumeratingWithState:&v31 objects:v40 count:16];
     }
 
     while (v7);
   }
 
+  v20 = BSEqualObjects();
   visualDescriptors = self->_visualDescriptors;
-  v23 = BSEqualObjects();
-  v24 = self->_visualDescriptors;
   self->_visualDescriptors = dictionary;
 
-  if ((v23 & 1) == 0)
+  if ((v20 & 1) == 0)
   {
     [(STBackgroundActivityManager *)self _forceResetBackgroundActivitiesForClients];
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (id)succinctDescription
@@ -599,6 +588,22 @@ void __68__STBackgroundActivityManager_recordBundlesChangedForBundleManager___bl
   build = [v3 build];
 
   return build;
+}
+
+- (id)_descriptionBuilderWithMultilinePrefix:(id)prefix forDebug:(BOOL)debug
+{
+  debugCopy = debug;
+  prefixCopy = prefix;
+  succinctDescriptionBuilder = [(STBackgroundActivityManager *)self succinctDescriptionBuilder];
+  [succinctDescriptionBuilder setUseDebugDescription:debugCopy];
+  [succinctDescriptionBuilder setActiveMultilinePrefix:prefixCopy];
+
+  allObjects = [(NSMutableSet *)self->_activeBackgroundActivities allObjects];
+  [succinctDescriptionBuilder appendArraySection:allObjects withName:@"activeBackgroundActivities" skipIfEmpty:0];
+
+  [succinctDescriptionBuilder appendDictionarySection:self->_visualDescriptors withName:@"registeredVisualDescriptors" skipIfEmpty:0];
+
+  return succinctDescriptionBuilder;
 }
 
 @end

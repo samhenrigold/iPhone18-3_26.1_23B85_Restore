@@ -81,26 +81,26 @@ void sub_1E30(uint64_t a1, void *a2)
   v8 = [NSArray axArrayByIgnoringNilElementsWithCount:2, v6, v7];
 
   v9 = +[NSMutableArray array];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v10 = v8;
-  v11 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v29;
+    v13 = *v28;
     do
     {
       for (i = 0; i != v12; i = i + 1)
       {
-        if (*v29 != v13)
+        if (*v28 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v28 + 1) + 8 * i);
+        v15 = *(*(&v27 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -114,17 +114,17 @@ void sub_1E30(uint64_t a1, void *a2)
 
         if (v16)
         {
-          v24[0] = _NSConcreteStackBlock;
-          v24[1] = 3221225472;
-          v24[2] = sub_2144;
-          v24[3] = &unk_8370;
-          v25 = v21;
-          v26 = v15;
-          v27 = v9;
+          v23[0] = _NSConcreteStackBlock;
+          v23[1] = 3221225472;
+          v23[2] = sub_2144;
+          v23[3] = &unk_8370;
+          v24 = v21;
+          v25 = v15;
+          v26 = v9;
           v17 = v16;
-          [v17 enumerateAttributesUsingBlock:v24];
+          [v17 enumerateAttributesUsingBlock:v23];
 
-          v18 = v25;
+          v18 = v24;
         }
 
         else
@@ -136,14 +136,13 @@ void sub_1E30(uint64_t a1, void *a2)
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v12);
   }
 
-  v22 = *(a1 + 32);
-  v23 = v9;
+  v22 = v9;
   v19 = v9;
   AXPerformBlockAsynchronouslyOnMainThread();
   [*(a1 + 32) logPackages:v19];

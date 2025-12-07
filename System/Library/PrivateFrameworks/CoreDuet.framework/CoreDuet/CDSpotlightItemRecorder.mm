@@ -157,15 +157,10 @@ BOOL __70___CDSpotlightItemRecorder__addOrUpdateCoreDuetInteractions_bundleID___
   return v5 < 300.0;
 }
 
-uint64_t __90___CDSpotlightItemRecorder_saveRateLimitedEvents_donatorUid_responseQueue_withCompletion___block_invoke_2(uint64_t result, int a2)
+uint64_t __90___CDSpotlightItemRecorder_saveRateLimitedEvents_donatorUid_responseQueue_withCompletion___block_invoke_2(uint64_t result)
 {
   if (*(result + 40))
   {
-    if (a2)
-    {
-      v2 = *(result + 32);
-    }
-
     return (*(*(result + 40) + 16))();
   }
 
@@ -208,34 +203,34 @@ void __61___CDSpotlightItemRecorder_donateRelevantShortcuts_bundleID___block_inv
 void __84___CDSpotlightItemRecorder_addInteractions_bundleID_protectionClass_withCompletion___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = [MEMORY[0x1E696AE18] predicateWithFormat:@"intent.cd_saveToKnowledgeStore = YES"];
   v4 = [v2 filteredArrayUsingPredicate:v3];
 
   v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v4, "count")}];
-  v28 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v27 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v6 = v4;
-  v29 = [v6 countByEnumeratingWithState:&v31 objects:v35 count:16];
-  if (v29)
+  v28 = [v6 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  if (v28)
   {
-    v7 = *v32;
+    v7 = *v31;
     v8 = 0x1E7366000uLL;
-    v27 = v1;
+    v26 = v1;
     do
     {
-      for (i = 0; i != v29; ++i)
+      for (i = 0; i != v28; ++i)
       {
-        if (*v32 != v7)
+        if (*v31 != v7)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v31 + 1) + 8 * i);
+        v10 = *(*(&v30 + 1) + 8 * i);
         v11 = [v10 intent];
         v12 = [v11 _className];
 
@@ -274,59 +269,57 @@ void __84___CDSpotlightItemRecorder_addInteractions_bundleID_protectionClass_wit
           v24 = [v10 performSelector:sel_contextMetadataWithBundleIdentifier_eventUUID_ withObject:v18 withObject:v23];
 
           v25 = [v17 UUID];
-          [v28 setObject:v24 forKeyedSubscript:v25];
+          [v27 setObject:v24 forKeyedSubscript:v25];
 
           v5 = v22;
           v6 = v21;
           v7 = v20;
           v8 = v19;
-          v1 = v27;
+          v1 = v26;
           [v5 addObject:v17];
         }
       }
 
-      v29 = [v6 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v28 = [v6 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
-    while (v29);
+    while (v28);
   }
 
   if ([v5 count])
   {
-    __84___CDSpotlightItemRecorder_addInteractions_bundleID_protectionClass_withCompletion___block_invoke_cold_1(v1, v30, v28, v5);
+    __84___CDSpotlightItemRecorder_addInteractions_bundleID_protectionClass_withCompletion___block_invoke_cold_1(v1, v29, v27, v5);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __84___CDSpotlightItemRecorder_addInteractions_bundleID_protectionClass_withCompletion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [get_CDContextQueriesClass() keyPathForIntentsDataDictionary];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       v12 = 0;
       do
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
         v13 = *(a1 + 32);
-        v14 = [*(*(&v19 + 1) + 8 * v12) UUID];
+        v14 = [*(*(&v18 + 1) + 8 * v12) UUID];
         v15 = [v13 objectForKeyedSubscript:v14];
 
         if (v15)
@@ -339,7 +332,7 @@ void __84___CDSpotlightItemRecorder_addInteractions_bundleID_protectionClass_wit
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
@@ -350,8 +343,6 @@ void __84___CDSpotlightItemRecorder_addInteractions_bundleID_protectionClass_wit
   {
     (*(v17 + 16))(v17, v8 != 0, v6);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __79___CDSpotlightItemRecorder_addOrUpdateSearchableItems_bundleID_withCompletion___block_invoke(uint64_t a1, void *a2)
@@ -364,28 +355,28 @@ BOOL __79___CDSpotlightItemRecorder_addOrUpdateSearchableItems_bundleID_withComp
 
 void __79___CDSpotlightItemRecorder_addOrUpdateSearchableItems_bundleID_withCompletion___block_invoke_645(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         v9 = [_DKEvent eventWithSearchableItem:v8 bundleIdentifier:*(a1 + 40)];
         if (v9)
         {
@@ -402,7 +393,7 @@ void __79___CDSpotlightItemRecorder_addOrUpdateSearchableItems_bundleID_withComp
         objc_autoreleasePoolPop(v10);
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
@@ -410,72 +401,68 @@ void __79___CDSpotlightItemRecorder_addOrUpdateSearchableItems_bundleID_withComp
 
   if ([v2 count])
   {
-    __79___CDSpotlightItemRecorder_addOrUpdateSearchableItems_bundleID_withCompletion___block_invoke_645_cold_1(a1, v13, v2);
+    __79___CDSpotlightItemRecorder_addOrUpdateSearchableItems_bundleID_withCompletion___block_invoke_645_cold_1(a1, v12, v2);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __79___CDSpotlightItemRecorder_addOrUpdateSearchableItems_bundleID_withCompletion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v19 = a1;
-  v28 = *MEMORY[0x1E69E9840];
+  v18 = a1;
+  v27 = *MEMORY[0x1E69E9840];
   v4 = a2;
-  v20 = a3;
+  v19 = a3;
   v5 = [get_CDContextQueriesClass() keyPathForUserActivityDataDictionary];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v21 + 1) + 8 * i) metadata];
+        v11 = [*(*(&v20 + 1) + 8 * i) metadata];
         v12 = +[_DKApplicationActivityMetadataKey userActivityRequiredString];
         v13 = [v11 objectForKeyedSubscript:v12];
 
         if (v13)
         {
           v14 = [get_CDContextQueriesClass() userActivityRequiredString];
-          v25 = v14;
-          v26 = v13;
-          v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+          v24 = v14;
+          v25 = v13;
+          v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
 
           v16 = [get_CDClientContextClass() userContext];
           [v16 setObject:v15 forKeyedSubscript:v5];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
     while (v8);
   }
 
-  v17 = *(v19 + 32);
+  v17 = *(v18 + 32);
   if (v17)
   {
-    (*(v17 + 16))(v17, v6 != 0, v20);
+    (*(v17 + 16))(v17, v6 != 0, v19);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __66___CDSpotlightItemRecorder_addUserAction_withItem_withCompletion___block_invoke(uint64_t a1)
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 64) objectForKeyedSubscript:*(a1 + 40)];
   if (!v2)
   {
@@ -496,13 +483,13 @@ void __66___CDSpotlightItemRecorder_addUserAction_withItem_withCompletion___bloc
     }
 
     v9 = [_CDMultiLevelRateLimiter alloc];
-    v16[0] = &unk_1F05EEF70;
+    v15[0] = &unk_1F05EEF70;
     v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v8];
-    v16[1] = &unk_1F05EEF88;
-    v17[0] = v10;
+    v15[1] = &unk_1F05EEF88;
+    v16[0] = v10;
     v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:30];
-    v17[1] = v11;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v16[1] = v11;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
     v2 = [(_CDMultiLevelRateLimiter *)v9 initWithPeriodToCountMap:v12];
 
     v13 = *(*(a1 + 32) + 64);
@@ -511,8 +498,6 @@ void __66___CDSpotlightItemRecorder_addUserAction_withItem_withCompletion___bloc
   }
 
   *(*(*(a1 + 64) + 8) + 24) = [(_CDMultiLevelRateLimiter *)v2 debited];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __66___CDSpotlightItemRecorder_addUserAction_withItem_withCompletion___block_invoke_655(void *a1, void *a2, void *a3)
@@ -575,7 +560,7 @@ uint64_t __95___CDSpotlightItemRecorder_deleteSearchableItemsWithDomainIdentifie
 
 void __113___CDSpotlightItemRecorder_initWithInteractionRecorder_knowledgeStore_rateLimitEnforcer_deletionManagerOverride___block_invoke_560(uint64_t a1)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   v4 = *(v3 + 48);
   *(v3 + 48) = 0;
@@ -604,91 +589,90 @@ void __113___CDSpotlightItemRecorder_initWithInteractionRecorder_knowledgeStore_
   if (v13)
   {
     OUTLINED_FUNCTION_8_12();
-    if (v17)
+    if (v16)
     {
-      v18 = *(v17 + 8);
+      v17 = *(v16 + 8);
     }
 
     else
     {
-      v18 = 0;
+      v17 = 0;
     }
 
-    v19 = [v18 mutableCopy];
+    v18 = [v17 mutableCopy];
+    v36 = 0u;
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v20 = v13;
-    v21 = [v20 countByEnumeratingWithState:&v38 objects:v42 count:16];
-    if (v21)
+    v19 = v13;
+    v20 = [v19 countByEnumeratingWithState:&v36 objects:v40 count:16];
+    if (v20)
     {
-      v22 = v21;
-      v1 = *v39;
+      v21 = v20;
+      v1 = *v37;
       do
       {
-        v23 = 0;
+        v22 = 0;
         do
         {
-          if (*v39 != v1)
+          if (*v37 != v1)
           {
-            objc_enumerationMutation(v20);
+            objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v38 + 1) + 8 * v23);
-          if (v24)
+          v23 = *(*(&v36 + 1) + 8 * v22);
+          if (v23)
           {
-            v25 = *(v24 + 8);
+            v24 = *(v23 + 8);
           }
 
           else
           {
-            v25 = 0;
+            v24 = 0;
           }
 
-          [v19 addObjectsFromArray:v25];
-          ++v23;
+          [v18 addObjectsFromArray:v24];
+          ++v22;
         }
 
-        while (v22 != v23);
-        v26 = [v20 countByEnumeratingWithState:&v38 objects:v42 count:16];
-        v22 = v26;
+        while (v21 != v22);
+        v25 = [v19 countByEnumeratingWithState:&v36 objects:v40 count:16];
+        v21 = v25;
       }
 
-      while (v26);
+      while (v25);
     }
 
-    v27 = objc_alloc_init(_CDSpotlightItemRecorderOperation);
+    v26 = objc_alloc_init(_CDSpotlightItemRecorderOperation);
     OUTLINED_FUNCTION_8_12();
-    if (v28)
+    if (v27)
     {
-      v29 = *(v28 + 24);
-      if (!v27)
+      v28 = *(v27 + 24);
+      if (!v26)
       {
 LABEL_23:
-        if (v28)
+        if (v27)
         {
-          v30 = *(v28 + 16);
+          v29 = *(v27 + 16);
         }
 
         else
         {
-          v30 = 0;
+          v29 = 0;
         }
 
-        [(_DKSyncWindow *)v27 setStartDate:v30];
-        [(_DKPredictionTimeline *)v27 setStartDate:v19];
-        v31 = *(*(a1 + 32) + 32);
+        [(_DKSyncWindow *)v26 setStartDate:v29];
+        [(_DKPredictionTimeline *)v26 setStartDate:v18];
         [MEMORY[0x1E696AB28] notPredicateWithSubpredicate:v12];
         objc_claimAutoreleasedReturnValue();
-        v32 = [OUTLINED_FUNCTION_19_7() filteredArrayUsingPredicate:v1];
-        v33 = [v32 mutableCopy];
-        v34 = *(a1 + 32);
-        v35 = *(v34 + 32);
-        *(v34 + 32) = v33;
+        v30 = [OUTLINED_FUNCTION_19_7() filteredArrayUsingPredicate:v1];
+        v31 = [v30 mutableCopy];
+        v32 = *(a1 + 32);
+        v33 = *(v32 + 32);
+        *(v32 + 32) = v31;
 
         OUTLINED_FUNCTION_13_7();
-        *(v36 + 40) = v27;
+        *(v34 + 40) = v26;
 
         goto LABEL_4;
       }
@@ -696,14 +680,14 @@ LABEL_23:
 
     else
     {
-      v29 = 0;
-      if (!v27)
+      v28 = 0;
+      if (!v26)
       {
         goto LABEL_23;
       }
     }
 
-    v27->_type = v29;
+    v26->_type = v28;
     OUTLINED_FUNCTION_8_12();
     goto LABEL_23;
   }
@@ -717,8 +701,6 @@ LABEL_4:
 
   v15 = v14;
   *(*(a1 + 32) + 40) -= [v15 count];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __46___CDSpotlightItemRecorder__enqueueOperation___block_invoke(uint64_t a1)
@@ -749,7 +731,7 @@ void __46___CDSpotlightItemRecorder__enqueueOperation___block_invoke(uint64_t a1
   dispatch_source_merge_data(v8, 1uLL);
 }
 
-unint64_t __44___CDSpotlightItemRecorder_submitOperation___block_invoke(void *a1)
+void *__44___CDSpotlightItemRecorder_submitOperation___block_invoke(void *a1)
 {
   v2 = a1[4];
   v3 = *(v2 + 40);
@@ -788,7 +770,7 @@ void __44___CDSpotlightItemRecorder_submitOperation___block_invoke_2(uint64_t a1
 
 void __95___CDSpotlightItemRecorder_deleteSearchableItemsWithDomainIdentifiers_bundleID_withCompletion___block_invoke_659(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -803,10 +785,10 @@ void __95___CDSpotlightItemRecorder_deleteSearchableItemsWithDomainIdentifiers_b
 
   v6 = *(a1 + 32);
   v5 = *(a1 + 40);
-  v11 = 0;
+  v10 = 0;
   v7 = v4;
-  [v7 deleteInteractionsWithBundleId:v6 domainIdentifiers:v5 error:&v11];
-  v8 = v11;
+  [v7 deleteInteractionsWithBundleId:v6 domainIdentifiers:v5 error:&v10];
+  v8 = v10;
 
   if (v8)
   {
@@ -814,23 +796,21 @@ void __95___CDSpotlightItemRecorder_deleteSearchableItemsWithDomainIdentifiers_b
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = v8;
+      v12 = v8;
       _os_log_error_impl(&dword_191750000, v9, OS_LOG_TYPE_ERROR, "Error encountered deleteSearchableItemsWithDomainIdentifiers:bundleID: %@", buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __83___CDSpotlightItemRecorder_deleteSearchableItemsSinceDate_bundleID_withCompletion___block_invoke(uint64_t a1)
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AE18] predicateWithFormat:@"startDate >= CAST(%f, NSDate)", *(a1 + 32)];
   v4 = [MEMORY[0x1E696AE18] predicateWithFormat:@"bundleId == %@", *(a1 + 40)];
   v5 = MEMORY[0x1E696AB28];
-  v14[0] = v3;
-  v14[1] = v4;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
+  v13[0] = v3;
+  v13[1] = v4;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
   v7 = [v5 andPredicateWithSubpredicates:v6];
 
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -848,8 +828,6 @@ void __83___CDSpotlightItemRecorder_deleteSearchableItemsSinceDate_bundleID_with
   v11 = v10;
   v12 = [objc_alloc(OUTLINED_FUNCTION_19_7()) initWithFormat:@"deleteSearchableItemsSinceDate:%@ bundleID:%@", *(a1 + 32), *(a1 + 40)];
   [v1 deleteInteractionsMatchingPredicate:v7 sortDescriptors:MEMORY[0x1E695E0F0] limit:0 debuggingReason:v12 error:0];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __81___CDSpotlightItemRecorder_deleteAllItemsWithBundleID_isCSSIDeletion_completion___block_invoke(uint64_t a1)
@@ -866,20 +844,11 @@ void __81___CDSpotlightItemRecorder_deleteAllItemsWithBundleID_isCSSIDeletion_co
 
 void __113___CDSpotlightItemRecorder_initWithInteractionRecorder_knowledgeStore_rateLimitEnforcer_deletionManagerOverride___block_invoke_cold_1(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v1 = *(*a1 + 40);
-  v3 = 134217984;
-  v4 = v1;
-  _os_log_fault_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "expected _pendingOperationsItemCount to be 0, but was %td", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __61___CDSpotlightItemRecorder_donateRelevantShortcuts_bundleID___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_191750000, v0, v1, "Error saving relevant shortcuts events to knowledge store: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = v1;
+  _os_log_fault_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "expected _pendingOperationsItemCount to be 0, but was %td", &v2, 0xCu);
 }
 
 void __84___CDSpotlightItemRecorder_addInteractions_bundleID_protectionClass_withCompletion___block_invoke_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)

@@ -342,35 +342,35 @@ BMParsecSearchEntity *__47__BMParsecSearchEngagementEvent_initWithProto___block_
 
 - (BOOL)isCompleteWithContext:(id)context error:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   contextCopy = context;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = self->_entities;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        if (![*(*(&v15 + 1) + 8 * i) isCompleteWithContext:contextCopy error:{error, v15}])
+        if (![*(*(&v14 + 1) + 8 * i) isCompleteWithContext:contextCopy error:{error, v14}])
         {
 
           goto LABEL_15;
         }
       }
 
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v9)
       {
         continue;
@@ -397,7 +397,6 @@ LABEL_15:
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

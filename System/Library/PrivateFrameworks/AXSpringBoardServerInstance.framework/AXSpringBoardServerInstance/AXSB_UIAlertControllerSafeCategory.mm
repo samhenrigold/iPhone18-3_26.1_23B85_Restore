@@ -3,6 +3,7 @@
 - (BOOL)_canDismissWithGestureRecognizer;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_applyAccessibilityLoadAccessibilityInformation;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation AXSB_UIAlertControllerSafeCategory
@@ -30,38 +31,38 @@
 
 - (void)_applyAccessibilityLoadAccessibilityInformation
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if ([(AXSB_UIAlertControllerSafeCategory *)self _accessibilityBoolValueForKey:@"IsTripleClick"])
   {
     LOBYTE(location) = 0;
     objc_opt_class();
     v2 = __UIAccessibilityCastAsClass();
     view = [v2 view];
-    v13 = [view safeValueForKey:@"_mainInterfaceActionsGroupView"];
+    v12 = [view safeValueForKey:@"_mainInterfaceActionsGroupView"];
 
-    v15 = [v13 safeValueForKey:@"actionSequenceView"];
-    v4 = [v15 safeArrayForKey:@"arrangedActionRepresentationViews"];
+    v14 = [v12 safeValueForKey:@"actionSequenceView"];
+    v4 = [v14 safeArrayForKey:@"arrangedActionRepresentationViews"];
     v5 = objc_opt_new();
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     obj = v4;
-    v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v6)
     {
-      v7 = *v21;
+      v7 = *v20;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v21 != v7)
+          if (*v20 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v20 + 1) + 8 * i);
-          [v5 axSafelyAddObject:{v9, v13}];
+          v9 = *(*(&v19 + 1) + 8 * i);
+          [v5 axSafelyAddObject:{v9, v12}];
           v10 = [v9 safeValueForKey:@"_actionContentView"];
           if (objc_opt_respondsToSelector())
           {
@@ -71,19 +72,19 @@
           objc_initWeak(&location, v9);
           if (objc_opt_respondsToSelector())
           {
-            v17[0] = MEMORY[0x277D85DD0];
-            v17[1] = 3221225472;
-            v17[2] = __85__AXSB_UIAlertControllerSafeCategory__applyAccessibilityLoadAccessibilityInformation__block_invoke;
-            v17[3] = &unk_27842BC60;
-            objc_copyWeak(&v18, &location);
-            [v10 _setAccessibilityFrameBlock:v17];
-            objc_destroyWeak(&v18);
+            v16[0] = MEMORY[0x277D85DD0];
+            v16[1] = 3221225472;
+            v16[2] = __85__AXSB_UIAlertControllerSafeCategory__applyAccessibilityLoadAccessibilityInformation__block_invoke;
+            v16[3] = &unk_27842BC60;
+            objc_copyWeak(&v17, &location);
+            [v10 _setAccessibilityFrameBlock:v16];
+            objc_destroyWeak(&v17);
           }
 
           objc_destroyWeak(&location);
         }
 
-        v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v6);
@@ -99,10 +100,8 @@
       v11 = 0;
     }
 
-    [v15 setAccessibilityElements:{v11, v13}];
+    [v14 setAccessibilityElements:{v11, v12}];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_canDismissWithGestureRecognizer
@@ -115,6 +114,14 @@
   v4.receiver = self;
   v4.super_class = AXSB_UIAlertControllerSafeCategory;
   return [(AXSB_UIAlertControllerSafeCategory *)&v4 _canDismissWithGestureRecognizer];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AXSB_UIAlertControllerSafeCategory;
+  [(AXSB_UIAlertControllerSafeCategory *)&v4 viewDidAppear:appear];
+  [(AXSB_UIAlertControllerSafeCategory *)self _applyAccessibilityLoadAccessibilityInformation];
 }
 
 @end

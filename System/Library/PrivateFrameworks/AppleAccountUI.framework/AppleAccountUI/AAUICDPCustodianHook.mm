@@ -19,7 +19,7 @@
 {
   providerCopy = provider;
   managerCopy = manager;
-  v8 = _AAUILogSystem();
+  v8 = _AAUILogSystem(managerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [AAUICDPCustodianHook initWithAccountManager:contactsProvider:];
@@ -34,61 +34,62 @@
   managerCopy = manager;
   providerCopy = provider;
   contextCopy = context;
-  v24.receiver = self;
-  v24.super_class = AAUICDPCustodianHook;
-  v11 = [(AAUICDPCustodianHook *)&v24 init];
+  v26.receiver = self;
+  v26.super_class = AAUICDPCustodianHook;
+  v11 = [(AAUICDPCustodianHook *)&v26 init];
+  v12 = v11;
   if (v11)
   {
     if (managerCopy)
     {
-      v12 = managerCopy;
-      accountManager = v11->_accountManager;
-      v11->_accountManager = v12;
+      v13 = managerCopy;
+      accountManager = v12->_accountManager;
+      v12->_accountManager = v13;
     }
 
     else
     {
-      v14 = _AAUILogSystem();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = _AAUILogSystem(v11);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [AAUICDPCustodianHook initWithAccountManager:contactsProvider:cdpContext:];
       }
 
-      v15 = objc_alloc(MEMORY[0x1E698C250]);
+      v16 = objc_alloc(MEMORY[0x1E698C250]);
       accountManager = [MEMORY[0x1E6959A48] defaultStore];
-      v16 = [v15 initWithAccountStore:accountManager];
-      v17 = v11->_accountManager;
-      v11->_accountManager = v16;
+      v17 = [v16 initWithAccountStore:accountManager];
+      v18 = v12->_accountManager;
+      v12->_accountManager = v17;
     }
 
     if (providerCopy)
     {
-      v18 = providerCopy;
+      v20 = providerCopy;
     }
 
     else
     {
-      v19 = _AAUILogSystem();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = _AAUILogSystem(v19);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         [AAUICDPCustodianHook initWithAccountManager:contactsProvider:cdpContext:];
       }
 
-      v18 = objc_alloc_init(AAUIContactsProvider);
+      v20 = objc_alloc_init(AAUIContactsProvider);
     }
 
-    contactsProvider = v11->_contactsProvider;
-    v11->_contactsProvider = v18;
+    contactsProvider = v12->_contactsProvider;
+    v12->_contactsProvider = v20;
 
-    objc_storeStrong(&v11->_cdpContext, context);
+    objc_storeStrong(&v12->_cdpContext, context);
     mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
     bundleIdentifier = [mainBundle bundleIdentifier];
-    v11->_isOSUpgradeFlow = [bundleIdentifier isEqualToString:@"com.apple.purplebuddy"];
+    v12->_isOSUpgradeFlow = [bundleIdentifier isEqualToString:@"com.apple.purplebuddy"];
 
-    v11->_isInternalBuild = [MEMORY[0x1E698B890] isInternalBuild];
+    v12->_isInternalBuild = [MEMORY[0x1E698B890] isInternalBuild];
   }
 
-  return v11;
+  return v12;
 }
 
 - (id)_appleAccount
@@ -130,7 +131,7 @@
 
 - (void)processObjectModel:(id)model completion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   modelCopy = model;
   completionCopy = completion;
   objc_opt_class();
@@ -146,49 +147,50 @@
     v10 = 0;
   }
 
-  if ([v10 isEqualToString:@"custodian:add"])
+  v11 = [v10 isEqualToString:@"custodian:add"];
+  if (v11)
   {
     objc_opt_class();
     clientInfo2 = [modelCopy clientInfo];
-    v12 = [clientInfo2 objectForKeyedSubscript:@"context"];
+    v13 = [clientInfo2 objectForKeyedSubscript:@"context"];
     if (objc_opt_isKindOfClass())
     {
-      v13 = v12;
+      v14 = v13;
     }
 
     else
     {
-      v13 = 0;
+      v14 = 0;
     }
 
     hookClientContext = self->_hookClientContext;
-    self->_hookClientContext = v13;
+    self->_hookClientContext = v14;
 
-    v17 = [(NSString *)self->_hookClientContext isEqualToString:@"adpEnroll"];
-    v18 = _AAUILogSystem();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v18 = [(NSString *)self->_hookClientContext isEqualToString:@"adpEnroll"];
+    v19 = _AAUILogSystem(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = self->_hookClientContext;
-      v20[0] = 67109378;
-      v20[1] = v17;
-      v21 = 2112;
-      v22 = v19;
-      _os_log_impl(&dword_1C5355000, v18, OS_LOG_TYPE_DEFAULT, "isADPUpsellFlow=%{BOOL}d because clientContext=%@", v20, 0x12u);
+      v20 = self->_hookClientContext;
+      v21[0] = 67109378;
+      v21[1] = v18;
+      v22 = 2112;
+      v23 = v20;
+      _os_log_impl(&dword_1C5355000, v19, OS_LOG_TYPE_DEFAULT, "isADPUpsellFlow=%{BOOL}d because clientContext=%@", v21, 0x12u);
     }
 
-    [(AAUICDPCustodianHook *)self _performInlineCustodianSetupWithIsADPUpsellFlow:v17 completion:completionCopy];
+    [(AAUICDPCustodianHook *)self _performInlineCustodianSetupWithIsADPUpsellFlow:v18 completion:completionCopy];
   }
 
   else
   {
-    v14 = _AAUILogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _AAUILogSystem(v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [AAUICDPCustodianHook processObjectModel:completion:];
     }
 
-    v15 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E698B768] code:-7000 userInfo:0];
-    [(AAUICDPCustodianHook *)self _callSetupCompletionWithSuccess:0 error:v15];
+    v16 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E698B768] code:-7000 userInfo:0];
+    [(AAUICDPCustodianHook *)self _callSetupCompletionWithSuccess:0 error:v16];
   }
 }
 
@@ -262,10 +264,11 @@
 {
   finishCopy = finish;
   errorCopy = error;
+  v8 = errorCopy;
   if (errorCopy)
   {
-    v8 = _AAUILogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _AAUILogSystem(errorCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [AAUICDPCustodianHook custodianSetupFlowControllerDidFinish:withError:];
     }
@@ -273,26 +276,26 @@
     navigationController = [finishCopy navigationController];
     presentingViewController = [navigationController presentingViewController];
 
-    v11 = _AAUILogSystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v13 = _AAUILogSystem(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       [AAUICDPCustodianHook custodianSetupFlowControllerDidFinish:withError:];
     }
 
     if (presentingViewController)
     {
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __72__AAUICDPCustodianHook_custodianSetupFlowControllerDidFinish_withError___block_invoke;
-      v19[3] = &unk_1E820BEB8;
-      v19[4] = self;
-      v20 = errorCopy;
-      [presentingViewController dismissViewControllerAnimated:1 completion:v19];
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __72__AAUICDPCustodianHook_custodianSetupFlowControllerDidFinish_withError___block_invoke;
+      v22[3] = &unk_1E820BEB8;
+      v22[4] = self;
+      v23 = v8;
+      [presentingViewController dismissViewControllerAnimated:1 completion:v22];
     }
 
     else
     {
-      [(AAUICDPCustodianHook *)self _callSetupCompletionWithSuccess:0 error:errorCopy];
+      [(AAUICDPCustodianHook *)self _callSetupCompletionWithSuccess:0 error:v8];
     }
   }
 
@@ -304,27 +307,27 @@
     }
 
     contactsProvider = [(AAUICDPCustodianHook *)self contactsProvider];
-    v13 = objc_opt_respondsToSelector();
+    v15 = objc_opt_respondsToSelector();
 
-    if (v13)
+    if (v15)
     {
       objc_initWeak(&location, self);
       contactsProvider2 = [(AAUICDPCustodianHook *)self contactsProvider];
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __72__AAUICDPCustodianHook_custodianSetupFlowControllerDidFinish_withError___block_invoke_73;
-      v16[3] = &unk_1E820C770;
-      objc_copyWeak(&v17, &location);
-      [contactsProvider2 fetchWalrusEligibleCustodiansForExpansionCohortsWithCompletion:v16];
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __72__AAUICDPCustodianHook_custodianSetupFlowControllerDidFinish_withError___block_invoke_73;
+      v19[3] = &unk_1E820C770;
+      objc_copyWeak(&v20, &location);
+      [contactsProvider2 fetchWalrusEligibleCustodiansForExpansionCohortsWithCompletion:v19];
 
-      objc_destroyWeak(&v17);
+      objc_destroyWeak(&v20);
       objc_destroyWeak(&location);
     }
 
     else
     {
-      v15 = _AAUILogSystem();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v18 = _AAUILogSystem(v16);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [AAUICDPCustodianHook custodianSetupFlowControllerDidFinish:withError:];
       }
@@ -337,46 +340,47 @@ void __72__AAUICDPCustodianHook_custodianSetupFlowControllerDidFinish_withError_
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v8 = WeakRetained;
   if (v6)
   {
-    v8 = _AAUILogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _AAUILogSystem(WeakRetained);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __72__AAUICDPCustodianHook_custodianSetupFlowControllerDidFinish_withError___block_invoke_73_cold_1();
     }
 
-    v9 = WeakRetained;
-    v10 = 0;
-    v11 = v6;
+    v10 = v8;
+    v11 = 0;
+    v12 = v6;
 LABEL_9:
-    [v9 _callSetupCompletionWithSuccess:v10 error:v11];
+    [v10 _callSetupCompletionWithSuccess:v11 error:v12];
     goto LABEL_10;
   }
 
-  v12 = [v5 count];
-  v13 = _AAUILogSystem();
-  v14 = v13;
-  if (v12)
+  v13 = [v5 count];
+  v14 = _AAUILogSystem(v13);
+  v15 = v14;
+  if (v13)
   {
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 0;
-      _os_log_impl(&dword_1C5355000, v14, OS_LOG_TYPE_DEFAULT, "Found at least one eligible custodian for walrus expansion cohort.", v16, 2u);
+      *v17 = 0;
+      _os_log_impl(&dword_1C5355000, v15, OS_LOG_TYPE_DEFAULT, "Found at least one eligible custodian for walrus expansion cohort.", v17, 2u);
     }
 
-    v9 = WeakRetained;
-    v10 = 1;
-    v11 = 0;
+    v10 = v8;
+    v11 = 1;
+    v12 = 0;
     goto LABEL_9;
   }
 
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     __72__AAUICDPCustodianHook_custodianSetupFlowControllerDidFinish_withError___block_invoke_73_cold_2();
   }
 
-  v15 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E698B768] code:-7003 userInfo:0];
-  [WeakRetained _callSetupCompletionWithSuccess:0 error:v15];
+  v16 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E698B768] code:-7003 userInfo:0];
+  [v8 _callSetupCompletionWithSuccess:0 error:v16];
 
 LABEL_10:
 }
@@ -388,59 +392,60 @@ LABEL_10:
 
   if (!v4)
   {
-    v7 = _AAUILogSystem();
+    v9 = _AAUILogSystem(v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    {
+      [AAUICDPCustodianHook _custodianInlineSetupFlowNavigationController];
+    }
+
+    v8 = objc_alloc_init(MEMORY[0x1E69DCCD8]);
+    goto LABEL_9;
+  }
+
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
+  {
+    v7 = _AAUILogSystem(isKindOfClass);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [AAUICDPCustodianHook _custodianInlineSetupFlowNavigationController];
     }
 
-    v6 = objc_alloc_init(MEMORY[0x1E69DCCD8]);
-    goto LABEL_9;
-  }
-
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v5 = _AAUILogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
-    {
-      [AAUICDPCustodianHook _custodianInlineSetupFlowNavigationController];
-    }
-
-    v6 = v4;
+    v8 = v4;
 LABEL_9:
-    v8 = v6;
+    v10 = v8;
     goto LABEL_18;
   }
 
   navigationController = [v4 navigationController];
-  v10 = _AAUILogSystem();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
+  v12 = _AAUILogSystem(navigationController);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
   if (navigationController)
   {
-    if (v11)
+    if (v13)
     {
       [AAUICDPCustodianHook _custodianInlineSetupFlowNavigationController];
     }
 
-    v12 = navigationController;
+    v14 = navigationController;
   }
 
   else
   {
-    if (v11)
+    if (v13)
     {
       [AAUICDPCustodianHook _custodianInlineSetupFlowNavigationController];
     }
 
-    v12 = [objc_alloc(MEMORY[0x1E69DCCD8]) initWithRootViewController:v4];
+    v14 = [objc_alloc(MEMORY[0x1E69DCCD8]) initWithRootViewController:v4];
   }
 
-  v8 = v12;
+  v10 = v14;
 
 LABEL_18:
 
-  return v8;
+  return v10;
 }
 
 - (void)_callSetupCompletionWithSuccess:(BOOL)success error:(id)error
@@ -449,11 +454,11 @@ LABEL_18:
   errorCopy = error;
   setupCompletion = [(AAUICDPCustodianHook *)self setupCompletion];
 
-  v8 = _AAUILogSystem();
-  setupCompletion2 = v8;
+  v9 = _AAUILogSystem(v8);
+  setupCompletion2 = v9;
   if (setupCompletion)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [(AAUICDPCustodianHook *)successCopy _callSetupCompletionWithSuccess:errorCopy error:setupCompletion2];
     }
@@ -462,7 +467,7 @@ LABEL_18:
     (*(setupCompletion2 + 16))(setupCompletion2, successCopy, errorCopy);
   }
 
-  else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     [AAUICDPCustodianHook _callSetupCompletionWithSuccess:error:];
   }

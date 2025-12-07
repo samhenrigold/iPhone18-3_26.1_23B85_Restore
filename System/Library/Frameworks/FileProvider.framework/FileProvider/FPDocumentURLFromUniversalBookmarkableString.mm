@@ -16,7 +16,7 @@ uint64_t __legacy_FPDocumentURLFromUniversalBookmarkableString_block_invoke(uint
 
 void __legacy_FPDocumentURLFromUniversalBookmarkableString_block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5 | v6)
@@ -28,9 +28,9 @@ void __legacy_FPDocumentURLFromUniversalBookmarkableString_block_invoke_2(uint64
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v9 = [v5 fp_shortDescription];
-        v12 = 138412290;
-        v13 = v9;
-        _os_log_impl(&dword_1AAAE1000, v8, OS_LOG_TYPE_INFO, "[INFO] Resolved universal bookmark to URL %@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v9;
+        _os_log_impl(&dword_1AAAE1000, v8, OS_LOG_TYPE_INFO, "[INFO] Resolved universal bookmark to URL %@", &v11, 0xCu);
       }
 
       MEMORY[0x1AC5934D0](v5, @"FPFileIsBookmarkURLProperty", *MEMORY[0x1E695E4D0]);
@@ -57,19 +57,14 @@ void __legacy_FPDocumentURLFromUniversalBookmarkableString_block_invoke_2(uint64
   {
     [*(a1 + 32) callNextOverrides];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __legacy_FPDocumentURLFromUniversalBookmarkableString_block_invoke_2_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -44,7 +44,7 @@
   v33 = 0;
   if (deviceCopy)
   {
-    [deviceCopy activeVideoMinFrameDuration];
+    objc_msgSend_activeVideoMinFrameDuration(deviceCopy);
     v7 = (v32 / v31);
   }
 
@@ -66,7 +66,7 @@
     [v20 setDepthData:depthData];
     if (setCopy)
     {
-      [setCopy presentationTimeStamp];
+      objc_msgSend_presentationTimeStamp(setCopy);
     }
 
     else

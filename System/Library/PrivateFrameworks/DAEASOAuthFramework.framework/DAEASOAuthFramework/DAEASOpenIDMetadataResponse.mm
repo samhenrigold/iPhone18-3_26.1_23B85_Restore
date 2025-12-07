@@ -6,13 +6,13 @@
 
 - (DAEASOpenIDMetadataResponse)initWithData:(id)data urlResponse:(id)response error:(id)error
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   responseCopy = response;
   errorCopy = error;
-  v51.receiver = self;
-  v51.super_class = DAEASOpenIDMetadataResponse;
-  v11 = [(DAEASOpenIDMetadataResponse *)&v51 init];
+  v50.receiver = self;
+  v50.super_class = DAEASOpenIDMetadataResponse;
+  v11 = [(DAEASOpenIDMetadataResponse *)&v50 init];
   v12 = v11;
   if (v11)
   {
@@ -40,7 +40,7 @@
     {
       statusCode = v12->_statusCode;
       *buf = 134217984;
-      v53 = statusCode;
+      v52 = statusCode;
       _os_log_impl(&dword_247E05000, v14, v16, "DAEASOpenIDMetadataResponse httpResponse status code %ld", buf, 0xCu);
     }
 
@@ -51,9 +51,9 @@ LABEL_22:
       goto LABEL_23;
     }
 
-    v50 = 0;
-    v18 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:&v50];
-    v19 = v50;
+    v49 = 0;
+    v18 = [MEMORY[0x277CCAAA0] JSONObjectWithData:dataCopy options:0 error:&v49];
+    v19 = v49;
     if (v19)
     {
       error = v12->_error;
@@ -65,7 +65,7 @@ LABEL_22:
       if (os_log_type_enabled(v22, v23))
       {
         *buf = 138412290;
-        v53 = v21;
+        v52 = v21;
         _os_log_impl(&dword_247E05000, v22, v23, "DAEASOAuthTokenResponse response JSON data does not represent NSDictionary. Game over. %@", buf, 0xCu);
       }
 
@@ -89,9 +89,9 @@ LABEL_22:
       {
         v30 = v12->_errorMessage;
         *buf = 138412546;
-        v53 = v30;
-        v54 = 2112;
-        v55 = v18;
+        v52 = v30;
+        v53 = 2112;
+        v54 = v18;
         v31 = "DAEASOpenIDMetadataResponse received an error: %@ %@";
         v32 = v21;
         v33 = v29;
@@ -130,13 +130,13 @@ LABEL_20:
           v45 = v12->_jwksURI;
           v46 = v12->_issuer;
           *buf = 138413058;
-          v53 = v43;
-          v54 = 2112;
-          v55 = v44;
-          v56 = 2112;
-          v57 = v45;
-          v58 = 2112;
-          v59 = v46;
+          v52 = v43;
+          v53 = 2112;
+          v54 = v44;
+          v55 = 2112;
+          v56 = v45;
+          v57 = 2112;
+          v58 = v46;
           v31 = "DAEASOpenIDMetadataResponse response token_endpoint: %@, authorization_endpoint: %@, jwks_uri: %@, issuer: %@";
           v32 = v21;
           v33 = v16;
@@ -168,7 +168,6 @@ LABEL_21:
 
 LABEL_23:
 
-  v48 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

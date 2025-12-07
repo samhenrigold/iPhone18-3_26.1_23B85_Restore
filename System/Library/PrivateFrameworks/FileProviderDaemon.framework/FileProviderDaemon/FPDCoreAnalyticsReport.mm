@@ -41,7 +41,6 @@
 {
   if (self->_isEventEnabled)
   {
-    eventName = self->_eventName;
     AnalyticsSendEventLazy();
   }
 }

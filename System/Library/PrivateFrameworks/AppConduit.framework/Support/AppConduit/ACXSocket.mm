@@ -370,9 +370,9 @@ LABEL_11:
 
 - (id)readDataOrDictionaryWithError:(id *)error
 {
-  v31 = 0;
-  v5 = sub_10002E758(self, 5, &v31);
-  v6 = v31;
+  v30 = 0;
+  v5 = sub_10002E758(self, 5, &v30);
+  v6 = v30;
   if (!v5)
   {
     v10 = 0;
@@ -407,9 +407,9 @@ LABEL_11:
     }
 
     free(v5);
-    v31 = v6;
-    v5 = sub_10002E758(self, 5, &v31);
-    v9 = v31;
+    v30 = v6;
+    v5 = sub_10002E758(self, 5, &v30);
+    v9 = v30;
 
     v6 = v9;
     if (!v5)
@@ -445,9 +445,9 @@ LABEL_19:
     goto LABEL_26;
   }
 
-  v30 = v6;
-  v12 = sub_10002E758(self, v8, &v30);
-  v9 = v30;
+  v29 = v6;
+  v12 = sub_10002E758(self, v8, &v29);
+  v9 = v29;
 
   if (!v12)
   {
@@ -469,9 +469,9 @@ LABEL_6:
   if (v15 == 1)
   {
     v11 = [NSData dataWithBytesNoCopy:v12 length:*(v5 + 1) freeWhenDone:0];
-    v29 = 0;
-    v10 = [NSPropertyListSerialization propertyListWithData:v11 options:0 format:0 error:&v29];
-    v6 = v29;
+    v28 = 0;
+    v10 = [NSPropertyListSerialization propertyListWithData:v11 options:0 format:0 error:&v28];
+    v6 = v28;
 
     if (v10)
     {
@@ -500,7 +500,6 @@ LABEL_24:
   }
 
   errorInfoDict3 = [(ACXSocket *)self errorInfoDict];
-  v28 = *(v5 + 1);
   v6 = sub_1000061DC("[ACXSocket readDataOrDictionaryWithError:]", 424, @"ACXErrorDomain", 14, 0, errorInfoDict3, @"Got unknown message type %hhu (length %u)", v26, *v5);
 
   v10 = 0;

@@ -32,7 +32,7 @@
   return v2;
 }
 
-uint64_t __38__DisplayModeRefreshRateObserver_init__block_invoke(uint64_t a1)
+void *__38__DisplayModeRefreshRateObserver_init__block_invoke(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 24) currentMode];
   result = [v2 width];
@@ -43,7 +43,6 @@ uint64_t __38__DisplayModeRefreshRateObserver_init__block_invoke(uint64_t a1)
     {
       [v2 refreshRate];
       *(*(a1 + 32) + 16) = v4;
-      v5 = *(*(a1 + 32) + 16);
 
       return HDMILatencyMgr_UpdateCurrentRefreshRate();
     }
@@ -86,7 +85,7 @@ uint64_t __38__DisplayModeRefreshRateObserver_init__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __81__DisplayModeRefreshRateObserver_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
+void *__81__DisplayModeRefreshRateObserver_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 24) currentMode];
   result = [v2 width];
@@ -97,7 +96,6 @@ uint64_t __81__DisplayModeRefreshRateObserver_observeValueForKeyPath_ofObject_ch
     {
       [v2 refreshRate];
       *(*(a1 + 32) + 16) = v4;
-      v5 = *(*(a1 + 32) + 16);
 
       return HDMILatencyMgr_UpdateCurrentRefreshRate();
     }

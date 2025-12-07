@@ -18,6 +18,7 @@
 - (void)handlePasteboardInfoResponse:(id)response;
 - (void)packager:(id)packager gotData:(id)data forPacket:(int64_t)packet;
 - (void)processPasteboardInfo:(id)info;
+- (void)receivePasteboardToFile:(id)file withProgress:(id)progress infoReceivedHandler:(id)handler completionHandler:(id)completionHandler returnInfoEarly:(BOOL)early;
 - (void)receivedPasteboardInfo:(id)info withError:(id)error;
 - (void)recvStop:(id)stop;
 - (void)removeObject:(id)object;
@@ -943,6 +944,45 @@ LABEL_23:
   streamHandler = [(UCStreamCoderV2 *)self streamHandler];
   v6 = [@"UCHB" dataUsingEncoding:1];
   [streamHandler writeMessage:v6 tag:10];
+}
+
+- (void)receivePasteboardToFile:(id)file withProgress:(id)progress infoReceivedHandler:(id)handler completionHandler:(id)completionHandler returnInfoEarly:(BOOL)early
+{
+  earlyCopy = early;
+  completionHandlerCopy = completionHandler;
+  handlerCopy = handler;
+  progressCopy = progress;
+  fileCopy = file;
+  [(UCStreamCoderV2 *)self setRemoteHasFiles:0];
+  [(UCStreamCoderV2 *)self setReturnInfoEarly:earlyCopy];
+  [(UCStreamCoderV2 *)self setReceivingDataFile:fileCopy];
+
+  [(UCStreamCoderV2 *)self setProgress:progressCopy];
+  [(UCStreamCoderV2 *)self setInfoRecvHandler:handlerCopy];
+
+  [(UCStreamCoderV2 *)self setFileRecvHandler:completionHandlerCopy];
+  [(UCStreamCoderV2 *)self setStreamStartTime:mach_absolute_time()];
+  v16 = dispatch_semaphore_create(0);
+  [(UCStreamCoderV2 *)self setItemsLockedSem:v16];
+
+  v17 = sub_100001A30(@"pasteboard-server");
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    v18 = @"NO";
+    if (earlyCopy)
+    {
+      v18 = @"YES";
+    }
+
+    v20 = 138543362;
+    v21 = v18;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[CODERV2] Requesting pasteboard info, will return info early: %{public}@", &v20, 0xCu);
+  }
+
+  watchdog = [(UCStreamCoderV2 *)self watchdog];
+  [watchdog start];
+
+  [(UCStreamCoderV2 *)self sendPasteboardInfoRequest];
 }
 
 - (void)cancelReceive

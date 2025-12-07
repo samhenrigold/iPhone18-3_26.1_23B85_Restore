@@ -2,12 +2,16 @@
 - (BOOL)findBacklightServices;
 - (BOOL)shouldSuppressMitigations;
 - (BackLightCC)initWithParams:(__CFDictionary *)params;
+- (__CFString)copyFieldCurrentValueForIndex:(int)index;
+- (__CFString)copyHeaderForIndex:(int)index;
 - (int)numberOfFields;
 - (void)defaultAction;
 - (void)defaultCPMSAction;
 - (void)initBrightnessTable:(__CFArray *)table;
 - (void)initPowerTable:(__CFArray *)table;
 - (void)refreshFunctionalTelemetry;
+- (void)setBrightnessKey:(id)key value:(int)value;
+- (void)setCPMSMitigationState:(BOOL)state;
 @end
 
 @implementation BackLightCC
@@ -125,6 +129,37 @@
   }
 
   return v5;
+}
+
+- (void)setBrightnessKey:(id)key value:(int)value
+{
+  v4 = *&value;
+  if (byte_1000AB2F8 == 1)
+  {
+    v7 = qword_1000AB718;
+    if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = 138412546;
+      keyCopy = key;
+      v13 = 1024;
+      v14 = v4;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "<Notice> BL set %@ to %d", &v11, 0x12u);
+    }
+  }
+
+  v8 = [[NSNumber alloc] initWithInt:v4];
+  if (v8)
+  {
+    v9 = v8;
+    if (([*&self->currentPowerLevel setProperty:v8 forKey:key] & 1) == 0)
+    {
+      v10 = qword_1000AB718;
+      if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
+      {
+        sub_100057108(key, v10);
+      }
+    }
+  }
 }
 
 - (void)defaultAction
@@ -411,6 +446,102 @@ LABEL_8:
   }
 
   LOBYTE(self->powerLevelDown[8]) = 1;
+}
+
+- (void)setCPMSMitigationState:(BOOL)state
+{
+  if (state)
+  {
+    if (self->powerLevelDown[8])
+    {
+      *&state = 1;
+    }
+
+    else
+    {
+      v4 = qword_1000AB718;
+      if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "<Notice> No powerLevelTable defined, cannot enable CPMS Mitigations for backlightCC", buf, 2u);
+      }
+
+      *&state = 0;
+    }
+  }
+
+  v5.receiver = self;
+  v5.super_class = BackLightCC;
+  [(ComponentControl *)&v5 setCPMSMitigationState:state];
+}
+
+- (__CFString)copyHeaderForIndex:(int)index
+{
+  v3 = *&index;
+  v9.receiver = self;
+  v9.super_class = BackLightCC;
+  if ([(ComponentControl *)&v9 numberOfFields]<= index)
+  {
+    v7.receiver = self;
+    v7.super_class = BackLightCC;
+    v6 = v3 - [(ComponentControl *)&v7 numberOfFields];
+    if (v6 > 2)
+    {
+      return 0;
+    }
+
+    else
+    {
+      return off_100086148[v6];
+    }
+  }
+
+  else
+  {
+    v8.receiver = self;
+    v8.super_class = BackLightCC;
+    return [(ComponentControl *)&v8 copyHeaderForIndex:v3];
+  }
+}
+
+- (__CFString)copyFieldCurrentValueForIndex:(int)index
+{
+  v3 = *&index;
+  v11.receiver = self;
+  v11.super_class = BackLightCC;
+  if ([(ComponentControl *)&v11 numberOfFields]> index)
+  {
+    v10.receiver = self;
+    v10.super_class = BackLightCC;
+    return [(ComponentControl *)&v10 copyFieldCurrentValueForIndex:v3];
+  }
+
+  v9.receiver = self;
+  v9.super_class = BackLightCC;
+  v6 = v3 - [(ComponentControl *)&v9 numberOfFields];
+  if (v6 == 2)
+  {
+    v7 = kCFAllocatorDefault;
+    maxLICeiling = self->_maxLICeiling;
+    return CFStringCreateWithFormat(v7, 0, @"%d", maxLICeiling);
+  }
+
+  if (v6 == 1)
+  {
+    v7 = kCFAllocatorDefault;
+    maxLICeiling = self->brightnessLevelDown[5];
+    return CFStringCreateWithFormat(v7, 0, @"%d", maxLICeiling);
+  }
+
+  if (v6)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"%d", [+[ContextAwareThermalManager getContextState:"getContextState:"];
+  }
 }
 
 - (BOOL)findBacklightServices

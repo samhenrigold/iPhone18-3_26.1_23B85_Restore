@@ -159,7 +159,7 @@ void __68__CompactWidthMonthViewControllerAccessibility_accessibilityScroll___bl
   [*(a1 + 32) willEndDraggingWithVelocity:&v13 targetContentOffset:{0.0, v5, v6, 3221225472, __68__CompactWidthMonthViewControllerAccessibility_accessibilityScroll___block_invoke_2, &unk_29F2D2A00}];
 }
 
-uint64_t __68__CompactWidthMonthViewControllerAccessibility_accessibilityScroll___block_invoke_2(uint64_t a1)
+void *__68__CompactWidthMonthViewControllerAccessibility_accessibilityScroll___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) contentOffset];
   v3 = *(*(a1 + 40) + 8);

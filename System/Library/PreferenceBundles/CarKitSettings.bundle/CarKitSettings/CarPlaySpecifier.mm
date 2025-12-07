@@ -97,11 +97,10 @@ LABEL_6:
   v5 = *&selfCopy->PSSpecifier_opaque[OBJC_IVAR____TtC14CarKitSettings16CarPlaySpecifier_buttonTapAction];
   if (v5)
   {
-    v6 = *&selfCopy->getAction[OBJC_IVAR____TtC14CarKitSettings16CarPlaySpecifier_buttonTapAction];
     v5(selfCopy);
   }
 
-  sub_14710(v7);
+  sub_14710(v6);
 }
 
 - (id)specifierEnabled
@@ -109,11 +108,10 @@ LABEL_6:
   v2 = *&self->PSSpecifier_opaque[OBJC_IVAR____TtC14CarKitSettings16CarPlaySpecifier_getAction];
   if (v2)
   {
-    v3 = *&self->getAction[OBJC_IVAR____TtC14CarKitSettings16CarPlaySpecifier_getAction];
     selfCopy = self;
-    v5 = v2();
+    v4 = v2();
 
-    isa = v5;
+    isa = v4;
   }
 
   else
@@ -130,7 +128,6 @@ LABEL_6:
   v3 = *&self->PSSpecifier_opaque[OBJC_IVAR____TtC14CarKitSettings16CarPlaySpecifier_setAction];
   if (v3)
   {
-    v5 = *&self->getAction[OBJC_IVAR____TtC14CarKitSettings16CarPlaySpecifier_setAction];
     enabledCopy = enabled;
     selfCopy = self;
     v3(enabledCopy);

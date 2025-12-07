@@ -4,10 +4,44 @@
 - (BOOL)willMarkRead;
 - (BOOL)willMarkUnread;
 - (BOOL)willUnflag;
+- (_MCSJunk)initWithSpecialDestination:(int64_t)destination markAsRead:(BOOL)read flagsToSet:(id)set flagsToClear:(id)clear;
 - (id)applyPendingChangeToObjects:(id)objects;
 @end
 
 @implementation _MCSJunk
+
+- (_MCSJunk)initWithSpecialDestination:(int64_t)destination markAsRead:(BOOL)read flagsToSet:(id)set flagsToClear:(id)clear
+{
+  readCopy = read;
+  setCopy = set;
+  clearCopy = clear;
+  v22.receiver = self;
+  v22.super_class = _MCSJunk;
+  v12 = [(_MCSJunk *)&v22 init];
+  if (v12)
+  {
+    v13 = objc_alloc_init(NSMutableArray);
+    v14 = [MCSFlagChange alloc];
+    v15 = [NSSet setWithArray:setCopy];
+    v16 = [NSSet setWithArray:clearCopy];
+    v17 = [(MCSFlagChange *)v14 initWithFlagsToSet:v15 flagsToClear:v16 reason:4];
+
+    [(NSArray *)v13 addObject:v17];
+    if (destination != -500)
+    {
+      v18 = [[MCSTransfer alloc] initWithSpecialDestination:destination markAsRead:readCopy deleteIfSame:0];
+      [(MCSTransfer *)v18 setIsDeletion:0];
+      [(NSArray *)v13 addObject:v18];
+    }
+
+    operations = v12->_operations;
+    v12->_operations = v13;
+
+    v20 = v12;
+  }
+
+  return v12;
+}
 
 - (id)applyPendingChangeToObjects:(id)objects
 {

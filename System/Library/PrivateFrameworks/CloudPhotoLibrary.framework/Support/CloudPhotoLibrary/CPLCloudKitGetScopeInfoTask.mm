@@ -36,17 +36,7 @@
 - (void)_checkAccountEPPCapabilityWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  if (!self->_cloudKitScope)
-  {
-    goto LABEL_4;
-  }
-
-  scope = [(CPLCloudKitGetScopeInfoTask *)self scope];
-  scopeIdentifier = [scope scopeIdentifier];
-  mainScopeIdentifier = [(CPLCloudKitTransportTask *)self mainScopeIdentifier];
-  v8 = [scopeIdentifier isEqualToString:mainScopeIdentifier];
-
-  if (v8)
+  if (self->_cloudKitScope && (-[CPLCloudKitGetScopeInfoTask scope](self, "scope"), v5 = objc_claimAutoreleasedReturnValue(), [v5 scopeIdentifier], v6 = objc_claimAutoreleasedReturnValue(), -[CPLCloudKitTransportTask mainScopeIdentifier](self, "mainScopeIdentifier"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v6, "isEqualToString:", v7), v7, v6, v5, v8))
   {
     cloudKitScope = self->_cloudKitScope;
     v10[0] = _NSConcreteStackBlock;
@@ -60,7 +50,6 @@
 
   else
   {
-LABEL_4:
     (*(handlerCopy + 2))(handlerCopy, 0);
   }
 }
@@ -146,12 +135,13 @@ LABEL_4:
   dCopy = d;
   controller = [(CPLCloudKitTransportTask *)self controller];
   v6 = [controller recordsToFetchToIdentifyCloudKitScope:self->_cloudKitScope proposedScopeType:self->_originalScopeType currentUserID:dCopy];
-  if ([v6 count])
+  v7 = [v6 count];
+  if (v7)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v7 = sub_100003C0C();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = sub_100003C0C(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         scopeIdentifier = [(CPLEngineScope *)self->_scope scopeIdentifier];
         cloudKitScope = self->_cloudKitScope;
@@ -161,11 +151,11 @@ LABEL_4:
         v18 = v6;
         v19 = 2112;
         v20 = cloudKitScope;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Trying to determine scope type for %{public}@. Fetching %{public}@ in %@", buf, 0x20u);
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Trying to determine scope type for %{public}@. Fetching %{public}@ in %@", buf, 0x20u);
       }
     }
 
-    v10 = self->_cloudKitScope;
+    v11 = self->_cloudKitScope;
     v12[0] = _NSConcreteStackBlock;
     v12[1] = 3221225472;
     v12[2] = sub_1000B007C;
@@ -173,12 +163,11 @@ LABEL_4:
     v12[4] = self;
     v13 = controller;
     v14 = dCopy;
-    [(CPLCloudKitTransportTask *)self fetchRecordsWithIDs:v6 fetchResources:1 inScope:v10 completionHandler:v12];
+    [(CPLCloudKitTransportTask *)self fetchRecordsWithIDs:v6 fetchResources:1 inScope:v11 completionHandler:v12];
   }
 
   else
   {
-    originalScopeType = self->_originalScopeType;
     (*(self->_completionHandler + 2))();
   }
 }

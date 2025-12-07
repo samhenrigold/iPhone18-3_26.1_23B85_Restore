@@ -80,18 +80,15 @@ void __40__ATXAmbientLightMonitor_sharedInstance__block_invoke()
 
 - (void)start
 {
-  v3 = *MEMORY[0x277CBECE8];
-  v4 = IOHIDEventSystemClientCreateWithType();
-  self->_client = v4;
-  if (v4)
+  v3 = IOHIDEventSystemClientCreateWithType();
+  self->_client = v3;
+  if (v3)
   {
-    queue = self->_queue;
     IOHIDEventSystemClientScheduleWithDispatchQueue();
-    client = self->_client;
     IOHIDEventSystemClientRegisterEventCallback();
-    v7 = self->_client;
+    client = self->_client;
 
-    IOHIDEventSystemClientSetProperty(v7, @"ClientEventFilter", &unk_283A589B8);
+    IOHIDEventSystemClientSetProperty(client, @"ClientEventFilter", &unk_283A589B8);
   }
 }
 
@@ -100,31 +97,28 @@ void __40__ATXAmbientLightMonitor_sharedInstance__block_invoke()
   if (self->_client)
   {
     IOHIDEventSystemClientUnregisterEventCallback();
-    client = self->_client;
-    queue = self->_queue;
     IOHIDEventSystemClientCancel();
-    v5 = self->_client;
     IOHIDEventSystemClientCancel();
     CFRelease(self->_client);
     self->_client = 0;
   }
 
-  v6.receiver = self;
-  v6.super_class = ATXAmbientLightMonitor;
-  [(ATXAmbientLightMonitor *)&v6 dealloc];
+  v3.receiver = self;
+  v3.super_class = ATXAmbientLightMonitor;
+  [(ATXAmbientLightMonitor *)&v3 dealloc];
 }
 
 - (int)getCurrentAmbientLightType
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (self->_client)
   {
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x3032000000;
-    v30 = __Block_byref_object_copy__86;
-    v31 = __Block_byref_object_dispose__86;
-    v32 = objc_opt_new();
+    v26 = 0;
+    v27 = &v26;
+    v28 = 0x3032000000;
+    v29 = __Block_byref_object_copy__86;
+    v30 = __Block_byref_object_dispose__86;
+    v31 = objc_opt_new();
     v3 = dispatch_semaphore_create(0);
     queue = self->_queue;
     block[0] = MEMORY[0x277D85DD0];
@@ -132,9 +126,9 @@ void __40__ATXAmbientLightMonitor_sharedInstance__block_invoke()
     block[2] = __52__ATXAmbientLightMonitor_getCurrentAmbientLightType__block_invoke;
     block[3] = &unk_27859B1C0;
     block[4] = self;
-    v26 = &v27;
+    v25 = &v26;
     v5 = v3;
-    v25 = v5;
+    v24 = v5;
     dispatch_async(queue, block);
     if ([MEMORY[0x277D425A0] waitForSemaphore:v5 timeoutSeconds:1.0])
     {
@@ -143,28 +137,28 @@ void __40__ATXAmbientLightMonitor_sharedInstance__block_invoke()
 
     else
     {
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
-      v7 = v28[5];
-      v8 = [v7 countByEnumeratingWithState:&v20 objects:v33 count:16];
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
+      v7 = v27[5];
+      v8 = [v7 countByEnumeratingWithState:&v19 objects:v32 count:16];
       if (v8)
       {
         v9 = 0;
-        v10 = *v21;
+        v10 = *v20;
         v11 = &unk_283A57128;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v21 != v10)
+            if (*v20 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v13 = *(*(&v20 + 1) + 8 * i);
-            v14 = [v28[5] countForObject:{v13, v20}];
+            v13 = *(*(&v19 + 1) + 8 * i);
+            v14 = [v27[5] countForObject:{v13, v19}];
             v15 = v14;
             if (v14 <= v9)
             {
@@ -186,7 +180,7 @@ void __40__ATXAmbientLightMonitor_sharedInstance__block_invoke()
             v9 = v15;
           }
 
-          v8 = [v7 countByEnumeratingWithState:&v20 objects:v33 count:16];
+          v8 = [v7 countByEnumeratingWithState:&v19 objects:v32 count:16];
         }
 
         while (v8);
@@ -200,43 +194,42 @@ void __40__ATXAmbientLightMonitor_sharedInstance__block_invoke()
       intValue = [v11 intValue];
     }
 
-    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v26, 8);
   }
 
   else
   {
     [(ATXAmbientLightMonitor *)self start];
-    intValue = 7;
+    return 7;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return intValue;
 }
 
 intptr_t __52__ATXAmbientLightMonitor_getCurrentAmbientLightType__block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v24 = 0u;
-  v25 = 0u;
+  v25 = *MEMORY[0x277D85DE8];
   v22 = 0u;
   v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v2 = *(*(a1 + 32) + 32);
-  v3 = [v2 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v23;
+    v5 = *v21;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v23 != v5)
+        if (*v21 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v22 + 1) + 8 * i);
-        v8 = [v7 objectAtIndexedSubscript:{0, v22}];
+        v7 = *(*(&v20 + 1) + 8 * i);
+        v8 = [v7 objectAtIndexedSubscript:{0, v20}];
         [v8 doubleValue];
         v10 = v9;
 
@@ -249,52 +242,47 @@ intptr_t __52__ATXAmbientLightMonitor_getCurrentAmbientLightType__block_invoke(u
         v16 = v15;
 
         v17 = *(*(*(a1 + 48) + 8) + 40);
-        v18 = *(a1 + 32);
-        v19 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(objc_opt_class(), "getAmbientLightTypeForXValue:YValue:ZValue:", v10, v13, v16)}];
-        [v17 addObject:v19];
+        v18 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(objc_opt_class(), "getAmbientLightTypeForXValue:YValue:ZValue:", v10, v13, v16)}];
+        [v17 addObject:v18];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v4);
   }
 
-  result = dispatch_semaphore_signal(*(a1 + 40));
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 40));
 }
 
 - (void)addSampleWithXValue:(id)value YValue:(id)yValue ZValue:(id)zValue
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   yValueCopy = yValue;
   zValueCopy = zValue;
   v11 = objc_autoreleasePoolPush();
   if ([(NSMutableArray *)self->_sampledAmbientLightValues count]> 4)
   {
-    v15[0] = valueCopy;
-    v15[1] = yValueCopy;
-    v15[2] = zValueCopy;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
+    v14[0] = valueCopy;
+    v14[1] = yValueCopy;
+    v14[2] = zValueCopy;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
     [(NSMutableArray *)self->_sampledAmbientLightValues setObject:v13 atIndexedSubscript:self->_sampledAmbientLightValuesCurrentIndex];
   }
 
   else
   {
     sampledAmbientLightValues = self->_sampledAmbientLightValues;
-    v16[0] = valueCopy;
-    v16[1] = yValueCopy;
-    v16[2] = zValueCopy;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
+    v15[0] = valueCopy;
+    v15[1] = yValueCopy;
+    v15[2] = zValueCopy;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
     [(NSMutableArray *)sampledAmbientLightValues addObject:v13];
   }
 
   objc_autoreleasePoolPop(v11);
   self->_sampledAmbientLightValuesCurrentIndex = (self->_sampledAmbientLightValuesCurrentIndex + 1) % 5uLL;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (int)getAmbientLightTypeForXValue:(double)value YValue:(double)yValue ZValue:(double)zValue

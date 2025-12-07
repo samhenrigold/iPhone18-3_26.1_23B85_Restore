@@ -54,14 +54,12 @@
 {
   v3 = sub_1CFC9CF08();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = MEMORY[0x1EEE9AC00](v3);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC10CallsAppUI21RecentsViewController_recentsDataSource);
-  (*(v4 + 104))(v8, *MEMORY[0x1E6995A70], v3, v6);
+  v5 = MEMORY[0x1EEE9AC00](v3);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 104))(v7, *MEMORY[0x1E6995A70], v3, v5);
   selfCopy = self;
   sub_1CFC9C788();
-  (*(v4 + 8))(v8, v3);
+  (*(v4 + 8))(v7, v3);
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -94,14 +92,13 @@
 {
   v4 = sub_1CFC9BDC8();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CFC9BDB8();
   selfCopy = self;
   sub_1CFC5D538();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
@@ -119,20 +116,19 @@
 - (void)enableCallFiltering
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC4ED950, &qword_1CFCA2710);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v12 - v5;
-  v7 = sub_1CFC9F998();
-  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
+  v5 = &v11 - v4;
+  v6 = sub_1CFC9F998();
+  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
   sub_1CFC9F968();
   selfCopy = self;
-  v9 = sub_1CFC9F958();
-  v10 = swift_allocObject();
-  v11 = MEMORY[0x1E69E85E0];
-  v10[2] = v9;
-  v10[3] = v11;
-  v10[4] = selfCopy;
-  sub_1CFBDC030(0, 0, v6, &unk_1CFCA7BB8, v10);
+  v8 = sub_1CFC9F958();
+  v9 = swift_allocObject();
+  v10 = MEMORY[0x1E69E85E0];
+  v9[2] = v8;
+  v9[3] = v10;
+  v9[4] = selfCopy;
+  sub_1CFBDC030(0, 0, v5, &unk_1CFCA7BB8, v9);
 }
 
 - (void)dismissCallFilteringOnboarding

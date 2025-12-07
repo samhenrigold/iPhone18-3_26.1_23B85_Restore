@@ -73,7 +73,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_243DA0B20(v7);
+  sub_243DA0B20(v7, v8);
 }
 
 - (BOOL)shouldCallRenderStatsHandlerOnMainQueue
@@ -107,32 +107,29 @@
 - (void)dealloc
 {
   v3 = *(self + OBJC_IVAR____TtC19ComplicationDisplay20_ComplicationHosting_hostingViewController);
-  v4 = *(self + OBJC_IVAR____TtC19ComplicationDisplay20_ComplicationHosting_hostingViewController + 8);
   swift_getObjectType();
   selfCopy = self;
-  v6 = v3;
+  v5 = v3;
   sub_243DAE080();
   sub_243DADB30();
 
-  v7.receiver = selfCopy;
-  v7.super_class = type metadata accessor for _ComplicationHosting();
-  [(_ComplicationHosting *)&v7 dealloc];
+  v6.receiver = selfCopy;
+  v6.super_class = type metadata accessor for _ComplicationHosting();
+  [(_ComplicationHosting *)&v6 dealloc];
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  v4 = *(self + OBJC_IVAR____TtC19ComplicationDisplay20_ComplicationHosting_hostingViewController);
-  v5 = *(self + OBJC_IVAR____TtC19ComplicationDisplay20_ComplicationHosting_hostingViewController + 8);
   swift_getObjectType();
   selfCopy = self;
   sub_243DADAF0();
+  v6 = v5;
   v8 = v7;
-  v10 = v9;
 
-  v11 = v8;
-  v12 = v10;
-  result.height = v12;
-  result.width = v11;
+  v9 = v6;
+  v10 = v8;
+  result.height = v10;
+  result.width = v9;
   return result;
 }
 
@@ -210,7 +207,7 @@
 - (void)transitionToMonochromeWithFraction:(double)fraction
 {
   selfCopy = self;
-  _ComplicationHosting.transitionToMonochrome(withFraction:)();
+  _ComplicationHosting.transitionToMonochrome(withFraction:)(fraction);
 }
 
 @end

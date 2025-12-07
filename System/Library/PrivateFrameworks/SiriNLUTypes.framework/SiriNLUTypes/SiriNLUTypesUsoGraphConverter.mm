@@ -17,41 +17,39 @@
 
 + (id)convertUsoNodes:(id)nodes
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   nodesCopy = nodes;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (nodesCopy)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = nodesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = [self convertUsoNode:{*(*(&v13 + 1) + 8 * i), v13}];
+          v10 = [self convertUsoNode:{*(*(&v12 + 1) + 8 * i), v12}];
           [v5 addObject:v10];
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -106,41 +104,39 @@
 
 + (id)convertUsoEntityIdentifiers:(id)identifiers
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (identifiersCopy)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = identifiersCopy;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = [self convertUsoEntityIdentifier:{*(*(&v13 + 1) + 8 * i), v13}];
+          v10 = [self convertUsoEntityIdentifier:{*(*(&v12 + 1) + 8 * i), v12}];
           [v5 addObject:v10];
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -213,41 +209,39 @@
 
 + (id)convertUsoEdges:(id)edges
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   edgesCopy = edges;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (edgesCopy)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = edgesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = [self convertUsoEdge:{*(*(&v13 + 1) + 8 * i), v13}];
+          v10 = [self convertUsoEdge:{*(*(&v12 + 1) + 8 * i), v12}];
           [v5 addObject:v10];
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -281,41 +275,39 @@
 
 + (id)convertUtteranceSpans:(id)spans
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   spansCopy = spans;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (spansCopy)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = spansCopy;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = [self convertUtteranceSpan:{*(*(&v13 + 1) + 8 * i), v13}];
+          v10 = [self convertUtteranceSpan:{*(*(&v12 + 1) + 8 * i), v12}];
           [v5 addObject:v10];
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -338,41 +330,39 @@
 
 + (id)convertUtteranceAlignments:(id)alignments
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   alignmentsCopy = alignments;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (alignmentsCopy)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = alignmentsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = [self convertUtteranceAlignment:{*(*(&v13 + 1) + 8 * i), v13}];
+          v10 = [self convertUtteranceAlignment:{*(*(&v12 + 1) + 8 * i), v12}];
           [v5 addObject:v10];
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -400,48 +390,46 @@
 
 + (id)convertUsoGraphs:(id)graphs
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   graphsCopy = graphs;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (graphsCopy)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = graphsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = [self convertUsoGraph:{*(*(&v13 + 1) + 8 * i), v13}];
+          v10 = [self convertUsoGraph:{*(*(&v12 + 1) + 8 * i), v12}];
           [v5 addObject:v10];
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 + (id)convertUsoGraph:(id)graph
 {
-  v47[20] = *MEMORY[0x1E69E9840];
+  v46[20] = *MEMORY[0x1E69E9840];
   graphCopy = graph;
   if (graphCopy)
   {
@@ -454,17 +442,28 @@
     v11 = [self convertUsoEntityIdentifiers:identifiers];
     alignments = [graphCopy alignments];
     v13 = [self convertUtteranceAlignments:alignments];
-    v33 = [v5 initWithNodes:v7 edges:v9 identifiers:v11 alignments:v13];
+    v32 = [v5 initWithNodes:v7 edges:v9 identifiers:v11 alignments:v13];
 
     SharedUsoVocabManager = siri::ontology::getSharedUsoVocabManager(v14);
     v16 = *SharedUsoVocabManager;
     v17 = SharedUsoVocabManager[1];
-    v18 = v33;
+    v18 = v32;
     if (v17)
     {
       atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
-      v37 = v17;
+      v36 = v17;
       atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    else
+    {
+      v36 = 0;
+    }
+
+    v35 = v16;
+    if (v32)
+    {
+      objc_msgSend_toCppUsoGraph_withError_(v32);
     }
 
     else
@@ -472,27 +471,16 @@
       v37 = 0;
     }
 
-    v36 = v16;
-    if (v33)
+    if (v36)
     {
-      [v33 toCppUsoGraph:&v36 withError:0];
-    }
-
-    else
-    {
-      v38 = 0;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v36);
     }
 
     if (v37)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v37);
-    }
-
-    if (v38)
-    {
-      v47[6] = 0;
+      v46[6] = 0;
       v19 = MEMORY[0x1E69E5570] + 64;
-      v47[0] = MEMORY[0x1E69E5570] + 64;
+      v46[0] = MEMORY[0x1E69E5570] + 64;
       v20 = MEMORY[0x1E69E54E8];
       v21 = *(MEMORY[0x1E69E54E8] + 16);
       *&buf = *(MEMORY[0x1E69E54E8] + 8);
@@ -503,32 +491,32 @@
       v22[1].__vftable = 0;
       v22[1].__fmtflags_ = -1;
       *&buf = v23;
-      v47[0] = v19;
+      v46[0] = v19;
       v24 = MEMORY[0x1E69E5538] + 16;
       *(&buf + 1) = MEMORY[0x1E69E5538] + 16;
-      MEMORY[0x1CCA7EBA0](&v40);
-      v43 = 0u;
+      MEMORY[0x1CCA7EBA0](&v39);
       v42 = 0u;
       v41 = 0u;
+      v40 = 0u;
       v25 = MEMORY[0x1E69E5548] + 16;
       *(&buf + 1) = MEMORY[0x1E69E5548] + 16;
-      memset(&v44, 0, sizeof(v44));
-      v45 = &v44;
-      v46 = 16;
-      std::string::resize(&v44, 0x16uLL, 0);
-      size = HIBYTE(v44.__r_.__value_.__r.__words[2]);
-      if ((v44.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      memset(&v43, 0, sizeof(v43));
+      v44 = &v43;
+      v45 = 16;
+      std::string::resize(&v43, 0x16uLL, 0);
+      size = HIBYTE(v43.__r_.__value_.__r.__words[2]);
+      if ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        size = v44.__r_.__value_.__l.__size_;
+        size = v43.__r_.__value_.__l.__size_;
       }
 
-      *(&v42 + 1) = &v44;
-      *&v43 = &v44;
-      *(&v43 + 1) = &v44 + size;
+      *(&v41 + 1) = &v43;
+      *&v42 = &v43;
+      *(&v42 + 1) = &v43 + size;
       siri::ontology::UsoGraph::prettyPrint();
       v27 = MEMORY[0x1E696AEC0];
       std::stringbuf::str();
-      if (v35 >= 0)
+      if (v34 >= 0)
       {
         p_p = &__p;
       }
@@ -539,10 +527,10 @@
       }
 
       v29 = [v27 stringWithUTF8String:p_p];
-      v18 = v33;
-      [v33 setPrintedForm:v29];
+      v18 = v32;
+      [v32 setPrintedForm:v29];
 
-      if (v35 < 0)
+      if (v34 < 0)
       {
         operator delete(__p);
       }
@@ -550,15 +538,15 @@
       *&buf = *v20;
       *(&buf + *(buf - 24)) = v20[3];
       *(&buf + 1) = v25;
-      if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v44.__r_.__value_.__l.__data_);
+        operator delete(v43.__r_.__value_.__l.__data_);
       }
 
       *(&buf + 1) = v24;
-      std::locale::~locale(&v40);
+      std::locale::~locale(&v39);
       std::ostream::~ostream();
-      MEMORY[0x1CCA7EBD0](v47);
+      MEMORY[0x1CCA7EBD0](v46);
     }
 
     else
@@ -572,7 +560,7 @@
       }
     }
 
-    std::unique_ptr<siri::ontology::UsoGraph>::~unique_ptr[abi:ne200100](&v38);
+    std::unique_ptr<siri::ontology::UsoGraph>::~unique_ptr[abi:ne200100](&v37);
     if (v17)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v17);
@@ -583,8 +571,6 @@
   {
     v18 = 0;
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return v18;
 }

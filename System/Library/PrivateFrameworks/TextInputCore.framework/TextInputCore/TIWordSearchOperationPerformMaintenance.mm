@@ -7,7 +7,7 @@
 
 - (void)perform
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   mecabraWrapper = [(TIWordSearchOperationPerformMaintenance *)self mecabraWrapper];
 
   if (mecabraWrapper)
@@ -21,9 +21,9 @@
     v5 = TIOSLogFacility();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Starting MecabraPerformMaintenance", "-[TIWordSearchOperationPerformMaintenance perform]"];
+      v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Starting MecabraPerformMaintenance", "-[TIWordSearchOperationPerformMaintenance perform]"];
       *buf = 138412290;
-      v12 = v9;
+      v11 = v8;
       _os_log_debug_impl(&dword_22CA55000, v5, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
 
@@ -39,14 +39,12 @@
     v7 = TIOSLogFacility();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Finished MecabraPerformMaintenance", "-[TIWordSearchOperationPerformMaintenance perform]"];
+      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Finished MecabraPerformMaintenance", "-[TIWordSearchOperationPerformMaintenance perform]"];
       *buf = 138412290;
-      v12 = v10;
+      v11 = v9;
       _os_log_debug_impl(&dword_22CA55000, v7, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (TIWordSearchOperationPerformMaintenance)initWithMecabraWrapper:(id)wrapper

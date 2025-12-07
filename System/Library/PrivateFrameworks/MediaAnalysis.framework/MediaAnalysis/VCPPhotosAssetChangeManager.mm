@@ -1525,7 +1525,7 @@ LABEL_158:
         v105 = v104;
         if (v104)
         {
-          [v104 vcp_timerange];
+          objc_msgSend_vcp_timerange(v104);
         }
 
         else
@@ -1553,25 +1553,25 @@ LABEL_158:
           goto LABEL_155;
         }
 
-        [(VCPImageChangeEntry *)v21 summaryTimeRange];
+        objc_msgSend_summaryTimeRange(v21);
         if ((buf[12] & 1) == 0)
         {
           goto LABEL_155;
         }
 
-        [(VCPImageChangeEntry *)v21 summaryTimeRange];
+        objc_msgSend_summaryTimeRange(v21);
         if ((v179 & 1) == 0)
         {
           goto LABEL_155;
         }
 
-        [(VCPImageChangeEntry *)v21 summaryTimeRange];
+        objc_msgSend_summaryTimeRange(v21);
         if (v178)
         {
           goto LABEL_155;
         }
 
-        [(VCPImageChangeEntry *)v21 summaryTimeRange];
+        objc_msgSend_summaryTimeRange(v21);
         if (v177 < 0)
         {
           goto LABEL_155;
@@ -1619,7 +1619,7 @@ LABEL_158:
         v114 = v113;
         if (v113)
         {
-          [v113 vcp_timerange];
+          objc_msgSend_vcp_timerange(v113);
         }
 
         else
@@ -1639,7 +1639,7 @@ LABEL_158:
         *&v157 = v157;
         [(VCPImageChangeEntry *)v21 setAnimatedStickerScore:v157];
 
-        if (!v21 || ([(VCPImageChangeEntry *)v21 animatedStickerTimeRange], (buf[12] & 1) == 0) || ([(VCPImageChangeEntry *)v21 animatedStickerTimeRange], (v179 & 1) == 0) || ([(VCPImageChangeEntry *)v21 animatedStickerTimeRange], v178) || ([(VCPImageChangeEntry *)v21 animatedStickerTimeRange], v177 < 0))
+        if (!v21 || (objc_msgSend_animatedStickerTimeRange(v21), (buf[12] & 1) == 0) || (objc_msgSend_animatedStickerTimeRange(v21), (v179 & 1) == 0) || (objc_msgSend_animatedStickerTimeRange(v21), v178) || (objc_msgSend_animatedStickerTimeRange(v21), v177 < 0))
         {
 
           goto LABEL_155;
@@ -2274,7 +2274,7 @@ LABEL_34:
       v66 = v65;
       if (v65)
       {
-        [v65 vcp_timerange];
+        objc_msgSend_vcp_timerange(v65);
       }
 
       else
@@ -2291,16 +2291,16 @@ LABEL_34:
 
       if (v371)
       {
-        [(VCPMovieChangeEntry *)v371 summaryTimeRange];
+        objc_msgSend_summaryTimeRange(v371);
         if (buf[12])
         {
-          [(VCPMovieChangeEntry *)v371 summaryTimeRange];
+          objc_msgSend_summaryTimeRange(v371);
           if (v422)
           {
-            [(VCPMovieChangeEntry *)v371 summaryTimeRange];
+            objc_msgSend_summaryTimeRange(v371);
             if (!v421)
             {
-              [(VCPMovieChangeEntry *)v371 summaryTimeRange];
+              objc_msgSend_summaryTimeRange(v371);
               if ((v420 & 0x8000000000000000) == 0)
               {
                 v181 = [v64 objectForKey:MediaAnalysisResultBestPlaybackCropAttributeKey];
@@ -2332,7 +2332,7 @@ LABEL_191:
                 *buf = v419;
                 [(VCPMovieChangeEntry *)v371 setKeyFrameTime:buf];
 
-                [(VCPMovieChangeEntry *)v371 keyFrameTime];
+                objc_msgSend_keyFrameTime(v371);
                 if ((buf[12] & 1) == 0)
                 {
                   if (MediaAnalysisLogLevel() >= 3)
@@ -3656,7 +3656,7 @@ LABEL_83:
         v14 = v13;
         if (v13)
         {
-          [v13 vcp_timerange];
+          objc_msgSend_vcp_timerange(v13);
         }
 
         else
@@ -3683,16 +3683,16 @@ LABEL_83:
 
         if (v8)
         {
-          [(VCPLegacyChangeEntry *)v8 summaryTimeRange];
+          objc_msgSend_summaryTimeRange(v8);
           if (buf[12])
           {
-            [(VCPLegacyChangeEntry *)v8 summaryTimeRange];
+            objc_msgSend_summaryTimeRange(v8);
             if (v32)
             {
-              [(VCPLegacyChangeEntry *)v8 summaryTimeRange];
+              objc_msgSend_summaryTimeRange(v8);
               if (!v31)
               {
-                [(VCPLegacyChangeEntry *)v8 summaryTimeRange];
+                objc_msgSend_summaryTimeRange(v8);
                 if ((v30 & 0x8000000000000000) == 0)
                 {
 

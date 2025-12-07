@@ -1,7 +1,8 @@
-void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 uint64_t sendBundlesToFDRStorage(void *a1, void *a2)
@@ -21,87 +22,82 @@ uint64_t sendBundlesToFDRStorage(void *a1, void *a2)
 void sendBundlesToFDRStorage(osLogHandle:fdrBundles:)(void *a1, uint64_t a2, unint64_t a3)
 {
   v6 = type metadata accessor for EXFDRDecodeClient();
-  v57 = *(v6 - 8);
-  v58 = v6;
-  v7 = *(v57 + 64);
+  v51 = *(v6 - 8);
+  v52 = v6;
   __chkstk_darwin();
-  v56 = &v54 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for EXFDRDecodeTransferRawDataCtx();
-  v59 = *(v9 - 8);
-  v60 = v9;
-  v10 = *(v59 + 64);
+  v50 = &v48 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for EXFDRDecodeTransferRawDataCtx();
+  v53 = *(v8 - 8);
+  v54 = v8;
   __chkstk_darwin();
-  v12 = &v54 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = type metadata accessor for Logger();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
+  v10 = &v48 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = type metadata accessor for Logger();
+  v12 = *(v11 - 8);
   __chkstk_darwin();
-  v17 = &v54 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = a1;
+  v14 = &v48 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = a1;
   Logger.init(_:)();
-  v19 = Logger.logObject.getter();
-  v20 = static os_log_type_t.default.getter();
-  v21 = os_log_type_enabled(v19, v20);
-  v61 = v12;
-  if (v21)
+  v16 = Logger.logObject.getter();
+  v17 = static os_log_type_t.default.getter();
+  v18 = os_log_type_enabled(v16, v17);
+  v55 = v10;
+  if (v18)
   {
-    v22 = swift_slowAlloc();
-    v23 = swift_slowAlloc();
-    v55 = a3;
-    v24 = v14;
-    v25 = v13;
-    v26 = v23;
-    v62[0] = v23;
-    *v22 = 136315138;
-    v27 = specialized static Tag.fn(name:)(0xD000000000000030, 0x8000000000004540);
-    v29 = v17;
-    v30 = a2;
-    v31 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v27, v28, v62);
+    v19 = swift_slowAlloc();
+    v20 = swift_slowAlloc();
+    v49 = a3;
+    v21 = v12;
+    v22 = v11;
+    v23 = v20;
+    v56[0] = v20;
+    *v19 = 136315138;
+    v24 = specialized static Tag.fn(name:)(0xD000000000000030, 0x8000000000004540);
+    v26 = v14;
+    v27 = a2;
+    v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v24, v25, v56);
 
-    *(v22 + 4) = v31;
-    a2 = v30;
-    v17 = v29;
-    _os_log_impl(&dword_0, v19, v20, "%s Establishing a connection with FDR storage", v22, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v26);
-    v13 = v25;
-    v14 = v24;
-    a3 = v55;
+    *(v19 + 4) = v28;
+    a2 = v27;
+    v14 = v26;
+    _os_log_impl(&dword_0, v16, v17, "%s Establishing a connection with FDR storage", v19, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v23);
+    v11 = v22;
+    v12 = v21;
+    a3 = v49;
   }
 
-  v32 = type metadata accessor for ExclaveFDRDecodeRawDataStoreKitClient();
-  v33 = *(v32 + 48);
-  v34 = *(v32 + 52);
+  type metadata accessor for ExclaveFDRDecodeRawDataStoreKitClient();
   swift_allocObject();
   ExclaveFDRDecodeRawDataStoreKitClient.init(conclaveID:)();
   outlined copy of Data._Representation(a2, a3);
-  v35 = _sSaySayxGqd__c7ElementQyd__RszSTRd__lufCs5UInt8V_10Foundation4DataVTt0g5(a2, a3);
+  v29 = _sSaySayxGqd__c7ElementQyd__RszSTRd__lufCs5UInt8V_10Foundation4DataVTt0g5(a2, a3);
   swift_bridgeObjectRetain_n();
-  v36 = Logger.logObject.getter();
-  v37 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v36, v37))
+  v30 = Logger.logObject.getter();
+  v31 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v30, v31))
   {
-    v38 = swift_slowAlloc();
-    v54 = v14;
-    v39 = v38;
-    v40 = swift_slowAlloc();
-    v55 = v13;
-    v41 = v40;
-    v62[0] = v40;
-    *v39 = 136315394;
-    v42 = specialized static Tag.fn(name:)(0xD000000000000030, 0x8000000000004540);
-    v44 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v42, v43, v62);
+    v32 = swift_slowAlloc();
+    v48 = v12;
+    v33 = v32;
+    v34 = swift_slowAlloc();
+    v49 = v11;
+    v35 = v34;
+    v56[0] = v34;
+    *v33 = 136315394;
+    v36 = specialized static Tag.fn(name:)(0xD000000000000030, 0x8000000000004540);
+    v38 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v36, v37, v56);
 
-    *(v39 + 4) = v44;
-    *(v39 + 12) = 2048;
-    v45 = v35[2];
+    *(v33 + 4) = v38;
+    *(v33 + 12) = 2048;
+    v39 = v29[2];
 
-    *(v39 + 14) = v45;
+    *(v33 + 14) = v39;
 
-    _os_log_impl(&dword_0, v36, v37, "%s Sending FDR bundles (size=%ld)", v39, 0x16u);
-    __swift_destroy_boxed_opaque_existential_0(v41);
-    v13 = v55;
+    _os_log_impl(&dword_0, v30, v31, "%s Sending FDR bundles (size=%ld)", v33, 0x16u);
+    __swift_destroy_boxed_opaque_existential_0(v35);
+    v11 = v49;
 
-    v14 = v54;
+    v12 = v48;
   }
 
   else
@@ -110,52 +106,52 @@ void sendBundlesToFDRStorage(osLogHandle:fdrBundles:)(void *a1, uint64_t a2, uni
     swift_bridgeObjectRelease_n();
   }
 
-  v46 = v61;
-  if (HIDWORD(v35[2]))
+  v40 = v55;
+  if (HIDWORD(v29[2]))
   {
     __break(1u);
   }
 
   else
   {
-    (*(v57 + 104))(v56, enum case for EXFDRDecodeClient.kExclaveFDRDecodeClientEXBright(_:), v58);
+    (*(v51 + 104))(v50, enum case for EXFDRDecodeClient.kExclaveFDRDecodeClientEXBright(_:), v52);
     EXFDRDecodeTransferRawDataCtx.init(data:dataLength:clientExclave:)();
     dispatch thunk of ExclaveFDRDecodeRawDataStoreKitClient.transferRawData(ctx:)();
-    v47 = Logger.logObject.getter();
-    v48 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v47, v48))
+    v41 = Logger.logObject.getter();
+    v42 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v41, v42))
     {
-      v49 = swift_slowAlloc();
-      v50 = swift_slowAlloc();
-      v62[0] = v50;
-      *v49 = 136315138;
-      v51 = specialized static Tag.fn(name:)(0xD000000000000030, 0x8000000000004540);
-      v53 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v52, v62);
+      v43 = swift_slowAlloc();
+      v44 = swift_slowAlloc();
+      v56[0] = v44;
+      *v43 = 136315138;
+      v45 = specialized static Tag.fn(name:)(0xD000000000000030, 0x8000000000004540);
+      v47 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v45, v46, v56);
 
-      *(v49 + 4) = v53;
-      _os_log_impl(&dword_0, v47, v48, "%s Successfully uploaded bundles to FDR storage!", v49, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v50);
+      *(v43 + 4) = v47;
+      _os_log_impl(&dword_0, v41, v42, "%s Successfully uploaded bundles to FDR storage!", v43, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v44);
 
-      (*(v59 + 8))(v61, v60);
+      (*(v53 + 8))(v55, v54);
     }
 
     else
     {
 
-      (*(v59 + 8))(v46, v60);
+      (*(v53 + 8))(v40, v54);
     }
 
-    (*(v14 + 8))(v17, v13);
+    (*(v12 + 8))(v14, v11);
   }
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -164,25 +160,24 @@ void *_sSaySayxGqd__c7ElementQyd__RszSTRd__lufCs5UInt8V_10Foundation4DataVTt0g5(
 {
   v4 = type metadata accessor for Data.Iterator();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   result = __chkstk_darwin();
-  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = a2 >> 62;
+  v8 = &v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = a2 >> 62;
   if ((a2 >> 62) > 1)
   {
-    if (v10 != 2)
+    if (v9 != 2)
     {
 LABEL_12:
       outlined consume of Data._Representation(a1, a2);
       return &_swiftEmptyArrayStorage;
     }
 
-    v13 = *(a1 + 16);
-    v12 = *(a1 + 24);
-    v11 = v12 - v13;
-    if (!__OFSUB__(v12, v13))
+    v12 = *(a1 + 16);
+    v11 = *(a1 + 24);
+    v10 = v11 - v12;
+    if (!__OFSUB__(v11, v12))
     {
-      if (v11)
+      if (v10)
       {
         goto LABEL_8;
       }
@@ -197,12 +192,12 @@ LABEL_15:
 
   else
   {
-    if (v10)
+    if (v9)
     {
       goto LABEL_10;
     }
 
-    v11 = BYTE6(a2);
+    v10 = BYTE6(a2);
     if (!BYTE6(a2))
     {
       goto LABEL_12;
@@ -211,28 +206,28 @@ LABEL_15:
 LABEL_8:
     while (1)
     {
-      v14 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(v11, 0);
-      v15 = Data._copyContents(initializing:)();
+      v13 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(v10, 0);
+      v14 = Data._copyContents(initializing:)();
       outlined consume of Data._Representation(a1, a2);
-      v16 = *(v5 + 8);
+      v15 = *(v5 + 8);
       v5 += 8;
-      v16(v9, v4);
-      result = v14;
-      if (v15 == v11)
+      v15(v8, v4);
+      result = v13;
+      if (v14 == v10)
       {
         break;
       }
 
       __break(1u);
 LABEL_10:
-      v17 = HIDWORD(a1) - a1;
+      v16 = HIDWORD(a1) - a1;
       if (__OFSUB__(HIDWORD(a1), a1))
       {
         goto LABEL_15;
       }
 
-      v11 = v17;
-      if (!v17)
+      v10 = v16;
+      if (!v16)
       {
         goto LABEL_12;
       }
@@ -579,7 +574,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
   return v10;
 }
 
-uint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = specialized _StringGuts._deconstructUTF8<A>(scratch:)(v11, 0, 0, 1, a1, a2);
@@ -679,11 +674,9 @@ LABEL_8:
 
 char *_StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
 {
-  v4 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
+  v3 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
   specialized Array.append<A>(contentsOf:)(&outlined read-only object #0 of _StringGuts._allocateForDeconstruct());
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
@@ -783,7 +776,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -797,15 +789,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v12, 1, v3);
+  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -820,15 +812,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -837,12 +829,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -889,7 +881,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -897,45 +888,40 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   return result;
 }
 
-uint64_t outlined copy of Data._Representation(uint64_t a1, unint64_t a2)
+void outlined copy of Data._Representation(uint64_t a1, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return;
     }
   }
 }
 
 uint64_t specialized static Tag.fn(name:)(uint64_t a1, unint64_t a2)
 {
-  v17 = 40;
-  v18 = 0xE100000000000000;
-  v16[2] = &v17;
+  v12 = 40;
+  v13 = 0xE100000000000000;
+  v11[2] = &v12;
 
-  v5 = specialized Collection.split(maxSplits:omittingEmptySubsequences:whereSeparator:)(0x7FFFFFFFFFFFFFFFLL, 1, partial apply for specialized closure #1 in Collection<>.split(separator:maxSplits:omittingEmptySubsequences:), v16, a1, a2, v4);
-  if (v5[2])
+  if (*(specialized Collection.split(maxSplits:omittingEmptySubsequences:whereSeparator:)(0x7FFFFFFFFFFFFFFFLL, 1, partial apply for specialized closure #1 in Collection<>.split(separator:maxSplits:omittingEmptySubsequences:), v11, a1, a2, v4) + 2))
   {
-    v6 = v5[4];
-    v7 = v5[5];
-    v8 = v5[6];
-    v9 = v5[7];
 
-    v10 = static String._fromSubstring(_:)();
-    v12 = v11;
+    v5 = static String._fromSubstring(_:)();
+    v7 = v6;
 
-    v17 = 91;
-    v18 = 0xE100000000000000;
-    v13._countAndFlagsBits = v10;
-    v13._object = v12;
-    String.append(_:)(v13);
+    v12 = 91;
+    v13 = 0xE100000000000000;
+    v8._countAndFlagsBits = v5;
+    v8._object = v7;
+    String.append(_:)(v8);
 
-    v14._countAndFlagsBits = 93;
-    v14._object = 0xE100000000000000;
-    String.append(_:)(v14);
+    v9._countAndFlagsBits = 93;
+    v9._object = 0xE100000000000000;
+    String.append(_:)(v9);
 
-    return v17;
+    return v12;
   }
 
   else
@@ -947,15 +933,17 @@ uint64_t specialized static Tag.fn(name:)(uint64_t a1, unint64_t a2)
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t outlined init with copy of Any(uint64_t a1, uint64_t a2)

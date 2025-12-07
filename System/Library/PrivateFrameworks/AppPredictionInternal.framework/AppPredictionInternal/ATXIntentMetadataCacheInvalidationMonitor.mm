@@ -64,17 +64,18 @@ void __82__ATXIntentMetadataCacheInvalidationMonitor__listenForAppRegistrationAn
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = __atxlog_handle_default();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_default(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "ATXIntentMetadataCacheInvalidationMonitor received ATXInternalAppRegistrationNotification", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "ATXIntentMetadataCacheInvalidationMonitor received ATXInternalAppRegistrationNotification", v8, 2u);
     }
 
-    v6 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v3];
-    [WeakRetained _notifyDelegateApplicationsDidUpdate:v6];
+    v7 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v3];
+    [v5 _notifyDelegateApplicationsDidUpdate:v7];
   }
 }
 
@@ -82,16 +83,17 @@ void __82__ATXIntentMetadataCacheInvalidationMonitor__listenForAppRegistrationAn
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = __atxlog_handle_default();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_default(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "ATXIntentMetadataCacheInvalidationMonitor received _ATXInternalUninstallNotification", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "ATXIntentMetadataCacheInvalidationMonitor received _ATXInternalUninstallNotification", v7, 2u);
     }
 
-    [WeakRetained _notifyDelegateApplicationsDidUninstall:v3];
+    [v5 _notifyDelegateApplicationsDidUninstall:v3];
   }
 }
 
@@ -99,13 +101,14 @@ void __82__ATXIntentMetadataCacheInvalidationMonitor__listenForAppRegistrationAn
 {
   v3 = [(NSUserDefaults *)self->_userDefaults stringForKey:@"ATXIntentCache.OSVersion"];
   _getCurrentBuild = [(ATXIntentMetadataCacheInvalidationMonitor *)self _getCurrentBuild];
-  if (([v3 isEqualToString:_getCurrentBuild] & 1) == 0)
+  v5 = [v3 isEqualToString:_getCurrentBuild];
+  if ((v5 & 1) == 0)
   {
-    v5 = __atxlog_handle_default();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "ATXIntentMetadataCacheInvalidationMonitor determined that OS updated", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "ATXIntentMetadataCacheInvalidationMonitor determined that OS updated", v7, 2u);
     }
 
     [(ATXIntentMetadataCacheInvalidationMonitor *)self _notifyDelegateSystemDidUpdate];

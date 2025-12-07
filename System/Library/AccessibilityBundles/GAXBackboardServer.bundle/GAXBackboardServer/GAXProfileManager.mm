@@ -47,6 +47,7 @@
 - (id)_appIDForConfiguration:(unsigned int)configuration;
 - (id)_appPropertyMapForConfiguration:(unsigned int)configuration;
 - (id)_fallbackValueForProfileKey:(id)key;
+- (id)_fallbackValueForProfileKey:(id)key configuration:(unsigned int)configuration;
 - (id)_fallbackValueForRetrieveSelector:(SEL)selector;
 - (id)_globalPropertyMapForConfiguration:(unsigned int)configuration;
 - (id)_guidedAccessProfileKeyForManagedConfigKey:(id)key shouldInvertValue:(BOOL *)value;
@@ -998,6 +999,34 @@ LABEL_11:
   _Block_object_dispose(&v20, 8);
 
   return v15;
+}
+
+- (id)_fallbackValueForProfileKey:(id)key configuration:(unsigned int)configuration
+{
+  v4 = *&configuration;
+  keyCopy = key;
+  if (v4 == 3 && (+[GAXSettings sharedInstance](GAXSettings, "sharedInstance"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 selfLockUnmanaged], v7, v8))
+  {
+    unmanagedSelfLockPropertiesMap = [(GAXProfileManager *)self unmanagedSelfLockPropertiesMap];
+    v10 = [unmanagedSelfLockPropertiesMap objectForKeyedSubscript:keyCopy];
+
+    if (v10)
+    {
+      goto LABEL_7;
+    }
+
+    v11 = 1;
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  v10 = GAXFallbackValueForProfileKey(keyCopy, v4, v11);
+LABEL_7:
+
+  return v10;
 }
 
 - (id)_fallbackValueForProfileKey:(id)key

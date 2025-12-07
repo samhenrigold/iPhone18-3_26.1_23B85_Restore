@@ -158,7 +158,7 @@
 
 - (void)startUpdatesPrivateToQueue:(id)queue withHandler:(id)handler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   sub_19B420D84();
   sub_19B44B9A0();
   internal = self->_internal;
@@ -185,26 +185,28 @@
         dispatch_once(&qword_1EAFE2968, &unk_1F0E27B40);
       }
 
-      v12 = _os_log_send_and_compose_impl();
+      v27[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE2970, 0, "Starting flick gesture updates.", v27, 2);
+      v13 = v12;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMFlickGestureManager startUpdatesPrivateToQueue:withHandler:]", "CoreLocation: %s\n", v12);
-      if (v12 != buf)
+      if (v13 != buf)
       {
-        free(v12);
+        free(v13);
       }
     }
 
-    v13 = internal[2];
-    if (v13 != queue)
+    v14 = internal[2];
+    if (v14 != queue)
     {
 
       internal[2] = queue;
     }
 
-    v14 = internal[1];
-    if (v14 != handler)
+    v15 = internal[1];
+    if (v15 != handler)
     {
 
-      internal[1] = objc_msgSend_copy(handler, v15, v16);
+      internal[1] = objc_msgSend_copy(handler, v16, v17);
     }
 
     if (!internal[8] && (sub_19B421620() & 0x2000000000000000) != 0)
@@ -219,15 +221,15 @@
         dispatch_once(&qword_1EAFE2968, &unk_1F0E27B40);
       }
 
-      v17 = off_1EAFE2970;
+      v18 = off_1EAFE2970;
       if (os_log_type_enabled(off_1EAFE2970, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19B41C000, v17, OS_LOG_TYPE_INFO, "Registering for notifications.", buf, 2u);
+        _os_log_impl(&dword_19B41C000, v18, OS_LOG_TYPE_INFO, "Registering for notifications.", buf, 2u);
       }
 
-      v18 = sub_19B420058();
-      if (*(v18 + 160) > 1 || *(v18 + 164) > 1 || *(v18 + 168) > 1 || *(v18 + 152))
+      v19 = sub_19B420058();
+      if (*(v19 + 160) > 1 || *(v19 + 164) > 1 || *(v19 + 168) > 1 || *(v19 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE2968 != -1)
@@ -235,26 +237,27 @@
           dispatch_once(&qword_1EAFE2968, &unk_1F0E27B40);
         }
 
-        v21 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMFlickGestureManager startUpdatesPrivateToQueue:withHandler:]", "CoreLocation: %s\n", v21);
-        if (v21 != buf)
+        v27[0] = 0;
+        LODWORD(v26) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE2970, 1, "Registering for notifications.", v27, v26);
+        v23 = v22;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMFlickGestureManager startUpdatesPrivateToQueue:withHandler:]", "CoreLocation: %s\n", v22);
+        if (v23 != buf)
         {
-          free(v21);
+          free(v23);
         }
       }
 
       *(internal + 72) = 1;
-      v22 = objc_msgSend_defaultCenter(MEMORY[0x1E696ABB0], v19, v20);
-      objc_msgSend_addObserver_selector_name_object_suspensionBehavior_(v22, v23, self, sel_onNotification_, @"CMFlickGestureEventSendNotification", 0, 4);
+      v24 = objc_msgSend_defaultCenter(MEMORY[0x1E696ABB0], v20, v21);
+      objc_msgSend_addObserver_selector_name_object_suspensionBehavior_(v24, v25, self, sel_onNotification_, @"CMFlickGestureEventSendNotification", 0, 4);
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendEventToClientPrivate
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   sub_19B420D84();
   sub_19B44B9A0();
   internal = self->_internal;
@@ -273,9 +276,9 @@
     {
       v9 = mach_absolute_time();
       *buf = 138543618;
-      v23 = v7;
-      v24 = 2050;
-      v25 = sub_19B41E070(v9);
+      v24 = v7;
+      v25 = 2050;
+      v26 = sub_19B41E070(v9);
       _os_log_impl(&dword_19B41C000, v8, OS_LOG_TYPE_DEFAULT, "Sending flick event to client: %{public}@,now,%{public}f", buf, 0x16u);
     }
 
@@ -288,38 +291,38 @@
         dispatch_once(&qword_1EAFE2968, &unk_1F0E27B40);
       }
 
-      v12 = mach_absolute_time();
-      v18 = 138543618;
-      v19 = v7;
-      v20 = 2050;
-      v21 = sub_19B41E070(v12);
-      v13 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMFlickGestureManager sendEventToClientPrivate]", "CoreLocation: %s\n", v13);
-      if (v13 != buf)
+      v12 = off_1EAFE2970;
+      v13 = mach_absolute_time();
+      v19 = 138543618;
+      v20 = v7;
+      v21 = 2050;
+      v22 = sub_19B41E070(v13);
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v12, 0, "Sending flick event to client: %{public}@,now,%{public}f", &v19, 22);
+      v15 = v14;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMFlickGestureManager sendEventToClientPrivate]", "CoreLocation: %s\n", v14);
+      if (v15 != buf)
       {
-        free(v13);
+        free(v15);
       }
     }
 
-    v15 = *(internal + 1);
-    v14 = *(internal + 2);
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = sub_19B69D488;
-    v17[3] = &unk_1E7532B90;
-    v17[4] = v7;
-    v17[5] = v15;
-    objc_msgSend_addOperationWithBlock_(v14, v11, v17);
+    v17 = *(internal + 1);
+    v16 = *(internal + 2);
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_19B69D488;
+    v18[3] = &unk_1E7532B90;
+    v18[4] = v7;
+    v18[5] = v17;
+    objc_msgSend_addOperationWithBlock_(v16, v11, v18);
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopUpdatesPrivate
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   sub_19B420D84();
   sub_19B44B9A0();
   internal = self->_internal;
@@ -346,11 +349,13 @@
         dispatch_once(&qword_1EAFE2968, &unk_1F0E27B40);
       }
 
-      v8 = _os_log_send_and_compose_impl();
+      v22[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE2970, 0, "Stopping flick gesture updates", v22, 2);
+      v9 = v8;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMFlickGestureManager stopUpdatesPrivate]", "CoreLocation: %s\n", v8);
-      if (v8 != buf)
+      if (v9 != buf)
       {
-        free(v8);
+        free(v9);
       }
     }
 
@@ -362,10 +367,10 @@
       }
 
       sub_19B426A14(qword_1EAFE3B40, 0, internal[8]);
-      v9 = internal[8];
-      if (v9)
+      v10 = internal[8];
+      if (v10)
       {
-        (*(*v9 + 8))(v9);
+        (*(*v10 + 8))(v10);
       }
 
       internal[8] = 0;
@@ -378,15 +383,15 @@
         dispatch_once(&qword_1EAFE2968, &unk_1F0E27B40);
       }
 
-      v10 = off_1EAFE2970;
+      v11 = off_1EAFE2970;
       if (os_log_type_enabled(off_1EAFE2970, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19B41C000, v10, OS_LOG_TYPE_INFO, "Unregistering for notifications.", buf, 2u);
+        _os_log_impl(&dword_19B41C000, v11, OS_LOG_TYPE_INFO, "Unregistering for notifications.", buf, 2u);
       }
 
-      v11 = sub_19B420058();
-      if (*(v11 + 160) > 1 || *(v11 + 164) > 1 || *(v11 + 168) > 1 || *(v11 + 152))
+      v12 = sub_19B420058();
+      if (*(v12 + 160) > 1 || *(v12 + 164) > 1 || *(v12 + 168) > 1 || *(v12 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE2968 != -1)
@@ -394,40 +399,41 @@
           dispatch_once(&qword_1EAFE2968, &unk_1F0E27B40);
         }
 
-        v14 = _os_log_send_and_compose_impl();
-        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMFlickGestureManager stopUpdatesPrivate]", "CoreLocation: %s\n", v14);
-        if (v14 != buf)
+        v22[0] = 0;
+        LODWORD(v21) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE2970, 1, "Unregistering for notifications.", v22, v21);
+        v16 = v15;
+        sub_19B6BB7CC("Generic", 1, 0, 2, "[CMFlickGestureManager stopUpdatesPrivate]", "CoreLocation: %s\n", v15);
+        if (v16 != buf)
         {
-          free(v14);
+          free(v16);
         }
       }
 
       *(internal + 72) = 0;
-      v15 = objc_msgSend_defaultCenter(MEMORY[0x1E696ABB0], v12, v13);
-      objc_msgSend_removeObserver_name_object_(v15, v16, self, @"CMFlickGestureEventSendNotification", 0);
+      v17 = objc_msgSend_defaultCenter(MEMORY[0x1E696ABB0], v13, v14);
+      objc_msgSend_removeObserver_name_object_(v17, v18, self, @"CMFlickGestureEventSendNotification", 0);
     }
 
-    v17 = internal[2];
-    if (v17)
+    v19 = internal[2];
+    if (v19)
     {
 
       internal[2] = 0;
     }
 
-    v18 = internal[1];
-    if (v18)
+    v20 = internal[1];
+    if (v20)
     {
 
       internal[1] = 0;
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onNotification:(id)notification
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE2968 != -1)
   {
     dispatch_once(&qword_1EAFE2968, &unk_1F0E27B40);
@@ -449,11 +455,13 @@
       dispatch_once(&qword_1EAFE2968, &unk_1F0E27B40);
     }
 
-    v5 = _os_log_send_and_compose_impl();
+    v7[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE2970, 1, "Incoming flick event notification", v7, 2);
+    v6 = v5;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMFlickGestureManager onNotification:]", "CoreLocation: %s\n", v5);
-    if (v5 != buf)
+    if (v6 != buf)
     {
-      free(v5);
+      free(v6);
     }
   }
 
@@ -463,12 +471,11 @@
   }
 
   sub_19B6B37F0(qword_1EAFE3B40 + 32, 1, 1.0);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onFlickGestureData:(const FlickGestureState *)data
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (data)
   {
     if (qword_1EAFE2968 != -1)
@@ -483,11 +490,11 @@
       var2 = data->var2;
       var0 = data->var0;
       *buf = 67240704;
-      v20 = var1;
-      v21 = 1026;
-      v22 = var2;
-      v23 = 2050;
-      v24 = var0;
+      v26 = var1;
+      v27 = 1026;
+      v28 = var2;
+      v29 = 2050;
+      v30 = var0;
       _os_log_impl(&dword_19B41C000, v5, OS_LOG_TYPE_INFO, "Incoming flick gesture event, gestureState,%{public}u, isSimulated,%{public}u, timestampSecs,%{public}f", buf, 0x18u);
     }
 
@@ -500,14 +507,21 @@
         dispatch_once(&qword_1EAFE2968, &unk_1F0E27B40);
       }
 
-      v16 = data->var1;
-      v17 = data->var2;
-      v18 = data->var0;
-      v11 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMFlickGestureManager onFlickGestureData:]", "CoreLocation: %s\n", v11);
-      if (v11 != buf)
+      v11 = data->var1;
+      v12 = data->var2;
+      v13 = data->var0;
+      v20[0] = 67240704;
+      v20[1] = v11;
+      v21 = 1026;
+      v22 = v12;
+      v23 = 2050;
+      v24 = v13;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE2970, 1, "Incoming flick gesture event, gestureState,%{public}u, isSimulated,%{public}u, timestampSecs,%{public}f", v20, 24);
+      v15 = v14;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMFlickGestureManager onFlickGestureData:]", "CoreLocation: %s\n", v14);
+      if (v15 != buf)
       {
-        free(v11);
+        free(v15);
       }
     }
 
@@ -524,15 +538,15 @@
       dispatch_once(&qword_1EAFE2968, &unk_1F0E27B40);
     }
 
-    v12 = off_1EAFE2970;
+    v16 = off_1EAFE2970;
     if (os_log_type_enabled(off_1EAFE2970, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v12, OS_LOG_TYPE_ERROR, "Invalid data parameter!", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v16, OS_LOG_TYPE_ERROR, "Invalid data parameter!", buf, 2u);
     }
 
-    v13 = sub_19B420058();
-    if ((*(v13 + 160) & 0x80000000) == 0 || (*(v13 + 164) & 0x80000000) == 0 || (*(v13 + 168) & 0x80000000) == 0 || *(v13 + 152))
+    v17 = sub_19B420058();
+    if ((*(v17 + 160) & 0x80000000) == 0 || (*(v17 + 164) & 0x80000000) == 0 || (*(v17 + 168) & 0x80000000) == 0 || *(v17 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE2968 != -1)
@@ -540,16 +554,16 @@
         dispatch_once(&qword_1EAFE2968, &unk_1F0E27B40);
       }
 
-      v14 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMFlickGestureManager onFlickGestureData:]", "CoreLocation: %s\n", v14);
-      if (v14 != buf)
+      LOWORD(v20[0]) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE2970, 16, "Invalid data parameter!", v20, 2);
+      v19 = v18;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMFlickGestureManager onFlickGestureData:]", "CoreLocation: %s\n", v18);
+      if (v19 != buf)
       {
-        free(v14);
+        free(v19);
       }
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)feedFlickGestureEvent:(int64_t)event timestamp:(double)timestamp
@@ -567,7 +581,7 @@
 
 - (void)logClientEventWithType:(id)type payload:(id)payload
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE2968 != -1)
   {
     dispatch_once(&qword_1EAFE2968, &unk_1F0E27B40);
@@ -578,7 +592,7 @@
   {
     *buf = 138412546;
     typeCopy = type;
-    v12 = 2112;
+    v16 = 2112;
     payloadCopy = payload;
     _os_log_impl(&dword_19B41C000, v6, OS_LOG_TYPE_DEFAULT, "Type %@, Payload: %@", buf, 0x16u);
   }
@@ -592,15 +606,18 @@
       dispatch_once(&qword_1EAFE2968, &unk_1F0E27B40);
     }
 
-    v8 = _os_log_send_and_compose_impl();
+    v10 = 138412546;
+    typeCopy2 = type;
+    v12 = 2112;
+    payloadCopy2 = payload;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1EAFE2970, 0, "Type %@, Payload: %@", &v10, 22);
+    v9 = v8;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMFlickGestureManager logClientEventWithType:payload:]", "CoreLocation: %s\n", v8);
-    if (v8 != buf)
+    if (v9 != buf)
     {
-      free(v8);
+      free(v9);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

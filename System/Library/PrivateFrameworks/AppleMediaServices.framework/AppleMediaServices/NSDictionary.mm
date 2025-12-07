@@ -17,11 +17,11 @@ AMSPair *__53__NSDictionary_AppleMediaServices__hashedDescription__block_invoke(
   return v9;
 }
 
-uint64_t __64__NSDictionary_AppleMediaServices__ams_sanitizedForSecureCoding__block_invoke()
+uint64_t __64__NSDictionary_AppleMediaServices__ams_sanitizedForSecureCoding__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return [v0 supportsSecureCoding];
+  return [v2 supportsSecureCoding];
 }
 
 AMSPair *__64__NSDictionary_AppleMediaServices__ams_sanitizedForSecureCoding__block_invoke_2(uint64_t a1, void *a2, void *a3)

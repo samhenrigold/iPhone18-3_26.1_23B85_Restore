@@ -21,7 +21,7 @@
 
 - (BOOL)sendMessage:(id)message payload:(id)payload device:(id)device target:(id)target responseHandler:(id)handler
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   payloadCopy = payload;
   deviceCopy = device;
@@ -46,7 +46,7 @@
   v23 = !v22;
   if (!v22)
   {
-    v32 = payloadCopy;
+    v31 = payloadCopy;
     v24 = [HMDRemoteMessage secureMessageWithName:messageCopy qualityOfService:25 destination:v21 messagePayload:payloadCopy];
     identifier = [v24 identifier];
     [v24 setResponseHandler:handlerCopy];
@@ -56,25 +56,24 @@
     if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
       HMFGetLogIdentifier();
-      v27 = v30 = v23;
+      v27 = v29 = v23;
       *buf = 138543874;
-      v35 = v27;
-      v36 = 2112;
-      v37 = messageCopy;
-      v38 = 2112;
-      v39 = identifier;
+      v34 = v27;
+      v35 = 2112;
+      v36 = messageCopy;
+      v37 = 2112;
+      v38 = identifier;
       _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Sending message %@ with identifier %@", buf, 0x20u);
 
-      v23 = v30;
+      v23 = v29;
     }
 
     objc_autoreleasePoolPop(context);
     [messageDispatcher sendMessage:v24 completionHandler:0];
 
-    payloadCopy = v32;
+    payloadCopy = v31;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -131,14 +130,14 @@
   uUIDString = [sessionID UUIDString];
   [dictionary setObject:uUIDString forKeyedSubscript:@"uuid"];
 
-  v7 = [dictionary copy];
+  v7 = objc_msgSend_copy(dictionary);
 
   return v7;
 }
 
 - (void)dealloc
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -148,9 +147,9 @@
     v7 = objc_opt_class();
     v8 = NSStringFromClass(v7);
     *buf = 138543618;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v8;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v8;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Deallocating the %@ session", buf, 0x16u);
   }
 
@@ -160,10 +159,9 @@
   uUIDString = [eventTriggerUUID UUIDString];
   [v9 removeBulletinsForTrigger:uUIDString];
 
-  v13.receiver = selfCopy;
-  v13.super_class = HMDEventTriggerSession;
-  [(HMDEventTriggerSession *)&v13 dealloc];
-  v12 = *MEMORY[0x277D85DE8];
+  v12.receiver = selfCopy;
+  v12.super_class = HMDEventTriggerSession;
+  [(HMDEventTriggerSession *)&v12 dealloc];
 }
 
 - (HMDEventTriggerSession)initWithSessionID:(id)d eventTrigger:(id)trigger workQueue:(id)queue msgDispatcher:(id)dispatcher
@@ -223,10 +221,9 @@
 
 void __37__HMDEventTriggerSession_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_105501;
-  logCategory__hmf_once_v2_105501 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_105501;
+  logCategory__hmf_once_v2_105501 = v0;
 }
 
 @end

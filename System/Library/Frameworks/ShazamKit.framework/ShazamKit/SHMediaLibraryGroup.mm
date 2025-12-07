@@ -73,41 +73,41 @@
 
 - (void)addTracks:(id)tracks
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   tracksCopy = tracks;
-  v5 = [tracksCopy countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v5 = [tracksCopy countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v24;
+    v7 = *v23;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v24 != v7)
+        if (*v23 != v7)
         {
           objc_enumerationMutation(tracksCopy);
         }
 
-        v9 = *(*(&v23 + 1) + 8 * i);
+        v9 = *(*(&v22 + 1) + 8 * i);
         associatedGroupIdentifier = [v9 associatedGroupIdentifier];
 
         if (associatedGroupIdentifier)
         {
-          v15 = MEMORY[0x277CBEAD8];
-          v16 = *MEMORY[0x277CBE660];
-          v17 = MEMORY[0x277CCACA8];
+          v14 = MEMORY[0x277CBEAD8];
+          v15 = *MEMORY[0x277CBE660];
+          v16 = MEMORY[0x277CCACA8];
           identifier = [v9 identifier];
           associatedGroupIdentifier2 = [v9 associatedGroupIdentifier];
-          v20 = [v17 stringWithFormat:@"Track with identifier %@ is already associated to a group (%@), try removing it first.", identifier, associatedGroupIdentifier2, v23];
-          v21 = [v15 exceptionWithName:v16 reason:v20 userInfo:0];
-          v22 = v21;
+          v19 = [v16 stringWithFormat:@"Track with identifier %@ is already associated to a group (%@), try removing it first.", identifier, associatedGroupIdentifier2, v22];
+          v20 = [v14 exceptionWithName:v15 reason:v19 userInfo:0];
+          v21 = v20;
 
-          objc_exception_throw(v21);
+          objc_exception_throw(v20);
         }
 
         identifier2 = [(SHMediaLibraryGroup *)self identifier];
@@ -118,51 +118,49 @@
         [mutableTracksToSave addObject:v13];
       }
 
-      v6 = [tracksCopy countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v6 = [tracksCopy countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeTracks:(id)tracks
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   tracksCopy = tracks;
-  v5 = [tracksCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v5 = [tracksCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(tracksCopy);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
+        v9 = *(*(&v20 + 1) + 8 * i);
         associatedGroupIdentifier = [v9 associatedGroupIdentifier];
 
         if (!associatedGroupIdentifier)
         {
-          v14 = MEMORY[0x277CBEAD8];
-          v15 = *MEMORY[0x277CBE660];
-          v16 = MEMORY[0x277CCACA8];
+          v13 = MEMORY[0x277CBEAD8];
+          v14 = *MEMORY[0x277CBE660];
+          v15 = MEMORY[0x277CCACA8];
           identifier = [v9 identifier];
-          v18 = [v16 stringWithFormat:@"Track with identifier %@ cannot be removed, try adding it first.", identifier];
-          v19 = [v14 exceptionWithName:v15 reason:v18 userInfo:0];
-          v20 = v19;
+          v17 = [v15 stringWithFormat:@"Track with identifier %@ cannot be removed, try adding it first.", identifier];
+          v18 = [v13 exceptionWithName:v14 reason:v17 userInfo:0];
+          v19 = v18;
 
-          objc_exception_throw(v19);
+          objc_exception_throw(v18);
         }
 
         [v9 setAssociatedGroupIdentifier:0];
@@ -171,13 +169,11 @@
         [mutableTracksToSave addObject:v12];
       }
 
-      v6 = [tracksCopy countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v6 = [tracksCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (SHMediaLibraryGroup)initWithCoder:(id)coder

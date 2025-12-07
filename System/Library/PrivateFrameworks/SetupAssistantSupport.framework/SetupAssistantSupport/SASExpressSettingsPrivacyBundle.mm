@@ -46,9 +46,8 @@
     [SASExpressSettingsPrivacyBundle writeTo:];
   }
 
-  v6 = toCopy;
+  v5 = toCopy;
   PBDataWriterWriteStringField();
-  contentVersion = self->_contentVersion;
   PBDataWriterWriteUint64Field();
 }
 

@@ -18,7 +18,7 @@
     return 1;
   }
 
-  [(VMVoicemail *)self duration];
+  objc_msgSend_duration(self);
   return v6 / 3.0 < time;
 }
 

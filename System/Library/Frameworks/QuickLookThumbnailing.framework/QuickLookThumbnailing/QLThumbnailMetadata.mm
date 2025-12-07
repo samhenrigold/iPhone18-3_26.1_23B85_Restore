@@ -54,27 +54,25 @@
 
 - (id)propertiesDict
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if ([(QLThumbnailMetadata *)self baseline]== 0x7FFFFFFFFFFFFFFFLL)
   {
-    v10 = @"inlinePreviewMode";
+    v9 = @"inlinePreviewMode";
     v3 = [MEMORY[0x1E696AD98] numberWithInt:{-[QLThumbnailMetadata inlinePreviewMode](self, "inlinePreviewMode")}];
-    v11[0] = v3;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v10[0] = v3;
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   }
 
   else
   {
-    v8[0] = @"inlinePreviewMode";
+    v7[0] = @"inlinePreviewMode";
     v3 = [MEMORY[0x1E696AD98] numberWithInt:{-[QLThumbnailMetadata inlinePreviewMode](self, "inlinePreviewMode")}];
-    v9[0] = v3;
-    v8[1] = @"yBaseline";
+    v8[0] = v3;
+    v7[1] = @"yBaseline";
     v5 = [MEMORY[0x1E696AD98] numberWithInteger:{-[QLThumbnailMetadata baseline](self, "baseline")}];
-    v9[1] = v5;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
+    v8[1] = v5;
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

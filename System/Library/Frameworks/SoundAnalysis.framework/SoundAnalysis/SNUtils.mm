@@ -23,22 +23,22 @@
 
 + (int)numberOfElements:(id)elements
 {
-  sub_1C97BD318(0, &qword_1EC3C54B0);
+  sub_1C97BD318(v3, 0, &qword_1EC3C54B0, 0x1E696AD98);
   sub_1C9A92798();
   sub_1C9A16824();
-  v4 = v3;
+  v5 = v4;
 
-  return v4;
+  return v5;
 }
 
 + (unsigned)modelBlockSize:(id)size channelCount:(unsigned int)count
 {
-  sub_1C97BD318(0, &qword_1EC3C54B0);
-  v5 = sub_1C9A92798();
-  sub_1C9A18C50(v5, count);
-  v7 = v6;
+  sub_1C97BD318(v4, 0, &qword_1EC3C54B0, 0x1E696AD98);
+  v6 = sub_1C9A92798();
+  sub_1C9A18C50(v6, count);
+  v8 = v7;
 
-  return v7;
+  return v8;
 }
 
 + (BOOL)multiArrayConstraintLastDimensionIsFlexible:(id)flexible
@@ -66,11 +66,11 @@
 {
   swift_getObjCClassMetadata();
   namesCopy = names;
-  sub_1C9A16808(namesCopy);
+  sub_1C9A16808(namesCopy, v5);
 
-  v5 = sub_1C9A92768();
+  v6 = sub_1C9A92768();
 
-  return v5;
+  return v6;
 }
 
 + (id)zeroBufferPopulator

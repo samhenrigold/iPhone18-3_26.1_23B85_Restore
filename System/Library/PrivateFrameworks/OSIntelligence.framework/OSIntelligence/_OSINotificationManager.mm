@@ -43,12 +43,12 @@
 
 - (void)postIBLMFirstTimeNotification
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v17) = 0;
-    _os_log_impl(&dword_25D171000, log, OS_LOG_TYPE_DEFAULT, "Posting First time notification", &v17, 2u);
+    LOWORD(v16) = 0;
+    _os_log_impl(&dword_25D171000, log, OS_LOG_TYPE_DEFAULT, "Posting First time notification", &v16, 2u);
   }
 
   v4 = objc_alloc_init(MEMORY[0x277CE1F60]);
@@ -66,11 +66,11 @@
     v10 = v9;
     title = [v4 title];
     body = [v4 body];
-    v17 = 138412546;
-    v18 = title;
-    v19 = 2112;
-    v20 = body;
-    _os_log_impl(&dword_25D171000, v10, OS_LOG_TYPE_DEFAULT, "Content title : %@, Body %@", &v17, 0x16u);
+    v16 = 138412546;
+    v17 = title;
+    v18 = 2112;
+    v19 = body;
+    _os_log_impl(&dword_25D171000, v10, OS_LOG_TYPE_DEFAULT, "Content title : %@, Body %@", &v16, 0x16u);
   }
 
   [v4 setShouldIgnoreDowntime:1];
@@ -88,13 +88,11 @@
   v15 = [MEMORY[0x277CE1FC0] requestWithIdentifier:@"IBLM-Engaged" content:v4 trigger:0];
   [v15 setDestinations:3];
   [(UNUserNotificationCenter *)self->_unCenter addNotificationRequest:v15 withCompletionHandler:0];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userNotificationCenter:(id)center didReceiveNotificationResponse:(id)response withCompletionHandler:(id)handler
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   centerCopy = center;
   responseCopy = response;
   handlerCopy = handler;
@@ -104,11 +102,11 @@
     v12 = log;
     v13 = [responseCopy debugDescription];
     actionIdentifier = [responseCopy actionIdentifier];
-    v22 = 138412546;
-    v23 = v13;
-    v24 = 2112;
-    v25 = actionIdentifier;
-    _os_log_impl(&dword_25D171000, v12, OS_LOG_TYPE_INFO, "notification request coming in for %@: %@", &v22, 0x16u);
+    v21 = 138412546;
+    v22 = v13;
+    v23 = 2112;
+    v24 = actionIdentifier;
+    _os_log_impl(&dword_25D171000, v12, OS_LOG_TYPE_INFO, "notification request coming in for %@: %@", &v21, 0x16u);
   }
 
   actionIdentifier2 = [responseCopy actionIdentifier];
@@ -131,7 +129,6 @@
   [v20 recordIBLMFirstUserNotificationResponse:v19];
 
   handlerCopy[2](handlerCopy);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -24,18 +24,18 @@
 - (BOOL)isImagePlaygroundDefaultLibraryIdentifier
 {
   containerIdentifier = [(PLPhotoLibraryIdentifier *)self containerIdentifier];
-  if ([containerIdentifier isEqualToString:@"com.apple.GenerativePlayground"])
+  if (objc_msgSend_isEqualToString_(containerIdentifier))
   {
     uuid = [(PLPhotoLibraryIdentifier *)self uuid];
-    v5 = [uuid isEqualToString:@"00000000-0000-0000-0000-000000000001"];
+    isEqualToString = objc_msgSend_isEqualToString_(uuid);
   }
 
   else
   {
-    v5 = 0;
+    isEqualToString = 0;
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 - (BOOL)setValuesForName:(id)name userDescription:(id)description error:(id *)error
@@ -82,9 +82,9 @@
 - (int64_t)domain
 {
   containerIdentifier = [(PLPhotoLibraryIdentifier *)self containerIdentifier];
-  v3 = [containerIdentifier isEqualToString:@"com.apple.photos"];
+  isEqualToString = objc_msgSend_isEqualToString_(containerIdentifier);
 
-  if (v3)
+  if (isEqualToString)
   {
     return 2;
   }
@@ -218,7 +218,7 @@
   if (v9)
   {
     v11 = [mapCopy objectForKeyedSubscript:@"Path"];
-    if (([v9 isEqualToString:v11] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(v9) & 1) == 0)
     {
       v12 = PLBackendGetLog();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
@@ -491,13 +491,13 @@ LABEL_16:
     [lCopy pathExtension];
     v51 = v31;
     v34 = v33 = identifierCopy;
-    v35 = [photosLibraryExtension isEqualToString:v34];
+    isEqualToString = objc_msgSend_isEqualToString_(photosLibraryExtension);
 
     identifierCopy = v33;
     v31 = v51;
 
     descriptionCopy = v52;
-    if ((v35 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v43 = MEMORY[0x1E696ABC0];
       v44 = *MEMORY[0x1E69BFF48];

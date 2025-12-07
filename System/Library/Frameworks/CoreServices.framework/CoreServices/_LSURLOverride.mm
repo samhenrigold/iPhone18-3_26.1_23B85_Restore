@@ -11,6 +11,7 @@
 + (void)addOverrideBlock:(id)block;
 + (void)removeAllOverrideBlocks;
 + (void)resetPlatformFlag;
++ (void)setUseMacOverrides:(BOOL)overrides;
 - (_LSURLOverride)initWithOriginalURL:(id)l checkingForAvailableApplications:(BOOL)applications;
 @end
 
@@ -33,60 +34,60 @@
   if (v9)
   {
     LaunchServices::URLOverrides::State::State(&v48, v9, applicationsCopy);
-    isInXCTestRigInsecure = _os_feature_enabled_impl();
-    if (isInXCTestRigInsecure)
+    v10 = _os_feature_enabled_impl();
+    if (v10)
     {
-      v11 = LaunchServices::URLOverrides::getLog(isInXCTestRigInsecure);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v12 = LaunchServices::URLOverrides::getLog(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         [_LSURLOverride initWithOriginalURL:checkingForAvailableApplications:];
       }
 
 LABEL_6:
 
-      v12 = 0;
+      v13 = 0;
       goto LABEL_40;
     }
 
     if (LaunchServices::URLOverrides::overrideBlocks)
     {
-      isInXCTestRigInsecure = [__LSDefaultsGetSharedInstance() isInXCTestRigInsecure];
-      if (isInXCTestRigInsecure)
+      v10 = [__LSDefaultsGetSharedInstance(v10 v11)];
+      if (v10)
       {
         v46 = applicationsCopy;
         v56 = 0u;
         v57 = 0u;
         v54 = 0u;
         v55 = 0u;
-        v15 = LaunchServices::URLOverrides::overrideBlocks;
-        v16 = [v15 countByEnumeratingWithState:&v54 objects:buf count:16];
-        if (!v16)
+        v16 = LaunchServices::URLOverrides::overrideBlocks;
+        v17 = [v16 countByEnumeratingWithState:&v54 objects:buf count:16];
+        if (!v17)
         {
           goto LABEL_20;
         }
 
-        v17 = *v55;
+        v18 = *v55;
 LABEL_14:
-        v18 = 0;
+        v19 = 0;
         while (1)
         {
-          if (*v55 != v17)
+          if (*v55 != v18)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v16);
           }
 
-          v19 = *(*(&v54 + 1) + 8 * v18);
-          v20 = (*(v19 + 16))(v19, v48, v49, v50, v52);
-          v12 = v20;
-          if (v20)
+          v20 = *(*(&v54 + 1) + 8 * v19);
+          v21 = (*(v20 + 16))(v20, v48, v49, v50, v52);
+          v13 = v21;
+          if (v21)
           {
             break;
           }
 
-          if (v16 == ++v18)
+          if (v17 == ++v19)
           {
-            v16 = [v15 countByEnumeratingWithState:&v54 objects:buf count:16];
-            if (!v16)
+            v17 = [v16 countByEnumeratingWithState:&v54 objects:buf count:16];
+            if (!v17)
             {
 LABEL_20:
 
@@ -98,70 +99,70 @@ LABEL_20:
           }
         }
 
-        v31 = LaunchServices::URLOverrides::getLog(v20);
+        v32 = LaunchServices::URLOverrides::getLog(v21);
         applicationsCopy = v46;
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
         {
-          v44 = MEMORY[0x1865D71B0](v19);
+          v44 = MEMORY[0x1865D71B0](v20);
           v45 = [v48 URL];
           *v65 = 138478339;
           *&v65[4] = v44;
           *&v65[12] = 2113;
           *&v65[14] = v45;
           *&v65[22] = 2113;
-          v66 = v12;
-          _os_log_debug_impl(&dword_18162D000, v31, OS_LOG_TYPE_DEBUG, "Block %{private}@ overrode URL %{private}@ to %{private}@", v65, 0x20u);
+          v66 = v13;
+          _os_log_debug_impl(&dword_18162D000, v32, OS_LOG_TYPE_DEBUG, "Block %{private}@ overrode URL %{private}@ to %{private}@", v65, 0x20u);
         }
 
 LABEL_40:
-        v33 = LaunchServices::URLOverrides::getLog(v32);
-        v34 = v33;
-        if (v12)
+        v34 = LaunchServices::URLOverrides::getLog(v33);
+        v35 = v34;
+        if (v13)
         {
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138478083;
-            v71 = v12;
+            v71 = v13;
             v72 = 2113;
             v73 = lCopy;
-            _os_log_impl(&dword_18162D000, v34, OS_LOG_TYPE_DEFAULT, "URL %{private}@ overrides URL %{private}@", buf, 0x16u);
+            _os_log_impl(&dword_18162D000, v35, OS_LOG_TYPE_DEFAULT, "URL %{private}@ overrides URL %{private}@", buf, 0x16u);
           }
 
           objc_storeStrong(&v8->_originalURL, l);
-          v35 = [v12 copy];
+          v36 = [v13 copy];
           overrideURL = v8->_overrideURL;
-          v8->_overrideURL = v35;
+          v8->_overrideURL = v36;
 
           if (!applicationsCopy)
           {
             goto LABEL_54;
           }
 
-          v37 = +[LSApplicationWorkspace defaultWorkspace];
+          v38 = +[LSApplicationWorkspace defaultWorkspace];
           v47 = 0;
-          v38 = [v37 isApplicationAvailableToOpenURL:v12 error:&v47];
-          v39 = v47;
+          v39 = [v38 isApplicationAvailableToOpenURL:v13 error:&v47];
+          v40 = v47;
 
-          if (v38)
+          if (v39)
           {
 LABEL_53:
 
 LABEL_54:
 LABEL_55:
             v8 = v8;
-            v14 = v8;
+            v15 = v8;
             goto LABEL_56;
           }
 
-          if (!v39)
+          if (!v40)
           {
 LABEL_52:
             v8 = 0;
             goto LABEL_53;
           }
 
-          v34 = LaunchServices::URLOverrides::getLog(v40);
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+          v35 = LaunchServices::URLOverrides::getLog(v41);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
           {
             [_LSURLOverride initWithOriginalURL:checkingForAvailableApplications:];
           }
@@ -169,12 +170,12 @@ LABEL_52:
 
         else
         {
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
           {
             [_LSURLOverride initWithOriginalURL:checkingForAvailableApplications:];
           }
 
-          v39 = v8;
+          v40 = v8;
         }
 
         goto LABEL_52;
@@ -184,18 +185,18 @@ LABEL_52:
 LABEL_21:
     if ((v49 & 1) == 0 && (v50 & 1) == 0 && (v51 & 1) == 0)
     {
-      v11 = LaunchServices::URLOverrides::getLog(isInXCTestRigInsecure);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v12 = LaunchServices::URLOverrides::getLog(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         v43 = [v48 URL];
-        [(_LSURLOverride *)v43 initWithOriginalURL:v65 checkingForAvailableApplications:v11];
+        [(_LSURLOverride *)v43 initWithOriginalURL:v65 checkingForAvailableApplications:v12];
       }
 
       goto LABEL_6;
     }
 
-    v21 = objc_opt_class();
-    v22 = v21;
+    v22 = objc_opt_class();
+    v23 = v22;
     *v65 = sel_fmfURL_;
     *&v65[8] = sel_fmipURL_;
     *&v65[16] = sel_iTunesStoreURL_;
@@ -206,14 +207,14 @@ LABEL_21:
     v64 = sel_booksStoreAuthorizationURL_;
     if (v49)
     {
-      v23 = applicationsCopy;
+      v24 = applicationsCopy;
 LABEL_27:
-      v24 = v65;
-      v25 = 7;
+      v25 = v65;
+      v26 = 7;
       goto LABEL_28;
     }
 
-    v23 = applicationsCopy;
+    v24 = applicationsCopy;
     if (v50)
     {
       goto LABEL_27;
@@ -221,48 +222,48 @@ LABEL_27:
 
     if (v51)
     {
-      v24 = &v64;
+      v25 = &v64;
     }
 
     else
     {
-      v24 = 0;
+      v25 = 0;
     }
 
     if (v51)
     {
-      v25 = 1;
+      v26 = 1;
 LABEL_28:
       while (1)
       {
-        v26 = *v24;
-        v21 = [v22 *v24];
-        v12 = v21;
-        if (v21)
+        v27 = *v25;
+        v22 = [v23 *v25];
+        v13 = v22;
+        if (v22)
         {
           break;
         }
 
-        ++v24;
-        if (!--v25)
+        ++v25;
+        if (!--v26)
         {
           goto LABEL_30;
         }
       }
 
-      v27 = LaunchServices::URLOverrides::getLog(v21);
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+      v28 = LaunchServices::URLOverrides::getLog(v22);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
-        v29 = NSStringFromSelector(v26);
-        applicationsCopy = v23;
-        v30 = [v48 URL];
+        v30 = NSStringFromSelector(v27);
+        applicationsCopy = v24;
+        v31 = [v48 URL];
         *v58 = 138478339;
-        v59 = v29;
+        v59 = v30;
         v60 = 2113;
-        v61 = v30;
+        v61 = v31;
         v62 = 2113;
-        v63 = v12;
-        _os_log_debug_impl(&dword_18162D000, v27, OS_LOG_TYPE_DEBUG, "Selector %{private}@ overrode URL %{private}@ to %{private}@", v58, 0x20u);
+        v63 = v13;
+        _os_log_debug_impl(&dword_18162D000, v28, OS_LOG_TYPE_DEBUG, "Selector %{private}@ overrode URL %{private}@ to %{private}@", v58, 0x20u);
 
         goto LABEL_36;
       }
@@ -271,79 +272,90 @@ LABEL_28:
     else
     {
 LABEL_30:
-      v27 = LaunchServices::URLOverrides::getLog(v21);
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+      v28 = LaunchServices::URLOverrides::getLog(v22);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
-        v28 = [v48 URL];
-        applicationsCopy = v23;
-        [(_LSURLOverride *)v28 initWithOriginalURL:v58 checkingForAvailableApplications:v27];
-        v12 = 0;
+        v29 = [v48 URL];
+        applicationsCopy = v24;
+        [(_LSURLOverride *)v29 initWithOriginalURL:v58 checkingForAvailableApplications:v28];
+        v13 = 0;
 LABEL_36:
 
         goto LABEL_40;
       }
 
-      v12 = 0;
+      v13 = 0;
     }
 
-    applicationsCopy = v23;
+    applicationsCopy = v24;
     goto LABEL_36;
   }
 
-  v13 = LaunchServices::URLOverrides::getLog(0);
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = LaunchServices::URLOverrides::getLog(0);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138477827;
     v71 = lCopy;
-    _os_log_impl(&dword_18162D000, v13, OS_LOG_TYPE_DEFAULT, "URL %{private}@ could not be decomposed into its components. Cannot override.", buf, 0xCu);
+    _os_log_impl(&dword_18162D000, v14, OS_LOG_TYPE_DEFAULT, "URL %{private}@ could not be decomposed into its components. Cannot override.", buf, 0xCu);
   }
 
-  v14 = 0;
+  v15 = 0;
 LABEL_56:
 
-  v41 = *MEMORY[0x1E69E9840];
-  return v14;
+  return v15;
 }
 
 + (void)addOverrideBlock:(id)block
 {
   blockCopy = block;
+  v11 = blockCopy;
   if (!blockCopy)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[_LSURLOverride(Tests) addOverrideBlock:]"];
-    [currentHandler handleFailureInFunction:v8 file:@"LSURLOverride.mm" lineNumber:154 description:{@"Invalid parameter not satisfying: %@", @"block != nil"}];
+    v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[_LSURLOverride(Tests) addOverrideBlock:]"];
+    [currentHandler handleFailureInFunction:v10 file:@"LSURLOverride.mm" lineNumber:154 description:{@"Invalid parameter not satisfying: %@", @"block != nil"}];
   }
 
-  if ([__LSDefaultsGetSharedInstance() isInXCTestRigInsecure])
+  if ([__LSDefaultsGetSharedInstance(blockCopy v4)])
   {
-    v3 = LaunchServices::URLOverrides::overrideBlocks;
+    v5 = LaunchServices::URLOverrides::overrideBlocks;
     if (!LaunchServices::URLOverrides::overrideBlocks)
     {
-      v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v5 = LaunchServices::URLOverrides::overrideBlocks;
-      LaunchServices::URLOverrides::overrideBlocks = v4;
+      v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v7 = LaunchServices::URLOverrides::overrideBlocks;
+      LaunchServices::URLOverrides::overrideBlocks = v6;
 
-      v3 = LaunchServices::URLOverrides::overrideBlocks;
+      v5 = LaunchServices::URLOverrides::overrideBlocks;
     }
 
-    v6 = MEMORY[0x1865D71B0](blockCopy);
-    [v3 addObject:v6];
+    v8 = MEMORY[0x1865D71B0](v11);
+    [v5 addObject:v8];
   }
 }
 
 + (void)removeAllOverrideBlocks
 {
-  if ([__LSDefaultsGetSharedInstance() isInXCTestRigInsecure])
+  if ([__LSDefaultsGetSharedInstance(self a2)])
   {
     v2 = LaunchServices::URLOverrides::overrideBlocks;
     LaunchServices::URLOverrides::overrideBlocks = 0;
   }
 }
 
++ (void)setUseMacOverrides:(BOOL)overrides
+{
+  overridesCopy = overrides;
+  if ([__LSDefaultsGetSharedInstance(self a2)])
+  {
+    v4 = [MEMORY[0x1E696AD98] numberWithBool:overridesCopy];
+    v5 = LaunchServices::URLOverrides::gUseMacOverrides;
+    LaunchServices::URLOverrides::gUseMacOverrides = v4;
+  }
+}
+
 + (void)resetPlatformFlag
 {
-  if ([__LSDefaultsGetSharedInstance() isInXCTestRigInsecure])
+  if ([__LSDefaultsGetSharedInstance(self a2)])
   {
     v2 = LaunchServices::URLOverrides::gUseMacOverrides;
     LaunchServices::URLOverrides::gUseMacOverrides = 0;
@@ -413,7 +425,7 @@ LABEL_56:
 
 + (id)iTunesStoreURL:(State *)l
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   if (l->var6)
   {
     v3 = LaunchServices::URLOverrides::getLog(self);
@@ -430,7 +442,7 @@ LABEL_56:
   host = [l->var0 host];
   lowercaseString = [host lowercaseString];
 
-  v57 = lowercaseString;
+  v56 = lowercaseString;
   path = [l->var0 path];
   query = [l->var0 query];
   v9 = query;
@@ -440,7 +452,7 @@ LABEL_56:
     goto LABEL_64;
   }
 
-  v50 = query;
+  v49 = query;
   if (query)
   {
     v10 = [path mutableCopy];
@@ -469,43 +481,43 @@ LABEL_56:
     }
   }
 
-  v48 = v13;
+  v47 = v13;
   [v12 objectForKey:@"p2-url-resolution"];
+  v68 = 0u;
   v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
-  obj = v68 = 0u;
-  v47 = v12;
-  v14 = [obj countByEnumeratingWithState:&v67 objects:v75 count:16];
+  v66 = 0u;
+  obj = v67 = 0u;
+  v46 = v12;
+  v14 = [obj countByEnumeratingWithState:&v66 objects:v74 count:16];
   if (!v14)
   {
     v4 = 0;
     goto LABEL_62;
   }
 
-  v46 = *v68;
+  v45 = *v67;
   *&v15 = 138477827;
-  v43 = v15;
+  v42 = v15;
   do
   {
     v16 = 0;
-    v44 = v14;
+    v43 = v14;
     do
     {
-      if (*v68 != v46)
+      if (*v67 != v45)
       {
         objc_enumerationMutation(obj);
       }
 
-      v53 = *(*(&v67 + 1) + 8 * v16);
-      v17 = [v53 objectForKey:{@"scheme-mapping", v43}];
-      v49 = v16;
-      v55 = [v17 objectForKey:scheme];
+      v52 = *(*(&v66 + 1) + 8 * v16);
+      v17 = [v52 objectForKey:{@"scheme-mapping", v42}];
+      v48 = v16;
+      v54 = [v17 objectForKey:scheme];
 
       if (l->var1)
       {
         v18 = objc_alloc_init(MEMORY[0x1E696AF20]);
-        [v18 setScheme:v55];
+        [v18 setScheme:v54];
         v19 = +[LSApplicationWorkspace defaultWorkspace];
         v20 = [v18 URL];
         v21 = [v19 isApplicationAvailableToOpenURL:v20 error:0];
@@ -515,8 +527,8 @@ LABEL_56:
           v38 = LaunchServices::URLOverrides::getLog(v22);
           if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v43;
-            v74 = v55;
+            *buf = v42;
+            v73 = v54;
             _os_log_debug_impl(&dword_18162D000, v38, OS_LOG_TYPE_DEBUG, "Skipping iTunes Store scheme %{private}@ because no app is installed to handle it", buf, 0xCu);
           }
 
@@ -524,65 +536,65 @@ LABEL_56:
         }
       }
 
-      v65 = 0u;
-      v66 = 0u;
-      v63 = 0u;
       v64 = 0u;
-      v18 = [v53 objectForKey:@"host-patterns"];
-      v52 = v18;
-      v23 = [v18 countByEnumeratingWithState:&v63 objects:v72 count:16];
+      v65 = 0u;
+      v62 = 0u;
+      v63 = 0u;
+      v18 = [v52 objectForKey:@"host-patterns"];
+      v51 = v18;
+      v23 = [v18 countByEnumeratingWithState:&v62 objects:v71 count:16];
       if (v23)
       {
         v24 = 0;
-        v51 = *v64;
+        v50 = *v63;
         do
         {
           for (i = 0; i != v23; ++i)
           {
-            if (*v64 != v51)
+            if (*v63 != v50)
             {
               objc_enumerationMutation(v18);
             }
 
-            v26 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:*(*(&v63 + 1) + 8 * i) options:1 error:0];
-            v29 = [v26 rangeOfFirstMatchInString:v57 options:0 range:{0, objc_msgSend(v57, "length")}] != 0x7FFFFFFFFFFFFFFFLL || v27 != 0;
+            v26 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:*(*(&v62 + 1) + 8 * i) options:1 error:0];
+            v29 = [v26 rangeOfFirstMatchInString:v56 options:0 range:{0, objc_msgSend(v56, "length")}] != 0x7FFFFFFFFFFFFFFFLL || v27 != 0;
             v24 |= v29;
             if (v24)
             {
-              v61 = 0u;
-              v62 = 0u;
-              v59 = 0u;
               v60 = 0u;
-              v30 = [v53 objectForKey:@"path-patterns"];
-              v45 = v24;
-              v31 = [v30 countByEnumeratingWithState:&v59 objects:v71 count:16];
+              v61 = 0u;
+              v58 = 0u;
+              v59 = 0u;
+              v30 = [v52 objectForKey:@"path-patterns"];
+              v44 = v24;
+              v31 = [v30 countByEnumeratingWithState:&v58 objects:v70 count:16];
               if (v31)
               {
-                v32 = *v60;
+                v32 = *v59;
                 while (2)
                 {
                   for (j = 0; j != v31; ++j)
                   {
-                    if (*v60 != v32)
+                    if (*v59 != v32)
                     {
                       objc_enumerationMutation(v30);
                     }
 
-                    v34 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:*(*(&v59 + 1) + 8 * j) options:1 error:0];
+                    v34 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:*(*(&v58 + 1) + 8 * j) options:1 error:0];
                     v37 = [v34 rangeOfFirstMatchInString:path options:0 range:{0, objc_msgSend(path, "length")}] == 0x7FFFFFFFFFFFFFFFLL && v35 == 0;
 
                     if (!v37)
                     {
 
                       v39 = [l->var0 copy];
-                      [v39 setScheme:v55];
+                      [v39 setScheme:v54];
                       v4 = [v39 URL];
 
                       goto LABEL_62;
                     }
                   }
 
-                  v31 = [v30 countByEnumeratingWithState:&v59 objects:v71 count:16];
+                  v31 = [v30 countByEnumeratingWithState:&v58 objects:v70 count:16];
                   if (v31)
                   {
                     continue;
@@ -592,13 +604,13 @@ LABEL_56:
                 }
               }
 
-              v24 = v45;
+              v24 = v44;
             }
 
-            v18 = v52;
+            v18 = v51;
           }
 
-          v23 = [v52 countByEnumeratingWithState:&v63 objects:v72 count:16];
+          v23 = [v51 countByEnumeratingWithState:&v62 objects:v71 count:16];
         }
 
         while (v23);
@@ -606,34 +618,32 @@ LABEL_56:
 
 LABEL_53:
 
-      v16 = v49 + 1;
+      v16 = v48 + 1;
     }
 
-    while (v49 + 1 != v44);
-    v14 = [obj countByEnumeratingWithState:&v67 objects:v75 count:16];
+    while (v48 + 1 != v43);
+    v14 = [obj countByEnumeratingWithState:&v66 objects:v74 count:16];
     v4 = 0;
   }
 
   while (v14);
 LABEL_62:
 
-  v13 = v48;
+  v13 = v47;
 LABEL_63:
 
-  v9 = v50;
+  v9 = v49;
 LABEL_64:
 
   v3 = scheme;
 LABEL_65:
-
-  v41 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 + (id)iCloudEmailPrefsURL:(State *)l
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   if (l->var3)
   {
     host = [l->var0 host];
@@ -662,7 +672,7 @@ LABEL_65:
             path = v11;
           }
 
-          v36 = path;
+          v35 = path;
           if (path && [(__CFString *)path length])
           {
             v12 = objc_alloc_init(MEMORY[0x1E696AF20]);
@@ -700,50 +710,50 @@ LABEL_43:
             +[_LSURLOverride(Functions) iCloudEmailPrefsURL:];
           }
 
-          v45 = 0u;
-          v46 = 0u;
-          v43 = 0u;
           v44 = 0u;
+          v45 = 0u;
+          v42 = 0u;
+          v43 = 0u;
           queryItems = [l->var0 queryItems];
-          v17 = [queryItems countByEnumeratingWithState:&v43 objects:v48 count:16];
+          v17 = [queryItems countByEnumeratingWithState:&v42 objects:v47 count:16];
           if (v17)
           {
-            v18 = *v44;
+            v18 = *v43;
             while (2)
             {
               for (i = 0; i != v17; ++i)
               {
-                if (*v44 != v18)
+                if (*v43 != v18)
                 {
                   objc_enumerationMutation(queryItems);
                 }
 
-                name = [*(*(&v43 + 1) + 8 * i) name];
+                name = [*(*(&v42 + 1) + 8 * i) name];
                 v21 = [name isEqualToString:@"path"];
 
                 if (v21)
                 {
 
-                  v41 = 0u;
-                  v42 = 0u;
-                  v39 = 0u;
                   v40 = 0u;
+                  v41 = 0u;
+                  v38 = 0u;
+                  v39 = 0u;
                   queryItems2 = [l->var0 queryItems];
-                  v24 = [queryItems2 countByEnumeratingWithState:&v39 objects:v47 count:16];
+                  v24 = [queryItems2 countByEnumeratingWithState:&v38 objects:v46 count:16];
                   if (v24)
                   {
-                    v25 = *v40;
-                    v36 = &stru_1EEF65710;
+                    v25 = *v39;
+                    v35 = &stru_1EEF65710;
                     while (2)
                     {
                       for (j = 0; j != v24; ++j)
                       {
-                        if (*v40 != v25)
+                        if (*v39 != v25)
                         {
                           objc_enumerationMutation(queryItems2);
                         }
 
-                        v27 = *(*(&v39 + 1) + 8 * j);
+                        v27 = *(*(&v38 + 1) + 8 * j);
                         name2 = [v27 name];
                         lowercaseString2 = [name2 lowercaseString];
                         v30 = [lowercaseString2 isEqual:@"path"];
@@ -752,13 +762,13 @@ LABEL_43:
                         {
                           v31 = MEMORY[0x1E696AEC0];
                           value = [v27 value];
-                          v36 = [v31 stringWithFormat:@"ICLOUD_SERVICE/%@", value];
+                          v35 = [v31 stringWithFormat:@"ICLOUD_SERVICE/%@", value];
 
                           goto LABEL_42;
                         }
                       }
 
-                      v24 = [queryItems2 countByEnumeratingWithState:&v39 objects:v47 count:16];
+                      v24 = [queryItems2 countByEnumeratingWithState:&v38 objects:v46 count:16];
                       if (v24)
                       {
                         continue;
@@ -770,19 +780,19 @@ LABEL_43:
 
                   else
                   {
-                    v36 = &stru_1EEF65710;
+                    v35 = &stru_1EEF65710;
                   }
 
 LABEL_42:
 
                   v33 = objc_alloc(MEMORY[0x1E695DFF8]);
-                  v12 = [@"settings-navigation://com.apple.Settings.AppleAccount/" stringByAppendingString:v36];
+                  v12 = [@"settings-navigation://com.apple.Settings.AppleAccount/" stringByAppendingString:v35];
                   v15 = [v33 initWithString:v12];
                   goto LABEL_43;
                 }
               }
 
-              v17 = [queryItems countByEnumeratingWithState:&v43 objects:v48 count:16];
+              v17 = [queryItems countByEnumeratingWithState:&v42 objects:v47 count:16];
               if (v17)
               {
                 continue;
@@ -793,7 +803,7 @@ LABEL_42:
           }
 
           v22 = objc_alloc(MEMORY[0x1E695DFF8]);
-          v37 = [@"settings-navigation://com.apple.Settings.AppleAccount?" stringByAppendingString:query];
+          v36 = [@"settings-navigation://com.apple.Settings.AppleAccount?" stringByAppendingString:query];
           v15 = [v22 initWithString:?];
         }
       }
@@ -814,8 +824,6 @@ LABEL_42:
   {
     v15 = 0;
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -1056,20 +1064,17 @@ LABEL_9:
 
 - (void)initWithOriginalURL:checkingForAvailableApplications:.cold.4()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_6();
-  _os_log_debug_impl(&dword_18162D000, v0, OS_LOG_TYPE_DEBUG, "Error determining if app is available to open URL %{private}@: %{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_18162D000, v0, OS_LOG_TYPE_DEBUG, "Error determining if app is available to open URL %{private}@: %{public}@", v1, 0x16u);
 }
 
 - (void)initWithOriginalURL:checkingForAvailableApplications:.cold.5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_0_10();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

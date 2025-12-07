@@ -1,4 +1,5 @@
 @interface RPAppAudioCaptureManager
++ ($303BD981C39A39D962385795755BC4C1)audioCaptureConfigForSystemRecording:(BOOL)recording processID:(int)d contextID:(id)iD;
 + (AudioStreamBasicDescription)audioStreamBasicDescriptionWithStereo:(SEL)stereo;
 + (AudioStreamBasicDescription)descriptionForHQLR;
 - (BOOL)handleStartAudioQueueFailed:(int)failed didFailHandler:(id)handler;
@@ -68,11 +69,11 @@
     v5 = *(v2 + 2);
     *(v2 + 2) = 0;
 
-    [RPAppAudioCaptureManager audioStreamBasicDescriptionWithStereo:1];
+    objc_msgSend_audioStreamBasicDescriptionWithStereo_(RPAppAudioCaptureManager);
     *(v2 + 56) = v7;
     *(v2 + 72) = v8;
     *(v2 + 11) = v9;
-    +[RPAppAudioCaptureManager descriptionForHQLR];
+    objc_msgSend_descriptionForHQLR(RPAppAudioCaptureManager);
     *(v2 + 6) = v7;
     *(v2 + 7) = v8;
     *(v2 + 16) = v9;
@@ -142,6 +143,16 @@ LABEL_6:
   block[3] = &unk_1000A1088;
   block[4] = self;
   dispatch_sync(audioDispatchQueue, block);
+}
+
++ ($303BD981C39A39D962385795755BC4C1)audioCaptureConfigForSystemRecording:(BOOL)recording processID:(int)d contextID:(id)iD
+{
+  v5 = *&d << 32;
+  v6 = 0;
+  result.var2 = v6;
+  result.var0 = v5;
+  result.var1 = HIDWORD(v5);
+  return result;
 }
 
 - (id)newAudioTapForAudioCaptureConfig:(id)config

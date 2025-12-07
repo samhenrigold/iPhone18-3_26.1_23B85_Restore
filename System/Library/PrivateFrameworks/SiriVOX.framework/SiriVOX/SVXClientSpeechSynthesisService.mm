@@ -16,22 +16,22 @@
 
 - (BOOL)_handleSynthesizedBufferForHandlerUUID:(id)d audioChunkData:(id)data audioChunkIndex:(unint64_t)index
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dataCopy = data;
   v10 = MEMORY[0x277CEF098];
   v11 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
   {
-    v19 = 136315906;
-    v20 = "[SVXClientSpeechSynthesisService _handleSynthesizedBufferForHandlerUUID:audioChunkData:audioChunkIndex:]";
-    v21 = 2112;
-    v22 = dCopy;
-    v23 = 2048;
+    v18 = 136315906;
+    v19 = "[SVXClientSpeechSynthesisService _handleSynthesizedBufferForHandlerUUID:audioChunkData:audioChunkIndex:]";
+    v20 = 2112;
+    v21 = dCopy;
+    v22 = 2048;
     indexCopy = index;
-    v25 = 2112;
-    v26 = dataCopy;
-    _os_log_debug_impl(&dword_2695B9000, v11, OS_LOG_TYPE_DEBUG, "%s handlerUUID = %@, audioChunkIndex = %tu, audioChunkData = %@", &v19, 0x2Au);
+    v24 = 2112;
+    v25 = dataCopy;
+    _os_log_debug_impl(&dword_2695B9000, v11, OS_LOG_TYPE_DEBUG, "%s handlerUUID = %@, audioChunkIndex = %tu, audioChunkData = %@", &v18, 0x2Au);
     if (dCopy)
     {
       goto LABEL_3;
@@ -54,9 +54,9 @@ LABEL_3:
       v15 = *v10;
       if (os_log_type_enabled(*v10, OS_LOG_TYPE_ERROR))
       {
-        v19 = 136315138;
-        v20 = "[SVXClientSpeechSynthesisService _handleSynthesizedBufferForHandlerUUID:audioChunkData:audioChunkIndex:]";
-        _os_log_error_impl(&dword_2695B9000, v15, OS_LOG_TYPE_ERROR, "%s Audio chunk handler is nil.", &v19, 0xCu);
+        v18 = 136315138;
+        v19 = "[SVXClientSpeechSynthesisService _handleSynthesizedBufferForHandlerUUID:audioChunkData:audioChunkIndex:]";
+        _os_log_error_impl(&dword_2695B9000, v15, OS_LOG_TYPE_ERROR, "%s Audio chunk handler is nil.", &v18, 0xCu);
       }
     }
 
@@ -66,40 +66,37 @@ LABEL_3:
   v16 = *v10;
   if (os_log_type_enabled(*v10, OS_LOG_TYPE_ERROR))
   {
-    v19 = 136315138;
-    v20 = "[SVXClientSpeechSynthesisService _handleSynthesizedBufferForHandlerUUID:audioChunkData:audioChunkIndex:]";
-    _os_log_error_impl(&dword_2695B9000, v16, OS_LOG_TYPE_ERROR, "%s Audio chunk handler UUID is nil.", &v19, 0xCu);
+    v18 = 136315138;
+    v19 = "[SVXClientSpeechSynthesisService _handleSynthesizedBufferForHandlerUUID:audioChunkData:audioChunkIndex:]";
+    _os_log_error_impl(&dword_2695B9000, v16, OS_LOG_TYPE_ERROR, "%s Audio chunk handler UUID is nil.", &v18, 0xCu);
   }
 
   v14 = 0;
 LABEL_12:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (void)_removeAudioChunkHandlerForUUID:(id)d
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
   {
-    v7 = 136315394;
-    v8 = "[SVXClientSpeechSynthesisService _removeAudioChunkHandlerForUUID:]";
-    v9 = 2112;
-    v10 = dCopy;
-    _os_log_debug_impl(&dword_2695B9000, v5, OS_LOG_TYPE_DEBUG, "%s handlerUUID = %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SVXClientSpeechSynthesisService _removeAudioChunkHandlerForUUID:]";
+    v8 = 2112;
+    v9 = dCopy;
+    _os_log_debug_impl(&dword_2695B9000, v5, OS_LOG_TYPE_DEBUG, "%s handlerUUID = %@", &v6, 0x16u);
   }
 
   [(NSMutableDictionary *)self->_audioChunkHandlersByUUID removeObjectForKey:dCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addAudioChunkHandler:(id)handler forUUID:(id)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   dCopy = d;
   v8 = dCopy;
@@ -115,19 +112,17 @@ LABEL_12:
     v11 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315394;
-      v16 = "[SVXClientSpeechSynthesisService _addAudioChunkHandler:forUUID:]";
-      v17 = 2112;
-      v18 = v8;
-      _os_log_debug_impl(&dword_2695B9000, v11, OS_LOG_TYPE_DEBUG, "%s handlerUUID = %@", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = "[SVXClientSpeechSynthesisService _addAudioChunkHandler:forUUID:]";
+      v16 = 2112;
+      v17 = v8;
+      _os_log_debug_impl(&dword_2695B9000, v11, OS_LOG_TYPE_DEBUG, "%s handlerUUID = %@", &v14, 0x16u);
     }
 
     v12 = self->_audioChunkHandlersByUUID;
     v13 = MEMORY[0x26D642680](handlerCopy);
     [(NSMutableDictionary *)v12 setObject:v13 forKey:v8];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopRequest:(id)request
@@ -145,19 +140,17 @@ LABEL_12:
 
 void __47__SVXClientSpeechSynthesisService_stopRequest___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[SVXClientSpeechSynthesisService stopRequest:]_block_invoke_2";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s error = %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[SVXClientSpeechSynthesisService stopRequest:]_block_invoke_2";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s error = %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelPendingRequest:(id)request
@@ -175,19 +168,17 @@ void __47__SVXClientSpeechSynthesisService_stopRequest___block_invoke_2(uint64_t
 
 void __56__SVXClientSpeechSynthesisService_cancelPendingRequest___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[SVXClientSpeechSynthesisService cancelPendingRequest:]_block_invoke_2";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s error = %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[SVXClientSpeechSynthesisService cancelPendingRequest:]_block_invoke_2";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s error = %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enqueueRequest:(id)request completion:(id)completion
@@ -227,16 +218,16 @@ void __61__SVXClientSpeechSynthesisService_enqueueRequest_completion___block_inv
 
 void __61__SVXClientSpeechSynthesisService_enqueueRequest_completion___block_invoke_4(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v8 = 136315394;
-    v9 = "[SVXClientSpeechSynthesisService enqueueRequest:completion:]_block_invoke_4";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s error = %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[SVXClientSpeechSynthesisService enqueueRequest:completion:]_block_invoke_4";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s error = %@", &v7, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -245,8 +236,6 @@ void __61__SVXClientSpeechSynthesisService_enqueueRequest_completion___block_inv
     v6 = [[SVXSpeechSynthesisResult alloc] initWithType:4 utteranceInfo:0 error:v3];
     (*(v5 + 16))(v5, v6);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __61__SVXClientSpeechSynthesisService_enqueueRequest_completion___block_invoke_2(uint64_t a1, void *a2)
@@ -321,37 +310,35 @@ void __82__SVXClientSpeechSynthesisService_synthesizeRequest_audioChunkHandler_c
 
 void __82__SVXClientSpeechSynthesisService_synthesizeRequest_audioChunkHandler_completion___block_invoke_6(void *a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v19 = "[SVXClientSpeechSynthesisService synthesizeRequest:audioChunkHandler:completion:]_block_invoke_6";
-    v20 = 2112;
-    v21 = v3;
+    v18 = "[SVXClientSpeechSynthesisService synthesizeRequest:audioChunkHandler:completion:]_block_invoke_6";
+    v19 = 2112;
+    v20 = v3;
     _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s error = %@", buf, 0x16u);
   }
 
   v6 = a1[4];
   v5 = a1[5];
   v7 = *(v6 + 8);
-  v12 = MEMORY[0x277D85DD0];
-  v13 = 3221225472;
-  v14 = __82__SVXClientSpeechSynthesisService_synthesizeRequest_audioChunkHandler_completion___block_invoke_5;
-  v15 = &unk_279C68FE8;
-  v16 = v6;
-  v17 = v5;
-  [v7 performBlock:&v12];
+  v11 = MEMORY[0x277D85DD0];
+  v12 = 3221225472;
+  v13 = __82__SVXClientSpeechSynthesisService_synthesizeRequest_audioChunkHandler_completion___block_invoke_5;
+  v14 = &unk_279C68FE8;
+  v15 = v6;
+  v16 = v5;
+  [v7 performBlock:&v11];
   v8 = a1[6];
   if (v8)
   {
     v9 = [SVXSpeechSynthesisResult alloc];
-    v10 = [(SVXSpeechSynthesisResult *)v9 initWithType:4 utteranceInfo:0 error:v3, v12, v13, v14, v15, v16];
+    v10 = [(SVXSpeechSynthesisResult *)v9 initWithType:4 utteranceInfo:0 error:v3, v11, v12, v13, v14, v15];
     (*(v8 + 16))(v8, v10);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __82__SVXClientSpeechSynthesisService_synthesizeRequest_audioChunkHandler_completion___block_invoke_5(uint64_t a1)
@@ -423,16 +410,16 @@ void __64__SVXClientSpeechSynthesisService_synthesizeRequest_completion___block_
 
 void __64__SVXClientSpeechSynthesisService_synthesizeRequest_completion___block_invoke_4(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v8 = 136315394;
-    v9 = "[SVXClientSpeechSynthesisService synthesizeRequest:completion:]_block_invoke_4";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s error = %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[SVXClientSpeechSynthesisService synthesizeRequest:completion:]_block_invoke_4";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s error = %@", &v7, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -441,8 +428,6 @@ void __64__SVXClientSpeechSynthesisService_synthesizeRequest_completion___block_
     v6 = [[SVXSpeechSynthesisResult alloc] initWithType:4 utteranceInfo:0 error:v3];
     (*(v5 + 16))(v5, v6);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __64__SVXClientSpeechSynthesisService_synthesizeRequest_completion___block_invoke_2(uint64_t a1, void *a2)
@@ -477,19 +462,17 @@ void __64__SVXClientSpeechSynthesisService_synthesizeRequest_completion___block_
 
 void __50__SVXClientSpeechSynthesisService_prewarmRequest___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[SVXClientSpeechSynthesisService prewarmRequest:]_block_invoke_2";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s error = %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[SVXClientSpeechSynthesisService prewarmRequest:]_block_invoke_2";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s error = %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (SVXClientSpeechSynthesisService)initWithClientServiceProvider:(id)provider analytics:(id)analytics performer:(id)performer

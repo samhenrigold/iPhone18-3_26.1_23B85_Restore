@@ -5,37 +5,37 @@
 
 void ___CKGetCachedGestaltValues_block_invoke()
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:0];
   v1 = _CKCachedGestaltValues;
   _CKCachedGestaltValues = v0;
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   *&buf = @"UniqueDeviceID";
   *(&buf + 1) = @"BuildVersion";
-  v17 = @"ProductName";
-  v18 = @"ProductType";
-  v19 = @"ProductVersion";
+  v16 = @"ProductName";
+  v17 = @"ProductType";
+  v18 = @"ProductVersion";
   v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&buf count:5];
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * v6);
+        v7 = *(*(&v10 + 1) + 8 * v6);
         v8 = MGCopyAnswer();
         if (v8)
         {
@@ -62,13 +62,11 @@ void ___CKGetCachedGestaltValues_block_invoke()
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ___CKGetCachedGestaltValues_block_invoke_2()

@@ -17,9 +17,9 @@
     +[NSCharacterSet(ZhuyinAddition) zhuyinConsonantCharacterSet];
   }
 
-  v1 = zhuyinConsonantCharacterSet___zhuyinConsonantCharacterSet;
+  v2 = zhuyinConsonantCharacterSet___zhuyinConsonantCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 + (id)zhuyinMedialCharacterSet
@@ -29,9 +29,9 @@
     +[NSCharacterSet(ZhuyinAddition) zhuyinMedialCharacterSet];
   }
 
-  v1 = zhuyinMedialCharacterSet___zhuyinMedialCharacterSet;
+  v2 = zhuyinMedialCharacterSet___zhuyinMedialCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 + (id)zhuyinVowelCharacterSet
@@ -41,9 +41,9 @@
     +[NSCharacterSet(ZhuyinAddition) zhuyinVowelCharacterSet];
   }
 
-  v1 = zhuyinVowelCharacterSet___zhuyinVowelCharacterSet;
+  v2 = zhuyinVowelCharacterSet___zhuyinVowelCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 + (id)zhuyinPhonemeCharacterSet
@@ -53,9 +53,9 @@
     +[NSCharacterSet(ZhuyinAddition) zhuyinPhonemeCharacterSet];
   }
 
-  v1 = zhuyinPhonemeCharacterSet___zhuyinPhonemeCharacterSet;
+  v2 = zhuyinPhonemeCharacterSet___zhuyinPhonemeCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 + (id)zhuyinToneCharacterSet
@@ -65,9 +65,9 @@
     +[NSCharacterSet(ZhuyinAddition) zhuyinToneCharacterSet];
   }
 
-  v1 = zhuyinToneCharacterSet___zhuyinToneCharacterSet;
+  v2 = zhuyinToneCharacterSet___zhuyinToneCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 + (id)zhuyinCharacterSet
@@ -77,9 +77,9 @@
     +[NSCharacterSet(ZhuyinAddition) zhuyinCharacterSet];
   }
 
-  v1 = zhuyinCharacterSet___zhuyinCharacterSet;
+  v2 = zhuyinCharacterSet___zhuyinCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 + (id)punctuationAndSymbolCharacterSet
@@ -89,9 +89,9 @@
     +[NSCharacterSet(ZhuyinAddition) punctuationAndSymbolCharacterSet];
   }
 
-  v1 = punctuationAndSymbolCharacterSet___punctuationAndSymbolCharacterSet;
+  v2 = punctuationAndSymbolCharacterSet___punctuationAndSymbolCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 @end

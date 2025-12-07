@@ -75,7 +75,7 @@ void __80__NSError_SafariSharedCloudKitExtras___safari_enumerateCloudKitErrorsWi
   }
 }
 
-uint64_t __86__NSError_SafariSharedCloudKitExtras__safari_hasOrContainsErrorWithCloudKitErrorCode___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__86__NSError_SafariSharedCloudKitExtras__safari_hasOrContainsErrorWithCloudKitErrorCode___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 code];
   if (result == *(a1 + 40))

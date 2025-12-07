@@ -18,22 +18,21 @@
 - (void)dealloc
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CDB5790, &qword_21BE32800);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v11 - v5;
-  v7 = sub_21BE28DAC();
-  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
-  v8 = swift_allocObject();
-  v8[2] = 0;
-  v8[3] = 0;
-  v8[4] = self;
+  v5 = &v10 - v4;
+  v6 = sub_21BE28DAC();
+  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
+  v7 = swift_allocObject();
+  v7[2] = 0;
+  v7[3] = 0;
+  v7[4] = self;
   selfCopy = self;
-  sub_21BBA9018(0, 0, v6, &unk_21BE40590, v8);
+  sub_21BBA9018(0, 0, v5, &unk_21BE40590, v7);
 
-  v10 = type metadata accessor for LocationViewModel();
-  v11.receiver = selfCopy;
-  v11.super_class = v10;
-  [(LocationViewModel *)&v11 dealloc];
+  v9 = type metadata accessor for LocationViewModel(0);
+  v10.receiver = selfCopy;
+  v10.super_class = v9;
+  [(LocationViewModel *)&v10 dealloc];
 }
 
 + (id)createModel

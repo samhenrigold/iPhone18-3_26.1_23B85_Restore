@@ -6,7 +6,7 @@
 
 - (void)connectedDevicesDidChange:(id)change
 {
-  sub_1C1C4D00C(0, &qword_1ED7C5390);
+  sub_1C1C4D00C(0, &qword_1ED7C5390, 0x1E698E838);
   v4 = sub_1C1C9B338();
   selfCopy = self;
   sub_1C1C50D20(v4);

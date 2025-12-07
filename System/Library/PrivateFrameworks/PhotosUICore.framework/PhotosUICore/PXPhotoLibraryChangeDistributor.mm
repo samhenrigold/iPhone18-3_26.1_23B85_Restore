@@ -207,7 +207,7 @@ LABEL_13:
   return uUID;
 }
 
-uint64_t __77__PXPhotoLibraryChangeDistributor_beginPausingChangesWithTimeout_identifier___block_invoke(uint64_t a1)
+void *__77__PXPhotoLibraryChangeDistributor_beginPausingChangesWithTimeout_identifier___block_invoke(uint64_t a1)
 {
   v10 = *MEMORY[0x1E69E9840];
   result = [*(*(a1 + 32) + 56) containsObject:*(a1 + 40)];
@@ -320,13 +320,13 @@ void __63__PXPhotoLibraryChangeDistributor_distributeChangeOnMainQueue___block_i
   dispatch_semaphore_signal(*(*(v12 + 40) + 40));
 }
 
-uint64_t __63__PXPhotoLibraryChangeDistributor_distributeChangeOnMainQueue___block_invoke_393(uint64_t a1)
+uint64_t __63__PXPhotoLibraryChangeDistributor_distributeChangeOnMainQueue___block_invoke_393(uint64_t a1, uint64_t a2)
 {
-  v2 = PLUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = PLUIGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_INFO, "Change Distribution: Change delivery resumed.", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_INFO, "Change Distribution: Change delivery resumed.", v5, 2u);
   }
 
   return (*(*(a1 + 32) + 16))();

@@ -155,17 +155,18 @@
 - (BOOL)_shouldUseCompactModeLayout
 {
   traitCollection = [(SFPrivateBrowsingPrivacyProtectionsBanner *)self traitCollection];
-  if ([traitCollection horizontalSizeClass] == 1)
+  horizontalSizeClass = [traitCollection horizontalSizeClass];
+  if (horizontalSizeClass == 1)
   {
-    LOBYTE(v3) = 1;
+    LOBYTE(v5) = 1;
   }
 
   else
   {
-    v3 = _SFDeviceIsPad() ^ 1;
+    v5 = _SFDeviceIsPad(horizontalSizeClass, v4) ^ 1;
   }
 
-  return v3;
+  return v5;
 }
 
 - (void)_createLayoutConstraints

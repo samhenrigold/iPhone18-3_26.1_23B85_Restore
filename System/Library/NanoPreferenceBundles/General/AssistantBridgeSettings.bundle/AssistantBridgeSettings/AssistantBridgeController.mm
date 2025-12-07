@@ -19,6 +19,7 @@
 - (void)languageCodeDidChange;
 - (void)preferencesDidChange;
 - (void)restrictionsDidChange;
+- (void)setAssistantEnabled:(BOOL)enabled withConfirmationAction:(id)action;
 - (void)setDigitalCrownEnabled:(id)enabled;
 - (void)setMessageWithoutConfirmationEnabled:(id)enabled;
 - (void)setRaiseToSpeakEnabled:(id)enabled;
@@ -460,6 +461,21 @@
 LABEL_8:
 
   return v4;
+}
+
+- (void)setAssistantEnabled:(BOOL)enabled withConfirmationAction:(id)action
+{
+  enabledCopy = enabled;
+  actionCopy = action;
+  objc_initWeak(&location, self);
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_27C8;
+  v7[3] = &unk_10420;
+  objc_copyWeak(&v8, &location);
+  [AssistantBridgeSettingsUtilities setAssistantEnabled:enabledCopy alertPresenter:self confirmationAction:actionCopy alertPresentationCompletion:v7];
+  objc_destroyWeak(&v8);
+  objc_destroyWeak(&location);
 }
 
 - (BOOL)raiseToSpeakEnabledAndSupported

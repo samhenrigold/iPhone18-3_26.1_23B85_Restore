@@ -12,99 +12,83 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  v7 = objc_msgSend__item(self, v5, v6);
-  v10 = objc_msgSend_sender(self, v8, v9);
-  v13 = objc_msgSend_tapback(self, v11, v12);
-  v15 = objc_msgSend__initWithItem_sender_tapback_(v4, v14, v7, v10, v13);
+  _item = [(IMChatItem *)self _item];
+  sender = [(IMAssociatedMessageChatItem *)self sender];
+  tapback = [(IMAssociatedMessageChatItem *)self tapback];
+  v8 = [v4 _initWithItem:_item sender:sender tapback:tapback];
 
-  return v15;
+  return v8;
 }
 
 - (id)_initWithItem:(id)item sender:(id)sender tapback:(id)tapback
 {
   tapbackCopy = tapback;
-  v10 = objc_msgSend__initWithItem_sender_(self, v9, item, sender);
-  v12 = v10;
-  if (v10)
+  v9 = [(IMAssociatedMessageChatItem *)self _initWithItem:item sender:sender];
+  v10 = v9;
+  if (v9)
   {
-    objc_msgSend_setTapback_(v10, v11, tapbackCopy);
-    v15 = 10;
-    v16 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    objc_msgSend__setGeometryDescriptor_(v12, v13, &v15);
+    [v9 setTapback:tapbackCopy];
+    v12 = 10;
+    v13 = 0u;
+    v14 = 0u;
+    v15 = 0u;
+    [v10 _setGeometryDescriptor:&v12];
   }
 
-  return v12;
+  return v10;
 }
 
 - (BOOL)isEqualToTapback:(id)tapback
 {
   tapbackCopy = tapback;
-  v7 = objc_msgSend_associatedMessageType(self, v5, v6);
-  if (v7 != objc_msgSend_associatedMessageType(tapbackCopy, v8, v9))
+  associatedMessageType = [(IMAssociatedMessageChatItem *)self associatedMessageType];
+  v11 = 0;
+  if (associatedMessageType == [tapbackCopy associatedMessageType])
   {
-    goto LABEL_6;
+    if (-[IMAssociatedMessageChatItem associatedMessageType](self, "associatedMessageType") != 2006 || (-[IMAssociatedMessageChatItem associatedMessageEmoji](self, "associatedMessageEmoji"), v6 = objc_claimAutoreleasedReturnValue(), [tapbackCopy associatedMessageEmoji], v7 = objc_claimAutoreleasedReturnValue(), v7, v6, v6 == v7) || (-[IMAssociatedMessageChatItem associatedMessageEmoji](self, "associatedMessageEmoji"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(tapbackCopy, "associatedMessageEmoji"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "isEqual:", v9), v9, v8, (v10 & 1) != 0))
+    {
+      v11 = 1;
+    }
   }
 
-  if (objc_msgSend_associatedMessageType(self, v10, v11) != 2006)
-  {
-    goto LABEL_5;
-  }
-
-  v14 = objc_msgSend_associatedMessageEmoji(self, v12, v13);
-  v17 = objc_msgSend_associatedMessageEmoji(tapbackCopy, v15, v16);
-
-  if (v14 == v17 || (objc_msgSend_associatedMessageEmoji(self, v18, v19), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend_associatedMessageEmoji(tapbackCopy, v21, v22), v23 = objc_claimAutoreleasedReturnValue(), isEqual = objc_msgSend_isEqual_(v20, v24, v23), v23, v20, (isEqual & 1) != 0))
-  {
-LABEL_5:
-    v26 = 1;
-  }
-
-  else
-  {
-LABEL_6:
-    v26 = 0;
-  }
-
-  return v26;
+  return v11;
 }
 
 - (BOOL)containsTransferGUID:(id)d
 {
   dCopy = d;
-  v7 = objc_msgSend_fileTransferGUIDs(self, v5, v6);
-  v9 = objc_msgSend_containsObject_(v7, v8, dCopy);
-
-  return v9;
-}
-
-- (NSArray)fileTransferGUIDs
-{
-  v3 = objc_msgSend__item(self, a2, v2);
-  v6 = objc_msgSend_fileTransferGUIDs(v3, v4, v5);
+  fileTransferGUIDs = [(IMMessageAcknowledgmentChatItem *)self fileTransferGUIDs];
+  v6 = [fileTransferGUIDs containsObject:dCopy];
 
   return v6;
 }
 
+- (NSArray)fileTransferGUIDs
+{
+  _item = [(IMChatItem *)self _item];
+  fileTransferGUIDs = [_item fileTransferGUIDs];
+
+  return fileTransferGUIDs;
+}
+
 - (id)commSafetyTransferGUID
 {
-  v4 = objc_msgSend_tapback(self, a2, v2);
+  tapback = [(IMAssociatedMessageChatItem *)self tapback];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
   if (isKindOfClass)
   {
-    v8 = objc_msgSend_tapback(self, v6, v7);
-    v11 = objc_msgSend_transferGUID(v8, v9, v10);
+    tapback2 = [(IMAssociatedMessageChatItem *)self tapback];
+    transferGUID = [tapback2 transferGUID];
   }
 
   else
   {
-    v11 = 0;
+    transferGUID = 0;
   }
 
-  return v11;
+  return transferGUID;
 }
 
 @end

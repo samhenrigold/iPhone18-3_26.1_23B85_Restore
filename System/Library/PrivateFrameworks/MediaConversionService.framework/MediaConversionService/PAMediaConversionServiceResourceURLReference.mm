@@ -14,14 +14,14 @@
 
 - (id)dictionaryRepresentationWithError:(id *)error
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = [(NSURL *)self->_url bookmarkDataWithOptions:0x20000000 includingResourceValuesForKeys:0 relativeToURL:0 error:error];
   v4 = v3;
   if (v3)
   {
-    v8 = @"bookmarkData";
-    v9[0] = v3;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v7 = @"bookmarkData";
+    v8[0] = v3;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   }
 
   else
@@ -29,14 +29,12 @@
     v5 = 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (void)dealloc
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (self->_shouldDeleteOnDeallocation)
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
@@ -49,21 +47,21 @@
       {
         path2 = [(NSURL *)self->_url path];
         *buf = 138412290;
-        v15 = path2;
+        v14 = path2;
         _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Deleting temporary file %@", buf, 0xCu);
       }
 
       url = self->_url;
-      v13 = 0;
-      v8 = [defaultManager removeItemAtURL:url error:&v13];
-      v9 = v13;
+      v12 = 0;
+      v8 = [defaultManager removeItemAtURL:url error:&v12];
+      v9 = v12;
       if ((v8 & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         path3 = [(NSURL *)self->_url path];
         *buf = 138412546;
-        v15 = path3;
-        v16 = 2112;
-        v17 = v9;
+        v14 = path3;
+        v15 = 2112;
+        v16 = v9;
         _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to delete temporary file %@: %@", buf, 0x16u);
       }
     }
@@ -74,10 +72,9 @@
     [(NSURL *)self->_url stopAccessingSecurityScopedResource];
   }
 
-  v12.receiver = self;
-  v12.super_class = PAMediaConversionServiceResourceURLReference;
-  [(PAMediaConversionServiceResourceURLReference *)&v12 dealloc];
-  v10 = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = PAMediaConversionServiceResourceURLReference;
+  [(PAMediaConversionServiceResourceURLReference *)&v11 dealloc];
 }
 
 - (BOOL)getFileSize:(unint64_t *)size error:(id *)error
@@ -140,7 +137,7 @@
 
 + (BOOL)getPathHash:(unint64_t *)hash lastPathComponent:(id *)component forDictionaryRepresentation:(id)representation
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v9 = [representation objectForKeyedSubscript:@"bookmarkData"];
   if (!v9)
   {
@@ -148,9 +145,9 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"PAMediaConversionServiceResourceURLCollection.m" lineNumber:60 description:{@"Invalid parameter not satisfying: %@", @"bookmarkData"}];
   }
 
-  v17 = 0;
-  v10 = [MEMORY[0x277CBEBC0] URLByResolvingBookmarkData:v9 options:256 relativeToURL:0 bookmarkDataIsStale:0 error:&v17];
-  v11 = v17;
+  v16 = 0;
+  v10 = [MEMORY[0x277CBEBC0] URLByResolvingBookmarkData:v9 options:256 relativeToURL:0 bookmarkDataIsStale:0 error:&v16];
+  v11 = v16;
   if (v10)
   {
     path = [v10 path];
@@ -169,17 +166,16 @@
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v19 = v11;
+    v18 = v11;
     _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to decode bookmark data to get hash/filename: %@", buf, 0xCu);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v10 != 0;
 }
 
 + (id)referenceWithDictionaryRepresentation:(id)representation error:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = [representation objectForKeyedSubscript:@"bookmarkData"];
   if (!v7)
   {
@@ -187,9 +183,9 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"PAMediaConversionServiceResourceURLCollection.m" lineNumber:38 description:{@"Invalid parameter not satisfying: %@", @"bookmarkData"}];
   }
 
-  v15 = 0;
-  v8 = [MEMORY[0x277CBEBC0] URLByResolvingBookmarkData:v7 options:0 relativeToURL:0 bookmarkDataIsStale:0 error:&v15];
-  v9 = v15;
+  v14 = 0;
+  v8 = [MEMORY[0x277CBEBC0] URLByResolvingBookmarkData:v7 options:0 relativeToURL:0 bookmarkDataIsStale:0 error:&v14];
+  v9 = v14;
   if (v8)
   {
     v10 = [self referenceWithURL:v8];
@@ -200,7 +196,7 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v17 = v9;
+      v16 = v9;
       _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Unable to decode URL reference bookmark data: %@", buf, 0xCu);
     }
 
@@ -216,8 +212,6 @@
       v10 = 0;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

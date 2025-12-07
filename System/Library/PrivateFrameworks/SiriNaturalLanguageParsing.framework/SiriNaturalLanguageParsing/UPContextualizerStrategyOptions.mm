@@ -7,7 +7,7 @@
 
 - (id)resultUsingContextualizerInput:(id)input
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   inputCopy = input;
   dialogAct = [inputCopy dialogAct];
   objc_opt_class();
@@ -20,8 +20,8 @@
   query = [inputCopy query];
   coreResult = [inputCopy coreResult];
   prebuiltIntentThreshold = self->_prebuiltIntentThreshold;
-  v34[0] = @"selectOrdinal";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
+  v33[0] = @"selectOrdinal";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
   v11 = [UPContextualizerUtilities hasTopCandidate:coreResult excedingProbability:v10 matchingOneOfIntents:prebuiltIntentThreshold];
 
   if (v11)
@@ -29,8 +29,8 @@
     v12 = SNLPOSLoggerForCategory(3);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v30) = 0;
-      _os_log_impl(&dword_22284A000, v12, OS_LOG_TYPE_DEBUG, "UPContextualizerStrategyOptions: Detected high-probability selectOrdinal intent in core result", &v30, 2u);
+      LOWORD(v29) = 0;
+      _os_log_impl(&dword_22284A000, v12, OS_LOG_TYPE_DEBUG, "UPContextualizerStrategyOptions: Detected high-probability selectOrdinal intent in core result", &v29, 2u);
     }
 
     v13 = [UPResult createResultFromExistingResult:coreResult truncatedTo:1];
@@ -52,9 +52,9 @@
   {
     if (v20)
     {
-      v30 = 138412290;
-      v31 = entityName;
-      _os_log_impl(&dword_22284A000, v19, OS_LOG_TYPE_DEBUG, "UPContextualizerStrategyOptions: No domain result matched dialog act prompted entity (%@)", &v30, 0xCu);
+      v29 = 138412290;
+      v30 = entityName;
+      _os_log_impl(&dword_22284A000, v19, OS_LOG_TYPE_DEBUG, "UPContextualizerStrategyOptions: No domain result matched dialog act prompted entity (%@)", &v29, 0xCu);
     }
 
     goto LABEL_15;
@@ -62,11 +62,11 @@
 
   if (v20)
   {
-    v30 = 134218242;
-    v31 = candidateCount;
-    v32 = 2112;
-    v33 = entityName;
-    _os_log_impl(&dword_22284A000, v19, OS_LOG_TYPE_DEBUG, "UPContextualizerStrategyOptions: %ld domain candidates matched dialog act prompted entity (%@)", &v30, 0x16u);
+    v29 = 134218242;
+    v30 = candidateCount;
+    v31 = 2112;
+    v32 = entityName;
+    _os_log_impl(&dword_22284A000, v19, OS_LOG_TYPE_DEBUG, "UPContextualizerStrategyOptions: %ld domain candidates matched dialog act prompted entity (%@)", &v29, 0x16u);
   }
 
   intent = [dialogAct2 intent];
@@ -83,8 +83,8 @@ LABEL_15:
       v24 = SNLPOSLoggerForCategory(3);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v30) = 0;
-        _os_log_impl(&dword_22284A000, v24, OS_LOG_TYPE_DEBUG, "UPContextualizerStrategyOptions: Building verbatim string payload", &v30, 2u);
+        LOWORD(v29) = 0;
+        _os_log_impl(&dword_22284A000, v24, OS_LOG_TYPE_DEBUG, "UPContextualizerStrategyOptions: Building verbatim string payload", &v29, 2u);
       }
 
       modelIdentifier = [inputCopy modelIdentifier];
@@ -100,8 +100,6 @@ LABEL_15:
   }
 
 LABEL_20:
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

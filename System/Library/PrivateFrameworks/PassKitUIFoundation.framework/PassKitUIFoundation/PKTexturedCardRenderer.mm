@@ -46,13 +46,13 @@
 
 - (id)_initWithStyle:(void *)style renderLoop:(void *)loop diffuseLoader:(void *)loader metalnessLoader:(void *)metalnessLoader normalLoader:
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   styleCopy = style;
   loopCopy = loop;
   loaderCopy = loader;
   metalnessLoaderCopy = metalnessLoader;
-  v59 = metalnessLoaderCopy;
-  v60 = loaderCopy;
+  v58 = metalnessLoaderCopy;
+  v59 = loaderCopy;
   if (!self)
   {
     goto LABEL_38;
@@ -72,26 +72,26 @@ LABEL_38:
     goto LABEL_34;
   }
 
-  v63.receiver = self;
-  v63.super_class = PKTexturedCardRenderer;
-  v17 = objc_msgSendSuper2(&v63, sel_init);
+  v62.receiver = self;
+  v62.super_class = PKTexturedCardRenderer;
+  v17 = objc_msgSendSuper2(&v62, sel_init);
   self = v17;
   if (v17)
   {
     obj = metalnessLoader;
-    v58 = loopCopy;
+    v57 = loopCopy;
     v17[2] = a2;
     objc_storeStrong(v17 + 3, style);
     device = [styleCopy device];
-    v62 = 0;
-    v19 = [device newDefaultLibraryWithBundle:v16 error:&v62];
-    v20 = v62;
+    v61 = 0;
+    v19 = [device newDefaultLibraryWithBundle:v16 error:&v61];
+    v20 = v61;
     v21 = v20;
     if (v19)
     {
-      v55 = v19;
-      v56 = device;
-      v54 = styleCopy;
+      v54 = v19;
+      v55 = device;
+      v53 = styleCopy;
 
       v22 = objc_alloc_init(MEMORY[0x277CD7090]);
       attributes = [v22 attributes];
@@ -104,7 +104,7 @@ LABEL_38:
       [v25 setFormat:29];
       [v25 setOffset:8];
       [v25 setBufferIndex:0];
-      v57 = v22;
+      v56 = v22;
       layouts = [v22 layouts];
       v27 = [layouts objectAtIndexedSubscript:0];
 
@@ -116,7 +116,7 @@ LABEL_38:
       v29 = [v16 pathForResource:off_279A00540[a2] ofType:@"pipelinelib"];
       if (v29)
       {
-        v30 = [v56 newPipelineLibraryWithFilePath:v29 error:{0, obj}];
+        v30 = [v55 newPipelineLibraryWithFilePath:v29 error:{0, obj}];
       }
 
       else
@@ -126,31 +126,31 @@ LABEL_38:
 
       [v28 setPipelineLibrary:{v30, obj}];
 
-      [v28 setVertexDescriptor:v57];
-      v33 = v55;
-      v34 = [v55 newFunctionWithName:@"texturedCard_vertex"];
+      [v28 setVertexDescriptor:v56];
+      v33 = v54;
+      v34 = [v54 newFunctionWithName:@"texturedCard_vertex"];
       [v28 setVertexFunction:v34];
 
-      v35 = [v55 newFunctionWithName:off_279A00568[a2]];
-      styleCopy = v54;
+      v35 = [v54 newFunctionWithName:off_279A00568[a2]];
+      styleCopy = v53;
       if (v35)
       {
         v36 = v35;
         [v28 setFragmentFunction:v35];
         colorAttachments = [v28 colorAttachments];
         v38 = [colorAttachments objectAtIndexedSubscript:0];
-        [v38 setPixelFormat:objc_msgSend(v54, "pixelFormat")];
+        [v38 setPixelFormat:objc_msgSend(v53, "pixelFormat")];
 
-        v61 = 0;
-        v39 = [v56 newRenderPipelineStateWithDescriptor:v28 error:&v61];
-        v40 = v61;
+        v60 = 0;
+        v39 = [v55 newRenderPipelineStateWithDescriptor:v28 error:&v60];
+        v40 = v60;
         v41 = self[5];
         self[5] = v39;
 
         if (self[5])
         {
 
-          newCommandQueue = [v56 newCommandQueue];
+          newCommandQueue = [v55 newCommandQueue];
           v43 = self[4];
           self[4] = newCommandQueue;
 
@@ -160,27 +160,27 @@ LABEL_38:
           *(self + 11) = xmmword_25E0D5B90;
           *(self + 42) = 1065353216;
 
-          loopCopy = v58;
+          loopCopy = v57;
           goto LABEL_23;
         }
 
         v45 = v36;
         v47 = PKLogFacilityTypeGetObject();
-        loopCopy = v58;
+        loopCopy = v57;
         if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
         {
           v48 = self[2];
           *buf = 134218498;
           selfCopy4 = self;
-          v66 = 2048;
-          v67 = v48;
-          v68 = 2114;
-          v69 = v40;
+          v65 = 2048;
+          v66 = v48;
+          v67 = 2114;
+          v68 = v40;
           _os_log_impl(&dword_25E0A9000, v47, OS_LOG_TYPE_DEFAULT, "PKTexturedCardRenderer (%p:%ld): could not load pipeline - %{public}@.", buf, 0x20u);
         }
 
-        v33 = v55;
-        device = v56;
+        v33 = v54;
+        device = v55;
       }
 
       else
@@ -192,14 +192,14 @@ LABEL_38:
           [PKTexturedCardRenderer _initWithStyle:self renderLoop:self + 2 diffuseLoader:v40 metalnessLoader:? normalLoader:?];
         }
 
-        device = v56;
+        device = v55;
         if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
           v46 = self[2];
           *buf = 134218240;
           selfCopy4 = self;
-          v66 = 2048;
-          v67 = v46;
+          v65 = 2048;
+          v66 = v46;
           _os_log_impl(&dword_25E0A9000, v40, OS_LOG_TYPE_DEFAULT, "PKTexturedCardRenderer (%p:%ld): could not load fragment function.", buf, 0x16u);
         }
       }
@@ -210,13 +210,13 @@ LABEL_38:
       v31 = PKLogFacilityTypeGetObject();
       if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
       {
-        v51 = self[2];
+        v50 = self[2];
         *buf = 134218498;
         selfCopy4 = self;
-        v66 = 2048;
-        v67 = v51;
-        v68 = 2114;
-        v69 = v21;
+        v65 = 2048;
+        v66 = v50;
+        v67 = 2114;
+        v68 = v21;
         _os_log_fault_impl(&dword_25E0A9000, v31, OS_LOG_TYPE_FAULT, "PKTexturedCardRenderer (%p:%ld): could not load metal library - %{public}@.", buf, 0x20u);
       }
 
@@ -225,10 +225,10 @@ LABEL_38:
         v32 = self[2];
         *buf = 134218498;
         selfCopy4 = self;
-        v66 = 2048;
-        v67 = v32;
-        v68 = 2114;
-        v69 = v21;
+        v65 = 2048;
+        v66 = v32;
+        v67 = 2114;
+        v68 = v21;
         _os_log_impl(&dword_25E0A9000, v31, OS_LOG_TYPE_DEFAULT, "PKTexturedCardRenderer (%p:%ld): could not load metal library - %{public}@.", buf, 0x20u);
       }
     }
@@ -244,7 +244,6 @@ LABEL_23:
 LABEL_35:
 
 LABEL_36:
-  v49 = *MEMORY[0x277D85DE8];
   return selfCopy5;
 }
 
@@ -484,7 +483,7 @@ LABEL_8:
 
 void __39__PKTexturedCardRenderer_renderAtTime___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   DefaultPrivate2DTexture = PKTextureLoaderResultCreateDefaultPrivate2DTexture(a2, *(a1 + 40), *(a1 + 48));
   v4 = *(a1 + 32);
   v5 = *(v4 + 112);
@@ -497,20 +496,18 @@ void __39__PKTexturedCardRenderer_renderAtTime___block_invoke(uint64_t a1, uint6
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(v6 + 16);
-      v10 = 134218240;
-      v11 = v6;
-      v12 = 2048;
-      v13 = v8;
-      _os_log_impl(&dword_25E0A9000, v7, OS_LOG_TYPE_DEFAULT, "PKTexturedCardRenderer (%p:%ld): could not load diffuse texture.", &v10, 0x16u);
+      v9 = 134218240;
+      v10 = v6;
+      v11 = 2048;
+      v12 = v8;
+      _os_log_impl(&dword_25E0A9000, v7, OS_LOG_TYPE_DEFAULT, "PKTexturedCardRenderer (%p:%ld): could not load diffuse texture.", &v9, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __39__PKTexturedCardRenderer_renderAtTime___block_invoke_69(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   DefaultPrivate2DTexture = PKTextureLoaderResultCreateDefaultPrivate2DTexture(a2, *(a1 + 40), *(a1 + 48));
   v4 = *(a1 + 32);
   v5 = *(v4 + 152);
@@ -523,20 +520,18 @@ void __39__PKTexturedCardRenderer_renderAtTime___block_invoke_69(uint64_t a1, ui
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(v6 + 16);
-      v10 = 134218240;
-      v11 = v6;
-      v12 = 2048;
-      v13 = v8;
-      _os_log_impl(&dword_25E0A9000, v7, OS_LOG_TYPE_DEFAULT, "PKTexturedCardRenderer (%p:%ld): could not load metalness texture.", &v10, 0x16u);
+      v9 = 134218240;
+      v10 = v6;
+      v11 = 2048;
+      v12 = v8;
+      _os_log_impl(&dword_25E0A9000, v7, OS_LOG_TYPE_DEFAULT, "PKTexturedCardRenderer (%p:%ld): could not load metalness texture.", &v9, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __39__PKTexturedCardRenderer_renderAtTime___block_invoke_70(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   DefaultPrivate2DTexture = PKTextureLoaderResultCreateDefaultPrivate2DTexture(a2, *(a1 + 40), *(a1 + 48));
   v4 = *(a1 + 32);
   v5 = *(v4 + 160);
@@ -549,15 +544,13 @@ void __39__PKTexturedCardRenderer_renderAtTime___block_invoke_70(uint64_t a1, ui
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(v6 + 16);
-      v10 = 134218240;
-      v11 = v6;
-      v12 = 2048;
-      v13 = v8;
-      _os_log_impl(&dword_25E0A9000, v7, OS_LOG_TYPE_DEFAULT, "PKTexturedCardRenderer (%p:%ld): could not load normal texture.", &v10, 0x16u);
+      v9 = 134218240;
+      v10 = v6;
+      v11 = 2048;
+      v12 = v8;
+      _os_log_impl(&dword_25E0A9000, v7, OS_LOG_TYPE_DEFAULT, "PKTexturedCardRenderer (%p:%ld): could not load normal texture.", &v9, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
@@ -611,7 +604,7 @@ void __39__PKTexturedCardRenderer_renderAtTime___block_invoke_70(uint64_t a1, ui
     texture = [a2 texture];
     width = [texture width];
     height = [texture height];
-    if (*(drawableCopy + 48) != width || *(drawableCopy + 56) != height)
+    if (*(drawableCopy + 48) != __PAIR128__(height, width))
     {
       *(drawableCopy + 48) = width;
       *(drawableCopy + 56) = height;
@@ -678,36 +671,34 @@ void __39__PKTexturedCardRenderer_renderAtTime___block_invoke_70(uint64_t a1, ui
 
 - (void)_initWithStyle:(os_log_t)log renderLoop:diffuseLoader:metalnessLoader:normalLoader:.cold.1(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a2;
-  v5 = 134218240;
-  v6 = a1;
-  v7 = 2048;
-  v8 = v3;
-  _os_log_fault_impl(&dword_25E0A9000, log, OS_LOG_TYPE_FAULT, "PKTexturedCardRenderer (%p:%ld): could not load fragment function.", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218240;
+  v5 = a1;
+  v6 = 2048;
+  v7 = v3;
+  _os_log_fault_impl(&dword_25E0A9000, log, OS_LOG_TYPE_FAULT, "PKTexturedCardRenderer (%p:%ld): could not load fragment function.", &v4, 0x16u);
 }
 
 - (void)renderAtTime:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = PKLogFacilityTypeGetObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134218240;
-    v7 = a1;
-    v8 = 2048;
-    v9 = a2;
-    _os_log_impl(&dword_25E0A9000, v4, OS_LOG_TYPE_DEFAULT, "PKTexturedCardRenderer (%p:%ld): required textures missing - invalidating.", &v6, 0x16u);
+    v5 = 134218240;
+    v6 = a1;
+    v7 = 2048;
+    v8 = a2;
+    _os_log_impl(&dword_25E0A9000, v4, OS_LOG_TYPE_DEFAULT, "PKTexturedCardRenderer (%p:%ld): required textures missing - invalidating.", &v5, 0x16u);
   }
 
   [(PKTexturedCardRenderer *)a1 invalidate];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-- (void)renderAtTime:(float32x4_t *)a1 .cold.2(float32x4_t *a1, id *a2)
+- (void)renderAtTime:(simd_quatf *)a1 .cold.2(simd_quatf *a1, id *a2)
 {
-  v7[9] = *MEMORY[0x277D85DE8];
+  v6[9] = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1(a1);
   v3 = [*a2 contents];
   if ([*a2 length] >= 0x40)
@@ -720,17 +711,15 @@ void __39__PKTexturedCardRenderer_renderAtTime___block_invoke_70(uint64_t a1, ui
     v4 = [*a2 length];
   }
 
-  result = memcpy(v3, v7, v4);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return memcpy(v3, v6, v4);
 }
 
-- (void)renderAtTime:(float32x4_t *)a1 .cold.3(float32x4_t *a1, id *a2)
+- (void)renderAtTime:(simd_quatf *)a1 .cold.3(simd_quatf *a1, id *a2)
 {
   v8 = 0;
   v9 = 0;
   OUTLINED_FUNCTION_0_1(a1);
-  LODWORD(v8) = a1[10].i32[2];
+  LODWORD(v8) = a1[10].vector.i32[2];
   v4 = [*a2 contents];
   if ([*a2 length] >= 0x50)
   {

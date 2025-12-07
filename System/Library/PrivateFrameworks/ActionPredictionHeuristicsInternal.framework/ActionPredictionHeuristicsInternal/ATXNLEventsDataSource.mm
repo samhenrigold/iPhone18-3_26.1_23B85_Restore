@@ -22,7 +22,7 @@
 
 - (void)nlEventsWithCallback:(id)callback
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
   if (ATXHeuristicCanLearnFromApp(&unk_2850BA3F8))
   {
@@ -34,36 +34,36 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v26 = [v8 count];
+      v25 = [v8 count];
       _os_log_impl(&dword_23E3EA000, v9, OS_LOG_TYPE_INFO, "Got %tu events from NL Events", buf, 0xCu);
     }
 
     if ([v8 count])
     {
-      v18 = v7;
-      v19 = v6;
+      v17 = v7;
+      v18 = v6;
       v10 = objc_opt_new();
+      v19 = 0u;
       v20 = 0u;
       v21 = 0u;
       v22 = 0u;
-      v23 = 0u;
       v11 = v8;
-      v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v21;
+        v14 = *v20;
         do
         {
           v15 = 0;
           do
           {
-            if (*v21 != v14)
+            if (*v20 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = [(ATXHeuristicDevice *)self->_device dictForEvent:*(*(&v20 + 1) + 8 * v15), v18, v19, v20];
+            v16 = [(ATXHeuristicDevice *)self->_device dictForEvent:*(*(&v19 + 1) + 8 * v15), v17, v18, v19];
             if (v16)
             {
               [v10 addObject:v16];
@@ -73,15 +73,15 @@
           }
 
           while (v13 != v15);
-          v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
         }
 
         while (v13);
       }
 
       callbackCopy[2](callbackCopy, v10, 0);
-      v7 = v18;
-      v6 = v19;
+      v7 = v17;
+      v6 = v18;
     }
 
     else
@@ -94,8 +94,6 @@
   {
     callbackCopy[2](callbackCopy, MEMORY[0x277CBEBF8], 0);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __46__ATXNLEventsDataSource_nlEventsWithCallback___block_invoke(uint64_t a1, void *a2, void *a3)

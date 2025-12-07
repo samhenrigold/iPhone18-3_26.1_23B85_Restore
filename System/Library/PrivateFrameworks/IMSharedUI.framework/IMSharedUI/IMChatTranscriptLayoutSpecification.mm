@@ -12,7 +12,8 @@
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  return objc_msgSend_stringWithFormat_(v3, v5, @"<%@: %p, layoutBoundsSize: {%.1f, %.1f}", v4, self, *&self->_layoutBoundsSize.width, *&self->_layoutBoundsSize.height);
+  v5.n128_u64[0] = *&self->_layoutBoundsSize.width;
+  return objc_msgSend_stringWithFormat_(v3, v6, @"<%@: %p, layoutBoundsSize: {%.1f, %.1f}", v5, v7, v4, self, v5.n128_u64[0], *&self->_layoutBoundsSize.height);
 }
 
 - (BOOL)isEqual:(id)equal
@@ -50,10 +51,11 @@
     height = 1;
   }
 
-  v3 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], a2, self->_layoutBoundsSize.width % height);
-  v6 = objc_msgSend_hash(v3, v4, v5);
+  v3.n128_u64[0] = *&self->_layoutBoundsSize.width;
+  v5 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], a2, v3.n128_f64[0] % height, v3, v2);
+  v10 = objc_msgSend_hash(v5, v6, v7, v9, v8);
 
-  return v6;
+  return v10;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

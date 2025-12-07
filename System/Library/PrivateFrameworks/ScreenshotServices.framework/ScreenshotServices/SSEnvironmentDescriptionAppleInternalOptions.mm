@@ -13,7 +13,7 @@
   runPPTServiceRequest = v5->_runPPTServiceRequest;
   v5->_runPPTServiceRequest = v6;
 
-  if (RecapLibraryCore())
+  if (RecapLibraryCore(0))
   {
     v8 = [coderCopy decodeXPCObjectOfType:MEMORY[0x1E69E9E80] forKey:@"SSEnvironmentDescriptionAppleInternalRecapKey"];
     if (v8)
@@ -55,7 +55,7 @@
   if (recapMovie)
   {
     v6 = recapMovie;
-    v7 = RecapLibraryCore();
+    v7 = RecapLibraryCore(0);
 
     if (v7)
     {

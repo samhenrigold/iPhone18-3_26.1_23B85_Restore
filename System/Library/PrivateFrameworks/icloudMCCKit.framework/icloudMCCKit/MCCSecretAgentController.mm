@@ -22,6 +22,8 @@
 - (void)predictCommerceEmailWithContext:(id)context completion:(id)completion;
 - (void)registerCategoryRulesCallbackListener:(id)listener notificationTypes:(unint64_t)types completion:(id)completion;
 - (void)registerCategoryRulesCallbackWithNotificationTypes:(unint64_t)types;
+- (void)setCanSendSecureMessageFrom:(id)from to:(id)to canSend:(BOOL)send completion:(id)completion;
+- (void)setIsSecureEmailEnabled:(BOOL)enabled forEmail:(id)email completion:(id)completion;
 - (void)signedDataFromContentData:(id)data senderEmail:(id)email recipientEmails:(id)emails completion:(id)completion;
 - (void)storeSecItemsWithContext:(id)context completion:(id)completion;
 - (void)syncNewOldCategoryTimestamps:(id)timestamps;
@@ -119,7 +121,7 @@ void __71__MCCSecretAgentController_getIsSecureEmailEnabledForEmail_completion__
 void __71__MCCSecretAgentController_getIsSecureEmailEnabledForEmail_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _MCCLogSystem();
+  v4 = _MCCLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __71__MCCSecretAgentController_getIsSecureEmailEnabledForEmail_completion___block_invoke_2_cold_1();
@@ -131,16 +133,56 @@ void __71__MCCSecretAgentController_getIsSecureEmailEnabledForEmail_completion__
 void __71__MCCSecretAgentController_getIsSecureEmailEnabledForEmail_completion___block_invoke_58(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = _MCCLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _MCCLogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __71__MCCSecretAgentController_getIsSecureEmailEnabledForEmail_completion___block_invoke_58_cold_1(a2, v5, v6);
+      __71__MCCSecretAgentController_getIsSecureEmailEnabledForEmail_completion___block_invoke_58_cold_1(a2, v6, v7);
     }
   }
 
   (*(*(a1 + 32) + 16))();
+}
+
+- (void)setIsSecureEmailEnabled:(BOOL)enabled forEmail:(id)email completion:(id)completion
+{
+  enabledCopy = enabled;
+  emailCopy = email;
+  completionCopy = completion;
+  v24[0] = 0;
+  v24[1] = v24;
+  v24[2] = 0x3032000000;
+  v24[3] = __Block_byref_object_copy_;
+  v24[4] = __Block_byref_object_dispose_;
+  selfCopy = self;
+  v25 = selfCopy;
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __72__MCCSecretAgentController_setIsSecureEmailEnabled_forEmail_completion___block_invoke;
+  aBlock[3] = &unk_1E8458230;
+  v23 = v24;
+  v11 = completionCopy;
+  v22 = v11;
+  v12 = _Block_copy(aBlock);
+  agentConnection = selfCopy->_agentConnection;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __72__MCCSecretAgentController_setIsSecureEmailEnabled_forEmail_completion___block_invoke_2;
+  v19[3] = &unk_1E84581E0;
+  v14 = v12;
+  v20 = v14;
+  v15 = [(MCCSecretAgentConnection *)agentConnection remoteObjectProxyWithErrorHandler:v19];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __72__MCCSecretAgentController_setIsSecureEmailEnabled_forEmail_completion___block_invoke_59;
+  v17[3] = &unk_1E84581E0;
+  v16 = v14;
+  v18 = v16;
+  [v15 setIsSecureEmailEnabled:enabledCopy forEmail:emailCopy completion:v17];
+
+  _Block_object_dispose(v24, 8);
 }
 
 void __72__MCCSecretAgentController_setIsSecureEmailEnabled_forEmail_completion___block_invoke(uint64_t a1, void *a2)
@@ -160,7 +202,7 @@ void __72__MCCSecretAgentController_setIsSecureEmailEnabled_forEmail_completion_
 void __72__MCCSecretAgentController_setIsSecureEmailEnabled_forEmail_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _MCCLogSystem();
+  v4 = _MCCLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __72__MCCSecretAgentController_setIsSecureEmailEnabled_forEmail_completion___block_invoke_2_cold_1();
@@ -172,10 +214,11 @@ void __72__MCCSecretAgentController_setIsSecureEmailEnabled_forEmail_completion_
 void __72__MCCSecretAgentController_setIsSecureEmailEnabled_forEmail_completion___block_invoke_59(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _MCCLogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _MCCLogSystem(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __72__MCCSecretAgentController_setIsSecureEmailEnabled_forEmail_completion___block_invoke_59_cold_1();
     }
@@ -240,7 +283,7 @@ void __67__MCCSecretAgentController_canSendSecureMessageFrom_to_completion___blo
 void __67__MCCSecretAgentController_canSendSecureMessageFrom_to_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _MCCLogSystem();
+  v4 = _MCCLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __67__MCCSecretAgentController_canSendSecureMessageFrom_to_completion___block_invoke_2_cold_1();
@@ -252,16 +295,57 @@ void __67__MCCSecretAgentController_canSendSecureMessageFrom_to_completion___blo
 void __67__MCCSecretAgentController_canSendSecureMessageFrom_to_completion___block_invoke_60(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = _MCCLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _MCCLogSystem(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __67__MCCSecretAgentController_canSendSecureMessageFrom_to_completion___block_invoke_60_cold_1();
     }
   }
 
   (*(*(a1 + 32) + 16))();
+}
+
+- (void)setCanSendSecureMessageFrom:(id)from to:(id)to canSend:(BOOL)send completion:(id)completion
+{
+  sendCopy = send;
+  fromCopy = from;
+  toCopy = to;
+  completionCopy = completion;
+  v27[0] = 0;
+  v27[1] = v27;
+  v27[2] = 0x3032000000;
+  v27[3] = __Block_byref_object_copy_;
+  v27[4] = __Block_byref_object_dispose_;
+  selfCopy = self;
+  v28 = selfCopy;
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __78__MCCSecretAgentController_setCanSendSecureMessageFrom_to_canSend_completion___block_invoke;
+  aBlock[3] = &unk_1E8458230;
+  v26 = v27;
+  v14 = completionCopy;
+  v25 = v14;
+  v15 = _Block_copy(aBlock);
+  agentConnection = selfCopy->_agentConnection;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __78__MCCSecretAgentController_setCanSendSecureMessageFrom_to_canSend_completion___block_invoke_2;
+  v22[3] = &unk_1E84581E0;
+  v17 = v15;
+  v23 = v17;
+  v18 = [(MCCSecretAgentConnection *)agentConnection remoteObjectProxyWithErrorHandler:v22];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __78__MCCSecretAgentController_setCanSendSecureMessageFrom_to_canSend_completion___block_invoke_61;
+  v20[3] = &unk_1E84581E0;
+  v19 = v17;
+  v21 = v19;
+  [v18 setCanSendSecureMessageFrom:fromCopy to:toCopy canSend:sendCopy completion:v20];
+
+  _Block_object_dispose(v27, 8);
 }
 
 void __78__MCCSecretAgentController_setCanSendSecureMessageFrom_to_canSend_completion___block_invoke(uint64_t a1, void *a2)
@@ -281,7 +365,7 @@ void __78__MCCSecretAgentController_setCanSendSecureMessageFrom_to_canSend_compl
 void __78__MCCSecretAgentController_setCanSendSecureMessageFrom_to_canSend_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _MCCLogSystem();
+  v4 = _MCCLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __78__MCCSecretAgentController_setCanSendSecureMessageFrom_to_canSend_completion___block_invoke_2_cold_1();
@@ -293,10 +377,11 @@ void __78__MCCSecretAgentController_setCanSendSecureMessageFrom_to_canSend_compl
 void __78__MCCSecretAgentController_setCanSendSecureMessageFrom_to_canSend_completion___block_invoke_61(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _MCCLogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _MCCLogSystem(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __78__MCCSecretAgentController_setCanSendSecureMessageFrom_to_canSend_completion___block_invoke_61_cold_1();
     }
@@ -361,7 +446,7 @@ void __63__MCCSecretAgentController_listSecItemsWithContext_completion___block_i
 void __63__MCCSecretAgentController_listSecItemsWithContext_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _MCCLogSystem();
+  v4 = _MCCLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __63__MCCSecretAgentController_listSecItemsWithContext_completion___block_invoke_2_cold_1();
@@ -372,21 +457,20 @@ void __63__MCCSecretAgentController_listSecItemsWithContext_completion___block_i
 
 void __63__MCCSecretAgentController_listSecItemsWithContext_completion___block_invoke_63(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = _MCCLogSystem();
+  v7 = _MCCLogSystem(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
-    v10 = v5;
-    v11 = 2114;
-    v12 = v6;
-    _os_log_impl(&dword_1D3703000, v7, OS_LOG_TYPE_DEFAULT, "Remote secret agent listSecItems call results %@ with error: %{public}@", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v6;
+    _os_log_impl(&dword_1D3703000, v7, OS_LOG_TYPE_DEFAULT, "Remote secret agent listSecItems call results %@ with error: %{public}@", &v8, 0x16u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)storeSecItemsWithContext:(id)context completion:(id)completion
@@ -444,7 +528,7 @@ void __64__MCCSecretAgentController_storeSecItemsWithContext_completion___block_
 void __64__MCCSecretAgentController_storeSecItemsWithContext_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _MCCLogSystem();
+  v4 = _MCCLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __64__MCCSecretAgentController_storeSecItemsWithContext_completion___block_invoke_2_cold_1();
@@ -455,18 +539,17 @@ void __64__MCCSecretAgentController_storeSecItemsWithContext_completion___block_
 
 void __64__MCCSecretAgentController_storeSecItemsWithContext_completion___block_invoke_64(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _MCCLogSystem();
+  v4 = _MCCLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1D3703000, v4, OS_LOG_TYPE_DEFAULT, "Remote secret agent storeSecItems call with error: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1D3703000, v4, OS_LOG_TYPE_DEFAULT, "Remote secret agent storeSecItems call with error: %{public}@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)generateSSCertificateWithContext:(id)context completion:(id)completion
@@ -524,7 +607,7 @@ void __72__MCCSecretAgentController_generateSSCertificateWithContext_completion_
 void __72__MCCSecretAgentController_generateSSCertificateWithContext_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _MCCLogSystem();
+  v4 = _MCCLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __72__MCCSecretAgentController_generateSSCertificateWithContext_completion___block_invoke_2_cold_1();
@@ -535,18 +618,17 @@ void __72__MCCSecretAgentController_generateSSCertificateWithContext_completion_
 
 void __72__MCCSecretAgentController_generateSSCertificateWithContext_completion___block_invoke_65(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _MCCLogSystem();
+  v4 = _MCCLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1D3703000, v4, OS_LOG_TYPE_DEFAULT, "Remote secret agent genenrateSSCertificate call with error: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1D3703000, v4, OS_LOG_TYPE_DEFAULT, "Remote secret agent genenrateSSCertificate call with error: %{public}@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)signedDataFromContentData:(id)data senderEmail:(id)email recipientEmails:(id)emails completion:(id)completion
@@ -607,7 +689,7 @@ void __93__MCCSecretAgentController_signedDataFromContentData_senderEmail_recipi
 void __93__MCCSecretAgentController_signedDataFromContentData_senderEmail_recipientEmails_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _MCCLogSystem();
+  v4 = _MCCLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __93__MCCSecretAgentController_signedDataFromContentData_senderEmail_recipientEmails_completion___block_invoke_2_cold_1();
@@ -618,19 +700,18 @@ void __93__MCCSecretAgentController_signedDataFromContentData_senderEmail_recipi
 
 void __93__MCCSecretAgentController_signedDataFromContentData_senderEmail_recipientEmails_completion___block_invoke_67(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
-  v7 = _MCCLogSystem();
+  v7 = _MCCLogSystem(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = v5;
-    _os_log_impl(&dword_1D3703000, v7, OS_LOG_TYPE_DEFAULT, "Remote secret agent signedDataFromContentData call with error: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v5;
+    _os_log_impl(&dword_1D3703000, v7, OS_LOG_TYPE_DEFAULT, "Remote secret agent signedDataFromContentData call with error: %{public}@", &v8, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)encryptedDataFromContentData:(id)data senderEmail:(id)email recipientEmails:(id)emails completion:(id)completion
@@ -691,7 +772,7 @@ void __96__MCCSecretAgentController_encryptedDataFromContentData_senderEmail_rec
 void __96__MCCSecretAgentController_encryptedDataFromContentData_senderEmail_recipientEmails_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _MCCLogSystem();
+  v4 = _MCCLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __96__MCCSecretAgentController_encryptedDataFromContentData_senderEmail_recipientEmails_completion___block_invoke_2_cold_1();
@@ -702,19 +783,18 @@ void __96__MCCSecretAgentController_encryptedDataFromContentData_senderEmail_rec
 
 void __96__MCCSecretAgentController_encryptedDataFromContentData_senderEmail_recipientEmails_completion___block_invoke_68(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
-  v7 = _MCCLogSystem();
+  v7 = _MCCLogSystem(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = v5;
-    _os_log_impl(&dword_1D3703000, v7, OS_LOG_TYPE_DEFAULT, "Remote secret agent encryptedDataFromContentData call with error: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v5;
+    _os_log_impl(&dword_1D3703000, v7, OS_LOG_TYPE_DEFAULT, "Remote secret agent encryptedDataFromContentData call with error: %{public}@", &v8, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)decryptedDataFromContentData:(id)data senderEmail:(id)email recipientEmail:(id)recipientEmail completion:(id)completion
@@ -775,7 +855,7 @@ void __95__MCCSecretAgentController_decryptedDataFromContentData_senderEmail_rec
 void __95__MCCSecretAgentController_decryptedDataFromContentData_senderEmail_recipientEmail_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _MCCLogSystem();
+  v4 = _MCCLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __95__MCCSecretAgentController_decryptedDataFromContentData_senderEmail_recipientEmail_completion___block_invoke_2_cold_1();
@@ -786,19 +866,18 @@ void __95__MCCSecretAgentController_decryptedDataFromContentData_senderEmail_rec
 
 void __95__MCCSecretAgentController_decryptedDataFromContentData_senderEmail_recipientEmail_completion___block_invoke_69(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
-  v7 = _MCCLogSystem();
+  v7 = _MCCLogSystem(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = v5;
-    _os_log_impl(&dword_1D3703000, v7, OS_LOG_TYPE_DEFAULT, "Remote secret agent decryptedDataFromContentData call with error: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v5;
+    _os_log_impl(&dword_1D3703000, v7, OS_LOG_TYPE_DEFAULT, "Remote secret agent decryptedDataFromContentData call with error: %{public}@", &v8, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)predictCommerceEmailWithContext:(id)context completion:(id)completion
@@ -857,7 +936,7 @@ void __71__MCCSecretAgentController_predictCommerceEmailWithContext_completion__
 void __71__MCCSecretAgentController_predictCommerceEmailWithContext_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _MCCLogSystem();
+  v4 = _MCCLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __71__MCCSecretAgentController_predictCommerceEmailWithContext_completion___block_invoke_2_cold_1();
@@ -870,10 +949,11 @@ void __71__MCCSecretAgentController_predictCommerceEmailWithContext_completion__
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (!v5)
   {
-    v7 = _MCCLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _MCCLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __71__MCCSecretAgentController_predictCommerceEmailWithContext_completion___block_invoke_71_cold_1();
     }
@@ -891,10 +971,11 @@ void __71__MCCSecretAgentController_predictCommerceEmailWithContext_completion__
 void __79__MCCSecretAgentController_registerCategoryRulesCallbackWithNotificationTypes___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v3 = a3;
+  v4 = v3;
   if (v3)
   {
-    v4 = _MCCLogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _MCCLogSystem(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __79__MCCSecretAgentController_registerCategoryRulesCallbackWithNotificationTypes___block_invoke_cold_1();
     }
@@ -956,7 +1037,7 @@ void __95__MCCSecretAgentController_registerCategoryRulesCallbackListener_notifi
 void __95__MCCSecretAgentController_registerCategoryRulesCallbackListener_notificationTypes_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _MCCLogSystem();
+  v4 = _MCCLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __95__MCCSecretAgentController_registerCategoryRulesCallbackListener_notificationTypes_completion___block_invoke_2_cold_1();
@@ -968,10 +1049,11 @@ void __95__MCCSecretAgentController_registerCategoryRulesCallbackListener_notifi
 void __95__MCCSecretAgentController_registerCategoryRulesCallbackListener_notificationTypes_completion___block_invoke_72(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = _MCCLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _MCCLogSystem(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __95__MCCSecretAgentController_registerCategoryRulesCallbackListener_notificationTypes_completion___block_invoke_72_cold_1();
     }
@@ -1035,7 +1117,7 @@ void __65__MCCSecretAgentController_syncRecategorizationRules_completion___block
 void __65__MCCSecretAgentController_syncRecategorizationRules_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _MCCLogSystem();
+  v4 = _MCCLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __65__MCCSecretAgentController_syncRecategorizationRules_completion___block_invoke_2_cold_1();
@@ -1047,10 +1129,11 @@ void __65__MCCSecretAgentController_syncRecategorizationRules_completion___block
 void __65__MCCSecretAgentController_syncRecategorizationRules_completion___block_invoke_73(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = _MCCLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _MCCLogSystem(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __65__MCCSecretAgentController_syncRecategorizationRules_completion___block_invoke_73_cold_1();
     }
@@ -1113,7 +1196,7 @@ void __55__MCCSecretAgentController_isModelReadyWithCompletion___block_invoke(ui
 void __55__MCCSecretAgentController_isModelReadyWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _MCCLogSystem();
+  v4 = _MCCLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __55__MCCSecretAgentController_isModelReadyWithCompletion___block_invoke_2_cold_1();
@@ -1126,22 +1209,21 @@ void __55__MCCSecretAgentController_isModelReadyWithCompletion___block_invoke_74
 {
   v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = _MCCLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _MCCLogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8[0] = 67109378;
       v8[1] = a2;
       v9 = 2114;
-      v10 = v5;
-      _os_log_impl(&dword_1D3703000, v6, OS_LOG_TYPE_DEFAULT, "Remote secret agent listCertificates call results %d with error: %{public}@", v8, 0x12u);
+      v10 = v6;
+      _os_log_impl(&dword_1D3703000, v7, OS_LOG_TYPE_DEFAULT, "Remote secret agent listCertificates call results %d with error: %{public}@", v8, 0x12u);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invokeModelDownloadWithCompletion:(id)completion
@@ -1198,7 +1280,7 @@ void __62__MCCSecretAgentController_invokeModelDownloadWithCompletion___block_in
 void __62__MCCSecretAgentController_invokeModelDownloadWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _MCCLogSystem();
+  v4 = _MCCLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __55__MCCSecretAgentController_isModelReadyWithCompletion___block_invoke_2_cold_1();
@@ -1211,22 +1293,21 @@ void __62__MCCSecretAgentController_invokeModelDownloadWithCompletion___block_in
 {
   v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = _MCCLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _MCCLogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8[0] = 67109378;
       v8[1] = a2;
       v9 = 2114;
-      v10 = v5;
-      _os_log_impl(&dword_1D3703000, v6, OS_LOG_TYPE_DEFAULT, "Remote secret agent listCertificates call results %d with error: %{public}@", v8, 0x12u);
+      v10 = v6;
+      _os_log_impl(&dword_1D3703000, v7, OS_LOG_TYPE_DEFAULT, "Remote secret agent listCertificates call results %d with error: %{public}@", v8, 0x12u);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getIABCategoryID:(id)d completion:(id)completion
@@ -1286,7 +1367,7 @@ void __56__MCCSecretAgentController_getIABCategoryID_completion___block_invoke(u
 void __56__MCCSecretAgentController_getIABCategoryID_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _MCCLogSystem();
+  v4 = _MCCLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __56__MCCSecretAgentController_getIABCategoryID_completion___block_invoke_2_cold_1();
@@ -1298,10 +1379,11 @@ void __56__MCCSecretAgentController_getIABCategoryID_completion___block_invoke_2
 void __56__MCCSecretAgentController_getIABCategoryID_completion___block_invoke_77(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = _MCCLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _MCCLogSystem(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __56__MCCSecretAgentController_getIABCategoryID_completion___block_invoke_77_cold_1();
     }
@@ -1374,7 +1456,7 @@ void __56__MCCSecretAgentController_isPersonalDomain_completion___block_invoke(u
 void __56__MCCSecretAgentController_isPersonalDomain_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _MCCLogSystem();
+  v4 = _MCCLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __56__MCCSecretAgentController_isPersonalDomain_completion___block_invoke_2_cold_1();
@@ -1387,22 +1469,21 @@ void __56__MCCSecretAgentController_isPersonalDomain_completion___block_invoke_7
 {
   v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = _MCCLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _MCCLogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8[0] = 67109378;
       v8[1] = a2;
       v9 = 2114;
-      v10 = v5;
-      _os_log_impl(&dword_1D3703000, v6, OS_LOG_TYPE_DEFAULT, "Remote secret agent isPersonalDomain call results %d with error: %{public}@", v8, 0x12u);
+      v10 = v6;
+      _os_log_impl(&dword_1D3703000, v7, OS_LOG_TYPE_DEFAULT, "Remote secret agent isPersonalDomain call results %d with error: %{public}@", v8, 0x12u);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getBlackPearlVersionWithCompletion:(id)completion
@@ -1460,7 +1541,7 @@ void __63__MCCSecretAgentController_getBlackPearlVersionWithCompletion___block_i
 void __63__MCCSecretAgentController_getBlackPearlVersionWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _MCCLogSystem();
+  v4 = _MCCLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __71__MCCSecretAgentController_predictCommerceEmailWithContext_completion___block_invoke_2_cold_1();
@@ -1473,10 +1554,11 @@ void __63__MCCSecretAgentController_getBlackPearlVersionWithCompletion___block_i
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (!v5)
   {
-    v7 = _MCCLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _MCCLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __63__MCCSecretAgentController_getBlackPearlVersionWithCompletion___block_invoke_79_cold_1();
     }
@@ -1487,19 +1569,18 @@ void __63__MCCSecretAgentController_getBlackPearlVersionWithCompletion___block_i
 
 - (void)isCategorizationSupportedForLocale:(id)locale completion:(id)completion
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v6 = [_TtC12icloudMCCKit23LanguageDetectionHelper isCategorizationSupportedFor:locale];
-  v7 = _MCCLogSystem();
+  v7 = _MCCLogSystem(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9[0] = 67109120;
-    v9[1] = v6;
-    _os_log_impl(&dword_1D3703000, v7, OS_LOG_TYPE_DEFAULT, "isCategorizationSupportedForLocale: %d", v9, 8u);
+    v8[0] = 67109120;
+    v8[1] = v6;
+    _os_log_impl(&dword_1D3703000, v7, OS_LOG_TYPE_DEFAULT, "isCategorizationSupportedForLocale: %d", v8, 8u);
   }
 
   completionCopy[2](completionCopy, v6, 0);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pingWithcompletion:(id)withcompletion
@@ -1556,7 +1637,7 @@ void __47__MCCSecretAgentController_pingWithcompletion___block_invoke(uint64_t a
 void __47__MCCSecretAgentController_pingWithcompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _MCCLogSystem();
+  v4 = _MCCLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __47__MCCSecretAgentController_pingWithcompletion___block_invoke_2_cold_1();
@@ -1569,20 +1650,19 @@ void __47__MCCSecretAgentController_pingWithcompletion___block_invoke_81(uint64_
 {
   v9 = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = _MCCLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _MCCLogSystem(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 138543362;
-      v8 = v4;
-      _os_log_impl(&dword_1D3703000, v5, OS_LOG_TYPE_DEFAULT, "Remote secret agent ping gave error: %{public}@", &v7, 0xCu);
+      v8 = v5;
+      _os_log_impl(&dword_1D3703000, v6, OS_LOG_TYPE_DEFAULT, "Remote secret agent ping gave error: %{public}@", &v7, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearAllUserOverridesWithTimestamp:(double)timestamp completion:(id)completion
@@ -1639,7 +1719,7 @@ void __74__MCCSecretAgentController_clearAllUserOverridesWithTimestamp_completio
 void __74__MCCSecretAgentController_clearAllUserOverridesWithTimestamp_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _MCCLogSystem();
+  v4 = _MCCLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __74__MCCSecretAgentController_clearAllUserOverridesWithTimestamp_completion___block_invoke_2_cold_1();
@@ -1651,10 +1731,11 @@ void __74__MCCSecretAgentController_clearAllUserOverridesWithTimestamp_completio
 void __74__MCCSecretAgentController_clearAllUserOverridesWithTimestamp_completion___block_invoke_82(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = _MCCLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _MCCLogSystem(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __74__MCCSecretAgentController_clearAllUserOverridesWithTimestamp_completion___block_invoke_82_cold_1();
     }
@@ -1674,7 +1755,7 @@ void __74__MCCSecretAgentController_clearAllUserOverridesWithTimestamp_completio
 void __57__MCCSecretAgentController_syncNewOldCategoryTimestamps___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _MCCLogSystem();
+  v3 = _MCCLogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __57__MCCSecretAgentController_syncNewOldCategoryTimestamps___block_invoke_cold_1();
@@ -1692,7 +1773,7 @@ void __57__MCCSecretAgentController_syncNewOldCategoryTimestamps___block_invoke(
 void __42__MCCSecretAgentController_notifyWebRule___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _MCCLogSystem();
+  v3 = _MCCLogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __42__MCCSecretAgentController_notifyWebRule___block_invoke_cold_1();
@@ -1710,7 +1791,7 @@ void __42__MCCSecretAgentController_notifyWebRule___block_invoke(uint64_t a1, vo
 void __60__MCCSecretAgentController_notifyFullSyncCategoryOverrides___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _MCCLogSystem();
+  v3 = _MCCLogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __60__MCCSecretAgentController_notifyFullSyncCategoryOverrides___block_invoke_cold_1();
@@ -1728,278 +1809,21 @@ void __60__MCCSecretAgentController_notifyFullSyncCategoryOverrides___block_invo
 void __65__MCCSecretAgentController_notifyNewOldCategoryChange_timestamp___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _MCCLogSystem();
+  v3 = _MCCLogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __65__MCCSecretAgentController_notifyNewOldCategoryChange_timestamp___block_invoke_cold_1();
   }
 }
 
-void __71__MCCSecretAgentController_getIsSecureEmailEnabledForEmail_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Initiation of remote secret agent service to get getIsSecureEmailEnabled returned an error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void __71__MCCSecretAgentController_getIsSecureEmailEnabledForEmail_completion___block_invoke_58_cold_1(char a1, uint64_t a2, os_log_t log)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 67109378;
-  v4[1] = a1 & 1;
-  v5 = 2114;
-  v6 = a2;
-  _os_log_error_impl(&dword_1D3703000, log, OS_LOG_TYPE_ERROR, "Remote secret agent getIsSecureEmailEnabled results %d with error: %{public}@", v4, 0x12u);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void __72__MCCSecretAgentController_setIsSecureEmailEnabled_forEmail_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Initiation of remote secret agent service to set set setIsSecureEmailEnabled returned an error: %{public}@", v2, v3, v4, v5, v7);
   v6 = *MEMORY[0x1E69E9840];
-}
-
-void __72__MCCSecretAgentController_setIsSecureEmailEnabled_forEmail_completion___block_invoke_59_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Remote secret agent setIsSecureEmailEnabled call with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __67__MCCSecretAgentController_canSendSecureMessageFrom_to_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Initiation of remote secret agent service to get Recipient status returned an error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __67__MCCSecretAgentController_canSendSecureMessageFrom_to_completion___block_invoke_60_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Remote secret agent canSendSecureMessageFrom call error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __78__MCCSecretAgentController_setCanSendSecureMessageFrom_to_canSend_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Initiation of remote secret agent service to set Recipient status returned an error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __78__MCCSecretAgentController_setCanSendSecureMessageFrom_to_canSend_completion___block_invoke_61_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Remote secret agent setRecipientStatusForSenderEmail call with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __63__MCCSecretAgentController_listSecItemsWithContext_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Initiation of remote secret agent service to listSecItems returned an error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __64__MCCSecretAgentController_storeSecItemsWithContext_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Initiation of remote secret agent service to storeSecItems returned an error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __72__MCCSecretAgentController_generateSSCertificateWithContext_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Initiation of remote secret agent service to generate SSCert returned an error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __93__MCCSecretAgentController_signedDataFromContentData_senderEmail_recipientEmails_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Initiation of remote secret agent service to signedDataFromContentData returned an error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __96__MCCSecretAgentController_encryptedDataFromContentData_senderEmail_recipientEmails_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Initiation of remote secret agent service to encryptedDataFromContentData returned an error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __95__MCCSecretAgentController_decryptedDataFromContentData_senderEmail_recipientEmail_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Initiation of remote secret agent service to decryptedDataFromContentData returned an error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __71__MCCSecretAgentController_predictCommerceEmailWithContext_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Predict commercial email: Initiation of remote secret agent service to predice commerce email returned an error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __71__MCCSecretAgentController_predictCommerceEmailWithContext_completion___block_invoke_71_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Remote secret agent predict commerce call with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __79__MCCSecretAgentController_registerCategoryRulesCallbackWithNotificationTypes___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Remote secret agent register for rules callback with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __95__MCCSecretAgentController_registerCategoryRulesCallbackListener_notificationTypes_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Failed to register rules callback with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __95__MCCSecretAgentController_registerCategoryRulesCallbackListener_notificationTypes_completion___block_invoke_72_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Remote register-rules callback listener with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __65__MCCSecretAgentController_syncRecategorizationRules_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Failed to add recategorization sync-rule with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __65__MCCSecretAgentController_syncRecategorizationRules_completion___block_invoke_73_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Remote recategorization sync-rule with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __55__MCCSecretAgentController_isModelReadyWithCompletion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Initiation of remote secret agent service to list certificates returned an error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __56__MCCSecretAgentController_getIABCategoryID_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Get IAB category domain: Initiation of remote secret agent service getIABCategoryID returned an error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __56__MCCSecretAgentController_getIABCategoryID_completion___block_invoke_77_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Remote secret agent get IAB category call with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __56__MCCSecretAgentController_isPersonalDomain_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Initiation of remote secret agent service to check is personal domain returned an error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __63__MCCSecretAgentController_getBlackPearlVersionWithCompletion___block_invoke_79_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Remote secret agent get blackpearl version call with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __47__MCCSecretAgentController_pingWithcompletion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Tried to ping, returned an error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __74__MCCSecretAgentController_clearAllUserOverridesWithTimestamp_completion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Failed to clearAllUserOverrides with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __74__MCCSecretAgentController_clearAllUserOverridesWithTimestamp_completion___block_invoke_82_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Remote clearAllUserOverrides with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __57__MCCSecretAgentController_syncNewOldCategoryTimestamps___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Failed to syncNewOldCategoryTimestamps with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __42__MCCSecretAgentController_notifyWebRule___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Failed to notify web rule with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __60__MCCSecretAgentController_notifyFullSyncCategoryOverrides___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Failed to notify full sync with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __65__MCCSecretAgentController_notifyNewOldCategoryChange_timestamp___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1D3703000, v0, v1, "Failed to notify new/old category change with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109378;
+  v3[1] = a1 & 1;
+  v4 = 2114;
+  v5 = a2;
+  _os_log_error_impl(&dword_1D3703000, log, OS_LOG_TYPE_ERROR, "Remote secret agent getIsSecureEmailEnabled results %d with error: %{public}@", v3, 0x12u);
 }
 
 @end

@@ -161,11 +161,11 @@ LABEL_5:
 
 - (BOOL)accessibilityActivate
 {
-  v22[2] = *MEMORY[0x29EDCA608];
+  v21[2] = *MEMORY[0x29EDCA608];
   _accessibilityParentView = [(AccessibilityNodeAccessibility__VideosUI__SwiftUI *)self _accessibilityParentView];
-  v22[0] = MEMORY[0x29ED3FF70](@"_TtGC8VideosUI23PlatformHostingCellViewVS_12UpNextLockup_");
-  v22[1] = MEMORY[0x29ED3FF70](@"_TtGC8VideosUI23PlatformHostingCellViewVS_20StandardExtrasLockup_");
-  v4 = [MEMORY[0x29EDB8D80] arrayWithObjects:v22 count:2];
+  v21[0] = MEMORY[0x29ED3FF70](@"_TtGC8VideosUI23PlatformHostingCellViewVS_12UpNextLockup_");
+  v21[1] = MEMORY[0x29ED3FF70](@"_TtGC8VideosUI23PlatformHostingCellViewVS_20StandardExtrasLockup_");
+  v4 = [MEMORY[0x29EDB8D80] arrayWithObjects:v21 count:2];
   if (!_accessibilityParentView)
   {
     goto LABEL_6;
@@ -180,16 +180,16 @@ LABEL_5:
   }
 
   [(AccessibilityNodeAccessibility__VideosUI__SwiftUI *)self accessibilityFrame];
-  x = v23.origin.x;
-  y = v23.origin.y;
-  width = v23.size.width;
-  height = v23.size.height;
-  MidX = CGRectGetMidX(v23);
-  v24.origin.x = x;
-  v24.origin.y = y;
-  v24.size.width = width;
-  v24.size.height = height;
-  MidY = CGRectGetMidY(v24);
+  x = v22.origin.x;
+  y = v22.origin.y;
+  width = v22.size.width;
+  height = v22.size.height;
+  MidX = CGRectGetMidX(v22);
+  v23.origin.x = x;
+  v23.origin.y = y;
+  v23.size.width = width;
+  v23.size.height = height;
+  MidY = CGRectGetMidY(v23);
   window = [_accessibilityParentView window];
   [window convertPoint:0 fromWindow:{MidX, MidY}];
   [window convertPoint:_accessibilityParentView toView:?];
@@ -198,9 +198,9 @@ LABEL_5:
   {
 
 LABEL_6:
-    v21.receiver = self;
-    v21.super_class = AccessibilityNodeAccessibility__VideosUI__SwiftUI;
-    accessibilityActivate = [(AccessibilityNodeAccessibility__VideosUI__SwiftUI *)&v21 accessibilityActivate];
+    v20.receiver = self;
+    v20.super_class = AccessibilityNodeAccessibility__VideosUI__SwiftUI;
+    accessibilityActivate = [(AccessibilityNodeAccessibility__VideosUI__SwiftUI *)&v20 accessibilityActivate];
     goto LABEL_7;
   }
 
@@ -214,7 +214,6 @@ LABEL_6:
   accessibilityActivate = 1;
 LABEL_7:
 
-  v19 = *MEMORY[0x29EDCA608];
   return accessibilityActivate;
 }
 

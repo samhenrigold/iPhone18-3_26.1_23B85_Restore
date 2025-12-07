@@ -20,29 +20,29 @@
 {
   v3 = dispatch_group_create();
   allKeys = [(NSMutableDictionary *)self->_executeBlockCache allKeys];
-  v8 = MEMORY[0x1E69E9820];
-  v9 = 3221225472;
-  v10 = __43__PLStateTrackingComposition_triggerBlocks__block_invoke;
-  v11 = &unk_1E851B130;
+  v10 = MEMORY[0x1E69E9820];
+  v11 = 3221225472;
+  v12 = __43__PLStateTrackingComposition_triggerBlocks__block_invoke;
+  v13 = &unk_1E851B130;
   selfCopy = self;
   v5 = v3;
-  v13 = v5;
-  [allKeys enumerateObjectsUsingBlock:&v8];
+  v15 = v5;
+  [allKeys enumerateObjectsUsingBlock:&v10];
 
-  v6 = PLLogCommon();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-  {
-    [(PLStateTrackingComposition *)v6 triggerBlocks];
-  }
-
-  dispatch_group_wait(v5, 0xFFFFFFFFFFFFFFFFLL);
-  v7 = PLLogCommon();
+  v7 = PLLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [(PLStateTrackingComposition *)v7 triggerBlocks];
   }
 
-  [(PLStateTrackingComposition *)self setStateChangeMask:0, v8, v9, v10, v11, selfCopy];
+  v8 = dispatch_group_wait(v5, 0xFFFFFFFFFFFFFFFFLL);
+  v9 = PLLogCommon(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  {
+    [(PLStateTrackingComposition *)v9 triggerBlocks];
+  }
+
+  [(PLStateTrackingComposition *)self setStateChangeMask:0, v10, v11, v12, v13, selfCopy];
 }
 
 void __43__PLStateTrackingComposition_triggerBlocks__block_invoke(uint64_t a1, void *a2)
@@ -428,11 +428,11 @@ void __48__PLStateTrackingComposition_handleStateChange___block_invoke(uint64_t 
       [dateCopy timeIntervalSinceDate:stateChangeTime2];
       v13 = v12;
 
-      v14 = PLLogCommon();
-      v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG);
+      v15 = PLLogCommon(v14);
+      v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG);
       if (v13 <= 0.0)
       {
-        if (v15)
+        if (v16)
         {
           [PLStateTrackingComposition getState:v9 beforeDate:?];
         }
@@ -442,7 +442,7 @@ void __48__PLStateTrackingComposition_handleStateChange___block_invoke(uint64_t 
 
       else
       {
-        if (v15)
+        if (v16)
         {
           [PLStateTrackingComposition getState:v9 beforeDate:?];
         }
@@ -464,26 +464,20 @@ void __48__PLStateTrackingComposition_handleStateChange___block_invoke(uint64_t 
 
 - (void)getState:(void *)a1 beforeDate:.cold.1(void *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
   v4 = [a1 lastValue];
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1_7(&dword_1D8611000, v5, v6, "State: %@ Last Value: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_7(&dword_1D8611000, v5, v6, "State: %@ Last Value: %@", v7, v8, v9, v10);
 }
 
 - (void)getState:(void *)a1 beforeDate:.cold.2(void *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
   v4 = [a1 currValue];
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1_7(&dword_1D8611000, v5, v6, "State: %@ Current Value: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_7(&dword_1D8611000, v5, v6, "State: %@ Current Value: %@", v7, v8, v9, v10);
 }
 
 @end

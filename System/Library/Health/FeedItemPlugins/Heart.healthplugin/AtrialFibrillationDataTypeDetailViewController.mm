@@ -79,14 +79,13 @@
 {
   v4 = sub_29D933DB8();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x2A1C7C4A8](v4, v7);
-  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x2A1C7C4A8](v4, v6);
+  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_29D933D58();
   selfCopy = self;
   sub_29D781D8C();
 
-  (*(v5 + 8))(v9, v4);
+  (*(v5 + 8))(v8, v4);
 }
 
 - (id)makeInternalSettingsControllerWithHealthStore:(id)store
@@ -101,16 +100,15 @@
   sub_29D75DD24();
   v7 = v6;
   v8 = *(v6 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x2A1C7C4A8](v6, v10);
-  v12 = &v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = sub_29D939D68();
-  v15 = v14;
+  MEMORY[0x2A1C7C4A8](v6, v9);
+  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = sub_29D939D68();
+  v14 = v13;
   sub_29D937BA8();
   selfCopy = self;
-  sub_29D7831E0(v13, v15);
+  sub_29D7831E0(v12, v14);
 
-  (*(v8 + 8))(v12, v7);
+  (*(v8 + 8))(v11, v7);
 }
 
 - (_TtC5Heart46AtrialFibrillationDataTypeDetailViewController)initWithDisplayType:(id)type profile:(id)profile mode:(int64_t)mode

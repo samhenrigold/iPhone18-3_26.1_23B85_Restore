@@ -62,7 +62,7 @@
 {
   height = size.height;
   width = size.width;
-  v36 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   webView = [(TabDocumentView *)self webView];
   [webView frame];
@@ -76,30 +76,30 @@
     webView2 = [(TabDocumentView *)self webView];
     [(TabDocumentView *)self applyGeometryToWebView:webView2];
 
-    v15 = WBS_LOG_CHANNEL_PREFIXTest();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v17 = WBS_LOG_CHANNEL_PREFIXTest(v15, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v16 = v15;
+      v18 = v17;
       webView3 = [(TabDocumentView *)self webView];
       [webView3 frame];
-      v19 = v18;
+      v21 = v20;
       webView4 = [(TabDocumentView *)self webView];
       [webView4 frame];
-      v22 = v21;
+      v24 = v23;
       webView5 = [(TabDocumentView *)self webView];
       [webView5 frame];
-      v25 = v24;
+      v27 = v26;
       webView6 = [(TabDocumentView *)self webView];
       [webView6 frame];
-      v28 = 134218752;
-      v29 = v19;
-      v30 = 2048;
-      v31 = v22;
+      v30 = 134218752;
+      v31 = v21;
       v32 = 2048;
-      v33 = v25;
+      v33 = v24;
       v34 = 2048;
       v35 = v27;
-      _os_log_impl(&dword_215819000, v16, OS_LOG_TYPE_INFO, "WebView frame for Page Test is (%.0f-%.0f, %.0fx%.0f)", &v28, 0x2Au);
+      v36 = 2048;
+      v37 = v29;
+      _os_log_impl(&dword_215819000, v18, OS_LOG_TYPE_INFO, "WebView frame for Page Test is (%.0f-%.0f, %.0fx%.0f)", &v30, 0x2Au);
     }
   }
 

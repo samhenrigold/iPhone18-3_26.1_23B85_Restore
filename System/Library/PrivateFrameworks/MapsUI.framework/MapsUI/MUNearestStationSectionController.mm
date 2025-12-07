@@ -102,7 +102,7 @@
 
 - (void)_createNearestStationSection
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   v3 = [MUNearestStationRowView alloc];
   v4 = [(MUNearestStationRowView *)v3 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
   nearestStationRowView = self->_nearestStationRowView;
@@ -115,8 +115,8 @@
 
   [(MUPlaceVerticalCardContainerView *)self->_containerView setDelegate:self];
   v9 = self->_containerView;
-  v27[0] = self->_nearestStationRowView;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
+  v26[0] = self->_nearestStationRowView;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
   [(MUPlaceVerticalCardContainerView *)v9 setRowViews:v10];
 
   lineItem = [(MUTransitLineItemSectionController *)self lineItem];
@@ -126,24 +126,22 @@
 
   objc_initWeak(&location, self);
   v14 = self->_footerViewModel;
-  v21 = MEMORY[0x1E69E9820];
-  v22 = 3221225472;
-  v23 = __65__MUNearestStationSectionController__createNearestStationSection__block_invoke;
-  v24 = &unk_1E821BAC8;
-  objc_copyWeak(&v25, &location);
-  [(MUPlaceSectionFooterViewModel *)v14 setActionBlock:&v21];
+  v20 = MEMORY[0x1E69E9820];
+  v21 = 3221225472;
+  v22 = __65__MUNearestStationSectionController__createNearestStationSection__block_invoke;
+  v23 = &unk_1E821BAC8;
+  objc_copyWeak(&v24, &location);
+  [(MUPlaceSectionFooterViewModel *)v14 setActionBlock:&v20];
   v15 = self->_containerView;
-  v16 = [(MUNearestStationSectionController *)self sectionHeaderViewModel:v21];
+  v16 = [(MUNearestStationSectionController *)self sectionHeaderViewModel:v20];
   sectionFooterViewModel = [(MUNearestStationSectionController *)self sectionFooterViewModel];
   v18 = [MUPlaceSectionView insetPlatterSectionViewForContentView:v15 sectionHeaderViewModel:v16 sectionFooterViewModel:sectionFooterViewModel];
   sectionView = self->_sectionView;
   self->_sectionView = v18;
 
   [(MUPlaceSectionView *)self->_sectionView configureWithSectionController:self];
-  objc_destroyWeak(&v25);
+  objc_destroyWeak(&v24);
   objc_destroyWeak(&location);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __65__MUNearestStationSectionController__createNearestStationSection__block_invoke(uint64_t a1)

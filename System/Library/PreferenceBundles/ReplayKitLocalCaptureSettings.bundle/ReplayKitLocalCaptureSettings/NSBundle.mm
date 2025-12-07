@@ -1,4 +1,5 @@
 @interface NSBundle
++ (NSBundle)bundleWithPID:(int)d;
 + (id)_rpFrameworkBundle;
 + (id)_rpLocalizedAppNameFromBundleID:(id)d;
 + (id)_rpLocalizedStringFromFrameworkBundleWithKey:(id)key;
@@ -166,6 +167,55 @@ LABEL_11:
   v3 = [[NSString alloc] initWithBytes:buffer length:proc_pidpath(d encoding:{buffer, 0x1000u), 4}];
 
   return v3;
+}
+
++ (NSBundle)bundleWithPID:(int)d
+{
+  v3 = [NSBundle executablePathWithPID:*&d];
+  v4 = [NSURL fileURLWithPath:v3];
+
+  if (!__RPLogLevel && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = 136446722;
+    v9 = "+[NSBundle(RPExtensions) bundleWithPID:]";
+    v10 = 1024;
+    v11 = 136;
+    v12 = 2112;
+    v13 = v4;
+    _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d  executableURL:%@", &v8, 0x1Cu);
+  }
+
+  if (v4)
+  {
+    v5 = _CFBundleCopyBundleURLForExecutableURL();
+    if (!__RPLogLevel && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = 136446722;
+      v9 = "+[NSBundle(RPExtensions) bundleWithPID:]";
+      v10 = 1024;
+      v11 = 140;
+      v12 = 2112;
+      v13 = v5;
+      _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d  bundleURL:%@", &v8, 0x1Cu);
+    }
+
+    if (v5)
+    {
+      v6 = [NSBundle bundleWithURL:v5];
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  return v6;
 }
 
 @end

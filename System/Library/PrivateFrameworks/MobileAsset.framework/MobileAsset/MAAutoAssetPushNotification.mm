@@ -118,11 +118,11 @@
 
 - (MAAutoAssetPushNotification)initWithCoder:(id)coder
 {
-  v22[8] = *MEMORY[0x1E69E9840];
+  v21[8] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v21.receiver = self;
-  v21.super_class = MAAutoAssetPushNotification;
-  v5 = [(MAAutoAssetPushNotification *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = MAAutoAssetPushNotification;
+  v5 = [(MAAutoAssetPushNotification *)&v20 init];
   if (v5)
   {
     v5->_pushReason = [coderCopy decodeIntegerForKey:@"pushReason"];
@@ -143,15 +143,15 @@
     v5->_autoUpdatePolicy = v12;
 
     v14 = MEMORY[0x1E695DFD8];
-    v22[0] = objc_opt_class();
-    v22[1] = objc_opt_class();
-    v22[2] = objc_opt_class();
-    v22[3] = objc_opt_class();
-    v22[4] = objc_opt_class();
-    v22[5] = objc_opt_class();
-    v22[6] = objc_opt_class();
-    v22[7] = objc_opt_class();
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:8];
+    v21[0] = objc_opt_class();
+    v21[1] = objc_opt_class();
+    v21[2] = objc_opt_class();
+    v21[3] = objc_opt_class();
+    v21[4] = objc_opt_class();
+    v21[5] = objc_opt_class();
+    v21[6] = objc_opt_class();
+    v21[7] = objc_opt_class();
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:8];
     v16 = [v14 setWithArray:v15];
 
     v17 = [coderCopy decodeObjectOfClasses:v16 forKey:@"additionalPushParameters"];
@@ -159,7 +159,6 @@
     v5->_additionalPushParameters = v17;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

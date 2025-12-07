@@ -1,13 +1,13 @@
-id MAPSGetCameraLog()
+id MAPSGetCameraLog(uint64_t a1)
 {
   if (qword_C570 != -1)
   {
     sub_5584();
   }
 
-  v1 = qword_C568;
+  v2 = qword_C568;
 
-  return v1;
+  return v2;
 }
 
 void sub_1D6C(id a1)
@@ -17,16 +17,16 @@ void sub_1D6C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCollectionsLog()
+id MAPSGetCollectionsLog(uint64_t a1)
 {
   if (qword_C580 != -1)
   {
     sub_5598();
   }
 
-  v1 = qword_C578;
+  v2 = qword_C578;
 
-  return v1;
+  return v2;
 }
 
 void sub_1DF4(id a1)
@@ -36,16 +36,16 @@ void sub_1DF4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetContainerVCLog()
+id MAPSGetContainerVCLog(uint64_t a1)
 {
   if (qword_C590 != -1)
   {
     sub_55AC();
   }
 
-  v1 = qword_C588;
+  v2 = qword_C588;
 
-  return v1;
+  return v2;
 }
 
 void sub_1E7C(id a1)
@@ -55,16 +55,16 @@ void sub_1E7C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCuratedCollectionsLog()
+id MAPSGetCuratedCollectionsLog(uint64_t a1)
 {
   if (qword_C5A0 != -1)
   {
     sub_55C0();
   }
 
-  v1 = qword_C598;
+  v2 = qword_C598;
 
-  return v1;
+  return v2;
 }
 
 void sub_1F04(id a1)
@@ -74,16 +74,16 @@ void sub_1F04(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetEVOnboardingLog()
+id MAPSGetEVOnboardingLog(uint64_t a1)
 {
   if (qword_C5B0 != -1)
   {
     sub_55D4();
   }
 
-  v1 = qword_C5A8;
+  v2 = qword_C5A8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1F8C(id a1)
@@ -93,16 +93,16 @@ void sub_1F8C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetLightLevelProvidingLog()
+id MAPSGetLightLevelProvidingLog(uint64_t a1)
 {
   if (qword_C5C0 != -1)
   {
     sub_55E8();
   }
 
-  v1 = qword_C5B8;
+  v2 = qword_C5B8;
 
-  return v1;
+  return v2;
 }
 
 void sub_2014(id a1)
@@ -112,16 +112,16 @@ void sub_2014(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetMapModeLog()
+id MAPSGetMapModeLog(uint64_t a1)
 {
   if (qword_C5D0 != -1)
   {
     sub_55FC();
   }
 
-  v1 = qword_C5C8;
+  v2 = qword_C5C8;
 
-  return v1;
+  return v2;
 }
 
 void sub_209C(id a1)
@@ -131,16 +131,16 @@ void sub_209C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetMapsActivityLog()
+id MAPSGetMapsActivityLog(uint64_t a1)
 {
   if (qword_C5E0 != -1)
   {
     sub_5610();
   }
 
-  v1 = qword_C5D8;
+  v2 = qword_C5D8;
 
-  return v1;
+  return v2;
 }
 
 void sub_2124(id a1)
@@ -150,16 +150,16 @@ void sub_2124(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetMapsAssertLog()
+id MAPSGetMapsAssertLog(uint64_t a1)
 {
   if (qword_C5F0 != -1)
   {
     sub_5624();
   }
 
-  v1 = qword_C5E8;
+  v2 = qword_C5E8;
 
-  return v1;
+  return v2;
 }
 
 void sub_21AC(id a1)
@@ -169,16 +169,16 @@ void sub_21AC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetMapsChromeLog()
+id MAPSGetMapsChromeLog(uint64_t a1)
 {
   if (qword_C600 != -1)
   {
     sub_5638();
   }
 
-  v1 = qword_C5F8;
+  v2 = qword_C5F8;
 
-  return v1;
+  return v2;
 }
 
 void sub_2234(id a1)
@@ -188,16 +188,16 @@ void sub_2234(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetMapsDefaultLog()
+id MAPSGetMapsDefaultLog(uint64_t a1)
 {
   if (qword_C610 != -1)
   {
     sub_564C();
   }
 
-  v1 = qword_C608;
+  v2 = qword_C608;
 
-  return v1;
+  return v2;
 }
 
 void sub_22BC(id a1)
@@ -207,16 +207,16 @@ void sub_22BC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetMapsLaunchLog()
+id MAPSGetMapsLaunchLog(uint64_t a1)
 {
   if (qword_C620 != -1)
   {
     sub_5660();
   }
 
-  v1 = qword_C618;
+  v2 = qword_C618;
 
-  return v1;
+  return v2;
 }
 
 void sub_2344(id a1)
@@ -226,16 +226,16 @@ void sub_2344(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetMapsNotificationsLog()
+id MAPSGetMapsNotificationsLog(uint64_t a1)
 {
   if (qword_C630 != -1)
   {
     sub_5674();
   }
 
-  v1 = qword_C628;
+  v2 = qword_C628;
 
-  return v1;
+  return v2;
 }
 
 void sub_23CC(id a1)
@@ -245,16 +245,16 @@ void sub_23CC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetMapsPerformanceLog()
+id MAPSGetMapsPerformanceLog(uint64_t a1)
 {
   if (qword_C640 != -1)
   {
     sub_5688();
   }
 
-  v1 = qword_C638;
+  v2 = qword_C638;
 
-  return v1;
+  return v2;
 }
 
 void sub_2454(id a1)
@@ -264,16 +264,16 @@ void sub_2454(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetLookAroundLog()
+id MAPSGetLookAroundLog(uint64_t a1)
 {
   if (qword_C650 != -1)
   {
     sub_569C();
   }
 
-  v1 = qword_C648;
+  v2 = qword_C648;
 
-  return v1;
+  return v2;
 }
 
 void sub_24DC(id a1)
@@ -283,16 +283,16 @@ void sub_24DC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetNavigationLog()
+id MAPSGetNavigationLog(uint64_t a1)
 {
   if (qword_C660 != -1)
   {
     sub_56B0();
   }
 
-  v1 = qword_C658;
+  v2 = qword_C658;
 
-  return v1;
+  return v2;
 }
 
 void sub_2564(id a1)
@@ -302,16 +302,16 @@ void sub_2564(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetNavigationBannersLog()
+id MAPSGetNavigationBannersLog(uint64_t a1)
 {
   if (qword_C670 != -1)
   {
     sub_56C4();
   }
 
-  v1 = qword_C668;
+  v2 = qword_C668;
 
-  return v1;
+  return v2;
 }
 
 void sub_25EC(id a1)
@@ -321,16 +321,16 @@ void sub_25EC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetNearbyTransitLog()
+id MAPSGetNearbyTransitLog(uint64_t a1)
 {
   if (qword_C680 != -1)
   {
     sub_56D8();
   }
 
-  v1 = qword_C678;
+  v2 = qword_C678;
 
-  return v1;
+  return v2;
 }
 
 void sub_2674(id a1)
@@ -340,16 +340,16 @@ void sub_2674(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetOfflineLog()
+id MAPSGetOfflineLog(uint64_t a1)
 {
   if (qword_C690 != -1)
   {
     sub_56EC();
   }
 
-  v1 = qword_C688;
+  v2 = qword_C688;
 
-  return v1;
+  return v2;
 }
 
 void sub_26FC(id a1)
@@ -359,16 +359,16 @@ void sub_26FC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetPlaceCardLog()
+id MAPSGetPlaceCardLog(uint64_t a1)
 {
   if (qword_C6A0 != -1)
   {
     sub_5700();
   }
 
-  v1 = qword_C698;
+  v2 = qword_C698;
 
-  return v1;
+  return v2;
 }
 
 void sub_2784(id a1)
@@ -378,16 +378,16 @@ void sub_2784(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetPPTLog()
+id MAPSGetPPTLog(uint64_t a1)
 {
   if (qword_C6B0 != -1)
   {
     sub_5714();
   }
 
-  v1 = qword_C6A8;
+  v2 = qword_C6A8;
 
-  return v1;
+  return v2;
 }
 
 void sub_280C(id a1)
@@ -397,16 +397,16 @@ void sub_280C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetPreferencesSyncLog()
+id MAPSGetPreferencesSyncLog(uint64_t a1)
 {
   if (qword_C6C0 != -1)
   {
     sub_5728();
   }
 
-  v1 = qword_C6B8;
+  v2 = qword_C6B8;
 
-  return v1;
+  return v2;
 }
 
 void sub_2894(id a1)
@@ -416,16 +416,16 @@ void sub_2894(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetPrintLog()
+id MAPSGetPrintLog(uint64_t a1)
 {
   if (qword_C6D0 != -1)
   {
     sub_573C();
   }
 
-  v1 = qword_C6C8;
+  v2 = qword_C6C8;
 
-  return v1;
+  return v2;
 }
 
 void sub_291C(id a1)
@@ -435,16 +435,16 @@ void sub_291C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetRAPLayoutLog()
+id MAPSGetRAPLayoutLog(uint64_t a1)
 {
   if (qword_C6E0 != -1)
   {
     sub_5750();
   }
 
-  v1 = qword_C6D8;
+  v2 = qword_C6D8;
 
-  return v1;
+  return v2;
 }
 
 void sub_29A4(id a1)
@@ -454,16 +454,16 @@ void sub_29A4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetRAPNavigationLog()
+id MAPSGetRAPNavigationLog(uint64_t a1)
 {
   if (qword_C6F0 != -1)
   {
     sub_5764();
   }
 
-  v1 = qword_C6E8;
+  v2 = qword_C6E8;
 
-  return v1;
+  return v2;
 }
 
 void sub_2A2C(id a1)
@@ -473,16 +473,16 @@ void sub_2A2C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetRAPSubmissionLog()
+id MAPSGetRAPSubmissionLog(uint64_t a1)
 {
   if (qword_C700 != -1)
   {
     sub_5778();
   }
 
-  v1 = qword_C6F8;
+  v2 = qword_C6F8;
 
-  return v1;
+  return v2;
 }
 
 void sub_2AB4(id a1)
@@ -492,16 +492,16 @@ void sub_2AB4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetRecentsLog()
+id MAPSGetRecentsLog(uint64_t a1)
 {
   if (qword_C710 != -1)
   {
     sub_578C();
   }
 
-  v1 = qword_C708;
+  v2 = qword_C708;
 
-  return v1;
+  return v2;
 }
 
 void sub_2B3C(id a1)
@@ -511,16 +511,16 @@ void sub_2B3C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetRouteCreationLog()
+id MAPSGetRouteCreationLog(uint64_t a1)
 {
   if (qword_C720 != -1)
   {
     sub_57A0();
   }
 
-  v1 = qword_C718;
+  v2 = qword_C718;
 
-  return v1;
+  return v2;
 }
 
 void sub_2BC4(id a1)
@@ -530,16 +530,16 @@ void sub_2BC4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetRoutePlanningLog()
+id MAPSGetRoutePlanningLog(uint64_t a1)
 {
   if (qword_C730 != -1)
   {
     sub_57B4();
   }
 
-  v1 = qword_C728;
+  v2 = qword_C728;
 
-  return v1;
+  return v2;
 }
 
 void sub_2C4C(id a1)
@@ -549,16 +549,16 @@ void sub_2C4C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetRoutePlanningFeatureDiscoveryLog()
+id MAPSGetRoutePlanningFeatureDiscoveryLog(uint64_t a1)
 {
   if (qword_C740 != -1)
   {
     sub_57C8();
   }
 
-  v1 = qword_C738;
+  v2 = qword_C738;
 
-  return v1;
+  return v2;
 }
 
 void sub_2CD4(id a1)
@@ -568,16 +568,16 @@ void sub_2CD4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetSearchACLog()
+id MAPSGetSearchACLog(uint64_t a1)
 {
   if (qword_C750 != -1)
   {
     sub_57DC();
   }
 
-  v1 = qword_C748;
+  v2 = qword_C748;
 
-  return v1;
+  return v2;
 }
 
 void sub_2D5C(id a1)
@@ -587,16 +587,16 @@ void sub_2D5C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetSearchACFindMyLog()
+id MAPSGetSearchACFindMyLog(uint64_t a1)
 {
   if (qword_C760 != -1)
   {
     sub_57F0();
   }
 
-  v1 = qword_C758;
+  v2 = qword_C758;
 
-  return v1;
+  return v2;
 }
 
 void sub_2DE4(id a1)
@@ -606,16 +606,16 @@ void sub_2DE4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetSearchHomeLog()
+id MAPSGetSearchHomeLog(uint64_t a1)
 {
   if (qword_C770 != -1)
   {
     sub_5804();
   }
 
-  v1 = qword_C768;
+  v2 = qword_C768;
 
-  return v1;
+  return v2;
 }
 
 void sub_2E6C(id a1)
@@ -625,16 +625,16 @@ void sub_2E6C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetSharedTripLog()
+id MAPSGetSharedTripLog(uint64_t a1)
 {
   if (qword_C780 != -1)
   {
     sub_5818();
   }
 
-  v1 = qword_C778;
+  v2 = qword_C778;
 
-  return v1;
+  return v2;
 }
 
 void sub_2EF4(id a1)
@@ -644,16 +644,16 @@ void sub_2EF4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetSharingLog()
+id MAPSGetSharingLog(uint64_t a1)
 {
   if (qword_C790 != -1)
   {
     sub_582C();
   }
 
-  v1 = qword_C788;
+  v2 = qword_C788;
 
-  return v1;
+  return v2;
 }
 
 void sub_2F7C(id a1)
@@ -663,16 +663,16 @@ void sub_2F7C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetShortcutsLog()
+id MAPSGetShortcutsLog(uint64_t a1)
 {
   if (qword_C7A0 != -1)
   {
     sub_5840();
   }
 
-  v1 = qword_C798;
+  v2 = qword_C798;
 
-  return v1;
+  return v2;
 }
 
 void sub_3004(id a1)
@@ -682,16 +682,16 @@ void sub_3004(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetTileStateCaptureLog()
+id MAPSGetTileStateCaptureLog(uint64_t a1)
 {
   if (qword_C7B0 != -1)
   {
     sub_5854();
   }
 
-  v1 = qword_C7A8;
+  v2 = qword_C7A8;
 
-  return v1;
+  return v2;
 }
 
 void sub_308C(id a1)
@@ -701,16 +701,16 @@ void sub_308C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetTransitLog()
+id MAPSGetTransitLog(uint64_t a1)
 {
   if (qword_C7C0 != -1)
   {
     sub_5868();
   }
 
-  v1 = qword_C7B8;
+  v2 = qword_C7B8;
 
-  return v1;
+  return v2;
 }
 
 void sub_3114(id a1)
@@ -720,16 +720,16 @@ void sub_3114(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetTransitPayLog()
+id MAPSGetTransitPayLog(uint64_t a1)
 {
   if (qword_C7D0 != -1)
   {
     sub_587C();
   }
 
-  v1 = qword_C7C8;
+  v2 = qword_C7C8;
 
-  return v1;
+  return v2;
 }
 
 void sub_319C(id a1)
@@ -739,16 +739,16 @@ void sub_319C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetTransitSchedulesLog()
+id MAPSGetTransitSchedulesLog(uint64_t a1)
 {
   if (qword_C7E0 != -1)
   {
     sub_5890();
   }
 
-  v1 = qword_C7D8;
+  v2 = qword_C7D8;
 
-  return v1;
+  return v2;
 }
 
 void sub_3224(id a1)
@@ -758,16 +758,16 @@ void sub_3224(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetUserProfileLog()
+id MAPSGetUserProfileLog(uint64_t a1)
 {
   if (qword_C7F0 != -1)
   {
     sub_58A4();
   }
 
-  v1 = qword_C7E8;
+  v2 = qword_C7E8;
 
-  return v1;
+  return v2;
 }
 
 void sub_32AC(id a1)
@@ -777,16 +777,16 @@ void sub_32AC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetVehicleDisambiguatorLog()
+id MAPSGetVehicleDisambiguatorLog(uint64_t a1)
 {
   if (qword_C800 != -1)
   {
     sub_58B8();
   }
 
-  v1 = qword_C7F8;
+  v2 = qword_C7F8;
 
-  return v1;
+  return v2;
 }
 
 void sub_3334(id a1)
@@ -796,16 +796,16 @@ void sub_3334(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetVirtualGarageLog()
+id MAPSGetVirtualGarageLog(uint64_t a1)
 {
   if (qword_C810 != -1)
   {
     sub_58CC();
   }
 
-  v1 = qword_C808;
+  v2 = qword_C808;
 
-  return v1;
+  return v2;
 }
 
 void sub_33BC(id a1)
@@ -815,16 +815,16 @@ void sub_33BC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetWeatherLog()
+id MAPSGetWeatherLog(uint64_t a1)
 {
   if (qword_C820 != -1)
   {
     sub_58E0();
   }
 
-  v1 = qword_C818;
+  v2 = qword_C818;
 
-  return v1;
+  return v2;
 }
 
 void sub_3444(id a1)
@@ -834,16 +834,16 @@ void sub_3444(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetXPCLog()
+id MAPSGetXPCLog(uint64_t a1)
 {
   if (qword_C830 != -1)
   {
     sub_58F4();
   }
 
-  v1 = qword_C828;
+  v2 = qword_C828;
 
-  return v1;
+  return v2;
 }
 
 void sub_34CC(id a1)
@@ -853,16 +853,16 @@ void sub_34CC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetUGCBAAUtilitiesLog()
+id MAPSGetUGCBAAUtilitiesLog(uint64_t a1)
 {
   if (qword_C840 != -1)
   {
     sub_5908();
   }
 
-  v1 = qword_C838;
+  v2 = qword_C838;
 
-  return v1;
+  return v2;
 }
 
 void sub_3554(id a1)
@@ -872,16 +872,16 @@ void sub_3554(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetIncidentsReportingLog()
+id MAPSGetIncidentsReportingLog(uint64_t a1)
 {
   if (qword_C850 != -1)
   {
     sub_591C();
   }
 
-  v1 = qword_C848;
+  v2 = qword_C848;
 
-  return v1;
+  return v2;
 }
 
 void sub_35DC(id a1)
@@ -891,16 +891,16 @@ void sub_35DC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetWatermarkingLog()
+id MAPSGetWatermarkingLog(uint64_t a1)
 {
   if (qword_C860 != -1)
   {
     sub_5930();
   }
 
-  v1 = qword_C858;
+  v2 = qword_C858;
 
-  return v1;
+  return v2;
 }
 
 void sub_3664(id a1)
@@ -910,16 +910,16 @@ void sub_3664(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetWaypointRequestLog()
+id MAPSGetWaypointRequestLog(uint64_t a1)
 {
   if (qword_C870 != -1)
   {
     sub_5944();
   }
 
-  v1 = qword_C868;
+  v2 = qword_C868;
 
-  return v1;
+  return v2;
 }
 
 void sub_36EC(id a1)
@@ -929,16 +929,16 @@ void sub_36EC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetWebBundleLog()
+id MAPSGetWebBundleLog(uint64_t a1)
 {
   if (qword_C880 != -1)
   {
     sub_5958();
   }
 
-  v1 = qword_C878;
+  v2 = qword_C878;
 
-  return v1;
+  return v2;
 }
 
 void sub_3774(id a1)
@@ -948,16 +948,16 @@ void sub_3774(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetRAPRecordsManagerLog()
+id MAPSGetRAPRecordsManagerLog(uint64_t a1)
 {
   if (qword_C890 != -1)
   {
     sub_596C();
   }
 
-  v1 = qword_C888;
+  v2 = qword_C888;
 
-  return v1;
+  return v2;
 }
 
 void sub_37FC(id a1)
@@ -967,16 +967,16 @@ void sub_37FC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetUGCPhotoAttributionLog()
+id MAPSGetUGCPhotoAttributionLog(uint64_t a1)
 {
   if (qword_C8A0 != -1)
   {
     sub_5980();
   }
 
-  v1 = qword_C898;
+  v2 = qword_C898;
 
-  return v1;
+  return v2;
 }
 
 void sub_3884(id a1)
@@ -986,16 +986,16 @@ void sub_3884(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetSearchResultsImpressionsLog()
+id MAPSGetSearchResultsImpressionsLog(uint64_t a1)
 {
   if (qword_C8B0 != -1)
   {
     sub_5994();
   }
 
-  v1 = qword_C8A8;
+  v2 = qword_C8A8;
 
-  return v1;
+  return v2;
 }
 
 void sub_390C(id a1)
@@ -1005,16 +1005,16 @@ void sub_390C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetSearchRedoLog()
+id MAPSGetSearchRedoLog(uint64_t a1)
 {
   if (qword_C8C0 != -1)
   {
     sub_59A8();
   }
 
-  v1 = qword_C8B8;
+  v2 = qword_C8B8;
 
-  return v1;
+  return v2;
 }
 
 void sub_3994(id a1)
@@ -1024,16 +1024,16 @@ void sub_3994(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetStaleTimeBug_105865770Log()
+id MAPSGetStaleTimeBug_105865770Log(uint64_t a1)
 {
   if (qword_C8D0 != -1)
   {
     sub_59BC();
   }
 
-  v1 = qword_C8C8;
+  v2 = qword_C8C8;
 
-  return v1;
+  return v2;
 }
 
 void sub_3A1C(id a1)
@@ -1043,16 +1043,16 @@ void sub_3A1C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCustomPOIsControllerLog()
+id MAPSGetCustomPOIsControllerLog(uint64_t a1)
 {
   if (qword_C8E0 != -1)
   {
     sub_59D0();
   }
 
-  v1 = qword_C8D8;
+  v2 = qword_C8D8;
 
-  return v1;
+  return v2;
 }
 
 void sub_3AA4(id a1)
@@ -1062,16 +1062,16 @@ void sub_3AA4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetPOSIXSignalsLog()
+id MAPSGetPOSIXSignalsLog(uint64_t a1)
 {
   if (qword_C8F0 != -1)
   {
     sub_59E4();
   }
 
-  v1 = qword_C8E8;
+  v2 = qword_C8E8;
 
-  return v1;
+  return v2;
 }
 
 void sub_3B2C(id a1)
@@ -1081,16 +1081,16 @@ void sub_3B2C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCoalescingSchedulerLog()
+id MAPSGetCoalescingSchedulerLog(uint64_t a1)
 {
   if (qword_C900 != -1)
   {
     sub_59F8();
   }
 
-  v1 = qword_C8F8;
+  v2 = qword_C8F8;
 
-  return v1;
+  return v2;
 }
 
 void sub_3BB4(id a1)
@@ -1100,16 +1100,16 @@ void sub_3BB4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetDeviceConnectionLog()
+id MAPSGetDeviceConnectionLog(uint64_t a1)
 {
   if (qword_C910 != -1)
   {
     sub_5A0C();
   }
 
-  v1 = qword_C908;
+  v2 = qword_C908;
 
-  return v1;
+  return v2;
 }
 
 void sub_3C3C(id a1)
@@ -1119,16 +1119,16 @@ void sub_3C3C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetDictationLog()
+id MAPSGetDictationLog(uint64_t a1)
 {
   if (qword_C920 != -1)
   {
     sub_5A20();
   }
 
-  v1 = qword_C918;
+  v2 = qword_C918;
 
-  return v1;
+  return v2;
 }
 
 void sub_3CC4(id a1)
@@ -1138,16 +1138,16 @@ void sub_3CC4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetElevationGraphLog()
+id MAPSGetElevationGraphLog(uint64_t a1)
 {
   if (qword_C930 != -1)
   {
     sub_5A34();
   }
 
-  v1 = qword_C928;
+  v2 = qword_C928;
 
-  return v1;
+  return v2;
 }
 
 void sub_3D4C(id a1)
@@ -1157,16 +1157,16 @@ void sub_3D4C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetIncidentReportingLog()
+id MAPSGetIncidentReportingLog(uint64_t a1)
 {
   if (qword_C940 != -1)
   {
     sub_5A48();
   }
 
-  v1 = qword_C938;
+  v2 = qword_C938;
 
-  return v1;
+  return v2;
 }
 
 void sub_3DD4(id a1)
@@ -1176,16 +1176,16 @@ void sub_3DD4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetLightLevelLog()
+id MAPSGetLightLevelLog(uint64_t a1)
 {
   if (qword_C950 != -1)
   {
     sub_5A5C();
   }
 
-  v1 = qword_C948;
+  v2 = qword_C948;
 
-  return v1;
+  return v2;
 }
 
 void sub_3E5C(id a1)
@@ -1195,16 +1195,16 @@ void sub_3E5C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetMapRegionLog()
+id MAPSGetMapRegionLog(uint64_t a1)
 {
   if (qword_C960 != -1)
   {
     sub_5A70();
   }
 
-  v1 = qword_C958;
+  v2 = qword_C958;
 
-  return v1;
+  return v2;
 }
 
 void sub_3EE4(id a1)
@@ -1214,16 +1214,16 @@ void sub_3EE4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetNavigationSimulationPromptLog()
+id MAPSGetNavigationSimulationPromptLog(uint64_t a1)
 {
   if (qword_C970 != -1)
   {
     sub_5A84();
   }
 
-  v1 = qword_C968;
+  v2 = qword_C968;
 
-  return v1;
+  return v2;
 }
 
 void sub_3F6C(id a1)
@@ -1233,16 +1233,16 @@ void sub_3F6C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetNavIndicatorsLog()
+id MAPSGetNavIndicatorsLog(uint64_t a1)
 {
   if (qword_C980 != -1)
   {
     sub_5A98();
   }
 
-  v1 = qword_C978;
+  v2 = qword_C978;
 
-  return v1;
+  return v2;
 }
 
 void sub_3FF4(id a1)
@@ -1252,16 +1252,16 @@ void sub_3FF4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetProactiveTrayLog()
+id MAPSGetProactiveTrayLog(uint64_t a1)
 {
   if (qword_C990 != -1)
   {
     sub_5AAC();
   }
 
-  v1 = qword_C988;
+  v2 = qword_C988;
 
-  return v1;
+  return v2;
 }
 
 void sub_407C(id a1)
@@ -1271,16 +1271,16 @@ void sub_407C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetRAPPresenterLog()
+id MAPSGetRAPPresenterLog(uint64_t a1)
 {
   if (qword_C9A0 != -1)
   {
     sub_5AC0();
   }
 
-  v1 = qword_C998;
+  v2 = qword_C998;
 
-  return v1;
+  return v2;
 }
 
 void sub_4104(id a1)
@@ -1290,16 +1290,16 @@ void sub_4104(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetRoutePlanningOutlineLog()
+id MAPSGetRoutePlanningOutlineLog(uint64_t a1)
 {
   if (qword_C9B0 != -1)
   {
     sub_5AD4();
   }
 
-  v1 = qword_C9A8;
+  v2 = qword_C9A8;
 
-  return v1;
+  return v2;
 }
 
 void sub_418C(id a1)
@@ -1309,16 +1309,16 @@ void sub_418C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetStatusIndicatorLog()
+id MAPSGetStatusIndicatorLog(uint64_t a1)
 {
   if (qword_C9C0 != -1)
   {
     sub_5AE8();
   }
 
-  v1 = qword_C9B8;
+  v2 = qword_C9B8;
 
-  return v1;
+  return v2;
 }
 
 void sub_4214(id a1)
@@ -1328,16 +1328,16 @@ void sub_4214(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetTransitNavigationLog()
+id MAPSGetTransitNavigationLog(uint64_t a1)
 {
   if (qword_C9D0 != -1)
   {
     sub_5AFC();
   }
 
-  v1 = qword_C9C8;
+  v2 = qword_C9C8;
 
-  return v1;
+  return v2;
 }
 
 void sub_429C(id a1)
@@ -1347,16 +1347,16 @@ void sub_429C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetTurnAlertsLog()
+id MAPSGetTurnAlertsLog(uint64_t a1)
 {
   if (qword_C9E0 != -1)
   {
     sub_5B10();
   }
 
-  v1 = qword_C9D8;
+  v2 = qword_C9D8;
 
-  return v1;
+  return v2;
 }
 
 void sub_4324(id a1)
@@ -1366,16 +1366,16 @@ void sub_4324(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetUGCCallToActionViewProviderLog()
+id MAPSGetUGCCallToActionViewProviderLog(uint64_t a1)
 {
   if (qword_C9F0 != -1)
   {
     sub_5B24();
   }
 
-  v1 = qword_C9E8;
+  v2 = qword_C9E8;
 
-  return v1;
+  return v2;
 }
 
 void sub_43AC(id a1)
@@ -1385,16 +1385,16 @@ void sub_43AC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetUGCPhotoDownloadManagerLog()
+id MAPSGetUGCPhotoDownloadManagerLog(uint64_t a1)
 {
   if (qword_CA00 != -1)
   {
     sub_5B38();
   }
 
-  v1 = qword_C9F8;
+  v2 = qword_C9F8;
 
-  return v1;
+  return v2;
 }
 
 void sub_4434(id a1)
@@ -1404,16 +1404,16 @@ void sub_4434(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetUGCReviewedPlacesManagerLog()
+id MAPSGetUGCReviewedPlacesManagerLog(uint64_t a1)
 {
   if (qword_CA10 != -1)
   {
     sub_5B4C();
   }
 
-  v1 = qword_CA08;
+  v2 = qword_CA08;
 
-  return v1;
+  return v2;
 }
 
 void sub_44BC(id a1)
@@ -1423,16 +1423,16 @@ void sub_44BC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetUGCPhotoViewerDataProviderLog()
+id MAPSGetUGCPhotoViewerDataProviderLog(uint64_t a1)
 {
   if (qword_CA20 != -1)
   {
     sub_5B60();
   }
 
-  v1 = qword_CA18;
+  v2 = qword_CA18;
 
-  return v1;
+  return v2;
 }
 
 void sub_4544(id a1)
@@ -1442,16 +1442,16 @@ void sub_4544(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCarBlurViewLog()
+id MAPSGetCarBlurViewLog(uint64_t a1)
 {
   if (qword_CA30 != -1)
   {
     sub_5B74();
   }
 
-  v1 = qword_CA28;
+  v2 = qword_CA28;
 
-  return v1;
+  return v2;
 }
 
 void sub_45CC(id a1)
@@ -1461,16 +1461,16 @@ void sub_45CC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCarCardsLog()
+id MAPSGetCarCardsLog(uint64_t a1)
 {
   if (qword_CA40 != -1)
   {
     sub_5B88();
   }
 
-  v1 = qword_CA38;
+  v2 = qword_CA38;
 
-  return v1;
+  return v2;
 }
 
 void sub_4654(id a1)
@@ -1480,16 +1480,16 @@ void sub_4654(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCarClusterSuggestionLog()
+id MAPSGetCarClusterSuggestionLog(uint64_t a1)
 {
   if (qword_CA50 != -1)
   {
     sub_5B9C();
   }
 
-  v1 = qword_CA48;
+  v2 = qword_CA48;
 
-  return v1;
+  return v2;
 }
 
 void sub_46DC(id a1)
@@ -1499,16 +1499,16 @@ void sub_46DC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCarCompressionLog()
+id MAPSGetCarCompressionLog(uint64_t a1)
 {
   if (qword_CA60 != -1)
   {
     sub_5BB0();
   }
 
-  v1 = qword_CA58;
+  v2 = qword_CA58;
 
-  return v1;
+  return v2;
 }
 
 void sub_4764(id a1)
@@ -1518,16 +1518,16 @@ void sub_4764(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCarFocusLog()
+id MAPSGetCarFocusLog(uint64_t a1)
 {
   if (qword_CA70 != -1)
   {
     sub_5BC4();
   }
 
-  v1 = qword_CA68;
+  v2 = qword_CA68;
 
-  return v1;
+  return v2;
 }
 
 void sub_47EC(id a1)
@@ -1537,16 +1537,16 @@ void sub_47EC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCarInstrumentClusterLog()
+id MAPSGetCarInstrumentClusterLog(uint64_t a1)
 {
   if (qword_CA80 != -1)
   {
     sub_5BD8();
   }
 
-  v1 = qword_CA78;
+  v2 = qword_CA78;
 
-  return v1;
+  return v2;
 }
 
 void sub_4874(id a1)
@@ -1556,16 +1556,16 @@ void sub_4874(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCarGuidanceLog()
+id MAPSGetCarGuidanceLog(uint64_t a1)
 {
   if (qword_CA90 != -1)
   {
     sub_5BEC();
   }
 
-  v1 = qword_CA88;
+  v2 = qword_CA88;
 
-  return v1;
+  return v2;
 }
 
 void sub_48FC(id a1)
@@ -1575,16 +1575,16 @@ void sub_48FC(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCarMapWidgetLog()
+id MAPSGetCarMapWidgetLog(uint64_t a1)
 {
   if (qword_CAA0 != -1)
   {
     sub_5C00();
   }
 
-  v1 = qword_CA98;
+  v2 = qword_CA98;
 
-  return v1;
+  return v2;
 }
 
 void sub_4984(id a1)
@@ -1594,16 +1594,16 @@ void sub_4984(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCarPlayLog()
+id MAPSGetCarPlayLog(uint64_t a1)
 {
   if (qword_CAB0 != -1)
   {
     sub_5C14();
   }
 
-  v1 = qword_CAA8;
+  v2 = qword_CAA8;
 
-  return v1;
+  return v2;
 }
 
 void sub_4A0C(id a1)
@@ -1613,16 +1613,16 @@ void sub_4A0C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCarRouteGeniusLog()
+id MAPSGetCarRouteGeniusLog(uint64_t a1)
 {
   if (qword_CAC0 != -1)
   {
     sub_5C28();
   }
 
-  v1 = qword_CAB8;
+  v2 = qword_CAB8;
 
-  return v1;
+  return v2;
 }
 
 void sub_4A94(id a1)
@@ -1632,16 +1632,16 @@ void sub_4A94(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCarSessionControllerLog()
+id MAPSGetCarSessionControllerLog(uint64_t a1)
 {
   if (qword_CAD0 != -1)
   {
     sub_5C3C();
   }
 
-  v1 = qword_CAC8;
+  v2 = qword_CAC8;
 
-  return v1;
+  return v2;
 }
 
 void sub_4B1C(id a1)
@@ -1651,16 +1651,16 @@ void sub_4B1C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCarSmallWidgetLog()
+id MAPSGetCarSmallWidgetLog(uint64_t a1)
 {
   if (qword_CAE0 != -1)
   {
     sub_5C50();
   }
 
-  v1 = qword_CAD8;
+  v2 = qword_CAD8;
 
-  return v1;
+  return v2;
 }
 
 void sub_4BA4(id a1)
@@ -1670,16 +1670,16 @@ void sub_4BA4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetCompanionControllerLog()
+id MAPSGetCompanionControllerLog(uint64_t a1)
 {
   if (qword_CAF0 != -1)
   {
     sub_5C64();
   }
 
-  v1 = qword_CAE8;
+  v2 = qword_CAE8;
 
-  return v1;
+  return v2;
 }
 
 void sub_4C2C(id a1)
@@ -1689,16 +1689,16 @@ void sub_4C2C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetHydrateGeoMapItemLog()
+id MAPSGetHydrateGeoMapItemLog(uint64_t a1)
 {
   if (qword_CB00 != -1)
   {
     sub_5C78();
   }
 
-  v1 = qword_CAF8;
+  v2 = qword_CAF8;
 
-  return v1;
+  return v2;
 }
 
 void sub_4CB4(id a1)
@@ -1708,16 +1708,16 @@ void sub_4CB4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetIdleTimerLog()
+id MAPSGetIdleTimerLog(uint64_t a1)
 {
   if (qword_CB10 != -1)
   {
     sub_5C8C();
   }
 
-  v1 = qword_CB08;
+  v2 = qword_CB08;
 
-  return v1;
+  return v2;
 }
 
 void sub_4D3C(id a1)
@@ -1727,16 +1727,16 @@ void sub_4D3C(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetPedestrianARLog()
+id MAPSGetPedestrianARLog(uint64_t a1)
 {
   if (qword_CB20 != -1)
   {
     sub_5CA0();
   }
 
-  v1 = qword_CB18;
+  v2 = qword_CB18;
 
-  return v1;
+  return v2;
 }
 
 void sub_4DC4(id a1)
@@ -1746,16 +1746,16 @@ void sub_4DC4(id a1)
   _objc_release_x1();
 }
 
-id MAPSGetPuckTrackingLog()
+id MAPSGetPuckTrackingLog(uint64_t a1)
 {
   if (qword_CB30 != -1)
   {
     sub_5CB4();
   }
 
-  v1 = qword_CB28;
+  v2 = qword_CB28;
 
-  return v1;
+  return v2;
 }
 
 void sub_4E4C(id a1)

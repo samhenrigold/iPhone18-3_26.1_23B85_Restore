@@ -45,28 +45,28 @@
 + (id)assertionWithDomainAttribute:(id)attribute forProcessWithIdentifier:(int)identifier explanation:(id)explanation
 {
   v6 = *&identifier;
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   attributeCopy = attribute;
   explanationCopy = explanation;
   v9 = [[PGProcessAssertion alloc] initWithExplanation:explanationCopy];
 
   if (v6 < 1)
   {
-    v10 = PGLogCommon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = PGLogCommon(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136315394;
-      v13 = "+[PGProcessAssertion assertionWithDomainAttribute:forProcessWithIdentifier:explanation:]";
-      v14 = 2114;
-      v15 = v9;
-      _os_log_impl(&dword_1BB282000, v10, OS_LOG_TYPE_DEFAULT, "%s Will ignore %{public}@ because there wasn't a valid pid", &v12, 0x16u);
+      v13 = 136315394;
+      v14 = "+[PGProcessAssertion assertionWithDomainAttribute:forProcessWithIdentifier:explanation:]";
+      v15 = 2114;
+      v16 = v9;
+      _os_log_impl(&dword_1BB282000, v11, OS_LOG_TYPE_DEFAULT, "%s Will ignore %{public}@ because there wasn't a valid pid", &v13, 0x16u);
     }
   }
 
   else
   {
-    v10 = [MEMORY[0x1E69C7640] targetWithPid:v6];
-    [(PGProcessAssertion *)v9 acquireWithTarget:v10 domainAttribute:attributeCopy];
+    v11 = [MEMORY[0x1E69C7640] targetWithPid:v6];
+    [(PGProcessAssertion *)v9 acquireWithTarget:v11 domainAttribute:attributeCopy];
   }
 
   return v9;
@@ -101,7 +101,7 @@
 
 - (void)acquireWithTarget:(id)target domainAttribute:(id)attribute
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   targetCopy = target;
   attributeCopy = attribute;
   BSDispatchQueueAssertMain();
@@ -120,85 +120,85 @@
   queue = self->_queue;
   self->_queue = v10;
 
-  v12 = PGLogCommon();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = PGLogCommon(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v21 = "[PGProcessAssertion acquireWithTarget:domainAttribute:]";
-    v22 = 2114;
+    v22 = "[PGProcessAssertion acquireWithTarget:domainAttribute:]";
+    v23 = 2114;
     selfCopy = self;
-    v24 = 2114;
-    v25 = targetCopy;
-    v26 = 2114;
-    v27 = attributeCopy;
-    _os_log_impl(&dword_1BB282000, v12, OS_LOG_TYPE_DEFAULT, "%s %{public}@ target: %{public}@ domain: %{public}@", buf, 0x2Au);
+    v25 = 2114;
+    v26 = targetCopy;
+    v27 = 2114;
+    v28 = attributeCopy;
+    _os_log_impl(&dword_1BB282000, v13, OS_LOG_TYPE_DEFAULT, "%s %{public}@ target: %{public}@ domain: %{public}@", buf, 0x2Au);
   }
 
   objc_initWeak(buf, self);
-  v13 = self->_queue;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __56__PGProcessAssertion_acquireWithTarget_domainAttribute___block_invoke;
-  v16[3] = &unk_1E7F323B8;
-  v16[4] = self;
-  v17 = targetCopy;
-  v18 = attributeCopy;
-  v14 = attributeCopy;
-  v15 = targetCopy;
-  objc_copyWeak(&v19, buf);
-  dispatch_async(v13, v16);
-  objc_destroyWeak(&v19);
+  v14 = self->_queue;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __56__PGProcessAssertion_acquireWithTarget_domainAttribute___block_invoke;
+  v17[3] = &unk_1E7F323B8;
+  v17[4] = self;
+  v18 = targetCopy;
+  v19 = attributeCopy;
+  v15 = attributeCopy;
+  v16 = targetCopy;
+  objc_copyWeak(&v20, buf);
+  dispatch_async(v14, v17);
+  objc_destroyWeak(&v20);
 
   objc_destroyWeak(buf);
 }
 
 void __56__PGProcessAssertion_acquireWithTarget_domainAttribute___block_invoke(uint64_t a1)
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   if (([*(a1 + 32) _isInvalidated] & 1) == 0)
   {
     v2 = [MEMORY[0x1E69C7530] attributeWithCompletionPolicy:0];
     v3 = objc_alloc(MEMORY[0x1E69C7548]);
     v4 = *(a1 + 40);
     v5 = *(*(a1 + 32) + 16);
-    v18[0] = *(a1 + 48);
-    v18[1] = v2;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+    v19[0] = *(a1 + 48);
+    v19[1] = v2;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
     v7 = [v3 initWithExplanation:v5 target:v4 attributes:v6];
     v8 = *(*(a1 + 32) + 24);
     *(*(a1 + 32) + 24) = v7;
 
-    v9 = PGLogCommon();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = PGLogCommon(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(a1 + 32);
+      v11 = *(a1 + 32);
       *buf = 136315394;
-      v15 = "[PGProcessAssertion acquireWithTarget:domainAttribute:]_block_invoke";
-      v16 = 2114;
-      v17 = v10;
-      _os_log_impl(&dword_1BB282000, v9, OS_LOG_TYPE_DEFAULT, "%s Acquiring %{public}@", buf, 0x16u);
+      v16 = "[PGProcessAssertion acquireWithTarget:domainAttribute:]_block_invoke";
+      v17 = 2114;
+      v18 = v11;
+      _os_log_impl(&dword_1BB282000, v10, OS_LOG_TYPE_DEFAULT, "%s Acquiring %{public}@", buf, 0x16u);
     }
 
-    v11 = *(*(a1 + 32) + 24);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __56__PGProcessAssertion_acquireWithTarget_domainAttribute___block_invoke_32;
-    v12[3] = &unk_1E7F32390;
-    objc_copyWeak(&v13, (a1 + 56));
-    [v11 acquireWithInvalidationHandler:v12];
+    v12 = *(*(a1 + 32) + 24);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __56__PGProcessAssertion_acquireWithTarget_domainAttribute___block_invoke_32;
+    v13[3] = &unk_1E7F32390;
+    objc_copyWeak(&v14, (a1 + 56));
+    [v12 acquireWithInvalidationHandler:v13];
     if ([*(a1 + 32) _isInvalidated])
     {
       [*(*(a1 + 32) + 24) invalidate];
     }
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v14);
   }
 }
 
 void __56__PGProcessAssertion_acquireWithTarget_domainAttribute___block_invoke_32(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v13 = *MEMORY[0x1E69E9840];
-  v5 = PGLogCommon();
+  v5 = PGLogCommon(a1);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (a3)
   {
@@ -252,8 +252,7 @@ LABEL_6:
 - (void)invalidate
 {
   v11 = *MEMORY[0x1E69E9840];
-  [(PGProcessAssertion *)self _setInvalidated:1];
-  v3 = PGLogCommon();
+  v3 = PGLogCommon([(PGProcessAssertion *)self _setInvalidated:1]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     isValid = [(RBSAssertion *)self->_assertion isValid];

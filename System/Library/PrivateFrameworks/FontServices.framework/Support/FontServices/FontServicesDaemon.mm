@@ -13,6 +13,7 @@
 - (id)_userFontsInfoFromDisk;
 - (id)displayLayoutMonitorWithHandler:(id)handler;
 - (id)filterUserFontInfoForAuditToken:(id *)token withEnumerationCapability:(BOOL)capability withFilter:(id)filter;
+- (id)fontInfoForAuditToken:(id *)token withFontAccess:(BOOL)access enumuration:(BOOL)enumuration installation:(BOOL)installation identifier:(id)identifier andFileFilters:(id)filters foundFontDirectoryName:(id *)name;
 - (id)identifierFromFilePath:(id)path;
 - (id)issuedFontFilePathsForIdentifier:(id)identifier;
 - (id)knownFamilyNameFromPostScriptName:(id)name withEnabledState:(BOOL *)state;
@@ -53,11 +54,13 @@
 - (void)setupForScheduledFontDeletion;
 - (void)setupForXPCService;
 - (void)setupUserInstalledFontsFor:(id *)for withCapabilitiesFor:(id *)capabilitiesFor hasEnumeration:(BOOL)enumeration hasFontAccess:(BOOL)access isFontProvider:(BOOL)provider processIdentifier:(id)identifier options:(id)options compat:(BOOL *)self0 reply:(id)self1;
+- (void)showDialog:(id)dialog forPID:(int)d sceneID:(id)iD appID:(id)appID completionHandler:(id)handler;
 - (void)stopFontFilesDeletionTimer;
 - (void)subscriptionSupportTimerHandler;
 - (void)synchronizeFontAssets:(id)assets reply:(id)reply;
 - (void)synchronizeFontProviders;
 - (void)updatingUserFonts:(id)fonts;
+- (void)warnAboutSuspendedFontProvider:(id)provider forExpiration:(BOOL)expiration date:(id)date withURLSchem:(id)schem immediately:(BOOL)immediately;
 - (void)warnAboutSuspendedFontProviders:(id)providers;
 @end
 
@@ -339,7 +342,7 @@ LABEL_15:
   v3 = v2;
   if (v2)
   {
-    [v2 auditToken];
+    objc_msgSend_auditToken(v2);
   }
 
   else
@@ -394,14 +397,32 @@ LABEL_15:
 
 - (id)sandboxExtensionForFontAssets:(id *)assets
 {
-  v4 = sub_10000112C();
-  uTF8String = [v4 UTF8String];
-  v10 = *assets;
-  v9 = uTF8String;
+  v3 = sub_10000112C(self);
+  uTF8String = [v3 UTF8String];
   if (sandbox_check_by_audit_token())
   {
-    v11 = *assets->var0;
-    v12 = *&assets->var0[4];
+    v4 = sandbox_extension_issue_file_to_process();
+    v5 = v4;
+    if (v4)
+    {
+      v5 = [NSData dataWithBytesNoCopy:v4 length:strlen(v4) + 1 freeWhenDone:1, uTF8String];
+    }
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  return v5;
+}
+
+- (id)sandboxExtensionForProvider:(id *)provider withDirectoryName:(id)name
+{
+  name = [NSString stringWithFormat:@"/var/mobile/Library/UserFonts/FontFiles/%@", name];
+  uTF8String = [name UTF8String];
+  if (uTF8String && (v9 = uTF8String, sandbox_check_by_audit_token()))
+  {
     v6 = sandbox_extension_issue_file_to_process();
     v7 = v6;
     if (v6)
@@ -418,28 +439,47 @@ LABEL_15:
   return v7;
 }
 
-- (id)sandboxExtensionForProvider:(id *)provider withDirectoryName:(id)name
+- (id)fontInfoForAuditToken:(id *)token withFontAccess:(BOOL)access enumuration:(BOOL)enumuration installation:(BOOL)installation identifier:(id)identifier andFileFilters:(id)filters foundFontDirectoryName:(id *)name
 {
-  name = [NSString stringWithFormat:@"/var/mobile/Library/UserFonts/FontFiles/%@", name];
-  uTF8String = [name UTF8String];
-  if (uTF8String && (v11 = *provider->var0, v13 = *&provider->var0[4], v10 = uTF8String, sandbox_check_by_audit_token()))
+  installationCopy = installation;
+  enumurationCopy = enumuration;
+  identifierCopy = identifier;
+  filtersCopy = filters;
+  v17 = 0;
+  if (identifierCopy && installationCopy && !enumurationCopy)
   {
-    v12 = *provider->var0;
-    v14 = *&provider->var0[4];
-    v7 = sandbox_extension_issue_file_to_process();
-    v8 = v7;
-    if (v7)
-    {
-      v8 = [NSData dataWithBytesNoCopy:v7 length:strlen(v7) + 1 freeWhenDone:1, v10];
-    }
+    v17 = [FSUserFontManager directoryNameFromIdentifier:identifierCopy];
   }
 
-  else
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 0;
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_100002228;
+  v25[3] = &unk_1000186D8;
+  v18 = filtersCopy;
+  v26 = v18;
+  v29 = enumurationCopy;
+  v30 = installationCopy;
+  v19 = v17;
+  v27 = v19;
+  v28 = &v32;
+  accessCopy = access;
+  v20 = *&token->var0[4];
+  v24[0] = *token->var0;
+  v24[1] = v20;
+  v21 = [(FontServicesDaemon *)self filterUserFontInfoForAuditToken:v24 withEnumerationCapability:enumurationCopy withFilter:v25];
+  if (name && (v33[3] & 1) != 0)
   {
-    v8 = 0;
+    v22 = v19;
+    *name = v19;
   }
 
-  return v8;
+  _Block_object_dispose(&v32, 8);
+
+  return v21;
 }
 
 - (void)setupUserInstalledFontsFor:(id *)for withCapabilitiesFor:(id *)capabilitiesFor hasEnumeration:(BOOL)enumeration hasFontAccess:(BOOL)access isFontProvider:(BOOL)provider processIdentifier:(id)identifier options:(id)options compat:(BOOL *)self0 reply:(id)self1
@@ -454,16 +494,16 @@ LABEL_15:
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     v28 = *&for->var0[4];
-    v43 = *for->var0;
+    v42 = *for->var0;
     block[2] = sub_100002714;
     block[3] = &unk_100018728;
     enumerationCopy = enumeration;
     providerCopy = provider;
     block[4] = self;
-    v44 = v28;
-    v47 = accessCopy;
-    v41 = identifierCopy;
-    v42 = replyCopy;
+    v43 = v28;
+    v46 = accessCopy;
+    v40 = identifierCopy;
+    v41 = replyCopy;
     dispatch_sync(mainHandlerQueue, block);
 
     goto LABEL_17;
@@ -479,47 +519,46 @@ LABEL_11:
     goto LABEL_17;
   }
 
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = sub_100002A28;
-  v38 = sub_100002A38;
-  v39 = 0;
-  v31[0] = _NSConcreteStackBlock;
-  v31[1] = 3221225472;
-  v31[2] = sub_100002A40;
-  v31[3] = &unk_100018750;
-  v33 = &v34;
-  v32 = identifierCopy;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x3032000000;
+  v36 = sub_100002A28;
+  v37 = sub_100002A38;
+  v38 = 0;
+  v30[0] = _NSConcreteStackBlock;
+  v30[1] = 3221225472;
+  v30[2] = sub_100002A40;
+  v30[3] = &unk_100018750;
+  v32 = &v33;
+  v31 = identifierCopy;
   v21 = *&for->var0[4];
-  v30[0] = *for->var0;
-  v30[1] = v21;
-  v22 = [(FontServicesDaemon *)self filterUserFontInfoForAuditToken:v30 withEnumerationCapability:0 withFilter:v31];
+  v29[0] = *for->var0;
+  v29[1] = v21;
+  v22 = [(FontServicesDaemon *)self filterUserFontInfoForAuditToken:v29 withEnumerationCapability:0 withFilter:v30];
   if (![v22 count])
   {
 
-    _Block_object_dispose(&v34, 8);
+    _Block_object_dispose(&v33, 8);
     goto LABEL_11;
   }
 
   v23 = objc_opt_new();
   [v23 setObject:v22 forKey:@"fontsInfo"];
   [v23 setObject:&__kCFBooleanTrue forKey:@"hide-profilefonts"];
-  if (v35[5])
+  if (v34[5])
   {
     v24 = [NSFileHandle fileHandleForReadingAtPath:?];
     v25 = v24;
     if (v24)
     {
-      v48 = v35[5];
-      v49 = v24;
-      v26 = [NSDictionary dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+      v47 = v34[5];
+      v48 = v24;
+      v26 = [NSDictionary dictionaryWithObjects:&v48 forKeys:&v47 count:1];
       [v23 setObject:v26 forKey:@"fontData"];
     }
 
     else
     {
-      v29 = v35[5];
       FSLog_Error();
     }
   }
@@ -530,7 +569,7 @@ LABEL_11:
     *compat = 1;
   }
 
-  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v33, 8);
 LABEL_17:
 }
 
@@ -928,6 +967,53 @@ LABEL_28:
   return v4;
 }
 
+- (void)showDialog:(id)dialog forPID:(int)d sceneID:(id)iD appID:(id)appID completionHandler:(id)handler
+{
+  v10 = *&d;
+  dialogCopy = dialog;
+  iDCopy = iD;
+  appIDCopy = appID;
+  handlerCopy = handler;
+  v16 = [RBSProcessIdentifier identifierWithPid:v10];
+  v34 = 0;
+  v17 = [RBSProcessHandle handleForIdentifier:v16 error:&v34];
+  v18 = v34;
+
+  if (v17)
+  {
+    v19 = v18 == 0;
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  if (!v19 || ([v17 currentState], v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "endowmentNamespaces"), v21 = v17, v22 = handlerCopy, v23 = v18, v24 = appIDCopy, v25 = iDCopy, v26 = self, v27 = dialogCopy, v28 = objc_claimAutoreleasedReturnValue(), v29 = objc_msgSend(v28, "containsObject:", @"com.apple.frontboard.visibility"), v28, dialogCopy = v27, v30 = v26, iDCopy = v25, appIDCopy = v24, v18 = v23, handlerCopy = v22, v17 = v21, v20, (v29 & 1) == 0))
+  {
+    FSLog();
+    goto LABEL_10;
+  }
+
+  if (!objc_opt_class())
+  {
+LABEL_10:
+    handlerCopy[2](handlerCopy, &__NSArray0__struct);
+    goto LABEL_11;
+  }
+
+  v31 = [[MissingFontsDialogHandler alloc] initWithFontServicesDaemon:v30 completionHandler:handlerCopy];
+  missingFontsDialogHandler = v30->_missingFontsDialogHandler;
+  v30->_missingFontsDialogHandler = v31;
+
+  v35 = @"fonts";
+  v36 = dialogCopy;
+  v33 = [NSDictionary dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+  [(MissingFontsDialogHandler *)v30->_missingFontsDialogHandler showDialogWithUserInfo:v33 sceneID:iDCopy appID:appIDCopy];
+
+LABEL_11:
+}
+
 - (id)sanitizeIssuedFontPaths:(id)paths
 {
   pathsCopy = paths;
@@ -935,66 +1021,66 @@ LABEL_28:
   allKeys = [userFontsInfo allKeys];
   v7 = [NSSet setWithArray:allKeys];
 
-  v8 = sub_10000106C();
-  v9 = sub_10000112C();
-  v10 = objc_opt_new();
-  v25 = 0u;
+  v9 = sub_10000106C(v8);
+  v10 = sub_10000112C(v9);
+  v11 = objc_opt_new();
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v11 = pathsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
-  if (v12)
+  v29 = 0u;
+  v12 = pathsCopy;
+  v13 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  if (v13)
   {
-    v13 = v12;
-    v14 = *v26;
+    v14 = v13;
+    v15 = *v27;
     do
     {
-      for (i = 0; i != v13; i = i + 1)
+      for (i = 0; i != v14; i = i + 1)
       {
-        if (*v26 != v14)
+        if (*v27 != v15)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v12);
         }
 
-        v16 = *(*(&v25 + 1) + 8 * i);
-        if ([v7 containsObject:{v16, v25}])
+        v17 = *(*(&v26 + 1) + 8 * i);
+        if ([v7 containsObject:{v17, v26}])
         {
-          v17 = v16;
-          if ([v17 hasPrefix:v8])
+          v18 = v17;
+          if ([v18 hasPrefix:v9])
           {
-            v18 = [v8 length];
-            v19 = v17;
-            v20 = v8;
-            v21 = @"U/";
+            v19 = [v9 length];
+            v20 = v18;
+            v21 = v9;
+            v22 = @"U/";
             goto LABEL_11;
           }
 
-          if ([v17 hasPrefix:v9])
+          if ([v18 hasPrefix:v10])
           {
-            v18 = [v9 length];
-            v19 = v17;
-            v20 = v9;
-            v21 = @"A/";
+            v19 = [v10 length];
+            v20 = v18;
+            v21 = v10;
+            v22 = @"A/";
 LABEL_11:
-            v22 = [v19 stringByReplacingOccurrencesOfString:v20 withString:v21 options:0 range:{0, v18}];
+            v23 = [v20 stringByReplacingOccurrencesOfString:v21 withString:v22 options:0 range:{0, v19}];
 
-            v17 = v22;
+            v18 = v23;
           }
 
-          [v10 addObject:v17];
+          [v11 addObject:v18];
 
           continue;
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
-    while (v13);
+    while (v14);
   }
 
-  allObjects = [v10 allObjects];
+  allObjects = [v11 allObjects];
 
   return allObjects;
 }
@@ -1055,8 +1141,8 @@ LABEL_9:
   v21 = v5;
   v23 = identifierCopy;
   v6 = [v5 objectForKey:identifierCopy];
-  v7 = sub_10000106C();
-  v24 = sub_10000112C();
+  v7 = sub_10000106C(v6);
+  v24 = sub_10000112C(v7);
   v8 = objc_opt_new();
   v25 = 0u;
   v26 = 0u;
@@ -1225,7 +1311,7 @@ LABEL_11:
   v12 = v11;
   if (v11)
   {
-    [v11 auditToken];
+    objc_msgSend_auditToken(v11);
   }
 
   else
@@ -1407,7 +1493,7 @@ LABEL_32:
     [v13 ping:&stru_100019640 reply:&stru_100018998];
     if (v11)
     {
-      [v11 auditToken];
+      objc_msgSend_auditToken(v11);
     }
 
     else
@@ -1432,7 +1518,7 @@ LABEL_32:
       [v13 activateFontsForFontPickerClient:v16 reply:v23];
       if (v11)
       {
-        [v11 auditToken];
+        objc_msgSend_auditToken(v11);
       }
 
       else
@@ -1559,6 +1645,190 @@ LABEL_32:
       [v3 synchronize];
       CFPreferencesAppSynchronize(kCFPreferencesCurrentApplication);
     }
+  }
+}
+
+- (void)warnAboutSuspendedFontProvider:(id)provider forExpiration:(BOOL)expiration date:(id)date withURLSchem:(id)schem immediately:(BOOL)immediately
+{
+  expirationCopy = expiration;
+  providerCopy = provider;
+  dateCopy = date;
+  schemCopy = schem;
+  if (schemCopy)
+  {
+    if (immediately || (v14 = SBSCopyFrontmostApplicationDisplayIdentifier(), v14, !v14))
+    {
+      if (qword_10001D8B8 && ![qword_10001D8B8 count])
+      {
+        [(FBSDisplayLayoutMonitor *)self->_displayLayoutMonitor invalidate];
+        displayLayoutMonitor = self->_displayLayoutMonitor;
+        self->_displayLayoutMonitor = 0;
+
+        v25 = qword_10001D8B8;
+        qword_10001D8B8 = 0;
+      }
+
+      selfCopy = self;
+      v50 = [LSApplicationProxy applicationProxyForIdentifier:providerCopy];
+      v26 = [v50 localizedNameForContext:0];
+      v27 = +[NSBundle mainBundle];
+      v28 = v27;
+      if (expirationCopy)
+      {
+        v29 = @"SUBSCRIPTION_SUPPORT_EXPIRE_HEADER";
+      }
+
+      else
+      {
+        v29 = @"SUBSCRIPTION_SUPPORT_WARN_HEADER";
+      }
+
+      if (expirationCopy)
+      {
+        v30 = @"SUBSCRIPTION_SUPPORT_EXPIRE_MESSAGE";
+      }
+
+      else
+      {
+        v30 = @"SUBSCRIPTION_SUPPORT_WARN_MESSAGE";
+      }
+
+      v49 = [v27 localizedStringForKey:v29 value:&stru_100019640 table:0];
+
+      v31 = +[NSBundle mainBundle];
+      v48 = [v31 localizedStringForKey:v30 value:&stru_100019640 table:0];
+
+      v32 = +[NSBundle mainBundle];
+      v47 = [v32 localizedStringForKey:@"SUBSCRIPTION_SUPPORT_OPEN_BUTTON" value:&stru_100019640 table:0];
+
+      v33 = +[NSBundle mainBundle];
+      v34 = [v33 localizedStringForKey:@"SUBSCRIPTION_SUPPORT_NOT_NOW_BUTTON" value:&stru_100019640 table:0];
+
+      v35 = [NSString localizedStringWithFormat:v49, v26];
+      if (expirationCopy)
+      {
+        v36 = [NSString localizedStringWithFormat:v48, v26];
+      }
+
+      else
+      {
+        v37 = [NSDateFormatter localizedStringFromDate:dateCopy dateStyle:1 timeStyle:0];
+        v36 = [NSString localizedStringWithFormat:v48, v26, v37];
+      }
+
+      LODWORD(location) = 0;
+      v69[0] = kCFUserNotificationAlertHeaderKey;
+      v69[1] = kCFUserNotificationAlertMessageKey;
+      v70[0] = v35;
+      v70[1] = v36;
+      v69[2] = kCFUserNotificationDefaultButtonTitleKey;
+      v69[3] = kCFUserNotificationAlternateButtonTitleKey;
+      v70[2] = v47;
+      v70[3] = v34;
+      v38 = [NSDictionary dictionaryWithObjects:v70 forKeys:v69 count:4];
+      v39 = CFUserNotificationCreate(kCFAllocatorDefault, 0.0, 3uLL, &location, v38);
+      v40 = v39;
+      if (v39)
+      {
+        responseFlags = 0;
+        if (!CFUserNotificationReceiveResponse(v39, 0.0, &responseFlags) && (responseFlags & 3) == 0)
+        {
+          v45 = objc_opt_new();
+          [v45 setScheme:schemCopy];
+          [v45 setHost:&stru_100019640];
+          expirationCopy = [NSString stringWithFormat:@"expiration=%d", expirationCopy];
+          [v45 setQuery:expirationCopy];
+
+          v44 = +[LSApplicationWorkspace defaultWorkspace];
+          v42 = [v45 URL];
+          [v44 openURL:v42 withOptions:0];
+        }
+
+        CFRelease(v40);
+      }
+
+      if (expirationCopy)
+      {
+        [(FontServicesDaemon *)selfCopy resetWarnedForIdenntifier:providerCopy];
+      }
+
+      else
+      {
+        [(FontServicesDaemon *)selfCopy recordWarnedForIdenntifier:providerCopy];
+      }
+    }
+
+    else
+    {
+      if (!qword_10001D8B8)
+      {
+        v15 = objc_opt_new();
+        v16 = qword_10001D8B8;
+        qword_10001D8B8 = v15;
+      }
+
+      responseFlags = 0;
+      p_responseFlags = &responseFlags;
+      v67 = 0x2020000000;
+      v68 = 0;
+      v17 = qword_10001D8B8;
+      v59[0] = _NSConcreteStackBlock;
+      v59[1] = 3221225472;
+      v59[2] = sub_100006698;
+      v59[3] = &unk_1000189E8;
+      v18 = providerCopy;
+      v60 = v18;
+      v61 = @"identifier";
+      v64 = expirationCopy;
+      v62 = @"forExpiration";
+      v63 = &responseFlags;
+      [v17 enumerateObjectsUsingBlock:v59];
+      if ((p_responseFlags[3] & 1) == 0)
+      {
+        v19 = qword_10001D8B8;
+        v72[0] = v18;
+        v71[0] = @"identifier";
+        v71[1] = @"forExpiration";
+        v20 = [NSNumber numberWithBool:expirationCopy];
+        v72[1] = v20;
+        v72[2] = dateCopy;
+        v71[2] = @"date";
+        v71[3] = @"scheme";
+        v72[3] = schemCopy;
+        v21 = [NSDictionary dictionaryWithObjects:v72 forKeys:v71 count:4];
+        [v19 addObject:v21];
+      }
+
+      v22 = "NO";
+      if (expirationCopy)
+      {
+        v22 = "YES";
+      }
+
+      v43 = v22;
+      FSLog();
+      objc_initWeak(&location, self);
+      v52[0] = _NSConcreteStackBlock;
+      v52[1] = 3221225472;
+      v52[2] = sub_10000675C;
+      v52[3] = &unk_100018A60;
+      objc_copyWeak(&v57, &location);
+      v53 = @"identifier";
+      v54 = @"forExpiration";
+      v55 = @"date";
+      v56 = @"scheme";
+      v23 = [(FontServicesDaemon *)self displayLayoutMonitorWithHandler:v52, v18, v43];
+
+      objc_destroyWeak(&v57);
+      objc_destroyWeak(&location);
+
+      _Block_object_dispose(&responseFlags, 8);
+    }
+  }
+
+  else
+  {
+    FSLog_Debug();
   }
 }
 
@@ -1720,7 +1990,7 @@ LABEL_32:
   v8 = v7;
   if (v7)
   {
-    [v7 auditToken];
+    objc_msgSend_auditToken(v7);
   }
 
   else
@@ -1968,31 +2238,30 @@ LABEL_25:
           }
 
           v24 = *(*(&v63 + 1) + 8 * i);
-          if (!sub_10000BB04(v24))
+          if (sub_10000BB04(v24))
           {
-            goto LABEL_33;
+            stringByDeletingLastPathComponent = [v24 stringByDeletingLastPathComponent];
+            lastPathComponent = [stringByDeletingLastPathComponent lastPathComponent];
+
+            v27 = sub_10000BAEC();
+            v28 = [v27 stringByAppendingPathComponent:lastPathComponent];
+
+            LOBYTE(v27) = [v18 fileExistsAtPath:v28];
+            if (v27)
+            {
+              continue;
+            }
           }
 
-          stringByDeletingLastPathComponent = [v24 stringByDeletingLastPathComponent];
-          lastPathComponent = [stringByDeletingLastPathComponent lastPathComponent];
-
-          v27 = sub_10000BAEC();
-          v28 = [v27 stringByAppendingPathComponent:lastPathComponent];
-
-          LOBYTE(v27) = [v18 fileExistsAtPath:v28];
-          if ((v27 & 1) == 0)
+          v62 = 0;
+          v29 = [v18 removeItemAtPath:v24 error:{&v62, v47, v48}];
+          v30 = v62;
+          v31 = v30;
+          if ((v29 & 1) == 0)
           {
-LABEL_33:
-            v62 = 0;
-            v29 = [v18 removeItemAtPath:v24 error:{&v62, v47, v48}];
-            v30 = v62;
-            v31 = v30;
-            if ((v29 & 1) == 0)
-            {
-              v47 = v24;
-              v48 = v30;
-              FSLog_Error();
-            }
+            v47 = v24;
+            v48 = v30;
+            FSLog_Error();
           }
         }
 
@@ -2093,7 +2362,7 @@ LABEL_59:
   v6 = v5;
   if (v5)
   {
-    [v5 auditToken];
+    objc_msgSend_auditToken(v5);
   }
 
   else

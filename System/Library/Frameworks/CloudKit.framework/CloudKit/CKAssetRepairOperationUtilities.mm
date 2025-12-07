@@ -29,7 +29,7 @@
 
 + (id)createRepairContainerFromContainer:(id)container withOverrides:(id)overrides
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   containerCopy = container;
   overridesCopy = overrides;
   v10 = objc_msgSend_primaryIdentifier(containerCopy, v7, v8);
@@ -41,7 +41,7 @@
     v18 = objc_msgSend_accountOverrideInfo(v15, v16, v17);
     objc_msgSend_setAccountOverrideInfo_(v12, v19, v18);
 
-    if (__sTestOverridesAvailable[0] == 1)
+    if (__sTestOverridesAvailable == 1)
     {
       v22 = objc_msgSend_options(containerCopy, v20, v21);
       v25 = objc_msgSend_testDeviceReferenceProtocol(v22, v23, v24);
@@ -62,7 +62,7 @@
     v47 = objc_msgSend_environment(v44, v45, v46);
     v49 = objc_msgSend_initWithContainerIdentifier_environment_(v38, v48, v41, v47);
 
-    if (__sTestOverridesAvailable[0] == 1)
+    if (__sTestOverridesAvailable == 1)
     {
       v50 = objc_alloc(sub_1885188C0());
       v53 = objc_msgSend_testDeviceReferenceProtocol(v12, v51, v52);
@@ -86,15 +86,13 @@
     v56 = ck_log_facility_data_repair;
     if (os_log_type_enabled(ck_log_facility_data_repair, OS_LOG_TYPE_ERROR))
     {
-      v61 = 138412290;
-      v62 = containerCopy;
-      _os_log_error_impl(&dword_1883EA000, v56, OS_LOG_TYPE_ERROR, "Couldn't get repair container application identifier for container %@", &v61, 0xCu);
+      v60 = 138412290;
+      v61 = containerCopy;
+      _os_log_error_impl(&dword_1883EA000, v56, OS_LOG_TYPE_ERROR, "Couldn't get repair container application identifier for container %@", &v60, 0xCu);
     }
 
     v55 = 0;
   }
-
-  v59 = *MEMORY[0x1E69E9840];
 
   return v55;
 }
@@ -121,7 +119,7 @@
 
 + (id)repairRecordFromRecord:(id)record field:(id)field listIndex:(int64_t)index repairZoneID:(id)d
 {
-  v118 = *MEMORY[0x1E69E9840];
+  v117 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   fieldCopy = field;
   dCopy = d;
@@ -207,7 +205,7 @@ LABEL_30:
     {
       v57 = objc_opt_new();
       v60 = objc_opt_new();
-      v111 = v22;
+      v110 = v22;
       v63 = objc_msgSend_assets(v22, v61, v62);
       if (objc_msgSend_count(v63, v64, v65))
       {
@@ -249,7 +247,7 @@ LABEL_30:
         objc_msgSend_setObject_forKeyedSubscript_(v25, v108, v60, @"referenceSignature");
       }
 
-      v22 = v111;
+      v22 = v110;
     }
 
     goto LABEL_30;
@@ -265,25 +263,23 @@ LABEL_18:
   if (os_log_type_enabled(ck_log_facility_data_repair, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412802;
-    v113 = fieldCopy;
-    v114 = 2048;
+    v112 = fieldCopy;
+    v113 = 2048;
     indexCopy = index;
-    v116 = 2112;
-    v117 = recordCopy;
+    v115 = 2112;
+    v116 = recordCopy;
     _os_log_error_impl(&dword_1883EA000, v59, OS_LOG_TYPE_ERROR, "Could not find asset or package in field %@ and index %ld of record %@", buf, 0x20u);
   }
 
   v25 = 0;
 LABEL_31:
 
-  v109 = *MEMORY[0x1E69E9840];
-
   return v25;
 }
 
 + (id)uploadRequestMetadataFromRepairRecord:(id)record
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   v6 = objc_msgSend_recordType(recordCopy, v4, v5);
   isEqualToString = objc_msgSend_isEqualToString_(v6, v7, @"MissingAsset");
@@ -298,10 +294,10 @@ LABEL_31:
     v21 = objc_msgSend_objectForKeyedSubscript_(recordCopy, v20, @"referenceSignature");
     v23 = objc_msgSend_objectForKeyedSubscript_(recordCopy, v22, @"listIndex");
     v24 = [CKRecordZoneID alloc];
-    v69 = v11;
+    v68 = v11;
     v26 = objc_msgSend_initWithZoneName_ownerName_(v24, v25, v11, @"__defaultOwner__");
     v27 = [CKRecordID alloc];
-    v68 = v13;
+    v67 = v13;
     v29 = objc_msgSend_initWithRecordName_zoneID_(v27, v28, v13, v26);
     v30 = [CKAssetUploadRequestMetadata alloc];
     v35 = objc_msgSend_recordID(recordCopy, v31, v32);
@@ -326,14 +322,14 @@ LABEL_31:
 
     if (v41)
     {
-      v70 = objc_msgSend_objectForKeyedSubscript_(recordCopy, v42, @"zone");
+      v69 = objc_msgSend_objectForKeyedSubscript_(recordCopy, v42, @"zone");
       v44 = objc_msgSend_objectForKeyedSubscript_(recordCopy, v43, @"affectedRecordID");
       v46 = objc_msgSend_objectForKeyedSubscript_(recordCopy, v45, @"affectedRecordType");
       v48 = objc_msgSend_objectForKeyedSubscript_(recordCopy, v47, @"fieldName");
       v50 = objc_msgSend_objectForKeyedSubscript_(recordCopy, v49, @"fileSignature");
       v52 = objc_msgSend_objectForKeyedSubscript_(recordCopy, v51, @"referenceSignature");
       v53 = [CKRecordZoneID alloc];
-      v55 = objc_msgSend_initWithZoneName_ownerName_(v53, v54, v70, @"__defaultOwner__");
+      v55 = objc_msgSend_initWithZoneName_ownerName_(v53, v54, v69, @"__defaultOwner__");
       v56 = [CKRecordID alloc];
       v58 = objc_msgSend_initWithRecordName_zoneID_(v56, v57, v44, v55);
       v59 = [CKPackageUploadRequestMetadata alloc];
@@ -352,15 +348,13 @@ LABEL_31:
       if (os_log_type_enabled(ck_log_facility_data_repair, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v72 = recordCopy;
+        v71 = recordCopy;
         _os_log_error_impl(&dword_1883EA000, v65, OS_LOG_TYPE_ERROR, "Invalid record type for repair record %@", buf, 0xCu);
       }
 
       v64 = 0;
     }
   }
-
-  v66 = *MEMORY[0x1E69E9840];
 
   return v64;
 }

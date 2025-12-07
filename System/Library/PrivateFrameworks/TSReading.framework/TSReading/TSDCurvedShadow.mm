@@ -300,7 +300,7 @@ LABEL_4:
   styledLayout = [rep styledLayout];
   if (styledLayout)
   {
-    [styledLayout transformInRoot];
+    objc_msgSend_transformInRoot(styledLayout);
   }
 
   else
@@ -318,7 +318,7 @@ LABEL_4:
     v28 = [objc_msgSend(rep "layout")];
     if (v28)
     {
-      [v28 transform];
+      objc_msgSend_transform(v28);
       a = transform.a;
       b = transform.b;
       c = transform.c;

@@ -203,7 +203,7 @@ void __30__LPStreamingAudioPlayer_play__block_invoke(uint64_t a1)
     item = self->_item;
     if (item)
     {
-      [(AVPlayerItem *)item currentTime];
+      objc_msgSend_currentTime(item, a2, v4);
     }
 
     else
@@ -215,7 +215,7 @@ void __30__LPStreamingAudioPlayer_play__block_invoke(uint64_t a1)
     v10 = self->_item;
     if (v10)
     {
-      [(AVPlayerItem *)v10 duration];
+      objc_msgSend_duration(v10);
     }
 
     else

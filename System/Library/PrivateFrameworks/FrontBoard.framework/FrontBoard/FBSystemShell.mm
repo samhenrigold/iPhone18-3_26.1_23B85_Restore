@@ -16,11 +16,11 @@
 
 - (id)_initWithOptions:(id)options
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   optionsCopy = options;
-  v40.receiver = self;
-  v40.super_class = FBSystemShell;
-  v5 = [(FBSystemShell *)&v40 init];
+  v39.receiver = self;
+  v39.super_class = FBSystemShell;
+  v5 = [(FBSystemShell *)&v39 init];
   v6 = v5;
   if (v5)
   {
@@ -51,8 +51,8 @@
     v16 = objc_alloc(MEMORY[0x1E69C7548]);
     currentProcess = [MEMORY[0x1E69C7640] currentProcess];
     v18 = [MEMORY[0x1E69C7560] attributeWithDomain:@"com.apple.frontboard" name:@"SystemShell"];
-    v41[0] = v18;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:1];
+    v40[0] = v18;
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:1];
     v20 = [v16 initWithExplanation:@"FBSystemShell" target:currentProcess attributes:v19];
     runningAssertion = v6->_runningAssertion;
     v6->_runningAssertion = v20;
@@ -61,36 +61,35 @@
     kdebug_trace();
     kdebug_trace();
     v22 = objc_alloc(MEMORY[0x1E698E418]);
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __34__FBSystemShell__initWithOptions___block_invoke;
-    v38[3] = &unk_1E783B530;
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __34__FBSystemShell__initWithOptions___block_invoke;
+    v37[3] = &unk_1E783B530;
     v23 = optionsCopy;
-    v39 = v23;
-    v24 = [v22 initWithConfigurator:v38];
+    v38 = v23;
+    v24 = [v22 initWithConfigurator:v37];
     systemShellService = v6->_systemShellService;
     v6->_systemShellService = v24;
 
     kdebug_trace();
     *buf = 0;
-    v33 = buf;
-    v34 = 0x3032000000;
-    v35 = __Block_byref_object_copy_;
-    v36 = __Block_byref_object_dispose_;
+    v32 = buf;
+    v33 = 0x3032000000;
+    v34 = __Block_byref_object_copy_;
+    v35 = __Block_byref_object_dispose_;
     v26 = v6;
-    v37 = v26;
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __34__FBSystemShell__initWithOptions___block_invoke_31;
-    v29[3] = &unk_1E783B558;
-    v30 = v23;
-    v31 = buf;
-    [(FBSystemShell *)v26 _addBlockToExecuteWhenReady:v29];
+    v36 = v26;
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __34__FBSystemShell__initWithOptions___block_invoke_31;
+    v28[3] = &unk_1E783B558;
+    v29 = v23;
+    v30 = buf;
+    [(FBSystemShell *)v26 _addBlockToExecuteWhenReady:v28];
 
     _Block_object_dispose(buf, 8);
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -171,28 +170,28 @@ void __45__FBSystemShell__createSingletonWithOptions___block_invoke(uint64_t a1)
 
 - (void)sendActionsToBackBoard:(id)board
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   boardCopy = board;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [boardCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [boardCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(boardCopy);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * v8);
+        v9 = *(*(&v12 + 1) + 8 * v8);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -205,13 +204,11 @@ void __45__FBSystemShell__createSingletonWithOptions___block_invoke(uint64_t a1)
       }
 
       while (v6 != v8);
-      v6 = [boardCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [boardCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)assertWatchdogEnabledForLimitedDurationForReason:(id)reason
@@ -308,7 +305,7 @@ void __66__FBSystemShell_assertWatchdogEnabledForLimitedDurationForReason___bloc
 - (void)_setSystemIdleSleepDisabled:(BOOL)disabled forReason:(id)reason
 {
   disabledCopy = disabled;
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   NSClassFromString(&cfstr_Nsstring.isa);
   if (!reasonCopy)
@@ -331,7 +328,7 @@ void __66__FBSystemShell_assertWatchdogEnabledForLimitedDurationForReason___bloc
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v27 = reasonCopy;
+        v26 = reasonCopy;
         _os_log_impl(&dword_1A89DD000, v9, OS_LOG_TYPE_INFO, "Preventing system idle sleep for reason: %{public}@", buf, 0xCu);
       }
 
@@ -345,7 +342,7 @@ void __66__FBSystemShell_assertWatchdogEnabledForLimitedDurationForReason___bloc
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v27 = reasonCopy;
+      v26 = reasonCopy;
       _os_log_impl(&dword_1A89DD000, v10, OS_LOG_TYPE_INFO, "Allowing system idle sleep for reason: %{public}@", buf, 0xCu);
     }
 
@@ -366,7 +363,7 @@ void __66__FBSystemShell_assertWatchdogEnabledForLimitedDurationForReason___bloc
     }
 
     *buf = 138543362;
-    v27 = lock_preventIdleSleepReasons;
+    v26 = lock_preventIdleSleepReasons;
     _os_log_impl(&dword_1A89DD000, v11, OS_LOG_TYPE_DEFAULT, "Prevent idle sleep reasons: %{public}@", buf, 0xCu);
   }
 
@@ -386,8 +383,8 @@ void __66__FBSystemShell_assertWatchdogEnabledForLimitedDurationForReason___bloc
       v16 = objc_alloc(MEMORY[0x1E69C7548]);
       currentProcess = [MEMORY[0x1E69C7640] currentProcess];
       v18 = [MEMORY[0x1E69C7560] attributeWithDomain:@"com.apple.frontboard" name:@"SystemShell-PreventIdleSleep"];
-      v25 = v18;
-      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
+      v24 = v18;
+      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
       v20 = [v16 initWithExplanation:@"FBSystemApp-PreventIdleSleep" target:currentProcess attributes:v19];
       v21 = self->_lock_preventSleepAssertion;
       self->_lock_preventSleepAssertion = v20;
@@ -411,88 +408,82 @@ void __66__FBSystemShell_assertWatchdogEnabledForLimitedDurationForReason___bloc
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setState:(unint64_t)state
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   state = self->_state;
-  if (state == state)
+  if (state != state)
   {
-LABEL_15:
-    v12 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  if (state == 1)
-  {
-    if (state)
+    if (state == 1)
     {
-      [FBSystemShell _setState:a2];
-    }
-
-    self->_state = 1;
-    goto LABEL_15;
-  }
-
-  if (state == 2)
-  {
-    if (state != 1)
-    {
-      [FBSystemShell _setState:a2];
-    }
-
-    self->_state = 2;
-    os_unfair_lock_lock(&self->_lock);
-    v5 = [(NSMutableArray *)self->_lock_blocksToRunWhenReady copy];
-    lock_blocksToRunWhenReady = self->_lock_blocksToRunWhenReady;
-    self->_lock_blocksToRunWhenReady = 0;
-
-    os_unfair_lock_unlock(&self->_lock);
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v8)
-    {
-      v9 = v8;
-      v10 = *v16;
-      do
+      if (state)
       {
-        v11 = 0;
-        do
-        {
-          if (*v16 != v10)
-          {
-            objc_enumerationMutation(v7);
-          }
-
-          (*(*(*(&v15 + 1) + 8 * v11++) + 16))();
-        }
-
-        while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        [FBSystemShell _setState:a2];
       }
 
-      while (v9);
+      self->_state = 1;
     }
 
-    goto LABEL_15;
-  }
+    else if (state == 2)
+    {
+      if (state != 1)
+      {
+        [FBSystemShell _setState:a2];
+      }
 
-  v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot set to state: uninitialized."];
-  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-  {
-    [FBSystemShell _setState:a2];
-  }
+      self->_state = 2;
+      os_unfair_lock_lock(&self->_lock);
+      v5 = [(NSMutableArray *)self->_lock_blocksToRunWhenReady copy];
+      lock_blocksToRunWhenReady = self->_lock_blocksToRunWhenReady;
+      self->_lock_blocksToRunWhenReady = 0;
 
-  [v13 UTF8String];
-  _bs_set_crash_log_message();
-  __break(0);
+      os_unfair_lock_unlock(&self->_lock);
+      v16 = 0u;
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
+      v7 = v5;
+      v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      if (v8)
+      {
+        v9 = v8;
+        v10 = *v15;
+        do
+        {
+          v11 = 0;
+          do
+          {
+            if (*v15 != v10)
+            {
+              objc_enumerationMutation(v7);
+            }
+
+            (*(*(*(&v14 + 1) + 8 * v11++) + 16))();
+          }
+
+          while (v9 != v11);
+          v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        }
+
+        while (v9);
+      }
+    }
+
+    else
+    {
+      v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot set to state: uninitialized."];
+      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      {
+        [(FBSystemShell *)a2 _setState:?];
+      }
+
+      [v12 UTF8String];
+      _bs_set_crash_log_message();
+      __break(0);
+    }
+  }
 }
 
 + (void)_createSingletonWithOptions:(char *)a1 .cold.1(char *a1)
@@ -504,8 +495,10 @@ LABEL_15:
     objc_claimAutoreleasedReturnValue();
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
+    LODWORD(v10) = 138544642;
+    *(&v10 + 4) = a1;
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
   }
 
   [v2 UTF8String];
@@ -559,16 +552,15 @@ LABEL_15:
   __break(0);
 }
 
-- (void)_setState:(const char *)a1 .cold.3(const char *a1)
+- (void)_setState:(const char *)a1 .cold.3(const char *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  LODWORD(v10) = 138544642;
+  *(&v10 + 4) = v2;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 @end

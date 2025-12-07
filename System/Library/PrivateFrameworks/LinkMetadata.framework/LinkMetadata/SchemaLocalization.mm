@@ -8,19 +8,18 @@
 + (NSURL)bundleURL
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACB72C8, &qword_18F0AAE80);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x1EEE9AC00](v2 - 8);
-  v5 = &v9 - v4;
-  static SchemaLocalization.bundleURL.getter(&v9 - v4);
-  v6 = sub_18F0932BC();
-  v7 = 0;
-  if (__swift_getEnumTagSinglePayload(v5, 1, v6) != 1)
+  v4 = &v8 - v3;
+  static SchemaLocalization.bundleURL.getter(&v8 - v3);
+  v5 = sub_18F0932BC();
+  v6 = 0;
+  if (__swift_getEnumTagSinglePayload(v4, 1, v5) != 1)
   {
-    v7 = sub_18F09324C();
-    (*(*(v6 - 8) + 8))(v5, v6);
+    v6 = sub_18F09324C();
+    (*(*(v5 - 8) + 8))(v4, v5);
   }
 
-  return v7;
+  return v6;
 }
 
 + (id)tableForLibraryKey:(id)key

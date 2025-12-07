@@ -44,7 +44,7 @@
 
     if (v14)
     {
-      [v14 inputTraits];
+      objc_msgSend_inputTraits(v14);
     }
 
     else
@@ -153,9 +153,9 @@
     prompt = [attributes prompt];
     [(MRMutableTextEditingAttributes *)v5 setPrompt:prompt];
 
-    inputTraits = [attributes inputTraits];
+    v8 = objc_msgSend_inputTraits(attributes);
     memset(v30 + 8, 0, 128);
-    autocapitalizationType = [inputTraits autocapitalizationType];
+    autocapitalizationType = [v8 autocapitalizationType];
     if ((autocapitalizationType - 1) >= 3)
     {
       v10 = 0;
@@ -167,7 +167,7 @@
     }
 
     LODWORD(v30[0]) = v10;
-    keyboardType = [inputTraits keyboardType];
+    keyboardType = [v8 keyboardType];
     v12 = 0;
     if ((keyboardType - 1) <= 0xB)
     {
@@ -175,7 +175,7 @@
     }
 
     HIDWORD(v30[0]) = v12;
-    returnKeyType = [inputTraits returnKeyType];
+    returnKeyType = [v8 returnKeyType];
     if ((returnKeyType - 1) >= 0xB)
     {
       v14 = 0;
@@ -187,13 +187,13 @@
     }
 
     LODWORD(v30[1]) = v14;
-    BYTE8(v30[2]) = [inputTraits enablesReturnKeyAutomatically];
-    BYTE9(v30[2]) = [inputTraits secureTextEntry];
-    hasAutocorrection = [inputTraits hasAutocorrection];
+    BYTE8(v30[2]) = [v8 enablesReturnKeyAutomatically];
+    BYTE9(v30[2]) = [v8 secureTextEntry];
+    hasAutocorrection = [v8 hasAutocorrection];
     v16 = 0;
     if (hasAutocorrection)
     {
-      if ([inputTraits autocorrection])
+      if ([v8 autocorrection])
       {
         v16 = 2;
       }
@@ -205,9 +205,9 @@
     }
 
     DWORD1(v30[0]) = v16;
-    if ([inputTraits hasSpellchecking])
+    if ([v8 hasSpellchecking])
     {
-      if ([inputTraits spellchecking])
+      if ([v8 spellchecking])
       {
         v17 = 2;
       }
@@ -224,10 +224,10 @@
     }
 
     DWORD2(v30[0]) = v17;
-    if ([inputTraits hasValidTextRangeLocation] && objc_msgSend(inputTraits, "hasValidTextRangeLength"))
+    if ([v8 hasValidTextRangeLocation] && objc_msgSend(v8, "hasValidTextRangeLength"))
     {
-      validTextRangeLocation = [inputTraits validTextRangeLocation];
-      validTextRangeLength = [inputTraits validTextRangeLength];
+      validTextRangeLocation = [v8 validTextRangeLocation];
+      validTextRangeLength = [v8 validTextRangeLength];
       *(&v30[1] + 1) = validTextRangeLocation;
     }
 
@@ -238,7 +238,7 @@
     }
 
     *&v30[2] = validTextRangeLength;
-    pINEntrySeparatorIndexesCount = [inputTraits pINEntrySeparatorIndexesCount];
+    pINEntrySeparatorIndexesCount = [v8 pINEntrySeparatorIndexesCount];
     *&v30[8] = pINEntrySeparatorIndexesCount;
     if (pINEntrySeparatorIndexesCount)
     {
@@ -247,7 +247,7 @@
       v23 = 1;
       do
       {
-        *(&v30[3] + v22) = [inputTraits pINEntrySeparatorIndexesAtIndex:v22];
+        *(&v30[3] + v22) = [v8 pINEntrySeparatorIndexesAtIndex:v22];
         v22 = v23;
       }
 

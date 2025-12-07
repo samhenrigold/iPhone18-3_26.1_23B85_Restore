@@ -26,7 +26,7 @@
 
 - (void)registerAndSubmitTaskWithRequest:(id)request usingQueue:(id)queue launchHandler:(id)handler
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   queueCopy = queue;
   handlerCopy = handler;
@@ -34,16 +34,16 @@
   scheduler = [(ULBGSystemTaskManager *)self scheduler];
   identifier = [requestCopy identifier];
   internalQueue = [(ULBGSystemTaskManager *)self internalQueue];
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __83__ULBGSystemTaskManager_registerAndSubmitTaskWithRequest_usingQueue_launchHandler___block_invoke;
-  v32[3] = &unk_2798D40D0;
-  objc_copyWeak(&v35, &location);
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __83__ULBGSystemTaskManager_registerAndSubmitTaskWithRequest_usingQueue_launchHandler___block_invoke;
+  v31[3] = &unk_2798D40D0;
+  objc_copyWeak(&v34, &location);
   v14 = queueCopy;
-  v33 = v14;
+  v32 = v14;
   v15 = handlerCopy;
-  v34 = v15;
-  v16 = [scheduler registerForTaskWithIdentifier:identifier usingQueue:internalQueue launchHandler:v32];
+  v33 = v15;
+  v16 = [scheduler registerForTaskWithIdentifier:identifier usingQueue:internalQueue launchHandler:v31];
 
   if (v16)
   {
@@ -63,7 +63,7 @@
       {
         identifier3 = [requestCopy identifier];
         *buf = 138412290;
-        v38 = identifier3;
+        v37 = identifier3;
         _os_log_impl(&dword_258FE9000, v20, OS_LOG_TYPE_DEFAULT, "[ULBGSystemTaskManager]: Trying to submit already existing task: %@", buf, 0xCu);
       }
     }
@@ -72,9 +72,9 @@
     {
       scheduler3 = [(ULBGSystemTaskManager *)self scheduler];
       createRequestFromSelf = [requestCopy createRequestFromSelf];
-      v31 = 0;
-      v25 = [scheduler3 submitTaskRequest:createRequestFromSelf error:&v31];
-      v20 = v31;
+      v30 = 0;
+      v25 = [scheduler3 submitTaskRequest:createRequestFromSelf error:&v30];
+      v20 = v30;
 
       if (v25)
       {
@@ -88,7 +88,7 @@
         {
           identifier4 = [requestCopy identifier];
           *buf = 138412290;
-          v38 = identifier4;
+          v37 = identifier4;
           _os_log_impl(&dword_258FE9000, v26, OS_LOG_TYPE_DEFAULT, "[ULBGSystemTaskManager]: Registered and submitted task: %@", buf, 0xCu);
         }
       }
@@ -106,9 +106,9 @@
           identifier5 = [requestCopy identifier];
           localizedDescription = [v20 localizedDescription];
           *buf = 138412546;
-          v38 = identifier5;
-          v39 = 2112;
-          v40 = localizedDescription;
+          v37 = identifier5;
+          v38 = 2112;
+          v39 = localizedDescription;
           _os_log_impl(&dword_258FE9000, v26, OS_LOG_TYPE_ERROR, "[ULBGSystemTaskManager]: Could not submit task: %@ with error: %@", buf, 0x16u);
         }
       }
@@ -127,15 +127,13 @@
     {
       identifier6 = [requestCopy identifier];
       *buf = 138412290;
-      v38 = identifier6;
+      v37 = identifier6;
       _os_log_impl(&dword_258FE9000, v19, OS_LOG_TYPE_ERROR, "[ULBGSystemTaskManager]: Could not register task: %@", buf, 0xCu);
     }
   }
 
-  objc_destroyWeak(&v35);
+  objc_destroyWeak(&v34);
   objc_destroyWeak(&location);
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __83__ULBGSystemTaskManager_registerAndSubmitTaskWithRequest_usingQueue_launchHandler___block_invoke(uint64_t a1, void *a2)
@@ -161,7 +159,7 @@ void __83__ULBGSystemTaskManager_registerAndSubmitTaskWithRequest_usingQueue_lau
 
 void __83__ULBGSystemTaskManager_registerAndSubmitTaskWithRequest_usingQueue_launchHandler___block_invoke_2(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEAA8] date];
   if (onceToken_MicroLocation_Default != -1)
   {
@@ -174,11 +172,11 @@ void __83__ULBGSystemTaskManager_registerAndSubmitTaskWithRequest_usingQueue_lau
     v4 = *(a1 + 32);
     v5 = v3;
     v6 = [v4 identifier];
-    v17 = 138412546;
-    v18 = v6;
-    v19 = 2112;
-    v20 = v2;
-    _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "[ULBGSystemTaskManager]: task: %@ started at: %@", &v17, 0x16u);
+    v16 = 138412546;
+    v17 = v6;
+    v18 = 2112;
+    v19 = v2;
+    _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "[ULBGSystemTaskManager]: task: %@ started at: %@", &v16, 0x16u);
   }
 
   v7 = [[ULBGSystemTask alloc] initWithUnderlyingTask:*(a1 + 32)];
@@ -195,7 +193,7 @@ void __83__ULBGSystemTaskManager_registerAndSubmitTaskWithRequest_usingQueue_lau
     v9 = *(a1 + 32);
     v10 = v8;
     v11 = [v9 identifier];
-    if ([(ULBGSystemTask *)v7 shouldCancel])
+    if (objc_msgSend_shouldCancel(v7))
     {
       v12 = @"YES";
     }
@@ -209,26 +207,24 @@ void __83__ULBGSystemTaskManager_registerAndSubmitTaskWithRequest_usingQueue_lau
     v14 = [MEMORY[0x277CBEAA8] date];
     [v14 timeIntervalSinceDate:v2];
     v15 = [v13 numberWithDouble:?];
-    v17 = 138412802;
-    v18 = v11;
-    v19 = 2112;
-    v20 = v12;
-    v21 = 2112;
-    v22 = v15;
-    _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_DEFAULT, "[ULBGSystemTaskManager]: task: %@ ended, interrupted: %@, duration: %@(sec)", &v17, 0x20u);
+    v16 = 138412802;
+    v17 = v11;
+    v18 = 2112;
+    v19 = v12;
+    v20 = 2112;
+    v21 = v15;
+    _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_DEFAULT, "[ULBGSystemTaskManager]: task: %@ ended, interrupted: %@, duration: %@(sec)", &v16, 0x20u);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deregisterAndCancelTaskWithIdentifier:(id)identifier
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   scheduler = [(ULBGSystemTaskManager *)self scheduler];
-  v19 = 0;
-  v6 = [scheduler cancelTaskRequestWithIdentifier:identifierCopy error:&v19];
-  v7 = v19;
+  v18 = 0;
+  v6 = [scheduler cancelTaskRequestWithIdentifier:identifierCopy error:&v18];
+  v7 = v18;
 
   if (v6)
   {
@@ -246,7 +242,7 @@ void __83__ULBGSystemTaskManager_registerAndSubmitTaskWithRequest_usingQueue_lau
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v21 = identifierCopy;
+        v20 = identifierCopy;
         v11 = "[ULBGSystemTaskManager]: Deregistered and cancelled task: %@";
         v12 = v10;
         v13 = OS_LOG_TYPE_DEFAULT;
@@ -266,7 +262,7 @@ LABEL_15:
       if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v21 = identifierCopy;
+        v20 = identifierCopy;
         v11 = "[ULBGSystemTaskManager]: Couldnt deregister task: %@";
         v12 = v17;
         v13 = OS_LOG_TYPE_ERROR;
@@ -288,14 +284,12 @@ LABEL_15:
       v15 = v14;
       localizedDescription = [v7 localizedDescription];
       *buf = 138412546;
-      v21 = identifierCopy;
-      v22 = 2112;
-      v23 = localizedDescription;
+      v20 = identifierCopy;
+      v21 = 2112;
+      v22 = localizedDescription;
       _os_log_impl(&dword_258FE9000, v15, OS_LOG_TYPE_ERROR, "[ULBGSystemTaskManager]: Couldnt cancel task: %@ with error: %@", buf, 0x16u);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

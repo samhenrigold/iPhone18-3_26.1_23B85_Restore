@@ -711,7 +711,7 @@ uint64_t SharedDataBuffer::allocateBackingBytes(uint64_t this)
   return this;
 }
 
-void SharedDataBuffer::reset(const void **this, UInt8 *bytes, CFIndex length)
+void SharedDataBuffer::reset(CFDataRef *this, UInt8 *bytes, CFIndex length)
 {
   v6 = *this;
   if (v6)
@@ -762,7 +762,7 @@ LABEL_8:
   *this = v3;
 }
 
-uint64_t ProResSWDecoderRegister()
+IcpUtility *ProResSWDecoderRegister()
 {
   v0 = 1;
   v1 = MGGetProductType();
@@ -991,82 +991,85 @@ uint64_t VideoDecoderBase<IcpVideoDecoder>::createInstance(uint64_t a1, uint64_t
     return 4294954394;
   }
 
-  if (enabledSignpostCategories())
+  if (enabledSignpostCategories(a1, a2))
   {
     kdebug_trace();
   }
 
   VTVideoDecoderGetClassID();
-  v4 = CMDerivedObjectCreate();
-  if (!v4)
+  v5 = CMDerivedObjectCreate();
+  if (!v5)
   {
-    v4 = 4294954389;
+    v5 = 4294954389;
   }
 
   *a3 = 0;
-  if (enabledSignpostCategories())
+  if (enabledSignpostCategories(0, v4))
   {
     kdebug_trace();
   }
 
-  return v4;
+  return v5;
 }
 
-uint64_t VideoCodecBase<IcpVideoDecoder>::Invalidate()
+uint64_t VideoCodecBase<IcpVideoDecoder>::Invalidate(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (DerivedStorage)
   {
-    v1 = *DerivedStorage;
-    if ((enabledSignpostCategories() & 1) == 0)
+    v3 = *DerivedStorage;
+    v4 = enabledSignpostCategories(DerivedStorage, v2);
+    if ((v4 & 1) == 0)
     {
       goto LABEL_3;
     }
 
 LABEL_6:
-    (*(*v1 + 48))(v1);
+    (*(*v3 + 48))(v3);
     kdebug_trace();
     goto LABEL_7;
   }
 
-  v1 = 0;
-  if (enabledSignpostCategories())
+  v3 = 0;
+  v4 = enabledSignpostCategories(0, v2);
+  if (v4)
   {
     goto LABEL_6;
   }
 
 LABEL_3:
-  if (!v1)
+  if (!v3)
   {
-    v2 = 4294954390;
-    if ((enabledSignpostCategories() & 1) == 0)
+    v6 = 4294954390;
+    if ((enabledSignpostCategories(v4, v5) & 1) == 0)
     {
-      return v2;
+      return v6;
     }
 
     goto LABEL_8;
   }
 
 LABEL_7:
-  v2 = (*(*v1 + 16))(v1);
-  if (enabledSignpostCategories())
+  v6 = (*(*v3 + 16))(v3);
+  if (enabledSignpostCategories(v6, v7))
   {
 LABEL_8:
-    (*(*v1 + 48))(v1);
+    (*(*v3 + 48))(v3);
     kdebug_trace();
   }
 
-  return v2;
+  return v6;
 }
 
-uint64_t VideoCodecBase<IcpVideoDecoder>::Finalize()
+uint64_t VideoCodecBase<IcpVideoDecoder>::Finalize(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = DerivedStorage;
+  v3 = DerivedStorage;
   if (DerivedStorage)
   {
-    v2 = *DerivedStorage;
-    if ((enabledSignpostCategories() & 1) == 0)
+    v4 = *DerivedStorage;
+    v5 = enabledSignpostCategories(DerivedStorage, v2);
+    if ((v5 & 1) == 0)
     {
       goto LABEL_3;
     }
@@ -1074,11 +1077,12 @@ uint64_t VideoCodecBase<IcpVideoDecoder>::Finalize()
 
   else
   {
-    v2 = 0;
-    if ((enabledSignpostCategories() & 1) == 0)
+    v4 = 0;
+    v5 = enabledSignpostCategories(0, v2);
+    if ((v5 & 1) == 0)
     {
 LABEL_3:
-      if (!v2)
+      if (!v4)
       {
         goto LABEL_8;
       }
@@ -1087,14 +1091,14 @@ LABEL_3:
     }
   }
 
-  (*(*v2 + 48))(v2);
+  (*(*v4 + 48))(v4);
   kdebug_trace();
 LABEL_7:
-  (*(*v2 + 24))(v2);
-  (*(*v2 + 8))(v2);
-  *v1 = 0;
+  (*(*v4 + 24))(v4);
+  v5 = (*(*v4 + 8))(v4);
+  *v3 = 0;
 LABEL_8:
-  result = enabledSignpostCategories();
+  result = enabledSignpostCategories(v5, v6);
   if (result)
   {
 
@@ -1104,7 +1108,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t VideoCodecBase<IcpVideoDecoder>::CopyProperty()
+uint64_t VideoCodecBase<IcpVideoDecoder>::CopyProperty(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (!DerivedStorage)
@@ -1112,18 +1116,18 @@ uint64_t VideoCodecBase<IcpVideoDecoder>::CopyProperty()
     return 4294954390;
   }
 
-  v1 = *DerivedStorage;
-  if (!v1)
+  v2 = *DerivedStorage;
+  if (!v2)
   {
     return 4294954390;
   }
 
-  v2 = *(*v1 + 32);
+  v3 = *(*v2 + 32);
 
-  return v2();
+  return v3();
 }
 
-uint64_t VideoCodecBase<IcpVideoDecoder>::SetProperty()
+uint64_t VideoCodecBase<IcpVideoDecoder>::SetProperty(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (!DerivedStorage)
@@ -1131,15 +1135,15 @@ uint64_t VideoCodecBase<IcpVideoDecoder>::SetProperty()
     return 4294954390;
   }
 
-  v1 = *DerivedStorage;
-  if (!v1)
+  v2 = *DerivedStorage;
+  if (!v2)
   {
     return 4294954390;
   }
 
-  v2 = *(*v1 + 40);
+  v3 = *(*v2 + 40);
 
-  return v2();
+  return v3();
 }
 
 uint64_t VideoDecoderBase<IcpVideoDecoder>::StartSession(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1154,8 +1158,9 @@ uint64_t VideoDecoderBase<IcpVideoDecoder>::StartSession(uint64_t a1, uint64_t a
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (!DerivedStorage)
   {
-    v7 = 0;
-    if ((enabledSignpostCategories() & 1) == 0)
+    v8 = 0;
+    v9 = enabledSignpostCategories(0, v7);
+    if ((v9 & 1) == 0)
     {
       goto LABEL_7;
     }
@@ -1163,18 +1168,19 @@ uint64_t VideoDecoderBase<IcpVideoDecoder>::StartSession(uint64_t a1, uint64_t a
     goto LABEL_6;
   }
 
-  v7 = *DerivedStorage;
-  if (enabledSignpostCategories())
+  v8 = *DerivedStorage;
+  v9 = enabledSignpostCategories(DerivedStorage, v7);
+  if (v9)
   {
 LABEL_6:
-    kdebug_trace();
+    v9 = kdebug_trace();
   }
 
 LABEL_7:
-  if (!v7)
+  if (!v8)
   {
     v3 = 4294954390;
-    if ((enabledSignpostCategories() & 1) == 0)
+    if ((enabledSignpostCategories(v9, v10) & 1) == 0)
     {
       return v3;
     }
@@ -1182,8 +1188,8 @@ LABEL_7:
     goto LABEL_9;
   }
 
-  v3 = (*(*v7 + 56))(v7, a2, a3);
-  if (enabledSignpostCategories())
+  v3 = (*(*v8 + 56))(v8, a2, a3);
+  if (enabledSignpostCategories(v3, v11))
   {
 LABEL_9:
     kdebug_trace();
@@ -1204,8 +1210,9 @@ uint64_t VideoDecoderBase<IcpVideoDecoder>::DecodeFrame(uint64_t a1, uint64_t a2
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (!DerivedStorage)
   {
-    v11 = 0;
-    if ((enabledSignpostCategories() & 2) == 0)
+    v12 = 0;
+    v13 = enabledSignpostCategories(0, v11);
+    if ((v13 & 2) == 0)
     {
       goto LABEL_7;
     }
@@ -1213,18 +1220,19 @@ uint64_t VideoDecoderBase<IcpVideoDecoder>::DecodeFrame(uint64_t a1, uint64_t a2
     goto LABEL_6;
   }
 
-  v11 = *DerivedStorage;
-  if ((enabledSignpostCategories() & 2) != 0)
+  v12 = *DerivedStorage;
+  v13 = enabledSignpostCategories(DerivedStorage, v11);
+  if ((v13 & 2) != 0)
   {
 LABEL_6:
-    kdebug_trace();
+    v13 = kdebug_trace();
   }
 
 LABEL_7:
-  if (!v11)
+  if (!v12)
   {
     v5 = 4294954390;
-    if ((enabledSignpostCategories() & 2) == 0)
+    if ((enabledSignpostCategories(v13, v14) & 2) == 0)
     {
       return v5;
     }
@@ -1232,8 +1240,8 @@ LABEL_7:
     goto LABEL_9;
   }
 
-  v5 = (*(*v11 + 64))(v11, a2, a3, a4, a5);
-  if ((enabledSignpostCategories() & 2) != 0)
+  v5 = (*(*v12 + 64))(v12, a2, a3, a4, a5);
+  if ((enabledSignpostCategories(v5, v15) & 2) != 0)
   {
 LABEL_9:
     kdebug_trace();
@@ -1932,8 +1940,10 @@ void sub_277823814(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-CFArrayRef IcpVideoDecoder::createSuggestedQualityOfServiceTiers(IcpVideoDecoder *this, int a2, int a3)
+CFArrayRef IcpVideoDecoder::createSuggestedQualityOfServiceTiers(IcpVideoDecoder *this, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v4 = a2;
   v5 = this;
   v19 = *MEMORY[0x277D85DE8];
   *v18 = 0u;
@@ -1954,44 +1964,44 @@ CFArrayRef IcpVideoDecoder::createSuggestedQualityOfServiceTiers(IcpVideoDecoder
     goto LABEL_20;
   }
 
-  v16[0] = VideoDecoderBase<IcpVideoDecoder>::createSuggestedQualityOfServiceTier(a2, a3 / 2);
-  v7 = a2 / 2;
-  v16[1] = VideoDecoderBase<IcpVideoDecoder>::createSuggestedQualityOfServiceTier(a2 / 2, a3 / 2);
-  v8 = a3 + 3;
-  if (a2 >= 0)
+  v16[0] = VideoDecoderBase<IcpVideoDecoder>::createSuggestedQualityOfServiceTier(v4, v3 / 2);
+  v7 = v4 / 2;
+  v16[1] = VideoDecoderBase<IcpVideoDecoder>::createSuggestedQualityOfServiceTier(v4 / 2, v3 / 2);
+  v8 = v3 + 3;
+  if (v4 >= 0)
   {
-    v9 = a2;
+    v9 = v4;
   }
 
   else
   {
-    v9 = a2 + 3;
+    v9 = v4 + 3;
   }
 
-  if (a2 >= 0)
+  if (v4 >= 0)
   {
-    v10 = a2;
+    v10 = v4;
   }
 
   else
   {
-    v10 = a2 + 7;
+    v10 = v4 + 7;
   }
 
-  if (a3 >= 0)
+  if (v3 >= 0)
   {
-    v8 = a3;
+    v8 = v3;
   }
 
   v11 = v8 >> 2;
-  if (a3 >= 0)
+  if (v3 >= 0)
   {
-    v12 = a3;
+    v12 = v3;
   }
 
   else
   {
-    v12 = a3 + 7;
+    v12 = v3 + 7;
   }
 
   v17[0] = VideoDecoderBase<IcpVideoDecoder>::createSuggestedQualityOfServiceTier(v7, v11);
@@ -2039,19 +2049,19 @@ LABEL_20:
   return v13;
 }
 
-uint64_t IcpVideoDecoder::decodeFrame(uint64_t a1, uint64_t a2, opaqueCMSampleBuffer *a3, char a4, int *a5)
+uint64_t IcpVideoDecoder::decodeFrame(uint64_t PlaneCount, uint64_t a2, opaqueCMSampleBuffer *a3, char a4, int *a5)
 {
-  if (*(a1 + 8) != 1)
+  if (*(PlaneCount + 8) != 1)
   {
     return 4294954393;
   }
 
-  v8 = *(a1 + 88);
+  v8 = *(PlaneCount + 88);
   v9 = v8 > 5;
   v10 = (1 << v8) & 0x3A;
   if (v9 || v10 == 0)
   {
-    v21 = *(a1 + 48);
+    v21 = *(PlaneCount + 48);
     if (v21 <= 1983000885)
     {
       if (v21 == 846624121)
@@ -2082,7 +2092,7 @@ uint64_t IcpVideoDecoder::decodeFrame(uint64_t a1, uint64_t a2, opaqueCMSampleBu
 
 LABEL_6:
   v76 = 0;
-  if (VideoDecoderBase<IcpVideoDecoder>::newCVPixelBufferFromPool(a1, &v76) || !v76)
+  if (VideoDecoderBase<IcpVideoDecoder>::newCVPixelBufferFromPool(PlaneCount, &v76) || !v76)
   {
     CVPixelBufferRelease(v76);
     v76 = 0;
@@ -2096,15 +2106,15 @@ LABEL_6:
     LOBYTE(a3) = 0;
     *(v75 + 3) = 0;
     v75[0] = 0;
-    v23 = *(a1 + 104);
+    v23 = *(PlaneCount + 104);
     v24 = 100;
     if (!v23)
     {
       v24 = 52;
     }
 
-    v26 = *(a1 + 88);
-    v25 = *(a1 + 92);
+    v26 = *(PlaneCount + 88);
+    v25 = *(PlaneCount + 92);
     v27 = v25 + 15;
     v9 = v25 < -15;
     v28 = v25 + 30;
@@ -2118,14 +2128,14 @@ LABEL_6:
       v29 = v27;
     }
 
-    v30 = *(a1 + 48);
+    v30 = *(PlaneCount + 48);
     if ((v26 - 6) <= 5)
     {
       LODWORD(a3) = dword_27787514C[v26 - 6];
     }
 
-    v49 = *(a1 + v24);
-    v31 = *(a1 + 56);
+    v49 = *(PlaneCount + v24);
+    v31 = *(PlaneCount + 56);
     NumBytesPerPixelData = PixelBuffer::getNumBytesPerPixelData(v30);
     LODWORD(v50) = v31;
     if (v30 == 1983000880 || (v33 = ((v29 & 0xFFFFFFF0) >> a3) * NumBytesPerPixelData, CVPixelBufferGetBytesPerRow(v76) >= v33))
@@ -2210,7 +2220,7 @@ LABEL_6:
     else
     {
       BytesPerRowOfPlane = v33;
-      BaseAddressOfPlane = MemoryBufferCache::obtainMemoryBuffer(*(a1 + 136), *(a1 + 56) * v33);
+      BaseAddressOfPlane = MemoryBufferCache::obtainMemoryBuffer(*(PlaneCount + 136), *(PlaneCount + 56) * v33);
       v45 = 0;
       v46 = 0;
       v42 = 0;
@@ -2317,19 +2327,19 @@ LABEL_13:
     v17 = MEMORY[0x277D85DA0];
   }
 
-  v18 = *(a1 + 88);
+  v18 = *(PlaneCount + 88);
   v71 = 0;
   v72 = &v71;
   v73 = 0x2000000000;
   v74 = v12;
-  dispatch_semaphore_wait(*(a1 + 144), 0xFFFFFFFFFFFFFFFFLL);
-  v19 = *(a1 + 152);
+  dispatch_semaphore_wait(*(PlaneCount + 144), 0xFFFFFFFFFFFFFFFFLL);
+  v19 = *(PlaneCount + 152);
   v53[0] = MEMORY[0x277D85DD0];
   v53[1] = 0x40000000;
   v53[2] = ___ZN15IcpVideoDecoder11decodeFrameEP25OpaqueVTVideoDecoderFrameP20opaqueCMSampleBufferjPj_block_invoke;
   v53[3] = &unk_27A717F70;
   v53[4] = &v71;
-  v53[5] = a1;
+  v53[5] = PlaneCount;
   v53[6] = 0;
   v53[7] = v48;
   v53[8] = v46;
@@ -2369,7 +2379,7 @@ LABEL_13:
 
 uint64_t VideoDecoderBase<IcpVideoDecoder>::newCVPixelBufferFromPool(uint64_t a1, CVPixelBufferRef *a2)
 {
-  if ((enabledSignpostCategories() & 2) != 0)
+  if ((enabledSignpostCategories(a1, a2) & 2) != 0)
   {
     kdebug_trace();
   }
@@ -2377,9 +2387,10 @@ uint64_t VideoDecoderBase<IcpVideoDecoder>::newCVPixelBufferFromPool(uint64_t a1
   v4 = *(a1 + 64);
   if (v4)
   {
+    v5 = PreFaultedCVPixelBufferPool::newCVPixelBuffer(v4);
     PixelBuffer = 0;
-    *a2 = PreFaultedCVPixelBufferPool::newCVPixelBuffer(v4);
-    if ((enabledSignpostCategories() & 2) == 0)
+    *a2 = v5;
+    if ((enabledSignpostCategories(v5, v7) & 2) == 0)
     {
       return PixelBuffer;
     }
@@ -2389,7 +2400,7 @@ uint64_t VideoDecoderBase<IcpVideoDecoder>::newCVPixelBufferFromPool(uint64_t a1
   {
     PixelBufferPool = VTDecoderSessionGetPixelBufferPool();
     PixelBuffer = CVPixelBufferPoolCreatePixelBuffer(0, PixelBufferPool, a2);
-    if ((enabledSignpostCategories() & 2) == 0)
+    if ((enabledSignpostCategories(PixelBuffer, v10) & 2) == 0)
     {
       return PixelBuffer;
     }
@@ -2415,30 +2426,31 @@ uint64_t VideoDecoderBase<IcpVideoDecoder>::newCVPixelBufferFromPool(uint64_t a1
   return PixelBuffer;
 }
 
-uint64_t ___ZN15IcpVideoDecoder11decodeFrameEP25OpaqueVTVideoDecoderFrameP20opaqueCMSampleBufferjPj_block_invoke(uint64_t a1)
+uint64_t ___ZN15IcpVideoDecoder11decodeFrameEP25OpaqueVTVideoDecoderFrameP20opaqueCMSampleBufferjPj_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  if (*(*(v2 + 8) + 24))
+  v3 = *(a1 + 32);
+  v4 = *(a1 + 40);
+  if (*(*(v3 + 8) + 24))
   {
     goto LABEL_17;
   }
 
-  v24 = 0;
-  if ((enabledSignpostCategories() & 0x100) != 0)
+  v27 = 0;
+  if ((enabledSignpostCategories(a1, a2) & 0x100) != 0)
   {
     kdebug_trace();
   }
 
-  v4 = FrameDecoder::decode(*(v3 + 80), *(a1 + 48), a1 + 56, *(a1 + 152), 0, &v24);
-  if ((enabledSignpostCategories() & 0x100) != 0)
+  v5 = FrameDecoder::decode(*(v4 + 80), *(a1 + 48), a1 + 56, *(a1 + 152), 0, &v27);
+  v6 = v5;
+  if ((enabledSignpostCategories(v5, v7) & 0x100) != 0)
   {
     kdebug_trace();
-    if ((v4 & 0x80000000) == 0)
+    if ((v6 & 0x80000000) == 0)
     {
 LABEL_6:
-      v2 = *(a1 + 32);
-      if (*(*(v2 + 8) + 24))
+      v3 = *(a1 + 32);
+      if (*(*(v3 + 8) + 24))
       {
         goto LABEL_17;
       }
@@ -2447,65 +2459,65 @@ LABEL_6:
     }
   }
 
-  else if ((v4 & 0x80000000) == 0)
+  else if ((v6 & 0x80000000) == 0)
   {
     goto LABEL_6;
   }
 
-  if (v4 == -2)
+  if (v6 == -2)
   {
-    v5 = -12909;
+    v8 = -12909;
   }
 
   else
   {
-    v5 = -12911;
+    v8 = -12911;
   }
 
-  if (v4 == -3)
+  if (v6 == -3)
   {
-    v5 = -12902;
+    v8 = -12902;
   }
 
-  *(*(*(a1 + 32) + 8) + 24) = v5;
-  v2 = *(a1 + 32);
-  if (!*(*(v2 + 8) + 24))
+  *(*(*(a1 + 32) + 8) + 24) = v8;
+  v3 = *(a1 + 32);
+  if (!*(*(v3 + 8) + 24))
   {
 LABEL_15:
-    if (v24 == 1)
+    if (v27 == 1)
     {
       CVBufferSetAttachment(*(a1 + 120), @"kCMSampleBufferAlphaIsFullyOpaque", *MEMORY[0x277CBED28], kCVAttachmentMode_ShouldPropagate);
-      v2 = *(a1 + 32);
+      v3 = *(a1 + 32);
     }
   }
 
 LABEL_17:
-  v6 = *(v3 + 160);
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 0x40000000;
-  v15[2] = ___ZN15IcpVideoDecoder11decodeFrameEP25OpaqueVTVideoDecoderFrameP20opaqueCMSampleBufferjPj_block_invoke_2;
-  v15[3] = &unk_27A717F48;
-  v7 = *(a1 + 48);
-  v22 = *(a1 + 160);
-  v8 = *(a1 + 128);
-  v9 = *(a1 + 136);
-  v10 = *(a1 + 144);
-  v15[6] = v7;
-  v15[7] = v9;
-  v15[4] = v2;
-  v15[5] = v3;
-  v15[8] = *(a1 + 120);
-  v11 = *(a1 + 56);
-  v12 = *(a1 + 72);
-  v13 = *(a1 + 104);
-  v18 = *(a1 + 88);
-  v19 = v13;
-  v16 = v11;
-  v17 = v12;
-  v23 = *(a1 + 161);
-  v20 = v10;
-  v21 = *(a1 + 156);
-  return v8(v6, v15);
+  v9 = *(v4 + 160);
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 0x40000000;
+  v18[2] = ___ZN15IcpVideoDecoder11decodeFrameEP25OpaqueVTVideoDecoderFrameP20opaqueCMSampleBufferjPj_block_invoke_2;
+  v18[3] = &unk_27A717F48;
+  v10 = *(a1 + 48);
+  v25 = *(a1 + 160);
+  v11 = *(a1 + 128);
+  v12 = *(a1 + 136);
+  v13 = *(a1 + 144);
+  v18[6] = v10;
+  v18[7] = v12;
+  v18[4] = v3;
+  v18[5] = v4;
+  v18[8] = *(a1 + 120);
+  v14 = *(a1 + 56);
+  v15 = *(a1 + 72);
+  v16 = *(a1 + 104);
+  v21 = *(a1 + 88);
+  v22 = v16;
+  v19 = v14;
+  v20 = v15;
+  v26 = *(a1 + 161);
+  v23 = v13;
+  v24 = *(a1 + 156);
+  return v11(v9, v18);
 }
 
 intptr_t ___ZN15IcpVideoDecoder11decodeFrameEP25OpaqueVTVideoDecoderFrameP20opaqueCMSampleBufferjPj_block_invoke_2(uint64_t a1)
@@ -2696,7 +2708,7 @@ uint64_t IcpVideoDecoder::invalidate(IcpVideoDecoder *this)
   return 0;
 }
 
-uint64_t IcpVideoDecoder::copyProperty(IcpVideoDecoder *this, CFTypeRef cf1, const __CFAllocator *a3, __CFDictionary **a4)
+uint64_t IcpVideoDecoder::copyProperty(IcpVideoDecoder *this, CFTypeRef cf1, const __CFAllocator *a3, CFNumberRef *a4)
 {
   v4 = 4294954394;
   if (!cf1 || !a4)
@@ -2738,9 +2750,9 @@ uint64_t IcpVideoDecoder::copyProperty(IcpVideoDecoder *this, CFTypeRef cf1, con
   return VideoDecoderBase<IcpVideoDecoder>::copyProperty(this, cf1, a3, a4);
 }
 
-void sub_2778247F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2778247F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2941,14 +2953,14 @@ LABEL_22:
   }
 }
 
-void sub_277824D80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_277824D80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t ___ZN15IcpVideoDecoder11setPropertyEPK10__CFStringPKv_block_invoke(uint64_t a1)
+FrameDecoder *___ZN15IcpVideoDecoder11setPropertyEPK10__CFStringPKv_block_invoke(uint64_t a1)
 {
   result = FrameDecoder::getNumThreads(*(*(a1 + 40) + 80));
   if (*(a1 + 48) != result)
@@ -3025,17 +3037,24 @@ uint64_t VideoDecoderBase<IcpVideoDecoder>::setProperty(PreFaultedCVPixelBufferP
   {
     LODWORD(value) = 0;
     v11 = CFGetTypeID(a3);
-    if (v11 != CFNumberGetTypeID() || !CFNumberGetValue(a3, kCFNumberSInt32Type, &value))
+    if (v11 != CFNumberGetTypeID())
     {
       return 4294954394;
     }
 
+    v12 = CFNumberGetValue(a3, kCFNumberSInt32Type, &value);
+    if (!v12)
+    {
+      return 4294954394;
+    }
+
+    v13 = value;
     if (value >= 1)
     {
-      v12 = a1[8];
-      if (!v12)
+      v14 = a1[8];
+      if (!v14)
       {
-        if (enabledSignpostCategories())
+        if (enabledSignpostCategories(0, value))
         {
           kdebug_trace();
         }
@@ -3043,11 +3062,12 @@ uint64_t VideoDecoderBase<IcpVideoDecoder>::setProperty(PreFaultedCVPixelBufferP
         operator new();
       }
 
-      if (*(v12 + 1) != value)
+      if (*(v14 + 1) != value)
       {
-        if (PreFaultedCVPixelBufferPool::setCapacity(v12, value))
+        v15 = PreFaultedCVPixelBufferPool::setCapacity(v14, value);
+        if (v15)
         {
-          if (enabledSignpostCategories())
+          if (enabledSignpostCategories(v15, v16))
           {
             kdebug_trace();
             return 0;
@@ -3067,32 +3087,32 @@ uint64_t VideoDecoderBase<IcpVideoDecoder>::setProperty(PreFaultedCVPixelBufferP
       return 4294954394;
     }
 
-    v13 = a1[8];
-    if (!v13)
+    v17 = a1[8];
+    if (!v17)
     {
       return 0;
     }
 
     a1[8] = 0;
-    if (enabledSignpostCategories())
+    if (enabledSignpostCategories(v12, v13))
     {
       kdebug_trace();
     }
 
-    v14 = a1[9];
-    if (v14)
+    v18 = a1[9];
+    if (v18)
     {
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 0x40000000;
-      v16[2] = ___ZN16VideoDecoderBaseI15IcpVideoDecoderE11setPropertyEPK10__CFStringPKv_block_invoke;
-      v16[3] = &__block_descriptor_tmp_55;
-      v16[4] = v13;
-      dispatch_async(v14, v16);
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 0x40000000;
+      v20[2] = ___ZN16VideoDecoderBaseI15IcpVideoDecoderE11setPropertyEPK10__CFStringPKv_block_invoke;
+      v20[3] = &__block_descriptor_tmp_55;
+      v20[4] = v17;
+      dispatch_async(v18, v20);
     }
 
     else
     {
-      PreFaultedCVPixelBufferPool::~PreFaultedCVPixelBufferPool(v13);
+      PreFaultedCVPixelBufferPool::~PreFaultedCVPixelBufferPool(v17);
       MEMORY[0x277CB0040]();
     }
 
@@ -3116,9 +3136,9 @@ uint64_t VideoDecoderBase<IcpVideoDecoder>::setProperty(PreFaultedCVPixelBufferP
 
   else
   {
-    v15 = CFEqual(cf1, *MEMORY[0x277CE26A8]);
+    v19 = CFEqual(cf1, *MEMORY[0x277CE26A8]);
     result = 4294954395;
-    if (!v15)
+    if (!v19)
     {
       if (CFEqual(cf1, *MEMORY[0x277CE2648]))
       {
@@ -3340,8 +3360,8 @@ uint64_t IcpVideoDecoder::createPixelBufferPool(IcpVideoDecoder *this, int a2)
     }
   }
 
-  v29 = v15;
-  v30 = v9;
+  v30 = v15;
+  v31 = v9;
   v18 = *v6;
   Mutable = CFDictionaryCreateMutable(*v6, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (!Mutable)
@@ -3357,8 +3377,8 @@ uint64_t IcpVideoDecoder::createPixelBufferPool(IcpVideoDecoder *this, int a2)
 
   v20 = Mutable;
   CFDictionaryAddValue(Mutable, *MEMORY[0x277CC4E30], v11);
-  v32 = v4;
-  v21 = CFNumberCreate(v18, kCFNumberIntType, &v32);
+  v33 = v4;
+  v21 = CFNumberCreate(v18, kCFNumberIntType, &v33);
   if (v21)
   {
     v22 = v21;
@@ -3366,8 +3386,8 @@ uint64_t IcpVideoDecoder::createPixelBufferPool(IcpVideoDecoder *this, int a2)
     CFRelease(v22);
   }
 
-  v32 = v5;
-  v23 = CFNumberCreate(v18, kCFNumberIntType, &v32);
+  v33 = v5;
+  v23 = CFNumberCreate(v18, kCFNumberIntType, &v33);
   if (v23)
   {
     v24 = v23;
@@ -3377,8 +3397,8 @@ uint64_t IcpVideoDecoder::createPixelBufferPool(IcpVideoDecoder *this, int a2)
 
   if (!v13)
   {
-    v32 = v14;
-    v25 = CFNumberCreate(v18, kCFNumberIntType, &v32);
+    v33 = v14;
+    v25 = CFNumberCreate(v18, kCFNumberIntType, &v33);
     if (v25)
     {
       v26 = v25;
@@ -3392,11 +3412,11 @@ uint64_t IcpVideoDecoder::createPixelBufferPool(IcpVideoDecoder *this, int a2)
   {
     *(this + 28) = v4;
     *(this + 29) = v5;
-    v27 = valuePtr;
-    *(this + 120) = v30;
-    *(this + 31) = v27;
-    *(this + 32) = v29;
-    v17 = VideoDecoderBase<IcpVideoDecoder>::replaceLocalPixelBufferPool(this);
+    v28 = valuePtr;
+    *(this + 120) = v31;
+    *(this + 31) = v28;
+    *(this + 32) = v30;
+    v17 = VideoDecoderBase<IcpVideoDecoder>::replaceLocalPixelBufferPool(this, v27);
   }
 
   CFRelease(v20);
@@ -3409,31 +3429,31 @@ LABEL_33:
   return v17;
 }
 
-uint64_t VideoDecoderBase<IcpVideoDecoder>::replaceLocalPixelBufferPool(uint64_t a1)
+uint64_t VideoDecoderBase<IcpVideoDecoder>::replaceLocalPixelBufferPool(void *a1, uint64_t a2)
 {
-  if (*(a1 + 64))
+  if (a1[8])
   {
-    if (enabledSignpostCategories())
+    if (enabledSignpostCategories(a1, a2))
     {
       kdebug_trace();
     }
 
-    v2 = *(a1 + 64);
-    v3 = *(a1 + 72);
-    *(a1 + 64) = 0;
-    if (v3)
+    v3 = a1[8];
+    v4 = a1[9];
+    a1[8] = 0;
+    if (v4)
     {
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 0x40000000;
       block[2] = ___ZN16VideoDecoderBaseI15IcpVideoDecoderE27replaceLocalPixelBufferPoolEv_block_invoke;
       block[3] = &__block_descriptor_tmp_56;
-      block[4] = v2;
-      dispatch_async(v3, block);
+      block[4] = v3;
+      dispatch_async(v4, block);
     }
 
-    else if (v2)
+    else if (v3)
     {
-      PreFaultedCVPixelBufferPool::~PreFaultedCVPixelBufferPool(v2);
+      PreFaultedCVPixelBufferPool::~PreFaultedCVPixelBufferPool(v3);
       MEMORY[0x277CB0040]();
     }
 
@@ -3449,7 +3469,7 @@ void sub_2778259AC(_Unwind_Exception *exception_object, int a2)
   {
     __cxa_begin_catch(exception_object);
     __cxa_end_catch();
-    if ((enabledSignpostCategories() & 1) == 0)
+    if ((enabledSignpostCategories(v2, v3) & 1) == 0)
     {
       JUMPOUT(0x277825990);
     }
@@ -3970,82 +3990,85 @@ uint64_t VideoDecoderBase<PRRVideoDecoder>::createInstance(uint64_t a1, uint64_t
     return 4294954394;
   }
 
-  if (enabledSignpostCategories())
+  if (enabledSignpostCategories(a1, a2))
   {
     kdebug_trace();
   }
 
   VTVideoDecoderGetClassID();
-  v4 = CMDerivedObjectCreate();
-  if (!v4)
+  v5 = CMDerivedObjectCreate();
+  if (!v5)
   {
-    v4 = 4294954389;
+    v5 = 4294954389;
   }
 
   *a3 = 0;
-  if (enabledSignpostCategories())
+  if (enabledSignpostCategories(0, v4))
   {
     kdebug_trace();
   }
 
-  return v4;
+  return v5;
 }
 
-uint64_t VideoCodecBase<PRRVideoDecoder>::Invalidate()
+uint64_t VideoCodecBase<PRRVideoDecoder>::Invalidate(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (DerivedStorage)
   {
-    v1 = *DerivedStorage;
-    if ((enabledSignpostCategories() & 1) == 0)
+    v3 = *DerivedStorage;
+    v4 = enabledSignpostCategories(DerivedStorage, v2);
+    if ((v4 & 1) == 0)
     {
       goto LABEL_3;
     }
 
 LABEL_6:
-    (*(*v1 + 48))(v1);
+    (*(*v3 + 48))(v3);
     kdebug_trace();
     goto LABEL_7;
   }
 
-  v1 = 0;
-  if (enabledSignpostCategories())
+  v3 = 0;
+  v4 = enabledSignpostCategories(0, v2);
+  if (v4)
   {
     goto LABEL_6;
   }
 
 LABEL_3:
-  if (!v1)
+  if (!v3)
   {
-    v2 = 4294954390;
-    if ((enabledSignpostCategories() & 1) == 0)
+    v6 = 4294954390;
+    if ((enabledSignpostCategories(v4, v5) & 1) == 0)
     {
-      return v2;
+      return v6;
     }
 
     goto LABEL_8;
   }
 
 LABEL_7:
-  v2 = (*(*v1 + 16))(v1);
-  if (enabledSignpostCategories())
+  v6 = (*(*v3 + 16))(v3);
+  if (enabledSignpostCategories(v6, v7))
   {
 LABEL_8:
-    (*(*v1 + 48))(v1);
+    (*(*v3 + 48))(v3);
     kdebug_trace();
   }
 
-  return v2;
+  return v6;
 }
 
-uint64_t VideoCodecBase<PRRVideoDecoder>::Finalize()
+uint64_t VideoCodecBase<PRRVideoDecoder>::Finalize(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v1 = DerivedStorage;
+  v3 = DerivedStorage;
   if (DerivedStorage)
   {
-    v2 = *DerivedStorage;
-    if ((enabledSignpostCategories() & 1) == 0)
+    v4 = *DerivedStorage;
+    v5 = enabledSignpostCategories(DerivedStorage, v2);
+    if ((v5 & 1) == 0)
     {
       goto LABEL_3;
     }
@@ -4053,11 +4076,12 @@ uint64_t VideoCodecBase<PRRVideoDecoder>::Finalize()
 
   else
   {
-    v2 = 0;
-    if ((enabledSignpostCategories() & 1) == 0)
+    v4 = 0;
+    v5 = enabledSignpostCategories(0, v2);
+    if ((v5 & 1) == 0)
     {
 LABEL_3:
-      if (!v2)
+      if (!v4)
       {
         goto LABEL_8;
       }
@@ -4066,14 +4090,14 @@ LABEL_3:
     }
   }
 
-  (*(*v2 + 48))(v2);
+  (*(*v4 + 48))(v4);
   kdebug_trace();
 LABEL_7:
-  (*(*v2 + 24))(v2);
-  (*(*v2 + 8))(v2);
-  *v1 = 0;
+  (*(*v4 + 24))(v4);
+  v5 = (*(*v4 + 8))(v4);
+  *v3 = 0;
 LABEL_8:
-  result = enabledSignpostCategories();
+  result = enabledSignpostCategories(v5, v6);
   if (result)
   {
 
@@ -4083,7 +4107,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t VideoCodecBase<PRRVideoDecoder>::CopyProperty()
+uint64_t VideoCodecBase<PRRVideoDecoder>::CopyProperty(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (!DerivedStorage)
@@ -4091,18 +4115,18 @@ uint64_t VideoCodecBase<PRRVideoDecoder>::CopyProperty()
     return 4294954390;
   }
 
-  v1 = *DerivedStorage;
-  if (!v1)
+  v2 = *DerivedStorage;
+  if (!v2)
   {
     return 4294954390;
   }
 
-  v2 = *(*v1 + 32);
+  v3 = *(*v2 + 32);
 
-  return v2();
+  return v3();
 }
 
-uint64_t VideoCodecBase<PRRVideoDecoder>::SetProperty()
+uint64_t VideoCodecBase<PRRVideoDecoder>::SetProperty(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (!DerivedStorage)
@@ -4110,15 +4134,15 @@ uint64_t VideoCodecBase<PRRVideoDecoder>::SetProperty()
     return 4294954390;
   }
 
-  v1 = *DerivedStorage;
-  if (!v1)
+  v2 = *DerivedStorage;
+  if (!v2)
   {
     return 4294954390;
   }
 
-  v2 = *(*v1 + 40);
+  v3 = *(*v2 + 40);
 
-  return v2();
+  return v3();
 }
 
 uint64_t VideoDecoderBase<PRRVideoDecoder>::StartSession(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -4133,8 +4157,9 @@ uint64_t VideoDecoderBase<PRRVideoDecoder>::StartSession(uint64_t a1, uint64_t a
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (!DerivedStorage)
   {
-    v7 = 0;
-    if ((enabledSignpostCategories() & 1) == 0)
+    v8 = 0;
+    v9 = enabledSignpostCategories(0, v7);
+    if ((v9 & 1) == 0)
     {
       goto LABEL_7;
     }
@@ -4142,18 +4167,19 @@ uint64_t VideoDecoderBase<PRRVideoDecoder>::StartSession(uint64_t a1, uint64_t a
     goto LABEL_6;
   }
 
-  v7 = *DerivedStorage;
-  if (enabledSignpostCategories())
+  v8 = *DerivedStorage;
+  v9 = enabledSignpostCategories(DerivedStorage, v7);
+  if (v9)
   {
 LABEL_6:
-    kdebug_trace();
+    v9 = kdebug_trace();
   }
 
 LABEL_7:
-  if (!v7)
+  if (!v8)
   {
     v3 = 4294954390;
-    if ((enabledSignpostCategories() & 1) == 0)
+    if ((enabledSignpostCategories(v9, v10) & 1) == 0)
     {
       return v3;
     }
@@ -4161,8 +4187,8 @@ LABEL_7:
     goto LABEL_9;
   }
 
-  v3 = (*(*v7 + 56))(v7, a2, a3);
-  if (enabledSignpostCategories())
+  v3 = (*(*v8 + 56))(v8, a2, a3);
+  if (enabledSignpostCategories(v3, v11))
   {
 LABEL_9:
     kdebug_trace();
@@ -4183,8 +4209,9 @@ uint64_t VideoDecoderBase<PRRVideoDecoder>::DecodeFrame(uint64_t a1, uint64_t a2
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (!DerivedStorage)
   {
-    v11 = 0;
-    if ((enabledSignpostCategories() & 2) == 0)
+    v12 = 0;
+    v13 = enabledSignpostCategories(0, v11);
+    if ((v13 & 2) == 0)
     {
       goto LABEL_7;
     }
@@ -4192,18 +4219,19 @@ uint64_t VideoDecoderBase<PRRVideoDecoder>::DecodeFrame(uint64_t a1, uint64_t a2
     goto LABEL_6;
   }
 
-  v11 = *DerivedStorage;
-  if ((enabledSignpostCategories() & 2) != 0)
+  v12 = *DerivedStorage;
+  v13 = enabledSignpostCategories(DerivedStorage, v11);
+  if ((v13 & 2) != 0)
   {
 LABEL_6:
-    kdebug_trace();
+    v13 = kdebug_trace();
   }
 
 LABEL_7:
-  if (!v11)
+  if (!v12)
   {
     v5 = 4294954390;
-    if ((enabledSignpostCategories() & 2) == 0)
+    if ((enabledSignpostCategories(v13, v14) & 2) == 0)
     {
       return v5;
     }
@@ -4211,8 +4239,8 @@ LABEL_7:
     goto LABEL_9;
   }
 
-  v5 = (*(*v11 + 64))(v11, a2, a3, a4, a5);
-  if ((enabledSignpostCategories() & 2) != 0)
+  v5 = (*(*v12 + 64))(v12, a2, a3, a4, a5);
+  if ((enabledSignpostCategories(v5, v15) & 2) != 0)
   {
 LABEL_9:
     kdebug_trace();
@@ -5054,9 +5082,9 @@ LABEL_88:
   return v23;
 }
 
-void sub_277827FC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, void *a49, uint64_t a50)
+void sub_277827FC4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, void *a49, uint64_t a50)
 {
-  MEMORY[0x277CB0040](v50, 0x1070C40DB7B3284);
+  MEMORY[0x277CB0040](v50, 0x1070C40DB7B3284, a3, a4, a5, a6, a7, a8);
   if (a49)
   {
     operator delete(a49);
@@ -5072,89 +5100,90 @@ void ___ZN15PRRVideoDecoder11decodeFrameEP25OpaqueVTVideoDecoderFrameP20opaqueCM
 {
   v2 = *(a1 + 40);
   v3 = *(a1 + 128);
-  v39 = *(a1 + 112);
-  v40 = v3;
+  v43 = *(a1 + 112);
+  v44 = v3;
   v4 = *(a1 + 160);
-  v41 = *(a1 + 144);
-  v42 = v4;
+  v45 = *(a1 + 144);
+  v46 = v4;
   v5 = *(a1 + 64);
-  v35 = *(a1 + 48);
-  v36 = v5;
+  v39 = *(a1 + 48);
+  v40 = v5;
   v6 = *(a1 + 96);
-  v37 = *(a1 + 80);
-  v38 = v6;
-  SharedDataBuffer::SharedDataBuffer(v43, (a1 + 176));
+  v41 = *(a1 + 80);
+  v42 = v6;
+  SharedDataBuffer::SharedDataBuffer(v47, (a1 + 176));
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    if ((enabledSignpostCategories() & 0x10000) != 0)
+    if ((enabledSignpostCategories(v7, v8) & 0x10000) != 0)
     {
       kdebug_trace();
     }
 
-    v7 = *(v2 + 80);
-    v8 = *(a1 + 184);
-    v9 = v8[1];
-    v34[0] = *v8;
-    v34[1] = v9;
-    v10 = PRRFrameDecoder::decode(v7, v34, &v35, *(a1 + 224), *(a1 + 244));
-    if ((enabledSignpostCategories() & 0x10000) != 0)
+    v9 = *(v2 + 80);
+    v10 = *(a1 + 184);
+    v11 = v10[1];
+    v38[0] = *v10;
+    v38[1] = v11;
+    v12 = PRRFrameDecoder::decode(v9, v38, &v39, *(a1 + 224), *(a1 + 244));
+    v13 = v12;
+    if ((enabledSignpostCategories(v12, v14) & 0x10000) != 0)
     {
       kdebug_trace();
     }
 
-    if (v10 < 0)
+    if (v13 < 0)
     {
-      if (v10 == -2)
+      if (v13 == -2)
       {
-        v11 = -12909;
+        v15 = -12909;
       }
 
       else
       {
-        v11 = -12911;
+        v15 = -12911;
       }
 
-      if (v10 == -3)
+      if (v13 == -3)
       {
-        v11 = -12902;
+        v15 = -12902;
       }
 
-      *(*(*(a1 + 32) + 8) + 24) = v11;
+      *(*(*(a1 + 32) + 8) + 24) = v15;
     }
   }
 
-  v12 = *(v2 + 160);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 1174405120;
-  v18[2] = ___ZN15PRRVideoDecoder11decodeFrameEP25OpaqueVTVideoDecoderFrameP20opaqueCMSampleBufferjPj_block_invoke_2;
-  v18[3] = &unk_28866B0C8;
-  v13 = *(a1 + 184);
-  v14 = *(a1 + 192);
-  v32 = *(a1 + 245);
-  v15 = *(a1 + 200);
-  v18[6] = v13;
-  v18[7] = v15;
-  v18[4] = *(a1 + 32);
-  v18[5] = v2;
-  v21 = v37;
-  v22 = v38;
-  v19 = v35;
-  v20 = v36;
+  v16 = *(v2 + 160);
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 1174405120;
+  v22[2] = ___ZN15PRRVideoDecoder11decodeFrameEP25OpaqueVTVideoDecoderFrameP20opaqueCMSampleBufferjPj_block_invoke_2;
+  v22[3] = &unk_28866B0C8;
+  v17 = *(a1 + 184);
+  v18 = *(a1 + 192);
+  v36 = *(a1 + 245);
+  v19 = *(a1 + 200);
+  v22[6] = v17;
+  v22[7] = v19;
+  v22[4] = *(a1 + 32);
+  v22[5] = v2;
   v25 = v41;
   v26 = v42;
   v23 = v39;
   v24 = v40;
-  SharedDataBuffer::SharedDataBuffer(&v27, v43);
-  v16 = *(a1 + 232);
-  v17 = vrev64_s32(*(a1 + 224));
-  v33 = *(a1 + 246);
-  v29 = v17;
-  v30 = v16;
-  v28 = *(a1 + 208);
-  v31 = *(a1 + 240);
-  v14(v12, v18);
-  SharedDataBuffer::~SharedDataBuffer(&v27);
-  SharedDataBuffer::~SharedDataBuffer(v43);
+  v29 = v45;
+  v30 = v46;
+  v27 = v43;
+  v28 = v44;
+  SharedDataBuffer::SharedDataBuffer(&v31, v47);
+  v20 = *(a1 + 232);
+  v21 = vrev64_s32(*(a1 + 224));
+  v37 = *(a1 + 246);
+  v33 = v21;
+  v34 = v20;
+  v32 = *(a1 + 208);
+  v35 = *(a1 + 240);
+  v18(v16, v22);
+  SharedDataBuffer::~SharedDataBuffer(&v31);
+  SharedDataBuffer::~SharedDataBuffer(v47);
 }
 
 void sub_2778282D8(_Unwind_Exception *a1)
@@ -5537,7 +5566,7 @@ uint64_t PRRVideoDecoder::invalidate(PRRVideoDecoder *this)
   return 0;
 }
 
-uint64_t PRRVideoDecoder::copyProperty(PRRVideoDecoder *this, CFTypeRef cf1, const __CFAllocator *a3, __CFDictionary **a4)
+uint64_t PRRVideoDecoder::copyProperty(PRRVideoDecoder *this, CFTypeRef cf1, const __CFAllocator *a3, CFNumberRef *a4)
 {
   v4 = 4294954394;
   if (!cf1 || !a4)
@@ -5579,9 +5608,9 @@ uint64_t PRRVideoDecoder::copyProperty(PRRVideoDecoder *this, CFTypeRef cf1, con
   return VideoDecoderBase<PRRVideoDecoder>::copyProperty(this, cf1, a3, a4);
 }
 
-void sub_277828C20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_277828C20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5751,14 +5780,14 @@ uint64_t PRRVideoDecoder::setProperty(PRRVideoDecoder *this, CFTypeRef cf1, cons
   return result;
 }
 
-void sub_2778290E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2778290E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t ___ZN15PRRVideoDecoder11setPropertyEPK10__CFStringPKv_block_invoke(uint64_t a1)
+FrameDecoder *___ZN15PRRVideoDecoder11setPropertyEPK10__CFStringPKv_block_invoke(uint64_t a1)
 {
   result = FrameDecoder::getNumThreads(*(*(a1 + 40) + 80));
   if (*(a1 + 48) != result)
@@ -5835,17 +5864,24 @@ uint64_t VideoDecoderBase<PRRVideoDecoder>::setProperty(PreFaultedCVPixelBufferP
   {
     LODWORD(value) = 0;
     v11 = CFGetTypeID(a3);
-    if (v11 != CFNumberGetTypeID() || !CFNumberGetValue(a3, kCFNumberSInt32Type, &value))
+    if (v11 != CFNumberGetTypeID())
     {
       return 4294954394;
     }
 
+    v12 = CFNumberGetValue(a3, kCFNumberSInt32Type, &value);
+    if (!v12)
+    {
+      return 4294954394;
+    }
+
+    v13 = value;
     if (value >= 1)
     {
-      v12 = a1[8];
-      if (!v12)
+      v14 = a1[8];
+      if (!v14)
       {
-        if (enabledSignpostCategories())
+        if (enabledSignpostCategories(0, value))
         {
           kdebug_trace();
         }
@@ -5853,11 +5889,12 @@ uint64_t VideoDecoderBase<PRRVideoDecoder>::setProperty(PreFaultedCVPixelBufferP
         operator new();
       }
 
-      if (*(v12 + 1) != value)
+      if (*(v14 + 1) != value)
       {
-        if (PreFaultedCVPixelBufferPool::setCapacity(v12, value))
+        v15 = PreFaultedCVPixelBufferPool::setCapacity(v14, value);
+        if (v15)
         {
-          if (enabledSignpostCategories())
+          if (enabledSignpostCategories(v15, v16))
           {
             kdebug_trace();
             return 0;
@@ -5877,32 +5914,32 @@ uint64_t VideoDecoderBase<PRRVideoDecoder>::setProperty(PreFaultedCVPixelBufferP
       return 4294954394;
     }
 
-    v13 = a1[8];
-    if (!v13)
+    v17 = a1[8];
+    if (!v17)
     {
       return 0;
     }
 
     a1[8] = 0;
-    if (enabledSignpostCategories())
+    if (enabledSignpostCategories(v12, v13))
     {
       kdebug_trace();
     }
 
-    v14 = a1[9];
-    if (v14)
+    v18 = a1[9];
+    if (v18)
     {
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 0x40000000;
-      v16[2] = ___ZN16VideoDecoderBaseI15PRRVideoDecoderE11setPropertyEPK10__CFStringPKv_block_invoke;
-      v16[3] = &__block_descriptor_tmp_101;
-      v16[4] = v13;
-      dispatch_async(v14, v16);
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 0x40000000;
+      v20[2] = ___ZN16VideoDecoderBaseI15PRRVideoDecoderE11setPropertyEPK10__CFStringPKv_block_invoke;
+      v20[3] = &__block_descriptor_tmp_101;
+      v20[4] = v17;
+      dispatch_async(v18, v20);
     }
 
     else
     {
-      PreFaultedCVPixelBufferPool::~PreFaultedCVPixelBufferPool(v13);
+      PreFaultedCVPixelBufferPool::~PreFaultedCVPixelBufferPool(v17);
       MEMORY[0x277CB0040]();
     }
 
@@ -5926,9 +5963,9 @@ uint64_t VideoDecoderBase<PRRVideoDecoder>::setProperty(PreFaultedCVPixelBufferP
 
   else
   {
-    v15 = CFEqual(cf1, *MEMORY[0x277CE26A8]);
+    v19 = CFEqual(cf1, *MEMORY[0x277CE26A8]);
     result = 4294954395;
-    if (!v15)
+    if (!v19)
     {
       if (CFEqual(cf1, *MEMORY[0x277CE2648]))
       {
@@ -6028,13 +6065,13 @@ LABEL_3:
 uint64_t PRRVideoDecoder::createPixelBufferPool(PRRVideoDecoder *this, int a2)
 {
   v3 = *(this + 13);
-  v31 = *(this + 14);
+  v32 = *(this + 14);
   valuePtr = a2;
   v4 = MEMORY[0x277CBECE8];
   if (a2 && (v5 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt32Type, &valuePtr)) != 0)
   {
     v6 = v5;
-    v29 = 1;
+    v30 = 1;
     v7 = 1;
     v8 = v5;
   }
@@ -6042,7 +6079,7 @@ uint64_t PRRVideoDecoder::createPixelBufferPool(PRRVideoDecoder *this, int a2)
   else
   {
     v8 = (*(*this + 128))(this);
-    v29 = 0;
+    v30 = 0;
     v7 = 0;
     v6 = 0;
   }
@@ -6060,7 +6097,7 @@ uint64_t PRRVideoDecoder::createPixelBufferPool(PRRVideoDecoder *this, int a2)
     v12 = 16 - v9;
   }
 
-  v30 = v12;
+  v31 = v12;
   if (useIOSurface(void)::s_predicate == -1)
   {
     if (useIOSurface(void)::s_useIOSurface == 1)
@@ -6095,12 +6132,12 @@ LABEL_13:
 
 LABEL_17:
   v15 = v7 ^ 1;
-  if (v31 != *(this + 27))
+  if (v32 != *(this + 27))
   {
     v15 = 1;
   }
 
-  if ((v15 & 1) == 0 && *(this + 112) == 1 && valuePtr == *(this + 29) && v30 == *(this + 30) && *(this + 124) == v14)
+  if ((v15 & 1) == 0 && *(this + 112) == 1 && valuePtr == *(this + 29) && v31 == *(this + 30) && *(this + 124) == v14)
   {
     v16 = 0;
     if (!v13)
@@ -6112,7 +6149,7 @@ LABEL_17:
   }
 
 LABEL_26:
-  v28 = v14;
+  v29 = v14;
   v17 = *v4;
   Mutable = CFDictionaryCreateMutable(*v4, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (!Mutable)
@@ -6130,8 +6167,8 @@ LABEL_44:
 
   v19 = Mutable;
   CFDictionaryAddValue(Mutable, *MEMORY[0x277CC4E30], v8);
-  v33 = v3;
-  v20 = CFNumberCreate(v17, kCFNumberIntType, &v33);
+  v34 = v3;
+  v20 = CFNumberCreate(v17, kCFNumberIntType, &v34);
   if (v20)
   {
     v21 = v20;
@@ -6139,8 +6176,8 @@ LABEL_44:
     CFRelease(v21);
   }
 
-  v33 = v31;
-  v22 = CFNumberCreate(v17, kCFNumberIntType, &v33);
+  v34 = v32;
+  v22 = CFNumberCreate(v17, kCFNumberIntType, &v34);
   if (v22)
   {
     v23 = v22;
@@ -6150,8 +6187,8 @@ LABEL_44:
 
   if (!v10)
   {
-    v33 = v11;
-    v24 = CFNumberCreate(v17, kCFNumberIntType, &v33);
+    v34 = v11;
+    v24 = CFNumberCreate(v17, kCFNumberIntType, &v34);
     if (v24)
     {
       v25 = v24;
@@ -6172,14 +6209,14 @@ LABEL_44:
 
   else
   {
-    v26 = valuePtr;
+    v27 = valuePtr;
     *(this + 26) = v3;
-    *(this + 27) = v31;
-    *(this + 112) = v29;
-    *(this + 29) = v26;
-    *(this + 30) = v30;
-    *(this + 124) = v28;
-    if (VideoDecoderBase<PRRVideoDecoder>::replaceLocalPixelBufferPool(this))
+    *(this + 27) = v32;
+    *(this + 112) = v30;
+    *(this + 29) = v27;
+    *(this + 30) = v31;
+    *(this + 124) = v29;
+    if (VideoDecoderBase<PRRVideoDecoder>::replaceLocalPixelBufferPool(this, v26))
     {
       v16 = 0xFFFFFFFFLL;
     }
@@ -6205,31 +6242,31 @@ LABEL_45:
   return v16;
 }
 
-uint64_t VideoDecoderBase<PRRVideoDecoder>::replaceLocalPixelBufferPool(uint64_t a1)
+uint64_t VideoDecoderBase<PRRVideoDecoder>::replaceLocalPixelBufferPool(void *a1, uint64_t a2)
 {
-  if (*(a1 + 64))
+  if (a1[8])
   {
-    if (enabledSignpostCategories())
+    if (enabledSignpostCategories(a1, a2))
     {
       kdebug_trace();
     }
 
-    v2 = *(a1 + 64);
-    v3 = *(a1 + 72);
-    *(a1 + 64) = 0;
-    if (v3)
+    v3 = a1[8];
+    v4 = a1[9];
+    a1[8] = 0;
+    if (v4)
     {
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 0x40000000;
       block[2] = ___ZN16VideoDecoderBaseI15PRRVideoDecoderE27replaceLocalPixelBufferPoolEv_block_invoke;
       block[3] = &__block_descriptor_tmp_102;
-      block[4] = v2;
-      dispatch_async(v3, block);
+      block[4] = v3;
+      dispatch_async(v4, block);
     }
 
-    else if (v2)
+    else if (v3)
     {
-      PreFaultedCVPixelBufferPool::~PreFaultedCVPixelBufferPool(v2);
+      PreFaultedCVPixelBufferPool::~PreFaultedCVPixelBufferPool(v3);
       MEMORY[0x277CB0040]();
     }
 
@@ -6245,7 +6282,7 @@ void sub_277829D18(_Unwind_Exception *exception_object, int a2)
   {
     __cxa_begin_catch(exception_object);
     __cxa_end_catch();
-    if ((enabledSignpostCategories() & 1) == 0)
+    if ((enabledSignpostCategories(v2, v3) & 1) == 0)
     {
       JUMPOUT(0x277829CFCLL);
     }
@@ -6589,11 +6626,11 @@ LABEL_21:
   return this;
 }
 
-double DiscreteCosineTransform::idct_2x1(DiscreteCosineTransform *this, __int16 *a2, __int16 *a3, __int16 *a4, const __int16 *a5)
+double DiscreteCosineTransform::idct_2x1(DiscreteCosineTransform *this, __int16 *a2, unint64_t a3, __int16 *a4, const __int16 *a5)
 {
-  if (atomic_load_explicit(&qword_280A71640, memory_order_acquire))
+  if (atomic_load_explicit(byte_280A71640, memory_order_acquire))
   {
-    if (atomic_load_explicit(&qword_280A71650, memory_order_acquire))
+    if (atomic_load_explicit(byte_280A71650, memory_order_acquire))
     {
       goto LABEL_3;
     }
@@ -6610,10 +6647,10 @@ double DiscreteCosineTransform::idct_2x1(DiscreteCosineTransform *this, __int16 
     a4 = v22;
     LOBYTE(a3) = v17;
     a2 = v27;
-    if (atomic_load_explicit(&qword_280A71650, memory_order_acquire))
+    if (atomic_load_explicit(byte_280A71650, memory_order_acquire))
     {
 LABEL_3:
-      if (atomic_load_explicit(&qword_280A71660, memory_order_acquire))
+      if (atomic_load_explicit(byte_280A71660, memory_order_acquire))
       {
         goto LABEL_4;
       }
@@ -6631,10 +6668,10 @@ LABEL_3:
   a4 = v23;
   LOBYTE(a3) = v18;
   a2 = v28;
-  if (atomic_load_explicit(&qword_280A71660, memory_order_acquire))
+  if (atomic_load_explicit(byte_280A71660, memory_order_acquire))
   {
 LABEL_4:
-    if (atomic_load_explicit(&qword_280A71670, memory_order_acquire))
+    if (atomic_load_explicit(byte_280A71670, memory_order_acquire))
     {
       goto LABEL_5;
     }
@@ -6649,7 +6686,7 @@ LABEL_10:
     a4 = v25;
     LOBYTE(a3) = v20;
     a2 = v30;
-    if (atomic_load_explicit(&qword_280A71680, memory_order_acquire))
+    if (atomic_load_explicit(byte_280A71680, memory_order_acquire))
     {
       goto LABEL_6;
     }
@@ -6677,13 +6714,13 @@ LABEL_9:
   a4 = v24;
   LOBYTE(a3) = v19;
   a2 = v29;
-  if ((atomic_load_explicit(&qword_280A71670, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280A71670, memory_order_acquire) & 1) == 0)
   {
     goto LABEL_10;
   }
 
 LABEL_5:
-  if ((atomic_load_explicit(&qword_280A71680, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280A71680, memory_order_acquire) & 1) == 0)
   {
     goto LABEL_11;
   }
@@ -6701,11 +6738,11 @@ LABEL_6:
   return result;
 }
 
-double DiscreteCosineTransform::idct_1x2(DiscreteCosineTransform *this, __int16 *a2, __int16 *a3, __int16 *a4, const __int16 *a5)
+double DiscreteCosineTransform::idct_1x2(DiscreteCosineTransform *this, __int16 *a2, unint64_t a3, __int16 *a4, const __int16 *a5)
 {
-  if (atomic_load_explicit(&qword_280A71690, memory_order_acquire))
+  if (atomic_load_explicit(byte_280A71690, memory_order_acquire))
   {
-    if (atomic_load_explicit(&qword_280A716A0, memory_order_acquire))
+    if (atomic_load_explicit(byte_280A716A0, memory_order_acquire))
     {
       goto LABEL_3;
     }
@@ -6722,10 +6759,10 @@ double DiscreteCosineTransform::idct_1x2(DiscreteCosineTransform *this, __int16 
     a4 = v25;
     LOBYTE(a3) = v20;
     a2 = v30;
-    if (atomic_load_explicit(&qword_280A716A0, memory_order_acquire))
+    if (atomic_load_explicit(byte_280A716A0, memory_order_acquire))
     {
 LABEL_3:
-      if (atomic_load_explicit(&qword_280A716B0, memory_order_acquire))
+      if (atomic_load_explicit(byte_280A716B0, memory_order_acquire))
       {
         goto LABEL_4;
       }
@@ -6743,10 +6780,10 @@ LABEL_3:
   a4 = v26;
   LOBYTE(a3) = v21;
   a2 = v31;
-  if (atomic_load_explicit(&qword_280A716B0, memory_order_acquire))
+  if (atomic_load_explicit(byte_280A716B0, memory_order_acquire))
   {
 LABEL_4:
-    if (atomic_load_explicit(&qword_280A716C0, memory_order_acquire))
+    if (atomic_load_explicit(byte_280A716C0, memory_order_acquire))
     {
       goto LABEL_5;
     }
@@ -6761,7 +6798,7 @@ LABEL_10:
     a4 = v28;
     LOBYTE(a3) = v23;
     a2 = v33;
-    if (atomic_load_explicit(&qword_280A716D0, memory_order_acquire))
+    if (atomic_load_explicit(byte_280A716D0, memory_order_acquire))
     {
       goto LABEL_6;
     }
@@ -6789,13 +6826,13 @@ LABEL_9:
   a4 = v27;
   LOBYTE(a3) = v22;
   a2 = v32;
-  if ((atomic_load_explicit(&qword_280A716C0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280A716C0, memory_order_acquire) & 1) == 0)
   {
     goto LABEL_10;
   }
 
 LABEL_5:
-  if ((atomic_load_explicit(&qword_280A716D0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280A716D0, memory_order_acquire) & 1) == 0)
   {
     goto LABEL_11;
   }
@@ -6825,7 +6862,7 @@ double DiscreteCosineTransform::idct_1x1(DiscreteCosineTransform *this, __int16 
 
 void DiscreteCosineTransform::idct_2x1()
 {
-  if (__cxa_guard_acquire(&qword_280A71640))
+  if (__cxa_guard_acquire(byte_280A71640))
   {
     v0 = OUTLINED_FUNCTION_2(&_MergedGlobals_2);
 
@@ -6834,7 +6871,7 @@ void DiscreteCosineTransform::idct_2x1()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280A71650))
+  if (__cxa_guard_acquire(byte_280A71650))
   {
     v0 = OUTLINED_FUNCTION_4(&qword_280A71648);
 
@@ -6843,7 +6880,7 @@ void DiscreteCosineTransform::idct_2x1()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280A71660))
+  if (__cxa_guard_acquire(byte_280A71660))
   {
     v0 = OUTLINED_FUNCTION_3(&qword_280A71658);
 
@@ -6852,7 +6889,7 @@ void DiscreteCosineTransform::idct_2x1()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280A71670))
+  if (__cxa_guard_acquire(byte_280A71670))
   {
     v0 = OUTLINED_FUNCTION_1(&qword_280A71668);
 
@@ -6861,7 +6898,7 @@ void DiscreteCosineTransform::idct_2x1()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280A71680))
+  if (__cxa_guard_acquire(byte_280A71680))
   {
     v0 = OUTLINED_FUNCTION_0_0(&qword_280A71678);
 
@@ -6871,7 +6908,7 @@ void DiscreteCosineTransform::idct_2x1()
 
 void DiscreteCosineTransform::idct_1x2()
 {
-  if (__cxa_guard_acquire(&qword_280A71690))
+  if (__cxa_guard_acquire(byte_280A71690))
   {
     v0 = OUTLINED_FUNCTION_2(&qword_280A71688);
 
@@ -6880,7 +6917,7 @@ void DiscreteCosineTransform::idct_1x2()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280A716A0))
+  if (__cxa_guard_acquire(byte_280A716A0))
   {
     v0 = OUTLINED_FUNCTION_4(&qword_280A71698);
 
@@ -6889,7 +6926,7 @@ void DiscreteCosineTransform::idct_1x2()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280A716B0))
+  if (__cxa_guard_acquire(byte_280A716B0))
   {
     v0 = OUTLINED_FUNCTION_3(&qword_280A716A8);
 
@@ -6898,7 +6935,7 @@ void DiscreteCosineTransform::idct_1x2()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280A716C0))
+  if (__cxa_guard_acquire(byte_280A716C0))
   {
     v0 = OUTLINED_FUNCTION_1(&qword_280A716B8);
 
@@ -6907,7 +6944,7 @@ void DiscreteCosineTransform::idct_1x2()
 }
 
 {
-  if (__cxa_guard_acquire(&qword_280A716D0))
+  if (__cxa_guard_acquire(byte_280A716D0))
   {
     v0 = OUTLINED_FUNCTION_0_0(&qword_280A716C8);
 
@@ -8853,7 +8890,7 @@ LABEL_63:
           LODWORD(v144) = v73 >> (BYTE4(v142[1]) + LOBYTE(v142[1]));
           AlphaDecoder::AlphaDecoder(v137, v154, *(a3 + 36), v47);
           *(&v144 + 1) = v137;
-          PixelWriter::PixelWriter(v134, a3, v151, LODWORD(v142[1]), HIDWORD(v142[1]), v138 != 0);
+          PixelWriter::PixelWriter(v134, a3, v151, v142[1], HIDWORD(v142[1]), v138 != 0);
           if (!v136)
           {
             return 0xFFFFFFFFLL;
@@ -9371,35 +9408,35 @@ LABEL_30:
   return result;
 }
 
-void std::vector<DecoderJob>::resize(void *a1, unint64_t a2)
+void std::vector<DecoderJob>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 4);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<DecoderJob>::__append(a1, v4);
+    std::vector<DecoderJob>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 48 * a2;
+    result[1] = *result + 48 * a2;
   }
 }
 
-void std::vector<SliceDecodeParams>::resize(void *a1, unint64_t a2)
+void std::vector<SliceDecodeParams>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 5);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 5);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<SliceDecodeParams>::__append(a1, v4);
+    std::vector<SliceDecodeParams>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 96 * a2;
+    result[1] = *result + 96 * a2;
   }
 }
 
@@ -9609,7 +9646,7 @@ void std::vector<SliceDecodeParams>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void *ThreadPool<DecoderWorker,DecoderJob,void>::dispatch_routine(uint64_t a1)
+void ThreadPool<DecoderWorker,DecoderJob,void>::dispatch_routine(uint64_t a1)
 {
   {
     ThreadPool<DecoderWorker,DecoderJob,void>::getBlockSize(void)::cacheLineSize = getCacheLineSize();
@@ -9621,18 +9658,16 @@ void *ThreadPool<DecoderWorker,DecoderJob,void>::dispatch_routine(uint64_t a1)
 
   v2 = ThreadPool<DecoderWorker,DecoderJob,void>::getBlockSize(void)::blockSize;
   v3 = -ThreadPool<DecoderWorker,DecoderJob,void>::getBlockSize(void)::blockSize;
-  result = malloc_type_malloc(((ThreadPool<DecoderWorker,DecoderJob,void>::getBlockSize(void)::blockSize + 39) & -ThreadPool<DecoderWorker,DecoderJob,void>::getBlockSize(void)::blockSize) + ThreadPool<DecoderWorker,DecoderJob,void>::getBlockSize(void)::blockSize, 0xAF2C8CB1uLL);
-  if (result)
+  v4 = malloc_type_malloc(((ThreadPool<DecoderWorker,DecoderJob,void>::getBlockSize(void)::blockSize + 39) & -ThreadPool<DecoderWorker,DecoderJob,void>::getBlockSize(void)::blockSize) + ThreadPool<DecoderWorker,DecoderJob,void>::getBlockSize(void)::blockSize, 0xAF2C8CB1uLL);
+  if (v4)
   {
-    v5 = ((result + v2) & v3);
-    *(v5 - 1) = result;
+    v5 = ((v4 + v2) & v3);
+    *(v5 - 1) = v4;
     if (v5)
     {
       DecoderWorker::DecoderWorker(v5, *(a1 + 40));
     }
   }
-
-  return result;
 }
 
 void FrameDecoder::FrameDecoder()
@@ -9666,7 +9701,7 @@ void DecoderWorker::~DecoderWorker(void **this)
   }
 }
 
-uint64_t DecoderWorker::runJob(uint64_t result, uint64_t *a2, double a3, double a4, int8x16_t a5, int8x16_t a6, int32x4_t a7, int16x8_t a8, float32x4_t a9, float32x4_t a10)
+uint64_t DecoderWorker::runJob(uint64_t result, uint64_t *a2, float32x4_t a3, float32x4_t a4, int8x16_t a5, int8x16_t a6, int32x4_t a7, int32x4_t a8, int16x8_t a9, float32x4_t a10)
 {
   v10 = *(*a2 + 32);
   if (v10)
@@ -9857,7 +9892,7 @@ LABEL_59:
           v69 = 1;
           do
           {
-            v69 &= SliceDecoder::decode();
+            v69 &= SliceDecoder::decode(*(v12 + 32));
             ++v68;
             v67 += 96;
           }

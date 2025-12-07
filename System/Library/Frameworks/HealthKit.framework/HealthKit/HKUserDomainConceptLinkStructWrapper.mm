@@ -23,20 +23,18 @@
 {
   v3 = type metadata accessor for UserDomainConceptLinkStruct(0);
   v4 = v3 - 8;
-  v5 = *(*(v3 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v3, v6);
-  v8 = &v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_191CC61A8();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9, v12);
-  v14 = &v17 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_191C0D3DC(self + OBJC_IVAR___HKUserDomainConceptLinkStructWrapper_value, v8);
-  (*(v10 + 32))(v14, &v8[*(v4 + 28)], v9);
-  v15 = sub_191CC6168();
-  (*(v10 + 8))(v14, v9);
+  MEMORY[0x1EEE9AC00](v3);
+  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = sub_191CC61A8();
+  v8 = *(v7 - 8);
+  MEMORY[0x1EEE9AC00](v7);
+  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_191C0D3DC(self + OBJC_IVAR___HKUserDomainConceptLinkStructWrapper_value, v6);
+  (*(v8 + 32))(v10, &v6[*(v4 + 28)], v7);
+  v11 = sub_191CC6168();
+  (*(v8 + 8))(v10, v7);
 
-  return v15;
+  return v11;
 }
 
 - (HKUserDomainConceptLinkStructWrapper)initWithTarget:(id)target type:(int64_t)type
@@ -44,19 +42,18 @@
   ObjectType = swift_getObjectType();
   v7 = sub_191CC61A8();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x1EEE9AC00](v7, v10);
-  v12 = &v17 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_191CC6188();
-  v13 = (self + OBJC_IVAR___HKUserDomainConceptLinkStructWrapper_value);
-  v14 = type metadata accessor for UserDomainConceptLinkStruct(0);
-  (*(v8 + 16))(v13 + *(v14 + 20), v12, v7);
-  *v13 = type;
-  v17.receiver = self;
-  v17.super_class = ObjectType;
-  v15 = [(HKUserDomainConceptLinkStructWrapper *)&v17 init];
-  (*(v8 + 8))(v12, v7);
-  return v15;
+  v11 = (self + OBJC_IVAR___HKUserDomainConceptLinkStructWrapper_value);
+  v12 = type metadata accessor for UserDomainConceptLinkStruct(0);
+  (*(v8 + 16))(v11 + *(v12 + 20), v10, v7);
+  *v11 = type;
+  v15.receiver = self;
+  v15.super_class = ObjectType;
+  v13 = [(HKUserDomainConceptLinkStructWrapper *)&v15 init];
+  (*(v8 + 8))(v10, v7);
+  return v13;
 }
 
 - (NSString)description
@@ -74,14 +71,14 @@
   v3 = (&self->super.isa + OBJC_IVAR___HKUserDomainConceptLinkStructWrapper_value);
   sub_191CC74C8();
   MEMORY[0x193B02C70](*v3);
-  v4 = *(type metadata accessor for UserDomainConceptLinkStruct(0) + 20);
+  type metadata accessor for UserDomainConceptLinkStruct(0);
   sub_191CC61A8();
-  sub_191C0DD28(&qword_1EADCAC70, MEMORY[0x1E69695A8]);
+  sub_191C0DD28(&qword_1EADCAC70, MEMORY[0x1E69695A8], MEMORY[0x1E69695B8]);
   selfCopy = self;
   sub_191CC66A8();
-  v6 = sub_191CC7508();
+  v5 = sub_191CC7508();
 
-  return v6;
+  return v5;
 }
 
 - (HKUserDomainConceptLinkStructWrapper)init

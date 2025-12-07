@@ -49,7 +49,7 @@
     [(UICollectionViewLayoutAttributes *)v5 setSize:?];
     if (attributesCopy)
     {
-      [attributesCopy transform3D];
+      objc_msgSend_transform3D(attributesCopy);
     }
 
     else
@@ -77,7 +77,7 @@
     [(UICollectionViewLayoutAttributes *)v5 setBounds:?];
     if (attributesCopy)
     {
-      [attributesCopy transform];
+      objc_msgSend_transform(attributesCopy);
     }
 
     else
@@ -94,8 +94,8 @@
     [attributesCopy alpha];
     [(UICollectionViewLayoutAttributes *)v5 setAlpha:?];
     -[UICollectionViewLayoutAttributes setZIndex:](v5, "setZIndex:", [attributesCopy zIndex]);
-    indexPath = [attributesCopy indexPath];
-    [(UICollectionViewLayoutAttributes *)v5 setIndexPath:indexPath];
+    v6 = objc_msgSend_indexPath(attributesCopy);
+    [(UICollectionViewLayoutAttributes *)v5 setIndexPath:v6];
   }
 
   return v5;

@@ -62,22 +62,22 @@
 
 - (id)dictionaryEncoding
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   _dependentFeatures = [(REFeature *)self->_feature _dependentFeatures];
   v4 = [_dependentFeatures count];
 
   if (v4)
   {
-    RERaiseInternalException(*MEMORY[0x277CBE660], @"We don't currently handle encoding this feature type", v5, v6, v7, v8, v9, v10, v20);
+    RERaiseInternalException(*MEMORY[0x277CBE660], @"We don't currently handle encoding this feature type", v5, v6, v7, v8, v9, v10, v19);
   }
 
-  v21[0] = @"feature_name";
+  v20[0] = @"feature_name";
   name = [(REFeature *)self->_feature name];
-  v21[1] = @"feature_type";
-  v22[0] = name;
+  v20[1] = @"feature_type";
+  v21[0] = name;
   v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[REFeature featureType](self->_feature, "featureType")}];
-  v22[1] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+  v21[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
 
   v14 = REFeatureValueForTaggedPointer(self->_value);
   dictionaryEncoding = [v14 dictionaryEncoding];
@@ -85,8 +85,6 @@
 
   [v16 addEntriesFromDictionary:v13];
   v17 = [v16 copy];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

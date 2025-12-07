@@ -273,7 +273,7 @@ LABEL_12:
 {
   v23[4] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(UIView);
-  v3 = +[UIColor blackColor];
+  v3 = objc_msgSend_blackColor(UIColor);
   [(UIView *)v2 setBackgroundColor:v3];
 
   v4 = [UIBlurEffect effectWithStyle:9];

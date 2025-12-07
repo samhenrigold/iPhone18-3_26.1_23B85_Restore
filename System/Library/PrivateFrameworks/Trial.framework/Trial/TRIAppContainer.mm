@@ -25,13 +25,13 @@
 
 - (int64_t)fetchStatus
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  v3 = [(TRIAppContainer *)self _containerURLWithError:&v14];
+  v16 = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  v3 = [(TRIAppContainer *)self _containerURLWithError:&v13];
   v4 = v3;
   if (!v3)
   {
-    userInfo = [v14 userInfo];
+    userInfo = [v13 userInfo];
     path = [userInfo objectForKeyedSubscript:@"containerError"];
 
     if (path && [path integerValue] == 21)
@@ -43,7 +43,7 @@
     v9 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      localizedFailureReason = [v14 localizedFailureReason];
+      localizedFailureReason = [v13 localizedFailureReason];
       *buf = 138412290;
       selfCopy = localizedFailureReason;
       _os_log_error_impl(&dword_22EA6B000, v9, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
@@ -72,28 +72,25 @@ LABEL_12:
   v8 = 1;
 LABEL_13:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (id)containerURL
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v7 = 0;
-  v2 = [(TRIAppContainer *)self _containerURLWithError:&v7];
+  v9 = *MEMORY[0x277D85DE8];
+  v6 = 0;
+  v2 = [(TRIAppContainer *)self _containerURLWithError:&v6];
   if (!v2)
   {
     v3 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      localizedFailureReason = [v7 localizedFailureReason];
+      localizedFailureReason = [v6 localizedFailureReason];
       *buf = 138412290;
-      v9 = localizedFailureReason;
+      v8 = localizedFailureReason;
       _os_log_error_impl(&dword_22EA6B000, v3, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -175,27 +172,25 @@ void __48__TRIAppContainer_TRIPaths__sanitizedIdentifier__block_invoke()
 
 - (id)_containerError:(unint64_t)error withFormat:(id)format
 {
-  v18[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCACA8];
   formatCopy = format;
-  v7 = [[v5 alloc] initWithFormat:formatCopy arguments:&v20];
+  v7 = [[v5 alloc] initWithFormat:formatCopy arguments:&v19];
 
-  v17[0] = @"containerError";
+  v16[0] = @"containerError";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:error];
-  v18[0] = v8;
-  v17[1] = *MEMORY[0x277CCA450];
+  v17[0] = v8;
+  v16[1] = *MEMORY[0x277CCA450];
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
   v10 = [mainBundle localizedStringForKey:@"Container error" value:&stru_28435FC98 table:0];
-  v18[1] = v10;
-  v17[2] = *MEMORY[0x277CCA470];
+  v17[1] = v10;
+  v16[2] = *MEMORY[0x277CCA470];
   mainBundle2 = [MEMORY[0x277CCA8D8] mainBundle];
   v12 = [mainBundle2 localizedStringForKey:v7 value:&stru_28435FC98 table:0];
-  v18[2] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
+  v17[2] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
 
   v14 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRIGeneralErrorDomain" code:1 userInfo:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -252,8 +247,8 @@ LABEL_11:
 
 - (id)_groupContainerDirectoryAsSystemWithError:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v13 = 0;
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0;
   v5 = container_create_or_lookup_app_group_paths_for_current_user();
   v6 = v5;
   if (v5)
@@ -261,17 +256,17 @@ LABEL_11:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v15 = __Block_byref_object_copy__6;
-    v16 = __Block_byref_object_dispose__6;
-    v17 = 0;
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __71__TRIAppContainer_TRIPaths___groupContainerDirectoryAsSystemWithError___block_invoke;
-    v12[3] = &unk_27885ED40;
-    v12[5] = buf;
-    v12[6] = a2;
-    v12[4] = self;
-    xpc_dictionary_apply(v5, v12);
+    v14 = __Block_byref_object_copy__6;
+    v15 = __Block_byref_object_dispose__6;
+    v16 = 0;
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __71__TRIAppContainer_TRIPaths___groupContainerDirectoryAsSystemWithError___block_invoke;
+    v11[3] = &unk_27885ED40;
+    v11[5] = buf;
+    v11[6] = a2;
+    v11[4] = self;
+    xpc_dictionary_apply(v5, v11);
     v7 = *(*&buf[8] + 40);
     _Block_object_dispose(buf, 8);
   }
@@ -285,14 +280,12 @@ LABEL_11:
       *buf = 138412546;
       *&buf[4] = identifier;
       *&buf[12] = 2048;
-      *&buf[14] = v13;
+      *&buf[14] = v12;
       _os_log_error_impl(&dword_22EA6B000, v8, OS_LOG_TYPE_ERROR, "Failed to look up container with identifier %@ due to container manager error: %llu", buf, 0x16u);
     }
 
     v7 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -417,18 +410,8 @@ uint64_t __71__TRIAppContainer_TRIPaths___groupContainerDirectoryAsSystemWithErr
 {
   containerCopy = container;
   v5 = containerCopy;
-  if (!containerCopy)
+  if (!containerCopy || (v6 = self->_identifier == 0, [containerCopy identifier], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (identifier = self->_identifier) != 0 && (objc_msgSend(v5, "identifier"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](identifier, "isEqual:", v10), v10, !v11))
   {
-    goto LABEL_6;
-  }
-
-  v6 = self->_identifier == 0;
-  identifier = [containerCopy identifier];
-  v8 = identifier != 0;
-
-  if (v6 == v8 || (identifier = self->_identifier) != 0 && ([v5 identifier], v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](identifier, "isEqual:", v10), v10, !v11))
-  {
-LABEL_6:
     v13 = 0;
   }
 
@@ -460,7 +443,7 @@ LABEL_6:
 
 - (TRIAppContainer)initWithCoder:(id)coder
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
   if (!v5)
@@ -474,9 +457,9 @@ LABEL_10:
       goto LABEL_11;
     }
 
-    v25 = *MEMORY[0x277CCA450];
-    v26[0] = @"Retrieved nil serialized value for nonnull TRIAppContainer.identifier";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = *MEMORY[0x277CCA450];
+    v25[0] = @"Retrieved nil serialized value for nonnull TRIAppContainer.identifier";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     v10 = objc_alloc(MEMORY[0x277CCA9B8]);
     v11 = 2;
     goto LABEL_7;
@@ -490,9 +473,9 @@ LABEL_10:
     v14 = objc_opt_class();
     v12 = NSStringFromClass(v14);
     v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIAppContainer key identifier (expected %@, decoded %@)", v9, v12, 0];
-    v23 = *MEMORY[0x277CCA450];
-    v24 = v15;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    v22 = *MEMORY[0x277CCA450];
+    v23 = v15;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
     v17 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIAppContainerOCNTErrorDomain" code:3 userInfo:v16];
     [coderCopy failWithError:v17];
 
@@ -514,9 +497,9 @@ LABEL_10:
       goto LABEL_4;
     }
 
-    v21 = *MEMORY[0x277CCA450];
-    v22 = @"Missing serialized value for TRIAppContainer.type";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x277CCA450];
+    v21 = @"Missing serialized value for TRIAppContainer.type";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
     v10 = objc_alloc(MEMORY[0x277CCA9B8]);
     v11 = 1;
 LABEL_7:
@@ -532,7 +515,6 @@ LABEL_4:
   selfCopy = self;
 LABEL_11:
 
-  v18 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

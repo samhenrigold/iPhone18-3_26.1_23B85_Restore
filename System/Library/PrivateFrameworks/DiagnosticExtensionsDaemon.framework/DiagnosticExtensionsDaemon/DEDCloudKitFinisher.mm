@@ -103,7 +103,7 @@
 
 - (void)finishSession:(id)session withConfiguration:(id)configuration
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   configurationCopy = configuration;
   v8 = [(DEDCloudKitFinisher *)self log];
@@ -111,7 +111,7 @@
   {
     cloudkitContainer = [configurationCopy cloudkitContainer];
     *buf = 138543362;
-    v81 = cloudkitContainer;
+    v80 = cloudkitContainer;
     _os_log_impl(&dword_248AD7000, v8, OS_LOG_TYPE_DEFAULT, "Starting CloudKit finishSession with container: %{public}@", buf, 0xCu);
   }
 
@@ -120,7 +120,7 @@
   {
     allowsCellularUpload = [configurationCopy allowsCellularUpload];
     *buf = 67240192;
-    LODWORD(v81) = allowsCellularUpload;
+    LODWORD(v80) = allowsCellularUpload;
     _os_log_impl(&dword_248AD7000, v10, OS_LOG_TYPE_DEFAULT, "allowsCellularUpload: %{public}d", buf, 8u);
   }
 
@@ -137,9 +137,9 @@
     cloudkitData = [configurationCopy cloudkitData];
     v15 = [cloudkitData objectForKeyedSubscript:@"payload"];
 
-    v63 = v15;
+    v62 = v15;
     [v15 dataUsingEncoding:4];
-    v61 = v79[5] = 0;
+    v60 = v78[5] = 0;
     v16 = [MEMORY[0x277CCAAA0] JSONObjectWithData:? options:? error:?];
     v17 = 0;
     [(DEDCloudKitFinisher *)self setQueuePayload:v16];
@@ -153,8 +153,8 @@
       }
     }
 
-    v62 = v17;
-    v65 = sessionCopy;
+    v61 = v17;
+    v64 = sessionCopy;
     cloudkitData2 = [configurationCopy cloudkitData];
     v20 = [cloudkitData2 objectForKeyedSubscript:@"gigafilesToken"];
     [(DEDCloudKitFinisher *)self setTimberLorryUUID:v20];
@@ -169,62 +169,62 @@
       [(DEDCloudKitFinisher *)self setTimberLorryUUID:v24];
     }
 
-    v64 = configurationCopy;
+    v63 = configurationCopy;
     cloudkitData5 = [configurationCopy cloudkitData];
     v26 = [(DEDCloudKitFinisher *)self createAttachmentGroupWithData:cloudkitData5];
     [(DEDCloudKitFinisher *)self setAttachmentGroupModel:v26];
 
-    v79[0] = MEMORY[0x277D85DD0];
-    v79[1] = 3221225472;
-    v79[2] = __55__DEDCloudKitFinisher_finishSession_withConfiguration___block_invoke;
-    v79[3] = &unk_278F660D0;
-    v79[4] = self;
-    v60 = MEMORY[0x24C1E5320](v79);
-    v59 = [[DEDCompressionDebouncer alloc] initWithTrigger:v60 interval:1.0];
-    handler = [(DEDCompressionDebouncer *)v59 handler];
+    v78[0] = MEMORY[0x277D85DD0];
+    v78[1] = 3221225472;
+    v78[2] = __55__DEDCloudKitFinisher_finishSession_withConfiguration___block_invoke;
+    v78[3] = &unk_278F660D0;
+    v78[4] = self;
+    v59 = MEMORY[0x24C1E5320](v78);
+    v58 = [[DEDCompressionDebouncer alloc] initWithTrigger:v59 interval:1.0];
+    handler = [(DEDCompressionDebouncer *)v58 handler];
     v28 = [(DEDCloudKitFinisher *)self getAttachmentURLsWithProgressHandler:handler];
 
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
     v76 = 0u;
+    v77 = 0u;
+    v74 = 0u;
+    v75 = 0u;
     obj = v28;
-    v67 = [obj countByEnumeratingWithState:&v75 objects:v87 count:16];
-    if (v67)
+    v66 = [obj countByEnumeratingWithState:&v74 objects:v86 count:16];
+    if (v66)
     {
-      v66 = *v76;
+      v65 = *v75;
       do
       {
         v29 = 0;
         do
         {
-          if (*v76 != v66)
+          if (*v75 != v65)
           {
             objc_enumerationMutation(obj);
           }
 
-          v69 = v29;
-          v30 = *(*(&v75 + 1) + 8 * v29);
+          v68 = v29;
+          v30 = *(*(&v74 + 1) + 8 * v29);
+          v70 = 0u;
           v71 = 0u;
           v72 = 0u;
           v73 = 0u;
-          v74 = 0u;
           v31 = [obj objectForKey:v30];
-          v32 = [v31 countByEnumeratingWithState:&v71 objects:v86 count:16];
+          v32 = [v31 countByEnumeratingWithState:&v70 objects:v85 count:16];
           if (v32)
           {
             v33 = v32;
-            v34 = *v72;
+            v34 = *v71;
             do
             {
               for (i = 0; i != v33; ++i)
               {
-                if (*v72 != v34)
+                if (*v71 != v34)
                 {
                   objc_enumerationMutation(v31);
                 }
 
-                v36 = *(*(&v71 + 1) + 8 * i);
+                v36 = *(*(&v70 + 1) + 8 * i);
                 uploadedBytes = [(DEDCloudKitFinisher *)self uploadedBytes];
                 allKeys = [uploadedBytes allKeys];
                 v39 = [allKeys containsObject:v36];
@@ -242,11 +242,11 @@
                   {
                     cloudKitModel = [v41 cloudKitModel];
                     *buf = 138412802;
-                    v81 = cloudKitModel;
-                    v82 = 2114;
-                    v83 = v36;
-                    v84 = 2114;
-                    v85 = v30;
+                    v80 = cloudKitModel;
+                    v81 = 2114;
+                    v82 = v36;
+                    v83 = 2114;
+                    v84 = v30;
                     _os_log_impl(&dword_248AD7000, v43, OS_LOG_TYPE_DEFAULT, "Created record %@ for %{public}@ with queue destination %{public}@", buf, 0x20u);
                   }
 
@@ -260,20 +260,20 @@
                 }
               }
 
-              v33 = [v31 countByEnumeratingWithState:&v71 objects:v86 count:16];
+              v33 = [v31 countByEnumeratingWithState:&v70 objects:v85 count:16];
             }
 
             while (v33);
           }
 
-          v29 = v69 + 1;
+          v29 = v68 + 1;
         }
 
-        while (v69 + 1 != v67);
-        v67 = [obj countByEnumeratingWithState:&v75 objects:v87 count:16];
+        while (v68 + 1 != v66);
+        v66 = [obj countByEnumeratingWithState:&v74 objects:v86 count:16];
       }
 
-      while (v67);
+      while (v66);
     }
 
     [(DEDCloudKitFinisher *)self setState:2];
@@ -283,18 +283,18 @@
     [MEMORY[0x277D07730] createLoggingEventWith:*MEMORY[0x277D07718]];
     attachments2 = [(DEDCloudKitFinisher *)self attachments];
     attachmentGroupModel2 = [(DEDCloudKitFinisher *)self attachmentGroupModel];
-    v70[0] = MEMORY[0x277D85DD0];
-    v70[1] = 3221225472;
-    v70[2] = __55__DEDCloudKitFinisher_finishSession_withConfiguration___block_invoke_125;
-    v70[3] = &unk_278F661A8;
-    v70[4] = self;
-    [(DEDCloudKitFinisher *)self uploadAttachments:attachments2 inAttachmentGroup:attachmentGroupModel2 completionHandler:v70];
+    v69[0] = MEMORY[0x277D85DD0];
+    v69[1] = 3221225472;
+    v69[2] = __55__DEDCloudKitFinisher_finishSession_withConfiguration___block_invoke_125;
+    v69[3] = &unk_278F661A8;
+    v69[4] = self;
+    [(DEDCloudKitFinisher *)self uploadAttachments:attachments2 inAttachmentGroup:attachmentGroupModel2 completionHandler:v69];
 
-    configurationCopy = v64;
-    sessionCopy = v65;
-    v53 = v62;
-    v52 = v63;
-    session2 = v61;
+    configurationCopy = v63;
+    sessionCopy = v64;
+    v53 = v61;
+    v52 = v62;
+    session2 = v60;
   }
 
   else
@@ -314,8 +314,6 @@
     session2 = [(DEDCloudKitFinisher *)self session];
     [session2 didFinishUploadingWithError:v53];
   }
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 void __55__DEDCloudKitFinisher_finishSession_withConfiguration___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -326,7 +324,7 @@ void __55__DEDCloudKitFinisher_finishSession_withConfiguration___block_invoke(ui
 
 void __55__DEDCloudKitFinisher_finishSession_withConfiguration___block_invoke_125(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -340,7 +338,7 @@ void __55__DEDCloudKitFinisher_finishSession_withConfiguration___block_invoke_12
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v15 = v4;
+      v14 = v4;
       _os_log_impl(&dword_248AD7000, v8, OS_LOG_TYPE_DEFAULT, "Failed to upload logs with error %{public}@", buf, 0xCu);
     }
 
@@ -359,12 +357,11 @@ void __55__DEDCloudKitFinisher_finishSession_withConfiguration___block_invoke_12
   [v12 didFinishUploadingWithError:v11];
 
   [*(a1 + 32) localCleanup];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uploadAttachments:(id)attachments inAttachmentGroup:(id)group completionHandler:(id)handler
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   attachmentsCopy = attachments;
   groupCopy = group;
   handlerCopy = handler;
@@ -372,33 +369,33 @@ void __55__DEDCloudKitFinisher_finishSession_withConfiguration___block_invoke_12
   cloudKitModel = [groupCopy cloudKitModel];
   [array addObject:cloudKitModel];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v13 = attachmentsCopy;
-  v14 = [v13 countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v14)
   {
-    v15 = *v36;
+    v15 = *v35;
     do
     {
       v16 = 0;
       do
       {
-        if (*v36 != v15)
+        if (*v35 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        cloudKitModel2 = [*(*(&v35 + 1) + 8 * v16) cloudKitModel];
+        cloudKitModel2 = [*(*(&v34 + 1) + 8 * v16) cloudKitModel];
         [array addObject:cloudKitModel2];
 
         ++v16;
       }
 
       while (v14 != v16);
-      v14 = [v13 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v14);
@@ -419,28 +416,27 @@ void __55__DEDCloudKitFinisher_finishSession_withConfiguration___block_invoke_12
 
   cloudKitClient = [(DEDCloudKitFinisher *)self cloudKitClient];
   v24 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[DEDCloudKitFinisher totalUploadSize](self, "totalUploadSize")}];
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __77__DEDCloudKitFinisher_uploadAttachments_inAttachmentGroup_completionHandler___block_invoke;
-  v32[3] = &unk_278F661D0;
-  objc_copyWeak(&v33, &location);
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __77__DEDCloudKitFinisher_uploadAttachments_inAttachmentGroup_completionHandler___block_invoke_2;
-  v28[3] = &unk_278F66220;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __77__DEDCloudKitFinisher_uploadAttachments_inAttachmentGroup_completionHandler___block_invoke;
+  v31[3] = &unk_278F661D0;
+  objc_copyWeak(&v32, &location);
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __77__DEDCloudKitFinisher_uploadAttachments_inAttachmentGroup_completionHandler___block_invoke_2;
+  v27[3] = &unk_278F66220;
   v25 = handlerCopy;
-  v30 = v25;
-  v28[4] = self;
+  v29 = v25;
+  v27[4] = self;
   v26 = groupCopy;
-  v29 = v26;
-  objc_copyWeak(&v31, &location);
-  [cloudKitClient uploadRecords:array taskIdentifier:v21 totalUploadSize:v24 perRecordProgressBlock:v32 perRecordSaveBlock:0 completionBlock:v28];
+  v28 = v26;
+  objc_copyWeak(&v30, &location);
+  [cloudKitClient uploadRecords:array taskIdentifier:v21 totalUploadSize:v24 perRecordProgressBlock:v31 perRecordSaveBlock:0 completionBlock:v27];
 
-  objc_destroyWeak(&v31);
-  objc_destroyWeak(&v33);
+  objc_destroyWeak(&v30);
+  objc_destroyWeak(&v32);
 
   objc_destroyWeak(&location);
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __77__DEDCloudKitFinisher_uploadAttachments_inAttachmentGroup_completionHandler___block_invoke(uint64_t a1, void *a2, double a3)
@@ -517,7 +513,7 @@ void __77__DEDCloudKitFinisher_uploadAttachments_inAttachmentGroup_completionHan
 
 - (void)createAttachmentGroupStatusForAttachmentGroup:(id)group completionHandler:(id)handler
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v7 = [(DEDCloudKitFinisher *)self createAttachmentGroupStatusWithAttachmentGroupModel:group];
   v8 = MEMORY[0x277CCACA8];
@@ -534,16 +530,14 @@ void __77__DEDCloudKitFinisher_uploadAttachments_inAttachmentGroup_completionHan
 
   cloudKitClient = [(DEDCloudKitFinisher *)self cloudKitClient];
   cloudKitModel = [v7 cloudKitModel];
-  v17[0] = cloudKitModel;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v16[0] = cloudKitModel;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
   [cloudKitClient uploadRecords:v15 taskIdentifier:v11 totalUploadSize:0 perRecordProgressBlock:0 perRecordSaveBlock:0 completionBlock:handlerCopy];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processAttachmentsWithRecord:(id)record withProgress:(double)progress
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   v7 = [recordCopy objectForKeyedSubscript:@"asset"];
 
@@ -567,27 +561,27 @@ void __77__DEDCloudKitFinisher_uploadAttachments_inAttachmentGroup_completionHan
     fileURL2 = [v8 fileURL];
     [uploadedBytes setObject:progress forKeyedSubscript:fileURL2];
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     attachments = [(DEDCloudKitFinisher *)self attachments];
-    v19 = [attachments countByEnumeratingWithState:&v35 objects:v45 count:16];
+    v19 = [attachments countByEnumeratingWithState:&v34 objects:v44 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v36;
+      v21 = *v35;
       v22 = 0.0;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v36 != v21)
+          if (*v35 != v21)
           {
             objc_enumerationMutation(attachments);
           }
 
-          v24 = *(*(&v35 + 1) + 8 * i);
+          v24 = *(*(&v34 + 1) + 8 * i);
           uploadedBytes2 = [(DEDCloudKitFinisher *)self uploadedBytes];
           v26 = [v24 url];
           v27 = [uploadedBytes2 objectForKeyedSubscript:v26];
@@ -595,7 +589,7 @@ void __77__DEDCloudKitFinisher_uploadAttachments_inAttachmentGroup_completionHan
           v22 = v22 + v28;
         }
 
-        v20 = [attachments countByEnumeratingWithState:&v35 objects:v45 count:16];
+        v20 = [attachments countByEnumeratingWithState:&v34 objects:v44 count:16];
       }
 
       while (v20);
@@ -609,15 +603,15 @@ void __77__DEDCloudKitFinisher_uploadAttachments_inAttachmentGroup_completionHan
     v29 = [(DEDCloudKitFinisher *)self log];
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
     {
-      v33 = (v22 / [(DEDCloudKitFinisher *)self totalUploadSize]* 100.0);
+      v32 = (v22 / [(DEDCloudKitFinisher *)self totalUploadSize]* 100.0);
       v30 = v22;
       totalUploadSize = [(DEDCloudKitFinisher *)self totalUploadSize];
       *buf = 67240704;
-      v40 = v33;
-      v41 = 2050;
-      v42 = v22;
-      v43 = 2050;
-      v44 = totalUploadSize;
+      v39 = v32;
+      v40 = 2050;
+      v41 = v22;
+      v42 = 2050;
+      v43 = totalUploadSize;
       _os_log_debug_impl(&dword_248AD7000, v29, OS_LOG_TYPE_DEBUG, "CloudKit upload progress: %{public}d%% (%{public}llu / %{public}llu)", buf, 0x1Cu);
     }
 
@@ -629,13 +623,11 @@ void __77__DEDCloudKitFinisher_uploadAttachments_inAttachmentGroup_completionHan
     session = [(DEDCloudKitFinisher *)self session];
     [session uploadProgress:v30 total:{-[DEDCloudKitFinisher totalUploadSize](self, "totalUploadSize")}];
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getAttachmentURLsWithProgressHandler:(id)handler
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   session = [(DEDCloudKitFinisher *)self session];
   allExtensionIdentifiers = [session allExtensionIdentifiers];
@@ -647,9 +639,9 @@ void __77__DEDCloudKitFinisher_uploadAttachments_inAttachmentGroup_completionHan
     session2 = [(DEDCloudKitFinisher *)self session];
     identifier = [session2 identifier];
     *buf = 138412546;
-    v63 = identifier;
-    v64 = 2112;
-    v65 = v6;
+    v62 = identifier;
+    v63 = 2112;
+    v64 = v6;
     _os_log_impl(&dword_248AD7000, v7, OS_LOG_TYPE_DEFAULT, "Getting DED session attachments on %@ for [%@]", buf, 0x16u);
   }
 
@@ -674,9 +666,9 @@ void __77__DEDCloudKitFinisher_uploadAttachments_inAttachmentGroup_completionHan
 
     v19 = [v18 URLByAppendingPathComponent:@"els"];
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v59 = 0;
-    [defaultManager createDirectoryAtURL:v19 withIntermediateDirectories:0 attributes:0 error:&v59];
-    v21 = v59;
+    v58 = 0;
+    [defaultManager createDirectoryAtURL:v19 withIntermediateDirectories:0 attributes:0 error:&v58];
+    v21 = v58;
 
     if (v21)
     {
@@ -694,38 +686,38 @@ void __77__DEDCloudKitFinisher_uploadAttachments_inAttachmentGroup_completionHan
       v25 = v24;
       if (v24)
       {
-        v61 = v24;
-        v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
+        v60 = v24;
+        v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
         [dictionary setValue:v26 forKey:@"els"];
       }
     }
   }
 
   v27 = [(DEDCloudKitFinisher *)self session:v13];
-  v51 = v6;
+  v50 = v6;
   v28 = [DEDCloudKitExtensionsUtil getVerifiedExtensionDirectoriesFromCompletedExtensions:v6 forSession:v27];
 
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
   obj = v28;
-  v29 = [obj countByEnumeratingWithState:&v55 objects:v60 count:16];
+  v29 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v56;
+    v31 = *v55;
     do
     {
       for (i = 0; i != v30; ++i)
       {
-        if (*v56 != v31)
+        if (*v55 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v33 = *(*(&v55 + 1) + 8 * i);
+        v33 = *(*(&v54 + 1) + 8 * i);
         queuePayload = [(DEDCloudKitFinisher *)self queuePayload];
         v35 = [(DEDCloudKitFinisher *)self parsePayloadData:queuePayload forIdentifier:v33];
         v36 = [v35 mutableCopy];
@@ -747,7 +739,7 @@ void __77__DEDCloudKitFinisher_uploadAttachments_inAttachmentGroup_completionHan
         self = v39;
       }
 
-      v30 = [obj countByEnumeratingWithState:&v55 objects:v60 count:16];
+      v30 = [obj countByEnumeratingWithState:&v54 objects:v59 count:16];
     }
 
     while (v30);
@@ -768,18 +760,16 @@ void __77__DEDCloudKitFinisher_uploadAttachments_inAttachmentGroup_completionHan
     _os_log_impl(&dword_248AD7000, v44, OS_LOG_TYPE_DEFAULT, "Adding the DED file URLs", buf, 2u);
   }
 
-  [v50 addEntriesFromDictionary:v43];
+  [v49 addEntriesFromDictionary:v43];
   v45 = [(DEDCloudKitFinisher *)self log];
   if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v63 = v50;
+    v62 = v49;
     _os_log_impl(&dword_248AD7000, v45, OS_LOG_TYPE_DEFAULT, "attachments = %{public}@", buf, 0xCu);
   }
 
-  v46 = [(DEDCloudKitFinisher *)self encryptLogsIfNecessary:v50];
-
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = [(DEDCloudKitFinisher *)self encryptLogsIfNecessary:v49];
 
   return v46;
 }
@@ -802,7 +792,7 @@ void __77__DEDCloudKitFinisher_uploadAttachments_inAttachmentGroup_completionHan
 
 - (void)didStartCollectingDiagnosticExtensionWithIdentifier:(id)identifier
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = [MEMORY[0x277D07740] findEntryForDEDIdentifier:identifierCopy];
   v6 = v5;
@@ -819,18 +809,16 @@ void __77__DEDCloudKitFinisher_uploadAttachments_inAttachmentGroup_completionHan
     v10 = [(DEDCloudKitFinisher *)self log];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = identifierCopy;
-      _os_log_impl(&dword_248AD7000, v10, OS_LOG_TYPE_DEFAULT, "Failed to find whitelist entry for: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = identifierCopy;
+      _os_log_impl(&dword_248AD7000, v10, OS_LOG_TYPE_DEFAULT, "Failed to find whitelist entry for: %@", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didCancelCollectionOnExtension:(id)extension
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   extensionCopy = extension;
   v5 = [MEMORY[0x277D07740] findEntryForDEDIdentifier:extensionCopy];
   v6 = v5;
@@ -847,18 +835,16 @@ void __77__DEDCloudKitFinisher_uploadAttachments_inAttachmentGroup_completionHan
     v10 = [(DEDCloudKitFinisher *)self log];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = extensionCopy;
-      _os_log_impl(&dword_248AD7000, v10, OS_LOG_TYPE_DEFAULT, "Failed to find whitelist entry for: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = extensionCopy;
+      _os_log_impl(&dword_248AD7000, v10, OS_LOG_TYPE_DEFAULT, "Failed to find whitelist entry for: %@", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didCollectAttachmentGroup:(id)group
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   v5 = MEMORY[0x277D07740];
   extensionID = [groupCopy extensionID];
@@ -897,13 +883,12 @@ LABEL_4:
   {
     dedExtensionIdentifier = [groupCopy dedExtensionIdentifier];
     stringValue = [dedExtensionIdentifier stringValue];
-    v20 = 138412290;
-    v21 = stringValue;
-    _os_log_impl(&dword_248AD7000, v16, OS_LOG_TYPE_DEFAULT, "Failed to find whitelist entry for: %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = stringValue;
+    _os_log_impl(&dword_248AD7000, v16, OS_LOG_TYPE_DEFAULT, "Failed to find whitelist entry for: %@", &v19, 0xCu);
   }
 
 LABEL_9:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)encryptLogsIfNecessary:(id)necessary
@@ -930,37 +915,37 @@ LABEL_9:
 
 void __46__DEDCloudKitFinisher_encryptLogsIfNecessary___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x277CBEB18] array];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v22;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(a1 + 32) encryptLogsForExtensionIdentifier:v5 withAttachmentUrl:{*(*(&v22 + 1) + 8 * i), v22}];
+        v13 = [*(a1 + 32) encryptLogsForExtensionIdentifier:v5 withAttachmentUrl:{*(*(&v21 + 1) + 8 * i), v21}];
         if (v13)
         {
           [v7 addObject:v13];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v10);
@@ -1007,8 +992,6 @@ void __46__DEDCloudKitFinisher_encryptLogsIfNecessary___block_invoke(uint64_t a1
       }
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)extractExtensionIdentifierFromAttachmentUrl:(id)url
@@ -1026,7 +1009,7 @@ void __46__DEDCloudKitFinisher_encryptLogsIfNecessary___block_invoke(uint64_t a1
 
 - (id)encryptLogsForExtensionIdentifier:(id)identifier withAttachmentUrl:(id)url
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   urlCopy = url;
   queuePayload = [(DEDCloudKitFinisher *)self queuePayload];
@@ -1079,15 +1062,13 @@ void __46__DEDCloudKitFinisher_encryptLogsIfNecessary___block_invoke(uint64_t a1
     v22 = [(DEDCloudKitFinisher *)self log];
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = 138412290;
-      v26 = identifierCopy;
-      _os_log_impl(&dword_248AD7000, v22, OS_LOG_TYPE_DEFAULT, "No encryption required on %@", &v25, 0xCu);
+      v24 = 138412290;
+      v25 = identifierCopy;
+      _os_log_impl(&dword_248AD7000, v22, OS_LOG_TYPE_DEFAULT, "No encryption required on %@", &v24, 0xCu);
     }
 
     v19 = urlCopy;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -1155,36 +1136,36 @@ void __46__DEDCloudKitFinisher_encryptLogsIfNecessary___block_invoke(uint64_t a1
 
 - (id)additionalStateInfo
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v3 = 0x278F64000uLL;
   v4 = +[DEDDeferredExtensionInfo allInfo];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   session = [(DEDCloudKitFinisher *)self session];
   allExtensionIdentifiers = [session allExtensionIdentifiers];
 
   obj = allExtensionIdentifiers;
-  v7 = [allExtensionIdentifiers countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v7 = [allExtensionIdentifiers countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v35;
+    v9 = *v34;
     selfCopy = self;
     do
     {
       v10 = 0;
-      v31 = v8;
+      v30 = v8;
       do
       {
-        if (*v35 != v9)
+        if (*v34 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v34 + 1) + 8 * v10);
+        v11 = *(*(&v33 + 1) + 8 * v10);
         v12 = *(v3 + 2992);
         session2 = [(DEDCloudKitFinisher *)self session];
         identifier = [session2 identifier];
@@ -1195,13 +1176,13 @@ void __46__DEDCloudKitFinisher_encryptLogsIfNecessary___block_invoke(uint64_t a1
         if (v16 && ([v16 isOverdue] & 1) == 0)
         {
           parameters = [v17 parameters];
-          v38[0] = parameters;
+          v37[0] = parameters;
           v18 = MEMORY[0x277CCABB0];
           triggerDate = [v17 triggerDate];
           [triggerDate timeIntervalSinceNow];
           v20 = [v18 numberWithDouble:?];
-          v38[1] = v20;
-          [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
+          v37[1] = v20;
+          [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
           v21 = v9;
           v22 = v3;
           v24 = v23 = v4;
@@ -1212,7 +1193,7 @@ void __46__DEDCloudKitFinisher_encryptLogsIfNecessary___block_invoke(uint64_t a1
           v3 = v22;
           v9 = v21;
 
-          v8 = v31;
+          v8 = v30;
           self = selfCopy;
         }
 
@@ -1220,15 +1201,13 @@ void __46__DEDCloudKitFinisher_encryptLogsIfNecessary___block_invoke(uint64_t a1
       }
 
       while (v8 != v10);
-      v8 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v8 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v8);
   }
 
   v26 = [MEMORY[0x277CBEAC0] dictionaryWithObject:dictionary forKey:@"queued-extensions"];
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -1242,74 +1221,42 @@ void __46__DEDCloudKitFinisher_encryptLogsIfNecessary___block_invoke(uint64_t a1
 
 - (void)finishSession:withConfiguration:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processAttachmentsWithRecord:(double)a3 withProgress:.cold.1(void *a1, NSObject *a2, double a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = [a1 fileURL];
   v6 = [v5 lastPathComponent];
-  v8 = 134218242;
-  v9 = a3;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_debug_impl(&dword_248AD7000, a2, OS_LOG_TYPE_DEBUG, "Upload progress is %f for asset: %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 134218242;
+  v8 = a3;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_debug_impl(&dword_248AD7000, a2, OS_LOG_TYPE_DEBUG, "Upload progress is %f for asset: %@", &v7, 0x16u);
 }
 
 - (void)getAttachmentURLsWithProgressHandler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __46__DEDCloudKitFinisher_encryptLogsIfNecessary___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_2_4(&dword_248AD7000, v0, v1, "Could not find correlated queue item name for %@. Skipping the following files: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __46__DEDCloudKitFinisher_encryptLogsIfNecessary___block_invoke_cold_2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_2_4(&dword_248AD7000, v0, v1, "Could not identify diagnostic extension with id %@. Skipping the following files: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)encryptLogsForExtensionIdentifier:withAttachmentUrl:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_2_4(&dword_248AD7000, v0, v1, "Could not locate an encryptor for: %@ for the DE: %@. Dropping attachment");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encryptLogsForExtensionIdentifier:withAttachmentUrl:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
-  _os_log_fault_impl(&dword_248AD7000, v0, OS_LOG_TYPE_FAULT, "No encryptor specified for DE: %@ which requires encryption. Dropping file attachment", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_248AD7000, v0, OS_LOG_TYPE_FAULT, "No encryptor specified for DE: %@ which requires encryption. Dropping file attachment", v1, 0xCu);
 }
 
 - (void)parsePayloadData:forIdentifier:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
-  _os_log_fault_impl(&dword_248AD7000, v0, OS_LOG_TYPE_FAULT, "Could not identify diagnostic extension with id %@. No paylaod returned", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_248AD7000, v0, OS_LOG_TYPE_FAULT, "Could not identify diagnostic extension with id %@. No paylaod returned", v1, 0xCu);
 }
 
 @end

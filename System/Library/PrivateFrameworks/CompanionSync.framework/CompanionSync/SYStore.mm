@@ -8,6 +8,9 @@
 - (BOOL)service:(id)service startSession:(id)session error:(id *)error;
 - (BOOL)updateObject:(id)object context:(id)context idsOptions:(id)options error:(id *)error;
 - (SYStore)init;
+- (SYStore)initWithService:(id)service isGStore:(BOOL)store highPriority:(BOOL)priority;
+- (SYStore)initWithService:(id)service isGStore:(BOOL)store priority:(int64_t)priority isMasterStore:(BOOL)masterStore tracksChanges:(BOOL)changes;
+- (SYStore)initWithServiceName:(id)name priority:(int64_t)priority isMasterStore:(BOOL)store;
 - (SYStoreDelegate)delegate;
 - (id)changeFromData:(id)data ofType:(int64_t)type;
 - (id)dataFromChange:(id)change;
@@ -55,6 +58,82 @@
   }
 
   return selfCopy;
+}
+
+- (SYStore)initWithService:(id)service isGStore:(BOOL)store highPriority:(BOOL)priority
+{
+  priorityCopy = priority;
+  storeCopy = store;
+  serviceCopy = service;
+  v9 = MGCopyAnswer();
+  v10 = -[SYStore initWithService:isGStore:highPriority:isMasterStore:](self, "initWithService:isGStore:highPriority:isMasterStore:", serviceCopy, storeCopy, priorityCopy, [v9 intValue] != 6);
+
+  return v10;
+}
+
+- (SYStore)initWithService:(id)service isGStore:(BOOL)store priority:(int64_t)priority isMasterStore:(BOOL)masterStore tracksChanges:(BOOL)changes
+{
+  changesCopy = changes;
+  masterStoreCopy = masterStore;
+  storeCopy = store;
+  serviceCopy = service;
+  v13 = [[SYLegacyStore alloc] initWithService:serviceCopy isGStore:storeCopy priority:priority isMasterStore:masterStoreCopy tracksChanges:changesCopy];
+
+  return &v13->super;
+}
+
+- (SYStore)initWithServiceName:(id)name priority:(int64_t)priority isMasterStore:(BOOL)store
+{
+  storeCopy = store;
+  nameCopy = name;
+  v24.receiver = self;
+  v24.super_class = SYStore;
+  v9 = [(SYStore *)&v24 init];
+  if (!v9)
+  {
+    goto LABEL_9;
+  }
+
+  v10 = -20;
+  if (priority == 1)
+  {
+    v10 = 0;
+  }
+
+  v11 = priority == 2 ? 20 : v10;
+  v12 = [[SYService alloc] initWithService:nameCopy priority:v11 asMasterStore:storeCopy options:0];
+  v13 = *(v9 + 6);
+  *(v9 + 6) = v12;
+
+  if (*(v9 + 6))
+  {
+    v14 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v15 = dispatch_queue_attr_make_with_qos_class(v14, QOS_CLASS_DEFAULT, 0);
+    v16 = dispatch_queue_create("companionsync_serial_qos", v15);
+    v17 = *(v9 + 1);
+    *(v9 + 1) = v16;
+
+    v18 = dispatch_queue_create("companionsync_serial", 0);
+    v19 = *(v9 + 9);
+    *(v9 + 9) = v18;
+
+    dispatch_set_target_queue(*(v9 + 9), *(v9 + 1));
+    [*(v9 + 6) setDelegate:v9 queue:*(v9 + 9)];
+    v20 = [[SYAtomicFIFO alloc] initWithCapacity:10];
+    v21 = *(v9 + 10);
+    *(v9 + 10) = v20;
+
+    *(v9 + 20) = 1;
+    v22 = v9;
+  }
+
+  else
+  {
+LABEL_9:
+    v22 = 0;
+  }
+
+  return v22;
 }
 
 - (id)dataFromChange:(id)change
@@ -283,13 +362,12 @@ LABEL_9:
 
 - (BOOL)resume:(id *)resume
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   if (WeakRetained)
   {
     syService = self->_syService;
-    v7 = *MEMORY[0x1E69E9840];
 
     return [(SYService *)syService resume:resume];
   }
@@ -298,14 +376,13 @@ LABEL_9:
   {
     if (resume)
     {
-      v9 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v12 = *MEMORY[0x1E696A578];
-      v13[0] = @"SYStore must be given a delegate object before it can be resumed.";
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
-      *resume = [v9 initWithSYError:2001 userInfo:v10];
+      v8 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v10 = *MEMORY[0x1E696A578];
+      v11[0] = @"SYStore must be given a delegate object before it can be resumed.";
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+      *resume = [v8 initWithSYError:2001 userInfo:v9];
     }
 
-    v11 = *MEMORY[0x1E69E9840];
     return 0;
   }
 }
@@ -555,19 +632,19 @@ void __93__SYStore__enqueueDeltaSessionWithChanges_contextInfo_idsOptions_blockU
   }
 }
 
-uint64_t __93__SYStore__enqueueDeltaSessionWithChanges_contextInfo_idsOptions_blockUntilSent_reportError___block_invoke_2(uint64_t result)
+id *__93__SYStore__enqueueDeltaSessionWithChanges_contextInfo_idsOptions_blockUntilSent_reportError___block_invoke_2(id *result)
 {
   v1 = result;
   if (*(result + 56) == 1)
   {
-    result = [*(result + 32) syncStore:*(result + 40) sentMessageWithContext:*(result + 48)];
+    result = [result[4] syncStore:result[5] sentMessageWithContext:result[6]];
   }
 
   if (*(v1 + 57) == 1)
   {
-    v2 = *(v1 + 32);
-    v3 = *(v1 + 40);
-    v4 = *(v1 + 48);
+    v2 = v1[4];
+    v3 = v1[5];
+    v4 = v1[6];
 
     return [v2 syncStore:v3 peerFinishedProcessingMessageWithContext:v4];
   }
@@ -577,47 +654,45 @@ uint64_t __93__SYStore__enqueueDeltaSessionWithChanges_contextInfo_idsOptions_bl
 
 - (BOOL)addObject:(id)object context:(id)context idsOptions:(id)options error:(id *)error
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   objectCopy = object;
   contextCopy = context;
   optionsCopy = options;
   v12 = _os_activity_create(&dword_1DF835000, "CompanionSync AddObject", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  v17.opaque[0] = 0;
-  v17.opaque[1] = 0;
-  os_activity_scope_enter(v12, &v17);
+  v16.opaque[0] = 0;
+  v16.opaque[1] = 0;
+  os_activity_scope_enter(v12, &v16);
   v13 = [SYChange changeWithObject:objectCopy updateType:0 store:self];
-  v18[0] = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+  v17[0] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
   [(SYStore *)self _enqueueDeltaSessionWithChanges:v14 contextInfo:contextCopy idsOptions:optionsCopy blockUntilSent:0 reportError:0];
 
-  os_activity_scope_leave(&v17);
-  v15 = *MEMORY[0x1E69E9840];
+  os_activity_scope_leave(&v16);
   return 1;
 }
 
 - (BOOL)updateObject:(id)object context:(id)context idsOptions:(id)options error:(id *)error
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   objectCopy = object;
   contextCopy = context;
   optionsCopy = options;
   v12 = _os_activity_create(&dword_1DF835000, "CompanionSync UpdateObject", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  v17.opaque[0] = 0;
-  v17.opaque[1] = 0;
-  os_activity_scope_enter(v12, &v17);
+  v16.opaque[0] = 0;
+  v16.opaque[1] = 0;
+  os_activity_scope_enter(v12, &v16);
   v13 = [SYChange changeWithObject:objectCopy updateType:1 store:self];
-  v18[0] = v13;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+  v17[0] = v13;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
   [(SYStore *)self _enqueueDeltaSessionWithChanges:v14 contextInfo:contextCopy idsOptions:optionsCopy blockUntilSent:0 reportError:0];
 
-  os_activity_scope_leave(&v17);
-  v15 = *MEMORY[0x1E69E9840];
+  os_activity_scope_leave(&v16);
   return 1;
 }
 
 - (BOOL)deleteObject:(id)object context:(id)context idsOptions:(id)options error:(id *)error
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   objectCopy = object;
   contextCopy = context;
   optionsCopy = options;
@@ -629,8 +704,8 @@ uint64_t __93__SYStore__enqueueDeltaSessionWithChanges_contextInfo_idsOptions_bl
     state.opaque[1] = 0;
     os_activity_scope_enter(v14, &state);
     v15 = [SYChange changeWithObject:objectCopy updateType:2 store:self];
-    v26[0] = v15;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
+    v25[0] = v15;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
     [(SYStore *)self _enqueueDeltaSessionWithChanges:v16 contextInfo:contextCopy idsOptions:optionsCopy blockUntilSent:0 reportError:0];
 
     os_activity_scope_leave(&state);
@@ -655,13 +730,12 @@ uint64_t __93__SYStore__enqueueDeltaSessionWithChanges_contextInfo_idsOptions_bl
       block[3] = &unk_1E86CA0F8;
       block[4] = self;
       v14 = v17;
-      v24 = v14;
-      v25 = contextCopy;
+      v23 = v14;
+      v24 = contextCopy;
       dispatch_async(delegateQueue, block);
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return allowsDeletes;
 }
 
@@ -1036,15 +1110,15 @@ void __40__SYStore__startResetSyncSession_error___block_invoke_2(uint64_t a1)
 
 - (void)service:(id)service didSwitchFromPairingID:(id)d toPairingID:(id)iD
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   dCopy = d;
   iDCopy = iD;
   if (iDCopy)
   {
-    v21 = 0;
-    v11 = [serviceCopy resume:&v21];
-    v12 = v21;
+    v20 = 0;
+    v11 = [serviceCopy resume:&v20];
+    v12 = v20;
     v13 = v12;
     if (v11)
     {
@@ -1083,23 +1157,21 @@ LABEL_14:
     v17 = qword_1EDE73420;
     if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_ERROR))
     {
-      v19 = v17;
-      v20 = _SYObfuscate(v13);
+      v18 = v17;
+      v19 = _SYObfuscate(v13);
       *buf = 138543874;
-      v23 = dCopy;
-      v24 = 2114;
-      v25 = iDCopy;
-      v26 = 2114;
-      v27 = v20;
-      _os_log_error_impl(&dword_1DF835000, v19, OS_LOG_TYPE_ERROR, "Failed to resume SYService after switching from device %{public}@ to %{public}@: %{public}@", buf, 0x20u);
+      v22 = dCopy;
+      v23 = 2114;
+      v24 = iDCopy;
+      v25 = 2114;
+      v26 = v19;
+      _os_log_error_impl(&dword_1DF835000, v18, OS_LOG_TYPE_ERROR, "Failed to resume SYService after switching from device %{public}@ to %{public}@: %{public}@", buf, 0x20u);
     }
 
     goto LABEL_14;
   }
 
 LABEL_15:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)service:(id)service encounteredError:(id)error context:(id)context

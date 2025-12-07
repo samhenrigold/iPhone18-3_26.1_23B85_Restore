@@ -16,6 +16,7 @@
 + (id)versionIdentifierForAppWithBundleIdentifier:(id)identifier isPlaceholder:(BOOL *)placeholder;
 + (int)_deviceClass;
 + (void)openAppWithBundleIdentifier:(id)identifier;
++ (void)openURL:(id)l inAppWithBundleIdentifier:(id)identifier promptForUnlock:(BOOL)unlock originIsControlCenter:(BOOL)center completionHandler:(id)handler;
 + (void)uninstallAppWithBundleIdentifier:(id)identifier completion:(id)completion;
 @end
 
@@ -34,6 +35,58 @@
   v10 = v12;
 
   return v9;
+}
+
++ (void)openURL:(id)l inAppWithBundleIdentifier:(id)identifier promptForUnlock:(BOOL)unlock originIsControlCenter:(BOOL)center completionHandler:(id)handler
+{
+  centerCopy = center;
+  unlockCopy = unlock;
+  lCopy = l;
+  identifierCopy = identifier;
+  handlerCopy = handler;
+  v14 = objc_alloc(MEMORY[0x277CC1EF0]);
+  v15 = [v14 initWithActivityType:*MEMORY[0x277CCA850]];
+  [v15 setWebpageURL:lCopy];
+  v16 = [MEMORY[0x277CC1E60] applicationProxyForIdentifier:identifierCopy];
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v18 = [MEMORY[0x277CCABB0] numberWithBool:unlockCopy];
+  [dictionary setObject:v18 forKeyedSubscript:*MEMORY[0x277D0AC58]];
+
+  if (centerCopy)
+  {
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x2020000000;
+    v19 = getCCUIAppLaunchOriginControlCenterSymbolLoc_ptr;
+    v28 = getCCUIAppLaunchOriginControlCenterSymbolLoc_ptr;
+    if (!getCCUIAppLaunchOriginControlCenterSymbolLoc_ptr)
+    {
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __getCCUIAppLaunchOriginControlCenterSymbolLoc_block_invoke;
+      v24[3] = &unk_278DCDC00;
+      v24[4] = &v25;
+      __getCCUIAppLaunchOriginControlCenterSymbolLoc_block_invoke(v24);
+      v19 = v26[3];
+    }
+
+    _Block_object_dispose(&v25, 8);
+    if (!v19)
+    {
+      +[CPSUtilities openURL:inAppWithBundleIdentifier:promptForUnlock:originIsControlCenter:completionHandler:];
+    }
+
+    [dictionary setObject:*v19 forKeyedSubscript:*MEMORY[0x277D0AC28]];
+  }
+
+  defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __106__CPSUtilities_openURL_inAppWithBundleIdentifier_promptForUnlock_originIsControlCenter_completionHandler___block_invoke;
+  v22[3] = &unk_278DCDB60;
+  v23 = handlerCopy;
+  v21 = handlerCopy;
+  [defaultWorkspace openUserActivity:v15 withApplicationProxy:v16 options:dictionary completionHandler:v22];
 }
 
 + (void)openAppWithBundleIdentifier:(id)identifier
@@ -74,37 +127,37 @@
 {
   identifierCopy = identifier;
   completionCopy = completion;
-  v7 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_signpost_enabled(v7))
+  v8 = CPS_LOG_CHANNEL_PREFIXClipServices(completionCopy, v7);
+  if (os_signpost_enabled(v8))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_2436ED000, v7, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "UninstallClip", "start uninstall clip", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2436ED000, v8, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "UninstallClip", "start uninstall clip", buf, 2u);
   }
 
-  v8 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:identifierCopy allowPlaceholder:1 error:0];
-  appClipMetadata = [v8 appClipMetadata];
+  v9 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:identifierCopy allowPlaceholder:1 error:0];
+  appClipMetadata = [v9 appClipMetadata];
 
   if (appClipMetadata)
   {
-    v10 = MEMORY[0x277D1C148];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __60__CPSUtilities_uninstallAppWithBundleIdentifier_completion___block_invoke;
-    v13[3] = &unk_278DCDBB0;
-    v14 = identifierCopy;
-    v15 = completionCopy;
-    [v10 uninstallAppWithBundleID:v14 requestUserConfirmation:0 completion:v13];
+    v13 = MEMORY[0x277D1C148];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __60__CPSUtilities_uninstallAppWithBundleIdentifier_completion___block_invoke;
+    v16[3] = &unk_278DCDBB0;
+    v17 = identifierCopy;
+    v18 = completionCopy;
+    [v13 uninstallAppWithBundleID:v17 requestUserConfirmation:0 completion:v16];
 
-    v11 = v14;
+    v14 = v17;
 LABEL_8:
 
     goto LABEL_9;
   }
 
-  v12 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v15 = CPS_LOG_CHANNEL_PREFIXClipServices(v11, v12);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    [CPSUtilities uninstallAppWithBundleIdentifier:identifierCopy completion:v12];
+    [CPSUtilities uninstallAppWithBundleIdentifier:identifierCopy completion:v15];
     if (!completionCopy)
     {
       goto LABEL_9;
@@ -116,8 +169,8 @@ LABEL_8:
   if (completionCopy)
   {
 LABEL_7:
-    v11 = [MEMORY[0x277CCA9B8] cps_errorWithCode:1];
-    (*(completionCopy + 2))(completionCopy, v11);
+    v14 = [MEMORY[0x277CCA9B8] cps_errorWithCode:1];
+    (*(completionCopy + 2))(completionCopy, v14);
     goto LABEL_8;
   }
 
@@ -126,40 +179,38 @@ LABEL_9:
 
 void __60__CPSUtilities_uninstallAppWithBundleIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  v5 = v4;
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __60__CPSUtilities_uninstallAppWithBundleIdentifier_completion___block_invoke_cold_1(a1, v5, v3);
+      __60__CPSUtilities_uninstallAppWithBundleIdentifier_completion___block_invoke_cold_1(a1, v6, v3);
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v6 = *(a1 + 32);
-    v10 = 138477827;
-    v11 = v6;
-    _os_log_impl(&dword_2436ED000, v5, OS_LOG_TYPE_INFO, "CPSUtilities: successfully uninstalled app %{private}@", &v10, 0xCu);
+    v8 = *(a1 + 32);
+    v11 = 138477827;
+    v12 = v8;
+    _os_log_impl(&dword_2436ED000, v6, OS_LOG_TYPE_INFO, "CPSUtilities: successfully uninstalled app %{private}@", &v11, 0xCu);
   }
 
-  v7 = *(a1 + 40);
-  if (v7)
+  v9 = *(a1 + 40);
+  if (v9)
   {
-    (*(v7 + 16))(v7, v3);
+    v9 = (*(v9 + 16))(v9, v3);
   }
 
-  v8 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_signpost_enabled(v8))
+  v10 = CPS_LOG_CHANNEL_PREFIXClipServices(v9, v7);
+  if (os_signpost_enabled(v10))
   {
-    LOWORD(v10) = 0;
-    _os_signpost_emit_with_name_impl(&dword_2436ED000, v8, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "UninstallClip", "end uninstall clip", &v10, 2u);
+    LOWORD(v11) = 0;
+    _os_signpost_emit_with_name_impl(&dword_2436ED000, v10, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "UninstallClip", "end uninstall clip", &v11, 2u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (id)poweredByCaptionForAppName:(id)name
@@ -227,25 +278,24 @@ uint64_t __35__CPSUtilities_localizedDeviceName__block_invoke()
 
 void __42__CPSUtilities_lowercasedDeviceFamilyName__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = [objc_opt_class() _deviceClass];
-  if (v2 == 1)
+  v1 = [objc_opt_class() _deviceClass];
+  if (v1 == 1)
   {
-    v3 = @"iphone";
+    v2 = @"iphone";
   }
 
   else
   {
-    if (v2 != 3)
+    if (v1 != 3)
     {
       return;
     }
 
-    v3 = @"ipad";
+    v2 = @"ipad";
   }
 
-  v4 = lowercasedDeviceFamilyName_lowercasedDeviceFamilyName;
-  lowercasedDeviceFamilyName_lowercasedDeviceFamilyName = v3;
+  v3 = lowercasedDeviceFamilyName_lowercasedDeviceFamilyName;
+  lowercasedDeviceFamilyName_lowercasedDeviceFamilyName = v2;
 }
 
 + (id)oppositeDeviceFamilyName
@@ -267,25 +317,24 @@ void __42__CPSUtilities_lowercasedDeviceFamilyName__block_invoke(uint64_t a1)
 
 void __40__CPSUtilities_oppositeDeviceFamilyName__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = [objc_opt_class() _deviceClass];
-  if (v2 == 1)
+  v1 = [objc_opt_class() _deviceClass];
+  if (v1 == 1)
   {
-    v3 = @"iPad";
+    v2 = @"iPad";
   }
 
   else
   {
-    if (v2 != 3)
+    if (v1 != 3)
     {
       return;
     }
 
-    v3 = @"iPhone";
+    v2 = @"iPhone";
   }
 
-  v4 = oppositeDeviceFamilyName_oppositeDeviceFamilyName;
-  oppositeDeviceFamilyName_oppositeDeviceFamilyName = v3;
+  v3 = oppositeDeviceFamilyName_oppositeDeviceFamilyName;
+  oppositeDeviceFamilyName_oppositeDeviceFamilyName = v2;
 }
 
 + (BOOL)deviceIsPad
@@ -303,7 +352,7 @@ void __40__CPSUtilities_oppositeDeviceFamilyName__block_invoke(uint64_t a1)
   return deviceIsPad_isPad;
 }
 
-uint64_t __27__CPSUtilities_deviceIsPad__block_invoke(uint64_t a1)
+void *__27__CPSUtilities_deviceIsPad__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _deviceClass];
   deviceIsPad_isPad = result == 3;
@@ -380,7 +429,7 @@ uint64_t __33__CPSUtilities_shouldPlayHaptics__block_invoke()
 
 + (BOOL)deviceHasCapabilities:(id)capabilities
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   capabilitiesCopy = capabilities;
   if ([capabilitiesCopy count])
   {
@@ -389,27 +438,27 @@ uint64_t __33__CPSUtilities_shouldPlayHaptics__block_invoke()
     v5 = MGCopyMultipleAnswers();
     v6 = [v5 safari_mapAndFilterKeysAndObjectsUsingBlock:&__block_literal_global_55];
     v7 = [v6 count];
-    v8 = v7 == [v4 count];
-    if (!v8)
+    v8 = [v4 count];
+    v10 = v7 == v8;
+    if (!v10)
     {
-      v9 = CPS_LOG_CHANNEL_PREFIXClipServices();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v11 = CPS_LOG_CHANNEL_PREFIXClipServices(v8, v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v12 = 138412290;
-        v13 = v4;
-        _os_log_impl(&dword_2436ED000, v9, OS_LOG_TYPE_INFO, "CPSUtilities: app clip requires capabilities that is not supported by this device [ %@].", &v12, 0xCu);
+        v13 = 138412290;
+        v14 = v4;
+        _os_log_impl(&dword_2436ED000, v11, OS_LOG_TYPE_INFO, "CPSUtilities: app clip requires capabilities that is not supported by this device [ %@].", &v13, 0xCu);
       }
     }
   }
 
   else
   {
-    v8 = 1;
+    v10 = 1;
     v4 = capabilitiesCopy;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v10;
 }
 
 uint64_t __38__CPSUtilities_deviceHasCapabilities___block_invoke(uint64_t a1, void *a2)
@@ -442,7 +491,7 @@ void *__38__CPSUtilities_deviceHasCapabilities___block_invoke_2(uint64_t a1, uin
 
 + (BOOL)_associatedDomainIsApprovedForURL:(id)l applicationIdentifier:(id)identifier serviceType:(id)type
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   typeCopy = type;
   if (l)
@@ -453,25 +502,25 @@ void *__38__CPSUtilities_deviceHasCapabilities___block_invoke_2(uint64_t a1, uin
     {
       v11 = [objc_alloc(MEMORY[0x277D547B0]) initWithServiceType:typeCopy applicationIdentifier:identifierCopy domain:0];
       [MEMORY[0x277D547A8] serviceDetailsWithServiceSpecifier:v11 error:0];
+      v21 = 0u;
       v22 = 0u;
       v23 = 0u;
-      v24 = 0u;
-      v12 = v25 = 0u;
-      v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v12 = v24 = 0u;
+      v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v13)
       {
-        v21 = v11;
-        v14 = *v23;
+        v20 = v11;
+        v14 = *v22;
         while (2)
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v23 != v14)
+            if (*v22 != v14)
             {
               objc_enumerationMutation(v12);
             }
 
-            v16 = *(*(&v22 + 1) + 8 * i);
+            v16 = *(*(&v21 + 1) + 8 * i);
             if ([v16 isApproved])
             {
               serviceSpecifier = [v16 serviceSpecifier];
@@ -485,7 +534,7 @@ void *__38__CPSUtilities_deviceHasCapabilities___block_invoke_2(uint64_t a1, uin
             }
           }
 
-          v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
           if (v13)
           {
             continue;
@@ -495,7 +544,7 @@ void *__38__CPSUtilities_deviceHasCapabilities___block_invoke_2(uint64_t a1, uin
         }
 
 LABEL_16:
-        v11 = v21;
+        v11 = v20;
       }
     }
 
@@ -510,7 +559,6 @@ LABEL_16:
     LOBYTE(v13) = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -563,26 +611,23 @@ uint64_t __25__CPSUtilities_osVersion__block_invoke()
 
 + (void)uninstallAppWithBundleIdentifier:(uint64_t)a1 completion:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138477827;
-  v4 = a1;
-  _os_log_error_impl(&dword_2436ED000, a2, OS_LOG_TYPE_ERROR, "CPSUtilities: Not an app clip (%{private}@). Skipping deletion.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138477827;
+  v3 = a1;
+  _os_log_error_impl(&dword_2436ED000, a2, OS_LOG_TYPE_ERROR, "CPSUtilities: Not an app clip (%{private}@). Skipping deletion.", &v2, 0xCu);
 }
 
 void __60__CPSUtilities_uninstallAppWithBundleIdentifier_completion___block_invoke_cold_1(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = a2;
   v6 = [a3 cps_privacyPreservingDescription];
-  v8 = 138478083;
-  v9 = v4;
-  v10 = 2114;
-  v11 = v6;
-  _os_log_error_impl(&dword_2436ED000, v5, OS_LOG_TYPE_ERROR, "CPSUtilities: Error in uninstalling app %{private}@: %{public}@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138478083;
+  v8 = v4;
+  v9 = 2114;
+  v10 = v6;
+  _os_log_error_impl(&dword_2436ED000, v5, OS_LOG_TYPE_ERROR, "CPSUtilities: Error in uninstalling app %{private}@: %{public}@", &v7, 0x16u);
 }
 
 @end

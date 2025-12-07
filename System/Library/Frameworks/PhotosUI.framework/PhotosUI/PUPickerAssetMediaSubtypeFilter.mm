@@ -181,22 +181,20 @@ LABEL_26:
 
 - (BOOL)isValidFilter
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   filterType = [(PUPickerAssetMediaSubtypeFilter *)self filterType];
   if (filterType >= 0xB)
   {
     v3 = PLPickerGetLog();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v6 = 134217984;
-      v7 = filterType;
-      _os_log_impl(&dword_1D2128000, v3, OS_LOG_TYPE_ERROR, "PUPickerAssetMediaSubtypeFilter: invalid filter type: %ld", &v6, 0xCu);
+      v5 = 134217984;
+      v6 = filterType;
+      _os_log_impl(&dword_1D2128000, v3, OS_LOG_TYPE_ERROR, "PUPickerAssetMediaSubtypeFilter: invalid filter type: %ld", &v5, 0xCu);
     }
   }
 
-  result = filterType < 0xB;
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return filterType < 0xB;
 }
 
 - (BOOL)isEqual:(id)equal

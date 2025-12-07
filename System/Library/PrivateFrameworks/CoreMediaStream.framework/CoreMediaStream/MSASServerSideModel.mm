@@ -12,6 +12,7 @@
 - (BOOL)dbQueueCommentWithID:(int)d assetCollectionGUID:(id)iD outObject:(id *)object outGUID:(id *)uID outTimestamp:(id *)timestamp outIsCaption:(BOOL *)caption outUserInfoData:(id *)data;
 - (BOOL)dbQueueInvitationWithAlbumGUID:(id)d outObject:(id *)object outInvitationGUID:(id *)iD outEmail:(id *)email outUserInfoData:(id *)data;
 - (BOOL)dbQueueInvitationWithGUID:(id)d outObject:(id *)object outAlbumGUID:(id *)iD outEmail:(id *)email outUserInfoData:(id *)data;
+- (BOOL)dbQueueUpgradeFromDatabaseVersion:(int)version currentVersion:(int)currentVersion;
 - (BOOL)hasCommandsInGroupedCommandQueue;
 - (BOOL)hasEnqueuedActivities;
 - (BOOL)isAlbumWithGUIDMarkedAsUnviewed:(id)unviewed;
@@ -167,8 +168,10 @@
 - (void)performBlockOnObservers:(id)observers;
 - (void)reconstruct;
 - (void)refreshAccessControlListForAlbumWithGUID:(id)d info:(id)info;
+- (void)refreshCommentsForAssetCollectionWithGUID:(id)d resetSync:(BOOL)sync;
 - (void)refreshCommentsForAssetCollectionWithGUID:(id)d resetSync:(BOOL)sync info:(id)info;
 - (void)refreshContentOfAlbumWithGUID:(id)d resetSync:(BOOL)sync info:(id)info;
+- (void)refreshResetSync:(BOOL)sync info:(id)info;
 - (void)rejectInvitationWithGUID:(id)d info:(id)info;
 - (void)releaseBusy;
 - (void)removeAccessControlEntryWithGUID:(id)d info:(id)info;
@@ -180,9 +183,12 @@
 - (void)setClientOrgKey:(id)key forAlbumWithGUID:(id)d info:(id)info;
 - (void)setFocusAlbumGUID:(id)d;
 - (void)setFocusAssetCollectionGUID:(id)d;
+- (void)setMaxGroupedCallbackEventBatchCount:(int)count;
 - (void)setMaxGroupedCallbackEventIdleInterval:(double)interval;
 - (void)setMaxGroupedCallbackEventStaleness:(double)staleness;
+- (void)setMultipleContributorsEnabled:(BOOL)enabled forAlbumWithGUID:(id)d completionBlock:(id)block;
 - (void)setMultipleContributorsEnabled:(BOOL)enabled forAlbumWithGUID:(id)d info:(id)info completionBlock:(id)block;
+- (void)setPublicAccessEnabled:(BOOL)enabled forAlbumWithGUID:(id)d completionBlock:(id)block;
 - (void)setPublicAccessEnabled:(BOOL)enabled forAlbumWithGUID:(id)d info:(id)info completionBlock:(id)block;
 - (void)setUserInfo:(id)info forAccessControlWithGUID:(id)d;
 - (void)setUserInfo:(id)info forAlbumWithGUID:(id)d;
@@ -234,7 +240,7 @@
 
 void __100__MSASServerSideModel_MSASStateMachine_didFinishAddingComment_toAssetCollection_inAlbum_info_error___block_invoke(id *a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   if (!v2)
   {
@@ -289,11 +295,11 @@ LABEL_9:
   block[3] = &unk_278E92048;
   v18 = a1[6];
   block[4] = a1[5];
-  v29 = v18;
-  v30 = a1[7];
-  v31 = a1[9];
-  v32 = a1[8];
-  v33 = a1[4];
+  v28 = v18;
+  v29 = a1[7];
+  v30 = a1[9];
+  v31 = a1[8];
+  v32 = a1[4];
   dispatch_async(v17, block);
 
   v19 = a1[4];
@@ -301,30 +307,28 @@ LABEL_9:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v23 = a1[5];
-      v24 = [a1[6] GUID];
-      v25 = [a1[4] MSVerboseDescription];
+      v22 = a1[5];
+      v23 = [a1[6] GUID];
+      v24 = [a1[4] MSVerboseDescription];
       *buf = 138543874;
-      v35 = v23;
-      v36 = 2114;
-      v37 = v24;
-      v38 = 2114;
-      v39 = v25;
+      v34 = v22;
+      v35 = 2114;
+      v36 = v23;
+      v37 = 2114;
+      v38 = v24;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Failed to add comment GUID %{public}@. Error: %{public}@. Deleting comment.", buf, 0x20u);
     }
 
     v20 = [a1[5] dbQueue];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __100__MSASServerSideModel_MSASStateMachine_didFinishAddingComment_toAssetCollection_inAlbum_info_error___block_invoke_616;
-    v26[3] = &unk_278E927C8;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __100__MSASServerSideModel_MSASStateMachine_didFinishAddingComment_toAssetCollection_inAlbum_info_error___block_invoke_616;
+    v25[3] = &unk_278E927C8;
     v21 = a1[6];
-    v26[4] = a1[5];
-    v27 = v21;
-    dispatch_async(v20, v26);
+    v25[4] = a1[5];
+    v26 = v21;
+    dispatch_async(v20, v25);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __100__MSASServerSideModel_MSASStateMachine_didFinishAddingComment_toAssetCollection_inAlbum_info_error___block_invoke_2(uint64_t a1)
@@ -371,7 +375,7 @@ void __100__MSASServerSideModel_MSASStateMachine_didFinishAddingComment_toAssetC
 
 - (void)MSASStateMachine:(id)machine didFinishRemovingSharingRelationship:(id)relationship fromOwnedAlbum:(id)album info:(id)info error:(id)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   relationshipCopy = relationship;
   albumCopy = album;
   infoCopy = info;
@@ -383,13 +387,13 @@ void __100__MSASServerSideModel_MSASStateMachine_didFinishAddingComment_toAssetC
   block[3] = &unk_278E92688;
   block[4] = self;
   v16 = relationshipCopy;
-  v27 = v16;
+  v26 = v16;
   v17 = albumCopy;
-  v28 = v17;
+  v27 = v17;
   v18 = infoCopy;
-  v29 = v18;
+  v28 = v18;
   v19 = errorCopy;
-  v30 = v19;
+  v29 = v19;
   dispatch_async(eventQueue, block);
 
   if (v19 && ([v19 MSASStateMachineIsCanceledError] & 1) == 0)
@@ -399,10 +403,10 @@ void __100__MSASServerSideModel_MSASStateMachine_didFinishAddingComment_toAssetC
       mSVerboseDescription = [v19 MSVerboseDescription];
       *buf = 138543874;
       selfCopy = self;
-      v33 = 2112;
-      v34 = v16;
-      v35 = 2114;
-      v36 = mSVerboseDescription;
+      v32 = 2112;
+      v33 = v16;
+      v34 = 2114;
+      v35 = mSVerboseDescription;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Failed to delete sharing relationship %@. Error: %{public}@. Reset-syncing ACLs.", buf, 0x20u);
     }
 
@@ -412,8 +416,6 @@ void __100__MSASServerSideModel_MSASStateMachine_didFinishAddingComment_toAssetC
     mSASAddIsErrorRecovery = [dictionary MSASAddIsErrorRecovery];
     [stateMachine getAccessControlsForAlbums:v21 info:mSASAddIsErrorRecovery];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __103__MSASServerSideModel_MSASStateMachine_didFinishRemovingSharingRelationship_fromOwnedAlbum_info_error___block_invoke(uint64_t a1)
@@ -503,7 +505,7 @@ void __98__MSASServerSideModel_MSASStateMachine_didFinishSendingInvitationByPhon
 
 - (void)MSASStateMachine:(id)machine didFinishAddingSharingRelationships:(id)relationships toOwnedAlbum:(id)album info:(id)info error:(id)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   relationshipsCopy = relationships;
   albumCopy = album;
   infoCopy = info;
@@ -514,136 +516,130 @@ void __98__MSASServerSideModel_MSASStateMachine_didFinishSendingInvitationByPhon
   block[2] = __100__MSASServerSideModel_MSASStateMachine_didFinishAddingSharingRelationships_toOwnedAlbum_info_error___block_invoke;
   block[3] = &unk_278E92688;
   v16 = relationshipsCopy;
-  v29 = v16;
+  v28 = v16;
   selfCopy = self;
   v17 = albumCopy;
-  v31 = v17;
+  v30 = v17;
   v18 = infoCopy;
-  v32 = v18;
+  v31 = v18;
   v19 = errorCopy;
-  v33 = v19;
+  v32 = v19;
   dispatch_async(eventQueue, block);
 
   if (v19 && ([v19 MSASStateMachineIsCanceledError] & 1) == 0)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v22 = [v16 count];
+      v21 = [v16 count];
       mSVerboseDescription = [v19 MSVerboseDescription];
       *buf = 138543874;
       selfCopy2 = self;
-      v36 = 2048;
-      v37 = v22;
-      v38 = 2114;
-      v39 = mSVerboseDescription;
+      v35 = 2048;
+      v36 = v21;
+      v37 = 2114;
+      v38 = mSVerboseDescription;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Failed to add %ld sharing relationships. Error: %{public}@. Setting relationship states to Failed.", buf, 0x20u);
     }
 
     dbQueue = [(MSASModelBase *)self dbQueue];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __100__MSASServerSideModel_MSASStateMachine_didFinishAddingSharingRelationships_toOwnedAlbum_info_error___block_invoke_613;
-    v24[3] = &unk_278E92638;
-    v25 = v16;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __100__MSASServerSideModel_MSASStateMachine_didFinishAddingSharingRelationships_toOwnedAlbum_info_error___block_invoke_613;
+    v23[3] = &unk_278E92638;
+    v24 = v16;
     selfCopy3 = self;
-    v27 = v18;
-    dispatch_async(dbQueue, v24);
+    v26 = v18;
+    dispatch_async(dbQueue, v23);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __100__MSASServerSideModel_MSASStateMachine_didFinishAddingSharingRelationships_toOwnedAlbum_info_error___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v2 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v17;
+    v4 = *v16;
     do
     {
       v5 = 0;
       do
       {
-        if (*v17 != v4)
+        if (*v16 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v16 + 1) + 8 * v5);
+        v6 = *(*(&v15 + 1) + 8 * v5);
         v7 = objc_autoreleasePoolPush();
         v9 = *(a1 + 40);
         v8 = *(a1 + 48);
-        v12[0] = MEMORY[0x277D85DD0];
-        v12[1] = 3221225472;
-        v12[2] = __100__MSASServerSideModel_MSASStateMachine_didFinishAddingSharingRelationships_toOwnedAlbum_info_error___block_invoke_2;
-        v12[3] = &unk_278E92610;
-        v12[4] = v9;
-        v12[5] = v6;
-        v13 = v8;
-        v14 = *(a1 + 56);
-        v15 = *(a1 + 64);
-        [v9 eventQueuePerformBlockOnObservers:v12];
+        v11[0] = MEMORY[0x277D85DD0];
+        v11[1] = 3221225472;
+        v11[2] = __100__MSASServerSideModel_MSASStateMachine_didFinishAddingSharingRelationships_toOwnedAlbum_info_error___block_invoke_2;
+        v11[3] = &unk_278E92610;
+        v11[4] = v9;
+        v11[5] = v6;
+        v12 = v8;
+        v13 = *(a1 + 56);
+        v14 = *(a1 + 64);
+        [v9 eventQueuePerformBlockOnObservers:v11];
 
         objc_autoreleasePoolPop(v7);
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v3 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v3);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __100__MSASServerSideModel_MSASStateMachine_didFinishAddingSharingRelationships_toOwnedAlbum_info_error___block_invoke_613(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
+        v7 = *(*(&v9 + 1) + 8 * v6);
         v8 = objc_autoreleasePoolPush();
-        [v7 setState:{6, v10}];
+        [v7 setState:{6, v9}];
         [*(a1 + 40) dbQueueSetAccessControl:v7 info:*(a1 + 48)];
         objc_autoreleasePoolPop(v8);
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __100__MSASServerSideModel_MSASStateMachine_didFinishAddingSharingRelationships_toOwnedAlbum_info_error___block_invoke_2(void *a1, void *a2)
@@ -662,7 +658,7 @@ void __100__MSASServerSideModel_MSASStateMachine_didFinishAddingSharingRelations
 
 - (void)MSASStateMachine:(id)machine didFinishAddingAssetCollection:(id)collection toAlbum:(id)album info:(id)info error:(id)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   machineCopy = machine;
   collectionCopy = collection;
   albumCopy = album;
@@ -677,10 +673,10 @@ void __100__MSASServerSideModel_MSASStateMachine_didFinishAddingSharingRelations
     block[2] = __90__MSASServerSideModel_MSASStateMachine_didFinishAddingAssetCollection_toAlbum_info_error___block_invoke;
     block[3] = &unk_278E92688;
     block[4] = self;
-    v23 = albumCopy;
-    v24 = errorCopy;
-    v25 = v17;
-    v26 = infoCopy;
+    v22 = albumCopy;
+    v23 = errorCopy;
+    v24 = v17;
+    v25 = infoCopy;
     v19 = v17;
     dispatch_async(dbQueue, block);
   }
@@ -690,17 +686,15 @@ void __100__MSASServerSideModel_MSASStateMachine_didFinishAddingSharingRelations
     mSVerboseDescription = [errorCopy MSVerboseDescription];
     *buf = 138543618;
     selfCopy = self;
-    v29 = 2114;
-    v30 = mSVerboseDescription;
+    v28 = 2114;
+    v29 = mSVerboseDescription;
     _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Failed to add empty asset collection. Error: %{public}@.", buf, 0x16u);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __90__MSASServerSideModel_MSASStateMachine_didFinishAddingAssetCollection_toAlbum_info_error___block_invoke(id *a1)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = [a1[5] GUID];
   v4 = [v2 dbQueueLookupOrCreateAlbumWithGUID:v3];
@@ -719,31 +713,31 @@ void __90__MSASServerSideModel_MSASStateMachine_didFinishAddingAssetCollection_t
 
   else
   {
-    v37 = 0u;
-    v38 = 0u;
     v36 = 0u;
+    v37 = 0u;
     v35 = 0u;
+    v34 = 0u;
     v9 = [a1[7] assets];
-    v10 = [v9 countByEnumeratingWithState:&v35 objects:v45 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v34 objects:v44 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v36;
+      v12 = *v35;
       do
       {
         v13 = 0;
         do
         {
-          if (*v36 != v12)
+          if (*v35 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          [*(*(&v35 + 1) + 8 * v13++) setPath:0];
+          [*(*(&v34 + 1) + 8 * v13++) setPath:0];
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v35 objects:v45 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v34 objects:v44 count:16];
       }
 
       while (v11);
@@ -764,11 +758,11 @@ void __90__MSASServerSideModel_MSASStateMachine_didFinishAddingAssetCollection_t
   block[2] = __90__MSASServerSideModel_MSASStateMachine_didFinishAddingAssetCollection_toAlbum_info_error___block_invoke_2;
   block[3] = &unk_278E92688;
   block[4] = a1[4];
-  v31 = a1[7];
+  v30 = a1[7];
   v19 = v4;
-  v32 = v19;
-  v33 = a1[8];
-  v34 = a1[6];
+  v31 = v19;
+  v32 = a1[8];
+  v33 = a1[6];
   dispatch_async(v18, block);
 
   v20 = a1[6];
@@ -776,33 +770,31 @@ void __90__MSASServerSideModel_MSASStateMachine_didFinishAddingAssetCollection_t
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v25 = a1[4];
-      v26 = a1[7];
-      v27 = [a1[6] MSVerboseDescription];
+      v24 = a1[4];
+      v25 = a1[7];
+      v26 = [a1[6] MSVerboseDescription];
       *buf = 138543874;
-      v40 = v25;
-      v41 = 2114;
-      v42 = v26;
-      v43 = 2114;
-      v44 = v27;
+      v39 = v24;
+      v40 = 2114;
+      v41 = v25;
+      v42 = 2114;
+      v43 = v26;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Failed to add asset collection %{public}@. Error: %{public}@. Deleting asset collection and cancelling pending commands.", buf, 0x20u);
     }
 
     v21 = [a1[4] dbQueue];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __90__MSASServerSideModel_MSASStateMachine_didFinishAddingAssetCollection_toAlbum_info_error___block_invoke_608;
-    v28[3] = &unk_278E927C8;
-    v28[4] = a1[4];
-    v29 = a1[7];
-    dispatch_async(v21, v28);
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __90__MSASServerSideModel_MSASStateMachine_didFinishAddingAssetCollection_toAlbum_info_error___block_invoke_608;
+    v27[3] = &unk_278E927C8;
+    v27[4] = a1[4];
+    v28 = a1[7];
+    dispatch_async(v21, v27);
 
     v22 = [a1[4] stateMachine];
     v23 = [a1[7] GUID];
     [v22 cancelOutstandingCommandsForAssetCollectionWithGUID:v23];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __90__MSASServerSideModel_MSASStateMachine_didFinishAddingAssetCollection_toAlbum_info_error___block_invoke_2(uint64_t a1)
@@ -910,7 +902,7 @@ void __110__MSASServerSideModel_MSASStateMachine_didRequestAssetsForAddingAssetC
 
 void __110__MSASServerSideModel_MSASStateMachine_didRequestAssetsForAddingAssetCollections_inAlbum_specifications_info___block_invoke_2(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (objc_opt_respondsToSelector())
   {
@@ -921,20 +913,20 @@ void __110__MSASServerSideModel_MSASStateMachine_didRequestAssetsForAddingAssetC
       v5 = *(a1 + 32);
       v6 = [*(a1 + 40) count];
       *buf = 138543618;
-      v33 = v5;
-      v34 = 2048;
-      v35 = v6;
+      v32 = v5;
+      v33 = 2048;
+      v34 = v6;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Requesting derivatives for %ld photos.", buf, 0x16u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v21 = *(a1 + 32);
-      v22 = *(a1 + 48);
+      v20 = *(a1 + 32);
+      v21 = *(a1 + 48);
       *buf = 138543618;
-      v33 = v21;
-      v34 = 2114;
-      v35 = v22;
+      v32 = v20;
+      v33 = 2114;
+      v34 = v21;
       _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Specs: %{public}@", buf, 0x16u);
     }
 
@@ -945,15 +937,15 @@ void __110__MSASServerSideModel_MSASStateMachine_didRequestAssetsForAddingAssetC
     v9 = *(a1 + 40);
     v10 = *(a1 + 48);
     v11 = *(a1 + 56);
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __110__MSASServerSideModel_MSASStateMachine_didRequestAssetsForAddingAssetCollections_inAlbum_specifications_info___block_invoke_598;
-    v29[3] = &unk_278E920E0;
-    v29[4] = v8;
-    v30 = v4;
-    v31 = *(a1 + 64);
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __110__MSASServerSideModel_MSASStateMachine_didRequestAssetsForAddingAssetCollections_inAlbum_specifications_info___block_invoke_598;
+    v28[3] = &unk_278E920E0;
+    v28[4] = v8;
+    v29 = v4;
+    v30 = *(a1 + 64);
     v12 = v4;
-    [v3 MSASModel:v8 didRequestDerivativesForAssetCollections:v9 specifications:v10 info:v11 completionBlock:v29];
+    [v3 MSASModel:v8 didRequestDerivativesForAssetCollections:v9 specifications:v10 info:v11 completionBlock:v28];
   }
 
   if (objc_opt_respondsToSelector())
@@ -965,20 +957,20 @@ void __110__MSASServerSideModel_MSASStateMachine_didRequestAssetsForAddingAssetC
       v14 = *(a1 + 32);
       v15 = [*(a1 + 40) count];
       *buf = 138543618;
-      v33 = v14;
-      v34 = 2048;
-      v35 = v15;
+      v32 = v14;
+      v33 = 2048;
+      v34 = v15;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Requesting derivatives for %ld photos.", buf, 0x16u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v23 = *(a1 + 32);
-      v24 = *(a1 + 48);
+      v22 = *(a1 + 32);
+      v23 = *(a1 + 48);
       *buf = 138543618;
-      v33 = v23;
-      v34 = 2114;
-      v35 = v24;
+      v32 = v22;
+      v33 = 2114;
+      v34 = v23;
       _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Specs: %{public}@", buf, 0x16u);
     }
 
@@ -987,37 +979,35 @@ void __110__MSASServerSideModel_MSASStateMachine_didRequestAssetsForAddingAssetC
 
     v17 = *(a1 + 32);
     v18 = *(a1 + 40);
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __110__MSASServerSideModel_MSASStateMachine_didRequestAssetsForAddingAssetCollections_inAlbum_specifications_info___block_invoke_602;
-    v25[3] = &unk_278E92108;
-    v25[4] = v17;
-    v26 = v13;
-    v27 = *(a1 + 64);
-    v28 = *(a1 + 56);
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __110__MSASServerSideModel_MSASStateMachine_didRequestAssetsForAddingAssetCollections_inAlbum_specifications_info___block_invoke_602;
+    v24[3] = &unk_278E92108;
+    v24[4] = v17;
+    v25 = v13;
+    v26 = *(a1 + 64);
+    v27 = *(a1 + 56);
     v19 = v13;
-    [v3 MSASModel:v17 didRequestDerivativesForAssetCollections:v18 specifications:0 completionBlock:v25];
+    [v3 MSASModel:v17 didRequestDerivativesForAssetCollections:v18 specifications:0 completionBlock:v24];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __110__MSASServerSideModel_MSASStateMachine_didRequestAssetsForAddingAssetCollections_inAlbum_specifications_info___block_invoke_598(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v10 = *(a1 + 32);
-    v20 = 138543874;
-    v21 = v10;
-    v22 = 2048;
-    v23 = [v7 count];
-    v24 = 2048;
-    v25 = [v8 count];
-    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Received derivatives for %ld photos, and received rejections for %ld photos.", &v20, 0x20u);
+    v19 = 138543874;
+    v20 = v10;
+    v21 = 2048;
+    v22 = [v7 count];
+    v23 = 2048;
+    v24 = [v8 count];
+    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Received derivatives for %ld photos, and received rejections for %ld photos.", &v19, 0x20u);
   }
 
   if ([v7 count])
@@ -1028,18 +1018,18 @@ void __110__MSASServerSideModel_MSASStateMachine_didRequestAssetsForAddingAssetC
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v17 = *(a1 + 32);
+      v16 = *(a1 + 32);
+      v17 = [v7 count];
       v18 = [v7 count];
-      v19 = [v7 count];
-      v20 = 138544130;
-      v21 = v17;
-      v22 = 2048;
-      v23 = v18;
-      v24 = 2048;
-      v25 = *&v13;
-      v26 = 2048;
-      v27 = v13 / v19;
-      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Computing derivatives for %ld photos took %.2f seconds, or %.2f per photo.", &v20, 0x2Au);
+      v19 = 138544130;
+      v20 = v16;
+      v21 = 2048;
+      v22 = v17;
+      v23 = 2048;
+      v24 = *&v13;
+      v25 = 2048;
+      v26 = v13 / v18;
+      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Computing derivatives for %ld photos took %.2f seconds, or %.2f per photo.", &v19, 0x2Au);
     }
   }
 
@@ -1048,25 +1038,23 @@ void __110__MSASServerSideModel_MSASStateMachine_didRequestAssetsForAddingAssetC
 
   v15 = [*(a1 + 32) daemon];
   [v15 releaseBusy];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __110__MSASServerSideModel_MSASStateMachine_didRequestAssetsForAddingAssetCollections_inAlbum_specifications_info___block_invoke_602(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     v7 = *(a1 + 32);
-    v17 = 138543874;
-    v18 = v7;
-    v19 = 2048;
-    v20 = [v5 count];
-    v21 = 2048;
-    v22 = [v6 count];
-    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Received derivatives for %ld photos, and received rejections for %ld photos.", &v17, 0x20u);
+    v16 = 138543874;
+    v17 = v7;
+    v18 = 2048;
+    v19 = [v5 count];
+    v20 = 2048;
+    v21 = [v6 count];
+    _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Received derivatives for %ld photos, and received rejections for %ld photos.", &v16, 0x20u);
   }
 
   if ([v5 count])
@@ -1077,18 +1065,18 @@ void __110__MSASServerSideModel_MSASStateMachine_didRequestAssetsForAddingAssetC
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v14 = *(a1 + 32);
+      v13 = *(a1 + 32);
+      v14 = [v5 count];
       v15 = [v5 count];
-      v16 = [v5 count];
-      v17 = 138544130;
-      v18 = v14;
-      v19 = 2048;
-      v20 = v15;
-      v21 = 2048;
-      v22 = *&v10;
-      v23 = 2048;
-      v24 = v10 / v16;
-      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Computing derivatives for %ld photos took %.2f seconds, or %.2f per photo.", &v17, 0x2Au);
+      v16 = 138544130;
+      v17 = v13;
+      v18 = 2048;
+      v19 = v14;
+      v20 = 2048;
+      v21 = *&v10;
+      v22 = 2048;
+      v23 = v10 / v15;
+      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Computing derivatives for %ld photos took %.2f seconds, or %.2f per photo.", &v16, 0x2Au);
     }
   }
 
@@ -1097,8 +1085,6 @@ void __110__MSASServerSideModel_MSASStateMachine_didRequestAssetsForAddingAssetC
 
   v12 = [*(a1 + 32) daemon];
   [v12 releaseBusy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)MSASStateMachine:(id)machine didFinishUpdatingAlbum:(id)album info:(id)info error:(id)error
@@ -1123,34 +1109,34 @@ void __110__MSASServerSideModel_MSASStateMachine_didRequestAssetsForAddingAssetC
 
 void __74__MSASServerSideModel_MSASStateMachine_didFinishUpdatingAlbum_info_error___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = __74__MSASServerSideModel_MSASStateMachine_didFinishUpdatingAlbum_info_error___block_invoke_2;
-  v19 = &unk_278E925D8;
-  v15 = *(a1 + 32);
-  v2 = *(&v15 + 1);
+  v27 = *MEMORY[0x277D85DE8];
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __74__MSASServerSideModel_MSASStateMachine_didFinishUpdatingAlbum_info_error___block_invoke_2;
+  v18 = &unk_278E925D8;
+  v14 = *(a1 + 32);
+  v2 = *(&v14 + 1);
   v3 = *(a1 + 48);
   v4 = *(a1 + 56);
   *&v5 = v3;
   *(&v5 + 1) = v4;
-  v20 = v15;
-  v21 = v5;
-  [v15 eventQueuePerformBlockOnObservers:&v16];
+  v19 = v14;
+  v20 = v5;
+  [v14 eventQueuePerformBlockOnObservers:&v15];
   v6 = *(a1 + 56);
   if (v6 && ([v6 MSASStateMachineIsCanceledError] & 1) == 0)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v12 = *(a1 + 32);
-      v13 = *(a1 + 40);
-      v14 = [*(a1 + 56) MSVerboseDescription];
+      v11 = *(a1 + 32);
+      v12 = *(a1 + 40);
+      v13 = [*(a1 + 56) MSVerboseDescription];
       *buf = 138543874;
-      v23 = v12;
-      v24 = 2114;
-      v25 = v13;
-      v26 = 2114;
-      v27 = v14;
+      v22 = v11;
+      v23 = 2114;
+      v24 = v12;
+      v25 = 2114;
+      v26 = v13;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Failed to update album %{public}@. Error: %{public}@. Re-reading album metadata.", buf, 0x20u);
     }
 
@@ -1160,8 +1146,6 @@ void __74__MSASServerSideModel_MSASStateMachine_didFinishUpdatingAlbum_info_erro
     v10 = [v9 MSASAddIsErrorRecovery];
     [v7 checkForUpdatesInAlbums:v8 resetSync:0 info:v10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __74__MSASServerSideModel_MSASStateMachine_didFinishUpdatingAlbum_info_error___block_invoke_2(void *a1, void *a2)
@@ -1207,7 +1191,7 @@ void __74__MSASServerSideModel_MSASStateMachine_didFinishUpdatingAlbum_info_erro
 
 void __74__MSASServerSideModel_MSASStateMachine_didFinishCreatingAlbum_info_error___block_invoke(id *a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = a1[5];
   if (v3)
@@ -1244,9 +1228,9 @@ void __74__MSASServerSideModel_MSASStateMachine_didFinishCreatingAlbum_info_erro
   block[3] = &unk_278E92660;
   block[4] = a1[6];
   v13 = v2;
-  v29 = v13;
-  v30 = a1[7];
-  v31 = a1[5];
+  v28 = v13;
+  v29 = a1[7];
+  v30 = a1[5];
   dispatch_async(v12, block);
 
   v14 = a1[5];
@@ -1254,33 +1238,31 @@ void __74__MSASServerSideModel_MSASStateMachine_didFinishCreatingAlbum_info_erro
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v19 = a1[6];
-      v20 = a1[4];
-      v21 = [a1[5] MSVerboseDescription];
+      v18 = a1[6];
+      v19 = a1[4];
+      v20 = [a1[5] MSVerboseDescription];
       *buf = 138543874;
-      v33 = v19;
-      v34 = 2114;
-      v35 = v20;
-      v36 = 2114;
-      v37 = v21;
+      v32 = v18;
+      v33 = 2114;
+      v34 = v19;
+      v35 = 2114;
+      v36 = v20;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Failed to create album %{public}@. Error: %{public}@.", buf, 0x20u);
     }
 
     v15 = [a1[6] dbQueue];
-    v22 = MEMORY[0x277D85DD0];
-    v23 = 3221225472;
-    v24 = __74__MSASServerSideModel_MSASStateMachine_didFinishCreatingAlbum_info_error___block_invoke_591;
-    v25 = &unk_278E927C8;
-    v26 = a1[6];
-    v27 = a1[4];
-    dispatch_async(v15, &v22);
+    v21 = MEMORY[0x277D85DD0];
+    v22 = 3221225472;
+    v23 = __74__MSASServerSideModel_MSASStateMachine_didFinishCreatingAlbum_info_error___block_invoke_591;
+    v24 = &unk_278E927C8;
+    v25 = a1[6];
+    v26 = a1[4];
+    dispatch_async(v15, &v21);
 
     v16 = [a1[6] stateMachine];
     v17 = [a1[4] GUID];
     [v16 cancelOutstandingCommandsForAlbumWithGUID:v17];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __74__MSASServerSideModel_MSASStateMachine_didFinishCreatingAlbum_info_error___block_invoke_2(uint64_t a1)
@@ -1332,45 +1314,45 @@ void __74__MSASServerSideModel_MSASStateMachine_didFinishCreatingAlbum_info_erro
 
 - (void)MSASStateMachine:(id)machine didFinishDeletingComment:(id)comment inAssetCollection:(id)collection inAlbum:(id)album info:(id)info error:(id)error
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   commentCopy = comment;
   collectionCopy = collection;
   albumCopy = album;
   infoCopy = info;
   errorCopy = error;
   eventQueue = [(MSASServerSideModel *)self eventQueue];
-  v31 = MEMORY[0x277D85DD0];
-  v32 = 3221225472;
-  v33 = __102__MSASServerSideModel_MSASStateMachine_didFinishDeletingComment_inAssetCollection_inAlbum_info_error___block_invoke;
-  v34 = &unk_278E92048;
+  v30 = MEMORY[0x277D85DD0];
+  v31 = 3221225472;
+  v32 = __102__MSASServerSideModel_MSASStateMachine_didFinishDeletingComment_inAssetCollection_inAlbum_info_error___block_invoke;
+  v33 = &unk_278E92048;
   selfCopy = self;
   v19 = commentCopy;
-  v36 = v19;
+  v35 = v19;
   v20 = collectionCopy;
-  v37 = v20;
+  v36 = v20;
   v21 = albumCopy;
-  v38 = v21;
+  v37 = v21;
   v22 = infoCopy;
-  v39 = v22;
+  v38 = v22;
   v23 = errorCopy;
-  v40 = v23;
-  dispatch_async(eventQueue, &v31);
+  v39 = v23;
+  dispatch_async(eventQueue, &v30);
 
   if (v23 && ([v23 MSASStateMachineIsCanceledError] & 1) == 0)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v28 = [v19 ID];
+      v27 = [v19 ID];
       gUID = [v20 GUID];
       mSVerboseDescription = [v23 MSVerboseDescription];
       *buf = 138544130;
       selfCopy2 = self;
-      v43 = 1024;
-      v44 = v28;
-      v45 = 2114;
-      v46 = gUID;
-      v47 = 2114;
-      v48 = mSVerboseDescription;
+      v42 = 1024;
+      v43 = v27;
+      v44 = 2114;
+      v45 = gUID;
+      v46 = 2114;
+      v47 = mSVerboseDescription;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Failed to delete comment ID %d in asset collection GUID %{public}@. Error: %{public}@. Reset-syncing comments.", buf, 0x26u);
     }
 
@@ -1379,8 +1361,6 @@ void __74__MSASServerSideModel_MSASStateMachine_didFinishCreatingAlbum_info_erro
     mSASAddIsErrorRecovery = [dictionary MSASAddIsErrorRecovery];
     [(MSASServerSideModel *)self refreshCommentsForAssetCollectionWithGUID:gUID2 resetSync:1 info:mSASAddIsErrorRecovery];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __102__MSASServerSideModel_MSASStateMachine_didFinishDeletingComment_inAssetCollection_inAlbum_info_error___block_invoke(uint64_t a1)
@@ -1441,7 +1421,7 @@ void __102__MSASServerSideModel_MSASStateMachine_didFinishDeletingComment_inAsse
 
 void __92__MSASServerSideModel_MSASStateMachine_didFinishDeletingAssetCollection_inAlbum_info_error___block_invoke(id *a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = [a1[5] GUID];
   v4 = [v2 dbQueueLookupOrCreateAssetCollectionWithGUID:v3 outAlbum:0];
@@ -1453,10 +1433,10 @@ void __92__MSASServerSideModel_MSASStateMachine_didFinishDeletingAssetCollection
   block[3] = &unk_278E92688;
   block[4] = a1[4];
   v6 = v4;
-  v17 = v6;
-  v18 = a1[6];
-  v19 = a1[7];
-  v20 = a1[8];
+  v16 = v6;
+  v17 = a1[6];
+  v18 = a1[7];
+  v19 = a1[8];
   dispatch_async(v5, block);
 
   v7 = a1[8];
@@ -1464,15 +1444,15 @@ void __92__MSASServerSideModel_MSASStateMachine_didFinishDeletingAssetCollection
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v13 = a1[4];
-      v14 = a1[5];
-      v15 = [a1[8] MSVerboseDescription];
+      v12 = a1[4];
+      v13 = a1[5];
+      v14 = [a1[8] MSVerboseDescription];
       *buf = 138543874;
-      v22 = v13;
-      v23 = 2114;
-      v24 = v14;
-      v25 = 2114;
-      v26 = v15;
+      v21 = v12;
+      v22 = 2114;
+      v23 = v13;
+      v24 = 2114;
+      v25 = v14;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Failed to delete asset collection %{public}@. Error: %{public}@. Reset-syncing album.", buf, 0x20u);
     }
 
@@ -1482,8 +1462,6 @@ void __92__MSASServerSideModel_MSASStateMachine_didFinishDeletingAssetCollection
     v11 = [v10 MSASAddIsErrorRecovery];
     [v8 refreshContentOfAlbumWithGUID:v9 resetSync:1 info:v11];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __92__MSASServerSideModel_MSASStateMachine_didFinishDeletingAssetCollection_inAlbum_info_error___block_invoke_2(uint64_t a1)
@@ -1549,37 +1527,37 @@ void __92__MSASServerSideModel_MSASStateMachine_didFinishDeletingAssetCollection
 
 void __74__MSASServerSideModel_MSASStateMachine_didFinishDeletingAlbum_info_error___block_invoke(id *a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = [a1[5] GUID];
   v4 = [v2 dbQueueLookupOrCreateAlbumWithGUID:v3];
 
   v5 = [a1[4] eventQueue];
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __74__MSASServerSideModel_MSASStateMachine_didFinishDeletingAlbum_info_error___block_invoke_2;
-  v18 = &unk_278E92660;
-  v19 = a1[4];
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __74__MSASServerSideModel_MSASStateMachine_didFinishDeletingAlbum_info_error___block_invoke_2;
+  v17 = &unk_278E92660;
+  v18 = a1[4];
   v6 = v4;
-  v20 = v6;
-  v21 = a1[6];
-  v22 = a1[7];
-  dispatch_async(v5, &v15);
+  v19 = v6;
+  v20 = a1[6];
+  v21 = a1[7];
+  dispatch_async(v5, &v14);
 
   v7 = a1[7];
   if (v7 && ([v7 MSASStateMachineIsCanceledError] & 1) == 0)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v12 = a1[4];
-      v13 = a1[5];
-      v14 = [a1[7] MSVerboseDescription];
+      v11 = a1[4];
+      v12 = a1[5];
+      v13 = [a1[7] MSVerboseDescription];
       *buf = 138543874;
-      v24 = v12;
-      v25 = 2114;
-      v26 = v13;
-      v27 = 2114;
-      v28 = v14;
+      v23 = v11;
+      v24 = 2114;
+      v25 = v12;
+      v26 = 2114;
+      v27 = v13;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Failed to delete album %{public}@. Error: %{public}@. Reset-syncing album list.", buf, 0x20u);
     }
 
@@ -1588,8 +1566,6 @@ void __74__MSASServerSideModel_MSASStateMachine_didFinishDeletingAlbum_info_erro
     v10 = [v9 MSASAddIsErrorRecovery];
     [v8 refreshResetSync:1 info:v10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __74__MSASServerSideModel_MSASStateMachine_didFinishDeletingAlbum_info_error___block_invoke_2(uint64_t a1)
@@ -1655,7 +1631,7 @@ void __74__MSASServerSideModel_MSASStateMachine_didFinishDeletingAlbum_info_erro
   return modelCopy;
 }
 
-uint64_t __81__MSASServerSideModel_MSASStateMachine_didQueryIsAssetCollectionWithGUIDInModel___block_invoke(uint64_t a1)
+void *__81__MSASServerSideModel_MSASStateMachine_didQueryIsAssetCollectionWithGUIDInModel___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dbQueueAssetCollectionWithGUID:*(a1 + 40) outObject:0 outCtag:0 outAlbumGUID:0 outBatchDate:0 outPhotoDate:0 outPhotoNumber:0 outUserInfoData:0];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -1811,7 +1787,7 @@ void __85__MSASServerSideModel_MSASStateMachineDidRequestAlbumStateCtagForAlbumW
 
 - (void)MSASStateMachine:(id)machine didFinishSettingSyncedStateForAssetCollection:(id)collection inAlbum:(id)album assetStateCtag:(id)ctag info:(id)info error:(id)error
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   collectionCopy = collection;
   albumCopy = album;
   ctagCopy = ctag;
@@ -1823,14 +1799,14 @@ void __85__MSASServerSideModel_MSASStateMachineDidRequestAlbumStateCtagForAlbumW
   block[2] = __120__MSASServerSideModel_MSASStateMachine_didFinishSettingSyncedStateForAssetCollection_inAlbum_assetStateCtag_info_error___block_invoke;
   block[3] = &unk_278E92688;
   v19 = errorCopy;
-  v30 = v19;
+  v29 = v19;
   selfCopy = self;
   v20 = collectionCopy;
-  v32 = v20;
+  v31 = v20;
   v21 = ctagCopy;
-  v33 = v21;
+  v32 = v21;
   v22 = infoCopy;
-  v34 = v22;
+  v33 = v22;
   dispatch_async(dbQueue, block);
 
   if (v19 && ([v19 MSASStateMachineIsCanceledError] & 1) == 0)
@@ -1840,12 +1816,12 @@ void __85__MSASServerSideModel_MSASStateMachineDidRequestAlbumStateCtagForAlbumW
       mSVerboseDescription = [v19 MSVerboseDescription];
       *buf = 138544130;
       selfCopy2 = self;
-      v37 = 2114;
-      v38 = v20;
-      v39 = 2114;
-      v40 = albumCopy;
-      v41 = 2114;
-      v42 = mSVerboseDescription;
+      v36 = 2114;
+      v37 = v20;
+      v38 = 2114;
+      v39 = albumCopy;
+      v40 = 2114;
+      v41 = mSVerboseDescription;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Failed to set synced state for asset collection %{public}@ in album %{public}@. Error: %{public}@. Requesting latest state.", buf, 0x2Au);
     }
 
@@ -1855,8 +1831,6 @@ void __85__MSASServerSideModel_MSASStateMachineDidRequestAlbumStateCtagForAlbumW
     mSASAddIsErrorRecovery = [dictionary MSASAddIsErrorRecovery];
     [stateMachine checkForAlbumSyncedStateChangesInAlbums:v24 info:mSASAddIsErrorRecovery];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __120__MSASServerSideModel_MSASStateMachine_didFinishSettingSyncedStateForAssetCollection_inAlbum_assetStateCtag_info_error___block_invoke(uint64_t a1)
@@ -1871,7 +1845,7 @@ void __120__MSASServerSideModel_MSASStateMachine_didFinishSettingSyncedStateForA
 
 - (void)MSASStateMachine:(id)machine didFinishSettingSyncedStateForAlbum:(id)album info:(id)info error:(id)error newAlbumStateCtag:(id)ctag
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   albumCopy = album;
   infoCopy = info;
   errorCopy = error;
@@ -1882,14 +1856,14 @@ void __120__MSASServerSideModel_MSASStateMachine_didFinishSettingSyncedStateForA
   block[2] = __105__MSASServerSideModel_MSASStateMachine_didFinishSettingSyncedStateForAlbum_info_error_newAlbumStateCtag___block_invoke;
   block[3] = &unk_278E92688;
   v16 = errorCopy;
-  v27 = v16;
+  v26 = v16;
   selfCopy = self;
   v17 = albumCopy;
-  v29 = v17;
+  v28 = v17;
   v18 = ctagCopy;
-  v30 = v18;
+  v29 = v18;
   v19 = infoCopy;
-  v31 = v19;
+  v30 = v19;
   dispatch_async(dbQueue, block);
 
   if (v16 && ([v16 MSASStateMachineIsCanceledError] & 1) == 0)
@@ -1899,10 +1873,10 @@ void __120__MSASServerSideModel_MSASStateMachine_didFinishSettingSyncedStateForA
       mSVerboseDescription = [v16 MSVerboseDescription];
       *buf = 138543874;
       selfCopy2 = self;
-      v34 = 2114;
-      v35 = v17;
-      v36 = 2114;
-      v37 = mSVerboseDescription;
+      v33 = 2114;
+      v34 = v17;
+      v35 = 2114;
+      v36 = mSVerboseDescription;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Failed to set synced state for album %{public}@. Error: %{public}@. Requesting latest state.", buf, 0x20u);
     }
 
@@ -1912,8 +1886,6 @@ void __120__MSASServerSideModel_MSASStateMachine_didFinishSettingSyncedStateForA
     mSASAddIsErrorRecovery = [dictionary MSASAddIsErrorRecovery];
     [stateMachine checkForAlbumSyncedStateChangesInAlbums:v21 info:mSASAddIsErrorRecovery];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __105__MSASServerSideModel_MSASStateMachine_didFinishSettingSyncedStateForAlbum_info_error_newAlbumStateCtag___block_invoke(uint64_t a1)
@@ -1954,7 +1926,7 @@ void __105__MSASServerSideModel_MSASStateMachine_didFinishSettingSyncedStateForA
 
 void __120__MSASServerSideModel_MSASStateMachine_didFinishCheckingForAlbumSyncedStateChangesInAlbum_info_error_newAlbumStateCtag___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (!*(a1 + 32))
   {
     v2 = *(a1 + 40);
@@ -1973,16 +1945,14 @@ void __120__MSASServerSideModel_MSASStateMachine_didFinishCheckingForAlbumSynced
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v8 = *(a1 + 40);
-      v9 = 138543362;
-      v10 = v8;
-      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Finished checking album synced state", &v9, 0xCu);
+      v7 = *(a1 + 40);
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Finished checking album synced state", &v8, 0xCu);
     }
 
     [*(a1 + 40) MSASStateMachine:*(a1 + 72) didFinishCheckingForChangesInfo:*(a1 + 64) error:*(a1 + 32)];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)MSASStateMachine:(id)machine didFindAlbumSyncedState:(id)state forAlbum:(id)album info:(id)info
@@ -2007,31 +1977,31 @@ void __120__MSASServerSideModel_MSASStateMachine_didFinishCheckingForAlbumSynced
 
 void __78__MSASServerSideModel_MSASStateMachine_didFindAlbumSyncedState_forAlbum_info___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) dbQueueBeginTransaction];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v2 = *(a1 + 40);
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     do
     {
       v6 = 0;
       do
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * v6);
+        v7 = *(*(&v14 + 1) + 8 * v6);
         v8 = objc_autoreleasePoolPush();
-        v9 = [*(a1 + 40) objectForKey:{v7, v15}];
+        v9 = [*(a1 + 40) objectForKey:{v7, v14}];
         v10 = *(a1 + 32);
         v11 = [*(a1 + 48) GUID];
         [v10 dbQueueSetAlbumMetadataAlbumGUID:v11 key:v7 value:v9 info:*(a1 + 56)];
@@ -2041,7 +2011,7 @@ void __78__MSASServerSideModel_MSASStateMachine_didFindAlbumSyncedState_forAlbum
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v4);
@@ -2051,8 +2021,6 @@ void __78__MSASServerSideModel_MSASStateMachine_didFindAlbumSyncedState_forAlbum
   v12 = *(a1 + 32);
   v13 = [*(a1 + 48) GUID];
   [v12 dbQueueCheckToClearUnviewedStateOnAlbumWithGUID:v13 info:*(a1 + 56)];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)MSASStateMachine:(id)machine didFindAssetCollectionSyncedState:(id)state forAssetCollectionGUID:(id)d inAlbum:(id)album assetCollectionStateCtag:(id)ctag info:(id)info
@@ -2080,31 +2048,31 @@ void __78__MSASServerSideModel_MSASStateMachine_didFindAlbumSyncedState_forAlbum
 
 uint64_t __135__MSASServerSideModel_MSASStateMachine_didFindAssetCollectionSyncedState_forAssetCollectionGUID_inAlbum_assetCollectionStateCtag_info___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) dbQueueBeginTransaction];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v2 = *(a1 + 40);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       v6 = 0;
       do
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * v6);
+        v7 = *(*(&v11 + 1) + 8 * v6);
         v8 = objc_autoreleasePoolPush();
-        v9 = [*(a1 + 40) objectForKey:{v7, v12}];
+        v9 = [*(a1 + 40) objectForKey:{v7, v11}];
         [*(a1 + 32) dbQueueSetAssetCollectionMetadataAssetCollectionGUID:*(a1 + 48) key:v7 value:v9 info:*(a1 + 56)];
 
         objc_autoreleasePoolPop(v8);
@@ -2112,7 +2080,7 @@ uint64_t __135__MSASServerSideModel_MSASStateMachine_didFindAssetCollectionSynce
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
@@ -2120,9 +2088,7 @@ uint64_t __135__MSASServerSideModel_MSASStateMachine_didFindAssetCollectionSynce
 
   [*(a1 + 32) dbQueueEndTransaction];
   [*(a1 + 32) dbQueueSetAssetCollectionMetadataAssetCollectionGUID:*(a1 + 48) key:@"stateCtag" value:*(a1 + 64) info:*(a1 + 56)];
-  result = [*(a1 + 32) dbQueueCheckToClearUnviewedStateOnAssetCollectionWithGUID:*(a1 + 48) info:*(a1 + 56)];
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) dbQueueCheckToClearUnviewedStateOnAssetCollectionWithGUID:*(a1 + 48) info:*(a1 + 56)];
 }
 
 - (void)MSASStateMachine:(id)machine didFinishCheckingForCommentChangesInAssetCollectionWithGUID:(id)d largestCommentID:(int)iD info:(id)info error:(id)error
@@ -2180,12 +2146,12 @@ void __128__MSASServerSideModel_MSASStateMachine_didFinishCheckingForCommentChan
 
 void __109__MSASServerSideModel_MSASStateMachine_didFindCommentChanges_inAssetCollectionWithGUID_inAlbumWithGUID_info___block_invoke(uint64_t a1)
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v81 = 0;
-  v4 = [v2 dbQueueAssetCollectionMetadataWithAssetCollectionGUID:v3 key:@"lastcommentposition" outValue:&v81];
-  v5 = v81;
+  v80 = 0;
+  v4 = [v2 dbQueueAssetCollectionMetadataWithAssetCollectionGUID:v3 key:@"lastcommentposition" outValue:&v80];
+  v5 = v80;
   v6 = v5;
   if (v4)
   {
@@ -2197,23 +2163,23 @@ void __109__MSASServerSideModel_MSASStateMachine_didFindCommentChanges_inAssetCo
     v7 = -1;
   }
 
-  v66 = [*(a1 + 32) dbQueueAssetCollectionContainsCommentsFromMeAssetCollectionGUID:*(a1 + 40)];
+  v65 = [*(a1 + 32) dbQueueAssetCollectionContainsCommentsFromMeAssetCollectionGUID:*(a1 + 40)];
   v8 = *(a1 + 32);
   v9 = *(a1 + 48);
-  v79 = 0;
-  v80 = 0;
   v78 = 0;
-  v10 = [v8 dbQueueAlbumWithGUID:v9 outObject:&v80 outName:0 outCtag:&v79 outForeignCtag:&v78 outURLString:0 outUserInfoData:0 outClientOrgKey:0];
-  v11 = v80;
-  v12 = v79;
-  v13 = v78;
+  v79 = 0;
+  v77 = 0;
+  v10 = [v8 dbQueueAlbumWithGUID:v9 outObject:&v79 outName:0 outCtag:&v78 outForeignCtag:&v77 outURLString:0 outUserInfoData:0 outClientOrgKey:0];
+  v11 = v79;
+  v12 = v78;
+  v13 = v77;
   if (v10)
   {
     v14 = *(a1 + 32);
     v15 = *(a1 + 48);
-    v77 = 0;
-    v16 = [v14 dbQueueAlbumMetadataWithAlbumGUID:v15 key:@"lastviewedctag" outValue:&v77];
-    v17 = v77;
+    v76 = 0;
+    v16 = [v14 dbQueueAlbumMetadataWithAlbumGUID:v15 key:@"lastviewedctag" outValue:&v76];
+    v17 = v76;
     if (v16)
     {
       if ([v11 useForeignCtag])
@@ -2247,12 +2213,12 @@ void __109__MSASServerSideModel_MSASStateMachine_didFindCommentChanges_inAssetCo
   v20 = [*(a1 + 56) mutableCopy];
   [v20 sortUsingComparator:&__block_literal_global_582];
   [*(a1 + 32) beginTransaction];
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
   v74 = 0u;
+  v75 = 0u;
+  v72 = 0u;
+  v73 = 0u;
   v21 = v20;
-  v22 = [v21 countByEnumeratingWithState:&v73 objects:v82 count:16];
+  v22 = [v21 countByEnumeratingWithState:&v72 objects:v81 count:16];
   if (!v22)
   {
 
@@ -2260,26 +2226,26 @@ void __109__MSASServerSideModel_MSASStateMachine_didFindCommentChanges_inAssetCo
   }
 
   v23 = v22;
-  v57 = v19;
-  v58 = v13;
-  v59 = v11;
-  v60 = v12;
-  v61 = v6;
-  v62 = v7;
-  v63 = 0;
-  v24 = *v74;
-  v64 = *v74;
-  v65 = v21;
+  v56 = v19;
+  v57 = v13;
+  v58 = v11;
+  v59 = v12;
+  v60 = v6;
+  v61 = v7;
+  v62 = 0;
+  v24 = *v73;
+  v63 = *v73;
+  v64 = v21;
   do
   {
     for (i = 0; i != v23; ++i)
     {
-      if (*v74 != v24)
+      if (*v73 != v24)
       {
         objc_enumerationMutation(v21);
       }
 
-      v26 = *(*(&v73 + 1) + 8 * i);
+      v26 = *(*(&v72 + 1) + 8 * i);
       v27 = objc_autoreleasePoolPush();
       if (![v26 type])
       {
@@ -2287,9 +2253,9 @@ void __109__MSASServerSideModel_MSASStateMachine_didFindCommentChanges_inAssetCo
         v34 = *(a1 + 32);
         v35 = [v33 ID];
         v36 = *(a1 + 40);
-        v72 = 0;
-        v37 = [v34 dbQueueCommentWithID:v35 assetCollectionGUID:v36 outObject:&v72 outGUID:0 outTimestamp:0 outIsCaption:0 outUserInfoData:0];
-        v38 = v72;
+        v71 = 0;
+        v37 = [v34 dbQueueCommentWithID:v35 assetCollectionGUID:v36 outObject:&v71 outGUID:0 outTimestamp:0 outIsCaption:0 outUserInfoData:0];
+        v38 = v71;
         v39 = v38;
         if (v37)
         {
@@ -2306,20 +2272,20 @@ void __109__MSASServerSideModel_MSASStateMachine_didFindCommentChanges_inAssetCo
         {
           v41 = *(a1 + 32);
           v42 = *(a1 + 40);
+          v69 = 0;
           v70 = 0;
-          v71 = 0;
-          v43 = [v41 dbQueueAssetCollectionWithGUID:v42 outObject:&v71 outCtag:0 outAlbumGUID:&v70 outBatchDate:0 outPhotoDate:0 outPhotoNumber:0 outUserInfoData:0];
-          v44 = v71;
-          v45 = v70;
+          v43 = [v41 dbQueueAssetCollectionWithGUID:v42 outObject:&v70 outCtag:0 outAlbumGUID:&v69 outBatchDate:0 outPhotoDate:0 outPhotoNumber:0 outUserInfoData:0];
+          v44 = v70;
+          v45 = v69;
           if (v43)
           {
             v46 = *(a1 + 32);
-            v69 = 0;
-            v47 = [v46 dbQueueAlbumWithGUID:v45 outObject:&v69 outName:0 outCtag:0 outForeignCtag:0 outURLString:0 outUserInfoData:0 outClientOrgKey:0];
-            v48 = v69;
+            v68 = 0;
+            v47 = [v46 dbQueueAlbumWithGUID:v45 outObject:&v68 outName:0 outCtag:0 outForeignCtag:0 outURLString:0 outUserInfoData:0 outClientOrgKey:0];
+            v48 = v68;
             if (v47)
             {
-              v47 = ([v33 isLike] ^ 1) & v66;
+              v47 = ([v33 isLike] ^ 1) & v65;
             }
 
             v49 = [v44 isMine] | v47;
@@ -2330,13 +2296,13 @@ void __109__MSASServerSideModel_MSASStateMachine_didFindCommentChanges_inAssetCo
             v49 = 0;
           }
 
-          v7 = v62;
+          v7 = v61;
         }
 
         v54 = [MEMORY[0x277CBEB38] MSASDictionaryWithCopyOfDictionary:*(a1 + 64)];
         if (v49)
         {
-          v63 = 1;
+          v62 = 1;
         }
 
         else
@@ -2346,10 +2312,10 @@ void __109__MSASServerSideModel_MSASStateMachine_didFindCommentChanges_inAssetCo
         }
 
         [*(a1 + 32) dbQueueSetComment:v33 forAssetCollectionWithGUID:*(a1 + 40) info:v54];
-        v66 |= [v33 isMine];
+        v65 |= [v33 isMine];
 
-        v24 = v64;
-        v21 = v65;
+        v24 = v63;
+        v21 = v64;
         goto LABEL_42;
       }
 
@@ -2359,9 +2325,9 @@ void __109__MSASServerSideModel_MSASStateMachine_didFindCommentChanges_inAssetCo
         v29 = [v26 comment];
         v30 = [v29 ID];
         v31 = *(a1 + 40);
-        v68 = 0;
-        v32 = [v28 dbQueueCommentWithID:v30 assetCollectionGUID:v31 outObject:0 outGUID:&v68 outTimestamp:0 outIsCaption:0 outUserInfoData:0];
-        v33 = v68;
+        v67 = 0;
+        v32 = [v28 dbQueueCommentWithID:v30 assetCollectionGUID:v31 outObject:0 outGUID:&v67 outTimestamp:0 outIsCaption:0 outUserInfoData:0];
+        v33 = v67;
 
         if (!v32)
         {
@@ -2381,9 +2347,9 @@ LABEL_34:
       v50 = *(a1 + 32);
       v51 = [v26 deletionIndex];
       v52 = *(a1 + 40);
-      v67 = 0;
-      v53 = [v50 dbQueueCommentWithID:v51 assetCollectionGUID:v52 outObject:0 outGUID:&v67 outTimestamp:0 outIsCaption:0 outUserInfoData:0];
-      v33 = v67;
+      v66 = 0;
+      v53 = [v50 dbQueueCommentWithID:v51 assetCollectionGUID:v52 outObject:0 outGUID:&v66 outTimestamp:0 outIsCaption:0 outUserInfoData:0];
+      v33 = v66;
       if (v53)
       {
         goto LABEL_34;
@@ -2395,19 +2361,19 @@ LABEL_43:
       objc_autoreleasePoolPop(v27);
     }
 
-    v23 = [v21 countByEnumeratingWithState:&v73 objects:v82 count:16];
+    v23 = [v21 countByEnumeratingWithState:&v72 objects:v81 count:16];
   }
 
   while (v23);
 
-  v12 = v60;
-  v6 = v61;
-  v13 = v58;
-  v11 = v59;
-  if (v63)
+  v12 = v59;
+  v6 = v60;
+  v13 = v57;
+  v11 = v58;
+  if (v62)
   {
     [*(a1 + 32) dbQueueSetUnviewedState:1 onAssetCollectionWithGUID:*(a1 + 40) info:*(a1 + 64)];
-    if (v57)
+    if (v56)
     {
       [*(a1 + 32) dbQueueSetUnviewedState:1 onAlbumWithGUID:*(a1 + 48) info:*(a1 + 64)];
     }
@@ -2415,8 +2381,6 @@ LABEL_43:
 
 LABEL_49:
   [*(a1 + 32) endTransaction];
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __109__MSASServerSideModel_MSASStateMachine_didFindCommentChanges_inAssetCollectionWithGUID_inAlbumWithGUID_info___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -2466,7 +2430,7 @@ uint64_t __109__MSASServerSideModel_MSASStateMachine_didFindCommentChanges_inAss
 
 void __79__MSASServerSideModel_MSASStateMachine_didFinishRetrievingAsset_inAlbum_error___block_invoke(id *a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = [a1[5] GUID];
   LODWORD(v2) = [v2 dbQueueAlbumWithGUID:v3 outObject:0 outName:0 outCtag:0 outForeignCtag:0 outURLString:0 outUserInfoData:0 outClientOrgKey:0];
@@ -2478,58 +2442,55 @@ void __79__MSASServerSideModel_MSASStateMachine_didFinishRetrievingAsset_inAlbum
     block[1] = 3221225472;
     block[2] = __79__MSASServerSideModel_MSASStateMachine_didFinishRetrievingAsset_inAlbum_error___block_invoke_2;
     block[3] = &unk_278E92660;
-    v5 = &v21;
+    v5 = &v20;
     v6 = a1[6];
-    v17 = *(a1 + 2);
-    v7 = v17.i64[1];
+    v16 = *(a1 + 2);
+    v7 = v16.i64[1];
     v8 = a1[7];
     v9.i64[0] = v6;
     v9.i64[1] = v8;
-    v10 = vzip2q_s64(v17, v9);
-    v9.i64[1] = v17.i64[0];
-    v21 = v9;
-    v22 = v10;
+    v10 = vzip2q_s64(v16, v9);
+    v9.i64[1] = v16.i64[0];
+    v20 = v9;
+    v21 = v10;
     dispatch_async(v4, block);
 
 LABEL_3:
-    goto LABEL_7;
+    return;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v14 = a1[4];
-    v15 = [a1[6] GUID];
-    v16 = [a1[5] GUID];
+    v13 = a1[4];
+    v14 = [a1[6] GUID];
+    v15 = [a1[5] GUID];
     *buf = 138543874;
-    v24 = v14;
-    v25 = 2114;
-    v26 = v15;
-    v27 = 2114;
-    v28 = v16;
+    v23 = v13;
+    v24 = 2114;
+    v25 = v14;
+    v26 = 2114;
+    v27 = v15;
     _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Downloaded asset GUID %{public}@ for an album GUID %{public}@ that no lenger exists. Ignoring.", buf, 0x20u);
   }
 
   if (!a1[7])
   {
-    v12 = [a1[6] path];
+    v11 = [a1[6] path];
 
-    if (v12)
+    if (v11)
     {
-      v13 = [a1[4] eventQueue];
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __79__MSASServerSideModel_MSASStateMachine_didFinishRetrievingAsset_inAlbum_error___block_invoke_579;
-      v18[3] = &unk_278E926D8;
-      v5 = &v19;
-      v19 = a1[6];
-      dispatch_async(v13, v18);
+      v12 = [a1[4] eventQueue];
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __79__MSASServerSideModel_MSASStateMachine_didFinishRetrievingAsset_inAlbum_error___block_invoke_579;
+      v17[3] = &unk_278E926D8;
+      v5 = &v18;
+      v18 = a1[6];
+      dispatch_async(v12, v17);
 
       goto LABEL_3;
     }
   }
-
-LABEL_7:
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __79__MSASServerSideModel_MSASStateMachine_didFinishRetrievingAsset_inAlbum_error___block_invoke_2(id *a1)
@@ -2541,15 +2502,15 @@ void __79__MSASServerSideModel_MSASStateMachine_didFinishRetrievingAsset_inAlbum
   v12[1] = 3221225472;
   v12[2] = __79__MSASServerSideModel_MSASStateMachine_didFinishRetrievingAsset_inAlbum_error___block_invoke_3;
   v12[3] = &unk_278E925D8;
-  *v9 = *(a1 + 2);
-  v4 = v9[0];
+  v9 = *(a1 + 2);
+  v4 = v9.i64[0];
   v5 = a1[6];
   v6 = a1[7];
   *&v7 = v5;
   *(&v7 + 1) = v6;
-  v13 = vextq_s8(*v9, *v9, 8uLL);
+  v13 = vextq_s8(v9, v9, 8uLL);
   v14 = v7;
-  [v9[1] eventQueuePerformBlockOnObservers:v12];
+  [v9.i64[1] eventQueuePerformBlockOnObservers:v12];
   if (!a1[7] && v3)
   {
     v8 = [a1[5] eventQueue];
@@ -2643,7 +2604,7 @@ void __93__MSASServerSideModel_MSASStateMachine_didFinishEnqueueingAssetsForDown
 
 void __83__MSASServerSideModel_MSASStateMachine_didFinishUnsubscribingFromAlbum_info_error___block_invoke(id *a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   if (a1[4])
   {
     v2 = [a1[6] eventQueue];
@@ -2651,33 +2612,33 @@ void __83__MSASServerSideModel_MSASStateMachine_didFinishUnsubscribingFromAlbum_
     block[1] = 3221225472;
     block[2] = __83__MSASServerSideModel_MSASStateMachine_didFinishUnsubscribingFromAlbum_info_error___block_invoke_6;
     block[3] = &unk_278E92660;
-    v19 = *(a1 + 5);
-    v3 = v19.i64[0];
-    v22 = vextq_s8(v19, v19, 8uLL);
-    v23 = a1[7];
-    v24 = a1[4];
+    v18 = *(a1 + 5);
+    v3 = v18.i64[0];
+    v21 = vextq_s8(v18, v18, 8uLL);
+    v22 = a1[7];
+    v23 = a1[4];
     dispatch_async(v2, block);
 
     if (([a1[4] MSASStateMachineIsCanceledError] & 1) == 0)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v16 = a1[6];
-        v17 = [a1[5] GUID];
-        v18 = [a1[4] MSVerboseDescription];
+        v15 = a1[6];
+        v16 = [a1[5] GUID];
+        v17 = [a1[4] MSVerboseDescription];
         *buf = 138543874;
-        v35 = v16;
-        v36 = 2114;
-        v37 = v17;
-        v38 = 2114;
-        v39 = v18;
+        v34 = v15;
+        v35 = 2114;
+        v36 = v16;
+        v37 = 2114;
+        v38 = v17;
         _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Failed to unsubscribe from album GUID %{public}@. Error: %{public}@. Reset-syncing albums.", buf, 0x20u);
       }
 
-      [a1[6] refreshResetSync:1 info:{a1[7], *&v19}];
+      [a1[6] refreshResetSync:1 info:{a1[7], *&v18}];
     }
 
-    v4 = v22.i64[1];
+    v4 = v21.i64[1];
     goto LABEL_12;
   }
 
@@ -2689,44 +2650,41 @@ void __83__MSASServerSideModel_MSASStateMachine_didFinishUnsubscribingFromAlbum_
   if (v7 != 1)
   {
     v13 = [a1[6] eventQueue];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __83__MSASServerSideModel_MSASStateMachine_didFinishUnsubscribingFromAlbum_info_error___block_invoke_4;
-    v25[3] = &unk_278E92660;
-    v20 = *(a1 + 5);
-    v14 = v20.i64[0];
-    v26 = vextq_s8(v20, v20, 8uLL);
-    v27 = a1[7];
-    v28 = a1[4];
-    dispatch_async(v13, v25);
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __83__MSASServerSideModel_MSASStateMachine_didFinishUnsubscribingFromAlbum_info_error___block_invoke_4;
+    v24[3] = &unk_278E92660;
+    v19 = *(a1 + 5);
+    v14 = v19.i64[0];
+    v25 = vextq_s8(v19, v19, 8uLL);
+    v26 = a1[7];
+    v27 = a1[4];
+    dispatch_async(v13, v24);
 
-    v4 = v26.i64[1];
+    v4 = v25.i64[1];
 LABEL_12:
 
-    goto LABEL_13;
+    return;
   }
 
   v9 = [a1[5] GUID];
-  v33 = 0;
-  v10 = [v8 dbQueueInvitationWithAlbumGUID:v9 outObject:&v33 outInvitationGUID:0 outEmail:0 outUserInfoData:0];
-  v11 = v33;
+  v32 = 0;
+  v10 = [v8 dbQueueInvitationWithAlbumGUID:v9 outObject:&v32 outInvitationGUID:0 outEmail:0 outUserInfoData:0];
+  v11 = v32;
 
   if (v10)
   {
     v12 = [a1[6] eventQueue];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __83__MSASServerSideModel_MSASStateMachine_didFinishUnsubscribingFromAlbum_info_error___block_invoke_2;
-    v29[3] = &unk_278E92660;
-    v29[4] = a1[6];
-    v30 = v11;
-    v31 = a1[7];
-    v32 = a1[4];
-    dispatch_async(v12, v29);
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __83__MSASServerSideModel_MSASStateMachine_didFinishUnsubscribingFromAlbum_info_error___block_invoke_2;
+    v28[3] = &unk_278E92660;
+    v28[4] = a1[6];
+    v29 = v11;
+    v30 = a1[7];
+    v31 = a1[4];
+    dispatch_async(v12, v28);
   }
-
-LABEL_13:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __83__MSASServerSideModel_MSASStateMachine_didFinishUnsubscribingFromAlbum_info_error___block_invoke_2(uint64_t a1)
@@ -2865,7 +2823,7 @@ void __83__MSASServerSideModel_MSASStateMachine_didFinishUnsubscribingFromAlbum_
 
 void __79__MSASServerSideModel_MSASStateMachine_didFinishSubscribingToAlbum_info_error___block_invoke(id *a1)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   if (v2)
   {
@@ -2879,36 +2837,36 @@ void __79__MSASServerSideModel_MSASStateMachine_didFinishSubscribingToAlbum_info
 
     v6 = [a1[6] eventQueue];
     block = MEMORY[0x277D85DD0];
-    v26 = 3221225472;
-    v27 = __79__MSASServerSideModel_MSASStateMachine_didFinishSubscribingToAlbum_info_error___block_invoke_6;
-    v28 = &unk_278E92660;
-    v23 = *(a1 + 5);
-    v7 = v23.i64[0];
-    v29 = vextq_s8(v23, v23, 8uLL);
-    v30 = a1[7];
-    v31 = a1[4];
+    v25 = 3221225472;
+    v26 = __79__MSASServerSideModel_MSASStateMachine_didFinishSubscribingToAlbum_info_error___block_invoke_6;
+    v27 = &unk_278E92660;
+    v22 = *(a1 + 5);
+    v7 = v22.i64[0];
+    v28 = vextq_s8(v22, v22, 8uLL);
+    v29 = a1[7];
+    v30 = a1[4];
     dispatch_async(v6, &block);
 
     if (([a1[4] MSASStateMachineIsCanceledError] & 1) == 0)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v20 = a1[6];
-        v21 = [a1[5] GUID];
-        v22 = [a1[4] MSVerboseDescription];
+        v19 = a1[6];
+        v20 = [a1[5] GUID];
+        v21 = [a1[4] MSVerboseDescription];
         *buf = 138543874;
-        v43 = v20;
-        v44 = 2114;
-        v45 = v21;
-        v46 = 2114;
-        v47 = v22;
+        v42 = v19;
+        v43 = 2114;
+        v44 = v20;
+        v45 = 2114;
+        v46 = v21;
         _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Failed to subscribe from album GUID %{public}@. Error: %{public}@. Reset-syncing albums.", buf, 0x20u);
       }
 
-      [a1[6] refreshResetSync:1 info:{a1[7], *&v23, block, v26, v27, v28, v29.i64[0]}];
+      [a1[6] refreshResetSync:1 info:{a1[7], *&v22, block, v25, v26, v27, v28.i64[0]}];
     }
 
-    v8 = v29.i64[1];
+    v8 = v28.i64[1];
     goto LABEL_14;
   }
 
@@ -2920,45 +2878,42 @@ void __79__MSASServerSideModel_MSASStateMachine_didFinishSubscribingToAlbum_info
   if (v11 != 1)
   {
     v17 = [a1[6] eventQueue];
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __79__MSASServerSideModel_MSASStateMachine_didFinishSubscribingToAlbum_info_error___block_invoke_4;
-    v32[3] = &unk_278E92660;
-    v24 = *(a1 + 5);
-    v18 = v24.i64[0];
-    v33 = vextq_s8(v24, v24, 8uLL);
-    v34 = a1[7];
-    v35 = a1[4];
-    dispatch_async(v17, v32);
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __79__MSASServerSideModel_MSASStateMachine_didFinishSubscribingToAlbum_info_error___block_invoke_4;
+    v31[3] = &unk_278E92660;
+    v23 = *(a1 + 5);
+    v18 = v23.i64[0];
+    v32 = vextq_s8(v23, v23, 8uLL);
+    v33 = a1[7];
+    v34 = a1[4];
+    dispatch_async(v17, v31);
 
-    v8 = v33.i64[1];
+    v8 = v32.i64[1];
 LABEL_14:
 
-    goto LABEL_15;
+    return;
   }
 
   v13 = [a1[5] GUID];
-  v41 = 0;
-  v14 = [v12 dbQueueInvitationWithAlbumGUID:v13 outObject:&v41 outInvitationGUID:0 outEmail:0 outUserInfoData:0];
-  v15 = v41;
+  v40 = 0;
+  v14 = [v12 dbQueueInvitationWithAlbumGUID:v13 outObject:&v40 outInvitationGUID:0 outEmail:0 outUserInfoData:0];
+  v15 = v40;
 
   if (v14)
   {
     v16 = [a1[6] eventQueue];
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __79__MSASServerSideModel_MSASStateMachine_didFinishSubscribingToAlbum_info_error___block_invoke_2;
-    v36[3] = &unk_278E92688;
-    v36[4] = a1[6];
-    v37 = v15;
-    v38 = a1[5];
-    v39 = a1[7];
-    v40 = a1[4];
-    dispatch_async(v16, v36);
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __79__MSASServerSideModel_MSASStateMachine_didFinishSubscribingToAlbum_info_error___block_invoke_2;
+    v35[3] = &unk_278E92688;
+    v35[4] = a1[6];
+    v36 = v15;
+    v37 = a1[5];
+    v38 = a1[7];
+    v39 = a1[4];
+    dispatch_async(v16, v35);
   }
-
-LABEL_15:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __79__MSASServerSideModel_MSASStateMachine_didFinishSubscribingToAlbum_info_error___block_invoke_2(uint64_t a1)
@@ -3106,35 +3061,35 @@ void __79__MSASServerSideModel_MSASStateMachine_didFinishSubscribingToAlbum_info
 
 void __93__MSASServerSideModel_MSASStateMachine_didFinishUpdatingAssetCollections_inAlbum_info_error___block_invoke(uint64_t a1)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   if (!*(a1 + 32))
   {
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
     v55 = 0u;
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
     obj = *(a1 + 40);
-    v2 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
+    v2 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
     if (!v2)
     {
       goto LABEL_28;
     }
 
     v3 = v2;
-    v4 = *v55;
-    v42 = *v55;
+    v4 = *v54;
+    v41 = *v54;
     while (1)
     {
       v5 = 0;
-      v43 = v3;
+      v42 = v3;
       do
       {
-        if (*v55 != v4)
+        if (*v54 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v54 + 1) + 8 * v5);
+        v6 = *(*(&v53 + 1) + 8 * v5);
         v7 = objc_autoreleasePoolPush();
         v8 = [*(a1 + 48) mutableCopy];
         v9 = [*(a1 + 56) GUID];
@@ -3144,19 +3099,19 @@ void __93__MSASServerSideModel_MSASStateMachine_didFinishUpdatingAssetCollection
         {
           v10 = *(a1 + 64);
           v11 = [*(a1 + 56) GUID];
+          v51 = 0;
           v52 = 0;
-          v53 = 0;
-          v12 = [v10 dbQueueAlbumWithGUID:v11 outObject:0 outName:0 outCtag:&v53 outForeignCtag:&v52 outURLString:0 outUserInfoData:0 outClientOrgKey:0];
-          v13 = v53;
-          v14 = v52;
+          v12 = [v10 dbQueueAlbumWithGUID:v11 outObject:0 outName:0 outCtag:&v52 outForeignCtag:&v51 outURLString:0 outUserInfoData:0 outClientOrgKey:0];
+          v13 = v52;
+          v14 = v51;
 
           if (v12)
           {
             v15 = *(a1 + 64);
             v16 = [*(a1 + 56) GUID];
-            v51 = 0;
-            v17 = [v15 dbQueueAlbumMetadataWithAlbumGUID:v16 key:@"lastviewedctag" outValue:&v51];
-            v18 = v51;
+            v50 = 0;
+            v17 = [v15 dbQueueAlbumMetadataWithAlbumGUID:v16 key:@"lastviewedctag" outValue:&v50];
+            v18 = v50;
 
             if (v17 && (![*(a1 + 56) useForeignCtag] ? (v19 = v13) : (v19 = v14), v18 && v19))
             {
@@ -3178,9 +3133,9 @@ LABEL_22:
 
           v21 = *(a1 + 64);
           v22 = [*(a1 + 56) GUID];
-          v50 = 0;
-          LODWORD(v21) = [v21 dbQueueAlbumMetadataWithAlbumGUID:v22 key:@"lastassetposition" outValue:&v50];
-          v23 = v50;
+          v49 = 0;
+          LODWORD(v21) = [v21 dbQueueAlbumMetadataWithAlbumGUID:v22 key:@"lastassetposition" outValue:&v49];
+          v23 = v49;
 
           if (!v21 || (v24 = [v23 longLongValue], v24 >= objc_msgSend(v6, "photoNumber")))
           {
@@ -3193,8 +3148,8 @@ LABEL_22:
           [v25 dbQueueSetUnviewedState:1 onAlbumWithGUID:v26 info:*(a1 + 48)];
 
 LABEL_23:
-          v4 = v42;
-          v3 = v43;
+          v4 = v41;
+          v3 = v42;
         }
 
         v27 = *(a1 + 64);
@@ -3222,7 +3177,7 @@ LABEL_23:
       }
 
       while (v3 != v5);
-      v3 = [obj countByEnumeratingWithState:&v54 objects:v60 count:16];
+      v3 = [obj countByEnumeratingWithState:&v53 objects:v59 count:16];
       if (!v3)
       {
 LABEL_28:
@@ -3238,9 +3193,9 @@ LABEL_28:
         block[3] = &unk_278E91D70;
         *obja = *(a1 + 56);
         v37 = obja[0];
-        v47 = vextq_s8(*obja, *obja, 8uLL);
-        v49 = v34;
-        v48 = *(a1 + 48);
+        v46 = vextq_s8(*obja, *obja, 8uLL);
+        v48 = v34;
+        v47 = *(a1 + 48);
         dispatch_async(v36, block);
 
         break;
@@ -3255,16 +3210,14 @@ LABEL_28:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v41 = *(a1 + 64);
+      v40 = *(a1 + 64);
       *buf = 138543362;
-      v59 = v41;
+      v58 = v40;
       _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Finished checking asset collections", buf, 0xCu);
     }
 
     [*(a1 + 64) MSASStateMachine:*(a1 + 72) didFinishCheckingForChangesInfo:*(a1 + 48) error:*(a1 + 32)];
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)MSASStateMachine:(id)machine didFireScheduledEvent:(id)event forAssetCollectionGUID:(id)d albumGUID:(id)iD info:(id)info
@@ -3358,7 +3311,7 @@ void __81__MSASServerSideModel_MSASStateMachine_didFinishCheckingForUpdatesInAlb
 
 void __86__MSASServerSideModel_MSASStateMachine_didFinishCheckingForUpdatesInAlbum_info_error___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (!*(a1 + 32))
   {
     [*(a1 + 40) dbQueueUpdateAlbumCtag:*(a1 + 48)];
@@ -3378,16 +3331,14 @@ void __86__MSASServerSideModel_MSASStateMachine_didFinishCheckingForUpdatesInAlb
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v8 = *(a1 + 40);
-      v9 = 138543362;
-      v10 = v8;
-      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Finished checking album updates", &v9, 0xCu);
+      v7 = *(a1 + 40);
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Finished checking album updates", &v8, 0xCu);
     }
 
     [*(a1 + 40) MSASStateMachine:*(a1 + 64) didFinishCheckingForChangesInfo:*(a1 + 56) error:*(a1 + 32)];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)MSASStateMachine:(id)machine didFindChangesInAlbum:(id)album info:(id)info error:(id)error
@@ -3410,11 +3361,11 @@ void __86__MSASServerSideModel_MSASStateMachine_didFinishCheckingForUpdatesInAlb
   dispatch_async(dbQueue, v16);
 }
 
-uint64_t __73__MSASServerSideModel_MSASStateMachine_didFindChangesInAlbum_info_error___block_invoke(uint64_t result)
+id *__73__MSASServerSideModel_MSASStateMachine_didFindChangesInAlbum_info_error___block_invoke(id *result)
 {
-  if (!*(result + 32))
+  if (!result[4])
   {
-    return [*(result + 40) dbQueueSetAlbum:*(result + 48) info:*(result + 56)];
+    return [result[5] dbQueueSetAlbum:result[6] info:result[7]];
   }
 
   return result;
@@ -3442,45 +3393,45 @@ uint64_t __73__MSASServerSideModel_MSASStateMachine_didFindChangesInAlbum_info_e
 
 void __84__MSASServerSideModel_MSASStateMachine_didFindAssetCollectionChanges_forAlbum_info___block_invoke(id *a1)
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   v2 = [a1[4] MSASAlbumResetSyncAlbumGUID];
   v3 = [a1[5] GUID];
   v4 = [v2 isEqualToString:v3];
 
-  LODWORD(v55) = v4;
+  LODWORD(v54) = v4;
   if (v4 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[6];
     v6 = [a1[5] GUID];
     *buf = 138543618;
-    v84 = v5;
-    v85 = 2114;
-    v86 = v6;
+    v83 = v5;
+    v84 = 2114;
+    v85 = v6;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Reconciling contents of album GUID %{public}@ due to a reset sync.", buf, 0x16u);
   }
 
   [a1[6] beginTransaction];
-  v58 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(a1[7], "count")}];
+  v57 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(a1[7], "count")}];
+  v74 = 0u;
   v75 = 0u;
   v76 = 0u;
   v77 = 0u;
-  v78 = 0u;
   v7 = a1[7];
-  v8 = [v7 countByEnumeratingWithState:&v75 objects:v82 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v74 objects:v81 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v76;
+    v10 = *v75;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v76 != v10)
+        if (*v75 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v75 + 1) + 8 * i);
+        v12 = *(*(&v74 + 1) + 8 * i);
         v13 = objc_autoreleasePoolPush();
         v14 = [v12 wasDeleted];
         v15 = a1[6];
@@ -3500,7 +3451,7 @@ void __84__MSASServerSideModel_MSASStateMachine_didFindAssetCollectionChanges_fo
 
           if ((v20 & 1) == 0)
           {
-            [v58 addObject:v17];
+            [v57 addObject:v17];
           }
 
           v16 = v17;
@@ -3509,67 +3460,67 @@ void __84__MSASServerSideModel_MSASStateMachine_didFindAssetCollectionChanges_fo
         objc_autoreleasePoolPop(v13);
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v75 objects:v82 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v74 objects:v81 count:16];
     }
 
     while (v9);
   }
 
-  if (v56)
+  if (v55)
   {
     v21 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(a1[7], "count")}];
+    v70 = 0u;
     v71 = 0u;
     v72 = 0u;
     v73 = 0u;
-    v74 = 0u;
     v22 = a1[7];
-    v23 = [v22 countByEnumeratingWithState:&v71 objects:v81 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v70 objects:v80 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v72;
+      v25 = *v71;
       do
       {
         for (j = 0; j != v24; ++j)
         {
-          if (*v72 != v25)
+          if (*v71 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          v27 = [*(*(&v71 + 1) + 8 * j) GUID];
+          v27 = [*(*(&v70 + 1) + 8 * j) GUID];
           [v21 addObject:v27];
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v71 objects:v81 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v70 objects:v80 count:16];
       }
 
       while (v24);
     }
 
-    v69 = 0u;
-    v70 = 0u;
-    v67 = 0u;
     v68 = 0u;
+    v69 = 0u;
+    v66 = 0u;
+    v67 = 0u;
     v28 = a1[6];
     v29 = [a1[5] GUID];
     v30 = [v28 dbQueueAssetCollectionGUIDsInAlbumWithGUID:v29];
 
-    v31 = [v30 countByEnumeratingWithState:&v67 objects:v80 count:16];
+    v31 = [v30 countByEnumeratingWithState:&v66 objects:v79 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v68;
+      v33 = *v67;
       do
       {
         for (k = 0; k != v32; ++k)
         {
-          if (*v68 != v33)
+          if (*v67 != v33)
           {
             objc_enumerationMutation(v30);
           }
 
-          v35 = *(*(&v67 + 1) + 8 * k);
+          v35 = *(*(&v66 + 1) + 8 * k);
           v36 = objc_autoreleasePoolPush();
           if (([v21 containsObject:v35] & 1) == 0)
           {
@@ -3579,40 +3530,40 @@ void __84__MSASServerSideModel_MSASStateMachine_didFindAssetCollectionChanges_fo
           objc_autoreleasePoolPop(v36);
         }
 
-        v32 = [v30 countByEnumeratingWithState:&v67 objects:v80 count:16];
+        v32 = [v30 countByEnumeratingWithState:&v66 objects:v79 count:16];
       }
 
       while (v32);
     }
   }
 
-  if ([v58 count])
+  if ([v57 count])
   {
     v37 = [a1[6] pendingChanges];
     v38 = [a1[5] GUID];
-    [v37 addPendingAssetCollectionChanges:v58 forAlbumGUID:v38];
+    [v37 addPendingAssetCollectionChanges:v57 forAlbumGUID:v38];
 
     v39 = [MEMORY[0x277CBEB18] arrayWithCapacity:50];
+    v62 = 0u;
     v63 = 0u;
     v64 = 0u;
     v65 = 0u;
-    v66 = 0u;
-    v40 = v58;
-    v41 = [v40 countByEnumeratingWithState:&v63 objects:v79 count:16];
+    v40 = v57;
+    v41 = [v40 countByEnumeratingWithState:&v62 objects:v78 count:16];
     if (v41)
     {
       v42 = v41;
-      v43 = *v64;
+      v43 = *v63;
       do
       {
         for (m = 0; m != v42; ++m)
         {
-          if (*v64 != v43)
+          if (*v63 != v43)
           {
             objc_enumerationMutation(v40);
           }
 
-          v45 = *(*(&v63 + 1) + 8 * m);
+          v45 = *(*(&v62 + 1) + 8 * m);
           v46 = objc_autoreleasePoolPush();
           [v39 addObject:v45];
           if ([v39 count] >= 0x32)
@@ -3628,7 +3579,7 @@ void __84__MSASServerSideModel_MSASStateMachine_didFindAssetCollectionChanges_fo
           objc_autoreleasePoolPop(v46);
         }
 
-        v42 = [v40 countByEnumeratingWithState:&v63 objects:v79 count:16];
+        v42 = [v40 countByEnumeratingWithState:&v62 objects:v78 count:16];
       }
 
       while (v42);
@@ -3651,14 +3602,12 @@ void __84__MSASServerSideModel_MSASStateMachine_didFindAssetCollectionChanges_fo
   block[1] = 3221225472;
   block[2] = __84__MSASServerSideModel_MSASStateMachine_didFindAssetCollectionChanges_forAlbum_info___block_invoke_565;
   block[3] = &unk_278E91D70;
-  v57 = *(a1 + 5);
-  v53 = v57.i64[0];
-  v60 = vextq_s8(v57, v57, 8uLL);
-  v62 = v50;
-  v61 = a1[4];
+  v56 = *(a1 + 5);
+  v53 = v56.i64[0];
+  v59 = vextq_s8(v56, v56, 8uLL);
+  v61 = v50;
+  v60 = a1[4];
   dispatch_async(v52, block);
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (void)MSASStateMachine:(id)machine didFinishGettingAccessControls:(id)controls forAlbum:(id)album info:(id)info error:(id)error
@@ -3689,31 +3638,31 @@ void __84__MSASServerSideModel_MSASStateMachine_didFindAssetCollectionChanges_fo
 
 void __91__MSASServerSideModel_MSASStateMachine_didFinishGettingAccessControls_forAlbum_info_error___block_invoke(uint64_t a1)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   if (!*(a1 + 32))
   {
     v2 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(*(a1 + 40), "count")}];
     [*(a1 + 48) dbQueueBeginTransaction];
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     v3 = *(a1 + 40);
-    v4 = [v3 countByEnumeratingWithState:&v50 objects:v58 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v49 objects:v57 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v51;
+      v6 = *v50;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v51 != v6)
+          if (*v50 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v50 + 1) + 8 * i);
+          v8 = *(*(&v49 + 1) + 8 * i);
           v9 = objc_autoreleasePoolPush();
           v10 = [v8 GUID];
 
@@ -3737,37 +3686,37 @@ void __91__MSASServerSideModel_MSASStateMachine_didFinishGettingAccessControls_f
           objc_autoreleasePoolPop(v9);
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v50 objects:v58 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v49 objects:v57 count:16];
       }
 
       while (v5);
     }
 
     [*(a1 + 48) dbQueueEndTransaction];
-    v41 = [MEMORY[0x277CBEB58] set];
+    v40 = [MEMORY[0x277CBEB58] set];
+    v45 = 0u;
     v46 = 0u;
     v47 = 0u;
     v48 = 0u;
-    v49 = 0u;
     v16 = *(a1 + 48);
     v17 = [*(a1 + 64) GUID];
     v18 = [v16 dbQueueAccessControlsForAlbumWithGUID:v17];
 
-    v19 = [v18 countByEnumeratingWithState:&v46 objects:v57 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v45 objects:v56 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v47;
+      v21 = *v46;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v47 != v21)
+          if (*v46 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v46 + 1) + 8 * j);
+          v23 = *(*(&v45 + 1) + 8 * j);
           v24 = [v23 GUID];
           if (v24)
           {
@@ -3778,44 +3727,44 @@ void __91__MSASServerSideModel_MSASStateMachine_didFinishGettingAccessControls_f
             if ((v27 & 1) == 0)
             {
               v28 = [v23 GUID];
-              [v41 addObject:v28];
+              [v40 addObject:v28];
             }
           }
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v46 objects:v57 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v45 objects:v56 count:16];
       }
 
       while (v20);
     }
 
     [*(a1 + 48) dbQueueBeginTransaction];
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
-    v29 = v41;
-    v30 = [v29 countByEnumeratingWithState:&v42 objects:v56 count:16];
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
+    v29 = v40;
+    v30 = [v29 countByEnumeratingWithState:&v41 objects:v55 count:16];
     if (v30)
     {
       v31 = v30;
-      v32 = *v43;
+      v32 = *v42;
       do
       {
         for (k = 0; k != v31; ++k)
         {
-          if (*v43 != v32)
+          if (*v42 != v32)
           {
             objc_enumerationMutation(v29);
           }
 
-          v34 = *(*(&v42 + 1) + 8 * k);
+          v34 = *(*(&v41 + 1) + 8 * k);
           v35 = objc_autoreleasePoolPush();
           [*(a1 + 48) dbQueueDeleteAccessControlWithGUID:v34 info:*(a1 + 56)];
           objc_autoreleasePoolPop(v35);
         }
 
-        v31 = [v29 countByEnumeratingWithState:&v42 objects:v56 count:16];
+        v31 = [v29 countByEnumeratingWithState:&v41 objects:v55 count:16];
       }
 
       while (v31);
@@ -3835,21 +3784,19 @@ void __91__MSASServerSideModel_MSASStateMachine_didFinishGettingAccessControls_f
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v40 = *(a1 + 48);
+      v39 = *(a1 + 48);
       *buf = 138543362;
-      v55 = v40;
+      v54 = v39;
       _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Finished checking album access controls", buf, 0xCu);
     }
 
     [*(a1 + 48) MSASStateMachine:*(a1 + 72) didFinishCheckingForChangesInfo:*(a1 + 56) error:*(a1 + 32)];
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)MSASStateMachine:(id)machine didFinishCheckingForChangesInfo:(id)info error:(id)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   machineCopy = machine;
   infoCopy = info;
   errorCopy = error;
@@ -3863,8 +3810,8 @@ void __91__MSASServerSideModel_MSASStateMachine_didFinishGettingAccessControls_f
       pendingChanges2 = [(MSASServerSideModel *)self pendingChanges];
       *buf = 138543618;
       selfCopy2 = self;
-      v23 = 2114;
-      v24 = pendingChanges2;
+      v22 = 2114;
+      v23 = pendingChanges2;
       _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Still has pending changes %{public}@", buf, 0x16u);
     }
   }
@@ -3880,18 +3827,16 @@ void __91__MSASServerSideModel_MSASStateMachine_didFinishGettingAccessControls_f
 
     [(MSASServerSideModel *)self flushAllPendingCommentCheckOperations];
     commandQueue = [(MSASServerSideModel *)self commandQueue];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __78__MSASServerSideModel_MSASStateMachine_didFinishCheckingForChangesInfo_error___block_invoke;
-    v16[3] = &unk_278E92660;
-    v17 = machineCopy;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __78__MSASServerSideModel_MSASStateMachine_didFinishCheckingForChangesInfo_error___block_invoke;
+    v15[3] = &unk_278E92660;
+    v16 = machineCopy;
     selfCopy3 = self;
-    v19 = infoCopy;
-    v20 = errorCopy;
-    [commandQueue flushQueueCompletionBlock:v16];
+    v18 = infoCopy;
+    v19 = errorCopy;
+    [commandQueue flushQueueCompletionBlock:v15];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __78__MSASServerSideModel_MSASStateMachine_didFinishCheckingForChangesInfo_error___block_invoke(uint64_t a1)
@@ -3960,30 +3905,30 @@ void __78__MSASServerSideModel_MSASStateMachine_didFinishCheckingForChangesInfo_
 
 void __87__MSASServerSideModel_MSASStateMachine_didFindSyncedKeyValueChangesForAlbumGUIDS_info___block_invoke(id *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = a1[4];
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * v6);
+        v7 = *(*(&v10 + 1) + 8 * v6);
         v8 = objc_autoreleasePoolPush();
-        v9 = [a1[5] dbQueueLookupOrCreateAlbumWithGUID:{v7, v11}];
+        v9 = [a1[5] dbQueueLookupOrCreateAlbumWithGUID:{v7, v10}];
         if (v9)
         {
           [a1[6] addObject:v9];
@@ -3994,13 +3939,11 @@ void __87__MSASServerSideModel_MSASStateMachine_didFindSyncedKeyValueChangesForA
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)MSASStateMachine:(id)machine didFindAccessControlChangesForAlbumGUIDS:(id)s info:(id)info
@@ -4029,30 +3972,30 @@ void __87__MSASServerSideModel_MSASStateMachine_didFindSyncedKeyValueChangesForA
 
 void __86__MSASServerSideModel_MSASStateMachine_didFindAccessControlChangesForAlbumGUIDS_info___block_invoke(id *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = a1[4];
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * v6);
+        v7 = *(*(&v10 + 1) + 8 * v6);
         v8 = objc_autoreleasePoolPush();
-        v9 = [a1[5] dbQueueLookupOrCreateAlbumWithGUID:{v7, v11}];
+        v9 = [a1[5] dbQueueLookupOrCreateAlbumWithGUID:{v7, v10}];
         if (v9)
         {
           [a1[6] addObject:v9];
@@ -4063,13 +4006,11 @@ void __86__MSASServerSideModel_MSASStateMachine_didFindAccessControlChangesForAl
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)MSASStateMachine:(id)machine didFindSyncedKeyValueChangesForAlbumGUIDS:(id)s albumChanges:(id)changes accessControlChangesForAlbumGUIDS:(id)dS info:(id)info
@@ -4145,43 +4086,43 @@ void __82__MSASServerSideModel_MSASStateMachine_didFindNewURLString_forAlbumWith
 
 void __65__MSASServerSideModel_MSASStateMachine_didFindAlbumChanges_info___block_invoke(uint64_t a1)
 {
-  v154 = *MEMORY[0x277D85DE8];
-  v125 = [*(a1 + 32) MSASIsGlobalResetSync];
-  if (v125 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  v153 = *MEMORY[0x277D85DE8];
+  v124 = [*(a1 + 32) MSASIsGlobalResetSync];
+  if (v124 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v2 = *(a1 + 40);
     *buf = 138543362;
-    v148 = v2;
+    v147 = v2;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Reconciling current album list due to a reset sync.", buf, 0xCu);
   }
 
-  v126 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(*(a1 + 48), "count")}];
-  v122 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(*(a1 + 48), "count")}];
+  v125 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(*(a1 + 48), "count")}];
+  v121 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(*(a1 + 48), "count")}];
   [*(a1 + 40) dbQueueBeginTransaction];
-  v144 = 0u;
-  v145 = 0u;
-  v142 = 0u;
   v143 = 0u;
+  v144 = 0u;
+  v141 = 0u;
+  v142 = 0u;
   v3 = *(a1 + 48);
-  v4 = [v3 countByEnumeratingWithState:&v142 objects:v153 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v141 objects:v152 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v143;
-    v123 = *v143;
-    v124 = v3;
+    v6 = *v142;
+    v122 = *v142;
+    v123 = v3;
     do
     {
       v7 = 0;
-      v127 = v5;
+      v126 = v5;
       do
       {
-        if (*v143 != v6)
+        if (*v142 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v142 + 1) + 8 * v7);
+        v8 = *(*(&v141 + 1) + 8 * v7);
         v9 = objc_autoreleasePoolPush();
         v10 = [v8 wasDeleted];
         v11 = *(a1 + 40);
@@ -4197,11 +4138,11 @@ void __65__MSASServerSideModel_MSASStateMachine_didFindAlbumChanges_info___block
           goto LABEL_56;
         }
 
-        v128 = v9;
+        v127 = v9;
         v16 = [v8 GUID];
-        v141 = 0;
-        v17 = [v11 dbQueueAlbumWithGUID:v16 outObject:&v141 outName:0 outCtag:0 outForeignCtag:0 outURLString:0 outUserInfoData:0 outClientOrgKey:0];
-        v15 = v141;
+        v140 = 0;
+        v17 = [v11 dbQueueAlbumWithGUID:v16 outObject:&v140 outName:0 outCtag:0 outForeignCtag:0 outURLString:0 outUserInfoData:0 outClientOrgKey:0];
+        v15 = v140;
 
         if (!v17)
         {
@@ -4259,17 +4200,17 @@ void __65__MSASServerSideModel_MSASStateMachine_didFindAlbumChanges_info___block
           {
           }
 
-          [v126 addObject:v61];
+          [v125 addObject:v61];
 LABEL_41:
           v77 = [v8 invitation];
           v78 = [v77 state];
 
           if (v78 == 2)
           {
-            [v122 addObject:v61];
+            [v121 addObject:v61];
           }
 
-          v9 = v128;
+          v9 = v127;
           goto LABEL_51;
         }
 
@@ -4277,7 +4218,7 @@ LABEL_41:
         v19 = [v8 ownerEmail];
         v20 = [v18 isEqualToString:v19];
 
-        v21 = v125;
+        v21 = v124;
         if ((v20 & 1) == 0)
         {
           v22 = [v8 ownerEmail];
@@ -4374,7 +4315,7 @@ LABEL_41:
 
           if (v54 == 2)
           {
-            [v122 addObject:v15];
+            [v121 addObject:v15];
           }
 
           v21 = 1;
@@ -4407,15 +4348,15 @@ LABEL_45:
 
 LABEL_46:
         v80 = [v8 invitation];
-        v3 = v124;
+        v3 = v123;
         if ([v80 state])
         {
           v81 = [v8 invitation];
           v82 = [v81 state];
 
           v83 = v82 == 2;
-          v6 = v123;
-          v9 = v128;
+          v6 = v122;
+          v9 = v127;
           if (!v83)
           {
             goto LABEL_51;
@@ -4425,11 +4366,11 @@ LABEL_46:
         else
         {
 
-          v6 = v123;
-          v9 = v128;
+          v6 = v122;
+          v9 = v127;
         }
 
-        [v126 addObject:v15];
+        [v125 addObject:v15];
 LABEL_51:
         v84 = [v8 invitation];
         v85 = [v84 state];
@@ -4451,7 +4392,7 @@ LABEL_51:
           [v90 dbQueueSetUnviewedState:1 onAlbumWithGUID:v91 info:*(a1 + 32)];
         }
 
-        v5 = v127;
+        v5 = v126;
 LABEL_56:
 
         objc_autoreleasePoolPop(v9);
@@ -4459,65 +4400,65 @@ LABEL_56:
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v142 objects:v153 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v141 objects:v152 count:16];
     }
 
     while (v5);
   }
 
-  if (v125)
+  if (v124)
   {
     v92 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(*(a1 + 48), "count")}];
+    v136 = 0u;
     v137 = 0u;
     v138 = 0u;
     v139 = 0u;
-    v140 = 0u;
     v93 = *(a1 + 48);
-    v94 = [v93 countByEnumeratingWithState:&v137 objects:v152 count:16];
+    v94 = [v93 countByEnumeratingWithState:&v136 objects:v151 count:16];
     if (v94)
     {
       v95 = v94;
-      v96 = *v138;
+      v96 = *v137;
       do
       {
         for (i = 0; i != v95; ++i)
         {
-          if (*v138 != v96)
+          if (*v137 != v96)
           {
             objc_enumerationMutation(v93);
           }
 
-          v98 = [*(*(&v137 + 1) + 8 * i) GUID];
+          v98 = [*(*(&v136 + 1) + 8 * i) GUID];
           [v92 addObject:v98];
         }
 
-        v95 = [v93 countByEnumeratingWithState:&v137 objects:v152 count:16];
+        v95 = [v93 countByEnumeratingWithState:&v136 objects:v151 count:16];
       }
 
       while (v95);
     }
 
-    v135 = 0u;
-    v136 = 0u;
-    v133 = 0u;
     v134 = 0u;
+    v135 = 0u;
+    v132 = 0u;
+    v133 = 0u;
     v99 = [*(a1 + 40) dbQueueAlbumGUIDs];
-    v100 = [v99 countByEnumeratingWithState:&v133 objects:v151 count:16];
+    v100 = [v99 countByEnumeratingWithState:&v132 objects:v150 count:16];
     if (v100)
     {
       v101 = v100;
-      v102 = *v134;
+      v102 = *v133;
       v103 = MEMORY[0x277D86220];
       do
       {
         for (j = 0; j != v101; ++j)
         {
-          if (*v134 != v102)
+          if (*v133 != v102)
           {
             objc_enumerationMutation(v99);
           }
 
-          v105 = *(*(&v133 + 1) + 8 * j);
+          v105 = *(*(&v132 + 1) + 8 * j);
           v106 = objc_autoreleasePoolPush();
           if (([v92 containsObject:v105] & 1) == 0)
           {
@@ -4525,9 +4466,9 @@ LABEL_56:
             {
               v107 = *(a1 + 40);
               *buf = 138543618;
-              v148 = v107;
-              v149 = 2114;
-              v150 = v105;
+              v147 = v107;
+              v148 = 2114;
+              v149 = v105;
               _os_log_impl(&dword_245B99000, v103, OS_LOG_TYPE_DEFAULT, "%{public}@: Deleting album GUID %{public}@ due to reset sync.", buf, 0x16u);
             }
 
@@ -4537,39 +4478,39 @@ LABEL_56:
           objc_autoreleasePoolPop(v106);
         }
 
-        v101 = [v99 countByEnumeratingWithState:&v133 objects:v151 count:16];
+        v101 = [v99 countByEnumeratingWithState:&v132 objects:v150 count:16];
       }
 
       while (v101);
     }
   }
 
-  v131 = 0u;
-  v132 = 0u;
-  v129 = 0u;
   v130 = 0u;
-  v108 = v126;
-  v109 = [v108 countByEnumeratingWithState:&v129 objects:v146 count:16];
+  v131 = 0u;
+  v128 = 0u;
+  v129 = 0u;
+  v108 = v125;
+  v109 = [v108 countByEnumeratingWithState:&v128 objects:v145 count:16];
   if (v109)
   {
     v110 = v109;
-    v111 = *v130;
+    v111 = *v129;
     do
     {
       for (k = 0; k != v110; ++k)
       {
-        if (*v130 != v111)
+        if (*v129 != v111)
         {
           objc_enumerationMutation(v108);
         }
 
-        v113 = *(*(&v129 + 1) + 8 * k);
+        v113 = *(*(&v128 + 1) + 8 * k);
         v114 = [*(a1 + 40) pendingChanges];
         v115 = [v113 GUID];
         [v114 addPendingChangesForAlbumGUID:v115];
       }
 
-      v110 = [v108 countByEnumeratingWithState:&v129 objects:v146 count:16];
+      v110 = [v108 countByEnumeratingWithState:&v128 objects:v145 count:16];
     }
 
     while (v110);
@@ -4582,9 +4523,9 @@ LABEL_56:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v121 = *(a1 + 40);
+      v120 = *(a1 + 40);
       *buf = 138543362;
-      v148 = v121;
+      v147 = v120;
       _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Finished checking album changes", buf, 0xCu);
     }
 
@@ -4597,15 +4538,13 @@ LABEL_56:
     [v118 checkForUpdatesInAlbums:v108 resetSync:0 info:*(a1 + 32)];
   }
 
-  if ([v122 count])
+  if ([v121 count])
   {
     v119 = [*(a1 + 40) stateMachine];
-    [v119 getAccessControlsForAlbums:v122 info:*(a1 + 32)];
+    [v119 getAccessControlsForAlbums:v121 info:*(a1 + 32)];
   }
 
   [*(a1 + 40) dbQueueEndTransaction];
-
-  v120 = *MEMORY[0x277D85DE8];
 }
 
 - (void)MSASStateMachineDidFindGlobalResetSync:(id)sync info:(id)info
@@ -4863,29 +4802,29 @@ void __59__MSASServerSideModel__invalidInvitationGUIDErrorWithGUID___block_invok
 
 - (void)eventQueuePerformBlockOnObservers:(id)observers
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   observersCopy = observers;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   observers = [(MSASServerSideModel *)self observers];
-  v6 = [observers countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [observers countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(observers);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         v11 = objc_autoreleasePoolPush();
         observersCopy[2](observersCopy, v10);
         objc_autoreleasePoolPop(v11);
@@ -4893,13 +4832,11 @@ void __59__MSASServerSideModel__invalidInvitationGUIDErrorWithGUID___block_invok
       }
 
       while (v7 != v9);
-      v7 = [observers countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [observers countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)earliestUnviewedAssetCollectionGUIDInAlbumWithGUID:(id)d
@@ -5035,7 +4972,7 @@ void __71__MSASServerSideModel_lastViewedCommentDateForAssetCollectionWithGUID__
 
 - (void)dbQueueFlushAllPendingCommentCheckOperations
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
@@ -5044,29 +4981,29 @@ void __71__MSASServerSideModel_lastViewedCommentDateForAssetCollectionWithGUID__
   }
 
   v3 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:50];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = [(MSASServerSideModel *)self dbQueuePendingCommentCheckOperations];
-  v26 = [obj countByEnumeratingWithState:&v30 objects:v40 count:16];
-  if (v26)
+  v25 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
+  if (v25)
   {
     v4 = 0;
     albumGUID = 0;
-    v25 = *v31;
+    v24 = *v30;
     selfCopy2 = self;
     do
     {
-      for (i = 0; i != v26; ++i)
+      for (i = 0; i != v25; ++i)
       {
         v7 = albumGUID;
-        if (*v31 != v25)
+        if (*v30 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v30 + 1) + 8 * i);
+        v8 = *(*(&v29 + 1) + 8 * i);
         v9 = objc_autoreleasePoolPush();
         albumGUID = [v8 albumGUID];
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
@@ -5074,10 +5011,10 @@ void __71__MSASServerSideModel_lastViewedCommentDateForAssetCollectionWithGUID__
           assetCollectionGUID = [v8 assetCollectionGUID];
           *buf = 138543874;
           selfCopy = selfCopy2;
-          v36 = 2114;
-          v37 = assetCollectionGUID;
-          v38 = 2114;
-          v39 = albumGUID;
+          v35 = 2114;
+          v36 = assetCollectionGUID;
+          v37 = 2114;
+          v38 = albumGUID;
           _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Flushing pending comment check operation for asset collection GUID %{public}@ in album GUID %{public}@", buf, 0x20u);
 
           self = selfCopy2;
@@ -5085,9 +5022,9 @@ void __71__MSASServerSideModel_lastViewedCommentDateForAssetCollectionWithGUID__
 
         if (v4 > 50 || v7 && ([albumGUID isEqualToString:v7] & 1) == 0)
         {
-          v29 = 0;
-          [(MSASServerSideModel *)self dbQueueAlbumWithGUID:v7 outObject:&v29 outName:0 outCtag:0 outForeignCtag:0 outURLString:0 outUserInfoData:0 outClientOrgKey:0];
-          v10 = v29;
+          v28 = 0;
+          [(MSASServerSideModel *)self dbQueueAlbumWithGUID:v7 outObject:&v28 outName:0 outCtag:0 outForeignCtag:0 outURLString:0 outUserInfoData:0 outClientOrgKey:0];
+          v10 = v28;
           stateMachine = [(MSASServerSideModel *)selfCopy2 stateMachine];
           v12 = [v3 copy];
           clientOrgKey = [v10 clientOrgKey];
@@ -5119,10 +5056,10 @@ void __71__MSASServerSideModel_lastViewedCommentDateForAssetCollectionWithGUID__
         objc_autoreleasePoolPop(v9);
       }
 
-      v26 = [obj countByEnumeratingWithState:&v30 objects:v40 count:16];
+      v25 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
 
   else
@@ -5132,9 +5069,9 @@ void __71__MSASServerSideModel_lastViewedCommentDateForAssetCollectionWithGUID__
 
   if ([v3 count])
   {
-    v28 = 0;
-    [(MSASServerSideModel *)self dbQueueAlbumWithGUID:albumGUID outObject:&v28 outName:0 outCtag:0 outForeignCtag:0 outURLString:0 outUserInfoData:0 outClientOrgKey:0];
-    v19 = v28;
+    v27 = 0;
+    [(MSASServerSideModel *)self dbQueueAlbumWithGUID:albumGUID outObject:&v27 outName:0 outCtag:0 outForeignCtag:0 outURLString:0 outUserInfoData:0 outClientOrgKey:0];
+    v19 = v27;
     stateMachine2 = [(MSASServerSideModel *)self stateMachine];
     clientOrgKey2 = [v19 clientOrgKey];
     [stateMachine2 checkForCommentChanges:v3 inAlbumWithGUID:albumGUID withClientOrgKey:clientOrgKey2];
@@ -5143,8 +5080,6 @@ void __71__MSASServerSideModel_lastViewedCommentDateForAssetCollectionWithGUID__
   [(MSASServerSideModel *)self dbQueueDeleteAllPendingCommentCheckOperations];
   stateMachine3 = [(MSASServerSideModel *)self stateMachine];
   [stateMachine3 retryOutstandingActivities];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)flushAllPendingCommentCheckOperations
@@ -5160,19 +5095,19 @@ void __71__MSASServerSideModel_lastViewedCommentDateForAssetCollectionWithGUID__
 
 - (void)dbQueueAddCommentCheckOperation:(id)operation
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     assetCollectionGUID = [operationCopy assetCollectionGUID];
     albumGUID = [operationCopy albumGUID];
-    v18 = 138543874;
+    v17 = 138543874;
     selfCopy = self;
-    v20 = 2114;
-    v21 = assetCollectionGUID;
-    v22 = 2114;
-    v23 = albumGUID;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Enqueuing comment check operation for asset collection GUID %{public}@ in album GUID %{public}@", &v18, 0x20u);
+    v19 = 2114;
+    v20 = assetCollectionGUID;
+    v21 = 2114;
+    v22 = albumGUID;
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Enqueuing comment check operation for asset collection GUID %{public}@ in album GUID %{public}@", &v17, 0x20u);
   }
 
   v5 = [(MSASModelBase *)self statementForString:@"insert or replace into CommentCheckQueue (assetCollectionGUID, albumGUID) values (?, ?);"];
@@ -5218,8 +5153,6 @@ LABEL_10:
   {
     sqlite3_reset(v5);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dbQueuePendingCommentCheckOperations
@@ -5243,12 +5176,12 @@ MSASCommentCheckOperation *__59__MSASServerSideModel_dbQueuePendingCommentCheckO
 
 - (void)dbQueueDeleteAllPendingCommentCheckOperations
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Deleting all comment check operations.", &v7, 0xCu);
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Deleting all comment check operations.", &v6, 0xCu);
   }
 
   v3 = [(MSASModelBase *)self statementForString:@"delete from CommentCheckQueue;"];
@@ -5264,8 +5197,6 @@ MSASCommentCheckOperation *__59__MSASServerSideModel_dbQueuePendingCommentCheckO
   {
     sqlite3_reset(v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (int)dbQueueUnviewedAssetCollectionCountForAlbumWithGUID:(id)d
@@ -5361,7 +5292,7 @@ LABEL_11:
   return dCopy;
 }
 
-uint64_t __68__MSASServerSideModel_unviewedAssetCollectionCountForAlbumWithGUID___block_invoke(uint64_t a1)
+void *__68__MSASServerSideModel_unviewedAssetCollectionCountForAlbumWithGUID___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dbQueueUnviewedAssetCollectionCountForAlbumWithGUID:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -5456,7 +5387,7 @@ LABEL_7:
   return selfCopy;
 }
 
-uint64_t __41__MSASServerSideModel_unviewedAlbumCount__block_invoke(uint64_t a1)
+void *__41__MSASServerSideModel_unviewedAlbumCount__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dbQueueUnviewedAlbumCount];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -5502,33 +5433,31 @@ void __55__MSASServerSideModel_isAlbumWithGUIDMarkedAsUnviewed___block_invoke(vo
 
 - (void)eventQueueNotifyObserversOfUpdatedUnviewedCountInAlbum:(id)album unviewedCount:(int)count info:(id)info
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   albumCopy = album;
   infoCopy = info;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 138543874;
     selfCopy = self;
-    v19 = 2114;
-    v20 = albumCopy;
-    v21 = 1024;
+    v18 = 2114;
+    v19 = albumCopy;
+    v20 = 1024;
     countCopy = count;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@: Setting unviewed count for album %{public}@ to %d.", buf, 0x1Cu);
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __97__MSASServerSideModel_eventQueueNotifyObserversOfUpdatedUnviewedCountInAlbum_unviewedCount_info___block_invoke;
-  v13[3] = &unk_278E92020;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __97__MSASServerSideModel_eventQueueNotifyObserversOfUpdatedUnviewedCountInAlbum_unviewedCount_info___block_invoke;
+  v12[3] = &unk_278E92020;
   countCopy2 = count;
-  v13[4] = self;
-  v14 = albumCopy;
-  v15 = infoCopy;
+  v12[4] = self;
+  v13 = albumCopy;
+  v14 = infoCopy;
   v10 = infoCopy;
   v11 = albumCopy;
-  [(MSASServerSideModel *)self eventQueuePerformBlockOnObservers:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(MSASServerSideModel *)self eventQueuePerformBlockOnObservers:v12];
 }
 
 void __97__MSASServerSideModel_eventQueueNotifyObserversOfUpdatedUnviewedCountInAlbum_unviewedCount_info___block_invoke(uint64_t a1, void *a2)
@@ -5562,27 +5491,7 @@ void __97__MSASServerSideModel_eventQueueNotifyObserversOfUpdatedUnviewedCountIn
     v12 = v26;
     v13 = v25;
     v14 = v13;
-    if (!v10)
-    {
-      goto LABEL_10;
-    }
-
-    v15 = ([v13 isEqualToString:v9] & 1) != 0 || objc_msgSend(v12, "isEqualToString:", v9);
-    v17 = [(MSASServerSideModel *)self dbQueueUnviewedAssetCollectionCountForAlbumWithGUID:dCopy];
-    eventQueue = [(MSASServerSideModel *)self eventQueue];
-    block[0] = MEMORY[0x277D85DD0];
-    block[1] = 3221225472;
-    block[2] = __76__MSASServerSideModel_dbQueueCheckToClearUnviewedStateOnAlbumWithGUID_info___block_invoke;
-    block[3] = &unk_278E91D70;
-    block[4] = self;
-    v11 = v11;
-    v22 = v11;
-    v24 = v17;
-    v19 = infoCopy;
-    v23 = v19;
-    dispatch_async(eventQueue, block);
-
-    if (v15)
+    if (v10 && (([v13 isEqualToString:v9] & 1) == 0 && !objc_msgSend(v12, "isEqualToString:", v9) ? (v15 = 0) : (v15 = 1), v17 = -[MSASServerSideModel dbQueueUnviewedAssetCollectionCountForAlbumWithGUID:](self, "dbQueueUnviewedAssetCollectionCountForAlbumWithGUID:", dCopy), -[MSASServerSideModel eventQueue](self, "eventQueue"), v18 = objc_claimAutoreleasedReturnValue(), block[0] = MEMORY[0x277D85DD0], block[1] = 3221225472, block[2] = __76__MSASServerSideModel_dbQueueCheckToClearUnviewedStateOnAlbumWithGUID_info___block_invoke, block[3] = &unk_278E91D70, block[4] = self, v11 = v11, v22 = v11, v24 = v17, v19 = infoCopy, v23 = v19, dispatch_async(v18, block), v18, v23, v22, v15))
     {
       [(MSASServerSideModel *)self dbQueueSetUnviewedState:0 onAlbumWithGUID:dCopy info:v19];
       v16 = 1;
@@ -5590,7 +5499,6 @@ void __97__MSASServerSideModel_eventQueueNotifyObserversOfUpdatedUnviewedCountIn
 
     else
     {
-LABEL_10:
       v16 = 0;
     }
   }
@@ -5630,12 +5538,12 @@ LABEL_10:
 - (void)dbQueueSetUnviewedState:(BOOL)state onAlbumWithGUID:(id)d info:(id)info
 {
   stateCopy = state;
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dCopy = d;
   infoCopy = info;
-  v27 = 0;
-  v10 = [(MSASServerSideModel *)self dbQueueAlbumMetadataWithAlbumGUID:dCopy key:@"unviewedFlag" outValue:&v27];
-  v11 = v27;
+  v26 = 0;
+  v10 = [(MSASServerSideModel *)self dbQueueAlbumMetadataWithAlbumGUID:dCopy key:@"unviewedFlag" outValue:&v26];
+  v11 = v26;
   v12 = v11;
   if (v10)
   {
@@ -5648,10 +5556,10 @@ LABEL_10:
     {
       *buf = 138543874;
       selfCopy = self;
-      v30 = 2114;
-      v31 = dCopy;
-      v32 = 1024;
-      v33 = v10;
+      v29 = 2114;
+      v30 = dCopy;
+      v31 = 1024;
+      v32 = v10;
       _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Not setting unviewed state on album GUID %{public}@ because it is the same as the previous state: %d", buf, 0x1Cu);
     }
   }
@@ -5669,9 +5577,9 @@ LABEL_10:
     }
 
     [(MSASServerSideModel *)self dbQueueSetAlbumMetadataAlbumGUID:dCopy key:@"unviewedFlag" value:v13 info:infoCopy];
-    v26 = 0;
-    v14 = [(MSASServerSideModel *)self dbQueueAlbumWithGUID:dCopy outObject:&v26 outName:0 outCtag:0 outForeignCtag:0 outURLString:0 outUserInfoData:0 outClientOrgKey:0];
-    v15 = v26;
+    v25 = 0;
+    v14 = [(MSASServerSideModel *)self dbQueueAlbumWithGUID:dCopy outObject:&v25 outName:0 outCtag:0 outForeignCtag:0 outURLString:0 outUserInfoData:0 outClientOrgKey:0];
+    v15 = v25;
     v16 = v15;
     if (v14)
     {
@@ -5684,15 +5592,13 @@ LABEL_10:
       block[2] = __68__MSASServerSideModel_dbQueueSetUnviewedState_onAlbumWithGUID_info___block_invoke;
       block[3] = &unk_278E91FF8;
       block[4] = self;
-      v22 = v16;
-      v25 = stateCopy;
-      v23 = infoCopy;
-      v24 = v18;
+      v21 = v16;
+      v24 = stateCopy;
+      v22 = infoCopy;
+      v23 = v18;
       dispatch_async(eventQueue, block);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __68__MSASServerSideModel_dbQueueSetUnviewedState_onAlbumWithGUID_info___block_invoke(uint64_t a1)
@@ -5729,12 +5635,12 @@ void __68__MSASServerSideModel_dbQueueSetUnviewedState_onAlbumWithGUID_info___bl
 - (void)dbQueueSetUnviewedState:(BOOL)state onAssetCollectionWithGUID:(id)d info:(id)info
 {
   stateCopy = state;
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dCopy = d;
   infoCopy = info;
-  v33 = 0;
-  v10 = [(MSASServerSideModel *)self dbQueueAssetCollectionMetadataWithAssetCollectionGUID:dCopy key:@"unviewedFlag" outValue:&v33];
-  v11 = v33;
+  v32 = 0;
+  v10 = [(MSASServerSideModel *)self dbQueueAssetCollectionMetadataWithAssetCollectionGUID:dCopy key:@"unviewedFlag" outValue:&v32];
+  v11 = v32;
   v12 = v11;
   if (v10)
   {
@@ -5747,10 +5653,10 @@ void __68__MSASServerSideModel_dbQueueSetUnviewedState_onAlbumWithGUID_info___bl
     {
       *buf = 138543874;
       selfCopy = self;
-      v36 = 2114;
-      v37 = dCopy;
-      v38 = 1024;
-      v39 = v10;
+      v35 = 2114;
+      v36 = dCopy;
+      v37 = 1024;
+      v38 = v10;
       _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Not setting unviewed state on asset collection GUID %{public}@ because it is the same as the previous state: %d", buf, 0x1Cu);
     }
   }
@@ -5768,16 +5674,16 @@ void __68__MSASServerSideModel_dbQueueSetUnviewedState_onAlbumWithGUID_info___bl
     }
 
     [(MSASServerSideModel *)self dbQueueSetAssetCollectionMetadataAssetCollectionGUID:dCopy key:@"unviewedFlag" value:v13 info:infoCopy];
+    v30 = 0;
     v31 = 0;
-    v32 = 0;
-    v14 = [(MSASServerSideModel *)self dbQueueAssetCollectionWithGUID:dCopy outObject:&v32 outCtag:0 outAlbumGUID:&v31 outBatchDate:0 outPhotoDate:0 outPhotoNumber:0 outUserInfoData:0];
-    v15 = v32;
-    v16 = v31;
+    v14 = [(MSASServerSideModel *)self dbQueueAssetCollectionWithGUID:dCopy outObject:&v31 outCtag:0 outAlbumGUID:&v30 outBatchDate:0 outPhotoDate:0 outPhotoNumber:0 outUserInfoData:0];
+    v15 = v31;
+    v16 = v30;
     if (v14)
     {
-      v30 = 0;
-      v17 = [(MSASServerSideModel *)self dbQueueAlbumWithGUID:v16 outObject:&v30 outName:0 outCtag:0 outForeignCtag:0 outURLString:0 outUserInfoData:0 outClientOrgKey:0];
-      v18 = v30;
+      v29 = 0;
+      v17 = [(MSASServerSideModel *)self dbQueueAlbumWithGUID:v16 outObject:&v29 outName:0 outCtag:0 outForeignCtag:0 outURLString:0 outUserInfoData:0 outClientOrgKey:0];
+      v18 = v29;
       if (v17)
       {
         eventQueue = [(MSASServerSideModel *)self eventQueue];
@@ -5786,18 +5692,18 @@ void __68__MSASServerSideModel_dbQueueSetUnviewedState_onAlbumWithGUID_info___bl
         block[2] = __78__MSASServerSideModel_dbQueueSetUnviewedState_onAssetCollectionWithGUID_info___block_invoke;
         block[3] = &unk_278E91FA8;
         block[4] = self;
-        v26 = v15;
-        v29 = stateCopy;
-        v27 = v18;
-        v28 = infoCopy;
+        v25 = v15;
+        v28 = stateCopy;
+        v26 = v18;
+        v27 = infoCopy;
         dispatch_async(eventQueue, block);
       }
 
       if ((stateCopy & 1) == 0)
       {
-        v24 = 0;
-        v20 = [(MSASServerSideModel *)self dbQueueAlbumMetadataWithAlbumGUID:v16 key:@"unviewedFlag" outValue:&v24];
-        v21 = v24;
+        v23 = 0;
+        v20 = [(MSASServerSideModel *)self dbQueueAlbumMetadataWithAlbumGUID:v16 key:@"unviewedFlag" outValue:&v23];
+        v21 = v23;
         v22 = v21;
         if (v20 && [v21 isEqualToString:@"1"] && !-[MSASServerSideModel dbQueueCountOfUnviewedAssetCollectionsInAlbumWithGUID:](self, "dbQueueCountOfUnviewedAssetCollectionsInAlbumWithGUID:", v16))
         {
@@ -5806,8 +5712,6 @@ void __68__MSASServerSideModel_dbQueueSetUnviewedState_onAlbumWithGUID_info___bl
       }
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __78__MSASServerSideModel_dbQueueSetUnviewedState_onAssetCollectionWithGUID_info___block_invoke(uint64_t a1)
@@ -6479,26 +6383,26 @@ void __57__MSASServerSideModel_dbQueueDeleteCommentWithGUID_info___block_invoke_
 
 - (void)dbQueueSetComment:(id)comment forAssetCollectionWithGUID:(id)d info:(id)info
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   commentCopy = comment;
   dCopy = d;
   infoCopy = info;
+  v64 = 0;
   v65 = 0;
-  v66 = 0;
-  v11 = [(MSASServerSideModel *)self dbQueueAssetCollectionWithGUID:dCopy outObject:&v66 outCtag:0 outAlbumGUID:&v65 outBatchDate:0 outPhotoDate:0 outPhotoNumber:0 outUserInfoData:0];
-  v12 = v66;
-  v13 = v65;
+  v11 = [(MSASServerSideModel *)self dbQueueAssetCollectionWithGUID:dCopy outObject:&v65 outCtag:0 outAlbumGUID:&v64 outBatchDate:0 outPhotoDate:0 outPhotoNumber:0 outUserInfoData:0];
+  v12 = v65;
+  v13 = v64;
   if (v11)
   {
-    v64 = 0;
-    v14 = [(MSASServerSideModel *)self dbQueueAlbumWithGUID:v13 outObject:&v64 outName:0 outCtag:0 outForeignCtag:0 outURLString:0 outUserInfoData:0 outClientOrgKey:0];
-    v15 = v64;
+    v63 = 0;
+    v14 = [(MSASServerSideModel *)self dbQueueAlbumWithGUID:v13 outObject:&v63 outName:0 outCtag:0 outForeignCtag:0 outURLString:0 outUserInfoData:0 outClientOrgKey:0];
+    v15 = v63;
     if (v14)
     {
       gUID = [commentCopy GUID];
-      v63 = 0;
-      v49 = [(MSASServerSideModel *)self dbQueueCommentWithGUID:gUID outObject:0 outID:0 outTimestamp:0 outAssetCollectionGUID:0 outIsCaption:0 outUserInfoData:&v63];
-      v51 = v63;
+      v62 = 0;
+      v48 = [(MSASServerSideModel *)self dbQueueCommentWithGUID:gUID outObject:0 outID:0 outTimestamp:0 outAssetCollectionGUID:0 outIsCaption:0 outUserInfoData:&v62];
+      v50 = v62;
 
       v17 = [(MSASModelBase *)self statementForString:@"insert or replace into Comments (GUID, id, timestamp, assetCollectionGUID, isCaption, isMine, obj, userInfo) values (?, ?, ?, ?, ?, ?, ?, ?);"];
       gUID2 = [commentCopy GUID];
@@ -6535,9 +6439,9 @@ void __57__MSASServerSideModel_dbQueueDeleteCommentWithGUID_info___block_invoke_
                 MSSqliteTrapForDBLockError(v30);
                 if (!v31)
                 {
-                  v62 = 0;
-                  v32 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:commentCopy requiringSecureCoding:1 error:&v62];
-                  v48 = v62;
+                  v61 = 0;
+                  v32 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:commentCopy requiringSecureCoding:1 error:&v61];
+                  v47 = v61;
                   if (v32)
                   {
                     v33 = MSSqliteBindDataOrNull(v17, 7, v32);
@@ -6545,9 +6449,9 @@ void __57__MSASServerSideModel_dbQueueDeleteCommentWithGUID_info___block_invoke_
 
                   else
                   {
-                    v45 = MEMORY[0x277CCACA8];
-                    userInfo = [v48 userInfo];
-                    v35 = [v45 stringWithFormat:@"Failed to archive a comment object. Error: %@ Info: %@", v48, userInfo];
+                    v44 = MEMORY[0x277CCACA8];
+                    userInfo = [v47 userInfo];
+                    v35 = [v44 stringWithFormat:@"Failed to archive a comment object. Error: %@ Info: %@", v47, userInfo];
 
                     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                     {
@@ -6563,7 +6467,7 @@ void __57__MSASServerSideModel_dbQueueDeleteCommentWithGUID_info___block_invoke_
                   MSSqliteTrapForDBLockError(v33);
                   if (!v33)
                   {
-                    v36 = MSSqliteBindDataOrNull(v17, 8, v51);
+                    v36 = MSSqliteBindDataOrNull(v17, 8, v50);
                     v37 = v36;
                     MSSqliteTrapForDBLockError(v36);
                     if (!v37)
@@ -6573,25 +6477,25 @@ void __57__MSASServerSideModel_dbQueueDeleteCommentWithGUID_info___block_invoke_
                       MSSqliteTrapForDBLockError(v38);
                       if (v39 == 101)
                       {
-                        v47 = v32;
+                        v46 = v32;
                         commandQueue = [(MSASServerSideModel *)self commandQueue];
                         eventQueue = commandQueue;
-                        if (v49)
+                        if (v48)
                         {
-                          v57[0] = MEMORY[0x277D85DD0];
-                          v57[1] = 3221225472;
-                          v57[2] = __73__MSASServerSideModel_dbQueueSetComment_forAssetCollectionWithGUID_info___block_invoke;
-                          v57[3] = &unk_278E92688;
-                          v57[4] = self;
-                          v50 = &v58;
-                          v58 = commentCopy;
-                          v46 = &v59;
-                          v59 = v12;
-                          v44 = &v60;
-                          v60 = v15;
-                          v42 = &v61;
-                          v61 = infoCopy;
-                          [eventQueue flushQueueCompletionBlock:v57];
+                          v56[0] = MEMORY[0x277D85DD0];
+                          v56[1] = 3221225472;
+                          v56[2] = __73__MSASServerSideModel_dbQueueSetComment_forAssetCollectionWithGUID_info___block_invoke;
+                          v56[3] = &unk_278E92688;
+                          v56[4] = self;
+                          v49 = &v57;
+                          v57 = commentCopy;
+                          v45 = &v58;
+                          v58 = v12;
+                          v43 = &v59;
+                          v59 = v15;
+                          v42 = &v60;
+                          v60 = infoCopy;
+                          [eventQueue flushQueueCompletionBlock:v56];
                         }
 
                         else
@@ -6604,18 +6508,18 @@ void __57__MSASServerSideModel_dbQueueDeleteCommentWithGUID_info___block_invoke_
                           block[2] = __73__MSASServerSideModel_dbQueueSetComment_forAssetCollectionWithGUID_info___block_invoke_4;
                           block[3] = &unk_278E92688;
                           block[4] = self;
-                          v50 = &v53;
-                          v53 = commentCopy;
-                          v46 = &v54;
-                          v54 = v12;
-                          v44 = &v55;
-                          v55 = v15;
-                          v42 = &v56;
-                          v56 = infoCopy;
+                          v49 = &v52;
+                          v52 = commentCopy;
+                          v45 = &v53;
+                          v53 = v12;
+                          v43 = &v54;
+                          v54 = v15;
+                          v42 = &v55;
+                          v55 = infoCopy;
                           dispatch_async(eventQueue, block);
                         }
 
-                        v32 = v47;
+                        v32 = v46;
                       }
                     }
                   }
@@ -6646,8 +6550,6 @@ void __57__MSASServerSideModel_dbQueueDeleteCommentWithGUID_info___block_invoke_
     selfCopy2 = self;
     _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Rejecting comment destined for non-existent asset collection.", buf, 0xCu);
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void __73__MSASServerSideModel_dbQueueSetComment_forAssetCollectionWithGUID_info___block_invoke(id *a1)
@@ -6864,42 +6766,42 @@ LABEL_3:
 
 - (void)dbQueueDeleteAssetCollectionWithGUID:(id)d info:(id)info
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   dCopy = d;
   infoCopy = info;
+  v44 = 0;
   v45 = 0;
-  v46 = 0;
-  v8 = [(MSASServerSideModel *)self dbQueueAssetCollectionWithGUID:dCopy outObject:&v46 outCtag:0 outAlbumGUID:&v45 outBatchDate:0 outPhotoDate:0 outPhotoNumber:0 outUserInfoData:0];
-  v9 = v46;
-  v10 = v45;
+  v8 = [(MSASServerSideModel *)self dbQueueAssetCollectionWithGUID:dCopy outObject:&v45 outCtag:0 outAlbumGUID:&v44 outBatchDate:0 outPhotoDate:0 outPhotoNumber:0 outUserInfoData:0];
+  v9 = v45;
+  v10 = v44;
   if (v8)
   {
-    v35 = v9;
-    v36 = infoCopy;
+    v34 = v9;
+    v35 = infoCopy;
     v11 = [MEMORY[0x277CBEB38] MSASDictionaryWithCopyOfDictionary:infoCopy];
     v12 = [v11 MSASAddEventIsDueToAssetCollectionDeletionAssetCollectionGUID:dCopy];
 
     [(MSASModelBase *)self dbQueueBeginTransaction];
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     v13 = [(MSASServerSideModel *)self dbQueueCommentsForAssetCollectionWithGUID:dCopy];
-    v14 = [v13 countByEnumeratingWithState:&v41 objects:v47 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v40 objects:v46 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v42;
+      v16 = *v41;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v42 != v16)
+          if (*v41 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v41 + 1) + 8 * i);
+          v18 = *(*(&v40 + 1) + 8 * i);
           v19 = objc_autoreleasePoolPush();
           gUID = [v18 GUID];
           [(MSASServerSideModel *)self dbQueueDeleteCommentWithGUID:gUID info:v12];
@@ -6907,7 +6809,7 @@ LABEL_3:
           objc_autoreleasePoolPop(v19);
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v41 objects:v47 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v40 objects:v46 count:16];
       }
 
       while (v15);
@@ -6925,7 +6827,7 @@ LABEL_3:
       MSSqliteTrapForDBLockError(v24);
     }
 
-    v9 = v35;
+    v9 = v34;
     if (v21)
     {
       sqlite3_reset(v21);
@@ -6933,7 +6835,7 @@ LABEL_3:
 
     v25 = [(MSASServerSideModel *)self dbQueueLookupOrCreateAlbumWithGUID:v10];
     commandQueue = [(MSASServerSideModel *)self commandQueue];
-    [commandQueue MSASModel:self didFindDeletedAssetCollection:v35 inAlbum:v25 info:v12];
+    [commandQueue MSASModel:self didFindDeletedAssetCollection:v34 inAlbum:v25 info:v12];
 
     eventQueue = [(MSASServerSideModel *)self eventQueue];
     block[0] = MEMORY[0x277D85DD0];
@@ -6941,24 +6843,24 @@ LABEL_3:
     block[2] = __65__MSASServerSideModel_dbQueueDeleteAssetCollectionWithGUID_info___block_invoke;
     block[3] = &unk_278E92660;
     block[4] = self;
-    v38 = v35;
+    v37 = v34;
     v28 = v25;
-    v39 = v28;
+    v38 = v28;
     v29 = v12;
-    v40 = v29;
+    v39 = v29;
     dispatch_async(eventQueue, block);
 
     v30 = [(MSASModelBase *)self statementForString:@"select count(GUID) from AssetCollections where albumGUID = ?"];
     v31 = MSSqliteBindStringOrNull(v30, 1, v10);
     v32 = v31;
     MSSqliteTrapForDBLockError(v31);
-    infoCopy = v36;
+    infoCopy = v35;
     if (!v32)
     {
-      v34 = sqlite3_step(v30);
-      if (v34 != 101)
+      v33 = sqlite3_step(v30);
+      if (v33 != 101)
       {
-        if (v34 == 100)
+        if (v33 == 100)
         {
           if (!sqlite3_column_int(v30, 0))
           {
@@ -6978,8 +6880,6 @@ LABEL_3:
       sqlite3_reset(v30);
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __65__MSASServerSideModel_dbQueueDeleteAssetCollectionWithGUID_info___block_invoke(uint64_t a1)
@@ -7015,19 +6915,19 @@ void __65__MSASServerSideModel_dbQueueDeleteAssetCollectionWithGUID_info___block
 
 - (void)dbQueueSetAssetCollection:(id)collection inAlbumWithGUID:(id)d info:(id)info
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   collectionCopy = collection;
   dCopy = d;
   infoCopy = info;
-  v65 = 0;
-  v11 = [(MSASServerSideModel *)self dbQueueAlbumWithGUID:dCopy outObject:&v65 outName:0 outCtag:0 outForeignCtag:0 outURLString:0 outUserInfoData:0 outClientOrgKey:0];
-  v12 = v65;
+  v64 = 0;
+  v11 = [(MSASServerSideModel *)self dbQueueAlbumWithGUID:dCopy outObject:&v64 outName:0 outCtag:0 outForeignCtag:0 outURLString:0 outUserInfoData:0 outClientOrgKey:0];
+  v12 = v64;
   if (v11)
   {
     gUID = [collectionCopy GUID];
-    v64 = 0;
-    v53 = [(MSASServerSideModel *)self dbQueueAssetCollectionWithGUID:gUID outObject:0 outCtag:0 outAlbumGUID:0 outBatchDate:0 outPhotoDate:0 outPhotoNumber:0 outUserInfoData:&v64];
-    v14 = v64;
+    v63 = 0;
+    v52 = [(MSASServerSideModel *)self dbQueueAssetCollectionWithGUID:gUID outObject:0 outCtag:0 outAlbumGUID:0 outBatchDate:0 outPhotoDate:0 outPhotoNumber:0 outUserInfoData:&v63];
+    v14 = v63;
 
     v15 = [(MSASModelBase *)self statementForString:@"insert or replace into AssetCollections (GUID, ctag, albumGUID, batchDate, photoDate, photoNumber, obj, userInfo) values (?, ?, ?, ?, ?, ?, ?, ?);"];
     gUID2 = [collectionCopy GUID];
@@ -7057,11 +6957,11 @@ void __65__MSASServerSideModel_dbQueueDeleteAssetCollectionWithGUID_info___block
           MSSqliteTrapForDBLockError(v26);
           if (!metadata)
           {
-            v51 = v25;
+            v50 = v25;
             metadata2 = [collectionCopy metadata];
             v28 = [metadata2 objectForKey:@"dateCreated"];
 
-            v52 = v28;
+            v51 = v28;
             v29 = MSSqliteBindTimeIntervalSinceReferenceDateOrNull(v15, 5, v28);
             LODWORD(metadata2) = v29;
             MSSqliteTrapForDBLockError(v29);
@@ -7072,10 +6972,10 @@ void __65__MSASServerSideModel_dbQueueDeleteAssetCollectionWithGUID_info___block
               MSSqliteTrapForDBLockError(v30);
               if (!v31)
               {
-                v63 = 0;
-                v32 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:collectionCopy requiringSecureCoding:1 error:&v63];
-                v33 = v63;
-                v50 = v33;
+                v62 = 0;
+                v32 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:collectionCopy requiringSecureCoding:1 error:&v62];
+                v33 = v62;
+                v49 = v33;
                 if (v32)
                 {
                   v34 = MSSqliteBindDataOrNull(v15, 7, v32);
@@ -7083,10 +6983,10 @@ void __65__MSASServerSideModel_dbQueueDeleteAssetCollectionWithGUID_info___block
 
                 else
                 {
-                  v48 = MEMORY[0x277CCACA8];
+                  v47 = MEMORY[0x277CCACA8];
                   v35 = v33;
                   userInfo = [v33 userInfo];
-                  v37 = [v48 stringWithFormat:@"Failed to archive an assetCollection object. Error: %@ Info: %@", v35, userInfo];
+                  v37 = [v47 stringWithFormat:@"Failed to archive an assetCollection object. Error: %@ Info: %@", v35, userInfo];
 
                   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                   {
@@ -7112,23 +7012,23 @@ void __65__MSASServerSideModel_dbQueueDeleteAssetCollectionWithGUID_info___block
                     MSSqliteTrapForDBLockError(v40);
                     if (v41 == 101)
                     {
-                      v49 = v32;
+                      v48 = v32;
                       commandQueue = [(MSASServerSideModel *)self commandQueue];
                       v43 = commandQueue;
-                      if (v53)
+                      if (v52)
                       {
-                        v59[0] = MEMORY[0x277D85DD0];
-                        v59[1] = 3221225472;
-                        v59[2] = __70__MSASServerSideModel_dbQueueSetAssetCollection_inAlbumWithGUID_info___block_invoke;
-                        v59[3] = &unk_278E92660;
-                        v59[4] = self;
-                        v54 = &v60;
-                        v60 = collectionCopy;
-                        v44 = &v61;
-                        v61 = v12;
-                        v45 = &v62;
-                        v62 = infoCopy;
-                        [v43 flushQueueCompletionBlock:v59];
+                        v58[0] = MEMORY[0x277D85DD0];
+                        v58[1] = 3221225472;
+                        v58[2] = __70__MSASServerSideModel_dbQueueSetAssetCollection_inAlbumWithGUID_info___block_invoke;
+                        v58[3] = &unk_278E92660;
+                        v58[4] = self;
+                        v53 = &v59;
+                        v59 = collectionCopy;
+                        v44 = &v60;
+                        v60 = v12;
+                        v45 = &v61;
+                        v61 = infoCopy;
+                        [v43 flushQueueCompletionBlock:v58];
                       }
 
                       else
@@ -7141,24 +7041,24 @@ void __65__MSASServerSideModel_dbQueueDeleteAssetCollectionWithGUID_info___block
                         block[2] = __70__MSASServerSideModel_dbQueueSetAssetCollection_inAlbumWithGUID_info___block_invoke_4;
                         block[3] = &unk_278E92660;
                         block[4] = self;
-                        v54 = &v56;
-                        v56 = collectionCopy;
-                        v44 = &v57;
-                        v57 = v12;
-                        v45 = &v58;
-                        v58 = infoCopy;
+                        v53 = &v55;
+                        v55 = collectionCopy;
+                        v44 = &v56;
+                        v56 = v12;
+                        v45 = &v57;
+                        v57 = infoCopy;
                         v43 = eventQueue;
                         dispatch_async(eventQueue, block);
                       }
 
-                      v32 = v49;
+                      v32 = v48;
                     }
                   }
                 }
               }
             }
 
-            v25 = v51;
+            v25 = v50;
           }
         }
       }
@@ -7176,8 +7076,6 @@ void __65__MSASServerSideModel_dbQueueDeleteAssetCollectionWithGUID_info___block
     selfCopy = self;
     _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Rejecting asset collection destined for non-existent album.", buf, 0xCu);
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 void __70__MSASServerSideModel_dbQueueSetAssetCollection_inAlbumWithGUID_info___block_invoke(id *a1)
@@ -7414,13 +7312,13 @@ void __60__MSASServerSideModel_dbQueueDeleteInvitationWithGUID_info___block_invo
 
 - (void)dbQueueSetInvitation:(id)invitation info:(id)info
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   invitationCopy = invitation;
   infoCopy = info;
   gUID = [invitationCopy GUID];
-  v47 = 0;
-  v9 = [(MSASServerSideModel *)self dbQueueInvitationWithGUID:gUID outObject:0 outAlbumGUID:0 outEmail:0 outUserInfoData:&v47];
-  v10 = v47;
+  v46 = 0;
+  v9 = [(MSASServerSideModel *)self dbQueueInvitationWithGUID:gUID outObject:0 outAlbumGUID:0 outEmail:0 outUserInfoData:&v46];
+  v10 = v46;
 
   v11 = [(MSASModelBase *)self statementForString:@"insert or replace into Invitations (GUID, albumGUID, email, obj, userInfo) values (?, ?, ?, ?, ?);"];
   gUID2 = [invitationCopy GUID];
@@ -7444,9 +7342,9 @@ void __60__MSASServerSideModel_dbQueueDeleteInvitationWithGUID_info___block_invo
 
       if (!v20)
       {
-        v46 = 0;
-        v21 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:invitationCopy requiringSecureCoding:1 error:&v46];
-        v22 = v46;
+        v45 = 0;
+        v21 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:invitationCopy requiringSecureCoding:1 error:&v45];
+        v22 = v45;
         v23 = v22;
         if (v21)
         {
@@ -7463,7 +7361,7 @@ void __60__MSASServerSideModel_dbQueueDeleteInvitationWithGUID_info___block_invo
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v49 = v28;
+            v48 = v28;
             _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
           }
 
@@ -7490,16 +7388,16 @@ void __60__MSASServerSideModel_dbQueueDeleteInvitationWithGUID_info___block_invo
               eventQueue = commandQueue;
               if (v9)
               {
-                v43[0] = MEMORY[0x277D85DD0];
-                v43[1] = 3221225472;
-                v43[2] = __49__MSASServerSideModel_dbQueueSetInvitation_info___block_invoke;
-                v43[3] = &unk_278E92638;
-                v43[4] = self;
-                v37 = &v44;
-                v44 = invitationCopy;
-                v38 = &v45;
-                v45 = infoCopy;
-                [eventQueue flushQueueCompletionBlock:v43];
+                v42[0] = MEMORY[0x277D85DD0];
+                v42[1] = 3221225472;
+                v42[2] = __49__MSASServerSideModel_dbQueueSetInvitation_info___block_invoke;
+                v42[3] = &unk_278E92638;
+                v42[4] = self;
+                v37 = &v43;
+                v43 = invitationCopy;
+                v38 = &v44;
+                v44 = infoCopy;
+                [eventQueue flushQueueCompletionBlock:v42];
               }
 
               else
@@ -7512,10 +7410,10 @@ void __60__MSASServerSideModel_dbQueueDeleteInvitationWithGUID_info___block_invo
                 block[2] = __49__MSASServerSideModel_dbQueueSetInvitation_info___block_invoke_4;
                 block[3] = &unk_278E92638;
                 block[4] = self;
-                v37 = &v41;
-                v41 = invitationCopy;
-                v38 = &v42;
-                v42 = infoCopy;
+                v37 = &v40;
+                v40 = invitationCopy;
+                v38 = &v41;
+                v41 = infoCopy;
                 dispatch_async(eventQueue, block);
               }
             }
@@ -7529,8 +7427,6 @@ void __60__MSASServerSideModel_dbQueueDeleteInvitationWithGUID_info___block_invo
   {
     sqlite3_reset(v11);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 void __49__MSASServerSideModel_dbQueueSetInvitation_info___block_invoke(uint64_t a1)
@@ -7797,22 +7693,22 @@ void __63__MSASServerSideModel_dbQueueDeleteAccessControlWithGUID_info___block_i
 
 - (void)dbQueueSetAccessControl:(id)control info:(id)info
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   controlCopy = control;
   infoCopy = info;
   albumGUID = [controlCopy albumGUID];
-  v68 = 0;
-  v9 = [(MSASServerSideModel *)self dbQueueAlbumWithGUID:albumGUID outObject:&v68 outName:0 outCtag:0 outForeignCtag:0 outURLString:0 outUserInfoData:0 outClientOrgKey:0];
-  v10 = v68;
+  v67 = 0;
+  v9 = [(MSASServerSideModel *)self dbQueueAlbumWithGUID:albumGUID outObject:&v67 outName:0 outCtag:0 outForeignCtag:0 outURLString:0 outUserInfoData:0 outClientOrgKey:0];
+  v10 = v67;
 
   if (v9)
   {
     gUID = [controlCopy GUID];
+    v65 = 0;
     v66 = 0;
-    v67 = 0;
-    v12 = [(MSASServerSideModel *)self dbQueueAccessControlWithGUID:gUID outObject:&v67 outAlbumGUID:0 outEmail:0 outUserInfoData:&v66];
-    v13 = v67;
-    v14 = v66;
+    v12 = [(MSASServerSideModel *)self dbQueueAccessControlWithGUID:gUID outObject:&v66 outAlbumGUID:0 outEmail:0 outUserInfoData:&v65];
+    v13 = v66;
+    v14 = v65;
 
     if (v12 && [v13 isEqualToSharingRelationship:controlCopy])
     {
@@ -7848,11 +7744,11 @@ void __63__MSASServerSideModel_dbQueueDeleteAccessControlWithGUID_info___block_i
 
           if (!v24)
           {
-            v65 = 0;
-            v25 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:controlCopy requiringSecureCoding:1 error:&v65];
-            v26 = v65;
-            v55 = v26;
-            v56 = v25;
+            v64 = 0;
+            v25 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:controlCopy requiringSecureCoding:1 error:&v64];
+            v26 = v64;
+            v54 = v26;
+            v55 = v25;
             if (v25)
             {
               v27 = v15;
@@ -7861,10 +7757,10 @@ void __63__MSASServerSideModel_dbQueueDeleteAccessControlWithGUID_info___block_i
 
             else
             {
-              v53 = MEMORY[0x277CCACA8];
+              v52 = MEMORY[0x277CCACA8];
               v29 = v26;
               userInfo = [v26 userInfo];
-              v31 = [v53 stringWithFormat:@"Failed to archive an accessControl object. Error: %@ Info: %@", v29, userInfo];
+              v31 = [v52 stringWithFormat:@"Failed to archive an accessControl object. Error: %@ Info: %@", v29, userInfo];
 
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
               {
@@ -7903,20 +7799,20 @@ void __63__MSASServerSideModel_dbQueueDeleteAccessControlWithGUID_info___block_i
 
                     queue = [(MSASServerSideModel *)self commandQueue];
                     v40 = v38;
-                    v61[0] = MEMORY[0x277D85DD0];
-                    v61[1] = 3221225472;
-                    v61[2] = __52__MSASServerSideModel_dbQueueSetAccessControl_info___block_invoke;
-                    v61[3] = &unk_278E92660;
-                    v61[4] = self;
-                    v54 = &v62;
-                    v62 = controlCopy;
-                    v41 = &v63;
-                    v42 = &v64;
-                    v63 = v10;
-                    v64 = v40;
+                    v60[0] = MEMORY[0x277D85DD0];
+                    v60[1] = 3221225472;
+                    v60[2] = __52__MSASServerSideModel_dbQueueSetAccessControl_info___block_invoke;
+                    v60[3] = &unk_278E92660;
+                    v60[4] = self;
+                    v53 = &v61;
+                    v61 = controlCopy;
+                    v41 = &v62;
+                    v42 = &v63;
+                    v62 = v10;
+                    v63 = v40;
                     v43 = v40;
                     v44 = queue;
-                    [queue flushQueueCompletionBlock:v61];
+                    [queue flushQueueCompletionBlock:v60];
                   }
 
                   else
@@ -7934,12 +7830,12 @@ void __63__MSASServerSideModel_dbQueueDeleteAccessControlWithGUID_info___block_i
                     block[2] = __52__MSASServerSideModel_dbQueueSetAccessControl_info___block_invoke_4;
                     block[3] = &unk_278E92660;
                     block[4] = self;
-                    v54 = &v58;
-                    v58 = controlCopy;
-                    v41 = &v59;
-                    v42 = &v60;
-                    v59 = v10;
-                    v60 = v40;
+                    v53 = &v57;
+                    v57 = controlCopy;
+                    v41 = &v58;
+                    v42 = &v59;
+                    v58 = v10;
+                    v59 = v40;
                     v47 = v40;
                     v44 = queuea;
                     dispatch_async(queuea, block);
@@ -7971,8 +7867,6 @@ void __63__MSASServerSideModel_dbQueueDeleteAccessControlWithGUID_info___block_i
     selfCopy2 = self;
     _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Rejecting access control destined for non-existent album.", buf, 0xCu);
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 void __52__MSASServerSideModel_dbQueueSetAccessControl_info___block_invoke(id *a1)
@@ -8113,48 +8007,48 @@ LABEL_3:
 
 - (void)dbQueueDeleteAlbumWithGUID:(id)d info:(id)info
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   dCopy = d;
   infoCopy = info;
-  v54 = 0;
-  v8 = [(MSASServerSideModel *)self dbQueueAlbumWithGUID:dCopy outObject:&v54 outName:0 outCtag:0 outForeignCtag:0 outURLString:0 outUserInfoData:0 outClientOrgKey:0];
-  v9 = v54;
+  v53 = 0;
+  v8 = [(MSASServerSideModel *)self dbQueueAlbumWithGUID:dCopy outObject:&v53 outName:0 outCtag:0 outForeignCtag:0 outURLString:0 outUserInfoData:0 outClientOrgKey:0];
+  v9 = v53;
   v10 = v9;
   if (v8)
   {
-    v41 = v9;
-    v42 = infoCopy;
+    v40 = v9;
+    v41 = infoCopy;
     v11 = [MEMORY[0x277CBEB38] MSASDictionaryWithCopyOfDictionary:infoCopy];
     v12 = [v11 MSASAddEventIsDueToAlbumDeletionAlbumGUID:dCopy];
 
     v13 = [(MSASServerSideModel *)self dbQueueAccessControlGUIDsForAlbumWithGUID:dCopy];
     [(MSASModelBase *)self dbQueueBeginTransaction];
-    v52 = 0u;
-    v53 = 0u;
     v51 = 0u;
+    v52 = 0u;
     v50 = 0u;
+    v49 = 0u;
     v14 = v13;
-    v15 = [v14 countByEnumeratingWithState:&v50 objects:v56 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v49 objects:v55 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v51;
+      v17 = *v50;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v51 != v17)
+          if (*v50 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v50 + 1) + 8 * i);
+          v19 = *(*(&v49 + 1) + 8 * i);
           v20 = objc_autoreleasePoolPush();
           [(MSASServerSideModel *)self dbQueueDeleteAccessControlWithGUID:v19 info:v12];
           objc_autoreleasePoolPop(v20);
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v50 objects:v56 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v49 objects:v55 count:16];
       }
 
       while (v16);
@@ -8169,35 +8063,35 @@ LABEL_3:
       [(MSASServerSideModel *)self dbQueueDeleteInvitationWithGUID:gUID info:v12];
     }
 
-    v40 = v22;
+    v39 = v22;
     v24 = [(MSASServerSideModel *)self dbQueueAssetCollectionGUIDsInAlbumWithGUID:dCopy];
     [(MSASModelBase *)self dbQueueBeginTransaction];
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     v25 = v24;
-    v26 = [v25 countByEnumeratingWithState:&v46 objects:v55 count:16];
+    v26 = [v25 countByEnumeratingWithState:&v45 objects:v54 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v47;
+      v28 = *v46;
       do
       {
         for (j = 0; j != v27; ++j)
         {
-          if (*v47 != v28)
+          if (*v46 != v28)
           {
             objc_enumerationMutation(v25);
           }
 
-          v30 = *(*(&v46 + 1) + 8 * j);
+          v30 = *(*(&v45 + 1) + 8 * j);
           v31 = objc_autoreleasePoolPush();
           [(MSASServerSideModel *)self dbQueueDeleteAssetCollectionWithGUID:v30 info:v12];
           objc_autoreleasePoolPop(v31);
         }
 
-        v27 = [v25 countByEnumeratingWithState:&v46 objects:v55 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v45 objects:v54 count:16];
       }
 
       while (v27);
@@ -8209,8 +8103,8 @@ LABEL_3:
     v33 = MSSqliteBindStringOrNull(v32, 1, dCopy);
     v34 = v33;
     MSSqliteTrapForDBLockError(v33);
-    v10 = v41;
-    infoCopy = v42;
+    v10 = v40;
+    infoCopy = v41;
     if (!v34)
     {
       v35 = sqlite3_step(v32);
@@ -8219,7 +8113,7 @@ LABEL_3:
       if (v36 == 101)
       {
         commandQueue = [(MSASServerSideModel *)self commandQueue];
-        [commandQueue MSASModel:self didFindDeletedAlbum:v41 info:v42];
+        [commandQueue MSASModel:self didFindDeletedAlbum:v40 info:v41];
 
         eventQueue = [(MSASServerSideModel *)self eventQueue];
         block[0] = MEMORY[0x277D85DD0];
@@ -8227,8 +8121,8 @@ LABEL_3:
         block[2] = __55__MSASServerSideModel_dbQueueDeleteAlbumWithGUID_info___block_invoke;
         block[3] = &unk_278E92638;
         block[4] = self;
-        v44 = v41;
-        v45 = v12;
+        v43 = v40;
+        v44 = v12;
         dispatch_async(eventQueue, block);
       }
     }
@@ -8238,8 +8132,6 @@ LABEL_3:
       sqlite3_reset(v32);
     }
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 void __55__MSASServerSideModel_dbQueueDeleteAlbumWithGUID_info___block_invoke(uint64_t a1)
@@ -8271,19 +8163,19 @@ void __55__MSASServerSideModel_dbQueueDeleteAlbumWithGUID_info___block_invoke_2(
 
 - (void)dbQueueUpdateAlbumCtag:(id)ctag
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   ctagCopy = ctag;
   gUID = [ctagCopy GUID];
-  v29 = 0;
-  v6 = [(MSASServerSideModel *)self dbQueueAlbumWithGUID:gUID outObject:0 outName:0 outCtag:0 outForeignCtag:0 outURLString:0 outUserInfoData:&v29 outClientOrgKey:0];
-  v7 = v29;
+  v28 = 0;
+  v6 = [(MSASServerSideModel *)self dbQueueAlbumWithGUID:gUID outObject:0 outName:0 outCtag:0 outForeignCtag:0 outURLString:0 outUserInfoData:&v28 outClientOrgKey:0];
+  v7 = v28;
 
   if (v6)
   {
     v8 = [(MSASModelBase *)self statementForString:@"update or ignore Albums set obj = ?, ctag = ?, foreignCtag = ? where GUID = ?;"];
-    v28 = 0;
-    v9 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:ctagCopy requiringSecureCoding:1 error:&v28];
-    v10 = v28;
+    v27 = 0;
+    v9 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:ctagCopy requiringSecureCoding:1 error:&v27];
+    v10 = v27;
     v11 = v10;
     if (v9)
     {
@@ -8299,7 +8191,7 @@ void __55__MSASServerSideModel_dbQueueDeleteAlbumWithGUID_info___block_invoke_2(
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v31 = v15;
+        v30 = v15;
         _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
       }
 
@@ -8343,19 +8235,17 @@ void __55__MSASServerSideModel_dbQueueDeleteAlbumWithGUID_info___block_invoke_2(
       sqlite3_reset(v8);
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dbQueueSetAlbum:(id)album info:(id)info
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   albumCopy = album;
   infoCopy = info;
   gUID = [albumCopy GUID];
-  v56 = 0;
-  v9 = [(MSASServerSideModel *)self dbQueueAlbumWithGUID:gUID outObject:0 outName:0 outCtag:0 outForeignCtag:0 outURLString:0 outUserInfoData:&v56 outClientOrgKey:0];
-  v10 = v56;
+  v55 = 0;
+  v9 = [(MSASServerSideModel *)self dbQueueAlbumWithGUID:gUID outObject:0 outName:0 outCtag:0 outForeignCtag:0 outURLString:0 outUserInfoData:&v55 outClientOrgKey:0];
+  v10 = v55;
 
   metadata = [albumCopy metadata];
   v12 = [metadata objectForKey:@"name"];
@@ -8393,10 +8283,10 @@ void __55__MSASServerSideModel_dbQueueDeleteAlbumWithGUID_info___block_invoke_2(
 
         if (!v25)
         {
-          v55 = 0;
-          v26 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:albumCopy requiringSecureCoding:1 error:&v55];
-          v27 = v55;
-          v48 = v27;
+          v54 = 0;
+          v26 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:albumCopy requiringSecureCoding:1 error:&v54];
+          v27 = v54;
+          v47 = v27;
           if (v26)
           {
             v28 = MSSqliteBindDataOrNull(v14, 5, v26);
@@ -8412,7 +8302,7 @@ void __55__MSASServerSideModel_dbQueueDeleteAlbumWithGUID_info___block_invoke_2(
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v58 = v32;
+              v57 = v32;
               _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
             }
 
@@ -8451,16 +8341,16 @@ void __55__MSASServerSideModel_dbQueueDeleteAlbumWithGUID_info___block_invoke_2(
                     eventQueue = commandQueue;
                     if (v9)
                     {
-                      v52[0] = MEMORY[0x277D85DD0];
-                      v52[1] = 3221225472;
-                      v52[2] = __44__MSASServerSideModel_dbQueueSetAlbum_info___block_invoke;
-                      v52[3] = &unk_278E92638;
-                      v52[4] = self;
-                      v45 = &v53;
-                      v53 = albumCopy;
-                      v46 = &v54;
-                      v54 = infoCopy;
-                      [eventQueue flushQueueCompletionBlock:v52];
+                      v51[0] = MEMORY[0x277D85DD0];
+                      v51[1] = 3221225472;
+                      v51[2] = __44__MSASServerSideModel_dbQueueSetAlbum_info___block_invoke;
+                      v51[3] = &unk_278E92638;
+                      v51[4] = self;
+                      v45 = &v52;
+                      v52 = albumCopy;
+                      v46 = &v53;
+                      v53 = infoCopy;
+                      [eventQueue flushQueueCompletionBlock:v51];
                     }
 
                     else
@@ -8473,10 +8363,10 @@ void __55__MSASServerSideModel_dbQueueDeleteAlbumWithGUID_info___block_invoke_2(
                       block[2] = __44__MSASServerSideModel_dbQueueSetAlbum_info___block_invoke_4;
                       block[3] = &unk_278E92638;
                       block[4] = self;
-                      v45 = &v50;
-                      v50 = albumCopy;
-                      v46 = &v51;
-                      v51 = infoCopy;
+                      v45 = &v49;
+                      v49 = albumCopy;
+                      v46 = &v50;
+                      v50 = infoCopy;
                       dispatch_async(eventQueue, block);
                     }
                   }
@@ -8493,8 +8383,6 @@ void __55__MSASServerSideModel_dbQueueDeleteAlbumWithGUID_info___block_invoke_2(
   {
     sqlite3_reset(v14);
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 void __44__MSASServerSideModel_dbQueueSetAlbum_info___block_invoke(uint64_t a1)
@@ -8685,14 +8573,14 @@ LABEL_3:
 
 void __82__MSASServerSideModel_retrieveAssetsFromAssetCollectionsWithGUIDs_assetTypeFlags___block_invoke(uint64_t a1)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB18] array];
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   obj = *(a1 + 32);
-  v3 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
+  v3 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
   if (!v3)
   {
     v5 = 0;
@@ -8701,27 +8589,27 @@ void __82__MSASServerSideModel_retrieveAssetsFromAssetCollectionsWithGUIDs_asset
 
   v4 = v3;
   v5 = 0;
-  v6 = *v42;
-  v23 = *v42;
+  v6 = *v41;
+  v22 = *v41;
   do
   {
     v7 = 0;
-    v24 = v4;
+    v23 = v4;
     do
     {
-      if (*v42 != v6)
+      if (*v41 != v6)
       {
         objc_enumerationMutation(obj);
       }
 
-      v8 = *(*(&v41 + 1) + 8 * v7);
+      v8 = *(*(&v40 + 1) + 8 * v7);
       context = objc_autoreleasePoolPush();
       v9 = *(a1 + 40);
+      v38 = 0;
       v39 = 0;
-      v40 = 0;
-      v10 = [v9 dbQueueAssetCollectionWithGUID:v8 outObject:&v40 outCtag:0 outAlbumGUID:&v39 outBatchDate:0 outPhotoDate:0 outPhotoNumber:0 outUserInfoData:0];
-      v30 = v40;
+      v10 = [v9 dbQueueAssetCollectionWithGUID:v8 outObject:&v39 outCtag:0 outAlbumGUID:&v38 outBatchDate:0 outPhotoDate:0 outPhotoNumber:0 outUserInfoData:0];
       v29 = v39;
+      v28 = v38;
       if (!v10)
       {
         v21 = [*(a1 + 40) eventQueue];
@@ -8731,26 +8619,26 @@ void __82__MSASServerSideModel_retrieveAssetsFromAssetCollectionsWithGUIDs_asset
         block[3] = &unk_278E91F20;
         block[4] = *(a1 + 40);
         block[5] = v8;
-        v32 = *(a1 + 48);
+        v31 = *(a1 + 48);
         dispatch_async(v21, block);
         goto LABEL_33;
       }
 
-      if (v5 && ([v29 isEqualToString:v5] & 1) == 0 && objc_msgSend(v2, "count"))
+      if (v5 && ([v28 isEqualToString:v5] & 1) == 0 && objc_msgSend(v2, "count"))
       {
         [*(a1 + 40) retrieveAssets:v2 inAlbumWithGUID:v5];
         [v2 removeAllObjects];
       }
 
-      v27 = v7;
-      v26 = v29;
+      v26 = v7;
+      v25 = v28;
 
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
       v36 = 0u;
-      v11 = [v30 assets];
-      v12 = [v11 countByEnumeratingWithState:&v35 objects:v45 count:16];
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
+      v11 = [v29 assets];
+      v12 = [v11 countByEnumeratingWithState:&v34 objects:v44 count:16];
       if (!v12)
       {
 
@@ -8759,23 +8647,23 @@ void __82__MSASServerSideModel_retrieveAssetsFromAssetCollectionsWithGUIDs_asset
 
       v13 = v12;
       v14 = 0;
-      v15 = *v36;
+      v15 = *v35;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v36 != v15)
+          if (*v35 != v15)
           {
             objc_enumerationMutation(v11);
           }
 
-          v17 = *(*(&v35 + 1) + 8 * i);
+          v17 = *(*(&v34 + 1) + 8 * i);
           v18 = [v17 mediaAssetType];
           v19 = v18;
           v20 = *(a1 + 48);
           if (((v20 & 1) == 0 || v18 != 2) && ((v20 & 2) == 0 || v18 != 3))
           {
-            if ((v20 & 2) != 0 && [v30 isPhotoIris] && v19 == 7)
+            if ((v20 & 2) != 0 && [v29 isPhotoIris] && v19 == 7)
             {
               goto LABEL_25;
             }
@@ -8791,32 +8679,32 @@ LABEL_25:
           [v2 addObject:v17];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v35 objects:v45 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v34 objects:v44 count:16];
       }
 
       while (v13);
 
-      v6 = v23;
-      v4 = v24;
+      v6 = v22;
+      v4 = v23;
       if (v14)
       {
-        v5 = v26;
-        v7 = v27;
+        v5 = v25;
+        v7 = v26;
         goto LABEL_34;
       }
 
 LABEL_32:
       v21 = [*(a1 + 40) eventQueue];
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __82__MSASServerSideModel_retrieveAssetsFromAssetCollectionsWithGUIDs_assetTypeFlags___block_invoke_2;
-      v33[3] = &unk_278E91F20;
-      v33[4] = *(a1 + 40);
-      v33[5] = v8;
-      v34 = *(a1 + 48);
-      dispatch_async(v21, v33);
-      v5 = v26;
-      v7 = v27;
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __82__MSASServerSideModel_retrieveAssetsFromAssetCollectionsWithGUIDs_assetTypeFlags___block_invoke_2;
+      v32[3] = &unk_278E91F20;
+      v32[4] = *(a1 + 40);
+      v32[5] = v8;
+      v33 = *(a1 + 48);
+      dispatch_async(v21, v32);
+      v5 = v25;
+      v7 = v26;
 LABEL_33:
 
 LABEL_34:
@@ -8825,7 +8713,7 @@ LABEL_34:
     }
 
     while (v7 != v4);
-    v4 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
+    v4 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
   }
 
   while (v4);
@@ -8835,8 +8723,6 @@ LABEL_38:
   {
     [*(a1 + 40) retrieveAssets:v2 inAlbumWithGUID:v5];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __82__MSASServerSideModel_retrieveAssetsFromAssetCollectionsWithGUIDs_assetTypeFlags___block_invoke_2(uint64_t a1)
@@ -8904,28 +8790,28 @@ void __82__MSASServerSideModel_retrieveAssetsFromAssetCollectionsWithGUIDs_asset
 
 void __54__MSASServerSideModel_retrieveAssets_inAlbumWithGUID___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v2 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v22;
+    v4 = *v21;
     do
     {
       v5 = 0;
       do
       {
-        if (*v22 != v4)
+        if (*v21 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v21 + 1) + 8 * v5);
+        v6 = *(*(&v20 + 1) + 8 * v5);
         v7 = objc_autoreleasePoolPush();
         v8 = [v6 batchCreationDate];
         if (v8)
@@ -8953,11 +8839,11 @@ LABEL_15:
         {
           v12 = *(a1 + 40);
           v13 = [v6 assetCollectionGUID];
+          v18 = 0;
           v19 = 0;
-          v20 = 0;
-          v14 = [v12 dbQueueAssetCollectionWithGUID:v13 outObject:0 outCtag:0 outAlbumGUID:0 outBatchDate:&v20 outPhotoDate:&v19 outPhotoNumber:0 outUserInfoData:0];
-          v8 = v20;
-          v10 = v19;
+          v14 = [v12 dbQueueAssetCollectionWithGUID:v13 outObject:0 outCtag:0 outAlbumGUID:0 outBatchDate:&v19 outPhotoDate:&v18 outPhotoNumber:0 outUserInfoData:0];
+          v8 = v19;
+          v10 = v18;
 
           if (v14)
           {
@@ -8974,7 +8860,7 @@ LABEL_16:
       }
 
       while (v3 != v5);
-      v3 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v3 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v3);
@@ -8982,8 +8868,6 @@ LABEL_16:
 
   v15 = [*(a1 + 40) stateMachine];
   [v15 retrieveAssets:*(a1 + 32) inAlbumWithGUID:*(a1 + 48)];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)forgetEverythingInfo:(id)info completionBlock:(id)block
@@ -9177,40 +9061,40 @@ void __50__MSASServerSideModel_deleteCommentWithGUID_info___block_invoke_3(void 
 
 void __66__MSASServerSideModel_addComments_toAssetCollectionWithGUID_info___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB38] MSASDictionaryWithCopyOfDictionary:*(a1 + 32)];
   v3 = [v2 MSASAddIsLocalChange];
 
   v4 = *(a1 + 40);
   v5 = *(a1 + 48);
-  v31 = 0;
-  v6 = [v4 dbQueueLookupOrCreateAssetCollectionWithGUID:v5 outAlbum:&v31];
-  v7 = v31;
+  v30 = 0;
+  v6 = [v4 dbQueueLookupOrCreateAssetCollectionWithGUID:v5 outAlbum:&v30];
+  v7 = v30;
   v8 = *(a1 + 40);
   if (v7)
   {
     [v8 dbQueueBeginTransaction];
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v9 = *(a1 + 56);
-    v10 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v28;
+      v12 = *v27;
       do
       {
         v13 = 0;
         do
         {
-          if (*v28 != v12)
+          if (*v27 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v27 + 1) + 8 * v13);
+          v14 = *(*(&v26 + 1) + 8 * v13);
           v15 = objc_autoreleasePoolPush();
           [*(a1 + 40) dbQueueSetComment:v14 forAssetCollectionWithGUID:*(a1 + 48) info:v3];
           objc_autoreleasePoolPop(v15);
@@ -9218,7 +9102,7 @@ void __66__MSASServerSideModel_addComments_toAssetCollectionWithGUID_info___bloc
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
       while (v11);
@@ -9238,69 +9122,65 @@ void __66__MSASServerSideModel_addComments_toAssetCollectionWithGUID_info___bloc
     block[3] = &unk_278E92688;
     v18 = *(a1 + 56);
     v19 = *(a1 + 40);
-    v22 = v18;
-    v23 = v19;
-    v24 = v6;
-    v25 = 0;
-    v26 = v3;
+    v21 = v18;
+    v22 = v19;
+    v23 = v6;
+    v24 = 0;
+    v25 = v3;
     dispatch_async(v17, block);
 
-    v16 = v22;
+    v16 = v21;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __66__MSASServerSideModel_addComments_toAssetCollectionWithGUID_info___block_invoke_2(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v2 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v17;
+    v4 = *v16;
     do
     {
       v5 = 0;
       do
       {
-        if (*v17 != v4)
+        if (*v16 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v16 + 1) + 8 * v5);
+        v6 = *(*(&v15 + 1) + 8 * v5);
         v7 = objc_autoreleasePoolPush();
         v9 = *(a1 + 40);
         v8 = *(a1 + 48);
-        v12[0] = MEMORY[0x277D85DD0];
-        v12[1] = 3221225472;
-        v12[2] = __66__MSASServerSideModel_addComments_toAssetCollectionWithGUID_info___block_invoke_3;
-        v12[3] = &unk_278E92610;
-        v12[4] = v9;
-        v12[5] = v6;
-        v13 = v8;
-        v14 = *(a1 + 56);
-        v15 = *(a1 + 64);
-        [v9 eventQueuePerformBlockOnObservers:v12];
+        v11[0] = MEMORY[0x277D85DD0];
+        v11[1] = 3221225472;
+        v11[2] = __66__MSASServerSideModel_addComments_toAssetCollectionWithGUID_info___block_invoke_3;
+        v11[3] = &unk_278E92610;
+        v11[4] = v9;
+        v11[5] = v6;
+        v12 = v8;
+        v13 = *(a1 + 56);
+        v14 = *(a1 + 64);
+        [v9 eventQueuePerformBlockOnObservers:v11];
 
         objc_autoreleasePoolPop(v7);
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v3 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v3);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __66__MSASServerSideModel_addComments_toAssetCollectionWithGUID_info___block_invoke_3(void *a1, void *a2)
@@ -9466,34 +9346,34 @@ void __94__MSASServerSideModel_markCommentsForAssetCollectionWithGUID_asViewedWi
 
 void __55__MSASServerSideModel_deleteAssetCollectionsWithGUIDs___block_invoke(uint64_t a1)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB38] dictionary];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   obj = *(a1 + 32);
-  v3 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+  v3 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
   if (v3)
   {
     v4 = v3;
-    v28 = *v40;
+    v27 = *v39;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v40 != v28)
+        if (*v39 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v39 + 1) + 8 * i);
+        v6 = *(*(&v38 + 1) + 8 * i);
         v7 = *(a1 + 40);
+        v36 = 0;
         v37 = 0;
-        v38 = 0;
-        v8 = [v7 dbQueueAssetCollectionWithGUID:v6 outObject:&v38 outCtag:0 outAlbumGUID:&v37 outBatchDate:0 outPhotoDate:0 outPhotoNumber:0 outUserInfoData:0];
-        v9 = v38;
-        v10 = v37;
+        v8 = [v7 dbQueueAssetCollectionWithGUID:v6 outObject:&v37 outCtag:0 outAlbumGUID:&v36 outBatchDate:0 outPhotoDate:0 outPhotoNumber:0 outUserInfoData:0];
+        v9 = v37;
+        v10 = v36;
         if (v8)
         {
           v11 = [v2 objectForKey:v10];
@@ -9525,56 +9405,54 @@ void __55__MSASServerSideModel_deleteAssetCollectionsWithGUIDs___block_invoke(ui
         LODWORD(v13) = [v13 dbQueueUnviewedAssetCollectionCountForAlbumWithGUID:v14];
 
         v15 = [*(a1 + 40) eventQueue];
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __55__MSASServerSideModel_deleteAssetCollectionsWithGUIDs___block_invoke_4;
-        v33[3] = &unk_278E91F20;
-        v33[4] = *(a1 + 40);
-        v34 = v12;
-        v35 = v13;
+        v32[0] = MEMORY[0x277D85DD0];
+        v32[1] = 3221225472;
+        v32[2] = __55__MSASServerSideModel_deleteAssetCollectionsWithGUIDs___block_invoke_4;
+        v32[3] = &unk_278E91F20;
+        v32[4] = *(a1 + 40);
+        v33 = v12;
+        v34 = v13;
         v16 = v12;
-        dispatch_async(v15, v33);
+        dispatch_async(v15, v32);
       }
 
-      v4 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+      v4 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
     }
 
     while (v4);
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v17 = [v2 allKeys];
-  v18 = [v17 countByEnumeratingWithState:&v29 objects:v43 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v28 objects:v42 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v30;
+    v20 = *v29;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v30 != v20)
+        if (*v29 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v29 + 1) + 8 * j);
+        v22 = *(*(&v28 + 1) + 8 * j);
         v23 = [*(a1 + 40) dbQueueLookupOrCreateAlbumWithGUID:v22];
         v24 = [v2 objectForKey:v22];
         v25 = [*(a1 + 40) stateMachine];
         [v25 deleteAssetCollections:v24 inAlbum:v23 info:0];
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v29 objects:v43 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v28 objects:v42 count:16];
     }
 
     while (v19);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __55__MSASServerSideModel_deleteAssetCollectionsWithGUIDs___block_invoke_2(int8x16_t *a1)
@@ -9724,23 +9602,23 @@ void __58__MSASServerSideModel_deleteAssetCollectionWithGUID_info___block_invoke
 
 - (void)addAssetCollections:(id)collections toAlbumWithGUID:(id)d info:(id)info
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   collectionsCopy = collections;
   dCopy = d;
   infoCopy = info;
   v11 = [collectionsCopy count];
-  v32 = dCopy;
+  v31 = dCopy;
   if (dCopy && v11)
   {
     selfCopy = self;
-    v29 = infoCopy;
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
+    v28 = infoCopy;
     v39 = 0u;
-    v30 = collectionsCopy;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v29 = collectionsCopy;
     obj = collectionsCopy;
-    v12 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+    v12 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
     if (!v12)
     {
       mSMakeUUID = 0;
@@ -9751,18 +9629,18 @@ void __58__MSASServerSideModel_deleteAssetCollectionWithGUID_info___block_invoke
     v13 = v12;
     mSMakeUUID = 0;
     date = 0;
-    v16 = *v39;
+    v16 = *v38;
     while (1)
     {
       v17 = 0;
       do
       {
-        if (*v39 != v16)
+        if (*v38 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v38 + 1) + 8 * v17);
+        v18 = *(*(&v37 + 1) + 8 * v17);
         v19 = objc_autoreleasePoolPush();
         metadata = [v18 metadata];
         v21 = [metadata objectForKey:@"batchGUID"];
@@ -9796,14 +9674,14 @@ LABEL_12:
         }
 
 LABEL_13:
-        [v18 setAlbumGUID:v32];
+        [v18 setAlbumGUID:v31];
 
         objc_autoreleasePoolPop(v19);
         ++v17;
       }
 
       while (v13 != v17);
-      v25 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v25 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
       v13 = v25;
       if (!v25)
       {
@@ -9814,51 +9692,49 @@ LABEL_20:
         block[1] = 3221225472;
         block[2] = __64__MSASServerSideModel_addAssetCollections_toAlbumWithGUID_info___block_invoke;
         block[3] = &unk_278E92660;
-        infoCopy = v29;
-        v34 = v29;
-        v35 = selfCopy;
-        v36 = v32;
-        v37 = obj;
+        infoCopy = v28;
+        v33 = v28;
+        v34 = selfCopy;
+        v35 = v31;
+        v36 = obj;
         dispatch_async(dbQueue, block);
 
-        collectionsCopy = v30;
+        collectionsCopy = v29;
         break;
       }
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __64__MSASServerSideModel_addAssetCollections_toAlbumWithGUID_info___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB38] MSASDictionaryWithCopyOfDictionary:*(a1 + 32)];
   v3 = [v2 MSASAddIsLocalChange];
 
   v4 = [*(a1 + 40) dbQueueLookupOrCreateAlbumWithGUID:*(a1 + 48)];
   [*(a1 + 40) dbQueueBeginTransaction];
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v5 = *(a1 + 56);
-  v6 = [v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v29;
+    v8 = *v28;
     do
     {
       v9 = 0;
       do
       {
-        if (*v29 != v8)
+        if (*v28 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v28 + 1) + 8 * v9);
+        v10 = *(*(&v27 + 1) + 8 * v9);
         v11 = objc_autoreleasePoolPush();
         [*(a1 + 40) dbQueueSetAssetCollection:v10 inAlbumWithGUID:*(a1 + 48) info:v3];
         objc_autoreleasePoolPop(v11);
@@ -9866,7 +9742,7 @@ void __64__MSASServerSideModel_addAssetCollections_toAlbumWithGUID_info___block_
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v7);
@@ -9874,29 +9750,29 @@ void __64__MSASServerSideModel_addAssetCollections_toAlbumWithGUID_info___block_
 
   [*(a1 + 40) dbQueueEndTransaction];
   v12 = [MEMORY[0x277CBEB18] arrayWithCapacity:30];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v13 = *(a1 + 56);
-  v14 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v25;
+    v16 = *v24;
     do
     {
       v17 = 0;
       do
       {
-        if (*v25 != v16)
+        if (*v24 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v24 + 1) + 8 * v17);
+        v18 = *(*(&v23 + 1) + 8 * v17);
         v19 = objc_autoreleasePoolPush();
-        [v12 addObject:{v18, v24}];
+        [v12 addObject:{v18, v23}];
         if ([v12 count] >= 0x1E)
         {
           v20 = [*(a1 + 40) stateMachine];
@@ -9912,7 +9788,7 @@ void __64__MSASServerSideModel_addAssetCollections_toAlbumWithGUID_info___block_
       }
 
       while (v15 != v17);
-      v15 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v15);
@@ -9923,8 +9799,6 @@ void __64__MSASServerSideModel_addAssetCollections_toAlbumWithGUID_info___block_
     v22 = [*(a1 + 40) stateMachine];
     [v22 addAssetCollections:v12 toAlbum:v4 info:v3];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setMultipleContributorsEnabled:(BOOL)enabled forAlbumWithGUID:(id)d info:(id)info completionBlock:(id)block
@@ -10062,6 +9936,19 @@ void __92__MSASServerSideModel_setMultipleContributorsEnabled_forAlbumWithGUID_i
   v11 = *(a1 + 56);
   v10 = *(a1 + 40);
   dispatch_async(v8, block);
+}
+
+- (void)setMultipleContributorsEnabled:(BOOL)enabled forAlbumWithGUID:(id)d completionBlock:(id)block
+{
+  enabledCopy = enabled;
+  blockCopy = block;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __87__MSASServerSideModel_setMultipleContributorsEnabled_forAlbumWithGUID_completionBlock___block_invoke;
+  v10[3] = &unk_278E91D98;
+  v11 = blockCopy;
+  v9 = blockCopy;
+  [(MSASServerSideModel *)self setMultipleContributorsEnabled:enabledCopy forAlbumWithGUID:d info:0 completionBlock:v10];
 }
 
 - (void)setPublicAccessEnabled:(BOOL)enabled forAlbumWithGUID:(id)d info:(id)info completionBlock:(id)block
@@ -10202,6 +10089,19 @@ void __84__MSASServerSideModel_setPublicAccessEnabled_forAlbumWithGUID_info_comp
   dispatch_async(v8, block);
 }
 
+- (void)setPublicAccessEnabled:(BOOL)enabled forAlbumWithGUID:(id)d completionBlock:(id)block
+{
+  enabledCopy = enabled;
+  blockCopy = block;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __79__MSASServerSideModel_setPublicAccessEnabled_forAlbumWithGUID_completionBlock___block_invoke;
+  v10[3] = &unk_278E91D98;
+  v11 = blockCopy;
+  v9 = blockCopy;
+  [(MSASServerSideModel *)self setPublicAccessEnabled:enabledCopy forAlbumWithGUID:d info:0 completionBlock:v10];
+}
+
 - (void)removeAccessControlEntryWithGUID:(id)d info:(id)info
 {
   dCopy = d;
@@ -10222,17 +10122,17 @@ void __84__MSASServerSideModel_setPublicAccessEnabled_forAlbumWithGUID_info_comp
 
 void __61__MSASServerSideModel_removeAccessControlEntryWithGUID_info___block_invoke(uint64_t a1)
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB38] MSASDictionaryWithCopyOfDictionary:*(a1 + 32)];
   v3 = [v2 MSASAddIsLocalChange];
 
   v4 = *(a1 + 40);
   v5 = *(a1 + 48);
+  v19 = 0;
   v20 = 0;
-  v21 = 0;
-  v6 = [v4 dbQueueAccessControlWithGUID:v5 outObject:&v21 outAlbumGUID:&v20 outEmail:0 outUserInfoData:0];
-  v7 = v21;
-  v8 = v20;
+  v6 = [v4 dbQueueAccessControlWithGUID:v5 outObject:&v20 outAlbumGUID:&v19 outEmail:0 outUserInfoData:0];
+  v7 = v20;
+  v8 = v19;
   v9 = *(a1 + 40);
   if (v6)
   {
@@ -10241,8 +10141,8 @@ void __61__MSASServerSideModel_removeAccessControlEntryWithGUID_info___block_inv
 
     [*(a1 + 40) dbQueueDeleteAccessControlWithGUID:*(a1 + 48) info:v3];
     v12 = [*(a1 + 40) stateMachine];
-    v22[0] = v7;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+    v21[0] = v7;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
     [v12 removeSharingRelationships:v13 fromOwnedAlbum:v11 info:v3];
 
     v8 = v11;
@@ -10257,12 +10157,10 @@ void __61__MSASServerSideModel_removeAccessControlEntryWithGUID_info___block_inv
     block[3] = &unk_278E92638;
     v15 = *(a1 + 48);
     block[4] = *(a1 + 40);
-    v18 = v15;
-    v19 = v3;
+    v17 = v15;
+    v18 = v3;
     dispatch_async(v14, block);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __61__MSASServerSideModel_removeAccessControlEntryWithGUID_info___block_invoke_2(uint64_t a1)
@@ -10327,61 +10225,61 @@ void __61__MSASServerSideModel_removeAccessControlEntryWithGUID_info___block_inv
 
 void __84__MSASServerSideModel_addAccessControlEntries_toAlbumWithGUID_info_completionBlock___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB38] MSASDictionaryWithCopyOfDictionary:*(a1 + 32)];
   v3 = [v2 MSASAddIsLocalChange];
 
   v4 = [*(a1 + 40) dbQueueLookupOrCreateAlbumWithGUID:*(a1 + 48)];
-  v28 = 0u;
-  v29 = 0u;
   v27 = 0u;
+  v28 = 0u;
   v26 = 0u;
+  v25 = 0u;
   v5 = *(a1 + 56);
-  v6 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v6)
   {
-    v7 = *v27;
+    v7 = *v26;
     do
     {
       v8 = 0;
       do
       {
-        if (*v27 != v7)
+        if (*v26 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v26 + 1) + 8 * v8++) setAlbumGUID:*(a1 + 48)];
+        [*(*(&v25 + 1) + 8 * v8++) setAlbumGUID:*(a1 + 48)];
       }
 
       while (v6 != v8);
-      v6 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v6);
   }
 
   [*(a1 + 40) dbQueueBeginTransaction];
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v9 = *(a1 + 56);
-  v10 = [v9 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v10)
   {
-    v11 = *v23;
+    v11 = *v22;
     do
     {
       v12 = 0;
       do
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * v12);
+        v13 = *(*(&v21 + 1) + 8 * v12);
         v14 = objc_autoreleasePoolPush();
         [*(a1 + 40) dbQueueSetAccessControl:v13 info:v3];
         objc_autoreleasePoolPop(v14);
@@ -10389,7 +10287,7 @@ void __84__MSASServerSideModel_addAccessControlEntries_toAlbumWithGUID_info_comp
       }
 
       while (v10 != v12);
-      v10 = [v9 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v10);
@@ -10399,18 +10297,16 @@ void __84__MSASServerSideModel_addAccessControlEntries_toAlbumWithGUID_info_comp
   objc_initWeak(&location, *(a1 + 40));
   v15 = [*(a1 + 40) stateMachine];
   v16 = *(a1 + 56);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __84__MSASServerSideModel_addAccessControlEntries_toAlbumWithGUID_info_completionBlock___block_invoke_2;
-  v18[3] = &unk_278E91E10;
-  objc_copyWeak(&v20, &location);
-  v19 = *(a1 + 64);
-  [v15 addSharingRelationships:v16 toOwnedAlbum:v4 info:v3 completionBlock:v18];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __84__MSASServerSideModel_addAccessControlEntries_toAlbumWithGUID_info_completionBlock___block_invoke_2;
+  v17[3] = &unk_278E91E10;
+  objc_copyWeak(&v19, &location);
+  v18 = *(a1 + 64);
+  [v15 addSharingRelationships:v16 toOwnedAlbum:v4 info:v3 completionBlock:v17];
 
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(&location);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __84__MSASServerSideModel_addAccessControlEntries_toAlbumWithGUID_info_completionBlock___block_invoke_2(uint64_t a1, void *a2)
@@ -10981,18 +10877,16 @@ void __66__MSASServerSideModel_validateInvitationForAlbum_completionBlock___bloc
   {
     v2 = MEMORY[0x277CCA9B8];
     v3 = MSCFCopyLocalizedString(@"ERROR_MODEL_INVALID_INVITATION");
-    v7 = [v2 MSErrorWithDomain:@"MSASModelErrorDomain" code:5 description:v3 underlyingError:*(a1 + 32)];
+    v5 = [v2 MSErrorWithDomain:@"MSASModelErrorDomain" code:5 description:v3 underlyingError:*(a1 + 32)];
 
     (*(*(a1 + 40) + 16))();
   }
 
   else
   {
-    v4 = *(a1 + 40);
-    v5 = *(a1 + 48);
-    v6 = *(*(a1 + 40) + 16);
+    v4 = *(*(a1 + 40) + 16);
 
-    v6();
+    v4();
   }
 }
 
@@ -11043,25 +10937,22 @@ void __70__MSASServerSideModel_acceptInvitationWithToken_info_completionBlock___
   dispatch_async(v7, block);
 }
 
-void __70__MSASServerSideModel_acceptInvitationWithToken_info_completionBlock___block_invoke_2(void *a1)
+void __70__MSASServerSideModel_acceptInvitationWithToken_info_completionBlock___block_invoke_2(uint64_t a1)
 {
-  if (a1[4])
+  if (*(a1 + 32))
   {
     v2 = MEMORY[0x277CCA9B8];
     v3 = MSCFCopyLocalizedString(@"ERROR_MODEL_INVALID_INVITATION");
-    v8 = [v2 MSErrorWithDomain:@"MSASModelErrorDomain" code:5 description:v3 underlyingError:a1[4]];
+    v5 = [v2 MSErrorWithDomain:@"MSASModelErrorDomain" code:5 description:v3 underlyingError:*(a1 + 32)];
 
-    v4 = a1[5];
-    (*(a1[6] + 16))();
+    (*(*(a1 + 48) + 16))();
   }
 
   else
   {
-    v6 = a1[5];
-    v5 = a1[6];
-    v7 = *(a1[6] + 16);
+    v4 = *(*(a1 + 48) + 16);
 
-    v7();
+    v4();
   }
 }
 
@@ -11455,64 +11346,59 @@ void __37__MSASServerSideModel_addAlbum_info___block_invoke(uint64_t a1)
 
 uint64_t __69__MSASServerSideModel_refreshAccessControlListForAlbumWithGUID_info___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) dbQueueLookupOrCreateAlbumWithGUID:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) dbQueueLookupOrCreateAlbumWithGUID:*(a1 + 40)];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (void)refreshCommentsForAssetCollectionWithGUID:(id)d resetSync:(BOOL)sync info:(id)info
 {
-  v42[1] = *MEMORY[0x277D85DE8];
+  v41[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   infoCopy = info;
   if (dCopy)
   {
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x3032000000;
-    v38 = __Block_byref_object_copy__6923;
-    v39 = __Block_byref_object_dispose__6924;
-    v40 = 0;
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x3032000000;
-    v32 = __Block_byref_object_copy__6923;
-    v33 = __Block_byref_object_dispose__6924;
-    v34 = &unk_2858CC148;
+    v34 = 0;
+    v35 = &v34;
+    v36 = 0x3032000000;
+    v37 = __Block_byref_object_copy__6923;
+    v38 = __Block_byref_object_dispose__6924;
+    v39 = 0;
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x3032000000;
+    v31 = __Block_byref_object_copy__6923;
+    v32 = __Block_byref_object_dispose__6924;
+    v33 = &unk_2858CC148;
     dbQueue = [(MSASModelBase *)self dbQueue];
-    v20 = MEMORY[0x277D85DD0];
-    v21 = 3221225472;
-    v22 = __80__MSASServerSideModel_refreshCommentsForAssetCollectionWithGUID_resetSync_info___block_invoke;
-    v23 = &unk_278E91D48;
+    v19 = MEMORY[0x277D85DD0];
+    v20 = 3221225472;
+    v21 = __80__MSASServerSideModel_refreshCommentsForAssetCollectionWithGUID_resetSync_info___block_invoke;
+    v22 = &unk_278E91D48;
     selfCopy = self;
     v11 = dCopy;
-    v25 = v11;
-    v26 = &v35;
+    v24 = v11;
+    v25 = &v34;
     syncCopy = sync;
-    v27 = &v29;
-    dispatch_sync(dbQueue, &v20);
+    v26 = &v28;
+    dispatch_sync(dbQueue, &v19);
 
-    v12 = v30[5];
-    v41 = v11;
-    v42[0] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:{1, v20, v21, v22, v23, selfCopy}];
+    v12 = v29[5];
+    v40 = v11;
+    v41[0] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:&v40 count:{1, v19, v20, v21, v22, selfCopy}];
     stateMachine = [(MSASServerSideModel *)self stateMachine];
-    gUID = [v36[5] GUID];
-    clientOrgKey = [v36[5] clientOrgKey];
+    gUID = [v35[5] GUID];
+    clientOrgKey = [v35[5] clientOrgKey];
     [stateMachine checkForCommentChanges:v13 inAlbumWithGUID:gUID withClientOrgKey:clientOrgKey];
 
     stateMachine2 = [(MSASServerSideModel *)self stateMachine];
-    gUID2 = [v36[5] GUID];
+    gUID2 = [v35[5] GUID];
     [stateMachine2 scheduleEvent:@"flushPendingCommentQueue" assetCollectionGUID:v11 albumGUID:gUID2 info:infoCopy];
 
-    _Block_object_dispose(&v29, 8);
-    _Block_object_dispose(&v35, 8);
+    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v34, 8);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __80__MSASServerSideModel_refreshCommentsForAssetCollectionWithGUID_resetSync_info___block_invoke(uint64_t a1)
@@ -11529,6 +11415,14 @@ void __80__MSASServerSideModel_refreshCommentsForAssetCollectionWithGUID_resetSy
     v7 = *(*(a1 + 56) + 8);
     v8 = *(v7 + 40);
     *(v7 + 40) = v6;
+  }
+}
+
+- (void)refreshCommentsForAssetCollectionWithGUID:(id)d resetSync:(BOOL)sync
+{
+  if (d)
+  {
+    [(MSASServerSideModel *)self refreshCommentsForAssetCollectionWithGUID:d resetSync:sync info:0];
   }
 }
 
@@ -11566,6 +11460,14 @@ void __68__MSASServerSideModel_refreshContentOfAlbumWithGUID_resetSync_info___bl
   }
 }
 
+- (void)refreshResetSync:(BOOL)sync info:(id)info
+{
+  syncCopy = sync;
+  infoCopy = info;
+  stateMachine = [(MSASServerSideModel *)self stateMachine];
+  [stateMachine checkForChangesResetSync:syncCopy info:infoCopy];
+}
+
 - (void)_reconstruct
 {
   eventQueue = [(MSASServerSideModel *)self eventQueue];
@@ -11601,7 +11503,7 @@ void __35__MSASServerSideModel__reconstruct__block_invoke_2(uint64_t a1, void *a
 
 - (void)reconstruct
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -11610,14 +11512,12 @@ void __35__MSASServerSideModel__reconstruct__block_invoke_2(uint64_t a1, void *a
   }
 
   stateMachine = [(MSASServerSideModel *)self stateMachine];
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __34__MSASServerSideModel_reconstruct__block_invoke;
-  v5[3] = &unk_278E926D8;
-  v5[4] = self;
-  [stateMachine purgeEverythingCompletionBlock:v5];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __34__MSASServerSideModel_reconstruct__block_invoke;
+  v4[3] = &unk_278E926D8;
+  v4[4] = self;
+  [stateMachine purgeEverythingCompletionBlock:v4];
 }
 
 void __34__MSASServerSideModel_reconstruct__block_invoke(uint64_t a1)
@@ -11721,12 +11621,12 @@ void __50__MSASServerSideModel_userInfoForCommentWithGUID___block_invoke(void *a
 
 void __54__MSASServerSideModel_setUserInfo_forCommentWithGUID___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) statementForString:@"update or ignore Comments set userInfo = ? where GUID = ?;"];
   v3 = *(a1 + 40);
-  v16 = 0;
-  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v3 requiringSecureCoding:1 error:&v16];
-  v5 = v16;
+  v15 = 0;
+  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v3 requiringSecureCoding:1 error:&v15];
+  v5 = v15;
   v6 = v5;
   if (v4)
   {
@@ -11742,7 +11642,7 @@ void __54__MSASServerSideModel_setUserInfo_forCommentWithGUID___block_invoke(uin
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v18 = v10;
+      v17 = v10;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
     }
 
@@ -11767,8 +11667,6 @@ void __54__MSASServerSideModel_setUserInfo_forCommentWithGUID___block_invoke(uin
   {
     sqlite3_reset(v2);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)userInfoForInvitationWithGUID:(id)d
@@ -11842,12 +11740,12 @@ void __53__MSASServerSideModel_userInfoForInvitationWithGUID___block_invoke(void
 
 void __57__MSASServerSideModel_setUserInfo_forInvitationWithGUID___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) statementForString:@"update or ignore Invitations set userInfo = ? where GUID = ?;"];
   v3 = *(a1 + 40);
-  v16 = 0;
-  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v3 requiringSecureCoding:1 error:&v16];
-  v5 = v16;
+  v15 = 0;
+  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v3 requiringSecureCoding:1 error:&v15];
+  v5 = v15;
   v6 = v5;
   if (v4)
   {
@@ -11863,7 +11761,7 @@ void __57__MSASServerSideModel_setUserInfo_forInvitationWithGUID___block_invoke(
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v18 = v10;
+      v17 = v10;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
     }
 
@@ -11888,8 +11786,6 @@ void __57__MSASServerSideModel_setUserInfo_forInvitationWithGUID___block_invoke(
   {
     sqlite3_reset(v2);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)userInfoForAccessControlWithGUID:(id)d
@@ -11963,12 +11859,12 @@ void __56__MSASServerSideModel_userInfoForAccessControlWithGUID___block_invoke(v
 
 void __60__MSASServerSideModel_setUserInfo_forAccessControlWithGUID___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) statementForString:@"update or ignore AccessControls set userInfo = ? where GUID = ?;"];
   v3 = *(a1 + 40);
-  v16 = 0;
-  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v3 requiringSecureCoding:1 error:&v16];
-  v5 = v16;
+  v15 = 0;
+  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v3 requiringSecureCoding:1 error:&v15];
+  v5 = v15;
   v6 = v5;
   if (v4)
   {
@@ -11984,7 +11880,7 @@ void __60__MSASServerSideModel_setUserInfo_forAccessControlWithGUID___block_invo
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v18 = v10;
+      v17 = v10;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
     }
 
@@ -12009,8 +11905,6 @@ void __60__MSASServerSideModel_setUserInfo_forAccessControlWithGUID___block_invo
   {
     sqlite3_reset(v2);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)userInfoForAssetCollectionWithGUID:(id)d
@@ -12084,12 +11978,12 @@ void __58__MSASServerSideModel_userInfoForAssetCollectionWithGUID___block_invoke
 
 void __62__MSASServerSideModel_setUserInfo_forAssetCollectionWithGUID___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) statementForString:@"update or ignore AssetCollections set userInfo = ? where GUID = ?;"];
   v3 = *(a1 + 40);
-  v16 = 0;
-  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v3 requiringSecureCoding:1 error:&v16];
-  v5 = v16;
+  v15 = 0;
+  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v3 requiringSecureCoding:1 error:&v15];
+  v5 = v15;
   v6 = v5;
   if (v4)
   {
@@ -12105,7 +11999,7 @@ void __62__MSASServerSideModel_setUserInfo_forAssetCollectionWithGUID___block_in
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v18 = v10;
+      v17 = v10;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
     }
 
@@ -12130,8 +12024,6 @@ void __62__MSASServerSideModel_setUserInfo_forAssetCollectionWithGUID___block_in
   {
     sqlite3_reset(v2);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)userInfoForAlbumWithGUID:(id)d
@@ -12205,12 +12097,12 @@ void __48__MSASServerSideModel_userInfoForAlbumWithGUID___block_invoke(void *a1)
 
 void __52__MSASServerSideModel_setUserInfo_forAlbumWithGUID___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) statementForString:@"update or ignore Albums set userInfo = ? where GUID = ?;"];
   v3 = *(a1 + 40);
-  v16 = 0;
-  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v3 requiringSecureCoding:1 error:&v16];
-  v5 = v16;
+  v15 = 0;
+  v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v3 requiringSecureCoding:1 error:&v15];
+  v5 = v15;
   v6 = v5;
   if (v4)
   {
@@ -12226,7 +12118,7 @@ void __52__MSASServerSideModel_setUserInfo_forAlbumWithGUID___block_invoke(uint6
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v18 = v10;
+      v17 = v10;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
     }
 
@@ -12251,8 +12143,6 @@ void __52__MSASServerSideModel_setUserInfo_forAlbumWithGUID___block_invoke(uint6
   {
     sqlite3_reset(v2);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)captionForAssetCollectionWithGUID:(id)d
@@ -12808,10 +12698,7 @@ void __42__MSASServerSideModel_invitationWithGUID___block_invoke(void *a1)
 
 uint64_t __50__MSASServerSideModel_invitationForAlbumWithGUID___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) dbQueueInvitationForAlbumWithGUID:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) dbQueueInvitationForAlbumWithGUID:*(a1 + 40)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -13248,28 +13135,431 @@ void __29__MSASServerSideModel_albums__block_invoke(uint64_t a1)
 
 id __62__MSASServerSideModel_shutDownForDestruction_completionBlock___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v2 = *(a1 + 32);
     *buf = 138543362;
-    v9 = v2;
+    v8 = v2;
     _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@: Command Queue has shut down.", buf, 0xCu);
   }
 
   v3 = *(a1 + 48);
   v4 = *(a1 + 40);
-  v7.receiver = *(a1 + 32);
-  v7.super_class = MSASServerSideModel;
-  result = objc_msgSendSuper2(&v7, sel_shutDownForDestruction_completionBlock_, v3, v4);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v6.receiver = *(a1 + 32);
+  v6.super_class = MSASServerSideModel;
+  return objc_msgSendSuper2(&v6, sel_shutDownForDestruction_completionBlock_, v3, v4);
 }
 
 - (void)cancel
 {
   stateMachine = [(MSASServerSideModel *)self stateMachine];
   [stateMachine cancelCompletionBlock:0];
+}
+
+- (BOOL)dbQueueUpgradeFromDatabaseVersion:(int)version currentVersion:(int)currentVersion
+{
+  *&v19[5] = *MEMORY[0x277D85DE8];
+  v15.receiver = self;
+  v15.super_class = MSASServerSideModel;
+  v6 = [(MSASModelBase *)&v15 dbQueueUpgradeFromDatabaseVersion:*&version currentVersion:*&currentVersion];
+  LOBYTE(v7) = 0;
+  if (version >= 8 && v6)
+  {
+    if (version < 0)
+    {
+      errmsg = 0;
+      if (!sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create table if not exists Albums (\n  GUID             text unique primary key,\n  name             text,\n  ctag             text,\n  foreignCtag      text,\n  url              text,\n  obj              blob,\n  userInfo         blob\n);", 0, 0, &errmsg))
+      {
+        if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create index if not exists AlbumsByName on Albums (name asc);", 0, 0, &errmsg))
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543618;
+            selfCopy22 = self;
+            v18 = 2082;
+            *v19 = errmsg;
+            v8 = MEMORY[0x277D86220];
+            v9 = "%{public}@: Could not create album by name index. Error: %{public}s";
+            goto LABEL_71;
+          }
+
+LABEL_72:
+          sqlite3_free(errmsg);
+          goto LABEL_73;
+        }
+
+        if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create index if not exists AlbumsByGUID on Albums (GUID asc);", 0, 0, &errmsg))
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543618;
+            selfCopy22 = self;
+            v18 = 2082;
+            *v19 = errmsg;
+            v8 = MEMORY[0x277D86220];
+            v9 = "%{public}@: Could not create album by GUID index. Error: %{public}s";
+            goto LABEL_71;
+          }
+
+          goto LABEL_72;
+        }
+
+        errmsg = 0;
+        if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create table if not exists AlbumMetadata (\n  albumGUID        text, \n  key              text, \n  value            text,\n  constraint UniquePerAlbum primary key (albumGUID, key) on conflict replace);", 0, 0, &errmsg))
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543618;
+            selfCopy22 = self;
+            v18 = 2082;
+            *v19 = errmsg;
+            v8 = MEMORY[0x277D86220];
+            v9 = "%{public}@: Could not create synced album metadata tables. Error: %{public}s";
+            goto LABEL_71;
+          }
+
+          goto LABEL_72;
+        }
+
+        errmsg = 0;
+        if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create table if not exists AccessControls (\n  GUID             text unique primary key,\n  email            text,\n  albumGUID        text,\n  obj              blob,\n  userInfo         blob\n);", 0, 0, &errmsg))
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543618;
+            selfCopy22 = self;
+            v18 = 2082;
+            *v19 = errmsg;
+            v8 = MEMORY[0x277D86220];
+            v9 = "%{public}@: Could not create access control tables. Error: %{public}s";
+            goto LABEL_71;
+          }
+
+          goto LABEL_72;
+        }
+
+        if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create index if not exists AccessControlsByAlbumGUID on AccessControls (albumGUID asc);", 0, 0, &errmsg))
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543618;
+            selfCopy22 = self;
+            v18 = 2082;
+            *v19 = errmsg;
+            v8 = MEMORY[0x277D86220];
+            v9 = "%{public}@: Could not create access control Album GUID index. Error: %{public}s";
+            goto LABEL_71;
+          }
+
+          goto LABEL_72;
+        }
+
+        if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create index if not exists AccessControlsByAlbumGUID on AccessControls (email asc);", 0, 0, &errmsg))
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543618;
+            selfCopy22 = self;
+            v18 = 2082;
+            *v19 = errmsg;
+            v8 = MEMORY[0x277D86220];
+            v9 = "%{public}@: Could not create access control email index. Error: %{public}s";
+            goto LABEL_71;
+          }
+
+          goto LABEL_72;
+        }
+
+        errmsg = 0;
+        if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create table if not exists Invitations (\n  GUID             text unique primary key,\n  albumGUID        text,\n  email            text,\n  obj              blob,\n  userInfo         blob\n);", 0, 0, &errmsg))
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543618;
+            selfCopy22 = self;
+            v18 = 2082;
+            *v19 = errmsg;
+            v8 = MEMORY[0x277D86220];
+            v9 = "%{public}@: Could not create invitation tables. Error: %{public}s";
+            goto LABEL_71;
+          }
+
+          goto LABEL_72;
+        }
+
+        if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create index if not exists InvitationsByAlbumGUID on Invitations (albumGUID asc);", 0, 0, &errmsg))
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543618;
+            selfCopy22 = self;
+            v18 = 2082;
+            *v19 = errmsg;
+            v8 = MEMORY[0x277D86220];
+            v9 = "%{public}@: Could not create invitation index. Error: %{public}s";
+            goto LABEL_71;
+          }
+
+          goto LABEL_72;
+        }
+
+        if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create index if not exists InvitationsByEmail on Invitations (albumGUID asc);", 0, 0, &errmsg))
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543618;
+            selfCopy22 = self;
+            v18 = 2082;
+            *v19 = errmsg;
+            v8 = MEMORY[0x277D86220];
+            v9 = "%{public}@: Could not create invitation email index. Error: %{public}s";
+            goto LABEL_71;
+          }
+
+          goto LABEL_72;
+        }
+
+        errmsg = 0;
+        if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create table if not exists AssetCollections (\n  GUID                text unique primary key,\n  ctag                text,\n  albumGUID           text,\n  batchDate           real,\n  photoDate           real,\n  photoNumber         int,\n  obj                 blob,\n  userInfo            blob\n);", 0, 0, &errmsg))
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543618;
+            selfCopy22 = self;
+            v18 = 2082;
+            *v19 = errmsg;
+            v8 = MEMORY[0x277D86220];
+            v9 = "%{public}@: Could not create asset collection tables. Error: %{public}s";
+            goto LABEL_71;
+          }
+
+          goto LABEL_72;
+        }
+
+        if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create index if not exists AssetCollectionsByAlbumGUID on AssetCollections (albumGUID asc, batchDate asc, photoDate asc, GUID asc);", 0, 0, &errmsg))
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543618;
+            selfCopy22 = self;
+            v18 = 2082;
+            *v19 = errmsg;
+            v8 = MEMORY[0x277D86220];
+            v9 = "%{public}@: Could not create asset collection index. Error: %{public}s";
+            goto LABEL_71;
+          }
+
+          goto LABEL_72;
+        }
+
+        errmsg = 0;
+        if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create table if not exists AssetCollectionMetadata (\n  assetCollectionGUID  text, \n  albumGUID            text, \n  key                  text, \n  value                text,\n  constraint UniquePerAssetCollection primary key (assetCollectionGUID, key) on conflict replace);", 0, 0, &errmsg))
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543618;
+            selfCopy22 = self;
+            v18 = 2082;
+            *v19 = errmsg;
+            v8 = MEMORY[0x277D86220];
+            v9 = "%{public}@: Could not create synced asset collection metadata tables. Error: %{public}s";
+            goto LABEL_71;
+          }
+
+          goto LABEL_72;
+        }
+
+        if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create index if not exists AssetCollectionMetadataByAlbum on AssetCollectionMetadata (albumGUID asc);", 0, 0, &errmsg))
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543618;
+            selfCopy22 = self;
+            v18 = 2082;
+            *v19 = errmsg;
+            v8 = MEMORY[0x277D86220];
+            v9 = "%{public}@: Could not create asset collection metadata index. Error: %{public}s";
+            goto LABEL_71;
+          }
+
+          goto LABEL_72;
+        }
+
+        errmsg = 0;
+        if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create table if not exists Comments (\n  GUID                 text unique primary key,\n  id                   int,\n  timestamp            real,\n  assetCollectionGUID  text,\n  isCaption            int,\n  isMine               int,\n  obj                  blob,\n  userInfo             blob\n);", 0, 0, &errmsg))
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543618;
+            selfCopy22 = self;
+            v18 = 2082;
+            *v19 = errmsg;
+            v8 = MEMORY[0x277D86220];
+            v9 = "%{public}@: Could not create comment tables. Error: %{public}s";
+            goto LABEL_71;
+          }
+
+          goto LABEL_72;
+        }
+
+        if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create index if not exists CommentsByAssetCollectionGUID on Comments (assetCollectionGUID asc, timestamp asc, GUID asc);", 0, 0, &errmsg))
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543618;
+            selfCopy22 = self;
+            v18 = 2082;
+            *v19 = errmsg;
+            v8 = MEMORY[0x277D86220];
+            v9 = "%{public}@: Could not create comment index. Error: %{public}s";
+            goto LABEL_71;
+          }
+
+          goto LABEL_72;
+        }
+
+        if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create index if not exists CommentsByAssetCollectionGUIDAndMine on Comments (assetCollectionGUID asc, timestamp asc, isMine asc);", 0, 0, &errmsg))
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543618;
+            selfCopy22 = self;
+            v18 = 2082;
+            *v19 = errmsg;
+            v8 = MEMORY[0x277D86220];
+            v9 = "%{public}@: Could not create comment ownership index. Error: %{public}s";
+            goto LABEL_71;
+          }
+
+          goto LABEL_72;
+        }
+
+        errmsg = 0;
+        if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create table if not exists GroupedCommand (\n  command              text,\n  variant              blob,\n  invariant            blob\n);", 0, 0, &errmsg))
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543618;
+            selfCopy22 = self;
+            v18 = 2082;
+            *v19 = errmsg;
+            v8 = MEMORY[0x277D86220];
+            v9 = "%{public}@: Could not create grouped command tables. Error: %{public}s";
+            goto LABEL_71;
+          }
+
+          goto LABEL_72;
+        }
+
+        errmsg = 0;
+        if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "create table if not exists CommentCheckQueue (\n  assetCollectionGUID  text unique,\n  albumGUID            text\n);", 0, 0, &errmsg))
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543618;
+            selfCopy22 = self;
+            v18 = 2082;
+            *v19 = errmsg;
+            v8 = MEMORY[0x277D86220];
+            v9 = "%{public}@: Could not create comment checking queue. Error: %{public}s";
+            goto LABEL_71;
+          }
+
+          goto LABEL_72;
+        }
+
+        errmsg = 0;
+        if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "analyze;", 0, 0, &errmsg))
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543618;
+            selfCopy22 = self;
+            v18 = 2082;
+            *v19 = errmsg;
+            _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Could not analyze database indexes. Ignoring. Error: %{public}s", buf, 0x16u);
+          }
+
+          sqlite3_free(errmsg);
+        }
+
+        goto LABEL_5;
+      }
+
+      if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+LABEL_73:
+        LOBYTE(v7) = 0;
+        return v7;
+      }
+
+      *buf = 138543618;
+      selfCopy22 = self;
+      v18 = 2082;
+      *v19 = errmsg;
+      v10 = MEMORY[0x277D86220];
+      v11 = "%{public}@: Could not create album tables. Error: %{public}s";
+      v12 = 22;
+    }
+
+    else
+    {
+      if (version <= 8)
+      {
+LABEL_5:
+        errmsg = 0;
+        if (sqlite3_exec([(MSASModelBase *)self dbQueueDB], "alter table Albums add column clientOrgKey text", 0, 0, &errmsg))
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543618;
+            selfCopy22 = self;
+            v18 = 2082;
+            *v19 = errmsg;
+            v8 = MEMORY[0x277D86220];
+            v9 = "%{public}@: Could not add clientOrgKey column to Albums. Error: %{public}s";
+LABEL_71:
+            _os_log_error_impl(&dword_245B99000, v8, OS_LOG_TYPE_ERROR, v9, buf, 0x16u);
+            goto LABEL_72;
+          }
+
+          goto LABEL_72;
+        }
+
+        [(MSASModelBase *)self dbQueueSetPersistentString:@"pendingMigration" forKey:@"migrationMarker"];
+        goto LABEL_19;
+      }
+
+      if (version == 9)
+      {
+LABEL_19:
+        LOBYTE(v7) = 1;
+        return v7;
+      }
+
+      v7 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+      if (!v7)
+      {
+        return v7;
+      }
+
+      *buf = 138543874;
+      selfCopy22 = self;
+      v18 = 1024;
+      *v19 = version;
+      v19[2] = 1024;
+      *&v19[3] = 9;
+      v10 = MEMORY[0x277D86220];
+      v11 = "%{public}@: Cannot migrate from database version %d to %d. Recreating database.";
+      v12 = 24;
+    }
+
+    _os_log_error_impl(&dword_245B99000, v10, OS_LOG_TYPE_ERROR, v11, buf, v12);
+    goto LABEL_73;
+  }
+
+  return v7;
 }
 
 - (void)setMaxGroupedCallbackEventIdleInterval:(double)interval
@@ -13300,6 +13590,13 @@ id __62__MSASServerSideModel_shutDownForDestruction_completionBlock___block_invo
   v4 = v3;
 
   return v4;
+}
+
+- (void)setMaxGroupedCallbackEventBatchCount:(int)count
+{
+  v3 = *&count;
+  commandQueue = [(MSASServerSideModel *)self commandQueue];
+  [commandQueue setMaxGroupedCallbackEventBatchCount:v3];
 }
 
 - (int)maxGroupedCallbackEventBatchCount
@@ -13712,20 +14009,20 @@ LABEL_5:
 
 - (void)enqueueCommand:(id)command
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   command = [commandCopy command];
 
   if (command)
   {
     dbQueue = [(MSASModelBase *)self dbQueue];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __55__MSASServerSideModel_GroupedCommands__enqueueCommand___block_invoke;
-    v8[3] = &unk_278E927C8;
-    v8[4] = self;
-    v9 = commandCopy;
-    dispatch_async(dbQueue, v8);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __55__MSASServerSideModel_GroupedCommands__enqueueCommand___block_invoke;
+    v7[3] = &unk_278E927C8;
+    v7[4] = self;
+    v8 = commandCopy;
+    dispatch_async(dbQueue, v7);
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -13734,22 +14031,20 @@ LABEL_5:
     selfCopy = self;
     _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Attempting to enqueue a command without a command string. Rejected and ignored.", buf, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __55__MSASServerSideModel_GroupedCommands__enqueueCommand___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) statementForString:{@"insert or rollback into GroupedCommand (command, invariant, variant) values (?, ?, ?);"}];
   v3 = [*(a1 + 40) command];
   MSSqliteBindStringOrNull(v2, 1, v3);
 
   v4 = MEMORY[0x277CCAAB0];
   v5 = [*(a1 + 40) invariantParam];
-  v22 = 0;
-  v6 = [v4 archivedDataWithRootObject:v5 requiringSecureCoding:1 error:&v22];
-  v7 = v22;
+  v21 = 0;
+  v6 = [v4 archivedDataWithRootObject:v5 requiringSecureCoding:1 error:&v21];
+  v7 = v21;
 
   if (v6)
   {
@@ -13765,7 +14060,7 @@ void __55__MSASServerSideModel_GroupedCommands__enqueueCommand___block_invoke(ui
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v24 = v10;
+      v23 = v10;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
     }
 
@@ -13774,9 +14069,9 @@ void __55__MSASServerSideModel_GroupedCommands__enqueueCommand___block_invoke(ui
 
   v11 = MEMORY[0x277CCAAB0];
   v12 = [*(a1 + 40) variantParam];
-  v21 = v7;
-  v13 = [v11 archivedDataWithRootObject:v12 requiringSecureCoding:1 error:&v21];
-  v14 = v21;
+  v20 = v7;
+  v13 = [v11 archivedDataWithRootObject:v12 requiringSecureCoding:1 error:&v20];
+  v14 = v20;
 
   if (v13)
   {
@@ -13792,7 +14087,7 @@ void __55__MSASServerSideModel_GroupedCommands__enqueueCommand___block_invoke(ui
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v24 = v17;
+      v23 = v17;
       _os_log_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
     }
 
@@ -13811,8 +14106,6 @@ void __55__MSASServerSideModel_GroupedCommands__enqueueCommand___block_invoke(ui
   {
     sqlite3_reset(v2);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 @end

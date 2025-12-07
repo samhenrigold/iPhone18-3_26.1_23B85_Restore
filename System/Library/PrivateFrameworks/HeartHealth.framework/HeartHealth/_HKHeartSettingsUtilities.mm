@@ -65,21 +65,19 @@
 
 + (BOOL)isWristDetectionEnabled
 {
-  v2 = *MEMORY[0x277CCE300];
-  v3 = *MEMORY[0x277CCE308];
-  v4 = HKObjectForNanoPreferencesUserDefaultsKey();
-  v5 = v4;
-  if (v4)
+  v2 = HKObjectForNanoPreferencesUserDefaultsKey();
+  v3 = v2;
+  if (v2)
   {
-    v6 = [v4 BOOLValue] ^ 1;
+    v4 = [v2 BOOLValue] ^ 1;
   }
 
   else
   {
-    LOBYTE(v6) = 1;
+    LOBYTE(v4) = 1;
   }
 
-  return v6;
+  return v4;
 }
 
 + (BOOL)isBackgroundHeartRateEnabled
@@ -649,7 +647,7 @@
 
 + (void)_setThresholdHeartRate:(id)rate detectedEnabledDefaultsKey:(id)key thresholdHeartRateDefaultKey:(id)defaultKey userDefaults:(id)defaults
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   v9 = rate != 0;
   defaultsCopy = defaults;
   defaultKeyCopy = defaultKey;
@@ -661,9 +659,9 @@
   v14 = objc_alloc_init(MEMORY[0x277D2BA60]);
   v15 = *MEMORY[0x277CCE458];
   v16 = MEMORY[0x277CBEB98];
-  v20[0] = keyCopy;
-  v20[1] = defaultKeyCopy;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v19[0] = keyCopy;
+  v19[1] = defaultKeyCopy;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
   v18 = [v16 setWithArray:v17];
 
   [v14 synchronizeUserDefaultsDomain:v15 keys:v18];
@@ -671,8 +669,6 @@
   {
     HKHRSubmitNotificationsEnabledSignal();
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_calculateHeartRateOptionsWithMin:(int64_t)min increment:(int64_t)increment max:(int64_t)max

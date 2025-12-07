@@ -13,7 +13,6 @@
 - (_TtC8Freeform17CRLGroupSelection)initWithGroupItem:(id)item
 {
   self->_TtC8Freeform21CRLBoardItemSelection_opaque[OBJC_IVAR____TtC8Freeform17CRLGroupSelection_hasSelectedItemsInNonGroupContainer] = 0;
-  sub_1005B981C(&unk_1019F4D60);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_101465920;
   *(inited + 32) = item;
@@ -29,8 +28,8 @@
 
 - (_TtC8Freeform17CRLGroupSelection)initWithContainerGroups:(id)groups hasSelectedItemsInNonGroupContainer:(BOOL)container
 {
-  type metadata accessor for CRLGroupItem();
-  sub_100A5E238(&qword_101A0E4D0, 255, type metadata accessor for CRLGroupItem);
+  type metadata accessor for CRLGroupItem(0);
+  sub_100A5E238(&qword_101A0E4D0, 255, type metadata accessor for CRLGroupItem, &protocol conformance descriptor for NSObject);
   v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   self->_TtC8Freeform21CRLBoardItemSelection_opaque[OBJC_IVAR____TtC8Freeform17CRLGroupSelection_hasSelectedItemsInNonGroupContainer] = container;
   sub_1012E3BE0(v6);
@@ -67,7 +66,7 @@
 
   sub_100A5D724(v3);
 
-  type metadata accessor for CRLGroupItem();
+  type metadata accessor for CRLGroupItem(0);
   v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v4.super.isa;

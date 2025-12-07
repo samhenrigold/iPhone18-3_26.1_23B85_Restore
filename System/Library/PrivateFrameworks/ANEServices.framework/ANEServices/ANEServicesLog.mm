@@ -22,7 +22,7 @@
   return +[ANEServicesLog handle]::_handle;
 }
 
-uint64_t __24__ANEServicesLog_handle__block_invoke(uint64_t a1)
+void *__24__ANEServicesLog_handle__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) services];
   +[ANEServicesLog handle]::_handle = result;

@@ -356,7 +356,7 @@
 - (void)_updateProgressForPlaybackTime:(double)time
 {
   audioPlayer = [(HURecordedWaveformView *)self audioPlayer];
-  [audioPlayer duration];
+  objc_msgSend_duration(audioPlayer);
   v7 = v6;
 
   [HUAudioWaveformUtilities progressForTime:time duration:v7];

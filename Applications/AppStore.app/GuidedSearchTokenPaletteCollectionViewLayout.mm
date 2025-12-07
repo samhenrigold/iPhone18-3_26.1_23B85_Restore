@@ -45,7 +45,7 @@
 
 - (void)prepareForCollectionViewUpdates:(id)updates
 {
-  sub_100005744(0, &qword_100984B00);
+  sub_100005744(0, &qword_100984B00, UICollectionViewUpdateItem_ptr);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   sub_1004103BC(v4);
@@ -73,7 +73,7 @@
 
   if (v8)
   {
-    sub_100005744(0, &qword_1009759D0);
+    sub_100005744(0, &qword_1009759D0, UICollectionViewLayoutAttributes_ptr);
     v9.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 

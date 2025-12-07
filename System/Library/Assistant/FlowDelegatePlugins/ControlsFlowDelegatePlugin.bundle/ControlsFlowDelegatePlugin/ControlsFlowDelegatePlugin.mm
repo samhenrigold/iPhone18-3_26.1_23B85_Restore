@@ -1,30 +1,28 @@
-uint64_t sub_1120()
+uint64_t sub_1120(uint64_t a1)
 {
-  v1 = sub_1438();
-  v2 = sub_13B0(v1);
-  v4 = v3;
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v2);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1438();
+  sub_13B0();
+  v3 = v2;
+  __chkstk_darwin(v4);
+  v6 = &v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1428();
   sub_1408();
-  return (*(v4 + 8))(v8, v0);
+  return (*(v3 + 8))(v6, v1);
 }
 
-uint64_t sub_11F0()
+uint64_t sub_11F0(uint64_t a1)
 {
-  v1 = sub_1438();
-  v2 = sub_13B0(v1);
-  v4 = v3;
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v2);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1438();
+  sub_13B0();
+  v3 = v2;
+  __chkstk_darwin(v4);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1428();
-  v9 = sub_1418();
-  result = (*(v4 + 8))(v8, v0);
-  if (v9)
+  v7 = sub_1418();
+  result = (*(v3 + 8))(v6, v1);
+  if (v7)
   {
-    return v9;
+    return v7;
   }
 
   __break(1u);

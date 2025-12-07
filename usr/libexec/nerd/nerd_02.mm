@@ -1,770 +1,6 @@
-const __CFString *tss_lookup_error(int a1)
+void _AMAuthInstallUpdateHTTPHeaderWithEntry(const __CFString *a1, const __CFString *a2, __CFHTTPMessage *a3)
 {
-  v1 = off_1000B4810;
-  if (off_1000B4810)
-  {
-    if (tss_err_map == a1)
-    {
-      return CFStringCreateWithCString(kCFAllocatorDefault, v1, 0x8000100u);
-    }
-
-    for (i = &off_1000B4820; ; i += 2)
-    {
-      v1 = *i;
-      if (!*i)
-      {
-        break;
-      }
-
-      v3 = *(i - 2);
-      if (v3 == a1)
-      {
-        return CFStringCreateWithCString(kCFAllocatorDefault, v1, 0x8000100u);
-      }
-    }
-  }
-
-  return @"Unknown";
-}
-
-void *tss_create_session(const void *a1, const void *a2)
-{
-  v4 = malloc(0x60uLL);
-  v10 = v4;
-  if (!v4)
-  {
-    goto LABEL_7;
-  }
-
-  v4[4] = 0u;
-  v4[5] = 0u;
-  v4[2] = 0u;
-  v4[3] = 0u;
-  *v4 = 0u;
-  v4[1] = 0u;
-  if (!a2)
-  {
-    v13 = "signingServerURL is NULL";
-    goto LABEL_10;
-  }
-
-  v11 = CFGetTypeID(a2);
-  if (v11 != CFURLGetTypeID())
-  {
-    v13 = "signingServerURL is malformed";
-    goto LABEL_10;
-  }
-
-  v10[1] = CFRetain(a2);
-  *(v10 + 10) = 256;
-  if (a1)
-  {
-    CFRetain(a1);
-  }
-
-  *v10 = a1;
-  Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  v10[3] = Mutable;
-  if (!Mutable)
-  {
-LABEL_7:
-    v13 = "out of memory";
-LABEL_10:
-    AMAuthInstallLog(3, "tss_create_session", v13, v5, v6, v7, v8, v9, v15);
-    free(v10);
-    return 0;
-  }
-
-  return v10;
-}
-
-uint64_t tss_close_session(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = tss_reset_session(a1, a2, a3, a4, a5, a6, a7, a8);
-  if (!v9)
-  {
-    free(a1);
-  }
-
-  return v9;
-}
-
-uint64_t tss_reset_session(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (a1)
-  {
-    v9 = *a1;
-    if (v9)
-    {
-      CFRelease(v9);
-    }
-
-    v10 = *(a1 + 24);
-    if (v10)
-    {
-      CFRelease(v10);
-    }
-
-    v11 = *(a1 + 40);
-    if (v11)
-    {
-      CFRelease(v11);
-    }
-
-    v12 = *(a1 + 8);
-    if (v12)
-    {
-      CFRelease(v12);
-    }
-
-    v13 = *(a1 + 32);
-    if (v13)
-    {
-      CFRelease(v13);
-    }
-
-    v14 = *(a1 + 72);
-    if (v14)
-    {
-      CFRelease(v14);
-      *(a1 + 72) = 0;
-    }
-
-    v15 = *(a1 + 56);
-    if (v15)
-    {
-      free(v15);
-    }
-
-    result = 0;
-    *(a1 + 64) = 0u;
-    *(a1 + 80) = 0u;
-    *(a1 + 32) = 0u;
-    *(a1 + 48) = 0u;
-    *a1 = 0u;
-    *(a1 + 16) = 0u;
-  }
-
-  else
-  {
-    AMAuthInstallLog(3, "tss_reset_session", "NULL session", a4, a5, a6, a7, a8, v17);
-    return 10009;
-  }
-
-  return result;
-}
-
-uint64_t tss_submit(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (!a1)
-  {
-    AMAuthInstallLog(3, "tss_submit", "NULL session", a4, a5, a6, a7, a8, v19);
-    return 10009;
-  }
-
-  if (!*(a1 + 24))
-  {
-    AMAuthInstallLog(3, "tss_submit", "NULL request in session", a4, a5, a6, a7, a8, v19);
-    v15 = 10008;
-    v16 = a1;
-    v17 = 10008;
-LABEL_10:
-    tss_set_last_error(v16, v17);
-    return v15;
-  }
-
-  if (!*(a1 + 48))
-  {
-    tss_submit_job_with_retry();
-    return *(a1 + 64);
-  }
-
-  v9 = malloc(8uLL);
-  *(a1 + 56) = v9;
-  if (!v9)
-  {
-    AMAuthInstallLog(3, "tss_submit_non_block", "out of memory", v10, v11, v12, v13, v14, v19);
-    v15 = 10006;
-    v16 = a1;
-    v17 = 10006;
-    goto LABEL_10;
-  }
-
-  pthread_create(v9, 0, tss_submit_job_with_retry, a1);
-  return 0;
-}
-
-const __CFString *tss_set_last_error(const __CFString *result, int a2)
-{
-  if (result)
-  {
-    v3 = result;
-    LODWORD(result[2].isa) = a2;
-    info = result[2].info;
-    if (info)
-    {
-      CFRelease(info);
-    }
-
-    result = tss_lookup_error(a2);
-    v3[2].info = result;
-  }
-
-  return result;
-}
-
-uint64_t tss_submit_job_with_retry()
-{
-  v0 = __chkstk_darwin();
-  v6 = v0;
-  if (v0)
-  {
-    if (*(v0 + 16) <= 1u)
-    {
-      v7 = 1;
-    }
-
-    else
-    {
-      v7 = *(v0 + 16);
-    }
-  }
-
-  else
-  {
-    v7 = 1;
-  }
-
-  v8 = 0;
-  v9 = kCFAllocatorDefault;
-  key = _kCFSystemVersionBuildVersionKey;
-  do
-  {
-    AMAuthInstallLog(6, "tss_submit_job_with_retry", "TSS Connection attempt %d of %d.  (Will retry if TSS_ERR_SERVER_NOT_REACHABLE.)", v1, v2, v3, v4, v5, ++v8);
-    error = 0;
-    bzero(v212, 0x19000uLL);
-    if (!*(v6 + 8))
-    {
-      AMAuthInstallLog(3, "tss_submit_job", "no server URL", v10, v11, v12, v13, v14, v175);
-      v71 = 10008;
-LABEL_25:
-      tss_set_last_error(v6, v71);
-      v72 = 0;
-      v35 = 0;
-      v73 = 0;
-      v50 = 0;
-      Request = 0;
-      v28 = 0;
-      *(v6 + 64) = v71;
-      goto LABEL_35;
-    }
-
-    v15 = CFPropertyListCreateData(v9, *(v6 + 24), kCFPropertyListXMLFormat_v1_0, 0, &error);
-    if (!v15)
-    {
-      AMAuthInstallLog(3, "tss_submit_job", "CFPropertyListCreateXMLData failed %@", v16, v17, v18, v19, v20, error);
-      v71 = 10036;
-      goto LABEL_25;
-    }
-
-    v21 = v15;
-    Length = CFDataGetLength(v15);
-    v28 = CFURLCreateWithString(v9, @"TSS/controller?action=2", *(v6 + 8));
-    if (!v28)
-    {
-      AMAuthInstallLog(3, "tss_submit_job", "CFURLCreateCopyAppendingPathComponent() failed", v23, v24, v25, v26, v27, v175);
-      v74 = 10041;
-      tss_set_last_error(v6, 10041);
-      v72 = 0;
-      v35 = 0;
-      v50 = 0;
-      Request = 0;
-LABEL_34:
-      *(v6 + 64) = v74;
-      CFRelease(v21);
-      v73 = 0;
-      goto LABEL_35;
-    }
-
-    Request = CFHTTPMessageCreateRequest(v9, @"POST", v28, kCFHTTPVersion1_1);
-    if (!Request)
-    {
-      AMAuthInstallLog(3, "tss_submit_job", "CFHTTPMessageCreateRequest failed", v29, v30, v31, v32, v33, v175);
-      v74 = 10041;
-      tss_set_last_error(v6, 10041);
-      v72 = 0;
-      v35 = 0;
-      v50 = 0;
-      goto LABEL_34;
-    }
-
-    v176 = Length;
-    v35 = CFStringCreateWithFormat(v9, 0, @"%d");
-    CFHTTPMessageSetHeaderFieldValue(Request, @"Proxy-Connection", @"Keep-Alive");
-    CFHTTPMessageSetHeaderFieldValue(Request, @"Pragma", @"no-cache");
-    CFHTTPMessageSetHeaderFieldValue(Request, @"Content-Type", @"text/xml; charset=utf-8");
-    CFHTTPMessageSetHeaderFieldValue(Request, @"Content-Length", v35);
-    v36 = _CFCopySystemVersionDictionary();
-    if (v36)
-    {
-      v42 = v36;
-      Value = CFDictionaryGetValue(v36, key);
-      CFHTTPMessageSetHeaderFieldValue(Request, @"X-OS-Version", Value);
-      CFRelease(v42);
-    }
-
-    if (*(v6 + 32))
-    {
-      AMAuthInstallLog(7, "tss_submit_job", "Attempting to add additional entries to HTTP header", v37, v38, v39, v40, v41, v176);
-      CFDictionaryApplyFunction(*(v6 + 32), _AMAuthInstallUpdateHTTPHeaderWithEntry, Request);
-      AMAuthInstallLog(7, "tss_submit_job", "Done adding additional fields to HTTP header", v44, v45, v46, v47, v48, v177);
-    }
-
-    CFHTTPMessageSetBody(Request, v21);
-    Mutable = CFDictionaryCreateMutable(v9, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-    v50 = Mutable;
-    v51 = *(v6 + 80);
-    if (v51)
-    {
-      CFDictionaryAddValue(Mutable, @"SocksProxySettings", v51);
-      AMAuthInstallLog(7, "tss_submit_job", "Found a SOCKS proxy setting. Will attempt to use it.", v52, v53, v54, v55, v56, v176);
-    }
-
-    v57 = *(v6 + 88);
-    if (v57)
-    {
-      CFDictionaryAddValue(v50, @"TrustedServerCAs", v57);
-      AMAuthInstallLog(7, "tss_submit_job", "Found a trusted server CA. Will attempt to use it.", v58, v59, v60, v61, v62, v176);
-    }
-
-    theData[0] = 0;
-    v63 = CFURLCopyScheme(*(v6 + 8));
-    if (!v63)
-    {
-      v70 = "Invalid scheme in url";
-      goto LABEL_31;
-    }
-
-    v69 = v63;
-    *__s = 10000;
-    if (CFStringCompare(v63, @"https", 1uLL) && CFStringCompare(v69, @"http", 1uLL))
-    {
-      CFRelease(v69);
-      v70 = "unsupported URL scheme";
-LABEL_31:
-      AMAuthInstallLog(3, "tss_submit_job", v70, v64, v65, v66, v67, v68, v176);
-      v74 = 10008;
-      v80 = v6;
-      v81 = 10008;
-      goto LABEL_32;
-    }
-
-    CFRelease(v69);
-    if (AMAuthInstallHttpMessageSendSyncNew(v9, Request, theData, __s, v50, 300.0))
-    {
-      AMAuthInstallLog(3, "tss_submit_job", "failed to send http request", v75, v76, v77, v78, v79, v176);
-      v74 = 10002;
-      v80 = v6;
-      v81 = 10002;
-LABEL_32:
-      tss_set_last_error(v80, v81);
-LABEL_33:
-      v72 = @"Content-Length";
-      goto LABEL_34;
-    }
-
-    v74 = *__s;
-    if (*__s != 200)
-    {
-      AMAuthInstallLog(3, "tss_submit_job", "SendHttpRequest failed %d", v75, v76, v77, v78, v79, __s[0]);
-      if (*__s == -1)
-      {
-        v74 = 10002;
-      }
-
-      v88 = v6;
-      v89 = v74;
-      goto LABEL_61;
-    }
-
-    if (CFDataGetLength(theData[0]) > 0x19000)
-    {
-      AMAuthInstallLog(3, "tss_submit_job", "Response too large", v83, v84, v85, v86, v87, v176);
-      v74 = 10052;
-      v88 = v6;
-      v89 = 10052;
-LABEL_61:
-      tss_set_last_error(v88, v89);
-      CFRelease(theData[0]);
-      goto LABEL_33;
-    }
-
-    CFDataGetBytePtr(theData[0]);
-    CFDataGetLength(theData[0]);
-    __memcpy_chk();
-    v90 = CFDataGetLength(theData[0]);
-    CFRelease(theData[0]);
-    v96 = v90;
-    *v210 = 0;
-    *__s = 0u;
-    v195 = 0u;
-    v196 = 0u;
-    v197 = 0u;
-    v198 = 0u;
-    v199 = 0u;
-    v200 = 0u;
-    v201 = 0u;
-    v202 = 0u;
-    v203 = 0u;
-    v204 = 0u;
-    v205 = 0u;
-    v206 = 0u;
-    v207 = 0u;
-    v208 = 0u;
-    v209 = 0u;
-    v182 = v90;
-    if (v90 < 1)
-    {
-      v100 = 0;
-      v187 = 0;
-      cfb = 0;
-      goto LABEL_108;
-    }
-
-    v97 = 0;
-    v98 = 0;
-    v99 = 0;
-    v100 = 0;
-    v101 = v212;
-    do
-    {
-      if (v99)
-      {
-        if (v98)
-        {
-          goto LABEL_66;
-        }
-      }
-
-      else if (v100 + 7 >= v96)
-      {
-        v99 = 0;
-        if (v98)
-        {
-          goto LABEL_66;
-        }
-      }
-
-      else
-      {
-        v186 = v98;
-        cf = v97;
-        if (!strncmp(v101, "STATUS", 6uLL))
-        {
-          v102 = 0;
-          v99 = v101 + 7;
-          v97 = cf;
-          do
-          {
-            v103 = v101[v102 + 7];
-            if (v103 == 38)
-            {
-              break;
-            }
-
-            v210[v102++] = v103;
-          }
-
-          while (v102 != 8);
-          v210[7] = 0;
-          v96 = v182;
-        }
-
-        else
-        {
-          v99 = 0;
-          v96 = v182;
-          v97 = cf;
-        }
-
-        v98 = v186;
-        if (v186)
-        {
-LABEL_66:
-          if (v97)
-          {
-            goto LABEL_98;
-          }
-
-          goto LABEL_67;
-        }
-      }
-
-      if (v100 + 8 >= v96)
-      {
-        v98 = 0;
-        if (v97)
-        {
-          goto LABEL_98;
-        }
-      }
-
-      else
-      {
-        v184 = v99;
-        cfa = v97;
-        if (!strncmp(v101, "MESSAGE", 7uLL))
-        {
-          v104 = 0;
-          v98 = v101 + 8;
-          v97 = cfa;
-          v99 = v184;
-          do
-          {
-            v105 = v101[v104 + 8];
-            if (v105 == 10)
-            {
-              break;
-            }
-
-            if (v105 == 38)
-            {
-              break;
-            }
-
-            __s[v104++] = v105;
-          }
-
-          while (v104 != 256);
-          HIBYTE(v209) = 0;
-          v96 = v182;
-          if (cfa)
-          {
-            goto LABEL_98;
-          }
-        }
-
-        else
-        {
-          v98 = 0;
-          v96 = v182;
-          v99 = v184;
-          v97 = cfa;
-          if (cfa)
-          {
-            goto LABEL_98;
-          }
-        }
-      }
-
-LABEL_67:
-      if (v100 + 15 >= v96)
-      {
-        v97 = 0;
-        goto LABEL_98;
-      }
-
-      v183 = v99;
-      v185 = v98;
-      if (strncmp(v101, "REQUEST_STRING", 0xEuLL))
-      {
-        v97 = 0;
-        v96 = v182;
-        v99 = v183;
-LABEL_97:
-        v98 = v185;
-        goto LABEL_98;
-      }
-
-      v97 = v101 + 15;
-      v99 = v183;
-      if (!v183)
-      {
-        v96 = v182;
-        goto LABEL_97;
-      }
-
-      v96 = v182;
-      v98 = v185;
-      if (v185)
-      {
-        goto LABEL_100;
-      }
-
-LABEL_98:
-      ++v101;
-      ++v100;
-    }
-
-    while (v100 != v96);
-    v100 = v96;
-LABEL_100:
-    cfb = v97;
-    if (v99)
-    {
-      v106 = v98 == 0;
-    }
-
-    else
-    {
-      v106 = 1;
-    }
-
-    v107 = !v106;
-    v187 = v107;
-LABEL_108:
-    AMAuthInstallLog(8, "tss_submit_job", "----Begin request", v91, v92, v93, v94, v95, v176);
-    AMAuthInstallLog(8, "tss_submit_job", "%@", v108, v109, v110, v111, v112, *(v6 + 24));
-    AMAuthInstallLog(8, "tss_submit_job", "----End request", v113, v114, v115, v116, v117, v178);
-    AMAuthInstallLog(8, "tss_submit_job", "----Begin response", v118, v119, v120, v121, v122, v179);
-    AMAuthInstallLog(8, "tss_submit_job", "%s", v123, v124, v125, v126, v127, v212);
-    AMAuthInstallLog(8, "tss_submit_job", "----End response", v128, v129, v130, v131, v132, v180);
-    if ((v187 & 1) == 0)
-    {
-      AMAuthInstallLog(3, "tss_submit_job", "invalid response", v133, v134, v135, v136, v137, v181);
-      v144 = 10052;
-      v153 = v6;
-      v154 = 10052;
-      goto LABEL_115;
-    }
-
-    v138 = atoi(v210);
-    if (!v138)
-    {
-      if (cfb)
-      {
-        __memcpy_chk();
-        v155 = CFDataCreate(kCFAllocatorDefault, theData, v182 - v100 - 15);
-        if (v155)
-        {
-          v161 = v155;
-          if (error)
-          {
-            CFRelease(error);
-          }
-
-          cfc = v161;
-          v73 = CFPropertyListCreateWithData(kCFAllocatorDefault, v161, 0, 0, &error);
-          if (v73)
-          {
-            Copy = CFDictionaryCreateCopy(kCFAllocatorDefault, v73);
-            *(v6 + 40) = Copy;
-            if (Copy)
-            {
-              v173 = 0;
-LABEL_130:
-              *(v6 + 64) = v173;
-              CFRelease(v21);
-              CFRelease(cfc);
-              goto LABEL_117;
-            }
-
-            AMAuthInstallLog(3, "tss_submit_job", "CFDictionaryCreateCopy failed", v168, v169, v170, v171, v172, v181);
-            v173 = 10056;
-          }
-
-          else
-          {
-            AMAuthInstallLog(3, "tss_submit_job", "CFPropertyListCreateFromXMLData failed (%@)", v162, v163, v164, v165, v166, error);
-            v173 = 10055;
-          }
-
-          tss_set_last_error(v6, v173);
-          goto LABEL_130;
-        }
-
-        AMAuthInstallLog(3, "tss_submit_job", "CFDataCreate failed", v156, v157, v158, v159, v160, v181);
-        v144 = 10054;
-        v153 = v6;
-        v154 = 10054;
-      }
-
-      else
-      {
-        AMAuthInstallLog(3, "tss_submit_job", "no data in response", v139, v140, v141, v142, v143, v181);
-        v144 = 10053;
-        v153 = v6;
-        v154 = 10053;
-      }
-
-LABEL_115:
-      tss_set_last_error(v153, v154);
-      goto LABEL_116;
-    }
-
-    v144 = v138;
-    AMAuthInstallLog(3, "tss_submit_job", "error from server=%d (%s)", v139, v140, v141, v142, v143, v138);
-    v145 = *(v6 + 72);
-    if (v145)
-    {
-      CFRelease(v145);
-    }
-
-    v146 = strlen(__s);
-    v147 = CFStringCreateWithBytes(kCFAllocatorDefault, __s, v146, 0x8000100u, 0);
-    *(v6 + 72) = v147;
-    if (!v147)
-    {
-      AMAuthInstallLog(3, "tss_submit_job", "Server message failed to convert: %d", v148, v149, v150, v151, v152, v144);
-    }
-
-LABEL_116:
-    *(v6 + 64) = v144;
-    CFRelease(v21);
-    v73 = 0;
-LABEL_117:
-    v72 = @"Content-Length";
-LABEL_35:
-    if (error)
-    {
-      CFRelease(error);
-    }
-
-    if (v28)
-    {
-      CFRelease(v28);
-    }
-
-    if (Request)
-    {
-      CFRelease(Request);
-    }
-
-    if (v72)
-    {
-      CFRelease(v72);
-    }
-
-    if (v35)
-    {
-      CFRelease(v35);
-    }
-
-    v9 = kCFAllocatorDefault;
-    if (v73)
-    {
-      CFRelease(v73);
-    }
-
-    if (v50)
-    {
-      CFRelease(v50);
-    }
-
-    v82 = *(v6 + 48);
-    if (v82)
-    {
-      v82(v6);
-    }
-  }
-
-  while (v6 && v8 < v7 && *(v6 + 64) == 10002);
-  return 0;
-}
-
-void _AMAuthInstallUpdateHTTPHeaderWithEntry(const __CFString *a1, const __CFString *a2, __CFHTTPMessage *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  AMAuthInstallLog(7, "_AMAuthInstallUpdateHTTPHeaderWithEntry", "HTTP Request Header: %@=%@", a4, a5, a6, a7, a8, a1);
+  AMAuthInstallLog(7, "_AMAuthInstallUpdateHTTPHeaderWithEntry", "HTTP Request Header: %@=%@", a1, a2);
 
   CFHTTPMessageSetHeaderFieldValue(a3, a1, a2);
 }
@@ -810,73 +46,75 @@ id UARPPersonalizationTSSRequestWithSigningServer(void *a1, void *a2)
   v3 = a1;
   v4 = a2;
   v5 = v4;
+  v6 = v4;
   if (!v4)
   {
-    v6 = String();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = String(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "UARP: TSS Request to default server", &v13, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "UARP: TSS Request to default server", &v14, 2u);
     }
 
-    v5 = [NSURL URLWithString:@"https://gs.apple.com:443"];
+    v4 = [NSURL URLWithString:@"https://gs.apple.com:443"];
+    v6 = v4;
   }
 
-  v7 = String();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = String(v4);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v13 = 138543618;
-    v14 = v5;
-    v15 = 2114;
-    v16 = v3;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "UARP: TSS Request to server %{public}@ with options %{public}@", &v13, 0x16u);
+    v14 = 138543618;
+    v15 = v6;
+    v16 = 2114;
+    v17 = v3;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "UARP: TSS Request to server %{public}@ with options %{public}@", &v14, 0x16u);
   }
 
-  v8 = String(v3, v5, 0);
-  v9 = String();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
-  if (v8)
+  v9 = String(v3, v6, 0);
+  v10 = String(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+  if (v9)
   {
-    if (v10)
+    if (v11)
     {
       UARPPersonalizationTSSRequestWithSigningServer_cold_1();
     }
 
-    v11 = v8;
+    v12 = v9;
   }
 
   else
   {
-    if (v10)
+    if (v11)
     {
       UARPPersonalizationTSSRequestWithSigningServer_cold_2();
     }
   }
 
-  return v8;
+  return v9;
 }
 
-id String()
+id String(uint64_t a1)
 {
   if (TSSRequestLogToken_onceToken != -1)
   {
     TSSRequestLogToken_cold_1();
   }
 
-  v1 = TSSRequestLogToken_logToken;
+  v2 = TSSRequestLogToken_logToken;
 
-  return v1;
+  return v2;
 }
 
 id String(void *a1, void *a2, int a3)
 {
   v5 = a1;
   v6 = a2;
-  v7 = String();
+  v7 = String(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v25 = v6;
+    v30 = v6;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "UARP: TSS request to signing server %{public}@", buf, 0xCu);
   }
 
@@ -884,8 +122,8 @@ id String(void *a1, void *a2, int a3)
   v8 = AMAuthInstallCreate(kCFAllocatorDefault);
   if (!v8)
   {
-    v13 = String();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = String(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       TSSRequestWithSigningServer_cold_3();
     }
@@ -895,98 +133,100 @@ id String(void *a1, void *a2, int a3)
 
   v9 = v8;
   v10 = AMAuthInstallSetSigningServerURL(v8, v6);
-  v11 = String();
-  v12 = v11;
-  if (v10)
+  v11 = v10;
+  v12 = String(v10);
+  v13 = v12;
+  if (v11)
   {
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       TSSRequestWithSigningServer_cold_1();
     }
 
     CFRelease(v9);
 LABEL_11:
-    v14 = 0;
+    v15 = 0;
     goto LABEL_32;
   }
 
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     if (a3)
     {
-      v15 = @" <AppleConnect>";
+      v16 = @" <AppleConnect>";
     }
 
     else
     {
-      v15 = @" ";
+      v16 = @" ";
     }
 
     *buf = 138543618;
-    v25 = v6;
-    v26 = 2114;
-    v27 = v15;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "UARP: TSS Request %{public}@%{public}@ is ", buf, 0x16u);
+    v30 = v6;
+    v31 = 2114;
+    v32 = v16;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "UARP: TSS Request %{public}@%{public}@ is ", buf, 0x16u);
   }
 
-  v16 = String();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
-  {
-    *buf = 138543362;
-    v25 = v6;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "UARP: %{public}@", buf, 0xCu);
-  }
-
-  v23 = 0;
-  v17 = AMAuthInstallApCreatePersonalizedResponse(v9, v5, &v23);
-  v18 = String();
+  v18 = String(v17);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
+    *buf = 138543362;
+    v30 = v6;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "UARP: %{public}@", buf, 0xCu);
+  }
+
+  v28 = 0;
+  v19 = AMAuthInstallApCreatePersonalizedResponse(v9, v5, &v28);
+  v20 = v19;
+  v21 = String(v19);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+  {
     if (a3)
     {
-      v19 = @" <AppleConnect>";
+      v22 = @" <AppleConnect>";
     }
 
     else
     {
-      v19 = @" ";
+      v22 = @" ";
     }
 
     *buf = 138543618;
-    v25 = v6;
-    v26 = 2114;
-    v27 = v19;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "UARP: TSS Response %{public}@%{public}@ is ", buf, 0x16u);
+    v30 = v6;
+    v31 = 2114;
+    v32 = v22;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "UARP: TSS Response %{public}@%{public}@ is ", buf, 0x16u);
   }
 
-  v20 = String();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+  v24 = String(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v25 = v23;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "UARP: %{public}@", buf, 0xCu);
+    v30 = v28;
+    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "UARP: %{public}@", buf, 0xCu);
   }
 
-  if (v17)
+  if (v20)
   {
-    v21 = String();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v26 = String(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      TSSRequestWithSigningServer_cold_2(v17, v21);
+      TSSRequestWithSigningServer_cold_2(v20, v26);
     }
 
-    v14 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v14 = v23;
+    v15 = v28;
   }
 
   CFRelease(v9);
 LABEL_32:
 
-  return v14;
+  return v15;
 }
 
 id UARPPersonalizationTSSRequestWithSigningServerSSO(void *a1, void *a2)
@@ -994,44 +234,46 @@ id UARPPersonalizationTSSRequestWithSigningServerSSO(void *a1, void *a2)
   v3 = a1;
   v4 = a2;
   v5 = v4;
+  v6 = v4;
   if (!v4)
   {
-    v6 = String();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = String(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "UARP: TSS Request to default server", &v11, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "UARP: TSS Request to default server", &v12, 2u);
     }
 
-    v5 = [NSURL URLWithString:@"https://gs.apple.com:443"];
+    v4 = [NSURL URLWithString:@"https://gs.apple.com:443"];
+    v6 = v4;
   }
 
-  v7 = String();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = String(v4);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v11 = 138543618;
-    v12 = v5;
-    v13 = 2114;
-    v14 = v3;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "UARP: TSS Request to server %{public}@ with SSO and options %{public}@", &v11, 0x16u);
+    v12 = 138543618;
+    v13 = v6;
+    v14 = 2114;
+    v15 = v3;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "UARP: TSS Request to server %{public}@ with SSO and options %{public}@", &v12, 0x16u);
   }
 
-  v8 = String(v3, v5, 1);
-  if (!v8)
+  v9 = String(v3, v6, 1);
+  if (!v9)
   {
-    v9 = String();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = String(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       UARPPersonalizationTSSRequestWithSigningServerSSO_cold_1();
     }
   }
 
-  return v8;
+  return v9;
 }
 
 void String(uint64_t a1, uint64_t a2)
 {
-  v3 = String();
+  v3 = String(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = 136446210;
@@ -1040,10 +282,11 @@ void String(uint64_t a1, uint64_t a2)
   }
 }
 
-void OUTLINED_FUNCTION_0_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void TSSRequestWithSigningServer_cold_2(int a1, NSObject *a2)
@@ -1053,10 +296,11 @@ void TSSRequestWithSigningServer_cold_2(int a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "UARP: Failed personalization response, error = %u", v2, 8u);
 }
 
-void OUTLINED_FUNCTION_0_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 id __copy_helper_block_e8_32s40s(uint64_t a1, uint64_t a2)
@@ -1101,7 +345,7 @@ uint64_t DERImg4DecodeTagCompare(uint64_t a1, unsigned int a2)
   return 0xFFFFFFFFLL;
 }
 
-uint64_t DERImg4DecodeManifestCommon(void *a1, unint64_t a2, uint64_t a3, unint64_t a4, unsigned int a5)
+uint64_t DERImg4DecodeManifestCommon(void *a1, unint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
   result = 6;
   if (a1 && a4)
@@ -1257,7 +501,7 @@ double Img4DecodeInit(uint64_t a1, uint64_t a2, uint64_t a3)
       *(a3 + 416) = 0u;
       *(a3 + 432) = 0u;
       *(a3 + 448) = 0;
-      if (!DERImg4Decode(v9, &v5) && !DERImg4DecodePayload(&v6, a3 + 88) && !DERImg4DecodeManifest(&v7, a3 + 232) && !DERImg4DecodeRestoreInfo(&v8, (a3 + 424)))
+      if (!DERImg4Decode(v9, &v5) && !DERImg4DecodePayload(&v6, (a3 + 88)) && !DERImg4DecodeManifest(&v7, a3 + 232) && !DERImg4DecodeRestoreInfo(&v8, (a3 + 424)))
       {
         *(a3 + 8) = v6;
         result = *&v7;
@@ -1280,7 +524,7 @@ _DWORD *DEREncoderCreate(int a1)
   return result;
 }
 
-void DEREncoderDestroy(void **a1)
+void DEREncoderDestroy(void *a1)
 {
   if (a1)
   {
@@ -1301,14 +545,14 @@ void DEREncoderDestroy(void **a1)
   }
 }
 
-uint64_t DEREncoderAddData(uint64_t *a1, unsigned int a2, unsigned int a3, const void *a4, unsigned int a5, int a6)
+uint64_t DEREncoderAddData(uint64_t *a1, uint64_t a2, uint64_t a3, const void *a4, uint64_t a5, uint64_t a6)
 {
   v7 = _EncodedDataCreate(a2, a3, a4, a5, a6, 3);
 
   return _DEREncoderAddEncodedData(a1, v7);
 }
 
-uint64_t _DEREncoderAddEncodedData(uint64_t *a1, uint64_t a2)
+uint64_t _DEREncoderAddEncodedData(uint64_t *a1, uint64_t *a2)
 {
   v2 = a2;
   if (!a1)
@@ -1331,10 +575,10 @@ uint64_t _DEREncoderAddEncodedData(uint64_t *a1, uint64_t a2)
   v5 = a2;
   do
   {
-    v6 = *(v5 + 20);
+    v6 = *(v5 + 5);
     v7 = __CFADD__(v4, v6);
     v8 = v4 + v6;
-    if (v7 || (v9 = *(v5 + 24), v4 = v8 + v9, __CFADD__(v8, v9)))
+    if (v7 || (v9 = *(v5 + 6), v4 = v8 + v9, __CFADD__(v8, v9)))
     {
       v22 = 2;
       do
@@ -1394,7 +638,7 @@ LABEL_19:
       goto LABEL_20;
     }
 
-    v17 = *(v2 + 24);
+    v17 = *(v2 + 6);
     v18 = *(v11 + 6);
     if (v17 >= v18)
     {
@@ -1406,7 +650,7 @@ LABEL_19:
       v19 = v17;
     }
 
-    v16 = memcmp(*(v2 + 8), v11[1], v19);
+    v16 = memcmp(v2[1], v11[1], v19);
     if (v16)
     {
       goto LABEL_19;
@@ -1847,8 +1091,8 @@ id FormatHex(uint64_t a1, unint64_t a2, int a3)
 {
   v6 = [NSMutableString stringWithCapacity:0];
   v7 = v6;
-  v48 = 0;
-  v47 = 0;
+  v44 = 0;
+  v43 = 0;
   if (a3)
   {
     v8 = @"00000000  ";
@@ -1875,14 +1119,14 @@ id FormatHex(uint64_t a1, unint64_t a2, int a3)
       if (v9 && (v9 & 0xF) == 0)
       {
         v11 = 0;
-        v46 = 0;
-        v45 = *(a1 + v9 - 16);
+        v42 = 0;
+        v41 = *(a1 + v9 - 16);
         do
         {
-          v12 = *(&v45 + v11);
-          if (v12 < 32 || v12 == 127 || *(&v45 + v11) == 32)
+          v12 = *(&v41 + v11);
+          if (v12 < 32 || v12 == 127 || *(&v41 + v11) == 32)
           {
-            *(&v45 + v11) = 46;
+            *(&v41 + v11) = 46;
           }
 
           ++v11;
@@ -1890,21 +1134,21 @@ id FormatHex(uint64_t a1, unint64_t a2, int a3)
 
         while (v11 != 8);
         v13 = 0;
-        v44 = 0;
-        v43 = *(a1 + v9 - 8);
+        v40 = 0;
+        v39 = *(a1 + v9 - 8);
         do
         {
-          v14 = *(&v43 + v13);
-          if (v14 < 32 || v14 == 127 || *(&v43 + v13) == 32)
+          v14 = *(&v39 + v13);
+          if (v14 < 32 || v14 == 127 || *(&v39 + v13) == 32)
           {
-            *(&v43 + v13) = 46;
+            *(&v39 + v13) = 46;
           }
 
           ++v13;
         }
 
         while (v13 != 8);
-        snprintf(__str, 0x20uLL, __format, &v45, &v43, v9);
+        snprintf(__str, 0x20uLL, __format, &v41, &v39, v9);
         [v7 appendFormat:@"%s", __str];
       }
 
@@ -1917,10 +1161,6 @@ id FormatHex(uint64_t a1, unint64_t a2, int a3)
       {
         v15 = *(a1 + v9);
         v16 = *(a1 + v9 + 1);
-        v17 = *(a1 + v9 + 2);
-        v18 = *(a1 + v9 + 3);
-        v19 = *(a1 + v9 + 4);
-        v20 = *(a1 + v9 + 5);
         if (((v9 + 8) & 0xF) != 0)
         {
           snprintf(__str, 0x20uLL, "%02x %02x %02x %02x %02x %02x %02x %02x  ", v15, v16);
@@ -1943,140 +1183,140 @@ id FormatHex(uint64_t a1, unint64_t a2, int a3)
       if (!a2)
       {
         [v7 appendString:@"   "];
-        v35 = 0;
-        v36 = a1 + v9;
-        v47 = *(a1 + v9 - 16);
+        v31 = 0;
+        v32 = a1 + v9;
+        v43 = *(a1 + v9 - 16);
         do
         {
-          v37 = *(&v47 + v35);
-          if (v37 < 32 || v37 == 127 || *(&v47 + v35) == 32)
+          v33 = *(&v43 + v31);
+          if (v33 < 32 || v33 == 127 || *(&v43 + v31) == 32)
           {
-            *(&v47 + v35) = 46;
+            *(&v43 + v31) = 46;
+          }
+
+          ++v31;
+        }
+
+        while (v31 != 8);
+        v34 = [NSString stringWithUTF8String:&v43];
+        [v7 appendString:v34];
+
+        [v7 appendString:@" "];
+        v35 = 0;
+        v43 = *(v32 - 8);
+        do
+        {
+          v36 = *(&v43 + v35);
+          if (v36 < 32 || v36 == 127 || *(&v43 + v35) == 32)
+          {
+            *(&v43 + v35) = 46;
           }
 
           ++v35;
         }
 
         while (v35 != 8);
-        v38 = [NSString stringWithUTF8String:&v47];
-        [v7 appendString:v38];
-
-        [v7 appendString:@" "];
-        v39 = 0;
-        v47 = *(v36 - 8);
-        do
-        {
-          v40 = *(&v47 + v39);
-          if (v40 < 32 || v40 == 127 || *(&v47 + v39) == 32)
-          {
-            *(&v47 + v39) = 46;
-          }
-
-          ++v39;
-        }
-
-        while (v39 != 8);
         goto LABEL_58;
       }
     }
   }
 
-  v21 = 3;
+  v17 = 3;
   if (a2 < 9)
   {
-    v21 = 4;
+    v17 = 4;
   }
 
-  v22 = 3 * (16 - a2) + v21;
+  v18 = 3 * (16 - a2) + v17;
   do
   {
     [v7 appendString:@" "];
-    --v22;
+    --v18;
   }
 
-  while (v22);
-  v23 = a2 - 8;
+  while (v18);
+  v19 = a2 - 8;
   if (a2 >= 8)
   {
-    v26 = 0;
-    v47 = *(a1 + v9 - a2);
+    v22 = 0;
+    v43 = *(a1 + v9 - a2);
     do
     {
-      v27 = *(&v47 + v26);
-      if (v27 < 32 || v27 == 127 || *(&v47 + v26) == 32)
+      v23 = *(&v43 + v22);
+      if (v23 < 32 || v23 == 127 || *(&v43 + v22) == 32)
       {
-        *(&v47 + v26) = 46;
+        *(&v43 + v22) = 46;
       }
 
-      ++v26;
+      ++v22;
     }
 
-    while (v26 != 8);
+    while (v22 != 8);
   }
 
   else
   {
     __memcpy_chk();
-    *(&v47 + a2) = 0;
+    *(&v43 + a2) = 0;
     if (a2)
     {
-      v24 = &v47;
+      v20 = &v43;
       do
       {
-        v25 = *v24;
-        if (v25 < 32 || v25 == 127 || *v24 == 32)
+        v21 = *v20;
+        if (v21 < 32 || v21 == 127 || *v20 == 32)
         {
-          *v24 = 46;
+          *v20 = 46;
         }
 
-        v24 = (v24 + 1);
+        v20 = (v20 + 1);
         --a2;
       }
 
       while (a2);
     }
 
-    v23 = 0;
+    v19 = 0;
   }
 
-  v28 = &v47;
-  v29 = [NSString stringWithUTF8String:&v47];
-  [v7 appendString:v29];
+  v24 = &v43;
+  v25 = [NSString stringWithUTF8String:&v43];
+  [v7 appendString:v25];
 
-  if (v23)
+  if (v19)
   {
     [v7 appendString:@" "];
     __memcpy_chk();
-    *(&v47 + v23) = 0;
-    v30 = 1;
+    *(&v43 + v19) = 0;
+    v26 = 1;
     do
     {
-      v31 = *v28;
-      if (v31 < 32 || v31 == 127 || *v28 == 32)
+      v27 = *v24;
+      if (v27 < 32 || v27 == 127 || *v24 == 32)
       {
-        *v28 = 46;
+        *v24 = 46;
       }
 
-      v28 = (v28 + 1);
+      v24 = (v24 + 1);
     }
 
-    while (v23 > v30++);
+    while (v19 > v26++);
 LABEL_58:
-    v33 = [NSString stringWithUTF8String:&v47];
-    [v7 appendString:v33];
+    v29 = [NSString stringWithUTF8String:&v43];
+    [v7 appendString:v29];
   }
 
   return v7;
 }
 
-void _AMRestorePartitionOpenFileWithURL_cold_2(char a1)
+void _AMRestorePartitionOpenFileWithURL_cold_2(int a1)
 {
   v2 = __error();
-  strerror(*v2);
-  AMSupportLogInternal(3, "_AMRestorePartitionOpenFileWithURL", "open() returned %d, %s", v3, v4, v5, v6, v7, a1);
+  v3 = strerror(*v2);
+  AMSupportLogInternal(3, "_AMRestorePartitionOpenFileWithURL", "open() returned %d, %s", a1, v3);
 }
 
-void __os_cleanup_iorelease_cold_1(uint64_t *a1, _OWORD *a2)
+void __os_cleanup_iorelease_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -2086,43 +1326,40 @@ void __os_cleanup_iorelease_cold_1(uint64_t *a1, _OWORD *a2)
   *a2 = 0u;
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
-    v6 = 3;
+    v5 = 3;
   }
 
   else
   {
-    v6 = 2;
+    v5 = 2;
   }
 
-  OUTLINED_FUNCTION_1(v6, v3, v4, v5, &_mh_execute_header);
-  v7 = *a1;
+  OUTLINED_FUNCTION_1(v5, v2, v3, v4, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void __os_cleanup_iorelease_cold_1_0(uint64_t *a1, _OWORD *a2)
+void __os_cleanup_iorelease_cold_1_0(void *a1, _OWORD *a2)
 {
   OUTLINED_FUNCTION_2_0(a1, a2);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1(v3, v4, v5, v6, &_mh_execute_header);
-  v7 = *a1;
+  OUTLINED_FUNCTION_1(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void __os_cleanup_ioclose_cold_1(uint64_t *a1, _OWORD *a2)
+void __os_cleanup_ioclose_cold_1(void *a1, _OWORD *a2)
 {
   OUTLINED_FUNCTION_2_0(a1, a2);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1(v3, v4, v5, v6, &_mh_execute_header);
-  v7 = *a1;
+  OUTLINED_FUNCTION_1(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-void __os_cleanup_iorelease_cold_1_1(uint64_t *a1, _OWORD *a2)
+void __os_cleanup_iorelease_cold_1_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -2132,8 +1369,7 @@ void __os_cleanup_iorelease_cold_1_1(uint64_t *a1, _OWORD *a2)
   *a2 = 0u;
   os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1(v3, v4, v5, v6, &_mh_execute_header);
-  v7 = *a1;
+  OUTLINED_FUNCTION_1(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
@@ -2234,27 +1470,27 @@ uint64_t AMSupportX509DecodeCertificate(unint64_t *a1, unint64_t a2, unsigned in
 uint64_t AMSupportRsaVerifySignatureSha1()
 {
   OUTLINED_FUNCTION_1_1(__stack_chk_guard);
-  if (v3 == 20)
+  if (v4 == 20)
   {
-    v4 = OUTLINED_FUNCTION_3_0(v1, "\x06\x05+\x0E\x03\x02\x1A", v2);
-    if (v4)
+    v5 = OUTLINED_FUNCTION_3_0(v1, "\x06\x05+\x0E\x03\x02\x1A", v2, v3);
+    if (v5)
     {
-      v5 = v0;
+      v6 = v0;
     }
 
     else
     {
-      v5 = 0;
+      v6 = 0;
     }
 
-    if (v4 == -13)
+    if (v5 == -13)
     {
       return 2;
     }
 
     else
     {
-      return v5;
+      return v6;
     }
   }
 
@@ -2264,26 +1500,26 @@ uint64_t AMSupportRsaVerifySignatureSha1()
 uint64_t AMSupportRsaVerifySignatureSha256()
 {
   OUTLINED_FUNCTION_1_1(__stack_chk_guard);
-  if (v3 == 32)
+  if (v4 == 32)
   {
-    if (v4)
+    if (v5)
     {
-      v5 = v0;
+      v6 = v0;
     }
 
     else
     {
-      v5 = 0;
+      v6 = 0;
     }
 
-    if (v4 == -13)
+    if (v5 == -13)
     {
       return 2;
     }
 
     else
     {
-      return v5;
+      return v6;
     }
   }
 
@@ -2582,7 +1818,7 @@ LABEL_29:
         *(v31 + 464) = CFRetain(v29);
         *(v31 + 488) = 0;
         *(v31 + 512) = 0;
-        *(v31 + 360) = AMAuthInstallLockCreate();
+        *(v31 + 360) = AMAuthInstallLockCreate(a1);
       }
 
       else
@@ -2638,57 +1874,57 @@ uint64_t AMAuthInstallSetSigningServerURL(uint64_t a1, const void *a2)
   return result;
 }
 
-uint64_t AMAuthInstallApSupportsLocalSigning(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AMAuthInstallApSupportsLocalSigning(uint64_t a1, _BYTE *a2)
 {
   result = 1;
   if (a1 && a2)
   {
-    v11 = *(a1 + 16);
-    if (v11)
+    v5 = *(a1 + 16);
+    if (v5)
     {
-      if (*(v11 + 112))
+      if (*(v5 + 112))
       {
-        v12 = AMAuthInstallApImg4SupportsLocalSigning(a1);
+        v6 = AMAuthInstallApImg4SupportsLocalSigning(a1);
 LABEL_8:
-        v13 = v12;
+        v7 = v6;
         result = 0;
-        *a2 = v13;
+        *a2 = v7;
         return result;
       }
     }
 
     else
     {
-      AMAuthInstallLog(3, "AMAuthInstallApIsImg4", "%s: apParameters is NULL", a4, a5, a6, a7, a8, "AMAuthInstallApIsImg4");
+      AMAuthInstallLog(3, "AMAuthInstallApIsImg4", "%s: apParameters is NULL", "AMAuthInstallApIsImg4");
     }
 
-    v12 = AMAuthInstallApImg3SupportsLocalSigning();
+    v6 = AMAuthInstallApImg3SupportsLocalSigning();
     goto LABEL_8;
   }
 
   return result;
 }
 
-uint64_t AMAuthInstallApSupportsGlobalSigning(uint64_t a1, BOOL *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AMAuthInstallApSupportsGlobalSigning(uint64_t a1, BOOL *a2)
 {
   result = 1;
   if (a1 && a2)
   {
-    v11 = *(a1 + 16);
-    if (v11)
+    v5 = *(a1 + 16);
+    if (v5)
     {
-      if (*(v11 + 112))
+      if (*(v5 + 112))
       {
-        v12 = AMAuthInstallApImg4SupportsGlobalSigning(a1);
+        v6 = AMAuthInstallApImg4SupportsGlobalSigning(a1);
         result = 0;
-        *a2 = v12;
+        *a2 = v6;
         return result;
       }
     }
 
     else
     {
-      AMAuthInstallLog(3, "AMAuthInstallApIsImg4", "%s: apParameters is NULL", a4, a5, a6, a7, a8, "AMAuthInstallApIsImg4");
+      AMAuthInstallLog(3, "AMAuthInstallApIsImg4", "%s: apParameters is NULL", "AMAuthInstallApIsImg4");
     }
 
     return 13;
@@ -2775,49 +2011,48 @@ LABEL_14:
 uint64_t AMAuthInstallApCreatePersonalizedResponse(uint64_t a1, CFDictionaryRef theDict, CFTypeRef *a3)
 {
   v6 = CFDictionaryContainsKey(theDict, @"Ap,LocalPolicy");
-  v13 = 0;
-  v68 = 0;
-  v66 = 0;
+  v7 = 0;
+  v29 = 0;
+  v27 = 0;
   value = 0;
-  v14 = 1;
+  v8 = 1;
   if (a1 && theDict && a3)
   {
-    v15 = v6;
-    if (AMAuthInstallApSupportsLocalSigning(a1, &v68 + 1, v7, v8, v9, v10, v11, v12))
+    v9 = v6;
+    if (AMAuthInstallApSupportsLocalSigning(a1, &v29 + 1))
     {
       goto LABEL_31;
     }
 
-    v22 = AMAuthInstallApSupportsGlobalSigning(a1, &v68, v16, v17, v18, v19, v20, v21);
-    if (v22 != 13)
+    v10 = AMAuthInstallApSupportsGlobalSigning(a1, &v29);
+    if (v10 != 13)
     {
-      v14 = v22;
-      if (v22)
+      v8 = v10;
+      if (v10)
       {
         goto LABEL_31;
       }
     }
 
-    v28 = *(a1 + 16);
-    if (v28)
+    v11 = *(a1 + 16);
+    if (v11)
     {
-      v29 = *(v28 + 94) != 0;
-      if (HIBYTE(v68) && *(v28 + 94))
+      v12 = *(v11 + 94) != 0;
+      if (HIBYTE(v29) && *(v11 + 94))
       {
-        AMAuthInstallLog(6, "_AMAuthInstallApCreatePersonalizedResponseInternal", "Forcing server signing\n", v23, v24, v25, v26, v27, v65);
-        LOBYTE(v29) = 1;
+        AMAuthInstallLog(6, "_AMAuthInstallApCreatePersonalizedResponseInternal", "Forcing server signing\n");
+        LOBYTE(v12) = 1;
         goto LABEL_16;
       }
     }
 
     else
     {
-      v29 = 0;
+      v12 = 0;
     }
 
-    if (HIBYTE(v68) && !v29)
+    if (HIBYTE(v29) && !v12)
     {
-      v30 = (a1 + 505);
       if (!*(a1 + 505))
       {
         goto LABEL_20;
@@ -2827,112 +2062,100 @@ uint64_t AMAuthInstallApCreatePersonalizedResponse(uint64_t a1, CFDictionaryRef 
     }
 
 LABEL_16:
-    if (!v15 || !*(a1 + 505))
+    if (!v9 || !*(a1 + 505))
     {
-      if (v68 != 0 && !v29)
+      if (v29 != 0 && !v12)
       {
-        v44 = CFRetain(*(a1 + 40));
-        value = v44;
-        if (v44)
+        v19 = CFRetain(*(a1 + 40));
+        value = v19;
+        if (v19)
         {
-          v45 = v44;
-          v46 = CFGetAllocator(a1);
-          Mutable = CFDictionaryCreateMutable(v46, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-          v13 = Mutable;
+          v20 = v19;
+          v21 = CFGetAllocator(a1);
+          Mutable = CFDictionaryCreateMutable(v21, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+          v7 = Mutable;
           if (Mutable)
           {
-            CFDictionaryAddValue(Mutable, *(a1 + 88), v45);
-            *a3 = CFRetain(v13);
-            AMAuthInstallLog(6, "_AMAuthInstallApCreatePersonalizedResponseInternal", "Using global signing", v48, v49, v50, v51, v52, v65);
-            v14 = 0;
+            CFDictionaryAddValue(Mutable, *(a1 + 88), v20);
+            *a3 = CFRetain(v7);
+            AMAuthInstallLog(6, "_AMAuthInstallApCreatePersonalizedResponseInternal", "Using global signing");
+            v8 = 0;
             goto LABEL_32;
           }
 
-          goto LABEL_41;
+          goto LABEL_37;
         }
 
-        v58 = "global ticketData is NULL";
-LABEL_40:
-        AMAuthInstallLog(3, "_AMAuthInstallApCreatePersonalizedResponseInternal", v58, v37, v38, v39, v40, v41, v65);
-        v13 = 0;
-        goto LABEL_41;
+        AMAuthInstallLog(3, "_AMAuthInstallApCreatePersonalizedResponseInternal", "global ticketData is NULL");
+LABEL_36:
+        v7 = 0;
+        goto LABEL_37;
       }
 
-      v53 = CFGetAllocator(a1);
-      v54 = AMAuthInstallApRemoveInfoDict(v53, theDict, &v66);
-      if (!v54)
+      v23 = CFGetAllocator(a1);
+      v24 = AMAuthInstallApRemoveInfoDict(v23, theDict, &v27);
+      if (v24)
       {
-        v14 = AMAuthInstallRequestSendSync(a1, v66, a3);
-        if (v14)
-        {
-          LocalizedStatusString = AMAuthInstallGetLocalizedStatusString(a1, v14);
-          AMAuthInstallLog(3, "_AMAuthInstallApCreatePersonalizedResponseInternal", "server request error: %@", v60, v61, v62, v63, v64, LocalizedStatusString);
-        }
-
-        goto LABEL_31;
+        v8 = v24;
+        AMAuthInstallLog(3, "_AMAuthInstallApCreatePersonalizedResponseInternal", "could not remove info dicts from request");
       }
 
-      v14 = v54;
-      v57 = "could not remove info dicts from request";
-      goto LABEL_37;
+      else
+      {
+        v8 = AMAuthInstallRequestSendSync(a1, v27, a3);
+        if (v8)
+        {
+          LocalizedStatusString = AMAuthInstallGetLocalizedStatusString(a1, v8);
+          AMAuthInstallLog(3, "_AMAuthInstallApCreatePersonalizedResponseInternal", "server request error: %@", LocalizedStatusString);
+        }
+      }
+
+LABEL_31:
+      v7 = 0;
+      goto LABEL_32;
     }
 
-    v30 = (a1 + 505);
-    v28 = *(a1 + 16);
+    v11 = *(a1 + 16);
 LABEL_19:
-    *(v28 + 84) = 1;
-    *(v28 + 128) = 384;
+    *(v11 + 84) = 1;
+    *(v11 + 128) = 384;
 LABEL_20:
-    v31 = OUTLINED_FUNCTION_3_1();
-    SignedManifest = AMAuthInstallApImg4LocalCreateSignedManifest(v31, v32, 0, 0, 0, v33, v34, v35);
+    v13 = OUTLINED_FUNCTION_3_1();
+    SignedManifest = AMAuthInstallApImg4LocalCreateSignedManifest(v13, v14, 0, 0, 0, v15);
     if (!SignedManifest)
     {
       if (value)
       {
-        v42 = CFGetAllocator(a1);
-        v43 = CFDictionaryCreateMutable(v42, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-        v13 = v43;
-        if (v43)
+        v17 = CFGetAllocator(a1);
+        v18 = CFDictionaryCreateMutable(v17, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+        v7 = v18;
+        if (v18)
         {
-          CFDictionaryAddValue(v43, *(a1 + 88), value);
-          v14 = 0;
-          *a3 = CFRetain(v13);
+          CFDictionaryAddValue(v18, *(a1 + 88), value);
+          v8 = 0;
+          *a3 = CFRetain(v7);
           goto LABEL_32;
         }
 
-LABEL_41:
-        v14 = 2;
+LABEL_37:
+        v8 = 2;
         goto LABEL_32;
       }
 
-      v58 = "ticketData is NULL";
-      goto LABEL_40;
+      AMAuthInstallLog(3, "_AMAuthInstallApCreatePersonalizedResponseInternal", "ticketData is NULL");
+      goto LABEL_36;
     }
 
-    v14 = SignedManifest;
-    if (*v30)
-    {
-      v56 = "hacktivated";
-    }
-
-    else
-    {
-      v56 = "local";
-    }
-
-    v65 = v56;
-    v57 = "failed to create a %s Img4 ticket";
-LABEL_37:
-    AMAuthInstallLog(3, "_AMAuthInstallApCreatePersonalizedResponseInternal", v57, v37, v38, v39, v40, v41, v65);
-LABEL_31:
-    v13 = 0;
+    v8 = SignedManifest;
+    AMAuthInstallLog(3, "_AMAuthInstallApCreatePersonalizedResponseInternal", "failed to create a %s Img4 ticket");
+    goto LABEL_31;
   }
 
 LABEL_32:
-  SafeRelease(v13);
+  SafeRelease(v7);
   SafeRelease(value);
-  SafeRelease(v66);
-  return v14;
+  SafeRelease(v27);
+  return v8;
 }
 
 uint64_t AMAuthInstallApImg4DecodeRestoreInfo(const __CFData *a1, CFMutableDictionaryRef *a2)
@@ -2942,23 +2165,23 @@ uint64_t AMAuthInstallApImg4DecodeRestoreInfo(const __CFData *a1, CFMutableDicti
     return 1;
   }
 
-  bzero(v43, 0x1C8uLL);
-  v42[0] = 0;
-  v42[1] = 0;
-  v41[0] = 0;
-  v41[1] = 0;
-  v40 = 0;
+  bzero(v34, 0x1C8uLL);
+  v33[0] = 0;
+  v33[1] = 0;
+  v32[0] = 0;
+  v32[1] = 0;
+  v31 = 0;
   BytePtr = CFDataGetBytePtr(a1);
   Length = CFDataGetLength(a1);
-  Img4DecodeInit(BytePtr, Length, v43);
-  if (v11)
+  v6 = Img4DecodeInit(BytePtr, Length, v34);
+  if (v7)
   {
-    AMAuthInstallLog(3, "AMAuthInstallApImg4DecodeRestoreInfo", "Img4DecodeInit img4 decode failed.", v6, v7, v8, v9, v10, v33);
+    AMAuthInstallLog(3, "AMAuthInstallApImg4DecodeRestoreInfo", "Img4DecodeInit img4 decode failed.", v6);
   }
 
   else
   {
-    if (!DERDecodeSeqContentInit(&v44, v42))
+    if (!DERDecodeSeqContentInit(&v35, v33))
     {
       while (1)
       {
@@ -2966,62 +2189,62 @@ uint64_t AMAuthInstallApImg4DecodeRestoreInfo(const __CFData *a1, CFMutableDicti
         {
           while (1)
           {
-            v17 = DERDecodeSeqNext(v42, &v40);
-            if (!v17)
+            v8 = DERDecodeSeqNext(v33, &v31);
+            if (!v8)
             {
               break;
             }
 
-            if (v17 == 1)
+            if (v8 == 1)
             {
               return 0;
             }
           }
 
-          v38 = 0;
-          v39[0] = 0;
-          v39[1] = 0;
-          v37[0] = 0;
-          v37[1] = 0;
-          v34 = 0;
-          v35 = 0;
-          v36 = 0;
+          v29 = 0;
+          v30[0] = 0;
+          v30[1] = 0;
+          v28[0] = 0;
+          v28[1] = 0;
+          v25 = 0;
+          v26 = 0;
+          v27 = 0;
         }
 
-        while (DERDecodeItem(v41, &v38) || DERDecodeSeqContentInit(v39, v37) || DERDecodeSeqNext(v37, &v34) || v34 != 22);
+        while (DERDecodeItem(v32, &v29) || DERDecodeSeqContentInit(v30, v28) || DERDecodeSeqNext(v28, &v25) || v25 != 22);
         OUTLINED_FUNCTION_3_2();
-        v22 = CFStringCreateWithBytes(v18, v19, v20, v21, 0);
-        if (v22)
+        v13 = CFStringCreateWithBytes(v9, v10, v11, v12, 0);
+        if (v13)
         {
-          if (!DERDecodeSeqNext(v37, &v34))
+          if (!DERDecodeSeqNext(v28, &v25))
           {
             break;
           }
         }
 
 LABEL_34:
-        SafeRelease(v22);
+        SafeRelease(v13);
       }
 
-      if (v34 == 1)
+      if (v25 == 1)
       {
-        LOBYTE(v33) = 0;
-        if (DERParseBoolean(&v35, &v33))
+        LOBYTE(v24) = 0;
+        if (DERParseBoolean(&v26, &v24))
         {
           return 23;
         }
 
-        if (v33)
+        if (v24)
         {
-          v29 = kCFBooleanFalse;
+          v20 = kCFBooleanFalse;
         }
 
         else
         {
-          v29 = kCFBooleanTrue;
+          v20 = kCFBooleanTrue;
         }
 
-        if (!v29)
+        if (!v20)
         {
           goto LABEL_32;
         }
@@ -3029,58 +2252,58 @@ LABEL_34:
 
       else
       {
-        if (v34 != 2)
+        if (v25 != 2)
         {
-          if (v34 == 4)
+          if (v25 == 4)
           {
-            v27 = CFDataCreate(kCFAllocatorDefault, v35, v36);
+            v18 = CFDataCreate(kCFAllocatorDefault, v26, v27);
           }
 
           else
           {
-            if (v34 != 22)
+            if (v25 != 22)
             {
               goto LABEL_34;
             }
 
             OUTLINED_FUNCTION_3_2();
-            v27 = CFStringCreateWithBytes(v23, v24, v25, v26, 0);
+            v18 = CFStringCreateWithBytes(v14, v15, v16, v17, 0);
           }
 
-          v30 = v27;
-          if (v27)
+          v21 = v18;
+          if (v18)
           {
-            CFDictionarySetValue(*a2, v22, v27);
+            CFDictionarySetValue(*a2, v13, v18);
           }
 
-          v31 = v30;
+          v22 = v21;
           goto LABEL_33;
         }
 
-        v33 = 0;
-        if (DERParseInteger64(&v35, &v33))
+        v24 = 0;
+        if (DERParseInteger64(&v26, &v24))
         {
           return 23;
         }
 
-        v28 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt64Type, &v33);
-        if (!v28)
+        v19 = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt64Type, &v24);
+        if (!v19)
         {
 LABEL_32:
-          v31 = 0;
+          v22 = 0;
 LABEL_33:
-          SafeRelease(v31);
+          SafeRelease(v22);
           goto LABEL_34;
         }
 
-        v29 = v28;
+        v20 = v19;
       }
 
-      CFDictionarySetValue(*a2, v22, v29);
+      CFDictionarySetValue(*a2, v13, v20);
       goto LABEL_32;
     }
 
-    AMSupportLogInternal(3, "AMAuthInstallApImg4DecodeRestoreInfo", "can't parse top-level restoreinfo sequence", v12, v13, v14, v15, v16, v33);
+    AMSupportLogInternal(3, "AMAuthInstallApImg4DecodeRestoreInfo", "can't parse top-level restoreinfo sequence");
   }
 
   return 99;
@@ -3089,19 +2312,19 @@ LABEL_33:
 uint64_t AMAuthInstallApImg4EncodeRestoreDict(uint64_t a1, void *a2, unsigned int *a3)
 {
   v8 = 0;
-  v81 = 0;
-  v80 = 0;
+  v43 = 0;
+  v42 = 0;
   if (!a1 || !a2)
   {
     OUTLINED_FUNCTION_7();
-    goto LABEL_43;
+    goto LABEL_42;
   }
 
   OUTLINED_FUNCTION_7();
   if (!v12)
   {
-LABEL_43:
-    v75 = 3;
+LABEL_42:
+    v40 = 3;
     goto LABEL_36;
   }
 
@@ -3111,9 +2334,9 @@ LABEL_43:
   {
     v8 = 0;
     v4 = 0;
-LABEL_41:
+LABEL_40:
     v5 = 0;
-    goto LABEL_42;
+    goto LABEL_41;
   }
 
   Count = CFDictionaryGetCount(v13);
@@ -3126,34 +2349,34 @@ LABEL_41:
   {
     v7 = 0;
     v6 = 0;
-    goto LABEL_43;
+    goto LABEL_42;
   }
 
   CFDictionaryGetKeysAndValues(v13, v8, v16);
   if (Count)
   {
-    v22 = 0;
-    v23 = 8 * Count;
-    v24 = "%s: unexpected restore property type";
+    v17 = 0;
+    v18 = 8 * Count;
+    v19 = "%s: unexpected restore property type";
     while (1)
     {
-      v25 = v8[v22 / 8];
-      if (!v25 || (v26 = CFGetTypeID(v8[v22 / 8]), v26 != CFStringGetTypeID()))
+      v20 = v8[v17 / 8];
+      if (!v20 || (v21 = CFGetTypeID(v8[v17 / 8]), v21 != CFStringGetTypeID()))
       {
-        v77 = "invalid overridesKey";
+        AMAuthInstallLog(3, "AMAuthInstallApImg4EncodeRestoreDict", "invalid overridesKey");
         goto LABEL_40;
       }
 
-      v27 = v4[v22 / 8];
-      if (!v27)
+      v22 = v4[v17 / 8];
+      if (!v22)
       {
         break;
       }
 
-      v28 = CFGetTypeID(v27);
-      if (v28 == CFDataGetTypeID())
+      v23 = CFGetTypeID(v22);
+      if (v23 == CFDataGetTypeID())
       {
-        if (AMAuthInstallApImg4AddDataProperty(v3, v25, v4[v22 / 8], v29, v30, v31, v32, v33))
+        if (AMAuthInstallApImg4AddDataProperty(v3, v20, v4[v17 / 8]))
         {
           goto LABEL_39;
         }
@@ -3161,13 +2384,13 @@ LABEL_41:
 
       else
       {
-        v34 = CFGetTypeID(v4[v22 / 8]);
+        v24 = CFGetTypeID(v4[v17 / 8]);
         TypeID = CFBooleanGetTypeID();
-        v36 = v4[v22 / 8];
-        if (v34 == TypeID)
+        v26 = v4[v17 / 8];
+        if (v24 == TypeID)
         {
-          Value = CFBooleanGetValue(v36);
-          if (AMAuthInstallApImg4AddBooleanProperty(v3, v25, Value, v38, v39, v40, v41, v42))
+          Value = CFBooleanGetValue(v26);
+          if (AMAuthInstallApImg4AddBooleanProperty(v3, v20, Value))
           {
             goto LABEL_39;
           }
@@ -3175,16 +2398,16 @@ LABEL_41:
 
         else
         {
-          v43 = CFGetTypeID(v36);
-          if (v43 != CFNumberGetTypeID())
+          v28 = CFGetTypeID(v26);
+          if (v28 != CFNumberGetTypeID())
           {
             goto LABEL_38;
           }
 
-          v49 = v4[v22 / 8];
-          if (CFNumberGetType(v49) == kCFNumberSInt32Type)
+          v29 = v4[v17 / 8];
+          if (CFNumberGetType(v29) == kCFNumberSInt32Type)
           {
-            if (AMAuthInstallApImg4AddInteger32Property(v3, v25, v49, v50, v51, v52, v53, v54))
+            if (AMAuthInstallApImg4AddInteger32Property(v3, v20, v29))
             {
               goto LABEL_39;
             }
@@ -3192,17 +2415,17 @@ LABEL_41:
 
           else
           {
-            if (CFNumberGetType(v49) != kCFNumberSInt64Type)
+            if (CFNumberGetType(v29) != kCFNumberSInt64Type)
             {
-              v24 = "%s: unexpected integer type";
+              v19 = "%s: unexpected integer type";
 LABEL_38:
-              AMAuthInstallLog(3, "AMAuthInstallApImg4EncodeRestoreDict", v24, v44, v45, v46, v47, v48, "AMAuthInstallApImg4EncodeRestoreDict");
+              AMAuthInstallLog(3, "AMAuthInstallApImg4EncodeRestoreDict", v19, "AMAuthInstallApImg4EncodeRestoreDict");
 LABEL_39:
-              v77 = "failed to encode restore property";
+              AMAuthInstallLog(3, "AMAuthInstallApImg4EncodeRestoreDict", "failed to encode restore property");
               goto LABEL_40;
             }
 
-            if (AMAuthInstallApImg4AddInteger64Property(v3, v8[v22 / 8], v49, v44, v45, v46, v47, v48))
+            if (AMAuthInstallApImg4AddInteger64Property(v3, v8[v17 / 8], v29))
             {
               goto LABEL_39;
             }
@@ -3210,168 +2433,162 @@ LABEL_39:
         }
       }
 
-      v22 += 8;
-      if (v23 == v22)
+      v17 += 8;
+      if (v18 == v17)
       {
         goto LABEL_25;
       }
     }
 
-    v77 = "invalid overridesValue";
-LABEL_40:
-    AMAuthInstallLog(3, "AMAuthInstallApImg4EncodeRestoreDict", v77, v17, v18, v19, v20, v21, v79);
-    goto LABEL_41;
+    AMAuthInstallLog(3, "AMAuthInstallApImg4EncodeRestoreDict", "invalid overridesValue");
+    goto LABEL_40;
   }
 
 LABEL_25:
   v5 = DEREncoderCreate(0);
   if (!v5)
   {
-LABEL_42:
+LABEL_41:
     v7 = 0;
     v6 = 0;
-    goto LABEL_43;
+    goto LABEL_42;
   }
 
   OUTLINED_FUNCTION_3_2();
-  if (CFStringGetCString(v55, v56, v57, v58))
+  if (CFStringGetCString(v30, v31, v32, v33))
   {
     strlen(__s);
     OUTLINED_FUNCTION_5();
-    if (DEREncoderAddData(v59, v60, v61, v62, v63, 0))
+    if (DEREncoderAddData(v34, v35, v36, v37, v38, 0))
     {
-      v79 = @"IM4M";
-      v78 = "failed to add %@ string";
-      goto LABEL_55;
+      AMAuthInstallLog(3, "AMAuthInstallApImg4EncodeRestoreDict", "failed to add %@ string", @"IM4M");
+      goto LABEL_41;
     }
   }
 
   if (DEREncoderAddSetFromEncoder(v3, v5))
   {
-    v78 = "failed to encode restore info properties as set";
-LABEL_55:
-    AMAuthInstallLog(3, "AMAuthInstallApImg4EncodeRestoreDict", v78, v64, v65, v66, v67, v68, v79);
-    goto LABEL_42;
+    AMAuthInstallLog(3, "AMAuthInstallApImg4EncodeRestoreDict", "failed to encode restore info properties as set");
+    goto LABEL_41;
   }
 
   v6 = DEREncoderCreate(0);
   if (!v6)
   {
     v7 = 0;
-    goto LABEL_51;
+    goto LABEL_50;
   }
 
   if (DEREncoderAddSequenceFromEncoder(v5, v6))
   {
-    AMAuthInstallLog(3, "AMAuthInstallApImg4EncodeRestoreDict", "failed to encode restore info sequence", v69, v70, v71, v72, v73, v79);
-    goto LABEL_53;
+    AMAuthInstallLog(3, "AMAuthInstallApImg4EncodeRestoreDict", "failed to encode restore info sequence");
+    goto LABEL_52;
   }
 
-  if (DEREncoderCreateEncodedBuffer(v6, &v80, &v81))
+  if (DEREncoderCreateEncodedBuffer(v6, &v42, &v43))
   {
-LABEL_53:
+LABEL_52:
     v7 = 0;
-    goto LABEL_43;
+    goto LABEL_42;
   }
 
-  v74 = DEREncoderCreate(0);
-  v7 = v74;
-  if (!v74)
+  v39 = DEREncoderCreate(0);
+  v7 = v39;
+  if (!v39)
   {
-LABEL_51:
-    v75 = 2;
+LABEL_50:
+    v40 = 2;
     goto LABEL_36;
   }
 
-  if (DEREncoderAddData(v74, 2u, 1u, v80, v81, 1) || DEREncoderCreateEncodedBuffer(v7, a2, a3))
+  if (DEREncoderAddData(v39, 2, 1, v42, v43, 1) || DEREncoderCreateEncodedBuffer(v7, a2, a3))
   {
-    goto LABEL_43;
+    goto LABEL_42;
   }
 
-  v75 = 0;
+  v40 = 0;
 LABEL_36:
   SafeFree(v8);
   SafeFree(v4);
-  SafeFree(v80);
+  SafeFree(v42);
   DEREncoderDestroy(v3);
   DEREncoderDestroy(v5);
   DEREncoderDestroy(v7);
   DEREncoderDestroy(v6);
-  return v75;
+  return v40;
 }
 
-uint64_t AMAuthInstallApImg4LocalAddImages(const __CFAllocator *a1, CFDictionaryRef theDict, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AMAuthInstallApImg4LocalAddImages(const __CFAllocator *a1, CFDictionaryRef theDict, uint64_t *a3)
 {
   if (!theDict)
   {
-    v35 = "requestDict cannot be NULL";
+    AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImages", "requestDict cannot be NULL");
 LABEL_23:
-    AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImages", v35, a4, a5, a6, a7, a8, v36);
-    v12 = 0;
-    v13 = 0;
+    v7 = 0;
+    v8 = 0;
     Mutable = 0;
 LABEL_24:
-    v33 = 1;
+    v18 = 1;
     goto LABEL_18;
   }
 
   if (!a3)
   {
-    v35 = "dstEncoder cannot be NULL";
+    AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImages", "dstEncoder cannot be NULL");
     goto LABEL_23;
   }
 
   Count = CFDictionaryGetCount(theDict);
-  v12 = malloc(8 * Count);
-  v13 = malloc(8 * Count);
-  CFDictionaryGetKeysAndValues(theDict, v12, v13);
+  v7 = malloc(8 * Count);
+  v8 = malloc(8 * Count);
+  CFDictionaryGetKeysAndValues(theDict, v7, v8);
   Mutable = CFArrayCreateMutable(a1, 0, &kCFTypeArrayCallBacks);
   if (!Mutable)
   {
-    v33 = 2;
+    v18 = 2;
     goto LABEL_18;
   }
 
   if (Count >= 1)
   {
-    v15 = 0;
+    v10 = 0;
     do
     {
-      v16 = v12[v15];
-      if (!v16)
+      v11 = v7[v10];
+      if (!v11)
       {
         goto LABEL_24;
       }
 
-      v17 = v13[v15];
-      v18 = CFGetTypeID(v12[v15]);
-      if (v18 != CFStringGetTypeID() || v17 == 0)
+      v12 = v8[v10];
+      v13 = CFGetTypeID(v7[v10]);
+      if (v13 != CFStringGetTypeID() || v12 == 0)
       {
         goto LABEL_24;
       }
 
-      v20 = CFGetTypeID(v17);
-      if (v20 == CFDictionaryGetTypeID())
+      v15 = CFGetTypeID(v12);
+      if (v15 == CFDictionaryGetTypeID())
       {
-        if (CFDictionaryGetValue(v17, @"Digest"))
+        if (CFDictionaryGetValue(v12, @"Digest"))
         {
-          v37.length = CFArrayGetCount(Mutable);
-          v37.location = 0;
-          if (CFArrayGetFirstIndexOfValue(Mutable, v37, v16) == -1)
+          v20.length = CFArrayGetCount(Mutable);
+          v20.location = 0;
+          if (CFArrayGetFirstIndexOfValue(Mutable, v20, v11) == -1)
           {
-            CFArrayAppendValue(Mutable, v16);
-            TypeForEntryName = AMAuthInstallApImg4GetTypeForEntryName(v16);
+            CFArrayAppendValue(Mutable, v11);
+            TypeForEntryName = AMAuthInstallApImg4GetTypeForEntryName(v11);
             if (!TypeForEntryName)
             {
-              AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImages", "did not find a matching tag for requestTag %@", v22, v23, v24, v25, v26, v16);
+              AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImages", "did not find a matching tag for requestTag %@", v11);
               goto LABEL_24;
             }
 
-            v27 = AMAuthInstallApImg4LocalAddImageProperties(TypeForEntryName, a3, TypeForEntryName, v17, v23, v24, v25, v26);
-            if (v27)
+            v17 = AMAuthInstallApImg4LocalAddImageProperties(TypeForEntryName, a3, TypeForEntryName, v12);
+            if (v17)
             {
-              v33 = v27;
-              AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImages", "failed to add %@ image to the ticket body", v28, v29, v30, v31, v32, v16);
+              v18 = v17;
+              AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImages", "failed to add %@ image to the ticket body", v11);
               goto LABEL_18;
             }
           }
@@ -3379,93 +2596,98 @@ LABEL_24:
       }
     }
 
-    while (Count != ++v15);
+    while (Count != ++v10);
   }
 
-  v33 = 0;
+  v18 = 0;
 LABEL_18:
-  SafeFree(v12);
-  SafeFree(v13);
+  SafeFree(v7);
+  SafeFree(v8);
   SafeRelease(Mutable);
-  return v33;
+  return v18;
 }
 
-uint64_t AMAuthInstallApImg4LocalRegisterKeys(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AMAuthInstallApImg4LocalRegisterKeys(uint64_t a1)
 {
   if (!a1)
   {
     return 1;
   }
 
-  v8 = *(a1 + 16);
-  if (*(v8 + 20))
+  v1 = *(a1 + 16);
+  if (*(v1 + 20))
   {
-    AMAuthInstallLog(3, "AMAuthInstallApImg4LocalRegisterKeys", "local signing is not available for production fused devices.", a4, a5, a6, a7, a8, v26);
+    AMAuthInstallLog(3, "AMAuthInstallApImg4LocalRegisterKeys", "local signing is not available for production fused devices.");
     return 14;
   }
 
   if (!*(a1 + 392))
   {
-    if (*(v8 + 88) || *(v8 + 16))
+    if (*(v1 + 88) || *(v1 + 16))
     {
-      if (*(v8 + 89))
+      if (*(v1 + 89))
       {
-        v10 = *(v8 + 8);
-        if (v10 == 32784)
+        v3 = *(v1 + 8);
+        if (v3 == 32784)
         {
-          v11 = @"ap.ticket.insec.rsa4k.key.private";
+          v4 = @"ap.ticket.insec.rsa4k.key.private";
         }
 
         else
         {
-          if (v10 != 35168)
+          if (v3 != 35168)
           {
-            AMAuthInstallLog(3, "AMAuthInstallApImg4LocalRegisterKeys", "unrecognized chipid: 0x%08X", a4, a5, a6, a7, a8, v10);
+            AMAuthInstallLog(3, "AMAuthInstallApImg4LocalRegisterKeys", "unrecognized chipid: 0x%08X", v3);
             return 1;
           }
 
-          v11 = @"ap.ticket.insec.rsa1k.key.private";
+          v4 = @"ap.ticket.insec.rsa1k.key.private";
         }
       }
 
       else
       {
-        v11 = @"ap.ticket.localpolicy.hacktivation.key.private";
+        v4 = @"ap.ticket.localpolicy.hacktivation.key.private";
         if (!*(a1 + 505))
         {
-          v11 = @"ap.ticket.dev.key.private";
+          v4 = @"ap.ticket.dev.key.private";
         }
       }
     }
 
     else
     {
-      v11 = @"ap.ticket.unfused.key.private";
+      v4 = @"ap.ticket.unfused.key.private";
     }
 
-    *(a1 + 392) = v11;
+    *(a1 + 392) = v4;
   }
 
-  if (CFDictionaryContainsKey(*(a1 + 376), @"ap.ticket.dev.key.private"))
+  v5 = CFDictionaryContainsKey(*(a1 + 376), @"ap.ticket.dev.key.private");
+  if (v5)
   {
     return 0;
   }
 
-  v28 = OUTLINED_FUNCTION_1_3();
-  v27 = OUTLINED_FUNCTION_1_3();
+  v6 = OUTLINED_FUNCTION_1_3(v5, @"ap.ticket.insec.rsa1k.key", &kImg4TicketInsecureRsa1kPrivateKey);
+  v20 = v6;
+  v19 = OUTLINED_FUNCTION_1_3(v6, @"ap.ticket.insec.rsa4k.key", &kImg4TicketInsecureRsa4kPrivateKey);
+  v7 = AMAuthInstallCryptoRegisterCertFromPEMBuffer();
+  v8 = AMAuthInstallCryptoRegisterCertFromPEMBuffer();
+  v9 = AMAuthInstallCryptoRegisterCertFromPEMBuffer();
+  v10 = v9;
+  v11 = OUTLINED_FUNCTION_1_3(v9, @"ap.ticket.dev.key", &kImg4TicketDevPrivateKey);
   v12 = AMAuthInstallCryptoRegisterCertFromPEMBuffer();
-  v13 = AMAuthInstallCryptoRegisterCertFromPEMBuffer();
-  v14 = AMAuthInstallCryptoRegisterCertFromPEMBuffer();
-  v15 = OUTLINED_FUNCTION_1_3();
+  v13 = v12;
+  v14 = OUTLINED_FUNCTION_1_3(v12, @"ap.ticket.unfused.key", &kImg4TicketUnfusedPrivatekey);
+  v15 = AMAuthInstallCryptoRegisterCertFromPEMBuffer();
   v16 = AMAuthInstallCryptoRegisterCertFromPEMBuffer();
-  v17 = OUTLINED_FUNCTION_1_3();
-  v18 = AMAuthInstallCryptoRegisterCertFromPEMBuffer();
-  v19 = AMAuthInstallCryptoRegisterCertFromPEMBuffer();
-  v20 = AMAuthInstallCryptoRegisterCertFromPEMBuffer();
-  result = OUTLINED_FUNCTION_1_3();
-  if ((!v28 || !v27 || !v15 || !v17 || !result) && (!v12 || !v13 || !v14 || !v16 || !v18 || !v19 || !v20))
+  v17 = AMAuthInstallCryptoRegisterCertFromPEMBuffer();
+  v18 = v17;
+  result = OUTLINED_FUNCTION_1_3(v17, @"ap.ticket.localpolicy.hacktivation.key.private", &kImg4TicketLocalPolicyHacktivationKey);
+  if ((!v20 || !v19 || !v11 || !v14 || !result) && (!v7 || !v8 || !v10 || !v13 || !v15 || !v16 || !v18))
   {
-    AMAuthInstallLog(6, "AMAuthInstallApImg4LocalRegisterKeys", "ap local signing keys available", v21, v22, v23, v24, v25, v26);
+    AMAuthInstallLog(6, "AMAuthInstallApImg4LocalRegisterKeys", "ap local signing keys available");
     return 0;
   }
 
@@ -3478,9 +2700,9 @@ uint64_t AMAuthInstallApImg4LocalCreateEncodedCertificateChain(uint64_t a1, CFTy
   bytes = 0;
   if (!a1 || !a2)
   {
-    v12 = 0;
+    v7 = 0;
     Mutable = 0;
-    v13 = 1;
+    v8 = 1;
     if (!a2)
     {
       goto LABEL_26;
@@ -3493,30 +2715,30 @@ uint64_t AMAuthInstallApImg4LocalCreateEncodedCertificateChain(uint64_t a1, CFTy
   Mutable = CFDataCreateMutable(v4, 0);
   if (!Mutable)
   {
-    v12 = 0;
-    v13 = 2;
+    v7 = 0;
+    v8 = 2;
     goto LABEL_6;
   }
 
-  v11 = *(a1 + 16);
-  if (!*(v11 + 20))
+  v6 = *(a1 + 16);
+  if (!*(v6 + 20))
   {
     if (!*(a1 + 400))
     {
       if (*(a1 + 505))
       {
-        v14 = @"ap.ticket.localpolicy.hacktivation.leaf.cert";
+        v9 = @"ap.ticket.localpolicy.hacktivation.leaf.cert";
       }
 
-      else if (*(v11 + 88) || *(v11 + 16))
+      else if (*(v6 + 88) || *(v6 + 16))
       {
-        if (*(v11 + 89))
+        if (*(v6 + 89))
         {
-          v30 = *(v11 + 8);
-          switch(v30)
+          v20 = *(v6 + 8);
+          switch(v20)
           {
             case 32770:
-              v14 = @"ap.ticket.8002.insec.cert";
+              v9 = @"ap.ticket.8002.insec.cert";
               break;
             case 35168:
               if (!*(a1 + 408))
@@ -3531,46 +2753,46 @@ uint64_t AMAuthInstallApImg4LocalCreateEncodedCertificateChain(uint64_t a1, CFTy
               }
 
               BytePtr = CFDataGetBytePtr(*&length[1]);
-              v32 = CFDataGetLength(*&length[1]);
-              CFDataAppendBytes(Mutable, BytePtr, v32);
-              v14 = @"ap.ticket.8960.insec.cert";
+              v22 = CFDataGetLength(*&length[1]);
+              CFDataAppendBytes(Mutable, BytePtr, v22);
+              v9 = @"ap.ticket.8960.insec.cert";
               break;
             case 32784:
-              v14 = @"ap.ticket.8010.insec.cert";
+              v9 = @"ap.ticket.8010.insec.cert";
               break;
             default:
-              AMAuthInstallLog(3, "AMAuthInstallApImg4LocalCreateEncodedCertificateChain", "unrecognized chipid: 0x%08X", v5, v6, v7, v8, v9, v30);
+              AMAuthInstallLog(3, "AMAuthInstallApImg4LocalCreateEncodedCertificateChain", "unrecognized chipid: 0x%08X");
               goto LABEL_42;
           }
         }
 
         else
         {
-          v14 = @"ap.ticket.8960.dev.cert";
+          v9 = @"ap.ticket.8960.dev.cert";
         }
       }
 
       else
       {
-        v14 = @"ap.ticket.8960.unfused.cert";
+        v9 = @"ap.ticket.8960.unfused.cert";
       }
 
-      *(a1 + 400) = v14;
+      *(a1 + 400) = v9;
     }
 
     if (!*(a1 + 505))
     {
-      v15 = *(a1 + 16);
-      if (!*(v15 + 93))
+      v10 = *(a1 + 16);
+      if (!*(v10 + 93))
       {
-        v16 = *(v15 + 8);
-        v17 = v16 == 32770 || v16 == 35168;
-        if (!v17 && v16 != 32784)
+        v11 = *(v10 + 8);
+        v12 = v11 == 32770 || v11 == 35168;
+        if (!v12 && v11 != 32784)
         {
-          AMAuthInstallLog(3, "AMAuthInstallApImg4LocalCreateEncodedCertificateChain", "chipid: 0x%08X unsupported for img4 local signing", v5, v6, v7, v8, v9, v16);
+          AMAuthInstallLog(3, "AMAuthInstallApImg4LocalCreateEncodedCertificateChain", "chipid: 0x%08X unsupported for img4 local signing");
 LABEL_42:
-          v12 = 0;
-          v13 = 1;
+          v7 = 0;
+          v8 = 1;
           goto LABEL_6;
         }
       }
@@ -3579,162 +2801,161 @@ LABEL_42:
     CertData = AMAuthInstallCryptoGetCertData();
     if (!CertData)
     {
-      v20 = CFDataGetBytePtr(*&length[1]);
-      v21 = CFDataGetLength(*&length[1]);
-      CFDataAppendBytes(Mutable, v20, v21);
-      v12 = DEREncoderCreate(0);
-      if (v12)
+      v15 = CFDataGetBytePtr(*&length[1]);
+      v16 = CFDataGetLength(*&length[1]);
+      CFDataAppendBytes(Mutable, v15, v16);
+      v7 = DEREncoderCreate(0);
+      if (v7)
       {
-        v22 = CFDataGetBytePtr(Mutable);
-        v23 = CFDataGetLength(Mutable);
-        if (DEREncoderAddData(v12, 0, 0x10u, v22, v23, 1))
+        v17 = CFDataGetBytePtr(Mutable);
+        v18 = CFDataGetLength(Mutable);
+        if (DEREncoderAddData(v7, 0, 16, v17, v18, 1))
         {
-          v13 = 3;
+          v8 = 3;
           goto LABEL_6;
         }
 
-        if (!DEREncoderCreateEncodedBuffer(v12, &bytes, length))
+        if (!DEREncoderCreateEncodedBuffer(v7, &bytes, length))
         {
-          v13 = 0;
+          v8 = 0;
           *a2 = CFDataCreate(0, bytes, length[0]);
           goto LABEL_26;
         }
 
-        AMAuthInstallLog(3, "AMAuthInstallApImg4LocalCreateEncodedCertificateChain", "%s: failed to create buffer", v24, v25, v26, v27, v28, "AMAuthInstallApImg4LocalCreateEncodedCertificateChain");
+        AMAuthInstallLog(3, "AMAuthInstallApImg4LocalCreateEncodedCertificateChain", "%s: failed to create buffer", "AMAuthInstallApImg4LocalCreateEncodedCertificateChain");
       }
 
-      v13 = 0;
+      v8 = 0;
       goto LABEL_26;
     }
 
 LABEL_46:
-    v13 = CertData;
-    v12 = 0;
+    v8 = CertData;
+    v7 = 0;
     goto LABEL_6;
   }
 
-  AMAuthInstallLog(3, "AMAuthInstallApImg4LocalCreateEncodedCertificateChain", "local signing is not available for production fused devices.", v5, v6, v7, v8, v9, v33);
-  v12 = 0;
-  v13 = 14;
+  AMAuthInstallLog(3, "AMAuthInstallApImg4LocalCreateEncodedCertificateChain", "local signing is not available for production fused devices.");
+  v7 = 0;
+  v8 = 14;
 LABEL_6:
   SafeRelease(*a2);
 LABEL_26:
   SafeRelease(Mutable);
   SafeFree(bytes);
-  DEREncoderDestroy(v12);
-  return v13;
+  DEREncoderDestroy(v7);
+  return v8;
 }
 
-uint64_t AMAuthInstallApImg4LocalAddImageProperties(uint64_t a1, uint64_t *a2, const __CFString *a3, const __CFDictionary *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t AMAuthInstallApImg4LocalAddImageProperties(uint64_t a1, uint64_t *a2, const __CFString *a3, const __CFDictionary *a4)
 {
   if (!a2)
   {
-    v104 = "toEncoder cannot be NULL";
+    AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImageProperties", "toEncoder cannot be NULL", a4);
 LABEL_28:
-    AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImageProperties", v104, a4, a5, a6, a7, a8, v105);
-    v11 = 0;
-    v25 = 1;
+    v7 = 0;
+    v11 = 1;
     goto LABEL_24;
   }
 
   if (!a3)
   {
-    v104 = "imageTag cannot be NULL";
+    AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImageProperties", "imageTag cannot be NULL", a4);
     goto LABEL_28;
   }
 
   if (!a4)
   {
-    v104 = "requestDict cannot be NULL";
+    AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImageProperties", "requestDict cannot be NULL", 0);
     goto LABEL_28;
   }
 
-  v11 = DEREncoderCreate(1);
-  if (!v11)
+  v7 = DEREncoderCreate(1);
+  if (!v7)
   {
-    v25 = 2;
+    v11 = 2;
     goto LABEL_24;
   }
 
   Value = CFDictionaryGetValue(a4, @"Digest");
   if (Value)
   {
-    v13 = Value;
+    v9 = Value;
     if (CFDataGetLength(Value) < 1)
     {
-      AMAuthInstallLog(6, "AMAuthInstallApImg4LocalAddImageProperties", "'%@' has zero length digest - skipping digest", v14, v15, v16, v17, v18, a3);
+      AMAuthInstallLog(6, "AMAuthInstallApImg4LocalAddImageProperties", "'%@' has zero length digest - skipping digest", a3);
     }
 
     else
     {
-      v19 = AMAuthInstallApImg4AddDataProperty(v11, @"DGST", v13, v14, v15, v16, v17, v18);
-      if (v19)
+      v10 = AMAuthInstallApImg4AddDataProperty(v7, @"DGST", v9);
+      if (v10)
       {
-        v25 = v19;
-        AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImageProperties", "failed to add Digest property for '%@'", v20, v21, v22, v23, v24, a3);
+        v11 = v10;
+        AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImageProperties", "failed to add Digest property for '%@'", a3);
         goto LABEL_24;
       }
     }
   }
 
-  v26 = CFDictionaryGetValue(a4, @"Trusted");
-  if (v26 && (v27 = CFBooleanGetValue(v26), v33 = AMAuthInstallApImg4AddBooleanProperty(v11, @"EKEY", v27, v28, v29, v30, v31, v32), v33))
+  v12 = CFDictionaryGetValue(a4, @"Trusted");
+  if (v12 && (v13 = CFBooleanGetValue(v12), v14 = AMAuthInstallApImg4AddBooleanProperty(v7, @"EKEY", v13), v14))
   {
-    v25 = v33;
-    AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImageProperties", "failed to add EKEY property for '%@'", v34, v35, v36, v37, v38, a3);
+    v11 = v14;
+    AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImageProperties", "failed to add EKEY property for '%@'", a3);
   }
 
   else
   {
-    v39 = CFDictionaryGetValue(a4, @"DPRO");
-    if (v39 && (v40 = CFBooleanGetValue(v39), v46 = AMAuthInstallApImg4AddBooleanProperty(v11, @"DPRO", v40, v41, v42, v43, v44, v45), v46))
+    v15 = CFDictionaryGetValue(a4, @"DPRO");
+    if (v15 && (v16 = CFBooleanGetValue(v15), v17 = AMAuthInstallApImg4AddBooleanProperty(v7, @"DPRO", v16), v17))
     {
-      v25 = v46;
-      AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImageProperties", "failed to add DPRO property for '%@'", v47, v48, v49, v50, v51, a3);
+      v11 = v17;
+      AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImageProperties", "failed to add DPRO property for '%@'", a3);
     }
 
     else
     {
-      v52 = CFDictionaryGetValue(a4, @"DSEC");
-      if (v52 && (v53 = CFBooleanGetValue(v52), v59 = AMAuthInstallApImg4AddBooleanProperty(v11, @"DSEC", v53, v54, v55, v56, v57, v58), v59))
+      v18 = CFDictionaryGetValue(a4, @"DSEC");
+      if (v18 && (v19 = CFBooleanGetValue(v18), v20 = AMAuthInstallApImg4AddBooleanProperty(v7, @"DSEC", v19), v20))
       {
-        v25 = v59;
-        AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImageProperties", "failed to add DSEC property for '%@'", v60, v61, v62, v63, v64, a3);
+        v11 = v20;
+        AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImageProperties", "failed to add DSEC property for '%@'", a3);
       }
 
       else
       {
-        v65 = CFDictionaryGetValue(a4, @"ESEC");
-        if (v65 && (v66 = CFBooleanGetValue(v65), v72 = AMAuthInstallApImg4AddBooleanProperty(v11, @"ESEC", v66, v67, v68, v69, v70, v71), v72))
+        v21 = CFDictionaryGetValue(a4, @"ESEC");
+        if (v21 && (v22 = CFBooleanGetValue(v21), v23 = AMAuthInstallApImg4AddBooleanProperty(v7, @"ESEC", v22), v23))
         {
-          v25 = v72;
-          AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImageProperties", "failed to add ESEC property for '%@'", v73, v74, v75, v76, v77, a3);
+          v11 = v23;
+          AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImageProperties", "failed to add ESEC property for '%@'", a3);
         }
 
         else
         {
-          v78 = CFDictionaryGetValue(a4, @"EPRO");
-          if (v78 && (v79 = CFBooleanGetValue(v78), v85 = AMAuthInstallApImg4AddBooleanProperty(v11, @"EPRO", v79, v80, v81, v82, v83, v84), v85))
+          v24 = CFDictionaryGetValue(a4, @"EPRO");
+          if (v24 && (v25 = CFBooleanGetValue(v24), v26 = AMAuthInstallApImg4AddBooleanProperty(v7, @"EPRO", v25), v26))
           {
-            v25 = v85;
-            AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImageProperties", "failed to add EPRO property for '%@'", v86, v87, v88, v89, v90, a3);
+            v11 = v26;
+            AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImageProperties", "failed to add EPRO property for '%@'", a3);
           }
 
           else
           {
-            v91 = CFDictionaryGetValue(a4, @"TBMDigests");
-            if (v91 && (v97 = AMAuthInstallApImg4AddDataProperty(v11, @"tbms", v91, v92, v93, v94, v95, v96), v97))
+            v27 = CFDictionaryGetValue(a4, @"TBMDigests");
+            if (v27 && (v28 = AMAuthInstallApImg4AddDataProperty(v7, @"tbms", v27), v28))
             {
-              v25 = v97;
-              AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImageProperties", "failed to add %@ property for '%@'", v92, v93, v94, v95, v96, @"tbms");
+              v11 = v28;
+              AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImageProperties", "failed to add %@ property for '%@'", @"tbms", a3);
             }
 
             else
             {
-              v25 = AMAuthInstallApImg4AddDictionaryProperty(v11, a2, a3, v92, v93, v94, v95, v96);
-              if (v25)
+              v11 = AMAuthInstallApImg4AddDictionaryProperty(v7, a2, a3);
+              if (v11)
               {
-                AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImageProperties", "AMAuthInstallApImg4LocalAddDictionaryProperty failed for '%@'", v98, v99, v100, v101, v102, a3);
+                AMAuthInstallLog(3, "AMAuthInstallApImg4LocalAddImageProperties", "AMAuthInstallApImg4LocalAddDictionaryProperty failed for '%@'", a3);
               }
             }
           }
@@ -3744,20 +2965,20 @@ LABEL_28:
   }
 
 LABEL_24:
-  DEREncoderDestroy(v11);
-  return v25;
+  DEREncoderDestroy(v7);
+  return v11;
 }
 
 uint64_t AMAuthInstallBasebandLocalSetSigningParameters(void *cf, uint64_t a2, const void *a3, const void *a4, const void *a5, const void *a6)
 {
+  cfa = 0;
   if (cf)
   {
     if (a2 && a3 && a4 || (v12 = 1, !a2) && !a3 && !a4 && !a5 && !a6)
     {
-      v13 = *(cf + 46);
-      if (v13)
+      if (*(cf + 46))
       {
-        AMAuthInstallReleaseRsaKeyData(*v13);
+        AMAuthInstallReleaseRsaKeyData();
         SafeRelease(*(*(cf + 46) + 8));
         SafeRelease(*(*(cf + 46) + 16));
         SafeRelease(*(*(cf + 46) + 24));
@@ -3769,19 +2990,19 @@ uint64_t AMAuthInstallBasebandLocalSetSigningParameters(void *cf, uint64_t a2, c
       if (a2)
       {
         CFGetAllocator(cf);
-        v14 = AMAuthInstallCopyRsaKeyDataForKey();
-        if (v14)
+        v13 = AMAuthInstallCopyRsaKeyDataForKey();
+        if (v13)
         {
-          v12 = v14;
-          LocalizedStatusString = AMAuthInstallGetLocalizedStatusString(cf, v14);
-          AMAuthInstallLog(3, "AMAuthInstallBasebandLocalSetSigningParameters", "bad local signing key: %@", v16, v17, v18, v19, v20, LocalizedStatusString);
+          v12 = v13;
+          LocalizedStatusString = AMAuthInstallGetLocalizedStatusString(cf, v13);
+          AMAuthInstallLog(3, "AMAuthInstallBasebandLocalSetSigningParameters", "bad local signing key: %@", LocalizedStatusString, 0);
         }
 
         else
         {
-          v21 = calloc(1uLL, 0x28uLL);
-          *(cf + 46) = v21;
-          if (v21)
+          v15 = calloc(1uLL, 0x28uLL);
+          *(cf + 46) = v15;
+          if (v15)
           {
             **(cf + 46) = CFRetain(0);
             *(*(cf + 46) + 8) = CFRetain(a3);
@@ -3810,7 +3031,7 @@ uint64_t AMAuthInstallBasebandLocalSetSigningParameters(void *cf, uint64_t a2, c
     v12 = 1;
   }
 
-  SafeRelease(0);
+  SafeRelease(cfa);
   SafeRelease(0);
   return v12;
 }
@@ -3820,10 +3041,10 @@ void AMAuthInstallBasebandFinalize(uint64_t a1)
   if (*(a1 + 176))
   {
     OUTLINED_FUNCTION_20();
-    AMAuthInstallLog(v2, v3, v4, v5, v6, v7, v8, v9, v24);
-    AMAuthInstallLog(3, "AMAuthInstallBasebandFinalize", "* unacknowledged fusing program *", v10, v11, v12, v13, v14, v25);
+    AMAuthInstallLog(v2, v3, v4);
+    AMAuthInstallLog(3, "AMAuthInstallBasebandFinalize", "* unacknowledged fusing program *");
     OUTLINED_FUNCTION_20();
-    AMAuthInstallLog(v15, v16, v17, v18, v19, v20, v21, v22, v26);
+    AMAuthInstallLog(v5, v6, v7);
   }
 
   _AMAuthInstallBasebandParametersFinalize(*(a1 + 48));
@@ -3841,9 +3062,9 @@ void AMAuthInstallBasebandFinalize(uint64_t a1)
   SafeRelease(*(a1 + 248));
   SafeRelease(*(a1 + 232));
   SafeRelease(*(a1 + 272));
-  v23 = *(a1 + 280);
+  v8 = *(a1 + 280);
 
-  SafeRelease(v23);
+  SafeRelease(v8);
 }
 
 uint64_t AMAuthInstallCryptoCreateDigestForData(const __CFAllocator *a1, const __CFData *a2, CFTypeRef *a3)
@@ -3926,9 +3147,9 @@ uint64_t AMAuthInstallPlatformFileURLExists(const __CFURL *a1, BOOL *a2)
 
 uint64_t AMAuthInstallRequestSendSyncWithHeader(uint64_t a1, const void *a2, const __CFDictionary *a3, CFTypeRef *a4)
 {
-  v148 = 0;
+  v58 = 0;
   cf = 0;
-  v147 = 0;
+  v57 = 0;
   v8 = CFGetAllocator(a1);
   v9 = 2;
   DeepCopy = CFPropertyListCreateDeepCopy(v8, a2, 2uLL);
@@ -3938,72 +3159,72 @@ uint64_t AMAuthInstallRequestSendSyncWithHeader(uint64_t a1, const void *a2, con
     goto LABEL_28;
   }
 
-  v16 = *(a1 + 64);
-  if (v16)
+  v11 = *(a1 + 64);
+  if (v11)
   {
-    CFDictionarySetValue(DeepCopy, @"@Locality", v16);
+    CFDictionarySetValue(DeepCopy, @"@Locality", v11);
   }
 
-  v17 = (a1 + 120);
-  v18 = *(a1 + 120);
-  v19 = v18;
-  if (!v18)
+  v12 = (a1 + 120);
+  v13 = *(a1 + 120);
+  v14 = v13;
+  if (!v13)
   {
     if (!*(a1 + 104))
     {
-      AMAuthInstallLog(3, "AMAuthInstallRequestSendSyncWithHeader", "SSO function returned NULL and no SSO token was provided, SSO disabled.", v11, v12, v13, v14, v15, v141);
+      AMAuthInstallLog(3, "AMAuthInstallRequestSendSyncWithHeader", "SSO function returned NULL and no SSO token was provided, SSO disabled.");
       goto LABEL_15;
     }
 
-    AMAuthInstallLog(5, "AMAuthInstallRequestSendSyncWithHeader", "using SSO.", v11, v12, v13, v14, v15, v141);
-    v19 = *v17;
-    if (!*v17)
+    AMAuthInstallLog(5, "AMAuthInstallRequestSendSyncWithHeader", "using SSO.");
+    v14 = *v12;
+    if (!*v12)
     {
-      v25 = *(a1 + 104);
-      v26 = CFGetAllocator(a1);
-      v27 = v25(a1, v26, a1 + 120, &v147);
-      if (v27)
+      v15 = *(a1 + 104);
+      v16 = CFGetAllocator(a1);
+      v17 = v15(a1, v16, a1 + 120, &v57);
+      if (v17)
       {
-        v9 = v27;
-        AMAuthInstallLog(3, "AMAuthInstallRequestSendSyncWithHeader", "failed to create sso data %@", v28, v29, v30, v31, v32, v147);
+        v9 = v17;
+        AMAuthInstallLog(3, "AMAuthInstallRequestSendSyncWithHeader", "failed to create sso data %@", v57);
         Data = 0;
         goto LABEL_13;
       }
 
-      v19 = *v17;
-      if (!*v17)
+      v14 = *v12;
+      if (!*v12)
       {
-        AMAuthInstallLog(3, "AMAuthInstallRequestSendSyncWithHeader", "SSO failed to authenticate.", v28, v29, v30, v31, v32, v141);
+        AMAuthInstallLog(3, "AMAuthInstallRequestSendSyncWithHeader", "SSO failed to authenticate.");
         Data = 0;
-        v34 = 0;
+        v19 = 0;
         v9 = 22;
         goto LABEL_29;
       }
     }
   }
 
-  AMAuthInstallCryptoCreateDigestForData(kCFAllocatorDefault, v19, &cf);
+  AMAuthInstallCryptoCreateDigestForData(kCFAllocatorDefault, v14, &cf);
   if (cf)
   {
-    AMAuthInstallLog(7, "AMAuthInstallRequestSendSyncWithHeader", "AuthUserId Hash: %@", v20, v21, v22, v23, v24, cf);
+    AMAuthInstallLog(7, "AMAuthInstallRequestSendSyncWithHeader", "AuthUserId Hash: %@", cf);
     CFRelease(cf);
   }
 
-  CFDictionarySetValue(theDict, @"AuthUserId", *v17);
-  if (!v18)
+  CFDictionarySetValue(theDict, @"AuthUserId", *v12);
+  if (!v13)
   {
-    SafeRelease(*v17);
-    *v17 = 0;
+    SafeRelease(*v12);
+    *v12 = 0;
   }
 
 LABEL_15:
-  v35 = *(a1 + 16);
-  if (!v35)
+  v20 = *(a1 + 16);
+  if (!v20)
   {
     goto LABEL_21;
   }
 
-  if (*(v35 + 160))
+  if (*(v20 + 160))
   {
     context = a1;
     MutableCopy = CFDictionaryCreateMutableCopy(0, 0, theDict);
@@ -4012,8 +3233,8 @@ LABEL_15:
       CFDictionaryApplyFunction(theDict, _ApplyTagPrefix, &context);
       SafeRelease(theDict);
       theDict = MutableCopy;
-      v35 = *(a1 + 16);
-      if (!v35)
+      v20 = *(a1 + 16);
+      if (!v20)
       {
         goto LABEL_21;
       }
@@ -4021,55 +3242,55 @@ LABEL_15:
       goto LABEL_19;
     }
 
-    AMAuthInstallLog(3, "AMAuthInstallRequestSendSyncWithHeader", "fullrequest copy allocation failure", v36, v37, v38, v39, v40, v141);
+    AMAuthInstallLog(3, "AMAuthInstallRequestSendSyncWithHeader", "fullrequest copy allocation failure");
     Data = 0;
     v9 = 0;
 LABEL_13:
-    v34 = 0;
+    v19 = 0;
     goto LABEL_29;
   }
 
 LABEL_19:
-  v41 = *(v35 + 152);
-  if (v41)
+  v21 = *(v20 + 152);
+  if (v21)
   {
-    CFDictionaryApplyFunction(v41, _ApplyOverrideTags, theDict);
+    CFDictionaryApplyFunction(v21, _ApplyOverrideTags, theDict);
   }
 
 LABEL_21:
-  v42 = theDict;
+  v22 = theDict;
   SimplePlatformInfoString = AMAuthInstallPlatformGetSimplePlatformInfoString();
-  CFDictionarySetValue(v42, @"@HostPlatformInfo", SimplePlatformInfoString);
-  v44 = theDict;
+  CFDictionarySetValue(v22, @"@HostPlatformInfo", SimplePlatformInfoString);
+  v24 = theDict;
   LibraryVersionString = AMAuthInstallSupportGetLibraryVersionString();
-  CFDictionarySetValue(v44, @"@VersionInfo", LibraryVersionString);
-  v46 = *(a1 + 16);
-  if (!v46 || !*(v46 + 132))
+  CFDictionarySetValue(v24, @"@VersionInfo", LibraryVersionString);
+  v26 = *(a1 + 16);
+  if (!v26 || !*(v26 + 132))
   {
     CFDictionarySetValue(theDict, @"@BBTicket", kCFBooleanTrue);
   }
 
-  v47 = *(a1 + 96);
-  if (v47)
+  v27 = *(a1 + 96);
+  if (v27)
   {
-    CFDictionarySetValue(theDict, @"@UUID", v47);
+    CFDictionarySetValue(theDict, @"@UUID", v27);
   }
 
-  v48 = AMAuthInstallVinylRemoveFirmwareLoaderVersionTag(a1, &theDict);
-  if (v48)
+  v28 = AMAuthInstallVinylRemoveFirmwareLoaderVersionTag(a1, &theDict);
+  if (v28)
   {
-    v9 = v48;
-    AMAuthInstallLog(3, "AMAuthInstallRequestSendSyncWithHeader", "AMAuthInstallVinylRemoveFirmwareLoaderVersionTag %d", v49, v50, v51, v52, v53, v48);
+    v9 = v28;
+    AMAuthInstallLog(3, "AMAuthInstallRequestSendSyncWithHeader", "AMAuthInstallVinylRemoveFirmwareLoaderVersionTag %d", v28);
 LABEL_28:
     Data = 0;
-    v34 = 0;
+    v19 = 0;
     goto LABEL_29;
   }
 
   v9 = 2;
   AMAuthInstallDebugWriteObject(a1, theDict, @"tss-request", 2);
   session = tss_create_session(&stru_1000A1550, *(a1 + 72));
-  v34 = session;
+  v19 = session;
   if (!session)
   {
     Data = 0;
@@ -4077,11 +3298,11 @@ LABEL_28:
   }
 
   CFRelease(session[3]);
-  *(v34 + 24) = CFRetain(theDict);
-  *(v34 + 16) = *(a1 + 80);
-  *(v34 + 80) = *(a1 + 488);
-  *(v34 + 88) = *(a1 + 512);
-  if (*(v34 + 32))
+  *(v19 + 24) = CFRetain(theDict);
+  *(v19 + 16) = *(a1 + 80);
+  *(v19 + 80) = *(a1 + 488);
+  *(v19 + 88) = *(a1 + 512);
+  if (*(v19 + 32))
   {
     Mutable = CFDictionaryCreateMutableCopy(kCFAllocatorMalloc, 0, a3);
   }
@@ -4091,164 +3312,164 @@ LABEL_28:
     Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   }
 
-  *(v34 + 32) = Mutable;
-  v71 = *(a1 + 16);
-  if (v71 && !*(v71 + 160))
+  *(v19 + 32) = Mutable;
+  v34 = *(a1 + 16);
+  if (v34 && !*(v34 + 160))
   {
-    _CFDictionarySetInteger64Str(Mutable, @"x-intnt-apchipid", *(v71 + 8));
-    v72 = *(v34 + 32);
-    v73 = *(*(a1 + 16) + 64);
+    _CFDictionarySetInteger64Str(Mutable, @"x-intnt-apchipid", *(v34 + 8));
+    v35 = *(v19 + 32);
+    v36 = *(*(a1 + 16) + 64);
     context = 0;
-    if (v72 && v73 && CFNumberGetValue(v73, kCFNumberSInt64Type, &context))
+    if (v35 && v36 && CFNumberGetValue(v36, kCFNumberSInt64Type, &context))
     {
-      _CFDictionarySetInteger64Str(v72, @"x-intnt-certcepo", context);
+      _CFDictionarySetInteger64Str(v35, @"x-intnt-certcepo", context);
     }
 
-    _CFDictionarySetInteger64Str(*(v34 + 32), @"x-intnt-apsecuritydomain", *(*(a1 + 16) + 16));
-    v74 = *(v34 + 32);
-    if (v74)
+    _CFDictionarySetInteger64Str(*(v19 + 32), @"x-intnt-apsecuritydomain", *(*(a1 + 16) + 16));
+    v37 = *(v19 + 32);
+    if (v37)
     {
-      v75 = *(*(a1 + 16) + 88) ? @"yes" : @"no";
-      CFDictionarySetValue(v74, @"x-intnt-apsecuritymode", v75);
-      v74 = *(v34 + 32);
-      if (v74)
+      v38 = *(*(a1 + 16) + 88) ? @"yes" : @"no";
+      CFDictionarySetValue(v37, @"x-intnt-apsecuritymode", v38);
+      v37 = *(v19 + 32);
+      if (v37)
       {
         if (*(*(a1 + 16) + 20))
         {
-          v76 = @"yes";
+          v39 = @"yes";
         }
 
         else
         {
-          v76 = @"no";
+          v39 = @"no";
         }
 
-        CFDictionarySetValue(v74, @"x-intnt-approductionmode", v76);
-        v74 = *(v34 + 32);
+        CFDictionarySetValue(v37, @"x-intnt-approductionmode", v39);
+        v37 = *(v19 + 32);
       }
     }
 
-    _CFDictionarySetInteger64Str(v74, @"x-intnt-apboardid", *(*(a1 + 16) + 12));
-    _CFDictionarySetInteger64Str(*(v34 + 32), @"x-intnt-apecid", **(a1 + 16));
+    _CFDictionarySetInteger64Str(v37, @"x-intnt-apboardid", *(*(a1 + 16) + 12));
+    _CFDictionarySetInteger64Str(*(v19 + 32), @"x-intnt-apecid", **(a1 + 16));
     if (*(a1 + 104))
     {
-      v82 = *(v34 + 32);
-      if (v82)
+      v40 = *(v19 + 32);
+      if (v40)
       {
-        CFDictionarySetValue(v82, @"x-intnt-authuserid", @"yes");
+        CFDictionarySetValue(v40, @"x-intnt-authuserid", @"yes");
       }
     }
 
-    v83 = *(*(a1 + 16) + 72);
-    if (v83)
+    v41 = *(*(a1 + 16) + 72);
+    if (v41)
     {
-      CFDictionarySetValue(*(v34 + 32), @"x-intnt-usbserialstr", v83);
+      CFDictionarySetValue(*(v19 + 32), @"x-intnt-usbserialstr", v41);
     }
 
-    ValueForKeyPathInDict = AMSupportGetValueForKeyPathInDict(kCFAllocatorDefault, *(*(a1 + 128) + 32), @"Info.Variant", v77, v78, v79, v80, v81);
+    ValueForKeyPathInDict = AMSupportGetValueForKeyPathInDict(kCFAllocatorDefault, *(*(a1 + 128) + 32), @"Info.Variant");
     if (ValueForKeyPathInDict)
     {
-      CFDictionarySetValue(*(v34 + 32), @"x-intnt-buildvariant", ValueForKeyPathInDict);
+      CFDictionarySetValue(*(v19 + 32), @"x-intnt-buildvariant", ValueForKeyPathInDict);
     }
   }
 
-  v85 = tss_submit(v34, v64, v65, v66, v67, v68, v69, v70);
-  v91 = v85;
-  if (!v85)
+  v43 = tss_submit(v19, v32, v33);
+  v44 = v43;
+  if (!v43)
   {
     v9 = 0;
     goto LABEL_77;
   }
 
-  if (v85 <= 0x2710)
+  if (v43 <= 0x2710)
   {
-    v92 = *(v34 + 72);
-    if (v92)
+    v45 = *(v19 + 72);
+    if (v45)
     {
-      v9 = v85 + 3100;
-      LODWORD(context) = v85 + 3100;
-      if (v85 < 0x384)
+      v9 = v43 + 3100;
+      LODWORD(context) = v43 + 3100;
+      if (v43 < 0x384)
       {
-        v93 = CFGetAllocator(a1);
-        v99 = CFNumberCreate(v93, kCFNumberIntType, &context);
-        if (v99)
+        v46 = CFGetAllocator(a1);
+        v47 = CFNumberCreate(v46, kCFNumberIntType, &context);
+        if (v47)
         {
-          CFDictionarySetValue(*(a1 + 352), v99, v92);
-          AMAuthInstallLog(7, "kAMAuthInstallRequestCacheLocalizedTssError", "cached server error text: (%d) %@", v100, v101, v102, v103, v104, context);
+          CFDictionarySetValue(*(a1 + 352), v47, v45);
+          AMAuthInstallLog(7, "kAMAuthInstallRequestCacheLocalizedTssError", "cached server error text: (%d) %@", context, v45);
         }
 
         else
         {
-          AMAuthInstallLog(3, "kAMAuthInstallRequestCacheLocalizedTssError", "failed to cache server error text: (%d) %@", v94, v95, v96, v97, v98, context);
+          AMAuthInstallLog(3, "kAMAuthInstallRequestCacheLocalizedTssError", "failed to cache server error text: (%d) %@", context, v45);
         }
 
-        SafeRelease(v99);
+        SafeRelease(v47);
         goto LABEL_76;
       }
 
-      AMAuthInstallLog(3, "kAMAuthInstallRequestCacheLocalizedTssError", "tss error code out of bounds (%d)", v86, v87, v88, v89, v90, v85 + 28);
+      AMAuthInstallLog(3, "kAMAuthInstallRequestCacheLocalizedTssError", "tss error code out of bounds (%d)", v43 + 3100);
     }
   }
 
   SafeRelease(0);
-  if (v91 > 9999)
+  if (v44 > 9999)
   {
-    if ((v91 - 10000) > 0xC)
+    if ((v44 - 10000) > 0xC)
     {
       v9 = 14;
     }
 
     else
     {
-      v9 = dword_1000862D0[v91 - 10000];
+      v9 = dword_1000862D0[v44 - 10000];
     }
   }
 
   else
   {
-    v9 = (v91 + 3100);
+    v9 = (v44 + 3100);
   }
 
 LABEL_76:
   LocalizedStatusString = AMAuthInstallGetLocalizedStatusString(a1, v9);
-  AMAuthInstallLog(3, "AMAuthInstallRequestSendSyncWithHeader", "failed tss submission: %@", v106, v107, v108, v109, v110, LocalizedStatusString);
+  AMAuthInstallLog(3, "AMAuthInstallRequestSendSyncWithHeader", "failed tss submission: %@", LocalizedStatusString);
 LABEL_77:
-  v111 = CFGetAllocator(a1);
-  Data = CFPropertyListCreateData(v111, theDict, kCFPropertyListXMLFormat_v1_0, 0, 0);
+  v49 = CFGetAllocator(a1);
+  Data = CFPropertyListCreateData(v49, theDict, kCFPropertyListXMLFormat_v1_0, 0, 0);
   if (Data)
   {
-    v112 = CFGetAllocator(a1);
-    v118 = AMAuthInstallSupportBase64Encode(v112, Data, &v148, v113, v114, v115, v116, v117);
-    if (v91)
+    v50 = CFGetAllocator(a1);
+    v51 = AMAuthInstallSupportBase64Encode(v50, Data, &v58);
+    if (v44)
     {
-      if (!v118)
+      if (!v51)
       {
-        AMAuthInstallLog(3, "AMAuthInstallRequestSendSyncWithHeader", "failed tss request:<<<<<<<<<<\n%@", v119, v120, v121, v122, v123, v148);
-        AMAuthInstallLog(3, "AMAuthInstallRequestSendSyncWithHeader", "failed tss request:>>>>>>>>>>", v124, v125, v126, v127, v128, v142);
+        AMAuthInstallLog(3, "AMAuthInstallRequestSendSyncWithHeader", "failed tss request:<<<<<<<<<<\n%@", v58);
+        AMAuthInstallLog(3, "AMAuthInstallRequestSendSyncWithHeader", "failed tss request:>>>>>>>>>>");
       }
     }
 
     else
     {
-      if (!v118)
+      if (!v51)
       {
-        AMAuthInstallLog(8, "AMAuthInstallRequestSendSyncWithHeader", "successful tss request:<<<<<<<<<<\n%@", v119, v120, v121, v122, v123, v148);
-        AMAuthInstallLog(8, "AMAuthInstallRequestSendSyncWithHeader", "successful tss request:>>>>>>>>>>", v129, v130, v131, v132, v133, v143);
+        AMAuthInstallLog(8, "AMAuthInstallRequestSendSyncWithHeader", "successful tss request:<<<<<<<<<<\n%@", v58);
+        AMAuthInstallLog(8, "AMAuthInstallRequestSendSyncWithHeader", "successful tss request:>>>>>>>>>>");
       }
 
-      Value = CFDictionaryGetValue(*(v34 + 40), @"@ServerVersion");
-      v140 = @"unavailable";
+      Value = CFDictionaryGetValue(*(v19 + 40), @"@ServerVersion");
+      v53 = @"unavailable";
       if (Value)
       {
-        LOBYTE(v140) = Value;
+        v53 = Value;
       }
 
-      AMAuthInstallLog(5, "AMAuthInstallRequestSendSyncWithHeader", "received tss response (server version: %@)", v135, v136, v137, v138, v139, v140);
-      AMAuthInstallDebugWriteObject(a1, *(v34 + 40), @"tss-response", 2);
+      AMAuthInstallLog(5, "AMAuthInstallRequestSendSyncWithHeader", "received tss response (server version: %@)", v53);
+      AMAuthInstallDebugWriteObject(a1, *(v19 + 40), @"tss-response", 2);
       v9 = 0;
       if (a4)
       {
-        *a4 = CFRetain(*(v34 + 40));
+        *a4 = CFRetain(*(v19 + 40));
       }
     }
   }
@@ -4259,17 +3480,17 @@ LABEL_29:
   SafeRelease(theDict);
   SafeRelease(0);
   SafeRelease(Data);
-  SafeRelease(v148);
+  SafeRelease(v58);
   SafeRelease(0);
-  if (v34)
+  if (v19)
   {
-    tss_close_session(v34, v54, v55, v56, v57, v58, v59, v60);
+    tss_close_session(v19);
   }
 
   return v9;
 }
 
-const char *_CopyHexStringFromData(const __CFAllocator *a1, CFDataRef theData)
+char *_CopyHexStringFromData(const __CFAllocator *a1, CFDataRef theData)
 {
   BytePtr = CFDataGetBytePtr(theData);
   Length = CFDataGetLength(theData);
@@ -4344,39 +3565,39 @@ uint64_t AMAuthInstallSupportWriteDataToFileURL(const __CFAllocator *a1, const _
 
   if (a4)
   {
-    v14 = AMAuthInstallSupportRemoveFile(cf);
-    if (v14)
+    v9 = AMAuthInstallSupportRemoveFile(cf);
+    if (v9)
     {
 LABEL_12:
-      v4 = v14;
+      v4 = v9;
       goto LABEL_13;
     }
 
-    v13 = 0;
+    v8 = 0;
 LABEL_8:
-    if (v13)
+    if (v8)
     {
-      v15 = v13;
+      v10 = v8;
     }
 
     else
     {
-      v15 = cf;
+      v10 = cf;
     }
 
-    v14 = AMSupportPlatformWriteDataToFileURL(a2, v15);
+    v9 = AMSupportPlatformWriteDataToFileURL(a2, v10);
     goto LABEL_12;
   }
 
   v7 = AMAuthInstallSupportCopyPreserveFileURL(a1, cf, &cfa, 1);
   if (!v7)
   {
-    v13 = cfa;
+    v8 = cfa;
     goto LABEL_8;
   }
 
   v4 = v7;
-  AMAuthInstallLog(3, "AMAuthInstallSupportWriteDataToFileURL", "AMAuthInstallSupportCopyPreserveFileURL failed.", v8, v9, v10, v11, v12, v17);
+  AMAuthInstallLog(3, "AMAuthInstallSupportWriteDataToFileURL", "AMAuthInstallSupportCopyPreserveFileURL failed.");
 LABEL_13:
   if (cfa)
   {
@@ -4637,7 +3858,7 @@ uint64_t DERImg4DecodePayloadCompression(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t DERImg4DecodePayloadWithProperties(uint64_t a1, unint64_t a2)
+uint64_t DERImg4DecodePayloadWithProperties(uint64_t a1, void *a2)
 {
   result = 6;
   if (a1)
@@ -4652,10 +3873,10 @@ uint64_t DERImg4DecodePayloadWithProperties(uint64_t a1, unint64_t a2)
           return 2;
         }
 
-        else if (!*(a2 + 80) || (OUTLINED_FUNCTION_1_6(), result = DERImg4DecodePayloadCompression(v7, v8), !result))
+        else if (!a2[10] || (OUTLINED_FUNCTION_1_6(), result = DERImg4DecodePayloadCompression(v7, v8), !result))
         {
-          v6 = *(a2 + 96);
-          v5 = a2 + 96;
+          v6 = a2[12];
+          v5 = a2 + 12;
           if (!v6)
           {
             return 0;
@@ -4707,7 +3928,7 @@ uint64_t DERImg4DecodePayloadProperties(uint64_t result, _OWORD *a2)
   return result;
 }
 
-uint64_t DERImg4DecodePayload(uint64_t a1, unint64_t a2)
+uint64_t DERImg4DecodePayload(uint64_t a1, _OWORD *a2)
 {
   result = 6;
   if (a1 && a2)
@@ -4726,8 +3947,8 @@ uint64_t DERImg4DecodePayload(uint64_t a1, unint64_t a2)
 
         else
         {
-          v6 = *(a2 + 80);
-          v5 = a2 + 80;
+          v6 = *(a2 + 10);
+          v5 = a2 + 5;
           if (!v6)
           {
             return 0;
@@ -4747,13 +3968,13 @@ uint64_t DERImg4DecodePayload(uint64_t a1, unint64_t a2)
     {
       v7 = v11[1];
       *a2 = v11[0];
-      *(a2 + 16) = v7;
+      a2[1] = v7;
       v8 = v11[3];
-      *(a2 + 32) = v11[2];
-      *(a2 + 48) = v8;
+      a2[2] = v11[2];
+      a2[3] = v8;
       v9 = v11[5];
-      *(a2 + 64) = v11[4];
-      *(a2 + 80) = v9;
+      a2[4] = v11[4];
+      a2[5] = v9;
     }
   }
 

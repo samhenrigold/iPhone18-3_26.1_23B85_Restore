@@ -94,23 +94,22 @@ uint64_t __72__HFTVInputControlItem__inputSourceValueComparatorForTelevisionProf
 
 - (HFTVInputControlItem)initWithValueSource:(id)source displayResults:(id)results
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  v16[0] = &unk_282524E58;
+  v16[2] = *MEMORY[0x277D85DE8];
+  v15[0] = &unk_282524E58;
   resultsCopy = results;
   sourceCopy = source;
   inputCharacteristicTypes = [objc_opt_class() inputCharacteristicTypes];
-  v16[1] = &unk_282524E70;
-  v17[0] = inputCharacteristicTypes;
+  v15[1] = &unk_282524E70;
+  v16[0] = inputCharacteristicTypes;
   readOnlyOptionalInputCharacteristicTypes = [objc_opt_class() readOnlyOptionalInputCharacteristicTypes];
-  v17[1] = readOnlyOptionalInputCharacteristicTypes;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v16[1] = readOnlyOptionalInputCharacteristicTypes;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
   v11 = [[HFControlItemCharacteristicOptions alloc] initWithCharacteristicTypesByUsage:v10];
-  v15.receiver = self;
-  v15.super_class = HFTVInputControlItem;
-  v12 = [(HFControlItem *)&v15 initWithValueSource:sourceCopy characteristicOptions:v11 displayResults:resultsCopy];
+  v14.receiver = self;
+  v14.super_class = HFTVInputControlItem;
+  v12 = [(HFControlItem *)&v14 initWithValueSource:sourceCopy characteristicOptions:v11 displayResults:resultsCopy];
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -235,7 +234,7 @@ uint64_t __71__HFTVInputControlItem_valueForCharacteristicType_inBatchReadRespon
 
 id __71__HFTVInputControlItem_valueForCharacteristicType_inBatchReadResponse___block_invoke_2(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 name];
   v5 = [v3 mediaSourceIdentifier];
@@ -249,7 +248,7 @@ id __71__HFTVInputControlItem_valueForCharacteristicType_inBatchReadResponse___b
     }
 
     *buf = 138412290;
-    v19 = v3;
+    v18 = v3;
     v12 = "No name for input source service: %@";
 LABEL_17:
     _os_log_error_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_ERROR, v12, buf, 0xCu);
@@ -262,10 +261,10 @@ LABEL_17:
     v8 = [*(a1 + 40) responseForCharacteristicType:*MEMORY[0x277CCF880] inService:v3];
     v9 = [v8 valueWithExpectedClass:objc_opt_class()];
 
-    v16 = MEMORY[0x277D85DD0];
-    v17 = v3;
+    v15 = MEMORY[0x277D85DD0];
+    v16 = v3;
     v10 = v9;
-    if ([v17 configurationState] == 2)
+    if ([v16 configurationState] == 2)
     {
       v11 = 1;
     }
@@ -289,7 +288,7 @@ LABEL_17:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v19 = v3;
+    v18 = v3;
     v12 = "No media source identifier for input source service: %@";
     goto LABEL_17;
   }
@@ -297,8 +296,6 @@ LABEL_17:
 LABEL_8:
   v13 = 0;
 LABEL_13:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -321,7 +318,7 @@ uint64_t __71__HFTVInputControlItem_valueForCharacteristicType_inBatchReadRespon
 
 - (id)writeValue:(id)value
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   objc_opt_class();
   v5 = valueCopy;
@@ -343,10 +340,10 @@ uint64_t __71__HFTVInputControlItem_valueForCharacteristicType_inBatchReadRespon
     v9 = [HFServiceStateCharacteristicRecipe alloc];
     v10 = [(HFServiceStateCharacteristicRecipe *)v9 initWithCharacteristicType:*MEMORY[0x277CCF750] servicePredicate:v8 required:1];
     valueSource = [(HFControlItem *)self valueSource];
-    v17 = v10;
+    v16 = v10;
     identifier = [v7 identifier];
-    v18[0] = identifier;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v17[0] = identifier;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     futureWithNoResult = [valueSource writeValuesForCharacteristicRecipes:v13];
   }
 
@@ -354,8 +351,6 @@ uint64_t __71__HFTVInputControlItem_valueForCharacteristicType_inBatchReadRespon
   {
     futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return futureWithNoResult;
 }

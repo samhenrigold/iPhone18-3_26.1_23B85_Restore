@@ -8,7 +8,7 @@
 
 - (void)searchForString:(id)string completion:(id)completion
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   completionCopy = completion;
   [(TUCallHistorySearchModule *)self setSearchComplete:0];
@@ -30,9 +30,9 @@
   currentResultsList = [(TUCallHistorySearchModule *)self currentResultsList];
 
   v14 = 0x1E695D000uLL;
-  v49 = stringCopy;
+  v48 = stringCopy;
   selfCopy = self;
-  v48 = completionCopy;
+  v47 = completionCopy;
   if (!currentResultsList || v12)
   {
     [(TUCallHistorySearchModule *)self setCurrentResultsList:0, completionCopy, stringCopy];
@@ -44,26 +44,26 @@
       v17 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(recentCalls, "count")}];
       [(TUCallHistorySearchModule *)self setCurrentResultsList:v17];
 
-      v58 = 0u;
-      v59 = 0u;
-      v56 = 0u;
       v57 = 0u;
+      v58 = 0u;
+      v55 = 0u;
+      v56 = 0u;
       v18 = recentCalls;
-      v19 = [v18 countByEnumeratingWithState:&v56 objects:v61 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v55 objects:v60 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v57;
+        v21 = *v56;
         do
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v57 != v21)
+            if (*v56 != v21)
             {
               objc_enumerationMutation(v18);
             }
 
-            v23 = [[TUProxyRecentCall alloc] initWithRecentCall:*(*(&v56 + 1) + 8 * i)];
+            v23 = [[TUProxyRecentCall alloc] initWithRecentCall:*(*(&v55 + 1) + 8 * i)];
             searchController = [(TUCallHistorySearchModule *)selfCopy searchController];
             [(TUProxyRecentCall *)v23 setSearchController:searchController];
 
@@ -71,15 +71,15 @@
             [currentResultsList2 addObject:v23];
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v56 objects:v61 count:16];
+          v20 = [v18 countByEnumeratingWithState:&v55 objects:v60 count:16];
         }
 
         while (v20);
       }
 
-      stringCopy = v49;
+      stringCopy = v48;
       self = selfCopy;
-      completionCopy = v48;
+      completionCopy = v47;
       v14 = 0x1E695D000;
     }
 
@@ -99,7 +99,7 @@
       gPhoneSeparatorCharacterSet = phoneNumberSeparatorCharacterSet;
     }
 
-    v29 = [stringCopy componentsSeparatedByCharactersInSet:{v48, v49}];
+    v29 = [stringCopy componentsSeparatedByCharactersInSet:{v47, v48}];
     v30 = [v29 componentsJoinedByString:&stru_1F098C218];
     lowercaseString = [v30 lowercaseString];
 
@@ -107,26 +107,26 @@
     currentResultsList3 = [(TUCallHistorySearchModule *)self currentResultsList];
     v34 = [v32 arrayWithCapacity:{objc_msgSend(currentResultsList3, "count")}];
 
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
     v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     obj = [(TUCallHistorySearchModule *)self currentResultsList];
-    v35 = [obj countByEnumeratingWithState:&v52 objects:v60 count:16];
+    v35 = [obj countByEnumeratingWithState:&v51 objects:v59 count:16];
     if (v35)
     {
       v36 = v35;
-      v37 = *v53;
+      v37 = *v52;
       do
       {
         for (j = 0; j != v36; ++j)
         {
-          if (*v53 != v37)
+          if (*v52 != v37)
           {
             objc_enumerationMutation(obj);
           }
 
-          v39 = *(*(&v52 + 1) + 8 * j);
+          v39 = *(*(&v51 + 1) + 8 * j);
           callerId = [v39 callerId];
           v41 = [callerId componentsSeparatedByCharactersInSet:gPhoneSeparatorCharacterSet];
           v42 = [v41 componentsJoinedByString:&stru_1F098C218];
@@ -154,7 +154,7 @@
           }
         }
 
-        v36 = [obj countByEnumeratingWithState:&v52 objects:v60 count:16];
+        v36 = [obj countByEnumeratingWithState:&v51 objects:v59 count:16];
       }
 
       while (v36);
@@ -163,17 +163,15 @@
     self = selfCopy;
     [(TUCallHistorySearchModule *)selfCopy setCurrentResultsList:v34];
 
-    completionCopy = v48;
-    stringCopy = v49;
+    completionCopy = v47;
+    stringCopy = v48;
   }
 
-  [(TUCallHistorySearchModule *)self setSearchComplete:1, v48, v49];
+  [(TUCallHistorySearchModule *)self setSearchComplete:1, v47, v48];
   if (completionCopy)
   {
     completionCopy[2](completionCopy, self, 1);
   }
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 - (TUSearchResults)searchResults

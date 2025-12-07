@@ -1,7 +1,9 @@
 @interface HTMonitorPidHangEvent
++ ($703747D08A2AF5480855600529176AF0)getSharedPageFromPid:(int)pid;
 + (void)_updateRunningBoardProcessMonitor;
 + (void)checkHangForPid:(int)pid;
 + (void)removePidFromProcessMonitoring:(int)monitoring;
++ (void)setupRunningBoardProcessMonitorForPid:(int)pid;
 - (id)initHTMonitorPidHangEvent:(id *)event shmem_size:(unint64_t)shmem_size;
 - (void)dealloc;
 @end
@@ -44,107 +46,106 @@
 
 void __41__HTMonitorPidHangEvent_checkHangForPid___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = pidHangEventDict;
   v3 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 32)];
   v4 = [v2 objectForKeyedSubscript:v3];
 
-  v5 = shared_ht_log_handle();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = shared_ht_log_handle(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v26 = pidHangEventDict;
-    _os_log_impl(&dword_1C8286000, v5, OS_LOG_TYPE_INFO, "HangTracerMonitor:checkHangForPid pidHangEventDict  %@", buf, 0xCu);
+    v27 = pidHangEventDict;
+    _os_log_impl(&dword_1C8286000, v6, OS_LOG_TYPE_INFO, "HangTracerMonitor:checkHangForPid pidHangEventDict  %@", buf, 0xCu);
   }
 
   if (v4)
   {
-    v6 = *(v4[1] + 4);
-    v7 = shared_ht_log_handle();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
-    if (v6)
+    v8 = *(v4[1] + 4);
+    v9 = shared_ht_log_handle(v7);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
+    if (v8)
     {
-      if (!v8)
+      if (!v10)
       {
         goto LABEL_13;
       }
 
-      v9 = *(v4[1] + 4);
+      v11 = *(v4[1] + 4);
       *buf = 67109120;
-      LODWORD(v26) = v9;
-      v10 = "HangTracerMonitor:checkHangForPid number of hang Events =  %d";
-      v11 = v7;
-      v12 = 8;
+      LODWORD(v27) = v11;
+      v12 = "HangTracerMonitor:checkHangForPid number of hang Events =  %d";
+      v13 = v9;
+      v14 = 8;
     }
 
     else
     {
-      if (!v8)
+      if (!v10)
       {
         goto LABEL_13;
       }
 
       *buf = 0;
-      v10 = "HangTracerMonitor:checkHangForPid number of hang Events is 0";
-      v11 = v7;
-      v12 = 2;
+      v12 = "HangTracerMonitor:checkHangForPid number of hang Events is 0";
+      v13 = v9;
+      v14 = 2;
     }
 
-    _os_log_impl(&dword_1C8286000, v11, OS_LOG_TYPE_INFO, v10, buf, v12);
+    _os_log_impl(&dword_1C8286000, v13, OS_LOG_TYPE_INFO, v12, buf, v14);
 LABEL_13:
 
-    v15 = mach_absolute_time();
-    v16 = v4[1];
-    if (*(v16 + 4))
+    v17 = mach_absolute_time();
+    v18 = v4[1];
+    if (*(v18 + 4))
     {
-      v17 = v15;
-      v18 = 0;
-      v19 = 32;
+      v19 = v17;
+      v20 = 0;
+      v21 = 32;
       do
       {
-        v20 = (v16 + v19);
-        v21 = (v20 - 6);
-        LODWORD(v20) = atomic_load(v20);
-        if (v20)
+        v22 = (v18 + v21);
+        v23 = (v22 - 6);
+        LODWORD(v22) = atomic_load(v22);
+        if (v22)
         {
-          v22 = shared_ht_log_handle();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+          v24 = shared_ht_log_handle(v17);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
           {
-            v23 = *(a1 + 32);
+            v25 = *(a1 + 32);
             *buf = 67109120;
-            LODWORD(v26) = v23;
-            _os_log_impl(&dword_1C8286000, v22, OS_LOG_TYPE_INFO, "HangTracerMonitor:checkHangForPid hang event suspend count is not 0 for pid=%u ", buf, 8u);
+            LODWORD(v27) = v25;
+            _os_log_impl(&dword_1C8286000, v24, OS_LOG_TYPE_INFO, "HangTracerMonitor:checkHangForPid hang event suspend count is not 0 for pid=%u ", buf, 8u);
           }
         }
 
         else
         {
-          HTCheckForHangForHTMonitor(v21, v4[1] + 4680, v17);
+          HTCheckForHangForHTMonitor(v23, v4[1] + 4680, v19);
         }
 
-        HTForegroundTrackingEnd(v21, v17, 3);
-        ++v18;
-        v16 = v4[1];
-        v19 += 584;
+        HTForegroundTrackingEnd(v23, v19, 3);
+        ++v20;
+        v18 = v4[1];
+        v21 += 584;
       }
 
-      while (v18 < *(v16 + 4));
+      while (v20 < *(v18 + 4));
     }
 
     goto LABEL_21;
   }
 
-  v13 = shared_ht_log_handle();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v15 = shared_ht_log_handle(v7);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = *(a1 + 32);
+    v16 = *(a1 + 32);
     *buf = 67109120;
-    LODWORD(v26) = v14;
-    _os_log_impl(&dword_1C8286000, v13, OS_LOG_TYPE_DEFAULT, "HangTracerMonitor:checkHangForPid(pid=%u) is not present in pidHangEventDict ", buf, 8u);
+    LODWORD(v27) = v16;
+    _os_log_impl(&dword_1C8286000, v15, OS_LOG_TYPE_DEFAULT, "HangTracerMonitor:checkHangForPid(pid=%u) is not present in pidHangEventDict ", buf, 8u);
   }
 
 LABEL_21:
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_updateRunningBoardProcessMonitor
@@ -157,41 +158,39 @@ LABEL_21:
 
 void __58__HTMonitorPidHangEvent__updateRunningBoardProcessMonitor__block_invoke(uint64_t a1, void *a2)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E69C7610];
   v3 = processIdentifiers;
   v4 = a2;
   v5 = [v2 predicateMatchingIdentifiers:v3];
-  v8[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   [v4 setPredicates:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (void)removePidFromProcessMonitoring:(int)monitoring
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v4 = processIdentifiers;
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * i);
+        v9 = *(*(&v10 + 1) + 8 * i);
         if ([v9 pid] == monitoring)
         {
           [processIdentifiers removeObject:v9];
@@ -199,7 +198,7 @@ void __58__HTMonitorPidHangEvent__updateRunningBoardProcessMonitor__block_invoke
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v6)
       {
         continue;
@@ -212,18 +211,46 @@ void __58__HTMonitorPidHangEvent__updateRunningBoardProcessMonitor__block_invoke
 LABEL_11:
 
   +[HTMonitorPidHangEvent _updateRunningBoardProcessMonitor];
-  v10 = *MEMORY[0x1E69E9840];
+}
+
++ (void)setupRunningBoardProcessMonitorForPid:(int)pid
+{
+  v3 = [MEMORY[0x1E69C75E0] identifierWithPid:*&pid];
+  v4 = processIdentifiers;
+  v9 = v3;
+  if (!processIdentifiers)
+  {
+    v5 = [MEMORY[0x1E695DFA8] set];
+    v6 = processIdentifiers;
+    processIdentifiers = v5;
+
+    v3 = v9;
+    v4 = processIdentifiers;
+  }
+
+  [v4 addObject:v3];
+  if (*monitor)
+  {
+    +[HTMonitorPidHangEvent _updateRunningBoardProcessMonitor];
+  }
+
+  else
+  {
+    v7 = [MEMORY[0x1E69C75F8] monitorWithConfiguration:&__block_literal_global_13];
+    v8 = *monitor;
+    *monitor = v7;
+  }
 }
 
 void __63__HTMonitorPidHangEvent_setupRunningBoardProcessMonitorForPid___block_invoke(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E69C7610];
   v3 = processIdentifiers;
   v4 = a2;
   v5 = [v2 predicateMatchingIdentifiers:v3];
-  v9[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   [v4 setPredicates:v6];
 
   v7 = [MEMORY[0x1E69C7630] descriptor];
@@ -231,8 +258,6 @@ void __63__HTMonitorPidHangEvent_setupRunningBoardProcessMonitorForPid___block_i
   [v4 setStateDescriptor:v7];
   [v4 setServiceClass:33];
   [v4 setUpdateHandler:&__block_literal_global_17];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __63__HTMonitorPidHangEvent_setupRunningBoardProcessMonitorForPid___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -254,150 +279,199 @@ void __63__HTMonitorPidHangEvent_setupRunningBoardProcessMonitorForPid___block_i
 void __63__HTMonitorPidHangEvent_setupRunningBoardProcessMonitorForPid___block_invoke_3(uint64_t a1)
 {
   v1 = a1;
-  v54 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   v2 = pidHangEventDict;
-  v40 = (a1 + 32);
+  v43 = (a1 + 32);
   v3 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(*(a1 + 32), "pid")}];
   v4 = [v2 objectForKey:v3];
 
   if (v4)
   {
-    v6 = v4[1];
-    if (*(v6 + 4))
+    v7 = v4[1];
+    if (*(v7 + 4))
     {
-      v7 = 0;
-      v8 = 379;
-      *&v5 = 67110146;
-      v39 = v5;
-      v41 = v4;
-      v43 = v1;
+      v8 = 0;
+      v9 = 379;
+      *&v6 = 67110146;
+      v42 = v6;
+      v44 = v4;
+      v46 = v1;
       do
       {
-        v9 = [*(v1 + 40) previousState];
-        [v9 cpuRole];
+        v10 = [*(v1 + 40) previousState];
+        [v10 cpuRole];
 
-        v10 = [*(v1 + 40) state];
-        v11 = [v10 cpuRole];
+        v11 = [*(v1 + 40) state];
+        v12 = [v11 cpuRole];
 
-        v12 = [*(v1 + 32) bundle];
-        v13 = [v12 identifier];
+        v13 = [*(v1 + 32) bundle];
+        v14 = [v13 identifier];
 
-        if (v13)
+        if (v14)
         {
-          v14 = [*v40 bundle];
-          v15 = [v14 identifier];
+          v16 = [*v43 bundle];
+          v17 = [v16 identifier];
         }
 
         else
         {
-          v16 = shared_ht_log_handle();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+          v19 = shared_ht_log_handle(v15);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_1C8286000, v16, OS_LOG_TYPE_INFO, "RB Notification contained a nil bundle identifier, defaulting to event bundle id.", buf, 2u);
+            _os_log_impl(&dword_1C8286000, v19, OS_LOG_TYPE_INFO, "RB Notification contained a nil bundle identifier, defaulting to event bundle id.", buf, 2u);
           }
 
-          v17 = (v6 + v8);
-          if (*(v6 + v8))
+          v21 = (v7 + v9);
+          if (*(v7 + v9))
           {
-            *v17 = 0;
-            v31 = (v17 - 255);
-            v30 = shared_ht_log_handle();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
+            *v21 = 0;
+            v35 = (v21 - 255);
+            v34 = shared_ht_log_handle(v20);
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
             {
-              __63__HTMonitorPidHangEvent_setupRunningBoardProcessMonitorForPid___block_invoke_3_cold_1(v31, v30, v32, v33, v34, v35, v36, v37);
+              __63__HTMonitorPidHangEvent_setupRunningBoardProcessMonitorForPid___block_invoke_3_cold_1(v35, v34, v36, v37, v38, v39, v40, v41);
             }
 
             goto LABEL_18;
           }
 
-          v15 = [MEMORY[0x1E696AEC0] stringWithCString:v6 + v8 - 255 encoding:1];
+          v18 = [MEMORY[0x1E696AEC0] stringWithCString:v7 + v9 - 255 encoding:1];
+          v17 = v18;
         }
 
-        v18 = shared_ht_log_handle();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v22 = shared_ht_log_handle(v18);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
-          v19 = [*(v43 + 32) pid];
+          v23 = [*(v46 + 32) pid];
           NSStringFromRBSRole();
-          v42 = v15;
-          v21 = v20 = v11;
-          v22 = NSStringFromRBSRole();
-          v23 = [*(v43 + 40) state];
-          v24 = [v23 lastStateChangeTimestamp];
-          *buf = v39;
-          v45 = v19;
-          v46 = 2114;
-          v47 = v42;
-          v48 = 2114;
-          v49 = v21;
-          v50 = 2114;
-          v51 = v22;
-          v52 = 2112;
-          v53 = v24;
-          _os_log_impl(&dword_1C8286000, v18, OS_LOG_TYPE_DEFAULT, "Received RB Notification for CPU Role change of process(%d) '%{public}@'. Changed from %{public}@ to %{public}@ at %@", buf, 0x30u);
+          v45 = v17;
+          v25 = v24 = v12;
+          v26 = NSStringFromRBSRole();
+          v27 = [*(v46 + 40) state];
+          v28 = [v27 lastStateChangeTimestamp];
+          *buf = v42;
+          v48 = v23;
+          v49 = 2114;
+          v50 = v45;
+          v51 = 2114;
+          v52 = v25;
+          v53 = 2114;
+          v54 = v26;
+          v55 = 2112;
+          v56 = v28;
+          _os_log_impl(&dword_1C8286000, v22, OS_LOG_TYPE_DEFAULT, "Received RB Notification for CPU Role change of process(%d) '%{public}@'. Changed from %{public}@ to %{public}@ at %@", buf, 0x30u);
 
-          v11 = v20;
-          v15 = v42;
+          v12 = v24;
+          v17 = v45;
         }
 
         Current = CFAbsoluteTimeGetCurrent();
-        v26 = mach_absolute_time();
-        v1 = v43;
-        v27 = [*(v43 + 40) state];
-        v28 = [v27 lastStateChangeTimestamp];
-        v29 = HTGetMachAbsoluteTimeFromNSDate(v28, v26, Current);
+        v30 = mach_absolute_time();
+        v1 = v46;
+        v31 = [*(v46 + 40) state];
+        v32 = [v31 lastStateChangeTimestamp];
+        v33 = HTGetMachAbsoluteTimeFromNSDate(v32, v30, Current);
 
-        addNewCPURoleToHangEvent(v6 + v8 - 371, v29, v11);
-        ++v7;
-        v4 = v41;
-        v6 = v41[1];
-        v8 += 584;
+        addNewCPURoleToHangEvent(v7 + v9 - 371, v33, v12);
+        ++v8;
+        v4 = v44;
+        v7 = v44[1];
+        v9 += 584;
       }
 
-      while (v7 < *(v6 + 4));
+      while (v8 < *(v7 + 4));
     }
   }
 
   else
   {
-    v30 = shared_ht_log_handle();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v34 = shared_ht_log_handle(v5);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      __63__HTMonitorPidHangEvent_setupRunningBoardProcessMonitorForPid___block_invoke_3_cold_2(v40, v30);
+      __63__HTMonitorPidHangEvent_setupRunningBoardProcessMonitorForPid___block_invoke_3_cold_2(v43, v34);
     }
 
 LABEL_18:
   }
+}
 
-  v38 = *MEMORY[0x1E69E9840];
++ ($703747D08A2AF5480855600529176AF0)getSharedPageFromPid:(int)pid
+{
+  v3 = *&pid;
+  label = dispatch_queue_get_label(0);
+  v5 = strlen(htMonitorConnectionQueueLabel);
+  v6 = strncmp(label, htMonitorConnectionQueueLabel, v5);
+  if (v6)
+  {
+    v7 = shared_ht_log_handle(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    {
+      [(HTMonitorPidHangEvent *)label getSharedPageFromPid:v7, v8, v9, v10, v11, v12, v13];
+    }
+
+    return 0;
+  }
+
+  else
+  {
+    dispatch_assert_queue_V2(_htMonitorConnectionQueue);
+    v15 = pidHangEventDict;
+    v16 = [MEMORY[0x1E696AD98] numberWithInt:v3];
+    v17 = [v15 objectForKeyedSubscript:v16];
+
+    if (v17)
+    {
+      shmem_region = [v17 shmem_region];
+      if ([v17 shmem_size])
+      {
+        v18 = shmem_region == 0;
+      }
+
+      else
+      {
+        v18 = 1;
+      }
+
+      if (v18)
+      {
+        shmem_region = 0;
+      }
+    }
+
+    else
+    {
+      shmem_region = 0;
+    }
+  }
+
+  return shmem_region;
 }
 
 void __63__HTMonitorPidHangEvent_setupRunningBoardProcessMonitorForPid___block_invoke_3_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_3(&dword_1C8286000, a2, a3, "event->bundleID has been corrupted, final char in array is not \\0. bundleID: %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_1_3(&dword_1C8286000, a2, a3, "event->bundleID has been corrupted, final char in array is not \\0. bundleID: %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __63__HTMonitorPidHangEvent_setupRunningBoardProcessMonitorForPid___block_invoke_3_cold_2(id *a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = [*a1 pid];
   v5 = [*a1 bundle];
-  v7[0] = 67109378;
-  v7[1] = v4;
-  v8 = 2114;
-  v9 = v5;
-  _os_log_error_impl(&dword_1C8286000, a2, OS_LOG_TYPE_ERROR, "There is no HTMonitorPidHangEvent for process with pid %d and bundleInfo %{public}@", v7, 0x12u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6[0] = 67109378;
+  v6[1] = v4;
+  v7 = 2114;
+  v8 = v5;
+  _os_log_error_impl(&dword_1C8286000, a2, OS_LOG_TYPE_ERROR, "There is no HTMonitorPidHangEvent for process with pid %d and bundleInfo %{public}@", v6, 0x12u);
 }
 
 + (void)getSharedPageFromPid:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_3(&dword_1C8286000, a2, a3, "HTMonitor shared page accessed on the incorrect queue: %s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_1_3(&dword_1C8286000, a2, a3, "HTMonitor shared page accessed on the incorrect queue: %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

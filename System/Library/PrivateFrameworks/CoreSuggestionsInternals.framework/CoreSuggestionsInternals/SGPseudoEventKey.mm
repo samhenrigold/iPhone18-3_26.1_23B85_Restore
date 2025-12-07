@@ -17,7 +17,7 @@
   v4 = objc_autoreleasePoolPush();
   v5 = [(NSString *)self->_groupId componentsSeparatedByString:@"|"];
   objc_autoreleasePoolPop(v4);
-  if ([v5 count])
+  if (objc_msgSend_count(v5))
   {
     v6 = 0;
     v7 = -1;
@@ -28,7 +28,7 @@
       if ([v9 length] && objc_msgSend(v9, "characterAtIndex:", 0) == 123 && objc_msgSend(v9, "characterAtIndex:", objc_msgSend(v9, "length") - 1) == 125)
       {
         v10 = [v5 subarrayWithRange:{0, v6}];
-        v11 = [v5 subarrayWithRange:{v6 + 1, objc_msgSend(v5, "count") + v7}];
+        v11 = [v5 subarrayWithRange:{v6 + 1, objc_msgSend_count(v5) + v7}];
         v12 = [v10 arrayByAddingObjectsFromArray:v11];
         v13 = [v12 _pas_componentsJoinedByString:@"|"];
 
@@ -41,7 +41,7 @@
       --v7;
     }
 
-    while ([v5 count] > v6);
+    while (objc_msgSend_count(v5) > v6);
   }
 
   return v3;
@@ -49,35 +49,35 @@
 
 - (BOOL)isDropoff
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   [(NSString *)self->_groupId componentsSeparatedByString:@"|"];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = v15 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = v14 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        if ([*(*(&v12 + 1) + 8 * i) isEqualToString:{@"{dropoff}", v12}])
+        if ([*(*(&v11 + 1) + 8 * i) isEqualToString:{@"{dropoff}", v11}])
         {
           v9 = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -91,7 +91,6 @@
 LABEL_11:
 
   objc_autoreleasePoolPop(v3);
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -167,7 +166,7 @@ LABEL_11:
   }
 
   v6 = SGDelimitedStringsDeserialize();
-  if ([v6 count] != 1)
+  if (objc_msgSend_count(v6) != 1)
   {
     currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler2 handleFailureInMethod:a2 object:self file:@"SGPseudoEventKey.m" lineNumber:35 description:@"Invalid serialization"];

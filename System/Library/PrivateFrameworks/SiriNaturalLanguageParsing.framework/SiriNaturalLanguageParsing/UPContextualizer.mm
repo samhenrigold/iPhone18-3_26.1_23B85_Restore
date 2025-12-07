@@ -8,15 +8,15 @@
 
 - (id)_contextualizeByDialogActTypeUsingContextualizerInput:(id)input
 {
-  v23[3] = *MEMORY[0x277D85DE8];
+  v22[3] = *MEMORY[0x277D85DE8];
   inputCopy = input;
-  v22[0] = objc_opt_class();
-  v23[0] = self->_offerContextualizerStrategy;
-  v22[1] = objc_opt_class();
-  v23[1] = self->_optionsContextualizerStrategy;
-  v22[2] = objc_opt_class();
-  v23[2] = self->_promptContextualizerStrategy;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
+  v21[0] = objc_opt_class();
+  v22[0] = self->_offerContextualizerStrategy;
+  v21[1] = objc_opt_class();
+  v22[1] = self->_optionsContextualizerStrategy;
+  v21[2] = objc_opt_class();
+  v22[2] = self->_promptContextualizerStrategy;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
   dialogAct = [inputCopy dialogAct];
   coreResult = [inputCopy coreResult];
   v8 = [UPContextualizerUtilities createConfirmOrRejectedDialogActsFor:coreResult reference:0];
@@ -39,15 +39,13 @@
     v17 = SNLPOSLoggerForCategory(3);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v20 = 138739971;
-      v21 = dialogAct;
-      _os_log_impl(&dword_22284A000, v17, OS_LOG_TYPE_ERROR, "Could not find contextualizer strategy for dialog act: %{sensitive}@", &v20, 0xCu);
+      v19 = 138739971;
+      v20 = dialogAct;
+      _os_log_impl(&dword_22284A000, v17, OS_LOG_TYPE_ERROR, "Could not find contextualizer strategy for dialog act: %{sensitive}@", &v19, 0xCu);
     }
 
     v16 = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

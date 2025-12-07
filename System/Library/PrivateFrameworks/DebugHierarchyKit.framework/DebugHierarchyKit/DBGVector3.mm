@@ -39,13 +39,13 @@
 
 - (id)objectValue
 {
-  [(DBGVector3 *)self vector3];
+  objc_msgSend_vector3(self, a2);
   v3 = [NSNumber numberWithDouble:v10];
   v11[0] = v3;
-  [(DBGVector3 *)self vector3];
+  objc_msgSend_vector3(self);
   v4 = [NSNumber numberWithDouble:v9];
   v11[1] = v4;
-  [(DBGVector3 *)self vector3];
+  objc_msgSend_vector3(self);
   v5 = [NSNumber numberWithDouble:v8];
   v11[2] = v5;
   v6 = [NSArray arrayWithObjects:v11 count:3];
@@ -127,13 +127,13 @@
 
 - (id)JSONCompatibleRepresentation
 {
-  [(DBGVector3 *)self vector3];
+  objc_msgSend_vector3(self, a2);
   v3 = [NSNumber numberWithDouble:v10];
   v11[0] = v3;
-  [(DBGVector3 *)self vector3];
+  objc_msgSend_vector3(self);
   v4 = [NSNumber numberWithDouble:v9];
   v11[1] = v4;
-  [(DBGVector3 *)self vector3];
+  objc_msgSend_vector3(self);
   v5 = [NSNumber numberWithDouble:v8];
   v11[2] = v5;
   v6 = [NSArray arrayWithObjects:v11 count:3];

@@ -332,25 +332,25 @@ LABEL_14:
   highlightsCopy = highlights;
   handlerCopy = handler;
   v8 = +[NSDate distantFuture];
-  v36 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
+  v38 = 0u;
   v9 = highlightsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v10)
   {
-    v11 = *v35;
+    v11 = *v38;
     do
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v35 != v11)
+        if (*v38 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v34 + 1) + 8 * i);
+        v13 = *(*(&v37 + 1) + 8 * i);
         timestamp = [v13 timestamp];
         v15 = [v8 isAfterDate:timestamp];
 
@@ -362,18 +362,18 @@ LABEL_14:
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
     while (v10);
   }
 
   v31 = 0;
-  v32[0] = &v31;
-  v32[1] = 0x3032000000;
-  v32[2] = __Block_byref_object_copy__21;
-  v32[3] = __Block_byref_object_dispose__21;
-  v33 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__21;
+  v35 = __Block_byref_object_dispose__21;
+  v36 = 0;
   v29[0] = 0;
   v29[1] = v29;
   v29[2] = 0x3032000000;
@@ -389,12 +389,12 @@ LABEL_14:
   v28[5] = v29;
   [momentStore fetchEventsWithStartDateAfter:v8 Category:9 CompletionHandler:v28];
 
-  if (*(v32[0] + 40))
+  if (v32[5])
   {
     v18 = _mo_log_facility_get_os_log(&MOLogFacilitySharedWithYou);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [MOSharedWithYouManager saveHighlights:v32 handler:?];
+      [MOSharedWithYouManager saveHighlights:handler:];
     }
 
     v19 = _mo_log_facility_get_os_log(&MOLogFacilitySharedWithYou);
@@ -406,7 +406,7 @@ LABEL_14:
 
     if (handlerCopy)
     {
-      handlerCopy[2](handlerCopy, *(v32[0] + 40), &__NSDictionary0__struct);
+      handlerCopy[2](handlerCopy, v32[5], &__NSDictionary0__struct);
     }
   }
 
@@ -1352,13 +1352,6 @@ void __71__MOSharedWithYouManager__updateSharedContentsDeletedAtSource_handler__
   {
     (*(v10 + 16))(v10, v5, v6);
   }
-}
-
-- (void)saveHighlights:(uint64_t)a1 handler:.cold.1(uint64_t a1)
-{
-  v6 = *(*a1 + 40);
-  OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 - (void)saveHighlights:(os_log_t)log handler:.cold.2(uint8_t *buf, uint64_t a2, os_log_t log)

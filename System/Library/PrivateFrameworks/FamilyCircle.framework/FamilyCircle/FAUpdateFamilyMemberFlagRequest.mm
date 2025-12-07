@@ -35,7 +35,7 @@
   v5 = handlerCopy;
   v16 = v5;
   v6 = [(FAFamilyCircleRequest *)self serviceRemoteObjectWithErrorHandler:v15];
-  v7 = _FALogSystem();
+  v7 = _FALogSystem(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [(FAUpdateFamilyMemberFlagRequest *)self startRequestWithCompletionHandler:v7];
@@ -57,14 +57,14 @@
 
 void __69__FAUpdateFamilyMemberFlagRequest_startRequestWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1B70B0000, v4, OS_LOG_TYPE_DEFAULT, "FARegisterPushTokenRequest: Error from service - %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v3;
+    _os_log_impl(&dword_1B70B0000, v4, OS_LOG_TYPE_DEFAULT, "FARegisterPushTokenRequest: Error from service - %@", &v6, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -72,14 +72,12 @@ void __69__FAUpdateFamilyMemberFlagRequest_startRequestWithCompletionHandler___b
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __69__FAUpdateFamilyMemberFlagRequest_startRequestWithCompletionHandler___block_invoke_20(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
   if (v3)
   {
@@ -103,40 +101,36 @@ void __69__FAUpdateFamilyMemberFlagRequest_startRequestWithCompletionHandler___b
 
 - (void)startRequestWithCompletionHandler:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696AD98];
   v5 = [a1 ephemeralAuthResults];
   v6 = [v4 numberWithInt:v5 != 0];
-  v8 = 138412546;
-  v9 = a1;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_debug_impl(&dword_1B70B0000, a2, OS_LOG_TYPE_DEBUG, "Starting family update member flag request: %@, ephemeralAuth: (%@)", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412546;
+  v8 = a1;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_debug_impl(&dword_1B70B0000, a2, OS_LOG_TYPE_DEBUG, "Starting family update member flag request: %@, ephemeralAuth: (%@)", &v7, 0x16u);
 }
 
 void __69__FAUpdateFamilyMemberFlagRequest_startRequestWithCompletionHandler___block_invoke_20_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = *(*(a1 + 32) + 40);
-  v5 = 136315650;
-  v6 = "[FAUpdateFamilyMemberFlagRequest startRequestWithCompletionHandler:]_block_invoke";
-  v7 = 2112;
-  v8 = v3;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_debug_impl(&dword_1B70B0000, log, OS_LOG_TYPE_DEBUG, "%s Error updating Family member flag %@ completed %@", &v5, 0x20u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 136315650;
+  v5 = "[FAUpdateFamilyMemberFlagRequest startRequestWithCompletionHandler:]_block_invoke";
+  v6 = 2112;
+  v7 = v3;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_debug_impl(&dword_1B70B0000, log, OS_LOG_TYPE_DEBUG, "%s Error updating Family member flag %@ completed %@", &v4, 0x20u);
 }
 
 void __69__FAUpdateFamilyMemberFlagRequest_startRequestWithCompletionHandler___block_invoke_20_cold_2(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[FAUpdateFamilyMemberFlagRequest startRequestWithCompletionHandler:]_block_invoke";
-  _os_log_debug_impl(&dword_1B70B0000, log, OS_LOG_TYPE_DEBUG, "%s Family update member flag completed.", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[FAUpdateFamilyMemberFlagRequest startRequestWithCompletionHandler:]_block_invoke";
+  _os_log_debug_impl(&dword_1B70B0000, log, OS_LOG_TYPE_DEBUG, "%s Family update member flag completed.", &v1, 0xCu);
 }
 
 @end

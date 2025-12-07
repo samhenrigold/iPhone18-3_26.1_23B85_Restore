@@ -37,11 +37,11 @@
 
 - (void)service:(id)service didRequestToSendIDSMessage:(id)message withIDSIdentifier:(id)identifier
 {
-  v9 = [message objectForKeyedSubscript:@"RDGizmoSyncMessageTypeKey"];
-  if (v9)
+  v8 = [message objectForKeyedSubscript:@"RDGizmoSyncMessageTypeKey"];
+  if (v8)
   {
-    [(NSCache *)self->_messageTypesByIDSIdentifier setObject:v9 forKey:identifier];
-    integerValue = [v9 integerValue];
+    [(NSCache *)self->_messageTypesByIDSIdentifier setObject:v8 forKey:identifier];
+    integerValue = [v8 integerValue];
     if (integerValue > 0xA)
     {
       return;
@@ -50,12 +50,12 @@
 
   else
   {
-    v11 = qword_100071B40;
+    v10 = qword_100071B40;
     if (os_log_type_enabled(qword_100071B40, OS_LOG_TYPE_FAULT))
     {
       *buf = 138543362;
       messageCopy = message;
-      _os_log_fault_impl(&_mh_execute_header, v11, OS_LOG_TYPE_FAULT, "Failed to find message type in IDS message %{public}@", buf, 0xCu);
+      _os_log_fault_impl(&_mh_execute_header, v10, OS_LOG_TYPE_FAULT, "Failed to find message type in IDS message %{public}@", buf, 0xCu);
       integerValue = [0 integerValue];
       if (integerValue > 0xA)
       {
@@ -73,20 +73,10 @@
     }
   }
 
-  if (((1 << integerValue) & 0x17E) != 0)
+  if (((1 << integerValue) & 0x17E) != 0 || ((1 << integerValue) & 0x480) != 0)
   {
-    if (service)
-    {
-      v12 = *(service + 2);
-    }
+    AnalyticsSendEventLazy();
   }
-
-  else if (((1 << integerValue) & 0x480) == 0)
-  {
-    return;
-  }
-
-  AnalyticsSendEventLazy();
 }
 
 - (void)service:(id)service didFailIDSMessage:(id)message IDSIdentifier:(id)identifier withError:(id)error

@@ -202,8 +202,8 @@ LABEL_11:
   [mainMKMapView _setLocationPulseEnabled:0];
 
   mainVKMapView = [(MapsAppTest *)self mainVKMapView];
-  options = [(MapsAppTest *)self options];
-  -[MapsAppTest switchToMapType:](self, "switchToMapType:", [options _mapstest_mapType]);
+  v5 = objc_msgSend_options(self);
+  -[MapsAppTest switchToMapType:](self, "switchToMapType:", [v5 _mapstest_mapType]);
   [(MapsAppTestRotate *)self targetAngleToRotate];
   v6 = 0;
   v8 = v7 * 0.0101010101;
@@ -259,8 +259,8 @@ LABEL_11:
 
       if (v15)
       {
-        options = [(MapsAppTest *)v10 options];
-        v17 = [options objectForKeyedSubscript:@"rotateAngles"];
+        v16 = objc_msgSend_options(v10);
+        v17 = [v16 objectForKeyedSubscript:@"rotateAngles"];
         [v17 doubleValue];
         v10->_targetAngleToRotate = v18;
       }

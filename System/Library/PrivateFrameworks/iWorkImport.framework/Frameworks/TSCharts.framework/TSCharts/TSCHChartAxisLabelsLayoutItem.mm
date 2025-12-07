@@ -73,7 +73,7 @@
     v31 = objc_msgSend_floatValueForProperty_defaultValue_(v23, v28, 0.0, v29, v30, 1035);
     v33 = v32 * 0.0174532925;
     *&v33 = v33;
-    v35 = sub_27628C490(v31, v34, v33, 0.0174532943, 0.0);
+    v35 = sub_27628C490(v33, 0.0174532943, 0.0, v31, v34);
     memset(&v74, 0, sizeof(v74));
     CGAffineTransformMakeRotation(&v74, v35);
     v40 = objc_msgSend_intValueForProperty_defaultValue_(v23, v36, v37, v38, v39, 1034, 0);
@@ -146,189 +146,187 @@
     {
       objc_msgSend_p_calcMaxLabelSize(self, v60, v61, v62, v63);
       objc_msgSend_layoutSpaceRectForAllLabels(self, v64, v65, v66, v67);
-      x = v146.origin.x;
-      y = v146.origin.y;
-      width = v146.size.width;
-      height = v146.size.height;
-      if (!CGRectIsNull(v146))
+      x = v144.origin.x;
+      y = v144.origin.y;
+      width = v144.size.width;
+      height = v144.size.height;
+      if (!CGRectIsNull(v144))
       {
         if (objc_msgSend_hasShadow_(TSCHStyleUtilities, v72, v73, v74, v75, v46))
         {
-          objc_msgSend_shadowBoundsForRect_(v46, v102, x, y, width, height);
-          v164.origin.x = v103;
-          v164.origin.y = v104;
-          v164.size.width = v105;
-          v164.size.height = v106;
-          v149.origin.x = x;
-          v149.origin.y = y;
-          v149.size.width = width;
-          v149.size.height = height;
-          v150 = CGRectUnion(v149, v164);
-          x = v150.origin.x;
-          y = v150.origin.y;
-          width = v150.size.width;
-          height = v150.size.height;
+          objc_msgSend_shadowBoundsForRect_(v46, v101, x, y, width, height);
+          v162.origin.x = v102;
+          v162.origin.y = v103;
+          v162.size.width = v104;
+          v162.size.height = v105;
+          v147.origin.x = x;
+          v147.origin.y = y;
+          v147.size.width = width;
+          v147.size.height = height;
+          v148 = CGRectUnion(v147, v162);
+          x = v148.origin.x;
+          y = v148.origin.y;
+          width = v148.size.width;
+          height = v148.size.height;
         }
 
-        v151.origin.x = v52;
-        v151.origin.y = v54;
-        v151.size.width = v56;
-        v151.size.height = v58;
-        v165.origin.x = x;
-        v165.origin.y = y;
-        v165.size.width = width;
-        v165.size.height = height;
-        CGRectUnion(v151, v165);
+        v149.origin.x = v52;
+        v149.origin.y = v54;
+        v149.size.width = v56;
+        v149.size.height = v58;
+        v163.origin.x = x;
+        v163.origin.y = y;
+        v163.size.width = width;
+        v163.size.height = height;
+        CGRectUnion(v149, v163);
       }
     }
 
     else
     {
-      v138 = v52;
-      v139 = v54;
-      v136 = *(MEMORY[0x277CBF398] + 16);
-      v145.origin = *MEMORY[0x277CBF398];
-      origin = v145.origin;
-      v145.size = v136;
-      v144 = *MEMORY[0x277CBF3A8];
-      v135 = v144;
-      memset(&v143[2], 0, 48);
-      objc_msgSend_transformForRenderingLabel_outElementSize_outClipRect_(self, v60, 0.0, v136.width, v63, 0, &v144, &v145);
-      v143[0] = origin;
-      v143[1] = v136;
-      v142 = v135;
+      v135 = v52;
+      v136 = v54;
+      v134 = *(MEMORY[0x277CBF398] + 16);
+      v143.origin = *MEMORY[0x277CBF398];
+      v143.size = v134;
+      v142 = *MEMORY[0x277CBF3A8];
+      memset(&v141, 0, sizeof(v141));
+      objc_msgSend_transformForRenderingLabel_outElementSize_outClipRect_(self, 0.0, v134.width, v63);
+      v140.origin = v143.origin;
+      v140.size = v134;
+      v139 = v142;
       v84 = *(MEMORY[0x277CBF2C0] + 16);
-      *&v141.a = *MEMORY[0x277CBF2C0];
-      *&v141.c = v84;
-      *&v141.tx = *(MEMORY[0x277CBF2C0] + 32);
-      v87 = objc_msgSend_numberOfLabelsForAxis_(self, v85, v141.tx, *&v84, v86, v21);
-      v89 = origin.y;
-      v88 = origin.x;
-      v91 = v136.height;
-      v90 = v136.width;
-      v147.origin = origin;
-      v147.size = v136;
-      if (CGRectIsNull(v147) && v87)
+      *&v138.a = *MEMORY[0x277CBF2C0];
+      *&v138.c = v84;
+      *&v138.tx = *(MEMORY[0x277CBF2C0] + 32);
+      v87 = objc_msgSend_numberOfLabelsForAxis_(self, v85, v138.tx, *&v84, v86, v21);
+      v89 = v143.origin.y;
+      v88 = v143.origin.x;
+      v91 = v134.height;
+      v90 = v134.width;
+      v145.origin = v143.origin;
+      v145.size = v134;
+      if (CGRectIsNull(v145) && v87)
       {
-        v96 = v87 - 1;
+        v95 = v87 - 1;
         do
         {
-          objc_msgSend_transformForRenderingLabel_outElementSize_outClipRect_(self, v92, v93, v94, v95, v96, &v142, v143);
-          IsNull = CGRectIsNull(*v143);
-          v99 = v96-- != 0;
+          objc_msgSend_transformForRenderingLabel_outElementSize_outClipRect_(self, v92, v93, v94);
+          IsNull = CGRectIsNull(v140);
+          v98 = v95-- != 0;
         }
 
-        while (IsNull && v99);
-        v89 = *(v143 + 1);
-        v88 = *v143;
-        v91 = *(&v143[1] + 1);
-        v90 = *&v143[1];
+        while (IsNull && v98);
+        v89 = v140.origin.y;
+        v88 = v140.origin.x;
+        v91 = v140.size.height;
+        v90 = v140.size.width;
       }
 
-      v148.origin.x = v88;
-      v148.origin.y = v89;
-      v148.size.width = v90;
-      v148.size.height = v91;
-      if (CGRectIsNull(v148))
+      v146.origin.x = v88;
+      v146.origin.y = v89;
+      v146.size.width = v90;
+      v146.size.height = v91;
+      if (CGRectIsNull(v146))
       {
-        *v143 = v145;
-        v141 = *&v143[2];
-        v142 = v144;
+        v140 = v143;
+        v138 = v141;
+        v139 = v142;
       }
 
-      if (CGRectIsNull(v145))
+      if (CGRectIsNull(v143))
       {
-        v100 = v139;
-        v101 = v138;
+        v99 = v136;
+        v100 = v135;
       }
 
       else
       {
         TSURectWithSize();
-        v140 = *&v143[2];
-        v153 = CGRectApplyAffineTransform(v152, &v140);
-        v107 = v153.origin.x;
-        v108 = v153.origin.y;
-        v109 = v153.size.width;
-        v110 = v153.size.height;
-        if (objc_msgSend_hasShadow_(TSCHStyleUtilities, v111, v153.origin.x, v153.origin.y, v153.size.width, v46))
+        v137 = v141;
+        v151 = CGRectApplyAffineTransform(v150, &v137);
+        v106 = v151.origin.x;
+        v107 = v151.origin.y;
+        v108 = v151.size.width;
+        v109 = v151.size.height;
+        if (objc_msgSend_hasShadow_(TSCHStyleUtilities, v110, v151.origin.x, v151.origin.y, v151.size.width, v46))
         {
-          objc_msgSend_shadowBoundsForRect_(v46, v112, v107, v108, v109, v110);
-          v166.origin.x = v113;
-          v166.origin.y = v114;
-          v166.size.width = v115;
-          v166.size.height = v116;
-          v154.origin.x = v107;
-          v154.origin.y = v108;
-          v154.size.width = v109;
-          v154.size.height = v110;
-          v155 = CGRectUnion(v154, v166);
-          v107 = v155.origin.x;
-          v108 = v155.origin.y;
-          v109 = v155.size.width;
-          v110 = v155.size.height;
+          objc_msgSend_shadowBoundsForRect_(v46, v111, v106, v107, v108, v109);
+          v164.origin.x = v112;
+          v164.origin.y = v113;
+          v164.size.width = v114;
+          v164.size.height = v115;
+          v152.origin.x = v106;
+          v152.origin.y = v107;
+          v152.size.width = v108;
+          v152.size.height = v109;
+          v153 = CGRectUnion(v152, v164);
+          v106 = v153.origin.x;
+          v107 = v153.origin.y;
+          v108 = v153.size.width;
+          v109 = v153.size.height;
         }
 
-        v156.origin.x = v138;
-        v156.origin.y = v139;
-        v156.size.width = v56;
-        v156.size.height = v58;
-        v167.origin.x = v107;
-        v167.origin.y = v108;
-        v167.size.width = v109;
-        v167.size.height = v110;
-        v157 = CGRectUnion(v156, v167);
-        v101 = v157.origin.x;
-        v100 = v157.origin.y;
-        v56 = v157.size.width;
-        v58 = v157.size.height;
+        v154.origin.x = v135;
+        v154.origin.y = v136;
+        v154.size.width = v56;
+        v154.size.height = v58;
+        v165.origin.x = v106;
+        v165.origin.y = v107;
+        v165.size.width = v108;
+        v165.size.height = v109;
+        v155 = CGRectUnion(v154, v165);
+        v100 = v155.origin.x;
+        v99 = v155.origin.y;
+        v56 = v155.size.width;
+        v58 = v155.size.height;
       }
 
-      if (!CGRectIsNull(*v143))
+      if (!CGRectIsNull(v140))
       {
         TSURectWithSize();
-        v140 = v141;
-        v159 = CGRectApplyAffineTransform(v158, &v140);
-        v117 = v159.origin.x;
-        v118 = v159.origin.y;
-        v119 = v159.size.width;
-        v120 = v159.size.height;
-        if (objc_msgSend_hasShadow_(TSCHStyleUtilities, v121, v159.origin.x, v159.origin.y, v159.size.width, v46))
+        v137 = v138;
+        v157 = CGRectApplyAffineTransform(v156, &v137);
+        v116 = v157.origin.x;
+        v117 = v157.origin.y;
+        v118 = v157.size.width;
+        v119 = v157.size.height;
+        if (objc_msgSend_hasShadow_(TSCHStyleUtilities, v120, v157.origin.x, v157.origin.y, v157.size.width, v46))
         {
-          objc_msgSend_shadowBoundsForRect_(v46, v122, v117, v118, v119, v120);
-          v168.origin.x = v123;
-          v168.origin.y = v124;
-          v168.size.width = v125;
-          v168.size.height = v126;
-          v160.origin.x = v117;
-          v160.origin.y = v118;
-          v160.size.width = v119;
-          v160.size.height = v120;
-          v161 = CGRectUnion(v160, v168);
-          v117 = v161.origin.x;
-          v118 = v161.origin.y;
-          v119 = v161.size.width;
-          v120 = v161.size.height;
+          objc_msgSend_shadowBoundsForRect_(v46, v121, v116, v117, v118, v119);
+          v166.origin.x = v122;
+          v166.origin.y = v123;
+          v166.size.width = v124;
+          v166.size.height = v125;
+          v158.origin.x = v116;
+          v158.origin.y = v117;
+          v158.size.width = v118;
+          v158.size.height = v119;
+          v159 = CGRectUnion(v158, v166);
+          v116 = v159.origin.x;
+          v117 = v159.origin.y;
+          v118 = v159.size.width;
+          v119 = v159.size.height;
         }
 
-        v162.origin.x = v101;
-        v162.origin.y = v100;
-        v162.size.width = v56;
-        v162.size.height = v58;
-        v169.origin.x = v117;
-        v169.origin.y = v118;
-        v169.size.width = v119;
-        v169.size.height = v120;
-        CGRectUnion(v162, v169);
+        v160.origin.x = v100;
+        v160.origin.y = v99;
+        v160.size.width = v56;
+        v160.size.height = v58;
+        v167.origin.x = v116;
+        v167.origin.y = v117;
+        v167.size.width = v118;
+        v167.size.height = v119;
+        CGRectUnion(v160, v167);
       }
     }
 
     TSUSubtractPoints();
     TSURectWithOriginAndSize();
-    v77 = v127;
-    v79 = v128;
-    v81 = v129;
-    v83 = v130;
+    v77 = v126;
+    v79 = v127;
+    v81 = v128;
+    v83 = v129;
   }
 
   else
@@ -341,14 +339,14 @@
     v83 = v82;
   }
 
-  v131 = v77;
-  v132 = v79;
-  v133 = v81;
-  v134 = v83;
-  result.size.height = v134;
-  result.size.width = v133;
-  result.origin.y = v132;
-  result.origin.x = v131;
+  v130 = v77;
+  v131 = v79;
+  v132 = v81;
+  v133 = v83;
+  result.size.height = v133;
+  result.size.width = v132;
+  result.origin.y = v131;
+  result.origin.x = v130;
   return result;
 }
 
@@ -381,46 +379,46 @@
     v60 = v59;
     objc_msgSend_layoutSize(self, v61, v53, v55, v57);
     TSURectWithSize();
-    recta = v162.origin.x;
-    r1_8a = v162.origin.y;
-    width = v162.size.width;
-    height = v162.size.height;
-    MinX = CGRectGetMinX(v162);
-    v163.origin.x = v54;
-    v163.origin.y = v56;
-    v163.size.width = v58;
-    v163.size.height = v60;
-    fmax(MinX - CGRectGetMinX(v163), 0.0);
-    v164.origin.x = v54;
-    v164.origin.y = v56;
-    v164.size.width = v58;
-    v164.size.height = v60;
-    CGRectGetMaxX(v164);
-    v165.origin.x = recta;
-    v165.origin.y = r1_8a;
-    v165.size.width = width;
-    v165.size.height = height;
-    CGRectGetMaxX(v165);
+    recta = v160.origin.x;
+    r1_8a = v160.origin.y;
+    width = v160.size.width;
+    height = v160.size.height;
+    MinX = CGRectGetMinX(v160);
+    v161.origin.x = v54;
+    v161.origin.y = v56;
+    v161.size.width = v58;
+    v161.size.height = v60;
+    fmax(MinX - CGRectGetMinX(v161), 0.0);
+    v162.origin.x = v54;
+    v162.origin.y = v56;
+    v162.size.width = v58;
+    v162.size.height = v60;
+    CGRectGetMaxX(v162);
+    v163.origin.x = recta;
+    v163.origin.y = r1_8a;
+    v163.size.width = width;
+    v163.size.height = height;
+    CGRectGetMaxX(v163);
+    v164.origin.x = recta;
+    v164.origin.y = r1_8a;
+    v164.size.width = width;
+    v164.size.height = height;
+    CGRectGetMinX(v164);
+    v165.origin.x = v54;
+    v165.origin.y = v56;
+    v165.size.width = v58;
+    v165.size.height = v60;
+    CGRectGetMinY(v165);
     v166.origin.x = recta;
     v166.origin.y = r1_8a;
     v166.size.width = width;
     v166.size.height = height;
-    CGRectGetMinX(v166);
+    CGRectGetMaxX(v166);
     v167.origin.x = v54;
     v167.origin.y = v56;
     v167.size.width = v58;
     v167.size.height = v60;
-    CGRectGetMinY(v167);
-    v168.origin.x = recta;
-    v168.origin.y = r1_8a;
-    v168.size.width = width;
-    v168.size.height = height;
-    CGRectGetMaxX(v168);
-    v169.origin.x = v54;
-    v169.origin.y = v56;
-    v169.size.width = v58;
-    v169.size.height = v60;
-    CGRectGetMaxY(v169);
+    CGRectGetMaxY(v167);
     TSURectWithPoints();
 LABEL_6:
     v69 = v65;
@@ -430,8 +428,8 @@ LABEL_6:
     goto LABEL_25;
   }
 
-  v129 = v31;
-  v130 = v21;
+  v127 = v31;
+  v128 = v21;
   if (v11)
   {
     objc_msgSend_i_currentBufferAreaUnitRect(v11, v41, v42, v43, v44);
@@ -441,24 +439,24 @@ LABEL_6:
   v74 = v73;
   v76 = v75;
   v77 = *(MEMORY[0x277CBF398] + 16);
-  v161.origin = *MEMORY[0x277CBF398];
-  v161.size = v77;
-  v160 = *MEMORY[0x277CBF3A8];
+  v159.origin = *MEMORY[0x277CBF398];
+  v159.size = v77;
+  v158 = *MEMORY[0x277CBF3A8];
   v78 = *(MEMORY[0x277CBF2C0] + 16);
-  *&v159.a = *MEMORY[0x277CBF2C0];
-  *&v159.c = v78;
-  *&v159.tx = *(MEMORY[0x277CBF2C0] + 32);
-  v158.origin = v161.origin;
-  v158.size = v77;
-  *&v156.tx = *&v159.tx;
-  v157 = v160;
-  *&v156.a = *&v159.a;
-  *&v156.c = v78;
+  *&v157.a = *MEMORY[0x277CBF2C0];
+  *&v157.c = v78;
+  *&v157.tx = *(MEMORY[0x277CBF2C0] + 32);
+  v156.origin = v159.origin;
+  v156.size = v77;
+  *&v154.tx = *&v157.tx;
+  v155 = v158;
+  *&v154.a = *&v157.a;
+  *&v154.c = v78;
   TSURectWithSize();
   v80 = v79;
-  v152 = v82;
+  v150 = v82;
   recta = v81;
-  v151 = v83;
+  v149 = v83;
   TSUAddSizes();
   TSURectWithOriginAndSize();
   r1_8 = v84;
@@ -474,25 +472,25 @@ LABEL_6:
   v69 = v80;
   do
   {
-    v170.origin.x = r1_8;
-    v170.origin.y = r1_24;
-    v188.size.height = v151;
-    v170.size.width = v87;
-    v170.size.height = v89;
+    v168.origin.x = r1_8;
+    v168.origin.y = r1_24;
+    v186.size.height = v149;
+    v168.size.width = v87;
+    v168.size.height = v89;
     r1_16 = v69;
-    v188.origin.x = v69;
-    v188.size.width = v152;
-    v188.origin.y = recta;
-    v171 = CGRectUnion(v170, v188);
-    r1_8 = v171.origin.x;
-    r1_24 = v171.origin.y;
-    v142 = v171.size.height;
-    v143 = v171.size.width;
-    v155 = 0x7FFFFFFFFFFFFFFFLL;
-    LOBYTE(v128) = 1;
-    objc_msgSend_i_localTransformForLabel_range_inLayoutSize_outElementSize_outClipRect_usingString_stride_useAngle_(self, v96, v95, v94, v171.size.width, 0, 0, &v160, &v161, 0, &v155, v128);
-    v99 = v93;
-    v100 = v92;
+    v186.origin.x = v69;
+    v186.size.width = v150;
+    v186.origin.y = recta;
+    v169 = CGRectUnion(v168, v186);
+    r1_8 = v169.origin.x;
+    r1_24 = v169.origin.y;
+    v140 = v169.size.height;
+    v141 = v169.size.width;
+    v153 = 0x7FFFFFFFFFFFFFFFLL;
+    LOBYTE(v126) = 1;
+    objc_msgSend_i_localTransformForLabel_range_inLayoutSize_outElementSize_outClipRect_usingString_stride_useAngle_(self, v95, v94, v169.size.width, v126);
+    v97 = v93;
+    v98 = v92;
     if (!v91)
     {
       goto LABEL_20;
@@ -500,160 +498,160 @@ LABEL_6:
 
     do
     {
-      LOBYTE(v128) = 1;
-      objc_msgSend_i_localTransformForLabel_range_inLayoutSize_outElementSize_outClipRect_usingString_stride_useAngle_(self, v97, v95, v94, v98, v99 + 1, 0, &v157, &v158, 0, &v155, v128);
-      IsNull = CGRectIsNull(v158);
-      if (v100)
+      LOBYTE(v126) = 1;
+      objc_msgSend_i_localTransformForLabel_range_inLayoutSize_outElementSize_outClipRect_usingString_stride_useAngle_(self, v95, v94, v96, v126);
+      IsNull = CGRectIsNull(v156);
+      if (v98)
       {
-        v102 = IsNull;
+        v100 = IsNull;
       }
 
       else
       {
-        v102 = 1;
+        v100 = 1;
       }
 
-      v103 = v99-- != 0;
-      v104 = v103;
-      if (v102 != 1)
+      v101 = v97-- != 0;
+      v102 = v101;
+      if (v100 != 1)
       {
         break;
       }
 
-      --v100;
+      --v98;
     }
 
-    while ((v104 & 1) != 0);
-    if (v102)
+    while ((v102 & 1) != 0);
+    if (v100)
     {
 LABEL_20:
-      v158 = v161;
       v156 = v159;
-      v157 = v160;
+      v154 = v157;
+      v155 = v158;
     }
 
     TSURectWithSize();
-    rect_8 = v159;
+    rect_8 = v157;
+    v171 = CGRectApplyAffineTransform(v170, &rect_8);
+    r1 = v171.origin.x;
+    v138 = v171.size.width;
+    y = v171.origin.y;
+    v137 = v171.size.height;
+    TSURectWithSize();
+    rect_8 = v154;
     v173 = CGRectApplyAffineTransform(v172, &rect_8);
-    r1 = v173.origin.x;
-    v140 = v173.size.width;
-    y = v173.origin.y;
-    v139 = v173.size.height;
+    x = v173.origin.x;
+    v104 = v173.origin.y;
+    v105 = v173.size.width;
+    v106 = v173.size.height;
     TSURectWithSize();
-    rect_8 = v156;
-    v175 = CGRectApplyAffineTransform(v174, &rect_8);
-    x = v175.origin.x;
-    v106 = v175.origin.y;
-    v107 = v175.size.width;
-    v108 = v175.size.height;
-    TSURectWithSize();
+    v108 = v107;
     v110 = v109;
-    v112 = v111;
-    v136 = v114;
-    v138 = v113;
-    v176.origin.x = r1;
-    v176.size.width = v140;
-    v176.origin.y = y;
-    v176.size.height = v139;
-    v189.origin.x = x;
-    v189.origin.y = v106;
-    v189.size.width = v107;
-    v189.size.height = v108;
-    v190 = CGRectUnion(v176, v189);
-    v177.origin.x = v110;
-    v177.origin.y = v112;
-    v177.size.height = v136;
-    v177.size.width = v138;
-    CGRectUnion(v177, v190);
+    v134 = v112;
+    v136 = v111;
+    v174.origin.x = r1;
+    v174.size.width = v138;
+    v174.origin.y = y;
+    v174.size.height = v137;
+    v187.origin.x = x;
+    v187.origin.y = v104;
+    v187.size.width = v105;
+    v187.size.height = v106;
+    v188 = CGRectUnion(v174, v187);
+    v175.origin.x = v108;
+    v175.origin.y = v110;
+    v175.size.height = v134;
+    v175.size.width = v136;
+    CGRectUnion(v175, v188);
     TSUSubtractSizes();
     TSUAddSizes();
     TSURectWithOriginAndSize();
+    v114 = v113;
     v116 = v115;
     v118 = v117;
-    v120 = v119;
-    v191.size.height = v121;
-    r1a = v121;
-    v178.origin.x = r1_16;
-    v178.size.width = v152;
-    v178.origin.y = recta;
-    v178.size.height = v151;
-    v191.origin.x = v116;
-    v191.origin.y = v118;
-    v191.size.width = v120;
-    v179 = CGRectUnion(v178, v191);
-    r1_16a = v179.origin.x;
-    v152 = v179.size.width;
-    recta = v179.origin.y;
-    v151 = v179.size.height;
-    v179.origin.x = r1_8;
-    v179.origin.y = r1_24;
-    v89 = v142;
-    v87 = v143;
-    v179.size.width = v143;
-    v179.size.height = v142;
-    v137 = CGRectGetMinX(v179);
-    v180.origin.x = v116;
-    v180.origin.y = v118;
-    v180.size.width = v120;
-    v180.size.height = r1a;
-    v135 = CGRectGetMinX(v180);
-    v181.origin.x = v116;
-    v181.origin.y = v118;
-    v181.size.width = v120;
-    v181.size.height = r1a;
-    MaxX = CGRectGetMaxX(v181);
-    v182.origin.x = r1_8;
-    v182.origin.y = r1_24;
-    v182.size.width = v143;
-    v182.size.height = v142;
-    v133 = CGRectGetMaxX(v182);
-    v183.origin.x = r1_8;
-    v183.origin.y = r1_24;
-    v183.size.width = v143;
-    v183.size.height = v142;
-    MinY = CGRectGetMinY(v183);
-    v184.origin.x = v116;
-    v184.origin.y = v118;
-    v184.size.width = v120;
-    v184.size.height = r1a;
-    v131 = CGRectGetMinY(v184);
-    v185.origin.x = v116;
-    v185.origin.y = v118;
-    v185.size.width = v120;
-    v185.size.height = r1a;
-    MaxY = CGRectGetMaxY(v185);
-    v186.origin.x = r1_8;
-    v186.origin.y = r1_24;
-    v186.size.width = v143;
-    v186.size.height = v142;
-    v123 = CGRectGetMaxY(v186);
+    v189.size.height = v119;
+    r1a = v119;
+    v176.origin.x = r1_16;
+    v176.size.width = v150;
+    v176.origin.y = recta;
+    v176.size.height = v149;
+    v189.origin.x = v114;
+    v189.origin.y = v116;
+    v189.size.width = v118;
+    v177 = CGRectUnion(v176, v189);
+    r1_16a = v177.origin.x;
+    v150 = v177.size.width;
+    recta = v177.origin.y;
+    v149 = v177.size.height;
+    v177.origin.x = r1_8;
+    v177.origin.y = r1_24;
+    v89 = v140;
+    v87 = v141;
+    v177.size.width = v141;
+    v177.size.height = v140;
+    v135 = CGRectGetMinX(v177);
+    v178.origin.x = v114;
+    v178.origin.y = v116;
+    v178.size.width = v118;
+    v178.size.height = r1a;
+    v133 = CGRectGetMinX(v178);
+    v179.origin.x = v114;
+    v179.origin.y = v116;
+    v179.size.width = v118;
+    v179.size.height = r1a;
+    MaxX = CGRectGetMaxX(v179);
+    v180.origin.x = r1_8;
+    v180.origin.y = r1_24;
+    v180.size.width = v141;
+    v180.size.height = v140;
+    v131 = CGRectGetMaxX(v180);
+    v181.origin.x = r1_8;
+    v181.origin.y = r1_24;
+    v181.size.width = v141;
+    v181.size.height = v140;
+    MinY = CGRectGetMinY(v181);
+    v182.origin.x = v114;
+    v182.origin.y = v116;
+    v182.size.width = v118;
+    v182.size.height = r1a;
+    v129 = CGRectGetMinY(v182);
+    v183.origin.x = v114;
+    v183.origin.y = v116;
+    v183.size.width = v118;
+    v183.size.height = r1a;
+    MaxY = CGRectGetMaxY(v183);
+    v184.origin.x = r1_8;
+    v184.origin.y = r1_24;
+    v184.size.width = v141;
+    v184.size.height = v140;
+    v121 = CGRectGetMaxY(v184);
     v69 = r1_16a;
     if (TSUNearlyContainsRect())
     {
       break;
     }
 
-    v95 = fmax(v95 - fmax(v137 - v135, 0.0) - fmax(MaxX - v133, 0.0), 0.0);
-    v94 = fmax(v94 - fmax(MinY - v131, 0.0) - fmax(MaxY - v123, 0.0), 0.0);
-    v103 = v90++ >= 0x13;
+    v95 = fmax(v95 - fmax(v135 - v133, 0.0) - fmax(MaxX - v131, 0.0), 0.0);
+    v94 = fmax(v94 - fmax(MinY - v129, 0.0) - fmax(MaxY - v121, 0.0), 0.0);
+    v101 = v90++ >= 0x13;
   }
 
-  while (!v103);
-  v31 = v129;
-  v21 = v130;
-  v72 = v151;
-  v71 = v152;
+  while (!v101);
+  v31 = v127;
+  v21 = v128;
+  v72 = v149;
+  v71 = v150;
   v70 = recta;
 LABEL_25:
 
-  v124 = v69;
-  v125 = v70;
-  v126 = v71;
-  v127 = v72;
-  result.size.height = v127;
-  result.size.width = v126;
-  result.origin.y = v125;
-  result.origin.x = v124;
+  v122 = v69;
+  v123 = v70;
+  v124 = v71;
+  v125 = v72;
+  result.size.height = v125;
+  result.size.width = v124;
+  result.origin.y = v123;
+  result.origin.x = v122;
   return result;
 }
 
@@ -1177,7 +1175,7 @@ LABEL_17:
   v6 = MEMORY[0x277CBF3A8];
   v65 = *MEMORY[0x277CBF3A8];
   memset(&v64, 0, sizeof(v64));
-  objc_msgSend_p_localTransformForLabel_range_inLayoutSize_outElementSize_outClipRect_usingString_useAngle_(self, a2, size.width, size.height, *&v65, index, 0, &v65, 0, 0, 1);
+  objc_msgSend_p_localTransformForLabel_range_inLayoutSize_outElementSize_outClipRect_usingString_useAngle_(self, size.width, size.height, *&v65, a2, index, 0, &v65, 0, 0, 1);
   v8 = *v6;
   if (*&v65 == *v6 && *(&v65 + 1) == v6[1])
   {
@@ -1359,21 +1357,21 @@ LABEL_7:
   height = size.height;
   width = size.width;
   v7 = objc_msgSend_p_numberOfAxisLabels(self, a2, size.width, size.height, v3);
-  memset(&v47, 0, sizeof(v47));
-  objc_msgSend_p_localTransformForLabel_range_inLayoutSize_outElementSize_outClipRect_usingString_useAngle_(self, v8, width, height, v9, 0, 0, 0, 0, 0, 1);
-  v45 = v47;
   memset(&v46, 0, sizeof(v46));
-  CGAffineTransformInvert(&v46, &v45);
-  v10 = v7 >> 1;
-  v45 = v46;
-  if (objc_msgSend_p_circularStridingLabelAtIndex_inLayoutSize_intersectsLabelAtIndex_extraTransform_(self, v11, width, height, v12, v7 >> 1, 0, &v45) && v7)
+  objc_msgSend_p_localTransformForLabel_range_inLayoutSize_outElementSize_outClipRect_usingString_useAngle_(self, width, height, v8);
+  v44 = v46;
+  memset(&v45, 0, sizeof(v45));
+  CGAffineTransformInvert(&v45, &v44);
+  v9 = v7 >> 1;
+  v44 = v45;
+  if (objc_msgSend_p_circularStridingLabelAtIndex_inLayoutSize_intersectsLabelAtIndex_extraTransform_(self, v10, width, height, v11, v7 >> 1, 0, &v44) && v7)
   {
     return v7;
   }
 
-  v45 = v46;
-  v15 = 1;
-  if (!objc_msgSend_p_circularStridingLabelAtIndex_inLayoutSize_intersectsLabelAtIndex_extraTransform_(self, v13, width, height, v14, 1, 0, &v45))
+  v44 = v45;
+  v14 = 1;
+  if (!objc_msgSend_p_circularStridingLabelAtIndex_inLayoutSize_intersectsLabelAtIndex_extraTransform_(self, v12, width, height, v13, 1, 0, &v44))
   {
     goto LABEL_13;
   }
@@ -1383,64 +1381,64 @@ LABEL_7:
     goto LABEL_12;
   }
 
-  v20 = 2;
-  v21 = v7 >> 1;
+  v19 = 2;
+  v20 = v7 >> 1;
   while (1)
   {
-    v22 = v20 + v21;
-    v15 = (v20 + v21) >> 1;
-    v45 = v46;
-    if (!objc_msgSend_p_circularStridingLabelAtIndex_inLayoutSize_intersectsLabelAtIndex_extraTransform_(self, v16, width, height, v19, v15, 0, &v45))
+    v21 = v19 + v20;
+    v14 = (v19 + v20) >> 1;
+    v44 = v45;
+    if (!objc_msgSend_p_circularStridingLabelAtIndex_inLayoutSize_intersectsLabelAtIndex_extraTransform_(self, v15, width, height, v18, v14, 0, &v44))
     {
       break;
     }
 
-    v20 = v15 + 1;
+    v19 = v14 + 1;
 LABEL_9:
-    if (v20 > v21)
+    if (v19 > v20)
     {
       goto LABEL_12;
     }
   }
 
-  v21 = v15 - 1;
-  v45 = v46;
-  if ((objc_msgSend_p_circularStridingLabelAtIndex_inLayoutSize_intersectsLabelAtIndex_extraTransform_(self, v16, width, height, v19, v15 - 1, 0, &v45) & 1) == 0)
+  v20 = v14 - 1;
+  v44 = v45;
+  if ((objc_msgSend_p_circularStridingLabelAtIndex_inLayoutSize_intersectsLabelAtIndex_extraTransform_(self, v15, width, height, v18, v14 - 1, 0, &v44) & 1) == 0)
   {
     goto LABEL_9;
   }
 
-  if (v22 <= 1)
+  if (v21 <= 1)
   {
 LABEL_12:
-    v23 = MEMORY[0x277D81150];
-    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, v17, v18, v19, "[TSCHChartAxisLabelsLayoutItem p_computeCircularAutoStrideForInvariantAngleLabelsInLayoutSize:]");
-    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, v26, v27, v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartAxisLabelsLayoutItem.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v30, v31, v32, v33, v24, v29, 790, 0, "Failed to find a stride");
+    v22 = MEMORY[0x277D81150];
+    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, v16, v17, v18, "[TSCHChartAxisLabelsLayoutItem p_computeCircularAutoStrideForInvariantAngleLabelsInLayoutSize:]");
+    v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, v25, v26, v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartAxisLabelsLayoutItem.m");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v29, v30, v31, v32, v23, v28, 790, 0, "Failed to find a stride");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v34, v35, v36, v37);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v33, v34, v35, v36);
     return v7;
   }
 
 LABEL_13:
-  if (v15 <= v10)
+  if (v14 <= v9)
   {
     do
     {
-      v38 = v7 / v15 - (v7 / v15 * v15 == v7);
-      v45 = v46;
-      v39 = objc_msgSend_p_circularStridingLabelAtIndex_inLayoutSize_intersectsLabelAtIndex_extraTransform_(self, v16, width, height, v19, v38 * v15, 0, &v45);
-      if (v38)
+      v37 = v7 / v14 - (v7 / v14 * v14 == v7);
+      v44 = v45;
+      v38 = objc_msgSend_p_circularStridingLabelAtIndex_inLayoutSize_intersectsLabelAtIndex_extraTransform_(self, v15, width, height, v18, v37 * v14, 0, &v44);
+      if (v37)
       {
+        v39 = 0;
         v40 = 0;
-        v41 = 0;
-        while ((v39 & 1) == 0)
+        while ((v38 & 1) == 0)
         {
-          ++v41;
-          v42 = v15 + v40;
-          v39 = objc_msgSend_p_circularStridingLabelAtIndex_inLayoutSize_intersectsLabelAtIndex_extraTransform_(self, v16, width, height, v19, *&v46.a, *&v46.b, *&v46.c, *&v46.d, *&v46.tx, *&v46.ty);
-          v40 = v42;
-          if (v41 >= v38)
+          ++v40;
+          v41 = v14 + v39;
+          v38 = objc_msgSend_p_circularStridingLabelAtIndex_inLayoutSize_intersectsLabelAtIndex_extraTransform_(self, v15, width, height, v18, *&v45.a, *&v45.b, *&v45.c, *&v45.d, *&v45.tx, *&v45.ty);
+          v39 = v41;
+          if (v40 >= v37)
           {
             goto LABEL_18;
           }
@@ -1450,14 +1448,14 @@ LABEL_13:
       else
       {
 LABEL_18:
-        if (!v39)
+        if (!v38)
         {
-          return v15;
+          return v14;
         }
       }
     }
 
-    while (v15++ != v10);
+    while (v14++ != v9);
   }
 
   return v7;
@@ -1576,7 +1574,7 @@ LABEL_18:
   v26 = 0u;
   if (geometryCopy)
   {
-    objc_msgSend_transform(geometryCopy, v5, 0.0, v6, v7);
+    objc_msgSend_transform(geometryCopy, 0.0, v6, v7);
   }
 
   objc_msgSend_angle(v8, v5, v9, v6, v7);
@@ -1646,72 +1644,72 @@ LABEL_18:
   objc_msgSend_labelExplosion(v15, v32, v33, v34, v35);
   TSUMultiplyPointScalar();
   TSUAddPoints();
-  memset(&v129, 0, sizeof(v129));
-  objc_msgSend_p_transformWithOrigin_verticalDirection_(self, v36, v37, v38, midpoint.x, midpoint.y);
+  memset(&v126, 0, sizeof(v126));
+  objc_msgSend_p_transformWithOrigin_verticalDirection_(self, v36, v37, midpoint.x, midpoint.y);
   TSUAddPoints();
-  v40 = v39;
-  v42 = v41;
-  v127 = v129;
-  CGAffineTransformInvert(&v128, &v127);
-  v43 = v128.tx + v42 * v128.c + v128.a * v40;
-  v44 = v128.ty + v42 * v128.d + v128.b * v40;
-  v127 = v129;
-  CGAffineTransformInvert(&v128, &v127);
-  v49 = objc_msgSend_geometryByAppendingTransform_(v31, v45, v46, v47, v48, &v128);
-  objc_msgSend_transformedBounds(v49, v50, v51, v52, v53);
-  MinY = CGRectGetMinY(v130);
-  CGAffineTransformMakeTranslation(&v128, 0.0, -MinY);
-  v59 = objc_msgSend_geometryByAppendingTransform_(v49, v55, v56, v57, v58, &v128);
-  objc_msgSend_p_relativeAnchorPointForLabelGeometry_useMidpoints_(self, v60, v61, v62, v63, v49, infoCopy);
+  v39 = v38;
+  v41 = v40;
+  v124 = v126;
+  CGAffineTransformInvert(&v125, &v124);
+  v42 = v125.tx + v41 * v125.c + v125.a * v39;
+  v43 = v125.ty + v41 * v125.d + v125.b * v39;
+  v124 = v126;
+  CGAffineTransformInvert(&v125, &v124);
+  v48 = objc_msgSend_geometryByAppendingTransform_(v31, v44, v45, v46, v47, &v125);
+  objc_msgSend_transformedBounds(v48, v49, v50, v51, v52);
+  MinY = CGRectGetMinY(v127);
+  CGAffineTransformMakeTranslation(&v125, 0.0, -MinY);
+  v58 = objc_msgSend_geometryByAppendingTransform_(v48, v54, v55, v56, v57, &v125);
+  objc_msgSend_p_relativeAnchorPointForLabelGeometry_useMidpoints_(self, v59, v60, v61, v62, v48, infoCopy);
   TSUMultiplyPointBySize();
+  v65 = 0uLL;
+  v66 = 0uLL;
   v67 = 0uLL;
-  v68 = 0uLL;
-  v69 = 0uLL;
-  if (v59)
+  if (v58)
   {
-    v125 = v66;
-    v126 = v65;
-    objc_msgSend_transform(v59, v64, v65, v66, 0.0, 0.0, 0.0);
-    v66 = v125;
-    v65 = v126;
-    v68 = *&v128.a;
-    v69 = *&v128.c;
-    v67 = *&v128.tx;
+    v122 = v64;
+    v123 = v63;
+    objc_msgSend_transform(v58, v63, v64, 0.0, 0.0, 0.0);
+    v64 = v122;
+    v63 = v123;
+    v66 = *&v125.a;
+    v67 = *&v125.c;
+    v65 = *&v125.tx;
   }
 
-  v70 = vaddq_f64(v67, vmlaq_n_f64(vmulq_n_f64(v69, v66), v68, v65));
-  CGAffineTransformMakeTranslation(&v128, vmuld_lane_f64(v43 / v44, v70, 1) - v70.f64[0], 0.0);
-  v75 = objc_msgSend_geometryByAppendingTransform_(v59, v71, v72, v73, v74, &v128);
-  v128 = v129;
-  v79 = objc_msgSend_geometryByAppendingTransform_(v75, v76, v129.tx, v129.c, v77, &v128);
+  v68 = vaddq_f64(v65, vmlaq_n_f64(vmulq_n_f64(v67, v64), v66, v63));
+  CGAffineTransformMakeTranslation(&v125, vmuld_lane_f64(v42 / v43, v68, 1) - v68.f64[0], 0.0);
+  v73 = objc_msgSend_geometryByAppendingTransform_(v58, v69, v70, v71, v72, &v125);
+  v125 = v126;
+  v77 = objc_msgSend_geometryByAppendingTransform_(v73, v74, v126.tx, v126.c, v75, &v125);
   if (closestMidpointCopy != infoCopy)
   {
-    objc_msgSend_p_relativeAnchorPointForLabelGeometry_useMidpoints_(self, v78, v80, v81, v82, v49, closestMidpointCopy);
+    objc_msgSend_p_relativeAnchorPointForLabelGeometry_useMidpoints_(self, v76, v78, v79, v80, v48, closestMidpointCopy);
   }
 
   TSUMultiplyPointBySize();
-  objc_msgSend_labelSizeInPoints(v15, v83, v84, v85, v86);
+  objc_msgSend_labelSizeInPoints(v15, v81, v82, v83, v84);
   TSUMultiplyPointBySize();
   TSUSubtractPoints();
   TSUAddPoints();
+  v86 = v85;
   v88 = v87;
-  v90 = v89;
-  v91 = objc_alloc(MEMORY[0x277D802E8]);
-  objc_msgSend_labelSizeInPoints(v15, v92, v93, v94, v95);
-  v99 = objc_msgSend_initWithPosition_size_(v91, v96, v88, v90, v97, v98);
-  v104 = objc_msgSend_geometryWithParentGeometry_(v99, v100, v101, v102, v103, v79);
-  objc_msgSend_center(v15, v105, v106, v107, v108);
-  v110 = v109;
-  objc_msgSend_center(v15, v111, v109, v112, v113);
-  CGAffineTransformMakeTranslation(&v128, v110, v114);
-  v119 = objc_msgSend_geometryByAppendingTransform_(v104, v115, v116, v117, v118, &v128);
-  v123 = v119;
+  v89 = objc_alloc(MEMORY[0x277D802E8]);
+  objc_msgSend_labelSizeInPoints(v15, v90, v91, v92, v93);
+  v97 = objc_msgSend_initWithPosition_size_(v89, v94, v86, v88, v95, v96);
+  v102 = objc_msgSend_geometryWithParentGeometry_(v97, v98, v99, v100, v101, v77);
+  objc_msgSend_center(v15, v103, v104, v105, v106);
+  v108 = v107;
+  objc_msgSend_center(v15, v109, v107, v110, v111);
+  CGAffineTransformMakeTranslation(&v125, v108, v112);
+  v117 = objc_msgSend_geometryByAppendingTransform_(v102, v113, v114, v115, v116, &v125);
+  v120 = v117;
   *&retstr->c = 0u;
   *&retstr->tx = 0u;
   *&retstr->a = 0u;
-  if (v119)
+  if (v117)
   {
-    objc_msgSend_transform(v119, v120, 0.0, v121, v122);
+    objc_msgSend_transform(v117, 0.0, v118, v119);
   }
 
   return result;
@@ -1720,92 +1718,92 @@ LABEL_18:
 - (CGAffineTransform)p_localTransformForCartesianAxisLabelWithInfo:(SEL)info
 {
   v6 = MEMORY[0x277CBF2C0];
-  v97 = *(MEMORY[0x277CBF2C0] + 16);
-  v98 = *MEMORY[0x277CBF2C0];
+  v95 = *(MEMORY[0x277CBF2C0] + 16);
+  v96 = *MEMORY[0x277CBF2C0];
   *&retstr->a = *MEMORY[0x277CBF2C0];
-  *&retstr->c = v97;
-  v96 = *(v6 + 32);
-  *&retstr->tx = v96;
+  *&retstr->c = v95;
+  v94 = *(v6 + 32);
+  *&retstr->tx = v94;
   v7 = a4;
-  v12 = objc_msgSend_position(v7, v8, v9, v10, v11);
-  objc_msgSend_labelRotationInDegrees(v7, v13, v14, v15, v16);
-  *&v17 = v17;
-  objc_msgSend_labelAnchorForPosition_degrees_(self, v18, v17, v19, v20, v12);
-  v22 = v21;
-  v24 = v23;
-  objc_msgSend_labelRotationInDegrees(v7, v25, v21, v23, v26);
-  *&v27 = v27 * -0.0174532925;
-  memset(&v102, 0, sizeof(v102));
-  angle = *&v27;
-  CGAffineTransformMakeRotation(&v102, *&v27);
-  objc_msgSend_labelSizeInPoints(v7, v28, v29, v30, v31);
-  v33 = v32;
-  objc_msgSend_labelSizeInPoints(v7, v34, v32, v35, v36);
-  v37 = -(v33 * v22);
-  v39 = -(v38 * v24);
-  objc_msgSend_labelSizeInPoints(v7, v40, v41, v38, v42);
-  v44 = v43;
-  objc_msgSend_labelSizeInPoints(v7, v45, v43, v46, v47);
-  v103.size.height = v48;
-  v101 = v102;
-  v103.origin.x = v37;
-  v103.origin.y = v39;
-  v103.size.width = v44;
-  v104 = CGRectApplyAffineTransform(v103, &v101);
-  v50 = objc_msgSend_position(v7, v49, v104.origin.x, v104.origin.y, v104.size.width);
-  objc_msgSend_labelRotationInDegrees(v7, v51, v52, v53, v54);
-  v56 = v55;
-  objc_msgSend_labelLayoutSize(v7, v57, v55, v58, v59);
+  v11 = objc_msgSend_position(v7, v8, v9, v10);
+  objc_msgSend_labelRotationInDegrees(v7, v12, v13, v14, v15);
+  *&v16 = v16;
+  objc_msgSend_labelAnchorForPosition_degrees_(self, v17, v16, v18, v19, v11);
+  v21 = v20;
+  v23 = v22;
+  objc_msgSend_labelRotationInDegrees(v7, v24, v20, v22, v25);
+  *&v26 = v26 * -0.0174532925;
+  memset(&v100, 0, sizeof(v100));
+  angle = *&v26;
+  CGAffineTransformMakeRotation(&v100, *&v26);
+  objc_msgSend_labelSizeInPoints(v7, v27, v28, v29, v30);
+  v32 = v31;
+  objc_msgSend_labelSizeInPoints(v7, v33, v31, v34, v35);
+  v36 = -(v32 * v21);
+  v38 = -(v37 * v23);
+  objc_msgSend_labelSizeInPoints(v7, v39, v40, v37, v41);
+  v43 = v42;
+  objc_msgSend_labelSizeInPoints(v7, v44, v42, v45, v46);
+  v101.size.height = v47;
+  v99 = v100;
+  v101.origin.x = v36;
+  v101.origin.y = v38;
+  v101.size.width = v43;
+  v102 = CGRectApplyAffineTransform(v101, &v99);
+  v48 = objc_msgSend_position(v7, v102.origin.x, v102.origin.y, v102.size.width);
+  objc_msgSend_labelRotationInDegrees(v7, v49, v50, v51, v52);
+  v54 = v53;
+  objc_msgSend_labelLayoutSize(v7, v55, v53, v56, v57);
+  v59 = v58;
   v61 = v60;
-  v63 = v62;
-  objc_msgSend_labelSizeInPoints(v7, v64, v60, v62, v65);
+  objc_msgSend_labelSizeInPoints(v7, v62, v58, v60, v63);
+  v65 = v64;
   v67 = v66;
-  v69 = v68;
-  objc_msgSend_unitSpaceAnchor(v7, v70, v66, v68, v71);
-  v73 = v72;
-  *&v72 = v56;
-  objc_msgSend_axisAnchorForPosition_degrees_inLayoutSize_unrotatedSize_unitSpaceValue_(self, v74, v72, v61, v63, v50, v67, v69, v73);
+  objc_msgSend_unitSpaceAnchor(v7, v68, v64, v66, v69);
+  v71 = v70;
+  *&v70 = v54;
+  objc_msgSend_axisAnchorForPosition_degrees_inLayoutSize_unrotatedSize_unitSpaceValue_(self, v72, v70, v59, v61, v48, v65, v67, v71);
+  v74 = v73;
   v76 = v75;
-  v78 = v77;
   TSUCenterOfRect();
+  v78 = v77;
   v80 = v79;
-  v82 = v81;
-  objc_msgSend_labelSizeInPoints(v7, v83, v79, v81, v84);
+  objc_msgSend_labelSizeInPoints(v7, v81, v77, v79, v82);
 
   TSURectWithCenterAndSize();
+  v84 = v83;
   v86 = v85;
-  v88 = v87;
-  *&v101.a = v98;
-  *&v101.c = v97;
-  *&v101.tx = v96;
-  CGAffineTransformTranslate(retstr, &v101, v76, v78);
+  *&v99.a = v96;
+  *&v99.c = v95;
+  *&v99.tx = v94;
+  CGAffineTransformTranslate(retstr, &v99, v74, v76);
+  v87 = *&retstr->c;
+  *&v98.a = *&retstr->a;
+  *&v98.c = v87;
+  *&v98.tx = *&retstr->tx;
+  CGAffineTransformTranslate(&v99, &v98, v78, v80);
+  v88 = *&v99.c;
+  *&retstr->a = *&v99.a;
+  *&retstr->c = v88;
+  *&retstr->tx = *&v99.tx;
   v89 = *&retstr->c;
-  *&v100.a = *&retstr->a;
-  *&v100.c = v89;
-  *&v100.tx = *&retstr->tx;
-  CGAffineTransformTranslate(&v101, &v100, v80, v82);
-  v90 = *&v101.c;
-  *&retstr->a = *&v101.a;
+  *&v98.a = *&retstr->a;
+  *&v98.c = v89;
+  *&v98.tx = *&retstr->tx;
+  CGAffineTransformRotate(&v99, &v98, angle);
+  v90 = *&v99.c;
+  *&retstr->a = *&v99.a;
   *&retstr->c = v90;
-  *&retstr->tx = *&v101.tx;
+  *&retstr->tx = *&v99.tx;
   v91 = *&retstr->c;
-  *&v100.a = *&retstr->a;
-  *&v100.c = v91;
-  *&v100.tx = *&retstr->tx;
-  CGAffineTransformRotate(&v101, &v100, angle);
-  v92 = *&v101.c;
-  *&retstr->a = *&v101.a;
-  *&retstr->c = v92;
-  *&retstr->tx = *&v101.tx;
-  v93 = *&retstr->c;
-  *&v100.a = *&retstr->a;
-  *&v100.c = v93;
-  *&v100.tx = *&retstr->tx;
-  result = CGAffineTransformTranslate(&v101, &v100, v86, v88);
-  v95 = *&v101.c;
-  *&retstr->a = *&v101.a;
-  *&retstr->c = v95;
-  *&retstr->tx = *&v101.tx;
+  *&v98.a = *&retstr->a;
+  *&v98.c = v91;
+  *&v98.tx = *&retstr->tx;
+  result = CGAffineTransformTranslate(&v99, &v98, v84, v86);
+  v93 = *&v99.c;
+  *&retstr->a = *&v99.a;
+  *&retstr->c = v93;
+  *&retstr->tx = *&v99.tx;
   return result;
 }
 
@@ -1852,33 +1850,33 @@ LABEL_18:
   objc_msgSend_xSemiaxis(v6, v89, v90, v91, v92);
   v94 = v93;
   objc_msgSend_ySemiaxis(v6, v95, v93, v96, v97);
-  CGAffineTransformMakeScale(&v131, v94, v98);
-  v130 = v131;
-  objc_msgSend_setUnitCircleToEllipseTransform_(v6, v99, v131.tx, v131.c, v100, &v130);
+  CGAffineTransformMakeScale(&v130, v94, v98);
+  v129 = v130;
+  objc_msgSend_setUnitCircleToEllipseTransform_(v6, v99, v130.tx, v130.c, v100, &v129);
   v101 = MEMORY[0x277CBF2C0];
   v102 = *(MEMORY[0x277CBF2C0] + 16);
   *&retstr->a = *MEMORY[0x277CBF2C0];
   *&retstr->c = v102;
   v103 = *(v101 + 32);
   *&retstr->tx = v103;
-  if (objc_msgSend_position(v6, v104, *&v103, *&v102, v105) == 5)
+  if (objc_msgSend_position(v6, *&v103, *&v102, v104) == 5)
   {
-    objc_msgSend_p_localTransformForPolarRadiusAxisLabelWithInfo_(self, v106, v107, v108, v109, v6);
+    objc_msgSend_p_localTransformForPolarRadiusAxisLabelWithInfo_(self, v105, v106, v107, v108, v6);
   }
 
-  else if (objc_msgSend_position(v6, v106, v107, v108, v109) == 6)
+  else if (objc_msgSend_position(v6, v106, v107, v108) == 6)
   {
-    objc_msgSend_p_localTransformForPolarAngleAxisLabelWithInfo_(self, v110, v111, v112, v113, v6);
+    objc_msgSend_p_localTransformForPolarAngleAxisLabelWithInfo_(self, v109, v110, v111, v112, v6);
   }
 
   else
   {
-    v114 = MEMORY[0x277D81150];
-    v115 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v110, v111, v112, v113, "[TSCHChartAxisLabelsLayoutItem p_localTransformForPolarAxisLabelWithInfo:]");
-    v120 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v116, v117, v118, v119, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartAxisLabelsLayoutItem.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v114, v121, v122, v123, v124, v115, v120, 1058, 0, "Not a polar axis");
+    v113 = MEMORY[0x277D81150];
+    v114 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v109, v110, v111, v112, "[TSCHChartAxisLabelsLayoutItem p_localTransformForPolarAxisLabelWithInfo:]");
+    v119 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v115, v116, v117, v118, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartAxisLabelsLayoutItem.m");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v113, v120, v121, v122, v123, v114, v119, 1058, 0, "Not a polar axis");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v125, v126, v127, v128);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v124, v125, v126, v127);
   }
 
   return result;
@@ -1888,56 +1886,56 @@ LABEL_18:
 {
   v6 = a4;
   objc_msgSend_distanceFromAxis(self, v7, v8, v9, v10);
-  memset(&v59, 0, sizeof(v59));
+  memset(&v58, 0, sizeof(v58));
   objc_msgSend_radarStartAngleInDegrees(v6, v11, 0.0, v12, v13);
-  CGAffineTransformMakeRotation(&v59, (v14 + 90.0) * -0.0174532925);
-  a = v59.a;
-  b = v59.b;
-  c = v59.c;
-  d = v59.d;
-  tx = v59.tx;
-  ty = v59.ty;
+  CGAffineTransformMakeRotation(&v58, (v14 + 90.0) * -0.0174532925);
+  a = v58.a;
+  b = v58.b;
+  c = v58.c;
+  d = v58.d;
+  tx = v58.tx;
+  ty = v58.ty;
   if (v6)
   {
-    objc_msgSend_unitCircleToEllipseTransform(v6, v15, v16, v17, v18);
-    objc_msgSend_unitCircleToEllipseTransform(v6, v25, v58.f64[0], v56.f64[0], v26);
+    objc_msgSend_unitCircleToEllipseTransform(v6, v16, v17, v18);
+    objc_msgSend_unitCircleToEllipseTransform(v6, v57.f64[0], v55.f64[0], v25);
+    v26 = v55;
     v27 = v56;
     v28 = v57;
-    v29 = v58;
   }
 
   else
   {
+    v26 = 0uLL;
     v27 = 0uLL;
     v28 = 0uLL;
-    v29 = 0uLL;
   }
 
-  v30 = tx - (c - a * 0.0);
-  v31 = vmlaq_n_f64(vmulq_n_f64(v28, ty - (d - b * 0.0)), v27, v30);
-  objc_msgSend_unitSpaceAnchor(v6, v15, vaddq_f64(v29, v31).f64[0], v31.f64[0], v30);
+  v29 = tx - (c - a * 0.0);
+  v30 = vmlaq_n_f64(vmulq_n_f64(v27, ty - (d - b * 0.0)), v26, v29);
+  objc_msgSend_unitSpaceAnchor(v6, v15, vaddq_f64(v28, v30).f64[0], v30.f64[0], v29);
   TSUMultiplyPointScalar();
-  v55 = v32;
-  v34 = v33;
+  v54 = v31;
+  v33 = v32;
   TSUNormalizePoint();
-  v36 = v35;
-  v38 = v37;
+  v35 = v34;
+  v37 = v36;
   TSUMultiplyPointScalar();
   TSUAddPoints();
   TSUNormalizePoint();
-  v40 = v39;
-  v42 = -v41;
+  v39 = v38;
+  v41 = -v40;
   TSUDotPoints();
-  objc_msgSend_strokeThickness(v6, v43, v44, v45, v46);
+  objc_msgSend_strokeThickness(v6, v42, v43, v44, v45);
   TSUMultiplyPointScalar();
   TSUAddPoints();
-  v48 = v47;
-  v50 = v49;
-  objc_msgSend_setLabelExplosion_(v6, v51, 0.0, v49, v52);
+  v47 = v46;
+  v49 = v48;
+  objc_msgSend_setLabelExplosion_(v6, v50, 0.0, v48, v51);
   *&retstr->c = 0u;
   *&retstr->tx = 0u;
   *&retstr->a = 0u;
-  objc_msgSend_p_transformForLabelWithPaddingPerSide_outwardOrigin_outwardDirection_boundaryPosition_boundaryNormal_alignWithMaxSizeAtClosestMidpoint_anchorMaxSizeAtClosestMidpoint_info_(self, v53, 5.0, v55, v34, 1, 1, v6, v36, v38, v48, v50, v40, *&v42);
+  objc_msgSend_p_transformForLabelWithPaddingPerSide_outwardOrigin_outwardDirection_boundaryPosition_boundaryNormal_alignWithMaxSizeAtClosestMidpoint_anchorMaxSizeAtClosestMidpoint_info_(self, v52, 5.0, v54, v33, 1, 1, v6, v35, v37, v47, v49, v39, *&v41);
 
   return result;
 }
@@ -1966,73 +1964,73 @@ LABEL_18:
   v32 = 360.0 / v16;
   objc_msgSend_radarStartAngleInDegrees(v6, v33, v16, 360.0, v34);
   v36 = -(v35 + 90.0 - v21 * v32) * 0.0174532925;
-  memset(&v151, 0, sizeof(v151));
-  CGAffineTransformMakeRotation(&v151, v36);
-  v147 = v151.tx + v151.a + v151.c * 0.0;
-  v146 = v151.ty + v151.b + v151.d * 0.0;
+  memset(&v149, 0, sizeof(v149));
+  CGAffineTransformMakeRotation(&v149, v36);
+  v145 = v149.tx + v149.a + v149.c * 0.0;
+  v144 = v149.ty + v149.b + v149.d * 0.0;
   if (v6)
   {
-    objc_msgSend_unitCircleToEllipseTransform(v6, v37, 0.0, 0.0, v151.c * 0.0, 0.0);
+    objc_msgSend_unitCircleToEllipseTransform(v6, 0.0, 0.0, v149.c * 0.0, 0.0);
   }
 
   TSUNormalizePoint();
-  v145 = v38;
-  v149 = v39;
-  v42 = objc_msgSend_axis(v6, v40, v38, v39, v41);
-  v47 = objc_msgSend_intValueForProperty_defaultValue_(v42, v43, v44, v45, v46, 1061, 2);
+  v143 = v37;
+  v147 = v38;
+  v41 = objc_msgSend_axis(v6, v39, v37, v38, v40);
+  v46 = objc_msgSend_intValueForProperty_defaultValue_(v41, v42, v43, v44, v45, 1061, 2);
 
-  if (v47 != 1)
+  if (v46 != 1)
   {
-    v52 = objc_msgSend_axisLayoutItem(v6, v48, v49, v50, v51);
-    v57 = objc_msgSend_axisTickMarksLayoutItem(v52, v53, v54, v55, v56);
+    v51 = objc_msgSend_axisLayoutItem(v6, v47, v48, v49, v50);
+    v56 = objc_msgSend_axisTickMarksLayoutItem(v51, v52, v53, v54, v55);
 
-    objc_msgSend_majorTickmarkLength(v57, v58, v59, v60, v61);
-    v63 = v62;
-    v64 = v63 * 0.5;
-    objc_msgSend_strokeThickness(v6, v65, v63, v66, v67);
-    v69 = v68 * 0.5;
-    v70 = v64 + v69;
-    objc_msgSend_strokeThickness(v6, v71, v69, v72, v73);
-    hypot(v70, v74 * 0.5);
+    objc_msgSend_majorTickmarkLength(v56, v57, v58, v59, v60);
+    v62 = v61;
+    v63 = v62 * 0.5;
+    objc_msgSend_strokeThickness(v6, v64, v62, v65, v66);
+    v68 = v67 * 0.5;
+    v69 = v63 + v68;
+    objc_msgSend_strokeThickness(v6, v70, v68, v71, v72);
+    hypot(v69, v73 * 0.5);
   }
 
   if (v31 || v16 <= 2)
   {
-    objc_msgSend_xSemiaxis(v6, v48, v49, v50, v51);
-    v98 = __sincos_stret(v36);
-    objc_msgSend_ySemiaxis(v6, v99, v98.__sinval, v98.__cosval, v100);
+    objc_msgSend_xSemiaxis(v6, v47, v48, v49, v50);
+    v96 = __sincos_stret(v36);
+    objc_msgSend_ySemiaxis(v6, v97, v96.__sinval, v96.__cosval, v98);
     TSUNormalizePoint();
-    v81 = v101;
-    v83 = -v102;
-    objc_msgSend_strokeThickness(v6, v103, v102, v101, v104);
+    v79 = v99;
+    v81 = -v100;
+    objc_msgSend_strokeThickness(v6, v101, v100, v99, v102);
     TSUMultiplyPointScalar();
     TSUAddPoints();
-    v90 = sinval;
-    v92 = cosval;
+    v88 = sinval;
+    v90 = cosval;
   }
 
   else
   {
-    CGAffineTransformMakeRotation(&v150, v32 * -0.0174532925);
-    v144 = v150.tx + v146 * v150.c + v150.a * v147;
-    v143 = v150.ty + v146 * v150.d + v150.b * v147;
-    CGAffineTransformMakeRotation(&v150, v32 * 0.0174532925);
+    CGAffineTransformMakeRotation(&v148, v32 * -0.0174532925);
+    v142 = v148.tx + v144 * v148.c + v148.a * v145;
+    v141 = v148.ty + v144 * v148.d + v148.b * v145;
+    CGAffineTransformMakeRotation(&v148, v32 * 0.0174532925);
+    v74 = 0uLL;
+    v75 = 0uLL;
     v76 = 0uLL;
-    v77 = 0uLL;
-    v78 = 0uLL;
     if (v6)
     {
-      objc_msgSend_unitCircleToEllipseTransform(v6, v75, 0.0, 0.0, 0.0);
-      v77 = *&v150.a;
-      v78 = *&v150.c;
-      v76 = *&v150.tx;
+      objc_msgSend_unitCircleToEllipseTransform(v6, 0.0, 0.0, 0.0);
+      v75 = *&v148.a;
+      v76 = *&v148.c;
+      v74 = *&v148.tx;
     }
 
-    v148 = v36;
-    *&v79 = *&vaddq_f64(v76, vmlaq_n_f64(vmulq_n_f64(v78, v143), v77, v144));
+    v146 = v36;
+    *&v77 = *&vaddq_f64(v74, vmlaq_n_f64(vmulq_n_f64(v76, v141), v75, v142));
     if (v6)
     {
-      objc_msgSend_unitCircleToEllipseTransform(v6, v75, 0.0, 0.0, v79);
+      objc_msgSend_unitCircleToEllipseTransform(v6, 0.0, 0.0, v77);
     }
 
     TSUSubtractPoints();
@@ -2041,96 +2039,96 @@ LABEL_18:
     TSUNormalizePoint();
     TSUAddPoints();
     TSUNormalizePoint();
+    v79 = v78;
     v81 = v80;
-    v83 = v82;
     TSUDotPoints();
-    v85 = acos(v84);
-    v86 = v85 * 57.2957795;
-    objc_msgSend_strokeThickness(v6, v87, v85, 57.2957795, v88);
-    sin(v86 * 0.5 * 0.0174532925);
+    v83 = acos(v82);
+    v84 = v83 * 57.2957795;
+    objc_msgSend_strokeThickness(v6, v85, v83, 57.2957795, v86);
+    sin(v84 * 0.5 * 0.0174532925);
     TSUMultiplyPointScalar();
     TSUAddPoints();
+    v88 = v87;
     v90 = v89;
-    v92 = v91;
-    v97 = __sincos_stret(v148);
-    cosval = v97.__cosval;
-    sinval = v97.__sinval;
+    v95 = __sincos_stret(v146);
+    cosval = v95.__cosval;
+    sinval = v95.__sinval;
   }
 
-  v105 = objc_msgSend_axis(v6, v93, sinval, cosval, v96);
-  objc_msgSend_floatValueForProperty_defaultValue_(v105, v106, 0.0, v107, v108, 1033);
-  v110 = v109;
+  v103 = objc_msgSend_axis(v6, v91, sinval, cosval, v94);
+  objc_msgSend_floatValueForProperty_defaultValue_(v103, v104, 0.0, v105, v106, 1033);
+  v108 = v107;
 
-  objc_msgSend_xSemiaxis(v6, v111, v112, v113, v114);
-  objc_msgSend_ySemiaxis(v6, v116, v115 * v110, v117, v118);
-  v119 = *MEMORY[0x277CBF348];
-  v120 = *(MEMORY[0x277CBF348] + 8);
+  objc_msgSend_xSemiaxis(v6, v109, v110, v111, v112);
+  objc_msgSend_ySemiaxis(v6, v114, v113 * v108, v115, v116);
+  v117 = *MEMORY[0x277CBF348];
+  v118 = *(MEMORY[0x277CBF348] + 8);
   TSUDistance();
-  objc_msgSend_setLabelExplosion_(v6, v121, v122, v123, v124);
+  objc_msgSend_setLabelExplosion_(v6, v119, v120, v121, v122);
   TSUAngleFromDelta();
   TSUNormalizeAngleAboutZeroInRadians();
-  v126 = v125 * 57.2957795;
-  v129 = objc_msgSend_p_labelBaselineDirectionRelativeToSpoke(self, v127, v125, 57.2957795, v128);
-  if (v129 != 1)
+  v124 = v123 * 57.2957795;
+  v127 = objc_msgSend_p_labelBaselineDirectionRelativeToSpoke(self, v125, v123, 57.2957795, v126);
+  if (v127 != 1)
   {
-    if (v129 != 2)
+    if (v127 != 2)
     {
       goto LABEL_20;
     }
 
-    objc_msgSend_setLabelRotationInDegrees_(v6, v130, 90.0 - v126, v132, v133);
-    if (v126 > 0.0)
+    objc_msgSend_setLabelRotationInDegrees_(v6, v128, 90.0 - v124, v130, v131);
+    if (v124 > 0.0)
     {
       goto LABEL_20;
     }
 
 LABEL_19:
-    objc_msgSend_labelRotationInDegrees(v6, v130, v131, v132, v133);
-    objc_msgSend_setLabelRotationInDegrees_(v6, v135, v134 + 180.0, 180.0, v136);
+    objc_msgSend_labelRotationInDegrees(v6, v128, v129, v130, v131);
+    objc_msgSend_setLabelRotationInDegrees_(v6, v133, v132 + 180.0, 180.0, v134);
     goto LABEL_20;
   }
 
-  objc_msgSend_setLabelRotationInDegrees_(v6, v130, -v126, v132, v133);
-  v131 = -90.0;
-  if (v126 < -90.0)
+  objc_msgSend_setLabelRotationInDegrees_(v6, v128, -v124, v130, v131);
+  v129 = -90.0;
+  if (v124 < -90.0)
   {
     goto LABEL_19;
   }
 
-  v131 = 90.0;
-  if (v126 >= 90.0)
+  v129 = 90.0;
+  if (v124 >= 90.0)
   {
     goto LABEL_19;
   }
 
 LABEL_20:
-  objc_msgSend_labelSizeInPoints(v6, v130, v131, v132, v133);
-  objc_msgSend_setMaxLabelSizeInPoints_(v6, v137, v138, v139, v140);
+  objc_msgSend_labelSizeInPoints(v6, v128, v129, v130, v131);
+  objc_msgSend_setMaxLabelSizeInPoints_(v6, v135, v136, v137, v138);
   *&retstr->c = 0u;
   *&retstr->tx = 0u;
   *&retstr->a = 0u;
-  objc_msgSend_p_transformForLabelWithPaddingPerSide_outwardOrigin_outwardDirection_boundaryPosition_boundaryNormal_alignWithMaxSizeAtClosestMidpoint_anchorMaxSizeAtClosestMidpoint_info_(self, v141, 10.0, v119, v120, 1, 1, v6, v145, v149, v90, v92, *&v81, *&v83);
+  objc_msgSend_p_transformForLabelWithPaddingPerSide_outwardOrigin_outwardDirection_boundaryPosition_boundaryNormal_alignWithMaxSizeAtClosestMidpoint_anchorMaxSizeAtClosestMidpoint_info_(self, v139, 10.0, v117, v118, 1, 1, v6, v143, v147, v88, v90, *&v79, *&v81);
 
   return result;
 }
 
 - (CGAffineTransform)p_localTransformForAxisLabelWithInfo:(SEL)info
 {
-  v64 = a4;
-  v10 = objc_msgSend_axisLayoutItem(v64, v6, v7, v8, v9);
+  v63 = a4;
+  v10 = objc_msgSend_axisLayoutItem(v63, v6, v7, v8, v9);
   v15 = objc_msgSend_axisPosition(v10, v11, v12, v13, v14);
-  objc_msgSend_setPosition_(v64, v16, v17, v18, v19, v15);
+  objc_msgSend_setPosition_(v63, v16, v17, v18, v19, v15);
 
-  if (objc_msgSend_useAngle(v64, v20, v21, v22, v23))
+  if (objc_msgSend_useAngle(v63, v20, v21, v22, v23))
   {
-    v28 = objc_msgSend_axis(v64, v24, v25, v26, v27);
+    v28 = objc_msgSend_axis(v63, v24, v25, v26, v27);
     objc_msgSend_floatValueForProperty_defaultValue_(v28, v29, 0.0, v30, v31, 1035);
-    objc_msgSend_setLabelRotationInDegrees_(v64, v33, v32, v34, v35);
+    objc_msgSend_setLabelRotationInDegrees_(v63, v33, v32, v34, v35);
   }
 
   else
   {
-    objc_msgSend_setLabelRotationInDegrees_(v64, v24, 0.0, v26, v27);
+    objc_msgSend_setLabelRotationInDegrees_(v63, v24, 0.0, v26, v27);
   }
 
   v38 = MEMORY[0x277CBF2C0];
@@ -2139,19 +2137,19 @@ LABEL_20:
   *&retstr->c = v39;
   v40 = *(v38 + 32);
   *&retstr->tx = v40;
-  v41 = objc_msgSend_axis(v64, v36, *&v40, *&v39, v37);
-  v46 = objc_msgSend_labelIndex(v64, v42, v43, v44, v45);
+  v41 = objc_msgSend_axis(v63, v36, *&v40, *&v39, v37);
+  v46 = objc_msgSend_labelIndex(v63, v42, v43, v44, v45);
   objc_msgSend_unitSpaceValueForAxis_index_(self, v47, v48, v49, v50, v41, v46);
-  objc_msgSend_setUnitSpaceAnchor_(v64, v51, v52, v53, v54);
+  objc_msgSend_setUnitSpaceAnchor_(v63, v51, v52, v53, v54);
 
-  if (objc_msgSend_position(v64, v55, v56, v57, v58) - 5 > 1)
+  if (objc_msgSend_position(v63, v55, v56, v57) - 5 > 1)
   {
-    objc_msgSend_p_localTransformForCartesianAxisLabelWithInfo_(self, v59, v60, v61, v62, v64);
+    objc_msgSend_p_localTransformForCartesianAxisLabelWithInfo_(self, v58, v59, v60, v61, v63);
   }
 
   else
   {
-    objc_msgSend_p_localTransformForPolarAxisLabelWithInfo_(self, v59, v60, v61, v62, v64);
+    objc_msgSend_p_localTransformForPolarAxisLabelWithInfo_(self, v58, v59, v60, v61, v63);
   }
 
   return result;
@@ -2384,12 +2382,10 @@ LABEL_20:
   if (!v39)
   {
     v44 = MEMORY[0x277D81150];
-    objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v40, v41, v42, v43, "[TSCHChartAxisLabelsLayoutItem i_localTransformForLabel:range:inLayoutSize:outElementSize:outClipRect:usingString:stride:useAngle:]");
-    v45 = v72 = rect;
+    v45 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v40, v41, v42, v43, "[TSCHChartAxisLabelsLayoutItem i_localTransformForLabel:range:inLayoutSize:outElementSize:outClipRect:usingString:stride:useAngle:]");
     v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v46, v47, v48, v49, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/charts/Classes/TSCHChartAxisLabelsLayoutItem.m");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v44, v51, v52, v53, v54, v45, v50, 1310, 0, "invalid nil value for '%{public}s'", "axis");
 
-    rect = v72;
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v55, v56, v57, v58);
   }
 
@@ -2418,7 +2414,7 @@ LABEL_20:
 
       if (!(range % v70) || range + 1 == v69 && objc_msgSend_intValueForProperty_defaultValue_(v39, v65, v66, v67, v68, 1053, 0))
       {
-        objc_msgSend_p_localTransformForLabel_range_inLayoutSize_outElementSize_outClipRect_usingString_useAngle_(self, v65, width, height, v68, range, size, rect, string, strideCopy, a11);
+        objc_msgSend_p_localTransformForLabel_range_inLayoutSize_outElementSize_outClipRect_usingString_useAngle_(self, width, height, v68);
       }
     }
   }
@@ -2429,7 +2425,7 @@ LABEL_20:
 - (CGAffineTransform)p_rootedTransformFromLocalTransform:(SEL)transform
 {
   memset(&v12, 0, sizeof(v12));
-  objc_msgSend_transformToRoot(self, transform, 0.0, v4, v5);
+  objc_msgSend_transformToRoot(self, 0.0, v4, v5, transform);
   *&retstr->c = 0u;
   *&retstr->tx = 0u;
   *&retstr->a = 0u;
@@ -2443,55 +2439,37 @@ LABEL_20:
 
 - (CGAffineTransform)transformForRenderingLabel:(SEL)label outElementSize:(unint64_t)size outClipRect:(CGSize *)rect
 {
-  v23 = 0u;
-  v24 = 0u;
-  v22 = 0u;
   objc_msgSend_layoutSize(self, label, 0.0, v6, v7);
-  v20 = 1;
-  objc_msgSend_i_localTransformForLabel_range_inLayoutSize_outElementSize_outClipRect_usingString_stride_useAngle_(self, v13, v14, v15, v16, size, 0, rect, a6, 0, 0, v20);
+  v15 = 1;
+  objc_msgSend_i_localTransformForLabel_range_inLayoutSize_outElementSize_outClipRect_usingString_stride_useAngle_(self, v10, v11, v12, v15);
   *&retstr->c = 0u;
   *&retstr->tx = 0u;
   *&retstr->a = 0u;
-  v21[0] = v22;
-  v21[1] = v23;
-  v21[2] = v24;
-  return objc_msgSend_p_rootedTransformFromLocalTransform_(self, v17, *&v24, *&v23, v18, v21);
+  return objc_msgSend_p_rootedTransformFromLocalTransform_(self, 0.0, 0.0, v13);
 }
 
 - (CGAffineTransform)transformForRenderingLabel:(SEL)label usingString:(unint64_t)string outElementSize:(id)size outClipRect:(CGSize *)rect useAngle:(CGRect *)angle
 {
-  v29 = 0u;
-  v30 = 0u;
-  v28 = 0u;
   sizeCopy = size;
-  objc_msgSend_layoutSize(self, v15, v16, v17, v18);
-  v26 = a8;
-  objc_msgSend_i_localTransformForLabel_range_inLayoutSize_outElementSize_outClipRect_usingString_stride_useAngle_(self, v19, v20, v21, v22, string, 0, rect, angle, sizeCopy, 0, v26);
+  objc_msgSend_layoutSize(self, v12, v13, v14, v15);
+  v21 = a8;
+  objc_msgSend_i_localTransformForLabel_range_inLayoutSize_outElementSize_outClipRect_usingString_stride_useAngle_(self, v16, v17, v18, v21);
 
   *&retstr->c = 0u;
   *&retstr->tx = 0u;
   *&retstr->a = 0u;
-  v27[0] = v28;
-  v27[1] = v29;
-  v27[2] = v30;
-  return objc_msgSend_p_rootedTransformFromLocalTransform_(self, v23, *&v30, *&v29, v24, v27);
+  return objc_msgSend_p_rootedTransformFromLocalTransform_(self, 0.0, 0.0, v19);
 }
 
 - (CGAffineTransform)transformForRenderingLabel:(SEL)label range:(unint64_t)range outElementSize:(_NSRange)size outClipRect:(CGSize *)rect
 {
-  sizeCopy = size;
-  v23 = 0u;
-  v24 = 0u;
-  v22 = 0u;
   objc_msgSend_layoutSize(self, label, 0.0, v7, v8);
-  objc_msgSend_i_localTransformForLabel_range_inLayoutSize_outElementSize_outClipRect_usingString_stride_useAngle_(self, v14, v15, v16, v17, range, &sizeCopy, rect, a7, 0, 0, 1);
+  v16 = 1;
+  objc_msgSend_i_localTransformForLabel_range_inLayoutSize_outElementSize_outClipRect_usingString_stride_useAngle_(self, v11, v12, v13, v16);
   *&retstr->c = 0u;
   *&retstr->tx = 0u;
   *&retstr->a = 0u;
-  v21[0] = v22;
-  v21[1] = v23;
-  v21[2] = v24;
-  return objc_msgSend_p_rootedTransformFromLocalTransform_(self, v18, *&v24, *&v23, v19, v21);
+  return objc_msgSend_p_rootedTransformFromLocalTransform_(self, 0.0, 0.0, v14);
 }
 
 - (void)p_enumerateAxisLabelRectsWithBlock:(id)block
@@ -2504,8 +2482,8 @@ LABEL_20:
   v29 = objc_msgSend_numberOfLabelsForAxis_(self, v25, v26, v27, v28, v24);
   if (v29)
   {
-    v32 = v29;
-    v33 = 0;
+    v31 = v29;
+    v32 = 0;
     v36 = *(MEMORY[0x277CBF398] + 16);
     v37 = *MEMORY[0x277CBF398];
     v35 = *MEMORY[0x277CBF3A8];
@@ -2517,10 +2495,10 @@ LABEL_20:
       v42 = v35;
       v39 = 0u;
       v40 = 0u;
-      objc_msgSend_transformForRenderingLabel_outElementSize_outClipRect_(self, v30, 0.0, *&v35, v31, v33, &v42, &v43, v35, v36, v37);
+      objc_msgSend_transformForRenderingLabel_outElementSize_outClipRect_(self, 0.0, *&v35, v30, v35, v36, v37);
       if (!CGRectIsNull(v43))
       {
-        objc_msgSend_labelRectFromClipRect_elementSize_(TSCHRenderUtilities, v30, v43.origin.x, v43.origin.y, v43.size.width, v43.size.height, v42);
+        objc_msgSend_labelRectFromClipRect_elementSize_(TSCHRenderUtilities, v33, v43.origin.x, v43.origin.y, v43.size.width, v43.size.height, v42);
         v34 = blockCopy[2];
         v38[0] = v39;
         v38[1] = v40;
@@ -2528,10 +2506,10 @@ LABEL_20:
         v34(blockCopy, v38);
       }
 
-      ++v33;
+      ++v32;
     }
 
-    while (v32 != v33);
+    while (v31 != v32);
   }
 }
 

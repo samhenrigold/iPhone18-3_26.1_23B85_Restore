@@ -19,7 +19,7 @@
 
 - (VUILabel)resultsContextLabel
 {
-  v2 = sub_1E4162544();
+  v2 = sub_1E4162544(self);
 
   return v2;
 }
@@ -28,13 +28,13 @@
 {
   OUTLINED_FUNCTION_33_99(self, a2, label);
   v4 = v3;
-  OUTLINED_FUNCTION_10_0();
-  sub_1E41625C8();
+  v5 = OUTLINED_FUNCTION_10_0();
+  sub_1E41625C8(v5);
 }
 
 - (VUILabel)titleLabel
 {
-  v2 = sub_1E4162730();
+  v2 = sub_1E4162730(self);
 
   return v2;
 }
@@ -43,13 +43,13 @@
 {
   OUTLINED_FUNCTION_33_99(self, a2, label);
   v4 = v3;
-  OUTLINED_FUNCTION_10_0();
-  sub_1E41627B4();
+  v5 = OUTLINED_FUNCTION_10_0();
+  sub_1E41627B4(v5);
 }
 
 - (VUILabel)subtitleLabel
 {
-  v2 = sub_1E41628F0();
+  v2 = sub_1E41628F0(self);
 
   return v2;
 }
@@ -58,13 +58,13 @@
 {
   OUTLINED_FUNCTION_33_99(self, a2, label);
   v4 = v3;
-  OUTLINED_FUNCTION_10_0();
-  sub_1E4162974();
+  v5 = OUTLINED_FUNCTION_10_0();
+  sub_1E4162974(v5);
 }
 
 - (VUIButton)buttonView
 {
-  v2 = sub_1E4162FFC();
+  v2 = sub_1E4162FFC(self);
 
   return v2;
 }
@@ -73,8 +73,8 @@
 {
   OUTLINED_FUNCTION_33_99(self, a2, view);
   v4 = v3;
-  OUTLINED_FUNCTION_10_0();
-  sub_1E4163080();
+  v5 = OUTLINED_FUNCTION_10_0();
+  sub_1E4163080(v5);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits

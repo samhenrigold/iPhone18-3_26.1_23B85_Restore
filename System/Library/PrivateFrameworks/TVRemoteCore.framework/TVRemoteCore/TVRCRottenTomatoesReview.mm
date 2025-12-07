@@ -127,162 +127,32 @@ LABEL_9:
   percentage2 = [reviewCopy percentage];
   v7 = (percentage == 0) ^ (percentage2 == 0);
 
-  if (v7)
+  if ((v7 & 1) != 0
+    || (-[TVRCRottenTomatoesReview audienceScore](self, "audienceScore"), v8 = objc_claimAutoreleasedReturnValue(), [reviewCopy audienceScore], v9 = objc_claimAutoreleasedReturnValue(), v10 = (v8 == 0) ^ (v9 == 0), v9, v8, (v10 & 1) != 0)
+    || (-[TVRCRottenTomatoesReview averageRating](self, "averageRating"), v11 = objc_claimAutoreleasedReturnValue(), [reviewCopy averageRating], v12 = objc_claimAutoreleasedReturnValue(), v13 = (v11 == 0) ^ (v12 == 0), v12, v11, (v13 & 1) != 0)
+    || (-[TVRCRottenTomatoesReview consensus](self, "consensus"), v14 = objc_claimAutoreleasedReturnValue(), [reviewCopy consensus], v15 = objc_claimAutoreleasedReturnValue(), v16 = (v14 == 0) ^ (v15 == 0), v15, v14, (v16 & 1) != 0)
+    || (-[TVRCRottenTomatoesReview numberOfFreshReviews](self, "numberOfFreshReviews"), v17 = objc_claimAutoreleasedReturnValue(), [reviewCopy numberOfFreshReviews], v18 = objc_claimAutoreleasedReturnValue(), v19 = (v17 == 0) ^ (v18 == 0), v18, v17, (v19 & 1) != 0)
+    || (-[TVRCRottenTomatoesReview numberOfRottenReviews](self, "numberOfRottenReviews"), v20 = objc_claimAutoreleasedReturnValue(), [reviewCopy numberOfRottenReviews], v21 = objc_claimAutoreleasedReturnValue(), v22 = (v20 == 0) ^ (v21 == 0), v21, v20, (v22 & 1) != 0)
+    || (-[TVRCRottenTomatoesReview freshness](self, "freshness"), v23 = objc_claimAutoreleasedReturnValue(), [reviewCopy freshness], v24 = objc_claimAutoreleasedReturnValue(), v25 = (v23 == 0) ^ (v24 == 0), v24, v23, (v25 & 1) != 0)
+    || (-[TVRCRottenTomatoesReview percentage](self, "percentage"), (v26 = objc_claimAutoreleasedReturnValue()) != 0) && (v27 = v26, -[TVRCRottenTomatoesReview percentage](self, "percentage"), v28 = objc_claimAutoreleasedReturnValue(), [reviewCopy percentage], v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v28, "isEqualToNumber:", v29), v29, v28, v27, !v30)
+    || (-[TVRCRottenTomatoesReview audienceScore](self, "audienceScore"), (v31 = objc_claimAutoreleasedReturnValue()) != 0) && (v32 = v31, -[TVRCRottenTomatoesReview audienceScore](self, "audienceScore"), v33 = objc_claimAutoreleasedReturnValue(), [reviewCopy audienceScore], v34 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend(v33, "isEqualToNumber:", v34), v34, v33, v32, !v35)
+    || (-[TVRCRottenTomatoesReview averageRating](self, "averageRating"), (v36 = objc_claimAutoreleasedReturnValue()) != 0) && (v37 = v36, -[TVRCRottenTomatoesReview averageRating](self, "averageRating"), v38 = objc_claimAutoreleasedReturnValue(), [reviewCopy averageRating], v39 = objc_claimAutoreleasedReturnValue(), v40 = objc_msgSend(v38, "isEqualToNumber:", v39), v39, v38, v37, !v40)
+    || (-[TVRCRottenTomatoesReview consensus](self, "consensus"), (v41 = objc_claimAutoreleasedReturnValue()) != 0) && (v42 = v41, -[TVRCRottenTomatoesReview consensus](self, "consensus"), v43 = objc_claimAutoreleasedReturnValue(), [reviewCopy consensus], v44 = objc_claimAutoreleasedReturnValue(), v45 = objc_msgSend(v43, "isEqualToString:", v44), v44, v43, v42, !v45)
+    || (-[TVRCRottenTomatoesReview numberOfFreshReviews](self, "numberOfFreshReviews"), (v46 = objc_claimAutoreleasedReturnValue()) != 0) && (v47 = v46, -[TVRCRottenTomatoesReview numberOfFreshReviews](self, "numberOfFreshReviews"), v48 = objc_claimAutoreleasedReturnValue(), [reviewCopy numberOfFreshReviews], v49 = objc_claimAutoreleasedReturnValue(), v50 = objc_msgSend(v48, "isEqualToNumber:", v49), v49, v48, v47, !v50)
+    || (-[TVRCRottenTomatoesReview numberOfRottenReviews](self, "numberOfRottenReviews"), (v51 = objc_claimAutoreleasedReturnValue()) != 0) && (v52 = v51, -[TVRCRottenTomatoesReview numberOfRottenReviews](self, "numberOfRottenReviews"), v53 = objc_claimAutoreleasedReturnValue(), [reviewCopy numberOfRottenReviews], v54 = objc_claimAutoreleasedReturnValue(), v55 = objc_msgSend(v53, "isEqualToNumber:", v54), v54, v53, v52, !v55))
   {
-    goto LABEL_22;
-  }
-
-  audienceScore = [(TVRCRottenTomatoesReview *)self audienceScore];
-  audienceScore2 = [reviewCopy audienceScore];
-  v10 = (audienceScore == 0) ^ (audienceScore2 == 0);
-
-  if (v10)
-  {
-    goto LABEL_22;
-  }
-
-  averageRating = [(TVRCRottenTomatoesReview *)self averageRating];
-  averageRating2 = [reviewCopy averageRating];
-  v13 = (averageRating == 0) ^ (averageRating2 == 0);
-
-  if (v13)
-  {
-    goto LABEL_22;
-  }
-
-  consensus = [(TVRCRottenTomatoesReview *)self consensus];
-  consensus2 = [reviewCopy consensus];
-  v16 = (consensus == 0) ^ (consensus2 == 0);
-
-  if (v16)
-  {
-    goto LABEL_22;
-  }
-
-  numberOfFreshReviews = [(TVRCRottenTomatoesReview *)self numberOfFreshReviews];
-  numberOfFreshReviews2 = [reviewCopy numberOfFreshReviews];
-  v19 = (numberOfFreshReviews == 0) ^ (numberOfFreshReviews2 == 0);
-
-  if (v19)
-  {
-    goto LABEL_22;
-  }
-
-  numberOfRottenReviews = [(TVRCRottenTomatoesReview *)self numberOfRottenReviews];
-  numberOfRottenReviews2 = [reviewCopy numberOfRottenReviews];
-  v22 = (numberOfRottenReviews == 0) ^ (numberOfRottenReviews2 == 0);
-
-  if (v22)
-  {
-    goto LABEL_22;
-  }
-
-  freshness = [(TVRCRottenTomatoesReview *)self freshness];
-  freshness2 = [reviewCopy freshness];
-  v25 = (freshness == 0) ^ (freshness2 == 0);
-
-  if (v25)
-  {
-    goto LABEL_22;
-  }
-
-  percentage3 = [(TVRCRottenTomatoesReview *)self percentage];
-  if (percentage3)
-  {
-    v27 = percentage3;
-    percentage4 = [(TVRCRottenTomatoesReview *)self percentage];
-    percentage5 = [reviewCopy percentage];
-    v30 = [percentage4 isEqualToNumber:percentage5];
-
-    if (!v30)
-    {
-      goto LABEL_22;
-    }
-  }
-
-  audienceScore3 = [(TVRCRottenTomatoesReview *)self audienceScore];
-  if (audienceScore3)
-  {
-    v32 = audienceScore3;
-    audienceScore4 = [(TVRCRottenTomatoesReview *)self audienceScore];
-    audienceScore5 = [reviewCopy audienceScore];
-    v35 = [audienceScore4 isEqualToNumber:audienceScore5];
-
-    if (!v35)
-    {
-      goto LABEL_22;
-    }
-  }
-
-  averageRating3 = [(TVRCRottenTomatoesReview *)self averageRating];
-  if (averageRating3)
-  {
-    v37 = averageRating3;
-    averageRating4 = [(TVRCRottenTomatoesReview *)self averageRating];
-    averageRating5 = [reviewCopy averageRating];
-    v40 = [averageRating4 isEqualToNumber:averageRating5];
-
-    if (!v40)
-    {
-      goto LABEL_22;
-    }
-  }
-
-  consensus3 = [(TVRCRottenTomatoesReview *)self consensus];
-  if (consensus3)
-  {
-    v42 = consensus3;
-    consensus4 = [(TVRCRottenTomatoesReview *)self consensus];
-    consensus5 = [reviewCopy consensus];
-    v45 = [consensus4 isEqualToString:consensus5];
-
-    if (!v45)
-    {
-      goto LABEL_22;
-    }
-  }
-
-  numberOfFreshReviews3 = [(TVRCRottenTomatoesReview *)self numberOfFreshReviews];
-  if (numberOfFreshReviews3)
-  {
-    v47 = numberOfFreshReviews3;
-    numberOfFreshReviews4 = [(TVRCRottenTomatoesReview *)self numberOfFreshReviews];
-    numberOfFreshReviews5 = [reviewCopy numberOfFreshReviews];
-    v50 = [numberOfFreshReviews4 isEqualToNumber:numberOfFreshReviews5];
-
-    if (!v50)
-    {
-      goto LABEL_22;
-    }
-  }
-
-  numberOfRottenReviews3 = [(TVRCRottenTomatoesReview *)self numberOfRottenReviews];
-  if (!numberOfRottenReviews3)
-  {
-    goto LABEL_20;
-  }
-
-  v52 = numberOfRottenReviews3;
-  numberOfRottenReviews4 = [(TVRCRottenTomatoesReview *)self numberOfRottenReviews];
-  numberOfRottenReviews5 = [reviewCopy numberOfRottenReviews];
-  v55 = [numberOfRottenReviews4 isEqualToNumber:numberOfRottenReviews5];
-
-  if (!v55)
-  {
-LABEL_22:
     v60 = 0;
   }
 
   else
   {
-LABEL_20:
-    freshness3 = [(TVRCRottenTomatoesReview *)self freshness];
-    if (freshness3)
+    freshness = [(TVRCRottenTomatoesReview *)self freshness];
+    if (freshness)
     {
-      v57 = freshness3;
-      freshness4 = [(TVRCRottenTomatoesReview *)self freshness];
-      freshness5 = [reviewCopy freshness];
-      v60 = [freshness4 isEqualToString:freshness5];
+      v57 = freshness;
+      freshness2 = [(TVRCRottenTomatoesReview *)self freshness];
+      freshness3 = [reviewCopy freshness];
+      v60 = [freshness2 isEqualToString:freshness3];
     }
 
     else

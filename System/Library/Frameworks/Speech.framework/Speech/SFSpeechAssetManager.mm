@@ -32,6 +32,8 @@
 + (void)pathToAssetWithConfig:(id)config clientIdentifier:(id)identifier completion:(id)completion;
 + (void)purgeAssetsForLanguage:(id)language clientIdentifier:(id)identifier error:(id *)error;
 + (void)purgeAssetsForLanguage:(id)language error:(id *)error;
++ (void)setAssetsPurgeability:(BOOL)purgeability forLanguages:(id)languages completion:(id)completion;
++ (void)setPurgeabilityForAssetWithConfig:(id)config purgeable:(BOOL)purgeable completion:(id)completion;
 + (void)supportedLanguagesForTaskHint:(int64_t)hint completion:(id)completion;
 + (void)unsubscribeFromAssetWithConfig:(id)config clientIdentifier:(id)identifier completion:(id)completion;
 + (void)unsubscribeFromAssetWithConfig:(id)config clientIdentifier:(id)identifier error:(id *)error;
@@ -41,15 +43,13 @@
 
 + (id)_timeoutError:(double)error
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Operation timed out after %.2f seconds.", *&error];
   v4 = MEMORY[0x1E696ABC0];
-  v9 = *MEMORY[0x1E696A578];
-  v10[0] = v3;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E696A578];
+  v9[0] = v3;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v4 errorWithDomain:@"SFSpeechErrorDomain" code:12 userInfo:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -251,9 +251,82 @@
   [SFSpeechAssetManager fetchAssetWithConfig:v10 clientIdentifier:identifierCopy progress:progressCopy completion:completionCopy];
 }
 
++ (void)setAssetsPurgeability:(BOOL)purgeability forLanguages:(id)languages completion:(id)completion
+{
+  purgeabilityCopy = purgeability;
+  v40 = *MEMORY[0x1E69E9840];
+  languagesCopy = languages;
+  completionCopy = completion;
+  v37[0] = 0;
+  v37[1] = v37;
+  v37[2] = 0x2020000000;
+  v38 = 1;
+  v8 = @"Assistant";
+  v9 = dispatch_group_create();
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  obj = languagesCopy;
+  v10 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
+  if (v10)
+  {
+    v11 = *v34;
+    do
+    {
+      v12 = 0;
+      do
+      {
+        if (*v34 != v11)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v13 = *(*(&v33 + 1) + 8 * v12);
+        dispatch_group_enter(v9);
+        v14 = [[SFEntitledAssetConfig alloc] initWithAssetType:3 language:v13 regionId:0];
+        v27[0] = MEMORY[0x1E69E9820];
+        v27[1] = 3221225472;
+        v27[2] = __70__SFSpeechAssetManager_setAssetsPurgeability_forLanguages_completion___block_invoke;
+        v27[3] = &unk_1E797CDA8;
+        v31 = v37;
+        v32 = purgeabilityCopy;
+        v15 = @"Assistant";
+        v28 = @"Assistant";
+        v16 = v14;
+        v29 = v16;
+        v30 = v9;
+        [SFSpeechAssetManager setPurgeabilityForAssetWithConfig:v16 purgeable:purgeabilityCopy completion:v27];
+
+        ++v12;
+      }
+
+      while (v10 != v12);
+      v10 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
+    }
+
+    while (v10);
+  }
+
+  v17 = dispatch_get_global_queue(0, 0);
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __70__SFSpeechAssetManager_setAssetsPurgeability_forLanguages_completion___block_invoke_41;
+  block[3] = &unk_1E797CDD0;
+  v26 = purgeabilityCopy;
+  v24 = completionCopy;
+  v25 = v37;
+  v23 = @"Assistant";
+  v18 = @"Assistant";
+  v19 = completionCopy;
+  dispatch_group_notify(v9, v17, block);
+
+  _Block_object_dispose(v37, 8);
+}
+
 void __70__SFSpeechAssetManager_setAssetsPurgeability_forLanguages_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -263,80 +336,134 @@ void __70__SFSpeechAssetManager_setAssetsPurgeability_forLanguages_completion___
     {
       if (*(a1 + 64))
       {
-        v6 = @"enable";
+        v5 = @"enable";
       }
 
       else
       {
-        v6 = @"disable";
+        v5 = @"disable";
       }
 
-      v8 = *(a1 + 32);
-      v7 = *(a1 + 40);
-      v9 = v4;
-      v10 = [v7 language];
-      v11 = 136316162;
-      v12 = "+[SFSpeechAssetManager setAssetsPurgeability:forLanguages:completion:]_block_invoke";
-      v13 = 2112;
-      v14 = v6;
-      v15 = 2112;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v10;
-      v19 = 2112;
-      v20 = v3;
-      _os_log_error_impl(&dword_1AC5BC000, v9, OS_LOG_TYPE_ERROR, "%s Failed to %@ purgeability for %@ asset with language: %@, error: %@", &v11, 0x34u);
+      v7 = *(a1 + 32);
+      v6 = *(a1 + 40);
+      v8 = v4;
+      v9 = [v6 language];
+      v10 = 136316162;
+      v11 = "+[SFSpeechAssetManager setAssetsPurgeability:forLanguages:completion:]_block_invoke";
+      v12 = 2112;
+      v13 = v5;
+      v14 = 2112;
+      v15 = v7;
+      v16 = 2112;
+      v17 = v9;
+      v18 = 2112;
+      v19 = v3;
+      _os_log_error_impl(&dword_1AC5BC000, v8, OS_LOG_TYPE_ERROR, "%s Failed to %@ purgeability for %@ asset with language: %@, error: %@", &v10, 0x34u);
     }
   }
 
   dispatch_group_leave(*(a1 + 48));
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __70__SFSpeechAssetManager_setAssetsPurgeability_forLanguages_completion___block_invoke_41(uint64_t a1)
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
-  if (!v2)
+  if (v2)
   {
-LABEL_10:
-    v14 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  if (*(*(*(a1 + 48) + 8) + 24) != 1)
-  {
-    v5 = *(a1 + 56);
-    v6 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v7 = v6;
-    if (v5)
+    if (*(*(*(a1 + 48) + 8) + 24) == 1)
     {
-      v8 = @"Failed to enable purgeability for one or more %@ assets.";
+      v3 = *(v2 + 16);
+
+      v3();
     }
 
     else
     {
-      v8 = @"Failed to disable purgeability for one or more %@ assets.";
+      v4 = *(a1 + 56);
+      v5 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+      v6 = v5;
+      if (v4)
+      {
+        v7 = @"Failed to enable purgeability for one or more %@ assets.";
+      }
+
+      else
+      {
+        v7 = @"Failed to disable purgeability for one or more %@ assets.";
+      }
+
+      v8 = [v5 localizedStringForKey:v7 value:&stru_1F2139F58 table:@"Localizable"];
+
+      v9 = [MEMORY[0x1E696AEC0] localizedStringWithFormat:v8, *(a1 + 32)];
+      v10 = MEMORY[0x1E696ABC0];
+      v13 = *MEMORY[0x1E696A578];
+      v14[0] = v9;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v12 = [v10 errorWithDomain:@"SFSpeechErrorDomain" code:1 userInfo:v11];
+
+      (*(*(a1 + 40) + 16))();
+    }
+  }
+}
+
++ (void)setPurgeabilityForAssetWithConfig:(id)config purgeable:(BOOL)purgeable completion:(id)completion
+{
+  purgeableCopy = purgeable;
+  v33 = *MEMORY[0x1E69E9840];
+  configCopy = config;
+  completionCopy = completion;
+  v9 = +[SFUtilities defaultClientID];
+  v10 = SFLogFramework;
+  if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_DEFAULT))
+  {
+    if (purgeableCopy)
+    {
+      v11 = @"enabling";
     }
 
-    v9 = [v6 localizedStringForKey:v8 value:&stru_1F2139F58 table:@"Localizable"];
+    else
+    {
+      v11 = @"disabling";
+    }
 
-    v10 = [MEMORY[0x1E696AEC0] localizedStringWithFormat:v9, *(a1 + 32)];
-    v11 = MEMORY[0x1E696ABC0];
-    v15 = *MEMORY[0x1E696A578];
-    v16[0] = v10;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
-    v13 = [v11 errorWithDomain:@"SFSpeechErrorDomain" code:1 userInfo:v12];
+    v12 = v10;
+    assetType = [configCopy assetType];
+    if ((assetType - 1) > 6)
+    {
+      v14 = @"Unknown";
+    }
 
-    (*(*(a1 + 40) + 16))();
-    goto LABEL_10;
+    else
+    {
+      v14 = off_1E797BC18[assetType - 1];
+    }
+
+    v15 = v14;
+    language = [configCopy language];
+    *buf = 136316162;
+    v24 = "+[SFSpeechAssetManager setPurgeabilityForAssetWithConfig:purgeable:completion:]";
+    v25 = 2112;
+    v26 = v9;
+    v27 = 2112;
+    v28 = v11;
+    v29 = 2112;
+    v30 = v15;
+    v31 = 2112;
+    v32 = language;
+    _os_log_impl(&dword_1AC5BC000, v12, OS_LOG_TYPE_DEFAULT, "%s Client (%@) %@ purgeability for the %@ asset for: %@", buf, 0x34u);
   }
 
-  v3 = *(v2 + 16);
-  v4 = *MEMORY[0x1E69E9840];
-
-  v3();
+  v17 = objc_alloc_init(SFLocalSpeechRecognitionClient);
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __79__SFSpeechAssetManager_setPurgeabilityForAssetWithConfig_purgeable_completion___block_invoke;
+  v20[3] = &unk_1E797CD58;
+  v21 = v17;
+  v22 = completionCopy;
+  v18 = v17;
+  v19 = completionCopy;
+  [(SFLocalSpeechRecognitionClient *)v18 setPurgeabilityForAssetWithConfig:configCopy purgeable:purgeableCopy clientID:v9 completion:v20];
 }
 
 uint64_t __79__SFSpeechAssetManager_setPurgeabilityForAssetWithConfig_purgeable_completion___block_invoke(uint64_t a1)
@@ -354,7 +481,7 @@ uint64_t __79__SFSpeechAssetManager_setPurgeabilityForAssetWithConfig_purgeable_
 
 + (id)subscriptionsForClientIdentifier:(id)identifier
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v4 = SFLogFramework;
   if (identifierCopy)
@@ -372,15 +499,15 @@ uint64_t __79__SFSpeechAssetManager_setPurgeabilityForAssetWithConfig_purgeable_
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v11 = __Block_byref_object_copy__3056;
-    v12 = __Block_byref_object_dispose__3057;
-    v13 = MEMORY[0x1E695E0F0];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __57__SFSpeechAssetManager_subscriptionsForClientIdentifier___block_invoke;
-    v9[3] = &unk_1E797CBC0;
-    v9[4] = buf;
-    [(SFLocalSpeechRecognitionClient *)v5 subscriptionsForClientId:identifierCopy completion:v9];
+    v10 = __Block_byref_object_copy__3056;
+    v11 = __Block_byref_object_dispose__3057;
+    v12 = MEMORY[0x1E695E0F0];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __57__SFSpeechAssetManager_subscriptionsForClientIdentifier___block_invoke;
+    v8[3] = &unk_1E797CBC0;
+    v8[4] = buf;
+    [(SFLocalSpeechRecognitionClient *)v5 subscriptionsForClientId:identifierCopy completion:v8];
     [(SFLocalSpeechRecognitionClient *)v5 invalidate];
     v6 = *(*&buf[8] + 40);
     _Block_object_dispose(buf, 8);
@@ -398,14 +525,12 @@ uint64_t __79__SFSpeechAssetManager_setPurgeabilityForAssetWithConfig_purgeable_
     v6 = MEMORY[0x1E695E0F0];
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 + (void)unsubscribeFromAssetWithConfig:(id)config clientIdentifier:(id)identifier error:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   configCopy = config;
   identifierCopy = identifier;
   v9 = SFLogFramework;
@@ -452,9 +577,9 @@ uint64_t __79__SFSpeechAssetManager_setPurgeabilityForAssetWithConfig_purgeable_
     *&buf[12] = 2112;
     *&buf[14] = identifierCopy;
     *&buf[22] = 2112;
-    v19 = v13;
-    LOWORD(v20) = 2112;
-    *(&v20 + 2) = language;
+    v18 = v13;
+    LOWORD(v19) = 2112;
+    *(&v19 + 2) = language;
     _os_log_impl(&dword_1AC5BC000, v10, OS_LOG_TYPE_DEFAULT, "%s Client (%@) unsubscribing from the %@ asset for: %@", buf, 0x2Au);
   }
 
@@ -462,15 +587,15 @@ uint64_t __79__SFSpeechAssetManager_setPurgeabilityForAssetWithConfig_purgeable_
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v19 = __Block_byref_object_copy__3056;
-  *&v20 = __Block_byref_object_dispose__3057;
-  *(&v20 + 1) = 0;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __78__SFSpeechAssetManager_unsubscribeFromAssetWithConfig_clientIdentifier_error___block_invoke;
-  v17[3] = &unk_1E797CD80;
-  v17[4] = buf;
-  [(SFLocalSpeechRecognitionClient *)v15 unsubscribeFromAssetWithConfig:configCopy clientID:identifierCopy completion:v17];
+  v18 = __Block_byref_object_copy__3056;
+  *&v19 = __Block_byref_object_dispose__3057;
+  *(&v19 + 1) = 0;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __78__SFSpeechAssetManager_unsubscribeFromAssetWithConfig_clientIdentifier_error___block_invoke;
+  v16[3] = &unk_1E797CD80;
+  v16[4] = buf;
+  [(SFLocalSpeechRecognitionClient *)v15 unsubscribeFromAssetWithConfig:configCopy clientID:identifierCopy completion:v16];
   [(SFLocalSpeechRecognitionClient *)v15 invalidate];
   if (error)
   {
@@ -480,12 +605,11 @@ uint64_t __79__SFSpeechAssetManager_setPurgeabilityForAssetWithConfig_purgeable_
   _Block_object_dispose(buf, 8);
 
 LABEL_13:
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 + (void)unsubscribeFromAssetWithConfig:(id)config clientIdentifier:(id)identifier completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   configCopy = config;
   identifierCopy = identifier;
   completionCopy = completion;
@@ -509,25 +633,25 @@ LABEL_13:
       v15 = v13;
       language = [configCopy language];
       *buf = 136315906;
-      v23 = "+[SFSpeechAssetManager unsubscribeFromAssetWithConfig:clientIdentifier:completion:]";
-      v24 = 2112;
-      v25 = identifierCopy;
-      v26 = 2112;
-      v27 = v15;
-      v28 = 2112;
-      v29 = language;
+      v22 = "+[SFSpeechAssetManager unsubscribeFromAssetWithConfig:clientIdentifier:completion:]";
+      v23 = 2112;
+      v24 = identifierCopy;
+      v25 = 2112;
+      v26 = v15;
+      v27 = 2112;
+      v28 = language;
       _os_log_impl(&dword_1AC5BC000, v11, OS_LOG_TYPE_INFO, "%s Client (%@) async unsubscribing from the %@ asset for: %@", buf, 0x2Au);
     }
 
     v17 = objc_alloc_init(SFLocalSpeechRecognitionClient);
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __83__SFSpeechAssetManager_unsubscribeFromAssetWithConfig_clientIdentifier_completion___block_invoke;
-    v19[3] = &unk_1E797CD58;
-    v20 = v17;
-    v21 = completionCopy;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __83__SFSpeechAssetManager_unsubscribeFromAssetWithConfig_clientIdentifier_completion___block_invoke;
+    v18[3] = &unk_1E797CD58;
+    v19 = v17;
+    v20 = completionCopy;
     v14 = v17;
-    [(SFLocalSpeechRecognitionClient *)v14 unsubscribeFromAssetWithConfig:configCopy clientID:identifierCopy asyncCompletion:v19];
+    [(SFLocalSpeechRecognitionClient *)v14 unsubscribeFromAssetWithConfig:configCopy clientID:identifierCopy asyncCompletion:v18];
 
     goto LABEL_11;
   }
@@ -535,7 +659,7 @@ LABEL_13:
   if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v23 = "+[SFSpeechAssetManager unsubscribeFromAssetWithConfig:clientIdentifier:completion:]";
+    v22 = "+[SFSpeechAssetManager unsubscribeFromAssetWithConfig:clientIdentifier:completion:]";
     _os_log_error_impl(&dword_1AC5BC000, v10, OS_LOG_TYPE_ERROR, "%s clientIdentifier cannot be nil.", buf, 0xCu);
     if (!completionCopy)
     {
@@ -554,8 +678,6 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __83__SFSpeechAssetManager_unsubscribeFromAssetWithConfig_clientIdentifier_completion___block_invoke(uint64_t a1)
@@ -568,7 +690,7 @@ uint64_t __83__SFSpeechAssetManager_unsubscribeFromAssetWithConfig_clientIdentif
 
 + (id)configParametersForVoicemailWithLanguage:(id)language clientIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   languageCopy = language;
   identifierCopy = identifier;
   v7 = SFLogFramework;
@@ -581,9 +703,9 @@ uint64_t __83__SFSpeechAssetManager_unsubscribeFromAssetWithConfig_clientIdentif
     *&buf[12] = 2112;
     *&buf[14] = identifierCopy;
     *&buf[22] = 2112;
-    v17 = @"Assistant";
-    LOWORD(v18) = 2112;
-    *(&v18 + 2) = languageCopy;
+    v16 = @"Assistant";
+    LOWORD(v17) = 2112;
+    *(&v17 + 2) = languageCopy;
     _os_log_impl(&dword_1AC5BC000, v8, OS_LOG_TYPE_DEFAULT, "%s Client (%@) fetching the voicemail configuration for the %@ asset for: %@", buf, 0x2Au);
   }
 
@@ -591,29 +713,27 @@ uint64_t __83__SFSpeechAssetManager_unsubscribeFromAssetWithConfig_clientIdentif
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v17 = __Block_byref_object_copy__3056;
-  *&v18 = __Block_byref_object_dispose__3057;
-  *(&v18 + 1) = 0;
+  v16 = __Block_byref_object_copy__3056;
+  *&v17 = __Block_byref_object_dispose__3057;
+  *(&v17 + 1) = 0;
   v11 = [SFSpeechAssetManager languageCode:languageCopy];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __82__SFSpeechAssetManager_configParametersForVoicemailWithLanguage_clientIdentifier___block_invoke;
-  v15[3] = &unk_1E797CD30;
-  v15[4] = buf;
-  [(SFLocalSpeechRecognitionClient *)v10 configParametersForVoicemailWithLanguage:v11 clientID:identifierCopy completion:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __82__SFSpeechAssetManager_configParametersForVoicemailWithLanguage_clientIdentifier___block_invoke;
+  v14[3] = &unk_1E797CD30;
+  v14[4] = buf;
+  [(SFLocalSpeechRecognitionClient *)v10 configParametersForVoicemailWithLanguage:v11 clientID:identifierCopy completion:v14];
 
   [(SFLocalSpeechRecognitionClient *)v10 invalidate];
   v12 = *(*&buf[8] + 40);
   _Block_object_dispose(buf, 8);
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 + (id)versionOfAssetWithConfig:(id)config clientIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   configCopy = config;
   identifierCopy = identifier;
   v7 = SFLogFramework;
@@ -638,9 +758,9 @@ uint64_t __83__SFSpeechAssetManager_unsubscribeFromAssetWithConfig_clientIdentif
     *&buf[12] = 2112;
     *&buf[14] = identifierCopy;
     *&buf[22] = 2112;
-    v19 = v11;
-    LOWORD(v20) = 2112;
-    *(&v20 + 2) = language;
+    v18 = v11;
+    LOWORD(v19) = 2112;
+    *(&v19 + 2) = language;
     _os_log_impl(&dword_1AC5BC000, v8, OS_LOG_TYPE_DEFAULT, "%s Client (%@) fetching the version of the %@ asset for: %@", buf, 0x2Au);
   }
 
@@ -648,27 +768,25 @@ uint64_t __83__SFSpeechAssetManager_unsubscribeFromAssetWithConfig_clientIdentif
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v19 = __Block_byref_object_copy__3056;
-  *&v20 = __Block_byref_object_dispose__3057;
-  *(&v20 + 1) = 0;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __66__SFSpeechAssetManager_versionOfAssetWithConfig_clientIdentifier___block_invoke;
-  v17[3] = &unk_1E797CCB8;
-  v17[4] = buf;
-  [(SFLocalSpeechRecognitionClient *)v13 versionOfAssetWithConfig:configCopy clientID:identifierCopy completion:v17];
+  v18 = __Block_byref_object_copy__3056;
+  *&v19 = __Block_byref_object_dispose__3057;
+  *(&v19 + 1) = 0;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __66__SFSpeechAssetManager_versionOfAssetWithConfig_clientIdentifier___block_invoke;
+  v16[3] = &unk_1E797CCB8;
+  v16[4] = buf;
+  [(SFLocalSpeechRecognitionClient *)v13 versionOfAssetWithConfig:configCopy clientID:identifierCopy completion:v16];
   [(SFLocalSpeechRecognitionClient *)v13 invalidate];
   v14 = *(*&buf[8] + 40);
   _Block_object_dispose(buf, 8);
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 + (void)installationStateForAssetConfig:(id)config clientIdentifier:(id)identifier completion:(id)completion
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   configCopy = config;
   identifierCopy = identifier;
   completionCopy = completion;
@@ -690,28 +808,26 @@ uint64_t __83__SFSpeechAssetManager_unsubscribeFromAssetWithConfig_clientIdentif
     v14 = v13;
     language = [configCopy language];
     *buf = 136315906;
-    v24 = "+[SFSpeechAssetManager installationStateForAssetConfig:clientIdentifier:completion:]";
-    v25 = 2112;
-    v26 = identifierCopy;
-    v27 = 2112;
-    v28 = v14;
-    v29 = 2112;
-    v30 = language;
+    v23 = "+[SFSpeechAssetManager installationStateForAssetConfig:clientIdentifier:completion:]";
+    v24 = 2112;
+    v25 = identifierCopy;
+    v26 = 2112;
+    v27 = v14;
+    v28 = 2112;
+    v29 = language;
     _os_log_impl(&dword_1AC5BC000, v11, OS_LOG_TYPE_INFO, "%s Client (%@) fetching the installation state for the %@ asset for: %@", buf, 0x2Au);
   }
 
   v16 = objc_alloc_init(SFLocalSpeechRecognitionClient);
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __84__SFSpeechAssetManager_installationStateForAssetConfig_clientIdentifier_completion___block_invoke;
-  v20[3] = &unk_1E797CD08;
-  v21 = v16;
-  v22 = completionCopy;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __84__SFSpeechAssetManager_installationStateForAssetConfig_clientIdentifier_completion___block_invoke;
+  v19[3] = &unk_1E797CD08;
+  v20 = v16;
+  v21 = completionCopy;
   v17 = v16;
   v18 = completionCopy;
-  [(SFLocalSpeechRecognitionClient *)v17 installationStateForAssetConfig:configCopy clientID:identifierCopy completion:v20];
-
-  v19 = *MEMORY[0x1E69E9840];
+  [(SFLocalSpeechRecognitionClient *)v17 installationStateForAssetConfig:configCopy clientID:identifierCopy completion:v19];
 }
 
 uint64_t __84__SFSpeechAssetManager_installationStateForAssetConfig_clientIdentifier_completion___block_invoke(uint64_t a1)
@@ -724,7 +840,7 @@ uint64_t __84__SFSpeechAssetManager_installationStateForAssetConfig_clientIdenti
 
 + (void)pathToAssetWithConfig:(id)config clientIdentifier:(id)identifier completion:(id)completion
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   configCopy = config;
   identifierCopy = identifier;
   completionCopy = completion;
@@ -746,28 +862,26 @@ uint64_t __84__SFSpeechAssetManager_installationStateForAssetConfig_clientIdenti
     v14 = v13;
     language = [configCopy language];
     *buf = 136315906;
-    v24 = "+[SFSpeechAssetManager pathToAssetWithConfig:clientIdentifier:completion:]";
-    v25 = 2112;
-    v26 = identifierCopy;
-    v27 = 2112;
-    v28 = v14;
-    v29 = 2112;
-    v30 = language;
+    v23 = "+[SFSpeechAssetManager pathToAssetWithConfig:clientIdentifier:completion:]";
+    v24 = 2112;
+    v25 = identifierCopy;
+    v26 = 2112;
+    v27 = v14;
+    v28 = 2112;
+    v29 = language;
     _os_log_impl(&dword_1AC5BC000, v11, OS_LOG_TYPE_INFO, "%s Client (%@) async fetching the path to the %@ asset for: %@", buf, 0x2Au);
   }
 
   v16 = objc_alloc_init(SFLocalSpeechRecognitionClient);
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __74__SFSpeechAssetManager_pathToAssetWithConfig_clientIdentifier_completion___block_invoke;
-  v20[3] = &unk_1E797CCE0;
-  v21 = v16;
-  v22 = completionCopy;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __74__SFSpeechAssetManager_pathToAssetWithConfig_clientIdentifier_completion___block_invoke;
+  v19[3] = &unk_1E797CCE0;
+  v20 = v16;
+  v21 = completionCopy;
   v17 = v16;
   v18 = completionCopy;
-  [(SFLocalSpeechRecognitionClient *)v17 pathToAssetWithConfig:configCopy clientID:identifierCopy asyncCompletion:v20];
-
-  v19 = *MEMORY[0x1E69E9840];
+  [(SFLocalSpeechRecognitionClient *)v17 pathToAssetWithConfig:configCopy clientID:identifierCopy asyncCompletion:v19];
 }
 
 uint64_t __74__SFSpeechAssetManager_pathToAssetWithConfig_clientIdentifier_completion___block_invoke(uint64_t a1)
@@ -780,7 +894,7 @@ uint64_t __74__SFSpeechAssetManager_pathToAssetWithConfig_clientIdentifier_compl
 
 + (id)pathToAssetWithConfig:(id)config clientIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   configCopy = config;
   identifierCopy = identifier;
   v7 = SFLogFramework;
@@ -805,9 +919,9 @@ uint64_t __74__SFSpeechAssetManager_pathToAssetWithConfig_clientIdentifier_compl
     *&buf[12] = 2112;
     *&buf[14] = identifierCopy;
     *&buf[22] = 2112;
-    v19 = v11;
-    LOWORD(v20) = 2112;
-    *(&v20 + 2) = language;
+    v18 = v11;
+    LOWORD(v19) = 2112;
+    *(&v19 + 2) = language;
     _os_log_impl(&dword_1AC5BC000, v8, OS_LOG_TYPE_DEFAULT, "%s Client (%@) fetching the path to the %@ asset for: %@", buf, 0x2Au);
   }
 
@@ -815,27 +929,25 @@ uint64_t __74__SFSpeechAssetManager_pathToAssetWithConfig_clientIdentifier_compl
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v19 = __Block_byref_object_copy__3056;
-  *&v20 = __Block_byref_object_dispose__3057;
-  *(&v20 + 1) = 0;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __63__SFSpeechAssetManager_pathToAssetWithConfig_clientIdentifier___block_invoke;
-  v17[3] = &unk_1E797CCB8;
-  v17[4] = buf;
-  [(SFLocalSpeechRecognitionClient *)v13 pathToAssetWithConfig:configCopy clientID:identifierCopy completion:v17];
+  v18 = __Block_byref_object_copy__3056;
+  *&v19 = __Block_byref_object_dispose__3057;
+  *(&v19 + 1) = 0;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __63__SFSpeechAssetManager_pathToAssetWithConfig_clientIdentifier___block_invoke;
+  v16[3] = &unk_1E797CCB8;
+  v16[4] = buf;
+  [(SFLocalSpeechRecognitionClient *)v13 pathToAssetWithConfig:configCopy clientID:identifierCopy completion:v16];
   [(SFLocalSpeechRecognitionClient *)v13 invalidate];
   v14 = *(*&buf[8] + 40);
   _Block_object_dispose(buf, 8);
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 + (void)fetchAssetWithConfig:(id)config clientIdentifier:(id)identifier detailedProgress:(id)progress completion:(id)completion
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   configCopy = config;
   identifierCopy = identifier;
   progressCopy = progress;
@@ -860,25 +972,25 @@ uint64_t __74__SFSpeechAssetManager_pathToAssetWithConfig_clientIdentifier_compl
       v18 = v16;
       language = [configCopy language];
       *buf = 136315906;
-      v26 = "+[SFSpeechAssetManager fetchAssetWithConfig:clientIdentifier:detailedProgress:completion:]";
-      v27 = 2112;
-      v28 = identifierCopy;
-      v29 = 2112;
-      v30 = v18;
-      v31 = 2112;
-      v32 = language;
+      v25 = "+[SFSpeechAssetManager fetchAssetWithConfig:clientIdentifier:detailedProgress:completion:]";
+      v26 = 2112;
+      v27 = identifierCopy;
+      v28 = 2112;
+      v29 = v18;
+      v30 = 2112;
+      v31 = language;
       _os_log_impl(&dword_1AC5BC000, v14, OS_LOG_TYPE_DEFAULT, "%s Client (%@) fetching the %@ asset for: %@", buf, 0x2Au);
     }
 
     v20 = objc_alloc_init(SFLocalSpeechRecognitionClient);
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __90__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_detailedProgress_completion___block_invoke;
-    v22[3] = &unk_1E797CC90;
-    v23 = v20;
-    v24 = completionCopy;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __90__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_detailedProgress_completion___block_invoke;
+    v21[3] = &unk_1E797CC90;
+    v22 = v20;
+    v23 = completionCopy;
     v17 = v20;
-    [(SFLocalSpeechRecognitionClient *)v17 downloadAssetsForConfig:configCopy clientID:identifierCopy expiration:0 detailedProgress:progressCopy completionHandler:v22];
+    [(SFLocalSpeechRecognitionClient *)v17 downloadAssetsForConfig:configCopy clientID:identifierCopy expiration:0 detailedProgress:progressCopy completionHandler:v21];
 
     goto LABEL_11;
   }
@@ -886,7 +998,7 @@ uint64_t __74__SFSpeechAssetManager_pathToAssetWithConfig_clientIdentifier_compl
   if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v26 = "+[SFSpeechAssetManager fetchAssetWithConfig:clientIdentifier:detailedProgress:completion:]";
+    v25 = "+[SFSpeechAssetManager fetchAssetWithConfig:clientIdentifier:detailedProgress:completion:]";
     _os_log_error_impl(&dword_1AC5BC000, v13, OS_LOG_TYPE_ERROR, "%s clientIdentifier cannot be nil.", buf, 0xCu);
     if (!completionCopy)
     {
@@ -905,8 +1017,6 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __90__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_detailedProgress_completion___block_invoke(uint64_t a1)
@@ -924,7 +1034,7 @@ uint64_t __90__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_detail
 
 + (void)fetchAssetWithConfig:(id)config clientIdentifier:(id)identifier expiration:(id)expiration progress:(id)progress completion:(id)completion
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   configCopy = config;
   identifierCopy = identifier;
   expirationCopy = expiration;
@@ -950,25 +1060,25 @@ uint64_t __90__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_detail
       v21 = v19;
       language = [configCopy language];
       *buf = 136315906;
-      v29 = "+[SFSpeechAssetManager fetchAssetWithConfig:clientIdentifier:expiration:progress:completion:]";
-      v30 = 2112;
-      v31 = identifierCopy;
-      v32 = 2112;
-      v33 = v21;
-      v34 = 2112;
-      v35 = language;
+      v28 = "+[SFSpeechAssetManager fetchAssetWithConfig:clientIdentifier:expiration:progress:completion:]";
+      v29 = 2112;
+      v30 = identifierCopy;
+      v31 = 2112;
+      v32 = v21;
+      v33 = 2112;
+      v34 = language;
       _os_log_impl(&dword_1AC5BC000, v17, OS_LOG_TYPE_DEFAULT, "%s Client (%@) fetching the %@ asset for: %@", buf, 0x2Au);
     }
 
     v23 = objc_alloc_init(SFLocalSpeechRecognitionClient);
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __93__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_expiration_progress_completion___block_invoke;
-    v25[3] = &unk_1E797CC90;
-    v26 = v23;
-    v27 = completionCopy;
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __93__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_expiration_progress_completion___block_invoke;
+    v24[3] = &unk_1E797CC90;
+    v25 = v23;
+    v26 = completionCopy;
     v20 = v23;
-    [(SFLocalSpeechRecognitionClient *)v20 downloadAssetsForConfig:configCopy clientID:identifierCopy expiration:expirationCopy progress:progressCopy completionHandler:v25];
+    [(SFLocalSpeechRecognitionClient *)v20 downloadAssetsForConfig:configCopy clientID:identifierCopy expiration:expirationCopy progress:progressCopy completionHandler:v24];
 
     goto LABEL_11;
   }
@@ -976,7 +1086,7 @@ uint64_t __90__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_detail
   if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v29 = "+[SFSpeechAssetManager fetchAssetWithConfig:clientIdentifier:expiration:progress:completion:]";
+    v28 = "+[SFSpeechAssetManager fetchAssetWithConfig:clientIdentifier:expiration:progress:completion:]";
     _os_log_error_impl(&dword_1AC5BC000, v16, OS_LOG_TYPE_ERROR, "%s clientIdentifier cannot be nil.", buf, 0xCu);
     if (!completionCopy)
     {
@@ -995,8 +1105,6 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __93__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_expiration_progress_completion___block_invoke(uint64_t a1)
@@ -1014,7 +1122,7 @@ uint64_t __93__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_expira
 
 + (void)fetchAssetWithConfig:(id)config clientIdentifier:(id)identifier expiration:(id)expiration detailedProgress:(id)progress completion:(id)completion timeout:(double)timeout
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   configCopy = config;
   identifierCopy = identifier;
   expirationCopy = expiration;
@@ -1050,9 +1158,9 @@ uint64_t __93__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_expira
       *&buf[12] = 2112;
       *&buf[14] = identifierCopy;
       *&buf[22] = 2112;
-      v49 = v26;
-      v50 = 2112;
-      v51 = language;
+      v48 = v26;
+      v49 = 2112;
+      v50 = language;
       _os_log_impl(&dword_1AC5BC000, v21, OS_LOG_TYPE_INFO, "%s Client (%@) fetching the %@ asset for: %@", buf, 0x2Au);
     }
 
@@ -1060,7 +1168,7 @@ uint64_t __93__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_expira
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LOBYTE(v49) = 0;
+    LOBYTE(v48) = 0;
     v29 = dispatch_time(0, (timeout * 1000000000.0));
     v30 = [self _serialQueueForClientIdentifier:identifierCopy];
     block[0] = MEMORY[0x1E69E9820];
@@ -1068,26 +1176,26 @@ uint64_t __93__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_expira
     block[2] = __109__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_expiration_detailedProgress_completion_timeout___block_invoke;
     block[3] = &unk_1E797CC40;
     v31 = v28;
-    v43 = v31;
-    v45 = buf;
+    v42 = v31;
+    v44 = buf;
     v32 = completionCopy;
-    v44 = v32;
+    v43 = v32;
     selfCopy = self;
     timeoutCopy = timeout;
     dispatch_after(v29, v30, block);
 
     v33 = objc_alloc_init(SFLocalSpeechRecognitionClient);
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = __109__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_expiration_detailedProgress_completion_timeout___block_invoke_2;
-    v37[3] = &unk_1E797CC68;
+    v36[0] = MEMORY[0x1E69E9820];
+    v36[1] = 3221225472;
+    v36[2] = __109__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_expiration_detailedProgress_completion_timeout___block_invoke_2;
+    v36[3] = &unk_1E797CC68;
     v25 = v31;
-    v38 = v25;
-    v41 = buf;
-    v40 = v32;
+    v37 = v25;
+    v40 = buf;
+    v39 = v32;
     v34 = v33;
-    v39 = v34;
-    [(SFLocalSpeechRecognitionClient *)v34 downloadAssetsForConfig:configCopy clientID:identifierCopy expiration:expirationCopy detailedProgress:progressCopy completionHandler:v37];
+    v38 = v34;
+    [(SFLocalSpeechRecognitionClient *)v34 downloadAssetsForConfig:configCopy clientID:identifierCopy expiration:expirationCopy detailedProgress:progressCopy completionHandler:v36];
 
     _Block_object_dispose(buf, 8);
     goto LABEL_13;
@@ -1116,8 +1224,6 @@ LABEL_13:
   }
 
 LABEL_14:
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 void __109__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_expiration_detailedProgress_completion_timeout___block_invoke(uint64_t a1)
@@ -1156,7 +1262,7 @@ void __109__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_expiratio
 
 + (void)fetchAssetWithConfig:(id)config clientIdentifier:(id)identifier progress:(id)progress completion:(id)completion timeout:(double)timeout
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   configCopy = config;
   identifierCopy = identifier;
   progressCopy = progress;
@@ -1191,9 +1297,9 @@ void __109__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_expiratio
       *&buf[12] = 2112;
       *&buf[14] = identifierCopy;
       *&buf[22] = 2112;
-      v46 = v23;
-      v47 = 2112;
-      v48 = language;
+      v45 = v23;
+      v46 = 2112;
+      v47 = language;
       _os_log_impl(&dword_1AC5BC000, v18, OS_LOG_TYPE_INFO, "%s Client (%@) fetching the %@ asset for: %@", buf, 0x2Au);
     }
 
@@ -1201,7 +1307,7 @@ void __109__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_expiratio
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LOBYTE(v46) = 0;
+    LOBYTE(v45) = 0;
     v26 = dispatch_time(0, (timeout * 1000000000.0));
     v27 = [self _serialQueueForClientIdentifier:identifierCopy];
     block[0] = MEMORY[0x1E69E9820];
@@ -1209,26 +1315,26 @@ void __109__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_expiratio
     block[2] = __90__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_progress_completion_timeout___block_invoke;
     block[3] = &unk_1E797CC40;
     v28 = v25;
-    v40 = v28;
-    v42 = buf;
+    v39 = v28;
+    v41 = buf;
     v29 = completionCopy;
-    v41 = v29;
+    v40 = v29;
     selfCopy = self;
     timeoutCopy = timeout;
     dispatch_after(v26, v27, block);
 
     v30 = objc_alloc_init(SFLocalSpeechRecognitionClient);
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __90__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_progress_completion_timeout___block_invoke_2;
-    v34[3] = &unk_1E797CC68;
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __90__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_progress_completion_timeout___block_invoke_2;
+    v33[3] = &unk_1E797CC68;
     v22 = v28;
-    v35 = v22;
-    v38 = buf;
-    v37 = v29;
+    v34 = v22;
+    v37 = buf;
+    v36 = v29;
     v31 = v30;
-    v36 = v31;
-    [(SFLocalSpeechRecognitionClient *)v31 downloadAssetsForConfig:configCopy clientID:identifierCopy expiration:0 progress:progressCopy completionHandler:v34];
+    v35 = v31;
+    [(SFLocalSpeechRecognitionClient *)v31 downloadAssetsForConfig:configCopy clientID:identifierCopy expiration:0 progress:progressCopy completionHandler:v33];
 
     _Block_object_dispose(buf, 8);
     goto LABEL_13;
@@ -1257,8 +1363,6 @@ LABEL_13:
   }
 
 LABEL_14:
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 void __90__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_progress_completion_timeout___block_invoke(uint64_t a1)
@@ -1297,7 +1401,7 @@ void __90__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_progress_c
 
 + (void)installedLanguagesForTaskHint:(int64_t)hint completion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v6 = SFEntitledAssetTypeForTaskHint(hint);
   v7 = SFLogFramework;
@@ -1316,24 +1420,22 @@ void __90__SFSpeechAssetManager_fetchAssetWithConfig_clientIdentifier_progress_c
 
     v10 = v9;
     *buf = 136315394;
-    v19 = "+[SFSpeechAssetManager installedLanguagesForTaskHint:completion:]";
-    v20 = 2112;
-    v21 = v10;
+    v18 = "+[SFSpeechAssetManager installedLanguagesForTaskHint:completion:]";
+    v19 = 2112;
+    v20 = v10;
     _os_log_impl(&dword_1AC5BC000, v8, OS_LOG_TYPE_DEFAULT, "%s Fetching languages of installed %@ assets.", buf, 0x16u);
   }
 
   v11 = objc_alloc_init(SFLocalSpeechRecognitionClient);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __65__SFSpeechAssetManager_installedLanguagesForTaskHint_completion___block_invoke;
-  v15[3] = &unk_1E797CC10;
-  v16 = v11;
-  v17 = completionCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __65__SFSpeechAssetManager_installedLanguagesForTaskHint_completion___block_invoke;
+  v14[3] = &unk_1E797CC10;
+  v15 = v11;
+  v16 = completionCopy;
   v12 = v11;
   v13 = completionCopy;
-  [(SFLocalSpeechRecognitionClient *)v12 installedLanguagesForAssetType:v6 synchronous:0 completion:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [(SFLocalSpeechRecognitionClient *)v12 installedLanguagesForAssetType:v6 synchronous:0 completion:v14];
 }
 
 uint64_t __65__SFSpeechAssetManager_installedLanguagesForTaskHint_completion___block_invoke(uint64_t a1)
@@ -1351,7 +1453,7 @@ uint64_t __65__SFSpeechAssetManager_installedLanguagesForTaskHint_completion___b
 
 + (id)installedLanguagesForTaskHint:(int64_t)hint
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = SFEntitledAssetTypeForTaskHint(hint);
   v4 = SFLogFramework;
   if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_DEFAULT))
@@ -1379,20 +1481,18 @@ uint64_t __65__SFSpeechAssetManager_installedLanguagesForTaskHint_completion___b
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v14 = __Block_byref_object_copy__3056;
-  v15 = __Block_byref_object_dispose__3057;
-  v16 = 0;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __54__SFSpeechAssetManager_installedLanguagesForTaskHint___block_invoke;
-  v12[3] = &unk_1E797CBE8;
-  v12[4] = buf;
-  [(SFLocalSpeechRecognitionClient *)v8 installedLanguagesForAssetType:v3 synchronous:1 completion:v12];
+  v13 = __Block_byref_object_copy__3056;
+  v14 = __Block_byref_object_dispose__3057;
+  v15 = 0;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __54__SFSpeechAssetManager_installedLanguagesForTaskHint___block_invoke;
+  v11[3] = &unk_1E797CBE8;
+  v11[4] = buf;
+  [(SFLocalSpeechRecognitionClient *)v8 installedLanguagesForAssetType:v3 synchronous:1 completion:v11];
   [(SFLocalSpeechRecognitionClient *)v8 invalidate];
   v9 = *(*&buf[8] + 40);
   _Block_object_dispose(buf, 8);
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -1409,7 +1509,7 @@ uint64_t __54__SFSpeechAssetManager_installedLanguagesForTaskHint___block_invoke
 
 + (id)supportedLanguagesForTaskHint:(int64_t)hint
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = SFEntitledAssetTypeForTaskHint(hint);
   v4 = SFLogFramework;
   if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_DEFAULT))
@@ -1437,20 +1537,18 @@ uint64_t __54__SFSpeechAssetManager_installedLanguagesForTaskHint___block_invoke
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v14 = __Block_byref_object_copy__3056;
-  v15 = __Block_byref_object_dispose__3057;
-  v16 = 0;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __54__SFSpeechAssetManager_supportedLanguagesForTaskHint___block_invoke;
-  v12[3] = &unk_1E797CBC0;
-  v12[4] = buf;
-  [(SFLocalSpeechRecognitionClient *)v8 supportedLanguagesForAssetType:v3 synchronous:1 completion:v12];
+  v13 = __Block_byref_object_copy__3056;
+  v14 = __Block_byref_object_dispose__3057;
+  v15 = 0;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __54__SFSpeechAssetManager_supportedLanguagesForTaskHint___block_invoke;
+  v11[3] = &unk_1E797CBC0;
+  v11[4] = buf;
+  [(SFLocalSpeechRecognitionClient *)v8 supportedLanguagesForAssetType:v3 synchronous:1 completion:v11];
   [(SFLocalSpeechRecognitionClient *)v8 invalidate];
   v9 = *(*&buf[8] + 40);
   _Block_object_dispose(buf, 8);
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -1467,7 +1565,7 @@ uint64_t __54__SFSpeechAssetManager_supportedLanguagesForTaskHint___block_invoke
 
 + (void)supportedLanguagesForTaskHint:(int64_t)hint completion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v6 = SFEntitledAssetTypeForTaskHint(hint);
   v7 = SFLogFramework;
@@ -1486,24 +1584,22 @@ uint64_t __54__SFSpeechAssetManager_supportedLanguagesForTaskHint___block_invoke
 
     v10 = v9;
     *buf = 136315394;
-    v19 = "+[SFSpeechAssetManager supportedLanguagesForTaskHint:completion:]";
-    v20 = 2112;
-    v21 = v10;
+    v18 = "+[SFSpeechAssetManager supportedLanguagesForTaskHint:completion:]";
+    v19 = 2112;
+    v20 = v10;
     _os_log_impl(&dword_1AC5BC000, v8, OS_LOG_TYPE_DEFAULT, "%s Fetching languages of supported %@ assets.", buf, 0x16u);
   }
 
   v11 = objc_alloc_init(SFLocalSpeechRecognitionClient);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __65__SFSpeechAssetManager_supportedLanguagesForTaskHint_completion___block_invoke;
-  v15[3] = &unk_1E797CB98;
-  v16 = v11;
-  v17 = completionCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __65__SFSpeechAssetManager_supportedLanguagesForTaskHint_completion___block_invoke;
+  v14[3] = &unk_1E797CB98;
+  v15 = v11;
+  v16 = completionCopy;
   v12 = v11;
   v13 = completionCopy;
-  [(SFLocalSpeechRecognitionClient *)v12 supportedLanguagesForAssetType:v6 synchronous:0 completion:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [(SFLocalSpeechRecognitionClient *)v12 supportedLanguagesForAssetType:v6 synchronous:0 completion:v14];
 }
 
 uint64_t __65__SFSpeechAssetManager_supportedLanguagesForTaskHint_completion___block_invoke(uint64_t a1)

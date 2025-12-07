@@ -22,6 +22,7 @@
 - (void)_setupContactPickingFlow;
 - (void)callEmergencyContact:(id)contact;
 - (void)emergencyContactFlow:(id)flow didSelectContact:(id)contact;
+- (void)emergencyContactFlowDidCancel:(id)cancel;
 - (void)emergencyContactRelationshipPicker:(id)picker didChooseRelationshipNamed:(id)named;
 - (void)emergencyContactRelationshipPickerDidCancel:(id)cancel;
 - (void)medicalIDEditorCellDidTapLabel:(id)label;
@@ -497,6 +498,13 @@ LABEL_7:
   [(HKEmergencyCardContactsTableItem *)self _addEmergencyContactToData:contact];
   selectedContact = self->_selectedContact;
   self->_selectedContact = 0;
+}
+
+- (void)emergencyContactFlowDidCancel:(id)cancel
+{
+  selectedContact = self->_selectedContact;
+  self->_selectedContact = 0;
+  MEMORY[0x1EEE66BB8](self, selectedContact);
 }
 
 - (id)titleForFooter

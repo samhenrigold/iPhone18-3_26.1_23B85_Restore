@@ -122,31 +122,29 @@
 - (void)_playButtonActivate:(id)activate
 {
   v4 = _UISolariumEnabled();
-  button = self->_button;
-  v6 = 0.95;
+  v5 = 0.95;
   if (!v4)
   {
-    v6 = 0.5;
+    v5 = 0.5;
   }
 
-  v7 = self->_button;
+  button = self->_button;
 
-  [(UIButton *)v7 setAlpha:v6];
+  [(UIButton *)button setAlpha:v5];
 }
 
 - (void)_playButtonDeactivate:(id)deactivate
 {
   v4 = _UISolariumEnabled();
-  button = self->_button;
-  v6 = 0.3;
+  v5 = 0.3;
   if (v4)
   {
-    v6 = 1.0;
+    v5 = 1.0;
   }
 
-  v7 = self->_button;
+  button = self->_button;
 
-  [(UIButton *)v7 setAlpha:v6];
+  [(UIButton *)button setAlpha:v5];
 }
 
 - (void)_playButtonTapped:(id)tapped
@@ -154,28 +152,23 @@
   tappedCopy = tapped;
   [(QLOverlayPlayButton *)self _playButtonDeactivate:?];
   WeakRetained = objc_loadWeakRetained(&self->_target);
-  if (self->_action)
-  {
-    action = self->_action;
-  }
+  v5 = objc_opt_respondsToSelector();
 
-  v6 = objc_opt_respondsToSelector();
-
-  if (v6)
+  if (v5)
   {
-    v7 = objc_loadWeakRetained(&self->_target);
-    v8 = v7;
+    v6 = objc_loadWeakRetained(&self->_target);
+    v7 = v6;
     if (self->_action)
     {
-      v9 = self->_action;
+      action = self->_action;
     }
 
     else
     {
-      v9 = 0;
+      action = 0;
     }
 
-    [v7 performSelector:v9 withObject:self];
+    [v6 performSelector:action withObject:self];
   }
 }
 

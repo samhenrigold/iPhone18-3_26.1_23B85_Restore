@@ -90,52 +90,52 @@ void __30__MALog_deleteExpiredLogFiles__block_invoke(uint64_t a1)
     [*(a1 + 32) setLogHandle:0];
   }
 
-  v30 = 0u;
-  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   obj = copy_sorted_file_list(gPersistentLogFilePath[0]);
-  v2 = [(NSArray *)obj countByEnumeratingWithState:&v30 objects:v40 count:16];
+  v2 = [(NSArray *)obj countByEnumeratingWithState:&v32 objects:v42 count:16];
   if (!v2)
   {
-    v23 = 0;
+    v25 = 0;
     goto LABEL_24;
   }
 
   v4 = v2;
   v5 = 0;
-  v27 = 0;
-  v6 = *v31;
+  v29 = 0;
+  v6 = *v33;
   v7 = NSURLContentModificationDateKey;
   v8 = &_CTServerConnectionCopyPostponementStatus_ptr;
   *&v3 = 138412546;
-  v24 = v3;
+  v26 = v3;
   do
   {
     v9 = 0;
-    v25 = v4;
+    v27 = v4;
     do
     {
       v10 = v5;
-      if (*v31 != v6)
+      if (*v33 != v6)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v30 + 1) + 8 * v9);
-      v29 = 0;
-      [v11 getResourceValue:&v29 forKey:v7 error:{0, v24}];
-      v5 = v29;
+      v11 = *(*(&v32 + 1) + 8 * v9);
+      v31 = 0;
+      [v11 getResourceValue:&v31 forKey:v7 error:{0, v26}];
+      v5 = v31;
 
       v12 = [v8[301] date];
       v13 = numberOfDaysBetweenDates(v5, v12);
 
       if (gPersistentLogTTL < 0)
       {
-        v21 = copyLoggingHandle();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+        v23 = copyLoggingHandle(v14);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
         {
-          __30__MALog_deleteExpiredLogFiles__block_invoke_cold_1(v38, v39, v21);
+          __30__MALog_deleteExpiredLogFiles__block_invoke_cold_1(v40, v41, v23);
         }
       }
 
@@ -146,52 +146,52 @@ void __30__MALog_deleteExpiredLogFiles__block_invoke(uint64_t a1)
           goto LABEL_20;
         }
 
-        v14 = v6;
-        v15 = v8;
-        v16 = copyLoggingHandle();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v15 = v6;
+        v16 = v8;
+        v17 = copyLoggingHandle(v14);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          v17 = [v11 path];
+          v18 = [v11 path];
           *buf = 138412802;
-          v35 = v17;
-          v36 = 1024;
-          LODWORD(v37[0]) = gPersistentLogTTL;
-          WORD2(v37[0]) = 2048;
-          *(v37 + 6) = v13;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Log file (%@) is greater than %d days old (%lld), deleting.", buf, 0x1Cu);
+          v37 = v18;
+          v38 = 1024;
+          LODWORD(v39[0]) = gPersistentLogTTL;
+          WORD2(v39[0]) = 2048;
+          *(v39 + 6) = v13;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Log file (%@) is greater than %d days old (%lld), deleting.", buf, 0x1Cu);
         }
 
-        v18 = +[NSFileManager defaultManager];
-        v28 = v27;
-        v19 = [(NSFileManager *)v18 removeItemAtURL:v11 error:&v28];
-        v20 = v28;
+        v19 = +[NSFileManager defaultManager];
+        v30 = v29;
+        v20 = [(NSFileManager *)v19 removeItemAtURL:v11 error:&v30];
+        v21 = v30;
 
-        if (v19)
+        if (v20)
         {
-          v27 = v20;
-          v8 = v15;
-          v6 = v14;
+          v29 = v21;
+          v8 = v16;
+          v6 = v15;
           v7 = NSURLContentModificationDateKey;
-          v4 = v25;
+          v4 = v27;
           goto LABEL_20;
         }
 
-        v21 = copyLoggingHandle();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+        v23 = copyLoggingHandle(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
         {
-          v22 = [v11 path];
-          *buf = v24;
-          v35 = v22;
-          v36 = 2112;
-          v37[0] = v20;
-          _os_log_fault_impl(&_mh_execute_header, v21, OS_LOG_TYPE_FAULT, "Failed to delete %@: %@", buf, 0x16u);
+          v24 = [v11 path];
+          *buf = v26;
+          v37 = v24;
+          v38 = 2112;
+          v39[0] = v21;
+          _os_log_fault_impl(&_mh_execute_header, v23, OS_LOG_TYPE_FAULT, "Failed to delete %@: %@", buf, 0x16u);
         }
 
-        v27 = v20;
-        v8 = v15;
-        v6 = v14;
+        v29 = v21;
+        v8 = v16;
+        v6 = v15;
         v7 = NSURLContentModificationDateKey;
-        v4 = v25;
+        v4 = v27;
       }
 
 LABEL_20:
@@ -199,12 +199,12 @@ LABEL_20:
     }
 
     while (v4 != v9);
-    v4 = [(NSArray *)obj countByEnumeratingWithState:&v30 objects:v40 count:16];
+    v4 = [(NSArray *)obj countByEnumeratingWithState:&v32 objects:v42 count:16];
   }
 
   while (v4);
 
-  v23 = v27;
+  v25 = v29;
 LABEL_24:
 }
 
@@ -248,7 +248,7 @@ LABEL_4:
     return;
   }
 
-  v3 = copyLoggingHandle();
+  v3 = copyLoggingHandle(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     __29__MALog_logMessage_toSyslog___block_invoke_cold_1(v3);

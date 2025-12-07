@@ -20,7 +20,7 @@
 
 + (BOOL)validateSecondPassCheckerCompilation:(id)compilation error:(id *)error
 {
-  v55[1] = *MEMORY[0x1E69E9840];
+  v54[1] = *MEMORY[0x1E69E9840];
   compilationCopy = compilation;
   if (compilationCopy)
   {
@@ -42,27 +42,27 @@
           v16 = [v14 initWithFormat:@"%@.temp.bnnsir", identity];
 
           v17 = NSTemporaryDirectory();
-          v46 = v16;
+          v45 = v16;
           v18 = [v17 stringByAppendingPathComponent:v16];
 
-          v47 = 0;
-          [MEMORY[0x1E699BA40] compileWithModelMilPath:v10 bnnsIrOutPath:v18 milConfigPath:v13 errorOut:&v47];
-          v19 = v47;
+          v46 = 0;
+          [MEMORY[0x1E699BA40] compileWithModelMilPath:v10 bnnsIrOutPath:v18 milConfigPath:v13 errorOut:&v46];
+          v19 = v46;
           v20 = v19;
           if (error && v19)
           {
             localizedDescription = [v19 localizedDescription];
-            v43 = *MEMORY[0x1E699B9B0];
-            v44 = MEMORY[0x1E696ABC0];
-            v48 = *MEMORY[0x1E696A578];
+            v42 = *MEMORY[0x1E699B9B0];
+            v43 = MEMORY[0x1E696ABC0];
+            v47 = *MEMORY[0x1E696A578];
             v22 = localizedDescription;
-            v45 = v18;
-            v42 = v20;
+            v44 = v18;
+            v41 = v20;
             if ([v22 containsString:@"bnns error message: "] && (v23 = objc_msgSend(v22, "rangeOfString:", @"bnns error message: "), v23 != 0x7FFFFFFFFFFFFFFFLL))
             {
               v33 = [v22 substringFromIndex:v23 + v24];
-              v41 = [v33 componentsSeparatedByString:@"[stack trace: ]"];
-              firstObject = [v41 firstObject];
+              v40 = [v33 componentsSeparatedByString:@"[stack trace: ]"];
+              firstObject = [v40 firstObject];
             }
 
             else
@@ -70,13 +70,13 @@
               firstObject = @"Unkown error";
             }
 
-            v49 = firstObject;
-            [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+            v48 = firstObject;
+            [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
             v35 = v34 = v22;
-            *error = [v44 errorWithDomain:v43 code:3 userInfo:v35];
+            *error = [v43 errorWithDomain:v42 code:3 userInfo:v35];
 
-            v18 = v45;
-            v20 = v42;
+            v18 = v44;
+            v20 = v41;
           }
 
           defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
@@ -98,9 +98,9 @@
       {
         v31 = MEMORY[0x1E696ABC0];
         v32 = *MEMORY[0x1E699B9B0];
-        v50 = *MEMORY[0x1E696A578];
-        v51 = @"mil file path is not found";
-        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+        v49 = *MEMORY[0x1E696A578];
+        v50 = @"mil file path is not found";
+        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
         [v31 errorWithDomain:v32 code:3 userInfo:v13];
         *error = v28 = 0;
 LABEL_25:
@@ -123,9 +123,9 @@ LABEL_27:
 
       v26 = MEMORY[0x1E696ABC0];
       v27 = *MEMORY[0x1E699B9B0];
-      v52 = *MEMORY[0x1E696A578];
-      v53 = @"configfile for secondpass checker is not found";
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+      v51 = *MEMORY[0x1E696A578];
+      v52 = @"configfile for secondpass checker is not found";
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
       [v26 errorWithDomain:v27 code:3 userInfo:v10];
       *error = v28 = 0;
     }
@@ -139,9 +139,9 @@ LABEL_26:
   {
     v29 = MEMORY[0x1E696ABC0];
     v30 = *MEMORY[0x1E699B9B0];
-    v54 = *MEMORY[0x1E696A578];
-    v55[0] = @"asset is nil";
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:&v54 count:1];
+    v53 = *MEMORY[0x1E696A578];
+    v54[0] = @"asset is nil";
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:&v53 count:1];
     [v29 errorWithDomain:v30 code:3 userInfo:v6];
     *error = v28 = 0;
 LABEL_28:
@@ -152,7 +152,6 @@ LABEL_28:
   v28 = 0;
 LABEL_29:
 
-  v39 = *MEMORY[0x1E69E9840];
   return v28;
 }
 
@@ -186,7 +185,7 @@ LABEL_29:
 
 + (id)getModelConfigsWithAsset:(id)asset modelType:(int64_t)type
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   v6 = assetCopy;
   allObjects = 0;
@@ -261,8 +260,8 @@ LABEL_24:
 
         if (v12)
         {
-          v18[0] = v12;
-          allObjects = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+          v17[0] = v12;
+          allObjects = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
         }
 
         else
@@ -278,14 +277,12 @@ LABEL_22:
 
 LABEL_25:
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return allObjects;
 }
 
 + (id)getModelCompiledDirWithModelType:(int64_t)type basePath:(id)path
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v6 = pathCopy;
   if (type > 2)
@@ -325,17 +322,15 @@ LABEL_17:
   v8 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315394;
-    v13 = "+[CSOnDeviceCompilationUtils getModelCompiledDirWithModelType:basePath:]";
-    v14 = 2048;
+    v11 = 136315394;
+    v12 = "+[CSOnDeviceCompilationUtils getModelCompiledDirWithModelType:basePath:]";
+    v13 = 2048;
     typeCopy = type;
-    _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s Does not support model type: %lu", &v12, 0x16u);
+    _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s Does not support model type: %lu", &v11, 0x16u);
   }
 
   v9 = 0;
 LABEL_18:
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -351,34 +346,34 @@ LABEL_18:
 
 + (id)sortCachedIrsByLastAccessTimeStamp:(id)stamp
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   stampCopy = stamp;
   if (stampCopy)
   {
     v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v31 = stampCopy;
-    v32 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v30 = stampCopy;
+    v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
     v5 = stampCopy;
-    v6 = [v5 countByEnumeratingWithState:&v37 objects:v49 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v36 objects:v48 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v38;
+      v8 = *v37;
       v9 = *MEMORY[0x1E696A350];
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v38 != v8)
+          if (*v37 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v11 = *(*(&v37 + 1) + 8 * i);
+          v11 = *(*(&v36 + 1) + 8 * i);
           if (v11)
           {
             defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -396,19 +391,19 @@ LABEL_18:
                 if (v16)
                 {
                   v17 = [v15 objectForKey:v9];
-                  v47[0] = @"path";
-                  v47[1] = @"lastModificationTime";
-                  v48[0] = v11;
-                  v48[1] = v17;
-                  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:2];
-                  [v32 addObject:v18];
+                  v46[0] = @"path";
+                  v46[1] = @"lastModificationTime";
+                  v47[0] = v11;
+                  v47[1] = v17;
+                  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:v46 count:2];
+                  [v31 addObject:v18];
                 }
               }
             }
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v37 objects:v49 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v36 objects:v48 count:16];
       }
 
       while (v7);
@@ -418,55 +413,53 @@ LABEL_18:
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v44 = "+[CSOnDeviceCompilationUtils sortCachedIrsByLastAccessTimeStamp:]";
-      v45 = 2112;
-      v46 = v32;
+      v43 = "+[CSOnDeviceCompilationUtils sortCachedIrsByLastAccessTimeStamp:]";
+      v44 = 2112;
+      v45 = v31;
       _os_log_impl(&dword_1DDA4B000, v19, OS_LOG_TYPE_DEFAULT, "%s cachedIrs info sorted by timestamps: %@", buf, 0x16u);
     }
 
     v20 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"lastModificationTime" ascending:1];
-    v42 = v20;
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
-    v22 = [v32 sortedArrayUsingDescriptors:v21];
+    v41 = v20;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
+    v22 = [v31 sortedArrayUsingDescriptors:v21];
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     v23 = v22;
-    v24 = [v23 countByEnumeratingWithState:&v33 objects:v41 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v32 objects:v40 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v34;
+      v26 = *v33;
       do
       {
         for (j = 0; j != v25; ++j)
         {
-          if (*v34 != v26)
+          if (*v33 != v26)
           {
             objc_enumerationMutation(v23);
           }
 
-          v28 = [*(*(&v33 + 1) + 8 * j) objectForKey:{@"path", v31}];
+          v28 = [*(*(&v32 + 1) + 8 * j) objectForKey:{@"path", v30}];
           [v4 addObject:v28];
         }
 
-        v25 = [v23 countByEnumeratingWithState:&v33 objects:v41 count:16];
+        v25 = [v23 countByEnumeratingWithState:&v32 objects:v40 count:16];
       }
 
       while (v25);
     }
 
-    stampCopy = v31;
+    stampCopy = v30;
   }
 
   else
   {
     v4 = 0;
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -565,27 +558,27 @@ LABEL_18:
 
 void __66__CSOnDeviceCompilationUtils_getCachedIrsFromCSAsset_cachedIrDir___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v18 + 1) + 8 * i);
+        v8 = *(*(&v17 + 1) + 8 * i);
         v9 = [*(a1 + 32) objectForKeyedSubscript:v8];
 
         if (v9)
@@ -614,40 +607,38 @@ void __66__CSOnDeviceCompilationUtils_getCachedIrsFromCSAsset_cachedIrDir___bloc
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __66__CSOnDeviceCompilationUtils_getCachedIrsFromCSAsset_cachedIrDir___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(a1 + 56) _getCachedIrsFromConfigFile:*(*(&v13 + 1) + 8 * v10) modelType:objc_msgSend(v5 CSAsset:"intValue") cachedIrDir:{*(a1 + 32), *(a1 + 40)}];
+        v11 = [*(a1 + 56) _getCachedIrsFromConfigFile:*(*(&v12 + 1) + 8 * v10) modelType:objc_msgSend(v5 CSAsset:"intValue") cachedIrDir:{*(a1 + 32), *(a1 + 40)}];
         if (v11)
         {
           [*(a1 + 48) addObject:v11];
@@ -657,13 +648,11 @@ void __66__CSOnDeviceCompilationUtils_getCachedIrsFromCSAsset_cachedIrDir___bloc
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (int64_t)getBackendTypeFromModelFile:(id)file

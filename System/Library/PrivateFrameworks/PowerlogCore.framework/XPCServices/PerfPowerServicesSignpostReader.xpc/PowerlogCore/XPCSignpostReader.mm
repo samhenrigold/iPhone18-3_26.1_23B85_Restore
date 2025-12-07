@@ -1,4 +1,5 @@
 @interface XPCSignpostReader
+- (BOOL)createTagFile:(id)file withTagConfig:(id)config withFileCount:(int)count;
 - (BOOL)isiPad;
 - (XPCSignpostReader)init;
 - (double)secondsFromMachTime:(unint64_t)time;
@@ -80,7 +81,7 @@
 {
   processCopy = process;
   eventCopy = event;
-  v8 = PLLogSignpostReader();
+  v8 = PLLogSignpostReader(eventCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_10000AADC();
@@ -135,7 +136,7 @@
 {
   processCopy = process;
   intervalCopy = interval;
-  v8 = PLLogSignpostReader();
+  v8 = PLLogSignpostReader(intervalCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_10000AB44(intervalCopy);
@@ -195,7 +196,7 @@ LABEL_12:
 {
   processCopy = process;
   intervalCopy = interval;
-  v8 = PLLogSignpostReader();
+  v8 = PLLogSignpostReader(intervalCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_10000AC0C(intervalCopy, v8);
@@ -253,7 +254,7 @@ LABEL_11:
 {
   processCopy = process;
   intervalCopy = interval;
-  v8 = PLLogSignpostReader();
+  v8 = PLLogSignpostReader(intervalCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_10000AD04(intervalCopy);
@@ -306,7 +307,7 @@ LABEL_11:
 {
   processCopy = process;
   intervalCopy = interval;
-  v8 = PLLogSignpostReader();
+  v8 = PLLogSignpostReader(intervalCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_10000ADCC(intervalCopy);
@@ -337,7 +338,7 @@ LABEL_11:
 {
   processCopy = process;
   intervalCopy = interval;
-  v8 = PLLogSignpostReader();
+  v8 = PLLogSignpostReader(intervalCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_10000AE70(intervalCopy);
@@ -764,8 +765,8 @@ LABEL_27:
   v11 = [NSNumber numberWithUnsignedLongLong:(v10 * 1000.0)];
   [v7 setObject:v11 forKeyedSubscript:@"duration"];
 
-  v12 = PLLogSignpostReader();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = PLLogSignpostReader(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     sub_10000AF14(dataCopy);
   }
@@ -955,7 +956,7 @@ LABEL_8:
 {
   replyCopy = reply;
   metricsCopy = metrics;
-  v8 = PLLogSignpostReader();
+  v8 = PLLogSignpostReader(metricsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *v17 = 0;
@@ -1003,28 +1004,29 @@ LABEL_8:
   }
 
   [v10 setSubsystemCategoryFilter:v11];
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_100004624;
+  v22[3] = &unk_1000144C0;
+  v22[4] = self;
+  [v10 setEmitEventProcessingBlock:v22];
   v21[0] = _NSConcreteStackBlock;
   v21[1] = 3221225472;
-  v21[2] = sub_100004624;
-  v21[3] = &unk_1000144C0;
+  v21[2] = sub_100004648;
+  v21[3] = &unk_1000144E8;
   v21[4] = self;
-  [v10 setEmitEventProcessingBlock:v21];
+  [v10 setIntervalCompletionProcessingBlock:v21];
   v20[0] = _NSConcreteStackBlock;
   v20[1] = 3221225472;
-  v20[2] = sub_100004648;
-  v20[3] = &unk_1000144E8;
+  v20[2] = sub_10000466C;
+  v20[3] = &unk_100014510;
   v20[4] = self;
-  [v10 setIntervalCompletionProcessingBlock:v20];
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_10000466C;
-  v19[3] = &unk_100014510;
-  v19[4] = self;
-  [v10 setAnimationIntervalCompletionProcessingBlock:v19];
-  v18 = 0;
-  v12 = [v10 processLogArchiveWithPath:0 startDate:dateCopy endDate:endDateCopy errorOut:&v18];
+  [v10 setAnimationIntervalCompletionProcessingBlock:v20];
+  v19 = 0;
+  v12 = [v10 processLogArchiveWithPath:0 startDate:dateCopy endDate:endDateCopy errorOut:&v19];
 
-  v13 = v18;
+  v13 = v19;
+  v14 = v13;
   if (v12)
   {
     [(XPCSignpostReader *)self updateNormalizedGlitchScores];
@@ -1032,30 +1034,30 @@ LABEL_8:
 
   else
   {
-    v14 = PLLogSignpostReader();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = PLLogSignpostReader(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      sub_10000AFC4(v13);
+      sub_10000AFC4(v14);
     }
   }
 
-  v15 = +[NSMutableDictionary dictionary];
-  [v15 setObject:self->_processExits forKey:@"processExits"];
-  [v15 setObject:self->_launches forKey:@"launchDurations"];
-  [v15 setObject:self->_extendedLaunches forKey:@"extendedLaunchDurations"];
-  [v15 setObject:self->_resumes forKey:@"resumeDurations"];
-  [v15 setObject:self->_glitches forKey:@"scrollGlitches"];
-  [v15 setObject:self->_activations forKey:@"activationDurations"];
-  [v15 setObject:self->_summarizedSignpostEvents forKey:@"signpostEvents"];
+  v16 = +[NSMutableDictionary dictionary];
+  [v16 setObject:self->_processExits forKey:@"processExits"];
+  [v16 setObject:self->_launches forKey:@"launchDurations"];
+  [v16 setObject:self->_extendedLaunches forKey:@"extendedLaunchDurations"];
+  [v16 setObject:self->_resumes forKey:@"resumeDurations"];
+  [v16 setObject:self->_glitches forKey:@"scrollGlitches"];
+  [v16 setObject:self->_activations forKey:@"activationDurations"];
+  [v16 setObject:self->_summarizedSignpostEvents forKey:@"signpostEvents"];
   packageMXSignpostData = [(XPCSignpostReader *)self packageMXSignpostData];
-  [v15 setObject:packageMXSignpostData forKey:@"signpostIntervals"];
+  [v16 setObject:packageMXSignpostData forKey:@"signpostIntervals"];
 
-  [v15 setValue:self->_launchTimeSeries forKey:@"launchesTimeSeries"];
-  [v15 setValue:self->_hangs forKey:@"hangDurations"];
-  [v15 setValue:&off_100015A28 forKey:@"hangtracer_enabled"];
+  [v16 setValue:self->_launchTimeSeries forKey:@"launchesTimeSeries"];
+  [v16 setValue:self->_hangs forKey:@"hangDurations"];
+  [v16 setValue:&off_100015A28 forKey:@"hangtracer_enabled"];
   [(XPCSignpostReader *)self logAggdTelemetry];
 
-  return v15;
+  return v16;
 }
 
 - (id)packageMXSignpostData
@@ -1175,9 +1177,7 @@ LABEL_8:
   numAppSignposts = self->_numAppSignposts;
   self->_numAppSignposts = v25;
 
-  v27 = +[NSMutableArray array];
-  launchTimeSeries = self->_launchTimeSeries;
-  self->_launchTimeSeries = v27;
+  self->_launchTimeSeries = +[NSMutableArray array];
 
   _objc_release_x1();
 }
@@ -1188,18 +1188,8 @@ LABEL_8:
   beginEvent = [intervalCopy beginEvent];
   name = [beginEvent name];
 
-  if (![name isEqualToString:@"HangInterval"])
+  if (![name isEqualToString:@"HangInterval"] || (objc_msgSend(intervalCopy, "beginEvent"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "attributes"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "objectForKey:", @"BundleIdOverride"), bundleIdentifier = objc_claimAutoreleasedReturnValue(), v7, v6, !bundleIdentifier))
   {
-    goto LABEL_3;
-  }
-
-  beginEvent2 = [intervalCopy beginEvent];
-  attributes = [beginEvent2 attributes];
-  bundleIdentifier = [attributes objectForKey:@"BundleIdOverride"];
-
-  if (!bundleIdentifier)
-  {
-LABEL_3:
     endEvent = [intervalCopy endEvent];
     processImagePath = [endEvent processImagePath];
     stringByDeletingLastPathComponent = [processImagePath stringByDeletingLastPathComponent];
@@ -1239,18 +1229,18 @@ LABEL_3:
 - (id)getScrollDirectionForSignpostInterval:(id)interval
 {
   intervalCopy = interval;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = sub_1000053A4;
+  v29 = sub_1000053B4;
+  v30 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = sub_1000053A4;
+  v23 = sub_1000053B4;
   v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = sub_1000053A4;
-  v28 = sub_1000053B4;
-  v29 = 0;
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = sub_1000053A4;
-  v22 = sub_1000053B4;
-  v23 = 0;
   name = [intervalCopy name];
   v5 = [name isEqualToString:@"Scroll_Zooming"];
 
@@ -1267,19 +1257,19 @@ LABEL_3:
     {
       endEvent2 = [intervalCopy endEvent];
       metadataSegments = [endEvent2 metadataSegments];
-      v17[0] = _NSConcreteStackBlock;
-      v17[1] = 3221225472;
-      v17[2] = sub_1000053BC;
-      v17[3] = &unk_1000145D8;
-      v17[4] = &v24;
-      v17[5] = &v18;
-      [metadataSegments enumerateObjectsUsingBlock:v17];
+      v18[0] = _NSConcreteStackBlock;
+      v18[1] = 3221225472;
+      v18[2] = sub_1000053BC;
+      v18[3] = &unk_1000145D8;
+      v18[4] = &v25;
+      v18[5] = &v19;
+      [metadataSegments enumerateObjectsUsingBlock:v18];
 
-      [v25[5] doubleValue];
-      if (v9 != 0.0 || ([v19[5] doubleValue], v10 == 0.0))
+      [v26[5] doubleValue];
+      if (v9 != 0.0 || (doubleValue = [v20[5] doubleValue], v11 == 0.0))
       {
-        [v25[5] doubleValue];
-        if (v11 == 0.0 || ([v19[5] doubleValue], v12 != 0.0))
+        doubleValue = [v26[5] doubleValue];
+        if (v12 == 0.0 || (doubleValue = [v20[5] doubleValue], v13 != 0.0))
         {
           endEvent = @"Diagonal";
         }
@@ -1295,25 +1285,25 @@ LABEL_3:
         endEvent = @"Vertical";
       }
 
-      v13 = PLLogSignpostReader();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v14 = PLLogSignpostReader(doubleValue);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        v15 = v25[5];
-        v16 = v19[5];
+        v16 = v26[5];
+        v17 = v20[5];
         *buf = 138412802;
-        v31 = endEvent;
-        v32 = 2112;
-        v33 = v15;
-        v34 = 2112;
-        v35 = v16;
-        _os_log_debug_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "Scroll direction %@ (dx=%@, dy=%@)", buf, 0x20u);
+        v32 = endEvent;
+        v33 = 2112;
+        v34 = v16;
+        v35 = 2112;
+        v36 = v17;
+        _os_log_debug_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "Scroll direction %@ (dx=%@, dy=%@)", buf, 0x20u);
       }
     }
   }
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v19, 8);
 
-  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v25, 8);
   return endEvent;
 }
 
@@ -1321,7 +1311,7 @@ LABEL_3:
 {
   replyCopy = reply;
   dataCopy = data;
-  v8 = PLLogSignpostReader();
+  v8 = PLLogSignpostReader(dataCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -1332,66 +1322,67 @@ LABEL_3:
   v10 = [dataCopy objectForKeyedSubscript:@"taskingStartDate"];
   v11 = [dataCopy objectForKeyedSubscript:@"taskingEndDate"];
 
-  v12 = PLLogSignpostReader();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = PLLogSignpostReader(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     sub_10000B0DC();
   }
 
-  v13 = PLLogSignpostReader();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v15 = PLLogSignpostReader(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     sub_10000B144();
   }
 
-  v14 = PLLogSignpostReader();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v17 = PLLogSignpostReader(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     sub_10000B1AC();
   }
 
-  v15 = objc_alloc_init(NSMutableDictionary);
-  if (v11 && v10 && ([v10 timeIntervalSince1970], v17 = v16, objc_msgSend(v11, "timeIntervalSince1970"), v17 <= v18))
+  v18 = objc_alloc_init(NSMutableDictionary);
+  if (v11 && v10 && ([v10 timeIntervalSince1970], v20 = v19, objc_msgSend(v11, "timeIntervalSince1970"), v20 <= v21))
   {
-    v19 = objc_alloc_init(SignpostSupportObjectExtractor);
-    [v19 setShouldComposeMetadataString:0];
-    v20 = [(XPCSignpostReader *)self subsystemCategoryAllowlist:v9];
-    [v19 setSubsystemCategoryFilter:v20];
+    v22 = objc_alloc_init(SignpostSupportObjectExtractor);
+    [v22 setShouldComposeMetadataString:0];
+    v23 = [(XPCSignpostReader *)self subsystemCategoryAllowlist:v9];
+    [v22 setSubsystemCategoryFilter:v23];
 
-    v27[0] = _NSConcreteStackBlock;
-    v27[1] = 3221225472;
-    v27[2] = sub_1000058D8;
-    v27[3] = &unk_100014600;
-    v21 = v15;
-    v28 = v21;
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_1000058D8;
+    v31[3] = &unk_100014600;
+    v24 = v18;
+    v32 = v24;
     selfCopy = self;
-    [v19 setIntervalCompletionProcessingBlock:v27];
-    v26 = 0;
-    v22 = [v19 processLogArchiveWithPath:0 startDate:v10 endDate:v11 errorOut:&v26];
-    v23 = v26;
-    if ((v22 & 1) == 0)
+    [v22 setIntervalCompletionProcessingBlock:v31];
+    v30 = 0;
+    v25 = [v22 processLogArchiveWithPath:0 startDate:v10 endDate:v11 errorOut:&v30];
+    v26 = v30;
+    v27 = v26;
+    if ((v25 & 1) == 0)
     {
-      v24 = PLLogSignpostReader();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v28 = PLLogSignpostReader(v26);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        sub_10000B214(v23);
+        sub_10000B214(v27);
       }
     }
 
-    v25 = PLLogSignpostReader();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    v29 = PLLogSignpostReader(v26);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v31 = v21;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Signpost data aggregation end: reply = %@", buf, 0xCu);
+      v35 = v24;
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "Signpost data aggregation end: reply = %@", buf, 0xCu);
     }
 
-    replyCopy[2](replyCopy, v21);
+    replyCopy[2](replyCopy, v24);
   }
 
   else
   {
-    replyCopy[2](replyCopy, v15);
+    replyCopy[2](replyCopy, v18);
   }
 }
 
@@ -1399,7 +1390,7 @@ LABEL_3:
 {
   configCopy = config;
   replyCopy = reply;
-  v7 = PLLogSignpostReader();
+  v7 = PLLogSignpostReader(replyCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -1410,118 +1401,120 @@ LABEL_3:
   v9 = [configCopy objectForKeyedSubscript:@"taskingAllowlist"];
   v10 = [configCopy objectForKeyedSubscript:@"taskingStartDate"];
   v11 = [configCopy objectForKeyedSubscript:@"taskingEndDate"];
-  v12 = [configCopy objectForKeyedSubscript:@"taskingTagConfig"];
-  if (v12 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  isKindOfClass = [configCopy objectForKeyedSubscript:@"taskingTagConfig"];
+  v13 = isKindOfClass;
+  if (isKindOfClass && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
   {
-    v13 = v12;
-    v14 = [v13 objectForKeyedSubscript:@"TagUUID"];
+    v14 = v13;
+    isKindOfClass = [v14 objectForKeyedSubscript:@"TagUUID"];
+    v15 = isKindOfClass;
   }
 
   else
   {
+    v15 = 0;
     v14 = 0;
-    v13 = 0;
   }
 
-  v15 = PLLogSignpostReader();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v16 = PLLogSignpostReader(isKindOfClass);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     sub_10000B3E4();
   }
 
-  v16 = PLLogSignpostReader();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v18 = PLLogSignpostReader(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     sub_10000B0DC();
   }
 
-  v17 = PLLogSignpostReader();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v20 = PLLogSignpostReader(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     sub_10000B144();
   }
 
-  v18 = PLLogSignpostReader();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v22 = PLLogSignpostReader(v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
     sub_10000B1AC();
   }
 
-  v19 = PLLogSignpostReader();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v24 = PLLogSignpostReader(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
     sub_10000B44C();
   }
 
-  v20 = [[NSUUID alloc] initWithUUIDString:v14];
-  if (v20)
+  v25 = [[NSUUID alloc] initWithUUIDString:v15];
+  if (v25)
   {
-    v39 = v13;
-    v21 = 1;
-    if (v10 && v11 && v9 && v14)
+    v45 = v14;
+    v26 = 1;
+    if (v10 && v11 && v9 && v15)
     {
-      v37 = v11;
-      v36 = [NSString stringWithFormat:@"%@Powerlog_%@/", @"/tmp/powerlog/cloud/", v14];
-      v22 = [configCopy objectForKeyedSubscript:@"taskingSubmitSP"];
-      bOOLValue = [v22 BOOLValue];
+      v43 = v11;
+      v42 = [NSString stringWithFormat:@"%@Powerlog_%@/", @"/tmp/powerlog/cloud/", v15];
+      v27 = [configCopy objectForKeyedSubscript:@"taskingSubmitSP"];
+      bOOLValue = [v27 BOOLValue];
 
       if (bOOLValue)
       {
-        v35 = v9;
-        v24 = [v39 objectForKeyedSubscript:@"Date"];
-        v33 = replyCopy;
-        v34 = v8;
-        if (v24)
+        v41 = v9;
+        v29 = [v45 objectForKeyedSubscript:@"Date"];
+        v39 = replyCopy;
+        v40 = v8;
+        if (v29)
         {
-          v25 = [v39 objectForKeyedSubscript:@"Date"];
-          v26 = [NSString stringWithFormat:@"Signpost_%@", v25];
+          v30 = [v45 objectForKeyedSubscript:@"Date"];
+          v31 = [NSString stringWithFormat:@"Signpost_%@", v30];
         }
 
         else
         {
-          v26 = [NSString stringWithFormat:@"Signpost_%@", v14];
+          v31 = [NSString stringWithFormat:@"Signpost_%@", v15];
         }
 
-        v28 = v36;
-        v29 = [NSString stringWithFormat:@"%@%@/", v36, v26];
-        v9 = v35;
-        v30 = [(XPCSignpostReader *)self createSignpostFile:v29 withStartDate:v10 withEndDate:v37 withallowlist:v35 withTagConfig:v12];
-        v21 = v30 != 0;
+        v33 = v42;
+        v34 = [NSString stringWithFormat:@"%@%@/", v42, v31];
+        v9 = v41;
+        v35 = [(XPCSignpostReader *)self createSignpostFile:v34 withStartDate:v10 withEndDate:v43 withallowlist:v41 withTagConfig:v13];
+        v26 = v35 != 0;
 
-        replyCopy = v33;
-        v8 = v34;
+        replyCopy = v39;
+        v8 = v40;
       }
 
       else
       {
-        v21 = 1;
-        v28 = v36;
+        v26 = 1;
+        v33 = v42;
       }
 
-      v11 = v37;
+      v11 = v43;
     }
 
-    v31 = [NSNumber numberWithBool:v21];
-    [v8 setObject:v31 forKey:@"success"];
+    v36 = [NSNumber numberWithBool:v26];
+    [v8 setObject:v36 forKey:@"success"];
 
-    v32 = PLLogSignpostReader();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+    v38 = PLLogSignpostReader(v37);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v41 = v8;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "Signpost data submission end: reply = %@", buf, 0xCu);
+      v47 = v8;
+      _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_INFO, "Signpost data submission end: reply = %@", buf, 0xCu);
     }
 
-    v27 = v8;
-    v13 = v39;
+    v32 = v8;
+    v14 = v45;
   }
 
   else
   {
-    v27 = 0;
+    v32 = 0;
   }
 
-  (replyCopy)[2](replyCopy, v27);
+  (replyCopy)[2](replyCopy, v32);
 }
 
 - (id)createSignpostFile:(id)file withStartDate:(id)date withEndDate:(id)endDate withallowlist:(id)withallowlist withTagConfig:(id)config
@@ -1531,17 +1524,17 @@ LABEL_3:
   endDateCopy = endDate;
   withallowlistCopy = withallowlist;
   configCopy = config;
-  v98 = 0;
-  v99 = &v98;
-  v100 = 0x2020000000;
-  v101 = 0;
+  v105 = 0;
+  v106 = &v105;
+  v107 = 0x2020000000;
+  v108 = 0;
   v12 = +[NSFileManager defaultManager];
   LOBYTE(withallowlist) = [v12 fileExistsAtPath:fileCopy];
 
   if (withallowlist)
   {
-    v61 = PLLogSignpostReader();
-    if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+    v68 = PLLogSignpostReader(v13);
+    if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
     {
       sub_10000B648();
     }
@@ -1549,189 +1542,192 @@ LABEL_3:
     goto LABEL_39;
   }
 
-  v13 = +[NSFileManager defaultManager];
-  v97 = 0;
-  v14 = [v13 createDirectoryAtPath:fileCopy withIntermediateDirectories:1 attributes:0 error:&v97];
-  v61 = v97;
+  v14 = +[NSFileManager defaultManager];
+  v104 = 0;
+  v15 = [v14 createDirectoryAtPath:fileCopy withIntermediateDirectories:1 attributes:0 error:&v104];
+  v68 = v104;
 
-  if (v14)
+  if (v15)
   {
-    v15 = objc_alloc_init(SignpostSupportObjectExtractor);
-    [v15 setShouldComposeMetadataString:0];
-    v60 = v15;
-    v16 = [(XPCSignpostReader *)self subsystemCategoryAllowlist:withallowlistCopy];
-    v17 = objc_opt_new();
-    v89[0] = _NSConcreteStackBlock;
-    v89[1] = 3221225472;
-    v89[2] = sub_100007124;
-    v89[3] = &unk_100014628;
-    v96 = 1;
-    v59 = v16;
-    v90 = v59;
+    v16 = objc_alloc_init(SignpostSupportObjectExtractor);
+    [v16 setShouldComposeMetadataString:0];
+    v67 = v16;
+    v17 = [(XPCSignpostReader *)self subsystemCategoryAllowlist:withallowlistCopy];
+    v18 = objc_opt_new();
+    v96[0] = _NSConcreteStackBlock;
+    v96[1] = 3221225472;
+    v96[2] = sub_100007124;
+    v96[3] = &unk_100014628;
+    v103 = 1;
+    v66 = v17;
+    v97 = v66;
     selfCopy = self;
-    v92 = configCopy;
-    v67 = v17;
-    v93 = v67;
-    v95 = &v98;
-    v56 = fileCopy;
-    v94 = v56;
-    v58 = objc_retainBlock(v89);
-    [v60 setIntervalCompletionProcessingBlock:v58];
-    v57 = +[WRWorkflow allWorkflows];
-    if ([v57 count])
+    v99 = configCopy;
+    v74 = v18;
+    v100 = v74;
+    v102 = &v105;
+    v63 = fileCopy;
+    v101 = v63;
+    v65 = objc_retainBlock(v96);
+    [v67 setIntervalCompletionProcessingBlock:v65];
+    v64 = +[WRWorkflow allWorkflows];
+    if ([v64 count])
     {
-      v66 = objc_alloc_init(SignpostSupportSubsystemCategoryAllowlist);
-      v18 = +[NSMutableArray array];
-      v87 = 0u;
-      v88 = 0u;
-      v85 = 0u;
-      v86 = 0u;
-      v19 = v57;
-      v20 = [v19 countByEnumeratingWithState:&v85 objects:v108 count:16];
-      if (v20)
+      v73 = objc_alloc_init(SignpostSupportSubsystemCategoryAllowlist);
+      v19 = +[NSMutableArray array];
+      v94 = 0u;
+      v95 = 0u;
+      v92 = 0u;
+      v93 = 0u;
+      v20 = v64;
+      v21 = [v20 countByEnumeratingWithState:&v92 objects:v115 count:16];
+      v22 = v21;
+      if (v21)
       {
-        v21 = *v86;
+        v23 = *v93;
         do
         {
-          v22 = 0;
+          v24 = 0;
           do
           {
-            if (*v86 != v21)
+            if (*v93 != v23)
             {
-              objc_enumerationMutation(v19);
+              objc_enumerationMutation(v20);
             }
 
-            v23 = *(*(&v85 + 1) + 8 * v22);
-            v24 = PLLogSignpostReader();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+            v25 = *(*(&v92 + 1) + 8 * v24);
+            v26 = PLLogSignpostReader(v21);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
             {
-              name = [v23 name];
-              sub_10000B4B4(name, v106, &v107, v24);
+              name = [v25 name];
+              sub_10000B4B4(name, v113, &v114, v26);
             }
 
-            contextualTelemetryEnabled = [v23 contextualTelemetryEnabled];
-            v27 = PLLogSignpostReader();
-            v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG);
-            if (contextualTelemetryEnabled)
+            contextualTelemetryEnabled = [v25 contextualTelemetryEnabled];
+            v29 = contextualTelemetryEnabled;
+            v30 = PLLogSignpostReader(contextualTelemetryEnabled);
+            v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG);
+            if (v29)
             {
-              if (v28)
+              if (v31)
               {
-                name2 = [v23 name];
-                allowListForAllSignposts = [v23 allowListForAllSignposts];
+                name2 = [v25 name];
+                allowListForAllSignposts = [v25 allowListForAllSignposts];
                 *buf = 138412546;
-                v103 = name2;
-                v104 = 2112;
-                v105 = allowListForAllSignposts;
-                _os_log_debug_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "[WR] Appending allowlist for workflow '%@': %@", buf, 0x16u);
+                v110 = name2;
+                v111 = 2112;
+                v112 = allowListForAllSignposts;
+                _os_log_debug_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEBUG, "[WR] Appending allowlist for workflow '%@': %@", buf, 0x16u);
               }
 
-              allowListForAllSignposts2 = [v23 allowListForAllSignposts];
-              [v66 addAllowlist:allowListForAllSignposts2];
+              allowListForAllSignposts2 = [v25 allowListForAllSignposts];
+              [v73 addAllowlist:allowListForAllSignposts2];
 
-              v83[0] = _NSConcreteStackBlock;
-              v83[1] = 3221225472;
-              v83[2] = sub_100007310;
-              v83[3] = &unk_100014650;
-              v83[4] = v23;
-              v83[5] = self;
-              v84 = v67;
-              v30 = objc_retainBlock(v83);
-              v31 = [[WRWorkflowEventTracker alloc] initForReadbackWithWorkflow:v23 eventCompletionCallback:v30];
-              [v18 addObject:v31];
+              v90[0] = _NSConcreteStackBlock;
+              v90[1] = 3221225472;
+              v90[2] = sub_100007310;
+              v90[3] = &unk_100014650;
+              v90[4] = v25;
+              v90[5] = self;
+              v91 = v74;
+              v33 = objc_retainBlock(v90);
+              v34 = [[WRWorkflowEventTracker alloc] initForReadbackWithWorkflow:v25 eventCompletionCallback:v33];
+              [v19 addObject:v34];
             }
 
             else
             {
-              if (v28)
+              if (v31)
               {
-                name3 = [v23 name];
-                contextualTelemetryEnabled2 = [v23 contextualTelemetryEnabled];
+                name3 = [v25 name];
+                contextualTelemetryEnabled2 = [v25 contextualTelemetryEnabled];
                 *buf = 138412546;
-                v103 = name3;
-                v104 = 1024;
-                LODWORD(v105) = contextualTelemetryEnabled2;
-                _os_log_debug_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "[WR] workflow %@ does not have contextualTelemetryEnabled (=%d), skipping to next workflow", buf, 0x12u);
+                v110 = name3;
+                v111 = 1024;
+                LODWORD(v112) = contextualTelemetryEnabled2;
+                _os_log_debug_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEBUG, "[WR] workflow %@ does not have contextualTelemetryEnabled (=%d), skipping to next workflow", buf, 0x12u);
               }
             }
 
-            v22 = v22 + 1;
+            v24 = v24 + 1;
           }
 
-          while (v20 != v22);
-          v20 = [v19 countByEnumeratingWithState:&v85 objects:v108 count:16];
+          while (v22 != v24);
+          v21 = [v20 countByEnumeratingWithState:&v92 objects:v115 count:16];
+          v22 = v21;
         }
 
-        while (v20);
+        while (v21);
       }
 
-      v36 = PLLogSignpostReader();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+      v40 = PLLogSignpostReader(v39);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
       {
         sub_10000B510();
       }
 
-      [v59 addAllowlist:v66];
+      [v66 addAllowlist:v73];
+      v84[0] = _NSConcreteStackBlock;
+      v84[1] = 3221225472;
+      v84[2] = sub_1000078A8;
+      v84[3] = &unk_100014678;
+      v41 = v19;
+      v85 = v41;
+      v89 = &v105;
+      v86 = v74;
+      selfCopy2 = self;
+      v88 = v63;
+      v42 = objc_retainBlock(v84);
+      date = v67;
+      [v67 setEmitEventProcessingBlock:v42];
+      [v67 setBeginEventProcessingBlock:v42];
+      v79[0] = _NSConcreteStackBlock;
+      v79[1] = 3221225472;
+      v79[2] = sub_100007B40;
+      v79[3] = &unk_1000146A0;
+      v43 = v73;
+      v80 = v43;
+      v44 = v42;
+      v82 = v44;
+      v81 = v66;
+      v83 = v65;
+      [v67 setIntervalCompletionProcessingBlock:v79];
       v77[0] = _NSConcreteStackBlock;
       v77[1] = 3221225472;
-      v77[2] = sub_1000078A8;
-      v77[3] = &unk_100014678;
-      v37 = v18;
-      v78 = v37;
-      v82 = &v98;
-      v79 = v67;
-      selfCopy2 = self;
-      v81 = v56;
-      v38 = objc_retainBlock(v77);
-      date = v60;
-      [v60 setEmitEventProcessingBlock:v38];
-      [v60 setBeginEventProcessingBlock:v38];
-      v72[0] = _NSConcreteStackBlock;
-      v72[1] = 3221225472;
-      v72[2] = sub_100007B40;
-      v72[3] = &unk_1000146A0;
-      v39 = v66;
-      v73 = v39;
-      v40 = v38;
-      v75 = v40;
-      v74 = v59;
-      v76 = v58;
-      [v60 setIntervalCompletionProcessingBlock:v72];
-      v70[0] = _NSConcreteStackBlock;
-      v70[1] = 3221225472;
-      v70[2] = sub_100007C2C;
-      v70[3] = &unk_1000146C8;
-      v41 = v37;
-      v71 = v41;
-      [v60 setDeviceRebootProcessingBlock:v70];
+      v77[2] = sub_100007C2C;
+      v77[3] = &unk_1000146C8;
+      v45 = v41;
+      v78 = v45;
+      [v67 setDeviceRebootProcessingBlock:v77];
     }
 
-    v42 = objc_alloc_init(SignpostSupportSubsystemCategoryAllowlist);
-    [v42 addAllowlist:v59];
-    [SignpostCAInstrumentationProcessor addNeededSCToAllowlist:v42];
-    v43 = PLLogSignpostReader();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+    v46 = objc_alloc_init(SignpostSupportSubsystemCategoryAllowlist);
+    [v46 addAllowlist:v66];
+    v47 = PLLogSignpostReader([SignpostCAInstrumentationProcessor addNeededSCToAllowlist:v46]);
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
     {
       sub_10000B578();
     }
 
-    v44 = PLLogSignpostReader();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+    v49 = PLLogSignpostReader(v48);
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
     {
       sub_10000B5E0();
     }
 
-    [v60 setSubsystemCategoryFilter:v42];
-    v69 = 0;
-    v45 = [v60 processLogArchiveWithPath:0 startDate:dateCopy endDate:endDateCopy errorOut:&v69];
-    v46 = v69;
-    if ((v45 & 1) == 0)
+    [v67 setSubsystemCategoryFilter:v46];
+    v76 = 0;
+    v50 = [v67 processLogArchiveWithPath:0 startDate:dateCopy endDate:endDateCopy errorOut:&v76];
+    v51 = v76;
+    v52 = v51;
+    if ((v50 & 1) == 0)
     {
-      v47 = PLLogSignpostReader();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+      v53 = PLLogSignpostReader(v51);
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
       {
-        if (v46)
+        if (v52)
         {
-          date = [v46 localizedDescription];
+          date = [v52 localizedDescription];
           dateCopy2 = date;
           uTF8String = [date UTF8String];
         }
@@ -1742,47 +1738,47 @@ LABEL_3:
         }
 
         *buf = 136315138;
-        v103 = uTF8String;
-        _os_log_error_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "Unable to serialize signpost: %s", buf, 0xCu);
-        if (v46)
+        v110 = uTF8String;
+        _os_log_error_impl(&_mh_execute_header, v53, OS_LOG_TYPE_ERROR, "Unable to serialize signpost: %s", buf, 0xCu);
+        if (v52)
         {
         }
       }
     }
 
-    v48 = [(XPCSignpostReader *)self writeSignpostFile:v56 withOrder:*(v99 + 6) withData:v67];
-    *(v99 + 6) = v48;
+    v54 = [(XPCSignpostReader *)self writeSignpostFile:v63 withOrder:*(v106 + 6) withData:v74];
+    *(v106 + 6) = v54;
   }
 
-  if (!*(v99 + 6))
+  if (!*(v106 + 6))
   {
     goto LABEL_39;
   }
 
-  v49 = [NSString stringWithFormat:@"%@%@", fileCopy, @"tag.json"];
-  if (![(XPCSignpostReader *)self createTagFile:v49 withTagConfig:configCopy withFileCount:*(v99 + 6)])
+  v55 = [NSString stringWithFormat:@"%@%@", fileCopy, @"tag.json"];
+  if (![(XPCSignpostReader *)self createTagFile:v55 withTagConfig:configCopy withFileCount:*(v106 + 6)])
   {
 
 LABEL_39:
-    v51 = 0;
+    v57 = 0;
     goto LABEL_40;
   }
 
-  v50 = [NSURL fileURLWithPath:fileCopy];
-  v51 = [DEArchiver archiveDirectoryAt:v50 deleteOriginal:1];
+  v56 = [NSURL fileURLWithPath:fileCopy];
+  v57 = [DEArchiver archiveDirectoryAt:v56 deleteOriginal:1];
 
-  v52 = PLLogSignpostReader();
-  if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
+  v59 = PLLogSignpostReader(v58);
+  if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v103 = v51;
-    _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_INFO, "Signpost tarball generated at %@", buf, 0xCu);
+    v110 = v57;
+    _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_INFO, "Signpost tarball generated at %@", buf, 0xCu);
   }
 
 LABEL_40:
-  _Block_object_dispose(&v98, 8);
+  _Block_object_dispose(&v105, 8);
 
-  return v51;
+  return v57;
 }
 
 - (id)gzipDeflate:(id)deflate
@@ -1831,11 +1827,11 @@ LABEL_40:
   LODWORD(v6) = order;
   fileCopy = file;
   dataCopy = data;
-  v10 = PLLogSignpostReader();
+  v10 = PLLogSignpostReader(dataCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v29 = [dataCopy count];
+    v30 = [dataCopy count];
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "writing to signpost file for %lu records.", buf, 0xCu);
   }
 
@@ -1850,39 +1846,39 @@ LABEL_40:
   if (v12)
   {
     v11 = [NSJSONSerialization dataWithJSONObject:dataCopy options:0 error:0];
-    v13 = PLLogSignpostReader();
+    v13 = PLLogSignpostReader(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v14 = [v11 length];
       *buf = 134217984;
-      v29 = v14;
+      v30 = v14;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "\t Original JSON size = %lu", buf, 0xCu);
     }
 
     v15 = [(XPCSignpostReader *)self gzipDeflate:v11];
-    v16 = PLLogSignpostReader();
+    v16 = PLLogSignpostReader(v15);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       v17 = [v15 length];
       *buf = 134217984;
-      v29 = v17;
+      v30 = v17;
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "\t Compressed size = %lu", buf, 0xCu);
     }
 
     localizedDescription = &ADClientSetValueForScalarKey_ptr;
     v6 = (v6 + 1);
     v19 = [NSString stringWithFormat:@"%@signpost.%d.json.gz", fileCopy, v6];
-    v27 = 0;
-    v20 = [v15 writeToFile:v19 options:1 error:&v27];
-    v21 = v27;
+    v28 = 0;
+    v20 = [v15 writeToFile:v19 options:1 error:&v28];
+    v21 = v28;
 
     if ((v20 & 1) == 0)
     {
-      v22 = PLLogSignpostReader();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v23 = PLLogSignpostReader(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        v24 = [NSString stringWithFormat:@"%@%d.json.gz", fileCopy, v6];
-        uTF8String = [v24 UTF8String];
+        v25 = [NSString stringWithFormat:@"%@%d.json.gz", fileCopy, v6];
+        uTF8String = [v25 UTF8String];
         if (v21)
         {
           localizedDescription = [v21 localizedDescription];
@@ -1895,10 +1891,10 @@ LABEL_40:
         }
 
         *buf = 136315394;
-        v29 = uTF8String;
-        v30 = 2080;
-        v31 = uTF8String2;
-        _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Unable to write to %s: %s", buf, 0x16u);
+        v30 = uTF8String;
+        v31 = 2080;
+        v32 = uTF8String2;
+        _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Unable to write to %s: %s", buf, 0x16u);
         if (v21)
         {
         }
@@ -2178,19 +2174,19 @@ LABEL_13:
   if (bOOLValue)
   {
     subsystem2 = [dataCopy subsystem];
-    v44 = [subsystem2 isEqualToString:@"com.apple.metrickit.log"];
+    v45 = [subsystem2 isEqualToString:@"com.apple.metrickit.log"];
 
-    if (v44)
+    if (v45)
     {
-      v45 = [(XPCSignpostReader *)self mxSignpostIntervalDataForTasking:dataCopy];
-      [v8 addEntriesFromDictionary:v45];
+      v46 = [(XPCSignpostReader *)self mxSignpostIntervalDataForTasking:dataCopy];
+      [v8 addEntriesFromDictionary:v46];
     }
   }
 
-  v46 = PLLogSignpostReader();
-  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+  v47 = PLLogSignpostReader(v43);
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
   {
-    sub_10000B74C(v8, v46);
+    sub_10000B74C(v8, v47);
   }
 
   return v8;
@@ -2283,27 +2279,73 @@ LABEL_13:
   return v4;
 }
 
+- (BOOL)createTagFile:(id)file withTagConfig:(id)config withFileCount:(int)count
+{
+  v5 = *&count;
+  fileCopy = file;
+  configCopy = config;
+  v9 = [configCopy objectForKeyedSubscript:@"TagUUID"];
+
+  if (!v5 || !v9)
+  {
+    v11 = PLLogSignpostReader(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    {
+      sub_10000B870(v11);
+    }
+
+    goto LABEL_10;
+  }
+
+  v11 = [[NSMutableDictionary alloc] initWithDictionary:configCopy];
+  v12 = [NSNumber numberWithInt:v5];
+  [v11 setObject:v12 forKeyedSubscript:@"FileCount"];
+
+  if (![NSJSONSerialization isValidJSONObject:v11])
+  {
+    v20 = 0;
+    v16 = [NSJSONSerialization dataWithJSONObject:v11 options:0 error:&v20];
+    v17 = v20;
+    v18 = PLLogSignpostReader(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      sub_10000B8B4(v17, v16, v18);
+    }
+
+LABEL_10:
+    v15 = 0;
+    goto LABEL_11;
+  }
+
+  v13 = [NSJSONSerialization dataWithJSONObject:v11 options:0 error:0];
+  v14 = [[NSString alloc] initWithData:v13 encoding:4];
+  v15 = [v14 writeToFile:fileCopy atomically:0 encoding:4 error:0];
+
+LABEL_11:
+  return v15;
+}
+
 - (void)removeFile:(id)file
 {
   fileCopy = file;
   v4 = +[NSFileManager defaultManager];
-  v9 = 0;
-  v5 = [v4 removeItemAtPath:fileCopy error:&v9];
-  v6 = v9;
+  v10 = 0;
+  v5 = [v4 removeItemAtPath:fileCopy error:&v10];
+  v6 = v10;
 
-  v7 = PLLogSignpostReader();
-  v8 = v7;
+  v8 = PLLogSignpostReader(v7);
+  v9 = v8;
   if (v5)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       sub_10000BA14();
     }
   }
 
-  else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    sub_10000B95C(fileCopy, v6, v8);
+    sub_10000B95C(fileCopy, v6, v9);
   }
 }
 
@@ -2324,46 +2366,47 @@ LABEL_13:
   v8 = [dataCopy objectForKeyedSubscript:@"start_date"];
   v9 = [dataCopy objectForKeyedSubscript:@"end_date"];
 
-  v10 = PLLogSignpostReader();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = PLLogSignpostReader(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v22 = v8;
-    v23 = 2112;
-    v24 = v9;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[RAPID] readRawSignpostData: %@ %@", buf, 0x16u);
+    v24 = v8;
+    v25 = 2112;
+    v26 = v9;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[RAPID] readRawSignpostData: %@ %@", buf, 0x16u);
   }
 
-  v11 = objc_alloc_init(SignpostSupportObjectExtractor);
-  [v11 setShouldComposeMetadataString:0];
-  v12 = objc_alloc_init(SignpostSupportSubsystemCategoryAllowlist);
-  [v12 addSubsystem:@"com.apple.hangtracer" category:@"always_on_hang"];
-  [v11 setSubsystemCategoryFilter:v12];
-  v13 = objc_opt_new();
+  v12 = objc_alloc_init(SignpostSupportObjectExtractor);
+  [v12 setShouldComposeMetadataString:0];
+  v13 = objc_alloc_init(SignpostSupportSubsystemCategoryAllowlist);
+  [v13 addSubsystem:@"com.apple.hangtracer" category:@"always_on_hang"];
+  [v12 setSubsystemCategoryFilter:v13];
   v14 = objc_opt_new();
-  [v13 setObject:v14 forKeyedSubscript:@"hangDurations"];
+  v15 = objc_opt_new();
+  [v14 setObject:v15 forKeyedSubscript:@"hangDurations"];
 
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_1000098AC;
-  v19[3] = &unk_100014600;
-  v19[4] = self;
-  v15 = v13;
-  v20 = v15;
-  [v11 setIntervalCompletionProcessingBlock:v19];
-  v18 = 0;
-  LOBYTE(v14) = [v11 processLogArchiveWithPath:0 startDate:v8 endDate:v9 errorOut:&v18];
-  v16 = v18;
-  if ((v14 & 1) == 0)
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = sub_1000098AC;
+  v21[3] = &unk_100014600;
+  v21[4] = self;
+  v16 = v14;
+  v22 = v16;
+  [v12 setIntervalCompletionProcessingBlock:v21];
+  v20 = 0;
+  LOBYTE(v15) = [v12 processLogArchiveWithPath:0 startDate:v8 endDate:v9 errorOut:&v20];
+  v17 = v20;
+  v18 = v17;
+  if ((v15 & 1) == 0)
   {
-    v17 = PLLogSignpostReader();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = PLLogSignpostReader(v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      sub_10000BA90(v16);
+      sub_10000BA90(v18);
     }
   }
 
-  replyCopy[2](replyCopy, v15);
+  replyCopy[2](replyCopy, v16);
 }
 
 - (void)updateHangsData:(id)data withInterval:(id)interval
@@ -2404,7 +2447,7 @@ LABEL_13:
 {
   dCopy = d;
   replyCopy = reply;
-  v8 = PLLogSignpostReader();
+  v8 = PLLogSignpostReader(replyCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -2419,7 +2462,7 @@ LABEL_13:
 {
   taskingCopy = tasking;
   replyCopy = reply;
-  v8 = PLLogSignpostReader();
+  v8 = PLLogSignpostReader(replyCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 138412290;
@@ -2453,100 +2496,100 @@ LABEL_13:
   v13 = [reportCopy objectForKeyedSubscript:@"mss_filepath"];
   empty = xpc_dictionary_create_empty();
   xpc_dictionary_set_uint64(empty, "time", v11);
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
+  v60 = 0;
+  v53 = 0;
+  v54 = &v53;
+  v55 = 0x2020000000;
   v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
-  v59 = 0;
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x2020000000;
-  v55 = 0;
   initForLiveSampling = [[SASampleStore alloc] initForLiveSampling];
   [initForLiveSampling setDataGatheringOptions:{objc_msgSend(initForLiveSampling, "dataGatheringOptions") & 0xFFFFFFFFFFFFFF8FLL}];
   [initForLiveSampling setEvent:@"powerstats"];
   v15 = mach_absolute_time();
   _os_feature_enabled_impl();
   v16 = initForLiveSampling;
-  systemstats_get_microstackshots();
-  v17 = PLLogSignpostReader();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  microstackshots = systemstats_get_microstackshots();
+  v18 = PLLogSignpostReader(microstackshots);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = *(v57 + 6);
-    v19 = *(v53 + 6);
+    v19 = *(v58 + 6);
+    v20 = *(v54 + 6);
     numSamples = [v16 numSamples];
     *buf = 67109632;
-    v63 = v18;
-    v64 = 1024;
-    v65 = v19;
-    v66 = 2048;
-    v67 = numSamples;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "MSS TotalCount = %u, AddedSampleCount = %u, FinalSampleCount = %lu", buf, 0x18u);
+    v64 = v19;
+    v65 = 1024;
+    v66 = v20;
+    v67 = 2048;
+    v68 = numSamples;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "MSS TotalCount = %u, AddedSampleCount = %u, FinalSampleCount = %lu", buf, 0x18u);
   }
 
   [(XPCSignpostReader *)self secondsFromMachTime:mach_absolute_time()];
-  v22 = v21;
+  v23 = v22;
   [(XPCSignpostReader *)self secondsFromMachTime:v15];
-  v24 = v23;
-  v25 = mach_absolute_time();
+  v25 = v24;
+  v26 = mach_absolute_time();
   [v16 postprocess];
   [(XPCSignpostReader *)self secondsFromMachTime:mach_absolute_time()];
-  v27 = v26;
-  [(XPCSignpostReader *)self secondsFromMachTime:v25];
-  v29 = v28;
-  v30 = mach_absolute_time();
-  v31 = [[SASamplePrinter alloc] initWithSampleStore:v16];
-  v32 = v31;
+  v28 = v27;
+  [(XPCSignpostReader *)self secondsFromMachTime:v26];
+  v30 = v29;
+  v31 = mach_absolute_time();
+  v32 = [[SASamplePrinter alloc] initWithSampleStore:v16];
+  v33 = v32;
   if (optionsCopy)
   {
-    [v31 setOptions:?];
+    [v32 setOptions:?];
   }
 
   else
   {
-    options = [v31 options];
+    options = [v32 options];
     [options setDisplayTimestampsInCallTrees:1];
 
-    options2 = [v32 options];
+    options2 = [v33 options];
     [options2 setSystemstatsFormat:1];
 
-    options3 = [v32 options];
+    options3 = [v33 options];
     [options3 setOmitAbsoluteWallTimes:1];
   }
 
-  v36 = v13;
-  v37 = fopen([v13 UTF8String], "w");
-  if (v37)
+  v37 = v13;
+  v38 = fopen([v13 UTF8String], "w");
+  if (v38)
   {
-    [v32 printToStream:v37];
-    fclose(v37);
+    [v33 printToStream:v38];
+    fclose(v38);
     [(XPCSignpostReader *)self secondsFromMachTime:mach_absolute_time()];
-    v39 = v38;
-    [(XPCSignpostReader *)self secondsFromMachTime:v30];
-    v41 = v40;
-    v60[0] = @"sample_count";
-    v42 = [NSNumber numberWithUnsignedInt:*(v53 + 6)];
-    v61[0] = v42;
-    v61[1] = &__kCFBooleanTrue;
-    v60[1] = @"success";
-    v60[2] = @"time_processing";
-    v43 = [NSNumber numberWithDouble:v27 - v29];
-    v61[2] = v43;
-    v60[3] = @"time_printing";
-    v44 = [NSNumber numberWithDouble:v39 - v41];
-    v61[3] = v44;
-    v60[4] = @"time_reading";
-    v45 = [NSNumber numberWithDouble:v22 - v24];
-    v61[4] = v45;
-    v46 = [NSDictionary dictionaryWithObjects:v61 forKeys:v60 count:5];
-    replyCopy[2](replyCopy, v46);
+    v40 = v39;
+    [(XPCSignpostReader *)self secondsFromMachTime:v31];
+    v42 = v41;
+    v61[0] = @"sample_count";
+    v43 = [NSNumber numberWithUnsignedInt:*(v54 + 6)];
+    v62[0] = v43;
+    v62[1] = &__kCFBooleanTrue;
+    v61[1] = @"success";
+    v61[2] = @"time_processing";
+    v44 = [NSNumber numberWithDouble:v28 - v30];
+    v62[2] = v44;
+    v61[3] = @"time_printing";
+    v45 = [NSNumber numberWithDouble:v40 - v42];
+    v62[3] = v45;
+    v61[4] = @"time_reading";
+    v46 = [NSNumber numberWithDouble:v23 - v25];
+    v62[4] = v46;
+    v47 = [NSDictionary dictionaryWithObjects:v62 forKeys:v61 count:5];
+    replyCopy[2](replyCopy, v47);
 
     [(XPCSignpostReader *)self clearSACaches];
   }
 
   else
   {
-    v47 = PLLogSignpostReader();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    v48 = PLLogSignpostReader(0);
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
       sub_10000BB40();
     }
@@ -2556,15 +2599,15 @@ LABEL_13:
     [(XPCSignpostReader *)self clearSACaches];
   }
 
-  _Block_object_dispose(&v52, 8);
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v57, 8);
 
   objc_autoreleasePoolPop(context);
 }
 
 - (void)clearSACaches
 {
-  v2 = PLLogSignpostReader();
+  v2 = PLLogSignpostReader(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -2572,8 +2615,7 @@ LABEL_13:
   }
 
   +[SABinary clearCaches];
-  +[SASharedCache clearCaches];
-  v3 = PLLogSignpostReader();
+  v3 = PLLogSignpostReader(+[SASharedCache clearCaches]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;

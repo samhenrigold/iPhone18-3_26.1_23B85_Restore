@@ -34,48 +34,47 @@
 
 - (AKAppleIDPasskeySetupContext)initWithCoder:(id)coder
 {
-  v22 = &selfCopy;
+  v21 = &selfCopy;
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, coder);
   v3 = selfCopy;
   selfCopy = 0;
-  v25.receiver = v3;
-  v25.super_class = AKAppleIDPasskeySetupContext;
-  v23 = [(AKAppleIDPasskeySetupContext *)&v25 init];
-  selfCopy = v23;
-  objc_storeStrong(&selfCopy, v23);
-  if (v23)
+  v24.receiver = v3;
+  v24.super_class = AKAppleIDPasskeySetupContext;
+  v22 = [(AKAppleIDPasskeySetupContext *)&v24 init];
+  selfCopy = v22;
+  objc_storeStrong(&selfCopy, v22);
+  if (v22)
   {
-    v14 = location[0];
-    v15 = 0x1E696A000uLL;
+    v13 = location[0];
+    v14 = 0x1E696A000uLL;
     v4 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_altDSID"];
     altDSID = selfCopy->_altDSID;
     selfCopy->_altDSID = v4;
     MEMORY[0x1E69E5920](altDSID);
-    v19 = MEMORY[0x1E695DFD8];
-    v18 = objc_opt_class();
-    v6 = *(v15 + 3776);
-    v16 = objc_opt_class();
+    v18 = MEMORY[0x1E695DFD8];
     v17 = objc_opt_class();
-    v21 = 0;
-    v7 = [v19 setWithObjects:{v18, v16, v17, objc_opt_class(), 0}];
-    v20 = &v24;
-    v24 = v7;
-    v8 = [location[0] decodeObjectOfClasses:v7 forKey:@"_appProvidedData"];
+    v15 = objc_opt_class();
+    v16 = objc_opt_class();
+    v20 = 0;
+    v6 = [v18 setWithObjects:{v17, v15, v16, objc_opt_class(), 0}];
+    v19 = &v23;
+    v23 = v6;
+    v7 = [location[0] decodeObjectOfClasses:v6 forKey:@"_appProvidedData"];
     appProvidedData = selfCopy->_appProvidedData;
-    selfCopy->_appProvidedData = v8;
+    selfCopy->_appProvidedData = v7;
     MEMORY[0x1E69E5920](appProvidedData);
-    objc_storeStrong(v20, v21);
+    objc_storeStrong(v19, v20);
   }
 
-  v11 = &selfCopy;
-  v13 = MEMORY[0x1E69E5928](selfCopy);
+  v10 = &selfCopy;
+  v12 = MEMORY[0x1E69E5928](selfCopy);
   obj = 0;
   objc_storeStrong(location, 0);
-  objc_storeStrong(v11, obj);
-  return v13;
+  objc_storeStrong(v10, obj);
+  return v12;
 }
 
 - (void)encodeWithCoder:(id)coder

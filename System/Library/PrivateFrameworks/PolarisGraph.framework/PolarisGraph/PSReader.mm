@@ -55,8 +55,8 @@ LABEL_4:
 {
   v15 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "%s: OOM!", "[PSReader initWithName:withInput:]");
-  v2 = __PSGraphLogSharedInstance();
+  v1 = asprintf(a1, "%s: OOM!", "[PSReader initWithName:withInput:]");
+  v2 = __PSGraphLogSharedInstance(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315650;
@@ -72,7 +72,7 @@ LABEL_4:
   if (v3)
   {
     v4 = v3;
-    v5 = __PSGraphLogSharedInstance();
+    v5 = __PSGraphLogSharedInstance(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
@@ -88,9 +88,8 @@ LABEL_4:
     usleep(0x1E8480u);
   }
 
-  v6 = *a1;
-  v7 = abort_with_reason();
-  return ps_task_context_set_mtl_device_cold_1(v7);
+  v6 = abort_with_reason();
+  return ps_task_context_set_mtl_device_cold_1(v6, v7);
 }
 
 @end

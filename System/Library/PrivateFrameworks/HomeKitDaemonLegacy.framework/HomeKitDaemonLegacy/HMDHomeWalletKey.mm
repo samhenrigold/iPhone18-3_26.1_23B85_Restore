@@ -8,6 +8,7 @@
 - (NSUUID)uuid;
 - (id)attributeDescriptions;
 - (id)mutableCopyWithZone:(_NSZone *)zone;
+- (id)xpcWalletKeyWithExpressEnabled:(BOOL)enabled;
 - (unint64_t)hash;
 @end
 
@@ -15,47 +16,45 @@
 
 - (id)attributeDescriptions
 {
-  v33[9] = *MEMORY[0x277D85DE8];
+  v32[9] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   typeIdentifier = [(HMDHomeWalletKey *)self typeIdentifier];
-  v31 = [v3 initWithName:@"Type Identifier" value:typeIdentifier];
-  v33[0] = v31;
+  v30 = [v3 initWithName:@"Type Identifier" value:typeIdentifier];
+  v32[0] = v30;
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   serialNumber = [(HMDHomeWalletKey *)self serialNumber];
-  v29 = [v4 initWithName:@"Serial Number" value:serialNumber];
-  v33[1] = v29;
+  v28 = [v4 initWithName:@"Serial Number" value:serialNumber];
+  v32[1] = v28;
   v5 = objc_alloc(MEMORY[0x277D0F778]);
-  v28 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDHomeWalletKey state](self, "state")}];
-  v27 = [v5 initWithName:@"State" value:v28];
-  v33[2] = v27;
+  v27 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDHomeWalletKey state](self, "state")}];
+  v26 = [v5 initWithName:@"State" value:v27];
+  v32[2] = v26;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   walletKeyDescription = [(HMDHomeWalletKey *)self walletKeyDescription];
-  v25 = [v6 initWithName:@"Description" value:walletKeyDescription];
-  v33[3] = v25;
+  v24 = [v6 initWithName:@"Description" value:walletKeyDescription];
+  v32[3] = v24;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   homeName = [(HMDHomeWalletKey *)self homeName];
   v8 = [v7 initWithName:@"Home Name" value:homeName];
-  v33[4] = v8;
+  v32[4] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   changeAccessCodeHomeAppCustomURL = [(HMDHomeWalletKey *)self changeAccessCodeHomeAppCustomURL];
   v11 = [v9 initWithName:@"Change Access Code Home App URL" value:changeAccessCodeHomeAppCustomURL];
-  v33[5] = v11;
+  v32[5] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   nfcInfos = [(HMDHomeWalletKey *)self nfcInfos];
   v14 = [v12 initWithName:@"NFC Info" value:nfcInfos];
-  v33[6] = v14;
+  v32[6] = v14;
   v15 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDHomeWalletKey *)self color];
   v16 = HMHomeWalletKeyColorAsString();
   v17 = [v15 initWithName:@"Color" value:v16];
-  v33[7] = v17;
+  v32[7] = v17;
   v18 = objc_alloc(MEMORY[0x277D0F778]);
   customURL = [(HMDHomeWalletKey *)self customURL];
   v20 = [v18 initWithName:@"Custom URL" value:customURL];
-  v33[8] = v20;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:9];
-
-  v22 = *MEMORY[0x277D85DE8];
+  v32[8] = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:9];
 
   return v21;
 }
@@ -150,25 +149,7 @@
           {
             v29 = walletKeyDescription;
             state = [(HMDHomeWalletKey *)self state];
-            if (state != [v6 state])
-            {
-              goto LABEL_20;
-            }
-
-            accessCode = [(HMDHomeWalletKey *)self accessCode];
-            accessCode2 = [v6 accessCode];
-            v23 = HMFEqualObjects();
-
-            if (!v23)
-            {
-              goto LABEL_20;
-            }
-
-            changeAccessCodeHomeAppCustomURL = [(HMDHomeWalletKey *)self changeAccessCodeHomeAppCustomURL];
-            changeAccessCodeHomeAppCustomURL2 = [v6 changeAccessCodeHomeAppCustomURL];
-            v24 = HMFEqualObjects();
-
-            if (v24)
+            if (state == [v6 state] && (-[HMDHomeWalletKey accessCode](self, "accessCode"), v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "accessCode"), v15 = objc_claimAutoreleasedReturnValue(), v23 = HMFEqualObjects(), v15, v26, v23) && (-[HMDHomeWalletKey changeAccessCodeHomeAppCustomURL](self, "changeAccessCodeHomeAppCustomURL"), v27 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "changeAccessCodeHomeAppCustomURL"), v16 = objc_claimAutoreleasedReturnValue(), v24 = HMFEqualObjects(), v16, v27, v24))
             {
               nfcInfos = [(HMDHomeWalletKey *)self nfcInfos];
               nfcInfos2 = [v6 nfcInfos];
@@ -190,7 +171,6 @@
 
             else
             {
-LABEL_20:
               v20 = 0;
               walletKeyDescription = v29;
             }
@@ -278,6 +258,27 @@ BOOL __36__HMDHomeWalletKey_isMissingNFCInfo__block_invoke(uint64_t a1, void *a2
   }
 
   return v7;
+}
+
+- (id)xpcWalletKeyWithExpressEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  customURL = [(HMDHomeWalletKey *)self customURL];
+
+  if (customURL)
+  {
+    uuid = [(HMDHomeWalletKey *)self uuid];
+    v7 = objc_alloc(MEMORY[0x277CD1AB8]);
+    customURL2 = [(HMDHomeWalletKey *)self customURL];
+    v9 = [v7 initWithUUID:uuid customURL:customURL2 expressEnabled:enabledCopy uwbUnlockEnabled:0 color:{-[HMDHomeWalletKey color](self, "color")}];
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  return v9;
 }
 
 - (NSUUID)uuid
@@ -432,24 +433,24 @@ HMDHomeWalletKeySecureElementInfo *__40__HMDHomeWalletKey_initWithPKPass_flow___
   v20 = [(HMDHomeWalletKey *)&v32 init];
   if (v20)
   {
-    v21 = [identifierCopy copy];
+    v21 = objc_msgSend_copy(identifierCopy);
     typeIdentifier = v20->_typeIdentifier;
     v20->_typeIdentifier = v21;
 
-    v23 = [numberCopy copy];
+    v23 = objc_msgSend_copy(numberCopy);
     serialNumber = v20->_serialNumber;
     v20->_serialNumber = v23;
 
     v20->_state = state;
-    v25 = [descriptionCopy copy];
+    v25 = objc_msgSend_copy(descriptionCopy);
     walletKeyDescription = v20->_walletKeyDescription;
     v20->_walletKeyDescription = v25;
 
-    v27 = [nameCopy copy];
+    v27 = objc_msgSend_copy(nameCopy);
     homeName = v20->_homeName;
     v20->_homeName = v27;
 
-    v29 = [infosCopy copy];
+    v29 = objc_msgSend_copy(infosCopy);
     nfcInfos = v20->_nfcInfos;
     v20->_nfcInfos = v29;
 

@@ -18,9 +18,10 @@
 
 uint64_t __43__SCROSharedInputProperties_sharedInstance__block_invoke()
 {
-  sharedInstance_instance = objc_alloc_init(SCROSharedInputProperties);
+  v0 = objc_alloc_init(SCROSharedInputProperties);
+  sharedInstance_instance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 @end

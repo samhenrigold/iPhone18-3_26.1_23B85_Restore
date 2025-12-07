@@ -1,13 +1,121 @@
 @interface RMSecurityUtilities
 + (BOOL)checkValidAfterWithCertificate:(__SecCertificate *)certificate interval:(double)interval;
 + (__SecKey)_deserializePrivateKey:(id)key privateKeyIsExportable:(BOOL)exportable;
++ (id)_serializeIdentityWithPrivateKey:(__SecKey *)key certificateChain:(id)chain privateKeyIsExportable:(BOOL)exportable error:(id *)error;
 + (id)_serializePrivateKey:(__SecKey *)key privateKeyIsExportable:(BOOL)exportable;
 + (id)deserializeCertificateChain:(id)chain;
 + (id)serializeCertificateChain:(id)chain;
++ (void)_deserializeIdentity:(id)identity privateKeyIsExportable:(BOOL)exportable completionHandler:(id)handler;
 + (void)generateSelfSignedCertificateAndPrivateKeyWithID:(id)d completionHandler:(id)handler;
 @end
 
 @implementation RMSecurityUtilities
+
++ (id)_serializeIdentityWithPrivateKey:(__SecKey *)key certificateChain:(id)chain privateKeyIsExportable:(BOOL)exportable error:(id *)error
+{
+  exportableCopy = exportable;
+  chainCopy = chain;
+  v11 = [self _serializePrivateKey:key privateKeyIsExportable:exportableCopy];
+  v12 = v11;
+  if (v11)
+  {
+    v16[0] = @"PrivateKey";
+    v16[1] = @"Certificates";
+    v17[0] = v11;
+    v13 = [self serializeCertificateChain:chainCopy];
+    v17[1] = v13;
+    error = [NSDictionary dictionaryWithObjects:v17 forKeys:v16 count:2];
+  }
+
+  else if (error)
+  {
+    v14 = +[RMErrorUtilities createInternalError];
+    if (v14)
+    {
+      v14 = v14;
+      *error = v14;
+    }
+
+    error = 0;
+  }
+
+  return error;
+}
+
++ (void)_deserializeIdentity:(id)identity privateKeyIsExportable:(BOOL)exportable completionHandler:(id)handler
+{
+  exportableCopy = exportable;
+  identityCopy = identity;
+  handlerCopy = handler;
+  v10 = [identityCopy objectForKeyedSubscript:@"PrivateKey"];
+  if (!v10 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  {
+    v15 = +[RMLog securityUtilities];
+    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+LABEL_10:
+
+      v13 = +[RMErrorUtilities createInternalError];
+      (*(handlerCopy + 2))(handlerCopy, 0, 0, v13);
+      goto LABEL_11;
+    }
+
+LABEL_9:
+    sub_100063184();
+    goto LABEL_10;
+  }
+
+  v11 = [self _deserializePrivateKey:v10 privateKeyIsExportable:exportableCopy];
+  if (!v11)
+  {
+    v15 = +[RMLog securityUtilities];
+    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_10;
+    }
+
+    goto LABEL_9;
+  }
+
+  v12 = v11;
+  v13 = [identityCopy objectForKeyedSubscript:@"Certificates"];
+  if (v13 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v14 = [self deserializeCertificateChain:v13];
+    if (v14)
+    {
+      (*(handlerCopy + 2))(handlerCopy, v12, v14, 0);
+    }
+
+    else
+    {
+      CFRelease(v12);
+      v17 = +[RMLog securityUtilities];
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        sub_1000630B4();
+      }
+
+      v18 = +[RMErrorUtilities createInternalError];
+      (*(handlerCopy + 2))(handlerCopy, 0, 0, v18);
+    }
+  }
+
+  else
+  {
+    CFRelease(v12);
+    v16 = +[RMLog securityUtilities];
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      sub_10006311C();
+    }
+
+    v14 = +[RMErrorUtilities createInternalError];
+    (*(handlerCopy + 2))(handlerCopy, 0, 0, v14);
+  }
+
+LABEL_11:
+}
 
 + (id)_serializePrivateKey:(__SecKey *)key privateKeyIsExportable:(BOOL)exportable
 {

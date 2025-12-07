@@ -24,7 +24,7 @@
 
 + (id)sensorDescriptionForSensor:(id)sensor
 {
-  v4 = sub_100019058();
+  v4 = sub_100019058(SRSensorsCache);
 
   return sub_100018F58(v4, sensor);
 }
@@ -245,7 +245,7 @@
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v5 = sub_100019058();
+  v5 = sub_100019058(SRSensorsCache);
   v6 = sub_1000193F0(v5);
   v7 = [(SRSensorDescriptionEnumerator *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
@@ -279,7 +279,7 @@
 
 + (id)allDescriptions
 {
-  v2 = sub_100019058();
+  v2 = sub_100019058(SRSensorsCache);
 
   return sub_1000193F0(v2);
 }

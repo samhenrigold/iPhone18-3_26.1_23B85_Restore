@@ -8,6 +8,7 @@
 - (id)appendKeys:(id)keys;
 - (id)appendName:(id)name BOOLValue:(BOOL)value;
 - (id)appendName:(id)name doubleValue:(double)value;
+- (id)appendName:(id)name intValue:(int)value;
 - (id)appendName:(id)name integerValue:(int64_t)value;
 - (id)appendName:(id)name object:(id)object;
 - (id)appendName:(id)name pointerValue:(void *)value;
@@ -170,6 +171,16 @@
   return self;
 }
 
+- (id)appendName:(id)name intValue:(int)value
+{
+  v4 = *&value;
+  nameCopy = name;
+  v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%d", v4];
+  v8 = [(CNDescriptionBuilder *)self appendName:nameCopy object:v7];
+
+  return self;
+}
+
 - (id)appendName:(id)name doubleValue:(double)value
 {
   nameCopy = name;
@@ -251,37 +262,36 @@
 
 - (id)appendKeys:(id)keys
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   keysCopy = keys;
-  v5 = [keysCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [keysCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(keysCopy);
         }
 
-        [(CNDescriptionBuilder *)self tryAppendKey:*(*(&v10 + 1) + 8 * v7++), v10];
+        [(CNDescriptionBuilder *)self tryAppendKey:*(*(&v9 + 1) + 8 * v7++), v9];
       }
 
       while (v5 != v7);
-      v5 = [keysCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [keysCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -309,26 +319,24 @@
 
 - (void)appendKey:(void *)a1 .cold.1(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v1 = objc_begin_catch(a1);
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = 138543362;
-    v4 = v1;
-    _os_log_error_impl(&dword_1859F0000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Exception: %{public}@", &v3, 0xCu);
+    v2 = 138543362;
+    v3 = v1;
+    _os_log_error_impl(&dword_1859F0000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Exception: %{public}@", &v2, 0xCu);
   }
 
   objc_end_catch();
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)appendKeys:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138543362;
-  v3 = a1;
-  _os_log_error_impl(&dword_1859F0000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Exception: %{public}@", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138543362;
+  v2 = a1;
+  _os_log_error_impl(&dword_1859F0000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Exception: %{public}@", &v1, 0xCu);
 }
 
 @end

@@ -140,36 +140,36 @@
 
 - (BMPersonEntity)initWithProto:(id)proto
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   protoCopy = proto;
   if (protoCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     selfCopy = self;
-    v48 = protoCopy;
+    v47 = protoCopy;
     v5 = protoCopy;
     if ([v5 namesCount])
     {
       v6 = objc_opt_new();
+      v57 = 0u;
       v58 = 0u;
       v59 = 0u;
       v60 = 0u;
-      v61 = 0u;
       names = [v5 names];
-      v8 = [names countByEnumeratingWithState:&v58 objects:v64 count:16];
+      v8 = [names countByEnumeratingWithState:&v57 objects:v63 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v59;
+        v10 = *v58;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v59 != v10)
+            if (*v58 != v10)
             {
               objc_enumerationMutation(names);
             }
 
-            v12 = *(*(&v58 + 1) + 8 * i);
+            v12 = *(*(&v57 + 1) + 8 * i);
             v13 = objc_autoreleasePoolPush();
             v14 = [[BMPersonName alloc] initWithProto:v12];
             if (v14)
@@ -180,7 +180,7 @@
             objc_autoreleasePoolPop(v13);
           }
 
-          v9 = [names countByEnumeratingWithState:&v58 objects:v64 count:16];
+          v9 = [names countByEnumeratingWithState:&v57 objects:v63 count:16];
         }
 
         while (v9);
@@ -195,26 +195,26 @@
     if ([v5 socialMediaHandlesCount])
     {
       v16 = objc_opt_new();
+      v53 = 0u;
       v54 = 0u;
       v55 = 0u;
       v56 = 0u;
-      v57 = 0u;
       socialMediaHandles = [v5 socialMediaHandles];
-      v18 = [socialMediaHandles countByEnumeratingWithState:&v54 objects:v63 count:16];
+      v18 = [socialMediaHandles countByEnumeratingWithState:&v53 objects:v62 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v55;
+        v20 = *v54;
         do
         {
           for (j = 0; j != v19; ++j)
           {
-            if (*v55 != v20)
+            if (*v54 != v20)
             {
               objc_enumerationMutation(socialMediaHandles);
             }
 
-            v22 = *(*(&v54 + 1) + 8 * j);
+            v22 = *(*(&v53 + 1) + 8 * j);
             v23 = objc_autoreleasePoolPush();
             v24 = [[BMSocialMediaHandle alloc] initWithProto:v22];
             if (v24)
@@ -225,7 +225,7 @@
             objc_autoreleasePoolPop(v23);
           }
 
-          v19 = [socialMediaHandles countByEnumeratingWithState:&v54 objects:v63 count:16];
+          v19 = [socialMediaHandles countByEnumeratingWithState:&v53 objects:v62 count:16];
         }
 
         while (v19);
@@ -242,33 +242,33 @@
     if (attributes)
     {
       attributes = objc_opt_new();
+      v49 = 0u;
       v50 = 0u;
       v51 = 0u;
       v52 = 0u;
-      v53 = 0u;
       v26 = v5;
       attributes2 = [v5 attributes];
-      v28 = [attributes2 countByEnumeratingWithState:&v50 objects:v62 count:16];
+      v28 = [attributes2 countByEnumeratingWithState:&v49 objects:v61 count:16];
       if (v28)
       {
         v29 = v28;
-        v30 = *v51;
+        v30 = *v50;
         do
         {
           for (k = 0; k != v29; ++k)
           {
-            if (*v51 != v30)
+            if (*v50 != v30)
             {
               objc_enumerationMutation(attributes2);
             }
 
-            v32 = *(*(&v50 + 1) + 8 * k);
+            v32 = *(*(&v49 + 1) + 8 * k);
             value = [v32 value];
             v34 = [v32 key];
             [attributes setValue:value forKey:v34];
           }
 
-          v29 = [attributes2 countByEnumeratingWithState:&v50 objects:v62 count:16];
+          v29 = [attributes2 countByEnumeratingWithState:&v49 objects:v61 count:16];
         }
 
         while (v29);
@@ -277,21 +277,21 @@
       v5 = v26;
     }
 
-    v49 = [v6 copy];
+    v48 = [v6 copy];
     customId = [v5 customId];
     [v5 contactId];
     v36 = v35 = v5;
     [v35 emailAddresses];
-    v37 = v46 = v35;
+    v37 = v45 = v35;
     addresses = [v35 addresses];
     phoneNumbers = [v35 phoneNumbers];
     v40 = [v16 copy];
     v41 = [attributes copy];
     v42 = addresses;
-    self = [(BMPersonEntity *)selfCopy initWithNames:v49 customId:customId contactId:v36 emailAddresses:v37 addresses:addresses phoneNumbers:phoneNumbers socialMediaHandles:v40 attributes:v41];
+    self = [(BMPersonEntity *)selfCopy initWithNames:v48 customId:customId contactId:v36 emailAddresses:v37 addresses:addresses phoneNumbers:phoneNumbers socialMediaHandles:v40 attributes:v41];
 
     selfCopy2 = self;
-    protoCopy = v48;
+    protoCopy = v47;
   }
 
   else
@@ -299,7 +299,6 @@
     selfCopy2 = 0;
   }
 
-  v43 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 
@@ -324,37 +323,37 @@
 
 - (id)proto
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   names = [(BMPersonEntity *)self names];
 
   if (names)
   {
     v5 = objc_opt_new();
+    v54 = 0u;
     v55 = 0u;
     v56 = 0u;
     v57 = 0u;
-    v58 = 0u;
     names2 = [(BMPersonEntity *)self names];
-    v7 = [names2 countByEnumeratingWithState:&v55 objects:v61 count:16];
+    v7 = [names2 countByEnumeratingWithState:&v54 objects:v60 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v56;
+      v9 = *v55;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v56 != v9)
+          if (*v55 != v9)
           {
             objc_enumerationMutation(names2);
           }
 
-          proto = [*(*(&v55 + 1) + 8 * i) proto];
+          proto = [*(*(&v54 + 1) + 8 * i) proto];
           [v5 addObject:proto];
         }
 
-        v8 = [names2 countByEnumeratingWithState:&v55 objects:v61 count:16];
+        v8 = [names2 countByEnumeratingWithState:&v54 objects:v60 count:16];
       }
 
       while (v8);
@@ -369,30 +368,30 @@
   if (socialMediaHandles)
   {
     v14 = objc_opt_new();
+    v50 = 0u;
     v51 = 0u;
     v52 = 0u;
     v53 = 0u;
-    v54 = 0u;
     socialMediaHandles2 = [(BMPersonEntity *)self socialMediaHandles];
-    v16 = [socialMediaHandles2 countByEnumeratingWithState:&v51 objects:v60 count:16];
+    v16 = [socialMediaHandles2 countByEnumeratingWithState:&v50 objects:v59 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v52;
+      v18 = *v51;
       do
       {
         for (j = 0; j != v17; ++j)
         {
-          if (*v52 != v18)
+          if (*v51 != v18)
           {
             objc_enumerationMutation(socialMediaHandles2);
           }
 
-          proto2 = [*(*(&v51 + 1) + 8 * j) proto];
+          proto2 = [*(*(&v50 + 1) + 8 * j) proto];
           [v14 addObject:proto2];
         }
 
-        v17 = [socialMediaHandles2 countByEnumeratingWithState:&v51 objects:v60 count:16];
+        v17 = [socialMediaHandles2 countByEnumeratingWithState:&v50 objects:v59 count:16];
       }
 
       while (v17);
@@ -406,28 +405,28 @@
 
   if (attributes)
   {
-    v45 = v3;
+    v44 = v3;
     v23 = objc_opt_new();
+    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
     obj = [(BMPersonEntity *)self attributes];
-    v24 = [obj countByEnumeratingWithState:&v47 objects:v59 count:16];
+    v24 = [obj countByEnumeratingWithState:&v46 objects:v58 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v48;
+      v26 = *v47;
       do
       {
         for (k = 0; k != v25; ++k)
         {
-          if (*v48 != v26)
+          if (*v47 != v26)
           {
             objc_enumerationMutation(obj);
           }
 
-          v28 = *(*(&v47 + 1) + 8 * k);
+          v28 = *(*(&v46 + 1) + 8 * k);
           v29 = objc_autoreleasePoolPush();
           v30 = objc_opt_new();
           [v30 setKey:v28];
@@ -442,15 +441,15 @@
           objc_autoreleasePoolPop(v29);
         }
 
-        v25 = [obj countByEnumeratingWithState:&v47 objects:v59 count:16];
+        v25 = [obj countByEnumeratingWithState:&v46 objects:v58 count:16];
       }
 
       while (v25);
     }
 
     v34 = [v23 copy];
-    v3 = v45;
-    [v45 setAttributes:v34];
+    v3 = v44;
+    [v44 setAttributes:v34];
   }
 
   customId = [(BMPersonEntity *)self customId];
@@ -470,8 +469,6 @@
   phoneNumbers = [(BMPersonEntity *)self phoneNumbers];
   v42 = [phoneNumbers mutableCopy];
   [v3 setPhoneNumbers:v42];
-
-  v43 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

@@ -1,10 +1,10 @@
 @interface ATLGetDecoder
-+ (id)getDecoderForApplet:(uint64_t)applet withPackage:(void *)package withModule:;
++ (CopernicusHCEDecoder)getDecoderForApplet:(uint64_t)applet withPackage:(void *)package withModule:;
 @end
 
 @implementation ATLGetDecoder
 
-+ (id)getDecoderForApplet:(uint64_t)applet withPackage:(void *)package withModule:
++ (CopernicusHCEDecoder)getDecoderForApplet:(uint64_t)applet withPackage:(void *)package withModule:
 {
   packageCopy = package;
   objc_opt_self();

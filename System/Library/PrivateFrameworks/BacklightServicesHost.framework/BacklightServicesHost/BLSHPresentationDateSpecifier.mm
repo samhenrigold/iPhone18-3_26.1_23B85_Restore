@@ -63,42 +63,40 @@ void __50__BLSHPresentationDateSpecifier_bls_loggingString__block_invoke(uint64_
 
 void __50__BLSHPresentationDateSpecifier_bls_loggingString__block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v15 = *MEMORY[0x277D85DE8];
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v2 = *(*(a1 + 32) + 24);
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
         v7 = *(a1 + 40);
-        v8 = [*(*(&v11 + 1) + 8 * v6) bls_shortLoggingString];
+        v8 = [*(*(&v10 + 1) + 8 * v6) bls_shortLoggingString];
         v9 = [v7 appendObject:v8 withName:0];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (BLSHPresentationDateSpecifier)specifierWithPresentationDate:(id)date specifiers:(id)specifiers
@@ -249,27 +247,27 @@ void __67__BLSHPresentationDateSpecifier_enumerateDateSpecifiersUsingBlock___blo
 
 - (id)dateSpecifierForEnvironment:(id)environment
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   environmentCopy = environment;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = self->_specifiers;
-  dateSpecifier = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  dateSpecifier = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (dateSpecifier)
   {
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != dateSpecifier; i = i + 1)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         environment = [v9 environment];
 
         if (environment == environmentCopy)
@@ -279,7 +277,7 @@ void __67__BLSHPresentationDateSpecifier_enumerateDateSpecifiersUsingBlock___blo
         }
       }
 
-      dateSpecifier = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      dateSpecifier = [(NSArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (dateSpecifier)
       {
         continue;
@@ -291,51 +289,47 @@ void __67__BLSHPresentationDateSpecifier_enumerateDateSpecifiersUsingBlock___blo
 
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return dateSpecifier;
 }
 
 - (id)filter:(id)filter
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   filterCopy = filter;
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](self->_specifiers, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = self->_specifiers;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         if (filterCopy[2](filterCopy, v11))
         {
-          [v5 addObject:{v11, v15}];
+          [v5 addObject:{v11, v14}];
         }
       }
 
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   v12 = [BLSHPresentationDateSpecifier specifierWithPresentationDate:self->_presentationDate specifiers:v5];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

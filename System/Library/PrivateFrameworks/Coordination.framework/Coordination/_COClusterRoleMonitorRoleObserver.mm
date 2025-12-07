@@ -98,28 +98,4 @@ LABEL_10:
 LABEL_11:
 }
 
-- (void)notify:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_5(&dword_244328000, v0, v1, "%@ invoking block for changed Members(%@)");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)notify:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_5(&dword_244328000, v0, v1, "%@ not invoking block due to no change in Members(%@)");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)notify:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_5(&dword_244328000, v0, v1, "%@ invoking block for initial Members(%@)");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 @end

@@ -159,8 +159,8 @@
         [v16 setTimeZone:localTimeZone];
       }
 
-      v25 = _BasicTimeFormat();
-      [v16 setDateFormat:v25];
+      v26 = _BasicTimeFormat();
+      [v16 setDateFormat:v26];
 
       [(NSMutableDictionary *)self->_timeAndDesignatorFormatters setObject:v16 forKeyedSubscript:system];
       goto LABEL_21;
@@ -206,11 +206,11 @@ LABEL_12:
   }
 
   v22 = _BasicTimeFormat();
-  if ((CLKDesignatorRequiresWhitespace() & 1) == 0)
+  if ((CLKDesignatorRequiresWhitespace(v22, v23) & 1) == 0)
   {
-    v23 = [v22 stringByReplacingOccurrencesOfString:@"a " withString:@"a"];
+    v24 = [v22 stringByReplacingOccurrencesOfString:@"a " withString:@"a"];
 
-    v22 = [v23 stringByReplacingOccurrencesOfString:@" a" withString:@"a"];
+    v22 = [v24 stringByReplacingOccurrencesOfString:@" a" withString:@"a"];
   }
 
   [v16 setDateFormat:v22];

@@ -9,10 +9,10 @@
 
 - (MXRoutingPrewarmingChannel)initWithRoutingContextUUID:(id)d endpoint:(OpaqueFigEndpoint *)endpoint previousRouteDescriptors:(id)descriptors
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v13.receiver = self;
-  v13.super_class = MXRoutingPrewarmingChannel;
-  v8 = [(MXRoutingPrewarmingChannel *)&v13 init];
+  v13 = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = MXRoutingPrewarmingChannel;
+  v8 = [(MXRoutingPrewarmingChannel *)&v12 init];
   if (endpoint)
   {
     v9 = CFRetain(endpoint);
@@ -33,16 +33,15 @@
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (dword_1EB75DE40)
   {
-    v8 = 0;
+    v7 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -56,10 +55,9 @@
     self->_endpoint = 0;
   }
 
-  v6.receiver = self;
-  v6.super_class = MXRoutingPrewarmingChannel;
-  [(MXRoutingPrewarmingChannel *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = MXRoutingPrewarmingChannel;
+  [(MXRoutingPrewarmingChannel *)&v5 dealloc];
 }
 
 - (void)closeChannel

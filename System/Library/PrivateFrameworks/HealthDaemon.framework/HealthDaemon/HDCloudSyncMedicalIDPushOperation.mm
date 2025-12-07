@@ -6,7 +6,7 @@
 
 - (void)main
 {
-  v64[1] = *MEMORY[0x277D85DE8];
+  v63[1] = *MEMORY[0x277D85DE8];
   configuration = [(HDCloudSyncOperation *)self configuration];
   repository = [configuration repository];
   primaryCKContainer = [repository primaryCKContainer];
@@ -36,9 +36,9 @@
     configuration3 = [(HDCloudSyncOperation *)self configuration];
     cachedCloudState = [configuration3 cachedCloudState];
     containerIdentifier = [primaryCKContainer containerIdentifier];
-    v58 = 0;
-    v28 = [cachedCloudState unifiedSyncZoneForContainerID:containerIdentifier error:&v58];
-    v29 = v58;
+    v57 = 0;
+    v28 = [cachedCloudState unifiedSyncZoneForContainerID:containerIdentifier error:&v57];
+    v29 = v57;
 
     if (v28 || !v29)
     {
@@ -78,8 +78,8 @@
   }
 
 LABEL_6:
-  v56 = primaryCKContainer;
-  v57 = v9;
+  v55 = primaryCKContainer;
+  v56 = v9;
   codableRepresentationForSync = [(_HKMedicalIDData *)self->_medicalIDDataToPush codableRepresentationForSync];
   [(HDCloudSyncMedicalIDRecord *)self->_medicalIDRecord setMedicalIDData:codableRepresentationForSync];
 
@@ -98,7 +98,7 @@ LABEL_6:
   configuration6 = [(HDCloudSyncOperation *)self configuration];
   repository5 = [configuration6 repository];
   deviceMode = [repository5 deviceMode];
-  v55 = v12;
+  v54 = v12;
   if (deviceMode == 1)
   {
     v24 = @"Basic";
@@ -116,10 +116,10 @@ LABEL_6:
 
   v31 = [v16 stringWithFormat:@"ProfileIdentifier: %@, ProductType: %@, SystemBuildVersion: %@, DeviceName: %@, DeviceMode: %@, ", profileIdentifier2, currentDeviceProductType, currentOSBuild, currentDeviceDisplayName, v24];
 
-  [(HDCloudSyncMedicalIDRecord *)v55 addMedicalIDEvent:v31];
-  primaryCKContainer = v56;
-  v32 = v56;
-  v33 = v57;
+  [(HDCloudSyncMedicalIDRecord *)v54 addMedicalIDEvent:v31];
+  primaryCKContainer = v55;
+  v32 = v55;
+  v33 = v56;
   _HKInitializeLogging();
   v34 = *MEMORY[0x277CCC2E0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2E0], OS_LOG_TYPE_DEFAULT))
@@ -134,90 +134,84 @@ LABEL_6:
     *&buf[12] = 2114;
     *&buf[14] = v36;
     *&buf[22] = 2114;
-    v61 = containerIdentifier2;
-    LOWORD(v62) = 2114;
-    *(&v62 + 2) = v38;
+    v60 = containerIdentifier2;
+    LOWORD(v61) = 2114;
+    *(&v61 + 2) = v38;
     _os_log_impl(&dword_228986000, v35, OS_LOG_TYPE_DEFAULT, "%{public}@ Beginning MedicalID record push to cloud for %{public}@ in %{public}@. %{public}@", buf, 0x2Au);
   }
 
   v39 = [HDCloudSyncModifyRecordsOperation alloc];
   configuration7 = [(HDCloudSyncOperation *)self configuration];
   record = [(HDCloudSyncRecord *)self->_medicalIDRecord record];
-  v42 = [record copy];
-  v64[0] = v42;
-  v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:1];
+  v42 = objc_msgSend_copy(record);
+  v63[0] = v42;
+  v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:1];
   v44 = [(HDCloudSyncModifyRecordsOperation *)v39 initWithConfiguration:configuration7 container:v32 recordsToSave:v43 recordIDsToDelete:0];
 
   *buf = MEMORY[0x277D85DD0];
   *&buf[8] = 3221225472;
   *&buf[16] = __86__HDCloudSyncMedicalIDPushOperation__pushMedicalIDRecordToCloudForContainer_database___block_invoke;
-  v61 = &unk_278621F48;
-  *&v62 = self;
+  v60 = &unk_278621F48;
+  *&v61 = self;
   v45 = v32;
-  *(&v62 + 1) = v45;
+  *(&v61 + 1) = v45;
   v46 = v33;
-  v63 = v46;
+  v62 = v46;
   [(HDCloudSyncOperation *)v44 setOnError:buf];
-  v59[0] = MEMORY[0x277D85DD0];
-  v59[1] = 3221225472;
-  v59[2] = __86__HDCloudSyncMedicalIDPushOperation__pushMedicalIDRecordToCloudForContainer_database___block_invoke_299;
-  v59[3] = &unk_278613060;
-  v59[4] = self;
-  [(HDCloudSyncOperation *)v44 setOnSuccess:v59];
+  v58[0] = MEMORY[0x277D85DD0];
+  v58[1] = 3221225472;
+  v58[2] = __86__HDCloudSyncMedicalIDPushOperation__pushMedicalIDRecordToCloudForContainer_database___block_invoke_299;
+  v58[3] = &unk_278613060;
+  v58[4] = self;
+  [(HDCloudSyncOperation *)v44 setOnSuccess:v58];
   [(HDCloudSyncOperation *)v44 start];
 
-  v9 = v57;
+  v9 = v56;
 LABEL_23:
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 void __86__HDCloudSyncMedicalIDPushOperation__pushMedicalIDRecordToCloudForContainer_database___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = a3;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC2E0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2E0], OS_LOG_TYPE_ERROR))
   {
-    v8 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v9 = v5;
-    v10 = [v7 containerIdentifier];
+    v7 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    v8 = v5;
+    v9 = [v6 containerIdentifier];
     [*(a1 + 48) databaseScope];
-    v11 = CKDatabaseScopeString();
-    v12 = 138544130;
-    v13 = v8;
-    v14 = 2114;
-    v15 = v10;
-    v16 = 2114;
-    v17 = v11;
-    v18 = 2114;
-    v19 = v4;
-    _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@: Failed to push MedicalID to database %{public}@ with error %{public}@", &v12, 0x2Au);
+    v10 = CKDatabaseScopeString();
+    v11 = 138544130;
+    v12 = v7;
+    v13 = 2114;
+    v14 = v9;
+    v15 = 2114;
+    v16 = v10;
+    v17 = 2114;
+    v18 = v4;
+    _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "%{public}@: %{public}@: Failed to push MedicalID to database %{public}@ with error %{public}@", &v11, 0x2Au);
   }
 
   [*(a1 + 32) finishWithSuccess:0 error:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __86__HDCloudSyncMedicalIDPushOperation__pushMedicalIDRecordToCloudForContainer_database___block_invoke_299(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Successfully pushed MedicalID.", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Successfully pushed MedicalID.", &v5, 0xCu);
   }
 
-  result = [*(a1 + 32) finishWithSuccess:1 error:0];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) finishWithSuccess:1 error:0];
 }
 
 @end

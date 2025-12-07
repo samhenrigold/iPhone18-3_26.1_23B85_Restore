@@ -37,18 +37,17 @@
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  slots = self->_slots;
   if (self->_deleted)
   {
-    v6 = @": deleted";
+    v5 = @": deleted";
   }
 
   else
   {
-    v6 = &stru_28636E7C8;
+    v5 = &stru_28636E7C8;
   }
 
-  return [v3 stringWithFormat:@"%@:%p:%lld:%lld:%llX%@", v4, self, *&self->_rowID, self->_slots, v6];
+  return [v3 stringWithFormat:@"%@:%p:%lld:%lld:%llX%@", v4, self, *&self->_rowID, self->_slots, v5];
 }
 
 - (BOOL)isEqual:(id)equal

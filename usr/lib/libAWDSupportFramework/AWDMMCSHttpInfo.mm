@@ -478,7 +478,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v38 = *MEMORY[0x29EDCA608];
+  v37 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   v4 = dictionary;
   locatorScheme = self->_locatorScheme;
@@ -646,29 +646,29 @@ LABEL_21:
   if ([(NSMutableArray *)self->_tcpInfos count])
   {
     v10 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_tcpInfos, "count")}];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     tcpInfos = self->_tcpInfos;
-    v12 = [(NSMutableArray *)tcpInfos countByEnumeratingWithState:&v32 objects:v37 count:16];
+    v12 = [(NSMutableArray *)tcpInfos countByEnumeratingWithState:&v31 objects:v36 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v33;
+      v14 = *v32;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v33 != v14)
+          if (*v32 != v14)
           {
             objc_enumerationMutation(tcpInfos);
           }
 
-          [v10 addObject:{objc_msgSend(*(*(&v32 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v10 addObject:{objc_msgSend(*(*(&v31 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v13 = [(NSMutableArray *)tcpInfos countByEnumeratingWithState:&v32 objects:v37 count:16];
+        v13 = [(NSMutableArray *)tcpInfos countByEnumeratingWithState:&v31 objects:v36 count:16];
       }
 
       while (v13);
@@ -680,29 +680,29 @@ LABEL_21:
   if ([(NSMutableArray *)self->_httpErrors count])
   {
     v16 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_httpErrors, "count")}];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     httpErrors = self->_httpErrors;
-    v18 = [(NSMutableArray *)httpErrors countByEnumeratingWithState:&v28 objects:v36 count:16];
+    v18 = [(NSMutableArray *)httpErrors countByEnumeratingWithState:&v27 objects:v35 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v29;
+      v20 = *v28;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v29 != v20)
+          if (*v28 != v20)
           {
             objc_enumerationMutation(httpErrors);
           }
 
-          [v16 addObject:{objc_msgSend(*(*(&v28 + 1) + 8 * j), "dictionaryRepresentation")}];
+          [v16 addObject:{objc_msgSend(*(*(&v27 + 1) + 8 * j), "dictionaryRepresentation")}];
         }
 
-        v19 = [(NSMutableArray *)httpErrors countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v19 = [(NSMutableArray *)httpErrors countByEnumeratingWithState:&v27 objects:v35 count:16];
       }
 
       while (v19);
@@ -918,13 +918,12 @@ LABEL_58:
     [v4 setObject:objc_msgSend(MEMORY[0x29EDBA070] forKey:{"numberWithLongLong:", self->_networkServiceType), @"networkServiceType"}];
   }
 
-  v26 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v57 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   if (self->_locatorScheme)
   {
     PBDataWriterWriteStringField();
@@ -938,7 +937,6 @@ LABEL_58:
   has = self->_has;
   if ((*&has & 0x100) != 0)
   {
-    locatorPort = self->_locatorPort;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((*&has & 0x8000) == 0)
@@ -958,7 +956,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  connectionReused = self->_connectionReused;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -973,7 +970,6 @@ LABEL_8:
   }
 
 LABEL_61:
-  startTime = self->_startTime;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -988,7 +984,6 @@ LABEL_9:
   }
 
 LABEL_62:
-  responseReceivedDuration = self->_responseReceivedDuration;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -1003,12 +998,10 @@ LABEL_10:
   }
 
 LABEL_63:
-  duration = self->_duration;
   PBDataWriterWriteInt64Field();
   if ((*&self->_has & 0x80) != 0)
   {
 LABEL_11:
-    httpStatus = self->_httpStatus;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1018,16 +1011,15 @@ LABEL_12:
     PBDataWriterWriteStringField();
   }
 
-  v6 = self->_has;
-  if ((*&v6 & 0x40) != 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x40) != 0)
   {
-    errorCode = self->_errorCode;
     PBDataWriterWriteInt32Field();
-    v6 = self->_has;
-    if ((*&v6 & 0x400) == 0)
+    v5 = self->_has;
+    if ((*&v5 & 0x400) == 0)
     {
 LABEL_16:
-      if ((*&v6 & 0x800) == 0)
+      if ((*&v5 & 0x800) == 0)
       {
         goto LABEL_17;
       }
@@ -1036,18 +1028,17 @@ LABEL_16:
     }
   }
 
-  else if ((*&v6 & 0x400) == 0)
+  else if ((*&v5 & 0x400) == 0)
   {
     goto LABEL_16;
   }
 
-  requestSize = self->_requestSize;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x800) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x800) == 0)
   {
 LABEL_17:
-    if ((*&v6 & 0x4000000) == 0)
+    if ((*&v5 & 0x4000000) == 0)
     {
       goto LABEL_18;
     }
@@ -1056,13 +1047,12 @@ LABEL_17:
   }
 
 LABEL_67:
-  responseSize = self->_responseSize;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x4000000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x4000000) == 0)
   {
 LABEL_18:
-    if ((*&v6 & 0x2000000) == 0)
+    if ((*&v5 & 0x2000000) == 0)
     {
       goto LABEL_19;
     }
@@ -1071,13 +1061,12 @@ LABEL_18:
   }
 
 LABEL_68:
-  transactionComplete = self->_transactionComplete;
   PBDataWriterWriteBOOLField();
-  v6 = self->_has;
-  if ((*&v6 & 0x2000000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x2000000) == 0)
   {
 LABEL_19:
-    if ((*&v6 & 0x4000) == 0)
+    if ((*&v5 & 0x4000) == 0)
     {
       goto LABEL_21;
     }
@@ -1086,72 +1075,68 @@ LABEL_19:
   }
 
 LABEL_69:
-  timedOut = self->_timedOut;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x4000) != 0)
   {
 LABEL_20:
-    cancelled = self->_cancelled;
     PBDataWriterWriteBOOLField();
   }
 
 LABEL_21:
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
-  v52 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   tcpInfos = self->_tcpInfos;
-  v9 = [(NSMutableArray *)tcpInfos countByEnumeratingWithState:&v51 objects:v56 count:16];
-  if (v9)
+  v7 = [(NSMutableArray *)tcpInfos countByEnumeratingWithState:&v21 objects:v26 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v52;
+    v8 = v7;
+    v9 = *v22;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v52 != v11)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(tcpInfos);
         }
 
-        v13 = *(*(&v51 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v10 = [(NSMutableArray *)tcpInfos countByEnumeratingWithState:&v51 objects:v56 count:16];
+      v8 = [(NSMutableArray *)tcpInfos countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
-  v48 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   httpErrors = self->_httpErrors;
-  v15 = [(NSMutableArray *)httpErrors countByEnumeratingWithState:&v47 objects:v55 count:16];
-  if (v15)
+  v12 = [(NSMutableArray *)httpErrors countByEnumeratingWithState:&v17 objects:v25 count:16];
+  if (v12)
   {
-    v16 = v15;
-    v17 = *v48;
+    v13 = v12;
+    v14 = *v18;
     do
     {
-      for (j = 0; j != v16; ++j)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v48 != v17)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(httpErrors);
         }
 
-        v19 = *(*(&v47 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v16 = [(NSMutableArray *)httpErrors countByEnumeratingWithState:&v47 objects:v55 count:16];
+      v13 = [(NSMutableArray *)httpErrors countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
-    while (v16);
+    while (v13);
   }
 
   if (self->_interfaceIdentifier)
@@ -1164,16 +1149,15 @@ LABEL_21:
     PBDataWriterWriteStringField();
   }
 
-  v20 = self->_has;
-  if ((*&v20 & 0x1000000) != 0)
+  v16 = self->_has;
+  if ((*&v16 & 0x1000000) != 0)
   {
-    requiresPowerPluggedIn = self->_requiresPowerPluggedIn;
     PBDataWriterWriteBOOLField();
-    v20 = self->_has;
-    if ((*&v20 & 0x2000) == 0)
+    v16 = self->_has;
+    if ((*&v16 & 0x2000) == 0)
     {
 LABEL_41:
-      if ((*&v20 & 0x1000) == 0)
+      if ((*&v16 & 0x1000) == 0)
       {
         goto LABEL_42;
       }
@@ -1182,18 +1166,17 @@ LABEL_41:
     }
   }
 
-  else if ((*&v20 & 0x2000) == 0)
+  else if ((*&v16 & 0x2000) == 0)
   {
     goto LABEL_41;
   }
 
-  allowsPowerNapScheduling = self->_allowsPowerNapScheduling;
   PBDataWriterWriteBOOLField();
-  v20 = self->_has;
-  if ((*&v20 & 0x1000) == 0)
+  v16 = self->_has;
+  if ((*&v16 & 0x1000) == 0)
   {
 LABEL_42:
-    if ((*&v20 & 0x40000) == 0)
+    if ((*&v16 & 0x40000) == 0)
     {
       goto LABEL_43;
     }
@@ -1202,13 +1185,12 @@ LABEL_42:
   }
 
 LABEL_73:
-  allowsCellular = self->_allowsCellular;
   PBDataWriterWriteBOOLField();
-  v20 = self->_has;
-  if ((*&v20 & 0x40000) == 0)
+  v16 = self->_has;
+  if ((*&v16 & 0x40000) == 0)
   {
 LABEL_43:
-    if ((*&v20 & 0x10000) == 0)
+    if ((*&v16 & 0x10000) == 0)
     {
       goto LABEL_44;
     }
@@ -1217,13 +1199,12 @@ LABEL_43:
   }
 
 LABEL_74:
-  forceNondiscretionary = self->_forceNondiscretionary;
   PBDataWriterWriteBOOLField();
-  v20 = self->_has;
-  if ((*&v20 & 0x10000) == 0)
+  v16 = self->_has;
+  if ((*&v16 & 0x10000) == 0)
   {
 LABEL_44:
-    if ((*&v20 & 0x200) == 0)
+    if ((*&v16 & 0x200) == 0)
     {
       goto LABEL_45;
     }
@@ -1232,13 +1213,12 @@ LABEL_44:
   }
 
 LABEL_75:
-  fastFail = self->_fastFail;
   PBDataWriterWriteBOOLField();
-  v20 = self->_has;
-  if ((*&v20 & 0x200) == 0)
+  v16 = self->_has;
+  if ((*&v16 & 0x200) == 0)
   {
 LABEL_45:
-    if ((*&v20 & 0x800000) == 0)
+    if ((*&v16 & 0x800000) == 0)
     {
       goto LABEL_46;
     }
@@ -1247,13 +1227,12 @@ LABEL_45:
   }
 
 LABEL_76:
-  qualityOfService = self->_qualityOfService;
   PBDataWriterWriteInt32Field();
-  v20 = self->_has;
-  if ((*&v20 & 0x800000) == 0)
+  v16 = self->_has;
+  if ((*&v16 & 0x800000) == 0)
   {
 LABEL_46:
-    if ((*&v20 & 0x20000) == 0)
+    if ((*&v16 & 0x20000) == 0)
     {
       goto LABEL_47;
     }
@@ -1262,13 +1241,12 @@ LABEL_46:
   }
 
 LABEL_77:
-  proxyUsed = self->_proxyUsed;
   PBDataWriterWriteBOOLField();
-  v20 = self->_has;
-  if ((*&v20 & 0x20000) == 0)
+  v16 = self->_has;
+  if ((*&v16 & 0x20000) == 0)
   {
 LABEL_47:
-    if ((*&v20 & 0x80000) == 0)
+    if ((*&v16 & 0x80000) == 0)
     {
       goto LABEL_48;
     }
@@ -1277,13 +1255,12 @@ LABEL_47:
   }
 
 LABEL_78:
-  finalTryInRequest = self->_finalTryInRequest;
   PBDataWriterWriteBOOLField();
-  v20 = self->_has;
-  if ((*&v20 & 0x80000) == 0)
+  v16 = self->_has;
+  if ((*&v16 & 0x80000) == 0)
   {
 LABEL_48:
-    if ((*&v20 & 0x10) == 0)
+    if ((*&v16 & 0x10) == 0)
     {
       goto LABEL_49;
     }
@@ -1292,13 +1269,12 @@ LABEL_48:
   }
 
 LABEL_79:
-  inlineEdgeComplete = self->_inlineEdgeComplete;
   PBDataWriterWriteBOOLField();
-  v20 = self->_has;
-  if ((*&v20 & 0x10) == 0)
+  v16 = self->_has;
+  if ((*&v16 & 0x10) == 0)
   {
 LABEL_49:
-    if ((*&v20 & 0x20) == 0)
+    if ((*&v16 & 0x20) == 0)
     {
       goto LABEL_50;
     }
@@ -1307,13 +1283,12 @@ LABEL_49:
   }
 
 LABEL_80:
-  adaptiveTcpReadTimeout = self->_adaptiveTcpReadTimeout;
   PBDataWriterWriteInt32Field();
-  v20 = self->_has;
-  if ((*&v20 & 0x20) == 0)
+  v16 = self->_has;
+  if ((*&v16 & 0x20) == 0)
   {
 LABEL_50:
-    if ((*&v20 & 0x400000) == 0)
+    if ((*&v16 & 0x400000) == 0)
     {
       goto LABEL_51;
     }
@@ -1322,13 +1297,12 @@ LABEL_50:
   }
 
 LABEL_81:
-  adaptiveTcpWriteTimeout = self->_adaptiveTcpWriteTimeout;
   PBDataWriterWriteInt32Field();
-  v20 = self->_has;
-  if ((*&v20 & 0x400000) == 0)
+  v16 = self->_has;
+  if ((*&v16 & 0x400000) == 0)
   {
 LABEL_51:
-    if ((*&v20 & 0x200000) == 0)
+    if ((*&v16 & 0x200000) == 0)
     {
       goto LABEL_52;
     }
@@ -1337,13 +1311,12 @@ LABEL_51:
   }
 
 LABEL_82:
-  powerPluggedInWhenQueued = self->_powerPluggedInWhenQueued;
   PBDataWriterWriteBOOLField();
-  v20 = self->_has;
-  if ((*&v20 & 0x200000) == 0)
+  v16 = self->_has;
+  if ((*&v16 & 0x200000) == 0)
   {
 LABEL_52:
-    if ((*&v20 & 0x100000) == 0)
+    if ((*&v16 & 0x100000) == 0)
     {
       goto LABEL_54;
     }
@@ -1352,12 +1325,10 @@ LABEL_52:
   }
 
 LABEL_83:
-  powerPluggedInAtStart = self->_powerPluggedInAtStart;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x100000) != 0)
   {
 LABEL_53:
-    powerPluggedInAtEnd = self->_powerPluggedInAtEnd;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1369,11 +1340,8 @@ LABEL_54:
 
   if ((*&self->_has & 2) != 0)
   {
-    networkServiceType = self->_networkServiceType;
     PBDataWriterWriteInt64Field();
   }
-
-  v23 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -1799,7 +1767,7 @@ LABEL_48:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
 
   *(v5 + 112) = [(NSString *)self->_locatorScheme copyWithZone:zone];
@@ -1962,59 +1930,59 @@ LABEL_14:
   }
 
 LABEL_15:
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   tcpInfos = self->_tcpInfos;
-  v9 = [(NSMutableArray *)tcpInfos countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v9 = [(NSMutableArray *)tcpInfos countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v28;
+    v11 = *v27;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v28 != v11)
+        if (*v27 != v11)
         {
           objc_enumerationMutation(tcpInfos);
         }
 
-        v13 = [*(*(&v27 + 1) + 8 * i) copyWithZone:zone];
+        v13 = [*(*(&v26 + 1) + 8 * i) copyWithZone:zone];
         [v5 addTcpInfo:v13];
       }
 
-      v10 = [(NSMutableArray *)tcpInfos countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v10 = [(NSMutableArray *)tcpInfos countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v10);
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   httpErrors = self->_httpErrors;
-  v15 = [(NSMutableArray *)httpErrors countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v15 = [(NSMutableArray *)httpErrors countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v24;
+    v17 = *v23;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v24 != v17)
+        if (*v23 != v17)
         {
           objc_enumerationMutation(httpErrors);
         }
 
-        v19 = [*(*(&v23 + 1) + 8 * j) copyWithZone:zone];
+        v19 = [*(*(&v22 + 1) + 8 * j) copyWithZone:zone];
         [v5 addHttpError:v19];
       }
 
-      v16 = [(NSMutableArray *)httpErrors countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v16 = [(NSMutableArray *)httpErrors countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v16);
@@ -2228,7 +2196,6 @@ LABEL_44:
     *(v5 + 168) |= 2u;
   }
 
-  v21 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
@@ -2282,7 +2249,6 @@ LABEL_44:
       goto LABEL_194;
     }
 
-    v10 = *(equal + 155);
     if (self->_connectionReused)
     {
       if ((*(equal + 155) & 1) == 0)
@@ -2366,54 +2332,53 @@ LABEL_44:
     has = self->_has;
   }
 
-  v12 = *(equal + 42);
+  v11 = *(equal + 42);
   if ((*&has & 0x40) != 0)
   {
-    if ((v12 & 0x40) == 0 || self->_errorCode != *(equal + 12))
+    if ((v11 & 0x40) == 0 || self->_errorCode != *(equal + 12))
     {
       goto LABEL_194;
     }
   }
 
-  else if ((v12 & 0x40) != 0)
+  else if ((v11 & 0x40) != 0)
   {
     goto LABEL_194;
   }
 
   if ((*&has & 0x400) != 0)
   {
-    if ((v12 & 0x400) == 0 || self->_requestSize != *(equal + 33))
+    if ((v11 & 0x400) == 0 || self->_requestSize != *(equal + 33))
     {
       goto LABEL_194;
     }
   }
 
-  else if ((v12 & 0x400) != 0)
+  else if ((v11 & 0x400) != 0)
   {
     goto LABEL_194;
   }
 
   if ((*&has & 0x800) != 0)
   {
-    if ((v12 & 0x800) == 0 || self->_responseSize != *(equal + 34))
+    if ((v11 & 0x800) == 0 || self->_responseSize != *(equal + 34))
     {
       goto LABEL_194;
     }
   }
 
-  else if ((v12 & 0x800) != 0)
+  else if ((v11 & 0x800) != 0)
   {
     goto LABEL_194;
   }
 
   if ((*&has & 0x4000000) != 0)
   {
-    if ((v12 & 0x4000000) == 0)
+    if ((v11 & 0x4000000) == 0)
     {
       goto LABEL_194;
     }
 
-    v19 = *(equal + 166);
     if (self->_transactionComplete)
     {
       if ((*(equal + 166) & 1) == 0)
@@ -2428,19 +2393,18 @@ LABEL_44:
     }
   }
 
-  else if ((v12 & 0x4000000) != 0)
+  else if ((v11 & 0x4000000) != 0)
   {
     goto LABEL_194;
   }
 
   if ((*&has & 0x2000000) != 0)
   {
-    if ((v12 & 0x2000000) == 0)
+    if ((v11 & 0x2000000) == 0)
     {
       goto LABEL_194;
     }
 
-    v20 = *(equal + 165);
     if (self->_timedOut)
     {
       if ((*(equal + 165) & 1) == 0)
@@ -2455,19 +2419,18 @@ LABEL_44:
     }
   }
 
-  else if ((v12 & 0x2000000) != 0)
+  else if ((v11 & 0x2000000) != 0)
   {
     goto LABEL_194;
   }
 
   if ((*&has & 0x4000) != 0)
   {
-    if ((v12 & 0x4000) == 0)
+    if ((v11 & 0x4000) == 0)
     {
       goto LABEL_194;
     }
 
-    v21 = *(equal + 154);
     if (self->_cancelled)
     {
       if ((*(equal + 154) & 1) == 0)
@@ -2482,7 +2445,7 @@ LABEL_44:
     }
   }
 
-  else if ((v12 & 0x4000) != 0)
+  else if ((v11 & 0x4000) != 0)
   {
     goto LABEL_194;
   }
@@ -2527,16 +2490,15 @@ LABEL_44:
     }
   }
 
-  v17 = self->_has;
-  v18 = *(equal + 42);
-  if ((*&v17 & 0x1000000) != 0)
+  v16 = self->_has;
+  v17 = *(equal + 42);
+  if ((*&v16 & 0x1000000) != 0)
   {
-    if ((v18 & 0x1000000) == 0)
+    if ((v17 & 0x1000000) == 0)
     {
       goto LABEL_194;
     }
 
-    v22 = *(equal + 164);
     if (self->_requiresPowerPluggedIn)
     {
       if ((*(equal + 164) & 1) == 0)
@@ -2551,19 +2513,18 @@ LABEL_44:
     }
   }
 
-  else if ((v18 & 0x1000000) != 0)
+  else if ((v17 & 0x1000000) != 0)
   {
     goto LABEL_194;
   }
 
-  if ((*&v17 & 0x2000) != 0)
+  if ((*&v16 & 0x2000) != 0)
   {
-    if ((v18 & 0x2000) == 0)
+    if ((v17 & 0x2000) == 0)
     {
       goto LABEL_194;
     }
 
-    v23 = *(equal + 153);
     if (self->_allowsPowerNapScheduling)
     {
       if ((*(equal + 153) & 1) == 0)
@@ -2578,19 +2539,18 @@ LABEL_44:
     }
   }
 
-  else if ((v18 & 0x2000) != 0)
+  else if ((v17 & 0x2000) != 0)
   {
     goto LABEL_194;
   }
 
-  if ((*&v17 & 0x1000) != 0)
+  if ((*&v16 & 0x1000) != 0)
   {
-    if ((v18 & 0x1000) == 0)
+    if ((v17 & 0x1000) == 0)
     {
       goto LABEL_194;
     }
 
-    v24 = *(equal + 152);
     if (self->_allowsCellular)
     {
       if ((*(equal + 152) & 1) == 0)
@@ -2605,19 +2565,18 @@ LABEL_44:
     }
   }
 
-  else if ((v18 & 0x1000) != 0)
+  else if ((v17 & 0x1000) != 0)
   {
     goto LABEL_194;
   }
 
-  if ((*&v17 & 0x40000) != 0)
+  if ((*&v16 & 0x40000) != 0)
   {
-    if ((v18 & 0x40000) == 0)
+    if ((v17 & 0x40000) == 0)
     {
       goto LABEL_194;
     }
 
-    v25 = *(equal + 158);
     if (self->_forceNondiscretionary)
     {
       if ((*(equal + 158) & 1) == 0)
@@ -2632,19 +2591,18 @@ LABEL_44:
     }
   }
 
-  else if ((v18 & 0x40000) != 0)
+  else if ((v17 & 0x40000) != 0)
   {
     goto LABEL_194;
   }
 
-  if ((*&v17 & 0x10000) != 0)
+  if ((*&v16 & 0x10000) != 0)
   {
-    if ((v18 & 0x10000) == 0)
+    if ((v17 & 0x10000) == 0)
     {
       goto LABEL_194;
     }
 
-    v26 = *(equal + 156);
     if (self->_fastFail)
     {
       if ((*(equal + 156) & 1) == 0)
@@ -2659,32 +2617,31 @@ LABEL_44:
     }
   }
 
-  else if ((v18 & 0x10000) != 0)
+  else if ((v17 & 0x10000) != 0)
   {
     goto LABEL_194;
   }
 
-  if ((*&v17 & 0x200) != 0)
+  if ((*&v16 & 0x200) != 0)
   {
-    if ((v18 & 0x200) == 0 || self->_qualityOfService != *(equal + 32))
+    if ((v17 & 0x200) == 0 || self->_qualityOfService != *(equal + 32))
     {
       goto LABEL_194;
     }
   }
 
-  else if ((v18 & 0x200) != 0)
+  else if ((v17 & 0x200) != 0)
   {
     goto LABEL_194;
   }
 
-  if ((*&v17 & 0x800000) != 0)
+  if ((*&v16 & 0x800000) != 0)
   {
-    if ((v18 & 0x800000) == 0)
+    if ((v17 & 0x800000) == 0)
     {
       goto LABEL_194;
     }
 
-    v27 = *(equal + 163);
     if (self->_proxyUsed)
     {
       if ((*(equal + 163) & 1) == 0)
@@ -2699,19 +2656,18 @@ LABEL_44:
     }
   }
 
-  else if ((v18 & 0x800000) != 0)
+  else if ((v17 & 0x800000) != 0)
   {
     goto LABEL_194;
   }
 
-  if ((*&v17 & 0x20000) != 0)
+  if ((*&v16 & 0x20000) != 0)
   {
-    if ((v18 & 0x20000) == 0)
+    if ((v17 & 0x20000) == 0)
     {
       goto LABEL_194;
     }
 
-    v28 = *(equal + 157);
     if (self->_finalTryInRequest)
     {
       if ((*(equal + 157) & 1) == 0)
@@ -2726,19 +2682,18 @@ LABEL_44:
     }
   }
 
-  else if ((v18 & 0x20000) != 0)
+  else if ((v17 & 0x20000) != 0)
   {
     goto LABEL_194;
   }
 
-  if ((*&v17 & 0x80000) != 0)
+  if ((*&v16 & 0x80000) != 0)
   {
-    if ((v18 & 0x80000) == 0)
+    if ((v17 & 0x80000) == 0)
     {
       goto LABEL_194;
     }
 
-    v29 = *(equal + 159);
     if (self->_inlineEdgeComplete)
     {
       if ((*(equal + 159) & 1) == 0)
@@ -2753,45 +2708,44 @@ LABEL_44:
     }
   }
 
-  else if ((v18 & 0x80000) != 0)
+  else if ((v17 & 0x80000) != 0)
   {
     goto LABEL_194;
   }
 
-  if ((*&v17 & 0x10) != 0)
+  if ((*&v16 & 0x10) != 0)
   {
-    if ((v18 & 0x10) == 0 || self->_adaptiveTcpReadTimeout != *(equal + 10))
+    if ((v17 & 0x10) == 0 || self->_adaptiveTcpReadTimeout != *(equal + 10))
     {
       goto LABEL_194;
     }
   }
 
-  else if ((v18 & 0x10) != 0)
+  else if ((v17 & 0x10) != 0)
   {
     goto LABEL_194;
   }
 
-  if ((*&v17 & 0x20) != 0)
+  if ((*&v16 & 0x20) != 0)
   {
-    if ((v18 & 0x20) == 0 || self->_adaptiveTcpWriteTimeout != *(equal + 11))
+    if ((v17 & 0x20) == 0 || self->_adaptiveTcpWriteTimeout != *(equal + 11))
     {
       goto LABEL_194;
     }
   }
 
-  else if ((v18 & 0x20) != 0)
+  else if ((v17 & 0x20) != 0)
   {
     goto LABEL_194;
   }
 
-  if ((*&v17 & 0x400000) != 0)
+  if ((*&v16 & 0x400000) != 0)
   {
-    if ((v18 & 0x400000) == 0)
+    if ((v17 & 0x400000) == 0)
     {
       goto LABEL_194;
     }
 
-    v30 = *(equal + 162);
     if (self->_powerPluggedInWhenQueued)
     {
       if ((*(equal + 162) & 1) == 0)
@@ -2806,19 +2760,18 @@ LABEL_44:
     }
   }
 
-  else if ((v18 & 0x400000) != 0)
+  else if ((v17 & 0x400000) != 0)
   {
     goto LABEL_194;
   }
 
-  if ((*&v17 & 0x200000) != 0)
+  if ((*&v16 & 0x200000) != 0)
   {
-    if ((v18 & 0x200000) == 0)
+    if ((v17 & 0x200000) == 0)
     {
       goto LABEL_194;
     }
 
-    v31 = *(equal + 161);
     if (self->_powerPluggedInAtStart)
     {
       if ((*(equal + 161) & 1) == 0)
@@ -2833,16 +2786,15 @@ LABEL_44:
     }
   }
 
-  else if ((v18 & 0x200000) != 0)
+  else if ((v17 & 0x200000) != 0)
   {
     goto LABEL_194;
   }
 
-  if ((*&v17 & 0x100000) != 0)
+  if ((*&v16 & 0x100000) != 0)
   {
-    if ((v18 & 0x100000) != 0)
+    if ((v17 & 0x100000) != 0)
     {
-      v34 = *(equal + 160);
       if (self->_powerPluggedInAtEnd)
       {
         if ((*(equal + 160) & 1) == 0)
@@ -2864,7 +2816,7 @@ LABEL_194:
     return v5;
   }
 
-  if ((v18 & 0x100000) != 0)
+  if ((v17 & 0x100000) != 0)
   {
     goto LABEL_194;
   }
@@ -2879,14 +2831,14 @@ LABEL_186:
       return v5;
     }
 
-    v17 = self->_has;
+    v16 = self->_has;
   }
 
-  v33 = *(equal + 42);
-  LOBYTE(v5) = (v33 & 2) == 0;
-  if ((*&v17 & 2) != 0)
+  v19 = *(equal + 42);
+  LOBYTE(v5) = (v19 & 2) == 0;
+  if ((*&v16 & 2) != 0)
   {
-    if ((v33 & 2) == 0 || self->_networkServiceType != *(equal + 2))
+    if ((v19 & 2) == 0 || self->_networkServiceType != *(equal + 2))
     {
       goto LABEL_194;
     }
@@ -3271,7 +3223,7 @@ LABEL_56:
 
 - (void)mergeFrom:(id)from
 {
-  v29 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   if (*(from + 14))
   {
     [(AWDMMCSHttpInfo *)self setLocatorScheme:?];
@@ -3443,57 +3395,57 @@ LABEL_20:
   }
 
 LABEL_21:
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v7 = *(from + 18);
-  v8 = [v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v24;
+    v10 = *v23;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(AWDMMCSHttpInfo *)self addTcpInfo:*(*(&v23 + 1) + 8 * i)];
+        [(AWDMMCSHttpInfo *)self addTcpInfo:*(*(&v22 + 1) + 8 * i)];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v9);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v12 = *(from + 8);
-  v13 = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v20;
+    v15 = *v19;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v20 != v15)
+        if (*v19 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [(AWDMMCSHttpInfo *)self addHttpError:*(*(&v19 + 1) + 8 * j)];
+        [(AWDMMCSHttpInfo *)self addHttpError:*(*(&v18 + 1) + 8 * j)];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v14);
@@ -3717,8 +3669,6 @@ LABEL_54:
     self->_networkServiceType = *(from + 2);
     *&self->_has |= 2u;
   }
-
-  v18 = *MEMORY[0x29EDCA608];
 }
 
 @end

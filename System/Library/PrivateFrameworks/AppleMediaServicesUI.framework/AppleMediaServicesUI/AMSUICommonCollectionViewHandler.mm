@@ -28,44 +28,42 @@
 
 - (void)collectionView:(id)view willDisplayCell:(id)cell forItemAtIndexPath:(id)path
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   cellCopy = cell;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
   interactions = [view interactions];
   reverseObjectEnumerator = [interactions reverseObjectEnumerator];
 
-  v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v14 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v15;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
 
           reverseObjectEnumerator = [objc_alloc(MEMORY[0x1E69DD6C8]) initWithStyle:0];
-          v20 = reverseObjectEnumerator;
-          v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
-          [cellCopy setInteractions:v14];
+          v18 = reverseObjectEnumerator;
+          v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
+          [cellCopy setInteractions:v13];
 
           goto LABEL_11;
         }
       }
 
-      v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v14 objects:v19 count:16];
       if (v10)
       {
         continue;
@@ -76,8 +74,6 @@
   }
 
 LABEL_11:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)collectionView:(id)view didEndDisplayingCell:(id)cell forItemAtIndexPath:(id)path

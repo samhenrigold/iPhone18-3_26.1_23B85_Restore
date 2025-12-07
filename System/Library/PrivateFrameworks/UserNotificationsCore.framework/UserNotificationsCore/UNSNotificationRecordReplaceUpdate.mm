@@ -1,4 +1,5 @@
 @interface UNSNotificationRecordReplaceUpdate
++ (id)updateWithNotificationRecord:(id)record replacedNotificationRecord:(id)notificationRecord shouldRepost:(BOOL)repost;
 - (BOOL)isEqual:(id)equal;
 - (UNSNotificationRecordReplaceUpdate)initWithCoder:(id)coder;
 - (id)_initWithNotificationRecord:(id)record replacedNotificationRecord:(id)notificationRecord shouldRepost:(BOOL)repost;
@@ -7,6 +8,16 @@
 @end
 
 @implementation UNSNotificationRecordReplaceUpdate
+
++ (id)updateWithNotificationRecord:(id)record replacedNotificationRecord:(id)notificationRecord shouldRepost:(BOOL)repost
+{
+  repostCopy = repost;
+  notificationRecordCopy = notificationRecord;
+  recordCopy = record;
+  v10 = [[self alloc] _initWithNotificationRecord:recordCopy replacedNotificationRecord:notificationRecordCopy shouldRepost:repostCopy];
+
+  return v10;
+}
 
 - (id)_initWithNotificationRecord:(id)record replacedNotificationRecord:(id)notificationRecord shouldRepost:(BOOL)repost
 {

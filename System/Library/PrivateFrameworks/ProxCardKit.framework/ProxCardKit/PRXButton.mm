@@ -19,15 +19,17 @@
   {
     v9 = [MEMORY[0x277D75C80] traitCollectionWithPreferredContentSizeCategory:*MEMORY[0x277D76838]];
     secondarySystemBackgroundColor = [MEMORY[0x277D75348] colorWithRed:0.831373 green:0.827451 blue:0.854902 alpha:1.0];
+    v11 = secondarySystemBackgroundColor;
   }
 
   else
   {
     secondarySystemBackgroundColor = [MEMORY[0x277D75348] secondarySystemBackgroundColor];
+    v11 = secondarySystemBackgroundColor;
     v9 = 0;
   }
 
-  v11 = 0;
+  v12 = 0;
   if (type > 2)
   {
     if (type <= 4)
@@ -37,65 +39,65 @@
 LABEL_11:
         if (_UISolariumEnabled())
         {
-          v67.receiver = self;
-          v67.super_class = &OBJC_METACLASS___PRXButton;
-          v11 = objc_msgSendSuper2(&v67, sel_buttonWithType_, 0);
-          layer = [v11 layer];
+          v68.receiver = self;
+          v68.super_class = &OBJC_METACLASS___PRXButton;
+          v12 = objc_msgSendSuper2(&v68, sel_buttonWithType_, 0);
+          layer = [v12 layer];
           [layer setCornerRadius:30.0 * 0.5];
 
           quaternarySystemFillColor = [MEMORY[0x277D75348] quaternarySystemFillColor];
-          [v11 setBackgroundColor:quaternarySystemFillColor];
+          [v12 setBackgroundColor:quaternarySystemFillColor];
 
           labelColor = [MEMORY[0x277D75348] labelColor];
-          [v11 setTintColor:labelColor];
+          [v12 setTintColor:labelColor];
 
           defaultMetrics = [MEMORY[0x277D755D0] configurationWithTextStyle:*MEMORY[0x277D769D0] scale:2];
-          v16 = [MEMORY[0x277D755D0] configurationWithWeight:6];
-          [defaultMetrics configurationByApplyingConfiguration:v16];
-          v17 = v58 = secondarySystemBackgroundColor;
+          v17 = [MEMORY[0x277D755D0] configurationWithWeight:6];
+          [defaultMetrics configurationByApplyingConfiguration:v17];
+          v18 = v59 = v11;
           if (type == 2)
           {
-            v18 = @"xmark";
+            v19 = @"xmark";
           }
 
           else
           {
-            v18 = @"info";
+            v19 = @"info";
           }
 
-          [MEMORY[0x277D755B8] systemImageNamed:v18];
-          v57 = stylingCopy;
-          v19 = v9;
-          v21 = v20 = colorsCopy;
-          [v11 setPreferredSymbolConfiguration:v17 forImageInState:0];
+          [MEMORY[0x277D755B8] systemImageNamed:v19];
+          v58 = stylingCopy;
+          v20 = v9;
+          v22 = v21 = colorsCopy;
+          [v12 setPreferredSymbolConfiguration:v18 forImageInState:0];
           labelColor2 = [MEMORY[0x277D75348] labelColor];
-          v23 = [v21 imageWithTintColor:labelColor2];
-          [v11 setImage:v23 forState:0];
+          v24 = [v22 imageWithTintColor:labelColor2];
+          [v12 setImage:v24 forState:0];
 
-          colorsCopy = v20;
-          v9 = v19;
-          stylingCopy = v57;
+          colorsCopy = v21;
+          v9 = v20;
+          stylingCopy = v58;
 
-          secondarySystemBackgroundColor = v58;
+          v11 = v59;
         }
 
         else
         {
-          v66.receiver = self;
-          v66.super_class = &OBJC_METACLASS___PRXButton;
-          v11 = objc_msgSendSuper2(&v66, sel_buttonWithType_, 7);
-          v38 = [MEMORY[0x277D755B8] kitImageNamed:@"UICloseButtonBackgroundCompact"];
+          v67.receiver = self;
+          v67.super_class = &OBJC_METACLASS___PRXButton;
+          v12 = objc_msgSendSuper2(&v67, sel_buttonWithType_, 7);
+          v39 = [MEMORY[0x277D755B8] kitImageNamed:@"UICloseButtonBackgroundCompact"];
           tertiarySystemFillColor = [MEMORY[0x277D75348] tertiarySystemFillColor];
-          v40 = [v38 imageWithTintColor:tertiarySystemFillColor];
-          [v11 setBackgroundImage:v40 forState:0];
+          v41 = [v39 imageWithTintColor:tertiarySystemFillColor];
+          [v12 setBackgroundImage:v41 forState:0];
 
           defaultMetrics = [MEMORY[0x277D755D0] configurationWithPointSize:7 weight:1 scale:15.0];
-          [v11 setPreferredSymbolConfiguration:defaultMetrics forImageInState:0];
+          [v12 setPreferredSymbolConfiguration:defaultMetrics forImageInState:0];
         }
 
 LABEL_38:
 
-        if (!v11)
+        if (!v12)
         {
           goto LABEL_40;
         }
@@ -103,19 +105,19 @@ LABEL_38:
         goto LABEL_39;
       }
 
-      v60.receiver = self;
-      v60.super_class = &OBJC_METACLASS___PRXButton;
-      v11 = objc_msgSendSuper2(&v60, sel_buttonWithType_, 1);
+      v61.receiver = self;
+      v61.super_class = &OBJC_METACLASS___PRXButton;
+      v12 = objc_msgSendSuper2(&v61, sel_buttonWithType_, 1);
       secondarySystemBackgroundColor2 = [MEMORY[0x277D75348] secondarySystemBackgroundColor];
-      [v11 setTintColor:secondarySystemBackgroundColor2];
+      [v12 setTintColor:secondarySystemBackgroundColor2];
 
       defaultMetrics = [MEMORY[0x277D75520] defaultMetrics];
-      v24 = [MEMORY[0x277D74300] systemFontOfSize:13.0 weight:*MEMORY[0x277D74410]];
-      v25 = [defaultMetrics scaledFontForFont:v24];
+      v25 = [MEMORY[0x277D74300] systemFontOfSize:13.0 weight:*MEMORY[0x277D74410]];
+      v26 = [defaultMetrics scaledFontForFont:v25];
 LABEL_22:
-      v33 = v25;
-      titleLabel = [v11 titleLabel];
-      [titleLabel setFont:v33];
+      v34 = v26;
+      titleLabel = [v12 titleLabel];
+      [titleLabel setFont:v34];
 
       goto LABEL_38;
     }
@@ -127,28 +129,28 @@ LABEL_22:
         goto LABEL_40;
       }
 
-      v63.receiver = self;
-      v63.super_class = &OBJC_METACLASS___PRXButton;
-      v11 = objc_msgSendSuper2(&v63, sel_buttonWithType_, 1);
+      v64.receiver = self;
+      v64.super_class = &OBJC_METACLASS___PRXButton;
+      v12 = objc_msgSendSuper2(&v64, sel_buttonWithType_, 1);
       defaultMetrics = [MEMORY[0x277D75520] defaultMetrics];
-      v24 = [MEMORY[0x277D74300] systemFontOfSize:17.0 weight:*MEMORY[0x277D74410]];
-      v25 = [defaultMetrics scaledFontForFont:v24 compatibleWithTraitCollection:v9];
+      v25 = [MEMORY[0x277D74300] systemFontOfSize:17.0 weight:*MEMORY[0x277D74410]];
+      v26 = [defaultMetrics scaledFontForFont:v25 compatibleWithTraitCollection:v9];
       goto LABEL_22;
     }
 
     if (!colorsCopy)
     {
-      v35 = PRXDefaultLog();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+      v36 = PRXDefaultLog(secondarySystemBackgroundColor);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_260F65000, v35, OS_LOG_TYPE_DEFAULT, "[WARN] customColor must be set if using PRXButtonTypeProminentCustom", buf, 2u);
+        _os_log_impl(&dword_260F65000, v36, OS_LOG_TYPE_DEFAULT, "[WARN] customColor must be set if using PRXButtonTypeProminentCustom", buf, 2u);
       }
     }
 
-    v61.receiver = self;
-    v61.super_class = &OBJC_METACLASS___PRXButton;
-    v11 = objc_msgSendSuper2(&v61, sel_buttonWithType_, 1);
+    v62.receiver = self;
+    v62.super_class = &OBJC_METACLASS___PRXButton;
+    v12 = objc_msgSendSuper2(&v62, sel_buttonWithType_, 1);
     if (_UISolariumEnabled())
     {
       defaultMetrics = [objc_opt_class() defaultPRXButtonConfigurationForTinting:1 traitCollection:v9];
@@ -159,26 +161,26 @@ LABEL_22:
       [defaultMetrics setBaseForegroundColor:textColor];
 
 LABEL_32:
-      [v11 setConfiguration:defaultMetrics];
+      [v12 setConfiguration:defaultMetrics];
       goto LABEL_38;
     }
 
     backgroundColor2 = [colorsCopy backgroundColor];
-    [v11 setBackgroundColor:backgroundColor2];
+    [v12 setBackgroundColor:backgroundColor2];
 
-    [v11 setCustomColors:colorsCopy];
-    [v11 _setContinuousCornerRadius:12.0];
-    [v11 setContentEdgeInsets:{0.0, 12.0, 0.0, 12.0}];
+    [v12 setCustomColors:colorsCopy];
+    [v12 _setContinuousCornerRadius:12.0];
+    [v12 setContentEdgeInsets:{0.0, 12.0, 0.0, 12.0}];
     defaultMetrics2 = [MEMORY[0x277D75520] defaultMetrics];
-    v43 = [MEMORY[0x277D74300] systemFontOfSize:17.0 weight:*MEMORY[0x277D74410]];
-    v44 = [defaultMetrics2 scaledFontForFont:v43 compatibleWithTraitCollection:v9];
-    titleLabel2 = [v11 titleLabel];
-    [titleLabel2 setFont:v44];
+    v44 = [MEMORY[0x277D74300] systemFontOfSize:17.0 weight:*MEMORY[0x277D74410]];
+    v45 = [defaultMetrics2 scaledFontForFont:v44 compatibleWithTraitCollection:v9];
+    titleLabel2 = [v12 titleLabel];
+    [titleLabel2 setFont:v45];
 
     textColor2 = [colorsCopy textColor];
-    [v11 setTitleColor:textColor2 forState:0];
+    [v12 setTitleColor:textColor2 forState:0];
 
-    v47 = MEMORY[0x277D75348];
+    v48 = MEMORY[0x277D75348];
     goto LABEL_37;
   }
 
@@ -194,43 +196,43 @@ LABEL_32:
       goto LABEL_11;
     }
 
-    v64.receiver = self;
-    v64.super_class = &OBJC_METACLASS___PRXButton;
-    v11 = objc_msgSendSuper2(&v64, sel_buttonWithType_, 0);
+    v65.receiver = self;
+    v65.super_class = &OBJC_METACLASS___PRXButton;
+    v12 = objc_msgSendSuper2(&v65, sel_buttonWithType_, 0);
     if (_UISolariumEnabled())
     {
       defaultMetrics = [objc_opt_class() defaultPRXButtonConfigurationForTinting:1 traitCollection:v9];
       goto LABEL_32;
     }
 
-    [v11 setBackgroundColor:secondarySystemBackgroundColor];
-    [v11 _setContinuousCornerRadius:12.0];
-    [v11 setContentEdgeInsets:{0.0, 12.0, 0.0, 12.0}];
+    [v12 setBackgroundColor:v11];
+    [v12 _setContinuousCornerRadius:12.0];
+    [v12 setContentEdgeInsets:{0.0, 12.0, 0.0, 12.0}];
     defaultMetrics3 = [MEMORY[0x277D75520] defaultMetrics];
-    v49 = [MEMORY[0x277D74300] systemFontOfSize:17.0 weight:*MEMORY[0x277D74410]];
-    v50 = [defaultMetrics3 scaledFontForFont:v49 compatibleWithTraitCollection:v9];
-    titleLabel3 = [v11 titleLabel];
-    [titleLabel3 setFont:v50];
+    v50 = [MEMORY[0x277D74300] systemFontOfSize:17.0 weight:*MEMORY[0x277D74410]];
+    v51 = [defaultMetrics3 scaledFontForFont:v50 compatibleWithTraitCollection:v9];
+    titleLabel3 = [v12 titleLabel];
+    [titleLabel3 setFont:v51];
 
     labelColor3 = [MEMORY[0x277D75348] labelColor];
-    [v11 setTitleColor:labelColor3 forState:0];
+    [v12 setTitleColor:labelColor3 forState:0];
 
-    v47 = MEMORY[0x277D75348];
+    v48 = MEMORY[0x277D75348];
 LABEL_37:
-    defaultMetrics = [v47 secondaryLabelColor];
-    [v11 setTitleColor:defaultMetrics forState:2];
+    defaultMetrics = [v48 secondaryLabelColor];
+    [v12 setTitleColor:defaultMetrics forState:2];
     goto LABEL_38;
   }
 
-  v59 = secondarySystemBackgroundColor;
-  v65.receiver = self;
-  v65.super_class = &OBJC_METACLASS___PRXButton;
-  v11 = objc_msgSendSuper2(&v65, sel_buttonWithType_, 1);
+  v60 = v11;
+  v66.receiver = self;
+  v66.super_class = &OBJC_METACLASS___PRXButton;
+  v12 = objc_msgSendSuper2(&v66, sel_buttonWithType_, 1);
   defaultMetrics4 = [MEMORY[0x277D75520] defaultMetrics];
-  v27 = [MEMORY[0x277D74300] systemFontOfSize:17.0 weight:*MEMORY[0x277D74410]];
-  v28 = [defaultMetrics4 scaledFontForFont:v27 compatibleWithTraitCollection:v9];
-  titleLabel4 = [v11 titleLabel];
-  [titleLabel4 setFont:v28];
+  v28 = [MEMORY[0x277D74300] systemFontOfSize:17.0 weight:*MEMORY[0x277D74410]];
+  v29 = [defaultMetrics4 scaledFontForFont:v28 compatibleWithTraitCollection:v9];
+  titleLabel4 = [v12 titleLabel];
+  [titleLabel4 setFont:v29];
 
   if (_UISolariumEnabled())
   {
@@ -241,30 +243,30 @@ LABEL_37:
     labelColor4 = [MEMORY[0x277D75348] labelColor];
     [defaultMetrics setBaseForegroundColor:labelColor4];
 
-    [v11 setConfiguration:defaultMetrics];
-    secondarySystemBackgroundColor = v59;
+    [v12 setConfiguration:defaultMetrics];
+    v11 = v60;
     goto LABEL_38;
   }
 
-  secondarySystemBackgroundColor = v59;
-  if (v11)
+  v11 = v60;
+  if (v12)
   {
 LABEL_39:
-    v11[94] = type;
+    v12[94] = type;
   }
 
 LABEL_40:
-  titleLabel5 = [v11 titleLabel];
+  titleLabel5 = [v12 titleLabel];
   [titleLabel5 setAdjustsFontSizeToFitWidth:1];
 
-  titleLabel6 = [v11 titleLabel];
+  titleLabel6 = [v12 titleLabel];
   [titleLabel6 setAdjustsFontForContentSizeCategory:!stylingCopy];
 
-  LODWORD(v55) = 1148846080;
-  [v11 setContentHuggingPriority:1 forAxis:v55];
-  [v11 setMaximumContentSizeCategory:*MEMORY[0x277D76840]];
+  LODWORD(v56) = 1148846080;
+  [v12 setContentHuggingPriority:1 forAxis:v56];
+  [v12 setMaximumContentSizeCategory:*MEMORY[0x277D76840]];
 
-  return v11;
+  return v12;
 }
 
 + (id)defaultPRXButtonConfigurationForTinting:(BOOL)tinting traitCollection:(id)collection

@@ -101,20 +101,19 @@
   {
     v8 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v9 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = HMFGetOSLogHandle(selfCopy, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v10 = HMFGetLogIdentifier(selfCopy);
+      v11 = HMFGetLogIdentifier(selfCopy);
       v13 = 138543362;
-      v14 = v10;
-      _os_log_impl(&dword_22ADEC000, v9, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize due to nil object after decoding UUID", &v13, 0xCu);
+      v14 = v11;
+      _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize due to nil object after decoding UUID", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
     v7 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

@@ -30,7 +30,7 @@
   if (v9)
   {
 
-    sub_1B69979CC(&v8, v10);
+    sub_1B69979CC(&v8, &v10);
     v4 = v11;
   }
 
@@ -40,12 +40,12 @@
     v4 = sub_1B69E0520();
     v11 = v4;
 
-    v10[0] = v5;
+    *&v10 = v5;
   }
 
-  __swift_project_boxed_opaque_existential_1(v10, v4);
+  __swift_project_boxed_opaque_existential_1(&v10, v4);
   v6 = sub_1B6ABA0E0();
-  __swift_destroy_boxed_opaque_existential_1(v10);
+  __swift_destroy_boxed_opaque_existential_1(&v10);
 
   return v6;
 }

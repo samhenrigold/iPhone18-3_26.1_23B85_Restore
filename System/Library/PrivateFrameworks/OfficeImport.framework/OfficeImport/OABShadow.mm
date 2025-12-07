@@ -13,7 +13,7 @@
     v7 = objc_alloc_init(OADOuterShadowEffect);
     if (managerCopy)
     {
-      [managerCopy shadowColor];
+      objc_msgSend_shadowColor(managerCopy);
     }
 
     else

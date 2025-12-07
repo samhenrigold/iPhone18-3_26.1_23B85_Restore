@@ -3,6 +3,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)domainAsString:(int)string;
+- (id)flagsAsString:(int)string;
+- (id)stateAsString:(int)string;
 - (int)StringAsDomain:(id)domain;
 - (int)StringAsFlags:(id)flags;
 - (int)StringAsState:(id)state;
@@ -30,6 +33,21 @@
   {
     return 0;
   }
+}
+
+- (id)domainAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100205F58[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsDomain:(id)domain
@@ -101,6 +119,21 @@
   *&self->_has = *&self->_has & 0xFB | v3;
 }
 
+- (id)stateAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100205F88[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsState:(id)state
 {
   stateCopy = state;
@@ -168,6 +201,100 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)flagsAsString:(int)string
+{
+  if (string > 31)
+  {
+    if (string > 255)
+    {
+      switch(string)
+      {
+        case 256:
+          v4 = @"OPERATION_PENDING";
+
+          return v4;
+        case 512:
+          v4 = @"OPERATION_FAILED";
+
+          return v4;
+        case 1024:
+          v4 = @"STARTED";
+
+          return v4;
+      }
+    }
+
+    else
+    {
+      switch(string)
+      {
+        case 32:
+          v4 = @"ACTIVITY_ASK_TO_COMPLETE";
+
+          return v4;
+        case 64:
+          v4 = @"CONSIDERED_LOCK";
+
+          return v4;
+        case 128:
+          v4 = @"IS_LEGACY";
+
+          return v4;
+      }
+    }
+
+LABEL_52:
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+
+    return v4;
+  }
+
+  if (string > 3)
+  {
+    switch(string)
+    {
+      case 4:
+        v4 = @"LOCKED";
+
+        return v4;
+      case 8:
+        v4 = @"UNLOCKED";
+
+        return v4;
+      case 16:
+        v4 = @"SUBMITTED_LATE";
+
+        return v4;
+    }
+
+    goto LABEL_52;
+  }
+
+  if (string)
+  {
+    if (string != 1)
+    {
+      if (string == 2)
+      {
+        v4 = @"REVISION_REQUESTED";
+
+        return v4;
+      }
+
+      goto LABEL_52;
+    }
+
+    v4 = @"SUBMITTED";
+  }
+
+  else
+  {
+    v4 = @"UNKNOWN_CUSTOM_STATE";
+  }
+
+  return v4;
 }
 
 - (int)StringAsFlags:(id)flags
@@ -392,12 +519,11 @@ LABEL_42:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    domain = self->_domain;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -416,15 +542,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  state = self->_state;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    flags = self->_flags;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:

@@ -8,19 +8,19 @@
 
 void __44__WLKFeatureEnablement_tvAppEnabledFeatures__block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v3 = objc_alloc_init(WLKFeature);
   [(WLKFeature *)v3 setName:@"expanse"];
   [(WLKFeature *)v3 setDomain:@"TVApp"];
   [(WLKFeature *)v3 setEnabled:1];
-  v29 = v3;
+  v28 = v3;
   [v2 addObject:v3];
   v4 = objc_alloc_init(WLKFeature);
   [(WLKFeature *)v4 setName:@"syndication"];
   [(WLKFeature *)v4 setDomain:@"TVApp"];
   [(WLKFeature *)v4 setEnabled:1];
-  v28 = v4;
+  v27 = v4;
   [v2 addObject:v4];
   v5 = [*(a1 + 32) _utsFeatureFlags];
   [v2 addObjectsFromArray:v5];
@@ -87,26 +87,26 @@ void __44__WLKFeatureEnablement_tvAppEnabledFeatures__block_invoke(uint64_t a1)
 
   v14 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.WatchListKit"];
   v15 = [v14 objectForKey:@"FeatureEnablementAdditionalFlags"];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v16 = [v15 countByEnumeratingWithState:&v30 objects:v36 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v31;
+    v18 = *v30;
     do
     {
       v19 = 0;
       do
       {
-        if (*v31 != v18)
+        if (*v30 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v30 + 1) + 8 * v19);
+        v20 = *(*(&v29 + 1) + 8 * v19);
         v21 = objc_alloc_init(WLKFeature);
         [(WLKFeature *)v21 setName:v20];
         [(WLKFeature *)v21 setDomain:@"TVApp"];
@@ -117,7 +117,7 @@ void __44__WLKFeatureEnablement_tvAppEnabledFeatures__block_invoke(uint64_t a1)
       }
 
       while (v17 != v19);
-      v17 = [v15 countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
     while (v17);
@@ -133,11 +133,9 @@ void __44__WLKFeatureEnablement_tvAppEnabledFeatures__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v35 = tvAppEnabledFeatures_appFeatures;
+    v34 = tvAppEnabledFeatures_appFeatures;
     _os_log_impl(&dword_272A0F000, v26, OS_LOG_TYPE_DEFAULT, "Enabled features: %@", buf, 0xCu);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_utsFeatureFlags

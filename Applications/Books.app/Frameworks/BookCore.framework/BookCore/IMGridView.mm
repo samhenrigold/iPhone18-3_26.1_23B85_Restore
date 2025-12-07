@@ -2558,7 +2558,7 @@ LABEL_8:
 
   v12 = [(IMGridView *)self indexForCell:v11];
   WeakRetained = objc_loadWeakRetained(&self->_grabbedCell);
-  v49 = WeakRetained;
+  v50 = WeakRetained;
   if (WeakRetained)
   {
     v14 = v12 == [(IMGridView *)self indexForCell:WeakRetained];
@@ -2591,7 +2591,8 @@ LABEL_8:
   gridFlags = self->_gridFlags;
   if ((*&gridFlags & 0x200) != 0)
   {
-    v22 = [delegate gridView:self canReorderCellAtIndex:v17];
+    v21 = [delegate gridView:self canReorderCellAtIndex:v17];
+    v23 = v21;
     if ((*&self->_gridFlags & 0x400) == 0)
     {
       goto LABEL_15;
@@ -2600,111 +2601,111 @@ LABEL_8:
 
   else
   {
-    v22 = 1;
+    v23 = 1;
     if ((*&gridFlags & 0x400) == 0)
     {
       goto LABEL_15;
     }
   }
 
-  if (!isPhone())
+  if (!isPhone(v21))
   {
-    v23 = [delegate gridView:self canDragCellAtIndex:v17];
+    v24 = [delegate gridView:self canDragCellAtIndex:v17];
     goto LABEL_17;
   }
 
 LABEL_15:
-  v23 = 0;
+  v24 = 0;
 LABEL_17:
-  v46 = v22;
-  v47 = sessionCopy;
-  if (((v22 | v23) & 1) == 0)
+  v47 = v23;
+  v48 = sessionCopy;
+  if (((v23 | v24) & 1) == 0)
   {
     v15 = 0;
     goto LABEL_36;
   }
 
   draggedCellIDs2 = [(IMGridView *)self draggedCellIDs];
-  v44 = [draggedCellIDs2 count];
+  v45 = [draggedCellIDs2 count];
 
-  v45 = interactionCopy;
+  v46 = interactionCopy;
   [dragAndDropDelegate dragItemsForDataSourceIndex:v17 cellIndex:v12 interaction:interactionCopy session:sessionCopy];
-  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v15 = v53 = 0u;
-  v25 = [v15 countByEnumeratingWithState:&v50 objects:v54 count:16];
-  if (!v25)
+  v53 = 0u;
+  v15 = v54 = 0u;
+  v26 = [v15 countByEnumeratingWithState:&v51 objects:v55 count:16];
+  if (!v26)
   {
     goto LABEL_31;
   }
 
-  v26 = v25;
-  v27 = *v51;
+  v27 = v26;
+  v28 = *v52;
   do
   {
-    v28 = 0;
+    v29 = 0;
     do
     {
-      if (*v51 != v27)
+      if (*v52 != v28)
       {
         objc_enumerationMutation(v15);
       }
 
-      v29 = [dragAndDropDelegate uniqueIdentifierForDragItem:{*(*(&v50 + 1) + 8 * v28), v44}];
-      if ([v29 length])
+      v30 = [dragAndDropDelegate uniqueIdentifierForDragItem:{*(*(&v51 + 1) + 8 * v29), v45}];
+      if ([v30 length])
       {
-        if (!v29)
+        if (!v30)
         {
           goto LABEL_26;
         }
 
 LABEL_25:
         draggedCellIDs3 = [(IMGridView *)self draggedCellIDs];
-        [draggedCellIDs3 addObject:v29];
+        [draggedCellIDs3 addObject:v30];
 
         goto LABEL_26;
       }
 
-      sub_1E68A4(0, v30, v31, v32, v33, v34, v35, v36);
-      if (v29)
+      sub_1E68A4(0, v31, v32, v33, v34, v35, v36, v37);
+      if (v30)
       {
         goto LABEL_25;
       }
 
 LABEL_26:
 
-      v28 = v28 + 1;
+      v29 = v29 + 1;
     }
 
-    while (v26 != v28);
-    v38 = [v15 countByEnumeratingWithState:&v50 objects:v54 count:16];
-    v26 = v38;
+    while (v27 != v29);
+    v39 = [v15 countByEnumeratingWithState:&v51 objects:v55 count:16];
+    v27 = v39;
   }
 
-  while (v38);
+  while (v39);
 LABEL_31:
 
   draggedCellIDs4 = [(IMGridView *)self draggedCellIDs];
-  v40 = [draggedCellIDs4 count];
+  v41 = [draggedCellIDs4 count];
 
-  if (v44 == &dword_0 + 1 && v40 >= 2)
+  if (v45 == &dword_0 + 1 && v41 >= 2)
   {
     [(IMGridView *)self _stopReordering:1];
   }
 
-  interactionCopy = v45;
-  [dragAndDropDelegate dragInteraction:v45 session:v47 willAddItems:v15 forInteraction:{0, v44}];
+  interactionCopy = v46;
+  [dragAndDropDelegate dragInteraction:v46 session:v48 willAddItems:v15 forInteraction:{0, v45}];
 LABEL_36:
   draggedCellIDs5 = [(IMGridView *)self draggedCellIDs];
-  v42 = [draggedCellIDs5 count] == &dword_0 + 1;
+  v43 = [draggedCellIDs5 count] == &dword_0 + 1;
 
-  if (!v49 && (v42 & v46) != 0)
+  if (!v50 && (v43 & v47) != 0)
   {
     [(IMGridView *)self setGrabbedCell:v11];
   }
 
-  sessionCopy = v47;
+  sessionCopy = v48;
 LABEL_40:
 
 LABEL_41:
@@ -2744,7 +2745,7 @@ LABEL_41:
   x = point.x;
   interactionCopy = interaction;
   sessionCopy = session;
-  if (isPhone())
+  if (isPhone(sessionCopy))
   {
     v11 = 0;
   }
@@ -2826,7 +2827,7 @@ LABEL_41:
 - (id)dragInteraction:(id)interaction sessionForAddingItems:(id)items withTouchAtPoint:(CGPoint)point
 {
   itemsCopy = items;
-  v6 = BKMobileDragAndDropLog();
+  v6 = BKMobileDragAndDropLog(itemsCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     sub_1E68E0(itemsCopy);
@@ -2842,7 +2843,7 @@ LABEL_41:
   interactionCopy = interaction;
   sessionCopy = session;
   itemsCopy = items;
-  v12 = BKMobileDragAndDropLog();
+  v12 = BKMobileDragAndDropLog(itemsCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     v13 = 138412802;
@@ -2894,13 +2895,13 @@ LABEL_41:
 {
   enterCopy = enter;
   self->_draggingInsideApp = 1;
-  [enterCopy locationInView:self];
-  v7 = v6;
-  v9 = v8;
-  v10 = BKMobileDragAndDropLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v6 = [enterCopy locationInView:self];
+  v8 = v7;
+  v10 = v9;
+  v11 = BKMobileDragAndDropLog(v6);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    sub_1E6970(v7, v9);
+    sub_1E6970(v8, v10);
   }
 }
 
@@ -2927,13 +2928,13 @@ LABEL_41:
 - (void)dropInteraction:(id)interaction sessionDidExit:(id)exit
 {
   exitCopy = exit;
-  [exitCopy locationInView:self];
-  v7 = v6;
-  v9 = v8;
-  v10 = BKMobileDragAndDropLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v6 = [exitCopy locationInView:self];
+  v8 = v7;
+  v10 = v9;
+  v11 = BKMobileDragAndDropLog(v6);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    sub_1E6A08(v7, v9);
+    sub_1E6A08(v8, v10);
   }
 
   [(IMGridView *)self _cancelAutoscrollTimer];

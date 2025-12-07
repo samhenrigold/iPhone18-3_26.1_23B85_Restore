@@ -48,17 +48,18 @@
 
   selfCopy = self;
 
-  v3 = sub_1D6A5E96C();
-  v5 = v4;
+  sub_1D6A5E96C();
+  v4 = v3;
+  v6 = v5;
 
-  if ((v5 & 0x100) != 0)
+  if ((v6 & 0x100) != 0)
   {
     return 0;
   }
 
   else
   {
-    return v5 & (v3 != 0);
+    return v6 & (v4 != 0);
   }
 }
 
@@ -100,7 +101,7 @@
 
   if (v3)
   {
-    sub_1D5B5A498(0, &unk_1EDF04400);
+    sub_1D5B5A498(0, &unk_1EDF04400, 0x1E69DC5E8);
     v4 = sub_1D726265C();
   }
 

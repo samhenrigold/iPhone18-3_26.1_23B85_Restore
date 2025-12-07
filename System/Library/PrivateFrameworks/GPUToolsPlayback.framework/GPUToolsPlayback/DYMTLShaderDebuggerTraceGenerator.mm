@@ -27,11 +27,11 @@
 
 - (DYMTLShaderDebuggerTraceGenerator)initWithDebugFunctionPlayer:(id)player
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   playerCopy = player;
-  v26.receiver = self;
-  v26.super_class = DYMTLShaderDebuggerTraceGenerator;
-  v6 = [(DYMTLShaderDebuggerTraceGenerator *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = DYMTLShaderDebuggerTraceGenerator;
+  v6 = [(DYMTLShaderDebuggerTraceGenerator *)&v25 init];
   v7 = v6;
   if (v6)
   {
@@ -60,9 +60,9 @@
     argumentDescriptor2 = [MEMORY[0x277CD6C78] argumentDescriptor];
     [argumentDescriptor2 setDataType:59];
     [argumentDescriptor2 setIndex:1];
-    v27[0] = argumentDescriptor;
-    v27[1] = argumentDescriptor2;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+    v26[0] = argumentDescriptor;
+    v26[1] = argumentDescriptor2;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
     v20 = [device newArgumentEncoderWithArguments:v19];
     dummyArgumentEncoder = v7->_dummyArgumentEncoder;
     v7->_dummyArgumentEncoder = v20;
@@ -74,13 +74,12 @@
     [(MTLArgumentEncoder *)v7->_dummyArgumentEncoder setArgumentBuffer:v7->_dummyArgumentBuffer offset:0];
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (id)_placeholderTextureWithType:(unint64_t)type
 {
-  v17[0] = type;
+  typeCopy = type;
   p_end_node = &self->_placeholderTextures.__tree_.__end_node_;
   left = self->_placeholderTextures.__tree_.__end_node_.__left_;
   if (left)
@@ -145,8 +144,8 @@ LABEL_17:
   }
 
   v13 = DYMTLNewTexture(device, v14);
-  v17[2] = v17;
-  v15 = std::__tree<std::__value_type<MTLTextureType,objc_object  {objcproto10MTLTexture}* {__strong}>,std::__map_value_compare<MTLTextureType,objc_object  {objcproto10MTLTexture}* {__strong},std::less<MTLTextureType>,true>,std::allocator<objc_object  {objcproto10MTLTexture}* {__strong}>>::__emplace_unique_key_args<MTLTextureType,std::piecewise_construct_t const&,std::tuple<MTLTextureType const&>,std::piecewise_construct_t const&<>>(&p_end_node[-1], v17);
+  v18 = &typeCopy;
+  v15 = std::__tree<std::__value_type<MTLTextureType,objc_object  {objcproto10MTLTexture}* {__strong}>,std::__map_value_compare<MTLTextureType,objc_object  {objcproto10MTLTexture}* {__strong},std::less<MTLTextureType>,true>,std::allocator<objc_object  {objcproto10MTLTexture}* {__strong}>>::__emplace_unique_key_args<MTLTextureType,std::piecewise_construct_t const&,std::tuple<MTLTextureType const&>,std::piecewise_construct_t const&<>>(&p_end_node[-1], &typeCopy, &std::piecewise_construct, &v18);
   objc_storeStrong(v15 + 5, v13);
 
 LABEL_20:
@@ -343,7 +342,7 @@ LABEL_11:
   return v7 & 1;
 }
 
-void __98__DYMTLShaderDebuggerTraceGenerator__kernelBindingNeedsPlaceholderResource_computeCommandEncoder___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void __98__DYMTLShaderDebuggerTraceGenerator__kernelBindingNeedsPlaceholderResource_computeCommandEncoder___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   if ([*(a1 + 32) index] == a3)
   {
@@ -374,7 +373,7 @@ void __98__DYMTLShaderDebuggerTraceGenerator__kernelBindingNeedsPlaceholderResou
   }
 }
 
-void __98__DYMTLShaderDebuggerTraceGenerator__kernelBindingNeedsPlaceholderResource_computeCommandEncoder___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void __98__DYMTLShaderDebuggerTraceGenerator__kernelBindingNeedsPlaceholderResource_computeCommandEncoder___block_invoke_2(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
   v8 = a2;
   if ([*(a1 + 32) index] == a3)
@@ -389,7 +388,7 @@ void __98__DYMTLShaderDebuggerTraceGenerator__kernelBindingNeedsPlaceholderResou
   }
 }
 
-uint64_t __98__DYMTLShaderDebuggerTraceGenerator__kernelBindingNeedsPlaceholderResource_computeCommandEncoder___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__98__DYMTLShaderDebuggerTraceGenerator__kernelBindingNeedsPlaceholderResource_computeCommandEncoder___block_invoke_3(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
   result = [*(a1 + 32) index];
   if (result == a3)
@@ -472,7 +471,7 @@ LABEL_11:
   return v7 & 1;
 }
 
-void __97__DYMTLShaderDebuggerTraceGenerator__vertexBindingNeedsPlaceholderResource_renderCommandEncoder___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void __97__DYMTLShaderDebuggerTraceGenerator__vertexBindingNeedsPlaceholderResource_renderCommandEncoder___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   if ([*(a1 + 32) index] == a3)
   {
@@ -503,7 +502,7 @@ void __97__DYMTLShaderDebuggerTraceGenerator__vertexBindingNeedsPlaceholderResou
   }
 }
 
-void __97__DYMTLShaderDebuggerTraceGenerator__vertexBindingNeedsPlaceholderResource_renderCommandEncoder___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void __97__DYMTLShaderDebuggerTraceGenerator__vertexBindingNeedsPlaceholderResource_renderCommandEncoder___block_invoke_2(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
   v8 = a2;
   if ([*(a1 + 32) index] == a3)
@@ -518,7 +517,7 @@ void __97__DYMTLShaderDebuggerTraceGenerator__vertexBindingNeedsPlaceholderResou
   }
 }
 
-uint64_t __97__DYMTLShaderDebuggerTraceGenerator__vertexBindingNeedsPlaceholderResource_renderCommandEncoder___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__97__DYMTLShaderDebuggerTraceGenerator__vertexBindingNeedsPlaceholderResource_renderCommandEncoder___block_invoke_3(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
   result = [*(a1 + 32) index];
   if (result == a3)
@@ -601,7 +600,7 @@ LABEL_11:
   return v7 & 1;
 }
 
-void __99__DYMTLShaderDebuggerTraceGenerator__fragmentBindingNeedsPlaceholderResource_renderCommandEncoder___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void __99__DYMTLShaderDebuggerTraceGenerator__fragmentBindingNeedsPlaceholderResource_renderCommandEncoder___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   if ([*(a1 + 32) index] == a3)
   {
@@ -632,7 +631,7 @@ void __99__DYMTLShaderDebuggerTraceGenerator__fragmentBindingNeedsPlaceholderRes
   }
 }
 
-void __99__DYMTLShaderDebuggerTraceGenerator__fragmentBindingNeedsPlaceholderResource_renderCommandEncoder___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void __99__DYMTLShaderDebuggerTraceGenerator__fragmentBindingNeedsPlaceholderResource_renderCommandEncoder___block_invoke_2(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
   v8 = a2;
   if ([*(a1 + 32) index] == a3)
@@ -647,7 +646,7 @@ void __99__DYMTLShaderDebuggerTraceGenerator__fragmentBindingNeedsPlaceholderRes
   }
 }
 
-uint64_t __99__DYMTLShaderDebuggerTraceGenerator__fragmentBindingNeedsPlaceholderResource_renderCommandEncoder___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__99__DYMTLShaderDebuggerTraceGenerator__fragmentBindingNeedsPlaceholderResource_renderCommandEncoder___block_invoke_3(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
   result = [*(a1 + 32) index];
   if (result == a3)
@@ -730,7 +729,7 @@ LABEL_11:
   return v7 & 1;
 }
 
-void __95__DYMTLShaderDebuggerTraceGenerator__tileBindingNeedsPlaceholderResource_renderCommandEncoder___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void __95__DYMTLShaderDebuggerTraceGenerator__tileBindingNeedsPlaceholderResource_renderCommandEncoder___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   if ([*(a1 + 32) index] == a3)
   {
@@ -761,7 +760,7 @@ void __95__DYMTLShaderDebuggerTraceGenerator__tileBindingNeedsPlaceholderResourc
   }
 }
 
-void __95__DYMTLShaderDebuggerTraceGenerator__tileBindingNeedsPlaceholderResource_renderCommandEncoder___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void __95__DYMTLShaderDebuggerTraceGenerator__tileBindingNeedsPlaceholderResource_renderCommandEncoder___block_invoke_2(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
   v8 = a2;
   if ([*(a1 + 32) index] == a3)
@@ -776,7 +775,7 @@ void __95__DYMTLShaderDebuggerTraceGenerator__tileBindingNeedsPlaceholderResourc
   }
 }
 
-uint64_t __95__DYMTLShaderDebuggerTraceGenerator__tileBindingNeedsPlaceholderResource_renderCommandEncoder___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__95__DYMTLShaderDebuggerTraceGenerator__tileBindingNeedsPlaceholderResource_renderCommandEncoder___block_invoke_3(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
   result = [*(a1 + 32) index];
   if (result == a3)
@@ -888,8 +887,8 @@ LABEL_58:
                 LODWORD(v75) = v69;
                 [v64 setFragmentSamplerState:v119 lodMinClamp:v67 lodMaxClamp:v74 atIndex:v75];
                 v76 = [(DYMTLFunctionPlayer *)self->_player keyForOriginalObject:v70];
-                v133 = &v119;
-                std::__tree<std::__value_type<objc_object  {objcproto15MTLSamplerState}* {__strong},unsigned long long>,std::__map_value_compare<objc_object  {objcproto15MTLSamplerState}*,objc_object  {objcproto15MTLSamplerState}* {__strong},std::less<objc_object  {objcproto15MTLSamplerState}*>,true>,std::allocator<objc_object  {objcproto15MTLSamplerState}* {__strong}>>::__emplace_unique_key_args<objc_object  {objcproto15MTLSamplerState}*,std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto15MTLSamplerState} const {__strong}&>,std::piecewise_construct_t const&<>>(&self->_replacedSamplerStates, &v119)[5] = v76;
+                v133[0] = &v119;
+                std::__tree<std::__value_type<objc_object  {objcproto15MTLSamplerState}* {__strong},unsigned long long>,std::__map_value_compare<objc_object  {objcproto15MTLSamplerState}*,objc_object  {objcproto15MTLSamplerState}* {__strong},std::less<objc_object  {objcproto15MTLSamplerState}*>,true>,std::allocator<objc_object  {objcproto15MTLSamplerState}* {__strong}>>::__emplace_unique_key_args<objc_object  {objcproto15MTLSamplerState}*,std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto15MTLSamplerState} const {__strong}&>,std::piecewise_construct_t const&<>>(&self->_replacedSamplerStates, &v119, &std::piecewise_construct, v133)[5] = v76;
 
                 v77 = v65[1];
                 if (v77)
@@ -1039,8 +1038,8 @@ LABEL_57:
                 LODWORD(v56) = v51;
                 [v45 setTileSamplerState:v119 lodMinClamp:v48 lodMaxClamp:v55 atIndex:v56];
                 v57 = [(DYMTLFunctionPlayer *)self->_player keyForOriginalObject:v49];
-                v133 = &v119;
-                std::__tree<std::__value_type<objc_object  {objcproto15MTLSamplerState}* {__strong},unsigned long long>,std::__map_value_compare<objc_object  {objcproto15MTLSamplerState}*,objc_object  {objcproto15MTLSamplerState}* {__strong},std::less<objc_object  {objcproto15MTLSamplerState}*>,true>,std::allocator<objc_object  {objcproto15MTLSamplerState}* {__strong}>>::__emplace_unique_key_args<objc_object  {objcproto15MTLSamplerState}*,std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto15MTLSamplerState} const {__strong}&>,std::piecewise_construct_t const&<>>(&self->_replacedSamplerStates, &v119)[5] = v57;
+                v133[0] = &v119;
+                std::__tree<std::__value_type<objc_object  {objcproto15MTLSamplerState}* {__strong},unsigned long long>,std::__map_value_compare<objc_object  {objcproto15MTLSamplerState}*,objc_object  {objcproto15MTLSamplerState}* {__strong},std::less<objc_object  {objcproto15MTLSamplerState}*>,true>,std::allocator<objc_object  {objcproto15MTLSamplerState}* {__strong}>>::__emplace_unique_key_args<objc_object  {objcproto15MTLSamplerState}*,std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto15MTLSamplerState} const {__strong}&>,std::piecewise_construct_t const&<>>(&self->_replacedSamplerStates, &v119, &std::piecewise_construct, v133)[5] = v57;
 
                 v58 = v46[1];
                 if (v58)
@@ -1178,8 +1177,8 @@ LABEL_57:
             LODWORD(v31) = v25;
             [v20 setVertexSamplerState:v119 lodMinClamp:v23 lodMaxClamp:v30 atIndex:v31];
             v32 = [(DYMTLFunctionPlayer *)self->_player keyForOriginalObject:v26];
-            v133 = &v119;
-            std::__tree<std::__value_type<objc_object  {objcproto15MTLSamplerState}* {__strong},unsigned long long>,std::__map_value_compare<objc_object  {objcproto15MTLSamplerState}*,objc_object  {objcproto15MTLSamplerState}* {__strong},std::less<objc_object  {objcproto15MTLSamplerState}*>,true>,std::allocator<objc_object  {objcproto15MTLSamplerState}* {__strong}>>::__emplace_unique_key_args<objc_object  {objcproto15MTLSamplerState}*,std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto15MTLSamplerState} const {__strong}&>,std::piecewise_construct_t const&<>>(&self->_replacedSamplerStates, &v119)[5] = v32;
+            v133[0] = &v119;
+            std::__tree<std::__value_type<objc_object  {objcproto15MTLSamplerState}* {__strong},unsigned long long>,std::__map_value_compare<objc_object  {objcproto15MTLSamplerState}*,objc_object  {objcproto15MTLSamplerState}* {__strong},std::less<objc_object  {objcproto15MTLSamplerState}*>,true>,std::allocator<objc_object  {objcproto15MTLSamplerState}* {__strong}>>::__emplace_unique_key_args<objc_object  {objcproto15MTLSamplerState}*,std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto15MTLSamplerState} const {__strong}&>,std::piecewise_construct_t const&<>>(&self->_replacedSamplerStates, &v119, &std::piecewise_construct, v133)[5] = v32;
 
             v33 = v21[1];
             if (v33)
@@ -1264,48 +1263,46 @@ LABEL_59:
 
 void __84__DYMTLShaderDebuggerTraceGenerator__prepareRenderCommandEncoder_generationOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(a1 + 40);
-  v7 = v3;
+  v5 = a2;
   if ([*(a1 + 32) _vertexBindingNeedsPlaceholderResource:? renderCommandEncoder:?])
   {
-    v5 = [v7 type];
-    if (v5)
+    v3 = [v5 type];
+    if (v3)
     {
-      if (v5 == 2)
+      if (v3 == 2)
       {
-        v6 = [*(a1 + 32) _placeholderTextureWithType:{objc_msgSend(v7, "textureType")}];
-        [*(a1 + 40) setVertexTexture:v6 atIndex:{objc_msgSend(v7, "index")}];
+        v4 = [*(a1 + 32) _placeholderTextureWithType:{objc_msgSend(v5, "textureType")}];
+        [*(a1 + 40) setVertexTexture:v4 atIndex:{objc_msgSend(v5, "index")}];
       }
 
-      else if (v5 == 3)
+      else if (v3 == 3)
       {
-        [*(a1 + 40) setVertexSamplerState:*(*(a1 + 32) + 56) atIndex:{objc_msgSend(v7, "index")}];
+        [*(a1 + 40) setVertexSamplerState:*(*(a1 + 32) + 56) atIndex:{objc_msgSend(v5, "index")}];
       }
     }
 
     else
     {
-      [*(a1 + 40) setVertexBuffer:*(*(a1 + 32) + 40) offset:0 atIndex:{objc_msgSend(v7, "index")}];
+      [*(a1 + 40) setVertexBuffer:*(*(a1 + 32) + 40) offset:0 atIndex:{objc_msgSend(v5, "index")}];
     }
   }
 }
 
-void __84__DYMTLShaderDebuggerTraceGenerator__prepareRenderCommandEncoder_generationOptions___block_invoke_67(uint64_t a1, void **a2, unint64_t a3)
+void __84__DYMTLShaderDebuggerTraceGenerator__prepareRenderCommandEncoder_generationOptions___block_invoke_67(uint64_t a1, void **a2, uint64_t a3)
 {
-  v7[0] = a3;
+  v7 = a3;
   v5 = DYMTLGetAssociatedObject(*a2, 0);
   if (([v5 supportArgumentBuffers] & 1) == 0)
   {
     v6 = *(*(a1 + 32) + 8);
-    v7[2] = v7;
-    *(std::__tree<std::__value_type<unsigned long,DYMTLBoundSamplerInfo>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,DYMTLBoundSamplerInfo>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,DYMTLBoundSamplerInfo>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v6 + 48, v7) + 5) = *a2;
+    v8 = &v7;
+    *(std::__tree<std::__value_type<unsigned long,DYMTLBoundSamplerInfo>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,DYMTLBoundSamplerInfo>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,DYMTLBoundSamplerInfo>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((v6 + 48), &v7, &std::piecewise_construct, &v8) + 5) = *a2;
   }
 }
 
-void __84__DYMTLShaderDebuggerTraceGenerator__prepareRenderCommandEncoder_generationOptions___block_invoke_2_68(uint64_t a1, void *a2, unint64_t a3)
+void __84__DYMTLShaderDebuggerTraceGenerator__prepareRenderCommandEncoder_generationOptions___block_invoke_2_68(uint64_t a1, void *a2, uint64_t a3)
 {
-  v13[0] = a3;
+  v13 = a3;
   if (!*a2 && a2[1])
   {
     v5 = [*(a1 + 32) device];
@@ -1323,8 +1320,8 @@ void __84__DYMTLShaderDebuggerTraceGenerator__prepareRenderCommandEncoder_genera
     v9 = [v5 newBufferWithBytes:v8 length:v7 options:0];
 
     v10 = *(a1 + 40);
-    v13[2] = v13;
-    v11 = std::__hash_table<std::__hash_value_type<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong}>,std::__unordered_map_hasher<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong},std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto9MTLBuffer}* {__strong}>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::piecewise_construct_t const&<>>((v10 + 136), v13);
+    v14 = &v13;
+    v11 = std::__hash_table<std::__hash_value_type<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong}>,std::__unordered_map_hasher<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong},std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto9MTLBuffer}* {__strong}>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::piecewise_construct_t const&<>>((v10 + 136), &v13, &std::piecewise_construct, &v14);
     v12 = v11[3];
     v11[3] = v9;
   }
@@ -1332,48 +1329,46 @@ void __84__DYMTLShaderDebuggerTraceGenerator__prepareRenderCommandEncoder_genera
 
 void __84__DYMTLShaderDebuggerTraceGenerator__prepareRenderCommandEncoder_generationOptions___block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(a1 + 40);
-  v7 = v3;
+  v5 = a2;
   if ([*(a1 + 32) _fragmentBindingNeedsPlaceholderResource:? renderCommandEncoder:?])
   {
-    v5 = [v7 type];
-    if (v5)
+    v3 = [v5 type];
+    if (v3)
     {
-      if (v5 == 2)
+      if (v3 == 2)
       {
-        v6 = [*(a1 + 32) _placeholderTextureWithType:{objc_msgSend(v7, "textureType")}];
-        [*(a1 + 40) setFragmentTexture:v6 atIndex:{objc_msgSend(v7, "index")}];
+        v4 = [*(a1 + 32) _placeholderTextureWithType:{objc_msgSend(v5, "textureType")}];
+        [*(a1 + 40) setFragmentTexture:v4 atIndex:{objc_msgSend(v5, "index")}];
       }
 
-      else if (v5 == 3)
+      else if (v3 == 3)
       {
-        [*(a1 + 40) setFragmentSamplerState:*(*(a1 + 32) + 56) atIndex:{objc_msgSend(v7, "index")}];
+        [*(a1 + 40) setFragmentSamplerState:*(*(a1 + 32) + 56) atIndex:{objc_msgSend(v5, "index")}];
       }
     }
 
     else
     {
-      [*(a1 + 40) setFragmentBuffer:*(*(a1 + 32) + 40) offset:0 atIndex:{objc_msgSend(v7, "index")}];
+      [*(a1 + 40) setFragmentBuffer:*(*(a1 + 32) + 40) offset:0 atIndex:{objc_msgSend(v5, "index")}];
     }
   }
 }
 
-void __84__DYMTLShaderDebuggerTraceGenerator__prepareRenderCommandEncoder_generationOptions___block_invoke_5(uint64_t a1, void **a2, unint64_t a3)
+void __84__DYMTLShaderDebuggerTraceGenerator__prepareRenderCommandEncoder_generationOptions___block_invoke_5(uint64_t a1, void **a2, uint64_t a3)
 {
-  v7[0] = a3;
+  v7 = a3;
   v5 = DYMTLGetAssociatedObject(*a2, 0);
   if (([v5 supportArgumentBuffers] & 1) == 0)
   {
     v6 = *(*(a1 + 32) + 8);
-    v7[2] = v7;
-    *(std::__tree<std::__value_type<unsigned long,DYMTLBoundSamplerInfo>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,DYMTLBoundSamplerInfo>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,DYMTLBoundSamplerInfo>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v6 + 48, v7) + 5) = *a2;
+    v8 = &v7;
+    *(std::__tree<std::__value_type<unsigned long,DYMTLBoundSamplerInfo>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,DYMTLBoundSamplerInfo>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,DYMTLBoundSamplerInfo>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((v6 + 48), &v7, &std::piecewise_construct, &v8) + 5) = *a2;
   }
 }
 
-void __84__DYMTLShaderDebuggerTraceGenerator__prepareRenderCommandEncoder_generationOptions___block_invoke_6(uint64_t a1, void *a2, unint64_t a3)
+void __84__DYMTLShaderDebuggerTraceGenerator__prepareRenderCommandEncoder_generationOptions___block_invoke_6(uint64_t a1, void *a2, uint64_t a3)
 {
-  v13[0] = a3;
+  v13 = a3;
   if (!*a2 && a2[1])
   {
     v5 = [*(a1 + 32) device];
@@ -1391,8 +1386,8 @@ void __84__DYMTLShaderDebuggerTraceGenerator__prepareRenderCommandEncoder_genera
     v9 = [v5 newBufferWithBytes:v8 length:v7 options:0];
 
     v10 = *(a1 + 40);
-    v13[2] = v13;
-    v11 = std::__hash_table<std::__hash_value_type<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong}>,std::__unordered_map_hasher<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong},std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto9MTLBuffer}* {__strong}>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::piecewise_construct_t const&<>>((v10 + 136), v13);
+    v14 = &v13;
+    v11 = std::__hash_table<std::__hash_value_type<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong}>,std::__unordered_map_hasher<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong},std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto9MTLBuffer}* {__strong}>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::piecewise_construct_t const&<>>((v10 + 136), &v13, &std::piecewise_construct, &v14);
     v12 = v11[3];
     v11[3] = v9;
   }
@@ -1400,29 +1395,27 @@ void __84__DYMTLShaderDebuggerTraceGenerator__prepareRenderCommandEncoder_genera
 
 void __84__DYMTLShaderDebuggerTraceGenerator__prepareRenderCommandEncoder_generationOptions___block_invoke_7(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(a1 + 40);
-  v7 = v3;
+  v5 = a2;
   if ([*(a1 + 32) _tileBindingNeedsPlaceholderResource:? renderCommandEncoder:?])
   {
-    v5 = [v7 type];
-    if (v5)
+    v3 = [v5 type];
+    if (v3)
     {
-      if (v5 == 2)
+      if (v3 == 2)
       {
-        v6 = [*(a1 + 32) _placeholderTextureWithType:{objc_msgSend(v7, "textureType")}];
-        [*(a1 + 40) setTileTexture:v6 atIndex:{objc_msgSend(v7, "index")}];
+        v4 = [*(a1 + 32) _placeholderTextureWithType:{objc_msgSend(v5, "textureType")}];
+        [*(a1 + 40) setTileTexture:v4 atIndex:{objc_msgSend(v5, "index")}];
       }
 
-      else if (v5 == 3)
+      else if (v3 == 3)
       {
-        [*(a1 + 40) setTileSamplerState:*(*(a1 + 32) + 56) atIndex:{objc_msgSend(v7, "index")}];
+        [*(a1 + 40) setTileSamplerState:*(*(a1 + 32) + 56) atIndex:{objc_msgSend(v5, "index")}];
       }
     }
 
     else
     {
-      [*(a1 + 40) setTileBuffer:*(*(a1 + 32) + 40) offset:0 atIndex:{objc_msgSend(v7, "index")}];
+      [*(a1 + 40) setTileBuffer:*(*(a1 + 32) + 40) offset:0 atIndex:{objc_msgSend(v5, "index")}];
     }
   }
 }
@@ -1436,24 +1429,24 @@ void __84__DYMTLShaderDebuggerTraceGenerator__prepareRenderCommandEncoder_genera
   }
 }
 
-void __84__DYMTLShaderDebuggerTraceGenerator__prepareRenderCommandEncoder_generationOptions___block_invoke_9(uint64_t a1, void **a2, unint64_t a3)
+void __84__DYMTLShaderDebuggerTraceGenerator__prepareRenderCommandEncoder_generationOptions___block_invoke_9(uint64_t a1, id *a2, uint64_t a3)
 {
-  v7[0] = a3;
+  v7 = a3;
   if ([*a2 conformsToProtocol:&unk_2860CB168])
   {
     v5 = DYMTLGetAssociatedObject(*a2, 0);
     if (([v5 supportArgumentBuffers] & 1) == 0)
     {
       v6 = *(*(a1 + 32) + 8);
-      v7[2] = v7;
-      *(std::__tree<std::__value_type<unsigned long,DYMTLBoundSamplerInfo>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,DYMTLBoundSamplerInfo>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,DYMTLBoundSamplerInfo>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v6 + 48, v7) + 5) = *a2;
+      v8 = &v7;
+      *(std::__tree<std::__value_type<unsigned long,DYMTLBoundSamplerInfo>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,DYMTLBoundSamplerInfo>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,DYMTLBoundSamplerInfo>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((v6 + 48), &v7, &std::piecewise_construct, &v8) + 5) = *a2;
     }
   }
 }
 
-void __84__DYMTLShaderDebuggerTraceGenerator__prepareRenderCommandEncoder_generationOptions___block_invoke_10(uint64_t a1, void *a2, unint64_t a3)
+void __84__DYMTLShaderDebuggerTraceGenerator__prepareRenderCommandEncoder_generationOptions___block_invoke_10(uint64_t a1, void *a2, uint64_t a3)
 {
-  v13[0] = a3;
+  v13 = a3;
   if (!*a2 && a2[1])
   {
     v5 = [*(a1 + 32) device];
@@ -1471,8 +1464,8 @@ void __84__DYMTLShaderDebuggerTraceGenerator__prepareRenderCommandEncoder_genera
     v9 = [v5 newBufferWithBytes:v8 length:v7 options:0];
 
     v10 = *(a1 + 40);
-    v13[2] = v13;
-    v11 = std::__hash_table<std::__hash_value_type<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong}>,std::__unordered_map_hasher<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong},std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto9MTLBuffer}* {__strong}>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::piecewise_construct_t const&<>>((v10 + 136), v13);
+    v14 = &v13;
+    v11 = std::__hash_table<std::__hash_value_type<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong}>,std::__unordered_map_hasher<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong},std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto9MTLBuffer}* {__strong}>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::piecewise_construct_t const&<>>((v10 + 136), &v13, &std::piecewise_construct, &v14);
     v12 = v11[3];
     v11[3] = v9;
   }
@@ -1559,7 +1552,7 @@ void __84__DYMTLShaderDebuggerTraceGenerator__prepareRenderCommandEncoder_genera
             [v16 setSamplerState:v48 lodMinClamp:v19 lodMaxClamp:v26 atIndex:v27];
             v28 = [(DYMTLFunctionPlayer *)self->_player keyForOriginalObject:v22];
             v61 = &v48;
-            std::__tree<std::__value_type<objc_object  {objcproto15MTLSamplerState}* {__strong},unsigned long long>,std::__map_value_compare<objc_object  {objcproto15MTLSamplerState}*,objc_object  {objcproto15MTLSamplerState}* {__strong},std::less<objc_object  {objcproto15MTLSamplerState}*>,true>,std::allocator<objc_object  {objcproto15MTLSamplerState}* {__strong}>>::__emplace_unique_key_args<objc_object  {objcproto15MTLSamplerState}*,std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto15MTLSamplerState} const {__strong}&>,std::piecewise_construct_t const&<>>(&self->_replacedSamplerStates, &v48)[5] = v28;
+            std::__tree<std::__value_type<objc_object  {objcproto15MTLSamplerState}* {__strong},unsigned long long>,std::__map_value_compare<objc_object  {objcproto15MTLSamplerState}*,objc_object  {objcproto15MTLSamplerState}* {__strong},std::less<objc_object  {objcproto15MTLSamplerState}*>,true>,std::allocator<objc_object  {objcproto15MTLSamplerState}* {__strong}>>::__emplace_unique_key_args<objc_object  {objcproto15MTLSamplerState}*,std::piecewise_construct_t const&,std::tuple<objc_object  {objcproto15MTLSamplerState} const {__strong}&>,std::piecewise_construct_t const&<>>(&self->_replacedSamplerStates, &v48, &std::piecewise_construct, &v61)[5] = v28;
 
             v29 = v17[1];
             if (v29)
@@ -1647,48 +1640,46 @@ void __84__DYMTLShaderDebuggerTraceGenerator__prepareRenderCommandEncoder_genera
 
 void __85__DYMTLShaderDebuggerTraceGenerator__prepareComputeCommandEncoder_generationOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(a1 + 40);
-  v7 = v3;
+  v5 = a2;
   if ([*(a1 + 32) _kernelBindingNeedsPlaceholderResource:? computeCommandEncoder:?])
   {
-    v5 = [v7 type];
-    if (v5)
+    v3 = [v5 type];
+    if (v3)
     {
-      if (v5 == 2)
+      if (v3 == 2)
       {
-        v6 = [*(a1 + 32) _placeholderTextureWithType:{objc_msgSend(v7, "textureType")}];
-        [*(a1 + 40) setTexture:v6 atIndex:{objc_msgSend(v7, "index")}];
+        v4 = [*(a1 + 32) _placeholderTextureWithType:{objc_msgSend(v5, "textureType")}];
+        [*(a1 + 40) setTexture:v4 atIndex:{objc_msgSend(v5, "index")}];
       }
 
-      else if (v5 == 3)
+      else if (v3 == 3)
       {
-        [*(a1 + 40) setSamplerState:*(*(a1 + 32) + 56) atIndex:{objc_msgSend(v7, "index")}];
+        [*(a1 + 40) setSamplerState:*(*(a1 + 32) + 56) atIndex:{objc_msgSend(v5, "index")}];
       }
     }
 
     else
     {
-      [*(a1 + 40) setBuffer:*(*(a1 + 32) + 40) offset:0 atIndex:{objc_msgSend(v7, "index")}];
+      [*(a1 + 40) setBuffer:*(*(a1 + 32) + 40) offset:0 atIndex:{objc_msgSend(v5, "index")}];
     }
   }
 }
 
-void __85__DYMTLShaderDebuggerTraceGenerator__prepareComputeCommandEncoder_generationOptions___block_invoke_3(uint64_t a1, void **a2, unint64_t a3)
+void __85__DYMTLShaderDebuggerTraceGenerator__prepareComputeCommandEncoder_generationOptions___block_invoke_3(uint64_t a1, void **a2, uint64_t a3)
 {
-  v7[0] = a3;
+  v7 = a3;
   v5 = DYMTLGetAssociatedObject(*a2, 0);
   if (([v5 supportArgumentBuffers] & 1) == 0)
   {
     v6 = *(*(a1 + 32) + 8);
-    v7[2] = v7;
-    *(std::__tree<std::__value_type<unsigned long,DYMTLBoundSamplerInfo>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,DYMTLBoundSamplerInfo>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,DYMTLBoundSamplerInfo>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(v6 + 48, v7) + 5) = *a2;
+    v8 = &v7;
+    *(std::__tree<std::__value_type<unsigned long,DYMTLBoundSamplerInfo>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,DYMTLBoundSamplerInfo>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,DYMTLBoundSamplerInfo>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>((v6 + 48), &v7, &std::piecewise_construct, &v8) + 5) = *a2;
   }
 }
 
-void __85__DYMTLShaderDebuggerTraceGenerator__prepareComputeCommandEncoder_generationOptions___block_invoke_4(uint64_t a1, void *a2, unint64_t a3)
+void __85__DYMTLShaderDebuggerTraceGenerator__prepareComputeCommandEncoder_generationOptions___block_invoke_4(uint64_t a1, void *a2, uint64_t a3)
 {
-  v13[0] = a3;
+  v13 = a3;
   if (!*a2 && a2[1])
   {
     v5 = [*(a1 + 32) device];
@@ -1706,8 +1697,8 @@ void __85__DYMTLShaderDebuggerTraceGenerator__prepareComputeCommandEncoder_gener
     v9 = [v5 newBufferWithBytes:v8 length:v7 options:0];
 
     v10 = *(a1 + 40);
-    v13[2] = v13;
-    v11 = std::__hash_table<std::__hash_value_type<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong}>,std::__unordered_map_hasher<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong},std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto9MTLBuffer}* {__strong}>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::piecewise_construct_t const&<>>((v10 + 136), v13);
+    v14 = &v13;
+    v11 = std::__hash_table<std::__hash_value_type<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong}>,std::__unordered_map_hasher<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong},std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,objc_object  {objcproto9MTLBuffer}* {__strong},std::equal_to,std::hash,true>,std::allocator<objc_object  {objcproto9MTLBuffer}* {__strong}>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::piecewise_construct_t const&<>>((v10 + 136), &v13, &std::piecewise_construct, &v14);
     v12 = v11[3];
     v11[3] = v9;
   }
@@ -2023,44 +2014,44 @@ char *__105__DYMTLShaderDebuggerTraceGenerator__createInstrumentedFunctionWithIn
             v12 = [optionsCopy objectForKeyedSubscript:v20];
             v13 = [optionsCopy objectForKeyedSubscript:*MEMORY[0x277D0B2B8]];
             v14 = [optionsCopy objectForKeyedSubscript:v22];
-            ShaderDebugger::TraceBufferVersionedHeader::TraceBufferVersionedHeader(&v94, [(MTLBuffer *)self->_traceBuffer contents], self->_traceBufferVersion);
-            v94 = &unk_2860B2BB8;
-            v95->i32[0] = 1;
+            ShaderDebugger::TraceBufferVersionedHeader::TraceBufferVersionedHeader(&v91, [(MTLBuffer *)self->_traceBuffer contents], self->_traceBufferVersion);
+            v91 = &unk_2860B2BB8;
+            v92->i32[0] = 1;
             v24 = [(MTLBuffer *)self->_traceBuffer length];
-            v95->i32[1] = v24;
+            v92->i32[1] = v24;
             v25 = [v14 count];
-            if (v96 > 2)
+            if (v93 > 2)
             {
               v28 = 0;
             }
 
             else
             {
-              v26 = qword_24D740D30[v96];
-              v27 = v95;
-              *(v95->i32 + qword_24D740D18[v96]) = v25;
+              v26 = qword_24D740D30[v93];
+              v27 = v92;
+              *(v92->i32 + qword_24D740D18[v93]) = v25;
               v28 = v27 + v26;
             }
 
             for (i = 0; i < [v14 count]; ++i)
             {
-              v88 = [v14 objectAtIndexedSubscript:i];
-              *(v28 + 4 * i) = [v88 unsignedIntegerValue];
+              v85 = [v14 objectAtIndexedSubscript:i];
+              *(v28 + 4 * i) = [v85 unsignedIntegerValue];
             }
 
             unsignedIntegerValue = [v12 unsignedIntegerValue];
-            if (v96 <= 2)
+            if (v93 <= 2)
             {
-              v95->i32[3] = unsignedIntegerValue;
+              v92->i32[3] = unsignedIntegerValue;
             }
 
             unsignedIntegerValue2 = [v13 unsignedIntegerValue];
-            if (v96 - 1 <= 1)
+            if (v93 - 1 <= 1)
             {
-              v95[1].i32[0] = unsignedIntegerValue2;
+              v92[1].i32[0] = unsignedIntegerValue2;
             }
 
-            HeaderSize = ShaderDebugger::PostTessellationVertexTraceBufferVersionedHeader::getHeaderSize(&v94);
+            HeaderSize = ShaderDebugger::PostTessellationVertexTraceBufferVersionedHeader::getHeaderSize(&v91);
             goto LABEL_58;
           }
         }
@@ -2071,92 +2062,92 @@ char *__105__DYMTLShaderDebuggerTraceGenerator__createInstrumentedFunctionWithIn
       goto LABEL_60;
     }
 
-    v53 = *MEMORY[0x277D0B2F8];
-    v54 = [optionsCopy objectForKey:*MEMORY[0x277D0B2F8]];
+    v52 = *MEMORY[0x277D0B2F8];
+    v53 = [optionsCopy objectForKey:*MEMORY[0x277D0B2F8]];
 
-    if (v54)
+    if (v53)
     {
-      v55 = *MEMORY[0x277D0B300];
-      v56 = [optionsCopy objectForKey:*MEMORY[0x277D0B300]];
+      v54 = *MEMORY[0x277D0B300];
+      v55 = [optionsCopy objectForKey:*MEMORY[0x277D0B300]];
 
-      if (v56)
+      if (v55)
       {
-        v57 = *MEMORY[0x277D0B2C8];
-        v58 = [optionsCopy objectForKey:*MEMORY[0x277D0B2C8]];
+        v56 = *MEMORY[0x277D0B2C8];
+        v57 = [optionsCopy objectForKey:*MEMORY[0x277D0B2C8]];
 
-        if (v58)
+        if (v57)
         {
-          v59 = *MEMORY[0x277D0B2D0];
-          v60 = [optionsCopy objectForKey:*MEMORY[0x277D0B2D0]];
+          v58 = *MEMORY[0x277D0B2D0];
+          v59 = [optionsCopy objectForKey:*MEMORY[0x277D0B2D0]];
 
-          if (v60)
+          if (v59)
           {
-            v61 = *MEMORY[0x277D0B308];
-            v62 = [optionsCopy objectForKey:*MEMORY[0x277D0B308]];
+            v60 = *MEMORY[0x277D0B308];
+            v61 = [optionsCopy objectForKey:*MEMORY[0x277D0B308]];
 
-            if (v62)
+            if (v61)
             {
-              v63 = *MEMORY[0x277D0B2D8];
-              v64 = [optionsCopy objectForKey:*MEMORY[0x277D0B2D8]];
+              v62 = *MEMORY[0x277D0B2D8];
+              v63 = [optionsCopy objectForKey:*MEMORY[0x277D0B2D8]];
 
-              if (v64)
+              if (v63)
               {
-                v12 = [optionsCopy objectForKeyedSubscript:v53];
-                v13 = [optionsCopy objectForKeyedSubscript:v55];
-                v14 = [optionsCopy objectForKeyedSubscript:v57];
-                v41 = [optionsCopy objectForKeyedSubscript:v59];
-                v42 = [optionsCopy objectForKeyedSubscript:v61];
-                v43 = [optionsCopy objectForKeyedSubscript:v63];
-                v65 = [optionsCopy objectForKeyedSubscript:*MEMORY[0x277D0B330]];
+                v12 = [optionsCopy objectForKeyedSubscript:v52];
+                v13 = [optionsCopy objectForKeyedSubscript:v54];
+                v14 = [optionsCopy objectForKeyedSubscript:v56];
+                v41 = [optionsCopy objectForKeyedSubscript:v58];
+                v42 = [optionsCopy objectForKeyedSubscript:v60];
+                v43 = [optionsCopy objectForKeyedSubscript:v62];
+                v64 = [optionsCopy objectForKeyedSubscript:*MEMORY[0x277D0B330]];
                 self->_traceType = 1;
-                ShaderDebugger::TraceBufferVersionedHeader::TraceBufferVersionedHeader(&v94, [(MTLBuffer *)self->_traceBuffer contents], self->_traceBufferVersion);
-                v94 = &unk_2860B2B68;
-                v95->i32[0] = 1;
-                v66 = [(MTLBuffer *)self->_traceBuffer length];
-                v95->i32[1] = v66;
+                ShaderDebugger::TraceBufferVersionedHeader::TraceBufferVersionedHeader(&v91, [(MTLBuffer *)self->_traceBuffer contents], self->_traceBufferVersion);
+                v91 = &unk_2860B2B68;
+                v92->i32[0] = 1;
+                v65 = [(MTLBuffer *)self->_traceBuffer length];
+                v92->i32[1] = v65;
                 [v12 floatValue];
-                v92 = v67;
+                v89 = v66;
                 [v13 floatValue];
-                if (v96 <= 2)
+                if (v93 <= 2)
                 {
-                  v69 = &unk_24D740CF0;
-                  v70 = vld1q_dup_f32(v69);
-                  v70.i64[0] = __PAIR64__(v68, v92);
-                  v95[1] = v70;
+                  v68 = &unk_24D740CF0;
+                  v69 = vld1q_dup_f32(v68);
+                  v69.i64[0] = __PAIR64__(v67, v89);
+                  v92[1] = v69;
                 }
 
                 [v14 floatValue];
-                v93 = v71;
+                v90 = v70;
                 [v41 floatValue];
-                if (v96 <= 2)
+                if (v93 <= 2)
                 {
-                  v73 = &unk_24D740CF4;
-                  v74 = vld1q_dup_f32(v73);
-                  v74.i64[0] = __PAIR64__(v72, v93);
-                  v95[2] = v74;
+                  v72 = &unk_24D740CF4;
+                  v73 = vld1q_dup_f32(v72);
+                  v73.i64[0] = __PAIR64__(v71, v90);
+                  v92[2] = v73;
                 }
 
                 unsignedIntValue2 = [v42 unsignedIntValue];
-                if (v96 <= 2)
+                if (v93 <= 2)
                 {
-                  v95[3].i32[0] = unsignedIntValue2;
+                  v92[3].i32[0] = unsignedIntValue2;
                 }
 
                 unsignedIntValue3 = [v43 unsignedIntValue];
-                if (v96 <= 2)
+                if (v93 <= 2)
                 {
-                  v95[3].i32[1] = unsignedIntValue3;
+                  v92[3].i32[1] = unsignedIntValue3;
                 }
 
-                unsignedIntValue4 = [v65 unsignedIntValue];
-                if (v96 == 2)
+                unsignedIntValue4 = [v64 unsignedIntValue];
+                if (v93 == 2)
                 {
-                  v95[3].i32[2] = unsignedIntValue4;
+                  v92[3].i32[2] = unsignedIntValue4;
                 }
 
-                v78 = ShaderDebugger::FragmentTraceBufferVersionedHeader::getHeaderSize(&v94);
-                v95->i32[2] = v78;
-                DispatchMPSMethod(&v94, v79);
+                v77 = ShaderDebugger::FragmentTraceBufferVersionedHeader::getHeaderSize(&v91);
+                v92->i32[2] = v77;
+                DispatchMPSMethod();
 
                 goto LABEL_38;
               }
@@ -2214,28 +2205,28 @@ LABEL_39:
                 v43 = [optionsCopy objectForKeyedSubscript:v39];
                 self->_traceType = 2;
                 contents = [(MTLBuffer *)self->_traceBuffer contents];
-                ShaderDebugger::TraceBufferVersionedHeader::TraceBufferVersionedHeader(&v94, contents, self->_traceBufferVersion);
-                v94 = &unk_2860B2B90;
-                v97 = contents;
-                v95->i32[0] = 1;
+                ShaderDebugger::TraceBufferVersionedHeader::TraceBufferVersionedHeader(&v91, contents, self->_traceBufferVersion);
+                v91 = &unk_2860B2B90;
+                v94 = contents;
+                v92->i32[0] = 1;
                 v45 = [(MTLBuffer *)self->_traceBuffer length];
-                v95->i32[1] = v45;
+                v92->i32[1] = v45;
                 unsignedIntValue5 = [v12 unsignedIntValue];
                 LODWORD(contents) = [v13 unsignedIntValue];
                 unsignedIntValue6 = [v14 unsignedIntValue];
-                v97[4] = unsignedIntValue5;
-                v97[5] = contents;
-                v97[6] = unsignedIntValue6;
+                v94[4] = unsignedIntValue5;
+                v94[5] = contents;
+                v94[6] = unsignedIntValue6;
                 unsignedIntValue7 = [v41 unsignedIntValue];
                 LODWORD(contents) = [v42 unsignedIntValue];
                 unsignedIntValue8 = [v43 unsignedIntValue];
-                v50 = v97;
-                v97[8] = unsignedIntValue7;
+                v50 = v94;
+                v94[8] = unsignedIntValue7;
                 v50[9] = contents;
                 v50[10] = unsignedIntValue8;
-                v51 = ShaderDebugger::KernelTraceBufferVersionedHeader::getHeaderSize(&v94);
-                v95->i32[2] = v51;
-                DispatchMPSMethod(&v94, v52);
+                v51 = ShaderDebugger::KernelTraceBufferVersionedHeader::getHeaderSize(&v91);
+                v92->i32[2] = v51;
+                DispatchMPSMethod();
 LABEL_38:
 
 LABEL_59:
@@ -2267,47 +2258,47 @@ LABEL_59:
         v12 = [optionsCopy objectForKeyedSubscript:v8];
         v13 = [optionsCopy objectForKeyedSubscript:*MEMORY[0x277D0B2B8]];
         v14 = [optionsCopy objectForKeyedSubscript:v10];
-        ShaderDebugger::TraceBufferVersionedHeader::TraceBufferVersionedHeader(&v94, [(MTLBuffer *)self->_traceBuffer contents], self->_traceBufferVersion);
-        v94 = &unk_2860B2B40;
-        v95->i32[0] = 1;
+        ShaderDebugger::TraceBufferVersionedHeader::TraceBufferVersionedHeader(&v91, [(MTLBuffer *)self->_traceBuffer contents], self->_traceBufferVersion);
+        v91 = &unk_2860B2B40;
+        v92->i32[0] = 1;
         v15 = [(MTLBuffer *)self->_traceBuffer length];
-        v95->i32[1] = v15;
+        v92->i32[1] = v15;
         v16 = [v14 count];
-        if (v96 > 2)
+        if (v93 > 2)
         {
           v19 = 0;
         }
 
         else
         {
-          v17 = qword_24D740D30[v96];
-          v18 = v95;
-          *(v95->i32 + qword_24D740D18[v96]) = v16;
+          v17 = qword_24D740D30[v93];
+          v18 = v92;
+          *(v92->i32 + qword_24D740D18[v93]) = v16;
           v19 = v18 + v17;
         }
 
         for (j = 0; j < [v14 count]; ++j)
         {
-          v82 = [v14 objectAtIndexedSubscript:j];
-          *(v19 + 4 * j) = [v82 unsignedIntegerValue];
+          v80 = [v14 objectAtIndexedSubscript:j];
+          *(v19 + 4 * j) = [v80 unsignedIntegerValue];
         }
 
         unsignedIntegerValue3 = [v12 unsignedIntegerValue];
-        if (v96 <= 2)
+        if (v93 <= 2)
         {
-          v95->i32[3] = unsignedIntegerValue3;
+          v92->i32[3] = unsignedIntegerValue3;
         }
 
         unsignedIntegerValue4 = [v13 unsignedIntegerValue];
-        if (v96 - 1 <= 1)
+        if (v93 - 1 <= 1)
         {
-          v95[1].i32[0] = unsignedIntegerValue4;
+          v92[1].i32[0] = unsignedIntegerValue4;
         }
 
-        HeaderSize = ShaderDebugger::VertexTraceBufferVersionedHeader::getHeaderSize(&v94);
+        HeaderSize = ShaderDebugger::VertexTraceBufferVersionedHeader::getHeaderSize(&v91);
 LABEL_58:
-        v95->i32[2] = HeaderSize;
-        DispatchMPSMethod(&v94, v86);
+        v92->i32[2] = HeaderSize;
+        DispatchMPSMethod();
         goto LABEL_59;
       }
     }
@@ -2420,7 +2411,7 @@ LABEL_11:
 
 - (id)_generateResourceResolutionRemappingTables
 {
-  v57[5] = *MEMORY[0x277D85DE8];
+  v56[5] = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
   dictionary3 = [MEMORY[0x277CBEB38] dictionary];
@@ -2434,36 +2425,36 @@ LABEL_11:
     do
     {
       v6 = v5[5];
-      v51 = v5[4];
-      v53 = 0;
-      v54 = 0;
+      v50 = v5[4];
       v52 = 0;
-      std::vector<DYMTLOriginalProcessBuffer>::__init_with_size[abi:ne200100]<DYMTLOriginalProcessBuffer*,DYMTLOriginalProcessBuffer*>(&v52, v6, v5[6], (v5[6] - v6) >> 4);
-      v8 = v52;
-      v7 = v53;
-      if (v52 != v53)
+      v53 = 0;
+      v51 = 0;
+      std::vector<DYMTLOriginalProcessBuffer>::__init_with_size[abi:ne200100]<DYMTLOriginalProcessBuffer*,DYMTLOriginalProcessBuffer*>(&v51, v6, v5[6], (v5[6] - v6) >> 4);
+      v8 = v51;
+      v7 = v52;
+      if (v51 != v52)
       {
         do
         {
           objectMap = [(DYMTLFunctionPlayer *)self->_player objectMap];
-          v55 = v8;
-          v10 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(objectMap, v8);
+          v54 = v8;
+          v10 = std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(objectMap, v8, &std::piecewise_construct, &v54);
           v11 = DYMTLGetOriginalObject(v10[3]);
           gpuAddress = [v11 gpuAddress];
           v13 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:gpuAddress];
-          v14 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v51];
+          v14 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v50];
           [dictionary setObject:v13 forKeyedSubscript:v14];
 
           v8 += 2;
         }
 
         while (v8 != v7);
-        v8 = v52;
+        v8 = v51;
       }
 
       if (v8)
       {
-        v53 = v8;
+        v52 = v8;
         operator delete(v8);
       }
 
@@ -2592,47 +2583,45 @@ LABEL_20:
   }
 
   v40 = *MEMORY[0x277D0B370];
-  v56[0] = *MEMORY[0x277D0B350];
-  v56[1] = v40;
-  v57[0] = dictionary;
-  v57[1] = dictionary2;
+  v55[0] = *MEMORY[0x277D0B350];
+  v55[1] = v40;
+  v56[0] = dictionary;
+  v56[1] = dictionary2;
   v41 = *MEMORY[0x277D0B360];
-  v56[2] = *MEMORY[0x277D0B368];
-  v56[3] = v41;
+  v55[2] = *MEMORY[0x277D0B368];
+  v55[3] = v41;
   constantSamplerReflection = self->_constantSamplerReflection;
-  v57[2] = dictionary3;
-  v57[3] = constantSamplerReflection;
-  v56[4] = *MEMORY[0x277D0B358];
-  v57[4] = dictionary4;
-  v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:5];
-
-  v44 = *MEMORY[0x277D85DE8];
+  v56[2] = dictionary3;
+  v56[3] = constantSamplerReflection;
+  v55[4] = *MEMORY[0x277D0B358];
+  v56[4] = dictionary4;
+  v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:5];
 
   return v43;
 }
 
 - (id)notifyReplayFinishedAndGenerateTraceContainer
 {
-  v25[4] = *MEMORY[0x277D85DE8];
+  v24[4] = *MEMORY[0x277D85DE8];
   selfCopy = self;
   errorStr = self->_errorStr;
   if (errorStr)
   {
-    v23 = *MEMORY[0x277D0B290];
-    v24 = errorStr;
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    v22 = *MEMORY[0x277D0B290];
+    v23 = errorStr;
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
     v5 = self->_errorStr;
     self->_errorStr = 0;
   }
 
   else
   {
-    v22[3] = 0;
-    v25[0] = &unk_2860B2A20;
-    v25[1] = &selfCopy;
-    v25[3] = v25;
-    std::__function::__value_func<void ()(void)>::swap[abi:ne200100](v25, v22);
-    std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v25);
+    v21[3] = 0;
+    v24[0] = &unk_2860B2A20;
+    v24[1] = &selfCopy;
+    v24[3] = v24;
+    std::__function::__value_func<void ()(void)>::swap[abi:ne200100](v24, v21);
+    std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v24);
     contents = [(MTLBuffer *)selfCopy->_traceBuffer contents];
     if (*(contents + 8) <= *(contents + 4))
     {
@@ -2654,29 +2643,27 @@ LABEL_20:
       _generateResourceResolutionRemappingTables = [(DYMTLShaderDebuggerTraceGenerator *)selfCopy _generateResourceResolutionRemappingTables];
       metadata = selfCopy->_metadata;
       v14 = *MEMORY[0x277D0B378];
-      v18[0] = *MEMORY[0x277D0B2B0];
-      v18[1] = v14;
-      v19[0] = metadata;
-      v19[1] = v7;
-      v18[2] = *MEMORY[0x277D0B348];
-      v19[2] = _generateResourceResolutionRemappingTables;
-      v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
+      v17[0] = *MEMORY[0x277D0B2B0];
+      v17[1] = v14;
+      v18[0] = metadata;
+      v18[1] = v7;
+      v17[2] = *MEMORY[0x277D0B348];
+      v18[2] = _generateResourceResolutionRemappingTables;
+      v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
     }
 
     else
     {
-      v20[0] = *MEMORY[0x277D0B380];
+      v19[0] = *MEMORY[0x277D0B380];
       v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:?];
-      v20[1] = *MEMORY[0x277D0B290];
-      v21[0] = v7;
-      v21[1] = @"Trace buffer not big enough. Retry with new size.";
-      v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+      v19[1] = *MEMORY[0x277D0B290];
+      v20[0] = v7;
+      v20[1] = @"Trace buffer not big enough. Retry with new size.";
+      v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
     }
 
-    dy_defer::~dy_defer(v22);
+    dy_defer::~dy_defer(v21);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

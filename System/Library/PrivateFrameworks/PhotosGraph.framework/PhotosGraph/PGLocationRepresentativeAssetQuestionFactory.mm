@@ -9,16 +9,16 @@
 
 - (id)_addQuestionsForAssetUUIDs:(id)ds photoLibrary:(id)library
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   libraryCopy = library;
   librarySpecificFetchOptions = [libraryCopy librarySpecificFetchOptions];
-  v27[0] = *MEMORY[0x277CD9AF8];
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+  v26[0] = *MEMORY[0x277CD9AF8];
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
   [librarySpecificFetchOptions setFetchPropertySets:v8];
 
-  v25 = dsCopy;
-  v23 = librarySpecificFetchOptions;
+  v24 = dsCopy;
+  v22 = librarySpecificFetchOptions;
   v9 = [MEMORY[0x277CD97A8] fetchAssetsWithLocalIdentifiers:dsCopy options:librarySpecificFetchOptions];
   v10 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v11 = [v9 count];
@@ -29,9 +29,9 @@
     {
       v14 = objc_autoreleasePoolPush();
       v15 = [v9 objectAtIndex:i];
-      v26 = 0;
+      v25 = 0;
       photosOneUpProperties = [v15 photosOneUpProperties];
-      v17 = [photosOneUpProperties localizedGeoDescriptionIsHome:&v26];
+      v17 = [photosOneUpProperties localizedGeoDescriptionIsHome:&v25];
 
       if (v17)
       {
@@ -48,8 +48,6 @@
       objc_autoreleasePoolPop(v14);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -129,7 +127,7 @@
 
 - (id)_fetchAssetsWithLibrary:(id)library internalPredicate:(id)predicate
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   librarySpecificFetchOptions = [library librarySpecificFetchOptions];
   requiredFetchPropertySets = [MEMORY[0x277D3C7D8] requiredFetchPropertySets];
@@ -137,8 +135,8 @@
 
   [librarySpecificFetchOptions setFetchLimit:1000];
   v9 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"uuid" ascending:1];
-  v21[0] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v20[0] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   [librarySpecificFetchOptions setSortDescriptors:v10];
 
   existingQuestionsByEntityIdentifier = [(PGSurveyQuestionFactory *)self existingQuestionsByEntityIdentifier];
@@ -146,22 +144,20 @@
 
   v13 = MEMORY[0x277CCA920];
   v14 = [MEMORY[0x277CCAC30] predicateWithFormat:@"NOT (uuid IN %@)", allKeys];
-  v20[0] = v14;
-  v20[1] = predicateCopy;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v19[0] = v14;
+  v19[1] = predicateCopy;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
   v16 = [v13 andPredicateWithSubpredicates:v15];
   [librarySpecificFetchOptions setInternalPredicate:v16];
 
   v17 = [MEMORY[0x277CD97A8] fetchAssetsWithOptions:librarySpecificFetchOptions];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
 - (id)generateQuestionsWithLimit:(unint64_t)limit progressBlock:(id)block
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v6 = _Block_copy(block);
   if (v6)
   {
@@ -170,9 +166,9 @@
     if (Current >= 0.01)
     {
       v9 = Current;
-      v26 = 0;
-      v6[2](v6, &v26, 0.0);
-      if (v26 == 1)
+      v25 = 0;
+      v6[2](v6, &v25, 0.0);
+      if (v25 == 1)
       {
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
@@ -182,9 +178,9 @@ LABEL_23:
         }
 
         *buf = 67109378;
-        v28 = 33;
-        v29 = 2080;
-        v30 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/LocationRepresentativeAsset/PGLocationRepresentativeAssetQuestionFactory.m";
+        v27 = 33;
+        v28 = 2080;
+        v29 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/LocationRepresentativeAsset/PGLocationRepresentativeAssetQuestionFactory.m";
         v10 = MEMORY[0x277D86220];
 LABEL_22:
         _os_log_impl(&dword_22F0FC000, v10, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -201,17 +197,17 @@ LABEL_22:
         goto LABEL_23;
       }
 
-      v26 = 0;
-      v6[2](v6, &v26, 1.0);
-      if (!v26 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+      v25 = 0;
+      v6[2](v6, &v25, 1.0);
+      if (!v25 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         goto LABEL_23;
       }
 
       *buf = 67109378;
-      v28 = 36;
-      v29 = 2080;
-      v30 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/LocationRepresentativeAsset/PGLocationRepresentativeAssetQuestionFactory.m";
+      v27 = 36;
+      v28 = 2080;
+      v29 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/LocationRepresentativeAsset/PGLocationRepresentativeAssetQuestionFactory.m";
       v10 = MEMORY[0x277D86220];
       goto LABEL_22;
     }
@@ -255,9 +251,9 @@ LABEL_22:
     goto LABEL_25;
   }
 
-  v26 = 0;
-  v6[2](v6, &v26, 0.7);
-  if (!v26)
+  v25 = 0;
+  v6[2](v6, &v25, 0.7);
+  if (!v25)
   {
     v8 = v19;
 LABEL_25:
@@ -265,14 +261,14 @@ LABEL_25:
     allObjects = [v21 allObjects];
     v23 = [(PGLocationRepresentativeAssetQuestionFactory *)self _addQuestionsForAssetUUIDs:allObjects photoLibrary:photoLibrary];
 
-    if (v6 && CFAbsoluteTimeGetCurrent() - v8 >= 0.01 && (v26 = 0, v6[2](v6, &v26, 1.0), v26))
+    if (v6 && CFAbsoluteTimeGetCurrent() - v8 >= 0.01 && (v25 = 0, v6[2](v6, &v25, 1.0), v25))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v28 = 53;
-        v29 = 2080;
-        v30 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/LocationRepresentativeAsset/PGLocationRepresentativeAssetQuestionFactory.m";
+        v27 = 53;
+        v28 = 2080;
+        v29 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/LocationRepresentativeAsset/PGLocationRepresentativeAssetQuestionFactory.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -290,9 +286,9 @@ LABEL_25:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    v28 = 49;
-    v29 = 2080;
-    v30 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/LocationRepresentativeAsset/PGLocationRepresentativeAssetQuestionFactory.m";
+    v27 = 49;
+    v28 = 2080;
+    v29 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Questions/Survey/LocationRepresentativeAsset/PGLocationRepresentativeAssetQuestionFactory.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
@@ -300,7 +296,6 @@ LABEL_25:
 LABEL_33:
 
 LABEL_34:
-  v24 = *MEMORY[0x277D85DE8];
 
   return allObjects2;
 }

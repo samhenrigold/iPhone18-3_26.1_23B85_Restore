@@ -187,7 +187,7 @@
           objc_enumerationMutation(registeredTypeIdentifiers);
         }
 
-        if ([*(*(&v11 + 1) + 8 * i) isEqualToString:@"com.apple.sticker"])
+        if (objc_msgSend_isEqualToString_(*(*(&v11 + 1) + 8 * i)))
         {
           v9 = 1;
           goto LABEL_11;

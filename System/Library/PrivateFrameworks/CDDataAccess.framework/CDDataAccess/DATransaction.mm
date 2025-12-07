@@ -8,7 +8,7 @@
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = +[DATransactionMonitor sharedTransactionMonitor];
   [v3 decrementTransactionCountForTransaction:self->_transactionId];
 
@@ -18,14 +18,13 @@
   {
     transactionId = [(DATransaction *)self transactionId];
     *buf = 138412290;
-    v10 = transactionId;
+    v9 = transactionId;
     _os_log_impl(&dword_24244C000, v4, v5, "DATransaction exiting, ID: %@", buf, 0xCu);
   }
 
-  v8.receiver = self;
-  v8.super_class = DATransaction;
-  [(DATransaction *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = DATransaction;
+  [(DATransaction *)&v7 dealloc];
 }
 
 - (DATransaction)init

@@ -49,7 +49,7 @@
 
 - (id)prescriptionFromURL:(id)l withDescription:(id)description
 {
-  v176 = *MEMORY[0x277D85DE8];
+  v175 = *MEMORY[0x277D85DE8];
   lCopy = l;
   descriptionCopy = description;
   v8 = [objc_alloc(MEMORY[0x277CCACE0]) initWithURL:lCopy resolvingAgainstBaseURL:0];
@@ -65,76 +65,76 @@
     goto LABEL_136;
   }
 
-  v153 = 0u;
-  v154 = 0u;
-  v151 = 0u;
   v152 = 0u;
+  v153 = 0u;
+  v150 = 0u;
+  v151 = 0u;
   queryItems = [v8 queryItems];
-  v11 = [queryItems countByEnumeratingWithState:&v151 objects:v175 count:16];
+  v11 = [queryItems countByEnumeratingWithState:&v150 objects:v174 count:16];
   if (!v11)
   {
     v77 = 0;
-    v146 = 0;
-    v147 = 0;
-    v137 = 0;
-    v138 = 0;
-    v132 = 0;
-    v133 = 0;
     v145 = 0;
-    v141 = 0;
-    v142 = 0;
-    v131 = 0;
-    v135 = 0;
+    v146 = 0;
     v136 = 0;
+    v137 = 0;
+    v131 = 0;
+    v132 = 0;
+    v144 = 0;
+    v140 = 0;
+    v141 = 0;
+    v130 = 0;
+    v134 = 0;
+    v135 = 0;
+    v118 = 0;
     v119 = 0;
     v120 = 0;
-    v121 = 0;
+    v142 = 1;
     v143 = 1;
-    v144 = 1;
-    v130 = 1;
+    v129 = 1;
+    v138 = 1;
     v139 = 1;
-    v140 = 1;
-    v134 = 1;
-    v126 = 1;
-    v127 = 1;
+    v133 = 1;
     v125 = 1;
+    v126 = 1;
+    v124 = 1;
     v78 = 1;
 LABEL_96:
 
 LABEL_98:
     log = self->_log;
-    v81 = v147;
-    v82 = v137;
+    v81 = v146;
+    v82 = v136;
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
     {
-      v112 = v77;
-      v113 = MEMORY[0x277CCABB0];
-      v114 = log;
-      v115 = [v113 numberWithBool:v144 & 1];
-      v116 = [MEMORY[0x277CCABB0] numberWithBool:v130 & 1];
+      v111 = v77;
+      v112 = MEMORY[0x277CCABB0];
+      v113 = log;
+      v114 = [v112 numberWithBool:v143 & 1];
+      v115 = [MEMORY[0x277CCABB0] numberWithBool:v129 & 1];
       *buf = 136317186;
-      v158 = "[CRXFVisionPrescriptionURLDecoder prescriptionFromURL:withDescription:]";
-      v159 = 1024;
-      v160 = 247;
-      v161 = 2112;
-      v162 = v147;
-      v163 = 2112;
-      v164 = v112;
-      v165 = 2112;
-      v166 = v138;
-      v167 = 2112;
-      v168 = v137;
-      v169 = 2112;
-      v170 = v135;
-      v171 = 2112;
-      v172 = v115;
-      v173 = 2112;
-      v174 = v116;
-      _os_log_debug_impl(&dword_24732C000, v114, OS_LOG_TYPE_DEBUG, "%s @%d: lc: %@, ls: %@, rc: %@, rs: %@, acc: %@, la: %@, ra: %@", buf, 0x58u);
+      v157 = "[CRXFVisionPrescriptionURLDecoder prescriptionFromURL:withDescription:]";
+      v158 = 1024;
+      v159 = 247;
+      v160 = 2112;
+      v161 = v146;
+      v162 = 2112;
+      v163 = v111;
+      v164 = 2112;
+      v165 = v137;
+      v166 = 2112;
+      v167 = v136;
+      v168 = 2112;
+      v169 = v134;
+      v170 = 2112;
+      v171 = v114;
+      v172 = 2112;
+      v173 = v115;
+      _os_log_debug_impl(&dword_24732C000, v113, OS_LOG_TYPE_DEBUG, "%s @%d: lc: %@, ls: %@, rc: %@, rs: %@, acc: %@, la: %@, ra: %@", buf, 0x58u);
 
-      v77 = v112;
-      v82 = v137;
-      v81 = v147;
+      v77 = v111;
+      v82 = v136;
+      v81 = v146;
     }
 
     if (v81)
@@ -147,18 +147,18 @@ LABEL_98:
       v83 = 1;
     }
 
-    v87 = !v83 && v138 != 0 && v82 != 0 && v135 != 0;
-    if (v87 & v144 & v130)
+    v87 = !v83 && v137 != 0 && v82 != 0 && v134 != 0;
+    if (v87 & v143 & v129)
     {
-      if (v143 & v140 & v139 & v134 & v127 & v126 & v125 & v78)
+      if (v142 & v139 & v138 & v133 & v126 & v125 & v124 & v78)
       {
         v88 = 0;
-        if (v131)
+        if (v130)
         {
           v89 = v77;
-          if (v133)
+          if (v132)
           {
-            v88 = [objc_alloc(MEMORY[0x277CCDBD0]) initWithVerticalAmount:v131 verticalBase:v119 horizontalAmount:v133 horizontalBase:v120 eye:2];
+            v88 = [objc_alloc(MEMORY[0x277CCDBD0]) initWithVerticalAmount:v130 verticalBase:v118 horizontalAmount:v132 horizontalBase:v119 eye:2];
           }
         }
 
@@ -168,24 +168,24 @@ LABEL_98:
         }
 
         v92 = 0;
-        v129 = v9;
-        if (v141 && v145)
+        v128 = v9;
+        if (v140 && v144)
         {
-          v92 = [objc_alloc(MEMORY[0x277CCDBD0]) initWithVerticalAmount:v141 verticalBase:v136 horizontalAmount:v145 horizontalBase:v142 eye:1];
+          v92 = [objc_alloc(MEMORY[0x277CCDBD0]) initWithVerticalAmount:v140 verticalBase:v135 horizontalAmount:v144 horizontalBase:v141 eye:1];
         }
 
         v93 = v92;
-        v150 = v92;
-        v94 = [objc_alloc(MEMORY[0x277CCD480]) initWithSphere:v82 cylinder:v138 axis:v132 addPower:0 vertexDistance:0 prism:v88 farPupillaryDistance:0 nearPupillaryDistance:0];
-        v95 = [objc_alloc(MEMORY[0x277CCD480]) initWithSphere:v89 cylinder:v81 axis:v146 addPower:0 vertexDistance:0 prism:v93 farPupillaryDistance:0 nearPupillaryDistance:0];
+        v149 = v92;
+        v94 = [objc_alloc(MEMORY[0x277CCD480]) initWithSphere:v82 cylinder:v137 axis:v131 addPower:0 vertexDistance:0 prism:v88 farPupillaryDistance:0 nearPupillaryDistance:0];
+        v95 = [objc_alloc(MEMORY[0x277CCD480]) initWithSphere:v89 cylinder:v81 axis:v145 addPower:0 vertexDistance:0 prism:v93 farPupillaryDistance:0 nearPupillaryDistance:0];
         v96 = *MEMORY[0x277CCE138];
-        v155[0] = *MEMORY[0x277CCE120];
-        v155[1] = v96;
+        v154[0] = *MEMORY[0x277CCE120];
+        v154[1] = v96;
         deviceModel = self->_deviceModel;
-        v156[0] = v135;
-        v156[1] = deviceModel;
-        v155[2] = *MEMORY[0x277CCE128];
-        v98 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v121];
+        v155[0] = v134;
+        v155[1] = deviceModel;
+        v154[2] = *MEMORY[0x277CCE128];
+        v98 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v120];
         v99 = v98;
         v100 = @"Lenses";
         v101 = *MEMORY[0x277CCC4A8];
@@ -194,29 +194,29 @@ LABEL_98:
           v100 = descriptionCopy;
         }
 
-        v156[2] = v98;
-        v156[3] = v100;
+        v155[2] = v98;
+        v155[3] = v100;
         v102 = *MEMORY[0x277CCC520];
-        v155[3] = v101;
-        v155[4] = v102;
+        v154[3] = v101;
+        v154[4] = v102;
         uUID = [MEMORY[0x277CCAD78] UUID];
         [uUID UUIDString];
         v105 = v104 = v88;
-        v155[5] = *MEMORY[0x277CCC528];
-        v156[4] = v105;
-        v156[5] = &unk_285933BC0;
-        v106 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v156 forKeys:v155 count:6];
+        v154[5] = *MEMORY[0x277CCC528];
+        v155[4] = v105;
+        v155[5] = &unk_285933BC0;
+        v106 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v155 forKeys:v154 count:6];
 
         v107 = MEMORY[0x277CCD488];
         date = [MEMORY[0x277CBEAA8] date];
         localDevice = [MEMORY[0x277CCD2E8] localDevice];
         v79 = [v107 prescriptionWithRightEyeSpecification:v94 leftEyeSpecification:v95 dateIssued:date expirationDate:0 device:localDevice metadata:v106];
 
-        v82 = v137;
-        v81 = v147;
+        v82 = v136;
+        v81 = v146;
 
         v77 = v89;
-        v9 = v129;
+        v9 = v128;
         goto LABEL_135;
       }
 
@@ -236,51 +236,51 @@ LABEL_98:
   }
 
   v12 = v11;
-  v128 = v9;
-  v122 = descriptionCopy;
-  v123 = lCopy;
-  v124 = 0;
+  v127 = v9;
+  v121 = descriptionCopy;
+  v122 = lCopy;
+  v123 = 0;
   v13 = 0;
-  v120 = 0;
-  v121 = 0;
-  v135 = 0;
-  v136 = 0;
   v119 = 0;
+  v120 = 0;
+  v134 = 0;
+  v135 = 0;
+  v118 = 0;
+  v140 = 0;
   v141 = 0;
-  v142 = 0;
+  v130 = 0;
   v131 = 0;
   v132 = 0;
-  v133 = 0;
+  v144 = 0;
   v145 = 0;
-  v146 = 0;
+  v136 = 0;
   v137 = 0;
-  v138 = 0;
-  v147 = 0;
+  v146 = 0;
   selfCopy = self;
-  v149 = 0;
-  v14 = *v152;
-  v117 = 0;
-  v118 = 1;
+  v148 = 0;
+  v14 = *v151;
+  v116 = 0;
+  v117 = 1;
+  v124 = 1;
   v125 = 1;
   v126 = 1;
-  v127 = 1;
-  v134 = 1;
+  v133 = 1;
+  v138 = 1;
   v139 = 1;
-  v140 = 1;
+  v142 = 1;
   v143 = 1;
-  v144 = 1;
-  v130 = 1;
+  v129 = 1;
   do
   {
     v15 = 0;
     do
     {
-      if (*v152 != v14)
+      if (*v151 != v14)
       {
         objc_enumerationMutation(queryItems);
       }
 
-      v16 = *(*(&v151 + 1) + 8 * v15);
+      v16 = *(*(&v150 + 1) + 8 * v15);
       name = [v16 name];
       value = [v16 value];
       if (value)
@@ -296,7 +296,7 @@ LABEL_98:
           {
             v22 = v21;
 
-            v149 = v22;
+            v148 = v22;
           }
 
           goto LABEL_27;
@@ -314,7 +314,7 @@ LABEL_98:
           {
             v25 = v21;
 
-            v147 = v25;
+            v146 = v25;
           }
 
           goto LABEL_27;
@@ -335,12 +335,12 @@ LABEL_98:
             {
               v30 = v21;
 
-              v146 = v30;
+              v145 = v30;
             }
 
             else
             {
-              v144 = 0;
+              v143 = 0;
             }
 
             goto LABEL_27;
@@ -362,12 +362,12 @@ LABEL_98:
           {
             v35 = v21;
 
-            v145 = v35;
+            v144 = v35;
           }
 
           else
           {
-            v143 = 0;
+            v142 = 0;
           }
 
           goto LABEL_27;
@@ -380,7 +380,7 @@ LABEL_98:
           {
             if (integerValue != 1)
             {
-              v140 = 0;
+              v139 = 0;
               goto LABEL_28;
             }
 
@@ -392,7 +392,7 @@ LABEL_98:
             v37 = 4;
           }
 
-          v142 = v37;
+          v141 = v37;
 LABEL_28:
           ++v13;
           goto LABEL_29;
@@ -411,12 +411,12 @@ LABEL_28:
           {
             v42 = v21;
 
-            v141 = v42;
+            v140 = v42;
           }
 
           else
           {
-            v139 = 0;
+            v138 = 0;
           }
 
           goto LABEL_27;
@@ -430,18 +430,18 @@ LABEL_28:
             self = selfCopy;
             if (integerValue2 == 1)
             {
-              v136 = 2;
+              v135 = 2;
             }
 
             else
             {
-              v134 = 0;
+              v133 = 0;
             }
           }
 
           else
           {
-            v136 = 1;
+            v135 = 1;
             self = selfCopy;
           }
 
@@ -460,7 +460,7 @@ LABEL_28:
           {
             v46 = v21;
 
-            v137 = v46;
+            v136 = v46;
           }
 
 LABEL_27:
@@ -480,7 +480,7 @@ LABEL_27:
           {
             v49 = v21;
 
-            v138 = v49;
+            v137 = v49;
           }
 
           goto LABEL_27;
@@ -505,11 +505,11 @@ LABEL_27:
             v55 = v54;
             v56 = v54;
 
-            v132 = v56;
+            v131 = v56;
             goto LABEL_57;
           }
 
-          v130 = 0;
+          v129 = 0;
         }
 
         else
@@ -525,14 +525,14 @@ LABEL_27:
 
             if (![(HKQuantityRange *)selfCopy->_prismRange containsQuantity:v54])
             {
-              v127 = 0;
+              v126 = 0;
               goto LABEL_64;
             }
 
             v55 = v54;
             v61 = v54;
 
-            v133 = v61;
+            v132 = v61;
           }
 
           else
@@ -544,7 +544,7 @@ LABEL_27:
               {
                 if (integerValue3 != 1)
                 {
-                  v126 = 0;
+                  v125 = 0;
                   goto LABEL_28;
                 }
 
@@ -556,7 +556,7 @@ LABEL_27:
                 v63 = 4;
               }
 
-              v120 = v63;
+              v119 = v63;
               goto LABEL_28;
             }
 
@@ -570,24 +570,24 @@ LABEL_27:
                   {
                     v71 = [MEMORY[0x277CBEA90] crxu_dataWithHexString:value];
 
-                    v135 = v71;
+                    v134 = v71;
                   }
                 }
 
                 else if ([name isEqualToString:@"cc"])
                 {
-                  v121 = strtoul([value UTF8String], 0, 10);
+                  v120 = strtoul([value UTF8String], 0, 10);
                 }
 
                 else if ([name isEqualToString:@"c"])
                 {
-                  queryItems2 = [v128 queryItems];
+                  queryItems2 = [v127 queryItems];
                   v73 = [queryItems2 count] - 1;
 
                   if (v13 == v73)
                   {
-                    v117 = strtoul([value UTF8String], 0, 16);
-                    v124 = 1;
+                    v116 = strtoul([value UTF8String], 0, 16);
+                    v123 = 1;
                   }
                 }
 
@@ -599,7 +599,7 @@ LABEL_27:
               {
                 if (integerValue4 != 1)
                 {
-                  v118 = 0;
+                  v117 = 0;
                   goto LABEL_28;
                 }
 
@@ -611,7 +611,7 @@ LABEL_27:
                 v70 = 1;
               }
 
-              v119 = v70;
+              v118 = v70;
               goto LABEL_28;
             }
 
@@ -623,14 +623,14 @@ LABEL_27:
 
             if (![(HKQuantityRange *)selfCopy->_prismRange containsQuantity:v54])
             {
-              v125 = 0;
+              v124 = 0;
               goto LABEL_64;
             }
 
             v55 = v54;
             v68 = v54;
 
-            v131 = v68;
+            v130 = v68;
           }
 
 LABEL_57:
@@ -648,33 +648,33 @@ LABEL_29:
     }
 
     while (v12 != v15);
-    v74 = [queryItems countByEnumeratingWithState:&v151 objects:v175 count:16];
+    v74 = [queryItems countByEnumeratingWithState:&v150 objects:v174 count:16];
     v12 = v74;
   }
 
   while (v74);
 
-  if ((v124 & 1) == 0)
+  if ((v123 & 1) == 0)
   {
-    descriptionCopy = v122;
-    lCopy = v123;
-    v9 = v128;
-    v77 = v149;
-    v78 = v118;
+    descriptionCopy = v121;
+    lCopy = v122;
+    v9 = v127;
+    v77 = v148;
+    v78 = v117;
     goto LABEL_98;
   }
 
-  lCopy = v123;
-  absoluteString = [v123 absoluteString];
+  lCopy = v122;
+  absoluteString = [v122 absoluteString];
   queryItems = [absoluteString substringToIndex:{objc_msgSend(absoluteString, "length") - 7}];
 
   v76 = [(CRXFVisionPrescriptionURLDecoder *)self computeCRC16ForString:queryItems];
-  descriptionCopy = v122;
-  v9 = v128;
-  v77 = v149;
-  if (v76 == v117)
+  descriptionCopy = v121;
+  v9 = v127;
+  v77 = v148;
+  if (v76 == v116)
   {
-    v78 = v118;
+    v78 = v117;
     goto LABEL_96;
   }
 
@@ -682,16 +682,15 @@ LABEL_29:
   v91 = self->_log;
   if (os_log_type_enabled(v91, OS_LOG_TYPE_DEBUG))
   {
-    [(CRXFVisionPrescriptionURLDecoder *)v90 prescriptionFromURL:v117 withDescription:v91];
+    [(CRXFVisionPrescriptionURLDecoder *)v90 prescriptionFromURL:v116 withDescription:v91];
   }
 
   v79 = 0;
-  v81 = v147;
-  v82 = v137;
+  v81 = v146;
+  v82 = v136;
 LABEL_135:
 
 LABEL_136:
-  v110 = *MEMORY[0x277D85DE8];
 
   return v79;
 }
@@ -750,44 +749,40 @@ LABEL_136:
 
 - (void)prescriptionFromURL:(os_log_t)log withDescription:.cold.1(int a1, int a2, os_log_t log)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v4 = 136315906;
-  v5 = "[CRXFVisionPrescriptionURLDecoder prescriptionFromURL:withDescription:]";
-  v6 = 1024;
-  v7 = 240;
-  v8 = 1026;
-  v9 = a1;
-  v10 = 1026;
-  v11 = a2;
-  _os_log_debug_impl(&dword_24732C000, log, OS_LOG_TYPE_DEBUG, "%s @%d: checksum failed: %{public}04x vs %{public}04x", &v4, 0x1Eu);
-  v3 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = 136315906;
+  v4 = "[CRXFVisionPrescriptionURLDecoder prescriptionFromURL:withDescription:]";
+  v5 = 1024;
+  v6 = 240;
+  v7 = 1026;
+  v8 = a1;
+  v9 = 1026;
+  v10 = a2;
+  _os_log_debug_impl(&dword_24732C000, log, OS_LOG_TYPE_DEBUG, "%s @%d: checksum failed: %{public}04x vs %{public}04x", &v3, 0x1Eu);
 }
 
 - (void)prescriptionFromURL:withDescription:.cold.2()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = 251;
-  _os_log_debug_impl(&dword_24732C000, v0, OS_LOG_TYPE_DEBUG, "%s @%d: Invalid or missing RX values", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 251;
+  _os_log_debug_impl(&dword_24732C000, v0, OS_LOG_TYPE_DEBUG, "%s @%d: Invalid or missing RX values", v1, 0x12u);
 }
 
 - (void)prescriptionFromURL:withDescription:.cold.3()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = 262;
-  _os_log_debug_impl(&dword_24732C000, v0, OS_LOG_TYPE_DEBUG, "%s @%d: Invalid prism RX values", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 262;
+  _os_log_debug_impl(&dword_24732C000, v0, OS_LOG_TYPE_DEBUG, "%s @%d: Invalid prism RX values", v1, 0x12u);
 }
 
 - (void)prescriptionFromURL:withDescription:.cold.4()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = 60;
-  _os_log_error_impl(&dword_24732C000, v0, OS_LOG_TYPE_ERROR, "%s @%d: Can't get query items.", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = 60;
+  _os_log_error_impl(&dword_24732C000, v0, OS_LOG_TYPE_ERROR, "%s @%d: Can't get query items.", v1, 0x12u);
 }
 
 @end

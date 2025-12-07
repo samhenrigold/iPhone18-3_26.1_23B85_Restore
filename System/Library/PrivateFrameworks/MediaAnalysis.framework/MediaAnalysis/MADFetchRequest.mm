@@ -84,7 +84,7 @@
 
 - (id)fetchAnalysesWithLocalIdentifiers:(id)identifiers predicate:(id)predicate resultTypes:(id)types
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   predicateCopy = predicate;
   typesCopy = types;
@@ -99,92 +99,97 @@
   }
 
   v11 = v10;
-  v12 = VCPSignPostLog();
+  v12 = VCPSignPostLog(v10);
   v13 = os_signpost_id_generate(v12);
 
-  v14 = VCPSignPostLog();
-  v15 = v14;
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+  v15 = VCPSignPostLog(v14);
+  v16 = v15;
+  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     *buf = 138412290;
-    v46 = v11;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v13, "MADManagedPhotosAsset_Fetch", "%@", buf, 0xCu);
+    v48 = v11;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v13, "MADManagedPhotosAsset_Fetch", "%@", buf, 0xCu);
   }
 
-  v16 = +[MADManagedPhotosAsset fetchRequest];
+  v17 = +[MADManagedPhotosAsset fetchRequest];
   if ([identifiersCopy count])
   {
-    v17 = MEMORY[0x1E696AE18];
-    v18 = +[MADManagedPhotosAsset localIdentifierColumnName];
-    identifiersCopy = [v17 predicateWithFormat:@"%K IN %@", v18, identifiersCopy];
-    [v16 setPredicate:identifiersCopy];
+    v18 = MEMORY[0x1E696AE18];
+    v19 = +[MADManagedPhotosAsset localIdentifierColumnName];
+    identifiersCopy = [v18 predicateWithFormat:@"%K IN %@", v19, identifiersCopy];
+    [v17 setPredicate:identifiersCopy];
 
     if (predicateCopy)
     {
-      v20 = MEMORY[0x1E696AB28];
-      predicate = [v16 predicate];
-      v44[0] = predicate;
-      v44[1] = predicateCopy;
-      v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:2];
-      v23 = [v20 andPredicateWithSubpredicates:v22];
-      [v16 setPredicate:v23];
+      v21 = MEMORY[0x1E696AB28];
+      predicate = [v17 predicate];
+      v46[0] = predicate;
+      v46[1] = predicateCopy;
+      v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:2];
+      v24 = [v21 andPredicateWithSubpredicates:v23];
+      [v17 setPredicate:v24];
     }
 
-    [v16 setFetchLimit:{objc_msgSend(identifiersCopy, "count")}];
+    [v17 setFetchLimit:{objc_msgSend(identifiersCopy, "count")}];
   }
 
   else if (predicateCopy)
   {
-    [v16 setPredicate:predicateCopy];
+    [v17 setPredicate:predicateCopy];
   }
 
-  predicate2 = [v16 predicate];
-  v25 = predicate2 == 0;
+  predicate2 = [v17 predicate];
+  v26 = predicate2 == 0;
 
-  if (!v25 && MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
+  if (!v26 && MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
   {
-    predicate3 = [v16 predicate];
-    v27 = [predicate3 description];
+    predicate3 = [v17 predicate];
+    v28 = [predicate3 description];
     *buf = 138412290;
-    v46 = v27;
+    v48 = v28;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[MACD|Asset] Fetching with predicate %@", buf, 0xCu);
   }
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   moc = self->_moc;
-  v40[0] = MEMORY[0x1E69E9820];
-  v40[1] = 3221225472;
-  v40[2] = __82__MADFetchRequest_Asset__fetchAnalysesWithLocalIdentifiers_predicate_resultTypes___block_invoke;
-  v40[3] = &unk_1E834D048;
-  v40[4] = self;
-  v30 = v16;
-  v41 = v30;
-  v31 = dictionary;
-  v42 = v31;
-  v32 = typesCopy;
-  v43 = v32;
-  [(NSManagedObjectContext *)moc performBlockAndWait:v40];
-  if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __82__MADFetchRequest_Asset__fetchAnalysesWithLocalIdentifiers_predicate_resultTypes___block_invoke;
+  v42[3] = &unk_1E834D048;
+  v42[4] = self;
+  v31 = v17;
+  v43 = v31;
+  v32 = dictionary;
+  v44 = v32;
+  v33 = typesCopy;
+  v45 = v33;
+  [(NSManagedObjectContext *)moc performBlockAndWait:v42];
+  v34 = MediaAnalysisLogLevel();
+  if (v34 >= 6)
   {
-    v33 = [v31 count];
-    *buf = 67109120;
-    LODWORD(v46) = v33;
-    _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[MACD|Asset] Returning %d fetched records", buf, 8u);
+    v34 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO);
+    if (v34)
+    {
+      v35 = [v32 count];
+      *buf = 67109120;
+      LODWORD(v48) = v35;
+      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[MACD|Asset] Returning %d fetched records", buf, 8u);
+    }
   }
 
-  v34 = VCPSignPostLog();
-  v35 = v34;
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
+  v36 = VCPSignPostLog(v34);
+  v37 = v36;
+  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v36))
   {
     *buf = 138412290;
-    v46 = v11;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v35, OS_SIGNPOST_INTERVAL_END, v13, "MADManagedPhotosAsset_Fetch", "%@", buf, 0xCu);
+    v48 = v11;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v37, OS_SIGNPOST_INTERVAL_END, v13, "MADManagedPhotosAsset_Fetch", "%@", buf, 0xCu);
   }
 
-  v36 = v43;
-  v37 = v31;
+  v38 = v45;
+  v39 = v32;
 
-  return v31;
+  return v32;
 }
 
 void __82__MADFetchRequest_Asset__fetchAnalysesWithLocalIdentifiers_predicate_resultTypes___block_invoke(uint64_t a1)
@@ -2576,12 +2581,12 @@ void __106__MADFetchRequest_ProcessingStatus__fetchProcessingErrorCodeCounts_tas
 
 void __72__MADFetchRequest_ChangeToken__fetchChangeToken_taskID_changeTokenType___block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
   v3 = *(*(a1 + 32) + 8);
-  v28 = 0;
-  v4 = [v3 executeFetchRequest:v2 error:&v28];
-  v5 = v28;
+  v29 = 0;
+  v4 = [v3 executeFetchRequest:v2 error:&v29];
+  v5 = v29;
   v6 = [v4 firstObject];
 
   if (v6)
@@ -2608,28 +2613,28 @@ LABEL_19:
     else
     {
       v17 = [v6 version];
-      if (v17 == VCPVersionForTask(*(a1 + 64)))
+      if (v17 == VCPVersionForTask(*(a1 + 64), v18))
       {
-        v18 = objc_opt_class();
-        v19 = MEMORY[0x1E696ACD0];
-        v20 = [v6 tokenData];
-        v27 = 0;
-        v21 = [v19 unarchivedObjectOfClass:v18 fromData:v20 error:&v27];
-        v22 = v27;
-        v23 = *(*(a1 + 56) + 8);
-        v24 = *(v23 + 40);
-        *(v23 + 40) = v21;
+        v19 = objc_opt_class();
+        v20 = MEMORY[0x1E696ACD0];
+        v21 = [v6 tokenData];
+        v28 = 0;
+        v22 = [v20 unarchivedObjectOfClass:v19 fromData:v21 error:&v28];
+        v23 = v28;
+        v24 = *(*(a1 + 56) + 8);
+        v25 = *(v24 + 40);
+        *(v24 + 40) = v22;
 
         if (!*(*(*(a1 + 56) + 8) + 40) && MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
         {
-          v25 = VCPTaskIDDescription(*(a1 + 64));
-          v26 = *(a1 + 72);
+          v26 = VCPTaskIDDescription(*(a1 + 64));
+          v27 = *(a1 + 72);
           *buf = 138412802;
-          v30 = v25;
-          v31 = 1024;
-          v32 = v26;
-          v33 = 2112;
-          v34 = v22;
+          v31 = v26;
+          v32 = 1024;
+          v33 = v27;
+          v34 = 2112;
+          v35 = v23;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "TaskID:%@ (%d) queryChangeToken error - %@", buf, 0x1Cu);
         }
       }
@@ -2651,11 +2656,11 @@ LABEL_19:
       v15 = VCPTaskIDDescription(*(a1 + 64));
       v16 = *(a1 + 72);
       *buf = 138412802;
-      v30 = v15;
-      v31 = 1024;
-      v32 = v16;
-      v33 = 2112;
-      v34 = v5;
+      v31 = v15;
+      v32 = 1024;
+      v33 = v16;
+      v34 = 2112;
+      v35 = v5;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Failed to query changeToken for taskID %@ and changeTokenType %d with error %@", buf, 0x1Cu);
     }
 

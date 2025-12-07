@@ -1,8 +1,11 @@
 @interface PREAMEngagedResponse
 - (BOOL)isEqual:(id)equal;
+- (id)ageGroupAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)generationStatusAsString:(int)string;
+- (id)inputMethodAsString:(int)string;
 - (int)StringAsAgeGroup:(id)group;
 - (int)StringAsGenerationStatus:(id)status;
 - (int)StringAsInputMethod:(id)method;
@@ -641,7 +644,6 @@ LABEL_25:
       goto LABEL_91;
     }
 
-    v15 = *(equalCopy + 113);
     if (self->_isApricotDevice)
     {
       if ((*(equalCopy + 113) & 1) == 0)
@@ -681,7 +683,6 @@ LABEL_25:
       goto LABEL_91;
     }
 
-    v16 = *(equalCopy + 112);
     if (self->_hasQuestionMark)
     {
       if ((*(equalCopy + 112) & 1) == 0)
@@ -708,7 +709,6 @@ LABEL_25:
       goto LABEL_91;
     }
 
-    v17 = *(equalCopy + 114);
     if (self->_isCustomResponse)
     {
       if ((*(equalCopy + 114) & 1) == 0)
@@ -745,19 +745,19 @@ LABEL_25:
         goto LABEL_91;
       }
 
-      v18 = 1;
+      v15 = 1;
       goto LABEL_92;
     }
 
 LABEL_91:
-    v18 = 0;
+    v15 = 0;
     goto LABEL_92;
   }
 
-  v18 = (v14 & 0x2000) == 0;
+  v15 = (v14 & 0x2000) == 0;
 LABEL_92:
 
-  return v18;
+  return v15;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -1210,7 +1210,6 @@ LABEL_29:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    modelId = self->_modelId;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x200) == 0)
@@ -1230,7 +1229,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  responseClassId = self->_responseClassId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -1245,7 +1243,6 @@ LABEL_4:
   }
 
 LABEL_34:
-  replyTextId = self->_replyTextId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -1260,7 +1257,6 @@ LABEL_5:
   }
 
 LABEL_35:
-  position = self->_position;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -1275,7 +1271,6 @@ LABEL_6:
   }
 
 LABEL_36:
-  inputMethod = self->_inputMethod;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -1290,7 +1285,6 @@ LABEL_7:
   }
 
 LABEL_37:
-  generationStatus = self->_generationStatus;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -1305,7 +1299,6 @@ LABEL_8:
   }
 
 LABEL_38:
-  numberOfResponsesGenerated = self->_numberOfResponsesGenerated;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -1320,12 +1313,10 @@ LABEL_9:
   }
 
 LABEL_39:
-  numberOfCustomResponses = self->_numberOfCustomResponses;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_10:
-    numberOfRobotResponses = self->_numberOfRobotResponses;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1360,16 +1351,15 @@ LABEL_11:
     PBDataWriterWriteStringField();
   }
 
-  v6 = self->_has;
-  if ((v6 & 0x800) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x800) != 0)
   {
-    isApricotDevice = self->_isApricotDevice;
     PBDataWriterWriteBOOLField();
-    v6 = self->_has;
-    if ((v6 & 1) == 0)
+    v5 = self->_has;
+    if ((v5 & 1) == 0)
     {
 LABEL_25:
-      if ((v6 & 0x400) == 0)
+      if ((v5 & 0x400) == 0)
       {
         goto LABEL_26;
       }
@@ -1378,18 +1368,17 @@ LABEL_25:
     }
   }
 
-  else if ((v6 & 1) == 0)
+  else if ((v5 & 1) == 0)
   {
     goto LABEL_25;
   }
 
-  ageGroup = self->_ageGroup;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((v6 & 0x400) == 0)
+  v5 = self->_has;
+  if ((v5 & 0x400) == 0)
   {
 LABEL_26:
-    if ((v6 & 0x1000) == 0)
+    if ((v5 & 0x1000) == 0)
     {
       goto LABEL_27;
     }
@@ -1398,13 +1387,12 @@ LABEL_26:
   }
 
 LABEL_43:
-  hasQuestionMark = self->_hasQuestionMark;
   PBDataWriterWriteBOOLField();
-  v6 = self->_has;
-  if ((v6 & 0x1000) == 0)
+  v5 = self->_has;
+  if ((v5 & 0x1000) == 0)
   {
 LABEL_27:
-    if ((v6 & 0x2000) == 0)
+    if ((v5 & 0x2000) == 0)
     {
       goto LABEL_29;
     }
@@ -1413,12 +1401,10 @@ LABEL_27:
   }
 
 LABEL_44:
-  isCustomResponse = self->_isCustomResponse;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x2000) != 0)
   {
 LABEL_28:
-    isRobotResponse = self->_isRobotResponse;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1799,6 +1785,21 @@ LABEL_29:
   return v4;
 }
 
+- (id)ageGroupAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_279ABAD40 + string);
+  }
+
+  return v4;
+}
+
 - (int)ageGroup
 {
   if (*&self->_has)
@@ -1913,6 +1914,21 @@ LABEL_29:
   return v4;
 }
 
+- (id)generationStatusAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_279ABAD10 + string);
+  }
+
+  return v4;
+}
+
 - (void)setHasGenerationStatus:(BOOL)status
 {
   if (status)
@@ -1977,6 +1993,21 @@ LABEL_29:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)inputMethodAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_279ABACE0 + string);
   }
 
   return v4;

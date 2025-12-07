@@ -662,7 +662,7 @@ LABEL_11:
 void __50__NTKGreenfieldDraftRecipe_canShareTemplate_slot___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
   v14 = *MEMORY[0x277D85DE8];
-  v9 = [*(a1 + 32) valueForKey:a2];
+  v9 = [*(a1 + 32) valueForKey:{a2, a4, a5, a6}];
   if ([v9 ImageViewClass])
   {
     *(*(*(a1 + 48) + 8) + 24) = 0;
@@ -681,7 +681,7 @@ void __50__NTKGreenfieldDraftRecipe_canShareTemplate_slot___block_invoke(uint64_
 void __50__NTKGreenfieldDraftRecipe_canShareTemplate_slot___block_invoke_54(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   v14 = *MEMORY[0x277D85DE8];
-  v7 = [*(a1 + 32) valueForKey:a2];
+  v7 = [*(a1 + 32) valueForKey:{a2, a4}];
   v8 = objc_opt_class();
   v9 = NSStringFromClass(v8);
   objc_opt_class();
@@ -703,7 +703,7 @@ void __50__NTKGreenfieldDraftRecipe_canShareTemplate_slot___block_invoke_54(uint
 void __50__NTKGreenfieldDraftRecipe_canShareTemplate_slot___block_invoke_60(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
   v13 = *MEMORY[0x277D85DE8];
-  v7 = [*(a1 + 32) valueForKey:a2];
+  v7 = [*(a1 + 32) valueForKey:{a2, a4}];
   v8 = [v7 imageViewCreationHandler];
 
   if (v8)
@@ -723,7 +723,7 @@ void __50__NTKGreenfieldDraftRecipe_canShareTemplate_slot___block_invoke_60(uint
 
 void __50__NTKGreenfieldDraftRecipe_canShareTemplate_slot___block_invoke_62(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  v7 = [*(a1 + 32) valueForKey:a2];
+  v7 = [*(a1 + 32) valueForKey:{a2, a4}];
   if (([*(a1 + 40) canShareTemplate:? slot:?] & 1) == 0)
   {
     *(*(*(a1 + 56) + 8) + 24) = 0;

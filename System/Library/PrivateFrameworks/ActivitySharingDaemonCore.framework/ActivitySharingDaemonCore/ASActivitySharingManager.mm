@@ -45,6 +45,8 @@
 - (void)sendCompetitionRequestToFriendWithUUID:(id)d completion:(id)completion;
 - (void)sendInviteRequestToDestination:(id)destination callerID:(id)d serviceIdentifier:(id)identifier completion:(id)completion;
 - (void)sendWithdrawInviteRequestToFriendWithUUID:(id)d completion:(id)completion;
+- (void)setActivityDataVisible:(BOOL)visible toFriendWithUUID:(id)d completion:(id)completion;
+- (void)setMuteEnabled:(BOOL)enabled forFriendWithUUID:(id)d completion:(id)completion;
 @end
 
 @implementation ASActivitySharingManager
@@ -477,15 +479,15 @@ void __60__ASActivitySharingManager__mainQueue_completeSetupIfNeeded__block_invo
 
 - (BOOL)_mainQueue_startSubmanagerProcessingIfNeeded
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   ASLoggingInitialize();
   v3 = MEMORY[0x277CE8FE8];
   v4 = *MEMORY[0x277CE8FE8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FE8], OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v16) = 0;
-    _os_log_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_DEFAULT, "Attempting to start submanagers", &v16, 2u);
+    LOWORD(v15) = 0;
+    _os_log_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_DEFAULT, "Attempting to start submanagers", &v15, 2u);
   }
 
   processingStarted = [(ASActivitySharingManager *)self processingStarted];
@@ -497,7 +499,7 @@ void __60__ASActivitySharingManager__mainQueue_completeSetupIfNeeded__block_invo
       v6 = *v3;
       if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v16) = 0;
+        LOWORD(v15) = 0;
         v7 = "Not starting submanagers, fitness apps are restricted";
 LABEL_12:
         v10 = v6;
@@ -510,7 +512,7 @@ LABEL_12:
     {
       if (!processingStarted)
       {
-        v15 = [MEMORY[0x277D10678] transactionWithOwner:self];
+        v14 = [MEMORY[0x277D10678] transactionWithOwner:self];
         [(ASContactsManager *)self->_contactsManager loadCachedContacts];
         [(ASCompetitionManager *)self->_competitionManager loadCachedCompetitions];
         [(ASFriendListManager *)self->_friendListManager initializeFriendListAndBeginObserving];
@@ -523,16 +525,16 @@ LABEL_12:
         dispatch_group_leave(self->_submanagerBarrierGroup);
         v12 = 1;
         [(ASActivitySharingManager *)self _updateSubmanagerProcessingStarted:1];
-        [v15 invalidate];
+        [v14 invalidate];
 
-        goto LABEL_15;
+        return v12;
       }
 
       ASLoggingInitialize();
       v6 = *v3;
       if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v16) = 0;
+        LOWORD(v15) = 0;
         v7 = "Not starting submanagers, processing has already started";
         goto LABEL_12;
       }
@@ -546,33 +548,30 @@ LABEL_12:
     if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
     {
       appBundleIdentifier = self->_appBundleIdentifier;
-      v16 = 138543362;
-      v17 = appBundleIdentifier;
+      v15 = 138543362;
+      v16 = appBundleIdentifier;
       v7 = "Not starting submanagers, %{public}@ is not installed";
       v10 = v8;
       v11 = 12;
 LABEL_13:
-      _os_log_impl(&dword_23E5E3000, v10, OS_LOG_TYPE_DEFAULT, v7, &v16, v11);
+      _os_log_impl(&dword_23E5E3000, v10, OS_LOG_TYPE_DEFAULT, v7, &v15, v11);
     }
   }
 
-  v12 = 0;
-LABEL_15:
-  v13 = *MEMORY[0x277D85DE8];
-  return v12;
+  return 0;
 }
 
 - (BOOL)_mainQueue_stopSubmanagerProcessingIfNeeded
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   ASLoggingInitialize();
   v3 = MEMORY[0x277CE8FE8];
   v4 = *MEMORY[0x277CE8FE8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FE8], OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v18) = 0;
-    _os_log_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_DEFAULT, "Attempting to stop submanagers", &v18, 2u);
+    LOWORD(v17) = 0;
+    _os_log_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_DEFAULT, "Attempting to stop submanagers", &v17, 2u);
   }
 
   processingStarted = [(ASActivitySharingManager *)self processingStarted];
@@ -590,8 +589,8 @@ LABEL_15:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       appBundleIdentifier = self->_appBundleIdentifier;
-      v18 = 138543362;
-      v19 = appBundleIdentifier;
+      v17 = 138543362;
+      v18 = appBundleIdentifier;
       v11 = "Not stopping submanagers, %{public}@ is installed and fitness apps are not restricted";
       v12 = v14;
       v13 = 12;
@@ -610,12 +609,12 @@ LABEL_16:
   {
     if (v9)
     {
-      LOWORD(v18) = 0;
+      LOWORD(v17) = 0;
       v11 = "Not stopping submanagers, processing has not been started";
       v12 = v8;
       v13 = 2;
 LABEL_15:
-      _os_log_impl(&dword_23E5E3000, v12, OS_LOG_TYPE_DEFAULT, v11, &v18, v13);
+      _os_log_impl(&dword_23E5E3000, v12, OS_LOG_TYPE_DEFAULT, v11, &v17, v13);
       goto LABEL_16;
     }
 
@@ -624,8 +623,8 @@ LABEL_15:
 
   if (v9)
   {
-    LOWORD(v18) = 0;
-    _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "Proceeding with submanager shutdown", &v18, 2u);
+    LOWORD(v17) = 0;
+    _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "Proceeding with submanager shutdown", &v17, 2u);
   }
 
   [(ASFriendListManager *)self->_friendListManager endObserving];
@@ -641,53 +640,52 @@ LABEL_15:
   v10 = 1;
 LABEL_17:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)_mainQueue_notifySubmanagersOfManagerReady
 {
-  v46[15] = *MEMORY[0x277D85DE8];
+  v45[15] = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   activityDataManager = [(ASActivitySharingManager *)self activityDataManager];
-  v46[0] = activityDataManager;
+  v45[0] = activityDataManager;
   cloudKitManager = [(ASActivitySharingManager *)self cloudKitManager];
-  v46[1] = cloudKitManager;
+  v45[1] = cloudKitManager;
   competitionManager = [(ASActivitySharingManager *)self competitionManager];
-  v46[2] = competitionManager;
+  v45[2] = competitionManager;
   contactsManager = [(ASActivitySharingManager *)self contactsManager];
-  v46[3] = contactsManager;
+  v45[3] = contactsManager;
   fakingManager = [(ASActivitySharingManager *)self fakingManager];
-  v46[4] = fakingManager;
+  v45[4] = fakingManager;
   friendListManager = [(ASActivitySharingManager *)self friendListManager];
-  v46[5] = friendListManager;
+  v45[5] = friendListManager;
   gatewayManager = [(ASActivitySharingManager *)self gatewayManager];
-  v46[6] = gatewayManager;
+  v45[6] = gatewayManager;
   periodicUpdateManager = [(ASActivitySharingManager *)self periodicUpdateManager];
-  v46[7] = periodicUpdateManager;
+  v45[7] = periodicUpdateManager;
   relationshipManager = [(ASActivitySharingManager *)self relationshipManager];
-  v46[8] = relationshipManager;
+  v45[8] = relationshipManager;
   activityDataBulletinManager = [(ASActivitySharingManager *)self activityDataBulletinManager];
-  v46[9] = activityDataBulletinManager;
+  v45[9] = activityDataBulletinManager;
   competitionBulletinManager = [(ASActivitySharingManager *)self competitionBulletinManager];
-  v46[10] = competitionBulletinManager;
+  v45[10] = competitionBulletinManager;
   friendInviteBulletinManager = [(ASActivitySharingManager *)self friendInviteBulletinManager];
-  v46[11] = friendInviteBulletinManager;
+  v45[11] = friendInviteBulletinManager;
   fakeBulletinManager = [(ASActivitySharingManager *)self fakeBulletinManager];
-  v46[12] = fakeBulletinManager;
+  v45[12] = fakeBulletinManager;
   bulletinPostingManager = [(ASActivitySharingManager *)self bulletinPostingManager];
-  v46[13] = bulletinPostingManager;
+  v45[13] = bulletinPostingManager;
   setupManager = [(ASActivitySharingManager *)self setupManager];
-  v46[14] = setupManager;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:15];
+  v45[14] = setupManager;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:15];
 
   achievementManager = [(ASActivitySharingManager *)self achievementManager];
 
   if (achievementManager)
   {
     achievementManager2 = [(ASActivitySharingManager *)self achievementManager];
-    v45 = achievementManager2;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
+    v44 = achievementManager2;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
     v15 = [v14 arrayByAddingObjectsFromArray:v11];
 
     v11 = v15;
@@ -703,27 +701,27 @@ LABEL_17:
     v11 = v18;
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v19 = v11;
-  v20 = [v19 countByEnumeratingWithState:&v38 objects:v44 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v37 objects:v43 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v39;
+    v22 = *v38;
     v23 = MEMORY[0x277CE8FE8];
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v39 != v22)
+        if (*v38 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v25 = *(*(&v38 + 1) + 8 * i);
+        v25 = *(*(&v37 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           ASLoggingInitialize();
@@ -733,7 +731,7 @@ LABEL_17:
             v27 = v26;
             v28 = objc_opt_class();
             *buf = 138543362;
-            v43 = v28;
+            v42 = v28;
             v29 = v28;
             _os_log_impl(&dword_23E5E3000, v27, OS_LOG_TYPE_DEFAULT, "Notifying object of class %{public}@ of Activity Sharing Manager ready.", buf, 0xCu);
           }
@@ -742,13 +740,11 @@ LABEL_17:
         }
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v38 objects:v44 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v37 objects:v43 count:16];
     }
 
     while (v21);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_waitUntilSubmanagersReady
@@ -821,14 +817,14 @@ void __54__ASActivitySharingManager__waitUntilSubmanagersReady__block_invoke_2(u
 
 - (void)fitnessAppsStateObserver:(id)observer applicationInstallStateDidChangeForBundleIdentifiers:(id)identifiers
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   ASLoggingInitialize();
   v6 = *MEMORY[0x277CE8FE8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FE8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v10 = identifiersCopy;
+    v9 = identifiersCopy;
     _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "ActivitySharingManager applications install state changed: %{public}@", buf, 0xCu);
   }
 
@@ -841,8 +837,6 @@ void __54__ASActivitySharingManager__waitUntilSubmanagersReady__block_invoke_2(u
     block[4] = self;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __106__ASActivitySharingManager_fitnessAppsStateObserver_applicationInstallStateDidChangeForBundleIdentifiers___block_invoke(uint64_t a1)
@@ -864,7 +858,7 @@ uint64_t __106__ASActivitySharingManager_fitnessAppsStateObserver_applicationIns
 
 - (void)fitnessAppsStateObserver:(id)observer restrictedStateDidChange:(int64_t)change
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v6 = *MEMORY[0x277CE8FE8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FE8], OS_LOG_TYPE_DEFAULT))
@@ -880,7 +874,6 @@ uint64_t __106__ASActivitySharingManager_fitnessAppsStateObserver_applicationIns
   block[3] = &unk_278C4B278;
   block[4] = self;
   dispatch_async(MEMORY[0x277D85CD0], block);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __78__ASActivitySharingManager_fitnessAppsStateObserver_restrictedStateDidChange___block_invoke(uint64_t a1)
@@ -1003,6 +996,30 @@ void __59__ASActivitySharingManager__activateActivitySharingManager__block_invok
   [(ASRelationshipManager *)relationshipManager sendWithdrawInviteRequestToFriendWithUUID:v9 completion:completionCopy];
 }
 
+- (void)setMuteEnabled:(BOOL)enabled forFriendWithUUID:(id)d completion:(id)completion
+{
+  enabledCopy = enabled;
+  completionCopy = completion;
+  dCopy = d;
+  [(ASActivitySharingManager *)self _waitUntilSubmanagersReady];
+  relationshipManager = self->_relationshipManager;
+  v11 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:dCopy];
+
+  [(ASRelationshipManager *)relationshipManager setMuteEnabled:enabledCopy forFriendWithUUID:v11 completion:completionCopy];
+}
+
+- (void)setActivityDataVisible:(BOOL)visible toFriendWithUUID:(id)d completion:(id)completion
+{
+  visibleCopy = visible;
+  completionCopy = completion;
+  dCopy = d;
+  [(ASActivitySharingManager *)self _waitUntilSubmanagersReady];
+  relationshipManager = self->_relationshipManager;
+  v11 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:dCopy];
+
+  [(ASRelationshipManager *)relationshipManager setActivityDataVisible:visibleCopy toFriendWithUUID:v11 completion:completionCopy];
+}
+
 - (void)removeFriendWithUUID:(id)d completion:(id)completion
 {
   completionCopy = completion;
@@ -1085,7 +1102,7 @@ void __59__ASActivitySharingManager__activateActivitySharingManager__block_invok
   completionCopy = completion;
   [(ASActivitySharingManager *)self _waitUntilSubmanagersReady];
   periodicUpdateManager = [(ASActivitySharingManager *)self periodicUpdateManager];
-  v5 = ASCloudKitGroupUserActionExplicit();
+  v5 = ASCloudKitGroupUserActionExplicit(periodicUpdateManager);
   [periodicUpdateManager requestImmediateUpdateWithCloudKitGroup:v5 completion:completionCopy];
 }
 
@@ -1094,7 +1111,7 @@ void __59__ASActivitySharingManager__activateActivitySharingManager__block_invok
   completionCopy = completion;
   [(ASActivitySharingManager *)self _waitUntilSubmanagersReady];
   cloudKitManager = [(ASActivitySharingManager *)self cloudKitManager];
-  v5 = ASCloudKitGroupUserActionExplicit();
+  v5 = ASCloudKitGroupUserActionExplicit(cloudKitManager);
   [cloudKitManager fetchAllChangesWithPriority:2 activity:0 group:v5 completion:completionCopy];
 }
 
@@ -1106,7 +1123,7 @@ void __59__ASActivitySharingManager__activateActivitySharingManager__block_invok
   [activityDataManager loadLocalActivityDataIfNeeded];
 
   cloudKitManager = [(ASActivitySharingManager *)self cloudKitManager];
-  v8 = ASCloudKitGroupUserActionExplicit();
+  v8 = ASCloudKitGroupUserActionExplicit(cloudKitManager);
   [cloudKitManager fetchAllChangesIfTimeSinceLastFetchIsGreaterThan:than priority:2 activity:0 group:v8 completion:completionCopy];
 }
 
@@ -1245,74 +1262,70 @@ void __59__ASActivitySharingManager__activateActivitySharingManager__block_invok
 
 - (void)_mainQueue_notifyObserversOfActivation
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = self->_observers;
-  v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) activitySharingManagerActivated:{self, v9}];
+        [*(*(&v8 + 1) + 8 * v7++) activitySharingManagerActivated:{self, v8}];
       }
 
       while (v5 != v7);
-      v5 = [(NSHashTable *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSHashTable *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_mainQueue_notifyObserversOfDeactivation
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = self->_observers;
-  v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSHashTable *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) activitySharingManagerDeactivated:{self, v9}];
+        [*(*(&v8 + 1) + 8 * v7++) activitySharingManagerDeactivated:{self, v8}];
       }
 
       while (v5 != v7);
-      v5 = [(NSHashTable *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSHashTable *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (ASActivitySharingManagerSecureCloudDelegate)secureCloudDelegate

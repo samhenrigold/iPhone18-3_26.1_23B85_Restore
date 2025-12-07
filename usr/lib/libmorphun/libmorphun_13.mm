@@ -1,255 +1,6 @@
-void morphun::analysis::filter::SuffixFilter::~SuffixFilter(morphun::analysis::filter::SuffixFilter *this)
+void sub_1BE66BED0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
-  v2 = (this + 144);
-  std::vector<std::basic_string<char16_t>>::__destroy_vector::operator()[abi:se200100](&v2);
-  morphun::analysis::TokenFilter::~TokenFilter(this, off_1F3CDA570);
-
-  JUMPOUT(0x1BFB49160);
-}
-
-{
-  v2 = (this + 144);
-  std::vector<std::basic_string<char16_t>>::__destroy_vector::operator()[abi:se200100](&v2);
-
-  morphun::analysis::TokenFilter::~TokenFilter(this, off_1F3CDA570);
-}
-
-uint64_t morphun::analysis::AnalyzerWrapper::getOffsetGap(morphun::analysis::AnalyzerWrapper *this)
-{
-  v1 = (*(*this + 56))(this);
-  v2 = *(*npc<morphun::analysis::Analyzer>(v1) + 48);
-
-  return v2();
-}
-
-uint64_t morphun::analysis::AnalyzerWrapper::getPositionIncrementGap(morphun::analysis::AnalyzerWrapper *this)
-{
-  v1 = (*(*this + 56))(this);
-  v2 = *(*npc<morphun::analysis::Analyzer>(v1) + 40);
-
-  return v2();
-}
-
-uint64_t morphun::analysis::AnalyzerWrapper::initReader(morphun::analysis::AnalyzerWrapper *this, UText *a2)
-{
-  v4 = (*(*this + 56))(this);
-  npc<morphun::analysis::Analyzer>(v4);
-  v5 = (*(*this + 72))(this, a2);
-  v6 = *(*v4 + 32);
-
-  return v6(v4, v5);
-}
-
-uint64_t morphun::analysis::AnalyzerWrapper::createComponents(morphun::analysis::AnalyzerWrapper *this)
-{
-  v2 = (*(*this + 56))(this);
-  v3 = npc<morphun::analysis::Analyzer>(v2);
-  v4 = (*(*v3 + 24))(v3);
-  v5 = *(*this + 64);
-
-  return v5(this, v4);
-}
-
-morphun::analysis::Analyzer *morphun::analysis::AnalyzerWrapper::AnalyzerWrapper(morphun::analysis::AnalyzerWrapper *this, uint64_t *a2)
-{
-  result = morphun::analysis::Analyzer::Analyzer(this, a2 + 1);
-  v4 = *a2;
-  *result = *a2;
-  *(result + *(v4 - 40)) = a2[3];
-  return result;
-}
-
-uint64_t morphun::grammar::synthesis::ArGrammarSynthesizer_DefinitenessLookupFunction::getFeatureValue(void *a1, uint64_t a2)
-{
-  v3 = (*(*a2 + 24))(a2);
-  v4 = v3;
-  v5 = a1[2];
-  v6 = *(v3 + 23);
-  if (v6 < 0)
-  {
-    v6 = *(v3 + 8);
-    if (!v6)
-    {
-      return 0;
-    }
-
-    v31 = 0;
-    v7 = *v3;
-  }
-
-  else
-  {
-    if (!*(v3 + 23))
-    {
-      return 0;
-    }
-
-    v31 = 0;
-    v7 = v3;
-  }
-
-  morphun::dictionary::DictionaryMetaData::getCombinedBinaryType(v5, &v31, v7, v6);
-  if ((a1[29] & v31) != 0)
-  {
-    operator new();
-  }
-
-  v8 = (*(*a1 + 32))(&__p, a1, v4);
-  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-  }
-
-  else
-  {
-    size = __p.__r_.__value_.__l.__size_;
-  }
-
-  if (size)
-  {
-    operator new();
-  }
-
-  if ((*(&__p.__r_.__value_.__s + 23) & 0x80) != 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  if ((a1[30] & v31) == 0)
-  {
-    v11 = *(v4 + 23);
-    v12 = v11 >= 0 ? *(v4 + 23) : *(v4 + 8);
-    if (v12)
-    {
-      memset(&__p, 0, sizeof(__p));
-      v13 = *v4;
-      v14 = morphun::util::LocaleUtils::ARABIC(v8);
-      if (v11 >= 0)
-      {
-        v15 = v4;
-      }
-
-      else
-      {
-        v15 = v13;
-      }
-
-      morphun::util::StringViewUtils::lowercase(&__p, v15, v12, v14);
-      if (std::basic_string<char16_t>::starts_with[abi:se200100](&__p, word_1BE7E4FB6))
-      {
-        operator new();
-      }
-
-      v16 = a1[26];
-      if (v16 != a1 + 27)
-      {
-        do
-        {
-          v17 = v16[5];
-          v18 = v16[6];
-          v19 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-          if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-          {
-            p_p = &__p;
-          }
-
-          else
-          {
-            p_p = __p.__r_.__value_.__r.__words[0];
-          }
-
-          if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-          {
-            v19 = __p.__r_.__value_.__l.__size_;
-          }
-
-          v29.__r_.__value_.__r.__words[0] = p_p;
-          v29.__r_.__value_.__l.__size_ = v19;
-          if (std::u16string_view::ends_with[abi:se200100](&v29, v17, v18))
-          {
-            v22 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-            if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-            {
-              v22 = __p.__r_.__value_.__l.__size_;
-            }
-
-            std::basic_string<char16_t>::basic_string(&v29, &__p, 0, v22 - v16[6], v21);
-            v28 = 0;
-            if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-            {
-              v23 = &v29;
-            }
-
-            else
-            {
-              v23 = v29.__r_.__value_.__r.__words[0];
-            }
-
-            if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-            {
-              v24 = HIBYTE(v29.__r_.__value_.__r.__words[2]);
-            }
-
-            else
-            {
-              v24 = v29.__r_.__value_.__l.__size_;
-            }
-
-            morphun::dictionary::DictionaryMetaData::getCombinedBinaryType(v5, &v28, v23, v24);
-            if ((a1[31] & v28) != 0)
-            {
-              operator new();
-            }
-
-            if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
-            {
-              operator delete(v29.__r_.__value_.__l.__data_);
-            }
-          }
-
-          v25 = v16[1];
-          if (v25)
-          {
-            do
-            {
-              v26 = v25;
-              v25 = *v25;
-            }
-
-            while (v25);
-          }
-
-          else
-          {
-            do
-            {
-              v26 = v16[2];
-              v27 = *v26 == v16;
-              v16 = v26;
-            }
-
-            while (!v27);
-          }
-
-          v16 = v26;
-        }
-
-        while (v26 != a1 + 27);
-      }
-
-      if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(__p.__r_.__value_.__l.__data_);
-      }
-    }
-  }
-
-  return 0;
-}
-
-void sub_1BE66BED0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
-{
-  MEMORY[0x1BFB49160](v21, 0x10B3C40F7FF9C27);
+  MEMORY[0x1BFB49160](v21, 0x10B3C40F7FF9C27, a3, a4, a5, a6, a7, a8);
   if (a21 < 0)
   {
     operator delete(__p);
@@ -305,14 +56,12 @@ void morphun::grammar::synthesis::ArGrammarSynthesizer_DefinitenessLookupFunctio
 
 uint64_t morphun::grammar::synthesis::DEFINITENESS_VALUES(morphun::grammar::synthesis *this)
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   {
     operator new();
   }
 
-  result = morphun::grammar::synthesis::DEFINITENESS_VALUES(void)::_DEFINITENESS_VALUES;
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return morphun::grammar::synthesis::DEFINITENESS_VALUES(void)::_DEFINITENESS_VALUES;
 }
 
 void sub_1BE66C2B4(_Unwind_Exception *a1)
@@ -375,7 +124,7 @@ void morphun::analysis::tokenattributes::PackedTokenAttributeImpl::~PackedTokenA
   JUMPOUT(0x1BFB49160);
 }
 
-char **morphun::analysis::tokenattributes::PackedTokenAttributeImpl::setSkippedTextWithOffsets(uint64_t a1, int a2, char **a3)
+void **morphun::analysis::tokenattributes::PackedTokenAttributeImpl::setSkippedTextWithOffsets(uint64_t a1, int a2, char **a3)
 {
   *(a1 + 16) = a2;
   result = (a1 + 24);
@@ -387,28 +136,19 @@ char **morphun::analysis::tokenattributes::PackedTokenAttributeImpl::setSkippedT
   return result;
 }
 
-BOOL morphun::analysis::tokenattributes::PackedTokenAttributeImpl::isImplemented(morphun::analysis::tokenattributes::PackedTokenAttributeImpl *this, char **lpsrc)
+BOOL morphun::analysis::tokenattributes::PackedTokenAttributeImpl::isImplemented(morphun::analysis::tokenattributes::PackedTokenAttributeImpl *this, const morphun::analysis::util::Attribute *lpsrc)
 {
   if (!lpsrc)
   {
     return 0;
   }
 
-  v3 = *lpsrc;
-  v4 = **lpsrc;
   {
     return 1;
   }
-
-  v5 = *v3;
-  {
-    return 1;
-  }
-
-  v7 = *v3;
 }
 
-std::basic_string<char16_t> *morphun::analysis::tokenattributes::PackedTokenAttributeImpl::copyTo(char **this, char **lpsrc)
+std::basic_string<char16_t> *morphun::analysis::tokenattributes::PackedTokenAttributeImpl::copyTo(char **this, morphun::analysis::util::AttributeImpl *lpsrc)
 {
   if (!lpsrc)
   {
@@ -417,53 +157,47 @@ std::basic_string<char16_t> *morphun::analysis::tokenattributes::PackedTokenAttr
     morphun::exception::NullPointerException::NullPointerException(exception);
   }
 
-  v4 = *lpsrc;
-  v5 = **lpsrc;
   {
-    v6 = *v4;
-    if (v7)
+    if (v4)
     {
-      v8 = v7;
-      result = std::basic_string<char16_t>::operator=((v7 + *(*v7 - 13)), (this + *(*this - 13)));
-      v8[1] = this[1];
-      *(v8 + 4) = *(this + 4);
-      if (v8 != this)
+      v5 = v4;
+      result = std::basic_string<char16_t>::operator=((v4 + *(*v4 - 13)), (this + *(*this - 13)));
+      v5[1] = this[1];
+      *(v5 + 4) = *(this + 4);
+      if (v5 != this)
       {
-        v10 = this[3];
-        v11 = this[4];
+        v7 = this[3];
+        v8 = this[4];
 
-        return std::vector<int>::__assign_with_size[abi:se200100]<int *,int *>(v8 + 3, v10, v11, (v11 - v10) >> 2);
+        return std::vector<int>::__assign_with_size[abi:se200100]<int *,int *>(v5 + 3, v7, v8, (v8 - v7) >> 2);
       }
 
       return result;
     }
 
 LABEL_14:
-    v18 = __cxa_allocate_exception(0x38uLL);
-    *(v18 + 8) = 0u;
-    *(v18 + 24) = 0u;
-    *(v18 + 40) = 0u;
-    *v18 = &unk_1F3CD0AE8;
+    v12 = __cxa_allocate_exception(0x38uLL);
+    *(v12 + 8) = 0u;
+    *(v12 + 24) = 0u;
+    *(v12 + 40) = 0u;
+    *v12 = &unk_1F3CD0AE8;
   }
 
   morphun::analysis::tokenattributes::CharTermAttributeImpl::copyTo(this, lpsrc);
-  v12 = **lpsrc;
-  if (!v13)
+  if (!v9)
   {
     goto LABEL_14;
   }
 
-  (*(*v13 + 64))(v13, *(this + 2), *(this + 3));
-  v14 = **lpsrc;
-  if (!v15)
+  (*(*v9 + 64))(v9, *(this + 2), *(this + 3));
+  if (!v10)
   {
     goto LABEL_14;
   }
 
-  v16 = *(this + 4);
-  v17 = *(*v15 + 56);
+  v11 = *(*v10 + 56);
 
-  return v17();
+  return v11();
 }
 
 void sub_1BE66CAC0(_Unwind_Exception *a1)
@@ -477,15 +211,14 @@ void sub_1BE66CAC0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t morphun::analysis::tokenattributes::PackedTokenAttributeImpl::operator()(int a1, char **lpsrc)
+uint64_t morphun::analysis::tokenattributes::PackedTokenAttributeImpl::operator()(int a1, void *lpsrc)
 {
-  v2 = **lpsrc;
-  if (!v3)
+  if (!v2)
   {
     __cxa_bad_cast();
   }
 
-  return (*(*v3 + 40))(v3);
+  return (*(*v2 + 40))(v2);
 }
 
 uint64_t morphun::analysis::tokenattributes::PackedTokenAttributeImpl::hashCode(morphun::analysis::tokenattributes::PackedTokenAttributeImpl *this)
@@ -518,17 +251,16 @@ uint64_t morphun::analysis::tokenattributes::PackedTokenAttributeImpl::hashCode(
   return (*(this + 4) - v8 + 32 * v8);
 }
 
-uint64_t morphun::analysis::tokenattributes::PackedTokenAttributeImpl::equals(const void **this, char **lpsrc)
+uint64_t morphun::analysis::tokenattributes::PackedTokenAttributeImpl::equals(const void **this, const morphun::analysis::util::Attribute *lpsrc)
 {
   if ((this + *(*this - 11)) == lpsrc)
   {
     return 1;
   }
 
-  v4 = **lpsrc;
   if (result)
   {
-    if (*(this + 2) == *(result + 8) && *(this + 3) == *(result + 12) && *(this + 4) == *(result + 16) && (v6 = this[4] - this[3], v7 = *(result + 24), v6 == *(result + 32) - v7) && !memcmp(this[3], v7, v6))
+    if (*(this + 2) == *(result + 8) && *(this + 3) == *(result + 12) && *(this + 4) == *(result + 16) && (v5 = this[4] - this[3], v6 = *(result + 24), v5 == *(result + 32) - v6) && !memcmp(this[3], v6, v5))
     {
 
       return morphun::analysis::tokenattributes::CharTermAttributeImpl::equals(this, lpsrc);
@@ -543,11 +275,11 @@ uint64_t morphun::analysis::tokenattributes::PackedTokenAttributeImpl::equals(co
   return result;
 }
 
-void sub_1BE66CEF0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BE66CEF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   morphun::tokenizer::dictionary::DictionaryTokenizerConfig::~DictionaryTokenizerConfig(va);
-  MEMORY[0x1BFB49160](v2, v3);
+  MEMORY[0x1BFB49160](v3, v4);
   _Unwind_Resume(a1);
 }
 
@@ -567,14 +299,14 @@ void sub_1BE66EA5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t morphun::grammar::synthesis::DaGrammarSynthesizer::getCount(unsigned __int16 *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   {
     operator new();
   }
 
   if (!a1)
   {
-    goto LABEL_13;
+    return 0;
   }
 
   v2 = morphun::grammar::synthesis::DaGrammarSynthesizer::getCount(std::basic_string<char16_t> const*)::valueMap;
@@ -608,36 +340,32 @@ LABEL_10:
 
   if (npc<std::map<std::basic_string<char16_t>,morphun::grammar::synthesis::DaGrammarSynthesizer::Count>>(morphun::grammar::synthesis::DaGrammarSynthesizer::getCount(std::basic_string<char16_t> const*)::valueMap) + 8 == v6)
   {
-LABEL_13:
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = *(v6 + 56);
+    return *(v6 + 56);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
-void sub_1BE66F270(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+void sub_1BE66F270(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
 {
   if (a14 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x1BFB49160](v14, 0x1020C4062D53EE8);
+  MEMORY[0x1BFB49160](v14, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void *std::map<std::basic_string<char16_t>,morphun::grammar::synthesis::DaGrammarSynthesizer::Count>::map[abi:se200100](void *a1, unsigned __int16 *a2, uint64_t a3)
+uint64_t **std::map<std::basic_string<char16_t>,morphun::grammar::synthesis::DaGrammarSynthesizer::Count>::map[abi:se200100](uint64_t **a1, unsigned __int16 *a2, uint64_t a3)
 {
   a1[1] = 0;
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v5 = a2;
@@ -742,14 +470,14 @@ uint64_t npc<std::map<std::basic_string<char16_t>,morphun::grammar::synthesis::D
 
 uint64_t morphun::grammar::synthesis::DaGrammarSynthesizer::getGender(unsigned __int16 *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   {
     operator new();
   }
 
   if (!a1)
   {
-    goto LABEL_13;
+    return 0;
   }
 
   v2 = morphun::grammar::synthesis::DaGrammarSynthesizer::getGender(std::basic_string<char16_t> const*)::valueMap;
@@ -783,36 +511,32 @@ LABEL_10:
 
   if (npc<std::map<std::basic_string<char16_t>,morphun::grammar::synthesis::DaGrammarSynthesizer::Gender>>(morphun::grammar::synthesis::DaGrammarSynthesizer::getGender(std::basic_string<char16_t> const*)::valueMap) + 8 == v6)
   {
-LABEL_13:
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = *(v6 + 56);
+    return *(v6 + 56);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
-void sub_1BE66F71C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+void sub_1BE66F71C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
 {
   if (a14 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x1BFB49160](v14, 0x1020C4062D53EE8);
+  MEMORY[0x1BFB49160](v14, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void *std::map<std::basic_string<char16_t>,morphun::grammar::synthesis::DaGrammarSynthesizer::Gender>::map[abi:se200100](void *a1, unsigned __int16 *a2, uint64_t a3)
+uint64_t **std::map<std::basic_string<char16_t>,morphun::grammar::synthesis::DaGrammarSynthesizer::Gender>::map[abi:se200100](uint64_t **a1, unsigned __int16 *a2, uint64_t a3)
 {
   a1[1] = 0;
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v5 = a2;
@@ -932,7 +656,7 @@ uint64_t morphun::tokenizer::SemiticTokenExtractorIterator::reset(uint64_t a1, u
   *(a1 + 40) = a2;
   *(a1 + 48) = a3;
   *(a1 + 84) = 0;
-  result = morphun::tokenizer::ICUTokenExtractorIterator::reset(a1 + 16);
+  result = morphun::tokenizer::ICUTokenExtractorIterator::reset(a1 + 16, a2, a3);
   *(a1 + 64) = *(a1 + 56);
   *(a1 + 80) = 0;
   return result;
@@ -940,7 +664,7 @@ uint64_t morphun::tokenizer::SemiticTokenExtractorIterator::reset(uint64_t a1, u
 
 uint64_t morphun::tokenizer::SemiticTokenExtractorIterator::getNextBoundary(morphun::tokenizer::SemiticTokenExtractorIterator *this)
 {
-  v3 = this + 56;
+  v3 = (this + 56);
   v2 = *(this + 7);
   v4 = *(this + 20);
   v5 = (*(this + 8) - v2) >> 2;
@@ -960,77 +684,76 @@ LABEL_21:
 
   *(this + 8) = v2;
   *(this + 20) = 0;
-  v7 = *(this + 3);
-  v8 = ubrk_next();
-  v6 = v8;
-  if (v8 != -1)
+  v7 = ubrk_next();
+  v6 = v7;
+  if (v7 != -1)
   {
-    v9 = *(this + 21);
-    if (v8 - v9 < 2)
+    v8 = *(this + 21);
+    if (v7 - v8 < 2)
     {
       goto LABEL_21;
     }
 
-    morphun::tokenizer::SemiticWordAndDelimiterTokenExtractor::decompoundWord(*(this + 1), v3, *(this + 5), *(this + 6), v9, v8);
-    v10 = *(this + 7);
-    v11 = *(this + 8);
-    v12 = v11 - v10;
-    if (v12 < 2)
+    morphun::tokenizer::SemiticWordAndDelimiterTokenExtractor::decompoundWord(*(this + 1), v3, *(this + 5), *(this + 6), v8, v7);
+    v9 = *(this + 7);
+    v10 = *(this + 8);
+    v11 = v10 - v9;
+    if (v11 < 2)
     {
       goto LABEL_21;
     }
 
-    if (v10 != v11)
+    if (v9 != v10)
     {
-      if (*(v11 - 1) == v6)
+      if (*(v10 - 1) == v6)
       {
         goto LABEL_19;
       }
 
-      v13 = *(this + 9);
-      if (v11 < v13)
+      v12 = *(this + 9);
+      if (v10 < v12)
       {
-        *v11 = v6;
-        v14 = v11 + 1;
-        *(this + 8) = v14;
-        v12 = v14 - v10;
+        *v10 = v6;
+        v13 = v10 + 1;
+        *(this + 8) = v13;
+        v11 = v13 - v9;
 LABEL_19:
-        v18 = *(this + 20);
-        *(this + 20) = v18 + 1;
-        if (v12 > v18)
+        v17 = *(this + 20);
+        *(this + 20) = v17 + 1;
+        if (v11 > v17)
         {
-          v6 = v10[v18];
+          v6 = v9[v17];
           goto LABEL_21;
         }
 
         goto LABEL_23;
       }
 
-      v15 = v12 + 1;
-      if (v15 >> 62)
+      v14 = v11 + 1;
+      if (v14 >> 62)
       {
         goto LABEL_24;
       }
 
-      v16 = v13 - v10;
-      if (v16 >> 1 > v15)
+      v15 = v12 - v9;
+      if (v15 >> 1 > v14)
       {
-        v15 = v16 >> 1;
+        v14 = v15 >> 1;
       }
 
-      if (v16 >= 0x7FFFFFFFFFFFFFFCLL)
+      if (v15 >= 0x7FFFFFFFFFFFFFFCLL)
       {
-        v17 = 0x3FFFFFFFFFFFFFFFLL;
+        v16 = 0x3FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v17 = v15;
+        v16 = v14;
       }
 
-      if (v17)
+      if (v16)
       {
-        std::__allocate_at_least[abi:se200100]<std::allocator<int>>(v17);
+        std::__allocate_at_least[abi:se200100]<std::allocator<int>>(v16);
       }
     }
 
@@ -1097,7 +820,7 @@ void morphun::dialog::DictionaryLookupInflector::~DictionaryLookupInflector(morp
   *(this + *(v7 - 40)) = a2[3];
 }
 
-uint64_t *morphun::dialog::DictionaryLookupInflector::DictionaryLookupInflector(uint64_t *a1, morphun::dictionary::DictionaryMetaData *a2, void *a3, uint64_t **a4, char a5)
+uint64_t morphun::dialog::DictionaryLookupInflector::DictionaryLookupInflector(void *a1, morphun::dictionary::DictionaryMetaData *a2, char ****a3, uint64_t ***a4, char a5)
 {
   *a1 = &unk_1F3CD9158;
   memset(v7, 0, sizeof(v7));
@@ -1107,9 +830,9 @@ uint64_t *morphun::dialog::DictionaryLookupInflector::DictionaryLookupInflector(
   return result;
 }
 
-void morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(_BYTE *a1, uint64_t *a2, std::basic_string<char16_t> *__src, unint64_t a4, uint64_t a5, std::basic_string<char16_t> *a6, std::basic_string<char16_t> *a7, std::basic_string<char16_t> *a8)
+void morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::basic_string<char16_t> *a1, uint64_t *a2, UChar *__src, unint64_t a4, uint64_t a5, std::basic_string<char16_t> *a6, std::basic_string<char16_t> *a7, std::basic_string<char16_t> *a8)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if (morphun::util::gLogLevel <= 0)
   {
     v14 = std::basic_string<char16_t>::basic_string[abi:se200100]<0>(&__dst, "D");
@@ -1143,22 +866,22 @@ void morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(_BYTE
         std::__allocate_at_least[abi:se200100]<std::allocator<char16_t>>(v21);
       }
 
-      *(&v36.__r_.__value_.__s + 23) = a4;
-      v22 = (&v36 + 2 * a4);
-      if (&v36 <= __src && v22 > __src)
+      *(&v35.__r_.__value_.__s + 23) = a4;
+      v22 = (&v35 + 2 * a4);
+      if (&v35 <= __src && v22 > __src)
       {
         goto LABEL_77;
       }
 
       if (a4)
       {
-        memmove(&v36, __src, 2 * a4);
+        memmove(&v35, __src, 2 * a4);
       }
 
-      v22->__r_.__value_.__s.__data_[0] = 0;
-      std::basic_string<char16_t>::append(&v36, L": not in dictionary return std::nullopt\n", 0x28uLL);
-      __dst = v36;
-      memset(&v36, 0, sizeof(v36));
+      *v22 = 0;
+      std::basic_string<char16_t>::append(&v35, L": not in dictionary return std::nullopt\n", 0x28uLL);
+      __dst = v35;
+      memset(&v35, 0, sizeof(v35));
       if (morphun::util::gLogLevel <= 0)
       {
         if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -1179,182 +902,178 @@ void morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(_BYTE
         operator delete(__dst.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v36.__r_.__value_.__l.__data_);
+        operator delete(v35.__r_.__value_.__l.__data_);
       }
     }
 
-    *a1 = 0;
-    a1[24] = 0;
-LABEL_74:
-    v27 = *MEMORY[0x1E69E9840];
+    LOBYTE(a1->__r_.__value_.__l.__data_) = 0;
+    LOBYTE(a1[1].__r_.__value_.__l.__data_) = 0;
     return;
   }
 
+  v31 = 0;
   v32 = 0;
   v33 = 0;
-  v34 = 0;
-  morphun::dictionary::Inflector::getInflectionPatternsForWord(a2[2], __src, a4, &v32);
-  v16 = v32;
-  v31 = v33;
-  if (v32 != v33)
+  morphun::dictionary::Inflector::getInflectionPatternsForWord(a2[2], __src, a4, &v31);
+  v16 = v31;
+  v30 = v32;
+  if (v31 == v32)
   {
-    v30 = a4;
-    do
+    if (morphun::util::gLogLevel > 0)
     {
-      v17 = *(v16 + 8);
-      if (*(v16 + 18))
+      goto LABEL_70;
+    }
+
+    if (a4 > 0x7FFFFFFFFFFFFFF7)
+    {
+      std::basic_string<char16_t>::__throw_length_error[abi:se200100]();
+    }
+
+    if (a4 > 0xA)
+    {
+      if ((a4 | 3) == 0xB)
       {
-        morphun::dictionary::Inflector_InflectionPattern::inflectionsForSurfaceForm(&v36, v16, __src, v30, a5);
-        v18 = v36.__r_.__value_.__r.__words[0];
-        if (v36.__r_.__value_.__r.__words[0] != v36.__r_.__value_.__l.__size_)
-        {
-          do
-          {
-            for (i = a2[25]; ; ++i)
-            {
-              if (i == a2[26])
-              {
-                std::__allocate_at_least[abi:se200100]<std::allocator<morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes>>(1uLL);
-              }
-
-              if ((*i & ~(v17 | v18[2])) == 0)
-              {
-                break;
-              }
-            }
-
-            v18 += 3;
-          }
-
-          while (v18 != v36.__r_.__value_.__l.__size_);
-          v18 = v36.__r_.__value_.__r.__words[0];
-        }
-
-        if (v18)
-        {
-          operator delete(v18);
-        }
+        v24 = 13;
       }
 
       else
       {
-        for (j = a2[25]; ; ++j)
-        {
-          if (j == a2[26])
-          {
-            std::__allocate_at_least[abi:se200100]<std::allocator<morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes>>(1uLL);
-          }
-
-          if ((*j & ~v17) == 0)
-          {
-            break;
-          }
-        }
+        v24 = (a4 | 3) + 1;
       }
 
-      v16 += 40;
+      std::__allocate_at_least[abi:se200100]<std::allocator<char16_t>>(v24);
     }
 
-    while (v16 != v31);
-    *a1 = 0;
-    a1[24] = 0;
-    v16 = v32;
-    if (!v32)
+    *(&v34.__r_.__value_.__s + 23) = a4;
+    v25 = (&v34 + 2 * a4);
+    if (&v34 > __src || v25 <= __src)
     {
-      goto LABEL_74;
-    }
+      if (a4)
+      {
+        memmove(&v34, __src, 2 * a4);
+      }
 
-LABEL_73:
-    operator delete(v16);
-    goto LABEL_74;
-  }
+      *v25 = 0;
+      std::basic_string<char16_t>::insert(&v34, "\t", 1, v15);
+      v35 = v34;
+      memset(&v34, 0, sizeof(v34));
+      std::basic_string<char16_t>::append(&v35, ":", 0x1FuLL);
+      __dst = v35;
+      memset(&v35, 0, sizeof(v35));
+      if (morphun::util::gLogLevel <= 0)
+      {
+        if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v26 = &__dst;
+        }
 
-  if (morphun::util::gLogLevel > 0)
-  {
+        else
+        {
+          v26 = __dst.__r_.__value_.__r.__words[0];
+        }
+
+        morphun::util::logToTopOfStackLogger(0, 0, v26);
+      }
+
+      if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(__dst.__r_.__value_.__l.__data_);
+      }
+
+      if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v35.__r_.__value_.__l.__data_);
+      }
+
+      if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v34.__r_.__value_.__l.__data_);
+      }
+
 LABEL_70:
-    *a1 = 0;
-    a1[24] = 0;
-    if (!v16)
-    {
-      goto LABEL_74;
+      LOBYTE(a1->__r_.__value_.__l.__data_) = 0;
+      LOBYTE(a1[1].__r_.__value_.__l.__data_) = 0;
+      if (!v16)
+      {
+        return;
+      }
+
+      goto LABEL_73;
     }
 
-    goto LABEL_73;
+LABEL_77:
+    __break(1u);
+    return;
   }
 
-  if (a4 > 0x7FFFFFFFFFFFFFF7)
+  v29 = a4;
+  do
   {
-    std::basic_string<char16_t>::__throw_length_error[abi:se200100]();
-  }
-
-  if (a4 > 0xA)
-  {
-    if ((a4 | 3) == 0xB)
+    v17 = *(v16 + 8);
+    if (*(v16 + 18))
     {
-      v24 = 13;
+      morphun::dictionary::Inflector_InflectionPattern::inflectionsForSurfaceForm(&v35, v16, __src, v29, a5);
+      v18 = v35.__r_.__value_.__r.__words[0];
+      if (v35.__r_.__value_.__r.__words[0] != v35.__r_.__value_.__l.__size_)
+      {
+        do
+        {
+          for (i = a2[25]; ; ++i)
+          {
+            if (i == a2[26])
+            {
+              std::__allocate_at_least[abi:se200100]<std::allocator<morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes>>(1uLL);
+            }
+
+            if ((*i & ~(v17 | v18[2])) == 0)
+            {
+              break;
+            }
+          }
+
+          v18 += 3;
+        }
+
+        while (v18 != v35.__r_.__value_.__l.__size_);
+        v18 = v35.__r_.__value_.__r.__words[0];
+      }
+
+      if (v18)
+      {
+        operator delete(v18);
+      }
     }
 
     else
     {
-      v24 = (a4 | 3) + 1;
+      for (j = a2[25]; ; ++j)
+      {
+        if (j == a2[26])
+        {
+          std::__allocate_at_least[abi:se200100]<std::allocator<morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes>>(1uLL);
+        }
+
+        if ((*j & ~v17) == 0)
+        {
+          break;
+        }
+      }
     }
 
-    std::__allocate_at_least[abi:se200100]<std::allocator<char16_t>>(v24);
+    v16 += 40;
   }
 
-  *(&v35.__r_.__value_.__s + 23) = a4;
-  v25 = (&v35 + 2 * a4);
-  if (&v35 > __src || v25 <= __src)
+  while (v16 != v30);
+  LOBYTE(a1->__r_.__value_.__l.__data_) = 0;
+  LOBYTE(a1[1].__r_.__value_.__l.__data_) = 0;
+  v16 = v31;
+  if (v31)
   {
-    if (a4)
-    {
-      memmove(&v35, __src, 2 * a4);
-    }
-
-    v25->__r_.__value_.__s.__data_[0] = 0;
-    std::basic_string<char16_t>::insert(&v35, "\t", 1, v15);
-    v36 = v35;
-    memset(&v35, 0, sizeof(v35));
-    std::basic_string<char16_t>::append(&v36, ":", 0x1FuLL);
-    __dst = v36;
-    memset(&v36, 0, sizeof(v36));
-    if (morphun::util::gLogLevel <= 0)
-    {
-      if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v26 = &__dst;
-      }
-
-      else
-      {
-        v26 = __dst.__r_.__value_.__r.__words[0];
-      }
-
-      morphun::util::logToTopOfStackLogger(0, 0, v26);
-    }
-
-    if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__dst.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v36.__r_.__value_.__l.__data_);
-    }
-
-    if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v35.__r_.__value_.__l.__data_);
-    }
-
-    goto LABEL_70;
+LABEL_73:
+    operator delete(v16);
   }
-
-LABEL_77:
-  __break(1u);
 }
 
 void sub_1BE6712E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, void *a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, void *a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, uint64_t a40, void *a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, uint64_t a48, void *__p, uint64_t a50, int a51, __int16 a52, char a53, char a54)
@@ -1382,7 +1101,7 @@ void sub_1BE6712E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void morphun::dialog::anonymous namespace::traceLogInflectCall(std::basic_string<char16_t> **a1, void **a2, unint64_t a3, std::basic_string<char16_t> *a4, std::basic_string<char16_t> *a5, std::basic_string<char16_t> *a6)
+void morphun::dialog::anonymous namespace::traceLogInflectCall(std::basic_string<char16_t> **a1, char *a2, unint64_t a3, std::basic_string<char16_t> *a4, std::basic_string<char16_t> *a5, std::basic_string<char16_t> *a6)
 {
   if (*(a1 + 23) >= 0)
   {
@@ -1394,7 +1113,7 @@ void morphun::dialog::anonymous namespace::traceLogInflectCall(std::basic_string
     v12 = a1[1];
   }
 
-  std::basic_string<char16_t>::basic_string[abi:se200100](&v37, v12->__r_.__value_.__r.__words + 1);
+  std::basic_string<char16_t>::basic_string[abi:se200100](&v37, v12 + 1);
   if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v13 = &v37;
@@ -1461,7 +1180,7 @@ void morphun::dialog::anonymous namespace::traceLogInflectCall(std::basic_string
   }
 
   v36 = a3;
-  v19 = (v35 + 2 * a3);
+  v19 = v35 + 2 * a3;
   if (v35 <= a2 && v19 > a2)
   {
 LABEL_99:
@@ -1704,19 +1423,19 @@ LABEL_99:
 
 void sub_1BE671C90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, void *a40, uint64_t a41, int a42, __int16 a43, char a44, char a45, uint64_t a46, void *a47, uint64_t a48, int a49, __int16 a50, char a51, char a52, uint64_t a53, void *a54, uint64_t a55, int a56, __int16 a57, char a58, char a59, uint64_t a60, void *a61, uint64_t a62, int a63)
 {
-  if (*(v78 - 89) < 0)
+  if (*(v73 - 89) < 0)
   {
-    operator delete(*(v78 - 112));
+    operator delete(*(v73 - 112));
   }
 
-  if (*(v78 - 121) < 0)
+  if (*(v73 - 121) < 0)
   {
-    operator delete(*(v78 - 144));
+    operator delete(*(v73 - 144));
   }
 
-  if (*(v78 - 153) < 0)
+  if (*(v73 - 153) < 0)
   {
-    operator delete(*(v78 - 176));
+    operator delete(*(v73 - 176));
   }
 
   if (a15 < 0)
@@ -1724,19 +1443,19 @@ void sub_1BE671C90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(__p);
   }
 
-  if (*(v78 - 185) < 0)
+  if (*(v73 - 185) < 0)
   {
-    operator delete(*(v78 - 208));
+    operator delete(*(v73 - 208));
   }
 
-  if (*(v78 - 217) < 0)
+  if (*(v73 - 217) < 0)
   {
-    operator delete(*(v78 - 240));
+    operator delete(*(v73 - 240));
   }
 
-  if (a78 < 0)
+  if (a73 < 0)
   {
-    operator delete(a77);
+    operator delete(a72);
   }
 
   if (a21 < 0)
@@ -1744,19 +1463,19 @@ void sub_1BE671C90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a16);
   }
 
-  if (a76 < 0)
+  if (a71 < 0)
   {
-    operator delete(a75);
+    operator delete(a70);
   }
 
-  if (a74 < 0)
-  {
-    operator delete(a73);
-  }
-
-  if (a72 < 0)
+  if (a69 < 0)
   {
     operator delete(a68);
+  }
+
+  if (a67 < 0)
+  {
+    operator delete(a66);
   }
 
   if (a27 < 0)
@@ -1764,7 +1483,7 @@ void sub_1BE671C90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a22);
   }
 
-  if (a66 < 0)
+  if (a65 < 0)
   {
     operator delete(a61);
   }
@@ -1797,14 +1516,14 @@ void sub_1BE671C90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::__introsort<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,false>(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, char a5)
+void std::__introsort<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,false>(unint64_t result, __int128 *a2, uint64_t *a3, uint64_t a4, char a5)
 {
 LABEL_1:
   v9 = (a2 - 40);
-  for (i = a1; ; *(i - 24) = v56)
+  for (i = result; ; *(i - 24) = v56)
   {
 LABEL_2:
-    a1 = i;
+    result = i;
     v11 = a2 - i;
     v12 = 0xCCCCCCCCCCCCCCCDLL * ((a2 - i) >> 3);
     v13 = v12 - 2;
@@ -1814,11 +1533,11 @@ LABEL_2:
       {
         case 3:
 
-          std::__sort3[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(i, i + 40, a2 - 40, a3);
+          std::__sort3[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(i, (i + 40), (a2 - 40), a3);
           return;
         case 4:
-          std::__sort3[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(i, i + 40, i + 80, a3);
-          if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, a2 - 40, i + 80, **(a3 + 8), *(*(a3 + 8) + 8)) & 0x80000000) != 0)
+          std::__sort3[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(i, (i + 40), (i + 80), a3);
+          if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, a2 - 40, i + 80, *a3[1], *(a3[1] + 8)) & 0x80000000) != 0)
           {
             v58 = *(i + 96);
             v153 = *(i + 80);
@@ -1828,13 +1547,13 @@ LABEL_2:
             v59 = v155;
             v61 = *v9;
             v60 = *(a2 - 24);
-            *(i + 112) = *(a2 - 8);
+            *(i + 112) = *(a2 - 1);
             *(i + 80) = v61;
             *(i + 96) = v60;
-            *(a2 - 8) = v59;
+            *(a2 - 1) = v59;
             *v9 = v57;
             *(a2 - 24) = v58;
-            if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, i + 80, i + 40, **(a3 + 8), *(*(a3 + 8) + 8)) & 0x80000000) != 0)
+            if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, i + 80, i + 40, *a3[1], *(a3[1] + 8)) & 0x80000000) != 0)
             {
               v62 = *(i + 72);
               v63 = *(i + 40);
@@ -1846,7 +1565,7 @@ LABEL_2:
               *(i + 80) = v63;
               *(i + 96) = v65;
               *(i + 112) = v62;
-              if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, i + 40, i, **(a3 + 8), *(*(a3 + 8) + 8)) & 0x80000000) != 0)
+              if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, i + 40, i, *a3[1], *(a3[1] + 8)) & 0x80000000) != 0)
               {
                 v66 = *i;
                 v67 = *(i + 16);
@@ -1868,7 +1587,7 @@ LABEL_2:
           return;
         case 5:
 
-          std::__sort5[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(i, i + 40, i + 80, i + 120, a2 - 40, a3);
+          std::__sort5[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(i, i + 40, i + 80, (i + 120), (a2 - 40), a3);
           return;
       }
     }
@@ -1882,7 +1601,7 @@ LABEL_2:
 
       if (v12 == 2)
       {
-        v70 = morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, a2 - 40, i, **(a3 + 8), *(*(a3 + 8) + 8));
+        v70 = morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, a2 - 40, i, *a3[1], *(a3[1] + 8));
         if (v70 < 0)
         {
           v71 = *i;
@@ -1892,12 +1611,12 @@ LABEL_2:
           v154 = v72;
           v73 = *v9;
           v74 = *(a2 - 24);
-          *(i + 32) = *(a2 - 8);
+          *(i + 32) = *(a2 - 1);
           *i = v73;
           *(i + 16) = v74;
           v75 = v153;
           v76 = v154;
-          *(a2 - 8) = v155;
+          *(a2 - 1) = v155;
           *v9 = v75;
           *(a2 - 24) = v76;
         }
@@ -1924,15 +1643,15 @@ LABEL_2:
           if (v91 >= v92)
           {
             v94 = (2 * v92) | 1;
-            v95 = a1 + 40 * v94;
-            if (2 * v92 + 2 < v12 && morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, a1 + 40 * v94, v95 + 40, **(a3 + 8), *(*(a3 + 8) + 8)) < 0)
+            v95 = result + 40 * v94;
+            if (2 * v92 + 2 < v12 && morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, result + 40 * v94, v95 + 40, *a3[1], *(a3[1] + 8)) < 0)
             {
               v95 += 40;
               v94 = 2 * v93 + 2;
             }
 
-            v96 = a1 + 40 * v93;
-            if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, v95, v96, **(a3 + 8), *(*(a3 + 8) + 8)) & 0x80000000) == 0)
+            v96 = result + 40 * v93;
+            if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, v95, v96, *a3[1], *(a3[1] + 8)) & 0x80000000) == 0)
             {
               v149 = v93;
               v97 = *v96;
@@ -1954,9 +1673,9 @@ LABEL_2:
                 }
 
                 v102 = (2 * v94) | 1;
-                v95 = a1 + 40 * v102;
+                v95 = result + 40 * v102;
                 v103 = 2 * v94 + 2;
-                if (v103 < v12 && morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, a1 + 40 * v102, v95 + 40, **(a3 + 8), *(*(a3 + 8) + 8)) < 0)
+                if (v103 < v12 && morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, result + 40 * v102, v95 + 40, *a3[1], *(a3[1] + 8)) < 0)
                 {
                   v95 += 40;
                   v102 = v103;
@@ -1966,7 +1685,7 @@ LABEL_2:
                 v94 = v102;
               }
 
-              while ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, v95, &v153, **(a3 + 8), *(*(a3 + 8) + 8)) & 0x80000000) == 0);
+              while ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, v95, &v153, *a3[1], *(a3[1] + 8)) & 0x80000000) == 0);
               v104 = v153;
               v105 = v154;
               *(v99 + 32) = v155;
@@ -1984,12 +1703,12 @@ LABEL_2:
         do
         {
           v107 = 0;
-          v108 = *a1;
-          v109 = *(a1 + 16);
-          v152 = *(a1 + 32);
+          v108 = *result;
+          v109 = *(result + 16);
+          v152 = *(result + 32);
           v150 = v108;
           v151 = v109;
-          v110 = a1;
+          v110 = result;
           do
           {
             v111 = v110 + 40 * v107;
@@ -1999,7 +1718,7 @@ LABEL_2:
             if (v114 < v106)
             {
               v115 = v111 + 80;
-              if (morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, v111 + 40, v111 + 80, **(a3 + 8), *(*(a3 + 8) + 8)) < 0)
+              if (morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, v111 + 40, v111 + 80, *a3[1], *(a3[1] + 8)) < 0)
               {
                 v112 = v115;
                 v113 = v114;
@@ -2016,7 +1735,7 @@ LABEL_2:
           }
 
           while (v113 <= ((v106 - 2) >> 1));
-          a2 -= 40;
+          a2 = (a2 - 40);
           if (v112 == a2)
           {
             v132 = v150;
@@ -2029,21 +1748,21 @@ LABEL_2:
           else
           {
             v118 = *a2;
-            v119 = *(a2 + 16);
-            *(v112 + 32) = *(a2 + 32);
+            v119 = a2[1];
+            *(v112 + 32) = *(a2 + 4);
             *v112 = v118;
             *(v112 + 16) = v119;
             v120 = v150;
             v121 = v151;
-            *(a2 + 32) = v152;
+            *(a2 + 4) = v152;
             *a2 = v120;
-            *(a2 + 16) = v121;
-            v122 = v112 - a1 + 40;
+            a2[1] = v121;
+            v122 = v112 - result + 40;
             if (v122 >= 41)
             {
               v123 = (-2 - 0x3333333333333333 * (v122 >> 3)) >> 1;
-              v124 = a1 + 40 * v123;
-              if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, v124, v112, **(a3 + 8), *(*(a3 + 8) + 8)) & 0x80000000) != 0)
+              v124 = result + 40 * v123;
+              if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, v124, v112, *a3[1], *(a3[1] + 8)) & 0x80000000) != 0)
               {
                 v125 = *v112;
                 v126 = *(v112 + 16);
@@ -2064,11 +1783,11 @@ LABEL_2:
                   }
 
                   v123 = (v123 - 1) >> 1;
-                  v124 = a1 + 40 * v123;
+                  v124 = result + 40 * v123;
                   v112 = v127;
                 }
 
-                while ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, v124, &v153, **(a3 + 8), *(*(a3 + 8) + 8)) & 0x80000000) != 0);
+                while ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, v124, &v153, *a3[1], *(a3[1] + 8)) & 0x80000000) != 0);
                 v130 = v153;
                 v131 = v154;
                 *(v127 + 32) = v155;
@@ -2089,27 +1808,27 @@ LABEL_2:
     v15 = i + 40 * v14;
     if (v11 < 0x1401)
     {
-      std::__sort3[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(i + 40 * v14, i, a2 - 40, a3);
+      std::__sort3[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>((i + 40 * v14), i, (a2 - 40), a3);
     }
 
     else
     {
-      std::__sort3[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(i, i + 40 * v14, a2 - 40, a3);
+      std::__sort3[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(i, (i + 40 * v14), (a2 - 40), a3);
       v16 = 5 * v14;
-      v17 = a1 + 40 * v14 - 40;
-      std::__sort3[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(a1 + 40, v17, a2 - 80, a3);
-      std::__sort3[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(a1 + 80, a1 + 40 + 8 * v16, a2 - 120, a3);
-      std::__sort3[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(v17, v15, a1 + 40 + 8 * v16, a3);
-      v18 = *a1;
-      v19 = *(a1 + 16);
-      v155 = *(a1 + 32);
+      v17 = (result + 40 * v14 - 40);
+      std::__sort3[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>((result + 40), v17, a2 - 5, a3);
+      std::__sort3[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>((result + 80), (result + 40 + 8 * v16), (a2 - 120), a3);
+      std::__sort3[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(v17, v15, (result + 40 + 8 * v16), a3);
+      v18 = *result;
+      v19 = *(result + 16);
+      v155 = *(result + 32);
       v153 = v18;
       v154 = v19;
       v20 = *v15;
       v21 = *(v15 + 16);
-      *(a1 + 32) = *(v15 + 32);
-      *a1 = v20;
-      *(a1 + 16) = v21;
+      *(result + 32) = *(v15 + 32);
+      *result = v20;
+      *(result + 16) = v21;
       v22 = v153;
       v23 = v154;
       *(v15 + 32) = v155;
@@ -2118,14 +1837,14 @@ LABEL_2:
     }
 
     --a4;
-    if ((a5 & 1) != 0 || (morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, a1 - 40, a1, **(a3 + 8), *(*(a3 + 8) + 8)) & 0x80000000) != 0)
+    if ((a5 & 1) != 0 || (morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, result - 40, result, *a3[1], *(a3[1] + 8)) & 0x80000000) != 0)
     {
-      v24 = *a1;
-      v25 = *(a1 + 16);
-      v152 = *(a1 + 32);
+      v24 = *result;
+      v25 = *(result + 16);
+      v152 = *(result + 32);
       v150 = v24;
       v151 = v25;
-      v26 = a1;
+      v26 = result;
       do
       {
         v26 += 40;
@@ -2135,15 +1854,15 @@ LABEL_2:
         }
       }
 
-      while ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, v26, &v150, **(a3 + 8), *(*(a3 + 8) + 8)) & 0x80000000) != 0);
+      while ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, v26, &v150, *a3[1], *(a3[1] + 8)) & 0x80000000) != 0);
       v27 = v26 - 40;
       v28 = a2;
-      if (v26 - 40 != a1)
+      if (v26 - 40 != result)
       {
-        while (v28 != a1)
+        while (v28 != result)
         {
           v28 -= 40;
-          if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, v28, &v150, **(a3 + 8), *(*(a3 + 8) + 8)) & 0x80000000) != 0)
+          if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, v28, &v150, *a3[1], *(a3[1] + 8)) & 0x80000000) != 0)
           {
             goto LABEL_26;
           }
@@ -2163,7 +1882,7 @@ LABEL_2:
         v28 -= 40;
       }
 
-      while ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, v28, &v150, **(a3 + 8), *(*(a3 + 8) + 8)) & 0x80000000) == 0);
+      while ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, v28, &v150, *a3[1], *(a3[1] + 8)) & 0x80000000) == 0);
 LABEL_26:
       if (v26 < v28)
       {
@@ -2192,13 +1911,13 @@ LABEL_28:
             goto LABEL_136;
           }
 
-          if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, v29, &v150, **(a3 + 8), *(*(a3 + 8) + 8)) & 0x80000000) == 0)
+          if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, v29, &v150, *a3[1], *(a3[1] + 8)) & 0x80000000) == 0)
           {
             v27 = v29 - 40;
-            while (v30 != a1)
+            while (v30 != result)
             {
               v30 -= 40;
-              if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, v30, &v150, **(a3 + 8), *(*(a3 + 8) + 8)) & 0x80000000) != 0)
+              if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, v30, &v150, *a3[1], *(a3[1] + 8)) & 0x80000000) != 0)
               {
                 if (v29 < v30)
                 {
@@ -2215,13 +1934,13 @@ LABEL_28:
       }
 
 LABEL_35:
-      if (v27 != a1)
+      if (v27 != result)
       {
         v36 = *v27;
         v37 = *(v27 + 16);
-        *(a1 + 32) = *(v27 + 32);
-        *a1 = v36;
-        *(a1 + 16) = v37;
+        *(result + 32) = *(v27 + 32);
+        *result = v36;
+        *(result + 16) = v37;
       }
 
       v38 = v150;
@@ -2232,13 +1951,13 @@ LABEL_35:
       if (v26 < v28)
       {
 LABEL_40:
-        std::__introsort<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,false>(a1, v27, a3, a4, a5 & 1);
+        std::__introsort<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,false>(result, v27, a3, a4, a5 & 1);
         a5 = 0;
         i = v27 + 40;
         goto LABEL_2;
       }
 
-      v40 = std::__insertion_sort_incomplete[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *>(a1, v27, a3);
+      v40 = std::__insertion_sort_incomplete[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *>(result, v27, a3);
       i = v27 + 40;
       if (!std::__insertion_sort_incomplete[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *>(v27 + 40, a2, a3))
       {
@@ -2259,14 +1978,14 @@ LABEL_40:
       goto LABEL_1;
     }
 
-    v41 = *a1;
-    v42 = *(a1 + 16);
-    v152 = *(a1 + 32);
+    v41 = *result;
+    v42 = *(result + 16);
+    v152 = *(result + 32);
     v150 = v41;
     v151 = v42;
-    if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, &v150, a2 - 40, **(a3 + 8), *(*(a3 + 8) + 8)) & 0x80000000) != 0)
+    if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, &v150, a2 - 40, *a3[1], *(a3[1] + 8)) & 0x80000000) != 0)
     {
-      i = a1;
+      i = result;
       while (1)
       {
         i += 40;
@@ -2275,14 +1994,14 @@ LABEL_40:
           goto LABEL_136;
         }
 
-        if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, &v150, i, **(a3 + 8), *(*(a3 + 8) + 8)) & 0x80000000) != 0)
+        if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, &v150, i, *a3[1], *(a3[1] + 8)) & 0x80000000) != 0)
         {
           goto LABEL_49;
         }
       }
     }
 
-    v43 = a1 + 40;
+    v43 = result + 40;
     do
     {
       i = v43;
@@ -2291,7 +2010,7 @@ LABEL_40:
         break;
       }
 
-      v44 = morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, &v150, v43, **(a3 + 8), *(*(a3 + 8) + 8));
+      v44 = morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, &v150, v43, *a3[1], *(a3[1] + 8));
       v43 = i + 40;
     }
 
@@ -2301,10 +2020,10 @@ LABEL_49:
     if (i < a2)
     {
       v45 = a2;
-      while (v45 != a1)
+      while (v45 != result)
       {
         v45 -= 40;
-        if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, &v150, v45, **(a3 + 8), *(*(a3 + 8) + 8)) & 0x80000000) == 0)
+        if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, &v150, v45, *a3[1], *(a3[1] + 8)) & 0x80000000) == 0)
         {
           goto LABEL_59;
         }
@@ -2339,12 +2058,12 @@ LABEL_59:
           goto LABEL_136;
         }
 
-        if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, &v150, i, **(a3 + 8), *(*(a3 + 8) + 8)) & 0x80000000) != 0)
+        if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, &v150, i, *a3[1], *(a3[1] + 8)) & 0x80000000) != 0)
         {
-          while (v45 != a1)
+          while (v45 != result)
           {
             v45 -= 40;
-            if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, &v150, v45, **(a3 + 8), *(*(a3 + 8) + 8)) & 0x80000000) == 0)
+            if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, &v150, v45, *a3[1], *(a3[1] + 8)) & 0x80000000) == 0)
             {
               goto LABEL_59;
             }
@@ -2356,13 +2075,13 @@ LABEL_59:
     }
 
     v52 = (i - 40);
-    if (i - 40 != a1)
+    if (i - 40 != result)
     {
       v53 = *v52;
       v54 = *(i - 24);
-      *(a1 + 32) = *(i - 8);
-      *a1 = v53;
-      *(a1 + 16) = v54;
+      *(result + 32) = *(i - 8);
+      *result = v53;
+      *(result + 16) = v54;
     }
 
     a5 = 0;
@@ -2388,7 +2107,7 @@ LABEL_59:
     {
       v138 = v135;
       v135 = v137;
-      if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, v77, i + v138, **(a3 + 8), *(*(a3 + 8) + 8)) & 0x80000000) != 0)
+      if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, v77, i + v138, *a3[1], *(a3[1] + 8)) & 0x80000000) != 0)
       {
         break;
       }
@@ -2421,7 +2140,7 @@ LABEL_134:
         break;
       }
 
-      v144 = morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, &v153, v142 - 80, **(a3 + 8), *(*(a3 + 8) + 8));
+      v144 = morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, &v153, v142 - 80, *a3[1], *(a3[1] + 8));
       v142 -= 40;
       v141 += 40;
       if ((v144 & 0x80000000) == 0)
@@ -2448,7 +2167,7 @@ LABEL_136:
     {
       v82 = v81;
       v81 = v77;
-      if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, v77, v82, **(a3 + 8), *(*(a3 + 8) + 8)) & 0x80000000) != 0)
+      if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, v77, v82, *a3[1], *(a3[1] + 8)) & 0x80000000) != 0)
       {
         v83 = *v77;
         v84 = *(v77 + 16);
@@ -2469,7 +2188,7 @@ LABEL_136:
           }
 
           v85 -= 40;
-          if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, &v153, v85 + i, **(a3 + 8), *(*(a3 + 8) + 8)) & 0x80000000) == 0)
+          if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, &v153, v85 + i, *a3[1], *(a3[1] + 8)) & 0x80000000) == 0)
           {
             v88 = i + v85 + 40;
             goto LABEL_92;
@@ -2489,7 +2208,7 @@ LABEL_92:
       v80 += 40;
     }
 
-    while (v81 + 40 != a2);
+    while ((v81 + 40) != a2);
   }
 }
 
@@ -2603,7 +2322,7 @@ uint64_t morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(
   return result;
 }
 
-uint64_t std::__sort3[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t std::__sort3[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(__int128 *a1, __int128 *a2, __int128 *a3, uint64_t a4)
 {
   v8 = morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a4, a2, a1, **(a4 + 8), *(*(a4 + 8) + 8));
   result = morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a4, a3, a2, **(a4 + 8), *(*(a4 + 8) + 8));
@@ -2612,28 +2331,28 @@ uint64_t std::__sort3[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::Dictio
     if ((result & 0x80000000) != 0)
     {
       v25 = *a1;
-      v26 = *(a1 + 16);
-      v27 = *(a1 + 32);
-      v30 = *(a3 + 32);
-      v31 = *(a3 + 16);
+      v26 = a1[1];
+      v27 = *(a1 + 4);
+      v30 = *(a3 + 4);
+      v31 = a3[1];
       *a1 = *a3;
-      *(a1 + 16) = v31;
-      *(a1 + 32) = v30;
+      a1[1] = v31;
+      *(a1 + 4) = v30;
     }
 
     else
     {
       v20 = *a1;
-      v21 = *(a1 + 16);
-      v22 = *(a1 + 32);
-      v23 = *(a2 + 32);
-      v24 = *(a2 + 16);
+      v21 = a1[1];
+      v22 = *(a1 + 4);
+      v23 = *(a2 + 4);
+      v24 = a2[1];
       *a1 = *a2;
-      *(a1 + 16) = v24;
-      *(a1 + 32) = v23;
-      *(a2 + 32) = v22;
+      a1[1] = v24;
+      *(a1 + 4) = v23;
+      *(a2 + 4) = v22;
       *a2 = v20;
-      *(a2 + 16) = v21;
+      a2[1] = v21;
       result = morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a4, a3, a2, **(a4 + 8), *(*(a4 + 8) + 8));
       if ((result & 0x80000000) == 0)
       {
@@ -2641,54 +2360,54 @@ uint64_t std::__sort3[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::Dictio
       }
 
       v25 = *a2;
-      v26 = *(a2 + 16);
-      v27 = *(a2 + 32);
-      v28 = *(a3 + 32);
-      v29 = *(a3 + 16);
+      v26 = a2[1];
+      v27 = *(a2 + 4);
+      v28 = *(a3 + 4);
+      v29 = a3[1];
       *a2 = *a3;
-      *(a2 + 16) = v29;
-      *(a2 + 32) = v28;
+      a2[1] = v29;
+      *(a2 + 4) = v28;
     }
 
-    *(a3 + 32) = v27;
+    *(a3 + 4) = v27;
     *a3 = v25;
-    *(a3 + 16) = v26;
+    a3[1] = v26;
   }
 
   else if ((result & 0x80000000) != 0)
   {
     v10 = *a2;
-    v11 = *(a2 + 16);
-    v12 = *(a2 + 32);
-    v13 = *(a3 + 32);
-    v14 = *(a3 + 16);
+    v11 = a2[1];
+    v12 = *(a2 + 4);
+    v13 = *(a3 + 4);
+    v14 = a3[1];
     *a2 = *a3;
-    *(a2 + 16) = v14;
-    *(a2 + 32) = v13;
-    *(a3 + 32) = v12;
+    a2[1] = v14;
+    *(a2 + 4) = v13;
+    *(a3 + 4) = v12;
     *a3 = v10;
-    *(a3 + 16) = v11;
+    a3[1] = v11;
     result = morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a4, a2, a1, **(a4 + 8), *(*(a4 + 8) + 8));
     if ((result & 0x80000000) != 0)
     {
       v15 = *a1;
-      v16 = *(a1 + 16);
-      v17 = *(a1 + 32);
-      v18 = *(a2 + 32);
-      v19 = *(a2 + 16);
+      v16 = a1[1];
+      v17 = *(a1 + 4);
+      v18 = *(a2 + 4);
+      v19 = a2[1];
       *a1 = *a2;
-      *(a1 + 16) = v19;
-      *(a1 + 32) = v18;
-      *(a2 + 32) = v17;
+      a1[1] = v19;
+      *(a1 + 4) = v18;
+      *(a2 + 4) = v17;
       *a2 = v15;
-      *(a2 + 16) = v16;
+      a2[1] = v16;
     }
   }
 
   return result;
 }
 
-__n128 std::__sort5[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+__n128 std::__sort5[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4, __int128 *a5, uint64_t a6)
 {
   std::__sort3[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(a1, a2, a3, a6);
   if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a6, a4, a3, **(a6 + 8), *(*(a6 + 8) + 8)) & 0x80000000) != 0)
@@ -2696,14 +2415,14 @@ __n128 std::__sort5[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::Dictiona
     v12 = *a3;
     v13 = *(a3 + 16);
     v14 = *(a3 + 32);
-    v15 = *(a4 + 32);
-    v16 = *(a4 + 16);
+    v15 = *(a4 + 4);
+    v16 = a4[1];
     *a3 = *a4;
     *(a3 + 16) = v16;
     *(a3 + 32) = v15;
-    *(a4 + 32) = v14;
+    *(a4 + 4) = v14;
     *a4 = v12;
-    *(a4 + 16) = v13;
+    a4[1] = v13;
     if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a6, a3, a2, **(a6 + 8), *(*(a6 + 8) + 8)) & 0x80000000) != 0)
     {
       v17 = *a2;
@@ -2737,29 +2456,29 @@ __n128 std::__sort5[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::Dictiona
   if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a6, a5, a4, **(a6 + 8), *(*(a6 + 8) + 8)) & 0x80000000) != 0)
   {
     v28 = *a4;
-    v29 = *(a4 + 16);
-    v30 = *(a4 + 32);
-    v31 = *(a5 + 32);
-    v32 = *(a5 + 16);
+    v29 = a4[1];
+    v30 = *(a4 + 4);
+    v31 = *(a5 + 4);
+    v32 = a5[1];
     *a4 = *a5;
-    *(a4 + 16) = v32;
-    *(a4 + 32) = v31;
-    *(a5 + 32) = v30;
+    a4[1] = v32;
+    *(a4 + 4) = v31;
+    *(a5 + 4) = v30;
     *a5 = v28;
-    *(a5 + 16) = v29;
+    a5[1] = v29;
     if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a6, a4, a3, **(a6 + 8), *(*(a6 + 8) + 8)) & 0x80000000) != 0)
     {
       v33 = *a3;
       v34 = *(a3 + 16);
       v35 = *(a3 + 32);
-      v36 = *(a4 + 32);
-      v37 = *(a4 + 16);
+      v36 = *(a4 + 4);
+      v37 = a4[1];
       *a3 = *a4;
       *(a3 + 16) = v37;
       *(a3 + 32) = v36;
-      *(a4 + 32) = v35;
+      *(a4 + 4) = v35;
       *a4 = v33;
-      *(a4 + 16) = v34;
+      a4[1] = v34;
       if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a6, a3, a2, **(a6 + 8), *(*(a6 + 8) + 8)) & 0x80000000) != 0)
       {
         v38 = *a2;
@@ -2802,11 +2521,11 @@ BOOL std::__insertion_sort_incomplete[abi:se200100]<std::_RangeAlgPolicy,morphun
     switch(v6)
     {
       case 3:
-        std::__sort3[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(a1, a1 + 40, a2 - 40, a3);
+        std::__sort3[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(a1, (a1 + 40), (a2 - 40), a3);
         break;
       case 4:
         v24 = a2 - 40;
-        std::__sort3[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(a1, a1 + 40, a1 + 80, a3);
+        std::__sort3[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(a1, (a1 + 40), (a1 + 80), a3);
         if ((morphun::dialog::DictionaryLookupInflector::compareInflectionGrammemes(*a3, v24, a1 + 80, **(a3 + 8), *(*(a3 + 8) + 8)) & 0x80000000) != 0)
         {
           v25 = *(a1 + 80);
@@ -2852,7 +2571,7 @@ BOOL std::__insertion_sort_incomplete[abi:se200100]<std::_RangeAlgPolicy,morphun
 
         break;
       case 5:
-        std::__sort5[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(a1, a1 + 40, a1 + 80, a1 + 120, a2 - 40, a3);
+        std::__sort5[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(a1, a1 + 40, a1 + 80, (a1 + 120), (a2 - 40), a3);
         break;
       default:
         goto LABEL_11;
@@ -2891,7 +2610,7 @@ BOOL std::__insertion_sort_incomplete[abi:se200100]<std::_RangeAlgPolicy,morphun
 
 LABEL_11:
   v14 = a1 + 80;
-  std::__sort3[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(a1, a1 + 40, a1 + 80, a3);
+  std::__sort3[abi:se200100]<std::_RangeAlgPolicy,morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(std::u16string_view,long long,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&,std::vector<std::basic_string<char16_t>> const&)::$_0 &,morphun::analysis::DictionaryExposableMorphology::InflectionGrammemes *,0>(a1, (a1 + 40), (a1 + 80), a3);
   v15 = a1 + 120;
   if (a1 + 120 == a2)
   {
@@ -2951,7 +2670,7 @@ LABEL_19:
   }
 }
 
-void morphun::dialog::DictionaryLookupInflector::inflectImplementation(uint64_t a1, uint64_t *a2, std::basic_string<char16_t> *__src, unint64_t a4, uint64_t a5, std::basic_string<char16_t> *a6, std::basic_string<char16_t> *a7, std::basic_string<char16_t> *a8)
+void morphun::dialog::DictionaryLookupInflector::inflectImplementation(uint64_t a1, uint64_t *a2, char *__src, unint64_t a4, uint64_t a5, std::basic_string<char16_t> *a6, std::basic_string<char16_t> *a7, std::basic_string<char16_t> *a8)
 {
   if (morphun::util::gLogLevel <= 0)
   {
@@ -2987,7 +2706,7 @@ void morphun::dialog::DictionaryLookupInflector::inflectImplementation(uint64_t 
       }
 
       HIBYTE(v35) = a4;
-      v19 = (__p + 2 * a4);
+      v19 = __p + 2 * a4;
       if (__p > __src || v19 <= __src)
       {
         if (a4)
@@ -2995,7 +2714,7 @@ void morphun::dialog::DictionaryLookupInflector::inflectImplementation(uint64_t 
           memmove(__p, __src, 2 * a4);
         }
 
-        v19->__r_.__value_.__s.__data_[0] = 0;
+        *v19 = 0;
         *a1 = *__p;
         *(a1 + 16) = v35;
         *(a1 + 24) = 1;
@@ -3021,7 +2740,7 @@ LABEL_61:
   }
 
   isAllUpperCase = morphun::util::StringViewUtils::isAllUpperCase(__src, a4);
-  if ((isAllUpperCase & 1) == 0)
+  if (!isAllUpperCase)
   {
     morphun::dialog::DictionaryLookupInflector::inflectWordImplementation(a1, a2, __src, a4, a5, a6, a7, a8);
     if (*(a1 + 24))
@@ -3186,7 +2905,7 @@ void sub_1BE673410(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   JUMPOUT(0x1BE673408);
 }
 
-void morphun::dialog::DictionaryLookupInflector::inflect(uint64_t a1, uint64_t *a2, std::basic_string<char16_t> *a3, unint64_t a4, uint64_t a5, std::basic_string<char16_t> *a6, std::basic_string<char16_t> *a7)
+void morphun::dialog::DictionaryLookupInflector::inflect(uint64_t a1, uint64_t *a2, char *a3, unint64_t a4, uint64_t a5, std::basic_string<char16_t> *a6, std::basic_string<char16_t> *a7)
 {
   memset(&v7, 0, sizeof(v7));
   morphun::dialog::DictionaryLookupInflector::inflectImplementation(a1, a2, a3, a4, a5, a6, &v7, a7);
@@ -3211,7 +2930,7 @@ void morphun::grammar::synthesis::HeGrammarSynthesizer_WithConditionalHyphen::ge
   operator new();
 }
 
-void sub_1BE6735B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21)
+void sub_1BE6735B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21)
 {
   if (a20 < 0)
   {
@@ -3222,7 +2941,7 @@ void sub_1BE6735B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *mddmd_getCombinedBinaryType(uint64_t a1, uint64_t a2, const __CFString *a3)
+unint64_t *mddmd_getCombinedBinaryType(uint64_t a1, unint64_t *a2, const __CFString *a3)
 {
   npc<morphun::dictionary::DictionaryMetaData const>(a1);
   morphun::util::CFUtils::to_u16string(&__p, a3);
@@ -3277,7 +2996,7 @@ CFArrayRef mddmd_createPropertyNames(uint64_t a1, unint64_t a2)
 {
   v3 = npc<morphun::dictionary::DictionaryMetaData const>(a1);
   v4 = npc<morphun::dictionary::DictionaryMetaData_MMappedDictionary>(*(v3 + 8));
-  morphun::dictionary::DictionaryMetaData_MMappedDictionary::getTypesOfValues(v4, a2, v9);
+  morphun::dictionary::DictionaryMetaData_MMappedDictionary::getTypesOfValues(v9, v4, a2);
   if (v9[0] != v9[1])
   {
     v5 = *(v9[0] + 23);
@@ -3487,7 +3206,7 @@ void sub_1BE673D54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t mddmd_getDictionary(__CFLocale *a1)
+void *mddmd_getDictionary(__CFLocale *a1)
 {
   morphun::util::CFUtils::convert(v4, a1);
   Dictionary = morphun::dictionary::DictionaryMetaData::createDictionary(v4, v1);
@@ -3985,13 +3704,13 @@ LABEL_38:
   v33 = std::__tree<std::__value_type<std::u16string_view,std::u16string_view>,std::__map_value_compare<std::u16string_view,std::__value_type<std::u16string_view,std::u16string_view>,std::less<std::u16string_view>,true>,std::allocator<std::__value_type<std::u16string_view,std::u16string_view>>>::find<std::u16string_view>((a2 + 12), v31, v32);
   if (a2 + 13 != v33)
   {
-    v34 = *(v33 + 56);
+    v34 = v33[7];
     if (v34 >= 0x7FFFFFFFFFFFFFF8)
     {
       goto LABEL_197;
     }
 
-    v35 = *(v33 + 48);
+    v35 = v33[6];
     if (v34 > 0xA)
     {
       if ((v34 | 3) == 0xB)
@@ -4128,7 +3847,7 @@ LABEL_164:
   v73 = *(v71 - 1);
   v74 = a2[10];
   v75 = v74;
-  v76 = &v74[v70];
+  v76 = (v74 + 2 * v70);
   v77 = 2 * v70;
   v78 = v77;
   v79 = v74;
@@ -4153,7 +3872,7 @@ LABEL_164:
     v80 = v79;
   }
 
-  if (v79 != v76 && v80 - v74 != -2 && v73 == 115)
+  if (v79 != v76 && (v80 - v74) != -2 && v73 == 115)
   {
     LOBYTE(v27) = 1;
     v81 = 1;
@@ -4188,7 +3907,7 @@ LABEL_164:
 
   if (v75 != v76)
   {
-    if (v82 - v74 != -2)
+    if ((v82 - v74) != -2)
     {
       std::basic_string<char16_t>::basic_string(&v97, &__p, 0, v68, v66);
       LOBYTE(v27) = morphun::grammar::synthesis::NlGrammarSynthesizer_NlNounInflectionPattern::endsWithDutchSSound(&v97);
@@ -4277,7 +3996,7 @@ LABEL_172:
 
   v87 = v85[v84 - 1];
   v88 = a2[10];
-  v89 = &v88[v86];
+  v89 = (v88 + 2 * v86);
   v90 = 2 * v86;
   v91 = v88;
   while (*v91 != v87)
@@ -4291,7 +4010,7 @@ LABEL_172:
   }
 
   v92 = v91 == v89 ? 0 : v91;
-  if (v91 == v89 || v92 - v88 == -2)
+  if (v91 == v89 || (v92 - v88) == -2)
   {
 LABEL_189:
     if (morphun::grammar::synthesis::NlGrammarSynthesizer_NlNounInflectionPattern::endsWithDutchSSound(a3))
@@ -4413,14 +4132,14 @@ void sub_1BE676088(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t morphun::grammar::synthesis::NbGrammarSynthesizer::getCount(unsigned __int16 *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   {
     operator new();
   }
 
   if (!a1)
   {
-    goto LABEL_13;
+    return 0;
   }
 
   v2 = morphun::grammar::synthesis::NbGrammarSynthesizer::getCount(std::basic_string<char16_t> const*)::valueMap;
@@ -4454,36 +4173,32 @@ LABEL_10:
 
   if (npc<std::map<std::basic_string<char16_t>,morphun::grammar::synthesis::NbGrammarSynthesizer::Count>>(morphun::grammar::synthesis::NbGrammarSynthesizer::getCount(std::basic_string<char16_t> const*)::valueMap) + 8 == v6)
   {
-LABEL_13:
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = *(v6 + 56);
+    return *(v6 + 56);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
-void sub_1BE676748(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+void sub_1BE676748(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
 {
   if (a14 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x1BFB49160](v14, 0x1020C4062D53EE8);
+  MEMORY[0x1BFB49160](v14, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void *std::map<std::basic_string<char16_t>,morphun::grammar::synthesis::NbGrammarSynthesizer::Count>::map[abi:se200100](void *a1, unsigned __int16 *a2, uint64_t a3)
+uint64_t **std::map<std::basic_string<char16_t>,morphun::grammar::synthesis::NbGrammarSynthesizer::Count>::map[abi:se200100](uint64_t **a1, unsigned __int16 *a2, uint64_t a3)
 {
   a1[1] = 0;
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v5 = a2;
@@ -4588,14 +4303,14 @@ uint64_t npc<std::map<std::basic_string<char16_t>,morphun::grammar::synthesis::N
 
 uint64_t morphun::grammar::synthesis::NbGrammarSynthesizer::getGender(unsigned __int16 *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   {
     operator new();
   }
 
   if (!a1)
   {
-    goto LABEL_13;
+    return 0;
   }
 
   v2 = morphun::grammar::synthesis::NbGrammarSynthesizer::getGender(std::basic_string<char16_t> const*)::valueMap;
@@ -4629,17 +4344,13 @@ LABEL_10:
 
   if (npc<std::map<std::basic_string<char16_t>,morphun::grammar::synthesis::NbGrammarSynthesizer::Gender>>(morphun::grammar::synthesis::NbGrammarSynthesizer::getGender(std::basic_string<char16_t> const*)::valueMap) + 8 == v6)
   {
-LABEL_13:
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = *(v6 + 56);
+    return *(v6 + 56);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 void sub_1BE676C34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -4655,18 +4366,18 @@ void sub_1BE676C34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
     if (v10 == &a9)
     {
-      MEMORY[0x1BFB49160](v9, 0x1020C4062D53EE8);
+      MEMORY[0x1BFB49160](v9, 0x1020C4062D53EE8, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(a1);
     }
   }
 }
 
-void *std::map<std::basic_string<char16_t>,morphun::grammar::synthesis::NbGrammarSynthesizer::Gender>::map[abi:se200100](void *a1, unsigned __int16 *a2, uint64_t a3)
+uint64_t **std::map<std::basic_string<char16_t>,morphun::grammar::synthesis::NbGrammarSynthesizer::Gender>::map[abi:se200100](uint64_t **a1, unsigned __int16 *a2, uint64_t a3)
 {
   a1[1] = 0;
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v5 = a2;
@@ -4777,16 +4488,6 @@ morphun::Token *morphun::Token_Delim::Token_Delim(morphun::Token *a1, int a2, in
   return result;
 }
 
-BOOL morphun::analysis::tokenattributes::GrammemeAttributeImpl::isImplemented(morphun::analysis::tokenattributes::GrammemeAttributeImpl *this, char **lpsrc)
-{
-  if (!lpsrc)
-  {
-    return 0;
-  }
-
-  v2 = **lpsrc;
-}
-
 void morphun::analysis::tokenattributes::GrammemeAttributeImpl::reflectWith(morphun::util::StringUtils **this, morphun::analysis::util::AttributeReflector *a2)
 {
   if (!a2)
@@ -4796,7 +4497,7 @@ void morphun::analysis::tokenattributes::GrammemeAttributeImpl::reflectWith(morp
   }
 
   std::basic_string<char16_t>::basic_string[abi:se200100]<0>(__dst, L"grammemes");
-  morphun::util::StringUtils::to_u16string(this[1], &__p);
+  morphun::util::StringUtils::to_u16string(&__p, this[1]);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -4808,7 +4509,7 @@ void morphun::analysis::tokenattributes::GrammemeAttributeImpl::reflectWith(morp
   }
 }
 
-uint64_t morphun::analysis::tokenattributes::GrammemeAttributeImpl::copyTo(morphun::analysis::tokenattributes::GrammemeAttributeImpl *this, char **lpsrc)
+uint64_t morphun::analysis::tokenattributes::GrammemeAttributeImpl::copyTo(morphun::analysis::tokenattributes::GrammemeAttributeImpl *this, morphun::analysis::util::AttributeImpl *lpsrc)
 {
   if (!lpsrc)
   {
@@ -4816,31 +4517,28 @@ uint64_t morphun::analysis::tokenattributes::GrammemeAttributeImpl::copyTo(morph
     morphun::exception::NullPointerException::NullPointerException(exception);
   }
 
-  v3 = **lpsrc;
-  if (!v4)
+  if (!v2)
   {
-    v9 = __cxa_allocate_exception(0x38uLL);
-    *(v9 + 8) = 0u;
-    *(v9 + 24) = 0u;
-    *(v9 + 40) = 0u;
-    *v9 = &unk_1F3CD0AE8;
+    v6 = __cxa_allocate_exception(0x38uLL);
+    *(v6 + 8) = 0u;
+    *(v6 + 24) = 0u;
+    *(v6 + 40) = 0u;
+    *v6 = &unk_1F3CD0AE8;
   }
 
-  v5 = *(this + 1);
-  v6 = *(*v4 + 64);
+  v3 = *(*v2 + 64);
 
-  return v6();
+  return v3();
 }
 
-uint64_t morphun::analysis::tokenattributes::GrammemeAttributeImpl::operator()(int a1, char **lpsrc)
+uint64_t morphun::analysis::tokenattributes::GrammemeAttributeImpl::operator()(int a1, void *lpsrc)
 {
-  v2 = **lpsrc;
-  if (!v3)
+  if (!v2)
   {
     __cxa_bad_cast();
   }
 
-  return (*(*v3 + 40))(v3);
+  return (*(*v2 + 40))(v2);
 }
 
 uint64_t morphun::analysis::tokenattributes::GrammemeAttributeImpl::equals(morphun::analysis::tokenattributes::GrammemeAttributeImpl *this, const morphun::analysis::util::Attribute *lpsrc)
@@ -4850,7 +4548,6 @@ uint64_t morphun::analysis::tokenattributes::GrammemeAttributeImpl::equals(morph
     return 1;
   }
 
-  v3 = **lpsrc;
   if (result)
   {
     return *(this + 1) == *(result + 8);
@@ -4859,7 +4556,7 @@ uint64_t morphun::analysis::tokenattributes::GrammemeAttributeImpl::equals(morph
   return result;
 }
 
-uint64_t morphun::grammar::synthesis::NlGrammarSynthesizer_DefinitenessLookupFunction::getFeatureValue(uint64_t a1, uint64_t a2)
+morphun::grammar::synthesis::GrammemeConstants *morphun::grammar::synthesis::NlGrammarSynthesizer_DefinitenessLookupFunction::getFeatureValue(uint64_t a1, uint64_t a2)
 {
   v3 = (*(*a2 + 24))(a2);
   v4 = v3;
@@ -4928,9 +4625,9 @@ uint64_t morphun::grammar::synthesis::NlGrammarSynthesizer_DefinitenessLookupFun
   return 0;
 }
 
-void sub_1BE677934(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_1BE677934(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
-  MEMORY[0x1BFB49160](v15, 0x10B3C40F7FF9C27);
+  MEMORY[0x1BFB49160](v15, 0x10B3C40F7FF9C27, a3, a4, a5, a6, a7, a8);
   if (a15 < 0)
   {
     operator delete(__p);
@@ -4983,8 +4680,7 @@ void morphun::grammar::synthesis::NlGrammarSynthesizer_DefinitenessLookupFunctio
 uint64_t morphun::TokenChain::toOriginatingString@<X0>(uint64_t this@<X0>, std::basic_string<char16_t> *a2@<X8>)
 {
   v2 = this;
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   v4 = (this + 8);
   v5 = -1;
@@ -5057,7 +4753,7 @@ uint64_t morphun::TokenChain::getToken(uint64_t this, int a2)
     {
       if (morphun::util::gLogLevel <= 4)
       {
-        morphun::util::StringUtils::to_u16string(a2, &v8);
+        morphun::util::StringUtils::to_u16string(&v8, a2);
         std::basic_string<char16_t>::insert(&v8, L"Attempting to getToken with invalid index: ", 0x2B, v5);
         __p = v8;
         memset(&v8, 0, sizeof(v8));
@@ -5180,18 +4876,15 @@ LABEL_4:
     while (1)
     {
       npc<morphun::Token>(v4);
-      v4 = *(v4 + 10);
+      v4 = *(v4 + 80);
       if (!v4)
       {
         break;
       }
 
-      v7 = *v4;
-      v8 = **v4;
       {
-        v9 = *v7;
         v5 = 1;
-        if (v10)
+        if (v7)
         {
           goto LABEL_4;
         }
@@ -5203,15 +4896,15 @@ LABEL_4:
     v2 = v6 & (v4 == 0);
     if (v2)
     {
-      v11 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v11 = 2;
+      v8 = 2;
     }
 
-    *(this + 14) = v11;
+    *(this + 14) = v8;
   }
 
   return v2 & 1;
@@ -5236,12 +4929,11 @@ uint64_t morphun::TokenChain::hashCode(morphun::TokenChain *this)
   return v2;
 }
 
-char **morphun::TokenChain::getTail(morphun::TokenChain *this)
+void *morphun::TokenChain::getTail(morphun::TokenChain *this)
 {
   result = *(this + 2);
   if (result)
   {
-    v2 = **result;
     if (!result)
     {
       exception = __cxa_allocate_exception(0x38uLL);
@@ -5255,7 +4947,7 @@ char **morphun::TokenChain::getTail(morphun::TokenChain *this)
   return result;
 }
 
-void *morphun::TokenChain::toString@<X0>(morphun::TokenChain *this@<X0>, std::basic_string<char16_t> *a2@<X8>)
+std::basic_string<char16_t> *morphun::TokenChain::toString@<X0>(morphun::TokenChain *this@<X0>, std::basic_string<char16_t> *a2@<X8>)
 {
   result = std::basic_string<char16_t>::basic_string[abi:se200100]<0>(a2, L"Tokens: ");
   v5 = 0;
@@ -5331,30 +5023,13 @@ morphun::TokenChain *morphun::TokenChain::TokenChain(morphun::TokenChain *this, 
   LODWORD(v6) = (*(*a4 + 32))(a4);
   npc<morphun::Token_Head>(a3);
   v10 = (*(*a3 + 24))(a3);
-  std::vector<morphun::Token *>::vector[abi:se200100](this + 4, v6 - v10 + 1);
+  v25 = 0;
+  std::vector<morphun::Token *>::vector[abi:se200100](this + 4, v6 - v10 + 1, &v25);
   *(this + 7) = 0;
   result = (*(*a3 + 24))(a3);
   *(this + 15) = result;
   v12 = *(this + 4);
-  if (*(this + 5) == v12)
-  {
-    goto LABEL_13;
-  }
-
-  *v12 = a3;
-  result = (*(*a3 + 32))(a3);
-  v13 = result - *(this + 15);
-  v14 = *(this + 4);
-  if (v13 >= (*(this + 5) - v14) >> 3)
-  {
-    goto LABEL_13;
-  }
-
-  *(v14 + 8 * v13) = a3;
-  result = (*(*a4 + 24))(a4);
-  v15 = result - *(this + 15);
-  v16 = *(this + 4);
-  if (v15 >= (*(this + 5) - v16) >> 3 || (*(v16 + 8 * v15) = a4, result = (*(*a4 + 32))(a4), v17 = result - *(this + 15), v18 = *(this + 4), v17 >= (*(this + 5) - v18) >> 3))
+  if (*(this + 5) == v12 || (*v12 = a3, result = (*(*a3 + 32))(a3), v13 = result - *(this + 15), v14 = *(this + 4), v13 >= (*(this + 5) - v14) >> 3) || (*(v14 + 8 * v13) = a3, result = (*(*a4 + 24))(a4), v15 = result - *(this + 15), v16 = *(this + 4), v15 >= (*(this + 5) - v16) >> 3) || (*(v16 + 8 * v15) = a4, result = (*(*a4 + 32))(a4), v17 = result - *(this + 15), v18 = *(this + 4), v17 >= (*(this + 5) - v18) >> 3))
   {
 LABEL_13:
     __break(1u);
@@ -5436,7 +5111,7 @@ uint64_t morphun::TokenChain::EMPTY_CHAIN(morphun::TokenChain *this)
   return morphun::TokenChain::EMPTY_CHAIN(void)::EMPTY_CHAIN_;
 }
 
-uint64_t morphun::TokenChain::operator==(uint64_t a1, uint64_t a2)
+BOOL morphun::TokenChain::operator==(uint64_t a1, uint64_t a2)
 {
   if (a1 == a2)
   {
@@ -5607,7 +5282,7 @@ void morphun::Token_Group::~Token_Group(morphun::Token_Group *this, void **a2)
 {
   v4 = *a2;
   *this = *a2;
-  *(this + *(v4 - 8)) = a2[4];
+  *(this + *(v4 - 64)) = a2[4];
   *(this + *(*this - 40)) = a2[5];
   v5 = *(this + 11);
   if (v5)
@@ -5745,67 +5420,66 @@ LABEL_18:
   return a1;
 }
 
-uint64_t morphun::tokenizer::locale::fi::FiSegment::addBoundaries(uint64_t result, void *a2)
+void morphun::tokenizer::locale::fi::FiSegment::addBoundaries(uint64_t a1, const void **a2)
 {
-  if (*(result + 73) == 1)
+  if (*(a1 + 73) == 1)
   {
-    v2 = result;
-    v3 = *(result + 56);
+    v3 = *(a1 + 56);
     if (v3)
     {
-      v5 = *(result + 68) - v3;
-      morphun::tokenizer::locale::fi::FiSegment::FiSegment(v20, result, *(result + 64), v5, 0);
-      morphun::tokenizer::locale::fi::FiSegment::addBoundaries(v20, a2);
-      result = morphun::tokenizer::locale::fi::FiSegment::FiSegment(&v17, v2, v5, *(v2 + 68), 1);
-      if (*(v2 + 72) == 1)
+      v5 = *(a1 + 68) - v3;
+      morphun::tokenizer::locale::fi::FiSegment::FiSegment(v21, a1, *(a1 + 64), v5, 0);
+      morphun::tokenizer::locale::fi::FiSegment::addBoundaries(v21, a2);
+      v6 = morphun::tokenizer::locale::fi::FiSegment::FiSegment(&v18, a1, v5, *(a1 + 68), 1);
+      if (*(a1 + 72) == 1)
       {
-        v6 = v18;
         v7 = v19;
-        v8 = morphun::tokenizer::locale::fi::FiSuffixSplit::SUFFIXINFO(result);
-        result = std::__hash_table<std::__hash_value_type<std::u16string_view,std::vector<int>>,std::__unordered_map_hasher<std::u16string_view,std::__hash_value_type<std::u16string_view,std::vector<int>>,std::hash<std::u16string_view>,std::equal_to<std::u16string_view>,true>,std::__unordered_map_equal<std::u16string_view,std::__hash_value_type<std::u16string_view,std::vector<int>>,std::equal_to<std::u16string_view>,std::hash<std::u16string_view>,true>,std::allocator<std::__hash_value_type<std::u16string_view,std::vector<int>>>>::find<std::u16string_view>(*v8, *(v8 + 8), v6, v7);
-        if (!result)
+        v8 = v20;
+        v9 = morphun::tokenizer::locale::fi::FiSuffixSplit::SUFFIXINFO(v6);
+        if (!std::__hash_table<std::__hash_value_type<std::u16string_view,std::vector<int>>,std::__unordered_map_hasher<std::u16string_view,std::__hash_value_type<std::u16string_view,std::vector<int>>,std::hash<std::u16string_view>,std::equal_to<std::u16string_view>,true>,std::__unordered_map_equal<std::u16string_view,std::__hash_value_type<std::u16string_view,std::vector<int>>,std::equal_to<std::u16string_view>,std::hash<std::u16string_view>,true>,std::allocator<std::__hash_value_type<std::u16string_view,std::vector<int>>>>::find<std::u16string_view>(*v9, *(v9 + 8), v7, v8))
         {
           if (a2)
           {
-            v10 = a2[1];
-            v9 = a2[2];
-            if (v10 >= v9)
+            v11 = a2[1];
+            v10 = a2[2];
+            if (v11 >= v10)
             {
-              v11 = v10 - *a2;
-              v12 = (v11 >> 2) + 1;
-              if (v12 >> 62)
+              v12 = v11 - *a2;
+              v13 = (v12 >> 2) + 1;
+              if (v13 >> 62)
               {
                 std::vector<std::pair<morphun::dialog::DefaultArticleLookupFunction const*,std::vector<std::pair<std::basic_string<char16_t>,std::vector<std::pair<morphun::dialog::SemanticFeature const* const,std::basic_string<char16_t>>>>> const>>::__throw_length_error[abi:se200100]();
               }
 
-              v13 = v9 - *a2;
-              v14 = v13 >> 1;
-              if (v13 >> 1 <= v12)
+              v14 = v10 - *a2;
+              v15 = v14 >> 1;
+              if (v14 >> 1 <= v13)
               {
-                v14 = (v11 >> 2) + 1;
+                v15 = (v12 >> 2) + 1;
               }
 
-              if (v13 >= 0x7FFFFFFFFFFFFFFCLL)
+              if (v14 >= 0x7FFFFFFFFFFFFFFCLL)
               {
-                v15 = 0x3FFFFFFFFFFFFFFFLL;
+                v16 = 0x3FFFFFFFFFFFFFFFLL;
               }
 
               else
               {
-                v15 = v14;
+                v16 = v15;
               }
 
-              if (v15)
+              if (v16)
               {
-                std::__allocate_at_least[abi:se200100]<std::allocator<int>>(v15);
+                std::__allocate_at_least[abi:se200100]<std::allocator<int>>(v16);
               }
             }
 
-            else if (v10)
+            else if (v11)
             {
-              *v10 = v5;
-              a2[1] = v10 + 1;
-              return morphun::tokenizer::locale::fi::FiSegment::addBoundaries(&v17, a2);
+              *v11 = v5;
+              a2[1] = v11 + 4;
+              morphun::tokenizer::locale::fi::FiSegment::addBoundaries(&v18, a2);
+              return;
             }
 
             __break(1u);
@@ -5816,21 +5490,15 @@ uint64_t morphun::tokenizer::locale::fi::FiSegment::addBoundaries(uint64_t resul
         }
       }
 
-      if (*(v2 + 74) == 1)
+      if (*(a1 + 74) == 1 && morphun::tokenizer::locale::fi::FiSuffixSplit::isInNotNominative(a1, v19, v20))
       {
-        result = morphun::tokenizer::locale::fi::FiSuffixSplit::isInNotNominative(v2, v18, v19);
-        if (result)
-        {
-          return morphun::tokenizer::locale::fi::FiSuffixSplit::addSuffixInfo(v18, v19, a2, v5);
-        }
+        morphun::tokenizer::locale::fi::FiSuffixSplit::addSuffixInfo(v19, v20, a2, v5);
       }
     }
   }
-
-  return result;
 }
 
-uint64_t morphun::tokenizer::dictionary::DictionaryTokenizerConfig::DictionaryTokenizerConfig(uint64_t a1, void *a2, void *a3, uint64_t *a4, uint64_t *a5)
+void *morphun::tokenizer::dictionary::DictionaryTokenizerConfig::DictionaryTokenizerConfig(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5)
 {
   *a1 = xmmword_1BE695FE0;
   *(a1 + 16) = xmmword_1BE695FF0;
@@ -5843,11 +5511,11 @@ uint64_t morphun::tokenizer::dictionary::DictionaryTokenizerConfig::DictionaryTo
   *(a1 + 112) = 0;
   *(a1 + 120) = 0;
   *(a1 + 128) = 0;
-  std::vector<std::u16string_view>::__init_with_size[abi:se200100]<std::u16string_view*,std::u16string_view*>(a1 + 112, *a4, a4[1], (a4[1] - *a4) >> 4);
+  std::vector<std::u16string_view>::__init_with_size[abi:se200100]<std::u16string_view*,std::u16string_view*>((a1 + 112), *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 4);
   *(a1 + 136) = 0;
   *(a1 + 144) = 0;
   *(a1 + 152) = 0;
-  result = std::vector<std::u16string_view>::__init_with_size[abi:se200100]<std::u16string_view*,std::u16string_view*>(a1 + 136, *a5, a5[1], (a5[1] - *a5) >> 4);
+  result = std::vector<std::u16string_view>::__init_with_size[abi:se200100]<std::u16string_view*,std::u16string_view*>((a1 + 136), *a5, *(a5 + 8), (*(a5 + 8) - *a5) >> 4);
   *(a1 + 168) = 0;
   *(a1 + 160) = a1 + 168;
   *(a1 + 176) = 0;
@@ -5915,7 +5583,7 @@ uint64_t morphun::tokenizer::dictionary::DictionaryTokenizerConfig::DictionaryTo
         while (!v23);
       }
 
-      result = std::__tree<std::basic_string<char16_t>>::__emplace_unique_key_args<std::basic_string<char16_t>,std::basic_string<char16_t> const&>(a1 + 160, &v42);
+      result = std::__tree<std::basic_string<char16_t>>::__emplace_unique_key_args<std::basic_string<char16_t>,std::basic_string<char16_t> const&>((a1 + 160), &v42, &v42);
       v24 = *(v12 + 10);
       if (*(a1 + 28) < v24)
       {
@@ -6014,7 +5682,7 @@ uint64_t morphun::tokenizer::dictionary::DictionaryTokenizerConfig::DictionaryTo
         while (!v23);
       }
 
-      result = std::__tree<std::basic_string<char16_t>>::__emplace_unique_key_args<std::basic_string<char16_t>,std::basic_string<char16_t> const&>(a1 + 160, &v42);
+      result = std::__tree<std::basic_string<char16_t>>::__emplace_unique_key_args<std::basic_string<char16_t>,std::basic_string<char16_t> const&>((a1 + 160), &v42, &v42);
       v39 = *(v28 + 10);
       if (*(a1 + 28) < v39)
       {
@@ -6128,7 +5796,7 @@ uint64_t morphun::grammar::synthesis::EnGrammarSynthesizer_ArticleLookupFunction
 
   v15 = *(v12 + 23);
   v16 = v15;
-  if ((v15 & 0x80u) != 0)
+  if (v15 < 0)
   {
     v15 = v12[1];
   }
@@ -6174,7 +5842,8 @@ LABEL_26:
     {
       ++p_p;
       ++v17;
-      if (!--v13)
+      v13 = (v13 - 1);
+      if (!v13)
       {
         goto LABEL_25;
       }
@@ -6561,25 +6230,24 @@ void sub_1BE67B0E8(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-uint64_t msfc_toSpeakableStringWithDependencyCopy(char **lpsrc, uint64_t a2)
+uint64_t msfc_toSpeakableStringWithDependencyCopy(char *lpsrc, uint64_t a2)
 {
   {
-    v6 = *v4;
-    if (!v7)
+    if (!v4)
     {
       exception = __cxa_allocate_exception(0x38uLL);
       morphun::exception::NullPointerException::NullPointerException(exception);
     }
 
-    v8 = v7;
+    v5 = v4;
     npc<morphun::dialog::SemanticFeatureConceptBase const>(a2);
-    return (*(*v8 + 136))(v8, a2);
+    return (*(*v5 + 136))(v5, a2);
   }
 
   else
   {
     npc<morphun::dialog::SemanticFeatureConceptBase const>(lpsrc);
-    return (*(lpsrc + *(*lpsrc - 7)))[3](lpsrc + *(*lpsrc - 7));
+    return (*(*&lpsrc[*(*lpsrc - 56)] + 24))(&lpsrc[*(*lpsrc - 56)]);
   }
 }
 
@@ -6768,9 +6436,9 @@ void morphun::grammar::synthesis::ArGrammarSynthesizer_AsPrepositionLookupFuncti
   operator new();
 }
 
-void sub_1BE67BA40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+void sub_1BE67BA40(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
-  MEMORY[0x1BFB49160](v21, 0x10B3C40F7FF9C27);
+  MEMORY[0x1BFB49160](v21, 0x10B3C40F7FF9C27, a3, a4, a5, a6, a7, a8);
   if (a21 < 0)
   {
     operator delete(__p);
@@ -7709,29 +7377,29 @@ LABEL_105:
     v14 = v60.__r_.__value_.__l.__size_;
   }
 
-  morphun::analysis::stemmer::DictionaryGenderedNounLemmatizer::getLemma(&__str, this + 128, &v13->__r_.__value_.__l.__data_, v14, v59);
+  morphun::analysis::stemmer::DictionaryGenderedNounLemmatizer::getLemma(&__str, this + 128, v13, v14, v59);
   v16 = *(this + 57);
   v17 = *(*v16 - 96);
   if (v58 != 1)
   {
-    v18 = HIBYTE(v60.__r_.__value_.__r.__words[2]);
     v19 = HIBYTE(v60.__r_.__value_.__r.__words[2]);
+    v20 = HIBYTE(v60.__r_.__value_.__r.__words[2]);
     if ((v60.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v18 = v60.__r_.__value_.__r.__words[1];
+      v19 = v60.__r_.__value_.__r.__words[1];
     }
 
-    if (v18 < 1)
+    if (v19 < 1)
     {
 LABEL_66:
-      if (v19 < 0)
+      if (v20 < 0)
       {
         std::basic_string<char16_t>::__init_copy_ctor_external(&v56, v60.__r_.__value_.__l.__data_, v60.__r_.__value_.__l.__size_);
         goto LABEL_78;
       }
 
       *&v56.__r_.__value_.__l.__data_ = *&v60.__r_.__value_.__l.__data_;
-      v34 = v60.__r_.__value_.__r.__words[2];
+      v35 = v60.__r_.__value_.__r.__words[2];
     }
 
     else
@@ -7739,100 +7407,100 @@ LABEL_66:
       v50 = *(*v16 - 96);
       v51 = *(this + 57);
       v52 = v3;
-      v20 = v18 & 0x7FFFFFFF;
-      if ((v18 & 0x7FFFFFFC) != 0)
+      v21 = v19 & 0x7FFFFFFF;
+      if ((v19 & 0x7FFFFFFC) != 0)
       {
-        v21 = 4;
+        v22 = 4;
       }
 
       else
       {
-        v21 = v18 & 0x7FFFFFFF;
+        v22 = v19 & 0x7FFFFFFF;
       }
 
       while (1)
       {
-        v22 = HIBYTE(v60.__r_.__value_.__r.__words[2]);
+        v23 = HIBYTE(v60.__r_.__value_.__r.__words[2]);
         if ((v60.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v22 = v60.__r_.__value_.__l.__size_;
+          v23 = v60.__r_.__value_.__l.__size_;
         }
 
-        v23 = v22 >= v20 - v21;
-        v24 = v22 - (v20 - v21);
-        if (!v23)
+        v24 = v23 >= v21 - v22;
+        v25 = v23 - (v21 - v22);
+        if (!v24)
         {
           std::__throw_out_of_range[abi:se200100]("string_view::substr");
         }
 
         if ((v60.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v25 = &v60;
+          v26 = &v60;
         }
 
         else
         {
-          v25 = v60.__r_.__value_.__r.__words[0];
+          v26 = v60.__r_.__value_.__r.__words[0];
         }
 
-        if (v24 >= v20)
+        if (v25 >= v21)
         {
-          v26 = v20;
+          v27 = v21;
         }
 
         else
         {
-          v26 = v24;
+          v27 = v25;
         }
 
-        v27 = morphun::analysis::pt::inflectorMap(v15);
-        v29 = v27 + 8;
-        v28 = *(v27 + 8);
-        if (!v28)
+        v28 = morphun::analysis::pt::inflectorMap(v15);
+        v30 = v28 + 8;
+        v29 = *(v28 + 8);
+        if (!v29)
         {
           goto LABEL_61;
         }
 
-        v30 = (v25 + 2 * (v20 - v21));
-        v31 = v27 + 8;
+        v31 = (v26 + 2 * (v21 - v22));
+        v32 = v28 + 8;
         do
         {
-          v27 = std::less<std::u16string_view>::operator()[abi:se200100](*(v28 + 32), *(v28 + 40), v30, v26);
-          if (v27)
+          v28 = std::less<std::u16string_view>::operator()[abi:se200100](*(v29 + 32), *(v29 + 40), v31, v27);
+          if (v28)
           {
-            v32 = 8;
+            v33 = 8;
           }
 
           else
           {
-            v32 = 0;
+            v33 = 0;
           }
 
-          if (!v27)
+          if (!v28)
           {
-            v31 = v28;
+            v32 = v29;
           }
 
-          v28 = *(v28 + v32);
+          v29 = *(v29 + v33);
         }
 
-        while (v28);
-        if (v31 == v29 || (v27 = std::less<std::u16string_view>::operator()[abi:se200100](v30, v26, *(v31 + 32), *(v31 + 40)), v27))
+        while (v29);
+        if (v32 == v30 || (v28 = std::less<std::u16string_view>::operator()[abi:se200100](v31, v27, *(v32 + 32), *(v32 + 40)), v28))
         {
 LABEL_61:
-          v31 = v29;
+          v32 = v30;
         }
 
-        v15 = morphun::analysis::pt::inflectorMap(v27);
-        if ((v15 + 8) != v31)
+        v15 = morphun::analysis::pt::inflectorMap(v28);
+        if ((v15 + 8) != v32)
         {
           break;
         }
 
-        v10 = v21-- <= 1;
+        v10 = v22-- <= 1;
         if (v10)
         {
-          v19 = HIBYTE(v60.__r_.__value_.__r.__words[2]);
+          v20 = HIBYTE(v60.__r_.__value_.__r.__words[2]);
           v3 = v52;
           v17 = v50;
           v16 = v51;
@@ -7840,23 +7508,23 @@ LABEL_61:
         }
       }
 
-      v35 = *(v31 + 48);
-      if (!v35)
+      v36 = *(v32 + 48);
+      if (!v36)
       {
-        v35 = v26;
+        v36 = v27;
       }
 
-      v36 = HIBYTE(v60.__r_.__value_.__r.__words[2]);
+      v37 = HIBYTE(v60.__r_.__value_.__r.__words[2]);
       if ((v60.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v36 = v60.__r_.__value_.__l.__size_;
+        v37 = v60.__r_.__value_.__l.__size_;
       }
 
-      v37 = std::basic_string<char16_t>::basic_string(&v61, &v60, 0, v36 - v35, v33);
+      v38 = std::basic_string<char16_t>::basic_string(&v61, &v60, 0, v37 - v36, v34);
       v3 = v52;
       v17 = v50;
       v16 = v51;
-      std::basic_string<char16_t>::append(v37, *(v31 + 56), *(v31 + 64));
+      std::basic_string<char16_t>::append(v38, *(v32 + 56), *(v32 + 64));
       if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
       {
         std::basic_string<char16_t>::__init_copy_ctor_external(&v56, v61.__r_.__value_.__l.__data_, v61.__r_.__value_.__l.__size_);
@@ -7869,20 +7537,20 @@ LABEL_61:
       }
 
       *&v56.__r_.__value_.__l.__data_ = *&v61.__r_.__value_.__l.__data_;
-      v34 = v61.__r_.__value_.__r.__words[2];
+      v35 = v61.__r_.__value_.__r.__words[2];
     }
 
-    v56.__r_.__value_.__r.__words[2] = v34;
+    v56.__r_.__value_.__r.__words[2] = v35;
 LABEL_78:
-    v38 = v16 + v17;
-    if (v38[23] < 0)
+    v39 = v16 + v17;
+    if (v39[23] < 0)
     {
-      operator delete(*v38);
+      operator delete(*v39);
     }
 
-    v39 = *&v56.__r_.__value_.__l.__data_;
-    *(v38 + 2) = *(&v56.__r_.__value_.__l + 2);
-    *v38 = v39;
+    v18 = *&v56.__r_.__value_.__l.__data_;
+    *(v39 + 2) = *(&v56.__r_.__value_.__l + 2);
+    *v39 = v18;
     goto LABEL_81;
   }
 
@@ -7934,7 +7602,7 @@ LABEL_81:
     v46 = v60.__r_.__value_.__l.__size_;
   }
 
-  morphun::analysis::MorphologicalAnalyzer::analyze_word(&__p, this + 16, v45, v46, v59, *(this + 60), 0);
+  morphun::analysis::MorphologicalAnalyzer::analyze_word(&__p, this + 16, v45, v46, v59, *(this + 60), 0, v18);
   if (v55 == 1 && v54 < 0)
   {
     operator delete(__p);
@@ -7971,7 +7639,7 @@ void sub_1BE67E518(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t morphun::analysis::pt::inflectorMap(morphun::analysis::pt *this)
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   {
     operator new();
   }
@@ -7983,7 +7651,6 @@ uint64_t morphun::analysis::pt::inflectorMap(morphun::analysis::pt *this)
     morphun::exception::NullPointerException::NullPointerException(exception);
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7993,16 +7660,16 @@ void sub_1BE67E814(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::map<std::u16string_view,morphun::analysis::pt::BrazilianStemFilter_InflectionRule>::map[abi:se200100](void *a1, uint64_t a2, uint64_t a3)
+uint64_t **std::map<std::u16string_view,morphun::analysis::pt::BrazilianStemFilter_InflectionRule>::map[abi:se200100](uint64_t **a1, __int128 *a2, uint64_t a3)
 {
   a1[1] = 0;
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v5 = a2;
-    v6 = a2 + 40 * a3;
+    v6 = (a2 + 40 * a3);
     do
     {
       v7 = a1[1];
@@ -8038,7 +7705,7 @@ void *std::map<std::u16string_view,morphun::analysis::pt::BrazilianStemFilter_In
       }
 
       v12 = *v5;
-      v13 = *(v5 + 8);
+      v13 = *(v5 + 1);
       if (std::less<std::u16string_view>::operator()[abi:se200100](v8[4], v8[5], *v5, v13))
       {
 LABEL_23:
@@ -8061,7 +7728,7 @@ LABEL_18:
           while (1)
           {
             v14 = v7;
-            v15 = *(v7 + 32);
+            v15 = v7[4];
             v16 = v14[5];
             if (!std::less<std::u16string_view>::operator()[abi:se200100](v12, v13, v15, v16))
             {
@@ -8088,7 +7755,7 @@ LABEL_18:
         }
       }
 
-      v5 += 40;
+      v5 = (v5 + 40);
     }
 
     while (v5 != v6);
@@ -8226,35 +7893,35 @@ uint64_t morphun::dialog::SemanticFeatureModel_DisplayValue::SemanticFeatureMode
   return a1;
 }
 
-morphun::dialog::SemanticFeatureModel_DisplayValue *morphun::dialog::SemanticFeatureModel_DisplayValue::SemanticFeatureModel_DisplayValue(morphun::dialog::SemanticFeatureModel_DisplayValue *this, const morphun::dialog::SpeakableString *a2, const morphun::dialog::SemanticFeature *a3, uint64_t a4)
+uint64_t **morphun::dialog::SemanticFeatureModel_DisplayValue::SemanticFeatureModel_DisplayValue(uint64_t **this, const morphun::dialog::SpeakableString *a2, const morphun::dialog::SemanticFeature *a3, uint64_t a4)
 {
   v8 = (*(*a3 + 32))(a3);
-  v11[0] = 0;
-  v11[1] = 0;
-  v10 = v11;
-  morphun::dialog::SemanticFeatureModel_DisplayValue::SemanticFeatureModel_DisplayValue(this, a2, v8, &v10);
-  std::__tree<std::__value_type<morphun::dialog::SemanticFeature,std::basic_string<char16_t>>,std::__map_value_compare<morphun::dialog::SemanticFeature,std::__value_type<morphun::dialog::SemanticFeature,std::basic_string<char16_t>>,std::less<morphun::dialog::SemanticFeature>,true>,std::allocator<std::__value_type<morphun::dialog::SemanticFeature,std::basic_string<char16_t>>>>::destroy(v11[0]);
+  v12[0] = 0;
+  v12[1] = 0;
+  v11 = v12;
+  morphun::dialog::SemanticFeatureModel_DisplayValue::SemanticFeatureModel_DisplayValue(this, a2, v8, &v11);
+  std::__tree<std::__value_type<morphun::dialog::SemanticFeature,std::basic_string<char16_t>>,std::__map_value_compare<morphun::dialog::SemanticFeature,std::__value_type<morphun::dialog::SemanticFeature,std::basic_string<char16_t>>,std::less<morphun::dialog::SemanticFeature>,true>,std::allocator<std::__value_type<morphun::dialog::SemanticFeature,std::basic_string<char16_t>>>>::destroy(v12[0]);
   if (((*(*a3 + 48))(a3) & 1) == 0)
   {
-    (*(*a3 + 40))(a3);
-    std::__tree<std::__value_type<morphun::dialog::SemanticFeature,std::basic_string<char16_t>>,std::__map_value_compare<morphun::dialog::SemanticFeature,std::__value_type<morphun::dialog::SemanticFeature,std::basic_string<char16_t>>,std::less<morphun::dialog::SemanticFeature>,true>,std::allocator<std::__value_type<morphun::dialog::SemanticFeature,std::basic_string<char16_t>>>>::__emplace_unique_key_args<morphun::dialog::SemanticFeature,morphun::dialog::SemanticFeature const&,std::basic_string<char16_t> const&>(this + 32, a4);
+    v9 = (*(*a3 + 40))(a3);
+    std::__tree<std::__value_type<morphun::dialog::SemanticFeature,std::basic_string<char16_t>>,std::__map_value_compare<morphun::dialog::SemanticFeature,std::__value_type<morphun::dialog::SemanticFeature,std::basic_string<char16_t>>,std::less<morphun::dialog::SemanticFeature>,true>,std::allocator<std::__value_type<morphun::dialog::SemanticFeature,std::basic_string<char16_t>>>>::__emplace_unique_key_args<morphun::dialog::SemanticFeature,morphun::dialog::SemanticFeature const&,std::basic_string<char16_t> const&>(this + 4, a4, a4, v9);
   }
 
   return this;
 }
 
-morphun::dialog::SemanticFeatureModel_DisplayValue *morphun::dialog::SemanticFeatureModel_DisplayValue::SemanticFeatureModel_DisplayValue(morphun::dialog::SemanticFeatureModel_DisplayValue *this, const morphun::dialog::SpeakableString *a2, const morphun::dialog::SemanticFeature *a3)
+uint64_t **morphun::dialog::SemanticFeatureModel_DisplayValue::SemanticFeatureModel_DisplayValue(uint64_t **this, const morphun::dialog::SpeakableString *a2, const morphun::dialog::SemanticFeature *a3)
 {
   v6 = (*(*a2 + 32))(a2);
-  v9[0] = 0;
-  v9[1] = 0;
-  v8 = v9;
-  morphun::dialog::SemanticFeatureModel_DisplayValue::SemanticFeatureModel_DisplayValue(this, v6, &v8);
-  std::__tree<std::__value_type<morphun::dialog::SemanticFeature,std::basic_string<char16_t>>,std::__map_value_compare<morphun::dialog::SemanticFeature,std::__value_type<morphun::dialog::SemanticFeature,std::basic_string<char16_t>>,std::less<morphun::dialog::SemanticFeature>,true>,std::allocator<std::__value_type<morphun::dialog::SemanticFeature,std::basic_string<char16_t>>>>::destroy(v9[0]);
+  v10[0] = 0;
+  v10[1] = 0;
+  v9 = v10;
+  morphun::dialog::SemanticFeatureModel_DisplayValue::SemanticFeatureModel_DisplayValue(this, v6, &v9);
+  std::__tree<std::__value_type<morphun::dialog::SemanticFeature,std::basic_string<char16_t>>,std::__map_value_compare<morphun::dialog::SemanticFeature,std::__value_type<morphun::dialog::SemanticFeature,std::basic_string<char16_t>>,std::less<morphun::dialog::SemanticFeature>,true>,std::allocator<std::__value_type<morphun::dialog::SemanticFeature,std::basic_string<char16_t>>>>::destroy(v10[0]);
   if (((*(*a2 + 48))(a2) & 1) == 0)
   {
-    (*(*a2 + 40))(a2);
-    std::__tree<std::__value_type<morphun::dialog::SemanticFeature,std::basic_string<char16_t>>,std::__map_value_compare<morphun::dialog::SemanticFeature,std::__value_type<morphun::dialog::SemanticFeature,std::basic_string<char16_t>>,std::less<morphun::dialog::SemanticFeature>,true>,std::allocator<std::__value_type<morphun::dialog::SemanticFeature,std::basic_string<char16_t>>>>::__emplace_unique_key_args<morphun::dialog::SemanticFeature,morphun::dialog::SemanticFeature const&,std::basic_string<char16_t> const&>(this + 32, a3);
+    v7 = (*(*a2 + 40))(a2);
+    std::__tree<std::__value_type<morphun::dialog::SemanticFeature,std::basic_string<char16_t>>,std::__map_value_compare<morphun::dialog::SemanticFeature,std::__value_type<morphun::dialog::SemanticFeature,std::basic_string<char16_t>>,std::less<morphun::dialog::SemanticFeature>,true>,std::allocator<std::__value_type<morphun::dialog::SemanticFeature,std::basic_string<char16_t>>>>::__emplace_unique_key_args<morphun::dialog::SemanticFeature,morphun::dialog::SemanticFeature const&,std::basic_string<char16_t> const&>(this + 4, a3, a3, v7);
   }
 
   return this;
@@ -8563,14 +8230,14 @@ LABEL_18:
   operator new();
 }
 
-void sub_1BE67F544(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_1BE67F544(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (a15 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x1BFB49160](v16, v15);
+  MEMORY[0x1BFB49160](v16, v15, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -8660,68 +8327,68 @@ LABEL_108:
     std::__allocate_at_least[abi:se200100]<std::allocator<char16_t>>(v8);
   }
 
-  v55 = v7;
-  v9 = (&v53 + 2 * v7);
-  if (&v53 <= v6 && v9 > v6)
+  v56 = v7;
+  v9 = (&v54 + 2 * v7);
+  if (&v54 <= v6 && v9 > v6)
   {
     goto LABEL_110;
   }
 
   if (v7)
   {
-    memmove(&v53, v6, 2 * v7);
+    memmove(&v54, v6, 2 * v7);
   }
 
   *v9 = 0;
-  v52 = 0;
-  if ((v55 & 0x80u) == 0)
+  v53 = 0;
+  if ((v56 & 0x80u) == 0)
   {
-    v11 = &v53;
+    v11 = &v54;
   }
 
   else
   {
-    v11 = v53;
+    v11 = v54;
   }
 
-  if ((v55 & 0x80u) == 0)
+  if ((v56 & 0x80u) == 0)
+  {
+    v12 = v56;
+  }
+
+  else
   {
     v12 = v55;
   }
 
-  else
+  morphun::dictionary::DictionaryMetaData::getCombinedBinaryType(*(this + 17), &v53, v11, v12);
+  if ((v56 & 0x80u) == 0)
   {
-    v12 = v54;
-  }
-
-  morphun::dictionary::DictionaryMetaData::getCombinedBinaryType(*(this + 17), &v52, v11, v12);
-  if ((v55 & 0x80u) == 0)
-  {
-    v13 = &v53;
+    v13 = &v54;
   }
 
   else
   {
-    v13 = v53;
+    v13 = v54;
   }
 
-  if ((v55 & 0x80u) == 0)
+  if ((v56 & 0x80u) == 0)
+  {
+    v14 = v56;
+  }
+
+  else
   {
     v14 = v55;
   }
 
-  else
-  {
-    v14 = v54;
-  }
-
-  morphun::analysis::stemmer::DictionaryGenderedNounLemmatizer::getLemma(&__str, this + 128, v13, v14, v52);
+  morphun::analysis::stemmer::DictionaryGenderedNounLemmatizer::getLemma(&__str, this + 128, v13, v14, v53);
   v15 = (*(this + 57) + *(**(this + 57) - 96));
-  if (v51 != 1)
+  if (v52 != 1)
   {
-    v16 = SHIBYTE(v15->__r_.__value_.__r.__words[2]);
     v17 = SHIBYTE(v15->__r_.__value_.__r.__words[2]);
-    if (v16 < 0)
+    v18 = SHIBYTE(v15->__r_.__value_.__r.__words[2]);
+    if (v17 < 0)
     {
       size = v15->__r_.__value_.__l.__size_;
       if (size < 5)
@@ -8729,95 +8396,95 @@ LABEL_108:
         goto LABEL_86;
       }
 
-      v18 = (size - 1);
-      if (size < v18)
-      {
-        goto LABEL_110;
-      }
-
-      v22 = v15->__r_.__value_.__r.__words[0];
-      if (*(v15->__r_.__value_.__r.__words[0] + 2 * v18) != 115)
-      {
-        goto LABEL_86;
-      }
-
-      v19 = (size - 2);
+      v19 = (size - 1);
       if (size < v19)
       {
         goto LABEL_110;
       }
 
-      v20 = v15->__r_.__value_.__l.__size_;
-    }
-
-    else
-    {
-      if (v17 < 5)
+      v23 = v15->__r_.__value_.__r.__words[0];
+      if (*(v15->__r_.__value_.__r.__words[0] + 2 * v19) != 115)
       {
-        goto LABEL_41;
+        goto LABEL_86;
       }
 
-      v18 = (v16 - 1);
-      if (v17 < v18)
+      v20 = (size - 2);
+      if (size < v20)
       {
         goto LABEL_110;
       }
 
-      if (v15->__r_.__value_.__s.__data_[v18] != 115)
+      v21 = v15->__r_.__value_.__l.__size_;
+    }
+
+    else
+    {
+      if (v18 < 5)
+      {
+        goto LABEL_41;
+      }
+
+      v19 = (v17 - 1);
+      if (v18 < v19)
+      {
+        goto LABEL_110;
+      }
+
+      if (v15->__r_.__value_.__s.__data_[v19] != 115)
       {
 LABEL_41:
         LODWORD(size) = SHIBYTE(v15->__r_.__value_.__r.__words[2]);
         goto LABEL_86;
       }
 
-      v19 = (v16 - 2);
-      if (v17 < v19)
+      v20 = (v17 - 2);
+      if (v18 < v20)
       {
         goto LABEL_110;
       }
 
-      LODWORD(v20) = SHIBYTE(v15->__r_.__value_.__r.__words[2]);
-      LODWORD(size) = v20;
-      v22 = *(this + 57) + *(**(this + 57) - 96);
+      LODWORD(v21) = SHIBYTE(v15->__r_.__value_.__r.__words[2]);
+      LODWORD(size) = v21;
+      v23 = *(this + 57) + *(**(this + 57) - 96);
     }
 
-    v23 = *(v22 + 2 * v19);
-    if ((v23 - 232) >= 2 && v23 != 101)
+    v24 = *(v23 + 2 * v20);
+    if ((v24 - 232) >= 2 && v24 != 101)
     {
-      if ((v17 & 0x80000000) != 0)
+      if ((v18 & 0x80000000) != 0)
       {
-        if (v15->__r_.__value_.__l.__size_ < v19)
+        if (v15->__r_.__value_.__l.__size_ < v20)
         {
           goto LABEL_110;
         }
 
-        v28 = v15->__r_.__value_.__r.__words[0];
-        v27 = *(v15->__r_.__value_.__r.__words[0] + 2 * v19);
+        v29 = v15->__r_.__value_.__r.__words[0];
+        v28 = *(v15->__r_.__value_.__r.__words[0] + 2 * v20);
       }
 
       else
       {
-        if (v19 > v17)
+        if (v20 > v18)
         {
           goto LABEL_110;
         }
 
-        v27 = v15->__r_.__value_.__s.__data_[v19];
-        v28 = *(this + 57) + *(**(this + 57) - 96);
+        v28 = v15->__r_.__value_.__s.__data_[v20];
+        v29 = *(this + 57) + *(**(this + 57) - 96);
       }
 
-      if (v27 == 111 || (v32 = *(v28 + 2 * v19), (v32 - 224) < 2) || v32 == 97)
+      if (v28 == 111 || (v33 = *(v29 + 2 * v20), (v33 - 224) < 2) || v33 == 97)
       {
-        LODWORD(size) = v18;
+        LODWORD(size) = v19;
       }
 
       goto LABEL_86;
     }
 
-    v24 = (v20 - 3);
-    if (v16 < 0)
+    v25 = (v21 - 3);
+    if (v17 < 0)
     {
-      if (v15->__r_.__value_.__l.__size_ < v24)
+      if (v15->__r_.__value_.__l.__size_ < v25)
       {
         goto LABEL_110;
       }
@@ -8828,24 +8495,24 @@ LABEL_41:
     else
     {
       size = *(this + 57) + *(**(this + 57) - 96);
-      if (v24 > v17)
+      if (v25 > v18)
       {
         goto LABEL_110;
       }
     }
 
-    v25 = *(size + 2 * v24);
-    LODWORD(size) = v18;
-    if (v25 != 116)
+    v26 = *(size + 2 * v25);
+    LODWORD(size) = v19;
+    if (v26 != 116)
     {
-      if (v25 != 110)
+      if (v26 != 110)
       {
-        if (v25 == 99)
+        if (v26 == 99)
         {
-          if ((v17 & 0x80000000) == 0)
+          if ((v18 & 0x80000000) == 0)
           {
-            v26 = *(this + 57) + *(**(this + 57) - 96);
-            if (v24 > v17)
+            v27 = *(this + 57) + *(**(this + 57) - 96);
+            if (v25 > v18)
             {
               goto LABEL_110;
             }
@@ -8853,11 +8520,11 @@ LABEL_41:
             goto LABEL_80;
           }
 
-          if (v15->__r_.__value_.__l.__size_ >= v24)
+          if (v15->__r_.__value_.__l.__size_ >= v25)
           {
-            v26 = v15->__r_.__value_.__r.__words[0];
+            v27 = v15->__r_.__value_.__r.__words[0];
 LABEL_80:
-            *(v26 + 2 * v24) = 122;
+            *(v27 + 2 * v25) = 122;
             goto LABEL_85;
           }
 
@@ -8868,24 +8535,24 @@ LABEL_111:
         }
 
 LABEL_85:
-        LODWORD(size) = v19;
+        LODWORD(size) = v20;
         goto LABEL_86;
       }
 
-      v29 = (v20 - 4);
-      if ((v17 & 0x80000000) != 0)
+      v30 = (v21 - 4);
+      if ((v18 & 0x80000000) != 0)
       {
-        v33 = v15->__r_.__value_.__l.__size_;
-        if (v33 < v29)
+        v34 = v15->__r_.__value_.__l.__size_;
+        if (v34 < v30)
         {
           goto LABEL_110;
         }
 
-        v31 = v15->__r_.__value_.__r.__words[0];
-        v34 = *(v15->__r_.__value_.__r.__words[0] + 2 * v29);
-        if (v34 != 97)
+        v32 = v15->__r_.__value_.__r.__words[0];
+        v35 = *(v15->__r_.__value_.__r.__words[0] + 2 * v30);
+        if (v35 != 97)
         {
-          if (v34 != 111)
+          if (v35 != 111)
           {
             goto LABEL_85;
           }
@@ -8893,40 +8560,40 @@ LABEL_85:
           goto LABEL_77;
         }
 
-        if (v33 < v29)
+        if (v34 < v30)
         {
           goto LABEL_110;
         }
 
-        v31 = v15->__r_.__value_.__r.__words[0];
+        v32 = v15->__r_.__value_.__r.__words[0];
       }
 
       else
       {
-        if (v29 > v17)
+        if (v30 > v18)
         {
           goto LABEL_110;
         }
 
-        v30 = v15->__r_.__value_.__s.__data_[v29];
-        v31 = *(this + 57) + *(**(this + 57) - 96);
-        if (v30 != 97)
+        v31 = v15->__r_.__value_.__s.__data_[v30];
+        v32 = *(this + 57) + *(**(this + 57) - 96);
+        if (v31 != 97)
         {
-          v31 = *(this + 57) + *(**(this + 57) - 96);
-          if (v30 != 111)
+          v32 = *(this + 57) + *(**(this + 57) - 96);
+          if (v31 != 111)
           {
             goto LABEL_85;
           }
 
 LABEL_77:
-          v35 = 243;
+          v36 = 243;
 LABEL_84:
-          *(v31 + 2 * v29) = v35;
+          *(v32 + 2 * v30) = v36;
           goto LABEL_85;
         }
       }
 
-      v35 = 225;
+      v36 = 225;
       goto LABEL_84;
     }
 
@@ -8939,43 +8606,33 @@ LABEL_86:
 LABEL_87:
   if (*(this + 59))
   {
-    v49 = 0;
-    v36 = *(this + 57);
-    v37 = *(*v36 - 96);
-    v38 = v36 + v37;
-    v39 = *(v36 + v37 + 23);
-    if (v39 < 0)
+    v50 = 0;
+    v37 = *(this + 57);
+    v38 = *(*v37 - 96);
+    v39 = v37 + v38;
+    v40 = *(v37 + v38 + 23);
+    if (v40 < 0)
     {
-      v38 = *v38;
-      v39 = *(v36 + v37 + 8);
+      v39 = *v39;
+      v40 = *(v37 + v38 + 8);
     }
 
-    if (morphun::dictionary::DictionaryMetaData::getCombinedBinaryType(*(this + 17), &v49, v38, v39))
+    if (morphun::dictionary::DictionaryMetaData::getCombinedBinaryType(*(this + 17), &v50, v39, v40))
     {
-      v40 = *(this + 59);
-      if (!v40)
+      v41 = *(this + 59);
+      if (!v41)
       {
-        v45 = __cxa_allocate_exception(0x38uLL);
-        morphun::exception::NullPointerException::NullPointerException(v45);
+        v46 = __cxa_allocate_exception(0x38uLL);
+        morphun::exception::NullPointerException::NullPointerException(v46);
       }
 
-      (*(*v40 + 64))(v40, v49);
+      (*(*v41 + 64))(v41, v50);
     }
   }
 
-  if ((v55 & 0x80u) == 0)
+  if ((v56 & 0x80u) == 0)
   {
-    v41 = &v53;
-  }
-
-  else
-  {
-    v41 = v53;
-  }
-
-  if ((v55 & 0x80u) == 0)
-  {
-    v42 = v55;
+    v42 = &v54;
   }
 
   else
@@ -8983,20 +8640,30 @@ LABEL_87:
     v42 = v54;
   }
 
-  morphun::analysis::MorphologicalAnalyzer::analyze_word(&__p, this + 16, v41, v42, v52, *(this + 60), 0);
-  if (v48 == 1 && v47 < 0)
+  if ((v56 & 0x80u) == 0)
+  {
+    v43 = v56;
+  }
+
+  else
+  {
+    v43 = v55;
+  }
+
+  morphun::analysis::MorphologicalAnalyzer::analyze_word(&__p, this + 16, v42, v43, v53, *(this + 60), 0, v16);
+  if (v49 == 1 && v48 < 0)
   {
     operator delete(__p);
   }
 
-  if (v51 == 1 && SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
+  if (v52 == 1 && SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__str.__r_.__value_.__l.__data_);
   }
 
-  if (v55 < 0)
+  if (v56 < 0)
   {
-    operator delete(v53);
+    operator delete(v54);
   }
 
   return v3;
@@ -9034,8 +8701,8 @@ void morphun::analysis::stemmer::EsStemFilter::~EsStemFilter(morphun::analysis::
 
 void morphun::dialog::language::EsCommonConceptFactory_EsOrList::getBeforeLast(const morphun::dialog::SemanticFeatureConceptBase *a1@<X1>, const morphun::dialog::SpeakableString *a2@<X2>, const morphun::dialog::SemanticFeatureConceptBase *a3@<X3>, const morphun::dialog::SpeakableString *a4@<X4>, void *a5@<X8>)
 {
-  v7 = (*(*a4 + 32))(a4, a1, a2, a3);
-  v8 = morphun::dialog::language::EsCommonConceptFactory_EsAndList::IMPORTANT_SET(v7);
+  v6 = (*(*a4 + 32))(a4, a1, a2, a3);
+  v7 = morphun::dialog::language::EsCommonConceptFactory_EsAndList::IMPORTANT_SET(v6);
   {
     operator new();
   }
@@ -9047,8 +8714,8 @@ void morphun::dialog::language::EsCommonConceptFactory_EsOrList::getBeforeLast(c
   }
 
   __p = 0uLL;
-  v11 = 0;
-  if (morphun::dictionary::PhraseProperties::isStartsWithUnicodeSets(v7, v8, morphun::dialog::language::O_SOUND(void)::O_SOUND_, &__p))
+  v10 = 0;
+  if (morphun::dictionary::PhraseProperties::isStartsWithUnicodeSets(v6, v7, morphun::dialog::language::O_SOUND(void)::O_SOUND_, &__p))
   {
     std::basic_string<char16_t>::basic_string[abi:se200100]<0>(&__p, word_1BE80EB7E);
   }
@@ -9059,15 +8726,15 @@ void morphun::dialog::language::EsCommonConceptFactory_EsOrList::getBeforeLast(c
   }
 
   morphun::dialog::SpeakableString::SpeakableString(a5, &__p);
-  if (SHIBYTE(v11) < 0)
+  if (SHIBYTE(v10) < 0)
   {
     operator delete(__p);
   }
 }
 
-void sub_1BE67FE48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_1BE67FE48(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
-  MEMORY[0x1BFB49160](v15, 0x1020C405F07FB98);
+  MEMORY[0x1BFB49160](v15, 0x1020C405F07FB98, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -10038,4 +9705,131 @@ LABEL_243:
   }
 
   goto LABEL_245;
+}
+
+void sub_1BE681010(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (*(v21 - 57) < 0)
+  {
+    operator delete(*(v21 - 80));
+  }
+
+  if (*(v21 - 33) < 0)
+  {
+    operator delete(*(v21 - 56));
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void morphun::dialog::language::DeCommonConceptFactory::quote(morphun::dialog::language::DeCommonConceptFactory *this@<X0>, const morphun::dialog::SpeakableString *a2@<X1>, void *a3@<X8>)
+{
+  v6 = morphun::util::LocaleUtils::SWITZERLAND_GERMAN(this);
+  v7 = (*(*this + 32))(this);
+  v8 = *(v7 + 127);
+  if (v8 >= 0)
+  {
+    v9 = *(v7 + 127);
+  }
+
+  else
+  {
+    v9 = *(v7 + 112);
+  }
+
+  v10 = *(v6 + 127);
+  v11 = v10;
+  if ((v10 & 0x80u) != 0)
+  {
+    v10 = *(v6 + 112);
+  }
+
+  if (v9 != v10)
+  {
+    goto LABEL_13;
+  }
+
+  v14 = *(v7 + 104);
+  v12 = (v7 + 104);
+  v13 = v14;
+  if (v8 < 0)
+  {
+    v12 = v13;
+  }
+
+  v17 = *(v6 + 104);
+  v16 = v6 + 104;
+  v15 = v17;
+  v18 = (v11 >= 0 ? v16 : v15);
+  if (!memcmp(v12, v18, v9))
+  {
+    if ((*(*a2 + 48))(a2))
+    {
+      v19 = (*(*a2 + 32))(a2);
+      std::operator+<char16_t>(&v22, &unk_1BE80EB9A, v19);
+      std::basic_string<char16_t>::append(&v22, word_1BE80EB9E, 1uLL);
+      __p = v22;
+      memset(&v22, 0, sizeof(v22));
+      morphun::dialog::SpeakableString::SpeakableString(a3, &__p);
+    }
+
+    else
+    {
+      v20 = (*(*a2 + 32))(a2);
+      std::operator+<char16_t>(&v22, &unk_1BE80EB9A, v20);
+      std::basic_string<char16_t>::append(&v22, word_1BE80EB9E, 1uLL);
+      __p = v22;
+      memset(&v22, 0, sizeof(v22));
+      v21 = (*(*a2 + 40))(a2);
+      morphun::dialog::SpeakableString::SpeakableString(a3, &__p, v21);
+    }
+
+    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__p.__r_.__value_.__l.__data_);
+    }
+
+    if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v22.__r_.__value_.__l.__data_);
+    }
+  }
+
+  else
+  {
+LABEL_13:
+
+    morphun::dialog::CommonConceptFactoryImpl::quote(this, a2, a3);
+  }
+}
+
+void sub_1BE681434(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+{
+  if (a21 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a15 < 0)
+  {
+    operator delete(a10);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void morphun::dialog::language::DeCommonConceptFactory::~DeCommonConceptFactory(void **this)
+{
+  morphun::dialog::CommonConceptFactoryImpl::~CommonConceptFactoryImpl(this, off_1F3CDC7B8);
+
+  JUMPOUT(0x1BFB49160);
+}
+
+{
+  morphun::dialog::CommonConceptFactoryImpl::~CommonConceptFactoryImpl(this, off_1F3CDC7B8);
 }

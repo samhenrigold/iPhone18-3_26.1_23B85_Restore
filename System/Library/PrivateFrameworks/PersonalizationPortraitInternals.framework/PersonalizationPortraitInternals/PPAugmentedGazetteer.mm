@@ -70,16 +70,12 @@ uint64_t __31__PPAugmentedGazetteer_dealloc__block_invoke(uint64_t a1, void *a2)
 void __52__PPAugmentedGazetteer_iterTokensForSentence_block___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = v3[1];
-  v5 = *(a1 + 32);
   NLTaggerSetString();
-  v6 = v3[1];
   [*(a1 + 32) length];
-  v9 = *(a1 + 32);
-  v10 = *(a1 + 40);
-  v7 = v3;
+  v5 = *(a1 + 32);
+  v6 = *(a1 + 40);
+  v4 = v3;
   NLTaggerEnumerateTokens();
-  v8 = v3[1];
   NLTaggerSetString();
 }
 
@@ -87,16 +83,14 @@ void __52__PPAugmentedGazetteer_iterTokensForSentence_block___block_invoke_2(voi
 {
   v6 = objc_autoreleasePoolPush();
   v7 = a1[4];
-  v13 = *a2;
-  v14 = *(a2 + 2);
+  v11 = *a2;
+  v12 = *(a2 + 2);
   v8 = [PPAugmentedGazetteer textForToken:v7 text:?];
-  v9 = *(a1[5] + 8);
-  v10 = *MEMORY[0x277D00398];
-  v11 = NLTaggerCopyTagForCurrentToken();
-  v12 = [[PPToken alloc] initWithText:v8 tag:v11];
-  LOBYTE(v13) = 0;
+  v9 = NLTaggerCopyTagForCurrentToken();
+  v10 = [[PPToken alloc] initWithText:v8 tag:v9];
+  LOBYTE(v11) = 0;
   (*(a1[6] + 16))();
-  if (a3 && (v13 & 1) != 0)
+  if (a3 && (v11 & 1) != 0)
   {
     *a3 = 1;
   }
@@ -135,16 +129,13 @@ void __52__PPAugmentedGazetteer_iterTokensForSentence_block___block_invoke_2(voi
 
 void __51__PPAugmentedGazetteer_iterSentencesForText_block___block_invoke(uint64_t a1, void *a2)
 {
-  v4 = a2[2];
-  v5 = *(a1 + 32);
-  v6 = a2;
-  [v5 length];
+  v3 = *(a1 + 32);
+  v4 = a2;
+  [v3 length];
   NLTokenizerSetString();
-  v7 = a2[2];
-  v9 = *(a1 + 32);
-  v10 = *(a1 + 40);
+  v5 = *(a1 + 32);
+  v6 = *(a1 + 40);
   NLTokenizerEnumerateTokens();
-  v8 = a2[2];
 
   NLTokenizerSetString();
 }
@@ -225,17 +216,16 @@ uint64_t __40__PPAugmentedGazetteer_metadataForName___block_invoke_2(uint64_t a1
 
 uint64_t __40__PPAugmentedGazetteer_metadataForName___block_invoke_3(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = pp_default_log_handle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_error_impl(&dword_23224A000, v3, OS_LOG_TYPE_ERROR, "PPAugmentedGazetteer: error serializing from the database: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_error_impl(&dword_23224A000, v3, OS_LOG_TYPE_ERROR, "PPAugmentedGazetteer: error serializing from the database: %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42690];
 }
 
@@ -378,53 +368,53 @@ LABEL_9:
 
 void __78__PPAugmentedGazetteer_addExtractions_context_addEntity_addTopic_addLocation___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = *(a1 + 32);
-  v19 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
-  if (v19)
+  v18 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+  if (v18)
   {
-    v18 = *v27;
+    v17 = *v26;
     do
     {
       v2 = 0;
       do
       {
-        if (*v27 != v18)
+        if (*v26 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = v2;
-        v3 = *(*(&v26 + 1) + 8 * v2);
+        v20 = v2;
+        v3 = *(*(&v25 + 1) + 8 * v2);
         context = objc_autoreleasePoolPush();
+        v21 = 0u;
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v25 = 0u;
         v4 = *(a1 + 40);
         v5 = [v3 lowercaseString];
         v6 = [v4 metadataForName:v5];
 
-        v7 = [v6 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v23;
+          v9 = *v22;
           do
           {
             v10 = 0;
             do
             {
-              if (*v23 != v9)
+              if (*v22 != v9)
               {
                 objc_enumerationMutation(v6);
               }
 
-              v11 = *(*(&v22 + 1) + 8 * v10);
+              v11 = *(*(&v21 + 1) + 8 * v10);
               v12 = *(a1 + 48);
               if (v11)
               {
@@ -472,7 +462,7 @@ void __78__PPAugmentedGazetteer_addExtractions_context_addEntity_addTopic_addLoc
             }
 
             while (v8 != v10);
-            v15 = [v6 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v15 = [v6 countByEnumeratingWithState:&v21 objects:v29 count:16];
             v8 = v15;
           }
 
@@ -480,28 +470,26 @@ void __78__PPAugmentedGazetteer_addExtractions_context_addEntity_addTopic_addLoc
         }
 
         objc_autoreleasePoolPop(context);
-        v2 = v21 + 1;
+        v2 = v20 + 1;
       }
 
-      while (v21 + 1 != v19);
-      v19 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+      while (v20 + 1 != v18);
+      v18 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
-    while (v19);
+    while (v18);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (PPAugmentedGazetteer)initWithDatabaseAsset:(id)asset gazetteerPath:(id)path contextPredictor:(id)predictor
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   pathCopy = path;
   predictorCopy = predictor;
-  v35.receiver = self;
-  v35.super_class = PPAugmentedGazetteer;
-  v12 = [(PPAugmentedGazetteer *)&v35 init];
+  v32.receiver = self;
+  v32.super_class = PPAugmentedGazetteer;
+  v12 = [(PPAugmentedGazetteer *)&v32 init];
   v13 = v12;
   if (v12)
   {
@@ -517,22 +505,22 @@ void __78__PPAugmentedGazetteer_addExtractions_context_addEntity_addTopic_addLoc
     v19 = objc_opt_new();
     v20 = pathCopy;
     objc_opt_self();
-    v38 = *MEMORY[0x277D00398];
-    [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+    v35 = *MEMORY[0x277D00398];
+    [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
     v21 = *MEMORY[0x277D003E0];
-    v36[0] = *MEMORY[0x277D003B8];
-    v36[1] = v21;
-    v37[0] = &unk_284784350;
-    v37[1] = MEMORY[0x277CBEC38];
-    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
+    v33[0] = *MEMORY[0x277D003B8];
+    v33[1] = v21;
+    v34[0] = &unk_284784350;
+    v34[1] = MEMORY[0x277CBEC38];
+    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
     v22 = NLTaggerCreate();
     v23 = v20;
     objc_opt_self();
-    v39 = *MEMORY[0x277D00368];
+    v36 = *MEMORY[0x277D00368];
     v24 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:v23];
 
-    v40[0] = v24;
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+    v37[0] = v24;
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
 
     v26 = NLGazetteerCreate();
     Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
@@ -540,14 +528,12 @@ void __78__PPAugmentedGazetteer_addExtractions_context_addEntity_addTopic_addLoc
     if (v26)
     {
       CFArrayAppendValue(Mutable, v26);
-      v29 = *MEMORY[0x277D00398];
       NLTaggerSetGazetteers();
       CFRelease(v26);
     }
 
     else
     {
-      v30 = *MEMORY[0x277D00398];
       NLTaggerSetGazetteers();
     }
 
@@ -556,18 +542,17 @@ void __78__PPAugmentedGazetteer_addExtractions_context_addEntity_addTopic_addLoc
     objc_opt_self();
     CFLocaleGetSystem();
     v19[2] = NLTokenizerCreate();
-    v31 = [objc_alloc(MEMORY[0x277D425F8]) initWithGuardedData:v19];
+    v29 = [objc_alloc(MEMORY[0x277D425F8]) initWithGuardedData:v19];
     lock = v13->_lock;
-    v13->_lock = v31;
+    v13->_lock = v29;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (PPAugmentedGazetteer)initWithDatabaseAssetPath:(id)path gazetteerPath:(id)gazetteerPath contextPredictor:(id)predictor
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   gazetteerPathCopy = gazetteerPath;
   predictorCopy = predictor;
@@ -575,9 +560,9 @@ void __78__PPAugmentedGazetteer_addExtractions_context_addEntity_addTopic_addLoc
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v29 = gazetteerPathCopy;
-    v30 = 2112;
-    v31 = pathCopy;
+    v28 = gazetteerPathCopy;
+    v29 = 2112;
+    v30 = pathCopy;
     _os_log_impl(&dword_23224A000, v11, OS_LOG_TYPE_DEFAULT, "PPAugmentedGazetteer: initializing with gazetteer at %@ and database at %@", buf, 0x16u);
   }
 
@@ -612,10 +597,10 @@ LABEL_12:
 
   v12 = objc_alloc(MEMORY[0x277D42630]);
   pathCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"file://%@?immutable=1", pathCopy];
-  v27 = 0;
+  v26 = 0;
   v14 = objc_opt_new();
-  v15 = [v12 initWithFilename:pathCopy flags:1 error:&v27 errorHandler:v14];
-  v16 = v27;
+  v15 = [v12 initWithFilename:pathCopy flags:1 error:&v26 errorHandler:v14];
+  v16 = v26;
 
   if (v15)
   {
@@ -636,7 +621,7 @@ LABEL_12:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v29 = v16;
+      v28 = v16;
       _os_log_error_impl(&dword_23224A000, v24, OS_LOG_TYPE_ERROR, "PPAugmentedGazetteer: unable to open database. %@", buf, 0xCu);
     }
 
@@ -644,7 +629,6 @@ LABEL_12:
   }
 
 LABEL_17:
-  v25 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

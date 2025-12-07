@@ -102,7 +102,7 @@ LABEL_10:
       v8 = +[SKAPresenceMembershipKey logger];
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [SKAPresenceMembershipKey signPayload:?];
+        [SKAPresenceMembershipKey signPayload:];
       }
 
       v7 = 0;
@@ -139,7 +139,7 @@ LABEL_10:
       v6 = +[SKAPresenceMembershipKey logger];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        [(SKAPresenceMembershipKey *)&error publicKeyMaterial];
+        [SKAPresenceMembershipKey publicKeyMaterial];
       }
     }
   }
@@ -169,7 +169,7 @@ LABEL_10:
       v6 = +[SKAPresenceMembershipKey logger];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        [(SKAPresenceMembershipKey *)&error privateKeyMaterial];
+        [SKAPresenceMembershipKey privateKeyMaterial];
       }
     }
   }
@@ -184,17 +184,17 @@ LABEL_10:
 
 - (BOOL)_generateKey
 {
-  v11[3] = *MEMORY[0x277D85DE8];
+  v10[3] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CDC018];
-  v10[0] = *MEMORY[0x277CDC028];
-  v10[1] = v3;
-  v11[0] = *MEMORY[0x277CDC040];
-  v11[1] = &unk_2833EB9C0;
-  v10[2] = *MEMORY[0x277CDC5C8];
-  v11[2] = MEMORY[0x277CBEC38];
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
-  v9 = 0;
-  v5 = SecKeyCreateRandomKey(v4, &v9);
+  v9[0] = *MEMORY[0x277CDC028];
+  v9[1] = v3;
+  v10[0] = *MEMORY[0x277CDC040];
+  v10[1] = &unk_2833EB9C0;
+  v9[2] = *MEMORY[0x277CDC5C8];
+  v10[2] = MEMORY[0x277CBEC38];
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
+  v8 = 0;
+  v5 = SecKeyCreateRandomKey(v4, &v8);
   if (v5)
   {
     if ([(SKAPresenceMembershipKey *)self privateKey])
@@ -210,34 +210,33 @@ LABEL_10:
     v6 = +[SKAPresenceMembershipKey logger];
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(SKAPresenceMembershipKey *)&v9 _generateKey];
+      [SKAPresenceMembershipKey _generateKey];
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5 != 0;
 }
 
 - (BOOL)_generateKeyFromKeyData:(id)data
 {
-  v17[4] = *MEMORY[0x277D85DE8];
+  v16[4] = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277CDC040];
   v5 = *MEMORY[0x277CDC018];
-  v16[0] = *MEMORY[0x277CDC028];
-  v16[1] = v5;
-  v17[0] = v4;
-  v17[1] = &unk_2833EB9C0;
+  v15[0] = *MEMORY[0x277CDC028];
+  v15[1] = v5;
+  v16[0] = v4;
+  v16[1] = &unk_2833EB9C0;
   v6 = *MEMORY[0x277CDBFF0];
   v7 = *MEMORY[0x277CDBFD0];
-  v16[2] = *MEMORY[0x277CDBFE0];
-  v16[3] = v7;
-  v17[2] = v6;
-  v17[3] = MEMORY[0x277CBEC38];
+  v15[2] = *MEMORY[0x277CDBFE0];
+  v15[3] = v7;
+  v16[2] = v6;
+  v16[3] = MEMORY[0x277CBEC38];
   v8 = MEMORY[0x277CBEAC0];
   dataCopy = data;
-  v10 = [v8 dictionaryWithObjects:v17 forKeys:v16 count:4];
-  v15 = 0;
-  v11 = SecKeyCreateWithData(dataCopy, v10, &v15);
+  v10 = [v8 dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v14 = 0;
+  v11 = SecKeyCreateWithData(dataCopy, v10, &v14);
 
   if (v11)
   {
@@ -254,11 +253,10 @@ LABEL_10:
     v12 = +[SKAPresenceMembershipKey logger];
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [SKAPresenceMembershipKey _generateKeyFromKeyData:?];
+      [SKAPresenceMembershipKey _generateKeyFromKeyData:];
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11 != 0;
 }
 
@@ -281,44 +279,39 @@ uint64_t __34__SKAPresenceMembershipKey_logger__block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-- (void)signPayload:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)signPayload:.cold.1()
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v1, v2, "Signing completed with error: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Signing completed with error: %@", v2, v3, v4, v5);
 }
 
 - (void)publicKeyMaterial
 {
-  OUTLINED_FUNCTION_2_0(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v1, v2, "Public key externalization completed with error: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Public key externalization completed with error: %@", v2, v3, v4, v5);
 }
 
 - (void)privateKeyMaterial
 {
-  OUTLINED_FUNCTION_2_0(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v1, v2, "Private key externalization completed with error: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Private key externalization completed with error: %@", v2, v3, v4, v5);
 }
 
 - (void)_generateKey
 {
-  OUTLINED_FUNCTION_2_0(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v1, v2, "Membership key generation completed with error: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Membership key generation completed with error: %@", v2, v3, v4, v5);
 }
 
-- (void)_generateKeyFromKeyData:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)_generateKeyFromKeyData:.cold.1()
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v1, v2, "Membership key generation from data completed with error: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Membership key generation from data completed with error: %@", v2, v3, v4, v5);
 }
 
 @end

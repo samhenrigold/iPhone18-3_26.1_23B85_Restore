@@ -35,7 +35,7 @@
   bCopy = b;
   identifier = [aCopy identifier];
   identifier2 = [bCopy identifier];
-  if ([identifier isEqualToString:identifier2])
+  if (objc_msgSend_isEqualToString_(identifier))
   {
     entityToIndex = [aCopy entityToIndex];
     entityToIndex2 = [bCopy entityToIndex];

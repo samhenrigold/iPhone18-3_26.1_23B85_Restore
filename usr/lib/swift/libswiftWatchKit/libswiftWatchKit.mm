@@ -73,7 +73,7 @@ Swift::Void __swiftcall WKInterfaceController.presentController(withNamesAndCont
   [v2 presentControllerWithNames:v13.super.isa contexts:isa];
 }
 
-char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, int64_t a2, char a3)
+char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
@@ -243,7 +243,7 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
   return v10;
 }
 
-void specialized static WKInterfaceController.reloadRootControllers(withNamesAndContexts:)(int64_t *a1)
+void specialized static WKInterfaceController.reloadRootControllers(withNamesAndContexts:)(uint64_t *a1)
 {
   v2 = a1[2];
   if (v2)
@@ -329,7 +329,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }

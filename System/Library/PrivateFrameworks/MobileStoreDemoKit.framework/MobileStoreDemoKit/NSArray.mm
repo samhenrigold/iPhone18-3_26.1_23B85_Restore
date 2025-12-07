@@ -78,7 +78,7 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v7 = defaultLogHandle();
+  v7 = defaultLogHandle(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     __42__NSArray_xpcarrayConv__initWithXPCArray___block_invoke_cold_1(a2, v7);
@@ -131,7 +131,7 @@ LABEL_5:
       {
         v20 = *(a1 + 32);
         [v10 doubleValue];
-        v21 = xpc_double_create(v23);
+        v21 = xpc_double_create(v24);
       }
 
       else
@@ -142,7 +142,7 @@ LABEL_5:
           v18 = [v10 objCType];
           if (*v18 != 99 || v18[1])
           {
-            v19 = defaultLogHandle();
+            v19 = defaultLogHandle(v18);
             if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
               __42__NSArray_xpcarrayConv__xpcArrayFromArray__block_invoke_cold_2(v10, v19);
@@ -159,7 +159,7 @@ LABEL_5:
       }
     }
 
-    v25 = v21;
+    v26 = v21;
     xpc_array_append_value(v20, v21);
 
 LABEL_40:
@@ -183,18 +183,19 @@ LABEL_40:
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     v7 = *(a1 + 32);
     [v6 timeIntervalSince1970];
-    v8 = xpc_date_create(v22);
+    v8 = xpc_date_create(v23);
     goto LABEL_5;
   }
 
-  v24 = defaultLogHandle();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+  v25 = defaultLogHandle(isKindOfClass);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
-    __42__NSArray_xpcarrayConv__xpcArrayFromArray__block_invoke_cold_1(v24);
+    __42__NSArray_xpcarrayConv__xpcArrayFromArray__block_invoke_cold_1(v25);
   }
 
   *a4 = 1;
@@ -204,20 +205,18 @@ LABEL_6:
 
 void __42__NSArray_xpcarrayConv__initWithXPCArray___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_259B7D000, a2, OS_LOG_TYPE_ERROR, "The value at index %lu in this xpcArray are of an unsupported type", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_259B7D000, a2, OS_LOG_TYPE_ERROR, "The value at index %lu in this xpcArray are of an unsupported type", &v2, 0xCu);
 }
 
 void __42__NSArray_xpcarrayConv__xpcArrayFromArray__block_invoke_cold_2(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 136315138;
-  v5 = [a1 objCType];
-  _os_log_error_impl(&dword_259B7D000, a2, OS_LOG_TYPE_ERROR, "Unsupported NSNumber type: %s for xpc dictionary encoding", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 136315138;
+  v4 = [a1 objCType];
+  _os_log_error_impl(&dword_259B7D000, a2, OS_LOG_TYPE_ERROR, "Unsupported NSNumber type: %s for xpc dictionary encoding", &v3, 0xCu);
 }
 
 @end

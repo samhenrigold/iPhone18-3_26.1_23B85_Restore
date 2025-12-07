@@ -17,8 +17,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v8[1] = *MEMORY[0x1E69E9840];
-  v7 = @"code";
+  v7[1] = *MEMORY[0x1E69E9840];
+  v6 = @"code";
   v2 = INEditMessageIntentResponseCodeGetName([(INEditMessageIntentResponse *)self code]);
   null = v2;
   if (!v2)
@@ -26,13 +26,11 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v8[0] = null;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[0] = null;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   if (!v2)
   {
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -278,7 +276,7 @@
 
 - (INEditMessageIntentResponse)initWithCode:(INEditMessageIntentResponseCode)code userActivity:(NSUserActivity *)userActivity
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v6 = userActivity;
   v7 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
@@ -286,21 +284,20 @@
     v8 = v7;
     v9 = INEditMessageIntentResponseCodeGetName(code);
     *buf = 136315906;
-    v15 = "[INEditMessageIntentResponse initWithCode:userActivity:]";
-    v16 = 2048;
-    v17 = code;
-    v18 = 2112;
-    v19 = v9;
-    v20 = 2112;
-    v21 = v6;
+    v14 = "[INEditMessageIntentResponse initWithCode:userActivity:]";
+    v15 = 2048;
+    v16 = code;
+    v17 = 2112;
+    v18 = v9;
+    v19 = 2112;
+    v20 = v6;
     _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s code = %zd (%@), userActivity = %@", buf, 0x2Au);
   }
 
-  v13.receiver = self;
-  v13.super_class = INEditMessageIntentResponse;
-  v10 = [(INIntentResponse *)&v13 _initWithCode:code userActivity:v6];
+  v12.receiver = self;
+  v12.super_class = INEditMessageIntentResponse;
+  v10 = [(INIntentResponse *)&v12 _initWithCode:code userActivity:v6];
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

@@ -36,7 +36,7 @@
 - (BOOL)doesAliasAnyResources:(const void *)resources count:(unint64_t)count
 {
   baseObject = self->_baseObject;
-  __chkstk_darwin(self, 8 * count);
+  __chkstk_darwin(self);
   v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   bzero(v8, v7);
   if (count)
@@ -60,7 +60,7 @@
 - (BOOL)doesAliasAllResources:(const void *)resources count:(unint64_t)count
 {
   baseObject = self->_baseObject;
-  __chkstk_darwin(self, 8 * count);
+  __chkstk_darwin(self);
   v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   bzero(v8, v7);
   if (count)
@@ -84,31 +84,30 @@
 - (void)setLabel:(id)label
 {
   labelCopy = label;
-  v19 = 0u;
-  v20 = 0u;
   v18 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v18);
+  v19 = 0u;
+  v17 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v17);
   [(MTLVisibleFunctionTableSPI *)self->_baseObject setLabel:labelCopy];
-  v6 = v19;
-  *(v19 + 8) = -15607;
-  v7 = BYTE9(v20);
-  if (BYTE9(v20) > 0x30uLL)
+  v5 = v18;
+  *(v18 + 8) = -15607;
+  v6 = BYTE9(v19);
+  if (BYTE9(v19) > 0x30uLL)
   {
-    v9 = *(*(&v18 + 1) + 24);
-    v10 = BYTE10(v20);
-    ++BYTE10(v20);
-    v8 = GTTraceMemPool_allocateBytes(v9, *(&v19 + 1), v10 | 0x1000000000) + 16;
-    v7 = v10;
+    v8 = *(*(&v17 + 1) + 24);
+    v9 = BYTE10(v19);
+    ++BYTE10(v19);
+    v7 = GTTraceMemPool_allocateBytes(v8, *(&v18 + 1), v9 | 0x1000000000) + 16;
+    v6 = v9;
   }
 
   else
   {
-    v8 = (v6 + BYTE9(v20));
-    BYTE9(v20) += 16;
+    v7 = (v5 + BYTE9(v19));
+    BYTE9(v19) += 16;
   }
 
-  *(v6 + 13) = v7;
+  *(v5 + 13) = v6;
   traceStream = [(CaptureMTLVisibleFunctionTable *)self traceStream];
   if (traceStream)
   {
@@ -124,18 +123,18 @@
   if (uTF8String)
   {
     uTF8String2 = [labelCopy UTF8String];
-    v15 = strlen([labelCopy UTF8String]);
-    LOBYTE(uTF8String) = GTTraceEncoder_storeBytes(&v18, uTF8String2, v15 + 1);
+    v14 = strlen([labelCopy UTF8String]);
+    LOBYTE(uTF8String) = GTTraceEncoder_storeBytes(&v17, uTF8String2, v14 + 1);
   }
 
-  *v8 = var0;
-  v8[8] = uTF8String;
-  *(v8 + 9) = 0;
-  *(v8 + 3) = 0;
+  *v7 = var0;
+  v7[8] = uTF8String;
+  *(v7 + 9) = 0;
+  *(v7 + 3) = 0;
   s();
-  *v16 = v17;
-  *(v16 + 8) = BYTE8(v20);
-  *(v19 + 15) |= 8u;
+  *v15 = v16;
+  *(v15 + 8) = BYTE8(v19);
+  *(v18 + 15) |= 8u;
 }
 
 - (BOOL)conformsToProtocol:(id)protocol
@@ -233,7 +232,7 @@
   location = range.location;
   GTMTLCaptureManager_notifyUnsupportedFenumWithMsg("kDYFEMTLVisibleFunctionTable_setBuffers_offsets_withRange", "Function Pointers", 0, 0);
   baseObject = self->_baseObject;
-  __chkstk_darwin(v11, 8 * length);
+  __chkstk_darwin(v11);
   v13 = &v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   bzero(v13, v12);
   if (length)
@@ -311,34 +310,33 @@
 
   if ((*(boundaryTrackerInstance + 20) & 0xFFFFFFFE) == 2)
   {
-    v30 = 0u;
-    v31 = 0u;
     v29 = 0u;
-    v13 = self->_traceStream;
-    GTTraceContext_pushEncoderWithStream(self->_traceContext, &v29);
+    v30 = 0u;
+    v28 = 0u;
+    GTTraceContext_pushEncoderWithStream(self->_traceContext, &v28);
     baseObject = self->_baseObject;
     baseObject = [functionCopy baseObject];
     [(MTLVisibleFunctionTableSPI *)baseObject setFunction:baseObject atIndex:index];
 
-    v16 = v30;
-    *(v30 + 8) = -15598;
-    v17 = BYTE9(v31);
-    if (BYTE9(v31) > 0x28uLL)
+    v15 = v29;
+    *(v29 + 8) = -15598;
+    v16 = BYTE9(v30);
+    if (BYTE9(v30) > 0x28uLL)
     {
-      v21 = *(*(&v29 + 1) + 24);
-      v22 = BYTE10(v31);
-      ++BYTE10(v31);
-      v18 = GTTraceMemPool_allocateBytes(v21, *(&v30 + 1), v22 | 0x1800000000) + 16;
-      v17 = v22;
+      v20 = *(*(&v28 + 1) + 24);
+      v21 = BYTE10(v30);
+      ++BYTE10(v30);
+      v17 = GTTraceMemPool_allocateBytes(v20, *(&v29 + 1), v21 | 0x1800000000) + 16;
+      v16 = v21;
     }
 
     else
     {
-      v18 = (v16 + BYTE9(v31));
-      BYTE9(v31) += 24;
+      v17 = (v15 + BYTE9(v30));
+      BYTE9(v30) += 24;
     }
 
-    *(v16 + 13) = v17;
+    *(v15 + 13) = v16;
     traceStream = [(CaptureMTLVisibleFunctionTable *)self traceStream];
     if (traceStream)
     {
@@ -353,28 +351,28 @@
     traceStream2 = [functionCopy traceStream];
     if (traceStream2)
     {
-      v26 = *traceStream2;
+      v25 = *traceStream2;
     }
 
     else
     {
-      v26 = 0;
+      v25 = 0;
     }
 
-    *v18 = var0;
-    *(v18 + 1) = v26;
-    *(v18 + 2) = index;
+    *v17 = var0;
+    *(v17 + 1) = v25;
+    *(v17 + 2) = index;
     s();
-    *v27 = v28;
-    *(v27 + 8) = BYTE8(v31);
-    *(v30 + 15) |= 8u;
+    *v26 = v27;
+    *(v26 + 8) = BYTE8(v30);
+    *(v29 + 15) |= 8u;
   }
 
   else
   {
-    v19 = self->_baseObject;
+    v18 = self->_baseObject;
     baseObject2 = [functionCopy baseObject];
-    [(MTLVisibleFunctionTableSPI *)v19 setFunction:baseObject2 atIndex:index];
+    [(MTLVisibleFunctionTableSPI *)v18 setFunction:baseObject2 atIndex:index];
   }
 }
 
@@ -384,7 +382,7 @@
   location = range.location;
   GTMTLCaptureManager_notifyUnsupportedFenumWithMsg("kDYFEMTLVisibleFunctionTable_setVisibleFunctionTables_withBufferRange", "Function Pointers", 0, 0);
   baseObject = self->_baseObject;
-  __chkstk_darwin(v9, 8 * length);
+  __chkstk_darwin(v9);
   v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   bzero(v11, v10);
   if (length)
@@ -460,50 +458,49 @@
   if ((*(boundaryTrackerInstance + 20) & 0xFFFFFFFE) == 2)
   {
     v17 = location;
-    v45 = 0u;
-    v46 = 0u;
-    v44 = 0u;
-    v18 = selfCopy->_traceStream;
-    v19 = GTTraceContext_pushEncoderWithStream(selfCopy->_traceContext, &v44);
+    v42 = 0u;
+    v43 = 0u;
+    v41 = 0u;
+    v18 = GTTraceContext_pushEncoderWithStream(selfCopy->_traceContext, &v41);
     baseObject = selfCopy->_baseObject;
-    v21 = 8 * length;
-    __chkstk_darwin(v19, v22);
-    bzero(&v44 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0), 8 * length);
+    v20 = 8 * length;
+    __chkstk_darwin(v18);
+    bzero(&v41 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0), 8 * length);
     if (length)
     {
-      v23 = functionsCopy;
-      v24 = (&v44 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0));
-      v25 = length;
+      v21 = functionsCopy;
+      v22 = (&v41 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0));
+      v23 = length;
       do
       {
-        v26 = *v23++;
-        *v24++ = [v26 baseObject];
-        --v25;
+        v24 = *v21++;
+        *v22++ = [v24 baseObject];
+        --v23;
       }
 
-      while (v25);
+      while (v23);
     }
 
-    [(MTLVisibleFunctionTableSPI *)baseObject setFunctions:&v44 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0) withRange:v17, length];
-    v27 = v45;
-    *(v45 + 8) = -15597;
-    v28 = BYTE9(v46);
-    if (BYTE9(v46) > 0x20uLL)
+    [(MTLVisibleFunctionTableSPI *)baseObject setFunctions:&v41 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0) withRange:v17, length];
+    v25 = v42;
+    *(v42 + 8) = -15597;
+    v26 = BYTE9(v43);
+    if (BYTE9(v43) > 0x20uLL)
     {
-      v36 = *(*(&v44 + 1) + 24);
-      v37 = BYTE10(v46);
-      ++BYTE10(v46);
-      v29 = GTTraceMemPool_allocateBytes(v36, *(&v45 + 1), v37 | 0x2000000000) + 16;
-      v28 = v37;
+      v34 = *(*(&v41 + 1) + 24);
+      v35 = BYTE10(v43);
+      ++BYTE10(v43);
+      v27 = GTTraceMemPool_allocateBytes(v34, *(&v42 + 1), v35 | 0x2000000000) + 16;
+      v26 = v35;
     }
 
     else
     {
-      v29 = (v27 + BYTE9(v46));
-      BYTE9(v46) += 32;
+      v27 = (v25 + BYTE9(v43));
+      BYTE9(v43) += 32;
     }
 
-    *(v27 + 13) = v28;
+    *(v25 + 13) = v26;
     traceStream = [(CaptureMTLVisibleFunctionTable *)selfCopy traceStream];
     if (traceStream)
     {
@@ -517,50 +514,50 @@
 
     if ((*(boundaryTrackerInstance + 20) & 0xFFFFFFFE) == 2)
     {
-      __chkstk_darwin(traceStream, v39);
-      bzero(&v44 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * length);
-      v41 = StreamArrayURL(&v44, (&v44 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0)), functionsCopy, length);
+      __chkstk_darwin(traceStream);
+      bzero(&v41 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * length);
+      v38 = StreamArrayURL(&v41, (&v41 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0)), functionsCopy, length);
     }
 
     else
     {
-      v41 = 0;
+      v38 = 0;
     }
 
-    *v29 = var0;
-    *(v29 + 1) = v17;
-    *(v29 + 2) = length;
-    v29[24] = v41;
-    *(v29 + 25) = 0;
-    *(v29 + 7) = 0;
+    *v27 = var0;
+    *(v27 + 1) = v17;
+    *(v27 + 2) = length;
+    v27[24] = v38;
+    *(v27 + 25) = 0;
+    *(v27 + 7) = 0;
     s();
-    *v42 = v43;
-    *(v42 + 8) = BYTE8(v46);
-    *(v45 + 15) |= 8u;
+    *v39 = v40;
+    *(v39 + 8) = BYTE8(v43);
+    *(v42 + 15) |= 8u;
   }
 
   else
   {
-    v30 = selfCopy->_baseObject;
-    __chkstk_darwin(self, 8 * length);
-    v32 = &v44 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
-    bzero(v32, v31);
+    v28 = selfCopy->_baseObject;
+    __chkstk_darwin(self);
+    v30 = &v41 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+    bzero(v30, v29);
     if (length)
     {
-      v33 = v32;
-      v34 = length;
+      v31 = v30;
+      v32 = length;
       do
       {
-        v35 = *functionsCopy++;
-        *v33 = [v35 baseObject];
-        v33 += 8;
-        --v34;
+        v33 = *functionsCopy++;
+        *v31 = [v33 baseObject];
+        v31 += 8;
+        --v32;
       }
 
-      while (v34);
+      while (v32);
     }
 
-    [(MTLVisibleFunctionTableSPI *)v30 setFunctions:v32 withRange:location, length];
+    [(MTLVisibleFunctionTableSPI *)v28 setFunctions:v30 withRange:location, length];
   }
 }
 
@@ -570,30 +567,29 @@
   baseObject = self->_baseObject;
   self->_baseObject = 0;
 
-  v16 = 0u;
-  v17 = 0u;
   v15 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v15);
-  v5 = v16;
-  *(v16 + 8) = -15605;
-  v6 = BYTE9(v17);
-  if (BYTE9(v17) > 0x38uLL)
+  v16 = 0u;
+  v14 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v14);
+  v4 = v15;
+  *(v15 + 8) = -15605;
+  v5 = BYTE9(v16);
+  if (BYTE9(v16) > 0x38uLL)
   {
-    v8 = *(*(&v15 + 1) + 24);
-    v9 = BYTE10(v17);
-    ++BYTE10(v17);
-    v7 = GTTraceMemPool_allocateBytes(v8, *(&v16 + 1), v9 | 0x800000000) + 16;
-    v6 = v9;
+    v7 = *(*(&v14 + 1) + 24);
+    v8 = BYTE10(v16);
+    ++BYTE10(v16);
+    v6 = GTTraceMemPool_allocateBytes(v7, *(&v15 + 1), v8 | 0x800000000) + 16;
+    v5 = v8;
   }
 
   else
   {
-    v7 = (v5 + BYTE9(v17));
-    BYTE9(v17) += 8;
+    v6 = (v4 + BYTE9(v16));
+    BYTE9(v16) += 8;
   }
 
-  *(v5 + 13) = v6;
+  *(v4 + 13) = v5;
   traceStream = [(CaptureMTLVisibleFunctionTable *)self traceStream];
   if (traceStream)
   {
@@ -605,15 +601,15 @@
     var0 = 0;
   }
 
-  *v7 = var0;
+  *v6 = var0;
   s();
-  *v12 = v13;
-  *(v12 + 8) = BYTE8(v17);
-  *(v16 + 15) |= 8u;
+  *v11 = v12;
+  *(v11 + 8) = BYTE8(v16);
+  *(v15 + 15) |= 8u;
   GTTraceContext_closeStream(self->_traceContext, &self->_traceStream->var0);
-  v14.receiver = self;
-  v14.super_class = CaptureMTLVisibleFunctionTable;
-  [(CaptureMTLVisibleFunctionTable *)&v14 dealloc];
+  v13.receiver = self;
+  v13.super_class = CaptureMTLVisibleFunctionTable;
+  [(CaptureMTLVisibleFunctionTable *)&v13 dealloc];
 }
 
 - (CaptureMTLVisibleFunctionTable)initWithBaseObject:(id)object captureRenderPipelineState:(id)state descriptor:(id)descriptor

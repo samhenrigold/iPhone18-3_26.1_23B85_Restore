@@ -123,7 +123,7 @@ void __49__UIKBBackdropView__generateCornerContentsImage___block_invoke(uint64_t
   CGContextSaveGState(v3);
   UIKBAddRoundedRect(v3, *(a1 + 72), *(a1 + 32), *(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 64));
   CGContextClosePath(v3);
-  v4 = +[UIColor blackColor];
+  v4 = objc_msgSend_blackColor(UIColor);
   CGContextSetFillColorWithColor(v3, [v4 CGColor]);
 
   CGContextFillPath(v3);

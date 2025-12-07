@@ -80,7 +80,7 @@
   *v7 = *MEMORY[0x1E695F050];
   v7[1] = v8;
   v10.receiver = self;
-  v10.super_class = type metadata accessor for PhotosPageContainerView();
+  v10.super_class = type metadata accessor for PhotosPageContainerView(self, a2);
   return [(PhotosPageContainerView *)&v10 initWithFrame:x, y, width, height];
 }
 

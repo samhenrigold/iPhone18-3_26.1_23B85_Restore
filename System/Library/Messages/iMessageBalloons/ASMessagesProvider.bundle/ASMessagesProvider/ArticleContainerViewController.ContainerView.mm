@@ -26,34 +26,35 @@
   y = frame.origin.y;
   x = frame.origin.x;
   v8 = type metadata accessor for ArticleContainerViewController.ContainerView();
-  v25.receiver = self;
-  v25.super_class = v8;
+  v26.receiver = self;
+  v26.super_class = v8;
   selfCopy = self;
-  [(ArticleContainerViewController.ContainerView *)&v25 frame];
+  [(ArticleContainerViewController.ContainerView *)&v26 frame];
   v11 = v10;
   v13 = v12;
   v15 = v14;
   v17 = v16;
-  v24.receiver = selfCopy;
-  v24.super_class = v8;
-  [(ArticleContainerViewController.ContainerView *)&v24 setFrame:x, y, width, height];
+  v25.receiver = selfCopy;
+  v25.super_class = v8;
+  [(ArticleContainerViewController.ContainerView *)&v25 setFrame:x, y, width, height];
   [(ArticleContainerViewController.ContainerView *)selfCopy frame];
-  v27.origin.x = v18;
-  v27.origin.y = v19;
-  v27.size.width = v20;
-  v27.size.height = v21;
-  v26.origin.x = v11;
-  v26.origin.y = v13;
-  v26.size.width = v15;
-  v26.size.height = v17;
-  if (!CGRectEqualToRect(v26, v27))
+  v28.origin.x = v18;
+  v28.origin.y = v19;
+  v28.size.width = v20;
+  v28.size.height = v21;
+  v27.origin.x = v11;
+  v27.origin.y = v13;
+  v27.size.width = v15;
+  v27.size.height = v17;
+  if (!CGRectEqualToRect(v27, v28))
   {
     v22 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtCC18ASMessagesProvider30ArticleContainerViewControllerP33_F28B2BC817961B9098740FBAC1DC899A13ContainerView_frameUpdatedCallback);
     if (v22)
     {
+      v23 = *&selfCopy->frameUpdatedCallback[OBJC_IVAR____TtCC18ASMessagesProvider30ArticleContainerViewControllerP33_F28B2BC817961B9098740FBAC1DC899A13ContainerView_frameUpdatedCallback];
 
-      v22(v23);
-      sub_F704(v22);
+      v22(v24);
+      sub_F704(v22, v23);
     }
   }
 }

@@ -16,7 +16,7 @@
 
   v36.receiver = self;
   v36.super_class = SCNGeometryWrapDeformerInstance;
-  v12 = objc_msgSendSuper2(&v36, sel_init);
+  v12 = objc_msgSendSuper2(&v36, sel_init, node, drivingNode, deformer);
   if (v12)
   {
     [drivingNode initParametersIfNeededForDeformedNode:a2];
@@ -144,7 +144,7 @@
 
   v47.receiver = self;
   v47.super_class = SCNGeometryWrapDeformerInstance;
-  v14 = objc_msgSendSuper2(&v47, sel_init);
+  v14 = objc_msgSendSuper2(&v47, sel_init, node, layerNode, outerLayerNode, deformer);
   if (v14)
   {
     [outerLayerNode initParametersIfNeededForDeformedNode:a2];
@@ -323,7 +323,7 @@ uint64_t __104__SCNGeometryWrapDeformerInstance_initWithNode_drivingNode_deforme
   return [v15 setStride:v16];
 }
 
-uint64_t __122__SCNGeometryWrapDeformerInstance_initWithNode_innerLayerNode_outerLayerNode_deformer_outputs_computeVertexCount_context___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__122__SCNGeometryWrapDeformerInstance_initWithNode_innerLayerNode_outerLayerNode_deformer_outputs_computeVertexCount_context___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   [*(a1 + 32) configureStageInputOutputDescriptor:a3 withDeformerFunction:a2];
   v5 = [objc_msgSend(a3 "attributes")];
@@ -416,68 +416,64 @@ uint64_t __122__SCNGeometryWrapDeformerInstance_initWithNode_innerLayerNode_oute
   }
 
   self->_currentFrameHash = _currentFrameHash;
-  v7 = -[SCNMTLRenderContext resourceComputeEncoder]([context _currentRenderContext]);
+  v8 = -[SCNMTLRenderContext resourceComputeEncoder]([context _currentRenderContext]);
   if (!self->_isLegacySingleLayerDeformer)
   {
-    WorldMatrix = C3DNodeGetWorldMatrix(self->_innerLayerNode);
-    v48 = WorldMatrix[1];
-    v49 = *WorldMatrix;
-    v50 = WorldMatrix[3];
-    v51 = WorldMatrix[2];
-    v16 = C3DNodeGetWorldMatrix(self->_outerLayerNode);
-    v53 = v16[1];
-    v55 = *v16;
-    v57 = v16[3];
-    v59 = v16[2];
-    v17 = C3DNodeGetWorldMatrix(self->_deformedNode);
-    v70.columns[0] = *v17;
-    v70.columns[1] = v17[1];
-    v70.columns[2] = v17[2];
-    v70.columns[3] = v17[3];
-    v71 = __invert_f4(v70);
-    v18 = 0;
-    v60 = v49;
-    v61 = v48;
+    WorldMatrix = C3DNodeGetWorldMatrix(self->_innerLayerNode, v7);
+    v50 = WorldMatrix[1];
+    v51 = *WorldMatrix;
+    v52 = WorldMatrix[3];
+    v53 = WorldMatrix[2];
+    v18 = C3DNodeGetWorldMatrix(self->_outerLayerNode, v17);
+    v55 = v18[1];
+    v57 = *v18;
+    v59 = v18[3];
+    v61 = v18[2];
+    v72 = *C3DNodeGetWorldMatrix(self->_deformedNode, v19);
+    v73 = __invert_f4(v72);
+    v20 = 0;
     v62 = v51;
     v63 = v50;
+    v64 = v53;
+    v65 = v52;
     do
     {
-      *(&v64 + v18) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v71.columns[0], COERCE_FLOAT(*(&v60 + v18))), v71.columns[1], *&v60.f32[v18 / 4], 1), v71.columns[2], *(&v60 + v18), 2), v71.columns[3], *(&v60 + v18), 3);
-      v18 += 16;
+      *(&v66 + v20) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v73.columns[0], COERCE_FLOAT(*(&v62 + v20))), v73.columns[1], *(&v62 + v20), 1), v73.columns[2], *(&v62 + v20), 2), v73.columns[3], *(&v62 + v20), 3);
+      v20 += 16;
     }
 
-    while (v18 != 64);
-    v19 = 0;
-    v20 = v65;
-    v21 = v66;
+    while (v20 != 64);
+    v21 = 0;
     v22 = v67;
-    *&self->_anon_14[12] = v64;
-    *&self->_anon_14[28] = v20;
-    *&self->_anon_14[44] = v21;
-    *&self->_anon_14[60] = v22;
-    v60 = v55;
-    v61 = v53;
-    v62 = v59;
-    v63 = v57;
+    v23 = v68;
+    v24 = v69;
+    *&self->_anon_14[12] = v66;
+    *&self->_anon_14[28] = v22;
+    *&self->_anon_14[44] = v23;
+    *&self->_anon_14[60] = v24;
+    v62 = v57;
+    v63 = v55;
+    v64 = v61;
+    v65 = v59;
     do
     {
-      *(&v64 + v19) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v71.columns[0], COERCE_FLOAT(*(&v60 + v19))), v71.columns[1], *&v60.f32[v19 / 4], 1), v71.columns[2], *(&v60 + v19), 2), v71.columns[3], *(&v60 + v19), 3);
-      v19 += 16;
+      *(&v66 + v21) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v73.columns[0], COERCE_FLOAT(*(&v62 + v21))), v73.columns[1], *(&v62 + v21), 1), v73.columns[2], *(&v62 + v21), 2), v73.columns[3], *(&v62 + v21), 3);
+      v21 += 16;
     }
 
-    while (v19 != 64);
-    v23 = v65;
-    v24 = v66;
+    while (v21 != 64);
     v25 = v67;
-    *&self->_anon_14[76] = v64;
-    *&self->_anon_14[92] = v23;
-    *&self->_anon_14[108] = v24;
-    *&self->_anon_14[124] = v25;
-    SCNMTLComputeCommandEncoder::setBytes(v7, &self->_uniforms, 0x90uLL, 0);
+    v26 = v68;
+    v27 = v69;
+    *&self->_anon_14[76] = v66;
+    *&self->_anon_14[92] = v25;
+    *&self->_anon_14[108] = v26;
+    *&self->_anon_14[124] = v27;
+    SCNMTLComputeCommandEncoder::setBytes(v8, &self->_uniforms, 0x90uLL, 0);
     dependency0PositionBuffer = [context dependency0PositionBuffer];
-    if (v7->_buffers[1] == dependency0PositionBuffer)
+    if (v8->_buffers[1] == dependency0PositionBuffer)
     {
-      if (!v7->_offsets[1])
+      if (!v8->_offsets[1])
       {
         goto LABEL_20;
       }
@@ -485,16 +481,16 @@ uint64_t __122__SCNGeometryWrapDeformerInstance_initWithNode_innerLayerNode_oute
 
     else
     {
-      v7->_buffers[1] = dependency0PositionBuffer;
+      v8->_buffers[1] = dependency0PositionBuffer;
     }
 
-    v7->_offsets[1] = 0;
-    v7->_buffersToBind[0] |= 2uLL;
+    v8->_offsets[1] = 0;
+    v8->_buffersToBind[0] |= 2uLL;
 LABEL_20:
     dependency1PositionBuffer = [context dependency1PositionBuffer];
-    if (v7->_buffers[2] == dependency1PositionBuffer)
+    if (v8->_buffers[2] == dependency1PositionBuffer)
     {
-      if (!v7->_offsets[2])
+      if (!v8->_offsets[2])
       {
         goto LABEL_28;
       }
@@ -502,16 +498,16 @@ LABEL_20:
 
     else
     {
-      v7->_buffers[2] = dependency1PositionBuffer;
+      v8->_buffers[2] = dependency1PositionBuffer;
     }
 
-    v7->_offsets[2] = 0;
-    v7->_buffersToBind[0] |= 4uLL;
+    v8->_offsets[2] = 0;
+    v8->_buffersToBind[0] |= 4uLL;
 LABEL_28:
     dstPositionBuffer = [context dstPositionBuffer];
-    if (v7->_buffers[11] == dstPositionBuffer)
+    if (v8->_buffers[11] == dstPositionBuffer)
     {
-      if (!v7->_offsets[11])
+      if (!v8->_offsets[11])
       {
         goto LABEL_36;
       }
@@ -519,16 +515,16 @@ LABEL_28:
 
     else
     {
-      v7->_buffers[11] = dstPositionBuffer;
+      v8->_buffers[11] = dstPositionBuffer;
     }
 
-    v7->_offsets[11] = 0;
-    v7->_buffersToBind[0] |= 0x800uLL;
+    v8->_offsets[11] = 0;
+    v8->_buffersToBind[0] |= 0x800uLL;
 LABEL_36:
     pointIndicesBuffer = self->_pointIndicesBuffer;
-    if (v7->_buffers[3] == pointIndicesBuffer)
+    if (v8->_buffers[3] == pointIndicesBuffer)
     {
-      if (!v7->_offsets[3])
+      if (!v8->_offsets[3])
       {
         goto LABEL_44;
       }
@@ -536,16 +532,16 @@ LABEL_36:
 
     else
     {
-      v7->_buffers[3] = pointIndicesBuffer;
+      v8->_buffers[3] = pointIndicesBuffer;
     }
 
-    v7->_offsets[3] = 0;
-    v7->_buffersToBind[0] |= 8uLL;
+    v8->_offsets[3] = 0;
+    v8->_buffersToBind[0] |= 8uLL;
 LABEL_44:
     barycentricCoordsBuffer = self->_barycentricCoordsBuffer;
-    if (v7->_buffers[4] == barycentricCoordsBuffer)
+    if (v8->_buffers[4] == barycentricCoordsBuffer)
     {
-      if (!v7->_offsets[4])
+      if (!v8->_offsets[4])
       {
         goto LABEL_53;
       }
@@ -553,16 +549,16 @@ LABEL_44:
 
     else
     {
-      v7->_buffers[4] = barycentricCoordsBuffer;
+      v8->_buffers[4] = barycentricCoordsBuffer;
     }
 
-    v7->_offsets[4] = 0;
-    v7->_buffersToBind[0] |= 0x10uLL;
+    v8->_offsets[4] = 0;
+    v8->_buffersToBind[0] |= 0x10uLL;
 LABEL_53:
     innerLayerInfluencesBuffer = self->_innerLayerInfluencesBuffer;
-    if (v7->_buffers[5] == innerLayerInfluencesBuffer)
+    if (v8->_buffers[5] == innerLayerInfluencesBuffer)
     {
-      if (!v7->_offsets[5])
+      if (!v8->_offsets[5])
       {
         goto LABEL_57;
       }
@@ -570,11 +566,11 @@ LABEL_53:
 
     else
     {
-      v7->_buffers[5] = innerLayerInfluencesBuffer;
+      v8->_buffers[5] = innerLayerInfluencesBuffer;
     }
 
-    v7->_offsets[5] = 0;
-    v7->_buffersToBind[0] |= 0x20uLL;
+    v8->_offsets[5] = 0;
+    v8->_buffersToBind[0] |= 0x20uLL;
 LABEL_57:
     if (self->_bindingMode != 1)
     {
@@ -582,9 +578,9 @@ LABEL_57:
     }
 
     srcPositionBuffer = [context srcPositionBuffer];
-    if (v7->_buffers[10] == srcPositionBuffer)
+    if (v8->_buffers[10] == srcPositionBuffer)
     {
-      if (!v7->_offsets[10])
+      if (!v8->_offsets[10])
       {
         goto LABEL_65;
       }
@@ -592,16 +588,16 @@ LABEL_57:
 
     else
     {
-      v7->_buffers[10] = srcPositionBuffer;
+      v8->_buffers[10] = srcPositionBuffer;
     }
 
-    v7->_offsets[10] = 0;
-    v7->_buffersToBind[0] |= 0x400uLL;
+    v8->_offsets[10] = 0;
+    v8->_buffersToBind[0] |= 0x400uLL;
 LABEL_65:
     innerBindingSpaceVectorsBuffer = self->_innerBindingSpaceVectorsBuffer;
-    if (v7->_buffers[8] == innerBindingSpaceVectorsBuffer)
+    if (v8->_buffers[8] == innerBindingSpaceVectorsBuffer)
     {
-      if (!v7->_offsets[8])
+      if (!v8->_offsets[8])
       {
         goto LABEL_69;
       }
@@ -609,16 +605,16 @@ LABEL_65:
 
     else
     {
-      v7->_buffers[8] = innerBindingSpaceVectorsBuffer;
+      v8->_buffers[8] = innerBindingSpaceVectorsBuffer;
     }
 
-    v7->_offsets[8] = 0;
-    v7->_buffersToBind[0] |= 0x100uLL;
+    v8->_offsets[8] = 0;
+    v8->_buffersToBind[0] |= 0x100uLL;
 LABEL_69:
     outerBindingSpaceVectorsBuffer = self->_outerBindingSpaceVectorsBuffer;
-    if (v7->_buffers[9] == outerBindingSpaceVectorsBuffer)
+    if (v8->_buffers[9] == outerBindingSpaceVectorsBuffer)
     {
-      if (!v7->_offsets[9])
+      if (!v8->_offsets[9])
       {
         goto LABEL_73;
       }
@@ -626,92 +622,88 @@ LABEL_69:
 
     else
     {
-      v7->_buffers[9] = outerBindingSpaceVectorsBuffer;
+      v8->_buffers[9] = outerBindingSpaceVectorsBuffer;
     }
 
-    v7->_offsets[9] = 0;
-    v7->_buffersToBind[0] |= 0x200uLL;
+    v8->_offsets[9] = 0;
+    v8->_buffersToBind[0] |= 0x200uLL;
 LABEL_73:
     innerBindingOffsetsBuffer = self->_innerBindingOffsetsBuffer;
-    if (v7->_buffers[6] == innerBindingOffsetsBuffer)
+    if (v8->_buffers[6] == innerBindingOffsetsBuffer)
     {
-      if (!v7->_offsets[6])
+      if (!v8->_offsets[6])
       {
 LABEL_77:
         outerBindingOffsetsBuffer = self->_outerBindingOffsetsBuffer;
-        if (v7->_buffers[7] != outerBindingOffsetsBuffer)
+        if (v8->_buffers[7] != outerBindingOffsetsBuffer)
         {
-          v7->_buffers[7] = outerBindingOffsetsBuffer;
+          v8->_buffers[7] = outerBindingOffsetsBuffer;
 LABEL_80:
-          v7->_offsets[7] = 0;
-          v7->_buffersToBind[0] |= 0x80uLL;
+          v8->_offsets[7] = 0;
+          v8->_buffersToBind[0] |= 0x80uLL;
           goto LABEL_81;
         }
 
-        if (v7->_offsets[7])
+        if (v8->_offsets[7])
         {
           goto LABEL_80;
         }
 
 LABEL_81:
         vertexCount = self->_uniforms.vertexCount;
-        v64 = 0uLL;
-        encoder = v7->_encoder;
-        *&v65 = 0;
-        *(&v65 + 1) = vertexCount;
-        v66 = vdupq_n_s64(1uLL);
-        [(MTLComputeCommandEncoder *)encoder setStageInRegion:&v64];
+        v66 = 0uLL;
+        encoder = v8->_encoder;
+        *&v67 = 0;
+        *(&v67 + 1) = vertexCount;
+        v68 = vdupq_n_s64(1uLL);
+        [(MTLComputeCommandEncoder *)encoder setStageInRegion:&v66];
         computeEvaluator = [(SCNMTLOpenSubdivComputeEvaluator *)self->_computePipeline computeEvaluator];
-        v41 = self->_uniforms.vertexCount;
+        v43 = self->_uniforms.vertexCount;
         goto LABEL_82;
       }
     }
 
     else
     {
-      v7->_buffers[6] = innerBindingOffsetsBuffer;
+      v8->_buffers[6] = innerBindingOffsetsBuffer;
     }
 
-    v7->_offsets[6] = 0;
-    v7->_buffersToBind[0] |= 0x40uLL;
+    v8->_offsets[6] = 0;
+    v8->_buffersToBind[0] |= 0x40uLL;
     goto LABEL_77;
   }
 
-  v8 = C3DNodeGetWorldMatrix(self->_legacyDrivingNode);
-  v52 = v8[1];
-  v54 = *v8;
-  v56 = v8[3];
-  v58 = v8[2];
-  v9 = C3DNodeGetWorldMatrix(self->_deformedNode);
-  v68.columns[0] = *v9;
-  v68.columns[1] = v9[1];
-  v68.columns[2] = v9[2];
-  v68.columns[3] = v9[3];
-  v69 = __invert_f4(v68);
-  v10 = 0;
-  v60 = v54;
-  v61 = v52;
-  v62 = v58;
-  v63 = v56;
+  v9 = C3DNodeGetWorldMatrix(self->_legacyDrivingNode, v7);
+  v54 = v9[1];
+  v56 = *v9;
+  v58 = v9[3];
+  v60 = v9[2];
+  v70 = *C3DNodeGetWorldMatrix(self->_deformedNode, v10);
+  v71 = __invert_f4(v70);
+  v11 = 0;
+  v62 = v56;
+  v63 = v54;
+  v64 = v60;
+  v65 = v58;
   do
   {
-    *(&v64 + v10) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v69.columns[0], COERCE_FLOAT(*(&v60 + v10))), v69.columns[1], *&v60.f32[v10 / 4], 1), v69.columns[2], *(&v60 + v10), 2), v69.columns[3], *(&v60 + v10), 3);
-    v10 += 16;
+    *(&v66 + v11) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v71.columns[0], COERCE_FLOAT(*(&v62 + v11))), v71.columns[1], *(&v62 + v11), 1), v71.columns[2], *(&v62 + v11), 2), v71.columns[3], *(&v62 + v11), 3);
+    v11 += 16;
   }
 
-  while (v10 != 64);
-  v11 = v65;
-  v12 = v66;
-  v13 = v67;
-  *&self->_anon_114[12] = v64;
-  *&self->_anon_114[28] = v11;
-  *&self->_anon_114[44] = v12;
-  *&self->_anon_114[60] = v13;
-  SCNMTLComputeCommandEncoder::setBytes(v7, &self->_legacyUniforms, 0x50uLL, 0);
+  while (v11 != 64);
+  v12 = v67;
+  v13 = v68;
+  v14 = v69;
+  *&self->_anon_114[12] = v66;
+  *&self->_anon_114[28] = v12;
+  *&self->_anon_114[44] = v13;
+  *&self->_anon_114[60] = v14;
+  SCNMTLComputeCommandEncoder::setBytes(v8, &self->_legacyUniforms, 0x50uLL, 0);
   dependency0PositionBuffer2 = [context dependency0PositionBuffer];
-  if (v7->_buffers[1] == dependency0PositionBuffer2)
+  if (v8->_buffers[1] == dependency0PositionBuffer2)
   {
-    if (!v7->_offsets[1])
+    if (!v8->_offsets[1])
     {
       goto LABEL_16;
     }
@@ -719,16 +711,16 @@ LABEL_81:
 
   else
   {
-    v7->_buffers[1] = dependency0PositionBuffer2;
+    v8->_buffers[1] = dependency0PositionBuffer2;
   }
 
-  v7->_offsets[1] = 0;
-  v7->_buffersToBind[0] |= 2uLL;
+  v8->_offsets[1] = 0;
+  v8->_buffersToBind[0] |= 2uLL;
 LABEL_16:
   dstPositionBuffer2 = [context dstPositionBuffer];
-  if (v7->_buffers[11] == dstPositionBuffer2)
+  if (v8->_buffers[11] == dstPositionBuffer2)
   {
-    if (!v7->_offsets[11])
+    if (!v8->_offsets[11])
     {
       goto LABEL_24;
     }
@@ -736,16 +728,16 @@ LABEL_16:
 
   else
   {
-    v7->_buffers[11] = dstPositionBuffer2;
+    v8->_buffers[11] = dstPositionBuffer2;
   }
 
-  v7->_offsets[11] = 0;
-  v7->_buffersToBind[0] |= 0x800uLL;
+  v8->_offsets[11] = 0;
+  v8->_buffersToBind[0] |= 0x800uLL;
 LABEL_24:
-  v29 = self->_pointIndicesBuffer;
-  if (v7->_buffers[3] == v29)
+  v31 = self->_pointIndicesBuffer;
+  if (v8->_buffers[3] == v31)
   {
-    if (!v7->_offsets[3])
+    if (!v8->_offsets[3])
     {
       goto LABEL_32;
     }
@@ -753,16 +745,16 @@ LABEL_24:
 
   else
   {
-    v7->_buffers[3] = v29;
+    v8->_buffers[3] = v31;
   }
 
-  v7->_offsets[3] = 0;
-  v7->_buffersToBind[0] |= 8uLL;
+  v8->_offsets[3] = 0;
+  v8->_buffersToBind[0] |= 8uLL;
 LABEL_32:
-  v31 = self->_barycentricCoordsBuffer;
-  if (v7->_buffers[4] == v31)
+  v33 = self->_barycentricCoordsBuffer;
+  if (v8->_buffers[4] == v33)
   {
-    if (!v7->_offsets[4])
+    if (!v8->_offsets[4])
     {
       goto LABEL_40;
     }
@@ -770,16 +762,16 @@ LABEL_32:
 
   else
   {
-    v7->_buffers[4] = v31;
+    v8->_buffers[4] = v33;
   }
 
-  v7->_offsets[4] = 0;
-  v7->_buffersToBind[0] |= 0x10uLL;
+  v8->_offsets[4] = 0;
+  v8->_buffersToBind[0] |= 0x10uLL;
 LABEL_40:
   legacyOffsetsOrTransformsBuffer = self->_legacyOffsetsOrTransformsBuffer;
-  if (v7->_buffers[6] == legacyOffsetsOrTransformsBuffer)
+  if (v8->_buffers[6] == legacyOffsetsOrTransformsBuffer)
   {
-    if (!v7->_offsets[6])
+    if (!v8->_offsets[6])
     {
       goto LABEL_48;
     }
@@ -787,48 +779,48 @@ LABEL_40:
 
   else
   {
-    v7->_buffers[6] = legacyOffsetsOrTransformsBuffer;
+    v8->_buffers[6] = legacyOffsetsOrTransformsBuffer;
   }
 
-  v7->_offsets[6] = 0;
-  v7->_buffersToBind[0] |= 0x40uLL;
+  v8->_offsets[6] = 0;
+  v8->_buffersToBind[0] |= 0x40uLL;
 LABEL_48:
   if (self->_bindingMode == 1)
   {
     srcPositionBuffer2 = [context srcPositionBuffer];
-    if (v7->_buffers[10] != srcPositionBuffer2)
+    if (v8->_buffers[10] != srcPositionBuffer2)
     {
-      v7->_buffers[10] = srcPositionBuffer2;
+      v8->_buffers[10] = srcPositionBuffer2;
 LABEL_61:
-      v7->_offsets[10] = 0;
-      v7->_buffersToBind[0] |= 0x400uLL;
+      v8->_offsets[10] = 0;
+      v8->_buffersToBind[0] |= 0x400uLL;
       goto LABEL_62;
     }
 
-    if (v7->_offsets[10])
+    if (v8->_offsets[10])
     {
       goto LABEL_61;
     }
   }
 
 LABEL_62:
-  v38 = self->_legacyUniforms.vertexCount;
-  v64 = 0uLL;
-  v39 = v7->_encoder;
-  *&v65 = 0;
-  *(&v65 + 1) = v38;
-  v66 = vdupq_n_s64(1uLL);
-  [(MTLComputeCommandEncoder *)v39 setStageInRegion:&v64];
+  v40 = self->_legacyUniforms.vertexCount;
+  v66 = 0uLL;
+  v41 = v8->_encoder;
+  *&v67 = 0;
+  *(&v67 + 1) = v40;
+  v68 = vdupq_n_s64(1uLL);
+  [(MTLComputeCommandEncoder *)v41 setStageInRegion:&v66];
   computeEvaluator = [(SCNMTLOpenSubdivComputeEvaluator *)self->_computePipeline computeEvaluator];
-  v41 = self->_legacyUniforms.vertexCount;
+  v43 = self->_legacyUniforms.vertexCount;
 LABEL_82:
-  if (v7->_computePipelineState != computeEvaluator)
+  if (v8->_computePipelineState != computeEvaluator)
   {
-    v7->_computePipelineState = computeEvaluator;
-    [(MTLComputeCommandEncoder *)v7->_encoder setComputePipelineState:computeEvaluator];
+    v8->_computePipelineState = computeEvaluator;
+    [(MTLComputeCommandEncoder *)v8->_encoder setComputePipelineState:computeEvaluator];
   }
 
-  SCNMTLComputeCommandEncoder::dispatchOnGrid1D(v7, v41);
+  SCNMTLComputeCommandEncoder::dispatchOnGrid1D(v8, v43);
   return 1;
 }
 

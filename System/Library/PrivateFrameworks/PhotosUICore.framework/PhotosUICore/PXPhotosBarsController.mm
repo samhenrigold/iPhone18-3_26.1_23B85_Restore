@@ -88,12 +88,12 @@
 
   else
   {
-    v5 = 0u;
     v6 = 0u;
+    v7 = 0u;
     selfCopy2 = self;
   }
 
-  PXPhotosBarsController.handleCurationBarButtonItem(_:)();
+  PXPhotosBarsController.handleCurationBarButtonItem(_:)(v4);
 }
 
 - (void)configureNavigationItem:(id)item withTitle:(id)title
@@ -2139,18 +2139,18 @@ void __69__PXPhotosBarsController_createBarButtonItemForIdentifier_placement___b
   [v1 handleSearchButton:v1];
 }
 
-id __69__PXPhotosBarsController_createBarButtonItemForIdentifier_placement___block_invoke_3(uint64_t a1)
+id __69__PXPhotosBarsController_createBarButtonItemForIdentifier_placement___block_invoke_3(id *a1)
 {
   v20 = *MEMORY[0x1E69E9840];
-  if (*(a1 + 88))
+  if (a1[11])
   {
-    v2 = *(a1 + 32);
-    v3 = *(a1 + 96);
-    v17.receiver = *(a1 + 40);
+    v2 = a1[4];
+    v3 = a1[12];
+    v17.receiver = a1[5];
     v17.super_class = PXPhotosBarsController;
     v4 = objc_msgSendSuper2(&v17, sel_createBarButtonItemForIdentifier_placement_, v2, v3);
-    [v4 setTarget:*(a1 + 40)];
-    [v4 setAction:*(a1 + 88)];
+    [v4 setTarget:a1[5]];
+    [v4 setAction:a1[11]];
     if (v4)
     {
       goto LABEL_26;
@@ -2159,14 +2159,14 @@ id __69__PXPhotosBarsController_createBarButtonItemForIdentifier_placement___blo
     goto LABEL_23;
   }
 
-  if (*(a1 + 80))
+  if (a1[10])
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 96);
-    v16.receiver = *(a1 + 40);
+    v5 = a1[4];
+    v6 = a1[12];
+    v16.receiver = a1[5];
     v16.super_class = PXPhotosBarsController;
     v4 = objc_msgSendSuper2(&v16, sel_createBarButtonItemForIdentifier_placement_, v5, v6);
-    [v4 _setSecondaryActionsProvider:*(a1 + 80)];
+    [v4 _setSecondaryActionsProvider:a1[10]];
     if (v4)
     {
       goto LABEL_26;
@@ -2175,33 +2175,33 @@ id __69__PXPhotosBarsController_createBarButtonItemForIdentifier_placement___blo
     goto LABEL_23;
   }
 
-  if (*(a1 + 48))
+  if (a1[6])
   {
-    v7 = [*(a1 + 40) viewModel];
+    v7 = [a1[5] viewModel];
     v8 = [v7 selectionManager];
     v9 = [v8 selectionSnapshot];
     v10 = [v9 isAnyItemSelected];
 
-    if ([*(a1 + 56) supportsActionType:*(a1 + 48)])
+    if ([a1[7] supportsActionType:a1[6]])
     {
-      v4 = [*(a1 + 56) barButtonItemForActionType:*(a1 + 48)];
-      if (![*(a1 + 40) _canDisableButtonWithIdentifier:*(a1 + 32)] || v10)
+      v4 = [a1[7] barButtonItemForActionType:a1[6]];
+      if (![a1[5] _canDisableButtonWithIdentifier:a1[4]] || v10)
       {
-        v11 = *(a1 + 56);
+        v11 = a1[7];
 LABEL_20:
-        v12 = [v11 canPerformActionType:*(a1 + 48)];
+        v12 = [v11 canPerformActionType:a1[6]];
         goto LABEL_22;
       }
 
       goto LABEL_21;
     }
 
-    if ([*(a1 + 64) supportsActionType:*(a1 + 48)])
+    if ([a1[8] supportsActionType:a1[6]])
     {
-      v4 = [*(a1 + 64) barButtonItemForActionType:*(a1 + 48)];
-      if (![*(a1 + 40) _canDisableButtonWithIdentifier:*(a1 + 32)] || v10)
+      v4 = [a1[8] barButtonItemForActionType:a1[6]];
+      if (![a1[5] _canDisableButtonWithIdentifier:a1[4]] || v10)
       {
-        v11 = *(a1 + 64);
+        v11 = a1[8];
         goto LABEL_20;
       }
 
@@ -2217,12 +2217,12 @@ LABEL_22:
       goto LABEL_23;
     }
 
-    if ([*(a1 + 72) supportsActionType:*(a1 + 48)])
+    if ([a1[9] supportsActionType:a1[6]])
     {
-      v4 = [*(a1 + 72) barButtonItemForActionType:*(a1 + 48)];
-      if (![*(a1 + 40) _canDisableButtonWithIdentifier:*(a1 + 32)] || v10)
+      v4 = [a1[9] barButtonItemForActionType:a1[6]];
+      if (![a1[5] _canDisableButtonWithIdentifier:a1[4]] || v10)
       {
-        v11 = *(a1 + 72);
+        v11 = a1[9];
         goto LABEL_20;
       }
 
@@ -2234,7 +2234,7 @@ LABEL_23:
   v13 = PLGridZeroGetLog();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    v14 = *(a1 + 32);
+    v14 = a1[4];
     *buf = 138412290;
     v19 = v14;
     _os_log_impl(&dword_1A3C1C000, v13, OS_LOG_TYPE_ERROR, "Couldn't create bar button item for %@", buf, 0xCu);

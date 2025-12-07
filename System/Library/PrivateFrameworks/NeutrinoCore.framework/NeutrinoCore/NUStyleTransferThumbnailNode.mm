@@ -18,7 +18,7 @@
   {
     thumbnailSize = [(NUStyleTransferThumbnailNode *)self thumbnailSize];
     v9 = v8;
-    [v6 extent];
+    objc_msgSend_extent(v6);
     if (thumbnailSize == v11 && v9 == v10)
     {
       image = v6;

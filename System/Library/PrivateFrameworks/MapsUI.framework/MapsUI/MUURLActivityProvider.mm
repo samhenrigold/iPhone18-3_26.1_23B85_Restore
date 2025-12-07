@@ -3,6 +3,7 @@
 - (id)activityViewController:(id)controller itemForActivityType:(id)type;
 - (id)activityViewController:(id)controller subjectForActivityType:(id)type;
 - (id)activityViewController:(id)controller thumbnailForActivityType:(id)type;
+- (id)activityViewController:(id)controller thumbnailImageForActivityType:(id)type suggestedSize:(CGSize)size;
 - (id)activityViewControllerPlaceholderItem:(id)item;
 - (void)registerSocialThumbnailImage:(id)image;
 - (void)registerThumbnailImage:(id)image;
@@ -35,16 +36,28 @@
   return socialThumbnailImageProvider;
 }
 
+- (id)activityViewController:(id)controller thumbnailImageForActivityType:(id)type suggestedSize:(CGSize)size
+{
+  thumbnailImageProvider = self->_thumbnailImageProvider;
+  if (thumbnailImageProvider)
+  {
+    thumbnailImageProvider = (thumbnailImageProvider)[2](thumbnailImageProvider, 0, controller, type, size, *&size.height);
+    v5 = vars8;
+  }
+
+  return thumbnailImageProvider;
+}
+
 - (id)activityViewController:(id)controller subjectForActivityType:(id)type
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   v6 = MUGetMUActivityProvidersLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v13 = 138412290;
-    v14 = typeCopy;
-    _os_log_impl(&dword_1C5620000, v6, OS_LOG_TYPE_INFO, "Fetching subject for activity view controller with activity type %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = typeCopy;
+    _os_log_impl(&dword_1C5620000, v6, OS_LOG_TYPE_INFO, "Fetching subject for activity view controller with activity type %@", &v12, 0xCu);
   }
 
   if ([typeCopy isEqualToString:*MEMORY[0x1E69CDA78]] && self->_airDropJSON)
@@ -52,8 +65,8 @@
     v7 = MUGetMUActivityProvidersLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_1C5620000, v7, OS_LOG_TYPE_INFO, "This is AirDrop and there is AirDrop JSON registered so returning it", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_1C5620000, v7, OS_LOG_TYPE_INFO, "This is AirDrop and there is AirDrop JSON registered so returning it", &v12, 2u);
     }
 
     v8 = [MEMORY[0x1E696ACB0] dataWithJSONObject:self->_airDropJSON options:0 error:0];
@@ -65,14 +78,12 @@
     v10 = MUGetMUActivityProvidersLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_1C5620000, v10, OS_LOG_TYPE_INFO, "Returning subject title", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_1C5620000, v10, OS_LOG_TYPE_INFO, "Returning subject title", &v12, 2u);
     }
 
     v9 = self->_subjectTitle;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -110,33 +121,31 @@ void __63__MUURLActivityProvider_activityViewControllerPlaceholderItem___block_i
 
 - (id)activityViewController:(id)controller itemForActivityType:(id)type
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   typeCopy = type;
   v8 = MUGetMUActivityProvidersLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v18 = typeCopy;
+    v17 = typeCopy;
     _os_log_impl(&dword_1C5620000, v8, OS_LOG_TYPE_INFO, "Fetching URL for activity view controller with activity type %@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   v9 = objc_alloc_init(MEMORY[0x1E696ACA0]);
   identifier = [*MEMORY[0x1E6983030] identifier];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __68__MUURLActivityProvider_activityViewController_itemForActivityType___block_invoke;
-  v14[3] = &unk_1E8218BA0;
-  objc_copyWeak(&v16, buf);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __68__MUURLActivityProvider_activityViewController_itemForActivityType___block_invoke;
+  v13[3] = &unk_1E8218BA0;
+  objc_copyWeak(&v15, buf);
   v11 = typeCopy;
-  v15 = v11;
-  [v9 registerItemForTypeIdentifier:identifier loadHandler:v14];
+  v14 = v11;
+  [v9 registerItemForTypeIdentifier:identifier loadHandler:v13];
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

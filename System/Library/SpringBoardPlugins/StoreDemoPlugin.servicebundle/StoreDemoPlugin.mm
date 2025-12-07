@@ -1,6 +1,6 @@
-void sub_15FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_15FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -88,7 +88,7 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v8 = defaultLogHandle();
+  v8 = defaultLogHandle(type);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     sub_B8EC(v6, v8);
@@ -110,16 +110,17 @@ void sub_1FB0(id a1)
 void sub_23DC(id a1, BOOL a2, NSError *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (!a2)
   {
-    v5 = defaultLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = defaultLogHandle(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315394;
-      v7 = "[MSDAlarmManager disableSleepAlarm]_block_invoke";
-      v8 = 2114;
-      v9 = v4;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "%s - SleepAlarm completion handler returned error : %{public}@", &v6, 0x16u);
+      v7 = 136315394;
+      v8 = "[MSDAlarmManager disableSleepAlarm]_block_invoke";
+      v9 = 2114;
+      v10 = v5;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "%s - SleepAlarm completion handler returned error : %{public}@", &v7, 0x16u);
     }
   }
 }
@@ -172,13 +173,13 @@ void sub_3F28(uint64_t a1)
   v14 = [v13 expirationTimer];
   [v12 addTimer:v14 forMode:NSDefaultRunLoopMode];
 
-  v15 = defaultLogHandle();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = defaultLogHandle(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = [*(a1 + 32) toString];
-    v17 = 138543362;
-    v18 = v16;
-    _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "Store hour settings will expire on %{public}@", &v17, 0xCu);
+    v17 = [*(a1 + 32) toString];
+    v18 = 138543362;
+    v19 = v17;
+    _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "Store hour settings will expire on %{public}@", &v18, 0xCu);
   }
 }
 
@@ -238,16 +239,16 @@ void sub_4548(uint64_t a1)
   [v14 addTimer:v13 forMode:NSDefaultRunLoopMode];
 }
 
-id defaultLogHandle()
+id defaultLogHandle(uint64_t a1)
 {
   if (qword_1E058 != -1)
   {
     sub_C35C();
   }
 
-  v1 = qword_1E050;
+  v2 = qword_1E050;
 
-  return v1;
+  return v2;
 }
 
 void sub_48D0(id a1)
@@ -257,16 +258,16 @@ void sub_48D0(id a1)
   _objc_release_x1();
 }
 
-id screenSaverLogHandle()
+id screenSaverLogHandle(uint64_t a1)
 {
   if (qword_1E068 != -1)
   {
     sub_C370();
   }
 
-  v1 = qword_1E060;
+  v2 = qword_1E060;
 
-  return v1;
+  return v2;
 }
 
 void sub_4958(id a1)
@@ -276,16 +277,16 @@ void sub_4958(id a1)
   _objc_release_x1();
 }
 
-id messageLogHandle()
+id messageLogHandle(uint64_t a1)
 {
   if (qword_1E078 != -1)
   {
     sub_C384();
   }
 
-  v1 = qword_1E070;
+  v2 = qword_1E070;
 
-  return v1;
+  return v2;
 }
 
 void sub_49E0(id a1)
@@ -295,16 +296,16 @@ void sub_49E0(id a1)
   _objc_release_x1();
 }
 
-id signpostLogHandle()
+id signpostLogHandle(uint64_t a1)
 {
   if (qword_1E088 != -1)
   {
     sub_C398();
   }
 
-  v1 = qword_1E080;
+  v2 = qword_1E080;
 
-  return v1;
+  return v2;
 }
 
 void sub_4A68(id a1)
@@ -338,9 +339,9 @@ void sub_4B7C(id a1)
   _objc_release_x1();
 }
 
-void sub_5114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_5114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -394,105 +395,106 @@ void sub_5668(uint64_t a1)
   block[1] = 3221225472;
   block[2] = sub_5AF8;
   block[3] = &unk_187D0;
-  v35 = *(a1 + 32);
+  v40 = *(a1 + 32);
   v4 = v2;
-  v36 = v4;
+  v41 = v4;
   dispatch_async(v3, block);
 
   v5 = dispatch_time(0, 1000000000);
-  if (dispatch_semaphore_wait(v4, v5))
+  v6 = dispatch_semaphore_wait(v4, v5);
+  if (v6)
   {
-    v6 = defaultLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = defaultLogHandle(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "1 second has passed waiting for xpc call to check type of demo device.  Moving on...", buf, 2u);
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "1 second has passed waiting for xpc call to check type of demo device.  Moving on...", buf, 2u);
     }
   }
 
-  v7 = +[MSDKManagedDevice sharedInstance];
-  v8 = [v7 isScreenDarkHoursEnabled];
+  v8 = +[MSDKManagedDevice sharedInstance];
+  v9 = [v8 isScreenDarkHoursEnabled];
 
-  if (v8)
+  if (v9)
   {
-    v9 = screenSaverLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Will turn off display at night due to screen dark hours override.", buf, 2u);
-    }
-  }
-
-  [*(a1 + 32) setTurnOffDisplayAtNight:v8];
-  v10 = MGCopyAnswer();
-  v29 = v10;
-  if (v10 && [v10 BOOLValue])
-  {
-    v11 = screenSaverLogHandle();
+    v11 = screenSaverLogHandle(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Will turn off always-on time at night for Andromeda device.", buf, 2u);
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Will turn off display at night due to screen dark hours override.", buf, 2u);
+    }
+  }
+
+  [*(a1 + 32) setTurnOffDisplayAtNight:v9];
+  v12 = MGCopyAnswer();
+  v34 = v12;
+  if (v12 && (v13 = [v12 BOOLValue], v13))
+  {
+    v14 = screenSaverLogHandle(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Will turn off always-on time at night for Andromeda device.", buf, 2u);
     }
 
-    v12 = 1;
+    v15 = 1;
   }
 
   else
   {
-    v12 = 0;
+    v15 = 0;
   }
 
-  [*(a1 + 32) setTurnOffAlwaysOnTimeAtNight:v12];
-  v13 = [NSArray arrayWithObjects:@"com.apple.ist.demoloop", @"com.retailtech.arkenstone", @"com.apple.ist.DemoDiscoveryApp", @"com.apple.ist.windward", @"com.apple.ist.DigitalSignage.iOS", 0];
-  v14 = +[LSApplicationWorkspace defaultWorkspace];
-  [v14 addObserver:*(a1 + 32)];
+  [*(a1 + 32) setTurnOffAlwaysOnTimeAtNight:v15];
+  v16 = [NSArray arrayWithObjects:@"com.apple.ist.demoloop", @"com.retailtech.arkenstone", @"com.apple.ist.DemoDiscoveryApp", @"com.apple.ist.windward", @"com.apple.ist.DigitalSignage.iOS", 0];
+  v17 = +[LSApplicationWorkspace defaultWorkspace];
+  [v17 addObserver:*(a1 + 32)];
 
-  v15 = screenSaverLogHandle();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v19 = screenSaverLogHandle(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "Observer for LSApplicationWorkSpace registered.", buf, 2u);
+    _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "Observer for LSApplicationWorkSpace registered.", buf, 2u);
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v16 = v13;
-  v17 = [v16 countByEnumeratingWithState:&v30 objects:v39 count:16];
-  if (v17)
+  v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v20 = v16;
+  v21 = [v20 countByEnumeratingWithState:&v35 objects:v44 count:16];
+  if (v21)
   {
-    v18 = v17;
-    v19 = *v31;
+    v22 = v21;
+    v23 = *v36;
     while (2)
     {
-      for (i = 0; i != v18; i = i + 1)
+      for (i = 0; i != v22; i = i + 1)
       {
-        if (*v31 != v19)
+        if (*v36 != v23)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v20);
         }
 
-        v21 = *(*(&v30 + 1) + 8 * i);
-        v22 = [LSApplicationProxy applicationProxyForIdentifier:v21 placeholder:0];
-        v23 = v22;
-        if (v22)
+        v25 = *(*(&v35 + 1) + 8 * i);
+        v26 = [LSApplicationProxy applicationProxyForIdentifier:v25 placeholder:0];
+        v27 = v26;
+        if (v26)
         {
-          v24 = [v22 appState];
-          v25 = [v24 isInstalled];
+          v28 = [v26 appState];
+          v29 = [v28 isInstalled];
 
-          if (v25)
+          if (v29)
           {
-            [*(a1 + 32) setScreenSaverAppID:v21];
+            [*(a1 + 32) setScreenSaverAppID:v25];
 
             goto LABEL_28;
           }
         }
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v30 objects:v39 count:16];
-      if (v18)
+      v22 = [v20 countByEnumeratingWithState:&v35 objects:v44 count:16];
+      if (v22)
       {
         continue;
       }
@@ -503,18 +505,18 @@ void sub_5668(uint64_t a1)
 
 LABEL_28:
 
-  v26 = screenSaverLogHandle();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v31 = screenSaverLogHandle(v30);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = [*(a1 + 32) screenSaverAppID];
+    v32 = [*(a1 + 32) screenSaverAppID];
     *buf = 138543362;
-    v38 = v27;
-    _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "Screen saver app is %{public}@", buf, 0xCu);
+    v43 = v32;
+    _os_log_impl(&dword_0, v31, OS_LOG_TYPE_DEFAULT, "Screen saver app is %{public}@", buf, 0xCu);
   }
 
-  v28 = [*(a1 + 32) screenSaverAppID];
+  v33 = [*(a1 + 32) screenSaverAppID];
 
-  if (v28)
+  if (v33)
   {
     [*(a1 + 32) setupIdleTimerHandler];
   }
@@ -553,90 +555,90 @@ void sub_5F54(uint64_t a1, void *a2)
 
 id sub_6368(uint64_t a1)
 {
-  v2 = screenSaverLogHandle();
+  v2 = screenSaverLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) displayBacklightLevel];
     *buf = 134217984;
-    v23 = v3;
+    v25 = v3;
     _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Received display layout update; backlight level: %ld", buf, 0xCu);
   }
 
   v4 = [*(a1 + 40) backlightLevel];
-  if (v4 != [*(a1 + 32) displayBacklightLevel])
+  v5 = [*(a1 + 32) displayBacklightLevel];
+  if (v4 != v5)
   {
-    v5 = screenSaverLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = screenSaverLogHandle(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [*(a1 + 40) backlightLevel];
-      v7 = [*(a1 + 32) displayBacklightLevel];
+      v7 = [*(a1 + 40) backlightLevel];
+      v8 = [*(a1 + 32) displayBacklightLevel];
       *buf = 134218240;
-      v23 = v6;
-      v24 = 2048;
       v25 = v7;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Backlight changed from %td to %td.", buf, 0x16u);
+      v26 = 2048;
+      v27 = v8;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Backlight changed from %td to %td.", buf, 0x16u);
     }
   }
 
-  [*(a1 + 40) setIsStandbyMode:{objc_msgSend(*(a1 + 40), "isInStandbyMode:", *(a1 + 32))}];
-  v8 = screenSaverLogHandle();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = screenSaverLogHandle([*(a1 + 40) setIsStandbyMode:{objc_msgSend(*(a1 + 40), "isInStandbyMode:", *(a1 + 32))}]);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = [*(a1 + 40) isStandbyMode];
+    v10 = [*(a1 + 40) isStandbyMode];
     *buf = 67109120;
-    LODWORD(v23) = v9;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Device is in Standby Mode: %d", buf, 8u);
+    LODWORD(v25) = v10;
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Device is in Standby Mode: %d", buf, 8u);
   }
 
   if ([*(a1 + 40) backlightLevel] != -1 && objc_msgSend(*(a1 + 40), "backlightLevel") || objc_msgSend(*(a1 + 32), "displayBacklightLevel") < 1)
   {
     if ([*(a1 + 40) backlightLevel] >= 1 && !objc_msgSend(*(a1 + 32), "displayBacklightLevel"))
     {
-      v12 = [*(a1 + 40) storeHoursManager];
-      [v12 evaluateStoreStatusAgainstCurrentTime];
-
       v13 = [*(a1 + 40) storeHoursManager];
-      v14 = [v13 isStoreOpenNow];
+      [v13 evaluateStoreStatusAgainstCurrentTime];
 
-      if (v14)
+      v14 = [*(a1 + 40) storeHoursManager];
+      v15 = [v14 isStoreOpenNow];
+
+      if (v15)
       {
-        v15 = dispatch_time(0, 120000000000);
-        v16 = [*(a1 + 40) workQueue];
+        v16 = dispatch_time(0, 120000000000);
+        v17 = [*(a1 + 40) workQueue];
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = sub_66E4;
         block[3] = &unk_185D0;
         block[4] = *(a1 + 40);
-        dispatch_after(v15, v16, block);
+        dispatch_after(v16, v17, block);
       }
     }
   }
 
   else
   {
-    v10 = [*(a1 + 40) justBootUp];
-    v11 = *(a1 + 40);
-    if (v10)
+    v11 = [*(a1 + 40) justBootUp];
+    v12 = *(a1 + 40);
+    if (v11)
     {
-      [v11 setJustBootUp:0];
+      [v12 setJustBootUp:0];
       [*(a1 + 40) handleSpringBoardLaunch];
     }
 
-    else if (([v11 screenSaverRunning] & 1) == 0)
+    else if (([v12 screenSaverRunning] & 1) == 0)
     {
-      v17 = [*(a1 + 40) timer];
+      v18 = [*(a1 + 40) timer];
 
-      if (v17)
+      if (v18)
       {
-        v18 = screenSaverLogHandle();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v20 = screenSaverLogHandle(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Timer will be canceled because screen lights up.", buf, 2u);
+          _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "Timer will be canceled because screen lights up.", buf, 2u);
         }
 
-        v19 = [*(a1 + 40) timer];
-        [v19 invalidate];
+        v21 = [*(a1 + 40) timer];
+        [v21 invalidate];
 
         [*(a1 + 40) setTimer:0];
       }
@@ -648,25 +650,25 @@ id sub_6368(uint64_t a1)
 
 void sub_66E4(uint64_t a1)
 {
-  v2 = screenSaverLogHandle();
+  v2 = screenSaverLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) backlightLevel];
     v4 = [*(a1 + 32) isStandbyMode];
-    v6 = 134218240;
-    v7 = v3;
-    v8 = 1024;
-    v9 = v4;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Checking device state before screen saver launch; backlight level = %ld; Stanby Mode = %{BOOL}d", &v6, 0x12u);
+    v7 = 134218240;
+    v8 = v3;
+    v9 = 1024;
+    v10 = v4;
+    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Checking device state before screen saver launch; backlight level = %ld; Stanby Mode = %{BOOL}d", &v7, 0x12u);
   }
 
-  if ([*(a1 + 32) backlightLevel] && !objc_msgSend(*(a1 + 32), "isStandbyMode"))
+  if ([*(a1 + 32) backlightLevel] && (v5 = objc_msgSend(*(a1 + 32), "isStandbyMode"), !v5))
   {
-    v5 = screenSaverLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = screenSaverLogHandle(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v6) = 0;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Skip screen saver launch", &v6, 2u);
+      LOWORD(v7) = 0;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Skip screen saver launch", &v7, 2u);
     }
   }
 
@@ -695,7 +697,7 @@ void sub_6EA0(uint64_t a1)
   v5 = [v4 endowmentNamespaces];
 
   v6 = [v5 containsObject:@"com.apple.frontboard.visibility"];
-  v7 = screenSaverLogHandle();
+  v7 = screenSaverLogHandle(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [*(a1 + 40) applicationStateString:v3 withVisibility:v6];
@@ -730,57 +732,58 @@ LABEL_10:
 
 void sub_70B8(uint64_t a1)
 {
-  v2 = screenSaverLogHandle();
+  v2 = screenSaverLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) name];
-    v12 = 136315394;
-    *v13 = "[MSDScreenSaverManager handleStoreHourSettingsChanged:]_block_invoke";
-    *&v13[8] = 2114;
-    v14 = v3;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "%s: Triggered by NSNotification - %{public}@", &v12, 0x16u);
+    v14 = 136315394;
+    *v15 = "[MSDScreenSaverManager handleStoreHourSettingsChanged:]_block_invoke";
+    *&v15[8] = 2114;
+    v16 = v3;
+    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "%s: Triggered by NSNotification - %{public}@", &v14, 0x16u);
   }
 
   v4 = [*(a1 + 40) loadScreenSaverConfig];
   v5 = +[MSDKManagedDevice sharedInstance];
   v6 = [v5 isScreenDarkHoursEnabled];
 
-  v7 = v6 ^ [*(a1 + 40) turnOffDisplayAtNight];
-  if (v7 == 1)
+  v7 = [*(a1 + 40) turnOffDisplayAtNight];
+  v8 = v6 ^ v7;
+  if ((v6 ^ v7) == 1)
   {
-    [*(a1 + 40) setTurnOffDisplayAtNight:v6];
+    v7 = [*(a1 + 40) setTurnOffDisplayAtNight:v6];
   }
 
-  v8 = screenSaverLogHandle();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = screenSaverLogHandle(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 67109376;
-    *v13 = v4;
-    *&v13[4] = 1024;
-    *&v13[6] = v7;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Screen saver config changed: %{BOOL}d, Feature flag changed: %{BOOL}d", &v12, 0xEu);
+    v14 = 67109376;
+    *v15 = v4;
+    *&v15[4] = 1024;
+    *&v15[6] = v8;
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Screen saver config changed: %{BOOL}d, Feature flag changed: %{BOOL}d", &v14, 0xEu);
   }
 
-  if ((v7 | v4))
+  if ((v8 | v4))
   {
     if (SBSGetScreenLockStatus())
     {
-      v9 = +[MSDStoreHoursManager sharedInstance];
-      if ([v9 isStoreOpenNow])
+      v10 = +[MSDStoreHoursManager sharedInstance];
+      if ([v10 isStoreOpenNow])
       {
       }
 
       else
       {
-        v10 = [*(a1 + 40) turnOffDisplayAtNight];
+        v11 = [*(a1 + 40) turnOffDisplayAtNight];
 
-        if (v10)
+        if (v11)
         {
-          v11 = screenSaverLogHandle();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v13 = screenSaverLogHandle(v12);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v12) = 0;
-            _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Skip launching SpringBoard since store is closed.", &v12, 2u);
+            LOWORD(v14) = 0;
+            _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Skip launching SpringBoard since store is closed.", &v14, 2u);
           }
 
           [*(a1 + 40) stopScreenSaver];
@@ -801,15 +804,16 @@ LABEL_16:
 void sub_76BC(id a1, BSProcessHandle *a2, NSError *a3)
 {
   v3 = a3;
+  v4 = v3;
   if (v3)
   {
-    v4 = screenSaverLogHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = screenSaverLogHandle(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [(NSError *)v3 localizedDescription];
-      v6 = 138543362;
-      v7 = v5;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "StoreDemo plugin: failed to launch SpringBoard - %{public}@", &v6, 0xCu);
+      v6 = [(NSError *)v4 localizedDescription];
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "StoreDemo plugin: failed to launch SpringBoard - %{public}@", &v7, 0xCu);
     }
   }
 }
@@ -817,15 +821,16 @@ void sub_76BC(id a1, BSProcessHandle *a2, NSError *a3)
 void sub_7AB0(id a1, BSProcessHandle *a2, NSError *a3)
 {
   v3 = a3;
+  v4 = v3;
   if (v3)
   {
-    v4 = screenSaverLogHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = screenSaverLogHandle(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [(NSError *)v3 localizedDescription];
-      v6 = 138543362;
-      v7 = v5;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "StoreDemo plugin: failed to launch app - %{public}@", &v6, 0xCu);
+      v6 = [(NSError *)v4 localizedDescription];
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "StoreDemo plugin: failed to launch app - %{public}@", &v7, 0xCu);
     }
 
     dispatch_async(&_dispatch_main_q, &stru_188A0);
@@ -877,7 +882,7 @@ void sub_8118(uint64_t a1)
 
 void sub_84FC(id a1)
 {
-  v1 = screenSaverLogHandle();
+  v1 = screenSaverLogHandle(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -895,9 +900,9 @@ void sub_968C(id a1)
   _objc_release_x1();
 }
 
-void sub_A744(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_A744(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -984,7 +989,7 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v7 = defaultLogHandle();
+  v7 = defaultLogHandle(type);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     sub_C600(a2, v7);
@@ -996,9 +1001,9 @@ LABEL_23:
   return v8;
 }
 
-void sub_AB28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_AB28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1044,7 +1049,7 @@ LABEL_5:
       {
         v20 = *(a1 + 32);
         [v10 doubleValue];
-        v21 = xpc_double_create(v23);
+        v21 = xpc_double_create(v24);
       }
 
       else
@@ -1055,7 +1060,7 @@ LABEL_5:
           v18 = [v10 objCType];
           if (*v18 != 99 || v18[1])
           {
-            v19 = defaultLogHandle();
+            v19 = defaultLogHandle(v18);
             if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
               sub_C6BC(v10, v19);
@@ -1072,7 +1077,7 @@ LABEL_5:
       }
     }
 
-    v25 = v21;
+    v26 = v21;
     xpc_array_append_value(v20, v21);
 
 LABEL_40:
@@ -1096,23 +1101,46 @@ LABEL_40:
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     v7 = *(a1 + 32);
     [v6 timeIntervalSince1970];
-    v8 = xpc_date_create(v22);
+    v8 = xpc_date_create(v23);
     goto LABEL_5;
   }
 
-  v24 = defaultLogHandle();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+  v25 = defaultLogHandle(isKindOfClass);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
-    sub_C678(v24);
+    sub_C678(v25);
   }
 
   *a4 = 1;
   *(*(*(a1 + 40) + 8) + 24) = 0;
 LABEL_6:
+}
+
+void sub_B34C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, __int128 a10)
+{
+  if (a2 == 1)
+  {
+    v10 = objc_begin_catch(exception_object);
+    v11 = defaultLogHandle(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = [v10 reason];
+      a9 = 138412546;
+      WORD2(a10) = 2112;
+      *(&a10 + 6) = v12;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Property list serialization failed for object: %@, error: %@", &a9, 0x16u);
+    }
+
+    objc_end_catch();
+    JUMPOUT(0xB2A4);
+  }
+
+  _Unwind_Resume(exception_object);
 }
 
 void sub_B86C(uint64_t a1, NSObject *a2)
@@ -1130,11 +1158,11 @@ void sub_B8EC(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&dword_0, a2, OS_LOG_TYPE_ERROR, "The value for key %{public}@ has a type that is not supported yet", &v2, 0xCu);
 }
 
-void sub_B964()
+void sub_B964(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
   sub_1F28();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void sub_BA08(void *a1)
@@ -1146,7 +1174,7 @@ void sub_BA08(void *a1)
 
 void sub_BA90(uint64_t a1, void *a2)
 {
-  v4 = defaultLogHandle();
+  v4 = defaultLogHandle(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5[0] = 136315394;
@@ -1158,7 +1186,7 @@ void sub_BA90(uint64_t a1, void *a2)
 
 void sub_BB54(void *a1)
 {
-  v2 = defaultLogHandle();
+  v2 = defaultLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = [a1 localizedDescription];
@@ -1187,7 +1215,7 @@ void sub_BCA0()
 
 void sub_BD24(void *a1)
 {
-  v2 = defaultLogHandle();
+  v2 = defaultLogHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = [a1 localizedDescription];
@@ -1214,7 +1242,7 @@ void sub_BEC4(os_log_t log)
 
 void sub_BF48(void *a1, NSObject **a2)
 {
-  v4 = defaultLogHandle();
+  v4 = defaultLogHandle(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = [a1 localizedDescription];
@@ -1258,7 +1286,7 @@ void sub_C22C()
 
 void sub_C29C(uint64_t a1, void *a2, void *a3)
 {
-  v6 = defaultLogHandle();
+  v6 = defaultLogHandle(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = 138543362;

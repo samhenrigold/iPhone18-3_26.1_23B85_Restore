@@ -58,15 +58,13 @@
 
 - (void)_ensureColumnMappingExists
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   if (!self->_tableColumnNamesFromSchema)
   {
-    v3 = a2;
+    v2 = a2;
     self->_stmtReprepareCounter = sqlite3_stmt_status(self->_stmt, 5, 0);
     operator new();
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (int)indexForColumnAlias:(const char *)alias
@@ -91,7 +89,7 @@
 
 - (int)indexForColumnName:(const char *)name table:(const char *)uniqueTableName
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (!name || !*name)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -117,15 +115,15 @@
   v11 = v8 + v9;
   v12 = v8 + v9 + 2;
   memptr = 0;
-  v25 = 0;
+  v24 = 0;
   if (v12 > 0x200)
   {
-    v19 = malloc_type_posix_memalign(&memptr, 8uLL, v12, 0x6EDBD4ADuLL);
-    LOBYTE(v25) = 0;
-    if (v19)
+    v18 = malloc_type_posix_memalign(&memptr, 8uLL, v12, 0x6EDBD4ADuLL);
+    LOBYTE(v24) = 0;
+    if (v18)
     {
-      v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA18] reason:@"malloc failed" userInfo:0];
-      objc_exception_throw(v22);
+      v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA18] reason:@"malloc failed" userInfo:0];
+      objc_exception_throw(v21);
     }
 
     v13 = memptr;
@@ -133,13 +131,13 @@
 
   else
   {
-    v13 = &v23 - ((v8 + v9 + 17) & 0xFFFFFFFFFFFFFFF0);
+    v13 = &v22 - ((v8 + v9 + 17) & 0xFFFFFFFFFFFFFFF0);
     bzero(v13, v12);
     memptr = v13;
-    LOBYTE(v25) = 1;
+    LOBYTE(v24) = 1;
   }
 
-  v14 = v25;
+  v14 = v24;
   memcpy(v13, name, v8);
   v13[v8] = 46;
   memcpy(&v13[v8 + 1], uniqueTableName, v10);
@@ -152,12 +150,12 @@
 
     if (v14)
     {
-      goto LABEL_10;
+      return StringWithSize;
     }
 
 LABEL_15:
     free(v13);
-    goto LABEL_10;
+    return StringWithSize;
   }
 
   if ((v14 & 1) == 0)
@@ -165,8 +163,6 @@ LABEL_15:
     goto LABEL_15;
   }
 
-LABEL_10:
-  v16 = *MEMORY[0x1E69E9840];
   return StringWithSize;
 }
 

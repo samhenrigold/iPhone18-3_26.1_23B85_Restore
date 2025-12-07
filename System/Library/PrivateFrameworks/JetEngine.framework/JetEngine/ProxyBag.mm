@@ -15,10 +15,10 @@
 
 - (NSDate)expirationDate
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB4395E0);
-  v4 = MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v4);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB4395E0, qword_1AB4DB790);
+  MEMORY[0x1EEE9AC00](v3 - 8);
+  v5 = &v19 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
   v8 = &v19 - v7;
   v9 = *(&self->super.isa + OBJC_IVAR____TtC9JetEngine8ProxyBag_bag);
   selfCopy = self;
@@ -29,16 +29,16 @@
     sub_1AB45F984();
 
     v13 = sub_1AB45F9B4();
-    (*(*(v13 - 8) + 56))(v6, 0, 1, v13);
+    (*(*(v13 - 8) + 56))(v5, 0, 1, v13);
   }
 
   else
   {
     v13 = sub_1AB45F9B4();
-    (*(*(v13 - 8) + 56))(v6, 1, 1, v13);
+    (*(*(v13 - 8) + 56))(v5, 1, 1, v13);
   }
 
-  sub_1AB167244(v6, v8);
+  sub_1AB167244(v5, v8);
 
   sub_1AB45F9B4();
   v14 = *(v13 - 8);

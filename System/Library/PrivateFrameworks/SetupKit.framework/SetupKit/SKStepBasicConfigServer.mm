@@ -25,28 +25,28 @@
   handlerCopy = handler;
   if (gLogCategory_SKStepBasicConfigServer <= 30 && (gLogCategory_SKStepBasicConfigServer != -1 || _LogCategory_Initialize()))
   {
-    v12 = CUPrintNSObjectOneLine();
-    LogPrintF_safe();
+    v7 = CUPrintNSObjectOneLine();
+    LogPrintF_safe(&gLogCategory_SKStepBasicConfigServer, "[SKStepBasicConfigServer _handleRequestBasicConfig:responseHandler:]", 30, "BasicConfig: received %@", v7);
   }
 
-  [(SKStepBasicConfigServer *)self setOutClientConfig:configCopy, v12];
-  v7 = [[SKEventBasicConfigUpdated alloc] initWithBasicConfig:configCopy];
+  [(SKStepBasicConfigServer *)self setOutClientConfig:configCopy];
+  v8 = [[SKEventBasicConfigUpdated alloc] initWithBasicConfig:configCopy];
   WeakRetained = objc_loadWeakRetained(&self->_skSetupObject);
-  [WeakRetained _reportEvent:v7];
+  [WeakRetained _reportEvent:v8];
 
   serverConfig = [(SKStepBasicConfigServer *)self serverConfig];
-  v10 = serverConfig;
+  v11 = serverConfig;
   if (serverConfig)
   {
-    v11 = serverConfig;
+    v12 = serverConfig;
   }
 
   else
   {
-    v11 = MEMORY[0x277CBEC10];
+    v12 = MEMORY[0x277CBEC10];
   }
 
-  (*(handlerCopy + 2))(handlerCopy, v11, 0, 0, &__block_literal_global_16_2468);
+  (*(handlerCopy + 2))(handlerCopy, v12, 0, 0, &__block_literal_global_16_2468);
 }
 
 - (void)_completeWithError:(id)error
@@ -56,30 +56,30 @@
   {
     if (gLogCategory_SKStepBasicConfigServer <= 90 && (gLogCategory_SKStepBasicConfigServer != -1 || _LogCategory_Initialize()))
     {
-      v8 = CUPrintNSError();
-      LogPrintF_safe();
+      v5 = CUPrintNSError();
+      LogPrintF_safe(&gLogCategory_SKStepBasicConfigServer, "[SKStepBasicConfigServer _completeWithError:]", 90, "### Failed: %@", v5);
     }
   }
 
   else if (gLogCategory_SKStepBasicConfigServer <= 30 && (gLogCategory_SKStepBasicConfigServer != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_SKStepBasicConfigServer, "[SKStepBasicConfigServer _completeWithError:]", 30, "Succeeded");
   }
 
-  v5 = MEMORY[0x26676A4C0](self->_responseHandler);
+  v6 = MEMORY[0x26676A4C0](self->_responseHandler);
   responseHandler = self->_responseHandler;
   self->_responseHandler = 0;
 
-  if (v5)
+  if (v6)
   {
     if (errorCopy)
     {
-      v7 = 0;
+      v8 = 0;
     }
 
     else
     {
-      v7 = MEMORY[0x277CBEC10];
+      v8 = MEMORY[0x277CBEC10];
     }
 
     v9[0] = MEMORY[0x277D85DD0];
@@ -88,7 +88,7 @@
     v9[3] = &unk_279BB8838;
     v9[4] = self;
     v10 = errorCopy;
-    (v5)[2](v5, v7, 0, v10, v9);
+    (v6)[2](v6, v8, 0, v10, v9);
   }
 }
 
@@ -116,21 +116,20 @@ void __46__SKStepBasicConfigServer__completeWithError___block_invoke(uint64_t a1
 {
   if (self->_invalidateCalled && !self->_invalidateDone)
   {
-    v6 = MEMORY[0x26676A4C0](self->_skCompletionHandler, a2);
+    v5 = MEMORY[0x26676A4C0](self->_skCompletionHandler, a2);
     skCompletionHandler = self->_skCompletionHandler;
     self->_skCompletionHandler = 0;
 
-    if (v6)
+    if (v5)
     {
-      v4 = *MEMORY[0x277CCA590];
-      v5 = NSErrorF_safe();
-      v6[2](v6, v5);
+      v4 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294896148, "Invalidated");
+      v5[2](v5, v4);
     }
 
     self->_invalidateDone = 1;
     if (gLogCategory_SKStepBasicConfigServer <= 30 && (gLogCategory_SKStepBasicConfigServer != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory_SKStepBasicConfigServer, "[SKStepBasicConfigServer _invalidated]", 30, "Invalidated");
     }
   }
 }
@@ -154,19 +153,18 @@ void __37__SKStepBasicConfigServer_invalidate__block_invoke(uint64_t a1)
     *(v2 + 8) = 1;
     if (gLogCategory_SKStepBasicConfigServer <= 30 && (gLogCategory_SKStepBasicConfigServer != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory_SKStepBasicConfigServer, "[SKStepBasicConfigServer invalidate]_block_invoke", 30, "Invalidating");
     }
 
-    v8 = MEMORY[0x26676A4C0](*(*(a1 + 32) + 16));
+    v7 = MEMORY[0x26676A4C0](*(*(a1 + 32) + 16));
     v4 = *(a1 + 32);
     v5 = *(v4 + 16);
     *(v4 + 16) = 0;
 
-    if (v8)
+    if (v7)
     {
-      v6 = *MEMORY[0x277CCA590];
-      v7 = NSErrorF_safe();
-      (*(v8 + 2))(v8, 0, 0, v7, &__block_literal_global_2476);
+      v6 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294896148, "Setup Invalidated");
+      (*(v7 + 2))(v7, 0, 0, v6, &__block_literal_global_2476);
     }
 
     [*(*(a1 + 32) + 40) deregisterRequestID:@"_bsCf" completionHandler:&__block_literal_global_10];
@@ -179,27 +177,26 @@ void __37__SKStepBasicConfigServer_invalidate__block_invoke(uint64_t a1)
   skMessaging = self->_skMessaging;
   if (skMessaging)
   {
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __36__SKStepBasicConfigServer__activate__block_invoke;
-    v8[3] = &unk_279BB8810;
-    v8[4] = skMessaging;
-    v8[5] = self;
     v7[0] = MEMORY[0x277D85DD0];
     v7[1] = 3221225472;
-    v7[2] = __36__SKStepBasicConfigServer__activate__block_invoke_2;
-    v7[3] = &unk_279BB8838;
+    v7[2] = __36__SKStepBasicConfigServer__activate__block_invoke;
+    v7[3] = &unk_279BB8810;
     v7[4] = skMessaging;
     v7[5] = self;
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __36__SKStepBasicConfigServer__activate__block_invoke_2;
+    v6[3] = &unk_279BB8838;
+    v6[4] = skMessaging;
+    v6[5] = self;
     v4 = skMessaging;
-    [(CUMessaging *)v4 registerRequestID:@"_bsCf" options:0 requestHandler:v8 completionHandler:v7];
+    [(CUMessaging *)v4 registerRequestID:@"_bsCf" options:0 requestHandler:v7 completionHandler:v6];
   }
 
   else
   {
-    v5 = *MEMORY[0x277CCA590];
-    v6 = NSErrorF_safe();
-    [(SKStepBasicConfigServer *)self _completeWithError:v6];
+    v5 = NSErrorF_safe(*MEMORY[0x277CCA590], 4294960591, "No messaging");
+    [(SKStepBasicConfigServer *)self _completeWithError:v5];
   }
 }
 
@@ -245,7 +242,7 @@ uint64_t __35__SKStepBasicConfigServer_activate__block_invoke(uint64_t a1)
 {
   if (gLogCategory_SKStepBasicConfigServer <= 30 && (gLogCategory_SKStepBasicConfigServer != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_SKStepBasicConfigServer, "[SKStepBasicConfigServer activate]_block_invoke", 30, "Activate");
   }
 
   v2 = *(a1 + 32);
@@ -255,10 +252,10 @@ uint64_t __35__SKStepBasicConfigServer_activate__block_invoke(uint64_t a1)
 
 - (NSString)description
 {
-  v4 = [objc_opt_class() description];
-  v2 = NSPrintF();
+  v2 = [objc_opt_class() description];
+  v3 = NSPrintF("%@", v2);
 
-  return v2;
+  return v3;
 }
 
 - (SKStepBasicConfigServer)init

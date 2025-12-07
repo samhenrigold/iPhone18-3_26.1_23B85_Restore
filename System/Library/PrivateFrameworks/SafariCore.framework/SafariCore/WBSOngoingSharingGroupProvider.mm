@@ -98,12 +98,11 @@ void __48__WBSOngoingSharingGroupProvider_sharedProvider__block_invoke(uint64_t 
 
 void __38__WBSOngoingSharingGroupProvider_init__block_invoke_cold_1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_2(&dword_1B8447000, v5, v6, "Failed to provision for password sharing with error: %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_2(&dword_1B8447000, v5, v6, "Failed to provision for password sharing with error: %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)_notifySubscribers
@@ -144,12 +143,13 @@ void __38__WBSOngoingSharingGroupProvider_init__block_invoke_cold_1(void *a1, vo
 void __38__WBSOngoingSharingGroupProvider_init__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXPasswords(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __38__WBSOngoingSharingGroupProvider_init__block_invoke_cold_1(v3, v2);
+      __38__WBSOngoingSharingGroupProvider_init__block_invoke_cold_1(v5, v4);
     }
   }
 }
@@ -194,38 +194,36 @@ void __51__WBSOngoingSharingGroupProvider_cachedInvitations__block_invoke(uint64
 
 void __52__WBSOngoingSharingGroupProvider__notifySubscribers__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) groupProviderReceivedUpdates:{*(a1 + 40), v8}];
+        [*(*(&v7 + 1) + 8 * v6++) groupProviderReceivedUpdates:{*(a1 + 40), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasLoadedGroups
@@ -493,35 +491,35 @@ void __58__WBSOngoingSharingGroupProvider_currentUserParticipantID__block_invoke
 {
   completionCopy = completion;
   v5 = objc_alloc_init(WBSScopeExitHandler);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __79__WBSOngoingSharingGroupProvider__fetchCurrentUserParticipantIDWithCompletion___block_invoke;
-  v15[3] = &unk_1E7CF1630;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __79__WBSOngoingSharingGroupProvider__fetchCurrentUserParticipantIDWithCompletion___block_invoke;
+  v17[3] = &unk_1E7CF1630;
   v6 = completionCopy;
-  v16 = v6;
-  [(WBSScopeExitHandler *)v5 setHandler:v15];
+  v18 = v6;
+  [(WBSScopeExitHandler *)v5 setHandler:v17];
   mEMORY[0x1E697AA68] = [MEMORY[0x1E697AA68] sharedInstance];
   v8 = objc_opt_respondsToSelector();
 
   if (v8)
   {
     mEMORY[0x1E697AA68]2 = [MEMORY[0x1E697AA68] sharedInstance];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __79__WBSOngoingSharingGroupProvider__fetchCurrentUserParticipantIDWithCompletion___block_invoke_25;
-    v11[3] = &unk_1E7CF2DC0;
-    v12 = v5;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __79__WBSOngoingSharingGroupProvider__fetchCurrentUserParticipantIDWithCompletion___block_invoke_25;
+    v13[3] = &unk_1E7CF2DC0;
+    v14 = v5;
     selfCopy = self;
-    [mEMORY[0x1E697AA68]2 fetchCurrentUserIdentifierWithReply:v11];
+    [mEMORY[0x1E697AA68]2 fetchCurrentUserIdentifierWithReply:v13];
   }
 
   else
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = WBS_LOG_CHANNEL_PREFIXPasswords(v9, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B8447000, v10, OS_LOG_TYPE_DEFAULT, "Not fetching current user participant ID because [KCSharingGroupManager fetchCurrentUserIdentifierWithReply:] is not available.", buf, 2u);
+      _os_log_impl(&dword_1B8447000, v12, OS_LOG_TYPE_DEFAULT, "Not fetching current user participant ID because [KCSharingGroupManager fetchCurrentUserIdentifierWithReply:] is not available.", buf, 2u);
     }
   }
 }
@@ -541,25 +539,26 @@ void __79__WBSOngoingSharingGroupProvider__fetchCurrentUserParticipantIDWithComp
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXPasswords(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __79__WBSOngoingSharingGroupProvider__fetchCurrentUserParticipantIDWithCompletion___block_invoke_25_cold_1(v7, v6);
+      __79__WBSOngoingSharingGroupProvider__fetchCurrentUserParticipantIDWithCompletion___block_invoke_25_cold_1(v9, v8);
     }
   }
 
-  v8 = *(a1 + 40);
-  v9 = *(v8 + 8);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __79__WBSOngoingSharingGroupProvider__fetchCurrentUserParticipantIDWithCompletion___block_invoke_26;
-  v11[3] = &unk_1E7CF1708;
-  v11[4] = v8;
+  v10 = *(a1 + 40);
+  v11 = *(v10 + 8);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __79__WBSOngoingSharingGroupProvider__fetchCurrentUserParticipantIDWithCompletion___block_invoke_26;
+  v13[3] = &unk_1E7CF1708;
+  v13[4] = v10;
+  v14 = v5;
   v12 = v5;
-  v10 = v5;
-  dispatch_sync(v9, v11);
+  dispatch_sync(v11, v13);
 }
 
 void __79__WBSOngoingSharingGroupProvider__fetchCurrentUserParticipantIDWithCompletion___block_invoke_26(uint64_t a1)
@@ -595,69 +594,70 @@ void __61__WBSOngoingSharingGroupProvider__fetchGroupsWithCompletion___block_inv
   if (WeakRetained)
   {
     v3 = +[WBSFeatureAvailability isOngoingCredentialSharingEnabled];
-    v4 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-    if (v3)
+    v4 = v3;
+    v6 = WBS_LOG_CHANNEL_PREFIXPasswords(v3, v5);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    if (v4)
     {
-      if (v5)
+      if (v7)
       {
         *buf = 0;
-        _os_log_impl(&dword_1B8447000, v4, OS_LOG_TYPE_DEFAULT, "Fetching shared account groups", buf, 2u);
+        _os_log_impl(&dword_1B8447000, v6, OS_LOG_TYPE_DEFAULT, "Fetching shared account groups", buf, 2u);
       }
 
-      v6 = [MEMORY[0x1E697AA68] sharedInstance];
-      v7 = [MEMORY[0x1E697AA58] all];
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __61__WBSOngoingSharingGroupProvider__fetchGroupsWithCompletion___block_invoke_32;
-      v15[3] = &unk_1E7CF2E50;
-      v16 = *(a1 + 32);
-      objc_copyWeak(&v17, (a1 + 40));
-      [v6 getGroupsWithRequest:v7 completion:v15];
+      v8 = [MEMORY[0x1E697AA68] sharedInstance];
+      v9 = [MEMORY[0x1E697AA58] all];
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __61__WBSOngoingSharingGroupProvider__fetchGroupsWithCompletion___block_invoke_32;
+      v17[3] = &unk_1E7CF2E50;
+      v18 = *(a1 + 32);
+      objc_copyWeak(&v19, (a1 + 40));
+      [v8 getGroupsWithRequest:v9 completion:v17];
 
-      objc_destroyWeak(&v17);
-      v8 = v16;
+      objc_destroyWeak(&v19);
+      v10 = v18;
 LABEL_15:
 
       goto LABEL_16;
     }
 
-    if (v5)
+    if (v7)
     {
       *buf = 0;
-      _os_log_impl(&dword_1B8447000, v4, OS_LOG_TYPE_DEFAULT, "Not fetching shared account groups because ongoing credential sharing is disabled", buf, 2u);
+      _os_log_impl(&dword_1B8447000, v6, OS_LOG_TYPE_DEFAULT, "Not fetching shared account groups because ongoing credential sharing is disabled", buf, 2u);
     }
 
-    v9 = +[WBSKeychainSyncingMonitor sharedMonitor];
-    v10 = [v9 keychainSyncSettingValue];
+    v11 = +[WBSKeychainSyncingMonitor sharedMonitor];
+    v12 = [v11 keychainSyncSettingValue];
 
-    if ((v10 - 1) >= 2)
+    if ((v12 - 1) >= 2)
     {
-      if (!v10)
+      if (!v12)
       {
-        v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"WBSOngoingSharingGroupProviderErrorDomain" code:1 userInfo:0];
+        v10 = [MEMORY[0x1E696ABC0] errorWithDomain:@"WBSOngoingSharingGroupProviderErrorDomain" code:1 userInfo:0];
         goto LABEL_13;
       }
     }
 
     else
     {
-      v11 = WeakRetained[3];
-      v12 = MEMORY[0x1E695E0F0];
+      v13 = WeakRetained[3];
+      v14 = MEMORY[0x1E695E0F0];
       WeakRetained[3] = MEMORY[0x1E695E0F0];
 
-      v13 = WeakRetained[4];
-      WeakRetained[4] = v12;
+      v15 = WeakRetained[4];
+      WeakRetained[4] = v14;
 
       [WeakRetained _notifySubscribers];
     }
 
-    v8 = 0;
+    v10 = 0;
 LABEL_13:
-    v14 = *(a1 + 32);
-    if (v14)
+    v16 = *(a1 + 32);
+    if (v16)
     {
-      (*(v14 + 16))(v14, v8);
+      (*(v16 + 16))(v16, v10);
     }
 
     goto LABEL_15;
@@ -707,86 +707,85 @@ uint64_t __61__WBSOngoingSharingGroupProvider__fetchGroupsWithCompletion___block
   return result;
 }
 
-void __61__WBSOngoingSharingGroupProvider__fetchGroupsWithCompletion___block_invoke_3(void **a1)
+void __61__WBSOngoingSharingGroupProvider__fetchGroupsWithCompletion___block_invoke_3(void **a1, uint64_t a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v2 = a1 + 5;
-  v3 = a1[5];
-  v4 = WBS_LOG_CHANNEL_PREFIXPasswords();
-  v5 = v4;
-  if (v3)
+  v37 = *MEMORY[0x1E69E9840];
+  v3 = a1 + 5;
+  v4 = a1[5];
+  v5 = WBS_LOG_CHANNEL_PREFIXPasswords(a1, a2);
+  v6 = v5;
+  if (v4)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __61__WBSOngoingSharingGroupProvider__fetchGroupsWithCompletion___block_invoke_3_cold_1(v2, v5);
+      __61__WBSOngoingSharingGroupProvider__fetchGroupsWithCompletion___block_invoke_3_cold_1(v3, v6);
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = a1[6];
-      v7 = v5;
-      v29 = 134217984;
-      v30 = [v6 count];
-      _os_log_impl(&dword_1B8447000, v7, OS_LOG_TYPE_DEFAULT, "Fetched %ld groups from Keychain", &v29, 0xCu);
+      v7 = a1[6];
+      v8 = v6;
+      v33 = 134217984;
+      v34 = [v7 count];
+      _os_log_impl(&dword_1B8447000, v8, OS_LOG_TYPE_DEFAULT, "Fetched %ld groups from Keychain", &v33, 0xCu);
     }
 
-    v8 = [a1[6] sortedArrayUsingComparator:&__block_literal_global_36];
-    v9 = [v8 safari_filterObjectsUsingBlock:&__block_literal_global_39];
-    v10 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = [a1[6] sortedArrayUsingComparator:&__block_literal_global_36];
+    v10 = [v9 safari_filterObjectsUsingBlock:&__block_literal_global_39];
+    v12 = WBS_LOG_CHANNEL_PREFIXPasswords(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = v10;
-      v12 = [v9 count];
-      v29 = 134217984;
-      v30 = v12;
-      _os_log_impl(&dword_1B8447000, v11, OS_LOG_TYPE_DEFAULT, "%ld groups after filtering by invite status", &v29, 0xCu);
+      v13 = v12;
+      v14 = [v10 count];
+      v33 = 134217984;
+      v34 = v14;
+      _os_log_impl(&dword_1B8447000, v13, OS_LOG_TYPE_DEFAULT, "%ld groups after filtering by invite status", &v33, 0xCu);
     }
 
-    v13 = [v8 safari_filterObjectsUsingBlock:&__block_literal_global_42];
-    v14 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = [v9 safari_filterObjectsUsingBlock:&__block_literal_global_42];
+    v17 = WBS_LOG_CHANNEL_PREFIXPasswords(v15, v16);
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+    if (v18)
     {
-      v15 = v14;
-      v16 = [v13 count];
-      v29 = 134217984;
-      v30 = v16;
-      _os_log_impl(&dword_1B8447000, v15, OS_LOG_TYPE_DEFAULT, "%ld invitations after filtering by invite status", &v29, 0xCu);
+      v20 = v17;
+      v21 = [v15 count];
+      v33 = 134217984;
+      v34 = v21;
+      _os_log_impl(&dword_1B8447000, v20, OS_LOG_TYPE_DEFAULT, "%ld invitations after filtering by invite status", &v33, 0xCu);
     }
 
-    v17 = WBS_LOG_CHANNEL_PREFIXPasswords();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v22 = WBS_LOG_CHANNEL_PREFIXPasswords(v18, v19);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = *(a1[7] + 3);
-      v19 = v17;
-      v20 = [v18 count];
-      v21 = [*(a1[7] + 4) count];
-      v29 = 134218240;
-      v30 = v20;
-      v31 = 2048;
-      v32 = v21;
-      _os_log_impl(&dword_1B8447000, v19, OS_LOG_TYPE_DEFAULT, "%ld cached groups, %ld cached invitations", &v29, 0x16u);
+      v23 = *(a1[7] + 3);
+      v24 = v22;
+      v25 = [v23 count];
+      v26 = [*(a1[7] + 4) count];
+      v33 = 134218240;
+      v34 = v25;
+      v35 = 2048;
+      v36 = v26;
+      _os_log_impl(&dword_1B8447000, v24, OS_LOG_TYPE_DEFAULT, "%ld cached groups, %ld cached invitations", &v33, 0x16u);
     }
 
-    if (!WBSIsEqual(v9, *(a1[7] + 3)) || (WBSIsEqual(v13, *(a1[7] + 4)) & 1) == 0)
+    if (!WBSIsEqual(v10, *(a1[7] + 3)) || (WBSIsEqual(v15, *(a1[7] + 4)) & 1) == 0)
     {
-      v22 = [v9 copy];
-      v23 = a1[7];
-      v24 = v23[3];
-      v23[3] = v22;
+      v27 = [v10 copy];
+      v28 = a1[7];
+      v29 = v28[3];
+      v28[3] = v27;
 
-      v25 = [v13 copy];
-      v26 = a1[7];
-      v27 = v26[4];
-      v26[4] = v25;
+      v30 = [v15 copy];
+      v31 = a1[7];
+      v32 = v31[4];
+      v31[4] = v30;
 
       [a1[7] _notifySubscribers];
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __61__WBSOngoingSharingGroupProvider__fetchGroupsWithCompletion___block_invoke_33(uint64_t a1, void *a2, void *a3)
@@ -908,23 +907,21 @@ uint64_t __61__WBSOngoingSharingGroupProvider__addNewGroupToCachedGroups___block
 
 void __79__WBSOngoingSharingGroupProvider__fetchCurrentUserParticipantIDWithCompletion___block_invoke_25_cold_1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_2(&dword_1B8447000, v5, v6, "Failed to fetch current user participant ID with error: %{public}@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_2(&dword_1B8447000, v5, v6, "Failed to fetch current user participant ID with error: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void __61__WBSOngoingSharingGroupProvider__fetchGroupsWithCompletion___block_invoke_3_cold_1(void **a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v2 = *a1;
   v3 = a2;
   v4 = [v2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_2(&dword_1B8447000, v5, v6, "Failed to fetch shared credential groups with error: %{public}@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_2(&dword_1B8447000, v5, v6, "Failed to fetch shared credential groups with error: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

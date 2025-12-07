@@ -7,12 +7,13 @@
 - (BOOL)hasExecutableString;
 - (BOOL)isEqual:(id)equal;
 - (__CFString)executableTypeAsString:(__CFString *)string;
+- (id)clearReferences;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
 - (id)referencesAtIndex:(id *)index;
+- (id)referencesCount;
 - (uint64_t)addReferences:(uint64_t)references;
-- (uint64_t)clearReferences;
 - (uint64_t)executableAction;
 - (uint64_t)executableHeroApp;
 - (uint64_t)executableInfoSuggestion;
@@ -20,7 +21,6 @@
 - (uint64_t)executableString;
 - (uint64_t)executableType;
 - (uint64_t)references;
-- (uint64_t)referencesCount;
 - (uint64_t)setExecutableType:(uint64_t)result;
 - (unint64_t)hash;
 - (void)copyTo:(uint64_t)to;
@@ -403,11 +403,11 @@ LABEL_4:
   return result;
 }
 
-- (uint64_t)clearReferences
+- (id)clearReferences
 {
   if (result)
   {
-    return [*(result + 56) removeAllObjects];
+    return [result[7] removeAllObjects];
   }
 
   return result;
@@ -437,11 +437,11 @@ LABEL_4:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)referencesCount
+- (id)referencesCount
 {
   if (result)
   {
-    return [*(result + 56) count];
+    return [result[7] count];
   }
 
   return result;

@@ -62,21 +62,20 @@
 
 - (FCOfflineRecipesFetchOperation)initWithContext:(id)context recipeID:(id)d
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v6 = MEMORY[0x1E695DEC8];
   dCopy2 = d;
   contextCopy = context;
   v9 = [v6 arrayWithObjects:&dCopy count:1];
 
-  v10 = [(FCOfflineRecipesFetchOperation *)self initWithContext:contextCopy recipeIDs:v9, dCopy, v14];
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = [(FCOfflineRecipesFetchOperation *)self initWithContext:contextCopy recipeIDs:v9, dCopy, v13];
   return v10;
 }
 
 - (BOOL)validateOperation
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (self && self->_context)
   {
     v3 = 1;
@@ -86,16 +85,16 @@
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"offline recipe fetch operation requires a context"];
-      v9 = 136315906;
-      v10 = "[FCOfflineRecipesFetchOperation validateOperation]";
-      v11 = 2080;
-      v12 = "FCOfflineRecipesFetchOperation.m";
-      v13 = 1024;
-      v14 = 100;
-      v15 = 2114;
-      v16 = v7;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
+      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"offline recipe fetch operation requires a context"];
+      v8 = 136315906;
+      v9 = "[FCOfflineRecipesFetchOperation validateOperation]";
+      v10 = 2080;
+      v11 = "FCOfflineRecipesFetchOperation.m";
+      v12 = 1024;
+      v13 = 100;
+      v14 = 2114;
+      v15 = v6;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v8, 0x26u);
     }
 
     v3 = 0;
@@ -108,27 +107,25 @@
   if (self->_recipeIDs)
   {
     v4 = 1;
-    goto LABEL_12;
+    return v4 & v3;
   }
 
 LABEL_9:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"offline recipe fetch operation requires recipeIDs"];
-    v9 = 136315906;
-    v10 = "[FCOfflineRecipesFetchOperation validateOperation]";
-    v11 = 2080;
-    v12 = "FCOfflineRecipesFetchOperation.m";
-    v13 = 1024;
-    v14 = 104;
-    v15 = 2114;
-    v16 = v8;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"offline recipe fetch operation requires recipeIDs"];
+    v8 = 136315906;
+    v9 = "[FCOfflineRecipesFetchOperation validateOperation]";
+    v10 = 2080;
+    v11 = "FCOfflineRecipesFetchOperation.m";
+    v12 = 1024;
+    v13 = 104;
+    v14 = 2114;
+    v15 = v7;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v8, 0x26u);
   }
 
   v4 = 0;
-LABEL_12:
-  v5 = *MEMORY[0x1E69E9840];
   return v4 & v3;
 }
 
@@ -160,13 +157,13 @@ LABEL_12:
 
 - (void)performOperation
 {
-  v37 = *MEMORY[0x1E69E9840];
-  v27[0] = 0;
-  v27[1] = v27;
-  v27[2] = 0x3032000000;
-  v27[3] = __Block_byref_object_copy__44;
-  v27[4] = __Block_byref_object_dispose__44;
-  v28 = 0;
+  v36 = *MEMORY[0x1E69E9840];
+  v26[0] = 0;
+  v26[1] = v26;
+  v26[2] = 0x3032000000;
+  v26[3] = __Block_byref_object_copy__44;
+  v26[4] = __Block_byref_object_dispose__44;
+  v27 = 0;
   v3 = FCOperationLog;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -199,60 +196,59 @@ LABEL_12:
     useSmallestRecipeThumbnails = [(FCOfflineDownloadsConfiguration *)v9 useSmallestRecipeThumbnails];
     v11 = @"normal";
     *buf = 138544130;
-    v30 = shortOperationDescription;
-    v31 = 2114;
+    v29 = shortOperationDescription;
+    v30 = 2114;
     if (useSmallestRecipeThumbnails)
     {
       v11 = @"small";
     }
 
-    v32 = v5;
-    v33 = 2114;
-    v34 = v6;
-    v35 = 2114;
-    v36 = v11;
+    v31 = v5;
+    v32 = 2114;
+    v33 = v6;
+    v34 = 2114;
+    v35 = v11;
     _os_log_impl(&dword_1B63EF000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ will %{public}@ recipe ids=%{public}@, thumbnail variant=%{public}@", buf, 0x2Au);
   }
 
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __50__FCOfflineRecipesFetchOperation_performOperation__block_invoke;
-  v26[3] = &unk_1E7C396C0;
-  v26[4] = self;
-  v12 = [MEMORY[0x1E69B68F8] firstly:v26];
-  v13 = zalgo();
   v25[0] = MEMORY[0x1E69E9820];
   v25[1] = 3221225472;
-  v25[2] = __50__FCOfflineRecipesFetchOperation_performOperation__block_invoke_2;
-  v25[3] = &unk_1E7C417C8;
+  v25[2] = __50__FCOfflineRecipesFetchOperation_performOperation__block_invoke;
+  v25[3] = &unk_1E7C396C0;
   v25[4] = self;
-  v25[5] = v27;
-  v14 = [v12 thenOn:v13 then:v25];
-  v15 = zalgo();
+  v12 = [MEMORY[0x1E69B68F8] firstly:v25];
+  v13 = zalgo();
   v24[0] = MEMORY[0x1E69E9820];
   v24[1] = 3221225472;
-  v24[2] = __50__FCOfflineRecipesFetchOperation_performOperation__block_invoke_3;
-  v24[3] = &unk_1E7C403B0;
+  v24[2] = __50__FCOfflineRecipesFetchOperation_performOperation__block_invoke_2;
+  v24[3] = &unk_1E7C417C8;
   v24[4] = self;
-  v24[5] = v27;
-  v16 = [v14 thenOn:v15 then:v24];
-  v17 = zalgo();
+  v24[5] = v26;
+  v14 = [v12 thenOn:v13 then:v24];
+  v15 = zalgo();
   v23[0] = MEMORY[0x1E69E9820];
   v23[1] = 3221225472;
-  v23[2] = __50__FCOfflineRecipesFetchOperation_performOperation__block_invoke_4;
-  v23[3] = &unk_1E7C403D8;
+  v23[2] = __50__FCOfflineRecipesFetchOperation_performOperation__block_invoke_3;
+  v23[3] = &unk_1E7C403B0;
   v23[4] = self;
-  v18 = [v16 thenOn:v17 then:v23];
-  v19 = zalgo();
+  v23[5] = v26;
+  v16 = [v14 thenOn:v15 then:v23];
+  v17 = zalgo();
   v22[0] = MEMORY[0x1E69E9820];
   v22[1] = 3221225472;
-  v22[2] = __50__FCOfflineRecipesFetchOperation_performOperation__block_invoke_5;
-  v22[3] = &unk_1E7C36E50;
+  v22[2] = __50__FCOfflineRecipesFetchOperation_performOperation__block_invoke_4;
+  v22[3] = &unk_1E7C403D8;
   v22[4] = self;
-  v20 = [v18 errorOn:v19 error:v22];
+  v18 = [v16 thenOn:v17 then:v22];
+  v19 = zalgo();
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __50__FCOfflineRecipesFetchOperation_performOperation__block_invoke_5;
+  v21[3] = &unk_1E7C36E50;
+  v21[4] = self;
+  v20 = [v18 errorOn:v19 error:v21];
 
-  _Block_object_dispose(v27, 8);
-  v21 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v26, 8);
 }
 
 id *__50__FCOfflineRecipesFetchOperation_performOperation__block_invoke(uint64_t a1)
@@ -430,7 +426,7 @@ void __63__FCOfflineRecipesFetchOperation_operationWillFinishWithError___block_i
 
 id __61__FCOfflineRecipesFetchOperation__promiseCachedRecipeRecords__block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   v3 = [*(a1 + 32) allRecordIDs];
   v4 = [v2 setWithArray:v3];
@@ -452,35 +448,33 @@ id __61__FCOfflineRecipesFetchOperation__promiseCachedRecipeRecords__block_invok
   v9 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_ERROR))
   {
-    v15 = *(a1 + 40);
-    v16 = v9;
-    v17 = [v15 shortOperationDescription];
-    v18 = *(a1 + 48);
-    v19 = [v8 allObjects];
-    v20 = [v19 fc_subarrayWithMaxCount:3];
-    v21 = 138543874;
-    v22 = v17;
-    v23 = 2048;
-    v24 = v18;
-    v25 = 2114;
-    v26 = v20;
-    _os_log_error_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_ERROR, "%{public}@ missing too many recipes, missing=%lu, sample=%{public}@", &v21, 0x20u);
+    v14 = *(a1 + 40);
+    v15 = v9;
+    v16 = [v14 shortOperationDescription];
+    v17 = *(a1 + 48);
+    v18 = [v8 allObjects];
+    v19 = [v18 fc_subarrayWithMaxCount:3];
+    v20 = 138543874;
+    v21 = v16;
+    v22 = 2048;
+    v23 = v17;
+    v24 = 2114;
+    v25 = v19;
+    _os_log_error_impl(&dword_1B63EF000, v15, OS_LOG_TYPE_ERROR, "%{public}@ missing too many recipes, missing=%lu, sample=%{public}@", &v20, 0x20u);
   }
 
   v10 = objc_alloc(MEMORY[0x1E69B68F8]);
   v11 = [MEMORY[0x1E696ABC0] fc_notCachedErrorWithMissingObjects:v8];
   v12 = [v10 initWithError:v11];
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
-uint64_t __61__FCOfflineRecipesFetchOperation__promiseCachedRecipeRecords__block_invoke_36(uint64_t result, uint64_t a2)
+void *__61__FCOfflineRecipesFetchOperation__promiseCachedRecipeRecords__block_invoke_36(void *result, uint64_t a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
+    v2 = result[4];
     if (v2)
     {
       return [*(v2 + 456) addObject:a2];
@@ -779,29 +773,29 @@ void __69__FCOfflineRecipesFetchOperation__promiseThumbnailsForRecipeRecords___b
 
 void __69__FCOfflineRecipesFetchOperation__promiseThumbnailsForRecipeRecords___block_invoke_2(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = *(a1 + 32);
-  v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     do
     {
       v7 = 0;
       do
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v18 + 1) + 8 * v7);
+        v8 = *(*(&v17 + 1) + 8 * v7);
         v9 = *(a1 + 40);
         if (v9)
         {
@@ -824,21 +818,19 @@ void __69__FCOfflineRecipesFetchOperation__promiseThumbnailsForRecipeRecords___b
       }
 
       while (v5 != v7);
-      v15 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v15 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
       v5 = v15;
     }
 
     while (v15);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __69__FCOfflineRecipesFetchOperation__promiseThumbnailsForRecipeRecords___block_invoke_3(uint64_t result, uint64_t a2)
+void *__69__FCOfflineRecipesFetchOperation__promiseThumbnailsForRecipeRecords___block_invoke_3(void *result, uint64_t a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
+    v2 = result[4];
     if (v2)
     {
       return [*(v2 + 456) addObject:a2];
@@ -939,11 +931,11 @@ id __66__FCOfflineRecipesFetchOperation__promiseContentsForRecipRecords___block_
   return v6;
 }
 
-uint64_t __66__FCOfflineRecipesFetchOperation__promiseContentsForRecipRecords___block_invoke_3(uint64_t result, uint64_t a2)
+void *__66__FCOfflineRecipesFetchOperation__promiseContentsForRecipRecords___block_invoke_3(void *result, uint64_t a2)
 {
   if (a2)
   {
-    v2 = *(result + 32);
+    v2 = result[4];
     if (v2)
     {
       return [*(v2 + 456) addObject:a2];

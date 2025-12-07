@@ -7,38 +7,38 @@
 
 - (void)evaluateWithGroundTruthResults:(id)results inferenceResults:(id)inferenceResults reasonResultByAssetIdentifier:(id)identifier
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   inferenceResultsCopy = inferenceResults;
   identifierCopy = identifier;
-  v39.receiver = self;
-  v39.super_class = PGAssetsWithReasonPrecisionRecallEvaluation;
-  v33 = inferenceResultsCopy;
-  v34 = resultsCopy;
-  [(PGPrecisionRecallEvaluation *)&v39 evaluateWithGroundTruthResults:resultsCopy andInferenceResults:inferenceResultsCopy];
+  v38.receiver = self;
+  v38.super_class = PGAssetsWithReasonPrecisionRecallEvaluation;
+  v32 = inferenceResultsCopy;
+  v33 = resultsCopy;
+  [(PGPrecisionRecallEvaluation *)&v38 evaluateWithGroundTruthResults:resultsCopy andInferenceResults:inferenceResultsCopy];
   identifier = [(PGPrecisionRecallEvaluation *)self identifier];
   selfCopy = self;
   category = [(PGPrecisionRecallEvaluation *)self category];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   v12 = identifierCopy;
-  v13 = [v12 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v13)
   {
     v14 = v13;
-    v32 = *v36;
+    v31 = *v35;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v36 != v32)
+        if (*v35 != v31)
         {
           objc_enumerationMutation(v12);
         }
 
-        v16 = *(*(&v35 + 1) + 8 * i);
+        v16 = *(*(&v34 + 1) + 8 * i);
         v17 = [v12 objectForKeyedSubscript:v16];
         v18 = [(NSMutableDictionary *)selfCopy->_evaluationByReason objectForKeyedSubscript:v17];
         if (!v18)
@@ -47,7 +47,7 @@
           [(NSMutableDictionary *)selfCopy->_evaluationByReason setObject:v18 forKeyedSubscript:v17];
         }
 
-        v19 = [v34 objectForKeyedSubscript:v16];
+        v19 = [v33 objectForKeyedSubscript:v16];
         v20 = v19;
         if (v19)
         {
@@ -61,7 +61,7 @@
 
         v22 = v21;
 
-        v23 = [v33 objectForKeyedSubscript:v16];
+        v23 = [v32 objectForKeyedSubscript:v16];
         v24 = v23;
         if (v23)
         {
@@ -81,13 +81,11 @@
         [(PGPrecisionRecallEvaluation *)v18 evaluateWithGroundTruthResult:bOOLValue andInferenceResult:bOOLValue2];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v14);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (PGAssetsWithReasonPrecisionRecallEvaluation)initWithIdentifier:(id)identifier category:(id)category

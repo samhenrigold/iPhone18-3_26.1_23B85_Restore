@@ -44,9 +44,9 @@ void __36__PBUIWallpaperCache_wallpaperCache__block_invoke()
 - (PBUIWallpaperCache)initWithOptions:(id)options
 {
   optionsCopy = options;
-  v28.receiver = self;
-  v28.super_class = PBUIWallpaperCache;
-  v5 = [(PBUIWallpaperCache *)&v28 init];
+  v29.receiver = self;
+  v29.super_class = PBUIWallpaperCache;
+  v5 = [(PBUIWallpaperCache *)&v29 init];
   if (!v5)
   {
     goto LABEL_5;
@@ -72,41 +72,41 @@ void __36__PBUIWallpaperCache_wallpaperCache__block_invoke()
   if (v16)
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v27 = 0;
-    v18 = [defaultManager createDirectoryAtPath:v16 withIntermediateDirectories:1 attributes:0 error:&v27];
-    v19 = v27;
+    v28 = 0;
+    v19 = [defaultManager createDirectoryAtPath:v16 withIntermediateDirectories:1 attributes:0 error:&v28];
+    v20 = v28;
 
-    if (v18)
+    if (v19)
     {
       path = v5->_path;
       v5->_path = v16;
-      v21 = v16;
+      v22 = v16;
 
-      v22 = BSDispatchQueueCreateWithQualityOfService();
+      v23 = BSDispatchQueueCreateWithQualityOfService();
       queue = v5->_queue;
-      v5->_queue = v22;
+      v5->_queue = v23;
 
 LABEL_5:
-      v24 = v5;
+      v25 = v5;
       goto LABEL_10;
     }
   }
 
   else
   {
-    v19 = 0;
+    v20 = 0;
   }
 
-  v25 = PBUILogCommon();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+  v26 = PBUILogCommon(v17);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
   {
-    [(PBUIWallpaperCache *)v16 initWithOptions:v19, v25];
+    [(PBUIWallpaperCache *)v16 initWithOptions:v20, v26];
   }
 
-  v24 = 0;
+  v25 = 0;
 LABEL_10:
 
-  return v24;
+  return v25;
 }
 
 - (id)imageURLForKey:(id)key

@@ -12,9 +12,9 @@
 
 - (id)initForLocation:(unint64_t)location
 {
-  v12.receiver = self;
-  v12.super_class = CBRecordingIndicatorViewController;
-  v4 = [(CBRecordingIndicatorViewController *)&v12 init];
+  v13.receiver = self;
+  v13.super_class = CBRecordingIndicatorViewController;
+  v4 = [(CBRecordingIndicatorViewController *)&v13 init];
   v5 = v4;
   if (v4)
   {
@@ -38,7 +38,7 @@
       if (location)
       {
 LABEL_6:
-        sub_100045308(v5);
+        sub_100045308(v5, v12);
 
         return v5;
       }

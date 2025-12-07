@@ -1,4 +1,6 @@
 @interface CAFUInt16Range
+- (BOOL)valueIsInRange:(unsigned __int16)range;
+- (unsigned)limitedValueForValue:(unsigned __int16)value;
 - (unsigned)maximumValue;
 - (unsigned)minimumValue;
 - (unsigned)stepValue;
@@ -31,6 +33,14 @@
   return unsignedShortValue;
 }
 
+- (BOOL)valueIsInRange:(unsigned __int16)range
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:range];
+  LOBYTE(self) = [(CAFRange *)self isInRange:v4];
+
+  return self;
+}
+
 - (unsigned)valueRoundedToNearestStepValue:(unsigned __int16)value
 {
   valueCopy = value;
@@ -43,6 +53,15 @@
   }
 
   return valueCopy;
+}
+
+- (unsigned)limitedValueForValue:(unsigned __int16)value
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:value];
+  v5 = [(CAFRange *)self limitedToRange:v4];
+  unsignedShortValue = [v5 unsignedShortValue];
+
+  return unsignedShortValue;
 }
 
 @end

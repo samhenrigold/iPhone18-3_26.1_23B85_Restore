@@ -160,26 +160,24 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    filterByFabric = self->_filterByFabric;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    assumeUnknownAttributesReportable = self->_assumeUnknownAttributesReportable;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_minEventNumber)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -249,7 +247,6 @@
       goto LABEL_17;
     }
 
-    v8 = *(equalCopy + 17);
     if (self->_filterByFabric)
     {
       if ((*(equalCopy + 17) & 1) == 0)

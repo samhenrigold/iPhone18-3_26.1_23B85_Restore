@@ -31,10 +31,10 @@
       goto LABEL_23;
     }
 
-    [(PFStoryConcreteRecipeClip *)self minimumDuration];
+    objc_msgSend_minimumDuration(self);
     if (clipCopy)
     {
-      [(PFStoryConcreteRecipeClip *)clipCopy minimumDuration];
+      objc_msgSend_minimumDuration(clipCopy);
     }
 
     else
@@ -47,10 +47,10 @@
       goto LABEL_23;
     }
 
-    [(PFStoryConcreteRecipeClip *)self idealDuration];
+    objc_msgSend_idealDuration(self);
     if (clipCopy)
     {
-      [(PFStoryConcreteRecipeClip *)clipCopy idealDuration];
+      objc_msgSend_idealDuration(clipCopy);
     }
 
     else
@@ -63,10 +63,10 @@
       goto LABEL_23;
     }
 
-    [(PFStoryConcreteRecipeClip *)self maximumDuration];
+    objc_msgSend_maximumDuration(self);
     if (clipCopy)
     {
-      [(PFStoryConcreteRecipeClip *)clipCopy maximumDuration];
+      objc_msgSend_maximumDuration(clipCopy);
     }
 
     else
@@ -79,10 +79,10 @@
       goto LABEL_23;
     }
 
-    [(PFStoryConcreteRecipeClip *)self videoCueOffset];
+    objc_msgSend_videoCueOffset(self);
     if (clipCopy)
     {
-      [(PFStoryConcreteRecipeClip *)clipCopy videoCueOffset];
+      objc_msgSend_videoCueOffset(clipCopy);
     }
 
     else

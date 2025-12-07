@@ -271,8 +271,8 @@ LABEL_3:
   context3 = [updateCopy context];
   visualState2 = [context3 visualState];
 
-  v17 = [(BLSBacklightSceneVisualState *)self->_visualState isEqual:visualState2];
-  if ((v17 & 1) == 0)
+  isEqual = objc_msgSend_isEqual_(self->_visualState);
+  if ((isEqual & 1) == 0)
   {
     objc_storeStrong(&self->_visualState, visualState2);
   }
@@ -281,7 +281,7 @@ LABEL_3:
   aBlock[1] = 3221225472;
   aBlock[2] = __74___UIBacklightEnvironment_transitionTraitsInUpdate_animations_completion___block_invoke;
   aBlock[3] = &unk_1E70F3798;
-  v57 = v17 ^ 1;
+  v57 = isEqual ^ 1;
   v18 = updateCopy;
   v54 = v18;
   selfCopy = self;

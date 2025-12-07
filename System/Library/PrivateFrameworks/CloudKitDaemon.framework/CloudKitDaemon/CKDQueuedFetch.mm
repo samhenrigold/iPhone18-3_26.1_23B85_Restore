@@ -21,6 +21,8 @@
 - (void)finishFetchOperationWithError:(id)error;
 - (void)performCallbacksForItemWithID:(id)d withItem:(id)item error:(id)error;
 - (void)removeCallbacksForItemWithID:(id)d;
+- (void)setIsCancelled:(BOOL)cancelled;
+- (void)setIsFinished:(BOOL)finished;
 - (void)start;
 @end
 
@@ -142,6 +144,12 @@
   return v4;
 }
 
+- (void)setIsFinished:(BOOL)finished
+{
+  v3 = objc_msgSend_callbackQueue(self, a2, finished);
+  ck_call_or_dispatch_sync_if_not_key();
+}
+
 - (BOOL)isCancelled
 {
   v6 = 0;
@@ -156,36 +164,42 @@
   return v4;
 }
 
+- (void)setIsCancelled:(BOOL)cancelled
+{
+  v3 = objc_msgSend_callbackQueue(self, a2, cancelled);
+  ck_call_or_dispatch_sync_if_not_key();
+}
+
 - (int)numberOfCallbacks
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_completionHandlersByItemID(self, a2, v2);
   objc_sync_enter(v4);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v7 = objc_msgSend_completionHandlersByItemID(self, v5, v6, 0);
   v10 = objc_msgSend_allValues(v7, v8, v9);
 
-  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v20, v24, 16);
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v19, v23, 16);
   if (v14)
   {
     LODWORD(v15) = 0;
-    v16 = *v21;
+    v16 = *v20;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v21 != v16)
+        if (*v20 != v16)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = objc_msgSend_count(*(*(&v20 + 1) + 8 * i), v12, v13) + v15;
+        v15 = objc_msgSend_count(*(*(&v19 + 1) + 8 * i), v12, v13) + v15;
       }
 
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v12, &v20, v24, 16);
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v12, &v19, v23, 16);
     }
 
     while (v14);
@@ -197,7 +211,6 @@
   }
 
   objc_sync_exit(v4);
-  v18 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -274,7 +287,7 @@
 
 - (void)removeCallbacksForItemWithID:(id)d
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (dCopy)
   {
@@ -289,34 +302,34 @@
     v17 = objc_msgSend_dependentOperationIDsByItemID(self, v15, v16);
     v19 = objc_msgSend_objectForKeyedSubscript_(v17, v18, dCopy);
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v20 = v19;
-    v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v35, v39, 16);
+    v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v34, v38, 16);
     if (v24)
     {
-      v25 = *v36;
+      v25 = *v35;
       do
       {
         v26 = 0;
         do
         {
-          if (*v36 != v25)
+          if (*v35 != v25)
           {
             objc_enumerationMutation(v20);
           }
 
-          v27 = *(*(&v35 + 1) + 8 * v26);
-          v28 = objc_msgSend_dependentOperationIDs(self, v22, v23, v35);
+          v27 = *(*(&v34 + 1) + 8 * v26);
+          v28 = objc_msgSend_dependentOperationIDs(self, v22, v23, v34);
           objc_msgSend_removeObject_(v28, v29, v27);
 
           ++v26;
         }
 
         while (v24 != v26);
-        v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v22, &v35, v39, 16);
+        v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v22, &v34, v38, 16);
       }
 
       while (v24);
@@ -327,8 +340,6 @@
 
     objc_sync_exit(v14);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (id)callbacksForItemWithID:(id)d
@@ -368,12 +379,11 @@
 
 - (void)performCallbacksForItemWithID:(id)d withItem:(id)item error:(id)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   itemCopy = item;
   errorCopy = error;
   v11 = *MEMORY[0x277CBC878];
-  v12 = *MEMORY[0x277CBC880];
   if (errorCopy)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -381,14 +391,14 @@
       dispatch_once(MEMORY[0x277CBC880], v11);
     }
 
-    v13 = *MEMORY[0x277CBC830];
+    v12 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v27 = dCopy;
-      v28 = 2112;
-      v29 = errorCopy;
-      _os_log_impl(&dword_22506F000, v13, OS_LOG_TYPE_INFO, "Error fetching item with ID %@: %@", buf, 0x16u);
+      v25 = dCopy;
+      v26 = 2112;
+      v27 = errorCopy;
+      _os_log_impl(&dword_22506F000, v12, OS_LOG_TYPE_INFO, "Error fetching item with ID %@: %@", buf, 0x16u);
     }
   }
 
@@ -399,32 +409,30 @@
       dispatch_once(MEMORY[0x277CBC880], v11);
     }
 
-    v16 = *MEMORY[0x277CBC830];
+    v15 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      v27 = dCopy;
-      v28 = 2112;
-      v29 = itemCopy;
-      _os_log_debug_impl(&dword_22506F000, v16, OS_LOG_TYPE_DEBUG, "Bulk fetched item with ID %@: %@.", buf, 0x16u);
+      v25 = dCopy;
+      v26 = 2112;
+      v27 = itemCopy;
+      _os_log_debug_impl(&dword_22506F000, v15, OS_LOG_TYPE_DEBUG, "Bulk fetched item with ID %@: %@.", buf, 0x16u);
     }
   }
 
-  v17 = objc_msgSend_callbackQueue(self, v14, v15);
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = sub_2252BC750;
-  v22[3] = &unk_2785463D0;
-  v22[4] = self;
-  v23 = dCopy;
-  v24 = itemCopy;
-  v25 = errorCopy;
-  v18 = errorCopy;
-  v19 = itemCopy;
-  v20 = dCopy;
-  dispatch_async(v17, v22);
-
-  v21 = *MEMORY[0x277D85DE8];
+  v16 = objc_msgSend_callbackQueue(self, v13, v14);
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = sub_2252BC750;
+  v20[3] = &unk_2785463D0;
+  v20[4] = self;
+  v21 = dCopy;
+  v22 = itemCopy;
+  v23 = errorCopy;
+  v17 = errorCopy;
+  v18 = itemCopy;
+  v19 = dCopy;
+  dispatch_async(v16, v20);
 }
 
 - (void)finishFetchOperationWithError:(id)error

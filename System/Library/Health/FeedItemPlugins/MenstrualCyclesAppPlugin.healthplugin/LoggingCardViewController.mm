@@ -22,7 +22,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_29DEBF3B8();
+  sub_29DEBF3B8(selfCopy);
 }
 
 - (void)respondToContentSizeChanges

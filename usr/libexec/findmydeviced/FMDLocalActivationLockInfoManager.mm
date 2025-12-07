@@ -155,49 +155,37 @@
 - (void)updateMaskedAppleID:(id)d
 {
   dCopy = d;
-  if ([(FMDLocalActivationLockInfoManager *)self _isFeatureEnabled])
+  _isFeatureEnabled = [(FMDLocalActivationLockInfoManager *)self _isFeatureEnabled];
+  if (_isFeatureEnabled)
   {
     if (!dCopy)
     {
-      v5 = sub_100002880();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = sub_100002880(_isFeatureEnabled);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         fm_logID = [(FMDLocalActivationLockInfoManager *)self fm_logID];
-        v16 = 138412290;
-        v17 = fm_logID;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ cannot update maskedAppleID. Nil value provided", &v16, 0xCu);
+        v17 = 138412290;
+        v18 = fm_logID;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@ cannot update maskedAppleID. Nil value provided", &v17, 0xCu);
       }
     }
 
     maskedAppleID = [(FMDLocalActivationLockInfoManager *)self maskedAppleID];
-    if (!maskedAppleID)
+    if (!maskedAppleID || (v9 = maskedAppleID, -[FMDLocalActivationLockInfoManager maskedAppleID](self, "maskedAppleID"), v10 = objc_claimAutoreleasedReturnValue(), [v10 lowercaseString], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(dCopy, "lowercaseString"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v11, "isEqualToString:", v12), v12, v11, v10, v9, (v13 & 1) == 0))
     {
-      goto LABEL_8;
-    }
-
-    v8 = maskedAppleID;
-    maskedAppleID2 = [(FMDLocalActivationLockInfoManager *)self maskedAppleID];
-    lowercaseString = [maskedAppleID2 lowercaseString];
-    lowercaseString2 = [dCopy lowercaseString];
-    v12 = [lowercaseString isEqualToString:lowercaseString2];
-
-    if ((v12 & 1) == 0)
-    {
-LABEL_8:
       store = [(FMDLocalActivationLockInfoManager *)self store];
       [store updateMaskedAppleID:dCopy];
 
       [(FMDLocalActivationLockInfoManager *)self setMaskedAppleID:dCopy];
-      [(FMDLocalActivationLockInfoManager *)self _postLocalActivationLockInfoChangedNotification];
-      v14 = sub_100002880();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_100002880([(FMDLocalActivationLockInfoManager *)self _postLocalActivationLockInfoChangedNotification]);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         fm_logID2 = [(FMDLocalActivationLockInfoManager *)self fm_logID];
-        v16 = 138412546;
-        v17 = fm_logID2;
-        v18 = 2112;
-        v19 = dCopy;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%@ Updating stored maskedAppleID with %@", &v16, 0x16u);
+        v17 = 138412546;
+        v18 = fm_logID2;
+        v19 = 2112;
+        v20 = dCopy;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%@ Updating stored maskedAppleID with %@", &v17, 0x16u);
       }
     }
   }
@@ -326,9 +314,9 @@ LABEL_8:
   v33 = [NSBundle bundleWithPath:@"/System/Library/PrivateFrameworks/FindMyDevice.framework"];
   localizations = [v33 localizations];
   v5 = localizations;
-  if (localizations && [localizations count])
+  if (localizations && (localizations = [localizations count]) != 0)
   {
-    v6 = sub_100002880();
+    v6 = sub_100002880(localizations);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       fm_logID = [(FMDLocalActivationLockInfoManager *)self fm_logID];
@@ -441,7 +429,7 @@ LABEL_23:
 
   else
   {
-    v11 = sub_100002880();
+    v11 = sub_100002880(localizations);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       fm_logID2 = [(FMDLocalActivationLockInfoManager *)self fm_logID];
@@ -513,7 +501,7 @@ LABEL_23:
   *(v22 + 6) = MatchingService;
   if (!MatchingService)
   {
-    v14 = sub_100002880();
+    v14 = sub_100002880(MatchingService);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       fm_logID = [(FMDLocalActivationLockInfoManager *)self fm_logID];
@@ -529,9 +517,9 @@ LABEL_23:
 
   CFProperty = IORegistryEntryCreateCFProperty(MatchingService, @"IOPMUBootLPMCtrl", 0, 0);
   v7 = CFProperty;
-  if (!CFProperty || (v8 = CFGetTypeID(CFProperty), v8 != CFDictionaryGetTypeID()))
+  if (!CFProperty || (v8 = CFGetTypeID(CFProperty), CFProperty = CFDictionaryGetTypeID(), v8 != CFProperty))
   {
-    v14 = sub_100002880();
+    v14 = sub_100002880(CFProperty);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       fm_logID2 = [(FMDLocalActivationLockInfoManager *)self fm_logID];
@@ -545,7 +533,7 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v9 = sub_100002880();
+  v9 = sub_100002880(CFProperty);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     fm_logID3 = [(FMDLocalActivationLockInfoManager *)self fm_logID];
@@ -566,7 +554,7 @@ LABEL_12:
 
   else
   {
-    v18 = sub_100002880();
+    v18 = sub_100002880(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       fm_logID4 = [(FMDLocalActivationLockInfoManager *)self fm_logID];
@@ -595,25 +583,25 @@ LABEL_13:
   v3 = +[FMDDaemon sharedInstance];
   startTime = [v3 startTime];
 
-  [startTime timeIntervalSinceNow];
-  v6 = v5;
-  if (v5 >= -3.0)
+  timeIntervalSinceNow = [startTime timeIntervalSinceNow];
+  v7 = v6;
+  if (v6 >= -3.0)
   {
-    v7 = sub_100002880();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100002880(timeIntervalSinceNow);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       fm_logID = [(FMDLocalActivationLockInfoManager *)self fm_logID];
-      v10 = 138412802;
-      v11 = fm_logID;
-      v12 = 2048;
-      v13 = -v6;
-      v14 = 2112;
-      v15 = startTime;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@ - call is within startup threshold - will need to be delayed. startTimeDelta %f, daemonStartTime %@", &v10, 0x20u);
+      v11 = 138412802;
+      v12 = fm_logID;
+      v13 = 2048;
+      v14 = -v7;
+      v15 = 2112;
+      v16 = startTime;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@ - call is within startup threshold - will need to be delayed. startTimeDelta %f, daemonStartTime %@", &v11, 0x20u);
     }
   }
 
-  return v6 >= -3.0;
+  return v7 >= -3.0;
 }
 
 @end

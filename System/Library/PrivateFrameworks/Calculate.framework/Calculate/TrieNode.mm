@@ -1,9 +1,9 @@
 @interface TrieNode
-+ (id)nodeWithTrie:(uint64_t)trie node:(uint64_t)node offset:;
++ (TrieNode)nodeWithTrie:(uint64_t)trie node:(uint64_t)node offset:;
 - (Trie)trie;
 - (_DWORD)object;
 - (id)copy;
-- (id)objectForByte:(uint64_t)byte leaf:(int)leaf create:;
+- (id)objectForByte:(uint64_t)byte leaf:(uint64_t)leaf create:;
 - (id)objectForKey:(int)key create:;
 - (id)objectForKeyedSubscript:(id *)subscript;
 - (uint64_t)updateForByte:(uint64_t)byte leaf:(int)leaf create:;
@@ -29,7 +29,7 @@
   return v4;
 }
 
-+ (id)nodeWithTrie:(uint64_t)trie node:(uint64_t)node offset:
++ (TrieNode)nodeWithTrie:(uint64_t)trie node:(uint64_t)node offset:
 {
   v6 = a2;
   objc_opt_self();
@@ -42,12 +42,13 @@
   return v7;
 }
 
-- (id)objectForByte:(uint64_t)byte leaf:(int)leaf create:
+- (id)objectForByte:(uint64_t)byte leaf:(uint64_t)leaf create:
 {
+  leafCopy = leaf;
   WeakRetained = objc_loadWeakRetained((byte + 16));
   v5 = [TrieNode nodeWithTrie:*(byte + 8) node:*(byte + 12) offset:?];
 
-  if ([(TrieNode *)v5 updateForByte:1 leaf:leaf create:?])
+  if ([(TrieNode *)v5 updateForByte:1 leaf:leafCopy create:?])
   {
     v6 = v5;
   }
@@ -227,7 +228,7 @@ LABEL_40:
     if (v4 < 1 || (v5 = nodes + 12 * v4, *(v5 + 3)))
     {
       objects = [TrieNode objectForByte:selfCopy leaf:0 create:?];
-      object = [TrieNode object];
+      object = [(TrieNode *)objects object];
     }
 
     else

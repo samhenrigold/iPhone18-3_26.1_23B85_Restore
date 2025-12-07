@@ -21,40 +21,18 @@
 
 - (_UIPencilPreferences)init
 {
-  v9.receiver = self;
-  v9.super_class = _UIPencilPreferences;
-  v2 = [(_UIPencilPreferences *)&v9 init];
-  if (v2)
+  v11.receiver = self;
+  v11.super_class = _UIPencilPreferences;
+  v3 = [(_UIPencilPreferences *)&v11 init];
+  if (v3)
   {
-    v2->_cachedPreferredTapAction = _UIPencilPreferredActionForKey(@"UIPencilPreferredTapAction");
-    v2->_cachedPreferredSqueezeAction = _UIPencilPreferredActionForKey(@"UIPencilPreferredSqueezeAction");
-    v3 = _UIKitUserDefaults();
-    *&v2->_preferenceFlags = *&v2->_preferenceFlags & 0xFE | _UIPencilPrefersPencilOnlyDrawingForKey();
+    v3->_cachedPreferredTapAction = _UIPencilPreferredActionForKey(@"UIPencilPreferredTapAction", v2);
+    v3->_cachedPreferredSqueezeAction = _UIPencilPreferredActionForKey(@"UIPencilPreferredSqueezeAction", v4);
+    v5 = _UIKitUserDefaults();
+    *&v3->_preferenceFlags = *&v3->_preferenceFlags & 0xFE | _UIPencilPrefersPencilOnlyDrawingForKey();
     if (_UIPencilPrefersHoverToolPreview())
     {
-      v4 = 2;
-    }
-
-    else
-    {
-      v4 = 0;
-    }
-
-    *&v2->_preferenceFlags = *&v2->_preferenceFlags & 0xFD | v4;
-    if ([v3 BOOLForKey:@"PKHasEverShownEduUI"])
-    {
-      v5 = 4;
-    }
-
-    else
-    {
-      v5 = 0;
-    }
-
-    *&v2->_preferenceFlags = *&v2->_preferenceFlags & 0xFB | v5;
-    if ([v3 BOOLForKey:@"UIPencilHasUsedPassivePencilKey"])
-    {
-      v6 = 8;
+      v6 = 2;
     }
 
     else
@@ -62,121 +40,143 @@
       v6 = 0;
     }
 
-    *&v2->_preferenceFlags = *&v2->_preferenceFlags & 0xF7 | v6;
-    [v3 addObserver:v2 forKeyPath:@"UIPencilPreferredTapAction" options:0 context:0];
-    [v3 addObserver:v2 forKeyPath:@"UIPencilPreferredSqueezeAction" options:0 context:0];
-    [v3 addObserver:v2 forKeyPath:@"UIPencilOnlyDrawWithPencilKey" options:0 context:0];
-    [v3 addObserver:v2 forKeyPath:@"PKUIPencilHoverPreviewEnabledKey" options:0 context:0];
-    [v3 addObserver:v2 forKeyPath:@"PKHasEverShownEduUI" options:0 context:0];
-    [v3 addObserver:v2 forKeyPath:@"UIPencilHasUsedPassivePencilKey" options:0 context:0];
+    *&v3->_preferenceFlags = *&v3->_preferenceFlags & 0xFD | v6;
+    if ([v5 BOOLForKey:@"PKHasEverShownEduUI"])
+    {
+      v7 = 4;
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+
+    *&v3->_preferenceFlags = *&v3->_preferenceFlags & 0xFB | v7;
+    if ([v5 BOOLForKey:@"UIPencilHasUsedPassivePencilKey"])
+    {
+      v8 = 8;
+    }
+
+    else
+    {
+      v8 = 0;
+    }
+
+    *&v3->_preferenceFlags = *&v3->_preferenceFlags & 0xF7 | v8;
+    [v5 addObserver:v3 forKeyPath:@"UIPencilPreferredTapAction" options:0 context:0];
+    [v5 addObserver:v3 forKeyPath:@"UIPencilPreferredSqueezeAction" options:0 context:0];
+    [v5 addObserver:v3 forKeyPath:@"UIPencilOnlyDrawWithPencilKey" options:0 context:0];
+    [v5 addObserver:v3 forKeyPath:@"PKUIPencilHoverPreviewEnabledKey" options:0 context:0];
+    [v5 addObserver:v3 forKeyPath:@"PKHasEverShownEduUI" options:0 context:0];
+    [v5 addObserver:v3 forKeyPath:@"UIPencilHasUsedPassivePencilKey" options:0 context:0];
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
-    CFNotificationCenterAddObserver(DarwinNotifyCenter, v2, _accessibilityOpaqueTouchGestureValueChangedCallback, *MEMORY[0x1E69E4C40], 0, CFNotificationSuspensionBehaviorDeliverImmediately);
+    CFNotificationCenterAddObserver(DarwinNotifyCenter, v3, _accessibilityOpaqueTouchGestureValueChangedCallback, *MEMORY[0x1E69E4C40], 0, CFNotificationSuspensionBehaviorDeliverImmediately);
   }
 
-  return v2;
+  return v3;
 }
 
 + (id)sharedPreferences
 {
-  v0 = objc_opt_self();
+  v1 = objc_opt_self();
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __41___UIPencilPreferences_sharedPreferences__block_invoke;
   block[3] = &__block_descriptor_40_e5_v8__0l;
-  block[4] = v0;
+  block[4] = v1;
   if (qword_1ED4A0780 != -1)
   {
     dispatch_once(&qword_1ED4A0780, block);
   }
 
-  v1 = _MergedGlobals_1268;
+  v2 = _MergedGlobals_1268;
 
-  return v1;
+  return v2;
 }
 
 + (uint64_t)preferredSqueezeAction
 {
   objc_opt_self();
-  v0 = +[_UIPencilPreferences sharedPreferences];
-  if (v0)
+  v1 = +[_UIPencilPreferences sharedPreferences];
+  if (v1)
   {
-    v1 = v0[2];
+    v2 = v1[2];
   }
 
   else
   {
-    v1 = 0;
+    v2 = 0;
   }
 
-  return v1;
+  return v2;
 }
 
 + (uint64_t)preferredTapAction
 {
   objc_opt_self();
-  v0 = +[_UIPencilPreferences sharedPreferences];
-  if (v0)
+  v1 = +[_UIPencilPreferences sharedPreferences];
+  if (v1)
   {
-    v1 = v0[1];
+    v2 = v1[1];
   }
 
   else
   {
-    v1 = 0;
+    v2 = 0;
   }
 
-  return v1;
+  return v2;
 }
 
 + (uint64_t)prefersPencilOnlyDrawing
 {
   objc_opt_self();
-  v0 = +[_UIPencilPreferences sharedPreferences];
-  if (v0)
+  v1 = +[_UIPencilPreferences sharedPreferences];
+  if (v1)
   {
-    v1 = v0[24] & 1;
+    v2 = v1[24] & 1;
   }
 
   else
   {
-    v1 = 0;
+    v2 = 0;
   }
 
-  return v1;
+  return v2;
 }
 
 + (uint64_t)hasSeenPencilPairingUI
 {
   objc_opt_self();
-  v0 = +[_UIPencilPreferences sharedPreferences];
-  if (v0)
+  v1 = +[_UIPencilPreferences sharedPreferences];
+  if (v1)
   {
-    v1 = (v0[24] >> 2) & 1;
+    v2 = (v1[24] >> 2) & 1;
   }
 
   else
   {
-    v1 = 0;
+    v2 = 0;
   }
 
-  return v1;
+  return v2;
 }
 
 + (uint64_t)hasUsedPassivePencil
 {
   objc_opt_self();
-  v0 = +[_UIPencilPreferences sharedPreferences];
-  if (v0)
+  v1 = +[_UIPencilPreferences sharedPreferences];
+  if (v1)
   {
-    v1 = (v0[24] >> 3) & 1;
+    v2 = (v1[24] >> 3) & 1;
   }
 
   else
   {
-    v1 = 0;
+    v2 = 0;
   }
 
-  return v1;
+  return v2;
 }
 
 + (void)setHasUsedPassivePencil:(uint64_t)pencil
@@ -212,18 +212,18 @@
 + (uint64_t)prefersHoverToolPreview
 {
   objc_opt_self();
-  v0 = +[_UIPencilPreferences sharedPreferences];
-  if (v0)
+  v1 = +[_UIPencilPreferences sharedPreferences];
+  if (v1)
   {
-    v1 = (v0[24] >> 1) & 1;
+    v2 = (v1[24] >> 1) & 1;
   }
 
   else
   {
-    v1 = 0;
+    v2 = 0;
   }
 
-  return v1;
+  return v2;
 }
 
 - (void)dealloc
@@ -373,22 +373,22 @@
     }
   }
 
-  if ([path isEqualToString:@"UIPencilPreferredTapAction"])
+  if (objc_msgSend_isEqualToString_(path))
   {
     [(_UIPencilPreferences *)self _preferredTapActionDidChange];
   }
 
-  else if ([path isEqualToString:@"UIPencilPreferredSqueezeAction"])
+  else if (objc_msgSend_isEqualToString_(path))
   {
     [(_UIPencilPreferences *)self _preferredSqueezeActionDidChange];
   }
 
-  else if ([path isEqualToString:@"UIPencilOnlyDrawWithPencilKey"])
+  else if (objc_msgSend_isEqualToString_(path))
   {
     [(_UIPencilPreferences *)self _prefersPencilOnlyDrawingDidChange];
   }
 
-  else if ([path isEqualToString:@"PKUIPencilHoverPreviewEnabledKey"])
+  else if (objc_msgSend_isEqualToString_(path))
   {
     if (self)
     {
@@ -419,7 +419,7 @@
     }
   }
 
-  else if ([path isEqualToString:@"PKHasEverShownEduUI"])
+  else if (objc_msgSend_isEqualToString_(path))
   {
     if (self)
     {
@@ -441,7 +441,7 @@
     }
   }
 
-  else if ([path isEqualToString:@"UIPencilHasUsedPassivePencilKey"])
+  else if (objc_msgSend_isEqualToString_(path))
   {
     [(_UIPencilPreferences *)self _hasUsedPassivePencilDidChange];
   }

@@ -49,23 +49,23 @@
         v17 = [HKRemoteFeatureAvailabilityBaseRule ruleClassForRawValue:v16];
         if (v17)
         {
-          v18 = v17;
+          v19 = v17;
           rules = [(HKRemoteFeatureAvailabilityCompoundRule *)self rules];
-          v20 = [v18 alloc];
+          v21 = [v19 alloc];
           dataSource = [(HKRemoteFeatureAvailabilityBaseRule *)self dataSource];
-          v22 = [v20 initWithRawValue:v16 dataSource:dataSource];
-          [rules addObject:v22];
+          v23 = [v21 initWithRawValue:v16 dataSource:dataSource];
+          [rules addObject:v23];
         }
 
         else
         {
-          _HKInitializeLogging();
-          v23 = HKLogDefault;
+          _HKInitializeLogging(0, v18);
+          v24 = HKLogDefault;
           if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_INFO))
           {
             *buf = 138543362;
             v31 = v16;
-            _os_log_impl(&dword_19197B000, v23, OS_LOG_TYPE_INFO, "Unknown HKRemoteFeatureAvailabilityRule for raw payload: %{public}@", buf, 0xCu);
+            _os_log_impl(&dword_19197B000, v24, OS_LOG_TYPE_INFO, "Unknown HKRemoteFeatureAvailabilityRule for raw payload: %{public}@", buf, 0xCu);
           }
         }
       }
@@ -75,8 +75,6 @@
 
     while (v13);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)evaluate

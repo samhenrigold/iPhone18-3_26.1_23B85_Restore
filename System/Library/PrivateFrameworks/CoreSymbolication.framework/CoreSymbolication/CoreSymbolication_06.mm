@@ -1,908 +1,4 @@
-__int128 *std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,CSCppSymbolicator::set_aot_image_infos(std::vector<CSSymbolicatorAotImageInfo> &&)::$_0 &,CSSymbolicatorAotImageInfo*,0>(__int128 *result, __int128 *a2, __int128 *a3, __int128 *a4, __int128 *a5)
-{
-  v122 = *MEMORY[0x1E69E9840];
-  v5 = *(a2 + 1);
-  v6 = *(a3 + 1);
-  if (v5 >= *(result + 1))
-  {
-    if (v6 < v5)
-    {
-      v79 = a2[2];
-      v90 = a2[3];
-      v101 = a2[4];
-      v112 = a2[5];
-      v57 = *a2;
-      v68 = a2[1];
-      v11 = a3[1];
-      *a2 = *a3;
-      a2[1] = v11;
-      v12 = a3[5];
-      v14 = a3[2];
-      v13 = a3[3];
-      a2[4] = a3[4];
-      a2[5] = v12;
-      a2[2] = v14;
-      a2[3] = v13;
-      a3[4] = v101;
-      a3[5] = v112;
-      a3[2] = v79;
-      a3[3] = v90;
-      *a3 = v57;
-      a3[1] = v68;
-      if (*(a2 + 1) < *(result + 1))
-      {
-        v80 = result[2];
-        v91 = result[3];
-        v102 = result[4];
-        v113 = result[5];
-        v58 = *result;
-        v69 = result[1];
-        v15 = a2[1];
-        *result = *a2;
-        result[1] = v15;
-        v16 = a2[5];
-        v18 = a2[2];
-        v17 = a2[3];
-        result[4] = a2[4];
-        result[5] = v16;
-        result[2] = v18;
-        result[3] = v17;
-        a2[4] = v102;
-        a2[5] = v113;
-        a2[2] = v80;
-        a2[3] = v91;
-        *a2 = v58;
-        a2[1] = v69;
-      }
-    }
-  }
-
-  else
-  {
-    if (v6 < v5)
-    {
-      v78 = result[2];
-      v89 = result[3];
-      v100 = result[4];
-      v111 = result[5];
-      v56 = *result;
-      v67 = result[1];
-      v7 = a3[1];
-      *result = *a3;
-      result[1] = v7;
-      v8 = a3[5];
-      v10 = a3[2];
-      v9 = a3[3];
-      result[4] = a3[4];
-      result[5] = v8;
-      result[2] = v10;
-      result[3] = v9;
-LABEL_9:
-      a3[4] = v100;
-      a3[5] = v111;
-      a3[2] = v78;
-      a3[3] = v89;
-      *a3 = v56;
-      a3[1] = v67;
-      goto LABEL_10;
-    }
-
-    v81 = result[2];
-    v92 = result[3];
-    v103 = result[4];
-    v114 = result[5];
-    v59 = *result;
-    v70 = result[1];
-    v19 = a2[1];
-    *result = *a2;
-    result[1] = v19;
-    v20 = a2[5];
-    v22 = a2[2];
-    v21 = a2[3];
-    result[4] = a2[4];
-    result[5] = v20;
-    result[2] = v22;
-    result[3] = v21;
-    a2[4] = v103;
-    a2[5] = v114;
-    a2[2] = v81;
-    a2[3] = v92;
-    *a2 = v59;
-    a2[1] = v70;
-    if (*(a3 + 1) < *(a2 + 1))
-    {
-      v78 = a2[2];
-      v89 = a2[3];
-      v100 = a2[4];
-      v111 = a2[5];
-      v56 = *a2;
-      v67 = a2[1];
-      v23 = a3[1];
-      *a2 = *a3;
-      a2[1] = v23;
-      v24 = a3[5];
-      v26 = a3[2];
-      v25 = a3[3];
-      a2[4] = a3[4];
-      a2[5] = v24;
-      a2[2] = v26;
-      a2[3] = v25;
-      goto LABEL_9;
-    }
-  }
-
-LABEL_10:
-  if (*(a4 + 1) < *(a3 + 1))
-  {
-    v82 = a3[2];
-    v93 = a3[3];
-    v104 = a3[4];
-    v115 = a3[5];
-    v60 = *a3;
-    v71 = a3[1];
-    v27 = a4[1];
-    *a3 = *a4;
-    a3[1] = v27;
-    v28 = a4[5];
-    v30 = a4[2];
-    v29 = a4[3];
-    a3[4] = a4[4];
-    a3[5] = v28;
-    a3[2] = v30;
-    a3[3] = v29;
-    a4[4] = v104;
-    a4[5] = v115;
-    a4[2] = v82;
-    a4[3] = v93;
-    *a4 = v60;
-    a4[1] = v71;
-    if (*(a3 + 1) < *(a2 + 1))
-    {
-      v83 = a2[2];
-      v94 = a2[3];
-      v105 = a2[4];
-      v116 = a2[5];
-      v61 = *a2;
-      v72 = a2[1];
-      v31 = a3[1];
-      *a2 = *a3;
-      a2[1] = v31;
-      v32 = a3[5];
-      v34 = a3[2];
-      v33 = a3[3];
-      a2[4] = a3[4];
-      a2[5] = v32;
-      a2[2] = v34;
-      a2[3] = v33;
-      a3[4] = v105;
-      a3[5] = v116;
-      a3[2] = v83;
-      a3[3] = v94;
-      *a3 = v61;
-      a3[1] = v72;
-      if (*(a2 + 1) < *(result + 1))
-      {
-        v84 = result[2];
-        v95 = result[3];
-        v106 = result[4];
-        v117 = result[5];
-        v62 = *result;
-        v73 = result[1];
-        v35 = a2[1];
-        *result = *a2;
-        result[1] = v35;
-        v36 = a2[5];
-        v38 = a2[2];
-        v37 = a2[3];
-        result[4] = a2[4];
-        result[5] = v36;
-        result[2] = v38;
-        result[3] = v37;
-        a2[4] = v106;
-        a2[5] = v117;
-        a2[2] = v84;
-        a2[3] = v95;
-        *a2 = v62;
-        a2[1] = v73;
-      }
-    }
-  }
-
-  if (*(a5 + 1) < *(a4 + 1))
-  {
-    v85 = a4[2];
-    v96 = a4[3];
-    v107 = a4[4];
-    v118 = a4[5];
-    v63 = *a4;
-    v74 = a4[1];
-    v39 = a5[1];
-    *a4 = *a5;
-    a4[1] = v39;
-    v40 = a5[5];
-    v42 = a5[2];
-    v41 = a5[3];
-    a4[4] = a5[4];
-    a4[5] = v40;
-    a4[2] = v42;
-    a4[3] = v41;
-    a5[4] = v107;
-    a5[5] = v118;
-    a5[2] = v85;
-    a5[3] = v96;
-    *a5 = v63;
-    a5[1] = v74;
-    if (*(a4 + 1) < *(a3 + 1))
-    {
-      v86 = a3[2];
-      v97 = a3[3];
-      v108 = a3[4];
-      v119 = a3[5];
-      v64 = *a3;
-      v75 = a3[1];
-      v43 = a4[1];
-      *a3 = *a4;
-      a3[1] = v43;
-      v44 = a4[5];
-      v46 = a4[2];
-      v45 = a4[3];
-      a3[4] = a4[4];
-      a3[5] = v44;
-      a3[2] = v46;
-      a3[3] = v45;
-      a4[4] = v108;
-      a4[5] = v119;
-      a4[2] = v86;
-      a4[3] = v97;
-      *a4 = v64;
-      a4[1] = v75;
-      if (*(a3 + 1) < *(a2 + 1))
-      {
-        v87 = a2[2];
-        v98 = a2[3];
-        v109 = a2[4];
-        v120 = a2[5];
-        v65 = *a2;
-        v76 = a2[1];
-        v47 = a3[1];
-        *a2 = *a3;
-        a2[1] = v47;
-        v48 = a3[5];
-        v50 = a3[2];
-        v49 = a3[3];
-        a2[4] = a3[4];
-        a2[5] = v48;
-        a2[2] = v50;
-        a2[3] = v49;
-        a3[4] = v109;
-        a3[5] = v120;
-        a3[2] = v87;
-        a3[3] = v98;
-        *a3 = v65;
-        a3[1] = v76;
-        if (*(a2 + 1) < *(result + 1))
-        {
-          v88 = result[2];
-          v99 = result[3];
-          v110 = result[4];
-          v121 = result[5];
-          v66 = *result;
-          v77 = result[1];
-          v51 = a2[1];
-          *result = *a2;
-          result[1] = v51;
-          v52 = a2[5];
-          v54 = a2[2];
-          v53 = a2[3];
-          result[4] = a2[4];
-          result[5] = v52;
-          result[2] = v54;
-          result[3] = v53;
-          a2[4] = v110;
-          a2[5] = v121;
-          a2[2] = v88;
-          a2[3] = v99;
-          *a2 = v66;
-          a2[1] = v77;
-        }
-      }
-    }
-  }
-
-  v55 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,CSCppSymbolicator::set_aot_image_infos(std::vector<CSSymbolicatorAotImageInfo> &&)::$_0 &,CSSymbolicatorAotImageInfo*>(uint64_t a1, uint64_t a2)
-{
-  v181 = *MEMORY[0x1E69E9840];
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 5);
-  if (v2 > 2)
-  {
-    if (v2 == 3)
-    {
-      v8 = (a2 - 96);
-      v9 = *(a1 + 104);
-      v10 = *(a2 - 88);
-      if (v9 < *(a1 + 8))
-      {
-        if (v10 >= v9)
-        {
-          v127 = *(a1 + 32);
-          v143 = *(a1 + 48);
-          v159 = *(a1 + 64);
-          v175 = *(a1 + 80);
-          v95 = *a1;
-          v111 = *(a1 + 16);
-          v44 = *(a1 + 144);
-          *(a1 + 32) = *(a1 + 128);
-          *(a1 + 48) = v44;
-          v45 = *(a1 + 176);
-          *(a1 + 64) = *(a1 + 160);
-          *(a1 + 80) = v45;
-          v46 = *(a1 + 112);
-          *a1 = *(a1 + 96);
-          *(a1 + 16) = v46;
-          *(a1 + 96) = v95;
-          *(a1 + 112) = v111;
-          *(a1 + 160) = v159;
-          *(a1 + 176) = v175;
-          *(a1 + 128) = v127;
-          *(a1 + 144) = v143;
-          if (*(a2 - 88) >= *(a1 + 104))
-          {
-            goto LABEL_52;
-          }
-
-          v119 = *(a1 + 128);
-          v135 = *(a1 + 144);
-          v151 = *(a1 + 160);
-          v167 = *(a1 + 176);
-          v87 = *(a1 + 96);
-          v103 = *(a1 + 112);
-          v47 = *(a2 - 80);
-          *(a1 + 96) = *v8;
-          *(a1 + 112) = v47;
-          v48 = *(a2 - 16);
-          v50 = *(a2 - 64);
-          v49 = *(a2 - 48);
-          *(a1 + 160) = *(a2 - 32);
-          *(a1 + 176) = v48;
-          *(a1 + 128) = v50;
-          *(a1 + 144) = v49;
-        }
-
-        else
-        {
-          v119 = *(a1 + 32);
-          v135 = *(a1 + 48);
-          v151 = *(a1 + 64);
-          v167 = *(a1 + 80);
-          v87 = *a1;
-          v103 = *(a1 + 16);
-          v11 = *(a2 - 80);
-          *a1 = *v8;
-          *(a1 + 16) = v11;
-          v12 = *(a2 - 16);
-          v14 = *(a2 - 64);
-          v13 = *(a2 - 48);
-          *(a1 + 64) = *(a2 - 32);
-          *(a1 + 80) = v12;
-          *(a1 + 32) = v14;
-          *(a1 + 48) = v13;
-        }
-
-        *(a2 - 32) = v151;
-        *(a2 - 16) = v167;
-        *(a2 - 64) = v119;
-        *(a2 - 48) = v135;
-        result = 1;
-        *v8 = v87;
-        *(a2 - 80) = v103;
-        goto LABEL_53;
-      }
-
-      if (v10 >= v9)
-      {
-LABEL_52:
-        result = 1;
-        goto LABEL_53;
-      }
-
-      v122 = *(a1 + 128);
-      v138 = *(a1 + 144);
-      v154 = *(a1 + 160);
-      v170 = *(a1 + 176);
-      v90 = *(a1 + 96);
-      v106 = *(a1 + 112);
-      v28 = *(a2 - 80);
-      *(a1 + 96) = *v8;
-      *(a1 + 112) = v28;
-      v29 = *(a2 - 16);
-      v31 = *(a2 - 64);
-      v30 = *(a2 - 48);
-      *(a1 + 160) = *(a2 - 32);
-      *(a1 + 176) = v29;
-      *(a1 + 128) = v31;
-      *(a1 + 144) = v30;
-      *(a2 - 32) = v154;
-      *(a2 - 16) = v170;
-      *(a2 - 64) = v122;
-      *(a2 - 48) = v138;
-      *v8 = v90;
-      *(a2 - 80) = v106;
-LABEL_50:
-      if (*(a1 + 104) < *(a1 + 8))
-      {
-        v133 = *(a1 + 32);
-        v149 = *(a1 + 48);
-        v165 = *(a1 + 64);
-        v180 = *(a1 + 80);
-        v101 = *a1;
-        v117 = *(a1 + 16);
-        v82 = *(a1 + 144);
-        *(a1 + 32) = *(a1 + 128);
-        *(a1 + 48) = v82;
-        v83 = *(a1 + 176);
-        *(a1 + 64) = *(a1 + 160);
-        *(a1 + 80) = v83;
-        v84 = *(a1 + 112);
-        *a1 = *(a1 + 96);
-        *(a1 + 16) = v84;
-        *(a1 + 96) = v101;
-        *(a1 + 112) = v117;
-        *(a1 + 160) = v165;
-        *(a1 + 176) = v180;
-        *(a1 + 128) = v133;
-        *(a1 + 144) = v149;
-      }
-
-      goto LABEL_52;
-    }
-
-    if (v2 != 4)
-    {
-      if (v2 == 5)
-      {
-        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,CSCppSymbolicator::set_aot_image_infos(std::vector<CSSymbolicatorAotImageInfo> &&)::$_0 &,CSSymbolicatorAotImageInfo*,0>(a1, (a1 + 96), (a1 + 192), (a1 + 288), (a2 - 96));
-        goto LABEL_52;
-      }
-
-      goto LABEL_13;
-    }
-
-    v22 = *(a1 + 104);
-    v23 = *(a1 + 8);
-    v24 = *(a1 + 200);
-    if (v22 >= v23)
-    {
-      if (v24 < v22)
-      {
-        v125 = *(a1 + 128);
-        v141 = *(a1 + 144);
-        v157 = *(a1 + 160);
-        v173 = *(a1 + 176);
-        v93 = *(a1 + 96);
-        v109 = *(a1 + 112);
-        v38 = *(a1 + 240);
-        *(a1 + 128) = *(a1 + 224);
-        *(a1 + 144) = v38;
-        v39 = *(a1 + 272);
-        *(a1 + 160) = *(a1 + 256);
-        *(a1 + 176) = v39;
-        v40 = *(a1 + 208);
-        *(a1 + 96) = *(a1 + 192);
-        *(a1 + 112) = v40;
-        *(a1 + 192) = v93;
-        *(a1 + 208) = v109;
-        *(a1 + 256) = v157;
-        *(a1 + 272) = v173;
-        *(a1 + 224) = v125;
-        *(a1 + 240) = v141;
-        if (*(a1 + 104) < v23)
-        {
-          v126 = *(a1 + 32);
-          v142 = *(a1 + 48);
-          v158 = *(a1 + 64);
-          v174 = *(a1 + 80);
-          v94 = *a1;
-          v110 = *(a1 + 16);
-          v41 = *(a1 + 144);
-          *(a1 + 32) = *(a1 + 128);
-          *(a1 + 48) = v41;
-          v42 = *(a1 + 176);
-          *(a1 + 64) = *(a1 + 160);
-          *(a1 + 80) = v42;
-          v43 = *(a1 + 112);
-          *a1 = *(a1 + 96);
-          *(a1 + 16) = v43;
-          *(a1 + 96) = v94;
-          *(a1 + 112) = v110;
-          *(a1 + 160) = v158;
-          *(a1 + 176) = v174;
-          *(a1 + 128) = v126;
-          *(a1 + 144) = v142;
-        }
-      }
-
-      goto LABEL_47;
-    }
-
-    if (v24 >= v22)
-    {
-      v130 = *(a1 + 32);
-      v146 = *(a1 + 48);
-      v162 = *(a1 + 64);
-      v177 = *(a1 + 80);
-      v98 = *a1;
-      v114 = *(a1 + 16);
-      v68 = *(a1 + 144);
-      *(a1 + 32) = *(a1 + 128);
-      *(a1 + 48) = v68;
-      v69 = *(a1 + 176);
-      *(a1 + 64) = *(a1 + 160);
-      *(a1 + 80) = v69;
-      v70 = *(a1 + 112);
-      *a1 = *(a1 + 96);
-      *(a1 + 16) = v70;
-      *(a1 + 96) = v98;
-      *(a1 + 112) = v114;
-      *(a1 + 160) = v162;
-      *(a1 + 176) = v177;
-      *(a1 + 128) = v130;
-      *(a1 + 144) = v146;
-      if (v24 >= *(a1 + 104))
-      {
-        goto LABEL_47;
-      }
-
-      v121 = *(a1 + 128);
-      v137 = *(a1 + 144);
-      v153 = *(a1 + 160);
-      v169 = *(a1 + 176);
-      v89 = *(a1 + 96);
-      v105 = *(a1 + 112);
-      v71 = *(a1 + 240);
-      *(a1 + 128) = *(a1 + 224);
-      *(a1 + 144) = v71;
-      v72 = *(a1 + 272);
-      *(a1 + 160) = *(a1 + 256);
-      *(a1 + 176) = v72;
-      v73 = *(a1 + 208);
-      *(a1 + 96) = *(a1 + 192);
-      *(a1 + 112) = v73;
-    }
-
-    else
-    {
-      v121 = *(a1 + 32);
-      v137 = *(a1 + 48);
-      v153 = *(a1 + 64);
-      v169 = *(a1 + 80);
-      v89 = *a1;
-      v105 = *(a1 + 16);
-      v25 = *(a1 + 240);
-      *(a1 + 32) = *(a1 + 224);
-      *(a1 + 48) = v25;
-      v26 = *(a1 + 272);
-      *(a1 + 64) = *(a1 + 256);
-      *(a1 + 80) = v26;
-      v27 = *(a1 + 208);
-      *a1 = *(a1 + 192);
-      *(a1 + 16) = v27;
-    }
-
-    *(a1 + 192) = v89;
-    *(a1 + 208) = v105;
-    *(a1 + 256) = v153;
-    *(a1 + 272) = v169;
-    *(a1 + 224) = v121;
-    *(a1 + 240) = v137;
-LABEL_47:
-    if (*(a2 - 88) >= *(a1 + 200))
-    {
-      goto LABEL_52;
-    }
-
-    v74 = (a2 - 96);
-    v131 = *(a1 + 224);
-    v147 = *(a1 + 240);
-    v163 = *(a1 + 256);
-    v178 = *(a1 + 272);
-    v99 = *(a1 + 192);
-    v115 = *(a1 + 208);
-    v75 = *(a2 - 80);
-    *(a1 + 192) = *(a2 - 96);
-    *(a1 + 208) = v75;
-    v76 = *(a2 - 16);
-    v78 = *(a2 - 64);
-    v77 = *(a2 - 48);
-    *(a1 + 256) = *(a2 - 32);
-    *(a1 + 272) = v76;
-    *(a1 + 224) = v78;
-    *(a1 + 240) = v77;
-    v74[4] = v163;
-    v74[5] = v178;
-    v74[2] = v131;
-    v74[3] = v147;
-    *v74 = v99;
-    v74[1] = v115;
-    if (*(a1 + 200) >= *(a1 + 104))
-    {
-      goto LABEL_52;
-    }
-
-    v132 = *(a1 + 128);
-    v148 = *(a1 + 144);
-    v164 = *(a1 + 160);
-    v179 = *(a1 + 176);
-    v100 = *(a1 + 96);
-    v116 = *(a1 + 112);
-    v79 = *(a1 + 240);
-    *(a1 + 128) = *(a1 + 224);
-    *(a1 + 144) = v79;
-    v80 = *(a1 + 272);
-    *(a1 + 160) = *(a1 + 256);
-    *(a1 + 176) = v80;
-    v81 = *(a1 + 208);
-    *(a1 + 96) = *(a1 + 192);
-    *(a1 + 112) = v81;
-    *(a1 + 192) = v100;
-    *(a1 + 208) = v116;
-    *(a1 + 256) = v164;
-    *(a1 + 272) = v179;
-    *(a1 + 224) = v132;
-    *(a1 + 240) = v148;
-    goto LABEL_50;
-  }
-
-  if (v2 < 2)
-  {
-    goto LABEL_52;
-  }
-
-  if (v2 == 2)
-  {
-    if (*(a2 - 88) < *(a1 + 8))
-    {
-      v118 = *(a1 + 32);
-      v134 = *(a1 + 48);
-      v150 = *(a1 + 64);
-      v166 = *(a1 + 80);
-      v86 = *a1;
-      v102 = *(a1 + 16);
-      v3 = *(a2 - 80);
-      *a1 = *(a2 - 96);
-      *(a1 + 16) = v3;
-      v4 = *(a2 - 16);
-      v6 = *(a2 - 64);
-      v5 = *(a2 - 48);
-      *(a1 + 64) = *(a2 - 32);
-      *(a1 + 80) = v4;
-      *(a1 + 32) = v6;
-      *(a1 + 48) = v5;
-      *(a2 - 64) = v118;
-      *(a2 - 48) = v134;
-      *(a2 - 32) = v150;
-      *(a2 - 16) = v166;
-      result = 1;
-      *(a2 - 96) = v86;
-      *(a2 - 80) = v102;
-      goto LABEL_53;
-    }
-
-    goto LABEL_52;
-  }
-
-LABEL_13:
-  v15 = a1 + 192;
-  v16 = *(a1 + 104);
-  v17 = *(a1 + 8);
-  v18 = *(a1 + 200);
-  if (v16 >= v17)
-  {
-    if (v18 < v16)
-    {
-      v123 = *(a1 + 128);
-      v139 = *(a1 + 144);
-      v155 = *(a1 + 160);
-      v171 = *(a1 + 176);
-      v91 = *(a1 + 96);
-      v107 = *(a1 + 112);
-      v32 = *(a1 + 240);
-      *(a1 + 128) = *(a1 + 224);
-      *(a1 + 144) = v32;
-      v33 = *(a1 + 272);
-      *(a1 + 160) = *(a1 + 256);
-      *(a1 + 176) = v33;
-      v34 = *(a1 + 208);
-      *(a1 + 96) = *v15;
-      *(a1 + 112) = v34;
-      *v15 = v91;
-      *(a1 + 208) = v107;
-      *(a1 + 256) = v155;
-      *(a1 + 272) = v171;
-      *(a1 + 224) = v123;
-      *(a1 + 240) = v139;
-      if (*(a1 + 104) < v17)
-      {
-        v124 = *(a1 + 32);
-        v140 = *(a1 + 48);
-        v156 = *(a1 + 64);
-        v172 = *(a1 + 80);
-        v92 = *a1;
-        v108 = *(a1 + 16);
-        v35 = *(a1 + 144);
-        *(a1 + 32) = *(a1 + 128);
-        *(a1 + 48) = v35;
-        v36 = *(a1 + 176);
-        *(a1 + 64) = *(a1 + 160);
-        *(a1 + 80) = v36;
-        v37 = *(a1 + 112);
-        *a1 = *(a1 + 96);
-        *(a1 + 16) = v37;
-        *(a1 + 96) = v92;
-        *(a1 + 112) = v108;
-        *(a1 + 160) = v156;
-        *(a1 + 176) = v172;
-        *(a1 + 128) = v124;
-        *(a1 + 144) = v140;
-      }
-    }
-  }
-
-  else
-  {
-    if (v18 >= v16)
-    {
-      v128 = *(a1 + 32);
-      v144 = *(a1 + 48);
-      v160 = *(a1 + 64);
-      v176 = *(a1 + 80);
-      v96 = *a1;
-      v112 = *(a1 + 16);
-      v51 = *(a1 + 144);
-      *(a1 + 32) = *(a1 + 128);
-      *(a1 + 48) = v51;
-      v52 = *(a1 + 176);
-      *(a1 + 64) = *(a1 + 160);
-      *(a1 + 80) = v52;
-      v53 = *(a1 + 112);
-      *a1 = *(a1 + 96);
-      *(a1 + 16) = v53;
-      *(a1 + 96) = v96;
-      *(a1 + 112) = v112;
-      *(a1 + 160) = v160;
-      *(a1 + 176) = v176;
-      *(a1 + 128) = v128;
-      *(a1 + 144) = v144;
-      if (v18 >= *(a1 + 104))
-      {
-        goto LABEL_33;
-      }
-
-      v120 = *(a1 + 128);
-      v136 = *(a1 + 144);
-      v152 = *(a1 + 160);
-      v168 = *(a1 + 176);
-      v88 = *(a1 + 96);
-      v104 = *(a1 + 112);
-      v54 = *(a1 + 240);
-      *(a1 + 128) = *(a1 + 224);
-      *(a1 + 144) = v54;
-      v55 = *(a1 + 272);
-      *(a1 + 160) = *(a1 + 256);
-      *(a1 + 176) = v55;
-      v56 = *(a1 + 208);
-      *(a1 + 96) = *v15;
-      *(a1 + 112) = v56;
-    }
-
-    else
-    {
-      v120 = *(a1 + 32);
-      v136 = *(a1 + 48);
-      v152 = *(a1 + 64);
-      v168 = *(a1 + 80);
-      v88 = *a1;
-      v104 = *(a1 + 16);
-      v19 = *(a1 + 240);
-      *(a1 + 32) = *(a1 + 224);
-      *(a1 + 48) = v19;
-      v20 = *(a1 + 272);
-      *(a1 + 64) = *(a1 + 256);
-      *(a1 + 80) = v20;
-      v21 = *(a1 + 208);
-      *a1 = *v15;
-      *(a1 + 16) = v21;
-    }
-
-    *v15 = v88;
-    *(a1 + 208) = v104;
-    *(a1 + 256) = v152;
-    *(a1 + 272) = v168;
-    *(a1 + 224) = v120;
-    *(a1 + 240) = v136;
-  }
-
-LABEL_33:
-  v57 = a1 + 288;
-  if (a1 + 288 == a2)
-  {
-    goto LABEL_52;
-  }
-
-  v58 = 0;
-  v59 = 0;
-  while (1)
-  {
-    v60 = *(v57 + 8);
-    if (v60 < *(v15 + 8))
-    {
-      v61 = *v57;
-      v129 = *(v57 + 48);
-      v145 = *(v57 + 64);
-      v161 = *(v57 + 80);
-      v62 = v58;
-      v97 = *(v57 + 16);
-      v113 = *(v57 + 32);
-      while (1)
-      {
-        v63 = a1 + v62;
-        v64 = *(a1 + v62 + 240);
-        *(v63 + 320) = *(a1 + v62 + 224);
-        *(v63 + 336) = v64;
-        v65 = *(a1 + v62 + 272);
-        *(v63 + 352) = *(a1 + v62 + 256);
-        *(v63 + 368) = v65;
-        v66 = *(a1 + v62 + 208);
-        *(v63 + 288) = *(a1 + v62 + 192);
-        *(v63 + 304) = v66;
-        if (v62 == -192)
-        {
-          break;
-        }
-
-        v62 -= 96;
-        if (v60 >= *(v63 + 104))
-        {
-          v67 = a1 + v62 + 288;
-          goto LABEL_41;
-        }
-      }
-
-      v67 = a1;
-LABEL_41:
-      *v67 = v61;
-      *(v67 + 8) = v60;
-      *(v67 + 48) = v129;
-      *(v67 + 64) = v145;
-      *(v67 + 80) = v161;
-      ++v59;
-      *(v67 + 16) = v97;
-      *(v67 + 32) = v113;
-      if (v59 == 8)
-      {
-        break;
-      }
-    }
-
-    v15 = v57;
-    v58 += 96;
-    v57 += 96;
-    if (v57 == a2)
-    {
-      goto LABEL_52;
-    }
-  }
-
-  result = v57 + 96 == a2;
-LABEL_53:
-  v85 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-__n128 std::__split_buffer<CSSymbolicatorAotImageInfo>::emplace_back<CSSymbolicatorAotImageInfo const&>(void *a1, uint64_t a2)
+__n128 std::__split_buffer<CSSymbolicatorAotImageInfo>::emplace_back<CSSymbolicatorAotImageInfo const&>(unint64_t *a1, uint64_t a2)
 {
   v4 = a1[2];
   if (v4 == a1[3])
@@ -918,7 +14,7 @@ __n128 std::__split_buffer<CSSymbolicatorAotImageInfo>::emplace_back<CSSymbolica
 
       else
       {
-        v10 = 0x5555555555555556 * (&v4[-*a1] >> 5);
+        v10 = 0x5555555555555556 * ((v4 - *a1) >> 5);
       }
 
       std::allocator<CSSymbolicatorAotImageInfo>::allocate_at_least[abi:ne200100](a1[4], v10);
@@ -940,14 +36,14 @@ __n128 std::__split_buffer<CSSymbolicatorAotImageInfo>::emplace_back<CSSymbolica
 
   v11 = *(a2 + 16);
   *v4 = *a2;
-  *(v4 + 1) = v11;
+  *(v4 + 16) = v11;
   result = *(a2 + 32);
   v13 = *(a2 + 48);
   v14 = *(a2 + 80);
-  *(v4 + 4) = *(a2 + 64);
-  *(v4 + 5) = v14;
-  *(v4 + 2) = result;
-  *(v4 + 3) = v13;
+  *(v4 + 64) = *(a2 + 64);
+  *(v4 + 80) = v14;
+  *(v4 + 32) = result;
+  *(v4 + 48) = v13;
   a1[2] += 96;
   return result;
 }
@@ -1081,11 +177,11 @@ void CSCppSymbolOwner::CSCppSymbolOwner(CSCppSymbolOwner *this, const CSCppSymbo
   *(this + 4) = 0;
   *(this + 5) = 0;
   *(this + 6) = 0;
-  std::vector<CSCppSegmentRange>::__init_with_size[abi:ne200100]<CSCppSegmentRange*,CSCppSegmentRange*>(this + 32, *(a2 + 4), *(a2 + 5), (*(a2 + 5) - *(a2 + 4)) >> 5);
+  std::vector<CSCppSegmentRange>::__init_with_size[abi:ne200100]<CSCppSegmentRange*,CSCppSegmentRange*>(this + 4, *(a2 + 4), *(a2 + 5), (*(a2 + 5) - *(a2 + 4)) >> 5);
   *(this + 7) = 0;
   *(this + 8) = 0;
   *(this + 9) = 0;
-  std::vector<CSCppSectionRange>::__init_with_size[abi:ne200100]<CSCppSectionRange*,CSCppSectionRange*>(this + 56, *(a2 + 7), *(a2 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 8) - *(a2 + 7)) >> 3));
+  std::vector<CSCppSectionRange>::__init_with_size[abi:ne200100]<CSCppSectionRange*,CSCppSectionRange*>(this + 7, *(a2 + 7), *(a2 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 8) - *(a2 + 7)) >> 3));
   *(this + 10) = 0;
   *(this + 88) = *(a2 + 88);
   *(this + 13) = *(a2 + 13);
@@ -1209,43 +305,43 @@ char *CSCppSymbolOwner::set_path_for_symbolication(void **this, const char *a2)
   return result;
 }
 
-uint64_t CSCppSymbolOwner::_fault_data_purging_empty(CSCppSymbolOwner *this, CSCppSymbolOwner *a2)
+uint64_t CSCppSymbolOwner::_fault_data_purging_empty(CSCppSymbolOwner *this, CSCppSymbolOwner *a2, BOOL a3)
 {
-  v3 = *(this + 10);
-  if (v3)
+  v4 = *(this + 10);
+  if (v4)
   {
-    v4 = a2 == 0;
+    v5 = a2 == 0;
   }
 
   else
   {
-    v4 = 1;
+    v5 = 1;
   }
 
-  if (v4)
+  if (v5)
   {
-    if (!v3)
+    if (!v4)
     {
-      v5 = CSCppSymbolOwnerCache::data_for_symbol_owner(this, a2);
-      v6 = 0;
-      atomic_compare_exchange_strong(this + 10, &v6, v5);
-      if (v6)
+      v6 = CSCppSymbolOwnerCache::data_for_symbol_owner(this, a2);
+      v7 = 0;
+      atomic_compare_exchange_strong(this + 10, &v7, v6);
+      if (v7)
       {
 LABEL_14:
-        CSCppReferenceCount::release(v5, 1);
+        CSCppReferenceCount::release(v6, 1);
       }
     }
   }
 
-  else if ((atomic_load_explicit((v3 + 12), memory_order_acquire) & 0x80) != 0)
+  else if ((atomic_load_explicit((v4 + 12), memory_order_acquire) & 0x80) != 0)
   {
-    v7 = CSCppSymbolOwnerCache::data_for_symbol_owner(this, 1);
-    v5 = *(this + 10);
-    v8 = v5;
-    atomic_compare_exchange_strong(this + 10, &v8, v7);
-    if (v8 == v5)
+    v8 = CSCppSymbolOwnerCache::data_for_symbol_owner(this, 1);
+    v6 = *(this + 10);
+    v9 = v6;
+    atomic_compare_exchange_strong(this + 10, &v9, v8);
+    if (v9 == v6)
     {
-      if (v5 == v7)
+      if (v6 == v8)
       {
         return *(this + 10);
       }
@@ -1253,7 +349,7 @@ LABEL_14:
 
     else
     {
-      v5 = v7;
+      v6 = v8;
     }
 
     goto LABEL_14;
@@ -1262,13 +358,13 @@ LABEL_14:
   return *(this + 10);
 }
 
-uint64_t CSCppSymbolOwner::sections_in_address_range(unint64_t this, unint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t CSCppSymbolOwner::sections_in_address_range(unint64_t **this, unint64_t a2, _BOOL8 a3, uint64_t a4)
 {
-  v7 = *(this + 56);
-  v8 = *(this + 64);
+  v7 = this[7];
+  v8 = this[8];
   if (v8 == v7)
   {
-    v14 = *(*CSCppSymbolOwner::_fault_data_purging_empty(this, 0) + 80);
+    v14 = *(*CSCppSymbolOwner::_fault_data_purging_empty(this, 0, a3) + 80);
 
     return v14();
   }
@@ -1277,7 +373,7 @@ uint64_t CSCppSymbolOwner::sections_in_address_range(unint64_t this, unint64_t a
   {
     v9 = 0;
     v10 = a3 + a2;
-    v11 = *(this + 56);
+    v11 = this[7];
     do
     {
       if (a2 < v11[1] + *v11 && *v11 < v10)
@@ -1391,7 +487,7 @@ uint64_t CSCppSymbolOwner::copy_data_from_symbol_owner(uint64_t this, CSCppSymbo
     if (v2)
     {
       v3 = this;
-      this = CSCppReferenceCount::retain(*(a2 + 10));
+      this = CSCppReferenceCount::retain(*(a2 + 10), a2);
       *(v3 + 80) = v2;
     }
   }
@@ -1399,7 +495,7 @@ uint64_t CSCppSymbolOwner::copy_data_from_symbol_owner(uint64_t this, CSCppSymbo
   return this;
 }
 
-uint64_t std::vector<CSCppSectionRange>::__init_with_size[abi:ne200100]<CSCppSectionRange*,CSCppSectionRange*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<CSCppSectionRange>::__init_with_size[abi:ne200100]<CSCppSectionRange*,CSCppSectionRange*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1421,7 +517,7 @@ void sub_1D974284C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<CSCppSectionRange>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<CSCppSectionRange>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -1442,15 +538,13 @@ uint64_t remove_locked(void *a1, uint64_t *a2)
   return v5;
 }
 
-void CSCppSymbolOwnerCache::create_symbol_owner_data_with_symbol_generator<BOOL({block_pointer})(unsigned long,CSUserSuppliedSymbolData *)>(uint64_t a1, __int128 *a2)
+void CSCppSymbolOwnerCache::create_symbol_owner_data_with_symbol_generator<BOOL({block_pointer})(unsigned long,CSUserSuppliedSymbolData *)>(CSCppSymbolOwner *a1, __int128 *a2, uint64_t a3, uint64_t a4)
 {
-  v12 = *(a1 + 112);
+  v12 = *(a1 + 14);
   if (CSCppArchitecture::is_64_bit(&v12))
   {
     if (CSCppArchitecture::is_little_endian(&v12))
     {
-      v5 = *a2;
-      v6 = *(a2 + 2);
       *(a2 + 1) = 0;
       *(a2 + 2) = 0;
       *a2 = 0;
@@ -1479,8 +573,8 @@ void CSCppSymbolOwnerCache::create_symbol_owner_data_with_symbol_generator<BOOL(
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "Attempt to use ISA32Big when it is not defined", 46);
   std::ostringstream::str[abi:ne200100](v9, &v8);
   Exception::Exception(v7, &v8);
-  v4 = __cxa_allocate_exception(0x20uLL);
-  Exception::Exception(v4, v7);
+  v6 = __cxa_allocate_exception(0x20uLL);
+  Exception::Exception(v6, v7);
 }
 
 void sub_1D9742BDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::exception a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, char a23)
@@ -1575,8 +669,9 @@ atomic_uint *CSCppSymbolOwnerCache::symbol_owner_data(CSCppSymbolOwnerCache *thi
       ++_total_misses;
       if (a3)
       {
+        v20 = this;
         v13 = 0;
-        std::__hash_table<std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>,std::__unordered_map_hasher<CSCppSymbolOwner,std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>,CSCppSymbolOwnerHashFunctor,CSCppSymbolOwnerEqualsFunctor,true>,std::__unordered_map_equal<CSCppSymbolOwner,std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>,CSCppSymbolOwnerEqualsFunctor,CSCppSymbolOwnerHashFunctor,true>,std::allocator<std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>>>::__emplace_unique_key_args<CSCppSymbolOwner,std::piecewise_construct_t const&,std::tuple<CSCppSymbolOwner const&>,std::tuple<>>(v10, this)[28] = 0;
+        std::__hash_table<std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>,std::__unordered_map_hasher<CSCppSymbolOwner,std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>,CSCppSymbolOwnerHashFunctor,CSCppSymbolOwnerEqualsFunctor,true>,std::__unordered_map_equal<CSCppSymbolOwner,std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>,CSCppSymbolOwnerEqualsFunctor,CSCppSymbolOwnerHashFunctor,true>,std::allocator<std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>>>::__emplace_unique_key_args<CSCppSymbolOwner,std::piecewise_construct_t const&,std::tuple<CSCppSymbolOwner const&>,std::tuple<>>(v10, this, &std::piecewise_construct, &v20, &v19)[28] = 0;
         goto LABEL_17;
       }
 
@@ -1606,7 +701,7 @@ atomic_uint *CSCppSymbolOwnerCache::symbol_owner_data(CSCppSymbolOwnerCache *thi
     v16 = atomic_load((*(this + 1) + 40));
     if (!v15 || do_candidate_sources_satisfy_existing(*v15, v16))
     {
-      CSCppReferenceCount::retain(v13);
+      CSCppReferenceCount::retain(v13, v16);
       goto LABEL_17;
     }
   }
@@ -1629,14 +724,15 @@ void *CSCppSymbolOwnerCache::_kill_existing_symbol_owner_data_locked<std::__hash
     operator new();
   }
 
-  v5 = std::__hash_table<std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>,std::__unordered_map_hasher<CSCppSymbolOwner,std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>,CSCppSymbolOwnerHashFunctor,CSCppSymbolOwnerEqualsFunctor,true>,std::__unordered_map_equal<CSCppSymbolOwner,std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>,CSCppSymbolOwnerEqualsFunctor,CSCppSymbolOwnerHashFunctor,true>,std::allocator<std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>>>::__emplace_unique_key_args<CSCppSymbolOwner,CSCppSymbolOwner const&,CSCppSymbolOwnerData *&>(v3, a2 + 16);
+  v5 = std::__hash_table<std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>,std::__unordered_map_hasher<CSCppSymbolOwner,std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>,CSCppSymbolOwnerHashFunctor,CSCppSymbolOwnerEqualsFunctor,true>,std::__unordered_map_equal<CSCppSymbolOwner,std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>,CSCppSymbolOwnerEqualsFunctor,CSCppSymbolOwnerHashFunctor,true>,std::allocator<std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>>>::__emplace_unique_key_args<CSCppSymbolOwner,CSCppSymbolOwner const&,CSCppSymbolOwnerData *&>(v3, a2 + 16, a2 + 16, a2 + 224);
   if ((v6 & 1) == 0 && v5)
   {
     _memory_used -= (*(**(a2 + 224) + 32))(*(a2 + 224));
     CSCppReferenceCount::release(*(a2 + 224), 1);
   }
 
-  result = std::__hash_table<std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>,std::__unordered_map_hasher<CSCppSymbolOwner,std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>,CSCppSymbolOwnerHashFunctor,CSCppSymbolOwnerEqualsFunctor,true>,std::__unordered_map_equal<CSCppSymbolOwner,std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>,CSCppSymbolOwnerEqualsFunctor,CSCppSymbolOwnerHashFunctor,true>,std::allocator<std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>>>::__emplace_unique_key_args<CSCppSymbolOwner,std::piecewise_construct_t const&,std::tuple<CSCppSymbolOwner const&>,std::tuple<>>(v4, a2 + 16);
+  v9 = a2 + 16;
+  result = std::__hash_table<std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>,std::__unordered_map_hasher<CSCppSymbolOwner,std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>,CSCppSymbolOwnerHashFunctor,CSCppSymbolOwnerEqualsFunctor,true>,std::__unordered_map_equal<CSCppSymbolOwner,std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>,CSCppSymbolOwnerEqualsFunctor,CSCppSymbolOwnerHashFunctor,true>,std::allocator<std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>>>::__emplace_unique_key_args<CSCppSymbolOwner,std::piecewise_construct_t const&,std::tuple<CSCppSymbolOwner const&>,std::tuple<>>(v4, a2 + 16, &std::piecewise_construct, &v9, &v8);
   result[28] = 0;
   return result;
 }
@@ -1644,7 +740,7 @@ void *CSCppSymbolOwnerCache::_kill_existing_symbol_owner_data_locked<std::__hash
 uint64_t CSCppSymbolOwnerCache::_set_symbol_owner_data_with_footprint(CSCppSymbolOwnerCache *this, CSCppSymbolOwner *a2, CSCppSymbolOwnerData *a3)
 {
   pthread_mutex_lock(&_cache_lock);
-  v6 = _data_cache;
+  v7 = _data_cache;
   if (!_data_cache)
   {
     operator new();
@@ -1652,16 +748,17 @@ uint64_t CSCppSymbolOwnerCache::_set_symbol_owner_data_with_footprint(CSCppSymbo
 
   _memory_used += a3;
   *(a2 + 20) = atomic_fetch_add_explicit(_access_count, 1u, memory_order_relaxed);
-  CSCppReferenceCount::retain(a2);
-  std::__hash_table<std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>,std::__unordered_map_hasher<CSCppSymbolOwner,std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>,CSCppSymbolOwnerHashFunctor,CSCppSymbolOwnerEqualsFunctor,true>,std::__unordered_map_equal<CSCppSymbolOwner,std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>,CSCppSymbolOwnerEqualsFunctor,CSCppSymbolOwnerHashFunctor,true>,std::allocator<std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>>>::__emplace_unique_key_args<CSCppSymbolOwner,std::piecewise_construct_t const&,std::tuple<CSCppSymbolOwner const&>,std::tuple<>>(v6, this)[28] = a2;
+  CSCppReferenceCount::retain(a2, v6);
+  v10 = this;
+  std::__hash_table<std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>,std::__unordered_map_hasher<CSCppSymbolOwner,std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>,CSCppSymbolOwnerHashFunctor,CSCppSymbolOwnerEqualsFunctor,true>,std::__unordered_map_equal<CSCppSymbolOwner,std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>,CSCppSymbolOwnerEqualsFunctor,CSCppSymbolOwnerHashFunctor,true>,std::allocator<std::__hash_value_type<CSCppSymbolOwner,CSCppSymbolOwnerData *>>>::__emplace_unique_key_args<CSCppSymbolOwner,std::piecewise_construct_t const&,std::tuple<CSCppSymbolOwner const&>,std::tuple<>>(v7, this, &std::piecewise_construct, &v10, &v9)[28] = a2;
   if (_memory_used > _max_memory_used)
   {
     _max_memory_used = _memory_used;
   }
 
-  if (v6[3] > _max_entries)
+  if (v7[3] > _max_entries)
   {
-    _max_entries = v6[3];
+    _max_entries = v7[3];
   }
 
   pthread_cond_broadcast(&_cache_cond);
@@ -1671,14 +768,14 @@ uint64_t CSCppSymbolOwnerCache::_set_symbol_owner_data_with_footprint(CSCppSymbo
 
 uint64_t CSCppSymbolOwnerCache::create_symbol_owner_data(CFUUIDBytes *this, CSCppSymbolOwner *a2, CSCppDsymData *a3)
 {
-  v49 = *MEMORY[0x1E69E9840];
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2000000000;
-  v41 = 0;
+  v48 = *MEMORY[0x1E69E9840];
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x2000000000;
+  v40 = 0;
   CFUUIDBytesToString(this + 1, __s, 0x28uLL);
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v33);
-  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v33, "create_symbol_owner_data -- UUID: ", 34);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v32);
+  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v32, "create_symbol_owner_data -- UUID: ", 34);
   v6 = strlen(__s);
   v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, __s, v6);
   v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, ", Path: ", 8);
@@ -1716,8 +813,8 @@ uint64_t CSCppSymbolOwnerCache::create_symbol_owner_data(CFUUIDBytes *this, CSCp
 
   v18 = strlen(v17);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, v17, v18);
-  std::ostringstream::str[abi:ne200100](&v33, __p);
-  if (v32 >= 0)
+  std::ostringstream::str[abi:ne200100](&v32, __p);
+  if (v31 >= 0)
   {
     v19 = __p;
   }
@@ -1727,27 +824,27 @@ uint64_t CSCppSymbolOwnerCache::create_symbol_owner_data(CFUUIDBytes *this, CSCp
     v19 = __p[0];
   }
 
-  CSCppCrashReporterInfoSetter::CSCppCrashReporterInfoSetter(v30, v19);
+  CSCppCrashReporterInfoSetter::CSCppCrashReporterInfoSetter(v29, v19);
   if ((CSGetForceSafeMachVMReads() & 1) != 0 || (v20 = atomic_load((*&this->byte8 + 40)), (v20 & 0x1000) != 0))
   {
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 0x40000000;
-    v29[2] = ___ZN21CSCppSymbolOwnerCache24create_symbol_owner_dataEP16CSCppSymbolOwnerP13CSCppDsymData_block_invoke;
-    v29[3] = &unk_1E8583DC0;
-    v29[4] = &v38;
-    v29[5] = this;
-    v29[6] = a2;
-    v22 = CSExceptionSafeThreadRunBlock(v29);
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 0x40000000;
+    v28[2] = ___ZN21CSCppSymbolOwnerCache24create_symbol_owner_dataEP16CSCppSymbolOwnerP13CSCppDsymData_block_invoke;
+    v28[3] = &unk_1E8583DC0;
+    v28[4] = &v37;
+    v28[5] = this;
+    v28[6] = a2;
+    v22 = CSExceptionSafeThreadRunBlock(v28);
     if (v22 != 4096 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
       v23 = *((*(**(*&this->byte8 + 32) + 16))(*(*&this->byte8 + 32)) + 12);
       v24 = *&this[7].byte8;
       *buf = 67109634;
-      v43 = v23;
-      v44 = 2080;
-      v45 = v24;
-      v46 = 1024;
-      v47 = v22;
+      v42 = v23;
+      v43 = 2080;
+      v44 = v24;
+      v45 = 1024;
+      v46 = v22;
       _os_log_impl(&dword_1D96E9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Missing page in pid %d, create of symbol owner data for [%s] failed, err code %d\n", buf, 0x18u);
     }
   }
@@ -1755,10 +852,10 @@ uint64_t CSCppSymbolOwnerCache::create_symbol_owner_data(CFUUIDBytes *this, CSCp
   else
   {
     symbol_owner_data2 = create_symbol_owner_data2(this, a2);
-    v39[3] = symbol_owner_data2;
+    v38[3] = symbol_owner_data2;
   }
 
-  v25 = v39[3];
+  v25 = v38[3];
   if (!v25)
   {
     pthread_mutex_lock(&_cache_lock);
@@ -1767,30 +864,29 @@ uint64_t CSCppSymbolOwnerCache::create_symbol_owner_data(CFUUIDBytes *this, CSCp
     create_empty_symbol_owner_data(v26);
   }
 
-  CSCppCrashReporterInfoSetter::~CSCppCrashReporterInfoSetter(v30);
-  if (v32 < 0)
+  CSCppCrashReporterInfoSetter::~CSCppCrashReporterInfoSetter(v29);
+  if (v31 < 0)
   {
     operator delete(__p[0]);
   }
 
-  v33 = *MEMORY[0x1E69E54E8];
-  *(&v33 + *(v33 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
-  v34 = MEMORY[0x1E69E5548] + 16;
-  if (v36 < 0)
+  v32 = *MEMORY[0x1E69E54E8];
+  *(&v32 + *(v32 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+  v33 = MEMORY[0x1E69E5548] + 16;
+  if (v35 < 0)
   {
-    operator delete(v35[7].__locale_);
+    operator delete(v34[7].__locale_);
   }
 
-  v34 = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v35);
+  v33 = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v34);
   std::ostream::~ostream();
-  MEMORY[0x1DA7366F0](&v37);
-  _Block_object_dispose(&v38, 8);
-  v27 = *MEMORY[0x1E69E9840];
+  MEMORY[0x1DA7366F0](&v36);
+  _Block_object_dispose(&v37, 8);
   return v25;
 }
 
-void sub_1D9746018(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, char a25)
+void sub_1D9746018(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, char a25)
 {
   CSCppCrashReporterInfoSetter::~CSCppCrashReporterInfoSetter(&a17);
   if (a24 < 0)
@@ -1812,51 +908,48 @@ uint64_t ___ZN21CSCppSymbolOwnerCache24create_symbol_owner_dataEP16CSCppSymbolOw
 
 uint64_t create_symbol_owner_data2(CSCppSymbolOwner *a1, CSCppDsymData *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (CSGetDebugLoggingLevel() >= 1 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 1);
     v5 = *(a1 + 15);
     *buf = 134218242;
-    v14 = v4;
-    v15 = 2080;
-    v16 = v5;
+    v13 = v4;
+    v14 = 2080;
+    v15 = v5;
     _os_log_impl(&dword_1D96E9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "SYMBOLICATOR %p CREATING SYMBOL OWNER DATA: %s\n", buf, 0x16u);
   }
 
-  v12 = *(a1 + 14);
-  if (CSCppArchitecture::is_64_bit(&v12))
+  v11 = *(a1 + 14);
+  if (CSCppArchitecture::is_64_bit(&v11))
   {
-    if (!CSCppArchitecture::is_little_endian(&v12))
+    if (!CSCppArchitecture::is_little_endian(&v11))
     {
       std::ostringstream::basic_ostringstream[abi:ne200100](buf);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "Attempt to use ISA64Big when it is not defined", 46);
-      std::ostringstream::str[abi:ne200100](buf, &v11);
-      Exception::Exception(v10, &v11);
+      std::ostringstream::str[abi:ne200100](buf, &v10);
+      Exception::Exception(v9, &v10);
       exception = __cxa_allocate_exception(0x20uLL);
-      Exception::Exception(exception, v10);
+      Exception::Exception(exception, v9);
     }
 
-    result = create_symbol_owner_data_arch_specific<SizeAndEndianness<Pointer64,LittleEndian>>(a1, a2);
+    return create_symbol_owner_data_arch_specific<SizeAndEndianness<Pointer64,LittleEndian>>(a1, a2);
   }
 
   else
   {
-    if (!CSCppArchitecture::is_little_endian(&v12))
+    if (!CSCppArchitecture::is_little_endian(&v11))
     {
       std::ostringstream::basic_ostringstream[abi:ne200100](buf);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "Attempt to use ISA32Big when it is not defined", 46);
-      std::ostringstream::str[abi:ne200100](buf, &v11);
-      Exception::Exception(v10, &v11);
-      v9 = __cxa_allocate_exception(0x20uLL);
-      Exception::Exception(v9, v10);
+      std::ostringstream::str[abi:ne200100](buf, &v10);
+      Exception::Exception(v9, &v10);
+      v8 = __cxa_allocate_exception(0x20uLL);
+      Exception::Exception(v8, v9);
     }
 
-    result = create_symbol_owner_data_arch_specific<SizeAndEndianness<Pointer32,LittleEndian>>(a1, a2);
+    return create_symbol_owner_data_arch_specific<SizeAndEndianness<Pointer32,LittleEndian>>(a1, a2);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 void sub_1D97462B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, char a20)
@@ -2001,17 +1094,17 @@ uint64_t ___ZN21CSCppSymbolOwnerCache21data_for_symbol_ownerEP16CSCppSymbolOwner
   return CSCppSymbolOwnerCache::_set_symbol_owner_data_with_footprint(v4, v5, v6);
 }
 
-void ___ZN21CSCppSymbolOwnerCache21data_for_symbol_ownerEP16CSCppSymbolOwnerb_block_invoke_3()
+void ___ZN21CSCppSymbolOwnerCache21data_for_symbol_ownerEP16CSCppSymbolOwnerb_block_invoke_3(uint64_t a1)
 {
   pthread_mutex_lock(&_cache_lock);
   ++_total_failed_creates;
-  v0 = pthread_mutex_unlock(&_cache_lock);
-  create_empty_symbol_owner_data(v0);
+  v1 = pthread_mutex_unlock(&_cache_lock);
+  create_empty_symbol_owner_data(v1);
 }
 
 BOOL CSCppSymbolOwnerCache::resymbolicate_one_symbol_owner(atomic_uint **this, CSCppSymbolOwner *a2, CSCppDsymData *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = CSCppSymbolOwnerCache::symbol_owner_data(this, 1, 0, 0, 0);
   if (v5)
   {
@@ -2026,22 +1119,22 @@ BOOL CSCppSymbolOwnerCache::resymbolicate_one_symbol_owner(atomic_uint **this, C
 
   if (a2)
   {
-    CSCppDsymData::CSCppDsymData(v16, a2);
-    v17 = 1;
-    symbol_owner_data = CSCppSymbolOwnerCache::create_symbol_owner_data(this, v16, v8);
+    CSCppDsymData::CSCppDsymData(v15, a2);
+    v16 = 1;
+    symbol_owner_data = CSCppSymbolOwnerCache::create_symbol_owner_data(this, v15, v8);
   }
 
   else
   {
-    LOBYTE(v16[0]) = 0;
-    v17 = 0;
+    LOBYTE(v15[0]) = 0;
+    v16 = 0;
     symbol_owner_data = CSCppSymbolOwnerCache::create_symbol_owner_data(this, 0, v6);
   }
 
   v7 = symbol_owner_data;
-  if (v17 == 1)
+  if (v16 == 1)
   {
-    CSCppDsymData::~CSCppDsymData(v16);
+    CSCppDsymData::~CSCppDsymData(v15);
   }
 
   v5 = 0;
@@ -2079,14 +1172,12 @@ LABEL_11:
     CSCppSymbolOwnerCache::_set_symbol_owner_data_with_footprint(this, v7, v12);
   }
 
-  result = (explicit & 0x80) == 0;
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  return (explicit & 0x80) == 0;
 }
 
-void sub_1D97469D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D97469D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   if (LOBYTE(STACK[0x450]) == 1)
   {
     CSCppDsymData::~CSCppDsymData(va);
@@ -2167,14 +1258,14 @@ void CSCppSymbolOwnerCache::resymbolicate_symbol_owners(uint64_t *a1, CFArrayRef
   CFRelease(Mutable);
 }
 
-void sub_1D9746C1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1D9746C1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2251,13 +1342,13 @@ LABEL_10:
   }
 }
 
-void sub_1D9746E68(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D9746E68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<CSCppDsymData>::reset[abi:ne200100](va, 0);
-  if (v2)
+  if (v3)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 
   _Unwind_Resume(a1);
@@ -2374,7 +1465,7 @@ uint64_t CSCppSymbolOwnerCache::print_stats(CSCppSymbolOwnerCache *this)
 
 uint64_t CSCppSymbolOwnerCache::print_entries_locked(CSCppSymbolOwnerCache *this)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v1 = _data_cache;
   if (!_data_cache)
   {
@@ -2385,7 +1476,7 @@ uint64_t CSCppSymbolOwnerCache::print_entries_locked(CSCppSymbolOwnerCache *this
   for (i = *(v1 + 16); i; i = *&i->byte0)
   {
     v4 = *&i[14].byte0;
-    CFUUIDBytesToString(i + 2, v8, 0x28uLL);
+    CFUUIDBytesToString(i + 2, v7, 0x28uLL);
     __str[0] = 0;
     if ((*&i[7].byte12 & 0x80000000) != 0)
     {
@@ -2402,10 +1493,9 @@ uint64_t CSCppSymbolOwnerCache::print_entries_locked(CSCppSymbolOwnerCache *this
       v5 = 0;
     }
 
-    result = printf("%s %s %sDATA:%p retain count (%d)\n", v8, *&i[8].byte8, __str, v4, v5);
+    result = printf("%s %s %sDATA:%p retain count (%d)\n", v7, *&i[8].byte8, __str, v4, v5);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2497,9 +1587,9 @@ LABEL_24:
     {
       if ((v4 & 0x80000) != 0)
       {
-LABEL_41:
+LABEL_38:
         a2 = 0;
-        goto LABEL_42;
+        goto LABEL_39;
       }
 
       a2 = dsym_data_for_symbol_owner(a1, 0, 0, 0, 0);
@@ -2511,20 +1601,20 @@ LABEL_41:
           v27 = dsym_data_for_symbol_owner(a1, *(a1 + 120));
           std::unique_ptr<CSCppDsymData>::reset[abi:ne200100](&v28, v27);
           a2 = v28;
-          goto LABEL_42;
+          goto LABEL_39;
         }
 
-        goto LABEL_41;
+        goto LABEL_38;
       }
     }
 
-LABEL_42:
+LABEL_39:
     v22 = (a2 != 0) & v17;
-    goto LABEL_43;
+    goto LABEL_40;
   }
 
   v22 = 0;
-LABEL_43:
+LABEL_40:
   if (!(v22 & 1 | !cached_sod_contains_sufficient_data(v20, v4)))
   {
     CSCppSymbolOwnerCache::create_mmap_symbol_owner_data_arch_specific(a1, v20, v10);
@@ -2532,23 +1622,11 @@ LABEL_43:
 
   v23 = 0;
 LABEL_25:
-  if ((((v4 & 0x200) == 0) & v14) != 1)
+  if ((((v4 & 0x200) == 0) & v14) == 1)
   {
-    if (!v14)
-    {
-      goto LABEL_30;
-    }
-
-    goto LABEL_29;
+    is_system_path_symbol_owner(a1);
   }
 
-  if (is_system_path_symbol_owner(a1))
-  {
-LABEL_29:
-    *(a1 + 109);
-  }
-
-LABEL_30:
   if (v17)
   {
     create_traw_symbol_owner_data_arch_specific<SizeAndEndianness<Pointer32,LittleEndian>>(a1, a2);
@@ -2580,9 +1658,9 @@ LABEL_30:
   return 0;
 }
 
-void sub_1D97478FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D97478FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<CSCppDsymData>::reset[abi:ne200100](va, 0);
   _Unwind_Resume(a1);
 }
@@ -2661,9 +1739,9 @@ LABEL_24:
     {
       if ((v4 & 0x80000) != 0)
       {
-LABEL_41:
+LABEL_38:
         a2 = 0;
-        goto LABEL_42;
+        goto LABEL_39;
       }
 
       a2 = dsym_data_for_symbol_owner(a1, 0, 0, 0, 0);
@@ -2675,20 +1753,20 @@ LABEL_41:
           v27 = dsym_data_for_symbol_owner(a1, *(a1 + 120));
           std::unique_ptr<CSCppDsymData>::reset[abi:ne200100](&v28, v27);
           a2 = v28;
-          goto LABEL_42;
+          goto LABEL_39;
         }
 
-        goto LABEL_41;
+        goto LABEL_38;
       }
     }
 
-LABEL_42:
+LABEL_39:
     v22 = (a2 != 0) & v17;
-    goto LABEL_43;
+    goto LABEL_40;
   }
 
   v22 = 0;
-LABEL_43:
+LABEL_40:
   if (!(v22 & 1 | !cached_sod_contains_sufficient_data(v20, v4)))
   {
     CSCppSymbolOwnerCache::create_mmap_symbol_owner_data_arch_specific(a1, v20, v10);
@@ -2696,23 +1774,11 @@ LABEL_43:
 
   v23 = 0;
 LABEL_25:
-  if ((((v4 & 0x200) == 0) & v14) != 1)
+  if ((((v4 & 0x200) == 0) & v14) == 1)
   {
-    if (!v14)
-    {
-      goto LABEL_30;
-    }
-
-    goto LABEL_29;
+    is_system_path_symbol_owner(a1);
   }
 
-  if (is_system_path_symbol_owner(a1))
-  {
-LABEL_29:
-    *(a1 + 109);
-  }
-
-LABEL_30:
   if (v17)
   {
     create_traw_symbol_owner_data_arch_specific<SizeAndEndianness<Pointer64,LittleEndian>>(a1, a2);
@@ -2744,9 +1810,9 @@ LABEL_30:
   return 0;
 }
 
-void sub_1D9747CA0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D9747CA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<CSCppDsymData>::reset[abi:ne200100](va, 0);
   _Unwind_Resume(a1);
 }
@@ -2770,26 +1836,25 @@ uint64_t TMMapArchive::dsym_path(TMMapArchive *this)
 
 uint64_t dsym_data_for_symbol_owner(const CFUUIDBytes *a1, const char *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     if (a2)
     {
-      make_dsym_data_from_path_and_uuid(a2, a1 + 1, &v4);
-      if (v5 == 1)
+      make_dsym_data_from_path_and_uuid(&v3, a2, a1 + 1);
+      if (v4 == 1)
       {
         operator new();
       }
     }
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 void sub_1D9747E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9)
 {
-  MEMORY[0x1DA736760](v9, 0x1032C401C2584E0);
+  MEMORY[0x1DA736760](v9, 0x1032C401C2584E0, a3, a4, a5, a6, a7, a8);
   if (LOBYTE(STACK[0x448]) == 1)
   {
     CSCppDsymData::~CSCppDsymData(&a9);
@@ -2837,14 +1902,14 @@ BOOL is_system_path_symbol_owner(CSCppSymbolOwner *a1)
   return v4 == 0;
 }
 
-void create_traw_symbol_owner_data_arch_specific<SizeAndEndianness<Pointer32,LittleEndian>>(uint64_t a1, uint64_t a2)
+void create_traw_symbol_owner_data_arch_specific<SizeAndEndianness<Pointer32,LittleEndian>>(uint64_t a1, CSCppDsymData *a2)
 {
   v3 = *MEMORY[0x1E69E9840];
   v2 = a2;
   operator new();
 }
 
-void sub_1D9748C50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, uint64_t a22, uint64_t a23, void **a24)
+void sub_1D9748C50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, uint64_t a22, uint64_t a23, CSCppDsymData *a24)
 {
   std::unique_ptr<CSCppDsymData>::reset[abi:ne200100](&a24, 0);
   v27 = *(v25 - 160);
@@ -2858,31 +1923,30 @@ void sub_1D9748C50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CSCppSymbolOwnerCache::create_mmap_archive_arch_specific<Pointer32>(uint64_t a1, uint64_t a2, CSCppAddressSet *a3)
+mach_vm_address_t CSCppSymbolOwnerCache::create_mmap_archive_arch_specific<Pointer32>(uint64_t a1, uint64_t a2, CSCppAddressSet *a3, int a4)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = atomic_load((*(a1 + 8) + 40));
-  if (!_do_traw_segments_overlap((a2 + 376)))
+  v7 = *MEMORY[0x1E69E9840];
+  atomic_load((*(a1 + 8) + 40));
+  if (!_do_traw_segments_overlap(a2 + 376))
   {
     if (a3)
     {
       CSCppAddressSet::sort(a3);
     }
 
-    MMapArchiveNameBuffer::MMapArchiveNameBuffer(v7);
+    MMapArchiveNameBuffer::MMapArchiveNameBuffer(v6);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
-void sub_1D974A390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, mach_vm_address_t a33, uint64_t a34, void *__p, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, void *a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, void *a62, uint64_t a63)
+void sub_1D974A390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, mach_vm_address_t a33, uint64_t a34, void *__p, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, void *a62, uint64_t a63)
 {
-  v73 = *(v71 - 144);
-  if (v73)
+  v67 = *(v65 - 144);
+  if (v67)
   {
-    *(v71 - 136) = v73;
-    operator delete(v73);
+    *(v65 - 136) = v67;
+    operator delete(v67);
   }
 
   MachVMAllocatePtr<TMMapArchive>::~MachVMAllocatePtr(&a33);
@@ -2908,8 +1972,8 @@ void sub_1D974A390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a62);
   }
 
-  a71 = a26;
-  std::vector<std::unique_ptr<char []>>::__destroy_vector::operator()[abi:ne200100](&a71);
+  a65 = a26;
+  std::vector<std::unique_ptr<char []>>::__destroy_vector::operator()[abi:ne200100](&a65);
   _Unwind_Resume(a1);
 }
 
@@ -2945,11 +2009,11 @@ char *TMMapArchive::optional_data(TMMapArchive *this)
 
 _DWORD *record_sod_header_version<SizeAndEndianness<Pointer32,LittleEndian>,Pointer32>(uint64_t *a1, _DWORD *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  TExtendedMachOHeader<SizeAndEndianness<Pointer32,LittleEndian>>::version_from_source_version_load_command(*a1, v7);
-  if (v8 == 1)
+  v8 = *MEMORY[0x1E69E9840];
+  TExtendedMachOHeader<SizeAndEndianness<Pointer32,LittleEndian>>::version_from_source_version_load_command(*a1, v6);
+  if (v7 == 1)
   {
-    CSCppStringCache::intern((a2 + 24), v7);
+    CSCppStringCache::intern((a2 + 24), v6);
   }
 
   result = TMachOHeader<SizeAndEndianness<Pointer32,LittleEndian>>::id_dylib(*(*a1 + 24));
@@ -2957,67 +2021,63 @@ _DWORD *record_sod_header_version<SizeAndEndianness<Pointer32,LittleEndian>,Poin
   {
     a2[64] = result[4];
     a2[65] = result[5];
-    if ((v8 & 1) == 0)
+    if ((v7 & 1) == 0)
     {
-      TExtendedMachOHeader<SizeAndEndianness<Pointer32,LittleEndian>>::version_from_id_dylib_load_command(*a1, v6);
-      if (v6[32])
+      TExtendedMachOHeader<SizeAndEndianness<Pointer32,LittleEndian>>::version_from_id_dylib_load_command(*a1, v5);
+      if (v5[32])
       {
-        CSCppStringCache::intern((a2 + 24), v6);
+        CSCppStringCache::intern((a2 + 24), v5);
       }
 
       std::__throw_bad_optional_access[abi:ne200100]();
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t dsym_header_for_symbol_owner<SizeAndEndianness<Pointer32,LittleEndian>,Pointer32>@<X0>(uint64_t result@<X0>, void ***a2@<X2>, void ***a3@<X3>, void *a4@<X8>)
+uint64_t *dsym_header_for_symbol_owner<SizeAndEndianness<Pointer32,LittleEndian>,Pointer32>@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *result@<X0>, void ***a4@<X2>, void ***a5@<X3>)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v5 = atomic_load((*(result + 8) + 40));
-  if ((v5 & 0x80000) == 0 && (v6 = result, (*(result + 109) & 0x40) == 0) && ((v8 = *a3) != 0 || (v10 = dsym_data_for_symbol_owner(result, 0, 0, 0, 0), result = std::unique_ptr<CSCppDsymData>::reset[abi:ne200100](a2, v10), v8 = *a2, *a3 = *a2, v8)) && (result = new_file_memory_for_uuid_and_arch((v8 + 9), v6 + 16, *(v6 + 112), 2)) != 0)
+  v14 = *MEMORY[0x1E69E9840];
+  v6 = atomic_load((result[1] + 40));
+  if ((v6 & 0x80000) == 0 && (v7 = result, (*(result + 109) & 0x40) == 0) && ((v9 = *a5) != 0 || (v11 = dsym_data_for_symbol_owner(result, 0, 0, 0, 0), result = std::unique_ptr<CSCppDsymData>::reset[abi:ne200100](a4, v11), v9 = *a4, *a5 = *a4, v9)) && (result = new_file_memory_for_uuid_and_arch((v9 + 9), (v7 + 2), v7[14], 2)) != 0)
   {
-    v11 = result;
-    v15 = result;
-    if (TMemoryView<SizeAndEndianness<Pointer32,LittleEndian>>::macho_header_at(&v15, 0, 1))
+    v12 = result;
+    v13 = result;
+    if (TMemoryView<SizeAndEndianness<Pointer32,LittleEndian>>::macho_header_at(&v13, 0, 1))
     {
-      v12 = *a3;
-      v13 = v11[14];
       operator new();
     }
 
-    *a4 = 0;
-    result = (*(*v11 + 8))(v11);
+    *a1 = 0;
+    return (*(*v12 + 8))(v12);
   }
 
   else
   {
-    *a4 = 0;
+    *a1 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_1D974A8AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t *a11)
+void sub_1D974A8AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a11)
   {
-    CSCppTextSectionDataDescriptor::_perform_partial_mapping_for_file<Pointer64>(a11);
+    CSCppTextSectionDataDescriptor::_perform_partial_mapping_for_file<Pointer64>();
   }
 
-  (*(*v11 + 8))(v11);
+  (*(*v11 + 8))(v11, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-void extract_dwarf_data_from_header<SizeAndEndianness<Pointer32,LittleEndian>>(uint64_t a1, void *a2, char a3, void *a4, uint64_t (***a5)(void, std::vector<std::string>::pointer))
+void extract_dwarf_data_from_header<SizeAndEndianness<Pointer32,LittleEndian>>(uint64_t a1, void *a2, char a3, void *a4, uint64_t (***a5)(void, const char *))
 {
-  v132 = *MEMORY[0x1E69E9840];
+  v129 = *MEMORY[0x1E69E9840];
   v7 = TMachOHeader<SizeAndEndianness<Pointer32,LittleEndian>>::segment_named(*(a1 + 24), "__DWARF");
-  v76 = a2;
-  v77 = a1;
+  v73 = a2;
+  v74 = a1;
   if (v7 || (v7 = TMachOHeader<SizeAndEndianness<Pointer32,LittleEndian>>::segment_named(*(a1 + 24), "__DWARFA")) != 0 || (v7 = TMachOHeader<SizeAndEndianness<Pointer32,LittleEndian>>::segment_named(*(a1 + 24), "")) != 0)
   {
     v8 = *(v7 + 48);
@@ -3030,7 +2090,7 @@ void extract_dwarf_data_from_header<SizeAndEndianness<Pointer32,LittleEndian>>(u
       v13 = 0;
       v14 = 0;
       v15 = 0;
-      v78 = 0;
+      v75 = 0;
       v16 = 0;
       v17 = (v7 + 56);
       do
@@ -3072,7 +2132,7 @@ void extract_dwarf_data_from_header<SizeAndEndianness<Pointer32,LittleEndian>>(u
 
         else if (!strcmp(v17, "__debug_addr"))
         {
-          v78 = v17;
+          v75 = v17;
         }
 
         else if (!strncmp(v17, "__debug_str_offs", 0x10uLL))
@@ -3087,24 +2147,24 @@ void extract_dwarf_data_from_header<SizeAndEndianness<Pointer32,LittleEndian>>(u
       while (v8);
       if (v9 && v10 && *(v9 + 9) && *(v10 + 9))
       {
-        v18 = *(v77 + 8);
+        v18 = *(v74 + 8);
         if ((*(*v18 + 16))(v18))
         {
-          v19 = *(v77 + 32);
+          v19 = *(v74 + 32);
           if (v11)
           {
-            v69 = *(v11 + 8) + v19;
+            v66 = *(v11 + 8) + v19;
           }
 
           else
           {
-            v69 = 0;
+            v66 = 0;
           }
 
-          v20 = v78;
+          v20 = v75;
           if (v12)
           {
-            v72 = *(v12 + 8) + v19;
+            v69 = *(v12 + 8) + v19;
             if (v13)
             {
               goto LABEL_45;
@@ -3113,31 +2173,31 @@ void extract_dwarf_data_from_header<SizeAndEndianness<Pointer32,LittleEndian>>(u
 
           else
           {
-            v72 = 0;
+            v69 = 0;
             if (v13)
             {
 LABEL_45:
-              v70 = *(v13 + 8) + v19;
+              v67 = *(v13 + 8) + v19;
               if (v14)
               {
 LABEL_46:
-                v67 = *(v14 + 8) + v19;
+                v64 = *(v14 + 8) + v19;
 LABEL_55:
                 if (v15)
                 {
-                  v66 = *(v15 + 8) + v19;
+                  v63 = *(v15 + 8) + v19;
                 }
 
                 else
                 {
-                  v66 = 0;
+                  v63 = 0;
                 }
 
                 v21 = v19 + *(v9 + 8);
-                v79 = *(v10 + 8) + v19;
+                v76 = *(v10 + 8) + v19;
                 if (v20)
                 {
-                  v65 = *(v20 + 8) + v19;
+                  v62 = *(v20 + 8) + v19;
                   if (!v16)
                   {
                     goto LABEL_81;
@@ -3146,7 +2206,7 @@ LABEL_55:
 
                 else
                 {
-                  v65 = 0;
+                  v62 = 0;
                   if (!v16)
                   {
                     goto LABEL_81;
@@ -3158,12 +2218,12 @@ LABEL_55:
               }
 
 LABEL_54:
-              v67 = 0;
+              v64 = 0;
               goto LABEL_55;
             }
           }
 
-          v70 = 0;
+          v67 = 0;
           if (v14)
           {
             goto LABEL_46;
@@ -3172,21 +2232,21 @@ LABEL_54:
           goto LABEL_54;
         }
 
-        v19 = *(v77 + 16);
+        v19 = *(v74 + 16);
         if (v11)
         {
-          v69 = *(v11 + 10) + v19;
+          v66 = *(v11 + 10) + v19;
         }
 
         else
         {
-          v69 = 0;
+          v66 = 0;
         }
 
-        v20 = v78;
+        v20 = v75;
         if (v12)
         {
-          v72 = *(v12 + 10) + v19;
+          v69 = *(v12 + 10) + v19;
           if (v13)
           {
             goto LABEL_50;
@@ -3195,39 +2255,39 @@ LABEL_54:
 
         else
         {
-          v72 = 0;
+          v69 = 0;
           if (v13)
           {
 LABEL_50:
-            v70 = *(v13 + 10) + v19;
+            v67 = *(v13 + 10) + v19;
             if (v14)
             {
 LABEL_51:
-              v67 = *(v14 + 10) + v19;
+              v64 = *(v14 + 10) + v19;
 LABEL_60:
               if (v15)
               {
-                v66 = *(v15 + 10) + v19;
+                v63 = *(v15 + 10) + v19;
               }
 
               else
               {
-                v66 = 0;
+                v63 = 0;
               }
 
               v21 = *(v9 + 10) + v19;
-              v79 = *(v10 + 10) + v19;
+              v76 = *(v10 + 10) + v19;
               if (v20)
               {
-                v65 = *(v20 + 10) + v19;
+                v62 = *(v20 + 10) + v19;
                 if (!v16)
                 {
 LABEL_81:
-                  v71 = 0;
+                  v68 = 0;
                   if (!v11)
                   {
 LABEL_82:
-                    v68 = 0;
+                    v65 = 0;
                     if (!v12)
                     {
 LABEL_83:
@@ -3252,7 +2312,7 @@ LABEL_79:
                           v26 = *(v9 + 9);
                           if (v20)
                           {
-                            v64 = *(v20 + 9);
+                            v61 = *(v20 + 9);
                             if (!v16)
                             {
 LABEL_90:
@@ -3261,140 +2321,137 @@ LABEL_90:
                               v29 = (*(*v18 + 32))(v18, v21, v26);
                               if (v29)
                               {
-                                v125 = v29;
-                                v126 = 0;
-                                v127 = v28 | (v26 << 32);
+                                v122 = v29;
+                                v123 = 0;
+                                v124 = v28 | (v26 << 32);
                                 madvise(v29, v26, 2);
-                                v30 = (*(*v18 + 32))(v18, v79, v27);
+                                v30 = (*(*v18 + 32))(v18, v76, v27);
                                 if (v30)
                                 {
-                                  v117 = v30;
+                                  v114 = v30;
+                                  v115 = 0;
+                                  v116 = v76 | (v27 << 32);
+                                  v117 = 0;
+                                  v119 = 0;
                                   v118 = 0;
-                                  v119 = v79 | (v27 << 32);
-                                  v120 = 0;
-                                  v122 = 0;
-                                  v121 = 0;
-                                  v123 = 0u;
-                                  v124 = 0u;
+                                  v120 = 0u;
+                                  v121 = 0u;
                                   madvise(v30, v27, 2);
-                                  if (!v23 || (v31 = (*(*v18 + 32))(v18, v72, v23)) == 0)
+                                  if (!v23 || (v31 = (*(*v18 + 32))(v18, v69, v23)) == 0)
                                   {
                                     v31 = 0;
                                     v23 = 0;
                                   }
 
-                                  v114 = v31;
-                                  v115 = 0;
-                                  v116 = v72 | (v23 << 32);
-                                  if (!v16 || (v32 = (*(*v18 + 32))(v18, v71, v16)) == 0)
+                                  v111 = v31;
+                                  v112 = 0;
+                                  v113 = v69 | (v23 << 32);
+                                  if (!v16 || (v32 = (*(*v18 + 32))(v18, v68, v16)) == 0)
                                   {
                                     v32 = 0;
                                     v16 = 0;
                                   }
 
-                                  v111 = v32;
-                                  v112 = 0;
-                                  v113 = v71 | (v16 << 32);
-                                  if (!v24 || (v33 = (*(*v18 + 32))(v18, v70, v24)) == 0)
+                                  v108 = v32;
+                                  v109 = 0;
+                                  v110 = v68 | (v16 << 32);
+                                  if (!v24 || (v33 = (*(*v18 + 32))(v18, v67, v24)) == 0)
                                   {
                                     v33 = 0;
                                     v24 = 0;
                                   }
 
-                                  v108 = v33;
-                                  v109 = 0;
-                                  v110 = v70 | (v24 << 32);
-                                  v34 = v68;
-                                  if (!v68 || (v35 = (*(*v18 + 32))(v18, v69, v68)) == 0)
+                                  v105 = v33;
+                                  v106 = 0;
+                                  v107 = v67 | (v24 << 32);
+                                  v34 = v65;
+                                  if (!v65 || (v35 = (*(*v18 + 32))(v18, v66, v65)) == 0)
                                   {
                                     v35 = 0;
                                     v34 = 0;
                                   }
 
-                                  v104 = v35;
-                                  v105 = 0;
-                                  v106 = v69 | (v34 << 32);
-                                  v107 = &v108;
-                                  if (!v14 || (v36 = (*(*v18 + 32))(v18, v67, v14)) == 0)
+                                  v101 = v35;
+                                  v102 = 0;
+                                  v103 = v66 | (v34 << 32);
+                                  v104 = &v105;
+                                  if (!v14 || (v36 = (*(*v18 + 32))(v18, v64, v14)) == 0)
                                   {
                                     v36 = 0;
                                     v14 = 0;
                                   }
 
-                                  v101 = v36;
-                                  v102 = 0;
-                                  v103 = v67 | (v14 << 32);
-                                  if (!v25 || (v37 = (*(*v18 + 32))(v18, v66, v25)) == 0)
+                                  v98 = v36;
+                                  v99 = 0;
+                                  v100 = v64 | (v14 << 32);
+                                  if (!v25 || (v37 = (*(*v18 + 32))(v18, v63, v25)) == 0)
                                   {
                                     v37 = 0;
                                     v25 = 0;
                                   }
 
-                                  v98 = v37;
-                                  v99 = 0;
-                                  v100 = v66 | (v25 << 32);
-                                  v38 = v64;
-                                  if (!v64 || (v39 = (*(*v18 + 32))(v18, v65, v64)) == 0)
+                                  v95 = v37;
+                                  v96 = 0;
+                                  v97 = v63 | (v25 << 32);
+                                  v38 = v61;
+                                  if (!v61 || (v39 = (*(*v18 + 32))(v18, v62, v61)) == 0)
                                   {
                                     v39 = 0;
                                     v38 = 0;
                                   }
 
-                                  v95 = v39;
-                                  v96 = 0;
-                                  v97 = v65 | (v38 << 32);
-                                  memset(v93, 0, sizeof(v93));
-                                  v94 = 1065353216;
-                                  v90 = 0;
-                                  v91 = 0;
-                                  v92 = 0;
-                                  v89 = 0u;
-                                  v87 = 0u;
-                                  v88 = 0u;
-                                  v85 = 0u;
+                                  v92 = v39;
+                                  v93 = 0;
+                                  v94 = v62 | (v38 << 32);
+                                  memset(v90, 0, sizeof(v90));
+                                  v91 = 1065353216;
+                                  v87 = 0;
+                                  v88 = 0;
+                                  v89 = 0;
                                   v86 = 0u;
-                                  v83 = 0u;
                                   v84 = 0u;
-                                  v81 = 0u;
+                                  v85 = 0u;
                                   v82 = 0u;
-                                  if (HIDWORD(v127) != v126)
+                                  v83 = 0u;
+                                  v80 = 0u;
+                                  v81 = 0u;
+                                  v78 = 0u;
+                                  v79 = 0u;
+                                  if (HIDWORD(v124) != v123)
                                   {
                                     v40 = MEMORY[0x1E69E9C10];
                                     do
                                     {
-                                      v41 = TDwarfInfoStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::dwarf32_compile_unit(&v125);
-                                      v42 = v41;
+                                      v41 = TDwarfInfoStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::dwarf32_compile_unit(&v122);
                                       if (!v41)
                                       {
                                         break;
                                       }
 
-                                      v43 = 8;
+                                      v42 = 8;
                                       if (*(v41 + 2) < 5u)
                                       {
-                                        v43 = 6;
+                                        v42 = 6;
                                       }
 
-                                      v80 = *(v41 + v43);
-                                      *&buf = &v80;
-                                      v44 = std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<TDwarfAbbrevTable<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<TDwarfAbbrevTable<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<TDwarfAbbrevTable<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<TDwarfAbbrevTable<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v93, &v80);
-                                      v46 = v44[3];
-                                      v45 = v44[4];
+                                      v77 = *(v41 + v42);
+                                      *&buf = &v77;
+                                      v43 = std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<TDwarfAbbrevTable<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<TDwarfAbbrevTable<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<TDwarfAbbrevTable<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<TDwarfAbbrevTable<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(v90, &v77, &std::piecewise_construct, &buf);
+                                      v45 = v43[3];
+                                      v44 = v43[4];
+                                      if (v44)
+                                      {
+                                        atomic_fetch_add_explicit(&v44->__shared_owners_, 1uLL, memory_order_relaxed);
+                                      }
+
                                       if (v45)
                                       {
-                                        atomic_fetch_add_explicit(&v45->__shared_owners_, 1uLL, memory_order_relaxed);
-                                      }
-
-                                      if (v46)
-                                      {
-                                        v47 = v42[1];
-                                        v42[1];
                                         operator new();
                                       }
 
-                                      if (HIDWORD(v119) >= v80)
+                                      if (HIDWORD(v116) >= v77)
                                       {
-                                        TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::set_cursor(&v117, v80);
+                                        TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::set_cursor(&v114, v77);
                                         TDwarfAbbrevStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::abbrev_table();
                                       }
 
@@ -3404,111 +2461,111 @@ LABEL_90:
                                         _os_log_impl(&dword_1D96E9000, v40, OS_LOG_TYPE_DEFAULT, "Bad abbrev table offset in compile unit\n", &buf, 2u);
                                       }
 
-                                      if (v45)
+                                      if (v44)
                                       {
-                                        std::__shared_weak_count::__release_shared[abi:ne200100](v45);
+                                        std::__shared_weak_count::__release_shared[abi:ne200100](v44);
                                       }
                                     }
 
-                                    while (HIDWORD(v127) != v126);
-                                    v49 = v90;
-                                    for (i = v91; v49 != i; ++v49)
+                                    while (HIDWORD(v124) != v123);
+                                    v47 = v87;
+                                    for (i = v88; v47 != i; ++v47)
                                     {
-                                      TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::set_cursor(*v49, *(*v49 + 20));
-                                      v131 = 0;
-                                      v129 = 0u;
-                                      v130 = 0u;
+                                      TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::set_cursor(*v47, *(*v47 + 20));
+                                      v128 = 0;
+                                      v126 = 0u;
+                                      v127 = 0u;
                                       buf = 0u;
-                                      *&buf = *v49;
-                                      *(&buf + 1) = &v117;
-                                      *&v129 = &v104;
-                                      *(&v129 + 1) = &v114;
-                                      *&v130 = &v108;
-                                      *(&v130 + 1) = &v101;
-                                      v131 = &v98;
-                                      parse_dies<Dwarf<Dwarf32,Pointer32,LittleEndian>,TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>>(*(v77 + 32), *v49, &v90, &buf, v76, a3, a4, a5, &v84, &v87, &v81);
+                                      *&buf = *v47;
+                                      *(&buf + 1) = &v114;
+                                      *&v126 = &v101;
+                                      *(&v126 + 1) = &v111;
+                                      *&v127 = &v105;
+                                      *(&v127 + 1) = &v98;
+                                      v128 = &v95;
+                                      parse_dies<Dwarf<Dwarf32,Pointer32,LittleEndian>,TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>>(*(v74 + 32), *v47, &v87, &buf, v73, a3, a4, a5, &v81, &v84, &v78);
                                     }
                                   }
 
-                                  TRawSymbolOwnerData<Pointer32>::presize_symbols_container_by(v76, *(&v86 + 1));
-                                  std::vector<TRawSourceInfo<Pointer32>>::reserve(v76 + 26, *(&v89 + 1));
-                                  if (v85 != *(&v84 + 1))
+                                  TRawSymbolOwnerData<Pointer32>::presize_symbols_container_by(v73, *(&v83 + 1));
+                                  std::vector<TRawSourceInfo<Pointer32>>::reserve(v73 + 26, *(&v86 + 1));
+                                  if (v82 != *(&v81 + 1))
                                   {
-                                    v51 = (*(&v84 + 1) + 8 * (v86 / 0x2A));
-                                    v52 = (*v51 + 96 * (v86 % 0x2A));
-                                    v53 = *(*(&v84 + 1) + 8 * ((*(&v86 + 1) + v86) / 0x2AuLL)) + 96 * ((*(&v86 + 1) + v86) % 0x2AuLL);
-                                    while (v52 != v53)
+                                    v49 = (*(&v81 + 1) + 8 * (v83 / 0x2A));
+                                    v50 = (*v49 + 96 * (v83 % 0x2A));
+                                    v51 = *(*(&v81 + 1) + 8 * ((*(&v83 + 1) + v83) / 0x2AuLL)) + 96 * ((*(&v83 + 1) + v83) % 0x2AuLL);
+                                    while (v50 != v51)
                                     {
-                                      TRawSymbolOwnerData<Pointer32>::add_symbol(v76, v52);
-                                      v52 += 24;
-                                      if ((v52 - *v51) == 4032)
+                                      TRawSymbolOwnerData<Pointer32>::add_symbol(v73, v50);
+                                      v50 += 24;
+                                      if ((v50 - *v49) == 4032)
                                       {
-                                        v54 = v51[1];
-                                        ++v51;
-                                        v52 = v54;
+                                        v52 = v49[1];
+                                        ++v49;
+                                        v50 = v52;
                                       }
                                     }
                                   }
 
-                                  v55 = (*(&v87 + 1) + 8 * (v89 >> 7));
-                                  if (v88 == *(&v87 + 1))
+                                  v53 = (*(&v84 + 1) + 8 * (v86 >> 7));
+                                  if (v85 == *(&v84 + 1))
                                   {
+                                    v54 = 0;
                                     v56 = 0;
-                                    v58 = 0;
-                                    v57 = (*(&v87 + 1) + 8 * ((*(&v89 + 1) + v89) >> 7));
+                                    v55 = (*(&v84 + 1) + 8 * ((*(&v86 + 1) + v86) >> 7));
                                   }
 
                                   else
                                   {
-                                    v56 = (*v55 + 32 * (v89 & 0x7F));
-                                    v57 = (*(&v87 + 1) + 8 * ((*(&v89 + 1) + v89) >> 7));
-                                    v58 = (*v57 + 32 * ((*(&v89 + 1) + v89) & 0x7F));
+                                    v54 = (*v53 + 32 * (v86 & 0x7F));
+                                    v55 = (*(&v84 + 1) + 8 * ((*(&v86 + 1) + v86) >> 7));
+                                    v56 = (*v55 + 32 * ((*(&v86 + 1) + v86) & 0x7F));
                                   }
 
-                                  *&buf = v76 + 26;
-                                  std::__for_each_segment[abi:ne200100]<std::__deque_iterator<TRawSourceInfo<Pointer32>,TRawSourceInfo<Pointer32>*,TRawSourceInfo<Pointer32>&,TRawSourceInfo<Pointer32>**,long,128l>,std::__move_impl<std::_ClassicAlgPolicy>::_MoveSegment<std::__deque_iterator<TRawSourceInfo<Pointer32>,TRawSourceInfo<Pointer32>*,TRawSourceInfo<Pointer32>&,TRawSourceInfo<Pointer32>**,long,128l>,std::back_insert_iterator<std::vector<TRawSourceInfo<Pointer32>>>>>(v55, v56, v57, v58, &buf);
-                                  if (*(&v83 + 1))
+                                  *&buf = v73 + 26;
+                                  std::__for_each_segment[abi:ne200100]<std::__deque_iterator<TRawSourceInfo<Pointer32>,TRawSourceInfo<Pointer32>*,TRawSourceInfo<Pointer32>&,TRawSourceInfo<Pointer32>**,long,128l>,std::__move_impl<std::_ClassicAlgPolicy>::_MoveSegment<std::__deque_iterator<TRawSourceInfo<Pointer32>,TRawSourceInfo<Pointer32>*,TRawSourceInfo<Pointer32>&,TRawSourceInfo<Pointer32>**,long,128l>,std::back_insert_iterator<std::vector<TRawSourceInfo<Pointer32>>>>>(v53, v54, v55, v56, &buf);
+                                  if (*(&v80 + 1))
                                   {
-                                    v59 = (*(&v81 + 1) + 8 * (v83 >> 8));
-                                    if (v82 == *(&v81 + 1))
+                                    v57 = (*(&v78 + 1) + 8 * (v80 >> 8));
+                                    if (v79 == *(&v78 + 1))
                                     {
+                                      v58 = 0;
                                       v60 = 0;
-                                      v62 = 0;
-                                      v61 = (*(&v81 + 1) + 8 * ((v83 + *(&v83 + 1)) >> 8));
+                                      v59 = (*(&v78 + 1) + 8 * ((v80 + *(&v80 + 1)) >> 8));
                                     }
 
                                     else
                                     {
-                                      v60 = (*v59 + 16 * v83);
-                                      v61 = (*(&v81 + 1) + 8 * ((v83 + *(&v83 + 1)) >> 8));
-                                      v62 = (*v61 + 16 * (v83 + BYTE8(v83)));
+                                      v58 = (*v57 + 16 * v80);
+                                      v59 = (*(&v78 + 1) + 8 * ((v80 + *(&v80 + 1)) >> 8));
+                                      v60 = (*v59 + 16 * (v80 + BYTE8(v80)));
                                     }
 
-                                    *&buf = v76 + 66;
-                                    std::__for_each_segment[abi:ne200100]<std::__deque_iterator<TRangeValue<Pointer32,char const*>,TRangeValue<Pointer32,char const*>*,TRangeValue<Pointer32,char const*>&,TRangeValue<Pointer32,char const*>**,long,256l>,std::__move_impl<std::_ClassicAlgPolicy>::_MoveSegment<std::__deque_iterator<TRangeValue<Pointer32,char const*>,TRangeValue<Pointer32,char const*>*,TRangeValue<Pointer32,char const*>&,TRangeValue<Pointer32,char const*>**,long,256l>,std::back_insert_iterator<std::vector<TRangeValue<Pointer32,char const*>>>>>(v59, v60, v61, v62, &buf);
+                                    *&buf = v73 + 66;
+                                    std::__for_each_segment[abi:ne200100]<std::__deque_iterator<TRangeValue<Pointer32,char const*>,TRangeValue<Pointer32,char const*>*,TRangeValue<Pointer32,char const*>&,TRangeValue<Pointer32,char const*>**,long,256l>,std::__move_impl<std::_ClassicAlgPolicy>::_MoveSegment<std::__deque_iterator<TRangeValue<Pointer32,char const*>,TRangeValue<Pointer32,char const*>*,TRangeValue<Pointer32,char const*>&,TRangeValue<Pointer32,char const*>**,long,256l>,std::back_insert_iterator<std::vector<TRangeValue<Pointer32,char const*>>>>>(v57, v58, v59, v60, &buf);
                                   }
 
-                                  std::deque<TRangeValue<Pointer32,char const*>>::~deque[abi:ne200100](&v81);
-                                  std::deque<TRawSymbol<Pointer32>>::~deque[abi:ne200100](&v84);
-                                  std::deque<TRawSourceInfo<Pointer32>>::~deque[abi:ne200100](&v87);
-                                  *&buf = &v90;
+                                  std::deque<TRangeValue<Pointer32,char const*>>::~deque[abi:ne200100](&v78);
+                                  std::deque<TRawSymbol<Pointer32>>::~deque[abi:ne200100](&v81);
+                                  std::deque<TRawSourceInfo<Pointer32>>::~deque[abi:ne200100](&v84);
+                                  *&buf = &v87;
                                   std::vector<std::unique_ptr<TDwarfDIEStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>::__destroy_vector::operator()[abi:ne200100](&buf);
-                                  std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<TDwarfAbbrevTable<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<TDwarfAbbrevTable<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<TDwarfAbbrevTable<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<TDwarfAbbrevTable<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>>>::~__hash_table(v93);
-                                  if (v123)
+                                  std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<TDwarfAbbrevTable<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<TDwarfAbbrevTable<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<TDwarfAbbrevTable<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<TDwarfAbbrevTable<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>>>::~__hash_table(v90);
+                                  if (v120)
                                   {
-                                    *(&v123 + 1) = v123;
-                                    operator delete(v123);
+                                    *(&v120 + 1) = v120;
+                                    operator delete(v120);
                                   }
                                 }
                               }
 
-                              goto LABEL_150;
+                              return;
                             }
                           }
 
                           else
                           {
-                            v64 = 0;
+                            v61 = 0;
                             if (!v16)
                             {
                               goto LABEL_90;
@@ -3545,7 +2602,7 @@ LABEL_76:
                   }
 
 LABEL_75:
-                  v68 = *(v11 + 9);
+                  v65 = *(v11 + 9);
                   if (!v12)
                   {
                     goto LABEL_83;
@@ -3557,7 +2614,7 @@ LABEL_75:
 
               else
               {
-                v65 = 0;
+                v62 = 0;
                 if (!v16)
                 {
                   goto LABEL_81;
@@ -3566,7 +2623,7 @@ LABEL_75:
 
               v22 = 40;
 LABEL_74:
-              v71 = (*&v16[v22] + v19);
+              v68 = (*&v16[v22] + v19);
               if (!v11)
               {
                 goto LABEL_82;
@@ -3576,12 +2633,12 @@ LABEL_74:
             }
 
 LABEL_59:
-            v67 = 0;
+            v64 = 0;
             goto LABEL_60;
           }
         }
 
-        v70 = 0;
+        v67 = 0;
         if (v14)
         {
           goto LABEL_51;
@@ -3591,12 +2648,9 @@ LABEL_59:
       }
     }
   }
-
-LABEL_150:
-  v63 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t extract_stabs_data_from_header<SizeAndEndianness<Pointer32,LittleEndian>>(char a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, void *a6, void *a7)
+uint64_t extract_stabs_data_from_header<SizeAndEndianness<Pointer32,LittleEndian>>(char a1, unint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, void *a6, void *a7)
 {
   v14 = TMachOHeader<SizeAndEndianness<Pointer32,LittleEndian>>::segment_named(*(a5 + 24), "__LINKEDIT");
   v15 = TMachOHeader<SizeAndEndianness<Pointer32,LittleEndian>>::symtab(*(a5 + 24));
@@ -3794,7 +2848,7 @@ void extract_function_starts_data_from_header<SizeAndEndianness<Pointer32,Little
           v17 = TMachOHeader<SizeAndEndianness<Pointer32,LittleEndian>>::segment_named(*(a1 + 24), "__TEXT");
           if (v17)
           {
-            v18 = *(a1 + 32) + *(v17 + 24);
+            LODWORD(v18) = *(a1 + 32) + *(v17 + 24);
             v23 = *(*(a1 + 24) + 4) | ((*(*(a1 + 24) + 8) & 0xFFFFFF) << 32);
             if (CSCppArchitecture::matches(&v23, 0xCuLL))
             {
@@ -3813,7 +2867,7 @@ LABEL_16:
               {
                 do
                 {
-                  v18 += TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::ULEB(&v24);
+                  LODWORD(v18) = v18 + TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::ULEB(&v24);
                   if (v18)
                   {
                     v21 = 272629824;
@@ -3835,7 +2889,7 @@ LABEL_16:
 
             while (*(v24 + v25))
             {
-              v18 += TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::ULEB(&v24);
+              v18 = v18 + TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::ULEB(&v24);
               TRawSymbolOwnerData<Pointer32>::emplace_symbol(a2, v18, 0, "$$$function-starts-fake-name$$$", "$$$function-starts-fake-mangled-name$$$", 0x10400000u, 0, a3);
             }
           }
@@ -4155,7 +3209,7 @@ void sort_and_filter_extracted_data<SizeAndEndianness<Pointer32,LittleEndian>>(u
         *v38 = v32;
         *(v38 + 4) = v31;
         *(v38 + 8) = 0;
-        v27 = (12 * v35 + 12);
+        v27 = 12 * v35 + 12;
         v39 = (v38 - v34);
         memcpy((v38 - v34), v33, v34);
         v40 = __src;
@@ -4171,9 +3225,9 @@ void sort_and_filter_extracted_data<SizeAndEndianness<Pointer32,LittleEndian>>(u
       else
       {
         *v27 = v32;
-        v27[1] = v31;
-        v27[2] = 0;
-        v27 += 3;
+        *(v27 + 4) = v31;
+        *(v27 + 8) = 0;
+        v27 += 12;
       }
 
       v142 = v27;
@@ -4191,74 +3245,74 @@ LABEL_48:
     goto LABEL_173;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer32,unsigned int> *,false>(v28, v27, &v144, 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * (v27 - v28)), 1);
-  v41 = *v4;
+  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer32,unsigned int> *,false>(v28, v27, &v144, 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v27 - v28) >> 2)), 1);
+  v42 = *v4;
   v138 = 0;
   v139 = 0;
   v140 = 0;
   v136 = 0;
   v137 = 0;
   v135 = 0;
-  if (v41 < v4[1])
+  if (v42 < v4[1])
   {
-    v42 = 0;
     v43 = 0;
     v44 = 0;
     v45 = 0;
-    v46 = &v130;
+    v46 = 0;
+    v47 = &v130;
     while (2)
     {
-      v47 = v41;
+      v48 = v42;
       while (2)
       {
-        v41 = v47 + 24;
-        while ((atomic_load_explicit(v47 + 5, memory_order_acquire) & 2) != 0)
+        v42 = v48 + 24;
+        while ((atomic_load_explicit(v48 + 5, memory_order_acquire) & 2) != 0)
         {
-          v47 += 24;
-          v48 = v4[1];
-          v41 += 24;
-          if (v47 >= v48)
+          v48 += 24;
+          v49 = v4[1];
+          v42 += 24;
+          if (v48 >= v49)
           {
             goto LABEL_95;
           }
         }
 
-        v49 = *v47;
-        if (*v47 - v45 >= v44)
+        v50 = *v48;
+        if (*v48 - v46 >= v45)
         {
-          v50 = v142;
+          v51 = v142;
           if (v142 != __src)
           {
-            v51 = 0xAAAAAAAAAAAAAAABLL * ((v142 - __src) >> 2);
-            v50 = __src;
+            v52 = 0xAAAAAAAAAAAAAAABLL * ((v142 - __src) >> 2);
+            v51 = __src;
             do
             {
-              v52 = v51 >> 1;
-              v53 = &v50[3 * (v51 >> 1)];
-              v55 = *v53;
-              v54 = v53 + 3;
-              v51 += ~(v51 >> 1);
-              if (v49 < v55)
+              v53 = v52 >> 1;
+              v54 = &v51[3 * (v52 >> 1)];
+              v56 = *v54;
+              v55 = v54 + 3;
+              v52 += ~(v52 >> 1);
+              if (v50 < v56)
               {
-                v51 = v52;
+                v52 = v53;
               }
 
               else
               {
-                v50 = v54;
+                v51 = v55;
               }
             }
 
-            while (v51);
+            while (v52);
           }
 
-          if (v50 == __src || v49 - *(v50 - 3) >= *(v50 - 2))
+          if (v51 == __src || v50 - *(v51 - 3) >= *(v51 - 2))
           {
-            atomic_fetch_or_explicit(v47 + 5, 0x1000u, memory_order_relaxed);
-            v47 += 24;
-            v48 = v4[1];
-            v42 = 1;
-            if (v47 < v48)
+            atomic_fetch_or_explicit(v48 + 5, 0x1000u, memory_order_relaxed);
+            v48 += 24;
+            v49 = v4[1];
+            v43 = 1;
+            if (v48 < v49)
             {
               continue;
             }
@@ -4267,79 +3321,79 @@ LABEL_48:
             goto LABEL_96;
           }
 
-          v45 = *(v50 - 3);
-          v44 = *(v50 - 2);
-          v43 = *(v50 - 1);
+          v46 = *(v51 - 3);
+          v45 = *(v51 - 2);
+          v44 = *(v51 - 1);
         }
 
         break;
       }
 
-      sort_inlined_functions<Pointer32>(v47);
-      for (i = v4[1]; v41 != i; v41 += 24)
+      sort_inlined_functions<Pointer32>(v48, v41);
+      for (i = v4[1]; v42 != i; v42 += 24)
       {
-        if (*v41 != *v47)
+        if (*v42 != *v48)
         {
           break;
         }
       }
 
-      if ((atomic_load_explicit(v47 + 5, memory_order_acquire) & 0x100) == 0)
+      if ((atomic_load_explicit(v48 + 5, memory_order_acquire) & 0x100) == 0)
       {
-        v57 = *v47;
-        v58 = v44 + v45 - *v47;
-        if (v41 == v4[1])
+        v58 = *v48;
+        v59 = v45 + v46 - *v48;
+        if (v42 == v4[1])
         {
-          v59 = v44 + v45 - v57;
+          v60 = v45 + v46 - v58;
         }
 
         else
         {
-          v59 = *v41 - v57;
+          v60 = *v42 - v58;
         }
 
-        if (v59 < v58)
+        if (v60 < v59)
         {
-          v58 = v59;
+          v59 = v60;
         }
 
-        v60 = v47[1];
-        if (v60 >= v58)
+        v61 = v48[1];
+        if (v61 >= v59)
         {
-          v61 = v58;
+          v62 = v59;
         }
 
         else
         {
-          v61 = v47[1];
+          v62 = v48[1];
         }
 
-        if (v60)
+        if (v61)
         {
-          v58 = v61;
+          v59 = v62;
         }
 
-        v47[1] = v58;
+        v48[1] = v59;
       }
 
-      v127 = v46;
-      if (atomic_load_explicit(v47 + 5, memory_order_acquire) == 2048)
+      v127 = v47;
+      if (atomic_load_explicit(v48 + 5, memory_order_acquire) == 2048)
       {
-        v62 = (v43 & 1) == 0;
+        v63 = (v44 & 1) == 0;
       }
 
       else
       {
-        v62 = 0;
-        atomic_store(atomic_load_explicit(v47 + 5, memory_order_acquire) | v43, v47 + 5);
+        v63 = 0;
+        atomic_store(atomic_load_explicit(v48 + 5, memory_order_acquire) | v44, v48 + 5);
       }
 
-      TRawSymbolOwnerData<Pointer32>::aliases_for_symbol(v128, v47, &v133);
+      TRawSymbolOwnerData<Pointer32>::aliases_for_symbol(v128, v48, &v133);
       std::vector<TRawSymbol<Pointer32>>::__insert_with_size[abi:ne200100]<std::move_iterator<std::__wrap_iter<TRawSymbol<Pointer32>*>>,std::move_iterator<std::__wrap_iter<TRawSymbol<Pointer32>*>>>(&v138, v139, v133, v134, 0xAAAAAAAAAAAAAAABLL * ((v134 - v133) >> 5));
-      if (v62)
+      if (v63)
       {
-        TRawSymbolOwnerData<Pointer32>::aliases_from_deduplicated_variants_for_symbol(v128, v47, &v131);
-        v46 = v127;
+        TRawSymbolOwnerData<Pointer32>::aliases_from_deduplicated_variants_for_symbol(v128, v48, &v131);
+        v47 = v127;
         if (v132 != v131)
         {
           TRawSymbol<Pointer32>::TRawSymbol(v129, v132 - 96);
@@ -4349,54 +3403,54 @@ LABEL_48:
           v148 = 0u;
           memset(v149, 0, 25);
           TRawSymbol<Pointer32>::operator=(&v144, v129);
-          TRawSymbol<Pointer32>::operator=(v129, v47);
-          TRawSymbol<Pointer32>::operator=(v47, &v144);
+          TRawSymbol<Pointer32>::operator=(v129, v48);
+          TRawSymbol<Pointer32>::operator=(v48, &v144);
           v151 = v149;
           std::vector<TRawSymbol<Pointer32>>::__destroy_vector::operator()[abi:ne200100](&v151);
-          atomic_store(atomic_load_explicit(v47 + 5, memory_order_acquire) & 0xFFFFFDFF, v47 + 5);
-          v63 = v132;
+          atomic_store(atomic_load_explicit(v48 + 5, memory_order_acquire) & 0xFFFFFDFF, v48 + 5);
+          v64 = v132;
           *&v144 = v132 - 40;
           std::vector<TRawSymbol<Pointer32>>::__destroy_vector::operator()[abi:ne200100](&v144);
-          v132 = v63 - 96;
-          std::vector<TRawSymbol<Pointer32>>::__insert_with_size[abi:ne200100]<std::move_iterator<std::__wrap_iter<TRawSymbol<Pointer32>*>>,std::move_iterator<std::__wrap_iter<TRawSymbol<Pointer32>*>>>(&v138, v139, v131, v63 - 96, 0xAAAAAAAAAAAAAAABLL * ((v63 - 96 - v131) >> 5));
-          v46 = v127;
+          v132 = v64 - 96;
+          std::vector<TRawSymbol<Pointer32>>::__insert_with_size[abi:ne200100]<std::move_iterator<std::__wrap_iter<TRawSymbol<Pointer32>*>>,std::move_iterator<std::__wrap_iter<TRawSymbol<Pointer32>*>>>(&v138, v139, v131, v64 - 96, 0xAAAAAAAAAAAAAAABLL * ((v64 - 96 - v131) >> 5));
+          v47 = v127;
           *&v144 = v127;
           std::vector<TRawSymbol<Pointer32>>::__destroy_vector::operator()[abi:ne200100](&v144);
         }
 
         *&v144 = &v131;
-        v64 = &v144;
+        v65 = &v144;
       }
 
       else
       {
-        TRawSymbolOwnerData<Pointer32>::deduplicated_variants_for_symbol(v128, v47, &v144);
-        v66 = *(&v144 + 1);
-        v65 = v144;
+        TRawSymbolOwnerData<Pointer32>::deduplicated_variants_for_symbol(v128, v48, &v144);
+        v67 = *(&v144 + 1);
+        v66 = v144;
         if (v144 != *(&v144 + 1))
         {
           do
           {
-            atomic_store(atomic_load_explicit((v65 + 20), memory_order_acquire) | v43, (v65 + 20));
-            v65 += 96;
+            atomic_store(atomic_load_explicit((v66 + 20), memory_order_acquire) | v44, (v66 + 20));
+            v66 += 96;
           }
 
-          while (v65 != v66);
-          v66 = *(&v144 + 1);
-          v65 = v144;
+          while (v66 != v67);
+          v67 = *(&v144 + 1);
+          v66 = v144;
         }
 
-        v46 = v127;
-        std::vector<TRawSymbol<Pointer32>>::__insert_with_size[abi:ne200100]<std::move_iterator<std::__wrap_iter<TRawSymbol<Pointer32>*>>,std::move_iterator<std::__wrap_iter<TRawSymbol<Pointer32>*>>>(&v135, v136, v65, v66, 0xAAAAAAAAAAAAAAABLL * ((v66 - v65) >> 5));
+        v47 = v127;
+        std::vector<TRawSymbol<Pointer32>>::__insert_with_size[abi:ne200100]<std::move_iterator<std::__wrap_iter<TRawSymbol<Pointer32>*>>,std::move_iterator<std::__wrap_iter<TRawSymbol<Pointer32>*>>>(&v135, v136, v66, v67, 0xAAAAAAAAAAAAAAABLL * ((v67 - v66) >> 5));
         v129[0] = &v144;
-        v64 = v129;
+        v65 = v129;
       }
 
-      std::vector<TRawSymbol<Pointer32>>::__destroy_vector::operator()[abi:ne200100](v64);
+      std::vector<TRawSymbol<Pointer32>>::__destroy_vector::operator()[abi:ne200100](v65);
       *&v144 = &v133;
       std::vector<TRawSymbol<Pointer32>>::__destroy_vector::operator()[abi:ne200100](&v144);
-      v48 = v4[1];
-      if (v41 < v48)
+      v49 = v4[1];
+      if (v42 < v49)
       {
         continue;
       }
@@ -4406,14 +3460,14 @@ LABEL_48:
 
 LABEL_95:
     v2 = v128;
-    if ((v42 & 1) == 0)
+    if ((v43 & 1) == 0)
     {
       goto LABEL_97;
     }
 
 LABEL_96:
-    v67 = std::remove_if[abi:ne200100]<std::__wrap_iter<TRawSymbol<Pointer32> *>,std::__mem_fn<BOOL const (TRawSymbol<Pointer32>::*)(void)const>>(*v4, v48, TRawSymbol<Pointer32>::is_marked_for_deletion, 0);
-    std::vector<TRawSymbol<Pointer32>>::erase(v4, v67, v4[1]);
+    v68 = std::remove_if[abi:ne200100]<std::__wrap_iter<TRawSymbol<Pointer32> *>,std::__mem_fn<BOOL const (TRawSymbol<Pointer32>::*)(void)const>>(*v4, v49, TRawSymbol<Pointer32>::is_marked_for_deletion, 0);
+    std::vector<TRawSymbol<Pointer32>>::erase(v4, v68, v4[1]);
   }
 
 LABEL_97:
@@ -4448,133 +3502,132 @@ LABEL_97:
   }
 
   std::__stable_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<TRawSourceInfo<Pointer32> *>,std::__less<void,void>>(*(v2 + 208), *(v2 + 216), v129);
-  v69 = *(v2 + 208);
-  v68 = *(v2 + 216);
-  if (v69 != v68)
+  v70 = *(v2 + 208);
+  v69 = *(v2 + 216);
+  if (v70 != v69)
   {
-    v70 = 0;
     v71 = 0;
     v72 = 0;
+    v73 = 0;
     do
     {
-      v73 = v69;
+      v74 = v70;
       while (1)
       {
-        v74 = *v73;
-        if (*v73 - v72 < v71)
+        v75 = *v74;
+        if (*v74 - v73 < v72)
         {
           break;
         }
 
-        v75 = v4[1];
-        if (v75 != *v4)
+        v76 = v4[1];
+        if (v76 != *v4)
         {
-          v76 = 0xAAAAAAAAAAAAAAABLL * ((v75 - *v4) >> 5);
-          v75 = *v4;
+          v77 = 0xAAAAAAAAAAAAAAABLL * ((v76 - *v4) >> 5);
+          v76 = *v4;
           do
           {
-            v77 = v76 >> 1;
-            v78 = (v75 + 96 * (v76 >> 1));
-            v80 = *v78;
-            v79 = v78 + 24;
-            v76 += ~(v76 >> 1);
-            if (v74 < v80)
+            v78 = v77 >> 1;
+            v79 = (v76 + 96 * (v77 >> 1));
+            v81 = *v79;
+            v80 = v79 + 24;
+            v77 += ~(v77 >> 1);
+            if (v75 < v81)
             {
-              v76 = v77;
+              v77 = v78;
             }
 
             else
             {
-              v75 = v79;
+              v76 = v80;
             }
           }
 
-          while (v76);
+          while (v77);
         }
 
-        if (*v4 != v75 && v74 - *(v75 - 96) < *(v75 - 92))
+        if (*v4 != v76 && v75 - *(v76 - 96) < *(v76 - 92))
         {
-          if ((atomic_load_explicit((v75 - 76), memory_order_acquire) & 0x800) == 0)
+          if ((atomic_load_explicit((v76 - 76), memory_order_acquire) & 0x800) == 0)
           {
-            v72 = *(v75 - 96);
-            v71 = *(v75 - 92);
-            v74 = *v73;
-            v68 = *(v2 + 216);
+            v73 = *(v76 - 96);
+            v72 = *(v76 - 92);
+            v75 = *v74;
+            v69 = *(v2 + 216);
             break;
           }
 
-          v68 = *(v2 + 216);
+          v69 = *(v2 + 216);
         }
 
-        v73[5] |= 0x80000000;
-        v73 += 8;
-        v70 = 1;
-        if (v73 == v68)
+        v74[5] |= 0x80000000;
+        v74 += 8;
+        v71 = 1;
+        if (v74 == v69)
         {
           goto LABEL_129;
         }
       }
 
-      v81 = v71 + v72 - v74;
-      v73[1] = v81;
-      v69 = v73 + 8;
-      if (v68 != v73 + 8)
+      v82 = v72 + v73 - v75;
+      v74[1] = v82;
+      v70 = v74 + 8;
+      if (v69 != v74 + 8)
       {
-        v82 = *v69;
-        if (*v69 == v74)
+        v83 = *v70;
+        if (*v70 == v75)
         {
-          v83 = v73 + 8;
-          v69 = v73 + 16;
+          v84 = v74 + 8;
+          v70 = v74 + 16;
           while (1)
           {
-            v73[5] |= 0x80000000;
-            *(v69 - 7) = v81;
-            if (v69 == v68)
+            v74[5] |= 0x80000000;
+            *(v70 - 7) = v82;
+            if (v70 == v69)
             {
               break;
             }
 
-            v73 = v83;
-            v83 += 8;
-            v84 = *v69;
-            v69 += 8;
-            v82 = v84;
-            if (v84 != v74)
+            v74 = v84;
+            v84 += 8;
+            v85 = *v70;
+            v70 += 8;
+            v83 = v85;
+            if (v85 != v75)
             {
-              v73 = v69 - 16;
-              v69 -= 8;
-              v70 = 1;
+              v74 = v70 - 16;
+              v70 -= 8;
+              v71 = 1;
               goto LABEL_124;
             }
           }
 
-          v70 = 1;
+          v71 = 1;
         }
 
         else
         {
 LABEL_124:
-          v85 = v82 - v74;
-          if (v85 < v81)
+          v86 = v83 - v75;
+          if (v86 < v82)
           {
-            v73[1] = v85;
+            v74[1] = v86;
           }
         }
       }
     }
 
-    while (v69 != v68);
-    if ((v70 & 1) == 0)
+    while (v70 != v69);
+    if ((v71 & 1) == 0)
     {
       goto LABEL_131;
     }
 
 LABEL_129:
-    v86 = std::remove_if[abi:ne200100]<std::__wrap_iter<TRawSourceInfo<Pointer32> *>,std::__mem_fn<BOOL const (TRawSourceInfo<Pointer32>::*)(void)const>>(*(v2 + 208), v68, TRawSourceInfo<Pointer32>::is_marked_for_deletion, 0);
-    if (v86 != *(v2 + 216))
+    v87 = std::remove_if[abi:ne200100]<std::__wrap_iter<TRawSourceInfo<Pointer32> *>,std::__mem_fn<BOOL const (TRawSourceInfo<Pointer32>::*)(void)const>>(*(v2 + 208), v69, TRawSourceInfo<Pointer32>::is_marked_for_deletion, 0);
+    if (v87 != *(v2 + 216))
     {
-      v87 = *(v2 + 216);
-      *(v2 + 216) = v86;
+      *(v2 + 216) = v87;
     }
   }
 
@@ -4808,16 +3861,16 @@ void sub_1D974CFC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void TRawSymbolOwnerData<Pointer32>::slide_to_segment_addresses(uint64_t a1, uint64_t a2, uint64_t *a3, char a4)
+void TRawSymbolOwnerData<Pointer32>::slide_to_segment_addresses(uint64_t a1, char **a2, __int128 **a3, char a4)
 {
   create_segment_relocation_deltas<Pointer32,CSCppSegmentRange,CSCppSegmentRange>(a2, a3, 0, &__p);
-  if (a1 + 376 != a2 && *(a1 + 376) == *(a1 + 384))
+  if ((a1 + 376) != a2 && *(a1 + 376) == *(a1 + 384))
   {
-    std::vector<CSCppSegmentRange>::__assign_with_size[abi:ne200100]<CSCppSegmentRange*,CSCppSegmentRange*>((a1 + 376), *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 5);
+    std::vector<CSCppSegmentRange>::__assign_with_size[abi:ne200100]<CSCppSegmentRange*,CSCppSegmentRange*>((a1 + 376), *a2, a2[1], (a2[1] - *a2) >> 5);
   }
 
   v7 = __p;
-  if (__p == v27)
+  if (__p == v28)
   {
     goto LABEL_22;
   }
@@ -4839,24 +3892,24 @@ void TRawSymbolOwnerData<Pointer32>::slide_to_segment_addresses(uint64_t a1, uin
       v12 = v11;
     }
 
-    std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *,false>(v9, v10, &v28, v12, 1, v8);
+    std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer64,unsigned long long> *,false>(v9, v10, &v29, v12, 1, v8);
   }
 
   adjustSymbolsToMatchSegmentDeltas<Pointer32>((a1 + 184), &__p);
-  v13 = *(a1 + 184);
-  v14 = *(a1 + 192);
-  v15 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v14 - v13) >> 5));
-  v16 = v14 == v13 ? 0 : v15;
-  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,TRawSymbol<Pointer32> *,false>(v13, v14, &v28, v16, 1);
+  v14 = *(a1 + 184);
+  v15 = *(a1 + 192);
+  v16 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v15 - v14) >> 5));
+  v17 = v15 == v14 ? 0 : v16;
+  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,TRawSymbol<Pointer32> *,false>(v14, v15, &v29, v17, 1, v13);
   adjustVectorToMatchSegmentDeltas<TRawSourceInfo<Pointer32>,Pointer32>((a1 + 208), &__p);
-  v18 = *(a1 + 208);
-  v19 = *(a1 + 216);
-  v20 = 126 - 2 * __clz((v19 - v18) >> 5);
-  v21 = v19 == v18 ? 0 : v20;
-  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,TRawSourceInfo<Pointer32> *,false>(v18, v19, &v28, v21, 1, v17);
-  v22 = *(a1 + 236);
+  v19 = *(a1 + 208);
+  v20 = *(a1 + 216);
+  v21 = 126 - 2 * __clz(&v20[-v19] >> 5);
+  v22 = v20 == v19 ? 0 : v21;
+  std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,TRawSourceInfo<Pointer32> *,false>(v19, v20, &v29, v22, 1, v18);
+  v23 = *(a1 + 236);
   v7 = __p;
-  if (!v22 || __p >= v27)
+  if (!v23 || __p >= v28)
   {
 LABEL_22:
     if (!v7)
@@ -4867,23 +3920,23 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  v23 = *(a1 + 232);
-  v24 = v23 + v22;
-  v25 = __p;
-  while (v23 < *v25 || v24 > v25[1] + *v25)
+  v24 = *(a1 + 232);
+  v25 = v24 + v23;
+  v26 = __p;
+  while (v24 < *v26 || v25 > v26[1] + *v26)
   {
-    v25 += 3;
-    if (v25 >= v27)
+    v26 += 3;
+    if (v26 >= v28)
     {
       goto LABEL_22;
     }
   }
 
-  *(a1 + 232) = v25[2] + v23;
+  *(a1 + 232) = v26[2] + v24;
   if (v7)
   {
 LABEL_23:
-    v27 = v7;
+    v28 = v7;
     operator delete(v7);
   }
 }
@@ -4898,7 +3951,7 @@ void sub_1D974D294(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<CSCppSectionRange>::__assign_with_size[abi:ne200100]<CSCppSectionRange*,CSCppSectionRange*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<CSCppSectionRange>::__assign_with_size[abi:ne200100]<CSCppSectionRange*,CSCppSectionRange*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -5060,7 +4113,7 @@ uint64_t std::remove_if[abi:ne200100]<std::__wrap_iter<CSCppSegmentRange *>,TAdd
   return v2;
 }
 
-void create_segment_relocation_deltas<Pointer32,CSCppSegmentRange,CSCppSegmentRange>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, char a3@<W2>, unsigned int **a4@<X8>)
+void create_segment_relocation_deltas<Pointer32,CSCppSegmentRange,CSCppSegmentRange>(char **a1@<X0>, __int128 **a2@<X1>, char a3@<W2>, char **a4@<X8>)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -5123,16 +4176,16 @@ void create_segment_relocation_deltas<Pointer32,CSCppSegmentRange,CSCppSegmentRa
           goto LABEL_38;
         }
 
-        v21 = v20[3];
+        v21 = v20[1].n128_u64[1];
         if (!v21)
         {
-          v21 = v20[2];
+          v21 = v20[1].n128_u64[0];
         }
 
-        v22 = *(v19 + 3);
+        v22 = v19[1].n128_u64[1];
         if (!v22)
         {
-          v22 = *(v19 + 2);
+          v22 = v19[1].n128_u64[0];
         }
 
         if (!strncmp(v21, v22, 0x10uLL))
@@ -5145,7 +4198,7 @@ void create_segment_relocation_deltas<Pointer32,CSCppSegmentRange,CSCppSegmentRa
           break;
         }
 
-        v19 += 32;
+        v19 += 2;
 LABEL_21:
         if (v19 == v44)
         {
@@ -5156,9 +4209,9 @@ LABEL_21:
       if (!CSCppSegmentRange::is_skippable(v20))
       {
 LABEL_24:
-        v23 = *v19;
-        v24 = *v20 - *v19;
-        v25 = *(v19 + 2);
+        v23 = v19->n128_u32[0];
+        v24 = v20->n128_u32[0] - v19->n128_u32[0];
+        v25 = v19->n128_u32[2];
         v27 = a4[1];
         v26 = a4[2];
         if (v27 >= v26)
@@ -5196,8 +4249,8 @@ LABEL_24:
           *v34 = v23;
           v34[1] = v25;
           v34[2] = v24;
-          v28 = v34 + 3;
-          v35 = (v34 - v30);
+          v28 = (v34 + 3);
+          v35 = v34 - v30;
           memcpy(v34 - v30, v29, v30);
           v36 = *a4;
           *a4 = v35;
@@ -5212,17 +4265,17 @@ LABEL_24:
         else
         {
           *v27 = v23;
-          v27[1] = v25;
-          v28 = v27 + 3;
-          v27[2] = v24;
+          *(v27 + 1) = v25;
+          v28 = v27 + 12;
+          *(v27 + 2) = v24;
         }
 
         a4[1] = v28;
         a3 |= v24 != 0;
-        v19 += 32;
+        v19 += 2;
       }
 
-      v20 += 4;
+      v20 += 2;
       goto LABEL_21;
     }
 
@@ -5230,7 +4283,7 @@ LABEL_38:
     if (a3)
     {
       v37 = a4[1];
-      v38 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * (v37 - *a4));
+      v38 = 126 - 2 * __clz(0xAAAAAAAAAAAAAAABLL * ((v37 - *a4) >> 2));
       if (v37 == *a4)
       {
         v39 = 0;
@@ -5285,20 +4338,17 @@ void sub_1D974D90C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<TRangeValue<Pointer32,unsigned int>>::reserve(void *result, unint64_t a2)
+void std::vector<TRangeValue<Pointer32,unsigned int>>::reserve(void *a1, unint64_t a2)
 {
-  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 2) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 2) < a2)
   {
     if (a2 < 0x1555555555555556)
     {
-      v2 = result[1] - *result;
-      std::allocator<TRangeValue<Pointer32,unsigned int>>::allocate_at_least[abi:ne200100](result, a2);
+      std::allocator<TRangeValue<Pointer32,unsigned int>>::allocate_at_least[abi:ne200100](a1, a2);
     }
 
     std::vector<std::shared_ptr<CSCppSymbolOwner>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::allocator<TRangeValue<Pointer32,unsigned int>>::allocate_at_least[abi:ne200100](uint64_t a1, unint64_t a2)
@@ -5311,13 +4361,13 @@ void std::allocator<TRangeValue<Pointer32,unsigned int>>::allocate_at_least[abi:
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-unsigned int *std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer32,unsigned int> *,false>(unsigned int *result, unsigned int *a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer32,unsigned int> *,false>(uint64_t result, char *a2, uint64_t a3, uint64_t a4, char a5)
 {
   v7 = result;
 LABEL_2:
-  v8 = a2 - 3;
-  v9 = a2 - 6;
-  v10 = a2 - 9;
+  v8 = a2 - 12;
+  v9 = a2 - 24;
+  v10 = a2 - 36;
   v11 = v7;
 LABEL_3:
   v12 = 1 - a4;
@@ -5325,8 +4375,8 @@ LABEL_3:
   {
     v7 = v11;
     v13 = v12;
-    v14 = a2 - v11;
-    v15 = 0xAAAAAAAAAAAAAAABLL * ((a2 - v11) >> 2);
+    v14 = &a2[-v11];
+    v15 = 0xAAAAAAAAAAAAAAABLL * (&a2[-v11] >> 2);
     if (v15 <= 2)
     {
       if (v15 < 2)
@@ -5337,7 +4387,7 @@ LABEL_3:
       if (v15 == 2)
       {
         v75 = *(a2 - 3);
-        v70 = a2 - 3;
+        v70 = a2 - 12;
         if (v75 >= *v11)
         {
           return result;
@@ -5453,7 +4503,7 @@ LABEL_107:
     if (v15 == 5)
     {
 
-      return std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer32,unsigned int> *,0>(v11, (v11 + 12), (v11 + 24), (v11 + 36), (a2 - 3));
+      return std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer32,unsigned int> *,0>(v11, (v11 + 12), (v11 + 24), (v11 + 36), (a2 - 12));
     }
 
 LABEL_11:
@@ -5471,26 +4521,26 @@ LABEL_11:
         while (v86 != a2)
         {
           v87 = v86;
-          v88 = v7[3];
+          v88 = *(v7 + 12);
           if (v88 < *v7)
           {
-            v89 = *(v7 + 2);
+            v89 = *(v7 + 16);
             v90 = v87;
             do
             {
               v91 = v90;
-              v92 = *(v90 - 3);
-              v90 -= 3;
+              v92 = *(v90 - 12);
+              v90 -= 12;
               *v91 = v92;
-              v91[2] = *(v91 - 1);
+              *(v91 + 2) = *(v91 - 1);
             }
 
             while (v88 < *(v91 - 6));
             *v90 = v88;
-            *(v90 + 1) = v89;
+            *(v90 + 4) = v89;
           }
 
-          v86 = v87 + 3;
+          v86 = v87 + 12;
           v7 = v87;
         }
       }
@@ -5831,8 +4881,8 @@ LABEL_58:
     }
 
     v66 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer32,unsigned int> *>(v11, v64);
-    v11 = v64 + 12;
-    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer32,unsigned int> *>(v64 + 12, a2);
+    v11 = (v64 + 3);
+    result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer32,unsigned int> *>(v64 + 3, a2);
     if (result)
     {
       a4 = -v13;
@@ -5850,7 +4900,7 @@ LABEL_58:
     {
 LABEL_63:
       result = std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer32,unsigned int> *,false>(v7, v64, a3, -v13, a5 & 1);
-      v11 = v64 + 12;
+      v11 = (v64 + 3);
 LABEL_65:
       a5 = 0;
       a4 = -v13;
@@ -5861,7 +4911,7 @@ LABEL_65:
   v67 = v11 + 12;
   v68 = *(v11 + 12);
   v71 = *(a2 - 3);
-  v70 = a2 - 3;
+  v70 = a2 - 12;
   v69 = v71;
   if (v68 >= *v11)
   {
@@ -5872,11 +4922,11 @@ LABEL_65:
 
     v81 = *(v11 + 20);
     v82 = *v67;
-    v83 = v70[2];
+    v83 = *(v70 + 2);
     *v67 = *v70;
     *(v11 + 20) = v83;
     *v70 = v82;
-    v70[2] = v81;
+    *(v70 + 2) = v81;
     goto LABEL_107;
   }
 
@@ -5886,10 +4936,10 @@ LABEL_76:
     v145 = *(v11 + 8);
     v118 = *v11;
     v76 = *v70;
-    *(v11 + 8) = v70[2];
+    *(v11 + 8) = *(v70 + 2);
     *v11 = v76;
     *v70 = v118;
-    v70[2] = v145;
+    *(v70 + 2) = v145;
     return result;
   }
 
@@ -5903,11 +4953,11 @@ LABEL_76:
   {
     v72 = *(v11 + 20);
     v73 = *v67;
-    v74 = v70[2];
+    v74 = *(v70 + 2);
     *v67 = *v70;
     *(v11 + 20) = v74;
     *v70 = v73;
-    v70[2] = v72;
+    *(v70 + 2) = v72;
   }
 
   return result;
@@ -6103,10 +5153,10 @@ LABEL_10:
   return result;
 }
 
-unsigned int *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,TRangeValue<Pointer32,unsigned int> *,std::__less<void,void> &>(unsigned int *a1, unint64_t a2)
+unsigned int *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,TRangeValue<Pointer32,unsigned int> *,std::__less<void,void> &>(unsigned int *a1, unsigned int *a2)
 {
   v2 = *a1;
-  if (*a1 >= *(a2 - 12))
+  if (*a1 >= *(a2 - 3))
   {
     v5 = a1 + 3;
     do
@@ -6139,8 +5189,8 @@ unsigned int *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAl
   {
     do
     {
-      v6 = *(a2 - 12);
-      a2 -= 12;
+      v6 = *(a2 - 3);
+      a2 -= 3;
     }
 
     while (v2 < v6);
@@ -6152,9 +5202,9 @@ unsigned int *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAl
     v14 = v3[2];
     v13 = *v3;
     v8 = *a2;
-    v3[2] = *(a2 + 8);
+    v3[2] = a2[2];
     *v3 = v8;
-    *(a2 + 8) = v14;
+    a2[2] = v14;
     *a2 = v13;
     do
     {
@@ -6165,8 +5215,8 @@ unsigned int *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAl
     while (v2 >= v9);
     do
     {
-      v10 = *(a2 - 12);
-      a2 -= 12;
+      v10 = *(a2 - 3);
+      a2 -= 3;
     }
 
     while (v2 < v10);
@@ -6268,15 +5318,15 @@ int *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,
   return v9 - 3;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer32,unsigned int> *>(uint64_t a1, uint64_t *a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer32,unsigned int> *>(unsigned int *a1, char *a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 2);
   if (v2 > 2)
   {
     if (v2 == 3)
     {
-      v5 = a1 + 12;
-      v6 = *(a1 + 12);
+      v5 = (a1 + 3);
+      v6 = a1[3];
       v8 = *(a2 - 3);
       v3 = a2 - 12;
       v7 = v8;
@@ -6284,34 +5334,34 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
       {
         if (v7 >= v6)
         {
-          v37 = *(a1 + 8);
+          v37 = a1[2];
           v38 = *a1;
           *a1 = *v5;
-          *(a1 + 8) = *(a1 + 20);
+          a1[2] = a1[5];
           *v5 = v38;
-          *(a1 + 20) = v37;
-          if (*v3 < *(a1 + 12))
+          a1[5] = v37;
+          if (*v3 < a1[3])
           {
-            v39 = *(a1 + 20);
+            v39 = a1[5];
             v40 = *v5;
-            v41 = *(v3 + 8);
+            v41 = *(v3 + 2);
             *v5 = *v3;
-            *(a1 + 20) = v41;
+            a1[5] = v41;
             *v3 = v40;
-            *(v3 + 8) = v39;
+            *(v3 + 2) = v39;
           }
 
           return 1;
         }
 
 LABEL_12:
-        v9 = *(a1 + 8);
+        v9 = a1[2];
         v10 = *a1;
-        v11 = *(v3 + 8);
+        v11 = *(v3 + 2);
         *a1 = *v3;
-        *(a1 + 8) = v11;
+        a1[2] = v11;
         *v3 = v10;
-        *(v3 + 8) = v9;
+        *(v3 + 2) = v9;
         return 1;
       }
 
@@ -6320,22 +5370,22 @@ LABEL_12:
         return 1;
       }
 
-      v26 = *(a1 + 20);
+      v26 = a1[5];
       v27 = *v5;
-      v28 = *(v3 + 8);
+      v28 = *(v3 + 2);
       *v5 = *v3;
-      *(a1 + 20) = v28;
+      a1[5] = v28;
       *v3 = v27;
-      *(v3 + 8) = v26;
+      *(v3 + 2) = v26;
 LABEL_48:
-      if (*(a1 + 12) < *a1)
+      if (a1[3] < *a1)
       {
-        v61 = *(a1 + 8);
+        v61 = a1[2];
         v62 = *a1;
         *a1 = *v5;
-        *(a1 + 8) = *(v5 + 8);
+        a1[2] = *(v5 + 2);
         *v5 = v62;
-        *(v5 + 8) = v61;
+        *(v5 + 2) = v61;
       }
 
       return 1;
@@ -6348,34 +5398,34 @@ LABEL_48:
         goto LABEL_13;
       }
 
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer32,unsigned int> *,0>(a1, (a1 + 12), (a1 + 24), (a1 + 36), (a2 - 12));
+      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer32,unsigned int> *,0>(a1, a1 + 3, a1 + 6, (a1 + 9), (a2 - 12));
       return 1;
     }
 
-    v5 = a1 + 12;
-    v19 = *(a1 + 12);
-    v20 = (a1 + 24);
-    v21 = *(a1 + 24);
-    v22 = a2 - 3;
+    v5 = (a1 + 3);
+    v19 = a1[3];
+    v20 = (a1 + 6);
+    v21 = a1[6];
+    v22 = a2 - 12;
     v23 = *a1;
     if (v19 >= *a1)
     {
       if (v21 < v19)
       {
-        v33 = *(a1 + 20);
+        v33 = a1[5];
         v34 = *v5;
         *v5 = *v20;
-        *(a1 + 20) = *(a1 + 32);
+        a1[5] = a1[8];
         *v20 = v34;
-        *(a1 + 32) = v33;
+        a1[8] = v33;
         if (*v5 < v23)
         {
-          v35 = *(a1 + 8);
+          v35 = a1[2];
           v36 = *a1;
           *a1 = *v5;
-          *(a1 + 8) = *(a1 + 20);
+          a1[2] = a1[5];
           *v5 = v36;
-          *(a1 + 20) = v35;
+          a1[5] = v35;
         }
       }
 
@@ -6384,44 +5434,44 @@ LABEL_48:
 
     if (v21 >= v19)
     {
-      v54 = *(a1 + 8);
+      v54 = a1[2];
       v55 = *a1;
       *a1 = *v5;
-      *(a1 + 8) = *(a1 + 20);
+      a1[2] = a1[5];
       *v5 = v55;
-      *(a1 + 20) = v54;
-      if (v21 >= *(a1 + 12))
+      a1[5] = v54;
+      if (v21 >= a1[3])
       {
         goto LABEL_45;
       }
 
-      v24 = *(a1 + 20);
+      v24 = a1[5];
       v25 = *v5;
       *v5 = *v20;
-      *(a1 + 20) = *(a1 + 32);
+      a1[5] = a1[8];
     }
 
     else
     {
-      v24 = *(a1 + 8);
+      v24 = a1[2];
       v25 = *a1;
       *a1 = *v20;
-      *(a1 + 8) = *(a1 + 32);
+      a1[2] = a1[8];
     }
 
     *v20 = v25;
-    *(a1 + 32) = v24;
+    a1[8] = v24;
 LABEL_45:
     if (*v22 >= *v20)
     {
       return 1;
     }
 
-    v56 = *(a1 + 32);
+    v56 = a1[8];
     v57 = *v20;
     v58 = *(a2 - 1);
     *v20 = *v22;
-    *(a1 + 32) = v58;
+    a1[8] = v58;
     *v22 = v57;
     *(a2 - 1) = v56;
     if (*v20 >= *v5)
@@ -6429,12 +5479,12 @@ LABEL_45:
       return 1;
     }
 
-    v59 = *(a1 + 20);
+    v59 = a1[5];
     v60 = *v5;
     *v5 = *v20;
-    *(a1 + 20) = *(a1 + 32);
+    a1[5] = a1[8];
     *v20 = v60;
-    *(a1 + 32) = v59;
+    a1[8] = v59;
     goto LABEL_48;
   }
 
@@ -6456,64 +5506,64 @@ LABEL_45:
   }
 
 LABEL_13:
-  v12 = (a1 + 24);
-  v13 = *(a1 + 24);
-  v14 = (a1 + 12);
-  v15 = *(a1 + 12);
+  v12 = (a1 + 6);
+  v13 = a1[6];
+  v14 = (a1 + 3);
+  v15 = a1[3];
   v16 = *a1;
   if (v15 >= *a1)
   {
     if (v13 < v15)
     {
-      v29 = *(a1 + 20);
+      v29 = a1[5];
       v30 = *v14;
       *v14 = *v12;
-      *(a1 + 20) = *(a1 + 32);
+      a1[5] = a1[8];
       *v12 = v30;
-      *(a1 + 32) = v29;
+      a1[8] = v29;
       if (*v14 < v16)
       {
-        v31 = *(a1 + 8);
+        v31 = a1[2];
         v32 = *a1;
         *a1 = *v14;
-        *(a1 + 8) = *(a1 + 20);
+        a1[2] = a1[5];
         *v14 = v32;
-        *(a1 + 20) = v31;
+        a1[5] = v31;
       }
     }
   }
 
   else if (v13 >= v15)
   {
-    v42 = *(a1 + 8);
+    v42 = a1[2];
     v43 = *a1;
     *a1 = *v14;
-    *(a1 + 8) = *(a1 + 20);
+    a1[2] = a1[5];
     *v14 = v43;
-    *(a1 + 20) = v42;
-    if (v13 < *(a1 + 12))
+    a1[5] = v42;
+    if (v13 < a1[3])
     {
-      v44 = *(a1 + 20);
+      v44 = a1[5];
       v45 = *v14;
       *v14 = *v12;
-      *(a1 + 20) = *(a1 + 32);
+      a1[5] = a1[8];
       *v12 = v45;
-      *(a1 + 32) = v44;
+      a1[8] = v44;
     }
   }
 
   else
   {
-    v17 = *(a1 + 8);
+    v17 = a1[2];
     v18 = *a1;
     *a1 = *v12;
-    *(a1 + 8) = *(a1 + 32);
+    a1[2] = a1[8];
     *v12 = v18;
-    *(a1 + 32) = v17;
+    a1[8] = v17;
   }
 
-  v46 = (a1 + 36);
-  if ((a1 + 36) == a2)
+  v46 = (a1 + 9);
+  if (a1 + 9 == a2)
   {
     return 1;
   }
@@ -6551,7 +5601,7 @@ LABEL_39:
       *(v53 + 4) = v50;
       if (++v48 == 8)
       {
-        return (v46 + 12) == a2;
+        return v46 + 12 == a2;
       }
     }
 
@@ -6565,18 +5615,18 @@ LABEL_39:
   }
 }
 
-unsigned int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer32,unsigned int> *,TRangeValue<Pointer32,unsigned int> *>(unsigned int *a1, unsigned int *a2, unsigned int *a3, uint64_t a4)
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer32,unsigned int> *,TRangeValue<Pointer32,unsigned int> *>(char *a1, char *a2, char *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
     v6 = a2;
     v8 = a2 - a1;
-    v9 = 0xAAAAAAAAAAAAAAABLL * (a2 - a1);
+    v9 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 2);
     if (a2 - a1 >= 13)
     {
       v10 = (v9 - 2) >> 1;
       v11 = v10 + 1;
-      v12 = &a1[3 * v10];
+      v12 = &a1[12 * v10];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer32,unsigned int> *>(a1, a4, v9, v12);
@@ -6595,17 +5645,17 @@ unsigned int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std:
       {
         if (*v13 < *a1)
         {
-          v14 = v13[2];
+          v14 = *(v13 + 2);
           v15 = *v13;
-          v16 = a1[2];
+          v16 = *(a1 + 2);
           *v13 = *a1;
-          v13[2] = v16;
+          *(v13 + 2) = v16;
           *a1 = v15;
-          a1[2] = v14;
+          *(a1 + 2) = v14;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer32,unsigned int> *>(a1, a4, v9, a1);
         }
 
-        v13 += 3;
+        v13 += 12;
       }
 
       while (v13 != a3);
@@ -6618,12 +5668,12 @@ unsigned int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std:
       {
         v18 = 0;
         v29 = *a1;
-        v30 = a1[2];
+        v30 = *(a1 + 2);
         v19 = a1;
         do
         {
-          v20 = &v19[3 * v18];
-          v21 = v20 + 3;
+          v20 = &v19[12 * v18];
+          v21 = v20 + 12;
           v22 = (2 * v18) | 1;
           v18 = 2 * v18 + 2;
           if (v18 >= v17)
@@ -6633,8 +5683,8 @@ unsigned int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std:
 
           else
           {
-            v24 = v20[6];
-            v23 = v20 + 6;
+            v24 = *(v20 + 6);
+            v23 = v20 + 24;
             if (*(v23 - 3) >= v24)
             {
               v18 = v22;
@@ -6647,27 +5697,27 @@ unsigned int *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std:
           }
 
           v25 = *v21;
-          v19[2] = v21[2];
+          *(v19 + 2) = *(v21 + 2);
           *v19 = v25;
           v19 = v21;
         }
 
         while (v18 <= ((v17 - 2) >> 1));
-        v6 -= 3;
+        v6 -= 12;
         if (v21 == v6)
         {
-          v21[2] = v30;
+          *(v21 + 2) = v30;
           *v21 = v29;
         }
 
         else
         {
           v26 = *v6;
-          v21[2] = v6[2];
+          *(v21 + 2) = *(v6 + 2);
           *v21 = v26;
           *v6 = v29;
-          v6[2] = v30;
-          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer32,unsigned int> *>(a1, (v21 + 3), a4, 0xAAAAAAAAAAAAAAABLL * (v21 + 3 - a1));
+          *(v6 + 2) = v30;
+          std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,TRangeValue<Pointer32,unsigned int> *>(a1, (v21 + 12), a4, 0xAAAAAAAAAAAAAAABLL * ((v21 + 12 - a1) >> 2));
         }
       }
 
@@ -6802,7 +5852,7 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
   return result;
 }
 
-uint64_t std::vector<TRangeValue<Pointer32,unsigned int>>::__init_with_size[abi:ne200100]<TRangeValue<Pointer32,unsigned int>*,TRangeValue<Pointer32,unsigned int>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<TRangeValue<Pointer32,unsigned int>>::__init_with_size[abi:ne200100]<TRangeValue<Pointer32,unsigned int>*,TRangeValue<Pointer32,unsigned int>*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6824,7 +5874,7 @@ void sub_1D974F2D8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<TRangeValue<Pointer32,unsigned int>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<TRangeValue<Pointer32,unsigned int>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x1555555555555556)
   {
@@ -6951,7 +6001,7 @@ void sub_1D974F560(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void parse_dies<Dwarf<Dwarf32,Pointer32,LittleEndian>,TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>>(int a1, uint64_t a2, uint64_t **a3, uint64_t a4, uint64_t a5, char a6, void *a7, uint64_t (***a8)(void, std::vector<std::string>::pointer), void *a9, uint64_t a10, void *a11)
+void parse_dies<Dwarf<Dwarf32,Pointer32,LittleEndian>,TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>>(int a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, char a6, void *a7, uint64_t (***a8)(void, const char *), unint64_t *a9, unint64_t *a10, unint64_t *a11)
 {
   v12 = a6;
   v13 = a4;
@@ -7396,49 +6446,46 @@ void sub_1D974FE34(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<TRawSourceInfo<Pointer32>>::reserve(void *result, unint64_t a2)
+void std::vector<TRawSourceInfo<Pointer32>>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 5)
+  if (a2 > (a1[2] - *a1) >> 5)
   {
     if (!(a2 >> 59))
     {
-      v2 = result[1] - *result;
-      std::allocator<TRawSourceInfo<Pointer32>>::allocate_at_least[abi:ne200100](result, a2);
+      std::allocator<TRawSourceInfo<Pointer32>>::allocate_at_least[abi:ne200100](a1, a2);
     }
 
     std::vector<std::shared_ptr<CSCppSymbolOwner>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<TDwarfAbbrevTable<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<TDwarfAbbrevTable<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<TDwarfAbbrevTable<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<TDwarfAbbrevTable<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,std::shared_ptr<TDwarfAbbrevTable<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<TDwarfAbbrevTable<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::shared_ptr<TDwarfAbbrevTable<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::shared_ptr<TDwarfAbbrevTable<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(void *a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % v3.i32[0];
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -7446,44 +6493,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,std::shared_ptr<TDwarfAbbrevTable<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>,void *>>>::operator()[abi:ne200100](uint64_t a1, void *__p)
@@ -7669,9 +6716,9 @@ LABEL_32:
   operator new();
 }
 
-void sub_1D97505C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+void sub_1D97505C0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11)
 {
-  MEMORY[0x1DA736760](v11, 0x10A1C400922EF30);
+  MEMORY[0x1DA736760](v11, 0x10A1C400922EF30, a3, a4, a5, a6, a7, a8);
   if (__p)
   {
     operator delete(__p);
@@ -7747,27 +6794,27 @@ void sub_1D975081C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t TDwarfSymbolAbbrev<Dwarf<Dwarf32,Pointer32,LittleEndian>>::TDwarfSymbolAbbrev(uint64_t result, int a2, char a3, void *a4, uint64_t a5)
+uint64_t TDwarfSymbolAbbrev<Dwarf<Dwarf32,Pointer32,LittleEndian>>::TDwarfSymbolAbbrev(uint64_t a1, int a2, char a3, void *a4, uint64_t a5)
 {
-  v5 = result;
-  *(result + 8) = a2;
-  *(result + 12) = a3;
-  *(result + 16) = 0u;
-  *(result + 32) = 0u;
-  *(result + 48) = 0u;
-  *(result + 16) = *a4;
+  v5 = a1;
+  *(a1 + 8) = a2;
+  *(a1 + 12) = a3;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 16) = *a4;
   *a4 = 0;
-  v6 = *(result + 24);
-  *(result + 24) = a4[1];
+  v6 = *(a1 + 24);
+  *(a1 + 24) = a4[1];
   a4[1] = v6;
-  v7 = *(result + 32);
-  *(result + 32) = a4[2];
+  v7 = *(a1 + 32);
+  *(a1 + 32) = a4[2];
   a4[2] = v7;
-  *result = &unk_1F55057F8;
-  *(result + 64) = a5;
-  *(result + 72) = 0;
-  v8 = *(result + 16);
-  if (v8 != *(result + 24))
+  *a1 = &unk_1F55057F8;
+  *(a1 + 64) = a5;
+  *(a1 + 72) = 0;
+  v8 = *(a1 + 16);
+  if (v8 != *(a1 + 24))
   {
     v9 = *v8;
     if (v9 <= 0x56)
@@ -7777,13 +6824,11 @@ uint64_t TDwarfSymbolAbbrev<Dwarf<Dwarf32,Pointer32,LittleEndian>>::TDwarfSymbol
         switch(v9)
         {
           case '1':
-            *(result + 72) |= 0x200u;
-            v19 = *(result + 64);
-            read_action_for_ref_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v8[1]);
+            *(a1 + 72) |= 0x200u;
+            read_action_for_ref_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v8[1], *(a1 + 64) + 68, 512, 0x4000, *(a1 + 64) + 52);
           case 'G':
-            *(result + 72) |= 0x10u;
-            v22 = *(result + 64);
-            read_action_for_ref_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v8[1]);
+            *(a1 + 72) |= 0x10u;
+            read_action_for_ref_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v8[1], *(a1 + 64) + 68, 16, 0x2000, *(a1 + 64) + 40);
           case 'U':
             operator new();
         }
@@ -7794,26 +6839,10 @@ uint64_t TDwarfSymbolAbbrev<Dwarf<Dwarf32,Pointer32,LittleEndian>>::TDwarfSymbol
         switch(v9)
         {
           case 3u:
-            *(result + 72) |= 8u;
-            v18 = *(result + 64);
-            read_action_for_string_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v8[1]);
+            *(a1 + 72) |= 8u;
+            read_action_for_string_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v8[1], *(a1 + 64) + 68, 8, *(a1 + 64) + 24, *(a1 + 64) + 88);
           case 0x11u:
-            *(result + 72) |= 1u;
-            v20 = v8[1];
-            if ((v20 - 41) >= 4 && v20 != 27)
-            {
-              if (v20 == 1)
-              {
-                operator new();
-              }
-
-              skip_action_for_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v20);
-            }
-
-            operator new();
-          case 0x12u:
-            v12 = *(result + 72);
-            *(result + 72) = v12 | 2;
+            *(a1 + 72) |= 1u;
             v13 = v8[1];
             if ((v13 - 41) >= 4 && v13 != 27)
             {
@@ -7822,9 +6851,23 @@ uint64_t TDwarfSymbolAbbrev<Dwarf<Dwarf32,Pointer32,LittleEndian>>::TDwarfSymbol
                 operator new();
               }
 
-              *(v5 + 72) = v12 | 0x8002;
-              v23 = *(v5 + 64);
-              read_action_for_data_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v13);
+              skip_action_for_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v13);
+            }
+
+            operator new();
+          case 0x12u:
+            v11 = *(a1 + 72);
+            *(a1 + 72) = v11 | 2;
+            v12 = v8[1];
+            if ((v12 - 41) >= 4 && v12 != 27)
+            {
+              if (v12 == 1)
+              {
+                operator new();
+              }
+
+              *(v5 + 72) = v11 | 0x8002;
+              read_action_for_data_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v12, *(v5 + 64) + 68, 32770, *(v5 + 64) + 72);
             }
 
             operator new();
@@ -7837,17 +6880,14 @@ uint64_t TDwarfSymbolAbbrev<Dwarf<Dwarf32,Pointer32,LittleEndian>>::TDwarfSymbol
       switch(v9)
       {
         case 'W':
-          *(result + 72) |= 0x1000u;
-          v16 = *(result + 64);
-          read_action_for_data_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v8[1]);
+          *(a1 + 72) |= 0x1000u;
+          read_action_for_data_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v8[1], *(a1 + 64) + 68, 4096, *(a1 + 64) + 64);
         case 'X':
-          *(result + 72) |= 0x400u;
-          v17 = *(result + 64);
-          read_action_for_data_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v8[1]);
+          *(a1 + 72) |= 0x400u;
+          read_action_for_data_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v8[1], *(a1 + 64) + 68, 1024, *(a1 + 64) + 56);
         case 'Y':
-          *(result + 72) |= 0x800u;
-          v14 = *(result + 64);
-          read_action_for_data_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v8[1]);
+          *(a1 + 72) |= 0x800u;
+          read_action_for_data_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v8[1], *(a1 + 64) + 68, 2048, *(a1 + 64) + 60);
       }
     }
 
@@ -7855,28 +6895,26 @@ uint64_t TDwarfSymbolAbbrev<Dwarf<Dwarf32,Pointer32,LittleEndian>>::TDwarfSymbol
     {
       if (v9 == 16355)
       {
-        *(result + 72) |= 0x80u;
+        *(a1 + 72) |= 0x80u;
         operator new();
       }
 
       if (v9 == 16359)
       {
-        v15 = *(result + 64);
-        read_action_for_flag_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v8[1]);
+        read_action_for_flag_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v8[1], *(a1 + 64) + 68, 256, *(a1 + 64) + 49);
       }
     }
 
     else if (v9 == 110 || v9 == 8199)
     {
-      *(result + 72) |= 4u;
-      v11 = *(result + 64);
-      read_action_for_string_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v8[1]);
+      *(a1 + 72) |= 4u;
+      read_action_for_string_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v8[1], *(a1 + 64) + 68, 4, *(a1 + 64) + 16, *(a1 + 64) + 88);
     }
 
     skip_action_for_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v8[1]);
   }
 
-  return result;
+  return a1;
 }
 
 void skip_action_for_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(uint64_t a1)
@@ -7969,7 +7007,7 @@ void sub_1D9751294(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void read_action_for_data_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(uint64_t a1)
+void read_action_for_data_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(uint64_t a1, uint64_t a2, __int16 a3, uint64_t a4)
 {
   if (a1 <= 10)
   {
@@ -8010,13 +7048,13 @@ void read_action_for_data_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(uint64_t a
     }
   }
 
-  std::ostringstream::basic_ostringstream[abi:ne200100](v6);
-  v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "Unhandled form in read data binding ", 36);
-  MEMORY[0x1DA7365E0](v2, a1);
-  std::ostringstream::str[abi:ne200100](v6, &v5);
-  Exception::Exception(v4, &v5);
+  std::ostringstream::basic_ostringstream[abi:ne200100](v9);
+  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "Unhandled form in read data binding ", 36);
+  MEMORY[0x1DA7365E0](v5, a1);
+  std::ostringstream::str[abi:ne200100](v9, &v8);
+  Exception::Exception(v7, &v8);
   exception = __cxa_allocate_exception(0x20uLL);
-  Exception::Exception(exception, v4);
+  Exception::Exception(exception, v7);
 }
 
 void sub_1D9751564(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19)
@@ -8031,7 +7069,7 @@ void sub_1D9751564(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void read_action_for_string_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(uint64_t a1)
+void read_action_for_string_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(uint64_t a1, uint64_t a2, __int16 a3, uint64_t a4, uint64_t a5)
 {
   if (a1 <= 36)
   {
@@ -8052,13 +7090,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  std::ostringstream::basic_ostringstream[abi:ne200100](v6);
-  v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "Unhandled form in read string binding ", 38);
-  MEMORY[0x1DA7365E0](v2, a1);
-  std::ostringstream::str[abi:ne200100](v6, &v5);
-  Exception::Exception(v4, &v5);
+  std::ostringstream::basic_ostringstream[abi:ne200100](v10);
+  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "Unhandled form in read string binding ", 38);
+  MEMORY[0x1DA7365E0](v6, a1);
+  std::ostringstream::str[abi:ne200100](v10, &v9);
+  Exception::Exception(v8, &v9);
   exception = __cxa_allocate_exception(0x20uLL);
-  Exception::Exception(exception, v4);
+  Exception::Exception(exception, v8);
 }
 
 void sub_1D9751754(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19)
@@ -8073,7 +7111,7 @@ void sub_1D9751754(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void read_action_for_ref_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(uint64_t a1)
+void read_action_for_ref_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(uint64_t a1, uint64_t a2, __int16 a3, __int16 a4, uint64_t a5)
 {
   if (a1 > 18)
   {
@@ -8101,13 +7139,13 @@ void read_action_for_ref_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(uint64_t a1
     }
   }
 
-  std::ostringstream::basic_ostringstream[abi:ne200100](v6);
-  v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "Unhandled form in read ref binding ", 35);
-  MEMORY[0x1DA7365E0](v2, a1);
-  std::ostringstream::str[abi:ne200100](v6, &v5);
-  Exception::Exception(v4, &v5);
+  std::ostringstream::basic_ostringstream[abi:ne200100](v10);
+  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "Unhandled form in read ref binding ", 35);
+  MEMORY[0x1DA7365E0](v6, a1);
+  std::ostringstream::str[abi:ne200100](v10, &v9);
+  Exception::Exception(v8, &v9);
   exception = __cxa_allocate_exception(0x20uLL);
-  Exception::Exception(exception, v4);
+  Exception::Exception(exception, v8);
 }
 
 void sub_1D97519DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19)
@@ -8122,7 +7160,7 @@ void sub_1D97519DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void read_action_for_flag_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(uint64_t a1)
+void read_action_for_flag_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(uint64_t a1, uint64_t a2, __int16 a3, uint64_t a4)
 {
   if (a1 != 25)
   {
@@ -8131,13 +7169,13 @@ void read_action_for_flag_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(uint64_t a
       operator new();
     }
 
-    std::ostringstream::basic_ostringstream[abi:ne200100](v6);
-    v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "Unhandled form in read flag binding ", 36);
-    MEMORY[0x1DA7365E0](v2, a1);
-    std::ostringstream::str[abi:ne200100](v6, &v5);
-    Exception::Exception(v4, &v5);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v9);
+    v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "Unhandled form in read flag binding ", 36);
+    MEMORY[0x1DA7365E0](v5, a1);
+    std::ostringstream::str[abi:ne200100](v9, &v8);
+    Exception::Exception(v7, &v8);
     exception = __cxa_allocate_exception(0x20uLL);
-    Exception::Exception(exception, v4);
+    Exception::Exception(exception, v7);
   }
 
   operator new();
@@ -8946,37 +7984,37 @@ void sub_1D9753428(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void TDwarfReadDW_AT_ranges<Dwarf<Dwarf32,Pointer32,LittleEndian>>::action(uint64_t a1, uint64_t *a2, unsigned int a3)
+void TDwarfReadDW_AT_ranges<Dwarf<Dwarf32,Pointer32,LittleEndian>>::action(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (a3 == 5)
   {
-    v3 = *MEMORY[0x1E69E9840];
 
     TDwarfReadDW_AT_ranges<Dwarf<Dwarf32,Pointer32,LittleEndian>>::extract_dwarf5_ranges(a1, a2, 5);
   }
 
-  else if (a3 > 4)
-  {
-    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
-    {
-      v7[0] = 67109120;
-      v7[1] = a3;
-      _os_log_impl(&dword_1D96E9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Unexpected DWARF version parsing DW_AT_ranges: %d\n", v7, 8u);
-    }
-
-    v6 = *MEMORY[0x1E69E9840];
-  }
-
   else
   {
-    v5 = *MEMORY[0x1E69E9840];
+    v3 = a3;
+    if (a3 > 4)
+    {
+      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
+      {
+        v4[0] = 67109120;
+        v4[1] = v3;
+        _os_log_impl(&dword_1D96E9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Unexpected DWARF version parsing DW_AT_ranges: %d\n", v4, 8u);
+      }
+    }
 
-    TDwarfReadDW_AT_ranges<Dwarf<Dwarf32,Pointer32,LittleEndian>>::extract_dwarf4_ranges(a1, a2, a3);
+    else
+    {
+
+      TDwarfReadDW_AT_ranges<Dwarf<Dwarf32,Pointer32,LittleEndian>>::extract_dwarf4_ranges(a1, a2, a3);
+    }
   }
 }
 
-void TDwarfReadDW_AT_ranges<Dwarf<Dwarf32,Pointer32,LittleEndian>>::extract_dwarf5_ranges(uint64_t a1, uint64_t a2, int a3)
+void TDwarfReadDW_AT_ranges<Dwarf<Dwarf32,Pointer32,LittleEndian>>::extract_dwarf5_ranges(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = *(a2 + 48);
   if (!v3)
@@ -8984,6 +8022,7 @@ void TDwarfReadDW_AT_ranges<Dwarf<Dwarf32,Pointer32,LittleEndian>>::extract_dwar
     return;
   }
 
+  v4 = a3;
   TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::set_cursor(*(a2 + 48), 0);
   TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::uint32(v3);
   TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::uint16(v3);
@@ -9026,7 +8065,7 @@ void TDwarfReadDW_AT_ranges<Dwarf<Dwarf32,Pointer32,LittleEndian>>::extract_dwar
 
   else
   {
-    v12 = TDwarfReadDW_AT_ranges<Dwarf<Dwarf32,Pointer32,LittleEndian>>::offset_into_ranges(a1, v9, a3);
+    v12 = TDwarfReadDW_AT_ranges<Dwarf<Dwarf32,Pointer32,LittleEndian>>::offset_into_ranges(a1, v9, v4);
   }
 
   if (v12 == -1)
@@ -9188,7 +8227,7 @@ void sub_1D9753914(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t TDwarfReadDW_AT_ranges<Dwarf<Dwarf32,Pointer32,LittleEndian>>::extract_dwarf4_ranges(uint64_t result, uint64_t *a2, int a3)
+uint64_t TDwarfReadDW_AT_ranges<Dwarf<Dwarf32,Pointer32,LittleEndian>>::extract_dwarf4_ranges(uint64_t result, uint64_t *a2, uint64_t a3)
 {
   v4 = *a2;
   if (v4)
@@ -9320,45 +8359,32 @@ uint64_t TDwarfReadDW_AT_ranges<Dwarf<Dwarf32,Pointer32,LittleEndian>>::extract_
 
 uint64_t TDwarfReadDW_AT_ranges<Dwarf<Dwarf32,Pointer32,LittleEndian>>::offset_into_ranges(uint64_t a1, uint64_t a2, int a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 16);
-  if (v3 != 6)
+  switch(v3)
   {
-    if (v3 == 7)
-    {
-      result = TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::uint64(a2);
-    }
+    case 6:
 
-    else
-    {
-      if (v3 == 23)
-      {
-        v4 = *MEMORY[0x1E69E9840];
+      return TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::uint32(a2);
+    case 7:
+      return TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::uint64(a2);
+    case 23:
 
-        return TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::dwarf_offset(a2);
-      }
-
+      return TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::dwarf_offset(a2);
+    default:
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         *buf = 67109376;
-        v11 = a3;
-        v12 = 1024;
-        v13 = v3;
+        v8 = a3;
+        v9 = 1024;
+        v10 = v3;
         _os_log_impl(&dword_1D96E9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "DWARF %d form %u is unrecognized for reading non-indexed ranges.\n", buf, 0xEu);
         v3 = *(a1 + 16);
       }
 
       fprintf(*MEMORY[0x1E69E9848], "DWARF %d form %u is unrecognized for reading non-indexed ranges.\n", a3, v3);
-      result = 0xFFFFFFFFLL;
-    }
-
-    v9 = *MEMORY[0x1E69E9840];
-    return result;
+      return 0xFFFFFFFFLL;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
-
-  return TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::uint32(a2);
 }
 
 uint64_t TDwarfReadDW_FORM_StrpAttributeAction<Dwarf<Dwarf32,Pointer32,LittleEndian>>::action(uint64_t a1, uint64_t *a2)
@@ -9712,26 +8738,26 @@ uint64_t TDwarfReadDW_FORM_FlagPresentAttributeAction<Dwarf<Dwarf32,Pointer32,Li
   return result;
 }
 
-uint64_t TDwarfSourceInfoAbbrev<Dwarf<Dwarf32,Pointer32,LittleEndian>>::TDwarfSourceInfoAbbrev(uint64_t result, int a2, char a3, void *a4, uint64_t a5)
+uint64_t TDwarfSourceInfoAbbrev<Dwarf<Dwarf32,Pointer32,LittleEndian>>::TDwarfSourceInfoAbbrev(uint64_t a1, int a2, char a3, void *a4, uint64_t a5)
 {
-  v5 = result;
-  *(result + 8) = a2;
-  *(result + 12) = a3;
-  *(result + 16) = 0u;
-  *(result + 32) = 0u;
-  *(result + 48) = 0u;
-  *(result + 16) = *a4;
+  v5 = a1;
+  *(a1 + 8) = a2;
+  *(a1 + 12) = a3;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 16) = *a4;
   *a4 = 0;
-  v6 = *(result + 24);
-  *(result + 24) = a4[1];
+  v6 = *(a1 + 24);
+  *(a1 + 24) = a4[1];
   a4[1] = v6;
-  v7 = *(result + 32);
-  *(result + 32) = a4[2];
+  v7 = *(a1 + 32);
+  *(a1 + 32) = a4[2];
   a4[2] = v7;
-  *result = &unk_1F55061B0;
-  *(result + 64) = a5;
-  v8 = *(result + 16);
-  if (v8 != *(result + 24))
+  *a1 = &unk_1F55061B0;
+  *(a1 + 64) = a5;
+  v8 = *(a1 + 16);
+  if (v8 != *(a1 + 24))
   {
     v9 = *v8;
     v10 = v8[1];
@@ -9748,8 +8774,7 @@ uint64_t TDwarfSourceInfoAbbrev<Dwarf<Dwarf32,Pointer32,LittleEndian>>::TDwarfSo
               operator new();
             }
 
-            v20 = *(v5 + 64);
-            read_action_for_data_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v10);
+            read_action_for_data_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v10, *(v5 + 64) + 68, 32770, *(v5 + 64) + 72);
           }
 
           operator new();
@@ -9757,8 +8782,7 @@ uint64_t TDwarfSourceInfoAbbrev<Dwarf<Dwarf32,Pointer32,LittleEndian>>::TDwarfSo
 
         if (v9 == 27)
         {
-          v13 = *(v5 + 64);
-          read_action_for_string_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v10);
+          read_action_for_string_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v10, *(v5 + 64) + 68, 32, *(v5 + 64) + 32, *(v5 + 64) + 88);
         }
       }
 
@@ -9766,8 +8790,7 @@ uint64_t TDwarfSourceInfoAbbrev<Dwarf<Dwarf32,Pointer32,LittleEndian>>::TDwarfSo
       {
         if (v9 == 16)
         {
-          v15 = *(v5 + 64);
-          read_action_for_data_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v10);
+          read_action_for_data_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v10, *(v5 + 64) + 68, 64, *(v5 + 64) + 44);
         }
 
         if (v9 == 17)
@@ -9806,8 +8829,7 @@ uint64_t TDwarfSourceInfoAbbrev<Dwarf<Dwarf32,Pointer32,LittleEndian>>::TDwarfSo
 
       if (v9 == 114)
       {
-        v14 = *(v5 + 64);
-        read_action_for_data_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v10);
+        read_action_for_data_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v10, *(v5 + 64) + 68, 0, *(v5 + 64) + 88);
       }
     }
 
@@ -9816,19 +8838,939 @@ uint64_t TDwarfSourceInfoAbbrev<Dwarf<Dwarf32,Pointer32,LittleEndian>>::TDwarfSo
       switch(v9)
       {
         case 0x73u:
-          v17 = *(v5 + 64);
-          read_action_for_data_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v10);
+          read_action_for_data_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v10, *(v5 + 64) + 68, 0, *(v5 + 64) + 84);
         case 0x74u:
-          v19 = *(v5 + 64);
-          read_action_for_data_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v10);
+          read_action_for_data_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v10, *(v5 + 64) + 68, 0, *(v5 + 64) + 92);
         case 0x3FF0u:
-          v11 = *(v5 + 64);
-          read_action_for_string_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v10);
+          read_action_for_string_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v10, *(v5 + 64) + 68, 0, *(v5 + 64) + 120, *(v5 + 64) + 88);
       }
     }
 
     skip_action_for_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v10);
   }
 
+  return a1;
+}
+
+void TDwarfSourceInfoAbbrev<Dwarf<Dwarf32,Pointer32,LittleEndian>>::~TDwarfSourceInfoAbbrev(CSCppDwarfAbbrev *a1)
+{
+  CSCppDwarfAbbrev::~CSCppDwarfAbbrev(a1);
+
+  JUMPOUT(0x1DA736760);
+}
+
+uint64_t TDwarfSkipAbbrev<Dwarf<Dwarf32,Pointer32,LittleEndian>>::TDwarfSkipAbbrev(uint64_t a1, int a2, char a3, void *a4)
+{
+  *(a1 + 8) = a2;
+  *(a1 + 12) = a3;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 16) = *a4;
+  *a4 = 0;
+  v4 = *(a1 + 24);
+  *(a1 + 24) = a4[1];
+  a4[1] = v4;
+  v5 = *(a1 + 32);
+  *(a1 + 32) = a4[2];
+  a4[2] = v5;
+  *a1 = &unk_1F55061F8;
+  v6 = *(a1 + 16);
+  if (v6 != *(a1 + 24))
+  {
+    skip_action_for_form<Dwarf<Dwarf32,Pointer32,LittleEndian>>(*(v6 + 2));
+  }
+
+  return a1;
+}
+
+void TDwarfSkipAbbrev<Dwarf<Dwarf32,Pointer32,LittleEndian>>::~TDwarfSkipAbbrev(CSCppDwarfAbbrev *a1)
+{
+  CSCppDwarfAbbrev::~CSCppDwarfAbbrev(a1);
+
+  JUMPOUT(0x1DA736760);
+}
+
+void std::vector<CSCppDwarfAbbrev *>::resize(void *result, unint64_t a2)
+{
+  v2 = (result[1] - *result) >> 3;
+  if (a2 <= v2)
+  {
+    if (a2 < v2)
+    {
+      result[1] = *result + 8 * a2;
+    }
+  }
+
+  else
+  {
+    std::vector<CSCppDwarfAbbrev *>::__append(result, a2 - v2);
+  }
+}
+
+void std::vector<CSCppDwarfAbbrev *>::__append(uint64_t a1, unint64_t a2)
+{
+  v5 = *(a1 + 8);
+  v4 = *(a1 + 16);
+  if (a2 <= (v4 - v5) >> 3)
+  {
+    if (a2)
+    {
+      bzero(*(a1 + 8), 8 * a2);
+      v5 += 8 * a2;
+    }
+
+    *(a1 + 8) = v5;
+  }
+
+  else
+  {
+    v6 = v5 - *a1;
+    v7 = a2 + (v6 >> 3);
+    if (v7 >> 61)
+    {
+      std::vector<std::shared_ptr<CSCppSymbolOwner>>::__throw_length_error[abi:ne200100]();
+    }
+
+    v8 = v4 - *a1;
+    if (v8 >> 2 > v7)
+    {
+      v7 = v8 >> 2;
+    }
+
+    if (v8 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      v9 = 0x1FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v9 = v7;
+    }
+
+    if (v9)
+    {
+      std::allocator<std::unique_ptr<CSCppMemory>>::allocate_at_least[abi:ne200100](a1, v9);
+    }
+
+    v10 = (8 * (v6 >> 3));
+    bzero(v10, 8 * a2);
+    v11 = &v10[8 * a2];
+    v12 = *(a1 + 8) - *a1;
+    v13 = &v10[-v12];
+    memcpy(&v10[-v12], *a1, v12);
+    v14 = *a1;
+    *a1 = v13;
+    *(a1 + 8) = v11;
+    *(a1 + 16) = 0;
+    if (v14)
+    {
+
+      operator delete(v14);
+    }
+  }
+}
+
+uint64_t std::__split_buffer<std::unique_ptr<TDwarfDIEStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>::~__split_buffer(uint64_t a1)
+{
+  std::__split_buffer<std::unique_ptr<TDwarfDIEStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>::__destruct_at_end[abi:ne200100](a1, *(a1 + 8));
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+void *std::__split_buffer<std::unique_ptr<TDwarfDIEStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>::__destruct_at_end[abi:ne200100](uint64_t a1, void *a2)
+{
+  result = *(a1 + 16);
+  while (result != a2)
+  {
+    v6 = *--result;
+    v5 = v6;
+    *(a1 + 16) = result;
+    *result = 0;
+    if (v6)
+    {
+      std::default_delete<TDwarfDIEStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>>::operator()[abi:ne200100](result, v5);
+      result = *(a1 + 16);
+    }
+  }
+
   return result;
+}
+
+void std::default_delete<TDwarfDIEStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  if (a2)
+  {
+    v2 = *(a2 + 80);
+    if (v2)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+    }
+
+    JUMPOUT(0x1DA736760);
+  }
+}
+
+uint64_t parse_die_stream_for_specification<Dwarf<Dwarf32,Pointer32,LittleEndian>,TDwarfDIEStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>,std::vector<std::unique_ptr<TDwarfDIEStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>>>>(uint64_t a1, uint64_t a2, void *a3, _DWORD *a4)
+{
+  v6 = *(a1 + 68);
+  if ((v6 & 0x10) != 0)
+  {
+    v7 = *(a1 + 40) & (v6 << 18 >> 31);
+    if ((v6 & 0x2000) != 0)
+    {
+      v8 = 0;
+    }
+
+    else
+    {
+      v8 = *(a1 + 40);
+    }
+
+    v9 = -8209;
+  }
+
+  else
+  {
+    if ((v6 & 0x200) == 0)
+    {
+      return 0;
+    }
+
+    v7 = *(a1 + 52) & (v6 << 17 >> 31);
+    if ((v6 & 0x4000) != 0)
+    {
+      v8 = 0;
+    }
+
+    else
+    {
+      v8 = *(a1 + 52);
+    }
+
+    v9 = -16913;
+  }
+
+  *(a1 + 68) = v6 & v9;
+  v10 = (*a4)++;
+  if (v10 < 10)
+  {
+    if (v8)
+    {
+      v14 = 1;
+    }
+
+    else
+    {
+      v14 = v7 == 0;
+    }
+
+    if (v14)
+    {
+      goto LABEL_19;
+    }
+
+    v15 = *a3;
+    v16 = a3[1];
+    if (v16 == *a3)
+    {
+      goto LABEL_38;
+    }
+
+    v17 = (v16 - *a3) >> 3;
+    do
+    {
+      v18 = v17 >> 1;
+      v19 = &v15[v17 >> 1];
+      v21 = *v19;
+      v20 = v19 + 1;
+      v17 += ~(v17 >> 1);
+      if (*(v21 + 16) + *(v21 + 12) > v7)
+      {
+        v17 = v18;
+      }
+
+      else
+      {
+        v15 = v20;
+      }
+    }
+
+    while (v17);
+    if (v15 == v16 || (a2 = *v15, v8 = v7 - *(*v15 + 12), v8 >= *(*v15 + 16)))
+    {
+LABEL_38:
+      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        v11 = MEMORY[0x1E69E9C10];
+        v12 = "Ref addr is not within the bounds of any compile unit";
+        v13 = buf;
+        goto LABEL_32;
+      }
+    }
+
+    else
+    {
+LABEL_19:
+      if (*(a2 + 16) >= v8)
+      {
+        read_specification_abbrev_at<Dwarf<Dwarf32,Pointer32,LittleEndian>>(v8, a2);
+        return a2;
+      }
+
+      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+      {
+        v23 = 0;
+        v11 = MEMORY[0x1E69E9C10];
+        v12 = "Out-of-bounds abstract origin or specification offset";
+        v13 = &v23;
+        goto LABEL_32;
+      }
+    }
+  }
+
+  else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+  {
+    v25 = 0;
+    v11 = MEMORY[0x1E69E9C10];
+    v12 = "Possible reference cycle in DIE";
+    v13 = &v25;
+LABEL_32:
+    _os_log_impl(&dword_1D96E9000, v11, OS_LOG_TYPE_DEFAULT, v12, v13, 2u);
+  }
+
+  return 0;
+}
+
+uint64_t resolve_parsed_data_names<Dwarf<Dwarf32,Pointer32,LittleEndian>>(uint64_t a1, void *a2, void *a3)
+{
+  v3 = *(a1 + 68);
+  v4 = (a1 + 24);
+  if ((v3 & 0xC) == 8)
+  {
+    v5 = (a1 + 24);
+  }
+
+  else
+  {
+    v5 = (a1 + 16);
+  }
+
+  v6 = *v5;
+  if ((v3 & 0xC) == 8)
+  {
+    v7 = 67141633;
+  }
+
+  else
+  {
+    v7 = 67174401;
+  }
+
+  *a2 = v6;
+  if ((v3 & 4) != 0)
+  {
+    v8 = 0x200000;
+  }
+
+  else
+  {
+    v8 = 0x100000;
+  }
+
+  v9 = v7 | v8;
+  if ((v3 & 4) != 0)
+  {
+    v4 = (a1 + 16);
+  }
+
+  *a3 = *v4;
+  if (*(a1 + 48) == 1 && (v3 & 0x80u) != 0)
+  {
+    v11 = v9 | 0x40;
+  }
+
+  else
+  {
+    v11 = v9;
+  }
+
+  if (*(a1 + 49) == 1)
+  {
+    v12 = v11 | 0x80;
+  }
+
+  else
+  {
+    v12 = v11;
+  }
+
+  if ((v3 & 0x100) != 0)
+  {
+    return v12;
+  }
+
+  else
+  {
+    return v11;
+  }
+}
+
+uint64_t TAddressRelocator<Pointer32>::relocate(void *a1, uint64_t a2)
+{
+  v2 = a2;
+  v15 = *MEMORY[0x1E69E9840];
+  v3 = a1[3];
+  if ((a2 - *v3) < v3[1])
+  {
+    return (v3[2] + a2);
+  }
+
+  v4 = a1[1];
+  if (v4 != *a1)
+  {
+    v5 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 2);
+    v4 = *a1;
+    do
+    {
+      v6 = v5 >> 1;
+      v7 = &v4[3 * (v5 >> 1)];
+      v9 = *v7;
+      v8 = v7 + 3;
+      v5 += ~(v5 >> 1);
+      if (v9 > a2)
+      {
+        v5 = v6;
+      }
+
+      else
+      {
+        v4 = v8;
+      }
+    }
+
+    while (v5);
+  }
+
+  if (v4 != *a1)
+  {
+    v10 = *(v4 - 3);
+    v11 = *(v4 - 2);
+    v3 = v4 - 3;
+    if (a2 - v10 < v11)
+    {
+      a1[3] = v3;
+      return (v3[2] + a2);
+    }
+  }
+
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = 134217984;
+    v14 = v2;
+    _os_log_impl(&dword_1D96E9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Attempt to relocate address [0x%llx], which is outside segment deltas\n", &v13, 0xCu);
+  }
+
+  return v2;
+}
+
+uint64_t TDwarfAbbrevData<Dwarf<Dwarf32,Pointer32,LittleEndian>>::has_inlined_info(uint64_t a1, unsigned int a2)
+{
+  v2 = *(a1 + 68);
+  if (a2 >= 5)
+  {
+    v3 = (v2 >> 10) & 1;
+LABEL_8:
+    result = 1;
+    if ((v3 & 1) == 0 && (v2 & 0x800) == 0)
+    {
+      return (v2 >> 12) & 1;
+    }
+
+    return result;
+  }
+
+  if ((v2 & 0x400) != 0)
+  {
+    LOBYTE(v3) = *(a1 + 56) != 0;
+    goto LABEL_8;
+  }
+
+  if ((v2 & 0x800) == 0)
+  {
+    return (v2 >> 12) & 1;
+  }
+
+  return 1;
+}
+
+const char *path_from_file_index<Pointer32>(void *a1, unsigned int a2, uint64_t a3, uint64_t a4, unsigned int a5)
+{
+  v19 = *MEMORY[0x1E69E9840];
+  v5 = (__PAIR64__(a2, a5) - 5) >> 32;
+  if (v5 < (a1[1] - *a1) >> 3)
+  {
+    return *(*a1 + 8 * v5);
+  }
+
+  if ((path_from_file_index<Pointer32>(std::vector<char const*> const&,unsigned int,unsigned long long,TRawSymbolOwnerData<Pointer32> &,unsigned int)::suppress_error & 1) == 0)
+  {
+    path_from_file_index<Pointer32>(std::vector<char const*> const&,unsigned int,unsigned long long,TRawSymbolOwnerData<Pointer32> &,unsigned int)::suppress_error = 1;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      (*(*a4 + 240))(__p, a4);
+      v9 = v13 >= 0 ? __p : __p[0];
+      *buf = 136315650;
+      *&buf[4] = v9;
+      v15 = 2048;
+      v16 = a3;
+      v17 = 1024;
+      v18 = v5;
+      _os_log_impl(&dword_1D96E9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[CoreSymbolication] In DWARF data from %s:\n  .debug_line[%llx] file = %d is not a valid index\n", buf, 0x1Cu);
+      if (v13 < 0)
+      {
+        operator delete(__p[0]);
+      }
+    }
+
+    v10 = *MEMORY[0x1E69E9848];
+    (*(*a4 + 240))(buf, a4);
+    if (v17 >= 0)
+    {
+      v11 = buf;
+    }
+
+    else
+    {
+      v11 = *buf;
+    }
+
+    fprintf(v10, "[CoreSymbolication] In DWARF data from %s:\n  .debug_line[%llx] file = %d is not a valid index\n", v11, a3, v5);
+    if (SHIBYTE(v17) < 0)
+    {
+      operator delete(*buf);
+    }
+  }
+
+  return "<Bad file name in .debug_info>";
+}
+
+void record_symbols_with_ancestor<Pointer32,std::vector<TRawSymbol<Pointer32> *,std::allocator<TRawSymbol<Pointer32> *>>,std::deque<TRawSymbol<Pointer32>>>(_DWORD *a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t *a5)
+{
+  if (*(a3 + 8) == 29)
+  {
+    record_inlined_symbols_with_ancestor<Pointer32,std::vector<TRawSymbol<Pointer32> *,std::allocator<TRawSymbol<Pointer32> *>>>(a1, a2, a3, a5);
+  }
+
+  else
+  {
+    record_concrete_symbols_with_ancestor<Pointer32,std::vector<TRawSymbol<Pointer32> *,std::allocator<TRawSymbol<Pointer32> *>>,std::deque<TRawSymbol<Pointer32>>>(a1, a2, a3, a4, a5);
+  }
+}
+
+uint64_t TDwarfSourceInfoAbbrev<Dwarf<Dwarf32,Pointer32,LittleEndian>>::set_compilation_unit_pc_ranges(uint64_t result)
+{
+  v1 = *(result + 64);
+  v2 = *(v1 + 34);
+  if (v2)
+  {
+    v3 = *v1;
+LABEL_6:
+    v1[19] = v3;
+    if ((v2 & 2) == 0)
+    {
+      return result;
+    }
+
+    goto LABEL_7;
+  }
+
+  v3 = v1[2];
+  if (v3 != -1)
+  {
+    goto LABEL_6;
+  }
+
+  if ((v1[17] & 2) == 0)
+  {
+    return result;
+  }
+
+LABEL_7:
+  if (v2 < 0)
+  {
+    v4 = v1[18] + *v1;
+  }
+
+  else
+  {
+    v4 = v1[1];
+  }
+
+  v1[20] = v4;
+  return result;
+}
+
+void parse_line_numbers<Dwarf<Dwarf32,Pointer32,LittleEndian>>(uint64_t a1, unint64_t a2, unsigned int a3, uint64_t a4, const char *a5, int a6, uint64_t a7, void *a8, uint64_t (***a9)(void, const char *), void *a10, unint64_t *a11)
+{
+  v50 = *MEMORY[0x1E69E9840];
+  TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::set_cursor(a1, a3);
+  v17 = TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::uint32(a1);
+  v18 = TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::uint16(a1);
+  if (v18 - 6 >= 0xFFFFFFFC)
+  {
+    v19 = v18;
+    if (v18 == 5)
+    {
+      TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::uint8(a1);
+      TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::uint8(a1);
+    }
+
+    TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::dwarf_offset(a1);
+    v38 = TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::uint8(a1);
+    if (v19 >= 4)
+    {
+      TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::uint8(a1);
+    }
+
+    TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::uint8(a1);
+    v37 = TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::uint8(a1);
+    v20 = TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::uint8(a1);
+    v21 = *(a1 + 8);
+    v41 = (*a1 + v21);
+    v22 = *v41;
+    *(a1 + 8) = v21 + v22;
+    __p = 0;
+    v47 = 0;
+    v48 = 0;
+    if (v19 == 5)
+    {
+      parse_dwarf5_path_list<Dwarf<Dwarf32,Pointer32,LittleEndian>>(a1, a2, 5u, a9, (a7 + 96), a4, &__p, &__p);
+      parse_dwarf5_path_list<Dwarf<Dwarf32,Pointer32,LittleEndian>>(a1, a2, 5u, a9, (a7 + 96), a4, &__p, a10);
+    }
+
+    else
+    {
+      parse_dwarf2_path_list<Dwarf<Dwarf32,Pointer32,LittleEndian>>(a1, a5, a9, (a7 + 96), &__p, a10);
+    }
+
+    v44 = 0;
+    v45 = 1;
+    v23 = a3 + v17 + 4;
+    if (*(a1 + 8) < v23)
+    {
+      v24 = 0;
+      v25 = 1;
+      while (1)
+      {
+        v26 = TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::uint8(a1);
+        v27 = v26;
+        if (v26 >= v22)
+        {
+          break;
+        }
+
+        if (v26 <= 5)
+        {
+          if (v26 > 2)
+          {
+            if (v26 == 3)
+            {
+              v33 = TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::LEB(a1);
+              v45 += v33;
+            }
+
+            else if (v26 == 4)
+            {
+              v25 = TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::ULEB(a1);
+            }
+
+            else
+            {
+              v44 = TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::ULEB(a1);
+            }
+
+            goto LABEL_21;
+          }
+
+          if (v26)
+          {
+            if (v26 == 1)
+            {
+              v28 = (v24 + a6);
+              if (a8)
+              {
+                LODWORD(v28) = TAddressRelocator<Pointer32>::relocate(a8, v28);
+              }
+
+LABEL_20:
+              LODWORD(v42) = v28;
+              *__s1 = path_from_file_index<Pointer32>(a10, v25, *(a1 + 8), a7, v19);
+              v43 = 0;
+              std::deque<TRawSourceInfo<Pointer32>>::emplace_back<unsigned int &,int,char const*&,int &,unsigned int &>(a11, &v42, &v43, __s1, &v45, &v44);
+              goto LABEL_21;
+            }
+
+            if (v26 != 2)
+            {
+              goto LABEL_46;
+            }
+
+            v24 += TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::ULEB(a1) * v38;
+          }
+
+          else
+          {
+            v29 = TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::ULEB(a1);
+            if (!v29)
+            {
+              goto LABEL_57;
+            }
+
+            v30 = TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::uint8(a1);
+            switch(v30)
+            {
+              case 1:
+                v24 = 0;
+                v25 = 1;
+                v44 = 0;
+                v45 = 1;
+                break;
+              case 2:
+                v24 = TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::dwarf_address(a1);
+                break;
+              case 3:
+                v31 = TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::FORM_string(a1);
+                v32 = TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::ULEB(a1);
+                TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::skip_ULEB(a1);
+                TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::skip_ULEB(a1);
+                if (*v31 != 47)
+                {
+                  if (v32 >= ((v47 - __p) >> 3))
+                  {
+                    std::vector<TRawSymbol<Pointer32>>::__throw_out_of_range[abi:ne200100]();
+                  }
+
+                  v35 = *(__p + v32);
+                  if (v35)
+                  {
+                    stringByAppendingPathComponents(__s1, 0x400uLL, v35, v31);
+                    v36 = (**a9)(a9, __s1);
+                    CSCppStringCache::intern((a7 + 96), v36);
+                  }
+                }
+
+                *__s1 = (**a9)(a9, v31);
+                std::vector<char const*>::push_back[abi:ne200100](a10, __s1);
+                break;
+              default:
+                *(a1 + 8) = v29 + *(a1 + 8) - 1;
+                break;
+            }
+          }
+        }
+
+        else if (v26 <= 8)
+        {
+          if ((v26 - 6) >= 2)
+          {
+            if (v26 != 8)
+            {
+LABEL_46:
+              if (v41[v26])
+              {
+                v34 = 0;
+                do
+                {
+                  TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::skip_ULEB(a1);
+                  ++v34;
+                }
+
+                while (v34 < v41[v27]);
+              }
+
+              goto LABEL_21;
+            }
+
+            v24 += (v22 ^ 0xFF) / v20 * v38;
+          }
+        }
+
+        else if ((v26 - 10) >= 2)
+        {
+          if (v26 == 9)
+          {
+            v24 += TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::uint16(a1);
+          }
+
+          else
+          {
+            if (v26 != 12)
+            {
+              goto LABEL_46;
+            }
+
+            TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::skip_ULEB(a1);
+          }
+        }
+
+LABEL_21:
+        if (*(a1 + 8) >= v23)
+        {
+          goto LABEL_57;
+        }
+      }
+
+      v24 += (v26 - v22) / v20 * v38;
+      v45 += v37 + ((v26 - v22) % v20);
+      v28 = (v24 + a6);
+      if (a8)
+      {
+        LODWORD(v28) = TAddressRelocator<Pointer32>::relocate(a8, v28);
+      }
+
+      goto LABEL_20;
+    }
+
+LABEL_57:
+    if (__p)
+    {
+      v47 = __p;
+      operator delete(__p);
+    }
+  }
+}
+
+void sub_1D9755A64(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::deque<TRangeValue<Pointer32,char const*>>::emplace_back<unsigned int &,unsigned int &,char const*&>(unint64_t *a1, _DWORD *a2, int *a3, uint64_t *a4)
+{
+  v9 = a1[2];
+  v8 = a1[1];
+  if (v9 == v8)
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    v10 = 32 * (v9 - v8) - 1;
+  }
+
+  v11 = a1[4];
+  v12 = a1[5];
+  v13 = v12 + v11;
+  if (v10 == v12 + v11)
+  {
+    std::deque<TRangeValue<Pointer32,char const*>>::__add_back_capacity(a1);
+    v11 = a1[4];
+    v12 = a1[5];
+    v8 = a1[1];
+    v13 = v11 + v12;
+  }
+
+  v14 = *(v8 + ((v13 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v13;
+  v15 = *a3;
+  v16 = *a4;
+  *v14 = *a2;
+  *(v14 + 4) = v15;
+  *(v14 + 8) = v16;
+  v17 = v12 + 1;
+  a1[5] = v17;
+  v18 = v11 + v17;
+  v19 = (v8 + 8 * (v18 >> 8));
+  if (v18)
+  {
+    v20 = *v19 + 16 * v18;
+  }
+
+  else
+  {
+    v20 = *(v19 - 1) + 4096;
+  }
+
+  return v20 - 16;
+}
+
+void read_specification_abbrev_at<Dwarf<Dwarf32,Pointer32,LittleEndian>>(unsigned int a1, uint64_t a2)
+{
+  v3 = *(a2 + 8);
+  TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::set_cursor(a2, a1);
+  v4 = TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::ULEB(a2);
+  v5 = v4;
+  v7 = *(a2 + 72);
+  v6 = *(a2 + 80);
+  if (v6)
+  {
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  if (!v4 || v4 >= ((*(v7 + 2) - *(v7 + 1)) >> 3))
+  {
+    std::ostringstream::basic_ostringstream[abi:ne200100](&__p);
+    v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p, "Invalid specification abbrev index in DWARF: ", 45);
+    MEMORY[0x1DA7365E0](v12, v5);
+    std::ostringstream::str[abi:ne200100](&__p, &v20);
+    Exception::Exception(v19, &v20);
+    exception = __cxa_allocate_exception(0x20uLL);
+    Exception::Exception(exception, v19);
+  }
+
+  v8 = CSCppDwarfAbbrevTable::specification_abbrev_at(v7, v4);
+  if (!v8)
+  {
+    v9 = *(*(v7 + 1) + 8 * v5);
+    if (v9)
+    {
+      v10 = *(v9 + 8);
+      if (v10 <= 0x2E && ((1 << v10) & 0x400020000008) != 0)
+      {
+        v22 = 0uLL;
+        __p = 0;
+        std::vector<CSCppDwarfAttribute>::__init_with_size[abi:ne200100]<CSCppDwarfAttribute*,CSCppDwarfAttribute*>(&__p, *(v9 + 16), *(v9 + 24), (*(v9 + 24) - *(v9 + 16)) >> 2);
+        operator new();
+      }
+
+      std::ostringstream::basic_ostringstream[abi:ne200100](&__p);
+      v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p, "Invalid abbrev tag ", 19);
+      v17 = MEMORY[0x1DA7365E0](v16, v10);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, " for symbol entry.", 18);
+      std::ostringstream::str[abi:ne200100](&__p, &v20);
+      Exception::Exception(v19, &v20);
+      v18 = __cxa_allocate_exception(0x20uLL);
+      Exception::Exception(v18, v19);
+    }
+
+    std::ostringstream::basic_ostringstream[abi:ne200100](&__p);
+    v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&__p, "Null abbrev discovered in DWARF at index ", 41);
+    MEMORY[0x1DA7365E0](v14, v5);
+    std::ostringstream::str[abi:ne200100](&__p, &v20);
+    Exception::Exception(v19, &v20);
+    v15 = __cxa_allocate_exception(0x20uLL);
+    Exception::Exception(v15, v19);
+  }
+
+  v23 = 0u;
+  v24 = 0u;
+  v22 = 0u;
+  __p = a2;
+  (*(*v8 + 16))(v8, &__p, *(a2 + 24));
+  TDwarfStream<Dwarf<Dwarf32,Pointer32,LittleEndian>>::set_cursor(a2, v3);
+  if (v6)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+  }
 }

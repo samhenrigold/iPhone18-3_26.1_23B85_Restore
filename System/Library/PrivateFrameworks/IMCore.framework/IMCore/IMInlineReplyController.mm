@@ -12,175 +12,174 @@
   chatCopy = chat;
   identifierCopy = identifier;
   originatorCopy = originator;
-  v20.receiver = self;
-  v20.super_class = IMInlineReplyController;
-  v11 = [(IMChatItemFilterController *)&v20 initWithChat:chatCopy];
-  v13 = v11;
+  v14.receiver = self;
+  v14.super_class = IMInlineReplyController;
+  v11 = [(IMChatItemFilterController *)&v14 initWithChat:chatCopy];
+  v12 = v11;
   if (v11)
   {
-    objc_msgSend_setThreadIdentifier_(v11, v12, identifierCopy);
-    objc_msgSend_setThreadOriginator_(v13, v14, originatorCopy);
+    [(IMInlineReplyController *)v11 setThreadIdentifier:identifierCopy];
+    [(IMInlineReplyController *)v12 setThreadOriginator:originatorCopy];
     if (originatorCopy)
     {
-      v17 = objc_msgSend_chatStyle(chatCopy, v15, v16);
-      objc_msgSend__handleItem_forChatStyle_(v13, v18, originatorCopy, v17);
+      -[IMItemsController _handleItem:forChatStyle:](v12, "_handleItem:forChatStyle:", originatorCopy, [chatCopy chatStyle]);
     }
-  }
-
-  return v13;
-}
-
-- (id)itemsToPrepend
-{
-  if ((objc_msgSend_hasEarlierMessagesToLoad(self, a2, v2) & 1) != 0 || (objc_msgSend_threadOriginator(self, v4, v5), v6 = objc_claimAutoreleasedReturnValue(), v6, !v6))
-  {
-    v12 = MEMORY[0x1E695E0F0];
-  }
-
-  else
-  {
-    v9 = MEMORY[0x1E695DEC8];
-    v10 = objc_msgSend_threadOriginator(self, v7, v8);
-    v12 = objc_msgSend_arrayWithObject_(v9, v11, v10);
   }
 
   return v12;
 }
 
+- (id)itemsToPrepend
+{
+  if ([(IMChatItemFilterController *)self hasEarlierMessagesToLoad]|| ([(IMInlineReplyController *)self threadOriginator], v3 = objc_claimAutoreleasedReturnValue(), v3, !v3))
+  {
+    v6 = MEMORY[0x1E695E0F0];
+  }
+
+  else
+  {
+    v4 = MEMORY[0x1E695DEC8];
+    threadOriginator = [(IMInlineReplyController *)self threadOriginator];
+    v6 = [v4 arrayWithObject:threadOriginator];
+  }
+
+  return v6;
+}
+
 - (BOOL)itemMatchesFilter:(id)filter
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   filterCopy = filter;
-  v62.receiver = self;
-  v62.super_class = IMInlineReplyController;
-  if ([(IMChatItemFilterController *)&v62 itemMatchesFilter:filterCopy])
+  v29.receiver = self;
+  v29.super_class = IMInlineReplyController;
+  if ([(IMChatItemFilterController *)&v29 itemMatchesFilter:filterCopy])
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       v5 = filterCopy;
-      v8 = objc_msgSend_threadIdentifier(v5, v6, v7);
-      if (v8)
+      threadIdentifier = [v5 threadIdentifier];
+      if (threadIdentifier)
       {
       }
 
       else
       {
-        v14 = objc_msgSend_guid(v5, v9, v10);
-        v17 = objc_msgSend_threadOriginator(self, v15, v16);
-        v20 = objc_msgSend_guid(v17, v18, v19);
-        isEqualToString = objc_msgSend_isEqualToString_(v14, v21, v20);
+        guid = [v5 guid];
+        threadOriginator = [(IMInlineReplyController *)self threadOriginator];
+        guid2 = [threadOriginator guid];
+        v11 = [guid isEqualToString:guid2];
 
-        if (isEqualToString)
+        if (v11)
         {
 LABEL_8:
-          v13 = 1;
+          v7 = 1;
 LABEL_32:
 
           goto LABEL_33;
         }
       }
 
-      v23 = objc_msgSend_threadIdentifier(self, v11, v12);
-      v26 = objc_msgSend_threadIdentifier(v5, v24, v25);
-      v28 = objc_msgSend_isEqualToString_(v23, v27, v26);
+      threadIdentifier2 = [(IMInlineReplyController *)self threadIdentifier];
+      threadIdentifier3 = [v5 threadIdentifier];
+      v14 = [threadIdentifier2 isEqualToString:threadIdentifier3];
 
-      if (v28)
+      if (v14)
       {
         goto LABEL_8;
       }
 
       if (IMOSLoggingEnabled())
       {
-        v31 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+        v15 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
-          v34 = objc_msgSend_guid(v5, v32, v33);
+          guid3 = [v5 guid];
           *buf = 136315394;
-          v64 = "[IMInlineReplyController itemMatchesFilter:]";
-          v65 = 2112;
-          v66 = v34;
-          _os_log_impl(&dword_1A823F000, v31, OS_LOG_TYPE_INFO, "%s threadIdentifier does not match for item %@", buf, 0x16u);
+          v31 = "[IMInlineReplyController itemMatchesFilter:]";
+          v32 = 2112;
+          v33 = guid3;
+          _os_log_impl(&dword_1A823F000, v15, OS_LOG_TYPE_INFO, "%s threadIdentifier does not match for item %@", buf, 0x16u);
         }
       }
 
-      v35 = objc_msgSend_threadIdentifier(v5, v29, v30);
-      v36 = v35 == 0;
+      threadIdentifier4 = [v5 threadIdentifier];
+      v18 = threadIdentifier4 == 0;
 
-      if (!v36)
+      if (!v18)
       {
-        v13 = 0;
+        v7 = 0;
         goto LABEL_32;
       }
 
-      v39 = objc_msgSend_associatedMessageGUID(v5, v37, v38);
-      v42 = objc_msgSend_threadIdentifier(self, v40, v41);
+      associatedMessageGUID = [v5 associatedMessageGUID];
+      threadIdentifier5 = [(IMInlineReplyController *)self threadIdentifier];
       AssociatedMessageGUIDFromThreadIdentifier = IMMessageCreateAssociatedMessageGUIDFromThreadIdentifier();
 
-      v46 = IMAssociatedMessageDecodeGUID();
-      if (v39)
+      v22 = IMAssociatedMessageDecodeGUID();
+      if (associatedMessageGUID)
       {
-        v47 = IMAssociatedMessageDecodeGUID();
-        if (objc_msgSend_isEqualToString_(v46, v48, v47))
+        syndicationRanges = IMAssociatedMessageDecodeGUID();
+        if ([v22 isEqualToString:syndicationRanges])
         {
           goto LABEL_17;
         }
 
         if (IMOSLoggingEnabled())
         {
-          v56 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+          v26 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
           {
-            v59 = objc_msgSend_guid(v5, v57, v58);
+            guid4 = [v5 guid];
             *buf = 136315906;
-            v64 = "[IMInlineReplyController itemMatchesFilter:]";
-            v65 = 2112;
-            v66 = v46;
-            v67 = 2112;
-            v68 = v47;
-            v69 = 2112;
-            v70 = v59;
-            _os_log_impl(&dword_1A823F000, v56, OS_LOG_TYPE_INFO, "%s guidFromThreadIdentifier %@ does not match guidFromAssociateMessageGUID %@ for item %@", buf, 0x2Au);
+            v31 = "[IMInlineReplyController itemMatchesFilter:]";
+            v32 = 2112;
+            v33 = v22;
+            v34 = 2112;
+            v35 = syndicationRanges;
+            v36 = 2112;
+            v37 = guid4;
+            _os_log_impl(&dword_1A823F000, v26, OS_LOG_TYPE_INFO, "%s guidFromThreadIdentifier %@ does not match guidFromAssociateMessageGUID %@ for item %@", buf, 0x2Au);
           }
         }
       }
 
       else
       {
-        v47 = objc_msgSend_syndicationRanges(v5, v44, v45);
-        if (objc_msgSend_count(v47, v49, v50))
+        syndicationRanges = [v5 syndicationRanges];
+        if ([syndicationRanges count])
         {
-          v53 = objc_msgSend_guid(v5, v51, v52);
-          v55 = objc_msgSend_isEqualToString_(v46, v54, v53);
+          guid5 = [v5 guid];
+          v25 = [v22 isEqualToString:guid5];
 
-          if (v55)
+          if (v25)
           {
             if (!IMOSLoggingEnabled())
             {
               goto LABEL_18;
             }
 
-            v47 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+            syndicationRanges = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(syndicationRanges, OS_LOG_TYPE_INFO))
             {
               *buf = 136315394;
-              v64 = "[IMInlineReplyController itemMatchesFilter:]";
-              v65 = 2112;
-              v66 = v46;
-              _os_log_impl(&dword_1A823F000, v47, OS_LOG_TYPE_INFO, "%s guidFromThreadIdentifier %@ is the same as the item given, and it has syndication ranges.", buf, 0x16u);
+              v31 = "[IMInlineReplyController itemMatchesFilter:]";
+              v32 = 2112;
+              v33 = v22;
+              _os_log_impl(&dword_1A823F000, syndicationRanges, OS_LOG_TYPE_INFO, "%s guidFromThreadIdentifier %@ is the same as the item given, and it has syndication ranges.", buf, 0x16u);
             }
 
 LABEL_17:
 
 LABEL_18:
-            v13 = 1;
+            v7 = 1;
 LABEL_31:
 
             goto LABEL_32;
           }
 
 LABEL_30:
-          v13 = 0;
+          v7 = 0;
           goto LABEL_31;
         }
       }
@@ -189,21 +188,20 @@ LABEL_30:
     }
   }
 
-  v13 = 0;
+  v7 = 0;
 LABEL_33:
 
-  v60 = *MEMORY[0x1E69E9840];
-  return v13;
+  return v7;
 }
 
 - (id)generateChatItemRules
 {
   v3 = [IMInlineReplyChatItemRules alloc];
-  v6 = objc_msgSend_chat(self, v4, v5);
-  v9 = objc_msgSend_threadIdentifier(self, v7, v8);
-  v11 = objc_msgSend_initWithChat_threadIdentifier_(v3, v10, v6, v9);
+  chat = [(IMChatItemFilterController *)self chat];
+  threadIdentifier = [(IMInlineReplyController *)self threadIdentifier];
+  v6 = [(IMInlineReplyChatItemRules *)v3 initWithChat:chat threadIdentifier:threadIdentifier];
 
-  return v11;
+  return v6;
 }
 
 @end

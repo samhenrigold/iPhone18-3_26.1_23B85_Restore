@@ -97,7 +97,7 @@ void __45__LNAvailabilityChecker_currentSystemVersion__block_invoke()
 
 - (id)availabilityWithPlatform:(id)platform platformVersion:(id)version
 {
-  v34[5] = *MEMORY[0x1E69E9840];
+  v33[5] = *MEMORY[0x1E69E9840];
   platformCopy = platform;
   versionCopy = version;
   availabilityAnnotations = [(LNAvailabilityChecker *)self availabilityAnnotations];
@@ -114,39 +114,38 @@ void __45__LNAvailabilityChecker_currentSystemVersion__block_invoke()
 
   v14 = objc_alloc(MEMORY[0x1E695DF90]);
   v15 = *MEMORY[0x1E69AC250];
-  v33[0] = *MEMORY[0x1E69AC208];
-  v33[1] = v15;
-  v34[0] = v13;
-  v34[1] = v13;
+  v32[0] = *MEMORY[0x1E69AC208];
+  v32[1] = v15;
+  v33[0] = v13;
+  v33[1] = v13;
   v16 = *MEMORY[0x1E69AC228];
-  v33[2] = *MEMORY[0x1E69AC218];
-  v33[3] = v16;
-  v34[2] = v13;
-  v34[3] = v13;
-  v33[4] = *MEMORY[0x1E69AC238];
-  v34[4] = v13;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:5];
+  v32[2] = *MEMORY[0x1E69AC218];
+  v32[3] = v16;
+  v33[2] = v13;
+  v33[3] = v13;
+  v32[4] = *MEMORY[0x1E69AC238];
+  v33[4] = v13;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:5];
   v18 = [v14 initWithDictionary:v17];
 
   availabilityAnnotations2 = [(LNAvailabilityChecker *)self availabilityAnnotations];
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __66__LNAvailabilityChecker_availabilityWithPlatform_platformVersion___block_invoke;
-  v28[3] = &unk_1E74B1070;
-  v29 = platformCopy;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __66__LNAvailabilityChecker_availabilityWithPlatform_platformVersion___block_invoke;
+  v27[3] = &unk_1E74B1070;
+  v28 = platformCopy;
   v20 = v18;
-  v30 = v20;
-  v31 = v13;
-  v32 = versionCopy;
+  v29 = v20;
+  v30 = v13;
+  v31 = versionCopy;
   v21 = versionCopy;
   v22 = v13;
   v23 = platformCopy;
-  [availabilityAnnotations2 enumerateKeysAndObjectsUsingBlock:v28];
+  [availabilityAnnotations2 enumerateKeysAndObjectsUsingBlock:v27];
 
-  v24 = v32;
+  v24 = v31;
   v25 = v20;
 
-  v26 = *MEMORY[0x1E69E9840];
   return v20;
 }
 

@@ -111,7 +111,7 @@
   v14 = v11;
   if (offset < 0 || v11 < offset)
   {
-    v15 = BUZipLog();
+    v15 = BUZipLog(v11);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v28 = objc_msgSend_name(self->_entry, v16, v17);
@@ -183,64 +183,69 @@
     subrange = dispatch_data_create_subrange(dataCopy, 0, 0x1EuLL);
 LABEL_5:
     v9 = subrange;
-    v24 = 0;
+    v25 = 0;
     buffer_ptr = 0;
-    v12 = dispatch_data_create_map(subrange, &buffer_ptr, &v24);
-    v13 = buffer_ptr;
+    isCompressed = dispatch_data_create_map(subrange, &buffer_ptr, &v25);
+    v13 = isCompressed;
+    v14 = buffer_ptr;
     if (*buffer_ptr == 67324752)
     {
-      v14 = *(buffer_ptr + 4);
+      v15 = *(buffer_ptr + 4);
       if (*(buffer_ptr + 4))
       {
-        v15 = v14 == BUZipDeflateCompressionMethod;
+        v16 = v15 == BUZipDeflateCompressionMethod;
       }
 
       else
       {
-        v15 = 1;
+        v16 = 1;
       }
 
-      if (v15 && (((v14 != BUZipDeflateCompressionMethod) ^ objc_msgSend_isCompressed(self->_entry, v10, v11)) & 1) != 0)
+      if (v16)
       {
-        v17 = v13[13] + v13[14] + 30;
-        *length = v17;
-        objc_msgSend_setFileHeaderLength_(self->_entry, v16, v17);
-        v18 = 1;
+        isCompressed = objc_msgSend_isCompressed(self->_entry, v11, v12);
+        if (((v15 != BUZipDeflateCompressionMethod) ^ isCompressed))
+        {
+          v18 = v14[13] + v14[14] + 30;
+          *length = v18;
+          objc_msgSend_setFileHeaderLength_(self->_entry, v17, v18);
+          v19 = 1;
 LABEL_18:
 
-        goto LABEL_22;
+          goto LABEL_22;
+        }
       }
 
-      v19 = BUZipLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = BUZipLog(isCompressed);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        sub_241DD0CE0(self, v19, v21);
+        sub_241DD0CE0(self, v20, v22);
       }
     }
 
     else
     {
-      v19 = BUZipLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = BUZipLog(isCompressed);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        sub_241DD0C58(self, v19, v20);
+        sub_241DD0C58(self, v20, v21);
       }
     }
 
-    v18 = 0;
+    v19 = 0;
     goto LABEL_18;
   }
 
-  v9 = BUZipLog();
+  v9 = BUZipLog(size);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    sub_241DD0BD0(self, v9, v22);
+    sub_241DD0BD0(self, v9, v23);
   }
 
-  v18 = 0;
+  v19 = 0;
 LABEL_22:
 
-  return v18;
+  return v19;
 }
 
 - (void)readWithFileHeaderLength:(unint64_t)length handler:(id)handler
@@ -277,25 +282,25 @@ LABEL_22:
   doneCopy = done;
   dataCopy = data;
   handlerCopy = handler;
-  if (c && self->_validateCRC && (applier[0] = MEMORY[0x277D85DD0], applier[1] = 3221225472, applier[2] = sub_241DC3B90, applier[3] = &unk_278D1DA08, applier[4] = c, dispatch_data_apply(dataCopy, applier), doneCopy) && objc_msgSend_CRC(self->_entry, v12, v13) != *c)
+  if (c && self->_validateCRC && (applier[0] = MEMORY[0x277D85DD0], applier[1] = 3221225472, applier[2] = sub_241DC3B90, applier[3] = &unk_278D1DA08, applier[4] = c, dispatch_data_apply(dataCopy, applier), doneCopy) && (v14 = objc_msgSend_CRC(self->_entry, v12, v13), v14 != *c))
   {
-    v16 = BUZipLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = BUZipLog(v14);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      sub_241DD0D68(&self->_entry, v16, v17);
+      sub_241DD0D68(&self->_entry, v17, v18);
     }
 
-    objc_msgSend_handleFailureWithHandler_error_(self, v18, handlerCopy, 0);
-    v14 = 0;
+    objc_msgSend_handleFailureWithHandler_error_(self, v19, handlerCopy, 0);
+    v15 = 0;
   }
 
   else
   {
     handlerCopy[2](handlerCopy, doneCopy, dataCopy, 0);
-    v14 = 1;
+    v15 = 1;
   }
 
-  return v14;
+  return v15;
 }
 
 - (void)handleFailureWithHandler:(id)handler error:(id)error

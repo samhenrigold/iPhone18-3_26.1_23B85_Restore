@@ -67,9 +67,11 @@
 
 uint64_t __41__WFContextualActionRunQueue_sharedQueue__block_invoke()
 {
-  sharedQueue_queue = objc_alloc_init(WFContextualActionRunQueue);
+  v0 = objc_alloc_init(WFContextualActionRunQueue);
+  v1 = sharedQueue_queue;
+  sharedQueue_queue = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

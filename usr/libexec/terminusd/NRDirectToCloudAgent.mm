@@ -72,7 +72,7 @@
 
     v3 = qword_100229058;
     agentDescription = [(NRDirectToCloudAgent *)self agentDescription];
-    _NRLogWithArgs();
+    _NRLogWithArgs(v3, 0, "%s%.30s:%-4d Dealloc: %@", ", "[NRDirectToCloudAgent dealloc]"", 70, agentDescription);
   }
 
   sub_10007BEA0(self);

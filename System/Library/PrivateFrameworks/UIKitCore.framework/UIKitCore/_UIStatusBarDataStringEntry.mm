@@ -75,7 +75,7 @@
       v10 = v9;
       if (v8 == v9)
       {
-        v12 = 1;
+        isEqual = 1;
       }
 
       else
@@ -92,28 +92,28 @@
 
         if (v11)
         {
-          v12 = 0;
+          isEqual = 0;
         }
 
         else
         {
-          v12 = [(NSString *)v8 isEqual:v9];
+          isEqual = objc_msgSend_isEqual_(v8);
         }
       }
     }
 
     else
     {
-      v12 = 1;
+      isEqual = 1;
     }
   }
 
   else
   {
-    v12 = 0;
+    isEqual = 0;
   }
 
-  return v12;
+  return isEqual;
 }
 
 - (id)_ui_descriptionBuilder

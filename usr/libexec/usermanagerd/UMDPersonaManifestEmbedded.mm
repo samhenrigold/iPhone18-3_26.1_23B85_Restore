@@ -29,6 +29,7 @@
     v7 = qword_1000EB3D0;
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
+      v22 = 0;
       v10 = sub_1000011A8(0);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
@@ -42,7 +43,8 @@
 
       if (v11)
       {
-        v12 = _os_log_send_and_compose_impl();
+        LOWORD(v23[0]) = 0;
+        v12 = _os_log_send_and_compose_impl(v11, &v22, 0, 0, &_mh_execute_header, v7, 16, "Failed to parse persona manifest: manifest data is invalid", v23, 2);
         v13 = v12;
         if (v12)
         {
@@ -58,7 +60,7 @@
       free(v13);
     }
 
-    goto LABEL_40;
+    goto LABEL_41;
   }
 
   v7 = [v5 objectForKeyedSubscript:@"UsePersonaManifestVersion"];
@@ -75,9 +77,10 @@
       v14 = qword_1000EB3D0;
       if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_39;
+        goto LABEL_40;
       }
 
+      v22 = 0;
       v15 = sub_1000011A8(0);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
@@ -91,18 +94,19 @@
 
       if (v16)
       {
-        v17 = _os_log_send_and_compose_impl();
+        LOWORD(v23[0]) = 0;
+        v17 = _os_log_send_and_compose_impl(v16, &v22, 0, 0, &_mh_execute_header, v14, 16, "Failed to parse persona manifest: manifest version is invalid", v23, 2);
         if (!v17)
         {
-          goto LABEL_38;
+          goto LABEL_39;
         }
 
-        goto LABEL_34;
+        goto LABEL_35;
       }
 
-LABEL_37:
+LABEL_38:
       v17 = 0;
-      goto LABEL_38;
+      goto LABEL_39;
     }
   }
 
@@ -118,7 +122,7 @@ LABEL_37:
     v9 = sub_1000557E4(self, dataCopy);
 LABEL_26:
     v18 = v9;
-    goto LABEL_41;
+    goto LABEL_42;
   }
 
   if (qword_1000EB3D8 != -1)
@@ -129,37 +133,44 @@ LABEL_26:
   v14 = qword_1000EB3D0;
   if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
-    goto LABEL_39;
+    goto LABEL_40;
   }
 
-  v19 = sub_1000011A8(0);
-  if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v22 = 0;
+  LODWORD(v19) = sub_1000011A8(0);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
-    v19 &= ~1u;
+    v19 = v19;
+  }
+
+  else
+  {
+    v19 = v19 & 0xFFFFFFFE;
   }
 
   if (!v19)
   {
-    goto LABEL_37;
+    goto LABEL_38;
   }
 
   v20 = v14;
-  [v7 unsignedIntValue];
-  v17 = _os_log_send_and_compose_impl();
+  v23[0] = 67109120;
+  v23[1] = [v7 unsignedIntValue];
+  v17 = _os_log_send_and_compose_impl(v19, &v22, 0, 0, &_mh_execute_header, v20, 16, "Failed to parse persona manifest: unknown manifest version: %u", v23);
 
   if (v17)
   {
-LABEL_34:
+LABEL_35:
     sub_100002A8C(v17);
   }
 
-LABEL_38:
-  free(v17);
 LABEL_39:
-
+  free(v17);
 LABEL_40:
-  v18 = 0;
+
 LABEL_41:
+  v18 = 0;
+LABEL_42:
 
   return v18;
 }
@@ -190,6 +201,7 @@ LABEL_41:
     v8 = qword_1000EB3D0;
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
+      v15 = 0;
       v9 = sub_1000011A8(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
@@ -203,7 +215,8 @@ LABEL_41:
 
       if (v10)
       {
-        v11 = _os_log_send_and_compose_impl();
+        v14 = 0;
+        v11 = _os_log_send_and_compose_impl(v10, &v15, 0, 0, &_mh_execute_header, v8, 16, "Failed to generate data for persona manifest: failed to build user dict", &v14, 2);
         v12 = v11;
         if (v11)
         {

@@ -38,119 +38,120 @@
 
 - (BOOL)_openBrowserExtensionMappingJSONFile
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v4 = [v3 URLForResource:@"cross-browser-extension-mapping" withExtension:@"json"];
 
   if (v4)
   {
-    v36 = 0;
-    v5 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v4 options:0 error:&v36];
-    v6 = v36;
+    v41 = 0;
+    v5 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v4 options:0 error:&v41];
+    v6 = v41;
+    v8 = v6;
     if (!v5)
     {
-      v22 = WBS_LOG_CHANNEL_PREFIXImport();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v28 = WBS_LOG_CHANNEL_PREFIXImport(v6, v7);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        [(WBSChromeExtensionsImporter *)v22 _openBrowserExtensionMappingJSONFile];
+        [(WBSChromeExtensionsImporter *)v28 _openBrowserExtensionMappingJSONFile];
       }
 
-      v21 = 0;
-      v8 = v6;
+      v27 = 0;
+      v10 = v8;
       goto LABEL_26;
     }
 
-    v35 = v6;
-    v7 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v5 options:0 error:&v35];
-    v8 = v35;
+    v40 = v6;
+    v9 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v5 options:0 error:&v40];
+    v10 = v40;
 
-    if (v7)
+    if (v9)
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v28 = v8;
-        v29 = v5;
-        v30 = v4;
-        v33 = 0u;
-        v34 = 0u;
-        v31 = 0u;
-        v32 = 0u;
-        v27 = v7;
-        v9 = v7;
-        v10 = [v9 countByEnumeratingWithState:&v31 objects:v37 count:16];
-        if (v10)
+        v33 = v10;
+        v34 = v5;
+        v35 = v4;
+        v38 = 0u;
+        v39 = 0u;
+        v36 = 0u;
+        v37 = 0u;
+        v32 = v9;
+        v15 = v9;
+        v16 = [v15 countByEnumeratingWithState:&v36 objects:v42 count:16];
+        if (v16)
         {
-          v11 = v10;
-          v12 = *v32;
+          v17 = v16;
+          v18 = *v37;
           do
           {
-            for (i = 0; i != v11; ++i)
+            for (i = 0; i != v17; ++i)
             {
-              if (*v32 != v12)
+              if (*v37 != v18)
               {
-                objc_enumerationMutation(v9);
+                objc_enumerationMutation(v15);
               }
 
-              v14 = *(*(&v31 + 1) + 8 * i);
-              v15 = [v14 objectForKeyedSubscript:{@"safari_ios", v27, v28, v29, v30, v31}];
-              if (v15)
+              v20 = *(*(&v36 + 1) + 8 * i);
+              v21 = [v20 objectForKeyedSubscript:{@"safari_ios", v32, v33, v34, v35, v36}];
+              if (v21)
               {
-                v16 = v15;
-                v17 = [v14 objectForKeyedSubscript:@"chrome"];
+                v22 = v21;
+                v23 = [v20 objectForKeyedSubscript:@"chrome"];
 
-                if (v17)
+                if (v23)
                 {
                   browserExtensionMapping = self->_browserExtensionMapping;
-                  v19 = [v14 objectForKeyedSubscript:@"safari_ios"];
-                  v20 = [v14 objectForKeyedSubscript:@"chrome"];
-                  [(NSMutableDictionary *)browserExtensionMapping setObject:v19 forKey:v20];
+                  v25 = [v20 objectForKeyedSubscript:@"safari_ios"];
+                  v26 = [v20 objectForKeyedSubscript:@"chrome"];
+                  [(NSMutableDictionary *)browserExtensionMapping setObject:v25 forKey:v26];
                 }
               }
             }
 
-            v11 = [v9 countByEnumeratingWithState:&v31 objects:v37 count:16];
+            v17 = [v15 countByEnumeratingWithState:&v36 objects:v42 count:16];
           }
 
-          while (v11);
+          while (v17);
         }
 
-        v21 = 1;
-        v5 = v29;
-        v4 = v30;
-        v7 = v27;
-        v8 = v28;
+        v27 = 1;
+        v5 = v34;
+        v4 = v35;
+        v9 = v32;
+        v10 = v33;
         goto LABEL_25;
       }
 
-      v24 = WBS_LOG_CHANNEL_PREFIXImport();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v30 = WBS_LOG_CHANNEL_PREFIXImport(isKindOfClass, v14);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        [(WBSChromeExtensionsImporter *)v24 _openBrowserExtensionMappingJSONFile];
+        [(WBSChromeExtensionsImporter *)v30 _openBrowserExtensionMappingJSONFile];
       }
     }
 
     else
     {
-      v23 = WBS_LOG_CHANNEL_PREFIXImport();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v29 = WBS_LOG_CHANNEL_PREFIXImport(v11, v12);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        [(WBSChromeExtensionsImporter *)v23 _openBrowserExtensionMappingJSONFile];
+        [(WBSChromeExtensionsImporter *)v29 _openBrowserExtensionMappingJSONFile];
       }
     }
 
-    v21 = 0;
+    v27 = 0;
 LABEL_25:
 
 LABEL_26:
     goto LABEL_27;
   }
 
-  v21 = 0;
+  v27 = 0;
 LABEL_27:
 
-  v25 = *MEMORY[0x1E69E9840];
-  return v21;
+  return v27;
 }
 
 - (void)parseURL:(id)l completionHandler:(id)handler
@@ -183,7 +184,7 @@ LABEL_27:
 
 - (void)parseFileHandle:(id)handle completionHandler:(id)handler
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   handleCopy = handle;
   v8 = objc_alloc_init(WBSJSONReader);
@@ -195,10 +196,10 @@ LABEL_27:
   stack = self->_stack;
   self->_stack = v10;
 
-  v19 = 0;
-  [(WBSJSONReader *)v8 parseFileHandle:handleCopy error:&v19];
+  v18 = 0;
+  [(WBSJSONReader *)v8 parseFileHandle:handleCopy error:&v18];
 
-  v12 = v19;
+  v12 = v18;
   if (v12)
   {
     handlerCopy[2](handlerCopy, v12);
@@ -210,9 +211,9 @@ LABEL_27:
     if (!self->_foundExtensionsArray && !v13)
     {
       v14 = MEMORY[0x1E696ABC0];
-      v20 = *MEMORY[0x1E696A578];
-      v21[0] = @"Could not find extensions array in JSON file";
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+      v19 = *MEMORY[0x1E696A578];
+      v20[0] = @"Could not find extensions array in JSON file";
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
       v16 = [v14 errorWithDomain:@"com.apple.SafariShared.WBSChromeExtensionsImporterErrorDomain" code:2 userInfo:v15];
       v17 = self->_lastError;
       self->_lastError = v16;
@@ -222,56 +223,50 @@ LABEL_27:
 
     handlerCopy[2](handlerCopy, v13);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_checkNotAtRootLevel
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = [(NSMutableArray *)self->_stack count];
   if (!v3)
   {
     v4 = MEMORY[0x1E696ABC0];
-    v10 = *MEMORY[0x1E696A578];
-    v11[0] = @"Root node is expected to be a dictionary";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = *MEMORY[0x1E696A578];
+    v10[0] = @"Root node is expected to be a dictionary";
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v6 = [v4 errorWithDomain:@"com.apple.SafariShared.WBSChromeExtensionsImporterErrorDomain" code:1 userInfo:v5];
     lastError = self->_lastError;
     self->_lastError = v6;
   }
 
-  result = v3 != 0;
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return v3 != 0;
 }
 
 - (BOOL)_isParsingExtensionsArray
 {
-  v6[3] = *MEMORY[0x1E69E9840];
+  v5[3] = *MEMORY[0x1E69E9840];
   stack = self->_stack;
-  v6[0] = &unk_1F308E258;
-  v6[1] = @"Extensions";
-  v6[2] = &unk_1F308E270;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:3];
+  v5[0] = &unk_1F308E258;
+  v5[1] = @"Extensions";
+  v5[2] = &unk_1F308E270;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:3];
   LOBYTE(stack) = [(NSMutableArray *)stack isEqual:v3];
 
-  v4 = *MEMORY[0x1E69E9840];
   return stack;
 }
 
 - (BOOL)_isParsingExtension
 {
-  v6[4] = *MEMORY[0x1E69E9840];
+  v5[4] = *MEMORY[0x1E69E9840];
   stack = self->_stack;
-  v6[0] = &unk_1F308E258;
-  v6[1] = @"Extensions";
-  v6[2] = &unk_1F308E270;
-  v6[3] = &unk_1F308E258;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:4];
+  v5[0] = &unk_1F308E258;
+  v5[1] = @"Extensions";
+  v5[2] = &unk_1F308E270;
+  v5[3] = &unk_1F308E258;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:4];
   LOBYTE(stack) = [(NSMutableArray *)stack isEqual:v3];
 
-  v4 = *MEMORY[0x1E69E9840];
   return stack;
 }
 
@@ -326,7 +321,7 @@ LABEL_27:
 
 - (BOOL)jsonReaderEndObject:(id)object
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = [(NSMutableDictionary *)self->_browserExtensionMapping objectForKeyedSubscript:self->_chromeExtensionIdentifier];
   if ([(WBSChromeExtensionsImporter *)self _isParsingExtension]&& v4)
   {
@@ -336,31 +331,31 @@ LABEL_27:
 
     if (v7)
     {
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
       v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
       v8 = [v4 objectForKeyedSubscript:{@"extension_identifiers", 0}];
-      v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v17;
+        v11 = *v16;
         do
         {
           v12 = 0;
           do
           {
-            if (*v17 != v11)
+            if (*v16 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            [WeakRetained enableExtensionWithComposedIdentifier:*(*(&v16 + 1) + 8 * v12++) adamIdentifier:v6 alternatePlatformAppBundleIdentifier:0 alternatePlatformExtensionBundleIdentifier:0];
+            [WeakRetained enableExtensionWithComposedIdentifier:*(*(&v15 + 1) + 8 * v12++) adamIdentifier:v6 alternatePlatformAppBundleIdentifier:0 alternatePlatformExtensionBundleIdentifier:0];
           }
 
           while (v10 != v12);
-          v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
         }
 
         while (v10);
@@ -376,7 +371,6 @@ LABEL_27:
   [(NSMutableArray *)self->_stack removeLastObject];
   _popKeyFromStackIfPossible = [(WBSChromeExtensionsImporter *)self _popKeyFromStackIfPossible];
 
-  v14 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -411,12 +405,11 @@ LABEL_27:
 
 - (void)_openBrowserExtensionMappingJSONFile
 {
-  v12 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   safari_privacyPreservingDescription = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_2(&dword_1B8447000, v5, v6, "The browser extension mapping JSON file could not be opened: %{public}@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = safari_privacyPreservingDescription;
+  OUTLINED_FUNCTION_2(&dword_1B8447000, v5, v6, "The browser extension mapping JSON file could not be opened: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

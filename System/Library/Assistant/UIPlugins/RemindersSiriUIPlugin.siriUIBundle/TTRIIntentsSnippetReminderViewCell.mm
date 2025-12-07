@@ -14,7 +14,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_50DC();
+  sub_50DC(selfCopy, v2);
 }
 
 - (UILabel)titleLabel
@@ -55,7 +55,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_55EC();
+  sub_55EC(selfCopy, v2);
 }
 
 - (_TtC21RemindersSiriUIPlugin34TTRIIntentsSnippetReminderViewCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier

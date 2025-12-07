@@ -154,7 +154,7 @@ void __80__PEAdjustmentDataCacheEntry__load_networkAccessAllowed_originalAdjustm
       if (v10)
       {
         v12 = MEMORY[0x277D2D048];
-        [v10 preferredTransform];
+        objc_msgSend_preferredTransform(v10);
         v13 = [v12 videoOrientationForAssetPreferredTransform:buf];
       }
 

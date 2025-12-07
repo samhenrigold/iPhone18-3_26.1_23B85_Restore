@@ -8,14 +8,14 @@
 - (BOOL)_calibrationDataIsWithinIStopZEstimateLimits:(id)limits basedOnCalibrationHistory:(id)history;
 - (BOOL)_shouldRejectCalibrationData:(id)data;
 - (FigCaptureAutoFocusPositionSensorCalibrationContext)initWithSupportedDeviceNames:(id)names;
+- (char)_updateIStopZEstimateDelta:(char *)result;
+- (id)_ensureIStopZEstimateDeltasForKey:(id *)result;
 - (id)_initForUnitTests;
 - (id)calibrationDataHistory;
 - (int)currentIStopZEstimateDeltaForPosition:(id)position;
 - (int)passingIStopZEstimateDeltaForPosition:(id)position;
 - (int)previousIStopZEstimateDeltaForPosition:(id)position;
-- (uint64_t)_ensureIStopZEstimateDeltasForKey:(uint64_t)result;
 - (void)_pushToCalibrationHistoryQueue:(id)queue;
-- (void)_updateIStopZEstimateDelta:(void *)result;
 - (void)pushCalibrationDataToHistory:(id)history isRejected:(BOOL *)rejected;
 - (void)reportLoggingWithCalibrationData:(id)data isValid:(BOOL)valid magneticFieldMagnitude:(double)magnitude;
 - (void)setLastSuccessfulCalibrationData:(id)data;
@@ -34,7 +34,7 @@
 {
   if (!data)
   {
-    [FigCaptureAutoFocusPositionSensorCalibrationContext reportLoggingWithCalibrationData:isValid:magneticFieldMagnitude:];
+    [(FigCaptureAutoFocusPositionSensorCalibrationContext *)self reportLoggingWithCalibrationData:a2 isValid:0 magneticFieldMagnitude:valid, magnitude];
     return;
   }
 
@@ -75,15 +75,15 @@
         }
 
         v13 = *(*(&v58 + 1) + 8 * v12);
-        if (([v13 isEqualToString:0x1F21836D0] & 1) != 0 || objc_msgSend(v13, "isEqualToString:", 0x1F2183E10))
+        if ((objc_msgSend_isEqualToString_(v13) & 1) != 0 || objc_msgSend_isEqualToString_(v13))
         {
           v14 = [dataCopy objectForKeyedSubscript:v13];
           if (v14)
           {
             v15 = v14;
-            v16 = [v13 isEqualToString:0x1F21836D0];
-            *v56 = 0;
-            if (v16)
+            isEqualToString = objc_msgSend_isEqualToString_(v13);
+            v56[0] = 0;
+            if (isEqualToString)
             {
               v17 = 1;
             }
@@ -122,12 +122,12 @@
               LODWORD(v48) = *(&v55 + 1);
               HIDWORD(v47) = *(&v55 + 2);
               LODWORD(v47) = *(&v54 + 3);
-              HIDWORD(v46) = v56[0];
+              HIDWORD(v46) = *v56;
               if (v49 == 2)
               {
                 v36 = &v46;
                 v21 = &v46 + 4;
-                LODWORD(v46) = v56[1];
+                LODWORD(v46) = *(v56 + 1);
                 goto LABEL_23;
               }
 
@@ -230,12 +230,12 @@ LABEL_23:
           }
 
           v9 = *(*(&v30 + 1) + 8 * i);
-          if (([v9 isEqualToString:0x1F21836D0] & 1) != 0 || objc_msgSend(v9, "isEqualToString:", 0x1F2183E10))
+          if ((objc_msgSend_isEqualToString_(v9) & 1) != 0 || objc_msgSend_isEqualToString_(v9))
           {
             v10 = [logging objectForKeyedSubscript:v9];
             if (v10)
             {
-              *v28 = 0;
+              v28[0] = 0;
               v26 = 0u;
               v27 = 0u;
               v25 = 0u;
@@ -254,14 +254,14 @@ LABEL_23:
                 v14 = *(&v27 + 2);
                 v15 = *(&v26 + 3);
                 v16 = *(&v27 + 1);
-                v17 = v28[0];
+                v17 = *v28;
                 v18 = HIDWORD(v27);
                 [string appendFormat:@"%f, %f, %f, %f ", *(&v25 + 1), *(&v25 + 2), *(&v25 + 3), *&v26];
                 [string appendFormat:@"%f, %f, ", *&v13, *(&v13 + 1)];
                 [string appendFormat:@"%f, %f, %f, %d, %f, ", v15, v14, v16, v18, v17];
                 if (v11 == 2)
                 {
-                  [string appendFormat:@"%f, ", v28[1]];
+                  [string appendFormat:@"%f, ", *(v28 + 1)];
                 }
               }
 
@@ -279,7 +279,7 @@ LABEL_23:
 
   else
   {
-    +[FigCaptureAutoFocusPositionSensorCalibrationContext calibrationDataStringForInternalLogging:];
+    [(FigCaptureAutoFocusPositionSensorCalibrationContext *)self calibrationDataStringForInternalLogging:a2];
     return 0;
   }
 
@@ -322,7 +322,7 @@ LABEL_23:
           }
 
           v11 = *(*(&v20 + 1) + 8 * i);
-          if (([v11 isEqualToString:0x1F21836D0] & 1) != 0 || objc_msgSend(v11, "isEqualToString:", 0x1F2183E10))
+          if ((objc_msgSend_isEqualToString_(v11) & 1) != 0 || objc_msgSend_isEqualToString_(v11))
           {
             v12 = [data objectForKeyedSubscript:v11];
             v18 = 0;
@@ -350,7 +350,7 @@ LABEL_23:
 
   else
   {
-    +[FigCaptureAutoFocusPositionSensorCalibrationContext setStatusForCalibrationData:status:];
+    [(FigCaptureAutoFocusPositionSensorCalibrationContext *)self setStatusForCalibrationData:a2 status:0, *&status];
   }
 }
 
@@ -523,9 +523,9 @@ LABEL_23:
   return [v3 currentIStopZEstimateDelta];
 }
 
-- (void)_updateIStopZEstimateDelta:(void *)result
+- (char)_updateIStopZEstimateDelta:(char *)result
 {
-  v30 = result;
+  v31 = result;
   if (result)
   {
     if (a2)
@@ -535,63 +535,63 @@ LABEL_23:
       v54 = 0u;
       v55 = 0u;
       v56 = 0u;
-      result = OUTLINED_FUNCTION_3_48(lastSuccessfulCalibrationData, v4, v5, v6, v7, v8, v9, v10, v26, v28, v30, v32, v34, *(&v34 + 1), v35, *(&v35 + 1), v36, *(&v36 + 1), v37, *(&v37 + 1), v38, *(&v38 + 1), v39, *(&v39 + 1), v40, *(&v40 + 1), v41, v42, v43, *(&v43 + 1), v44, *(&v44 + 1), v45, *(&v45 + 1), v46, *(&v46 + 1), v47, *(&v47 + 1), v48, *(&v48 + 1), v49, *(&v49 + 1), v50, v51, v52);
+      result = OUTLINED_FUNCTION_3_48(lastSuccessfulCalibrationData, v5, v6, v7, v8, v9, v10, v11, v27, v29, v31, v33, v35, *(&v35 + 1), v36, *(&v36 + 1), v37, *(&v37 + 1), v38, *(&v38 + 1), v39, *(&v39 + 1), v40, *(&v40 + 1), v41, *(&v41 + 1), v42, v43, v44, *(&v44 + 1), v45, *(&v45 + 1), v46, *(&v46 + 1), v47, *(&v47 + 1), v48, *(&v48 + 1), v49, *(&v49 + 1), v50, *(&v50 + 1), v51, v52);
       if (result)
       {
-        v11 = result;
-        v12 = *v54;
+        v12 = result;
+        v13 = *v54;
         do
         {
-          v13 = 0;
+          v14 = 0;
           do
           {
-            if (*v54 != v12)
+            if (*v54 != v13)
             {
               objc_enumerationMutation(a2);
             }
 
-            v14 = *(*(&v53 + 1) + 8 * v13);
-            if (([v14 isEqualToString:0x1F21836D0] & 1) != 0 || (v15 = objc_msgSend(v14, "isEqualToString:", 0x1F2183E10), v15))
+            v15 = *(*(&v53 + 1) + 8 * v14);
+            if ((objc_msgSend_isEqualToString_(v15) & 1) != 0 || (isEqualToString = objc_msgSend_isEqualToString_(v15), isEqualToString))
             {
-              v23 = [lastSuccessfulCalibrationData objectForKeyedSubscript:v14];
-              v15 = [a2 objectForKeyedSubscript:v14];
-              if (v23)
+              v24 = [lastSuccessfulCalibrationData objectForKeyedSubscript:v15];
+              isEqualToString = [a2 objectForKeyedSubscript:v15];
+              if (v24)
               {
-                v24 = v15;
-                if (v15)
+                v25 = isEqualToString;
+                if (isEqualToString)
                 {
-                  v50 = 0;
-                  v48 = 0u;
+                  v51 = 0;
                   v49 = 0u;
-                  v46 = 0u;
+                  v50 = 0u;
                   v47 = 0u;
-                  v44 = 0u;
+                  v48 = 0u;
                   v45 = 0u;
-                  v43 = 0u;
-                  [v23 getBytes:&v43 length:120];
-                  v41 = 0;
-                  v39 = 0u;
+                  v46 = 0u;
+                  v44 = 0u;
+                  [v24 getBytes:&v44 length:120];
+                  v42 = 0;
                   v40 = 0u;
-                  v37 = 0u;
+                  v41 = 0u;
                   v38 = 0u;
-                  v35 = 0u;
+                  v39 = 0u;
                   v36 = 0u;
-                  v34 = 0u;
-                  [v24 getBytes:&v34 length:120];
-                  HIDWORD(v33) = DWORD2(v44);
-                  v25 = DWORD2(v35);
-                  [(FigCaptureAutoFocusPositionSensorCalibrationContext *)v31 _ensureIStopZEstimateDeltasForKey:v14];
-                  v15 = [objc_msgSend(*(v31 + 112) objectForKeyedSubscript:{v14), "setLastPassingIStopZEstimateDelta:", (v25 - HIDWORD(v33))}];
+                  v37 = 0u;
+                  v35 = 0u;
+                  [v25 getBytes:&v35 length:120];
+                  HIDWORD(v34) = DWORD2(v45);
+                  v26 = DWORD2(v36);
+                  [(FigCaptureAutoFocusPositionSensorCalibrationContext *)v32 _ensureIStopZEstimateDeltasForKey:v15];
+                  isEqualToString = [objc_msgSend(v32[14] objectForKeyedSubscript:{v15), "setLastPassingIStopZEstimateDelta:", (v26 - HIDWORD(v34))}];
                 }
               }
             }
 
-            v13 = v13 + 1;
+            ++v14;
           }
 
-          while (v11 != v13);
-          result = OUTLINED_FUNCTION_3_48(v15, v16, v17, v18, v19, v20, v21, v22, v27, v29, v31, v33, v34, *(&v34 + 1), v35, *(&v35 + 1), v36, *(&v36 + 1), v37, *(&v37 + 1), v38, *(&v38 + 1), v39, *(&v39 + 1), v40, *(&v40 + 1), v41, v42, v43, *(&v43 + 1), v44, *(&v44 + 1), v45, *(&v45 + 1), v46, *(&v46 + 1), v47, *(&v47 + 1), v48, *(&v48 + 1), v49, *(&v49 + 1), v50, v51, v52);
-          v11 = result;
+          while (v12 != v14);
+          result = OUTLINED_FUNCTION_3_48(isEqualToString, v17, v18, v19, v20, v21, v22, v23, v28, v30, v32, v34, v35, *(&v35 + 1), v36, *(&v36 + 1), v37, *(&v37 + 1), v38, *(&v38 + 1), v39, *(&v39 + 1), v40, *(&v40 + 1), v41, *(&v41 + 1), v42, v43, v44, *(&v44 + 1), v45, *(&v45 + 1), v46, *(&v46 + 1), v47, *(&v47 + 1), v48, *(&v48 + 1), v49, *(&v49 + 1), v50, *(&v50 + 1), v51, v52);
+          v12 = result;
         }
 
         while (result);
@@ -601,23 +601,23 @@ LABEL_23:
     else
     {
       fig_log_get_emitter();
-      return FigDebugAssert3();
+      return FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v2, v31, v33, v35, *(&v35 + 1), v36, DWORD2(v36));
     }
   }
 
   return result;
 }
 
-- (uint64_t)_ensureIStopZEstimateDeltasForKey:(uint64_t)result
+- (id)_ensureIStopZEstimateDeltasForKey:(id *)result
 {
   if (result)
   {
     v3 = result;
-    result = [*(result + 112) objectForKeyedSubscript:a2];
+    result = [result[14] objectForKeyedSubscript:a2];
     if (!result)
     {
       v4 = objc_alloc_init(FigCaptureAutoFocusPositionSensorCalibrationIStopZEstimateDeltaHistory);
-      v5 = *(v3 + 112);
+      v5 = v3[14];
 
       return [v5 setObject:v4 forKeyedSubscript:a2];
     }
@@ -676,14 +676,14 @@ LABEL_23:
                 }
 
                 v21 = *(*(&v78 + 1) + 8 * v20);
-                if (([v21 isEqualToString:0x1F21836D0] & 1) != 0 || (v22 = objc_msgSend(v21, "isEqualToString:", 0x1F2183E10), v22))
+                if ((objc_msgSend_isEqualToString_(v21) & 1) != 0 || (isEqualToString = objc_msgSend_isEqualToString_(v21), isEqualToString))
                 {
                   v30 = [v17 objectForKeyedSubscript:v21];
-                  v22 = [v5 objectForKeyedSubscript:v21];
+                  isEqualToString = [v5 objectForKeyedSubscript:v21];
                   if (v30)
                   {
-                    v31 = v22;
-                    if (v22)
+                    v31 = isEqualToString;
+                    if (isEqualToString)
                     {
                       v61 = 0;
                       v59 = 0u;
@@ -714,15 +714,15 @@ LABEL_23:
                         v33 = v32 / -255;
                       }
 
-                      v22 = [(FigCaptureAutoFocusPositionSensorCalibrationContext *)v44 _ensureIStopZEstimateDeltasForKey:v21];
+                      isEqualToString = [(FigCaptureAutoFocusPositionSensorCalibrationContext *)v44 _ensureIStopZEstimateDeltasForKey:v21];
                       if (v43 == 1)
                       {
-                        v22 = [objc_msgSend(*(v44 + 112) objectForKeyedSubscript:{v21), "setCurrentIStopZEstimateDelta:", v32}];
+                        isEqualToString = [objc_msgSend(*(v44 + 112) objectForKeyedSubscript:{v21), "setCurrentIStopZEstimateDelta:", v32}];
                       }
 
                       else if (!v43)
                       {
-                        v22 = [objc_msgSend(*(v44 + 112) objectForKeyedSubscript:{v21), "setPreviousIStopZEstimateDelta:", v32}];
+                        isEqualToString = [objc_msgSend(*(v44 + 112) objectForKeyedSubscript:{v21), "setPreviousIStopZEstimateDelta:", v32}];
                       }
 
                       v34 = (v43 & 0x100000000) != 0 || v33 > *(v44 + 152);
@@ -735,7 +735,7 @@ LABEL_23:
               }
 
               while (v18 != v20);
-              v7 = OUTLINED_FUNCTION_1_62(v22, v23, v24, v25, v26, v27, v28, v29, v37, v38, obj, v40, v41, v42, v43, v44, v45, *(&v45 + 1), v46, *(&v46 + 1), v47, *(&v47 + 1), v48, *(&v48 + 1), v49, *(&v49 + 1), v50, *(&v50 + 1), v51, *(&v51 + 1), v52, v53, v54, *(&v54 + 1), v55, *(&v55 + 1), v56, *(&v56 + 1), v57, *(&v57 + 1), v58, *(&v58 + 1), v59, *(&v59 + 1), v60, *(&v60 + 1), v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77);
+              v7 = OUTLINED_FUNCTION_1_62(isEqualToString, v23, v24, v25, v26, v27, v28, v29, v37, v38, obj, v40, v41, v42, v43, v44, v45, *(&v45 + 1), v46, *(&v46 + 1), v47, *(&v47 + 1), v48, *(&v48 + 1), v49, *(&v49 + 1), v50, *(&v50 + 1), v51, *(&v51 + 1), v52, v53, v54, *(&v54 + 1), v55, *(&v55 + 1), v56, *(&v56 + 1), v57, *(&v57 + 1), v58, *(&v58 + 1), v59, *(&v59 + 1), v60, *(&v60 + 1), v61, v62, v63, v64, v65, v66, v67, v68, v69, v70, v71, v72, v73, v74, v75, v76, v77);
               v18 = v7;
             }
 
@@ -842,27 +842,6 @@ LABEL_17:
   while ([v4 count] > v7);
   v18 = !v8;
   return v18 & 1;
-}
-
-- (uint64_t)reportLoggingWithCalibrationData:isValid:magneticFieldMagnitude:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-+ (uint64_t)calibrationDataStringForInternalLogging:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-+ (uint64_t)setStatusForCalibrationData:status:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

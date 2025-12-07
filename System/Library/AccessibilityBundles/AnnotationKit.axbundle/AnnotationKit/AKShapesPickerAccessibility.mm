@@ -24,32 +24,32 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v19 = *MEMORY[0x29EDCA608];
-  v17.receiver = self;
-  v17.super_class = AKShapesPickerAccessibility;
-  [(AKShapesPickerAccessibility *)&v17 _accessibilityLoadAccessibilityInformation];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
+  v18 = *MEMORY[0x29EDCA608];
+  v16.receiver = self;
+  v16.super_class = AKShapesPickerAccessibility;
+  [(AKShapesPickerAccessibility *)&v16 _accessibilityLoadAccessibilityInformation];
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v3 = [(AKShapesPickerAccessibility *)self safeUIViewForKey:@"stackview", 0];
   subviews = [v3 subviews];
 
-  v5 = [subviews countByEnumeratingWithState:&v13 objects:v18 count:16];
+  v5 = [subviews countByEnumeratingWithState:&v12 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(subviews);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         v10 = [v9 tag] - 764000;
         if (v10 <= 7 && ((0xA5u >> v10) & 1) != 0)
         {
@@ -58,13 +58,11 @@
         }
       }
 
-      v6 = [subviews countByEnumeratingWithState:&v13 objects:v18 count:16];
+      v6 = [subviews countByEnumeratingWithState:&v12 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 @end

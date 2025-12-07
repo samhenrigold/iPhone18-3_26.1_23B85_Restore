@@ -159,7 +159,7 @@
   [(SCNRenderer *)self _prepareRenderTarget];
   TextureWithSlot = C3DFramebufferGetTextureWithSlot(self->super._framebufferInfo.frameBuffer, 0);
 
-  return C3DTextureGetID(TextureWithSlot);
+  return C3DTextureGetID(TextureWithSlot, v4);
 }
 
 - (CGSize)size

@@ -13,7 +13,7 @@
 
 + (id)sharedReindexer
 {
-  if (ICUseCoreDataCoreSpotlightIntegration())
+  if (ICUseCoreDataCoreSpotlightIntegration(self, a2))
   {
     if (sharedReindexer_onceToken != -1)
     {

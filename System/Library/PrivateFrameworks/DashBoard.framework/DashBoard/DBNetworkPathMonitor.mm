@@ -348,4 +348,11 @@ LABEL_14:
   }
 }
 
+void __51__DBNetworkPathMonitor__startNetworkPathMonitorNow__block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0(&dword_248146000, a2, a3, "%{public}@ unable to start", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 @end

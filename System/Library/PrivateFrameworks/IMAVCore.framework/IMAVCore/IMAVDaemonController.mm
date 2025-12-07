@@ -43,10 +43,10 @@
 
 - (IMAVDaemonController)init
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v30.receiver = self;
-  v30.super_class = IMAVDaemonController;
-  v2 = [(IMAVDaemonController *)&v30 init];
+  v31 = *MEMORY[0x277D85DE8];
+  v29.receiver = self;
+  v29.super_class = IMAVDaemonController;
+  v2 = [(IMAVDaemonController *)&v29 init];
   if (v2)
   {
     Main = CFRunLoopGetMain();
@@ -54,31 +54,31 @@
     context.perform = nullsub_1;
     v2->_runLoopSource = CFRunLoopSourceCreate(0, 0, &context);
     objc_opt_class();
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     v4 = *MEMORY[0x277D191A0];
-    v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v25, v31, 16);
+    v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v24, v30, 16);
     if (v6)
     {
       v7 = v6;
-      v8 = *v26;
+      v8 = *v25;
       do
       {
         v9 = 0;
         do
         {
-          if (*v26 != v8)
+          if (*v25 != v8)
           {
             objc_enumerationMutation(v4);
           }
 
-          CFRunLoopAddSource(Main, v2->_runLoopSource, *(*(&v25 + 1) + 8 * v9++));
+          CFRunLoopAddSource(Main, v2->_runLoopSource, *(*(&v24 + 1) + 8 * v9++));
         }
 
         while (v7 != v9);
-        v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v10, &v25, v31, 16);
+        v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v10, &v24, v30, 16);
       }
 
       while (v7);
@@ -109,7 +109,6 @@
     v2->_daemonListener = v21;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -328,54 +327,54 @@
 
 - (void)_listenerSetUpdated
 {
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
-  v19 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0;
   listenerLockQueue = self->_listenerLockQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = sub_25477B464;
   block[3] = &unk_279783A10;
   block[4] = self;
-  block[5] = &v16;
+  block[5] = &v17;
   dispatch_sync(listenerLockQueue, block);
-  if (*(v17 + 24) == 1)
+  if (*(v18 + 24) == 1)
   {
-    v4 = sub_254761764();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_254761764(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_254743000, v4, OS_LOG_TYPE_DEFAULT, "We have some listeners, make sure we're connected to daemon", v14, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_254743000, v5, OS_LOG_TYPE_DEFAULT, "We have some listeners, make sure we're connected to daemon", v15, 2u);
     }
 
-    objc_msgSend__connectToDaemon(self, v5, v6, v7, v8);
+    objc_msgSend__connectToDaemon(self, v6, v7, v8, v9);
   }
 
   else
   {
-    v9 = sub_254761764();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_254761764(v4);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_254743000, v9, OS_LOG_TYPE_DEFAULT, "No more listeners disconnecting from daemon", v14, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_254743000, v10, OS_LOG_TYPE_DEFAULT, "No more listeners disconnecting from daemon", v15, 2u);
     }
 
-    objc_msgSend__disconnectFromDaemon(self, v10, v11, v12, v13);
+    objc_msgSend__disconnectFromDaemon(self, v11, v12, v13, v14);
   }
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v17, 8);
 }
 
 - (BOOL)addListenerID:(id)d
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v5 = sub_254761764();
+  v5 = sub_254761764(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v28 = dCopy;
+    v27 = dCopy;
     _os_log_impl(&dword_254743000, v5, OS_LOG_TYPE_DEFAULT, "Request to add listener with ID: %@", buf, 0xCu);
   }
 
@@ -383,17 +382,16 @@
   if (v13 && (objc_msgSend_hasListenerForID_(self, v10, dCopy, v11, v12) & 1) == 0)
   {
     listenerLockQueue = self->_listenerLockQueue;
-    v21 = MEMORY[0x277D85DD0];
-    v22 = 3221225472;
-    v23 = sub_25477B5F8;
-    v24 = &unk_2797832F0;
+    v20 = MEMORY[0x277D85DD0];
+    v21 = 3221225472;
+    v22 = sub_25477B5F8;
+    v23 = &unk_2797832F0;
     selfCopy = self;
-    v26 = dCopy;
-    dispatch_sync(listenerLockQueue, &v21);
-    objc_msgSend__listenerSetUpdated(self, v15, v16, v17, v18, v21, v22, v23, v24, selfCopy);
+    v25 = dCopy;
+    dispatch_sync(listenerLockQueue, &v20);
+    objc_msgSend__listenerSetUpdated(self, v15, v16, v17, v18, v20, v21, v22, v23, selfCopy);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v13 != 0;
 }
 
@@ -422,9 +420,9 @@
 
 - (BOOL)removeListenerID:(id)d
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v5 = sub_254761764();
+  v5 = sub_254761764(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
@@ -436,15 +434,15 @@
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v22 = 0x2020000000;
-    v23 = 0;
+    v21 = 0x2020000000;
+    v22 = 0;
     listenerLockQueue = self->_listenerLockQueue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = sub_25477B964;
     block[3] = &unk_279783A60;
     block[4] = self;
-    v19 = dCopy;
+    v18 = dCopy;
     p_buf = &buf;
     dispatch_sync(listenerLockQueue, block);
     objc_msgSend__listenerSetUpdated(self, v11, v12, v13, v14);
@@ -458,13 +456,12 @@
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15 & 1;
 }
 
 - (BOOL)_makeConnectionWithCompletionBlock:(id)block
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v9 = objc_msgSend_sharedInstance(MEMORY[0x277D192A8], v5, v6, v7, v8);
   IsShuttingDown = objc_msgSend_systemIsShuttingDown(v9, v10, v11, v12, v13);
@@ -474,28 +471,28 @@
     goto LABEL_8;
   }
 
-  v15 = sub_254761764();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = sub_254761764(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     if (self->_hasCheckedForDaemon)
     {
-      v16 = @"YES";
+      v17 = @"YES";
     }
 
     else
     {
-      v16 = @"NO";
+      v17 = @"NO";
     }
 
     *buf = 138412290;
-    v61 = v16;
-    _os_log_impl(&dword_254743000, v15, OS_LOG_TYPE_DEFAULT, "  Ensuring connection to daemon (has checked: %@)", buf, 0xCu);
+    v62 = v17;
+    _os_log_impl(&dword_254743000, v16, OS_LOG_TYPE_DEFAULT, "  Ensuring connection to daemon (has checked: %@)", buf, 0xCu);
   }
 
   if (self->_hasCheckedForDaemon)
   {
 LABEL_8:
-    v21 = 0;
+    v22 = 0;
   }
 
   else
@@ -503,62 +500,63 @@ LABEL_8:
     self->_hasCheckedForDaemon = 1;
     if (!self->_listenerID)
     {
-      v22 = IMGetMainBundleIdentifier();
-      if (!objc_msgSend_length(v22, v23, v24, v25, v26))
+      v23 = IMGetMainBundleIdentifier();
+      if (!objc_msgSend_length(v23, v24, v25, v26, v27))
       {
-        v31 = objc_msgSend_stringGUID(MEMORY[0x277CCACA8], v27, v28, v29, v30);
+        v32 = objc_msgSend_stringGUID(MEMORY[0x277CCACA8], v28, v29, v30, v31);
 
-        v22 = v31;
+        v23 = v32;
       }
 
-      v32 = objc_msgSend_copy(v22, v27, v28, v29, v30);
+      v33 = objc_msgSend_copy(v23, v28, v29, v30, v31);
       listenerID = self->_listenerID;
-      self->_listenerID = v32;
+      self->_listenerID = v33;
     }
 
-    v34 = objc_msgSend_remoteObjectExists(self, v17, v18, v19, v20);
-    v35 = sub_254761764();
-    v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
-    if (v34)
+    v35 = objc_msgSend_remoteObjectExists(self, v18, v19, v20, v21);
+    v36 = v35;
+    v37 = sub_254761764(v35);
+    v38 = os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT);
+    if (v36)
     {
-      if (v36)
+      if (v38)
       {
         *buf = 0;
-        _os_log_impl(&dword_254743000, v35, OS_LOG_TYPE_DEFAULT, "Remote Object exists, not creating new remote object", buf, 2u);
+        _os_log_impl(&dword_254743000, v37, OS_LOG_TYPE_DEFAULT, "Remote Object exists, not creating new remote object", buf, 2u);
       }
     }
 
     else
     {
-      if (v36)
+      if (v38)
       {
-        v37 = self->_listenerID;
+        v39 = self->_listenerID;
         *buf = 138412290;
-        v61 = v37;
-        _os_log_impl(&dword_254743000, v35, OS_LOG_TYPE_DEFAULT, "  Grabbing remote daemon port (listener ID: %@)", buf, 0xCu);
+        v62 = v39;
+        _os_log_impl(&dword_254743000, v37, OS_LOG_TYPE_DEFAULT, "  Grabbing remote daemon port (listener ID: %@)", buf, 0xCu);
       }
 
-      v42 = objc_msgSend_listener(self, v38, v39, v40, v41);
-      objc_msgSend__noteDisconnected(v42, v43, v44, v45, v46);
+      v44 = objc_msgSend_listener(self, v40, v41, v42, v43);
+      objc_msgSend__noteDisconnected(v44, v45, v46, v47, v48);
 
-      v47 = objc_alloc_init(MEMORY[0x277CBEB38]);
-      v35 = v47;
-      v48 = self->_listenerID;
-      if (v48)
+      v49 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v37 = v49;
+      v50 = self->_listenerID;
+      if (v50)
       {
-        CFDictionarySetValue(v47, @"listenerID", v48);
+        CFDictionarySetValue(v49, @"listenerID", v50);
       }
 
       if (_IMWillLog())
       {
-        v53 = objc_msgSend_date(MEMORY[0x277CBEAA8], v49, v50, v51, v52);
-        if (v53)
+        v55 = objc_msgSend_date(MEMORY[0x277CBEAA8], v51, v52, v53, v54);
+        if (v55)
         {
-          CFDictionarySetValue(v35, @"agentRequested", v53);
+          CFDictionarySetValue(v37, @"agentRequested", v55);
         }
       }
 
-      if (objc_msgSend_remoteObjectExists(self, v49, v50, v51, v52))
+      if (objc_msgSend_remoteObjectExists(self, v51, v52, v53, v54))
       {
         if (blockCopy)
         {
@@ -574,9 +572,9 @@ LABEL_8:
         block[2] = sub_25477BDD4;
         block[3] = &unk_279783AB0;
         block[4] = self;
-        v35 = v35;
-        v58 = v35;
-        v59 = blockCopy;
+        v37 = v37;
+        v59 = v37;
+        v60 = blockCopy;
         dispatch_sync(localObjectLockQueue, block);
 
         if (qword_27F610700 != -1)
@@ -586,107 +584,108 @@ LABEL_8:
       }
     }
 
-    v21 = 1;
+    v22 = 1;
   }
 
-  v55 = *MEMORY[0x277D85DE8];
-  return v21;
+  return v22;
 }
 
 - (void)_connectToDaemon
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   v6 = objc_msgSend_sharedInstance(MEMORY[0x277D192A8], a2, v2, v3, v4);
   IsShuttingDown = objc_msgSend_systemIsShuttingDown(v6, v7, v8, v9, v10);
 
   if (IsShuttingDown)
   {
-    v16 = sub_254761764();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_254761764(v12);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = objc_msgSend_sharedInstance(MEMORY[0x277D192A8], v17, v18, v19, v20);
-      v26 = objc_msgSend_systemIsShuttingDown(v21, v22, v23, v24, v25);
-      v27 = @"NO";
-      if (v26)
+      v22 = objc_msgSend_sharedInstance(MEMORY[0x277D192A8], v18, v19, v20, v21);
+      v27 = objc_msgSend_systemIsShuttingDown(v22, v23, v24, v25, v26);
+      v28 = @"NO";
+      if (v27)
       {
-        v27 = @"YES";
+        v28 = @"YES";
       }
 
       *buf = 138412290;
-      v63 = v27;
-      _os_log_impl(&dword_254743000, v16, OS_LOG_TYPE_DEFAULT, "  Connecting to avdaemon (system is shutting down: %@", buf, 0xCu);
-    }
-  }
-
-  else if ((objc_msgSend_isConnected(self, v12, v13, v14, v15) & 1) != 0 || objc_msgSend_isConnecting(self, v28, v29, v30, v31))
-  {
-    v32 = sub_254761764();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
-    {
-      if (objc_msgSend_isConnected(self, v33, v34, v35, v36))
-      {
-        v41 = @"YES";
-      }
-
-      else
-      {
-        v41 = @"NO";
-      }
-
-      if (objc_msgSend_isConnecting(self, v37, v38, v39, v40))
-      {
-        v42 = @"YES";
-      }
-
-      else
-      {
-        v42 = @"NO";
-      }
-
-      *buf = 138412546;
-      v63 = v41;
-      v64 = 2112;
-      v65 = v42;
-      _os_log_impl(&dword_254743000, v32, OS_LOG_TYPE_DEFAULT, "  Daemon is connected %@ is connecting %@", buf, 0x16u);
+      v64 = v28;
+      _os_log_impl(&dword_254743000, v17, OS_LOG_TYPE_DEFAULT, "  Connecting to avdaemon (system is shutting down: %@", buf, 0xCu);
     }
   }
 
   else
   {
-    v43 = sub_254761764();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+    isConnected = objc_msgSend_isConnected(self, v13, v14, v15, v16);
+    if ((isConnected & 1) != 0 || (isConnected = objc_msgSend_isConnecting(self, v30, v31, v32, v33), isConnected))
     {
-      *buf = 0;
-      _os_log_impl(&dword_254743000, v43, OS_LOG_TYPE_DEFAULT, &unk_2547876A3, buf, 2u);
-    }
-
-    objc_msgSend_lock(self->_connectionLock, v44, v45, v46, v47);
-    if ((!objc_msgSend_remoteObjectExists(self, v48, v49, v50, v51) || (objc_msgSend___isLocalObjectValidOnQueue_(self, v52, self->_localObjectLockQueue, v54, v55) & 1) == 0) && !self->_acquiringDaemonConnection)
-    {
-      objc_msgSend__cleanUpConnection(self, v52, v53, v54, v55);
-      self->_acquiringDaemonConnection = 1;
-      dispatch_suspend(self->_remoteMessageQueue);
-      v61[0] = MEMORY[0x277D85DD0];
-      v61[1] = 3221225472;
-      v61[2] = sub_25477C75C;
-      v61[3] = &unk_279783738;
-      v61[4] = self;
-      v56 = MEMORY[0x259C18E10](v61);
-      if ((objc_msgSend__makeConnectionWithCompletionBlock_(self, v57, v56, v58, v59) & 1) == 0)
+      v34 = sub_254761764(isConnected);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
-        self->_acquiringDaemonConnection = 0;
+        if (objc_msgSend_isConnected(self, v35, v36, v37, v38))
+        {
+          v43 = @"YES";
+        }
+
+        else
+        {
+          v43 = @"NO";
+        }
+
+        if (objc_msgSend_isConnecting(self, v39, v40, v41, v42))
+        {
+          v44 = @"YES";
+        }
+
+        else
+        {
+          v44 = @"NO";
+        }
+
+        *buf = 138412546;
+        v64 = v43;
+        v65 = 2112;
+        v66 = v44;
+        _os_log_impl(&dword_254743000, v34, OS_LOG_TYPE_DEFAULT, "  Daemon is connected %@ is connecting %@", buf, 0x16u);
       }
     }
 
-    objc_msgSend_unlock(self->_connectionLock, v52, v53, v54, v55);
-  }
+    else
+    {
+      v45 = sub_254761764(isConnected);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_254743000, v45, OS_LOG_TYPE_DEFAULT, &unk_2547876A3, buf, 2u);
+      }
 
-  v60 = *MEMORY[0x277D85DE8];
+      objc_msgSend_lock(self->_connectionLock, v46, v47, v48, v49);
+      if ((!objc_msgSend_remoteObjectExists(self, v50, v51, v52, v53) || (objc_msgSend___isLocalObjectValidOnQueue_(self, v54, self->_localObjectLockQueue, v56, v57) & 1) == 0) && !self->_acquiringDaemonConnection)
+      {
+        objc_msgSend__cleanUpConnection(self, v54, v55, v56, v57);
+        self->_acquiringDaemonConnection = 1;
+        dispatch_suspend(self->_remoteMessageQueue);
+        v62[0] = MEMORY[0x277D85DD0];
+        v62[1] = 3221225472;
+        v62[2] = sub_25477C75C;
+        v62[3] = &unk_279783738;
+        v62[4] = self;
+        v58 = MEMORY[0x259C18E10](v62);
+        if ((objc_msgSend__makeConnectionWithCompletionBlock_(self, v59, v58, v60, v61) & 1) == 0)
+        {
+          self->_acquiringDaemonConnection = 0;
+        }
+      }
+
+      objc_msgSend_unlock(self->_connectionLock, v54, v55, v56, v57);
+    }
+  }
 }
 
 - (void)_cleanUpConnection
 {
-  v3 = sub_254761764();
+  v3 = sub_254761764(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v33 = 0;
@@ -712,7 +711,7 @@ LABEL_8:
 
 - (void)_disconnectFromDaemon
 {
-  v3 = sub_254761764();
+  v3 = sub_254761764(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -724,7 +723,7 @@ LABEL_8:
 
 - (void)_localObjectDiedNotification:(id)notification
 {
-  v4 = sub_254761764();
+  v4 = sub_254761764(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v13 = 0;
@@ -738,7 +737,7 @@ LABEL_8:
 
 - (void)_remoteObjectDiedNotification:(id)notification
 {
-  v4 = sub_254761764();
+  v4 = sub_254761764(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -751,11 +750,11 @@ LABEL_8:
 
   if ((IsShuttingDown & 1) == 0)
   {
-    v19 = sub_254761764();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_254761764(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_254743000, v19, OS_LOG_TYPE_DEFAULT, "Will auto reconnect...", buf, 2u);
+      _os_log_impl(&dword_254743000, v20, OS_LOG_TYPE_DEFAULT, "Will auto reconnect...", buf, 2u);
     }
 
     im_dispatch_after();
@@ -765,7 +764,7 @@ LABEL_8:
 - (void)localObjectDiedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_254761764();
+  v5 = sub_254761764(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v16 = 0;
@@ -787,14 +786,14 @@ LABEL_8:
 
   if ((byte_27F610708 & 1) == 0)
   {
-    v14 = sub_254761764();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_254761764(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 0;
-      _os_log_impl(&dword_254743000, v14, OS_LOG_TYPE_DEFAULT, "Disconnected from agent (remote)...", v16, 2u);
+      *v17 = 0;
+      _os_log_impl(&dword_254743000, v15, OS_LOG_TYPE_DEFAULT, "Disconnected from agent (remote)...", v17, 2u);
     }
 
-    objc_msgSend_performSelectorOnMainThread_withObject_waitUntilDone_(self, v15, sel__remoteObjectDiedNotification_, notificationCopy, 0);
+    objc_msgSend_performSelectorOnMainThread_withObject_waitUntilDone_(self, v16, sel__remoteObjectDiedNotification_, notificationCopy, 0);
   }
 }
 

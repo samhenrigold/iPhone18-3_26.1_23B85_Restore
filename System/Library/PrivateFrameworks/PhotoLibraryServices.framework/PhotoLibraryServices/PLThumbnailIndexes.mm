@@ -80,7 +80,7 @@ void __95__PLThumbnailIndexes_occupiedThumbnailIndexesWithLibrary_fetchTimestamp
 
   log = v3;
   v4 = [*(a1 + 32) executeFetchRequest:*(a1 + 40) error:0];
-  v26 = [v4 count];
+  v26 = objc_msgSend_count(v4);
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
@@ -239,32 +239,32 @@ uint64_t __70__PLThumbnailIndexes_getAvailableThumbnailIndexInLibrary_withHandle
 - (void)recycleThumbnailIndexes:(id)indexes timestamp:(unint64_t)timestamp
 {
   indexesCopy = indexes;
-  if ([indexesCopy count])
+  if (objc_msgSend_count(indexesCopy))
   {
     v5 = indexesCopy;
     pl_dispatch_async();
   }
 }
 
-void __65__PLThumbnailIndexes_Private__recycleThumbnailIndexes_timestamp___block_invoke(void *a1)
+void __65__PLThumbnailIndexes_Private__recycleThumbnailIndexes_timestamp___block_invoke(void *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = PLThumbnailsGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v11 = *MEMORY[0x1E69E9840];
+  v3 = PLThumbnailsGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
-    v4 = a1[6];
-    v6 = 138412546;
-    v7 = v3;
-    v8 = 2048;
-    v9 = v4;
-    _os_log_impl(&dword_19BF1F000, v2, OS_LOG_TYPE_DEFAULT, "Recycling thumbnail indexes %@ with timestamp %llu", &v6, 0x16u);
+    v4 = a1[4];
+    v5 = a1[6];
+    v7 = 138412546;
+    v8 = v4;
+    v9 = 2048;
+    v10 = v5;
+    _os_log_impl(&dword_19BF1F000, v3, OS_LOG_TYPE_DEFAULT, "Recycling thumbnail indexes %@ with timestamp %llu", &v7, 0x16u);
   }
 
-  v5 = a1[5];
-  if (a1[6] >= *(v5 + 32))
+  v6 = a1[5];
+  if (a1[6] >= *(v6 + 32))
   {
-    [*(v5 + 16) addIndexes:a1[4]];
+    [*(v6 + 16) addIndexes:a1[4]];
   }
 }
 

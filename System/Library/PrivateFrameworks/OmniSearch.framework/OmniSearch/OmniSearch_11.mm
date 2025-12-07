@@ -1,9015 +1,3 @@
-uint64_t OUTLINED_FUNCTION_188_1()
-{
-
-  return SFCard.data.getter();
-}
-
-uint64_t OUTLINED_FUNCTION_189_1()
-{
-
-  return EntityProperty<>.init(title:)();
-}
-
-uint64_t OUTLINED_FUNCTION_198_0()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_199_1()
-{
-
-  return EntityProperty<>.init(title:)();
-}
-
-uint64_t OUTLINED_FUNCTION_200_0()
-{
-
-  return EntityProperty<>.init(title:)();
-}
-
-uint64_t OUTLINED_FUNCTION_201_1(uint64_t a1, uint64_t a2)
-{
-
-  return outlined init with copy of Date?(a1, a2, v3, v2);
-}
-
-uint64_t OUTLINED_FUNCTION_202_1(uint64_t a1)
-{
-  v2 = *(a1 + 56);
-
-  return type metadata accessor for SearchResult(0);
-}
-
-__n128 OUTLINED_FUNCTION_210@<Q0>(uint64_t a1@<X8>)
-{
-  *(v1 + 112) = *(a1 - 256);
-  result = *(v2 - 240);
-  *(v1 + 120) = result;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_218_0(uint64_t a1, uint64_t a2)
-{
-
-  return outlined init with copy of Date?(a1, a2, v3, v2);
-}
-
-uint64_t OUTLINED_FUNCTION_219_0()
-{
-
-  return EntityProperty<>.init(title:)();
-}
-
-uint64_t OUTLINED_FUNCTION_220_0(__n128 a1)
-{
-  *(v1 + 72) = a1;
-
-  return type metadata accessor for EventEntity();
-}
-
-uint64_t OUTLINED_FUNCTION_221_0(uint64_t a1)
-{
-
-  return outlined destroy of EagerResolutionService?(a1, v1, v2);
-}
-
-uint64_t OUTLINED_FUNCTION_223_0()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_224_0()
-{
-
-  return EntityProperty<>.init(title:)();
-}
-
-uint64_t OUTLINED_FUNCTION_225_0()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_227_0()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_228_0()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_229_0()
-{
-  v2 = *(v0 - 312);
-
-  return EntityProperty.wrappedValue.setter();
-}
-
-uint64_t OUTLINED_FUNCTION_230()
-{
-  v2 = *(v0 - 320);
-
-  return EntityProperty.wrappedValue.setter();
-}
-
-uint64_t OUTLINED_FUNCTION_231()
-{
-  v2 = *(v0 - 304);
-
-  return EntityProperty.wrappedValue.setter();
-}
-
-uint64_t OUTLINED_FUNCTION_233_0()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_234_0(uint64_t result, uint64_t a2)
-{
-  *(v2 - 584) = result;
-  *(v2 - 592) = a2;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_242_0(uint64_t result, uint64_t a2)
-{
-  *(v2 - 672) = result;
-  *(v2 - 680) = a2;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_256_0()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_257_0()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_258_0()
-{
-
-  return LocalizedStringResource.init(stringLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_259_0()
-{
-
-  return EntityProperty<>.init(title:)();
-}
-
-uint64_t OUTLINED_FUNCTION_260_0()
-{
-
-  return EntityProperty<>.init(title:)();
-}
-
-uint64_t OUTLINED_FUNCTION_261_0()
-{
-
-  return EntityProperty<>.init(title:)();
-}
-
-uint64_t OUTLINED_FUNCTION_262()
-{
-
-  return EntityProperty.wrappedValue.setter();
-}
-
-uint64_t OUTLINED_FUNCTION_263(uint64_t a1)
-{
-
-  return outlined destroy of EagerResolutionService?(a1, v1, v2);
-}
-
-uint64_t OUTLINED_FUNCTION_264()
-{
-
-  return EntityProperty<>.init(title:)();
-}
-
-uint64_t OUTLINED_FUNCTION_265(uint64_t a1, uint64_t a2)
-{
-
-  return outlined init with copy of Date?(a1, a2, v2, v3);
-}
-
-void EventEntity.representedEntity.getter()
-{
-  OUTLINED_FUNCTION_155();
-  v2 = v0;
-  v4 = v3;
-  v5 = type metadata accessor for EventEntity();
-  v6 = OUTLINED_FUNCTION_114(v5);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_36();
-  OUTLINED_FUNCTION_136_3();
-  v9 = *v0;
-  EntityProperty.wrappedValue.getter();
-  switch(v48)
-  {
-    case 1:
-      v34 = v2[4];
-      EntityProperty.wrappedValue.getter();
-      v35 = OUTLINED_FUNCTION_176_2();
-      memcpy(v35, v36, 0x80uLL);
-      OUTLINED_FUNCTION_101_4(v47);
-      if (v13)
-      {
-        goto LABEL_26;
-      }
-
-      *(v4 + 24) = &type metadata for RestaurantReservationEntity;
-      *(v4 + 32) = lazy protocol witness table accessor for type RestaurantReservationEntity and conformance RestaurantReservationEntity();
-      *(v4 + 40) = lazy protocol witness table accessor for type RestaurantReservationEntity and conformance RestaurantReservationEntity();
-      *(v4 + 48) = &protocol witness table for RestaurantReservationEntity;
-      goto LABEL_17;
-    case 2:
-      v24 = v2[3];
-      EntityProperty.wrappedValue.getter();
-      v25 = OUTLINED_FUNCTION_176_2();
-      memcpy(v25, v26, 0x80uLL);
-      OUTLINED_FUNCTION_101_4(v47);
-      if (v13)
-      {
-        goto LABEL_26;
-      }
-
-      *(v4 + 24) = &type metadata for HotelReservationEntity;
-      *(v4 + 32) = lazy protocol witness table accessor for type HotelReservationEntity and conformance HotelReservationEntity();
-      *(v4 + 40) = lazy protocol witness table accessor for type HotelReservationEntity and conformance HotelReservationEntity();
-      *(v4 + 48) = &protocol witness table for HotelReservationEntity;
-LABEL_17:
-      v37 = swift_allocObject();
-      v15 = OUTLINED_FUNCTION_135_3(v37);
-      v17 = 128;
-      goto LABEL_23;
-    case 3:
-      v27 = v2[6];
-      EntityProperty.wrappedValue.getter();
-      v28 = OUTLINED_FUNCTION_176_2();
-      memcpy(v28, v29, 0x98uLL);
-      OUTLINED_FUNCTION_101_4(v47);
-      if (v13)
-      {
-        goto LABEL_26;
-      }
-
-      *(v4 + 24) = &type metadata for VehicleReservationEntity;
-      *(v4 + 32) = lazy protocol witness table accessor for type VehicleReservationEntity and conformance VehicleReservationEntity();
-      *(v4 + 40) = lazy protocol witness table accessor for type VehicleReservationEntity and conformance VehicleReservationEntity();
-      *(v4 + 48) = &protocol witness table for VehicleReservationEntity;
-      v30 = swift_allocObject();
-      v15 = OUTLINED_FUNCTION_135_3(v30);
-      v17 = 152;
-      goto LABEL_23;
-    case 4:
-      if (one-time initialization token for search != -1)
-      {
-        OUTLINED_FUNCTION_35_0();
-      }
-
-      v18 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v18, static Logging.search);
-      outlined init with copy of EventEntity(v2, v1, type metadata accessor for EventEntity);
-      v19 = Logger.logObject.getter();
-      v20 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v19, v20))
-      {
-        v21 = swift_slowAlloc();
-        v22 = swift_slowAlloc();
-        v47[0] = v22;
-        *v21 = 136315138;
-        v23 = *v1;
-        EntityProperty.wrappedValue.getter();
-        switch(v46)
-        {
-          case 1:
-          case 2:
-          case 4:
-          case 6:
-          case 7:
-            break;
-          default:
-            OUTLINED_FUNCTION_120_3();
-            break;
-        }
-
-        outlined destroy of EventEntity();
-        v45 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
-
-        *(v21 + 4) = v45;
-        _os_log_impl(&dword_25D85C000, v19, v20, "Unexpected entity type! %s)", v21, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1Tm(v22);
-        OUTLINED_FUNCTION_42_0();
-        OUTLINED_FUNCTION_42_0();
-      }
-
-      else
-      {
-
-        outlined destroy of EventEntity();
-      }
-
-      goto LABEL_26;
-    case 5:
-      v38 = v2[5];
-      EntityProperty.wrappedValue.getter();
-      v39 = v47[0];
-      if (!v47[0])
-      {
-        goto LABEL_26;
-      }
-
-      *(v4 + 24) = &type metadata for TicketedTransportationEntity;
-      *(v4 + 32) = lazy protocol witness table accessor for type TicketedTransportationEntity and conformance TicketedTransportationEntity();
-      *(v4 + 40) = lazy protocol witness table accessor for type TicketedTransportationEntity and conformance TicketedTransportationEntity();
-      *(v4 + 48) = &protocol witness table for TicketedTransportationEntity;
-      v40 = swift_allocObject();
-      *v4 = v40;
-      *(v40 + 16) = v39;
-      OUTLINED_FUNCTION_248_0();
-      goto LABEL_23;
-    case 6:
-      v41 = v2[7];
-      EntityProperty.wrappedValue.getter();
-      v42 = OUTLINED_FUNCTION_176_2();
-      memcpy(v42, v43, 0x88uLL);
-      OUTLINED_FUNCTION_101_4(v47);
-      if (v13)
-      {
-        goto LABEL_26;
-      }
-
-      *(v4 + 24) = &type metadata for TicketedShowEntity;
-      *(v4 + 32) = lazy protocol witness table accessor for type TicketedShowEntity and conformance TicketedShowEntity();
-      *(v4 + 40) = lazy protocol witness table accessor for type TicketedShowEntity and conformance TicketedShowEntity();
-      *(v4 + 48) = &protocol witness table for TicketedShowEntity;
-      goto LABEL_22;
-    case 7:
-      v31 = v2[2];
-      EntityProperty.wrappedValue.getter();
-      v32 = OUTLINED_FUNCTION_176_2();
-      memcpy(v32, v33, 0x88uLL);
-      OUTLINED_FUNCTION_101_4(v47);
-      if (v13)
-      {
-        goto LABEL_26;
-      }
-
-      *(v4 + 24) = &type metadata for GenericEventEntity;
-      *(v4 + 32) = lazy protocol witness table accessor for type GenericEventEntity and conformance GenericEventEntity();
-      *(v4 + 40) = lazy protocol witness table accessor for type GenericEventEntity and conformance GenericEventEntity();
-      *(v4 + 48) = &protocol witness table for GenericEventEntity;
-LABEL_22:
-      v44 = swift_allocObject();
-      v15 = OUTLINED_FUNCTION_135_3(v44);
-      v17 = 136;
-      goto LABEL_23;
-    default:
-      v10 = v2[1];
-      EntityProperty.wrappedValue.getter();
-      v11 = OUTLINED_FUNCTION_176_2();
-      memcpy(v11, v12, 0xD8uLL);
-      OUTLINED_FUNCTION_101_4(v47);
-      if (v13)
-      {
-LABEL_26:
-        *(v4 + 48) = 0;
-        *(v4 + 16) = 0u;
-        *(v4 + 32) = 0u;
-        *v4 = 0u;
-      }
-
-      else
-      {
-        *(v4 + 24) = &type metadata for FlightReservationEntity;
-        *(v4 + 32) = lazy protocol witness table accessor for type FlightReservationEntity and conformance FlightReservationEntity();
-        *(v4 + 40) = lazy protocol witness table accessor for type FlightReservationEntity and conformance FlightReservationEntity();
-        *(v4 + 48) = &protocol witness table for FlightReservationEntity;
-        v14 = swift_allocObject();
-        v15 = OUTLINED_FUNCTION_135_3(v14);
-        v17 = 216;
-LABEL_23:
-        memcpy(v15, v16, v17);
-      }
-
-      OUTLINED_FUNCTION_148();
-      return;
-  }
-}
-
-uint64_t EventEntity.subType.setter(char *a1)
-{
-  v2 = *v1;
-  v4 = *a1;
-  return EntityProperty.wrappedValue.setter();
-}
-
-uint64_t EventEntity.flightReservation.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = OUTLINED_FUNCTION_239_0(a1, a2, a3, a4, a5, a6, a7, a8, v13, v14);
-  memcpy(v9, v10, 0xD8uLL);
-  v11 = *(v8 + 8);
-  return EntityProperty.wrappedValue.setter();
-}
-
-uint64_t EventEntity.hotelReservation.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = OUTLINED_FUNCTION_238_1(a1, a2, a3, a4, a5, a6, a7, a8, v13);
-  memcpy(v9, v10, 0x80uLL);
-  v11 = *(v8 + 24);
-  return EntityProperty.wrappedValue.setter();
-}
-
-uint64_t EventEntity.restaurantReservation.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = OUTLINED_FUNCTION_238_1(a1, a2, a3, a4, a5, a6, a7, a8, v13);
-  memcpy(v9, v10, 0x80uLL);
-  v11 = *(v8 + 32);
-  return EntityProperty.wrappedValue.setter();
-}
-
-uint64_t EventEntity.vehicleReservation.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = OUTLINED_FUNCTION_239_0(a1, a2, a3, a4, a5, a6, a7, a8, v13, v14);
-  memcpy(v9, v10, 0x98uLL);
-  v11 = *(v8 + 48);
-  return EntityProperty.wrappedValue.setter();
-}
-
-uint64_t EventEntity.ticketedTransportation.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = OUTLINED_FUNCTION_238_1(a1, a2, a3, a4, a5, a6, a7, a8, v13);
-  memcpy(v9, v10, 0x70uLL);
-  v11 = *(v8 + 40);
-  return EntityProperty.wrappedValue.setter();
-}
-
-uint64_t EventEntity.ticketedShow.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = OUTLINED_FUNCTION_239_0(a1, a2, a3, a4, a5, a6, a7, a8, v13, v14);
-  memcpy(v9, v10, 0x88uLL);
-  v11 = *(v8 + 56);
-  return EntityProperty.wrappedValue.setter();
-}
-
-uint64_t EventEntity.genericEvent.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = OUTLINED_FUNCTION_239_0(a1, a2, a3, a4, a5, a6, a7, a8, v13, v14);
-  memcpy(v9, v10, 0x88uLL);
-  v11 = *(v8 + 16);
-  return EntityProperty.wrappedValue.setter();
-}
-
-uint64_t EventEntity.shippingOrder.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = OUTLINED_FUNCTION_238_1(a1, a2, a3, a4, a5, a6, a7, a8, v13);
-  memcpy(v9, v10, 0xF0uLL);
-  v11 = *(v8 + 64);
-  return EntityProperty.wrappedValue.setter();
-}
-
-unint64_t EventSubType.rawValue.getter()
-{
-  result = 0x676E697070696873;
-  switch(*v0)
-  {
-    case 1:
-      result = 0xD000000000000015;
-      break;
-    case 2:
-      result = OUTLINED_FUNCTION_153_2();
-      break;
-    case 3:
-      result = 0xD000000000000012;
-      break;
-    case 4:
-      return result;
-    case 5:
-      result = 0xD000000000000016;
-      break;
-    case 6:
-      result = 0x646574656B636974;
-      break;
-    case 7:
-      result = 0x45636972656E6567;
-      break;
-    default:
-      result = 0xD000000000000011;
-      break;
-  }
-
-  return result;
-}
-
-uint64_t EventEntity.sourceResult.getter()
-{
-  OUTLINED_FUNCTION_113();
-  v2 = type metadata accessor for EventEntity();
-  return outlined init with copy of ResourceBundle?(v1 + *(v2 + 56), v0, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
-}
-
-void FlightReservationEntity.init(arrivalAirportCode:arrivalAirportName:arrivalDateTime:arrivalGate:arrivalTerminal:boardingDateTime:bookingProvider:carrier:checkInUrl:confirmationNumber:departureAirportCode:departureAirportName:departureDateTime:departureGate:departureTerminal:designator:flightNumber:passengerNames:seatNumbers:status:cost:totalDuration:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void (*a41)(uint64_t), uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, double a56, unsigned __int8 a57)
-{
-  OUTLINED_FUNCTION_155();
-  a27 = v49;
-  a28 = v50;
-  v204 = v51;
-  v202 = v52;
-  v201 = v53;
-  v255 = v54;
-  v198 = v55;
-  v197 = v56;
-  v196 = v57;
-  v195 = v58;
-  v190 = v59;
-  HIDWORD(v224) = a57;
-  v229 = a55;
-  v223[2] = a54;
-  v223[1] = a53;
-  v223[0] = a52;
-  v222 = a51;
-  v221 = a50;
-  v220 = a49;
-  v217 = a48;
-  v216 = a47;
-  v215 = a46;
-  v214 = a45;
-  v213 = a44;
-  v212 = a43;
-  v194 = a42;
-  v230 = a41;
-  v211 = a40;
-  v210 = a39;
-  v209 = a38;
-  OUTLINED_FUNCTION_234_1(a37);
-  v208 = a36;
-  v206 = a34;
-  v205 = a33;
-  v203 = a32;
-  OUTLINED_FUNCTION_187_2(a31);
-  v199 = v60;
-  v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8TimeZoneVSgMd, &_s10Foundation8TimeZoneVSgMR);
-  OUTLINED_FUNCTION_114(v61);
-  v63 = *(v62 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v64);
-  OUTLINED_FUNCTION_49_3();
-  OUTLINED_FUNCTION_15_4(v65);
-  v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents20IntentCurrencyAmountVSgMd, &_s10AppIntents20IntentCurrencyAmountVSgMR);
-  v67 = OUTLINED_FUNCTION_114(v66);
-  v69 = *(v68 + 64);
-  MEMORY[0x28223BE20](v67);
-  OUTLINED_FUNCTION_39_0();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v70);
-  OUTLINED_FUNCTION_14_2();
-  OUTLINED_FUNCTION_15_4(v71);
-  v72 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8CalendarVSgMd, &_s10Foundation8CalendarVSgMR);
-  v73 = OUTLINED_FUNCTION_114(v72);
-  v75 = *(v74 + 64);
-  MEMORY[0x28223BE20](v73);
-  OUTLINED_FUNCTION_39_0();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v76);
-  OUTLINED_FUNCTION_14_2();
-  OUTLINED_FUNCTION_28_2(v77);
-  v252 = type metadata accessor for Calendar();
-  v78 = OUTLINED_FUNCTION_14(v252);
-  v228 = v79;
-  v81 = *(v80 + 64);
-  MEMORY[0x28223BE20](v78);
-  OUTLINED_FUNCTION_36();
-  v253 = v83 - v82;
-  v84 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v85 = OUTLINED_FUNCTION_114(v84);
-  v87 = *(v86 + 64);
-  MEMORY[0x28223BE20](v85);
-  OUTLINED_FUNCTION_39_0();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v88);
-  OUTLINED_FUNCTION_14_2();
-  OUTLINED_FUNCTION_15_4(v89);
-  v90 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  v91 = OUTLINED_FUNCTION_114(v90);
-  v93 = *(v92 + 64);
-  MEMORY[0x28223BE20](v91);
-  OUTLINED_FUNCTION_39_0();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v94);
-  OUTLINED_FUNCTION_14_2();
-  OUTLINED_FUNCTION_28_2(v95);
-  v251 = type metadata accessor for DateComponents();
-  v96 = OUTLINED_FUNCTION_14(v251);
-  v256 = v97;
-  v99 = *(v98 + 64);
-  MEMORY[0x28223BE20](v96);
-  OUTLINED_FUNCTION_39_0();
-  v254 = v100;
-  OUTLINED_FUNCTION_174();
-  MEMORY[0x28223BE20](v101);
-  v103 = &v189 - v102;
-  v104 = type metadata accessor for LocalizedStringResource();
-  v105 = OUTLINED_FUNCTION_114(v104);
-  v107 = *(v106 + 64);
-  MEMORY[0x28223BE20](v105);
-  OUTLINED_FUNCTION_36();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
-  OUTLINED_FUNCTION_141_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  v226 = OUTLINED_FUNCTION_175_1();
-  OUTLINED_FUNCTION_118_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  v249 = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSGMd, &_s10AppIntents14EntityPropertyCySSGMR);
-  OUTLINED_FUNCTION_60_4();
-  LocalizedStringResource.init(stringLiteral:)();
-  v248 = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMR);
-  OUTLINED_FUNCTION_66_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  v247 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_66_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  v246 = OUTLINED_FUNCTION_175_1();
-  OUTLINED_FUNCTION_66_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  v245 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_66_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  v244 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_42_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  v243 = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVGMd, &_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVGMR);
-  OUTLINED_FUNCTION_66_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  v242 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_66_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  v108 = OUTLINED_FUNCTION_175_1();
-  OUTLINED_FUNCTION_66_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  v109 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_66_3();
-  OUTLINED_FUNCTION_153_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  v241 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_81_6();
-  LocalizedStringResource.init(stringLiteral:)();
-  v240 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_66_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  v110 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_17_11();
-  LocalizedStringResource.init(stringLiteral:)();
-  v239 = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySaySSGGMd, &_s10AppIntents14EntityPropertyCySaySSGGMR);
-  OUTLINED_FUNCTION_23_9();
-  LocalizedStringResource.init(stringLiteral:)();
-  v238 = EntityProperty<>.init(title:)();
-  v111 = OUTLINED_FUNCTION_184_1();
-  OUTLINED_FUNCTION_24_10(v111);
-  LocalizedStringResource.init(stringLiteral:)();
-  v237 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_66_3();
-  OUTLINED_FUNCTION_153_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  v236 = OUTLINED_FUNCTION_175_1();
-  OUTLINED_FUNCTION_228_1();
-  LocalizedStringResource.init(stringLiteral:)();
-  v112 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_256_1(v112);
-  OUTLINED_FUNCTION_66_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  v235[0] = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMR);
-  OUTLINED_FUNCTION_150_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  v113 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_159_1(v113);
-  OUTLINED_FUNCTION_97_3(0x206C61746F54);
-  LocalizedStringResource.init(stringLiteral:)();
-  v200 = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA20IntentCurrencyAmountVSgGMd, &_s10AppIntents14EntityPropertyCyAA20IntentCurrencyAmountVSgGMR);
-  OUTLINED_FUNCTION_88_4();
-  v233 = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
-  OUTLINED_FUNCTION_66_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  v192 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_2_17();
-  LocalizedStringResource.init(stringLiteral:)();
-  v191 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_18_10(&v224);
-  v196 = v108;
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_18_10(&v226);
-  v198 = v109;
-  EntityProperty.wrappedValue.setter();
-  v114 = v256;
-  v115 = *(v256 + 16);
-  v116 = v251;
-  v115(v103, v255, v251);
-  v117 = OUTLINED_FUNCTION_107();
-  v250 = v103;
-  (v115)(v117);
-  v197 = v110;
-  EntityProperty.wrappedValue.setter();
-  v118 = *(v114 + 8);
-  v256 = v114 + 8;
-  v119 = OUTLINED_FUNCTION_21_7();
-  v118(v119);
-  OUTLINED_FUNCTION_18_10(&v230);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_18_10(&v227);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_251_1(&v257);
-  outlined init with copy of ResourceBundle?(v120, v121, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  outlined init with copy of ResourceBundle?(v109, v225, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  EntityProperty.wrappedValue.setter();
-  outlined destroy of IntentApplication?(v109, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  OUTLINED_FUNCTION_18_10(&v232);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_18_10(v235);
-  EntityProperty.wrappedValue.setter();
-  v122 = v252;
-  outlined init with copy of ResourceBundle?(v231, v193, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  OUTLINED_FUNCTION_251_1(v223);
-  outlined init with copy of ResourceBundle?(v123, v124, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  EntityProperty.wrappedValue.setter();
-  v125 = OUTLINED_FUNCTION_45_0();
-  v126 = v194;
-  outlined destroy of IntentApplication?(v125, v127, &_s10Foundation3URLVSgMR);
-  OUTLINED_FUNCTION_18_10(&v237);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_18_10(&v239);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_18_10(&a18);
-  EntityProperty.wrappedValue.setter();
-  v128 = v250;
-  v115(v250, v126, v116);
-  v115(v254, v128, v116);
-  EntityProperty.wrappedValue.setter();
-  v129 = OUTLINED_FUNCTION_52_1();
-  v230 = v118;
-  v118(v129);
-  OUTLINED_FUNCTION_18_10(&v242);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_18_10(&v244);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_18_10(&v246);
-  EntityProperty.wrappedValue.setter();
-  v130 = v207;
-  DateComponents.calendar.getter();
-  v131 = v126;
-  if (__swift_getEnumTagSinglePayload(v130, 1, v122) == 1)
-  {
-    static Calendar.current.getter();
-    OUTLINED_FUNCTION_166(v130, 1, v122);
-    if (!v132)
-    {
-      outlined destroy of IntentApplication?(v130, &_s10Foundation8CalendarVSgMd, &_s10Foundation8CalendarVSgMR);
-    }
-  }
-
-  else
-  {
-    (*(v228 + 32))(v253, v130, v122);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation8CalendarV9ComponentOGMd, &_ss23_ContiguousArrayStorageCy10Foundation8CalendarV9ComponentOGMR);
-  v133 = type metadata accessor for Calendar.Component();
-  OUTLINED_FUNCTION_14(v133);
-  v135 = v134;
-  v137 = *(v136 + 72);
-  v138 = (*(v134 + 80) + 32) & ~*(v134 + 80);
-  v139 = swift_allocObject();
-  *(v139 + 16) = xmmword_25DBC8930;
-  v140 = v139 + v138;
-  v141 = *(v135 + 104);
-  v141(v140, *MEMORY[0x277CC9968], v133);
-  v141(v140 + v137, *MEMORY[0x277CC9980], v133);
-  v141(v140 + 2 * v137, *MEMORY[0x277CC99A0], v133);
-  v141(v140 + 3 * v137, *MEMORY[0x277CC99A8], v133);
-  _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10Foundation8CalendarV9ComponentO_Tt0g5();
-  v142 = v250;
-  Calendar.dateComponents(_:from:to:)();
-
-  v143 = v251;
-  v115(v254, v142, v251);
-  EntityProperty.wrappedValue.setter();
-  v144 = OUTLINED_FUNCTION_64_0();
-  v230(v144);
-  OUTLINED_FUNCTION_18_10(&v250);
-  v145 = v226;
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_89_5(&v251);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_89_5(&v252);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_18_10(&v254);
-  EntityProperty.wrappedValue.setter();
-  v146 = v229;
-  v147 = v218;
-  OUTLINED_FUNCTION_140_1(v229, v218);
-  OUTLINED_FUNCTION_140_1(v147, v219);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_86_4();
-  outlined destroy of IntentApplication?(v148, v149, v150);
-  if ((v224 & 0x100000000) != 0)
-  {
-    outlined destroy of IntentApplication?(v146, &_s10AppIntents20IntentCurrencyAmountVSgMd, &_s10AppIntents20IntentCurrencyAmountVSgMR);
-    v151 = v131;
-    v152 = v230;
-    (v230)(v151, v143);
-    outlined destroy of IntentApplication?(v231, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    outlined destroy of IntentApplication?(v232, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-    v152(v255, v143);
-    v153 = v228;
-    v154 = v200;
-LABEL_11:
-    v172 = *(v153 + 8);
-    v173 = OUTLINED_FUNCTION_179_0();
-    v174(v173);
-    v175 = v190;
-    v177 = v248;
-    v176 = v249;
-    *v190 = v145;
-    v175[1] = v176;
-    v178 = v246;
-    v179 = v247;
-    v175[2] = v177;
-    v175[3] = v179;
-    v175[4] = v178;
-    v180 = v244;
-    v175[5] = v245;
-    v175[6] = v180;
-    v181 = v242;
-    v175[7] = v243;
-    v175[8] = v181;
-    v182 = v198;
-    v175[9] = v196;
-    v175[10] = v182;
-    v183 = v240;
-    v175[11] = v241;
-    v175[12] = v183;
-    v184 = v238;
-    v185 = v239;
-    v175[13] = v197;
-    v175[14] = v185;
-    v175[15] = v184;
-    v186 = v236;
-    v175[16] = v237;
-    v175[17] = v186;
-    v187 = v235[0];
-    v175[18] = v235[1];
-    v175[19] = v187;
-    v175[20] = v234;
-    v175[21] = v154;
-    v188 = v192;
-    v175[22] = v233;
-    v175[23] = v188;
-    v175[24] = v191;
-    *(v175 + 25) = xmmword_25DBC9410;
-    OUTLINED_FUNCTION_148();
-    return;
-  }
-
-  v155 = a56;
-  OUTLINED_FUNCTION_92();
-  __swift_storeEnumTagSinglePayload(v156, v157, v158, v252);
-  type metadata accessor for TimeZone();
-  OUTLINED_FUNCTION_92();
-  __swift_storeEnumTagSinglePayload(v159, v160, v161, v162);
-  v154 = v200;
-  if ((~*&v155 & 0x7FF0000000000000) == 0)
-  {
-    __break(1u);
-    goto LABEL_13;
-  }
-
-  if (v155 <= -9.22337204e18)
-  {
-LABEL_13:
-    __break(1u);
-    goto LABEL_14;
-  }
-
-  if (v155 < 9.22337204e18)
-  {
-    v163 = v227;
-    OUTLINED_FUNCTION_52_1();
-    OUTLINED_FUNCTION_43_7();
-    __swift_storeEnumTagSinglePayload(v163, 0, 1, v143);
-    OUTLINED_FUNCTION_140_1(v163, v225);
-    EntityProperty.wrappedValue.setter();
-    outlined destroy of IntentApplication?(v229, &_s10AppIntents20IntentCurrencyAmountVSgMd, &_s10AppIntents20IntentCurrencyAmountVSgMR);
-    v164 = v131;
-    v165 = v230;
-    (v230)(v164, v143);
-    outlined destroy of IntentApplication?(v231, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    OUTLINED_FUNCTION_86_4();
-    outlined destroy of IntentApplication?(v166, v167, v168);
-    v165(v255, v143);
-    v145 = v226;
-    OUTLINED_FUNCTION_86_4();
-    outlined destroy of IntentApplication?(v169, v170, v171);
-    v153 = v228;
-    goto LABEL_11;
-  }
-
-LABEL_14:
-  __break(1u);
-}
-
-uint64_t FlightReservationEntity.arrivalAirportCode.getter()
-{
-  v1 = *(v0 + 72);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-void HotelReservationEntity.init(confirmationNumber:guest:bookingProvider:businessName:roomNumbers:address:checkInDateTime:checkOutDateTime:phoneNumber:url:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28)
-{
-  OUTLINED_FUNCTION_155();
-  a19 = v29;
-  a20 = v30;
-  v198 = v31;
-  v193 = v32;
-  v197 = v33;
-  v186 = v34;
-  v182 = v35;
-  v196 = v36;
-  v191 = v37;
-  v183 = v38;
-  v180 = v39;
-  v203 = a28;
-  v200 = a26;
-  v201 = a27;
-  v208 = a25;
-  v209 = a24;
-  OUTLINED_FUNCTION_187_2(a23);
-  v185 = v40;
-  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v42 = OUTLINED_FUNCTION_114(v41);
-  v44 = *(v43 + 64);
-  MEMORY[0x28223BE20](v42);
-  OUTLINED_FUNCTION_39_0();
-  v199 = v45;
-  OUTLINED_FUNCTION_174();
-  MEMORY[0x28223BE20](v46);
-  OUTLINED_FUNCTION_14_2();
-  v202 = v47;
-  OUTLINED_FUNCTION_78_0();
-  v204 = type metadata accessor for Calendar();
-  v48 = OUTLINED_FUNCTION_14(v204);
-  v176 = v49;
-  v51 = *(v50 + 64);
-  MEMORY[0x28223BE20](v48);
-  OUTLINED_FUNCTION_36();
-  OUTLINED_FUNCTION_15_4(v53 - v52);
-  v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8TimeZoneVSgMd, &_s10Foundation8TimeZoneVSgMR);
-  OUTLINED_FUNCTION_114(v54);
-  v56 = *(v55 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v57);
-  OUTLINED_FUNCTION_49_3();
-  OUTLINED_FUNCTION_15_4(v58);
-  v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8CalendarVSgMd, &_s10Foundation8CalendarVSgMR);
-  v60 = OUTLINED_FUNCTION_114(v59);
-  v62 = *(v61 + 64);
-  MEMORY[0x28223BE20](v60);
-  OUTLINED_FUNCTION_39_0();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v63);
-  OUTLINED_FUNCTION_14_2();
-  OUTLINED_FUNCTION_28_2(v64);
-  v207 = type metadata accessor for DateComponents();
-  v65 = OUTLINED_FUNCTION_14(v207);
-  v187 = v66;
-  v68 = *(v67 + 64);
-  MEMORY[0x28223BE20](v65);
-  OUTLINED_FUNCTION_39_0();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v69);
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v70);
-  v206 = v174 - v71;
-  OUTLINED_FUNCTION_174();
-  MEMORY[0x28223BE20](v72);
-  OUTLINED_FUNCTION_14_2();
-  v205 = v73;
-  v74 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  v75 = OUTLINED_FUNCTION_114(v74);
-  v77 = *(v76 + 64);
-  MEMORY[0x28223BE20](v75);
-  OUTLINED_FUNCTION_39_0();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v78);
-  OUTLINED_FUNCTION_4_3();
-  v80 = MEMORY[0x28223BE20](v79);
-  MEMORY[0x28223BE20](v80);
-  v81 = OUTLINED_FUNCTION_263_0();
-  v82 = OUTLINED_FUNCTION_114(v81);
-  v84 = *(v83 + 64);
-  MEMORY[0x28223BE20](v82);
-  OUTLINED_FUNCTION_13_8();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
-  OUTLINED_FUNCTION_255_0();
-  OUTLINED_FUNCTION_106_2();
-  v85 = OUTLINED_FUNCTION_278();
-  OUTLINED_FUNCTION_250_1();
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  v86 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_10_12();
-  LocalizedStringResource.init(stringLiteral:)();
-  v212 = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMR);
-  OUTLINED_FUNCTION_31_13();
-  OUTLINED_FUNCTION_268();
-  v211 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_31_13();
-  OUTLINED_FUNCTION_268();
-  v210 = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVGMd, &_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVGMR);
-  v87 = OUTLINED_FUNCTION_24_9();
-  OUTLINED_FUNCTION_97_3(v87);
-  LocalizedStringResource.init(stringLiteral:)();
-  v213 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_195_1();
-  LocalizedStringResource.init(stringLiteral:)();
-  v88 = OUTLINED_FUNCTION_278();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySiSgGMd, &_s10AppIntents14EntityPropertyCySiSgGMR);
-  OUTLINED_FUNCTION_134_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  v195 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_4_16();
-  LocalizedStringResource.init(stringLiteral:)();
-  v194 = OUTLINED_FUNCTION_278();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySaySSGGMd, &_s10AppIntents14EntityPropertyCySaySSGGMR);
-  OUTLINED_FUNCTION_24_10(0x6D6F6F52u);
-  LocalizedStringResource.init(stringLiteral:)();
-  v89 = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMR);
-  LocalizedStringResource.init(stringLiteral:)();
-  v90 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_256_1(v90);
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  v91 = OUTLINED_FUNCTION_278();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  v92 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_159_1(v92);
-  OUTLINED_FUNCTION_2_17();
-  LocalizedStringResource.init(stringLiteral:)();
-  v93 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_252_1(v93);
-  OUTLINED_FUNCTION_18_10(&a15);
-  v191 = v91;
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_18_10(&v212);
-  v196 = v88;
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(v197);
-  v197 = v86;
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(v198);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_89_5(&v214);
-  v193 = v89;
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_18_10(&a13);
-  v198 = v85;
-  v94 = v208;
-  EntityProperty.wrappedValue.setter();
-  v95 = v209;
-  v96 = OUTLINED_FUNCTION_173_1();
-  outlined init with copy of ResourceBundle?(v96, v97, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  v98 = OUTLINED_FUNCTION_179_0();
-  outlined init with copy of ResourceBundle?(v98, v99, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_118_3();
-  outlined destroy of IntentApplication?(v100, v101, v102);
-  OUTLINED_FUNCTION_181_2(v94, v28);
-  v103 = OUTLINED_FUNCTION_179_0();
-  OUTLINED_FUNCTION_181_2(v103, v104);
-  v105 = v181;
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_118_3();
-  outlined destroy of IntentApplication?(v106, v107, v108);
-  OUTLINED_FUNCTION_92();
-  __swift_storeEnumTagSinglePayload(v109, v110, v111, v204);
-  type metadata accessor for TimeZone();
-  OUTLINED_FUNCTION_92();
-  __swift_storeEnumTagSinglePayload(v112, v113, v114, v115);
-  v116 = v205;
-  OUTLINED_FUNCTION_43_7();
-  v117 = v187;
-  v119 = *(v187 + 16);
-  v118 = v187 + 16;
-  v120 = v207;
-  OUTLINED_FUNCTION_167_1();
-  v189 = v121;
-  v121();
-  EntityProperty.wrappedValue.setter();
-  v122 = *(v117 + 8);
-  v122(v116, v120);
-  outlined init with copy of ResourceBundle?(v95, v105, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  OUTLINED_FUNCTION_166(v105, 1, v120);
-  if (v127)
-  {
-    v123 = v105;
-LABEL_7:
-    outlined destroy of IntentApplication?(v123, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-    goto LABEL_13;
-  }
-
-  v124 = *(v117 + 32);
-  v125 = v179;
-  (v124)(v179, v105, v120);
-  v126 = v177;
-  outlined init with copy of ResourceBundle?(v94, v177, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  OUTLINED_FUNCTION_166(v126, 1, v120);
-  if (v127)
-  {
-    v122(v125, v120);
-    v123 = v126;
-    goto LABEL_7;
-  }
-
-  v188 = v118;
-  OUTLINED_FUNCTION_167_1();
-  v124();
-  v128 = v174[1];
-  DateComponents.calendar.getter();
-  v129 = v204;
-  OUTLINED_FUNCTION_166(v128, 1, v204);
-  if (v130)
-  {
-    v132 = v175;
-    static Calendar.current.getter();
-    OUTLINED_FUNCTION_166(v128, 1, v129);
-    if (!v127)
-    {
-      outlined destroy of IntentApplication?(v128, &_s10Foundation8CalendarVSgMd, &_s10Foundation8CalendarVSgMR);
-    }
-  }
-
-  else
-  {
-    v131 = *(v176 + 32);
-    v132 = v175;
-    v133 = OUTLINED_FUNCTION_129_4();
-    v134(v133);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation8CalendarV9ComponentOGMd, &_ss23_ContiguousArrayStorageCy10Foundation8CalendarV9ComponentOGMR);
-  v135 = type metadata accessor for Calendar.Component();
-  OUTLINED_FUNCTION_14(v135);
-  v137 = v136;
-  v139 = *(v138 + 72);
-  v140 = (*(v136 + 80) + 32) & ~*(v136 + 80);
-  v141 = swift_allocObject();
-  *(v141 + 16) = xmmword_25DBC8930;
-  v142 = v141 + v140;
-  v143 = *(v137 + 104);
-  v143(v142, *MEMORY[0x277CC9968], v135);
-  v143(v142 + v139, *MEMORY[0x277CC9980], v135);
-  v143(v142 + 2 * v139, *MEMORY[0x277CC99A0], v135);
-  v143(v142 + 3 * v139, *MEMORY[0x277CC99A8], v135);
-  _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC10Foundation8CalendarV9ComponentO_Tt0g5();
-  v144 = v205;
-  v145 = v178;
-  Calendar.dateComponents(_:from:to:)();
-
-  v146 = v207;
-  (v189)(v206, v144, v207);
-  EntityProperty.wrappedValue.setter();
-  v147 = OUTLINED_FUNCTION_21_7();
-  (v122)(v147);
-  (*(v176 + 8))(v132, v129);
-  v122(v145, v146);
-  v148 = OUTLINED_FUNCTION_52_1();
-  (v122)(v148);
-LABEL_13:
-  OUTLINED_FUNCTION_26_5(v201);
-  v149 = v194;
-  EntityProperty.wrappedValue.setter();
-  v150 = v202;
-  OUTLINED_FUNCTION_96_4();
-  outlined init with copy of ResourceBundle?(v151, v152, v153, &_s10Foundation3URLVSgMR);
-  OUTLINED_FUNCTION_140_1(v150, v199);
-  v154 = v192;
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_86_4();
-  outlined destroy of IntentApplication?(v155, v156, v157);
-  OUTLINED_FUNCTION_167_1();
-  outlined destroy of IntentApplication?(v158, v159, v160);
-  v161 = OUTLINED_FUNCTION_129_4();
-  outlined destroy of IntentApplication?(v161, v162, &_s10Foundation14DateComponentsVSgMR);
-  OUTLINED_FUNCTION_86_4();
-  outlined destroy of IntentApplication?(v163, v164, v165);
-  v166 = v197;
-  v167 = v180;
-  *v180 = v198;
-  v167[1] = v166;
-  v168 = v211;
-  v167[2] = v212;
-  v167[3] = v168;
-  v169 = v213;
-  v167[4] = v210;
-  v167[5] = v169;
-  v170 = v195;
-  v167[6] = v196;
-  v167[7] = v170;
-  v171 = v193;
-  v167[8] = v149;
-  v167[9] = v171;
-  v172 = v191;
-  v167[10] = v154;
-  v167[11] = v172;
-  v173 = v184;
-  v167[12] = v190;
-  v167[13] = v173;
-  *(v167 + 7) = xmmword_25DBC9410;
-  OUTLINED_FUNCTION_148();
-}
-
-void RestaurantReservationEntity.init(confirmationNumber:reservationUnderName:customerNames:partySize:bookingProvider:businessName:address:phoneNumber:startDateTime:mealType:status:guest:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32)
-{
-  OUTLINED_FUNCTION_155();
-  a19 = v32;
-  a20 = v33;
-  v54 = v34;
-  v55 = v35;
-  v37 = v36;
-  v63 = a32;
-  v62 = a30;
-  v60 = a27;
-  v61 = a28;
-  v59 = a25;
-  v57 = a23;
-  v56 = a21;
-  OUTLINED_FUNCTION_168_2();
-  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  v39 = OUTLINED_FUNCTION_114(v38);
-  v41 = *(v40 + 64);
-  MEMORY[0x28223BE20](v39);
-  OUTLINED_FUNCTION_39_0();
-  v58 = v42;
-  OUTLINED_FUNCTION_174();
-  MEMORY[0x28223BE20](v43);
-  OUTLINED_FUNCTION_14_2();
-  OUTLINED_FUNCTION_28_2(v44);
-  v45 = type metadata accessor for LocalizedStringResource();
-  v46 = OUTLINED_FUNCTION_114(v45);
-  v48 = *(v47 + 64);
-  MEMORY[0x28223BE20](v46);
-  OUTLINED_FUNCTION_36();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
-  OUTLINED_FUNCTION_255_0();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_144_1();
-  v49 = EntityProperty<>.init(title:)();
-  *v37 = OUTLINED_FUNCTION_159_1(v49);
-  OUTLINED_FUNCTION_90_4();
-  LocalizedStringResource.init(stringLiteral:)();
-  v50 = EntityProperty<>.init(title:)();
-  *(v37 + 8) = OUTLINED_FUNCTION_253_1(v50);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySaySSGSgGMd, &_s10AppIntents14EntityPropertyCySaySSGSgGMR);
-  OUTLINED_FUNCTION_33_8();
-  LocalizedStringResource.init(stringLiteral:)();
-  v51 = EntityProperty<>.init(title:)();
-  *(v37 + 16) = OUTLINED_FUNCTION_241_1(v51);
-  OUTLINED_FUNCTION_90_4();
-  OUTLINED_FUNCTION_153_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_144_1();
-  *(v37 + 24) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_10_12();
-  LocalizedStringResource.init(stringLiteral:)();
-  v52 = EntityProperty<>.init(title:)();
-  *(v37 + 32) = OUTLINED_FUNCTION_247_1(v52);
-  OUTLINED_FUNCTION_257_1();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v37 + 40) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySiSgGMd, &_s10AppIntents14EntityPropertyCySiSgGMR);
-  OUTLINED_FUNCTION_191_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v37 + 48) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_4_16();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_144_1();
-  *(v37 + 56) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMR);
-  OUTLINED_FUNCTION_3_19();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v37 + 64) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_90_4();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_144_1();
-  *(v37 + 72) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_60_4();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v37 + 80) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
-  OUTLINED_FUNCTION_90_4();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v37 + 88) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_2_17();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v37 + 96) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_195_1();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_144_1();
-  *(v37 + 104) = EntityProperty<>.init(title:)();
-  *(v37 + 112) = xmmword_25DBC9410;
-  OUTLINED_FUNCTION_18_10(&a16);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(v54);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_99_5(v55);
-  OUTLINED_FUNCTION_275();
-  OUTLINED_FUNCTION_18_10(&a18);
-  EntityProperty.wrappedValue.setter();
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(v56);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(v57);
-  OUTLINED_FUNCTION_280();
-  OUTLINED_FUNCTION_26_5(v59);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(v60);
-  EntityProperty.wrappedValue.setter();
-  outlined init with copy of ResourceBundle?(v61, v53, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  outlined init with copy of ResourceBundle?(v53, v58, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_183_1(v53);
-  OUTLINED_FUNCTION_26_5(v62);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(v63);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_183_1(v61);
-  OUTLINED_FUNCTION_148();
-}
-
-void VehicleReservationEntity.init(bookingProvider:cost:dropOffAddress:dropOffBusinessName:dropOffDateTime:dropOffPhoneNumber:duration:pickUpAddress:pickUpBusinessName:pickUpDateTime:pickUpPhoneNumber:renterName:status:vehicleClass:confirmationNumber:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39)
-{
-  OUTLINED_FUNCTION_155();
-  a19 = v40;
-  a20 = v41;
-  v83 = v42;
-  v44 = v43;
-  v93 = a39;
-  v92 = a37;
-  v91 = a35;
-  v90 = a33;
-  v89 = a31;
-  v87 = a28;
-  v88 = a29;
-  v86 = a26;
-  v85 = a24;
-  v84 = a23;
-  v82 = a21;
-  v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  v46 = OUTLINED_FUNCTION_114(v45);
-  v48 = *(v47 + 64);
-  MEMORY[0x28223BE20](v46);
-  OUTLINED_FUNCTION_109();
-  OUTLINED_FUNCTION_133_3();
-  MEMORY[0x28223BE20](v49);
-  v50 = OUTLINED_FUNCTION_265_0();
-  v51 = OUTLINED_FUNCTION_114(v50);
-  v53 = *(v52 + 64);
-  MEMORY[0x28223BE20](v51);
-  OUTLINED_FUNCTION_36();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
-  OUTLINED_FUNCTION_90_4();
-  OUTLINED_FUNCTION_153_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  v54 = OUTLINED_FUNCTION_274();
-  *v44 = OUTLINED_FUNCTION_247_1(v54);
-  OUTLINED_FUNCTION_88_4();
-  v55 = EntityProperty<>.init(title:)();
-  *(v44 + 8) = OUTLINED_FUNCTION_241_1(v55);
-  OUTLINED_FUNCTION_90_4();
-  OUTLINED_FUNCTION_153_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  v56 = EntityProperty<>.init(title:)();
-  *(v44 + 16) = OUTLINED_FUNCTION_245_1(v56);
-  OUTLINED_FUNCTION_90_4();
-  LocalizedStringResource.init(stringLiteral:)();
-  v57 = EntityProperty<>.init(title:)();
-  *(v44 + 24) = OUTLINED_FUNCTION_252_1(v57);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMR);
-  OUTLINED_FUNCTION_90_4();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_144_1();
-  *(v44 + 32) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_90_4();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v44 + 40) = OUTLINED_FUNCTION_274();
-  OUTLINED_FUNCTION_17_11();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_144_1();
-  *(v44 + 48) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_149_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v44 + 56) = OUTLINED_FUNCTION_274();
-  OUTLINED_FUNCTION_90_4();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v44 + 64) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_90_4();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_144_1();
-  *(v44 + 72) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_90_4();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v44 + 80) = OUTLINED_FUNCTION_274();
-  OUTLINED_FUNCTION_158_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v44 + 88) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_60_4();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v44 + 96) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_146_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v44 + 104) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_90_4();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v44 + 112) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
-  OUTLINED_FUNCTION_90_4();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v44 + 120) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_2_17();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v44 + 128) = EntityProperty<>.init(title:)();
-  *(v44 + 136) = xmmword_25DBC9410;
-  OUTLINED_FUNCTION_18_10(&a12);
-  OUTLINED_FUNCTION_280();
-  OUTLINED_FUNCTION_18_10(&a14);
-  OUTLINED_FUNCTION_275();
-  OUTLINED_FUNCTION_18_10(&a17);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(v83);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_181_2(v82, v39);
-  v58 = OUTLINED_FUNCTION_118_0();
-  OUTLINED_FUNCTION_181_2(v58, v59);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_118_3();
-  outlined destroy of IntentApplication?(v60, v61, v62);
-  OUTLINED_FUNCTION_26_5(v84);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_181_2(v85, v39);
-  v63 = OUTLINED_FUNCTION_118_0();
-  OUTLINED_FUNCTION_181_2(v63, v64);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_118_3();
-  outlined destroy of IntentApplication?(v65, v66, v67);
-  OUTLINED_FUNCTION_26_5(v86);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(v87);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_181_2(v88, v39);
-  v68 = OUTLINED_FUNCTION_118_0();
-  OUTLINED_FUNCTION_181_2(v68, v69);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_118_3();
-  outlined destroy of IntentApplication?(v70, v71, v72);
-  OUTLINED_FUNCTION_26_5(v89);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(v90);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(v91);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(v92);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(v93);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_118_3();
-  outlined destroy of IntentApplication?(v73, v74, v75);
-  OUTLINED_FUNCTION_118_3();
-  outlined destroy of IntentApplication?(v76, v77, v78);
-  OUTLINED_FUNCTION_118_3();
-  outlined destroy of IntentApplication?(v79, v80, v81);
-  OUTLINED_FUNCTION_148();
-}
-
-void TicketedTransportationEntity.init(arrivalStationName:arrivalStationAddress:arrivalDateTime:departureStationName:departureStationAddress:departureDateTime:duration:eventSubType:passengerNames:seatNumbers:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
-{
-  OUTLINED_FUNCTION_155();
-  v77 = v28;
-  v75 = v29;
-  v76 = v30;
-  v74 = v31;
-  v33 = v32;
-  v34 = OUTLINED_FUNCTION_34_11();
-  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(v34, v35);
-  v37 = OUTLINED_FUNCTION_114(v36);
-  v39 = *(v38 + 64);
-  MEMORY[0x28223BE20](v37);
-  OUTLINED_FUNCTION_109();
-  OUTLINED_FUNCTION_133_3();
-  MEMORY[0x28223BE20](v40);
-  v41 = OUTLINED_FUNCTION_265_0();
-  v42 = OUTLINED_FUNCTION_114(v41);
-  v44 = *(v43 + 64);
-  MEMORY[0x28223BE20](v42);
-  OUTLINED_FUNCTION_36();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
-  OUTLINED_FUNCTION_72_5();
-  OUTLINED_FUNCTION_214_0();
-  *v33 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_72_5();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v33 + 8) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMR);
-  OUTLINED_FUNCTION_81_6();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v33 + 16) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_72_5();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v33 + 24) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_72_5();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v33 + 32) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_42_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  v45 = EntityProperty<>.init(title:)();
-  *(v33 + 40) = OUTLINED_FUNCTION_256_1(v45);
-  OUTLINED_FUNCTION_17_11();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v33 + 48) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_2_18();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v33 + 56) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySaySSGGMd, &_s10AppIntents14EntityPropertyCySaySSGGMR);
-  OUTLINED_FUNCTION_23_9();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v33 + 64) = EntityProperty<>.init(title:)();
-  v46 = OUTLINED_FUNCTION_184_1();
-  OUTLINED_FUNCTION_39_8(v46 & 0xFFFF0000FFFFFFFFLL | 0x6E2000000000);
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v33 + 72) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
-  OUTLINED_FUNCTION_72_5();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v33 + 80) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_2_17();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v33 + 88) = EntityProperty<>.init(title:)();
-  *(v33 + 96) = xmmword_25DBC9410;
-  OUTLINED_FUNCTION_26_5(v74);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(v75);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_140_1(v76, v27);
-  OUTLINED_FUNCTION_96_4();
-  outlined init with copy of ResourceBundle?(v47, v48, v49, &_s10Foundation14DateComponentsVSgMR);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_86_4();
-  outlined destroy of IntentApplication?(v50, v51, v52);
-  OUTLINED_FUNCTION_26_5(v77);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(a21);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_140_1(a22, v27);
-  OUTLINED_FUNCTION_96_4();
-  outlined init with copy of ResourceBundle?(v53, v54, v55, &_s10Foundation14DateComponentsVSgMR);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_86_4();
-  outlined destroy of IntentApplication?(v56, v57, v58);
-  OUTLINED_FUNCTION_140_1(a23, v27);
-  OUTLINED_FUNCTION_96_4();
-  outlined init with copy of ResourceBundle?(v59, v60, v61, &_s10Foundation14DateComponentsVSgMR);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_86_4();
-  outlined destroy of IntentApplication?(v62, v63, v64);
-  OUTLINED_FUNCTION_26_5(a25);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_99_5(a26);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_99_5(a27);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_86_4();
-  outlined destroy of IntentApplication?(v65, v66, v67);
-  OUTLINED_FUNCTION_86_4();
-  outlined destroy of IntentApplication?(v68, v69, v70);
-  OUTLINED_FUNCTION_86_4();
-  outlined destroy of IntentApplication?(v71, v72, v73);
-  OUTLINED_FUNCTION_148();
-}
-
-void TicketedShowEntity.init(reservationId:provider:customerNames:locationName:address:seatNumbers:duration:ticketType:ticketUrl:cost:startDateTime:endDateTime:eventSubType:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32)
-{
-  OUTLINED_FUNCTION_155();
-  a19 = v33;
-  a20 = v34;
-  v73 = v35;
-  v71 = v36;
-  v69 = v37;
-  v39 = v38;
-  v80 = a32;
-  v78 = a29;
-  v79 = a30;
-  v77 = a28;
-  v75 = a25;
-  v76 = a26;
-  v81 = a23;
-  v72 = a22;
-  v70 = a21;
-  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v41 = OUTLINED_FUNCTION_114(v40);
-  v43 = *(v42 + 64);
-  MEMORY[0x28223BE20](v41);
-  OUTLINED_FUNCTION_39_0();
-  v74 = v44;
-  OUTLINED_FUNCTION_174();
-  MEMORY[0x28223BE20](v45);
-  OUTLINED_FUNCTION_14_2();
-  OUTLINED_FUNCTION_15_4(v46);
-  v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  v48 = OUTLINED_FUNCTION_114(v47);
-  v50 = *(v49 + 64);
-  MEMORY[0x28223BE20](v48);
-  OUTLINED_FUNCTION_39_0();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v51);
-  v52 = OUTLINED_FUNCTION_264_0();
-  v53 = OUTLINED_FUNCTION_114(v52);
-  v55 = *(v54 + 64);
-  MEMORY[0x28223BE20](v53);
-  OUTLINED_FUNCTION_36();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMR);
-  OUTLINED_FUNCTION_17_11();
-  LocalizedStringResource.init(stringLiteral:)();
-  *v39 = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySaySSGSgGMd, &_s10AppIntents14EntityPropertyCySaySSGSgGMR);
-  OUTLINED_FUNCTION_33_8();
-  LocalizedStringResource.init(stringLiteral:)();
-  v56 = EntityProperty<>.init(title:)();
-  *(v39 + 8) = OUTLINED_FUNCTION_253_1(v56);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
-  OUTLINED_FUNCTION_148_1();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_242_1();
-  v57 = EntityProperty<>.init(title:)();
-  *(v39 + 16) = OUTLINED_FUNCTION_247_1(v57);
-  OUTLINED_FUNCTION_32_11();
-  OUTLINED_FUNCTION_23_8();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v39 + 24) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_153_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  v58 = EntityProperty<>.init(title:)();
-  *(v39 + 32) = v58;
-  v59 = OUTLINED_FUNCTION_184_1();
-  OUTLINED_FUNCTION_24_10(v59);
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v39 + 40) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_237_1();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_242_1();
-  *(v39 + 48) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_2_18();
-  LocalizedStringResource.init(stringLiteral:)();
-  v60 = EntityProperty<>.init(title:)();
-  *(v39 + 56) = OUTLINED_FUNCTION_159_1(v60);
-  v61 = OUTLINED_FUNCTION_134_1();
-  OUTLINED_FUNCTION_236_0(v61);
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v39 + 64) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMR);
-  OUTLINED_FUNCTION_134_1();
-  LocalizedStringResource.init(stringLiteral:)();
-  v62 = EntityProperty<>.init(title:)();
-  *(v39 + 72) = OUTLINED_FUNCTION_252_1(v62);
-  OUTLINED_FUNCTION_88_4();
-  OUTLINED_FUNCTION_242_1();
-  *(v39 + 80) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_36_9();
-  LocalizedStringResource.init(stringLiteral:)();
-  v63 = EntityProperty<>.init(title:)();
-  *(v39 + 88) = OUTLINED_FUNCTION_245_1(v63);
-  OUTLINED_FUNCTION_31_12();
-  LocalizedStringResource.init(stringLiteral:)();
-  v64 = EntityProperty<>.init(title:)();
-  *(v39 + 96) = OUTLINED_FUNCTION_241_1(v64);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v39 + 104) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_2_17();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v39 + 112) = EntityProperty<>.init(title:)();
-  *(v39 + 120) = xmmword_25DBC9410;
-  OUTLINED_FUNCTION_18_10(&a18);
-  OUTLINED_FUNCTION_280();
-  OUTLINED_FUNCTION_26_5(v69);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_99_5(v71);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(v73);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(v70);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_99_5(v72);
-  EntityProperty.wrappedValue.setter();
-  outlined init with copy of ResourceBundle?(v81, v32, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  OUTLINED_FUNCTION_213_1(v32);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_211_1(v32);
-  OUTLINED_FUNCTION_26_5(v75);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_251_1(&a13);
-  outlined init with copy of ResourceBundle?(v65, v66, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  OUTLINED_FUNCTION_217_1(v58, v74);
-  EntityProperty.wrappedValue.setter();
-  outlined destroy of IntentApplication?(v58, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  OUTLINED_FUNCTION_26_5(v77);
-  EntityProperty.wrappedValue.setter();
-  v67 = OUTLINED_FUNCTION_52_1();
-  outlined init with copy of ResourceBundle?(v67, v68, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  OUTLINED_FUNCTION_213_1(v32);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_211_1(v32);
-  outlined init with copy of ResourceBundle?(v79, v32, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  OUTLINED_FUNCTION_213_1(v32);
-  OUTLINED_FUNCTION_275();
-  OUTLINED_FUNCTION_211_1(v32);
-  OUTLINED_FUNCTION_26_5(v80);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_211_1(v79);
-  OUTLINED_FUNCTION_211_1(v78);
-  outlined destroy of IntentApplication?(v76, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  OUTLINED_FUNCTION_211_1(v81);
-  OUTLINED_FUNCTION_148();
-}
-
-void GenericEventEntity.init(attendees:businessName:cost:duration:endDateTime:eventLink:eventName:eventType:eventSubType:location:organizer:phoneNumber:startDateTime:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32)
-{
-  OUTLINED_FUNCTION_155();
-  a19 = v33;
-  a20 = v34;
-  v117 = v36;
-  v118 = v35;
-  v119 = v37;
-  v102 = v38;
-  v100 = v39;
-  v99 = v40;
-  v98 = v41;
-  v96 = v42;
-  v44 = v43;
-  v115 = a31;
-  v116 = a32;
-  v113 = a29;
-  v114 = a30;
-  v111 = a27;
-  v112 = a28;
-  v109 = a25;
-  v110 = a26;
-  v106 = a23;
-  v107 = a24;
-  v103 = a21;
-  v104 = a22;
-  v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents12IntentPersonVSgMd, &_s10AppIntents12IntentPersonVSgMR);
-  v46 = OUTLINED_FUNCTION_114(v45);
-  v48 = *(v47 + 64);
-  MEMORY[0x28223BE20](v46);
-  OUTLINED_FUNCTION_39_0();
-  v108 = v49;
-  OUTLINED_FUNCTION_174();
-  MEMORY[0x28223BE20](v50);
-  OUTLINED_FUNCTION_14_2();
-  v105 = v51;
-  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v53 = OUTLINED_FUNCTION_114(v52);
-  v55 = *(v54 + 64);
-  MEMORY[0x28223BE20](v53);
-  OUTLINED_FUNCTION_39_0();
-  v101 = v56;
-  OUTLINED_FUNCTION_174();
-  MEMORY[0x28223BE20](v57);
-  OUTLINED_FUNCTION_14_2();
-  OUTLINED_FUNCTION_15_4(v58);
-  v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  v60 = OUTLINED_FUNCTION_114(v59);
-  v62 = *(v61 + 64);
-  MEMORY[0x28223BE20](v60);
-  OUTLINED_FUNCTION_109();
-  OUTLINED_FUNCTION_133_3();
-  MEMORY[0x28223BE20](v63);
-  v65 = &v90 - v64;
-  v66 = type metadata accessor for LocalizedStringResource();
-  v67 = OUTLINED_FUNCTION_114(v66);
-  v69 = *(v68 + 64);
-  MEMORY[0x28223BE20](v67);
-  OUTLINED_FUNCTION_36();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySayAA12IntentPersonVGGMd, &_s10AppIntents14EntityPropertyCySayAA12IntentPersonVGGMR);
-  OUTLINED_FUNCTION_151_0();
-  LocalizedStringResource.init(stringLiteral:)();
-  v70 = EntityProperty<>.init(title:)();
-  *v44 = OUTLINED_FUNCTION_247_1(v70);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
-  OUTLINED_FUNCTION_10_12();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v44 + 8) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_88_4();
-  *(v44 + 16) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMR);
-  OUTLINED_FUNCTION_17_11();
-  LocalizedStringResource.init(stringLiteral:)();
-  v71 = EntityProperty<>.init(title:)();
-  *(v44 + 24) = OUTLINED_FUNCTION_245_1(v71);
-  OUTLINED_FUNCTION_31_12();
-  OUTLINED_FUNCTION_235_1();
-  LocalizedStringResource.init(stringLiteral:)();
-  v95 = EntityProperty<>.init(title:)();
-  *(v44 + 32) = v95;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMR);
-  OUTLINED_FUNCTION_24_9();
-  LocalizedStringResource.init(stringLiteral:)();
-  v72 = EntityProperty<>.init(title:)();
-  *(v44 + 40) = OUTLINED_FUNCTION_253_1(v72);
-  OUTLINED_FUNCTION_24_9();
-  OUTLINED_FUNCTION_269();
-  v94 = EntityProperty<>.init(title:)();
-  *(v44 + 48) = v94;
-  OUTLINED_FUNCTION_24_9();
-  LocalizedStringResource.init(stringLiteral:)();
-  v73 = EntityProperty<>.init(title:)();
-  *(v44 + 56) = OUTLINED_FUNCTION_241_1(v73);
-  OUTLINED_FUNCTION_2_18();
-  LocalizedStringResource.init(stringLiteral:)();
-  v74 = EntityProperty<>.init(title:)();
-  *(v44 + 64) = OUTLINED_FUNCTION_252_1(v74);
-  OUTLINED_FUNCTION_32_11();
-  LocalizedStringResource.init(stringLiteral:)();
-  v93 = EntityProperty<>.init(title:)();
-  *(v44 + 72) = v93;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA12IntentPersonVSgGMd, &_s10AppIntents14EntityPropertyCyAA12IntentPersonVSgGMR);
-  OUTLINED_FUNCTION_190_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  v91 = EntityProperty<>.init(title:)();
-  *(v44 + 80) = v91;
-  OUTLINED_FUNCTION_4_16();
-  LocalizedStringResource.init(stringLiteral:)();
-  v90 = EntityProperty<>.init(title:)();
-  *(v44 + 88) = v90;
-  OUTLINED_FUNCTION_3_19();
-  LocalizedStringResource.init(stringLiteral:)();
-  v92 = EntityProperty<>.init(title:)();
-  *(v44 + 96) = v92;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v44 + 104) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_2_17();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v44 + 112) = EntityProperty<>.init(title:)();
-  *(v44 + 120) = xmmword_25DBC9410;
-  OUTLINED_FUNCTION_89_5(&a14);
-  OUTLINED_FUNCTION_280();
-  OUTLINED_FUNCTION_18_10(&a17);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(v102);
-  EntityProperty.wrappedValue.setter();
-  outlined init with copy of ResourceBundle?(v119, v65, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  outlined init with copy of ResourceBundle?(v65, v32, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_183_1(v65);
-  outlined init with copy of ResourceBundle?(v118, v65, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  OUTLINED_FUNCTION_167_1();
-  outlined init with copy of ResourceBundle?(v75, v76, v77, &_s10Foundation14DateComponentsVSgMR);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_183_1(v65);
-  v78 = v97;
-  outlined init with copy of ResourceBundle?(v117, v97, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  outlined init with copy of ResourceBundle?(v78, v101, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  EntityProperty.wrappedValue.setter();
-  v79 = OUTLINED_FUNCTION_21_7();
-  outlined destroy of IntentApplication?(v79, v80, &_s10Foundation3URLVSgMR);
-  OUTLINED_FUNCTION_26_5(v104);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(v107);
-  OUTLINED_FUNCTION_275();
-  OUTLINED_FUNCTION_26_5(v110);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(v112);
-  EntityProperty.wrappedValue.setter();
-  v81 = v105;
-  outlined init with copy of ResourceBundle?(v113, v105, &_s10AppIntents12IntentPersonVSgMd, &_s10AppIntents12IntentPersonVSgMR);
-  outlined init with copy of ResourceBundle?(v81, v108, &_s10AppIntents12IntentPersonVSgMd, &_s10AppIntents12IntentPersonVSgMR);
-  EntityProperty.wrappedValue.setter();
-  v82 = OUTLINED_FUNCTION_34_11();
-  outlined destroy of IntentApplication?(v82, v83, &_s10AppIntents12IntentPersonVSgMR);
-  OUTLINED_FUNCTION_26_5(v115);
-  EntityProperty.wrappedValue.setter();
-  v84 = v116;
-  outlined init with copy of ResourceBundle?(v116, v65, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  OUTLINED_FUNCTION_167_1();
-  outlined init with copy of ResourceBundle?(v85, v86, v87, &_s10Foundation14DateComponentsVSgMR);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_183_1(v84);
-  v88 = OUTLINED_FUNCTION_232();
-  outlined destroy of IntentApplication?(v88, v89, &_s10AppIntents12IntentPersonVSgMR);
-  outlined destroy of IntentApplication?(v117, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  OUTLINED_FUNCTION_183_1(v118);
-  OUTLINED_FUNCTION_183_1(v119);
-  OUTLINED_FUNCTION_183_1(v65);
-  OUTLINED_FUNCTION_148();
-}
-
-void ShippingOrderEntity.init(eventName:subType:status:shippingStatus:orderDate:orderNumber:orderTrackingURL:orderCost:merchantName:shippingPersonNames:shippingLocationName:shippingAddress:shippingPhoneNumber:recipientNames:recipientLocationName:recipientAddress:recipientPhoneNumber:customerNames:customerAddress:customerPhoneNumber:carrierName:trackingNumber:shippingDate:deliveryDate:estimatedDeliveryStartDate:estimatedDeliveryEndDate:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53)
-{
-  OUTLINED_FUNCTION_155();
-  a19 = v54;
-  a20 = v55;
-  v57 = v56;
-  v126 = a52;
-  v127 = a53;
-  v124[1] = a50;
-  v125 = a51;
-  v123 = a48;
-  v124[0] = a49;
-  v122 = a47;
-  v121 = a42;
-  v120 = a40;
-  v118 = a38;
-  v116 = a35;
-  v117 = a36;
-  OUTLINED_FUNCTION_168_2();
-  OUTLINED_FUNCTION_234_1(a28);
-  v115 = a26;
-  v114 = a25;
-  v128 = a24;
-  v129 = a21;
-  v119 = a43;
-  v58 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v59 = OUTLINED_FUNCTION_114(v58);
-  v61 = *(v60 + 64);
-  MEMORY[0x28223BE20](v59);
-  OUTLINED_FUNCTION_39_0();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v62);
-  OUTLINED_FUNCTION_14_2();
-  OUTLINED_FUNCTION_15_4(v63);
-  v64 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v65 = OUTLINED_FUNCTION_114(v64);
-  v67 = *(v66 + 64);
-  MEMORY[0x28223BE20](v65);
-  OUTLINED_FUNCTION_109();
-  MEMORY[0x28223BE20](v68);
-  v69 = OUTLINED_FUNCTION_264_0();
-  v70 = OUTLINED_FUNCTION_114(v69);
-  v72 = *(v71 + 64);
-  MEMORY[0x28223BE20](v70);
-  OUTLINED_FUNCTION_36();
-  OUTLINED_FUNCTION_233_1();
-
-  v73 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
-  OUTLINED_FUNCTION_24_9();
-  OUTLINED_FUNCTION_269();
-  OUTLINED_FUNCTION_145_2();
-  *v57 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_18_11();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v57 + 8) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_60_4();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v57 + 16) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_140_0();
-  OUTLINED_FUNCTION_254();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v57 + 24) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation4DateVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation4DateVSgGMR);
-  OUTLINED_FUNCTION_76_5();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v57 + 32) = EntityProperty<>.init(title:)();
-  v74 = OUTLINED_FUNCTION_76_5();
-  OUTLINED_FUNCTION_19_9(v74);
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_145_2();
-  *(v57 + 40) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMR);
-  OUTLINED_FUNCTION_58_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v57 + 48) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySdSgGMd, &_s10AppIntents14EntityPropertyCySdSgGMR);
-  OUTLINED_FUNCTION_76_5();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v57 + 56) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_23_8();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_145_2();
-  *(v57 + 64) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySaySSGSgGMd, &_s10AppIntents14EntityPropertyCySaySSGSgGMR);
-  OUTLINED_FUNCTION_58_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v57 + 72) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_41_6();
-  OUTLINED_FUNCTION_228_0();
-  OUTLINED_FUNCTION_145_2();
-  *(v57 + 80) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_58_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v57 + 88) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_41_6();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v57 + 96) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_147_1();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v57 + 104) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_58_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_145_2();
-  *(v57 + 112) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_58_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v57 + 120) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_41_6();
-  OUTLINED_FUNCTION_228_0();
-  *(v57 + 128) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_33_8();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v57 + 136) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_41_6();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v57 + 144) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_41_6();
-  OUTLINED_FUNCTION_228_0();
-  *(v57 + 152) = EntityProperty<>.init(title:)();
-  v75 = OUTLINED_FUNCTION_118_2();
-  OUTLINED_FUNCTION_231_0(v75);
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_145_2();
-  *(v57 + 160) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_149_1();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v57 + 168) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_140_0();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v57 + 176) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_238_0();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v57 + 184) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_58_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v57 + 192) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_58_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v57 + 200) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
-  OUTLINED_FUNCTION_58_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v57 + 208) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_2_17();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v57 + 216) = EntityProperty<>.init(title:)();
-  *(v57 + 224) = xmmword_25DBC9410;
-  OUTLINED_FUNCTION_18_10(&v123);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_18_10(&v125);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_18_10(&v128);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_18_10(&v132);
-  EntityProperty.wrappedValue.setter();
-  outlined init with copy of ResourceBundle?(v129, v53, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v76 = OUTLINED_FUNCTION_34_11();
-  OUTLINED_FUNCTION_217_1(v76, v77);
-  EntityProperty.wrappedValue.setter();
-  v78 = OUTLINED_FUNCTION_173_1();
-  outlined destroy of IntentApplication?(v78, v79, &_s10Foundation4DateVSgMR);
-  OUTLINED_FUNCTION_18_10(&v130);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_251_1(v124);
-  outlined init with copy of ResourceBundle?(v80, v81, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  outlined init with copy of ResourceBundle?(v73, v113, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  EntityProperty.wrappedValue.setter();
-  outlined destroy of IntentApplication?(v73, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v130 = v114;
-  v131 = v115 & 1;
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_18_10(&a12);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_89_5(&a13);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_18_10(&a15);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_18_10(&a17);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(v116);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_99_5(v117);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(v118);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(v120);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(v121);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_99_5(v119);
-  EntityProperty.wrappedValue.setter();
-  EntityProperty.wrappedValue.getter();
-  EntityProperty.wrappedValue.setter();
-  EntityProperty.wrappedValue.getter();
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(v122);
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_26_5(v124[0]);
-  EntityProperty.wrappedValue.setter();
-  v82 = OUTLINED_FUNCTION_32_0();
-  OUTLINED_FUNCTION_217_1(v82, v83);
-  v84 = OUTLINED_FUNCTION_34_11();
-  OUTLINED_FUNCTION_217_1(v84, v85);
-  EntityProperty.wrappedValue.setter();
-  v86 = OUTLINED_FUNCTION_173_1();
-  outlined destroy of IntentApplication?(v86, v87, &_s10Foundation4DateVSgMR);
-  v88 = OUTLINED_FUNCTION_21_7();
-  OUTLINED_FUNCTION_217_1(v88, v89);
-  v90 = OUTLINED_FUNCTION_34_11();
-  OUTLINED_FUNCTION_217_1(v90, v91);
-  EntityProperty.wrappedValue.setter();
-  outlined destroy of IntentApplication?(v53, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  outlined init with copy of ResourceBundle?(v126, v53, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v92 = OUTLINED_FUNCTION_34_11();
-  outlined init with copy of ResourceBundle?(v92, v93, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  EntityProperty.wrappedValue.setter();
-  outlined destroy of IntentApplication?(v53, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  outlined init with copy of ResourceBundle?(v127, v53, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v94 = OUTLINED_FUNCTION_34_11();
-  outlined init with copy of ResourceBundle?(v94, v95, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  EntityProperty.wrappedValue.setter();
-  v96 = OUTLINED_FUNCTION_129_4();
-  outlined destroy of IntentApplication?(v96, v97, &_s10Foundation4DateVSgMR);
-  OUTLINED_FUNCTION_155_2();
-  outlined destroy of IntentApplication?(v98, v99, v100);
-  OUTLINED_FUNCTION_155_2();
-  outlined destroy of IntentApplication?(v101, v102, v103);
-  OUTLINED_FUNCTION_155_2();
-  outlined destroy of IntentApplication?(v104, v105, v106);
-  outlined destroy of IntentApplication?(v128, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  OUTLINED_FUNCTION_155_2();
-  outlined destroy of IntentApplication?(v107, v108, v109);
-  OUTLINED_FUNCTION_155_2();
-  outlined destroy of IntentApplication?(v110, v111, v112);
-  OUTLINED_FUNCTION_148();
-}
-
-uint64_t key path getter for EventEntity.subType : EventEntity@<X0>(_BYTE *a1@<X8>)
-{
-  result = EventEntity.subType.getter();
-  *a1 = v3;
-  return result;
-}
-
-uint64_t (*EventEntity.subType.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *v0;
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for EventEntity.flightReservation : EventEntity(void *__src)
-{
-  memcpy(__dst, __src, sizeof(__dst));
-  outlined init with copy of ResourceBundle?(__dst, &v10, &_s10OmniSearch23FlightReservationEntityVSgMd, &_s10OmniSearch23FlightReservationEntityVSgMR);
-  return EventEntity.flightReservation.setter(__src, v2, v3, v4, v5, v6, v7, v8);
-}
-
-uint64_t (*EventEntity.flightReservation.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 8);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*EventEntity.genericEvent.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 16);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.encodedMemoryCreationQUPerformanceMetrics.modify;
-}
-
-uint64_t (*EventEntity.hotelReservation.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 24);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for EventEntity.hotelReservation : EventEntity()
-{
-  OUTLINED_FUNCTION_85_5();
-  memcpy(__dst, v3, sizeof(__dst));
-  outlined init with copy of ResourceBundle?(__dst, &v5, v2, v1);
-  return v0(v3);
-}
-
-uint64_t (*EventEntity.restaurantReservation.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 32);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for EventEntity.ticketedTransportation : EventEntity(void *__src)
-{
-  memcpy(__dst, __src, sizeof(__dst));
-  outlined init with copy of ResourceBundle?(__dst, &v10, &_s10OmniSearch28TicketedTransportationEntityVSgMd, &_s10OmniSearch28TicketedTransportationEntityVSgMR);
-  return EventEntity.ticketedTransportation.setter(__src, v2, v3, v4, v5, v6, v7, v8);
-}
-
-uint64_t (*EventEntity.ticketedTransportation.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 40);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for EventEntity.vehicleReservation : EventEntity(void *__src)
-{
-  memcpy(__dst, __src, sizeof(__dst));
-  outlined init with copy of ResourceBundle?(__dst, &v10, &_s10OmniSearch24VehicleReservationEntityVSgMd, &_s10OmniSearch24VehicleReservationEntityVSgMR);
-  return EventEntity.vehicleReservation.setter(__src, v2, v3, v4, v5, v6, v7, v8);
-}
-
-uint64_t (*EventEntity.vehicleReservation.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 48);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for EventEntity.genericEvent : EventEntity()
-{
-  OUTLINED_FUNCTION_85_5();
-  memcpy(__dst, v3, sizeof(__dst));
-  outlined init with copy of ResourceBundle?(__dst, &v5, v2, v1);
-  return v0(v3);
-}
-
-uint64_t (*EventEntity.ticketedShow.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 56);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for EventEntity.shippingOrder : EventEntity(void *__src)
-{
-  memcpy(__dst, __src, sizeof(__dst));
-  outlined init with copy of ResourceBundle?(__dst, &v10, &_s10OmniSearch19ShippingOrderEntityVSgMd, &_s10OmniSearch19ShippingOrderEntityVSgMR);
-  return EventEntity.shippingOrder.setter(__src, v2, v3, v4, v5, v6, v7, v8);
-}
-
-uint64_t (*EventEntity.shippingOrder.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 64);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t EventEntity.init()()
-{
-  OUTLINED_FUNCTION_113();
-  v1 = type metadata accessor for LocalizedStringResource();
-  v2 = OUTLINED_FUNCTION_114(v1);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
-  OUTLINED_FUNCTION_13_8();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10OmniSearch12EventSubTypeOGMd, &_s10AppIntents14EntityPropertyCy10OmniSearch12EventSubTypeOGMR);
-  OUTLINED_FUNCTION_18_11();
-  OUTLINED_FUNCTION_106_2();
-  lazy protocol witness table accessor for type EventSubType and conformance EventSubType();
-  OUTLINED_FUNCTION_54_5();
-  *v0 = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10OmniSearch017FlightReservationC0VSgGMd, &_s10AppIntents14EntityPropertyCy10OmniSearch017FlightReservationC0VSgGMR);
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  lazy protocol witness table accessor for type FlightReservationEntity and conformance FlightReservationEntity();
-  OUTLINED_FUNCTION_54_5();
-  *(v0 + 8) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10OmniSearch012GenericEventC0VSgGMd, &_s10AppIntents14EntityPropertyCy10OmniSearch012GenericEventC0VSgGMR);
-  OUTLINED_FUNCTION_31_13();
-  OUTLINED_FUNCTION_214_0();
-  lazy protocol witness table accessor for type GenericEventEntity and conformance GenericEventEntity();
-  OUTLINED_FUNCTION_54_5();
-  *(v0 + 16) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10OmniSearch016HotelReservationC0VSgGMd, &_s10AppIntents14EntityPropertyCy10OmniSearch016HotelReservationC0VSgGMR);
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  lazy protocol witness table accessor for type HotelReservationEntity and conformance HotelReservationEntity();
-  OUTLINED_FUNCTION_54_5();
-  *(v0 + 24) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10OmniSearch021RestaurantReservationC0VSgGMd, &_s10AppIntents14EntityPropertyCy10OmniSearch021RestaurantReservationC0VSgGMR);
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  lazy protocol witness table accessor for type RestaurantReservationEntity and conformance RestaurantReservationEntity();
-  OUTLINED_FUNCTION_54_5();
-  *(v0 + 32) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10OmniSearch022TicketedTransportationC0VSgGMd, &_s10AppIntents14EntityPropertyCy10OmniSearch022TicketedTransportationC0VSgGMR);
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  lazy protocol witness table accessor for type TicketedTransportationEntity and conformance TicketedTransportationEntity();
-  OUTLINED_FUNCTION_54_5();
-  *(v0 + 40) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10OmniSearch018VehicleReservationC0VSgGMd, &_s10AppIntents14EntityPropertyCy10OmniSearch018VehicleReservationC0VSgGMR);
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  lazy protocol witness table accessor for type VehicleReservationEntity and conformance VehicleReservationEntity();
-  OUTLINED_FUNCTION_54_5();
-  *(v0 + 48) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10OmniSearch012TicketedShowC0VSgGMd, &_s10AppIntents14EntityPropertyCy10OmniSearch012TicketedShowC0VSgGMR);
-  OUTLINED_FUNCTION_31_13();
-  OUTLINED_FUNCTION_214_0();
-  lazy protocol witness table accessor for type TicketedShowEntity and conformance TicketedShowEntity();
-  OUTLINED_FUNCTION_54_5();
-  *(v0 + 56) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10OmniSearch013ShippingOrderC0VSgGMd, &_s10AppIntents14EntityPropertyCy10OmniSearch013ShippingOrderC0VSgGMR);
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  lazy protocol witness table accessor for type ShippingOrderEntity and conformance ShippingOrderEntity();
-  OUTLINED_FUNCTION_54_5();
-  *(v0 + 64) = EntityProperty<>.init(title:)();
-  *(v0 + 72) = xmmword_25DBC9410;
-  v5 = *(type metadata accessor for EventEntity() + 56);
-  type metadata accessor for SearchResult(0);
-  OUTLINED_FUNCTION_92();
-  return __swift_storeEnumTagSinglePayload(v6, v7, v8, v9);
-}
-
-void one-time initialization function for typeDisplayRepresentation()
-{
-  one-time initialization function for typeDisplayRepresentation();
-}
-
-{
-  one-time initialization function for typeDisplayRepresentation();
-}
-
-{
-  one-time initialization function for typeDisplayRepresentation();
-}
-
-{
-  one-time initialization function for typeDisplayRepresentation();
-}
-
-{
-  one-time initialization function for typeDisplayRepresentation();
-}
-
-{
-  OUTLINED_FUNCTION_202();
-  v1 = v0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
-  OUTLINED_FUNCTION_114(v2);
-  v4 = *(v3 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v5);
-  OUTLINED_FUNCTION_136_3();
-  v6 = type metadata accessor for LocalizedStringResource();
-  v7 = OUTLINED_FUNCTION_17(v6);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  OUTLINED_FUNCTION_36();
-  v10 = type metadata accessor for TypeDisplayRepresentation();
-  __swift_allocate_value_buffer(v10, v1);
-  __swift_project_value_buffer(v10, v1);
-  OUTLINED_FUNCTION_107();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_92();
-  __swift_storeEnumTagSinglePayload(v11, v12, v13, v6);
-  OUTLINED_FUNCTION_232();
-  TypeDisplayRepresentation.init(name:numericFormat:)();
-  OUTLINED_FUNCTION_203();
-}
-
-uint64_t static EventEntity.typeDisplayRepresentation.modify()
-{
-  if (one-time initialization token for typeDisplayRepresentation != -1)
-  {
-    swift_once();
-  }
-
-  v0 = type metadata accessor for TypeDisplayRepresentation();
-  OUTLINED_FUNCTION_30_10(v0, &static EventEntity.typeDisplayRepresentation);
-  return OUTLINED_FUNCTION_66_2();
-}
-
-void EventEntity.displayRepresentation.getter()
-{
-  OUTLINED_FUNCTION_155();
-  v53[1] = v2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents21DisplayRepresentationV5ImageVSgMd, &_s10AppIntents21DisplayRepresentationV5ImageVSgMR);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_49_3();
-  v53[0] = v7;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
-  OUTLINED_FUNCTION_114(v8);
-  v10 = *(v9 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v11);
-  OUTLINED_FUNCTION_136_3();
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
-  OUTLINED_FUNCTION_114(v12);
-  v14 = *(v13 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v15);
-  OUTLINED_FUNCTION_233_1();
-  v16 = type metadata accessor for String.LocalizationValue.StringInterpolation();
-  v17 = OUTLINED_FUNCTION_114(v16);
-  v19 = *(v18 + 64);
-  MEMORY[0x28223BE20](v17);
-  OUTLINED_FUNCTION_36();
-  v20 = type metadata accessor for LocalizedStringResource();
-  v21 = OUTLINED_FUNCTION_14(v20);
-  v23 = v22;
-  v25 = *(v24 + 64);
-  MEMORY[0x28223BE20](v21);
-  OUTLINED_FUNCTION_109();
-  OUTLINED_FUNCTION_133_3();
-  MEMORY[0x28223BE20](v26);
-  v28 = v53 - v27;
-  String.LocalizationValue.StringInterpolation.init(literalCapacity:interpolationCount:)();
-  v29._countAndFlagsBits = 0;
-  v29._object = 0xE000000000000000;
-  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v29);
-  EventEntity.description.getter();
-  String.LocalizationValue.StringInterpolation.appendInterpolation(_:)(v30);
-
-  v31._countAndFlagsBits = 0;
-  v31._object = 0xE000000000000000;
-  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v31);
-  LocalizedStringResource.init(stringInterpolation:)();
-  type metadata accessor for SFCard();
-  v32 = *(v0 + 72);
-  v33 = *(v0 + 80);
-  outlined copy of Data?(v32, v33);
-  v34 = SFCard.init(data:)(v32, v33);
-  if (v34)
-  {
-    v35 = v34;
-    SFCard.snippetPluginModel.getter(v1);
-
-    v36 = type metadata accessor for RGPluginModel();
-    OUTLINED_FUNCTION_166(v1, 1, v36);
-    if (v37)
-    {
-      outlined destroy of IntentApplication?(v1, &_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
-    }
-
-    else
-    {
-      _s16IntelligenceFlow13RGPluginModelOAC10SnippetKit0e6PluginD0AAWlTm_0(&lazy protocol witness table cache variable for type RGPluginModel and conformance RGPluginModel);
-      OUTLINED_FUNCTION_74_6();
-      SnippetPluginModel.data.getter();
-      v39 = v38;
-      (*(*(v36 - 8) + 8))(v1, v36);
-      if (v39 >> 60 != 15)
-      {
-        v50 = *(v23 + 16);
-        v51 = OUTLINED_FUNCTION_45_0();
-        v52(v51);
-        static RGPluginModel.bundleName.getter();
-        DisplayRepresentation.init(title:snippetPluginModelData:bundleIdentifier:)();
-        goto LABEL_7;
-      }
-    }
-  }
-
-  v40 = *(v23 + 16);
-  v41 = OUTLINED_FUNCTION_45_0();
-  v42(v41);
-  OUTLINED_FUNCTION_92();
-  __swift_storeEnumTagSinglePayload(v43, v44, v45, v20);
-  type metadata accessor for DisplayRepresentation.Image();
-  OUTLINED_FUNCTION_92();
-  __swift_storeEnumTagSinglePayload(v46, v47, v48, v49);
-  DisplayRepresentation.init(title:subtitle:image:)();
-LABEL_7:
-  (*(v23 + 8))(v28, v20);
-  OUTLINED_FUNCTION_148();
-}
-
-void EventEntity.description.getter()
-{
-  OUTLINED_FUNCTION_202();
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents21DisplayRepresentationVSgMd, &_s10AppIntents21DisplayRepresentationVSgMR);
-  OUTLINED_FUNCTION_114(v2);
-  v4 = *(v3 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v5);
-  OUTLINED_FUNCTION_136_3();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
-  OUTLINED_FUNCTION_114(v6);
-  v8 = *(v7 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v9);
-  v11 = &v32[-v10];
-  v12 = type metadata accessor for LocalizedStringResource();
-  v13 = OUTLINED_FUNCTION_14(v12);
-  v15 = v14;
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v13);
-  OUTLINED_FUNCTION_109();
-  v20 = v18 - v19;
-  MEMORY[0x28223BE20](v21);
-  v23 = &v32[-v22];
-  static EventSubType.caseDisplayRepresentations.getter();
-  v25 = v24;
-  v26 = *v0;
-  EntityProperty.wrappedValue.getter();
-  specialized Dictionary.subscript.getter(v32[15], v25);
-
-  v27 = type metadata accessor for DisplayRepresentation();
-  OUTLINED_FUNCTION_166(v1, 1, v27);
-  if (v31)
-  {
-    outlined destroy of IntentApplication?(v1, &_s10AppIntents21DisplayRepresentationVSgMd, &_s10AppIntents21DisplayRepresentationVSgMR);
-    OUTLINED_FUNCTION_92();
-    __swift_storeEnumTagSinglePayload(v28, v29, v30, v12);
-LABEL_6:
-    outlined destroy of IntentApplication?(v11, &_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
-    goto LABEL_7;
-  }
-
-  DisplayRepresentation.descriptionText.getter();
-  (*(*(v27 - 8) + 8))(v1, v27);
-  OUTLINED_FUNCTION_166(v11, 1, v12);
-  if (v31)
-  {
-    goto LABEL_6;
-  }
-
-  (*(v15 + 32))(v23, v11, v12);
-  (*(v15 + 16))(v20, v23, v12);
-  String.init(localized:)();
-  (*(v15 + 8))(v23, v12);
-LABEL_7:
-  OUTLINED_FUNCTION_62_3();
-  OUTLINED_FUNCTION_203();
-}
-
-void static EventSubType.caseDisplayRepresentations.getter()
-{
-  OUTLINED_FUNCTION_155();
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents21DisplayRepresentationV5ImageVSgMd, &_s10AppIntents21DisplayRepresentationV5ImageVSgMR);
-  OUTLINED_FUNCTION_114(v0);
-  v2 = *(v1 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v3);
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
-  OUTLINED_FUNCTION_114(v4);
-  v6 = *(v5 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v7);
-  v8 = type metadata accessor for LocalizedStringResource();
-  v9 = OUTLINED_FUNCTION_17(v8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  OUTLINED_FUNCTION_36();
-  OUTLINED_FUNCTION_136_3();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10OmniSearch12EventSubTypeO_10AppIntents21DisplayRepresentationVtGMd, &_ss23_ContiguousArrayStorageCy10OmniSearch12EventSubTypeO_10AppIntents21DisplayRepresentationVtGMR);
-  v12 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch12EventSubTypeO_10AppIntents21DisplayRepresentationVtMd, &_s10OmniSearch12EventSubTypeO_10AppIntents21DisplayRepresentationVtMR) - 8);
-  v13 = *(*v12 + 72);
-  v14 = (*(*v12 + 80) + 32) & ~*(*v12 + 80);
-  v31 = swift_allocObject();
-  *(v31 + 16) = xmmword_25DBCF3A0;
-  v15 = v31 + v14;
-  v16 = v12[14];
-  *(v31 + v14) = 0;
-  OUTLINED_FUNCTION_132_3();
-  OUTLINED_FUNCTION_188_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_92();
-  __swift_storeEnumTagSinglePayload(v17, v18, v19, v8);
-  v20 = type metadata accessor for DisplayRepresentation.Image();
-  OUTLINED_FUNCTION_92();
-  __swift_storeEnumTagSinglePayload(v21, v22, v23, v20);
-  OUTLINED_FUNCTION_50_4();
-  v24 = v12[14];
-  *(v15 + v13) = 1;
-  OUTLINED_FUNCTION_132_3();
-  OUTLINED_FUNCTION_188_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_17_12();
-  OUTLINED_FUNCTION_50_4();
-  v25 = v12[14];
-  *(v15 + 2 * v13) = 2;
-  OUTLINED_FUNCTION_188_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_14_8();
-  v26 = v12[14];
-  *(v15 + 3 * v13) = 3;
-  OUTLINED_FUNCTION_132_3();
-  OUTLINED_FUNCTION_188_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_14_8();
-  v27 = v12[14];
-  *(v15 + 4 * v13) = 4;
-  OUTLINED_FUNCTION_140_0();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_14_8();
-  v28 = v12[14];
-  *(v15 + 5 * v13) = 5;
-  OUTLINED_FUNCTION_132_3();
-  OUTLINED_FUNCTION_188_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_14_8();
-  v29 = v12[14];
-  *(v15 + 6 * v13) = 6;
-  OUTLINED_FUNCTION_134_1();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_14_8();
-  v30 = v12[14];
-  *(v15 + 7 * v13) = 7;
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_17_12();
-  OUTLINED_FUNCTION_50_4();
-  type metadata accessor for DisplayRepresentation();
-  lazy protocol witness table accessor for type EventSubType and conformance EventSubType();
-  Dictionary.init(dictionaryLiteral:)();
-  OUTLINED_FUNCTION_148();
-}
-
-uint64_t EventEntity.cardData.getter()
-{
-  v1 = *(v0 + 72);
-  v2 = *(v0 + 80);
-  return OUTLINED_FUNCTION_35_11();
-}
-
-uint64_t EventEntity.cardData.setter()
-{
-  OUTLINED_FUNCTION_93();
-  result = outlined consume of Data?(*(v1 + 72), *(v1 + 80));
-  *(v1 + 72) = v2;
-  *(v1 + 80) = v0;
-  return result;
-}
-
-uint64_t EventEntity.sourceResult.setter()
-{
-  OUTLINED_FUNCTION_42_2();
-  v2 = v1 + *(type metadata accessor for EventEntity() + 56);
-
-  return outlined assign with take of SearchResult?(v0, v2);
-}
-
-uint64_t (*EventEntity.sourceResult.modify())(void)
-{
-  OUTLINED_FUNCTION_42_2();
-  v0 = *(type metadata accessor for EventEntity() + 56);
-  return _s10OmniSearch11GeoLocationVSgWOi_;
-}
-
-void static EventEntity.== infix(_:_:)()
-{
-  OUTLINED_FUNCTION_202();
-  OUTLINED_FUNCTION_93();
-  v4 = *v3;
-  EntityProperty.wrappedValue.getter();
-  v5 = *v0;
-  EntityProperty.wrappedValue.getter();
-  if ((specialized == infix<A>(_:_:)() & 1) == 0)
-  {
-    goto LABEL_43;
-  }
-
-  v6 = v1[1];
-  EntityProperty.wrappedValue.getter();
-  memcpy(__dst, __src, 0xD8uLL);
-  v7 = v0[1];
-  EntityProperty.wrappedValue.getter();
-  memcpy(&__dst[216], v358, 0xD8uLL);
-  memcpy(v360, __dst, sizeof(v360));
-  OUTLINED_FUNCTION_101_4(v360);
-  if (v12)
-  {
-    memcpy(v356, &__dst[216], 0xD8uLL);
-    OUTLINED_FUNCTION_101_4(v356);
-    if (v12)
-    {
-      v8 = OUTLINED_FUNCTION_127_4();
-      memcpy(v8, v9, 0xD8uLL);
-      outlined destroy of IntentApplication?(v350, &_s10OmniSearch23FlightReservationEntityVSgMd, &_s10OmniSearch23FlightReservationEntityVSgMR);
-      goto LABEL_12;
-    }
-
-LABEL_10:
-    v29 = OUTLINED_FUNCTION_170_2();
-    memcpy(v29, v30, 0x1B0uLL);
-    v31 = &_s10OmniSearch23FlightReservationEntityVSg_ADtMd;
-    v32 = &_s10OmniSearch23FlightReservationEntityVSg_ADtMR;
-LABEL_41:
-    v201 = v356;
-LABEL_42:
-    outlined destroy of IntentApplication?(v201, v31, v32);
-    goto LABEL_43;
-  }
-
-  v10 = OUTLINED_FUNCTION_127_4();
-  memcpy(v10, v11, 0xD8uLL);
-  memcpy(v356, &__dst[216], 0xD8uLL);
-  v13 = OUTLINED_FUNCTION_101_4(v356);
-  if (v12)
-  {
-    v21 = OUTLINED_FUNCTION_112_4(v13, v14, v15, v16, v17, v18, v19, v20, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0], v335[1], v335[2], v335[3], v335[4], v335[5], v335[6], v335[7], v335[8], v335[9], v335[10], v335[11], v335[12], v335[13], v336, v337, v338, v339, v340, v341, v342, v343, v344, v345, v346, v347, v348, v349[0]);
-    v23 = memcpy(v21, v22, 0xD8uLL);
-    OUTLINED_FUNCTION_276(v23, v24, &_s10OmniSearch23FlightReservationEntityVSgMd, &_s10OmniSearch23FlightReservationEntityVSgMR, v25, v26, v27, v28, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0]);
-    outlined destroy of FlightReservationEntity(v349);
-    goto LABEL_10;
-  }
-
-  OUTLINED_FUNCTION_113_4(v13, v14, v15, v16, v17, v18, v19, v20, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0], v335[1], v335[2], v335[3], v335[4], v335[5], v335[6], v335[7], v335[8], v335[9], v335[10], v335[11], v335[12], v335[13], v336, v337, v338, v339, v340, v341, v342, v343, v344, v345, v346, v347, v348, v349[0]);
-  static FlightReservationEntity.== infix(_:_:)(__dst);
-  OUTLINED_FUNCTION_240_1();
-  memcpy(v33, &__dst[216], 0xD8uLL);
-  v34 = outlined destroy of FlightReservationEntity(v326);
-  v42 = OUTLINED_FUNCTION_143_2(v34, v35, v36, v37, v38, v39, v40, v41, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0]);
-  memcpy(v42, v43, 0xD8uLL);
-  v44 = outlined destroy of FlightReservationEntity(v335);
-  v52 = OUTLINED_FUNCTION_112_4(v44, v45, v46, v47, v48, v49, v50, v51, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0], v335[1], v335[2], v335[3], v335[4], v335[5], v335[6], v335[7], v335[8], v335[9], v335[10], v335[11], v335[12], v335[13], v336, v337, v338, v339, v340, v341, v342, v343, v344, v345, v346, v347, v348, v349[0]);
-  v54 = memcpy(v52, v53, 0xD8uLL);
-  OUTLINED_FUNCTION_169_2(v54, v55, v56, v57, v58, v59, v60, v61, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0], v335[1], v335[2], v335[3], v335[4], v335[5], v335[6], v335[7], v335[8], v335[9], v335[10], v335[11], v335[12], v335[13], v336, v337, v338, v339, v340, v341, v342, v343, v344, v345, v346, v347, v348, v349[0]);
-  if ((v2 & 1) == 0)
-  {
-    goto LABEL_43;
-  }
-
-LABEL_12:
-  v62 = v1[2];
-  EntityProperty.wrappedValue.getter();
-  OUTLINED_FUNCTION_179_2();
-  memcpy(v63, v64, 0x88uLL);
-  v65 = v0[2];
-  EntityProperty.wrappedValue.getter();
-  memcpy(&__dst[136], v358, 0x88uLL);
-  OUTLINED_FUNCTION_172_2(v355);
-  OUTLINED_FUNCTION_101_4(v355);
-  if (v12)
-  {
-    memcpy(v356, &__dst[136], 0x88uLL);
-    OUTLINED_FUNCTION_101_4(v356);
-    if (v12)
-    {
-      v66 = OUTLINED_FUNCTION_127_4();
-      memcpy(v66, v67, 0x88uLL);
-      outlined destroy of IntentApplication?(v350, &_s10OmniSearch18GenericEventEntityVSgMd, &_s10OmniSearch18GenericEventEntityVSgMR);
-      goto LABEL_22;
-    }
-
-    goto LABEL_20;
-  }
-
-  v68 = OUTLINED_FUNCTION_127_4();
-  memcpy(v68, v69, 0x88uLL);
-  memcpy(v356, &__dst[136], 0x88uLL);
-  v71 = OUTLINED_FUNCTION_101_4(v356);
-  if (v70)
-  {
-    v79 = OUTLINED_FUNCTION_112_4(v71, v72, v73, v74, v75, v76, v77, v78, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0], v335[1], v335[2], v335[3], v335[4], v335[5], v335[6], v335[7], v335[8], v335[9], v335[10], v335[11], v335[12], v335[13], v336, v337, v338, v339, v340, v341, v342, v343, v344, v345, v346, v347, v348, v349[0]);
-    v81 = memcpy(v79, v80, 0x88uLL);
-    OUTLINED_FUNCTION_276(v81, v82, &_s10OmniSearch18GenericEventEntityVSgMd, &_s10OmniSearch18GenericEventEntityVSgMR, v83, v84, v85, v86, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0]);
-    outlined destroy of GenericEventEntity(v349);
-LABEL_20:
-    v87 = OUTLINED_FUNCTION_170_2();
-    memcpy(v87, v88, 0x110uLL);
-    v31 = &_s10OmniSearch18GenericEventEntityVSg_ADtMd;
-    v32 = &_s10OmniSearch18GenericEventEntityVSg_ADtMR;
-    goto LABEL_41;
-  }
-
-  OUTLINED_FUNCTION_113_4(v71, v72, v73, v74, v75, v76, v77, v78, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0], v335[1], v335[2], v335[3], v335[4], v335[5], v335[6], v335[7], v335[8], v335[9], v335[10], v335[11], v335[12], v335[13], v336, v337, v338, v339, v340, v341, v342, v343, v344, v345, v346, v347, v348, v349[0]);
-  static GenericEventEntity.== infix(_:_:)(__dst, &__dst[136]);
-  OUTLINED_FUNCTION_240_1();
-  memcpy(v89, &__dst[136], 0x88uLL);
-  v90 = outlined destroy of GenericEventEntity(v326);
-  v98 = OUTLINED_FUNCTION_143_2(v90, v91, v92, v93, v94, v95, v96, v97, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0]);
-  memcpy(v98, v99, 0x88uLL);
-  v100 = outlined destroy of GenericEventEntity(v335);
-  v108 = OUTLINED_FUNCTION_112_4(v100, v101, v102, v103, v104, v105, v106, v107, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0], v335[1], v335[2], v335[3], v335[4], v335[5], v335[6], v335[7], v335[8], v335[9], v335[10], v335[11], v335[12], v335[13], v336, v337, v338, v339, v340, v341, v342, v343, v344, v345, v346, v347, v348, v349[0]);
-  v110 = memcpy(v108, v109, 0x88uLL);
-  OUTLINED_FUNCTION_169_2(v110, v111, v112, v113, v114, v115, v116, v117, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0], v335[1], v335[2], v335[3], v335[4], v335[5], v335[6], v335[7], v335[8], v335[9], v335[10], v335[11], v335[12], v335[13], v336, v337, v338, v339, v340, v341, v342, v343, v344, v345, v346, v347, v348, v349[0]);
-  if ((v2 & 1) == 0)
-  {
-    goto LABEL_43;
-  }
-
-LABEL_22:
-  v118 = v1[3];
-  EntityProperty.wrappedValue.getter();
-  OUTLINED_FUNCTION_179_2();
-  memcpy(v119, v120, 0x80uLL);
-  v121 = v0[3];
-  EntityProperty.wrappedValue.getter();
-  memcpy(&__dst[128], v358, 0x80uLL);
-  memcpy(v354, __dst, sizeof(v354));
-  OUTLINED_FUNCTION_101_4(v354);
-  if (v12)
-  {
-    OUTLINED_FUNCTION_171_1();
-    OUTLINED_FUNCTION_101_4(v356);
-    if (v12)
-    {
-      v122 = OUTLINED_FUNCTION_127_4();
-      memcpy(v122, v123, 0x80uLL);
-      outlined destroy of IntentApplication?(v350, &_s10OmniSearch22HotelReservationEntityVSgMd, &_s10OmniSearch22HotelReservationEntityVSgMR);
-      goto LABEL_32;
-    }
-
-    goto LABEL_30;
-  }
-
-  v124 = OUTLINED_FUNCTION_127_4();
-  memcpy(v124, v125, 0x80uLL);
-  OUTLINED_FUNCTION_171_1();
-  v127 = OUTLINED_FUNCTION_101_4(v356);
-  if (v126)
-  {
-    v135 = OUTLINED_FUNCTION_112_4(v127, v128, v129, v130, v131, v132, v133, v134, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0], v335[1], v335[2], v335[3], v335[4], v335[5], v335[6], v335[7], v335[8], v335[9], v335[10], v335[11], v335[12], v335[13], v336, v337, v338, v339, v340, v341, v342, v343, v344, v345, v346, v347, v348, v349[0]);
-    v137 = memcpy(v135, v136, 0x80uLL);
-    OUTLINED_FUNCTION_276(v137, v138, &_s10OmniSearch22HotelReservationEntityVSgMd, &_s10OmniSearch22HotelReservationEntityVSgMR, v139, v140, v141, v142, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0]);
-    outlined destroy of HotelReservationEntity(v349);
-LABEL_30:
-    v143 = OUTLINED_FUNCTION_170_2();
-    memcpy(v143, v144, 0x100uLL);
-    v31 = &_s10OmniSearch22HotelReservationEntityVSg_ADtMd;
-    v32 = &_s10OmniSearch22HotelReservationEntityVSg_ADtMR;
-    goto LABEL_41;
-  }
-
-  OUTLINED_FUNCTION_113_4(v127, v128, v129, v130, v131, v132, v133, v134, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0], v335[1], v335[2], v335[3], v335[4], v335[5], v335[6], v335[7], v335[8], v335[9], v335[10], v335[11], v335[12], v335[13], v336, v337, v338, v339, v340, v341, v342, v343, v344, v345, v346, v347, v348, v349[0]);
-  static HotelReservationEntity.== infix(_:_:)(__dst, &__dst[128]);
-  OUTLINED_FUNCTION_240_1();
-  memcpy(v145, &__dst[128], 0x80uLL);
-  v146 = outlined destroy of HotelReservationEntity(v326);
-  v154 = OUTLINED_FUNCTION_143_2(v146, v147, v148, v149, v150, v151, v152, v153, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0]);
-  memcpy(v154, v155, 0x80uLL);
-  v156 = outlined destroy of HotelReservationEntity(v335);
-  v164 = OUTLINED_FUNCTION_112_4(v156, v157, v158, v159, v160, v161, v162, v163, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0], v335[1], v335[2], v335[3], v335[4], v335[5], v335[6], v335[7], v335[8], v335[9], v335[10], v335[11], v335[12], v335[13], v336, v337, v338, v339, v340, v341, v342, v343, v344, v345, v346, v347, v348, v349[0]);
-  v166 = memcpy(v164, v165, 0x80uLL);
-  OUTLINED_FUNCTION_169_2(v166, v167, v168, v169, v170, v171, v172, v173, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0], v335[1], v335[2], v335[3], v335[4], v335[5], v335[6], v335[7], v335[8], v335[9], v335[10], v335[11], v335[12], v335[13], v336, v337, v338, v339, v340, v341, v342, v343, v344, v345, v346, v347, v348, v349[0]);
-  if ((v2 & 1) == 0)
-  {
-    goto LABEL_43;
-  }
-
-LABEL_32:
-  v174 = v1[4];
-  EntityProperty.wrappedValue.getter();
-  OUTLINED_FUNCTION_179_2();
-  memcpy(v175, v176, 0x80uLL);
-  v177 = v0[4];
-  EntityProperty.wrappedValue.getter();
-  memcpy(&__dst[128], v358, 0x80uLL);
-  memcpy(v353, __dst, sizeof(v353));
-  OUTLINED_FUNCTION_101_4(v353);
-  if (v12)
-  {
-    OUTLINED_FUNCTION_171_1();
-    OUTLINED_FUNCTION_101_4(v356);
-    if (v12)
-    {
-      v178 = OUTLINED_FUNCTION_127_4();
-      memcpy(v178, v179, 0x80uLL);
-      outlined destroy of IntentApplication?(v350, &_s10OmniSearch27RestaurantReservationEntityVSgMd, &_s10OmniSearch27RestaurantReservationEntityVSgMR);
-      goto LABEL_45;
-    }
-
-    goto LABEL_40;
-  }
-
-  v180 = OUTLINED_FUNCTION_127_4();
-  memcpy(v180, v181, 0x80uLL);
-  OUTLINED_FUNCTION_171_1();
-  v183 = OUTLINED_FUNCTION_101_4(v356);
-  if (v182)
-  {
-    v191 = OUTLINED_FUNCTION_112_4(v183, v184, v185, v186, v187, v188, v189, v190, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0], v335[1], v335[2], v335[3], v335[4], v335[5], v335[6], v335[7], v335[8], v335[9], v335[10], v335[11], v335[12], v335[13], v336, v337, v338, v339, v340, v341, v342, v343, v344, v345, v346, v347, v348, v349[0]);
-    v193 = memcpy(v191, v192, 0x80uLL);
-    OUTLINED_FUNCTION_276(v193, v194, &_s10OmniSearch27RestaurantReservationEntityVSgMd, &_s10OmniSearch27RestaurantReservationEntityVSgMR, v195, v196, v197, v198, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0]);
-    outlined destroy of RestaurantReservationEntity(v349);
-LABEL_40:
-    v199 = OUTLINED_FUNCTION_170_2();
-    memcpy(v199, v200, 0x100uLL);
-    v31 = &_s10OmniSearch27RestaurantReservationEntityVSg_ADtMd;
-    v32 = &_s10OmniSearch27RestaurantReservationEntityVSg_ADtMR;
-    goto LABEL_41;
-  }
-
-  OUTLINED_FUNCTION_113_4(v183, v184, v185, v186, v187, v188, v189, v190, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0], v335[1], v335[2], v335[3], v335[4], v335[5], v335[6], v335[7], v335[8], v335[9], v335[10], v335[11], v335[12], v335[13], v336, v337, v338, v339, v340, v341, v342, v343, v344, v345, v346, v347, v348, v349[0]);
-  static RestaurantReservationEntity.== infix(_:_:)(__dst, &__dst[128]);
-  OUTLINED_FUNCTION_240_1();
-  memcpy(v202, &__dst[128], 0x80uLL);
-  v203 = outlined destroy of RestaurantReservationEntity(v326);
-  v211 = OUTLINED_FUNCTION_143_2(v203, v204, v205, v206, v207, v208, v209, v210, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0]);
-  memcpy(v211, v212, 0x80uLL);
-  v213 = outlined destroy of RestaurantReservationEntity(v335);
-  v221 = OUTLINED_FUNCTION_112_4(v213, v214, v215, v216, v217, v218, v219, v220, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0], v335[1], v335[2], v335[3], v335[4], v335[5], v335[6], v335[7], v335[8], v335[9], v335[10], v335[11], v335[12], v335[13], v336, v337, v338, v339, v340, v341, v342, v343, v344, v345, v346, v347, v348, v349[0]);
-  v223 = memcpy(v221, v222, 0x80uLL);
-  OUTLINED_FUNCTION_169_2(v223, v224, v225, v226, v227, v228, v229, v230, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0], v335[1], v335[2], v335[3], v335[4], v335[5], v335[6], v335[7], v335[8], v335[9], v335[10], v335[11], v335[12], v335[13], v336, v337, v338, v339, v340, v341, v342, v343, v344, v345, v346, v347, v348, v349[0]);
-  if ((v2 & 1) == 0)
-  {
-    goto LABEL_43;
-  }
-
-LABEL_45:
-  v231 = v1[5];
-  EntityProperty.wrappedValue.getter();
-  v232 = v356[0];
-  OUTLINED_FUNCTION_248_0();
-  memcpy(v233, v234, v235);
-  v236 = v0[5];
-  EntityProperty.wrappedValue.getter();
-  v237 = __src[0];
-  OUTLINED_FUNCTION_248_0();
-  v241 = memcpy(v238, v239, v240);
-  if (!v232)
-  {
-    if (!v237)
-    {
-      *__dst = 0;
-      OUTLINED_FUNCTION_266(v241, v242, v243, v244, v245, v246, v247, v248, v326[0]);
-      outlined destroy of IntentApplication?(__dst, &_s10OmniSearch28TicketedTransportationEntityVSgMd, &_s10OmniSearch28TicketedTransportationEntityVSgMR);
-      goto LABEL_51;
-    }
-
-LABEL_57:
-    *__dst = v232;
-    memcpy(&__dst[8], v326, 0x68uLL);
-    *&__dst[112] = v237;
-    memcpy(&__dst[120], v351, 0x68uLL);
-    v31 = &_s10OmniSearch28TicketedTransportationEntityVSg_ADtMd;
-    v32 = &_s10OmniSearch28TicketedTransportationEntityVSg_ADtMR;
-    v201 = __dst;
-    goto LABEL_42;
-  }
-
-  *__dst = v232;
-  OUTLINED_FUNCTION_266(v241, v242, v243, v244, v245, v246, v247, v248, v326[0]);
-  memcpy(v358, __dst, 0x70uLL);
-  if (!v237)
-  {
-    v273 = OUTLINED_FUNCTION_127_4();
-    memcpy(v273, v274, 0x70uLL);
-    outlined init with copy of ResourceBundle?(__dst, v349, &_s10OmniSearch28TicketedTransportationEntityVSgMd, &_s10OmniSearch28TicketedTransportationEntityVSgMR);
-    outlined destroy of TicketedTransportationEntity(v350);
-    goto LABEL_57;
-  }
-
-  OUTLINED_FUNCTION_248_0();
-  memcpy(v249, v250, v251);
-  v350[0] = v237;
-  outlined init with copy of ResourceBundle?(__dst, v349, &_s10OmniSearch28TicketedTransportationEntityVSgMd, &_s10OmniSearch28TicketedTransportationEntityVSgMR);
-  v252 = static TicketedTransportationEntity.== infix(_:_:)(v358);
-  memcpy(v335, v350, sizeof(v335));
-  outlined destroy of TicketedTransportationEntity(v335);
-  memcpy(v349, v358, 0x70uLL);
-  outlined destroy of TicketedTransportationEntity(v349);
-  v350[0] = v232;
-  memcpy(&v350[1], v326, 0x68uLL);
-  outlined destroy of IntentApplication?(v350, &_s10OmniSearch28TicketedTransportationEntityVSgMd, &_s10OmniSearch28TicketedTransportationEntityVSgMR);
-  if ((v252 & 1) == 0)
-  {
-    goto LABEL_43;
-  }
-
-LABEL_51:
-  v253 = v1[6];
-  EntityProperty.wrappedValue.getter();
-  memcpy(__dst, v358, 0x98uLL);
-  v254 = v0[6];
-  EntityProperty.wrappedValue.getter();
-  memcpy(&__dst[152], v350, 0x98uLL);
-  memcpy(__src, __dst, 0x98uLL);
-  v255 = OUTLINED_FUNCTION_101_4(__src);
-  if (v12)
-  {
-    memcpy(v356, &__dst[152], 0x98uLL);
-    v263 = OUTLINED_FUNCTION_101_4(v356);
-    if (v12)
-    {
-      v271 = OUTLINED_FUNCTION_112_4(v263, v264, v265, v266, v267, v268, v269, v270, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0], v335[1], v335[2], v335[3], v335[4], v335[5], v335[6], v335[7], v335[8], v335[9], v335[10], v335[11], v335[12], v335[13], v336, v337, v338, v339, v340, v341, v342, v343, v344, v345, v346, v347, v348, v349[0]);
-      memcpy(v271, v272, 0x98uLL);
-      outlined destroy of IntentApplication?(v349, &_s10OmniSearch24VehicleReservationEntityVSgMd, &_s10OmniSearch24VehicleReservationEntityVSgMR);
-LABEL_63:
-      v301 = v1[7];
-      EntityProperty.wrappedValue.getter();
-      memcpy(__dst, v350, 0x88uLL);
-      v302 = v0[7];
-      EntityProperty.wrappedValue.getter();
-      memcpy(&__dst[136], v349, 0x88uLL);
-      OUTLINED_FUNCTION_172_2(v358);
-      v303 = OUTLINED_FUNCTION_101_4(v358);
-      if (v12)
-      {
-        memcpy(v356, &__dst[136], 0x88uLL);
-        v311 = OUTLINED_FUNCTION_101_4(v356);
-        if (v12)
-        {
-          v319 = OUTLINED_FUNCTION_143_2(v311, v312, v313, v314, v315, v316, v317, v318, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0]);
-          memcpy(v319, v320, 0x88uLL);
-          outlined destroy of IntentApplication?(v335, &_s10OmniSearch18TicketedShowEntityVSgMd, &_s10OmniSearch18TicketedShowEntityVSgMR);
-          goto LABEL_43;
-        }
-      }
-
-      else
-      {
-        v321 = OUTLINED_FUNCTION_143_2(v303, v304, v305, v306, v307, v308, v309, v310, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0]);
-        memcpy(v321, v322, 0x88uLL);
-        memcpy(v356, &__dst[136], 0x88uLL);
-        OUTLINED_FUNCTION_101_4(v356);
-        if (!v323)
-        {
-          outlined init with copy of ResourceBundle?(v335, v326, &_s10OmniSearch18TicketedShowEntityVSgMd, &_s10OmniSearch18TicketedShowEntityVSgMR);
-          static TicketedShowEntity.== infix(_:_:)(__dst);
-          memcpy(v352, &__dst[136], sizeof(v352));
-          outlined destroy of TicketedShowEntity(v352);
-          OUTLINED_FUNCTION_172_2(v351);
-          outlined destroy of TicketedShowEntity(v351);
-          OUTLINED_FUNCTION_172_2(v326);
-          outlined destroy of IntentApplication?(v326, &_s10OmniSearch18TicketedShowEntityVSgMd, &_s10OmniSearch18TicketedShowEntityVSgMR);
-          goto LABEL_43;
-        }
-
-        OUTLINED_FUNCTION_172_2(v326);
-        outlined init with copy of ResourceBundle?(v335, v351, &_s10OmniSearch18TicketedShowEntityVSgMd, &_s10OmniSearch18TicketedShowEntityVSgMR);
-        outlined destroy of TicketedShowEntity(v326);
-      }
-
-      v324 = OUTLINED_FUNCTION_170_2();
-      memcpy(v324, v325, 0x110uLL);
-      v31 = &_s10OmniSearch18TicketedShowEntityVSg_ADtMd;
-      v32 = &_s10OmniSearch18TicketedShowEntityVSg_ADtMR;
-      goto LABEL_41;
-    }
-
-    goto LABEL_61;
-  }
-
-  v275 = OUTLINED_FUNCTION_112_4(v255, v256, v257, v258, v259, v260, v261, v262, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0], v335[1], v335[2], v335[3], v335[4], v335[5], v335[6], v335[7], v335[8], v335[9], v335[10], v335[11], v335[12], v335[13], v336, v337, v338, v339, v340, v341, v342, v343, v344, v345, v346, v347, v348, v349[0]);
-  memcpy(v275, v276, 0x98uLL);
-  memcpy(v356, &__dst[152], 0x98uLL);
-  v278 = OUTLINED_FUNCTION_101_4(v356);
-  if (v277)
-  {
-    v286 = OUTLINED_FUNCTION_143_2(v278, v279, v280, v281, v282, v283, v284, v285, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0]);
-    memcpy(v286, v287, 0x98uLL);
-    outlined init with copy of ResourceBundle?(v349, v326, &_s10OmniSearch24VehicleReservationEntityVSgMd, &_s10OmniSearch24VehicleReservationEntityVSgMR);
-    outlined destroy of VehicleReservationEntity(v335);
-LABEL_61:
-    v288 = OUTLINED_FUNCTION_170_2();
-    memcpy(v288, v289, 0x130uLL);
-    v31 = &_s10OmniSearch24VehicleReservationEntityVSg_ADtMd;
-    v32 = &_s10OmniSearch24VehicleReservationEntityVSg_ADtMR;
-    goto LABEL_41;
-  }
-
-  outlined init with copy of ResourceBundle?(v349, v335, &_s10OmniSearch24VehicleReservationEntityVSgMd, &_s10OmniSearch24VehicleReservationEntityVSgMR);
-  v290 = static VehicleReservationEntity.== infix(_:_:)(__dst);
-  memcpy(v351, &__dst[152], sizeof(v351));
-  outlined destroy of VehicleReservationEntity(v351);
-  memcpy(v326, __dst, sizeof(v326));
-  v291 = outlined destroy of VehicleReservationEntity(v326);
-  v299 = OUTLINED_FUNCTION_143_2(v291, v292, v293, v294, v295, v296, v297, v298, v326[0], v326[1], v326[2], v326[3], v326[4], v326[5], v326[6], v326[7], v326[8], v326[9], v326[10], v326[11], v326[12], v326[13], v326[14], v326[15], v326[16], v326[17], v326[18], v327, v328, v329, v330, v331, v332, v333, v334, v335[0]);
-  memcpy(v299, v300, 0x98uLL);
-  outlined destroy of IntentApplication?(v335, &_s10OmniSearch24VehicleReservationEntityVSgMd, &_s10OmniSearch24VehicleReservationEntityVSgMR);
-  if (v290)
-  {
-    goto LABEL_63;
-  }
-
-LABEL_43:
-  OUTLINED_FUNCTION_203();
-}
-
-uint64_t EventEntity.convertToSystemIntentValue()@<X0>(_BYTE *a1@<X8>)
-{
-  v2 = v1;
-  v4 = *v1;
-  EntityProperty.wrappedValue.getter();
-  v5 = *(type metadata accessor for EventEntity() + 56);
-  v6 = type metadata accessor for SearchPreExtractedEventStandardRepresentation();
-  outlined init with copy of ResourceBundle?(v2 + v5, &a1[*(v6 + 20)], &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
-  v7 = v2[9];
-  v8 = v2[10];
-  *a1 = v11;
-  v9 = &a1[*(v6 + 24)];
-  *v9 = v7;
-  v9[1] = v8;
-  return outlined copy of Data?(v7, v8);
-}
-
-void EventEntity.init(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
-{
-  OUTLINED_FUNCTION_155();
-  a19 = v22;
-  a20 = v23;
-  v213 = v24;
-  OUTLINED_FUNCTION_113();
-  v25 = type metadata accessor for SearchPreExtractedEventStandardRepresentation();
-  v26 = OUTLINED_FUNCTION_17(v25);
-  v28 = *(v27 + 64);
-  MEMORY[0x28223BE20](v26);
-  OUTLINED_FUNCTION_39_0();
-  v210 = v29;
-  OUTLINED_FUNCTION_174();
-  MEMORY[0x28223BE20](v30);
-  OUTLINED_FUNCTION_14_2();
-  v212 = v31;
-  OUTLINED_FUNCTION_78_0();
-  v32 = type metadata accessor for Trip();
-  v33 = OUTLINED_FUNCTION_14(v32);
-  v208 = v34;
-  v209 = v33;
-  v36 = *(v35 + 64);
-  MEMORY[0x28223BE20](v33);
-  OUTLINED_FUNCTION_39_0();
-  v207 = v37;
-  OUTLINED_FUNCTION_174();
-  MEMORY[0x28223BE20](v38);
-  OUTLINED_FUNCTION_14_2();
-  v206 = v39;
-  OUTLINED_FUNCTION_78_0();
-  v40 = type metadata accessor for Party();
-  v41 = OUTLINED_FUNCTION_14(v40);
-  v204 = v42;
-  v205 = v41;
-  v44 = *(v43 + 64);
-  MEMORY[0x28223BE20](v41);
-  OUTLINED_FUNCTION_39_0();
-  v203 = v45;
-  OUTLINED_FUNCTION_174();
-  MEMORY[0x28223BE20](v46);
-  OUTLINED_FUNCTION_14_2();
-  v202 = v47;
-  OUTLINED_FUNCTION_78_0();
-  v48 = type metadata accessor for Appointment();
-  v49 = OUTLINED_FUNCTION_14(v48);
-  v200 = v50;
-  v201 = v49;
-  v52 = *(v51 + 64);
-  MEMORY[0x28223BE20](v49);
-  OUTLINED_FUNCTION_39_0();
-  v199 = v53;
-  OUTLINED_FUNCTION_174();
-  MEMORY[0x28223BE20](v54);
-  OUTLINED_FUNCTION_14_2();
-  v198 = v55;
-  OUTLINED_FUNCTION_78_0();
-  v56 = type metadata accessor for TicketedShow();
-  v57 = OUTLINED_FUNCTION_14(v56);
-  v196 = v58;
-  v197 = v57;
-  v60 = *(v59 + 64);
-  MEMORY[0x28223BE20](v57);
-  OUTLINED_FUNCTION_39_0();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v61);
-  OUTLINED_FUNCTION_14_2();
-  OUTLINED_FUNCTION_28_2(v62);
-  v63 = type metadata accessor for TicketedTransportation();
-  v64 = OUTLINED_FUNCTION_256_1(v63);
-  v65 = OUTLINED_FUNCTION_14(v64);
-  v195 = v66;
-  v68 = *(v67 + 64);
-  MEMORY[0x28223BE20](v65);
-  OUTLINED_FUNCTION_39_0();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v69);
-  OUTLINED_FUNCTION_14_2();
-  OUTLINED_FUNCTION_28_2(v70);
-  v71 = type metadata accessor for RentalCarReservation();
-  v72 = OUTLINED_FUNCTION_253_1(v71);
-  v73 = OUTLINED_FUNCTION_14(v72);
-  v194 = v74;
-  v76 = *(v75 + 64);
-  MEMORY[0x28223BE20](v73);
-  OUTLINED_FUNCTION_39_0();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v77);
-  OUTLINED_FUNCTION_14_2();
-  OUTLINED_FUNCTION_28_2(v78);
-  v79 = type metadata accessor for RestaurantReservation();
-  v80 = OUTLINED_FUNCTION_245_1(v79);
-  v81 = OUTLINED_FUNCTION_14(v80);
-  v193 = v82;
-  v84 = *(v83 + 64);
-  MEMORY[0x28223BE20](v81);
-  OUTLINED_FUNCTION_39_0();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v85);
-  OUTLINED_FUNCTION_14_2();
-  OUTLINED_FUNCTION_28_2(v86);
-  v192 = type metadata accessor for HotelReservation();
-  v87 = OUTLINED_FUNCTION_14(v192);
-  v191 = v88;
-  v90 = *(v89 + 64);
-  MEMORY[0x28223BE20](v87);
-  OUTLINED_FUNCTION_39_0();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v91);
-  OUTLINED_FUNCTION_14_2();
-  OUTLINED_FUNCTION_28_2(v92);
-  v93 = type metadata accessor for EventEntity();
-  v94 = v93 - 8;
-  v95 = *(*(v93 - 8) + 64);
-  MEMORY[0x28223BE20](v93);
-  OUTLINED_FUNCTION_36();
-  v211 = v97 - v96;
-  OUTLINED_FUNCTION_78_0();
-  v190 = type metadata accessor for FlightReservation();
-  v98 = OUTLINED_FUNCTION_14(v190);
-  v189[2] = v99;
-  v101 = *(v100 + 64);
-  MEMORY[0x28223BE20](v98);
-  OUTLINED_FUNCTION_39_0();
-  OUTLINED_FUNCTION_4_3();
-  MEMORY[0x28223BE20](v102);
-  v104 = v189 - v103;
-  v105 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
-  OUTLINED_FUNCTION_114(v105);
-  v107 = *(v106 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v108);
-  v110 = v189 - v109;
-  v111 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B10ResultItemOSgMd, &_s10OmniSearch0B10ResultItemOSgMR);
-  v112 = OUTLINED_FUNCTION_114(v111);
-  v114 = *(v113 + 64);
-  MEMORY[0x28223BE20](v112);
-  OUTLINED_FUNCTION_109();
-  v117 = v115 - v116;
-  MEMORY[0x28223BE20](v118);
-  v119 = OUTLINED_FUNCTION_263_0();
-  v120 = OUTLINED_FUNCTION_114(v119);
-  v122 = *(v121 + 64);
-  MEMORY[0x28223BE20](v120);
-  OUTLINED_FUNCTION_36();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10OmniSearch12EventSubTypeOGMd, &_s10AppIntents14EntityPropertyCy10OmniSearch12EventSubTypeOGMR);
-  OUTLINED_FUNCTION_18_11();
-  LocalizedStringResource.init(stringLiteral:)();
-  lazy protocol witness table accessor for type EventSubType and conformance EventSubType();
-  OUTLINED_FUNCTION_74_6();
-  *v20 = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10OmniSearch017FlightReservationC0VSgGMd, &_s10AppIntents14EntityPropertyCy10OmniSearch017FlightReservationC0VSgGMR);
-  OUTLINED_FUNCTION_72_5();
-  LocalizedStringResource.init(stringLiteral:)();
-  lazy protocol witness table accessor for type FlightReservationEntity and conformance FlightReservationEntity();
-  OUTLINED_FUNCTION_74_6();
-  v20[1] = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10OmniSearch012GenericEventC0VSgGMd, &_s10AppIntents14EntityPropertyCy10OmniSearch012GenericEventC0VSgGMR);
-  OUTLINED_FUNCTION_72_5();
-  OUTLINED_FUNCTION_214_0();
-  lazy protocol witness table accessor for type GenericEventEntity and conformance GenericEventEntity();
-  OUTLINED_FUNCTION_74_6();
-  v20[2] = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10OmniSearch016HotelReservationC0VSgGMd, &_s10AppIntents14EntityPropertyCy10OmniSearch016HotelReservationC0VSgGMR);
-  OUTLINED_FUNCTION_72_5();
-  LocalizedStringResource.init(stringLiteral:)();
-  lazy protocol witness table accessor for type HotelReservationEntity and conformance HotelReservationEntity();
-  OUTLINED_FUNCTION_74_6();
-  v20[3] = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10OmniSearch021RestaurantReservationC0VSgGMd, &_s10AppIntents14EntityPropertyCy10OmniSearch021RestaurantReservationC0VSgGMR);
-  OUTLINED_FUNCTION_72_5();
-  LocalizedStringResource.init(stringLiteral:)();
-  lazy protocol witness table accessor for type RestaurantReservationEntity and conformance RestaurantReservationEntity();
-  OUTLINED_FUNCTION_74_6();
-  v20[4] = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10OmniSearch022TicketedTransportationC0VSgGMd, &_s10AppIntents14EntityPropertyCy10OmniSearch022TicketedTransportationC0VSgGMR);
-  OUTLINED_FUNCTION_72_5();
-  LocalizedStringResource.init(stringLiteral:)();
-  lazy protocol witness table accessor for type TicketedTransportationEntity and conformance TicketedTransportationEntity();
-  OUTLINED_FUNCTION_74_6();
-  v20[5] = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10OmniSearch018VehicleReservationC0VSgGMd, &_s10AppIntents14EntityPropertyCy10OmniSearch018VehicleReservationC0VSgGMR);
-  OUTLINED_FUNCTION_72_5();
-  LocalizedStringResource.init(stringLiteral:)();
-  lazy protocol witness table accessor for type VehicleReservationEntity and conformance VehicleReservationEntity();
-  OUTLINED_FUNCTION_74_6();
-  v20[6] = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10OmniSearch012TicketedShowC0VSgGMd, &_s10AppIntents14EntityPropertyCy10OmniSearch012TicketedShowC0VSgGMR);
-  OUTLINED_FUNCTION_72_5();
-  OUTLINED_FUNCTION_214_0();
-  lazy protocol witness table accessor for type TicketedShowEntity and conformance TicketedShowEntity();
-  OUTLINED_FUNCTION_74_6();
-  v20[7] = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10OmniSearch013ShippingOrderC0VSgGMd, &_s10AppIntents14EntityPropertyCy10OmniSearch013ShippingOrderC0VSgGMR);
-  v123 = v213;
-  OUTLINED_FUNCTION_72_5();
-  LocalizedStringResource.init(stringLiteral:)();
-  lazy protocol witness table accessor for type ShippingOrderEntity and conformance ShippingOrderEntity();
-  OUTLINED_FUNCTION_74_6();
-  v20[8] = EntityProperty<>.init(title:)();
-  *(v20 + 9) = xmmword_25DBC9410;
-  v124 = *(v94 + 64);
-  v125 = type metadata accessor for SearchResult(0);
-  OUTLINED_FUNCTION_92();
-  __swift_storeEnumTagSinglePayload(v126, v127, v128, v125);
-  v214 = v25;
-  v129 = *(v25 + 20);
-  outlined init with copy of ResourceBundle?(&v123[v129], v110, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
-  OUTLINED_FUNCTION_166(v110, 1, v125);
-  if (v130)
-  {
-    outlined destroy of IntentApplication?(v110, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
-    type metadata accessor for SearchResultItem(0);
-    OUTLINED_FUNCTION_92();
-    __swift_storeEnumTagSinglePayload(v131, v132, v133, v134);
-    outlined destroy of IntentApplication?(v21, &_s10OmniSearch0B10ResultItemOSgMd, &_s10OmniSearch0B10ResultItemOSgMR);
-LABEL_4:
-    v135 = v212;
-    if (one-time initialization token for search != -1)
-    {
-      OUTLINED_FUNCTION_35_0();
-    }
-
-    v136 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v136, static Logging.search);
-    OUTLINED_FUNCTION_104_4();
-    outlined init with copy of EventEntity(v123, v135, v137);
-    v138 = Logger.logObject.getter();
-    v139 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v138, v139))
-    {
-      v140 = v123;
-      v141 = swift_slowAlloc();
-      v142 = swift_slowAlloc();
-      v215 = v142;
-      *v141 = 136315138;
-      OUTLINED_FUNCTION_104_4();
-      outlined init with copy of EventEntity(v135, v210, v143);
-      String.init<A>(describing:)();
-      OUTLINED_FUNCTION_103_5();
-      outlined destroy of EventEntity();
-      v144 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
-
-      *(v141 + 4) = v144;
-      _os_log_impl(&dword_25D85C000, v138, v139, "Unable to init EventEntity with SearchPreExtractedEventStandardRepresentation: %s. Initing Event Entity with just subtype and card", v141, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v142);
-      OUTLINED_FUNCTION_42_0();
-      v123 = v140;
-      OUTLINED_FUNCTION_42_0();
-    }
-
-    else
-    {
-
-      OUTLINED_FUNCTION_103_5();
-      outlined destroy of EventEntity();
-    }
-  }
-
-  else
-  {
-    v145 = OUTLINED_FUNCTION_173_1();
-    outlined init with copy of EventEntity(v145, v146, v147);
-    outlined destroy of EventEntity();
-    v148 = type metadata accessor for SearchResultItem(0);
-    __swift_storeEnumTagSinglePayload(v21, 0, 1, v148);
-    v149 = OUTLINED_FUNCTION_45_0();
-    outlined init with take of SearchResultItem?(v149, v150);
-    v151 = swift_getEnumCaseMultiPayload() - 15;
-    switch(v151)
-    {
-      case 0:
-        v25 = v200;
-        v110 = v201;
-        OUTLINED_FUNCTION_128_4();
-        v21 = v198;
-        v152 = OUTLINED_FUNCTION_45_0();
-        v153(v152);
-        OUTLINED_FUNCTION_93_5();
-        v154 = OUTLINED_FUNCTION_48_5();
-        v155(v154);
-        OUTLINED_FUNCTION_38_9();
-        EventEntity.init(appointment:)();
-        goto LABEL_19;
-      case 1:
-        v162 = *(v117 + *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes17FlightReservationV8document_Say0aB016DialogExperienceCG11experiencestMd, &_s15OmniSearchTypes17FlightReservationV8document_Say0aB016DialogExperienceCG11experiencestMR) + 48));
-
-        OUTLINED_FUNCTION_88_5(&v208);
-        OUTLINED_FUNCTION_186_2();
-        v163();
-        OUTLINED_FUNCTION_93_5();
-        v164(v189[1], v104, v110);
-        OUTLINED_FUNCTION_38_9();
-        EventEntity.init(reservation:)();
-        (*(v25 + 8))(v104, v110);
-        goto LABEL_20;
-      case 2:
-        OUTLINED_FUNCTION_88_5(&v212);
-        OUTLINED_FUNCTION_86_5();
-        OUTLINED_FUNCTION_186_2();
-        v156();
-        OUTLINED_FUNCTION_93_5();
-        v157 = OUTLINED_FUNCTION_44_9();
-        v158(v157);
-        OUTLINED_FUNCTION_38_9();
-        EventEntity.init(reservation:)();
-        goto LABEL_19;
-      case 3:
-        v25 = v204;
-        v110 = v205;
-        OUTLINED_FUNCTION_128_4();
-        v21 = v202;
-        v172 = OUTLINED_FUNCTION_45_0();
-        v173(v172);
-        OUTLINED_FUNCTION_93_5();
-        v174 = OUTLINED_FUNCTION_48_5();
-        v175(v174);
-        OUTLINED_FUNCTION_38_9();
-        EventEntity.init(party:)();
-        goto LABEL_19;
-      case 4:
-        OUTLINED_FUNCTION_88_5(v216);
-        OUTLINED_FUNCTION_86_5();
-        OUTLINED_FUNCTION_186_2();
-        v176();
-        OUTLINED_FUNCTION_93_5();
-        v177 = OUTLINED_FUNCTION_44_9();
-        v178(v177);
-        OUTLINED_FUNCTION_38_9();
-        EventEntity.init(reservation:)();
-        goto LABEL_19;
-      case 5:
-        OUTLINED_FUNCTION_88_5(&a11);
-        OUTLINED_FUNCTION_86_5();
-        OUTLINED_FUNCTION_186_2();
-        v159();
-        OUTLINED_FUNCTION_93_5();
-        v160 = OUTLINED_FUNCTION_44_9();
-        v161(v160);
-        OUTLINED_FUNCTION_38_9();
-        EventEntity.init(reservation:)();
-        goto LABEL_19;
-      case 7:
-        OUTLINED_FUNCTION_88_5(&a15);
-        OUTLINED_FUNCTION_86_5();
-        OUTLINED_FUNCTION_186_2();
-        v165();
-        OUTLINED_FUNCTION_93_5();
-        v166 = OUTLINED_FUNCTION_44_9();
-        v167(v166);
-        OUTLINED_FUNCTION_38_9();
-        EventEntity.init(reservation:)();
-        goto LABEL_19;
-      case 8:
-        v25 = v196;
-        v110 = v197;
-        OUTLINED_FUNCTION_128_4();
-        v168 = OUTLINED_FUNCTION_86_5();
-        v169(v168);
-        OUTLINED_FUNCTION_93_5();
-        v170 = OUTLINED_FUNCTION_44_9();
-        v171(v170);
-        OUTLINED_FUNCTION_38_9();
-        EventEntity.init(reservation:)();
-        goto LABEL_19;
-      case 9:
-        v25 = v208;
-        v110 = v209;
-        OUTLINED_FUNCTION_128_4();
-        v21 = v206;
-        v179 = OUTLINED_FUNCTION_45_0();
-        v180(v179);
-        OUTLINED_FUNCTION_93_5();
-        v181 = OUTLINED_FUNCTION_48_5();
-        v182(v181);
-        OUTLINED_FUNCTION_38_9();
-        EventEntity.init(trip:)();
-LABEL_19:
-        (*(v25 + 8))(v21, v110);
-LABEL_20:
-        v183 = OUTLINED_FUNCTION_107();
-        outlined assign with take of EventEntity(v183, v184);
-        break;
-      default:
-        outlined destroy of EventEntity();
-        goto LABEL_4;
-    }
-  }
-
-  v185 = *v20;
-  v216[7] = *v123;
-  EntityProperty.wrappedValue.setter();
-  v186 = &v123[*(v214 + 24)];
-  v187 = *v186;
-  v188 = v186[1];
-  outlined consume of Data?(v20[9], v20[10]);
-  v20[9] = v187;
-  v20[10] = v188;
-  outlined assign with take of SearchResult?(&v123[v129], v20 + v124);
-  OUTLINED_FUNCTION_148();
-}
-
-uint64_t protocol witness for static AppEntity.defaultQuery.getter in conformance EventEntity(uint64_t a1)
-{
-  v2 = _s16IntelligenceFlow13RGPluginModelOAC10SnippetKit0e6PluginD0AAWlTm_0(&lazy protocol witness table cache variable for type EventEntity and conformance EventEntity);
-
-  return MEMORY[0x28210B2E8](a1, v2);
-}
-
-uint64_t protocol witness for static Transferable.transferRepresentation.getter in conformance EventEntity(uint64_t a1)
-{
-  v2 = _s16IntelligenceFlow13RGPluginModelOAC10SnippetKit0e6PluginD0AAWlTm_0(&lazy protocol witness table cache variable for type EventEntity and conformance EventEntity);
-
-  return MEMORY[0x28210C5A0](a1, v2);
-}
-
-uint64_t protocol witness for Identifiable.id.getter in conformance EventEntity()
-{
-  _s16IntelligenceFlow13RGPluginModelOAC10SnippetKit0e6PluginD0AAWlTm_0(&lazy protocol witness table cache variable for type EventEntity and conformance EventEntity);
-
-  return UUID.init()();
-}
-
-uint64_t protocol witness for static _IntentValue.defaultResolverSpecification.getter in conformance EventEntity(uint64_t a1)
-{
-  v2 = _s16IntelligenceFlow13RGPluginModelOAC10SnippetKit0e6PluginD0AAWlTm_0(&lazy protocol witness table cache variable for type EventEntity and conformance EventEntity);
-
-  return MEMORY[0x28210B488](a1, v2);
-}
-
-uint64_t protocol witness for CustomLocalizedStringResourceConvertible.localizedStringResource.getter in conformance EventEntity(uint64_t a1)
-{
-  v2 = _s16IntelligenceFlow13RGPluginModelOAC10SnippetKit0e6PluginD0AAWlTm_0(&lazy protocol witness table cache variable for type EventEntity and conformance EventEntity);
-
-  return MEMORY[0x28210C4B8](a1, v2);
-}
-
-uint64_t static EventSubType.typeDisplayRepresentation.modify()
-{
-  if (one-time initialization token for typeDisplayRepresentation != -1)
-  {
-    swift_once();
-  }
-
-  v0 = type metadata accessor for TypeDisplayRepresentation();
-  OUTLINED_FUNCTION_30_10(v0, &static EventSubType.typeDisplayRepresentation);
-  return OUTLINED_FUNCTION_66_2();
-}
-
-OmniSearch::EventSubType_optional __swiftcall EventSubType.init(rawValue:)(Swift::String rawValue)
-{
-  object = rawValue._object;
-  v3._countAndFlagsBits = rawValue._countAndFlagsBits;
-  v4 = v1;
-  v3._object = object;
-  v5 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of EventSubType.init(rawValue:), v3);
-
-  v7 = 8;
-  if (v5 < 8)
-  {
-    v7 = v5;
-  }
-
-  *v4 = v7;
-  return result;
-}
-
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance EventSubType(unsigned __int8 *a1, unsigned __int8 *a2)
-{
-  v2 = *a2;
-  v3 = *a1;
-  return specialized == infix<A>(_:_:)();
-}
-
-unint64_t protocol witness for RawRepresentable.rawValue.getter in conformance EventSubType@<X0>(unint64_t *a1@<X8>)
-{
-  result = EventSubType.rawValue.getter();
-  *a1 = result;
-  a1[1] = v3;
-  return result;
-}
-
-uint64_t protocol witness for static _IntentValue.defaultResolverSpecification.getter in conformance EventSubType(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type EventSubType and conformance EventSubType();
-
-  return MEMORY[0x28210B458](a1, v2);
-}
-
-uint64_t protocol witness for CustomLocalizedStringResourceConvertible.localizedStringResource.getter in conformance EventSubType(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type EventSubType and conformance EventSubType();
-
-  return MEMORY[0x28210C300](a1, v2);
-}
-
-uint64_t (*FlightReservationEntity.flightNumber.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *v0;
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*FlightReservationEntity.carrier.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 8);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for FlightReservationEntity.status : FlightReservationEntity(uint64_t *a1, const void *a2)
-{
-  v3 = *a1;
-  v4 = a1[1];
-  memcpy(v6, a2, sizeof(v6));
-
-  outlined init with copy of FlightReservationEntity(v6, __dst);
-  FlightReservationEntity.status.setter();
-  memcpy(__dst, a2, sizeof(__dst));
-  return outlined destroy of FlightReservationEntity(__dst);
-}
-
-uint64_t (*FlightReservationEntity.status.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 16);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t FlightReservationEntity.boardingDateTime.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 24);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*FlightReservationEntity.boardingDateTime.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 24);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*FlightReservationEntity.departureAirportCode.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 32);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*FlightReservationEntity.departureAirportName.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 40);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*FlightReservationEntity.departureTerminal.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 48);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*FlightReservationEntity.departureGate.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 56);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t FlightReservationEntity.departureDateTime.setter()
-{
-  OUTLINED_FUNCTION_42_2();
-  v1 = type metadata accessor for DateComponents();
-  v2 = OUTLINED_FUNCTION_14(v1);
-  v4 = v3;
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v2);
-  OUTLINED_FUNCTION_36();
-  OUTLINED_FUNCTION_136_3();
-  v7 = *(v0 + 64);
-  v8 = OUTLINED_FUNCTION_49_9();
-  v9(v8);
-  EntityProperty.wrappedValue.setter();
-  v10 = *(v4 + 8);
-  v11 = OUTLINED_FUNCTION_32_0();
-  return v12(v11);
-}
-
-uint64_t (*FlightReservationEntity.departureDateTime.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 64);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*FlightReservationEntity.arrivalAirportCode.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 72);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*FlightReservationEntity.arrivalAirportName.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 80);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*FlightReservationEntity.arrivalTerminal.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 88);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t FlightReservationEntity.arrivalGate.getter()
-{
-  v1 = *(v0 + 96);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t (*FlightReservationEntity.arrivalGate.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 96);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t FlightReservationEntity.arrivalDateTime.setter()
-{
-  OUTLINED_FUNCTION_42_2();
-  v1 = type metadata accessor for DateComponents();
-  v2 = OUTLINED_FUNCTION_14(v1);
-  v4 = v3;
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v2);
-  OUTLINED_FUNCTION_36();
-  OUTLINED_FUNCTION_136_3();
-  v7 = *(v0 + 104);
-  v8 = OUTLINED_FUNCTION_49_9();
-  v9(v8);
-  EntityProperty.wrappedValue.setter();
-  v10 = *(v4 + 8);
-  v11 = OUTLINED_FUNCTION_32_0();
-  return v12(v11);
-}
-
-uint64_t (*FlightReservationEntity.arrivalDateTime.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 104);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for FlightReservationEntity.departureDateTime : FlightReservationEntity(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(uint64_t))
-{
-  v7 = type metadata accessor for DateComponents();
-  v8 = OUTLINED_FUNCTION_14(v7);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v8);
-  OUTLINED_FUNCTION_36();
-  v13 = v12 - v11;
-  (*(v14 + 16))(v12 - v11, a1);
-  OUTLINED_FUNCTION_277(v16);
-  outlined init with copy of FlightReservationEntity(v16, v17);
-  a5(v13);
-  OUTLINED_FUNCTION_277(v17);
-  return outlined destroy of FlightReservationEntity(v17);
-}
-
-uint64_t FlightReservationEntity.duration.setter()
-{
-  OUTLINED_FUNCTION_42_2();
-  v1 = type metadata accessor for DateComponents();
-  v2 = OUTLINED_FUNCTION_14(v1);
-  v4 = v3;
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v2);
-  OUTLINED_FUNCTION_36();
-  OUTLINED_FUNCTION_136_3();
-  v7 = *(v0 + 112);
-  v8 = OUTLINED_FUNCTION_49_9();
-  v9(v8);
-  EntityProperty.wrappedValue.setter();
-  v10 = *(v4 + 8);
-  v11 = OUTLINED_FUNCTION_32_0();
-  return v12(v11);
-}
-
-uint64_t (*FlightReservationEntity.duration.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 112);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t FlightReservationEntity.passengerNames.getter()
-{
-  v1 = *(v0 + 120);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t (*FlightReservationEntity.passengerNames.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 120);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t FlightReservationEntity.seatNumbers.getter()
-{
-  v1 = *(v0 + 128);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t key path setter for FlightReservationEntity.passengerNames : FlightReservationEntity(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_74_7(a1);
-  memcpy(v3, v4, 0xD8uLL);
-
-  outlined init with copy of FlightReservationEntity(&v6, v7);
-  v1(v2);
-  OUTLINED_FUNCTION_277(v7);
-  return outlined destroy of FlightReservationEntity(v7);
-}
-
-uint64_t (*FlightReservationEntity.seatNumbers.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 128);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t FlightReservationEntity.bookingProvider.getter()
-{
-  v1 = *(v0 + 136);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t (*FlightReservationEntity.bookingProvider.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 136);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t FlightReservationEntity.designator.getter()
-{
-  v1 = *(v0 + 144);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t (*FlightReservationEntity.designator.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 144);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t FlightReservationEntity.confirmationNumber.getter()
-{
-  v1 = *(v0 + 152);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t key path setter for FlightReservationEntity.flightNumber : FlightReservationEntity(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_96_2(a1);
-  memcpy(v2, v3, 0xD8uLL);
-
-  outlined init with copy of FlightReservationEntity(&v6, v7);
-  v4 = OUTLINED_FUNCTION_34_11();
-  v1(v4);
-  OUTLINED_FUNCTION_277(v7);
-  return outlined destroy of FlightReservationEntity(v7);
-}
-
-uint64_t (*FlightReservationEntity.confirmationNumber.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 152);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-void key path setter for FlightReservationEntity.boardingDateTime : FlightReservationEntity()
-{
-  OUTLINED_FUNCTION_202();
-  v9 = OUTLINED_FUNCTION_81_7(v3, v4, v5, v6, v7, v8);
-  OUTLINED_FUNCTION_114(v9);
-  v11 = *(v10 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v12);
-  OUTLINED_FUNCTION_82_6(v13, v14[0]);
-  memcpy(v14, v1, sizeof(v14));
-  outlined init with copy of FlightReservationEntity(v14, v15);
-  v0(v2);
-  memcpy(v15, v1, sizeof(v15));
-  outlined destroy of FlightReservationEntity(v15);
-  OUTLINED_FUNCTION_203();
-}
-
-uint64_t FlightReservationEntity.checkInUrl.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 160);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*FlightReservationEntity.checkInUrl.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 160);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t FlightReservationEntity.totalDuration.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 168);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*FlightReservationEntity.totalDuration.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 168);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t FlightReservationEntity.cost.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 176);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*FlightReservationEntity.cost.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 176);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t FlightReservationEntity.encodedSearchableItem.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 184);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*FlightReservationEntity.encodedSearchableItem.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 184);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t FlightReservationEntity.openCommand.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 192);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*FlightReservationEntity.openCommand.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 192);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-void FlightReservationEntity.init()()
-{
-  OUTLINED_FUNCTION_155();
-  v1 = v0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8TimeZoneVSgMd, &_s10Foundation8TimeZoneVSgMR);
-  OUTLINED_FUNCTION_114(v2);
-  v4 = *(v3 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v5);
-  OUTLINED_FUNCTION_49_3();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8CalendarVSgMd, &_s10Foundation8CalendarVSgMR);
-  OUTLINED_FUNCTION_114(v6);
-  v8 = *(v7 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v9);
-  OUTLINED_FUNCTION_49_3();
-  OUTLINED_FUNCTION_78_0();
-  v47 = type metadata accessor for DateComponents();
-  v10 = OUTLINED_FUNCTION_14(v47);
-  v50 = v11;
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](v10);
-  OUTLINED_FUNCTION_109();
-  v16 = v14 - v15;
-  MEMORY[0x28223BE20](v17);
-  OUTLINED_FUNCTION_14_2();
-  v46 = v18;
-  OUTLINED_FUNCTION_78_0();
-  v19 = type metadata accessor for LocalizedStringResource();
-  v20 = OUTLINED_FUNCTION_114(v19);
-  v22 = *(v21 + 64);
-  MEMORY[0x28223BE20](v20);
-  OUTLINED_FUNCTION_36();
-  OUTLINED_FUNCTION_233_1();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
-  OUTLINED_FUNCTION_141_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  *v1 = OUTLINED_FUNCTION_182_2();
-  OUTLINED_FUNCTION_118_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v1 + 8) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSGMd, &_s10AppIntents14EntityPropertyCySSGMR);
-  OUTLINED_FUNCTION_60_4();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v1 + 16) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMR);
-  OUTLINED_FUNCTION_58_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v1 + 24) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_58_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v1 + 32) = OUTLINED_FUNCTION_182_2();
-  OUTLINED_FUNCTION_58_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v1 + 40) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_58_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v1 + 48) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_42_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v1 + 56) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVGMd, &_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVGMR);
-  OUTLINED_FUNCTION_58_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_145_2();
-  *(v1 + 64) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_58_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v1 + 72) = OUTLINED_FUNCTION_182_2();
-  OUTLINED_FUNCTION_58_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v1 + 80) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_41_6();
-  OUTLINED_FUNCTION_153_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v1 + 88) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_81_6();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v1 + 96) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_58_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_145_2();
-  *(v1 + 104) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_17_11();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v1 + 112) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySaySSGGMd, &_s10AppIntents14EntityPropertyCySaySSGGMR);
-  OUTLINED_FUNCTION_23_9();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v1 + 120) = EntityProperty<>.init(title:)();
-  v23 = OUTLINED_FUNCTION_184_1();
-  OUTLINED_FUNCTION_24_10(v23);
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v1 + 128) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_41_6();
-  OUTLINED_FUNCTION_153_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v1 + 136) = OUTLINED_FUNCTION_182_2();
-  OUTLINED_FUNCTION_228_1();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v1 + 144) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_58_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v1 + 152) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMR);
-  OUTLINED_FUNCTION_150_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v1 + 160) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_97_3(0x206C61746F54);
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v1 + 168) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA20IntentCurrencyAmountVSgGMd, &_s10AppIntents14EntityPropertyCyAA20IntentCurrencyAmountVSgGMR);
-  OUTLINED_FUNCTION_88_4();
-  *(v1 + 176) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
-  OUTLINED_FUNCTION_58_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v1 + 184) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_2_17();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v1 + 192) = EntityProperty<>.init(title:)();
-  *(v1 + 200) = xmmword_25DBC9410;
-  EntityProperty.wrappedValue.setter();
-  EntityProperty.wrappedValue.setter();
-  v48 = type metadata accessor for Calendar();
-  OUTLINED_FUNCTION_92();
-  __swift_storeEnumTagSinglePayload(v24, v25, v26, v27);
-  v45 = type metadata accessor for TimeZone();
-  OUTLINED_FUNCTION_92();
-  __swift_storeEnumTagSinglePayload(v28, v29, v30, v31);
-  OUTLINED_FUNCTION_8_14();
-  OUTLINED_FUNCTION_43_7();
-  v44 = *(v50 + 16);
-  v44(v16, v46, v47);
-  EntityProperty.wrappedValue.setter();
-  v49 = *(v50 + 8);
-  v49(v46, v47);
-  OUTLINED_FUNCTION_92();
-  __swift_storeEnumTagSinglePayload(v32, v33, v34, v48);
-  OUTLINED_FUNCTION_92();
-  __swift_storeEnumTagSinglePayload(v35, v36, v37, v45);
-  OUTLINED_FUNCTION_8_14();
-  OUTLINED_FUNCTION_179_0();
-  OUTLINED_FUNCTION_43_7();
-  v44(v16, v46, v47);
-  EntityProperty.wrappedValue.setter();
-  v49(v46, v47);
-  OUTLINED_FUNCTION_92();
-  __swift_storeEnumTagSinglePayload(v38, v39, v40, v48);
-  OUTLINED_FUNCTION_92();
-  __swift_storeEnumTagSinglePayload(v41, v42, v43, v45);
-  OUTLINED_FUNCTION_8_14();
-  OUTLINED_FUNCTION_179_0();
-  OUTLINED_FUNCTION_43_7();
-  v44(v16, v46, v47);
-  EntityProperty.wrappedValue.setter();
-  v49(v46, v47);
-  EntityProperty.wrappedValue.setter();
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_148();
-}
-
-uint64_t static FlightReservationEntity.typeDisplayRepresentation.modify()
-{
-  if (one-time initialization token for typeDisplayRepresentation != -1)
-  {
-    swift_once();
-  }
-
-  v0 = type metadata accessor for TypeDisplayRepresentation();
-  OUTLINED_FUNCTION_30_10(v0, &static FlightReservationEntity.typeDisplayRepresentation);
-  return OUTLINED_FUNCTION_66_2();
-}
-
-uint64_t FlightReservationEntity.description.getter()
-{
-  v1 = *v0;
-  OUTLINED_FUNCTION_189_2();
-  v2 = EntityProperty.wrappedValue.getter();
-  OUTLINED_FUNCTION_67_5(v2, v3, v4, v5, v6, v7, v8, v9, v11, v12);
-  OUTLINED_FUNCTION_216_1();
-
-  return v13;
-}
-
-uint64_t FlightReservationEntity.cardData.getter()
-{
-  v1 = *(v0 + 200);
-  v2 = *(v0 + 208);
-  return OUTLINED_FUNCTION_35_11();
-}
-
-uint64_t FlightReservationEntity.cardData.setter()
-{
-  OUTLINED_FUNCTION_93();
-  result = outlined consume of Data?(*(v1 + 200), *(v1 + 208));
-  *(v1 + 200) = v2;
-  *(v1 + 208) = v0;
-  return result;
-}
-
-BOOL static FlightReservationEntity.== infix(_:_:)(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-  v3 = a1[2];
-  v55 = a1[4];
-  v56 = a1[3];
-  v54 = a1[5];
-  v4 = a1[6];
-  v5 = OUTLINED_FUNCTION_109_4(a1, a1[7]);
-  v52 = v5[14];
-  v50 = v5[15];
-  v48 = v5[16];
-  v46 = v5[17];
-  v44 = v5[18];
-  v42 = v5[19];
-  v40 = v5[20];
-  v38 = v5[21];
-  v36 = v5[22];
-  v34 = v5[23];
-  v28 = v5[24];
-  v31 = v5[25];
-  v32 = v5[26];
-  v7 = *v6;
-  v8 = v6[1];
-  v10 = v6[2];
-  v9 = v6[3];
-  v11 = v6[4];
-  v53 = v6[5];
-  v12 = v6[6];
-  OUTLINED_FUNCTION_130_4(v6, v6[7]);
-  v51 = v13[14];
-  v49 = v13[15];
-  v47 = v13[16];
-  v45 = v13[17];
-  v43 = v13[18];
-  v41 = v13[19];
-  v39 = v13[20];
-  v37 = v13[21];
-  v35 = v13[22];
-  v33 = v13[23];
-  v27 = v13[24];
-  v29 = v13[25];
-  v30 = v13[26];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
-  OUTLINED_FUNCTION_5_14(&lazy protocol witness table cache variable for type String? and conformance <A> A?);
-  if ((OUTLINED_FUNCTION_76_4() & 1) == 0)
-  {
-    return 0;
-  }
-
-  OUTLINED_FUNCTION_129_4();
-  if ((OUTLINED_FUNCTION_76_4() & 1) == 0)
-  {
-    return 0;
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSGMd, &_s10AppIntents14EntityPropertyCySSGMR);
-  OUTLINED_FUNCTION_64_0();
-  if ((static EntityProperty<>.== infix(_:_:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMR);
-  lazy protocol witness table accessor for type DateComponents? and conformance <A> A?();
-  if ((static EntityProperty<>.== infix(_:_:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_76_4() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_76_4() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_76_4() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_76_4() & 1) == 0)
-  {
-    return 0;
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVGMd, &_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVGMR);
-  OUTLINED_FUNCTION_105_5();
-  _s16IntelligenceFlow13RGPluginModelOAC10SnippetKit0e6PluginD0AAWlTm_0(v14);
-  if ((OUTLINED_FUNCTION_177_2() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_76_4() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_76_4() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_76_4() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_76_4() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_177_2() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_177_2() & 1) == 0)
-  {
-    return 0;
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySaySSGGMd, &_s10AppIntents14EntityPropertyCySaySSGGMR);
-  v15 = OUTLINED_FUNCTION_47_9(&lazy protocol witness table cache variable for type [String] and conformance <A> [A]);
-  if ((static EntityProperty<>.== infix(_:_:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((static EntityProperty<>.== infix(_:_:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_76_4() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_76_4() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_76_4() & 1) == 0)
-  {
-    return 0;
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMR);
-  lazy protocol witness table accessor for type URL? and conformance <A> A?();
-  if ((static EntityProperty<>.== infix(_:_:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((static EntityProperty<>.== infix(_:_:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA20IntentCurrencyAmountVSgGMd, &_s10AppIntents14EntityPropertyCyAA20IntentCurrencyAmountVSgGMR);
-  lazy protocol witness table accessor for type IntentCurrencyAmount? and conformance <A> A?();
-  if ((static EntityProperty<>.== infix(_:_:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
-  lazy protocol witness table accessor for type IntentFile? and conformance <A> A?();
-  if ((OUTLINED_FUNCTION_165_2() & 1) == 0 || (static EntityProperty<>.== infix(_:_:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  OUTLINED_FUNCTION_84_4();
-  if (!v21 & v20)
-  {
-    OUTLINED_FUNCTION_84_4();
-    if (!v21 & v20)
-    {
-      v16 = OUTLINED_FUNCTION_107();
-      outlined copy of Data?(v16, v17);
-      outlined copy of Data?(v29, v30);
-      v18 = OUTLINED_FUNCTION_107();
-      outlined consume of Data?(v18, v19);
-      return 1;
-    }
-
-    goto LABEL_33;
-  }
-
-  OUTLINED_FUNCTION_84_4();
-  if (!v21 & v20)
-  {
-LABEL_33:
-    v22 = OUTLINED_FUNCTION_107();
-    outlined copy of Data?(v22, v23);
-    OUTLINED_FUNCTION_50_5(v29);
-    return 0;
-  }
-
-  v24 = OUTLINED_FUNCTION_62_3();
-  outlined copy of Data?(v24, v25);
-  OUTLINED_FUNCTION_33_9(v29);
-  OUTLINED_FUNCTION_32_12();
-  return (v15 & 1) != 0;
-}
-
-uint64_t (*protocol witness for SpotlightItemProviding.encodedSearchableItem.modify in conformance FlightReservationEntity(void *a1))()
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v4 = *(v1 + 184);
-  v3[4] = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*protocol witness for SpotlightItemProviding.openCommand.modify in conformance FlightReservationEntity(void *a1))()
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v4 = *(v1 + 192);
-  v3[4] = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t protocol witness for static AppEntity.defaultQuery.getter in conformance FlightReservationEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type FlightReservationEntity and conformance FlightReservationEntity();
-
-  return MEMORY[0x28210B2E8](a1, v2);
-}
-
-uint64_t protocol witness for Identifiable.id.getter in conformance FlightReservationEntity()
-{
-  lazy protocol witness table accessor for type FlightReservationEntity and conformance FlightReservationEntity();
-
-  return UUID.init()();
-}
-
-uint64_t protocol witness for static _IntentValue.defaultResolverSpecification.getter in conformance FlightReservationEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type FlightReservationEntity and conformance FlightReservationEntity();
-
-  return MEMORY[0x28210B488](a1, v2);
-}
-
-uint64_t protocol witness for CustomLocalizedStringResourceConvertible.localizedStringResource.getter in conformance FlightReservationEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type FlightReservationEntity and conformance FlightReservationEntity();
-
-  return MEMORY[0x28210C4B8](a1, v2);
-}
-
-uint64_t (*HotelReservationEntity.address.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *v0;
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*HotelReservationEntity.bookingProvider.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 8);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*HotelReservationEntity.businessName.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 16);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for HotelReservationEntity.checkInDateTime : HotelReservationEntity(uint64_t a1, const void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  outlined init with copy of ResourceBundle?(a1, &v8[-v6], &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  memcpy(v8, a2, sizeof(v8));
-  outlined init with copy of HotelReservationEntity(v8, v9);
-  HotelReservationEntity.checkInDateTime.setter();
-  memcpy(v9, a2, sizeof(v9));
-  return outlined destroy of HotelReservationEntity(v9);
-}
-
-uint64_t HotelReservationEntity.checkInDateTime.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 24);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*HotelReservationEntity.checkInDateTime.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 24);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for HotelReservationEntity.checkOutDateTime : HotelReservationEntity(uint64_t a1, const void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  outlined init with copy of ResourceBundle?(a1, &v8[-v6], &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  memcpy(v8, a2, sizeof(v8));
-  outlined init with copy of HotelReservationEntity(v8, v9);
-  HotelReservationEntity.checkOutDateTime.setter();
-  memcpy(v9, a2, sizeof(v9));
-  return outlined destroy of HotelReservationEntity(v9);
-}
-
-uint64_t HotelReservationEntity.checkOutDateTime.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 32);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*HotelReservationEntity.checkOutDateTime.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 32);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for HotelReservationEntity.eventDuration : HotelReservationEntity(uint64_t a1, const void *a2)
-{
-  v4 = type metadata accessor for DateComponents();
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4);
-  (*(v7 + 16))(&v9[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)], a1);
-  memcpy(v9, a2, sizeof(v9));
-  outlined init with copy of HotelReservationEntity(v9, v10);
-  HotelReservationEntity.eventDuration.setter();
-  memcpy(v10, a2, sizeof(v10));
-  return outlined destroy of HotelReservationEntity(v10);
-}
-
-uint64_t HotelReservationEntity.eventDuration.setter()
-{
-  OUTLINED_FUNCTION_42_2();
-  v1 = type metadata accessor for DateComponents();
-  v2 = OUTLINED_FUNCTION_14(v1);
-  v4 = v3;
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v2);
-  OUTLINED_FUNCTION_36();
-  OUTLINED_FUNCTION_136_3();
-  v7 = *(v0 + 40);
-  v8 = OUTLINED_FUNCTION_49_9();
-  v9(v8);
-  EntityProperty.wrappedValue.setter();
-  v10 = *(v4 + 8);
-  v11 = OUTLINED_FUNCTION_32_0();
-  return v12(v11);
-}
-
-uint64_t (*HotelReservationEntity.eventDuration.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 40);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*HotelReservationEntity.guest.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 48);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*HotelReservationEntity.numberOfRooms.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 56);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*HotelReservationEntity.phoneNumber.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 64);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t HotelReservationEntity.roomNumbers.getter()
-{
-  v1 = *(v0 + 72);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t key path setter for HotelReservationEntity.roomNumbers : HotelReservationEntity(uint64_t *a1, const void *a2)
-{
-  v3 = *a1;
-  memcpy(v5, a2, sizeof(v5));
-
-  outlined init with copy of HotelReservationEntity(v5, __dst);
-  HotelReservationEntity.roomNumbers.setter();
-  memcpy(__dst, a2, sizeof(__dst));
-  return outlined destroy of HotelReservationEntity(__dst);
-}
-
-uint64_t (*HotelReservationEntity.roomNumbers.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 72);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for HotelReservationEntity.url : HotelReservationEntity(uint64_t a1, const void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  outlined init with copy of ResourceBundle?(a1, &v8[-v6], &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  memcpy(v8, a2, sizeof(v8));
-  outlined init with copy of HotelReservationEntity(v8, v9);
-  HotelReservationEntity.url.setter();
-  memcpy(v9, a2, sizeof(v9));
-  return outlined destroy of HotelReservationEntity(v9);
-}
-
-uint64_t HotelReservationEntity.url.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 80);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*HotelReservationEntity.url.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 80);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*HotelReservationEntity.confirmationNumber.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 88);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for HotelReservationEntity.encodedSearchableItem : HotelReservationEntity(uint64_t a1, const void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v9[-v6];
-  outlined init with copy of ResourceBundle?(a1, &v9[-v6], &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
-  memcpy(v9, a2, sizeof(v9));
-  outlined init with copy of HotelReservationEntity(v9, v10);
-  HotelReservationEntity.encodedSearchableItem.setter(v7);
-  memcpy(v10, a2, sizeof(v10));
-  return outlined destroy of HotelReservationEntity(v10);
-}
-
-uint64_t (*HotelReservationEntity.encodedSearchableItem.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 96);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for HotelReservationEntity.openCommand : HotelReservationEntity(uint64_t a1, const void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  outlined init with copy of ResourceBundle?(a1, &v8[-v6], &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
-  memcpy(v8, a2, sizeof(v8));
-  outlined init with copy of HotelReservationEntity(v8, v9);
-  HotelReservationEntity.openCommand.setter();
-  memcpy(v9, a2, sizeof(v9));
-  return outlined destroy of HotelReservationEntity(v9);
-}
-
-uint64_t HotelReservationEntity.openCommand.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 104);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*HotelReservationEntity.openCommand.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 104);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-void HotelReservationEntity.init()()
-{
-  OUTLINED_FUNCTION_155();
-  v42 = v0;
-  v43 = v1;
-  v3 = v2;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8TimeZoneVSgMd, &_s10Foundation8TimeZoneVSgMR);
-  OUTLINED_FUNCTION_114(v4);
-  v6 = *(v5 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v7);
-  OUTLINED_FUNCTION_49_3();
-  v39[1] = v8;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8CalendarVSgMd, &_s10Foundation8CalendarVSgMR);
-  OUTLINED_FUNCTION_114(v9);
-  v11 = *(v10 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v12);
-  OUTLINED_FUNCTION_49_3();
-  v39[0] = v13;
-  OUTLINED_FUNCTION_78_0();
-  v40 = type metadata accessor for DateComponents();
-  v14 = OUTLINED_FUNCTION_14(v40);
-  v16 = v15;
-  v18 = *(v17 + 64);
-  MEMORY[0x28223BE20](v14);
-  OUTLINED_FUNCTION_109();
-  MEMORY[0x28223BE20](v19);
-  v21 = v39 - v20;
-  v22 = type metadata accessor for LocalizedStringResource();
-  v23 = OUTLINED_FUNCTION_114(v22);
-  v25 = *(v24 + 64);
-  MEMORY[0x28223BE20](v23);
-  OUTLINED_FUNCTION_36();
-  OUTLINED_FUNCTION_233_1();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
-  OUTLINED_FUNCTION_255_0();
-  LocalizedStringResource.init(stringLiteral:)();
-  *v3 = OUTLINED_FUNCTION_182_2();
-  OUTLINED_FUNCTION_250_1();
-  OUTLINED_FUNCTION_58_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v3 + 8) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_10_12();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v3 + 16) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMR);
-  OUTLINED_FUNCTION_41_6();
-  OUTLINED_FUNCTION_268();
-  *(v3 + 24) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_41_6();
-  OUTLINED_FUNCTION_268();
-  *(v3 + 32) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVGMd, &_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVGMR);
-  v26 = OUTLINED_FUNCTION_24_9();
-  OUTLINED_FUNCTION_97_3(v26);
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v3 + 40) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_195_1();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v3 + 48) = OUTLINED_FUNCTION_182_2();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySiSgGMd, &_s10AppIntents14EntityPropertyCySiSgGMR);
-  OUTLINED_FUNCTION_134_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v3 + 56) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_4_16();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v3 + 64) = OUTLINED_FUNCTION_182_2();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySaySSGGMd, &_s10AppIntents14EntityPropertyCySaySSGGMR);
-  OUTLINED_FUNCTION_24_10(0x6D6F6F52u);
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v3 + 72) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMR);
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v3 + 80) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_58_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v3 + 88) = OUTLINED_FUNCTION_182_2();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
-  OUTLINED_FUNCTION_58_3();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v3 + 96) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_2_17();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v3 + 104) = EntityProperty<>.init(title:)();
-  *(v3 + 112) = xmmword_25DBC9410;
-  v41 = MEMORY[0x277D84F90];
-  EntityProperty.wrappedValue.setter();
-  type metadata accessor for Calendar();
-  OUTLINED_FUNCTION_92();
-  __swift_storeEnumTagSinglePayload(v27, v28, v29, v30);
-  type metadata accessor for TimeZone();
-  OUTLINED_FUNCTION_92();
-  __swift_storeEnumTagSinglePayload(v31, v32, v33, v34);
-  OUTLINED_FUNCTION_8_14();
-  OUTLINED_FUNCTION_43_7();
-  v35 = *(v16 + 16);
-  v36 = OUTLINED_FUNCTION_64_0();
-  v37 = v40;
-  v38(v36);
-  EntityProperty.wrappedValue.setter();
-  (*(v16 + 8))(v21, v37);
-  OUTLINED_FUNCTION_148();
-}
-
-uint64_t static HotelReservationEntity.typeDisplayRepresentation.modify()
-{
-  if (one-time initialization token for typeDisplayRepresentation != -1)
-  {
-    swift_once();
-  }
-
-  v0 = type metadata accessor for TypeDisplayRepresentation();
-  OUTLINED_FUNCTION_30_10(v0, static HotelReservationEntity.typeDisplayRepresentation);
-  return OUTLINED_FUNCTION_66_2();
-}
-
-uint64_t HotelReservationEntity.description.getter()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 88);
-  EntityProperty.wrappedValue.getter();
-  if (!v15)
-  {
-    OUTLINED_FUNCTION_189_2();
-    v4 = EntityProperty.wrappedValue.getter();
-    OUTLINED_FUNCTION_67_5(v4, v5, v6, v7, v8, v9, v10, v11, v12, v13);
-    OUTLINED_FUNCTION_216_1();
-  }
-
-  return v14;
-}
-
-uint64_t HotelReservationEntity.cardData.getter()
-{
-  v1 = *(v0 + 112);
-  v2 = *(v0 + 120);
-  return OUTLINED_FUNCTION_35_11();
-}
-
-uint64_t HotelReservationEntity.cardData.setter()
-{
-  OUTLINED_FUNCTION_93();
-  result = outlined consume of Data?(*(v1 + 112), *(v1 + 120));
-  *(v1 + 112) = v2;
-  *(v1 + 120) = v0;
-  return result;
-}
-
-uint64_t (*protocol witness for SpotlightItemProviding.encodedSearchableItem.modify in conformance HotelReservationEntity(void *a1))()
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v4 = *(v1 + 96);
-  v3[4] = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*protocol witness for SpotlightItemProviding.openCommand.modify in conformance HotelReservationEntity(void *a1))()
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v4 = *(v1 + 104);
-  v3[4] = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t protocol witness for static AppEntity.defaultQuery.getter in conformance HotelReservationEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type HotelReservationEntity and conformance HotelReservationEntity();
-
-  return MEMORY[0x28210B2E8](a1, v2);
-}
-
-uint64_t protocol witness for Identifiable.id.getter in conformance HotelReservationEntity()
-{
-  lazy protocol witness table accessor for type HotelReservationEntity and conformance HotelReservationEntity();
-
-  return UUID.init()();
-}
-
-uint64_t protocol witness for static _IntentValue.defaultResolverSpecification.getter in conformance HotelReservationEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type HotelReservationEntity and conformance HotelReservationEntity();
-
-  return MEMORY[0x28210B488](a1, v2);
-}
-
-uint64_t protocol witness for CustomLocalizedStringResourceConvertible.localizedStringResource.getter in conformance HotelReservationEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type HotelReservationEntity and conformance HotelReservationEntity();
-
-  return MEMORY[0x28210C4B8](a1, v2);
-}
-
-uint64_t (*RestaurantReservationEntity.address.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *v0;
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*RestaurantReservationEntity.reservationUnderName.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 8);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t RestaurantReservationEntity.customerNames.getter()
-{
-  v1 = *(v0 + 16);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t key path setter for RestaurantReservationEntity.customerNames : RestaurantReservationEntity(uint64_t *a1, const void *a2)
-{
-  v3 = *a1;
-  memcpy(v5, a2, sizeof(v5));
-
-  outlined init with copy of RestaurantReservationEntity(v5, __dst);
-  RestaurantReservationEntity.customerNames.setter();
-  memcpy(__dst, a2, sizeof(__dst));
-  return outlined destroy of RestaurantReservationEntity(__dst);
-}
-
-uint64_t (*RestaurantReservationEntity.customerNames.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 16);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*RestaurantReservationEntity.bookingProvider.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 24);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*RestaurantReservationEntity.businessName.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 32);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*RestaurantReservationEntity.mealType.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 40);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for HotelReservationEntity.numberOfRooms : HotelReservationEntity()
-{
-  OUTLINED_FUNCTION_116_3();
-  v5 = *v4;
-  v6 = *(v4 + 8);
-  memcpy(v9, v7, sizeof(v9));
-  v1(v9, __dst);
-  v2(v5, v6);
-  memcpy(__dst, v3, sizeof(__dst));
-  return v0(__dst);
-}
-
-uint64_t (*RestaurantReservationEntity.partySize.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 48);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*RestaurantReservationEntity.phoneNumber.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 56);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for RestaurantReservationEntity.startDateTime : RestaurantReservationEntity(uint64_t a1, const void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  outlined init with copy of ResourceBundle?(a1, &v8[-v6], &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  memcpy(v8, a2, sizeof(v8));
-  outlined init with copy of RestaurantReservationEntity(v8, v9);
-  RestaurantReservationEntity.startDateTime.setter();
-  memcpy(v9, a2, sizeof(v9));
-  return outlined destroy of RestaurantReservationEntity(v9);
-}
-
-uint64_t RestaurantReservationEntity.startDateTime.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 64);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*RestaurantReservationEntity.startDateTime.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 64);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t RestaurantReservationEntity.confirmationNumber.getter()
-{
-  v1 = *(v0 + 72);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t (*RestaurantReservationEntity.confirmationNumber.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 72);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*RestaurantReservationEntity.status.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 80);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for RestaurantReservationEntity.encodedSearchableItem : RestaurantReservationEntity(uint64_t a1, const void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  outlined init with copy of ResourceBundle?(a1, &v8[-v6], &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
-  memcpy(v8, a2, sizeof(v8));
-  outlined init with copy of RestaurantReservationEntity(v8, v9);
-  RestaurantReservationEntity.encodedSearchableItem.setter();
-  memcpy(v9, a2, sizeof(v9));
-  return outlined destroy of RestaurantReservationEntity(v9);
-}
-
-uint64_t RestaurantReservationEntity.encodedSearchableItem.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 88);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*RestaurantReservationEntity.encodedSearchableItem.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 88);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for RestaurantReservationEntity.openCommand : RestaurantReservationEntity(uint64_t a1, const void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v9[-v6];
-  outlined init with copy of ResourceBundle?(a1, &v9[-v6], &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
-  memcpy(v9, a2, sizeof(v9));
-  outlined init with copy of RestaurantReservationEntity(v9, v10);
-  HotelReservationEntity.encodedSearchableItem.setter(v7);
-  memcpy(v10, a2, sizeof(v10));
-  return outlined destroy of RestaurantReservationEntity(v10);
-}
-
-uint64_t HotelReservationEntity.encodedSearchableItem.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 96);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*RestaurantReservationEntity.openCommand.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 96);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t RestaurantReservationEntity.guest.getter()
-{
-  v1 = *(v0 + 104);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t key path setter for HotelReservationEntity.address : HotelReservationEntity()
-{
-  OUTLINED_FUNCTION_116_3();
-  v5 = *v4;
-  v6 = v4[1];
-  memcpy(v10, v7, sizeof(v10));
-
-  v1(v10, __dst);
-  v8 = OUTLINED_FUNCTION_64_0();
-  v2(v8);
-  memcpy(__dst, v3, sizeof(__dst));
-  return v0(__dst);
-}
-
-uint64_t (*RestaurantReservationEntity.guest.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 104);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-double RestaurantReservationEntity.init()()
-{
-  OUTLINED_FUNCTION_113();
-  v1 = type metadata accessor for LocalizedStringResource();
-  v2 = OUTLINED_FUNCTION_114(v1);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
-  OUTLINED_FUNCTION_13_8();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
-  OUTLINED_FUNCTION_255_0();
-  OUTLINED_FUNCTION_106_2();
-  OUTLINED_FUNCTION_78_5();
-  *v0 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 8) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySaySSGSgGMd, &_s10AppIntents14EntityPropertyCySaySSGSgGMR);
-  OUTLINED_FUNCTION_33_8();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 16) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_31_13();
-  OUTLINED_FUNCTION_153_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_78_5();
-  *(v0 + 24) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_10_12();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 32) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_257_1();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 40) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySiSgGMd, &_s10AppIntents14EntityPropertyCySiSgGMR);
-  OUTLINED_FUNCTION_191_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 48) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_4_16();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_78_5();
-  *(v0 + 56) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMR);
-  OUTLINED_FUNCTION_3_19();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 64) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_78_5();
-  *(v0 + 72) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_60_4();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 80) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 88) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_2_17();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 96) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_195_1();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_78_5();
-  *(v0 + 104) = EntityProperty<>.init(title:)();
-  result = 0.0;
-  *(v0 + 112) = xmmword_25DBC9410;
-  return result;
-}
-
-uint64_t static RestaurantReservationEntity.typeDisplayRepresentation.modify()
-{
-  if (one-time initialization token for typeDisplayRepresentation != -1)
-  {
-    swift_once();
-  }
-
-  v0 = type metadata accessor for TypeDisplayRepresentation();
-  OUTLINED_FUNCTION_30_10(v0, static RestaurantReservationEntity.typeDisplayRepresentation);
-  return OUTLINED_FUNCTION_66_2();
-}
-
-uint64_t RestaurantReservationEntity.description.getter()
-{
-  v1 = *(v0 + 32);
-  v2 = *(v0 + 72);
-  EntityProperty.wrappedValue.getter();
-  if (!v15)
-  {
-    OUTLINED_FUNCTION_189_2();
-    v4 = EntityProperty.wrappedValue.getter();
-    OUTLINED_FUNCTION_67_5(v4, v5, v6, v7, v8, v9, v10, v11, v12, v13);
-    OUTLINED_FUNCTION_216_1();
-  }
-
-  return v14;
-}
-
-uint64_t (*protocol witness for SpotlightItemProviding.encodedSearchableItem.modify in conformance RestaurantReservationEntity(void *a1))()
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v4 = *(v1 + 88);
-  v3[4] = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*protocol witness for SpotlightItemProviding.openCommand.modify in conformance RestaurantReservationEntity(void *a1))()
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v4 = *(v1 + 96);
-  v3[4] = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t protocol witness for static AppEntity.defaultQuery.getter in conformance RestaurantReservationEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type RestaurantReservationEntity and conformance RestaurantReservationEntity();
-
-  return MEMORY[0x28210B2E8](a1, v2);
-}
-
-uint64_t protocol witness for Identifiable.id.getter in conformance RestaurantReservationEntity()
-{
-  lazy protocol witness table accessor for type RestaurantReservationEntity and conformance RestaurantReservationEntity();
-
-  return UUID.init()();
-}
-
-uint64_t protocol witness for static _IntentValue.defaultResolverSpecification.getter in conformance RestaurantReservationEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type RestaurantReservationEntity and conformance RestaurantReservationEntity();
-
-  return MEMORY[0x28210B488](a1, v2);
-}
-
-uint64_t protocol witness for CustomLocalizedStringResourceConvertible.localizedStringResource.getter in conformance RestaurantReservationEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type RestaurantReservationEntity and conformance RestaurantReservationEntity();
-
-  return MEMORY[0x28210C4B8](a1, v2);
-}
-
-uint64_t (*TicketedTransportationEntity.arrivalStationName.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *v0;
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*TicketedTransportationEntity.arrivalStationAddress.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 8);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t TicketedTransportationEntity.arrivalDateTime.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 16);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*TicketedTransportationEntity.arrivalDateTime.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 16);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*TicketedTransportationEntity.departureStationName.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 24);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*TicketedTransportationEntity.departureStationAddress.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 32);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for TicketedTransportationEntity.arrivalDateTime : TicketedTransportationEntity()
-{
-  OUTLINED_FUNCTION_85_5();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(v4, v5);
-  OUTLINED_FUNCTION_114(v6);
-  v8 = *(v7 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v9);
-  v10 = OUTLINED_FUNCTION_64_0();
-  outlined init with copy of ResourceBundle?(v10, v11, v2, v1);
-  memcpy(__dst, v3, sizeof(__dst));
-  outlined init with copy of TicketedTransportationEntity(__dst, v15);
-  v12 = OUTLINED_FUNCTION_242_1();
-  v0(v12);
-  memcpy(v15, v3, sizeof(v15));
-  return outlined destroy of TicketedTransportationEntity(v15);
-}
-
-uint64_t TicketedTransportationEntity.departureDateTime.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 40);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*TicketedTransportationEntity.departureDateTime.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 40);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t TicketedTransportationEntity.duration.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 48);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*TicketedTransportationEntity.duration.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 48);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for TicketedTransportationEntity.arrivalStationName : TicketedTransportationEntity(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_96_2(a1);
-  memcpy(v3, v4, 0x70uLL);
-
-  outlined init with copy of TicketedTransportationEntity(&v7, __dst);
-  v5 = OUTLINED_FUNCTION_34_11();
-  v1(v5);
-  memcpy(__dst, v2, sizeof(__dst));
-  return outlined destroy of TicketedTransportationEntity(__dst);
-}
-
-uint64_t (*TicketedTransportationEntity.eventSubType.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 56);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t TicketedTransportationEntity.passengerNames.getter()
-{
-  v1 = *(v0 + 64);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t (*TicketedTransportationEntity.passengerNames.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 64);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t TicketedTransportationEntity.seatNumbers.getter()
-{
-  v1 = *(v0 + 72);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t key path setter for TicketedTransportationEntity.passengerNames : TicketedTransportationEntity(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_74_7(a1);
-  memcpy(v4, v5, 0x70uLL);
-
-  outlined init with copy of TicketedTransportationEntity(&v7, __dst);
-  v1(v3);
-  memcpy(__dst, v2, sizeof(__dst));
-  return outlined destroy of TicketedTransportationEntity(__dst);
-}
-
-uint64_t (*TicketedTransportationEntity.seatNumbers.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 72);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t TicketedTransportationEntity.encodedSearchableItem.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 80);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*TicketedTransportationEntity.encodedSearchableItem.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 80);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t TicketedTransportationEntity.openCommand.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 88);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*TicketedTransportationEntity.openCommand.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 88);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t TicketedTransportationEntity.init()()
-{
-  OUTLINED_FUNCTION_113();
-  v1 = type metadata accessor for LocalizedStringResource();
-  v2 = OUTLINED_FUNCTION_114(v1);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
-  OUTLINED_FUNCTION_13_8();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
-  OUTLINED_FUNCTION_36_7();
-  OUTLINED_FUNCTION_214_0();
-  OUTLINED_FUNCTION_78_5();
-  *v0 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 8) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMR);
-  OUTLINED_FUNCTION_81_6();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_95_4();
-  *(v0 + 16) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_78_5();
-  *(v0 + 24) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 32) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_42_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_95_4();
-  *(v0 + 40) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_17_11();
-  OUTLINED_FUNCTION_194_2();
-  *(v0 + 48) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_2_18();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_78_5();
-  *(v0 + 56) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySaySSGGMd, &_s10AppIntents14EntityPropertyCySaySSGGMR);
-  OUTLINED_FUNCTION_23_9();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 64) = EntityProperty<>.init(title:)();
-  v5 = OUTLINED_FUNCTION_184_1();
-  OUTLINED_FUNCTION_39_8(v5 & 0xFFFF0000FFFFFFFFLL | 0x6E2000000000);
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 72) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 80) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_2_17();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 88) = EntityProperty<>.init(title:)();
-  *(v0 + 96) = xmmword_25DBC9410;
-  EntityProperty.wrappedValue.setter();
-  return EntityProperty.wrappedValue.setter();
-}
-
-uint64_t static TicketedTransportationEntity.typeDisplayRepresentation.modify()
-{
-  if (one-time initialization token for typeDisplayRepresentation != -1)
-  {
-    swift_once();
-  }
-
-  v0 = type metadata accessor for TypeDisplayRepresentation();
-  OUTLINED_FUNCTION_30_10(v0, static TicketedTransportationEntity.typeDisplayRepresentation);
-  return OUTLINED_FUNCTION_66_2();
-}
-
-unint64_t TicketedTransportationEntity.description.getter()
-{
-  v1 = *(v0 + 64);
-  _StringGuts.grow(_:)(30);
-
-  EntityProperty.wrappedValue.getter();
-  MEMORY[0x25F89F8A0](v4, MEMORY[0x277D837D0]);
-
-  v2 = OUTLINED_FUNCTION_34_11();
-  MEMORY[0x25F89F6C0](v2);
-
-  return 0xD00000000000001CLL;
-}
-
-uint64_t TicketedTransportationEntity.cardData.getter()
-{
-  v1 = *(v0 + 96);
-  v2 = *(v0 + 104);
-  return OUTLINED_FUNCTION_35_11();
-}
-
-uint64_t TicketedTransportationEntity.cardData.setter()
-{
-  OUTLINED_FUNCTION_93();
-  result = outlined consume of Data?(*(v1 + 96), *(v1 + 104));
-  *(v1 + 96) = v2;
-  *(v1 + 104) = v0;
-  return result;
-}
-
-uint64_t static TicketedTransportationEntity.== infix(_:_:)(uint64_t *a1)
-{
-  v2 = *a1;
-  v1 = a1[1];
-  v4 = a1[2];
-  v3 = a1[3];
-  v5 = OUTLINED_FUNCTION_46_8(a1);
-  v42 = v5[8];
-  v40 = v5[9];
-  v38 = v5[10];
-  v36 = v5[11];
-  v33 = v5[12];
-  v34 = v5[13];
-  v8 = *v6;
-  v7 = v6[1];
-  v9 = v6[2];
-  v10 = v6[3];
-  OUTLINED_FUNCTION_45_7(v5, v6);
-  v41 = v11[8];
-  v39 = v11[9];
-  v37 = v11[10];
-  v35 = v11[11];
-  v31 = v11[12];
-  v32 = v11[13];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
-  v12 = OUTLINED_FUNCTION_5_14(&lazy protocol witness table cache variable for type String? and conformance <A> A?);
-  if ((OUTLINED_FUNCTION_225_1() & 1) == 0)
-  {
-    return 0;
-  }
-
-  OUTLINED_FUNCTION_15_11();
-  if ((static EntityProperty<>.== infix(_:_:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMR);
-  lazy protocol witness table accessor for type DateComponents? and conformance <A> A?();
-  OUTLINED_FUNCTION_118_0();
-  if ((OUTLINED_FUNCTION_220_1() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_225_1() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_225_1() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_220_1() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_220_1() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_225_1() & 1) == 0)
-  {
-    return 0;
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySaySSGGMd, &_s10AppIntents14EntityPropertyCySaySSGGMR);
-  v13 = OUTLINED_FUNCTION_47_9(&lazy protocol witness table cache variable for type [String] and conformance <A> [A]);
-  if ((static EntityProperty<>.== infix(_:_:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((static EntityProperty<>.== infix(_:_:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
-  lazy protocol witness table accessor for type IntentFile? and conformance <A> A?();
-  if ((OUTLINED_FUNCTION_165_2() & 1) == 0 || (static EntityProperty<>.== infix(_:_:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if (v34 >> 60 == 15)
-  {
-    OUTLINED_FUNCTION_65_6();
-    if (!(!v15 & v14))
-    {
-      goto LABEL_19;
-    }
-
-    v16 = OUTLINED_FUNCTION_94();
-    outlined copy of Data?(v16, v17);
-    outlined copy of Data?(v31, v12);
-    v18 = OUTLINED_FUNCTION_94();
-    outlined consume of Data?(v18, v19);
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_65_6();
-    if (!v15 & v14)
-    {
-LABEL_19:
-      v20 = OUTLINED_FUNCTION_94();
-      outlined copy of Data?(v20, v21);
-      v22 = OUTLINED_FUNCTION_34_11();
-      outlined copy of Data?(v22, v23);
-      v24 = OUTLINED_FUNCTION_94();
-      outlined consume of Data?(v24, v25);
-      v26 = OUTLINED_FUNCTION_34_11();
-      outlined consume of Data?(v26, v27);
-      return 0;
-    }
-
-    v29 = OUTLINED_FUNCTION_62_3();
-    outlined copy of Data?(v29, v30);
-    OUTLINED_FUNCTION_33_9(v31);
-    OUTLINED_FUNCTION_32_12();
-    if ((v13 & 1) == 0)
-    {
-      return 0;
-    }
-  }
-
-  return 1;
-}
-
-uint64_t (*protocol witness for SpotlightItemProviding.encodedSearchableItem.modify in conformance TicketedTransportationEntity(void *a1))()
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v4 = *(v1 + 80);
-  v3[4] = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*protocol witness for SpotlightItemProviding.openCommand.modify in conformance TicketedTransportationEntity(void *a1))()
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v4 = *(v1 + 88);
-  v3[4] = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t protocol witness for static AppEntity.defaultQuery.getter in conformance TicketedTransportationEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type TicketedTransportationEntity and conformance TicketedTransportationEntity();
-
-  return MEMORY[0x28210B2E8](a1, v2);
-}
-
-uint64_t protocol witness for Identifiable.id.getter in conformance TicketedTransportationEntity()
-{
-  lazy protocol witness table accessor for type TicketedTransportationEntity and conformance TicketedTransportationEntity();
-
-  return UUID.init()();
-}
-
-uint64_t protocol witness for static _IntentValue.defaultResolverSpecification.getter in conformance TicketedTransportationEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type TicketedTransportationEntity and conformance TicketedTransportationEntity();
-
-  return MEMORY[0x28210B488](a1, v2);
-}
-
-uint64_t protocol witness for CustomLocalizedStringResourceConvertible.localizedStringResource.getter in conformance TicketedTransportationEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type TicketedTransportationEntity and conformance TicketedTransportationEntity();
-
-  return MEMORY[0x28210C4B8](a1, v2);
-}
-
-uint64_t (*VehicleReservationEntity.bookingProvider.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *v0;
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*VehicleReservationEntity.cost.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 8);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*VehicleReservationEntity.dropOffAddress.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 16);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*VehicleReservationEntity.dropOffBusinessName.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 24);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t VehicleReservationEntity.dropOffDateTime.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 32);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*VehicleReservationEntity.dropOffDateTime.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 32);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*VehicleReservationEntity.dropOffPhoneNumber.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 40);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-void key path setter for VehicleReservationEntity.dropOffDateTime : VehicleReservationEntity()
-{
-  OUTLINED_FUNCTION_202();
-  v9 = OUTLINED_FUNCTION_81_7(v3, v4, v5, v6, v7, v8);
-  OUTLINED_FUNCTION_114(v9);
-  v11 = *(v10 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v12);
-  OUTLINED_FUNCTION_82_6(v13, v14[0]);
-  memcpy(v14, v1, sizeof(v14));
-  outlined init with copy of VehicleReservationEntity(v14, v15);
-  v0(v2);
-  memcpy(v15, v1, sizeof(v15));
-  outlined destroy of VehicleReservationEntity(v15);
-  OUTLINED_FUNCTION_203();
-}
-
-uint64_t VehicleReservationEntity.duration.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 48);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*VehicleReservationEntity.duration.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 48);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*VehicleReservationEntity.pickUpAddress.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 56);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*VehicleReservationEntity.pickUpBusinessName.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 64);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t VehicleReservationEntity.pickUpDateTime.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 72);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*VehicleReservationEntity.pickUpDateTime.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 72);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*VehicleReservationEntity.pickUpPhoneNumber.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 80);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*VehicleReservationEntity.renterName.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 88);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t VehicleReservationEntity.status.getter()
-{
-  v1 = *(v0 + 96);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t (*VehicleReservationEntity.status.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 96);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t VehicleReservationEntity.vehicleClass.getter()
-{
-  v1 = *(v0 + 104);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t (*VehicleReservationEntity.vehicleClass.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 104);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t VehicleReservationEntity.confirmationNumber.getter()
-{
-  v1 = *(v0 + 112);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t key path setter for VehicleReservationEntity.bookingProvider : VehicleReservationEntity(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_96_2(a1);
-  memcpy(v3, v4, 0x98uLL);
-
-  outlined init with copy of VehicleReservationEntity(&v7, __dst);
-  v5 = OUTLINED_FUNCTION_34_11();
-  v1(v5);
-  memcpy(__dst, v2, sizeof(__dst));
-  return outlined destroy of VehicleReservationEntity(__dst);
-}
-
-uint64_t (*VehicleReservationEntity.confirmationNumber.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 112);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t VehicleReservationEntity.encodedSearchableItem.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 120);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*VehicleReservationEntity.encodedSearchableItem.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 120);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t VehicleReservationEntity.openCommand.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 128);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*VehicleReservationEntity.openCommand.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 128);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-void VehicleReservationEntity.init()()
-{
-  OUTLINED_FUNCTION_202();
-  OUTLINED_FUNCTION_113();
-  v1 = type metadata accessor for LocalizedStringResource();
-  v2 = OUTLINED_FUNCTION_114(v1);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
-  OUTLINED_FUNCTION_13_8();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
-  OUTLINED_FUNCTION_36_7();
-  OUTLINED_FUNCTION_153_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_78_5();
-  *v0 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_88_4();
-  *(v0 + 8) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_31_13();
-  OUTLINED_FUNCTION_153_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 16) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 24) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMR);
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_95_4();
-  *(v0 + 32) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_78_5();
-  *(v0 + 40) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_17_11();
-  OUTLINED_FUNCTION_194_2();
-  OUTLINED_FUNCTION_95_4();
-  *(v0 + 48) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_149_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_78_5();
-  *(v0 + 56) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 64) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_95_4();
-  *(v0 + 72) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_78_5();
-  *(v0 + 80) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_158_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 88) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_60_4();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 96) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_146_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 104) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 112) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 120) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_2_17();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 128) = EntityProperty<>.init(title:)();
-  *(v0 + 136) = xmmword_25DBC9410;
-  OUTLINED_FUNCTION_203();
-}
-
-uint64_t static VehicleReservationEntity.typeDisplayRepresentation.modify()
-{
-  if (one-time initialization token for typeDisplayRepresentation != -1)
-  {
-    swift_once();
-  }
-
-  v0 = type metadata accessor for TypeDisplayRepresentation();
-  OUTLINED_FUNCTION_30_10(v0, static VehicleReservationEntity.typeDisplayRepresentation);
-  return OUTLINED_FUNCTION_66_2();
-}
-
-unint64_t VehicleReservationEntity.description.getter()
-{
-  v1 = *v0;
-  v2 = v0[14];
-  EntityProperty.wrappedValue.getter();
-  if (v15)
-  {
-    return v14;
-  }
-
-  _StringGuts.grow(_:)(27);
-
-  v4 = EntityProperty.wrappedValue.getter();
-  OUTLINED_FUNCTION_67_5(v4, v5, v6, v7, v8, v9, v10, v11, v12, v13);
-  OUTLINED_FUNCTION_216_1();
-
-  return 0xD000000000000019;
-}
-
-uint64_t VehicleReservationEntity.cardData.getter()
-{
-  v1 = *(v0 + 136);
-  v2 = *(v0 + 144);
-  return OUTLINED_FUNCTION_35_11();
-}
-
-uint64_t VehicleReservationEntity.cardData.setter()
-{
-  OUTLINED_FUNCTION_93();
-  result = outlined consume of Data?(*(v1 + 136), *(v1 + 144));
-  *(v1 + 136) = v2;
-  *(v1 + 144) = v0;
-  return result;
-}
-
-BOOL static VehicleReservationEntity.== infix(_:_:)(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-  v4 = a1[2];
-  v3 = a1[3];
-  v5 = OUTLINED_FUNCTION_46_8(a1);
-  v53 = v5[8];
-  v51 = v5[9];
-  v49 = v5[10];
-  v47 = v5[11];
-  v45 = v5[12];
-  v43 = v5[13];
-  v41 = v5[14];
-  v39 = v5[15];
-  v35 = v5[16];
-  v33 = v5[17];
-  v37 = v5[18];
-  v8 = *v6;
-  v7 = v6[1];
-  v10 = v6[2];
-  v9 = v6[3];
-  OUTLINED_FUNCTION_45_7(v5, v6);
-  v52 = v11[8];
-  v50 = v11[9];
-  v48 = v11[10];
-  v46 = v11[11];
-  v44 = v11[12];
-  v42 = v11[13];
-  v40 = v11[14];
-  v38 = v11[15];
-  v34 = v11[16];
-  v30 = v11[17];
-  v36 = v11[18];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
-  OUTLINED_FUNCTION_5_14(&lazy protocol witness table cache variable for type String? and conformance <A> A?);
-  OUTLINED_FUNCTION_155_2();
-  if ((static EntityProperty<>.== infix(_:_:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_166_1() & 1) == 0)
-  {
-    return 0;
-  }
-
-  OUTLINED_FUNCTION_173_1();
-  if ((OUTLINED_FUNCTION_166_1() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_166_1() & 1) == 0)
-  {
-    return 0;
-  }
-
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMR);
-  lazy protocol witness table accessor for type DateComponents? and conformance <A> A?();
-  if ((OUTLINED_FUNCTION_177_2() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_166_1() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_177_2() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_166_1() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_166_1() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_177_2() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_166_1() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_166_1() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_166_1() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_166_1() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_166_1() & 1) == 0)
-  {
-    return 0;
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
-  lazy protocol witness table accessor for type IntentFile? and conformance <A> A?();
-  if ((OUTLINED_FUNCTION_165_2() & 1) == 0 || (static EntityProperty<>.== infix(_:_:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  OUTLINED_FUNCTION_84_4();
-  if (!(!v17 & v16))
-  {
-    OUTLINED_FUNCTION_84_4();
-    if (!(!v17 & v16))
-    {
-      v28 = OUTLINED_FUNCTION_114_4(v33, v19, v20, v21, v22, v23, v24, v25, v29, v30);
-      OUTLINED_FUNCTION_33_9(v28);
-      OUTLINED_FUNCTION_32_12();
-      return (v12 & 1) != 0;
-    }
-
-LABEL_25:
-    v26 = OUTLINED_FUNCTION_249_1(v18, v19, v20, v21, v22, v23, v24, v25, v29, v30, v33);
-    outlined copy of Data?(v26, v37);
-    OUTLINED_FUNCTION_50_5(v32);
-    return 0;
-  }
-
-  OUTLINED_FUNCTION_84_4();
-  if (!(!v17 & v16))
-  {
-    goto LABEL_25;
-  }
-
-  v13 = OUTLINED_FUNCTION_249_1(v18, v19, v20, v21, v22, v23, v24, v25, v29, v30, v33);
-  outlined copy of Data?(v13, v37);
-  outlined copy of Data?(v31, v36);
-  v14 = OUTLINED_FUNCTION_107();
-  outlined consume of Data?(v14, v15);
-  return 1;
-}
-
-uint64_t (*protocol witness for SpotlightItemProviding.encodedSearchableItem.modify in conformance VehicleReservationEntity(void *a1))()
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v4 = *(v1 + 120);
-  v3[4] = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*protocol witness for SpotlightItemProviding.openCommand.modify in conformance VehicleReservationEntity(void *a1))()
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v4 = *(v1 + 128);
-  v3[4] = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t protocol witness for static AppEntity.defaultQuery.getter in conformance VehicleReservationEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type VehicleReservationEntity and conformance VehicleReservationEntity();
-
-  return MEMORY[0x28210B2E8](a1, v2);
-}
-
-uint64_t protocol witness for Identifiable.id.getter in conformance VehicleReservationEntity()
-{
-  lazy protocol witness table accessor for type VehicleReservationEntity and conformance VehicleReservationEntity();
-
-  return UUID.init()();
-}
-
-uint64_t protocol witness for static _IntentValue.defaultResolverSpecification.getter in conformance VehicleReservationEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type VehicleReservationEntity and conformance VehicleReservationEntity();
-
-  return MEMORY[0x28210B488](a1, v2);
-}
-
-uint64_t protocol witness for CustomLocalizedStringResourceConvertible.localizedStringResource.getter in conformance VehicleReservationEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type VehicleReservationEntity and conformance VehicleReservationEntity();
-
-  return MEMORY[0x28210C4B8](a1, v2);
-}
-
-uint64_t key path setter for TicketedShowEntity.duration : TicketedShowEntity(uint64_t a1, const void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  outlined init with copy of ResourceBundle?(a1, &v8[-v6], &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  memcpy(v8, a2, sizeof(v8));
-  outlined init with copy of TicketedShowEntity(v8, v9);
-  TicketedShowEntity.duration.setter();
-  memcpy(v9, a2, sizeof(v9));
-  return outlined destroy of TicketedShowEntity(v9);
-}
-
-uint64_t TicketedShowEntity.duration.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *v0;
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*TicketedShowEntity.duration.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *v0;
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t TicketedShowEntity.customerNames.getter()
-{
-  v1 = *(v0 + 8);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t (*TicketedShowEntity.customerNames.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 8);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*TicketedShowEntity.reservationId.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 16);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*TicketedShowEntity.locationName.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 24);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*TicketedShowEntity.address.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 32);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t TicketedShowEntity.seatNumbers.getter()
-{
-  v1 = *(v0 + 40);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t key path setter for TicketedShowEntity.customerNames : TicketedShowEntity(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_74_7(a1);
-  memcpy(v4, v5, 0x88uLL);
-
-  outlined init with copy of TicketedShowEntity(&v7, __dst);
-  v1(v3);
-  memcpy(__dst, v2, sizeof(__dst));
-  return outlined destroy of TicketedShowEntity(__dst);
-}
-
-uint64_t (*TicketedShowEntity.seatNumbers.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 40);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*TicketedShowEntity.provider.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 48);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*TicketedShowEntity.eventSubType.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 56);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*TicketedShowEntity.ticketType.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 64);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for TicketedShowEntity.ticketUrl : TicketedShowEntity(uint64_t a1, const void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  outlined init with copy of ResourceBundle?(a1, &v8[-v6], &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  memcpy(v8, a2, sizeof(v8));
-  outlined init with copy of TicketedShowEntity(v8, v9);
-  TicketedShowEntity.ticketUrl.setter();
-  memcpy(v9, a2, sizeof(v9));
-  return outlined destroy of TicketedShowEntity(v9);
-}
-
-uint64_t TicketedShowEntity.ticketUrl.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 72);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*TicketedShowEntity.ticketUrl.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 72);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*TicketedShowEntity.cost.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 80);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for TicketedShowEntity.startDateTime : TicketedShowEntity(uint64_t a1, const void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  outlined init with copy of ResourceBundle?(a1, &v8[-v6], &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  memcpy(v8, a2, sizeof(v8));
-  outlined init with copy of TicketedShowEntity(v8, v9);
-  TicketedShowEntity.startDateTime.setter();
-  memcpy(v9, a2, sizeof(v9));
-  return outlined destroy of TicketedShowEntity(v9);
-}
-
-uint64_t TicketedShowEntity.startDateTime.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 88);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*TicketedShowEntity.startDateTime.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 88);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for TicketedShowEntity.endDateTime : TicketedShowEntity(uint64_t a1, const void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v9[-v6];
-  outlined init with copy of ResourceBundle?(a1, &v9[-v6], &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  memcpy(v9, a2, sizeof(v9));
-  outlined init with copy of TicketedShowEntity(v9, v10);
-  GenericEventEntity.startDateTime.setter(v7);
-  memcpy(v10, a2, sizeof(v10));
-  return outlined destroy of TicketedShowEntity(v10);
-}
-
-uint64_t (*TicketedShowEntity.endDateTime.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 96);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for TicketedShowEntity.encodedSearchableItem : TicketedShowEntity(uint64_t a1, const void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v9[-v6];
-  outlined init with copy of ResourceBundle?(a1, &v9[-v6], &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
-  memcpy(v9, a2, sizeof(v9));
-  outlined init with copy of TicketedShowEntity(v9, v10);
-  GenericEventEntity.encodedSearchableItem.setter(v7);
-  memcpy(v10, a2, sizeof(v10));
-  return outlined destroy of TicketedShowEntity(v10);
-}
-
-uint64_t (*TicketedShowEntity.encodedSearchableItem.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 104);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for TicketedShowEntity.openCommand : TicketedShowEntity(uint64_t a1, const void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v9[-v6];
-  outlined init with copy of ResourceBundle?(a1, &v9[-v6], &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
-  memcpy(v9, a2, sizeof(v9));
-  outlined init with copy of TicketedShowEntity(v9, v10);
-  GenericEventEntity.openCommand.setter(v7);
-  memcpy(v10, a2, sizeof(v10));
-  return outlined destroy of TicketedShowEntity(v10);
-}
-
-uint64_t (*TicketedShowEntity.openCommand.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 112);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-void TicketedShowEntity.init()()
-{
-  OUTLINED_FUNCTION_202();
-  OUTLINED_FUNCTION_113();
-  v1 = type metadata accessor for LocalizedStringResource();
-  v2 = OUTLINED_FUNCTION_114(v1);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
-  OUTLINED_FUNCTION_13_8();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMR);
-  OUTLINED_FUNCTION_17_11();
-  OUTLINED_FUNCTION_194_2();
-  OUTLINED_FUNCTION_78_5();
-  *v0 = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySaySSGSgGMd, &_s10AppIntents14EntityPropertyCySaySSGSgGMR);
-  OUTLINED_FUNCTION_33_8();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_246_1();
-  *(v0 + 8) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
-  OUTLINED_FUNCTION_148_1();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_95_4();
-  *(v0 + 16) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_32_11();
-  OUTLINED_FUNCTION_23_8();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 24) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_36_7();
-  OUTLINED_FUNCTION_153_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 32) = EntityProperty<>.init(title:)();
-  v5 = OUTLINED_FUNCTION_184_1();
-  OUTLINED_FUNCTION_24_10(v5);
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_246_1();
-  *(v0 + 40) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_237_1();
-  OUTLINED_FUNCTION_194_2();
-  OUTLINED_FUNCTION_95_4();
-  *(v0 + 48) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_2_18();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 56) = EntityProperty<>.init(title:)();
-  v6 = OUTLINED_FUNCTION_134_1();
-  OUTLINED_FUNCTION_236_0(v6);
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 64) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMR);
-  OUTLINED_FUNCTION_134_1();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 72) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_88_4();
-  OUTLINED_FUNCTION_95_4();
-  *(v0 + 80) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_36_9();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_78_5();
-  *(v0 + 88) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_31_12();
-  OUTLINED_FUNCTION_194_2();
-  *(v0 + 96) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 104) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_2_17();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 112) = EntityProperty<>.init(title:)();
-  *(v0 + 120) = xmmword_25DBC9410;
-  OUTLINED_FUNCTION_203();
-}
-
-uint64_t static TicketedShowEntity.typeDisplayRepresentation.modify()
-{
-  if (one-time initialization token for typeDisplayRepresentation != -1)
-  {
-    swift_once();
-  }
-
-  v0 = type metadata accessor for TypeDisplayRepresentation();
-  OUTLINED_FUNCTION_30_10(v0, &static TicketedShowEntity.typeDisplayRepresentation);
-  return OUTLINED_FUNCTION_66_2();
-}
-
-unint64_t TicketedShowEntity.description.getter()
-{
-  v1 = *(v0 + 8);
-  v2 = 0xE000000000000000;
-  _StringGuts.grow(_:)(20);
-
-  EntityProperty.wrappedValue.getter();
-  if (v8)
-  {
-    v3 = OUTLINED_FUNCTION_94();
-    __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
-    lazy protocol witness table accessor for type [String] and conformance [A](&lazy protocol witness table cache variable for type [String] and conformance [A]);
-    v5 = BidirectionalCollection<>.joined(separator:)();
-    v2 = v6;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  MEMORY[0x25F89F6C0](v5, v2);
-
-  return 0xD000000000000012;
-}
-
-BOOL static TicketedShowEntity.== infix(_:_:)(uint64_t *a1)
-{
-  v1 = *a1;
-  v2 = a1[1];
-  v3 = a1[2];
-  v47 = a1[4];
-  v48 = a1[3];
-  v45 = a1[5];
-  v43 = a1[6];
-  v41 = a1[7];
-  v4 = OUTLINED_FUNCTION_115_2(a1);
-  v36 = v5;
-  v6 = v4[16];
-  v8 = *v7;
-  v9 = v7[1];
-  v11 = v7[2];
-  v10 = v7[3];
-  v46 = v7[4];
-  v44 = v7[5];
-  v12 = v7[7];
-  v42 = v7[6];
-  OUTLINED_FUNCTION_156_2(v4, v7);
-  v40 = v13[12];
-  v37 = v13[14];
-  v33 = v13[15];
-  v38 = v13[16];
-  v39 = v13[13];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMR);
-  lazy protocol witness table accessor for type DateComponents? and conformance <A> A?();
-  OUTLINED_FUNCTION_94();
-  if ((static EntityProperty<>.== infix(_:_:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySaySSGSgGMd, &_s10AppIntents14EntityPropertyCySaySSGSgGMR);
-  lazy protocol witness table accessor for type [String]? and conformance <A> A?();
-  OUTLINED_FUNCTION_232();
-  if ((OUTLINED_FUNCTION_220_1() & 1) == 0)
-  {
-    return 0;
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
-  OUTLINED_FUNCTION_5_14(&lazy protocol witness table cache variable for type String? and conformance <A> A?);
-  OUTLINED_FUNCTION_129_4();
-  if ((OUTLINED_FUNCTION_196_2() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_196_2() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_196_2() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_220_1() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_196_2() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_196_2() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_196_2() & 1) == 0)
-  {
-    return 0;
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMR);
-  lazy protocol witness table accessor for type URL? and conformance <A> A?();
-  if ((static EntityProperty<>.== infix(_:_:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((OUTLINED_FUNCTION_196_2() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((static EntityProperty<>.== infix(_:_:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if ((static EntityProperty<>.== infix(_:_:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
-  v14 = lazy protocol witness table accessor for type IntentFile? and conformance <A> A?();
-  if ((static EntityProperty<>.== infix(_:_:)() & 1) == 0 || (static EntityProperty<>.== infix(_:_:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  OUTLINED_FUNCTION_84_4();
-  if (!(!v19 & v18))
-  {
-    OUTLINED_FUNCTION_84_4();
-    if (!(!v19 & v18))
-    {
-      v30 = OUTLINED_FUNCTION_114_4(v36, v21, v22, v23, v24, v25, v26, v27, v6, v33);
-      OUTLINED_FUNCTION_33_9(v30);
-      OUTLINED_FUNCTION_32_12();
-      return (v14 & 1) != 0;
-    }
-
-LABEL_23:
-    v28 = OUTLINED_FUNCTION_249_1(v20, v21, v22, v23, v24, v25, v26, v27, v6, v33, v36);
-    outlined copy of Data?(v28, v32);
-    OUTLINED_FUNCTION_50_5(v35);
-    return 0;
-  }
-
-  OUTLINED_FUNCTION_84_4();
-  if (!(!v19 & v18))
-  {
-    goto LABEL_23;
-  }
-
-  v15 = OUTLINED_FUNCTION_249_1(v20, v21, v22, v23, v24, v25, v26, v27, v6, v33, v36);
-  outlined copy of Data?(v15, v31);
-  outlined copy of Data?(v34, v38);
-  v16 = OUTLINED_FUNCTION_107();
-  outlined consume of Data?(v16, v17);
-  return 1;
-}
-
-uint64_t (*protocol witness for SpotlightItemProviding.encodedSearchableItem.modify in conformance TicketedShowEntity(void *a1))()
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v4 = *(v1 + 104);
-  v3[4] = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*protocol witness for SpotlightItemProviding.openCommand.modify in conformance TicketedShowEntity(void *a1))()
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v4 = *(v1 + 112);
-  v3[4] = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t protocol witness for static AppEntity.defaultQuery.getter in conformance TicketedShowEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type TicketedShowEntity and conformance TicketedShowEntity();
-
-  return MEMORY[0x28210B2E8](a1, v2);
-}
-
-uint64_t protocol witness for Identifiable.id.getter in conformance TicketedShowEntity()
-{
-  lazy protocol witness table accessor for type TicketedShowEntity and conformance TicketedShowEntity();
-
-  return UUID.init()();
-}
-
-uint64_t protocol witness for static _IntentValue.defaultResolverSpecification.getter in conformance TicketedShowEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type TicketedShowEntity and conformance TicketedShowEntity();
-
-  return MEMORY[0x28210B488](a1, v2);
-}
-
-uint64_t protocol witness for CustomLocalizedStringResourceConvertible.localizedStringResource.getter in conformance TicketedShowEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type TicketedShowEntity and conformance TicketedShowEntity();
-
-  return MEMORY[0x28210C4B8](a1, v2);
-}
-
-uint64_t (*ShippingOrderEntity.eventName.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *v0;
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*ShippingOrderEntity.subType.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 8);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*ShippingOrderEntity.status.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 16);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*ShippingOrderEntity.shippingStatus.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 24);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t ShippingOrderEntity.orderDate.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 32);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*ShippingOrderEntity.orderDate.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 32);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*ShippingOrderEntity.orderNumber.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 40);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-void key path setter for ShippingOrderEntity.orderDate : ShippingOrderEntity()
-{
-  OUTLINED_FUNCTION_202();
-  v9 = OUTLINED_FUNCTION_81_7(v3, v4, v5, v6, v7, v8);
-  OUTLINED_FUNCTION_114(v9);
-  v11 = *(v10 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v12);
-  OUTLINED_FUNCTION_82_6(v13, v14[0]);
-  memcpy(v14, v1, sizeof(v14));
-  outlined init with copy of ShippingOrderEntity(v14, v15);
-  v0(v2);
-  memcpy(v15, v1, sizeof(v15));
-  outlined destroy of ShippingOrderEntity(v15);
-  OUTLINED_FUNCTION_203();
-}
-
-uint64_t ShippingOrderEntity.orderTrackingURL.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 48);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*ShippingOrderEntity.orderTrackingURL.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 48);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for ShippingOrderEntity.orderCost : ShippingOrderEntity(uint64_t *a1, const void *a2)
-{
-  v3 = *a1;
-  v4 = *(a1 + 8);
-  memcpy(v6, a2, sizeof(v6));
-  outlined init with copy of ShippingOrderEntity(v6, __dst);
-  ShippingOrderEntity.orderCost.setter();
-  memcpy(__dst, a2, sizeof(__dst));
-  return outlined destroy of ShippingOrderEntity(__dst);
-}
-
-uint64_t (*ShippingOrderEntity.orderCost.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 56);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*ShippingOrderEntity.merchantName.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 64);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t ShippingOrderEntity.shippingPersonNames.getter()
-{
-  v1 = *(v0 + 72);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t (*ShippingOrderEntity.shippingPersonNames.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 72);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*ShippingOrderEntity.shippingLocationName.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 80);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*ShippingOrderEntity.shippingAddress.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 88);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t ShippingOrderEntity.shippingPhoneNumber.getter()
-{
-  v1 = *(v0 + 96);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t (*ShippingOrderEntity.shippingPhoneNumber.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 96);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t ShippingOrderEntity.recipientNames.getter()
-{
-  v1 = *(v0 + 104);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t (*ShippingOrderEntity.recipientNames.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 104);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t ShippingOrderEntity.recipientLocationName.getter()
-{
-  v1 = *(v0 + 112);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t (*ShippingOrderEntity.recipientLocationName.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 112);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t ShippingOrderEntity.recipientAddress.getter()
-{
-  v1 = *(v0 + 120);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t (*ShippingOrderEntity.recipientAddress.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 120);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t ShippingOrderEntity.recipientPhoneNumber.getter()
-{
-  v1 = *(v0 + 128);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t (*ShippingOrderEntity.recipientPhoneNumber.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 128);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t ShippingOrderEntity.customerNames.getter()
-{
-  v1 = *(v0 + 136);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t (*ShippingOrderEntity.customerNames.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 136);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t ShippingOrderEntity.customerAddresses.getter()
-{
-  v1 = *(v0 + 144);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t (*ShippingOrderEntity.customerAddresses.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 144);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t ShippingOrderEntity.customerPhoneNumbers.getter()
-{
-  v1 = *(v0 + 152);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t key path setter for ShippingOrderEntity.shippingPersonNames : ShippingOrderEntity(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_74_7(a1);
-  memcpy(v4, v5, 0xF0uLL);
-
-  outlined init with copy of ShippingOrderEntity(&v7, __dst);
-  v1(v3);
-  memcpy(__dst, v2, sizeof(__dst));
-  return outlined destroy of ShippingOrderEntity(__dst);
-}
-
-uint64_t (*ShippingOrderEntity.customerPhoneNumbers.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 152);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t ShippingOrderEntity.carrierName.getter()
-{
-  v1 = *(v0 + 160);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t (*ShippingOrderEntity.carrierName.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 160);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t ShippingOrderEntity.trackingNumber.getter()
-{
-  v1 = *(v0 + 168);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t key path setter for ShippingOrderEntity.eventName : ShippingOrderEntity(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_96_2(a1);
-  memcpy(v3, v4, 0xF0uLL);
-
-  outlined init with copy of ShippingOrderEntity(&v7, __dst);
-  v5 = OUTLINED_FUNCTION_34_11();
-  v1(v5);
-  memcpy(__dst, v2, sizeof(__dst));
-  return outlined destroy of ShippingOrderEntity(__dst);
-}
-
-uint64_t (*ShippingOrderEntity.trackingNumber.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 168);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t ShippingOrderEntity.shippingDate.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 176);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*ShippingOrderEntity.shippingDate.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 176);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t ShippingOrderEntity.deliveryDate.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 184);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*ShippingOrderEntity.deliveryDate.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 184);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t ShippingOrderEntity.estimatedDeliveryStartDate.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 192);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*ShippingOrderEntity.estimatedDeliveryStartDate.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 192);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t ShippingOrderEntity.estimatedDeliveryEndDate.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 200);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*ShippingOrderEntity.estimatedDeliveryEndDate.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 200);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t ShippingOrderEntity.encodedSearchableItem.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 208);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*ShippingOrderEntity.encodedSearchableItem.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 208);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t ShippingOrderEntity.openCommand.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 216);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*ShippingOrderEntity.openCommand.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 216);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-void ShippingOrderEntity.init()()
-{
-  OUTLINED_FUNCTION_155();
-  OUTLINED_FUNCTION_113();
-  v1 = type metadata accessor for LocalizedStringResource();
-  v2 = OUTLINED_FUNCTION_114(v1);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
-  OUTLINED_FUNCTION_13_8();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
-  OUTLINED_FUNCTION_24_9();
-  OUTLINED_FUNCTION_269();
-  OUTLINED_FUNCTION_78_5();
-  *v0 = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_18_11();
-  OUTLINED_FUNCTION_106_2();
-  *(v0 + 8) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_60_4();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 16) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_254();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 24) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation4DateVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation4DateVSgGMR);
-  OUTLINED_FUNCTION_76_5();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_95_4();
-  *(v0 + 32) = EntityProperty<>.init(title:)();
-  v5 = OUTLINED_FUNCTION_76_5();
-  OUTLINED_FUNCTION_19_9(v5);
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_78_5();
-  *(v0 + 40) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMR);
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 48) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySdSgGMd, &_s10AppIntents14EntityPropertyCySdSgGMR);
-  OUTLINED_FUNCTION_76_5();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 56) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_23_8();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_78_5();
-  *(v0 + 64) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySaySSGSgGMd, &_s10AppIntents14EntityPropertyCySaySSGSgGMR);
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 72) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_31_13();
-  OUTLINED_FUNCTION_228_0();
-  OUTLINED_FUNCTION_78_5();
-  *(v0 + 80) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 88) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_31_13();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 96) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_147_1();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 104) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_78_5();
-  *(v0 + 112) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 120) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_31_13();
-  OUTLINED_FUNCTION_228_0();
-  *(v0 + 128) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_33_8();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 136) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_31_13();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 144) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_31_13();
-  OUTLINED_FUNCTION_228_0();
-  *(v0 + 152) = EntityProperty<>.init(title:)();
-  v6 = OUTLINED_FUNCTION_118_2();
-  OUTLINED_FUNCTION_231_0(v6);
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_78_5();
-  *(v0 + 160) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_149_1();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 168) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_232();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_95_4();
-  *(v0 + 176) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_238_0();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 184) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 192) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 200) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
-  OUTLINED_FUNCTION_36_7();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 208) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_2_17();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 216) = EntityProperty<>.init(title:)();
-  *(v0 + 224) = xmmword_25DBC9410;
-  OUTLINED_FUNCTION_148();
-}
-
-uint64_t static ShippingOrderEntity.typeDisplayRepresentation.modify()
-{
-  if (one-time initialization token for typeDisplayRepresentation != -1)
-  {
-    swift_once();
-  }
-
-  v0 = type metadata accessor for TypeDisplayRepresentation();
-  OUTLINED_FUNCTION_30_10(v0, static ShippingOrderEntity.typeDisplayRepresentation);
-  return OUTLINED_FUNCTION_66_2();
-}
-
-uint64_t ShippingOrderEntity.description.getter()
-{
-  v1 = *v0;
-  _StringGuts.grow(_:)(17);
-
-  OUTLINED_FUNCTION_189_2();
-  v2 = EntityProperty.wrappedValue.getter();
-  OUTLINED_FUNCTION_67_5(v2, v3, v4, v5, v6, v7, v8, v9, v11, v12);
-  OUTLINED_FUNCTION_216_1();
-
-  return 0;
-}
-
-uint64_t ShippingOrderEntity.cardData.getter()
-{
-  v1 = *(v0 + 224);
-  v2 = *(v0 + 232);
-  return OUTLINED_FUNCTION_35_11();
-}
-
-uint64_t ShippingOrderEntity.cardData.setter()
-{
-  OUTLINED_FUNCTION_93();
-  result = outlined consume of Data?(*(v1 + 224), *(v1 + 232));
-  *(v1 + 224) = v2;
-  *(v1 + 232) = v0;
-  return result;
-}
-
-void static ShippingOrderEntity.== infix(_:_:)()
-{
-  OUTLINED_FUNCTION_155();
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  v5 = OUTLINED_FUNCTION_46_8(v0);
-  v7 = OUTLINED_FUNCTION_109_4(v5, v6);
-  v57 = v7[14];
-  v55 = v7[15];
-  v53 = v7[16];
-  v51 = v7[17];
-  v49 = v7[18];
-  v47 = v7[19];
-  v45 = v7[20];
-  v43 = v7[21];
-  v41 = v7[22];
-  v39 = v7[23];
-  v28 = v7[24];
-  v30 = v7[25];
-  v32 = v7[26];
-  v33 = v7[27];
-  v36 = v7[28];
-  v37 = v7[29];
-  v10 = *v8;
-  v9 = v8[1];
-  v12 = v8[2];
-  v11 = v8[3];
-  OUTLINED_FUNCTION_45_7(v7, v8);
-  OUTLINED_FUNCTION_130_4(v13, v14);
-  v56 = v15[14];
-  v54 = v15[15];
-  v52 = v15[16];
-  v50 = v15[17];
-  v48 = v15[18];
-  v46 = v15[19];
-  v44 = v15[20];
-  v42 = v15[21];
-  v40 = v15[22];
-  v38 = v15[23];
-  v26 = v15[24];
-  v27 = v15[25];
-  v29 = v15[26];
-  v31 = v15[27];
-  v34 = v15[28];
-  v35 = v15[29];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
-  OUTLINED_FUNCTION_5_14(&lazy protocol witness table cache variable for type String? and conformance <A> A?);
-  if (OUTLINED_FUNCTION_163_1())
-  {
-    OUTLINED_FUNCTION_173_1();
-    if (OUTLINED_FUNCTION_163_1() & 1) != 0 && (OUTLINED_FUNCTION_163_1() & 1) != 0 && (OUTLINED_FUNCTION_163_1())
-    {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation4DateVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation4DateVSgGMR);
-      lazy protocol witness table accessor for type Date? and conformance <A> A?();
-      if (OUTLINED_FUNCTION_223_1() & 1) != 0 && (OUTLINED_FUNCTION_163_1())
-      {
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMR);
-        lazy protocol witness table accessor for type URL? and conformance <A> A?();
-        if (static EntityProperty<>.== infix(_:_:)())
-        {
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySdSgGMd, &_s10AppIntents14EntityPropertyCySdSgGMR);
-          lazy protocol witness table accessor for type Double? and conformance <A> A?(&lazy protocol witness table cache variable for type Double? and conformance <A> A?);
-          if (static EntityProperty<>.== infix(_:_:)() & 1) != 0 && (OUTLINED_FUNCTION_163_1())
-          {
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySaySSGSgGMd, &_s10AppIntents14EntityPropertyCySaySSGSgGMR);
-            lazy protocol witness table accessor for type [String]? and conformance <A> A?();
-            if (OUTLINED_FUNCTION_177_2() & 1) != 0 && (OUTLINED_FUNCTION_163_1() & 1) != 0 && (OUTLINED_FUNCTION_163_1() & 1) != 0 && (OUTLINED_FUNCTION_163_1() & 1) != 0 && (OUTLINED_FUNCTION_177_2() & 1) != 0 && (OUTLINED_FUNCTION_163_1() & 1) != 0 && (OUTLINED_FUNCTION_163_1() & 1) != 0 && (OUTLINED_FUNCTION_163_1() & 1) != 0 && (OUTLINED_FUNCTION_177_2() & 1) != 0 && (OUTLINED_FUNCTION_177_2() & 1) != 0 && (OUTLINED_FUNCTION_177_2() & 1) != 0 && (OUTLINED_FUNCTION_163_1() & 1) != 0 && (OUTLINED_FUNCTION_163_1() & 1) != 0 && (OUTLINED_FUNCTION_223_1() & 1) != 0 && (OUTLINED_FUNCTION_223_1() & 1) != 0 && (OUTLINED_FUNCTION_223_1() & 1) != 0 && (OUTLINED_FUNCTION_223_1())
-            {
-              __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
-              lazy protocol witness table accessor for type IntentFile? and conformance <A> A?();
-              if (static EntityProperty<>.== infix(_:_:)() & 1) != 0 && (static EntityProperty<>.== infix(_:_:)())
-              {
-                OUTLINED_FUNCTION_84_4();
-                if (!(!v21 & v20))
-                {
-                  OUTLINED_FUNCTION_84_4();
-                  if (!(!v21 & v20))
-                  {
-                    v24 = OUTLINED_FUNCTION_62_3();
-                    outlined copy of Data?(v24, v25);
-                    OUTLINED_FUNCTION_33_9(v34);
-                    OUTLINED_FUNCTION_32_12();
-                    goto LABEL_37;
-                  }
-
-LABEL_36:
-                  v22 = OUTLINED_FUNCTION_107();
-                  outlined copy of Data?(v22, v23);
-                  OUTLINED_FUNCTION_50_5(v34);
-                  goto LABEL_37;
-                }
-
-                OUTLINED_FUNCTION_84_4();
-                if (!(!v21 & v20))
-                {
-                  goto LABEL_36;
-                }
-
-                v16 = OUTLINED_FUNCTION_107();
-                outlined copy of Data?(v16, v17);
-                outlined copy of Data?(v34, v35);
-                v18 = OUTLINED_FUNCTION_107();
-                outlined consume of Data?(v18, v19);
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-LABEL_37:
-  OUTLINED_FUNCTION_148();
-}
-
-uint64_t (*protocol witness for SpotlightItemProviding.encodedSearchableItem.modify in conformance ShippingOrderEntity(void *a1))()
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v4 = *(v1 + 208);
-  v3[4] = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*protocol witness for SpotlightItemProviding.openCommand.modify in conformance ShippingOrderEntity(void *a1))()
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v4 = *(v1 + 216);
-  v3[4] = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t protocol witness for static AppEntity.defaultQuery.getter in conformance ShippingOrderEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type ShippingOrderEntity and conformance ShippingOrderEntity();
-
-  return MEMORY[0x28210B2E8](a1, v2);
-}
-
-uint64_t protocol witness for Identifiable.id.getter in conformance ShippingOrderEntity()
-{
-  lazy protocol witness table accessor for type ShippingOrderEntity and conformance ShippingOrderEntity();
-
-  return UUID.init()();
-}
-
-uint64_t protocol witness for static _IntentValue.defaultResolverSpecification.getter in conformance ShippingOrderEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type ShippingOrderEntity and conformance ShippingOrderEntity();
-
-  return MEMORY[0x28210B488](a1, v2);
-}
-
-uint64_t protocol witness for CustomLocalizedStringResourceConvertible.localizedStringResource.getter in conformance ShippingOrderEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type ShippingOrderEntity and conformance ShippingOrderEntity();
-
-  return MEMORY[0x28210C4B8](a1, v2);
-}
-
-uint64_t GenericEventEntity.attendees.getter()
-{
-  v1 = *v0;
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t key path setter for GenericEventEntity.attendees : GenericEventEntity(uint64_t *a1, const void *a2)
-{
-  v3 = *a1;
-  memcpy(v5, a2, sizeof(v5));
-
-  outlined init with copy of GenericEventEntity(v5, __dst);
-  GenericEventEntity.attendees.setter();
-  memcpy(__dst, a2, sizeof(__dst));
-  return outlined destroy of GenericEventEntity(__dst);
-}
-
-uint64_t (*GenericEventEntity.attendees.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *v0;
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*GenericEventEntity.businessName.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 8);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*GenericEventEntity.cost.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 16);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for GenericEventEntity.duration : GenericEventEntity(uint64_t a1, const void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  outlined init with copy of ResourceBundle?(a1, &v8[-v6], &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  memcpy(v8, a2, sizeof(v8));
-  outlined init with copy of GenericEventEntity(v8, v9);
-  GenericEventEntity.duration.setter();
-  memcpy(v9, a2, sizeof(v9));
-  return outlined destroy of GenericEventEntity(v9);
-}
-
-uint64_t GenericEventEntity.duration.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 24);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*GenericEventEntity.duration.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 24);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for GenericEventEntity.endDateTime : GenericEventEntity(uint64_t a1, const void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  outlined init with copy of ResourceBundle?(a1, &v8[-v6], &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  memcpy(v8, a2, sizeof(v8));
-  outlined init with copy of GenericEventEntity(v8, v9);
-  GenericEventEntity.endDateTime.setter();
-  memcpy(v9, a2, sizeof(v9));
-  return outlined destroy of GenericEventEntity(v9);
-}
-
-uint64_t GenericEventEntity.endDateTime.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 32);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*GenericEventEntity.endDateTime.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 32);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for GenericEventEntity.eventLink : GenericEventEntity(uint64_t a1, const void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  outlined init with copy of ResourceBundle?(a1, &v8[-v6], &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  memcpy(v8, a2, sizeof(v8));
-  outlined init with copy of GenericEventEntity(v8, v9);
-  GenericEventEntity.eventLink.setter();
-  memcpy(v9, a2, sizeof(v9));
-  return outlined destroy of GenericEventEntity(v9);
-}
-
-uint64_t GenericEventEntity.eventLink.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 40);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*GenericEventEntity.eventLink.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 40);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*GenericEventEntity.eventName.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 48);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*GenericEventEntity.eventType.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 56);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*GenericEventEntity.eventSubType.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 64);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t GenericEventEntity.location.getter()
-{
-  v1 = *(v0 + 72);
-  EntityProperty.wrappedValue.getter();
-  return v3;
-}
-
-uint64_t (*GenericEventEntity.location.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 72);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for GenericEventEntity.organizer : GenericEventEntity(uint64_t a1, const void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents12IntentPersonVSgMd, &_s10AppIntents12IntentPersonVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  outlined init with copy of ResourceBundle?(a1, &v8[-v6], &_s10AppIntents12IntentPersonVSgMd, &_s10AppIntents12IntentPersonVSgMR);
-  memcpy(v8, a2, sizeof(v8));
-  outlined init with copy of GenericEventEntity(v8, v9);
-  GenericEventEntity.organizer.setter();
-  memcpy(v9, a2, sizeof(v9));
-  return outlined destroy of GenericEventEntity(v9);
-}
-
-uint64_t GenericEventEntity.organizer.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 80);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*GenericEventEntity.organizer.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 80);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for TicketedShowEntity.reservationId : TicketedShowEntity()
-{
-  OUTLINED_FUNCTION_116_3();
-  v5 = *v4;
-  v6 = v4[1];
-  memcpy(v10, v7, sizeof(v10));
-
-  v1(v10, __dst);
-  v8 = OUTLINED_FUNCTION_64_0();
-  v2(v8);
-  memcpy(__dst, v3, sizeof(__dst));
-  return v0(__dst);
-}
-
-uint64_t (*GenericEventEntity.phoneNumber.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 88);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for GenericEventEntity.startDateTime : GenericEventEntity(uint64_t a1, const void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v9[-v6];
-  outlined init with copy of ResourceBundle?(a1, &v9[-v6], &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  memcpy(v9, a2, sizeof(v9));
-  outlined init with copy of GenericEventEntity(v9, v10);
-  GenericEventEntity.startDateTime.setter(v7);
-  memcpy(v10, a2, sizeof(v10));
-  return outlined destroy of GenericEventEntity(v10);
-}
-
-uint64_t TicketedShowEntity.endDateTime.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 96);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*GenericEventEntity.startDateTime.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 96);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for GenericEventEntity.encodedSearchableItem : GenericEventEntity(uint64_t a1, const void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v9[-v6];
-  outlined init with copy of ResourceBundle?(a1, &v9[-v6], &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
-  memcpy(v9, a2, sizeof(v9));
-  outlined init with copy of GenericEventEntity(v9, v10);
-  GenericEventEntity.encodedSearchableItem.setter(v7);
-  memcpy(v10, a2, sizeof(v10));
-  return outlined destroy of GenericEventEntity(v10);
-}
-
-uint64_t TicketedShowEntity.encodedSearchableItem.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 104);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*GenericEventEntity.encodedSearchableItem.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 104);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t key path setter for GenericEventEntity.openCommand : GenericEventEntity(uint64_t a1, const void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v9[-v6];
-  outlined init with copy of ResourceBundle?(a1, &v9[-v6], &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
-  memcpy(v9, a2, sizeof(v9));
-  outlined init with copy of GenericEventEntity(v9, v10);
-  GenericEventEntity.openCommand.setter(v7);
-  memcpy(v10, a2, sizeof(v10));
-  return outlined destroy of GenericEventEntity(v10);
-}
-
-uint64_t TicketedShowEntity.openCommand.setter()
-{
-  v1 = OUTLINED_FUNCTION_34_11();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
-  OUTLINED_FUNCTION_114(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_77_0();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_90_0();
-  v7 = *(v0 + 112);
-  OUTLINED_FUNCTION_17_10();
-  EntityProperty.wrappedValue.setter();
-  v8 = OUTLINED_FUNCTION_15_11();
-  return outlined destroy of IntentApplication?(v8, v9, v10);
-}
-
-uint64_t (*GenericEventEntity.openCommand.modify())()
-{
-  v2 = OUTLINED_FUNCTION_4_12();
-  v3 = __swift_coroFrameAllocStub(v2);
-  OUTLINED_FUNCTION_32_1(v3);
-  v4 = *(v0 + 112);
-  *(v1 + 32) = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-void GenericEventEntity.init()()
-{
-  OUTLINED_FUNCTION_202();
-  OUTLINED_FUNCTION_113();
-  v1 = type metadata accessor for LocalizedStringResource();
-  v2 = OUTLINED_FUNCTION_114(v1);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
-  OUTLINED_FUNCTION_13_8();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySayAA12IntentPersonVGGMd, &_s10AppIntents14EntityPropertyCySayAA12IntentPersonVGGMR);
-  OUTLINED_FUNCTION_151_0();
-  LocalizedStringResource.init(stringLiteral:)();
-  *v0 = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
-  OUTLINED_FUNCTION_10_12();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_95_4();
-  *(v0 + 8) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_88_4();
-  *(v0 + 16) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation14DateComponentsVSgGMR);
-  OUTLINED_FUNCTION_17_11();
-  OUTLINED_FUNCTION_194_2();
-  OUTLINED_FUNCTION_246_1();
-  *(v0 + 24) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_31_12();
-  OUTLINED_FUNCTION_235_1();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 32) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMR);
-  OUTLINED_FUNCTION_24_9();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 40) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_24_9();
-  OUTLINED_FUNCTION_269();
-  OUTLINED_FUNCTION_95_4();
-  *(v0 + 48) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_24_9();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 56) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_2_18();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 64) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_32_11();
-  OUTLINED_FUNCTION_194_2();
-  *(v0 + 72) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA12IntentPersonVSgGMd, &_s10AppIntents14EntityPropertyCyAA12IntentPersonVSgGMR);
-  OUTLINED_FUNCTION_190_2();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 80) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_4_16();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_95_4();
-  *(v0 + 88) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_3_19();
-  LocalizedStringResource.init(stringLiteral:)();
-  OUTLINED_FUNCTION_246_1();
-  *(v0 + 96) = EntityProperty<>.init(title:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
-  OUTLINED_FUNCTION_31_13();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 104) = EntityProperty<>.init(title:)();
-  OUTLINED_FUNCTION_2_17();
-  LocalizedStringResource.init(stringLiteral:)();
-  *(v0 + 112) = EntityProperty<>.init(title:)();
-  *(v0 + 120) = xmmword_25DBC9410;
-  EntityProperty.wrappedValue.setter();
-  OUTLINED_FUNCTION_203();
-}
-
-uint64_t static EventEntity.typeDisplayRepresentation.setter(uint64_t a1, void *a2, uint64_t a3)
-{
-  if (*a2 != -1)
-  {
-    swift_once();
-  }
-
-  v4 = type metadata accessor for TypeDisplayRepresentation();
-  __swift_project_value_buffer(v4, a3);
-  OUTLINED_FUNCTION_91_3();
-  swift_beginAccess();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 24);
-  v7 = OUTLINED_FUNCTION_107();
-  v8(v7);
-  swift_endAccess();
-  v9 = *(v5 + 8);
-  v10 = OUTLINED_FUNCTION_32_0();
-  return v11(v10);
-}
-
-uint64_t static GenericEventEntity.typeDisplayRepresentation.modify()
-{
-  if (one-time initialization token for typeDisplayRepresentation != -1)
-  {
-    swift_once();
-  }
-
-  v0 = type metadata accessor for TypeDisplayRepresentation();
-  OUTLINED_FUNCTION_30_10(v0, &static GenericEventEntity.typeDisplayRepresentation);
-  return OUTLINED_FUNCTION_66_2();
-}
-
-uint64_t GenericEventEntity.description.getter()
-{
-  v1 = *(v0 + 48);
-  OUTLINED_FUNCTION_189_2();
-  v2 = EntityProperty.wrappedValue.getter();
-  OUTLINED_FUNCTION_67_5(v2, v3, v4, v5, v6, v7, v8, v9, v11, v12);
-  OUTLINED_FUNCTION_216_1();
-
-  return v13;
-}
-
-uint64_t GenericEventEntity.cardData.getter()
-{
-  v1 = *(v0 + 120);
-  v2 = *(v0 + 128);
-  return OUTLINED_FUNCTION_35_11();
-}
-
-uint64_t GenericEventEntity.cardData.setter()
-{
-  OUTLINED_FUNCTION_93();
-  result = outlined consume of Data?(*(v1 + 120), *(v1 + 128));
-  *(v1 + 120) = v2;
-  *(v1 + 128) = v0;
-  return result;
-}
-
-uint64_t (*protocol witness for SpotlightItemProviding.encodedSearchableItem.modify in conformance GenericEventEntity(void *a1))()
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v4 = *(v1 + 104);
-  v3[4] = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t (*protocol witness for SpotlightItemProviding.openCommand.modify in conformance GenericEventEntity(void *a1))()
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v4 = *(v1 + 112);
-  v3[4] = EntityProperty.wrappedValue.modify();
-  return MemoryCreationQUResult.version.modify;
-}
-
-uint64_t protocol witness for static AppEntity.defaultQuery.getter in conformance GenericEventEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type GenericEventEntity and conformance GenericEventEntity();
-
-  return MEMORY[0x28210B2E8](a1, v2);
-}
-
-uint64_t protocol witness for Identifiable.id.getter in conformance GenericEventEntity()
-{
-  lazy protocol witness table accessor for type GenericEventEntity and conformance GenericEventEntity();
-
-  return UUID.init()();
-}
-
-uint64_t protocol witness for static _IntentValue.defaultResolverSpecification.getter in conformance GenericEventEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type GenericEventEntity and conformance GenericEventEntity();
-
-  return MEMORY[0x28210B488](a1, v2);
-}
-
-uint64_t protocol witness for CustomLocalizedStringResourceConvertible.localizedStringResource.getter in conformance GenericEventEntity(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type GenericEventEntity and conformance GenericEventEntity();
-
-  return MEMORY[0x28210C4B8](a1, v2);
-}
-
-uint64_t type metadata accessor for EventEntity()
-{
-  result = type metadata singleton initialization cache for EventEntity;
-  if (!type metadata singleton initialization cache for EventEntity)
-  {
-    return swift_getSingletonMetadata();
-  }
-
-  return result;
-}
-
-uint64_t objectdestroyTm()
-{
-  v1 = v0[2];
-
-  v2 = v0[3];
-
-  v3 = v0[4];
-
-  v4 = v0[5];
-
-  v5 = v0[6];
-
-  v6 = v0[7];
-
-  v7 = v0[8];
-
-  v8 = v0[9];
-
-  v9 = v0[10];
-
-  v10 = v0[11];
-
-  v11 = v0[12];
-
-  v12 = v0[13];
-
-  v13 = v0[14];
-
-  v14 = v0[15];
-
-  v15 = v0[16];
-
-  v16 = v0[18];
-  OUTLINED_FUNCTION_192_2();
-  if (!(!v19 & v18))
-  {
-    outlined consume of Data._Representation(v0[17], v17);
-  }
-
-  return MEMORY[0x2821FE8E8](v0, 152, 7);
-}
-
-uint64_t objectdestroy_11Tm()
-{
-  v1 = v0[2];
-
-  v2 = v0[3];
-
-  v3 = v0[4];
-
-  v4 = v0[5];
-
-  v5 = v0[6];
-
-  v6 = v0[7];
-
-  v7 = v0[8];
-
-  v8 = v0[9];
-
-  v9 = v0[10];
-
-  v10 = v0[11];
-
-  v11 = v0[12];
-
-  v12 = v0[13];
-
-  v13 = v0[14];
-
-  v14 = v0[15];
-
-  v15 = v0[17];
-  OUTLINED_FUNCTION_192_2();
-  if (!(!v18 & v17))
-  {
-    outlined consume of Data._Representation(v0[16], v16);
-  }
-
-  return MEMORY[0x2821FE8E8](v0, 144, 7);
-}
-
-unint64_t type metadata accessor for SFCard()
-{
-  result = lazy cache variable for type metadata for SFCard;
-  if (!lazy cache variable for type metadata for SFCard)
-  {
-    objc_opt_self();
-    result = swift_getObjCClassMetadata();
-    atomic_store(result, &lazy cache variable for type metadata for SFCard);
-  }
-
-  return result;
-}
-
-uint64_t outlined init with copy of EventEntity(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
-{
-  v4 = a3(0);
-  OUTLINED_FUNCTION_17(v4);
-  v6 = *(v5 + 16);
-  v7 = OUTLINED_FUNCTION_94();
-  v8(v7);
-  return a2;
-}
-
-uint64_t outlined init with take of SearchResultItem?(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B10ResultItemOSgMd, &_s10OmniSearch0B10ResultItemOSgMR);
-  (*(*(v4 - 8) + 32))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t outlined destroy of EventEntity()
-{
-  v1 = OUTLINED_FUNCTION_42_2();
-  v3 = v2(v1);
-  OUTLINED_FUNCTION_17(v3);
-  (*(v4 + 8))(v0);
-  return v0;
-}
-
-uint64_t outlined assign with take of EventEntity(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for EventEntity();
-  (*(*(v4 - 8) + 40))(a2, a1, v4);
-  return a2;
-}
-
-unint64_t lazy protocol witness table accessor for type DateComponents? and conformance <A> A?()
-{
-  result = lazy protocol witness table cache variable for type DateComponents? and conformance <A> A?;
-  if (!lazy protocol witness table cache variable for type DateComponents? and conformance <A> A?)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-    _s16IntelligenceFlow13RGPluginModelOAC10SnippetKit0e6PluginD0AAWlTm_0(&lazy protocol witness table cache variable for type DateComponents and conformance DateComponents);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type DateComponents? and conformance <A> A?);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type DateComponents? and conformance <A> A?;
-  if (!lazy protocol witness table cache variable for type DateComponents? and conformance <A> A?)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-    lazy protocol witness table accessor for type HydrationContext and conformance HydrationContext(&lazy protocol witness table cache variable for type DateComponents and conformance DateComponents);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type DateComponents? and conformance <A> A?);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type String? and conformance <A> A?(uint64_t a1)
-{
-  result = OUTLINED_FUNCTION_6_6(a1);
-  if (!result)
-  {
-    OUTLINED_FUNCTION_175_2(0, v3, v4);
-    result = swift_getWitnessTable();
-    atomic_store(result, v1);
-  }
-
-  return result;
-}
-
-{
-  result = OUTLINED_FUNCTION_6_6(a1);
-  if (!result)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSSSgMd, &_sSSSgMR);
-    result = OUTLINED_FUNCTION_77_6();
-    atomic_store(result, v1);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type URL? and conformance <A> A?()
-{
-  result = lazy protocol witness table cache variable for type URL? and conformance <A> A?;
-  if (!lazy protocol witness table cache variable for type URL? and conformance <A> A?)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    _s16IntelligenceFlow13RGPluginModelOAC10SnippetKit0e6PluginD0AAWlTm_0(&lazy protocol witness table cache variable for type URL and conformance URL);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type URL? and conformance <A> A?);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type URL? and conformance <A> A?;
-  if (!lazy protocol witness table cache variable for type URL? and conformance <A> A?)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    lazy protocol witness table accessor for type SearchSpotlightEntity and conformance SearchSpotlightEntity(&lazy protocol witness table cache variable for type URL and conformance URL);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type URL? and conformance <A> A?);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type URL? and conformance <A> A?;
-  if (!lazy protocol witness table cache variable for type URL? and conformance <A> A?)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    lazy protocol witness table accessor for type SearchSpotlightEntity and conformance SearchSpotlightEntity(&lazy protocol witness table cache variable for type URL and conformance URL);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type URL? and conformance <A> A?);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type URL? and conformance <A> A?;
-  if (!lazy protocol witness table cache variable for type URL? and conformance <A> A?)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    lazy protocol witness table accessor for type SearchSpotlightEntity and conformance SearchSpotlightEntity(&lazy protocol witness table cache variable for type URL and conformance URL);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type URL? and conformance <A> A?);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type IntentCurrencyAmount? and conformance <A> A?()
-{
-  result = lazy protocol witness table cache variable for type IntentCurrencyAmount? and conformance <A> A?;
-  if (!lazy protocol witness table cache variable for type IntentCurrencyAmount? and conformance <A> A?)
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10AppIntents20IntentCurrencyAmountVSgMd, &_s10AppIntents20IntentCurrencyAmountVSgMR);
-    _s16IntelligenceFlow13RGPluginModelOAC10SnippetKit0e6PluginD0AAWlTm_0(&lazy protocol witness table cache variable for type IntentCurrencyAmount and conformance IntentCurrencyAmount);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type IntentCurrencyAmount? and conformance <A> A?);
-  }
-
-  return result;
-}
-
 unint64_t lazy protocol witness table accessor for type Double? and conformance <A> A?(uint64_t a1)
 {
   result = OUTLINED_FUNCTION_6_6(a1);
@@ -9194,40 +182,40 @@ unint64_t lazy protocol witness table accessor for type [String] and conformance
   return result;
 }
 
-void type metadata completion function for EventEntity()
+void type metadata completion function for EventEntity(uint64_t a1)
 {
-  type metadata accessor for EntityProperty<EventSubType>();
-  if (v0 <= 0x3F)
+  type metadata accessor for EntityProperty<EventSubType>(319);
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for EntityProperty<FlightReservationEntity?>();
-    if (v1 <= 0x3F)
+    type metadata accessor for EntityProperty<FlightReservationEntity?>(319);
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for EntityProperty<GenericEventEntity?>();
-      if (v2 <= 0x3F)
+      type metadata accessor for EntityProperty<GenericEventEntity?>(319);
+      if (v3 <= 0x3F)
       {
-        type metadata accessor for EntityProperty<HotelReservationEntity?>();
-        if (v3 <= 0x3F)
+        type metadata accessor for EntityProperty<HotelReservationEntity?>(319);
+        if (v4 <= 0x3F)
         {
-          type metadata accessor for EntityProperty<RestaurantReservationEntity?>();
-          if (v4 <= 0x3F)
+          type metadata accessor for EntityProperty<RestaurantReservationEntity?>(319);
+          if (v5 <= 0x3F)
           {
-            type metadata accessor for EntityProperty<TicketedTransportationEntity?>();
-            if (v5 <= 0x3F)
+            type metadata accessor for EntityProperty<TicketedTransportationEntity?>(319);
+            if (v6 <= 0x3F)
             {
-              type metadata accessor for EntityProperty<VehicleReservationEntity?>();
-              if (v6 <= 0x3F)
+              type metadata accessor for EntityProperty<VehicleReservationEntity?>(319);
+              if (v7 <= 0x3F)
               {
-                type metadata accessor for EntityProperty<TicketedShowEntity?>();
-                if (v7 <= 0x3F)
+                type metadata accessor for EntityProperty<TicketedShowEntity?>(319);
+                if (v8 <= 0x3F)
                 {
-                  type metadata accessor for EntityProperty<ShippingOrderEntity?>();
-                  if (v8 <= 0x3F)
+                  type metadata accessor for EntityProperty<ShippingOrderEntity?>(319);
+                  if (v9 <= 0x3F)
                   {
                     type metadata accessor for Data?();
-                    if (v9 <= 0x3F)
+                    if (v10 <= 0x3F)
                     {
-                      type metadata accessor for SearchResult?();
-                      if (v10 <= 0x3F)
+                      type metadata accessor for SearchResult?(319);
+                      if (v11 <= 0x3F)
                       {
                         swift_cvw_initStructMetadataWithLayoutString();
                       }
@@ -9243,29 +231,29 @@ void type metadata completion function for EventEntity()
   }
 }
 
-void type metadata accessor for EntityProperty<EventSubType>()
+void type metadata accessor for EntityProperty<EventSubType>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for EntityProperty<EventSubType>)
   {
     lazy protocol witness table accessor for type EventSubType and conformance EventSubType();
-    v0 = type metadata accessor for EntityProperty();
-    if (!v1)
+    v1 = type metadata accessor for EntityProperty();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for EntityProperty<EventSubType>);
+      atomic_store(v1, &lazy cache variable for type metadata for EntityProperty<EventSubType>);
     }
   }
 }
 
-void type metadata accessor for EntityProperty<FlightReservationEntity?>()
+void type metadata accessor for EntityProperty<FlightReservationEntity?>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for EntityProperty<FlightReservationEntity?>)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10OmniSearch23FlightReservationEntityVSgMd, &_s10OmniSearch23FlightReservationEntityVSgMR);
     lazy protocol witness table accessor for type ShippingOrderEntity? and conformance <A> A?(&lazy protocol witness table cache variable for type FlightReservationEntity? and conformance <A> A?);
-    v0 = type metadata accessor for EntityProperty();
-    if (!v1)
+    v1 = type metadata accessor for EntityProperty();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for EntityProperty<FlightReservationEntity?>);
+      atomic_store(v1, &lazy cache variable for type metadata for EntityProperty<FlightReservationEntity?>);
     }
   }
 }
@@ -9284,100 +272,100 @@ unint64_t lazy protocol witness table accessor for type ShippingOrderEntity? and
   return result;
 }
 
-void type metadata accessor for EntityProperty<GenericEventEntity?>()
+void type metadata accessor for EntityProperty<GenericEventEntity?>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for EntityProperty<GenericEventEntity?>)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10OmniSearch18GenericEventEntityVSgMd, &_s10OmniSearch18GenericEventEntityVSgMR);
     lazy protocol witness table accessor for type ShippingOrderEntity? and conformance <A> A?(&lazy protocol witness table cache variable for type GenericEventEntity? and conformance <A> A?);
-    v0 = type metadata accessor for EntityProperty();
-    if (!v1)
+    v1 = type metadata accessor for EntityProperty();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for EntityProperty<GenericEventEntity?>);
+      atomic_store(v1, &lazy cache variable for type metadata for EntityProperty<GenericEventEntity?>);
     }
   }
 }
 
-void type metadata accessor for EntityProperty<HotelReservationEntity?>()
+void type metadata accessor for EntityProperty<HotelReservationEntity?>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for EntityProperty<HotelReservationEntity?>)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10OmniSearch22HotelReservationEntityVSgMd, &_s10OmniSearch22HotelReservationEntityVSgMR);
     lazy protocol witness table accessor for type ShippingOrderEntity? and conformance <A> A?(&lazy protocol witness table cache variable for type HotelReservationEntity? and conformance <A> A?);
-    v0 = type metadata accessor for EntityProperty();
-    if (!v1)
+    v1 = type metadata accessor for EntityProperty();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for EntityProperty<HotelReservationEntity?>);
+      atomic_store(v1, &lazy cache variable for type metadata for EntityProperty<HotelReservationEntity?>);
     }
   }
 }
 
-void type metadata accessor for EntityProperty<RestaurantReservationEntity?>()
+void type metadata accessor for EntityProperty<RestaurantReservationEntity?>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for EntityProperty<RestaurantReservationEntity?>)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10OmniSearch27RestaurantReservationEntityVSgMd, &_s10OmniSearch27RestaurantReservationEntityVSgMR);
     lazy protocol witness table accessor for type ShippingOrderEntity? and conformance <A> A?(&lazy protocol witness table cache variable for type RestaurantReservationEntity? and conformance <A> A?);
-    v0 = type metadata accessor for EntityProperty();
-    if (!v1)
+    v1 = type metadata accessor for EntityProperty();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for EntityProperty<RestaurantReservationEntity?>);
+      atomic_store(v1, &lazy cache variable for type metadata for EntityProperty<RestaurantReservationEntity?>);
     }
   }
 }
 
-void type metadata accessor for EntityProperty<TicketedTransportationEntity?>()
+void type metadata accessor for EntityProperty<TicketedTransportationEntity?>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for EntityProperty<TicketedTransportationEntity?>)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10OmniSearch28TicketedTransportationEntityVSgMd, &_s10OmniSearch28TicketedTransportationEntityVSgMR);
     lazy protocol witness table accessor for type ShippingOrderEntity? and conformance <A> A?(&lazy protocol witness table cache variable for type TicketedTransportationEntity? and conformance <A> A?);
-    v0 = type metadata accessor for EntityProperty();
-    if (!v1)
+    v1 = type metadata accessor for EntityProperty();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for EntityProperty<TicketedTransportationEntity?>);
+      atomic_store(v1, &lazy cache variable for type metadata for EntityProperty<TicketedTransportationEntity?>);
     }
   }
 }
 
-void type metadata accessor for EntityProperty<VehicleReservationEntity?>()
+void type metadata accessor for EntityProperty<VehicleReservationEntity?>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for EntityProperty<VehicleReservationEntity?>)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10OmniSearch24VehicleReservationEntityVSgMd, &_s10OmniSearch24VehicleReservationEntityVSgMR);
     lazy protocol witness table accessor for type ShippingOrderEntity? and conformance <A> A?(&lazy protocol witness table cache variable for type VehicleReservationEntity? and conformance <A> A?);
-    v0 = type metadata accessor for EntityProperty();
-    if (!v1)
+    v1 = type metadata accessor for EntityProperty();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for EntityProperty<VehicleReservationEntity?>);
+      atomic_store(v1, &lazy cache variable for type metadata for EntityProperty<VehicleReservationEntity?>);
     }
   }
 }
 
-void type metadata accessor for EntityProperty<TicketedShowEntity?>()
+void type metadata accessor for EntityProperty<TicketedShowEntity?>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for EntityProperty<TicketedShowEntity?>)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10OmniSearch18TicketedShowEntityVSgMd, &_s10OmniSearch18TicketedShowEntityVSgMR);
     lazy protocol witness table accessor for type ShippingOrderEntity? and conformance <A> A?(&lazy protocol witness table cache variable for type TicketedShowEntity? and conformance <A> A?);
-    v0 = type metadata accessor for EntityProperty();
-    if (!v1)
+    v1 = type metadata accessor for EntityProperty();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for EntityProperty<TicketedShowEntity?>);
+      atomic_store(v1, &lazy cache variable for type metadata for EntityProperty<TicketedShowEntity?>);
     }
   }
 }
 
-void type metadata accessor for EntityProperty<ShippingOrderEntity?>()
+void type metadata accessor for EntityProperty<ShippingOrderEntity?>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for EntityProperty<ShippingOrderEntity?>)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10OmniSearch19ShippingOrderEntityVSgMd, &_s10OmniSearch19ShippingOrderEntityVSgMR);
     lazy protocol witness table accessor for type ShippingOrderEntity? and conformance <A> A?(&lazy protocol witness table cache variable for type ShippingOrderEntity? and conformance <A> A?);
-    v0 = type metadata accessor for EntityProperty();
-    if (!v1)
+    v1 = type metadata accessor for EntityProperty();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for EntityProperty<ShippingOrderEntity?>);
+      atomic_store(v1, &lazy cache variable for type metadata for EntityProperty<ShippingOrderEntity?>);
     }
   }
 }
@@ -9930,4 +918,8927 @@ uint64_t getEnumTagSinglePayload for TicketedShowEntity(uint64_t *a1, int a2)
   }
 
   return OUTLINED_FUNCTION_218_1(v2);
+}
+
+void *storeEnumTagSinglePayload for TicketedShowEntity(void *result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 13) = 0u;
+    *(result + 11) = 0u;
+    *(result + 9) = 0u;
+    *(result + 7) = 0u;
+    *(result + 5) = 0u;
+    *(result + 3) = 0u;
+    *(result + 1) = 0u;
+    *(result + 15) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 136) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+      return OUTLINED_FUNCTION_209_1(result, a2);
+    }
+
+    *(result + 136) = 0;
+    if (a2)
+    {
+      return OUTLINED_FUNCTION_209_1(result, a2);
+    }
+  }
+
+  return result;
+}
+
+unint64_t OUTLINED_FUNCTION_5_14(uint64_t a1)
+{
+
+  return lazy protocol witness table accessor for type String? and conformance <A> A?(a1);
+}
+
+uint64_t OUTLINED_FUNCTION_14_8()
+{
+  __swift_storeEnumTagSinglePayload(v1, 1, 1, v2);
+  __swift_storeEnumTagSinglePayload(v0, 1, 1, v3);
+
+  return DisplayRepresentation.init(title:subtitle:image:)();
+}
+
+uint64_t OUTLINED_FUNCTION_17_12()
+{
+  __swift_storeEnumTagSinglePayload(v1, 1, 1, v2);
+
+  return __swift_storeEnumTagSinglePayload(v0, 1, 1, v3);
+}
+
+uint64_t OUTLINED_FUNCTION_32_12()
+{
+  outlined consume of Data?(v3, v2);
+
+  return outlined consume of Data?(v1, v0);
+}
+
+void OUTLINED_FUNCTION_33_9(uint64_t a1)
+{
+  outlined copy of Data?(a1, v1);
+
+  JUMPOUT(0x25F899380);
+}
+
+void OUTLINED_FUNCTION_45_7(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a2 + 40);
+  *(v2 - 104) = *(a2 + 32);
+  *(v2 - 120) = v3;
+}
+
+uint64_t OUTLINED_FUNCTION_46_8(uint64_t result)
+{
+  v2 = *(result + 40);
+  *(v1 - 96) = *(result + 32);
+  *(v1 - 112) = v2;
+  return result;
+}
+
+unint64_t OUTLINED_FUNCTION_47_9(uint64_t a1)
+{
+
+  return lazy protocol witness table accessor for type String? and conformance <A> A?(a1);
+}
+
+uint64_t OUTLINED_FUNCTION_50_5(uint64_t a1)
+{
+  outlined copy of Data?(a1, v3);
+  outlined consume of Data?(v2, v1);
+
+  return outlined consume of Data?(v4, v3);
+}
+
+uint64_t OUTLINED_FUNCTION_67_5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  if (a10)
+  {
+    return a9;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t OUTLINED_FUNCTION_81_7(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
+{
+
+  return __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+}
+
+uint64_t OUTLINED_FUNCTION_82_6@<X0>(uint64_t a1@<X8>, uint64_t a2)
+{
+
+  return outlined init with copy of ResourceBundle?(v4, &a2 - a1, v3, v2);
+}
+
+void *OUTLINED_FUNCTION_109_4@<X0>(void *result@<X0>, uint64_t a2@<X8>)
+{
+  *(v3 - 128) = v2;
+  *(v3 - 144) = a2;
+  v4 = result[9];
+  *(v3 - 160) = result[8];
+  *(v3 - 176) = v4;
+  v5 = result[11];
+  *(v3 - 192) = result[10];
+  *(v3 - 208) = v5;
+  *(v3 - 224) = result[12];
+  return result;
+}
+
+uint64_t OUTLINED_FUNCTION_110_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, unint64_t a15)
+{
+
+  return outlined copy of Data?(a12, a15);
+}
+
+uint64_t OUTLINED_FUNCTION_113_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, char a63)
+{
+
+  return outlined init with copy of ResourceBundle?(&STACK[0x288], &a63, v63, v64);
+}
+
+uint64_t OUTLINED_FUNCTION_124_4()
+{
+
+  return EntityProperty.wrappedValue.setter();
+}
+
+void OUTLINED_FUNCTION_130_4(void *a1@<X1>, uint64_t a2@<X8>)
+{
+  *(v3 - 136) = v2;
+  *(v3 - 152) = a2;
+  v4 = a1[9];
+  *(v3 - 168) = a1[8];
+  *(v3 - 184) = v4;
+  v5 = a1[11];
+  *(v3 - 200) = a1[10];
+  *(v3 - 216) = v5;
+}
+
+uint64_t OUTLINED_FUNCTION_140_1(uint64_t a1, uint64_t a2)
+{
+
+  return outlined init with copy of ResourceBundle?(a1, a2, v2, v3);
+}
+
+uint64_t OUTLINED_FUNCTION_161_1()
+{
+
+  return EntityProperty.wrappedValue.setter();
+}
+
+uint64_t OUTLINED_FUNCTION_162_2()
+{
+
+  return EntityProperty.wrappedValue.setter();
+}
+
+uint64_t OUTLINED_FUNCTION_163_1(uint64_t a1)
+{
+
+  return static EntityProperty<>.== infix(_:_:)();
+}
+
+uint64_t OUTLINED_FUNCTION_165_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
+{
+
+  return static EntityProperty<>.== infix(_:_:)();
+}
+
+uint64_t OUTLINED_FUNCTION_166_1(uint64_t a1)
+{
+
+  return static EntityProperty<>.== infix(_:_:)();
+}
+
+uint64_t OUTLINED_FUNCTION_169_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, ...)
+{
+  va_start(va, a62);
+
+  return outlined destroy of IntentApplication?(va, v62, v63);
+}
+
+void *OUTLINED_FUNCTION_171_1()
+{
+
+  return memcpy(&STACK[0x608], (v0 + 128), 0x80uLL);
+}
+
+void *OUTLINED_FUNCTION_172_2(void *a1)
+{
+
+  return memcpy(a1, &STACK[0x7B8], 0x88uLL);
+}
+
+uint64_t OUTLINED_FUNCTION_175_2(uint64_t a1, uint64_t *a2, uint64_t *a3)
+{
+
+  return __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
+}
+
+uint64_t OUTLINED_FUNCTION_177_2(uint64_t a1)
+{
+
+  return static EntityProperty<>.== infix(_:_:)();
+}
+
+uint64_t OUTLINED_FUNCTION_178_2(uint64_t result, char a2)
+{
+  *v2 = result;
+  *(v2 + 8) = a2 & 1;
+  return result;
+}
+
+uint64_t OUTLINED_FUNCTION_180_2(uint64_t a1)
+{
+
+  return static EntityProperty<>.== infix(_:_:)();
+}
+
+uint64_t OUTLINED_FUNCTION_181_2(uint64_t a1, uint64_t a2)
+{
+
+  return outlined init with copy of ResourceBundle?(a1, a2, v3, v2);
+}
+
+uint64_t OUTLINED_FUNCTION_182_2()
+{
+
+  return EntityProperty<>.init(title:)();
+}
+
+uint64_t OUTLINED_FUNCTION_183_1(uint64_t a1)
+{
+
+  return outlined destroy of IntentApplication?(a1, v1, v2);
+}
+
+uint64_t OUTLINED_FUNCTION_193_2(uint64_t a1)
+{
+
+  return EntityProperty.wrappedValue.getter();
+}
+
+uint64_t OUTLINED_FUNCTION_194_2(uint64_t a1)
+{
+
+  return LocalizedStringResource.init(stringLiteral:)();
+}
+
+uint64_t OUTLINED_FUNCTION_195_2(uint64_t a1)
+{
+
+  return static EntityProperty<>.== infix(_:_:)();
+}
+
+uint64_t OUTLINED_FUNCTION_196_2(uint64_t a1)
+{
+
+  return static EntityProperty<>.== infix(_:_:)();
+}
+
+uint64_t OUTLINED_FUNCTION_211_1(uint64_t a1)
+{
+
+  return outlined destroy of IntentApplication?(a1, v1, v2);
+}
+
+uint64_t OUTLINED_FUNCTION_212_1(uint64_t a1)
+{
+
+  return EntityProperty.wrappedValue.getter();
+}
+
+uint64_t OUTLINED_FUNCTION_213_1(uint64_t a1)
+{
+
+  return outlined init with copy of ResourceBundle?(a1, v2, v1, v3);
+}
+
+uint64_t OUTLINED_FUNCTION_214_0(uint64_t a1, uint64_t a2)
+{
+
+  return LocalizedStringResource.init(stringLiteral:)();
+}
+
+void OUTLINED_FUNCTION_216_1()
+{
+
+  JUMPOUT(0x25F89F6C0);
+}
+
+uint64_t OUTLINED_FUNCTION_217_1(uint64_t a1, uint64_t a2)
+{
+
+  return outlined init with copy of ResourceBundle?(a1, a2, v2, v3);
+}
+
+uint64_t OUTLINED_FUNCTION_219_1(uint64_t a1)
+{
+
+  return EntityProperty.wrappedValue.getter();
+}
+
+uint64_t OUTLINED_FUNCTION_220_1(uint64_t a1)
+{
+
+  return static EntityProperty<>.== infix(_:_:)();
+}
+
+uint64_t OUTLINED_FUNCTION_221_1(uint64_t a1)
+{
+
+  return EntityProperty.wrappedValue.getter();
+}
+
+uint64_t OUTLINED_FUNCTION_222_0(uint64_t a1)
+{
+
+  return EntityProperty.wrappedValue.getter();
+}
+
+uint64_t OUTLINED_FUNCTION_223_1(uint64_t a1)
+{
+
+  return static EntityProperty<>.== infix(_:_:)();
+}
+
+uint64_t OUTLINED_FUNCTION_224_1(uint64_t a1)
+{
+
+  return EntityProperty.wrappedValue.getter();
+}
+
+uint64_t OUTLINED_FUNCTION_225_1(uint64_t a1)
+{
+
+  return static EntityProperty<>.== infix(_:_:)();
+}
+
+uint64_t OUTLINED_FUNCTION_226_0(uint64_t a1)
+{
+
+  return EntityProperty.wrappedValue.getter();
+}
+
+uint64_t OUTLINED_FUNCTION_262_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, unint64_t a14)
+{
+
+  return outlined copy of Data?(a10, a14);
+}
+
+uint64_t OUTLINED_FUNCTION_263_0()
+{
+
+  return type metadata accessor for LocalizedStringResource();
+}
+
+uint64_t OUTLINED_FUNCTION_264_0()
+{
+
+  return type metadata accessor for LocalizedStringResource();
+}
+
+uint64_t OUTLINED_FUNCTION_265_0()
+{
+
+  return type metadata accessor for LocalizedStringResource();
+}
+
+void *OUTLINED_FUNCTION_266(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+
+  return memcpy(&STACK[0x7C0], &a9, 0x68uLL);
+}
+
+uint64_t OUTLINED_FUNCTION_268(uint64_t a1, uint64_t a2)
+{
+
+  return LocalizedStringResource.init(stringLiteral:)();
+}
+
+uint64_t OUTLINED_FUNCTION_269(uint64_t a1)
+{
+
+  return LocalizedStringResource.init(stringLiteral:)();
+}
+
+uint64_t OUTLINED_FUNCTION_270(uint64_t a1)
+{
+
+  return EntityProperty.wrappedValue.getter();
+}
+
+uint64_t OUTLINED_FUNCTION_271(uint64_t a1)
+{
+
+  return EntityProperty.wrappedValue.getter();
+}
+
+uint64_t OUTLINED_FUNCTION_272(uint64_t a1)
+{
+
+  return EntityProperty.wrappedValue.getter();
+}
+
+uint64_t OUTLINED_FUNCTION_273(uint64_t a1)
+{
+
+  return EntityProperty.wrappedValue.getter();
+}
+
+uint64_t OUTLINED_FUNCTION_274()
+{
+
+  return EntityProperty<>.init(title:)();
+}
+
+uint64_t OUTLINED_FUNCTION_275()
+{
+
+  return EntityProperty.wrappedValue.setter();
+}
+
+uint64_t OUTLINED_FUNCTION_276(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
+{
+
+  return outlined init with copy of ResourceBundle?(&STACK[0x288], &a36, a3, a4);
+}
+
+void *OUTLINED_FUNCTION_277(void *a1)
+{
+
+  return memcpy(a1, v1, 0xD8uLL);
+}
+
+uint64_t OUTLINED_FUNCTION_278()
+{
+
+  return EntityProperty<>.init(title:)();
+}
+
+uint64_t OUTLINED_FUNCTION_280()
+{
+
+  return EntityProperty.wrappedValue.setter();
+}
+
+void specialized CardDisplayable.displayRepresentation.getter()
+{
+  OUTLINED_FUNCTION_155();
+  OUTLINED_FUNCTION_46_9(v1);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents21DisplayRepresentationV5ImageVSgMd, &_s10AppIntents21DisplayRepresentationV5ImageVSgMR);
+  OUTLINED_FUNCTION_114(v2);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v3);
+  OUTLINED_FUNCTION_12_14(v4, v34);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
+  OUTLINED_FUNCTION_114(v5);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v6);
+  OUTLINED_FUNCTION_49_3();
+  v35 = v7;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
+  OUTLINED_FUNCTION_114(v8);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v9);
+  v10 = OUTLINED_FUNCTION_17_13();
+  v11 = OUTLINED_FUNCTION_114(v10);
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_36();
+  OUTLINED_FUNCTION_27_9();
+  OUTLINED_FUNCTION_14();
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_0_28();
+  MEMORY[0x28223BE20](v13);
+  OUTLINED_FUNCTION_9_16();
+  v14._countAndFlagsBits = OUTLINED_FUNCTION_24();
+  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v14);
+  _StringGuts.grow(_:)(16);
+  OUTLINED_FUNCTION_55_5(0);
+  EntityProperty.wrappedValue.getter();
+  OUTLINED_FUNCTION_22_10();
+  OUTLINED_FUNCTION_52_6();
+
+  MEMORY[0x25F89F6C0](0x7469746E65646920, 0xEE00647261632079);
+  OUTLINED_FUNCTION_31_14();
+
+  v15._countAndFlagsBits = OUTLINED_FUNCTION_24();
+  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v15);
+  OUTLINED_FUNCTION_47_10();
+  v16 = type metadata accessor for SFCard();
+  v17 = OUTLINED_FUNCTION_35_11();
+  if (!SFCard.init(data:)(v17, v18))
+  {
+    goto LABEL_7;
+  }
+
+  OUTLINED_FUNCTION_41_7();
+
+  v19 = type metadata accessor for RGPluginModel();
+  OUTLINED_FUNCTION_5_15(v19);
+  if (v24)
+  {
+    outlined destroy of ResourceBundle?(v0, &_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
+LABEL_7:
+    v25 = OUTLINED_FUNCTION_64_4();
+    v26(v25);
+    v27 = OUTLINED_FUNCTION_14_9(v35);
+    OUTLINED_FUNCTION_7_14(v27);
+    DisplayRepresentation.init(title:subtitle:image:)();
+    goto LABEL_8;
+  }
+
+  v20 = lazy protocol witness table accessor for type RGPluginModel and conformance RGPluginModel();
+  OUTLINED_FUNCTION_25_10(v20);
+  OUTLINED_FUNCTION_3_21();
+  v21 = OUTLINED_FUNCTION_129_4();
+  v22(v21);
+  OUTLINED_FUNCTION_34_13();
+  if (!v24 & v23)
+  {
+    goto LABEL_7;
+  }
+
+  v30 = OUTLINED_FUNCTION_64_4();
+  v31(v30);
+  v32 = static RGPluginModel.bundleName.getter();
+  OUTLINED_FUNCTION_15_12(v32, v33);
+LABEL_8:
+  v28 = OUTLINED_FUNCTION_23_10();
+  v29(v28);
+  OUTLINED_FUNCTION_148();
+}
+
+{
+  OUTLINED_FUNCTION_155();
+  OUTLINED_FUNCTION_46_9(v2);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents21DisplayRepresentationV5ImageVSgMd, &_s10AppIntents21DisplayRepresentationV5ImageVSgMR);
+  OUTLINED_FUNCTION_114(v3);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v4);
+  OUTLINED_FUNCTION_12_14(v5, v34);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
+  OUTLINED_FUNCTION_114(v6);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_59_4();
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
+  OUTLINED_FUNCTION_114(v8);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v9);
+  v10 = OUTLINED_FUNCTION_17_13();
+  v11 = OUTLINED_FUNCTION_114(v10);
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_36();
+  OUTLINED_FUNCTION_27_9();
+  OUTLINED_FUNCTION_14();
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_0_28();
+  MEMORY[0x28223BE20](v13);
+  OUTLINED_FUNCTION_9_16();
+  v14._countAndFlagsBits = OUTLINED_FUNCTION_24();
+  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v14);
+  EntityProperty.wrappedValue.getter();
+  OUTLINED_FUNCTION_22_10();
+  OUTLINED_FUNCTION_52_6();
+
+  MEMORY[0x25F89F6C0](0x6472616320, 0xE500000000000000);
+  OUTLINED_FUNCTION_31_14();
+
+  v15._countAndFlagsBits = OUTLINED_FUNCTION_24();
+  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v15);
+  OUTLINED_FUNCTION_47_10();
+  v16 = type metadata accessor for SFCard();
+  v17 = OUTLINED_FUNCTION_35_11();
+  if (!SFCard.init(data:)(v17, v18))
+  {
+    goto LABEL_7;
+  }
+
+  OUTLINED_FUNCTION_41_7();
+
+  v19 = type metadata accessor for RGPluginModel();
+  OUTLINED_FUNCTION_5_15(v19);
+  if (v24)
+  {
+    outlined destroy of ResourceBundle?(v1, &_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
+LABEL_7:
+    v25 = OUTLINED_FUNCTION_64_4();
+    v26(v25);
+    v27 = OUTLINED_FUNCTION_14_9(v0);
+    OUTLINED_FUNCTION_7_14(v27);
+    OUTLINED_FUNCTION_45_8();
+    DisplayRepresentation.init(title:subtitle:image:)();
+    goto LABEL_8;
+  }
+
+  v20 = lazy protocol witness table accessor for type RGPluginModel and conformance RGPluginModel();
+  OUTLINED_FUNCTION_25_10(v20);
+  OUTLINED_FUNCTION_3_21();
+  v21 = OUTLINED_FUNCTION_129_4();
+  v22(v21);
+  OUTLINED_FUNCTION_34_13();
+  if (!v24 & v23)
+  {
+    goto LABEL_7;
+  }
+
+  v30 = OUTLINED_FUNCTION_64_4();
+  v31(v30);
+  v32 = static RGPluginModel.bundleName.getter();
+  OUTLINED_FUNCTION_15_12(v32, v33);
+LABEL_8:
+  v28 = OUTLINED_FUNCTION_23_10();
+  v29(v28);
+  OUTLINED_FUNCTION_148();
+}
+
+{
+  OUTLINED_FUNCTION_155();
+  OUTLINED_FUNCTION_46_9(v2);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents21DisplayRepresentationV5ImageVSgMd, &_s10AppIntents21DisplayRepresentationV5ImageVSgMR);
+  OUTLINED_FUNCTION_114(v3);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v4);
+  OUTLINED_FUNCTION_12_14(v5, v34);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
+  OUTLINED_FUNCTION_114(v6);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_59_4();
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
+  OUTLINED_FUNCTION_114(v8);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v9);
+  v10 = OUTLINED_FUNCTION_17_13();
+  v11 = OUTLINED_FUNCTION_114(v10);
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_36();
+  OUTLINED_FUNCTION_27_9();
+  OUTLINED_FUNCTION_14();
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_0_28();
+  MEMORY[0x28223BE20](v13);
+  OUTLINED_FUNCTION_9_16();
+  v14._countAndFlagsBits = OUTLINED_FUNCTION_24();
+  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v14);
+  OUTLINED_FUNCTION_55_5(0x20746867696C46);
+  EntityProperty.wrappedValue.getter();
+  OUTLINED_FUNCTION_22_10();
+  OUTLINED_FUNCTION_52_6();
+
+  OUTLINED_FUNCTION_31_14();
+
+  v15._countAndFlagsBits = OUTLINED_FUNCTION_24();
+  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v15);
+  OUTLINED_FUNCTION_47_10();
+  v16 = type metadata accessor for SFCard();
+  v17 = OUTLINED_FUNCTION_35_11();
+  if (!SFCard.init(data:)(v17, v18))
+  {
+    goto LABEL_7;
+  }
+
+  OUTLINED_FUNCTION_41_7();
+
+  v19 = type metadata accessor for RGPluginModel();
+  OUTLINED_FUNCTION_5_15(v19);
+  if (v24)
+  {
+    outlined destroy of ResourceBundle?(v1, &_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
+LABEL_7:
+    v25 = OUTLINED_FUNCTION_64_4();
+    v26(v25);
+    v27 = OUTLINED_FUNCTION_14_9(v0);
+    OUTLINED_FUNCTION_7_14(v27);
+    OUTLINED_FUNCTION_45_8();
+    DisplayRepresentation.init(title:subtitle:image:)();
+    goto LABEL_8;
+  }
+
+  v20 = lazy protocol witness table accessor for type RGPluginModel and conformance RGPluginModel();
+  OUTLINED_FUNCTION_25_10(v20);
+  OUTLINED_FUNCTION_3_21();
+  v21 = OUTLINED_FUNCTION_129_4();
+  v22(v21);
+  OUTLINED_FUNCTION_34_13();
+  if (!v24 & v23)
+  {
+    goto LABEL_7;
+  }
+
+  v30 = OUTLINED_FUNCTION_64_4();
+  v31(v30);
+  v32 = static RGPluginModel.bundleName.getter();
+  OUTLINED_FUNCTION_15_12(v32, v33);
+LABEL_8:
+  v28 = OUTLINED_FUNCTION_23_10();
+  v29(v28);
+  OUTLINED_FUNCTION_148();
+}
+
+{
+  specialized CardDisplayable.displayRepresentation.getter();
+}
+
+{
+  specialized CardDisplayable.displayRepresentation.getter();
+}
+
+{
+  OUTLINED_FUNCTION_155();
+  v4 = v3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents21DisplayRepresentationV5ImageVSgMd, &_s10AppIntents21DisplayRepresentationV5ImageVSgMR);
+  OUTLINED_FUNCTION_114(v5);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v6);
+  OUTLINED_FUNCTION_36_2();
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
+  OUTLINED_FUNCTION_114(v7);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v8);
+  OUTLINED_FUNCTION_59_4();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
+  OUTLINED_FUNCTION_114(v9);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v10);
+  v11 = OUTLINED_FUNCTION_17_13();
+  v12 = OUTLINED_FUNCTION_114(v11);
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_36();
+  OUTLINED_FUNCTION_27_9();
+  OUTLINED_FUNCTION_14();
+  MEMORY[0x28223BE20](v13);
+  OUTLINED_FUNCTION_0_28();
+  MEMORY[0x28223BE20](v14);
+  OUTLINED_FUNCTION_95_3();
+  memcpy(v40, v0, sizeof(v40));
+  String.LocalizationValue.StringInterpolation.init(literalCapacity:interpolationCount:)();
+  v15._countAndFlagsBits = OUTLINED_FUNCTION_24();
+  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v15);
+  v16._countAndFlagsBits = v4();
+  String.LocalizationValue.StringInterpolation.appendInterpolation(_:)(v16);
+
+  v17._countAndFlagsBits = OUTLINED_FUNCTION_24();
+  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v17);
+  OUTLINED_FUNCTION_47_10();
+  v18 = v40[14];
+  type metadata accessor for SFCard();
+  if (!OUTLINED_FUNCTION_30_11())
+  {
+    goto LABEL_7;
+  }
+
+  OUTLINED_FUNCTION_41_7();
+
+  v19 = type metadata accessor for RGPluginModel();
+  OUTLINED_FUNCTION_5_15(v19);
+  if (v24)
+  {
+    outlined destroy of ResourceBundle?(v2, &_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
+LABEL_7:
+    v25 = OUTLINED_FUNCTION_2_20();
+    v26(v25);
+    OUTLINED_FUNCTION_14_9(v1);
+    OUTLINED_FUNCTION_92();
+    __swift_storeEnumTagSinglePayload(v27, v28, v29, v30);
+    OUTLINED_FUNCTION_51_7();
+    goto LABEL_8;
+  }
+
+  v20 = lazy protocol witness table accessor for type RGPluginModel and conformance RGPluginModel();
+  OUTLINED_FUNCTION_25_10(v20);
+  OUTLINED_FUNCTION_3_21();
+  v21 = OUTLINED_FUNCTION_129_4();
+  v22(v21);
+  OUTLINED_FUNCTION_34_13();
+  if (!v24 & v23)
+  {
+    goto LABEL_7;
+  }
+
+  v33 = OUTLINED_FUNCTION_2_20();
+  v34(v33);
+  static RGPluginModel.bundleName.getter();
+  OUTLINED_FUNCTION_33_10();
+  OUTLINED_FUNCTION_26_7(v35, v36, v37, v38, v39);
+LABEL_8:
+  v31 = OUTLINED_FUNCTION_30_5();
+  v32(v31);
+  OUTLINED_FUNCTION_148();
+}
+
+{
+  OUTLINED_FUNCTION_155();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents21DisplayRepresentationV5ImageVSgMd, &_s10AppIntents21DisplayRepresentationV5ImageVSgMR);
+  OUTLINED_FUNCTION_114(v2);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v3);
+  OUTLINED_FUNCTION_12_14(v4, v37);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
+  OUTLINED_FUNCTION_114(v5);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v6);
+  OUTLINED_FUNCTION_49_3();
+  v38 = v7;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
+  OUTLINED_FUNCTION_114(v8);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v9);
+  v10 = OUTLINED_FUNCTION_17_13();
+  v11 = OUTLINED_FUNCTION_114(v10);
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_36();
+  v12 = OUTLINED_FUNCTION_27_9();
+  OUTLINED_FUNCTION_14();
+  v14 = v13;
+  MEMORY[0x28223BE20](v15);
+  OUTLINED_FUNCTION_109();
+  v39 = v16 - v17;
+  MEMORY[0x28223BE20](v18);
+  OUTLINED_FUNCTION_9_16();
+  v19._countAndFlagsBits = OUTLINED_FUNCTION_24();
+  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v19);
+  _StringGuts.grow(_:)(30);
+
+  EntityProperty.wrappedValue.getter();
+  MEMORY[0x25F89F8A0](v40, MEMORY[0x277D837D0]);
+
+  v20 = OUTLINED_FUNCTION_34_11();
+  MEMORY[0x25F89F6C0](v20);
+
+  OUTLINED_FUNCTION_31_14();
+
+  v21._countAndFlagsBits = OUTLINED_FUNCTION_24();
+  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v21);
+  OUTLINED_FUNCTION_47_10();
+  v22 = type metadata accessor for SFCard();
+  v23 = OUTLINED_FUNCTION_35_11();
+  if (!SFCard.init(data:)(v23, v24))
+  {
+    goto LABEL_7;
+  }
+
+  OUTLINED_FUNCTION_41_7();
+
+  v25 = type metadata accessor for RGPluginModel();
+  OUTLINED_FUNCTION_5_15(v25);
+  if (v30)
+  {
+    outlined destroy of ResourceBundle?(v1, &_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
+LABEL_7:
+    (*(v14 + 16))(v39, v0, v12);
+    OUTLINED_FUNCTION_14_9(v38);
+    OUTLINED_FUNCTION_92();
+    __swift_storeEnumTagSinglePayload(v31, v32, v33, v34);
+    DisplayRepresentation.init(title:subtitle:image:)();
+    goto LABEL_8;
+  }
+
+  v26 = lazy protocol witness table accessor for type RGPluginModel and conformance RGPluginModel();
+  OUTLINED_FUNCTION_25_10(v26);
+  OUTLINED_FUNCTION_3_21();
+  v27 = OUTLINED_FUNCTION_129_4();
+  v28(v27);
+  OUTLINED_FUNCTION_34_13();
+  if (!v30 & v29)
+  {
+    goto LABEL_7;
+  }
+
+  (*(v14 + 16))(v39, v0, v12);
+  static RGPluginModel.bundleName.getter();
+  OUTLINED_FUNCTION_33_10();
+  DisplayRepresentation.init(title:snippetPluginModelData:bundleIdentifier:)();
+LABEL_8:
+  v35 = OUTLINED_FUNCTION_30_5();
+  v36(v35);
+  OUTLINED_FUNCTION_148();
+}
+
+{
+  OUTLINED_FUNCTION_155();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents21DisplayRepresentationV5ImageVSgMd, &_s10AppIntents21DisplayRepresentationV5ImageVSgMR);
+  OUTLINED_FUNCTION_114(v3);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v4);
+  OUTLINED_FUNCTION_36_2();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
+  OUTLINED_FUNCTION_114(v5);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v6);
+  OUTLINED_FUNCTION_59_4();
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
+  OUTLINED_FUNCTION_114(v7);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v8);
+  v9 = OUTLINED_FUNCTION_17_13();
+  v10 = OUTLINED_FUNCTION_114(v9);
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_36();
+  OUTLINED_FUNCTION_40_10();
+  type metadata accessor for LocalizedStringResource();
+  OUTLINED_FUNCTION_14();
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_0_28();
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_95_3();
+  memcpy(v39, v0, sizeof(v39));
+  String.LocalizationValue.StringInterpolation.init(literalCapacity:interpolationCount:)();
+  v13._countAndFlagsBits = OUTLINED_FUNCTION_24();
+  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v13);
+  v15._countAndFlagsBits = VehicleReservationEntity.description.getter(v14);
+  String.LocalizationValue.StringInterpolation.appendInterpolation(_:)(v15);
+
+  v16._countAndFlagsBits = OUTLINED_FUNCTION_24();
+  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v16);
+  LocalizedStringResource.init(stringInterpolation:)();
+  v17 = v39[17];
+  type metadata accessor for SFCard();
+  if (!OUTLINED_FUNCTION_30_11())
+  {
+    goto LABEL_7;
+  }
+
+  OUTLINED_FUNCTION_41_7();
+
+  v18 = type metadata accessor for RGPluginModel();
+  OUTLINED_FUNCTION_5_15(v18);
+  if (v23)
+  {
+    outlined destroy of ResourceBundle?(v2, &_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
+LABEL_7:
+    v24 = OUTLINED_FUNCTION_2_20();
+    v25(v24);
+    OUTLINED_FUNCTION_14_9(v1);
+    OUTLINED_FUNCTION_92();
+    __swift_storeEnumTagSinglePayload(v26, v27, v28, v29);
+    OUTLINED_FUNCTION_51_7();
+    goto LABEL_8;
+  }
+
+  v19 = lazy protocol witness table accessor for type RGPluginModel and conformance RGPluginModel();
+  OUTLINED_FUNCTION_25_10(v19);
+  OUTLINED_FUNCTION_3_21();
+  v20 = OUTLINED_FUNCTION_129_4();
+  v21(v20);
+  OUTLINED_FUNCTION_34_13();
+  if (!v23 & v22)
+  {
+    goto LABEL_7;
+  }
+
+  v32 = OUTLINED_FUNCTION_2_20();
+  v33(v32);
+  static RGPluginModel.bundleName.getter();
+  OUTLINED_FUNCTION_33_10();
+  OUTLINED_FUNCTION_26_7(v34, v35, v36, v37, v38);
+LABEL_8:
+  v30 = OUTLINED_FUNCTION_30_5();
+  v31(v30);
+  OUTLINED_FUNCTION_148();
+}
+
+{
+  OUTLINED_FUNCTION_155();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents21DisplayRepresentationV5ImageVSgMd, &_s10AppIntents21DisplayRepresentationV5ImageVSgMR);
+  OUTLINED_FUNCTION_114(v3);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v4);
+  OUTLINED_FUNCTION_36_2();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
+  OUTLINED_FUNCTION_114(v5);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v6);
+  OUTLINED_FUNCTION_59_4();
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
+  OUTLINED_FUNCTION_114(v7);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v8);
+  v9 = OUTLINED_FUNCTION_17_13();
+  v10 = OUTLINED_FUNCTION_114(v9);
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_36();
+  OUTLINED_FUNCTION_40_10();
+  type metadata accessor for LocalizedStringResource();
+  OUTLINED_FUNCTION_14();
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_0_28();
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_95_3();
+  memcpy(v38, v0, sizeof(v38));
+  String.LocalizationValue.StringInterpolation.init(literalCapacity:interpolationCount:)();
+  v13._countAndFlagsBits = OUTLINED_FUNCTION_24();
+  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v13);
+  v14._countAndFlagsBits = TicketedShowEntity.description.getter();
+  String.LocalizationValue.StringInterpolation.appendInterpolation(_:)(v14);
+
+  v15._countAndFlagsBits = OUTLINED_FUNCTION_24();
+  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v15);
+  LocalizedStringResource.init(stringInterpolation:)();
+  v16 = v38[15];
+  type metadata accessor for SFCard();
+  if (!OUTLINED_FUNCTION_30_11())
+  {
+    goto LABEL_7;
+  }
+
+  OUTLINED_FUNCTION_41_7();
+
+  v17 = type metadata accessor for RGPluginModel();
+  OUTLINED_FUNCTION_5_15(v17);
+  if (v22)
+  {
+    outlined destroy of ResourceBundle?(v2, &_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
+LABEL_7:
+    v23 = OUTLINED_FUNCTION_2_20();
+    v24(v23);
+    OUTLINED_FUNCTION_14_9(v1);
+    OUTLINED_FUNCTION_92();
+    __swift_storeEnumTagSinglePayload(v25, v26, v27, v28);
+    OUTLINED_FUNCTION_51_7();
+    goto LABEL_8;
+  }
+
+  v18 = lazy protocol witness table accessor for type RGPluginModel and conformance RGPluginModel();
+  OUTLINED_FUNCTION_25_10(v18);
+  OUTLINED_FUNCTION_3_21();
+  v19 = OUTLINED_FUNCTION_129_4();
+  v20(v19);
+  OUTLINED_FUNCTION_34_13();
+  if (!v22 & v21)
+  {
+    goto LABEL_7;
+  }
+
+  v31 = OUTLINED_FUNCTION_2_20();
+  v32(v31);
+  static RGPluginModel.bundleName.getter();
+  OUTLINED_FUNCTION_33_10();
+  OUTLINED_FUNCTION_26_7(v33, v34, v35, v36, v37);
+LABEL_8:
+  v29 = OUTLINED_FUNCTION_30_5();
+  v30(v29);
+  OUTLINED_FUNCTION_148();
+}
+
+{
+  OUTLINED_FUNCTION_155();
+  OUTLINED_FUNCTION_46_9(v1);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents21DisplayRepresentationV5ImageVSgMd, &_s10AppIntents21DisplayRepresentationV5ImageVSgMR);
+  OUTLINED_FUNCTION_114(v2);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v3);
+  OUTLINED_FUNCTION_12_14(v4, v34);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
+  OUTLINED_FUNCTION_114(v5);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v6);
+  OUTLINED_FUNCTION_49_3();
+  v35 = v7;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
+  OUTLINED_FUNCTION_114(v8);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v9);
+  v10 = OUTLINED_FUNCTION_17_13();
+  v11 = OUTLINED_FUNCTION_114(v10);
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_36();
+  OUTLINED_FUNCTION_27_9();
+  OUTLINED_FUNCTION_14();
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_0_28();
+  MEMORY[0x28223BE20](v13);
+  OUTLINED_FUNCTION_9_16();
+  v14._countAndFlagsBits = OUTLINED_FUNCTION_24();
+  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v14);
+  _StringGuts.grow(_:)(17);
+
+  OUTLINED_FUNCTION_55_5(0x676E697070696853);
+  EntityProperty.wrappedValue.getter();
+  OUTLINED_FUNCTION_22_10();
+  OUTLINED_FUNCTION_52_6();
+
+  OUTLINED_FUNCTION_31_14();
+
+  v15._countAndFlagsBits = OUTLINED_FUNCTION_24();
+  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v15);
+  OUTLINED_FUNCTION_47_10();
+  v16 = type metadata accessor for SFCard();
+  v17 = OUTLINED_FUNCTION_35_11();
+  if (!SFCard.init(data:)(v17, v18))
+  {
+    goto LABEL_7;
+  }
+
+  OUTLINED_FUNCTION_41_7();
+
+  v19 = type metadata accessor for RGPluginModel();
+  OUTLINED_FUNCTION_5_15(v19);
+  if (v24)
+  {
+    outlined destroy of ResourceBundle?(v0, &_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
+LABEL_7:
+    v25 = OUTLINED_FUNCTION_64_4();
+    v26(v25);
+    v27 = OUTLINED_FUNCTION_14_9(v35);
+    OUTLINED_FUNCTION_7_14(v27);
+    DisplayRepresentation.init(title:subtitle:image:)();
+    goto LABEL_8;
+  }
+
+  v20 = lazy protocol witness table accessor for type RGPluginModel and conformance RGPluginModel();
+  OUTLINED_FUNCTION_25_10(v20);
+  OUTLINED_FUNCTION_3_21();
+  v21 = OUTLINED_FUNCTION_129_4();
+  v22(v21);
+  OUTLINED_FUNCTION_34_13();
+  if (!v24 & v23)
+  {
+    goto LABEL_7;
+  }
+
+  v30 = OUTLINED_FUNCTION_64_4();
+  v31(v30);
+  v32 = static RGPluginModel.bundleName.getter();
+  OUTLINED_FUNCTION_15_12(v32, v33);
+LABEL_8:
+  v28 = OUTLINED_FUNCTION_23_10();
+  v29(v28);
+  OUTLINED_FUNCTION_148();
+}
+
+{
+  OUTLINED_FUNCTION_155();
+  OUTLINED_FUNCTION_46_9(v2);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents21DisplayRepresentationV5ImageVSgMd, &_s10AppIntents21DisplayRepresentationV5ImageVSgMR);
+  OUTLINED_FUNCTION_114(v3);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v4);
+  OUTLINED_FUNCTION_12_14(v5, v34);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
+  OUTLINED_FUNCTION_114(v6);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_59_4();
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
+  OUTLINED_FUNCTION_114(v8);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v9);
+  v10 = OUTLINED_FUNCTION_17_13();
+  v11 = OUTLINED_FUNCTION_114(v10);
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_36();
+  OUTLINED_FUNCTION_27_9();
+  OUTLINED_FUNCTION_14();
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_0_28();
+  MEMORY[0x28223BE20](v13);
+  OUTLINED_FUNCTION_9_16();
+  v14._countAndFlagsBits = OUTLINED_FUNCTION_24();
+  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v14);
+  OUTLINED_FUNCTION_55_5(0x203A746E657645);
+  EntityProperty.wrappedValue.getter();
+  OUTLINED_FUNCTION_22_10();
+  OUTLINED_FUNCTION_52_6();
+
+  OUTLINED_FUNCTION_31_14();
+
+  v15._countAndFlagsBits = OUTLINED_FUNCTION_24();
+  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v15);
+  OUTLINED_FUNCTION_47_10();
+  v16 = type metadata accessor for SFCard();
+  v17 = OUTLINED_FUNCTION_35_11();
+  if (!SFCard.init(data:)(v17, v18))
+  {
+    goto LABEL_7;
+  }
+
+  OUTLINED_FUNCTION_41_7();
+
+  v19 = type metadata accessor for RGPluginModel();
+  OUTLINED_FUNCTION_5_15(v19);
+  if (v24)
+  {
+    outlined destroy of ResourceBundle?(v1, &_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
+LABEL_7:
+    v25 = OUTLINED_FUNCTION_64_4();
+    v26(v25);
+    v27 = OUTLINED_FUNCTION_14_9(v0);
+    OUTLINED_FUNCTION_7_14(v27);
+    OUTLINED_FUNCTION_45_8();
+    DisplayRepresentation.init(title:subtitle:image:)();
+    goto LABEL_8;
+  }
+
+  v20 = lazy protocol witness table accessor for type RGPluginModel and conformance RGPluginModel();
+  OUTLINED_FUNCTION_25_10(v20);
+  OUTLINED_FUNCTION_3_21();
+  v21 = OUTLINED_FUNCTION_129_4();
+  v22(v21);
+  OUTLINED_FUNCTION_34_13();
+  if (!v24 & v23)
+  {
+    goto LABEL_7;
+  }
+
+  v30 = OUTLINED_FUNCTION_64_4();
+  v31(v30);
+  v32 = static RGPluginModel.bundleName.getter();
+  OUTLINED_FUNCTION_15_12(v32, v33);
+LABEL_8:
+  v28 = OUTLINED_FUNCTION_23_10();
+  v29(v28);
+  OUTLINED_FUNCTION_148();
+}
+
+uint64_t specialized CardDisplayable.displayRepresentation.getter@<X0>(uint64_t a1@<X8>)
+{
+  v31[1] = a1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents21DisplayRepresentationV5ImageVSgMd, &_s10AppIntents21DisplayRepresentationV5ImageVSgMR);
+  MEMORY[0x28223BE20](v2 - 8);
+  v4 = v31 - v3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v31 - v6;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = v31 - v9;
+  v11 = type metadata accessor for String.LocalizationValue.StringInterpolation();
+  MEMORY[0x28223BE20](v11 - 8);
+  v12 = type metadata accessor for LocalizedStringResource();
+  v13 = *(v12 - 8);
+  MEMORY[0x28223BE20](v12);
+  v15 = v31 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v16);
+  v18 = v31 - v17;
+  String.LocalizationValue.StringInterpolation.init(literalCapacity:interpolationCount:)();
+  v19._countAndFlagsBits = 0;
+  v19._object = 0xE000000000000000;
+  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v19);
+  v20._countAndFlagsBits = 0x525520616964654DLL;
+  v20._object = 0xEE006D657469204CLL;
+  String.LocalizationValue.StringInterpolation.appendInterpolation(_:)(v20);
+  v21._countAndFlagsBits = 0;
+  v21._object = 0xE000000000000000;
+  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v21);
+  LocalizedStringResource.init(stringInterpolation:)();
+  type metadata accessor for SFCard();
+  v23 = *(v1 + 32);
+  v22 = *(v1 + 40);
+  outlined copy of Data?(v23, v22);
+  v24 = SFCard.init(data:)(v23, v22);
+  if (v24)
+  {
+    v25 = v24;
+    SFCard.snippetPluginModel.getter(v10);
+
+    v26 = type metadata accessor for RGPluginModel();
+    if (__swift_getEnumTagSinglePayload(v10, 1, v26) == 1)
+    {
+      outlined destroy of ResourceBundle?(v10, &_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
+    }
+
+    else
+    {
+      lazy protocol witness table accessor for type RGPluginModel and conformance RGPluginModel();
+      SnippetPluginModel.data.getter();
+      v28 = v27;
+      (*(*(v26 - 8) + 8))(v10, v26);
+      if (v28 >> 60 != 15)
+      {
+        (*(v13 + 16))(v15, v18, v12);
+        static RGPluginModel.bundleName.getter();
+        DisplayRepresentation.init(title:snippetPluginModelData:bundleIdentifier:)();
+        return (*(v13 + 8))(v18, v12);
+      }
+    }
+  }
+
+  (*(v13 + 16))(v15, v18, v12);
+  __swift_storeEnumTagSinglePayload(v7, 1, 1, v12);
+  v29 = type metadata accessor for DisplayRepresentation.Image();
+  __swift_storeEnumTagSinglePayload(v4, 1, 1, v29);
+  DisplayRepresentation.init(title:subtitle:image:)();
+  return (*(v13 + 8))(v18, v12);
+}
+
+uint64_t key path getter for MediaEntity.id : MediaEntity@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+{
+  result = MediaEntity.id.getter(a1);
+  *a2 = result;
+  a2[1] = v4;
+  return result;
+}
+
+uint64_t key path setter for MediaEntity.id : MediaEntity(uint64_t *a1, uint64_t *a2)
+{
+  v2 = a2[4];
+  v3 = a2[5];
+
+  outlined copy of Data?(v2, v3);
+  MediaEntity.id.setter();
+
+  return outlined consume of Data?(v2, v3);
+}
+
+uint64_t (*MediaEntity.id.modify())()
+{
+  v1 = OUTLINED_FUNCTION_4_12();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_32_1(v2);
+  *(v0 + 32) = EntityProperty.wrappedValue.modify();
+  return MemoryCreationQUResult.version.modify;
+}
+
+uint64_t MediaEntity.experienceFile.setter()
+{
+  v0 = OUTLINED_FUNCTION_34_11();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(v0, v1);
+  OUTLINED_FUNCTION_114(v2);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v3);
+  OUTLINED_FUNCTION_90_0();
+  OUTLINED_FUNCTION_39_9();
+  EntityProperty.wrappedValue.setter();
+  return OUTLINED_FUNCTION_50_6();
+}
+
+uint64_t (*MediaEntity.experienceFile.modify())()
+{
+  v1 = OUTLINED_FUNCTION_4_12();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_32_1(v2);
+  *(v0 + 32) = EntityProperty.wrappedValue.modify();
+  return MemoryCreationQUResult.version.modify;
+}
+
+void key path setter for MediaEntity.experienceFile : MediaEntity()
+{
+  OUTLINED_FUNCTION_155();
+  v1 = v0;
+  v3 = v2;
+  v5 = v4;
+  v7 = v6;
+  v9 = v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(v4, v2);
+  OUTLINED_FUNCTION_114(v10);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v11);
+  v13 = v20 - v12;
+  _s12ModelCatalog14ResourceBundle_pSgWOcTm_0(v9, v20 - v12, v5, v3);
+  v14 = *v7;
+  v15 = v7[1];
+  v16 = v7[2];
+  v17 = v7[3];
+  v19 = v7[4];
+  v18 = v7[5];
+  v20[0] = v14;
+  v20[1] = v15;
+  v20[2] = v16;
+  v20[3] = v17;
+  v20[4] = v19;
+  v20[5] = v18;
+
+  outlined copy of Data?(v19, v18);
+  v1(v13);
+
+  outlined consume of Data?(v19, v18);
+  OUTLINED_FUNCTION_148();
+}
+
+uint64_t MediaEntity.url.setter()
+{
+  v0 = OUTLINED_FUNCTION_34_11();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(v0, v1);
+  OUTLINED_FUNCTION_114(v2);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v3);
+  OUTLINED_FUNCTION_90_0();
+  OUTLINED_FUNCTION_39_9();
+  EntityProperty.wrappedValue.setter();
+  return OUTLINED_FUNCTION_50_6();
+}
+
+uint64_t (*MediaEntity.url.modify())()
+{
+  v1 = OUTLINED_FUNCTION_4_12();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_32_1(v2);
+  *(v0 + 32) = EntityProperty.wrappedValue.modify();
+  return MemoryCreationQUResult.version.modify;
+}
+
+uint64_t MediaEntity.audioResults.setter()
+{
+  v0 = OUTLINED_FUNCTION_34_11();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(v0, v1);
+  OUTLINED_FUNCTION_114(v2);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v3);
+  OUTLINED_FUNCTION_90_0();
+  OUTLINED_FUNCTION_39_9();
+  EntityProperty.wrappedValue.setter();
+  return OUTLINED_FUNCTION_50_6();
+}
+
+uint64_t (*MediaEntity.audioResults.modify())()
+{
+  v1 = OUTLINED_FUNCTION_4_12();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_32_1(v2);
+  *(v0 + 32) = EntityProperty.wrappedValue.modify();
+  return MemoryCreationQUResult.encodedMemoryCreationQUPerformanceMetrics.modify;
+}
+
+void MediaEntity.init(id:url:experienceFile:audioResults:)()
+{
+  OUTLINED_FUNCTION_155();
+  v35 = v1;
+  v36 = v2;
+  v33 = v3;
+  v34 = v4;
+  v32 = v5;
+  v7 = v6;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+  v9 = OUTLINED_FUNCTION_114(v8);
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_109();
+  v30 = v10 - v11;
+  MEMORY[0x28223BE20](v12);
+  v14 = &v29 - v13;
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v16 = OUTLINED_FUNCTION_114(v15);
+  MEMORY[0x28223BE20](v16);
+  OUTLINED_FUNCTION_109();
+  v31 = v17 - v18;
+  MEMORY[0x28223BE20](v19);
+  OUTLINED_FUNCTION_95_3();
+  v20 = type metadata accessor for LocalizedStringResource();
+  v21 = OUTLINED_FUNCTION_114(v20);
+  MEMORY[0x28223BE20](v21);
+  OUTLINED_FUNCTION_36();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSGMd, &_s10AppIntents14EntityPropertyCySSGMR);
+  LocalizedStringResource.init(stringLiteral:)();
+  *v7 = EntityProperty<>.init(title:)();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
+  OUTLINED_FUNCTION_38_10();
+  LocalizedStringResource.init(stringLiteral:)();
+  *(v7 + 8) = EntityProperty<>.init(title:)();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMR);
+  LocalizedStringResource.init(stringLiteral:)();
+  *(v7 + 16) = EntityProperty<>.init(title:)();
+  OUTLINED_FUNCTION_35_12();
+  LocalizedStringResource.init(stringLiteral:)();
+  *(v7 + 24) = EntityProperty<>.init(title:)();
+  *(v7 + 32) = xmmword_25DBC9410;
+  v37 = v32;
+  v38 = v33;
+  EntityProperty.wrappedValue.setter();
+  v22 = v34;
+  _s12ModelCatalog14ResourceBundle_pSgWOcTm_0(v34, v0, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  OUTLINED_FUNCTION_45_8();
+  _s12ModelCatalog14ResourceBundle_pSgWOcTm_0(v23, v24, v25, &_s10Foundation3URLVSgMR);
+  EntityProperty.wrappedValue.setter();
+  outlined destroy of ResourceBundle?(v0, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v26 = v35;
+  _s12ModelCatalog14ResourceBundle_pSgWOcTm_0(v35, v14, &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+  v27 = v30;
+  _s12ModelCatalog14ResourceBundle_pSgWOcTm_0(v14, v30, &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+  EntityProperty.wrappedValue.setter();
+  outlined destroy of ResourceBundle?(v14, &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+  v28 = v36;
+  _s12ModelCatalog14ResourceBundle_pSgWOcTm_0(v36, v14, &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+  _s12ModelCatalog14ResourceBundle_pSgWOcTm_0(v14, v27, &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+  EntityProperty.wrappedValue.setter();
+  outlined destroy of ResourceBundle?(v28, &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+  outlined destroy of ResourceBundle?(v26, &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+  outlined destroy of ResourceBundle?(v22, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  outlined destroy of ResourceBundle?(v14, &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+  OUTLINED_FUNCTION_148();
+}
+
+uint64_t MediaEntity.init()@<X0>(uint64_t a1@<X8>)
+{
+  v2 = type metadata accessor for LocalizedStringResource();
+  v3 = OUTLINED_FUNCTION_114(v2);
+  MEMORY[0x28223BE20](v3);
+  OUTLINED_FUNCTION_36();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSGMd, &_s10AppIntents14EntityPropertyCySSGMR);
+  LocalizedStringResource.init(stringLiteral:)();
+  *a1 = EntityProperty<>.init(title:)();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
+  OUTLINED_FUNCTION_38_10();
+  LocalizedStringResource.init(stringLiteral:)();
+  *(a1 + 8) = EntityProperty<>.init(title:)();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMd, &_s10AppIntents14EntityPropertyCy10Foundation3URLVSgGMR);
+  LocalizedStringResource.init(stringLiteral:)();
+  *(a1 + 16) = EntityProperty<>.init(title:)();
+  OUTLINED_FUNCTION_35_12();
+  LocalizedStringResource.init(stringLiteral:)();
+  *(a1 + 24) = EntityProperty<>.init(title:)();
+  *(a1 + 32) = xmmword_25DBC9410;
+  return EntityProperty.wrappedValue.setter();
+}
+
+uint64_t (*static MediaEntity.typeDisplayRepresentation.modify())(uint64_t a1)
+{
+  if (one-time initialization token for typeDisplayRepresentation != -1)
+  {
+    swift_once();
+  }
+
+  v0 = type metadata accessor for TypeDisplayRepresentation();
+  v1 = __swift_project_value_buffer(v0, static MediaEntity.typeDisplayRepresentation);
+  OUTLINED_FUNCTION_57_5(v1);
+  return static FlightSnippet.Status.allCases.modify;
+}
+
+uint64_t key path getter for static MediaEntity.typeDisplayRepresentation : MediaEntity.Type@<X0>(uint64_t a1@<X8>)
+{
+  v2 = MediaEntity.typeDisplayRepresentation.unsafeMutableAddressor(&one-time initialization token for typeDisplayRepresentation, MEMORY[0x277CBA3A0], static MediaEntity.typeDisplayRepresentation, one-time initialization function for typeDisplayRepresentation);
+  swift_beginAccess();
+  v3 = type metadata accessor for TypeDisplayRepresentation();
+  return (*(*(v3 - 8) + 16))(a1, v2, v3);
+}
+
+uint64_t key path setter for static MediaEntity.typeDisplayRepresentation : MediaEntity.Type(uint64_t a1)
+{
+  v2 = MediaEntity.typeDisplayRepresentation.unsafeMutableAddressor(&one-time initialization token for typeDisplayRepresentation, MEMORY[0x277CBA3A0], static MediaEntity.typeDisplayRepresentation, one-time initialization function for typeDisplayRepresentation);
+  swift_beginAccess();
+  v3 = type metadata accessor for TypeDisplayRepresentation();
+  (*(*(v3 - 8) + 24))(v2, a1, v3);
+  return swift_endAccess();
+}
+
+uint64_t MediaEntity.cardData.setter(uint64_t a1, uint64_t a2)
+{
+  result = outlined consume of Data?(*(v2 + 32), *(v2 + 40));
+  *(v2 + 32) = a1;
+  *(v2 + 40) = a2;
+  return result;
+}
+
+uint64_t protocol witness for static AppEntity.defaultQuery.getter in conformance MediaEntity(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type MediaEntity and conformance MediaEntity();
+
+  return MEMORY[0x28210B2E8](a1, v2);
+}
+
+uint64_t protocol witness for Identifiable.id.getter in conformance MediaEntity@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+{
+  result = MediaEntity.id.getter(a1);
+  *a2 = result;
+  a2[1] = v4;
+  return result;
+}
+
+uint64_t protocol witness for static _IntentValue.defaultResolverSpecification.getter in conformance MediaEntity(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type MediaEntity and conformance MediaEntity();
+
+  return MEMORY[0x28210B488](a1, v2);
+}
+
+uint64_t protocol witness for CustomLocalizedStringResourceConvertible.localizedStringResource.getter in conformance MediaEntity(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type MediaEntity and conformance MediaEntity();
+
+  return MEMORY[0x28210C4B8](a1, v2);
+}
+
+uint64_t one-time initialization function for searchToolExportedMedia()
+{
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+  MEMORY[0x28223BE20](v0 - 8);
+  v2 = &v5 - v1;
+  v3 = type metadata accessor for UTType();
+  __swift_allocate_value_buffer(v3, static UTType.searchToolExportedMedia);
+  __swift_project_value_buffer(v3, static UTType.searchToolExportedMedia);
+  static UTType.data.getter();
+  __swift_storeEnumTagSinglePayload(v2, 0, 1, v3);
+  return UTType.init(exportedAs:conformingTo:)();
+}
+
+uint64_t MediaEntity.typeDisplayRepresentation.unsafeMutableAddressor(void *a1, uint64_t (*a2)(void), uint64_t a3, uint64_t a4)
+{
+  if (*a1 != -1)
+  {
+    swift_once();
+  }
+
+  v6 = a2(0);
+
+  return __swift_project_value_buffer(v6, a3);
+}
+
+uint64_t static MediaEntity.typeDisplayRepresentation.getter@<X0>(void *a1@<X0>, uint64_t (*a2)(void)@<X1>, uint64_t a3@<X2>, uint64_t a5@<X8>)
+{
+  if (*a1 != -1)
+  {
+    swift_once();
+  }
+
+  v8 = a2(0);
+  v9 = __swift_project_value_buffer(v8, a3);
+  swift_beginAccess();
+  OUTLINED_FUNCTION_51();
+  return (*(v10 + 16))(a5, v9, v8);
+}
+
+uint64_t static MediaEntity.typeDisplayRepresentation.setter(uint64_t a1, void *a2, uint64_t (*a3)(void), uint64_t a4, uint64_t a5)
+{
+  if (*a2 != -1)
+  {
+    swift_once();
+  }
+
+  v8 = a3(0);
+  v9 = __swift_project_value_buffer(v8, a4);
+  swift_beginAccess();
+  v10 = *(v8 - 8);
+  (*(v10 + 24))(v9, a1, v8);
+  swift_endAccess();
+  return (*(v10 + 8))(a1, v8);
+}
+
+uint64_t (*static UTType.searchToolExportedMedia.modify())(uint64_t a1)
+{
+  if (one-time initialization token for searchToolExportedMedia != -1)
+  {
+    OUTLINED_FUNCTION_10_13();
+    swift_once();
+  }
+
+  v0 = type metadata accessor for UTType();
+  v1 = __swift_project_value_buffer(v0, static UTType.searchToolExportedMedia);
+  OUTLINED_FUNCTION_57_5(v1);
+  return static ExtractedInfo.kExtractedInfoKey.modify;
+}
+
+void *MediaEntity.exportedData()()
+{
+  v77 = *MEMORY[0x277D85DE8];
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  OUTLINED_FUNCTION_114(v3);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v4);
+  OUTLINED_FUNCTION_40_10();
+  v71 = type metadata accessor for URL();
+  OUTLINED_FUNCTION_14();
+  v65 = v5;
+  MEMORY[0x28223BE20](v6);
+  OUTLINED_FUNCTION_36();
+  v64 = v8 - v7;
+  v9 = type metadata accessor for IntentFile();
+  OUTLINED_FUNCTION_14();
+  v68 = v10;
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_36();
+  v14 = v13 - v12;
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+  v16 = OUTLINED_FUNCTION_114(v15);
+  MEMORY[0x28223BE20](v16);
+  OUTLINED_FUNCTION_0_28();
+  MEMORY[0x28223BE20](v17);
+  v19 = &v63 - v18;
+  v20 = *(v0 + 24);
+  v67 = *(v0 + 16);
+  v69 = v20;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_yptGMd, &_ss23_ContiguousArrayStorageCySS_yptGMR);
+  inited = swift_initStackObject();
+  *(inited + 16) = xmmword_25DBC8180;
+  *(inited + 32) = 25705;
+  *(inited + 40) = 0xE200000000000000;
+  EntityProperty.wrappedValue.getter();
+  v22 = v74;
+  v23 = v75;
+  *(inited + 72) = MEMORY[0x277D837D0];
+  *(inited + 48) = v22;
+  *(inited + 56) = v23;
+  v24 = Dictionary.init(dictionaryLiteral:)();
+  v25 = v9;
+  EntityProperty.wrappedValue.getter();
+  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v19, 1, v9);
+  v70 = v14;
+  if (EnumTagSinglePayload)
+  {
+    outlined destroy of ResourceBundle?(v19, &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+    v27 = v68;
+  }
+
+  else
+  {
+    v28 = v68;
+    (*(v68 + 16))(v14, v19, v9);
+    outlined destroy of ResourceBundle?(v19, &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+    v29 = IntentFile.data.getter();
+    v31 = v30;
+    (*(v28 + 8))(v14, v9);
+    v76 = MEMORY[0x277CC9318];
+    v74 = v29;
+    v75 = v31;
+    v25 = v9;
+    v32 = OUTLINED_FUNCTION_53_6();
+    v72 = v24;
+    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v73, 0x6E65697265707865, 0xEE00617461446563, v32, v33, v34, v35, v36, v63, v64, v65, v66);
+    v24 = v72;
+    v27 = v28;
+  }
+
+  EntityProperty.wrappedValue.getter();
+  v37 = v71;
+  if (__swift_getEnumTagSinglePayload(v2, 1, v71) == 1)
+  {
+    outlined destroy of ResourceBundle?(v2, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  }
+
+  else
+  {
+    v38 = v65;
+    v39 = v64;
+    (*(v65 + 32))(v64, v2, v37);
+    v76 = v37;
+    boxed_opaque_existential_1Tm = __swift_allocate_boxed_opaque_existential_1Tm(&v74);
+    (*(v38 + 16))(boxed_opaque_existential_1Tm, v39, v37);
+    v41 = OUTLINED_FUNCTION_53_6();
+    v72 = v24;
+    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v73, 7107189, 0xE300000000000000, v41, v42, v43, v44, v45, v63, v64, v65, v66);
+    v24 = v72;
+    (*(v38 + 8))(v39, v37);
+  }
+
+  v46 = v70;
+  EntityProperty.wrappedValue.getter();
+  if (__swift_getEnumTagSinglePayload(v1, 1, v25))
+  {
+    outlined destroy of ResourceBundle?(v1, &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+  }
+
+  else
+  {
+    (*(v27 + 16))(v46, v1, v25);
+    outlined destroy of ResourceBundle?(v1, &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+    v47 = IntentFile.data.getter();
+    v48 = v25;
+    v49 = v47;
+    v51 = v50;
+    (*(v27 + 8))(v46, v48);
+    v76 = MEMORY[0x277CC9318];
+    v74 = v49;
+    v75 = v51;
+    v52 = OUTLINED_FUNCTION_53_6();
+    v72 = v24;
+    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v73, 0x7365526F69647561, 0xEC00000073746C75, v52, v53, v54, v55, v56, v63, v64, v65, v66);
+  }
+
+  v57 = objc_opt_self();
+  isa = Dictionary._bridgeToObjectiveC()().super.isa;
+
+  v74 = 0;
+  v59 = [v57 archivedDataWithRootObject:isa requiringSecureCoding:1 error:&v74];
+
+  v60 = v74;
+  if (v59)
+  {
+    v61 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+  }
+
+  else
+  {
+    v61 = v60;
+    _convertNSErrorToError(_:)();
+
+    swift_willThrow();
+  }
+
+  return v61;
+}
+
+uint64_t MediaEntity.exportedUrl()()
+{
+  v1 = type metadata accessor for URL();
+  OUTLINED_FUNCTION_14();
+  v3 = v2;
+  MEMORY[0x28223BE20](v4);
+  OUTLINED_FUNCTION_36();
+  v7 = v6 - v5;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  OUTLINED_FUNCTION_114(v8);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_59_4();
+  EntityProperty.wrappedValue.getter();
+  if (__swift_getEnumTagSinglePayload(v0, 1, v1))
+  {
+    outlined destroy of ResourceBundle?(v0, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    return 0;
+  }
+
+  else
+  {
+    v11 = OUTLINED_FUNCTION_34_11();
+    v12(v11);
+    outlined destroy of ResourceBundle?(v0, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    v10 = URL.dataRepresentation.getter();
+    (*(v3 + 8))(v7, v1);
+  }
+
+  return v10;
+}
+
+void *MediaEntity.intentFile.getter@<X0>(uint64_t a1@<X8>)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+  OUTLINED_FUNCTION_114(v4);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v5);
+  OUTLINED_FUNCTION_59_4();
+  result = MediaEntity.exportedData()();
+  if (!v1)
+  {
+    _StringGuts.grow(_:)(19);
+
+    EntityProperty.wrappedValue.getter();
+    MEMORY[0x25F89F6C0]();
+
+    MEMORY[0x25F89F6C0](0x617461642ELL, 0xE500000000000000);
+    if (one-time initialization token for searchToolExportedMedia != -1)
+    {
+      OUTLINED_FUNCTION_10_13();
+      swift_once();
+    }
+
+    v7 = type metadata accessor for UTType();
+    v8 = __swift_project_value_buffer(v7, static UTType.searchToolExportedMedia);
+    swift_beginAccess();
+    OUTLINED_FUNCTION_51();
+    (*(v9 + 16))(v2, v8, v7);
+    __swift_storeEnumTagSinglePayload(v2, 0, 1, v7);
+    IntentFile.init(data:filename:type:)();
+    v10 = type metadata accessor for IntentFile();
+    return __swift_storeEnumTagSinglePayload(a1, 0, 1, v10);
+  }
+
+  return result;
+}
+
+void static MediaEntity.transferRepresentation.getter()
+{
+  OUTLINED_FUNCTION_155();
+  v38 = v0;
+  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable18DataRepresentationVy10OmniSearch11MediaEntityVG_AA020_ConditionalTransferD0VyAGGtMd, &_s16CoreTransferable18DataRepresentationVy10OmniSearch11MediaEntityVG_AA020_ConditionalTransferD0VyAGGtMR);
+  OUTLINED_FUNCTION_51();
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v1);
+  OUTLINED_FUNCTION_49_3();
+  v3 = v2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10OmniSearch11MediaEntityVGGMd, &_s16CoreTransferable34_ConditionalTransferRepresentationVyAA04DataE0Vy10OmniSearch11MediaEntityVGGMR);
+  OUTLINED_FUNCTION_14();
+  v35 = v5;
+  v36 = v4;
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v6);
+  v8 = &v34 - v7;
+  v9 = type metadata accessor for UTType();
+  OUTLINED_FUNCTION_14();
+  v11 = v10;
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_36();
+  v15 = v14 - v13;
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable18DataRepresentationVy10OmniSearch11MediaEntityVGMd, &_s16CoreTransferable18DataRepresentationVy10OmniSearch11MediaEntityVGMR);
+  OUTLINED_FUNCTION_14();
+  v18 = v17;
+  MEMORY[0x28223BE20](v19);
+  OUTLINED_FUNCTION_109();
+  v22 = v20 - v21;
+  MEMORY[0x28223BE20](v23);
+  v25 = &v34 - v24;
+  if (one-time initialization token for searchToolExportedMedia != -1)
+  {
+    OUTLINED_FUNCTION_10_13();
+    swift_once();
+  }
+
+  v26 = __swift_project_value_buffer(v9, static UTType.searchToolExportedMedia);
+  swift_beginAccess();
+  (*(v11 + 16))(v15, v26, v9);
+  v27 = lazy protocol witness table accessor for type MediaEntity and conformance MediaEntity();
+  OUTLINED_FUNCTION_58_4(v27, &async function pointer to closure #1 in static MediaEntity.transferRepresentation.getter);
+  v28 = static UTType.url.getter();
+  OUTLINED_FUNCTION_58_4(v28, &async function pointer to closure #2 in static MediaEntity.transferRepresentation.getter);
+  lazy protocol witness table accessor for type _TransientAppEntityQuery<MemoryCreationQUResult> and conformance _TransientAppEntityQuery<A>(&lazy protocol witness table cache variable for type DataRepresentation<MediaEntity> and conformance DataRepresentation<A>, &_s16CoreTransferable18DataRepresentationVy10OmniSearch11MediaEntityVGMd, &_s16CoreTransferable18DataRepresentationVy10OmniSearch11MediaEntityVGMR, MEMORY[0x277CC4AF0]);
+  TransferRepresentation.exportingCondition(_:)();
+  v29 = *(v18 + 8);
+  v29(v22, v16);
+  v30 = *(v37 + 48);
+  (*(v18 + 16))(v3, v25, v16);
+  v31 = v35;
+  v32 = v3 + v30;
+  v33 = v36;
+  (*(v35 + 16))(v32, v8, v36);
+  TupleTransferRepresentation.init(_:)();
+  (*(v31 + 8))(v8, v33);
+  v29(v25, v16);
+  OUTLINED_FUNCTION_148();
+}
+
+uint64_t closure #1 in static MediaEntity.transferRepresentation.getter(_OWORD *a1)
+{
+  v2 = a1[1];
+  v1[1] = *a1;
+  v1[2] = v2;
+  v1[3] = a1[2];
+  return MEMORY[0x2822009F8](closure #1 in static MediaEntity.transferRepresentation.getter);
+}
+
+uint64_t closure #1 in static MediaEntity.transferRepresentation.getter()
+{
+  v1 = MediaEntity.exportedData()();
+  v2 = *(v0 + 8);
+
+  return v2(v1);
+}
+
+uint64_t closure #2 in static MediaEntity.transferRepresentation.getter(uint64_t a1)
+{
+  v3 = type metadata accessor for URL();
+  v1[2] = v3;
+  v1[3] = *(v3 - 8);
+  v1[4] = swift_task_alloc();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v4 = swift_task_alloc();
+  v5 = *(a1 + 16);
+  v1[5] = v4;
+  v1[6] = v5;
+
+  return MEMORY[0x2822009F8](closure #2 in static MediaEntity.transferRepresentation.getter);
+}
+
+{
+  v2 = v1[5];
+  v3 = v1[2];
+  EntityProperty.wrappedValue.getter();
+  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v2, 1, v3);
+  v5 = v1[5];
+  if (EnumTagSinglePayload)
+  {
+    outlined destroy of ResourceBundle?(v1[5], &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    v6 = 0;
+    v7 = 0xC000000000000000;
+  }
+
+  else
+  {
+    v9 = v1[3];
+    v8 = v1[4];
+    v10 = v1[2];
+    (*(v9 + 16))(v8, v1[5], v10);
+    outlined destroy of ResourceBundle?(v5, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    v6 = URL.dataRepresentation.getter();
+    v7 = v11;
+    (*(v9 + 8))(v8, v10);
+  }
+
+  v12 = v1[1];
+
+  return v12(v6, v7);
+}
+
+BOOL closure #3 in static MediaEntity.transferRepresentation.getter()
+{
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  MEMORY[0x28223BE20](v0 - 8);
+  v2 = &v6 - v1;
+  EntityProperty.wrappedValue.getter();
+  v3 = type metadata accessor for URL();
+  v4 = __swift_getEnumTagSinglePayload(v2, 1, v3) != 1;
+  outlined destroy of ResourceBundle?(v2, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  return v4;
+}
+
+unint64_t instantiation function for generic protocol witness table for MediaEntity(uint64_t a1)
+{
+  result = lazy protocol witness table accessor for type MediaEntity and conformance MediaEntity();
+  *(a1 + 8) = result;
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for MediaEntity(uint64_t *a1, int a2)
+{
+  if (a2)
+  {
+    if (a2 < 0 && *(a1 + 48))
+    {
+      LODWORD(v2) = *a1 + 0x7FFFFFFF;
+    }
+
+    else
+    {
+      v2 = *a1;
+      if (*a1 >= 0xFFFFFFFF)
+      {
+        LODWORD(v2) = -1;
+      }
+    }
+  }
+
+  else
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for MediaEntity(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 40) = 0;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 48) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *result = (a2 - 1);
+      return result;
+    }
+
+    *(result + 48) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type RGPluginModel and conformance RGPluginModel()
+{
+  result = lazy protocol witness table cache variable for type RGPluginModel and conformance RGPluginModel;
+  if (!lazy protocol witness table cache variable for type RGPluginModel and conformance RGPluginModel)
+  {
+    type metadata accessor for RGPluginModel();
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type RGPluginModel and conformance RGPluginModel);
+  }
+
+  return result;
+}
+
+uint64_t OUTLINED_FUNCTION_9_16()
+{
+
+  return String.LocalizationValue.StringInterpolation.init(literalCapacity:interpolationCount:)();
+}
+
+uint64_t OUTLINED_FUNCTION_14_9(uint64_t a1)
+{
+  __swift_storeEnumTagSinglePayload(a1, 1, 1, v1);
+
+  return type metadata accessor for DisplayRepresentation.Image();
+}
+
+uint64_t OUTLINED_FUNCTION_15_12(uint64_t a1, uint64_t a2)
+{
+
+  return DisplayRepresentation.init(title:snippetPluginModelData:bundleIdentifier:)();
+}
+
+uint64_t OUTLINED_FUNCTION_17_13()
+{
+
+  return type metadata accessor for String.LocalizationValue.StringInterpolation();
+}
+
+uint64_t OUTLINED_FUNCTION_22_10()
+{
+  if (*(v0 - 104))
+  {
+    return *(v0 - 112);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t OUTLINED_FUNCTION_25_10(uint64_t a1)
+{
+
+  return SnippetPluginModel.data.getter();
+}
+
+uint64_t OUTLINED_FUNCTION_26_7(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+
+  return DisplayRepresentation.init(title:snippetPluginModelData:bundleIdentifier:)();
+}
+
+uint64_t OUTLINED_FUNCTION_27_9()
+{
+
+  return type metadata accessor for LocalizedStringResource();
+}
+
+id OUTLINED_FUNCTION_30_11()
+{
+  outlined copy of Data?(v0, v1);
+
+  return SFCard.init(data:)(v0, v1);
+}
+
+void OUTLINED_FUNCTION_31_14()
+{
+  v2 = *(v0 - 96);
+  v3 = *(v0 - 88);
+
+  String.LocalizationValue.StringInterpolation.appendInterpolation(_:)(*&v2);
+}
+
+uint64_t OUTLINED_FUNCTION_39_9()
+{
+
+  return _s12ModelCatalog14ResourceBundle_pSgWOcTm_0(v0, v3, v1, v2);
+}
+
+uint64_t OUTLINED_FUNCTION_41_7()
+{
+
+  return SFCard.snippetPluginModel.getter(v0);
+}
+
+uint64_t OUTLINED_FUNCTION_47_10()
+{
+
+  return LocalizedStringResource.init(stringInterpolation:)();
+}
+
+uint64_t OUTLINED_FUNCTION_50_6()
+{
+
+  return outlined destroy of ResourceBundle?(v0, v1, v2);
+}
+
+uint64_t OUTLINED_FUNCTION_51_7()
+{
+
+  return DisplayRepresentation.init(title:subtitle:image:)();
+}
+
+void OUTLINED_FUNCTION_52_6()
+{
+
+  JUMPOUT(0x25F89F6C0);
+}
+
+uint64_t OUTLINED_FUNCTION_53_6()
+{
+  outlined init with take of Any((v0 - 208), (v0 - 240));
+
+  return swift_isUniquelyReferenced_nonNull_native();
+}
+
+uint64_t OUTLINED_FUNCTION_57_5(uint64_t a1)
+{
+
+  return swift_beginAccess();
+}
+
+uint64_t OUTLINED_FUNCTION_58_4(uint64_t a1, uint64_t a2)
+{
+
+  return DataRepresentation.init(exportedContentType:exporting:)();
+}
+
+OmniSearch::SourceDocument __swiftcall SourceDocument.init()()
+{
+  *v0 = 0u;
+  v0[1] = 0u;
+  return result;
+}
+
+uint64_t SourceDocument.typeDisplayRepresentation.unsafeMutableAddressor()
+{
+  if (one-time initialization token for typeDisplayRepresentation != -1)
+  {
+    OUTLINED_FUNCTION_0_29(&one-time initialization token for typeDisplayRepresentation);
+  }
+
+  v0 = type metadata accessor for TypeDisplayRepresentation();
+
+  return __swift_project_value_buffer(v0, static SourceDocument.typeDisplayRepresentation);
+}
+
+uint64_t static SourceDocument.typeDisplayRepresentation.getter@<X0>(uint64_t a1@<X8>)
+{
+  if (one-time initialization token for typeDisplayRepresentation != -1)
+  {
+    OUTLINED_FUNCTION_0_29(&one-time initialization token for typeDisplayRepresentation);
+  }
+
+  v2 = type metadata accessor for TypeDisplayRepresentation();
+  v3 = __swift_project_value_buffer(v2, static SourceDocument.typeDisplayRepresentation);
+  swift_beginAccess();
+  return (*(*(v2 - 8) + 16))(a1, v3, v2);
+}
+
+uint64_t static SourceDocument.typeDisplayRepresentation.setter(uint64_t a1)
+{
+  if (one-time initialization token for typeDisplayRepresentation != -1)
+  {
+    OUTLINED_FUNCTION_0_29(&one-time initialization token for typeDisplayRepresentation);
+  }
+
+  v2 = type metadata accessor for TypeDisplayRepresentation();
+  v3 = __swift_project_value_buffer(v2, static SourceDocument.typeDisplayRepresentation);
+  swift_beginAccess();
+  (*(*(v2 - 8) + 24))(v3, a1, v2);
+  swift_endAccess();
+  v4 = OUTLINED_FUNCTION_94();
+  return v5(v4);
+}
+
+uint64_t (*static SourceDocument.typeDisplayRepresentation.modify(uint64_t a1))(uint64_t a1)
+{
+  if (one-time initialization token for typeDisplayRepresentation != -1)
+  {
+    OUTLINED_FUNCTION_0_29(&one-time initialization token for typeDisplayRepresentation);
+  }
+
+  v1 = type metadata accessor for TypeDisplayRepresentation();
+  __swift_project_value_buffer(v1, static SourceDocument.typeDisplayRepresentation);
+  swift_beginAccess();
+  return static FlightSnippet.Status.allCases.modify;
+}
+
+uint64_t key path getter for static SourceDocument.typeDisplayRepresentation : SourceDocument.Type@<X0>(uint64_t a1@<X8>)
+{
+  v2 = SourceDocument.typeDisplayRepresentation.unsafeMutableAddressor();
+  swift_beginAccess();
+  v3 = type metadata accessor for TypeDisplayRepresentation();
+  return (*(*(v3 - 8) + 16))(a1, v2, v3);
+}
+
+uint64_t key path setter for static SourceDocument.typeDisplayRepresentation : SourceDocument.Type(uint64_t a1)
+{
+  v2 = SourceDocument.typeDisplayRepresentation.unsafeMutableAddressor();
+  swift_beginAccess();
+  v3 = type metadata accessor for TypeDisplayRepresentation();
+  (*(*(v3 - 8) + 24))(v2, a1, v3);
+  return swift_endAccess();
+}
+
+uint64_t SourceDocument.displayRepresentation.getter@<X0>(uint64_t a1@<X8>)
+{
+  v31[1] = a1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents21DisplayRepresentationV5ImageVSgMd, &_s10AppIntents21DisplayRepresentationV5ImageVSgMR);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v2);
+  v31[0] = v31 - v3;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v4);
+  v6 = v31 - v5;
+  v7 = type metadata accessor for String.LocalizationValue.StringInterpolation();
+  MEMORY[0x28223BE20](v7 - 8);
+  v8 = type metadata accessor for LocalizedStringResource();
+  OUTLINED_FUNCTION_14();
+  v10 = v9;
+  MEMORY[0x28223BE20](v11);
+  MEMORY[0x28223BE20](v12);
+  v14 = v31 - v13;
+  v16 = *v1;
+  v15 = v1[1];
+  v17 = v1[2];
+  v18 = v1[3];
+
+  String.LocalizationValue.StringInterpolation.init(literalCapacity:interpolationCount:)();
+  v19._countAndFlagsBits = 0x203A656372756F53;
+  v19._object = 0xE800000000000000;
+  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v19);
+  if (v15)
+  {
+    v20 = v16;
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  v21 = 0xE000000000000000;
+  if (!v15)
+  {
+    v15 = 0xE000000000000000;
+  }
+
+  v22 = v15;
+  String.LocalizationValue.StringInterpolation.appendInterpolation(_:)(*&v20);
+
+  v23._countAndFlagsBits = 2108704;
+  v23._object = 0xE300000000000000;
+  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v23);
+  if (v18)
+  {
+    v24 = v17;
+  }
+
+  else
+  {
+    v24 = 0;
+  }
+
+  if (v18)
+  {
+    v21 = v18;
+  }
+
+  v25._countAndFlagsBits = v24;
+  v25._object = v21;
+  String.LocalizationValue.StringInterpolation.appendInterpolation(_:)(v25);
+
+  v26._countAndFlagsBits = 0;
+  v26._object = 0xE000000000000000;
+  String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v26);
+  LocalizedStringResource.init(stringInterpolation:)();
+  v27 = OUTLINED_FUNCTION_45_0();
+  v28(v27);
+  __swift_storeEnumTagSinglePayload(v6, 1, 1, v8);
+  v29 = type metadata accessor for DisplayRepresentation.Image();
+  __swift_storeEnumTagSinglePayload(v31[0], 1, 1, v29);
+  DisplayRepresentation.init(title:subtitle:image:)();
+  return (*(v10 + 8))(v14, v8);
+}
+
+uint64_t SourceDocument.bundleId.setter(uint64_t a1, uint64_t a2)
+{
+
+  *v2 = a1;
+  v2[1] = a2;
+  return result;
+}
+
+uint64_t SourceDocument.documentId.setter(uint64_t a1, uint64_t a2)
+{
+
+  *(v2 + 16) = a1;
+  *(v2 + 24) = a2;
+  return result;
+}
+
+OmniSearch::SourceDocument __swiftcall SourceDocument.init(bundleId:documentId:)(Swift::String_optional bundleId, Swift::String_optional documentId)
+{
+  *v2 = bundleId;
+  v2[1] = documentId;
+  result.documentId = documentId;
+  result.bundleId = bundleId;
+  return result;
+}
+
+uint64_t static SourceDocument.== infix(_:_:)(uint64_t *a1, void *a2)
+{
+  v3 = a1[1];
+  v4 = a1[2];
+  v5 = a1[3];
+  v6 = a2[1];
+  v7 = a2[2];
+  v8 = a2[3];
+  if (v3)
+  {
+    if (!v6)
+    {
+      return 0;
+    }
+
+    v9 = *a1 == *a2 && v3 == v6;
+    if (!v9 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+    {
+      return 0;
+    }
+  }
+
+  else if (v6)
+  {
+    return 0;
+  }
+
+  if (v5)
+  {
+    if (v8)
+    {
+      if (v4 == v7 && v5 == v8)
+      {
+        return 1;
+      }
+
+      OUTLINED_FUNCTION_94();
+      if (_stringCompareWithSmolCheck(_:_:expecting:)())
+      {
+        return 1;
+      }
+    }
+  }
+
+  else if (!v8)
+  {
+    return 1;
+  }
+
+  return 0;
+}
+
+uint64_t SourceDocument.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
+{
+  v4 = a1 == 0x6449656C646E7562 && a2 == 0xE800000000000000;
+  if (v4 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 0;
+  }
+
+  else if (a1 == 0x746E656D75636F64 && a2 == 0xEA00000000006449)
+  {
+
+    return 1;
+  }
+
+  else
+  {
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v7)
+    {
+      return 1;
+    }
+
+    else
+    {
+      return 2;
+    }
+  }
+}
+
+uint64_t SourceDocument.CodingKeys.stringValue.getter(char a1)
+{
+  if (a1)
+  {
+    return 0x746E656D75636F64;
+  }
+
+  else
+  {
+    return 0x6449656C646E7562;
+  }
+}
+
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance SourceDocument.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+{
+  result = SourceDocument.CodingKeys.init(stringValue:)(a1, a2);
+  *a3 = result;
+  return result;
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance SourceDocument.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type SourceDocument.CodingKeys and conformance SourceDocument.CodingKeys();
+
+  return MEMORY[0x2821FE718](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance SourceDocument.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type SourceDocument.CodingKeys and conformance SourceDocument.CodingKeys();
+
+  return MEMORY[0x2821FE720](a1, v2);
+}
+
+uint64_t SourceDocument.encode(to:)(void *a1)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10OmniSearch14SourceDocumentV10CodingKeys33_05E01F74D0886D7F15C2C8FCDF6F4ACFLLOGMd, &_ss22KeyedEncodingContainerVy10OmniSearch14SourceDocumentV10CodingKeys33_05E01F74D0886D7F15C2C8FCDF6F4ACFLLOGMR);
+  OUTLINED_FUNCTION_14();
+  v12 = v5;
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v6);
+  v8 = v11 - v7;
+  v9 = *(v1 + 16);
+  v11[1] = *(v1 + 24);
+  v11[2] = v9;
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  lazy protocol witness table accessor for type SourceDocument.CodingKeys and conformance SourceDocument.CodingKeys();
+  dispatch thunk of Encoder.container<A>(keyedBy:)();
+  v14 = 0;
+  KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
+  if (!v2)
+  {
+    v13 = 1;
+    KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
+  }
+
+  return (*(v12 + 8))(v8, v4);
+}
+
+unint64_t lazy protocol witness table accessor for type SourceDocument.CodingKeys and conformance SourceDocument.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type SourceDocument.CodingKeys and conformance SourceDocument.CodingKeys;
+  if (!lazy protocol witness table cache variable for type SourceDocument.CodingKeys and conformance SourceDocument.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SourceDocument.CodingKeys and conformance SourceDocument.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SourceDocument.CodingKeys and conformance SourceDocument.CodingKeys;
+  if (!lazy protocol witness table cache variable for type SourceDocument.CodingKeys and conformance SourceDocument.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SourceDocument.CodingKeys and conformance SourceDocument.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SourceDocument.CodingKeys and conformance SourceDocument.CodingKeys;
+  if (!lazy protocol witness table cache variable for type SourceDocument.CodingKeys and conformance SourceDocument.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SourceDocument.CodingKeys and conformance SourceDocument.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SourceDocument.CodingKeys and conformance SourceDocument.CodingKeys;
+  if (!lazy protocol witness table cache variable for type SourceDocument.CodingKeys and conformance SourceDocument.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SourceDocument.CodingKeys and conformance SourceDocument.CodingKeys);
+  }
+
+  return result;
+}
+
+uint64_t SourceDocument.init(from:)@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10OmniSearch14SourceDocumentV10CodingKeys33_05E01F74D0886D7F15C2C8FCDF6F4ACFLLOGMd, &_ss22KeyedDecodingContainerVy10OmniSearch14SourceDocumentV10CodingKeys33_05E01F74D0886D7F15C2C8FCDF6F4ACFLLOGMR);
+  OUTLINED_FUNCTION_14();
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v5);
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  lazy protocol witness table accessor for type SourceDocument.CodingKeys and conformance SourceDocument.CodingKeys();
+  dispatch thunk of Decoder.container<A>(keyedBy:)();
+  if (!v2)
+  {
+    v7 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v9 = v8;
+    v10 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v12 = v11;
+    v15 = v10;
+    v13 = OUTLINED_FUNCTION_45_0();
+    v14(v13);
+    *a2 = v7;
+    a2[1] = v9;
+    a2[2] = v15;
+    a2[3] = v12;
+  }
+
+  __swift_destroy_boxed_opaque_existential_1Tm(a1);
+}
+
+unint64_t lazy protocol witness table accessor for type SourceDocument and conformance SourceDocument()
+{
+  result = lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument;
+  if (!lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument;
+  if (!lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument;
+  if (!lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument;
+  if (!lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument;
+  if (!lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument;
+  if (!lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument;
+  if (!lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument;
+  if (!lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument;
+  if (!lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument;
+  if (!lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SourceDocument and conformance SourceDocument);
+  }
+
+  return result;
+}
+
+uint64_t protocol witness for static AppEntity.defaultQuery.getter in conformance SourceDocument(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type SourceDocument and conformance SourceDocument();
+
+  return MEMORY[0x28210B2E8](a1, v2);
+}
+
+unint64_t lazy protocol witness table accessor for type UUID and conformance UUID()
+{
+  result = lazy protocol witness table cache variable for type UUID and conformance UUID;
+  if (!lazy protocol witness table cache variable for type UUID and conformance UUID)
+  {
+    type metadata accessor for UUID();
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type UUID and conformance UUID);
+  }
+
+  return result;
+}
+
+uint64_t protocol witness for Identifiable.id.getter in conformance SourceDocument(uint64_t a1)
+{
+  lazy protocol witness table accessor for type SourceDocument and conformance SourceDocument();
+
+  return UUID.init()();
+}
+
+uint64_t protocol witness for static _IntentValue.defaultResolverSpecification.getter in conformance SourceDocument(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type SourceDocument and conformance SourceDocument();
+
+  return MEMORY[0x28210B488](a1, v2);
+}
+
+uint64_t protocol witness for CustomLocalizedStringResourceConvertible.localizedStringResource.getter in conformance SourceDocument(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type SourceDocument and conformance SourceDocument();
+
+  return MEMORY[0x28210C4B8](a1, v2);
+}
+
+__n128 __swift_memcpy32_8(_OWORD *a1, uint64_t a2)
+{
+  result = *a2;
+  v3 = *(a2 + 16);
+  *a1 = *a2;
+  a1[1] = v3;
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for SourceDocument(uint64_t a1, unsigned int a2)
+{
+  if (a2)
+  {
+    if (a2 >= 0x7FFFFFFF && *(a1 + 32))
+    {
+      v2 = *a1 + 2147483646;
+    }
+
+    else
+    {
+      v3 = *(a1 + 8);
+      if (v3 >= 0xFFFFFFFF)
+      {
+        LODWORD(v3) = -1;
+      }
+
+      v2 = v3 - 1;
+      if (v2 < 0)
+      {
+        v2 = -1;
+      }
+    }
+  }
+
+  else
+  {
+    v2 = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for SourceDocument(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0x7FFFFFFE)
+  {
+    *(result + 16) = 0;
+    *(result + 24) = 0;
+    *result = a2 - 0x7FFFFFFF;
+    *(result + 8) = 0;
+    if (a3 >= 0x7FFFFFFF)
+    {
+      *(result + 32) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0x7FFFFFFF)
+    {
+      *(result + 32) = 0;
+    }
+
+    if (a2)
+    {
+      *(result + 8) = a2;
+    }
+  }
+
+  return result;
+}
+
+_BYTE *storeEnumTagSinglePayload for SourceDocument.CodingKeys(_BYTE *result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 1 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 1) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 >= 0xFF)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (a2 > 0xFE)
+  {
+    v6 = ((a2 - 255) >> 8) + 1;
+    *result = a2 + 1;
+    switch(v5)
+    {
+      case 1:
+        result[1] = v6;
+        break;
+      case 2:
+        *(result + 1) = v6;
+        break;
+      case 3:
+LABEL_23:
+        __break(1u);
+        break;
+      case 4:
+        *(result + 1) = v6;
+        break;
+      default:
+        return result;
+    }
+  }
+
+  else
+  {
+    switch(v5)
+    {
+      case 1:
+        result[1] = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      case 2:
+        *(result + 1) = 0;
+        goto LABEL_17;
+      case 3:
+        goto LABEL_23;
+      case 4:
+        *(result + 1) = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      default:
+LABEL_17:
+        if (a2)
+        {
+LABEL_18:
+          *result = a2 + 1;
+        }
+
+        break;
+    }
+  }
+
+  return result;
+}
+
+uint64_t OUTLINED_FUNCTION_0_29(uint64_t a1)
+{
+
+  return swift_once();
+}
+
+uint64_t (*SearchAnswerEntity.answer.modify())()
+{
+  v1 = OUTLINED_FUNCTION_4_12();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_32_1(v2);
+  *(v0 + 32) = EntityProperty.wrappedValue.modify();
+  return MemoryCreationQUResult.version.modify;
+}
+
+uint64_t (*SearchAnswerEntity.dialog.modify())()
+{
+  v1 = OUTLINED_FUNCTION_4_12();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_32_1(v2);
+  *(v0 + 32) = EntityProperty.wrappedValue.modify();
+  return MemoryCreationQUResult.version.modify;
+}
+
+uint64_t (*SearchAnswerEntity.requestedProperties.modify())()
+{
+  v1 = OUTLINED_FUNCTION_4_12();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_32_1(v2);
+  *(v0 + 32) = EntityProperty.wrappedValue.modify();
+  return MemoryCreationQUResult.version.modify;
+}
+
+uint64_t (*SearchAnswerEntity.sources.modify())()
+{
+  v1 = OUTLINED_FUNCTION_4_12();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_32_1(v2);
+  *(v0 + 32) = EntityProperty.wrappedValue.modify();
+  return MemoryCreationQUResult.version.modify;
+}
+
+uint64_t (*SearchAnswerEntity.documentSources.modify())()
+{
+  v1 = OUTLINED_FUNCTION_4_12();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_32_1(v2);
+  *(v0 + 32) = EntityProperty.wrappedValue.modify();
+  return MemoryCreationQUResult.version.modify;
+}
+
+uint64_t (*SearchAnswerEntity.title.modify())()
+{
+  v1 = OUTLINED_FUNCTION_4_12();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_32_1(v2);
+  *(v0 + 32) = EntityProperty.wrappedValue.modify();
+  return MemoryCreationQUResult.version.modify;
+}
+
+uint64_t SearchAnswerEntity.experienceFile.setter(uint64_t a1)
+{
+  v2 = OUTLINED_FUNCTION_34_11();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(v2, v3);
+  OUTLINED_FUNCTION_114(v4);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v5);
+  OUTLINED_FUNCTION_90_0();
+  OUTLINED_FUNCTION_17_10();
+  EntityProperty.wrappedValue.setter();
+  return outlined destroy of IntentApplication?(a1, &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+}
+
+uint64_t (*SearchAnswerEntity.experienceFile.modify())()
+{
+  v1 = OUTLINED_FUNCTION_4_12();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_32_1(v2);
+  *(v0 + 32) = EntityProperty.wrappedValue.modify();
+  return MemoryCreationQUResult.version.modify;
+}
+
+uint64_t SearchAnswerEntity.experienceSourceType.getter@<X0>(uint64_t a1@<X8>)
+{
+  v2 = *MEMORY[0x277D37060];
+  type metadata accessor for SearchResultType();
+  OUTLINED_FUNCTION_17();
+  v5 = *(v4 + 104);
+
+  return v5(a1, v2, v3);
+}
+
+uint64_t key path setter for SearchAnswerEntity.experienceFile : SearchAnswerEntity(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, void (*a5)(uint64_t))
+{
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+  OUTLINED_FUNCTION_114(v9);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_18_9();
+  outlined init with copy of ResourceBundle?(a1, v5, &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+  memcpy(v12, a2, sizeof(v12));
+  outlined init with copy of SearchAnswerEntity(v12, v13);
+  a5(v5);
+  memcpy(v13, a2, sizeof(v13));
+  return outlined destroy of SearchAnswerEntity(v13);
+}
+
+uint64_t SearchAnswerEntity.pommesContextFile.setter(uint64_t a1)
+{
+  v2 = OUTLINED_FUNCTION_34_11();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(v2, v3);
+  OUTLINED_FUNCTION_114(v4);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v5);
+  OUTLINED_FUNCTION_90_0();
+  OUTLINED_FUNCTION_17_10();
+  EntityProperty.wrappedValue.setter();
+  return outlined destroy of IntentApplication?(a1, &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+}
+
+uint64_t (*SearchAnswerEntity.pommesContextFile.modify())()
+{
+  v1 = OUTLINED_FUNCTION_4_12();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_32_1(v2);
+  *(v0 + 32) = EntityProperty.wrappedValue.modify();
+  return MemoryCreationQUResult.version.modify;
+}
+
+uint64_t (*SearchAnswerEntity.globalSearchSummary.modify())()
+{
+  v1 = OUTLINED_FUNCTION_4_12();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_32_1(v2);
+  *(v0 + 32) = EntityProperty.wrappedValue.modify();
+  return MemoryCreationQUResult.encodedMemoryCreationQUPerformanceMetrics.modify;
+}
+
+uint64_t key path setter for SearchAnswerEntity.dialog : SearchAnswerEntity(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  OUTLINED_FUNCTION_61_6(a1, a2, a3, a4, a5, a6, a7, a8, v19[0]);
+
+  outlined init with copy of SearchAnswerEntity(v19, v20);
+  v9 = OUTLINED_FUNCTION_34_11();
+  v10 = v8(v9);
+  OUTLINED_FUNCTION_59_6(v10, v11, v12, v13, v14, v15, v16, v17, v19[0], v19[1], v19[2], v19[3], v19[4], v19[5], v19[6], v19[7], v19[8], v19[9], v19[10], v19[11], v19[12], v19[13], v19[14], v19[15], v19[16]);
+  return outlined destroy of SearchAnswerEntity(v20);
+}
+
+uint64_t (*SearchAnswerEntity.description.modify())()
+{
+  v1 = OUTLINED_FUNCTION_4_12();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_32_1(v2);
+  *(v0 + 32) = EntityProperty.wrappedValue.modify();
+  return MemoryCreationQUResult.version.modify;
+}
+
+uint64_t key path setter for SearchAnswerEntity.answer : SearchAnswerEntity(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  OUTLINED_FUNCTION_61_6(a1, a2, a3, a4, a5, a6, a7, a8, v19[0]);
+
+  outlined init with copy of SearchAnswerEntity(v19, v20);
+  v9 = OUTLINED_FUNCTION_34_11();
+  v10 = v8(v9);
+  OUTLINED_FUNCTION_59_6(v10, v11, v12, v13, v14, v15, v16, v17, v19[0], v19[1], v19[2], v19[3], v19[4], v19[5], v19[6], v19[7], v19[8], v19[9], v19[10], v19[11], v19[12], v19[13], v19[14], v19[15], v19[16]);
+  return outlined destroy of SearchAnswerEntity(v20);
+}
+
+uint64_t (*SearchAnswerEntity.documentSource.modify())()
+{
+  v1 = OUTLINED_FUNCTION_4_12();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_32_1(v2);
+  *(v0 + 32) = EntityProperty.wrappedValue.modify();
+  return MemoryCreationQUResult.version.modify;
+}
+
+void SearchAnswerEntity.sourceResults.getter()
+{
+  OUTLINED_FUNCTION_155();
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+  OUTLINED_FUNCTION_114(v1);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v2);
+  v4 = v33 - v3;
+  v5 = type metadata accessor for SearchResult(0);
+  OUTLINED_FUNCTION_14();
+  v33[3] = v6;
+  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_2_3();
+  v34 = v8;
+  v9 = OUTLINED_FUNCTION_78_0();
+  v10 = type metadata accessor for SearchEntity(v9);
+  OUTLINED_FUNCTION_14();
+  v12 = v11;
+  MEMORY[0x28223BE20](v13);
+  OUTLINED_FUNCTION_36();
+  OUTLINED_FUNCTION_74_2();
+  EntityProperty.wrappedValue.getter();
+  v14 = *(v35 + 16);
+  if (v14)
+  {
+    v15 = *(v10 + 84);
+    OUTLINED_FUNCTION_79();
+    v33[1] = v16;
+    v18 = v16 + v17;
+    v19 = *(v12 + 72);
+    v20 = MEMORY[0x277D84F90];
+    v33[2] = v5;
+    do
+    {
+      OUTLINED_FUNCTION_32_13();
+      outlined init with copy of SearchEntity(v18, v0, v21);
+      outlined init with copy of ResourceBundle?(v0 + v15, v4, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+      OUTLINED_FUNCTION_4_18();
+      outlined destroy of SearchEntity();
+      OUTLINED_FUNCTION_10_2(v4);
+      if (v22)
+      {
+        v23 = OUTLINED_FUNCTION_94();
+        outlined destroy of IntentApplication?(v23, v24, &_s10OmniSearch0B6ResultVSgMR);
+      }
+
+      else
+      {
+        outlined init with take of SearchResult(v4, v34);
+        isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+        if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+        {
+          specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v20 + 16) + 1, 1, v20);
+          v20 = v31;
+        }
+
+        v27 = *(v20 + 16);
+        v26 = *(v20 + 24);
+        if (v27 >= v26 >> 1)
+        {
+          specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v26 > 1, v27 + 1, 1, v20);
+          v20 = v32;
+        }
+
+        *(v20 + 16) = v27 + 1;
+        OUTLINED_FUNCTION_79();
+        outlined init with take of SearchResult(v30, v20 + v28 + *(v29 + 72) * v27);
+      }
+
+      v18 += v19;
+      --v14;
+    }
+
+    while (v14);
+  }
+
+  OUTLINED_FUNCTION_148();
+}
+
+id SearchAnswerEntity.card.getter()
+{
+  type metadata accessor for SFCard();
+  v0 = OUTLINED_FUNCTION_94();
+  outlined copy of Data?(v0, v1);
+  v2 = OUTLINED_FUNCTION_94();
+  return SFCard.init(data:)(v2, v3);
+}
+
+uint64_t key path setter for SearchAnswerEntity.card : SearchAnswerEntity(id *a1)
+{
+  v1 = *a1;
+  v2 = *a1;
+  return SearchAnswerEntity.card.setter(v1);
+}
+
+uint64_t SearchAnswerEntity.card.setter(void *a1)
+{
+  v2 = v1;
+  if (a1)
+  {
+    v4 = SFCard.data.getter();
+    v6 = v5;
+  }
+
+  else
+  {
+    v4 = 0;
+    v6 = 0xF000000000000000;
+  }
+
+  result = outlined consume of Data?(*(v2 + 88), *(v2 + 96));
+  *(v2 + 88) = v4;
+  *(v2 + 96) = v6;
+  return result;
+}
+
+void (*SearchAnswerEntity.card.modify(id *a1))(uint64_t a1)
+{
+  a1[1] = v1;
+  v4 = *(v1 + 88);
+  v3 = *(v1 + 96);
+  type metadata accessor for SFCard();
+  outlined copy of Data?(v4, v3);
+  *a1 = SFCard.init(data:)(v4, v3);
+  return SearchAnswerEntity.card.modify;
+}
+
+void SearchAnswerEntity.card.modify(uint64_t a1)
+{
+  v2 = OUTLINED_FUNCTION_6_6(a1);
+  if (v3)
+  {
+    v14 = v2;
+    if (v2)
+    {
+      v4 = v2;
+      v5 = SFCard.data.getter();
+      v7 = v6;
+    }
+
+    else
+    {
+      v5 = 0;
+      v7 = 0xF000000000000000;
+    }
+
+    v12 = *(v1 + 8);
+    outlined consume of Data?(*(v12 + 88), *(v12 + 96));
+    *(v12 + 88) = v5;
+    *(v12 + 96) = v7;
+  }
+
+  else
+  {
+    if (v2)
+    {
+      v8 = v2;
+      v9 = SFCard.data.getter();
+      v11 = v10;
+    }
+
+    else
+    {
+      v9 = 0;
+      v11 = 0xF000000000000000;
+    }
+
+    v13 = *(v1 + 8);
+    outlined consume of Data?(*(v13 + 88), *(v13 + 96));
+    *(v13 + 88) = v9;
+    *(v13 + 96) = v11;
+  }
+}
+
+void SearchAnswerEntity.init()()
+{
+  OUTLINED_FUNCTION_155();
+  OUTLINED_FUNCTION_113();
+  type metadata accessor for UUID();
+  OUTLINED_FUNCTION_14();
+  v15 = v2;
+  v16 = v1;
+  MEMORY[0x28223BE20](v1);
+  OUTLINED_FUNCTION_36();
+  v5 = v4 - v3;
+  v6 = type metadata accessor for LocalizedStringResource();
+  v7 = OUTLINED_FUNCTION_114(v6);
+  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_36();
+  OUTLINED_FUNCTION_74_2();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSGMd, &_s10AppIntents14EntityPropertyCySSGMR);
+  v8 = OUTLINED_FUNCTION_53_7();
+  OUTLINED_FUNCTION_79_5(v8);
+  *v0 = EntityProperty<>.init(title:)();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
+  v9 = OUTLINED_FUNCTION_52_7();
+  OUTLINED_FUNCTION_79_5(v9);
+  *(v0 + 8) = OUTLINED_FUNCTION_65_7();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySay10OmniSearch0fD8ResponseVGGMd, &_s10AppIntents14EntityPropertyCySay10OmniSearch0fD8ResponseVGGMR);
+  OUTLINED_FUNCTION_28_9();
+  LocalizedStringResource.init(stringLiteral:)();
+  OUTLINED_FUNCTION_11_14();
+  lazy protocol witness table accessor for type SearchPropertyResponse and conformance SearchPropertyResponse(v10);
+  *(v0 + 16) = OUTLINED_FUNCTION_78_6();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySay10OmniSearch0fC0VGGMd, &_s10AppIntents14EntityPropertyCySay10OmniSearch0fC0VGGMR);
+  OUTLINED_FUNCTION_23_11();
+  LocalizedStringResource.init(stringLiteral:)();
+  OUTLINED_FUNCTION_10_14();
+  lazy protocol witness table accessor for type SearchPropertyResponse and conformance SearchPropertyResponse(v11);
+  *(v0 + 24) = OUTLINED_FUNCTION_78_6();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySaySSGGMd, &_s10AppIntents14EntityPropertyCySaySSGGMR);
+  OUTLINED_FUNCTION_28_9();
+  LocalizedStringResource.init(stringLiteral:)();
+  *(v0 + 32) = EntityProperty<>.init(title:)();
+  OUTLINED_FUNCTION_49_11();
+  LocalizedStringResource.init(stringLiteral:)();
+  *(v0 + 40) = OUTLINED_FUNCTION_65_7();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
+  OUTLINED_FUNCTION_21_10();
+  *(v0 + 48) = EntityProperty<>.init(title:)();
+  OUTLINED_FUNCTION_17_14();
+  LocalizedStringResource.init(stringLiteral:)();
+  *(v0 + 56) = EntityProperty<>.init(title:)();
+  OUTLINED_FUNCTION_28_9();
+  LocalizedStringResource.init(stringLiteral:)();
+  *(v0 + 64) = OUTLINED_FUNCTION_65_7();
+  OUTLINED_FUNCTION_21_10();
+  *(v0 + 72) = EntityProperty<>.init(title:)();
+  OUTLINED_FUNCTION_16_14();
+  LocalizedStringResource.init(stringLiteral:)();
+  *(v0 + 80) = EntityProperty<>.init(title:)();
+  *(v0 + 88) = xmmword_25DBC9410;
+  *(v0 + 104) = 0;
+  OUTLINED_FUNCTION_28_9();
+  LocalizedStringResource.init(stringLiteral:)();
+  *(v0 + 128) = EntityProperty<>.init(title:)();
+  UUID.init()();
+  v12 = UUID.uuidString.getter();
+  v14 = v13;
+  (*(v15 + 8))(v5, v16);
+  *(v0 + 112) = v12;
+  *(v0 + 120) = v14;
+  EntityProperty.wrappedValue.setter();
+  EntityProperty.wrappedValue.setter();
+  EntityProperty.wrappedValue.setter();
+  EntityProperty.wrappedValue.setter();
+  EntityProperty.wrappedValue.setter();
+  OUTLINED_FUNCTION_148();
+}
+
+Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> SearchAnswerEntity.validateParameters()()
+{
+  memcpy(__dst, v0, 0x88uLL);
+  EntityProperty.wrappedValue.getter();
+
+  v1 = HIBYTE(v14[1]) & 0xFLL;
+  if ((v14[1] & 0x2000000000000000) == 0)
+  {
+    v1 = v14[0] & 0xFFFFFFFFFFFFLL;
+  }
+
+  if (!v1)
+  {
+    if (one-time initialization token for search != -1)
+    {
+      OUTLINED_FUNCTION_1_31();
+      swift_once();
+    }
+
+    v8 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v8, static Logging.search);
+    outlined init with copy of SearchAnswerEntity(__dst, v14);
+    v5 = Logger.logObject.getter();
+    v9 = static os_log_type_t.fault.getter();
+    outlined destroy of SearchAnswerEntity(__dst);
+    if (!os_log_type_enabled(v5, v9))
+    {
+      goto LABEL_15;
+    }
+
+    v7 = swift_slowAlloc();
+    v10 = swift_slowAlloc();
+    __dst[18] = v10;
+    *v7 = 136315138;
+    memcpy(v14, __dst, sizeof(v14));
+    outlined init with copy of SearchAnswerEntity(__dst, v13);
+    String.init<A>(describing:)();
+    v11 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
+
+    *(v7 + 4) = v11;
+    _os_log_impl(&dword_25D85C000, v5, v9, "SearchAnswerEntity missing required answer field: %s", v7, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v10);
+    MEMORY[0x25F8A1050](v10, -1, -1);
+    goto LABEL_14;
+  }
+
+  EntityProperty.wrappedValue.getter();
+  v2 = *(v14[0] + 16);
+
+  if (!v2)
+  {
+    EntityProperty.wrappedValue.getter();
+    v3 = *(v14[0] + 16);
+
+    if (!v3)
+    {
+      if (one-time initialization token for search != -1)
+      {
+        OUTLINED_FUNCTION_1_31();
+        swift_once();
+      }
+
+      v4 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v4, static Logging.search);
+      v5 = Logger.logObject.getter();
+      v6 = static os_log_type_t.fault.getter();
+      if (!os_log_type_enabled(v5, v6))
+      {
+        goto LABEL_15;
+      }
+
+      OUTLINED_FUNCTION_51_5();
+      v7 = swift_slowAlloc();
+      *v7 = 0;
+      _os_log_impl(&dword_25D85C000, v5, v6, "SearchAnswerEntity missing sources and has no requestedProperties", v7, 2u);
+LABEL_14:
+      MEMORY[0x25F8A1050](v7, -1, -1);
+LABEL_15:
+
+      lazy protocol witness table accessor for type SearchToolError and conformance SearchToolError();
+      swift_allocError();
+      *v12 = xmmword_25DBC9A70;
+      swift_willThrow();
+    }
+  }
+}
+
+void SearchAnswerEntity.init(_:)()
+{
+  OUTLINED_FUNCTION_155();
+  v1 = v0;
+  v3 = v2;
+  v4 = type metadata accessor for SearchAnswerEntity.Builder(0);
+  v5 = (v4 - 8);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v22[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x28223BE20](v8);
+  v10 = &v22[-v9];
+  *(v10 + 6) = 0;
+  *(v10 + 1) = 0u;
+  *(v10 + 2) = 0u;
+  *v10 = 0u;
+  v11 = type metadata accessor for IntentFile();
+  OUTLINED_FUNCTION_92();
+  __swift_storeEnumTagSinglePayload(v12, v13, v14, v11);
+  OUTLINED_FUNCTION_92();
+  __swift_storeEnumTagSinglePayload(v15, v16, v17, v11);
+  *&v10[v5[12]] = MEMORY[0x277D84F90];
+  *&v10[v5[13]] = 0;
+  v18 = &v10[v5[14]];
+  *v18 = 0;
+  v18[1] = 0;
+  v19 = &v10[v5[15]];
+  *v19 = 0;
+  v19[1] = 0;
+  v10[v5[16]] = 0;
+  v20 = &v10[v5[17]];
+  *v20 = 0;
+  v20[1] = 0;
+  v1(v10);
+  outlined init with copy of SearchEntity(v10, v7, type metadata accessor for SearchAnswerEntity.Builder);
+  SearchAnswerEntity.init(builder:)();
+  OUTLINED_FUNCTION_13_9();
+  outlined destroy of SearchEntity();
+  memcpy(v23, v22, sizeof(v23));
+  v21 = _s10OmniSearch0B7ContextVSgWOg(v23);
+  memcpy(v3, v22, 0x88uLL);
+  if (v21 != 1)
+  {
+    _s10OmniSearch11GeoLocationVSgWOi_();
+  }
+
+  OUTLINED_FUNCTION_148();
+}
+
+uint64_t SearchAnswerEntity.Builder.init()()
+{
+  v1 = OUTLINED_FUNCTION_113();
+  v2 = type metadata accessor for SearchAnswerEntity.Builder(v1);
+  *v0 = 0u;
+  *(v0 + 16) = 0u;
+  *(v0 + 32) = 0u;
+  *(v0 + 48) = 0;
+  v3 = type metadata accessor for IntentFile();
+  OUTLINED_FUNCTION_92();
+  __swift_storeEnumTagSinglePayload(v4, v5, v6, v3);
+  OUTLINED_FUNCTION_92();
+  result = __swift_storeEnumTagSinglePayload(v7, v8, v9, v3);
+  *(v0 + v2[10]) = MEMORY[0x277D84F90];
+  *(v0 + v2[11]) = 0;
+  v11 = (v0 + v2[12]);
+  *v11 = 0;
+  v11[1] = 0;
+  v12 = (v0 + v2[13]);
+  *v12 = 0;
+  v12[1] = 0;
+  *(v0 + v2[14]) = 0;
+  v13 = (v0 + v2[15]);
+  *v13 = 0;
+  v13[1] = 0;
+  return result;
+}
+
+void SearchAnswerEntity.init(builder:)()
+{
+  OUTLINED_FUNCTION_155();
+  v1 = v0;
+  v3 = v2;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+  OUTLINED_FUNCTION_114(v4);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v5);
+  v124 = &v100 - v6;
+  v7 = OUTLINED_FUNCTION_78_0();
+  v123 = type metadata accessor for SearchEntity(v7);
+  OUTLINED_FUNCTION_14();
+  v109 = v8;
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_2_3();
+  v125 = v10;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+  v12 = OUTLINED_FUNCTION_114(v11);
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_39_0();
+  v122 = v13;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v14);
+  v16 = &v100 - v15;
+  v17 = type metadata accessor for LocalizedStringResource();
+  v18 = OUTLINED_FUNCTION_114(v17);
+  MEMORY[0x28223BE20](v18);
+  OUTLINED_FUNCTION_36();
+  OUTLINED_FUNCTION_74_2();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSGMd, &_s10AppIntents14EntityPropertyCySSGMR);
+  v19 = OUTLINED_FUNCTION_53_7();
+  OUTLINED_FUNCTION_79_5(v19);
+  v118 = OUTLINED_FUNCTION_65_7();
+  LOBYTE(v20) = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
+  v21 = OUTLINED_FUNCTION_52_7();
+  OUTLINED_FUNCTION_79_5(v21);
+  v117 = EntityProperty<>.init(title:)();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySay10OmniSearch0fD8ResponseVGGMd, &_s10AppIntents14EntityPropertyCySay10OmniSearch0fD8ResponseVGGMR);
+  OUTLINED_FUNCTION_28_9();
+  LocalizedStringResource.init(stringLiteral:)();
+  OUTLINED_FUNCTION_11_14();
+  lazy protocol witness table accessor for type SearchPropertyResponse and conformance SearchPropertyResponse(v22);
+  v119 = OUTLINED_FUNCTION_78_6();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySay10OmniSearch0fC0VGGMd, &_s10AppIntents14EntityPropertyCySay10OmniSearch0fC0VGGMR);
+  OUTLINED_FUNCTION_23_11();
+  LocalizedStringResource.init(stringLiteral:)();
+  OUTLINED_FUNCTION_10_14();
+  lazy protocol witness table accessor for type SearchPropertyResponse and conformance SearchPropertyResponse(v23);
+  v121 = OUTLINED_FUNCTION_78_6();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySaySSGGMd, &_s10AppIntents14EntityPropertyCySaySSGGMR);
+  OUTLINED_FUNCTION_28_9();
+  LocalizedStringResource.init(stringLiteral:)();
+  v114 = EntityProperty<>.init(title:)();
+  OUTLINED_FUNCTION_49_11();
+  LocalizedStringResource.init(stringLiteral:)();
+  v111 = EntityProperty<>.init(title:)();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
+  OUTLINED_FUNCTION_21_10();
+  v116 = EntityProperty<>.init(title:)();
+  OUTLINED_FUNCTION_17_14();
+  LocalizedStringResource.init(stringLiteral:)();
+  v120 = EntityProperty<>.init(title:)();
+  OUTLINED_FUNCTION_28_9();
+  LocalizedStringResource.init(stringLiteral:)();
+  v113 = EntityProperty<>.init(title:)();
+  OUTLINED_FUNCTION_21_10();
+  v112 = EntityProperty<>.init(title:)();
+  OUTLINED_FUNCTION_16_14();
+  LocalizedStringResource.init(stringLiteral:)();
+  v115 = OUTLINED_FUNCTION_65_7();
+  OUTLINED_FUNCTION_28_9();
+  LocalizedStringResource.init(stringLiteral:)();
+  v24 = EntityProperty<>.init(title:)();
+  v25 = v1[1];
+  if (v25)
+  {
+    v20 = v1[3];
+    if (v20)
+    {
+      v110 = v3;
+      v108 = *v1;
+      v26 = v1[2];
+      v27 = MEMORY[0x277D84F90];
+      if (v1[6])
+      {
+        v27 = v1[6];
+      }
+
+      v129[0] = v27;
+
+      EntityProperty.wrappedValue.setter();
+      v28 = type metadata accessor for SearchAnswerEntity.Builder(0);
+      v29 = *(v1 + v28[10]);
+      v129[0] = v29;
+
+      EntityProperty.wrappedValue.setter();
+      EntityProperty.wrappedValue.getter();
+      v30 = *(v129[0] + 16);
+
+      if (v30 || (EntityProperty.wrappedValue.getter(), v31 = *(v129[0] + 16), , v31))
+      {
+        v101 = v29;
+        v103 = v24;
+        v107 = v25;
+        OUTLINED_FUNCTION_75_4(v28[8]);
+        v32 = v26;
+        v33 = v122;
+        outlined init with copy of ResourceBundle?(v16, v122, &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+        EntityProperty.wrappedValue.setter();
+        outlined destroy of IntentApplication?(v16, &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+        OUTLINED_FUNCTION_75_4(v28[9]);
+        outlined init with copy of ResourceBundle?(v16, v33, &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+        EntityProperty.wrappedValue.setter();
+        outlined destroy of IntentApplication?(v16, &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+        v129[0] = v32;
+        v129[1] = v20;
+        EntityProperty.wrappedValue.setter();
+        v102 = v28;
+        v34 = *(v1 + v28[11]);
+        if (v34)
+        {
+          v35 = v34;
+          v36 = SFCard.data.getter();
+          v105 = v37;
+          v106 = v36;
+        }
+
+        else
+        {
+          v105 = 0xF000000000000000;
+          v106 = 0;
+        }
+
+        v46 = v101;
+        outlined consume of Data?(0, 0xF000000000000000);
+        v47 = *(v46 + 16);
+        v48 = MEMORY[0x277D84F90];
+        v104 = v1;
+        if (v47)
+        {
+          v129[0] = MEMORY[0x277D84F90];
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v47, 0);
+          v122 = type metadata accessor for LocalIndexClient();
+          v48 = v129[0];
+          OUTLINED_FUNCTION_79();
+          v50 = v46 + v49;
+          v52 = *(v51 + 72);
+          do
+          {
+            OUTLINED_FUNCTION_32_13();
+            v53 = v125;
+            outlined init with copy of SearchEntity(v50, v125, v54);
+            v55 = v124;
+            outlined init with copy of ResourceBundle?(v53 + *(v123 + 84), v124, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+            v56 = type metadata accessor for SearchResult(0);
+            if (__swift_getEnumTagSinglePayload(v55, 1, v56) == 1)
+            {
+              outlined destroy of IntentApplication?(v55, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+              v57 = 0;
+              v58 = 0;
+            }
+
+            else
+            {
+              __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMd, &_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMR);
+              v59 = CodableNSSecureCoding.wrappedValue.getter();
+              OUTLINED_FUNCTION_0_30();
+              outlined destroy of SearchEntity();
+              v57 = outlined bridged method (ob) of @objc CSSearchableItem.bundleID.getter(v59);
+              v58 = v60;
+            }
+
+            v61 = static LocalIndexClient.displayName(for:)(v57, v58);
+            v63 = v62;
+
+            if (v63)
+            {
+              v64 = v61;
+            }
+
+            else
+            {
+              v64 = 0;
+            }
+
+            if (!v63)
+            {
+              v63 = 0xE000000000000000;
+            }
+
+            outlined destroy of SearchEntity();
+            v129[0] = v48;
+            v66 = *(v48 + 16);
+            v65 = *(v48 + 24);
+            if (v66 >= v65 >> 1)
+            {
+              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v65 > 1), v66 + 1, 1);
+              v48 = v129[0];
+            }
+
+            *(v48 + 16) = v66 + 1;
+            v67 = v48 + 16 * v66;
+            *(v67 + 32) = v64;
+            *(v67 + 40) = v63;
+            v50 += v52;
+            --v47;
+          }
+
+          while (v47);
+          v1 = v104;
+        }
+
+        v129[0] = v48;
+        v68 = v114;
+        EntityProperty.wrappedValue.setter();
+        v69 = v68;
+        EntityProperty.wrappedValue.getter();
+        v70 = v102;
+        if (*(v129[0] + 16))
+        {
+          v72 = *(v129[0] + 32);
+          v71 = *(v129[0] + 40);
+        }
+
+        else
+        {
+          v72 = 0;
+          v71 = 0xE000000000000000;
+        }
+
+        v129[0] = v72;
+        v129[1] = v71;
+        EntityProperty.wrappedValue.setter();
+        v73 = v1[5];
+        v129[0] = v1[4];
+        v129[1] = v73;
+
+        v74 = v111;
+        EntityProperty.wrappedValue.setter();
+        v75 = (v1 + v70[12]);
+        v76 = v75[1];
+        v129[0] = *v75;
+        v129[1] = v76;
+
+        v77 = v113;
+        EntityProperty.wrappedValue.setter();
+        v78 = (v1 + v70[13]);
+        v79 = v78[1];
+        v129[0] = *v78;
+        v129[1] = v79;
+
+        v80 = v112;
+        EntityProperty.wrappedValue.setter();
+        v81 = v70[15];
+        v82 = *(v1 + v70[14]);
+        v83 = *(v1 + v81 + 8);
+        v129[0] = *(v1 + v81);
+        v129[1] = v83;
+
+        v84 = v117;
+        EntityProperty.wrappedValue.setter();
+        v85 = v118;
+        v129[0] = v118;
+        v129[1] = v84;
+        v129[2] = v119;
+        v129[3] = v121;
+        v129[4] = v69;
+        v129[5] = v74;
+        v86 = v74;
+        v129[6] = v116;
+        v87 = v116;
+        v129[7] = v120;
+        v129[8] = v77;
+        v88 = v77;
+        v129[9] = v80;
+        v129[10] = v115;
+        v129[11] = v106;
+        v129[12] = v105;
+        LOBYTE(v77) = v82;
+        LOBYTE(v129[13]) = v82;
+        *(&v129[13] + 1) = v130[0];
+        HIDWORD(v129[13]) = *(v130 + 3);
+        v129[14] = v108;
+        v129[15] = v107;
+        v89 = v119;
+        v90 = v103;
+        v129[16] = v103;
+        SearchAnswerEntity.validTypeIdentifiers.getter();
+        v128[0] = v91;
+        EntityProperty.wrappedValue.setter();
+        OUTLINED_FUNCTION_13_9();
+        outlined destroy of SearchEntity();
+        v127[0] = v85;
+        v127[1] = v117;
+        v127[2] = v89;
+        v127[3] = v121;
+        v127[4] = v69;
+        v127[5] = v86;
+        v127[6] = v87;
+        v127[7] = v120;
+        v92 = v112;
+        v127[8] = v88;
+        v127[9] = v112;
+        v93 = v115;
+        v94 = v105;
+        v95 = v106;
+        v127[10] = v115;
+        v127[11] = v106;
+        v127[12] = v105;
+        LOBYTE(v127[13]) = v77;
+        *(&v127[13] + 1) = v130[0];
+        HIDWORD(v127[13]) = *(v130 + 3);
+        v97 = v107;
+        v96 = v108;
+        v127[14] = v108;
+        v127[15] = v107;
+        v127[16] = v90;
+        memcpy(v128, v127, sizeof(v128));
+        _s10OmniSearch11GeoLocationVSgWOi_();
+        memcpy(v110, v128, 0x88uLL);
+        v129[0] = v118;
+        v129[1] = v117;
+        v129[2] = v119;
+        v129[3] = v121;
+        v129[4] = v114;
+        v129[5] = v86;
+        v129[6] = v116;
+        v129[7] = v120;
+        v129[8] = v113;
+        v129[9] = v92;
+        v129[10] = v93;
+        v129[11] = v95;
+        v129[12] = v94;
+        LOBYTE(v129[13]) = v77;
+        *(&v129[13] + 1) = v130[0];
+        HIDWORD(v129[13]) = *(v130 + 3);
+        v129[14] = v96;
+        v129[15] = v97;
+        v129[16] = v90;
+        outlined init with copy of SearchAnswerEntity(v127, &v126);
+        outlined destroy of SearchAnswerEntity(v129);
+        goto LABEL_41;
+      }
+
+      if (one-time initialization token for search != -1)
+      {
+        OUTLINED_FUNCTION_1_31();
+        swift_once();
+      }
+
+      v98 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v98, static Logging.search);
+      v39 = Logger.logObject.getter();
+      v99 = static os_log_type_t.fault.getter();
+      if (!OUTLINED_FUNCTION_4_11(v99))
+      {
+        goto LABEL_18;
+      }
+
+      OUTLINED_FUNCTION_51_5();
+      v41 = swift_slowAlloc();
+      *v41 = 0;
+      v42 = "SearchAnswerEntity has empty sources and no requested properties";
+    }
+
+    else
+    {
+      v43 = one-time initialization token for search;
+
+      if (v43 != -1)
+      {
+        OUTLINED_FUNCTION_1_31();
+        swift_once();
+      }
+
+      v44 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v44, static Logging.search);
+      v39 = Logger.logObject.getter();
+      v45 = static os_log_type_t.fault.getter();
+      if (!OUTLINED_FUNCTION_4_11(v45))
+      {
+        goto LABEL_19;
+      }
+
+      v110 = v3;
+      OUTLINED_FUNCTION_51_5();
+      v41 = swift_slowAlloc();
+      *v41 = 0;
+      v42 = "Attempting to create SearchAnswerEntity without answer";
+    }
+  }
+
+  else
+  {
+    if (one-time initialization token for search != -1)
+    {
+      OUTLINED_FUNCTION_1_31();
+      swift_once();
+    }
+
+    v38 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v38, static Logging.search);
+    v39 = Logger.logObject.getter();
+    v40 = static os_log_type_t.fault.getter();
+    if (!OUTLINED_FUNCTION_4_11(v40))
+    {
+      goto LABEL_19;
+    }
+
+    v110 = v3;
+    OUTLINED_FUNCTION_51_5();
+    v41 = swift_slowAlloc();
+    *v41 = 0;
+    v42 = "Attempting to create SearchAnswerEntity without id";
+  }
+
+  _os_log_impl(&dword_25D85C000, v39, v20, v42, v41, 2u);
+  MEMORY[0x25F8A1050](v41, -1, -1);
+LABEL_18:
+  v3 = v110;
+LABEL_19:
+
+  OUTLINED_FUNCTION_13_9();
+  outlined destroy of SearchEntity();
+
+  outlined consume of Data?(0, 0xF000000000000000);
+
+  if (v25)
+  {
+  }
+
+  _s10OmniSearch18GenericEventEntityVSgWOi0_(v129);
+  memcpy(v3, v129, 0x88uLL);
+LABEL_41:
+  OUTLINED_FUNCTION_148();
+}
+
+void SearchAnswerEntity.validTypeIdentifiers.getter()
+{
+  OUTLINED_FUNCTION_155();
+  v1 = type metadata accessor for UTType();
+  OUTLINED_FUNCTION_14();
+  v3 = v2;
+  MEMORY[0x28223BE20](v4);
+  OUTLINED_FUNCTION_36();
+  v7 = v6 - v5;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+  OUTLINED_FUNCTION_114(v8);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_18_9();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSSgGMd, &_ss23_ContiguousArrayStorageCySSSgGMR);
+  inited = swift_initStackObject();
+  *(inited + 16) = xmmword_25DBC9D00;
+  EntityProperty.wrappedValue.getter();
+  v11 = type metadata accessor for IntentFile();
+  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v0, 1, v11);
+  outlined destroy of IntentApplication?(v0, &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+  v13 = 0;
+  v14 = 0;
+  if (EnumTagSinglePayload != 1)
+  {
+    if (one-time initialization token for searchToolExportedExperiences != -1)
+    {
+      OUTLINED_FUNCTION_38_11(&one-time initialization token for searchToolExportedExperiences);
+    }
+
+    v15 = __swift_project_value_buffer(v1, static UTType.searchToolExportedExperiences);
+    swift_beginAccess();
+    (*(v3 + 16))(v7, v15, v1);
+    v13 = UTType.identifier.getter();
+    v14 = v16;
+    (*(v3 + 8))(v7, v1);
+  }
+
+  *(inited + 40) = v14;
+  *(inited + 32) = v13;
+  static UTType.plainText.getter();
+  v17 = UTType.identifier.getter();
+  v19 = v18;
+  (*(v3 + 8))(v7, v1);
+  v20 = 0;
+  *(inited + 48) = v17;
+  *(inited + 56) = v19;
+  v21 = MEMORY[0x277D84F90];
+LABEL_6:
+  v22 = (inited + 40 + 16 * v20);
+  while (++v20 != 3)
+  {
+    v23 = v22 + 2;
+    v24 = *v22;
+    v22 += 2;
+    if (v24)
+    {
+      v25 = *(v23 - 3);
+
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0);
+        v21 = v29;
+      }
+
+      v27 = *(v21 + 16);
+      v26 = *(v21 + 24);
+      if (v27 >= v26 >> 1)
+      {
+        specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v26 > 1);
+        v21 = v30;
+      }
+
+      *(v21 + 16) = v27 + 1;
+      v28 = v21 + 16 * v27;
+      *(v28 + 32) = v25;
+      *(v28 + 40) = v24;
+      goto LABEL_6;
+    }
+  }
+
+  swift_setDeallocating();
+  specialized _ContiguousArrayStorage.__deallocating_deinit();
+  OUTLINED_FUNCTION_148();
+}
+
+uint64_t SearchAnswerEntity.Builder.id.setter()
+{
+  OUTLINED_FUNCTION_93();
+
+  *v1 = v2;
+  v1[1] = v0;
+  return result;
+}
+
+uint64_t SearchAnswerEntity.Builder.answer.setter()
+{
+  OUTLINED_FUNCTION_93();
+
+  *(v1 + 16) = v2;
+  *(v1 + 24) = v0;
+  return result;
+}
+
+uint64_t SearchAnswerEntity.Builder.title.setter()
+{
+  OUTLINED_FUNCTION_93();
+
+  *(v1 + 32) = v2;
+  *(v1 + 40) = v0;
+  return result;
+}
+
+uint64_t SearchAnswerEntity.Builder.requestedProperties.setter(uint64_t a1)
+{
+
+  *(v1 + 48) = a1;
+  return result;
+}
+
+uint64_t SearchAnswerEntity.Builder.experienceFile.getter()
+{
+  v2 = OUTLINED_FUNCTION_113();
+  v3 = type metadata accessor for SearchAnswerEntity.Builder(v2);
+  return outlined init with copy of ResourceBundle?(v1 + *(v3 + 32), v0, &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+}
+
+uint64_t SearchAnswerEntity.Builder.experienceFile.setter()
+{
+  v2 = OUTLINED_FUNCTION_42_2();
+  v3 = v1 + *(type metadata accessor for SearchAnswerEntity.Builder(v2) + 32);
+
+  return outlined assign with take of IntentFile?(v0, v3);
+}
+
+uint64_t SearchAnswerEntity.Builder.experienceFile.modify()
+{
+  v0 = OUTLINED_FUNCTION_42_2();
+  type metadata accessor for SearchAnswerEntity.Builder(v0);
+  return OUTLINED_FUNCTION_35_3();
+}
+
+uint64_t SearchAnswerEntity.Builder.pommesContextFile.getter()
+{
+  v2 = OUTLINED_FUNCTION_113();
+  v3 = type metadata accessor for SearchAnswerEntity.Builder(v2);
+  return outlined init with copy of ResourceBundle?(v1 + *(v3 + 36), v0, &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+}
+
+uint64_t SearchAnswerEntity.Builder.pommesContextFile.setter()
+{
+  v2 = OUTLINED_FUNCTION_42_2();
+  v3 = v1 + *(type metadata accessor for SearchAnswerEntity.Builder(v2) + 36);
+
+  return outlined assign with take of IntentFile?(v0, v3);
+}
+
+uint64_t SearchAnswerEntity.Builder.pommesContextFile.modify()
+{
+  v0 = OUTLINED_FUNCTION_42_2();
+  type metadata accessor for SearchAnswerEntity.Builder(v0);
+  return OUTLINED_FUNCTION_35_3();
+}
+
+uint64_t SearchAnswerEntity.Builder.sources.getter()
+{
+  type metadata accessor for SearchAnswerEntity.Builder(0);
+}
+
+uint64_t SearchAnswerEntity.Builder.sources.setter()
+{
+  v2 = OUTLINED_FUNCTION_42_2();
+  v3 = *(type metadata accessor for SearchAnswerEntity.Builder(v2) + 40);
+
+  *(v1 + v3) = v0;
+  return result;
+}
+
+uint64_t SearchAnswerEntity.Builder.sources.modify()
+{
+  v0 = OUTLINED_FUNCTION_42_2();
+  type metadata accessor for SearchAnswerEntity.Builder(v0);
+  return OUTLINED_FUNCTION_35_3();
+}
+
+void *SearchAnswerEntity.Builder.card.getter()
+{
+  v1 = *(v0 + *(type metadata accessor for SearchAnswerEntity.Builder(0) + 44));
+  v2 = v1;
+  return v1;
+}
+
+void SearchAnswerEntity.Builder.card.setter()
+{
+  v2 = OUTLINED_FUNCTION_42_2();
+  v3 = *(type metadata accessor for SearchAnswerEntity.Builder(v2) + 44);
+
+  *(v1 + v3) = v0;
+}
+
+uint64_t SearchAnswerEntity.Builder.card.modify()
+{
+  v0 = OUTLINED_FUNCTION_42_2();
+  type metadata accessor for SearchAnswerEntity.Builder(v0);
+  return OUTLINED_FUNCTION_35_3();
+}
+
+uint64_t SearchAnswerEntity.Builder.globalSearchSummary.getter()
+{
+  type metadata accessor for SearchAnswerEntity.Builder(0);
+  OUTLINED_FUNCTION_60_5();
+  return OUTLINED_FUNCTION_94();
+}
+
+uint64_t SearchAnswerEntity.Builder.globalSearchSummary.setter()
+{
+  OUTLINED_FUNCTION_93();
+  v3 = (v1 + *(type metadata accessor for SearchAnswerEntity.Builder(0) + 48));
+
+  *v3 = v2;
+  v3[1] = v0;
+  return result;
+}
+
+uint64_t SearchAnswerEntity.Builder.globalSearchSummary.modify()
+{
+  v0 = OUTLINED_FUNCTION_42_2();
+  type metadata accessor for SearchAnswerEntity.Builder(v0);
+  return OUTLINED_FUNCTION_35_3();
+}
+
+uint64_t SearchAnswerEntity.Builder.description.getter()
+{
+  type metadata accessor for SearchAnswerEntity.Builder(0);
+  OUTLINED_FUNCTION_60_5();
+  return OUTLINED_FUNCTION_94();
+}
+
+uint64_t SearchAnswerEntity.Builder.description.setter()
+{
+  OUTLINED_FUNCTION_93();
+  v3 = (v1 + *(type metadata accessor for SearchAnswerEntity.Builder(0) + 52));
+
+  *v3 = v2;
+  v3[1] = v0;
+  return result;
+}
+
+uint64_t SearchAnswerEntity.Builder.description.modify()
+{
+  v0 = OUTLINED_FUNCTION_42_2();
+  type metadata accessor for SearchAnswerEntity.Builder(v0);
+  return OUTLINED_FUNCTION_35_3();
+}
+
+uint64_t SearchAnswerEntity.Builder.lowConfidenceKnowledge.setter(char a1)
+{
+  result = type metadata accessor for SearchAnswerEntity.Builder(0);
+  *(v1 + *(result + 56)) = a1;
+  return result;
+}
+
+uint64_t SearchAnswerEntity.Builder.lowConfidenceKnowledge.modify()
+{
+  v0 = OUTLINED_FUNCTION_42_2();
+  type metadata accessor for SearchAnswerEntity.Builder(v0);
+  return OUTLINED_FUNCTION_35_3();
+}
+
+uint64_t SearchAnswerEntity.Builder.dialog.getter()
+{
+  type metadata accessor for SearchAnswerEntity.Builder(0);
+  OUTLINED_FUNCTION_60_5();
+  return OUTLINED_FUNCTION_94();
+}
+
+uint64_t SearchAnswerEntity.Builder.dialog.setter()
+{
+  OUTLINED_FUNCTION_93();
+  v3 = (v1 + *(type metadata accessor for SearchAnswerEntity.Builder(0) + 60));
+
+  *v3 = v2;
+  v3[1] = v0;
+  return result;
+}
+
+uint64_t SearchAnswerEntity.Builder.dialog.modify()
+{
+  v0 = OUTLINED_FUNCTION_42_2();
+  type metadata accessor for SearchAnswerEntity.Builder(v0);
+  return OUTLINED_FUNCTION_35_3();
+}
+
+uint64_t SearchAnswerEntity.Builder.init(id:answer:title:requestedProperties:experienceFile:pommesContextFile:sources:card:globalSearchSummary:description:lowConfidenceKnowledge:dialog:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, void *a9@<X8>, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19)
+{
+  *a9 = a1;
+  a9[1] = a2;
+  a9[2] = a3;
+  a9[3] = a4;
+  a9[4] = a5;
+  a9[5] = a6;
+  a9[6] = a7;
+  v21 = type metadata accessor for SearchAnswerEntity.Builder(0);
+  outlined init with take of IntentFile?(a8, a9 + v21[8]);
+  result = outlined init with take of IntentFile?(a10, a9 + v21[9]);
+  *(a9 + v21[10]) = a11;
+  *(a9 + v21[11]) = a12;
+  v23 = (a9 + v21[12]);
+  *v23 = a13;
+  v23[1] = a14;
+  v24 = (a9 + v21[13]);
+  *v24 = a15;
+  v24[1] = a16;
+  *(a9 + v21[14]) = a17;
+  v25 = (a9 + v21[15]);
+  *v25 = a18;
+  v25[1] = a19;
+  return result;
+}
+
+uint64_t SearchAnswerEntity.typeDisplayRepresentation.unsafeMutableAddressor()
+{
+  if (one-time initialization token for typeDisplayRepresentation != -1)
+  {
+    OUTLINED_FUNCTION_7_15(&one-time initialization token for typeDisplayRepresentation);
+  }
+
+  v0 = type metadata accessor for TypeDisplayRepresentation();
+
+  return __swift_project_value_buffer(v0, static SearchAnswerEntity.typeDisplayRepresentation);
+}
+
+uint64_t static SearchAnswerEntity.typeDisplayRepresentation.getter@<X0>(uint64_t a1@<X8>)
+{
+  if (one-time initialization token for typeDisplayRepresentation != -1)
+  {
+    OUTLINED_FUNCTION_7_15(&one-time initialization token for typeDisplayRepresentation);
+  }
+
+  v2 = type metadata accessor for TypeDisplayRepresentation();
+  v3 = __swift_project_value_buffer(v2, static SearchAnswerEntity.typeDisplayRepresentation);
+  swift_beginAccess();
+  return (*(*(v2 - 8) + 16))(a1, v3, v2);
+}
+
+uint64_t static SearchAnswerEntity.typeDisplayRepresentation.setter(uint64_t a1)
+{
+  if (one-time initialization token for typeDisplayRepresentation != -1)
+  {
+    OUTLINED_FUNCTION_7_15(&one-time initialization token for typeDisplayRepresentation);
+  }
+
+  v2 = type metadata accessor for TypeDisplayRepresentation();
+  v3 = __swift_project_value_buffer(v2, static SearchAnswerEntity.typeDisplayRepresentation);
+  swift_beginAccess();
+  (*(*(v2 - 8) + 24))(v3, a1, v2);
+  swift_endAccess();
+  v4 = OUTLINED_FUNCTION_94();
+  return v5(v4);
+}
+
+uint64_t (*static SearchAnswerEntity.typeDisplayRepresentation.modify(uint64_t a1))(uint64_t a1)
+{
+  if (one-time initialization token for typeDisplayRepresentation != -1)
+  {
+    OUTLINED_FUNCTION_7_15(&one-time initialization token for typeDisplayRepresentation);
+  }
+
+  v1 = type metadata accessor for TypeDisplayRepresentation();
+  __swift_project_value_buffer(v1, static SearchAnswerEntity.typeDisplayRepresentation);
+  swift_beginAccess();
+  return static FlightSnippet.Status.allCases.modify;
+}
+
+uint64_t key path getter for static SearchAnswerEntity.typeDisplayRepresentation : SearchAnswerEntity.Type@<X0>(uint64_t a1@<X8>)
+{
+  v2 = SearchAnswerEntity.typeDisplayRepresentation.unsafeMutableAddressor();
+  swift_beginAccess();
+  v3 = type metadata accessor for TypeDisplayRepresentation();
+  return (*(*(v3 - 8) + 16))(a1, v2, v3);
+}
+
+uint64_t key path setter for static SearchAnswerEntity.typeDisplayRepresentation : SearchAnswerEntity.Type(uint64_t a1)
+{
+  v2 = SearchAnswerEntity.typeDisplayRepresentation.unsafeMutableAddressor();
+  swift_beginAccess();
+  v3 = type metadata accessor for TypeDisplayRepresentation();
+  (*(*(v3 - 8) + 24))(v2, a1, v3);
+  return swift_endAccess();
+}
+
+void SearchAnswerEntity.displayRepresentation.getter()
+{
+  OUTLINED_FUNCTION_155();
+  OUTLINED_FUNCTION_113();
+  v2 = type metadata accessor for LocalizedStringResource();
+  v3 = OUTLINED_FUNCTION_114(v2);
+  MEMORY[0x28223BE20](v3);
+  OUTLINED_FUNCTION_36();
+  v4 = type metadata accessor for String.LocalizationValue.StringInterpolation();
+  v5 = OUTLINED_FUNCTION_114(v4);
+  MEMORY[0x28223BE20](v5);
+  OUTLINED_FUNCTION_36();
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
+  OUTLINED_FUNCTION_114(v6);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_74_2();
+  v9 = *(v0 + 88);
+  v8 = *(v0 + 96);
+  type metadata accessor for SFCard();
+  outlined copy of Data?(v9, v8);
+  v10 = SFCard.init(data:)(v9, v8);
+  if (v10)
+  {
+    v11 = v10;
+    SFCard.snippetPluginModel.getter(v1);
+
+    v12 = type metadata accessor for RGPluginModel();
+    if (__swift_getEnumTagSinglePayload(v1, 1, v12) == 1)
+    {
+      outlined destroy of IntentApplication?(v1, &_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
+    }
+
+    else
+    {
+      lazy protocol witness table accessor for type SearchPropertyResponse and conformance SearchPropertyResponse(&lazy protocol witness table cache variable for type RGPluginModel and conformance RGPluginModel);
+      SnippetPluginModel.data.getter();
+      v14 = v13;
+      (*(*(v12 - 8) + 8))(v1, v12);
+      if (v14 >> 60 != 15)
+      {
+        String.LocalizationValue.StringInterpolation.init(literalCapacity:interpolationCount:)();
+        v15._countAndFlagsBits = 0;
+        v15._object = 0xE000000000000000;
+        String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v15);
+        EntityProperty.wrappedValue.getter();
+        String.LocalizationValue.StringInterpolation.appendInterpolation(_:)(v17);
+
+        v16._countAndFlagsBits = 0;
+        v16._object = 0xE000000000000000;
+        String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v16);
+        LocalizedStringResource.init(stringInterpolation:)();
+        static RGPluginModel.bundleName.getter();
+        DisplayRepresentation.init(title:snippetPluginModelData:bundleIdentifier:)();
+        goto LABEL_6;
+      }
+    }
+  }
+
+  EntityProperty.wrappedValue.getter();
+  DisplayRepresentation.init(stringLiteral:)();
+LABEL_6:
+  OUTLINED_FUNCTION_148();
+}
+
+uint64_t protocol witness for EntityQuery.entities(for:) in conformance SearchAnswerEntity.Query()
+{
+  v1 = swift_task_alloc();
+  *(v0 + 16) = v1;
+  *v1 = v0;
+  v1[1] = protocol witness for EntityQuery.entities(for:) in conformance SearchAnswerEntity.Query;
+
+  return SearchAnswerEntity.Query.entities(for:)();
+}
+
+uint64_t protocol witness for EntityQuery.suggestedEntities() in conformance SearchAnswerEntity.Query(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = protocol witness for EntityQuery.suggestedEntities() in conformance SearchAnswerEntity.Query;
+
+  return MEMORY[0x28210B608](a1, a2, a3);
+}
+
+uint64_t protocol witness for EntityQuery.suggestedEntities() in conformance SearchAnswerEntity.Query()
+{
+  v1 = *v0;
+  OUTLINED_FUNCTION_11();
+  *v2 = v1;
+
+  v3 = *(v1 + 8);
+
+  return v3();
+}
+
+uint64_t protocol witness for EntityQuery.displayRepresentations(for:requestedComponents:) in conformance SearchAnswerEntity.Query(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = protocol witness for EntityQuery.displayRepresentations(for:requestedComponents:) in conformance SearchAnswerEntity.Query;
+
+  return MEMORY[0x28210B610](a1, a2, a3, a4);
+}
+
+uint64_t protocol witness for EntityQuery.displayRepresentations(for:requestedComponents:) in conformance SearchAnswerEntity.Query(uint64_t a1)
+{
+  v4 = *v2;
+  OUTLINED_FUNCTION_11();
+  *v5 = v4;
+
+  v7 = *(v4 + 8);
+  if (!v1)
+  {
+    v6 = a1;
+  }
+
+  return v7(v6);
+}
+
+uint64_t protocol witness for DynamicOptionsProvider.results() in conformance SearchAnswerEntity.Query(uint64_t a1, uint64_t a2)
+{
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  v6 = lazy protocol witness table accessor for type SearchAnswerEntity.Query and conformance SearchAnswerEntity.Query();
+  *v5 = v2;
+  v5[1] = protocol witness for DynamicOptionsProvider.results() in conformance SearchAnswerEntity.Query;
+
+  return MEMORY[0x28210B618](a1, a2, v6);
+}
+
+uint64_t protocol witness for DynamicOptionsProvider.defaultResult() in conformance SearchAnswerEntity.Query(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = protocol witness for DynamicOptionsProvider.results() in conformance SearchAnswerEntity.Query;
+
+  return MEMORY[0x28210C148](a1, a2, a3);
+}
+
+uint64_t key path setter for SearchAnswerEntity.requestedProperties : SearchAnswerEntity(uint64_t *a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t))
+{
+  v6 = *a1;
+  memcpy(v16, a2, sizeof(v16));
+
+  outlined init with copy of SearchAnswerEntity(v16, v17);
+  v7 = a5(v6);
+  OUTLINED_FUNCTION_59_6(v7, v8, v9, v10, v11, v12, v13, v14, v16[0], v16[1], v16[2], v16[3], v16[4], v16[5], v16[6], v16[7], v16[8], v16[9], v16[10], v16[11], v16[12], v16[13], v16[14], v16[15], v16[16]);
+  return outlined destroy of SearchAnswerEntity(v17);
+}
+
+uint64_t (*SearchAnswerEntity.supportedTypeIdentifiersForExport.modify())()
+{
+  v1 = OUTLINED_FUNCTION_4_12();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_32_1(v2);
+  *(v0 + 32) = EntityProperty.wrappedValue.modify();
+  return MemoryCreationQUResult.version.modify;
+}
+
+void static SearchAnswerEntity.transferRepresentation.getter()
+{
+  OUTLINED_FUNCTION_155();
+  v25 = v2;
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable18DataRepresentationVy10OmniSearch0F12AnswerEntityVG_AA05ProxyD0VyAFSSGtMd, &_s16CoreTransferable18DataRepresentationVy10OmniSearch0F12AnswerEntityVG_AA05ProxyD0VyAFSSGtMR);
+  OUTLINED_FUNCTION_17();
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v3);
+  v5 = &v22 - v4;
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable19ProxyRepresentationVy10OmniSearch0F12AnswerEntityVSSGMd, &_s16CoreTransferable19ProxyRepresentationVy10OmniSearch0F12AnswerEntityVSSGMR);
+  OUTLINED_FUNCTION_14();
+  v7 = v6;
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v8);
+  OUTLINED_FUNCTION_90_0();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s22UniformTypeIdentifiers6UTTypeVSgMd, &_s22UniformTypeIdentifiers6UTTypeVSgMR);
+  OUTLINED_FUNCTION_114(v9);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v10);
+  v12 = &v22 - v11;
+  v13 = type metadata accessor for UTType();
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x28223BE20](v14);
+  OUTLINED_FUNCTION_36();
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16CoreTransferable18DataRepresentationVy10OmniSearch0F12AnswerEntityVGMd, &_s16CoreTransferable18DataRepresentationVy10OmniSearch0F12AnswerEntityVGMR);
+  OUTLINED_FUNCTION_14();
+  v17 = v16;
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v18);
+  OUTLINED_FUNCTION_18_9();
+  static UTType.data.getter();
+  __swift_storeEnumTagSinglePayload(v12, 0, 1, v13);
+  UTType.init(exportedAs:conformingTo:)();
+  lazy protocol witness table accessor for type SearchAnswerEntity and conformance SearchAnswerEntity();
+  DataRepresentation.init(exportedContentType:exporting:)();
+  lazy protocol witness table accessor for type String and conformance String();
+  ProxyRepresentation.init(exporting:)();
+  v19 = *(v24 + 48);
+  (*(v17 + 16))(v5, v1, v15);
+  v20 = &v5[v19];
+  v21 = v23;
+  (*(v7 + 16))(v20, v0, v23);
+  TupleTransferRepresentation.init(_:)();
+  (*(v7 + 8))(v0, v21);
+  (*(v17 + 8))(v1, v15);
+  OUTLINED_FUNCTION_148();
+}
+
+uint64_t closure #1 in static SearchAnswerEntity.transferRepresentation.getter(uint64_t a1)
+{
+  v3 = type metadata accessor for UTType();
+  v1[5] = v3;
+  v1[6] = *(v3 - 8);
+  v1[7] = swift_task_alloc();
+  v4 = type metadata accessor for SearchResultType();
+  v1[8] = v4;
+  v1[9] = *(v4 - 8);
+  v1[10] = swift_task_alloc();
+  v5 = type metadata accessor for SearchTransferabilityError.Code();
+  v1[11] = v5;
+  v1[12] = *(v5 - 8);
+  v1[13] = swift_task_alloc();
+  v6 = type metadata accessor for IntentFile();
+  v1[14] = v6;
+  v1[15] = *(v6 - 8);
+  v1[16] = swift_task_alloc();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+  v7 = swift_task_alloc();
+  v8 = *(a1 + 48);
+  v1[17] = v7;
+  v1[18] = v8;
+
+  return MEMORY[0x2822009F8](closure #1 in static SearchAnswerEntity.transferRepresentation.getter);
+}
+
+{
+  v2 = v1[17];
+  v3 = v1[14];
+  EntityProperty.wrappedValue.getter();
+  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v2, 1, v3);
+  v5 = v1[17];
+  if (EnumTagSinglePayload)
+  {
+    v7 = v1[12];
+    v6 = v1[13];
+    v9 = v1[10];
+    v8 = v1[11];
+    v10 = v1[8];
+    v11 = v1[9];
+    outlined destroy of IntentApplication?(v1[17], &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+    (*(v7 + 104))(v6, *MEMORY[0x277D370A8], v8);
+    (*(v11 + 104))(v9, *MEMORY[0x277D37060], v10);
+    if (one-time initialization token for searchToolExportedExperiences != -1)
+    {
+      OUTLINED_FUNCTION_38_11(&one-time initialization token for searchToolExportedExperiences);
+    }
+
+    v13 = v1[6];
+    v12 = v1[7];
+    v14 = v1[5];
+    v15 = __swift_project_value_buffer(v14, static UTType.searchToolExportedExperiences);
+    swift_beginAccess();
+    (*(v13 + 16))(v12, v15, v14);
+    type metadata accessor for SearchTransferabilityError();
+    lazy protocol witness table accessor for type SearchPropertyResponse and conformance SearchPropertyResponse(&lazy protocol witness table cache variable for type SearchTransferabilityError and conformance SearchTransferabilityError);
+    swift_allocError();
+    SearchTransferabilityError.init(code:sourceResultType:targetTransferType:)();
+    swift_willThrow();
+
+    v16 = v1[1];
+
+    return v16();
+  }
+
+  else
+  {
+    v19 = v1[15];
+    v18 = v1[16];
+    v20 = v1[14];
+    OUTLINED_FUNCTION_201_0();
+    v21();
+    outlined destroy of IntentApplication?(v5, &_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+    v22 = IntentFile.data.getter();
+    v24 = v23;
+    (*(v19 + 8))(v18, v20);
+
+    v25 = v1[1];
+
+    return v25(v22, v24);
+  }
+}
+
+uint64_t specialized implicit closure #1 in static SearchAnswerEntity.transferRepresentation.getter@<X0>(void *a2@<X8>)
+{
+  result = EntityProperty.wrappedValue.getter();
+  *a2 = v4;
+  a2[1] = v5;
+  return result;
+}
+
+uint64_t SearchAnswerEntity.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
+{
+  v4 = a1 == 0x726577736E61 && a2 == 0xE600000000000000;
+  if (v4 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 0;
+  }
+
+  else
+  {
+    v6 = a1 == 0x676F6C616964 && a2 == 0xE600000000000000;
+    if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+    {
+
+      return 1;
+    }
+
+    else
+    {
+      v7 = a1 == 0xD000000000000013 && 0x800000025DBEE1F0 == a2;
+      if (v7 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+      {
+
+        return 2;
+      }
+
+      else
+      {
+        v8 = a1 == 0x73656372756F73 && a2 == 0xE700000000000000;
+        if (v8 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+        {
+
+          return 3;
+        }
+
+        else
+        {
+          v9 = a1 == 0x746E656D75636F64 && a2 == 0xEF73656372756F53;
+          if (v9 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+          {
+
+            return 4;
+          }
+
+          else
+          {
+            v10 = a1 == 0x656C746974 && a2 == 0xE500000000000000;
+            if (v10 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+            {
+
+              return 5;
+            }
+
+            else
+            {
+              v11 = a1 == 0x6E65697265707865 && a2 == 0xEE00656C69466563;
+              if (v11 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+              {
+
+                return 6;
+              }
+
+              else
+              {
+                v12 = a1 == 0xD000000000000011 && 0x800000025DBF18F0 == a2;
+                if (v12 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+                {
+
+                  return 7;
+                }
+
+                else
+                {
+                  v13 = a1 == 0xD000000000000013 && 0x800000025DBF1910 == a2;
+                  if (v13 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+                  {
+
+                    return 8;
+                  }
+
+                  else
+                  {
+                    v14 = a1 == 0x7470697263736564 && a2 == 0xEB000000006E6F69;
+                    if (v14 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+                    {
+
+                      return 9;
+                    }
+
+                    else
+                    {
+                      v15 = a1 == 0x746E656D75636F64 && a2 == 0xEE00656372756F53;
+                      if (v15 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+                      {
+
+                        return 10;
+                      }
+
+                      else
+                      {
+                        v16 = a1 == 0x6174614464726163 && a2 == 0xE800000000000000;
+                        if (v16 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+                        {
+
+                          return 11;
+                        }
+
+                        else
+                        {
+                          v17 = a1 == 0xD000000000000016 && 0x800000025DBF1930 == a2;
+                          if (v17 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+                          {
+
+                            return 12;
+                          }
+
+                          else
+                          {
+                            v18 = a1 == 25705 && a2 == 0xE200000000000000;
+                            if (v18 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+                            {
+
+                              return 13;
+                            }
+
+                            else if (a1 == 0xD000000000000021 && 0x800000025DBF1950 == a2)
+                            {
+
+                              return 14;
+                            }
+
+                            else
+                            {
+                              v20 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+                              if (v20)
+                              {
+                                return 14;
+                              }
+
+                              else
+                              {
+                                return 15;
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+unint64_t SearchAnswerEntity.CodingKeys.stringValue.getter(char a1)
+{
+  result = 0x726577736E61;
+  switch(a1)
+  {
+    case 1:
+      result = 0x676F6C616964;
+      break;
+    case 2:
+      result = 0xD000000000000013;
+      break;
+    case 3:
+      result = 0x73656372756F73;
+      break;
+    case 4:
+    case 10:
+      result = 0x746E656D75636F64;
+      break;
+    case 5:
+      result = 0x656C746974;
+      break;
+    case 6:
+      result = 0x6E65697265707865;
+      break;
+    case 7:
+      result = 0xD000000000000011;
+      break;
+    case 8:
+      result = 0xD000000000000013;
+      break;
+    case 9:
+      result = 0x7470697263736564;
+      break;
+    case 11:
+      result = 0x6174614464726163;
+      break;
+    case 12:
+      result = 0xD000000000000016;
+      break;
+    case 13:
+      result = 25705;
+      break;
+    case 14:
+      result = 0xD000000000000021;
+      break;
+    default:
+      return result;
+  }
+
+  return result;
+}
+
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance SearchAnswerEntity.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+{
+  result = SearchAnswerEntity.CodingKeys.init(stringValue:)(a1, a2);
+  *a3 = result;
+  return result;
+}
+
+uint64_t protocol witness for CodingKey.init(intValue:) in conformance SearchAnswerEntity.CodingKeys@<X0>(_BYTE *a1@<X8>)
+{
+  result = SearchAnswerEntity.CodingKeys.init(intValue:)();
+  *a1 = result;
+  return result;
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance SearchAnswerEntity.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type SearchAnswerEntity.CodingKeys and conformance SearchAnswerEntity.CodingKeys();
+
+  return MEMORY[0x2821FE718](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance SearchAnswerEntity.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type SearchAnswerEntity.CodingKeys and conformance SearchAnswerEntity.CodingKeys();
+
+  return MEMORY[0x2821FE720](a1, v2);
+}
+
+uint64_t SearchAnswerEntity.encode(to:)(void *a1)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10OmniSearch0E12AnswerEntityV10CodingKeys33_55BCA8C2728483DD7AE46A99F320F0E9LLOGMd, &_ss22KeyedEncodingContainerVy10OmniSearch0E12AnswerEntityV10CodingKeys33_55BCA8C2728483DD7AE46A99F320F0E9LLOGMR);
+  OUTLINED_FUNCTION_14();
+  v5 = v4;
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v6);
+  v8 = v29 - v7;
+  v10 = *v1;
+  v9 = *(v1 + 8);
+  v11 = *(v1 + 24);
+  v40 = *(v1 + 16);
+  v41 = v9;
+  v12 = *(v1 + 40);
+  v38 = *(v1 + 32);
+  v39 = v11;
+  v13 = *(v1 + 56);
+  v36 = *(v1 + 48);
+  v37 = v12;
+  v14 = *(v1 + 72);
+  v34 = *(v1 + 64);
+  v35 = v13;
+  v15 = *(v1 + 88);
+  v32 = *(v1 + 80);
+  v33 = v14;
+  v30 = *(v1 + 96);
+  v31 = v15;
+  v45 = *(v1 + 104);
+  v16 = *(v1 + 112);
+  v29[1] = *(v1 + 120);
+  v29[2] = v16;
+  v17 = *(v1 + 128);
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  lazy protocol witness table accessor for type SearchAnswerEntity.CodingKeys and conformance SearchAnswerEntity.CodingKeys();
+
+  dispatch thunk of Encoder.container<A>(keyedBy:)();
+  v43 = v10;
+  v46 = 0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSGMd, &_s10AppIntents14EntityPropertyCySSGMR);
+  OUTLINED_FUNCTION_9_17();
+  lazy protocol witness table accessor for type EntityProperty<String> and conformance <> EntityProperty<A>(v18);
+  OUTLINED_FUNCTION_25_11();
+  v19 = v3;
+  v20 = v42;
+  KeyedEncodingContainer.encode<A>(_:forKey:)();
+  if (v20)
+  {
+
+    return (*(v5 + 8))(v8, v3);
+  }
+
+  else
+  {
+    v22 = v40;
+    v29[0] = v17;
+    v42 = v5;
+
+    v43 = v41;
+    v46 = 1;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
+    OUTLINED_FUNCTION_9_17();
+    lazy protocol witness table accessor for type EntityProperty<String?> and conformance <> EntityProperty<A>(v23);
+    OUTLINED_FUNCTION_25_11();
+    OUTLINED_FUNCTION_73_5();
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+    v43 = v22;
+    v46 = 2;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySay10OmniSearch0fD8ResponseVGGMd, &_s10AppIntents14EntityPropertyCySay10OmniSearch0fD8ResponseVGGMR);
+    lazy protocol witness table accessor for type EntityProperty<[SearchPropertyResponse]> and conformance <> EntityProperty<A>();
+    OUTLINED_FUNCTION_15_13();
+    v41 = v8;
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+    v43 = v39;
+    v46 = 3;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySay10OmniSearch0fC0VGGMd, &_s10AppIntents14EntityPropertyCySay10OmniSearch0fC0VGGMR);
+    lazy protocol witness table accessor for type EntityProperty<[SearchEntity]> and conformance <> EntityProperty<A>();
+    OUTLINED_FUNCTION_15_13();
+    OUTLINED_FUNCTION_27_10();
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+    v43 = v38;
+    v46 = 4;
+    v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySaySSGGMd, &_s10AppIntents14EntityPropertyCySaySSGGMR);
+    OUTLINED_FUNCTION_9_17();
+    lazy protocol witness table accessor for type EntityProperty<[String]> and conformance <> EntityProperty<A>(v25);
+    OUTLINED_FUNCTION_15_13();
+    v39 = v26;
+    v40 = v24;
+    OUTLINED_FUNCTION_27_10();
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+    v43 = v37;
+    v46 = 5;
+    OUTLINED_FUNCTION_15_13();
+    OUTLINED_FUNCTION_73_5();
+    OUTLINED_FUNCTION_27_10();
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+    v43 = v36;
+    v46 = 6;
+    v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
+    lazy protocol witness table accessor for type EntityProperty<IntentFile?> and conformance <> EntityProperty<A>();
+    OUTLINED_FUNCTION_15_13();
+    v37 = v28;
+    v38 = v27;
+    OUTLINED_FUNCTION_27_10();
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+    v43 = v35;
+    v46 = 7;
+    OUTLINED_FUNCTION_15_13();
+    OUTLINED_FUNCTION_27_10();
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+    v43 = v34;
+    v46 = 8;
+    OUTLINED_FUNCTION_15_13();
+    OUTLINED_FUNCTION_73_5();
+    OUTLINED_FUNCTION_27_10();
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+    v43 = v33;
+    v46 = 9;
+    OUTLINED_FUNCTION_15_13();
+    OUTLINED_FUNCTION_73_5();
+    OUTLINED_FUNCTION_27_10();
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+    v43 = v32;
+    v46 = 10;
+    OUTLINED_FUNCTION_15_13();
+    OUTLINED_FUNCTION_27_10();
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+    v43 = v31;
+    v44 = v30;
+    v46 = 11;
+    outlined copy of Data?(v31, v30);
+    lazy protocol witness table accessor for type Data and conformance Data();
+    OUTLINED_FUNCTION_25_11();
+    OUTLINED_FUNCTION_27_10();
+    KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
+    outlined consume of Data?(v43, v44);
+    LOBYTE(v43) = 12;
+    OUTLINED_FUNCTION_27_10();
+    KeyedEncodingContainer.encode(_:forKey:)();
+    LOBYTE(v43) = 13;
+    OUTLINED_FUNCTION_27_10();
+    KeyedEncodingContainer.encode(_:forKey:)();
+    v43 = v29[0];
+    v46 = 14;
+    OUTLINED_FUNCTION_25_11();
+    OUTLINED_FUNCTION_27_10();
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+    return (*(v42 + 8))(v27, v19);
+  }
+}
+
+uint64_t SearchAnswerEntity.init(from:)@<X0>(void *a1@<X0>, void *a2@<X8>)
+{
+  v35 = a2;
+  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10OmniSearch0E12AnswerEntityV10CodingKeys33_55BCA8C2728483DD7AE46A99F320F0E9LLOGMd, &_ss22KeyedDecodingContainerVy10OmniSearch0E12AnswerEntityV10CodingKeys33_55BCA8C2728483DD7AE46A99F320F0E9LLOGMR);
+  OUTLINED_FUNCTION_14();
+  v37 = v3;
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v4);
+  v76 = v34 - v5;
+  OUTLINED_FUNCTION_78_0();
+  v6 = type metadata accessor for LocalizedStringResource();
+  v7 = OUTLINED_FUNCTION_114(v6);
+  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_36();
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSGMd, &_s10AppIntents14EntityPropertyCySSGMR);
+  OUTLINED_FUNCTION_53_7();
+  LocalizedStringResource.init(stringLiteral:)();
+  v49 = EntityProperty<>.init(title:)();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
+  OUTLINED_FUNCTION_52_7();
+  LocalizedStringResource.init(stringLiteral:)();
+  v53 = EntityProperty<>.init(title:)();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySay10OmniSearch0fD8ResponseVGGMd, &_s10AppIntents14EntityPropertyCySay10OmniSearch0fD8ResponseVGGMR);
+  OUTLINED_FUNCTION_90_4();
+  LocalizedStringResource.init(stringLiteral:)();
+  OUTLINED_FUNCTION_11_14();
+  lazy protocol witness table accessor for type SearchPropertyResponse and conformance SearchPropertyResponse(v10);
+  v38 = v9;
+  v51 = EntityProperty<>.init(title:)();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySay10OmniSearch0fC0VGGMd, &_s10AppIntents14EntityPropertyCySay10OmniSearch0fC0VGGMR);
+  OUTLINED_FUNCTION_23_11();
+  LocalizedStringResource.init(stringLiteral:)();
+  OUTLINED_FUNCTION_10_14();
+  lazy protocol witness table accessor for type SearchPropertyResponse and conformance SearchPropertyResponse(v11);
+  v36 = v9;
+  v52 = EntityProperty<>.init(title:)();
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySaySSGGMd, &_s10AppIntents14EntityPropertyCySaySSGGMR);
+  OUTLINED_FUNCTION_90_4();
+  LocalizedStringResource.init(stringLiteral:)();
+  v50 = EntityProperty<>.init(title:)();
+  OUTLINED_FUNCTION_49_11();
+  LocalizedStringResource.init(stringLiteral:)();
+  v48 = EntityProperty<>.init(title:)();
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
+  OUTLINED_FUNCTION_90_4();
+  LocalizedStringResource.init(stringLiteral:)();
+  v47 = EntityProperty<>.init(title:)();
+  OUTLINED_FUNCTION_17_14();
+  LocalizedStringResource.init(stringLiteral:)();
+  v42 = EntityProperty<>.init(title:)();
+  OUTLINED_FUNCTION_90_4();
+  LocalizedStringResource.init(stringLiteral:)();
+  v46 = EntityProperty<>.init(title:)();
+  OUTLINED_FUNCTION_90_4();
+  LocalizedStringResource.init(stringLiteral:)();
+  v45 = EntityProperty<>.init(title:)();
+  OUTLINED_FUNCTION_16_14();
+  LocalizedStringResource.init(stringLiteral:)();
+  v44 = EntityProperty<>.init(title:)();
+  OUTLINED_FUNCTION_90_4();
+  LocalizedStringResource.init(stringLiteral:)();
+  v41 = EntityProperty<>.init(title:)();
+  v14 = a1[3];
+  v43 = a1;
+  v15 = __swift_project_boxed_opaque_existential_1(a1, v14);
+  lazy protocol witness table accessor for type SearchAnswerEntity.CodingKeys and conformance SearchAnswerEntity.CodingKeys();
+  v16 = v40;
+  dispatch thunk of Decoder.container<A>(keyedBy:)();
+  if (v16)
+  {
+    OUTLINED_FUNCTION_40_11();
+    __swift_destroy_boxed_opaque_existential_1Tm(v43);
+
+    outlined consume of Data?(v12, v13);
+
+    if (v15)
+    {
+    }
+  }
+
+  else
+  {
+    v40 = v12;
+    LOBYTE(v54[0]) = 0;
+    OUTLINED_FUNCTION_12_15();
+    v18 = lazy protocol witness table accessor for type EntityProperty<String> and conformance <> EntityProperty<A>(v17);
+    OUTLINED_FUNCTION_29_8();
+    OUTLINED_FUNCTION_69_5();
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+    v34[1] = v18;
+    v34[2] = v8;
+
+    v19 = v55;
+    LOBYTE(v54[0]) = 1;
+    OUTLINED_FUNCTION_12_15();
+    lazy protocol witness table accessor for type EntityProperty<String?> and conformance <> EntityProperty<A>(v20);
+    OUTLINED_FUNCTION_29_8();
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+
+    v53 = v55;
+    LOBYTE(v54[0]) = 2;
+    lazy protocol witness table accessor for type EntityProperty<[SearchPropertyResponse]> and conformance <> EntityProperty<A>();
+    OUTLINED_FUNCTION_29_8();
+    OUTLINED_FUNCTION_35_13();
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+
+    v21 = v55;
+    LOBYTE(v54[0]) = 3;
+    lazy protocol witness table accessor for type EntityProperty<[SearchEntity]> and conformance <> EntityProperty<A>();
+    OUTLINED_FUNCTION_29_8();
+    OUTLINED_FUNCTION_35_13();
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+    v51 = v21;
+
+    v52 = v55;
+    LOBYTE(v54[0]) = 4;
+    OUTLINED_FUNCTION_12_15();
+    lazy protocol witness table accessor for type EntityProperty<[String]> and conformance <> EntityProperty<A>(v22);
+    OUTLINED_FUNCTION_29_8();
+    OUTLINED_FUNCTION_35_13();
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+
+    v50 = v55;
+    LOBYTE(v54[0]) = 5;
+    OUTLINED_FUNCTION_29_8();
+    OUTLINED_FUNCTION_69_5();
+    OUTLINED_FUNCTION_35_13();
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+    v49 = v19;
+
+    v48 = v55;
+    LOBYTE(v54[0]) = 6;
+    lazy protocol witness table accessor for type EntityProperty<IntentFile?> and conformance <> EntityProperty<A>();
+    OUTLINED_FUNCTION_19_10();
+    OUTLINED_FUNCTION_35_13();
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+
+    v47 = v55;
+    LOBYTE(v54[0]) = 7;
+    OUTLINED_FUNCTION_19_10();
+    OUTLINED_FUNCTION_35_13();
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+
+    v23 = v55;
+    LOBYTE(v54[0]) = 8;
+    OUTLINED_FUNCTION_19_10();
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+
+    v46 = v55;
+    LOBYTE(v54[0]) = 9;
+    OUTLINED_FUNCTION_19_10();
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+
+    v45 = v55;
+    LOBYTE(v54[0]) = 10;
+    OUTLINED_FUNCTION_29_8();
+    OUTLINED_FUNCTION_35_13();
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+
+    v44 = v55;
+    LOBYTE(v54[0]) = 11;
+    lazy protocol witness table accessor for type Data and conformance Data();
+    OUTLINED_FUNCTION_29_8();
+    OUTLINED_FUNCTION_35_13();
+    KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
+    v25 = v55;
+    v24 = v56;
+    outlined consume of Data?(0, 0xF000000000000000);
+    LOBYTE(v55) = 12;
+    OUTLINED_FUNCTION_35_13();
+    LOBYTE(v19) = KeyedDecodingContainer.decode(_:forKey:)();
+    LOBYTE(v55) = 13;
+    OUTLINED_FUNCTION_35_13();
+    v38 = KeyedDecodingContainer.decode(_:forKey:)();
+    v42 = v26;
+    v73 = 14;
+    OUTLINED_FUNCTION_35_13();
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+    v27 = v19 & 1;
+    v28 = OUTLINED_FUNCTION_18_12();
+    v29(v28);
+
+    v76 = v74;
+    v30 = v52;
+    v54[0] = v49;
+    v54[1] = v53;
+    v31 = v51;
+    v54[2] = v51;
+    v54[3] = v52;
+    v54[4] = v50;
+    v54[5] = v48;
+    v54[6] = v47;
+    v54[7] = v23;
+    v54[8] = v46;
+    v54[9] = v45;
+    v54[10] = v44;
+    v54[11] = v25;
+    v54[12] = v24;
+    LOBYTE(v54[13]) = v27;
+    *(&v54[13] + 1) = v75[0];
+    HIDWORD(v54[13]) = *(v75 + 3);
+    v32 = v42;
+    v54[14] = v38;
+    v54[15] = v42;
+    v54[16] = v74;
+    memcpy(v35, v54, 0x88uLL);
+    outlined init with copy of SearchAnswerEntity(v54, &v55);
+    __swift_destroy_boxed_opaque_existential_1Tm(v43);
+    v55 = v49;
+    v56 = v53;
+    v57 = v31;
+    v58 = v30;
+    v59 = v50;
+    v60 = v48;
+    v61 = v47;
+    v62 = v23;
+    v63 = v46;
+    v64 = v45;
+    v65 = v44;
+    v66 = v25;
+    v67 = v24;
+    v68 = v27;
+    *v69 = v75[0];
+    *&v69[3] = *(v75 + 3);
+    v70 = v38;
+    v71 = v32;
+    v72 = v76;
+    return outlined destroy of SearchAnswerEntity(&v55);
+  }
+
+  return result;
+}
+
+uint64_t static SearchAnswerEntity.== infix(_:_:)(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 112) == *(a2 + 112) && *(a1 + 120) == *(a2 + 120);
+  if (v2 || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (EntityProperty.wrappedValue.getter(), EntityProperty.wrappedValue.getter(), , , EntityProperty.wrappedValue.getter(), EntityProperty.wrappedValue.getter(), , , EntityProperty.wrappedValue.getter(), EntityProperty.wrappedValue.getter(), v3 = _sSasSQRzlE2eeoiySbSayxG_ABtFZ10OmniSearch0C6EntityV_Tt1g5(v6, v6), , , (v3))
+  {
+    EntityProperty.wrappedValue.getter();
+    EntityProperty.wrappedValue.getter();
+    if (v7)
+    {
+
+      v5 = 1;
+    }
+
+    else
+    {
+      v5 = 1;
+    }
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  return v5 & 1;
+}
+
+uint64_t protocol witness for Identifiable.id.getter in conformance SearchAnswerEntity@<X0>(uint64_t *a1@<X8>)
+{
+  result = SearchAnswerEntity.id.getter();
+  *a1 = result;
+  a1[1] = v3;
+  return result;
+}
+
+uint64_t protocol witness for static _IntentValue.defaultResolverSpecification.getter in conformance SearchAnswerEntity(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type SearchAnswerEntity and conformance SearchAnswerEntity();
+
+  return MEMORY[0x28210B488](a1, v2);
+}
+
+uint64_t protocol witness for InstanceDisplayRepresentable.displayRepresentation(with:) in conformance SearchAnswerEntity(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = protocol witness for EntityQuery.suggestedEntities() in conformance SearchAnswerEntity.Query;
+
+  return MEMORY[0x28210C4A0](a1, a2, a3, a4);
+}
+
+uint64_t protocol witness for CustomLocalizedStringResourceConvertible.localizedStringResource.getter in conformance SearchAnswerEntity(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type SearchAnswerEntity and conformance SearchAnswerEntity();
+
+  return MEMORY[0x28210C4B8](a1, v2);
+}
+
+void SearchAnswerEntity.asNLGEntity.getter()
+{
+  OUTLINED_FUNCTION_155();
+  v1 = v0;
+  v118 = type metadata accessor for RestaurantReservation();
+  OUTLINED_FUNCTION_14();
+  v117 = v2;
+  MEMORY[0x28223BE20](v3);
+  OUTLINED_FUNCTION_2_3();
+  v116 = v4;
+  OUTLINED_FUNCTION_78_0();
+  type metadata accessor for HotelReservation();
+  OUTLINED_FUNCTION_14();
+  v121 = v6;
+  v122 = v5;
+  MEMORY[0x28223BE20](v5);
+  OUTLINED_FUNCTION_2_3();
+  v120 = v7;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
+  v9 = OUTLINED_FUNCTION_114(v8);
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_39_0();
+  v127 = v10;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v11);
+  OUTLINED_FUNCTION_14_2();
+  v128 = v12;
+  v13 = OUTLINED_FUNCTION_78_0();
+  v130 = type metadata accessor for SearchResultItem(v13);
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x28223BE20](v14);
+  OUTLINED_FUNCTION_39_0();
+  v119 = v15;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v16);
+  v123 = &v116 - v17;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v18);
+  OUTLINED_FUNCTION_14_2();
+  v129 = v19;
+  OUTLINED_FUNCTION_78_0();
+  type metadata accessor for FlightReservation();
+  OUTLINED_FUNCTION_14();
+  v125 = v21;
+  v126 = v20;
+  MEMORY[0x28223BE20](v20);
+  OUTLINED_FUNCTION_2_3();
+  v124 = v22;
+  v23 = OUTLINED_FUNCTION_78_0();
+  v133 = type metadata accessor for SearchResult(v23);
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x28223BE20](v24);
+  OUTLINED_FUNCTION_2_3();
+  v131 = v25;
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v27 = OUTLINED_FUNCTION_114(v26);
+  MEMORY[0x28223BE20](v27);
+  OUTLINED_FUNCTION_39_0();
+  v135 = v28;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v29);
+  OUTLINED_FUNCTION_14_2();
+  v134 = v30;
+  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B6EntityVSgMd, &_s10OmniSearch0B6EntityVSgMR);
+  v32 = OUTLINED_FUNCTION_114(v31);
+  MEMORY[0x28223BE20](v32);
+  OUTLINED_FUNCTION_39_0();
+  v136 = v33;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v34);
+  v36 = &v116 - v35;
+  MEMORY[0x28223BE20](v37);
+  v39 = &v116 - v38;
+  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+  v41 = OUTLINED_FUNCTION_114(v40);
+  MEMORY[0x28223BE20](v41);
+  OUTLINED_FUNCTION_39_0();
+  v137 = v42;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v43);
+  v132 = &v116 - v44;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v45);
+  v47 = &v116 - v46;
+  SearchNLGEntity.init()(v1);
+  EntityProperty.wrappedValue.getter();
+  EntityProperty.wrappedValue.setter();
+  EntityProperty.wrappedValue.getter();
+  EntityProperty.wrappedValue.setter();
+  EntityProperty.wrappedValue.getter();
+  EntityProperty.wrappedValue.setter();
+  EntityProperty.wrappedValue.getter();
+  EntityProperty.wrappedValue.setter();
+  EntityProperty.wrappedValue.getter();
+  specialized Collection.first.getter(v138, v39);
+
+  v48 = type metadata accessor for SearchEntity(0);
+  OUTLINED_FUNCTION_10_2(v39);
+  if (v49)
+  {
+    outlined destroy of IntentApplication?(v39, &_s10OmniSearch0B6EntityVSgMd, &_s10OmniSearch0B6EntityVSgMR);
+    v50 = 0;
+    v51 = v133;
+  }
+
+  else
+  {
+    outlined init with copy of ResourceBundle?(&v39[*(v48 + 84)], v47, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+    OUTLINED_FUNCTION_4_18();
+    outlined destroy of SearchEntity();
+    v51 = v133;
+    EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v47, 1, v133);
+    if (EnumTagSinglePayload == 1)
+    {
+      outlined destroy of IntentApplication?(v47, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+      v50 = 0;
+    }
+
+    else
+    {
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMd, &_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMR);
+      v53 = CodableNSSecureCoding.wrappedValue.getter();
+      OUTLINED_FUNCTION_0_30();
+      outlined destroy of SearchEntity();
+      v50 = CSSearchableItem.senderNames.getter();
+    }
+  }
+
+  v138 = v50;
+  EntityProperty.wrappedValue.setter();
+  EntityProperty.wrappedValue.getter();
+  specialized Collection.first.getter(v138, v36);
+
+  OUTLINED_FUNCTION_10_2(v36);
+  if (v49)
+  {
+    v54 = &_s10OmniSearch0B6EntityVSgMd;
+    v55 = &_s10OmniSearch0B6EntityVSgMR;
+    v56 = v36;
+LABEL_12:
+    outlined destroy of IntentApplication?(v56, v54, v55);
+    v59 = v134;
+    type metadata accessor for Date();
+    OUTLINED_FUNCTION_92();
+    __swift_storeEnumTagSinglePayload(v60, v61, v62, v63);
+    goto LABEL_14;
+  }
+
+  v57 = v132;
+  outlined init with copy of ResourceBundle?(&v36[*(v48 + 84)], v132, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+  OUTLINED_FUNCTION_4_18();
+  outlined destroy of SearchEntity();
+  v58 = __swift_getEnumTagSinglePayload(v57, 1, v51);
+  if (v58 == 1)
+  {
+    v54 = &_s10OmniSearch0B6ResultVSgMd;
+    v55 = &_s10OmniSearch0B6ResultVSgMR;
+    v56 = v57;
+    goto LABEL_12;
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMd, &_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMR);
+  v64 = CodableNSSecureCoding.wrappedValue.getter();
+  OUTLINED_FUNCTION_0_30();
+  outlined destroy of SearchEntity();
+  v59 = v134;
+  CSSearchableItem.contentCreationDate.getter(v134);
+
+LABEL_14:
+  v65 = v135;
+  outlined init with copy of ResourceBundle?(v59, v135, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  EntityProperty.wrappedValue.setter();
+  OUTLINED_FUNCTION_201_0();
+  outlined destroy of IntentApplication?(v66, v67, v68);
+  EntityProperty.wrappedValue.getter();
+  v69 = v136;
+  specialized Collection.first.getter(v138, v136);
+
+  OUTLINED_FUNCTION_10_2(v69);
+  if (!v49)
+  {
+    v73 = v137;
+    outlined init with copy of ResourceBundle?(v69 + *(v48 + 84), v137, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+    OUTLINED_FUNCTION_4_18();
+    outlined destroy of SearchEntity();
+    v74 = __swift_getEnumTagSinglePayload(v73, 1, v51);
+    if (v74 == 1)
+    {
+      goto LABEL_18;
+    }
+
+    outlined init with take of SearchResult(v73, v131);
+    v75 = OUTLINED_FUNCTION_3_22();
+    outlined init with copy of SearchEntity(v75, v129, v76);
+    if (swift_getEnumCaseMultiPayload() == 16)
+    {
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes17FlightReservationV8document_Say0aB016DialogExperienceCG11experiencestMd, &_s15OmniSearchTypes17FlightReservationV8document_Say0aB016DialogExperienceCG11experiencestMR);
+
+      v78 = v124;
+      v77 = v125;
+      v79 = OUTLINED_FUNCTION_70_6();
+      v80 = v126;
+      v81(v79);
+      v82 = ShippingOrder.eventType.getter();
+      OUTLINED_FUNCTION_56_7(v82, v83);
+      v84 = FlightReservation.flightCarrier.getter();
+      OUTLINED_FUNCTION_56_7(v84, v85);
+      OUTLINED_FUNCTION_54_7();
+      FlightReservation.flightDepartureDateComponents.getter();
+      v86 = type metadata accessor for DateComponents();
+      __swift_storeEnumTagSinglePayload(v65, 0, 1, v86);
+      OUTLINED_FUNCTION_63_6(v65);
+      EntityProperty.wrappedValue.setter();
+      OUTLINED_FUNCTION_201_0();
+      outlined destroy of IntentApplication?(v87, v88, v89);
+      v90 = FlightReservation.flightArrivalAirportCode.getter();
+      OUTLINED_FUNCTION_56_7(v90, v91);
+      v92 = FlightReservation.flightDepartureAirportCode.getter();
+      OUTLINED_FUNCTION_56_7(v92, v93);
+    }
+
+    else
+    {
+      outlined destroy of SearchEntity();
+      v94 = OUTLINED_FUNCTION_3_22();
+      outlined init with copy of SearchEntity(v94, v123, v95);
+      OUTLINED_FUNCTION_94();
+      if (swift_getEnumCaseMultiPayload() == 17)
+      {
+        v78 = v120;
+        v77 = v121;
+        v96 = OUTLINED_FUNCTION_70_6();
+        v80 = v122;
+        v97(v96);
+        v98 = HotelReservation.hotelReservationForName.getter();
+        OUTLINED_FUNCTION_56_7(v98, v99);
+        v100 = HotelReservation.hotelReservationForAddress.getter();
+        OUTLINED_FUNCTION_56_7(v100, v101);
+        OUTLINED_FUNCTION_54_7();
+        HotelReservation.hotelCheckinDateComponents.getter();
+        OUTLINED_FUNCTION_63_6(v65);
+        EntityProperty.wrappedValue.setter();
+        OUTLINED_FUNCTION_201_0();
+        outlined destroy of IntentApplication?(v102, v103, v104);
+        HotelReservation.hotelCheckoutDateComponents.getter();
+        v105 = v65;
+      }
+
+      else
+      {
+        outlined destroy of SearchEntity();
+        v106 = OUTLINED_FUNCTION_3_22();
+        v107 = v119;
+        outlined init with copy of SearchEntity(v106, v119, v108);
+        OUTLINED_FUNCTION_94();
+        if (swift_getEnumCaseMultiPayload() != 19)
+        {
+          outlined destroy of SearchEntity();
+          OUTLINED_FUNCTION_34_14();
+          goto LABEL_27;
+        }
+
+        v77 = v117;
+        v78 = v116;
+        v80 = v118;
+        (*(v117 + 32))(v116, v107, v118);
+        v109 = RestaurantReservation.restaurantReservationForName.getter();
+        OUTLINED_FUNCTION_56_7(v109, v110);
+        v111 = RestaurantReservation.restaurantReservationForAddress.getter();
+        OUTLINED_FUNCTION_56_7(v111, v112);
+        OUTLINED_FUNCTION_54_7();
+        RestaurantReservation.restaurantStartDateComponents.getter();
+        v105 = v65;
+      }
+
+      OUTLINED_FUNCTION_63_6(v105);
+      EntityProperty.wrappedValue.setter();
+      OUTLINED_FUNCTION_201_0();
+      outlined destroy of IntentApplication?(v113, v114, v115);
+    }
+
+    (*(v77 + 8))(v78, v80);
+    OUTLINED_FUNCTION_0_30();
+LABEL_27:
+    outlined destroy of SearchEntity();
+    goto LABEL_28;
+  }
+
+  outlined destroy of IntentApplication?(v69, &_s10OmniSearch0B6EntityVSgMd, &_s10OmniSearch0B6EntityVSgMR);
+  v73 = v137;
+  OUTLINED_FUNCTION_92();
+  __swift_storeEnumTagSinglePayload(v70, v71, v72, v51);
+LABEL_18:
+  outlined destroy of IntentApplication?(v73, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+LABEL_28:
+  OUTLINED_FUNCTION_148();
+}
+
+void SearchAnswerEntity.asCATEntity.getter()
+{
+  OUTLINED_FUNCTION_155();
+  v2 = v1;
+  v56[2] = type metadata accessor for SearchResultItem(0);
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x28223BE20](v3);
+  OUTLINED_FUNCTION_2_3();
+  v61 = v4;
+  OUTLINED_FUNCTION_78_0();
+  type metadata accessor for FlightReservation();
+  OUTLINED_FUNCTION_14();
+  v57 = v6;
+  v58 = v5;
+  MEMORY[0x28223BE20](v5);
+  OUTLINED_FUNCTION_2_3();
+  v63 = v7;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+  OUTLINED_FUNCTION_114(v8);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v9);
+  v60 = v56 - v10;
+  v11 = OUTLINED_FUNCTION_78_0();
+  v59 = type metadata accessor for SearchResult(v11);
+  OUTLINED_FUNCTION_14();
+  v13 = v12;
+  MEMORY[0x28223BE20](v14);
+  v16 = v56 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v17);
+  OUTLINED_FUNCTION_14_2();
+  v62 = v18;
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v20 = OUTLINED_FUNCTION_114(v19);
+  MEMORY[0x28223BE20](v20);
+  OUTLINED_FUNCTION_39_0();
+  v65 = v21;
+  OUTLINED_FUNCTION_174();
+  MEMORY[0x28223BE20](v22);
+  v24 = v56 - v23;
+  v64 = *v0;
+  v25 = *(v0 + 3);
+  v80 = *(v0 + 1);
+  v81 = v25;
+  v26 = v0[5];
+  v27 = *(v0 + 4);
+  v78 = *(v0 + 3);
+  v79 = v27;
+  v66 = v0[10];
+  v28 = *(v0 + 13);
+  v75 = *(v0 + 11);
+  v76 = v28;
+  v77 = *(v0 + 15);
+  SearchCATEntity.init()(v2);
+  EntityProperty.wrappedValue.getter();
+  v29 = v68[0];
+  v30 = v68[1];
+  v31 = type metadata accessor for SearchCATEntity(0);
+  v68[0] = v29;
+  v68[1] = v30;
+  EntityProperty.wrappedValue.setter();
+  EntityProperty.wrappedValue.getter();
+  EntityProperty.wrappedValue.setter();
+  v32 = v64;
+  EntityProperty.wrappedValue.getter();
+  EntityProperty.wrappedValue.setter();
+  *v68 = xmmword_25DBD2470;
+  EntityProperty.wrappedValue.setter();
+  v68[0] = 0;
+  EntityProperty.wrappedValue.setter();
+  type metadata accessor for Date();
+  OUTLINED_FUNCTION_92();
+  __swift_storeEnumTagSinglePayload(v33, v34, v35, v36);
+  v56[0] = v31;
+  v56[1] = v2;
+  outlined init with copy of ResourceBundle?(v24, v65, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  EntityProperty.wrappedValue.setter();
+  outlined destroy of IntentApplication?(v24, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  *&v68[1] = v80;
+  *&v68[3] = v81;
+  v69 = v78;
+  v70 = v79;
+  v72 = v75;
+  v73 = v76;
+  v68[0] = v32;
+  v68[5] = v26;
+  v71 = v66;
+  v74 = v77;
+  SearchAnswerEntity.sourceResults.getter();
+  v38 = v37;
+  v39 = 0;
+  v40 = *(v37 + 16);
+  while (1)
+  {
+    if (v40 == v39)
+    {
+
+      v46 = 1;
+      v48 = v62;
+      v47 = v63;
+      v50 = v60;
+      v49 = v61;
+      goto LABEL_13;
+    }
+
+    if (v39 >= *(v38 + 16))
+    {
+      __break(1u);
+      return;
+    }
+
+    OUTLINED_FUNCTION_79();
+    outlined init with copy of SearchEntity(v38 + v41 + *(v13 + 72) * v39, v16, type metadata accessor for SearchResult);
+    SearchResultItem.type.getter(&v67);
+    SearchResultKey.rawValue.getter();
+    if (v43 == 0xD000000000000011 && 0x800000025DBEDF90 == v42)
+    {
+      break;
+    }
+
+    v45 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v45)
+    {
+      goto LABEL_12;
+    }
+
+    OUTLINED_FUNCTION_0_30();
+    outlined destroy of SearchEntity();
+    ++v39;
+  }
+
+LABEL_12:
+
+  v50 = v60;
+  outlined init with take of SearchResult(v16, v60);
+  v46 = 0;
+  v48 = v62;
+  v47 = v63;
+  v49 = v61;
+LABEL_13:
+  v51 = v59;
+  __swift_storeEnumTagSinglePayload(v50, v46, 1, v59);
+  if (__swift_getEnumTagSinglePayload(v50, 1, v51) == 1)
+  {
+    outlined destroy of IntentApplication?(v50, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+  }
+
+  else
+  {
+    outlined init with take of SearchResult(v50, v48);
+    v52 = OUTLINED_FUNCTION_3_22();
+    outlined init with copy of SearchEntity(v52, v49, v53);
+    if (swift_getEnumCaseMultiPayload() == 16)
+    {
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes17FlightReservationV8document_Say0aB016DialogExperienceCG11experiencestMd, &_s15OmniSearchTypes17FlightReservationV8document_Say0aB016DialogExperienceCG11experiencestMR);
+
+      (*(v57 + 32))(v47, v49, v58);
+      v54 = FlightReservation.flightArrivalAirportLocality.getter();
+      if (!v55)
+      {
+        v54 = FlightReservation.flightArrivalAirportRegion.getter();
+        if (!v55)
+        {
+          v54 = FlightReservation.flightArrivalAirportName.getter();
+          if (!v55)
+          {
+            v54 = FlightReservation.flightArrivalAirportCode.getter();
+            if (!v55)
+            {
+              v54 = FlightReservation.flightArrivalAirportCountry.getter();
+            }
+          }
+        }
+      }
+
+      v68[0] = v54;
+      v68[1] = v55;
+      EntityProperty.wrappedValue.setter();
+      (*(v57 + 8))(v47, v58);
+      OUTLINED_FUNCTION_0_30();
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_0_30();
+      outlined destroy of SearchEntity();
+      OUTLINED_FUNCTION_34_14();
+    }
+
+    outlined destroy of SearchEntity();
+  }
+
+  OUTLINED_FUNCTION_148();
+}
+
+uint64_t protocol witness for SearchCATEntityConvertible.asCATEntity.getter in conformance SearchAnswerEntity()
+{
+  SearchAnswerEntity.asCATEntity.getter();
+  v1 = *(v0 + 8);
+
+  return v1();
+}
+
+unint64_t lazy protocol witness table accessor for type SearchToolError and conformance SearchToolError()
+{
+  result = lazy protocol witness table cache variable for type SearchToolError and conformance SearchToolError;
+  if (!lazy protocol witness table cache variable for type SearchToolError and conformance SearchToolError)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SearchToolError and conformance SearchToolError);
+  }
+
+  return result;
+}
+
+uint64_t type metadata accessor for SearchAnswerEntity.Builder(uint64_t a1)
+{
+  result = type metadata singleton initialization cache for SearchAnswerEntity.Builder;
+  if (!type metadata singleton initialization cache for SearchAnswerEntity.Builder)
+  {
+    return swift_getSingletonMetadata();
+  }
+
+  return result;
+}
+
+uint64_t outlined assign with take of IntentFile?(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+  (*(*(v4 - 8) + 40))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t outlined init with take of IntentFile?(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents10IntentFileVSgMd, &_s10AppIntents10IntentFileVSgMR);
+  (*(*(v4 - 8) + 32))(a2, a1, v4);
+  return a2;
+}
+
+unint64_t lazy protocol witness table accessor for type SearchAnswerEntity and conformance SearchAnswerEntity()
+{
+  result = lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity;
+  if (!lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity;
+  if (!lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity;
+  if (!lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity;
+  if (!lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity;
+  if (!lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity;
+  if (!lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity;
+  if (!lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity;
+  if (!lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity;
+  if (!lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity;
+  if (!lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity;
+  if (!lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity;
+  if (!lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity;
+  if (!lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SearchAnswerEntity and conformance SearchAnswerEntity);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type SearchAnswerEntity.CodingKeys and conformance SearchAnswerEntity.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type SearchAnswerEntity.CodingKeys and conformance SearchAnswerEntity.CodingKeys;
+  if (!lazy protocol witness table cache variable for type SearchAnswerEntity.CodingKeys and conformance SearchAnswerEntity.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SearchAnswerEntity.CodingKeys and conformance SearchAnswerEntity.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SearchAnswerEntity.CodingKeys and conformance SearchAnswerEntity.CodingKeys;
+  if (!lazy protocol witness table cache variable for type SearchAnswerEntity.CodingKeys and conformance SearchAnswerEntity.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SearchAnswerEntity.CodingKeys and conformance SearchAnswerEntity.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SearchAnswerEntity.CodingKeys and conformance SearchAnswerEntity.CodingKeys;
+  if (!lazy protocol witness table cache variable for type SearchAnswerEntity.CodingKeys and conformance SearchAnswerEntity.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SearchAnswerEntity.CodingKeys and conformance SearchAnswerEntity.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SearchAnswerEntity.CodingKeys and conformance SearchAnswerEntity.CodingKeys;
+  if (!lazy protocol witness table cache variable for type SearchAnswerEntity.CodingKeys and conformance SearchAnswerEntity.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SearchAnswerEntity.CodingKeys and conformance SearchAnswerEntity.CodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type EntityProperty<[SearchPropertyResponse]> and conformance <> EntityProperty<A>()
+{
+  result = lazy protocol witness table cache variable for type EntityProperty<[SearchPropertyResponse]> and conformance <> EntityProperty<A>;
+  if (!lazy protocol witness table cache variable for type EntityProperty<[SearchPropertyResponse]> and conformance <> EntityProperty<A>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10AppIntents14EntityPropertyCySay10OmniSearch0fD8ResponseVGGMd, &_s10AppIntents14EntityPropertyCySay10OmniSearch0fD8ResponseVGGMR);
+    lazy protocol witness table accessor for type [SearchPropertyResponse] and conformance <A> [A]();
+    lazy protocol witness table accessor for type [SearchPropertyResponse] and conformance <A> [A]();
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type EntityProperty<[SearchPropertyResponse]> and conformance <> EntityProperty<A>);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type EntityProperty<[SearchPropertyResponse]> and conformance <> EntityProperty<A>;
+  if (!lazy protocol witness table cache variable for type EntityProperty<[SearchPropertyResponse]> and conformance <> EntityProperty<A>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10AppIntents14EntityPropertyCySay10OmniSearch0fD8ResponseVGGMd, &_s10AppIntents14EntityPropertyCySay10OmniSearch0fD8ResponseVGGMR);
+    lazy protocol witness table accessor for type [SearchPropertyResponse] and conformance <A> [A]();
+    lazy protocol witness table accessor for type [SearchPropertyResponse] and conformance <A> [A]();
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type EntityProperty<[SearchPropertyResponse]> and conformance <> EntityProperty<A>);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type [SearchPropertyResponse] and conformance <A> [A]()
+{
+  result = lazy protocol witness table cache variable for type [SearchPropertyResponse] and conformance <A> [A];
+  if (!lazy protocol witness table cache variable for type [SearchPropertyResponse] and conformance <A> [A])
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10OmniSearch0B16PropertyResponseVGMd, &_sSay10OmniSearch0B16PropertyResponseVGMR);
+    lazy protocol witness table accessor for type SearchPropertyResponse and conformance SearchPropertyResponse(&lazy protocol witness table cache variable for type SearchPropertyResponse and conformance SearchPropertyResponse);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type [SearchPropertyResponse] and conformance <A> [A]);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type [SearchPropertyResponse] and conformance <A> [A];
+  if (!lazy protocol witness table cache variable for type [SearchPropertyResponse] and conformance <A> [A])
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10OmniSearch0B16PropertyResponseVGMd, &_sSay10OmniSearch0B16PropertyResponseVGMR);
+    lazy protocol witness table accessor for type SearchPropertyResponse and conformance SearchPropertyResponse(&lazy protocol witness table cache variable for type SearchPropertyResponse and conformance SearchPropertyResponse);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type [SearchPropertyResponse] and conformance <A> [A]);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type [SearchPropertyResponse] and conformance <A> [A];
+  if (!lazy protocol witness table cache variable for type [SearchPropertyResponse] and conformance <A> [A])
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10OmniSearch0B16PropertyResponseVGMd, &_sSay10OmniSearch0B16PropertyResponseVGMR);
+    _s10OmniSearch0B15SpotlightEntityVAC10AppIntents0eD0AAWlTm_0(&lazy protocol witness table cache variable for type SearchPropertyResponse and conformance SearchPropertyResponse, type metadata accessor for SearchPropertyResponse);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type [SearchPropertyResponse] and conformance <A> [A]);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type EntityProperty<[SearchEntity]> and conformance <> EntityProperty<A>()
+{
+  result = lazy protocol witness table cache variable for type EntityProperty<[SearchEntity]> and conformance <> EntityProperty<A>;
+  if (!lazy protocol witness table cache variable for type EntityProperty<[SearchEntity]> and conformance <> EntityProperty<A>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10AppIntents14EntityPropertyCySay10OmniSearch0fC0VGGMd, &_s10AppIntents14EntityPropertyCySay10OmniSearch0fC0VGGMR);
+    lazy protocol witness table accessor for type [SearchEntity] and conformance <A> [A]();
+    lazy protocol witness table accessor for type [SearchEntity] and conformance <A> [A]();
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type EntityProperty<[SearchEntity]> and conformance <> EntityProperty<A>);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type EntityProperty<[SearchEntity]> and conformance <> EntityProperty<A>;
+  if (!lazy protocol witness table cache variable for type EntityProperty<[SearchEntity]> and conformance <> EntityProperty<A>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10AppIntents14EntityPropertyCySay10OmniSearch0fC0VGGMd, &_s10AppIntents14EntityPropertyCySay10OmniSearch0fC0VGGMR);
+    lazy protocol witness table accessor for type [SearchEntity] and conformance <A> [A]();
+    lazy protocol witness table accessor for type [SearchEntity] and conformance <A> [A]();
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type EntityProperty<[SearchEntity]> and conformance <> EntityProperty<A>);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type [SearchEntity] and conformance <A> [A]()
+{
+  result = lazy protocol witness table cache variable for type [SearchEntity] and conformance <A> [A];
+  if (!lazy protocol witness table cache variable for type [SearchEntity] and conformance <A> [A])
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10OmniSearch0B6EntityVGMd, &_sSay10OmniSearch0B6EntityVGMR);
+    lazy protocol witness table accessor for type SearchPropertyResponse and conformance SearchPropertyResponse(&lazy protocol witness table cache variable for type SearchEntity and conformance SearchEntity);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type [SearchEntity] and conformance <A> [A]);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type [SearchEntity] and conformance <A> [A];
+  if (!lazy protocol witness table cache variable for type [SearchEntity] and conformance <A> [A])
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10OmniSearch0B6EntityVGMd, &_sSay10OmniSearch0B6EntityVGMR);
+    lazy protocol witness table accessor for type SearchPropertyResponse and conformance SearchPropertyResponse(&lazy protocol witness table cache variable for type SearchEntity and conformance SearchEntity);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type [SearchEntity] and conformance <A> [A]);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type [SearchEntity] and conformance <A> [A];
+  if (!lazy protocol witness table cache variable for type [SearchEntity] and conformance <A> [A])
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10OmniSearch0B6EntityVGMd, &_sSay10OmniSearch0B6EntityVGMR);
+    _s10OmniSearch0B15SpotlightEntityVAC10AppIntents0eD0AAWlTm_0(&lazy protocol witness table cache variable for type SearchEntity and conformance SearchEntity, type metadata accessor for SearchEntity);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type [SearchEntity] and conformance <A> [A]);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type [SearchEntity] and conformance <A> [A];
+  if (!lazy protocol witness table cache variable for type [SearchEntity] and conformance <A> [A])
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10OmniSearch0B6EntityVGMd, &_sSay10OmniSearch0B6EntityVGMR);
+    lazy protocol witness table accessor for type StructuredQueryEntity and conformance StructuredQueryEntity(&lazy protocol witness table cache variable for type SearchEntity and conformance SearchEntity, type metadata accessor for SearchEntity, &protocol conformance descriptor for SearchEntity);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type [SearchEntity] and conformance <A> [A]);
+  }
+
+  return result;
+}
+
+unint64_t _sSaySSGSayxGSEsSERzlWlTm_1(uint64_t a1)
+{
+  result = OUTLINED_FUNCTION_6_6(a1);
+  if (!result)
+  {
+    v3 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySSGMd, &_sSaySSGMR);
+    result = OUTLINED_FUNCTION_77_6(v3);
+    atomic_store(result, v1);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type EntityProperty<IntentFile?> and conformance <> EntityProperty<A>()
+{
+  result = lazy protocol witness table cache variable for type EntityProperty<IntentFile?> and conformance <> EntityProperty<A>;
+  if (!lazy protocol witness table cache variable for type EntityProperty<IntentFile?> and conformance <> EntityProperty<A>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
+    lazy protocol witness table accessor for type IntentFile? and conformance <A> A?();
+    lazy protocol witness table accessor for type IntentFile? and conformance <A> A?();
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type EntityProperty<IntentFile?> and conformance <> EntityProperty<A>);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type EntityProperty<IntentFile?> and conformance <> EntityProperty<A>;
+  if (!lazy protocol witness table cache variable for type EntityProperty<IntentFile?> and conformance <> EntityProperty<A>)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMd, &_s10AppIntents14EntityPropertyCyAA10IntentFileVSgGMR);
+    lazy protocol witness table accessor for type IntentFile? and conformance <A> A?();
+    lazy protocol witness table accessor for type IntentFile? and conformance <A> A?();
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type EntityProperty<IntentFile?> and conformance <> EntityProperty<A>);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type Data and conformance Data()
+{
+  result = lazy protocol witness table cache variable for type Data and conformance Data;
+  if (!lazy protocol witness table cache variable for type Data and conformance Data)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Data and conformance Data);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type Data and conformance Data;
+  if (!lazy protocol witness table cache variable for type Data and conformance Data)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Data and conformance Data);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type EntityProperty<String> and conformance <> EntityProperty<A>(uint64_t a1)
+{
+  result = OUTLINED_FUNCTION_6_6(a1);
+  if (!result)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10AppIntents14EntityPropertyCySSGMd, &_s10AppIntents14EntityPropertyCySSGMR);
+    result = swift_getWitnessTable();
+    atomic_store(result, v1);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type EntityProperty<String?> and conformance <> EntityProperty<A>(uint64_t a1)
+{
+  result = OUTLINED_FUNCTION_6_6(a1);
+  if (!result)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
+    lazy protocol witness table accessor for type String? and conformance <A> A?(&lazy protocol witness table cache variable for type String? and conformance <A> A?);
+    lazy protocol witness table accessor for type String? and conformance <A> A?(&lazy protocol witness table cache variable for type String? and conformance <A> A?);
+    result = OUTLINED_FUNCTION_74_8();
+    atomic_store(result, v1);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type EntityProperty<[String]> and conformance <> EntityProperty<A>(uint64_t a1)
+{
+  result = OUTLINED_FUNCTION_6_6(a1);
+  if (!result)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s10AppIntents14EntityPropertyCySaySSGGMd, &_s10AppIntents14EntityPropertyCySaySSGGMR);
+    _sSaySSGSayxGSEsSERzlWlTm_1(&lazy protocol witness table cache variable for type [String] and conformance <A> [A]);
+    _sSaySSGSayxGSEsSERzlWlTm_1(&lazy protocol witness table cache variable for type [String] and conformance <A> [A]);
+    result = OUTLINED_FUNCTION_74_8();
+    atomic_store(result, v1);
+  }
+
+  return result;
+}
+
+uint64_t outlined destroy of SearchEntity()
+{
+  v1 = OUTLINED_FUNCTION_42_2();
+  v2(v1);
+  OUTLINED_FUNCTION_17();
+  (*(v3 + 8))(v0);
+  return v0;
+}
+
+uint64_t outlined init with copy of SearchEntity(uint64_t a1, uint64_t a2, void (*a3)(void))
+{
+  a3(0);
+  OUTLINED_FUNCTION_17();
+  v4 = OUTLINED_FUNCTION_94();
+  v5(v4);
+  return a2;
+}
+
+unint64_t lazy protocol witness table accessor for type SearchAnswerEntity.Query and conformance SearchAnswerEntity.Query()
+{
+  result = lazy protocol witness table cache variable for type SearchAnswerEntity.Query and conformance SearchAnswerEntity.Query;
+  if (!lazy protocol witness table cache variable for type SearchAnswerEntity.Query and conformance SearchAnswerEntity.Query)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SearchAnswerEntity.Query and conformance SearchAnswerEntity.Query);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SearchAnswerEntity.Query and conformance SearchAnswerEntity.Query;
+  if (!lazy protocol witness table cache variable for type SearchAnswerEntity.Query and conformance SearchAnswerEntity.Query)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SearchAnswerEntity.Query and conformance SearchAnswerEntity.Query);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SearchAnswerEntity.Query and conformance SearchAnswerEntity.Query;
+  if (!lazy protocol witness table cache variable for type SearchAnswerEntity.Query and conformance SearchAnswerEntity.Query)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SearchAnswerEntity.Query and conformance SearchAnswerEntity.Query);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SearchAnswerEntity.Query and conformance SearchAnswerEntity.Query;
+  if (!lazy protocol witness table cache variable for type SearchAnswerEntity.Query and conformance SearchAnswerEntity.Query)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SearchAnswerEntity.Query and conformance SearchAnswerEntity.Query);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type [SearchAnswerEntity] and conformance <A> [A]()
+{
+  result = lazy protocol witness table cache variable for type [SearchAnswerEntity] and conformance <A> [A];
+  if (!lazy protocol witness table cache variable for type [SearchAnswerEntity] and conformance <A> [A])
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10OmniSearch0B12AnswerEntityVGMd, &_sSay10OmniSearch0B12AnswerEntityVGMR);
+    lazy protocol witness table accessor for type SearchAnswerEntity and conformance SearchAnswerEntity();
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type [SearchAnswerEntity] and conformance <A> [A]);
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for SearchAnswerEntity(uint64_t *a1, int a2)
+{
+  if (a2)
+  {
+    if (a2 < 0 && *(a1 + 136))
+    {
+      LODWORD(v2) = *a1 + 0x7FFFFFFF;
+    }
+
+    else
+    {
+      v2 = *a1;
+      if (*a1 >= 0xFFFFFFFF)
+      {
+        LODWORD(v2) = -1;
+      }
+    }
+  }
+
+  else
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for SearchAnswerEntity(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 104) = 0u;
+    *(result + 88) = 0u;
+    *(result + 72) = 0u;
+    *(result + 56) = 0u;
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *(result + 120) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 136) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *result = (a2 - 1);
+      return result;
+    }
+
+    *(result + 136) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t type metadata completion function for SearchAnswerEntity.Builder(uint64_t a1)
+{
+  type metadata accessor for String?();
+  v2 = v1;
+  if (v3 <= 0x3F)
+  {
+    type metadata accessor for [SearchPropertyResponse]?(319);
+    if (v5 > 0x3F)
+    {
+      return v4;
+    }
+
+    type metadata accessor for IntentFile?(319, &lazy cache variable for type metadata for IntentFile?, MEMORY[0x277CB9C50], MEMORY[0x277D83D88]);
+    if (v6 > 0x3F)
+    {
+      return v4;
+    }
+
+    type metadata accessor for IntentFile?(319, &lazy cache variable for type metadata for [SearchEntity], type metadata accessor for SearchEntity, MEMORY[0x277D83940]);
+    if (v7 > 0x3F)
+    {
+      return v4;
+    }
+
+    type metadata accessor for IntentFile?(319, &lazy cache variable for type metadata for SFCard?, type metadata accessor for SFCard, MEMORY[0x277D83D88]);
+    if (v8 > 0x3F)
+    {
+      return v4;
+    }
+
+    else
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+      return 0;
+    }
+  }
+
+  return v2;
+}
+
+void type metadata accessor for [SearchPropertyResponse]?(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for [SearchPropertyResponse]?)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10OmniSearch0B16PropertyResponseVGMd, &_sSay10OmniSearch0B16PropertyResponseVGMR);
+    v1 = type metadata accessor for Optional();
+    if (!v2)
+    {
+      atomic_store(v1, &lazy cache variable for type metadata for [SearchPropertyResponse]?);
+    }
+  }
+}
+
+void type metadata accessor for IntentFile?(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t (*a4)(uint64_t, uint64_t))
+{
+  if (!*a2)
+  {
+    v7 = a3(255);
+    v8 = a4(a1, v7);
+    if (!v9)
+    {
+      atomic_store(v8, a2);
+    }
+  }
+}
+
+_BYTE *storeEnumTagSinglePayload for SearchAnswerEntity.Query(_BYTE *result, int a2, int a3)
+{
+  if ((a3 + 1) >= 0x10000)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 1) < 0x100)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (a2)
+  {
+    switch(v5)
+    {
+      case 1:
+        *result = a2;
+        break;
+      case 2:
+        *result = a2;
+        break;
+      case 3:
+        goto LABEL_19;
+      case 4:
+        *result = a2;
+        break;
+      default:
+        return result;
+    }
+  }
+
+  else
+  {
+    switch(v5)
+    {
+      case 1:
+        *result = 0;
+        break;
+      case 2:
+        *result = 0;
+        break;
+      case 3:
+LABEL_19:
+        __break(1u);
+        break;
+      case 4:
+        *result = 0;
+        break;
+      default:
+        return result;
+    }
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type EmptyResolverSpecification<SearchAnswerEntity> and conformance EmptyResolverSpecification<A>(uint64_t a1)
+{
+  result = OUTLINED_FUNCTION_6_6(a1);
+  if (!result)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(v3, v4);
+    result = swift_getWitnessTable();
+    atomic_store(result, v1);
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for SearchAnswerEntity.CodingKeys(unsigned __int8 *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    v5 = -1;
+    return (v5 + 1);
+  }
+
+  if (a2 >= 0xF2)
+  {
+    if (a2 + 14 >= 0xFFFF00)
+    {
+      v2 = 4;
+    }
+
+    else
+    {
+      v2 = 2;
+    }
+
+    if ((a2 + 14) >> 8 < 0xFF)
+    {
+      v3 = 1;
+    }
+
+    else
+    {
+      v3 = v2;
+    }
+
+    if (v3 == 4)
+    {
+      v4 = *(a1 + 1);
+      if (!v4)
+      {
+        goto LABEL_17;
+      }
+    }
+
+    else if (v3 == 2)
+    {
+      v4 = *(a1 + 1);
+      if (!*(a1 + 1))
+      {
+        goto LABEL_17;
+      }
+    }
+
+    else
+    {
+      v4 = a1[1];
+      if (!a1[1])
+      {
+        goto LABEL_17;
+      }
+    }
+
+    v5 = (*a1 | (v4 << 8)) - 15;
+    return (v5 + 1);
+  }
+
+LABEL_17:
+  v6 = *a1;
+  v7 = v6 >= 0xF;
+  v5 = v6 - 15;
+  if (!v7)
+  {
+    v5 = -1;
+  }
+
+  return (v5 + 1);
+}
+
+_BYTE *storeEnumTagSinglePayload for SearchAnswerEntity.CodingKeys(_BYTE *result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 14 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 14) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 >= 0xF2)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (a2 > 0xF1)
+  {
+    v6 = ((a2 - 242) >> 8) + 1;
+    *result = a2 + 14;
+    switch(v5)
+    {
+      case 1:
+        result[1] = v6;
+        break;
+      case 2:
+        *(result + 1) = v6;
+        break;
+      case 3:
+LABEL_23:
+        __break(1u);
+        break;
+      case 4:
+        *(result + 1) = v6;
+        break;
+      default:
+        return result;
+    }
+  }
+
+  else
+  {
+    switch(v5)
+    {
+      case 1:
+        result[1] = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      case 2:
+        *(result + 1) = 0;
+        goto LABEL_17;
+      case 3:
+        goto LABEL_23;
+      case 4:
+        *(result + 1) = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      default:
+LABEL_17:
+        if (a2)
+        {
+LABEL_18:
+          *result = a2 + 14;
+        }
+
+        break;
+    }
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type SearchPropertyResponse and conformance SearchPropertyResponse(uint64_t a1)
+{
+  result = OUTLINED_FUNCTION_6_6(a1);
+  if (!result)
+  {
+    v3(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, v1);
+  }
+
+  return result;
+}
+
+uint64_t OUTLINED_FUNCTION_7_15(uint64_t a1)
+{
+
+  return swift_once();
+}
+
+uint64_t OUTLINED_FUNCTION_21_10()
+{
+
+  return LocalizedStringResource.init(stringLiteral:)();
+}
+
+uint64_t OUTLINED_FUNCTION_38_11(uint64_t a1)
+{
+
+  return swift_once();
+}
+
+uint64_t OUTLINED_FUNCTION_56_7(uint64_t a1, uint64_t a2)
+{
+  *(v2 - 112) = a1;
+  *(v2 - 104) = a2;
+
+  return EntityProperty.wrappedValue.setter();
+}
+
+void *OUTLINED_FUNCTION_59_6(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+
+  return memcpy(va, v25, 0x88uLL);
+}
+
+uint64_t OUTLINED_FUNCTION_60_5()
+{
+}
+
+void *OUTLINED_FUNCTION_61_6(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+
+  return memcpy(&a9, a2, 0x88uLL);
+}
+
+uint64_t OUTLINED_FUNCTION_63_6(uint64_t a1)
+{
+
+  return outlined init with copy of ResourceBundle?(a1, v3, v1, v2);
+}
+
+uint64_t OUTLINED_FUNCTION_65_7()
+{
+
+  return EntityProperty<>.init(title:)();
+}
+
+uint64_t OUTLINED_FUNCTION_74_8()
+{
+
+  return swift_getWitnessTable();
+}
+
+uint64_t OUTLINED_FUNCTION_75_4@<X0>(uint64_t a1@<X8>)
+{
+
+  return outlined init with copy of ResourceBundle?(v2 + a1, v1, v3, v4);
+}
+
+uint64_t OUTLINED_FUNCTION_77_6(uint64_t a1)
+{
+
+  return swift_getWitnessTable();
+}
+
+uint64_t OUTLINED_FUNCTION_78_6()
+{
+
+  return EntityProperty<>.init(title:)();
+}
+
+uint64_t OUTLINED_FUNCTION_79_5(uint64_t a1)
+{
+
+  return LocalizedStringResource.init(stringLiteral:)();
+}
+
+uint64_t key path setter for SearchAppEntity.id : SearchAppEntity(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = a1[1];
+
+  return SearchAppEntity.id.setter(v1, v2, v3, v4, v5, v6, v7, v8);
+}
+
+uint64_t (*SearchAppEntity.id.modify())()
+{
+  v1 = OUTLINED_FUNCTION_4_12();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_32_1(v2);
+  *(v0 + 32) = EntityProperty.wrappedValue.modify();
+  return MemoryCreationQUResult.version.modify;
+}
+
+uint64_t key path setter for SearchAppEntity.bundleId : SearchAppEntity(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = a1[1];
+
+  return SearchAppEntity.bundleId.setter(v1, v2, v3, v4, v5, v6, v7, v8);
+}
+
+uint64_t (*SearchAppEntity.bundleId.modify())()
+{
+  v1 = OUTLINED_FUNCTION_4_12();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_32_1(v2);
+  *(v0 + 32) = EntityProperty.wrappedValue.modify();
+  return MemoryCreationQUResult.version.modify;
+}
+
+uint64_t key path setter for SearchAppEntity.typeId : SearchAppEntity(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = a1[1];
+
+  return SearchAppEntity.typeId.setter(v1, v2, v3, v4, v5, v6, v7, v8);
+}
+
+uint64_t (*SearchAppEntity.typeId.modify())()
+{
+  v1 = OUTLINED_FUNCTION_4_12();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_32_1(v2);
+  *(v0 + 32) = EntityProperty.wrappedValue.modify();
+  return MemoryCreationQUResult.version.modify;
+}
+
+uint64_t key path setter for SearchAppEntity.protocolId : SearchAppEntity(uint64_t *a1)
+{
+  v1 = *a1;
+  v2 = a1[1];
+
+  return SearchAppEntity.protocolId.setter(v1, v2, v3, v4, v5, v6, v7, v8);
+}
+
+uint64_t (*SearchAppEntity.protocolId.modify())()
+{
+  v1 = OUTLINED_FUNCTION_4_12();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_32_1(v2);
+  *(v0 + 32) = EntityProperty.wrappedValue.modify();
+  return MemoryCreationQUResult.encodedMemoryCreationQUPerformanceMetrics.modify;
+}
+
+uint64_t (*SearchAppEntity.shouldOpen.modify())()
+{
+  v1 = OUTLINED_FUNCTION_4_12();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_32_1(v2);
+  *(v0 + 32) = EntityProperty.wrappedValue.modify();
+  return MemoryCreationQUResult.version.modify;
+}
+
+uint64_t SearchAppEntity.title.setter()
+{
+  OUTLINED_FUNCTION_93();
+
+  *(v1 + 40) = v2;
+  *(v1 + 48) = v0;
+  return result;
+}
+
+void (*SearchAppEntity.sourceResult.modify())()
+{
+  v0 = OUTLINED_FUNCTION_42_2();
+  type metadata accessor for SearchAppEntity(v0);
+  return _s10OmniSearch11GeoLocationVSgWOi_;
+}
+
+id SearchAppEntity.card.getter()
+{
+  type metadata accessor for TRIClient(0, &lazy cache variable for type metadata for SFCard, 0x277D4C230);
+  v1 = OUTLINED_FUNCTION_42_2();
+  v2 = (v0 + *(type metadata accessor for SearchAppEntity(v1) + 44));
+  v3 = *v2;
+  v4 = v2[1];
+  outlined copy of Data?(*v2, v4);
+  return SFCard.init(data:)(v3, v4);
+}
+
+uint64_t key path setter for SearchAppEntity.card : SearchAppEntity(id *a1)
+{
+  v1 = *a1;
+  v2 = *a1;
+  return SearchAppEntity.card.setter(v1);
+}
+
+uint64_t SearchAppEntity.card.setter(void *a1)
+{
+  v2 = v1;
+  if (a1)
+  {
+    v4 = SFCard.data.getter();
+    v6 = v5;
+  }
+
+  else
+  {
+    v4 = 0;
+    v6 = 0xF000000000000000;
+  }
+
+  v7 = v2 + *(type metadata accessor for SearchAppEntity(0) + 44);
+  result = outlined consume of Data?(*v7, *(v7 + 8));
+  *v7 = v4;
+  *(v7 + 8) = v6;
+  return result;
+}
+
+void (*SearchAppEntity.card.modify(uint64_t a1))(uint64_t a1)
+{
+  *(a1 + 8) = v1;
+  type metadata accessor for TRIClient(0, &lazy cache variable for type metadata for SFCard, 0x277D4C230);
+  v3 = *(type metadata accessor for SearchAppEntity(0) + 44);
+  *(a1 + 16) = v3;
+  v4 = (v1 + v3);
+  v5 = *v4;
+  v6 = v4[1];
+  outlined copy of Data?(*v4, v6);
+  *a1 = SFCard.init(data:)(v5, v6);
+  return SearchAppEntity.card.modify;
+}
+
+void SearchAppEntity.card.modify(uint64_t a1)
+{
+  v2 = OUTLINED_FUNCTION_6_6(a1);
+  if (v3)
+  {
+    v14 = v2;
+    if (v2)
+    {
+      v4 = v2;
+      v5 = SFCard.data.getter();
+      v7 = v6;
+    }
+
+    else
+    {
+      v5 = 0;
+      v7 = 0xF000000000000000;
+    }
+
+    v12 = *(v1 + 8) + *(v1 + 16);
+    outlined consume of Data?(*v12, *(v12 + 8));
+    *v12 = v5;
+    *(v12 + 8) = v7;
+  }
+
+  else
+  {
+    if (v2)
+    {
+      v8 = v2;
+      v9 = SFCard.data.getter();
+      v11 = v10;
+    }
+
+    else
+    {
+      v9 = 0;
+      v11 = 0xF000000000000000;
+    }
+
+    v13 = *(v1 + 8) + *(v1 + 16);
+    outlined consume of Data?(*v13, *(v13 + 8));
+    *v13 = v9;
+    *(v13 + 8) = v11;
+  }
+}
+
+void SearchAppEntity.init()()
+{
+  OUTLINED_FUNCTION_155();
+  v2 = v1;
+  v16 = type metadata accessor for UUID();
+  OUTLINED_FUNCTION_14();
+  v4 = v3;
+  MEMORY[0x28223BE20](v5);
+  OUTLINED_FUNCTION_36();
+  v8 = v7 - v6;
+  v9 = type metadata accessor for LocalizedStringResource();
+  v10 = OUTLINED_FUNCTION_114(v9);
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_36();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSGMd, &_s10AppIntents14EntityPropertyCySSGMR);
+  OUTLINED_FUNCTION_42_8();
+  *v2 = EntityProperty<>.init(title:)();
+  v11 = OUTLINED_FUNCTION_13_10();
+  OUTLINED_FUNCTION_46_10(v11);
+  v2[1] = EntityProperty<>.init(title:)();
+  OUTLINED_FUNCTION_12_16();
+  LocalizedStringResource.init(stringLiteral:)();
+  v2[2] = EntityProperty<>.init(title:)();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
+  OUTLINED_FUNCTION_4_19();
+  LocalizedStringResource.init(stringLiteral:)();
+  v2[3] = EntityProperty<>.init(title:)();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySbGMd, &_s10AppIntents14EntityPropertyCySbGMR);
+  OUTLINED_FUNCTION_5_16();
+  LocalizedStringResource.init(stringLiteral:)();
+  v2[4] = EntityProperty<>.init(title:)();
+  OUTLINED_FUNCTION_44_10();
+  v2[5] = 0;
+  v2[6] = 0;
+  type metadata accessor for SearchResult(0);
+  OUTLINED_FUNCTION_92();
+  __swift_storeEnumTagSinglePayload(v12, v13, v14, v15);
+  *(v2 + *(v0 + 44)) = xmmword_25DBC9410;
+  UUID.init()();
+  UUID.uuidString.getter();
+  (*(v4 + 8))(v8, v16);
+  EntityProperty.wrappedValue.setter();
+  EntityProperty.wrappedValue.setter();
+  EntityProperty.wrappedValue.setter();
+  EntityProperty.wrappedValue.setter();
+  v2[5] = 0;
+  v2[6] = 0;
+  EntityProperty.wrappedValue.setter();
+  OUTLINED_FUNCTION_148();
+}
+
+void SearchAppEntity.init(result:card:updatedBundleId:)()
+{
+  OUTLINED_FUNCTION_155();
+  v65 = v0;
+  v59 = v1;
+  v63 = v2;
+  v4 = v3;
+  v6 = v5;
+  v7 = type metadata accessor for LocalizedStringResource();
+  v8 = OUTLINED_FUNCTION_114(v7);
+  MEMORY[0x28223BE20](v8);
+  OUTLINED_FUNCTION_36();
+  v9 = type metadata accessor for SearchAppEntity(0);
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_109();
+  MEMORY[0x28223BE20](v11);
+  v13 = (&v58 - v12);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSGMd, &_s10AppIntents14EntityPropertyCySSGMR);
+  LocalizedStringResource.init(stringLiteral:)();
+  *v13 = EntityProperty<>.init(title:)();
+  v14 = OUTLINED_FUNCTION_13_10();
+  OUTLINED_FUNCTION_46_10(v14);
+  v13[1] = EntityProperty<>.init(title:)();
+  OUTLINED_FUNCTION_12_16();
+  LocalizedStringResource.init(stringLiteral:)();
+  v13[2] = EntityProperty<>.init(title:)();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
+  OUTLINED_FUNCTION_4_19();
+  LocalizedStringResource.init(stringLiteral:)();
+  v13[3] = EntityProperty<>.init(title:)();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySbGMd, &_s10AppIntents14EntityPropertyCySbGMR);
+  OUTLINED_FUNCTION_5_16();
+  LocalizedStringResource.init(stringLiteral:)();
+  v15 = EntityProperty<>.init(title:)();
+  v13[5] = 0;
+  v13[6] = 0;
+  v13[4] = v15;
+  v16 = *(v9 + 40);
+  v17 = type metadata accessor for SearchResult(0);
+  OUTLINED_FUNCTION_92();
+  __swift_storeEnumTagSinglePayload(v18, v19, v20, v17);
+  v62 = (v13 + *(v9 + 44));
+  *v62 = xmmword_25DBC9410;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMd, &_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMR);
+  v64 = v4;
+  v21 = CodableNSSecureCoding.wrappedValue.getter();
+  v22 = CSSearchableItem.associatedAppEntityId.getter();
+  if (!v23)
+  {
+    goto LABEL_6;
+  }
+
+  v24 = v22;
+  v25 = v23;
+  v60 = v9;
+  v61 = v6;
+  v26 = CSSearchableItem.associatedAppEntityTypeId.getter();
+  if (!v27)
+  {
+
+    v9 = v60;
+LABEL_6:
+
+    if (one-time initialization token for search != -1)
+    {
+      OUTLINED_FUNCTION_1_31();
+      swift_once();
+    }
+
+    v34 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v34, static Logging.search);
+    v35 = Logger.logObject.getter();
+    v36 = static os_log_type_t.debug.getter();
+    if (os_log_type_enabled(v35, v36))
+    {
+      v37 = OUTLINED_FUNCTION_172();
+      *v37 = 0;
+      _os_log_impl(&dword_25D85C000, v35, v36, "Cannot create SearchAppEntity because result.item needs an associatedAppEntityId and associatedAppEntityTypeId", v37, 2u);
+      OUTLINED_FUNCTION_90();
+      MEMORY[0x25F8A1050]();
+    }
+
+    OUTLINED_FUNCTION_0_31();
+    _s10OmniSearch0B6ResultVWOhTm_3();
+    OUTLINED_FUNCTION_1_32();
+    _s10OmniSearch0B6ResultVWOhTm_3();
+    OUTLINED_FUNCTION_92();
+    __swift_storeEnumTagSinglePayload(v38, v39, v40, v9);
+    goto LABEL_27;
+  }
+
+  v28 = v26;
+  v29 = v27;
+  SearchAppEntity.init()();
+  v30 = OUTLINED_FUNCTION_72_2();
+  outlined assign with take of SearchAppEntity(v30, v31);
+  *&v70[0] = v24;
+  *(&v70[0] + 1) = v25;
+
+  EntityProperty.wrappedValue.setter();
+  *&v70[0] = v28;
+  *(&v70[0] + 1) = v29;
+
+  EntityProperty.wrappedValue.setter();
+  v32 = v65;
+  if (v65)
+  {
+
+    v33 = v59;
+    goto LABEL_13;
+  }
+
+  v41 = outlined bridged method (pb) of @objc CSSearchableItem.bundleID.getter(v21);
+  if (v42)
+  {
+    v33 = v41;
+    v32 = v42;
+
+LABEL_13:
+    *&v70[0] = v33;
+    *(&v70[0] + 1) = v32;
+    EntityProperty.wrappedValue.setter();
+    v70[0] = 0uLL;
+    EntityProperty.wrappedValue.setter();
+    v43 = [v21 attributeSet];
+    v45 = v60;
+    v44 = v61;
+    v46 = v64;
+    if (one-time initialization token for keyAttributeAppEntityTitle != -1)
+    {
+      swift_once();
+    }
+
+    v47 = MEMORY[0x25F89F4C0](static LocalIndexClient.keyAttributeAppEntityTitle, *algn_27FCAFD18);
+    v48 = [v43 attributeForKey_];
+
+    if (v48)
+    {
+      _bridgeAnyObjectToAny(_:)();
+      swift_unknownObjectRelease();
+    }
+
+    else
+    {
+      v68 = 0u;
+      v69 = 0u;
+    }
+
+    v70[0] = v68;
+    v70[1] = v69;
+    if (*(&v69 + 1))
+    {
+      if (swift_dynamicCast())
+      {
+        v49 = v66;
+        v50 = v67;
+LABEL_23:
+
+        v13[5] = v49;
+        v13[6] = v50;
+        outlined destroy of IntentApplication?(v13 + v16, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+        _s10OmniSearch0B6ResultVWOcTm_4(v46, v13 + v16, type metadata accessor for SearchResult);
+        __swift_storeEnumTagSinglePayload(v13 + v16, 0, 1, v17);
+        if (v63)
+        {
+          v52 = v63;
+          v53 = SFCard.data.getter();
+          v55 = v54;
+
+          OUTLINED_FUNCTION_0_31();
+          _s10OmniSearch0B6ResultVWOhTm_3();
+        }
+
+        else
+        {
+          OUTLINED_FUNCTION_0_31();
+          _s10OmniSearch0B6ResultVWOhTm_3();
+
+          v53 = 0;
+          v55 = 0xF000000000000000;
+        }
+
+        v56 = v62;
+        outlined consume of Data?(*v62, v62[1]);
+        *v56 = v53;
+        v56[1] = v55;
+        OUTLINED_FUNCTION_3_23();
+        _s10OmniSearch0B6ResultVWOcTm_4(v13, v44, v57);
+        __swift_storeEnumTagSinglePayload(v44, 0, 1, v45);
+        OUTLINED_FUNCTION_1_32();
+        _s10OmniSearch0B6ResultVWOhTm_3();
+LABEL_27:
+        OUTLINED_FUNCTION_148();
+        return;
+      }
+    }
+
+    else
+    {
+      outlined destroy of IntentApplication?(v70, &_sypSgMd, &_sypSgMR);
+    }
+
+    v49 = CSSearchableItem.title.getter();
+    v50 = v51;
+    goto LABEL_23;
+  }
+
+  __break(1u);
+}
+
+uint64_t SearchAppEntity.init(_:)@<X0>(void (*a1)(char *)@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B9AppEntityVSgMd, &_s10OmniSearch0B9AppEntityVSgMR);
+  OUTLINED_FUNCTION_114(v7);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v8);
+  OUTLINED_FUNCTION_36_2();
+  v9 = type metadata accessor for SearchAppEntity.Builder(0);
+  v10 = OUTLINED_FUNCTION_114(v9);
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_109();
+  v13 = v11 - v12;
+  MEMORY[0x28223BE20](v14);
+  v16 = &v23 - v15;
+  *(v16 + 10) = 0;
+  *(v16 + 3) = 0u;
+  *(v16 + 4) = 0u;
+  *(v16 + 1) = 0u;
+  *(v16 + 2) = 0u;
+  *v16 = 0u;
+  type metadata accessor for SearchResult(0);
+  OUTLINED_FUNCTION_92();
+  __swift_storeEnumTagSinglePayload(v17, v18, v19, v20);
+  a1(v16);
+  _s10OmniSearch0B6ResultVWOcTm_4(v16, v13, type metadata accessor for SearchAppEntity.Builder);
+  SearchAppEntity.init(builder:)();
+  OUTLINED_FUNCTION_7_16();
+  _s10OmniSearch0B6ResultVWOhTm_3();
+  OUTLINED_FUNCTION_44_10();
+  if (__swift_getEnumTagSinglePayload(v3, 1, a2))
+  {
+    outlined destroy of IntentApplication?(v3, &_s10OmniSearch0B9AppEntityVSgMd, &_s10OmniSearch0B9AppEntityVSgMR);
+    v21 = 1;
+  }
+
+  else
+  {
+    outlined init with take of SearchAppEntity(v3, a3, type metadata accessor for SearchAppEntity);
+    v21 = 0;
+  }
+
+  return __swift_storeEnumTagSinglePayload(a3, v21, 1, a2);
+}
+
+uint64_t SearchAppEntity.Builder.init()@<X0>(uint64_t a1@<X8>)
+{
+  type metadata accessor for SearchAppEntity.Builder(0);
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 64) = 0u;
+  *(a1 + 80) = 0;
+  type metadata accessor for SearchResult(0);
+  OUTLINED_FUNCTION_92();
+
+  return __swift_storeEnumTagSinglePayload(v2, v3, v4, v5);
+}
+
+void SearchAppEntity.init(builder:)()
+{
+  OUTLINED_FUNCTION_155();
+  v1 = v0;
+  v42 = v2;
+  v3 = type metadata accessor for LocalizedStringResource();
+  v4 = OUTLINED_FUNCTION_114(v3);
+  MEMORY[0x28223BE20](v4);
+  OUTLINED_FUNCTION_36();
+  v5 = type metadata accessor for SearchAppEntity(0);
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x28223BE20](v6);
+  OUTLINED_FUNCTION_36();
+  v9 = (v8 - v7);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSGMd, &_s10AppIntents14EntityPropertyCySSGMR);
+  OUTLINED_FUNCTION_42_8();
+  *v9 = EntityProperty<>.init(title:)();
+  v10 = OUTLINED_FUNCTION_13_10();
+  OUTLINED_FUNCTION_46_10(v10);
+  v9[1] = EntityProperty<>.init(title:)();
+  OUTLINED_FUNCTION_12_16();
+  LocalizedStringResource.init(stringLiteral:)();
+  v9[2] = EntityProperty<>.init(title:)();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
+  OUTLINED_FUNCTION_4_19();
+  LocalizedStringResource.init(stringLiteral:)();
+  v9[3] = EntityProperty<>.init(title:)();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySbGMd, &_s10AppIntents14EntityPropertyCySbGMR);
+  OUTLINED_FUNCTION_5_16();
+  LocalizedStringResource.init(stringLiteral:)();
+  v11 = EntityProperty<>.init(title:)();
+  v9[5] = 0;
+  v9[6] = 0;
+  v9[4] = v11;
+  v12 = *(v5 + 40);
+  type metadata accessor for SearchResult(0);
+  OUTLINED_FUNCTION_92();
+  __swift_storeEnumTagSinglePayload(v13, v14, v15, v16);
+  v17 = v9 + *(v5 + 44);
+  *v17 = xmmword_25DBC9410;
+  if (!v1[1])
+  {
+    if (one-time initialization token for search != -1)
+    {
+      OUTLINED_FUNCTION_1_31();
+      swift_once();
+    }
+
+    v25 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v25, static Logging.search);
+    v26 = Logger.logObject.getter();
+    v27 = static os_log_type_t.fault.getter();
+    v28 = OUTLINED_FUNCTION_20_3();
+    if (!os_log_type_enabled(v28, v29))
+    {
+      goto LABEL_19;
+    }
+
+    v30 = OUTLINED_FUNCTION_172();
+    *v30 = 0;
+    v31 = "Attempting to create SearchAppEntity without id";
+    goto LABEL_18;
+  }
+
+  EntityProperty.wrappedValue.setter();
+  if (!v1[3])
+  {
+    if (one-time initialization token for search != -1)
+    {
+      OUTLINED_FUNCTION_1_31();
+      swift_once();
+    }
+
+    v32 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v32, static Logging.search);
+    v26 = Logger.logObject.getter();
+    v27 = static os_log_type_t.fault.getter();
+    v33 = OUTLINED_FUNCTION_20_3();
+    if (!os_log_type_enabled(v33, v34))
+    {
+      goto LABEL_19;
+    }
+
+    v30 = OUTLINED_FUNCTION_172();
+    *v30 = 0;
+    v31 = "Attempting to create SearchAppEntity without bundleId";
+    goto LABEL_18;
+  }
+
+  EntityProperty.wrappedValue.setter();
+  if (!v1[5])
+  {
+    if (one-time initialization token for search != -1)
+    {
+      OUTLINED_FUNCTION_1_31();
+      swift_once();
+    }
+
+    v35 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v35, static Logging.search);
+    v26 = Logger.logObject.getter();
+    v27 = static os_log_type_t.fault.getter();
+    v36 = OUTLINED_FUNCTION_20_3();
+    if (!os_log_type_enabled(v36, v37))
+    {
+      goto LABEL_19;
+    }
+
+    v30 = OUTLINED_FUNCTION_172();
+    *v30 = 0;
+    v31 = "Attempting to create SearchAppEntity without typeId";
+LABEL_18:
+    _os_log_impl(&dword_25D85C000, v26, v27, v31, v30, 2u);
+    OUTLINED_FUNCTION_90();
+    MEMORY[0x25F8A1050]();
+LABEL_19:
+
+    OUTLINED_FUNCTION_7_16();
+    _s10OmniSearch0B6ResultVWOhTm_3();
+    OUTLINED_FUNCTION_1_32();
+    _s10OmniSearch0B6ResultVWOhTm_3();
+    OUTLINED_FUNCTION_92();
+    __swift_storeEnumTagSinglePayload(v38, v39, v40, v5);
+    goto LABEL_22;
+  }
+
+  EntityProperty.wrappedValue.setter();
+  v18 = type metadata accessor for SearchAppEntity.Builder(0);
+  outlined assign with copy of SearchResult?(v1 + *(v18 + 40), v9 + v12);
+
+  EntityProperty.wrappedValue.setter();
+  v19 = v1[10];
+  v20 = v1[8];
+  v9[5] = v1[9];
+  v9[6] = v19;
+
+  if (v20)
+  {
+    v21 = v20;
+    v22 = SFCard.data.getter();
+    v24 = v23;
+  }
+
+  else
+  {
+    v22 = 0;
+    v24 = 0xF000000000000000;
+  }
+
+  outlined consume of Data?(*v17, *(v17 + 1));
+  *v17 = v22;
+  *(v17 + 1) = v24;
+  OUTLINED_FUNCTION_7_16();
+  _s10OmniSearch0B6ResultVWOhTm_3();
+  OUTLINED_FUNCTION_3_23();
+  _s10OmniSearch0B6ResultVWOcTm_4(v9, v42, v41);
+  __swift_storeEnumTagSinglePayload(v42, 0, 1, v5);
+  OUTLINED_FUNCTION_1_32();
+  _s10OmniSearch0B6ResultVWOhTm_3();
+LABEL_22:
+  OUTLINED_FUNCTION_148();
+}
+
+void SearchAppEntity.convertToSystemIntentValue()()
+{
+  OUTLINED_FUNCTION_155();
+  v2 = v0;
+  v4 = v3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+  OUTLINED_FUNCTION_114(v5);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v6);
+  OUTLINED_FUNCTION_36_2();
+  EntityProperty.wrappedValue.getter();
+  EntityProperty.wrappedValue.getter();
+  v7 = *v0;
+  EntityProperty.wrappedValue.getter();
+  v9 = v2[5];
+  v8 = v2[6];
+  v10 = OUTLINED_FUNCTION_44_10();
+  outlined init with copy of ResourceBundle?(v2 + *(v10 + 40), v1, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+  type metadata accessor for TRIClient(0, &lazy cache variable for type metadata for SFCard, 0x277D4C230);
+  v11 = (v2 + *(v7 + 44));
+  v12 = *v11;
+  v13 = v11[1];
+
+  outlined copy of Data?(v12, v13);
+  v14 = SFCard.init(data:)(v12, v13);
+  if (v14)
+  {
+    v15 = v14;
+    v16 = SFCard.data.getter();
+    v18 = v17;
+  }
+
+  else
+  {
+    v16 = 0;
+    v18 = 0xF000000000000000;
+  }
+
+  *v4 = v21;
+  v4[1] = v22;
+  v4[2] = v21;
+  v4[3] = v22;
+  v4[4] = v21;
+  v4[5] = v22;
+  v4[6] = v9;
+  v4[7] = v8;
+  v19 = type metadata accessor for SearchSpotlightStandardRepresentation(0);
+  outlined init with take of SearchResult?(v1, v4 + *(v19 + 32));
+  v20 = (v4 + *(v19 + 36));
+  *v20 = v16;
+  v20[1] = v18;
+  OUTLINED_FUNCTION_148();
+}
+
+void SearchAppEntity.init(_:)()
+{
+  OUTLINED_FUNCTION_155();
+  v1 = v0;
+  v3 = v2;
+  v4 = type metadata accessor for LocalizedStringResource();
+  v5 = OUTLINED_FUNCTION_114(v4);
+  MEMORY[0x28223BE20](v5);
+  OUTLINED_FUNCTION_36();
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSGMd, &_s10AppIntents14EntityPropertyCySSGMR);
+  LocalizedStringResource.init(stringLiteral:)();
+  *v3 = EntityProperty<>.init(title:)();
+  v7 = OUTLINED_FUNCTION_13_10();
+  OUTLINED_FUNCTION_46_10(v7);
+  v3[1] = EntityProperty<>.init(title:)();
+  OUTLINED_FUNCTION_12_16();
+  LocalizedStringResource.init(stringLiteral:)();
+  v3[2] = EntityProperty<>.init(title:)();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
+  OUTLINED_FUNCTION_4_19();
+  LocalizedStringResource.init(stringLiteral:)();
+  v3[3] = EntityProperty<>.init(title:)();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySbGMd, &_s10AppIntents14EntityPropertyCySbGMR);
+  OUTLINED_FUNCTION_5_16();
+  LocalizedStringResource.init(stringLiteral:)();
+  v3[4] = EntityProperty<>.init(title:)();
+  v8 = OUTLINED_FUNCTION_44_10();
+  v3[5] = 0;
+  v3[6] = 0;
+  v9 = *(v8 + 40);
+  type metadata accessor for SearchResult(0);
+  OUTLINED_FUNCTION_92();
+  __swift_storeEnumTagSinglePayload(v10, v11, v12, v13);
+  v14 = v3 + *(v6 + 44);
+  *v14 = xmmword_25DBC9410;
+
+  EntityProperty.wrappedValue.setter();
+
+  EntityProperty.wrappedValue.setter();
+
+  EntityProperty.wrappedValue.setter();
+  v15 = *(v1 + 56);
+  v3[5] = *(v1 + 48);
+  v3[6] = v15;
+  v16 = type metadata accessor for SearchSpotlightStandardRepresentation(0);
+  v17 = *(v16 + 32);
+
+  outlined assign with copy of SearchResult?(v1 + v17, v3 + v9);
+  v18 = (v1 + *(v16 + 36));
+  v19 = *v18;
+  v20 = v18[1];
+  v21 = *v14;
+  v22 = *(v14 + 1);
+  outlined copy of Data?(*v18, v20);
+  outlined consume of Data?(v21, v22);
+  *v14 = v19;
+  *(v14 + 1) = v20;
+  EntityProperty.wrappedValue.setter();
+  _s10OmniSearch0B6ResultVWOhTm_3();
+  OUTLINED_FUNCTION_148();
+}
+
+Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> SearchAppEntity.validateParameters()()
+{
+  type metadata accessor for SearchAppEntity(0);
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x28223BE20](v1);
+  OUTLINED_FUNCTION_109();
+  v4 = v2 - v3;
+  MEMORY[0x28223BE20](v5);
+  v7 = &v22 - v6;
+  EntityProperty.wrappedValue.getter();
+
+  OUTLINED_FUNCTION_23_12();
+  if (!v8 || (EntityProperty.wrappedValue.getter(), , OUTLINED_FUNCTION_23_12(), !v9) || (EntityProperty.wrappedValue.getter(), , OUTLINED_FUNCTION_23_12(), !v10))
+  {
+    if (one-time initialization token for search != -1)
+    {
+      OUTLINED_FUNCTION_1_31();
+      swift_once();
+    }
+
+    v11 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v11, static Logging.search);
+    OUTLINED_FUNCTION_3_23();
+    _s10OmniSearch0B6ResultVWOcTm_4(v0, v7, v12);
+    v13 = Logger.logObject.getter();
+    v14 = static os_log_type_t.fault.getter();
+    v15 = OUTLINED_FUNCTION_20_3();
+    if (os_log_type_enabled(v15, v16))
+    {
+      v17 = swift_slowAlloc();
+      v18 = swift_slowAlloc();
+      v22 = v18;
+      *v17 = 136315138;
+      OUTLINED_FUNCTION_3_23();
+      _s10OmniSearch0B6ResultVWOcTm_4(v7, v4, v19);
+      String.init<A>(describing:)();
+      OUTLINED_FUNCTION_1_32();
+      _s10OmniSearch0B6ResultVWOhTm_3();
+      v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
+
+      *(v17 + 4) = v20;
+      _os_log_impl(&dword_25D85C000, v13, v14, "AppEntity failed validation: %s", v17, 0xCu);
+      __swift_destroy_boxed_opaque_existential_1Tm(v18);
+      OUTLINED_FUNCTION_90();
+      MEMORY[0x25F8A1050]();
+      OUTLINED_FUNCTION_90();
+      MEMORY[0x25F8A1050]();
+    }
+
+    else
+    {
+
+      OUTLINED_FUNCTION_1_32();
+      _s10OmniSearch0B6ResultVWOhTm_3();
+    }
+
+    lazy protocol witness table accessor for type SearchToolError and conformance SearchToolError();
+    swift_allocError();
+    *v21 = xmmword_25DBC9A70;
+    swift_willThrow();
+  }
+}
+
+void static SearchAppEntity.== infix(_:_:)()
+{
+  OUTLINED_FUNCTION_155();
+  v2 = v1;
+  v4 = v3;
+  type metadata accessor for SearchResult(0);
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x28223BE20](v5);
+  OUTLINED_FUNCTION_36();
+  v8 = v7 - v6;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+  OUTLINED_FUNCTION_114(v9);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v10);
+  v12 = &v32 - v11;
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B6ResultVSg_ADtMd, &_s10OmniSearch0B6ResultVSg_ADtMR);
+  OUTLINED_FUNCTION_17();
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v14);
+  OUTLINED_FUNCTION_36_2();
+  EntityProperty.wrappedValue.getter();
+  v16 = v32;
+  v15 = v33;
+  EntityProperty.wrappedValue.getter();
+  if (v16 == v32 && v15 == v33)
+  {
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_19_11();
+    OUTLINED_FUNCTION_43_8();
+
+    if ((v16 & 1) == 0)
+    {
+      goto LABEL_49;
+    }
+  }
+
+  EntityProperty.wrappedValue.getter();
+  v19 = v32;
+  v18 = v33;
+  EntityProperty.wrappedValue.getter();
+  if (v19 == v32 && v18 == v33)
+  {
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_19_11();
+    OUTLINED_FUNCTION_43_8();
+
+    if ((v19 & 1) == 0)
+    {
+      goto LABEL_49;
+    }
+  }
+
+  EntityProperty.wrappedValue.getter();
+  v22 = v32;
+  v21 = v33;
+  EntityProperty.wrappedValue.getter();
+  if (v22 == v32 && v21 == v33)
+  {
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_19_11();
+    OUTLINED_FUNCTION_43_8();
+
+    if ((v22 & 1) == 0)
+    {
+      goto LABEL_49;
+    }
+  }
+
+  EntityProperty.wrappedValue.getter();
+  v25 = v32;
+  v24 = v33;
+  EntityProperty.wrappedValue.getter();
+  if (!v24)
+  {
+    if (!v33)
+    {
+      goto LABEL_34;
+    }
+
+LABEL_31:
+
+    goto LABEL_49;
+  }
+
+  if (!v33)
+  {
+    goto LABEL_31;
+  }
+
+  if (v25 == v32 && v24 == v33)
+  {
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_19_11();
+    OUTLINED_FUNCTION_43_8();
+
+    if ((v25 & 1) == 0)
+    {
+      goto LABEL_49;
+    }
+  }
+
+LABEL_34:
+  v27 = *(v4 + 48);
+  v28 = *(v2 + 48);
+  if (!v27)
+  {
+    if (v28)
+    {
+      goto LABEL_49;
+    }
+
+LABEL_43:
+    v30 = *(type metadata accessor for SearchAppEntity(0) + 40);
+    v31 = *(v13 + 48);
+    outlined init with copy of ResourceBundle?(v4 + v30, v0, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+    outlined init with copy of ResourceBundle?(v2 + v30, v0 + v31, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+    if (OUTLINED_FUNCTION_28_10(v0) == 1)
+    {
+      if (OUTLINED_FUNCTION_28_10(v0 + v31) == 1)
+      {
+        outlined destroy of IntentApplication?(v0, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+        goto LABEL_49;
+      }
+    }
+
+    else
+    {
+      outlined init with copy of ResourceBundle?(v0, v12, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+      if (OUTLINED_FUNCTION_28_10(v0 + v31) != 1)
+      {
+        outlined init with take of SearchAppEntity(v0 + v31, v8, type metadata accessor for SearchResult);
+        static SearchResult.== infix(_:_:)();
+        _s10OmniSearch0B6ResultVWOhTm_3();
+        _s10OmniSearch0B6ResultVWOhTm_3();
+        outlined destroy of IntentApplication?(v0, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+        goto LABEL_49;
+      }
+
+      OUTLINED_FUNCTION_0_31();
+      _s10OmniSearch0B6ResultVWOhTm_3();
+    }
+
+    outlined destroy of IntentApplication?(v0, &_s10OmniSearch0B6ResultVSg_ADtMd, &_s10OmniSearch0B6ResultVSg_ADtMR);
+    goto LABEL_49;
+  }
+
+  if (v28)
+  {
+    v29 = *(v4 + 40) == *(v2 + 40) && v27 == v28;
+    if (v29 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+    {
+      goto LABEL_43;
+    }
+  }
+
+LABEL_49:
+  OUTLINED_FUNCTION_148();
+}
+
+uint64_t SearchAppEntity.Builder.id.setter()
+{
+  OUTLINED_FUNCTION_93();
+
+  *v1 = v2;
+  v1[1] = v0;
+  return result;
+}
+
+uint64_t SearchAppEntity.Builder.bundleId.setter()
+{
+  OUTLINED_FUNCTION_93();
+
+  *(v1 + 16) = v2;
+  *(v1 + 24) = v0;
+  return result;
+}
+
+uint64_t SearchAppEntity.Builder.typeId.setter()
+{
+  OUTLINED_FUNCTION_93();
+
+  *(v1 + 32) = v2;
+  *(v1 + 40) = v0;
+  return result;
+}
+
+uint64_t SearchAppEntity.Builder.protocolId.setter()
+{
+  OUTLINED_FUNCTION_93();
+
+  *(v1 + 48) = v2;
+  *(v1 + 56) = v0;
+  return result;
+}
+
+void *SearchAppEntity.Builder.card.getter()
+{
+  v1 = *(v0 + 64);
+  v2 = v1;
+  return v1;
+}
+
+uint64_t SearchAppEntity.Builder.title.setter()
+{
+  OUTLINED_FUNCTION_93();
+
+  *(v1 + 72) = v2;
+  *(v1 + 80) = v0;
+  return result;
+}
+
+uint64_t SearchAppEntity.sourceResult.setter()
+{
+  v2 = OUTLINED_FUNCTION_42_2();
+  v4 = v1 + *(v3(v2) + 40);
+
+  return outlined assign with take of SearchResult?(v0, v4);
+}
+
+void (*SearchAppEntity.Builder.sourceResult.modify())()
+{
+  v0 = OUTLINED_FUNCTION_42_2();
+  type metadata accessor for SearchAppEntity.Builder(v0);
+  return _s10OmniSearch11GeoLocationVSgWOi_;
+}
+
+uint64_t SearchAppEntity.Builder.init(id:bundleId:typeId:protocolId:card:title:sourceResult:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, __int128 a10, uint64_t a11, uint64_t a12)
+{
+  *a9 = a1;
+  *(a9 + 8) = a2;
+  *(a9 + 16) = a3;
+  *(a9 + 24) = a4;
+  *(a9 + 32) = a5;
+  *(a9 + 40) = a6;
+  *(a9 + 48) = a7;
+  *(a9 + 56) = a8;
+  *(a9 + 64) = a10;
+  *(a9 + 80) = a11;
+  v12 = a9 + *(type metadata accessor for SearchAppEntity.Builder(0) + 40);
+
+  return outlined init with take of SearchResult?(a12, v12);
+}
+
+uint64_t SearchAppEntity.typeDisplayRepresentation.unsafeMutableAddressor()
+{
+  if (one-time initialization token for typeDisplayRepresentation != -1)
+  {
+    OUTLINED_FUNCTION_6_9(&one-time initialization token for typeDisplayRepresentation);
+  }
+
+  v0 = type metadata accessor for TypeDisplayRepresentation();
+
+  return __swift_project_value_buffer(v0, static SearchAppEntity.typeDisplayRepresentation);
+}
+
+uint64_t static SearchAppEntity.typeDisplayRepresentation.getter@<X0>(uint64_t a1@<X8>)
+{
+  if (one-time initialization token for typeDisplayRepresentation != -1)
+  {
+    OUTLINED_FUNCTION_6_9(&one-time initialization token for typeDisplayRepresentation);
+  }
+
+  v2 = type metadata accessor for TypeDisplayRepresentation();
+  v3 = __swift_project_value_buffer(v2, static SearchAppEntity.typeDisplayRepresentation);
+  swift_beginAccess();
+  return (*(*(v2 - 8) + 16))(a1, v3, v2);
+}
+
+uint64_t static SearchAppEntity.typeDisplayRepresentation.setter(uint64_t a1)
+{
+  if (one-time initialization token for typeDisplayRepresentation != -1)
+  {
+    OUTLINED_FUNCTION_6_9(&one-time initialization token for typeDisplayRepresentation);
+  }
+
+  v2 = type metadata accessor for TypeDisplayRepresentation();
+  v3 = __swift_project_value_buffer(v2, static SearchAppEntity.typeDisplayRepresentation);
+  swift_beginAccess();
+  (*(*(v2 - 8) + 24))(v3, a1, v2);
+  swift_endAccess();
+  v4 = OUTLINED_FUNCTION_94();
+  return v5(v4);
+}
+
+uint64_t (*static SearchAppEntity.typeDisplayRepresentation.modify(uint64_t a1))(uint64_t a1)
+{
+  if (one-time initialization token for typeDisplayRepresentation != -1)
+  {
+    OUTLINED_FUNCTION_6_9(&one-time initialization token for typeDisplayRepresentation);
+  }
+
+  v1 = type metadata accessor for TypeDisplayRepresentation();
+  __swift_project_value_buffer(v1, static SearchAppEntity.typeDisplayRepresentation);
+  swift_beginAccess();
+  return static FlightSnippet.Status.allCases.modify;
+}
+
+uint64_t key path getter for static SearchAppEntity.typeDisplayRepresentation : SearchAppEntity.Type@<X0>(uint64_t a1@<X8>)
+{
+  v2 = SearchAppEntity.typeDisplayRepresentation.unsafeMutableAddressor();
+  swift_beginAccess();
+  v3 = type metadata accessor for TypeDisplayRepresentation();
+  return (*(*(v3 - 8) + 16))(a1, v2, v3);
+}
+
+uint64_t key path setter for static SearchAppEntity.typeDisplayRepresentation : SearchAppEntity.Type(uint64_t a1)
+{
+  v2 = SearchAppEntity.typeDisplayRepresentation.unsafeMutableAddressor();
+  swift_beginAccess();
+  v3 = type metadata accessor for TypeDisplayRepresentation();
+  (*(*(v3 - 8) + 24))(v2, a1, v3);
+  return swift_endAccess();
+}
+
+void SearchAppEntity.displayRepresentation.getter()
+{
+  OUTLINED_FUNCTION_155();
+  v2 = v0;
+  v60 = v3;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents21DisplayRepresentationV5ImageVSgMd, &_s10AppIntents21DisplayRepresentationV5ImageVSgMR);
+  OUTLINED_FUNCTION_114(v4);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v5);
+  v58[2] = v58 - v6;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
+  OUTLINED_FUNCTION_114(v7);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v8);
+  v58[1] = v58 - v9;
+  type metadata accessor for SearchAppEntity(0);
+  OUTLINED_FUNCTION_17();
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_109();
+  v58[0] = v11 - v12;
+  MEMORY[0x28223BE20](v13);
+  v15 = v58 - v14;
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
+  OUTLINED_FUNCTION_114(v16);
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v17);
+  OUTLINED_FUNCTION_36_2();
+  v18 = type metadata accessor for String.LocalizationValue.StringInterpolation();
+  v19 = OUTLINED_FUNCTION_114(v18);
+  MEMORY[0x28223BE20](v19);
+  OUTLINED_FUNCTION_36();
+  v20 = type metadata accessor for LocalizedStringResource();
+  OUTLINED_FUNCTION_14();
+  v22 = v21;
+  MEMORY[0x28223BE20](v23);
+  OUTLINED_FUNCTION_109();
+  v59 = v24 - v25;
+  MEMORY[0x28223BE20](v26);
+  v28 = v58 - v27;
+  if (*(v0 + 48))
+  {
+    String.LocalizationValue.StringInterpolation.init(literalCapacity:interpolationCount:)();
+    v29._countAndFlagsBits = 0;
+    v29._object = 0xE000000000000000;
+    String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v29);
+    v30._countAndFlagsBits = OUTLINED_FUNCTION_72_2();
+    String.LocalizationValue.StringInterpolation.appendInterpolation(_:)(v30);
+    v31._countAndFlagsBits = 0;
+    v31._object = 0xE000000000000000;
+    String.LocalizationValue.StringInterpolation.appendLiteral(_:)(v31);
+    LocalizedStringResource.init(stringInterpolation:)();
+  }
+
+  else
+  {
+    LocalizedStringResource.init(stringLiteral:)();
+  }
+
+  type metadata accessor for TRIClient(0, &lazy cache variable for type metadata for SFCard, 0x277D4C230);
+  v32 = OUTLINED_FUNCTION_72_2();
+  outlined copy of Data?(v32, v33);
+  v34 = OUTLINED_FUNCTION_72_2();
+  v36 = SFCard.init(data:)(v34, v35);
+  if (v36)
+  {
+    v37 = v36;
+    SFCard.snippetPluginModel.getter(v1);
+
+    v38 = type metadata accessor for RGPluginModel();
+    if (__swift_getEnumTagSinglePayload(v1, 1, v38) == 1)
+    {
+      outlined destroy of IntentApplication?(v1, &_s16IntelligenceFlow13RGPluginModelOSgMd, &_s16IntelligenceFlow13RGPluginModelOSgMR);
+    }
+
+    else
+    {
+      _s16IntelligenceFlow13RGPluginModelOAC10SnippetKit0e6PluginD0AAWlTm_1(&lazy protocol witness table cache variable for type RGPluginModel and conformance RGPluginModel);
+      SnippetPluginModel.data.getter();
+      v40 = v39;
+      (*(*(v38 - 8) + 8))(v1, v38);
+      if (v40 >> 60 != 15)
+      {
+        (*(v22 + 16))(v59, v28, v20);
+        static RGPluginModel.bundleName.getter();
+        DisplayRepresentation.init(title:snippetPluginModelData:bundleIdentifier:)();
+        goto LABEL_14;
+      }
+    }
+  }
+
+  if (one-time initialization token for search != -1)
+  {
+    OUTLINED_FUNCTION_1_31();
+    swift_once();
+  }
+
+  v41 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v41, static Logging.search);
+  OUTLINED_FUNCTION_3_23();
+  _s10OmniSearch0B6ResultVWOcTm_4(v2, v15, v42);
+  v43 = Logger.logObject.getter();
+  v44 = static os_log_type_t.error.getter();
+  v45 = OUTLINED_FUNCTION_20_3();
+  if (os_log_type_enabled(v45, v46))
+  {
+    v47 = swift_slowAlloc();
+    v48 = swift_slowAlloc();
+    v61 = v48;
+    *v47 = 136315138;
+    OUTLINED_FUNCTION_3_23();
+    _s10OmniSearch0B6ResultVWOcTm_4(v15, v58[0], v49);
+    String.init<A>(describing:)();
+    OUTLINED_FUNCTION_1_32();
+    _s10OmniSearch0B6ResultVWOhTm_3();
+    v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)();
+
+    *(v47 + 4) = v50;
+    _os_log_impl(&dword_25D85C000, v43, v44, "Unexpected fallback to use title only displayRepresentation for entity: %s", v47, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v48);
+    OUTLINED_FUNCTION_90();
+    MEMORY[0x25F8A1050]();
+    OUTLINED_FUNCTION_90();
+    MEMORY[0x25F8A1050]();
+  }
+
+  else
+  {
+
+    OUTLINED_FUNCTION_1_32();
+    _s10OmniSearch0B6ResultVWOhTm_3();
+  }
+
+  (*(v22 + 16))(v59, v28, v20);
+  OUTLINED_FUNCTION_92();
+  __swift_storeEnumTagSinglePayload(v51, v52, v53, v20);
+  type metadata accessor for DisplayRepresentation.Image();
+  OUTLINED_FUNCTION_92();
+  __swift_storeEnumTagSinglePayload(v54, v55, v56, v57);
+  DisplayRepresentation.init(title:subtitle:image:)();
+LABEL_14:
+  (*(v22 + 8))(v28, v20);
+  OUTLINED_FUNCTION_148();
+}
+
+uint64_t SearchAppEntity.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
+{
+  v3 = a1 == 25705 && a2 == 0xE200000000000000;
+  if (v3 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 0;
+  }
+
+  else
+  {
+    v6 = a1 == 0x6449656C646E7562 && a2 == 0xE800000000000000;
+    if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+    {
+
+      return 1;
+    }
+
+    else
+    {
+      v7 = a1 == 0x644965707974 && a2 == 0xE600000000000000;
+      if (v7 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+      {
+
+        return 2;
+      }
+
+      else
+      {
+        v8 = a1 == 0x6C6F636F746F7270 && a2 == 0xEA00000000006449;
+        if (v8 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+        {
+
+          return 3;
+        }
+
+        else
+        {
+          v9 = a1 == 0x704F646C756F6873 && a2 == 0xEA00000000006E65;
+          if (v9 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+          {
+
+            return 4;
+          }
+
+          else
+          {
+            v10 = a1 == 0x656C746974 && a2 == 0xE500000000000000;
+            if (v10 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+            {
+
+              return 5;
+            }
+
+            else
+            {
+              v11 = a1 == 0x6552656372756F73 && a2 == 0xEC000000746C7573;
+              if (v11 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+              {
+
+                return 6;
+              }
+
+              else if (a1 == 0x6174614464726163 && a2 == 0xE800000000000000)
+              {
+
+                return 7;
+              }
+
+              else
+              {
+                v13 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+                if (v13)
+                {
+                  return 7;
+                }
+
+                else
+                {
+                  return 8;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+uint64_t SearchAppEntity.CodingKeys.stringValue.getter(char a1)
+{
+  result = 25705;
+  switch(a1)
+  {
+    case 1:
+      result = 0x6449656C646E7562;
+      break;
+    case 2:
+      result = 0x644965707974;
+      break;
+    case 3:
+      result = 0x6C6F636F746F7270;
+      break;
+    case 4:
+      result = 0x704F646C756F6873;
+      break;
+    case 5:
+      result = 0x656C746974;
+      break;
+    case 6:
+      result = 0x6552656372756F73;
+      break;
+    case 7:
+      result = 0x6174614464726163;
+      break;
+    default:
+      return result;
+  }
+
+  return result;
+}
+
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance SearchAppEntity.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+{
+  result = SearchAppEntity.CodingKeys.init(stringValue:)(a1, a2);
+  *a3 = result;
+  return result;
+}
+
+uint64_t protocol witness for CodingKey.init(intValue:) in conformance SearchAppEntity.CodingKeys@<X0>(_BYTE *a1@<X8>)
+{
+  result = SearchAppEntity.CodingKeys.init(intValue:)();
+  *a1 = result;
+  return result;
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance SearchAppEntity.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type SearchAppEntity.CodingKeys and conformance SearchAppEntity.CodingKeys();
+
+  return MEMORY[0x2821FE718](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance SearchAppEntity.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type SearchAppEntity.CodingKeys and conformance SearchAppEntity.CodingKeys();
+
+  return MEMORY[0x2821FE720](a1, v2);
+}
+
+uint64_t SearchAppEntity.encode(to:)(void *a1)
+{
+  v3 = v1;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10OmniSearch0E9AppEntityV10CodingKeys33_1C75C43BB922B7824D57A3AB68D2F1C3LLOGMd, &_ss22KeyedEncodingContainerVy10OmniSearch0E9AppEntityV10CodingKeys33_1C75C43BB922B7824D57A3AB68D2F1C3LLOGMR);
+  OUTLINED_FUNCTION_14();
+  v7 = v6;
+  OUTLINED_FUNCTION_77_0();
+  MEMORY[0x28223BE20](v8);
+  v10 = &v15 - v9;
+  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  lazy protocol witness table accessor for type SearchAppEntity.CodingKeys and conformance SearchAppEntity.CodingKeys();
+  OUTLINED_FUNCTION_40_12();
+  dispatch thunk of Encoder.container<A>(keyedBy:)();
+  v16 = *v3;
+  v18 = 0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSGMd, &_s10AppIntents14EntityPropertyCySSGMR);
+  lazy protocol witness table accessor for type EntityProperty<String> and conformance <> EntityProperty<A>();
+  OUTLINED_FUNCTION_11_15();
+  OUTLINED_FUNCTION_40_12();
+  OUTLINED_FUNCTION_26_8();
+  KeyedEncodingContainer.encode<A>(_:forKey:)();
+  if (!v2)
+  {
+    v16 = v3[1];
+    v18 = 1;
+    OUTLINED_FUNCTION_11_15();
+    OUTLINED_FUNCTION_40_12();
+    OUTLINED_FUNCTION_26_8();
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+    v16 = v3[2];
+    v18 = 2;
+    OUTLINED_FUNCTION_11_15();
+    OUTLINED_FUNCTION_40_12();
+    OUTLINED_FUNCTION_26_8();
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+    v16 = v3[3];
+    v18 = 3;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySSSgGMd, &_s10AppIntents14EntityPropertyCySSSgGMR);
+    lazy protocol witness table accessor for type EntityProperty<String?> and conformance <> EntityProperty<A>();
+    OUTLINED_FUNCTION_11_15();
+    OUTLINED_FUNCTION_26_8();
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+    v16 = v3[4];
+    v18 = 4;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents14EntityPropertyCySbGMd, &_s10AppIntents14EntityPropertyCySbGMR);
+    lazy protocol witness table accessor for type EntityProperty<Bool> and conformance <> EntityProperty<A>();
+    OUTLINED_FUNCTION_11_15();
+    OUTLINED_FUNCTION_26_8();
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+    LOBYTE(v16) = 5;
+    OUTLINED_FUNCTION_26_8();
+    KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
+    v11 = type metadata accessor for SearchAppEntity(0);
+    LOBYTE(v16) = 6;
+    type metadata accessor for SearchResult(0);
+    _s16IntelligenceFlow13RGPluginModelOAC10SnippetKit0e6PluginD0AAWlTm_1(&lazy protocol witness table cache variable for type SearchResult and conformance SearchResult);
+    OUTLINED_FUNCTION_26_8();
+    KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
+    v12 = (v3 + *(v11 + 44));
+    v13 = v12[1];
+    v16 = *v12;
+    v17 = v13;
+    v18 = 7;
+    outlined copy of Data?(v16, v13);
+    lazy protocol witness table accessor for type Data and conformance Data();
+    OUTLINED_FUNCTION_11_15();
+    OUTLINED_FUNCTION_26_8();
+    KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
+    outlined consume of Data?(v16, v17);
+  }
+
+  return (*(v7 + 8))(v10, v5);
+}
+
+uint64_t protocol witness for static AppEntity.defaultQuery.getter in conformance SearchAppEntity(uint64_t a1)
+{
+  v2 = _s16IntelligenceFlow13RGPluginModelOAC10SnippetKit0e6PluginD0AAWlTm_1(&lazy protocol witness table cache variable for type SearchAppEntity and conformance SearchAppEntity);
+
+  return MEMORY[0x28210B2E8](a1, v2);
+}
+
+uint64_t protocol witness for static Transferable.transferRepresentation.getter in conformance SearchAppEntity(uint64_t a1)
+{
+  v2 = _s16IntelligenceFlow13RGPluginModelOAC10SnippetKit0e6PluginD0AAWlTm_1(&lazy protocol witness table cache variable for type SearchAppEntity and conformance SearchAppEntity);
+
+  return MEMORY[0x28210C5A0](a1, v2);
+}
+
+uint64_t protocol witness for Identifiable.id.getter in conformance SearchAppEntity@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+{
+  result = SearchAppEntity.id.getter(a1);
+  *a2 = result;
+  a2[1] = v4;
+  return result;
+}
+
+uint64_t protocol witness for static _IntentValue.defaultResolverSpecification.getter in conformance SearchAppEntity(uint64_t a1)
+{
+  v2 = _s16IntelligenceFlow13RGPluginModelOAC10SnippetKit0e6PluginD0AAWlTm_1(&lazy protocol witness table cache variable for type SearchAppEntity and conformance SearchAppEntity);
+
+  return MEMORY[0x28210B488](a1, v2);
+}
+
+uint64_t protocol witness for CustomLocalizedStringResourceConvertible.localizedStringResource.getter in conformance SearchAppEntity(uint64_t a1)
+{
+  v2 = _s16IntelligenceFlow13RGPluginModelOAC10SnippetKit0e6PluginD0AAWlTm_1(&lazy protocol witness table cache variable for type SearchAppEntity and conformance SearchAppEntity);
+
+  return MEMORY[0x28210C4B8](a1, v2);
+}
+
+void SearchAppEntity.asNLGEntity.getter()
+{
+  OUTLINED_FUNCTION_155();
+  v2 = v1;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v4 = OUTLINED_FUNCTION_114(v3);
+  MEMORY[0x28223BE20](v4);
+  OUTLINED_FUNCTION_109();
+  v7 = v5 - v6;
+  MEMORY[0x28223BE20](v8);
+  v10 = &v32 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+  v12 = OUTLINED_FUNCTION_114(v11);
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_109();
+  v15 = v13 - v14;
+  MEMORY[0x28223BE20](v16);
+  v18 = &v32 - v17;
+  SearchNLGEntity.init()(v2);
+  type metadata accessor for LocalIndexClient();
+  EntityProperty.wrappedValue.getter();
+  v19 = static LocalIndexClient.displayName(for:)(v32, v33);
+  v21 = v20;
+
+  v32 = v19;
+  v33 = v21;
+  EntityProperty.wrappedValue.setter();
+  v22 = *(v0 + 48);
+  v32 = *(v0 + 40);
+  v33 = v22;
+
+  EntityProperty.wrappedValue.setter();
+  v23 = *(type metadata accessor for SearchAppEntity(0) + 40);
+  outlined init with copy of ResourceBundle?(v0 + v23, v18, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+  v24 = type metadata accessor for SearchResult(0);
+  if (__swift_getEnumTagSinglePayload(v18, 1, v24) == 1)
+  {
+    outlined destroy of IntentApplication?(v18, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+    v25 = 0;
+  }
+
+  else
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMd, &_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMR);
+    v26 = CodableNSSecureCoding.wrappedValue.getter();
+    OUTLINED_FUNCTION_0_31();
+    _s10OmniSearch0B6ResultVWOhTm_3();
+    v25 = CSSearchableItem.senderNames.getter();
+  }
+
+  v32 = v25;
+  EntityProperty.wrappedValue.setter();
+  outlined init with copy of ResourceBundle?(v0 + v23, v15, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+  if (__swift_getEnumTagSinglePayload(v15, 1, v24) == 1)
+  {
+    outlined destroy of IntentApplication?(v15, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+    type metadata accessor for Date();
+    OUTLINED_FUNCTION_92();
+    __swift_storeEnumTagSinglePayload(v27, v28, v29, v30);
+  }
+
+  else
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMd, &_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMR);
+    v31 = CodableNSSecureCoding.wrappedValue.getter();
+    OUTLINED_FUNCTION_0_31();
+    _s10OmniSearch0B6ResultVWOhTm_3();
+    CSSearchableItem.contentCreationDate.getter(v10);
+  }
+
+  outlined init with copy of ResourceBundle?(v10, v7, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  EntityProperty.wrappedValue.setter();
+  outlined destroy of IntentApplication?(v10, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_148();
+}
+
+uint64_t SearchAppEntity.asCATEntity.getter(uint64_t a1)
+{
+  v2[15] = a1;
+  v2[16] = v1;
+  v3 = type metadata accessor for SearchResultItem(0);
+  OUTLINED_FUNCTION_114(v3);
+  v2[17] = swift_task_alloc();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  OUTLINED_FUNCTION_114(v4);
+  v2[18] = swift_task_alloc();
+  v2[19] = swift_task_alloc();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+  OUTLINED_FUNCTION_114(v5);
+  v2[20] = swift_task_alloc();
+  v2[21] = swift_task_alloc();
+  v2[22] = swift_task_alloc();
+  v2[23] = swift_task_alloc();
+  v2[24] = swift_task_alloc();
+  v2[25] = swift_task_alloc();
+  v2[26] = swift_task_alloc();
+  v2[27] = swift_task_alloc();
+  v2[28] = swift_task_alloc();
+  v2[29] = swift_task_alloc();
+
+  return MEMORY[0x2822009F8](SearchAppEntity.asCATEntity.getter);
+}
+
+{
+  v81 = v1;
+  v2 = *(v1 + 232);
+  v3 = *(v1 + 128);
+  SearchCATEntity.init()(*(v1 + 120));
+  type metadata accessor for LocalIndexClient();
+  EntityProperty.wrappedValue.getter();
+  v4 = static LocalIndexClient.displayName(for:)(*(v1 + 16), *(v1 + 24));
+  v6 = v5;
+
+  type metadata accessor for SearchCATEntity(0);
+  *(v1 + 32) = v4;
+  *(v1 + 40) = v6;
+  EntityProperty.wrappedValue.setter();
+  v7 = *(type metadata accessor for SearchAppEntity(0) + 40);
+  outlined init with copy of ResourceBundle?(v3 + v7, v2, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+  type metadata accessor for SearchResult(0);
+  if (OUTLINED_FUNCTION_28_10(v2) == 1)
+  {
+    outlined destroy of IntentApplication?(*(v1 + 232), &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+    v8 = 0;
+    v9 = 0;
+  }
+
+  else
+  {
+    SearchResultItem.type.getter(&v80);
+    OUTLINED_FUNCTION_0_31();
+    _s10OmniSearch0B6ResultVWOhTm_3();
+    SearchResultKey.rawValue.getter();
+  }
+
+  v10 = *(v1 + 224);
+  v11 = *(v1 + 128);
+  *(v1 + 48) = v8;
+  *(v1 + 56) = v9;
+  EntityProperty.wrappedValue.setter();
+  v12 = *(v11 + 48);
+  *(v1 + 64) = *(v11 + 40);
+  *(v1 + 72) = v12;
+
+  EntityProperty.wrappedValue.setter();
+  outlined init with copy of ResourceBundle?(v3 + v7, v10, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+  if (OUTLINED_FUNCTION_28_10(v10) == 1)
+  {
+    outlined destroy of IntentApplication?(*(v1 + 224), &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+    v13 = 0;
+  }
+
+  else
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMd, &_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMR);
+    v14 = CodableNSSecureCoding.wrappedValue.getter();
+    OUTLINED_FUNCTION_0_31();
+    _s10OmniSearch0B6ResultVWOhTm_3();
+    v13 = CSSearchableItem.senderNames.getter();
+  }
+
+  v15 = *(v1 + 216);
+  *(v1 + 112) = v13;
+  EntityProperty.wrappedValue.setter();
+  outlined init with copy of ResourceBundle?(v3 + v7, v15, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+  v16 = OUTLINED_FUNCTION_28_10(v15);
+  v17 = *(v1 + 152);
+  if (v16 == 1)
+  {
+    outlined destroy of IntentApplication?(*(v1 + 216), &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+    type metadata accessor for Date();
+    OUTLINED_FUNCTION_92();
+    __swift_storeEnumTagSinglePayload(v18, v19, v20, v21);
+  }
+
+  else
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMd, &_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMR);
+    v22 = CodableNSSecureCoding.wrappedValue.getter();
+    OUTLINED_FUNCTION_0_31();
+    _s10OmniSearch0B6ResultVWOhTm_3();
+    CSSearchableItem.contentCreationDate.getter(v17);
+  }
+
+  v23 = *(v1 + 208);
+  v24 = *(v1 + 152);
+  outlined init with copy of ResourceBundle?(v24, *(v1 + 144), &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  EntityProperty.wrappedValue.setter();
+  outlined destroy of IntentApplication?(v24, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  outlined init with copy of ResourceBundle?(v3 + v7, v23, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+  if (OUTLINED_FUNCTION_28_10(v23) == 1)
+  {
+    outlined destroy of IntentApplication?(*(v1 + 208), &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+    goto LABEL_16;
+  }
+
+  OUTLINED_FUNCTION_16_15();
+  OUTLINED_FUNCTION_0_31();
+  _s10OmniSearch0B6ResultVWOhTm_3();
+  SearchResultItem.type.getter(&v79);
+  OUTLINED_FUNCTION_20_7();
+  if (v79 != 31 && (specialized == infix<A>(_:_:)(v79, 0) & 1) != 0)
+  {
+    outlined init with copy of ResourceBundle?(v3 + v7, *(v1 + 200), &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+    if (OUTLINED_FUNCTION_22_11() == 1)
+    {
+      outlined destroy of IntentApplication?(*(v1 + 200), &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+    }
+
+    else
+    {
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMd, &_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMR);
+      v38 = CodableNSSecureCoding.wrappedValue.getter();
+      OUTLINED_FUNCTION_0_31();
+      _s10OmniSearch0B6ResultVWOhTm_3();
+      v39 = CSSearchableItem.senderNames.getter();
+
+      if (v39)
+      {
+        if (v39[2])
+        {
+          v40 = v39[4];
+          v41 = v39[5];
+
+          goto LABEL_35;
+        }
+      }
+    }
+
+    outlined init with copy of ResourceBundle?(v3 + v7, *(v1 + 192), &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+    if (OUTLINED_FUNCTION_22_11() == 1)
+    {
+      outlined destroy of IntentApplication?(*(v1 + 192), &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+LABEL_66:
+      v40 = 0;
+      v41 = 0;
+      goto LABEL_67;
+    }
+
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMd, &_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMR);
+    v46 = CodableNSSecureCoding.wrappedValue.getter();
+    OUTLINED_FUNCTION_0_31();
+    _s10OmniSearch0B6ResultVWOhTm_3();
+    v47 = [v46 attributeSet];
+
+    v48 = outlined bridged method (ob) of @objc CSSearchableItemAttributeSet.authorAddresses.getter(v47, &selRef_authorEmailAddresses);
+    if (!v48)
+    {
+      goto LABEL_66;
+    }
+
+    if (!v48[2])
+    {
+
+      goto LABEL_66;
+    }
+
+    v40 = v48[4];
+    v41 = v48[5];
+
+LABEL_35:
+
+LABEL_67:
+    *(v1 + 96) = v40;
+    *(v1 + 104) = v41;
+    EntityProperty.wrappedValue.setter();
+    goto LABEL_68;
+  }
+
+LABEL_16:
+  outlined init with copy of ResourceBundle?(v3 + v7, *(v1 + 184), &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+  if (OUTLINED_FUNCTION_22_11() == 1)
+  {
+    v25 = *(v1 + 184);
+LABEL_18:
+    outlined destroy of IntentApplication?(v25, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+    goto LABEL_68;
+  }
+
+  OUTLINED_FUNCTION_16_15();
+  OUTLINED_FUNCTION_0_31();
+  _s10OmniSearch0B6ResultVWOhTm_3();
+  SearchResultItem.type.getter(&v78);
+  OUTLINED_FUNCTION_20_7();
+  if (v78 != 31)
+  {
+    v26 = specialized == infix<A>(_:_:)(v78, 1);
+    if (v26)
+    {
+      OUTLINED_FUNCTION_38_12(v26, v27, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR, v28, v29, v30, v31, v68, v71, v1 + 32, v3);
+      if (OUTLINED_FUNCTION_22_11() == 1)
+      {
+        v32 = outlined destroy of IntentApplication?(*(v1 + 176), &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+      }
+
+      else
+      {
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMd, &_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMR);
+        v42 = CodableNSSecureCoding.wrappedValue.getter();
+        OUTLINED_FUNCTION_0_31();
+        _s10OmniSearch0B6ResultVWOhTm_3();
+        v43 = [v42 attributeSet];
+
+        v32 = outlined bridged method (ob) of @objc CSSearchableItemAttributeSet.authorNames.getter(v43);
+        if (v32)
+        {
+          if (v32[2])
+          {
+            v45 = v32[4];
+            v44 = v32[5];
+
+            goto LABEL_38;
+          }
+        }
+      }
+
+      v45 = 0;
+      v44 = 0;
+LABEL_38:
+      OUTLINED_FUNCTION_38_12(v32, v33, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR, v34, v35, v36, v37, v69, v72, v74, v76);
+      if (OUTLINED_FUNCTION_22_11() == 1)
+      {
+        v49 = outlined destroy of IntentApplication?(*(v1 + 168), &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR);
+      }
+
+      else
+      {
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMd, &_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMR);
+        v55 = CodableNSSecureCoding.wrappedValue.getter();
+        OUTLINED_FUNCTION_0_31();
+        _s10OmniSearch0B6ResultVWOhTm_3();
+        v56 = [v55 attributeSet];
+
+        v49 = outlined bridged method (ob) of @objc CSSearchableItemAttributeSet.authorAddresses.getter(v56, &selRef_authorAddresses);
+        if (v49)
+        {
+          if (v49[2])
+          {
+            v58 = v49[4];
+            v57 = v49[5];
+
+            goto LABEL_45;
+          }
+        }
+      }
+
+      v58 = 0;
+      v57 = 0;
+LABEL_45:
+      if (v44)
+      {
+        if (v57)
+        {
+          if (v45 == v58 && v44 == v57)
+          {
+
+LABEL_57:
+
+            goto LABEL_58;
+          }
+
+          v60 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+          if (v60)
+          {
+            goto LABEL_57;
+          }
+        }
+      }
+
+      else
+      {
+        if (!v57)
+        {
+LABEL_58:
+          OUTLINED_FUNCTION_38_12(v49, v50, &_s10OmniSearch0B6ResultVSgMd, &_s10OmniSearch0B6ResultVSgMR, v51, v52, v53, v54, v70, v73, v75, v77);
+          if (OUTLINED_FUNCTION_22_11() == 1)
+          {
+            v25 = *(v1 + 160);
+            goto LABEL_18;
+          }
+
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMd, &_s15OmniSearchTypes21CodableNSSecureCodingVySo16CSSearchableItemCGMR);
+          v61 = CodableNSSecureCoding.wrappedValue.getter();
+          OUTLINED_FUNCTION_0_31();
+          _s10OmniSearch0B6ResultVWOhTm_3();
+          v62 = [v61 attributeSet];
+
+          if (v62)
+          {
+            v63 = [v62 isFromMe];
+            type metadata accessor for TRIClient(0, &lazy cache variable for type metadata for NSNumber, 0x277CCABB0);
+            v64.super.super.isa = NSNumber.init(integerLiteral:)(1).super.super.isa;
+            if (v63)
+            {
+              v65 = static NSObject.== infix(_:_:)();
+            }
+
+            else
+            {
+              v65 = 0;
+            }
+
+            *(v1 + 240) = v65 & 1;
+            EntityProperty.wrappedValue.setter();
+          }
+
+          goto LABEL_68;
+        }
+      }
+
+      *(v1 + 80) = v45;
+      *(v1 + 88) = v44;
+      v49 = EntityProperty.wrappedValue.setter();
+      goto LABEL_58;
+    }
+  }
+
+LABEL_68:
+
+  v66 = *(v1 + 8);
+
+  return v66();
 }

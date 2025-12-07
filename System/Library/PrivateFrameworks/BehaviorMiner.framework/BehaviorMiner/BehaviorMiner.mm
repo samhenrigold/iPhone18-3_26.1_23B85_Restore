@@ -1,22 +1,25 @@
-void sub_241ACCE78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, id obj, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_241ACCE78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, id obj, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  objc_sync_exit(v26);
-  _Block_object_dispose(&a26, 8);
-  _Block_object_dispose((v27 - 160), 8);
+  va_start(va, a25);
+  objc_sync_exit(v25);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 160), 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void sub_241ACE5B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_241ACE5B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
+  va_start(va, a34);
   _Block_object_dispose(&a25, 8);
   _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a35, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -90,9 +93,9 @@ LABEL_8:
   return v5;
 }
 
-void sub_241AD025C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241AD025C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -104,10 +107,11 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 id BMTemporalItemsForDate(void *a1, void *a2, void *a3)
@@ -257,7 +261,7 @@ uint64_t __BMIsShareExtension_block_invoke()
 
 id BMCreateShortcutFilter()
 {
-  v0 = RelevanceEngineLibraryCore();
+  v0 = RelevanceEngineLibraryCore(0);
   if (v0)
   {
     v5 = 0;
@@ -284,44 +288,50 @@ id BMCreateShortcutFilter()
   return v0;
 }
 
-void sub_241AD46B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241AD46B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t RelevanceEngineLibraryCore()
+uint64_t RelevanceEngineLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x277D85DE8];
   if (!RelevanceEngineLibraryCore_frameworkLibrary)
   {
     RelevanceEngineLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = RelevanceEngineLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  return RelevanceEngineLibraryCore_frameworkLibrary;
 }
 
 uint64_t __RelevanceEngineLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   RelevanceEngineLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 Class __getREShortcutFilterClass_block_invoke(uint64_t a1)
 {
-  if (!RelevanceEngineLibraryCore())
+  v6 = 0;
+  v2 = RelevanceEngineLibraryCore(&v6);
+  v3 = v6;
+  if (v2)
   {
-    v3 = abort_report_np();
-    free(v3);
+    if (!v6)
+    {
+      goto LABEL_3;
+    }
   }
 
+  else
+  {
+    v3 = abort_report_np("%s", v6);
+  }
+
+  free(v3);
+LABEL_3:
   result = objc_getClass("REShortcutFilter");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (*(*(*(a1 + 32) + 8) + 24))
@@ -332,7 +342,7 @@ Class __getREShortcutFilterClass_block_invoke(uint64_t a1)
   else
   {
     __getREShortcutFilterClass_block_invoke_cold_1();
-    return BMEventInterval(v4);
+    return BMEventInterval(v5);
   }
 
   return result;
@@ -340,30 +350,30 @@ Class __getREShortcutFilterClass_block_invoke(uint64_t a1)
 
 id BMEventInterval(void *a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CBEAA8] distantFuture];
   v3 = [MEMORY[0x277CBEAA8] distantPast];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v4 = v1;
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         v10 = [v9 startDate];
         if ([v10 compare:v2] == -1)
         {
@@ -381,7 +391,7 @@ id BMEventInterval(void *a1)
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v6);
@@ -391,21 +401,19 @@ id BMEventInterval(void *a1)
   v15 = [v2 laterDate:v3];
   v16 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v14 endDate:v15];
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
-id BMLog()
+id BMLog(uint64_t a1)
 {
   if (BMLog_onceToken != -1)
   {
     BMLog_cold_1();
   }
 
-  v1 = BMLog_log;
+  v2 = BMLog_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __BMLog_block_invoke()
@@ -417,7 +425,6 @@ uint64_t __BMLog_block_invoke()
 
 Class __getTRIClientClass_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
   if (!TrialLibraryCore_frameworkLibrary)
   {
     TrialLibraryCore_frameworkLibrary = _sl_dlopen();
@@ -426,30 +433,26 @@ Class __getTRIClientClass_block_invoke(uint64_t a1)
   result = objc_getClass("TRIClient");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getTRIClientClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __TrialLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   TrialLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_241AD92EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_241AD92EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241AD9820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_241AD9820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -463,7 +466,7 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
 
 id BMInteractionPredicate(uint64_t a1, void *a2, void *a3)
 {
-  v33[3] = *MEMORY[0x277D85DE8];
+  v32[3] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCAC30];
   v6 = MEMORY[0x277CBEAA8];
   v7 = a3;
@@ -473,14 +476,14 @@ id BMInteractionPredicate(uint64_t a1, void *a2, void *a3)
 
   v11 = MEMORY[0x277CCAC30];
   v12 = [MEMORY[0x277CCABB0] numberWithInteger:a1];
-  v30 = [v11 predicateWithFormat:@"(mechanism == %@)", v12];
+  v29 = [v11 predicateWithFormat:@"(mechanism == %@)", v12];
 
   v13 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(bundleId IN %@)", v8];
   v14 = MEMORY[0x277CCA920];
-  v33[0] = v10;
-  v33[1] = v13;
-  v33[2] = v30;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:3];
+  v32[0] = v10;
+  v32[1] = v13;
+  v32[2] = v29;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:3];
   v16 = [v14 andPredicateWithSubpredicates:v15];
 
   v17 = MEMORY[0x277CCAC30];
@@ -492,26 +495,23 @@ id BMInteractionPredicate(uint64_t a1, void *a2, void *a3)
   v21 = [MEMORY[0x277CCAC30] predicateWithFormat:@"(targetBundleId IN %@)", v8];
 
   v22 = MEMORY[0x277CCA920];
-  v32[0] = v10;
-  v32[1] = v20;
-  v32[2] = v21;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:3];
+  v31[0] = v10;
+  v31[1] = v20;
+  v31[2] = v21;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:3];
   v24 = [v22 andPredicateWithSubpredicates:v23];
 
   v25 = MEMORY[0x277CCA920];
-  v31[0] = v16;
-  v31[1] = v24;
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
+  v30[0] = v16;
+  v30[1] = v24;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
   v27 = [v25 orPredicateWithSubpredicates:v26];
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
 
 Class __getCKContextClientClass_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
   if (!ContextKitLibraryCore_frameworkLibrary)
   {
     ContextKitLibraryCore_frameworkLibrary = _sl_dlopen();
@@ -520,17 +520,13 @@ Class __getCKContextClientClass_block_invoke(uint64_t a1)
   result = objc_getClass("CKContextClient");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCKContextClientClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __ContextKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   ContextKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -576,17 +572,18 @@ id BMStorageURLForDomain(void *a1)
   return v5;
 }
 
-void sub_241ADD094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_241ADD094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241ADD2E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_241ADD2E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
+  va_start(va, a31);
   _Block_object_dispose(&a26, 8);
-  _Block_object_dispose(&a32, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -597,16 +594,16 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_241ADD86C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_241ADD86C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_241ADDBDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_241ADDBDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -615,7 +612,7 @@ void __BMLoadBehaviorStoragePersistentContainer_block_invoke()
 {
   v0 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v1 = [v0 URLForResource:@"BehaviorMiner" withExtension:@"momd"];
-  v2 = BMLog();
+  v2 = BMLog(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __BMLoadBehaviorStoragePersistentContainer_block_invoke_cold_1();
@@ -623,37 +620,36 @@ void __BMLoadBehaviorStoragePersistentContainer_block_invoke()
 
   if (v0)
   {
-    v3 = v1 == 0;
+    v4 = v1 == 0;
   }
 
   else
   {
-    v3 = 1;
+    v4 = 1;
   }
 
-  if (v3)
+  if (v4)
   {
-    v5 = BMLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = BMLog(v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      __BMLoadBehaviorStoragePersistentContainer_block_invoke_cold_2(v5);
+      __BMLoadBehaviorStoragePersistentContainer_block_invoke_cold_2(v6);
     }
   }
 
   else
   {
-    v4 = [objc_alloc(MEMORY[0x277CBE450]) initWithContentsOfURL:v1];
-    v5 = BMLoadBehaviorStoragePersistentContainer_model;
-    BMLoadBehaviorStoragePersistentContainer_model = v4;
+    v5 = [objc_alloc(MEMORY[0x277CBE450]) initWithContentsOfURL:v1];
+    v6 = BMLoadBehaviorStoragePersistentContainer_model;
+    BMLoadBehaviorStoragePersistentContainer_model = v5;
   }
 }
 
 void __BMLoadBehaviorStoragePersistentContainer_block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_241ACA000, v1, OS_LOG_TYPE_DEBUG, "Loading managed object model from bundle: %@ URL: %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_241ACA000, v1, OS_LOG_TYPE_DEBUG, "Loading managed object model from bundle: %@ URL: %@", v2, 0x16u);
 }

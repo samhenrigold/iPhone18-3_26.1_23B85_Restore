@@ -1941,7 +1941,7 @@ void __62__MPCQueueController__evaluateContextAwareTriggersWithReason___block_in
   msv_dispatch_on_main_queue();
 }
 
-uint64_t __62__MPCQueueController__evaluateContextAwareTriggersWithReason___block_invoke_455(uint64_t a1)
+void *__62__MPCQueueController__evaluateContextAwareTriggersWithReason___block_invoke_455(uint64_t a1)
 {
   result = [*(a1 + 32) disarm];
   if (result)
@@ -2933,7 +2933,7 @@ LABEL_15:
         if (([(MPAVItem *)self->_currentItem isAlwaysLive]& 1) == 0)
         {
           player = [engineCopy player];
-          [player currentTime];
+          objc_msgSend_currentTime(player);
           v8 = v10;
         }
 
@@ -4920,7 +4920,7 @@ void __70__MPCQueueController_isExportableSessionType_forContentItemID_reason___
   return v2 & 1;
 }
 
-uint64_t __47__MPCQueueController_containsRestorableContent__block_invoke(uint64_t a1, void *a2)
+void *__47__MPCQueueController_containsRestorableContent__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 containsRestorableContent];
   *(*(*(a1 + 32) + 8) + 24) = result;

@@ -13,7 +13,7 @@ void __34___ANEDeviceController_initialize__block_invoke()
 
 void __29___ANEDeviceController_start__block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v2 = +[_ANEVirtualClient sharedConnection];
 
   if (v2)
@@ -34,18 +34,18 @@ void __29___ANEDeviceController_start__block_invoke(uint64_t a1)
     v4 = +[_ANELog common];
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v15 = NSStringFromSelector(*(a1 + 40));
-      v16 = [*(a1 + 32) usecount];
-      v17 = [*(a1 + 32) device];
-      v18 = [*(a1 + 32) isPrivileged];
+      v14 = NSStringFromSelector(*(a1 + 40));
+      v15 = [*(a1 + 32) usecount];
+      v16 = [*(a1 + 32) device];
+      v17 = [*(a1 + 32) isPrivileged];
       *buf = 138413058;
-      *&buf[4] = v15;
+      *&buf[4] = v14;
       *&buf[12] = 2048;
-      *&buf[14] = v16;
+      *&buf[14] = v15;
       *&buf[22] = 2048;
-      *&buf[24] = v17;
-      v28 = 1024;
-      v29 = v18;
+      *&buf[24] = v16;
+      v27 = 1024;
+      v28 = v17;
       _os_log_debug_impl(&dword_1AD246000, v4, OS_LOG_TYPE_DEBUG, "%@: self.usecount=%lld : self.device=%p : self.isPrivileged=%d", buf, 0x26u);
     }
 
@@ -72,23 +72,23 @@ void __29___ANEDeviceController_start__block_invoke(uint64_t a1)
       v7 = +[_ANELog common];
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        v19 = NSStringFromSelector(*(a1 + 40));
-        *v21 = 138412802;
-        v22 = v19;
-        v23 = 1024;
-        v24 = v6;
-        v25 = 2048;
-        v26 = v5;
-        _os_log_debug_impl(&dword_1AD246000, v7, OS_LOG_TYPE_DEBUG, "%@: Calling ANEDeviceOpen( deviceUsageType=%u : programHandle=%llu)", v21, 0x1Cu);
+        v18 = NSStringFromSelector(*(a1 + 40));
+        *v20 = 138412802;
+        v21 = v18;
+        v22 = 1024;
+        v23 = v6;
+        v24 = 2048;
+        v25 = v5;
+        _os_log_debug_impl(&dword_1AD246000, v7, OS_LOG_TYPE_DEBUG, "%@: Calling ANEDeviceOpen( deviceUsageType=%u : programHandle=%llu)", v20, 0x1Cu);
       }
 
-      v20 = 0;
+      v19 = 0;
       v8 = *(a1 + 32);
       os_unfair_lock_lock_with_options();
       v9 = dylib_handle;
       if (dylib_handle)
       {
-        goto LABEL_31;
+        goto LABEL_30;
       }
 
       dylib_handle = dlopen("/System/Library/PrivateFrameworks/ANEServices.framework/ANEServices", 4);
@@ -102,7 +102,7 @@ void __29___ANEDeviceController_start__block_invoke(uint64_t a1)
       v9 = dylib_handle;
       if (dylib_handle)
       {
-LABEL_31:
+LABEL_30:
         if (!factory_function_deviceOpen)
         {
           factory_function_deviceOpen = dlsym(v9, "ANEServicesDeviceOpen");
@@ -114,10 +114,10 @@ LABEL_31:
         }
 
         os_unfair_lock_unlock(&_sync_lock);
-        if (factory_function_deviceOpen && !(factory_function_deviceOpen)(&v20, buf, v8, fDeviceCallback) && v20)
+        if (factory_function_deviceOpen && !(factory_function_deviceOpen)(&v19, buf, v8, fDeviceCallback) && v19)
         {
           [*(a1 + 32) setDevice:?];
-          goto LABEL_28;
+          return;
         }
       }
 
@@ -137,27 +137,24 @@ LABEL_31:
       [*(a1 + 32) setDevice:0];
     }
   }
-
-LABEL_28:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __28___ANEDeviceController_stop__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) setUsecount:{objc_msgSend(*(a1 + 32), "usecount") - 1}];
   v2 = +[_ANELog common];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v7 = NSStringFromSelector(*(a1 + 40));
-    v8 = [*(a1 + 32) usecount];
-    v9 = [*(a1 + 32) device];
+    v6 = NSStringFromSelector(*(a1 + 40));
+    v7 = [*(a1 + 32) usecount];
+    v8 = [*(a1 + 32) device];
     *buf = 138412802;
-    v14 = v7;
-    v15 = 2048;
-    v16 = v8;
-    v17 = 2048;
-    v18 = v9;
+    v13 = v6;
+    v14 = 2048;
+    v15 = v7;
+    v16 = 2048;
+    v17 = v8;
     _os_log_debug_impl(&dword_1AD246000, v2, OS_LOG_TYPE_DEBUG, "%@: self.usecount=%lld : self.device=%p", buf, 0x20u);
   }
 
@@ -179,20 +176,18 @@ void __28___ANEDeviceController_stop__block_invoke(uint64_t a1)
     v5 = +[_ANELog common];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v10 = NSStringFromSelector(*(a1 + 40));
-      v11 = [*(a1 + 32) usecount];
-      v12 = [*(a1 + 32) device];
+      v9 = NSStringFromSelector(*(a1 + 40));
+      v10 = [*(a1 + 32) usecount];
+      v11 = [*(a1 + 32) device];
       *buf = 138412802;
-      v14 = v10;
-      v15 = 2048;
-      v16 = v11;
-      v17 = 2048;
-      v18 = v12;
+      v13 = v9;
+      v14 = 2048;
+      v15 = v10;
+      v16 = 2048;
+      v17 = v11;
       _os_log_debug_impl(&dword_1AD246000, v5, OS_LOG_TYPE_DEBUG, "%@: ANEDeviceClose() self.usecount=%lld : self.device=%p", buf, 0x20u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __50___ANEDeviceController_sharedPrivilegedConnection__block_invoke()

@@ -8,18 +8,18 @@
 {
   if (objc_opt_class() == self)
   {
-    PropertyWithNSString = JavaLangSystem_getPropertyWithNSString_(@"java.vm.vendor");
+    PropertyWithNSString = JavaLangSystem_getPropertyWithNSString_(@"java.vm.vendor", v2);
     JreStrongAssign(&OrgApacheLuceneUtilConstants_JVM_VENDOR_, PropertyWithNSString);
-    v3 = JavaLangSystem_getPropertyWithNSString_(@"java.vm.version");
-    JreStrongAssign(&OrgApacheLuceneUtilConstants_JVM_VERSION_, v3);
-    v4 = JavaLangSystem_getPropertyWithNSString_(@"java.vm.name");
-    JreStrongAssign(&OrgApacheLuceneUtilConstants_JVM_NAME_, v4);
-    v5 = JavaLangSystem_getPropertyWithNSString_(@"java.specification.version");
-    JreStrongAssign(&OrgApacheLuceneUtilConstants_JVM_SPEC_VERSION_, v5);
-    v6 = JavaLangSystem_getPropertyWithNSString_(@"java.version");
-    JreStrongAssign(&OrgApacheLuceneUtilConstants_JAVA_VERSION_, v6);
-    v7 = JavaLangSystem_getPropertyWithNSString_(@"os.name");
-    JreStrongAssign(&OrgApacheLuceneUtilConstants_OS_NAME_, v7);
+    v5 = JavaLangSystem_getPropertyWithNSString_(@"java.vm.version", v4);
+    JreStrongAssign(&OrgApacheLuceneUtilConstants_JVM_VERSION_, v5);
+    v7 = JavaLangSystem_getPropertyWithNSString_(@"java.vm.name", v6);
+    JreStrongAssign(&OrgApacheLuceneUtilConstants_JVM_NAME_, v7);
+    v9 = JavaLangSystem_getPropertyWithNSString_(@"java.specification.version", v8);
+    JreStrongAssign(&OrgApacheLuceneUtilConstants_JVM_SPEC_VERSION_, v9);
+    v11 = JavaLangSystem_getPropertyWithNSString_(@"java.version", v10);
+    JreStrongAssign(&OrgApacheLuceneUtilConstants_JAVA_VERSION_, v11);
+    v13 = JavaLangSystem_getPropertyWithNSString_(@"os.name", v12);
+    JreStrongAssign(&OrgApacheLuceneUtilConstants_OS_NAME_, v13);
     if (!OrgApacheLuceneUtilConstants_OS_NAME_)
     {
       goto LABEL_25;
@@ -30,53 +30,53 @@
     OrgApacheLuceneUtilConstants_SUN_OS_ = [OrgApacheLuceneUtilConstants_OS_NAME_ hasPrefix:@"SunOS"];
     OrgApacheLuceneUtilConstants_MAC_OS_X_ = [OrgApacheLuceneUtilConstants_OS_NAME_ hasPrefix:@"Mac OS X"];
     OrgApacheLuceneUtilConstants_FREE_BSD_ = [OrgApacheLuceneUtilConstants_OS_NAME_ hasPrefix:@"FreeBSD"];
-    v8 = JavaLangSystem_getPropertyWithNSString_(@"os.arch");
-    JreStrongAssign(&OrgApacheLuceneUtilConstants_OS_ARCH_, v8);
-    v9 = JavaLangSystem_getPropertyWithNSString_(@"os.version");
-    JreStrongAssign(&OrgApacheLuceneUtilConstants_OS_VERSION_, v9);
-    v10 = JavaLangSystem_getPropertyWithNSString_(@"java.vendor");
-    JreStrongAssign(&OrgApacheLuceneUtilConstants_JAVA_VENDOR_, v10);
-    v11 = new_JavaUtilStringTokenizer_initWithNSString_withNSString_(OrgApacheLuceneUtilConstants_JVM_SPEC_VERSION_, @".");
-    nextToken = [(JavaUtilStringTokenizer *)v11 nextToken];
-    dword_100553E38 = JavaLangInteger_parseIntWithNSString_(nextToken, v13, v14, v15, v16, v17, v18, v19);
-    hasMoreTokens = [(JavaUtilStringTokenizer *)v11 hasMoreTokens];
+    v15 = JavaLangSystem_getPropertyWithNSString_(@"os.arch", v14);
+    JreStrongAssign(&OrgApacheLuceneUtilConstants_OS_ARCH_, v15);
+    v17 = JavaLangSystem_getPropertyWithNSString_(@"os.version", v16);
+    JreStrongAssign(&OrgApacheLuceneUtilConstants_OS_VERSION_, v17);
+    v19 = JavaLangSystem_getPropertyWithNSString_(@"java.vendor", v18);
+    JreStrongAssign(&OrgApacheLuceneUtilConstants_JAVA_VENDOR_, v19);
+    v20 = new_JavaUtilStringTokenizer_initWithNSString_withNSString_(OrgApacheLuceneUtilConstants_JVM_SPEC_VERSION_, @".");
+    nextToken = [(JavaUtilStringTokenizer *)v20 nextToken];
+    dword_100553E38 = JavaLangInteger_parseIntWithNSString_(nextToken, v22, v23, v24, v25, v26, v27, v28);
+    hasMoreTokens = [(JavaUtilStringTokenizer *)v20 hasMoreTokens];
     if (hasMoreTokens)
     {
-      nextToken2 = [(JavaUtilStringTokenizer *)v11 nextToken];
-      hasMoreTokens = JavaLangInteger_parseIntWithNSString_(nextToken2, v22, v23, v24, v25, v26, v27, v28);
+      nextToken2 = [(JavaUtilStringTokenizer *)v20 nextToken];
+      hasMoreTokens = JavaLangInteger_parseIntWithNSString_(nextToken2, v32, v33, v34, v35, v36, v37, v38);
     }
 
     dword_100553E3C = hasMoreTokens;
-    v29 = JavaLangSystem_getPropertyWithNSString_(@"sun.arch.data.model");
-    if (v29)
+    v39 = JavaLangSystem_getPropertyWithNSString_(@"sun.arch.data.model", v30);
+    if (v39)
     {
-      v30 = [v29 contains:@"64"];
+      v40 = [v39 contains:@"64"];
     }
 
     else
     {
-      v30 = OrgApacheLuceneUtilConstants_OS_ARCH_ && ([OrgApacheLuceneUtilConstants_OS_ARCH_ contains:@"64"] & 1) != 0;
+      v40 = OrgApacheLuceneUtilConstants_OS_ARCH_ && ([OrgApacheLuceneUtilConstants_OS_ARCH_ contains:@"64"] & 1) != 0;
     }
 
-    OrgApacheLuceneUtilConstants_JRE_IS_64BIT_ = v30;
+    OrgApacheLuceneUtilConstants_JRE_IS_64BIT_ = v40;
     if (dword_100553E38 <= 1)
     {
-      v32 = dword_100553E38 == 1;
-      v31 = dword_100553E3C > 7 && dword_100553E38 == 1;
+      v42 = dword_100553E38 == 1;
+      v41 = dword_100553E3C > 7 && dword_100553E38 == 1;
       if (dword_100553E3C <= 8)
       {
-        v32 = 0;
+        v42 = 0;
       }
     }
 
     else
     {
-      v31 = 1;
-      v32 = 1;
+      v41 = 1;
+      v42 = 1;
     }
 
-    OrgApacheLuceneUtilConstants_JRE_IS_MINIMUM_JAVA8_ = v31;
-    OrgApacheLuceneUtilConstants_JRE_IS_MINIMUM_JAVA9_ = v32;
+    OrgApacheLuceneUtilConstants_JRE_IS_MINIMUM_JAVA8_ = v41;
+    OrgApacheLuceneUtilConstants_JRE_IS_MINIMUM_JAVA9_ = v42;
     if ((atomic_load_explicit(OrgApacheLuceneUtilVersion__initialized, memory_order_acquire) & 1) == 0)
     {
       sub_100010B48();

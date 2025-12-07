@@ -64,9 +64,9 @@
     {
       if (v6)
       {
-        v8 = [(__CFString *)v6 isEqualToString:@"addition"];
+        isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-        if (v8)
+        if (isEqualToString)
         {
           goto LABEL_5;
         }
@@ -75,19 +75,19 @@
         if (v10 != @"update")
         {
           v11 = v10;
-          v12 = [(__CFString *)v10 isEqualToString:@"update"];
+          v12 = objc_msgSend_isEqualToString_(v10);
 
           if ((v12 & 1) == 0)
           {
             v26 = v11;
-            if (v26 == @"removeSuccess" || (v27 = v26, v28 = [(__CFString *)v26 isEqualToString:@"removeSuccess"], v27, (v28 & 1) != 0))
+            if (v26 == @"removeSuccess" || (v27 = v26, v28 = objc_msgSend_isEqualToString_(v26), v27, (v28 & 1) != 0))
             {
               v9 = 2;
               goto LABEL_9;
             }
 
             v29 = v27;
-            if (v29 == @"removeFailure" || (v30 = v29, v31 = [(__CFString *)v29 isEqualToString:@"removeFailure"], v30, v31))
+            if (v29 == @"removeFailure" || (v30 = v29, v31 = objc_msgSend_isEqualToString_(v29), v30, v31))
             {
               v9 = 3;
               goto LABEL_9;

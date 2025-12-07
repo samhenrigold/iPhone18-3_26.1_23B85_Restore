@@ -10,7 +10,7 @@
 
 + (id)allocWithZone:(_NSZone *)zone
 {
-  qword_1EA79DC90 = "__SwiftNativeNSError cannot be instantiated";
+  qword_1EA79DC90[0] = "__SwiftNativeNSError cannot be instantiated";
   __break(1u);
   return result;
 }
@@ -38,7 +38,7 @@
     isa = self[1].super.super.isa;
   }
 
-  (*(*(ObjCClassMetadata - 8) + 8))((&self[1].super._userInfo + *(*(isa - 1) + 80)) & ~*(*(isa - 1) + 80));
+  (*(*(ObjCClassMetadata - 1) + 8))((&self[1].super._userInfo + *(*(isa - 1) + 80)) & ~*(*(isa - 1) + 80));
   v8.receiver = self;
   v8.super_class = __SwiftNativeNSError;
   [(__SwiftNativeNSError *)&v8 dealloc];

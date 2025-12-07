@@ -28,27 +28,13 @@
 - (id)data
 {
   v3 = +[NSMutableData data];
-  if (![(TLSMessageClass *)self encodeUint64:[(SingleDataRecord *)self appVersion] buffer:v3])
-  {
-    goto LABEL_10;
-  }
-
-  clientDataHash = [(SingleDataRecord *)self clientDataHash];
-  v5 = [(TLSMessageClass *)self encodeHashValue:clientDataHash buffer:v3];
-
-  if (!v5)
-  {
-    goto LABEL_10;
-  }
-
-  if ([(TLSMessageClass *)self encodeUint64:[(SingleDataRecord *)self markedForDeletionMs] buffer:v3]&& [(TLSMessageClass *)self encodeUint64:[(SingleDataRecord *)self addedMs] buffer:v3]&& [(TLSMessageClass *)self encodeBool:[(SingleDataRecord *)self accountMismatch] buffer:v3]&& [(TLSMessageClass *)self encodeUint64:[(SingleDataRecord *)self expiryMs] buffer:v3]&& [(TLSMessageClass *)self encodeUint64:[(SingleDataRecord *)self escrowExpiryMs] buffer:v3]&& ([(SingleDataRecord *)self extensions], v6 = objc_claimAutoreleasedReturnValue(), v7 = [(TLSMessageClass *)self encodeExtensions:v6 buffer:v3], v6, v7))
+  if ([(TLSMessageClass *)self encodeUint64:[(SingleDataRecord *)self appVersion] buffer:v3]&& ([(SingleDataRecord *)self clientDataHash], v4 = objc_claimAutoreleasedReturnValue(), v5 = [(TLSMessageClass *)self encodeHashValue:v4 buffer:v3], v4, v5) && [(TLSMessageClass *)self encodeUint64:[(SingleDataRecord *)self markedForDeletionMs] buffer:v3]&& [(TLSMessageClass *)self encodeUint64:[(SingleDataRecord *)self addedMs] buffer:v3]&& [(TLSMessageClass *)self encodeBool:[(SingleDataRecord *)self accountMismatch] buffer:v3]&& [(TLSMessageClass *)self encodeUint64:[(SingleDataRecord *)self expiryMs] buffer:v3]&& [(TLSMessageClass *)self encodeUint64:[(SingleDataRecord *)self escrowExpiryMs] buffer:v3]&& ([(SingleDataRecord *)self extensions], v6 = objc_claimAutoreleasedReturnValue(), v7 = [(TLSMessageClass *)self encodeExtensions:v6 buffer:v3], v6, v7))
   {
     v8 = [NSData dataWithData:v3];
   }
 
   else
   {
-LABEL_10:
     v8 = 0;
   }
 
@@ -232,20 +218,18 @@ LABEL_28:
 {
   appVersion = self->_appVersion;
   kt_hexString = [(NSData *)self->_clientDataHash kt_hexString];
-  expiryMs = self->_expiryMs;
-  v6 = [NSString stringWithFormat:@"{\tapplicationVersion:%llu\n\tclientDataHash:%@\n\taccountMismatch:%d\n\tmarkedMs:%llu\n\taddedMs:%llu\n\texpiryMs:%llu\n\tescrowExpiryMs:%llu\n}", appVersion, kt_hexString, self->_accountMismatch, self->_markedForDeletionMs, self->_addedMs, expiryMs, self->_escrowExpiryMs];
+  v5 = [NSString stringWithFormat:@"{\tapplicationVersion:%llu\n\tclientDataHash:%@\n\taccountMismatch:%d\n\tmarkedMs:%llu\n\taddedMs:%llu\n\texpiryMs:%llu\n\tescrowExpiryMs:%llu\n}", appVersion, kt_hexString, self->_accountMismatch, self->_markedForDeletionMs, self->_addedMs, self->_expiryMs, self->_escrowExpiryMs];
 
-  return v6;
+  return v5;
 }
 
 - (id)description
 {
   appVersion = self->_appVersion;
   kt_hexString = [(NSData *)self->_clientDataHash kt_hexString];
-  expiryMs = self->_expiryMs;
-  v6 = [NSString stringWithFormat:@"applicationVersion:%llu clientDataHash:%@; accountMismatch:%d; markedMs:%llu; addedMs:%llu; expiryMs:%llu; escrowExpiryMs:%llu;", appVersion, kt_hexString, self->_accountMismatch, self->_markedForDeletionMs, self->_addedMs, expiryMs, self->_escrowExpiryMs];;
+  v5 = [NSString stringWithFormat:@"applicationVersion:%llu clientDataHash:%@; accountMismatch:%d; markedMs:%llu; addedMs:%llu; expiryMs:%llu; escrowExpiryMs:%llu;", appVersion, kt_hexString, self->_accountMismatch, self->_markedForDeletionMs, self->_addedMs, self->_expiryMs, self->_escrowExpiryMs];;
 
-  return v6;
+  return v5;
 }
 
 - (BOOL)isEqual:(id)equal

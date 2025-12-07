@@ -47,6 +47,7 @@
       v41 = xmmword_1E858E460;
       v42 = 0;
       qword_1ECB71C10 = _sl_dlopen();
+      v11 = v35;
       if (!qword_1ECB71C10)
       {
         goto LABEL_22;
@@ -62,18 +63,19 @@
     *(v30[1] + 24) = Class;
     if (!*(v30[1] + 24))
     {
-      goto LABEL_22;
+      abort_report_np("Unable to find class %s", "VN6Mb1ME89lyW3HpahkEygIG");
+      goto LABEL_26;
     }
 
     qword_1ECB71C08 = *(v30[1] + 24);
     v10 = v32[3];
   }
 
-  v12 = v10;
+  v13 = v10;
   _Block_object_dispose(&v31, 8);
-  v13 = objc_alloc_init(v10);
+  v14 = objc_alloc_init(v10);
   significantRequest = v8->_significantRequest;
-  v8->_significantRequest = v13;
+  v8->_significantRequest = v14;
 
   (v9)[2](v9, v8->_significantRequest);
   if (objc_claimAutoreleasedReturnValue())
@@ -84,7 +86,7 @@
   v31 = 0;
   v32 = &v31;
   v33 = 0x2050000000;
-  v15 = qword_1ECB71C18;
+  v16 = qword_1ECB71C18;
   v34 = qword_1ECB71C18;
   if (qword_1ECB71C18)
   {
@@ -107,44 +109,49 @@
     v41 = xmmword_1E858E460;
     v42 = 0;
     qword_1ECB71C10 = _sl_dlopen();
-    if (!qword_1ECB71C10)
+    v11 = v35;
+    if (qword_1ECB71C10)
     {
-      goto LABEL_22;
+      if (v35)
+      {
+        free(v35);
+      }
+
+      goto LABEL_16;
     }
 
-    if (v35)
-    {
-      free(v35);
-    }
+LABEL_22:
+    abort_report_np("%s", v11);
+    goto LABEL_26;
   }
 
-  v16 = objc_getClass("VNVYvzEtX1JlUdu8xx5qhDI");
-  *(v30[1] + 24) = v16;
+LABEL_16:
+  v17 = objc_getClass("VNVYvzEtX1JlUdu8xx5qhDI");
+  *(v30[1] + 24) = v17;
   if (!*(v30[1] + 24))
   {
-LABEL_22:
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "VNVYvzEtX1JlUdu8xx5qhDI");
+LABEL_26:
     __break(1u);
   }
 
   qword_1ECB71C18 = *(v30[1] + 24);
-  v15 = v32[3];
+  v16 = v32[3];
 LABEL_18:
-  v17 = v15;
+  v18 = v16;
   _Block_object_dispose(&v31, 8);
-  v18 = objc_alloc_init(v15);
+  v19 = objc_alloc_init(v16);
   nsfwRequest = v8->_nsfwRequest;
-  v8->_nsfwRequest = v18;
+  v8->_nsfwRequest = v19;
 
-  v20 = (v9)[2](v9, v8->_nsfwRequest);
+  v21 = (v9)[2](v9, v8->_nsfwRequest);
 
-  if (v20)
+  if (v21)
   {
     operator new();
   }
 
 LABEL_21:
-  v21 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

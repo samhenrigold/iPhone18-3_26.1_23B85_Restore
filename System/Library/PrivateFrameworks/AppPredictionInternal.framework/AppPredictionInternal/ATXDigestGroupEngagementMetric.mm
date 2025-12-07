@@ -46,8 +46,8 @@
 
 - (id)coreAnalyticsDictionary
 {
-  v33[13] = *MEMORY[0x277D85DE8];
-  v32[0] = @"digestUUID";
+  v32[13] = *MEMORY[0x277D85DE8];
+  v31[0] = @"digestUUID";
   digestUUID = [(ATXDigestGroupEngagementMetric *)self digestUUID];
   v4 = digestUUID;
   if (!digestUUID)
@@ -55,9 +55,9 @@
     digestUUID = [MEMORY[0x277CBEB68] null];
   }
 
-  v25 = digestUUID;
-  v33[0] = digestUUID;
-  v32[1] = @"bundleId";
+  v24 = digestUUID;
+  v32[0] = digestUUID;
+  v31[1] = @"bundleId";
   bundleId = [(ATXDigestGroupEngagementMetric *)self bundleId];
   v6 = bundleId;
   if (!bundleId)
@@ -65,10 +65,10 @@
     bundleId = [MEMORY[0x277CBEB68] null];
   }
 
-  v31 = v4;
-  v24 = bundleId;
-  v33[1] = bundleId;
-  v32[2] = @"secureBundleId";
+  v30 = v4;
+  v23 = bundleId;
+  v32[1] = bundleId;
+  v31[2] = @"secureBundleId";
   bundleId2 = [(ATXDigestGroupEngagementMetric *)self bundleId];
   if (bundleId2)
   {
@@ -82,11 +82,11 @@
     bundleId3 = null;
   }
 
-  v29 = bundleId2;
-  v30 = v6;
-  v26 = null;
-  v33[2] = null;
-  v32[3] = @"section";
+  v28 = bundleId2;
+  v29 = v6;
+  v25 = null;
+  v32[2] = null;
+  v31[3] = @"section";
   section = [(ATXDigestGroupEngagementMetric *)self section];
   v10 = section;
   if (!section)
@@ -94,56 +94,54 @@
     section = [MEMORY[0x277CBEB68] null];
   }
 
-  v23 = section;
-  v33[3] = section;
-  v32[4] = @"sectionPosition";
-  v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXDigestGroupEngagementMetric sectionPosition](self, "sectionPosition")}];
-  v33[4] = v27;
-  v32[5] = @"sectionSize";
+  v22 = section;
+  v32[3] = section;
+  v31[4] = @"sectionPosition";
+  v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXDigestGroupEngagementMetric sectionPosition](self, "sectionPosition")}];
+  v32[4] = v26;
+  v31[5] = @"sectionSize";
   v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXDigestGroupEngagementMetric sectionSize](self, "sectionSize")}];
-  v33[5] = v11;
-  v32[6] = @"numNotifications";
+  v32[5] = v11;
+  v31[6] = @"numNotifications";
   v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXDigestGroupEngagementMetric numNotifications](self, "numNotifications")}];
-  v33[6] = v12;
-  v32[7] = @"hasImage";
+  v32[6] = v12;
+  v31[7] = @"hasImage";
   v13 = [MEMORY[0x277CCABB0] numberWithBool:{-[ATXDigestGroupEngagementMetric hasImage](self, "hasImage")}];
-  v33[7] = v13;
-  v32[8] = @"groupScore";
+  v32[7] = v13;
+  v31[8] = @"groupScore";
   v14 = MEMORY[0x277CCABB0];
   [(ATXDigestGroupEngagementMetric *)self groupScore];
   v15 = [v14 numberWithDouble:?];
-  v33[8] = v15;
-  v32[9] = @"numEngagementsInUpcoming";
+  v32[8] = v15;
+  v31[9] = @"numEngagementsInUpcoming";
   v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXDigestGroupEngagementMetric numEngagementsInUpcoming](self, "numEngagementsInUpcoming")}];
-  v33[9] = v16;
-  v32[10] = @"numEngagementsInScheduled";
+  v32[9] = v16;
+  v31[10] = @"numEngagementsInScheduled";
   v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXDigestGroupEngagementMetric numEngagementsInScheduled](self, "numEngagementsInScheduled")}];
-  v33[10] = v17;
-  v32[11] = @"numEngagementsAfterExpiration";
+  v32[10] = v17;
+  v31[11] = @"numEngagementsAfterExpiration";
   v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXDigestGroupEngagementMetric numEngagementsAfterExpiration](self, "numEngagementsAfterExpiration")}];
-  v33[11] = v18;
-  v32[12] = @"numExpansions";
+  v32[11] = v18;
+  v31[12] = @"numExpansions";
   v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXDigestGroupEngagementMetric numExpansions](self, "numExpansions")}];
-  v33[12] = v19;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:13];
+  v32[12] = v19;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:13];
 
   if (!v10)
   {
   }
 
-  if (v29)
+  if (v28)
+  {
+  }
+
+  if (!v29)
   {
   }
 
   if (!v30)
   {
   }
-
-  if (!v31)
-  {
-  }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

@@ -25,10 +25,10 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  v5 = sub_1001801F4();
+  v6 = sub_1001801F4(to);
   swift_unknownObjectRelease();
 
-  return v5;
+  return v6;
 }
 
 @end

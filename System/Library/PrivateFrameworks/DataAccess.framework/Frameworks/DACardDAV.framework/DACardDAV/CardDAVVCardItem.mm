@@ -5,7 +5,9 @@
 - (BOOL)deleteFromContainer:(void *)container;
 - (BOOL)deleteFromContainer:(void *)container account:(id)account;
 - (BOOL)loadLocalItemWithAccount:(id)account;
+- (BOOL)saveIfGroupWithLocalObject:(id)object toContainer:(id)container shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account;
 - (BOOL)saveServerIDToExistingItem;
+- (BOOL)saveWithLocalObject:(void *)object toContainer:(void *)container shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account;
 - (CardDAVVCardItem)initWithURL:(id)l eTag:(id)tag dataPayload:(id)payload inContainerWithURL:(id)rL withAccountInfoProvider:(id)provider;
 - (NSData)dataPayload;
 - (NSMutableDictionary)UUIDToPersonCache;
@@ -14,6 +16,7 @@
 - (NSURL)serverID;
 - (id)convertToDAContactSearchResultElement;
 - (id)createOrphanedABRecordFromParsedVCardOutRecordType:(unsigned int *)type;
+- (unint64_t)saveWithLocalObject:(id)object toContainer:(id)container containerURL:(id)l shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account shouldSaveGroups:(BOOL)groups;
 - (unsigned)abRecordType;
 - (void)abRecord;
 - (void)loadClientIDs;
@@ -27,17 +30,10 @@
 
 + (Class)currentImplementationClass
 {
-  useContactsFramework = [MEMORY[0x277D03910] useContactsFramework];
-  v3 = off_278F1A920;
-  if (!useContactsFramework)
-  {
-    v3 = off_278F1A918;
-  }
+  [MEMORY[0x277D03910] useContactsFramework];
+  v2 = objc_opt_class();
 
-  v4 = *v3;
-  v5 = objc_opt_class();
-
-  return v5;
+  return v2;
 }
 
 + (id)itemWithABRecord:(void *)record addressBook:(void *)book outNeedsDBSave:(BOOL *)save maxImageSize:(int64_t)size maxResourceSize:(int64_t)resourceSize inContainerWithURL:(id)l afterImageSyncFailed:(BOOL)failed
@@ -63,6 +59,22 @@
 {
   currentHandler = [MEMORY[0x277CCA890] currentHandler];
   [currentHandler handleFailureInMethod:a2 object:self file:@"CardDAVVCardItem.m" lineNumber:54 description:@"Subclasses implement"];
+
+  return 0;
+}
+
+- (unint64_t)saveWithLocalObject:(id)object toContainer:(id)container containerURL:(id)l shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account shouldSaveGroups:(BOOL)groups
+{
+  currentHandler = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler handleFailureInMethod:a2 object:self file:@"CardDAVVCardItem.m" lineNumber:60 description:@"Subclasses implement"];
+
+  return 0;
+}
+
+- (BOOL)saveWithLocalObject:(void *)object toContainer:(void *)container shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account
+{
+  currentHandler = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler handleFailureInMethod:a2 object:self file:@"CardDAVVCardItem.m" lineNumber:66 description:{@"Should never be called, see comments in CardDAVVCardItem.h"}];
 
   return 0;
 }
@@ -101,6 +113,14 @@
 {
   currentHandler = [MEMORY[0x277CCA890] currentHandler];
   [currentHandler handleFailureInMethod:a2 object:self file:@"CardDAVVCardItem.m" lineNumber:92 description:{@"Should never be called, see comments in CardDAVVCardItem.h"}];
+
+  return 0;
+}
+
+- (BOOL)saveIfGroupWithLocalObject:(id)object toContainer:(id)container shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account
+{
+  currentHandler = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler handleFailureInMethod:a2 object:self file:@"CardDAVVCardItem.m" lineNumber:97 description:@"Subclasses implement"];
 
   return 0;
 }

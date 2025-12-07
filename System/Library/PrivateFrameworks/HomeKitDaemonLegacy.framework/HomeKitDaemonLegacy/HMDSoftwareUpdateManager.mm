@@ -49,16 +49,16 @@
 
 void __58__HMDSoftwareUpdateManager_startUpdate_completionHandler___block_invoke(id *a1)
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   v2 = [a1[4] activeClients];
   v3 = [v2 anyObject];
 
   if (v3)
   {
-    v29 = *MEMORY[0x277CD1130];
+    v28 = *MEMORY[0x277CD1130];
     v4 = encodeRootObjectForIncomingXPCMessage(a1[5], 0);
-    v30[0] = v4;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+    v29[0] = v4;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
 
     v6 = [MEMORY[0x277D0F848] entitledMessageWithName:*MEMORY[0x277CD1110] messagePayload:v5];
     v7 = [v6 mutableCopy];
@@ -69,31 +69,31 @@ void __58__HMDSoftwareUpdateManager_startUpdate_completionHandler___block_invoke
     [v7 setTransport:v3];
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v27 = 0x2020000000;
-    v28 = 0;
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __58__HMDSoftwareUpdateManager_startUpdate_completionHandler___block_invoke_32;
-    v23[3] = &unk_2797332E8;
+    v26 = 0x2020000000;
+    v27 = 0;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __58__HMDSoftwareUpdateManager_startUpdate_completionHandler___block_invoke_32;
+    v22[3] = &unk_2797332E8;
     p_buf = &buf;
-    v24 = a1[6];
-    [v7 setResponseHandler:v23];
+    v23 = a1[6];
+    [v7 setResponseHandler:v22];
     v9 = [a1[4] messageDispatcher];
-    v10 = [v7 copy];
+    v10 = objc_msgSend_copy(v7);
     [v9 sendMessage:v10 completionHandler:0];
 
     v11 = dispatch_time(0, 30000000000);
     v12 = [a1[4] clientQueue];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __58__HMDSoftwareUpdateManager_startUpdate_completionHandler___block_invoke_2;
-    v19[3] = &unk_2797332C0;
-    v22 = &buf;
-    v19[4] = a1[4];
-    v20 = v7;
-    v21 = a1[6];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __58__HMDSoftwareUpdateManager_startUpdate_completionHandler___block_invoke_2;
+    v18[3] = &unk_2797332C0;
+    v21 = &buf;
+    v18[4] = a1[4];
+    v19 = v7;
+    v20 = a1[6];
     v13 = v7;
-    dispatch_after(v11, v12, v19);
+    dispatch_after(v11, v12, v18);
 
     _Block_object_dispose(&buf, 8);
 LABEL_7:
@@ -121,8 +121,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HMDSoftwareUpdateManager_startUpdate_completionHandler___block_invoke_32(uint64_t a1, void *a2, void *a3)
@@ -151,7 +149,7 @@ void __58__HMDSoftwareUpdateManager_startUpdate_completionHandler___block_invoke
 
 void __58__HMDSoftwareUpdateManager_startUpdate_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0)
   {
     v2 = objc_autoreleasePoolPush();
@@ -161,11 +159,11 @@ void __58__HMDSoftwareUpdateManager_startUpdate_completionHandler___block_invoke
     {
       v5 = HMFGetLogIdentifier();
       v6 = *(a1 + 40);
-      v9 = 138543618;
-      v10 = v5;
-      v11 = 2112;
-      v12 = v6;
-      _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Client failed to respond to message: %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v5;
+      v10 = 2112;
+      v11 = v6;
+      _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Client failed to respond to message: %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v2);
@@ -177,7 +175,6 @@ void __58__HMDSoftwareUpdateManager_startUpdate_completionHandler___block_invoke
   }
 
   *(*(*(a1 + 56) + 8) + 24) = 1;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchAvailableUpdateWithCompletionHandler:(id)handler
@@ -196,7 +193,7 @@ void __58__HMDSoftwareUpdateManager_startUpdate_completionHandler___block_invoke
 
 void __70__HMDSoftwareUpdateManager_fetchAvailableUpdateWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) activeClients];
   v3 = [v2 anyObject];
 
@@ -211,21 +208,21 @@ void __70__HMDSoftwareUpdateManager_fetchAvailableUpdateWithCompletionHandler___
     [v5 setTransport:v3];
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v30 = 0x2020000000;
-    v31 = 0;
+    v29 = 0x2020000000;
+    v30 = 0;
     objc_initWeak(&location, *(a1 + 32));
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __70__HMDSoftwareUpdateManager_fetchAvailableUpdateWithCompletionHandler___block_invoke_25;
-    v24[3] = &unk_279733298;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __70__HMDSoftwareUpdateManager_fetchAvailableUpdateWithCompletionHandler___block_invoke_25;
+    v23[3] = &unk_279733298;
     p_buf = &buf;
     v7 = *(a1 + 40);
-    v24[4] = *(a1 + 32);
-    v25 = v7;
-    objc_copyWeak(&v27, &location);
-    [v5 setResponseHandler:v24];
+    v23[4] = *(a1 + 32);
+    v24 = v7;
+    objc_copyWeak(&v26, &location);
+    [v5 setResponseHandler:v23];
     v8 = [*(a1 + 32) messageDispatcher];
-    v9 = [v5 copy];
+    v9 = objc_msgSend_copy(v5);
     [v8 sendMessage:v9 completionHandler:0];
 
     v10 = dispatch_time(0, 30000000000);
@@ -234,15 +231,15 @@ void __70__HMDSoftwareUpdateManager_fetchAvailableUpdateWithCompletionHandler___
     block[1] = 3221225472;
     block[2] = __70__HMDSoftwareUpdateManager_fetchAvailableUpdateWithCompletionHandler___block_invoke_31;
     block[3] = &unk_2797332C0;
-    v23 = &buf;
+    v22 = &buf;
     v12 = *(a1 + 40);
     block[4] = *(a1 + 32);
-    v21 = v5;
-    v22 = v12;
+    v20 = v5;
+    v21 = v12;
     v13 = v5;
     dispatch_after(v10, v11, block);
 
-    objc_destroyWeak(&v27);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(&location);
     _Block_object_dispose(&buf, 8);
   }
@@ -267,13 +264,11 @@ void __70__HMDSoftwareUpdateManager_fetchAvailableUpdateWithCompletionHandler___
       (*(*(a1 + 40) + 16))();
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __70__HMDSoftwareUpdateManager_fetchAvailableUpdateWithCompletionHandler___block_invoke_25(uint64_t a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -314,9 +309,9 @@ void __70__HMDSoftwareUpdateManager_fetchAvailableUpdateWithCompletionHandler___
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v16;
-      v34 = 2112;
-      v35 = v12;
+      v32 = v16;
+      v33 = 2112;
+      v34 = v12;
       _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Fetch returned invalid update with download size 0: %@", buf, 0x16u);
     }
 
@@ -342,11 +337,11 @@ LABEL_14:
       {
         v24 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v33 = v24;
-        v34 = 2112;
-        v35 = v12;
-        v36 = 2112;
-        v37 = v19;
+        v32 = v24;
+        v33 = 2112;
+        v34 = v12;
+        v35 = 2112;
+        v36 = v19;
         _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@Fetch returned update, %@, matching existing update: %@", buf, 0x20u);
       }
 
@@ -360,23 +355,23 @@ LABEL_14:
       {
         v25 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v33 = v25;
-        v34 = 2112;
-        v35 = v12;
+        v32 = v25;
+        v33 = 2112;
+        v34 = v12;
         _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@Updating with software update: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(context);
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __70__HMDSoftwareUpdateManager_fetchAvailableUpdateWithCompletionHandler___block_invoke_29;
-      v28[3] = &unk_2797346E0;
-      objc_copyWeak(&v31, (a1 + 56));
-      v29 = v12;
-      v30 = *(a1 + 40);
-      [v18 updateSoftwareUpdate:v29 completionHandler:v28];
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __70__HMDSoftwareUpdateManager_fetchAvailableUpdateWithCompletionHandler___block_invoke_29;
+      v27[3] = &unk_2797346E0;
+      objc_copyWeak(&v30, (a1 + 56));
+      v28 = v12;
+      v29 = *(a1 + 40);
+      [v18 updateSoftwareUpdate:v28 completionHandler:v27];
 
-      objc_destroyWeak(&v31);
+      objc_destroyWeak(&v30);
     }
   }
 
@@ -387,13 +382,11 @@ LABEL_14:
 
 LABEL_25:
   *(*(*(a1 + 48) + 8) + 24) = 1;
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __70__HMDSoftwareUpdateManager_fetchAvailableUpdateWithCompletionHandler___block_invoke_31(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0)
   {
     v2 = objc_autoreleasePoolPush();
@@ -403,11 +396,11 @@ void __70__HMDSoftwareUpdateManager_fetchAvailableUpdateWithCompletionHandler___
     {
       v5 = HMFGetLogIdentifier();
       v6 = *(a1 + 40);
-      v9 = 138543618;
-      v10 = v5;
-      v11 = 2112;
-      v12 = v6;
-      _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Client failed to respond to message: %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v5;
+      v10 = 2112;
+      v11 = v6;
+      _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Client failed to respond to message: %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v2);
@@ -419,12 +412,11 @@ void __70__HMDSoftwareUpdateManager_fetchAvailableUpdateWithCompletionHandler___
   }
 
   *(*(*(a1 + 56) + 8) + 24) = 1;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __70__HMDSoftwareUpdateManager_fetchAvailableUpdateWithCompletionHandler___block_invoke_29(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = objc_autoreleasePoolPush();
@@ -434,13 +426,13 @@ void __70__HMDSoftwareUpdateManager_fetchAvailableUpdateWithCompletionHandler___
   {
     v8 = HMFGetLogIdentifier();
     v9 = *(a1 + 32);
-    v12 = 138543874;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v9;
-    v16 = 2112;
-    v17 = v3;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updated software update, %@, with error: %@", &v12, 0x20u);
+    v11 = 138543874;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v9;
+    v15 = 2112;
+    v16 = v3;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Updated software update, %@, with error: %@", &v11, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -455,8 +447,6 @@ void __70__HMDSoftwareUpdateManager_fetchAvailableUpdateWithCompletionHandler___
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40), v10, v3);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateAvailableUpdate:(id)update
@@ -475,10 +465,10 @@ void __70__HMDSoftwareUpdateManager_fetchAvailableUpdateWithCompletionHandler___
 
 void __50__HMDSoftwareUpdateManager_updateAvailableUpdate___block_invoke(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D0F848];
   v3 = *MEMORY[0x277CD1128];
-  v12 = *MEMORY[0x277CD1130];
+  v11 = *MEMORY[0x277CD1130];
   v4 = *(a1 + 32);
   if (v4)
   {
@@ -490,23 +480,21 @@ void __50__HMDSoftwareUpdateManager_updateAvailableUpdate___block_invoke(uint64_
     [MEMORY[0x277CBEB68] null];
   }
   v5 = ;
-  v13[0] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v12[0] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v7 = [v2 entitledMessageWithName:v3 messagePayload:v6];
 
   v8 = [*(a1 + 40) messageDestination];
   [v7 setDestination:v8];
 
   v9 = [*(a1 + 40) messageDispatcher];
-  v10 = [v7 copy];
+  v10 = objc_msgSend_copy(v7);
   [v9 sendMessage:v10 completionHandler:0];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleUpdateAvailableUpdate:(id)update
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   accessory = [(HMDSoftwareUpdateManager *)self accessory];
   if (accessory)
@@ -518,16 +506,16 @@ void __50__HMDSoftwareUpdateManager_updateAvailableUpdate___block_invoke(uint64_
     {
       v8 = 0;
 LABEL_4:
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __57__HMDSoftwareUpdateManager__handleUpdateAvailableUpdate___block_invoke;
-      v36[3] = &unk_2797358C8;
-      v37 = updateCopy;
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __57__HMDSoftwareUpdateManager__handleUpdateAvailableUpdate___block_invoke;
+      v35[3] = &unk_2797358C8;
+      v36 = updateCopy;
       v8 = v8;
-      v38 = v8;
-      [accessory updateSoftwareUpdate:v8 completionHandler:v36];
+      v37 = v8;
+      [accessory updateSoftwareUpdate:v8 completionHandler:v35];
 
-      responseHandler6 = v37;
+      responseHandler6 = v36;
 LABEL_26:
 
       goto LABEL_27;
@@ -546,7 +534,7 @@ LABEL_26:
         {
           v25 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v40 = v25;
+          v39 = v25;
           _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_INFO, "%{public}@Invalid software update in message payload", buf, 0xCu);
         }
 
@@ -577,9 +565,9 @@ LABEL_26:
       {
         v31 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v40 = v31;
-        v41 = 2112;
-        v42 = v8;
+        v39 = v31;
+        v40 = 2112;
+        v41 = v8;
         _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_INFO, "%{public}@Invalid software update with download size 0 in message payload, %@", buf, 0x16u);
       }
 
@@ -602,9 +590,9 @@ LABEL_26:
         v19 = HMFGetLogIdentifier();
         messagePayload = [updateCopy messagePayload];
         *buf = 138543618;
-        v40 = v19;
-        v41 = 2112;
-        v42 = messagePayload;
+        v39 = v19;
+        v40 = 2112;
+        v41 = messagePayload;
         _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Missing serialized software update from message payload: %@", buf, 0x16u);
       }
 
@@ -635,7 +623,7 @@ LABEL_25:
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v40 = v13;
+    v39 = v13;
     _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Not configured, Missing current accessory", buf, 0xCu);
   }
 
@@ -651,13 +639,11 @@ LABEL_25:
   }
 
 LABEL_27:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __57__HMDSoftwareUpdateManager__handleUpdateAvailableUpdate___block_invoke(uint64_t a1, void *a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) responseHandler];
 
@@ -674,19 +660,17 @@ void __57__HMDSoftwareUpdateManager__handleUpdateAvailableUpdate___block_invoke(
 
       if (v5)
       {
-        v10 = *MEMORY[0x277CD1100];
+        v9 = *MEMORY[0x277CD1100];
         v6 = [*(a1 + 40) identifier];
         v7 = [v6 UUIDString];
-        v11[0] = v7;
-        v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+        v10[0] = v7;
+        v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
       }
     }
 
     v8 = [*(a1 + 32) responseHandler];
     (v8)[2](v8, v3, v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleStop:(id)stop
@@ -710,7 +694,7 @@ void __57__HMDSoftwareUpdateManager__handleUpdateAvailableUpdate___block_invoke(
 
 - (void)_handleStart:(id)start
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   startCopy = start;
   transport = [startCopy transport];
   if (transport)
@@ -728,10 +712,10 @@ void __57__HMDSoftwareUpdateManager__handleUpdateAvailableUpdate___block_invoke(
 
     if (softwareUpdate)
     {
-      v14 = *MEMORY[0x277CD1130];
+      v13 = *MEMORY[0x277CD1130];
       v10 = encodeRootObjectForIncomingXPCMessage(softwareUpdate, 0);
-      v15[0] = v10;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+      v14[0] = v10;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     }
 
     else
@@ -742,43 +726,39 @@ void __57__HMDSoftwareUpdateManager__handleUpdateAvailableUpdate___block_invoke(
     responseHandler2 = [startCopy responseHandler];
     (responseHandler2)[2](responseHandler2, 0, v11);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForMessages
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   messageDispatcher = [(HMDSoftwareUpdateManager *)self messageDispatcher];
   v4 = [HMDXPCMessagePolicy policyWithEntitlements:5];
   v5 = *MEMORY[0x277CD1108];
-  v15[0] = v4;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = v4;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   [messageDispatcher registerForMessage:v5 receiver:self policies:v6 selector:sel__handleStart_];
 
   v7 = *MEMORY[0x277CD1118];
-  v14 = v4;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v13 = v4;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
   [messageDispatcher registerForMessage:v7 receiver:self policies:v8 selector:sel__handleStop_];
 
   v9 = *MEMORY[0x277CD1128];
-  v13[0] = v4;
+  v12[0] = v4;
   v10 = [HMDConfigurationMessagePolicy policyWithOperationTypes:2];
-  v13[1] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v12[1] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   [messageDispatcher registerForMessage:v9 receiver:self policies:v11 selector:sel__handleUpdateAvailableUpdate_];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDSoftwareUpdateManager)init
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (+[HMDSoftwareUpdateManager isSupported])
   {
-    v20.receiver = self;
-    v20.super_class = HMDSoftwareUpdateManager;
-    v3 = [(HMDSoftwareUpdateManager *)&v20 init];
+    v19.receiver = self;
+    v19.super_class = HMDSoftwareUpdateManager;
+    v3 = [(HMDSoftwareUpdateManager *)&v19 init];
     if (v3)
     {
       v4 = HMDispatchQueueNameString();
@@ -812,7 +792,7 @@ void __57__HMDSoftwareUpdateManager__handleUpdateAvailableUpdate___block_invoke(
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v22 = v17;
+      v21 = v17;
       _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Software updates are not valid on this target", buf, 0xCu);
     }
 
@@ -820,7 +800,6 @@ void __57__HMDSoftwareUpdateManager__handleUpdateAvailableUpdate___block_invoke(
     selfCopy = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

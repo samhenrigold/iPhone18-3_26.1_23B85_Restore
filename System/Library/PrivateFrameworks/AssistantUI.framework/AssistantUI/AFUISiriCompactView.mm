@@ -75,9 +75,11 @@
 
 uint64_t __51__AFUISiriCompactView_sharedSiriUISettingsDefaults__block_invoke()
 {
-  sharedSiriUISettingsDefaults_defaults_0 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.siri.internal"];
+  v0 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.siri.internal"];
+  v1 = sharedSiriUISettingsDefaults_defaults_0;
+  sharedSiriUISettingsDefaults_defaults_0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (AFUISiriCompactView)initWithFrame:(CGRect)frame compactViewDelegate:(id)delegate edgeLightViewProvider:(id)provider showsSensitiveUI:(BOOL)i

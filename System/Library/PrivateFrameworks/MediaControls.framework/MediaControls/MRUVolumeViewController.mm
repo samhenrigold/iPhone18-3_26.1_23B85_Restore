@@ -326,7 +326,7 @@ void __78__MRUVolumeViewController_viewWillTransitionToSize_withTransitionCoordi
 
 - (void)primarySliderValueDidChange:(id)change
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   view = [(MRUVolumeViewController *)self view];
   if ([view isExpanded])
@@ -356,29 +356,29 @@ void __78__MRUVolumeViewController_viewWillTransitionToSize_withTransitionCoordi
   [changeCopy value];
   [WeakRetained volumeViewController:self didChangeSystemVolumeValue:?];
 
-  v11 = MCLogCategoryDefault();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = MCLogCategoryDefault(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = objc_opt_class();
-    v13 = MEMORY[0x1E696AD98];
+    v13 = objc_opt_class();
+    v14 = MEMORY[0x1E696AD98];
     [changeCopy value];
-    v14 = [v13 numberWithFloat:?];
-    v16 = 138544130;
-    v17 = v12;
-    v18 = 2114;
-    v19 = v14;
-    v20 = 1024;
+    v15 = [v14 numberWithFloat:?];
+    v17 = 138544130;
+    v18 = v13;
+    v19 = 2114;
+    v20 = v15;
+    v21 = 1024;
     isEditingValue = [changeCopy isEditingValue];
-    v22 = 1024;
+    v23 = 1024;
     isTracking = [changeCopy isTracking];
-    _os_log_impl(&dword_1A20FC000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ slider value changed: %{public}@ | editing: %{BOOL}u | tracking: %{BOOL}u", &v16, 0x22u);
+    _os_log_impl(&dword_1A20FC000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ slider value changed: %{public}@ | editing: %{BOOL}u | tracking: %{BOOL}u", &v17, 0x22u);
   }
 
   [(MRUVolumeViewController *)self updatePrimarySliderVolumeValueAfterDelay];
 LABEL_8:
   [changeCopy value];
-  v15 = [MRUSystemVolumeController packageStateForVolumeValue:?];
-  [changeCopy setGlyphState:v15];
+  v16 = [MRUSystemVolumeController packageStateForVolumeValue:?];
+  [changeCopy setGlyphState:v16];
 }
 
 - (void)secondarySliderValueDidChange:(id)change
@@ -453,7 +453,7 @@ LABEL_8:
   ShouldBeVertical = MRULayoutShouldBeVertical();
   if (ShouldBeVertical)
   {
-    Width = MRUDefaultExpandedWidth(ShouldBeVertical);
+    Width = MRUDefaultExpandedWidth(ShouldBeVertical, v5);
   }
 
   else
@@ -461,7 +461,7 @@ LABEL_8:
     view2 = [(MRUVolumeViewController *)self view];
     window = [view2 window];
     [window bounds];
-    Width = CGRectGetWidth(v9);
+    Width = CGRectGetWidth(v10);
   }
 
   return Width;
@@ -544,7 +544,7 @@ LABEL_8:
 
 - (void)audioModuleController:(id)controller volumeController:(id)volumeController didChangeVolumeControlCapabilities:(unsigned int)capabilities effectiveVolumeValue:(float)value forType:(int64_t)type
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   volumeControllerCopy = volumeController;
   if (type >= 2)
@@ -570,29 +570,29 @@ LABEL_8:
 
     if ((isEditingValue2 & 1) == 0)
     {
-      [(MRUVolumeViewController *)self updatePrimarySliderVolumeValueAnimated:1];
+      v16 = [(MRUVolumeViewController *)self updatePrimarySliderVolumeValueAnimated:1];
     }
 
-    v16 = MCLogCategoryDefault();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = MCLogCategoryDefault(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = objc_opt_class();
-      *&v17 = value;
-      v18 = [MEMORY[0x1E696AD98] numberWithFloat:v17];
+      v28 = objc_opt_class();
+      *&v18 = value;
+      v19 = [MEMORY[0x1E696AD98] numberWithFloat:v18];
       view3 = [(MRUVolumeViewController *)self view];
       primarySlider2 = [view3 primarySlider];
       isEditingValue3 = [primarySlider2 isEditingValue];
       view4 = [(MRUVolumeViewController *)self view];
       primarySlider3 = [view4 primarySlider];
       *buf = 138544130;
-      v29 = v27;
-      v30 = 2114;
-      v31 = v18;
-      v32 = 1024;
-      v33 = isEditingValue3;
-      v34 = 1024;
+      v30 = v28;
+      v31 = 2114;
+      v32 = v19;
+      v33 = 1024;
+      v34 = isEditingValue3;
+      v35 = 1024;
       isTracking = [primarySlider3 isTracking];
-      _os_log_impl(&dword_1A20FC000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ system volume changed: %{public}@ | editing: %{BOOL}u | tracking: %{BOOL}u", buf, 0x22u);
+      _os_log_impl(&dword_1A20FC000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ system volume changed: %{public}@ | editing: %{BOOL}u | tracking: %{BOOL}u", buf, 0x22u);
     }
   }
 

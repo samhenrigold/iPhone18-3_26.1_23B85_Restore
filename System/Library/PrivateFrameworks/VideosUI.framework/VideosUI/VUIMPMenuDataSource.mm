@@ -500,8 +500,7 @@ LABEL_24:
 
   [(VUIMPMenuDataSource *)self _populateViewModelFromMeidaLibraryCategoryTypes:v29];
   [(VUIMPMenuDataSource *)self setMediaEntitiesByCategoryType:v10];
-  [(VUIMPMenuDataSource *)self setHasMediaEntitiesFetchCompleted:1];
-  v35 = VUIDefaultLogObject();
+  v35 = VUIDefaultLogObject([(VUIMPMenuDataSource *)self setHasMediaEntitiesFetchCompleted:1]);
   if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
   {
     hasDownloadDataSourceFetchCompleted = self->_hasDownloadDataSourceFetchCompleted;
@@ -730,20 +729,20 @@ void __65__VUIMPMenuDataSource_controller_fetchRequests_didFailWithError___block
 
 - (void)_mediaLibraryContentDidChange:(id)change
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   object = [change object];
   mediaLibrary = [(VUIMPMenuDataSource *)self mediaLibrary];
 
   if (object == mediaLibrary)
   {
-    v6 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = VUIDefaultLogObject(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       mediaLibrary2 = [(VUIMPMenuDataSource *)self mediaLibrary];
       identifier = [mediaLibrary2 identifier];
-      v9 = 138412290;
-      v10 = identifier;
-      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "VUIMPMenuDataSource:: mediaLibrary %@ ContentDidChange", &v9, 0xCu);
+      v10 = 138412290;
+      v11 = identifier;
+      _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUIMPMenuDataSource:: mediaLibrary %@ ContentDidChange", &v10, 0xCu);
     }
 
     [(VUIMPMenuDataSource *)self _loadGenres];
@@ -777,7 +776,7 @@ void __65__VUIMPMenuDataSource_controller_fetchRequests_didFailWithError___block
 - (id)_fetchRequestsWithMediaLibrary:(id)library categoryTypeMap:(id *)map isInitialFetch:(BOOL)fetch
 {
   fetchCopy = fetch;
-  v57[1] = *MEMORY[0x1E69E9840];
+  v58[1] = *MEMORY[0x1E69E9840];
   libraryCopy = library;
   v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -787,11 +786,11 @@ void __65__VUIMPMenuDataSource_controller_fetchRequests_didFailWithError___block
   if (v12 && ![libraryCopy type])
   {
     v13 = +[VUIMediaEntityFetchRequest movieRentalsFetchRequest];
-    v52 = objc_alloc(MEMORY[0x1E695DEC8]);
-    v53 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"rentalExpirationDate" ascending:1];
-    v54 = [v52 initWithObjects:{v53, 0}];
+    v53 = objc_alloc(MEMORY[0x1E695DEC8]);
+    v54 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"rentalExpirationDate" ascending:1];
+    v55 = [v53 initWithObjects:{v54, 0}];
 
-    [v13 setSortDescriptors:v54];
+    [v13 setSortDescriptors:v55];
     [(VUIMPMenuDataSource *)self _updateFetchRequest:v13 isInitialFetch:fetchCopy];
     [v9 addObject:v13];
     identifier = [v13 identifier];
@@ -811,7 +810,7 @@ void __65__VUIMPMenuDataSource_controller_fetchRequests_didFailWithError___block
     v16 = [VUIMediaEntityFetchRequest alloc];
     v17 = MEMORY[0x1E695DFD8];
     +[VUIMediaEntityType movie];
-    v56 = v10;
+    v57 = v10;
     v18 = v9;
     v19 = fetchCopy;
     mapCopy = map;
@@ -824,99 +823,99 @@ void __65__VUIMPMenuDataSource_controller_fetchRequests_didFailWithError___block
     map = mapCopy;
     fetchCopy = v19;
     v9 = v18;
-    v10 = v56;
-    v26 = VUIMediaEntityFetchRequestMinimalPropertiesSet();
-    [(VUIMediaEntityFetchRequest *)v25 setProperties:v26];
+    v10 = v57;
+    v27 = VUIMediaEntityFetchRequestMinimalPropertiesSet(v26);
+    [(VUIMediaEntityFetchRequest *)v25 setProperties:v27];
 
-    v27 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"addedDate" ascending:0];
-    v57[0] = v27;
-    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:1];
-    [(VUIMediaEntityFetchRequest *)v25 setSortDescriptors:v28];
+    v28 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"addedDate" ascending:0];
+    v58[0] = v28;
+    v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v58 count:1];
+    [(VUIMediaEntityFetchRequest *)v25 setSortDescriptors:v29];
 
     [(VUIMediaEntityFetchRequest *)v25 addRecentlyAddedSortDescriptorWithLimit:25];
-    v29 = MEMORY[0x1E696AE18];
-    v30 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v31 = [v29 vui_predicateWithSubpredicates:v30 type:1];
-    [(VUIMediaEntityFetchRequest *)v25 setPredicate:v31];
+    v30 = MEMORY[0x1E696AE18];
+    v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v32 = [v30 vui_predicateWithSubpredicates:v31 type:1];
+    [(VUIMediaEntityFetchRequest *)v25 setPredicate:v32];
 
     [(VUIMPMenuDataSource *)self _updateFetchRequest:v25 isInitialFetch:fetchCopy];
     [v9 addObject:v25];
     identifier2 = [(VUIMediaEntityFetchRequest *)v25 identifier];
-    [v56 setObject:&unk_1F5E5D170 forKey:identifier2];
+    [v57 setObject:&unk_1F5E5D170 forKey:identifier2];
 
     v13 = v25;
   }
 
   validCategories3 = [(VUILibraryMenuDataSource *)self validCategories];
-  v34 = [validCategories3 containsObject:&unk_1F5E5D188];
+  v35 = [validCategories3 containsObject:&unk_1F5E5D188];
 
-  if (v34)
+  if (v35)
   {
-    v35 = +[VUIMediaEntityFetchRequest homeVideosFetchRequest];
+    v36 = +[VUIMediaEntityFetchRequest homeVideosFetchRequest];
 
-    [(VUIMPMenuDataSource *)self _updateFetchRequest:v35 isInitialFetch:fetchCopy];
-    [v9 addObject:v35];
-    identifier3 = [v35 identifier];
+    [(VUIMPMenuDataSource *)self _updateFetchRequest:v36 isInitialFetch:fetchCopy];
+    [v9 addObject:v36];
+    identifier3 = [v36 identifier];
     [v10 setObject:&unk_1F5E5D188 forKey:identifier3];
 
-    v13 = v35;
+    v13 = v36;
   }
 
   validCategories4 = [(VUILibraryMenuDataSource *)self validCategories];
-  v38 = [validCategories4 containsObject:&unk_1F5E5D1A0];
+  v39 = [validCategories4 containsObject:&unk_1F5E5D1A0];
 
-  if (v38)
+  if (v39)
   {
-    v39 = +[VUIMediaEntityFetchRequest showsFetchRequest];
+    v40 = +[VUIMediaEntityFetchRequest showsFetchRequest];
 
-    [(VUIMPMenuDataSource *)self _updateFetchRequest:v39 isInitialFetch:fetchCopy];
-    [v9 addObject:v39];
-    identifier4 = [v39 identifier];
+    [(VUIMPMenuDataSource *)self _updateFetchRequest:v40 isInitialFetch:fetchCopy];
+    [v9 addObject:v40];
+    identifier4 = [v40 identifier];
     [v10 setObject:&unk_1F5E5D1A0 forKey:identifier4];
 
-    v13 = v39;
+    v13 = v40;
   }
 
   validCategories5 = [(VUILibraryMenuDataSource *)self validCategories];
-  v42 = [validCategories5 containsObject:&unk_1F5E5D1B8];
+  v43 = [validCategories5 containsObject:&unk_1F5E5D1B8];
 
-  if (v42)
+  if (v43)
   {
-    v43 = +[VUIMediaEntityFetchRequest moviesFetchRequest];
+    v44 = +[VUIMediaEntityFetchRequest moviesFetchRequest];
 
-    [(VUIMPMenuDataSource *)self _updateFetchRequest:v43 isInitialFetch:fetchCopy];
-    [v9 addObject:v43];
-    identifier5 = [v43 identifier];
+    [(VUIMPMenuDataSource *)self _updateFetchRequest:v44 isInitialFetch:fetchCopy];
+    [v9 addObject:v44];
+    identifier5 = [v44 identifier];
     [v10 setObject:&unk_1F5E5D1B8 forKey:identifier5];
 
-    v13 = v43;
+    v13 = v44;
   }
 
   validCategories6 = [(VUILibraryMenuDataSource *)self validCategories];
-  v46 = [validCategories6 containsObject:&unk_1F5E5D1D0];
+  v47 = [validCategories6 containsObject:&unk_1F5E5D1D0];
 
-  if (v46 && SSDeviceIsHDRCapable())
+  if (v47 && SSDeviceIsHDRCapable())
   {
-    v47 = +[VUIMediaEntityFetchRequest moviesFetchRequest];
+    v48 = +[VUIMediaEntityFetchRequest moviesFetchRequest];
 
-    [v47 addHDRColorCapabilityOr4KResolutionPredicate];
-    [(VUIMPMenuDataSource *)self _updateFetchRequest:v47 isInitialFetch:fetchCopy];
-    [v9 addObject:v47];
-    identifier6 = [v47 identifier];
+    [v48 addHDRColorCapabilityOr4KResolutionPredicate];
+    [(VUIMPMenuDataSource *)self _updateFetchRequest:v48 isInitialFetch:fetchCopy];
+    [v9 addObject:v48];
+    identifier6 = [v48 identifier];
     [v10 setObject:&unk_1F5E5D1D0 forKey:identifier6];
 
-    v13 = v47;
+    v13 = v48;
   }
 
   if (map)
   {
-    v49 = v10;
+    v50 = v10;
     *map = v10;
   }
 
-  v50 = [v9 copy];
+  v51 = [v9 copy];
 
-  return v50;
+  return v51;
 }
 
 - (void)_loadGenres
@@ -954,19 +953,19 @@ void __65__VUIMPMenuDataSource_controller_fetchRequests_didFailWithError___block
 
     if (v9MediaLibrary)
     {
-      v12 = [MEMORY[0x1E6970618] vui_GenresQueryWithMediaLibrary:v9MediaLibrary];
+      v13 = [MEMORY[0x1E6970618] vui_GenresQueryWithMediaLibrary:v9MediaLibrary];
       objc_initWeak(&location, self);
-      v13 = dispatch_get_global_queue(0, 0);
+      v14 = dispatch_get_global_queue(0, 0);
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __34__VUIMPMenuDataSource__loadGenres__block_invoke;
       block[3] = &unk_1E87301C0;
-      v16 = v12;
-      v14 = v12;
-      objc_copyWeak(&v17, &location);
-      dispatch_async(v13, block);
+      v17 = v13;
+      v15 = v13;
+      objc_copyWeak(&v18, &location);
+      dispatch_async(v14, block);
 
-      objc_destroyWeak(&v17);
+      objc_destroyWeak(&v18);
       objc_destroyWeak(&location);
 LABEL_10:
 
@@ -974,7 +973,7 @@ LABEL_10:
     }
 
 LABEL_8:
-    v9MediaLibrary = VUIDefaultLogObject();
+    v9MediaLibrary = VUIDefaultLogObject(v12);
     if (os_log_type_enabled(v9MediaLibrary, OS_LOG_TYPE_ERROR))
     {
       [(VUIMPMenuDataSource *)v9MediaLibrary _loadGenres];
@@ -1014,7 +1013,7 @@ void __34__VUIMPMenuDataSource__loadGenres__block_invoke(uint64_t a1)
         v10 = *(*(&v27 + 1) + 8 * i);
         v11 = [v10 valueForProperty:v7];
         v12 = v11;
-        if (v11 && [v11 length])
+        if (v11 && (v11 = [v11 length]) != 0)
         {
           [v20 addObject:v12];
           v13 = [v10 valueForProperty:v8];
@@ -1035,7 +1034,7 @@ void __34__VUIMPMenuDataSource__loadGenres__block_invoke(uint64_t a1)
 
         else
         {
-          v14 = VUIDefaultLogObject();
+          v14 = VUIDefaultLogObject(v11);
           if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             __34__VUIMPMenuDataSource__loadGenres__block_invoke_cold_1(&buf, v26, v14);

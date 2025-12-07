@@ -339,8 +339,7 @@ LABEL_6:
 {
   if ([(SDAutoUnlockAKSSession *)self sessionIsValid])
   {
-    [(SDAutoUnlockAKSSession *)self aksSessionID];
-    v3 = sub_10005E624();
+    v3 = sub_10005E624([(SDAutoUnlockAKSSession *)self aksSessionID]);
   }
 
   else
@@ -376,9 +375,9 @@ LABEL_6:
     return 0;
   }
 
-  [(SDAutoUnlockAKSSession *)self aksSessionID];
+  aksSessionID = [(SDAutoUnlockAKSSession *)self aksSessionID];
 
-  return sub_10005E87C();
+  return sub_10005E87C(aksSessionID);
 }
 
 - (BOOL)confirmSession
@@ -411,8 +410,7 @@ LABEL_6:
 {
   if ([(SDAutoUnlockAKSSession *)self sessionIsValid])
   {
-    [(SDAutoUnlockAKSSession *)self aksSessionID];
-    v3 = sub_10005E2C8();
+    v3 = sub_10005E2C8([(SDAutoUnlockAKSSession *)self aksSessionID]);
   }
 
   else

@@ -31,82 +31,80 @@
   if (!v4 || (v5 = v4, (objc_opt_isKindOfClass() & 1) == 0))
   {
 
-    v6 = CAFGeneralLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = CAFGeneralLogging(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [CAFGroupReadRequest groupRequestValueForRequests:v6];
+      [CAFGroupReadRequest groupRequestValueForRequests:v7];
     }
 
     v5 = 0;
   }
 
-  v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v9)
+  v9 = v5;
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v10)
   {
-    v10 = v9;
-    v11 = *v18;
+    v11 = v10;
+    v12 = *v18;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v11)
+        if (*v18 != v12)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v9);
         }
 
         characteristic = [*(*(&v17 + 1) + 8 * i) characteristic];
         readInstanceIDs = [characteristic readInstanceIDs];
-        [v7 addObjectsFromArray:readInstanceIDs];
+        [v8 addObjectsFromArray:readInstanceIDs];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
-    while (v10);
+    while (v11);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v7;
+  return v8;
 }
 
 - (void)completedRequests:(id)requests withResponse:(id)response
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
   responseCopy = response;
   values = [responseCopy values];
 
   if (values)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
-    v22 = requestsCopy;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v21 = requestsCopy;
     v8 = requestsCopy;
-    v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v24;
+      v11 = *v23;
       do
       {
         v12 = 0;
         do
         {
-          if (*v24 != v11)
+          if (*v23 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v23 + 1) + 8 * v12);
+          v13 = *(*(&v22 + 1) + 8 * v12);
           values2 = [responseCopy values];
           characteristic = [v13 characteristic];
           instanceID = [characteristic instanceID];
@@ -124,16 +122,14 @@
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v10);
     }
 
-    requestsCopy = v22;
+    requestsCopy = v21;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 @end

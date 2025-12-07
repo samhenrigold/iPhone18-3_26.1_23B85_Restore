@@ -40,9 +40,9 @@
       [currentHandler handleFailureInMethod:a2 object:self file:@"HFCameraPlaybackEngineConfiguration.m" lineNumber:36 description:@"Missing camera profile"];
     }
 
-    home = [(HFCameraPlaybackEngineConfiguration *)self home];
+    v5 = objc_msgSend_home(self);
 
-    if (!home)
+    if (!v5)
     {
       currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
       [currentHandler2 handleFailureInMethod:a2 object:self file:@"HFCameraPlaybackEngineConfiguration.m" lineNumber:37 description:@"Missing home"];

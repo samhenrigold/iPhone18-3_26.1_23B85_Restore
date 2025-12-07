@@ -11,15 +11,14 @@
 {
   v4 = sub_100018298();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v12[-1] - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = OBJC_IVAR____TtC23AppStoreOverlaysService13SeparatorView_lineColor;
-  *(&self->super.super.super.isa + v9) = [objc_opt_self() separatorColor];
-  (*(v5 + 104))(v8, enum case for Separator.Position.bottom(_:), v4);
-  v12[3] = sub_1000181A8();
-  v12[4] = &protocol witness table for ZeroDimension;
-  sub_10000E700(v12);
+  v7 = &v11[-1] - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = OBJC_IVAR____TtC23AppStoreOverlaysService13SeparatorView_lineColor;
+  *(&self->super.super.super.isa + v8) = [objc_opt_self() separatorColor];
+  (*(v5 + 104))(v7, enum case for Separator.Position.bottom(_:), v4);
+  v11[3] = sub_1000181A8();
+  v11[4] = &protocol witness table for ZeroDimension;
+  sub_10000E700(v11);
   sub_100018198();
   sub_1000182A8();
   result = sub_100018588();
@@ -32,21 +31,20 @@
   width = fits.width;
   v5 = sub_1000182C8();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = OBJC_IVAR____TtC23AppStoreOverlaysService13SeparatorView_separator;
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = OBJC_IVAR____TtC23AppStoreOverlaysService13SeparatorView_separator;
   swift_beginAccess();
-  (*(v6 + 16))(v9, self + v10, v5);
+  (*(v6 + 16))(v8, self + v9, v5);
   selfCopy = self;
   sub_100018288();
-  v13 = v12;
+  v12 = v11;
 
-  (*(v6 + 8))(v9, v5);
-  v14 = width;
-  v15 = v13;
-  result.height = v15;
-  result.width = v14;
+  (*(v6 + 8))(v8, v5);
+  v13 = width;
+  v14 = v12;
+  result.height = v14;
+  result.width = v13;
   return result;
 }
 
@@ -54,28 +52,27 @@
 {
   v3 = sub_1000182C8();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin(v3);
-  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = OBJC_IVAR____TtC23AppStoreOverlaysService13SeparatorView_separator;
+  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = OBJC_IVAR____TtC23AppStoreOverlaysService13SeparatorView_separator;
   swift_beginAccess();
-  (*(v4 + 16))(v7, self + v8, v3);
+  (*(v4 + 16))(v6, self + v7, v3);
   selfCopy = self;
   sub_100018288();
-  v11 = v10;
+  v10 = v9;
 
-  (*(v4 + 8))(v7, v3);
-  v12 = UIViewNoIntrinsicMetric;
-  v13 = v11;
-  result.height = v13;
-  result.width = v12;
+  (*(v4 + 8))(v6, v3);
+  v11 = UIViewNoIntrinsicMetric;
+  v12 = v10;
+  result.height = v12;
+  result.width = v11;
   return result;
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_100010750();
+  sub_100010750(v2);
 }
 
 @end

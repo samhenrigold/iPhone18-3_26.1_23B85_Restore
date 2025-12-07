@@ -2,7 +2,9 @@
 - (id)detailedText;
 - (id)specifiers;
 - (id)valueForSpecifier:(id)specifier;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation STStorageOtherDetailController
@@ -114,113 +116,196 @@
   }
 }
 
-- (id)detailedText
+- (void)viewWillAppear:(BOOL)appear
 {
-  vmUsage = self->_vmUsage;
-  v4 = STFormattedSize();
-  szLogs = self->_szLogs;
-  v6 = STFormattedSize();
-  v43 = [NSMutableString stringWithFormat:@"Storage Report : \n\nSwap : \t%@\nLogs : \t%@\n", v4, v6];
-
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  selfCopy = self;
-  v7 = self->_detailedOthersSizes;
-  v8 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v49 objects:v54 count:16];
-  if (v8)
+  v22.receiver = self;
+  v22.super_class = STStorageOtherDetailController;
+  [(STStorageOtherDetailController *)&v22 viewWillAppear:appear];
+  if (STStorageIsInternalInstall())
   {
-    v9 = v8;
-    v10 = *v50;
-    do
-    {
-      for (i = 0; i != v9; i = i + 1)
-      {
-        if (*v50 != v10)
-        {
-          objc_enumerationMutation(v7);
-        }
+    self->_dataIsLoaded = 0;
+    v4 = [NSMutableArray arrayWithCapacity:[(NSDictionary *)self->_appComponents count]];
+    specs = self->_specs;
+    self->_specs = v4;
 
-        v12 = *(*(&v49 + 1) + 8 * i);
-        v13 = [(NSMutableDictionary *)self->_detailedOthersSizes objectForKeyedSubscript:v12];
-        [v13 longLongValue];
-        v14 = STFormattedSize();
-        v15 = [NSString stringWithFormat:@"%@ : \t%@\n", v12, v14];
-        [v43 appendString:v15];
+    if ([(NSNumber *)self->_otherSize longLongValue]>= 0x500000000)
+    {
+      v6 = objc_alloc_init(STStorageOptionTip);
+      ttrOptionTip = self->_ttrOptionTip;
+      self->_ttrOptionTip = v6;
+
+      [(STStorageOptionTip *)self->_ttrOptionTip setIdentifier:@"_LARGE_SYSTEM_DATA_"];
+      longLongValue = [(NSNumber *)self->_otherSize longLongValue];
+      v9 = @"Large";
+      if (longLongValue <= 10485760)
+      {
+        v9 = @"Low";
       }
 
-      v9 = [(NSMutableDictionary *)v7 countByEnumeratingWithState:&v49 objects:v54 count:16];
+      v10 = [NSString stringWithFormat:@"%@ System Data", v9];
+      [(STStorageOptionTip *)self->_ttrOptionTip setTitle:v10];
+
+      longLongValue2 = [(NSNumber *)self->_otherSize longLongValue];
+      v12 = @"larger";
+      if (longLongValue2 <= 10485760)
+      {
+        v12 = @"lower";
+      }
+
+      otherSize = self->_otherSize;
+      v14 = v12;
+      [(NSNumber *)otherSize longLongValue];
+      v15 = STFormattedSize();
+      v16 = [NSString stringWithFormat:@"The System data takes %@. This is %@ than expected. Please file a Radar to report this issue.", v15, v14];
+
+      [(STStorageOptionTip *)self->_ttrOptionTip setInfoText:v16];
+      [(STStorageOptionTip *)self->_ttrOptionTip setRepresentedApp:@"com.apple.TapToRadar"];
+      [(STStorageOptionTip *)self->_ttrOptionTip setDelegate:self->_ttrDelegate];
+      [(STStorageOptionTip *)self->_ttrOptionTip setImmediateGain:0];
+      [(STStorageOptionTip *)self->_ttrOptionTip setSize:0];
+      [(STStorageOptionTip *)self->_ttrOptionTip setEnableButtonTitle:@"Tap-to-Radar"];
+      [(STStorageOptionTip *)self->_ttrOptionTip setConfirmationText:@"This will generate a radar with a disk space report attached. It may take up to 10 minutes to prepare.\n\nWould you like to proceed?"];
+      [(STStorageOptionTip *)self->_ttrOptionTip setConfirmationButtonTitle:@"OK"];
+      v17 = self->_ttrOptionTip;
+      v18 = [NSValue valueWithPointer:self];
+      [(STStorageOptionTip *)v17 setProperty:v18 forKey:@"_stController"];
     }
 
-    while (v9);
+    v19 = dispatch_get_global_queue(25, 0);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_11888;
+    block[3] = &unk_2CAA0;
+    block[4] = self;
+    dispatch_async(v19, block);
   }
 
+  else
+  {
+    [(STStorageOtherDetailController *)self setLogSizes:&__NSDictionary0__struct];
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_11F30;
+    v20[3] = &unk_2CAA0;
+    v20[4] = self;
+    dispatch_async(&_dispatch_main_q, v20);
+  }
+}
+
+- (id)detailedText
+{
+  v3 = STFormattedSize();
+  v4 = STFormattedSize();
+  v41 = [NSMutableString stringWithFormat:@"Storage Report : \n\nSwap : \t%@\nLogs : \t%@\n", v3, v4];
+
+  v49 = 0u;
+  v50 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  obj = self->_appComponents;
-  v16 = [(NSDictionary *)obj countByEnumeratingWithState:&v45 objects:v53 count:16];
-  if (v16)
+  selfCopy = self;
+  v5 = self->_detailedOthersSizes;
+  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v47 objects:v52 count:16];
+  if (v6)
   {
-    v17 = v16;
-    v18 = *v46;
-    v34 = *v46;
+    v7 = v6;
+    v8 = *v48;
     do
     {
-      v19 = 0;
-      v35 = v17;
+      for (i = 0; i != v7; i = i + 1)
+      {
+        if (*v48 != v8)
+        {
+          objc_enumerationMutation(v5);
+        }
+
+        v10 = *(*(&v47 + 1) + 8 * i);
+        v11 = [(NSMutableDictionary *)self->_detailedOthersSizes objectForKeyedSubscript:v10];
+        [v11 longLongValue];
+        v12 = STFormattedSize();
+        v13 = [NSString stringWithFormat:@"%@ : \t%@\n", v10, v12];
+        [v41 appendString:v13];
+      }
+
+      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v47 objects:v52 count:16];
+    }
+
+    while (v7);
+  }
+
+  v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  obj = self->_appComponents;
+  v14 = [(NSDictionary *)obj countByEnumeratingWithState:&v43 objects:v51 count:16];
+  if (v14)
+  {
+    v15 = v14;
+    v16 = *v44;
+    v32 = *v44;
+    do
+    {
+      v17 = 0;
+      v33 = v15;
       do
       {
-        if (*v46 != v18)
+        if (*v44 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = [(NSDictionary *)selfCopy->_appComponents objectForKeyedSubscript:*(*(&v45 + 1) + 8 * v19)];
-        if ([v20 shouldReturn])
+        v18 = [(NSDictionary *)selfCopy->_appComponents objectForKeyedSubscript:*(*(&v43 + 1) + 8 * v17)];
+        if ([v18 shouldReturn])
         {
-          v42 = [v20 app];
-          appSize = [v42 appSize];
+          v40 = [v18 app];
+          appSize = [v40 appSize];
           [appSize docsAndData];
-          v37 = STFormattedSize();
-          v40 = [v20 app];
-          appSize2 = [v40 appSize];
+          v35 = STFormattedSize();
+          v38 = [v18 app];
+          appSize2 = [v38 appSize];
           [appSize2 purgeable];
-          v21 = STFormattedSize();
-          v22 = [v20 app];
-          appSize3 = [v22 appSize];
+          v19 = STFormattedSize();
+          v20 = [v18 app];
+          appSize3 = [v20 appSize];
           [appSize3 fixed];
-          v24 = STFormattedSize();
-          v25 = [v20 app];
-          appSize4 = [v25 appSize];
+          v22 = STFormattedSize();
+          v23 = [v18 app];
+          appSize4 = [v23 appSize];
           [appSize4 dynamic];
-          v27 = STFormattedSize();
-          v38 = [NSString stringWithFormat:@"Docs&Data : %@ / Purgeable : %@ / Fixed : %@ / Dynamic : %@", v37, v21, v24, v27];
+          v25 = STFormattedSize();
+          v36 = [NSString stringWithFormat:@"Docs&Data : %@ / Purgeable : %@ / Fixed : %@ / Dynamic : %@", v35, v19, v22, v25];
 
-          v28 = [v20 app];
-          bundleIdentifier = [v28 bundleIdentifier];
-          reportedDiff = [v20 reportedDiff];
-          reportedString = [v20 reportedString];
-          v32 = [NSString stringWithFormat:@"%@ \tDiff : %@ \n\t%@\n\t%@\n\n", bundleIdentifier, reportedDiff, reportedString, v38];
+          v26 = [v18 app];
+          bundleIdentifier = [v26 bundleIdentifier];
+          reportedDiff = [v18 reportedDiff];
+          reportedString = [v18 reportedString];
+          v30 = [NSString stringWithFormat:@"%@ \tDiff : %@ \n\t%@\n\t%@\n\n", bundleIdentifier, reportedDiff, reportedString, v36];
 
-          v17 = v35;
-          v18 = v34;
-          [v43 appendString:v32];
+          v15 = v33;
+          v16 = v32;
+          [v41 appendString:v30];
         }
 
-        v19 = v19 + 1;
+        v17 = v17 + 1;
       }
 
-      while (v17 != v19);
-      v17 = [(NSDictionary *)obj countByEnumeratingWithState:&v45 objects:v53 count:16];
+      while (v15 != v17);
+      v15 = [(NSDictionary *)obj countByEnumeratingWithState:&v43 objects:v51 count:16];
     }
 
-    while (v17);
+    while (v15);
   }
 
-  return v43;
+  return v41;
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [(STStorageOtherDetailController *)self setLogSizes:0];
+  v5.receiver = self;
+  v5.super_class = STStorageOtherDetailController;
+  [(STStorageOtherDetailController *)&v5 viewDidDisappear:disappearCopy];
 }
 
 - (id)valueForSpecifier:(id)specifier

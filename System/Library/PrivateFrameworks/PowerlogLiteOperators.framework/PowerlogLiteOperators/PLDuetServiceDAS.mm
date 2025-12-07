@@ -56,563 +56,541 @@
 
 + (id)entryEventNoneDefinitionsDASPoliciesBlockingCriteria
 {
-  v17[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   [v2 setObject:&unk_282C1C188 forKeyedSubscript:*MEMORY[0x277D3F568]];
   [v2 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277D3F4D8]];
-  v16[0] = @"Policy";
+  v15[0] = @"Policy";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v17[0] = commonTypeDict_StringFormat;
-  v16[1] = @"Utility";
+  v16[0] = commonTypeDict_StringFormat;
+  v15[1] = @"Utility";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v17[1] = commonTypeDict_IntegerFormat;
-  v16[2] = @"Maintenance";
+  v16[1] = commonTypeDict_IntegerFormat;
+  v15[2] = @"Maintenance";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v17[2] = commonTypeDict_IntegerFormat2;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
+  v16[2] = commonTypeDict_IntegerFormat2;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
 
   v10 = *MEMORY[0x277D3F540];
-  v14[0] = *MEMORY[0x277D3F4E8];
-  v14[1] = v10;
-  v15[0] = v2;
-  v15[1] = v9;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v13[0] = *MEMORY[0x277D3F4E8];
+  v13[1] = v10;
+  v14[0] = v2;
+  v14[1] = v9;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v11;
 }
 
 + (id)entryEventNoneDefinitionsDASActivityLifecycle
 {
-  v80[34] = *MEMORY[0x277D85DE8];
-  v76 = objc_opt_new();
-  [v76 setObject:&unk_282C1C198 forKeyedSubscript:*MEMORY[0x277D3F568]];
+  v79[34] = *MEMORY[0x277D85DE8];
+  v75 = objc_opt_new();
+  [v75 setObject:&unk_282C1C198 forKeyedSubscript:*MEMORY[0x277D3F568]];
   v2 = MEMORY[0x277CBEC38];
-  [v76 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277D3F4A0]];
-  [v76 setObject:v2 forKeyedSubscript:*MEMORY[0x277D3F4D8]];
-  v79[0] = @"Name";
+  [v75 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277D3F4A0]];
+  [v75 setObject:v2 forKeyedSubscript:*MEMORY[0x277D3F4D8]];
+  v78[0] = @"Name";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v80[0] = commonTypeDict_StringFormat;
-  v79[1] = @"ProcessName";
+  v79[0] = commonTypeDict_StringFormat;
+  v78[1] = @"ProcessName";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withProcessName = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat_withProcessName];
-  v80[1] = commonTypeDict_StringFormat_withProcessName;
-  v79[2] = @"Priority";
+  v79[1] = commonTypeDict_StringFormat_withProcessName;
+  v78[2] = @"Priority";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v80[2] = commonTypeDict_IntegerFormat;
-  v79[3] = @"PID";
+  v79[2] = commonTypeDict_IntegerFormat;
+  v78[3] = @"PID";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-  v80[3] = commonTypeDict_IntegerFormat2;
-  v79[4] = @"StartDate";
+  v79[3] = commonTypeDict_IntegerFormat2;
+  v78[4] = @"StartDate";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198]5 commonTypeDict_DateFormat];
-  v80[4] = commonTypeDict_DateFormat;
-  v79[5] = @"EndDate";
+  v79[4] = commonTypeDict_DateFormat;
+  v78[5] = @"EndDate";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat2 = [mEMORY[0x277D3F198]6 commonTypeDict_DateFormat];
-  v80[5] = commonTypeDict_DateFormat2;
-  v79[6] = @"Duration";
+  v79[5] = commonTypeDict_DateFormat2;
+  v78[6] = @"Duration";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat];
-  v80[6] = commonTypeDict_IntegerFormat3;
-  v79[7] = @"SuspendRequestDate";
+  v79[6] = commonTypeDict_IntegerFormat3;
+  v78[7] = @"SuspendRequestDate";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat3 = [mEMORY[0x277D3F198]8 commonTypeDict_DateFormat];
-  v80[7] = commonTypeDict_DateFormat3;
-  v79[8] = @"SuspensionDelay";
+  v79[7] = commonTypeDict_DateFormat3;
+  v78[8] = @"SuspensionDelay";
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]9 commonTypeDict_IntegerFormat];
-  v80[8] = commonTypeDict_IntegerFormat4;
-  v79[9] = @"ScheduleAfterDate";
+  v79[8] = commonTypeDict_IntegerFormat4;
+  v78[9] = @"ScheduleAfterDate";
   mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat4 = [mEMORY[0x277D3F198]10 commonTypeDict_DateFormat];
-  v80[9] = commonTypeDict_DateFormat4;
-  v79[10] = @"ScheduleBeforeDate";
+  v79[9] = commonTypeDict_DateFormat4;
+  v78[10] = @"ScheduleBeforeDate";
   mEMORY[0x277D3F198]11 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat5 = [mEMORY[0x277D3F198]11 commonTypeDict_DateFormat];
-  v80[10] = commonTypeDict_DateFormat5;
-  v79[11] = @"BeyondDeadline";
+  v79[10] = commonTypeDict_DateFormat5;
+  v78[11] = @"BeyondDeadline";
   mEMORY[0x277D3F198]12 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198]12 commonTypeDict_BoolFormat];
-  v80[11] = commonTypeDict_BoolFormat;
-  v79[12] = @"Interval";
+  v79[11] = commonTypeDict_BoolFormat;
+  v78[12] = @"Interval";
   mEMORY[0x277D3F198]13 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]13 commonTypeDict_IntegerFormat];
-  v80[12] = commonTypeDict_IntegerFormat5;
-  v79[13] = @"FileProtection";
+  v79[12] = commonTypeDict_IntegerFormat5;
+  v78[13] = @"FileProtection";
   mEMORY[0x277D3F198]14 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat6 = [mEMORY[0x277D3F198]14 commonTypeDict_IntegerFormat];
-  v80[13] = commonTypeDict_IntegerFormat6;
-  v79[14] = @"IsCPUIntensive";
+  v79[13] = commonTypeDict_IntegerFormat6;
+  v78[14] = @"IsCPUIntensive";
   mEMORY[0x277D3F198]15 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat2 = [mEMORY[0x277D3F198]15 commonTypeDict_BoolFormat];
-  v80[14] = commonTypeDict_BoolFormat2;
-  v79[15] = @"IsMemoryIntensive";
+  v79[14] = commonTypeDict_BoolFormat2;
+  v78[15] = @"IsMemoryIntensive";
   mEMORY[0x277D3F198]16 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat3 = [mEMORY[0x277D3F198]16 commonTypeDict_BoolFormat];
-  v80[15] = commonTypeDict_BoolFormat3;
-  v79[16] = @"RequiresPlugin";
+  v79[15] = commonTypeDict_BoolFormat3;
+  v78[16] = @"RequiresPlugin";
   mEMORY[0x277D3F198]17 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat4 = [mEMORY[0x277D3F198]17 commonTypeDict_BoolFormat];
-  v80[16] = commonTypeDict_BoolFormat4;
-  v79[17] = @"RequiresNetwork";
+  v79[16] = commonTypeDict_BoolFormat4;
+  v78[17] = @"RequiresNetwork";
   mEMORY[0x277D3F198]18 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat5 = [mEMORY[0x277D3F198]18 commonTypeDict_BoolFormat];
-  v80[17] = commonTypeDict_BoolFormat5;
-  v79[18] = @"RequiresInexpensiveNetworking";
+  v79[17] = commonTypeDict_BoolFormat5;
+  v78[18] = @"RequiresInexpensiveNetworking";
   mEMORY[0x277D3F198]19 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat6 = [mEMORY[0x277D3F198]19 commonTypeDict_BoolFormat];
-  v80[18] = commonTypeDict_BoolFormat6;
-  v79[19] = @"RequiresUnconstrainedNetworking";
+  v79[18] = commonTypeDict_BoolFormat6;
+  v78[19] = @"RequiresUnconstrainedNetworking";
   mEMORY[0x277D3F198]20 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat7 = [mEMORY[0x277D3F198]20 commonTypeDict_BoolFormat];
-  v80[19] = commonTypeDict_BoolFormat7;
-  v79[20] = @"RequiresDeviceInactivity";
+  v79[19] = commonTypeDict_BoolFormat7;
+  v78[20] = @"RequiresDeviceInactivity";
   mEMORY[0x277D3F198]21 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat8 = [mEMORY[0x277D3F198]21 commonTypeDict_BoolFormat];
-  v80[20] = commonTypeDict_BoolFormat8;
-  v79[21] = @"RequiresSignificantUserInactivity";
+  v79[20] = commonTypeDict_BoolFormat8;
+  v78[21] = @"RequiresSignificantUserInactivity";
   mEMORY[0x277D3F198]22 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat9 = [mEMORY[0x277D3F198]22 commonTypeDict_BoolFormat];
-  v80[21] = commonTypeDict_BoolFormat9;
-  v79[22] = @"TriggersRestart";
+  v79[21] = commonTypeDict_BoolFormat9;
+  v78[22] = @"TriggersRestart";
   mEMORY[0x277D3F198]23 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat10 = [mEMORY[0x277D3F198]23 commonTypeDict_BoolFormat];
-  v80[22] = commonTypeDict_BoolFormat10;
-  v79[23] = @"Energy";
+  v79[22] = commonTypeDict_BoolFormat10;
+  v78[23] = @"Energy";
   mEMORY[0x277D3F198]24 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat7 = [mEMORY[0x277D3F198]24 commonTypeDict_IntegerFormat];
-  v80[23] = commonTypeDict_IntegerFormat7;
-  v79[24] = @"NetworkTaskSize";
+  v79[23] = commonTypeDict_IntegerFormat7;
+  v78[24] = @"NetworkTaskSize";
   mEMORY[0x277D3F198]25 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat8 = [mEMORY[0x277D3F198]25 commonTypeDict_IntegerFormat];
-  v80[24] = commonTypeDict_IntegerFormat8;
-  v79[25] = @"OptimalScore";
+  v79[24] = commonTypeDict_IntegerFormat8;
+  v78[25] = @"OptimalScore";
   mEMORY[0x277D3F198]26 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat9 = [mEMORY[0x277D3F198]26 commonTypeDict_IntegerFormat];
-  v80[25] = commonTypeDict_IntegerFormat9;
-  v79[26] = @"ScoreWhenRun";
+  v79[25] = commonTypeDict_IntegerFormat9;
+  v78[26] = @"ScoreWhenRun";
   mEMORY[0x277D3F198]27 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat10 = [mEMORY[0x277D3F198]27 commonTypeDict_IntegerFormat];
-  v80[26] = commonTypeDict_IntegerFormat10;
-  v79[27] = @"OptimalScorePercentage";
+  v79[26] = commonTypeDict_IntegerFormat10;
+  v78[27] = @"OptimalScorePercentage";
   mEMORY[0x277D3F198]28 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat11 = [mEMORY[0x277D3F198]28 commonTypeDict_IntegerFormat];
-  v80[27] = commonTypeDict_IntegerFormat11;
-  v79[28] = @"BundleID";
+  v79[27] = commonTypeDict_IntegerFormat11;
+  v78[28] = @"BundleID";
   mEMORY[0x277D3F198]29 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198]29 commonTypeDict_StringFormat_withBundleID];
-  v80[28] = commonTypeDict_StringFormat_withBundleID;
-  v79[29] = @"Application";
+  v79[28] = commonTypeDict_StringFormat_withBundleID;
+  v78[29] = @"Application";
   mEMORY[0x277D3F198]30 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withAppName = [mEMORY[0x277D3F198]30 commonTypeDict_StringFormat_withAppName];
-  v80[29] = commonTypeDict_StringFormat_withAppName;
-  v79[30] = @"InvolvedProcesses";
+  v79[29] = commonTypeDict_StringFormat_withAppName;
+  v78[30] = @"InvolvedProcesses";
   mEMORY[0x277D3F198]31 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withProcessName2 = [mEMORY[0x277D3F198]31 commonTypeDict_StringFormat_withProcessName];
-  v80[30] = commonTypeDict_StringFormat_withProcessName2;
-  v79[31] = @"GroupName";
+  v79[30] = commonTypeDict_StringFormat_withProcessName2;
+  v78[31] = @"GroupName";
   mEMORY[0x277D3F198]32 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]32 commonTypeDict_StringFormat];
-  v80[31] = commonTypeDict_StringFormat2;
-  v79[32] = @"SuspensionReason";
+  v79[31] = commonTypeDict_StringFormat2;
+  v78[32] = @"SuspensionReason";
   mEMORY[0x277D3F198]33 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat12 = [mEMORY[0x277D3F198]33 commonTypeDict_IntegerFormat];
-  v80[32] = commonTypeDict_IntegerFormat12;
-  v79[33] = @"Limitations";
+  v79[32] = commonTypeDict_IntegerFormat12;
+  v78[33] = @"Limitations";
   mEMORY[0x277D3F198]34 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat13 = [mEMORY[0x277D3F198]34 commonTypeDict_IntegerFormat];
-  v80[33] = commonTypeDict_IntegerFormat13;
-  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:v79 count:34];
+  v79[33] = commonTypeDict_IntegerFormat13;
+  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v79 forKeys:v78 count:34];
 
   v13 = *MEMORY[0x277D3F540];
-  v77[0] = *MEMORY[0x277D3F4E8];
-  v77[1] = v13;
-  v78[0] = v76;
-  v78[1] = v32;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v78 forKeys:v77 count:2];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v76[0] = *MEMORY[0x277D3F4E8];
+  v76[1] = v13;
+  v77[0] = v75;
+  v77[1] = v31;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v77 forKeys:v76 count:2];
 
   return v14;
 }
 
 + (id)entryEventNoneDefinitionsDASActivity
 {
-  v57[2] = *MEMORY[0x277D85DE8];
-  v56[0] = *MEMORY[0x277D3F4E8];
+  v56[2] = *MEMORY[0x277D85DE8];
+  v55[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4A0];
-  v54[0] = *MEMORY[0x277D3F568];
-  v54[1] = v2;
-  v55[0] = &unk_282C1C1A8;
-  v55[1] = MEMORY[0x277CBEC38];
-  v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:2];
-  v57[0] = v51;
-  v56[1] = *MEMORY[0x277D3F540];
-  v52[0] = @"taskName";
+  v53[0] = *MEMORY[0x277D3F568];
+  v53[1] = v2;
+  v54[0] = &unk_282C1C1A8;
+  v54[1] = MEMORY[0x277CBEC38];
+  v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:2];
+  v56[0] = v50;
+  v55[1] = *MEMORY[0x277D3F540];
+  v51[0] = @"taskName";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v53[0] = commonTypeDict_StringFormat;
-  v52[1] = @"startTime";
+  v52[0] = commonTypeDict_StringFormat;
+  v51[1] = @"startTime";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198]2 commonTypeDict_DateFormat];
-  v53[1] = commonTypeDict_DateFormat;
-  v52[2] = @"endTime";
+  v52[1] = commonTypeDict_DateFormat;
+  v51[2] = @"endTime";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_DateFormat];
-  v53[2] = commonTypeDict_DateFormat2;
-  v52[3] = @"duration";
+  v52[2] = commonTypeDict_DateFormat2;
+  v51[3] = @"duration";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-  v53[3] = commonTypeDict_IntegerFormat;
-  v52[4] = @"optimalScore";
+  v52[3] = commonTypeDict_IntegerFormat;
+  v51[4] = @"optimalScore";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-  v53[4] = commonTypeDict_IntegerFormat2;
-  v52[5] = @"scoreWhenRun";
+  v52[4] = commonTypeDict_IntegerFormat2;
+  v51[5] = @"scoreWhenRun";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-  v53[5] = commonTypeDict_IntegerFormat3;
-  v52[6] = @"networkTaskSize";
+  v52[5] = commonTypeDict_IntegerFormat3;
+  v51[6] = @"networkTaskSize";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat];
-  v53[6] = commonTypeDict_IntegerFormat4;
-  v52[7] = @"priority";
+  v52[6] = commonTypeDict_IntegerFormat4;
+  v51[7] = @"priority";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]8 commonTypeDict_IntegerFormat];
-  v53[7] = commonTypeDict_IntegerFormat5;
-  v52[8] = @"requiresPlugin";
+  v52[7] = commonTypeDict_IntegerFormat5;
+  v51[8] = @"requiresPlugin";
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198]9 commonTypeDict_BoolFormat];
-  v53[8] = commonTypeDict_BoolFormat;
-  v52[9] = @"requiresInexpensiveNetworking";
+  v52[8] = commonTypeDict_BoolFormat;
+  v51[9] = @"requiresInexpensiveNetworking";
   mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat2 = [mEMORY[0x277D3F198]10 commonTypeDict_BoolFormat];
-  v53[9] = commonTypeDict_BoolFormat2;
-  v52[10] = @"application";
+  v52[9] = commonTypeDict_BoolFormat2;
+  v51[10] = @"application";
   mEMORY[0x277D3F198]11 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198]11 commonTypeDict_StringFormat_withBundleID];
-  v53[10] = commonTypeDict_StringFormat_withBundleID;
-  v52[11] = @"bundleID";
+  v52[10] = commonTypeDict_StringFormat_withBundleID;
+  v51[11] = @"bundleID";
   mEMORY[0x277D3F198]12 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID2 = [mEMORY[0x277D3F198]12 commonTypeDict_StringFormat_withBundleID];
-  v53[11] = commonTypeDict_StringFormat_withBundleID2;
-  v52[12] = @"involvedProcesses";
+  v52[11] = commonTypeDict_StringFormat_withBundleID2;
+  v51[12] = @"involvedProcesses";
   mEMORY[0x277D3F198]13 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID3 = [mEMORY[0x277D3F198]13 commonTypeDict_StringFormat_withBundleID];
-  v53[12] = commonTypeDict_StringFormat_withBundleID3;
-  v52[13] = @"requiresDeviceInactivity";
+  v52[12] = commonTypeDict_StringFormat_withBundleID3;
+  v51[13] = @"requiresDeviceInactivity";
   mEMORY[0x277D3F198]14 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat3 = [mEMORY[0x277D3F198]14 commonTypeDict_BoolFormat];
-  v53[13] = commonTypeDict_BoolFormat3;
-  v52[14] = @"isCpuIntensive";
+  v52[13] = commonTypeDict_BoolFormat3;
+  v51[14] = @"isCpuIntensive";
   mEMORY[0x277D3F198]15 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat4 = [mEMORY[0x277D3F198]15 commonTypeDict_BoolFormat];
-  v53[14] = commonTypeDict_BoolFormat4;
-  v52[15] = @"isMemoryIntensive";
+  v52[14] = commonTypeDict_BoolFormat4;
+  v51[15] = @"isMemoryIntensive";
   mEMORY[0x277D3F198]16 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat5 = [mEMORY[0x277D3F198]16 commonTypeDict_BoolFormat];
-  v53[15] = commonTypeDict_BoolFormat5;
-  v52[16] = @"scoreNetworkQualityPolicy";
+  v52[15] = commonTypeDict_BoolFormat5;
+  v51[16] = @"scoreNetworkQualityPolicy";
   mEMORY[0x277D3F198]17 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat6 = [mEMORY[0x277D3F198]17 commonTypeDict_IntegerFormat];
-  v53[16] = commonTypeDict_IntegerFormat6;
-  v52[17] = @"scoreBatteryLevelPolicy";
+  v52[16] = commonTypeDict_IntegerFormat6;
+  v51[17] = @"scoreBatteryLevelPolicy";
   mEMORY[0x277D3F198]18 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat7 = [mEMORY[0x277D3F198]18 commonTypeDict_IntegerFormat];
-  v53[17] = commonTypeDict_IntegerFormat7;
-  v52[18] = @"scoreEnergyBudgetPolicy";
+  v52[17] = commonTypeDict_IntegerFormat7;
+  v51[18] = @"scoreEnergyBudgetPolicy";
   mEMORY[0x277D3F198]19 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat8 = [mEMORY[0x277D3F198]19 commonTypeDict_IntegerFormat];
-  v53[18] = commonTypeDict_IntegerFormat8;
-  v52[19] = @"scoreChargerPluggedInPolicy";
+  v52[18] = commonTypeDict_IntegerFormat8;
+  v51[19] = @"scoreChargerPluggedInPolicy";
   mEMORY[0x277D3F198]20 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat9 = [mEMORY[0x277D3F198]20 commonTypeDict_IntegerFormat];
-  v53[19] = commonTypeDict_IntegerFormat9;
-  v52[20] = @"scoreDeviceActivityPolicy";
+  v52[19] = commonTypeDict_IntegerFormat9;
+  v51[20] = @"scoreDeviceActivityPolicy";
   mEMORY[0x277D3F198]21 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat10 = [mEMORY[0x277D3F198]21 commonTypeDict_IntegerFormat];
-  v53[20] = commonTypeDict_IntegerFormat10;
-  v52[21] = @"scoreApplicationPolicy";
+  v52[20] = commonTypeDict_IntegerFormat10;
+  v51[21] = @"scoreApplicationPolicy";
   mEMORY[0x277D3F198]22 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat11 = [mEMORY[0x277D3F198]22 commonTypeDict_IntegerFormat];
-  v53[21] = commonTypeDict_IntegerFormat11;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:22];
-  v57[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v52[21] = commonTypeDict_IntegerFormat11;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:22];
+  v56[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:2];
 
   return v12;
 }
 
 + (id)entryEventNoneDefinitionsDASActivityDropCount
 {
-  v14[2] = *MEMORY[0x277D85DE8];
-  v13[0] = *MEMORY[0x277D3F4E8];
-  v11 = *MEMORY[0x277D3F568];
-  v12 = &unk_282C1C188;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-  v14[0] = v2;
-  v13[1] = *MEMORY[0x277D3F540];
-  v9 = @"droppedCount";
+  v13[2] = *MEMORY[0x277D85DE8];
+  v12[0] = *MEMORY[0x277D3F4E8];
+  v10 = *MEMORY[0x277D3F568];
+  v11 = &unk_282C1C188;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  v13[0] = v2;
+  v12[1] = *MEMORY[0x277D3F540];
+  v8 = @"droppedCount";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v10 = commonTypeDict_IntegerFormat;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
-  v14[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9 = commonTypeDict_IntegerFormat;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+  v13[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   return v6;
 }
 
 + (id)entryEventNoneDefinitionsDASInfo
 {
-  v16[2] = *MEMORY[0x277D85DE8];
-  v15[0] = *MEMORY[0x277D3F4E8];
-  v13 = *MEMORY[0x277D3F568];
-  v14 = &unk_282C1C188;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
-  v16[0] = v2;
-  v15[1] = *MEMORY[0x277D3F540];
-  v11[0] = @"eventsCoalesced";
+  v15[2] = *MEMORY[0x277D85DE8];
+  v14[0] = *MEMORY[0x277D3F4E8];
+  v12 = *MEMORY[0x277D3F568];
+  v13 = &unk_282C1C188;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v15[0] = v2;
+  v14[1] = *MEMORY[0x277D3F540];
+  v10[0] = @"eventsCoalesced";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v11[1] = @"queuedTasks";
-  v12[0] = commonTypeDict_IntegerFormat;
+  v10[1] = @"queuedTasks";
+  v11[0] = commonTypeDict_IntegerFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v12[1] = commonTypeDict_IntegerFormat2;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-  v16[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[1] = commonTypeDict_IntegerFormat2;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v15[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
 
   return v8;
 }
 
 + (id)entryEventForwardDefinitionsDASPrediction
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D3F598];
-  v15[0] = *MEMORY[0x277D3F5A8];
-  v15[1] = v2;
-  v16[0] = &unk_282C11550;
-  v16[1] = &unk_282C11568;
-  v15[2] = *MEMORY[0x277D3F5A0];
-  v16[2] = &unk_282C11580;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
-  v13[0] = *MEMORY[0x277D3F4E8];
-  v11 = *MEMORY[0x277D3F568];
-  v12 = &unk_282C1C188;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-  v14[0] = v4;
-  v13[1] = *MEMORY[0x277D3F540];
-  v9[0] = @"powerPluggedInPrediction";
-  v9[1] = @"cellQualityPrediction";
-  v10[0] = v3;
-  v10[1] = v3;
-  v9[2] = @"deviceActivityPrediction";
-  v9[3] = @"wiFiAssociatedPrediction";
-  v10[2] = v3;
-  v10[3] = v3;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
-  v14[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v14[0] = *MEMORY[0x277D3F5A8];
+  v14[1] = v2;
+  v15[0] = &unk_282C11550;
+  v15[1] = &unk_282C11568;
+  v14[2] = *MEMORY[0x277D3F5A0];
+  v15[2] = &unk_282C11580;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v12[0] = *MEMORY[0x277D3F4E8];
+  v10 = *MEMORY[0x277D3F568];
+  v11 = &unk_282C1C188;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  v13[0] = v4;
+  v12[1] = *MEMORY[0x277D3F540];
+  v8[0] = @"powerPluggedInPrediction";
+  v8[1] = @"cellQualityPrediction";
+  v9[0] = v3;
+  v9[1] = v3;
+  v8[2] = @"deviceActivityPrediction";
+  v8[3] = @"wiFiAssociatedPrediction";
+  v9[2] = v3;
+  v9[3] = v3;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
+  v13[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   return v6;
 }
 
 + (id)entryEventForwardDefinitionsDASTrial
 {
-  v23[2] = *MEMORY[0x277D85DE8];
-  v22[0] = *MEMORY[0x277D3F4E8];
+  v22[2] = *MEMORY[0x277D85DE8];
+  v21[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F508];
-  v20[0] = *MEMORY[0x277D3F568];
-  v20[1] = v2;
-  v21[0] = &unk_282C1C188;
-  v21[1] = MEMORY[0x277CBEC38];
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-  v23[0] = v17;
-  v22[1] = *MEMORY[0x277D3F540];
-  v18[0] = @"trialExperimentId";
+  v19[0] = *MEMORY[0x277D3F568];
+  v19[1] = v2;
+  v20[0] = &unk_282C1C188;
+  v20[1] = MEMORY[0x277CBEC38];
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v22[0] = v16;
+  v21[1] = *MEMORY[0x277D3F540];
+  v17[0] = @"trialExperimentId";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v19[0] = commonTypeDict_StringFormat;
-  v18[1] = @"trialTreatmentId";
+  v18[0] = commonTypeDict_StringFormat;
+  v17[1] = @"trialTreatmentId";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat];
-  v19[1] = commonTypeDict_StringFormat2;
-  v18[2] = @"trialDeploymentId";
+  v18[1] = commonTypeDict_StringFormat2;
+  v17[2] = @"trialDeploymentId";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v19[2] = commonTypeDict_IntegerFormat;
-  v18[3] = @"trialStartDate";
+  v18[2] = commonTypeDict_IntegerFormat;
+  v17[3] = @"trialStartDate";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198]4 commonTypeDict_DateFormat];
-  v19[3] = commonTypeDict_DateFormat;
-  v18[4] = @"trialEndDate";
+  v18[3] = commonTypeDict_DateFormat;
+  v17[4] = @"trialEndDate";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat2 = [mEMORY[0x277D3F198]5 commonTypeDict_DateFormat];
-  v19[4] = commonTypeDict_DateFormat2;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:5];
-  v23[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v18[4] = commonTypeDict_DateFormat2;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:5];
+  v22[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
 
   return v12;
 }
 
 + (id)entryEventForwardDefinitionsDASApplicationPrediction
 {
-  v19[2] = *MEMORY[0x277D85DE8];
-  v18[0] = *MEMORY[0x277D3F4E8];
+  v18[2] = *MEMORY[0x277D85DE8];
+  v17[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4A0];
-  v16[0] = *MEMORY[0x277D3F568];
-  v16[1] = v2;
-  v17[0] = &unk_282C1C188;
-  v17[1] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
-  v19[0] = v3;
-  v18[1] = *MEMORY[0x277D3F540];
-  v14[0] = @"applicationBundleID";
+  v15[0] = *MEMORY[0x277D3F568];
+  v15[1] = v2;
+  v16[0] = &unk_282C1C188;
+  v16[1] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v18[0] = v3;
+  v17[1] = *MEMORY[0x277D3F540];
+  v13[0] = @"applicationBundleID";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198] commonTypeDict_StringFormat_withBundleID];
-  v14[1] = @"applicationPredictionArray";
-  v15[0] = commonTypeDict_StringFormat_withBundleID;
+  v13[1] = @"applicationPredictionArray";
+  v14[0] = commonTypeDict_StringFormat_withBundleID;
   v6 = *MEMORY[0x277D3F598];
-  v12[0] = *MEMORY[0x277D3F5A8];
-  v12[1] = v6;
-  v13[0] = &unk_282C11550;
-  v13[1] = &unk_282C11568;
-  v12[2] = *MEMORY[0x277D3F5A0];
-  v13[2] = &unk_282C11580;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
-  v15[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-  v19[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[0] = *MEMORY[0x277D3F5A8];
+  v11[1] = v6;
+  v12[0] = &unk_282C11550;
+  v12[1] = &unk_282C11568;
+  v11[2] = *MEMORY[0x277D3F5A0];
+  v12[2] = &unk_282C11580;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v14[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v18[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
 
   return v9;
 }
 
 + (id)entryEventForwardDefinitionsDASEnergyBudgetAvailable
 {
-  v14[2] = *MEMORY[0x277D85DE8];
-  v13[0] = *MEMORY[0x277D3F4E8];
-  v11 = *MEMORY[0x277D3F568];
-  v12 = &unk_282C1C188;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-  v14[0] = v2;
-  v13[1] = *MEMORY[0x277D3F540];
-  v9 = @"energyAvailable";
+  v13[2] = *MEMORY[0x277D85DE8];
+  v12[0] = *MEMORY[0x277D3F4E8];
+  v10 = *MEMORY[0x277D3F568];
+  v11 = &unk_282C1C188;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  v13[0] = v2;
+  v12[1] = *MEMORY[0x277D3F540];
+  v8 = @"energyAvailable";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v10 = commonTypeDict_BoolFormat;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
-  v14[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9 = commonTypeDict_BoolFormat;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+  v13[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   return v6;
 }
 
 + (id)entryEventForwardDefinitionsDASDataBudgetAvailable
 {
-  v14[2] = *MEMORY[0x277D85DE8];
-  v13[0] = *MEMORY[0x277D3F4E8];
-  v11 = *MEMORY[0x277D3F568];
-  v12 = &unk_282C1C188;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-  v14[0] = v2;
-  v13[1] = *MEMORY[0x277D3F540];
-  v9 = @"dataAvailable";
+  v13[2] = *MEMORY[0x277D85DE8];
+  v12[0] = *MEMORY[0x277D3F4E8];
+  v10 = *MEMORY[0x277D3F568];
+  v11 = &unk_282C1C188;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  v13[0] = v2;
+  v12[1] = *MEMORY[0x277D3F540];
+  v8 = @"dataAvailable";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v10 = commonTypeDict_BoolFormat;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
-  v14[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9 = commonTypeDict_BoolFormat;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+  v13[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   return v6;
 }
 
 + (id)entryEventBackwardDefinitionsDASEnergyBudgetReport
 {
-  v34[2] = *MEMORY[0x277D85DE8];
-  v33[0] = *MEMORY[0x277D3F4E8];
-  v31 = *MEMORY[0x277D3F568];
-  v32 = &unk_282C1C188;
-  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-  v34[0] = v28;
-  v33[1] = *MEMORY[0x277D3F540];
-  v29[0] = @"PowerlogEnergyReportedPrevious";
+  v33[2] = *MEMORY[0x277D85DE8];
+  v32[0] = *MEMORY[0x277D3F4E8];
+  v30 = *MEMORY[0x277D3F568];
+  v31 = &unk_282C1C188;
+  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+  v33[0] = v27;
+  v32[1] = *MEMORY[0x277D3F540];
+  v28[0] = @"PowerlogEnergyReportedPrevious";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v30[0] = commonTypeDict_IntegerFormat;
-  v29[1] = @"PowerlogEnergyReportedLast";
+  v29[0] = commonTypeDict_IntegerFormat;
+  v28[1] = @"PowerlogEnergyReportedLast";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v30[1] = commonTypeDict_IntegerFormat2;
-  v29[2] = @"PowerlogTimestampPrevious";
+  v29[1] = commonTypeDict_IntegerFormat2;
+  v28[2] = @"PowerlogTimestampPrevious";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198]3 commonTypeDict_DateFormat];
-  v30[2] = commonTypeDict_DateFormat;
-  v29[3] = @"PowerlogTimestampLast";
+  v29[2] = commonTypeDict_DateFormat;
+  v28[3] = @"PowerlogTimestampLast";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat2 = [mEMORY[0x277D3F198]4 commonTypeDict_DateFormat];
-  v30[3] = commonTypeDict_DateFormat2;
-  v29[4] = @"CPUEnergyPrevious";
+  v29[3] = commonTypeDict_DateFormat2;
+  v28[4] = @"CPUEnergyPrevious";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]5 commonTypeDict_IntegerFormat];
-  v30[4] = commonTypeDict_IntegerFormat3;
-  v29[5] = @"NetworkEnergyPrevious";
+  v29[4] = commonTypeDict_IntegerFormat3;
+  v28[5] = @"NetworkEnergyPrevious";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-  v30[5] = commonTypeDict_IntegerFormat4;
-  v29[6] = @"CPUEnergyLast";
+  v29[5] = commonTypeDict_IntegerFormat4;
+  v28[6] = @"CPUEnergyLast";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat5 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat];
-  v30[6] = commonTypeDict_IntegerFormat5;
-  v29[7] = @"NetworkEnergyLast";
+  v29[6] = commonTypeDict_IntegerFormat5;
+  v28[7] = @"NetworkEnergyLast";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat6 = [mEMORY[0x277D3F198]8 commonTypeDict_IntegerFormat];
-  v30[7] = commonTypeDict_IntegerFormat6;
-  v29[8] = @"CPUEnergyCurrent";
+  v29[7] = commonTypeDict_IntegerFormat6;
+  v28[8] = @"CPUEnergyCurrent";
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat7 = [mEMORY[0x277D3F198]9 commonTypeDict_IntegerFormat];
-  v30[8] = commonTypeDict_IntegerFormat7;
-  v29[9] = @"NetworkEnergyCurrent";
+  v29[8] = commonTypeDict_IntegerFormat7;
+  v28[9] = @"NetworkEnergyCurrent";
   mEMORY[0x277D3F198]10 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat8 = [mEMORY[0x277D3F198]10 commonTypeDict_IntegerFormat];
-  v30[9] = commonTypeDict_IntegerFormat8;
-  v29[10] = @"DidReport";
+  v29[9] = commonTypeDict_IntegerFormat8;
+  v28[10] = @"DidReport";
   mEMORY[0x277D3F198]11 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198]11 commonTypeDict_BoolFormat];
-  v30[10] = commonTypeDict_BoolFormat;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:11];
-  v34[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v29[10] = commonTypeDict_BoolFormat;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:11];
+  v33[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
 
   return v11;
 }
@@ -724,7 +702,7 @@
 
 void __48__PLDuetServiceDAS_initOperatorDependanciesDAS___block_invoke_358()
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v0 = notify_post("com.apple.perfpowerservices.reportfeaturestatus");
   v1 = PLLogDuetServiceDAS();
   v2 = v1;
@@ -732,27 +710,25 @@ void __48__PLDuetServiceDAS_initOperatorDependanciesDAS___block_invoke_358()
   {
     if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
-      v4 = 136315394;
-      v5 = "com.apple.perfpowerservices.reportfeaturestatus";
-      v6 = 1024;
-      v7 = v0;
-      _os_log_error_impl(&dword_21A4C6000, v2, OS_LOG_TYPE_ERROR, "Failed to post %s : %d", &v4, 0x12u);
+      v3 = 136315394;
+      v4 = "com.apple.perfpowerservices.reportfeaturestatus";
+      v5 = 1024;
+      v6 = v0;
+      _os_log_error_impl(&dword_21A4C6000, v2, OS_LOG_TYPE_ERROR, "Failed to post %s : %d", &v3, 0x12u);
     }
   }
 
   else if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    v4 = 136315138;
-    v5 = "com.apple.perfpowerservices.reportfeaturestatus";
-    _os_log_impl(&dword_21A4C6000, v2, OS_LOG_TYPE_INFO, "Posted %s", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "com.apple.perfpowerservices.reportfeaturestatus";
+    _os_log_impl(&dword_21A4C6000, v2, OS_LOG_TYPE_INFO, "Posted %s", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveDASActivityEventWithPayload:(id)payload
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
@@ -780,7 +756,7 @@ void __48__PLDuetServiceDAS_initOperatorDependanciesDAS___block_invoke_358()
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v76 = payloadCopy;
+        v75 = payloadCopy;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -790,7 +766,7 @@ void __48__PLDuetServiceDAS_initOperatorDependanciesDAS___block_invoke_358()
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v76 = payloadCopy;
+    v75 = payloadCopy;
     _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "didReceiveDASActivityEvent: payload=%@", buf, 0xCu);
   }
 
@@ -806,32 +782,32 @@ void __48__PLDuetServiceDAS_initOperatorDependanciesDAS___block_invoke_358()
       {
         selfCopy = self;
         context = objc_autoreleasePoolPush();
-        v60 = *MEMORY[0x277D3F5E0];
-        v66 = [PLOperator entryKeyForType:"entryKeyForType:andName:" andName:?];
-        v65 = objc_opt_new();
+        v59 = *MEMORY[0x277D3F5E0];
+        v65 = [PLOperator entryKeyForType:"entryKeyForType:andName:" andName:?];
+        v64 = objc_opt_new();
+        v66 = 0u;
         v67 = 0u;
         v68 = 0u;
         v69 = 0u;
-        v70 = 0u;
-        v63 = payloadCopy;
+        v62 = payloadCopy;
         obj = [payloadCopy objectForKeyedSubscript:@"dasTasks"];
-        v16 = [obj countByEnumeratingWithState:&v67 objects:v74 count:16];
+        v16 = [obj countByEnumeratingWithState:&v66 objects:v73 count:16];
         if (v16)
         {
           v17 = v16;
           v18 = @"timeWhenRun";
-          v19 = *v68;
+          v19 = *v67;
           do
           {
             for (i = 0; i != v17; ++i)
             {
-              if (*v68 != v19)
+              if (*v67 != v19)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v21 = *(*(&v67 + 1) + 8 * i);
-              v22 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v66];
+              v21 = *(*(&v66 + 1) + 8 * i);
+              v22 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v65];
               v23 = [v21 objectForKeyedSubscript:@"taskName"];
               [v22 setObject:v23 forKeyedSubscript:@"taskName"];
 
@@ -915,10 +891,10 @@ void __48__PLDuetServiceDAS_initOperatorDependanciesDAS___block_invoke_358()
                 [v22 setObject:v50 forKeyedSubscript:@"scoreApplicationPolicy"];
               }
 
-              [v65 addObject:v22];
+              [v64 addObject:v22];
             }
 
-            v17 = [obj countByEnumeratingWithState:&v67 objects:v74 count:16];
+            v17 = [obj countByEnumeratingWithState:&v66 objects:v73 count:16];
           }
 
           while (v17);
@@ -929,16 +905,16 @@ void __48__PLDuetServiceDAS_initOperatorDependanciesDAS___block_invoke_358()
         if (duetService2)
         {
           duetService3 = [(PLDuetServiceDAS *)selfCopy duetService];
-          v72 = v66;
-          v73 = v65;
-          v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
-          [duetService3 logEntries:v53 withGroupID:v66];
+          v71 = v65;
+          v72 = v64;
+          v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
+          [duetService3 logEntries:v53 withGroupID:v65];
         }
 
-        v54 = [(PLOperator *)PLDuetService entryKeyForType:v60 andName:@"DASDropCount"];
+        v54 = [(PLOperator *)PLDuetService entryKeyForType:v59 andName:@"DASDropCount"];
         v55 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v54];
-        payloadCopy = v63;
-        v56 = [v63 objectForKeyedSubscript:@"droppedCount"];
+        payloadCopy = v62;
+        v56 = [v62 objectForKeyedSubscript:@"droppedCount"];
         [v55 setObject:v56 forKeyedSubscript:@"droppedCount"];
 
         duetService4 = [(PLDuetServiceDAS *)selfCopy duetService];
@@ -953,11 +929,9 @@ void __48__PLDuetServiceDAS_initOperatorDependanciesDAS___block_invoke_358()
       }
     }
   }
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __58__PLDuetServiceDAS_didReceiveDASActivityEventWithPayload___block_invoke(uint64_t a1)
+void *__58__PLDuetServiceDAS_didReceiveDASActivityEventWithPayload___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_93 = result;
@@ -966,14 +940,14 @@ uint64_t __58__PLDuetServiceDAS_didReceiveDASActivityEventWithPayload___block_in
 
 - (void)didReceiveDASActivityLifecycleEventWithPayload:(id)payload
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   v5 = PLLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v15 = 138412290;
-    v16 = payloadCopy;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "didReceiveDASActivityLifecycle payload=%@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = payloadCopy;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "didReceiveDASActivityLifecycle payload=%@", &v14, 0xCu);
   }
 
   v6 = objc_autoreleasePoolPush();
@@ -994,21 +968,20 @@ uint64_t __58__PLDuetServiceDAS_didReceiveDASActivityEventWithPayload___block_in
   }
 
   objc_autoreleasePoolPop(v6);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveDASInfoEventWithPayload:(id)payload
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v5 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v22 = 3221225472;
-    v23 = __54__PLDuetServiceDAS_didReceiveDASInfoEventWithPayload___block_invoke;
-    v24 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v25 = v5;
+    v21 = 3221225472;
+    v22 = __54__PLDuetServiceDAS_didReceiveDASInfoEventWithPayload___block_invoke;
+    v23 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v24 = v5;
     if (qword_2811F78A8 != -1)
     {
       dispatch_once(&qword_2811F78A8, &block);
@@ -1016,7 +989,7 @@ uint64_t __58__PLDuetServiceDAS_didReceiveDASActivityEventWithPayload___block_in
 
     if (byte_2811F7889 == 1)
     {
-      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"payload=%@", payloadCopy, block, v22, v23, v24, v25];
+      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"payload=%@", payloadCopy, block, v21, v22, v23, v24];
       v7 = MEMORY[0x277D3F178];
       v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLDuetServiceDAS.m"];
       lastPathComponent = [v8 lastPathComponent];
@@ -1027,7 +1000,7 @@ uint64_t __58__PLDuetServiceDAS_didReceiveDASActivityEventWithPayload___block_in
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v27 = v6;
+        v26 = v6;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -1059,11 +1032,9 @@ uint64_t __58__PLDuetServiceDAS_didReceiveDASActivityEventWithPayload___block_in
       objc_autoreleasePoolPop(v13);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __54__PLDuetServiceDAS_didReceiveDASInfoEventWithPayload___block_invoke(uint64_t a1)
+void *__54__PLDuetServiceDAS_didReceiveDASInfoEventWithPayload___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7889 = result;
@@ -1072,16 +1043,16 @@ uint64_t __54__PLDuetServiceDAS_didReceiveDASInfoEventWithPayload___block_invoke
 
 - (void)didReceiveDASBudgetEventWithPayload:(id)payload
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v5 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v22 = 3221225472;
-    v23 = __56__PLDuetServiceDAS_didReceiveDASBudgetEventWithPayload___block_invoke;
-    v24 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v25 = v5;
+    v21 = 3221225472;
+    v22 = __56__PLDuetServiceDAS_didReceiveDASBudgetEventWithPayload___block_invoke;
+    v23 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v24 = v5;
     if (qword_2811F78B0 != -1)
     {
       dispatch_once(&qword_2811F78B0, &block);
@@ -1089,7 +1060,7 @@ uint64_t __54__PLDuetServiceDAS_didReceiveDASInfoEventWithPayload___block_invoke
 
     if (byte_2811F788A == 1)
     {
-      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"payload=%@", payloadCopy, block, v22, v23, v24, v25];
+      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"payload=%@", payloadCopy, block, v21, v22, v23, v24];
       v7 = MEMORY[0x277D3F178];
       v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLDuetServiceDAS.m"];
       lastPathComponent = [v8 lastPathComponent];
@@ -1100,7 +1071,7 @@ uint64_t __54__PLDuetServiceDAS_didReceiveDASInfoEventWithPayload___block_invoke
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v27 = v6;
+        v26 = v6;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -1110,7 +1081,7 @@ uint64_t __54__PLDuetServiceDAS_didReceiveDASInfoEventWithPayload___block_invoke
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v27 = payloadCopy;
+    v26 = payloadCopy;
     _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "energyBudget payload=%@", buf, 0xCu);
   }
 
@@ -1137,11 +1108,9 @@ uint64_t __54__PLDuetServiceDAS_didReceiveDASInfoEventWithPayload___block_invoke
       objc_autoreleasePoolPop(v14);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __56__PLDuetServiceDAS_didReceiveDASBudgetEventWithPayload___block_invoke(uint64_t a1)
+void *__56__PLDuetServiceDAS_didReceiveDASBudgetEventWithPayload___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F788A = result;
@@ -1150,16 +1119,16 @@ uint64_t __56__PLDuetServiceDAS_didReceiveDASBudgetEventWithPayload___block_invo
 
 - (void)didReceiveDASDataBudgetEventWithPayload:(id)payload
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   if (payloadCopy && ([(PLDuetServiceDAS *)self duetService], v5 = objc_claimAutoreleasedReturnValue(), v5, v5))
   {
     v6 = PLLogDuetServiceDAS();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v13 = 138412290;
-      v14 = payloadCopy;
-      _os_log_debug_impl(&dword_21A4C6000, v6, OS_LOG_TYPE_DEBUG, "Received dataBudget payload: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = payloadCopy;
+      _os_log_debug_impl(&dword_21A4C6000, v6, OS_LOG_TYPE_DEBUG, "Received dataBudget payload: %@", &v12, 0xCu);
     }
 
     v7 = [(PLOperator *)PLDuetService entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"DASDataBudgetAvailable"];
@@ -1181,27 +1150,25 @@ uint64_t __56__PLDuetServiceDAS_didReceiveDASBudgetEventWithPayload___block_invo
     v7 = PLLogDuetServiceDAS();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v13 = 138412290;
-      v14 = payloadCopy;
-      _os_log_error_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_ERROR, "Empty Payload for dataBudget %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = payloadCopy;
+      _os_log_error_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_ERROR, "Empty Payload for dataBudget %@", &v12, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveDASReportEventWithPayload:(id)payload
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v5 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v21 = 3221225472;
-    v22 = __56__PLDuetServiceDAS_didReceiveDASReportEventWithPayload___block_invoke;
-    v23 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v24 = v5;
+    v20 = 3221225472;
+    v21 = __56__PLDuetServiceDAS_didReceiveDASReportEventWithPayload___block_invoke;
+    v22 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v23 = v5;
     if (qword_2811F78B8 != -1)
     {
       dispatch_once(&qword_2811F78B8, &block);
@@ -1209,7 +1176,7 @@ uint64_t __56__PLDuetServiceDAS_didReceiveDASBudgetEventWithPayload___block_invo
 
     if (byte_2811F788B == 1)
     {
-      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"payload=%@", payloadCopy, block, v21, v22, v23, v24];
+      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"payload=%@", payloadCopy, block, v20, v21, v22, v23];
       v7 = MEMORY[0x277D3F178];
       v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLDuetServiceDAS.m"];
       lastPathComponent = [v8 lastPathComponent];
@@ -1220,7 +1187,7 @@ uint64_t __56__PLDuetServiceDAS_didReceiveDASBudgetEventWithPayload___block_invo
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v26 = v6;
+        v25 = v6;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -1230,7 +1197,7 @@ uint64_t __56__PLDuetServiceDAS_didReceiveDASBudgetEventWithPayload___block_invo
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v26 = payloadCopy;
+    v25 = payloadCopy;
     _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "energyReport payload=%@", buf, 0xCu);
   }
 
@@ -1254,11 +1221,9 @@ uint64_t __56__PLDuetServiceDAS_didReceiveDASBudgetEventWithPayload___block_invo
       objc_autoreleasePoolPop(v14);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __56__PLDuetServiceDAS_didReceiveDASReportEventWithPayload___block_invoke(uint64_t a1)
+void *__56__PLDuetServiceDAS_didReceiveDASReportEventWithPayload___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F788B = result;
@@ -1267,7 +1232,7 @@ uint64_t __56__PLDuetServiceDAS_didReceiveDASReportEventWithPayload___block_invo
 
 - (void)didReceiveDASPredictionEventWithPayload:(id)payload
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
@@ -1295,7 +1260,7 @@ uint64_t __56__PLDuetServiceDAS_didReceiveDASReportEventWithPayload___block_invo
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v60 = payloadCopy;
+        v59 = payloadCopy;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -1308,9 +1273,9 @@ uint64_t __56__PLDuetServiceDAS_didReceiveDASReportEventWithPayload___block_invo
     if (duetService)
     {
       context = objc_autoreleasePoolPush();
-      v42 = *MEMORY[0x277D3F5D0];
-      v36 = [PLOperator entryKeyForType:"entryKeyForType:andName:" andName:?];
-      v13 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v36];
+      v41 = *MEMORY[0x277D3F5D0];
+      v35 = [PLOperator entryKeyForType:"entryKeyForType:andName:" andName:?];
+      v13 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v35];
       v14 = [payloadCopy objectForKeyedSubscript:@"powerPluggedInPrediction"];
       [v13 setObject:v14 forKeyedSubscript:@"powerPluggedInPrediction"];
 
@@ -1331,53 +1296,53 @@ uint64_t __56__PLDuetServiceDAS_didReceiveDASReportEventWithPayload___block_invo
         [duetService3 logEntry:v13];
       }
 
-      v35 = v13;
-      v52 = 0u;
-      v53 = 0u;
-      v50 = 0u;
+      v34 = v13;
       v51 = 0u;
-      v38 = payloadCopy;
+      v52 = 0u;
+      v49 = 0u;
+      v50 = 0u;
+      v37 = payloadCopy;
       obj = [payloadCopy objectForKeyedSubscript:@"applicationUsagePrediction"];
-      v43 = [obj countByEnumeratingWithState:&v50 objects:v58 count:16];
-      if (v43)
+      v42 = [obj countByEnumeratingWithState:&v49 objects:v57 count:16];
+      if (v42)
       {
-        v40 = *v51;
+        v39 = *v50;
         selfCopy = self;
         do
         {
           v20 = 0;
           do
           {
-            if (*v51 != v40)
+            if (*v50 != v39)
             {
               objc_enumerationMutation(obj);
             }
 
-            v45 = v20;
-            v21 = *(*(&v50 + 1) + 8 * v20);
-            v44 = [(PLOperator *)PLDuetService entryKeyForType:v42 andName:@"DASApplicationUsagePrediction"];
-            v22 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v44];
+            v44 = v20;
+            v21 = *(*(&v49 + 1) + 8 * v20);
+            v43 = [(PLOperator *)PLDuetService entryKeyForType:v41 andName:@"DASApplicationUsagePrediction"];
+            v22 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v43];
             v23 = objc_opt_new();
             allKeys = [v21 allKeys];
+            v45 = 0u;
             v46 = 0u;
             v47 = 0u;
             v48 = 0u;
-            v49 = 0u;
-            v25 = [allKeys countByEnumeratingWithState:&v46 objects:v57 count:16];
+            v25 = [allKeys countByEnumeratingWithState:&v45 objects:v56 count:16];
             if (v25)
             {
               v26 = v25;
-              v27 = *v47;
+              v27 = *v46;
               do
               {
                 for (i = 0; i != v26; ++i)
                 {
-                  if (*v47 != v27)
+                  if (*v46 != v27)
                   {
                     objc_enumerationMutation(allKeys);
                   }
 
-                  v29 = *(*(&v46 + 1) + 8 * i);
+                  v29 = *(*(&v45 + 1) + 8 * i);
                   [v22 setObject:v29 forKeyedSubscript:@"applicationBundleID"];
                   v30 = [v21 objectForKeyedSubscript:v29];
                   [v22 setObject:v30 forKeyedSubscript:@"applicationPredictionArray"];
@@ -1385,7 +1350,7 @@ uint64_t __56__PLDuetServiceDAS_didReceiveDASReportEventWithPayload___block_invo
                   [v23 addObject:v22];
                 }
 
-                v26 = [allKeys countByEnumeratingWithState:&v46 objects:v57 count:16];
+                v26 = [allKeys countByEnumeratingWithState:&v45 objects:v56 count:16];
               }
 
               while (v26);
@@ -1396,31 +1361,29 @@ uint64_t __56__PLDuetServiceDAS_didReceiveDASReportEventWithPayload___block_invo
             if (duetService4)
             {
               duetService5 = [(PLDuetServiceDAS *)selfCopy duetService];
-              v55 = v44;
-              v56 = v23;
-              v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
-              [duetService5 logEntries:v33 withGroupID:v44];
+              v54 = v43;
+              v55 = v23;
+              v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+              [duetService5 logEntries:v33 withGroupID:v43];
             }
 
-            v20 = v45 + 1;
+            v20 = v44 + 1;
           }
 
-          while (v45 + 1 != v43);
-          v43 = [obj countByEnumeratingWithState:&v50 objects:v58 count:16];
+          while (v44 + 1 != v42);
+          v42 = [obj countByEnumeratingWithState:&v49 objects:v57 count:16];
         }
 
-        while (v43);
+        while (v42);
       }
 
       objc_autoreleasePoolPop(context);
-      payloadCopy = v38;
+      payloadCopy = v37;
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __60__PLDuetServiceDAS_didReceiveDASPredictionEventWithPayload___block_invoke(uint64_t a1)
+void *__60__PLDuetServiceDAS_didReceiveDASPredictionEventWithPayload___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F788C = result;
@@ -1429,38 +1392,38 @@ uint64_t __60__PLDuetServiceDAS_didReceiveDASPredictionEventWithPayload___block_
 
 - (void)didReceiveDASPoliciesBlockingCriteriaEventWithPayload:(id)payload
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   v5 = PLLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v26 = payloadCopy;
+    v25 = payloadCopy;
     _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "DASPoliciesBlockingCriteria payload=%@", buf, 0xCu);
   }
 
   v6 = [(PLOperator *)PLDuetService entryKeyForType:*MEMORY[0x277D3F5E0] andName:@"DASPoliciesBlockingCriteria"];
   context = objc_autoreleasePoolPush();
   [payloadCopy objectForKeyedSubscript:@"Evaluations"];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  obj = v23 = 0u;
-  v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  obj = v22 = 0u;
+  v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
+        v11 = *(*(&v19 + 1) + 8 * i);
         v12 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v6];
         v13 = [v11 objectForKeyedSubscript:@"Policy"];
         [v12 setObject:v13 forKeyedSubscript:@"Policy"];
@@ -1475,26 +1438,25 @@ uint64_t __60__PLDuetServiceDAS_didReceiveDASPredictionEventWithPayload___block_
         [duetService logEntry:v12];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
   }
 
   objc_autoreleasePoolPop(context);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReceiveDASTrialEventWithPayload:(id)payload
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   v5 = PLLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 138412290;
-    v13 = payloadCopy;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "DASTrial payload=%@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = payloadCopy;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "DASTrial payload=%@", &v11, 0xCu);
   }
 
   v6 = objc_autoreleasePoolPush();
@@ -1509,7 +1471,6 @@ uint64_t __60__PLDuetServiceDAS_didReceiveDASPredictionEventWithPayload___block_
   }
 
   objc_autoreleasePoolPop(v6);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)fileProtectionTypeStringToEnum:(id)enum

@@ -10,6 +10,7 @@
 + (BOOL)writeKeepAliveFilePath:(id)path;
 + (double)autoDownloadTimeInterval;
 + (id)addToDate:(id)date numberOfDays:(int64_t)days;
++ (id)autoDownloadExpiredError:(BOOL)error;
 + (id)bootTime;
 + (id)currentDeviceName;
 + (id)currentHWModelStr;
@@ -19,6 +20,7 @@
 + (id)currentProductVersion;
 + (id)currentProductVersionExtra;
 + (id)currentReleaseType;
++ (id)documentationDataForInstalledUpdateType:(int)type error:(id *)error;
 + (id)errorRemovingUserInfoKey:(id)key originalError:(id)error;
 + (id)errorWithCode:(int64_t)code originalError:(id)error;
 + (id)fastWorkQueue;
@@ -31,6 +33,7 @@
 + (id)taskQueue;
 + (id)translateError:(id)error withAddedUserInfo:(id)info;
 + (id)updateError:(id)error withAdditionalUserInfo:(id)info;
++ (int)randomIntWithMinVal:(unsigned int)val maxVal:(unsigned int)maxVal;
 + (int64_t)MADownloadErrorCodeToSUDownloadErrorCode:(int64_t)code;
 + (int64_t)compareRestoreVersion:(id)version withRestoreVersion:(id)restoreVersion;
 + (int64_t)compareVersionExtra:(id)extra withVersionExtra:(id)versionExtra;
@@ -60,9 +63,11 @@
 
 uint64_t __22__SUUtility_taskQueue__block_invoke()
 {
-  taskQueue___taskQueue = dispatch_queue_create("com.apple.softwareupdateservices.operationTaskQueue", 0);
+  v0 = dispatch_queue_create("com.apple.softwareupdateservices.operationTaskQueue", 0);
+  v1 = taskQueue___taskQueue;
+  taskQueue___taskQueue = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)mainWorkQueue
@@ -462,6 +467,26 @@ void __28__SUUtility_isVirtualDevice__block_invoke()
   }
 }
 
++ (int)randomIntWithMinVal:(unsigned int)val maxVal:(unsigned int)maxVal
+{
+  v8 = maxVal - val;
+  if (maxVal >= val)
+  {
+    if (randomIntWithMinVal_maxVal__onceToken != -1)
+    {
+      +[SUUtility randomIntWithMinVal:maxVal:];
+    }
+
+    return rand() % (v8 + 1) + val;
+  }
+
+  else
+  {
+    SULogInfo(@"invalid arguments", a2, *&val, *&maxVal, v4, v5, v6, v7, v11);
+    return 0;
+  }
+}
+
 void __40__SUUtility_randomIntWithMinVal_maxVal___block_invoke()
 {
   v0 = time(0);
@@ -479,7 +504,7 @@ void __40__SUUtility_randomIntWithMinVal_maxVal___block_invoke()
 
 + (id)errorWithCode:(int64_t)code originalError:(id)error
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v7 = v6;
@@ -495,16 +520,14 @@ void __40__SUUtility_randomIntWithMinVal_maxVal___block_invoke()
     v10 = v9;
     if (v9)
     {
-      v15 = *MEMORY[0x277CCA498];
-      v16[0] = v9;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v14 = *MEMORY[0x277CCA498];
+      v15[0] = v9;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
       [v7 addEntriesFromDictionary:v11];
     }
   }
 
   v12 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.softwareupdateservices.errors" code:code userInfo:v7];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -606,7 +629,7 @@ void __40__SUUtility_randomIntWithMinVal_maxVal___block_invoke()
 
 + (id)translateError:(id)error withAddedUserInfo:(id)info
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   infoCopy = info;
   if (!errorCopy)
@@ -629,9 +652,9 @@ void __40__SUUtility_randomIntWithMinVal_maxVal___block_invoke()
       v16 = v15;
       if (v15)
       {
-        v21 = *MEMORY[0x277CCA498];
-        v22[0] = v15;
-        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+        v20 = *MEMORY[0x277CCA498];
+        v21[0] = v15;
+        v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
         [v12 addEntriesFromDictionary:v17];
       }
     }
@@ -657,8 +680,6 @@ LABEL_12:
 
   v13 = errorCopy;
 LABEL_13:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -844,6 +865,19 @@ LABEL_30:
   return 59;
 }
 
++ (id)autoDownloadExpiredError:(BOOL)error
+{
+  v9[1] = *MEMORY[0x277D85DE8];
+  v3 = MEMORY[0x277CCA9B8];
+  v8 = @"SUAutoDownloadWillRetry";
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:error];
+  v9[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v6 = [v3 errorWithDomain:@"com.apple.softwareupdateservices.errors" code:23 userInfo:v5];
+
+  return v6;
+}
+
 + (id)internalRecoveryStringForErrorCode:(int64_t)code
 {
   v4 = CFPreferencesCopyValue(@"EnableSso", @"com.apple.MobileSoftwareUpdate", @"mobile", *MEMORY[0x277CBF010]);
@@ -1004,14 +1038,14 @@ LABEL_30:
 
 + (unint64_t)systemPartitionGrowth:(id)growth
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   growthCopy = growth;
-  memset(&v24, 0, 512);
+  memset(&v23, 0, 512);
   minimumSystemPartitionSize = [growthCopy minimumSystemPartitionSize];
   systemPartitionPadding = [growthCopy systemPartitionPadding];
   v6 = [SUUtility devicePadding:systemPartitionPadding];
 
-  if (statfs("/", &v24))
+  if (statfs("/", &v23))
   {
     v7 = 0;
   }
@@ -1019,18 +1053,18 @@ LABEL_30:
   else
   {
     v8 = minimumSystemPartitionSize + 75497472 + v6;
-    v22[2] = 0;
-    memset(v23, 0, 12);
-    v22[0] = 5;
-    v22[1] = 2155872256;
-    if (getattrlist("/", v22, v23, 0xCuLL, 0))
+    v21[2] = 0;
+    memset(v22, 0, 12);
+    v21[0] = 5;
+    v21[1] = 2155872256;
+    if (getattrlist("/", v21, v22, 0xCuLL, 0))
     {
-      v9 = (v24.f_blocks - v24.f_bfree) * v24.f_bsize;
+      v9 = (v23.f_blocks - v23.f_bfree) * v23.f_bsize;
     }
 
     else
     {
-      v9 = *(v23 + 4);
+      v9 = *(v22 + 4);
     }
 
     v10 = v8 >= v9;
@@ -1049,7 +1083,6 @@ LABEL_30:
   humanReadableUpdateName = [growthCopy humanReadableUpdateName];
   SULogInfo(@"Sytem partition growth for [%@] <%p> = %llu bytes", v13, v14, v15, v16, v17, v18, v19, humanReadableUpdateName);
 
-  v20 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1064,7 +1097,7 @@ LABEL_30:
 
 + (unint64_t)devicePadding:(id)padding
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   paddingCopy = padding;
   valuePtr = 0;
   if (!paddingCopy)
@@ -1127,7 +1160,7 @@ LABEL_43:
   v51 = v43;
   if (!v42 || !v43)
   {
-    SULogInfo(@"Failed to allocate key/value buffers to fetch system padding value\n", v44, v45, v46, v47, v48, v49, v50, v71);
+    SULogInfo(@"Failed to allocate key/value buffers to fetch system padding value\n", v44, v45, v46, v47, v48, v49, v50, v70);
     v60 = 0;
     if (v42)
     {
@@ -1147,19 +1180,19 @@ LABEL_43:
   v59 = 0;
   v60 = 0;
   v61 = 0;
-  v72 = v32 >> 30;
-  v73 = 0;
+  v71 = v32 >> 30;
+  v72 = 0;
   do
   {
     v62 = v42[v59];
     v63 = v51[v59];
-    v75 = 0;
     v74 = 0;
+    v73 = 0;
     if (!v62)
     {
       v68 = @"Failed to get marketing size key from padding dict\n";
 LABEL_31:
-      SULogInfo(v68, v52, v53, v54, v55, v56, v57, v58, v71);
+      SULogInfo(v68, v52, v53, v54, v55, v56, v57, v58, v70);
       goto LABEL_32;
     }
 
@@ -1169,7 +1202,7 @@ LABEL_31:
       goto LABEL_31;
     }
 
-    v78 = 0;
+    v77 = 0;
     *buffer = 0;
     if (!CFStringGetCString(v62, buffer, 10, 0x8000100u))
     {
@@ -1177,41 +1210,41 @@ LABEL_31:
       goto LABEL_31;
     }
 
-    if (!sscanf(buffer, "%d", &v74))
+    if (!sscanf(buffer, "%d", &v73))
     {
       v68 = @"Failed to parse out padding value from capacity string\n";
       goto LABEL_31;
     }
 
-    if (!CFNumberGetValue(v63, kCFNumberSInt64Type, &v75))
+    if (!CFNumberGetValue(v63, kCFNumberSInt64Type, &v74))
     {
       v68 = @"Failed to convert CFNumberRef value into int\n";
       goto LABEL_31;
     }
 
-    v64 = v72 - v74;
-    if ((v72 - v74) < 0)
+    v64 = v71 - v73;
+    if ((v71 - v73) < 0)
     {
-      v64 = v74 - v72;
+      v64 = v73 - v71;
     }
 
     v65 = v59 != 0;
     v66 = v64 > v61;
     if (v65 && v66)
     {
-      v67 = v73;
+      v67 = v72;
     }
 
     else
     {
       v61 = v64;
-      v67 = v74;
+      v67 = v73;
     }
 
-    v73 = v67;
+    v72 = v67;
     if (!v65 || !v66)
     {
-      v60 = v75;
+      v60 = v74;
     }
 
 LABEL_32:
@@ -1221,7 +1254,7 @@ LABEL_32:
   while (v41 != v59);
   if (v61 >= 11)
   {
-    SULogInfo(@"Closest marketing capacity entry for padding was %dGB however this device is %dGB, this might not be optimal\n", v52, v53, v54, v55, v56, v57, v58, v73);
+    SULogInfo(@"Closest marketing capacity entry for padding was %dGB however this device is %dGB, this might not be optimal\n", v52, v53, v54, v55, v56, v57, v58, v72);
   }
 
 LABEL_48:
@@ -1241,19 +1274,16 @@ LABEL_36:
 
 LABEL_44:
 
-  v69 = *MEMORY[0x277D85DE8];
   return v60 << 20;
 }
 
 + (void)purgeV1SUAssets
 {
-  v4[2] = *MEMORY[0x277D85DE8];
-  v4[0] = @"com.apple.MobileAsset.SoftwareUpdate";
-  v4[1] = @"com.apple.MobileAsset.SoftwareUpdateDocumentation";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
+  v3[2] = *MEMORY[0x277D85DE8];
+  v3[0] = @"com.apple.MobileAsset.SoftwareUpdate";
+  v3[1] = @"com.apple.MobileAsset.SoftwareUpdateDocumentation";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:2];
   purgeAssets(v2, 1, 0);
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (id)gregorianCalendar
@@ -1409,19 +1439,17 @@ LABEL_8:
 
 + (id)bootTime
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v5 = 0;
   v6 = 0;
-  v7 = 0;
-  *v9 = 0x1500000001;
-  v8 = 16;
-  v2 = sysctl(v9, 2u, &v6, &v8, 0, 0);
+  *v8 = 0x1500000001;
+  v7 = 16;
+  v2 = sysctl(v8, 2u, &v5, &v7, 0, 0);
   v3 = 0;
   if (!v2)
   {
-    v3 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:(v6 + v7 / 0xF4240uLL)];
+    v3 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:(v5 + v6 / 0xF4240uLL)];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -1468,6 +1496,70 @@ LABEL_8:
 
     return hasSplatOnlyUpdateInstalled;
   }
+}
+
++ (id)documentationDataForInstalledUpdateType:(int)type error:(id *)error
+{
+  v5 = *&type;
+  if (error)
+  {
+    *error = 0;
+  }
+
+  v14 = objc_alloc_init(MEMORY[0x277D64190]);
+  if (v14)
+  {
+    v38 = 0;
+    v15 = [v14 getDocumentationDataForInstalledUpdateType:objc_msgSend(self withError:{"SUUpdateTypeFromCoreUpdateTypes:", v5), &v38}];
+    v16 = v38;
+    if (!v15)
+    {
+      v29 = SUStringFromOSUpdateType(v5);
+      SULogInfo(@"SUCoreDocumentationData not found for updateType: %@", v30, v31, v32, v33, v34, v35, v36, v29);
+
+      v25 = [SUUtility translateError:v16];
+
+      v24 = 0;
+      v15 = 0;
+LABEL_12:
+      v16 = v25;
+      if (!error)
+      {
+        goto LABEL_10;
+      }
+
+      goto LABEL_9;
+    }
+
+    v24 = [[SUDocumentationData alloc] initWithSUCoreDocumentationData:v15];
+    if (!v24)
+    {
+      SULogInfo(@"Failed to create SUDocumentationData from SUCoreDocumentationData", v17, v18, v19, v20, v21, v22, v23, v37);
+      v25 = [SUUtility errorWithCode:38];
+
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+    SULogInfo(@"SUCoreDocumentationDataManager failed to initialize", v7, v8, v9, v10, v11, v12, v13, v37);
+    v16 = [SUUtility errorWithCode:95];
+    v24 = 0;
+    v15 = 0;
+  }
+
+  if (error)
+  {
+LABEL_9:
+    v26 = v16;
+    *error = v16;
+  }
+
+LABEL_10:
+  v27 = v24;
+
+  return v24;
 }
 
 + (int64_t)compareRestoreVersion:(id)version withRestoreVersion:(id)restoreVersion
@@ -1623,17 +1715,17 @@ LABEL_4:
 
 void __41__SUUtility_systemRootStatus_rootsFound___block_invoke()
 {
-  v25 = *MEMORY[0x277D85DE8];
-  bzero(&v24, 0x878uLL);
-  if (statfs("/", &v24))
+  v23 = *MEMORY[0x277D85DE8];
+  bzero(&v22, 0x878uLL);
+  if (statfs("/", &v22))
   {
-    v23 = *__error();
+    __error();
     SULogInfo(@"%s: statfs(/) failed: %d", v0, v1, v2, v3, v4, v5, v6, "+[SUUtility systemRootStatus:rootsFound:]_block_invoke");
   }
 
   else
   {
-    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:v24.f_mntfromname];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:v22.f_mntfromname];
     if ([v7 containsString:@"darwinup"])
     {
       SULogInfo(@"%s: rooted from darwinup snapshot %@", v8, v9, v10, v11, v12, v13, v14, "+[SUUtility systemRootStatus:rootsFound:]_block_invoke");
@@ -1646,8 +1738,6 @@ void __41__SUUtility_systemRootStatus_rootsFound___block_invoke()
       systemRootStatus_rootsFound__is_live_fs = 1;
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isReturnToServiceModeActive

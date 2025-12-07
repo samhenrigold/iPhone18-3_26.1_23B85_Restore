@@ -16,93 +16,90 @@
 
 + (id)formattedPhoneNumber:(id)number
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   numberCopy = number;
-  v4 = *MEMORY[0x277CBECE8];
-  v5 = CFPhoneNumberCreate();
-  if (v5)
+  v4 = CFPhoneNumberCreate();
+  if (v4)
   {
-    v6 = v5;
+    v5 = v4;
     String = CFPhoneNumberCreateString();
     if (String)
     {
-      v8 = String;
+      v7 = String;
 
-      v9 = [MEMORY[0x277D4D830] loggerWithCategory:@"SettingsCellularUtils"];
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v8 = [MEMORY[0x277D4D830] loggerWithCategory:@"SettingsCellularUtils"];
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 136315650;
-        v14 = "+[SettingsCellularUtils formattedPhoneNumber:]";
+        v11 = 136315650;
+        v12 = "+[SettingsCellularUtils formattedPhoneNumber:]";
+        v13 = 2112;
+        v14 = numberCopy;
         v15 = 2112;
-        v16 = numberCopy;
-        v17 = 2112;
-        v18 = v8;
-        _os_log_impl(&dword_2658DE000, v9, OS_LOG_TYPE_DEFAULT, "%s localized %@ as %@", &v13, 0x20u);
+        v16 = v7;
+        _os_log_impl(&dword_2658DE000, v8, OS_LOG_TYPE_DEFAULT, "%s localized %@ as %@", &v11, 0x20u);
       }
     }
 
     else
     {
-      v9 = [MEMORY[0x277D4D830] loggerWithCategory:@"SettingsCellularUtils"];
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v8 = [MEMORY[0x277D4D830] loggerWithCategory:@"SettingsCellularUtils"];
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v13 = 136315394;
-        v14 = "+[SettingsCellularUtils formattedPhoneNumber:]";
-        v15 = 2112;
-        v16 = numberCopy;
-        _os_log_error_impl(&dword_2658DE000, v9, OS_LOG_TYPE_ERROR, "%s Could not localize %@", &v13, 0x16u);
+        v11 = 136315394;
+        v12 = "+[SettingsCellularUtils formattedPhoneNumber:]";
+        v13 = 2112;
+        v14 = numberCopy;
+        _os_log_error_impl(&dword_2658DE000, v8, OS_LOG_TYPE_ERROR, "%s Could not localize %@", &v11, 0x16u);
       }
 
-      v8 = numberCopy;
+      v7 = numberCopy;
     }
 
-    CFRelease(v6);
+    CFRelease(v5);
   }
 
   else
   {
-    v10 = [MEMORY[0x277D4D830] loggerWithCategory:@"SettingsCellularUtils"];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = [MEMORY[0x277D4D830] loggerWithCategory:@"SettingsCellularUtils"];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315394;
-      v14 = "+[SettingsCellularUtils formattedPhoneNumber:]";
-      v15 = 2112;
-      v16 = numberCopy;
-      _os_log_error_impl(&dword_2658DE000, v10, OS_LOG_TYPE_ERROR, "%s Could not create CFPhoneNumber for %@", &v13, 0x16u);
+      v11 = 136315394;
+      v12 = "+[SettingsCellularUtils formattedPhoneNumber:]";
+      v13 = 2112;
+      v14 = numberCopy;
+      _os_log_error_impl(&dword_2658DE000, v9, OS_LOG_TYPE_ERROR, "%s Could not create CFPhoneNumber for %@", &v11, 0x16u);
     }
 
-    v8 = numberCopy;
+    v7 = numberCopy;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v7;
 }
 
 + (BOOL)supportsWiFiCalling:(id)calling
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   callingCopy = calling;
   [MEMORY[0x277D6EDE8] senderIdentityCapabilities];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v4 = v22 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v4 = v21 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v20;
+    v7 = *v19;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         senderIdentityUUID = [v9 senderIdentityUUID];
         uuid = [callingCopy uuid];
         if ([senderIdentityUUID isEqual:uuid])
@@ -115,9 +112,9 @@
             if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315394;
-              v24 = "+[SettingsCellularUtils supportsWiFiCalling:]";
-              v25 = 2112;
-              v26 = callingCopy;
+              v23 = "+[SettingsCellularUtils supportsWiFiCalling:]";
+              v24 = 2112;
+              v25 = callingCopy;
               _os_log_impl(&dword_2658DE000, v15, OS_LOG_TYPE_DEFAULT, "%s Subscription Context: %@ supports WiFi Calling", buf, 0x16u);
             }
 
@@ -132,7 +129,7 @@
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v18 objects:v26 count:16];
       if (v6)
       {
         continue;
@@ -146,16 +143,15 @@
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v24 = "+[SettingsCellularUtils supportsWiFiCalling:]";
-    v25 = 2112;
-    v26 = callingCopy;
+    v23 = "+[SettingsCellularUtils supportsWiFiCalling:]";
+    v24 = 2112;
+    v25 = callingCopy;
     _os_log_impl(&dword_2658DE000, v13, OS_LOG_TYPE_DEFAULT, "%s Subscription Context: %@ doesn't support WiFi Calling", buf, 0x16u);
   }
 
   v14 = 0;
 LABEL_18:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -210,7 +206,7 @@ LABEL_18:
 
 + (BOOL)noDataConnectivityAvailableWithBSRecommendationCheck:(BOOL)check
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = +[PSUIDeviceWiFiState sharedInstance];
   if ([v4 isConnectedOverWiFi])
   {
@@ -220,26 +216,26 @@ LABEL_18:
   v5 = +[PSUIDeviceCellularState sharedInstance];
   if (![v5 isConnectedOverCellular])
   {
-    v9 = +[PSUIDeviceEthernetState sharedInstance];
-    isConnectedOverEthernet = [v9 isConnectedOverEthernet];
+    v8 = +[PSUIDeviceEthernetState sharedInstance];
+    isConnectedOverEthernet = [v8 isConnectedOverEthernet];
 
     if (isConnectedOverEthernet)
     {
-      goto LABEL_5;
+      return 0;
     }
 
-    v11 = +[PSUICellularPlanManagerCache sharedInstance];
-    getBootstrapState = [v11 getBootstrapState];
+    v10 = +[PSUICellularPlanManagerCache sharedInstance];
+    getBootstrapState = [v10 getBootstrapState];
 
-    v13 = [MEMORY[0x277D4D830] loggerWithCategory:@"SettingsCellularUtils"];
-    v14 = v13;
+    v12 = [MEMORY[0x277D4D830] loggerWithCategory:@"SettingsCellularUtils"];
+    v13 = v12;
     if (getBootstrapState)
     {
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 138412290;
-        v19 = getBootstrapState;
-        _os_log_impl(&dword_2658DE000, v14, OS_LOG_TYPE_DEFAULT, "Bootstrap state: %@", &v18, 0xCu);
+        v17 = 138412290;
+        v18 = getBootstrapState;
+        _os_log_impl(&dword_2658DE000, v13, OS_LOG_TYPE_DEFAULT, "Bootstrap state: %@", &v17, 0xCu);
       }
 
       bootstrapStatus = [getBootstrapState bootstrapStatus];
@@ -257,16 +253,16 @@ LABEL_18:
         v6 = 0;
 LABEL_21:
 
-        goto LABEL_6;
+        return v6;
       }
     }
 
     else
     {
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v18) = 0;
-        _os_log_error_impl(&dword_2658DE000, v14, OS_LOG_TYPE_ERROR, "Failed to get bootstrap state", &v18, 2u);
+        LOWORD(v17) = 0;
+        _os_log_error_impl(&dword_2658DE000, v13, OS_LOG_TYPE_ERROR, "Failed to get bootstrap state", &v17, 2u);
       }
     }
 
@@ -275,24 +271,20 @@ LABEL_21:
   }
 
 LABEL_4:
-LABEL_5:
-  v6 = 0;
-LABEL_6:
-  v7 = *MEMORY[0x277D85DE8];
-  return v6;
+  return 0;
 }
 
 + (id)singleSIMUISubscriptionContext
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ([self isUIDualSIM])
   {
     v2 = [MEMORY[0x277D4D830] loggerWithCategory:@"SettingsCellularUtils"];
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315138;
-      v11 = "+[SettingsCellularUtils singleSIMUISubscriptionContext]";
-      _os_log_error_impl(&dword_2658DE000, v2, OS_LOG_TYPE_ERROR, "Invoking %s is meaningful only in case of Single SIM UI", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "+[SettingsCellularUtils singleSIMUISubscriptionContext]";
+      _os_log_error_impl(&dword_2658DE000, v2, OS_LOG_TYPE_ERROR, "Invoking %s is meaningful only in case of Single SIM UI", &v9, 0xCu);
     }
   }
 
@@ -310,8 +302,6 @@ LABEL_6:
     subscriptionContexts = [mEMORY[0x277D4D868]2 subscriptionContexts];
     v5 = [subscriptionContexts objectAtIndexedSubscript:0];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

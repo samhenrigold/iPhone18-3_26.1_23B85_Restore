@@ -3785,7 +3785,7 @@ LABEL_32:
 
 - (id)commandsToPasteStyleTo:(id)to from:(id)from
 {
-  type metadata accessor for CRLStyledItem();
+  type metadata accessor for CRLStyledItem(0);
   sub_1009CCDDC();
   v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   fromCopy = from;
@@ -3816,13 +3816,13 @@ LABEL_32:
 + (id)providersForBoardItemsAndTextWithBoardItemFactory:(id)factory keepHighlights:(BOOL)highlights fromPasteboardObject:(id)object descriptionsForBoardItems:(id)items validGeometries:(BOOL *)geometries
 {
   highlightsCopy = highlights;
-  sub_1005B981C(&qword_101A0B1B0);
+  sub_1005B981C(&qword_101A0B1B0, &unk_1014C61F0);
   v11 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   factoryCopy = factory;
   objectCopy = object;
   sub_1009CC878(factoryCopy, highlightsCopy, objectCopy, v11, geometries);
 
-  sub_1005B981C(&qword_101A0B1B8);
+  sub_1005B981C(&qword_101A0B1B8, &qword_10148B738);
   v14.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v14.super.isa;

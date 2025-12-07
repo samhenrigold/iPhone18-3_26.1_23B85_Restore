@@ -246,17 +246,18 @@ uint64_t __64__AbstractCatalogViewController__takeOwnershipOfViewController___bl
 
       [v4 removeFromParentViewController];
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
         [parentViewController setForegroundChildViewControllerNeedsUpdate];
       }
 
       else
       {
-        v10 = WBS_LOG_CHANNEL_PREFIXOther();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v14 = WBS_LOG_CHANNEL_PREFIXOther(isKindOfClass, v9);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          [AbstractCatalogViewController _relinquishOwnershipOfViewControllerFromCurrentParent:v10];
+          [(AbstractCatalogViewController *)v14 _relinquishOwnershipOfViewControllerFromCurrentParent:v4, parentViewController];
         }
       }
     }
@@ -269,10 +270,10 @@ uint64_t __64__AbstractCatalogViewController__takeOwnershipOfViewController___bl
 
     if (window)
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXOther();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v13 = WBS_LOG_CHANNEL_PREFIXOther(v11, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        [(AbstractCatalogViewController *)v9 _relinquishOwnershipOfViewControllerFromCurrentParent:v4, parentViewController];
+        [(AbstractCatalogViewController *)v13 _relinquishOwnershipOfViewControllerFromCurrentParent:v4, parentViewController];
       }
 
       [parentViewController removeFromSuperview];
@@ -280,19 +281,19 @@ uint64_t __64__AbstractCatalogViewController__takeOwnershipOfViewController___bl
   }
 }
 
-- (void)_relinquishOwnershipOfViewControllerFromCurrentParent:(void *)a1 .cold.1(void *a1)
+- (void)_relinquishOwnershipOfViewControllerFromCurrentParent:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = a1;
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v6 = 138543618;
-  v7 = v3;
-  v8 = 2114;
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  v8 = 138543618;
   v9 = v5;
-  _os_log_error_impl(&dword_215819000, v1, OS_LOG_TYPE_ERROR, "Unable to relinquish ownership of %{public}@ from %{public}@ because it is not an instance of AbstractCatalogViewController", &v6, 0x16u);
+  v10 = 2114;
+  v11 = v7;
+  _os_log_error_impl(&dword_215819000, v3, OS_LOG_TYPE_ERROR, "Unable to relinquish ownership of %{public}@ from %{public}@ because it is not an instance of AbstractCatalogViewController", &v8, 0x16u);
 }
 
 - (void)_relinquishOwnershipOfViewControllerFromCurrentParent:(void *)a3 .cold.2(void *a1, uint64_t a2, void *a3)

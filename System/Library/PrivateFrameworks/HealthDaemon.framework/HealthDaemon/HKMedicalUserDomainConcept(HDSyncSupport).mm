@@ -22,31 +22,31 @@
 
 - (id)codableSubclassData
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(HDCodableMedicalUserDomainConcept);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   categoryTypes = [self categoryTypes];
-  v4 = [categoryTypes countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [categoryTypes countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(categoryTypes);
         }
 
-        -[HDCodableMedicalUserDomainConcept addCategoryTypes:](v2, "addCategoryTypes:", [*(*(&v12 + 1) + 8 * i) longLongValue]);
+        -[HDCodableMedicalUserDomainConcept addCategoryTypes:](v2, "addCategoryTypes:", [*(*(&v11 + 1) + 8 * i) longLongValue]);
       }
 
-      v5 = [categoryTypes countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [categoryTypes countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -56,8 +56,6 @@
   [(HDCodableMedicalUserDomainConcept *)v2 setCountryCode:countryCode];
 
   data = [(HDCodableMedicalUserDomainConcept *)v2 data];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return data;
 }

@@ -24,47 +24,47 @@
   v21.receiver = self;
   v21.super_class = ANRemotePlaybackSession;
   v2 = [(ANRemotePlaybackSession *)&v21 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = ANLogHandleRemotePlaybackSession();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = ANLogHandleRemotePlaybackSession(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       v23 = &stru_2836DAA20;
       v24 = 2112;
       v25 = @"com.apple.announced.remoteplaybacksession";
-      _os_log_impl(&dword_2237C8000, v3, OS_LOG_TYPE_DEFAULT, "%@Creating Connection to Service: %@", buf, 0x16u);
+      _os_log_impl(&dword_2237C8000, v4, OS_LOG_TYPE_DEFAULT, "%@Creating Connection to Service: %@", buf, 0x16u);
     }
 
-    v4 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2836E9448];
-    v5 = MEMORY[0x277CBEB98];
-    v6 = objc_opt_class();
+    v5 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2836E9448];
+    v6 = MEMORY[0x277CBEB98];
     v7 = objc_opt_class();
     v8 = objc_opt_class();
     v9 = objc_opt_class();
-    v10 = [v5 setWithObjects:{v6, v7, v8, v9, objc_opt_class(), 0}];
-    [v4 setClasses:v10 forSelector:sel_lastPlayedAnnouncementInfoForEndpointID_completionHandler_ argumentIndex:0 ofReply:1];
-    v11 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2836E5108];
-    v12 = MEMORY[0x277CBEB98];
-    v13 = objc_opt_class();
-    v14 = [v12 setWithObjects:{v13, objc_opt_class(), 0}];
-    [v11 setClasses:v14 forSelector:sel_didUpdateAnnouncements_forGroupID_ argumentIndex:0 ofReply:0];
-    [v11 setClass:objc_opt_class() forSelector:sel_didReceiveAnnouncement_forGroupID_ argumentIndex:0 ofReply:0];
-    v15 = objc_opt_new();
-    delegateProxy = v2->_delegateProxy;
-    v2->_delegateProxy = v15;
+    v10 = objc_opt_class();
+    v11 = [v6 setWithObjects:{v7, v8, v9, v10, objc_opt_class(), 0}];
+    [v5 setClasses:v11 forSelector:sel_lastPlayedAnnouncementInfoForEndpointID_completionHandler_ argumentIndex:0 ofReply:1];
+    v12 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2836E5108];
+    v13 = MEMORY[0x277CBEB98];
+    v14 = objc_opt_class();
+    v15 = [v13 setWithObjects:{v14, objc_opt_class(), 0}];
+    [v12 setClasses:v15 forSelector:sel_didUpdateAnnouncements_forGroupID_ argumentIndex:0 ofReply:0];
+    [v12 setClass:objc_opt_class() forSelector:sel_didReceiveAnnouncement_forGroupID_ argumentIndex:0 ofReply:0];
+    v16 = objc_opt_new();
+    delegateProxy = v3->_delegateProxy;
+    v3->_delegateProxy = v16;
 
-    [(ANRemotePlaybackSessionServiceClientInterfaceProxy *)v2->_delegateProxy setDelegate:v2];
-    v17 = [[ANXPCManager alloc] initWithMachServiceName:@"com.apple.announced.remoteplaybacksession" remoteObjectInterface:v4 exportedInterface:v11 exportedObject:v2->_delegateProxy];
-    xpcManager = v2->_xpcManager;
-    v2->_xpcManager = v17;
+    [(ANRemotePlaybackSessionServiceClientInterfaceProxy *)v3->_delegateProxy setDelegate:v3];
+    v18 = [[ANXPCManager alloc] initWithMachServiceName:@"com.apple.announced.remoteplaybacksession" remoteObjectInterface:v5 exportedInterface:v12 exportedObject:v3->_delegateProxy];
+    xpcManager = v3->_xpcManager;
+    v3->_xpcManager = v18;
 
-    [(ANXPCManager *)v2->_xpcManager setDelegate:v2];
-    [(ANXPCManager *)v2->_xpcManager setCheckInProvider:v2];
+    [(ANXPCManager *)v3->_xpcManager setDelegate:v3];
+    [(ANXPCManager *)v3->_xpcManager setCheckInProvider:v3];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-  return v2;
+  return v3;
 }
 
 - (void)dealloc
@@ -96,21 +96,19 @@
 
 void __61__ANRemotePlaybackSession_setPlaybackStartedForAnnouncement___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = ANLogHandleRemotePlaybackSession();
+  v3 = ANLogHandleRemotePlaybackSession(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412802;
-    v6 = &stru_2836DAA20;
-    v7 = 2080;
-    v8 = "[ANRemotePlaybackSession setPlaybackStartedForAnnouncement:]_block_invoke";
-    v9 = 2112;
-    v10 = v2;
-    _os_log_impl(&dword_2237C8000, v3, OS_LOG_TYPE_ERROR, "%@%s: %@", &v5, 0x20u);
+    v4 = 138412802;
+    v5 = &stru_2836DAA20;
+    v6 = 2080;
+    v7 = "[ANRemotePlaybackSession setPlaybackStartedForAnnouncement:]_block_invoke";
+    v8 = 2112;
+    v9 = v2;
+    _os_log_impl(&dword_2237C8000, v3, OS_LOG_TYPE_ERROR, "%@%s: %@", &v4, 0x20u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPlaybackStoppedForAnnouncement:(id)announcement
@@ -124,21 +122,19 @@ void __61__ANRemotePlaybackSession_setPlaybackStartedForAnnouncement___block_inv
 
 void __61__ANRemotePlaybackSession_setPlaybackStoppedForAnnouncement___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = ANLogHandleRemotePlaybackSession();
+  v3 = ANLogHandleRemotePlaybackSession(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412802;
-    v6 = &stru_2836DAA20;
-    v7 = 2080;
-    v8 = "[ANRemotePlaybackSession setPlaybackStoppedForAnnouncement:]_block_invoke";
-    v9 = 2112;
-    v10 = v2;
-    _os_log_impl(&dword_2237C8000, v3, OS_LOG_TYPE_ERROR, "%@%s: %@", &v5, 0x20u);
+    v4 = 138412802;
+    v5 = &stru_2836DAA20;
+    v6 = 2080;
+    v7 = "[ANRemotePlaybackSession setPlaybackStoppedForAnnouncement:]_block_invoke";
+    v8 = 2112;
+    v9 = v2;
+    _os_log_impl(&dword_2237C8000, v3, OS_LOG_TYPE_ERROR, "%@%s: %@", &v4, 0x20u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)lastPlayedAnnouncementInfoWithCompletion:(id)completion
@@ -158,22 +154,21 @@ void __61__ANRemotePlaybackSession_setPlaybackStoppedForAnnouncement___block_inv
 
 void __68__ANRemotePlaybackSession_lastPlayedAnnouncementInfoWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = ANLogHandleRemotePlaybackSession();
+  v4 = ANLogHandleRemotePlaybackSession(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412802;
-    v7 = &stru_2836DAA20;
-    v8 = 2080;
-    v9 = "[ANRemotePlaybackSession lastPlayedAnnouncementInfoWithCompletion:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_2237C8000, v4, OS_LOG_TYPE_ERROR, "%@%s: %@", &v6, 0x20u);
+    v5 = 138412802;
+    v6 = &stru_2836DAA20;
+    v7 = 2080;
+    v8 = "[ANRemotePlaybackSession lastPlayedAnnouncementInfoWithCompletion:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_2237C8000, v4, OS_LOG_TYPE_ERROR, "%@%s: %@", &v5, 0x20u);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)startSessionForGroupID:(id)d announcementsHandler:(id)handler
@@ -215,22 +210,21 @@ void __68__ANRemotePlaybackSession_lastPlayedAnnouncementInfoWithCompletion___bl
 
 void __71__ANRemotePlaybackSession_startSessionForGroupID_announcementsHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = ANLogHandleRemotePlaybackSession();
+  v4 = ANLogHandleRemotePlaybackSession(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412802;
-    v7 = &stru_2836DAA20;
-    v8 = 2080;
-    v9 = "[ANRemotePlaybackSession startSessionForGroupID:announcementsHandler:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_2237C8000, v4, OS_LOG_TYPE_ERROR, "%@%s: %@", &v6, 0x20u);
+    v5 = 138412802;
+    v6 = &stru_2836DAA20;
+    v7 = 2080;
+    v8 = "[ANRemotePlaybackSession startSessionForGroupID:announcementsHandler:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_2237C8000, v4, OS_LOG_TYPE_ERROR, "%@%s: %@", &v5, 0x20u);
   }
 
   dispatch_group_leave(*(a1 + 32));
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)endSession
@@ -269,22 +263,21 @@ void __71__ANRemotePlaybackSession_startSessionForGroupID_announcementsHandler__
 
 void __37__ANRemotePlaybackSession_endSession__block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = ANLogHandleRemotePlaybackSession();
+  v4 = ANLogHandleRemotePlaybackSession(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412802;
-    v7 = &stru_2836DAA20;
-    v8 = 2080;
-    v9 = "[ANRemotePlaybackSession endSession]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_2237C8000, v4, OS_LOG_TYPE_ERROR, "%@%s: %@", &v6, 0x20u);
+    v5 = 138412802;
+    v6 = &stru_2836DAA20;
+    v7 = 2080;
+    v8 = "[ANRemotePlaybackSession endSession]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_2237C8000, v4, OS_LOG_TYPE_ERROR, "%@%s: %@", &v5, 0x20u);
   }
 
   dispatch_group_leave(*(a1 + 32));
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callHandler:(id)handler
@@ -319,18 +312,18 @@ void __40__ANRemotePlaybackSession__callHandler___block_invoke(uint64_t a1)
 
 - (void)didReceiveAnnouncement:(id)announcement forGroupID:(id)d
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   announcementCopy = announcement;
   dCopy = d;
-  v8 = ANLogHandleRemotePlaybackSession();
+  v8 = ANLogHandleRemotePlaybackSession(dCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v17 = &stru_2836DAA20;
-    v18 = 2080;
-    v19 = "[ANRemotePlaybackSession didReceiveAnnouncement:forGroupID:]";
-    v20 = 2112;
-    v21 = announcementCopy;
+    v16 = &stru_2836DAA20;
+    v17 = 2080;
+    v18 = "[ANRemotePlaybackSession didReceiveAnnouncement:forGroupID:]";
+    v19 = 2112;
+    v20 = announcementCopy;
     _os_log_impl(&dword_2237C8000, v8, OS_LOG_TYPE_DEFAULT, "%@%s, did receive announcement: %@", buf, 0x20u);
   }
 
@@ -343,15 +336,15 @@ void __40__ANRemotePlaybackSession__callHandler___block_invoke(uint64_t a1)
     if (v11)
     {
       objc_initWeak(buf, self);
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __61__ANRemotePlaybackSession_didReceiveAnnouncement_forGroupID___block_invoke;
-      v13[3] = &unk_2784E2038;
-      objc_copyWeak(&v15, buf);
-      v14 = announcementCopy;
-      [ANUtils asyncDispatchOnGlobalQueue:v13];
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __61__ANRemotePlaybackSession_didReceiveAnnouncement_forGroupID___block_invoke;
+      v12[3] = &unk_2784E2038;
+      objc_copyWeak(&v14, buf);
+      v13 = announcementCopy;
+      [ANUtils asyncDispatchOnGlobalQueue:v12];
 
-      objc_destroyWeak(&v15);
+      objc_destroyWeak(&v14);
       objc_destroyWeak(buf);
     }
   }
@@ -359,8 +352,6 @@ void __40__ANRemotePlaybackSession__callHandler___block_invoke(uint64_t a1)
   else
   {
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __61__ANRemotePlaybackSession_didReceiveAnnouncement_forGroupID___block_invoke(uint64_t a1)

@@ -59,7 +59,7 @@
   if ((outputFormat - 3) >= 4 && outputFormat != 8)
   {
 
-    v16 = @"In-place conversion to this image format is not supported";
+    v13 = @"In-place conversion to this image format is not supported";
     goto LABEL_16;
   }
 
@@ -68,29 +68,25 @@
     goto LABEL_10;
   }
 
-  v11 = *image;
-  v12 = **image;
-  v14 = *v11;
-  if (!v13)
+  if (!v11)
   {
-    if (v15 && v15[152] != 1)
+    if (v12 && v12[152] != 1)
     {
       goto LABEL_11;
     }
 
 LABEL_10:
-    v16 = @"In-place conversion from this image format is not supported";
+    v13 = @"In-place conversion from this image format is not supported";
 LABEL_16:
 
-    return [DIError failWithPOSIXCode:22 description:v16 error:error];
+    return [DIError failWithPOSIXCode:22 description:v13 error:error];
   }
 
-  if (!v15)
+  if (!v12)
   {
 LABEL_12:
-    v17 = *v11;
     {
-      v16 = @"Cannot convert in-place with a shadow file";
+      v13 = @"Cannot convert in-place with a shadow file";
       goto LABEL_16;
     }
 
@@ -98,7 +94,7 @@ LABEL_12:
   }
 
 LABEL_11:
-  if (v15[153])
+  if (v12[153])
   {
     goto LABEL_12;
   }
@@ -109,33 +105,45 @@ LABEL_11:
 - (void)convertUserDataWithDiskImage:(void *)image destination:(void *)destination
 {
   v7 = *__error();
-  if (sub_1000E044C())
+  v8 = sub_1000E044C();
+  if (v8)
   {
-    v8 = sub_1000E03D8();
-    os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v17 = 0;
+    v10 = sub_1000E03D8(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = 3;
+    }
+
+    else
+    {
+      v11 = 2;
+    }
+
     *buf = 68157954;
     *&buf[4] = 61;
-    v14 = 2080;
-    v15 = "[DIConvertManager convertUserDataWithDiskImage:destination:]";
-    v9 = _os_log_send_and_compose_impl();
+    v19 = 2080;
+    v20 = "[DIConvertManager convertUserDataWithDiskImage:destination:]";
+    LODWORD(v16) = 18;
+    v12 = _os_log_send_and_compose_impl(v11, &v17, 0, 0, &_mh_execute_header, v10, 0, "%.*s: Converting user data", buf, v16);
 
-    if (v9)
+    if (v12)
     {
-      fprintf(__stderrp, "%s\n", v9);
-      free(v9);
+      fprintf(__stderrp, "%s\n", v12);
+      free(v12);
     }
   }
 
   else
   {
-    v10 = sub_1000E03D8();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_1000E03D8(v8, v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68157954;
       *&buf[4] = 61;
-      v14 = 2080;
-      v15 = "[DIConvertManager convertUserDataWithDiskImage:destination:]";
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%.*s: Converting user data", buf, 0x12u);
+      v19 = 2080;
+      v20 = "[DIConvertManager convertUserDataWithDiskImage:destination:]";
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%.*s: Converting user data", buf, 0x12u);
     }
   }
 
@@ -166,26 +174,26 @@ LABEL_11:
   diskImageParamsXPC = [convertParams diskImageParamsXPC];
   outputParams = [(DIConvertManager *)self outputParams];
   shadowChain = [outputParams shadowChain];
-  shouldValidate = [shadowChain shouldValidate];
+  [shadowChain shouldValidate];
   if (diskImageParamsXPC)
   {
-    [diskImageParamsXPC createDiskImageWithCache:0 shadowValidation:shouldValidate];
-    v10 = *buf;
+    objc_msgSend_createDiskImageWithCache_shadowValidation_(diskImageParamsXPC);
+    v9 = *buf;
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  v47 = v10;
+  v47 = v9;
   *buf = 0;
 
   outputParams2 = [(DIConvertManager *)self outputParams];
   diskImageParamsXPC2 = [outputParams2 diskImageParamsXPC];
-  v13 = [diskImageParamsXPC2 lockBackendsWithError:error];
+  v12 = [diskImageParamsXPC2 lockBackendsWithError:error];
 
-  if (v13)
+  if (v12)
   {
     convertParams2 = [(DIConvertManager *)self convertParams];
     if ([convertParams2 inPlaceConversion])
@@ -196,56 +204,64 @@ LABEL_11:
     {
       convertParams3 = [(DIConvertManager *)self convertParams];
       diskImageParamsXPC3 = [convertParams3 diskImageParamsXPC];
-      v17 = [diskImageParamsXPC3 lockBackendsWithError:error];
+      v16 = [diskImageParamsXPC3 lockBackendsWithError:error];
 
-      if ((v17 & 1) == 0)
+      if ((v16 & 1) == 0)
       {
-        goto LABEL_17;
+        goto LABEL_20;
       }
     }
 
-    v18 = *__error();
-    if (sub_1000E044C())
+    v17 = *__error();
+    v18 = sub_1000E044C();
+    if (v18)
     {
       v56[0] = 0;
-      v19 = sub_1000E03D8();
-      os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+      v20 = sub_1000E03D8(v18, v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      {
+        v21 = 3;
+      }
+
+      else
+      {
+        v21 = 2;
+      }
+
       convertParams4 = [(DIConvertManager *)self convertParams];
-      v21 = +[DIHelpers stringWithImageFormat:](DIHelpers, "stringWithImageFormat:", [convertParams4 outputFormat]);
+      v23 = +[DIHelpers stringWithImageFormat:](DIHelpers, "stringWithImageFormat:", [convertParams4 outputFormat]);
       *buf = 68158210;
       *&buf[4] = 33;
       *v49 = 2080;
       *&v49[2] = "[DIConvertManager runWithError:]";
       *&v49[10] = 2114;
-      *&v49[12] = v21;
-      LODWORD(v41) = 28;
-      v40 = buf;
-      v22 = _os_log_send_and_compose_impl();
+      *&v49[12] = v23;
+      v24 = _os_log_send_and_compose_impl(v21, v56, 0, 0, &_mh_execute_header, v20, 0, "%.*s: Converting to %{public}@", buf, 28);
 
-      if (v22)
+      if (v24)
       {
-        fprintf(__stderrp, "%s\n", v22);
-        free(v22);
+        fprintf(__stderrp, "%s\n", v24);
+        free(v24);
       }
     }
 
     else
     {
-      v23 = sub_1000E03D8();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v25 = sub_1000E03D8(v18, v19);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         convertParams5 = [(DIConvertManager *)self convertParams];
-        v25 = +[DIHelpers stringWithImageFormat:](DIHelpers, "stringWithImageFormat:", [convertParams5 outputFormat]);
+        v27 = +[DIHelpers stringWithImageFormat:](DIHelpers, "stringWithImageFormat:", [convertParams5 outputFormat]);
         *buf = 0x2104100302;
         *v49 = 2080;
         *&v49[2] = "[DIConvertManager runWithError:]";
         *&v49[10] = 2114;
-        *&v49[12] = v25;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%.*s: Converting to %{public}@", buf, 0x1Cu);
+        *&v49[12] = v27;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%.*s: Converting to %{public}@", buf, 0x1Cu);
       }
     }
 
-    *__error() = v18;
+    *__error() = v17;
     if ([(DIConvertManager *)self validateFormatsWithDiskImage:v47 error:error])
     {
       progress = [(DIConvertManager *)self progress];
@@ -266,10 +282,10 @@ LABEL_11:
       convertParams6 = [(DIConvertManager *)self convertParams];
       *v49 = [convertParams6 outputFormat];
       outputParams3 = [(DIConvertManager *)self outputParams];
-      v29 = outputParams3;
+      v31 = outputParams3;
       if (outputParams3)
       {
-        [outputParams3 backend];
+        objc_msgSend_backend(outputParams3);
       }
 
       else
@@ -277,20 +293,20 @@ LABEL_11:
         *&v49[8] = 0uLL;
       }
 
-      v31 = [(DIConvertManager *)self convertParams:v40];
-      blockSize = [v31 blockSize];
       convertParams7 = [(DIConvertManager *)self convertParams];
-      maxRawUDIFRunSize = [convertParams7 maxRawUDIFRunSize];
+      blockSize = [convertParams7 blockSize];
       convertParams8 = [(DIConvertManager *)self convertParams];
-      blockSize2 = [convertParams8 blockSize];
+      maxRawUDIFRunSize = [convertParams8 maxRawUDIFRunSize];
       convertParams9 = [(DIConvertManager *)self convertParams];
-      conversionMethod = [convertParams9 conversionMethod];
+      blockSize2 = [convertParams9 blockSize];
+      convertParams10 = [(DIConvertManager *)self convertParams];
+      conversionMethod = [convertParams10 conversionMethod];
       v54 = 0;
       sub_100010DFC(v55, v56);
       v55[4] = v44 + 3;
 
-      convertParams10 = [(DIConvertManager *)self convertParams];
-      useFormatMappingInfo = [convertParams10 useFormatMappingInfo];
+      convertParams11 = [(DIConvertManager *)self convertParams];
+      useFormatMappingInfo = [convertParams11 useFormatMappingInfo];
 
       if (useFormatMappingInfo)
       {
@@ -309,12 +325,12 @@ LABEL_11:
     }
   }
 
-LABEL_17:
-  v30 = v47;
+LABEL_20:
+  v32 = v47;
   v47 = 0;
-  if (v30)
+  if (v32)
   {
-    (*(*v30 + 16))(v30);
+    (*(*v32 + 16))(v32);
   }
 
   return 0;
@@ -326,48 +342,47 @@ LABEL_17:
   v4 = outputParams;
   if (outputParams)
   {
-    [outputParams backend];
+    objc_msgSend_backend(outputParams);
   }
 
   else
   {
+    v8 = 0;
     v9 = 0;
-    v10 = 0;
   }
 
-  sub_10019A824(&v9, &lpsrc);
-  if (v10)
+  sub_10019A824(&v8, &lpsrc);
+  if (v9)
   {
-    sub_10000367C(v10);
+    sub_10000367C(v9);
   }
 
   if (lpsrc)
   {
-    v5 = **lpsrc;
-    if (v6)
+    if (v5)
     {
-      v7 = v12;
-      if (v12)
+      v6 = v11;
+      if (v11)
       {
-        atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      (*(*v6 + 8))(v6);
-      if (v7)
+      (*(*v5 + 8))(v5);
+      if (v6)
       {
-        sub_10000367C(v7);
+        sub_10000367C(v6);
       }
     }
   }
 
-  if (v12)
+  if (v11)
   {
-    sub_10000367C(v12);
+    sub_10000367C(v11);
   }
 
-  v8.receiver = self;
-  v8.super_class = DIConvertManager;
-  [(DIConvertManager *)&v8 dealloc];
+  v7.receiver = self;
+  v7.super_class = DIConvertManager;
+  [(DIConvertManager *)&v7 dealloc];
 }
 
 @end

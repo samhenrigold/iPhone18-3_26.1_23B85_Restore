@@ -211,7 +211,8 @@ LABEL_20:
 
 - (id)_getDeviceId
 {
-  if (![(ASPCarryLogStateMachine *)self isInternalBuild]|| (getDeviceSerialNumber(), (_genUniqueDeviceId = objc_claimAutoreleasedReturnValue()) == 0))
+  isInternalBuild = [(ASPCarryLogStateMachine *)self isInternalBuild];
+  if (!isInternalBuild || (getDeviceSerialNumber(isInternalBuild), (_genUniqueDeviceId = objc_claimAutoreleasedReturnValue()) == 0))
   {
     _genUniqueDeviceId = [(ASPCarryLogStateMachine *)self _genUniqueDeviceId];
   }
@@ -940,53 +941,53 @@ LABEL_7:
   v6 = [stateMgr2 getValueForKey:@"device_is_internal_build" expectedType:0];
   v7 = [v6 isEqualToString:@"yes"];
 
-  v8 = getDeviceSerialNumber();
+  v9 = getDeviceSerialNumber(v8);
   has_internal_content = os_variant_has_internal_content();
-  if (v4 && (![v8 isEqualToString:v4] || v7 != has_internal_content))
+  if (v4 && (![v9 isEqualToString:v4] || v7 != has_internal_content))
   {
-    v11 = oslog;
+    v12 = oslog;
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
     {
-      *v22 = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "SN and/or build variant mismatch. Reseting defaults", v22, 2u);
+      *v23 = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "SN and/or build variant mismatch. Reseting defaults", v23, 2u);
     }
 
     [(ASPCarryLogStateMachine *)self _resetDaemonUserDefaults];
     stateMgr3 = [(ASPCarryLogStateMachine *)self stateMgr];
-    v13 = stateMgr3;
+    v14 = stateMgr3;
     if (has_internal_content)
     {
       [stateMgr3 setValue:@"No active tasking and no iolog collection ongoing" forKey:@"aspcarrylog_tasking_info" inDomain:@"/var/mobile/Library/Preferences/com.apple.nandCarryLogs.plist"];
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v10 = 1;
+    v11 = 1;
   }
 
   stateMgr4 = [(ASPCarryLogStateMachine *)self stateMgr];
-  v15 = [stateMgr4 getValueForKey:@"device_serialnumber" expectedType:0];
+  v16 = [stateMgr4 getValueForKey:@"device_serialnumber" expectedType:0];
 
-  if (!v15)
+  if (!v16)
   {
     stateMgr5 = [(ASPCarryLogStateMachine *)self stateMgr];
-    [stateMgr5 setValue:v8 forKey:@"device_serialnumber"];
+    [stateMgr5 setValue:v9 forKey:@"device_serialnumber"];
   }
 
   stateMgr6 = [(ASPCarryLogStateMachine *)self stateMgr];
-  v18 = [stateMgr6 getValueForKey:@"device_is_internal_build" expectedType:0];
-  v19 = (v18 == 0) & has_internal_content;
+  v19 = [stateMgr6 getValueForKey:@"device_is_internal_build" expectedType:0];
+  v20 = (v19 == 0) & has_internal_content;
 
-  if (v19 == 1)
+  if (v20 == 1)
   {
     stateMgr7 = [(ASPCarryLogStateMachine *)self stateMgr];
     [stateMgr7 setValue:@"yes" forKey:@"device_is_internal_build"];
   }
 
-  return v10;
+  return v11;
 }
 
 - (void)dailyCheckWithStatsProvider:(id)provider

@@ -791,11 +791,11 @@ LABEL_31:
 
 - (id)previewForItem:(id)item section:(id)section
 {
-  v120 = *MEMORY[0x277D85DE8];
+  v121 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   sectionCopy = section;
-  v107 = [(PBFGalleryConfiguration *)self _posterDescriptorLookupInfoForItem:itemCopy];
-  if (!v107)
+  v108 = [(PBFGalleryConfiguration *)self _posterDescriptorLookupInfoForItem:itemCopy];
+  if (!v108)
   {
     v18 = 0;
     goto LABEL_70;
@@ -816,33 +816,33 @@ LABEL_31:
   {
     mEMORY[0x277D0A9E8] = [MEMORY[0x277D0A9E8] sharedActivityManager];
     availableActivities = [mEMORY[0x277D0A9E8] availableActivities];
-    v108[0] = MEMORY[0x277D85DD0];
-    v108[1] = 3221225472;
-    v108[2] = __50__PBFGalleryConfiguration_previewForItem_section___block_invoke;
-    v108[3] = &unk_2782C57D0;
-    v92 = v10;
-    v109 = v92;
-    v13 = [availableActivities bs_firstObjectPassingTest:v108];
+    v109[0] = MEMORY[0x277D85DD0];
+    v109[1] = 3221225472;
+    v109[2] = __50__PBFGalleryConfiguration_previewForItem_section___block_invoke;
+    v109[3] = &unk_2782C57D0;
+    v93 = v10;
+    v110 = v93;
+    v13 = [availableActivities bs_firstObjectPassingTest:v109];
 
     activityIdentifier = [v13 activityIdentifier];
     activitySymbolImageName = [v13 activitySymbolImageName];
 
-    v82 = 1;
+    v83 = 1;
   }
 
   else
   {
-    v82 = 0;
-    v92 = 0;
+    v83 = 0;
+    v93 = 0;
     activitySymbolImageName = 0;
     activityIdentifier = 0;
   }
 
   subtitleComplication = [itemCopy subtitleComplication];
-  v98 = complicationLookupInfoForPBFComplication(subtitleComplication);
+  v99 = complicationLookupInfoForPBFComplication(subtitleComplication);
 
   complications = [itemCopy complications];
-  v97 = [complications bs_mapNoNulls:&__block_literal_global_47];
+  v98 = [complications bs_mapNoNulls:&__block_literal_global_47];
 
   layoutType = [itemCopy layoutType];
   if ((layoutType - 1) > 2)
@@ -855,19 +855,19 @@ LABEL_31:
     v17 = off_2782C8468[layoutType - 1];
   }
 
-  v96 = *v17;
+  v97 = *v17;
   landscapeComplications = [itemCopy landscapeComplications];
-  v95 = [landscapeComplications bs_mapNoNulls:&__block_literal_global_49];
+  v96 = [landscapeComplications bs_mapNoNulls:&__block_literal_global_49];
 
   extensionBundleIdentifier = [itemCopy extensionBundleIdentifier];
-  v102 = [objc_alloc(MEMORY[0x277CC1E50]) initWithBundleIdentifier:extensionBundleIdentifier error:0];
-  v105 = [v102 URL];
-  if (v105)
+  v103 = [objc_alloc(MEMORY[0x277CC1E50]) initWithBundleIdentifier:extensionBundleIdentifier error:0];
+  v106 = [v103 URL];
+  if (v106)
   {
     displayNameLocalizationKey = [itemCopy displayNameLocalizationKey];
     if (displayNameLocalizationKey)
     {
-      v20 = [MEMORY[0x277CCA8D8] pf_uniqueBundleWithURL:v105];
+      v20 = [MEMORY[0x277CCA8D8] pf_uniqueBundleWithURL:v106];
       localizedDisplayName = [v20 localizedStringForKey:displayNameLocalizationKey value:0 table:0];
     }
 
@@ -877,7 +877,7 @@ LABEL_31:
     }
 
     v21 = objc_alloc(MEMORY[0x277D3ED80]);
-    posterDescriptorPath = [v107 posterDescriptorPath];
+    posterDescriptorPath = [v108 posterDescriptorPath];
     v23 = [v21 _initWithPath:posterDescriptorPath];
 
     displayNameLocalizationKey2 = [v23 displayNameLocalizationKey];
@@ -896,30 +896,30 @@ LABEL_31:
     titleFontName = [itemCopy titleFontName];
     if (titleFontName && (PRTimeFontIdentifiers(), v25 = objc_claimAutoreleasedReturnValue(), v26 = [v25 containsObject:titleFontName], v25, v26) && (v27 = objc_msgSend(objc_alloc(MEMORY[0x277D3EE68]), "initWithTimeFontIdentifier:", titleFontName)) != 0)
     {
-      v81 = v27;
-      v90 = v81;
-      [MEMORY[0x277D3EE28] configurationWithTimeFontConfiguration:v81 extensionBundleURL:v105 systemItem:1];
+      v82 = v27;
+      v91 = v82;
+      [MEMORY[0x277D3EE28] configurationWithTimeFontConfiguration:v82 extensionBundleURL:v106 systemItem:1];
     }
 
     else
     {
-      v28 = [v23 preferredTimeFontConfigurationsWithExtensionBundleURL:v105];
+      v28 = [v23 preferredTimeFontConfigurationsWithExtensionBundleURL:v106];
       firstObject2 = [v28 firstObject];
       v30 = firstObject2;
       if (firstObject2)
       {
-        v90 = firstObject2;
+        v91 = firstObject2;
       }
 
       else
       {
-        v90 = objc_alloc_init(MEMORY[0x277D3EE68]);
+        v91 = objc_alloc_init(MEMORY[0x277D3EE68]);
       }
 
-      v81 = 0;
-      [MEMORY[0x277D3EE28] configurationWithTimeFontConfiguration:v90 extensionBundleURL:v105 systemItem:1];
+      v82 = 0;
+      [MEMORY[0x277D3EE28] configurationWithTimeFontConfiguration:v91 extensionBundleURL:v106 systemItem:1];
     }
-    v88 = ;
+    v89 = ;
     mEMORY[0x277D3EE40] = [MEMORY[0x277D3EE40] sharedPreferences];
     isAlternateCalendarEnabled = [mEMORY[0x277D3EE40] isAlternateCalendarEnabled];
 
@@ -932,8 +932,8 @@ LABEL_31:
     [preferredTitleStyle preferredTimeMaxYLandscape];
     v38 = v37;
     [v23 luminance];
-    LOBYTE(v78) = isAlternateCalendarEnabled;
-    v85 = [v34 initWithTimeFontConfiguration:v88 preferredTitleAlignment:0 preferredTitleLayout:0 titleContentStyle:contentStyle timeNumberingSystem:0 userConfigured:0 preferredTimeMaxYPortrait:v36 preferredTimeMaxYLandscape:v38 contentsLuminance:v39 alternateDateEnabled:v78 groupName:0];
+    LOBYTE(v79) = isAlternateCalendarEnabled;
+    v86 = [v34 initWithTimeFontConfiguration:v89 preferredTitleAlignment:0 preferredTitleLayout:0 titleContentStyle:contentStyle timeNumberingSystem:0 userConfigured:0 preferredTimeMaxYPortrait:v36 preferredTimeMaxYLandscape:v38 contentsLuminance:v39 alternateDateEnabled:v79 groupName:0];
     preferredHomeScreenConfiguration = [v23 preferredHomeScreenConfiguration];
     v41 = preferredHomeScreenConfiguration;
     if (preferredHomeScreenConfiguration)
@@ -956,15 +956,15 @@ LABEL_31:
       v48 = objc_alloc_init(MEMORY[0x277D3EDA0]);
       v49 = objc_alloc_init(MEMORY[0x277D3EDA8]);
       v50 = objc_alloc_init(MEMORY[0x277D3EDB8]);
-      v84 = [v45 initWithSelectedAppearanceType:v44 lockPosterAppearance:v46 solidColorAppearance:v47 gradientAppearance:v48 homePosterAppearance:v49 customizationConfiguration:v50];
+      v85 = [v45 initWithSelectedAppearanceType:v44 lockPosterAppearance:v46 solidColorAppearance:v47 gradientAppearance:v48 homePosterAppearance:v49 customizationConfiguration:v50];
     }
 
     else
     {
-      v84 = [MEMORY[0x277D3EDB0] defaultHomeScreenConfigurationForProvider:extensionBundleIdentifier role:*MEMORY[0x277D3EEF0]];
+      v85 = [MEMORY[0x277D3EDB0] defaultHomeScreenConfigurationForProvider:extensionBundleIdentifier role:*MEMORY[0x277D3EEF0]];
     }
 
-    v51 = v82 ^ 1;
+    v51 = v83 ^ 1;
     if (!activityIdentifier)
     {
       v51 = 1;
@@ -972,12 +972,12 @@ LABEL_31:
 
     if (v51)
     {
-      v83 = 0;
+      v84 = 0;
     }
 
     else
     {
-      v83 = [objc_alloc(MEMORY[0x277D3ED98]) initWithActivityIdentifier:activityIdentifier activityUUID:v92];
+      v84 = [objc_alloc(MEMORY[0x277D3ED98]) initWithActivityIdentifier:activityIdentifier activityUUID:v93];
     }
 
     preferredRenderingConfiguration = [v23 preferredRenderingConfiguration];
@@ -1020,23 +1020,23 @@ LABEL_48:
 
       modeSemanticType2 = [itemCopy modeSemanticType];
       integerValue = [modeSemanticType2 integerValue];
-      v110 = 0;
-      v111 = &v110;
-      v112 = 0x2020000000;
+      v111 = 0;
+      v112 = &v111;
+      v113 = 0x2020000000;
       v63 = getDNDSystemImageNameForModeSemanticTypeSymbolLoc_ptr;
-      v113 = getDNDSystemImageNameForModeSemanticTypeSymbolLoc_ptr;
+      v114 = getDNDSystemImageNameForModeSemanticTypeSymbolLoc_ptr;
       if (!getDNDSystemImageNameForModeSemanticTypeSymbolLoc_ptr)
       {
         *buf = MEMORY[0x277D85DD0];
-        *&v115 = 3221225472;
-        *(&v115 + 1) = __getDNDSystemImageNameForModeSemanticTypeSymbolLoc_block_invoke;
-        v116 = &unk_2782C5CB0;
-        v117 = &v110;
+        *&v116 = 3221225472;
+        *(&v116 + 1) = __getDNDSystemImageNameForModeSemanticTypeSymbolLoc_block_invoke;
+        v117 = &unk_2782C5CB0;
+        v118 = &v111;
         __getDNDSystemImageNameForModeSemanticTypeSymbolLoc_block_invoke(buf);
-        v63 = v111[3];
+        v63 = v112[3];
       }
 
-      _Block_object_dispose(&v110, 8);
+      _Block_object_dispose(&v111, 8);
       if (!v63)
       {
         [PBFGalleryConfiguration previewForItem:section:];
@@ -1049,50 +1049,51 @@ LABEL_48:
     if (PFFeatureEnabled() && ((v65 = PFFeatureEnabled(), v53 != PBFPreviewTypeHero) ? (v66 = v65) : (v66 = 0), v66 == 1))
     {
       v67 = [extensionBundleIdentifier isEqualToString:@"com.apple.NanoUniverse.AegirProxyApp.AegirPoster"];
-      [preferredTitleStyle preferredTimeMaxYPortrait];
-      v69 = v68;
+      preferredTimeMaxYPortrait = [preferredTitleStyle preferredTimeMaxYPortrait];
+      v70 = v69;
       if (preferredRenderingConfiguration)
       {
-        v70 = [preferredRenderingConfiguration isDepthEffectDisabled] ^ 1;
+        preferredTimeMaxYPortrait = [preferredRenderingConfiguration isDepthEffectDisabled];
+        v71 = preferredTimeMaxYPortrait ^ 1;
       }
 
       else
       {
-        v70 = 0;
+        v71 = 0;
       }
 
-      v72 = PBFLogGallery();
-      v71 = (v67 ^ 1) & ((v69 > 0.0) | v70);
-      if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
+      v73 = PBFLogGallery(preferredTimeMaxYPortrait);
+      v72 = (v67 ^ 1) & ((v70 > 0.0) | v71);
+      if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
       {
-        v80 = v69 > 0.0;
+        v81 = v70 > 0.0;
         [preferredTitleStyle preferredTimeMaxYPortrait];
-        v74 = v73;
+        v75 = v74;
         identifier = [itemCopy identifier];
         *buf = 67110402;
-        *&buf[4] = v71;
-        LOWORD(v115) = 2048;
-        *(&v115 + 2) = v74;
-        WORD5(v115) = 1024;
-        HIDWORD(v115) = v80;
-        LOWORD(v116) = 1024;
-        *(&v116 + 2) = v70;
-        HIWORD(v116) = 2112;
-        v117 = identifier;
-        v118 = 2112;
-        v119 = extensionBundleIdentifier;
-        _os_log_impl(&dword_21B526000, v72, OS_LOG_TYPE_INFO, "Complications use bottom layout? %{BOOL}i, Time(%f): %{BOOL}i, Depth: %{BOOL}i, %@:%@", buf, 0x32u);
+        *&buf[4] = v72;
+        LOWORD(v116) = 2048;
+        *(&v116 + 2) = v75;
+        WORD5(v116) = 1024;
+        HIDWORD(v116) = v81;
+        LOWORD(v117) = 1024;
+        *(&v117 + 2) = v71;
+        HIWORD(v117) = 2112;
+        v118 = identifier;
+        v119 = 2112;
+        v120 = extensionBundleIdentifier;
+        _os_log_impl(&dword_21B526000, v73, OS_LOG_TYPE_INFO, "Complications use bottom layout? %{BOOL}i, Time(%f): %{BOOL}i, Depth: %{BOOL}i, %@:%@", buf, 0x32u);
       }
     }
 
     else
     {
-      LOBYTE(v71) = 0;
+      LOBYTE(v72) = 0;
     }
 
     identifier2 = [itemCopy identifier];
-    LOBYTE(v79) = v71;
-    v18 = [PBFGenericPosterPreview posterPreviewWithUniqueIdentifier:identifier2 displayNameLocalizationKey:displayNameLocalizationKey2 galleryLocalizedTitle:localizedDisplayName galleryLocalizedDescription:unityDescription posterDescriptorLookupInfo:v107 titleStyleConfiguration:v85 focusConfiguration:v83 subtitleComplication:v98 suggestedComplications:v97 suggestedLandscapeComplications:v95 complicationLayoutType:v96 complicationsUseBottomLayout:v79 renderingConfiguration:preferredRenderingConfiguration homeScreenConfiguration:v84 previewType:v53 galleryOptions:v56];
+    LOBYTE(v80) = v72;
+    v18 = [PBFGenericPosterPreview posterPreviewWithUniqueIdentifier:identifier2 displayNameLocalizationKey:displayNameLocalizationKey2 galleryLocalizedTitle:localizedDisplayName galleryLocalizedDescription:unityDescription posterDescriptorLookupInfo:v108 titleStyleConfiguration:v86 focusConfiguration:v84 subtitleComplication:v99 suggestedComplications:v98 suggestedLandscapeComplications:v96 complicationLayoutType:v97 complicationsUseBottomLayout:v80 renderingConfiguration:preferredRenderingConfiguration homeScreenConfiguration:v85 previewType:v53 galleryOptions:v56];
 
     goto LABEL_69;
   }
@@ -1122,7 +1123,7 @@ uint64_t __50__PBFGalleryConfiguration_previewForItem_section___block_invoke(uin
 
 - (void)initWithSuggestedLayout:(char *)a1 dynamicDescriptorsByExtensionIdentifier:staticDescriptorsByExtensionIdentifier:extensionsByIdentifier:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRSPosterGalleryLayoutClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1130,7 +1131,7 @@ uint64_t __50__PBFGalleryConfiguration_previewForItem_section___block_invoke(uin
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRSPosterGalleryLayoutClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1140,7 +1141,7 @@ uint64_t __50__PBFGalleryConfiguration_previewForItem_section___block_invoke(uin
 
 - (void)initWithSuggestedLayout:(char *)a1 dynamicDescriptorsByExtensionIdentifier:staticDescriptorsByExtensionIdentifier:extensionsByIdentifier:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSDictionaryClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1148,7 +1149,7 @@ uint64_t __50__PBFGalleryConfiguration_previewForItem_section___block_invoke(uin
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSDictionaryClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1158,7 +1159,7 @@ uint64_t __50__PBFGalleryConfiguration_previewForItem_section___block_invoke(uin
 
 - (void)initWithSuggestedLayout:(char *)a1 dynamicDescriptorsByExtensionIdentifier:staticDescriptorsByExtensionIdentifier:extensionsByIdentifier:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSDictionaryClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1166,7 +1167,7 @@ uint64_t __50__PBFGalleryConfiguration_previewForItem_section___block_invoke(uin
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSDictionaryClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1176,7 +1177,7 @@ uint64_t __50__PBFGalleryConfiguration_previewForItem_section___block_invoke(uin
 
 - (void)initWithSuggestedLayout:(char *)a1 dynamicDescriptorsByExtensionIdentifier:staticDescriptorsByExtensionIdentifier:extensionsByIdentifier:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSDictionaryClass]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1184,7 +1185,7 @@ uint64_t __50__PBFGalleryConfiguration_previewForItem_section___block_invoke(uin
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSDictionaryClass]", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1194,7 +1195,7 @@ uint64_t __50__PBFGalleryConfiguration_previewForItem_section___block_invoke(uin
 
 - (void)initWithSuggestedLayout:(char *)a1 dynamicDescriptorsByExtensionIdentifier:staticDescriptorsByExtensionIdentifier:extensionsByIdentifier:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1202,7 +1203,7 @@ uint64_t __50__PBFGalleryConfiguration_previewForItem_section___block_invoke(uin
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1212,7 +1213,7 @@ uint64_t __50__PBFGalleryConfiguration_previewForItem_section___block_invoke(uin
 
 - (void)initWithSuggestedLayout:(char *)a1 dynamicDescriptorsByExtensionIdentifier:staticDescriptorsByExtensionIdentifier:extensionsByIdentifier:.cold.6(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1220,7 +1221,7 @@ uint64_t __50__PBFGalleryConfiguration_previewForItem_section___block_invoke(uin
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1230,7 +1231,7 @@ uint64_t __50__PBFGalleryConfiguration_previewForItem_section___block_invoke(uin
 
 - (void)initWithSuggestedLayout:(char *)a1 dynamicDescriptorsByExtensionIdentifier:staticDescriptorsByExtensionIdentifier:extensionsByIdentifier:.cold.7(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1238,7 +1239,7 @@ uint64_t __50__PBFGalleryConfiguration_previewForItem_section___block_invoke(uin
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1248,7 +1249,7 @@ uint64_t __50__PBFGalleryConfiguration_previewForItem_section___block_invoke(uin
 
 - (void)initWithSuggestedLayout:(char *)a1 dynamicDescriptorsByExtensionIdentifier:staticDescriptorsByExtensionIdentifier:extensionsByIdentifier:.cold.8(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1256,7 +1257,7 @@ uint64_t __50__PBFGalleryConfiguration_previewForItem_section___block_invoke(uin
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

@@ -38,18 +38,18 @@
   v17 = [(HDIntermediateSyncAssociation *)&v25 init];
   if (v17)
   {
-    v18 = [dCopy copy];
+    v18 = objc_msgSend_copy(dCopy);
     associationUUID = v17->_associationUUID;
     v17->_associationUUID = v18;
 
     v17->_type = type;
     v17->_behavior = behavior;
     v17->_deleted = deleted;
-    v20 = [dateCopy copy];
+    v20 = objc_msgSend_copy(dateCopy);
     creationDate = v17->_creationDate;
     v17->_creationDate = v20;
 
-    v22 = [iDCopy copy];
+    v22 = objc_msgSend_copy(iDCopy);
     destinationSubObjectUUID = v17->_destinationSubObjectUUID;
     v17->_destinationSubObjectUUID = v22;
   }

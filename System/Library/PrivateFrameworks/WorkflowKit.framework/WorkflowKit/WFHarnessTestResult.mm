@@ -63,7 +63,7 @@
 
 - (id)errorRepresentation
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   if ([(WFHarnessTestResult *)self failed])
   {
     failureReason = [(WFHarnessTestResult *)self failureReason];
@@ -71,21 +71,21 @@
     v4 = MEMORY[0x1E696ABC0];
     if (failureReason)
     {
-      v14[0] = self;
+      v13[0] = self;
       v5 = *MEMORY[0x1E696A578];
-      v13[0] = @"WFHarnessTestErrorResult";
-      v13[1] = v5;
+      v12[0] = @"WFHarnessTestErrorResult";
+      v12[1] = v5;
       failureReason2 = [(WFHarnessTestResult *)self failureReason];
-      v14[1] = failureReason2;
-      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+      v13[1] = failureReason2;
+      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
       v8 = [v4 errorWithDomain:@"WFHarnessTestErrorDomain" code:1 userInfo:v7];
     }
 
     else
     {
-      v11 = @"WFHarnessTestErrorResult";
+      v10 = @"WFHarnessTestErrorResult";
       selfCopy = self;
-      failureReason2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&selfCopy forKeys:&v11 count:1];
+      failureReason2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&selfCopy forKeys:&v10 count:1];
       v8 = [v4 errorWithDomain:@"WFHarnessTestErrorDomain" code:0 userInfo:failureReason2];
     }
   }
@@ -94,8 +94,6 @@
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

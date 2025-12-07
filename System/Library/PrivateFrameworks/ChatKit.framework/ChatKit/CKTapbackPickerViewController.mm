@@ -43,7 +43,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_19098B858();
+  sub_19098B858(selfCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear
@@ -53,7 +53,7 @@
   v5.super_class = type metadata accessor for TapbackPickerViewController();
   v4 = v5.receiver;
   [(CKTapbackPickerViewController *)&v5 viewDidAppear:appearCopy];
-  sub_190AEA8BC();
+  sub_190AEA8BC(0.0);
 }
 
 - (void)tapbackPickerCellCenterPointDidChange:(id)change
@@ -79,7 +79,7 @@
   sub_190D51BC0();
   viewCopy = view;
   selfCopy = self;
-  TapbackPickerViewController.collectionView(_:didSelectItemAt:)(viewCopy);
+  TapbackPickerViewController.collectionView(_:didSelectItemAt:)(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 }

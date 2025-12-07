@@ -170,12 +170,12 @@ LABEL_14:
   else
   {
     v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithArray:v7];
-    if (([v8 containsObject:self->_fullScreenAppLayout] & 1) == 0)
+    if ((objc_msgSend_containsObject_(v8) & 1) == 0)
     {
       [v8 addObject:self->_fullScreenAppLayout];
     }
 
-    if (self->_floatingAppLayout && ([v8 containsObject:?] & 1) == 0)
+    if (self->_floatingAppLayout && (objc_msgSend_containsObject_(v8) & 1) == 0)
     {
       [v8 insertObject:self->_floatingAppLayout atIndex:0];
     }
@@ -274,7 +274,7 @@ LABEL_14:
       }
 
       v17 = *(*(&v26 + 1) + 8 * v16);
-      if ([visibleAppLayouts containsObject:v17])
+      if (objc_msgSend_containsObject_(visibleAppLayouts))
       {
         if ([(SBAppLayout *)v17 environment]== 2)
         {
@@ -384,7 +384,7 @@ void __64__SBMixedGridToFullScreenSwitcherModifier_topMostLayoutElements__block_
   return self;
 }
 
-uint64_t __80__SBMixedGridToFullScreenSwitcherModifier_asyncRenderingAttributesForAppLayout___block_invoke(void *a1)
+void *__80__SBMixedGridToFullScreenSwitcherModifier_asyncRenderingAttributesForAppLayout___block_invoke(void *a1)
 {
   result = [*(a1[4] + 192) asyncRenderingAttributesForAppLayout:a1[5]];
   *(*(a1[6] + 8) + 32) = result;
@@ -488,7 +488,7 @@ LABEL_5:
   return v8;
 }
 
-uint64_t __57__SBMixedGridToFullScreenSwitcherModifier_scaleForIndex___block_invoke(void *a1)
+void *__57__SBMixedGridToFullScreenSwitcherModifier_scaleForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 192) scaleForIndex:a1[6]];
   *(*(a1[5] + 8) + 24) = v3;
@@ -616,7 +616,7 @@ void __63__SBMixedGridToFullScreenSwitcherModifier__appLayoutToScrollTo__block_i
   [v2 _performBlockWhileSimulatingPostPresentationScrollViewContentOffset:v5];
 }
 
-uint64_t __63__SBMixedGridToFullScreenSwitcherModifier__appLayoutToScrollTo__block_invoke_2(uint64_t a1)
+void *__63__SBMixedGridToFullScreenSwitcherModifier__appLayoutToScrollTo__block_invoke_2(uint64_t a1)
 {
   result = [*(*(a1 + 40) + 192) isIndexFullyVisible:{objc_msgSend(*(a1 + 32), "indexOfObject:", *(*(a1 + 40) + 176))}];
   *(*(*(a1 + 48) + 8) + 24) = result;

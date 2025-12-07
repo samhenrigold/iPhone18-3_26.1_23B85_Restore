@@ -1,3 +1,450 @@
+BOOL OffMeshRouteEntry::operator==(uint64_t a1, uint64_t a2)
+{
+  if (*a1 != *a2)
+  {
+    return 0;
+  }
+
+  if (*a1)
+  {
+    return 1;
+  }
+
+  return *(a1 + 4) == *(a2 + 4) && *(a1 + 8) == *(a2 + 8) && *(a1 + 10) == *(a2 + 10);
+}
+
+unint64_t OffMeshRouteEntry::get_description@<X0>(uint64_t *__return_ptr a1@<X8>, OffMeshRouteEntry *this@<X0>, const in6_addr *a3@<X1>, int a4@<W2>)
+{
+  if (a4)
+  {
+    IPv6Prefix::to_string(__p, a3);
+    if (v44 >= 0)
+    {
+      v6 = __p;
+    }
+
+    else
+    {
+      v6 = __p[0];
+    }
+
+    v7 = *this;
+    if (v7 > 2)
+    {
+      v8 = "unknown";
+    }
+
+    else
+    {
+      v8 = off_1004C53A8[v7];
+    }
+
+    v12 = strlen(v8);
+    if (v12 > 0x7FFFFFFFFFFFFFF7)
+    {
+      std::string::__throw_length_error[abi:ne200100]();
+    }
+
+    v13 = v12;
+    v38 = a1;
+    if (v12 >= 0x17)
+    {
+      operator new();
+    }
+
+    v42 = v12;
+    if (v12)
+    {
+      memcpy(&__dst, v8, v12);
+    }
+
+    *(&__dst + v13) = 0;
+    if (v42 >= 0)
+    {
+      p_dst = &__dst;
+    }
+
+    else
+    {
+      p_dst = __dst;
+    }
+
+    v17 = *(this + 1) + 1;
+    if (v17 > 2)
+    {
+      v18 = "unknown";
+    }
+
+    else
+    {
+      v18 = off_1004C53C0[v17];
+    }
+
+    v22 = *(this + 8);
+    v23 = strlen(v18);
+    if (v23 > 0x7FFFFFFFFFFFFFF7)
+    {
+      std::string::__throw_length_error[abi:ne200100]();
+    }
+
+    v24 = v23;
+    if (v23 >= 0x17)
+    {
+      operator new();
+    }
+
+    v40 = v23;
+    if (v23)
+    {
+      memcpy(&v39, v18, v23);
+    }
+
+    *(&v39 + v24) = 0;
+    v28 = "yes";
+    if (v22)
+    {
+      v29 = "yes";
+    }
+
+    else
+    {
+      v29 = "no ";
+    }
+
+    v30 = &v39;
+    if (v40 < 0)
+    {
+      v30 = v39;
+    }
+
+    if (*(this + 13))
+    {
+      v31 = "yes";
+    }
+
+    else
+    {
+      v31 = "no ";
+    }
+
+    if (!*(this + 12))
+    {
+      v28 = "no ";
+    }
+
+    snprintf(__str, 0x12CuLL, "%-26s origin:%-8s stable:%s preference:%-7s rloc:0x%04x next_hop_is_host:%s nat64:%s", v6, p_dst, v29, v30, *(this + 5), v31, v28);
+    if ((v40 & 0x80000000) == 0)
+    {
+      a1 = v38;
+      if ((v42 & 0x80000000) == 0)
+      {
+        goto LABEL_61;
+      }
+
+      goto LABEL_60;
+    }
+
+    operator delete(v39);
+    a1 = v38;
+    if (v42 < 0)
+    {
+LABEL_60:
+      operator delete(__dst);
+    }
+  }
+
+  else
+  {
+    IPv6Prefix::to_string(__p, a3);
+    if (v44 >= 0)
+    {
+      v9 = __p;
+    }
+
+    else
+    {
+      v9 = __p[0];
+    }
+
+    v10 = *this;
+    if (v10 > 2)
+    {
+      v11 = "unknown";
+    }
+
+    else
+    {
+      v11 = off_1004C53A8[v10];
+    }
+
+    v14 = strlen(v11);
+    if (v14 > 0x7FFFFFFFFFFFFFF7)
+    {
+      std::string::__throw_length_error[abi:ne200100]();
+    }
+
+    v15 = v14;
+    if (v14 >= 0x17)
+    {
+      operator new();
+    }
+
+    v42 = v14;
+    if (v14)
+    {
+      memcpy(&__dst, v11, v14);
+    }
+
+    *(&__dst + v15) = 0;
+    if (v42 >= 0)
+    {
+      v19 = &__dst;
+    }
+
+    else
+    {
+      v19 = __dst;
+    }
+
+    v20 = *(this + 1) + 1;
+    if (v20 > 2)
+    {
+      v21 = "unknown";
+    }
+
+    else
+    {
+      v21 = off_1004C53C0[v20];
+    }
+
+    v25 = *(this + 8);
+    v26 = strlen(v21);
+    if (v26 > 0x7FFFFFFFFFFFFFF7)
+    {
+      std::string::__throw_length_error[abi:ne200100]();
+    }
+
+    v27 = v26;
+    if (v26 >= 0x17)
+    {
+      operator new();
+    }
+
+    v40 = v26;
+    if (v26)
+    {
+      memcpy(&v39, v21, v26);
+    }
+
+    *(&v39 + v27) = 0;
+    v34 = "yes";
+    v35 = "no";
+    if (v25)
+    {
+      v36 = "yes";
+    }
+
+    else
+    {
+      v36 = "no";
+    }
+
+    v37 = &v39;
+    if (v40 < 0)
+    {
+      v37 = v39;
+    }
+
+    if (*(this + 13))
+    {
+      v35 = "yes";
+    }
+
+    if (!*(this + 12))
+    {
+      v34 = "no ";
+    }
+
+    snprintf(__str, 0x12CuLL, "%s, origin:%s, stable:%s, preference:%s, rloc:0x%04x, next_hop_is_host:%s, nat64:%s", v9, v19, v36, v37, *(this + 5), v35, v34);
+    if (v40 < 0)
+    {
+      operator delete(v39);
+      if (v42 < 0)
+      {
+        goto LABEL_60;
+      }
+    }
+
+    else if (v42 < 0)
+    {
+      goto LABEL_60;
+    }
+  }
+
+LABEL_61:
+  if (v44 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  result = strlen(__str);
+  if (result > 0x7FFFFFFFFFFFFFF7)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v33 = result;
+  if (result >= 0x17)
+  {
+    operator new();
+  }
+
+  *(a1 + 23) = result;
+  if (result)
+  {
+    result = memcpy(a1, __str, result);
+  }
+
+  *(a1 + v33) = 0;
+  return result;
+}
+
+void sub_1001660B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29)
+{
+  if (v30 < 0)
+  {
+    operator delete(v29);
+  }
+
+  if (a29 < 0)
+  {
+    operator delete(__p);
+    _Unwind_Resume(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+unint64_t InterfaceRouteEntry::get_description@<X0>(uint64_t *__return_ptr a1@<X8>, InterfaceRouteEntry *this@<X0>, const in6_addr *a3@<X1>, int a4@<W2>)
+{
+  if (a4)
+  {
+    IPv6Prefix::to_string(__p, a3);
+    if (v11 >= 0)
+    {
+      v6 = __p;
+    }
+
+    else
+    {
+      v6 = __p[0];
+    }
+
+    snprintf(__str, 0x12CuLL, "%-26s metric:%-6d", v6, *this);
+    if (v11 < 0)
+    {
+LABEL_11:
+      operator delete(__p[0]);
+    }
+  }
+
+  else
+  {
+    IPv6Prefix::to_string(__p, a3);
+    if (v11 >= 0)
+    {
+      v7 = __p;
+    }
+
+    else
+    {
+      v7 = __p[0];
+    }
+
+    snprintf(__str, 0x12CuLL, "%s, metric:%d", v7, *this);
+    if (v11 < 0)
+    {
+      goto LABEL_11;
+    }
+  }
+
+  result = strlen(__str);
+  if (result >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v9 = result;
+  if (result >= 0x17)
+  {
+    operator new();
+  }
+
+  *(a1 + 23) = result;
+  if (result)
+  {
+    result = memcpy(a1, __str, result);
+  }
+
+  *(a1 + v9) = 0;
+  return result;
+}
+
+void ServiceEntryBase::~ServiceEntryBase(ServiceEntryBase *this)
+{
+  *this = off_1004C52F8;
+  v1 = *(this + 2);
+  if (v1)
+  {
+    *(this + 3) = v1;
+    operator delete(v1);
+  }
+}
+
+{
+  *this = off_1004C52F8;
+  v2 = *(this + 2);
+  if (v2)
+  {
+    *(this + 3) = v2;
+    operator delete(v2);
+    v1 = vars8;
+  }
+
+  operator delete();
+}
+
+void busy_wait_for_shutdown(void)
+{
+  while (1)
+  {
+    logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (logging_obg)
+    {
+      v1 = logging_obg;
+      if (syslog_is_the_mask_enabled(6))
+      {
+        if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_INFO, "Waiting for shutdown", buf, 2u);
+        }
+      }
+    }
+
+    else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v3 = "com.apple.wpantund.ncp";
+      v4 = 2080;
+      v5 = "default";
+      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging1 Module is not defined for SubSystem: %s, Category: %s", buf, 0x16u);
+    }
+
+    usleep(0x30D40u);
+  }
+}
+
 void otPlatReset(ot::Posix::Daemon *a1)
 {
   gPlatResetReason = 2;
@@ -81,7 +528,7 @@ void handle_captureABC(int a1)
           CoreAnalyticsHistogramMetricsHelper::ProcessGetRouteCostMetricsHistograms();
         }
 
-        v19[23] = 9;
+        v20 = 9;
         strcpy(v19, "Stability");
         v18[23] = 20;
         strcpy(v18, "Stream Debug message");
@@ -102,10 +549,10 @@ void handle_captureABC(int a1)
           CoreAnalyticsHistogramMetricsHelper::ProcessGetRouteCostMetricsHistograms();
         }
 
-        v23[23] = 9;
-        strcpy(v23, "Stability");
-        v22[23] = 13;
-        strcpy(v22, "Invalid State");
+        v26 = 9;
+        strcpy(v25, "Stability");
+        v24[23] = 13;
+        strcpy(v24, "Invalid State");
         operator new();
       case 2000000:
         v3 = log_get_logging_obg("com.apple.threadradiod", "default");
@@ -123,9 +570,9 @@ void handle_captureABC(int a1)
           CoreAnalyticsHistogramMetricsHelper::ProcessGetRouteCostMetricsHistograms();
         }
 
-        v27[24] = 11;
-        strcpy(v27, "\nPerformance");
-        strcpy(v26, "Data Stall");
+        v31[24] = 11;
+        strcpy(v31, "\nPerformance");
+        strcpy(v30, "Data Stall");
         operator new();
     }
 
@@ -149,10 +596,10 @@ void handle_captureABC(int a1)
       CoreAnalyticsHistogramMetricsHelper::ProcessGetRouteCostMetricsHistograms();
     }
 
-    v21[23] = 9;
-    strcpy(v21, "Stability");
-    v20[23] = 13;
-    strcpy(v20, "Invalid State");
+    v23 = 9;
+    strcpy(v22, "Stability");
+    v21[23] = 13;
+    strcpy(v21, "Invalid State");
     operator new();
   }
 
@@ -173,10 +620,10 @@ void handle_captureABC(int a1)
       CoreAnalyticsHistogramMetricsHelper::ProcessGetRouteCostMetricsHistograms();
     }
 
-    v25[23] = 9;
-    strcpy(v25, "Stability");
-    v24[23] = 13;
-    strcpy(v24, "Invalid State");
+    v29 = 9;
+    strcpy(v28, "Stability");
+    v27[23] = 13;
+    strcpy(v27, "Invalid State");
     operator new();
   }
 
@@ -234,7 +681,7 @@ LABEL_43:
   if (v17 < 0)
   {
 LABEL_56:
-    operator delete(v16[0]);
+    operator delete(*v16);
   }
 }
 
@@ -272,15 +719,15 @@ LABEL_7:
   goto LABEL_7;
 }
 
-void handle_settings_captureABC()
+void handle_settings_captureABC(uint64_t a1, uint64_t a2)
 {
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
   if (logging_obg)
   {
-    v1 = logging_obg;
+    v3 = logging_obg;
     if (syslog_is_the_mask_enabled(2))
     {
-      if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
         handle_settings_captureABC();
       }
@@ -292,45 +739,40 @@ void handle_settings_captureABC()
     CoreAnalyticsHistogramMetricsHelper::ProcessGetRouteCostMetricsHistograms();
   }
 
-  v7 = 9;
-  strcpy(v6, "Stability");
-  v5 = 13;
-  strcpy(v4, "Invalid State");
-  v3 = 21;
+  v9 = 9;
+  strcpy(v8, "Stability");
+  v7 = 13;
+  strcpy(v6, "Invalid State");
+  v5 = 21;
   strcpy(__p, "write syscall failure");
-  RcpHostContext::captureABC(RcpHostContext::sRcpHostContext, v6, v4, __p, 0, 0);
-  if (v3 < 0)
+  RcpHostContext::captureABC(RcpHostContext::sRcpHostContext, v8, v6, __p, 0, 0);
+  if (v5 < 0)
   {
     operator delete(*__p);
-    if ((v5 & 0x80000000) == 0)
+    if ((v7 & 0x80000000) == 0)
     {
 LABEL_9:
-      if ((v7 & 0x80000000) == 0)
+      if ((v9 & 0x80000000) == 0)
       {
         return;
       }
 
 LABEL_13:
-      operator delete(v6[0]);
+      operator delete(v8[0]);
       return;
     }
   }
 
-  else if ((v5 & 0x80000000) == 0)
+  else if ((v7 & 0x80000000) == 0)
   {
     goto LABEL_9;
   }
 
-  operator delete(v4[0]);
-  if (v7 < 0)
+  operator delete(v6[0]);
+  if (v9 < 0)
   {
     goto LABEL_13;
   }
-}
-
-{
-  OUTLINED_FUNCTION_6_0();
-  _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0xEu);
 }
 
 void sub_100167314(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
@@ -705,21 +1147,19 @@ uint64_t buffer_threshold_captureABC_timeout(void)
   return result;
 }
 
-uint64_t handle_ot_buffer_threshold_captureABC(void)
+void handle_ot_buffer_threshold_captureABC(void)
 {
-  result = gettimeofday(&v3, &v2[24]);
-  if (byte_10052D772 != 1 || v3.tv_sec >= qword_10052D778 + 3600)
+  gettimeofday(&v2, &v1[24]);
+  if (byte_10052D772 != 1 || v2.tv_sec >= qword_10052D778 + 3600)
   {
-    qword_10052D778 = v3.tv_sec;
+    qword_10052D778 = v2.tv_sec;
     byte_10052D772 = 1;
-    v2[23] = 11;
-    strcpy(v2, "Performance");
-    v1[23] = 12;
-    strcpy(v1, "Buffer Error");
+    v1[23] = 11;
+    strcpy(v1, "Performance");
+    v0[23] = 12;
+    strcpy(v0, "Buffer Error");
     operator new();
   }
-
-  return result;
 }
 
 void sub_10016806C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
@@ -817,15 +1257,15 @@ LABEL_7:
   _Unwind_Resume(exception_object);
 }
 
-void handle_hdlc_waitforframe_captureABC()
+void handle_hdlc_waitforframe_captureABC(uint64_t a1)
 {
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
   if (logging_obg)
   {
-    v1 = logging_obg;
+    v2 = logging_obg;
     if (syslog_is_the_mask_enabled(3))
     {
-      if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
         handle_hdlc_waitforframe_captureABC();
       }
@@ -837,16 +1277,11 @@ void handle_hdlc_waitforframe_captureABC()
     CoreAnalyticsHistogramMetricsHelper::ProcessGetRouteCostMetricsHistograms();
   }
 
-  v3[23] = 9;
-  strcpy(v3, "Stability");
-  v2[23] = 13;
-  strcpy(v2, "Invalid State");
+  v4[23] = 9;
+  strcpy(v4, "Stability");
+  v3[23] = 13;
+  strcpy(v3, "Invalid State");
   operator new();
-}
-
-{
-  OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10016843C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -883,15 +1318,15 @@ LABEL_7:
   _Unwind_Resume(exception_object);
 }
 
-void handle_hdlc_write_captureABC()
+void handle_hdlc_write_captureABC(uint64_t a1)
 {
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
   if (logging_obg)
   {
-    v1 = logging_obg;
+    v2 = logging_obg;
     if (syslog_is_the_mask_enabled(3))
     {
-      if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
         handle_hdlc_write_captureABC();
       }
@@ -903,45 +1338,40 @@ void handle_hdlc_write_captureABC()
     CoreAnalyticsHistogramMetricsHelper::ProcessGetRouteCostMetricsHistograms();
   }
 
-  v7 = 9;
-  strcpy(v6, "Stability");
-  v5 = 13;
-  strcpy(v4, "Invalid State");
-  v3 = 18;
+  v8 = 9;
+  strcpy(v7, "Stability");
+  v6 = 13;
+  strcpy(v5, "Invalid State");
+  v4 = 18;
   strcpy(__p, "HDLC fail on write");
-  RcpHostContext::captureABC(RcpHostContext::sRcpHostContext, v6, v4, __p, 0, 0);
-  if (v3 < 0)
+  RcpHostContext::captureABC(RcpHostContext::sRcpHostContext, v7, v5, __p, 0, 0);
+  if (v4 < 0)
   {
     operator delete(*__p);
-    if ((v5 & 0x80000000) == 0)
+    if ((v6 & 0x80000000) == 0)
     {
 LABEL_9:
-      if ((v7 & 0x80000000) == 0)
+      if ((v8 & 0x80000000) == 0)
       {
         return;
       }
 
 LABEL_13:
-      operator delete(v6[0]);
+      operator delete(v7[0]);
       return;
     }
   }
 
-  else if ((v5 & 0x80000000) == 0)
+  else if ((v6 & 0x80000000) == 0)
   {
     goto LABEL_9;
   }
 
-  operator delete(v4[0]);
-  if (v7 < 0)
+  operator delete(v5[0]);
+  if (v8 < 0)
   {
     goto LABEL_13;
   }
-}
-
-{
-  OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_100168608(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -983,7 +1413,7 @@ BOOL pcap_enabled(void)
   v6 = 15;
   strcpy(__p, "NCP:PcapEnabled");
   v7 = __p;
-  v0 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p);
+  v0 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p, &std::piecewise_construct, &v7);
   v1 = v0 + 7;
   v2 = *(v0 + 79);
   if (v2 < 0)
@@ -1034,7 +1464,7 @@ BOOL promiscuous_enabled(void)
   strcpy(__p, "Daemon:PromiscuousPcap");
   v6 = 22;
   v7 = __p;
-  v0 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p);
+  v0 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p, &std::piecewise_construct, &v7);
   v1 = v0 + 7;
   v2 = *(v0 + 79);
   if (v2 < 0)
@@ -1240,7 +1670,7 @@ uint64_t otctl_OutputBytesLine(const unsigned __int8 *a1, unsigned int a2)
   return otctl_OutputFormat("\r\n");
 }
 
-__int128 *check_host_reset_dueto_rcp(void)
+const char *check_host_reset_dueto_rcp(void)
 {
   result = getStringValue("vendor:trigger:abc");
   if (result)
@@ -1599,7 +2029,7 @@ void get_time_string(unint64_t a1, char *__str, size_t __size)
   CFRelease(v11);
 }
 
-void sub_10016A35C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_10016A35C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   if (a16 < 0)
   {
@@ -1615,7 +2045,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v24 + 8))(v24);
+      (*(*v24 + 8))(v24, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -1635,7 +2065,7 @@ LABEL_7:
   goto LABEL_7;
 }
 
-void sub_10016A5F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_10016A5F4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   if (a23 < 0)
   {
@@ -1651,7 +2081,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v25 + 8))(v25);
+      (*(*v25 + 8))(v25, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -1671,7 +2101,7 @@ LABEL_7:
   goto LABEL_7;
 }
 
-void sub_10016A898(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+void sub_10016A898(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
   if (a21 < 0)
   {
@@ -1687,7 +2117,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v23 + 8))(v23);
+      (*(*v23 + 8))(v23, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -1707,7 +2137,7 @@ LABEL_7:
   goto LABEL_7;
 }
 
-void sub_10016AB00(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
+void sub_10016AB00(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
 {
   if (a15 < 0)
   {
@@ -1723,7 +2153,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v23 + 8))(v23);
+      (*(*v23 + 8))(v23, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -1743,7 +2173,7 @@ LABEL_7:
   goto LABEL_7;
 }
 
-void sub_10016AD90(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20)
+void sub_10016AD90(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20)
 {
   if (a19 < 0)
   {
@@ -1759,7 +2189,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v22 + 8))(v22);
+      (*(*v22 + 8))(v22, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -1779,7 +2209,7 @@ LABEL_7:
   goto LABEL_7;
 }
 
-void sub_10016AFF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
+void sub_10016AFF8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
 {
   if (a15 < 0)
   {
@@ -1795,7 +2225,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v23 + 8))(v23);
+      (*(*v23 + 8))(v23, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -1820,7 +2250,7 @@ void persist_thread_device_mode(const std::string *a1)
   BYTE7(v5[2]) = 17;
   strcpy(v5, "Thread:DeviceModThread:DeviceMode");
   v6 = &v5[1];
-  v2 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v5[1]);
+  v2 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v5[1], &std::piecewise_construct, &v6);
   std::string::operator=((v2 + 7), a1);
   if (SBYTE7(v5[2]) < 0)
   {
@@ -1831,7 +2261,7 @@ void persist_thread_device_mode(const std::string *a1)
   v5[1] = v5[0];
   strcpy(&v5[2], "e");
   v6 = &v5[1];
-  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v5[1]);
+  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v5[1], &std::piecewise_construct, &v6);
   v4 = (v3 + 7);
   if (*(v3 + 79) < 0)
   {
@@ -1855,7 +2285,7 @@ void sub_10016B198(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_10016B3B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20)
+void sub_10016B3B0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20)
 {
   if (a19 < 0)
   {
@@ -1871,7 +2301,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v22 + 8))(v22);
+      (*(*v22 + 8))(v22, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -1891,7 +2321,7 @@ LABEL_7:
   goto LABEL_7;
 }
 
-void sub_10016B608(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_10016B608(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   if (a16 < 0)
   {
@@ -1907,7 +2337,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v24 + 8))(v24);
+      (*(*v24 + 8))(v24, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -1927,7 +2357,7 @@ LABEL_7:
   goto LABEL_7;
 }
 
-void sub_10016B8A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+void sub_10016B8A0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
   if (a21 < 0)
   {
@@ -1943,7 +2373,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v23 + 8))(v23);
+      (*(*v23 + 8))(v23, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -1963,7 +2393,7 @@ LABEL_7:
   goto LABEL_7;
 }
 
-void sub_10016BAF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
+void sub_10016BAF4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
 {
   if (a15 < 0)
   {
@@ -1979,7 +2409,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v23 + 8))(v23);
+      (*(*v23 + 8))(v23, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -1999,7 +2429,7 @@ LABEL_7:
   goto LABEL_7;
 }
 
-void sub_10016BD50(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_10016BD50(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   if (a16 < 0)
   {
@@ -2015,7 +2445,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v24 + 8))(v24);
+      (*(*v24 + 8))(v24, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -2035,7 +2465,7 @@ LABEL_7:
   goto LABEL_7;
 }
 
-void sub_10016BFF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+void sub_10016BFF0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
   if (a21 < 0)
   {
@@ -2051,7 +2481,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v23 + 8))(v23);
+      (*(*v23 + 8))(v23, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -2071,7 +2501,7 @@ LABEL_7:
   goto LABEL_7;
 }
 
-void sub_10016C2A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+void sub_10016C2A0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
   if (a21 < 0)
   {
@@ -2087,7 +2517,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v23 + 8))(v23);
+      (*(*v23 + 8))(v23, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -2107,7 +2537,7 @@ LABEL_7:
   goto LABEL_7;
 }
 
-void sub_10016C4F8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_10016C4F8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   if (a16 < 0)
   {
@@ -2123,7 +2553,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v24 + 8))(v24);
+      (*(*v24 + 8))(v24, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -2143,7 +2573,7 @@ LABEL_7:
   goto LABEL_7;
 }
 
-void sub_10016C754(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_10016C754(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   if (a16 < 0)
   {
@@ -2159,7 +2589,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v24 + 8))(v24);
+      (*(*v24 + 8))(v24, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -2179,7 +2609,7 @@ LABEL_7:
   goto LABEL_7;
 }
 
-void sub_10016C9B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_10016C9B0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   if (a16 < 0)
   {
@@ -2195,7 +2625,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v24 + 8))(v24);
+      (*(*v24 + 8))(v24, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -2215,7 +2645,7 @@ LABEL_7:
   goto LABEL_7;
 }
 
-void sub_10016CC48(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+void sub_10016CC48(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
   if (a21 < 0)
   {
@@ -2231,7 +2661,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v23 + 8))(v23);
+      (*(*v23 + 8))(v23, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -2251,7 +2681,7 @@ LABEL_7:
   goto LABEL_7;
 }
 
-void sub_10016CEF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+void sub_10016CEF0(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
   if (a21 < 0)
   {
@@ -2267,7 +2697,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v23 + 8))(v23);
+      (*(*v23 + 8))(v23, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -2287,7 +2717,7 @@ LABEL_7:
   goto LABEL_7;
 }
 
-void sub_10016D198(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+void sub_10016D198(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
   if (a21 < 0)
   {
@@ -2303,7 +2733,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v23 + 8))(v23);
+      (*(*v23 + 8))(v23, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -2323,7 +2753,7 @@ LABEL_7:
   goto LABEL_7;
 }
 
-void sub_10016D440(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+void sub_10016D440(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
   if (a21 < 0)
   {
@@ -2339,7 +2769,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v23 + 8))(v23);
+      (*(*v23 + 8))(v23, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -2359,7 +2789,7 @@ LABEL_7:
   goto LABEL_7;
 }
 
-void sub_10016D6E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+void sub_10016D6E8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
   if (a21 < 0)
   {
@@ -2375,7 +2805,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v23 + 8))(v23);
+      (*(*v23 + 8))(v23, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -2395,7 +2825,7 @@ LABEL_7:
   goto LABEL_7;
 }
 
-void sub_10016D950(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
+void sub_10016D950(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
 {
   if (a15 < 0)
   {
@@ -2411,7 +2841,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v23 + 8))(v23);
+      (*(*v23 + 8))(v23, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -2431,7 +2861,7 @@ LABEL_7:
   goto LABEL_7;
 }
 
-void sub_10016DB98(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_10016DB98(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   if (a16 < 0)
   {
@@ -2447,7 +2877,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v24 + 8))(v24);
+      (*(*v24 + 8))(v24, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -2495,7 +2925,7 @@ void reset_awd_stability_counters(void)
   BYTE7(v26[2]) = 13;
   strcpy(&v26[1], "fault_address");
   v27 = &v26[1];
-  v2 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1]);
+  v2 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1], &std::piecewise_construct, &v27);
   std::string::assign((v2 + 7), "0");
   if (SBYTE7(v26[2]) < 0)
   {
@@ -2505,7 +2935,7 @@ void reset_awd_stability_counters(void)
   BYTE7(v26[2]) = 13;
   strcpy(&v26[1], "fault_address");
   v27 = &v26[1];
-  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1]);
+  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1], &std::piecewise_construct, &v27);
   v4 = (v3 + 7);
   if (*(v3 + 79) < 0)
   {
@@ -2521,7 +2951,7 @@ void reset_awd_stability_counters(void)
   BYTE7(v26[2]) = 10;
   strcpy(&v26[1], "fault_line");
   v27 = &v26[1];
-  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1]);
+  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1], &std::piecewise_construct, &v27);
   std::string::assign((v5 + 7), "0");
   if (SBYTE7(v26[2]) < 0)
   {
@@ -2531,7 +2961,7 @@ void reset_awd_stability_counters(void)
   BYTE7(v26[2]) = 10;
   strcpy(&v26[1], "fault_line");
   v27 = &v26[1];
-  v6 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1]);
+  v6 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1], &std::piecewise_construct, &v27);
   v7 = (v6 + 7);
   if (*(v6 + 79) < 0)
   {
@@ -2547,7 +2977,7 @@ void reset_awd_stability_counters(void)
   BYTE7(v26[2]) = 15;
   strcpy(&v26[1], "fault_random_id");
   v27 = &v26[1];
-  v8 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1]);
+  v8 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1], &std::piecewise_construct, &v27);
   std::string::assign((v8 + 7), "0");
   if (SBYTE7(v26[2]) < 0)
   {
@@ -2557,7 +2987,7 @@ void reset_awd_stability_counters(void)
   BYTE7(v26[2]) = 15;
   strcpy(&v26[1], "fault_random_id");
   v27 = &v26[1];
-  v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1]);
+  v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1], &std::piecewise_construct, &v27);
   v10 = (v9 + 7);
   if (*(v9 + 79) < 0)
   {
@@ -2573,7 +3003,7 @@ void reset_awd_stability_counters(void)
   BYTE7(v26[2]) = 16;
   strcpy(v26, "fault_crash_typefault_crash_type");
   v27 = &v26[1];
-  v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1]);
+  v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1], &std::piecewise_construct, &v27);
   std::string::assign((v11 + 7), "0");
   if (SBYTE7(v26[2]) < 0)
   {
@@ -2584,7 +3014,7 @@ void reset_awd_stability_counters(void)
   v26[1] = v26[0];
   LOBYTE(v26[2]) = 0;
   v27 = &v26[1];
-  v12 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1]);
+  v12 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1], &std::piecewise_construct, &v27);
   v13 = (v12 + 7);
   if (*(v12 + 79) < 0)
   {
@@ -2600,7 +3030,7 @@ void reset_awd_stability_counters(void)
   BYTE7(v26[2]) = 17;
   strcpy(v26, "fault_crash_counfault_crash_count");
   v27 = &v26[1];
-  v14 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1]);
+  v14 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1], &std::piecewise_construct, &v27);
   std::string::assign((v14 + 7), "0");
   if (SBYTE7(v26[2]) < 0)
   {
@@ -2611,7 +3041,7 @@ void reset_awd_stability_counters(void)
   v26[1] = v26[0];
   strcpy(&v26[2], "t");
   v27 = &v26[1];
-  v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1]);
+  v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1], &std::piecewise_construct, &v27);
   v16 = (v15 + 7);
   if (*(v15 + 79) < 0)
   {
@@ -2627,7 +3057,7 @@ void reset_awd_stability_counters(void)
   BYTE7(v26[2]) = 16;
   strcpy(v26, "fault_num_resetsfault_num_resets");
   v27 = &v26[1];
-  v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1]);
+  v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1], &std::piecewise_construct, &v27);
   std::string::assign((v17 + 7), "0");
   if (SBYTE7(v26[2]) < 0)
   {
@@ -2638,7 +3068,7 @@ void reset_awd_stability_counters(void)
   v26[1] = v26[0];
   LOBYTE(v26[2]) = 0;
   v27 = &v26[1];
-  v18 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1]);
+  v18 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1], &std::piecewise_construct, &v27);
   v19 = (v18 + 7);
   if (*(v18 + 79) < 0)
   {
@@ -2654,7 +3084,7 @@ void reset_awd_stability_counters(void)
   BYTE7(v26[2]) = 17;
   strcpy(v26, "fault_num_assertfault_num_asserts");
   v27 = &v26[1];
-  v20 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1]);
+  v20 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1], &std::piecewise_construct, &v27);
   std::string::assign((v20 + 7), "0");
   if (SBYTE7(v26[2]) < 0)
   {
@@ -2665,7 +3095,7 @@ void reset_awd_stability_counters(void)
   v26[1] = v26[0];
   strcpy(&v26[2], "s");
   v27 = &v26[1];
-  v21 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1]);
+  v21 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1], &std::piecewise_construct, &v27);
   v22 = (v21 + 7);
   if (*(v21 + 79) < 0)
   {
@@ -2681,7 +3111,7 @@ void reset_awd_stability_counters(void)
   BYTE7(v26[2]) = 21;
   strcpy(v26, "fault_num_hard_ffault_num_hard_faults");
   v27 = &v26[1];
-  v23 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1]);
+  v23 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1], &std::piecewise_construct, &v27);
   std::string::assign((v23 + 7), "0");
   if (SBYTE7(v26[2]) < 0)
   {
@@ -2692,7 +3122,7 @@ void reset_awd_stability_counters(void)
   v26[1] = v26[0];
   strcpy(&v26[1] + 13, "d_faults");
   v27 = &v26[1];
-  v24 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1]);
+  v24 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &v26[1], &std::piecewise_construct, &v27);
   v25 = (v24 + 7);
   if (*(v24 + 79) < 0)
   {
@@ -2764,7 +3194,7 @@ LABEL_8:
   v15 = 16;
   strcpy(__p, "fault_num_resets");
   v16 = __p;
-  v4 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p);
+  v4 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p, &std::piecewise_construct, &v16);
   std::string::assign((v4 + 7), v3);
   if (v15 < 0)
   {
@@ -2773,7 +3203,7 @@ LABEL_8:
 
 LABEL_10:
   v5 = getStringValue("fault_num_asserts");
-  if (v5 && (v6 = v5, v15 = 17, strcpy(__p, "fault_num_asserts"), v16 = __p, v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p), std::string::assign((v7 + 7), v6), v15 < 0))
+  if (v5 && (v6 = v5, v15 = 17, strcpy(__p, "fault_num_asserts"), v16 = __p, v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p, &std::piecewise_construct, &v16), std::string::assign((v7 + 7), v6), v15 < 0))
   {
     operator delete(*__p);
     v8 = getStringValue("fault_num_hard_faults");
@@ -2796,7 +3226,7 @@ LABEL_10:
   v15 = 21;
   strcpy(__p, "fault_num_hard_faults");
   v16 = __p;
-  v10 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p);
+  v10 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p, &std::piecewise_construct, &v16);
   std::string::assign((v10 + 7), v9);
   if (v15 < 0)
   {
@@ -2821,7 +3251,7 @@ LABEL_16:
     v15 = 16;
     strcpy(__p, "fault_time_stamp");
     v16 = __p;
-    v13 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p);
+    v13 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p, &std::piecewise_construct, &v16);
     std::string::assign((v13 + 7), v12);
     if (v15 < 0)
     {
@@ -2861,7 +3291,7 @@ LABEL_8:
       v7 = 19;
       strcpy(__p, "is_radio_tx_timeout");
       v8 = __p;
-      v4 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p);
+      v4 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p, &std::piecewise_construct, &v8);
       std::string::assign((v4 + 7), v3);
       goto LABEL_11;
     }
@@ -2889,7 +3319,7 @@ LABEL_10:
   v7 = 19;
   strcpy(__p, "is_radio_tx_timeout");
   v8 = __p;
-  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p);
+  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p, &std::piecewise_construct, &v8);
   std::string::assign((v5 + 7), "0");
 LABEL_11:
   if (v7 < 0)
@@ -2915,7 +3345,7 @@ void sub_10016F1D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_10016F404(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_10016F404(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   if (a16 < 0)
   {
@@ -2931,7 +3361,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v24 + 8))(v24);
+      (*(*v24 + 8))(v24, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -2951,19 +3381,18 @@ LABEL_7:
   goto LABEL_7;
 }
 
-uint64_t update_buff_limit_exceedeed_metric(uint64_t result)
+void update_buff_limit_exceedeed_metric(int a1)
 {
-  if (*(RcpHostContext::sRcpHostContext + 5964) != result)
+  if (*(RcpHostContext::sRcpHostContext + 5964) != a1)
   {
-    *(RcpHostContext::sRcpHostContext + 5964) = result;
+    *(RcpHostContext::sRcpHostContext + 5964) = a1;
     operator new();
   }
 
   *(RcpHostContext::sRcpHostContext + 216 * (*(RcpHostContext::sRcpHostContext + 6136) & 3) + 6152) = 1;
-  return result;
 }
 
-void sub_10016F6CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
+void sub_10016F6CC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
 {
   if (a19 < 0)
   {
@@ -2979,7 +3408,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v27 + 8))(v27);
+      (*(*v27 + 8))(v27, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -2999,18 +3428,16 @@ LABEL_7:
   goto LABEL_7;
 }
 
-uint64_t update_netdata_full_metric(uint64_t result)
+void update_netdata_full_metric(int a1)
 {
-  if (*(RcpHostContext::sRcpHostContext + 5967) != result)
+  if (*(RcpHostContext::sRcpHostContext + 5967) != a1)
   {
-    *(RcpHostContext::sRcpHostContext + 5967) = result;
+    *(RcpHostContext::sRcpHostContext + 5967) = a1;
     operator new();
   }
-
-  return result;
 }
 
-void sub_10016F958(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_10016F958(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   if (a16 < 0)
   {
@@ -3026,7 +3453,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v24 + 8))(v24);
+      (*(*v24 + 8))(v24, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -3046,18 +3473,16 @@ LABEL_7:
   goto LABEL_7;
 }
 
-uint64_t update_netdata_maxlength_metric(uint64_t result)
+void update_netdata_maxlength_metric(unsigned int a1)
 {
-  if (*(RcpHostContext::sRcpHostContext + 5968) < result)
+  if (*(RcpHostContext::sRcpHostContext + 5968) < a1)
   {
-    *(RcpHostContext::sRcpHostContext + 5968) = result;
+    *(RcpHostContext::sRcpHostContext + 5968) = a1;
     operator new();
   }
-
-  return result;
 }
 
-void sub_10016FBD4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_10016FBD4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   if (a16 < 0)
   {
@@ -3073,7 +3498,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v24 + 8))(v24);
+      (*(*v24 + 8))(v24, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -3093,18 +3518,16 @@ LABEL_7:
   goto LABEL_7;
 }
 
-uint64_t update_nonConvergingPrefixes_metric(uint64_t result)
+void update_nonConvergingPrefixes_metric(int a1)
 {
-  if (*(RcpHostContext::sRcpHostContext + 5965) != result)
+  if (*(RcpHostContext::sRcpHostContext + 5965) != a1)
   {
-    *(RcpHostContext::sRcpHostContext + 5965) = result;
+    *(RcpHostContext::sRcpHostContext + 5965) = a1;
     operator new();
   }
-
-  return result;
 }
 
-void sub_10016FE84(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20)
+void sub_10016FE84(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20)
 {
   if (a19 < 0)
   {
@@ -3120,7 +3543,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v22 + 8))(v22);
+      (*(*v22 + 8))(v22, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -3140,18 +3563,16 @@ LABEL_7:
   goto LABEL_7;
 }
 
-uint64_t update_nonConvergingUnicastSrpServices_metric(uint64_t result)
+void update_nonConvergingUnicastSrpServices_metric(int a1)
 {
-  if (*(RcpHostContext::sRcpHostContext + 5966) != result)
+  if (*(RcpHostContext::sRcpHostContext + 5966) != a1)
   {
-    *(RcpHostContext::sRcpHostContext + 5966) = result;
+    *(RcpHostContext::sRcpHostContext + 5966) = a1;
     operator new();
   }
-
-  return result;
 }
 
-void sub_100170148(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+void sub_100170148(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
 {
   if (a21 < 0)
   {
@@ -3167,7 +3588,7 @@ LABEL_8:
       }
 
 LABEL_7:
-      (*(*v23 + 8))(v23);
+      (*(*v23 + 8))(v23, a2, a3, a4, a5, a6, a7, a8);
       _Unwind_Resume(exception_object);
     }
   }
@@ -3513,16 +3934,17 @@ void sub_100171C48(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void handle_xpc_output_nobuff(char *a1, unsigned int a2)
+void handle_xpc_output_nobuff(char *a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = 0;
   v19[0] = 0;
   v5 = 1024;
   do
   {
-    if (v5 >= a2)
+    if (v5 >= v2)
     {
-      v7 = a2;
+      v7 = v2;
     }
 
     else
@@ -3569,7 +3991,7 @@ LABEL_13:
 
 LABEL_3:
     v19[0] = 0;
-    v6 = a2 >= v5;
+    v6 = v2 >= v5;
     v5 = v7 + 1024;
     v4 = v7;
   }
@@ -3594,7 +4016,7 @@ LABEL_3:
   }
 }
 
-BOOL isiPad(void)
+uint64_t isiPad(void)
 {
   v0 = MGGetStringAnswer();
   v1 = CFStringCompare(@"iPad", v0, 0);
@@ -3625,7 +4047,7 @@ BOOL isiPad(void)
   return 1;
 }
 
-BOOL isMac(void)
+uint64_t isMac(void)
 {
   v0 = MGGetStringAnswer();
   v1 = CFStringCompare(@"Mac", v0, 0);
@@ -3658,12 +4080,12 @@ BOOL isMac(void)
 
 int main(int argc, const char **argv, const char **envp)
 {
-  v62[0] = 0;
-  v62[1] = 0;
-  v63 = 0;
+  v63[0] = 0;
+  v63[1] = 0;
+  v64 = 0;
   gSystemDieNow = 0;
-  gettimeofday(&v61, &v60);
-  gDaemonStartTimeStampSec = v61.tv_sec;
+  gettimeofday(&v62, &v61);
+  gDaemonStartTimeStampSec = v62.tv_sec;
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
   if (logging_obg)
   {
@@ -3721,7 +4143,7 @@ int main(int argc, const char **argv, const char **envp)
         }
 
         gDaemonStartByDeviceReboot = processHostSystemStartActions(SystemUptimeInSec);
-        create_new_settings_folder(v62);
+        create_new_settings_folder(v63);
         gDateFormatter = CFDateFormatterCreate(kCFAllocatorDefault, 0, kCFDateFormatterShortStyle, kCFDateFormatterShortStyle);
         CFDateFormatterSetFormat(gDateFormatter, @"yyyy-MM-dd HH:mm:ss");
         log_create_log_modules();
@@ -3834,14 +4256,14 @@ int main(int argc, const char **argv, const char **envp)
 
         if (gDaemonStartByDeviceReboot == 1)
         {
-          *(&__dst.__r_.__value_.__s + 23) = 18;
-          strcpy(&__dst, "num_daemon_restart");
-          __src.__r_.__value_.__r.__words[0] = &__dst;
-          v27 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &__dst.__r_.__value_.__l.__data_);
+          __dst[23] = 18;
+          strcpy(__dst, "num_daemon_restart");
+          __src.__r_.__value_.__r.__words[0] = __dst;
+          v27 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __dst, &std::piecewise_construct, &__src);
           std::string::assign((v27 + 7), "0");
-          if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
+          if ((__dst[23] & 0x80000000) != 0)
           {
-            operator delete(__dst.__r_.__value_.__l.__data_);
+            operator delete(*__dst);
           }
 
           v28 = log_get_logging_obg("com.apple.threadradiod", "default");
@@ -3865,26 +4287,27 @@ int main(int argc, const char **argv, const char **envp)
         StringValue = getStringValue("num_daemon_restart");
         if (!StringValue)
         {
-          *(&__dst.__r_.__value_.__s + 23) = 18;
-          strcpy(&__dst, "num_daemon_restart");
-          __src.__r_.__value_.__r.__words[0] = &__dst;
-          v35 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &__dst.__r_.__value_.__l.__data_);
+          __dst[23] = 18;
+          strcpy(__dst, "num_daemon_restart");
+          __src.__r_.__value_.__r.__words[0] = __dst;
+          v35 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __dst, &std::piecewise_construct, &__src);
           std::string::assign((v35 + 7), "1");
 LABEL_123:
-          if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
+          if ((__dst[23] & 0x80000000) != 0)
           {
-            operator delete(__dst.__r_.__value_.__l.__data_);
+            operator delete(*__dst);
           }
 
 LABEL_125:
-          *(&__dst.__r_.__value_.__s + 23) = 18;
-          strcpy(&__dst, "num_daemon_restart");
-          __src.__r_.__value_.__r.__words[0] = &__dst;
-          v46 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &__dst.__r_.__value_.__l.__data_);
-          if (v46[79] < 0)
+          __dst[23] = 18;
+          v58 = *"num_daemon_restart";
+          strcpy(__dst, "num_daemon_restart");
+          __src.__r_.__value_.__r.__words[0] = __dst;
+          v46 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __dst, &std::piecewise_construct, &__src);
+          if (*(v46 + 79) < 0)
           {
-            v47 = strlen(*(v46 + 7));
-            if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+            v47 = strlen(v46[7]);
+            if ((__dst[23] & 0x80000000) == 0)
             {
 LABEL_127:
               if ((v47 - 1) <= 9)
@@ -3899,20 +4322,21 @@ LABEL_127:
           else
           {
             v47 = strlen(v46 + 56);
-            if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+            if ((__dst[23] & 0x80000000) == 0)
             {
               goto LABEL_127;
             }
           }
 
-          operator delete(__dst.__r_.__value_.__l.__data_);
+          operator delete(*__dst);
           if ((v47 - 1) <= 9)
           {
 LABEL_128:
-            *(&__dst.__r_.__value_.__s + 23) = 18;
-            strcpy(&__dst, "num_daemon_restart");
-            __src.__r_.__value_.__r.__words[0] = &__dst;
-            v48 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &__dst.__r_.__value_.__l.__data_);
+            __dst[23] = 18;
+            strcpy(&__dst[16], "rt");
+            *__dst = v58;
+            __src.__r_.__value_.__r.__words[0] = __dst;
+            v48 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __dst, &std::piecewise_construct, &__src);
             if (*(v48 + 79) < 0)
             {
               v49 = v48[7];
@@ -3924,9 +4348,9 @@ LABEL_128:
             }
 
             saveStringValue("num_daemon_restart", v49);
-            if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
+            if ((__dst[23] & 0x80000000) != 0)
             {
-              operator delete(__dst.__r_.__value_.__l.__data_);
+              operator delete(*__dst);
             }
 
             v53 = log_get_logging_obg("com.apple.threadradiod", "default");
@@ -3935,9 +4359,9 @@ LABEL_128:
               v54 = v53;
               if (syslog_is_the_mask_enabled(7) && os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
               {
-                std::string::basic_string[abi:ne200100]<0>(&__dst, "num_daemon_restart");
-                *__p = &__dst;
-                v55 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &__dst.__r_.__value_.__l.__data_);
+                std::string::basic_string[abi:ne200100]<0>(__dst, "num_daemon_restart");
+                *__p = __dst;
+                v55 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __dst, &std::piecewise_construct, __p);
                 v56 = v55 + 7;
                 if (*(v55 + 79) < 0)
                 {
@@ -3950,9 +4374,9 @@ LABEL_128:
                 *(&__src.__r_.__value_.__r.__words[1] + 2) = v56;
                 _os_log_debug_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEBUG, "Size of kAWDStabilityCounters_Num_Daemon_Restart : %d, String is : %s", &__src, 0x12u);
 LABEL_147:
-                if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
+                if ((__dst[23] & 0x80000000) != 0)
                 {
-                  operator delete(__dst.__r_.__value_.__l.__data_);
+                  operator delete(*__dst);
                 }
               }
             }
@@ -3966,20 +4390,22 @@ LABEL_147:
           }
 
 LABEL_132:
-          *(&__dst.__r_.__value_.__s + 23) = 18;
-          strcpy(&__dst, "num_daemon_restart");
-          __src.__r_.__value_.__r.__words[0] = &__dst;
-          v50 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &__dst.__r_.__value_.__l.__data_);
+          __dst[23] = 18;
+          strcpy(&__dst[16], "rt");
+          *__dst = v58;
+          __src.__r_.__value_.__r.__words[0] = __dst;
+          v50 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __dst, &std::piecewise_construct, &__src);
           std::string::assign((v50 + 7), "1");
-          if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
+          if ((__dst[23] & 0x80000000) != 0)
           {
-            operator delete(__dst.__r_.__value_.__l.__data_);
+            operator delete(*__dst);
           }
 
-          *(&__dst.__r_.__value_.__s + 23) = 18;
-          strcpy(&__dst, "num_daemon_restart");
-          __src.__r_.__value_.__r.__words[0] = &__dst;
-          v51 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, &__dst.__r_.__value_.__l.__data_);
+          __dst[23] = 18;
+          strcpy(&__dst[16], "rt");
+          *__dst = v58;
+          __src.__r_.__value_.__r.__words[0] = __dst;
+          v51 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __dst, &std::piecewise_construct, &__src);
           if (*(v51 + 79) < 0)
           {
             v52 = v51[7];
@@ -3995,19 +4421,19 @@ LABEL_132:
         }
 
         v31 = StringValue;
-        memset(&__dst, 0, sizeof(__dst));
-        std::string::assign(&__dst, StringValue);
-        if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        memset(__dst, 0, 24);
+        std::string::assign(__dst, StringValue);
+        if (__dst[23] >= 0)
         {
-          p_dst = &__dst;
+          v32 = __dst;
         }
 
         else
         {
-          p_dst = __dst.__r_.__value_.__r.__words[0];
+          v32 = *__dst;
         }
 
-        if (strlen(p_dst) - 1 > 9)
+        if (strlen(v32) - 1 > 9)
         {
           v36 = log_get_logging_obg("com.apple.threadradiod", "default");
           if (v36)
@@ -4039,10 +4465,10 @@ LABEL_117:
             v34 = v33 + 1;
 LABEL_118:
             std::to_string(&__src, v34);
-            v59 = 18;
+            v60 = 18;
             strcpy(__p, "num_daemon_restart");
-            v64 = __p;
-            v44 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p);
+            v65 = __p;
+            v44 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&rcp_settings, __p, &std::piecewise_construct, &v65);
             if (*(v44 + 79) < 0)
             {
               v45 = v44;
@@ -4053,7 +4479,7 @@ LABEL_118:
             *(v44 + 7) = __src;
             *(&__src.__r_.__value_.__s + 23) = 0;
             __src.__r_.__value_.__s.__data_[0] = 0;
-            if (v59 < 0)
+            if (v60 < 0)
             {
               operator delete(*__p);
               if (SHIBYTE(__src.__r_.__value_.__r.__words[2]) < 0)
@@ -4094,7 +4520,7 @@ LABEL_118:
         if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           v9 = (_os_feature_enabled_impl() & 1) != 0 || CFPreferencesGetAppBooleanValue(@"ThreadServiceEnabled", @"/Library/Managed Preferences/mobile/com.apple.homed.plist", 0) != 0;
-          main_cold_7(&__dst, v9, v8);
+          main_cold_7(__dst, v9, v8);
         }
 
         goto LABEL_152;
@@ -4149,9 +4575,9 @@ LABEL_114:
   }
 
 LABEL_152:
-  if (SHIBYTE(v63) < 0)
+  if (SHIBYTE(v64) < 0)
   {
-    operator delete(v62[0]);
+    operator delete(v63[0]);
   }
 
   return 0;
@@ -4167,11 +4593,11 @@ void sub_1001755E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ProcessNetif (void *a1, unsigned __int8 a2, char **a3)
+uint64_t ProcessNetif (void *a1, uint64_t a2, char **a3)
 {
   ThreadNetifName = otSysGetThreadNetifName();
-  otSysGetThreadNetifIndex();
-  otCliOutputFormat("%s:%u\r\n", v4, v5, v6, v7, v8, v9, v10, ThreadNetifName);
+  ThreadNetifIndex = otSysGetThreadNetifIndex();
+  otCliOutputFormat("%s:%u\r\n", ThreadNetifName, ThreadNetifIndex);
   return 0;
 }
 
@@ -4303,7 +4729,7 @@ uint64_t ot::Spinel::Logger::Snprintf(ot::Spinel::Logger *this, char *__str, siz
   }
 }
 
-void ot::Spinel::Logger::LogSpinelFrame(const char **this, const unsigned __int8 *a2, unsigned int a3, int a4)
+void ot::Spinel::Logger::LogSpinelFrame(const char **this, unsigned __int8 *a2, unsigned int a3, int a4)
 {
   bzero(__str, 0x400uLL);
   v70 = 0;
@@ -4463,7 +4889,7 @@ LABEL_61:
               }
 
               v40 = (v40 | (1 << SLOBYTE(v71[0])));
-              v41 = (v41 + v31);
+              v41 += v31;
               v39 = v72[0] - v31;
               v72[0] -= v31;
             }
@@ -4659,12 +5085,12 @@ LABEL_57:
   }
 }
 
-unint64_t in6_addr_to_string@<X0>(const in6_addr *a1@<X0>, _BYTE *a2@<X8>)
+unint64_t in6_addr_to_string@<X0>(uint64_t *__return_ptr a1@<X8>, const in6_addr *a2@<X0>)
 {
   memset(v7, 0, sizeof(v7));
   v6 = 0u;
   *__s = 14906;
-  inet_ntop(30, a1, __s, 0x2Eu);
+  inet_ntop(30, a2, __s, 0x2Eu);
   result = strlen(__s);
   if (result >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -4677,13 +5103,13 @@ unint64_t in6_addr_to_string@<X0>(const in6_addr *a1@<X0>, _BYTE *a2@<X8>)
     operator new();
   }
 
-  a2[23] = result;
+  *(a1 + 23) = result;
   if (result)
   {
-    result = memcpy(a2, __s, result);
+    result = memcpy(a1, __s, result);
   }
 
-  a2[v4] = 0;
+  *(a1 + v4) = 0;
   return result;
 }
 
@@ -4700,13 +5126,6 @@ BOOL str_to_in6_addr(uint64_t a1, void *a2)
   }
 
   return inet_pton(30, v3, a2) == 1;
-}
-
-uint64_t make_slaac_addr_from_eui64(const unsigned __int8 *a1, const unsigned __int8 *a2)
-{
-  result = *a1;
-  v3 = (*(a2 + 1) << 8) | ((*(a2 + 5) | (a2[7] << 16)) << 40) | *a2 ^ 2;
-  return result;
 }
 
 void in6_addr_apply_mask(in6_addr *a1, unsigned int a2)
@@ -4805,7 +5224,7 @@ void _GLOBAL__sub_I_CtrInternalClient_mm()
   objc_autoreleasePoolPop(v0);
 }
 
-void wcm_create_xpc_connection()
+double wcm_create_xpc_connection()
 {
   mach_service = xpc_connection_create_mach_service("com.apple.WirelessCoexManager", 0, 0);
   WCMClient_Rcp::wrm_xpc_connection = mach_service;
@@ -4819,9 +5238,9 @@ void wcm_create_xpc_connection()
       {
         if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
         {
-          v3 = 136315138;
-          v4 = "wcm_create_xpc_connection";
-          _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "WCM: Create XPC connection %s, Notify WRM", &v3, 0xCu);
+          v4 = 136315138;
+          v5 = "wcm_create_xpc_connection";
+          _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "WCM: Create XPC connection %s, Notify WRM", &v4, 0xCu);
         }
       }
     }
@@ -4839,9 +5258,9 @@ void wcm_create_xpc_connection()
   {
     if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      v3 = 136315138;
-      v4 = "wcm_create_xpc_connection";
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "WCM: Create XPC connection Obj Failure %s", &v3, 0xCu);
+      v4 = 136315138;
+      v5 = "wcm_create_xpc_connection";
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "WCM: Create XPC connection Obj Failure %s", &v4, 0xCu);
     }
   }
 
@@ -4849,9 +5268,11 @@ void wcm_create_xpc_connection()
   {
     [PowerEventHandler_Rcp init:];
   }
+
+  return result;
 }
 
-void wcm_handle_event(void *a1)
+double wcm_handle_event(void *a1)
 {
   if (xpc_get_type(a1) != &_xpc_type_error)
   {
@@ -4864,11 +5285,11 @@ void wcm_handle_event(void *a1)
       {
         if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
         {
-          v7 = 136315394;
-          v8 = "wcm_handle_event";
-          v9 = 2082;
+          v8 = 136315394;
+          v9 = "wcm_handle_event";
+          v10 = 2082;
           string = v2;
-          _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "WCM: %s Unexpected XPC connection event: %{public}s", &v7, 0x16u);
+          _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "WCM: %s Unexpected XPC connection event: %{public}s", &v8, 0x16u);
         }
       }
     }
@@ -4879,7 +5300,7 @@ void wcm_handle_event(void *a1)
     }
 
     free(v2);
-    return;
+    return result;
   }
 
   v5 = log_get_logging_obg("com.apple.threadradiod", "default");
@@ -4890,31 +5311,31 @@ void wcm_handle_event(void *a1)
     {
       if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        v7 = 136315394;
-        v8 = "wcm_handle_event";
-        v9 = 2082;
+        v8 = 136315394;
+        v9 = "wcm_handle_event";
+        v10 = 2082;
         string = xpc_dictionary_get_string(a1, _xpc_error_key_description);
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "WCM: %s XPC connection error: %{public}s", &v7, 0x16u);
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "WCM: %s XPC connection error: %{public}s", &v8, 0x16u);
       }
 
-      return;
+      return result;
     }
 
     if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      return;
+      return result;
     }
 
 LABEL_20:
     [PowerEventHandler_Rcp init:];
-    return;
+    return result;
   }
 
   if (!v5)
   {
     if (!os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      return;
+      return result;
     }
 
     goto LABEL_20;
@@ -4922,13 +5343,15 @@ LABEL_20:
 
   if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v7 = 136315138;
-    v8 = "wcm_handle_event";
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "WCM: %s XPC connection interrupted ", &v7, 0xCu);
+    v8 = 136315138;
+    v9 = "wcm_handle_event";
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "WCM: %s XPC connection interrupted ", &v8, 0xCu);
   }
+
+  return result;
 }
 
-void wcm_close_xpc_connection()
+double wcm_close_xpc_connection()
 {
   v0 = WCMClient_Rcp::wrm_xpc_connection;
   logging_obg = log_get_logging_obg("com.apple.threadradiod", "default");
@@ -4941,9 +5364,9 @@ void wcm_close_xpc_connection()
       {
         if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
         {
-          v3 = 136315138;
-          v4 = "wcm_close_xpc_connection";
-          _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "WCM: Closing XPC connection %s", &v3, 0xCu);
+          v4 = 136315138;
+          v5 = "wcm_close_xpc_connection";
+          _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "WCM: Closing XPC connection %s", &v4, 0xCu);
         }
       }
     }
@@ -4961,9 +5384,9 @@ void wcm_close_xpc_connection()
   {
     if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      v3 = 136315138;
-      v4 = "wcm_close_xpc_connection";
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "WCM: XPC connection already closed %s", &v3, 0xCu);
+      v4 = 136315138;
+      v5 = "wcm_close_xpc_connection";
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "WCM: XPC connection already closed %s", &v4, 0xCu);
     }
   }
 
@@ -4971,6 +5394,8 @@ void wcm_close_xpc_connection()
   {
     [PowerEventHandler_Rcp init:];
   }
+
+  return result;
 }
 
 uint64_t wcm_get_xpc_connection_object()
@@ -5010,7 +5435,7 @@ void wcm_notify(char a1, char a2)
   dispatch_async(WCMClient_Rcp::wcmXPCQueue, block);
 }
 
-void __wcm_notify_block_invoke(uint64_t a1)
+double __wcm_notify_block_invoke(uint64_t a1)
 {
   if (WCMClient_Rcp::wrm_xpc_connection || (wcm_create_xpc_connection(), WCMClient_Rcp::wrm_xpc_connection))
   {
@@ -5027,8 +5452,8 @@ void __wcm_notify_block_invoke(uint64_t a1)
         *&buf[4] = "wcm_notify_block_invoke";
         *&buf[12] = 1024;
         *&buf[14] = v5;
-        v15 = 1024;
-        v16 = v6;
+        v16 = 1024;
+        v17 = v6;
         _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "WCM: %s ThreadSession = [%d], listenCoexLoadChange = [%d], Notify WRM", buf, 0x18u);
       }
     }
@@ -5053,27 +5478,27 @@ void __wcm_notify_block_invoke(uint64_t a1)
     xpc_dictionary_set_BOOL(v2, "kWCMThreadState", v7);
     xpc_dictionary_set_BOOL(v2, "kWCMThreadListenCoexLoadChange", *(a1 + 33));
     *buf = *off_1004C55E0;
-    v13[0] = v9;
-    v13[1] = v2;
-    v10 = xpc_dictionary_create(buf, v13, 2uLL);
+    v14[0] = v9;
+    v14[1] = v2;
+    v10 = xpc_dictionary_create(buf, v14, 2uLL);
     xpc_connection_send_message(WCMClient_Rcp::wrm_xpc_connection, v10);
     xpc_release(v9);
     xpc_release(v2);
     xpc_release(v10);
-    wcm_close_xpc_connection();
+    return wcm_close_xpc_connection();
   }
 
   else
   {
-    v11 = log_get_logging_obg("com.apple.threadradiod", "default");
-    if (v11)
+    v12 = log_get_logging_obg("com.apple.threadradiod", "default");
+    if (v12)
     {
-      v12 = v11;
-      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v13 = v12;
+      if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
         *&buf[4] = "wcm_notify_block_invoke";
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "WCM: XPC connection Object NULL %s", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "WCM: XPC connection Object NULL %s", buf, 0xCu);
       }
     }
 
@@ -5082,6 +5507,8 @@ void __wcm_notify_block_invoke(uint64_t a1)
       [PowerEventHandler_Rcp init:];
     }
   }
+
+  return result;
 }
 
 dispatch_queue_t _GLOBAL__sub_I_WCMClient_rcp_cpp()
@@ -5209,20 +5636,20 @@ uint64_t nl::wpantund::ncp_wed_status_to_string@<X0>(uint64_t result@<X0>, char 
   return result;
 }
 
-uint64_t nl::wpantund::ncp_wed_disconnect_reason_to_string@<X0>(uint64_t result@<X0>, char *a2@<X8>)
+void nl::wpantund::ncp_wed_disconnect_reason_to_string(int a1@<W0>, char *a2@<X8>)
 {
-  if (result == 2)
+  if (a1 == 2)
   {
     operator new();
   }
 
-  if (result == 1)
+  if (a1 == 1)
   {
     a2[23] = 8;
     strcpy(a2, "linkloss");
   }
 
-  else if (result)
+  else if (a1)
   {
     a2[23] = 14;
     strcpy(a2, "unknown-reason");
@@ -5233,14 +5660,11 @@ uint64_t nl::wpantund::ncp_wed_disconnect_reason_to_string@<X0>(uint64_t result@
     a2[23] = 4;
     strcpy(a2, "none");
   }
-
-  return result;
 }
 
 std::string *nl::wpantund::node_type_to_string@<X0>(unsigned int a1@<W0>, std::string *a2@<X8>)
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   if (a1 < 0xA)
   {
@@ -5419,8 +5843,7 @@ LABEL_48:
 void nl::wpantund::address_flags_to_string(nl::wpantund *this@<X0>, std::string *a2@<X8>)
 {
   v2 = this;
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   if (this < 0)
   {
@@ -5523,25 +5946,35 @@ void sub_100179190(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void nl::wpantund::flags_to_string(nl::wpantund *this@<X0>, const char *a2@<X1>, std::string *a3@<X8>)
+void nl::wpantund::flags_to_string(std::string *__return_ptr a1@<X8>, nl::wpantund *this@<X0>, const char *a3@<X1>)
 {
-  v4 = this;
-  a3->__r_.__value_.__r.__words[0] = 0;
-  a3->__r_.__value_.__l.__size_ = 0;
-  a3->__r_.__value_.__r.__words[2] = 0;
-  if (a2)
+  v3 = this;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  if (a3)
   {
-    v6 = a2;
+    v5 = a3;
   }
 
   else
   {
-    v6 = "76543210";
+    v5 = "76543210";
   }
 
   if ((this & 0x80) != 0)
   {
-    v7 = *v6;
+    v6 = *v5;
+  }
+
+  else
+  {
+    v6 = 45;
+  }
+
+  std::string::push_back(a1, v6);
+  if ((v3 & 0x40) != 0)
+  {
+    v7 = v5[1];
   }
 
   else
@@ -5549,10 +5982,10 @@ void nl::wpantund::flags_to_string(nl::wpantund *this@<X0>, const char *a2@<X1>,
     v7 = 45;
   }
 
-  std::string::push_back(a3, v7);
-  if ((v4 & 0x40) != 0)
+  std::string::push_back(a1, v7);
+  if ((v3 & 0x20) != 0)
   {
-    v8 = v6[1];
+    v8 = v5[2];
   }
 
   else
@@ -5560,10 +5993,10 @@ void nl::wpantund::flags_to_string(nl::wpantund *this@<X0>, const char *a2@<X1>,
     v8 = 45;
   }
 
-  std::string::push_back(a3, v8);
-  if ((v4 & 0x20) != 0)
+  std::string::push_back(a1, v8);
+  if ((v3 & 0x10) != 0)
   {
-    v9 = v6[2];
+    v9 = v5[3];
   }
 
   else
@@ -5571,10 +6004,11 @@ void nl::wpantund::flags_to_string(nl::wpantund *this@<X0>, const char *a2@<X1>,
     v9 = 45;
   }
 
-  std::string::push_back(a3, v9);
-  if ((v4 & 0x10) != 0)
+  std::string::push_back(a1, v9);
+  std::string::push_back(a1, 32);
+  if ((v3 & 8) != 0)
   {
-    v10 = v6[3];
+    v10 = v5[4];
   }
 
   else
@@ -5582,11 +6016,10 @@ void nl::wpantund::flags_to_string(nl::wpantund *this@<X0>, const char *a2@<X1>,
     v10 = 45;
   }
 
-  std::string::push_back(a3, v10);
-  std::string::push_back(a3, 32);
-  if ((v4 & 8) != 0)
+  std::string::push_back(a1, v10);
+  if ((v3 & 4) != 0)
   {
-    v11 = v6[4];
+    v11 = v5[5];
   }
 
   else
@@ -5594,10 +6027,10 @@ void nl::wpantund::flags_to_string(nl::wpantund *this@<X0>, const char *a2@<X1>,
     v11 = 45;
   }
 
-  std::string::push_back(a3, v11);
-  if ((v4 & 4) != 0)
+  std::string::push_back(a1, v11);
+  if ((v3 & 2) != 0)
   {
-    v12 = v6[5];
+    v12 = v5[6];
   }
 
   else
@@ -5605,10 +6038,10 @@ void nl::wpantund::flags_to_string(nl::wpantund *this@<X0>, const char *a2@<X1>,
     v12 = 45;
   }
 
-  std::string::push_back(a3, v12);
-  if ((v4 & 2) != 0)
+  std::string::push_back(a1, v12);
+  if (v3)
   {
-    v13 = v6[6];
+    v13 = v5[7];
   }
 
   else
@@ -5616,18 +6049,7 @@ void nl::wpantund::flags_to_string(nl::wpantund *this@<X0>, const char *a2@<X1>,
     v13 = 45;
   }
 
-  std::string::push_back(a3, v13);
-  if (v4)
-  {
-    v14 = v6[7];
-  }
-
-  else
-  {
-    v14 = 45;
-  }
-
-  std::string::push_back(a3, v14);
+  std::string::push_back(a1, v13);
 }
 
 void sub_1001792DC(_Unwind_Exception *exception_object)
@@ -5961,10 +6383,11 @@ id base64StringFromData(void *a1)
   return v1;
 }
 
-void OUTLINED_FUNCTION_1_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 id dataFromBase64String(void *a1)
@@ -5994,10 +6417,11 @@ id base64StringFromData_0(void *a1)
   return a1;
 }
 
-void OUTLINED_FUNCTION_3_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x2Au);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x2Au);
 }
 
 id THCredentialsServerLogHandleForCategory(int a1)
@@ -6012,18 +6436,18 @@ id THCredentialsServerLogHandleForCategory(int a1)
   return v2;
 }
 
-void sub_10017F854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10017F854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_10018180C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10018180C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6034,31 +6458,32 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_100184DD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100184DD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100188798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100188798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100188BD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100188BD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100189DBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43)
+void sub_100189DBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
 {
+  va_start(va, a42);
   _Block_object_dispose(&a37, 8);
-  _Block_object_dispose(&a43, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -6094,23 +6519,23 @@ id generatreRandomPWD()
   return v0;
 }
 
-void sub_10019244C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10019244C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100194040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100194040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100194610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100194610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6369,17 +6794,11 @@ void OUTLINED_FUNCTION_4_6(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x26u);
 }
 
-void OUTLINED_FUNCTION_5_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_5_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x1Cu);
-}
-
-uint64_t *OUTLINED_FUNCTION_8_0@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x1Cu);
 }
 
 id scrubRecords(void *a1)
@@ -6555,12 +6974,12 @@ uint64_t spinel_datatype_unpack_in_place(unsigned __int8 *a1, unsigned int a2, _
   return spinel_datatype_vunpack_(1, a1, a2, a3, &v10);
 }
 
-uint64_t spinel_datatype_vunpack_(char a1, unsigned __int8 *a2, unsigned int a3, _BYTE *a4, void **a5)
+uint64_t spinel_datatype_vunpack_(char a1, unsigned __int8 *a2, unsigned int a3, _BYTE *packed_datatype, void **a5)
 {
   v87 = a1;
   v86 = a2;
   v85 = a3;
-  packed_datatype = a4;
+  v84 = packed_datatype;
   v83 = a5;
   v82 = 0;
   if (a3 >= 0x8000)
@@ -6572,12 +6991,12 @@ uint64_t spinel_datatype_vunpack_(char a1, unsigned __int8 *a2, unsigned int a3,
 
   while (2)
   {
-    if (!*packed_datatype || *packed_datatype == 41)
+    if (!*v84 || *v84 == 41)
     {
       return v82;
     }
 
-    switch(*packed_datatype)
+    switch(*v84)
     {
       case '.':
         goto LABEL_110;
@@ -6643,8 +7062,8 @@ uint64_t spinel_datatype_vunpack_(char a1, unsigned __int8 *a2, unsigned int a3,
         v22 = *(*v83)++;
         v41 = v22;
         v42 = v22;
-        v40 = *spinel_next_packed_datatype(packed_datatype);
-        if (*packed_datatype == 100 || v40 && v40 != 41)
+        v40 = *spinel_next_packed_datatype(v84);
+        if (*v84 == 100 || v40 && v40 != 41)
         {
           v47 = spinel_datatype_unpack(v86, v85, "S", v23, v24, v25, v26, v27, &v46);
           v45 += v47;
@@ -6772,8 +7191,8 @@ LABEL_87:
         v38 = 0;
         v37 = 0;
         v35 = v86;
-        v34 = *spinel_next_packed_datatype(packed_datatype);
-        if (*packed_datatype == 116 || v34 && v34 != 41)
+        v34 = *spinel_next_packed_datatype(v84);
+        if (*v84 == 116 || v34 && v34 != 41)
         {
           v38 = spinel_datatype_unpack(v86, v85, "S", v28, v29, v30, v31, v32, &v37);
           v35 += v38;
@@ -6791,7 +7210,7 @@ LABEL_87:
 
         if (v85 >= v37 + v38)
         {
-          v36 = spinel_datatype_vunpack_(0, v35, v37, packed_datatype + 2);
+          v36 = spinel_datatype_vunpack_(0, v35, v37, v84 + 2, v83);
           if ((v36 & 0x80000000) == 0)
           {
             if (v38)
@@ -6808,7 +7227,7 @@ LABEL_87:
             v86 += v37;
             v85 -= v37;
 LABEL_110:
-            packed_datatype = spinel_next_packed_datatype(packed_datatype);
+            v84 = spinel_next_packed_datatype(v84);
             continue;
           }
         }
@@ -6976,14 +7395,14 @@ LABEL_105:
   }
 }
 
-uint64_t spinel_datatype_unpack(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t spinel_datatype_unpack(unsigned __int8 *a1, unsigned int a2, _BYTE *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v14 = a1;
   v13 = a2;
   v12 = a3;
   v11 = 0;
   v10 = &a9;
-  return spinel_datatype_vunpack_(0, a1, a2, a3);
+  return spinel_datatype_vunpack_(0, a1, a2, a3, &v10);
 }
 
 uint64_t spinel_datatype_vunpack_in_place(unsigned __int8 *a1, unsigned int a2, _BYTE *a3, void *a4)
@@ -7018,315 +7437,315 @@ uint64_t spinel_datatype_pack(BOOL *a1, unsigned int a2, _BYTE *a3, uint64_t a4,
   return spinel_datatype_vpack_(a1, a2, a3, &v10);
 }
 
-uint64_t spinel_datatype_vpack_(BOOL *a1, unsigned int a2, _BYTE *a3, char ***a4)
+uint64_t spinel_datatype_vpack_(BOOL *a1, unsigned int a2, _BYTE *packed_datatype, const char ***a4)
 {
-  v54 = a1;
-  v53 = a2;
-  packed_datatype = a3;
-  v51 = a4;
-  v50 = 0;
+  v64 = a1;
+  v63 = a2;
+  v62 = packed_datatype;
+  v61 = a4;
+  v60 = 0;
   if (a2 < 0x8000)
   {
-    if (!v54)
+    if (!v64)
     {
-      v53 = 0;
+      v63 = 0;
     }
 
     while (2)
     {
-      if (*packed_datatype && *packed_datatype != 41)
+      if (*v62 && *v62 != 41)
       {
-        switch(*packed_datatype)
+        switch(*v62)
         {
           case '.':
             goto LABEL_62;
           case '6':
-            v9 = *(*v51)++;
-            v38 = v9;
-            v39 = v9;
-            v50 += 16;
-            if (v53 >= 0x10uLL)
+            v9 = *(*v61)++;
+            v48 = v9;
+            v49 = v9;
+            v60 += 16;
+            if (v63 >= 0x10uLL)
             {
-              *v54 = *v39;
-              v54 += 16;
-              v53 -= 16;
+              *v64 = *v49;
+              v64 += 16;
+              v63 -= 16;
             }
 
             else
             {
-              v53 = 0;
+              v63 = 0;
             }
 
             goto LABEL_62;
           case 'C':
           case 'c':
-            v5 = *(*v51)++;
-            v46 = v5;
-            v47 = v5;
-            ++v50;
-            if (v53)
+            v5 = *(*v61)++;
+            v56 = v5;
+            v57 = v5;
+            ++v60;
+            if (v63)
             {
-              *v54++ = v47;
-              --v53;
+              *v64++ = v57;
+              --v63;
             }
 
             else
             {
-              v53 = 0;
+              v63 = 0;
             }
 
             goto LABEL_62;
           case 'D':
           case 'd':
-            v16 = *(*v51)++;
-            v26 = v16;
-            v27 = v16;
-            LODWORD(v16) = *(*v51)++;
-            v24 = v16;
-            v25 = v16;
-            v23 = 0;
-            v22 = *spinel_next_packed_datatype(packed_datatype);
-            if (*packed_datatype == 100 || v22 && v22 != 41)
+            v16 = *(*v61)++;
+            v36 = v16;
+            v37 = v16;
+            LODWORD(v16) = *(*v61)++;
+            v34 = v16;
+            v35 = v16;
+            v33 = 0;
+            v32 = *spinel_next_packed_datatype(v62);
+            if (*v62 == 100 || v32 && v32 != 41)
             {
-              v23 = spinel_datatype_pack(v54, v53, "S");
-              if (v23 <= 0)
+              v33 = spinel_datatype_pack(v64, v63, "S", v17, v18, v19, v20, v21, v35);
+              if (v33 <= 0)
               {
                 goto LABEL_58;
               }
             }
 
-            v50 += v23 + v25;
-            if (v53 >= v23 + v25)
+            v60 += v33 + v35;
+            if (v63 >= v33 + v35)
             {
-              v54 += v23;
-              v53 -= v23;
-              if (v54 && v27)
+              v64 += v33;
+              v63 -= v33;
+              if (v64 && v37)
               {
                 __memcpy_chk();
               }
 
-              v54 += v25;
-              v53 -= v25;
+              v64 += v35;
+              v63 -= v35;
             }
 
             else
             {
-              v53 = 0;
+              v63 = 0;
             }
 
             goto LABEL_62;
           case 'E':
-            v13 = *(*v51)++;
-            v34 = v13;
-            v35 = v13;
-            v50 += 8;
-            if (v53 >= 8uLL)
+            v13 = *(*v61)++;
+            v44 = v13;
+            v45 = v13;
+            v60 += 8;
+            if (v63 >= 8uLL)
             {
-              *v54 = *v35;
-              v54 += 8;
-              v53 -= 8;
+              *v64 = *v45;
+              v64 += 8;
+              v63 -= 8;
             }
 
             else
             {
-              v53 = 0;
+              v63 = 0;
             }
 
             goto LABEL_62;
           case 'L':
           case 'l':
-            v7 = *(*v51)++;
-            v42 = v7;
-            v43 = v7;
-            v50 += 4;
-            if (v53 >= 4uLL)
+            v7 = *(*v61)++;
+            v52 = v7;
+            v53 = v7;
+            v60 += 4;
+            if (v63 >= 4uLL)
             {
-              *v54 = v43;
-              v54 += 4;
-              v53 -= 4;
+              *v64 = v53;
+              v64 += 4;
+              v63 -= 4;
             }
 
             else
             {
-              v53 = 0;
+              v63 = 0;
             }
 
             goto LABEL_62;
           case 'S':
           case 's':
-            v6 = *(*v51)++;
-            v44 = v6;
-            v45 = v6;
-            v50 += 2;
-            if (v53 >= 2uLL)
+            v6 = *(*v61)++;
+            v54 = v6;
+            v55 = v6;
+            v60 += 2;
+            if (v63 >= 2uLL)
             {
-              *v54 = v45;
-              v54 += 2;
-              v53 -= 2;
+              *v64 = v55;
+              v64 += 2;
+              v63 -= 2;
             }
 
             else
             {
-              v53 = 0;
+              v63 = 0;
             }
 
             goto LABEL_62;
           case 'T':
           case 't':
-            v21 = 0;
-            v20 = 0;
-            v19 = *spinel_next_packed_datatype(packed_datatype);
-            if (packed_datatype[1] != 40)
+            v31 = 0;
+            v30 = 0;
+            v29 = *spinel_next_packed_datatype(v62);
+            if (v62[1] != 40)
             {
               goto LABEL_58;
             }
 
-            v18 = 0;
-            v18 = *v51;
-            v21 = spinel_datatype_vpack_(0, 0, packed_datatype + 2, &v18);
-            if (*packed_datatype == 116 || v19 && v19 != 41)
+            v28 = 0;
+            v28 = *v61;
+            v31 = spinel_datatype_vpack_(0, 0, v62 + 2, &v28);
+            if (*v62 == 116 || v29 && v29 != 41)
             {
-              v20 = spinel_datatype_pack(v54, v53, "S");
-              if (v20 <= 0)
+              v30 = spinel_datatype_pack(v64, v63, "S", v22, v23, v24, v25, v26, v31);
+              if (v30 <= 0)
               {
                 goto LABEL_58;
               }
             }
 
-            v50 += v20 + v21;
-            if (v21 + v20 > v53)
+            v60 += v30 + v31;
+            if ((v31 + v30) > v63)
             {
-              v53 = 0;
+              v63 = 0;
             }
 
             else
             {
-              v54 += v20;
-              v53 -= v20;
-              v21 = spinel_datatype_vpack_(v54, v53, packed_datatype + 2, v51);
-              v54 += v21;
-              v53 -= v21;
+              v64 += v30;
+              v63 -= v30;
+              v31 = spinel_datatype_vpack_(v64, v63, v62 + 2, v61);
+              v64 += v31;
+              v63 -= v31;
             }
 
             goto LABEL_62;
           case 'U':
-            v15 = *(*v51)++;
-            v29 = v15;
+            v15 = *(*v61)++;
+            v39 = v15;
             __s = v15;
-            v28 = 0;
+            v38 = 0;
             if (v15)
             {
-              v28 = strlen(__s) + 1;
+              v38 = strlen(__s) + 1;
             }
 
             else
             {
               __s = "";
-              v28 = 1;
+              v38 = 1;
             }
 
-            v50 += v28;
-            if (v53 >= v28)
+            v60 += v38;
+            if (v63 >= v38)
             {
               __memcpy_chk();
-              v54 += v28;
-              v53 -= v28;
+              v64 += v38;
+              v63 -= v38;
             }
 
             else
             {
-              v53 = 0;
+              v63 = 0;
             }
 
             goto LABEL_62;
           case 'X':
           case 'x':
-            v8 = *(*v51)++;
-            v40 = v8;
-            v41 = v8;
-            v50 += 8;
-            if (v53 >= 8uLL)
+            v8 = *(*v61)++;
+            v50 = v8;
+            v51 = v8;
+            v60 += 8;
+            if (v63 >= 8uLL)
             {
-              *v54 = v41;
-              v54 += 8;
-              v53 -= 8;
+              *v64 = v51;
+              v64 += 8;
+              v63 -= 8;
             }
 
             else
             {
-              v53 = 0;
+              v63 = 0;
             }
 
             goto LABEL_62;
           case 'b':
-            v4 = *(*v51)++;
-            v48 = v4;
-            v49 = v4 != 0;
-            ++v50;
-            if (v53)
+            v4 = *(*v61)++;
+            v58 = v4;
+            v59 = v4 != 0;
+            ++v60;
+            if (v63)
             {
-              *v54++ = v49;
-              --v53;
+              *v64++ = v59;
+              --v63;
             }
 
             else
             {
-              v53 = 0;
+              v63 = 0;
             }
 
             goto LABEL_62;
           case 'e':
-            v10 = *(*v51)++;
-            v36 = v10;
-            v37 = v10;
-            v50 += 6;
-            if (v53 >= 6uLL)
+            v10 = *(*v61)++;
+            v46 = v10;
+            v47 = v10;
+            v60 += 6;
+            if (v63 >= 6uLL)
             {
-              v11 = v54;
-              v12 = v37;
-              *v54 = *v37;
+              v11 = v64;
+              v12 = v47;
+              *v64 = *v47;
               *(v11 + 2) = *(v12 + 2);
-              v54 += 6;
-              v53 -= 6;
+              v64 += 6;
+              v63 -= 6;
             }
 
             else
             {
-              v53 = 0;
+              v63 = 0;
             }
 
             goto LABEL_62;
           case 'i':
-            v14 = *(*v51)++;
-            v32 = v14;
-            v33 = v14;
-            v31 = 0;
+            v14 = *(*v61)++;
+            v42 = v14;
+            v43 = v14;
+            v41 = 0;
             if (v14 >= 0x1FFFFF)
             {
               goto LABEL_58;
             }
 
-            v31 = spinel_packed_uint_encode(v54, v53, v33);
-            v50 += v31;
-            if (v53 < v31)
+            v41 = spinel_packed_uint_encode(v64, v63, v43);
+            v60 += v41;
+            if (v63 < v41)
             {
-              v53 = 0;
+              v63 = 0;
             }
 
             else
             {
-              v54 += v31;
-              v53 -= v31;
+              v64 += v41;
+              v63 -= v41;
             }
 
 LABEL_62:
-            packed_datatype = spinel_next_packed_datatype(packed_datatype);
+            v62 = spinel_next_packed_datatype(v62);
             continue;
           default:
 LABEL_58:
-            v50 = -1;
+            v60 = -1;
             *__error() = 22;
-            return v50;
+            return v60;
         }
       }
 
@@ -7336,14 +7755,14 @@ LABEL_58:
 
   else
   {
-    v50 = -1;
+    v60 = -1;
     *__error() = 22;
   }
 
-  return v50;
+  return v60;
 }
 
-uint64_t spinel_datatype_vpack(BOOL *a1, unsigned int a2, _BYTE *a3, char **a4)
+uint64_t spinel_datatype_vpack(BOOL *a1, unsigned int a2, _BYTE *a3, const char **a4)
 {
   v10 = a1;
   v9 = a2;
@@ -7684,10 +8103,10 @@ uint64_t ot::Spinel::Decoder::ReadIp6Address(ot::Spinel::Decoder *a1, _OWORD *a2
 {
   v6 = a1;
   v5 = a2;
-  v4 = 0;
+  Ip6Address = 0;
   v3 = 0;
-  v4 = ot::Spinel::Decoder::ReadIp6Address(a1, &v3);
-  if (!v4)
+  Ip6Address = ot::Spinel::Decoder::ReadIp6Address(a1, &v3);
+  if (!Ip6Address)
   {
     if (v3)
     {
@@ -7700,16 +8119,16 @@ uint64_t ot::Spinel::Decoder::ReadIp6Address(ot::Spinel::Decoder *a1, _OWORD *a2
     }
   }
 
-  return v4;
+  return Ip6Address;
 }
 
 {
   v6 = a1;
   v5 = a2;
-  v4 = 0;
+  Ip6Address = 0;
   v3 = 0;
-  v4 = ot::Spinel::Decoder::ReadIp6Address(a1, &v3);
-  if (!v4)
+  Ip6Address = ot::Spinel::Decoder::ReadIp6Address(a1, &v3);
+  if (!Ip6Address)
   {
     if (v3)
     {
@@ -7722,7 +8141,7 @@ uint64_t ot::Spinel::Decoder::ReadIp6Address(ot::Spinel::Decoder *a1, _OWORD *a2
     }
   }
 
-  return v4;
+  return Ip6Address;
 }
 
 uint64_t ot::Spinel::Decoder::ReadIp6Address(ot::Spinel::Decoder *a1, const unsigned __int8 **a2)
@@ -7746,10 +8165,10 @@ uint64_t ot::Spinel::Decoder::ReadEui64(ot::Spinel::Decoder *a1, void *a2)
 {
   v6 = a1;
   v5 = a2;
-  v4 = 0;
+  Eui64 = 0;
   v3 = 0;
-  v4 = ot::Spinel::Decoder::ReadEui64(a1, &v3);
-  if (!v4)
+  Eui64 = ot::Spinel::Decoder::ReadEui64(a1, &v3);
+  if (!Eui64)
   {
     if (v3)
     {
@@ -7762,16 +8181,16 @@ uint64_t ot::Spinel::Decoder::ReadEui64(ot::Spinel::Decoder *a1, void *a2)
     }
   }
 
-  return v4;
+  return Eui64;
 }
 
 {
   v6 = a1;
   v5 = a2;
-  v4 = 0;
+  Eui64 = 0;
   v3 = 0;
-  v4 = ot::Spinel::Decoder::ReadEui64(a1, &v3);
-  if (!v4)
+  Eui64 = ot::Spinel::Decoder::ReadEui64(a1, &v3);
+  if (!Eui64)
   {
     if (v3)
     {
@@ -7784,7 +8203,7 @@ uint64_t ot::Spinel::Decoder::ReadEui64(ot::Spinel::Decoder *a1, void *a2)
     }
   }
 
-  return v4;
+  return Eui64;
 }
 
 uint64_t ot::Spinel::Decoder::ReadEui64(ot::Spinel::Decoder *a1, const unsigned __int8 **a2)
@@ -7808,10 +8227,10 @@ uint64_t ot::Spinel::Decoder::ReadEui48(ot::Spinel::Decoder *a1, _DWORD *a2)
 {
   v8 = a1;
   v7 = a2;
-  v6 = 0;
+  Eui48 = 0;
   v5 = 0;
-  v6 = ot::Spinel::Decoder::ReadEui48(a1, &v5);
-  if (!v6)
+  Eui48 = ot::Spinel::Decoder::ReadEui48(a1, &v5);
+  if (!Eui48)
   {
     if (v5)
     {
@@ -7827,7 +8246,7 @@ uint64_t ot::Spinel::Decoder::ReadEui48(ot::Spinel::Decoder *a1, _DWORD *a2)
     }
   }
 
-  return v6;
+  return Eui48;
 }
 
 uint64_t ot::Spinel::Decoder::ReadEui48(ot::Spinel::Decoder *a1, const unsigned __int8 **a2)
@@ -7839,9 +8258,9 @@ uint64_t ot::Spinel::Decoder::ReadEui48(ot::Spinel::Decoder *a1, const unsigned 
   return ot::Spinel::Decoder::ReadEui48(a1, a2);
 }
 
-uint64_t ot::Spinel::Decoder::ReadUtf8(ot::Spinel::Decoder *this, const char **a2)
+uint64_t ot::Spinel::Decoder::ReadUtf8(ot::Spinel::Decoder *this, const char **a2, unsigned __int16 a3)
 {
-  v5 = 0;
+  v6 = 0;
   if (*(this + 5) + 1 > *(this + 6))
   {
     return 6;
@@ -7849,11 +8268,11 @@ uint64_t ot::Spinel::Decoder::ReadUtf8(ot::Spinel::Decoder *this, const char **a
 
   else
   {
-    v4 = ot::StringLength((*this + *(this + 5)), (*(this + 6) - *(this + 5)));
-    if (v4 < (*(this + 6) - *(this + 5)))
+    v5 = ot::StringLength((*this + *(this + 5)), (*(this + 6) - *(this + 5)));
+    if (v5 < (*(this + 6) - *(this + 5)))
     {
       *a2 = (*this + *(this + 5));
-      *(this + 5) += v4 + 1;
+      *(this + 5) += v5 + 1;
     }
 
     else
@@ -7862,7 +8281,7 @@ uint64_t ot::Spinel::Decoder::ReadUtf8(ot::Spinel::Decoder *this, const char **a
     }
   }
 
-  return v5;
+  return v6;
 }
 
 uint64_t ot::Spinel::Decoder::ReadDataWithLen(ot::Spinel::Decoder *this, const unsigned __int8 **a2, unsigned __int16 *a3)
@@ -8014,7 +8433,7 @@ void sub_1001BC334(_Unwind_Exception *a1)
 
 std::runtime_error *boost::system::system_error::system_error(std::runtime_error *this, std::runtime_error_vtbl **a2, boost::system::system_error *a3)
 {
-  boost::system::system_error::build_message(a3, a2, &v7);
+  boost::system::system_error::build_message(&v7, a3, a2);
   std::runtime_error::runtime_error(this, &v7);
   if (SHIBYTE(v7.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -8038,7 +8457,7 @@ void sub_1001BC3D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t boost::filesystem::filesystem_error::filesystem_error(uint64_t a1, char *a2, boost::system::error_code *a3)
+uint64_t boost::filesystem::filesystem_error::filesystem_error(uint64_t a1, boost::system::system_error *a2, boost::system::error_code *a3)
 {
   v4 = boost::system::system_error::system_error(a1, a3, a2);
   *v4 = off_1004C8100;
@@ -8075,9 +8494,9 @@ void sub_1001BC4B8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t boost::system::system_error::system_error(uint64_t a1, boost::system::error_code *a2, char *a3)
+uint64_t boost::system::system_error::system_error(uint64_t a1, boost::system::error_code *a2, boost::system::system_error *a3)
 {
-  if (a3[23] >= 0)
+  if (*(a3 + 23) >= 0)
   {
     v5 = a3;
   }
@@ -8087,7 +8506,7 @@ uint64_t boost::system::system_error::system_error(uint64_t a1, boost::system::e
     v5 = *a3;
   }
 
-  boost::system::system_error::build_message(v5, a2, &v8);
+  boost::system::system_error::build_message(&v8, v5, a2);
   std::runtime_error::runtime_error(a1, &v8);
   if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -8160,7 +8579,7 @@ void sub_1001BC688(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t boost::filesystem::filesystem_error::filesystem_error(uint64_t a1, char *a2, uint64_t a3, boost::system::error_code *a4)
+uint64_t boost::filesystem::filesystem_error::filesystem_error(uint64_t a1, boost::system::system_error *a2, uint64_t a3, boost::system::error_code *a4)
 {
   v6 = boost::system::system_error::system_error(a1, a4, a2);
   *v6 = off_1004C8100;
@@ -8243,7 +8662,7 @@ void sub_1001BC8B4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t boost::filesystem::filesystem_error::filesystem_error(uint64_t a1, char *a2, const boost::filesystem::path *a3, const boost::filesystem::path *a4, boost::system::error_code *a5)
+uint64_t boost::filesystem::filesystem_error::filesystem_error(uint64_t a1, boost::system::system_error *a2, const boost::filesystem::path *a3, const boost::filesystem::path *a4, boost::system::error_code *a5)
 {
   v8 = boost::system::system_error::system_error(a1, a5, a2);
   *v8 = off_1004C8100;
@@ -8315,24 +8734,24 @@ uint64_t boost::filesystem::filesystem_error::operator=(uint64_t a1, uint64_t a2
   return a1;
 }
 
-void boost::filesystem::filesystem_error::~filesystem_error(boost::filesystem::filesystem_error *this)
+void boost::filesystem::filesystem_error::~filesystem_error(std::runtime_error *this)
 {
-  *this = off_1004C8100;
-  boost::intrusive_ptr<boost::filesystem::filesystem_error::impl>::~intrusive_ptr(this + 5);
+  this->__vftable = off_1004C8100;
+  boost::intrusive_ptr<boost::filesystem::filesystem_error::impl>::~intrusive_ptr(&this[2].__imp_);
 
   std::runtime_error::~runtime_error(this);
 }
 
 {
-  *this = off_1004C8100;
-  boost::intrusive_ptr<boost::filesystem::filesystem_error::impl>::~intrusive_ptr(this + 5);
+  this->__vftable = off_1004C8100;
+  boost::intrusive_ptr<boost::filesystem::filesystem_error::impl>::~intrusive_ptr(&this[2].__imp_);
 
   std::runtime_error::~runtime_error(this);
 }
 
 {
-  *this = off_1004C8100;
-  boost::intrusive_ptr<boost::filesystem::filesystem_error::impl>::~intrusive_ptr(this + 5);
+  this->__vftable = off_1004C8100;
+  boost::intrusive_ptr<boost::filesystem::filesystem_error::impl>::~intrusive_ptr(&this[2].__imp_);
   std::runtime_error::~runtime_error(this);
 
   operator delete(v2);
@@ -8459,7 +8878,7 @@ LABEL_28:
 
 uint64_t *boost::filesystem::filesystem_error::get_empty_path(boost::filesystem::filesystem_error *this)
 {
-  if ((atomic_load_explicit(&_MergedGlobals_15, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals_15, memory_order_acquire) & 1) == 0)
   {
     boost::filesystem::filesystem_error::get_empty_path();
   }
@@ -8577,7 +8996,7 @@ uint64_t boost::filesystem::emit_error(boost::filesystem *this, uint64_t a2, con
   return result;
 }
 
-uint64_t boost::filesystem::emit_error(boost::filesystem *this, uint64_t a2, const boost::filesystem::path *a3, const boost::filesystem::path *a4, boost::system::error_code *a5, const char *a6)
+uint64_t boost::filesystem::emit_error(boost::filesystem *this, const boost::filesystem::path *a2, const boost::filesystem::path *a3, const boost::filesystem::path *a4, boost::system::error_code *a5, const char *a6)
 {
   if (!a4)
   {
@@ -8628,19 +9047,18 @@ uint64_t boost::filesystem::emit_error(boost::filesystem *this, uint64_t a2, con
   return result;
 }
 
-void boost::system::system_error::build_message(boost::system::system_error *this@<X0>, boost::system::error_code *a2@<X1>, std::string *a3@<X8>)
+void boost::system::system_error::build_message(std::string *__return_ptr a1@<X8>, boost::system::system_error *this@<X0>, boost::system::error_code *a3@<X1>)
 {
-  a3->__r_.__value_.__r.__words[0] = 0;
-  a3->__r_.__value_.__l.__size_ = 0;
-  a3->__r_.__value_.__r.__words[2] = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
+  a1->__r_.__value_.__r.__words[2] = 0;
   if (this)
   {
-    v7 = strlen(this);
-    std::string::append(a3, this, v7);
-    std::string::append(a3, ": ", 2uLL);
+    v6 = strlen(this);
+    std::string::append(a1, this, v6);
+    std::string::append(a1, ": ", 2uLL);
   }
 
-  boost::system::error_code::what(a2, &__p);
+  boost::system::error_code::what(&__p, a3);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
@@ -8661,7 +9079,7 @@ void boost::system::system_error::build_message(boost::system::system_error *thi
     size = __p.__r_.__value_.__l.__size_;
   }
 
-  std::string::append(a3, p_p, size);
+  std::string::append(a1, p_p, size);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -8690,10 +9108,10 @@ void boost::system::system_error::~system_error(std::runtime_error *this)
   operator delete(v1);
 }
 
-std::string *boost::system::error_code::what@<X0>(boost::system::error_code *this@<X0>, std::string *a2@<X8>)
+std::string *boost::system::error_code::what@<X0>(std::string *__return_ptr a1@<X8>, boost::system::error_code *this@<X0>)
 {
-  boost::system::error_code::message(this, a2);
-  std::string::append(a2, " [", 2uLL);
+  boost::system::error_code::message(this, a1);
+  std::string::append(a1, " [", 2uLL);
   boost::system::error_code::to_string(this, &__p);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
@@ -8715,7 +9133,7 @@ std::string *boost::system::error_code::what@<X0>(boost::system::error_code *thi
     size = __p.__r_.__value_.__l.__size_;
   }
 
-  std::string::append(a2, p_p, size);
+  std::string::append(a1, p_p, size);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -8723,7 +9141,7 @@ std::string *boost::system::error_code::what@<X0>(boost::system::error_code *thi
 
   if (*(this + 2) >= 4uLL)
   {
-    std::string::append(a2, " at ", 4uLL);
+    std::string::append(a1, " at ", 4uLL);
     v6 = *(this + 2);
     if (v6 <= 3)
     {
@@ -8756,14 +9174,14 @@ std::string *boost::system::error_code::what@<X0>(boost::system::error_code *thi
       v9 = __p.__r_.__value_.__l.__size_;
     }
 
-    std::string::append(a2, v8, v9);
+    std::string::append(a1, v8, v9);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
   }
 
-  return std::string::append(a2, "]", 1uLL);
+  return std::string::append(a1, "]", 1uLL);
 }
 
 void sub_1001BD448(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -8888,9 +9306,9 @@ void sub_1001BD7F4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t boost::system::error_category::equivalent(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL boost::system::error_category::equivalent(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (*a3 != (*(*a1 + 8))(a1))
+  if (*a3 != (*(*a1 + 8))(a1, a2))
   {
     return 0;
   }
@@ -8961,49 +9379,6 @@ BOOL boost::system::error_code::equals(boost::system::error_code *this, int a2, 
   {
     return v8;
   }
-}
-
-void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
-{
-  v4 = strlen(__s);
-  if (v4 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::string::__throw_length_error[abi:ne200100]();
-  }
-
-  v5 = v4;
-  if (v4 >= 0x17)
-  {
-    if ((v4 | 7) == 0x17)
-    {
-      v7 = 25;
-    }
-
-    else
-    {
-      v7 = (v4 | 7) + 1;
-    }
-
-    v6 = operator new(v7);
-    a1[1] = v5;
-    a1[2] = v7 | 0x8000000000000000;
-    *a1 = v6;
-  }
-
-  else
-  {
-    *(a1 + 23) = v4;
-    v6 = a1;
-    if (!v4)
-    {
-      goto LABEL_10;
-    }
-  }
-
-  memmove(v6, __s, v5);
-LABEL_10:
-  *(v6 + v5) = 0;
-  return a1;
 }
 
 void std::string::__init_copy_ctor_external(std::string *this, const std::string::value_type *__s, std::string::size_type __sz)
@@ -9142,21 +9517,21 @@ std::string *__cdecl std::string::__assign_external(std::string *this, const std
 
 void *boost::system::detail::system_error_category::message@<X0>(int __errnum@<W1>, void *a2@<X8>)
 {
-  v4 = strerror(__errnum);
-  if (v4)
+  v3 = strerror(__errnum);
+  if (v3)
   {
-    v5 = v4;
+    v4 = v3;
   }
 
   else
   {
-    v5 = "Unknown error";
+    v4 = "Unknown error";
   }
 
-  return std::string::basic_string[abi:ne200100]<0>(a2, v5);
+  return std::string::basic_string[abi:ne200100]<0>(a2, v4);
 }
 
-const char *boost::system::detail::system_error_category::message(boost::system::detail::system_error_category *this, int __errnum, char *a3, uint64_t a4)
+char *boost::system::detail::system_error_category::message(boost::system::detail::system_error_category *this, int __errnum, char *a3, uint64_t a4)
 {
   v4 = a3;
   if (a4)
@@ -9207,68 +9582,68 @@ uint64_t *boost::intrusive_ptr<boost::filesystem::filesystem_error::impl>::~intr
   return a1;
 }
 
-double boost::filesystem::directory_entry::get_status@<D0>(boost::filesystem::directory_entry *this@<X0>, boost::system::error_code *a2@<X1>, double *a3@<X8>)
+double boost::filesystem::directory_entry::get_status@<D0>(double *__return_ptr a1@<X8>, boost::filesystem::directory_entry *this@<X0>, boost::system::error_code *a3@<X1>)
 {
   if (*(this + 6))
   {
-    v5 = *(this + 7) == 0xFFFF;
+    v6 = *(this + 7) == 0xFFFF;
   }
 
   else
   {
-    v5 = 1;
+    v6 = 1;
   }
 
-  if (v5)
+  if (v6)
   {
-    v6 = *(this + 8);
-    v7 = *(this + 9);
-    if ((v6 & 0xFFFFFFFB) == 0 || v7 == 0xFFFF)
+    v7 = *(this + 8);
+    v8 = *(this + 9);
+    if ((v7 & 0xFFFFFFFB) == 0 || v8 == 0xFFFF)
     {
-      boost::filesystem::detail::status(this, a2, &v10);
-      *(this + 3) = v10;
+      boost::filesystem::detail::status(&v11, this, a3);
+      *(this + 3) = v11;
       goto LABEL_14;
     }
 
-    *(this + 6) = v6;
-    *(this + 7) = v7;
+    *(this + 6) = v7;
+    *(this + 7) = v8;
   }
 
-  if (a2)
+  if (a3)
   {
-    *a2 = 0;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *a3 = 0;
+    *(a3 + 1) = 0;
+    *(a3 + 2) = 0;
   }
 
 LABEL_14:
   result = *(this + 3);
-  *a3 = result;
+  *a1 = result;
   return result;
 }
 
-int *boost::filesystem::directory_entry::get_symlink_status@<X0>(int *this@<X0>, boost::system::error_code *a2@<X1>, int *a3@<X8>)
+uint64_t *boost::filesystem::directory_entry::get_symlink_status@<X0>(uint64_t *this@<X0>, boost::system::error_code *a2@<X1>, _DWORD *a4@<X8>)
 {
-  v3 = this;
-  v5 = this[8];
-  v6 = this[9];
-  if (v5)
+  v4 = this;
+  v6 = *(this + 8);
+  v7 = *(this + 9);
+  if (v6)
   {
-    v7 = v6 == 0xFFFF;
+    v8 = v7 == 0xFFFF;
   }
 
   else
   {
-    v7 = 1;
+    v8 = 1;
   }
 
-  if (v7)
+  if (v8)
   {
-    this = boost::filesystem::detail::symlink_status(this, a2, v8);
-    v5 = v8[0];
-    v6 = v8[1];
-    v3[8] = v8[0];
-    v3[9] = v6;
+    this = boost::filesystem::detail::symlink_status(&v9, this, a2);
+    v6 = v9;
+    v7 = HIDWORD(v9);
+    *(v4 + 8) = v9;
+    *(v4 + 9) = v7;
   }
 
   else if (a2)
@@ -9276,36 +9651,36 @@ int *boost::filesystem::directory_entry::get_symlink_status@<X0>(int *this@<X0>,
     *a2 = 0;
     *(a2 + 1) = 0;
     *(a2 + 2) = 0;
-    v5 = this[8];
-    v6 = this[9];
+    v6 = *(this + 8);
+    v7 = *(this + 9);
   }
 
-  *a3 = v5;
-  a3[1] = v6;
+  *a4 = v6;
+  a4[1] = v7;
   return this;
 }
 
-DIR *boost::filesystem::detail::dir_itr_close@<X0>(DIR **this@<X0>, void **a2@<X1>, boost::system::error_code *a3@<X8>)
+DIR *boost::filesystem::detail::dir_itr_close@<X0>(boost::system::error_code *__return_ptr a1@<X8>, DIR **this@<X0>, void **a3@<X1>)
 {
-  if (*a2)
+  if (*a3)
   {
-    free(*a2);
-    *a2 = 0;
+    free(*a3);
+    *a3 = 0;
   }
 
   result = *this;
   if (*this && (*this = 0, result = closedir(result), result))
   {
-    v8 = *__error();
+    v7 = *__error();
 
-    return boost::system::error_code::error_code(a3, v8, &boost::system::detail::system_cat_holder<void>::instance);
+    return boost::system::error_code::error_code(a1, v7, &boost::system::detail::system_cat_holder<void>::instance);
   }
 
   else
   {
-    *a3 = 0;
-    *(a3 + 1) = 0;
-    *(a3 + 2) = 0;
+    *a1 = 0;
+    *(a1 + 1) = 0;
+    *(a1 + 2) = 0;
   }
 
   return result;
@@ -9536,251 +9911,4 @@ LABEL_32:
   }
 
   return boost::filesystem::emit_error(2, a2, a4, "boost::filesystem::directory_iterator::construct", a5);
-}
-
-void sub_1001BE458(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, boost::filesystem::detail::dir_itr_imp *a19)
-{
-  if (a18 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (SHIBYTE(a12) < 0)
-  {
-    operator delete(a10);
-  }
-
-  if (a2 == 1)
-  {
-    __cxa_begin_catch(a1);
-    if (v19)
-    {
-      if (qword_1004E53D0 >> 1 == 0x595588BD12BF6FE8 || (boost::system::detail::generic_cat_holder<void>::instance[6])(&boost::system::detail::generic_cat_holder<void>::instance, 12))
-      {
-        v23 = 3;
-      }
-
-      else
-      {
-        v23 = 2;
-      }
-
-      *v19 = 12;
-      v19[1] = &boost::system::detail::generic_cat_holder<void>::instance;
-      v19[2] = v23;
-      a19 = *v20;
-      *v20 = 0;
-      boost::intrusive_ptr<boost::filesystem::detail::dir_itr_imp>::~intrusive_ptr(&a19);
-      __cxa_end_catch();
-      JUMPOUT(0x1001BE370);
-    }
-
-    __cxa_rethrow();
-  }
-
-  JUMPOUT(0x1001BE448);
-}
-
-void sub_1001BE540(void *a1, int a2)
-{
-  if (a2)
-  {
-    __clang_call_terminate(a1);
-  }
-
-  JUMPOUT(0x1001BE450);
-}
-
-void boost::filesystem::detail::directory_iterator_increment(boost::filesystem::detail *this, boost::filesystem::directory_iterator *a2, boost::system::error_code *a3)
-{
-  if (a2)
-  {
-    *a2 = 0;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
-  }
-
-  memset(&v33, 0, sizeof(v33));
-  v34 = 0;
-  v35 = 0;
-  v5 = *this;
-  v6 = *(*this + 48);
-  while (1)
-  {
-    *v28 = 0;
-    *__error() = 0;
-    v7 = sysconf(91);
-    if (v7 < 0)
-    {
-      *__error() = 0;
-      v13 = readdir(v6);
-      *v28 = v13;
-      if (v13)
-      {
-LABEL_14:
-        std::string::__assign_external(&v33, v13->d_name);
-        memset(&v32, 0, sizeof(v32));
-        v34 = 0;
-        v35 = 0 >> 96;
-        goto LABEL_15;
-      }
-
-      v12 = *__error();
-      if (v12)
-      {
-        goto LABEL_31;
-      }
-    }
-
-    else
-    {
-      v8 = *(v5 + 56);
-      if (!v8)
-      {
-        v21 = malloc(v20 + 25);
-        *(v5 + 56) = v21;
-        if (!v21)
-        {
-          v12 = 12;
-LABEL_31:
-          *&v32.__r_.__value_.__l.__data_ = 0uLL;
-          if (qword_1004E53B8 >> 1 == 0x595588BD12BF6FE8 || (boost::system::detail::system_cat_holder<void>::instance[6])(&boost::system::detail::system_cat_holder<void>::instance, v12))
-          {
-            v14 = 3;
-          }
-
-          else
-          {
-            v14 = 2;
-          }
-
-          LODWORD(v32.__r_.__value_.__l.__data_) = v12;
-          v32.__r_.__value_.__l.__size_ = &boost::system::detail::system_cat_holder<void>::instance;
-          v32.__r_.__value_.__r.__words[2] = v14;
-          goto LABEL_9;
-        }
-
-        v8 = v21;
-        bzero(v21, v20 + 25);
-      }
-
-      v12 = readdir_r(v6, v8, v28);
-      if (v12)
-      {
-        goto LABEL_31;
-      }
-    }
-
-    v13 = *v28;
-    if (*v28)
-    {
-      goto LABEL_14;
-    }
-
-    boost::filesystem::detail::dir_itr_close((v5 + 48), (v5 + 56), &v32);
-    LODWORD(v12) = v32.__r_.__value_.__l.__data_;
-    v14 = v32.__r_.__value_.__r.__words[2];
-LABEL_9:
-    v34 = *(v32.__r_.__value_.__r.__words + 4);
-    v35 = HIDWORD(v32.__r_.__value_.__r.__words[1]);
-    if ((v14 & 1) != 0 && (v14 != 1 || v12))
-    {
-      v31 = *this;
-      v26 = v31;
-      *this = 0;
-      boost::filesystem::path::parent_path((v26 + 8), v9, v10, v11, &v32);
-      if (!a2)
-      {
-        exception = __cxa_allocate_exception(0x30uLL);
-        *v28 = v12;
-        *&v28[4] = v34;
-        v29 = v35;
-        v30 = v14;
-        boost::filesystem::filesystem_error::filesystem_error(exception, "boost::filesystem::directory_iterator::operator++", &v32, v28);
-      }
-
-      *a2 = v12;
-      *(a2 + 4) = v34;
-      *(a2 + 3) = v35;
-      *(a2 + 2) = v14;
-      if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v32.__r_.__value_.__l.__data_);
-      }
-
-      v22 = &v31;
-      goto LABEL_42;
-    }
-
-LABEL_15:
-    v5 = *this;
-    v6 = *(*this + 48);
-    if (!v6)
-    {
-      v32.__r_.__value_.__r.__words[0] = *this;
-      *this = 0;
-      v22 = &v32;
-LABEL_42:
-      boost::intrusive_ptr<boost::filesystem::detail::dir_itr_imp>::~intrusive_ptr(v22);
-      goto LABEL_46;
-    }
-
-    v15 = v33.__r_.__value_.__r.__words[0];
-    if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v16 = &v33;
-    }
-
-    else
-    {
-      v16 = v33.__r_.__value_.__r.__words[0];
-    }
-
-    if (v16->__r_.__value_.__s.__data_[0] != 46)
-    {
-      break;
-    }
-
-    v17 = (v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v33 : v33.__r_.__value_.__r.__words[0];
-    v18 = v17->__r_.__value_.__s.__data_[1];
-    if (v18)
-    {
-      if (v18 != 46)
-      {
-        break;
-      }
-
-      v19 = (v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v33 : v33.__r_.__value_.__r.__words[0];
-      if (v19->__r_.__value_.__s.__data_[2])
-      {
-        break;
-      }
-    }
-  }
-
-  if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v32, v33.__r_.__value_.__l.__data_, v33.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v32 = v33;
-  }
-
-  boost::filesystem::path::remove_filename((v5 + 8), v15, v10, v11);
-  boost::filesystem::path::append_v4((v5 + 8), &v32, v23, v24);
-  *&v25 = 0xFFFF00000000;
-  *(&v25 + 1) = 0xFFFF00000000;
-  *(v5 + 32) = v25;
-  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v32.__r_.__value_.__l.__data_);
-  }
-
-LABEL_46:
-  if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v33.__r_.__value_.__l.__data_);
-  }
 }

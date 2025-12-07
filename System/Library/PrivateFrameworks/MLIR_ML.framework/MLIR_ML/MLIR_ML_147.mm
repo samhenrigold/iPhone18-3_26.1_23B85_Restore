@@ -1,3 +1,289 @@
+BOOL mlir::memref::PrefetchOp::verifyInvariantsImpl(mlir::Operation **this)
+{
+  v54 = *MEMORY[0x277D85DE8];
+  v1 = *this + 16 * ((*(*this + 11) >> 23) & 1);
+  v4 = *(v1 + 64);
+  v2 = v1 + 64;
+  v3 = v4;
+  if (!v4)
+  {
+    v43[0] = "requires attribute 'isDataCache'";
+    v44 = 259;
+    mlir::OpState::emitOpError(v45, this, v43);
+    v10 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v45);
+    if (v45[0])
+    {
+      mlir::InFlightDiagnostic::report(v45);
+    }
+
+    if (v53 != 1)
+    {
+      return v10;
+    }
+
+    if (v52 != &v53)
+    {
+      free(v52);
+    }
+
+    v11 = __p;
+    if (__p)
+    {
+      v12 = v51;
+      v13 = __p;
+      if (v51 != __p)
+      {
+        do
+        {
+          v12 = std::unique_ptr<mlir::Diagnostic>::~unique_ptr[abi:nn200100](v12 - 1);
+        }
+
+        while (v12 != v11);
+        v13 = __p;
+      }
+
+      v51 = v11;
+      operator delete(v13);
+    }
+
+    v14 = v48;
+    if (v48)
+    {
+      v15 = v49;
+      v16 = v48;
+      if (v49 != v48)
+      {
+        do
+        {
+          v18 = *--v15;
+          v17 = v18;
+          *v15 = 0;
+          if (v18)
+          {
+            MEMORY[0x259C63150](v17, 0x1000C8077774924);
+          }
+        }
+
+        while (v15 != v14);
+        goto LABEL_56;
+      }
+
+      goto LABEL_57;
+    }
+
+    goto LABEL_58;
+  }
+
+  v5 = *(v2 + 8);
+  if (!v5)
+  {
+    v43[0] = "requires attribute 'isWrite'";
+    v44 = 259;
+    mlir::OpState::emitOpError(v45, this, v43);
+    v10 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v45);
+    if (v45[0])
+    {
+      mlir::InFlightDiagnostic::report(v45);
+    }
+
+    if (v53 != 1)
+    {
+      return v10;
+    }
+
+    if (v52 != &v53)
+    {
+      free(v52);
+    }
+
+    v19 = __p;
+    if (__p)
+    {
+      v20 = v51;
+      v21 = __p;
+      if (v51 != __p)
+      {
+        do
+        {
+          v20 = std::unique_ptr<mlir::Diagnostic>::~unique_ptr[abi:nn200100](v20 - 1);
+        }
+
+        while (v20 != v19);
+        v21 = __p;
+      }
+
+      v51 = v19;
+      operator delete(v21);
+    }
+
+    v14 = v48;
+    if (v48)
+    {
+      v22 = v49;
+      v16 = v48;
+      if (v49 != v48)
+      {
+        do
+        {
+          v24 = *--v22;
+          v23 = v24;
+          *v22 = 0;
+          if (v24)
+          {
+            MEMORY[0x259C63150](v23, 0x1000C8077774924);
+          }
+        }
+
+        while (v22 != v14);
+        goto LABEL_56;
+      }
+
+LABEL_57:
+      v49 = v14;
+      operator delete(v16);
+    }
+
+LABEL_58:
+    if (v46 != &v47)
+    {
+      free(v46);
+    }
+
+    return v10;
+  }
+
+  v6 = *(v2 + 16);
+  if (!v6)
+  {
+    v43[0] = "requires attribute 'localityHint'";
+    v44 = 259;
+    mlir::OpState::emitOpError(v45, this, v43);
+    v10 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v45);
+    if (v45[0])
+    {
+      mlir::InFlightDiagnostic::report(v45);
+    }
+
+    if (v53 != 1)
+    {
+      return v10;
+    }
+
+    if (v52 != &v53)
+    {
+      free(v52);
+    }
+
+    v25 = __p;
+    if (__p)
+    {
+      v26 = v51;
+      v27 = __p;
+      if (v51 != __p)
+      {
+        do
+        {
+          v26 = std::unique_ptr<mlir::Diagnostic>::~unique_ptr[abi:nn200100](v26 - 1);
+        }
+
+        while (v26 != v25);
+        v27 = __p;
+      }
+
+      v51 = v25;
+      operator delete(v27);
+    }
+
+    v14 = v48;
+    if (v48)
+    {
+      v28 = v49;
+      v16 = v48;
+      if (v49 != v48)
+      {
+        do
+        {
+          v30 = *--v28;
+          v29 = v30;
+          *v28 = 0;
+          if (v30)
+          {
+            MEMORY[0x259C63150](v29, 0x1000C8077774924);
+          }
+        }
+
+        while (v28 != v14);
+LABEL_56:
+        v16 = v48;
+        goto LABEL_57;
+      }
+
+      goto LABEL_57;
+    }
+
+    goto LABEL_58;
+  }
+
+  v45[0] = *this;
+  if (!mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps2(v5, "isWrite", 7, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps3(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v45))
+  {
+    return 0;
+  }
+
+  v45[0] = *this;
+  if (!mlir::affine::__mlir_ods_local_attr_constraint_AffineOps7(v6, "localityHint", 0xC, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps13(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v45))
+  {
+    return 0;
+  }
+
+  v45[0] = *this;
+  if (!mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps2(v3, "isDataCache", 0xB, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps3(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v45))
+  {
+    return 0;
+  }
+
+  ODSOperands = mlir::memref::PrefetchOp::getODSOperands(this, 0, v8, v9);
+  if (v33)
+  {
+    v36 = v33;
+    v37 = 0;
+    v38 = ODSOperands + 24;
+    while (mlir::memref::__mlir_ods_local_type_constraint_MemRefOps1(*this, (*(*v38 + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, v37))
+    {
+      ++v37;
+      v38 += 32;
+      if (v36 == v37)
+      {
+        goto LABEL_67;
+      }
+    }
+
+    return 0;
+  }
+
+  LODWORD(v37) = 0;
+LABEL_67:
+  v10 = 1;
+  v39 = mlir::memref::PrefetchOp::getODSOperands(this, 1u, v34, v35);
+  if (v40)
+  {
+    v41 = v40;
+    for (i = v39 + 24; mlir::scf::__mlir_ods_local_type_constraint_SCFOps4(*this, *(*i + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, v37); i += 32)
+    {
+      LODWORD(v37) = v37 + 1;
+      v10 = 1;
+      if (!--v41)
+      {
+        return v10;
+      }
+    }
+
+    return 0;
+  }
+
+  return v10;
+}
+
 uint64_t mlir::memref::RankOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v8 = a4;
@@ -21,10 +307,10 @@ void mlir::memref::RankOp::build(mlir::IndexType **a1, uint64_t a2, uint64_t a3)
   __src = v18;
   v17 = 0x200000000;
   v5 = *a1;
-  mlir::ValueRange::ValueRange(&v15, *(a2 + 16), *(a2 + 24));
+  mlir::ValueRange::ValueRange(v15, *(a2 + 16), *(a2 + 24));
   Context = mlir::Attribute::getContext(a2);
   mlir::NamedAttrList::getDictionary((a2 + 112), Context);
-  mlir::RegionRange::RegionRange(&v14, *(a2 + 224), *(a2 + 232));
+  mlir::RegionRange::RegionRange(v14, *(a2 + 224), *(a2 + 232));
   if (v17 != 1)
   {
     if (!v17)
@@ -87,7 +373,7 @@ uint64_t mlir::memref::RankOp::inferReturnTypes(mlir::IndexType *a1, mlir::MLIRC
   return 1;
 }
 
-unint64_t mlir::memref::RankOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t mlir::memref::RankOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v12 = a5;
   result = mlir::OperationState::addOperands(a2, &v12, 1uLL);
@@ -115,7 +401,7 @@ unint64_t mlir::memref::RankOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uin
   return result;
 }
 
-unint64_t mlir::memref::RankOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
+void *mlir::memref::RankOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
 {
   result = mlir::OperationState::addOperands(a2, a5, a6);
   *(a2 + 192) = 0;
@@ -179,7 +465,7 @@ void mlir::memref::RankOp::build(mlir::IndexType **a1, uint64_t a2, uint64_t a3,
   v11 = *a1;
   Context = mlir::Attribute::getContext(a2);
   mlir::NamedAttrList::getDictionary((a2 + 112), Context);
-  mlir::RegionRange::RegionRange(&v19, *(a2 + 224), *(a2 + 232));
+  mlir::RegionRange::RegionRange(v19, *(a2 + 224), *(a2 + 232));
   if (v21 != 1)
   {
     if (!v21)
@@ -219,9 +505,9 @@ void mlir::memref::RankOp::build(mlir::IndexType **a1, uint64_t a2, uint64_t a3,
   }
 }
 
-uint64_t mlir::memref::RankOp::verifyInvariantsImpl(mlir::Operation **this)
+BOOL mlir::memref::RankOp::verifyInvariantsImpl(mlir::Operation **this)
 {
-  v2 = mlir::memref::__mlir_ods_local_type_constraint_MemRefOps6(*this, *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, 0);
+  v2 = mlir::memref::__mlir_ods_local_type_constraint_MemRefOps6(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0);
   result = 0;
   if (v2)
   {
@@ -236,15 +522,15 @@ uint64_t mlir::memref::RankOp::verifyInvariantsImpl(mlir::Operation **this)
     }
 
     NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v4, 0);
-    return mlir::tensor::__mlir_ods_local_type_constraint_TensorOps5(*this, *(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8, "result", 6, 0) & 1;
+    return mlir::tensor::__mlir_ods_local_type_constraint_TensorOps5(*this, *(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8, "result", 6, 0);
   }
 
   return result;
 }
 
-uint64_t mlir::memref::RankOp::verifyInvariants(mlir::Operation **this)
+BOOL mlir::memref::RankOp::verifyInvariants(mlir::Operation **this)
 {
-  v2 = mlir::memref::__mlir_ods_local_type_constraint_MemRefOps6(*this, *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, 0);
+  v2 = mlir::memref::__mlir_ods_local_type_constraint_MemRefOps6(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0);
   result = 0;
   if (v2)
   {
@@ -259,13 +545,13 @@ uint64_t mlir::memref::RankOp::verifyInvariants(mlir::Operation **this)
     }
 
     NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v4, 0);
-    return mlir::tensor::__mlir_ods_local_type_constraint_TensorOps5(*this, *(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8, "result", 6, 0) & 1;
+    return mlir::tensor::__mlir_ods_local_type_constraint_TensorOps5(*this, *(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8, "result", 6, 0);
   }
 
   return result;
 }
 
-uint64_t mlir::memref::RankOp::parse(mlir::memref::RankOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
+BOOL mlir::memref::RankOp::parse(mlir::memref::RankOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
 {
   memset(v15, 0, sizeof(v15));
   v16 = 0;
@@ -308,7 +594,7 @@ uint64_t mlir::memref::RankOp::parse(mlir::memref::RankOp *this, mlir::OpAsmPars
 
   *(*(a2 + 8) + 8 * v9) = IndexType;
   ++*(a2 + 18);
-  return mlir::OpAsmParser::resolveOperands<llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::Type> &>(this, v14, v12, v5, a2 + 16) & 1;
+  return mlir::OpAsmParser::resolveOperands<llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::Type> &>(this, v14, v12, v5, a2 + 16);
 }
 
 void mlir::memref::RankOp::print(mlir::Operation **this, mlir::OpAsmPrinter *a2)
@@ -559,7 +845,7 @@ uint64_t mlir::memref::detail::ReallocOpGenericAdaptorBase::getAlignment(mlir::m
   return result;
 }
 
-uint64_t mlir::memref::ReallocOpAdaptor::verify(uint64_t a1, uint64_t a2)
+BOOL mlir::memref::ReallocOpAdaptor::verify(uint64_t a1, uint64_t a2)
 {
   v26 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 24);
@@ -949,7 +1235,7 @@ unint64_t mlir::memref::ReallocOp::getInherentAttr(uint64_t a1, void *a2, uint64
   }
 }
 
-void *mlir::memref::ReallocOp::setInherentAttr(void *result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *mlir::memref::ReallocOp::setInherentAttr(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a3 == 9 && *a2 == 0x6E656D6E67696C61 && *(a2 + 8) == 116)
   {
@@ -987,9 +1273,9 @@ uint64_t mlir::memref::ReallocOp::populateInherentAttrs(uint64_t a1, uint64_t *a
   return result;
 }
 
-BOOL mlir::memref::ReallocOp::readProperties(uint64_t a1, uint64_t a2)
+BOOL mlir::memref::ReallocOp::readProperties(uint64_t a1, void *a2)
 {
-  v2 = *(a2 + 256);
+  v2 = a2[32];
   if (!v2)
   {
     operator new();
@@ -1028,7 +1314,7 @@ uint64_t mlir::memref::ReallocOp::getAlignment(mlir::memref::ReallocOp *this)
   return result;
 }
 
-uint64_t mlir::memref::ReallocOp::setAlignment(uint64_t result, unint64_t a2, char a3)
+uint64_t mlir::memref::ReallocOp::setAlignment(uint64_t result, uint64_t a2, char a3)
 {
   v3 = *result + 16 * ((*(*result + 44) >> 23) & 1);
   if (a3)
@@ -1049,7 +1335,7 @@ uint64_t mlir::memref::ReallocOp::setAlignment(uint64_t result, unint64_t a2, ch
   return result;
 }
 
-uint64_t mlir::memref::ReallocOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void *mlir::memref::ReallocOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v13 = a5;
   v14 = a4;
@@ -1081,7 +1367,7 @@ uint64_t mlir::memref::ReallocOp::build(uint64_t a1, uint64_t a2, uint64_t a3, u
   return result;
 }
 
-unint64_t mlir::memref::ReallocOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+void *mlir::memref::ReallocOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v17 = a6;
   v18 = a5;
@@ -1188,20 +1474,20 @@ uint64_t mlir::memref::ReallocOp::build(uint64_t a1, uint64_t a2, uint64_t a3, u
     result = (*(*v20 + 144))(v20, v19, v18, Dictionary, 0);
     if ((result & 1) == 0)
     {
-      llvm::report_fatal_error("Property conversion failed.", 1);
+      llvm::report_fatal_error("Property conversion failed.", 1, v23);
     }
   }
 
   return result;
 }
 
-BOOL mlir::memref::ReallocOp::verifyInvariantsImpl(mlir::Operation **this)
+uint64_t mlir::memref::ReallocOp::verifyInvariantsImpl(mlir::Operation **this)
 {
   v42 = *MEMORY[0x277D85DE8];
   v2 = *this;
   v3 = *(*this + 2 * ((*(*this + 11) >> 23) & 1) + 8);
   v31[0] = v2;
-  if ((mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps4(v3, "alignment", 9, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps4(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v31) & 1) == 0 || (mlir::memref::__mlir_ods_local_type_constraint_MemRefOps13(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0) & 1) == 0)
+  if (!mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps4(v3, "alignment", 9, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps4(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v31) || !mlir::memref::__mlir_ods_local_type_constraint_MemRefOps13(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0))
   {
     return 0;
   }
@@ -1231,7 +1517,7 @@ LABEL_31:
       }
 
       NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v25, 0);
-      return mlir::memref::__mlir_ods_local_type_constraint_MemRefOps13(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0) & 1;
+      return mlir::memref::__mlir_ods_local_type_constraint_MemRefOps13(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
     }
 
     if (mlir::tensor::__mlir_ods_local_type_constraint_TensorOps5(v4, *(*(*(v4 + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, 1u))
@@ -1246,7 +1532,7 @@ LABEL_31:
 LABEL_5:
   v27 = "operand group starting at #";
   v28 = 259;
-  mlir::OpState::emitOpError(this, &v27, v31);
+  mlir::OpState::emitOpError(v31, this, &v27);
   if (v31[0])
   {
     LODWORD(v29) = 5;
@@ -1383,11 +1669,11 @@ LABEL_5:
   return result;
 }
 
-uint64_t mlir::memref::__mlir_ods_local_type_constraint_MemRefOps13(mlir::Operation *a1, void **a2, void **a3, uint64_t a4, unsigned int a5)
+BOOL mlir::memref::__mlir_ods_local_type_constraint_MemRefOps13(mlir::Operation *a1, const char *a2, const char *a3, uint64_t a4, unsigned int a5)
 {
   v87 = *MEMORY[0x277D85DE8];
   v9 = *a2;
-  if (*(*a2 + 17) != &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id)
+  if (*(*a2 + 136) != &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id)
   {
     goto LABEL_2;
   }
@@ -1395,8 +1681,8 @@ uint64_t mlir::memref::__mlir_ods_local_type_constraint_MemRefOps13(mlir::Operat
   v29 = a1;
   {
     v30 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v31 = v9[1];
-    v32 = *(v9 + 4);
+    v31 = *(v9 + 8);
+    v32 = *(v9 + 16);
     if (!v32)
     {
       goto LABEL_56;
@@ -1408,8 +1694,8 @@ uint64_t mlir::memref::__mlir_ods_local_type_constraint_MemRefOps13(mlir::Operat
     v40 = v9;
     mlir::tensor::ExpandShapeOp::fold();
     v30 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v31 = v40[1];
-    v32 = *(v40 + 4);
+    v31 = *(v40 + 8);
+    v32 = *(v40 + 16);
     if (!v32)
     {
       goto LABEL_56;
@@ -1452,8 +1738,8 @@ LABEL_66:
     v69 = v41;
     mlir::mps::serialization::ExtractOp::inferReturnTypes();
     v42 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v43 = v69[1];
-    v44 = *(v69 + 4);
+    v43 = *(v69 + 8);
+    v44 = *(v69 + 16);
     if (!v44)
     {
       goto LABEL_69;
@@ -1473,8 +1759,8 @@ LABEL_66:
 
 LABEL_57:
   v42 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-  v43 = v41[1];
-  v44 = *(v41 + 4);
+  v43 = *(v41 + 8);
+  v44 = *(v41 + 16);
   if (!v44)
   {
     goto LABEL_69;
@@ -1531,8 +1817,8 @@ LABEL_72:
   v55 = *a2;
   {
     v56 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v57 = v55[1];
-    v58 = *(v55 + 4);
+    v57 = *(v55 + 8);
+    v58 = *(v55 + 16);
     if (!v58)
     {
       goto LABEL_84;
@@ -1544,8 +1830,8 @@ LABEL_72:
     v65 = v55;
     mlir::mps::serialization::ExtractOp::inferReturnTypes();
     v56 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v57 = v65[1];
-    v58 = *(v65 + 4);
+    v57 = *(v65 + 8);
+    v58 = *(v65 + 16);
     if (!v58)
     {
       goto LABEL_84;
@@ -1821,7 +2107,7 @@ uint64_t mlir::memref::ReallocOp::parse(mlir::memref::ReallocOp *this, mlir::OpA
   v10 = mlir::NamedAttrList::get(a2 + 112, **(v9 + 96));
   if (v10)
   {
-    if ((mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps4(v10, "alignment", 9, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::ReallocOp::parse(mlir::OpAsmParser &,mlir::OperationState &)::$_0>, &v25) & 1) == 0)
+    if (!mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps4(v10, "alignment", 9, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::ReallocOp::parse(mlir::OpAsmParser &,mlir::OperationState &)::$_0>, &v25))
     {
       goto LABEL_21;
     }
@@ -1853,7 +2139,7 @@ uint64_t mlir::memref::ReallocOp::parse(mlir::memref::ReallocOp *this, mlir::OpA
   v11 = (*(*this + 32))(this);
   IndexType = mlir::Builder::getIndexType(v11, v12);
   mlir::OperationState::addTypes(a2, v28, v29);
-  if ((mlir::OpAsmParser::resolveOperands<llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::Type> &>(this, v22, v20, v5, a2 + 16) & 1) == 0)
+  if (!mlir::OpAsmParser::resolveOperands<llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::Type> &>(this, v22, v20, v5, a2 + 16))
   {
     goto LABEL_21;
   }
@@ -1936,7 +2222,7 @@ void mlir::memref::ReallocOp::print(mlir::Operation **this, mlir::OpAsmPrinter *
     }
 
 LABEL_10:
-    if (*(*(v8 + 9) + 56))
+    if (*(v8[9] + 56))
     {
       (*(*a2 + 160))(a2);
     }
@@ -2060,7 +2346,7 @@ LABEL_15:
 
   v38[0] = v26;
   v38[1] = v25;
-  mlir::ResultRange::getTypes(v38, &AttrDictionary);
+  mlir::ResultRange::getTypes(&AttrDictionary, v38);
   v27 = v36;
   v28 = v37;
   if (v36 != v37)
@@ -2094,17 +2380,17 @@ LABEL_15:
   }
 }
 
-void mlir::memref::ReallocOp::getEffects(uint64_t a1, uint64_t a2)
+void mlir::memref::ReallocOp::getEffects(uint64_t result, uint64_t a2)
 {
   {
     v12 = a2;
-    v13 = a1;
+    v13 = result;
     mlir::memref::DeallocOp::getEffects();
-    a1 = v13;
+    result = v13;
     a2 = v12;
   }
 
-  v24 = *(*a1 + 72);
+  v24 = *(*result + 72);
   v25 = &mlir::SideEffects::Effect::get<mlir::MemoryEffects::Free>(void)::instance;
   v23 = 0;
   v22 = 1;
@@ -2118,9 +2404,9 @@ void mlir::memref::ReallocOp::getEffects(uint64_t a1, uint64_t a2)
 
 LABEL_10:
     v16 = a2;
-    v17 = a1;
+    v17 = result;
     llvm::SmallVectorTemplateBase<mlir::SideEffects::EffectInstance<mlir::MemoryEffects::Effect>,true>::growAndEmplaceBack<mlir::MemoryEffects::Read *,mlir::OpOperand *,int,BOOL,mlir::SideEffects::DefaultResource *>(a2, &v25, &v24, &v23, &v22, &v21);
-    a1 = v17;
+    result = v17;
     a2 = v16;
     {
       goto LABEL_6;
@@ -2130,9 +2416,9 @@ LABEL_10:
   }
 
   v14 = a2;
-  v15 = a1;
+  v15 = result;
   mlir::mps::AssignVariableOp::getEffects();
-  a1 = v15;
+  result = v15;
   a2 = v14;
   v21 = mlir::SideEffects::Resource::Base<mlir::SideEffects::DefaultResource,mlir::SideEffects::Resource>::get(void)::instance;
   v2 = *(v14 + 8);
@@ -2159,12 +2445,12 @@ LABEL_5:
 
 LABEL_11:
   v18 = a2;
-  v19 = a1;
+  v19 = result;
   mlir::memref::ReallocOp::getEffects();
-  a1 = v19;
+  result = v19;
   a2 = v18;
 LABEL_6:
-  v24 = *a1 - 16;
+  v24 = *result - 16;
   v25 = &mlir::SideEffects::Effect::get<mlir::MemoryEffects::Allocate>(void)::instance;
   v23 = 1;
   v22 = 1;
@@ -2304,7 +2590,7 @@ unint64_t mlir::memref::detail::ReinterpretCastOpGenericAdaptorBase::getODSOpera
   return v4 | (v2[a2] << 32);
 }
 
-uint64_t mlir::memref::ReinterpretCastOpAdaptor::verify(void *a1, uint64_t a2)
+BOOL mlir::memref::ReinterpretCastOpAdaptor::verify(void *a1, uint64_t a2)
 {
   v35 = *MEMORY[0x277D85DE8];
   if (a1[3])
@@ -2582,40 +2868,41 @@ unint64_t mlir::memref::ReinterpretCastOp::getODSOperandIndexAndLength(mlir::mem
   return v6 | (v4[a2] << 32);
 }
 
-uint64_t mlir::memref::ReinterpretCastOp::setPropertiesFromAttr(uint64_t a1, uint64_t a2, void (*a3)(void *__return_ptr, uint64_t), uint64_t a4)
+uint64_t mlir::memref::ReinterpretCastOp::setPropertiesFromAttr(uint64_t *a1, uint64_t a2, void (*a3)(uint64_t *__return_ptr, uint64_t), uint64_t a4)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (*(*a2 + 136) == &mlir::detail::TypeIDResolver<mlir::DictionaryAttr,void>::id)
   {
-    v4 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v4 = 0;
+    v6 = 0;
   }
 
-  v16 = v4;
-  if (v4)
+  v20 = v6;
+  if (v6)
   {
-    if (mlir::DictionaryAttr::get(&v16, "static_offsets", 0xEuLL))
+    if (mlir::DictionaryAttr::get(&v20, "static_offsets", 0xEuLL))
     {
       mlir::detail::DenseArrayAttrImpl<long long>::classof();
     }
 
-    if (mlir::DictionaryAttr::get(&v16, "static_sizes", 0xCuLL))
+    if (mlir::DictionaryAttr::get(&v20, "static_sizes", 0xCuLL))
     {
       mlir::detail::DenseArrayAttrImpl<long long>::classof();
     }
 
-    if (mlir::DictionaryAttr::get(&v16, "static_strides", 0xEuLL))
+    if (mlir::DictionaryAttr::get(&v20, "static_strides", 0xEuLL))
     {
       mlir::detail::DenseArrayAttrImpl<long long>::classof();
     }
 
-    if (mlir::DictionaryAttr::get(&v16, "operandSegmentSizes", 0x13uLL) || mlir::DictionaryAttr::get(&v16, "operand_segment_sizes", 0x15uLL))
+    v8 = mlir::DictionaryAttr::get(&v20, "operandSegmentSizes", 0x13uLL);
+    if (v8 || (v8 = mlir::DictionaryAttr::get(&v20, "operand_segment_sizes", 0x15uLL)) != 0)
     {
-      mlir::convertFromAttribute();
+      mlir::convertFromAttribute(a1 + 3, 4, v8, a3, a4);
     }
 
     return 1;
@@ -2623,15 +2910,15 @@ uint64_t mlir::memref::ReinterpretCastOp::setPropertiesFromAttr(uint64_t a1, uin
 
   else
   {
-    a3(v19, a4);
-    if (v19[0])
+    a3(v23, a4);
+    if (v23[0])
     {
-      LODWORD(v17) = 3;
-      *(&v17 + 1) = "expected DictionaryAttr to set properties";
-      v18 = 41;
-      if (v21 >= v22)
+      LODWORD(v21) = 3;
+      *(&v21 + 1) = "expected DictionaryAttr to set properties";
+      v22 = 41;
+      if (v25 >= v26)
       {
-        if (v20 > &v17 || v20 + 24 * v21 <= &v17)
+        if (v24 > &v21 || v24 + 24 * v25 <= &v21)
         {
           llvm::SmallVectorBase<unsigned int>::grow_pod();
         }
@@ -2639,73 +2926,73 @@ uint64_t mlir::memref::ReinterpretCastOp::setPropertiesFromAttr(uint64_t a1, uin
         llvm::SmallVectorBase<unsigned int>::grow_pod();
       }
 
-      v6 = v20 + 24 * v21;
-      v7 = v17;
-      *(v6 + 2) = v18;
-      *v6 = v7;
-      ++v21;
-      if (v19[0])
+      v10 = v24 + 24 * v25;
+      v11 = v21;
+      *(v10 + 2) = v22;
+      *v10 = v11;
+      ++v25;
+      if (v23[0])
       {
-        mlir::InFlightDiagnostic::report(v19);
+        mlir::InFlightDiagnostic::report(v23);
       }
     }
 
-    if (v29 == 1)
+    if (v33 == 1)
     {
-      if (v28 != &v29)
+      if (v32 != &v33)
       {
-        free(v28);
+        free(v32);
       }
 
-      v8 = __p;
+      v12 = __p;
       if (__p)
       {
-        v9 = v27;
-        v10 = __p;
-        if (v27 != __p)
+        v13 = v31;
+        v14 = __p;
+        if (v31 != __p)
         {
           do
           {
-            v9 = std::unique_ptr<mlir::Diagnostic>::~unique_ptr[abi:nn200100](v9 - 1);
+            v13 = std::unique_ptr<mlir::Diagnostic>::~unique_ptr[abi:nn200100](v13 - 1);
           }
 
-          while (v9 != v8);
-          v10 = __p;
+          while (v13 != v12);
+          v14 = __p;
         }
 
-        v27 = v8;
-        operator delete(v10);
+        v31 = v12;
+        operator delete(v14);
       }
 
-      v11 = v24;
-      if (v24)
+      v15 = v28;
+      if (v28)
       {
-        v12 = v25;
-        v13 = v24;
-        if (v25 != v24)
+        v16 = v29;
+        v17 = v28;
+        if (v29 != v28)
         {
           do
           {
-            v15 = *--v12;
-            v14 = v15;
-            *v12 = 0;
-            if (v15)
+            v19 = *--v16;
+            v18 = v19;
+            *v16 = 0;
+            if (v19)
             {
-              MEMORY[0x259C63150](v14, 0x1000C8077774924);
+              MEMORY[0x259C63150](v18, 0x1000C8077774924);
             }
           }
 
-          while (v12 != v11);
-          v13 = v24;
+          while (v16 != v15);
+          v17 = v28;
         }
 
-        v25 = v11;
-        operator delete(v13);
+        v29 = v15;
+        operator delete(v17);
       }
 
-      if (v20 != &v23)
+      if (v24 != &v27)
       {
-        free(v20);
+        free(v24);
       }
     }
 
@@ -2794,7 +3081,7 @@ unint64_t mlir::memref::ReinterpretCastOp::computePropertiesHash(void *a1)
   return llvm::hashing::detail::hash_combine_recursive_helper::combine(v18, v17, v14, v20);
 }
 
-uint64_t mlir::memref::ReinterpretCastOp::getInherentAttr(int a1, void *a2, char *__s1, uint64_t __n)
+uint64_t mlir::memref::ReinterpretCastOp::getInherentAttr(uint64_t a1, void *a2, char *__s1, uint64_t __n)
 {
   if (__n > 18)
   {
@@ -2942,17 +3229,17 @@ void mlir::memref::ReinterpretCastOp::populateInherentAttrs(uint64_t a1, uint64_
   mlir::detail::DenseArrayAttrImpl<int>::get();
 }
 
-BOOL mlir::memref::ReinterpretCastOp::verifyInherentAttrs(uint64_t a1, uint64_t a2)
+BOOL mlir::memref::ReinterpretCastOp::verifyInherentAttrs(uint64_t a1, uint64_t a2, void (*a3)(uint64_t *__return_ptr, uint64_t), uint64_t a4)
 {
-  v4 = mlir::NamedAttrList::get(a2, **(a1 + 96));
+  v8 = mlir::NamedAttrList::get(a2, **(a1 + 96));
   result = 0;
-  if (!v4 || (mlir::scf::__mlir_ods_local_attr_constraint_SCFOps1(v4) & 1) != 0)
+  if (!v8 || (mlir::scf::__mlir_ods_local_attr_constraint_SCFOps1(v8, "static_offsets", 0xE, a3, a4) & 1) != 0)
   {
-    v5 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 8));
-    if (!v5 || (mlir::scf::__mlir_ods_local_attr_constraint_SCFOps1(v5) & 1) != 0)
+    v9 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 8));
+    if (!v9 || (mlir::scf::__mlir_ods_local_attr_constraint_SCFOps1(v9, "static_sizes", 0xC, a3, a4) & 1) != 0)
     {
-      v6 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 16));
-      if (!v6 || (mlir::scf::__mlir_ods_local_attr_constraint_SCFOps1(v6) & 1) != 0)
+      v10 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 16));
+      if (!v10 || (mlir::scf::__mlir_ods_local_attr_constraint_SCFOps1(v10, "static_strides", 0xE, a3, a4) & 1) != 0)
       {
         return 1;
       }
@@ -2962,10 +3249,10 @@ BOOL mlir::memref::ReinterpretCastOp::verifyInherentAttrs(uint64_t a1, uint64_t 
   return result;
 }
 
-uint64_t mlir::memref::ReinterpretCastOp::readProperties(uint64_t a1, uint64_t a2)
+uint64_t mlir::memref::ReinterpretCastOp::readProperties(uint64_t a1, void *a2)
 {
   v25 = *MEMORY[0x277D85DE8];
-  v3 = *(a2 + 256);
+  v3 = a2[32];
   if (!v3)
   {
     operator new();
@@ -2973,7 +3260,7 @@ uint64_t mlir::memref::ReinterpretCastOp::readProperties(uint64_t a1, uint64_t a
 
   if ((*(*a1 + 40))(a1) > 5)
   {
-    if (mlir::DialectBytecodeReader::readAttribute<mlir::detail::DenseArrayAttrImpl<long long>>(a1) & 1) != 0 && (mlir::DialectBytecodeReader::readAttribute<mlir::detail::DenseArrayAttrImpl<long long>>(a1) & 1) != 0 && (mlir::DialectBytecodeReader::readAttribute<mlir::detail::DenseArrayAttrImpl<long long>>(a1) & 1) != 0 && ((*(*a1 + 40))(a1) < 6 || (mlir::DialectBytecodeReader::readSparseArray<int>(a1, (v3 + 24), 4uLL)))
+    if (mlir::DialectBytecodeReader::readAttribute<mlir::detail::DenseArrayAttrImpl<long long>>(a1, v3) & 1) != 0 && (mlir::DialectBytecodeReader::readAttribute<mlir::detail::DenseArrayAttrImpl<long long>>(a1, (v3 + 8)) & 1) != 0 && (mlir::DialectBytecodeReader::readAttribute<mlir::detail::DenseArrayAttrImpl<long long>>(a1, (v3 + 16)) & 1) != 0 && ((*(*a1 + 40))(a1) < 6 || (mlir::DialectBytecodeReader::readSparseArray<int>(a1, (v3 + 24), 4uLL)))
     {
       return 1;
     }
@@ -2982,7 +3269,7 @@ uint64_t mlir::memref::ReinterpretCastOp::readProperties(uint64_t a1, uint64_t a
   else
   {
     v15 = 0;
-    if (mlir::DialectBytecodeReader::readAttribute<mlir::detail::DenseArrayAttrImpl<int>>(a1))
+    if (mlir::DialectBytecodeReader::readAttribute<mlir::detail::DenseArrayAttrImpl<int>>(a1, &v15))
     {
       if (mlir::DenseArrayAttr::getSize(&v15) < 5)
       {
@@ -3061,9 +3348,9 @@ uint64_t mlir::memref::ReinterpretCastOp::readProperties(uint64_t a1, uint64_t a
   return 0;
 }
 
-uint64_t mlir::OperationState::getOrAddProperties<mlir::memref::detail::ReinterpretCastOpGenericAdaptorBase::Properties>(uint64_t a1)
+uint64_t mlir::OperationState::getOrAddProperties<mlir::memref::detail::ReinterpretCastOpGenericAdaptorBase::Properties>(void *a1)
 {
-  result = *(a1 + 256);
+  result = a1[32];
   if (!result)
   {
     operator new();
@@ -3094,7 +3381,7 @@ uint64_t mlir::memref::ReinterpretCastOp::writeProperties(uint64_t a1, uint64_t 
   return result;
 }
 
-unint64_t mlir::memref::ReinterpretCastOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8, uint64_t a9, unint64_t a10, uint64_t a11, unint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
+uint64_t mlir::memref::ReinterpretCastOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8, uint64_t a9, unint64_t a10, uint64_t a11, unint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
 {
   v28 = a5;
   mlir::OperationState::addOperands(a2, &v28, 1uLL);
@@ -3156,44 +3443,44 @@ unint64_t mlir::memref::ReinterpretCastOp::build(uint64_t a1, uint64_t a2, uint6
   return result;
 }
 
-void mlir::memref::ReinterpretCastOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9, unint64_t a10)
+void mlir::memref::ReinterpretCastOp::build(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9, unint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
-  v16 = a4;
-  mlir::OperationState::addOperands(a2, &v16, 1uLL);
+  v23 = a4;
+  mlir::OperationState::addOperands(a2, &v23, 1uLL);
   mlir::OperationState::addOperands(a2, a5, a6);
   mlir::OperationState::addOperands(a2, a7, a8);
   mlir::OperationState::addOperands(a2, a9, a10);
-  v14 = *(a2 + 256);
-  if (!v14)
+  v21 = *(a2 + 256);
+  if (!v21)
   {
     operator new();
   }
 
-  v14[6] = 1;
-  v14[7] = a6;
-  v14[8] = a8;
-  v14[9] = a10;
-  mlir::Builder::getDenseI64ArrayAttr();
+  v21[6] = 1;
+  v21[7] = a6;
+  v21[8] = a8;
+  v21[9] = a10;
+  mlir::Builder::getDenseI64ArrayAttr(a1, a11, a12);
 }
 
-void mlir::memref::ReinterpretCastOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8, uint64_t a9, unint64_t a10, uint64_t a11, unint64_t a12)
+void mlir::memref::ReinterpretCastOp::build(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8, uint64_t a9, unint64_t a10, uint64_t a11, unint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
 {
-  v16 = a5;
-  mlir::OperationState::addOperands(a2, &v16, 1uLL);
+  v23 = a5;
+  mlir::OperationState::addOperands(a2, &v23, 1uLL);
   mlir::OperationState::addOperands(a2, a6, a7);
   mlir::OperationState::addOperands(a2, a9, a10);
   mlir::OperationState::addOperands(a2, a11, a12);
-  v14 = *(a2 + 256);
-  if (!v14)
+  v21 = *(a2 + 256);
+  if (!v21)
   {
     operator new();
   }
 
-  v14[6] = 1;
-  v14[7] = a7;
-  v14[8] = a10;
-  v14[9] = a12;
-  mlir::Builder::getDenseI64ArrayAttr();
+  v21[6] = 1;
+  v21[7] = a7;
+  v21[8] = a10;
+  v21[9] = a12;
+  mlir::Builder::getDenseI64ArrayAttr(a1, a13, a14);
 }
 
 uint64_t mlir::memref::ReinterpretCastOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
@@ -3258,7 +3545,7 @@ uint64_t mlir::memref::ReinterpretCastOp::build(uint64_t a1, uint64_t a2, uint64
     result = (*(*v20 + 144))(v20, v19, v18, Dictionary, 0);
     if ((result & 1) == 0)
     {
-      llvm::report_fatal_error("Property conversion failed.", 1);
+      llvm::report_fatal_error("Property conversion failed.", 1, v23);
     }
   }
 
@@ -3276,7 +3563,7 @@ uint64_t mlir::memref::ReinterpretCastOp::verifyInvariantsImpl(mlir::Operation *
   {
     v33[0] = "requires attribute 'static_offsets'";
     v34 = 259;
-    mlir::OpState::emitOpError(this, v33, v35);
+    mlir::OpState::emitOpError(v35, this, v33);
     v8 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v35);
     if (v35[0])
     {
@@ -3355,7 +3642,7 @@ LABEL_58:
   {
     v33[0] = "requires attribute 'static_sizes'";
     v34 = 259;
-    mlir::OpState::emitOpError(this, v33, v35);
+    mlir::OpState::emitOpError(v35, this, v33);
     v8 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v35);
     if (v35[0])
     {
@@ -3426,19 +3713,19 @@ LABEL_56:
   if (v6)
   {
     v35[0] = *this;
-    if ((mlir::scf::__mlir_ods_local_attr_constraint_SCFOps1(v2) & 1) == 0)
+    if ((mlir::scf::__mlir_ods_local_attr_constraint_SCFOps1(v2, "static_offsets", 0xE, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps6(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v35) & 1) == 0)
     {
       return 0;
     }
 
     v35[0] = *this;
-    if ((mlir::scf::__mlir_ods_local_attr_constraint_SCFOps1(v5) & 1) == 0)
+    if ((mlir::scf::__mlir_ods_local_attr_constraint_SCFOps1(v5, "static_sizes", 0xC, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps6(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v35) & 1) == 0)
     {
       return 0;
     }
 
     v35[0] = *this;
-    if ((mlir::scf::__mlir_ods_local_attr_constraint_SCFOps1(v6) & 1) == 0)
+    if ((mlir::scf::__mlir_ods_local_attr_constraint_SCFOps1(v6, "static_strides", 0xE, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps6(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v35) & 1) == 0)
     {
       return 0;
     }
@@ -3449,7 +3736,7 @@ LABEL_56:
 
   v33[0] = "requires attribute 'static_strides'";
   v34 = 259;
-  mlir::OpState::emitOpError(this, v33, v35);
+  mlir::OpState::emitOpError(v35, this, v33);
   v8 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v35);
   if (v35[0])
   {
@@ -3637,7 +3924,7 @@ uint64_t mlir::memref::ReinterpretCastOp::parse(mlir::memref::ReinterpretCastOp 
   v36[0] = this;
   v36[1] = &v26;
   v36[2] = a2;
-  if (!mlir::memref::ReinterpretCastOp::verifyInherentAttrs(v9, a2 + 112))
+  if (!mlir::memref::ReinterpretCastOp::verifyInherentAttrs(v9, a2 + 112, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::ReinterpretCastOp::parse(mlir::OpAsmParser &,mlir::OperationState &)::$_0>, v36))
   {
     goto LABEL_36;
   }
@@ -3678,7 +3965,7 @@ uint64_t mlir::memref::ReinterpretCastOp::parse(mlir::memref::ReinterpretCastOp 
   v14 = (*(*this + 32))(this);
   IndexType = mlir::Builder::getIndexType(v14, v15);
   mlir::OperationState::addTypes(a2, &v27, 1);
-  if ((mlir::OpAsmParser::resolveOperands<llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::Type> &>(this, v33, v28, v5, a2 + 16) & 1) == 0)
+  if (!mlir::OpAsmParser::resolveOperands<llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::Type> &>(this, v33, v28, v5, a2 + 16))
   {
     goto LABEL_36;
   }
@@ -3801,7 +4088,7 @@ uint64_t mlir::memref::ReshapeOp::build(uint64_t a1, uint64_t a2, uint64_t a3, u
   return result;
 }
 
-unint64_t mlir::memref::ReshapeOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t mlir::memref::ReshapeOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v13 = a6;
   v14 = a5;
@@ -3831,7 +4118,7 @@ unint64_t mlir::memref::ReshapeOp::build(uint64_t a1, uint64_t a2, uint64_t a3, 
   return result;
 }
 
-unint64_t mlir::memref::ReshapeOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
+void *mlir::memref::ReshapeOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
 {
   result = mlir::OperationState::addOperands(a2, a5, a6);
   *(a2 + 192) = 0;
@@ -3872,10 +4159,10 @@ unint64_t mlir::memref::ReshapeOp::build(uint64_t a1, uint64_t a2, uint64_t a3, 
   return result;
 }
 
-uint64_t mlir::memref::ReshapeOp::verifyInvariantsImpl(mlir::Operation **this)
+BOOL mlir::memref::ReshapeOp::verifyInvariantsImpl(mlir::Operation **this)
 {
   v81 = *MEMORY[0x277D85DE8];
-  if ((mlir::memref::__mlir_ods_local_type_constraint_MemRefOps6(*this, *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, 0) & 1) == 0)
+  if (!mlir::memref::__mlir_ods_local_type_constraint_MemRefOps6(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0))
   {
     return 0;
   }
@@ -3883,7 +4170,7 @@ uint64_t mlir::memref::ReshapeOp::verifyInvariantsImpl(mlir::Operation **this)
   v2 = *this;
   v3 = (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8);
   v4 = *v3;
-  if (*(*v3 + 17) != &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id)
+  if (*(*v3 + 136) != &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id)
   {
 LABEL_3:
     v66 = 261;
@@ -4047,8 +4334,8 @@ LABEL_3:
 
   {
     v24 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v25 = v4[1];
-    v26 = *(v4 + 4);
+    v25 = *(v4 + 8);
+    v26 = *(v4 + 16);
     if (!v26)
     {
       goto LABEL_62;
@@ -4060,8 +4347,8 @@ LABEL_3:
     v36 = v4;
     mlir::mps::serialization::ExtractOp::inferReturnTypes();
     v24 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v25 = v36[1];
-    v26 = *(v36 + 4);
+    v25 = *(v36 + 8);
+    v26 = *(v36 + 16);
     if (!v26)
     {
       goto LABEL_62;
@@ -4109,8 +4396,8 @@ LABEL_64:
   v38 = *v3;
   {
     v39 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v40 = v38[1];
-    v41 = *(v38 + 4);
+    v40 = *(v38 + 8);
+    v41 = *(v38 + 16);
     if (!v41)
     {
       goto LABEL_78;
@@ -4122,8 +4409,8 @@ LABEL_64:
     v63 = v38;
     mlir::mps::serialization::ExtractOp::inferReturnTypes();
     v39 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v40 = v63[1];
-    v41 = *(v63 + 4);
+    v40 = *(v63 + 8);
+    v41 = *(v63 + 16);
     if (!v41)
     {
       goto LABEL_78;
@@ -4176,8 +4463,8 @@ LABEL_81:
   v49 = *v3;
   {
     v50 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v51 = v49[1];
-    v52 = *(v49 + 4);
+    v51 = *(v49 + 8);
+    v52 = *(v49 + 16);
     if (!v52)
     {
       goto LABEL_94;
@@ -4189,8 +4476,8 @@ LABEL_81:
     v59 = v49;
     mlir::mps::serialization::ExtractOp::inferReturnTypes();
     v50 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v51 = v59[1];
-    v52 = *(v59 + 4);
+    v51 = *(v59 + 8);
+    v52 = *(v59 + 16);
     if (!v52)
     {
       goto LABEL_94;
@@ -4252,10 +4539,10 @@ LABEL_42:
   }
 
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v33, 0);
-  return mlir::memref::__mlir_ods_local_type_constraint_MemRefOps6(*this, *(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8, "result", 6, 0) & 1;
+  return mlir::memref::__mlir_ods_local_type_constraint_MemRefOps6(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
 }
 
-uint64_t mlir::memref::ReshapeOp::parse(mlir::memref::ReshapeOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
+BOOL mlir::memref::ReshapeOp::parse(mlir::memref::ReshapeOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
 {
   memset(v17, 0, sizeof(v17));
   v18 = 0;
@@ -4311,7 +4598,7 @@ uint64_t mlir::memref::ReshapeOp::parse(mlir::memref::ReshapeOp *this, mlir::OpA
   v10[0] = v16;
   v10[1] = v13;
   v8 = (*(*this + 16))(this);
-  return mlir::OpAsmParser::resolveOperands<llvm::detail::concat_range<mlir::OpAsmParser::UnresolvedOperand const,llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &>,llvm::ArrayRef<mlir::Type> &>(this, v10, v12, v8, a2 + 16) & 1;
+  return mlir::OpAsmParser::resolveOperands<llvm::detail::concat_range<mlir::OpAsmParser::UnresolvedOperand const,llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &>,llvm::ArrayRef<mlir::Type> &>(this, v10, v12, v8, a2 + 16);
 }
 
 uint64_t mlir::memref::detail::StoreOpGenericAdaptorBase::StoreOpGenericAdaptorBase(uint64_t a1, uint64_t a2)
@@ -4470,10 +4757,10 @@ uint64_t mlir::memref::detail::StoreOpGenericAdaptorBase::getNontemporalAttr(mli
   result = *(this + 3);
   if (!result)
   {
-    v5[1] = v1;
-    v5[2] = v2;
-    v5[0] = mlir::Attribute::getContext(this);
-    return mlir::Builder::getBoolAttr(v5, 0);
+    v6[1] = v1;
+    v6[2] = v2;
+    v6[0] = mlir::Attribute::getContext(this);
+    return mlir::Builder::getBoolAttr(v6, 0, v5);
   }
 
   return result;
@@ -4490,7 +4777,7 @@ BOOL mlir::memref::detail::StoreOpGenericAdaptorBase::getNontemporal(mlir::memre
   else
   {
     Context = mlir::Attribute::getContext(this);
-    Context = mlir::Builder::getBoolAttr(&Context, 0);
+    Context = mlir::Builder::getBoolAttr(&Context, 0, v3);
     if (Context)
     {
       return mlir::BoolAttr::getValue(&Context);
@@ -4498,8 +4785,8 @@ BOOL mlir::memref::detail::StoreOpGenericAdaptorBase::getNontemporal(mlir::memre
 
     else
     {
-      v3 = mlir::Attribute::getContext(this);
-      BoolAttr = mlir::Builder::getBoolAttr(&v3, 0);
+      v5 = mlir::Attribute::getContext(this);
+      BoolAttr = mlir::Builder::getBoolAttr(&v5, 0, v4);
       return mlir::BoolAttr::getValue(&BoolAttr);
     }
   }
@@ -4859,14 +5146,14 @@ BOOL mlir::memref::StoreOp::readProperties(uint64_t a1, uint64_t a2)
 BOOL mlir::memref::StoreOp::getNontemporal(mlir::memref::StoreOp *this)
 {
   v1 = *this;
-  v5 = *(*this + 16 * ((*(*this + 44) >> 23) & 1) + 64);
-  if (v5)
+  v6 = *(*this + 16 * ((*(*this + 44) >> 23) & 1) + 64);
+  if (v6)
   {
-    return mlir::BoolAttr::getValue(&v5);
+    return mlir::BoolAttr::getValue(&v6);
   }
 
   Context = mlir::Attribute::getContext((v1 + 24));
-  BoolAttr = mlir::Builder::getBoolAttr(&Context, 0);
+  BoolAttr = mlir::Builder::getBoolAttr(&Context, 0, v3);
   return mlir::BoolAttr::getValue(&BoolAttr);
 }
 
@@ -4877,7 +5164,7 @@ uint64_t mlir::memref::StoreOp::setNontemporal(uint64_t result, __int16 a2)
   if ((a2 & 0x100) != 0)
   {
     Context = mlir::Attribute::getContext((*result + 24));
-    result = mlir::Builder::getBoolAttr(&Context, (v2 & 1));
+    result = mlir::Builder::getBoolAttr(&Context, (v2 & 1), v4);
     *(v3 + 64) = result;
   }
 
@@ -4897,7 +5184,7 @@ uint64_t mlir::memref::StoreOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uin
   return mlir::OperationState::addOperands(a2, &v6, 1uLL);
 }
 
-uint64_t mlir::memref::StoreOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7)
+void *mlir::memref::StoreOp::build(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7)
 {
   v13 = a4;
   v14 = a3;
@@ -4906,7 +5193,7 @@ uint64_t mlir::memref::StoreOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uin
   result = mlir::OperationState::addOperands(a2, a5, a6);
   if (a7)
   {
-    v12 = *(a2 + 256);
+    v12 = a2[32];
     if (!v12)
     {
       operator new();
@@ -4918,7 +5205,7 @@ uint64_t mlir::memref::StoreOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uin
   return result;
 }
 
-unint64_t mlir::memref::StoreOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9)
+void *mlir::memref::StoreOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9)
 {
   v19 = a6;
   v20 = a5;
@@ -4960,60 +5247,60 @@ unint64_t mlir::memref::StoreOp::build(uint64_t a1, uint64_t a2, uint64_t a3, ui
   return result;
 }
 
-uint64_t mlir::memref::StoreOp::build(mlir::BoolAttr **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, mlir::MLIRContext *a7)
+void *mlir::memref::StoreOp::build(mlir::BoolAttr **a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, mlir::MLIRContext *a7)
 {
-  v14 = a4;
-  v15 = a3;
+  v15 = a4;
+  v16 = a3;
+  mlir::OperationState::addOperands(a2, &v16, 1uLL);
   mlir::OperationState::addOperands(a2, &v15, 1uLL);
-  mlir::OperationState::addOperands(a2, &v14, 1uLL);
   mlir::OperationState::addOperands(a2, a5, a6);
-  result = mlir::Builder::getBoolAttr(a1, a7);
-  v13 = *(a2 + 256);
-  if (!v13)
+  result = mlir::Builder::getBoolAttr(a1, a7, v12);
+  v14 = a2[32];
+  if (!v14)
   {
     operator new();
   }
 
-  *v13 = result;
+  *v14 = result;
   return result;
 }
 
-unint64_t mlir::memref::StoreOp::build(mlir::BoolAttr **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8, unsigned __int8 a9)
+void *mlir::memref::StoreOp::build(mlir::BoolAttr **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8, BOOL a9)
 {
-  v20 = a6;
-  v21 = a5;
+  v21 = a6;
+  v22 = a5;
+  mlir::OperationState::addOperands(a2, &v22, 1uLL);
   mlir::OperationState::addOperands(a2, &v21, 1uLL);
-  mlir::OperationState::addOperands(a2, &v20, 1uLL);
   mlir::OperationState::addOperands(a2, a7, a8);
-  result = mlir::Builder::getBoolAttr(a1, a9);
-  v16 = *(a2 + 256);
-  if (!v16)
+  result = mlir::Builder::getBoolAttr(a1, a9, v15);
+  v17 = *(a2 + 256);
+  if (!v17)
   {
     operator new();
   }
 
-  *v16 = result;
-  v17 = *(a2 + 72);
-  if (a4 + v17 > *(a2 + 76))
+  *v17 = result;
+  v18 = *(a2 + 72);
+  if (a4 + v18 > *(a2 + 76))
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
   if (a4)
   {
-    v18 = 0;
-    v19 = *(a2 + 64) + 8 * v17;
+    v19 = 0;
+    v20 = *(a2 + 64) + 8 * v18;
     do
     {
-      result = mlir::TypeRange::dereference_iterator(a3, v18);
-      *(v19 + 8 * v18++) = result;
+      result = mlir::TypeRange::dereference_iterator(a3, v19);
+      *(v20 + 8 * v19++) = result;
     }
 
-    while (a4 != v18);
-    LODWORD(v17) = *(a2 + 72);
+    while (a4 != v19);
+    LODWORD(v18) = *(a2 + 72);
   }
 
-  *(a2 + 72) = v17 + a4;
+  *(a2 + 72) = v18 + a4;
   return result;
 }
 
@@ -5079,7 +5366,7 @@ uint64_t mlir::memref::StoreOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uin
     result = (*(*v20 + 144))(v20, v19, v18, Dictionary, 0);
     if ((result & 1) == 0)
     {
-      llvm::report_fatal_error("Property conversion failed.", 1);
+      llvm::report_fatal_error("Property conversion failed.", 1, v23);
     }
   }
 
@@ -5092,7 +5379,7 @@ BOOL mlir::memref::StoreOp::verifyInvariantsImpl(mlir::Operation **this)
   v2 = *this;
   v3 = *(*this + 2 * ((*(*this + 11) >> 23) & 1) + 8);
   v21[0] = v2;
-  if ((mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps2(v3, "nontemporal", 11, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps3(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v21) & 1) == 0 || (mlir::memref::__mlir_ods_local_type_constraint_MemRefOps1(*this, *(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, 1u) & 1) == 0)
+  if (!mlir::pdl_interp::__mlir_ods_local_attr_constraint_PDLInterpOps2(v3, "nontemporal", 0xB, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps3(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v21) || !mlir::memref::__mlir_ods_local_type_constraint_MemRefOps1(*this, (*(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 1u))
   {
     return 0;
   }
@@ -5105,7 +5392,7 @@ BOOL mlir::memref::StoreOp::verifyInvariantsImpl(mlir::Operation **this)
 LABEL_6:
     v7 = v6 + 24;
     v8 = 2;
-    while ((mlir::scf::__mlir_ods_local_type_constraint_SCFOps4(*this, *(*v7 + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, v8) & 1) != 0)
+    while (mlir::scf::__mlir_ods_local_type_constraint_SCFOps4(*this, *(*v7 + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, v8))
     {
       ++v8;
       v7 += 32;
@@ -5135,7 +5422,7 @@ LABEL_10:
 
   v19 = "failed to verify that type of 'value' matches element type of 'memref'";
   v20 = 259;
-  mlir::OpState::emitOpError(this, &v19, v21);
+  mlir::OpState::emitOpError(v21, this, &v19);
   result = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v21);
   v10 = result;
   if (v21[0])
@@ -5272,7 +5559,7 @@ BOOL mlir::memref::StoreOp::parse(mlir::memref::StoreOp *this, mlir::OpAsmParser
               IndexType = mlir::Builder::getIndexType(v13, v14);
               v30 = v24;
               ElementType = mlir::MemRefType::getElementType(&v30);
-              if ((*(*this + 728))(this, v28, ElementType, a2 + 16) & 1) != 0 && (mlir::OpAsmParser::resolveOperands<llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::Type> &>(this, v25, v23, v5, a2 + 16))
+              if (((*(*this + 728))(this, v28, ElementType, a2 + 16) & 1) != 0 && mlir::OpAsmParser::resolveOperands<llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::Type> &>(this, v25, v23, v5, a2 + 16))
               {
                 if (!v34)
                 {
@@ -5318,17 +5605,17 @@ LABEL_23:
   return v10;
 }
 
-void mlir::memref::StoreOp::getEffects(uint64_t a1, uint64_t a2)
+void mlir::memref::StoreOp::getEffects(uint64_t result, uint64_t a2)
 {
   {
-    v7 = a1;
+    v7 = result;
     v8 = a2;
     mlir::mps::AssignVariableOp::getEffects();
-    a1 = v7;
+    result = v7;
     a2 = v8;
   }
 
-  v13 = *(*a1 + 72) + 32;
+  v13 = *(*result + 72) + 32;
   v14 = &mlir::SideEffects::Effect::get<mlir::MemoryEffects::Write>(void)::instance;
   v12 = 0;
   v11 = 0;
@@ -5408,7 +5695,7 @@ uint64_t mlir::memref::detail::TransposeOpGenericAdaptorBase::TransposeOpGeneric
   return a1;
 }
 
-uint64_t mlir::memref::TransposeOpAdaptor::verify(uint64_t a1, uint64_t a2)
+BOOL mlir::memref::TransposeOpAdaptor::verify(uint64_t a1, uint64_t a2)
 {
   v23 = *MEMORY[0x277D85DE8];
   if (*(a1 + 24))
@@ -5786,7 +6073,7 @@ unint64_t mlir::memref::TransposeOp::getInherentAttr(uint64_t a1, void *a2, void
   }
 }
 
-void *mlir::memref::TransposeOp::setInherentAttr(void *result, void *a2, uint64_t a3, uint64_t a4)
+uint64_t *mlir::memref::TransposeOp::setInherentAttr(uint64_t *result, void *a2, uint64_t a3, uint64_t a4)
 {
   if (a3 == 11 && *a2 == 0x746174756D726570 && *(a2 + 3) == 0x6E6F69746174756DLL)
   {
@@ -5824,18 +6111,18 @@ uint64_t mlir::memref::TransposeOp::populateInherentAttrs(uint64_t a1, uint64_t 
   return result;
 }
 
-uint64_t mlir::memref::TransposeOp::readProperties(uint64_t a1, uint64_t a2)
+BOOL mlir::memref::TransposeOp::readProperties(uint64_t a1, void *a2)
 {
-  v2 = *(a2 + 256);
+  v2 = a2[32];
   if (!v2)
   {
     operator new();
   }
 
-  return mlir::DialectBytecodeReader::readAttribute<mlir::AffineMapAttr>(a1, v2) & 1;
+  return mlir::DialectBytecodeReader::readAttribute<mlir::AffineMapAttr>(a1, v2);
 }
 
-uint64_t mlir::memref::TransposeOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *mlir::memref::TransposeOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v11 = a4;
   result = mlir::OperationState::addOperands(a2, &v11, 1uLL);
@@ -5857,7 +6144,7 @@ uint64_t mlir::memref::TransposeOp::build(uint64_t a1, uint64_t a2, uint64_t a3,
   return result;
 }
 
-unint64_t mlir::memref::TransposeOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void *mlir::memref::TransposeOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v15 = a5;
   result = mlir::OperationState::addOperands(a2, &v15, 1uLL);
@@ -5892,7 +6179,7 @@ unint64_t mlir::memref::TransposeOp::build(uint64_t a1, uint64_t a2, uint64_t a3
   return result;
 }
 
-uint64_t mlir::memref::TransposeOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5)
+void *mlir::memref::TransposeOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5)
 {
   v11 = a4;
   mlir::OperationState::addOperands(a2, &v11, 1uLL);
@@ -5915,7 +6202,7 @@ uint64_t mlir::memref::TransposeOp::build(uint64_t a1, uint64_t a2, uint64_t a3,
   return result;
 }
 
-unint64_t mlir::memref::TransposeOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6)
+void *mlir::memref::TransposeOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6)
 {
   v15 = a5;
   mlir::OperationState::addOperands(a2, &v15, 1uLL);
@@ -5959,7 +6246,7 @@ BOOL mlir::memref::TransposeOp::verifyInvariantsImpl(mlir::Operation **this)
   if (v3)
   {
     v18[0] = v2;
-    if (mlir::affine::__mlir_ods_local_attr_constraint_AffineOps1(v3, "permutation", 11, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps14(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v18) & 1) != 0 && (mlir::memref::__mlir_ods_local_type_constraint_MemRefOps8(*this, *(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, 0))
+    if (mlir::affine::__mlir_ods_local_attr_constraint_AffineOps1(v3, "permutation", 0xB, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps14(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v18) && mlir::memref::__mlir_ods_local_type_constraint_MemRefOps8(*this, (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8), "operand", 7, 0))
     {
       if (*(*this + 9))
       {
@@ -5972,7 +6259,7 @@ BOOL mlir::memref::TransposeOp::verifyInvariantsImpl(mlir::Operation **this)
       }
 
       NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v4, 0);
-      return mlir::memref::__mlir_ods_local_type_constraint_MemRefOps8(*this, *(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8, "result", 6, 0) & 1;
+      return mlir::memref::__mlir_ods_local_type_constraint_MemRefOps8(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
     }
 
     else
@@ -5985,7 +6272,7 @@ BOOL mlir::memref::TransposeOp::verifyInvariantsImpl(mlir::Operation **this)
   {
     v16 = "requires attribute 'permutation'";
     v17 = 259;
-    mlir::OpState::emitOpError(this, &v16, v18);
+    mlir::OpState::emitOpError(v18, this, &v16);
     v6 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v18);
     if (v18[0])
     {
@@ -6185,7 +6472,7 @@ uint64_t mlir::memref::ViewOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint
   return result;
 }
 
-unint64_t mlir::memref::ViewOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8)
+uint64_t mlir::memref::ViewOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8)
 {
   v17 = a6;
   v18 = a5;
@@ -6216,7 +6503,7 @@ unint64_t mlir::memref::ViewOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uin
   return result;
 }
 
-unint64_t mlir::memref::ViewOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
+void *mlir::memref::ViewOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
 {
   result = mlir::OperationState::addOperands(a2, a5, a6);
   *(a2 + 192) = 0;
@@ -6257,13 +6544,13 @@ unint64_t mlir::memref::ViewOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uin
   return result;
 }
 
-uint64_t mlir::memref::ViewOp::verifyInvariantsImpl(mlir::Operation **this)
+BOOL mlir::memref::ViewOp::verifyInvariantsImpl(mlir::Operation **this)
 {
   v81 = *MEMORY[0x277D85DE8];
   v2 = *this;
   v3 = (*(*(*(*this + 9) + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
   v4 = *v3;
-  if (*(*v3 + 17) != &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id)
+  if (*(*v3 + 136) != &mlir::detail::TypeIDResolver<mlir::MemRefType,void>::id)
   {
     goto LABEL_47;
   }
@@ -6271,8 +6558,8 @@ uint64_t mlir::memref::ViewOp::verifyInvariantsImpl(mlir::Operation **this)
   {
     mlir::mps::serialization::ExtractOp::inferReturnTypes();
     v5 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v6 = v4[1];
-    v7 = *(v4 + 4);
+    v6 = *(v4 + 8);
+    v7 = *(v4 + 16);
     if (v7)
     {
       goto LABEL_4;
@@ -6284,8 +6571,8 @@ LABEL_14:
   }
 
   v5 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-  v6 = v4[1];
-  v7 = *(v4 + 4);
+  v6 = *(v4 + 8);
+  v7 = *(v4 + 16);
   if (!v7)
   {
     goto LABEL_14;
@@ -6331,8 +6618,8 @@ LABEL_16:
   v15 = *v3;
   {
     v16 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v17 = v15[1];
-    v18 = *(v15 + 4);
+    v17 = *(v15 + 8);
+    v18 = *(v15 + 16);
     if (!v18)
     {
       goto LABEL_29;
@@ -6343,8 +6630,8 @@ LABEL_16:
   {
     mlir::mps::serialization::ExtractOp::inferReturnTypes();
     v16 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-    v17 = v15[1];
-    v18 = *(v15 + 4);
+    v17 = *(v15 + 8);
+    v18 = *(v15 + 16);
     if (!v18)
     {
       goto LABEL_29;
@@ -6394,8 +6681,8 @@ LABEL_32:
     v26 = *v3;
     {
       v27 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-      v28 = v26[1];
-      v29 = *(v26 + 4);
+      v28 = *(v26 + 8);
+      v29 = *(v26 + 16);
       if (v29)
       {
 LABEL_34:
@@ -6440,8 +6727,8 @@ LABEL_34:
     {
       mlir::mps::serialization::ExtractOp::inferReturnTypes();
       v27 = mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id;
-      v28 = v26[1];
-      v29 = *(v26 + 4);
+      v28 = *(v26 + 8);
+      v29 = *(v26 + 16);
       if (v29)
       {
         goto LABEL_34;
@@ -6614,7 +6901,7 @@ LABEL_47:
   }
 
 LABEL_77:
-  if ((mlir::tensor::__mlir_ods_local_type_constraint_TensorOps5(*this, *(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, 1u) & 1) == 0)
+  if (!mlir::tensor::__mlir_ods_local_type_constraint_TensorOps5(*this, *(*(*(*this + 9) + 56) + 8) & 0xFFFFFFFFFFFFFFF8, "operand", 7, 1u))
   {
     return 0;
   }
@@ -6654,7 +6941,7 @@ LABEL_94:
   }
 
   NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v61, 0);
-  return mlir::memref::__mlir_ods_local_type_constraint_MemRefOps1(*this, *(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8, "result", 6, 0) & 1;
+  return mlir::memref::__mlir_ods_local_type_constraint_MemRefOps1(*this, (*(NextResultAtOffset + 8) & 0xFFFFFFFFFFFFFFF8), "result", 6, 0);
 }
 
 uint64_t mlir::memref::ViewOp::parse(mlir::memref::ViewOp *this, mlir::OpAsmParser *a2, mlir::OperationState *a3)
@@ -6743,7 +7030,7 @@ uint64_t mlir::memref::ViewOp::parse(mlir::memref::ViewOp *this, mlir::OpAsmPars
   v6 = (*(*this + 32))(this);
   IndexType = mlir::Builder::getIndexType(v6, v7);
   mlir::OperationState::addTypes(a2, v23, v24);
-  if ((mlir::OpAsmParser::resolveOperands<llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::Type> &>(this, v18, v14, v5, a2 + 16) & 1) == 0 || ((*(*this + 728))(this, v16, IndexType, a2 + 16) & 1) == 0)
+  if (!mlir::OpAsmParser::resolveOperands<llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::Type> &>(this, v18, v14, v5, a2 + 16) || ((*(*this + 728))(this, v16, IndexType, a2 + 16) & 1) == 0)
   {
     goto LABEL_20;
   }
@@ -6891,7 +7178,7 @@ unint64_t mlir::memref::detail::SubViewOpGenericAdaptorBase::getODSOperandIndexA
   return v4 | (v2[a2] << 32);
 }
 
-uint64_t mlir::memref::SubViewOpAdaptor::verify(void *a1, uint64_t a2)
+BOOL mlir::memref::SubViewOpAdaptor::verify(void *a1, uint64_t a2)
 {
   v35 = *MEMORY[0x277D85DE8];
   if (a1[3])
@@ -7169,40 +7456,41 @@ unint64_t mlir::memref::SubViewOp::getODSOperandIndexAndLength(mlir::memref::Sub
   return v6 | (v4[a2] << 32);
 }
 
-uint64_t mlir::memref::SubViewOp::setPropertiesFromAttr(uint64_t a1, uint64_t a2, void (*a3)(void *__return_ptr, uint64_t), uint64_t a4)
+uint64_t mlir::memref::SubViewOp::setPropertiesFromAttr(uint64_t *a1, uint64_t a2, void (*a3)(uint64_t *__return_ptr, uint64_t), uint64_t a4)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (*(*a2 + 136) == &mlir::detail::TypeIDResolver<mlir::DictionaryAttr,void>::id)
   {
-    v4 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v4 = 0;
+    v6 = 0;
   }
 
-  v16 = v4;
-  if (v4)
+  v20 = v6;
+  if (v6)
   {
-    if (mlir::DictionaryAttr::get(&v16, "static_offsets", 0xEuLL))
+    if (mlir::DictionaryAttr::get(&v20, "static_offsets", 0xEuLL))
     {
       mlir::detail::DenseArrayAttrImpl<long long>::classof();
     }
 
-    if (mlir::DictionaryAttr::get(&v16, "static_sizes", 0xCuLL))
+    if (mlir::DictionaryAttr::get(&v20, "static_sizes", 0xCuLL))
     {
       mlir::detail::DenseArrayAttrImpl<long long>::classof();
     }
 
-    if (mlir::DictionaryAttr::get(&v16, "static_strides", 0xEuLL))
+    if (mlir::DictionaryAttr::get(&v20, "static_strides", 0xEuLL))
     {
       mlir::detail::DenseArrayAttrImpl<long long>::classof();
     }
 
-    if (mlir::DictionaryAttr::get(&v16, "operandSegmentSizes", 0x13uLL) || mlir::DictionaryAttr::get(&v16, "operand_segment_sizes", 0x15uLL))
+    v8 = mlir::DictionaryAttr::get(&v20, "operandSegmentSizes", 0x13uLL);
+    if (v8 || (v8 = mlir::DictionaryAttr::get(&v20, "operand_segment_sizes", 0x15uLL)) != 0)
     {
-      mlir::convertFromAttribute();
+      mlir::convertFromAttribute(a1 + 3, 4, v8, a3, a4);
     }
 
     return 1;
@@ -7210,15 +7498,15 @@ uint64_t mlir::memref::SubViewOp::setPropertiesFromAttr(uint64_t a1, uint64_t a2
 
   else
   {
-    a3(v19, a4);
-    if (v19[0])
+    a3(v23, a4);
+    if (v23[0])
     {
-      LODWORD(v17) = 3;
-      *(&v17 + 1) = "expected DictionaryAttr to set properties";
-      v18 = 41;
-      if (v21 >= v22)
+      LODWORD(v21) = 3;
+      *(&v21 + 1) = "expected DictionaryAttr to set properties";
+      v22 = 41;
+      if (v25 >= v26)
       {
-        if (v20 > &v17 || v20 + 24 * v21 <= &v17)
+        if (v24 > &v21 || v24 + 24 * v25 <= &v21)
         {
           llvm::SmallVectorBase<unsigned int>::grow_pod();
         }
@@ -7226,73 +7514,73 @@ uint64_t mlir::memref::SubViewOp::setPropertiesFromAttr(uint64_t a1, uint64_t a2
         llvm::SmallVectorBase<unsigned int>::grow_pod();
       }
 
-      v6 = v20 + 24 * v21;
-      v7 = v17;
-      *(v6 + 2) = v18;
-      *v6 = v7;
-      ++v21;
-      if (v19[0])
+      v10 = v24 + 24 * v25;
+      v11 = v21;
+      *(v10 + 2) = v22;
+      *v10 = v11;
+      ++v25;
+      if (v23[0])
       {
-        mlir::InFlightDiagnostic::report(v19);
+        mlir::InFlightDiagnostic::report(v23);
       }
     }
 
-    if (v29 == 1)
+    if (v33 == 1)
     {
-      if (v28 != &v29)
+      if (v32 != &v33)
       {
-        free(v28);
+        free(v32);
       }
 
-      v8 = __p;
+      v12 = __p;
       if (__p)
       {
-        v9 = v27;
-        v10 = __p;
-        if (v27 != __p)
+        v13 = v31;
+        v14 = __p;
+        if (v31 != __p)
         {
           do
           {
-            v9 = std::unique_ptr<mlir::Diagnostic>::~unique_ptr[abi:nn200100](v9 - 1);
+            v13 = std::unique_ptr<mlir::Diagnostic>::~unique_ptr[abi:nn200100](v13 - 1);
           }
 
-          while (v9 != v8);
-          v10 = __p;
+          while (v13 != v12);
+          v14 = __p;
         }
 
-        v27 = v8;
-        operator delete(v10);
+        v31 = v12;
+        operator delete(v14);
       }
 
-      v11 = v24;
-      if (v24)
+      v15 = v28;
+      if (v28)
       {
-        v12 = v25;
-        v13 = v24;
-        if (v25 != v24)
+        v16 = v29;
+        v17 = v28;
+        if (v29 != v28)
         {
           do
           {
-            v15 = *--v12;
-            v14 = v15;
-            *v12 = 0;
-            if (v15)
+            v19 = *--v16;
+            v18 = v19;
+            *v16 = 0;
+            if (v19)
             {
-              MEMORY[0x259C63150](v14, 0x1000C8077774924);
+              MEMORY[0x259C63150](v18, 0x1000C8077774924);
             }
           }
 
-          while (v12 != v11);
-          v13 = v24;
+          while (v16 != v15);
+          v17 = v28;
         }
 
-        v25 = v11;
-        operator delete(v13);
+        v29 = v15;
+        operator delete(v17);
       }
 
-      if (v20 != &v23)
+      if (v24 != &v27)
       {
-        free(v20);
+        free(v24);
       }
     }
 
@@ -7381,7 +7669,7 @@ unint64_t mlir::memref::SubViewOp::computePropertiesHash(void *a1)
   return llvm::hashing::detail::hash_combine_recursive_helper::combine(v18, v17, v14, v20);
 }
 
-uint64_t mlir::memref::SubViewOp::getInherentAttr(int a1, void *a2, char *__s1, uint64_t __n)
+uint64_t mlir::memref::SubViewOp::getInherentAttr(uint64_t a1, void *a2, char *__s1, uint64_t __n)
 {
   if (__n > 18)
   {
@@ -7529,17 +7817,17 @@ void mlir::memref::SubViewOp::populateInherentAttrs(uint64_t a1, uint64_t *a2, u
   mlir::detail::DenseArrayAttrImpl<int>::get();
 }
 
-BOOL mlir::memref::SubViewOp::verifyInherentAttrs(uint64_t a1, uint64_t a2)
+BOOL mlir::memref::SubViewOp::verifyInherentAttrs(uint64_t a1, uint64_t a2, void (*a3)(uint64_t *__return_ptr, uint64_t), uint64_t a4)
 {
-  v4 = mlir::NamedAttrList::get(a2, **(a1 + 96));
+  v8 = mlir::NamedAttrList::get(a2, **(a1 + 96));
   result = 0;
-  if (!v4 || (mlir::scf::__mlir_ods_local_attr_constraint_SCFOps1(v4) & 1) != 0)
+  if (!v8 || (mlir::scf::__mlir_ods_local_attr_constraint_SCFOps1(v8, "static_offsets", 0xE, a3, a4) & 1) != 0)
   {
-    v5 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 8));
-    if (!v5 || (mlir::scf::__mlir_ods_local_attr_constraint_SCFOps1(v5) & 1) != 0)
+    v9 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 8));
+    if (!v9 || (mlir::scf::__mlir_ods_local_attr_constraint_SCFOps1(v9, "static_sizes", 0xC, a3, a4) & 1) != 0)
     {
-      v6 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 16));
-      if (!v6 || (mlir::scf::__mlir_ods_local_attr_constraint_SCFOps1(v6) & 1) != 0)
+      v10 = mlir::NamedAttrList::get(a2, *(*(a1 + 96) + 16));
+      if (!v10 || (mlir::scf::__mlir_ods_local_attr_constraint_SCFOps1(v10, "static_strides", 0xE, a3, a4) & 1) != 0)
       {
         return 1;
       }
@@ -7549,10 +7837,10 @@ BOOL mlir::memref::SubViewOp::verifyInherentAttrs(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t mlir::memref::SubViewOp::readProperties(uint64_t a1, uint64_t a2)
+uint64_t mlir::memref::SubViewOp::readProperties(uint64_t a1, void *a2)
 {
   v25 = *MEMORY[0x277D85DE8];
-  v3 = *(a2 + 256);
+  v3 = a2[32];
   if (!v3)
   {
     operator new();
@@ -7560,7 +7848,7 @@ uint64_t mlir::memref::SubViewOp::readProperties(uint64_t a1, uint64_t a2)
 
   if ((*(*a1 + 40))(a1) > 5)
   {
-    if (mlir::DialectBytecodeReader::readAttribute<mlir::detail::DenseArrayAttrImpl<long long>>(a1) & 1) != 0 && (mlir::DialectBytecodeReader::readAttribute<mlir::detail::DenseArrayAttrImpl<long long>>(a1) & 1) != 0 && (mlir::DialectBytecodeReader::readAttribute<mlir::detail::DenseArrayAttrImpl<long long>>(a1) & 1) != 0 && ((*(*a1 + 40))(a1) < 6 || (mlir::DialectBytecodeReader::readSparseArray<int>(a1, (v3 + 24), 4uLL)))
+    if (mlir::DialectBytecodeReader::readAttribute<mlir::detail::DenseArrayAttrImpl<long long>>(a1, v3) & 1) != 0 && (mlir::DialectBytecodeReader::readAttribute<mlir::detail::DenseArrayAttrImpl<long long>>(a1, (v3 + 8)) & 1) != 0 && (mlir::DialectBytecodeReader::readAttribute<mlir::detail::DenseArrayAttrImpl<long long>>(a1, (v3 + 16)) & 1) != 0 && ((*(*a1 + 40))(a1) < 6 || (mlir::DialectBytecodeReader::readSparseArray<int>(a1, (v3 + 24), 4uLL)))
     {
       return 1;
     }
@@ -7569,7 +7857,7 @@ uint64_t mlir::memref::SubViewOp::readProperties(uint64_t a1, uint64_t a2)
   else
   {
     v15 = 0;
-    if (mlir::DialectBytecodeReader::readAttribute<mlir::detail::DenseArrayAttrImpl<int>>(a1))
+    if (mlir::DialectBytecodeReader::readAttribute<mlir::detail::DenseArrayAttrImpl<int>>(a1, &v15))
     {
       if (mlir::DenseArrayAttr::getSize(&v15) < 5)
       {
@@ -7648,9 +7936,9 @@ uint64_t mlir::memref::SubViewOp::readProperties(uint64_t a1, uint64_t a2)
   return 0;
 }
 
-uint64_t mlir::OperationState::getOrAddProperties<mlir::memref::detail::SubViewOpGenericAdaptorBase::Properties>(uint64_t a1)
+uint64_t mlir::OperationState::getOrAddProperties<mlir::memref::detail::SubViewOpGenericAdaptorBase::Properties>(void *a1)
 {
-  result = *(a1 + 256);
+  result = a1[32];
   if (!result)
   {
     operator new();
@@ -7681,7 +7969,7 @@ uint64_t mlir::memref::SubViewOp::writeProperties(uint64_t a1, uint64_t a2)
   return result;
 }
 
-unint64_t mlir::memref::SubViewOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8, uint64_t a9, unint64_t a10, uint64_t a11, unint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
+uint64_t mlir::memref::SubViewOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8, uint64_t a9, unint64_t a10, uint64_t a11, unint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
 {
   v28 = a5;
   mlir::OperationState::addOperands(a2, &v28, 1uLL);
@@ -7743,44 +8031,44 @@ unint64_t mlir::memref::SubViewOp::build(uint64_t a1, uint64_t a2, uint64_t a3, 
   return result;
 }
 
-void mlir::memref::SubViewOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9, unint64_t a10)
+void mlir::memref::SubViewOp::build(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9, unint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
-  v16 = a4;
-  mlir::OperationState::addOperands(a2, &v16, 1uLL);
+  v23 = a4;
+  mlir::OperationState::addOperands(a2, &v23, 1uLL);
   mlir::OperationState::addOperands(a2, a5, a6);
   mlir::OperationState::addOperands(a2, a7, a8);
   mlir::OperationState::addOperands(a2, a9, a10);
-  v14 = *(a2 + 256);
-  if (!v14)
+  v21 = *(a2 + 256);
+  if (!v21)
   {
     operator new();
   }
 
-  v14[6] = 1;
-  v14[7] = a6;
-  v14[8] = a8;
-  v14[9] = a10;
-  mlir::Builder::getDenseI64ArrayAttr();
+  v21[6] = 1;
+  v21[7] = a6;
+  v21[8] = a8;
+  v21[9] = a10;
+  mlir::Builder::getDenseI64ArrayAttr(a1, a11, a12);
 }
 
-void mlir::memref::SubViewOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8, uint64_t a9, unint64_t a10, uint64_t a11, unint64_t a12)
+void mlir::memref::SubViewOp::build(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8, uint64_t a9, unint64_t a10, uint64_t a11, unint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
 {
-  v16 = a5;
-  mlir::OperationState::addOperands(a2, &v16, 1uLL);
+  v23 = a5;
+  mlir::OperationState::addOperands(a2, &v23, 1uLL);
   mlir::OperationState::addOperands(a2, a6, a7);
   mlir::OperationState::addOperands(a2, a9, a10);
   mlir::OperationState::addOperands(a2, a11, a12);
-  v14 = *(a2 + 256);
-  if (!v14)
+  v21 = *(a2 + 256);
+  if (!v21)
   {
     operator new();
   }
 
-  v14[6] = 1;
-  v14[7] = a7;
-  v14[8] = a10;
-  v14[9] = a12;
-  mlir::Builder::getDenseI64ArrayAttr();
+  v21[6] = 1;
+  v21[7] = a7;
+  v21[8] = a10;
+  v21[9] = a12;
+  mlir::Builder::getDenseI64ArrayAttr(a1, a13, a14);
 }
 
 uint64_t mlir::memref::SubViewOp::build(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, const void *a7, uint64_t a8)
@@ -7845,7 +8133,7 @@ uint64_t mlir::memref::SubViewOp::build(uint64_t a1, uint64_t a2, uint64_t a3, u
     result = (*(*v20 + 144))(v20, v19, v18, Dictionary, 0);
     if ((result & 1) == 0)
     {
-      llvm::report_fatal_error("Property conversion failed.", 1);
+      llvm::report_fatal_error("Property conversion failed.", 1, v23);
     }
   }
 
@@ -7863,7 +8151,7 @@ uint64_t mlir::memref::SubViewOp::verifyInvariantsImpl(mlir::Operation **this)
   {
     v33[0] = "requires attribute 'static_offsets'";
     v34 = 259;
-    mlir::OpState::emitOpError(this, v33, v35);
+    mlir::OpState::emitOpError(v35, this, v33);
     v8 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v35);
     if (v35[0])
     {
@@ -7942,7 +8230,7 @@ LABEL_58:
   {
     v33[0] = "requires attribute 'static_sizes'";
     v34 = 259;
-    mlir::OpState::emitOpError(this, v33, v35);
+    mlir::OpState::emitOpError(v35, this, v33);
     v8 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v35);
     if (v35[0])
     {
@@ -8013,19 +8301,19 @@ LABEL_56:
   if (v6)
   {
     v35[0] = *this;
-    if ((mlir::scf::__mlir_ods_local_attr_constraint_SCFOps1(v2) & 1) == 0)
+    if ((mlir::scf::__mlir_ods_local_attr_constraint_SCFOps1(v2, "static_offsets", 0xE, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps6(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v35) & 1) == 0)
     {
       return 0;
     }
 
     v35[0] = *this;
-    if ((mlir::scf::__mlir_ods_local_attr_constraint_SCFOps1(v5) & 1) == 0)
+    if ((mlir::scf::__mlir_ods_local_attr_constraint_SCFOps1(v5, "static_sizes", 0xC, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps6(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v35) & 1) == 0)
     {
       return 0;
     }
 
     v35[0] = *this;
-    if ((mlir::scf::__mlir_ods_local_attr_constraint_SCFOps1(v6) & 1) == 0)
+    if ((mlir::scf::__mlir_ods_local_attr_constraint_SCFOps1(v6, "static_strides", 0xE, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps6(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>, v35) & 1) == 0)
     {
       return 0;
     }
@@ -8036,7 +8324,7 @@ LABEL_56:
 
   v33[0] = "requires attribute 'static_strides'";
   v34 = 259;
-  mlir::OpState::emitOpError(this, v33, v35);
+  mlir::OpState::emitOpError(v35, this, v33);
   v8 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v35);
   if (v35[0])
   {
@@ -8185,7 +8473,7 @@ uint64_t mlir::memref::SubViewOp::parse(mlir::memref::SubViewOp *this, mlir::OpA
   v36[0] = this;
   v36[1] = &v26;
   v36[2] = a2;
-  if (!mlir::memref::SubViewOp::verifyInherentAttrs(v9, a2 + 112))
+  if (!mlir::memref::SubViewOp::verifyInherentAttrs(v9, a2 + 112, llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::SubViewOp::parse(mlir::OpAsmParser &,mlir::OperationState &)::$_0>, v36))
   {
     goto LABEL_31;
   }
@@ -8226,7 +8514,7 @@ uint64_t mlir::memref::SubViewOp::parse(mlir::memref::SubViewOp *this, mlir::OpA
   v14 = (*(*this + 32))(this);
   IndexType = mlir::Builder::getIndexType(v14, v15);
   mlir::OperationState::addTypes(a2, &v27, 1);
-  if ((mlir::OpAsmParser::resolveOperands<llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::Type> &>(this, v33, v28, v5, a2 + 16) & 1) == 0)
+  if (!mlir::OpAsmParser::resolveOperands<llvm::ArrayRef<mlir::OpAsmParser::UnresolvedOperand> &,llvm::ArrayRef<mlir::Type> &>(this, v33, v28, v5, a2 + 16))
   {
     goto LABEL_31;
   }
@@ -8320,160 +8608,160 @@ void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::me
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
 void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps2(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(mlir::Operation **a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
 void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps3(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(mlir::Operation **a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
 void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps4(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(mlir::Operation **a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
 void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps5(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(mlir::Operation **a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
 void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps6(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(mlir::Operation **a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
 void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps7(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(mlir::Operation **a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
 void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps8(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(mlir::Operation **a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
 void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps9(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(mlir::Operation **a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
 void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps11(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(mlir::Operation **a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
 void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps12(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(mlir::Operation **a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
 void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps13(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(mlir::Operation **a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
 void llvm::function_ref<mlir::InFlightDiagnostic ()(void)>::callback_fn<mlir::memref::__mlir_ods_local_attr_constraint_MemRefOps14(mlir::Operation *,mlir::Attribute,llvm::StringRef)::$_0>(mlir::Operation **a1@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *a1;
   v4 = 257;
-  mlir::Operation::emitOpError(a2, v2, &v3);
+  mlir::Operation::emitOpError(a2, v2, v3);
 }
 
-void mlir::OpBuilder::createOrFold<mlir::memref::DimOp,mlir::Value &,long long &>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, mlir::OperationState **a5)
+void mlir::OpBuilder::createOrFold<mlir::memref::DimOp,mlir::Value &,long long &>(mlir::IndexType **a1, uint64_t *a2, uint64_t a3, uint64_t *a4, mlir::OperationState **a5)
 {
-  v29[38] = *MEMORY[0x277D85DE8];
-  v26 = a3;
-  Context = mlir::Attribute::getContext(&v26);
+  v30[38] = *MEMORY[0x277D85DE8];
+  v27 = a3;
+  Context = mlir::Attribute::getContext(&v27);
   v11 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::memref::DimOp,void>::id, Context);
   if ((v12 & 1) == 0)
   {
-    mlir::OpBuilder::createOrFold<mlir::memref::DimOp,mlir::Value &,long long &>(v29, v28, v27);
+    mlir::OpBuilder::createOrFold<mlir::memref::DimOp,mlir::Value &,long long &>(v30, v29, v28);
   }
 
-  mlir::OperationState::OperationState(v29, a3, v11);
+  mlir::OperationState::OperationState(v30, a3, v11);
   v13 = *a4;
-  v28[0] = *a5;
-  v14 = mlir::OpBuilder::create<mlir::arith::ConstantIndexOp,long long &>(a1, v29[0], v28);
-  mlir::memref::DimOp::build(a1, v29, v13, v14 - 16);
-  v16 = mlir::Operation::create(v29, v15);
-  v17 = *(a1 + 16);
+  v29[0] = *a5;
+  v14 = mlir::OpBuilder::create<mlir::arith::ConstantIndexOp,long long &>(a1, v30[0], v29);
+  mlir::memref::DimOp::build(a1, v30, v13, v14 - 16);
+  v16 = mlir::Operation::create(v30, v15);
+  v17 = a1[2];
   if (v17)
   {
-    v18 = *(a1 + 24);
+    v18 = a1[3];
     llvm::ilist_traits<mlir::Operation>::addNodeToList(v17 + 32, v16);
-    NodePtr = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getNodePtr(v16);
-    v20 = *v18;
-    *NodePtr = *v18;
-    NodePtr[1] = v18;
-    *(v20 + 8) = NodePtr;
-    *v18 = NodePtr;
-    llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getNodePtr(v16);
+    llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getNodePtr();
+    v19 = *v18;
+    *v20 = *v18;
+    v20[1] = v18;
+    *(v19 + 8) = v20;
+    *v18 = v20;
+    llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getNodePtr();
   }
 
-  if ((mlir::OpBuilder::tryFold(a1, v16, a2) & 1) != 0 && *(a2 + 8))
+  if ((mlir::OpBuilder::tryFold(a1, v16, a2) & 1) != 0 && *(a2 + 2))
   {
-    mlir::Operation::erase(v16);
+    mlir::Operation::erase(v16, v21);
     goto LABEL_18;
   }
 
-  v21 = v16[9];
-  if (v21)
+  v22 = v16[9];
+  if (v22)
   {
-    v22 = (v16 - 4);
+    v23 = (v16 - 4);
   }
 
   else
   {
-    v22 = 0;
+    v23 = 0;
   }
 
-  *(a2 + 8) = 0;
-  if (v21 > *(a2 + 12))
+  *(a2 + 2) = 0;
+  if (v22 > *(a2 + 3))
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
-  if (v21)
+  if (v22)
   {
-    v23 = 0;
-    v24 = *a2;
+    v24 = 0;
+    v25 = *a2;
     do
     {
-      *(v24 + 8 * v23) = mlir::detail::OpResultImpl::getNextResultAtOffset(v22, v23);
-      ++v23;
+      *(v25 + 8 * v24) = mlir::detail::OpResultImpl::getNextResultAtOffset(v23, v24);
+      ++v24;
     }
 
-    while (v21 != v23);
-    *(a2 + 8) += v21;
-    if (!*(a1 + 16))
+    while (v22 != v24);
+    *(a2 + 2) += v22;
+    if (!a1[2])
     {
       goto LABEL_18;
     }
@@ -8481,21 +8769,21 @@ void mlir::OpBuilder::createOrFold<mlir::memref::DimOp,mlir::Value &,long long &
 
   else
   {
-    *(a2 + 8) = 0;
-    if (!*(a1 + 16))
+    *(a2 + 2) = 0;
+    if (!a1[2])
     {
       goto LABEL_18;
     }
   }
 
-  v25 = *(a1 + 8);
-  if (v25)
+  v26 = a1[1];
+  if (v26)
   {
-    (*(*v25 + 16))(v25, v16, 0, 0);
+    (*(*v26 + 16))(v26, v16, 0, 0);
   }
 
 LABEL_18:
-  mlir::OperationState::~OperationState(v29);
+  mlir::OperationState::~OperationState(v30);
 }
 
 void *anonymous namespace::SimplifyAllocConst<mlir::memref::AllocOp>::~SimplifyAllocConst(void *a1)
@@ -8532,25 +8820,25 @@ void anonymous namespace::SimplifyAllocConst<mlir::memref::AllocOp>::~SimplifyAl
   JUMPOUT(0x259C63180);
 }
 
-void mlir::OpBuilder::create<mlir::memref::AllocOp,mlir::MemRefType &,llvm::SmallVector<mlir::Value,4u> &,mlir::OperandRange,mlir::IntegerAttr>(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
+void mlir::OpBuilder::create<mlir::memref::AllocOp,mlir::MemRefType &,llvm::SmallVector<mlir::Value,4u> &,mlir::OperandRange,mlir::IntegerAttr>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
 {
-  v17[5] = *MEMORY[0x277D85DE8];
-  v14 = a2;
-  Context = mlir::Attribute::getContext(&v14);
-  v11 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::memref::AllocOp,void>::id, Context);
-  if (v12)
+  v19[5] = *MEMORY[0x277D85DE8];
+  v16 = a2;
+  Context = mlir::Attribute::getContext(&v16);
+  v13 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::memref::AllocOp,void>::id, Context);
+  if (v14)
   {
-    mlir::OperationState::OperationState(v15, a2, v11);
-    v13 = *a3;
-    mlir::ValueRange::ValueRange(v17, *a4, *(a4 + 8));
-    mlir::ValueRange::ValueRange(v16, *a5, *(a5 + 8));
-    mlir::memref::AllocOp::build(a1, v15, v13, v17[0], v17[1], v16[0], v16[1]);
+    mlir::OperationState::OperationState(v17, a2, v13);
+    v15 = *a3;
+    mlir::ValueRange::ValueRange(v19, *a4, *(a4 + 8));
+    mlir::ValueRange::ValueRange(v18, *a5, a5[1]);
+    mlir::memref::AllocOp::build(a1, v17, v15, v19[0], v19[1], v18[0], v18[1], *a6);
   }
 
-  mlir::OpBuilder::create<mlir::memref::AllocOp,mlir::MemRefType &,llvm::SmallVector<mlir::Value,4u> &,mlir::OperandRange,mlir::IntegerAttr>(v15, v17, v16);
+  mlir::OpBuilder::create<mlir::memref::AllocOp,mlir::MemRefType &,llvm::SmallVector<mlir::Value,4u> &,mlir::OperandRange,mlir::IntegerAttr>(v17, v19, v18);
 }
 
-uint64_t mlir::OpBuilder::create<mlir::memref::CastOp,mlir::MemRefType,mlir::memref::AllocOp &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void *a4)
+char *mlir::OpBuilder::create<mlir::memref::CastOp,mlir::MemRefType,mlir::memref::AllocOp &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void *a4)
 {
   v21 = *MEMORY[0x277D85DE8];
   v15 = a2;
@@ -8572,7 +8860,7 @@ uint64_t mlir::OpBuilder::create<mlir::memref::CastOp,mlir::MemRefType,mlir::mem
 
   *(v18[8] + 8 * v19++) = v11;
   v12 = mlir::OpBuilder::create(a1, v18);
-  if (*(*(v12 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::memref::CastOp,void>::id)
+  if (*(*(v12 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::memref::CastOp,void>::id)
   {
     v13 = v12;
   }
@@ -8637,7 +8925,7 @@ uint64_t anonymous namespace::SimplifyDeadAlloc<mlir::memref::AllocOp>::matchAnd
 
   v27.n128_u64[0] = v7;
   v27.n128_u64[1] = v5;
-  mlir::ResultRange::use_begin(&v27, &v28);
+  mlir::ResultRange::use_begin(&v28, &v27);
   v8 = *(a2 + 36);
   if (v8)
   {
@@ -8651,7 +8939,7 @@ uint64_t anonymous namespace::SimplifyDeadAlloc<mlir::memref::AllocOp>::matchAnd
 
   v27.n128_u64[0] = v9;
   v27.n128_u64[1] = v8;
-  mlir::ResultRange::use_end(&v27, v25);
+  mlir::ResultRange::use_end(v25, &v27);
   v10 = v30;
   j = v30;
   v22 = v28;
@@ -8699,7 +8987,7 @@ uint64_t anonymous namespace::SimplifyDeadAlloc<mlir::memref::AllocOp>::matchAnd
 
   *&v22 = v17;
   *(&v22 + 1) = v16;
-  mlir::ResultRange::use_begin(&v22, &v28);
+  mlir::ResultRange::use_begin(&v28, &v22);
   v18 = *(a2 + 36);
   if (v18)
   {
@@ -8713,7 +9001,7 @@ uint64_t anonymous namespace::SimplifyDeadAlloc<mlir::memref::AllocOp>::matchAnd
 
   v27.n128_u64[0] = v19;
   v27.n128_u64[1] = v18;
-  mlir::ResultRange::use_end(&v27, v25);
+  mlir::ResultRange::use_end(v25, &v27);
   v20 = v26;
   v22 = v28;
   v23 = v29;
@@ -8762,22 +9050,22 @@ void anonymous namespace::SimplifyAllocConst<mlir::memref::AllocaOp>::~SimplifyA
   JUMPOUT(0x259C63180);
 }
 
-void mlir::OpBuilder::create<mlir::memref::AllocaOp,mlir::MemRefType &,llvm::SmallVector<mlir::Value,4u> &,mlir::OperandRange,mlir::IntegerAttr>(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5)
+void mlir::OpBuilder::create<mlir::memref::AllocaOp,mlir::MemRefType &,llvm::SmallVector<mlir::Value,4u> &,mlir::OperandRange,mlir::IntegerAttr>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
 {
-  v17[5] = *MEMORY[0x277D85DE8];
-  v14 = a2;
-  Context = mlir::Attribute::getContext(&v14);
-  v11 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::memref::AllocaOp,void>::id, Context);
-  if (v12)
+  v19[5] = *MEMORY[0x277D85DE8];
+  v16 = a2;
+  Context = mlir::Attribute::getContext(&v16);
+  v13 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::memref::AllocaOp,void>::id, Context);
+  if (v14)
   {
-    mlir::OperationState::OperationState(v15, a2, v11);
-    v13 = *a3;
-    mlir::ValueRange::ValueRange(v17, *a4, *(a4 + 8));
-    mlir::ValueRange::ValueRange(v16, *a5, *(a5 + 8));
-    mlir::memref::AllocaOp::build(a1, v15, v13, v17[0], v17[1], v16[0], v16[1]);
+    mlir::OperationState::OperationState(v17, a2, v13);
+    v15 = *a3;
+    mlir::ValueRange::ValueRange(v19, *a4, *(a4 + 8));
+    mlir::ValueRange::ValueRange(v18, *a5, a5[1]);
+    mlir::memref::AllocaOp::build(a1, v17, v15, v19[0], v19[1], v18[0], v18[1], *a6);
   }
 
-  mlir::OpBuilder::create<mlir::memref::AllocaOp,mlir::MemRefType &>(v15, v17, v16);
+  mlir::OpBuilder::create<mlir::memref::AllocaOp,mlir::MemRefType &>(v17, v19, v18);
 }
 
 void *anonymous namespace::SimplifyDeadAlloc<mlir::memref::AllocaOp>::~SimplifyDeadAlloc(void *a1)
@@ -8831,7 +9119,7 @@ uint64_t anonymous namespace::SimplifyDeadAlloc<mlir::memref::AllocaOp>::matchAn
 
   v27.n128_u64[0] = v7;
   v27.n128_u64[1] = v5;
-  mlir::ResultRange::use_begin(&v27, &v28);
+  mlir::ResultRange::use_begin(&v28, &v27);
   v8 = *(a2 + 36);
   if (v8)
   {
@@ -8845,7 +9133,7 @@ uint64_t anonymous namespace::SimplifyDeadAlloc<mlir::memref::AllocaOp>::matchAn
 
   v27.n128_u64[0] = v9;
   v27.n128_u64[1] = v8;
-  mlir::ResultRange::use_end(&v27, v25);
+  mlir::ResultRange::use_end(v25, &v27);
   v10 = v30;
   j = v30;
   v22 = v28;
@@ -8893,7 +9181,7 @@ uint64_t anonymous namespace::SimplifyDeadAlloc<mlir::memref::AllocaOp>::matchAn
 
   *&v22 = v17;
   *(&v22 + 1) = v16;
-  mlir::ResultRange::use_begin(&v22, &v28);
+  mlir::ResultRange::use_begin(&v28, &v22);
   v18 = *(a2 + 36);
   if (v18)
   {
@@ -8907,7 +9195,7 @@ uint64_t anonymous namespace::SimplifyDeadAlloc<mlir::memref::AllocaOp>::matchAn
 
   v27.n128_u64[0] = v19;
   v27.n128_u64[1] = v18;
-  mlir::ResultRange::use_end(&v27, v25);
+  mlir::ResultRange::use_end(v25, &v27);
   v20 = v26;
   v22 = v28;
   v23 = v29;
@@ -8973,7 +9261,7 @@ uint64_t anonymous namespace::SimplifyDeadAlloc<mlir::memref::ReallocOp>::matchA
 
   v27.n128_u64[0] = v7;
   v27.n128_u64[1] = v5;
-  mlir::ResultRange::use_begin(&v27, &v28);
+  mlir::ResultRange::use_begin(&v28, &v27);
   v8 = *(a2 + 36);
   if (v8)
   {
@@ -8987,7 +9275,7 @@ uint64_t anonymous namespace::SimplifyDeadAlloc<mlir::memref::ReallocOp>::matchA
 
   v27.n128_u64[0] = v9;
   v27.n128_u64[1] = v8;
-  mlir::ResultRange::use_end(&v27, v25);
+  mlir::ResultRange::use_end(v25, &v27);
   v10 = v30;
   j = v30;
   v22 = v28;
@@ -9035,7 +9323,7 @@ uint64_t anonymous namespace::SimplifyDeadAlloc<mlir::memref::ReallocOp>::matchA
 
   *&v22 = v17;
   *(&v22 + 1) = v16;
-  mlir::ResultRange::use_begin(&v22, &v28);
+  mlir::ResultRange::use_begin(&v28, &v22);
   v18 = *(a2 + 36);
   if (v18)
   {
@@ -9049,7 +9337,7 @@ uint64_t anonymous namespace::SimplifyDeadAlloc<mlir::memref::ReallocOp>::matchA
 
   v27.n128_u64[0] = v19;
   v27.n128_u64[1] = v18;
-  mlir::ResultRange::use_end(&v27, v25);
+  mlir::ResultRange::use_end(v25, &v27);
   v20 = v26;
   v22 = v28;
   v23 = v29;
@@ -9064,10 +9352,10 @@ uint64_t anonymous namespace::SimplifyDeadAlloc<mlir::memref::ReallocOp>::matchA
   return 1;
 }
 
-uint64_t mlir::OpTrait::SingleBlockImplicitTerminator<mlir::memref::AllocaScopeReturnOp>::Impl<mlir::memref::AllocaScopeOp>::buildTerminator(uint64_t a1, uint64_t a2)
+char *mlir::OpTrait::SingleBlockImplicitTerminator<mlir::memref::AllocaScopeReturnOp>::Impl<mlir::memref::AllocaScopeOp>::buildTerminator(uint64_t a1, uint64_t a2)
 {
   v5[38] = *MEMORY[0x277D85DE8];
-  mlir::OperationState::OperationState(v5, a2, "memref.alloca_scope.return", 26);
+  mlir::OperationState::OperationState(v5, a2, "memref.alloca_scope.return", 0x1AuLL);
   v3 = mlir::Operation::create(v5, v2);
   mlir::OperationState::~OperationState(v5);
   return v3;
@@ -9104,35 +9392,36 @@ void AllocaScopeInliner::~AllocaScopeInliner(AllocaScopeInliner *this)
   JUMPOUT(0x259C63180);
 }
 
-uint64_t AllocaScopeInliner::matchAndRewrite(uint64_t a1, mlir::ForwardIterator *a2)
+uint64_t AllocaScopeInliner::matchAndRewrite(uint64_t a1, mlir::ForwardIterator *a2, uint64_t a3)
 {
-  v11 = &v12;
-  v12 = a2;
-  if (mlir::detail::walk<mlir::ForwardIterator>(a2, llvm::function_ref<mlir::WalkResult ()(mlir::Operation *)>::callback_fn<AllocaScopeInliner::matchAndRewrite(mlir::memref::AllocaScopeOp,mlir::PatternRewriter &)::{lambda(mlir::Operation *)#1}>, &v11, 0))
+  v15 = &v16;
+  v16 = a2;
+  if (mlir::detail::walk<mlir::ForwardIterator>(a2, llvm::function_ref<mlir::WalkResult ()(mlir::Operation *)>::callback_fn<AllocaScopeInliner::matchAndRewrite(mlir::memref::AllocaScopeOp,mlir::PatternRewriter &)::{lambda(mlir::Operation *)#1}>, &v15, 0))
   {
     goto LABEL_17;
   }
 
-  ParentOp = *(v12 + 2);
+  ParentOp = *(v16 + 2);
   if (ParentOp)
   {
     ParentOp = mlir::Block::getParentOp(ParentOp);
   }
 
   {
-    v10 = ParentOp;
+    v14 = ParentOp;
     AllocaScopeInliner::matchAndRewrite();
-    ParentOp = v10;
+    ParentOp = v14;
   }
 
   result = (*(**(ParentOp + 6) + 32))(*(ParentOp + 6), mlir::detail::TypeIDResolver<mlir::OpTrait::AutomaticAllocationScope<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::AutomaticAllocationScope>(void)::Empty>,void>::resolveTypeID(void)::id);
   if (result)
   {
-    v4 = v12;
-    v5 = *(v12 + 2);
-    if (*(v12 + 1) == (v5 + 32))
+    v5 = v16;
+    v6 = *(v16 + 2);
+    if (*(v16 + 1) == (v6 + 32))
     {
-      if (mlir::Block::getTerminator(v5))
+      mlir::Block::getTerminator(v6);
+      if (v10)
       {
         return 0;
       }
@@ -9140,29 +9429,31 @@ uint64_t AllocaScopeInliner::matchAndRewrite(uint64_t a1, mlir::ForwardIterator 
 
     else
     {
-      ValuePtr = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(*(v12 + 1));
-      if (ValuePtr != mlir::Block::getTerminator(*(v4 + 2)))
+      llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+      v8 = v7;
+      mlir::Block::getTerminator(*(v5 + 2));
+      if (v8 != v9)
       {
         return 0;
       }
     }
 
-    Parent = mlir::Block::getParent(*(v4 + 2));
-    v8 = *(Parent + 8);
-    if (v8 == Parent)
+    Parent = mlir::Block::getParent(*(v5 + 2));
+    v12 = *(Parent + 8);
+    if (v12 == Parent)
     {
       return 0;
     }
 
-    v9 = 1;
+    v13 = 1;
     do
     {
-      v8 = *(v8 + 8);
-      --v9;
+      v12 = *(v12 + 8);
+      --v13;
     }
 
-    while (v8 != Parent);
-    if (v9)
+    while (v12 != Parent);
+    if (v13)
     {
       return 0;
     }
@@ -9420,16 +9711,16 @@ void AllocaScopeHoister::~AllocaScopeHoister(AllocaScopeHoister *this)
   JUMPOUT(0x259C63180);
 }
 
-uint64_t AllocaScopeHoister::matchAndRewrite(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t AllocaScopeHoister::matchAndRewrite(uint64_t a1, mlir::Block **a2, uint64_t **a3)
 {
-  v37[6] = *MEMORY[0x277D85DE8];
+  v44[6] = *MEMORY[0x277D85DE8];
   result = mlir::Operation::getParentWithTrait<mlir::OpTrait::AutomaticAllocationScope>(a2);
   if (!result)
   {
     return result;
   }
 
-  result = *(a2 + 16);
+  result = a2[2];
   if (!result)
   {
     return result;
@@ -9451,10 +9742,11 @@ uint64_t AllocaScopeHoister::matchAndRewrite(uint64_t a1, uint64_t a2, uint64_t 
     return 0;
   }
 
-  v7 = *(a2 + 16);
-  if (*(a2 + 8) == (v7 + 32))
+  v7 = a2[2];
+  if (a2[1] == (v7 + 32))
   {
-    if (!mlir::Block::getTerminator(v7))
+    mlir::Block::getTerminator(v7);
+    if (!v11)
     {
       goto LABEL_11;
     }
@@ -9462,66 +9754,70 @@ uint64_t AllocaScopeHoister::matchAndRewrite(uint64_t a1, uint64_t a2, uint64_t 
     return 0;
   }
 
-  ValuePtr = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(*(a2 + 8));
-  if (ValuePtr != mlir::Block::getTerminator(*(a2 + 16)))
+  llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+  v9 = v8;
+  mlir::Block::getTerminator(a2[2]);
+  if (v9 != v10)
   {
     return 0;
   }
 
 LABEL_11:
-  Parent = mlir::Block::getParent(*(a2 + 16));
-  v10 = *(Parent + 8);
-  if (v10 == Parent)
+  Parent = mlir::Block::getParent(a2[2]);
+  v13 = *(Parent + 8);
+  if (v13 == Parent)
   {
     return 0;
   }
 
-  v11 = 1;
+  v14 = 1;
   do
   {
-    v10 = *(v10 + 8);
-    --v11;
+    v13 = *(v13 + 8);
+    --v14;
   }
 
-  while (v10 != Parent);
-  if (v11)
+  while (v13 != Parent);
+  if (v14)
   {
     return 0;
   }
 
-  v12 = *(v6 + 16);
-  if (*(v6 + 8) == (v12 + 32))
+  v15 = *(v6 + 16);
+  if (*(v6 + 8) == (v15 + 32))
   {
-    v13 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v13 = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(*(v6 + 8));
-    v12 = *(v6 + 16);
+    llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+    v17 = v16;
+    v15 = *(v6 + 16);
   }
 
-  if (v13 != mlir::Block::getTerminator(v12))
+  mlir::Block::getTerminator(v15);
+  if (v17 != v18)
   {
     return 0;
   }
 
-  v14 = mlir::Block::getParent(*(v6 + 16));
-  v15 = *(v14 + 8);
-  if (v15 == v14)
+  v19 = mlir::Block::getParent(*(v6 + 16));
+  v20 = *(v19 + 8);
+  if (v20 == v19)
   {
     return 0;
   }
 
-  v16 = 1;
+  v21 = 1;
   do
   {
-    v15 = *(v15 + 8);
-    --v16;
+    v20 = *(v20 + 8);
+    --v21;
   }
 
-  while (v15 != v14);
-  if (v16)
+  while (v20 != v19);
+  if (v21)
   {
     return 0;
   }
@@ -9535,9 +9831,9 @@ LABEL_11:
     }
 
     {
-      v22 = ParentOp;
+      v29 = ParentOp;
       mlir::Operation::getParentWithTrait<mlir::OpTrait::AutomaticAllocationScope>();
-      ParentOp = v22;
+      ParentOp = v29;
     }
 
     if ((*(**(ParentOp + 6) + 32))(*(ParentOp + 6), mlir::detail::TypeIDResolver<mlir::OpTrait::AutomaticAllocationScope<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::AutomaticAllocationScope>(void)::Empty>,void>::resolveTypeID(void)::id))
@@ -9558,91 +9854,93 @@ LABEL_11:
     }
 
     v6 = result;
-    v17 = *(result + 16);
-    if (*(v6 + 8) == (v17 + 32))
+    v22 = *(result + 16);
+    if (*(v6 + 8) == (v22 + 32))
     {
-      v18 = 0;
+      v24 = 0;
     }
 
     else
     {
-      v18 = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr(*(v6 + 8));
-      v17 = *(v6 + 16);
+      llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getValuePtr();
+      v24 = v23;
+      v22 = *(v6 + 16);
     }
 
-    if (v18 != mlir::Block::getTerminator(v17))
+    mlir::Block::getTerminator(v22);
+    if (v24 != v25)
     {
       return 0;
     }
 
-    v19 = mlir::Block::getParent(*(v6 + 16));
-    v20 = *(v19 + 8);
-    if (v20 == v19)
+    v26 = mlir::Block::getParent(*(v6 + 16));
+    v27 = *(v26 + 8);
+    if (v27 == v26)
     {
       return 0;
     }
 
-    v21 = 1;
+    v28 = 1;
     do
     {
-      v20 = *(v20 + 8);
-      --v21;
+      v27 = *(v27 + 8);
+      --v28;
     }
 
-    while (v20 != v19);
+    while (v27 != v26);
     result = 0;
-    if (v21)
+    if (v28)
     {
       return result;
     }
   }
 
-  v24 = *(v6 + 44);
-  v25 = 0;
-  if ((v24 & 0x7FFFFF) != 0)
+  v31 = *(v6 + 44);
+  v32 = 0;
+  if ((v31 & 0x7FFFFF) != 0)
   {
-    v26 = (((v6 + 16 * ((v24 >> 23) & 1) + ((v24 >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v6 + 40));
-    v27 = 24 * (v24 & 0x7FFFFF);
+    v33 = (((v6 + 16 * ((v31 >> 23) & 1) + ((v31 >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v6 + 40));
+    v34 = 24 * (v31 & 0x7FFFFF);
     do
     {
-      v28 = *(a2 + 16);
-      if (v28)
+      v35 = a2[2];
+      if (v35)
       {
-        v29 = mlir::Block::getParent(v28);
+        v36 = mlir::Block::getParent(v35);
       }
 
       else
       {
-        v29 = 0;
+        v36 = 0;
       }
 
-      if (v26 == v29 || mlir::Region::isProperAncestor(v26, v29))
+      if (v33 == v36 || mlir::Region::isProperAncestor(v33, v36))
       {
-        v25 = v26;
+        v32 = v33;
       }
 
-      v26 = (v26 + 24);
-      v27 -= 24;
+      v33 = (v33 + 24);
+      v34 -= 24;
     }
 
-    while (v27);
+    while (v34);
   }
 
-  v34[1] = &v35;
-  v35 = v37;
-  v36 = 0x600000000;
-  v33 = v25;
-  v34[0] = &v33;
-  mlir::detail::walk<mlir::ForwardIterator>(a2, llvm::function_ref<mlir::WalkResult ()(mlir::Operation *)>::callback_fn<AllocaScopeHoister::matchAndRewrite(mlir::memref::AllocaScopeOp,mlir::PatternRewriter &)::{lambda(mlir::Operation *)#1}>, v34, 1);
-  if (v36)
+  v41[1] = &v42;
+  v42 = v44;
+  v43 = 0x600000000;
+  v40 = v32;
+  v41[0] = &v40;
+  mlir::detail::walk<mlir::ForwardIterator>(a2, llvm::function_ref<mlir::WalkResult ()(mlir::Operation *)>::callback_fn<AllocaScopeHoister::matchAndRewrite(mlir::memref::AllocaScopeOp,mlir::PatternRewriter &)::{lambda(mlir::Operation *)#1}>, v41, 1);
+  if (v43)
   {
-    v30 = *(v6 + 16);
-    NodePtr = llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getNodePtr(v6);
-    *(a3 + 24) = v30;
-    *(a3 + 32) = NodePtr;
-    if (v36)
+    v37 = *(v6 + 16);
+    llvm::ilist_detail::SpecificNodeAccess<llvm::ilist_detail::node_options<mlir::Operation,false,false,void,false,void>>::getNodePtr();
+    a3[3] = v37;
+    a3[4] = v38;
+    if (v43)
     {
-      mlir::OpBuilder::clone((a3 + 8), *v35);
+      mlir::OpBuilder::clone(a3 + 1, *v42);
     }
 
     result = 1;
@@ -9653,155 +9951,12 @@ LABEL_11:
     result = 0;
   }
 
-  if (v35 != v37)
+  if (v42 != v44)
   {
-    v32 = result;
-    free(v35);
-    return v32;
+    v39 = result;
+    free(v42);
+    return v39;
   }
 
   return result;
-}
-
-uint64_t AllocaScopeHoister::matchAndRewrite(mlir::memref::AllocaScopeOp,mlir::PatternRewriter &)const::{lambda(mlir::Operation *)#1}::operator()(uint64_t *a1, uint64_t a2)
-{
-  v23[20] = *MEMORY[0x277D85DE8];
-  if (!mlir::OpInterface<mlir::MemoryEffectOpInterface,mlir::detail::MemoryEffectOpInterfaceInterfaceTraits>::getInterfaceFor(a2))
-  {
-    v18 = 0;
-    InterfaceFor = 0;
-    return 2;
-  }
-
-  if (!a2)
-  {
-    v18 = 0;
-    InterfaceFor = 0;
-    return 2;
-  }
-
-  v16 = a1;
-  v18 = a2;
-  InterfaceFor = mlir::OpInterface<mlir::MemoryEffectOpInterface,mlir::detail::MemoryEffectOpInterfaceInterfaceTraits>::getInterfaceFor(a2);
-  v4 = *(a2 + 36);
-  if (v4)
-  {
-    v5 = a2 - 16;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  if (!v4)
-  {
-    return 2;
-  }
-
-  v6 = 0;
-  while (1)
-  {
-    NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v5, v6);
-    v21 = v23;
-    v22 = 0x400000000;
-    mlir::MemoryEffectOpInterface::getEffects(&v18, &v21);
-    v7 = llvm::find_if<llvm::SmallVector<mlir::SideEffects::EffectInstance<mlir::MemoryEffects::Effect>,4u> &,std::optional<mlir::SideEffects::EffectInstance<mlir::MemoryEffects::Effect>> mlir::MemoryEffectOpInterface::getEffectOnValue<mlir::MemoryEffects::Allocate>(mlir::Value)::{lambda(llvm::SmallVector<mlir::SideEffects::EffectInstance<mlir::MemoryEffects::Effect>,4u> & &)#1}>(&v21, &NextResultAtOffset);
-    v8 = (v21 + 40 * v22);
-    if (v7 != v8)
-    {
-      a1 = v7[1];
-    }
-
-    if (v21 != v23)
-    {
-      free(v21);
-    }
-
-    if (v7 == v8)
-    {
-      goto LABEL_12;
-    }
-
-    v9 = a1[1];
-    {
-      break;
-    }
-
-    AllocaScopeInliner::matchAndRewrite(mlir::memref::AllocaScopeOp,mlir::PatternRewriter &)const::{lambda(mlir::Operation *)#1}::operator()();
-    if (v9 == mlir::detail::TypeIDResolver<mlir::SideEffects::AutomaticAllocationScopeResource,void>::resolveTypeID(void)::id)
-    {
-      goto LABEL_20;
-    }
-
-LABEL_12:
-    if (v4 == ++v6)
-    {
-      return 2;
-    }
-  }
-
-  if (v9 != mlir::detail::TypeIDResolver<mlir::SideEffects::AutomaticAllocationScopeResource,void>::resolveTypeID(void)::id)
-  {
-    goto LABEL_12;
-  }
-
-LABEL_20:
-  if ((*(a2 + 46) & 0x80) != 0)
-  {
-    v10 = *(a2 + 68);
-    if (v10)
-    {
-      v11 = *v16;
-      v12 = (*(a2 + 72) + 24);
-      do
-      {
-        v21 = *v12;
-        v13 = *v11;
-        ParentRegion = mlir::Value::getParentRegion(&v21);
-        if (v13 == ParentRegion || (mlir::Region::isProperAncestor(v13, ParentRegion) & 1) != 0)
-        {
-          return 2;
-        }
-
-        v12 += 4;
-      }
-
-      while (--v10);
-    }
-  }
-
-  AllocaScopeHoister::matchAndRewrite(mlir::memref::AllocaScopeOp,mlir::PatternRewriter &)const::{lambda(mlir::Operation *)#1}::operator()(v16, a2);
-  return 1;
-}
-
-void anonymous namespace::FoldCopyOfCast::~FoldCopyOfCast(_anonymous_namespace_::FoldCopyOfCast *this)
-{
-  v2 = *(this + 10);
-  if (v2 != this + 96)
-  {
-    free(v2);
-  }
-
-  v3 = *(this + 4);
-  if (v3 != this + 48)
-  {
-    free(v3);
-  }
-}
-
-{
-  v2 = *(this + 10);
-  if (v2 != this + 96)
-  {
-    free(v2);
-  }
-
-  v3 = *(this + 4);
-  if (v3 != this + 48)
-  {
-    free(v3);
-  }
-
-  JUMPOUT(0x259C63180);
 }

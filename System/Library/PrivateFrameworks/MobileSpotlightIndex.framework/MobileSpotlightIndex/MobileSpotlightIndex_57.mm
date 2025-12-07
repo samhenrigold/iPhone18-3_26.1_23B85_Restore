@@ -1,887 +1,4 @@
-uint64_t _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li768EE6shadowEbPVi(uint64_t a1, uint64_t a2, _DWORD *a3)
-{
-  os_unfair_lock_lock((a1 + 160));
-  v6 = *(a1 + 136);
-  if (v6)
-  {
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v8 = *(a1 + 144);
-  v7 = *(a1 + 152);
-  if (v7)
-  {
-    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  os_unfair_lock_unlock((a1 + 160));
-  (*(*v8 + 168))(v8, a2, a3);
-  result = vi_onefixedsize_disk_allocator::shadow(*(*(a1 + 96) + 32), a2, a3);
-  if (v7 && !atomic_fetch_add(&v7->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    v10 = result;
-    (v7->__on_zero_shared)(v7);
-    std::__shared_weak_count::__release_weak(v7);
-    result = v10;
-  }
-
-  if (v6)
-  {
-    if (!atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      v11 = result;
-      (v6->__on_zero_shared)(v6);
-      std::__shared_weak_count::__release_weak(v6);
-      return v11;
-    }
-  }
-
-  return result;
-}
-
-uint64_t _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li768EE12validAddressEPKv(uint64_t a1, unint64_t a2)
-{
-  os_unfair_lock_lock((a1 + 160));
-  v5 = *(a1 + 128);
-  v4 = *(a1 + 136);
-  if (v4)
-  {
-    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v7 = *(a1 + 144);
-  v6 = *(a1 + 152);
-  if (v6)
-  {
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  os_unfair_lock_unlock((a1 + 160));
-  v8 = *(a1 + 96);
-  if (!v8 || (v9 = *(v8 + 32), v10 = *(v9 + 72), v10 < 1))
-  {
-LABEL_17:
-    if (v7 && ((*(*v7 + 144))(v7, a2) & 1) != 0 || v5 && ((*(*v5 + 56))(v5, a2) & 1) != 0)
-    {
-      goto LABEL_21;
-    }
-
-    v18 = *(a1 + 112);
-    if (v18)
-    {
-      v17 = _ZNK16QuantizerManagerIDF16_Li256EE12validAddressEPKv(v18, a2);
-      if (!v6)
-      {
-        goto LABEL_29;
-      }
-    }
-
-    else
-    {
-      v17 = 0;
-      if (!v6)
-      {
-        goto LABEL_29;
-      }
-    }
-
-    goto LABEL_27;
-  }
-
-  v11 = (v9 + 96);
-  v12 = 1;
-  do
-  {
-    v13 = *v11;
-    if (!*v11 || (v14 = v13[1], v14 + 1 < 2) || v14 > a2 || (v16 = v13[2], v14 - v16 + v13[3] <= a2))
-    {
-      v15 = 1;
-      if (v12 >= v10)
-      {
-        break;
-      }
-
-      goto LABEL_11;
-    }
-
-    v15 = a2 - v14 + v16 == -1;
-    if (v12 >= v10)
-    {
-      break;
-    }
-
-LABEL_11:
-    ++v12;
-    ++v11;
-  }
-
-  while (v15);
-  if (v15)
-  {
-    goto LABEL_17;
-  }
-
-LABEL_21:
-  v17 = 1;
-  if (v6)
-  {
-LABEL_27:
-    if (!atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v6->__on_zero_shared)(v6);
-      std::__shared_weak_count::__release_weak(v6);
-    }
-  }
-
-LABEL_29:
-  if (v4 && !atomic_fetch_add(&v4->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v4->__on_zero_shared)(v4);
-    std::__shared_weak_count::__release_weak(v4);
-  }
-
-  return v17;
-}
-
-uint64_t _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li768EE8allExistEPKvj(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  if (a3)
-  {
-    if (a3 <= 0x3E8)
-    {
-      v12 = a3;
-      while (_ZN22IVFVectorIndexTemplateIDF16_Li768EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6existsERK10CIVector_sIDF16_Li768EE(a1 + 48, a2))
-      {
-        a2 += 1536;
-        if (!--v12)
-        {
-          goto LABEL_14;
-        }
-      }
-    }
-
-    else
-    {
-      v6 = 0;
-      v7 = a3 / 0xA;
-      v8 = 1.0 / a3;
-      while (1)
-      {
-        v9 = v6 + 1;
-        if (!((v6 + 1) % v7))
-        {
-          v10 = *__error();
-          v11 = _SILogForLogForCategory(16);
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 134217984;
-            v19 = ((v6 * 100.0) * v8);
-            _os_log_impl(&dword_1C278D000, v11, OS_LOG_TYPE_DEFAULT, "allExist: %.0f%%", buf, 0xCu);
-          }
-
-          *__error() = v10;
-        }
-
-        if (!_ZN22IVFVectorIndexTemplateIDF16_Li768EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6existsERK10CIVector_sIDF16_Li768EE(a1 + 48, a2))
-        {
-          break;
-        }
-
-        a2 += 1536;
-        ++v6;
-        if (a3 == v9)
-        {
-          goto LABEL_14;
-        }
-      }
-    }
-
-    v15 = __si_assert_copy_extra_332();
-    v16 = v15;
-    v17 = "";
-    if (v15)
-    {
-      v17 = v15;
-    }
-
-    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 3331, "false", v17);
-    free(v16);
-    if (__valid_fs(-1))
-    {
-      MEMORY[0xBAD] = -559038737;
-      abort();
-    }
-
-    MEMORY[0xC00] = -559038737;
-    abort();
-  }
-
-LABEL_14:
-  v13 = *MEMORY[0x1E69E9840];
-  return a3;
-}
-
-BOOL _ZN22IVFVectorIndexTemplateIDF16_Li768EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6existsERK10CIVector_sIDF16_Li768EE(uint64_t a1, uint64_t a2)
-{
-  v28 = *MEMORY[0x1E69E9840];
-  v24 = 3.4028e38;
-  v25 = -1;
-  v4 = _ZN22IVFVectorIndexTemplateIDF16_Li768EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE10findVectorERK10CIVector_sIDF16_Li768EERjRfj(a1, a2, &v25, &v24, 0);
-  if (v4 == -1)
-  {
-    v7 = *__error();
-    v8 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315906;
-      *&buf[4] = "exists";
-      *&buf[12] = 1024;
-      *&buf[14] = 2804;
-      *&buf[18] = 1024;
-      *&buf[20] = v25;
-      LOWORD(v27[0]) = 2048;
-      *(v27 + 2) = v24;
-      _os_log_error_impl(&dword_1C278D000, v8, OS_LOG_TYPE_ERROR, "%s:%d: Vector not found partID=%u distsq=%e", buf, 0x22u);
-    }
-
-    *__error() = v7;
-    os_unfair_lock_lock((a1 + 112));
-    v10 = *(a1 + 80);
-    v9 = *(a1 + 88);
-    if (v9)
-    {
-      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v12 = *(a1 + 96);
-    v11 = *(a1 + 104);
-    if (v11)
-    {
-      atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    os_unfair_lock_unlock((a1 + 112));
-    *buf = 0;
-    *&buf[8] = buf;
-    v27[0] = -1;
-    *&buf[16] = 0x2000000000;
-    v13 = v25;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 0x40000000;
-    v21[2] = ___ZN22IVFVectorIndexTemplateIDF16_Li768EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6existsERK10CIVector_sIDF16_Li768EE_block_invoke;
-    v21[3] = &unk_1E81959C8;
-    v21[5] = a1;
-    v21[6] = a2;
-    v22 = v25;
-    v23 = v24;
-    v21[4] = buf;
-    (*(*v12 + 80))(v12, v25, v21);
-    if (*(*&buf[8] + 24) == -1)
-    {
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 1174405120;
-      v16[2] = ___ZN22IVFVectorIndexTemplateIDF16_Li768EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6existsERK10CIVector_sIDF16_Li768EE_block_invoke_1474;
-      v16[3] = &unk_1F4280660;
-      v16[5] = a1;
-      v16[6] = a2;
-      v16[7] = v10;
-      v17 = v9;
-      if (v9)
-      {
-        atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      v18 = v12;
-      v19 = v11;
-      if (v11)
-      {
-        atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      v20 = v13;
-      v16[4] = buf;
-      (*(*v12 + 64))(v12, v16);
-      v14 = v19;
-      if (v19 && !atomic_fetch_add(&v19->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        (v14->__on_zero_shared)(v14);
-        std::__shared_weak_count::__release_weak(v14);
-      }
-
-      v15 = v17;
-      if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        (v15->__on_zero_shared)(v15);
-        std::__shared_weak_count::__release_weak(v15);
-      }
-    }
-
-    _Block_object_dispose(buf, 8);
-    if (v11 && !atomic_fetch_add(&v11->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v11->__on_zero_shared)(v11);
-      std::__shared_weak_count::__release_weak(v11);
-    }
-
-    if (v9 && !atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v9->__on_zero_shared)(v9);
-      std::__shared_weak_count::__release_weak(v9);
-    }
-  }
-
-  result = v4 != -1;
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-int *___ZN22IVFVectorIndexTemplateIDF16_Li768EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6existsERK10CIVector_sIDF16_Li768EE_block_invoke(uint64_t a1, int a2, float *a3, _BYTE *a4)
-{
-  v50 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 48);
-  v8 = *a3;
-  v9 = *(*(*(a1 + 40) + 48) + 32);
-  v10 = v9[3] + v9[2] * v8;
-  bit_vector_set_13535(v9 + 525, (v10 >> 20));
-  v11 = (v10 + 1552) >> 20;
-  if (v11 > (v10 >> 20))
-  {
-    v12 = (v10 >> 20) + 1;
-    do
-    {
-      v13 = v12;
-      bit_vector_set_13535(v9 + 525, v12++);
-    }
-
-    while (v11 > v13);
-  }
-
-  v14 = _windowsResolvePtr((v9 + 5), v9[3] + v9[2] * v8, 1552);
-  result = memcmp(v7, v14, 0x600uLL);
-  if (!result)
-  {
-    v16 = *__error();
-    v17 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
-    {
-      v23 = a3[1];
-      *buf = 136315906;
-      v35 = "exists_block_invoke";
-      v36 = 1024;
-      v37 = 2809;
-      v38 = 1024;
-      *v39 = a2;
-      *&v39[4] = 2048;
-      *&v39[6] = v23;
-      _os_log_error_impl(&dword_1C278D000, v17, OS_LOG_TYPE_ERROR, "%s:%d: Vector not found actually in partID=%u distsq=%e", buf, 0x22u);
-    }
-
-    *__error() = v16;
-    v18 = *__error();
-    v19 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
-    {
-      v24 = *(a1 + 56);
-      v25 = *(a1 + 60);
-      *buf = 136315906;
-      v35 = "exists_block_invoke";
-      v36 = 1024;
-      v37 = 2810;
-      v38 = 1024;
-      *v39 = v24;
-      *&v39[4] = 2048;
-      *&v39[6] = v25;
-      _os_log_error_impl(&dword_1C278D000, v19, OS_LOG_TYPE_ERROR, "%s:%d: Vec distance to centroid %u distsq=%e", buf, 0x22u);
-    }
-
-    *__error() = v18;
-    v20 = *__error();
-    v21 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
-    {
-      v26 = *(a1 + 60);
-      v27 = a3[1];
-      v28 = vabds_f32(v26, v27);
-      if (v26 == v27)
-      {
-        v29 = 1;
-        v30 = 1;
-      }
-
-      else
-      {
-        v31 = fabsf(v26);
-        v32 = fabsf(v27);
-        v29 = v28 <= fmaxf(fminf(v32, v31) * 0.000015259, 0.000015259);
-        v30 = v28 <= (fmaxf(v31, v32) * 0.000015259);
-      }
-
-      *buf = 136317186;
-      v35 = "exists_block_invoke";
-      v36 = 1024;
-      v37 = 2811;
-      v38 = 2048;
-      *v39 = v28;
-      *&v39[8] = 2048;
-      *&v39[10] = 0x3810000000000000;
-      v40 = 2048;
-      v41 = 0x3E80000000000000;
-      v42 = 1024;
-      v43 = v28 < 1.1755e-38;
-      v44 = 1024;
-      v45 = v28 < 0.00000011921;
-      v46 = 1024;
-      v47 = v29;
-      v48 = 1024;
-      v49 = v30;
-      _os_log_error_impl(&dword_1C278D000, v21, OS_LOG_TYPE_ERROR, "%s:%d: |distancesq - ve.distsq|=%e, FLT_MIN=%e, EPSILON=%e, %d, %d, %d, %d", buf, 0x48u);
-    }
-
-    result = __error();
-    *result = v20;
-    *(*(*(a1 + 32) + 8) + 24) = *a3;
-    *a4 = 1;
-  }
-
-  v22 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void ___ZN22IVFVectorIndexTemplateIDF16_Li768EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6existsERK10CIVector_sIDF16_Li768EE_block_invoke_1474(uint64_t a1, int a2, unsigned int *a3, _BYTE *a4)
-{
-  v159 = *MEMORY[0x1E69E9840];
-  v6 = *(a1 + 48);
-  v131 = *(a1 + 40);
-  v8 = *a3;
-  v9 = *(*(v131 + 48) + 32);
-  v10 = v9[3] + v9[2] * v8;
-  bit_vector_set_13535(v9 + 525, (v10 >> 20));
-  v11 = (v10 + 1552) >> 20;
-  if (v11 > (v10 >> 20))
-  {
-    v12 = (v10 >> 20) + 1;
-    do
-    {
-      v13 = v12;
-      bit_vector_set_13535(v9 + 525, v12++);
-    }
-
-    while (v11 > v13);
-  }
-
-  v14 = _windowsResolvePtr((v9 + 5), v9[3] + v9[2] * v8, 1552);
-  if (!memcmp(v6, v14, 0x600uLL))
-  {
-    v15 = *__error();
-    v16 = _SILogForLogForCategory(16);
-    v17 = a3;
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-    {
-      v59 = *(a3 + 1);
-      *buf = 136315906;
-      v140 = "exists_block_invoke";
-      v141 = 1024;
-      v142 = 2819;
-      v143 = 1024;
-      v144 = *&a2;
-      v145 = 2048;
-      *v146 = v59;
-      _os_log_error_impl(&dword_1C278D000, v16, OS_LOG_TYPE_ERROR, "%s:%d: Vector not found actually in partID=%u distsq=%e", buf, 0x22u);
-    }
-
-    *__error() = v15;
-    v18 = *(a1 + 48);
-    v19 = (*(**(a1 + 56) + 72))(*(a1 + 56), *(a1 + 88));
-    v20 = 0uLL;
-    v21 = -8;
-    do
-    {
-      v22 = *v18++;
-      v23 = v22;
-      v24 = *v19++;
-      v25 = vsubq_f16(v23, v24);
-      v20 = vmlaq_f16(v20, v25, v25);
-      v21 += 8;
-    }
-
-    while (v21 < 0x2F8);
-    v130 = v20;
-    v26 = *__error();
-    v27 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
-    {
-      _H3 = v130.i16[0];
-      __asm { FCVT            S0, H3 }
-
-      _H1 = v130.i16[1];
-      __asm { FCVT            S1, H1 }
-
-      v68 = _S0 + _S1;
-      LOWORD(_S1) = v130.i16[2];
-      __asm { FCVT            S1, H1 }
-
-      _H2 = v130.i16[3];
-      __asm { FCVT            S2, H2 }
-
-      v72 = v68 + (_S1 + _S2);
-      LOWORD(_S1) = v130.i16[4];
-      __asm { FCVT            S1, H1 }
-
-      LOWORD(_S2) = v130.i16[5];
-      __asm { FCVT            S2, H2 }
-
-      _S1 = _S1 + _S2;
-      LOWORD(_S2) = v130.i16[6];
-      __asm { FCVT            S2, H2 }
-
-      v77 = v72 + (_S1 + _S2);
-      LOWORD(_S1) = v130.i16[7];
-      __asm { FCVT            S1, H1 }
-
-      v79 = *(a1 + 88);
-      *buf = 136315906;
-      v140 = "exists_block_invoke";
-      v141 = 1024;
-      v142 = 2821;
-      v143 = 1024;
-      v144 = v79;
-      v145 = 2048;
-      *v146 = (v77 + _S1);
-      _os_log_error_impl(&dword_1C278D000, v27, OS_LOG_TYPE_ERROR, "%s:%d: Vec distance to centroid %u distsq=%e", buf, 0x22u);
-    }
-
-    *__error() = v26;
-    __p = 0;
-    v137 = 0;
-    v138 = 0;
-    v28 = *(a1 + 48);
-    (*(**(a1 + 56) + 80))(&__p);
-    v29 = *__error();
-    v30 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
-    {
-      v80 = *__p;
-      v81 = *(__p + 1);
-      v82 = *(__p + 2);
-      v83 = *(__p + 3);
-      *buf = 136316674;
-      v140 = "exists_block_invoke";
-      v84 = vabds_f32(v81, v83) <= fmaxf(fminf(fabsf(v83), fabsf(v81)) * 0.000015259, 0.000015259);
-      v142 = 2823;
-      v141 = 1024;
-      v85 = v81 == v83 || v84;
-      v143 = 1024;
-      v144 = v80;
-      v145 = 2048;
-      *v146 = v81;
-      *&v146[8] = 1024;
-      *&v146[10] = v82;
-      v147 = 2048;
-      v148 = v83;
-      v149 = 1024;
-      LODWORD(v150) = v85;
-      _os_log_error_impl(&dword_1C278D000, v30, OS_LOG_TYPE_ERROR, "%s:%d: topKPartition(vec, 2) <%u, %e>, <%u, %e>, %d", buf, 0x38u);
-    }
-
-    *__error() = v29;
-    v31 = *__error();
-    v32 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
-    {
-      v86 = *__p;
-      v87 = *(__p + 2);
-      v88 = *(__p + 1) == *(__p + 3);
-      *buf = 136316162;
-      v140 = "exists_block_invoke";
-      v141 = 1024;
-      v142 = 2824;
-      v143 = 1024;
-      v144 = v86;
-      v145 = 1024;
-      *v146 = v87;
-      *&v146[4] = 1024;
-      *&v146[6] = v88;
-      _os_log_error_impl(&dword_1C278D000, v32, OS_LOG_TYPE_ERROR, "%s:%d: distsq(%u) == distsq(%u) is %d", buf, 0x24u);
-    }
-
-    *__error() = v31;
-    v33 = *__error();
-    v34 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
-    {
-      v89 = *__p;
-      v90 = *(__p + 2);
-      v91 = *(__p + 1) < *(__p + 3);
-      *buf = 136316162;
-      v140 = "exists_block_invoke";
-      v141 = 1024;
-      v142 = 2825;
-      v143 = 1024;
-      v144 = v89;
-      v145 = 1024;
-      *v146 = v90;
-      *&v146[4] = 1024;
-      *&v146[6] = v91;
-      _os_log_error_impl(&dword_1C278D000, v34, OS_LOG_TYPE_ERROR, "%s:%d: distsq(%u) < distsq(%u) is %d", buf, 0x24u);
-    }
-
-    *__error() = v33;
-    v35 = *__error();
-    v36 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
-    {
-      v92 = *__p;
-      v93 = *(__p + 2);
-      v94 = *(__p + 1) > *(__p + 3);
-      *buf = 136316162;
-      v140 = "exists_block_invoke";
-      v141 = 1024;
-      v142 = 2826;
-      v143 = 1024;
-      v144 = v92;
-      v145 = 1024;
-      *v146 = v93;
-      *&v146[4] = 1024;
-      *&v146[6] = v94;
-      _os_log_error_impl(&dword_1C278D000, v36, OS_LOG_TYPE_ERROR, "%s:%d: distsq(%u) > distsq(%u) is %d", buf, 0x24u);
-    }
-
-    *__error() = v35;
-    v37 = *__error();
-    v38 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
-    {
-      v95 = *__p;
-      v96 = *(__p + 2);
-      v97 = *(__p + 1);
-      v98 = *(__p + 3);
-      v99 = (v97 - v98);
-      v100 = vabds_f32(v97, v98);
-      if (v97 == v98)
-      {
-        v101 = 1;
-        v102 = 1;
-      }
-
-      else
-      {
-        v126 = fabsf(v97);
-        v127 = fabsf(v98);
-        v101 = v100 <= fmaxf(fminf(v127, v126) * 0.000015259, 0.000015259);
-        v102 = v100 <= (fmaxf(v126, v127) * 0.000015259);
-      }
-
-      *buf = 136317698;
-      v140 = "exists_block_invoke";
-      v141 = 1024;
-      v142 = 2827;
-      v143 = 1024;
-      v144 = v95;
-      v145 = 1024;
-      *v146 = v96;
-      *&v146[4] = 2048;
-      *&v146[6] = v99;
-      v147 = 2048;
-      v148 = 1.17549435e-38;
-      v149 = 2048;
-      v150 = 0x3E80000000000000;
-      v151 = 1024;
-      v152 = v100 < 1.1755e-38;
-      v153 = 1024;
-      v154 = v100 < 0.00000011921;
-      v155 = 1024;
-      v156 = v101;
-      v157 = 1024;
-      v158 = v102;
-      _os_log_error_impl(&dword_1C278D000, v38, OS_LOG_TYPE_ERROR, "%s:%d: distsq(%u) - distsq(%u) = %e, FLT_MIN=%e, EPSILON=%e, %d, %d, %d, %d", buf, 0x54u);
-    }
-
-    *__error() = v37;
-    v134 = 0;
-    v135 = 0;
-    v133 = 0;
-    v39 = *(a1 + 56);
-    v40 = *a3;
-    v41 = *(*(v131 + 48) + 32);
-    v42 = v41[3] + v41[2] * v40;
-    bit_vector_set_13535(v41 + 525, (v42 >> 20));
-    v43 = (v42 + 1552) >> 20;
-    if (v43 > (v42 >> 20))
-    {
-      v44 = (v42 >> 20) + 1;
-      do
-      {
-        v45 = v44;
-        bit_vector_set_13535(v41 + 525, v44++);
-      }
-
-      while (v43 > v45);
-    }
-
-    v46 = _windowsResolvePtr((v41 + 5), v41[3] + v41[2] * v40, 1552);
-    (*(*v39 + 80))(&v133, v39, v46, 2);
-    v47 = *__error();
-    v48 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
-    {
-      v103 = *v133;
-      v104 = v133[1];
-      v105 = *(v133 + 2);
-      v106 = v133[3];
-      *buf = 136316674;
-      v140 = "exists_block_invoke";
-      v107 = vabds_f32(v104, v106) <= fmaxf(fminf(fabsf(v106), fabsf(v104)) * 0.000015259, 0.000015259);
-      v142 = 2830;
-      v141 = 1024;
-      v108 = v104 == v106 || v107;
-      v143 = 1024;
-      v144 = v103;
-      v145 = 2048;
-      *v146 = v104;
-      *&v146[8] = 1024;
-      *&v146[10] = v105;
-      v147 = 2048;
-      v148 = v106;
-      v149 = 1024;
-      LODWORD(v150) = v108;
-      _os_log_error_impl(&dword_1C278D000, v48, OS_LOG_TYPE_ERROR, "%s:%d: topKPartition(entry->vec, 2) <%u, %e>, <%u, %e>, %d", buf, 0x38u);
-    }
-
-    *__error() = v47;
-    v49 = *__error();
-    v50 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
-    {
-      v109 = *v133;
-      v110 = *(v133 + 2);
-      v111 = v133[1] == v133[3];
-      *buf = 136316162;
-      v140 = "exists_block_invoke";
-      v141 = 1024;
-      v142 = 2831;
-      v143 = 1024;
-      v144 = v109;
-      v145 = 1024;
-      *v146 = v110;
-      *&v146[4] = 1024;
-      *&v146[6] = v111;
-      _os_log_error_impl(&dword_1C278D000, v50, OS_LOG_TYPE_ERROR, "%s:%d: distsq(%u) == distsq(%u) is %d", buf, 0x24u);
-    }
-
-    *__error() = v49;
-    v51 = *__error();
-    v52 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
-    {
-      v112 = *v133;
-      v113 = *(v133 + 2);
-      v114 = v133[1] < v133[3];
-      *buf = 136316162;
-      v140 = "exists_block_invoke";
-      v141 = 1024;
-      v142 = 2832;
-      v143 = 1024;
-      v144 = v112;
-      v145 = 1024;
-      *v146 = v113;
-      *&v146[4] = 1024;
-      *&v146[6] = v114;
-      _os_log_error_impl(&dword_1C278D000, v52, OS_LOG_TYPE_ERROR, "%s:%d: distsq(%u) < distsq(%u) is %d", buf, 0x24u);
-    }
-
-    *__error() = v51;
-    v53 = *__error();
-    v54 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
-    {
-      v115 = *v133;
-      v116 = *(v133 + 2);
-      v117 = v133[1] > v133[3];
-      *buf = 136316162;
-      v140 = "exists_block_invoke";
-      v141 = 1024;
-      v142 = 2833;
-      v143 = 1024;
-      v144 = v115;
-      v145 = 1024;
-      *v146 = v116;
-      *&v146[4] = 1024;
-      *&v146[6] = v117;
-      _os_log_error_impl(&dword_1C278D000, v54, OS_LOG_TYPE_ERROR, "%s:%d: distsq(%u) > distsq(%u) is %d", buf, 0x24u);
-    }
-
-    *__error() = v53;
-    v55 = *__error();
-    v56 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
-    {
-      v118 = *v133;
-      v119 = *(v133 + 2);
-      v120 = v133[1];
-      v121 = v133[3];
-      v122 = vabds_f32(v120, v121);
-      v123 = (v120 - v121) < 1.1755e-38;
-      if (v120 == v121)
-      {
-        v124 = 1;
-        v125 = 1;
-      }
-
-      else
-      {
-        v128 = fabsf(v120);
-        v129 = fabsf(v121);
-        v124 = v122 <= fmaxf(fminf(v129, v128) * 0.000015259, 0.000015259);
-        v125 = v122 <= (fmaxf(v128, v129) * 0.000015259);
-      }
-
-      *buf = 136317698;
-      v140 = "exists_block_invoke";
-      v141 = 1024;
-      v142 = 2834;
-      v143 = 1024;
-      v144 = v118;
-      v145 = 1024;
-      *v146 = v119;
-      *&v146[4] = 2048;
-      *&v146[6] = v122;
-      v147 = 2048;
-      v148 = 1.17549435e-38;
-      v149 = 2048;
-      v150 = 0x3E80000000000000;
-      v151 = 1024;
-      v152 = v123;
-      v153 = 1024;
-      v154 = v122 < 0.00000011921;
-      v155 = 1024;
-      v156 = v124;
-      v157 = 1024;
-      v158 = v125;
-      _os_log_error_impl(&dword_1C278D000, v56, OS_LOG_TYPE_ERROR, "%s:%d: distsq(%u) - distsq(%u) = %e, FLT_MIN=%e, EPSILON=%e, %d, %d, %d, %d", buf, 0x54u);
-    }
-
-    *__error() = v55;
-    *(*(*(a1 + 32) + 8) + 24) = *v17;
-    v57 = v133;
-    *a4 = 1;
-    if (v57)
-    {
-      v134 = v57;
-      operator delete(v57);
-    }
-
-    if (__p)
-    {
-      v137 = __p;
-      operator delete(__p);
-    }
-  }
-
-  v58 = *MEMORY[0x1E69E9840];
-}
-
-void __destroy_helper_block_8_56c64_ZTSN22IVFVectorIndexTemplateIDF16_Li768EE19QuantizerPartitionsE(uint64_t a1)
+void __destroy_helper_block_8_56c64_ZTSN22IVFVectorIndexTemplateIDF16_Li512EE19QuantizerPartitionsE(uint64_t a1)
 {
   v1 = *(a1 + 80);
   if (v1 && !atomic_fetch_add(&v1->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -912,7 +29,7 @@ void __destroy_helper_block_8_56c64_ZTSN22IVFVectorIndexTemplateIDF16_Li768EE19Q
   }
 }
 
-void *__copy_helper_block_8_56c64_ZTSN22IVFVectorIndexTemplateIDF16_Li768EE19QuantizerPartitionsE(void *result, void *a2)
+void *__copy_helper_block_8_56c64_ZTSN22IVFVectorIndexTemplateIDF16_Li512EE19QuantizerPartitionsE(void *result, void *a2)
 {
   v2 = a2[8];
   result[7] = a2[7];
@@ -933,10 +50,10 @@ void *__copy_helper_block_8_56c64_ZTSN22IVFVectorIndexTemplateIDF16_Li768EE19Qua
   return result;
 }
 
-void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li768EED0Ev(uint64_t a1)
+void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EED0Ev(uint64_t a1)
 {
-  *a1 = &unk_1F4280408;
-  _ZN22IVFVectorIndexTemplateIDF16_Li768EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsED2Ev((a1 + 48));
+  *a1 = &unk_1F4280138;
+  _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsED2Ev((a1 + 48));
   *a1 = &unk_1F427DB40;
   if (*(a1 + 47) < 0)
   {
@@ -946,10 +63,10 @@ void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22
   JUMPOUT(0x1C691FEF0);
 }
 
-uint64_t _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li768EED1Ev(uint64_t a1)
+uint64_t _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EED1Ev(uint64_t a1)
 {
-  *a1 = &unk_1F4280408;
-  _ZN22IVFVectorIndexTemplateIDF16_Li768EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsED2Ev((a1 + 48));
+  *a1 = &unk_1F4280138;
+  _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsED2Ev((a1 + 48));
   *a1 = &unk_1F427DB40;
   if (*(a1 + 47) < 0)
   {
@@ -959,44 +76,252 @@ uint64_t _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_posting
   return a1;
 }
 
-void _ZN22IVFVectorIndexTemplateIDF16_Li512EE11VectorStoreI30vi_onefixedsize_disk_allocator16vi_disk_postingsEC2IS2_EENSt3__19enable_ifIXsr13is_persistentIT_EE5valueES8_E4type11meta_info_sEP16vector_storage_s(uint64_t a1, uint64_t a2)
+void _ZN22IVFVectorIndexTemplateIDF16_Li256EE11VectorStoreI30vi_onefixedsize_disk_allocator16vi_disk_postingsEC2IS2_EENSt3__19enable_ifIXsr13is_persistentIT_EE5valueES8_E4type11meta_info_sEP16vector_storage_s(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = *(a2 + 16);
+  v8 = *MEMORY[0x1E69E9840];
+  v4 = *(a2 + 16);
   *a1 = *a2;
-  *(a1 + 16) = v3;
+  *(a1 + 16) = v4;
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
   *(a1 + 72) = 0;
   *(a1 + 80) = 0;
   *(a1 + 64) = 0;
-  v4 = a1 + 64;
-  bzero(v6, 0x400uLL);
-  v5 = fd_name(*a2, v6, 0x400uLL);
-  MEMORY[0x1C691FAE0](v4, v5);
+  v5 = a1 + 64;
+  bzero(v7, 0x400uLL);
+  v6 = fd_name(*a2, v7, 0x400uLL);
+  MEMORY[0x1C691FAE0](v5, v6);
   operator new();
 }
 
-void _ZN16QuantizerManagerIDF16_Li512EE15sharedQuantizerEi(void *a1, uint64_t a2, int a3)
+void _ZN22IVFVectorIndexTemplateIDF16_Li256EE13childMetaInfoEN19vi_ondisk_allocator11meta_info_sENSt3__112basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEb(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+{
+  v43 = *MEMORY[0x1E69E9840];
+  bzero(v42, 0x400uLL);
+  v8 = fd_name(*a2, v42, 0x400uLL);
+  v9 = v8;
+  if (*a2)
+  {
+    v10 = *(*a2 + 44);
+  }
+
+  else
+  {
+    v10 = -1;
+  }
+
+  v11 = strlen(v8);
+  if (v11 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::vector<long long>::__throw_length_error[abi:nn200100]();
+  }
+
+  v12 = v11;
+  if (v11 >= 0x17)
+  {
+    operator new();
+  }
+
+  __dst[23] = v11;
+  if (v11)
+  {
+    memmove(__dst, v9, v11);
+  }
+
+  __dst[v12] = 0;
+  memset(&v36, 0, sizeof(v36));
+  v13 = __dst[23];
+  if ((__dst[23] & 0x80000000) != 0)
+  {
+    std::string::__init_copy_ctor_external(&v36, *__dst, *&__dst[8]);
+  }
+
+  else
+  {
+    v36 = *__dst;
+  }
+
+  v14 = *(a3 + 23);
+  if (v14 >= 0)
+  {
+    v15 = a3;
+  }
+
+  else
+  {
+    v15 = *a3;
+  }
+
+  if (v14 >= 0)
+  {
+    v16 = *(a3 + 23);
+  }
+
+  else
+  {
+    v16 = *(a3 + 8);
+  }
+
+  std::string::append(&v36, v15, v16);
+  if (v13 < 0)
+  {
+    operator delete(*__dst);
+    if (!a4)
+    {
+      goto LABEL_34;
+    }
+  }
+
+  else if (!a4)
+  {
+    goto LABEL_34;
+  }
+
+  if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v17 = &v36;
+  }
+
+  else
+  {
+    v17 = v36.__r_.__value_.__r.__words[0];
+  }
+
+  v18 = fd_create_protected(v10, v17, 0, 3u);
+  if (v18)
+  {
+    v19 = v18;
+    do
+    {
+      v20 = fchmodat(*(v19 + 44), *(v19 + 72), 0x180u, 2048);
+      v21 = g_prot_error_callback;
+      if (v20 != -1 || g_prot_error_callback == 0)
+      {
+        break;
+      }
+
+      v23 = *(v19 + 40);
+      v24 = __error();
+    }
+
+    while (((*(v21 + 16))(v21, v23, *v24, 19) & 1) != 0);
+    _fd_unlink_with_origin(v19, 0);
+    fd_release(v19);
+  }
+
+LABEL_34:
+  *(a1 + 16) = 0;
+  *(a1 + 24) = 0;
+  if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v25 = &v36;
+  }
+
+  else
+  {
+    v25 = v36.__r_.__value_.__r.__words[0];
+  }
+
+  if (((a4 ^ 1) & *(a2 + 20)) != 0)
+  {
+    v26 = 0;
+  }
+
+  else
+  {
+    v26 = 514;
+  }
+
+  v27 = fd_create_protected(v10, v25, v26, 3u);
+  v28 = *(a2 + 8);
+  *a1 = v27;
+  *(a1 + 8) = v28;
+  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 20) = (a4 ^ 1) & *(a2 + 20);
+  *(a1 + 21) = a4;
+  *(a1 + 22) = *(a2 + 22);
+  *(a1 + 24) = 0;
+  if (!v27)
+  {
+    v29 = *__error();
+    v30 = _SILogForLogForCategory(16);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    {
+      v31 = "open";
+      if (a4)
+      {
+        v31 = "create";
+      }
+
+      *__dst = 136316162;
+      *&__dst[4] = "childMetaInfo";
+      *&__dst[14] = 2086;
+      v32 = &v36;
+      *&__dst[12] = 1024;
+      if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      {
+        v32 = v36.__r_.__value_.__r.__words[0];
+      }
+
+      *&__dst[18] = 2080;
+      *&__dst[20] = v31;
+      v38 = 2080;
+      v39 = v32;
+      v40 = 1024;
+      v41 = v10;
+      _os_log_error_impl(&dword_1C278D000, v30, OS_LOG_TYPE_ERROR, "%s:%d: Failed to %s %s in parentFd: %i", __dst, 0x2Cu);
+    }
+
+    *__error() = v29;
+    if (a4)
+    {
+      v33 = __si_assert_copy_extra_332();
+      v34 = v33;
+      v35 = "";
+      if (v33)
+      {
+        v35 = v33;
+      }
+
+      __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2087, "!newFile", v35);
+      free(v34);
+      if (__valid_fs(-1))
+      {
+        MEMORY[0xBAD] = -559038737;
+        abort();
+      }
+
+      MEMORY[0xC00] = -559038737;
+      abort();
+    }
+  }
+
+  if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v36.__r_.__value_.__l.__data_);
+  }
+}
+
+void _ZN16QuantizerManagerIDF16_Li256EE15sharedQuantizerEi(void *a1, uint64_t a2, int a3)
 {
   v12 = 0;
   v13 = &v12;
   v14 = 0x3802000000;
-  v15 = __Block_byref_object_copy__545;
+  v15 = __Block_byref_object_copy__334;
   v17 = 0;
   v18 = 0;
-  v16 = __Block_byref_object_dispose__546;
-  if (_ZZN19ZeroVectorQuantizerIDF16_Li512EE14sharedInstanceEvE9onceToken != -1)
+  v16 = __Block_byref_object_dispose__335;
+  if (_ZZN19ZeroVectorQuantizerIDF16_Li256EE14sharedInstanceEvE9onceToken != -1)
   {
     v8 = a2;
     v9 = a3;
-    dispatch_once(&_ZZN19ZeroVectorQuantizerIDF16_Li512EE14sharedInstanceEvE9onceToken, &__block_literal_global_463);
+    dispatch_once(&_ZZN19ZeroVectorQuantizerIDF16_Li256EE14sharedInstanceEvE9onceToken, &__block_literal_global_224);
     a3 = v9;
     a2 = v8;
   }
 
-  v4 = *(_ZZN19ZeroVectorQuantizerIDF16_Li512EE14sharedInstanceEvE3zvq + 8);
-  v17 = *_ZZN19ZeroVectorQuantizerIDF16_Li512EE14sharedInstanceEvE3zvq;
+  v4 = *(_ZZN19ZeroVectorQuantizerIDF16_Li256EE14sharedInstanceEvE3zvq + 8);
+  v17 = *_ZZN19ZeroVectorQuantizerIDF16_Li256EE14sharedInstanceEvE3zvq;
   v18 = v4;
   if (v4)
   {
@@ -1006,8 +331,8 @@ void _ZN16QuantizerManagerIDF16_Li512EE15sharedQuantizerEi(void *a1, uint64_t a2
   v5 = *(a2 + 16);
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 0x40000000;
-  v10[2] = ___ZN16QuantizerManagerIDF16_Li512EE15sharedQuantizerEi_block_invoke;
-  v10[3] = &unk_1E8195070;
+  v10[2] = ___ZN16QuantizerManagerIDF16_Li256EE15sharedQuantizerEi_block_invoke;
+  v10[3] = &unk_1E8194ED8;
   v11 = a3;
   v10[4] = &v12;
   v10[5] = a2;
@@ -1032,7 +357,64 @@ void _ZN16QuantizerManagerIDF16_Li512EE15sharedQuantizerEi(void *a1, uint64_t a2
   }
 }
 
-void _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE16replaceQuantizerENSt3__110shared_ptrI9QuantizerIDF16_Li512EEEE(uint64_t a1, uint64_t *a2)
+void _ZNSt3__14swapB8nn200100IN22IVFVectorIndexTemplateIDF16_Li256EE19QuantizerPartitionsEEENS_9enable_ifIXaasr21is_move_constructibleIT_EE5valuesr18is_move_assignableIS5_EE5valueEvE4typeERS5_S8_(__int128 *a1, __int128 *a2)
+{
+  v4 = *a1;
+  v3 = a1[1];
+  *a1 = 0uLL;
+  a1[1] = 0uLL;
+  v5 = *a2;
+  *a2 = 0uLL;
+  v6 = *(a1 + 1);
+  *a1 = v5;
+  if (v6 && !atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    v7 = a1;
+    v12 = v4;
+    v14 = v3;
+    (v6->__on_zero_shared)(v6);
+    std::__shared_weak_count::__release_weak(v6);
+    v4 = v12;
+    v3 = v14;
+    a1 = v7;
+  }
+
+  v8 = a2[1];
+  *(a2 + 2) = 0;
+  *(a2 + 3) = 0;
+  v9 = *(a1 + 3);
+  a1[1] = v8;
+  if (v9 && !atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    v13 = v4;
+    v15 = v3;
+    (v9->__on_zero_shared)(v9);
+    std::__shared_weak_count::__release_weak(v9);
+    v4 = v13;
+    v3 = v15;
+  }
+
+  v10 = *(a2 + 1);
+  *a2 = v4;
+  if (v10 && !atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    v16 = v3;
+    (v10->__on_zero_shared)(v10);
+    std::__shared_weak_count::__release_weak(v10);
+    v3 = v16;
+  }
+
+  v11 = *(a2 + 3);
+  a2[1] = v3;
+  if (v11 && !atomic_fetch_add(&v11->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v11->__on_zero_shared)(v11);
+
+    std::__shared_weak_count::__release_weak(v11);
+  }
+}
+
+void _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE16replaceQuantizerENSt3__110shared_ptrI9QuantizerIDF16_Li256EEEE(uint64_t a1, uint64_t *a2)
 {
   os_unfair_lock_lock((a1 + 112));
   v5 = *(a1 + 80);
@@ -1057,13 +439,13 @@ void _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixe
     v18 = v8;
     if (v8)
     {
-      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
       v9 = a2[1];
       v13 = *a2;
       v14 = v9;
       if (v9)
       {
-        atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
       }
     }
 
@@ -1113,7 +495,7 @@ void _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixe
   }
 }
 
-__n128 __Block_byref_object_copy__545(uint64_t a1, uint64_t a2)
+__n128 __Block_byref_object_copy__334(uint64_t a1, uint64_t a2)
 {
   result = *(a2 + 40);
   *(a1 + 40) = result;
@@ -1122,7 +504,7 @@ __n128 __Block_byref_object_copy__545(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void __Block_byref_object_dispose__546(uint64_t a1)
+void __Block_byref_object_dispose__335(uint64_t a1)
 {
   v1 = *(a1 + 48);
   if (v1 && !atomic_fetch_add(&v1->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -1133,7 +515,7 @@ void __Block_byref_object_dispose__546(uint64_t a1)
   }
 }
 
-void ___ZN16QuantizerManagerIDF16_Li512EE15sharedQuantizerEi_block_invoke(uint64_t a1)
+void ___ZN16QuantizerManagerIDF16_Li256EE15sharedQuantizerEi_block_invoke(uint64_t a1)
 {
   v3 = (a1 + 48);
   v2 = *(a1 + 48);
@@ -1358,11 +740,11 @@ LABEL_17:
 
 LABEL_86:
   __p.__r_.__value_.__r.__words[0] = a1 + 48;
-  v35 = _ZNSt3__112__hash_tableINS_17__hash_value_typeIiNS_8weak_ptrI9QuantizerIDF16_Li256EEEEEENS_22__unordered_map_hasherIiS6_NS_4hashIiEENS_8equal_toIiEELb1EEENS_21__unordered_map_equalIiS6_SB_S9_Lb1EEENS_9allocatorIS6_EEE25__emplace_unique_key_argsIiJRKNS_21piecewise_construct_tENS_5tupleIJRKiEEENSM_IJEEEEEENS_4pairINS_15__hash_iteratorIPNS_11__hash_nodeIS6_PvEEEEbEERKT_DpOT0_((v4 + 112), v2);
-  v36 = v35[4];
+  v35 = _ZNSt3__112__hash_tableINS_17__hash_value_typeIiNS_8weak_ptrI9QuantizerIDF16_Li256EEEEEENS_22__unordered_map_hasherIiS6_NS_4hashIiEENS_8equal_toIiEELb1EEENS_21__unordered_map_equalIiS6_SB_S9_Lb1EEENS_9allocatorIS6_EEE25__emplace_unique_key_argsIiJRKNS_21piecewise_construct_tENS_5tupleIJRKiEEENSM_IJEEEEEENS_4pairINS_15__hash_iteratorIPNS_11__hash_nodeIS6_PvEEEEbEERKT_DpOT0_((v4 + 112), v2, &__p);
+  v36 = *(v35 + 32);
   if (v36 && (v36 = std::__shared_weak_count::lock(v36)) != 0)
   {
-    v37 = v35[3];
+    v37 = *(v35 + 24);
   }
 
   else
@@ -1382,13 +764,13 @@ LABEL_86:
 
 LABEL_52:
   v23 = *(*(a1 + 32) + 8);
-  if (_ZZN19ZeroVectorQuantizerIDF16_Li512EE14sharedInstanceEvE9onceToken != -1)
+  if (_ZZN19ZeroVectorQuantizerIDF16_Li256EE14sharedInstanceEvE9onceToken != -1)
   {
-    dispatch_once(&_ZZN19ZeroVectorQuantizerIDF16_Li512EE14sharedInstanceEvE9onceToken, &__block_literal_global_463);
+    dispatch_once(&_ZZN19ZeroVectorQuantizerIDF16_Li256EE14sharedInstanceEvE9onceToken, &__block_literal_global_224);
   }
 
-  v25 = *_ZZN19ZeroVectorQuantizerIDF16_Li512EE14sharedInstanceEvE3zvq;
-  v24 = *(_ZZN19ZeroVectorQuantizerIDF16_Li512EE14sharedInstanceEvE3zvq + 8);
+  v25 = *_ZZN19ZeroVectorQuantizerIDF16_Li256EE14sharedInstanceEvE3zvq;
+  v24 = *(_ZZN19ZeroVectorQuantizerIDF16_Li256EE14sharedInstanceEvE3zvq + 8);
   if (!v24)
   {
     if (*(v23 + 40) != v25)
@@ -1508,14 +890,105 @@ LABEL_93:
   }
 }
 
-void _ZN24AllocatedVectorQuantizerI30vi_onefixedsize_disk_allocatorDF16_Li512EEC2EN19vi_ondisk_allocator11meta_info_sE(uint64_t a1, uint64_t a2)
+uint64_t _ZNSt3__112__hash_tableINS_17__hash_value_typeIiNS_8weak_ptrI9QuantizerIDF16_Li256EEEEEENS_22__unordered_map_hasherIiS6_NS_4hashIiEENS_8equal_toIiEELb1EEENS_21__unordered_map_equalIiS6_SB_S9_Lb1EEENS_9allocatorIS6_EEE25__emplace_unique_key_argsIiJRKNS_21piecewise_construct_tENS_5tupleIJRKiEEENSM_IJEEEEEENS_4pairINS_15__hash_iteratorIPNS_11__hash_nodeIS6_PvEEEEbEERKT_DpOT0_(void *a1, int a2, _DWORD **a3)
+{
+  v3 = a1[1];
+  if (!v3)
+  {
+    goto LABEL_22;
+  }
+
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
+  {
+    v5 = a2;
+    if (v3 <= a2)
+    {
+      v5 = a2 % v3;
+    }
+  }
+
+  else
+  {
+    v5 = (v3 - 1) & a2;
+  }
+
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (result = *v6) == 0)
+  {
+LABEL_22:
+    operator new();
+  }
+
+  if (v4.u32[0] < 2uLL)
+  {
+    while (1)
+    {
+      v8 = *(result + 8);
+      if (v8 == a2)
+      {
+        if (*(result + 16) == a2)
+        {
+          return result;
+        }
+      }
+
+      else if ((v8 & (v3 - 1)) != v5)
+      {
+        goto LABEL_22;
+      }
+
+      result = *result;
+      if (!result)
+      {
+        goto LABEL_22;
+      }
+    }
+  }
+
+  while (1)
+  {
+    v9 = *(result + 8);
+    if (v9 == a2)
+    {
+      break;
+    }
+
+    if (v9 >= v3)
+    {
+      v9 %= v3;
+    }
+
+    if (v9 != v5)
+    {
+      goto LABEL_22;
+    }
+
+LABEL_17:
+    result = *result;
+    if (!result)
+    {
+      goto LABEL_22;
+    }
+  }
+
+  if (*(result + 16) != a2)
+  {
+    goto LABEL_17;
+  }
+
+  return result;
+}
+
+void _ZN24AllocatedVectorQuantizerI30vi_onefixedsize_disk_allocatorDF16_Li256EEC2EN19vi_ondisk_allocator11meta_info_sE(uint64_t a1, uint64_t a2)
 {
   v10 = *MEMORY[0x1E69E9840];
   *(a1 + 16) = 0;
   *(a1 + 24) = 0;
   *(a1 + 8) = 0;
   v4 = a1 + 8;
-  *a1 = &unk_1F427E6C8;
+  *a1 = &unk_1F427E198;
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
   *(a1 + 56) = *(a2 + 20);
@@ -1548,7 +1021,7 @@ void _ZN24AllocatedVectorQuantizerI30vi_onefixedsize_disk_allocatorDF16_Li512EEC
   abort();
 }
 
-uint64_t _ZNSt3__120__shared_ptr_pointerIP24AllocatedVectorQuantizerI30vi_onefixedsize_disk_allocatorDF16_Li512EENS_10shared_ptrIS3_E27__shared_ptr_default_deleteIS3_S3_EENS_9allocatorIS3_EEE16__on_zero_sharedEv(uint64_t a1)
+uint64_t _ZNSt3__120__shared_ptr_pointerIP24AllocatedVectorQuantizerI30vi_onefixedsize_disk_allocatorDF16_Li256EENS_10shared_ptrIS3_E27__shared_ptr_default_deleteIS3_S3_EENS_9allocatorIS3_EEE16__on_zero_sharedEv(uint64_t a1)
 {
   result = *(a1 + 24);
   if (result)
@@ -1559,14 +1032,14 @@ uint64_t _ZNSt3__120__shared_ptr_pointerIP24AllocatedVectorQuantizerI30vi_onefix
   return result;
 }
 
-void _ZNSt3__120__shared_ptr_pointerIP24AllocatedVectorQuantizerI30vi_onefixedsize_disk_allocatorDF16_Li512EENS_10shared_ptrIS3_E27__shared_ptr_default_deleteIS3_S3_EENS_9allocatorIS3_EEED0Ev(std::__shared_weak_count *a1)
+void _ZNSt3__120__shared_ptr_pointerIP24AllocatedVectorQuantizerI30vi_onefixedsize_disk_allocatorDF16_Li256EENS_10shared_ptrIS3_E27__shared_ptr_default_deleteIS3_S3_EENS_9allocatorIS3_EEED0Ev(std::__shared_weak_count *a1)
 {
   std::__shared_weak_count::~__shared_weak_count(a1);
 
   JUMPOUT(0x1C691FEF0);
 }
 
-void _ZNK9QuantizerIDF16_Li512EE14topKPartitionsERK10CIVector_sIDF16_Li512EEi(uint64_t a1@<X0>, float16x8_t *a2@<X1>, int a3@<W2>, void *a4@<X8>)
+void _ZNK9QuantizerIDF16_Li256EE14topKPartitionsERK10CIVector_sIDF16_Li256EEi(uint64_t a1@<X0>, unsigned int a2@<W2>, int **a3@<X8>, float16x8_t *a4@<X1>)
 {
   if ((*(*a1 + 24))(a1))
   {
@@ -1574,57 +1047,111 @@ void _ZNK9QuantizerIDF16_Li512EE14topKPartitionsERK10CIVector_sIDF16_Li512EEi(ui
     do
     {
       v9 = (*(*a1 + 72))(a1, v8);
-      v10 = 0uLL;
-      v11 = -8;
-      v12 = a2;
-      do
-      {
-        v13 = *v9++;
-        v14 = v13;
-        v15 = *v12++;
-        v16 = vsubq_f16(v14, v15);
-        v10 = vmlaq_f16(v10, v16, v16);
-        v11 += 8;
-      }
-
-      while (v11 < 0x1F8);
-      v17 = vaddq_f32(vcvtq_f32_f16(*v10.i8), vcvt_hight_f32_f16(v10));
-      LODWORD(v18) = HIDWORD(v8) | COERCE_UNSIGNED_INT(vaddv_f32(*&vpaddq_f32(v17, v17)));
-      if (a3)
+      LODWORD(v10) = HIDWORD(v8) | COERCE_UNSIGNED_INT(_ZNK10CIVector_sIDF16_Li256EE8distanceERKS0_(v9, a4));
+      if (a2)
       {
         operator new();
       }
 
-      v19 = MEMORY[0] > v8;
-      if (MEMORY[4] != v18)
+      v11 = MEMORY[0] > v8;
+      if (MEMORY[4] != v10)
       {
-        v19 = MEMORY[4] > v18;
+        v11 = MEMORY[4] > v10;
       }
 
-      if (v19)
+      if (v11)
       {
         MEMORY[0xFFFFFFFFFFFFFFF8] = v8;
-        MEMORY[0xFFFFFFFFFFFFFFFC] = LODWORD(v18);
+        MEMORY[0xFFFFFFFFFFFFFFFC] = LODWORD(v10);
       }
 
       ++v8;
     }
 
     while (v8 < (*(*a1 + 24))(a1));
-    *a4 = 0;
-    a4[1] = 0;
-    a4[2] = 0;
+    *a3 = 0;
+    a3[1] = 0;
+    a3[2] = 0;
   }
 
   else
   {
-    *a4 = 0;
-    a4[1] = 0;
-    a4[2] = 0;
+    *a3 = 0;
+    a3[1] = 0;
+    a3[2] = 0;
   }
 }
 
-unint64_t _ZNK24AllocatedVectorQuantizerI30vi_onefixedsize_disk_allocatorDF16_Li512EE11getCentroidEj(uint64_t a1, unsigned int a2)
+float _ZNK10CIVector_sIDF16_Li256EE8distanceERKS0_(float16x8_t *a1, float16x8_t *a2)
+{
+  v2 = vsubq_f16(*a1, *a2);
+  v3 = vsubq_f16(a1[1], a2[1]);
+  v4 = vmlaq_f16(vmulq_f16(v2, v2), v3, v3);
+  v5 = vsubq_f16(a1[2], a2[2]);
+  v6 = vmlaq_f16(v4, v5, v5);
+  v7 = vsubq_f16(a1[3], a2[3]);
+  v8 = vmlaq_f16(v6, v7, v7);
+  v9 = vsubq_f16(a1[4], a2[4]);
+  v10 = vmlaq_f16(v8, v9, v9);
+  v11 = vsubq_f16(a1[5], a2[5]);
+  v12 = vmlaq_f16(v10, v11, v11);
+  v13 = vsubq_f16(a1[6], a2[6]);
+  v14 = vmlaq_f16(v12, v13, v13);
+  v15 = vsubq_f16(a1[7], a2[7]);
+  v16 = vmlaq_f16(v14, v15, v15);
+  v17 = vsubq_f16(a1[8], a2[8]);
+  v18 = vmlaq_f16(v16, v17, v17);
+  v19 = vsubq_f16(a1[9], a2[9]);
+  v20 = vmlaq_f16(v18, v19, v19);
+  v21 = vsubq_f16(a1[10], a2[10]);
+  v22 = vmlaq_f16(v20, v21, v21);
+  v23 = vsubq_f16(a1[11], a2[11]);
+  v24 = vmlaq_f16(v22, v23, v23);
+  v25 = vsubq_f16(a1[12], a2[12]);
+  v26 = vmlaq_f16(v24, v25, v25);
+  v27 = vsubq_f16(a1[13], a2[13]);
+  v28 = vmlaq_f16(v26, v27, v27);
+  v29 = vsubq_f16(a1[14], a2[14]);
+  v30 = vmlaq_f16(v28, v29, v29);
+  v31 = vsubq_f16(a1[15], a2[15]);
+  v32 = vmlaq_f16(v30, v31, v31);
+  v33 = vsubq_f16(a1[16], a2[16]);
+  v34 = vmlaq_f16(v32, v33, v33);
+  v35 = vsubq_f16(a1[17], a2[17]);
+  v36 = vmlaq_f16(v34, v35, v35);
+  v37 = vsubq_f16(a1[18], a2[18]);
+  v38 = vmlaq_f16(v36, v37, v37);
+  v39 = vsubq_f16(a1[19], a2[19]);
+  v40 = vmlaq_f16(v38, v39, v39);
+  v41 = vsubq_f16(a1[20], a2[20]);
+  v42 = vmlaq_f16(v40, v41, v41);
+  v43 = vsubq_f16(a1[21], a2[21]);
+  v44 = vmlaq_f16(v42, v43, v43);
+  v45 = vsubq_f16(a1[22], a2[22]);
+  v46 = vmlaq_f16(v44, v45, v45);
+  v47 = vsubq_f16(a1[23], a2[23]);
+  v48 = vmlaq_f16(v46, v47, v47);
+  v49 = vsubq_f16(a1[24], a2[24]);
+  v50 = vmlaq_f16(v48, v49, v49);
+  v51 = vsubq_f16(a1[25], a2[25]);
+  v52 = vmlaq_f16(v50, v51, v51);
+  v53 = vsubq_f16(a1[26], a2[26]);
+  v54 = vmlaq_f16(v52, v53, v53);
+  v55 = vsubq_f16(a1[27], a2[27]);
+  v56 = vmlaq_f16(v54, v55, v55);
+  v57 = vsubq_f16(a1[28], a2[28]);
+  v58 = vmlaq_f16(v56, v57, v57);
+  v59 = vsubq_f16(a1[29], a2[29]);
+  v60 = vmlaq_f16(v58, v59, v59);
+  v61 = vsubq_f16(a1[30], a2[30]);
+  v62 = vmlaq_f16(v60, v61, v61);
+  v63 = vsubq_f16(a1[31], a2[31]);
+  v64 = vmlaq_f16(v62, v63, v63);
+  v65 = vaddq_f32(vcvtq_f32_f16(*v64.i8), vcvt_hight_f32_f16(v64));
+  return vaddv_f32(*&vpaddq_f32(v65, v65));
+}
+
+unint64_t _ZNK24AllocatedVectorQuantizerI30vi_onefixedsize_disk_allocatorDF16_Li256EE11getCentroidEj(uint64_t a1, unsigned int a2)
 {
   if (*(a1 + 48) <= a2)
   {
@@ -1651,10 +1178,10 @@ unint64_t _ZNK24AllocatedVectorQuantizerI30vi_onefixedsize_disk_allocatorDF16_Li
   v2 = *(a1 + 40);
   v3 = *(v2 + 24) + *(v2 + 16) * a2;
 
-  return _windowsResolvePtr(v2 + 40, v3, 1024);
+  return _windowsResolvePtr(v2 + 40, v3, 512);
 }
 
-BOOL _ZNK9QuantizerIDF16_Li512EE12isPersistentEv(uint64_t a1)
+BOOL _ZNK9QuantizerIDF16_Li256EE12isPersistentEv(uint64_t a1)
 {
   v1 = (a1 + 8);
   v2 = *(a1 + 31);
@@ -1677,7 +1204,7 @@ BOOL _ZNK9QuantizerIDF16_Li512EE12isPersistentEv(uint64_t a1)
   return 1;
 }
 
-BOOL _ZNK24AllocatedVectorQuantizerI30vi_onefixedsize_disk_allocatorDF16_Li512EE12validAddressEPKv(uint64_t a1, unint64_t a2)
+BOOL _ZNK24AllocatedVectorQuantizerI30vi_onefixedsize_disk_allocatorDF16_Li256EE12validAddressEPKv(uint64_t a1, unint64_t a2)
 {
   v2 = *(a1 + 40);
   v3 = *(v2 + 72);
@@ -1716,9 +1243,9 @@ BOOL _ZNK24AllocatedVectorQuantizerI30vi_onefixedsize_disk_allocatorDF16_Li512EE
   return 0;
 }
 
-BOOL _ZNK9QuantizerIDF16_Li512EEeqERK12AnyQuantizer(uint64_t a1, uint64_t a2)
+BOOL _ZNK9QuantizerIDF16_Li256EEeqERK12AnyQuantizer(uint64_t a1, uint64_t a2)
 {
-  if ((*(*a2 + 32))(a2) != 512)
+  if ((*(*a2 + 32))(a2) != 256)
   {
     v5 = __si_assert_copy_extra_332();
     v6 = v5;
@@ -1766,10 +1293,10 @@ BOOL _ZNK9QuantizerIDF16_Li512EEeqERK12AnyQuantizer(uint64_t a1, uint64_t a2)
     abort();
   }
 
-  return _ZNK9QuantizerIDF16_Li512EEeqERKS0_(a1, a2);
+  return _ZNK9QuantizerIDF16_Li256EEeqERKS0_(a1, a2);
 }
 
-BOOL _ZNK9QuantizerIDF16_Li512EEeqERKS0_(uint64_t a1, uint64_t a2)
+BOOL _ZNK9QuantizerIDF16_Li256EEeqERKS0_(uint64_t a1, uint64_t a2)
 {
   v4 = (*(*a1 + 24))(a1);
   if (v4 != (*(*a2 + 24))(a2))
@@ -1787,7 +1314,7 @@ BOOL _ZNK9QuantizerIDF16_Li512EEeqERKS0_(uint64_t a1, uint64_t a2)
   {
     v6 = (*(*a1 + 72))(a1, v5);
     v7 = (*(*a2 + 72))(a2, v5);
-    v8 = memcmp(v6, v7, 0x400uLL);
+    v8 = memcmp(v6, v7, 0x200uLL);
     result = v8 == 0;
     if (v8)
     {
@@ -1804,16 +1331,16 @@ BOOL _ZNK9QuantizerIDF16_Li512EEeqERKS0_(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void _ZN24AllocatedVectorQuantizerI30vi_onefixedsize_disk_allocatorDF16_Li512EED0Ev(uint64_t a1)
+void _ZN24AllocatedVectorQuantizerI30vi_onefixedsize_disk_allocatorDF16_Li256EED0Ev(uint64_t a1)
 {
-  _ZN24AllocatedVectorQuantizerI30vi_onefixedsize_disk_allocatorDF16_Li512EED2Ev(a1);
+  _ZN24AllocatedVectorQuantizerI30vi_onefixedsize_disk_allocatorDF16_Li256EED2Ev(a1);
 
   JUMPOUT(0x1C691FEF0);
 }
 
-uint64_t _ZN24AllocatedVectorQuantizerI30vi_onefixedsize_disk_allocatorDF16_Li512EED2Ev(uint64_t a1)
+uint64_t _ZN24AllocatedVectorQuantizerI30vi_onefixedsize_disk_allocatorDF16_Li256EED2Ev(uint64_t a1)
 {
-  *a1 = &unk_1F427E6C8;
+  *a1 = &unk_1F427E198;
   v2 = atomic_load((a1 + 57));
   if (v2)
   {
@@ -1862,7 +1389,7 @@ uint64_t _ZN24AllocatedVectorQuantizerI30vi_onefixedsize_disk_allocatorDF16_Li51
   return a1;
 }
 
-uint64_t _ZNSt3__120__shared_ptr_pointerIP19ZeroVectorQuantizerIDF16_Li512EENS_10shared_ptrI9QuantizerIDF16_Li512EEE27__shared_ptr_default_deleteIS6_S2_EENS_9allocatorIS2_EEE16__on_zero_sharedEv(uint64_t a1)
+uint64_t _ZNSt3__120__shared_ptr_pointerIP19ZeroVectorQuantizerIDF16_Li256EENS_10shared_ptrI9QuantizerIDF16_Li256EEE27__shared_ptr_default_deleteIS6_S2_EENS_9allocatorIS2_EEE16__on_zero_sharedEv(uint64_t a1)
 {
   result = *(a1 + 24);
   if (result)
@@ -1873,56 +1400,14 @@ uint64_t _ZNSt3__120__shared_ptr_pointerIP19ZeroVectorQuantizerIDF16_Li512EENS_1
   return result;
 }
 
-void _ZNSt3__120__shared_ptr_pointerIP19ZeroVectorQuantizerIDF16_Li512EENS_10shared_ptrI9QuantizerIDF16_Li512EEE27__shared_ptr_default_deleteIS6_S2_EENS_9allocatorIS2_EEED0Ev(std::__shared_weak_count *a1)
+void _ZNSt3__120__shared_ptr_pointerIP19ZeroVectorQuantizerIDF16_Li256EENS_10shared_ptrI9QuantizerIDF16_Li256EEE27__shared_ptr_default_deleteIS6_S2_EENS_9allocatorIS2_EEED0Ev(std::__shared_weak_count *a1)
 {
   std::__shared_weak_count::~__shared_weak_count(a1);
 
   JUMPOUT(0x1C691FEF0);
 }
 
-void _ZNK21SingleVectorQuantizerIDF16_Li512EE14topKPartitionsERK10CIVector_sIDF16_Li512EEi(uint64_t a1, float16x8_t *a2)
-{
-  v2 = (a1 + 33);
-  _Q0 = 0uLL;
-  v4 = -8;
-  do
-  {
-    v5 = *a2++;
-    v6 = v5;
-    v7 = *v2++;
-    v8 = vsubq_f16(v6, v7);
-    _Q0 = vmlaq_f16(_Q0, v8, v8);
-    v4 += 8;
-  }
-
-  while (v4 < 0x1F8);
-  __asm { FCVT            S1, H0 }
-
-  _H2 = _Q0.i16[1];
-  __asm { FCVT            S2, H2 }
-
-  LOWORD(_S2) = _Q0.i16[2];
-  __asm { FCVT            S2, H2 }
-
-  _H3 = _Q0.i16[3];
-  __asm { FCVT            S3, H3 }
-
-  LOWORD(_S2) = _Q0.i16[4];
-  __asm { FCVT            S2, H2 }
-
-  LOWORD(_S3) = _Q0.i16[5];
-  __asm { FCVT            S3, H3 }
-
-  LOWORD(_S3) = _Q0.i16[6];
-  __asm { FCVT            S3, H3 }
-
-  _H0 = _Q0.i16[7];
-  __asm { FCVT            S0, H0 }
-
-  operator new();
-}
-
-uint64_t _ZNK21SingleVectorQuantizerIDF16_Li512EE11getCentroidEj(uint64_t a1, int a2)
+uint64_t _ZNK21SingleVectorQuantizerIDF16_Li256EE11getCentroidEj(uint64_t a1, int a2)
 {
   if (a2)
   {
@@ -1949,7 +1434,7 @@ uint64_t _ZNK21SingleVectorQuantizerIDF16_Li512EE11getCentroidEj(uint64_t a1, in
   return a1 + 33;
 }
 
-void _ZN19ZeroVectorQuantizerIDF16_Li512EED0Ev(uint64_t a1)
+void _ZN19ZeroVectorQuantizerIDF16_Li256EED0Ev(uint64_t a1)
 {
   *a1 = &unk_1F427DE28;
   if (*(a1 + 31) < 0)
@@ -1961,7 +1446,7 @@ void _ZN19ZeroVectorQuantizerIDF16_Li512EED0Ev(uint64_t a1)
   JUMPOUT(0x1C691FEF0);
 }
 
-uint64_t _ZN19ZeroVectorQuantizerIDF16_Li512EED1Ev(uint64_t result)
+uint64_t _ZN19ZeroVectorQuantizerIDF16_Li256EED1Ev(uint64_t result)
 {
   *result = &unk_1F427DE28;
   if (*(result + 31) < 0)
@@ -1974,7 +1459,7 @@ uint64_t _ZN19ZeroVectorQuantizerIDF16_Li512EED1Ev(uint64_t result)
   return result;
 }
 
-void _ZN21SingleVectorQuantizerIDF16_Li512EED0Ev(uint64_t a1)
+void _ZN21SingleVectorQuantizerIDF16_Li256EED0Ev(uint64_t a1)
 {
   *a1 = &unk_1F427DE28;
   if (*(a1 + 31) < 0)
@@ -1986,7 +1471,7 @@ void _ZN21SingleVectorQuantizerIDF16_Li512EED0Ev(uint64_t a1)
   JUMPOUT(0x1C691FEF0);
 }
 
-uint64_t _ZN21SingleVectorQuantizerIDF16_Li512EED1Ev(uint64_t result)
+uint64_t _ZN21SingleVectorQuantizerIDF16_Li256EED1Ev(uint64_t result)
 {
   *result = &unk_1F427DE28;
   if (*(result + 31) < 0)
@@ -1999,17 +1484,186 @@ uint64_t _ZN21SingleVectorQuantizerIDF16_Li512EED1Ev(uint64_t result)
   return result;
 }
 
-__int16 ___ZN19ZeroVectorQuantizerIDF16_Li512EE8centroidEv_block_invoke@<H0>()
+double ___ZN19ZeroVectorQuantizerIDF16_Li256EE8centroidEv_block_invoke()
 {
-  bzero(&_ZZN19ZeroVectorQuantizerIDF16_Li512EE8centroidEvE8centroid + 2, 0x3FEuLL);
-  result = COERCE_UNSIGNED_INT(1.0);
-  LOWORD(_ZZN19ZeroVectorQuantizerIDF16_Li512EE8centroidEvE8centroid) = COERCE_UNSIGNED_INT(1.0);
+  LOWORD(_ZZN19ZeroVectorQuantizerIDF16_Li256EE8centroidEvE8centroid) = COERCE_UNSIGNED_INT(1.0);
+  result = 0.0;
+  unk_1EBF622D0 = 0u;
+  unk_1EBF621D2 = 0u;
+  *(&xmmword_1EBF621C0 + 2) = 0u;
+  unk_1EBF621B2 = 0u;
+  *(&xmmword_1EBF621A0 + 2) = 0u;
+  unk_1EBF62192 = 0u;
+  *(&xmmword_1EBF62180 + 2) = 0u;
+  unk_1EBF62172 = 0u;
+  *(&xmmword_1EBF62160 + 2) = 0u;
+  unk_1EBF62152 = 0u;
+  *(&xmmword_1EBF62140 + 2) = 0u;
+  unk_1EBF62132 = 0u;
+  *(&xmmword_1EBF62120 + 2) = 0u;
+  unk_1EBF62112 = 0u;
+  *(&xmmword_1EBF62100 + 2) = 0u;
+  *&algn_1EBF620F0[2] = 0u;
+  *(&_ZZN19ZeroVectorQuantizerIDF16_Li256EE8centroidEvE8centroid + 2) = 0u;
+  xmmword_1EBF622B2 = 0u;
+  unk_1EBF622C2 = 0u;
+  xmmword_1EBF62292 = 0u;
+  unk_1EBF622A2 = 0u;
+  xmmword_1EBF62272 = 0u;
+  unk_1EBF62282 = 0u;
+  xmmword_1EBF62252 = 0u;
+  unk_1EBF62262 = 0u;
+  xmmword_1EBF62232 = 0u;
+  unk_1EBF62242 = 0u;
+  xmmword_1EBF62212 = 0u;
+  unk_1EBF62222 = 0u;
+  xmmword_1EBF621F2 = 0u;
+  unk_1EBF62202 = 0u;
+  *(&xmmword_1EBF621E0 + 2) = 0u;
   return result;
 }
 
-uint64_t _ZNSt3__120__shared_ptr_pointerIP16QuantizerManagerIDF16_Li512EENS_10shared_ptrIS2_E27__shared_ptr_default_deleteIS2_S2_EENS_9allocatorIS2_EEE16__on_zero_sharedEv(uint64_t result)
+uint64_t **_ZNSt3__112__hash_tableINS_17__hash_value_typeINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS_8weak_ptrI16QuantizerManagerIDF16_Li256EEEEEENS_22__unordered_map_hasherIS7_SC_NS_4hashIS7_EENS_8equal_toIS7_EELb1EEENS_21__unordered_map_equalIS7_SC_SH_SF_Lb1EEENS5_ISC_EEE4findIS7_EENS_15__hash_iteratorIPNS_11__hash_nodeISC_PvEEEERKT_(void *a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v3 = *(a2 + 23);
+  if (v3 >= 0)
+  {
+    v4 = a2;
+  }
+
+  else
+  {
+    v4 = *a2;
+  }
+
+  if (v3 >= 0)
+  {
+    v5 = *(a2 + 23);
+  }
+
+  else
+  {
+    v5 = *(a2 + 8);
+  }
+
+  v6 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v4, v5);
+  v7 = a1[1];
+  if (!*&v7)
+  {
+    return 0;
+  }
+
+  v8 = v6;
+  v9 = vcnt_s8(v7);
+  v9.i16[0] = vaddlv_u8(v9);
+  if (v9.u32[0] > 1uLL)
+  {
+    v10 = v6;
+    if (v6 >= *&v7)
+    {
+      v10 = v6 % *&v7;
+    }
+  }
+
+  else
+  {
+    v10 = (*&v7 - 1) & v6;
+  }
+
+  v11 = *(*a1 + 8 * v10);
+  if (!v11)
+  {
+    return 0;
+  }
+
+  v12 = *v11;
+  if (*v11)
+  {
+    if (v9.u32[0] < 2uLL)
+    {
+      v13 = *&v7 - 1;
+      while (1)
+      {
+        v14 = v12[1];
+        if (v14 == v8)
+        {
+          v15 = *(v12 + 39);
+          v16 = v15;
+          if (v15 < 0)
+          {
+            v15 = v12[3];
+          }
+
+          if (v15 == v5)
+          {
+            v17 = v16 >= 0 ? (v12 + 2) : v12[2];
+            if (!memcmp(v17, v4, v5))
+            {
+              return v12;
+            }
+          }
+        }
+
+        else if ((v14 & v13) != v10)
+        {
+          return 0;
+        }
+
+        v12 = *v12;
+        if (!v12)
+        {
+          return v12;
+        }
+      }
+    }
+
+    do
+    {
+      v18 = v12[1];
+      if (v18 == v8)
+      {
+        v19 = *(v12 + 39);
+        v20 = v19;
+        if (v19 < 0)
+        {
+          v19 = v12[3];
+        }
+
+        if (v19 == v5)
+        {
+          v21 = v20 >= 0 ? (v12 + 2) : v12[2];
+          if (!memcmp(v21, v4, v5))
+          {
+            return v12;
+          }
+        }
+      }
+
+      else
+      {
+        if (v18 >= *&v7)
+        {
+          v18 %= *&v7;
+        }
+
+        if (v18 != v10)
+        {
+          return 0;
+        }
+      }
+
+      v12 = *v12;
+    }
+
+    while (v12);
+  }
+
+  return v12;
+}
+
+uint64_t _ZNSt3__120__shared_ptr_pointerIP16QuantizerManagerIDF16_Li256EENS_10shared_ptrIS2_E27__shared_ptr_default_deleteIS2_S2_EENS_9allocatorIS2_EEE16__on_zero_sharedEv(uint64_t result)
+{
+  v17 = *MEMORY[0x1E69E9840];
   v1 = *(result + 24);
   if (v1)
   {
@@ -2035,11 +1689,11 @@ uint64_t _ZNSt3__120__shared_ptr_pointerIP16QuantizerManagerIDF16_Li512EENS_10sh
         v6 = *v6;
       }
 
-      v15 = 136315394;
-      v16 = v5;
-      v17 = 2080;
-      v18 = v6;
-      _os_log_impl(&dword_1C278D000, v4, OS_LOG_TYPE_DEFAULT, "QuantizerManager %s/%s destroyed", &v15, 0x16u);
+      v13 = 136315394;
+      v14 = v5;
+      v15 = 2080;
+      v16 = v6;
+      _os_log_impl(&dword_1C278D000, v4, OS_LOG_TYPE_DEFAULT, "QuantizerManager %s/%s destroyed", &v13, 0x16u);
     }
 
     *__error() = v3;
@@ -2048,18 +1702,18 @@ uint64_t _ZNSt3__120__shared_ptr_pointerIP16QuantizerManagerIDF16_Li512EENS_10sh
     {
       do
       {
-        v12 = *v7;
-        v13 = v7[4];
-        if (v13)
+        v11 = *v7;
+        v12 = v7[4];
+        if (v12)
         {
-          std::__shared_weak_count::__release_weak(v13);
+          std::__shared_weak_count::__release_weak(v12);
         }
 
         operator delete(v7);
-        v7 = v12;
+        v7 = v11;
       }
 
-      while (v12);
+      while (v11);
     }
 
     v8 = *(v1 + 112);
@@ -2092,7 +1746,6 @@ LABEL_19:
 LABEL_29:
         operator delete(*(v1 + 24));
 LABEL_20:
-        v11 = *MEMORY[0x1E69E9840];
 
         JUMPOUT(0x1C691FEF0);
       }
@@ -2112,18 +1765,17 @@ LABEL_20:
     goto LABEL_29;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void _ZNSt3__120__shared_ptr_pointerIP16QuantizerManagerIDF16_Li512EENS_10shared_ptrIS2_E27__shared_ptr_default_deleteIS2_S2_EENS_9allocatorIS2_EEED0Ev(std::__shared_weak_count *a1)
+void _ZNSt3__120__shared_ptr_pointerIP16QuantizerManagerIDF16_Li256EENS_10shared_ptrIS2_E27__shared_ptr_default_deleteIS2_S2_EENS_9allocatorIS2_EEED0Ev(std::__shared_weak_count *a1)
 {
   std::__shared_weak_count::~__shared_weak_count(a1);
 
   JUMPOUT(0x1C691FEF0);
 }
 
-void _ZNSt3__120__shared_ptr_emplaceIN22IVFVectorIndexTemplateIDF16_Li512EE11VectorStoreI30vi_onefixedsize_disk_allocator16vi_disk_postingsEENS_9allocatorIS6_EEE16__on_zero_sharedEv(uint64_t a1)
+void _ZNSt3__120__shared_ptr_emplaceIN22IVFVectorIndexTemplateIDF16_Li256EE11VectorStoreI30vi_onefixedsize_disk_allocator16vi_disk_postingsEENS_9allocatorIS6_EEE16__on_zero_sharedEv(uint64_t a1)
 {
   if (*(a1 + 111) < 0)
   {
@@ -2148,17 +1800,17 @@ void _ZNSt3__120__shared_ptr_emplaceIN22IVFVectorIndexTemplateIDF16_Li512EE11Vec
   }
 }
 
-void _ZNSt3__120__shared_ptr_emplaceIN22IVFVectorIndexTemplateIDF16_Li512EE11VectorStoreI30vi_onefixedsize_disk_allocator16vi_disk_postingsEENS_9allocatorIS6_EEED0Ev(std::__shared_weak_count *a1)
+void _ZNSt3__120__shared_ptr_emplaceIN22IVFVectorIndexTemplateIDF16_Li256EE11VectorStoreI30vi_onefixedsize_disk_allocator16vi_disk_postingsEENS_9allocatorIS6_EEED0Ev(std::__shared_weak_count *a1)
 {
-  a1->__vftable = &unk_1F42802D8;
+  a1->__vftable = &unk_1F427FE28;
   std::__shared_weak_count::~__shared_weak_count(a1);
 
   JUMPOUT(0x1C691FEF0);
 }
 
-void _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE16replaceQuantizerENSt3__110shared_ptrI9QuantizerIDF16_Li512EEEENS6_I17AnyPartitionStoreEE(uint64_t a1, void *a2, void *a3)
+void _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE16replaceQuantizerENSt3__110shared_ptrI9QuantizerIDF16_Li256EEEENS6_I17AnyPartitionStoreEE(uint64_t a1, void *a2, void *a3)
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock((a1 + 152));
   os_unfair_lock_lock((a1 + 112));
   v7 = *(a1 + 80);
@@ -2180,16 +1832,16 @@ void _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixe
   v11 = *a3;
   if (v10 != *(*a3 + 68))
   {
-    v28 = __si_assert_copy_extra_332();
-    v29 = v28;
-    v30 = "";
-    if (v28)
+    v27 = __si_assert_copy_extra_332();
+    v28 = v27;
+    v29 = "";
+    if (v27)
     {
-      v30 = v28;
+      v29 = v27;
     }
 
-    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2559, "newQuantizer->count() == newPartitions->nPartitions()", v30);
-    free(v29);
+    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2559, "newQuantizer->count() == newPartitions->nPartitions()", v29);
+    free(v28);
     if (__valid_fs(-1))
     {
       MEMORY[0xBAD] = -559038737;
@@ -2202,27 +1854,27 @@ void _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixe
 
   if (*(*(a1 + 48) + 40) != v11[18])
   {
-    v31 = __si_assert_copy_extra_332();
-    v32 = v31;
-    v33 = "";
-    if (v31)
+    v30 = __si_assert_copy_extra_332();
+    v31 = v30;
+    v32 = "";
+    if (v30)
     {
-      v33 = v31;
+      v32 = v30;
     }
 
-    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2560, "vectors->count() == newPartitions->nVectors()", v33);
-    free(v32);
+    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2560, "vectors->count() == newPartitions->nVectors()", v32);
+    free(v31);
     if (__valid_fs(-1))
     {
-      v34 = 2989;
+      v33 = 2989;
     }
 
     else
     {
-      v34 = 3072;
+      v33 = 3072;
     }
 
-    *v34 = -559038737;
+    *v33 = -559038737;
     abort();
   }
 
@@ -2238,30 +1890,30 @@ void _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixe
         v14 = *v14;
       }
 
-      v40 = v14;
+      v39 = v14;
       v15 = (*(*v7 + 16))(v7);
       v16 = (*a2 + 8);
-      v37 = v15;
-      v38 = v12;
+      v36 = v15;
+      v37 = v12;
       if (*(*a2 + 31) < 0)
       {
         v16 = *v16;
       }
 
-      v39 = v16;
-      v36 = (*(**a2 + 16))(*a2);
-      v17 = v46;
-      (*(*v9 + 152))(v46, v9);
-      if (v47 < 0)
+      v38 = v16;
+      v35 = (*(**a2 + 16))(*a2);
+      v17 = v45;
+      (*(*v9 + 152))(v45, v9);
+      if (v46 < 0)
       {
-        v17 = v46[0];
+        v17 = v45[0];
       }
 
       v18 = v9[18];
-      v35 = v9[17];
+      v34 = v9[17];
       (*(**a3 + 152))(__p);
       v19 = __p;
-      if (v45 < 0)
+      if (v44 < 0)
       {
         v19 = __p[0];
       }
@@ -2269,35 +1921,35 @@ void _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixe
       v20 = *(*a3 + 68);
       v21 = *(*a3 + 72);
       *buf = 136317442;
-      v49 = v40;
-      v50 = 1024;
-      v51 = v37;
-      v52 = 2080;
-      v53 = v39;
-      v54 = 1024;
-      v55 = v36;
-      v56 = 2080;
-      v57 = v17;
-      v58 = 1024;
-      v59 = v18;
-      v60 = 1024;
-      v61 = v35;
-      v62 = 2080;
-      v63 = v19;
-      v64 = 1024;
-      v65 = v21;
-      v66 = 1024;
-      v67 = v20;
+      v48 = v39;
+      v49 = 1024;
+      v50 = v36;
+      v51 = 2080;
+      v52 = v38;
+      v53 = 1024;
+      v54 = v35;
+      v55 = 2080;
+      v56 = v17;
+      v57 = 1024;
+      v58 = v18;
+      v59 = 1024;
+      v60 = v34;
+      v61 = 2080;
+      v62 = v19;
+      v63 = 1024;
+      v64 = v21;
+      v65 = 1024;
+      v66 = v20;
       _os_log_impl(&dword_1C278D000, v13, OS_LOG_TYPE_DEFAULT, "Replace quantizer %s(%u) -> %s(%u), partitions %s(%u/%u) -> %s(%u/%u)", buf, 0x4Eu);
-      if (v45 < 0)
+      if (v44 < 0)
       {
         operator delete(__p[0]);
       }
 
-      v12 = v38;
-      if (v47 < 0)
+      v12 = v37;
+      if (v46 < 0)
       {
-        operator delete(v46[0]);
+        operator delete(v45[0]);
       }
     }
 
@@ -2321,33 +1973,33 @@ void _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixe
   }
 
   v23 = a2[1];
-  *&v41 = *a2;
-  *(&v41 + 1) = v23;
+  *&v40 = *a2;
+  *(&v40 + 1) = v23;
   if (v23)
   {
     atomic_fetch_add_explicit((v23 + 8), 1uLL, memory_order_relaxed);
   }
 
   v24 = a3[1];
-  v42 = *a3;
-  v43 = v24;
+  v41 = *a3;
+  v42 = v24;
   if (v24)
   {
     atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   os_unfair_lock_lock((a1 + 112));
-  _ZNSt3__14swapB8nn200100IN22IVFVectorIndexTemplateIDF16_Li256EE19QuantizerPartitionsEEENS_9enable_ifIXaasr21is_move_constructibleIT_EE5valuesr18is_move_assignableIS5_EE5valueEvE4typeERS5_S8_((a1 + 80), &v41);
+  _ZNSt3__14swapB8nn200100IN22IVFVectorIndexTemplateIDF16_Li256EE19QuantizerPartitionsEEENS_9enable_ifIXaasr21is_move_constructibleIT_EE5valuesr18is_move_assignableIS5_EE5valueEvE4typeERS5_S8_((a1 + 80), &v40);
   os_unfair_lock_unlock((a1 + 112));
-  v25 = v43;
-  if (v43 && !atomic_fetch_add(&v43->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v25 = v42;
+  if (v42 && !atomic_fetch_add(&v42->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v25->__on_zero_shared)(v25);
     std::__shared_weak_count::__release_weak(v25);
   }
 
-  v26 = *(&v41 + 1);
-  if (*(&v41 + 1) && !atomic_fetch_add((*(&v41 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+  v26 = *(&v40 + 1);
+  if (*(&v40 + 1) && !atomic_fetch_add((*(&v40 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
     (v26->__on_zero_shared)(v26);
     std::__shared_weak_count::__release_weak(v26);
@@ -2360,57 +2012,58 @@ void _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixe
     std::__shared_weak_count::__release_weak(v8);
   }
 
-  if (v6 && !atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v6)
   {
-    (v6->__on_zero_shared)(v6);
-    std::__shared_weak_count::__release_weak(v6);
+    if (!atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v6->__on_zero_shared)(v6);
+      std::__shared_weak_count::__release_weak(v6);
+    }
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
-void _ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE13newPartitionsENSt3__110shared_ptrI9QuantizerIDF16_Li512EEEE(uint64_t a1)
+void _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE13newPartitionsENSt3__110shared_ptrI9QuantizerIDF16_Li256EEEE(uint64_t a1)
 {
   os_unfair_lock_lock((a1 + 112));
-  v2 = *(a1 + 88);
-  if (v2)
+  v4 = *(a1 + 88);
+  if (v4)
   {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v4 = *(a1 + 96);
-  v3 = *(a1 + 104);
-  if (v3)
+  v6 = *(a1 + 96);
+  v5 = *(a1 + 104);
+  if (v5)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
   }
 
   os_unfair_lock_unlock((a1 + 112));
-  v5 = ".partitions";
-  if (v4 && (*(*v4 + 24))(v4))
+  v7 = ".partitions";
+  if (v6 && (*(*v6 + 24))(v6))
   {
-    v5 = ".tmp.partitions";
+    v7 = ".tmp.partitions";
   }
 
-  memset(v12, 0, sizeof(v12));
-  v6 = *(a1 + 24);
-  v11[0] = *(a1 + 8);
-  v11[1] = v6;
-  v7 = strlen(v5);
-  if (v7 < 0x7FFFFFFFFFFFFFF8)
+  memset(v14, 0, sizeof(v14));
+  v8 = *(a1 + 24);
+  v13[0] = *(a1 + 8);
+  v13[1] = v8;
+  v9 = strlen(v7);
+  if (v9 < 0x7FFFFFFFFFFFFFF8)
   {
-    v8 = v7;
-    if (v7 < 0x17)
+    v10 = v9;
+    if (v9 < 0x17)
     {
-      v10 = v7;
-      if (v7)
+      v12 = v9;
+      if (v9)
       {
-        memcpy(&__dst, v5, v7);
+        memcpy(&__dst, v7, v9);
       }
 
-      *(&__dst + v8) = 0;
-      _ZN22IVFVectorIndexTemplateIDF16_Li256EE13childMetaInfoEN19vi_ondisk_allocator11meta_info_sENSt3__112basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEb(v12, v11, &__dst, 1);
-      if (v10 < 0)
+      *(&__dst + v10) = 0;
+      _ZN22IVFVectorIndexTemplateIDF16_Li256EE13childMetaInfoEN19vi_ondisk_allocator11meta_info_sENSt3__112basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEb(v14, v13, &__dst, 1);
+      if (v12 < 0)
       {
         operator delete(__dst);
       }
@@ -2424,9 +2077,9 @@ void _ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefix
   std::vector<long long>::__throw_length_error[abi:nn200100]();
 }
 
-int *___ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE13newPartitionsENSt3__110shared_ptrI9QuantizerIDF16_Li512EEEE_block_invoke(uint64_t a1)
+int *___ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE13newPartitionsENSt3__110shared_ptrI9QuantizerIDF16_Li256EEEE_block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(v2 + 48);
   if (*(v3 + 40))
@@ -2439,7 +2092,7 @@ int *___ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onef
       v6 = *(v3 + 32);
       v7 = v6[3] + v6[2] * v4;
       bit_vector_set_13535(v6 + 525, (v7 >> 20));
-      v8 = (v7 + 1040) >> 20;
+      v8 = (v7 + 528) >> 20;
       if (v8 > (v7 >> 20))
       {
         v9 = (v7 >> 20) + 1;
@@ -2452,7 +2105,7 @@ int *___ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onef
         while (v8 > v10);
       }
 
-      v11 = _windowsResolvePtr((v6 + 5), v6[3] + v6[2] * v4, 1040);
+      v11 = _windowsResolvePtr((v6 + 5), v6[3] + v6[2] * v4, 528);
       (*(*v5 + 80))(__p, v5, v11, 1);
       (*(**(a1 + 56) + 56))(*(a1 + 56), *__p[0], v4, *(__p[0] + 1));
       if (__p[0])
@@ -2476,15 +2129,15 @@ int *___ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onef
     v15 = _SILogForLogForCategory(16);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      (*(**(a1 + 56) + 152))(v27);
-      if (v28 >= 0)
+      (*(**(a1 + 56) + 152))(v26);
+      if (v27 >= 0)
       {
-        v16 = v27;
+        v16 = v26;
       }
 
       else
       {
-        v16 = v27[0];
+        v16 = v26[0];
       }
 
       v17 = *(a1 + 56);
@@ -2504,14 +2157,14 @@ int *___ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onef
       *(&__p[1] + 6) = v19;
       WORD1(__p[2]) = 1024;
       HIDWORD(__p[2]) = v18;
-      v30 = 2080;
-      v31 = v21;
-      v32 = 1024;
-      v33 = v22;
+      v29 = 2080;
+      v30 = v21;
+      v31 = 1024;
+      v32 = v22;
       _os_log_impl(&dword_1C278D000, v15, OS_LOG_TYPE_DEFAULT, "Create new partitions %s(%u/%u) for new quantizer %s(%u)", __p, 0x28u);
-      if (v28 < 0)
+      if (v27 < 0)
       {
-        operator delete(v27[0]);
+        operator delete(v26[0]);
       }
     }
 
@@ -2522,16 +2175,16 @@ int *___ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onef
 
   if (*(*(a1 + 56) + 72) != v13)
   {
-    v24 = __si_assert_copy_extra_332();
-    v25 = v24;
-    v26 = "";
-    if (v24)
+    v23 = __si_assert_copy_extra_332();
+    v24 = v23;
+    v25 = "";
+    if (v23)
     {
-      v26 = v24;
+      v25 = v23;
     }
 
-    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2538, "newPartitions->nVectors() == vectors->count()", v26);
-    free(v25);
+    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2538, "newPartitions->nVectors() == vectors->count()", v25);
+    free(v24);
     if (__valid_fs(-1))
     {
       MEMORY[0xBAD] = -559038737;
@@ -2542,11 +2195,105 @@ int *___ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onef
     abort();
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void __destroy_helper_block_8_40c49_ZTSNSt3__110shared_ptrI9QuantizerIDF16_Li512EEEE56c45_ZTSNSt3__110shared_ptrI17AnyPartitionStoreEE(uint64_t a1)
+uint64_t _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE9catchCallEiPS2_U13block_pointerFvvE(int a1, uint64_t a2, uint64_t a3)
+{
+  if (!a1 || !a2)
+  {
+    return (*(a3 + 16))(a3, a2);
+  }
+
+  add_explicit = atomic_fetch_add_explicit(&exceptionSequenceNum, 1u, memory_order_relaxed);
+  v5 = setThreadIdAndInfo(a1, sAllocatorExceptionCallbacks, a2, 0x40000000, add_explicit + 1);
+  v7 = v6;
+  v8 = v5;
+  v9 = HIDWORD(v5);
+  v11 = v10;
+  v12 = threadData[9 * v5 + 1] + 320 * HIDWORD(v5);
+  *(v12 + 216) = 0;
+  v13 = *(v12 + 312);
+  v14 = *(v12 + 224);
+  if (v14)
+  {
+    v14(*(v12 + 288));
+  }
+
+  v28 = v9;
+  v29 = v8;
+  v26 = v7;
+  v27 = v11;
+  if (_setjmp(v12))
+  {
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      *v25 = 0;
+      _os_log_error_impl(&dword_1C278D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Caught mach exception", v25, 2u);
+    }
+
+    *(v12 + 312) = v13;
+    v15 = v26;
+    if (__THREAD_SLOT_KEY[0])
+    {
+      v16 = pthread_getspecific(__THREAD_SLOT_KEY[0]);
+      if (!v16)
+      {
+        goto LABEL_20;
+      }
+    }
+
+    else
+    {
+      makeThreadId();
+      v16 = pthread_getspecific(__THREAD_SLOT_KEY[0]);
+      if (!v16)
+      {
+        goto LABEL_20;
+      }
+    }
+
+    v17 = v16;
+    if (v16 < 0x801)
+    {
+LABEL_11:
+      v18 = &threadData[9 * v17];
+      v20 = *(v18 - 4);
+      v19 = (v18 - 2);
+      if (v20 > v15)
+      {
+        v21 = v17 - 1;
+        do
+        {
+          CIOnThreadCleanUpPop(v21);
+        }
+
+        while (*v19 > v15);
+      }
+
+      dropThreadId(v29, 1, add_explicit + 1);
+      return CICleanUpReset(v29, v27);
+    }
+
+LABEL_20:
+    makeThreadId();
+    v17 = pthread_getspecific(__THREAD_SLOT_KEY[0]);
+    goto LABEL_11;
+  }
+
+  (*(a3 + 16))(a3);
+  v23 = threadData[9 * v29 + 1] + 320 * v28;
+  *(v23 + 312) = v13;
+  v24 = *(v23 + 232);
+  if (v24)
+  {
+    v24(*(v23 + 288));
+  }
+
+  return dropThreadId(v29, 0, add_explicit + 1);
+}
+
+void __destroy_helper_block_8_40c49_ZTSNSt3__110shared_ptrI9QuantizerIDF16_Li256EEEE56c45_ZTSNSt3__110shared_ptrI17AnyPartitionStoreEE(uint64_t a1)
 {
   v1 = *(a1 + 64);
   if (v1 && !atomic_fetch_add(&v1->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -2577,7 +2324,7 @@ void __destroy_helper_block_8_40c49_ZTSNSt3__110shared_ptrI9QuantizerIDF16_Li512
   }
 }
 
-void *__copy_helper_block_8_40c49_ZTSNSt3__110shared_ptrI9QuantizerIDF16_Li512EEEE56c45_ZTSNSt3__110shared_ptrI17AnyPartitionStoreEE(void *result, void *a2)
+void *__copy_helper_block_8_40c49_ZTSNSt3__110shared_ptrI9QuantizerIDF16_Li256EEEE56c45_ZTSNSt3__110shared_ptrI17AnyPartitionStoreEE(void *result, void *a2)
 {
   v2 = a2[6];
   result[5] = a2[5];
@@ -2598,13 +2345,13 @@ void *__copy_helper_block_8_40c49_ZTSNSt3__110shared_ptrI9QuantizerIDF16_Li512EE
   return result;
 }
 
-unint64_t _ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE17getVectorAtOffsetEj(uint64_t a1, unsigned int a2)
+unint64_t _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE17getVectorAtOffsetEj(uint64_t a1, unsigned int a2)
 {
   v2 = *(*(a1 + 48) + 32);
   v3 = a2;
   v4 = v2[3] + v2[2] * a2;
   bit_vector_set_13535(v2 + 525, (v4 >> 20));
-  v5 = (v4 + 1040) >> 20;
+  v5 = (v4 + 528) >> 20;
   if (v5 > (v4 >> 20))
   {
     v6 = (v4 >> 20) + 1;
@@ -2619,10 +2366,10 @@ unint64_t _ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_o
 
   v8 = v2[3] + v2[2] * v3;
 
-  return _windowsResolvePtr((v2 + 5), v8, 1040);
+  return _windowsResolvePtr((v2 + 5), v8, 528);
 }
 
-void _ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE13getPartitionsEv(uint64_t a1@<X0>, void *a2@<X8>)
+void _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE13getPartitionsEv(uint64_t a1@<X0>, void *a2@<X8>)
 {
   os_unfair_lock_lock((a1 + 112));
   v4 = *(a1 + 88);
@@ -2669,7 +2416,7 @@ LABEL_9:
   }
 }
 
-void _ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE12getQuantizerEv(uint64_t a1@<X0>, void *a2@<X8>)
+void _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE12getQuantizerEv(uint64_t a1@<X0>, void *a2@<X8>)
 {
   os_unfair_lock_lock((a1 + 112));
   v5 = *(a1 + 80);
@@ -2716,16 +2463,16 @@ void _ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefix
   }
 }
 
-void _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsED0Ev(void *a1)
+void _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsED0Ev(void *a1)
 {
-  _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsED2Ev(a1);
+  _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsED2Ev(a1);
 
   JUMPOUT(0x1C691FEF0);
 }
 
-void *_ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsED2Ev(void *a1)
+void *_ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsED2Ev(void *a1)
 {
-  *a1 = &unk_1F4280290;
+  *a1 = &unk_1F427FDE0;
   v2 = a1[13];
   if (v2 && !atomic_fetch_add(&v2->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
@@ -2757,7 +2504,7 @@ void *_ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefix
   return a1;
 }
 
-uint64_t _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE12diagnoseDumpERKNSt3__112basic_stringIcNS5_11char_traitsIcEENS5_9allocatorIcEEEERNS5_13basic_ostreamIcS8_EEi(uint64_t a1, uint64_t a2, void *a3, int a4)
+uint64_t _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE12diagnoseDumpERKNSt3__112basic_stringIcNS5_11char_traitsIcEENS5_9allocatorIcEEEERNS5_13basic_ostreamIcS8_EEi(uint64_t a1, uint64_t a2, void *a3, int a4)
 {
   v7 = *(a2 + 8);
   if (*(a2 + 23) >= 0)
@@ -2830,7 +2577,7 @@ uint64_t _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postin
   std::ostream::flush();
   v75 = 0;
   v76 = 0;
-  _ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE12getQuantizerEv(a1 + 48, &v75);
+  _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE12getQuantizerEv(a1 + 48, &v75);
   v23 = v75;
   if (v75)
   {
@@ -2874,7 +2621,7 @@ uint64_t _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postin
 
   v73 = 0;
   v74 = 0;
-  _ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE13getPartitionsEv(a1 + 48, &v73);
+  _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE13getPartitionsEv(a1 + 48, &v73);
   v35 = v73;
   if (v73)
   {
@@ -2936,10 +2683,10 @@ uint64_t _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postin
         v59 = MEMORY[0x1E69E5318];
         do
         {
-          v60 = _windowsResolvePtr(*(v39 + 32) + 40, *(*(v39 + 32) + 24) + *(*(v39 + 32) + 16) * v58, 1040);
+          v60 = _windowsResolvePtr(*(v39 + 32) + 40, *(*(v39 + 32) + 24) + *(*(v39 + 32) + 16) * v58, 528);
           v61 = MEMORY[0x1C691FC90](a3, v58);
           v62 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v61, ",", 1);
-          v63 = MEMORY[0x1C691FC90](v62, *(v60 + 1032));
+          v63 = MEMORY[0x1C691FC90](v62, *(v60 + 520));
           std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v63, ",", 1);
           std::ios_base::getloc((a3 + *(*a3 - 24)));
           v64 = std::locale::use_facet(&v78, v59);
@@ -2959,13 +2706,13 @@ uint64_t _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postin
         v45 = MEMORY[0x1E69E5318];
         do
         {
-          v47 = _windowsResolvePtr(*(v39 + 32) + 40, *(*(v39 + 32) + 24) + *(*(v39 + 32) + 16) * v44, 1040);
+          v47 = _windowsResolvePtr(*(v39 + 32) + 40, *(*(v39 + 32) + 24) + *(*(v39 + 32) + 16) * v44, 528);
           v48 = MEMORY[0x1C691FC90](a3, v44);
           v49 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v48, ",", 1);
-          v50 = MEMORY[0x1C691FC90](v49, *(v47 + 1032));
+          v50 = MEMORY[0x1C691FC90](v49, *(v47 + 520));
           std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v50, ",", 1);
           v51 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a3, "{length = ", 10);
-          v52 = MEMORY[0x1C691FCA0](v51, 1024);
+          v52 = MEMORY[0x1C691FCA0](v51, 512);
           std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v52, ", bytes = 0x", 12);
           data2hexString(&v78, v47, 16);
           if ((v80 & 0x80u) == 0)
@@ -2995,7 +2742,7 @@ uint64_t _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postin
           }
 
           std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(a3, " ... ", 5);
-          data2hexString(&v78, v47 + 1016, 8);
+          data2hexString(&v78, v47 + 504, 8);
           if ((v80 & 0x80u) == 0)
           {
             v55 = &v78;
@@ -3073,119 +2820,119 @@ uint64_t _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postin
   return result;
 }
 
-uint64_t _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE6statusERKNSt3__112basic_stringIcNS5_11char_traitsIcEENS5_9allocatorIcEEEE(uint64_t a1, uint64_t a2)
+uint64_t _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE6statusERKNSt3__112basic_stringIcNS5_11char_traitsIcEENS5_9allocatorIcEEEE(uint64_t a1, uint64_t a2)
 {
-  v37 = 0;
-  v35 = 0u;
-  memset(v36, 0, sizeof(v36));
+  v38 = 0;
+  v36 = 0u;
+  memset(v37, 0, sizeof(v37));
   *__p = 0u;
-  v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  memset(v33, 0, sizeof(v33));
   v31 = 0u;
-  memset(v32, 0, sizeof(v32));
-  v30 = 0u;
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:nn200100](&v30);
-  v4 = *(a2 + 23);
-  if (v4 >= 0)
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:nn200100](&v31);
+  v5 = *(a2 + 23);
+  if (v5 >= 0)
   {
-    v5 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v5 = *a2;
+    v6 = *a2;
   }
 
-  if (v4 >= 0)
+  if (v5 >= 0)
   {
-    v6 = *(a2 + 23);
-  }
-
-  else
-  {
-    v6 = *(a2 + 8);
-  }
-
-  v7 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v31, v5, v6);
-  v8 = *(a1 + 47);
-  if (v8 >= 0)
-  {
-    v9 = a1 + 24;
+    v7 = *(a2 + 23);
   }
 
   else
   {
-    v9 = *(a1 + 24);
+    v7 = *(a2 + 8);
   }
 
-  if (v8 >= 0)
+  v8 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v32, v6, v7);
+  v9 = *(a1 + 47);
+  if (v9 >= 0)
   {
-    v10 = *(a1 + 47);
+    v10 = a1 + 24;
   }
 
   else
   {
-    v10 = *(a1 + 32);
+    v10 = *(a1 + 24);
   }
 
-  v11 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v7, v9, v10);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v11, "(", 1);
-  v12 = (*(*a1 + 16))(a1);
-  v13 = MEMORY[0x1C691FC90](&v31, v12);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v13, "/", 1);
-  v14 = (*(*a1 + 24))(a1);
-  v15 = MEMORY[0x1C691FC90](v13, v14);
-  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v15, "v", 1);
-  _ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE13getPartitionsEv(a1 + 48, &v28);
-  if (v28)
+  if (v9 >= 0)
   {
-    _ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE13getPartitionsEv(a1 + 48, &v26);
-    v16 = MEMORY[0x1C691FC80](v15, *(v26 + 76));
-    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v16, ")", 1);
-    v17 = v27;
-    if (v27 && !atomic_fetch_add(&v27->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    v11 = *(a1 + 47);
+  }
+
+  else
+  {
+    v11 = *(a1 + 32);
+  }
+
+  v12 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v8, v10, v11);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v12, "(", 1);
+  v13 = (*(*a1 + 16))(a1);
+  v14 = MEMORY[0x1C691FC90](&v32, v13);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v14, "/", 1);
+  v15 = (*(*a1 + 24))(a1);
+  v16 = MEMORY[0x1C691FC90](v14, v15);
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v16, "v", 1);
+  _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE13getPartitionsEv(a1 + 48, &v29);
+  if (v29)
+  {
+    _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE13getPartitionsEv(a1 + 48, &v27);
+    v17 = MEMORY[0x1C691FC80](v16, *(v27 + 76));
+    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v17, ")", 1);
+    v18 = v28;
+    if (v28 && !atomic_fetch_add(&v28->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v17->__on_zero_shared)(v17);
-      std::__shared_weak_count::__release_weak(v17);
+      (v18->__on_zero_shared)(v18);
+      std::__shared_weak_count::__release_weak(v18);
     }
   }
 
   else
   {
-    v18 = MEMORY[0x1C691FC80](v15, 0);
-    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v18, ")", 1);
+    v19 = MEMORY[0x1C691FC80](v16, 0);
+    std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v19, ")", 1);
   }
 
-  v19 = v29;
-  if (v29 && !atomic_fetch_add(&v29->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v20 = v30;
+  if (v30 && !atomic_fetch_add(&v30->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v19->__on_zero_shared)(v19);
-    std::__shared_weak_count::__release_weak(v19);
+    (v20->__on_zero_shared)(v20);
+    std::__shared_weak_count::__release_weak(v20);
   }
 
-  v20 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v31, "[", 1);
-  MEMORY[0x1C691FC90](v20, *(*(a1 + 96) + 52));
-  v21 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v31, ",", 1);
-  v22 = MEMORY[0x1C691FC90](v21, *(*(a1 + 96) + 56));
-  v23 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v22, "] indexId: ", 11);
-  MEMORY[0x1C691FCB0](v23, *(a1 + 168));
+  v21 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v32, "[", 1);
+  MEMORY[0x1C691FC90](v21, *(*(a1 + 96) + 52));
+  v22 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v32, ",", 1);
+  v23 = MEMORY[0x1C691FC90](v22, *(*(a1 + 96) + 56));
+  v24 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v23, "] indexId: ", 11);
+  MEMORY[0x1C691FCB0](v24, *(a1 + 168));
   std::stringbuf::str();
-  *&v30 = *MEMORY[0x1E69E54D8];
-  v24 = *(MEMORY[0x1E69E54D8] + 72);
-  *(&v30 + *(v30 - 24)) = *(MEMORY[0x1E69E54D8] + 64);
-  *&v31 = v24;
-  *(&v31 + 1) = MEMORY[0x1E69E5548] + 16;
-  if (SHIBYTE(v34) < 0)
+  *&v31 = *MEMORY[0x1E69E54D8];
+  v25 = *(MEMORY[0x1E69E54D8] + 72);
+  *(&v31 + *(v31 - 24)) = *(MEMORY[0x1E69E54D8] + 64);
+  *&v32 = v25;
+  *(&v32 + 1) = MEMORY[0x1E69E5548] + 16;
+  if (SHIBYTE(v35) < 0)
   {
     operator delete(__p[1]);
   }
 
-  *(&v31 + 1) = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v32);
+  *(&v32 + 1) = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v33);
   std::iostream::~basic_iostream();
-  return MEMORY[0x1C691FE80](v36);
+  return MEMORY[0x1C691FE80](v37);
 }
 
-uint64_t _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE26updateVectorStorageOffsetsEP13__SIUINT64Set(uint64_t a1, uint64_t a2)
+uint64_t _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE26updateVectorStorageOffsetsEP13__SIUINT64Set(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
@@ -3202,7 +2949,7 @@ uint64_t _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_posting
       v7 = *(*(a1 + 96) + 32);
       v8 = v7[3] + v7[2] * v4;
       bit_vector_set_13535(v7 + 525, (v8 >> 20));
-      v9 = (v8 + 1040) >> 20;
+      v9 = (v8 + 528) >> 20;
       if (v9 > (v8 >> 20))
       {
         v10 = (v8 >> 20) + 1;
@@ -3215,10 +2962,10 @@ uint64_t _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_posting
         while (v9 > v11);
       }
 
-      v12 = _windowsResolvePtr((v7 + 5), v7[3] + v7[2] * v4, 1040);
+      v12 = _windowsResolvePtr((v7 + 5), v7[3] + v7[2] * v4, 528);
       if ((*(a2 + 184) & 1) == 0)
       {
-        v13 = *(v12 + 1032);
+        v13 = *(v12 + 520);
         v14 = *(a2 + 24);
         if (!v14 || !((*(a2 + 16) ^ v13) >> (-4 * v14)))
         {
@@ -3264,7 +3011,7 @@ uint64_t _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_posting
       v20 = *(*(a1 + 96) + 32);
       v21 = v20[3] + v20[2] * i;
       bit_vector_set_13535(v20 + 525, (v21 >> 20));
-      v22 = (v21 + 1040) >> 20;
+      v22 = (v21 + 528) >> 20;
       if (v22 > (v21 >> 20))
       {
         v23 = (v21 >> 20) + 1;
@@ -3277,33 +3024,98 @@ uint64_t _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_posting
         while (v22 > v24);
       }
 
-      v19 = _windowsResolvePtr((v20 + 5), v20[3] + v20[2] * i, 1040);
-      data_map_set_offset_for_id(*(a1 + 192), *(v19 + 1032), (*(a1 + 88) << 36) | (16 * i) | (4 * (*(a1 + 176) & 3)) | *(a1 + 172) & 3, *(a1 + 168) | (*(a1 + 180) << 32), *(a1 + 184));
+      v19 = _windowsResolvePtr((v20 + 5), v20[3] + v20[2] * i, 528);
+      data_map_set_offset_for_id(*(a1 + 192), *(v19 + 520), (*(a1 + 88) << 36) | (16 * i) | (4 * (*(a1 + 176) & 3)) | *(a1 + 172) & 3, *(a1 + 168) | (*(a1 + 180) << 32), *(a1 + 184));
     }
   }
 
   return result;
 }
 
-uint64_t _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE16getDataForOffsetEjPj(void *a1, uint64_t a2, int *a3)
+uint64_t _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE8nVectorsEv(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  os_unfair_lock_lock((a1 + 112));
+  v2 = *(a1 + 88);
+  if (v2)
+  {
+    atomic_fetch_add_explicit(&v2->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v4 = *(a1 + 96);
+  v3 = *(a1 + 104);
+  if (!v3)
+  {
+    os_unfair_lock_unlock((a1 + 112));
+    if (v4)
+    {
+      v5 = *(v4 + 72);
+      goto LABEL_9;
+    }
+
+LABEL_13:
+    v7 = __si_assert_copy_extra_332();
+    v8 = v7;
+    v9 = "";
+    if (v7)
+    {
+      v9 = v7;
+    }
+
+    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2476, "cur.partitions != nullptr", v9);
+    free(v8);
+    if (__valid_fs(-1))
+    {
+      MEMORY[0xBAD] = -559038737;
+      abort();
+    }
+
+    MEMORY[0xC00] = -559038737;
+    abort();
+  }
+
+  atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+  os_unfair_lock_unlock((a1 + 112));
+  if (!v4)
+  {
+    goto LABEL_13;
+  }
+
+  v5 = *(v4 + 72);
+  if (!atomic_fetch_add(&v3->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v3->__on_zero_shared)(v3);
+    std::__shared_weak_count::__release_weak(v3);
+  }
+
+LABEL_9:
+  if (v2 && !atomic_fetch_add(&v2->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v2->__on_zero_shared)(v2);
+    std::__shared_weak_count::__release_weak(v2);
+  }
+
+  return v5;
+}
+
+uint64_t _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE16getDataForOffsetEjPj(void *a1, uint64_t a2, int *a3)
+{
+  v20 = *MEMORY[0x1E69E9840];
   if ((*(*a1 + 16))(a1) <= a2)
   {
     v8 = *__error();
     v9 = _SILogForLogForCategory(2);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = (*(*a1 + 16))(a1);
-      v13 = 136315906;
-      v14 = "getDataForOffset";
-      v15 = 1024;
-      v16 = 3635;
-      v17 = 1024;
-      v18 = a2;
-      v19 = 1024;
-      v20 = v12;
-      _os_log_error_impl(&dword_1C278D000, v9, OS_LOG_TYPE_ERROR, "%s:%d: offset out of range: %u >= %u", &v13, 0x1Eu);
+      v11 = (*(*a1 + 16))(a1);
+      v12 = 136315906;
+      v13 = "getDataForOffset";
+      v14 = 1024;
+      v15 = 3635;
+      v16 = 1024;
+      v17 = a2;
+      v18 = 1024;
+      v19 = v11;
+      _os_log_error_impl(&dword_1C278D000, v9, OS_LOG_TYPE_ERROR, "%s:%d: offset out of range: %u >= %u", &v12, 0x1Eu);
     }
 
     v10 = __error();
@@ -3315,15 +3127,14 @@ uint64_t _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postin
   else
   {
     result = (*(a1[6] + 32))(a1 + 6, a2);
-    v7 = 1024;
+    v7 = 512;
   }
 
   *a3 = v7;
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE11storageSizeEv(uint64_t a1)
+uint64_t _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE11storageSizeEv(uint64_t a1)
 {
   os_unfair_lock_lock((a1 + 160));
   v2 = *(a1 + 136);
@@ -3357,9 +3168,9 @@ uint64_t _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postin
   return v6 + v5;
 }
 
-uint64_t _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE24aNNForDebugProcessResultEPvU13block_pointerFvjjfE(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE24aNNForDebugProcessResultEPvU13block_pointerFvjjfE(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v5 = *__error();
   v6 = _SILogForLogForCategory(16);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -3374,23 +3185,23 @@ uint64_t _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postin
   buf[0] = 0;
   AppIntegerValue = CFPreferencesGetAppIntegerValue(@"IVFANNLogQueryResult", @"com.apple.Spotlight", buf);
   v9 = buf[0];
-  v51 = 0;
-  v49 = 0u;
-  memset(v50, 0, sizeof(v50));
+  v49 = 0;
   v47 = 0u;
-  v48 = 0u;
+  memset(v48, 0, sizeof(v48));
   v45 = 0u;
-  memset(v46, 0, sizeof(v46));
+  v46 = 0u;
+  v43 = 0u;
+  memset(v44, 0, sizeof(v44));
   *buf = 0u;
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:nn200100](buf);
+  v34 = 0;
+  v35 = 0;
   v36 = 0;
-  v37 = 0;
-  v38 = 0;
-  v34 = a2;
-  _ZNK20MaxSizePriorityQueueIN22IVFVectorIndexTemplateIDF16_Li256EE18candidate_result_sI16vi_disk_postingsEENSt3__16vectorIS4_NS5_9allocatorIS4_EEEENS5_4lessIS4_EEE8allItemsEv(&v36, *(a2 + 8), *(a2 + 16));
-  v10 = v37;
-  v35 = v36;
-  if (v36 != v37)
+  v32 = a2;
+  _ZNK20MaxSizePriorityQueueIN22IVFVectorIndexTemplateIDF16_Li256EE18candidate_result_sI16vi_disk_postingsEENSt3__16vectorIS4_NS5_9allocatorIS4_EEEENS5_4lessIS4_EEE8allItemsEv(&v34, *(a2 + 8), *(a2 + 16));
+  v10 = v35;
+  v33 = v34;
+  if (v34 != v35)
   {
     if (AppIntegerValue)
     {
@@ -3404,150 +3215,521 @@ uint64_t _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postin
 
     if (v11)
     {
-      v24 = v36;
+      v23 = v34;
       do
       {
-        (*(a3 + 16))(a3, *v24, *(v24 + 2), v24[3]);
-        v24 += 4;
+        (*(a3 + 16))(a3, *v23, *(v23 + 2), *(v23 + 3));
+        ++v23;
       }
 
-      while (v24 != v10);
+      while (v23 != v10);
     }
 
     else
     {
       v12 = 0;
       v13 = ",";
-      v14 = v36;
+      v14 = v34;
       do
       {
-        (*(a3 + 16))(a3, *v14, *(v14 + 2), v14[3]);
-        v15 = MEMORY[0x1C691FC90](&v45, *(v14 + 2));
+        (*(a3 + 16))(a3, *v14, *(v14 + 2), *(v14 + 3));
+        v15 = MEMORY[0x1C691FC90](&v43, *(v14 + 2));
         std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v15, v13, 1);
-        v16 = *(v14 + 3);
-        v17 = std::ostream::operator<<();
-        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v17, ";", 1);
-        v18 = &v46[-2] + *(v45 - 24);
-        if ((v18[32] & 5) == 0 && ((*(**(v18 + 5) + 32))(__p), v43 > 1000) || (++v12, HIDWORD(v19) = -1030792151 * v12 + 85899344, LODWORD(v19) = HIDWORD(v19), (v19 >> 1) < 0x51EB851))
+        v16 = std::ostream::operator<<();
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v16, ";", 1);
+        v17 = &v44[-2] + *(v43 - 24);
+        if ((v17[32] & 5) == 0 && ((*(**(v17 + 5) + 32))(__p), v41 > 1000) || (++v12, HIDWORD(v18) = -1030792151 * v12 + 85899344, LODWORD(v18) = HIDWORD(v18), (v18 >> 1) < 0x51EB851))
         {
-          v20 = v13;
-          v21 = *__error();
-          v22 = _SILogForLogForCategory(16);
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v19 = v13;
+          v20 = *__error();
+          v21 = _SILogForLogForCategory(16);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
             std::stringbuf::str();
-            v23 = __p;
-            if (v42 < 0)
+            v22 = __p;
+            if (v40 < 0)
             {
-              v23 = __p[0];
+              v22 = __p[0];
             }
 
-            *v39 = 136315138;
-            v40 = v23;
-            _os_log_impl(&dword_1C278D000, v22, OS_LOG_TYPE_DEFAULT, "%s", v39, 0xCu);
-            if (SHIBYTE(v42) < 0)
+            *v37 = 136315138;
+            v38 = v22;
+            _os_log_impl(&dword_1C278D000, v21, OS_LOG_TYPE_DEFAULT, "%s", v37, 0xCu);
+            if (SHIBYTE(v40) < 0)
             {
               operator delete(__p[0]);
             }
           }
 
-          *__error() = v21;
+          *__error() = v20;
           __p[0] = 0;
           __p[1] = 0;
-          v42 = 0;
+          v40 = 0;
           std::stringbuf::str();
-          if (SHIBYTE(v42) < 0)
+          if (SHIBYTE(v40) < 0)
           {
             operator delete(__p[0]);
           }
 
-          v13 = v20;
+          v13 = v19;
         }
 
-        v14 += 4;
+        ++v14;
       }
 
       while (v14 != v10);
     }
   }
 
-  v25 = &v46[-2] + *(v45 - 24);
-  if ((v25[32] & 5) != 0)
+  v24 = &v44[-2] + *(v43 - 24);
+  if ((v24[32] & 5) != 0)
   {
-    v26 = v34;
+    v25 = v32;
   }
 
   else
   {
-    (*(**(v25 + 5) + 32))(__p);
-    v26 = v34;
-    if (v43 > 0)
+    (*(**(v24 + 5) + 32))(__p);
+    v25 = v32;
+    if (v41 > 0)
     {
-      v27 = *__error();
-      v28 = _SILogForLogForCategory(16);
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v26 = *__error();
+      v27 = _SILogForLogForCategory(16);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         std::stringbuf::str();
-        v29 = v42 >= 0 ? __p : __p[0];
-        *v39 = 136315138;
-        v40 = v29;
-        _os_log_impl(&dword_1C278D000, v28, OS_LOG_TYPE_DEFAULT, "%s", v39, 0xCu);
-        if (SHIBYTE(v42) < 0)
+        v28 = v40 >= 0 ? __p : __p[0];
+        *v37 = 136315138;
+        v38 = v28;
+        _os_log_impl(&dword_1C278D000, v27, OS_LOG_TYPE_DEFAULT, "%s", v37, 0xCu);
+        if (SHIBYTE(v40) < 0)
         {
           operator delete(__p[0]);
         }
       }
 
-      *__error() = v27;
+      *__error() = v26;
     }
   }
 
-  if (v26)
+  if (v25)
   {
-    v30 = *(v26 + 8);
-    if (v30)
+    v29 = *(v25 + 8);
+    if (v29)
     {
-      *(v26 + 16) = v30;
-      operator delete(v30);
+      *(v25 + 16) = v29;
+      operator delete(v29);
     }
 
-    MEMORY[0x1C691FEF0](v26, 0x1020C403EC25235);
+    MEMORY[0x1C691FEF0](v25, 0x1020C403EC25235);
   }
 
-  if (v35)
+  if (v33)
   {
-    operator delete(v35);
+    operator delete(v33);
   }
 
   *buf = *MEMORY[0x1E69E54D8];
-  v31 = *(MEMORY[0x1E69E54D8] + 72);
+  v30 = *(MEMORY[0x1E69E54D8] + 72);
   *&buf[*(*buf - 24)] = *(MEMORY[0x1E69E54D8] + 64);
-  *&v45 = v31;
-  *(&v45 + 1) = MEMORY[0x1E69E5548] + 16;
-  if (SHIBYTE(v48) < 0)
+  *&v43 = v30;
+  *(&v43 + 1) = MEMORY[0x1E69E5548] + 16;
+  if (SHIBYTE(v46) < 0)
   {
-    operator delete(*(&v47 + 1));
+    operator delete(*(&v45 + 1));
   }
 
-  *(&v45 + 1) = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(v46);
+  *(&v43 + 1) = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v44);
   std::iostream::~basic_iostream();
-  result = MEMORY[0x1C691FE80](v50);
-  v33 = *MEMORY[0x1E69E9840];
+  return MEMORY[0x1C691FE80](v48);
+}
+
+__int128 **_ZNK20MaxSizePriorityQueueIN22IVFVectorIndexTemplateIDF16_Li256EE18candidate_result_sI16vi_disk_postingsEENSt3__16vectorIS4_NS5_9allocatorIS4_EEEENS5_4lessIS4_EEE8allItemsEv(__int128 **result, _BYTE *a2, _BYTE *a3)
+{
+  *result = 0;
+  result[1] = 0;
+  result[2] = 0;
+  if (a3 != a2)
+  {
+    if (((a3 - a2) & 0x8000000000000000) == 0)
+    {
+      operator new();
+    }
+
+    std::vector<long long>::__throw_length_error[abi:nn200100]();
+  }
+
   return result;
 }
 
-uint64_t _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE16aNNProcessResultEPvU13block_pointerFvS5_fjE(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE23aNNForTestProcessResultEP20MaxSizePriorityQueueINS0_18candidate_result_sIS3_EENSt3__16vectorIS7_NS8_9allocatorIS7_EEEENS8_4lessIS7_EEEU13block_pointerFvjfE(uint64_t a1, uint64_t a2)
+{
+  v49 = *MEMORY[0x1E69E9840];
+  v4 = *__error();
+  v5 = _SILogForLogForCategory(16);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = (*(a1 + 16) - *(a1 + 8)) >> 4;
+    *buf = 134217984;
+    *&buf[4] = v6;
+    _os_log_impl(&dword_1C278D000, v5, OS_LOG_TYPE_DEFAULT, "search return %zu results", buf, 0xCu);
+  }
+
+  *__error() = v4;
+  buf[0] = 0;
+  AppIntegerValue = CFPreferencesGetAppIntegerValue(@"IVFANNLogQueryResult", @"com.apple.Spotlight", buf);
+  v8 = buf[0];
+  v48 = 0;
+  v46 = 0u;
+  memset(v47, 0, sizeof(v47));
+  v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  memset(v43, 0, sizeof(v43));
+  *buf = 0u;
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:nn200100](buf);
+  v33 = 0;
+  v34 = 0;
+  v35 = 0;
+  v31 = a1;
+  _ZNK20MaxSizePriorityQueueIN22IVFVectorIndexTemplateIDF16_Li256EE18candidate_result_sI16vi_disk_postingsEENSt3__16vectorIS4_NS5_9allocatorIS4_EEEENS5_4lessIS4_EEE8allItemsEv(&v33, *(a1 + 8), *(a1 + 16));
+  v9 = v34;
+  v32 = v33;
+  if (v33 != v34)
+  {
+    if (AppIntegerValue)
+    {
+      v10 = v8 == 0;
+    }
+
+    else
+    {
+      v10 = 1;
+    }
+
+    if (v10)
+    {
+      v22 = v33;
+      do
+      {
+        (*(a2 + 16))(a2, *v22, *(v22 + 3));
+        ++v22;
+      }
+
+      while (v22 != v9);
+    }
+
+    else
+    {
+      v11 = 0;
+      v12 = ",";
+      v13 = v33;
+      do
+      {
+        (*(a2 + 16))(a2, *v13, *(v13 + 3));
+        v14 = MEMORY[0x1C691FC90](&v42, *(v13 + 2));
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v14, v12, 1);
+        v15 = std::ostream::operator<<();
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v15, ";", 1);
+        v16 = &v43[-2] + *(v42 - 24);
+        if ((v16[32] & 5) == 0 && ((*(**(v16 + 5) + 32))(__p), v40 > 1000) || (++v11, HIDWORD(v17) = -1030792151 * v11 + 85899344, LODWORD(v17) = HIDWORD(v17), (v17 >> 1) < 0x51EB851))
+        {
+          v18 = v12;
+          v19 = *__error();
+          v20 = _SILogForLogForCategory(16);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          {
+            std::stringbuf::str();
+            v21 = __p;
+            if (v39 < 0)
+            {
+              v21 = __p[0];
+            }
+
+            *v36 = 136315138;
+            v37 = v21;
+            _os_log_impl(&dword_1C278D000, v20, OS_LOG_TYPE_DEFAULT, "%s", v36, 0xCu);
+            if (SHIBYTE(v39) < 0)
+            {
+              operator delete(__p[0]);
+            }
+          }
+
+          *__error() = v19;
+          __p[0] = 0;
+          __p[1] = 0;
+          v39 = 0;
+          std::stringbuf::str();
+          if (SHIBYTE(v39) < 0)
+          {
+            operator delete(__p[0]);
+          }
+
+          v12 = v18;
+        }
+
+        ++v13;
+      }
+
+      while (v13 != v9);
+    }
+  }
+
+  v23 = &v43[-2] + *(v42 - 24);
+  if ((v23[32] & 5) != 0)
+  {
+    v24 = v31;
+  }
+
+  else
+  {
+    (*(**(v23 + 5) + 32))(__p);
+    v24 = v31;
+    if (v40 > 0)
+    {
+      v25 = *__error();
+      v26 = _SILogForLogForCategory(16);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      {
+        std::stringbuf::str();
+        v27 = v39 >= 0 ? __p : __p[0];
+        *v36 = 136315138;
+        v37 = v27;
+        _os_log_impl(&dword_1C278D000, v26, OS_LOG_TYPE_DEFAULT, "%s", v36, 0xCu);
+        if (SHIBYTE(v39) < 0)
+        {
+          operator delete(__p[0]);
+        }
+      }
+
+      *__error() = v25;
+    }
+  }
+
+  if (v24)
+  {
+    v28 = *(v24 + 8);
+    if (v28)
+    {
+      *(v24 + 16) = v28;
+      operator delete(v28);
+    }
+
+    MEMORY[0x1C691FEF0](v24, 0x1020C403EC25235);
+  }
+
+  if (v32)
+  {
+    operator delete(v32);
+  }
+
+  *buf = *MEMORY[0x1E69E54D8];
+  v29 = *(MEMORY[0x1E69E54D8] + 72);
+  *&buf[*(*buf - 24)] = *(MEMORY[0x1E69E54D8] + 64);
+  *&v42 = v29;
+  *(&v42 + 1) = MEMORY[0x1E69E5548] + 16;
+  if (SHIBYTE(v45) < 0)
+  {
+    operator delete(*(&v44 + 1));
+  }
+
+  *(&v42 + 1) = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v43);
+  std::iostream::~basic_iostream();
+  return MEMORY[0x1C691FE80](v47);
+}
+
+uint64_t _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE16aNNProcessResultEPvU13block_pointerFvS5_fjE(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4[0] = MEMORY[0x1E69E9820];
   v4[1] = 0x40000000;
-  v4[2] = ___ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE16aNNProcessResultEPvU13block_pointerFvS5_fjE_block_invoke;
-  v4[3] = &unk_1E8195980;
+  v4[2] = ___ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE16aNNProcessResultEPvU13block_pointerFvS5_fjE_block_invoke;
+  v4[3] = &unk_1E8195898;
   v4[4] = a3;
   return _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE16aNNProcessResultEP20MaxSizePriorityQueueINS0_18candidate_result_sIS3_EENSt3__16vectorIS7_NS8_9allocatorIS7_EEEENS8_4lessIS7_EEEU13block_pointerFvPyfjE(a2, v4);
 }
 
-void _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE3aNNEjtPKv14vec_dimensions15vec_data_formatfbPv(uint64_t a1, int a2, int a3, unsigned __int8 *a4, int a5, int a6, char a7, _DWORD *a8, float a9)
+uint64_t _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE16aNNProcessResultEP20MaxSizePriorityQueueINS0_18candidate_result_sIS3_EENSt3__16vectorIS7_NS8_9allocatorIS7_EEEENS8_4lessIS7_EEEU13block_pointerFvPyfjE(uint64_t a1, uint64_t a2)
+{
+  v50 = *MEMORY[0x1E69E9840];
+  v4 = *__error();
+  v5 = _SILogForLogForCategory(16);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = (*(a1 + 16) - *(a1 + 8)) >> 4;
+    *buf = 134217984;
+    *&buf[4] = v6;
+    _os_log_impl(&dword_1C278D000, v5, OS_LOG_TYPE_DEFAULT, "search return %zu results", buf, 0xCu);
+  }
+
+  *__error() = v4;
+  buf[0] = 0;
+  AppIntegerValue = CFPreferencesGetAppIntegerValue(@"IVFANNLogQueryResult", @"com.apple.Spotlight", buf);
+  v8 = buf[0];
+  v49 = 0;
+  v47 = 0u;
+  memset(v48, 0, sizeof(v48));
+  *v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  memset(v44, 0, sizeof(v44));
+  *buf = 0u;
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:nn200100](buf);
+  v34 = 0;
+  v35 = 0;
+  v36 = 0;
+  v31 = a1;
+  _ZNK20MaxSizePriorityQueueIN22IVFVectorIndexTemplateIDF16_Li256EE18candidate_result_sI16vi_disk_postingsEENSt3__16vectorIS4_NS5_9allocatorIS4_EEEENS5_4lessIS4_EEE8allItemsEv(&v34, *(a1 + 8), *(a1 + 16));
+  v9 = v35;
+  v32 = v34;
+  if (v34 != v35)
+  {
+    if (AppIntegerValue)
+    {
+      v10 = v8 == 0;
+    }
+
+    else
+    {
+      v10 = 1;
+    }
+
+    if (v10)
+    {
+      v22 = v34;
+      do
+      {
+        v33 = *v22;
+        (*(a2 + 16))(a2, &v33, *(v22 + 2), *(v22 + 3));
+        ++v22;
+      }
+
+      while (v22 != v9);
+    }
+
+    else
+    {
+      v11 = 0;
+      v12 = ",";
+      v13 = v34;
+      do
+      {
+        v33 = *v13;
+        (*(a2 + 16))(a2, &v33, *(v13 + 2), *(v13 + 3));
+        v14 = MEMORY[0x1C691FC90](&v43, *(v13 + 2));
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v14, v12, 1);
+        v15 = std::ostream::operator<<();
+        std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v15, ";", 1);
+        v16 = &v44[-1] + *(v43 - 24);
+        if ((v16[32] & 5) == 0 && ((*(**(v16 + 5) + 32))(__p), v41 > 1000) || (++v11, HIDWORD(v17) = -1030792151 * v11 + 85899344, LODWORD(v17) = HIDWORD(v17), (v17 >> 1) < 0x51EB851))
+        {
+          v18 = v12;
+          v19 = *__error();
+          v20 = _SILogForLogForCategory(16);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          {
+            std::stringbuf::str();
+            v21 = __p;
+            if (v40 < 0)
+            {
+              v21 = __p[0];
+            }
+
+            *v37 = 136315138;
+            v38 = v21;
+            _os_log_impl(&dword_1C278D000, v20, OS_LOG_TYPE_DEFAULT, "%s", v37, 0xCu);
+            if (SHIBYTE(v40) < 0)
+            {
+              operator delete(__p[0]);
+            }
+          }
+
+          *__error() = v19;
+          __p[0] = 0;
+          __p[1] = 0;
+          v40 = 0;
+          std::stringbuf::str();
+          if (SHIBYTE(v40) < 0)
+          {
+            operator delete(__p[0]);
+          }
+
+          v12 = v18;
+        }
+
+        ++v13;
+      }
+
+      while (v13 != v9);
+    }
+  }
+
+  v23 = &v44[-1] + *(v43 - 24);
+  if ((v23[32] & 5) != 0)
+  {
+    v24 = v31;
+  }
+
+  else
+  {
+    (*(**(v23 + 5) + 32))(__p);
+    v24 = v31;
+    if (v41 > 0)
+    {
+      v25 = *__error();
+      v26 = _SILogForLogForCategory(16);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      {
+        std::stringbuf::str();
+        v27 = v40 >= 0 ? __p : __p[0];
+        *v37 = 136315138;
+        v38 = v27;
+        _os_log_impl(&dword_1C278D000, v26, OS_LOG_TYPE_DEFAULT, "%s", v37, 0xCu);
+        if (SHIBYTE(v40) < 0)
+        {
+          operator delete(__p[0]);
+        }
+      }
+
+      *__error() = v25;
+    }
+  }
+
+  if (v24)
+  {
+    v28 = *(v24 + 8);
+    if (v28)
+    {
+      *(v24 + 16) = v28;
+      operator delete(v28);
+    }
+
+    MEMORY[0x1C691FEF0](v24, 0x1020C403EC25235);
+  }
+
+  if (v32)
+  {
+    operator delete(v32);
+  }
+
+  *buf = *MEMORY[0x1E69E54D8];
+  v29 = *(MEMORY[0x1E69E54D8] + 72);
+  *&buf[*(*buf - 24)] = *(MEMORY[0x1E69E54D8] + 64);
+  *&v43 = v29;
+  *(&v43 + 1) = MEMORY[0x1E69E5548] + 16;
+  if (SHIBYTE(v46) < 0)
+  {
+    operator delete(v45[1]);
+  }
+
+  *(&v43 + 1) = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v44);
+  std::iostream::~basic_iostream();
+  return MEMORY[0x1C691FE80](v48);
+}
+
+void _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE3aNNEjtPKv14vec_dimensions15vec_data_formatfbPv(uint64_t a1, int a2, int a3, float16x8_t *a4, int a5, int a6, uint64_t a7, _DWORD *a8, float a9)
 {
   if (*(a1 + 8) != a2 || *(a1 + 20) != a3 || a6 > 2 || *(a1 + 12) != vector_dimension_vec_sizes_15424[a5] || vector_size_elem_sizes_15423[a6] != *(a1 + 16))
   {
@@ -3577,23 +3759,23 @@ void _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE2
 
   v9 = a1 + 48;
 
-  _ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE3aNNERK10CIVector_sIDF16_Li512EEfbP20MaxSizePriorityQueueINS0_18candidate_result_sIS3_EENSt3__16vectorISB_NSC_9allocatorISB_EEEENSC_4lessISB_EEEj(v9, a4, a7, a8, 0, a9);
+  _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE3aNNERK10CIVector_sIDF16_Li256EEfbP20MaxSizePriorityQueueINS0_18candidate_result_sIS3_EENSt3__16vectorISB_NSC_9allocatorISB_EEEENSC_4lessISB_EEEj(v9, a4, a7, a8, 0, a9);
 }
 
-void _ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE3aNNERK10CIVector_sIDF16_Li512EEfbP20MaxSizePriorityQueueINS0_18candidate_result_sIS3_EENSt3__16vectorISB_NSC_9allocatorISB_EEEENSC_4lessISB_EEEj(uint64_t a1, unsigned __int8 *a2, char a3, _DWORD *a4, CFIndex AppIntegerValue, float a6)
+void _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE3aNNERK10CIVector_sIDF16_Li256EEfbP20MaxSizePriorityQueueINS0_18candidate_result_sIS3_EENSt3__16vectorISB_NSC_9allocatorISB_EEEENSC_4lessISB_EEEj(uint64_t a1, float16x8_t *a2, char a3, _DWORD *a4, CFIndex AppIntegerValue, float a6)
 {
   v7 = a4;
-  v159 = *MEMORY[0x1E69E9840];
+  v131 = *MEMORY[0x1E69E9840];
   v12 = *a4;
   *__str = 0u;
-  v158 = 0u;
-  snprintf(__str, 0x20uLL, "%02x%02x%02x%02x...%02x%02x%02x%02x", *a2, a2[1], a2[2], a2[3], a2[1020], a2[1021], a2[1022], a2[1023]);
+  v130 = 0u;
+  snprintf(__str, 0x20uLL, "%02x%02x%02x%02x...%02x%02x%02x%02x", a2->u8[0], a2->u8[1], a2->u8[2], a2->u8[3], a2[31].u8[12], a2[31].u8[13], a2[31].u8[14], a2[31].u8[15]);
   if (!AppIntegerValue)
   {
     AppIntegerValue = CFPreferencesGetAppIntegerValue(@"IVFNumberOfParitionsProbe", @"com.apple.Spotlight", 0);
   }
 
-  v126 = v12;
+  v98 = v12;
   v13 = 10 * v12;
   keyExistsAndHasValidFormat[0] = 0;
   v14 = CFPreferencesGetAppIntegerValue(@"IVFMinVectorsUseANN", @"com.apple.Spotlight", keyExistsAndHasValidFormat);
@@ -3632,8 +3814,8 @@ void _ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefix
     v21 = 7;
   }
 
-  v144 = 0;
-  v145 = &v144;
+  v116 = 0;
+  v117 = &v116;
   if (v19 <= v21)
   {
     v22 = v21;
@@ -3644,16 +3826,16 @@ void _ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefix
     v22 = v19;
   }
 
-  v147 = 0;
-  v146 = 0x2000000000;
-  v140 = 0;
-  v141 = &v140;
-  v143 = 0;
-  v142 = 0x2000000000;
-  v139 = 0;
-  *v137 = 0u;
-  *v138 = 0u;
-  _ZN16QuantizerManagerIDF16_Li256EE17aNNLogQueryVecIdsEv(v137);
+  v119 = 0;
+  v118 = 0x2000000000;
+  v112 = 0;
+  v113 = &v112;
+  v115 = 0;
+  v114 = 0x2000000000;
+  v111 = 0;
+  *v109 = 0u;
+  *v110 = 0u;
+  _ZN16QuantizerManagerIDF16_Li256EE17aNNLogQueryVecIdsEv(v109);
   Current = CFAbsoluteTimeGetCurrent();
   if ((a3 & 1) != 0 || _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE11nPartitionsEv(a1) <= v22 || _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE8nVectorsEv(a1) <= v16)
   {
@@ -3667,7 +3849,7 @@ void _ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefix
       *keyExistsAndHasValidFormat = 136316162;
       *&keyExistsAndHasValidFormat[4] = __str;
       *&keyExistsAndHasValidFormat[12] = 1024;
-      *&keyExistsAndHasValidFormat[14] = v126;
+      *&keyExistsAndHasValidFormat[14] = v98;
       *&keyExistsAndHasValidFormat[18] = 1024;
       *&keyExistsAndHasValidFormat[20] = v54;
       *&keyExistsAndHasValidFormat[24] = 1024;
@@ -3683,7 +3865,7 @@ void _ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefix
     }
 
     *__error() = v52;
-    LODWORD(v125) = _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE11nPartitionsEv(a1);
+    LODWORD(v97) = _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE11nPartitionsEv(a1);
     v57 = 0;
     v58 = 0;
     v59 = *(a1 + 48);
@@ -3692,195 +3874,152 @@ void _ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefix
     {
       if (v58 == *(v60 + 40))
       {
-        goto LABEL_110;
+        goto LABEL_108;
       }
 
-      ++*(v145 + 6);
+      ++*(v117 + 6);
       if (*(v59 + 40) <= v57)
       {
         break;
       }
 
-      v61 = _windowsResolvePtr(*(v59 + 32) + 40, *(*(v59 + 32) + 24) + *(*(v59 + 32) + 16) * v57, 1040);
-      v62 = *(v61 + 1032);
-      _Q0 = 0uLL;
-      v64 = -8;
-      v65 = a2;
-      v66 = v61;
-      do
+      v61 = _windowsResolvePtr(*(v59 + 32) + 40, *(*(v59 + 32) + 24) + *(*(v59 + 32) + 16) * v57, 528);
+      v62 = v61[32].u32[2];
+      v63 = _ZNK10CIVector_sIDF16_Li256EE8distanceERKS0_(a2, v61);
+      if (v109[1])
       {
-        v67 = *v65++;
-        v68 = v67;
-        v69 = *v66++;
-        v70 = vsubq_f16(v68, v69);
-        _Q0 = vmlaq_f16(_Q0, v70, v70);
-        v64 += 8;
-      }
-
-      while (v64 < 0x1F8);
-      if (v137[1])
-      {
-        v71 = vcnt_s8(v137[1]);
-        v71.i16[0] = vaddlv_u8(v71);
-        if (v71.u32[0] > 1uLL)
+        v64 = vcnt_s8(v109[1]);
+        v64.i16[0] = vaddlv_u8(v64);
+        if (v64.u32[0] > 1uLL)
         {
-          v72 = v62 % LODWORD(v137[1]);
-          if (v137[1] > v62)
+          v65 = v62;
+          if (v109[1] <= v62)
           {
-            v72 = *(v61 + 1032);
+            v65 = v62 % LODWORD(v109[1]);
           }
         }
 
         else
         {
-          v72 = (LODWORD(v137[1]) - 1) & v62;
+          v65 = (LODWORD(v109[1]) - 1) & v62;
         }
 
-        v73 = *(v137[0] + v72);
-        if (v73)
+        v66 = *(v109[0] + v65);
+        if (v66)
         {
-          v74 = *v73;
-          if (v74)
+          v67 = *v66;
+          if (v67)
           {
-            if (v71.u32[0] < 2uLL)
+            if (v64.u32[0] < 2uLL)
             {
               while (1)
               {
-                v76 = v74[1];
-                if (v76 == v62)
+                v69 = v67[1];
+                if (v69 == v62)
                 {
-                  if (*(v74 + 4) == v62)
+                  if (*(v67 + 4) == v62)
                   {
-                    goto LABEL_81;
+                    goto LABEL_79;
                   }
                 }
 
-                else if ((v76 & (v137[1] - 1)) != v72)
+                else if ((v69 & (v109[1] - 1)) != v65)
                 {
-                  goto LABEL_82;
+                  goto LABEL_80;
                 }
 
-                v74 = *v74;
-                if (!v74)
+                v67 = *v67;
+                if (!v67)
                 {
-                  goto LABEL_82;
+                  goto LABEL_80;
                 }
               }
             }
 
             do
             {
-              v75 = v74[1];
-              if (v75 == v62)
+              v68 = v67[1];
+              if (v68 == v62)
               {
-                if (*(v74 + 4) == v62)
+                if (*(v67 + 4) == v62)
                 {
-LABEL_81:
-                  v77 = 0;
-                  goto LABEL_83;
+LABEL_79:
+                  v70 = 0;
+                  goto LABEL_81;
                 }
               }
 
               else
               {
-                if (v75 >= v137[1])
+                if (v68 >= v109[1])
                 {
-                  v75 %= v137[1];
+                  v68 %= v109[1];
                 }
 
-                if (v75 != v72)
+                if (v68 != v65)
                 {
                   break;
                 }
               }
 
-              v74 = *v74;
+              v67 = *v67;
             }
 
-            while (v74);
+            while (v67);
           }
         }
       }
 
-LABEL_82:
-      v77 = 1;
-LABEL_83:
-      __asm { FCVT            S1, H0 }
-
-      _H2 = _Q0.i16[1];
-      __asm { FCVT            S2, H2 }
-
-      v85 = _S1 + _S2;
-      LOWORD(_S2) = _Q0.i16[2];
-      __asm { FCVT            S2, H2 }
-
-      _H3 = _Q0.i16[3];
-      __asm { FCVT            S3, H3 }
-
-      v89 = v85 + (_S2 + _S3);
-      LOWORD(_S2) = _Q0.i16[4];
-      __asm { FCVT            S2, H2 }
-
-      LOWORD(_S3) = _Q0.i16[5];
-      __asm { FCVT            S3, H3 }
-
-      v92 = _S2 + _S3;
-      LOWORD(_S3) = _Q0.i16[6];
-      __asm { FCVT            S3, H3 }
-
-      _H0 = _Q0.i16[7];
-      __asm { FCVT            S0, H0 }
-
-      v96 = (v89 + (v92 + _S3)) + _S0;
-      if (a6 == 0.0 || v96 <= a6)
+LABEL_80:
+      v70 = 1;
+LABEL_81:
+      if (a6 == 0.0 || v63 <= a6)
       {
-        if ((v77 & 1) == 0)
+        if ((v70 & 1) == 0)
         {
-          v98 = v7;
-          v99 = v61;
-          v100 = *__error();
-          v101 = _SILogForLogForCategory(16);
-          if (os_log_type_enabled(v101, OS_LOG_TYPE_DEFAULT))
+          v72 = v7;
+          v73 = *__error();
+          v74 = _SILogForLogForCategory(16);
+          if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
           {
             *keyExistsAndHasValidFormat = 67109376;
             *&keyExistsAndHasValidFormat[4] = v62;
             *&keyExistsAndHasValidFormat[8] = 2048;
-            *&keyExistsAndHasValidFormat[10] = v96;
-            _os_log_impl(&dword_1C278D000, v101, OS_LOG_TYPE_DEFAULT, "Include vec_id: %u distance %f", keyExistsAndHasValidFormat, 0x12u);
+            *&keyExistsAndHasValidFormat[10] = v63;
+            _os_log_impl(&dword_1C278D000, v74, OS_LOG_TYPE_DEFAULT, "Include vec_id: %u distance %f", keyExistsAndHasValidFormat, 0x12u);
           }
 
-          *__error() = v100;
-          v61 = v99;
-          v7 = v98;
+          *__error() = v73;
+          v7 = v72;
         }
 
-        *keyExistsAndHasValidFormat = *(v61 + 1024);
+        *keyExistsAndHasValidFormat = v61[32].i64[0];
         *&keyExistsAndHasValidFormat[8] = v62;
-        *&keyExistsAndHasValidFormat[12] = v96;
+        *&keyExistsAndHasValidFormat[12] = v63;
         _ZN20MaxSizePriorityQueueIN22IVFVectorIndexTemplateIDF16_Li256EE18candidate_result_sI16vi_disk_postingsEENSt3__16vectorIS4_NS5_9allocatorIS4_EEEENS5_4lessIS4_EEE4pushERKS4_(v7, keyExistsAndHasValidFormat);
       }
 
       else
       {
-        if ((v77 & 1) == 0)
+        if ((v70 & 1) == 0)
         {
-          v102 = *__error();
-          v103 = _SILogForLogForCategory(16);
-          if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
+          v75 = *__error();
+          v76 = _SILogForLogForCategory(16);
+          if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
           {
             *keyExistsAndHasValidFormat = 67109632;
             *&keyExistsAndHasValidFormat[4] = v62;
             *&keyExistsAndHasValidFormat[8] = 2048;
-            *&keyExistsAndHasValidFormat[10] = v96;
+            *&keyExistsAndHasValidFormat[10] = v63;
             *&keyExistsAndHasValidFormat[18] = 2048;
             *&keyExistsAndHasValidFormat[20] = v56;
-            _os_log_impl(&dword_1C278D000, v103, OS_LOG_TYPE_DEFAULT, "Skip vec_id: %u distance %f > %f", keyExistsAndHasValidFormat, 0x1Cu);
+            _os_log_impl(&dword_1C278D000, v76, OS_LOG_TYPE_DEFAULT, "Skip vec_id: %u distance %f > %f", keyExistsAndHasValidFormat, 0x1Cu);
           }
 
-          *__error() = v102;
+          *__error() = v75;
         }
 
-        ++*(v141 + 6);
+        ++*(v113 + 6);
       }
 
       v57 = (v57 + 1);
@@ -3888,41 +4027,44 @@ LABEL_83:
       v58 = v57;
       if (v59 != v60)
       {
-        v122 = __si_assert_copy_extra_332();
-        v120 = v122;
-        v123 = "";
-        if (v122)
+        v94 = __si_assert_copy_extra_332();
+        v92 = v94;
+        v95 = "";
+        if (v94)
         {
-          v123 = v122;
+          v95 = v94;
         }
 
-        __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 1953, "store == other.store", v123);
-        goto LABEL_123;
+        __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 1953, "store == other.store", v95);
+        goto LABEL_121;
       }
     }
 
-    v119 = __si_assert_copy_extra_332();
-    v120 = v119;
-    v121 = "";
-    if (v119)
+    v91 = __si_assert_copy_extra_332();
+    v92 = v91;
+    v93 = "";
+    if (v91)
     {
-      v121 = v119;
+      v93 = v91;
     }
 
-    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 1937, "offset < store->endOffset()", v121);
-LABEL_123:
-    free(v120);
+    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 1937, "offset < store->endOffset()", v93);
+LABEL_121:
+    free(v92);
     if (__valid_fs(-1))
     {
-      MEMORY[0xBAD] = -559038737;
-      abort();
+      v96 = 2989;
     }
 
-    MEMORY[0xC00] = -559038737;
+    else
+    {
+      v96 = 3072;
+    }
+
+    *v96 = -559038737;
     abort();
   }
 
-  v128 = v7;
   if (!AppIntegerValue)
   {
     keyExistsAndHasValidFormat[0] = 0;
@@ -3967,100 +4109,101 @@ LABEL_123:
       v34 = v32;
     }
 
-    v35 = v34 - 3;
-    v36 = _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE8nVectorsEv(a1);
+    v35 = v7;
+    v36 = v34 - 3;
+    v37 = _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE8nVectorsEv(a1);
     if (v33)
     {
-      v37 = v35;
+      v38 = v36;
     }
 
     else
     {
-      v37 = 17;
+      v38 = 17;
     }
 
-    v38 = v36 >> v37;
-    if (v38 <= 8)
+    v7 = v35;
+    v39 = v37 >> v38;
+    if (v39 <= 8)
     {
-      v39 = 8;
+      v40 = 8;
     }
 
     else
     {
-      v39 = v38;
+      v40 = v39;
     }
 
-    v40 = _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE11nPartitionsEv(a1);
+    v41 = _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE11nPartitionsEv(a1);
     if (v29)
     {
-      v41 = v30;
+      v42 = v30;
     }
 
     else
     {
-      v41 = 800;
+      v42 = 800;
     }
 
-    v42 = v41 * v40 / (v31 * v39);
-    if (v25 < v42)
+    v43 = v42 * v41 / (v31 * v40);
+    if (v25 < v43)
     {
-      v42 = v25;
+      v43 = v25;
     }
 
-    if (v42 <= v22)
+    if (v43 <= v22)
     {
       AppIntegerValue = v22;
     }
 
     else
     {
-      AppIntegerValue = v42;
+      AppIntegerValue = v43;
     }
   }
 
-  v43 = *__error();
-  v44 = _SILogForLogForCategory(16);
-  if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+  v44 = *__error();
+  v45 = _SILogForLogForCategory(16);
+  if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
   {
-    v45 = _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE8nVectorsEv(a1);
-    v46 = _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE11nPartitionsEv(a1);
+    v46 = _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE8nVectorsEv(a1);
+    v47 = _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE11nPartitionsEv(a1);
     *keyExistsAndHasValidFormat = 136316418;
     *&keyExistsAndHasValidFormat[4] = __str;
     *&keyExistsAndHasValidFormat[12] = 1024;
-    *&keyExistsAndHasValidFormat[14] = v126;
+    *&keyExistsAndHasValidFormat[14] = v98;
     *&keyExistsAndHasValidFormat[18] = 1024;
-    *&keyExistsAndHasValidFormat[20] = v45;
+    *&keyExistsAndHasValidFormat[20] = v46;
     *&keyExistsAndHasValidFormat[24] = 1024;
     *&keyExistsAndHasValidFormat[26] = AppIntegerValue;
     *&keyExistsAndHasValidFormat[30] = 1024;
-    *&keyExistsAndHasValidFormat[32] = v46;
+    *&keyExistsAndHasValidFormat[32] = v47;
     *&keyExistsAndHasValidFormat[36] = 2048;
     *&keyExistsAndHasValidFormat[38] = a6;
-    _os_log_impl(&dword_1C278D000, v44, OS_LOG_TYPE_DEFAULT, "aNN search %s top %u of %u vectors in %u of %u partitions max_distance=%f", keyExistsAndHasValidFormat, 0x2Eu);
+    _os_log_impl(&dword_1C278D000, v45, OS_LOG_TYPE_DEFAULT, "aNN search %s top %u of %u vectors in %u of %u partitions max_distance=%f", keyExistsAndHasValidFormat, 0x2Eu);
   }
 
-  *__error() = v43;
+  *__error() = v44;
   os_unfair_lock_lock((a1 + 152));
   os_unfair_lock_lock((a1 + 112));
-  v48 = *(a1 + 80);
-  v47 = *(a1 + 88);
-  if (v47)
+  v49 = *(a1 + 80);
+  v48 = *(a1 + 88);
+  if (v48)
   {
-    atomic_fetch_add_explicit(&v47->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v48->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v127 = v47;
-  v50 = *(a1 + 96);
-  v49 = *(a1 + 104);
-  if (v49)
+  v50 = *(a1 + 104);
+  v99 = *(a1 + 96);
+  if (v50)
   {
-    atomic_fetch_add_explicit(&v49->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v50->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v124 = v49;
+  v100 = v50;
   os_unfair_lock_unlock((a1 + 112));
   memset(keyExistsAndHasValidFormat, 0, 24);
-  (*(*v48 + 80))(keyExistsAndHasValidFormat, v48, a2, AppIntegerValue);
+  (*(*v49 + 80))(keyExistsAndHasValidFormat, v49, a2, AppIntegerValue);
   v51 = *&keyExistsAndHasValidFormat[8] - *keyExistsAndHasValidFormat;
   if (*&keyExistsAndHasValidFormat[8] != *keyExistsAndHasValidFormat)
   {
@@ -4068,46 +4211,45 @@ LABEL_123:
   }
 
   __p = 0;
-  v135 = 0;
-  v136 = 0;
-  v7 = v128;
-  v129[0] = MEMORY[0x1E69E9820];
-  v129[1] = 1174405120;
-  v129[2] = ___ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE3aNNERK10CIVector_sIDF16_Li512EEfbP20MaxSizePriorityQueueINS0_18candidate_result_sIS3_EENSt3__16vectorISB_NSC_9allocatorISB_EEEENSC_4lessISB_EEEj_block_invoke;
-  v129[3] = &unk_1F42803C8;
-  v129[6] = a1;
-  v129[7] = a2;
-  v129[4] = &v144;
-  std::unordered_set<unsigned int>::unordered_set(&v130, v137);
-  v133 = a6;
-  v129[5] = &v140;
-  v132 = v128;
-  (*(*v50 + 72))(v50, &__p, v129);
+  v107 = 0;
+  v108 = 0;
+  v101[0] = MEMORY[0x1E69E9820];
+  v101[1] = 1174405120;
+  v101[2] = ___ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE3aNNERK10CIVector_sIDF16_Li256EEfbP20MaxSizePriorityQueueINS0_18candidate_result_sIS3_EENSt3__16vectorISB_NSC_9allocatorISB_EEEENSC_4lessISB_EEEj_block_invoke;
+  v101[3] = &unk_1F42800F8;
+  v101[6] = a1;
+  v101[7] = a2;
+  v101[4] = &v116;
+  std::unordered_set<unsigned int>::unordered_set(&v102, v109);
+  v105 = a6;
+  v101[5] = &v112;
+  v104 = v7;
+  (*(*v99 + 72))(v99, &__p, v101);
   if (__p)
   {
-    v135 = __p;
+    v107 = __p;
     operator delete(__p);
   }
 
   os_unfair_lock_unlock((a1 + 152));
-  v104 = v131;
-  if (v131)
+  v77 = v103;
+  if (v103)
   {
     do
     {
-      v105 = *v104;
-      operator delete(v104);
-      v104 = v105;
+      v78 = *v77;
+      operator delete(v77);
+      v77 = v78;
     }
 
-    while (v105);
+    while (v78);
   }
 
-  v106 = v130;
-  v130 = 0;
-  if (v106)
+  v79 = v102;
+  v102 = 0;
+  if (v79)
   {
-    operator delete(v106);
+    operator delete(v79);
   }
 
   if (*keyExistsAndHasValidFormat)
@@ -4116,89 +4258,381 @@ LABEL_123:
     operator delete(*keyExistsAndHasValidFormat);
   }
 
-  if (v124 && !atomic_fetch_add(&v124->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v100 && !atomic_fetch_add(&v100->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v124->__on_zero_shared)(v124);
-    std::__shared_weak_count::__release_weak(v124);
+    (v100->__on_zero_shared)(v100);
+    std::__shared_weak_count::__release_weak(v100);
   }
 
-  v125 = v51 >> 3;
-  if (v127 && !atomic_fetch_add(&v127->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v97 = v51 >> 3;
+  if (v48 && !atomic_fetch_add(&v48->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v127->__on_zero_shared)(v127);
-    std::__shared_weak_count::__release_weak(v127);
+    (v48->__on_zero_shared)(v48);
+    std::__shared_weak_count::__release_weak(v48);
   }
 
-LABEL_110:
-  v107 = *__error();
-  v108 = _SILogForLogForCategory(16);
-  if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
+LABEL_108:
+  v80 = *__error();
+  v81 = _SILogForLogForCategory(16);
+  if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
   {
-    v109 = _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE8nVectorsEv(a1);
-    v110 = _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE11nPartitionsEv(a1);
-    v111 = *(v141 + 6);
-    v112 = *(v145 + 6);
-    v113 = (v7[2] - v7[1]) >> 4;
-    v114 = CFAbsoluteTimeGetCurrent();
+    v82 = _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE8nVectorsEv(a1);
+    v83 = _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE11nPartitionsEv(a1);
+    v84 = *(v113 + 6);
+    v85 = *(v117 + 6);
+    v86 = (v7[2] - v7[1]) >> 4;
+    v87 = CFAbsoluteTimeGetCurrent();
     *keyExistsAndHasValidFormat = 136317442;
     *&keyExistsAndHasValidFormat[4] = __str;
     *&keyExistsAndHasValidFormat[12] = 1024;
-    *&keyExistsAndHasValidFormat[14] = v126;
+    *&keyExistsAndHasValidFormat[14] = v98;
     *&keyExistsAndHasValidFormat[18] = 1024;
-    *&keyExistsAndHasValidFormat[20] = v109;
+    *&keyExistsAndHasValidFormat[20] = v82;
     *&keyExistsAndHasValidFormat[24] = 2048;
     *&keyExistsAndHasValidFormat[26] = a6;
     *&keyExistsAndHasValidFormat[34] = 1024;
-    *&keyExistsAndHasValidFormat[36] = v125;
+    *&keyExistsAndHasValidFormat[36] = v97;
     *&keyExistsAndHasValidFormat[40] = 1024;
-    *&keyExistsAndHasValidFormat[42] = v110;
-    v149 = 1024;
-    v150 = v111;
-    v151 = 1024;
-    v152 = v112;
-    v153 = 2048;
-    v154 = v113;
-    v155 = 2048;
-    v156 = v114 - Current;
-    _os_log_impl(&dword_1C278D000, v108, OS_LOG_TYPE_DEFAULT, "search %s top %u of %u vectors max_distance=%f in %u of %u partitions skip %u of %u populate %zu results in duration: %f", keyExistsAndHasValidFormat, 0x4Eu);
+    *&keyExistsAndHasValidFormat[42] = v83;
+    v121 = 1024;
+    v122 = v84;
+    v123 = 1024;
+    v124 = v85;
+    v125 = 2048;
+    v126 = v86;
+    v127 = 2048;
+    v128 = v87 - Current;
+    _os_log_impl(&dword_1C278D000, v81, OS_LOG_TYPE_DEFAULT, "search %s top %u of %u vectors max_distance=%f in %u of %u partitions skip %u of %u populate %zu results in duration: %f", keyExistsAndHasValidFormat, 0x4Eu);
   }
 
-  *__error() = v107;
-  v115 = v138[0];
-  if (v138[0])
+  *__error() = v80;
+  v88 = v110[0];
+  if (v110[0])
   {
     do
     {
-      v116 = *v115;
-      operator delete(v115);
-      v115 = v116;
+      v89 = *v88;
+      operator delete(v88);
+      v88 = v89;
     }
 
-    while (v116);
+    while (v89);
   }
 
-  v117 = v137[0];
-  v137[0] = 0;
-  if (v117)
+  v90 = v109[0];
+  v109[0] = 0;
+  if (v90)
   {
-    operator delete(v117);
+    operator delete(v90);
   }
 
-  _Block_object_dispose(&v140, 8);
-  _Block_object_dispose(&v144, 8);
-  v118 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v112, 8);
+  _Block_object_dispose(&v116, 8);
 }
 
-void ___ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE3aNNERK10CIVector_sIDF16_Li512EEfbP20MaxSizePriorityQueueINS0_18candidate_result_sIS3_EENSt3__16vectorISB_NSC_9allocatorISB_EEEENSC_4lessISB_EEEj_block_invoke(uint64_t a1, uint64_t a2, unsigned int *a3)
+uint64_t _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE11nPartitionsEv(uint64_t a1)
 {
-  v62 = *MEMORY[0x1E69E9840];
+  os_unfair_lock_lock((a1 + 112));
+  v2 = *(a1 + 88);
+  if (v2)
+  {
+    atomic_fetch_add_explicit(&v2->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v4 = *(a1 + 96);
+  v3 = *(a1 + 104);
+  if (!v3)
+  {
+    os_unfair_lock_unlock((a1 + 112));
+    if (v4)
+    {
+      v5 = *(v4 + 68);
+      goto LABEL_9;
+    }
+
+LABEL_13:
+    v7 = __si_assert_copy_extra_332();
+    v8 = v7;
+    v9 = "";
+    if (v7)
+    {
+      v9 = v7;
+    }
+
+    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2470, "cur.partitions != nullptr", v9);
+    free(v8);
+    if (__valid_fs(-1))
+    {
+      MEMORY[0xBAD] = -559038737;
+      abort();
+    }
+
+    MEMORY[0xC00] = -559038737;
+    abort();
+  }
+
+  atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+  os_unfair_lock_unlock((a1 + 112));
+  if (!v4)
+  {
+    goto LABEL_13;
+  }
+
+  v5 = *(v4 + 68);
+  if (!atomic_fetch_add(&v3->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v3->__on_zero_shared)(v3);
+    std::__shared_weak_count::__release_weak(v3);
+  }
+
+LABEL_9:
+  if (v2 && !atomic_fetch_add(&v2->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v2->__on_zero_shared)(v2);
+    std::__shared_weak_count::__release_weak(v2);
+  }
+
+  return v5;
+}
+
+const __CFString *_ZN16QuantizerManagerIDF16_Li256EE17aNNLogQueryVecIdsEv(uint64_t a1)
+{
+  *(a1 + 32) = 0;
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 1065353216;
+  result = CFPreferencesCopyAppValue(@"IVFANNLogQueryVecIds", @"com.apple.Spotlight");
+  if (result)
+  {
+    CFStringGetLength(result);
+    operator new[]();
+  }
+
+  return result;
+}
+
+void _ZN20MaxSizePriorityQueueIN22IVFVectorIndexTemplateIDF16_Li256EE18candidate_result_sI16vi_disk_postingsEENSt3__16vectorIS4_NS5_9allocatorIS4_EEEENS5_4lessIS4_EEE4pushERKS4_(void *a1, uint64_t a2)
+{
+  v4 = a1[1];
+  v3 = a1[2];
+  v5 = v3 - v4;
+  v6 = (v3 - v4) >> 4;
+  if (v6 >= *a1)
+  {
+    if (*(a2 + 12) < v4[3])
+    {
+      if (v6 >= 2)
+      {
+        v9 = 0;
+        v44 = *v4;
+        v10 = a1[1];
+        do
+        {
+          v11 = v10;
+          v10 += 4 * v9 + 4;
+          v12 = 2 * v9;
+          v9 = (2 * v9) | 1;
+          v13 = v12 + 2;
+          if (v13 < v6 && v10[3] < v10[7])
+          {
+            v10 += 4;
+            v9 = v13;
+          }
+
+          *v11 = *v10;
+        }
+
+        while (v9 <= ((v6 - 2) >> 1));
+        v17 = v3 - 16;
+        if (v10 == v17)
+        {
+          *v10 = v44;
+        }
+
+        else
+        {
+          *v10 = *v17;
+          *v17 = v44;
+          v18 = (v10 - v4 + 16) >> 4;
+          v19 = v18 < 2;
+          v20 = v18 - 2;
+          if (!v19)
+          {
+            v21 = v20 >> 1;
+            v22 = &v4[4 * v21];
+            v23 = v10[3];
+            if (v22[3] < v23)
+            {
+              v50 = *(v10 + 2);
+              v49 = *v10;
+              do
+              {
+                v24 = v22;
+                *v10 = *v22;
+                if (!v21)
+                {
+                  break;
+                }
+
+                v21 = (v21 - 1) >> 1;
+                v22 = &v4[4 * v21];
+                v10 = v24;
+              }
+
+              while (v22[3] < v23);
+              *v24 = v49;
+              *(v24 + 2) = v50;
+              v24[3] = v23;
+            }
+          }
+        }
+
+        v3 = a1[2];
+      }
+
+      *(v3 - 1) = *a2;
+      v34 = a1[1];
+      v35 = a1[2];
+      v36 = (v35 - v34) >> 4;
+      v19 = v36 < 2;
+      v37 = v36 - 2;
+      if (!v19)
+      {
+        v38 = v37 >> 1;
+        v39 = v34 + 16 * v38;
+        v40 = *(v35 - 4);
+        if (*(v39 + 12) < v40)
+        {
+          v42 = *(v35 - 16);
+          v41 = v35 - 16;
+          v46 = v42;
+          v48 = *(v41 + 8);
+          do
+          {
+            v43 = v39;
+            *v41 = *v39;
+            if (!v38)
+            {
+              break;
+            }
+
+            v38 = (v38 - 1) >> 1;
+            v39 = v34 + 16 * v38;
+            v41 = v43;
+          }
+
+          while (*(v39 + 12) < v40);
+          *v43 = v46;
+          *(v43 + 8) = v48;
+          *(v43 + 12) = v40;
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v7 = a1[3];
+    if (v3 >= v7)
+    {
+      v14 = v7 - v4;
+      if (v14 >> 3 <= (v6 + 1))
+      {
+        v15 = v6 + 1;
+      }
+
+      else
+      {
+        v15 = v14 >> 3;
+      }
+
+      if (v14 >= 0x7FFFFFFFFFFFFFF0)
+      {
+        v16 = 0xFFFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v16 = v15;
+      }
+
+      if (v16)
+      {
+        if (!(v16 >> 60))
+        {
+          operator new();
+        }
+
+        std::vector<long long>::__throw_length_error[abi:nn200100]();
+      }
+
+      *(16 * v6) = *a2;
+      v8 = 16 * v6 + 16;
+      memcpy(0, v4, v5);
+      a1[1] = 0;
+      a1[2] = v8;
+      a1[3] = 0;
+      if (v4)
+      {
+        operator delete(v4);
+      }
+    }
+
+    else
+    {
+      *v3 = *a2;
+      v8 = (v3 + 16);
+    }
+
+    a1[2] = v8;
+    v25 = a1[1];
+    v26 = (v8 - v25) >> 4;
+    v19 = v26 < 2;
+    v27 = v26 - 2;
+    if (!v19)
+    {
+      v28 = v27 >> 1;
+      v29 = v25 + 16 * v28;
+      v30 = *(v8 - 4);
+      if (*(v29 + 12) < v30)
+      {
+        v32 = *(v8 - 16);
+        v31 = v8 - 16;
+        v47 = *(v31 + 8);
+        v45 = v32;
+        do
+        {
+          v33 = v29;
+          *v31 = *v29;
+          if (!v28)
+          {
+            break;
+          }
+
+          v28 = (v28 - 1) >> 1;
+          v29 = v25 + 16 * v28;
+          v31 = v33;
+        }
+
+        while (*(v29 + 12) < v30);
+        *v33 = v45;
+        *(v33 + 8) = v47;
+        *(v33 + 12) = v30;
+      }
+    }
+  }
+}
+
+void ___ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE3aNNERK10CIVector_sIDF16_Li256EEfbP20MaxSizePriorityQueueINS0_18candidate_result_sIS3_EENSt3__16vectorISB_NSC_9allocatorISB_EEEENSC_4lessISB_EEEj_block_invoke(uint64_t a1, uint64_t a2, unsigned int *a3)
+{
+  v34 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 48);
   ++*(*(*(a1 + 32) + 8) + 24);
   v5 = *a3;
   v6 = *(*(v4 + 48) + 32);
   v7 = v6[3] + v6[2] * v5;
   bit_vector_set_13535(v6 + 525, (v7 >> 20));
-  v8 = (v7 + 1040) >> 20;
+  v8 = (v7 + 528) >> 20;
   if (v8 > (v7 >> 20))
   {
     v9 = (v7 >> 20) + 1;
@@ -4211,261 +4645,216 @@ void ___ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onef
     while (v8 > v10);
   }
 
-  v11 = _windowsResolvePtr((v6 + 5), v6[3] + v6[2] * v5, 1040);
-  v12 = *(a1 + 56);
-  _Q0 = 0uLL;
-  v14 = -8;
-  v15 = v11;
-  do
+  v11 = _windowsResolvePtr((v6 + 5), v6[3] + v6[2] * v5, 528);
+  v12 = _ZNK10CIVector_sIDF16_Li256EE8distanceERKS0_(*(a1 + 56), v11);
+  v13 = v11[32].u32[2];
+  v14 = *(a1 + 72);
+  if (v14)
   {
-    v16 = *v12++;
-    v17 = v16;
-    v18 = *v15++;
-    v19 = vsubq_f16(v17, v18);
-    _Q0 = vmlaq_f16(_Q0, v19, v19);
-    v14 += 8;
-  }
-
-  while (v14 < 0x1F8);
-  __asm { FCVT            S1, H0 }
-
-  _H2 = _Q0.i16[1];
-  __asm { FCVT            S2, H2 }
-
-  v27 = _S1 + _S2;
-  LOWORD(_S2) = _Q0.i16[2];
-  __asm { FCVT            S2, H2 }
-
-  _H3 = _Q0.i16[3];
-  __asm { FCVT            S3, H3 }
-
-  v31 = v27 + (_S2 + _S3);
-  LOWORD(_S2) = _Q0.i16[4];
-  __asm { FCVT            S2, H2 }
-
-  LOWORD(_S3) = _Q0.i16[5];
-  __asm { FCVT            S3, H3 }
-
-  v34 = _S2 + _S3;
-  LOWORD(_S3) = _Q0.i16[6];
-  __asm { FCVT            S3, H3 }
-
-  _H0 = _Q0.i16[7];
-  __asm { FCVT            S0, H0 }
-
-  v38 = (v31 + (v34 + _S3)) + _S0;
-  v39 = *(v11 + 1032);
-  v40 = *(a1 + 72);
-  if (v40)
-  {
-    v41 = vcnt_s8(v40);
-    v41.i16[0] = vaddlv_u8(v41);
-    if (v41.u32[0] > 1uLL)
+    v15 = vcnt_s8(v14);
+    v15.i16[0] = vaddlv_u8(v15);
+    if (v15.u32[0] > 1uLL)
     {
-      v42 = v39 % v40.i32[0];
-      if (*&v40 > v39)
+      v16 = v11[32].u32[2];
+      if (*&v14 <= v13)
       {
-        v42 = *(v11 + 1032);
+        v16 = v13 % v14.i32[0];
       }
     }
 
     else
     {
-      v42 = (v40.i32[0] - 1) & v39;
+      v16 = (v14.i32[0] - 1) & v13;
     }
 
-    v43 = *(*(a1 + 64) + 8 * v42);
-    if (v43)
+    v17 = *(*(a1 + 64) + 8 * v16);
+    if (v17)
     {
-      v44 = *v43;
-      if (v44)
+      v18 = *v17;
+      if (v18)
       {
-        if (v41.u32[0] < 2uLL)
+        if (v15.u32[0] < 2uLL)
         {
-          v45 = *&v40 - 1;
+          v19 = *&v14 - 1;
           while (1)
           {
-            v47 = v44[1];
-            if (v47 == v39)
+            v21 = v18[1];
+            if (v21 == v13)
             {
-              if (*(v44 + 4) == v39)
+              if (*(v18 + 4) == v13)
               {
-                goto LABEL_26;
+                goto LABEL_24;
               }
             }
 
-            else if ((v47 & v45) != v42)
+            else if ((v21 & v19) != v16)
             {
-              goto LABEL_27;
+              goto LABEL_25;
             }
 
-            v44 = *v44;
-            if (!v44)
+            v18 = *v18;
+            if (!v18)
             {
-              goto LABEL_27;
+              goto LABEL_25;
             }
           }
         }
 
         do
         {
-          v46 = v44[1];
-          if (v46 == v39)
+          v20 = v18[1];
+          if (v20 == v13)
           {
-            if (*(v44 + 4) == v39)
+            if (*(v18 + 4) == v13)
             {
-LABEL_26:
-              v48 = 0;
-              goto LABEL_28;
+LABEL_24:
+              v22 = 0;
+              goto LABEL_26;
             }
           }
 
           else
           {
-            if (v46 >= *&v40)
+            if (v20 >= *&v14)
             {
-              v46 %= *&v40;
+              v20 %= *&v14;
             }
 
-            if (v46 != v42)
+            if (v20 != v16)
             {
               break;
             }
           }
 
-          v44 = *v44;
+          v18 = *v18;
         }
 
-        while (v44);
+        while (v18);
       }
     }
   }
 
-LABEL_27:
-  v48 = 1;
-LABEL_28:
-  v49 = *(a1 + 112);
-  if (v49 == 0.0 || v38 <= v49)
+LABEL_25:
+  v22 = 1;
+LABEL_26:
+  v23 = *(a1 + 112);
+  if (v23 == 0.0 || v12 <= v23)
   {
-    if ((v48 & 1) == 0)
+    if ((v22 & 1) == 0)
     {
-      v51 = v11;
-      v52 = *__error();
-      v53 = _SILogForLogForCategory(16);
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+      v25 = *__error();
+      v26 = _SILogForLogForCategory(16);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
-        LODWORD(v58) = 67109376;
-        HIDWORD(v58) = v39;
-        *v59 = 2048;
-        *&v59[2] = v38;
-        _os_log_impl(&dword_1C278D000, v53, OS_LOG_TYPE_DEFAULT, "Include vec_id: %u distance %f", &v58, 0x12u);
+        LODWORD(v30) = 67109376;
+        HIDWORD(v30) = v13;
+        *v31 = 2048;
+        *&v31[2] = v12;
+        _os_log_impl(&dword_1C278D000, v26, OS_LOG_TYPE_DEFAULT, "Include vec_id: %u distance %f", &v30, 0x12u);
       }
 
-      *__error() = v52;
-      v11 = v51;
+      *__error() = v25;
     }
 
-    v58 = *(v11 + 1024);
-    *v59 = v39;
-    *&v59[4] = v38;
-    _ZN20MaxSizePriorityQueueIN22IVFVectorIndexTemplateIDF16_Li256EE18candidate_result_sI16vi_disk_postingsEENSt3__16vectorIS4_NS5_9allocatorIS4_EEEENS5_4lessIS4_EEE4pushERKS4_(*(a1 + 104), &v58);
+    v30 = v11[32].i64[0];
+    *v31 = v13;
+    *&v31[4] = v12;
+    _ZN20MaxSizePriorityQueueIN22IVFVectorIndexTemplateIDF16_Li256EE18candidate_result_sI16vi_disk_postingsEENSt3__16vectorIS4_NS5_9allocatorIS4_EEEENS5_4lessIS4_EEE4pushERKS4_(*(a1 + 104), &v30);
   }
 
   else
   {
-    if ((v48 & 1) == 0)
+    if ((v22 & 1) == 0)
     {
-      v54 = *__error();
-      v55 = _SILogForLogForCategory(16);
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+      v27 = *__error();
+      v28 = _SILogForLogForCategory(16);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
-        v56 = *(a1 + 112);
-        LODWORD(v58) = 67109632;
-        HIDWORD(v58) = v39;
-        *v59 = 2048;
-        *&v59[2] = v38;
-        v60 = 2048;
-        v61 = v56;
-        _os_log_impl(&dword_1C278D000, v55, OS_LOG_TYPE_DEFAULT, "Skip vec_id: %u distance %f > %f", &v58, 0x1Cu);
+        v29 = *(a1 + 112);
+        LODWORD(v30) = 67109632;
+        HIDWORD(v30) = v13;
+        *v31 = 2048;
+        *&v31[2] = v12;
+        v32 = 2048;
+        v33 = v29;
+        _os_log_impl(&dword_1C278D000, v28, OS_LOG_TYPE_DEFAULT, "Skip vec_id: %u distance %f > %f", &v30, 0x1Cu);
       }
 
-      *__error() = v54;
+      *__error() = v27;
     }
 
     ++*(*(*(a1 + 40) + 8) + 24);
   }
-
-  v57 = *MEMORY[0x1E69E9840];
 }
 
-void _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE10aNNForTestEjtPKv14vec_dimensions15vec_data_formatfjbU13block_pointerFvjfEj(uint64_t a1, int a2, int a3, uint64_t a4, int a5, int a6)
+void _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE10aNNForTestEjtPKv14vec_dimensions15vec_data_formatfjbU13block_pointerFvjfEj(uint64_t a1, int a2, int a3, float16x8_t *a4, int a5, int a6, int a7, char a8, float a9, uint64_t a10, unsigned int a11)
 {
   if (*(a1 + 8) == a2 && *(a1 + 20) == a3 && a6 <= 2 && *(a1 + 12) == vector_dimension_vec_sizes_15424[a5] && vector_size_elem_sizes_15423[a6] == *(a1 + 16))
   {
     operator new();
   }
 
-  v6 = __si_assert_copy_extra_332();
-  v7 = v6;
-  v8 = "";
-  if (v6)
+  v11 = __si_assert_copy_extra_332();
+  v12 = v11;
+  v13 = "";
+  if (v11)
   {
-    v8 = v6;
+    v13 = v11;
   }
 
-  __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 3250, "compatible", v8);
-  free(v7);
+  __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 3250, "compatible", v13);
+  free(v12);
   if (__valid_fs(-1))
   {
-    v9 = 2989;
+    v14 = 2989;
   }
 
   else
   {
-    v9 = 3072;
+    v14 = 3072;
   }
 
-  *v9 = -559038737;
+  *v14 = -559038737;
   abort();
 }
 
-void _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE3aNNEjtPKv14vec_dimensions15vec_data_formatfjbU13block_pointerFvPvfjE(uint64_t a1, int a2, int a3, uint64_t a4, int a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE3aNNEjtPKv14vec_dimensions15vec_data_formatfjbU13block_pointerFvPvfjE(uint64_t a1, int a2, int a3, float16x8_t *a4, int a5, int a6, int a7, char a8, float a9, uint64_t a10)
 {
   if (*(a1 + 8) == a2 && *(a1 + 20) == a3 && a6 <= 2 && *(a1 + 12) == vector_dimension_vec_sizes_15424[a5] && vector_size_elem_sizes_15423[a6] == *(a1 + 16))
   {
-    v13 = MEMORY[0x1E69E9820];
-    v14 = 0x40000000;
-    v15 = ___ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE3aNNEjtPKv14vec_dimensions15vec_data_formatfjbU13block_pointerFvPvfjE_block_invoke;
-    v16 = &unk_1E8195958;
-    v17 = a9;
+    v14 = MEMORY[0x1E69E9820];
+    v15 = 0x40000000;
+    v16 = ___ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE3aNNEjtPKv14vec_dimensions15vec_data_formatfjbU13block_pointerFvPvfjE_block_invoke;
+    v17 = &unk_1E8195870;
+    v18 = a10;
     operator new();
   }
 
-  v9 = __si_assert_copy_extra_332();
-  v10 = v9;
-  v11 = "";
-  if (v9)
+  v10 = __si_assert_copy_extra_332();
+  v11 = v10;
+  v12 = "";
+  if (v10)
   {
-    v11 = v9;
+    v12 = v10;
   }
 
-  __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 3250, "compatible", v11);
-  free(v10);
+  __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 3250, "compatible", v12);
+  free(v11);
   if (__valid_fs(-1))
   {
-    v12 = 2989;
+    v13 = 2989;
   }
 
   else
   {
-    v12 = 3072;
+    v13 = 3072;
   }
 
-  *v12 = -559038737;
+  *v13 = -559038737;
   abort();
 }
 
-void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE16restoreUpdateSetEP15PostingBaseInfoP14store_stream_t()
+void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE16restoreUpdateSetEP15PostingBaseInfoP14store_stream_t()
 {
   v0 = __si_assert_copy_extra_332();
   v1 = v0;
@@ -4487,7 +4876,7 @@ void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22
   abort();
 }
 
-void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE14storeUpdateSetEP15RelativePostingP14store_stream_t()
+void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE14storeUpdateSetEP15RelativePostingP14store_stream_t()
 {
   v0 = __si_assert_copy_extra_332();
   v1 = v0;
@@ -4509,9 +4898,9 @@ void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22
   abort();
 }
 
-void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE6renameEPKc(uint64_t a1, const char *a2)
+void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE6renameEPKc(uint64_t a1, const char *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = *__error();
   v5 = _SILogForLogForCategory(16);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -4541,7 +4930,7 @@ void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22
   }
 
   buf.__r_.__value_.__s.__data_[v7] = 0;
-  v21 = 11;
+  v20 = 11;
   strcpy(__s, ".partitions");
   memset(&__p, 0, sizeof(__p));
   v8 = SHIBYTE(buf.__r_.__value_.__r.__words[2]);
@@ -4556,7 +4945,7 @@ void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22
   }
 
   std::string::append(&__p, __s, 0xBuLL);
-  if (v21 < 0)
+  if (v20 < 0)
   {
     operator delete(*__s);
     if ((v8 & 0x80000000) == 0)
@@ -4617,13 +5006,13 @@ LABEL_14:
   {
     v16 = (buf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &buf : buf.__r_.__value_.__r.__words[0];
     _ZN22IVFVectorIndexTemplateIDF16_Li256EE11VectorStoreI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6statusEv(__s, v13);
-    v17 = v21 >= 0 ? __s : *__s;
-    *v22 = 136315394;
-    v23 = v16;
-    v24 = 2080;
-    v25 = v17;
-    _os_log_impl(&dword_1C278D000, v15, OS_LOG_TYPE_DEFAULT, "rename VectorStore %s -> %s", v22, 0x16u);
-    if (v21 < 0)
+    v17 = v20 >= 0 ? __s : *__s;
+    *v21 = 136315394;
+    v22 = v16;
+    v23 = 2080;
+    v24 = v17;
+    _os_log_impl(&dword_1C278D000, v15, OS_LOG_TYPE_DEFAULT, "rename VectorStore %s -> %s", v21, 0x16u);
+    if (v20 < 0)
     {
       operator delete(*__s);
     }
@@ -4642,42 +5031,99 @@ LABEL_14:
     std::__shared_weak_count::__release_weak(v10);
   }
 
-  if (v9 && !atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (!v9 || atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v9->__on_zero_shared)(v9);
-    std::__shared_weak_count::__release_weak(v9);
     if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
-      goto LABEL_44;
+      return;
     }
 
     goto LABEL_43;
   }
 
+  (v9->__on_zero_shared)(v9);
+  std::__shared_weak_count::__release_weak(v9);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
 LABEL_43:
     operator delete(__p.__r_.__value_.__l.__data_);
   }
-
-LABEL_44:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
-void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE13makePurgeableEv(uint64_t a1)
+uint64_t _ZN22IVFVectorIndexTemplateIDF16_Li256EE11VectorStoreI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6statusEv(void *a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v25 = 0;
+  v23 = 0u;
+  memset(v24, 0, sizeof(v24));
+  *__p = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  memset(v20, 0, sizeof(v20));
+  v18 = 0u;
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:nn200100](&v18);
+  v5 = *(a2 + 64);
+  v4 = a2 + 64;
+  v3 = v5;
+  v6 = *(v4 + 23);
+  if (v6 >= 0)
+  {
+    v7 = v4;
+  }
+
+  else
+  {
+    v7 = v3;
+  }
+
+  if (v6 >= 0)
+  {
+    v8 = *(v4 + 23);
+  }
+
+  else
+  {
+    v8 = *(v4 + 8);
+  }
+
+  v9 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(&v19, v7, v8);
+  v10 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v9, "(", 1);
+  v11 = MEMORY[0x1C691FC90](v10, *(v4 - 24));
+  v12 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v11, ")[", 2);
+  v13 = MEMORY[0x1C691FC90](v12, *(v4 - 12));
+  v14 = std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v13, ",", 1);
+  v15 = MEMORY[0x1C691FC90](v14, *(v4 - 8));
+  std::__put_character_sequence[abi:nn200100]<char,std::char_traits<char>>(v15, "]", 1);
+  std::stringbuf::str();
+  *&v18 = *MEMORY[0x1E69E54D8];
+  v16 = *(MEMORY[0x1E69E54D8] + 72);
+  *(&v18 + *(v18 - 24)) = *(MEMORY[0x1E69E54D8] + 64);
+  *&v19 = v16;
+  *(&v19 + 1) = MEMORY[0x1E69E5548] + 16;
+  if (SHIBYTE(v22) < 0)
+  {
+    operator delete(__p[1]);
+  }
+
+  *(&v19 + 1) = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v20);
+  std::iostream::~basic_iostream();
+  return MEMORY[0x1C691FE80](v24);
+}
+
+void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE13makePurgeableEv(uint64_t a1)
+{
+  v13 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 96);
   v3 = *__error();
   v4 = _SILogForLogForCategory(16);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     _ZN22IVFVectorIndexTemplateIDF16_Li256EE11VectorStoreI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6statusEv(__p, v2);
-    v5 = v12 >= 0 ? __p : __p[0];
+    v5 = v10 >= 0 ? __p : __p[0];
     *buf = 136315138;
-    v14 = v5;
+    v12 = v5;
     _os_log_impl(&dword_1C278D000, v4, OS_LOG_TYPE_DEFAULT, "makePurgeable VectorStore %s", buf, 0xCu);
-    if (v12 < 0)
+    if (v10 < 0)
     {
       operator delete(__p[0]);
     }
@@ -4707,31 +5153,26 @@ void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22
     std::__shared_weak_count::__release_weak(v7);
     if (!v6)
     {
-      goto LABEL_15;
+      return;
     }
   }
 
   else if (!v6)
   {
-LABEL_15:
-    v9 = *MEMORY[0x1E69E9840];
     return;
   }
 
-  if (atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (!atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    goto LABEL_15;
+    (v6->__on_zero_shared)(v6);
+
+    std::__shared_weak_count::__release_weak(v6);
   }
-
-  (v6->__on_zero_shared)(v6);
-  v10 = *MEMORY[0x1E69E9840];
-
-  std::__shared_weak_count::__release_weak(v6);
 }
 
-void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE12makeReadOnlyEv(uint64_t a1)
+void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE12makeReadOnlyEv(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (*(a1 + 208))
   {
     v1 = *__error();
@@ -4744,95 +5185,436 @@ void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22
     }
 
     *__error() = v1;
-    goto LABEL_25;
   }
 
-  _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE5flushEy(a1 + 48, 0);
-  v5 = *(a1 + 96);
-  _ZN22IVFVectorIndexTemplateIDF16_Li256EE11VectorStoreI30vi_onefixedsize_disk_allocator16vi_disk_postingsE8truncateEv(v5);
-  v6 = *__error();
-  v7 = _SILogForLogForCategory(16);
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  else
   {
-    _ZN22IVFVectorIndexTemplateIDF16_Li256EE11VectorStoreI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6statusEv(__p, v5);
-    v8 = v22 >= 0 ? __p : __p[0];
+    _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE5flushEy(a1 + 48, 0);
+    v5 = *(a1 + 96);
+    _ZN22IVFVectorIndexTemplateIDF16_Li256EE11VectorStoreI30vi_onefixedsize_disk_allocator16vi_disk_postingsE8truncateEv(v5);
+    v6 = *__error();
+    v7 = _SILogForLogForCategory(16);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      _ZN22IVFVectorIndexTemplateIDF16_Li256EE11VectorStoreI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6statusEv(__p, v5);
+      v8 = v20 >= 0 ? __p : __p[0];
+      *buf = 136315138;
+      v22 = v8;
+      _os_log_impl(&dword_1C278D000, v7, OS_LOG_TYPE_DEFAULT, "makeReadOnly VectorStore %s", buf, 0xCu);
+      if (v20 < 0)
+      {
+        operator delete(__p[0]);
+      }
+    }
+
+    *__error() = v6;
+    v9 = *(v5 + 32);
+    fd_make_readonly(*(v9 + 40));
+    v10 = *(v9 + 40);
+    if (v10)
+    {
+      do
+      {
+        v11 = fchmodat(*(v10 + 44), *(v10 + 72), 0x100u, 2048);
+        v12 = g_prot_error_callback;
+        if (v11 != -1 || g_prot_error_callback == 0)
+        {
+          break;
+        }
+
+        v14 = *(v10 + 40);
+        v15 = __error();
+      }
+
+      while (((*(v12 + 16))(v12, v14, *v15, 19) & 1) != 0);
+    }
+
+    os_unfair_lock_lock((a1 + 160));
+    v16 = *(a1 + 136);
+    if (v16)
+    {
+      atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v18 = *(a1 + 144);
+    v17 = *(a1 + 152);
+    if (v17)
+    {
+      atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    os_unfair_lock_unlock((a1 + 160));
+    (*(*v18 + 120))(v18);
+    *(a1 + 208) = 1;
+    if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v17->__on_zero_shared)(v17);
+      std::__shared_weak_count::__release_weak(v17);
+      if (!v16)
+      {
+        return;
+      }
+    }
+
+    else if (!v16)
+    {
+      return;
+    }
+
+    if (!atomic_fetch_add(&v16->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v16->__on_zero_shared)(v16);
+
+      std::__shared_weak_count::__release_weak(v16);
+    }
+  }
+}
+
+void _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE5flushEy(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 160))
+  {
+    v2 = *__error();
+    v3 = _SILogForLogForCategory(16);
+    v4 = dword_1EBF46B0C < 3;
+    if (os_log_type_enabled(v3, (dword_1EBF46B0C < 3)))
+    {
+      *v12 = 0;
+      _os_log_impl(&dword_1C278D000, v3, v4, "*warn* call flush on readOnly index.", v12, 2u);
+    }
+
+    *__error() = v2;
+  }
+
+  else
+  {
+    _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE17persistPartitionsIS2_EENSt3__19enable_ifIXsr13is_persistentIT_EE5valueEvE4typeEv(a1);
+    v7 = *(a1 + 48);
+    v8 = *(v7 + 32);
+    *v8 = 0;
+    vi_onefixedsize_disk_allocator::storeHeader(v8);
+    storage_array_SyncPages(*(v7 + 32) + 8, *(v7 + 32) + 4200);
+    os_unfair_lock_lock((a1 + 112));
+    v9 = *(a1 + 88);
+    if (v9)
+    {
+      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v11 = *(a1 + 96);
+    v10 = *(a1 + 104);
+    if (v10)
+    {
+      atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    os_unfair_lock_unlock((a1 + 112));
+    (*(*v11 + 112))(v11, a2);
+    if (v10 && !atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v10->__on_zero_shared)(v10);
+      std::__shared_weak_count::__release_weak(v10);
+      if (!v9)
+      {
+        return;
+      }
+    }
+
+    else if (!v9)
+    {
+      return;
+    }
+
+    if (!atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v9->__on_zero_shared)(v9);
+
+      std::__shared_weak_count::__release_weak(v9);
+    }
+  }
+}
+
+_DWORD *_ZN22IVFVectorIndexTemplateIDF16_Li256EE11VectorStoreI30vi_onefixedsize_disk_allocator16vi_disk_postingsE8truncateEv(uint64_t a1)
+{
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = *__error();
+  v3 = _SILogForLogForCategory(16);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    _ZN22IVFVectorIndexTemplateIDF16_Li256EE11VectorStoreI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6statusEv(__p, a1);
+    if (v7 >= 0)
+    {
+      v4 = __p;
+    }
+
+    else
+    {
+      v4 = __p[0];
+    }
+
     *buf = 136315138;
-    v24 = v8;
-    _os_log_impl(&dword_1C278D000, v7, OS_LOG_TYPE_DEFAULT, "makeReadOnly VectorStore %s", buf, 0xCu);
-    if (v22 < 0)
+    v9 = v4;
+    _os_log_impl(&dword_1C278D000, v3, OS_LOG_TYPE_DEFAULT, "truncate VectorStore %s", buf, 0xCu);
+    if (v7 < 0)
     {
       operator delete(__p[0]);
     }
   }
 
-  *__error() = v6;
-  v9 = *(v5 + 32);
-  fd_make_readonly(*(v9 + 40));
-  v10 = *(v9 + 40);
-  if (v10)
-  {
-    do
-    {
-      v11 = fchmodat(*(v10 + 44), *(v10 + 72), 0x100u, 2048);
-      v12 = g_prot_error_callback;
-      if (v11 != -1 || g_prot_error_callback == 0)
-      {
-        break;
-      }
-
-      v14 = *(v10 + 40);
-      v15 = __error();
-    }
-
-    while (((*(v12 + 16))(v12, v14, *v15, 19) & 1) != 0);
-  }
-
-  os_unfair_lock_lock((a1 + 160));
-  v16 = *(a1 + 136);
-  if (v16)
-  {
-    atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v18 = *(a1 + 144);
-  v17 = *(a1 + 152);
-  if (v17)
-  {
-    atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  os_unfair_lock_unlock((a1 + 160));
-  (*(*v18 + 120))(v18);
-  *(a1 + 208) = 1;
-  if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v17->__on_zero_shared)(v17);
-    std::__shared_weak_count::__release_weak(v17);
-    if (!v16)
-    {
-      goto LABEL_25;
-    }
-  }
-
-  else if (!v16)
-  {
-LABEL_25:
-    v19 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  if (atomic_fetch_add(&v16->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    goto LABEL_25;
-  }
-
-  (v16->__on_zero_shared)(v16);
-  v20 = *MEMORY[0x1E69E9840];
-
-  std::__shared_weak_count::__release_weak(v16);
+  *__error() = v2;
+  return storage_array_Truncate((*(a1 + 32) + 8));
 }
 
-void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE8truncateEv(uint64_t a1)
+void _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE17persistPartitionsIS2_EENSt3__19enable_ifIXsr13is_persistentIT_EE5valueEvE4typeEv(uint64_t a1)
+{
+  v33 = *MEMORY[0x1E69E9840];
+  os_unfair_lock_lock((a1 + 112));
+  v3 = *(a1 + 80);
+  v2 = *(a1 + 88);
+  if (v2)
+  {
+    atomic_fetch_add_explicit(&v2->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v4 = *(a1 + 96);
+  v5 = *(a1 + 104);
+  if (v5)
+  {
+    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  os_unfair_lock_unlock((a1 + 112));
+  if ((*(*v4 + 24))(v4))
+  {
+    v6 = v5;
+    if (!v5)
+    {
+      goto LABEL_40;
+    }
+
+    goto LABEL_38;
+  }
+
+  v24 = v4;
+  v25 = v5;
+  if (v5)
+  {
+    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE19persistedPartitionsIS2_EENSt3__19enable_ifIXsr13is_persistentIT_EE5valueENS6_10shared_ptrI17AnyPartitionStoreEEE4typeESB_(buf, a1, &v24);
+  v7 = *buf;
+  v6 = *&buf[8];
+  *buf = 0;
+  *&buf[8] = 0;
+  if (v5 && !atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v5->__on_zero_shared)(v5);
+    std::__shared_weak_count::__release_weak(v5);
+  }
+
+  v8 = *&buf[8];
+  if (*&buf[8] && !atomic_fetch_add((*&buf[8] + 8), 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v8->__on_zero_shared)(v8);
+    std::__shared_weak_count::__release_weak(v8);
+  }
+
+  v9 = v25;
+  if (v25 && !atomic_fetch_add(&v25->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v9->__on_zero_shared)(v9);
+    std::__shared_weak_count::__release_weak(v9);
+  }
+
+  *&v21 = v3;
+  *(&v21 + 1) = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit(&v2->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v22 = v7;
+  v23 = v6;
+  if (v6)
+  {
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  os_unfair_lock_lock((a1 + 112));
+  _ZNSt3__14swapB8nn200100IN22IVFVectorIndexTemplateIDF16_Li256EE19QuantizerPartitionsEEENS_9enable_ifIXaasr21is_move_constructibleIT_EE5valuesr18is_move_assignableIS5_EE5valueEvE4typeERS5_S8_((a1 + 80), &v21);
+  os_unfair_lock_unlock((a1 + 112));
+  v10 = v23;
+  if (v23 && !atomic_fetch_add(&v23->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v10->__on_zero_shared)(v10);
+    std::__shared_weak_count::__release_weak(v10);
+  }
+
+  v11 = *(&v21 + 1);
+  if (*(&v21 + 1) && !atomic_fetch_add((*(&v21 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v11->__on_zero_shared)(v11);
+    std::__shared_weak_count::__release_weak(v11);
+  }
+
+  v12 = *__error();
+  v13 = _SILogForLogForCategory(16);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    (*(*v7 + 152))(__p, v7);
+    if (v20 >= 0)
+    {
+      v14 = __p;
+    }
+
+    else
+    {
+      v14 = __p[0];
+    }
+
+    v15 = v7[17];
+    v16 = v7[18];
+    v17 = v3 + 8;
+    if (v3[31] < 0)
+    {
+      v17 = *v17;
+    }
+
+    v18 = (*(*v3 + 16))(v3);
+    *buf = 136316162;
+    *&buf[4] = v14;
+    *&buf[12] = 1024;
+    *&buf[14] = v16;
+    v27 = 1024;
+    v28 = v15;
+    v29 = 2080;
+    v30 = v17;
+    v31 = 1024;
+    v32 = v18;
+    _os_log_impl(&dword_1C278D000, v13, OS_LOG_TYPE_DEFAULT, "Persist Partitions %s(%u/%u) with quantizer %s(%u) ", buf, 0x28u);
+    if (v20 < 0)
+    {
+      operator delete(__p[0]);
+    }
+  }
+
+  *__error() = v12;
+  if (v6)
+  {
+LABEL_38:
+    if (!atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v6->__on_zero_shared)(v6);
+      std::__shared_weak_count::__release_weak(v6);
+    }
+  }
+
+LABEL_40:
+  if (v2)
+  {
+    if (!atomic_fetch_add(&v2->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v2->__on_zero_shared)(v2);
+      std::__shared_weak_count::__release_weak(v2);
+    }
+  }
+}
+
+void _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE19persistedPartitionsIS2_EENSt3__19enable_ifIXsr13is_persistentIT_EE5valueENS6_10shared_ptrI17AnyPartitionStoreEEE4typeESB_(_OWORD *a1, uint64_t a2, uint64_t *a3)
+{
+  os_unfair_lock_lock((a2 + 112));
+  v6 = *(a2 + 88);
+  if (v6)
+  {
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v7 = *(a2 + 96);
+  v8 = *(a2 + 104);
+  if (v8)
+  {
+    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  os_unfair_lock_unlock((a2 + 112));
+  if (v7)
+  {
+    if ((*(*v7 + 24))(v7))
+    {
+      v9 = ".tmp.partitions";
+    }
+
+    else
+    {
+      v9 = ".partitions";
+    }
+  }
+
+  else
+  {
+    v9 = ".partitions";
+  }
+
+  memset(v17, 0, 32);
+  v10 = *(a2 + 24);
+  *buf = *(a2 + 8);
+  v16 = v10;
+  v11 = strlen(v9);
+  if (v11 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::vector<long long>::__throw_length_error[abi:nn200100]();
+  }
+
+  v12 = v11;
+  if (v11 >= 0x17)
+  {
+    operator new();
+  }
+
+  v14 = v11;
+  if (v11)
+  {
+    memcpy(&__dst, v9, v11);
+  }
+
+  *(&__dst + v12) = 0;
+  _ZN22IVFVectorIndexTemplateIDF16_Li256EE13childMetaInfoEN19vi_ondisk_allocator11meta_info_sENSt3__112basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEb(v17, buf, &__dst, 1);
+  if (v14 < 0)
+  {
+    operator delete(__dst);
+    if (*&v17[0])
+    {
+LABEL_18:
+      operator new();
+    }
+  }
+
+  else if (*&v17[0])
+  {
+    goto LABEL_18;
+  }
+
+  *a1 = *a3;
+  *a3 = 0;
+  a3[1] = 0;
+  if (v8 && !atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v8->__on_zero_shared)(v8);
+    std::__shared_weak_count::__release_weak(v8);
+  }
+
+  if (v6)
+  {
+    if (!atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      (v6->__on_zero_shared)(v6);
+      std::__shared_weak_count::__release_weak(v6);
+    }
+  }
+}
+
+void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE8truncateEv(uint64_t a1)
 {
   if (*(a1 + 208))
   {
@@ -4892,9 +5674,9 @@ void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22
   }
 }
 
-BOOL _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE6unlinkEv(uint64_t a1)
+BOOL _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE6unlinkEv(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock((a1 + 160));
   v2 = *(a1 + 136);
   if (v2)
@@ -4917,11 +5699,11 @@ BOOL _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     _ZN22IVFVectorIndexTemplateIDF16_Li256EE11VectorStoreI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6statusEv(__p, v5);
-    v8 = v14 >= 0 ? __p : __p[0];
+    v8 = v13 >= 0 ? __p : __p[0];
     *buf = 136315138;
-    v16 = v8;
+    v15 = v8;
     _os_log_impl(&dword_1C278D000, v7, OS_LOG_TYPE_DEFAULT, "unlink VectorStore %s", buf, 0xCu);
-    if (v14 < 0)
+    if (v13 < 0)
     {
       operator delete(__p[0]);
     }
@@ -4937,19 +5719,21 @@ BOOL _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22
     result = v10;
   }
 
-  if (v2 && !atomic_fetch_add(&v2->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  if (v2)
   {
-    v11 = result;
-    (v2->__on_zero_shared)(v2);
-    std::__shared_weak_count::__release_weak(v2);
-    result = v11;
+    if (!atomic_fetch_add(&v2->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      v11 = result;
+      (v2->__on_zero_shared)(v2);
+      std::__shared_weak_count::__release_weak(v2);
+      return v11;
+    }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE7subvertEPK22AnyVectorIndexInstance(uint64_t a1, uint64_t a2)
+void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE7subvertEPK22AnyVectorIndexInstance(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 8) != *(a2 + 8) || *(a1 + 20) != *(a2 + 20) || *(a1 + 12) != *(a2 + 12) || *(a1 + 16) != *(a2 + 16))
   {
@@ -5040,45 +5824,45 @@ void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22
   }
 }
 
-void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE14compactForTestEP22AnyVectorIndexInstancePVi(uint64_t a1, uint64_t a2)
+void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE14compactForTestEP22AnyVectorIndexInstancePVi(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (*(a1 + 8) == *(a2 + 8) && *(a1 + 20) == *(a2 + 20) && *(a1 + 12) == *(a2 + 12) && *(a1 + 16) == *(a2 + 16))
   {
-    v4 = *__error();
-    v5 = _SILogForLogForCategory(16);
-    v6 = 2 * (dword_1EBF46B0C < 4);
-    if (os_log_type_enabled(v5, v6))
+    v6 = *__error();
+    v7 = _SILogForLogForCategory(16);
+    v8 = 2 * (dword_1EBF46B0C < 4);
+    if (os_log_type_enabled(v7, v8))
     {
-      v7 = (*(*a1 + 16))(a1);
-      v8 = (*(*a1 + 24))(a1);
-      v9 = (*(*a2 + 16))(a2);
-      v10 = (*(*a2 + 24))(a2);
+      v9 = (*(*a1 + 16))(a1);
+      v10 = (*(*a1 + 24))(a1);
+      v11 = (*(*a2 + 16))(a2);
+      v12 = (*(*a2 + 24))(a2);
       *buf = 67109888;
-      v15 = v7;
-      v16 = 1024;
-      v17 = v8;
+      v17 = v9;
       v18 = 1024;
-      v19 = v9;
+      v19 = v10;
       v20 = 1024;
-      v21 = v10;
-      _os_log_impl(&dword_1C278D000, v5, v6, "compactForTest %u vectors in %u partitions and %u vectors in %u partitions", buf, 0x1Au);
+      v21 = v11;
+      v22 = 1024;
+      v23 = v12;
+      _os_log_impl(&dword_1C278D000, v7, v8, "compactForTest %u vectors in %u partitions and %u vectors in %u partitions", buf, 0x1Au);
     }
 
-    *__error() = v4;
-    _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE14compactForTestIS2_EENSt3__19enable_ifIXsr13is_persistentIT_EE5valueEbE4typeEPS4_PVi(a1 + 48, a2 + 48);
+    *__error() = v6;
+    _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE14compactForTestIS2_EENSt3__19enable_ifIXsr13is_persistentIT_EE5valueEbE4typeEPS4_PVi(a1 + 48, a2 + 48, a3);
   }
 
-  v11 = __si_assert_copy_extra_332();
-  v12 = v11;
-  v13 = "";
-  if (v11)
+  v13 = __si_assert_copy_extra_332();
+  v14 = v13;
+  v15 = "";
+  if (v13)
   {
-    v13 = v11;
+    v15 = v13;
   }
 
-  __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 3255, "compatible", v13);
-  free(v12);
+  __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 3255, "compatible", v15);
+  free(v14);
   if (__valid_fs(-1))
   {
     MEMORY[0xBAD] = -559038737;
@@ -5089,23 +5873,23 @@ void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22
   abort();
 }
 
-void _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE14compactForTestIS2_EENSt3__19enable_ifIXsr13is_persistentIT_EE5valueEbE4typeEPS4_PVi(uint64_t a1, uint64_t a2)
+void _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE14compactForTestIS2_EENSt3__19enable_ifIXsr13is_persistentIT_EE5valueEbE4typeEPS4_PVi(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (!_ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE8nVectorsEv(a2))
   {
     operator new();
   }
 
-  v2 = __si_assert_copy_extra_332();
-  v3 = v2;
-  v4 = "";
-  if (v2)
+  v3 = __si_assert_copy_extra_332();
+  v4 = v3;
+  v5 = "";
+  if (v3)
   {
-    v4 = v2;
+    v5 = v3;
   }
 
-  __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2761, "target->nVectors() == 0", v4);
-  free(v3);
+  __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2761, "target->nVectors() == 0", v5);
+  free(v4);
   if (__valid_fs(-1))
   {
     MEMORY[0xBAD] = -559038737;
@@ -5116,9 +5900,9 @@ void _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixe
   abort();
 }
 
-void _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE5trainIS2_EENSt3__19enable_ifIXsr13is_persistentIT_EE5valueEvE4typeERKNS6_6vectorIPNS0_22IVFVectorIndexRootBaseENS6_9allocatorISD_EEEE(uint64_t a1, std::__shared_weak_count *a2, void *a3)
+void _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE5trainIS2_EENSt3__19enable_ifIXsr13is_persistentIT_EE5valueEvE4typeERKNS6_6vectorIPNS0_22IVFVectorIndexRootBaseENS6_9allocatorISD_EEEE(uint64_t a1, std::__shared_weak_count *a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     atomic_fetch_add_explicit(&a2->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -5129,26 +5913,25 @@ void _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixe
   {
     if (((v3 - *a3) & 0x8000000000000000) == 0)
     {
-      v4 = v3 - *a3;
       operator new();
     }
 
     std::vector<long long>::__throw_length_error[abi:nn200100]();
   }
 
-  v9 = 0;
-  v10 = 0;
-  _ZN16QuantizerManagerIDF16_Li512EE15sharedQuantizerEi(&v9, a1, 0);
-  (*(*v9 + 24))(v9);
+  v7 = 0;
+  v8 = 0;
+  _ZN16QuantizerManagerIDF16_Li256EE15sharedQuantizerEi(&v7, a1, 0);
+  (*(*v7 + 24))(v7);
   keyExistsAndHasValidFormat[0] = 0;
   CFPreferencesGetAppIntegerValue(@"IVFPartitionSizeFactor", @"com.apple.Spotlight", keyExistsAndHasValidFormat);
   keyExistsAndHasValidFormat[0] = 0;
   CFPreferencesGetAppIntegerValue(@"IVFTrainingTimeBudget", @"com.apple.Spotlight", keyExistsAndHasValidFormat);
-  v5 = v10;
-  if (v10 && !atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v4 = v8;
+  if (v8 && !atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v5->__on_zero_shared)(v5);
-    std::__shared_weak_count::__release_weak(v5);
+    (v4->__on_zero_shared)(v4);
+    std::__shared_weak_count::__release_weak(v4);
   }
 
   if (a2 && !atomic_fetch_add(&a2->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -5156,20 +5939,98 @@ void _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixe
     (a2->__on_zero_shared)(a2);
     std::__shared_weak_count::__release_weak(a2);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-unsigned int *___ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE14compactForTestIS2_EENSt3__19enable_ifIXsr13is_persistentIT_EE5valueEbE4typeEPS4_PVi_block_invoke(uint64_t a1, unsigned int *a2, BOOL *a3)
+uint64_t _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE12enumerator_sC2ENSt3__110shared_ptrI17AnyPartitionStoreEENS7_INS0_11VectorStoreIS2_S3_EEEE(uint64_t a1, void *a2, void *a3)
+{
+  v23 = *MEMORY[0x1E69E9840];
+  *a1 = *a2;
+  v6 = a2[1];
+  *(a1 + 8) = v6;
+  if (v6)
+  {
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  *(a1 + 16) = *a3;
+  v7 = a3[1];
+  *(a1 + 24) = v7;
+  if (v7)
+  {
+    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 64) = 0u;
+  v8 = *__error();
+  v9 = _SILogForLogForCategory(16);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = *(*a3 + 40);
+    v11 = *(*a2 + 68);
+    v12 = *(*a2 + 76);
+    LODWORD(v21) = 67109632;
+    DWORD1(v21) = v10;
+    WORD4(v21) = 1024;
+    *(&v21 + 10) = v11;
+    HIWORD(v21) = 1024;
+    v22 = v12;
+    _os_log_impl(&dword_1C278D000, v9, OS_LOG_TYPE_DEFAULT, "enumerator %u vectors in %u partitions v%d.", &v21, 0x14u);
+  }
+
+  *__error() = v8;
+  v13 = *a2;
+  if (*(*a2 + 68))
+  {
+    v14 = 0;
+    do
+    {
+      (*(*v13 + 96))(&v21);
+      v15 = *(a1 + 48);
+      v16 = *(a1 + 40);
+      if (v15 == v16)
+      {
+        v17 = 0;
+      }
+
+      else
+      {
+        v17 = 32 * (v15 - v16) - 1;
+      }
+
+      v18 = *(a1 + 72);
+      v19 = v18 + *(a1 + 64);
+      if (v17 == v19)
+      {
+        std::deque<std::shared_ptr<AnyPartitionStore::Enumerator>>::__add_back_capacity((a1 + 32));
+        v16 = *(a1 + 40);
+        v18 = *(a1 + 72);
+        v19 = v18 + *(a1 + 64);
+      }
+
+      *(*(v16 + ((v19 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v19) = v21;
+      *(a1 + 72) = v18 + 1;
+      v13 = *a2;
+      ++v14;
+    }
+
+    while (v14 < *(*a2 + 68));
+  }
+
+  return a1;
+}
+
+unsigned int *___ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE14compactForTestIS2_EENSt3__19enable_ifIXsr13is_persistentIT_EE5valueEbE4typeEPS4_PVi_block_invoke(uint64_t a1, unsigned int *a2, BOOL *a3)
 {
   v5 = **(a2 + 3);
-  result = _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE15lookupForInsertEjRK10CIVector_sIDF16_Li512EEjfb(*(a1 + 32), a2[2], *(a2 + 2), *a2, 0, *(a2 + 1));
-  *(result + 128) = v5;
+  result = _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE15lookupForInsertEjRK10CIVector_sIDF16_Li256EEjfb(*(a1 + 32), a2[2], *(a2 + 2), *a2, 0, *(a2 + 1));
+  *(result + 64) = v5;
   *a3 = **(a1 + 40) != 0;
   return result;
 }
 
-void _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE12enumerator_s4nextEv(uint64_t a1, uint64_t a2)
+void _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE12enumerator_s4nextEv(uint64_t a1, uint64_t a2)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -5232,7 +6093,7 @@ void _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixe
       v13 = *(*(a2 + 16) + 32);
       v14 = v13[3] + v13[2] * v12;
       bit_vector_set_13535(v13 + 525, (v14 >> 20));
-      v15 = (v14 + 1040) >> 20;
+      v15 = (v14 + 528) >> 20;
       if (v15 > (v14 >> 20))
       {
         v16 = (v14 >> 20) + 1;
@@ -5245,44 +6106,45 @@ void _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixe
         while (v15 > v17);
       }
 
-      v18 = _windowsResolvePtr((v13 + 5), v13[3] + v13[2] * v12, 1040);
-      *(a1 + 8) = *(v18 + 1032);
+      v18 = _windowsResolvePtr((v13 + 5), v13[3] + v13[2] * v12, 528);
+      *(a1 + 8) = *(v18 + 520);
       *(a1 + 16) = v18;
-      *(a1 + 24) = v18 + 1024;
+      *(a1 + 24) = v18 + 512;
     }
   }
 }
 
-unsigned int *_ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE15lookupForInsertEjRK10CIVector_sIDF16_Li512EEjfb(uint64_t a1, unsigned int a2, void *a3, uint64_t a4, char a5, float a6)
+unsigned int *_ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE15lookupForInsertEjRK10CIVector_sIDF16_Li256EEjfb(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, char a5, float a6)
 {
-  v134 = *MEMORY[0x1E69E9840];
-  v126 = a4;
-  v125 = a6;
+  v133 = *MEMORY[0x1E69E9840];
+  v125 = a4;
+  v124 = a6;
   if (*(a1 + 160) == 1)
   {
-    v100 = __si_assert_copy_extra_332();
-    v101 = v100;
-    v102 = "";
-    if (v100)
+    v99 = __si_assert_copy_extra_332();
+    v100 = v99;
+    v101 = "";
+    if (v99)
     {
-      v102 = v100;
+      v101 = v99;
     }
 
-    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2608, "!readOnly", v102);
+    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2608, "!readOnly", v101);
     goto LABEL_128;
   }
 
+  v6 = a2;
   if (!a2)
   {
-    v103 = __si_assert_copy_extra_332();
-    v104 = v103;
-    v105 = "";
-    if (v103)
+    v102 = __si_assert_copy_extra_332();
+    v103 = v102;
+    v104 = "";
+    if (v102)
     {
-      v105 = v103;
+      v104 = v102;
     }
 
-    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2609, "vectorId > 0", v105);
+    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2609, "vectorId > 0", v104);
     goto LABEL_136;
   }
 
@@ -5297,20 +6159,20 @@ unsigned int *_ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30v
     goto LABEL_32;
   }
 
-  v10 = _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE10findVectorERK10CIVector_sIDF16_Li512EERjRfj(a1, a3, &v126, &v125, a2);
-  v9 = v126;
-  if (v126 == -1)
+  v10 = _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE10findVectorERK10CIVector_sIDF16_Li256EERjRfj(a1, a3, &v125, &v124, a2);
+  v9 = v125;
+  if (v125 == -1)
   {
 LABEL_120:
-    v106 = __si_assert_copy_extra_332();
-    v101 = v106;
-    v107 = "";
-    if (v106)
+    v105 = __si_assert_copy_extra_332();
+    v100 = v105;
+    v106 = "";
+    if (v105)
     {
-      v107 = v106;
+      v106 = v105;
     }
 
-    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2614, "partID != VECTOR_NOT_FOUND", v107);
+    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2614, "partID != VECTOR_NOT_FOUND", v106);
     goto LABEL_128;
   }
 
@@ -5325,7 +6187,7 @@ LABEL_32:
     }
 
     __src = a3;
-    v123 = a2;
+    v122 = v6;
     v31 = *(a1 + 96);
     v30 = *(a1 + 104);
     if (v30)
@@ -5339,9 +6201,9 @@ LABEL_32:
     v34 = *(v33 + 16);
     v35 = *(v33 + 48);
     v36 = *(v33 + 56);
-    v119 = v30;
-    v120 = v29;
-    v121 = v31;
+    v118 = v30;
+    v119 = v29;
+    v120 = v31;
     if (v36 + v34 >= v35)
     {
       if (!_storage_array_Expand(v33 + 8))
@@ -5349,9 +6211,9 @@ LABEL_32:
         v42 = 0;
 LABEL_43:
         v43 = *(v33 + 16);
-        if (v34 <= 0x40F && v43 <= 0x40F)
+        if (v34 <= 0x20F && v43 <= 0x20F)
         {
-          LODWORD(v44) = 1040;
+          LODWORD(v44) = 528;
           while (1)
           {
             v46 = *(v33 + 48);
@@ -5412,7 +6274,7 @@ LABEL_50:
 LABEL_58:
         v52 = *(v33 + 24) + v43 * v42;
         bit_vector_set_13535((v33 + 4200), (v52 >> 20));
-        v53 = (v52 + 1040) >> 20;
+        v53 = (v52 + 528) >> 20;
         if (v53 > (v52 >> 20))
         {
           v54 = (v52 >> 20) + 1;
@@ -5433,15 +6295,15 @@ LABEL_58:
           v59 = _SILogForLogForCategory(16);
           if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
           {
-            v97 = *(v32 + 40);
+            v96 = *(v32 + 40);
             *__p = 136315906;
             *&__p[4] = "newEntry";
-            v130 = 1024;
-            *v131 = 1909;
-            *&v131[4] = 2048;
-            *&v131[6] = v42;
-            *&v131[14] = 1024;
-            *&v131[16] = v97;
+            v129 = 1024;
+            *v130 = 1909;
+            *&v130[4] = 2048;
+            *&v130[6] = v42;
+            *&v130[14] = 1024;
+            *&v130[16] = v96;
             _os_log_error_impl(&dword_1C278D000, v59, OS_LOG_TYPE_ERROR, "%s:%d: offset: %llu, nVectors: %u", __p, 0x22u);
           }
 
@@ -5457,14 +6319,14 @@ LABEL_58:
             v65 = v60[3];
             *__p = 134219008;
             *&__p[4] = v60;
-            v130 = 2048;
-            *v131 = v63;
+            v129 = 2048;
+            *v130 = v63;
+            *&v130[8] = 2048;
+            *&v130[10] = v64;
+            *&v130[18] = 2048;
+            *v131 = v65;
             *&v131[8] = 2048;
-            *&v131[10] = v64;
-            *&v131[18] = 2048;
-            *v132 = v65;
-            *&v132[8] = 2048;
-            v133 = v66;
+            v132 = v66;
             _os_log_impl(&dword_1C278D000, v62, OS_LOG_TYPE_DEFAULT, "vi_onefixedsize_disk_allocator %p size: %llu, freeRegion: %llu, header: %llu, elemSize: %lu", __p, 0x34u);
           }
 
@@ -5479,7 +6341,7 @@ LABEL_58:
           v67 = *(v32 + 32);
           v68 = v67[3] + v67[2] * v42;
           bit_vector_set_13535(v67 + 525, (v68 >> 20));
-          v69 = (v68 + 1040) >> 20;
+          v69 = (v68 + 528) >> 20;
           if (v69 > (v68 >> 20))
           {
             v70 = (v68 >> 20) + 1;
@@ -5492,24 +6354,24 @@ LABEL_58:
             while (v69 > v71);
           }
 
-          v72 = _windowsResolvePtr((v67 + 5), v67[3] + v67[2] * v42, 1040);
-          memcpy(v72, __src, 0x400uLL);
-          *(v72 + 1024) = 0;
-          *(v72 + 1032) = v123;
+          v72 = _windowsResolvePtr((v67 + 5), v67[3] + v67[2] * v42, 528);
+          memcpy(v72, __src, 0x200uLL);
+          *(v72 + 512) = 0;
+          *(v72 + 520) = v122;
           if (*(v32 + 40) == 1)
           {
-            *(v32 + 52) = v123;
+            *(v32 + 52) = v122;
           }
 
-          *(v32 + 56) = v123;
-          (*(*v121 + 56))(v121, v9, v42, v125);
+          *(v32 + 56) = v122;
+          (*(*v120 + 56))(v120, v9, v42, v124);
           v73 = *(a1 + 48);
-          if (v121[18] == *(v73 + 40))
+          if (v120[18] == *(v73 + 40))
           {
             v74 = *(v73 + 32);
             v75 = v74[3] + v74[2] * v42;
             bit_vector_set_13535(v74 + 525, (v75 >> 20));
-            v76 = (v75 + 1040) >> 20;
+            v76 = (v75 + 528) >> 20;
             if (v76 > (v75 >> 20))
             {
               v77 = (v75 >> 20) + 1;
@@ -5522,59 +6384,59 @@ LABEL_58:
               while (v76 > v78);
             }
 
-            v17 = _windowsResolvePtr((v74 + 5), v74[3] + v74[2] * v42, 1040);
-            data_map_set_offset_for_id(*(a1 + 144), v123, (16 * v42) | (*(a1 + 40) << 36) | (4 * (*(a1 + 128) & 3)) | *(a1 + 124) & 3, *(a1 + 120) | (*(a1 + 132) << 32), *(a1 + 136));
+            v17 = _windowsResolvePtr((v74 + 5), v74[3] + v74[2] * v42, 528);
+            data_map_set_offset_for_id(*(a1 + 144), v122, (16 * v42) | (*(a1 + 40) << 36) | (4 * (*(a1 + 128) & 3)) | *(a1 + 124) & 3, *(a1 + 120) | (*(a1 + 132) << 32), *(a1 + 136));
+            if (v118 && !atomic_fetch_add(&v118->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+            {
+              (v118->__on_zero_shared)(v118);
+              std::__shared_weak_count::__release_weak(v118);
+            }
+
             if (v119 && !atomic_fetch_add(&v119->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
             {
               (v119->__on_zero_shared)(v119);
               std::__shared_weak_count::__release_weak(v119);
             }
 
-            if (v120 && !atomic_fetch_add(&v120->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-            {
-              (v120->__on_zero_shared)(v120);
-              std::__shared_weak_count::__release_weak(v120);
-            }
-
-            goto LABEL_113;
+            return v17;
           }
 
-          v110 = __si_assert_copy_extra_332();
-          v104 = v110;
-          v111 = "";
-          if (v110)
+          v109 = __si_assert_copy_extra_332();
+          v103 = v109;
+          v110 = "";
+          if (v109)
           {
-            v111 = v110;
+            v110 = v109;
           }
 
-          __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2619, "cur.partitions->nVectors() == vectors->count()", v111);
+          __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2619, "cur.partitions->nVectors() == vectors->count()", v110);
 LABEL_136:
-          free(v104);
+          free(v103);
           if (__valid_fs(-1))
           {
-            v112 = 2989;
+            v111 = 2989;
           }
 
           else
           {
-            v112 = 3072;
+            v111 = 3072;
           }
 
-          *v112 = -559038737;
+          *v111 = -559038737;
           abort();
         }
 
-        v108 = __si_assert_copy_extra_332();
-        v101 = v108;
-        v109 = "";
-        if (v108)
+        v107 = __si_assert_copy_extra_332();
+        v100 = v107;
+        v108 = "";
+        if (v107)
         {
-          v109 = v108;
+          v108 = v107;
         }
 
-        __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 1912, "offset == nVectors", v109);
+        __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 1912, "offset == nVectors", v108);
 LABEL_128:
-        free(v101);
+        free(v100);
         if (__valid_fs(-1))
         {
           MEMORY[0xBAD] = -559038737;
@@ -5627,7 +6489,7 @@ LABEL_39:
   v12 = v10;
   v13 = v11[3] + v11[2] * v10;
   bit_vector_set_13535(v11 + 525, (v13 >> 20));
-  v14 = (v13 + 1040) >> 20;
+  v14 = (v13 + 528) >> 20;
   if (v14 > (v13 >> 20))
   {
     v15 = (v13 >> 20) + 1;
@@ -5640,30 +6502,30 @@ LABEL_39:
     while (v14 > v16);
   }
 
-  v17 = _windowsResolvePtr((v11 + 5), v11[3] + v11[2] * v12, 1040);
-  if (v17[258] != a2)
+  v17 = _windowsResolvePtr((v11 + 5), v11[3] + v11[2] * v12, 528);
+  if (v17[130] != v6)
   {
-    v124 = 0;
-    data = data_map_get_data(*(a1 + 144), a2, &v124);
+    v123 = 0;
+    data = data_map_get_data(*(a1 + 144), v6, &v123);
     v19 = *__error();
     v20 = _SILogForLogForCategory(16);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *__p = 136316162;
       *&__p[4] = "lookupForInsert";
-      v130 = 1024;
-      *v131 = 2633;
-      *&v131[4] = 1024;
-      *&v131[6] = a2;
-      *&v131[10] = 2048;
-      *&v131[12] = data;
-      *v132 = 2048;
-      *&v132[2] = v124;
+      v129 = 1024;
+      *v130 = 2633;
+      *&v130[4] = 1024;
+      *&v130[6] = v6;
+      *&v130[10] = 2048;
+      *&v130[12] = data;
+      *v131 = 2048;
+      *&v131[2] = v123;
       _os_log_error_impl(&dword_1C278D000, v20, OS_LOG_TYPE_ERROR, "%s:%d: vectorId=%u in datamap: %p size=%zd", __p, 0x2Cu);
     }
 
     *__error() = v19;
-    if (v124 < 1)
+    if (v123 < 1)
     {
       v26 = *__error();
       v79 = _SILogForLogForCategory(16);
@@ -5671,52 +6533,52 @@ LABEL_39:
       {
         *__p = 136315394;
         *&__p[4] = "lookupForInsert";
-        v130 = 1024;
-        *v131 = 2642;
+        v129 = 1024;
+        *v130 = 2642;
         _os_log_error_impl(&dword_1C278D000, v79, OS_LOG_TYPE_ERROR, "%s:%d: vectorId is invalid", __p, 0x12u);
       }
     }
 
     else
     {
-      if (v124 != 1024)
+      if (v123 != 512)
       {
-        v115 = __si_assert_copy_extra_332();
-        v101 = v115;
-        v116 = "";
-        if (v115)
+        v114 = __si_assert_copy_extra_332();
+        v100 = v114;
+        v115 = "";
+        if (v114)
         {
-          v116 = v115;
+          v115 = v114;
         }
 
-        __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2635, "size == D * sizeof(ELEM_TYPE)", v116);
+        __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2635, "size == D * sizeof(ELEM_TYPE)", v115);
         goto LABEL_128;
       }
 
-      if (!data || !memcmp(data, a3, 0x400uLL))
+      if (!data || !memcmp(data, a3, 0x200uLL))
       {
 LABEL_86:
-        v80 = data_map_get_data(*(a1 + 144), v17[258], &v124);
+        v80 = data_map_get_data(*(a1 + 144), v17[130], &v123);
         v81 = *__error();
         v82 = _SILogForLogForCategory(16);
         if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
         {
-          v98 = v17[258];
+          v97 = v17[130];
           *__p = 136316162;
           *&__p[4] = "lookupForInsert";
-          v130 = 1024;
-          *v131 = 2645;
-          *&v131[4] = 1024;
-          *&v131[6] = v98;
-          *&v131[10] = 2048;
-          *&v131[12] = v80;
-          *v132 = 2048;
-          *&v132[2] = v124;
+          v129 = 1024;
+          *v130 = 2645;
+          *&v130[4] = 1024;
+          *&v130[6] = v97;
+          *&v130[10] = 2048;
+          *&v130[12] = v80;
+          *v131 = 2048;
+          *&v131[2] = v123;
           _os_log_error_impl(&dword_1C278D000, v82, OS_LOG_TYPE_ERROR, "%s:%d: old vectorId=%u in datamap: %p size=%zd", __p, 0x2Cu);
         }
 
         *__error() = v81;
-        if (v124 < 1)
+        if (v123 < 1)
         {
           v89 = *__error();
           v92 = _SILogForLogForCategory(16);
@@ -5724,30 +6586,30 @@ LABEL_86:
           {
             *__p = 136315394;
             *&__p[4] = "lookupForInsert";
-            v130 = 1024;
-            *v131 = 2654;
+            v129 = 1024;
+            *v130 = 2654;
             _os_log_error_impl(&dword_1C278D000, v92, OS_LOG_TYPE_ERROR, "%s:%d: old vectorId is invalid", __p, 0x12u);
           }
         }
 
         else
         {
-          if (v124 != 1024)
+          if (v123 != 512)
           {
-            v117 = __si_assert_copy_extra_332();
-            v104 = v117;
-            v118 = "";
-            if (v117)
+            v116 = __si_assert_copy_extra_332();
+            v103 = v116;
+            v117 = "";
+            if (v116)
             {
-              v118 = v117;
+              v117 = v116;
             }
 
-            __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2647, "size == D * sizeof(ELEM_TYPE)", v118);
+            __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2647, "size == D * sizeof(ELEM_TYPE)", v117);
             goto LABEL_136;
           }
 
-          v83 = 1024;
-          if (!v80 || !memcmp(v80, v17, 0x400uLL))
+          v83 = 512;
+          if (!v80 || !memcmp(v80, v17, 0x200uLL))
           {
             goto LABEL_109;
           }
@@ -5758,8 +6620,8 @@ LABEL_86:
           {
             *__p = 136315394;
             *&__p[4] = "lookupForInsert";
-            v130 = 1024;
-            *v131 = 2649;
+            v129 = 1024;
+            *v130 = 2649;
             _os_log_error_impl(&dword_1C278D000, v85, OS_LOG_TYPE_ERROR, "%s:%d: vector in datamap is not same as vector passed in", __p, 0x12u);
           }
 
@@ -5768,12 +6630,12 @@ LABEL_86:
           v87 = _SILogForLogForCategory(16);
           if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
           {
-            data2hexString(__p, v80, v124);
-            v88 = v131[9] >= 0 ? __p : *__p;
+            data2hexString(__p, v80, v123);
+            v88 = v130[9] >= 0 ? __p : *__p;
             *buf = 136315138;
-            v128 = v88;
+            v127 = v88;
             _os_log_impl(&dword_1C278D000, v87, OS_LOG_TYPE_DEFAULT, "vector in datamap: %s", buf, 0xCu);
-            if ((v131[9] & 0x80000000) != 0)
+            if ((v130[9] & 0x80000000) != 0)
             {
               operator delete(*__p);
             }
@@ -5784,12 +6646,12 @@ LABEL_86:
           v90 = _SILogForLogForCategory(16);
           if (os_log_type_enabled(v90, OS_LOG_TYPE_DEFAULT))
           {
-            data2hexString(__p, v17, v124);
-            v91 = v131[9] >= 0 ? __p : *__p;
+            data2hexString(__p, v17, v123);
+            v91 = v130[9] >= 0 ? __p : *__p;
             *buf = 136315138;
-            v128 = v91;
+            v127 = v91;
             _os_log_impl(&dword_1C278D000, v90, OS_LOG_TYPE_DEFAULT, "vector in vector store: %s", buf, 0xCu);
-            if ((v131[9] & 0x80000000) != 0)
+            if ((v130[9] & 0x80000000) != 0)
             {
               operator delete(*__p);
             }
@@ -5797,19 +6659,19 @@ LABEL_86:
         }
 
         *__error() = v89;
-        v83 = v124;
+        v83 = v123;
 LABEL_109:
         if (memcmp(a3, v17, v83))
         {
-          v113 = __si_assert_copy_extra_332();
-          v101 = v113;
-          v114 = "";
-          if (v113)
+          v112 = __si_assert_copy_extra_332();
+          v100 = v112;
+          v113 = "";
+          if (v112)
           {
-            v114 = v113;
+            v113 = v112;
           }
 
-          __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2656, "memcmp(vec.vec, entry->vec.vec, size) == 0", v114);
+          __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2656, "memcmp(vec.vec, entry->vec.vec, size) == 0", v113);
           goto LABEL_128;
         }
 
@@ -5817,20 +6679,20 @@ LABEL_109:
         v94 = _SILogForLogForCategory(16);
         if (os_log_type_enabled(v94, OS_LOG_TYPE_FAULT))
         {
-          v99 = v17[258];
+          v98 = v17[130];
           *__p = 136315906;
           *&__p[4] = "lookupForInsert";
-          v130 = 1024;
-          *v131 = 2657;
-          *&v131[4] = 1024;
-          *&v131[6] = a2;
-          *&v131[10] = 1024;
-          *&v131[12] = v99;
+          v129 = 1024;
+          *v130 = 2657;
+          *&v130[4] = 1024;
+          *&v130[6] = v6;
+          *&v130[10] = 1024;
+          *&v130[12] = v98;
           _os_log_fault_impl(&dword_1C278D000, v94, OS_LOG_TYPE_FAULT, "%s:%d: Dup vector with new vectorId=%u old=%u", __p, 0x1Eu);
         }
 
         *__error() = v93;
-        goto LABEL_113;
+        return v17;
       }
 
       v21 = *__error();
@@ -5839,8 +6701,8 @@ LABEL_109:
       {
         *__p = 136315394;
         *&__p[4] = "lookupForInsert";
-        v130 = 1024;
-        *v131 = 2637;
+        v129 = 1024;
+        *v130 = 2637;
         _os_log_error_impl(&dword_1C278D000, v22, OS_LOG_TYPE_ERROR, "%s:%d: vector in datamap is not same as vector passed in", __p, 0x12u);
       }
 
@@ -5849,12 +6711,12 @@ LABEL_109:
       v24 = _SILogForLogForCategory(16);
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        data2hexString(__p, data, v124);
-        v25 = v131[9] >= 0 ? __p : *__p;
+        data2hexString(__p, data, v123);
+        v25 = v130[9] >= 0 ? __p : *__p;
         *buf = 136315138;
-        v128 = v25;
+        v127 = v25;
         _os_log_impl(&dword_1C278D000, v24, OS_LOG_TYPE_DEFAULT, "vector in datamap: %s", buf, 0xCu);
-        if ((v131[9] & 0x80000000) != 0)
+        if ((v130[9] & 0x80000000) != 0)
         {
           operator delete(*__p);
         }
@@ -5865,12 +6727,12 @@ LABEL_109:
       v27 = _SILogForLogForCategory(16);
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        data2hexString(__p, a3, v124);
-        v28 = v131[9] >= 0 ? __p : *__p;
+        data2hexString(__p, a3, v123);
+        v28 = v130[9] >= 0 ? __p : *__p;
         *buf = 136315138;
-        v128 = v28;
+        v127 = v28;
         _os_log_impl(&dword_1C278D000, v27, OS_LOG_TYPE_DEFAULT, "vector passed in: %s", buf, 0xCu);
-        if ((v131[9] & 0x80000000) != 0)
+        if ((v130[9] & 0x80000000) != 0)
         {
           operator delete(*__p);
         }
@@ -5881,12 +6743,10 @@ LABEL_109:
     goto LABEL_86;
   }
 
-LABEL_113:
-  v95 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
-uint64_t _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE10findVectorERK10CIVector_sIDF16_Li512EERjRfj(uint64_t a1, uint64_t a2, int *a3, _DWORD *a4, int a5)
+uint64_t _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE10findVectorERK10CIVector_sIDF16_Li256EERjRfj(uint64_t a1, uint64_t a2, unsigned int *a3, _DWORD *a4, int a5)
 {
   os_unfair_lock_lock((a1 + 112));
   v11 = *(a1 + 80);
@@ -6008,8 +6868,8 @@ uint64_t _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_one
   v37 = 0x2000000000;
   v33[0] = MEMORY[0x1E69E9820];
   v33[1] = 0x40000000;
-  v33[2] = ___ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE10findVectorERK10CIVector_sIDF16_Li512EERjRfj_block_invoke;
-  v33[3] = &unk_1E81950B8;
+  v33[2] = ___ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE10findVectorERK10CIVector_sIDF16_Li256EERjRfj_block_invoke;
+  v33[3] = &unk_1E8194F20;
   v34 = a5;
   v33[6] = a4;
   v33[7] = a2;
@@ -6033,7 +6893,7 @@ uint64_t _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_one
   return v17;
 }
 
-unint64_t ___ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE10findVectorERK10CIVector_sIDF16_Li512EERjRfj_block_invoke(unint64_t result, uint64_t a2, float *a3, _BYTE *a4)
+unint64_t ___ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE10findVectorERK10CIVector_sIDF16_Li256EERjRfj_block_invoke(unint64_t result, uint64_t a2, float *a3, _BYTE *a4)
 {
   v4 = *(result + 40);
   v5 = *a3;
@@ -6060,7 +6920,7 @@ unint64_t ___ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_
     v15 = *(*(v4 + 48) + 32);
     v16 = v15[3] + v15[2] * v5;
     bit_vector_set_13535(v15 + 525, (v16 >> 20));
-    v17 = (v16 + 1040) >> 20;
+    v17 = (v16 + 528) >> 20;
     if (v17 > (v16 >> 20))
     {
       v18 = (v16 >> 20) + 1;
@@ -6073,9 +6933,9 @@ unint64_t ___ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_
       while (v17 > v19);
     }
 
-    result = _windowsResolvePtr((v15 + 5), v15[3] + v15[2] * v5, 1040);
+    result = _windowsResolvePtr((v15 + 5), v15[3] + v15[2] * v5, 528);
     v20 = v28;
-    if (v14 != *(result + 1032))
+    if (v14 != *(result + 520))
     {
       return result;
     }
@@ -6092,7 +6952,7 @@ unint64_t ___ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_
   v22 = *(*(v4 + 48) + 32);
   v23 = v22[3] + v22[2] * v5;
   bit_vector_set_13535(v22 + 525, (v23 >> 20));
-  v24 = (v23 + 1040) >> 20;
+  v24 = (v23 + 528) >> 20;
   if (v24 > (v23 >> 20))
   {
     v25 = (v23 >> 20) + 1;
@@ -6105,8 +6965,8 @@ unint64_t ___ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_
     while (v24 > v26);
   }
 
-  v27 = _windowsResolvePtr((v22 + 5), v22[3] + v22[2] * v5, 1040);
-  result = memcmp(v21, v27, 0x400uLL);
+  v27 = _windowsResolvePtr((v22 + 5), v22[3] + v22[2] * v5, 528);
+  result = memcmp(v21, v27, 0x200uLL);
   if (!result)
   {
     a4 = v20;
@@ -6118,19 +6978,19 @@ LABEL_19:
   return result;
 }
 
-uint64_t _ZN22IVFVectorIndexTemplateIDF16_Li512EE22IVFVectorIndexRootBase9trainOnceENSt3__110shared_ptrI16QuantizerManagerIDF16_Li512EEEENS2_6vectorIPS1_NS2_9allocatorIS8_EEEEjj(uint64_t *a1, uint64_t *a2)
+uint64_t _ZN22IVFVectorIndexTemplateIDF16_Li256EE22IVFVectorIndexRootBase9trainOnceENSt3__110shared_ptrI16QuantizerManagerIDF16_Li256EEEENS2_6vectorIPS1_NS2_9allocatorIS8_EEEEjj(uint64_t *a1, uint64_t *a2, uint64_t a3, unsigned int a4)
 {
   v54 = *MEMORY[0x1E69E9840];
   CFAbsoluteTimeGetCurrent();
   v51 = 0;
   v50 = 0;
-  _ZN16QuantizerManagerIDF16_Li512EE20lastTrainedQuantizerEv(&v50, *a1);
-  v44 = *a2;
-  v45 = a2[1];
-  v43 = (v45 - *a2) >> 3;
-  if (v45 != *a2)
+  _ZN16QuantizerManagerIDF16_Li256EE20lastTrainedQuantizerEv(&v50, *a1);
+  v45 = *a2;
+  v46 = a2[1];
+  v44 = (v46 - *a2) >> 3;
+  if (v46 != *a2)
   {
-    if (!(((v45 - *a2) >> 3) >> 62))
+    if (!(((v46 - *a2) >> 3) >> 62))
     {
       operator new();
     }
@@ -6138,67 +6998,67 @@ uint64_t _ZN22IVFVectorIndexTemplateIDF16_Li512EE22IVFVectorIndexRootBase9trainO
     std::vector<long long>::__throw_length_error[abi:nn200100]();
   }
 
-  v46 = (*(*v50 + 24))(v50);
-  if (v45 != v44)
+  v47 = (*(*v50 + 24))(v50);
+  if (v46 != v45)
   {
-    v4 = 0;
-    if (v43 <= 1)
+    v6 = 0;
+    if (v44 <= 1)
     {
-      v5 = 1;
+      v7 = 1;
     }
 
     else
     {
-      v5 = v43;
+      v7 = v44;
     }
 
     while (1)
     {
-      (*(**(*a2 + 8 * v4) + 16))(v53);
-      v6 = v50;
-      v7 = *v53;
-      v8 = *&v53[8];
-      if (*&v53[8] && !atomic_fetch_add((*&v53[8] + 8), 0xFFFFFFFFFFFFFFFFLL))
-      {
-        (v8->__on_zero_shared)(v8);
-        std::__shared_weak_count::__release_weak(v8);
-      }
-
-      if (v7 != v6)
-      {
-        break;
-      }
-
-      (*(**(*a2 + 8 * v4) + 24))(v53);
-      v9 = *&v53[8];
-      *(4 * v4) = *(*v53 + 72);
-      if (v9 && !atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        (v9->__on_zero_shared)(v9);
-        std::__shared_weak_count::__release_weak(v9);
-      }
-
-      (*(**(*a2 + 8 * v4) + 24))(v53);
+      (*(**(*a2 + 8 * v6) + 16))(v53);
+      v8 = v50;
+      v9 = *v53;
       v10 = *&v53[8];
-      v11 = *(*v53 + 68);
       if (*&v53[8] && !atomic_fetch_add((*&v53[8] + 8), 0xFFFFFFFFFFFFFFFFLL))
       {
         (v10->__on_zero_shared)(v10);
         std::__shared_weak_count::__release_weak(v10);
       }
 
-      if (v11 != v46)
+      if (v9 != v8)
       {
-        v37 = __si_assert_copy_extra_332();
-        v38 = v37;
-        v39 = "";
-        if (v37)
+        break;
+      }
+
+      (*(**(*a2 + 8 * v6) + 24))(v53);
+      v11 = *&v53[8];
+      *(4 * v6) = *(*v53 + 72);
+      if (v11 && !atomic_fetch_add(&v11->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v11->__on_zero_shared)(v11);
+        std::__shared_weak_count::__release_weak(v11);
+      }
+
+      (*(**(*a2 + 8 * v6) + 24))(v53);
+      v12 = *&v53[8];
+      v13 = *(*v53 + 68);
+      if (*&v53[8] && !atomic_fetch_add((*&v53[8] + 8), 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v12->__on_zero_shared)(v12);
+        std::__shared_weak_count::__release_weak(v12);
+      }
+
+      if (v13 != v47)
+      {
+        v38 = __si_assert_copy_extra_332();
+        v39 = v38;
+        v40 = "";
+        if (v38)
         {
-          v39 = v37;
+          v40 = v38;
         }
 
-        __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2113, "vectorIndexes[i]->getPartitions()->nPartitions() == nPartitions", v39);
-        free(v38);
+        __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2113, "vectorIndexes[i]->getPartitions()->nPartitions() == nPartitions", v40);
+        free(v39);
         if (__valid_fs(-1))
         {
           MEMORY[0xBAD] = -559038737;
@@ -6209,124 +7069,124 @@ uint64_t _ZN22IVFVectorIndexTemplateIDF16_Li512EE22IVFVectorIndexRootBase9trainO
         abort();
       }
 
-      if (v5 == ++v4)
+      if (v7 == ++v6)
       {
         goto LABEL_20;
       }
     }
 
-    v34 = __si_assert_copy_extra_332();
-    v35 = v34;
-    v36 = "";
-    if (v34)
+    v35 = __si_assert_copy_extra_332();
+    v36 = v35;
+    v37 = "";
+    if (v35)
     {
-      v36 = v34;
+      v37 = v35;
     }
 
-    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2111, "vectorIndexes[i]->getQuantizer() == quantizer", v36);
+    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2111, "vectorIndexes[i]->getQuantizer() == quantizer", v37);
 LABEL_72:
-    free(v35);
+    free(v36);
     if (__valid_fs(-1))
     {
-      v40 = 2989;
+      v41 = 2989;
     }
 
     else
     {
-      v40 = 3072;
+      v41 = 3072;
     }
 
-    *v40 = -559038737;
+    *v41 = -559038737;
     abort();
   }
 
 LABEL_20:
-  v12 = *a1;
-  v13 = atomic_load((*a1 + 72));
-  if ((v13 & 1) == 0)
+  v14 = *a1;
+  v15 = atomic_load((*a1 + 72));
+  if ((v15 & 1) == 0)
   {
-    v41 = __si_assert_copy_extra_332();
-    v35 = v41;
-    v42 = "";
-    if (v41)
+    v42 = __si_assert_copy_extra_332();
+    v36 = v42;
+    v43 = "";
+    if (v42)
     {
-      v42 = v41;
+      v43 = v42;
     }
 
-    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 774, "_training.test()", v42);
+    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 774, "_training.test()", v43);
     goto LABEL_72;
   }
 
-  if (*(v12 + 96))
+  if (*(v14 + 96))
   {
-    v14 = *(v12 + 16);
+    v16 = *(v14 + 16);
     *v53 = MEMORY[0x1E69E9820];
     *&v53[8] = 0x40000000;
-    *&v53[16] = ___ZN16QuantizerManagerIDF16_Li512EE23commitTrainingQuantizerEv_block_invoke;
-    *&v53[24] = &__block_descriptor_tmp_560;
-    *&v53[32] = v12;
-    dispatch_sync(v14, v53);
+    *&v53[16] = ___ZN16QuantizerManagerIDF16_Li256EE23commitTrainingQuantizerEv_block_invoke;
+    *&v53[24] = &__block_descriptor_tmp_370;
+    *&v53[32] = v14;
+    dispatch_sync(v16, v53);
   }
 
-  v15 = *(v12 + 80);
-  if (v15)
+  v17 = *(v14 + 80);
+  if (v17)
   {
-    v16 = (*(*v15 + 16))(v15) + 1;
+    v18 = (*(*v17 + 16))(v17) + 1;
   }
 
   else
   {
-    v16 = 1;
+    v18 = 1;
   }
 
-  v17 = *(v12 + 71);
-  if (v17 >= 0)
+  v19 = *(v14 + 71);
+  if (v19 >= 0)
   {
-    v18 = *(v12 + 71);
+    v20 = *(v14 + 71);
   }
 
   else
   {
-    v18 = *(v12 + 56);
+    v20 = *(v14 + 56);
   }
 
-  if (v18 + 1 >= 0x7FFFFFFFFFFFFFF8)
+  if (v20 + 1 >= 0x7FFFFFFFFFFFFFF8)
   {
     std::vector<long long>::__throw_length_error[abi:nn200100]();
   }
 
-  if (v18 + 1 >= 0x17)
+  if (v20 + 1 >= 0x17)
   {
     operator new();
   }
 
-  memset(v47, 0, 24);
-  *(&v47[0].__r_.__value_.__s + 23) = v18 + 1;
-  if (v18)
+  memset(&v48, 0, sizeof(v48));
+  *(&v48.__r_.__value_.__s + 23) = v20 + 1;
+  if (v20)
   {
-    if ((v17 & 0x80u) == 0)
+    if ((v19 & 0x80u) == 0)
     {
-      v19 = (v12 + 48);
+      v21 = (v14 + 48);
     }
 
     else
     {
-      v19 = *(v12 + 48);
+      v21 = *(v14 + 48);
     }
 
-    memmove(v47, v19, v18);
+    memmove(&v48, v21, v20);
   }
 
-  *(&v47[0].__r_.__value_.__l.__data_ + v18) = 46;
-  std::to_string(&v52, v16);
+  *(&v48.__r_.__value_.__l.__data_ + v20) = 46;
+  std::to_string(&v52, v18);
   if ((v52.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v20 = &v52;
+    v22 = &v52;
   }
 
   else
   {
-    v20 = v52.__r_.__value_.__r.__words[0];
+    v22 = v52.__r_.__value_.__r.__words[0];
   }
 
   if ((v52.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -6339,20 +7199,20 @@ LABEL_20:
     size = v52.__r_.__value_.__l.__size_;
   }
 
-  v22 = std::string::append(v47, v20, size);
-  v23 = v22->__r_.__value_.__r.__words[2];
-  *v53 = *&v22->__r_.__value_.__l.__data_;
-  *&v53[16] = v23;
-  v22->__r_.__value_.__l.__size_ = 0;
-  v22->__r_.__value_.__r.__words[2] = 0;
-  v22->__r_.__value_.__r.__words[0] = 0;
-  v24 = std::string::append(v53, ".quantizer");
+  v24 = std::string::append(&v48, v22, size);
   v25 = v24->__r_.__value_.__r.__words[2];
-  v48 = *&v24->__r_.__value_.__l.__data_;
-  v49 = v25;
+  *v53 = *&v24->__r_.__value_.__l.__data_;
+  *&v53[16] = v25;
   v24->__r_.__value_.__l.__size_ = 0;
   v24->__r_.__value_.__r.__words[2] = 0;
   v24->__r_.__value_.__r.__words[0] = 0;
+  v26 = std::string::append(v53, ".quantizer");
+  v27 = v26->__r_.__value_.__r.__words[2];
+  *v49 = *&v26->__r_.__value_.__l.__data_;
+  *&v49[16] = v27;
+  v26->__r_.__value_.__l.__size_ = 0;
+  v26->__r_.__value_.__r.__words[2] = 0;
+  v26->__r_.__value_.__r.__words[0] = 0;
   if ((v53[23] & 0x80000000) == 0)
   {
     if ((SHIBYTE(v52.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
@@ -6362,7 +7222,7 @@ LABEL_20:
 
 LABEL_52:
     operator delete(v52.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v47[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v48.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_46;
     }
@@ -6377,69 +7237,68 @@ LABEL_52:
   }
 
 LABEL_45:
-  if ((SHIBYTE(v47[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  if ((SHIBYTE(v48.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_46;
   }
 
 LABEL_53:
-  operator delete(v47[0].__r_.__value_.__l.__data_);
+  operator delete(v48.__r_.__value_.__l.__data_);
 LABEL_46:
-  if (v49 >= 0)
+  if (v49[23] >= 0)
   {
-    v26 = &v48;
+    v28 = v49;
   }
 
   else
   {
-    v26 = v48;
+    v28 = *v49;
   }
 
-  if (_ZN16QuantizerManagerIDF16_Li256EE18createFdPtrForFileEPKc(v12, v26))
+  if (_ZN16QuantizerManagerIDF16_Li256EE18createFdPtrForFileEPKc(v14, v28))
   {
     operator new();
   }
 
-  v27 = *__error();
-  v28 = _SILogForLogForCategory(16);
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+  v29 = *__error();
+  v30 = _SILogForLogForCategory(16);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
   {
-    v32 = &v48;
-    if (v49 < 0)
+    v33 = v49;
+    if (v49[23] < 0)
     {
-      v32 = v48;
+      v33 = *v49;
     }
 
-    v33 = *v12;
+    v34 = *v14;
     *v53 = 136315906;
     *&v53[4] = "newQuantizer";
     *&v53[12] = 1024;
     *&v53[14] = 794;
     *&v53[18] = 2080;
-    *&v53[20] = v32;
+    *&v53[20] = v33;
     *&v53[28] = 1024;
-    *&v53[30] = v33;
-    _os_log_fault_impl(&dword_1C278D000, v28, OS_LOG_TYPE_FAULT, "%s:%d: Failed to create %s in parentFd: %i", v53, 0x22u);
+    *&v53[30] = v34;
+    _os_log_fault_impl(&dword_1C278D000, v30, OS_LOG_TYPE_FAULT, "%s:%d: Failed to create %s in parentFd: %i", v53, 0x22u);
   }
 
-  *__error() = v27;
-  if (SHIBYTE(v49) < 0)
+  *__error() = v29;
+  if ((v49[23] & 0x80000000) != 0)
   {
-    operator delete(v48);
+    operator delete(*v49);
   }
 
-  v29 = v51;
+  v31 = v51;
   if (v51 && !atomic_fetch_add(&v51->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v29->__on_zero_shared)(v29);
-    std::__shared_weak_count::__release_weak(v29);
+    (v31->__on_zero_shared)(v31);
+    std::__shared_weak_count::__release_weak(v31);
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
-void *_ZN16QuantizerManagerIDF16_Li512EE20lastTrainedQuantizerEv(void *result, uint64_t a2)
+void *_ZN16QuantizerManagerIDF16_Li256EE20lastTrainedQuantizerEv(void *result, uint64_t a2)
 {
   v2 = atomic_load((a2 + 72));
   if ((v2 & 1) == 0)
@@ -6492,15 +7351,15 @@ void *_ZN16QuantizerManagerIDF16_Li512EE20lastTrainedQuantizerEv(void *result, u
     goto LABEL_7;
   }
 
-  if (_ZZN19ZeroVectorQuantizerIDF16_Li512EE14sharedInstanceEvE9onceToken != -1)
+  if (_ZZN19ZeroVectorQuantizerIDF16_Li256EE14sharedInstanceEvE9onceToken != -1)
   {
     v9 = result;
-    dispatch_once(&_ZZN19ZeroVectorQuantizerIDF16_Li512EE14sharedInstanceEvE9onceToken, &__block_literal_global_463);
+    dispatch_once(&_ZZN19ZeroVectorQuantizerIDF16_Li256EE14sharedInstanceEvE9onceToken, &__block_literal_global_224);
     result = v9;
   }
 
-  v4 = *(_ZZN19ZeroVectorQuantizerIDF16_Li512EE14sharedInstanceEvE3zvq + 8);
-  *result = *_ZZN19ZeroVectorQuantizerIDF16_Li512EE14sharedInstanceEvE3zvq;
+  v4 = *(_ZZN19ZeroVectorQuantizerIDF16_Li256EE14sharedInstanceEvE3zvq + 8);
+  *result = *_ZZN19ZeroVectorQuantizerIDF16_Li256EE14sharedInstanceEvE3zvq;
   result[1] = v4;
   if (v4)
   {
@@ -6511,7 +7370,7 @@ LABEL_7:
   return result;
 }
 
-void ___ZN16QuantizerManagerIDF16_Li512EE23commitTrainingQuantizerEv_block_invoke(uint64_t a1)
+void ___ZN16QuantizerManagerIDF16_Li256EE23commitTrainingQuantizerEv_block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
   if (!*(v1 + 80))
@@ -6900,7 +7759,7 @@ LABEL_91:
   }
 }
 
-float ___ZN22IVFVectorIndexTemplateIDF16_Li512EE22IVFVectorIndexRootBase9trainOnceENSt3__110shared_ptrI16QuantizerManagerIDF16_Li512EEEENS2_6vectorIPS1_NS2_9allocatorIS8_EEEEjj_block_invoke(uint64_t a1, unsigned int a2, float *a3)
+float ___ZN22IVFVectorIndexTemplateIDF16_Li256EE22IVFVectorIndexRootBase9trainOnceENSt3__110shared_ptrI16QuantizerManagerIDF16_Li256EEEENS2_6vectorIPS1_NS2_9allocatorIS8_EEEEjj_block_invoke(uint64_t a1, int a2, float *a3)
 {
   v6 = (*(**(a1 + 32) + 32))(*(a1 + 32), *a3);
   if (*(a1 + 64))
@@ -6917,7 +7776,6 @@ float ___ZN22IVFVectorIndexTemplateIDF16_Li512EE22IVFVectorIndexRootBase9trainOn
   }
 
   v7 = *(a1 + 48);
-  bzero(__p, 0x800uLL);
   v8 = *(v6 + 16);
   v9 = vcvt_hight_f32_f16(*v6);
   *__p = vcvtq_f32_f16(*v6);
@@ -7014,139 +7872,42 @@ float ___ZN22IVFVectorIndexTemplateIDF16_Li512EE22IVFVectorIndexRootBase9trainOn
   *&__p[122] = vcvt_hight_f32_f16(v38);
   *&__p[124] = vcvtq_f32_f16(*v39.i8);
   *&__p[126] = vcvt_hight_f32_f16(v39);
-  v40 = *(v6 + 512);
-  v41 = *(v6 + 528);
-  *&__p[130] = vcvt_hight_f32_f16(v40);
-  *&__p[128] = vcvtq_f32_f16(*v40.i8);
-  *&__p[134] = vcvt_hight_f32_f16(v41);
-  *&__p[132] = vcvtq_f32_f16(*v41.i8);
-  v42 = *(v6 + 544);
-  v43 = *(v6 + 560);
-  *&__p[138] = vcvt_hight_f32_f16(v42);
-  *&__p[136] = vcvtq_f32_f16(*v42.i8);
-  *&__p[142] = vcvt_hight_f32_f16(v43);
-  *&__p[140] = vcvtq_f32_f16(*v43.i8);
-  v44 = *(v6 + 576);
-  v45 = *(v6 + 592);
-  *&__p[146] = vcvt_hight_f32_f16(v44);
-  *&__p[144] = vcvtq_f32_f16(*v44.i8);
-  *&__p[150] = vcvt_hight_f32_f16(v45);
-  *&__p[148] = vcvtq_f32_f16(*v45.i8);
-  v46 = *(v6 + 608);
-  v47 = *(v6 + 624);
-  *&__p[154] = vcvt_hight_f32_f16(v46);
-  *&__p[152] = vcvtq_f32_f16(*v46.i8);
-  *&__p[158] = vcvt_hight_f32_f16(v47);
-  *&__p[156] = vcvtq_f32_f16(*v47.i8);
-  v48 = *(v6 + 640);
-  v49 = *(v6 + 656);
-  *&__p[162] = vcvt_hight_f32_f16(v48);
-  *&__p[160] = vcvtq_f32_f16(*v48.i8);
-  *&__p[166] = vcvt_hight_f32_f16(v49);
-  *&__p[164] = vcvtq_f32_f16(*v49.i8);
-  v50 = *(v6 + 672);
-  v51 = *(v6 + 688);
-  *&__p[170] = vcvt_hight_f32_f16(v50);
-  *&__p[168] = vcvtq_f32_f16(*v50.i8);
-  *&__p[174] = vcvt_hight_f32_f16(v51);
-  *&__p[172] = vcvtq_f32_f16(*v51.i8);
-  v52 = *(v6 + 704);
-  v53 = *(v6 + 720);
-  *&__p[178] = vcvt_hight_f32_f16(v52);
-  *&__p[176] = vcvtq_f32_f16(*v52.i8);
-  *&__p[182] = vcvt_hight_f32_f16(v53);
-  *&__p[180] = vcvtq_f32_f16(*v53.i8);
-  v54 = *(v6 + 736);
-  v55 = *(v6 + 752);
-  *&__p[186] = vcvt_hight_f32_f16(v54);
-  *&__p[184] = vcvtq_f32_f16(*v54.i8);
-  *&__p[190] = vcvt_hight_f32_f16(v55);
-  *&__p[188] = vcvtq_f32_f16(*v55.i8);
-  v56 = *(v6 + 768);
-  v57 = *(v6 + 784);
-  *&__p[194] = vcvt_hight_f32_f16(v56);
-  *&__p[192] = vcvtq_f32_f16(*v56.i8);
-  *&__p[198] = vcvt_hight_f32_f16(v57);
-  *&__p[196] = vcvtq_f32_f16(*v57.i8);
-  v58 = *(v6 + 800);
-  v59 = *(v6 + 816);
-  *&__p[202] = vcvt_hight_f32_f16(v58);
-  *&__p[200] = vcvtq_f32_f16(*v58.i8);
-  *&__p[206] = vcvt_hight_f32_f16(v59);
-  *&__p[204] = vcvtq_f32_f16(*v59.i8);
-  v60 = *(v6 + 832);
-  v61 = *(v6 + 848);
-  *&__p[210] = vcvt_hight_f32_f16(v60);
-  *&__p[208] = vcvtq_f32_f16(*v60.i8);
-  *&__p[214] = vcvt_hight_f32_f16(v61);
-  *&__p[212] = vcvtq_f32_f16(*v61.i8);
-  v62 = *(v6 + 864);
-  v63 = *(v6 + 880);
-  *&__p[218] = vcvt_hight_f32_f16(v62);
-  *&__p[216] = vcvtq_f32_f16(*v62.i8);
-  *&__p[222] = vcvt_hight_f32_f16(v63);
-  *&__p[220] = vcvtq_f32_f16(*v63.i8);
-  v64 = *(v6 + 896);
-  v65 = *(v6 + 912);
-  *&__p[226] = vcvt_hight_f32_f16(v64);
-  *&__p[224] = vcvtq_f32_f16(*v64.i8);
-  *&__p[230] = vcvt_hight_f32_f16(v65);
-  *&__p[228] = vcvtq_f32_f16(*v65.i8);
-  v66 = *(v6 + 928);
-  v67 = *(v6 + 944);
-  *&__p[234] = vcvt_hight_f32_f16(v66);
-  *&__p[232] = vcvtq_f32_f16(*v66.i8);
-  *&__p[238] = vcvt_hight_f32_f16(v67);
-  *&__p[236] = vcvtq_f32_f16(*v67.i8);
-  v68 = *(v6 + 960);
-  v69 = *(v6 + 976);
-  *&__p[242] = vcvt_hight_f32_f16(v68);
-  *&__p[240] = vcvtq_f32_f16(*v68.i8);
-  *&__p[246] = vcvt_hight_f32_f16(v69);
-  *&__p[244] = vcvtq_f32_f16(*v69.i8);
-  v70 = *(v6 + 992);
-  v71 = *(v6 + 1008);
-  *&__p[250] = vcvt_hight_f32_f16(v70);
-  *&__p[248] = vcvtq_f32_f16(*v70.i8);
-  *&__p[254] = vcvt_hight_f32_f16(v71);
-  *&__p[252] = vcvtq_f32_f16(*v71.i8);
-  v72 = (v7 + 2052 * a2);
-  v73 = v72[512];
-  if (v73 == 0.0)
+  v40 = (v7 + 1028 * a2);
+  v41 = v40[256];
+  if (v41 == 0.0)
   {
-    memcpy(v72, __p, 0x800uLL);
+    memcpy(v40, __p, 0x400uLL);
   }
 
   else
   {
-    vDSP_vavlin(__p, 1, v72 + 512, v72, 1, 0x200uLL);
-    v73 = v72[512];
+    vDSP_vavlin(__p, 1, v40 + 256, v40, 1, 0x100uLL);
+    v41 = v40[256];
   }
 
-  result = v73 + 1.0;
-  v72[512] = v73 + 1.0;
+  result = v41 + 1.0;
+  v40[256] = v41 + 1.0;
   return result;
 }
 
-void _ZZN22IVFVectorIndexTemplateIDF16_Li512EE22IVFVectorIndexRootBase9trainOnceENSt3__110shared_ptrI16QuantizerManagerIDF16_Li512EEEENS2_6vectorIPS1_NS2_9allocatorIS8_EEEEjjENUlPvmE_8__invokeESC_m(void *a1, uint64_t a2)
+void _ZZN22IVFVectorIndexTemplateIDF16_Li256EE22IVFVectorIndexRootBase9trainOnceENSt3__110shared_ptrI16QuantizerManagerIDF16_Li256EEEENS2_6vectorIPS1_NS2_9allocatorIS8_EEEEjjENUlPvmE_8__invokeESC_m(void *a1, uint64_t a2)
 {
   makeThreadId();
   v4 = *(a1[1] + 8 * a2);
   v5 = a1[3];
-  v11 = a1[2];
-  v12 = v5;
+  v11 = v5;
   if (v5)
   {
     atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  (*(*v4 + 40))(&v13);
+  (*(*v4 + 40))(&v12);
   v6 = (*a1 + 16 * a2);
-  v8 = v13;
-  v7 = v14;
-  if (v14)
+  v8 = v12;
+  v7 = v13;
+  if (v13)
   {
-    atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   v9 = v6[1];
@@ -7158,27 +7919,27 @@ void _ZZN22IVFVectorIndexTemplateIDF16_Li512EE22IVFVectorIndexRootBase9trainOnce
     std::__shared_weak_count::__release_weak(v9);
   }
 
-  v10 = v14;
-  if (v14 && !atomic_fetch_add(&v14->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v10 = v13;
+  if (v13 && !atomic_fetch_add(&v13->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v10->__on_zero_shared)(v10);
     std::__shared_weak_count::__release_weak(v10);
   }
 
-  if (v12)
+  if (v11)
   {
-    if (!atomic_fetch_add(&v12->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (!atomic_fetch_add(&v11->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v12->__on_zero_shared)(v12);
-      std::__shared_weak_count::__release_weak(v12);
+      (v11->__on_zero_shared)(v11);
+      std::__shared_weak_count::__release_weak(v11);
     }
   }
 }
 
-uint64_t _ZNK20ArrayVectorQuantizerIDF16_Li512EE11getCentroidEj(uint64_t a1, unsigned int a2)
+uint64_t _ZNK20ArrayVectorQuantizerIDF16_Li256EE11getCentroidEj(uint64_t a1, unsigned int a2)
 {
   v2 = *(a1 + 40);
-  if (a2 >= ((*(a1 + 48) - v2) >> 10))
+  if (a2 >= ((*(a1 + 48) - v2) >> 9))
   {
     v4 = __si_assert_copy_extra_332();
     v5 = v4;
@@ -7200,12 +7961,12 @@ uint64_t _ZNK20ArrayVectorQuantizerIDF16_Li512EE11getCentroidEj(uint64_t a1, uns
     abort();
   }
 
-  return v2 + (a2 << 10);
+  return v2 + (a2 << 9);
 }
 
-void _ZN20ArrayVectorQuantizerIDF16_Li512EED0Ev(uint64_t a1)
+void _ZN20ArrayVectorQuantizerIDF16_Li256EED0Ev(uint64_t a1)
 {
-  *a1 = &unk_1F427E798;
+  *a1 = &unk_1F427E268;
   v2 = *(a1 + 40);
   if (v2)
   {
@@ -7222,9 +7983,9 @@ void _ZN20ArrayVectorQuantizerIDF16_Li512EED0Ev(uint64_t a1)
   JUMPOUT(0x1C691FEF0);
 }
 
-uint64_t _ZN20ArrayVectorQuantizerIDF16_Li512EED1Ev(uint64_t a1)
+uint64_t _ZN20ArrayVectorQuantizerIDF16_Li256EED1Ev(uint64_t a1)
 {
-  *a1 = &unk_1F427E798;
+  *a1 = &unk_1F427E268;
   v2 = *(a1 + 40);
   if (v2)
   {
@@ -7241,9 +8002,88 @@ uint64_t _ZN20ArrayVectorQuantizerIDF16_Li512EED1Ev(uint64_t a1)
   return a1;
 }
 
-void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE7compactEP22AnyVectorIndexInstanceP12uint32_map_tP11TermIdStore18CICompactCallbacksPVi(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __int128 *a5)
+void *_ZN16QuantizerManagerIDF16_Li256EE18createFdPtrForFileEPKc(uint64_t a1, const char *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
+  result = fd_create_protected(*a1, a2, 514, 3u);
+  if (!result)
+  {
+    v5 = *__error();
+    v6 = _SILogForLogForCategory(16);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v13 = *a1;
+      v16 = 136315906;
+      v17 = "createFdPtrForFile";
+      v18 = 1024;
+      v19 = 764;
+      v20 = 2080;
+      v21 = a2;
+      v22 = 1024;
+      v23 = v13;
+      _os_log_error_impl(&dword_1C278D000, v6, OS_LOG_TYPE_ERROR, "%s:%d: Could not create %s in parentFd: %i", &v16, 0x22u);
+    }
+
+    *__error() = v5;
+    v7 = *(a1 + 80);
+    if (v7)
+    {
+      v8 = *(v7 + 64);
+      if (v8)
+      {
+        v9 = *(v8 + 44);
+        *a1 = v9;
+        if (v9 != -1)
+        {
+          return fd_create_protected(v9, a2, 514, 3u);
+        }
+      }
+
+      else
+      {
+        *a1 = -1;
+      }
+    }
+
+    v10 = *__error();
+    v11 = _SILogForLogForCategory(16);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    {
+      v14 = *(a1 + 80);
+      if (v14)
+      {
+        v15 = (v14 + 8);
+        if (*(v14 + 31) < 0)
+        {
+          v15 = *v15;
+        }
+      }
+
+      else
+      {
+        v15 = "(null)";
+      }
+
+      v16 = 136315650;
+      v17 = "createFdPtrForFile";
+      v18 = 1024;
+      v19 = 766;
+      v20 = 2080;
+      v21 = v15;
+      _os_log_fault_impl(&dword_1C278D000, v11, OS_LOG_TYPE_FAULT, "%s:%d: Could not get parentFd from quantizer %s", &v16, 0x1Cu);
+    }
+
+    v12 = __error();
+    result = 0;
+    *v12 = v10;
+  }
+
+  return result;
+}
+
+void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE7compactEP22AnyVectorIndexInstanceP12uint32_map_tP11TermIdStore18CICompactCallbacksPVi(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __int128 *a5, uint64_t a6)
+{
+  v27 = *MEMORY[0x1E69E9840];
   v8 = *__error();
   v9 = _SILogForLogForCategory(16);
   v10 = 2 * (dword_1EBF46B0C < 4);
@@ -7255,20 +8095,18 @@ void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22
     v13 = (*(*a2 + 24))(a2);
     *buf = 67109888;
     *&buf[4] = v19;
+    v21 = 1024;
+    v22 = v11;
     v23 = 1024;
-    v24 = v11;
+    v24 = v12;
     v25 = 1024;
-    v26 = v12;
-    v27 = 1024;
-    v28 = v13;
+    v26 = v13;
     _os_log_impl(&dword_1C278D000, v9, v10, "compact %u vectors in %u partitions and %u vectors in %u partitions", buf, 0x1Au);
   }
 
   *__error() = v8;
   if (*(a1 + 8) == *(a2 + 8) && *(a1 + 20) == *(a2 + 20) && *(a1 + 12) == *(a2 + 12) && *(a1 + 16) == *(a2 + 16))
   {
-    v20 = *a5;
-    v21 = a5[1];
     if (!_ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE8nVectorsEv(a2 + 48))
     {
       operator new();
@@ -7309,7 +8147,7 @@ void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22
   abort();
 }
 
-uint64_t ___ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE7compactIS2_EENSt3__19enable_ifIXsr13is_persistentIT_EE5valueEbE4typeEPS4_P12uint32_map_tP11TermIdStore18CICompactCallbacksPVi_block_invoke(uint64_t a1, unsigned int *a2, _BYTE *a3)
+uint64_t ___ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE7compactIS2_EENSt3__19enable_ifIXsr13is_persistentIT_EE5valueEbE4typeEPS4_P12uint32_map_tP11TermIdStore18CICompactCallbacksPVi_block_invoke(uint64_t a1, unsigned int *a2, _BYTE *a3)
 {
   v5 = *(a2 + 3);
   v6 = *(a1 + 40);
@@ -7342,7 +8180,7 @@ uint64_t ___ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_o
     }
   }
 
-  _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE16insertForCompactEjPK10CIVector_sIDF16_Li512EEyjf(*(a1 + 56), a2[2], *(a2 + 2), v7, *a2, *(a2 + 1));
+  _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE16insertForCompactEjPK10CIVector_sIDF16_Li256EEyjf(*(a1 + 56), a2[2], *(a2 + 2), v7, *a2, *(a2 + 1));
   result = 1;
   *(*(*(a1 + 32) + 8) + 24) = 1;
   if (*(*(*(a1 + 32) + 8) + 24) == 1 && !**(a1 + 64))
@@ -7354,7 +8192,7 @@ uint64_t ___ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_o
   return result;
 }
 
-void _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE16insertForCompactEjPK10CIVector_sIDF16_Li512EEyjf(uint64_t a1, unsigned int a2, void *a3, uint64_t a4, uint64_t a5, float a6)
+void _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE16insertForCompactEjPK10CIVector_sIDF16_Li256EEyjf(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, float a6)
 {
   os_unfair_lock_lock((a1 + 112));
   v12 = *(a1 + 88);
@@ -7413,7 +8251,7 @@ void _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixe
     v20 = 1;
   }
 
-  *(_ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE15lookupForInsertEjRK10CIVector_sIDF16_Li512EEjfb(v15, v16, v17, v18, v20, v19) + 128) = a4;
+  *(_ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE15lookupForInsertEjRK10CIVector_sIDF16_Li256EEjfb(v15, v16, v17, v18, v20, v19) + 64) = a4;
   if (v13 && !atomic_fetch_add(&v13->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v13->__on_zero_shared)(v13);
@@ -7437,7 +8275,7 @@ void _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixe
   }
 }
 
-void _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE4dumpEbbPViPvU13block_pointerFbjPKvybjfE(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE4dumpEbbPViPvU13block_pointerFbjPKvybjfE(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   os_unfair_lock_lock((a1 + 160));
   v9 = *(a1 + 136);
@@ -7493,15 +8331,15 @@ void _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE2
 
   v17[0] = MEMORY[0x1E69E9820];
   v17[1] = 0x40000000;
-  v18 = ___ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE4dumpEbbPViPvU13block_pointerFbjPKvybjfE_block_invoke;
-  v19 = &unk_1E8195908;
+  v18 = ___ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE4dumpEbbPViPvU13block_pointerFbjPKvybjfE_block_invoke;
+  v19 = &unk_1E8195820;
   v20 = a6;
   v21 = a4;
   v31 = 0u;
   v32 = 0u;
   for (i = 0; i != 1; v18(v17, &v31, &i))
   {
-    _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE12enumerator_s4nextEv(&v28, &v25);
+    _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE12enumerator_s4nextEv(&v28, &v25);
     v31 = v28;
     v32 = v29;
     if (!v29)
@@ -7541,18 +8379,14 @@ void _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE2
   }
 }
 
-uint64_t ___ZNK22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE4dumpEbbPViPvU13block_pointerFbjPKvybjfE_block_invoke(uint64_t a1, unsigned int *a2, BOOL *a3)
+uint64_t ___ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE4dumpEbbPViPvU13block_pointerFbjPKvybjfE_block_invoke(uint64_t a1, uint64_t a2, BOOL *a3)
 {
-  v5 = a2[2];
-  v6 = *(a2 + 2);
-  v7 = **(a2 + 3);
-  v8 = *a2;
-  result = (*(*(a1 + 32) + 16))(*(a2 + 1));
+  result = (*(*(a1 + 32) + 16))(*(a2 + 4));
   *a3 = **(a1 + 40) != 0;
   return result;
 }
 
-void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE17mergeIndexForTestEP22AnyVectorIndexInstance(uint64_t a1, uint64_t a2)
+void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE17mergeIndexForTestEP22AnyVectorIndexInstance(uint64_t a1, uint64_t a2)
 {
   v21 = *MEMORY[0x1E69E9840];
   if (*(a1 + 8) == *(a2 + 8) && *(a1 + 20) == *(a2 + 20) && *(a1 + 12) == *(a2 + 12) && *(a1 + 16) == *(a2 + 16))
@@ -7605,7 +8439,152 @@ void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22
   abort();
 }
 
-void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE21mergeUpdateSetForTestEPK22AnyVectorIndexInstance(uint64_t a1, uint64_t a2)
+void _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE10enumeratorEv(uint64_t a1)
+{
+  os_unfair_lock_lock((a1 + 112));
+  v2 = *(a1 + 88);
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v3 = *(a1 + 104);
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  os_unfair_lock_unlock((a1 + 112));
+  operator new();
+}
+
+uint64_t _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE10beginMergeEv(uint64_t a1)
+{
+  if (*(a1 + 156) != -1)
+  {
+    v3 = __si_assert_copy_extra_332();
+    v4 = v3;
+    v5 = "";
+    if (v3)
+    {
+      v5 = v3;
+    }
+
+    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2846, "mergeBeginVectorOffset == VECTOR_NOT_FOUND", v5);
+    free(v4);
+    if (__valid_fs(-1))
+    {
+      MEMORY[0xBAD] = -559038737;
+      abort();
+    }
+
+    MEMORY[0xC00] = -559038737;
+    abort();
+  }
+
+  result = _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE8nVectorsEv(a1);
+  *(a1 + 156) = result;
+  return result;
+}
+
+uint64_t _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE8endMergeEv(uint64_t a1)
+{
+  v26 = *MEMORY[0x1E69E9840];
+  if (*(a1 + 156) == -1)
+  {
+    v11 = __si_assert_copy_extra_332();
+    v12 = v11;
+    v13 = "";
+    if (v11)
+    {
+      v13 = v11;
+    }
+
+    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2851, "mergeBeginVectorOffset < VECTOR_NOT_FOUND", v13);
+    free(v12);
+    if (__valid_fs(-1))
+    {
+      MEMORY[0xBAD] = -559038737;
+      abort();
+    }
+
+    MEMORY[0xC00] = -559038737;
+    abort();
+  }
+
+  *(a1 + 156) = -1;
+  _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE17persistPartitionsIS2_EENSt3__19enable_ifIXsr13is_persistentIT_EE5valueEvE4typeEv(a1);
+  v23 = 0;
+  v21 = 0u;
+  memset(v22, 0, sizeof(v22));
+  *v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  memset(v18, 0, sizeof(v18));
+  v16 = 0u;
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:nn200100](&v16);
+  os_unfair_lock_lock((a1 + 112));
+  v2 = *(a1 + 88);
+  if (v2)
+  {
+    atomic_fetch_add_explicit(&v2->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v4 = *(a1 + 96);
+  v3 = *(a1 + 104);
+  if (v3)
+  {
+    atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  os_unfair_lock_unlock((a1 + 112));
+  (*(*v4 + 104))(v4, &v17, 0);
+  v5 = *__error();
+  v6 = _SILogForLogForCategory(16);
+  v7 = 2 * (dword_1EBF46B0C < 4);
+  if (os_log_type_enabled(v6, v7))
+  {
+    std::stringbuf::str();
+    v8 = v15 >= 0 ? &__p : __p;
+    *buf = 136315138;
+    v25 = v8;
+    _os_log_impl(&dword_1C278D000, v6, v7, "%s", buf, 0xCu);
+    if (v15 < 0)
+    {
+      operator delete(__p);
+    }
+  }
+
+  *__error() = v5;
+  if (v3 && !atomic_fetch_add(&v3->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v3->__on_zero_shared)(v3);
+    std::__shared_weak_count::__release_weak(v3);
+  }
+
+  if (v2 && !atomic_fetch_add(&v2->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v2->__on_zero_shared)(v2);
+    std::__shared_weak_count::__release_weak(v2);
+  }
+
+  *&v16 = *MEMORY[0x1E69E54D8];
+  v9 = *(MEMORY[0x1E69E54D8] + 72);
+  *(&v16 + *(v16 - 24)) = *(MEMORY[0x1E69E54D8] + 64);
+  *&v17 = v9;
+  *(&v17 + 1) = MEMORY[0x1E69E5548] + 16;
+  if (SHIBYTE(v20) < 0)
+  {
+    operator delete(v19[1]);
+  }
+
+  *(&v17 + 1) = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v18);
+  std::iostream::~basic_iostream();
+  return MEMORY[0x1C691FE80](v22);
+}
+
+void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE21mergeUpdateSetForTestEPK22AnyVectorIndexInstance(uint64_t a1, uint64_t a2)
 {
   v22 = *MEMORY[0x1E69E9840];
   if (*(a1 + 8) == *(a2 + 8) && *(a1 + 20) == *(a2 + 20) && *(a1 + 12) == *(a2 + 12) && *(a1 + 16) == *(a2 + 16))
@@ -7658,7 +8637,26 @@ void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22
   abort();
 }
 
-void _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI32vi_onefixedsize_memory_allocator18vi_memory_postingsE12enumerator_s4nextEv(uint64_t a1, uint64_t a2)
+void _ZNK22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI32vi_onefixedsize_memory_allocator18vi_memory_postingsE10enumeratorEv(uint64_t a1)
+{
+  os_unfair_lock_lock((a1 + 96));
+  v2 = *(a1 + 72);
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v3 = *(a1 + 88);
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  os_unfair_lock_unlock((a1 + 96));
+  operator new();
+}
+
+void _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI32vi_onefixedsize_memory_allocator18vi_memory_postingsE12enumerator_s4nextEv(uint64_t a1, uint64_t a2)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -7717,29 +8715,109 @@ void _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI32vi_onefixe
       }
 
       *(a1 + 4) = v6[1];
-      Ptr = vi_onefixedsize_memory_allocator::getPtr(*(*(a2 + 16) + 16), *v6, 1044);
-      *(a1 + 8) = *(Ptr + 1040);
+      Ptr = vi_onefixedsize_memory_allocator::getPtr(*(*(a2 + 16) + 16), *v6, 532);
+      *(a1 + 8) = *(Ptr + 528);
       *(a1 + 16) = Ptr;
-      *(a1 + 24) = Ptr + 1024;
+      *(a1 + 24) = Ptr + 512;
     }
   }
 }
 
-int *_ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE14mergeUpdateSetEPK22AnyVectorIndexInstanceP15PostingBaseInfojy(int *result, uint64_t a2)
+uint64_t _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI32vi_onefixedsize_memory_allocator18vi_memory_postingsE12enumerator_sC2ENSt3__110shared_ptrI17AnyPartitionStoreEENS7_INS0_11VectorStoreIS2_S3_EEEE(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
-  if (result[2] != *(a2 + 8) || *(result + 10) != *(a2 + 20) || result[3] != *(a2 + 12) || result[4] != *(a2 + 16))
+  v23 = *MEMORY[0x1E69E9840];
+  *a1 = *a2;
+  v6 = a2[1];
+  *(a1 + 8) = v6;
+  if (v6)
   {
-    v4 = __si_assert_copy_extra_332();
-    v5 = v4;
-    v6 = "";
-    if (v4)
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  *(a1 + 16) = *a3;
+  v7 = a3[1];
+  *(a1 + 24) = v7;
+  if (v7)
+  {
+    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0u;
+  *(a1 + 64) = 0u;
+  v8 = *__error();
+  v9 = _SILogForLogForCategory(16);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = *(*a3 + 24);
+    v11 = *(*a2 + 68);
+    v12 = *(*a2 + 76);
+    LODWORD(v21) = 67109632;
+    DWORD1(v21) = v10;
+    WORD4(v21) = 1024;
+    *(&v21 + 10) = v11;
+    HIWORD(v21) = 1024;
+    v22 = v12;
+    _os_log_impl(&dword_1C278D000, v9, OS_LOG_TYPE_DEFAULT, "enumerator %u vectors in %u partitions v%d.", &v21, 0x14u);
+  }
+
+  *__error() = v8;
+  v13 = *a2;
+  if (*(*a2 + 68))
+  {
+    v14 = 0;
+    do
     {
-      v6 = v4;
+      (*(*v13 + 96))(&v21);
+      v15 = *(a1 + 48);
+      v16 = *(a1 + 40);
+      if (v15 == v16)
+      {
+        v17 = 0;
+      }
+
+      else
+      {
+        v17 = 32 * (v15 - v16) - 1;
+      }
+
+      v18 = *(a1 + 72);
+      v19 = v18 + *(a1 + 64);
+      if (v17 == v19)
+      {
+        std::deque<std::shared_ptr<AnyPartitionStore::Enumerator>>::__add_back_capacity((a1 + 32));
+        v16 = *(a1 + 40);
+        v18 = *(a1 + 72);
+        v19 = v18 + *(a1 + 64);
+      }
+
+      *(*(v16 + ((v19 >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * v19) = v21;
+      *(a1 + 72) = v18 + 1;
+      v13 = *a2;
+      ++v14;
     }
 
-    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 3255, "compatible", v6);
-    free(v5);
+    while (v14 < *(*a2 + 68));
+  }
+
+  return a1;
+}
+
+int *_ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE14mergeUpdateSetEPK22AnyVectorIndexInstanceP15PostingBaseInfojy(int *result, uint64_t a2)
+{
+  v26 = *MEMORY[0x1E69E9840];
+  if (result[2] != *(a2 + 8) || *(result + 10) != *(a2 + 20) || result[3] != *(a2 + 12) || result[4] != *(a2 + 16))
+  {
+    v3 = __si_assert_copy_extra_332();
+    v4 = v3;
+    v5 = "";
+    if (v3)
+    {
+      v5 = v3;
+    }
+
+    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 3255, "compatible", v5);
+    free(v4);
     if (__valid_fs(-1))
     {
       MEMORY[0xBAD] = -559038737;
@@ -7752,67 +8830,66 @@ int *_ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22
 
   if (dword_1EBF46B0C >= 5)
   {
-    v7 = result;
-    v8 = a2;
-    v9 = *__error();
-    v10 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v6 = result;
+    v7 = a2;
+    v8 = *__error();
+    v9 = _SILogForLogForCategory(16);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = (*(*v7 + 16))(v7);
-      v12 = (*(*v7 + 24))(v7);
-      v13 = (*(*v8 + 16))(v8);
-      v14 = (*(*v8 + 24))(v8);
+      v10 = (*(*v6 + 16))(v6);
+      v11 = (*(*v6 + 24))(v6);
+      v12 = (*(*v7 + 16))(v7);
+      v13 = (*(*v7 + 24))(v7);
       *buf = 67109888;
-      v20 = v11;
-      v21 = 1024;
-      v22 = v12;
-      v23 = 1024;
-      v24 = v13;
-      v25 = 1024;
-      v26 = v14;
-      _os_log_impl(&dword_1C278D000, v10, OS_LOG_TYPE_DEFAULT, "mergeUpdateSet(DocID) %u vectors in %u partitions and %u vectors in %u partitions", buf, 0x1Au);
+      v19 = v10;
+      v20 = 1024;
+      v21 = v11;
+      v22 = 1024;
+      v23 = v12;
+      v24 = 1024;
+      v25 = v13;
+      _os_log_impl(&dword_1C278D000, v9, OS_LOG_TYPE_DEFAULT, "mergeUpdateSet(DocID) %u vectors in %u partitions and %u vectors in %u partitions", buf, 0x1Au);
     }
 
     result = __error();
-    *result = v9;
-    a2 = v8;
+    *result = v8;
+    a2 = v7;
   }
 
   v2 = *(a2 + 80);
   if (*(v2 + 24))
   {
-    _ZNK22IVFVectorIndexTemplateIDF16_Li512EE11VectorStoreI32vi_onefixedsize_memory_allocator18vi_memory_postingsE8IteratorptEv(*(a2 + 80), 0);
-    _ZNK22IVFVectorIndexTemplateIDF16_Li512EE11VectorStoreI32vi_onefixedsize_memory_allocator18vi_memory_postingsE8IteratorptEv(v2, 0);
-    _ZNK22IVFVectorIndexTemplateIDF16_Li512EE11VectorStoreI32vi_onefixedsize_memory_allocator18vi_memory_postingsE8IteratorptEv(v2, 0);
-    v15 = __si_assert_copy_extra_332();
-    v16 = v15;
-    v17 = "";
-    if (v15)
+    _ZNK22IVFVectorIndexTemplateIDF16_Li256EE11VectorStoreI32vi_onefixedsize_memory_allocator18vi_memory_postingsE8IteratorptEv(*(a2 + 80), 0);
+    _ZNK22IVFVectorIndexTemplateIDF16_Li256EE11VectorStoreI32vi_onefixedsize_memory_allocator18vi_memory_postingsE8IteratorptEv(v2, 0);
+    _ZNK22IVFVectorIndexTemplateIDF16_Li256EE11VectorStoreI32vi_onefixedsize_memory_allocator18vi_memory_postingsE8IteratorptEv(v2, 0);
+    v14 = __si_assert_copy_extra_332();
+    v15 = v14;
+    v16 = "";
+    if (v14)
     {
-      v17 = v15;
+      v16 = v14;
     }
 
-    __message_assert("%s:%u: failed assertion '%s' %s ", "VectorIndexSupport.hh", 2447, "0", v17);
-    free(v16);
+    __message_assert("%s:%u: failed assertion '%s' %s ", "VectorIndexSupport.hh", 2447, "0", v16);
+    free(v15);
     if (__valid_fs(-1))
     {
-      v18 = 2989;
+      v17 = 2989;
     }
 
     else
     {
-      v18 = 3072;
+      v17 = 3072;
     }
 
-    *v18 = -559038737;
+    *v17 = -559038737;
     abort();
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-unint64_t _ZNK22IVFVectorIndexTemplateIDF16_Li512EE11VectorStoreI32vi_onefixedsize_memory_allocator18vi_memory_postingsE8IteratorptEv(uint64_t a1, unsigned int a2)
+unint64_t _ZNK22IVFVectorIndexTemplateIDF16_Li256EE11VectorStoreI32vi_onefixedsize_memory_allocator18vi_memory_postingsE8IteratorptEv(uint64_t a1, unsigned int a2)
 {
   if (*(a1 + 24) <= a2)
   {
@@ -7838,48 +8915,48 @@ unint64_t _ZNK22IVFVectorIndexTemplateIDF16_Li512EE11VectorStoreI32vi_onefixedsi
 
   v2 = *(a1 + 16);
 
-  return vi_onefixedsize_memory_allocator::getPtr(v2, a2, 1044);
+  return vi_onefixedsize_memory_allocator::getPtr(v2, a2, 532);
 }
 
-void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE14mergeUpdateSetEPK22AnyVectorIndexInstanceP15PostingBaseInfoP17TermIdContainer_s(uint64_t a1, uint64_t a2)
+void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE14mergeUpdateSetEPK22AnyVectorIndexInstanceP15PostingBaseInfoP17TermIdContainer_s(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (*(a1 + 8) == *(a2 + 8) && *(a1 + 20) == *(a2 + 20) && *(a1 + 12) == *(a2 + 12) && *(a1 + 16) == *(a2 + 16))
   {
-    v4 = *__error();
-    v5 = _SILogForLogForCategory(16);
-    v6 = 2 * (dword_1EBF46B0C < 4);
-    if (os_log_type_enabled(v5, v6))
+    v6 = *__error();
+    v7 = _SILogForLogForCategory(16);
+    v8 = 2 * (dword_1EBF46B0C < 4);
+    if (os_log_type_enabled(v7, v8))
     {
-      v7 = (*(*a1 + 16))(a1);
-      v8 = (*(*a1 + 24))(a1);
-      v9 = (*(*a2 + 16))(a2);
-      v10 = (*(*a2 + 24))(a2);
+      v9 = (*(*a1 + 16))(a1);
+      v10 = (*(*a1 + 24))(a1);
+      v11 = (*(*a2 + 16))(a2);
+      v12 = (*(*a2 + 24))(a2);
       *buf = 67109888;
-      *&buf[4] = v7;
-      v15 = 1024;
-      v16 = v8;
+      *&buf[4] = v9;
       v17 = 1024;
-      __src = v9;
+      v18 = v10;
+      v19 = 1024;
+      __src = v11;
       __src_4 = 1024;
-      __src_6 = v10;
-      _os_log_impl(&dword_1C278D000, v5, v6, "mergeUpdateSet(termIds) %u vectors in %u partitions and %u vectors in %u partitions", buf, 0x1Au);
+      __src_6 = v12;
+      _os_log_impl(&dword_1C278D000, v7, v8, "mergeUpdateSet(termIds) %u vectors in %u partitions and %u vectors in %u partitions", buf, 0x1Au);
     }
 
-    *__error() = v4;
+    *__error() = v6;
     operator new();
   }
 
-  v11 = __si_assert_copy_extra_332();
-  v12 = v11;
-  v13 = "";
-  if (v11)
+  v13 = __si_assert_copy_extra_332();
+  v14 = v13;
+  v15 = "";
+  if (v13)
   {
-    v13 = v11;
+    v15 = v13;
   }
 
-  __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 3255, "compatible", v13);
-  free(v12);
+  __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 3255, "compatible", v15);
+  free(v14);
   if (__valid_fs(-1))
   {
     MEMORY[0xBAD] = -559038737;
@@ -7890,9 +8967,9 @@ void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22
   abort();
 }
 
-void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE5trainERKNSt3__16vectorIP22AnyVectorIndexInstanceNS5_9allocatorIS8_EEEE(uint64_t a1, uint64_t a2)
+void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE5trainERKNSt3__16vectorIP22AnyVectorIndexInstanceNS5_9allocatorIS8_EEEE(uint64_t a1, void *a2)
 {
-  if (*(a2 + 8) == *a2)
+  if (a2[1] == *a2)
   {
     v2 = __si_assert_copy_extra_332();
     v3 = v2;
@@ -7934,7 +9011,7 @@ void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22
   abort();
 }
 
-unsigned int *_ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE13insertForTestEjjPKv14vec_dimensions15vec_data_formatj(_DWORD *a1, int a2, unsigned int a3, void *a4, int a5, int a6, unsigned int a7)
+unsigned int *_ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE13insertForTestEjjPKv14vec_dimensions15vec_data_formatj(_DWORD *a1, int a2, uint64_t a3, void *a4, int a5, int a6, unsigned int a7)
 {
   if (a1[2] != a2 || a6 > 2 || a1[3] != vector_dimension_vec_sizes_15424[a5] || vector_size_elem_sizes_15423[a6] != a1[4])
   {
@@ -7963,12 +9040,12 @@ unsigned int *_ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_po
   }
 
   v7 = a7;
-  result = _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE15lookupForInsertEjRK10CIVector_sIDF16_Li512EEjfb((a1 + 12), a3, a4, 0xFFFFFFFFLL, 0, 3.4028e38);
-  *(result + 128) = v7;
+  result = _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE15lookupForInsertEjRK10CIVector_sIDF16_Li256EEjfb((a1 + 12), a3, a4, 0xFFFFFFFFLL, 0, 3.4028e38);
+  *(result + 64) = v7;
   return result;
 }
 
-uint64_t _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE14insertForMergeEjtjPKv14vec_dimensions15vec_data_formatyjf(uint64_t a1, int a2, int a3, unsigned int a4, void *a5, int a6, int a7, uint64_t a8, float a9, unsigned int a10)
+uint64_t _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE14insertForMergeEjtjPKv14vec_dimensions15vec_data_formatyjf(uint64_t a1, int a2, int a3, uint64_t a4, void *a5, int a6, int a7, uint64_t a8, float a9, unsigned int a10)
 {
   if (*(a1 + 8) != a2 || *(a1 + 20) != a3 || a7 > 2 || *(a1 + 12) != vector_dimension_vec_sizes_15424[a6] || vector_size_elem_sizes_15423[a7] != *(a1 + 16))
   {
@@ -7996,15 +9073,15 @@ uint64_t _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_posting
     abort();
   }
 
-  _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE16insertForCompactEjPK10CIVector_sIDF16_Li512EEyjf(a1 + 48, a4, a5, a8, a10, a9);
+  _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE16insertForCompactEjPK10CIVector_sIDF16_Li256EEyjf(a1 + 48, a4, a5, a8, a10, a9);
   return 1;
 }
 
-void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE12insertVectorEjjPKv14vec_dimensions15vec_data_format14docInvertStateyP15PostingBaseInfo(_DWORD *a1, int a2, unsigned int a3, void *a4, int a5, int a6)
+void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE12insertVectorEjjPKv14vec_dimensions15vec_data_format14docInvertStateyP15PostingBaseInfo(_DWORD *a1, int a2, uint64_t a3, void *a4, int a5, int a6)
 {
   if (a1[2] == a2 && a6 <= 2 && a1[3] == vector_dimension_vec_sizes_15424[a5] && vector_size_elem_sizes_15423[a6] == a1[4])
   {
-    _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE15lookupForInsertEjRK10CIVector_sIDF16_Li512EEjfb((a1 + 12), a3, a4, 0xFFFFFFFFLL, 0, 3.4028e38);
+    _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE15lookupForInsertEjRK10CIVector_sIDF16_Li256EEjfb((a1 + 12), a3, a4, 0xFFFFFFFFLL, 0, 3.4028e38);
     v6 = __si_assert_copy_extra_332();
     v7 = v6;
     v8 = "";
@@ -8049,9 +9126,9 @@ void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22
   abort();
 }
 
-unsigned int *_ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE17bulkInsertForTestEPKvPKjjS8_(unsigned int *result, char *a2, unsigned int *a3, unsigned int a4, unsigned int *a5)
+unsigned int *_ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE17bulkInsertForTestEPKvPKjjS8_(unsigned int *result, char *a2, unsigned int *a3, unsigned int a4, unsigned int *a5)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (a4)
   {
     v8 = result;
@@ -8063,9 +9140,9 @@ unsigned int *_ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_po
         v19 = *a5++;
         v18 = v19;
         v20 = *a3++;
-        result = _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE15lookupForInsertEjRK10CIVector_sIDF16_Li512EEjfb((v8 + 12), v18, a2, 0xFFFFFFFFLL, 0, 3.4028e38);
-        *(result + 128) = v20;
-        a2 += 1024;
+        result = _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE15lookupForInsertEjRK10CIVector_sIDF16_Li256EEjfb((v8 + 12), v18, a2, 0xFFFFFFFFLL, 0, 3.4028e38);
+        *(result + 64) = v20;
+        a2 += 512;
         --v17;
       }
 
@@ -8088,7 +9165,7 @@ unsigned int *_ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_po
           if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134217984;
-            v23 = ((v9 * 100.0) * v12);
+            v22 = ((v9 * 100.0) * v12);
             _os_log_impl(&dword_1C278D000, v16, OS_LOG_TYPE_DEFAULT, "bulkInsertForTest: %.0f%%", buf, 0xCu);
           }
 
@@ -8096,9 +9173,9 @@ unsigned int *_ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_po
         }
 
         v13 = a3[v9];
-        result = _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE15lookupForInsertEjRK10CIVector_sIDF16_Li512EEjfb((v8 + 12), a5[v9], a2, 0xFFFFFFFFLL, 0, 3.4028e38);
-        *(result + 128) = v13;
-        a2 += 1024;
+        result = _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE15lookupForInsertEjRK10CIVector_sIDF16_Li256EEjfb((v8 + 12), a5[v9], a2, 0xFFFFFFFFLL, 0, 3.4028e38);
+        *(result + 64) = v13;
+        a2 += 512;
         ++v9;
       }
 
@@ -8106,11 +9183,10 @@ unsigned int *_ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_po
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE6shadowEbPVi(uint64_t a1, uint64_t a2, _DWORD *a3)
+uint64_t _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE6shadowEbPVi(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
   os_unfair_lock_lock((a1 + 160));
   v6 = *(a1 + 136);
@@ -8151,7 +9227,7 @@ uint64_t _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_posting
   return result;
 }
 
-uint64_t _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE12validAddressEPKv(uint64_t a1, unint64_t a2)
+uint64_t _ZNK16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE12validAddressEPKv(uint64_t a1, unint64_t a2)
 {
   os_unfair_lock_lock((a1 + 160));
   v5 = *(a1 + 128);
@@ -8255,20 +9331,70 @@ LABEL_29:
   return v17;
 }
 
-uint64_t _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EE8allExistEPKvj(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t _ZNK16QuantizerManagerIDF16_Li256EE12validAddressEPKv(void *a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v4 = a1[10];
+  if (v4 && ((*(*v4 + 56))(v4, a2) & 1) != 0)
+  {
+    return 1;
+  }
+
+  v5 = a1[12];
+  if (v5)
+  {
+    if ((*(*v5 + 56))(v5, a2))
+    {
+      return 1;
+    }
+  }
+
+  for (i = a1[16]; i; i = *i)
+  {
+    v8 = i[4];
+    if (v8)
+    {
+      v9 = std::__shared_weak_count::lock(v8);
+      if (v9)
+      {
+        v10 = v9;
+        v11 = i[3];
+        if (v11 && ((*(*v11 + 56))(v11, a2) & 1) != 0)
+        {
+          if (!atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          {
+            (v10->__on_zero_shared)(v10);
+            std::__shared_weak_count::__release_weak(v10);
+          }
+
+          return 1;
+        }
+
+        if (!atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        {
+          (v10->__on_zero_shared)(v10);
+          std::__shared_weak_count::__release_weak(v10);
+        }
+      }
+    }
+  }
+
+  return 0;
+}
+
+uint64_t _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li256EE8allExistEPKvj(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v19 = *MEMORY[0x1E69E9840];
   if (a3)
   {
     if (a3 <= 0x3E8)
     {
       v12 = a3;
-      while (_ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6existsERK10CIVector_sIDF16_Li512EE(a1 + 48, a2))
+      while (_ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6existsERK10CIVector_sIDF16_Li256EE(a1 + 48, a2))
       {
-        a2 += 1024;
+        a2 += 512;
         if (!--v12)
         {
-          goto LABEL_14;
+          return a3;
         }
       }
     }
@@ -8288,37 +9414,37 @@ uint64_t _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_posting
           if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134217984;
-            v19 = ((v6 * 100.0) * v8);
+            v18 = ((v6 * 100.0) * v8);
             _os_log_impl(&dword_1C278D000, v11, OS_LOG_TYPE_DEFAULT, "allExist: %.0f%%", buf, 0xCu);
           }
 
           *__error() = v10;
         }
 
-        if (!_ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6existsERK10CIVector_sIDF16_Li512EE(a1 + 48, a2))
+        if (!_ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6existsERK10CIVector_sIDF16_Li256EE(a1 + 48, a2))
         {
           break;
         }
 
-        a2 += 1024;
+        a2 += 512;
         ++v6;
         if (a3 == v9)
         {
-          goto LABEL_14;
+          return a3;
         }
       }
     }
 
-    v15 = __si_assert_copy_extra_332();
-    v16 = v15;
-    v17 = "";
-    if (v15)
+    v14 = __si_assert_copy_extra_332();
+    v15 = v14;
+    v16 = "";
+    if (v14)
     {
-      v17 = v15;
+      v16 = v14;
     }
 
-    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 3331, "false", v17);
-    free(v16);
+    __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 3331, "false", v16);
+    free(v15);
     if (__valid_fs(-1))
     {
       MEMORY[0xBAD] = -559038737;
@@ -8329,134 +9455,130 @@ uint64_t _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_posting
     abort();
   }
 
-LABEL_14:
-  v13 = *MEMORY[0x1E69E9840];
   return a3;
 }
 
-BOOL _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6existsERK10CIVector_sIDF16_Li512EE(uint64_t a1, uint64_t a2)
+BOOL _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6existsERK10CIVector_sIDF16_Li256EE(uint64_t a1, uint64_t a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
-  v24 = 3.4028e38;
-  v25 = -1;
-  v4 = _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE10findVectorERK10CIVector_sIDF16_Li512EERjRfj(a1, a2, &v25, &v24, 0);
+  v27 = *MEMORY[0x1E69E9840];
+  v23 = 3.4028e38;
+  v24 = -1;
+  v4 = _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE10findVectorERK10CIVector_sIDF16_Li256EERjRfj(a1, a2, &v24, &v23, 0);
   if (v4 == -1)
   {
-    v7 = *__error();
-    v8 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v6 = *__error();
+    v7 = _SILogForLogForCategory(16);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
       *&buf[4] = "exists";
       *&buf[12] = 1024;
       *&buf[14] = 2804;
       *&buf[18] = 1024;
-      *&buf[20] = v25;
-      LOWORD(v27[0]) = 2048;
-      *(v27 + 2) = v24;
-      _os_log_error_impl(&dword_1C278D000, v8, OS_LOG_TYPE_ERROR, "%s:%d: Vector not found partID=%u distsq=%e", buf, 0x22u);
+      *&buf[20] = v24;
+      LOWORD(v26[0]) = 2048;
+      *(v26 + 2) = v23;
+      _os_log_error_impl(&dword_1C278D000, v7, OS_LOG_TYPE_ERROR, "%s:%d: Vector not found partID=%u distsq=%e", buf, 0x22u);
     }
 
-    *__error() = v7;
+    *__error() = v6;
     os_unfair_lock_lock((a1 + 112));
-    v10 = *(a1 + 80);
-    v9 = *(a1 + 88);
-    if (v9)
+    v9 = *(a1 + 80);
+    v8 = *(a1 + 88);
+    if (v8)
     {
-      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v12 = *(a1 + 96);
-    v11 = *(a1 + 104);
-    if (v11)
+    v11 = *(a1 + 96);
+    v10 = *(a1 + 104);
+    if (v10)
     {
-      atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     os_unfair_lock_unlock((a1 + 112));
     *buf = 0;
     *&buf[8] = buf;
-    v27[0] = -1;
+    v26[0] = -1;
     *&buf[16] = 0x2000000000;
-    v13 = v25;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 0x40000000;
-    v21[2] = ___ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6existsERK10CIVector_sIDF16_Li512EE_block_invoke;
-    v21[3] = &unk_1E81958E0;
-    v21[5] = a1;
-    v21[6] = a2;
-    v22 = v25;
-    v23 = v24;
-    v21[4] = buf;
-    (*(*v12 + 80))(v12, v25, v21);
+    v12 = v24;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 0x40000000;
+    v20[2] = ___ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6existsERK10CIVector_sIDF16_Li256EE_block_invoke;
+    v20[3] = &unk_1E81957D8;
+    v20[5] = a1;
+    v20[6] = a2;
+    v21 = v24;
+    v22 = v23;
+    v20[4] = buf;
+    (*(*v11 + 80))(v11, v24, v20);
     if (*(*&buf[8] + 24) == -1)
     {
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 1174405120;
-      v16[2] = ___ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6existsERK10CIVector_sIDF16_Li512EE_block_invoke_1388;
-      v16[3] = &unk_1F4280390;
-      v16[5] = a1;
-      v16[6] = a2;
-      v16[7] = v10;
-      v17 = v9;
-      if (v9)
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 1174405120;
+      v15[2] = ___ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6existsERK10CIVector_sIDF16_Li256EE_block_invoke_1298;
+      v15[3] = &unk_1F42800C0;
+      v15[5] = a1;
+      v15[6] = a2;
+      v15[7] = v9;
+      v16 = v8;
+      if (v8)
       {
-        atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v18 = v12;
-      v19 = v11;
-      if (v11)
+      v17 = v11;
+      v18 = v10;
+      if (v10)
       {
-        atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v20 = v13;
-      v16[4] = buf;
-      (*(*v12 + 64))(v12, v16);
-      v14 = v19;
-      if (v19 && !atomic_fetch_add(&v19->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      v19 = v12;
+      v15[4] = buf;
+      (*(*v11 + 64))(v11, v15);
+      v13 = v18;
+      if (v18 && !atomic_fetch_add(&v18->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v13->__on_zero_shared)(v13);
+        std::__shared_weak_count::__release_weak(v13);
+      }
+
+      v14 = v16;
+      if (v16 && !atomic_fetch_add(&v16->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
         (v14->__on_zero_shared)(v14);
         std::__shared_weak_count::__release_weak(v14);
       }
-
-      v15 = v17;
-      if (v17 && !atomic_fetch_add(&v17->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        (v15->__on_zero_shared)(v15);
-        std::__shared_weak_count::__release_weak(v15);
-      }
     }
 
     _Block_object_dispose(buf, 8);
-    if (v11 && !atomic_fetch_add(&v11->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v10 && !atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v11->__on_zero_shared)(v11);
-      std::__shared_weak_count::__release_weak(v11);
+      (v10->__on_zero_shared)(v10);
+      std::__shared_weak_count::__release_weak(v10);
     }
 
-    if (v9 && !atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (v8 && !atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v9->__on_zero_shared)(v9);
-      std::__shared_weak_count::__release_weak(v9);
+      (v8->__on_zero_shared)(v8);
+      std::__shared_weak_count::__release_weak(v8);
     }
   }
 
-  result = v4 != -1;
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return v4 != -1;
 }
 
-int *___ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6existsERK10CIVector_sIDF16_Li512EE_block_invoke(uint64_t a1, int a2, float *a3, _BYTE *a4)
+int *___ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6existsERK10CIVector_sIDF16_Li256EE_block_invoke(uint64_t a1, int a2, float *a3, _BYTE *a4)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v7 = *(a1 + 48);
   v8 = *a3;
   v9 = *(*(*(a1 + 40) + 48) + 32);
   v10 = v9[3] + v9[2] * v8;
   bit_vector_set_13535(v9 + 525, (v10 >> 20));
-  v11 = (v10 + 1040) >> 20;
+  v11 = (v10 + 528) >> 20;
   if (v11 > (v10 >> 20))
   {
     v12 = (v10 >> 20) + 1;
@@ -8469,23 +9591,23 @@ int *___ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefi
     while (v11 > v13);
   }
 
-  v14 = _windowsResolvePtr((v9 + 5), v9[3] + v9[2] * v8, 1040);
-  result = memcmp(v7, v14, 0x400uLL);
+  v14 = _windowsResolvePtr((v9 + 5), v9[3] + v9[2] * v8, 528);
+  result = memcmp(v7, v14, 0x200uLL);
   if (!result)
   {
     v16 = *__error();
     v17 = _SILogForLogForCategory(16);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v23 = a3[1];
+      v22 = a3[1];
       *buf = 136315906;
-      v35 = "exists_block_invoke";
-      v36 = 1024;
-      v37 = 2809;
-      v38 = 1024;
-      *v39 = a2;
-      *&v39[4] = 2048;
-      *&v39[6] = v23;
+      v34 = "exists_block_invoke";
+      v35 = 1024;
+      v36 = 2809;
+      v37 = 1024;
+      *v38 = a2;
+      *&v38[4] = 2048;
+      *&v38[6] = v22;
       _os_log_error_impl(&dword_1C278D000, v17, OS_LOG_TYPE_ERROR, "%s:%d: Vector not found actually in partID=%u distsq=%e", buf, 0x22u);
     }
 
@@ -8494,16 +9616,16 @@ int *___ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefi
     v19 = _SILogForLogForCategory(16);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v24 = *(a1 + 56);
-      v25 = *(a1 + 60);
+      v23 = *(a1 + 56);
+      v24 = *(a1 + 60);
       *buf = 136315906;
-      v35 = "exists_block_invoke";
-      v36 = 1024;
-      v37 = 2810;
-      v38 = 1024;
-      *v39 = v24;
-      *&v39[4] = 2048;
-      *&v39[6] = v25;
+      v34 = "exists_block_invoke";
+      v35 = 1024;
+      v36 = 2810;
+      v37 = 1024;
+      *v38 = v23;
+      *&v38[4] = 2048;
+      *&v38[6] = v24;
       _os_log_error_impl(&dword_1C278D000, v19, OS_LOG_TYPE_ERROR, "%s:%d: Vec distance to centroid %u distsq=%e", buf, 0x22u);
     }
 
@@ -8512,41 +9634,41 @@ int *___ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefi
     v21 = _SILogForLogForCategory(16);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v26 = *(a1 + 60);
-      v27 = a3[1];
-      v28 = vabds_f32(v26, v27);
-      if (v26 == v27)
+      v25 = *(a1 + 60);
+      v26 = a3[1];
+      v27 = vabds_f32(v25, v26);
+      if (v25 == v26)
       {
+        v28 = 1;
         v29 = 1;
-        v30 = 1;
       }
 
       else
       {
+        v30 = fabsf(v25);
         v31 = fabsf(v26);
-        v32 = fabsf(v27);
-        v29 = v28 <= fmaxf(fminf(v32, v31) * 0.000015259, 0.000015259);
-        v30 = v28 <= (fmaxf(v31, v32) * 0.000015259);
+        v28 = v27 <= fmaxf(fminf(v31, v30) * 0.000015259, 0.000015259);
+        v29 = v27 <= (fmaxf(v30, v31) * 0.000015259);
       }
 
       *buf = 136317186;
-      v35 = "exists_block_invoke";
-      v36 = 1024;
-      v37 = 2811;
-      v38 = 2048;
-      *v39 = v28;
-      *&v39[8] = 2048;
-      *&v39[10] = 0x3810000000000000;
-      v40 = 2048;
-      v41 = 0x3E80000000000000;
-      v42 = 1024;
-      v43 = v28 < 1.1755e-38;
-      v44 = 1024;
-      v45 = v28 < 0.00000011921;
-      v46 = 1024;
-      v47 = v29;
-      v48 = 1024;
-      v49 = v30;
+      v34 = "exists_block_invoke";
+      v35 = 1024;
+      v36 = 2811;
+      v37 = 2048;
+      *v38 = v27;
+      *&v38[8] = 2048;
+      *&v38[10] = 0x3810000000000000;
+      v39 = 2048;
+      v40 = 0x3E80000000000000;
+      v41 = 1024;
+      v42 = v27 < 1.1755e-38;
+      v43 = 1024;
+      v44 = v27 < 0.00000011921;
+      v45 = 1024;
+      v46 = v28;
+      v47 = 1024;
+      v48 = v29;
       _os_log_error_impl(&dword_1C278D000, v21, OS_LOG_TYPE_ERROR, "%s:%d: |distancesq - ve.distsq|=%e, FLT_MIN=%e, EPSILON=%e, %d, %d, %d, %d", buf, 0x48u);
     }
 
@@ -8556,20 +9678,19 @@ int *___ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefi
     *a4 = 1;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void ___ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6existsERK10CIVector_sIDF16_Li512EE_block_invoke_1388(uint64_t a1, int a2, unsigned int *a3, _BYTE *a4)
+void ___ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE6existsERK10CIVector_sIDF16_Li256EE_block_invoke_1298(uint64_t a1, int a2, float *a3, _BYTE *a4)
 {
-  v159 = *MEMORY[0x1E69E9840];
+  v131 = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 48);
-  v131 = *(a1 + 40);
+  v103 = *(a1 + 40);
   v8 = *a3;
-  v9 = *(*(v131 + 48) + 32);
+  v9 = *(*(v103 + 48) + 32);
   v10 = v9[3] + v9[2] * v8;
   bit_vector_set_13535(v9 + 525, (v10 >> 20));
-  v11 = (v10 + 1040) >> 20;
+  v11 = (v10 + 528) >> 20;
   if (v11 > (v10 >> 20))
   {
     v12 = (v10 >> 20) + 1;
@@ -8582,118 +9703,138 @@ void ___ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefi
     while (v11 > v13);
   }
 
-  v14 = _windowsResolvePtr((v9 + 5), v9[3] + v9[2] * v8, 1040);
-  if (!memcmp(v6, v14, 0x400uLL))
+  v14 = _windowsResolvePtr((v9 + 5), v9[3] + v9[2] * v8, 528);
+  if (!memcmp(v6, v14, 0x200uLL))
   {
     v15 = *__error();
     v16 = _SILogForLogForCategory(16);
     v17 = a3;
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v59 = *(a3 + 1);
+      v52 = a3[1];
       *buf = 136315906;
-      v140 = "exists_block_invoke";
-      v141 = 1024;
-      v142 = 2819;
-      v143 = 1024;
-      v144 = *&a2;
-      v145 = 2048;
-      *v146 = v59;
+      v112 = "exists_block_invoke";
+      v113 = 1024;
+      v114 = 2819;
+      v115 = 1024;
+      v116 = a2;
+      v117 = 2048;
+      *v118 = v52;
       _os_log_error_impl(&dword_1C278D000, v16, OS_LOG_TYPE_ERROR, "%s:%d: Vector not found actually in partID=%u distsq=%e", buf, 0x22u);
     }
 
     *__error() = v15;
     v18 = *(a1 + 48);
     v19 = (*(**(a1 + 56) + 72))(*(a1 + 56), *(a1 + 88));
-    v20 = 0uLL;
-    v21 = -8;
-    do
+    v20 = _ZNK10CIVector_sIDF16_Li256EE8distanceERKS0_(v18, v19);
+    v21 = *__error();
+    v22 = _SILogForLogForCategory(16);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v22 = *v18++;
-      v23 = v22;
-      v24 = *v19++;
-      v25 = vsubq_f16(v23, v24);
-      v20 = vmlaq_f16(v20, v25, v25);
-      v21 += 8;
-    }
-
-    while (v21 < 0x1F8);
-    v130 = v20;
-    v26 = *__error();
-    v27 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
-    {
-      _H3 = v130.i16[0];
-      __asm { FCVT            S0, H3 }
-
-      _H1 = v130.i16[1];
-      __asm { FCVT            S1, H1 }
-
-      v68 = _S0 + _S1;
-      LOWORD(_S1) = v130.i16[2];
-      __asm { FCVT            S1, H1 }
-
-      _H2 = v130.i16[3];
-      __asm { FCVT            S2, H2 }
-
-      v72 = v68 + (_S1 + _S2);
-      LOWORD(_S1) = v130.i16[4];
-      __asm { FCVT            S1, H1 }
-
-      LOWORD(_S2) = v130.i16[5];
-      __asm { FCVT            S2, H2 }
-
-      _S1 = _S1 + _S2;
-      LOWORD(_S2) = v130.i16[6];
-      __asm { FCVT            S2, H2 }
-
-      v77 = v72 + (_S1 + _S2);
-      LOWORD(_S1) = v130.i16[7];
-      __asm { FCVT            S1, H1 }
-
-      v79 = *(a1 + 88);
+      v53 = *(a1 + 88);
       *buf = 136315906;
-      v140 = "exists_block_invoke";
-      v141 = 1024;
-      v142 = 2821;
-      v143 = 1024;
-      v144 = v79;
-      v145 = 2048;
-      *v146 = (v77 + _S1);
-      _os_log_error_impl(&dword_1C278D000, v27, OS_LOG_TYPE_ERROR, "%s:%d: Vec distance to centroid %u distsq=%e", buf, 0x22u);
+      v112 = "exists_block_invoke";
+      v113 = 1024;
+      v114 = 2821;
+      v115 = 1024;
+      v116 = v53;
+      v117 = 2048;
+      *v118 = v20;
+      _os_log_error_impl(&dword_1C278D000, v22, OS_LOG_TYPE_ERROR, "%s:%d: Vec distance to centroid %u distsq=%e", buf, 0x22u);
     }
 
-    *__error() = v26;
+    *__error() = v21;
     __p = 0;
-    v137 = 0;
-    v138 = 0;
-    v28 = *(a1 + 48);
+    v109 = 0;
+    v110 = 0;
     (*(**(a1 + 56) + 80))(&__p);
+    v23 = *__error();
+    v24 = _SILogForLogForCategory(16);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    {
+      v54 = *__p;
+      v55 = *(__p + 1);
+      v56 = *(__p + 2);
+      v57 = *(__p + 3);
+      v58 = v55 == v57 || vabds_f32(v55, v57) <= fmaxf(fminf(fabsf(v57), fabsf(v55)) * 0.000015259, 0.000015259);
+      *buf = 136316674;
+      v112 = "exists_block_invoke";
+      v113 = 1024;
+      v114 = 2823;
+      v115 = 1024;
+      v116 = v54;
+      v117 = 2048;
+      *v118 = v55;
+      *&v118[8] = 1024;
+      *&v118[10] = v56;
+      v119 = 2048;
+      v120 = v57;
+      v121 = 1024;
+      LODWORD(v122) = v58;
+      _os_log_error_impl(&dword_1C278D000, v24, OS_LOG_TYPE_ERROR, "%s:%d: topKPartition(vec, 2) <%u, %e>, <%u, %e>, %d", buf, 0x38u);
+    }
+
+    *__error() = v23;
+    v25 = *__error();
+    v26 = _SILogForLogForCategory(16);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    {
+      v59 = *__p;
+      v60 = *(__p + 2);
+      v61 = *(__p + 1) == *(__p + 3);
+      *buf = 136316162;
+      v112 = "exists_block_invoke";
+      v113 = 1024;
+      v114 = 2824;
+      v115 = 1024;
+      v116 = v59;
+      v117 = 1024;
+      *v118 = v60;
+      *&v118[4] = 1024;
+      *&v118[6] = v61;
+      _os_log_error_impl(&dword_1C278D000, v26, OS_LOG_TYPE_ERROR, "%s:%d: distsq(%u) == distsq(%u) is %d", buf, 0x24u);
+    }
+
+    *__error() = v25;
+    v27 = *__error();
+    v28 = _SILogForLogForCategory(16);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    {
+      v62 = *__p;
+      v63 = *(__p + 2);
+      v64 = *(__p + 1) < *(__p + 3);
+      *buf = 136316162;
+      v112 = "exists_block_invoke";
+      v113 = 1024;
+      v114 = 2825;
+      v115 = 1024;
+      v116 = v62;
+      v117 = 1024;
+      *v118 = v63;
+      *&v118[4] = 1024;
+      *&v118[6] = v64;
+      _os_log_error_impl(&dword_1C278D000, v28, OS_LOG_TYPE_ERROR, "%s:%d: distsq(%u) < distsq(%u) is %d", buf, 0x24u);
+    }
+
+    *__error() = v27;
     v29 = *__error();
     v30 = _SILogForLogForCategory(16);
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      v80 = *__p;
-      v81 = *(__p + 1);
-      v82 = *(__p + 2);
-      v83 = *(__p + 3);
-      *buf = 136316674;
-      v140 = "exists_block_invoke";
-      v84 = vabds_f32(v81, v83) <= fmaxf(fminf(fabsf(v83), fabsf(v81)) * 0.000015259, 0.000015259);
-      v142 = 2823;
-      v141 = 1024;
-      v85 = v81 == v83 || v84;
-      v143 = 1024;
-      v144 = v80;
-      v145 = 2048;
-      *v146 = v81;
-      *&v146[8] = 1024;
-      *&v146[10] = v82;
-      v147 = 2048;
-      v148 = v83;
-      v149 = 1024;
-      LODWORD(v150) = v85;
-      _os_log_error_impl(&dword_1C278D000, v30, OS_LOG_TYPE_ERROR, "%s:%d: topKPartition(vec, 2) <%u, %e>, <%u, %e>, %d", buf, 0x38u);
+      v65 = *__p;
+      v66 = *(__p + 2);
+      v67 = *(__p + 1) > *(__p + 3);
+      *buf = 136316162;
+      v112 = "exists_block_invoke";
+      v113 = 1024;
+      v114 = 2826;
+      v115 = 1024;
+      v116 = v65;
+      v117 = 1024;
+      *v118 = v66;
+      *&v118[4] = 1024;
+      *&v118[6] = v67;
+      _os_log_error_impl(&dword_1C278D000, v30, OS_LOG_TYPE_ERROR, "%s:%d: distsq(%u) > distsq(%u) is %d", buf, 0x24u);
     }
 
     *__error() = v29;
@@ -8701,163 +9842,163 @@ void ___ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefi
     v32 = _SILogForLogForCategory(16);
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      v86 = *__p;
-      v87 = *(__p + 2);
-      v88 = *(__p + 1) == *(__p + 3);
-      *buf = 136316162;
-      v140 = "exists_block_invoke";
-      v141 = 1024;
-      v142 = 2824;
-      v143 = 1024;
-      v144 = v86;
-      v145 = 1024;
-      *v146 = v87;
-      *&v146[4] = 1024;
-      *&v146[6] = v88;
-      _os_log_error_impl(&dword_1C278D000, v32, OS_LOG_TYPE_ERROR, "%s:%d: distsq(%u) == distsq(%u) is %d", buf, 0x24u);
-    }
-
-    *__error() = v31;
-    v33 = *__error();
-    v34 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
-    {
-      v89 = *__p;
-      v90 = *(__p + 2);
-      v91 = *(__p + 1) < *(__p + 3);
-      *buf = 136316162;
-      v140 = "exists_block_invoke";
-      v141 = 1024;
-      v142 = 2825;
-      v143 = 1024;
-      v144 = v89;
-      v145 = 1024;
-      *v146 = v90;
-      *&v146[4] = 1024;
-      *&v146[6] = v91;
-      _os_log_error_impl(&dword_1C278D000, v34, OS_LOG_TYPE_ERROR, "%s:%d: distsq(%u) < distsq(%u) is %d", buf, 0x24u);
-    }
-
-    *__error() = v33;
-    v35 = *__error();
-    v36 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
-    {
-      v92 = *__p;
-      v93 = *(__p + 2);
-      v94 = *(__p + 1) > *(__p + 3);
-      *buf = 136316162;
-      v140 = "exists_block_invoke";
-      v141 = 1024;
-      v142 = 2826;
-      v143 = 1024;
-      v144 = v92;
-      v145 = 1024;
-      *v146 = v93;
-      *&v146[4] = 1024;
-      *&v146[6] = v94;
-      _os_log_error_impl(&dword_1C278D000, v36, OS_LOG_TYPE_ERROR, "%s:%d: distsq(%u) > distsq(%u) is %d", buf, 0x24u);
-    }
-
-    *__error() = v35;
-    v37 = *__error();
-    v38 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
-    {
-      v95 = *__p;
-      v96 = *(__p + 2);
-      v97 = *(__p + 1);
-      v98 = *(__p + 3);
-      v99 = (v97 - v98);
-      v100 = vabds_f32(v97, v98);
-      if (v97 == v98)
+      v68 = *__p;
+      v69 = *(__p + 2);
+      v70 = *(__p + 1);
+      v71 = *(__p + 3);
+      v72 = (v70 - v71);
+      v73 = vabds_f32(v70, v71);
+      if (v70 == v71)
       {
-        v101 = 1;
-        v102 = 1;
+        v74 = 1;
+        v75 = 1;
       }
 
       else
       {
-        v126 = fabsf(v97);
-        v127 = fabsf(v98);
-        v101 = v100 <= fmaxf(fminf(v127, v126) * 0.000015259, 0.000015259);
-        v102 = v100 <= (fmaxf(v126, v127) * 0.000015259);
+        v99 = fabsf(v70);
+        v100 = fabsf(v71);
+        v74 = v73 <= fmaxf(fminf(v100, v99) * 0.000015259, 0.000015259);
+        v75 = v73 <= (fmaxf(v99, v100) * 0.000015259);
       }
 
       *buf = 136317698;
-      v140 = "exists_block_invoke";
-      v141 = 1024;
-      v142 = 2827;
-      v143 = 1024;
-      v144 = v95;
-      v145 = 1024;
-      *v146 = v96;
-      *&v146[4] = 2048;
-      *&v146[6] = v99;
-      v147 = 2048;
-      v148 = 1.17549435e-38;
-      v149 = 2048;
-      v150 = 0x3E80000000000000;
-      v151 = 1024;
-      v152 = v100 < 1.1755e-38;
-      v153 = 1024;
-      v154 = v100 < 0.00000011921;
-      v155 = 1024;
-      v156 = v101;
-      v157 = 1024;
-      v158 = v102;
-      _os_log_error_impl(&dword_1C278D000, v38, OS_LOG_TYPE_ERROR, "%s:%d: distsq(%u) - distsq(%u) = %e, FLT_MIN=%e, EPSILON=%e, %d, %d, %d, %d", buf, 0x54u);
+      v112 = "exists_block_invoke";
+      v113 = 1024;
+      v114 = 2827;
+      v115 = 1024;
+      v116 = v68;
+      v117 = 1024;
+      *v118 = v69;
+      *&v118[4] = 2048;
+      *&v118[6] = v72;
+      v119 = 2048;
+      v120 = 1.17549435e-38;
+      v121 = 2048;
+      v122 = 0x3E80000000000000;
+      v123 = 1024;
+      v124 = v73 < 1.1755e-38;
+      v125 = 1024;
+      v126 = v73 < 0.00000011921;
+      v127 = 1024;
+      v128 = v74;
+      v129 = 1024;
+      v130 = v75;
+      _os_log_error_impl(&dword_1C278D000, v32, OS_LOG_TYPE_ERROR, "%s:%d: distsq(%u) - distsq(%u) = %e, FLT_MIN=%e, EPSILON=%e, %d, %d, %d, %d", buf, 0x54u);
     }
 
-    *__error() = v37;
-    v134 = 0;
-    v135 = 0;
-    v133 = 0;
-    v39 = *(a1 + 56);
-    v40 = *a3;
-    v41 = *(*(v131 + 48) + 32);
-    v42 = v41[3] + v41[2] * v40;
-    bit_vector_set_13535(v41 + 525, (v42 >> 20));
-    v43 = (v42 + 1040) >> 20;
-    if (v43 > (v42 >> 20))
+    *__error() = v31;
+    v106 = 0;
+    v107 = 0;
+    v105 = 0;
+    v33 = *(a1 + 56);
+    v34 = *a3;
+    v35 = *(*(v103 + 48) + 32);
+    v36 = v35[3] + v35[2] * v34;
+    bit_vector_set_13535(v35 + 525, (v36 >> 20));
+    v37 = (v36 + 528) >> 20;
+    if (v37 > (v36 >> 20))
     {
-      v44 = (v42 >> 20) + 1;
+      v38 = (v36 >> 20) + 1;
       do
       {
-        v45 = v44;
-        bit_vector_set_13535(v41 + 525, v44++);
+        v39 = v38;
+        bit_vector_set_13535(v35 + 525, v38++);
       }
 
-      while (v43 > v45);
+      while (v37 > v39);
     }
 
-    v46 = _windowsResolvePtr((v41 + 5), v41[3] + v41[2] * v40, 1040);
-    (*(*v39 + 80))(&v133, v39, v46, 2);
+    v40 = _windowsResolvePtr((v35 + 5), v35[3] + v35[2] * v34, 528);
+    (*(*v33 + 80))(&v105, v33, v40, 2);
+    v41 = *__error();
+    v42 = _SILogForLogForCategory(16);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    {
+      v76 = *v105;
+      v77 = *(v105 + 1);
+      v78 = *(v105 + 2);
+      v79 = *(v105 + 3);
+      *buf = 136316674;
+      v112 = "exists_block_invoke";
+      v80 = vabds_f32(v77, v79) <= fmaxf(fminf(fabsf(v79), fabsf(v77)) * 0.000015259, 0.000015259);
+      v114 = 2830;
+      v113 = 1024;
+      v81 = v77 == v79 || v80;
+      v115 = 1024;
+      v116 = v76;
+      v117 = 2048;
+      *v118 = v77;
+      *&v118[8] = 1024;
+      *&v118[10] = v78;
+      v119 = 2048;
+      v120 = v79;
+      v121 = 1024;
+      LODWORD(v122) = v81;
+      _os_log_error_impl(&dword_1C278D000, v42, OS_LOG_TYPE_ERROR, "%s:%d: topKPartition(entry->vec, 2) <%u, %e>, <%u, %e>, %d", buf, 0x38u);
+    }
+
+    *__error() = v41;
+    v43 = *__error();
+    v44 = _SILogForLogForCategory(16);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    {
+      v82 = *v105;
+      v83 = *(v105 + 2);
+      v84 = *(v105 + 1) == *(v105 + 3);
+      *buf = 136316162;
+      v112 = "exists_block_invoke";
+      v113 = 1024;
+      v114 = 2831;
+      v115 = 1024;
+      v116 = v82;
+      v117 = 1024;
+      *v118 = v83;
+      *&v118[4] = 1024;
+      *&v118[6] = v84;
+      _os_log_error_impl(&dword_1C278D000, v44, OS_LOG_TYPE_ERROR, "%s:%d: distsq(%u) == distsq(%u) is %d", buf, 0x24u);
+    }
+
+    *__error() = v43;
+    v45 = *__error();
+    v46 = _SILogForLogForCategory(16);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+    {
+      v85 = *v105;
+      v86 = *(v105 + 2);
+      v87 = *(v105 + 1) < *(v105 + 3);
+      *buf = 136316162;
+      v112 = "exists_block_invoke";
+      v113 = 1024;
+      v114 = 2832;
+      v115 = 1024;
+      v116 = v85;
+      v117 = 1024;
+      *v118 = v86;
+      *&v118[4] = 1024;
+      *&v118[6] = v87;
+      _os_log_error_impl(&dword_1C278D000, v46, OS_LOG_TYPE_ERROR, "%s:%d: distsq(%u) < distsq(%u) is %d", buf, 0x24u);
+    }
+
+    *__error() = v45;
     v47 = *__error();
     v48 = _SILogForLogForCategory(16);
     if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
-      v103 = *v133;
-      v104 = v133[1];
-      v105 = *(v133 + 2);
-      v106 = v133[3];
-      *buf = 136316674;
-      v140 = "exists_block_invoke";
-      v107 = vabds_f32(v104, v106) <= fmaxf(fminf(fabsf(v106), fabsf(v104)) * 0.000015259, 0.000015259);
-      v142 = 2830;
-      v141 = 1024;
-      v108 = v104 == v106 || v107;
-      v143 = 1024;
-      v144 = v103;
-      v145 = 2048;
-      *v146 = v104;
-      *&v146[8] = 1024;
-      *&v146[10] = v105;
-      v147 = 2048;
-      v148 = v106;
-      v149 = 1024;
-      LODWORD(v150) = v108;
-      _os_log_error_impl(&dword_1C278D000, v48, OS_LOG_TYPE_ERROR, "%s:%d: topKPartition(entry->vec, 2) <%u, %e>, <%u, %e>, %d", buf, 0x38u);
+      v88 = *v105;
+      v89 = *(v105 + 2);
+      v90 = *(v105 + 1) > *(v105 + 3);
+      *buf = 136316162;
+      v112 = "exists_block_invoke";
+      v113 = 1024;
+      v114 = 2833;
+      v115 = 1024;
+      v116 = v88;
+      v117 = 1024;
+      *v118 = v89;
+      *&v118[4] = 1024;
+      *&v118[6] = v90;
+      _os_log_error_impl(&dword_1C278D000, v48, OS_LOG_TYPE_ERROR, "%s:%d: distsq(%u) > distsq(%u) is %d", buf, 0x24u);
     }
 
     *__error() = v47;
@@ -8865,1027 +10006,65 @@ void ___ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefi
     v50 = _SILogForLogForCategory(16);
     if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
     {
-      v109 = *v133;
-      v110 = *(v133 + 2);
-      v111 = v133[1] == v133[3];
-      *buf = 136316162;
-      v140 = "exists_block_invoke";
-      v141 = 1024;
-      v142 = 2831;
-      v143 = 1024;
-      v144 = v109;
-      v145 = 1024;
-      *v146 = v110;
-      *&v146[4] = 1024;
-      *&v146[6] = v111;
-      _os_log_error_impl(&dword_1C278D000, v50, OS_LOG_TYPE_ERROR, "%s:%d: distsq(%u) == distsq(%u) is %d", buf, 0x24u);
-    }
-
-    *__error() = v49;
-    v51 = *__error();
-    v52 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
-    {
-      v112 = *v133;
-      v113 = *(v133 + 2);
-      v114 = v133[1] < v133[3];
-      *buf = 136316162;
-      v140 = "exists_block_invoke";
-      v141 = 1024;
-      v142 = 2832;
-      v143 = 1024;
-      v144 = v112;
-      v145 = 1024;
-      *v146 = v113;
-      *&v146[4] = 1024;
-      *&v146[6] = v114;
-      _os_log_error_impl(&dword_1C278D000, v52, OS_LOG_TYPE_ERROR, "%s:%d: distsq(%u) < distsq(%u) is %d", buf, 0x24u);
-    }
-
-    *__error() = v51;
-    v53 = *__error();
-    v54 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
-    {
-      v115 = *v133;
-      v116 = *(v133 + 2);
-      v117 = v133[1] > v133[3];
-      *buf = 136316162;
-      v140 = "exists_block_invoke";
-      v141 = 1024;
-      v142 = 2833;
-      v143 = 1024;
-      v144 = v115;
-      v145 = 1024;
-      *v146 = v116;
-      *&v146[4] = 1024;
-      *&v146[6] = v117;
-      _os_log_error_impl(&dword_1C278D000, v54, OS_LOG_TYPE_ERROR, "%s:%d: distsq(%u) > distsq(%u) is %d", buf, 0x24u);
-    }
-
-    *__error() = v53;
-    v55 = *__error();
-    v56 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
-    {
-      v118 = *v133;
-      v119 = *(v133 + 2);
-      v120 = v133[1];
-      v121 = v133[3];
-      v122 = vabds_f32(v120, v121);
-      v123 = (v120 - v121) < 1.1755e-38;
-      if (v120 == v121)
+      v91 = *v105;
+      v92 = *(v105 + 2);
+      v93 = *(v105 + 1);
+      v94 = *(v105 + 3);
+      v95 = vabds_f32(v93, v94);
+      v96 = (v93 - v94) < 1.1755e-38;
+      if (v93 == v94)
       {
-        v124 = 1;
-        v125 = 1;
+        v97 = 1;
+        v98 = 1;
       }
 
       else
       {
-        v128 = fabsf(v120);
-        v129 = fabsf(v121);
-        v124 = v122 <= fmaxf(fminf(v129, v128) * 0.000015259, 0.000015259);
-        v125 = v122 <= (fmaxf(v128, v129) * 0.000015259);
+        v101 = fabsf(v93);
+        v102 = fabsf(v94);
+        v97 = v95 <= fmaxf(fminf(v102, v101) * 0.000015259, 0.000015259);
+        v98 = v95 <= (fmaxf(v101, v102) * 0.000015259);
       }
 
       *buf = 136317698;
-      v140 = "exists_block_invoke";
-      v141 = 1024;
-      v142 = 2834;
-      v143 = 1024;
-      v144 = v118;
-      v145 = 1024;
-      *v146 = v119;
-      *&v146[4] = 2048;
-      *&v146[6] = v122;
-      v147 = 2048;
-      v148 = 1.17549435e-38;
-      v149 = 2048;
-      v150 = 0x3E80000000000000;
-      v151 = 1024;
-      v152 = v123;
-      v153 = 1024;
-      v154 = v122 < 0.00000011921;
-      v155 = 1024;
-      v156 = v124;
-      v157 = 1024;
-      v158 = v125;
-      _os_log_error_impl(&dword_1C278D000, v56, OS_LOG_TYPE_ERROR, "%s:%d: distsq(%u) - distsq(%u) = %e, FLT_MIN=%e, EPSILON=%e, %d, %d, %d, %d", buf, 0x54u);
+      v112 = "exists_block_invoke";
+      v113 = 1024;
+      v114 = 2834;
+      v115 = 1024;
+      v116 = v91;
+      v117 = 1024;
+      *v118 = v92;
+      *&v118[4] = 2048;
+      *&v118[6] = v95;
+      v119 = 2048;
+      v120 = 1.17549435e-38;
+      v121 = 2048;
+      v122 = 0x3E80000000000000;
+      v123 = 1024;
+      v124 = v96;
+      v125 = 1024;
+      v126 = v95 < 0.00000011921;
+      v127 = 1024;
+      v128 = v97;
+      v129 = 1024;
+      v130 = v98;
+      _os_log_error_impl(&dword_1C278D000, v50, OS_LOG_TYPE_ERROR, "%s:%d: distsq(%u) - distsq(%u) = %e, FLT_MIN=%e, EPSILON=%e, %d, %d, %d, %d", buf, 0x54u);
     }
 
-    *__error() = v55;
+    *__error() = v49;
     *(*(*(a1 + 32) + 8) + 24) = *v17;
-    v57 = v133;
+    v51 = v105;
     *a4 = 1;
-    if (v57)
+    if (v51)
     {
-      v134 = v57;
-      operator delete(v57);
+      v106 = v51;
+      operator delete(v51);
     }
 
     if (__p)
     {
-      v137 = __p;
+      v109 = __p;
       operator delete(__p);
-    }
-  }
-
-  v58 = *MEMORY[0x1E69E9840];
-}
-
-void __destroy_helper_block_8_56c64_ZTSN22IVFVectorIndexTemplateIDF16_Li512EE19QuantizerPartitionsE(uint64_t a1)
-{
-  v1 = *(a1 + 80);
-  if (v1 && !atomic_fetch_add(&v1->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v1->__on_zero_shared)(v1);
-    std::__shared_weak_count::__release_weak(v1);
-    v2 = *(a1 + 64);
-    if (!v2)
-    {
-      return;
-    }
-  }
-
-  else
-  {
-    v2 = *(a1 + 64);
-    if (!v2)
-    {
-      return;
-    }
-  }
-
-  if (!atomic_fetch_add(&v2->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v2->__on_zero_shared)(v2);
-
-    std::__shared_weak_count::__release_weak(v2);
-  }
-}
-
-void *__copy_helper_block_8_56c64_ZTSN22IVFVectorIndexTemplateIDF16_Li512EE19QuantizerPartitionsE(void *result, void *a2)
-{
-  v2 = a2[8];
-  result[7] = a2[7];
-  result[8] = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v3 = a2[10];
-  result[9] = a2[9];
-  result[10] = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EED0Ev(uint64_t a1)
-{
-  *a1 = &unk_1F4280138;
-  _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsED2Ev((a1 + 48));
-  *a1 = &unk_1F427DB40;
-  if (*(a1 + 47) < 0)
-  {
-    operator delete(*(a1 + 24));
-  }
-
-  JUMPOUT(0x1C691FEF0);
-}
-
-uint64_t _ZN16IVFVectorIndexenI30vi_onefixedsize_disk_allocator16vi_disk_postingsE22IVFVectorIndexInstanceIDF16_Li512EED1Ev(uint64_t a1)
-{
-  *a1 = &unk_1F4280138;
-  _ZN22IVFVectorIndexTemplateIDF16_Li512EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsED2Ev((a1 + 48));
-  *a1 = &unk_1F427DB40;
-  if (*(a1 + 47) < 0)
-  {
-    operator delete(*(a1 + 24));
-  }
-
-  return a1;
-}
-
-void _ZN22IVFVectorIndexTemplateIDF16_Li256EE11VectorStoreI30vi_onefixedsize_disk_allocator16vi_disk_postingsEC2IS2_EENSt3__19enable_ifIXsr13is_persistentIT_EE5valueES8_E4type11meta_info_sEP16vector_storage_s(uint64_t a1, uint64_t a2)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = *(a2 + 16);
-  *a1 = *a2;
-  *(a1 + 16) = v3;
-  *(a1 + 32) = 0;
-  *(a1 + 40) = 0;
-  *(a1 + 72) = 0;
-  *(a1 + 80) = 0;
-  *(a1 + 64) = 0;
-  v4 = a1 + 64;
-  bzero(v6, 0x400uLL);
-  v5 = fd_name(*a2, v6, 0x400uLL);
-  MEMORY[0x1C691FAE0](v4, v5);
-  operator new();
-}
-
-void _ZN22IVFVectorIndexTemplateIDF16_Li256EE13childMetaInfoEN19vi_ondisk_allocator11meta_info_sENSt3__112basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEb(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
-{
-  v44 = *MEMORY[0x1E69E9840];
-  bzero(v43, 0x400uLL);
-  v8 = fd_name(*a2, v43, 0x400uLL);
-  v9 = v8;
-  if (*a2)
-  {
-    v10 = *(*a2 + 44);
-  }
-
-  else
-  {
-    v10 = -1;
-  }
-
-  v11 = strlen(v8);
-  if (v11 >= 0x7FFFFFFFFFFFFFF8)
-  {
-    std::vector<long long>::__throw_length_error[abi:nn200100]();
-  }
-
-  v12 = v11;
-  if (v11 >= 0x17)
-  {
-    operator new();
-  }
-
-  __dst[23] = v11;
-  if (v11)
-  {
-    memmove(__dst, v9, v11);
-  }
-
-  __dst[v12] = 0;
-  memset(&v37, 0, sizeof(v37));
-  v13 = __dst[23];
-  if ((__dst[23] & 0x80000000) != 0)
-  {
-    std::string::__init_copy_ctor_external(&v37, *__dst, *&__dst[8]);
-  }
-
-  else
-  {
-    v37 = *__dst;
-  }
-
-  v14 = *(a3 + 23);
-  if (v14 >= 0)
-  {
-    v15 = a3;
-  }
-
-  else
-  {
-    v15 = *a3;
-  }
-
-  if (v14 >= 0)
-  {
-    v16 = *(a3 + 23);
-  }
-
-  else
-  {
-    v16 = *(a3 + 8);
-  }
-
-  std::string::append(&v37, v15, v16);
-  if (v13 < 0)
-  {
-    operator delete(*__dst);
-    if (!a4)
-    {
-      goto LABEL_34;
-    }
-  }
-
-  else if (!a4)
-  {
-    goto LABEL_34;
-  }
-
-  if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v17 = &v37;
-  }
-
-  else
-  {
-    v17 = v37.__r_.__value_.__r.__words[0];
-  }
-
-  v18 = fd_create_protected(v10, v17, 0, 3u);
-  if (v18)
-  {
-    v19 = v18;
-    do
-    {
-      v20 = fchmodat(*(v19 + 44), *(v19 + 72), 0x180u, 2048);
-      v21 = g_prot_error_callback;
-      if (v20 != -1 || g_prot_error_callback == 0)
-      {
-        break;
-      }
-
-      v23 = *(v19 + 40);
-      v24 = __error();
-    }
-
-    while (((*(v21 + 16))(v21, v23, *v24, 19) & 1) != 0);
-    _fd_unlink_with_origin(v19, 0);
-    fd_release(v19);
-  }
-
-LABEL_34:
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0;
-  if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v25 = &v37;
-  }
-
-  else
-  {
-    v25 = v37.__r_.__value_.__r.__words[0];
-  }
-
-  if (((a4 ^ 1) & *(a2 + 20)) != 0)
-  {
-    v26 = 0;
-  }
-
-  else
-  {
-    v26 = 514;
-  }
-
-  v27 = fd_create_protected(v10, v25, v26, 3u);
-  v28 = *(a2 + 8);
-  *a1 = v27;
-  *(a1 + 8) = v28;
-  *(a1 + 16) = *(a2 + 16);
-  *(a1 + 20) = (a4 ^ 1) & *(a2 + 20);
-  *(a1 + 21) = a4;
-  *(a1 + 22) = *(a2 + 22);
-  *(a1 + 24) = 0;
-  if (!v27)
-  {
-    v29 = *__error();
-    v30 = _SILogForLogForCategory(16);
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
-    {
-      v32 = "open";
-      if (a4)
-      {
-        v32 = "create";
-      }
-
-      *__dst = 136316162;
-      *&__dst[4] = "childMetaInfo";
-      *&__dst[14] = 2086;
-      v33 = &v37;
-      *&__dst[12] = 1024;
-      if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-      {
-        v33 = v37.__r_.__value_.__r.__words[0];
-      }
-
-      *&__dst[18] = 2080;
-      *&__dst[20] = v32;
-      v39 = 2080;
-      v40 = v33;
-      v41 = 1024;
-      v42 = v10;
-      _os_log_error_impl(&dword_1C278D000, v30, OS_LOG_TYPE_ERROR, "%s:%d: Failed to %s %s in parentFd: %i", __dst, 0x2Cu);
-    }
-
-    *__error() = v29;
-    if (a4)
-    {
-      v34 = __si_assert_copy_extra_332();
-      v35 = v34;
-      v36 = "";
-      if (v34)
-      {
-        v36 = v34;
-      }
-
-      __message_assert("%s:%u: failed assertion '%s' %s ", "IVFVectorIndex.hh", 2087, "!newFile", v36);
-      free(v35);
-      if (__valid_fs(-1))
-      {
-        MEMORY[0xBAD] = -559038737;
-        abort();
-      }
-
-      MEMORY[0xC00] = -559038737;
-      abort();
-    }
-  }
-
-  if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v37.__r_.__value_.__l.__data_);
-  }
-
-  v31 = *MEMORY[0x1E69E9840];
-}
-
-void _ZN16QuantizerManagerIDF16_Li256EE15sharedQuantizerEi(void *a1, uint64_t a2, int a3)
-{
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3802000000;
-  v15 = __Block_byref_object_copy__334;
-  v17 = 0;
-  v18 = 0;
-  v16 = __Block_byref_object_dispose__335;
-  if (_ZZN19ZeroVectorQuantizerIDF16_Li256EE14sharedInstanceEvE9onceToken != -1)
-  {
-    v8 = a2;
-    v9 = a3;
-    dispatch_once(&_ZZN19ZeroVectorQuantizerIDF16_Li256EE14sharedInstanceEvE9onceToken, &__block_literal_global_224);
-    a3 = v9;
-    a2 = v8;
-  }
-
-  v4 = *(_ZZN19ZeroVectorQuantizerIDF16_Li256EE14sharedInstanceEvE3zvq + 8);
-  v17 = *_ZZN19ZeroVectorQuantizerIDF16_Li256EE14sharedInstanceEvE3zvq;
-  v18 = v4;
-  if (v4)
-  {
-    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v5 = *(a2 + 16);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 0x40000000;
-  v10[2] = ___ZN16QuantizerManagerIDF16_Li256EE15sharedQuantizerEi_block_invoke;
-  v10[3] = &unk_1E8194ED8;
-  v11 = a3;
-  v10[4] = &v12;
-  v10[5] = a2;
-  dispatch_sync(v5, v10);
-  v6 = v13[6];
-  *a1 = v13[5];
-  a1[1] = v6;
-  if (v6)
-  {
-    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  _Block_object_dispose(&v12, 8);
-  v7 = v18;
-  if (v18)
-  {
-    if (!atomic_fetch_add(&v18->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v7->__on_zero_shared)(v7);
-      std::__shared_weak_count::__release_weak(v7);
-    }
-  }
-}
-
-void _ZNSt3__14swapB8nn200100IN22IVFVectorIndexTemplateIDF16_Li256EE19QuantizerPartitionsEEENS_9enable_ifIXaasr21is_move_constructibleIT_EE5valuesr18is_move_assignableIS5_EE5valueEvE4typeERS5_S8_(__int128 *a1, __int128 *a2)
-{
-  v4 = *a1;
-  v3 = a1[1];
-  *a1 = 0;
-  *(a1 + 1) = 0;
-  *(a1 + 2) = 0;
-  *(a1 + 3) = 0;
-  v5 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  v6 = *(a1 + 1);
-  *a1 = v5;
-  if (v6 && !atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    v7 = a1;
-    v12 = v4;
-    v14 = v3;
-    (v6->__on_zero_shared)(v6);
-    std::__shared_weak_count::__release_weak(v6);
-    v4 = v12;
-    v3 = v14;
-    a1 = v7;
-  }
-
-  v8 = a2[1];
-  *(a2 + 2) = 0;
-  *(a2 + 3) = 0;
-  v9 = *(a1 + 3);
-  a1[1] = v8;
-  if (v9 && !atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    v13 = v4;
-    v15 = v3;
-    (v9->__on_zero_shared)(v9);
-    std::__shared_weak_count::__release_weak(v9);
-    v4 = v13;
-    v3 = v15;
-  }
-
-  v10 = *(a2 + 1);
-  *a2 = v4;
-  if (v10 && !atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    v16 = v3;
-    (v10->__on_zero_shared)(v10);
-    std::__shared_weak_count::__release_weak(v10);
-    v3 = v16;
-  }
-
-  v11 = *(a2 + 3);
-  a2[1] = v3;
-  if (v11 && !atomic_fetch_add(&v11->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v11->__on_zero_shared)(v11);
-
-    std::__shared_weak_count::__release_weak(v11);
-  }
-}
-
-void _ZN22IVFVectorIndexTemplateIDF16_Li256EE20IVFVectorIndexRoot_sI30vi_onefixedsize_disk_allocator16vi_disk_postingsE16replaceQuantizerENSt3__110shared_ptrI9QuantizerIDF16_Li256EEEE(uint64_t a1, uint64_t *a2)
-{
-  os_unfair_lock_lock((a1 + 112));
-  v5 = *(a1 + 80);
-  v4 = *(a1 + 88);
-  if (v4)
-  {
-    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v6 = *(a1 + 104);
-  if (v6)
-  {
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  os_unfair_lock_unlock((a1 + 112));
-  v7 = *a2;
-  if (v5 != *a2)
-  {
-    v8 = a2[1];
-    v17 = *a2;
-    v18 = v8;
-    if (v8)
-    {
-      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
-      v9 = a2[1];
-      v13 = *a2;
-      v14 = v9;
-      if (v9)
-      {
-        atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-    }
-
-    else
-    {
-      v13 = v7;
-      v14 = 0;
-    }
-
-    (*(*a1 + 40))(&v15, a1, &v13);
-    (*(*a1 + 48))(a1, &v17, &v15);
-    v10 = v16;
-    if (v16 && !atomic_fetch_add(&v16->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v10->__on_zero_shared)(v10);
-      std::__shared_weak_count::__release_weak(v10);
-    }
-
-    v11 = v14;
-    if (v14 && !atomic_fetch_add(&v14->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v11->__on_zero_shared)(v11);
-      std::__shared_weak_count::__release_weak(v11);
-    }
-
-    v12 = v18;
-    if (v18 && !atomic_fetch_add(&v18->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v12->__on_zero_shared)(v12);
-      std::__shared_weak_count::__release_weak(v12);
-    }
-  }
-
-  if (v6 && !atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v6->__on_zero_shared)(v6);
-    std::__shared_weak_count::__release_weak(v6);
-  }
-
-  if (v4)
-  {
-    if (!atomic_fetch_add(&v4->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (v4->__on_zero_shared)(v4);
-      std::__shared_weak_count::__release_weak(v4);
-    }
-  }
-}
-
-__n128 __Block_byref_object_copy__334(uint64_t a1, uint64_t a2)
-{
-  result = *(a2 + 40);
-  *(a1 + 40) = result;
-  *(a2 + 40) = 0;
-  *(a2 + 48) = 0;
-  return result;
-}
-
-void __Block_byref_object_dispose__335(uint64_t a1)
-{
-  v1 = *(a1 + 48);
-  if (v1 && !atomic_fetch_add(&v1->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v1->__on_zero_shared)(v1);
-
-    std::__shared_weak_count::__release_weak(v1);
-  }
-}
-
-void ___ZN16QuantizerManagerIDF16_Li256EE15sharedQuantizerEi_block_invoke(uint64_t a1)
-{
-  v3 = (a1 + 48);
-  v2 = *(a1 + 48);
-  v4 = *(a1 + 40);
-  if (!v2)
-  {
-    goto LABEL_52;
-  }
-
-  v5 = *(v4 + 120);
-  if (!*&v5)
-  {
-    goto LABEL_22;
-  }
-
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
-  {
-    v7 = *(a1 + 48);
-    if (*&v5 <= v2)
-    {
-      v7 = v2 % *&v5;
-    }
-  }
-
-  else
-  {
-    v7 = (*&v5 - 1) & v2;
-  }
-
-  v8 = *(*(v4 + 112) + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
-  {
-LABEL_22:
-    v43[0] = 0;
-    v43[1] = 0;
-    v44 = 0;
-    v13 = *(v4 + 71);
-    if (v13 >= 0)
-    {
-      v14 = *(v4 + 71);
-    }
-
-    else
-    {
-      v14 = *(v4 + 56);
-    }
-
-    if (v14 + 1 > 0x7FFFFFFFFFFFFFF7)
-    {
-      goto LABEL_93;
-    }
-
-    if (v14 + 1 >= 0x17)
-    {
-      operator new();
-    }
-
-    memset(&v42, 0, sizeof(v42));
-    *(&v42.__r_.__value_.__s + 23) = v14 + 1;
-    if (v14)
-    {
-      if ((v13 & 0x80u) == 0)
-      {
-        v15 = (v4 + 48);
-      }
-
-      else
-      {
-        v15 = *(v4 + 48);
-      }
-
-      memmove(&v42, v15, v14);
-    }
-
-    *(&v42.__r_.__value_.__l.__data_ + v14) = 46;
-    std::to_string(&v41, *v3);
-    if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v16 = &v41;
-    }
-
-    else
-    {
-      v16 = v41.__r_.__value_.__r.__words[0];
-    }
-
-    if ((v41.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      size = HIBYTE(v41.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      size = v41.__r_.__value_.__l.__size_;
-    }
-
-    v18 = std::string::append(&v42, v16, size);
-    v19 = v18->__r_.__value_.__r.__words[2];
-    *&__p.__r_.__value_.__l.__data_ = *&v18->__r_.__value_.__l.__data_;
-    __p.__r_.__value_.__r.__words[2] = v19;
-    v18->__r_.__value_.__l.__size_ = 0;
-    v18->__r_.__value_.__r.__words[2] = 0;
-    v18->__r_.__value_.__r.__words[0] = 0;
-    v20 = std::string::append(&__p, ".quantizer");
-    v21 = v20->__r_.__value_.__r.__words[2];
-    *v43 = *&v20->__r_.__value_.__l.__data_;
-    v44 = v21;
-    v20->__r_.__value_.__l.__size_ = 0;
-    v20->__r_.__value_.__r.__words[2] = 0;
-    v20->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__p.__r_.__value_.__l.__data_);
-      if ((SHIBYTE(v41.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-      {
-LABEL_41:
-        if ((SHIBYTE(v42.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-        {
-LABEL_42:
-          if (v44 >= 0)
-          {
-            v22 = v43;
-          }
-
-          else
-          {
-            v22 = v43[0];
-          }
-
-          if (fd_create_protected(*v4, v22, 0, 3u))
-          {
-            operator new();
-          }
-
-          if (SHIBYTE(v44) < 0)
-          {
-            operator delete(v43[0]);
-          }
-
-          goto LABEL_52;
-        }
-
-LABEL_49:
-        operator delete(v42.__r_.__value_.__l.__data_);
-        goto LABEL_42;
-      }
-    }
-
-    else if ((SHIBYTE(v41.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
-      goto LABEL_41;
-    }
-
-    operator delete(v41.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v42.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
-    {
-      goto LABEL_42;
-    }
-
-    goto LABEL_49;
-  }
-
-  if (v6.u32[0] < 2uLL)
-  {
-    v10 = *&v5 - 1;
-    while (1)
-    {
-      v11 = v9[1];
-      if (v11 == v2)
-      {
-        if (*(v9 + 4) == v2)
-        {
-          goto LABEL_86;
-        }
-      }
-
-      else if ((v11 & v10) != v7)
-      {
-        goto LABEL_22;
-      }
-
-      v9 = *v9;
-      if (!v9)
-      {
-        goto LABEL_22;
-      }
-    }
-  }
-
-  while (1)
-  {
-    v12 = v9[1];
-    if (v12 == v2)
-    {
-      break;
-    }
-
-    if (v12 >= *&v5)
-    {
-      v12 %= *&v5;
-    }
-
-    if (v12 != v7)
-    {
-      goto LABEL_22;
-    }
-
-LABEL_17:
-    v9 = *v9;
-    if (!v9)
-    {
-      goto LABEL_22;
-    }
-  }
-
-  if (*(v9 + 4) != v2)
-  {
-    goto LABEL_17;
-  }
-
-LABEL_86:
-  __p.__r_.__value_.__r.__words[0] = a1 + 48;
-  v35 = _ZNSt3__112__hash_tableINS_17__hash_value_typeIiNS_8weak_ptrI9QuantizerIDF16_Li256EEEEEENS_22__unordered_map_hasherIiS6_NS_4hashIiEENS_8equal_toIiEELb1EEENS_21__unordered_map_equalIiS6_SB_S9_Lb1EEENS_9allocatorIS6_EEE25__emplace_unique_key_argsIiJRKNS_21piecewise_construct_tENS_5tupleIJRKiEEENSM_IJEEEEEENS_4pairINS_15__hash_iteratorIPNS_11__hash_nodeIS6_PvEEEEbEERKT_DpOT0_((v4 + 112), v2);
-  v36 = v35[4];
-  if (v36 && (v36 = std::__shared_weak_count::lock(v36)) != 0)
-  {
-    v37 = v35[3];
-  }
-
-  else
-  {
-    v37 = 0;
-  }
-
-  v38 = *(*(a1 + 32) + 8);
-  v39 = *(v38 + 48);
-  *(v38 + 40) = v37;
-  *(v38 + 48) = v36;
-  if (v39 && !atomic_fetch_add(&v39->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v39->__on_zero_shared)(v39);
-    std::__shared_weak_count::__release_weak(v39);
-  }
-
-LABEL_52:
-  v23 = *(*(a1 + 32) + 8);
-  if (_ZZN19ZeroVectorQuantizerIDF16_Li256EE14sharedInstanceEvE9onceToken != -1)
-  {
-    dispatch_once(&_ZZN19ZeroVectorQuantizerIDF16_Li256EE14sharedInstanceEvE9onceToken, &__block_literal_global_224);
-  }
-
-  v25 = *_ZZN19ZeroVectorQuantizerIDF16_Li256EE14sharedInstanceEvE3zvq;
-  v24 = *(_ZZN19ZeroVectorQuantizerIDF16_Li256EE14sharedInstanceEvE3zvq + 8);
-  if (!v24)
-  {
-    if (*(v23 + 40) != v25)
-    {
-      return;
-    }
-
-LABEL_61:
-    v27 = *(v4 + 80);
-    if (v27)
-    {
-      v28 = *(v4 + 88);
-      if (v28)
-      {
-        atomic_fetch_add_explicit((v28 + 8), 1uLL, memory_order_relaxed);
-      }
-
-      v29 = *(*(a1 + 32) + 8);
-      v30 = *(v29 + 48);
-      *(v29 + 40) = v27;
-      *(v29 + 48) = v28;
-      if (v30)
-      {
-        if (!atomic_fetch_add(&v30->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-        {
-          (v30->__on_zero_shared)(v30);
-          std::__shared_weak_count::__release_weak(v30);
-        }
-      }
-
-      return;
-    }
-
-    v31 = *(v4 + 71);
-    if (v31 >= 0)
-    {
-      v32 = *(v4 + 71);
-    }
-
-    else
-    {
-      v32 = *(v4 + 56);
-    }
-
-    if (v32 + 10 <= 0x7FFFFFFFFFFFFFF7)
-    {
-      if (v32 + 10 >= 0x17)
-      {
-        operator new();
-      }
-
-      v43[1] = 0;
-      v44 = 0;
-      v43[0] = 0;
-      HIBYTE(v44) = v32 + 10;
-      if (v32)
-      {
-        if ((v31 & 0x80u) == 0)
-        {
-          v33 = (v4 + 48);
-        }
-
-        else
-        {
-          v33 = *(v4 + 48);
-        }
-
-        memmove(v43, v33, v32);
-      }
-
-      strcpy(v43 + v32, ".quantizer");
-      if (v44 >= 0)
-      {
-        v34 = v43;
-      }
-
-      else
-      {
-        v34 = v43[0];
-      }
-
-      if (fd_create_protected(*v4, v34, 0, 3u))
-      {
-        operator new();
-      }
-
-      if (SHIBYTE(v44) < 0)
-      {
-        operator delete(v43[0]);
-      }
-
-      return;
-    }
-
-LABEL_93:
-    std::vector<long long>::__throw_length_error[abi:nn200100]();
-  }
-
-  atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
-  v26 = *(v23 + 40);
-  if (atomic_fetch_add(&v24->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    if (v26 == v25)
-    {
-      goto LABEL_61;
-    }
-  }
-
-  else
-  {
-    (v24->__on_zero_shared)(v24);
-    std::__shared_weak_count::__release_weak(v24);
-    if (v26 == v25)
-    {
-      goto LABEL_61;
     }
   }
 }

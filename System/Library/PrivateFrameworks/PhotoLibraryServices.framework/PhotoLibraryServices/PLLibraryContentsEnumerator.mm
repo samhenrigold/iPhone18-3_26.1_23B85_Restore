@@ -20,7 +20,7 @@
 - (BOOL)processObjectsWithError:(id *)error
 {
   v39 = *MEMORY[0x1E69E9840];
-  if ([(NSMutableArray *)self->_conversationHandlerBlocks count])
+  if (objc_msgSend_count(self->_conversationHandlerBlocks, a2))
   {
     _setupConversationController = [(PLLibraryContentsEnumerator *)self _setupConversationController];
   }
@@ -30,7 +30,7 @@
     _setupConversationController = 0;
   }
 
-  if ([(NSMutableArray *)self->_assetHandlerBlocks count]|| [(NSMutableArray *)self->_resourceHandlerBlocks count]|| [(NSMutableArray *)self->_faceHandlerBlocks count])
+  if (objc_msgSend_count(self->_assetHandlerBlocks) || objc_msgSend_count(self->_resourceHandlerBlocks) || objc_msgSend_count(self->_faceHandlerBlocks))
   {
     _setupAssetResourceFaceController = [(PLLibraryContentsEnumerator *)self _setupAssetResourceFaceController];
   }
@@ -40,7 +40,7 @@
     _setupAssetResourceFaceController = 0;
   }
 
-  if ([(NSMutableArray *)self->_albumHandlerBlocks count])
+  if (objc_msgSend_count(self->_albumHandlerBlocks))
   {
     _setupAlbumController = [(PLLibraryContentsEnumerator *)self _setupAlbumController];
     if (_setupConversationController)
@@ -463,7 +463,7 @@ void __64__PLLibraryContentsEnumerator__setupAssetResourceFaceController__block_
     while (v7);
   }
 
-  if ([*(*(a1 + 32) + 24) count])
+  if (objc_msgSend_count(*(*(a1 + 32) + 24)))
   {
     v44 = 0u;
     v45 = 0u;
@@ -526,7 +526,7 @@ void __64__PLLibraryContentsEnumerator__setupAssetResourceFaceController__block_
     }
   }
 
-  if ([*(*(a1 + 32) + 40) count])
+  if (objc_msgSend_count(*(*(a1 + 32) + 40)))
   {
     v36 = 0u;
     v37 = 0u;

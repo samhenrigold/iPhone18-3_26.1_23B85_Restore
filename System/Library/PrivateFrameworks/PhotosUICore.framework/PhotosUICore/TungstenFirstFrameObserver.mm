@@ -7,7 +7,7 @@
 
 - (OS_dispatch_queue)hostingControllerObservationQueue
 {
-  sub_1A3C52C70(0, &qword_1EB12B180);
+  sub_1A3C52C70(0, &qword_1EB12B180, 0x1E69E9610);
   v2 = sub_1A524D474();
 
   return v2;

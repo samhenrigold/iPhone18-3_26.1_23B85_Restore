@@ -166,50 +166,13 @@ LABEL_11:
   v20.receiver = self;
   v20.super_class = HAPBLEServiceCache;
   v5 = [(HAPBLEServiceCache *)&v20 init];
-  if (!v5)
-  {
-    goto LABEL_5;
-  }
-
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"SUUI"];
-  serviceUUID = v5->_serviceUUID;
-  v5->_serviceUUID = v6;
-
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"SI"];
-  serviceInstanceId = v5->_serviceInstanceId;
-  v5->_serviceInstanceId = v8;
-
-  v5->_serviceInstanceOrder = [coderCopy decodeIntegerForKey:@"SO"];
-  v5->_serviceProperties = [coderCopy decodeIntegerForKey:@"SP"];
-  v22[0] = objc_opt_class();
-  v22[1] = objc_opt_class();
-  v10 = [NSArray arrayWithObjects:v22 count:2];
-  v11 = [NSSet setWithArray:v10];
-  v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"LS"];
-  linkedServices = v5->_linkedServices;
-  v5->_linkedServices = v12;
-
-  v21[0] = objc_opt_class();
-  v21[1] = objc_opt_class();
-  v14 = [NSArray arrayWithObjects:v21 count:2];
-  v15 = [NSSet setWithArray:v14];
-  v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"CC"];
-  cachedCharacteristics = v5->_cachedCharacteristics;
-  v5->_cachedCharacteristics = v16;
-
-  if (!v5->_serviceInstanceId)
-  {
-    goto LABEL_5;
-  }
-
-  if (v5->_serviceUUID)
+  if (v5 && ([coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"SUUI"], v6 = objc_claimAutoreleasedReturnValue(), serviceUUID = v5->_serviceUUID, v5->_serviceUUID = v6, serviceUUID, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"SI"), v8 = objc_claimAutoreleasedReturnValue(), serviceInstanceId = v5->_serviceInstanceId, v5->_serviceInstanceId = v8, serviceInstanceId, v5->_serviceInstanceOrder = objc_msgSend(coderCopy, "decodeIntegerForKey:", @"SO"), v5->_serviceProperties = objc_msgSend(coderCopy, "decodeIntegerForKey:", @"SP"), v22[0] = objc_opt_class(), v22[1] = objc_opt_class(), +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", v22, 2), v10 = objc_claimAutoreleasedReturnValue(), +[NSSet setWithArray:](NSSet, "setWithArray:", v10), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(coderCopy, "decodeObjectOfClasses:forKey:", v11, @"LS"), v12 = objc_claimAutoreleasedReturnValue(), linkedServices = v5->_linkedServices, v5->_linkedServices = v12, linkedServices, v11, v10, v21[0] = objc_opt_class(), v21[1] = objc_opt_class(), +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", v21, 2), v14 = objc_claimAutoreleasedReturnValue(), +[NSSet setWithArray:](NSSet, "setWithArray:", v14), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(coderCopy, "decodeObjectOfClasses:forKey:", v15, @"CC"), v16 = objc_claimAutoreleasedReturnValue(), cachedCharacteristics = v5->_cachedCharacteristics, v5->_cachedCharacteristics = v16, cachedCharacteristics, v15, v14, v5->_serviceInstanceId) && v5->_serviceUUID)
   {
     v18 = v5;
   }
 
   else
   {
-LABEL_5:
     v18 = 0;
   }
 

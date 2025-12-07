@@ -43,6 +43,7 @@
 
 - (PHBottomBarSupplementalButton)initWithAction:(int64_t)action
 {
+  selfCopy = self;
   if (action > 10)
   {
     if (action == 11)
@@ -50,7 +51,7 @@
       v5 = [UIImage tpImageForSymbolType:14 textStyle:UIFontTextStyleTitle3 scale:-1 isStaticSize:1];
       v6 = [NSBundle bundleForClass:objc_opt_class()];
       v7 = [v6 localizedStringForKey:@"SCREENING_STOP" value:&stru_100361FD0 table:@"BottomBar"];
-      v8 = [(PHBottomBarSupplementalButton *)self initWithText:v7 image:v5];
+      v8 = [(PHBottomBarSupplementalButton *)selfCopy initWithText:v7 image:v5];
       goto LABEL_12;
     }
 
@@ -59,7 +60,7 @@
       v5 = [UIImage tpImageForSymbolType:39 textStyle:UIFontTextStyleTitle3 scale:-1 isStaticSize:1];
       v6 = [NSBundle bundleForClass:objc_opt_class()];
       v7 = [v6 localizedStringForKey:@"CALL_BACK_LATER" value:&stru_100361FD0 table:@"BottomBar"];
-      v8 = [(PHBottomBarSupplementalButton *)self initWithText:v7 image:v5];
+      v8 = [(PHBottomBarSupplementalButton *)selfCopy initWithText:v7 image:v5];
       goto LABEL_12;
     }
 
@@ -77,7 +78,7 @@ LABEL_9:
     v5 = [UIImage tpImageForSymbolType:14 textStyle:UIFontTextStyleTitle3 scale:-1 isStaticSize:1];
     v6 = [NSBundle bundleForClass:objc_opt_class()];
     v7 = [v6 localizedStringForKey:@"SEND_MESSAGE" value:&stru_100361FD0 table:@"BottomBar"];
-    v8 = [(PHBottomBarSupplementalButton *)self initWithText:v7 image:v5];
+    v8 = [(PHBottomBarSupplementalButton *)selfCopy initWithText:v7 image:v5];
     goto LABEL_12;
   }
 
@@ -86,25 +87,25 @@ LABEL_9:
     v5 = [UIImage tpImageForSymbolType:14 textStyle:UIFontTextStyleTitle3 scale:-1 isStaticSize:1];
     v6 = [NSBundle bundleForClass:objc_opt_class()];
     v7 = [v6 localizedStringForKey:@"SCREENING_BLOCK" value:&stru_100361FD0 table:@"BottomBar"];
-    v8 = [(PHBottomBarSupplementalButton *)self initWithText:v7 image:v5];
+    v8 = [(PHBottomBarSupplementalButton *)selfCopy initWithText:v7 image:v5];
 LABEL_12:
-    self = v8;
+    selfCopy = v8;
 
-    selfCopy = self;
+    v9 = selfCopy;
     goto LABEL_13;
   }
 
 LABEL_14:
-  v11 = sub_100004F84();
+  v11 = sub_100004F84(self);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     sub_1002571E4(action, v11);
   }
 
-  selfCopy = 0;
+  v9 = 0;
 LABEL_13:
 
-  return selfCopy;
+  return v9;
 }
 
 - (CGSize)intrinsicContentSize

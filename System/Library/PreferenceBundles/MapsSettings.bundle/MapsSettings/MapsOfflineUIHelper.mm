@@ -166,7 +166,7 @@
   if (usingOfflineMaps != maps)
   {
     self->_usingOfflineMaps = maps;
-    v5 = MAPSGetOfflineLog();
+    v5 = MAPSGetOfflineLog(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       if (usingOfflineMaps)
@@ -255,41 +255,41 @@ LABEL_11:
   regionCopy = region;
   nameCopy = name;
   completionCopy = completion;
-  v32 = nameCopy;
+  v33 = nameCopy;
   v9 = 1;
 LABEL_2:
   if (v9 <= 1)
   {
-    v12 = v32;
+    v12 = v33;
   }
 
   else
   {
     v10 = [NSBundle bundleForClass:NSClassFromString(@"MapsSettingsController")];
     v11 = [v10 localizedStringForKey:@"OFFLINE_REGION_NAME_DUPLICATE_FORMAT" value:@"localized string not found" table:@"Offline"];
-    v12 = [NSString localizedStringWithFormat:v11, v32, v9];
+    v12 = [NSString localizedStringWithFormat:v11, v33, v9];
   }
 
-  v38 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
+  v38 = 0u;
   subscriptions = [(MapsOfflineUIHelper *)self subscriptions];
-  v14 = [subscriptions countByEnumeratingWithState:&v36 objects:v44 count:16];
+  v14 = [subscriptions countByEnumeratingWithState:&v37 objects:v45 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v37;
+    v16 = *v38;
     while (2)
     {
       for (i = 0; i != v15; i = i + 1)
       {
-        if (*v37 != v16)
+        if (*v38 != v16)
         {
           objc_enumerationMutation(subscriptions);
         }
 
-        v18 = *(*(&v36 + 1) + 8 * i);
+        v18 = *(*(&v37 + 1) + 8 * i);
         displayName = [v18 displayName];
         if (displayName)
         {
@@ -306,7 +306,7 @@ LABEL_2:
         }
       }
 
-      v15 = [subscriptions countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v15 = [subscriptions countByEnumeratingWithState:&v37 objects:v45 count:16];
       if (v15)
       {
         continue;
@@ -316,33 +316,34 @@ LABEL_2:
     }
   }
 
-  if (([v12 isEqualToString:v32] & 1) == 0)
+  v23 = [v12 isEqualToString:v33];
+  if ((v23 & 1) == 0)
   {
-    v23 = MAPSGetOfflineLog();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+    v24 = MAPSGetOfflineLog(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
       *buf = 138478083;
-      v41 = v32;
-      v42 = 2113;
-      v43 = v12;
-      _os_log_impl(&dword_0, v23, OS_LOG_TYPE_INFO, "A region already exists with the name '%{private}@'. Using '%{private}@' instead", buf, 0x16u);
+      v42 = v33;
+      v43 = 2113;
+      v44 = v12;
+      _os_log_impl(&dword_0, v24, OS_LOG_TYPE_INFO, "A region already exists with the name '%{private}@'. Using '%{private}@' instead", buf, 0x16u);
     }
   }
 
-  v24 = +[NSUUID UUID];
-  uUIDString = [v24 UUIDString];
-  v26 = [NSString stringWithFormat:@"%@%@", @"com.apple.Maps.offline.", uUIDString];
+  v25 = +[NSUUID UUID];
+  uUIDString = [v25 UUIDString];
+  v27 = [NSString stringWithFormat:@"%@%@", @"com.apple.Maps.offline.", uUIDString];
 
   subscriptionManager = [(MapsOfflineUIHelper *)self subscriptionManager];
-  v33[0] = _NSConcreteStackBlock;
-  v33[1] = 3221225472;
-  v33[2] = sub_33AF4;
-  v33[3] = &unk_80300;
-  v34 = v26;
-  v35 = completionCopy;
-  v28 = v26;
-  v29 = completionCopy;
-  [subscriptionManager addSubscriptionWithIdentifier:v28 dataTypes:1024 policy:1 region:regionCopy displayName:v12 expirationDate:0 callbackQueue:&_dispatch_main_q completionHandler:v33];
+  v34[0] = _NSConcreteStackBlock;
+  v34[1] = 3221225472;
+  v34[2] = sub_33AF4;
+  v34[3] = &unk_80300;
+  v35 = v27;
+  v36 = completionCopy;
+  v29 = v27;
+  v30 = completionCopy;
+  [subscriptionManager addSubscriptionWithIdentifier:v29 dataTypes:1024 policy:1 region:regionCopy displayName:v12 expirationDate:0 callbackQueue:&_dispatch_main_q completionHandler:v34];
 }
 
 - (void)pauseDownloadForSubscriptionInfo:(id)info
@@ -1098,13 +1099,14 @@ LABEL_7:
       self->_pairedDeviceSubscriptionStatesMonitorCount = count;
       if ((count != 0) == pairedDeviceSubscriptionStatesMonitorCount < 1)
       {
-        v6 = MAPSGetOfflineLog();
+        v6 = MAPSGetOfflineLog(self);
         v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
         if (count)
         {
           if (v7)
           {
-            sub_37054(&dword_0, v8, v9, "[MapsOfflineUIHelper] start monitoring paired device subscription states", v10, v11, v12, v13, v19, *(&v19 + 1), v20, *(&v20 + 1), v21, *(&v21 + 1), v22, *(&v22 + 1), 0);
+            *buf = 0;
+            sub_37054(&dword_0, v8, v9, "[MapsOfflineUIHelper] start monitoring paired device subscription states", v10, v11, v12, v13, v19, *(&v19 + 1), v20, *(&v20 + 1), v21, *(&v21 + 1), v22, *(&v22 + 1));
           }
 
           [(MapsOfflineUIHelper *)self _reloadPairedDeviceSubscriptionInfos];
@@ -1114,7 +1116,8 @@ LABEL_7:
         {
           if (v7)
           {
-            sub_37054(&dword_0, v8, v9, "[MapsOfflineUIHelper] stop monitoring paired device subscription states", v10, v11, v12, v13, v19, *(&v19 + 1), v20, *(&v20 + 1), v21, *(&v21 + 1), v22, *(&v22 + 1), 0);
+            *buf = 0;
+            sub_37054(&dword_0, v8, v9, "[MapsOfflineUIHelper] stop monitoring paired device subscription states", v10, v11, v12, v13, v19, *(&v19 + 1), v20, *(&v20 + 1), v21, *(&v21 + 1), v22, *(&v22 + 1));
           }
 
           v21 = 0u;

@@ -1,4 +1,5 @@
 @interface HMDCoordinationPrimaryElectionDetailedLogEvent
+- (HMDCoordinationPrimaryElectionDetailedLogEvent)initWithIsPrimary:(BOOL)primary didChangePrimary:(BOOL)changePrimary electionTriggerReason:(unint64_t)reason confirmationCriteria:(unint64_t)criteria meshAndPrimaryCandidateCountEqual:(BOOL)equal previousPrimaryInMesh:(BOOL)mesh;
 - (NSDictionary)coreAnalyticsEventDictionary;
 @end
 
@@ -315,9 +316,25 @@
   }
 
   [dictionary setObject:v31 forKeyedSubscript:@"previousPrimaryInMesh"];
-  v32 = [dictionary copy];
+  v32 = objc_msgSend_copy(dictionary);
 
   return v32;
+}
+
+- (HMDCoordinationPrimaryElectionDetailedLogEvent)initWithIsPrimary:(BOOL)primary didChangePrimary:(BOOL)changePrimary electionTriggerReason:(unint64_t)reason confirmationCriteria:(unint64_t)criteria meshAndPrimaryCandidateCountEqual:(BOOL)equal previousPrimaryInMesh:(BOOL)mesh
+{
+  v13.receiver = self;
+  v13.super_class = HMDCoordinationPrimaryElectionDetailedLogEvent;
+  result = [(HMDCoordinationPrimaryElectionLogEvent *)&v13 initWithIsPrimary:primary didChangePrimary:changePrimary];
+  if (result)
+  {
+    *&result->_meshAndPrimaryCandidateCountEqual = reason;
+    result->_electionTriggerReason = criteria;
+    *(&result->super._didChangePrimary + 1) = equal;
+    *(&result->super._didChangePrimary + 2) = mesh;
+  }
+
+  return result;
 }
 
 @end

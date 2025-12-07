@@ -58,7 +58,7 @@
 {
   v29.receiver = self;
   v29.super_class = _SSSScrollViewLayoutRects;
-  v25 = objc_msgSendSuper2(&v29, "init");
+  v25 = objc_msgSendSuper2(&v29, "init", a11, a12, a13, a14, a15, a16);
   *(v25 + 1) = a2;
   *(v25 + 2) = rect;
   *(v25 + 3) = insetRect;

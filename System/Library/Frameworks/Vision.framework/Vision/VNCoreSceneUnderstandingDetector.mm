@@ -886,7 +886,7 @@ LABEL_4:
                 v321 = 0;
                 aBlock = 0;
                 v322 = 0;
-                std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&aBlock, bytes, bytes + (v144 & 0xFFFFFFFFFFFFFFFCLL), v144 >> 2);
+                std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&aBlock, bytes, (bytes + (v144 & 0xFFFFFFFFFFFFFFFCLL)), v144 >> 2);
                 v145 = aBlock;
                 if (v321 != aBlock)
                 {
@@ -2758,55 +2758,55 @@ void __102__VNCoreSceneUnderstandingDetector__getSceneNetV5ConfigurationRevision
     dispatch_once(&+[VNCoreSceneUnderstandingDetector _sceneNetV5ConfigurationRevisionForRequestClass:revision:]::onceToken, block);
   }
 
-  v6 = +[VNCoreSceneUnderstandingDetector _sceneNetV5ConfigurationRevisionForRequestClass:revision:]::ourModelMap;
-  v7 = VNRequestClassFromClientSubclass(a2);
-  v10 = *(v6 + 8);
-  v9 = (v6 + 8);
-  v8 = v10;
-  if (!v10)
+  v7 = +[VNCoreSceneUnderstandingDetector _sceneNetV5ConfigurationRevisionForRequestClass:revision:]::ourModelMap;
+  v8 = VNRequestClassFromClientSubclass(a2, v6);
+  v11 = *(v7 + 8);
+  v10 = (v7 + 8);
+  v9 = v11;
+  if (!v11)
   {
     goto LABEL_20;
   }
 
-  v11 = v9;
+  v12 = v10;
   do
   {
-    v12 = v8[4];
-    if (v7 == v12)
+    v13 = v9[4];
+    if (v8 == v13)
     {
-      v13 = v8[5] < class;
+      v14 = v9[5] < class;
     }
 
     else
     {
-      v13 = v12 < v7;
+      v14 = v13 < v8;
     }
 
-    v14 = !v13;
-    v15 = v13;
-    if (v14)
+    v15 = !v14;
+    v16 = v14;
+    if (v15)
     {
-      v11 = v8;
+      v12 = v9;
     }
 
-    v8 = v8[v15];
+    v9 = v9[v16];
   }
 
-  while (v8);
-  if (v11 == v9 || ((v16 = v11[4], v16 != v7) ? (v17 = v7 < v16) : (v17 = v11[5] > class), v17))
+  while (v9);
+  if (v12 == v10 || ((v17 = v12[4], v17 != v8) ? (v18 = v8 < v17) : (v18 = v12[5] > class), v18))
   {
 LABEL_20:
-    v11 = v9;
+    v12 = v10;
   }
 
-  if ((+[VNCoreSceneUnderstandingDetector _sceneNetV5ConfigurationRevisionForRequestClass:revision:]::ourModelMap + 8) == v11)
+  if ((+[VNCoreSceneUnderstandingDetector _sceneNetV5ConfigurationRevisionForRequestClass:revision:]::ourModelMap + 8) == v12)
   {
     return 0;
   }
 
   else
   {
-    return v11[6];
+    return v12[6];
   }
 }
 

@@ -37,19 +37,19 @@
 {
   v8 = type metadata accessor for UITabSidebarItem.Content();
   v9 = *(v8 - 8);
-  __chkstk_darwin(v8);
-  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin();
+  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   controllerCopy = controller;
   sidebarCopy = sidebar;
   itemCopy = item;
   UITabSidebarItem.content.getter();
-  v15 = sub_10016E910(v11);
+  v16 = sub_10016E910(v11, v15);
   (*(v9 + 8))(v11, v8);
-  if (v15)
+  if (v16)
   {
-    if ([v15 respondsToSelector:"tabBarController:sidebar:updateItem:"])
+    if ([v16 respondsToSelector:"tabBarController:sidebar:updateItem:"])
     {
-      [v15 tabBarController:controllerCopy sidebar:sidebarCopy updateItem:itemCopy];
+      [v16 tabBarController:controllerCopy sidebar:sidebarCopy updateItem:itemCopy];
     }
 
     swift_unknownObjectRelease();
@@ -73,7 +73,7 @@
   sub_1003CF028(controllerCopy, session, tabCopy);
 
   swift_unknownObjectRelease();
-  sub_100009F78(0, &qword_10118B920);
+  sub_100009F78(0, &qword_10118B920, UIDragItem_ptr);
   v14.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v14.super.isa;

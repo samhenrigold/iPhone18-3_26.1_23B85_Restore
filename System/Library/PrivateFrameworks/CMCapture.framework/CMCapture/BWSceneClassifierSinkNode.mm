@@ -1,6 +1,6 @@
 @interface BWSceneClassifierSinkNode
 - (BWSceneClassifierSinkNode)initWithCaptureDevice:(id)device version:(id)version lensSmudgeDetectionConfiguration:(BWLensSmudgeDetectionConfiguration *)configuration sinkID:(id)d;
-- (uint64_t)_updateLensSmudgeDetectionWithSampleBuffer:(uint64_t)result;
+- (void)_updateLensSmudgeDetectionWithSampleBuffer:(void *)result;
 - (void)dealloc;
 - (void)didReachEndOfDataForConfigurationID:(id)d input:(id)input;
 - (void)renderSampleBuffer:(opaqueCMSampleBuffer *)buffer forInput:(id)input;
@@ -112,7 +112,7 @@
   [(BWSinkNode *)&v8 didReachEndOfDataForConfigurationID:d input:input];
 }
 
-uint64_t __57__BWSceneClassifierSinkNode_renderSampleBuffer_forInput___block_invoke(uint64_t a1)
+void *__57__BWSceneClassifierSinkNode_renderSampleBuffer_forInput___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 240) updateSmartCameraStreamPropertiesWithInferenceResult:*(a1 + 40)];
   if (*(a1 + 52) == 1)
@@ -150,9 +150,9 @@ void __72__BWSceneClassifierSinkNode__updateLensSmudgeDetectionWithSampleBuffer_
   if (AttachedInferenceResult)
   {
     v7 = AttachedInferenceResult;
-    if (![(NSString *)[(BWInferenceResult *)AttachedInferenceResult preventionReason] isEqualToString:@"BlurryInputBuffer"])
+    if ((objc_msgSend_isEqualToString_([(BWInferenceResult *)AttachedInferenceResult preventionReason]) & 1) == 0)
     {
-      if ([(NSString *)[(BWInferenceResult *)v7 preventionReason] isEqualToString:@"FilteredInputBuffer"])
+      if (objc_msgSend_isEqualToString_([(BWInferenceResult *)v7 preventionReason]))
       {
         v8 = [BWInferenceResult alloc];
         v7 = [(BWInferenceResult *)v8 initWithResult:v7 replacementInferences:MEMORY[0x1E695E0F8] replacementPreventionReason:0];
@@ -249,7 +249,7 @@ void __72__BWSceneClassifierSinkNode__updateLensSmudgeDetectionWithSampleBuffer_
   }
 }
 
-- (uint64_t)_updateLensSmudgeDetectionWithSampleBuffer:(uint64_t)result
+- (void)_updateLensSmudgeDetectionWithSampleBuffer:(void *)result
 {
   if (result)
   {

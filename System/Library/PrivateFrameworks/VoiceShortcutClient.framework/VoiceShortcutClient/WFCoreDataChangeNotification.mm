@@ -51,7 +51,7 @@
 
 - (BOOL)appliesToResultState:(id)state
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   if ([(WFCoreDataChangeNotification *)self invalidatedAllObjects])
   {
@@ -60,26 +60,26 @@
 
   else
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     inserted = [(WFCoreDataChangeNotification *)self inserted];
-    v7 = [inserted countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v7 = [inserted countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v27;
+      v9 = *v26;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v27 != v9)
+          if (*v26 != v9)
           {
             objc_enumerationMutation(inserted);
           }
 
-          objectType = [*(*(&v26 + 1) + 8 * i) objectType];
+          objectType = [*(*(&v25 + 1) + 8 * i) objectType];
           if (objectType == [stateCopy objectType])
           {
 LABEL_22:
@@ -88,7 +88,7 @@ LABEL_22:
           }
         }
 
-        v8 = [inserted countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v8 = [inserted countByEnumeratingWithState:&v25 objects:v30 count:16];
         if (v8)
         {
           continue;
@@ -98,28 +98,28 @@ LABEL_22:
       }
     }
 
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     updated = [(WFCoreDataChangeNotification *)self updated];
     deleted = [(WFCoreDataChangeNotification *)self deleted];
     inserted = [updated setByAddingObjectsFromSet:deleted];
 
-    v5 = [inserted countByEnumeratingWithState:&v22 objects:v30 count:16];
+    v5 = [inserted countByEnumeratingWithState:&v21 objects:v29 count:16];
     if (v5)
     {
-      v14 = *v23;
+      v14 = *v22;
       while (2)
       {
         for (j = 0; j != v5; ++j)
         {
-          if (*v23 != v14)
+          if (*v22 != v14)
           {
             objc_enumerationMutation(inserted);
           }
 
-          v16 = *(*(&v22 + 1) + 8 * j);
+          v16 = *(*(&v21 + 1) + 8 * j);
           state = [stateCopy state];
           if ([state containsObject:v16])
           {
@@ -136,7 +136,7 @@ LABEL_22:
           }
         }
 
-        v5 = [inserted countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v5 = [inserted countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v5)
         {
           continue;
@@ -149,34 +149,31 @@ LABEL_22:
 LABEL_23:
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (id)dictionaryRepresentation
 {
-  v15[5] = *MEMORY[0x1E69E9840];
-  v14[0] = @"invalidatedAllObjects";
+  v14[5] = *MEMORY[0x1E69E9840];
+  v13[0] = @"invalidatedAllObjects";
   v3 = [MEMORY[0x1E696AD98] numberWithBool:{-[WFCoreDataChangeNotification invalidatedAllObjects](self, "invalidatedAllObjects")}];
-  v15[0] = v3;
-  v14[1] = @"updated";
+  v14[0] = v3;
+  v13[1] = @"updated";
   updated = [(WFCoreDataChangeNotification *)self updated];
   v5 = WFArrayFromChanges(updated);
-  v15[1] = v5;
-  v14[2] = @"inserted";
+  v14[1] = v5;
+  v13[2] = @"inserted";
   inserted = [(WFCoreDataChangeNotification *)self inserted];
   v7 = WFArrayFromChanges(inserted);
-  v15[2] = v7;
-  v14[3] = @"deleted";
+  v14[2] = v7;
+  v13[3] = @"deleted";
   deleted = [(WFCoreDataChangeNotification *)self deleted];
   v9 = WFArrayFromChanges(deleted);
-  v15[3] = v9;
-  v14[4] = @"processIdentifier";
+  v14[3] = v9;
+  v13[4] = @"processIdentifier";
   v10 = [MEMORY[0x1E696AD98] numberWithInt:{-[WFCoreDataChangeNotification processIdentifier](self, "processIdentifier")}];
-  v15[4] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:5];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v14[4] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:5];
 
   return v11;
 }

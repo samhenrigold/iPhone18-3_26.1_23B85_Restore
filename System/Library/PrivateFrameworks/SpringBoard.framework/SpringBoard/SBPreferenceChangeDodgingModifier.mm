@@ -103,7 +103,7 @@
       v10 = [(SBPreferenceChangeDodgingModifier *)self preferenceForIdentifier:v9];
       excludedDodgingIdentifiers2 = [v10 excludedDodgingIdentifiers];
 
-      if (([excludedDodgingIdentifiers2 containsObject:self->_identifier] & 1) == 0 && (self->_boostUpdatedIdentifier || (objc_msgSend(v9, "isEqual:", self->_identifier) & 1) != 0 || objc_msgSend(excludedDodgingIdentifiers, "containsObject:", v9)))
+      if ((objc_msgSend_containsObject_(excludedDodgingIdentifiers2) & 1) == 0 && (self->_boostUpdatedIdentifier || ([v9 isEqual:self->_identifier] & 1) != 0 || objc_msgSend_containsObject_(excludedDodgingIdentifiers)))
       {
         break;
       }

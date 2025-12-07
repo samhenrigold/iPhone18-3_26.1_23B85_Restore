@@ -8,12 +8,12 @@
 + (id)makeWithConfiguration:(id)configuration builder:(id)builder healthStore:(id)store
 {
   v7 = *(configuration + OBJC_IVAR___WOCoreLiveWorkoutConfiguration_configuration);
-  type metadata accessor for RaceWorkoutConfiguration();
+  type metadata accessor for RaceWorkoutConfiguration(0);
   v8 = swift_dynamicCastClass();
   if (v8)
   {
     v9 = v8;
-    v10 = objc_allocWithZone(type metadata accessor for RaceCoordinator());
+    v10 = objc_allocWithZone(type metadata accessor for RaceCoordinator(0));
     builderCopy = builder;
     storeCopy = store;
     v13 = v7;
@@ -24,7 +24,7 @@
 
   else
   {
-    result = _assertionFailure(_:_:file:line:flags:)();
+    result = _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0xD000000000000048, 0x800000020B462D70, "WorkoutCore/RaceCoordinatorFactory.swift", 40, 2, 18, 0);
     __break(1u);
   }
 

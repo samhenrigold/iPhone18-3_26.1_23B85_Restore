@@ -67,11 +67,11 @@
   v14 = _Block_copy(v17);
   selfCopy = self;
   historyCopy = history;
-  sub_1000CD9D4(v10);
+  sub_1000CD9D4(v10, v11);
 
   [v12 fetchReviewedPlaceForMUID:muid withIdentifierHistory:historyCopy completion:v14];
 
-  sub_1000588AC(v10);
+  sub_1000588AC(v10, v11);
   _Block_release(v14);
 }
 
@@ -105,8 +105,8 @@ LABEL_3:
   v10 = 0;
 LABEL_6:
   selfCopy = self;
-  sub_1004239B4(v8, d, v7, v10);
-  sub_1000588AC(v7);
+  sub_1004239B4(v12, v8, d, v7, v10);
+  sub_1000588AC(v7, v10);
 }
 
 - (void)fetchAuthenticationInfoForRAPReportWithReportID:(id)d shouldIncreaseCount:(BOOL)count completion:(id)completion
@@ -140,7 +140,7 @@ LABEL_3:
 LABEL_6:
   selfCopy = self;
   sub_100423B74(v10, d, count, v9, v12);
-  sub_1000588AC(v9);
+  sub_1000588AC(v9, v12);
 }
 
 @end

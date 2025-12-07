@@ -20,23 +20,21 @@
 - (NSString)activityTitle
 {
   v2 = sub_24FEDCA84();
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v4 = sub_24FEDE1B4();
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
+  v3 = sub_24FEDE1B4();
+  MEMORY[0x28223BE20](v3 - 8);
   sub_24FEDE1A4();
   if (qword_27F3A5BB0 != -1)
   {
     swift_once();
   }
 
-  v6 = qword_27F3B3150;
+  v4 = qword_27F3B3150;
   sub_24FEDCA74();
   sub_24FEDE214();
-  v7 = sub_24FEDE1C4();
+  v5 = sub_24FEDE1C4();
 
-  return v7;
+  return v5;
 }
 
 - (BOOL)canPerformWithActivityItems:(id)items
@@ -51,21 +49,20 @@
 - (void)prepareWithActivityItems:(id)items
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F3A64B8, &qword_24FEE63A0);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = v14 - v6 + 16;
-  v8 = sub_24FEDE324();
-  if (*(v8 + 16))
+  v6 = v13 - v5 + 16;
+  v7 = sub_24FEDE324();
+  if (*(v7 + 16))
   {
-    sub_24FE72CC0(v8 + 32, v14);
+    sub_24FE72CC0(v7 + 32, v13);
     selfCopy = self;
 
-    v10 = sub_24FEDC9E4();
-    v11 = swift_dynamicCast();
-    (*(*(v10 - 8) + 56))(v7, v11 ^ 1u, 1, v10);
-    v12 = OBJC_IVAR____TtC16MarkdownDocument8CopyFile_fileURL;
+    v9 = sub_24FEDC9E4();
+    v10 = swift_dynamicCast();
+    (*(*(v9 - 8) + 56))(v6, v10 ^ 1u, 1, v9);
+    v11 = OBJC_IVAR____TtC16MarkdownDocument8CopyFile_fileURL;
     swift_beginAccess();
-    sub_24FECD334(v7, selfCopy + v12);
+    sub_24FECD334(v6, selfCopy + v11);
     swift_endAccess();
   }
 

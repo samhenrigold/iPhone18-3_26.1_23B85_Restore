@@ -684,30 +684,30 @@ LABEL_13:
   {
     Width = CGImageGetWidth(dc_CGImage);
     Height = CGImageGetHeight(dc_CGImage);
-    v8 = DCTSUCreateRGBABitmapContext(0, Width, Height, 1.0);
-    if (v8)
+    v9 = DCTSUCreateRGBABitmapContext(0, v8, Width, Height, 1.0);
+    if (v9)
     {
-      v9 = v8;
-      v15.origin.x = 0.0;
-      v15.origin.y = 0.0;
-      v15.size.width = Width;
-      v15.size.height = Height;
-      CGContextDrawImage(v8, v15, dc_CGImage);
-      Image = CGBitmapContextCreateImage(v9);
+      v10 = v9;
+      v16.origin.x = 0.0;
+      v16.origin.y = 0.0;
+      v16.size.width = Width;
+      v16.size.height = Height;
+      CGContextDrawImage(v9, v16, dc_CGImage);
+      Image = CGBitmapContextCreateImage(v10);
       if (Image)
       {
-        v11 = Image;
-        v12 = [MEMORY[0x277D755B8] dc_imageWithCGImage:Image scale:objc_msgSend(imageCopy orientation:{"dc_imageOrientation"), 1.0}];
+        v12 = Image;
+        v13 = [MEMORY[0x277D755B8] dc_imageWithCGImage:Image scale:objc_msgSend(imageCopy orientation:{"dc_imageOrientation"), 1.0}];
 
-        CFRelease(v11);
-        imageCopy = v12;
+        CFRelease(v12);
+        imageCopy = v13;
       }
 
-      CGContextRelease(v9);
+      CGContextRelease(v10);
     }
   }
 
-  v13 = imageCopy;
+  v14 = imageCopy;
 
   return imageCopy;
 }

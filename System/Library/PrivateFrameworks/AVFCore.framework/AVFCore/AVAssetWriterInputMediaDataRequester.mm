@@ -11,9 +11,9 @@
 
 - (AVAssetWriterInputMediaDataRequester)initWithRequestQueue:(id)queue requestBlock:(id)block
 {
-  v21.receiver = self;
-  v21.super_class = AVAssetWriterInputMediaDataRequester;
-  v7 = [(AVAssetWriterInputMediaDataRequester *)&v21 init];
+  v22.receiver = self;
+  v22.super_class = AVAssetWriterInputMediaDataRequester;
+  v7 = [(AVAssetWriterInputMediaDataRequester *)&v22 init];
   v8 = v7;
   if (v7)
   {
@@ -24,26 +24,26 @@
         dispatch_retain(queue);
         v8->_requestQueue = queue;
         v8->_requestBlock = [block copy];
-        v8->_ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avfoundation.mediadatarequester.ivars");
+        v8->_ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avfoundation.mediadatarequester.ivars", v9);
         return v8;
       }
 
-      v19 = v7;
-      v16 = MEMORY[0x1E695DF30];
-      v17 = *MEMORY[0x1E695D940];
-      v18 = "block != nil";
+      v20 = v7;
+      v17 = MEMORY[0x1E695DF30];
+      v18 = *MEMORY[0x1E695D940];
+      v19 = "block != nil";
     }
 
     else
     {
-      v10 = v7;
-      v16 = MEMORY[0x1E695DF30];
-      v17 = *MEMORY[0x1E695D940];
-      v18 = "queue != NULL";
+      v11 = v7;
+      v17 = MEMORY[0x1E695DF30];
+      v18 = *MEMORY[0x1E695D940];
+      v19 = "queue != NULL";
     }
 
-    v20 = [v16 exceptionWithName:v17 reason:AVMethodExceptionReasonWithObjectAndSelector(v8 userInfo:{a2, @"invalid parameter not satisfying: %s", v11, v12, v13, v14, v15, v18), 0}];
-    objc_exception_throw(v20);
+    v21 = [v17 exceptionWithName:v18 reason:AVMethodExceptionReasonWithObjectAndSelector(v8 userInfo:{a2, @"invalid parameter not satisfying: %s", v12, v13, v14, v15, v16, v19), 0}];
+    objc_exception_throw(v21);
   }
 
   return v8;

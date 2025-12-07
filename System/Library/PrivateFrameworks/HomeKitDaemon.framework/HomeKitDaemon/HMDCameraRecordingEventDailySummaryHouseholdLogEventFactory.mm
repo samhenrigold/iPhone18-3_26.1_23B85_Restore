@@ -71,61 +71,58 @@
 {
   v5 = sub_22A4DB7DC();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = (&v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = (&v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
   sub_229562F68(0, &qword_281401C40, 0x277D17DC0);
-  v10 = sub_22A4DD83C();
+  v9 = sub_22A4DD83C();
   sub_22A4DB79C();
   selfCopy = self;
-  sub_22957B390(v10, v9);
+  sub_22957B390(v9, v8);
 
-  (*(v6 + 8))(v9, v5);
-  v12 = sub_22A4DD81C();
+  (*(v6 + 8))(v8, v5);
+  v11 = sub_22A4DD81C();
 
-  return v12;
+  return v11;
 }
 
 - (id)logEventsPopulatedForHomeWithUUID:(id)d associatedWithDate:(id)date
 {
   v5 = sub_22A4DB74C();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_22A4DB7DC();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v10);
-  v14 = &v21 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = sub_22A4DB7DC();
+  v10 = *(v9 - 8);
+  MEMORY[0x28223BE20](v9);
+  v12 = &v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22A4DB79C();
   sub_22A4DB70C();
   selfCopy = self;
   cameraRecordingEventObserver = [(HMDCameraRecordingEventDailySummaryHouseholdLogEventFactory *)selfCopy cameraRecordingEventObserver];
-  v17 = sub_2296BD35C(v14);
+  v15 = sub_2296BD35C(v12);
 
-  if (v17)
+  if (v15)
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D87C350, &qword_22A576E40);
-    v18 = swift_allocObject();
-    *(v18 + 16) = xmmword_22A576190;
-    *(v18 + 32) = v17;
+    v16 = swift_allocObject();
+    *(v16 + 16) = xmmword_22A576190;
+    *(v16 + 32) = v15;
 
-    (*(v6 + 8))(v9, v5);
-    (*(v11 + 8))(v14, v10);
+    (*(v6 + 8))(v8, v5);
+    (*(v10 + 8))(v12, v9);
     sub_229562F68(0, &qword_281401C40, 0x277D17DC0);
-    v19 = sub_22A4DD81C();
+    v17 = sub_22A4DD81C();
   }
 
   else
   {
 
-    (*(v6 + 8))(v9, v5);
-    (*(v11 + 8))(v14, v10);
-    v19 = 0;
+    (*(v6 + 8))(v8, v5);
+    (*(v10 + 8))(v12, v9);
+    v17 = 0;
   }
 
-  return v19;
+  return v17;
 }
 
 - (HMDCameraRecordingEventDailySummaryHouseholdLogEventFactory)init

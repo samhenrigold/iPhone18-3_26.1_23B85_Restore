@@ -95,7 +95,7 @@
   return v9;
 }
 
-uint64_t __69__AVTStickerUserDefaultsBackend_recentStickersForFetchRequest_error___block_invoke(uint64_t a1)
+void *__69__AVTStickerUserDefaultsBackend_recentStickersForFetchRequest_error___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) stickers];
   v3 = [v2 count];
@@ -106,9 +106,7 @@ uint64_t __69__AVTStickerUserDefaultsBackend_recentStickersForFetchRequest_error
     {
       v4 = [*(a1 + 32) fetchAllStickers];
 LABEL_7:
-      v7 = *(*(a1 + 48) + 8);
-      v8 = *(v7 + 40);
-      *(v7 + 40) = v4;
+      *(*(*(a1 + 48) + 8) + 40) = v4;
       goto LABEL_8;
     }
 
@@ -124,20 +122,18 @@ LABEL_7:
       return result;
     }
 
-    v9 = *(a1 + 32);
-    v15 = [*(a1 + 40) avatarIdentifier];
-    v10 = [*(a1 + 40) stickerIdentifier];
-    v11 = [v9 fetchStickersWithAvatarIdentifier:v15 stickerIdentifier:v10];
-    v12 = *(*(a1 + 48) + 8);
-    v13 = *(v12 + 40);
-    *(v12 + 40) = v11;
+    v5 = *(a1 + 32);
+    v11 = [*(a1 + 40) avatarIdentifier];
+    v6 = [*(a1 + 40) stickerIdentifier];
+    v7 = [v5 fetchStickersWithAvatarIdentifier:v11 stickerIdentifier:v6];
+    v8 = *(*(a1 + 48) + 8);
+    v9 = *(v8 + 40);
+    *(v8 + 40) = v7;
   }
 
   else
   {
-    v5 = *(*(a1 + 48) + 8);
-    v6 = *(v5 + 40);
-    *(v5 + 40) = 0;
+    *(*(*(a1 + 48) + 8) + 40) = 0;
   }
 
 LABEL_8:
@@ -289,27 +285,27 @@ void __88__AVTStickerUserDefaultsBackend_deleteRecentStickersForChangeTracker_co
 
 uint64_t __88__AVTStickerUserDefaultsBackend_deleteRecentStickersForChangeTracker_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         if ([v8 changeType] == 1)
         {
           v9 = *(a1 + 32);
@@ -318,13 +314,12 @@ uint64_t __88__AVTStickerUserDefaultsBackend_deleteRecentStickersForChangeTracke
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -389,24 +384,22 @@ void __65__AVTStickerUserDefaultsBackend__recentStickersChangedExternally__block
 
 - (void)saveStickersToUserDefaults
 {
-  v12[2] = *MEMORY[0x277D85DE8];
-  v11[0] = @"AVTFrequencyCounter";
+  v11[2] = *MEMORY[0x277D85DE8];
+  v10[0] = @"AVTFrequencyCounter";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[AVTStickerUserDefaultsBackend frequencyCounter](self, "frequencyCounter")}];
-  v11[1] = @"AVTStickersArray";
-  v12[0] = v3;
+  v10[1] = @"AVTStickersArray";
+  v11[0] = v3;
   stickers = [(AVTStickerUserDefaultsBackend *)self stickers];
-  v12[1] = stickers;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = stickers;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
 
-  v10 = 0;
-  v6 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v5 requiringSecureCoding:1 error:&v10];
+  v9 = 0;
+  v6 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v5 requiringSecureCoding:1 error:&v9];
   userDefaults = [(AVTStickerUserDefaultsBackend *)self userDefaults];
   [userDefaults setObject:v6 forKey:@"AVTRecentStickers" inDomain:@"com.apple.animoji"];
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterPostNotification(DarwinNotifyCenter, @"AVTRecentStickerChangedExternallyNotification", 0, 0, 1u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchAllStickers

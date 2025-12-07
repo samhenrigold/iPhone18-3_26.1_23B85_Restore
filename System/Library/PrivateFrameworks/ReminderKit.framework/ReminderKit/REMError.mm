@@ -81,23 +81,21 @@
 
 + (id)internalErrorWithDebugDescription:(id)description
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
-  v10 = *MEMORY[0x1E696A278];
-  v11[0] = description;
+  v9 = *MEMORY[0x1E696A278];
+  v10[0] = description;
   v4 = MEMORY[0x1E695DF20];
   descriptionCopy = description;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v3 errorWithDomain:@"com.apple.reminderkit" code:-1 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)mismatchedObjectIDWithObjectID:(id)d expected:(Class)expected
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   v6 = +[REMLogStore utility];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
@@ -107,19 +105,17 @@
 
   expected = [MEMORY[0x1E696AEC0] stringWithFormat:@"Mismatched objectID type {objectID: %@, expected: %@}", dCopy, expected];
   v8 = MEMORY[0x1E696ABC0];
-  v13 = *MEMORY[0x1E696A278];
-  v14[0] = expected;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = *MEMORY[0x1E696A278];
+  v13[0] = expected;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [v8 errorWithDomain:@"com.apple.reminderkit" code:-1 userInfo:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)errorFromErrors:(id)errors
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   errorsCopy = errors;
   if ([errorsCopy count])
   {
@@ -130,11 +126,11 @@
     }
 
     v6 = MEMORY[0x1E696ABC0];
-    v13 = *MEMORY[0x1E696A278];
-    v14 = errorsCopy;
+    v12 = *MEMORY[0x1E696A278];
+    v13 = errorsCopy;
     v7 = MEMORY[0x1E695DF20];
-    v8 = &v14;
-    v9 = &v13;
+    v8 = &v13;
+    v9 = &v12;
   }
 
   else
@@ -146,18 +142,17 @@
     }
 
     v6 = MEMORY[0x1E696ABC0];
-    v15 = *MEMORY[0x1E696A278];
-    v16[0] = MEMORY[0x1E695E0F0];
+    v14 = *MEMORY[0x1E696A278];
+    v15[0] = MEMORY[0x1E695E0F0];
     v7 = MEMORY[0x1E695DF20];
-    v8 = v16;
-    v9 = &v15;
+    v8 = v15;
+    v9 = &v14;
   }
 
   v10 = [v7 dictionaryWithObjects:v8 forKeys:v9 count:1];
   firstObject = [v6 errorWithDomain:@"com.apple.reminderkit" code:-2 userInfo:v10];
 
 LABEL_9:
-  v11 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
@@ -187,91 +182,79 @@ LABEL_9:
 
 + (id)unauthorizedErrorWithMissingEntitlement:(id)entitlement
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   entitlement = [MEMORY[0x1E696AEC0] stringWithFormat:@"Missing entitlement: %@", entitlement];
   v4 = MEMORY[0x1E696ABC0];
-  v9 = *MEMORY[0x1E696A278];
-  v10[0] = entitlement;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E696A278];
+  v9[0] = entitlement;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v4 errorWithDomain:@"com.apple.reminderkit" code:-1000 userInfo:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 + (id)unauthorizedErrorWithMissingEntitlement:(id)entitlement requestedAccessLevel:(id)level currentAccesslevel:(id)accesslevel
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   accesslevel = [MEMORY[0x1E696AEC0] stringWithFormat:@"Missing entitlement: %@ {requestedAccessLevel: %@, currentAccesslevel: %@}", entitlement, level, accesslevel];
   v6 = MEMORY[0x1E696ABC0];
-  v11 = *MEMORY[0x1E696A278];
-  v12[0] = accesslevel;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = *MEMORY[0x1E696A278];
+  v11[0] = accesslevel;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v8 = [v6 errorWithDomain:@"com.apple.reminderkit" code:-1000 userInfo:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 + (id)throttledErrorWithRemainingTimeInterval:(double)interval
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Operation is throttled {remainingTime: %.4f}", *&interval];
   v4 = MEMORY[0x1E696ABC0];
-  v9 = *MEMORY[0x1E696A278];
-  v10[0] = v3;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E696A278];
+  v9[0] = v3;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v4 errorWithDomain:@"com.apple.reminderkit" code:-1002 userInfo:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 + (id)babySatErrorWithOperationName:(id)name
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   name = [MEMORY[0x1E696AEC0] stringWithFormat:@"Operation is babysat {operationName: %@}", name];
   v4 = MEMORY[0x1E696ABC0];
-  v9 = *MEMORY[0x1E696A278];
-  v10[0] = name;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E696A278];
+  v9[0] = name;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v4 errorWithDomain:@"com.apple.reminderkit" code:-1003 userInfo:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 + (id)retryLaterErrorWithInterval:(double)interval
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
-  v9 = @"REMErrorRetryAfterKey";
+  v8 = @"REMErrorRetryAfterKey";
   v4 = [MEMORY[0x1E696AD98] numberWithDouble:{fmax(interval, 0.0)}];
-  v10[0] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v3 errorWithDomain:@"com.apple.reminderkit" code:-1004 userInfo:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 + (id)notSupportedErrorWithDebugDescription:(id)description
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
-  v10 = *MEMORY[0x1E696A278];
-  v11[0] = description;
+  v9 = *MEMORY[0x1E696A278];
+  v10[0] = description;
   v4 = MEMORY[0x1E695DF20];
   descriptionCopy = description;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v3 errorWithDomain:@"com.apple.reminderkit" code:-1006 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -351,7 +334,7 @@ LABEL_19:
 
 + (id)noSuchObjectErrorWithObjectID:(id)d
 {
-  v14[3] = *MEMORY[0x1E69E9840];
+  v13[3] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   dCopy = d;
   dCopy = [v3 stringWithFormat:@"No such object error {objectID: %@}", dCopy];
@@ -360,91 +343,79 @@ LABEL_19:
 
   uUIDString = [uuid UUIDString];
 
-  v13[0] = *MEMORY[0x1E696A278];
-  v13[1] = @"REMErrorObjectIDEntityNameKey";
-  v14[0] = dCopy;
-  v14[1] = entityName;
-  v13[2] = @"REMErrorObjectIDUUIDKey";
-  v14[2] = uUIDString;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v12[0] = *MEMORY[0x1E696A278];
+  v12[1] = @"REMErrorObjectIDEntityNameKey";
+  v13[0] = dCopy;
+  v13[1] = entityName;
+  v12[2] = @"REMErrorObjectIDUUIDKey";
+  v13[2] = uUIDString;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
   v10 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.reminderkit" code:-3000 userInfo:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)noSuchObjectErrorWithExternalIdentifier:(id)identifier
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   identifier = [MEMORY[0x1E696AEC0] stringWithFormat:@"No such object error {externalIdentifier: %@}", identifier];
   v4 = MEMORY[0x1E696ABC0];
-  v9 = *MEMORY[0x1E696A278];
-  v10[0] = identifier;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E696A278];
+  v9[0] = identifier;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v4 errorWithDomain:@"com.apple.reminderkit" code:-3000 userInfo:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 + (id)noSuchObjectErrorWithDACalendarItemUniqueIdentifier:(id)identifier
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   identifier = [MEMORY[0x1E696AEC0] stringWithFormat:@"No such object error {daCalendarItemUniqueIdentifier: %@}", identifier];
   v4 = MEMORY[0x1E696ABC0];
-  v9 = *MEMORY[0x1E696A278];
-  v10[0] = identifier;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E696A278];
+  v9[0] = identifier;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v4 errorWithDomain:@"com.apple.reminderkit" code:-3000 userInfo:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 + (id)noSuchSmartListErrorWithSmartListType:(id)type
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   type = [MEMORY[0x1E696AEC0] stringWithFormat:@"No such smart list error {smartListType: %@}", type];
   v4 = MEMORY[0x1E696ABC0];
-  v9 = *MEMORY[0x1E696A278];
-  v10[0] = type;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E696A278];
+  v9[0] = type;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v4 errorWithDomain:@"com.apple.reminderkit" code:-3006 userInfo:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 + (id)noPrimaryActiveCloudKitAccountError
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"No active CloudKit account is currently logged in or enabled"];
   v3 = MEMORY[0x1E696ABC0];
-  v8 = *MEMORY[0x1E696A278];
-  v9[0] = v2;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = *MEMORY[0x1E696A278];
+  v8[0] = v2;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [v3 errorWithDomain:@"com.apple.reminderkit" code:-3007 userInfo:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)accountStoreMissingError:(id)error
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   error = [MEMORY[0x1E696AEC0] stringWithFormat:@"Persistent store not found for some of the changed objects {accountIdentifiers: %@}", error];
   v4 = MEMORY[0x1E696ABC0];
-  v9 = *MEMORY[0x1E696A278];
-  v10[0] = error;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E696A278];
+  v9[0] = error;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v4 errorWithDomain:@"com.apple.reminderkit" code:-3008 userInfo:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -459,258 +430,224 @@ LABEL_19:
 
 + (id)validationErrorMoveAcrossAccount:(id)account
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   account = [MEMORY[0x1E696AEC0] stringWithFormat:@"Moving object across is unsupported {objectID: %@}", account];
   v4 = MEMORY[0x1E696ABC0];
-  v9 = *MEMORY[0x1E696A278];
-  v10[0] = account;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E696A278];
+  v9[0] = account;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v4 errorWithDomain:@"com.apple.reminderkit" code:-3002 userInfo:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 + (id)validationErrorMoveFromAccount:(id)account toAccount:(id)toAccount objectID:(id)d
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Moving between accounts is unsupported {fromAccountID: %@, toAccountID: %@: objectID: %@}", account, toAccount, d];
   v6 = MEMORY[0x1E696ABC0];
-  v11 = *MEMORY[0x1E696A278];
-  v12[0] = v5;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = *MEMORY[0x1E696A278];
+  v11[0] = v5;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v8 = [v6 errorWithDomain:@"com.apple.reminderkit" code:-3002 userInfo:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 + (id)validationErrorListHasNoAccount:(id)account
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   account = [MEMORY[0x1E696AEC0] stringWithFormat:@"List should not have nil account {listID: %@}", account];
   v4 = MEMORY[0x1E696ABC0];
-  v9 = *MEMORY[0x1E696A278];
-  v10[0] = account;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E696A278];
+  v9[0] = account;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v4 errorWithDomain:@"com.apple.reminderkit" code:-3002 userInfo:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 + (id)validationErrorMoveReminderFromList:(id)list toList:(id)toList inAccount:(id)account
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   account = [MEMORY[0x1E696AEC0] stringWithFormat:@"Moving between lists is unsupported in this account {fromListID: %@, toListID: %@, accountID: %@}", list, toList, account];
   v6 = MEMORY[0x1E696ABC0];
-  v11 = *MEMORY[0x1E696A278];
-  v12[0] = account;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = *MEMORY[0x1E696A278];
+  v11[0] = account;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v8 = [v6 errorWithDomain:@"com.apple.reminderkit" code:-3002 userInfo:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 + (id)validationErrorNestedSubtask:(id)subtask parentReminderID:(id)d
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   subtask = [MEMORY[0x1E696AEC0] stringWithFormat:@"Nested subtasks is unsupported {parentReminderID: %@, reminderID: %@}", d, subtask];
   v5 = MEMORY[0x1E696ABC0];
-  v10 = *MEMORY[0x1E696A278];
-  v11[0] = subtask;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = *MEMORY[0x1E696A278];
+  v10[0] = subtask;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v5 errorWithDomain:@"com.apple.reminderkit" code:-3002 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)validationErrorSubtaskAndParentNotOnSameList:(id)list parentReminderID:(id)d
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   list = [MEMORY[0x1E696AEC0] stringWithFormat:@"Subtask has different list from its parent reminder {parentReminderID: %@, reminderID: %@}", d, list];
   v5 = MEMORY[0x1E696ABC0];
-  v10 = *MEMORY[0x1E696A278];
-  v11[0] = list;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = *MEMORY[0x1E696A278];
+  v10[0] = list;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v5 errorWithDomain:@"com.apple.reminderkit" code:-3002 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)validationErrorUndeleteHashtagFromAnotherReminder:(id)reminder expectedReminderID:(id)d
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to undelete hashtag from another reminder {hashtagID: %@, reminderID: %@}", reminder, d];
   v5 = MEMORY[0x1E696ABC0];
-  v10 = *MEMORY[0x1E696A278];
-  v11[0] = v4;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = *MEMORY[0x1E696A278];
+  v10[0] = v4;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v5 errorWithDomain:@"com.apple.reminderkit" code:-3002 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)validationErrorNotCloudKitAccount:(id)account
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   account = [MEMORY[0x1E696AEC0] stringWithFormat:@"Action is unavailable to non-CloudKit account {accountID: %@}", account];
   v4 = MEMORY[0x1E696ABC0];
-  v9 = *MEMORY[0x1E696A278];
-  v10[0] = account;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E696A278];
+  v9[0] = account;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v4 errorWithDomain:@"com.apple.reminderkit" code:-3002 userInfo:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 + (id)validationErrorRemoveAccountBeingInserted:(id)inserted
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   inserted = [MEMORY[0x1E696AEC0] stringWithFormat:@"Removing an account at the same time inserting it is unsupported {accountID: %@}", inserted];
   v4 = MEMORY[0x1E696ABC0];
-  v9 = *MEMORY[0x1E696A278];
-  v10[0] = inserted;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E696A278];
+  v9[0] = inserted;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v4 errorWithDomain:@"com.apple.reminderkit" code:-3002 userInfo:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 + (id)validationErrorRemoveAccountBeingActivated:(id)activated
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   activated = [MEMORY[0x1E696AEC0] stringWithFormat:@"Removing an account at the same time setting it as active is unsupported {accountID: %@}", activated];
   v4 = MEMORY[0x1E696ABC0];
-  v9 = *MEMORY[0x1E696A278];
-  v10[0] = activated;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E696A278];
+  v9[0] = activated;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v4 errorWithDomain:@"com.apple.reminderkit" code:-3002 userInfo:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 + (id)validationErrorDifferentZoneObjectID:(id)d zoneOwnerName:(id)name parentObjectID:(id)iD parentZoneOwnerName:(id)ownerName
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   ownerName = [MEMORY[0x1E696AEC0] stringWithFormat:@"Object { id: %@, zoneOwner: %@} and its parent { id: %@, zoneOwner: %@} with different zones are unsupported", d, name, iD, ownerName];
   v7 = MEMORY[0x1E696ABC0];
-  v12 = *MEMORY[0x1E696A278];
-  v13[0] = ownerName;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = *MEMORY[0x1E696A278];
+  v12[0] = ownerName;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [v7 errorWithDomain:@"com.apple.reminderkit" code:-3002 userInfo:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (id)constraintConflictWithIdentifier:(id)identifier constraint:(id)constraint
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   constraint = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unhandled constraint conflict {identifier: %@, constraint: %@}", identifier, constraint];
   v5 = MEMORY[0x1E696ABC0];
-  v10 = *MEMORY[0x1E696A278];
-  v11[0] = constraint;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = *MEMORY[0x1E696A278];
+  v10[0] = constraint;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v5 errorWithDomain:@"com.apple.reminderkit" code:-3003 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)nullifiedRelationshipErrorWithRelationshipName:(id)name
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
-  v10 = *MEMORY[0x1E696A278];
-  v11[0] = name;
+  v9 = *MEMORY[0x1E696A278];
+  v10[0] = name;
   v4 = MEMORY[0x1E695DF20];
   nameCopy = name;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v3 errorWithDomain:@"com.apple.reminderkit" code:-3005 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)invalidParameterErrorWithDescription:(id)description
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
-  v10 = *MEMORY[0x1E696A278];
-  v11[0] = description;
+  v9 = *MEMORY[0x1E696A278];
+  v10[0] = description;
   v4 = MEMORY[0x1E695DF20];
   descriptionCopy = description;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v3 errorWithDomain:@"com.apple.reminderkit" code:-4000 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)unexpectedNilPropertyWithClass:(Class)class property:(id)property
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   property = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unexpected nil property {class: %@, property: %@}", class, property];
   v5 = MEMORY[0x1E696ABC0];
-  v10 = *MEMORY[0x1E696A278];
-  v11[0] = property;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = *MEMORY[0x1E696A278];
+  v10[0] = property;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v5 errorWithDomain:@"com.apple.reminderkit" code:-4001 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)unexpectedNilPropertyWithObjectID:(id)d property:(id)property
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   property = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unexpected nil property {remObjectID: %@, property: %@}", d, property];
   v5 = MEMORY[0x1E696ABC0];
-  v10 = *MEMORY[0x1E696A278];
-  v11[0] = property;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = *MEMORY[0x1E696A278];
+  v10[0] = property;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v5 errorWithDomain:@"com.apple.reminderkit" code:-4001 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)xpcPerformerUnavailableErrorWithDescription:(id)description
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
-  v10 = *MEMORY[0x1E696A278];
-  v11[0] = description;
+  v9 = *MEMORY[0x1E696A278];
+  v10[0] = description;
   v4 = MEMORY[0x1E695DF20];
   descriptionCopy = description;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v3 errorWithDomain:@"com.apple.reminderkit" code:-5000 userInfo:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -743,14 +680,14 @@ LABEL_19:
 
 + (id)_errorWithCode:(int64_t)code underlyingError:(id)error
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v6 = errorCopy;
   if (errorCopy)
   {
-    v11 = *MEMORY[0x1E696AA08];
-    v12[0] = errorCopy;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x1E696AA08];
+    v11[0] = errorCopy;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   }
 
   else
@@ -759,8 +696,6 @@ LABEL_19:
   }
 
   v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.reminderkit" code:code userInfo:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -875,31 +810,28 @@ LABEL_19:
 
 + (void)mismatchedObjectIDWithObjectID:(os_log_t)log expected:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_fault_impl(&dword_19A0DB000, log, OS_LOG_TYPE_FAULT, "Mismatched objectID type {objectID: %@, expected: %@}", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_fault_impl(&dword_19A0DB000, log, OS_LOG_TYPE_FAULT, "Mismatched objectID type {objectID: %@, expected: %@}", &v3, 0x16u);
 }
 
 + (void)isNoSuchObjectError:(uint64_t)a1 forObjectID:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "noSuchObject REMError has unexpected keys {error.userInfo: %{public}@}", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "noSuchObject REMError has unexpected keys {error.userInfo: %{public}@}", &v2, 0xCu);
 }
 
 + (void)isNoSuchObjectError:(uint64_t)a1 forObjectID:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "noSuchObject REMError has an invalid UUID string {errorUUIDString: %{public}@}", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "noSuchObject REMError has an invalid UUID string {errorUUIDString: %{public}@}", &v2, 0xCu);
 }
 
 @end

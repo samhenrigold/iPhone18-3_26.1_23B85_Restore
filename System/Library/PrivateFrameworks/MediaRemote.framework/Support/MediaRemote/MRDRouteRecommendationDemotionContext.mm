@@ -21,14 +21,11 @@
 
 - (NSString)primaryBundleIdentifier
 {
-  v2 = (self + OBJC_IVAR___MRDRouteRecommendationDemotionContext_primaryBundleIdentifier);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = String._bridgeToObjectiveC()();
+  v2 = String._bridgeToObjectiveC()();
 
-  return v5;
+  return v2;
 }
 
 - (void)setPrimaryBundleIdentifier:(id)identifier
@@ -37,7 +34,6 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR___MRDRouteRecommendationDemotionContext_primaryBundleIdentifier);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
@@ -114,21 +110,20 @@
 
 - (NSString)targetNowPlayingBundleIdentifier
 {
-  v2 = (self + OBJC_IVAR___MRDRouteRecommendationDemotionContext_targetNowPlayingBundleIdentifier);
+  v2 = self + OBJC_IVAR___MRDRouteRecommendationDemotionContext_targetNowPlayingBundleIdentifier;
   swift_beginAccess();
-  if (v2[1])
+  if (*(v2 + 1))
   {
-    v3 = *v2;
 
-    v4 = String._bridgeToObjectiveC()();
+    v3 = String._bridgeToObjectiveC()();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (void)setTargetNowPlayingBundleIdentifier:(id)identifier
@@ -147,7 +142,6 @@
 
   v7 = (self + OBJC_IVAR___MRDRouteRecommendationDemotionContext_targetNowPlayingBundleIdentifier);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }

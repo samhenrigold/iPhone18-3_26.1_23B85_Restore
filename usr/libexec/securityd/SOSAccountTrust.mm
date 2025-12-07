@@ -2,6 +2,7 @@
 + (id)trust;
 - (NSString)peerID;
 - (SOSAccountTrust)init;
+- (SOSAccountTrust)initWithRetirees:(id)retirees fpi:(__OpaqueSOSFullPeerInfo *)fpi circle:(__OpaqueSOSCircle *)circle departureCode:(int)code peerExpansion:(id)expansion;
 - (__OpaqueSOSPeerInfo)peerInfo;
 - (void)dealloc;
 - (void)setExpansion:(id)expansion;
@@ -18,7 +19,7 @@
   expansion = self->expansion;
   self->expansion = v4;
 
-  _objc_release_x1();
+  _objc_release_x1(v4, expansion);
 }
 
 - (void)setFullPeerInfo:(__OpaqueSOSFullPeerInfo *)info
@@ -41,7 +42,7 @@
   retirees = self->retirees;
   self->retirees = v4;
 
-  _objc_release_x1();
+  _objc_release_x1(v4, retirees);
 }
 
 - (void)setTrustedCircle:(__OpaqueSOSCircle *)circle
@@ -121,6 +122,27 @@
   v8.receiver = self;
   v8.super_class = SOSAccountTrust;
   [(SOSAccountTrust *)&v8 dealloc];
+}
+
+- (SOSAccountTrust)initWithRetirees:(id)retirees fpi:(__OpaqueSOSFullPeerInfo *)fpi circle:(__OpaqueSOSCircle *)circle departureCode:(int)code peerExpansion:(id)expansion
+{
+  v8 = *&code;
+  retireesCopy = retirees;
+  expansionCopy = expansion;
+  v17.receiver = self;
+  v17.super_class = SOSAccountTrust;
+  v14 = [(SOSAccountTrust *)&v17 init];
+  v15 = v14;
+  if (v14)
+  {
+    [(SOSAccountTrust *)v14 setRetirees:retireesCopy];
+    [(SOSAccountTrust *)v15 setFullPeerInfo:fpi];
+    [(SOSAccountTrust *)v15 setTrustedCircle:circle];
+    [(SOSAccountTrust *)v15 setDepartureCode:v8];
+    [(SOSAccountTrust *)v15 setExpansion:expansionCopy];
+  }
+
+  return v15;
 }
 
 - (SOSAccountTrust)init

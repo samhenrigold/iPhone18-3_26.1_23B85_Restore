@@ -8,11 +8,6 @@
 
 - (NSString)description
 {
-  v4 = *(&self->super.isa + OBJC_IVAR___BlastDoorOrderPreview_OrderText_orderPreview_OrderText);
-  v5 = *&self->orderPreview_OrderText[OBJC_IVAR___BlastDoorOrderPreview_OrderText_orderPreview_OrderText];
-  v6 = *&self->orderPreview_OrderText[OBJC_IVAR___BlastDoorOrderPreview_OrderText_orderPreview_OrderText + 8];
-  v7 = *&self->orderPreview_OrderText[OBJC_IVAR___BlastDoorOrderPreview_OrderText_orderPreview_OrderText + 24];
-  v8 = self->orderPreview_OrderText[OBJC_IVAR___BlastDoorOrderPreview_OrderText_orderPreview_OrderText + 40];
 
   sub_2146D9608();
   v2 = sub_2146D9588();

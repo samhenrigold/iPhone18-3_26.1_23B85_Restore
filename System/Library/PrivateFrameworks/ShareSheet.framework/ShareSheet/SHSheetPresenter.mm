@@ -553,7 +553,7 @@ LABEL_19:
     currentDevice = [MEMORY[0x1E69DC938] currentDevice];
     userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
-    IsCamera = _ShareSheetIsCamera();
+    IsCamera = _ShareSheetIsCamera(v11, v12);
     IsSupportedPrintActivity = _ShareSheetIsSupportedPrintActivity(activity);
     if (!userInterfaceIdiom && IsCamera && IsSupportedPrintActivity)
     {
@@ -1063,7 +1063,7 @@ LABEL_15:
     mainViewController = share_sheet_log();
     if (os_log_type_enabled(mainViewController, OS_LOG_TYPE_DEFAULT))
     {
-      *v18 = 0;
+      v18[0] = 0;
       _os_log_impl(&dword_18B359000, mainViewController, OS_LOG_TYPE_DEFAULT, "Collaborate via AirDrop is unsupported on iOS, using the Boop to Collaborate path instead", v18, 2u);
     }
 
@@ -2201,7 +2201,7 @@ LABEL_7:
   memset(v6, 0, sizeof(v6));
   handlerCopy = handler;
   _SharingUIAuditTokenForCurrentProcess(v6);
-  v5 = _ShareSheetBundleIDFromAuditToken();
+  v5 = _ShareSheetBundleIDFromAuditToken(v6);
   handlerCopy[2](handlerCopy, v5);
 }
 

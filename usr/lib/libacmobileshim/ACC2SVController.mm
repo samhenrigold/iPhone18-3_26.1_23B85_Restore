@@ -322,7 +322,7 @@ uint64_t __49__ACC2SVController_sendVerificationCodeToDevice___block_invoke(uint
   [(ACC2SVController *)self hideUIWithCompletion:v3];
 }
 
-uint64_t __41__ACC2SVController_hideUIAndReturnError___block_invoke(uint64_t a1)
+void *__41__ACC2SVController_hideUIAndReturnError___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) completionBlock];
   if (result)
@@ -585,7 +585,7 @@ uint64_t __54__ACC2SVController_start2StepVerificationWithRequest___block_invoke
   [(ACC2SVTransportControllerProtocol *)transportController loadTrustedDevicesWithContext:v3 completion:v5];
 }
 
-void __45__ACC2SVController_refreshTrustedDevicesList__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void __45__ACC2SVController_refreshTrustedDevicesList__block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
@@ -605,8 +605,8 @@ void __45__ACC2SVController_refreshTrustedDevicesList__block_invoke(uint64_t a1,
       ACFLog(6, "[ACC2SVController refreshTrustedDevicesList]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/AppleConnectClients/Framework/SubProjects/Core/Sources/ACC2SVController.m", 374, 0, "Refresh the trusted devices list.");
     }
 
-    v6 = [*(a1 + 32) trustedDevicesFromResponse:a2 withContext:*(a1 + 40)];
-    v7 = [*(a1 + 32) secondFactorAuthUIController];
+    v6 = [*(result + 32) trustedDevicesFromResponse:a2 withContext:*(result + 40)];
+    v7 = [*(result + 32) secondFactorAuthUIController];
 
     [v7 resetTrustedDevicesViewControllerWithDeviceList:v6];
   }

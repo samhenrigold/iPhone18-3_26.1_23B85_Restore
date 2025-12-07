@@ -3,6 +3,7 @@
 + (id)deserialize:(id)deserialize;
 + (id)generateDiscoveryTokenFromBeaconIdentifier:(id)identifier;
 + (id)generateFindingTokenWithIRK:(id)k;
++ (id)generateFindingTokenWithIRK:(id)k forExternalUse:(BOOL)use;
 + (id)generateTokenWithUUID:(id)d;
 + (id)serialize:(id)serialize;
 - (BOOL)isEqual:(id)equal;
@@ -34,7 +35,7 @@
 
 + (id)generateFindingTokenWithIRK:(id)k
 {
-  v16[3] = *MEMORY[0x1E69E9840];
+  v15[3] = *MEMORY[0x1E69E9840];
   kCopy = k;
   if (!kCopy)
   {
@@ -48,14 +49,14 @@
     [currentHandler2 handleFailureInMethod:a2 object:self file:@"NIFindingSupport.mm" lineNumber:30 description:{@"Invalid parameter not satisfying: %@", @"IRK.length == NIDiscoveryTokenIRKLengthBytes"}];
   }
 
-  v15[0] = &unk_1F38D7A88;
-  v15[1] = &unk_1F38D7AB8;
-  v16[0] = &unk_1F38D7AA0;
-  v16[1] = kCopy;
-  v15[2] = &unk_1F38D7AD0;
+  v14[0] = &unk_1F38D7A88;
+  v14[1] = &unk_1F38D7AB8;
+  v15[0] = &unk_1F38D7AA0;
+  v15[1] = kCopy;
+  v14[2] = &unk_1F38D7AD0;
   v6 = [MEMORY[0x1E695DEF0] dataWithBytes:&kFixedSessionIdentifierBytes length:3];
-  v16[2] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v15[2] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
 
   v8 = MEMORY[0x1BFAFF9B0](v7, 8, 0);
   if (!v8)
@@ -66,14 +67,12 @@
 
   v9 = [[NIDiscoveryToken alloc] initWithBytes:v8];
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 + (id)generateDiscoveryTokenFromBeaconIdentifier:(id)identifier
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (!identifierCopy)
   {
@@ -84,11 +83,11 @@
   uUIDString = [identifierCopy UUIDString];
   v7 = [uUIDString dataUsingEncoding:4];
 
-  v15[0] = &unk_1F38D7A88;
-  v15[1] = &unk_1F38D7B00;
-  v16[0] = &unk_1F38D7AE8;
-  v16[1] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v14[0] = &unk_1F38D7A88;
+  v14[1] = &unk_1F38D7B00;
+  v15[0] = &unk_1F38D7AE8;
+  v15[1] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
   v9 = MEMORY[0x1BFAFF9B0](v8, 8, 0);
   if (!v9)
   {
@@ -98,21 +97,26 @@
 
   v10 = [[NIDiscoveryToken alloc] initWithBytes:v9];
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v10;
+}
+
++ (id)generateFindingTokenWithIRK:(id)k forExternalUse:(BOOL)use
+{
+  v4 = [NIDiscoveryToken generateFindingTokenWithIRK:k, use];
+
+  return v4;
 }
 
 + (id)generateTokenWithUUID:(id)d
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   uUIDString = [dCopy UUIDString];
   v7 = [uUIDString dataUsingEncoding:4];
 
-  v14 = &unk_1F38D7B18;
-  v15[0] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v13 = &unk_1F38D7B18;
+  v14[0] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   v9 = MEMORY[0x1BFAFF9B0](v8, 8, 0);
   if (!v9)
   {
@@ -121,8 +125,6 @@
   }
 
   v10 = [[NIDiscoveryToken alloc] initWithBytes:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -222,19 +224,18 @@ void __50__NIDiscoveryToken__identifyingSequenceFromBytes___block_invoke(uint64_
     [currentHandler handleFailureInMethod:a2 object:self file:@"NIConfiguration.mm" lineNumber:116 description:{@"Invalid parameter not satisfying: %@", @"key"}];
   }
 
-  rawToken = self->_rawToken;
-  v7 = OPACKDecodeData();
-  if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  v6 = OPACKDecodeData();
+  if (v6 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v8 = [v7 objectForKey:keyCopy];
+    v7 = [v6 objectForKey:keyCopy];
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  return v8;
+  return v7;
 }
 
 - (int64_t)tokenVariant

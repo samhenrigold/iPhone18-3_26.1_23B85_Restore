@@ -138,6 +138,8 @@
       [AVCaptureProprietaryDefaultsSingleton setObject:MEMORY[0x1E695E118] forKey:v4];
       if (dword_1ED8068A0)
       {
+        v7 = 0;
+        v6 = 0;
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -971,7 +973,7 @@ LABEL_5:
 
   v12 = self->_bundleID;
   v13 = self->_reactionsInProgressKey;
-  v14 = [(NSMutableDictionary *)self->_previousReactionStateByDeviceIdentifier objectForKeyedSubscript:d];
+  v14 = objc_msgSend_objectForKeyedSubscript_(self->_previousReactionStateByDeviceIdentifier);
   -[NSMutableDictionary setObject:forKeyedSubscript:](self->_previousReactionStateByDeviceIdentifier, "setObject:forKeyedSubscript:", [reactions mutableCopy], d);
   if (!holdingStateLock)
   {
@@ -1015,7 +1017,7 @@ void __110__AVControlCenterModuleState_updateActiveReactions_currentRenderPTS_re
   {
     v6 = AVCaptureReactionTypeForPTEffectReactionType;
     memset(&v11, 0, sizeof(v11));
-    [a3 startTime];
+    objc_msgSend_startTime(a3);
     CMTimeMakeWithSeconds(&v11, v7, 1000000000);
     v8 = [AVCaptureReactionEffectState alloc];
     v10 = v11;
@@ -1031,7 +1033,7 @@ void __110__AVControlCenterModuleState_updateActiveReactions_currentRenderPTS_re
   {
     v6 = AVCaptureReactionTypeForPTEffectReactionType;
     memset(&v13, 0, sizeof(v13));
-    [a3 startTime];
+    objc_msgSend_startTime(a3);
     CMTimeMakeWithSeconds(&v13, v7, 1000000000);
     v8 = [AVCaptureReactionEffectState alloc];
     v12 = v13;
@@ -1042,10 +1044,10 @@ void __110__AVControlCenterModuleState_updateActiveReactions_currentRenderPTS_re
   }
 }
 
-uint64_t __110__AVControlCenterModuleState_updateActiveReactions_currentRenderPTS_requestedTriggers_forCaptureDeviceWithID___block_invoke_3(uint64_t a1, void *a2, void *a3)
+uint64_t __110__AVControlCenterModuleState_updateActiveReactions_currentRenderPTS_requestedTriggers_forCaptureDeviceWithID___block_invoke_3(void x0_0, void *a1, void *a2)
 {
-  v4 = [a2 objectForKeyedSubscript:@"StartTime"];
-  v5 = [a3 objectForKeyedSubscript:@"StartTime"];
+  v4 = objc_msgSend_objectForKeyedSubscript_(a1, a1, @"StartTime");
+  v5 = objc_msgSend_objectForKeyedSubscript_(a2);
 
   return [v4 compare:v5];
 }
@@ -1220,7 +1222,7 @@ LABEL_10:
   }
 
   v8 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v8, v9))
   {
     objc_exception_throw(v8);
   }
@@ -1234,7 +1236,7 @@ LABEL_10:
   if (([videoEffect isEqualToString:@"AVControlCenterVideoEffectBackgroundBlur"] & 1) == 0 && (objc_msgSend(videoEffect, "isEqualToString:", @"AVControlCenterVideoEffectStudioLighting") & 1) == 0)
   {
     v14 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v14, v15))
     {
       objc_exception_throw(v14);
     }
@@ -1254,10 +1256,10 @@ LABEL_10:
   {
     if (![videoEffect isEqualToString:@"AVControlCenterVideoEffectStudioLighting"])
     {
-      v15 = 0;
+      v16 = 0;
       if (holdingStateLock)
       {
-        return v15;
+        return v16;
       }
 
       goto LABEL_25;
@@ -1274,16 +1276,16 @@ LABEL_10:
 LABEL_24:
     *&v9 = effect;
     +[AVCaptureProprietaryDefaultsSingleton setObject:forKey:](AVCaptureProprietaryDefaultsSingleton, "setObject:forKey:", [MEMORY[0x1E696AD98] numberWithFloat:v9], *(&self->super.isa + v13));
-    v15 = 1;
+    v16 = 1;
     if (holdingStateLock)
     {
-      return v15;
+      return v16;
     }
 
 LABEL_25:
     os_unfair_lock_unlock(&self->_stateLock);
     self->_holdingStateLock = 0;
-    return v15;
+    return v16;
   }
 
   +[AVCaptureDevice backgroundBlurApertureRange];
@@ -1300,19 +1302,20 @@ LABEL_25:
   v11 = MEMORY[0x1E695DF30];
   v12 = *MEMORY[0x1E695D940];
 LABEL_18:
-  v16 = [v11 exceptionWithName:v12 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
+  v17 = [v11 exceptionWithName:v12 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
+  v19 = v17;
   if (!holdingStateLock)
   {
     os_unfair_lock_unlock(&self->_stateLock);
     self->_holdingStateLock = 0;
   }
 
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v17, v18))
   {
-    objc_exception_throw(v16);
+    objc_exception_throw(v19);
   }
 
-  NSLog(&cfstr_SuppressingExc.isa, v16);
+  NSLog(&cfstr_SuppressingExc.isa, v19);
   return 0;
 }
 
@@ -1340,7 +1343,7 @@ LABEL_18:
   else
   {
     v7 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v7, v8))
     {
       objc_exception_throw(v7);
     }
@@ -1360,7 +1363,7 @@ LABEL_18:
   if (([effect isEqualToString:@"AVControlCenterVideoEffectBackgroundBlur"] & 1) == 0 && (objc_msgSend(effect, "isEqualToString:", @"AVControlCenterVideoEffectStudioLighting") & 1) == 0)
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -1504,14 +1507,15 @@ LABEL_7:
     v7 = -[NSArray containsObject:](self->_supportedMicrophoneModes, "containsObject:", [MEMORY[0x1E696AD98] numberWithInteger:mode]);
     if (mode && !v7)
     {
-      v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
+      v8 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
+      v6 = v8;
       if (!holdingStateLock)
       {
         os_unfair_lock_unlock(&self->_stateLock);
         self->_holdingStateLock = 0;
       }
 
-      if (AVCaptureShouldThrowForAPIViolations())
+      if (AVCaptureShouldThrowForAPIViolations(v8, v9))
       {
         objc_exception_throw(v6);
       }
@@ -1668,24 +1672,24 @@ LABEL_7:
 
 - (void)setManualFramingOriginalZoomFactor:(double)factor convertedZoomFactor:(double)zoomFactor
 {
-  v14[0] = AVControlCenterManualFramingOriginalVideoZoomFactor;
-  v15[0] = [MEMORY[0x1E696AD98] numberWithDouble:?];
-  v14[1] = AVControlCenterManualFramingConvertedVideoZoomFactor;
+  v12[0] = AVControlCenterManualFramingOriginalVideoZoomFactor;
+  v13[0] = [MEMORY[0x1E696AD98] numberWithDouble:?];
+  v12[1] = AVControlCenterManualFramingConvertedVideoZoomFactor;
   v7 = [MEMORY[0x1E696AD98] numberWithDouble:zoomFactor];
-  v14[2] = AVControlCenterManualFramingUpdateSettingEntity;
-  v15[1] = v7;
-  v15[2] = @"ControlCenterModules";
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v12[2] = AVControlCenterManualFramingUpdateSettingEntity;
+  v13[1] = v7;
+  v13[2] = @"ControlCenterModules";
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
   if (dword_1ED8068A0)
   {
-    v13 = 0;
-    v12 = 0;
+    v11 = 0;
+    v10 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [(AVControlCenterModuleState *)self _checkManualFramingDefaultStateWithNewOriginalZoomFactor:factor, v10, v11];
+  [(AVControlCenterModuleState *)self _checkManualFramingDefaultStateWithNewOriginalZoomFactor:factor];
   [AVCaptureProprietaryDefaultsSingleton setObject:v8 forKey:self->_manualFramingVideoZoomFactorKey];
 }
 
@@ -1694,8 +1698,8 @@ LABEL_7:
   v3 = [AVCaptureProprietaryDefaultsSingleton objectForKey:self->_manualFramingVideoZoomFactorKey];
   if (v3 && (v4 = v3, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v5 = [v4 objectForKeyedSubscript:AVControlCenterManualFramingOriginalVideoZoomFactor];
-    v6 = [v4 objectForKeyedSubscript:AVControlCenterManualFramingConvertedVideoZoomFactor];
+    v5 = objc_msgSend_objectForKeyedSubscript_(v4);
+    v6 = objc_msgSend_objectForKeyedSubscript_(v4);
     if (v5)
     {
       [v5 floatValue];
@@ -1704,24 +1708,24 @@ LABEL_7:
 
     else
     {
-      v13 = v6;
+      v16 = v6;
       manualFramingDeviceType = [(AVControlCenterModuleState *)self manualFramingDeviceType];
-      [v13 floatValue];
-      v16 = v15;
+      [v16 floatValue];
+      v19 = v18;
       if (manualFramingDeviceType == 2)
       {
-        v8 = v16 * 0.5;
+        v8 = v19 * 0.5;
       }
 
       else
       {
-        v8 = v16;
+        v8 = v19;
       }
     }
 
     [(AVControlCenterModuleState *)self _defaultOriginalVideoZoomFactor];
-    v10 = v17;
-    if (vabdd_f64(v8, v17) >= 0.00999999978)
+    v10 = v20;
+    if (vabdd_f64(v8, v20) >= 0.00999999978)
     {
       v10 = v8;
     }
@@ -1733,6 +1737,8 @@ LABEL_7:
         return v10;
       }
 
+      v29 = 0;
+      v28 = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1747,8 +1753,31 @@ LABEL_7:
 
   if (dword_1ED8068A0)
   {
+    v29 = 0;
+    v28 = OS_LOG_TYPE_DEFAULT;
     v11 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    v12 = v29;
+    v13 = v28;
+    if (os_log_type_enabled(v11, v28))
+    {
+      v14 = v12;
+    }
+
+    else
+    {
+      v14 = v12 & 0xFFFFFFFE;
+    }
+
+    if (v14)
+    {
+      v23 = 136315394;
+      v24 = "[AVControlCenterModuleState manualFramingOriginalVideoZoomFactor]";
+      v25 = 2048;
+      v26 = v10;
+      LODWORD(v22) = 22;
+      _os_log_send_and_compose_impl(v14, 0, v27, 128, &dword_1A917C000, v11, v13, "<<<< AVControlCenterModules >>>> %s: Manual Framing original video zoom factor: %.6f", &v23, v22);
+    }
+
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
@@ -1843,7 +1872,7 @@ LABEL_7:
     return 0;
   }
 
-  v4 = [v3 objectForKeyedSubscript:AVControlCenterCenterStageFieldOfViewRestrictedToWide];
+  v4 = objc_msgSend_objectForKeyedSubscript_(v3);
 
   return [v4 BOOLValue];
 }
@@ -1871,8 +1900,9 @@ LABEL_7:
 {
   manualFramingDeviceType = [(AVControlCenterModuleState *)self manualFramingDeviceType];
   zoomFactorConstantsByManualFramingDeviceType = [(AVControlCenterModuleState *)self zoomFactorConstantsByManualFramingDeviceType];
-  v5 = -[NSDictionary objectForKeyedSubscript:](zoomFactorConstantsByManualFramingDeviceType, "objectForKeyedSubscript:", [MEMORY[0x1E696AEC0] stringWithFormat:@"%d", manualFramingDeviceType]);
-  [objc_msgSend(v5 objectForKeyedSubscript:{*MEMORY[0x1E698F868]), "floatValue"}];
+  [MEMORY[0x1E696AEC0] stringWithFormat:@"%d", manualFramingDeviceType];
+  v5 = objc_msgSend_objectForKeyedSubscript_(zoomFactorConstantsByManualFramingDeviceType);
+  [objc_msgSend_objectForKeyedSubscript_(v5) floatValue];
   result = v6;
   if (manualFramingDeviceType == 2)
   {
@@ -1887,8 +1917,8 @@ LABEL_7:
   changedCopy = changed;
   if (dword_1ED8068A0)
   {
-    v145 = 0;
-    v144 = OS_LOG_TYPE_DEFAULT;
+    v151 = 0;
+    v150 = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -1928,9 +1958,9 @@ LABEL_7:
 
         else
         {
-          v135 = @"AVControlCenterModulesNotificationBundleIdentifierKey";
+          v141 = @"AVControlCenterModulesNotificationBundleIdentifierKey";
           bundleID = self->_bundleID;
-          v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&bundleID forKeys:&v135 count:1];
+          v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&bundleID forKeys:&v141 count:1];
           v12 = @"AVControlCenterMicrophoneModesModuleVoiceProcessingBypassedDidChangeNotification";
         }
       }
@@ -1968,9 +1998,9 @@ LABEL_7:
 
         else
         {
-          v133 = @"AVControlCenterModulesNotificationBundleIdentifierKey";
-          v134 = self->_bundleID;
-          v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v134 forKeys:&v133 count:1];
+          v139 = @"AVControlCenterModulesNotificationBundleIdentifierKey";
+          v140 = self->_bundleID;
+          v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v140 forKeys:&v139 count:1];
           v12 = @"AVControlCenterMicrophoneModesModuleMicrophoneModeDidChangeNotification";
         }
       }
@@ -2001,9 +2031,9 @@ LABEL_7:
 
     else
     {
-      v24 = !v17;
+      v25 = !v17;
       v12 = 0;
-      if (!v24)
+      if (!v25)
       {
         if (integerValue == self->_activeMicrophoneMode)
         {
@@ -2013,9 +2043,9 @@ LABEL_7:
 
         else
         {
-          v131 = @"AVControlCenterModulesNotificationBundleIdentifierKey";
-          v132 = self->_bundleID;
-          v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v132 forKeys:&v131 count:1];
+          v137 = @"AVControlCenterModulesNotificationBundleIdentifierKey";
+          v138 = self->_bundleID;
+          v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v138 forKeys:&v137 count:1];
           v12 = @"AVControlCenterMicrophoneModesModuleActiveMicrophoneModeDidChangeNotification";
         }
       }
@@ -2029,45 +2059,44 @@ LABEL_7:
   {
     if (!changedCopy)
     {
-      changedCopy = AVControlCenterAudioDefaultSupportedMicrophoneModesForBundleID(self->_bundleID);
+      changedCopy = AVControlCenterAudioDefaultSupportedMicrophoneModesForBundleID(self->_bundleID, a2);
       if (dword_1ED8068A0)
       {
-        v145 = 0;
-        v144 = OS_LOG_TYPE_DEFAULT;
+        v151 = 0;
+        v150 = OS_LOG_TYPE_DEFAULT;
         v19 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v20 = v145;
-        if (os_log_type_enabled(v19, v144))
+        v20 = v151;
+        v21 = v150;
+        if (os_log_type_enabled(v19, v150))
         {
-          v21 = v20;
+          v22 = v20;
         }
 
         else
         {
-          v21 = v20 & 0xFFFFFFFE;
+          v22 = v20 & 0xFFFFFFFE;
         }
 
-        if (v21)
+        if (v22)
         {
-          v22 = self->_bundleID;
-          v137 = 136315650;
-          v138 = "[AVControlCenterModuleState _proprietaryDefaultChanged:keyPath:context:]";
-          v139 = 2112;
-          v140 = v22;
-          v141 = 2112;
-          *v142 = changedCopy;
-          LODWORD(v88) = 32;
-          v87 = &v137;
-          _os_log_send_and_compose_impl();
+          v23 = self->_bundleID;
+          v143 = 136315650;
+          v144 = "[AVControlCenterModuleState _proprietaryDefaultChanged:keyPath:context:]";
+          v145 = 2112;
+          v146 = v23;
+          v147 = 2112;
+          *v148 = changedCopy;
+          _os_log_send_and_compose_impl(v22, 0, v149, 128, &dword_1A917C000, v19, v21, "<<<< AVControlCenterModules >>>> %s: Default %@ supportedMicModes = %@", &v143, 32);
         }
 
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
     }
 
-    v34 = [(AVControlCenterModuleState *)self micModesSupported:changed];
+    v36 = [(AVControlCenterModuleState *)self micModesSupported:changed];
     v11 = 0;
     v12 = 0;
-    if (!holdingStateLock && v34)
+    if (!holdingStateLock && v36)
     {
       if (([(NSURL *)changedCopy isEqual:self->_supportedMicrophoneModes]& 1) != 0)
       {
@@ -2077,9 +2106,9 @@ LABEL_7:
 
       else
       {
-        v129 = @"AVControlCenterModulesNotificationBundleIdentifierKey";
-        v130 = self->_bundleID;
-        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v130 forKeys:&v129 count:1];
+        v135 = @"AVControlCenterModulesNotificationBundleIdentifierKey";
+        v136 = self->_bundleID;
+        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v136 forKeys:&v135 count:1];
         v12 = @"AVControlCenterMicrophoneModesModuleSupportedMicrophoneModesDidChangeNotification";
       }
     }
@@ -2103,9 +2132,9 @@ LABEL_7:
 
     else
     {
-      v127 = @"AVControlCenterModulesNotificationBundleIdentifierKey";
-      v128 = self->_bundleID;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v128 forKeys:&v127 count:1];
+      v133 = @"AVControlCenterModulesNotificationBundleIdentifierKey";
+      v134 = self->_bundleID;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v134 forKeys:&v133 count:1];
       v12 = @"AVControlCenterMicrophoneModesModuleHiddenMicrophoneModesDidChangeNotification";
     }
 
@@ -2125,49 +2154,48 @@ LABEL_7:
       IsAutoMicrophoneEnabledForBundleIDAndMicMode = AVControlCenterAudioDefaultIsAutoMicrophoneEnabledForBundleIDAndMicMode(self->_bundleID, self->_microphoneMode);
       if (dword_1ED8068A0)
       {
-        v145 = 0;
-        v144 = OS_LOG_TYPE_DEFAULT;
-        v27 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v28 = v145;
-        if (os_log_type_enabled(v27, v144))
+        v151 = 0;
+        v150 = OS_LOG_TYPE_DEFAULT;
+        v28 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v29 = v151;
+        v30 = v150;
+        if (os_log_type_enabled(v28, v150))
         {
-          v29 = v28;
+          v31 = v29;
         }
 
         else
         {
-          v29 = v28 & 0xFFFFFFFE;
+          v31 = v29 & 0xFFFFFFFE;
         }
 
-        if (v29)
+        if (v31)
         {
-          v30 = self->_bundleID;
+          v32 = self->_bundleID;
           microphoneMode = self->_microphoneMode;
-          v32 = "no";
+          v34 = "no";
           if (IsAutoMicrophoneEnabledForBundleIDAndMicMode)
           {
-            v32 = "yes";
+            v34 = "yes";
           }
 
-          v137 = 136315906;
-          v138 = "[AVControlCenterModuleState _proprietaryDefaultChanged:keyPath:context:]";
-          v139 = 2112;
-          v140 = v30;
-          v141 = 1024;
-          *v142 = microphoneMode;
-          *&v142[4] = 2080;
-          *&v142[6] = v32;
-          LODWORD(v88) = 38;
-          v87 = &v137;
-          _os_log_send_and_compose_impl();
+          v143 = 136315906;
+          v144 = "[AVControlCenterModuleState _proprietaryDefaultChanged:keyPath:context:]";
+          v145 = 2112;
+          v146 = v32;
+          v147 = 1024;
+          *v148 = microphoneMode;
+          *&v148[4] = 2080;
+          *&v148[6] = v34;
+          _os_log_send_and_compose_impl(v31, 0, v149, 128, &dword_1A917C000, v28, v30, "<<<< AVControlCenterModules >>>> %s: Default %@ with micMode:%d autoEnabled = %s", &v143, 38);
         }
 
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
     }
 
-    v41 = [(AVControlCenterModuleState *)self isAutoMicrophoneModeSupported:v87];
-    if (holdingStateLock || !v41 || self->_autoMicModeEnabled == IsAutoMicrophoneEnabledForBundleIDAndMicMode)
+    isAutoMicrophoneModeSupported = [(AVControlCenterModuleState *)self isAutoMicrophoneModeSupported];
+    if (holdingStateLock || !isAutoMicrophoneModeSupported || self->_autoMicModeEnabled == IsAutoMicrophoneEnabledForBundleIDAndMicMode)
     {
       v11 = 0;
       v12 = 0;
@@ -2175,9 +2203,9 @@ LABEL_7:
 
     else
     {
-      v125 = @"AVControlCenterModulesNotificationBundleIdentifierKey";
-      v126 = self->_bundleID;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v126 forKeys:&v125 count:1];
+      v131 = @"AVControlCenterModulesNotificationBundleIdentifierKey";
+      v132 = self->_bundleID;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v132 forKeys:&v131 count:1];
       v12 = @"AVControlCenterMicrophoneModesModuleAutoEnabledDidChangeNotification";
     }
 
@@ -2200,12 +2228,12 @@ LABEL_7:
 
     else
     {
-      v123[0] = @"AVControlCenterModulesNotificationVideoEffectKey";
-      v123[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
-      v35 = self->_bundleID;
-      v124[0] = @"AVControlCenterVideoEffectCenterStage";
-      v124[1] = v35;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v124 forKeys:v123 count:2];
+      v129[0] = @"AVControlCenterModulesNotificationVideoEffectKey";
+      v129[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
+      v37 = self->_bundleID;
+      v130[0] = @"AVControlCenterVideoEffectCenterStage";
+      v130[1] = v37;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v130 forKeys:v129 count:2];
       v12 = @"AVControlCenterVideoEffectsModuleEffectControlModeDidChangeNotification";
     }
 
@@ -2225,7 +2253,7 @@ LABEL_7:
       path = [AVCaptureDevice defaultCenterStageEnabledForBundleID:self->_bundleID, path];
     }
 
-    v36 = path;
+    v38 = path;
     if (holdingStateLock || self->_centerStageEnabled == path)
     {
       v11 = 0;
@@ -2234,16 +2262,16 @@ LABEL_7:
 
     else
     {
-      v121[0] = @"AVControlCenterModulesNotificationVideoEffectKey";
-      v121[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
-      v37 = self->_bundleID;
-      v122[0] = @"AVControlCenterVideoEffectCenterStage";
-      v122[1] = v37;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v122 forKeys:v121 count:2];
+      v127[0] = @"AVControlCenterModulesNotificationVideoEffectKey";
+      v127[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
+      v39 = self->_bundleID;
+      v128[0] = @"AVControlCenterVideoEffectCenterStage";
+      v128[1] = v39;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v128 forKeys:v127 count:2];
       v12 = @"AVControlCenterVideoEffectsModuleEffectEnabledDidChangeNotification";
     }
 
-    self->_centerStageEnabled = v36;
+    self->_centerStageEnabled = v38;
     goto LABEL_132;
   }
 
@@ -2251,21 +2279,21 @@ LABEL_7:
   {
     if (changedCopy)
     {
-      v33 = [(NSURL *)changedCopy unsignedIntegerValue:changed];
+      v35 = [(NSURL *)changedCopy unsignedIntegerValue:changed];
     }
 
     else
     {
-      v33 = 0;
+      v35 = 0;
     }
 
-    v119[0] = @"AVControlCenterModulesNotificationCenterStageUnavailableReasonsKey";
-    v119[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
-    v120[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{v33, v87, v88}];
-    v120[1] = self->_bundleID;
-    v38 = MEMORY[0x1E695DF20];
-    v39 = v120;
-    v40 = v119;
+    v125[0] = @"AVControlCenterModulesNotificationCenterStageUnavailableReasonsKey";
+    v125[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
+    v126[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v35];
+    v126[1] = self->_bundleID;
+    v40 = MEMORY[0x1E695DF20];
+    v41 = v126;
+    v42 = v125;
     goto LABEL_124;
   }
 
@@ -2284,12 +2312,12 @@ LABEL_7:
 
     else
     {
-      v117[0] = @"AVControlCenterModulesNotificationVideoEffectKey";
-      v117[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
-      v47 = self->_bundleID;
-      v118[0] = @"AVControlCenterVideoEffectBackgroundBlur";
-      v118[1] = v47;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v118 forKeys:v117 count:2];
+      v123[0] = @"AVControlCenterModulesNotificationVideoEffectKey";
+      v123[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
+      v50 = self->_bundleID;
+      v124[0] = @"AVControlCenterVideoEffectBackgroundBlur";
+      v124[1] = v50;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v124 forKeys:v123 count:2];
       v12 = @"AVControlCenterVideoEffectsModuleEffectControlModeDidChangeNotification";
     }
 
@@ -2312,12 +2340,12 @@ LABEL_7:
 
     else
     {
-      v115[0] = @"AVControlCenterModulesNotificationVideoEffectKey";
-      v115[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
-      v49 = self->_bundleID;
-      v116[0] = @"AVControlCenterVideoEffectBackgroundBlur";
-      v116[1] = v49;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v116 forKeys:v115 count:2];
+      v121[0] = @"AVControlCenterModulesNotificationVideoEffectKey";
+      v121[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
+      v52 = self->_bundleID;
+      v122[0] = @"AVControlCenterVideoEffectBackgroundBlur";
+      v122[1] = v52;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v122 forKeys:v121 count:2];
       v12 = @"AVControlCenterVideoEffectsModuleEffectEnabledDidChangeNotification";
     }
 
@@ -2329,21 +2357,21 @@ LABEL_7:
   {
     if (changedCopy)
     {
-      v46 = [(NSURL *)changedCopy unsignedIntegerValue:changed];
+      v49 = [(NSURL *)changedCopy unsignedIntegerValue:changed];
     }
 
     else
     {
-      v46 = 0;
+      v49 = 0;
     }
 
-    v113[0] = @"AVControlCenterModulesNotificationBackgroundBlurUnavailableReasonsKey";
-    v113[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
-    v114[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{v46, v87, v88}];
-    v114[1] = self->_bundleID;
-    v38 = MEMORY[0x1E695DF20];
-    v39 = v114;
-    v40 = v113;
+    v119[0] = @"AVControlCenterModulesNotificationBackgroundBlurUnavailableReasonsKey";
+    v119[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
+    v120[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v49];
+    v120[1] = self->_bundleID;
+    v40 = MEMORY[0x1E695DF20];
+    v41 = v120;
+    v42 = v119;
     goto LABEL_124;
   }
 
@@ -2359,8 +2387,8 @@ LABEL_7:
       [AVCaptureDevice backgroundBlurApertureDefault:changed];
     }
 
-    v50 = v48;
-    if (holdingStateLock || v48 == self->_backgroundBlurAperture)
+    v53 = v51;
+    if (holdingStateLock || v51 == self->_backgroundBlurAperture)
     {
       v11 = 0;
       v12 = 0;
@@ -2368,16 +2396,16 @@ LABEL_7:
 
     else
     {
-      v111[0] = @"AVControlCenterModulesNotificationVideoEffectKey";
-      v111[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
-      v51 = self->_bundleID;
-      v112[0] = @"AVControlCenterVideoEffectBackgroundBlur";
-      v112[1] = v51;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v112 forKeys:v111 count:2];
+      v117[0] = @"AVControlCenterModulesNotificationVideoEffectKey";
+      v117[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
+      v54 = self->_bundleID;
+      v118[0] = @"AVControlCenterVideoEffectBackgroundBlur";
+      v118[1] = v54;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v118 forKeys:v117 count:2];
       v12 = @"AVControlCenterVideoEffectsModuleEffectIntensityDidChangeNotification";
     }
 
-    self->_backgroundBlurAperture = v50;
+    self->_backgroundBlurAperture = v53;
     goto LABEL_132;
   }
 
@@ -2396,12 +2424,12 @@ LABEL_7:
 
     else
     {
-      v109[0] = @"AVControlCenterModulesNotificationVideoEffectKey";
-      v109[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
-      v53 = self->_bundleID;
-      v110[0] = @"AVControlCenterVideoEffectStudioLighting";
-      v110[1] = v53;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v110 forKeys:v109 count:2];
+      v115[0] = @"AVControlCenterModulesNotificationVideoEffectKey";
+      v115[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
+      v56 = self->_bundleID;
+      v116[0] = @"AVControlCenterVideoEffectStudioLighting";
+      v116[1] = v56;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v116 forKeys:v115 count:2];
       v12 = @"AVControlCenterVideoEffectsModuleEffectControlModeDidChangeNotification";
     }
 
@@ -2424,12 +2452,12 @@ LABEL_7:
 
     else
     {
-      v107[0] = @"AVControlCenterModulesNotificationVideoEffectKey";
-      v107[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
-      v55 = self->_bundleID;
-      v108[0] = @"AVControlCenterVideoEffectStudioLighting";
-      v108[1] = v55;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v108 forKeys:v107 count:2];
+      v113[0] = @"AVControlCenterModulesNotificationVideoEffectKey";
+      v113[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
+      v58 = self->_bundleID;
+      v114[0] = @"AVControlCenterVideoEffectStudioLighting";
+      v114[1] = v58;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v114 forKeys:v113 count:2];
       v12 = @"AVControlCenterVideoEffectsModuleEffectEnabledDidChangeNotification";
     }
 
@@ -2441,21 +2469,21 @@ LABEL_7:
   {
     if (changedCopy)
     {
-      v52 = [(NSURL *)changedCopy unsignedIntegerValue:changed];
+      v55 = [(NSURL *)changedCopy unsignedIntegerValue:changed];
     }
 
     else
     {
-      v52 = 0;
+      v55 = 0;
     }
 
-    v105[0] = @"AVControlCenterModulesNotificationStudioLightingUnavailableReasonsKey";
-    v105[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
-    v106[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{v52, v87, v88}];
-    v106[1] = self->_bundleID;
-    v38 = MEMORY[0x1E695DF20];
-    v39 = v106;
-    v40 = v105;
+    v111[0] = @"AVControlCenterModulesNotificationStudioLightingUnavailableReasonsKey";
+    v111[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
+    v112[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v55];
+    v112[1] = self->_bundleID;
+    v40 = MEMORY[0x1E695DF20];
+    v41 = v112;
+    v42 = v111;
     goto LABEL_124;
   }
 
@@ -2471,8 +2499,8 @@ LABEL_7:
       [AVCaptureDevice studioLightingIntensityDefault:changed];
     }
 
-    v56 = v54;
-    if (holdingStateLock || v54 == self->_studioLightingIntensity)
+    v59 = v57;
+    if (holdingStateLock || v57 == self->_studioLightingIntensity)
     {
       v11 = 0;
       v12 = 0;
@@ -2480,16 +2508,16 @@ LABEL_7:
 
     else
     {
-      v103[0] = @"AVControlCenterModulesNotificationVideoEffectKey";
-      v103[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
-      v57 = self->_bundleID;
-      v104[0] = @"AVControlCenterVideoEffectStudioLighting";
-      v104[1] = v57;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v104 forKeys:v103 count:2];
+      v109[0] = @"AVControlCenterModulesNotificationVideoEffectKey";
+      v109[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
+      v60 = self->_bundleID;
+      v110[0] = @"AVControlCenterVideoEffectStudioLighting";
+      v110[1] = v60;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v110 forKeys:v109 count:2];
       v12 = @"AVControlCenterVideoEffectsModuleEffectIntensityDidChangeNotification";
     }
 
-    self->_studioLightingIntensity = v56;
+    self->_studioLightingIntensity = v59;
     goto LABEL_132;
   }
 
@@ -2517,32 +2545,31 @@ LABEL_183:
     else
     {
       isOptedInForReactionEffects = self->_isOptedInForReactionEffects;
-      v145 = 0;
-      v144 = OS_LOG_TYPE_DEFAULT;
-      v63 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v64 = v145;
-      if (os_log_type_enabled(v63, v144))
+      v151 = 0;
+      v150 = OS_LOG_TYPE_DEFAULT;
+      v67 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v68 = v151;
+      v69 = v150;
+      if (os_log_type_enabled(v67, v150))
       {
-        v65 = v64;
+        v70 = v68;
       }
 
       else
       {
-        v65 = v64 & 0xFFFFFFFE;
+        v70 = v68 & 0xFFFFFFFE;
       }
 
-      if (v65)
+      if (v70)
       {
-        v66 = self->_bundleID;
-        v137 = 136315650;
-        v138 = "[AVControlCenterModuleState _proprietaryDefaultChanged:keyPath:context:]";
-        v139 = 2112;
-        v140 = v66;
-        v141 = 1024;
-        *v142 = isOptedInForReactionEffects;
-        LODWORD(v88) = 28;
-        v87 = &v137;
-        _os_log_send_and_compose_impl();
+        v71 = self->_bundleID;
+        v143 = 136315650;
+        v144 = "[AVControlCenterModuleState _proprietaryDefaultChanged:keyPath:context:]";
+        v145 = 2112;
+        v146 = v71;
+        v147 = 1024;
+        *v148 = isOptedInForReactionEffects;
+        _os_log_send_and_compose_impl(v70, 0, v149, 128, &dword_1A917C000, v67, v69, "<<<< AVControlCenterModules >>>> %s: Control Center is querying reactions-enabled of %@ before it has initialized, lookup indicates %d (not necessarily a fault, but unexpected)", &v143, 28);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -2556,12 +2583,12 @@ LABEL_183:
 
     else
     {
-      v101[0] = @"AVControlCenterModulesNotificationVideoEffectKey";
-      v101[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
-      v75 = self->_bundleID;
-      v102[0] = @"AVControlCenterVideoEffectReactions";
-      v102[1] = v75;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v102 forKeys:v101 count:2];
+      v107[0] = @"AVControlCenterModulesNotificationVideoEffectKey";
+      v107[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
+      v81 = self->_bundleID;
+      v108[0] = @"AVControlCenterVideoEffectReactions";
+      v108[1] = v81;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v108 forKeys:v107 count:2];
       v12 = @"AVControlCenterVideoEffectsModuleEffectEnabledDidChangeNotification";
     }
 
@@ -2575,29 +2602,28 @@ LABEL_183:
     {
       if (dword_1ED8068A0)
       {
-        v145 = 0;
-        v144 = OS_LOG_TYPE_DEFAULT;
-        v59 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v60 = v145;
-        if (os_log_type_enabled(v59, v144))
+        v151 = 0;
+        v150 = OS_LOG_TYPE_DEFAULT;
+        v62 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v63 = v151;
+        v64 = v150;
+        if (os_log_type_enabled(v62, v150))
         {
-          v61 = v60;
+          v65 = v63;
         }
 
         else
         {
-          v61 = v60 & 0xFFFFFFFE;
+          v65 = v63 & 0xFFFFFFFE;
         }
 
-        if (v61)
+        if (v65)
         {
-          v137 = 136315394;
-          v138 = "[AVControlCenterModuleState _proprietaryDefaultChanged:keyPath:context:]";
-          v139 = 2112;
-          v140 = changedCopy;
-          LODWORD(v88) = 22;
-          v87 = &v137;
-          _os_log_send_and_compose_impl();
+          v143 = 136315394;
+          v144 = "[AVControlCenterModuleState _proprietaryDefaultChanged:keyPath:context:]";
+          v145 = 2112;
+          v146 = changedCopy;
+          _os_log_send_and_compose_impl(v65, 0, v149, 128, &dword_1A917C000, v62, v64, "<<<< AVControlCenterModules >>>> %s: AVCCM Using value from PD %@", &v143, 22);
         }
 
         fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -2605,7 +2631,7 @@ LABEL_183:
 
       path2 = changedCopy;
 LABEL_232:
-      bOOLValue = [(NSURL *)path2 BOOLValue:v87];
+      bOOLValue = [(NSURL *)path2 BOOLValue];
       if (holdingStateLock)
       {
         goto LABEL_261;
@@ -2620,40 +2646,39 @@ LABEL_232:
       goto LABEL_232;
     }
 
-    v68 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:self->_bundleID allowPlaceholder:1 error:0];
-    infoDictionary = [v68 infoDictionary];
-    v70 = [infoDictionary objectForKey:AVCaptureBundleCameraReactionEffectGesturesEnabledDefaultKey ofClass:objc_opt_class()];
-    if (v70)
+    v73 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:self->_bundleID allowPlaceholder:1 error:0];
+    infoDictionary = [v73 infoDictionary];
+    v75 = [infoDictionary objectForKey:AVCaptureBundleCameraReactionEffectGesturesEnabledDefaultKey ofClass:objc_opt_class()];
+    if (v75)
     {
-      bOOLValue = [v70 BOOLValue];
+      bOOLValue = [v75 BOOLValue];
       if (!dword_1ED8068A0)
       {
         goto LABEL_260;
       }
 
-      v145 = 0;
-      v144 = OS_LOG_TYPE_DEFAULT;
-      v72 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v73 = v145;
-      if (os_log_type_enabled(v72, v144))
+      v151 = 0;
+      v150 = OS_LOG_TYPE_DEFAULT;
+      v77 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v78 = v151;
+      v79 = v150;
+      if (os_log_type_enabled(v77, v150))
       {
-        v74 = v73;
+        v80 = v78;
       }
 
       else
       {
-        v74 = v73 & 0xFFFFFFFE;
+        v80 = v78 & 0xFFFFFFFE;
       }
 
-      if (v74)
+      if (v80)
       {
-        v137 = 136315394;
-        v138 = "[AVControlCenterModuleState _proprietaryDefaultChanged:keyPath:context:]";
-        v139 = 1024;
-        LODWORD(v140) = bOOLValue;
-        LODWORD(v88) = 18;
-        v87 = &v137;
-        _os_log_send_and_compose_impl();
+        v143 = 136315394;
+        v144 = "[AVControlCenterModuleState _proprietaryDefaultChanged:keyPath:context:]";
+        v145 = 1024;
+        LODWORD(v146) = bOOLValue;
+        _os_log_send_and_compose_impl(v80, 0, v149, 128, &dword_1A917C000, v77, v79, "<<<< AVControlCenterModules >>>> %s: AVCCM Using default from Info.plist %d", &v143, 18);
       }
     }
 
@@ -2666,30 +2691,29 @@ LABEL_232:
         goto LABEL_260;
       }
 
-      v81 = CFPreferenceBooleanWithDefault;
-      v145 = 0;
-      v144 = OS_LOG_TYPE_DEFAULT;
-      v82 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v83 = v145;
-      if (os_log_type_enabled(v82, v144))
+      v87 = CFPreferenceBooleanWithDefault;
+      v151 = 0;
+      v150 = OS_LOG_TYPE_DEFAULT;
+      v88 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v89 = v151;
+      v90 = v150;
+      if (os_log_type_enabled(v88, v150))
       {
-        v84 = v83;
+        v91 = v89;
       }
 
       else
       {
-        v84 = v83 & 0xFFFFFFFE;
+        v91 = v89 & 0xFFFFFFFE;
       }
 
-      if (v84)
+      if (v91)
       {
-        v137 = 136315394;
-        v138 = "[AVControlCenterModuleState _proprietaryDefaultChanged:keyPath:context:]";
-        v139 = 1024;
-        LODWORD(v140) = v81 != 0;
-        LODWORD(v88) = 18;
-        v87 = &v137;
-        _os_log_send_and_compose_impl();
+        v143 = 136315394;
+        v144 = "[AVControlCenterModuleState _proprietaryDefaultChanged:keyPath:context:]";
+        v145 = 1024;
+        LODWORD(v146) = v87 != 0;
+        _os_log_send_and_compose_impl(v91, 0, v149, 128, &dword_1A917C000, v88, v90, "<<<< AVControlCenterModules >>>> %s: AVCCM Using default from system %d", &v143, 18);
       }
     }
 
@@ -2704,12 +2728,12 @@ LABEL_260:
 LABEL_233:
     if (self->_gesturesEnabled != bOOLValue)
     {
-      v99[0] = @"AVControlCenterModulesNotificationVideoEffectKey";
-      v99[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
-      v76 = self->_bundleID;
-      v100[0] = @"AVControlCenterVideoEffectGestures";
-      v100[1] = v76;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v100 forKeys:v99 count:2];
+      v105[0] = @"AVControlCenterModulesNotificationVideoEffectKey";
+      v105[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
+      v82 = self->_bundleID;
+      v106[0] = @"AVControlCenterVideoEffectGestures";
+      v106[1] = v82;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v106 forKeys:v105 count:2];
       v12 = @"AVControlCenterVideoEffectsModuleEffectEnabledDidChangeNotification";
 LABEL_262:
       self->_gesturesEnabled = bOOLValue;
@@ -2726,21 +2750,21 @@ LABEL_261:
   {
     if (changedCopy)
     {
-      v62 = [(NSURL *)changedCopy unsignedIntegerValue:changed];
+      v66 = [(NSURL *)changedCopy unsignedIntegerValue:changed];
     }
 
     else
     {
-      v62 = 0;
+      v66 = 0;
     }
 
-    v97[0] = @"AVControlCenterModulesNotificationReactionsUnavailableReasonsKey";
-    v97[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
-    v98[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{v62, v87, v88}];
-    v98[1] = self->_bundleID;
-    v38 = MEMORY[0x1E695DF20];
-    v39 = v98;
-    v40 = v97;
+    v103[0] = @"AVControlCenterModulesNotificationReactionsUnavailableReasonsKey";
+    v103[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
+    v104[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v66];
+    v104[1] = self->_bundleID;
+    v40 = MEMORY[0x1E695DF20];
+    v41 = v104;
+    v42 = v103;
     goto LABEL_124;
   }
 
@@ -2774,8 +2798,8 @@ LABEL_216:
 
         if (changedCopy)
         {
-          v143[0] = 0;
-          changedCopy = [MEMORY[0x1E695DFF8] URLByResolvingBookmarkData:changedCopy options:256 relativeToURL:0 bookmarkDataIsStale:0 error:v143];
+          v149[0] = 0;
+          changedCopy = [MEMORY[0x1E695DFF8] URLByResolvingBookmarkData:changedCopy options:256 relativeToURL:0 bookmarkDataIsStale:0 error:v149];
         }
 
         if (holdingStateLock || changedCopy == self->_backgroundReplacementURL || ([(NSURL *)changedCopy isEqual:?]& 1) != 0)
@@ -2786,12 +2810,12 @@ LABEL_216:
 
         else
         {
-          v91[0] = @"AVControlCenterModulesNotificationVideoEffectKey";
-          v91[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
-          v86 = self->_bundleID;
-          v92[0] = @"AVControlCenterVideoEffectBackgroundReplacement";
-          v92[1] = v86;
-          v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v92 forKeys:v91 count:2];
+          v97[0] = @"AVControlCenterModulesNotificationVideoEffectKey";
+          v97[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
+          v93 = self->_bundleID;
+          v98[0] = @"AVControlCenterVideoEffectBackgroundReplacement";
+          v98[1] = v93;
+          v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v98 forKeys:v97 count:2];
           v12 = @"AVControlCenterVideoEffectsBackgroundReplacementURLDidChangeNotification";
         }
 
@@ -2814,9 +2838,9 @@ LABEL_216:
           v12 = 0;
           if (AVCCM_DockedTrackingActiveChangedContext == contextCopy)
           {
-            v89 = @"dockedTrackingActive";
-            v90 = changedCopy;
-            v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v90 forKeys:&v89 count:1];
+            v95 = @"dockedTrackingActive";
+            v96 = changedCopy;
+            v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v96 forKeys:&v95 count:1];
             v12 = @"AVControlCenterDockedTrackingActiveDidChangeNotification";
           }
         }
@@ -2832,23 +2856,23 @@ LABEL_216:
 
     if (changedCopy)
     {
-      v77 = [(NSURL *)changedCopy unsignedIntegerValue:changed];
+      v83 = [(NSURL *)changedCopy unsignedIntegerValue:changed];
     }
 
     else
     {
-      v77 = 0;
+      v83 = 0;
     }
 
-    v93[0] = @"AVControlCenterModulesNotificationBackgroundReplacementUnavailableReasonsKey";
-    v93[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
-    v94[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{v77, v87, v88}];
-    v94[1] = self->_bundleID;
-    v38 = MEMORY[0x1E695DF20];
-    v39 = v94;
-    v40 = v93;
+    v99[0] = @"AVControlCenterModulesNotificationBackgroundReplacementUnavailableReasonsKey";
+    v99[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
+    v100[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v83];
+    v100[1] = self->_bundleID;
+    v40 = MEMORY[0x1E695DF20];
+    v41 = v100;
+    v42 = v99;
 LABEL_124:
-    v11 = [v38 dictionaryWithObjects:v39 forKeys:v40 count:2];
+    v11 = [v40 dictionaryWithObjects:v41 forKeys:v42 count:2];
     v12 = @"AVControlCenterVideoEffectsUnavailableReasonsDidChangeNotification";
     goto LABEL_132;
   }
@@ -2866,12 +2890,12 @@ LABEL_124:
 
   else
   {
-    v95[0] = @"AVControlCenterModulesNotificationVideoEffectKey";
-    v95[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
-    v85 = self->_bundleID;
-    v96[0] = @"AVControlCenterVideoEffectBackgroundReplacement";
-    v96[1] = v85;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v96 forKeys:v95 count:2];
+    v101[0] = @"AVControlCenterModulesNotificationVideoEffectKey";
+    v101[1] = @"AVControlCenterModulesNotificationBundleIdentifierKey";
+    v92 = self->_bundleID;
+    v102[0] = @"AVControlCenterVideoEffectBackgroundReplacement";
+    v102[1] = v92;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v102 forKeys:v101 count:2];
     v12 = @"AVControlCenterVideoEffectsModuleEffectEnabledDidChangeNotification";
   }
 
@@ -2886,40 +2910,40 @@ LABEL_132:
   {
     if (dword_1ED8068A0)
     {
-      v145 = 0;
-      v144 = OS_LOG_TYPE_DEFAULT;
-      v42 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v43 = v145;
-      if (os_log_type_enabled(v42, v144))
+      v151 = 0;
+      v150 = OS_LOG_TYPE_DEFAULT;
+      v44 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v45 = v151;
+      v46 = v150;
+      if (os_log_type_enabled(v44, v150))
       {
-        v44 = v43;
+        v47 = v45;
       }
 
       else
       {
-        v44 = v43 & 0xFFFFFFFE;
+        v47 = v45 & 0xFFFFFFFE;
       }
 
-      if (v44)
+      if (v47)
       {
-        v45 = self->_bundleID;
-        v137 = 136315907;
-        v138 = "[AVControlCenterModuleState _proprietaryDefaultChanged:keyPath:context:]";
-        v139 = 2113;
-        v140 = v45;
-        v141 = 2112;
-        *v142 = v12;
-        *&v142[8] = 2112;
-        *&v142[10] = v11;
-        LODWORD(v88) = 42;
-        v87 = &v137;
-        _os_log_send_and_compose_impl();
+        v48 = self->_bundleID;
+        v143 = 136315907;
+        v144 = "[AVControlCenterModuleState _proprietaryDefaultChanged:keyPath:context:]";
+        v145 = 2113;
+        v146 = v48;
+        v147 = 2112;
+        *v148 = v12;
+        *&v148[8] = 2112;
+        *&v148[10] = v11;
+        LODWORD(v94) = 42;
+        _os_log_send_and_compose_impl(v47, 0, v149, 128, &dword_1A917C000, v44, v46, "<<<< AVControlCenterModules >>>> %s: %{private}@: sending notification %@ with userInfo %@", &v143, v94);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
+    [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
   }
 }
 
@@ -2943,7 +2967,7 @@ LABEL_132:
     os_unfair_lock_lock(&self->_stateLock);
   }
 
-  [(AVControlCenterModuleState *)self _defaultOriginalVideoZoomFactor:v24];
+  [(AVControlCenterModuleState *)self _defaultOriginalVideoZoomFactor];
   v7 = v6;
   currentOriginalZoomFactor = self->_currentOriginalZoomFactor;
   currentPanningAngleX = self->_currentPanningAngleX;
@@ -2975,43 +2999,43 @@ LABEL_132:
       v42 = OS_LOG_TYPE_DEFAULT;
       v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       v15 = v43;
+      v16 = v42;
       if (os_log_type_enabled(v14, v42))
       {
-        v16 = v15;
+        v17 = v15;
       }
 
       else
       {
-        v16 = v15 & 0xFFFFFFFE;
+        v17 = v15 & 0xFFFFFFFE;
       }
 
-      if (v16)
+      if (v17)
       {
-        v32 = 136316162;
-        v33 = "[AVControlCenterModuleState _handlePanningAnglesUpdate:]";
-        v34 = 2048;
-        v35 = currentPanningAngleX;
-        v36 = 2048;
-        v37 = currentPanningAngleY;
-        v38 = 2048;
+        v31 = 136316162;
+        v32 = "[AVControlCenterModuleState _handlePanningAnglesUpdate:]";
+        v33 = 2048;
+        v34 = currentPanningAngleX;
+        v35 = 2048;
+        v36 = currentPanningAngleY;
+        v37 = 2048;
         x = point.x;
-        v40 = 2048;
+        v39 = 2048;
         y = point.y;
-        LODWORD(v27) = 52;
-        v25 = &v32;
-        _os_log_send_and_compose_impl();
+        LODWORD(v26) = 52;
+        _os_log_send_and_compose_impl(v17, 0, v41, 128, &dword_1A917C000, v14, v16, "<<<< AVControlCenterModules >>>> %s: Manual Framing changes from default to non-default with new panning angles. old (%f, %f) --> new (%f, %f)", &v31, v26, *&v27, v28, *&v29);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v30 = @"isAtDefault";
-    v31 = MEMORY[0x1E695E110];
-    v20 = MEMORY[0x1E695DF20];
-    v21 = &v31;
-    v22 = &v30;
+    v29 = @"isAtDefault";
+    v30 = MEMORY[0x1E695E110];
+    v22 = MEMORY[0x1E695DF20];
+    v23 = &v30;
+    v24 = &v29;
 LABEL_33:
-    v23 = [v20 dictionaryWithObjects:v21 forKeys:v22 count:{1, v12, v25, v27, v28, v29, v30, v31}];
+    v25 = [v22 dictionaryWithObjects:v23 forKeys:v24 count:{1, v12}];
     [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
     return;
   }
@@ -3028,50 +3052,50 @@ LABEL_33:
     {
       v43 = 0;
       v42 = OS_LOG_TYPE_DEFAULT;
-      v17 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v18 = v43;
-      if (os_log_type_enabled(v17, v42))
+      v18 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v19 = v43;
+      v20 = v42;
+      if (os_log_type_enabled(v18, v42))
       {
-        v19 = v18;
+        v21 = v19;
       }
 
       else
       {
-        v19 = v18 & 0xFFFFFFFE;
+        v21 = v19 & 0xFFFFFFFE;
       }
 
-      if (v19)
+      if (v21)
       {
-        v32 = 136316162;
-        v33 = "[AVControlCenterModuleState _handlePanningAnglesUpdate:]";
-        v34 = 2048;
-        v35 = currentPanningAngleX;
-        v36 = 2048;
-        v37 = currentPanningAngleY;
-        v38 = 2048;
+        v31 = 136316162;
+        v32 = "[AVControlCenterModuleState _handlePanningAnglesUpdate:]";
+        v33 = 2048;
+        v34 = currentPanningAngleX;
+        v35 = 2048;
+        v36 = currentPanningAngleY;
+        v37 = 2048;
         x = point.x;
-        v40 = 2048;
+        v39 = 2048;
         y = point.y;
-        LODWORD(v27) = 52;
-        v25 = &v32;
-        _os_log_send_and_compose_impl();
+        LODWORD(v26) = 52;
+        _os_log_send_and_compose_impl(v21, 0, v41, 128, &dword_1A917C000, v18, v20, "<<<< AVControlCenterModules >>>> %s: Manual Framing changes from non-default to default with new panning angles. old (%f, %f) --> new (%f, %f)", &v31, v26, *&v27, v28, *&v29);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v28 = @"isAtDefault";
-    v29 = MEMORY[0x1E695E118];
-    v20 = MEMORY[0x1E695DF20];
-    v21 = &v29;
-    v22 = &v28;
+    v27 = @"isAtDefault";
+    v28 = MEMORY[0x1E695E118];
+    v22 = MEMORY[0x1E695DF20];
+    v23 = &v28;
+    v24 = &v27;
     goto LABEL_33;
   }
 }
 
 - (void)_handleBackPropagatedVideoZoomFactorUpdate:(id)update
 {
-  v4 = [update objectForKeyedSubscript:AVControlCenterManualFramingConvertedVideoZoomFactor];
+  v4 = objc_msgSend_objectForKeyedSubscript_(update, a2, AVControlCenterManualFramingConvertedVideoZoomFactor);
   manualFramingDeviceType = [(AVControlCenterModuleState *)self manualFramingDeviceType];
   [v4 floatValue];
   v7 = v6;
@@ -3113,36 +3137,35 @@ LABEL_33:
     v30 = OS_LOG_TYPE_DEFAULT;
     v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     v13 = v31;
+    v14 = v30;
     if (os_log_type_enabled(v12, v30))
     {
-      v14 = v13;
+      v15 = v13;
     }
 
     else
     {
-      v14 = v13 & 0xFFFFFFFE;
+      v15 = v13 & 0xFFFFFFFE;
     }
 
-    if (v14)
+    if (v15)
     {
       [v4 floatValue];
-      v15 = @"NO";
-      v23 = "[AVControlCenterModuleState _handleBackPropagatedVideoZoomFactorUpdate:]";
-      v22 = 136315906;
-      v26 = 2112;
-      v24 = 2048;
-      v25 = v16;
+      v16 = @"NO";
+      v22 = "[AVControlCenterModuleState _handleBackPropagatedVideoZoomFactorUpdate:]";
+      v21 = 136315906;
+      v25 = 2112;
+      v23 = 2048;
+      v24 = v17;
       if (manualFramingDeviceType == 2)
       {
-        v15 = @"YES";
+        v16 = @"YES";
       }
 
-      v27 = v15;
-      v28 = 2048;
-      v29 = v10;
-      LODWORD(v19) = 42;
-      v18 = &v22;
-      _os_log_send_and_compose_impl();
+      v26 = v16;
+      v27 = 2048;
+      v28 = v10;
+      _os_log_send_and_compose_impl(v15, 0, v29, 128, &dword_1A917C000, v12, v14, "<<<< AVControlCenterModules >>>> %s: Received back propagated video zoom factor: %f. Conversion needed: %@. Resulted original video zoom factor: %f", &v21, 42);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
@@ -3150,9 +3173,9 @@ LABEL_33:
 
 LABEL_17:
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-  v20 = @"videoZoomFactor";
-  v21 = [MEMORY[0x1E696AD98] numberWithDouble:v10];
-  [defaultCenter postNotificationName:@"AVControlCenterManualFramingVideoZoomFactorDidChangeNotification" object:0 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v21, &v20, 1)}];
+  v19 = @"videoZoomFactor";
+  v20 = [MEMORY[0x1E696AD98] numberWithDouble:v10];
+  [defaultCenter postNotificationName:@"AVControlCenterManualFramingVideoZoomFactorDidChangeNotification" object:0 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v20, &v19, 1)}];
   [(AVControlCenterModuleState *)self _checkManualFramingDefaultStateWithNewOriginalZoomFactor:v10];
 }
 
@@ -3183,20 +3206,20 @@ LABEL_17:
     {
       if (dword_1ED8068A0)
       {
-        v26 = 0;
-        v25 = 0;
+        v24 = 0;
+        v23 = 0;
         os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      v23 = @"isAtDefault";
-      v24 = MEMORY[0x1E695E110];
+      v21 = @"isAtDefault";
+      v22 = MEMORY[0x1E695E110];
       v15 = MEMORY[0x1E695DF20];
-      v16 = &v24;
-      v17 = &v23;
+      v16 = &v22;
+      v17 = &v21;
 LABEL_17:
-      v18 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:{1, v19, v20, v21, v22, v23, v24}];
+      v18 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:1];
       [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
       return;
     }
@@ -3205,18 +3228,18 @@ LABEL_17:
     {
       if (dword_1ED8068A0)
       {
-        v26 = 0;
-        v25 = 0;
+        v24 = 0;
+        v23 = 0;
         v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
         os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      v21 = @"isAtDefault";
-      v22 = MEMORY[0x1E695E118];
+      v19 = @"isAtDefault";
+      v20 = MEMORY[0x1E695E118];
       v15 = MEMORY[0x1E695DF20];
-      v16 = &v22;
-      v17 = &v21;
+      v16 = &v20;
+      v17 = &v19;
       goto LABEL_17;
     }
   }

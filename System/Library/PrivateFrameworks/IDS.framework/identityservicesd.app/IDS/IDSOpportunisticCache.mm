@@ -396,16 +396,18 @@ LABEL_21:
 - (void)syncCacheWithKeychain
 {
   v3 = [(IDSOpportunisticCache *)self fetchOpportunisticCacheWithError:0];
+  v4 = v3;
   if (v3)
   {
-    v4 = v3;
+    v5 = v3;
     [(IDSOpportunisticCache *)self mergeKeychainCacheIntoDictionary:v3];
-    [(IDSOpportunisticCache *)self selectServicesForKeychainCacheFromDictionary:v4];
+    [(IDSOpportunisticCache *)self selectServicesForKeychainCacheFromDictionary:v5];
     self->_accessCount = 0;
-    [(IDSOpportunisticCache *)self saveOpportunisticCache:v4 withError:0];
+    v3 = [(IDSOpportunisticCache *)self saveOpportunisticCache:v5 withError:0];
+    v4 = v5;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(v3, v4);
 }
 
 - (void)mergeKeychainCacheIntoDictionary:(id)dictionary

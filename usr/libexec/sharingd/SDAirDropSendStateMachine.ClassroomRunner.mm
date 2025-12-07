@@ -8,7 +8,7 @@
 {
   operationCopy = operation;
   selfCopy = self;
-  sub_10062CD8C();
+  sub_10062CD8C(selfCopy);
 }
 
 @end

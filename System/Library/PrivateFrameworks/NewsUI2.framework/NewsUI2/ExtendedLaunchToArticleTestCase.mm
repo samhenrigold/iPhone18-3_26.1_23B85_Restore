@@ -26,12 +26,13 @@
     swift_once();
   }
 
-  sub_219BF6214();
-  sub_219BE5314();
+  v8 = qword_280F61728;
+  v9 = sub_219BF6214();
+  sub_219BE5314("Starting extended launch-to-article test", 40, 2, &dword_2186C1000, v8, v9, MEMORY[0x277D84F90]);
   sub_219BE1EB4();
-  v8 = swift_allocObject();
-  *(v8 + 16) = sub_218967168;
-  *(v8 + 24) = v6;
+  v10 = swift_allocObject();
+  *(v10 + 16) = sub_218967168;
+  *(v10 + 24) = v6;
 
   sub_219BE2714();
 }

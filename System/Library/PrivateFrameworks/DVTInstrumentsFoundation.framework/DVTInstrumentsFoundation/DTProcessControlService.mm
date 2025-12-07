@@ -1,10 +1,13 @@
 @interface DTProcessControlService
 + (void)registerCapabilities:(id)capabilities;
 - (DTProcessControlService)initWithChannel:(id)channel;
+- (id)insertViewDebuggingLibrariesForPid:(int)pid;
 - (id)isPidDebuggable:(id)debuggable;
 - (id)launchSuspendedProcessWithDevicePath:(id)path bundleIdentifier:(id)identifier environment:(id)environment arguments:(id)arguments options:(id)options;
 - (id)requestDisableMemoryLimitsForPid:(int)pid;
+- (int)maybeRedirectFromFileDescriptor:(int)descriptor fromPid:(int)pid withScratchBuffer:(char *)buffer ofByteLength:(unint64_t)length;
 - (void)_performMemoryWarningForPid:(int)pid;
+- (void)handleRedirectionIterationForFileDescriptor:(int)descriptor forPid:(int)pid withDispatchSource:(id)source;
 - (void)resumePid:(id)pid;
 - (void)sendProcessControlEvent:(id)event toPid:(id)pid;
 - (void)sendSignal:(id)signal toPid:(id)pid;
@@ -128,17 +131,17 @@
 
 - (void)resumePid:(id)pid
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   intValue = [pid intValue];
   if (!intValue)
   {
-    goto LABEL_12;
+    return;
   }
 
   v4 = intValue;
   if (intValue == getpid())
   {
-    goto LABEL_12;
+    return;
   }
 
   if (!DTProcessIsSigStopped(v4))
@@ -152,79 +155,76 @@
     {
       v5 = __error();
       v6 = strerror(*v5);
-      v9 = 67109378;
-      v10 = v4;
-      v11 = 2080;
-      v12 = v6;
-      _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failed to resume pid %d with SIGCONT (%s), will attempt task_resume() if authorized", &v9, 0x12u);
+      v8 = 67109378;
+      v9 = v4;
+      v10 = 2080;
+      v11 = v6;
+      _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failed to resume pid %d with SIGCONT (%s), will attempt task_resume() if authorized", &v8, 0x12u);
     }
 
 LABEL_7:
     v7 = [DTInstrumentServer taskForPid:v4];
     if (v7 - 1 >= 0xFFFFFFFE && sub_247FAF688() && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v9 = 67109120;
-      v10 = v4;
-      _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "no task port available to resume pid %d with task_resume()", &v9, 8u);
+      v8 = 67109120;
+      v9 = v4;
+      _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "no task port available to resume pid %d with task_resume()", &v8, 8u);
     }
 
     task_resume(v7);
     mach_port_deallocate(*MEMORY[0x277D85F48], v7);
-    goto LABEL_12;
+    return;
   }
 
   if (sub_247FAF688() && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v9 = 67109120;
-    v10 = v4;
-    _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "sent SIGCONT to pid %d", &v9, 8u);
+    v8 = 67109120;
+    v9 = v4;
+    _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "sent SIGCONT to pid %d", &v8, 8u);
   }
-
-LABEL_12:
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)suspendPid:(id)pid
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   intValue = [pid intValue];
-  if (!intValue || (v4 = intValue, intValue == getpid()))
+  if (intValue)
   {
-LABEL_3:
-    v5 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  v6 = [DTInstrumentServer taskForPid:v4];
-  if (v6 - 1 >= 0xFFFFFFFE)
-  {
-    if (sub_247FAF688() && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+    v4 = intValue;
+    if (intValue != getpid())
     {
-      v12 = 67109120;
-      v13 = v4;
-      _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "attempting suspend via SIGSTOP for pid %d", &v12, 8u);
-    }
+      v5 = [DTInstrumentServer taskForPid:v4];
+      if (v5 - 1 >= 0xFFFFFFFE)
+      {
+        if (sub_247FAF688() && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+        {
+          v10 = 67109120;
+          v11 = v4;
+          _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "attempting suspend via SIGSTOP for pid %d", &v10, 8u);
+        }
 
-    if (kill(v4, 17) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-    {
-      v10 = __error();
-      v11 = strerror(*v10);
-      v12 = 67109378;
-      v13 = v4;
-      v14 = 2080;
-      v15 = v11;
-      _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failed to suspend pid %d with SIGSTOP: %s", &v12, 0x12u);
-    }
+        if (kill(v4, 17) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          v8 = __error();
+          v9 = strerror(*v8);
+          v10 = 67109378;
+          v11 = v4;
+          v12 = 2080;
+          v13 = v9;
+          _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failed to suspend pid %d with SIGSTOP: %s", &v10, 0x12u);
+        }
+      }
 
-    goto LABEL_3;
+      else
+      {
+        v6 = v5;
+        task_suspend(v5);
+        v7 = *MEMORY[0x277D85F48];
+
+        mach_port_deallocate(v7, v6);
+      }
+    }
   }
-
-  v7 = v6;
-  task_suspend(v6);
-  v8 = *MEMORY[0x277D85F48];
-  v9 = *MEMORY[0x277D85DE8];
-
-  mach_port_deallocate(v8, v7);
 }
 
 - (id)launchSuspendedProcessWithDevicePath:(id)path bundleIdentifier:(id)identifier environment:(id)environment arguments:(id)arguments options:(id)options
@@ -331,7 +331,7 @@ LABEL_3:
 
 - (id)requestDisableMemoryLimitsForPid:(int)pid
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = memorystatus_control();
   if (v4)
   {
@@ -340,12 +340,12 @@ LABEL_3:
     {
       *buf = 67109376;
       pidCopy2 = pid;
-      v10 = 1024;
-      v11 = v5;
+      v9 = 1024;
+      v10 = v5;
       _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to disable active and inactive memory limits for pid %d (result = %d)", buf, 0xEu);
     }
 
-    result = MEMORY[0x277CBEC28];
+    return MEMORY[0x277CBEC28];
   }
 
   else
@@ -354,16 +354,142 @@ LABEL_3:
     {
       *buf = 67109376;
       pidCopy2 = pid;
-      v10 = 1024;
-      v11 = 0;
+      v9 = 1024;
+      v10 = 0;
       _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Disabled active and inactive memory limits for pid %d (result = %d)", buf, 0xEu);
     }
 
-    result = MEMORY[0x277CBEC38];
+    return MEMORY[0x277CBEC38];
+  }
+}
+
+- (id)insertViewDebuggingLibrariesForPid:(int)pid
+{
+  v3 = *&pid;
+  v34[1] = *MEMORY[0x277D85DE8];
+  v4 = objc_opt_new();
+  defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+  v6 = @"/usr/lib/libViewDebuggerSupport.dylib";
+  v7 = [defaultManager fileExistsAtPath:@"/usr/lib/libViewDebuggerSupport.dylib"];
+
+  if (v7 & 1) != 0 || ([MEMORY[0x277CCAA00] defaultManager], v8 = objc_claimAutoreleasedReturnValue(), v6 = @"/System/Developer/usr/lib/libViewDebuggerSupport.dylib", v9 = objc_msgSend(v8, "fileExistsAtPath:", @"/System/Developer/usr/lib/libViewDebuggerSupport.dylib"), v8, (v9) || (objc_msgSend(MEMORY[0x277CCAA00], "defaultManager"), v10 = objc_claimAutoreleasedReturnValue(), v6 = @"/Developer/Library/PrivateFrameworks/DTDDISupport.framework/libViewDebuggerSupport.dylib", v11 = objc_msgSend(v10, "fileExistsAtPath:", @"/Developer/Library/PrivateFrameworks/DTDDISupport.framework/libViewDebuggerSupport.dylib"), v10, (v11))
+  {
+    v28 = 0;
+    v12 = task_for_pid(*MEMORY[0x277D85F48], v3, &v28);
+    if (v12)
+    {
+      v13 = v12;
+      v31 = *MEMORY[0x277CCA450];
+      v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to get task for pid %d", v3];
+      v32 = v14;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+
+      v16 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA4A8] code:v13 userInfo:v15];
+      [v4 invokeCompletionWithReturnValue:0 error:v16];
+      v17 = v4;
+    }
+
+    else
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 67109120;
+        v30 = v3;
+        _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Got task for pid %d", buf, 8u);
+      }
+
+      v18 = [RemoteBundleLoader alloc];
+      v15 = [(RemoteBundleLoader *)v18 initWithTask:v28];
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = sub_247FB0B88;
+      v25[3] = &unk_278EF2C78;
+      v27 = v28;
+      v19 = v4;
+      v26 = v19;
+      [(RemoteBundleLoader *)v15 scheduleLibraryLoad:v6 calling:@"_DBGViewHierarchyInitialize" arguments:MEMORY[0x277CBEBF8] callback:v25];
+      v20 = v19;
+      v16 = v26;
+    }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  else
+  {
+    v33 = *MEMORY[0x277CCA450];
+    v34[0] = @"Couldn't locate view debugging support libraries";
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v23 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.dt.instruments" code:-1 userInfo:v22];
+    [v4 invokeCompletionWithReturnValue:0 error:v23];
+    v24 = v4;
+  }
+
+  return v4;
+}
+
+- (int)maybeRedirectFromFileDescriptor:(int)descriptor fromPid:(int)pid withScratchBuffer:(char *)buffer ofByteLength:(unint64_t)length
+{
+  v7 = *&pid;
+  v9 = read(descriptor, buffer, length - 1);
+  if (v9 < 0)
+  {
+    v14 = *__error();
+    if (v14 == 35)
+    {
+      v15 = 1;
+    }
+
+    else
+    {
+      v15 = 4;
+    }
+
+    if (v14 == 4)
+    {
+      return 2;
+    }
+
+    else
+    {
+      return v15;
+    }
+  }
+
+  else if (v9)
+  {
+    buffer[v9] = 0;
+    v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:buffer];
+    v11 = [MEMORY[0x277D03668] messageWithSelector:sel_outputReceived_fromProcess_atTime_ typesAndArguments:{11, v10, 3, v7, 6, mach_absolute_time(), 0}];
+    channel = [(DTXService *)self channel];
+    [channel sendMessageAsync:v11 replyHandler:0];
+
+    return 0;
+  }
+
+  else
+  {
+    return 3;
+  }
+}
+
+- (void)handleRedirectionIterationForFileDescriptor:(int)descriptor forPid:(int)pid withDispatchSource:(id)source
+{
+  v5 = *&pid;
+  v6 = *&descriptor;
+  source = source;
+  v8 = MEMORY[0x277D85FA0];
+  v9 = malloc_type_malloc(*MEMORY[0x277D85FA0], 0xC53101DFuLL);
+  do
+  {
+    v10 = [(DTProcessControlService *)self maybeRedirectFromFileDescriptor:v6 fromPid:v5 withScratchBuffer:v9 ofByteLength:*v8];
+  }
+
+  while ((v10 & 0xFFFFFFFD) == 0);
+  v11 = v10;
+  free(v9);
+  if ((v11 - 3) <= 1)
+  {
+    dispatch_source_cancel(source);
+  }
 }
 
 - (void)watchOutputFileDescriptor:(int)descriptor forPid:(int)pid

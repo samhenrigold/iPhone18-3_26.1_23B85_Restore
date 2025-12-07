@@ -305,7 +305,7 @@ LABEL_17:
 
 - (void)_addFaceAnalysisResultsFromMap:(void *)map toFaceAttributeObject:(id)object forOriginatingRequestSpecifier:(id)specifier
 {
-  v383[5] = *MEMORY[0x1E69E9840];
+  v382[5] = *MEMORY[0x1E69E9840];
   objectCopy = object;
   specifierCopy = specifier;
   requestRevision = [specifierCopy requestRevision];
@@ -321,162 +321,163 @@ LABEL_17:
     [(VNFaceAttributes *)objectCopy setFacemaskCategory:v11];
 
     v12 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v359, [@"UNKNOWN_1_unknown0" UTF8String]);
-    v357[0] = v359;
-    LODWORD(v13) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v359) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v358, [@"UNKNOWN_1_unknown0" UTF8String]);
+    v356[0] = v358;
+    LODWORD(v13) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v358, v356) + 56);
     v14 = [(VNClassificationObservation *)v12 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_1_unknown0" confidence:v13];
-    v383[0] = v14;
+    v382[0] = v14;
     v15 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v357, [@"UNKNOWN_1_unknown1" UTF8String]);
-    v355[0] = v357;
-    LODWORD(v16) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v357) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v356, [@"UNKNOWN_1_unknown1" UTF8String]);
+    v354[0] = v356;
+    LODWORD(v16) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v356, v354) + 56);
     v17 = [(VNClassificationObservation *)v15 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_1_unknown1" confidence:v16];
-    v383[1] = v17;
+    v382[1] = v17;
     v18 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v355, [@"UNKNOWN_1_unknown2" UTF8String]);
-    v353[0] = v355;
-    LODWORD(v19) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v355) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v354, [@"UNKNOWN_1_unknown2" UTF8String]);
+    v352[0] = v354;
+    LODWORD(v19) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v354, v352) + 56);
     v20 = [(VNClassificationObservation *)v18 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_1_unknown2" confidence:v19];
-    v383[2] = v20;
+    v382[2] = v20;
     v21 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v353, [@"UNKNOWN_1_unknown3" UTF8String]);
-    __p[0] = v353;
-    LODWORD(v22) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v353) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v352, [@"UNKNOWN_1_unknown3" UTF8String]);
+    __p[0] = v352;
+    LODWORD(v22) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v352, __p) + 56);
     v23 = [(VNClassificationObservation *)v21 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_1_unknown3" confidence:v22];
-    v383[3] = v23;
+    v382[3] = v23;
     v24 = [VNClassificationObservation alloc];
     std::string::basic_string[abi:ne200100]<0>(__p, [@"UNKNOWN_1_unknown4" UTF8String]);
-    v349[0] = __p;
-    LODWORD(v25) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, __p) + 56);
+    v348[0] = __p;
+    LODWORD(v25) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, __p, v348) + 56);
     v26 = [(VNClassificationObservation *)v24 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_1_unknown4" confidence:v25];
-    v383[4] = v26;
-    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v383 count:5];
+    v382[4] = v26;
+    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v382 count:5];
     ageCategory = [objectCopy ageCategory];
     [ageCategory setAllLabelsWithConfidences:v27];
 
-    if (v352 < 0)
+    if (v351 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (v354 < 0)
+    if (v353 < 0)
     {
-      operator delete(v353[0]);
+      operator delete(v352[0]);
     }
 
-    if (v356 < 0)
+    if (v355 < 0)
     {
-      operator delete(v355[0]);
+      operator delete(v354[0]);
     }
 
-    if (v358 < 0)
+    if (v357 < 0)
     {
-      operator delete(v357[0]);
+      operator delete(v356[0]);
     }
 
-    if (v360 < 0)
+    if (v359 < 0)
     {
-      operator delete(v359[0]);
+      operator delete(v358[0]);
     }
 
     v29 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v359, [@"UNKNOWN_16_unknown0" UTF8String]);
-    v357[0] = v359;
-    LODWORD(v30) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v359) + 56);
-    v342 = [(VNClassificationObservation *)v29 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_16_unknown0" confidence:v30];
-    v382[0] = v342;
+    std::string::basic_string[abi:ne200100]<0>(v358, [@"UNKNOWN_16_unknown0" UTF8String]);
+    v356[0] = v358;
+    LODWORD(v30) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v358, v356) + 56);
+    v341 = [(VNClassificationObservation *)v29 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_16_unknown0" confidence:v30];
+    v381[0] = v341;
     v31 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v357, [@"UNKNOWN_16_unknown1" UTF8String]);
-    v355[0] = v357;
-    LODWORD(v32) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v357) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v356, [@"UNKNOWN_16_unknown1" UTF8String]);
+    v354[0] = v356;
+    LODWORD(v32) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v356, v354) + 56);
     v33 = [(VNClassificationObservation *)v31 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_16_unknown1" confidence:v32];
-    v382[1] = v33;
+    v381[1] = v33;
     v34 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v355, [@"UNKNOWN_16_unknown2" UTF8String]);
-    v353[0] = v355;
-    LODWORD(v35) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v355) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v354, [@"UNKNOWN_16_unknown2" UTF8String]);
+    v352[0] = v354;
+    LODWORD(v35) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v354, v352) + 56);
     v36 = [(VNClassificationObservation *)v34 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_16_unknown2" confidence:v35];
-    v382[2] = v36;
+    v381[2] = v36;
     v37 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v353, [@"UNKNOWN_16_unknown3" UTF8String]);
-    __p[0] = v353;
-    LODWORD(v38) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v353) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v352, [@"UNKNOWN_16_unknown3" UTF8String]);
+    __p[0] = v352;
+    LODWORD(v38) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v352, __p) + 56);
     v39 = [(VNClassificationObservation *)v37 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_16_unknown3" confidence:v38];
-    v382[3] = v39;
+    v381[3] = v39;
     v40 = [VNClassificationObservation alloc];
     std::string::basic_string[abi:ne200100]<0>(__p, [@"UNKNOWN_16_unknown4" UTF8String]);
-    v349[0] = __p;
-    LODWORD(v41) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, __p) + 56);
+    v348[0] = __p;
+    LODWORD(v41) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, __p, v348) + 56);
     v42 = [(VNClassificationObservation *)v40 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_16_unknown4" confidence:v41];
-    v382[4] = v42;
+    v381[4] = v42;
     v43 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v349, [@"UNKNOWN_16_unknown5" UTF8String]);
-    v347[0] = v349;
-    LODWORD(v44) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v349) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v348, [@"UNKNOWN_16_unknown5" UTF8String]);
+    v346[0] = v348;
+    LODWORD(v44) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v348, v346) + 56);
     v45 = [(VNClassificationObservation *)v43 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_16_unknown5" confidence:v44];
-    v382[5] = v45;
-    v46 = [MEMORY[0x1E695DEC8] arrayWithObjects:v382 count:6];
+    v381[5] = v45;
+    v46 = [MEMORY[0x1E695DEC8] arrayWithObjects:v381 count:6];
     vN3iT1YRjjnIuELobV1olJiO1vvItN6Kdq = [objectCopy VN3iT1YRjjnIuELobV1olJiO1vvItN6Kdq];
     [vN3iT1YRjjnIuELobV1olJiO1vvItN6Kdq setAllLabelsWithConfidences:v46];
 
-    if (v350 < 0)
+    if (v349 < 0)
     {
-      operator delete(v349[0]);
+      operator delete(v348[0]);
     }
 
-    if (v352 < 0)
+    if (v351 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (v354 < 0)
+    if (v353 < 0)
     {
-      operator delete(v353[0]);
+      operator delete(v352[0]);
     }
 
-    if (v356 < 0)
+    if (v355 < 0)
     {
-      operator delete(v355[0]);
+      operator delete(v354[0]);
     }
 
-    if (v358 < 0)
+    if (v357 < 0)
     {
-      operator delete(v357[0]);
+      operator delete(v356[0]);
     }
 
-    if (v360 < 0)
+    if (v359 < 0)
     {
-      operator delete(v359[0]);
+      operator delete(v358[0]);
     }
 
     v48 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v359, [@"UNKNOWN_17_unknown0" UTF8String]);
-    v357[0] = v359;
-    LODWORD(v49) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v359) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v358, [@"UNKNOWN_17_unknown0" UTF8String]);
+    v356[0] = v358;
+    LODWORD(v49) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v358, v356) + 56);
     v50 = [(VNClassificationObservation *)v48 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_17_unknown0" confidence:v49];
-    v381[0] = v50;
+    v380[0] = v50;
     v51 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v357, [@"UNKNOWN_17_unknown1" UTF8String]);
-    v355[0] = v357;
-    LODWORD(v52) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v357) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v356, [@"UNKNOWN_17_unknown1" UTF8String]);
+    v354[0] = v356;
+    LODWORD(v52) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v356, v354) + 56);
     v53 = [(VNClassificationObservation *)v51 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_17_unknown1" confidence:v52];
-    v381[1] = v53;
-    v54 = [MEMORY[0x1E695DEC8] arrayWithObjects:v381 count:2];
+    v380[1] = v53;
+    v54 = [MEMORY[0x1E695DEC8] arrayWithObjects:v380 count:2];
     facemaskCategory = [objectCopy facemaskCategory];
     [facemaskCategory setAllLabelsWithConfidences:v54];
 
-    if (v358 < 0)
+    if (v357 < 0)
     {
-      operator delete(v357[0]);
+      operator delete(v356[0]);
     }
 
-LABEL_187:
-    if (v360 < 0)
+LABEL_186:
+
+    if (v359 < 0)
     {
-      operator delete(v359[0]);
+      operator delete(v358[0]);
     }
 
-    goto LABEL_189;
+    goto LABEL_188;
   }
 
   v56 = [[VNFaceAttributeCategory alloc] initWithRequestRevision:requestRevision];
@@ -537,941 +538,941 @@ LABEL_187:
   }
 
   v74 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v359, [@"UNKNOWN_1_unknown0" UTF8String]);
-  v357[0] = v359;
-  LODWORD(v75) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v359) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v358, [@"UNKNOWN_1_unknown0" UTF8String]);
+  v356[0] = v358;
+  LODWORD(v75) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v358, v356) + 56);
   v76 = [(VNClassificationObservation *)v74 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_1_unknown0" confidence:v75];
-  v380[0] = v76;
+  v379[0] = v76;
   v77 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v357, [@"UNKNOWN_1_unknown1" UTF8String]);
-  v355[0] = v357;
-  LODWORD(v78) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v357) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v356, [@"UNKNOWN_1_unknown1" UTF8String]);
+  v354[0] = v356;
+  LODWORD(v78) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v356, v354) + 56);
   v79 = [(VNClassificationObservation *)v77 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_1_unknown1" confidence:v78];
-  v380[1] = v79;
+  v379[1] = v79;
   v80 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v355, [@"UNKNOWN_1_unknown2" UTF8String]);
-  v353[0] = v355;
-  LODWORD(v81) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v355) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v354, [@"UNKNOWN_1_unknown2" UTF8String]);
+  v352[0] = v354;
+  LODWORD(v81) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v354, v352) + 56);
   v82 = [(VNClassificationObservation *)v80 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_1_unknown2" confidence:v81];
-  v380[2] = v82;
+  v379[2] = v82;
   v83 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v353, [@"UNKNOWN_1_unknown3" UTF8String]);
-  __p[0] = v353;
-  LODWORD(v84) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v353) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v352, [@"UNKNOWN_1_unknown3" UTF8String]);
+  __p[0] = v352;
+  LODWORD(v84) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v352, __p) + 56);
   v85 = [(VNClassificationObservation *)v83 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_1_unknown3" confidence:v84];
-  v380[3] = v85;
+  v379[3] = v85;
   v86 = [VNClassificationObservation alloc];
   std::string::basic_string[abi:ne200100]<0>(__p, [@"UNKNOWN_1_unknown4" UTF8String]);
-  v349[0] = __p;
-  LODWORD(v87) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, __p) + 56);
+  v348[0] = __p;
+  LODWORD(v87) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, __p, v348) + 56);
   v88 = [(VNClassificationObservation *)v86 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_1_unknown4" confidence:v87];
-  v380[4] = v88;
-  v89 = [MEMORY[0x1E695DEC8] arrayWithObjects:v380 count:5];
+  v379[4] = v88;
+  v89 = [MEMORY[0x1E695DEC8] arrayWithObjects:v379 count:5];
   ageCategory2 = [objectCopy ageCategory];
   [ageCategory2 setAllLabelsWithConfidences:v89];
 
-  if (v352 < 0)
+  if (v351 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v354 < 0)
+  if (v353 < 0)
   {
-    operator delete(v353[0]);
+    operator delete(v352[0]);
   }
 
-  if (v356 < 0)
+  if (v355 < 0)
   {
-    operator delete(v355[0]);
+    operator delete(v354[0]);
   }
 
-  if (v358 < 0)
+  if (v357 < 0)
   {
-    operator delete(v357[0]);
+    operator delete(v356[0]);
   }
 
-  if (v360 < 0)
+  if (v359 < 0)
   {
-    operator delete(v359[0]);
+    operator delete(v358[0]);
   }
 
   v91 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v359, [@"UNKNOWN_6_unknown0" UTF8String]);
-  v357[0] = v359;
-  LODWORD(v92) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v359) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v358, [@"UNKNOWN_6_unknown0" UTF8String]);
+  v356[0] = v358;
+  LODWORD(v92) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v358, v356) + 56);
   v93 = [(VNClassificationObservation *)v91 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_6_unknown0" confidence:v92];
-  v379[0] = v93;
+  v378[0] = v93;
   v94 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v357, [@"UNKNOWN_6_unknown1" UTF8String]);
-  v355[0] = v357;
-  LODWORD(v95) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v357) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v356, [@"UNKNOWN_6_unknown1" UTF8String]);
+  v354[0] = v356;
+  LODWORD(v95) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v356, v354) + 56);
   v96 = [(VNClassificationObservation *)v94 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_6_unknown1" confidence:v95];
-  v379[1] = v96;
-  v97 = [MEMORY[0x1E695DEC8] arrayWithObjects:v379 count:2];
+  v378[1] = v96;
+  v97 = [MEMORY[0x1E695DEC8] arrayWithObjects:v378 count:2];
   vN7exwFFmQF0AI9P7FjBljwEFu7QYUGCYE = [objectCopy VN7exwFFmQF0AI9P7FjBljwEFu7QYUGCYE];
   [vN7exwFFmQF0AI9P7FjBljwEFu7QYUGCYE setAllLabelsWithConfidences:v97];
 
-  if (v358 < 0)
+  if (v357 < 0)
   {
-    operator delete(v357[0]);
+    operator delete(v356[0]);
   }
 
-  if (v360 < 0)
+  if (v359 < 0)
   {
-    operator delete(v359[0]);
+    operator delete(v358[0]);
   }
 
   v99 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v359, [@"UNKNOWN_3_unknown0" UTF8String]);
-  v357[0] = v359;
-  LODWORD(v100) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v359) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v358, [@"UNKNOWN_3_unknown0" UTF8String]);
+  v356[0] = v358;
+  LODWORD(v100) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v358, v356) + 56);
   v101 = [(VNClassificationObservation *)v99 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_3_unknown0" confidence:v100];
-  v378[0] = v101;
+  v377[0] = v101;
   v102 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v357, [@"UNKNOWN_3_unknown1" UTF8String]);
-  v355[0] = v357;
-  LODWORD(v103) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v357) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v356, [@"UNKNOWN_3_unknown1" UTF8String]);
+  v354[0] = v356;
+  LODWORD(v103) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v356, v354) + 56);
   v104 = [(VNClassificationObservation *)v102 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_3_unknown1" confidence:v103];
-  v378[1] = v104;
-  v105 = [MEMORY[0x1E695DEC8] arrayWithObjects:v378 count:2];
+  v377[1] = v104;
+  v105 = [MEMORY[0x1E695DEC8] arrayWithObjects:v377 count:2];
   eyesCategory = [objectCopy eyesCategory];
   [eyesCategory setAllLabelsWithConfidences:v105];
 
-  if (v358 < 0)
+  if (v357 < 0)
   {
-    operator delete(v357[0]);
+    operator delete(v356[0]);
   }
 
-  if (v360 < 0)
+  if (v359 < 0)
   {
-    operator delete(v359[0]);
+    operator delete(v358[0]);
   }
 
   v107 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v359, [@"UNKNOWN_7_unknown0" UTF8String]);
-  v357[0] = v359;
-  LODWORD(v108) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v359) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v358, [@"UNKNOWN_7_unknown0" UTF8String]);
+  v356[0] = v358;
+  LODWORD(v108) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v358, v356) + 56);
   v109 = [(VNClassificationObservation *)v107 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_7_unknown0" confidence:v108];
-  v377[0] = v109;
+  v376[0] = v109;
   v110 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v357, [@"UNKNOWN_7_unknown1" UTF8String]);
-  v355[0] = v357;
-  LODWORD(v111) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v357) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v356, [@"UNKNOWN_7_unknown1" UTF8String]);
+  v354[0] = v356;
+  LODWORD(v111) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v356, v354) + 56);
   v112 = [(VNClassificationObservation *)v110 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_7_unknown1" confidence:v111];
-  v377[1] = v112;
-  v113 = [MEMORY[0x1E695DEC8] arrayWithObjects:v377 count:2];
+  v376[1] = v112;
+  v113 = [MEMORY[0x1E695DEC8] arrayWithObjects:v376 count:2];
   smilingCategory = [objectCopy smilingCategory];
   [smilingCategory setAllLabelsWithConfidences:v113];
 
-  if (v358 < 0)
+  if (v357 < 0)
   {
-    operator delete(v357[0]);
+    operator delete(v356[0]);
   }
 
-  if (v360 < 0)
+  if (v359 < 0)
   {
-    operator delete(v359[0]);
+    operator delete(v358[0]);
   }
 
   v115 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v359, [@"UNKNOWN_4_unknown0" UTF8String]);
-  v357[0] = v359;
-  LODWORD(v116) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v359) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v358, [@"UNKNOWN_4_unknown0" UTF8String]);
+  v356[0] = v358;
+  LODWORD(v116) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v358, v356) + 56);
   v117 = [(VNClassificationObservation *)v115 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_4_unknown0" confidence:v116];
-  v376[0] = v117;
+  v375[0] = v117;
   v118 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v357, [@"UNKNOWN_4_unknown1" UTF8String]);
-  v355[0] = v357;
-  LODWORD(v119) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v357) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v356, [@"UNKNOWN_4_unknown1" UTF8String]);
+  v354[0] = v356;
+  LODWORD(v119) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v356, v354) + 56);
   v120 = [(VNClassificationObservation *)v118 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_4_unknown1" confidence:v119];
-  v376[1] = v120;
+  v375[1] = v120;
   v121 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v355, [@"UNKNOWN_4_unknown2" UTF8String]);
-  v353[0] = v355;
-  LODWORD(v122) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v355) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v354, [@"UNKNOWN_4_unknown2" UTF8String]);
+  v352[0] = v354;
+  LODWORD(v122) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v354, v352) + 56);
   v123 = [(VNClassificationObservation *)v121 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_4_unknown2" confidence:v122];
-  v376[2] = v123;
+  v375[2] = v123;
   v124 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v353, [@"UNKNOWN_4_unknown3" UTF8String]);
-  __p[0] = v353;
-  LODWORD(v125) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v353) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v352, [@"UNKNOWN_4_unknown3" UTF8String]);
+  __p[0] = v352;
+  LODWORD(v125) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v352, __p) + 56);
   v126 = [(VNClassificationObservation *)v124 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_4_unknown3" confidence:v125];
-  v376[3] = v126;
+  v375[3] = v126;
   v127 = [VNClassificationObservation alloc];
   std::string::basic_string[abi:ne200100]<0>(__p, [@"UNKNOWN_4_unknown4" UTF8String]);
-  v349[0] = __p;
-  LODWORD(v128) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, __p) + 56);
+  v348[0] = __p;
+  LODWORD(v128) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, __p, v348) + 56);
   v129 = [(VNClassificationObservation *)v127 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_4_unknown4" confidence:v128];
-  v376[4] = v129;
-  v130 = [MEMORY[0x1E695DEC8] arrayWithObjects:v376 count:5];
+  v375[4] = v129;
+  v130 = [MEMORY[0x1E695DEC8] arrayWithObjects:v375 count:5];
   faceHairCategory = [objectCopy faceHairCategory];
   [faceHairCategory setAllLabelsWithConfidences:v130];
 
-  if (v352 < 0)
+  if (v351 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v354 < 0)
+  if (v353 < 0)
   {
-    operator delete(v353[0]);
+    operator delete(v352[0]);
   }
 
-  if (v356 < 0)
+  if (v355 < 0)
   {
-    operator delete(v355[0]);
+    operator delete(v354[0]);
   }
 
-  if (v358 < 0)
+  if (v357 < 0)
   {
-    operator delete(v357[0]);
+    operator delete(v356[0]);
   }
 
-  if (v360 < 0)
+  if (v359 < 0)
   {
-    operator delete(v359[0]);
+    operator delete(v358[0]);
   }
 
   v132 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v359, [@"UNKNOWN_5_unknown0" UTF8String]);
-  v357[0] = v359;
-  LODWORD(v133) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v359) + 56);
-  v343 = [(VNClassificationObservation *)v132 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_5_unknown0" confidence:v133];
-  v375[0] = v343;
+  std::string::basic_string[abi:ne200100]<0>(v358, [@"UNKNOWN_5_unknown0" UTF8String]);
+  v356[0] = v358;
+  LODWORD(v133) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v358, v356) + 56);
+  v342 = [(VNClassificationObservation *)v132 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_5_unknown0" confidence:v133];
+  v374[0] = v342;
   v134 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v357, [@"UNKNOWN_5_unknown1" UTF8String]);
-  v355[0] = v357;
-  LODWORD(v135) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v357) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v356, [@"UNKNOWN_5_unknown1" UTF8String]);
+  v354[0] = v356;
+  LODWORD(v135) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v356, v354) + 56);
   v136 = [(VNClassificationObservation *)v134 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_5_unknown1" confidence:v135];
-  v375[1] = v136;
+  v374[1] = v136;
   v137 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v355, [@"UNKNOWN_5_unknown2" UTF8String]);
-  v353[0] = v355;
-  LODWORD(v138) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v355) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v354, [@"UNKNOWN_5_unknown2" UTF8String]);
+  v352[0] = v354;
+  LODWORD(v138) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v354, v352) + 56);
   v139 = [(VNClassificationObservation *)v137 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_5_unknown2" confidence:v138];
-  v375[2] = v139;
+  v374[2] = v139;
   v140 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v353, [@"UNKNOWN_5_unknown3" UTF8String]);
-  __p[0] = v353;
-  LODWORD(v141) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v353) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v352, [@"UNKNOWN_5_unknown3" UTF8String]);
+  __p[0] = v352;
+  LODWORD(v141) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v352, __p) + 56);
   v142 = [(VNClassificationObservation *)v140 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_5_unknown3" confidence:v141];
-  v375[3] = v142;
+  v374[3] = v142;
   v143 = [VNClassificationObservation alloc];
   std::string::basic_string[abi:ne200100]<0>(__p, [@"UNKNOWN_5_unknown4" UTF8String]);
-  v349[0] = __p;
-  LODWORD(v144) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, __p) + 56);
+  v348[0] = __p;
+  LODWORD(v144) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, __p, v348) + 56);
   v145 = [(VNClassificationObservation *)v143 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_5_unknown4" confidence:v144];
-  v375[4] = v145;
+  v374[4] = v145;
   v146 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v349, [@"UNKNOWN_5_unknown5" UTF8String]);
-  v347[0] = v349;
-  LODWORD(v147) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v349) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v348, [@"UNKNOWN_5_unknown5" UTF8String]);
+  v346[0] = v348;
+  LODWORD(v147) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v348, v346) + 56);
   v148 = [(VNClassificationObservation *)v146 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_5_unknown5" confidence:v147];
-  v375[5] = v148;
-  v149 = [MEMORY[0x1E695DEC8] arrayWithObjects:v375 count:6];
+  v374[5] = v148;
+  v149 = [MEMORY[0x1E695DEC8] arrayWithObjects:v374 count:6];
   hairColorCategory = [objectCopy hairColorCategory];
   [hairColorCategory setAllLabelsWithConfidences:v149];
 
-  if (v350 < 0)
+  if (v349 < 0)
   {
-    operator delete(v349[0]);
+    operator delete(v348[0]);
   }
 
-  if (v352 < 0)
+  if (v351 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v354 < 0)
+  if (v353 < 0)
   {
-    operator delete(v353[0]);
+    operator delete(v352[0]);
   }
 
-  if (v356 < 0)
+  if (v355 < 0)
   {
-    operator delete(v355[0]);
+    operator delete(v354[0]);
   }
 
-  if (v358 < 0)
+  if (v357 < 0)
   {
-    operator delete(v357[0]);
+    operator delete(v356[0]);
   }
 
-  if (v360 < 0)
+  if (v359 < 0)
   {
-    operator delete(v359[0]);
+    operator delete(v358[0]);
   }
 
   v151 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v359, [@"UNKNOWN_2_unknown0" UTF8String]);
-  v357[0] = v359;
-  LODWORD(v152) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v359) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v358, [@"UNKNOWN_2_unknown0" UTF8String]);
+  v356[0] = v358;
+  LODWORD(v152) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v358, v356) + 56);
   v153 = [(VNClassificationObservation *)v151 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_2_unknown0" confidence:v152];
-  v374[0] = v153;
+  v373[0] = v153;
   v154 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v357, [@"UNKNOWN_2_unknown1" UTF8String]);
-  v355[0] = v357;
-  LODWORD(v155) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v357) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v356, [@"UNKNOWN_2_unknown1" UTF8String]);
+  v354[0] = v356;
+  LODWORD(v155) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v356, v354) + 56);
   v156 = [(VNClassificationObservation *)v154 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_2_unknown1" confidence:v155];
-  v374[1] = v156;
-  v157 = [MEMORY[0x1E695DEC8] arrayWithObjects:v374 count:2];
+  v373[1] = v156;
+  v157 = [MEMORY[0x1E695DEC8] arrayWithObjects:v373 count:2];
   baldCategory = [objectCopy baldCategory];
   [baldCategory setAllLabelsWithConfidences:v157];
 
-  if (v358 < 0)
+  if (v357 < 0)
   {
-    operator delete(v357[0]);
+    operator delete(v356[0]);
   }
 
-  if (v360 < 0)
+  if (v359 < 0)
   {
-    operator delete(v359[0]);
+    operator delete(v358[0]);
   }
 
   v159 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v359, [@"UNKNOWN_0_unknown0" UTF8String]);
-  v357[0] = v359;
-  LODWORD(v160) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v359) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v358, [@"UNKNOWN_0_unknown0" UTF8String]);
+  v356[0] = v358;
+  LODWORD(v160) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v358, v356) + 56);
   v161 = [(VNClassificationObservation *)v159 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_0_unknown0" confidence:v160];
-  v373[0] = v161;
+  v372[0] = v161;
   v162 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v357, [@"UNKNOWN_0_unknown1" UTF8String]);
-  v355[0] = v357;
-  LODWORD(v163) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v357) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v356, [@"UNKNOWN_0_unknown1" UTF8String]);
+  v354[0] = v356;
+  LODWORD(v163) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v356, v354) + 56);
   v164 = [(VNClassificationObservation *)v162 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_0_unknown1" confidence:v163];
-  v373[1] = v164;
+  v372[1] = v164;
   v165 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v355, [@"UNKNOWN_0_unknown2" UTF8String]);
-  v353[0] = v355;
-  LODWORD(v166) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v355) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v354, [@"UNKNOWN_0_unknown2" UTF8String]);
+  v352[0] = v354;
+  LODWORD(v166) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v354, v352) + 56);
   v167 = [(VNClassificationObservation *)v165 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_0_unknown2" confidence:v166];
-  v373[2] = v167;
-  v168 = [MEMORY[0x1E695DEC8] arrayWithObjects:v373 count:3];
+  v372[2] = v167;
+  v168 = [MEMORY[0x1E695DEC8] arrayWithObjects:v372 count:3];
   glassesCategory = [objectCopy glassesCategory];
   [glassesCategory setAllLabelsWithConfidences:v168];
 
-  if (v356 < 0)
+  if (v355 < 0)
   {
-    operator delete(v355[0]);
+    operator delete(v354[0]);
   }
 
-  if (v358 < 0)
+  if (v357 < 0)
   {
-    operator delete(v357[0]);
+    operator delete(v356[0]);
   }
 
-  if (v360 < 0)
+  if (v359 < 0)
   {
-    operator delete(v359[0]);
+    operator delete(v358[0]);
   }
 
   v170 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v359, [@"UNKNOWN_8_unknown0" UTF8String]);
-  v357[0] = v359;
-  LODWORD(v171) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v359) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v358, [@"UNKNOWN_8_unknown0" UTF8String]);
+  v356[0] = v358;
+  LODWORD(v171) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v358, v356) + 56);
   v172 = [(VNClassificationObservation *)v170 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_8_unknown0" confidence:v171];
-  v372[0] = v172;
+  v371[0] = v172;
   v173 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v357, [@"UNKNOWN_8_unknown1" UTF8String]);
-  v355[0] = v357;
-  LODWORD(v174) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v357) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v356, [@"UNKNOWN_8_unknown1" UTF8String]);
+  v354[0] = v356;
+  LODWORD(v174) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v356, v354) + 56);
   v175 = [(VNClassificationObservation *)v173 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_8_unknown1" confidence:v174];
-  v372[1] = v175;
+  v371[1] = v175;
   v176 = [VNClassificationObservation alloc];
-  std::string::basic_string[abi:ne200100]<0>(v355, [@"UNKNOWN_8_unknown2" UTF8String]);
-  v353[0] = v355;
-  LODWORD(v177) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v355) + 56);
+  std::string::basic_string[abi:ne200100]<0>(v354, [@"UNKNOWN_8_unknown2" UTF8String]);
+  v352[0] = v354;
+  LODWORD(v177) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v354, v352) + 56);
   v178 = [(VNClassificationObservation *)v176 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_8_unknown2" confidence:v177];
-  v372[2] = v178;
-  v179 = [MEMORY[0x1E695DEC8] arrayWithObjects:v372 count:3];
+  v371[2] = v178;
+  v179 = [MEMORY[0x1E695DEC8] arrayWithObjects:v371 count:3];
   makeupEyesCategory = [objectCopy makeupEyesCategory];
   [makeupEyesCategory setAllLabelsWithConfidences:v179];
 
-  if (v356 < 0)
+  if (v355 < 0)
   {
-    operator delete(v355[0]);
+    operator delete(v354[0]);
   }
 
-  if (v358 < 0)
+  if (v357 < 0)
   {
-    operator delete(v357[0]);
+    operator delete(v356[0]);
   }
 
-  if (v360 < 0)
+  if (v359 < 0)
   {
-    operator delete(v359[0]);
+    operator delete(v358[0]);
   }
 
   if ((requestRevision - 3737841669) > 1)
   {
     v189 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v359, [@"UNKNOWN_9_unknown0" UTF8String]);
-    v357[0] = v359;
-    LODWORD(v190) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v359) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v358, [@"UNKNOWN_9_unknown0" UTF8String]);
+    v356[0] = v358;
+    LODWORD(v190) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v358, v356) + 56);
     v183 = [(VNClassificationObservation *)v189 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_9_unknown0" confidence:v190];
-    v370[0] = v183;
+    v369[0] = v183;
     v191 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v357, [@"UNKNOWN_9_unknown1" UTF8String]);
-    v355[0] = v357;
-    LODWORD(v192) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v357) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v356, [@"UNKNOWN_9_unknown1" UTF8String]);
+    v354[0] = v356;
+    LODWORD(v192) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v356, v354) + 56);
     v193 = [(VNClassificationObservation *)v191 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_9_unknown1" confidence:v192];
-    v370[1] = v193;
+    v369[1] = v193;
     v194 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v355, [@"UNKNOWN_9_unknown2" UTF8String]);
-    v353[0] = v355;
-    LODWORD(v195) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v355) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v354, [@"UNKNOWN_9_unknown2" UTF8String]);
+    v352[0] = v354;
+    LODWORD(v195) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v354, v352) + 56);
     v196 = [(VNClassificationObservation *)v194 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_9_unknown2" confidence:v195];
-    v370[2] = v196;
-    v197 = [MEMORY[0x1E695DEC8] arrayWithObjects:v370 count:3];
+    v369[2] = v196;
+    v197 = [MEMORY[0x1E695DEC8] arrayWithObjects:v369 count:3];
     makeupLipsCategory = [objectCopy makeupLipsCategory];
     [makeupLipsCategory setAllLabelsWithConfidences:v197];
 
-    if (v356 < 0)
+    if (v355 < 0)
     {
-      operator delete(v355[0]);
+      operator delete(v354[0]);
     }
 
-    if (v358 < 0)
+    if (v357 < 0)
     {
-      operator delete(v357[0]);
+      operator delete(v356[0]);
     }
   }
 
   else
   {
     v181 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v359, [@"UNKNOWN_9_unknown1" UTF8String]);
-    v357[0] = v359;
-    LODWORD(v182) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v359) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v358, [@"UNKNOWN_9_unknown1" UTF8String]);
+    v356[0] = v358;
+    LODWORD(v182) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v358, v356) + 56);
     v183 = [(VNClassificationObservation *)v181 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_9_unknown1" confidence:v182];
-    v371[0] = v183;
+    v370[0] = v183;
     v184 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v357, [@"UNKNOWN_9_unknown2" UTF8String]);
-    v355[0] = v357;
-    LODWORD(v185) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v357) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v356, [@"UNKNOWN_9_unknown2" UTF8String]);
+    v354[0] = v356;
+    LODWORD(v185) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v356, v354) + 56);
     v186 = [(VNClassificationObservation *)v184 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_9_unknown2" confidence:v185];
-    v371[1] = v186;
-    v187 = [MEMORY[0x1E695DEC8] arrayWithObjects:v371 count:2];
+    v370[1] = v186;
+    v187 = [MEMORY[0x1E695DEC8] arrayWithObjects:v370 count:2];
     makeupLipsCategory2 = [objectCopy makeupLipsCategory];
     [makeupLipsCategory2 setAllLabelsWithConfidences:v187];
 
-    if (v358 < 0)
+    if (v357 < 0)
     {
-      operator delete(v357[0]);
+      operator delete(v356[0]);
     }
   }
 
-  if (v360 < 0)
+  if (v359 < 0)
   {
-    operator delete(v359[0]);
+    operator delete(v358[0]);
   }
 
   if ((requestRevision - 3737841666) <= 4 && requestRevision != 3737841668)
   {
     v199 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v359, [@"UNKNOWN_10_unknown0" UTF8String]);
-    v357[0] = v359;
-    LODWORD(v200) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v359) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v358, [@"UNKNOWN_10_unknown0" UTF8String]);
+    v356[0] = v358;
+    LODWORD(v200) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v358, v356) + 56);
     v201 = [(VNClassificationObservation *)v199 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_10_unknown0" confidence:v200];
-    v369[0] = v201;
+    v368[0] = v201;
     v202 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v357, [@"UNKNOWN_10_unknown1" UTF8String]);
-    v355[0] = v357;
-    LODWORD(v203) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v357) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v356, [@"UNKNOWN_10_unknown1" UTF8String]);
+    v354[0] = v356;
+    LODWORD(v203) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v356, v354) + 56);
     v204 = [(VNClassificationObservation *)v202 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_10_unknown1" confidence:v203];
-    v369[1] = v204;
+    v368[1] = v204;
     v205 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v355, [@"UNKNOWN_10_unknown2" UTF8String]);
-    v353[0] = v355;
-    LODWORD(v206) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v355) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v354, [@"UNKNOWN_10_unknown2" UTF8String]);
+    v352[0] = v354;
+    LODWORD(v206) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v354, v352) + 56);
     v207 = [(VNClassificationObservation *)v205 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_10_unknown2" confidence:v206];
-    v369[2] = v207;
+    v368[2] = v207;
     v208 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v353, [@"UNKNOWN_10_unknown3" UTF8String]);
-    __p[0] = v353;
-    LODWORD(v209) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v353) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v352, [@"UNKNOWN_10_unknown3" UTF8String]);
+    __p[0] = v352;
+    LODWORD(v209) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v352, __p) + 56);
     v210 = [(VNClassificationObservation *)v208 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_10_unknown3" confidence:v209];
-    v369[3] = v210;
+    v368[3] = v210;
     v211 = [VNClassificationObservation alloc];
     std::string::basic_string[abi:ne200100]<0>(__p, [@"UNKNOWN_10_unknown4" UTF8String]);
-    v349[0] = __p;
-    LODWORD(v212) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, __p) + 56);
+    v348[0] = __p;
+    LODWORD(v212) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, __p, v348) + 56);
     v213 = [(VNClassificationObservation *)v211 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_10_unknown4" confidence:v212];
-    v369[4] = v213;
-    v214 = [MEMORY[0x1E695DEC8] arrayWithObjects:v369 count:5];
+    v368[4] = v213;
+    v214 = [MEMORY[0x1E695DEC8] arrayWithObjects:v368 count:5];
     vN1uMyFtnYEWjbrdx3yAuDndKkPeyzNJhB = [objectCopy VN1uMyFtnYEWjbrdx3yAuDndKkPeyzNJhB];
     [vN1uMyFtnYEWjbrdx3yAuDndKkPeyzNJhB setAllLabelsWithConfidences:v214];
 
-    if (v352 < 0)
+    if (v351 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (v354 < 0)
+    if (v353 < 0)
     {
-      operator delete(v353[0]);
+      operator delete(v352[0]);
     }
 
-    if (v356 < 0)
+    if (v355 < 0)
     {
-      operator delete(v355[0]);
+      operator delete(v354[0]);
     }
 
-    if (v358 < 0)
+    if (v357 < 0)
     {
-      operator delete(v357[0]);
+      operator delete(v356[0]);
     }
 
-    if (v360 < 0)
+    if (v359 < 0)
     {
-      operator delete(v359[0]);
+      operator delete(v358[0]);
     }
 
     v216 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v359, [@"UNKNOWN_11_unknown0" UTF8String]);
-    v357[0] = v359;
-    LODWORD(v217) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v359) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v358, [@"UNKNOWN_11_unknown0" UTF8String]);
+    v356[0] = v358;
+    LODWORD(v217) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v358, v356) + 56);
     v218 = [(VNClassificationObservation *)v216 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_11_unknown0" confidence:v217];
-    v368[0] = v218;
+    v367[0] = v218;
     v219 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v357, [@"UNKNOWN_11_unknown1" UTF8String]);
-    v355[0] = v357;
-    LODWORD(v220) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v357) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v356, [@"UNKNOWN_11_unknown1" UTF8String]);
+    v354[0] = v356;
+    LODWORD(v220) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v356, v354) + 56);
     v221 = [(VNClassificationObservation *)v219 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_11_unknown1" confidence:v220];
-    v368[1] = v221;
+    v367[1] = v221;
     v222 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v355, [@"UNKNOWN_11_unknown2" UTF8String]);
-    v353[0] = v355;
-    LODWORD(v223) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v355) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v354, [@"UNKNOWN_11_unknown2" UTF8String]);
+    v352[0] = v354;
+    LODWORD(v223) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v354, v352) + 56);
     v224 = [(VNClassificationObservation *)v222 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_11_unknown2" confidence:v223];
-    v368[2] = v224;
+    v367[2] = v224;
     v225 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v353, [@"UNKNOWN_11_unknown3" UTF8String]);
-    __p[0] = v353;
-    LODWORD(v226) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v353) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v352, [@"UNKNOWN_11_unknown3" UTF8String]);
+    __p[0] = v352;
+    LODWORD(v226) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v352, __p) + 56);
     v227 = [(VNClassificationObservation *)v225 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_11_unknown3" confidence:v226];
-    v368[3] = v227;
+    v367[3] = v227;
     v228 = [VNClassificationObservation alloc];
     std::string::basic_string[abi:ne200100]<0>(__p, [@"UNKNOWN_11_unknown4" UTF8String]);
-    v349[0] = __p;
-    LODWORD(v229) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, __p) + 56);
+    v348[0] = __p;
+    LODWORD(v229) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, __p, v348) + 56);
     v230 = [(VNClassificationObservation *)v228 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_11_unknown4" confidence:v229];
-    v368[4] = v230;
+    v367[4] = v230;
     v231 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v349, [@"UNKNOWN_11_unknown5" UTF8String]);
-    v347[0] = v349;
-    LODWORD(v232) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v349) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v348, [@"UNKNOWN_11_unknown5" UTF8String]);
+    v346[0] = v348;
+    LODWORD(v232) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v348, v346) + 56);
     v233 = [(VNClassificationObservation *)v231 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_11_unknown5" confidence:v232];
-    v368[5] = v233;
-    v234 = [MEMORY[0x1E695DEC8] arrayWithObjects:v368 count:6];
+    v367[5] = v233;
+    v234 = [MEMORY[0x1E695DEC8] arrayWithObjects:v367 count:6];
     vN4UfLbvVUqMvYV8bbGFQcxg5yRLm8ekI1 = [objectCopy VN4UfLbvVUqMvYV8bbGFQcxg5yRLm8ekI1];
     [vN4UfLbvVUqMvYV8bbGFQcxg5yRLm8ekI1 setAllLabelsWithConfidences:v234];
 
-    if (v350 < 0)
+    if (v349 < 0)
     {
-      operator delete(v349[0]);
+      operator delete(v348[0]);
     }
 
-    if (v352 < 0)
+    if (v351 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (v354 < 0)
+    if (v353 < 0)
     {
-      operator delete(v353[0]);
+      operator delete(v352[0]);
     }
 
-    if (v356 < 0)
+    if (v355 < 0)
     {
-      operator delete(v355[0]);
+      operator delete(v354[0]);
     }
 
-    if (v358 < 0)
+    if (v357 < 0)
     {
-      operator delete(v357[0]);
+      operator delete(v356[0]);
     }
 
-    if (v360 < 0)
+    if (v359 < 0)
     {
-      operator delete(v359[0]);
+      operator delete(v358[0]);
     }
 
     v236 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v359, [@"UNKNOWN_13_unknown0" UTF8String]);
-    v357[0] = v359;
-    LODWORD(v237) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v359) + 56);
-    v344 = [(VNClassificationObservation *)v236 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_13_unknown0" confidence:v237];
-    v367[0] = v344;
+    std::string::basic_string[abi:ne200100]<0>(v358, [@"UNKNOWN_13_unknown0" UTF8String]);
+    v356[0] = v358;
+    LODWORD(v237) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v358, v356) + 56);
+    v343 = [(VNClassificationObservation *)v236 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_13_unknown0" confidence:v237];
+    v366[0] = v343;
     v238 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v357, [@"UNKNOWN_13_unknown1" UTF8String]);
-    v355[0] = v357;
-    LODWORD(v239) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v357) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v356, [@"UNKNOWN_13_unknown1" UTF8String]);
+    v354[0] = v356;
+    LODWORD(v239) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v356, v354) + 56);
     v240 = [(VNClassificationObservation *)v238 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_13_unknown1" confidence:v239];
-    v367[1] = v240;
+    v366[1] = v240;
     v241 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v355, [@"UNKNOWN_13_unknown2" UTF8String]);
-    v353[0] = v355;
-    LODWORD(v242) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v355) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v354, [@"UNKNOWN_13_unknown2" UTF8String]);
+    v352[0] = v354;
+    LODWORD(v242) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v354, v352) + 56);
     v243 = [(VNClassificationObservation *)v241 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_13_unknown2" confidence:v242];
-    v367[2] = v243;
+    v366[2] = v243;
     v244 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v353, [@"UNKNOWN_13_unknown3" UTF8String]);
-    __p[0] = v353;
-    LODWORD(v245) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v353) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v352, [@"UNKNOWN_13_unknown3" UTF8String]);
+    __p[0] = v352;
+    LODWORD(v245) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v352, __p) + 56);
     v246 = [(VNClassificationObservation *)v244 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_13_unknown3" confidence:v245];
-    v367[3] = v246;
+    v366[3] = v246;
     v247 = [VNClassificationObservation alloc];
     std::string::basic_string[abi:ne200100]<0>(__p, [@"UNKNOWN_13_unknown4" UTF8String]);
-    v349[0] = __p;
-    LODWORD(v248) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, __p) + 56);
+    v348[0] = __p;
+    LODWORD(v248) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, __p, v348) + 56);
     v249 = [(VNClassificationObservation *)v247 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_13_unknown4" confidence:v248];
-    v367[4] = v249;
+    v366[4] = v249;
     v250 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v349, [@"UNKNOWN_13_unknown5" UTF8String]);
-    v347[0] = v349;
-    LODWORD(v251) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v349) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v348, [@"UNKNOWN_13_unknown5" UTF8String]);
+    v346[0] = v348;
+    LODWORD(v251) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v348, v346) + 56);
     v252 = [(VNClassificationObservation *)v250 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_13_unknown5" confidence:v251];
-    v367[5] = v252;
+    v366[5] = v252;
     v253 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v347, [@"UNKNOWN_13_unknown6" UTF8String]);
-    v361 = v347;
-    LODWORD(v254) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v347) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v346, [@"UNKNOWN_13_unknown6" UTF8String]);
+    v360 = v346;
+    LODWORD(v254) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v346, &v360) + 56);
     v255 = [(VNClassificationObservation *)v253 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_13_unknown6" confidence:v254];
-    v367[6] = v255;
-    v256 = [MEMORY[0x1E695DEC8] arrayWithObjects:v367 count:7];
+    v366[6] = v255;
+    v256 = [MEMORY[0x1E695DEC8] arrayWithObjects:v366 count:7];
     vN7CbCeAogPS2iHE6VQwu6H96xanljtMqk = [objectCopy VN7CbCeAogPS2iHE6VQwu6H96xanljtMqk];
     [vN7CbCeAogPS2iHE6VQwu6H96xanljtMqk setAllLabelsWithConfidences:v256];
 
-    if (v348 < 0)
+    if (v347 < 0)
     {
-      operator delete(v347[0]);
+      operator delete(v346[0]);
     }
 
-    if (v350 < 0)
+    if (v349 < 0)
     {
-      operator delete(v349[0]);
+      operator delete(v348[0]);
     }
 
-    if (v352 < 0)
+    if (v351 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (v354 < 0)
+    if (v353 < 0)
     {
-      operator delete(v353[0]);
+      operator delete(v352[0]);
     }
 
-    if (v356 < 0)
+    if (v355 < 0)
     {
-      operator delete(v355[0]);
+      operator delete(v354[0]);
     }
 
-    if (v358 < 0)
+    if (v357 < 0)
     {
-      operator delete(v357[0]);
+      operator delete(v356[0]);
     }
 
-    if (v360 < 0)
+    if (v359 < 0)
     {
-      operator delete(v359[0]);
+      operator delete(v358[0]);
     }
 
     v258 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v359, [@"UNKNOWN_14_unknown0" UTF8String]);
-    v357[0] = v359;
-    LODWORD(v259) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v359) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v358, [@"UNKNOWN_14_unknown0" UTF8String]);
+    v356[0] = v358;
+    LODWORD(v259) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v358, v356) + 56);
     v260 = [(VNClassificationObservation *)v258 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_14_unknown0" confidence:v259];
-    v366[0] = v260;
+    v365[0] = v260;
     v261 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v357, [@"UNKNOWN_14_unknown1" UTF8String]);
-    v355[0] = v357;
-    LODWORD(v262) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v357) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v356, [@"UNKNOWN_14_unknown1" UTF8String]);
+    v354[0] = v356;
+    LODWORD(v262) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v356, v354) + 56);
     v263 = [(VNClassificationObservation *)v261 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_14_unknown1" confidence:v262];
-    v366[1] = v263;
+    v365[1] = v263;
     v264 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v355, [@"UNKNOWN_14_unknown2" UTF8String]);
-    v353[0] = v355;
-    LODWORD(v265) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v355) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v354, [@"UNKNOWN_14_unknown2" UTF8String]);
+    v352[0] = v354;
+    LODWORD(v265) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v354, v352) + 56);
     v266 = [(VNClassificationObservation *)v264 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_14_unknown2" confidence:v265];
-    v366[2] = v266;
+    v365[2] = v266;
     v267 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v353, [@"UNKNOWN_14_unknown3" UTF8String]);
-    __p[0] = v353;
-    LODWORD(v268) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v353) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v352, [@"UNKNOWN_14_unknown3" UTF8String]);
+    __p[0] = v352;
+    LODWORD(v268) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v352, __p) + 56);
     v269 = [(VNClassificationObservation *)v267 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_14_unknown3" confidence:v268];
-    v366[3] = v269;
+    v365[3] = v269;
     v270 = [VNClassificationObservation alloc];
     std::string::basic_string[abi:ne200100]<0>(__p, [@"UNKNOWN_14_unknown4" UTF8String]);
-    v349[0] = __p;
-    LODWORD(v271) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, __p) + 56);
+    v348[0] = __p;
+    LODWORD(v271) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, __p, v348) + 56);
     v272 = [(VNClassificationObservation *)v270 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_14_unknown4" confidence:v271];
-    v366[4] = v272;
-    v273 = [MEMORY[0x1E695DEC8] arrayWithObjects:v366 count:5];
+    v365[4] = v272;
+    v273 = [MEMORY[0x1E695DEC8] arrayWithObjects:v365 count:5];
     vN7fiLHgGnvqPqG63cfDUCK4Xm8obUuWoP = [objectCopy VN7fiLHgGnvqPqG63cfDUCK4Xm8obUuWoP];
     [vN7fiLHgGnvqPqG63cfDUCK4Xm8obUuWoP setAllLabelsWithConfidences:v273];
 
-    if (v352 < 0)
+    if (v351 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (v354 < 0)
+    if (v353 < 0)
     {
-      operator delete(v353[0]);
+      operator delete(v352[0]);
     }
 
-    if (v356 < 0)
+    if (v355 < 0)
     {
-      operator delete(v355[0]);
+      operator delete(v354[0]);
     }
 
-    if (v358 < 0)
+    if (v357 < 0)
     {
-      operator delete(v357[0]);
+      operator delete(v356[0]);
     }
 
-    if (v360 < 0)
+    if (v359 < 0)
     {
-      operator delete(v359[0]);
+      operator delete(v358[0]);
     }
 
     v275 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v359, [@"UNKNOWN_12_unknown0" UTF8String]);
-    v357[0] = v359;
-    LODWORD(v276) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v359) + 56);
-    v345 = [(VNClassificationObservation *)v275 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_12_unknown0" confidence:v276];
-    v365[0] = v345;
+    std::string::basic_string[abi:ne200100]<0>(v358, [@"UNKNOWN_12_unknown0" UTF8String]);
+    v356[0] = v358;
+    LODWORD(v276) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v358, v356) + 56);
+    v344 = [(VNClassificationObservation *)v275 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_12_unknown0" confidence:v276];
+    v364[0] = v344;
     v277 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v357, [@"UNKNOWN_12_unknown1" UTF8String]);
-    v355[0] = v357;
-    LODWORD(v278) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v357) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v356, [@"UNKNOWN_12_unknown1" UTF8String]);
+    v354[0] = v356;
+    LODWORD(v278) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v356, v354) + 56);
     v279 = [(VNClassificationObservation *)v277 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_12_unknown1" confidence:v278];
-    v365[1] = v279;
+    v364[1] = v279;
     v280 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v355, [@"UNKNOWN_12_unknown2" UTF8String]);
-    v353[0] = v355;
-    LODWORD(v281) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v355) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v354, [@"UNKNOWN_12_unknown2" UTF8String]);
+    v352[0] = v354;
+    LODWORD(v281) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v354, v352) + 56);
     v282 = [(VNClassificationObservation *)v280 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_12_unknown2" confidence:v281];
-    v365[2] = v282;
+    v364[2] = v282;
     v283 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v353, [@"UNKNOWN_12_unknown3" UTF8String]);
-    __p[0] = v353;
-    LODWORD(v284) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v353) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v352, [@"UNKNOWN_12_unknown3" UTF8String]);
+    __p[0] = v352;
+    LODWORD(v284) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v352, __p) + 56);
     v285 = [(VNClassificationObservation *)v283 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_12_unknown3" confidence:v284];
-    v365[3] = v285;
+    v364[3] = v285;
     v286 = [VNClassificationObservation alloc];
     std::string::basic_string[abi:ne200100]<0>(__p, [@"UNKNOWN_12_unknown4" UTF8String]);
-    v349[0] = __p;
-    LODWORD(v287) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, __p) + 56);
+    v348[0] = __p;
+    LODWORD(v287) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, __p, v348) + 56);
     v288 = [(VNClassificationObservation *)v286 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_12_unknown4" confidence:v287];
-    v365[4] = v288;
+    v364[4] = v288;
     v289 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v349, [@"UNKNOWN_12_unknown5" UTF8String]);
-    v347[0] = v349;
-    LODWORD(v290) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v349) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v348, [@"UNKNOWN_12_unknown5" UTF8String]);
+    v346[0] = v348;
+    LODWORD(v290) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v348, v346) + 56);
     v291 = [(VNClassificationObservation *)v289 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_12_unknown5" confidence:v290];
-    v365[5] = v291;
+    v364[5] = v291;
     v292 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v347, [@"UNKNOWN_12_unknown6" UTF8String]);
-    v361 = v347;
-    LODWORD(v293) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v347) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v346, [@"UNKNOWN_12_unknown6" UTF8String]);
+    v360 = v346;
+    LODWORD(v293) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v346, &v360) + 56);
     v294 = [(VNClassificationObservation *)v292 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_12_unknown6" confidence:v293];
-    v365[6] = v294;
-    v295 = [MEMORY[0x1E695DEC8] arrayWithObjects:v365 count:7];
+    v364[6] = v294;
+    v295 = [MEMORY[0x1E695DEC8] arrayWithObjects:v364 count:7];
     vN2riiZbQrloRhCzYW56f0rk4N3ROe151S = [objectCopy VN2riiZbQrloRhCzYW56f0rk4N3ROe151S];
     [vN2riiZbQrloRhCzYW56f0rk4N3ROe151S setAllLabelsWithConfidences:v295];
 
-    if (v348 < 0)
+    if (v347 < 0)
     {
-      operator delete(v347[0]);
+      operator delete(v346[0]);
     }
 
-    if (v350 < 0)
+    if (v349 < 0)
     {
-      operator delete(v349[0]);
+      operator delete(v348[0]);
     }
 
-    if (v352 < 0)
+    if (v351 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (v354 < 0)
+    if (v353 < 0)
     {
-      operator delete(v353[0]);
+      operator delete(v352[0]);
     }
 
-    if (v356 < 0)
+    if (v355 < 0)
     {
-      operator delete(v355[0]);
+      operator delete(v354[0]);
     }
 
-    if (v358 < 0)
+    if (v357 < 0)
     {
-      operator delete(v357[0]);
+      operator delete(v356[0]);
     }
 
-    if (v360 < 0)
+    if (v359 < 0)
     {
-      operator delete(v359[0]);
+      operator delete(v358[0]);
     }
 
     v297 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v359, [@"UNKNOWN_15_unknown0" UTF8String]);
-    v357[0] = v359;
-    LODWORD(v298) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v359) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v358, [@"UNKNOWN_15_unknown0" UTF8String]);
+    v356[0] = v358;
+    LODWORD(v298) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v358, v356) + 56);
     v299 = [(VNClassificationObservation *)v297 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_15_unknown0" confidence:v298];
-    v364[0] = v299;
+    v363[0] = v299;
     v300 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v357, [@"UNKNOWN_15_unknown1" UTF8String]);
-    v355[0] = v357;
-    LODWORD(v301) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v357) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v356, [@"UNKNOWN_15_unknown1" UTF8String]);
+    v354[0] = v356;
+    LODWORD(v301) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v356, v354) + 56);
     v302 = [(VNClassificationObservation *)v300 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_15_unknown1" confidence:v301];
-    v364[1] = v302;
+    v363[1] = v302;
     v303 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v355, [@"UNKNOWN_15_unknown2" UTF8String]);
-    v353[0] = v355;
-    LODWORD(v304) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v355) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v354, [@"UNKNOWN_15_unknown2" UTF8String]);
+    v352[0] = v354;
+    LODWORD(v304) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v354, v352) + 56);
     v305 = [(VNClassificationObservation *)v303 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_15_unknown2" confidence:v304];
-    v364[2] = v305;
+    v363[2] = v305;
     v306 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v353, [@"UNKNOWN_15_unknown3" UTF8String]);
-    __p[0] = v353;
-    LODWORD(v307) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v353) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v352, [@"UNKNOWN_15_unknown3" UTF8String]);
+    __p[0] = v352;
+    LODWORD(v307) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v352, __p) + 56);
     v308 = [(VNClassificationObservation *)v306 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_15_unknown3" confidence:v307];
-    v364[3] = v308;
+    v363[3] = v308;
     v309 = [VNClassificationObservation alloc];
     std::string::basic_string[abi:ne200100]<0>(__p, [@"UNKNOWN_15_unknown4" UTF8String]);
-    v349[0] = __p;
-    LODWORD(v310) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, __p) + 56);
+    v348[0] = __p;
+    LODWORD(v310) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, __p, v348) + 56);
     v311 = [(VNClassificationObservation *)v309 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_15_unknown4" confidence:v310];
-    v364[4] = v311;
-    v312 = [MEMORY[0x1E695DEC8] arrayWithObjects:v364 count:5];
+    v363[4] = v311;
+    v312 = [MEMORY[0x1E695DEC8] arrayWithObjects:v363 count:5];
     vNpLorzxnyAlLcPFNcKhgoNCmy9b5BRWyk = [objectCopy VNpLorzxnyAlLcPFNcKhgoNCmy9b5BRWyk];
     [vNpLorzxnyAlLcPFNcKhgoNCmy9b5BRWyk setAllLabelsWithConfidences:v312];
 
-    if (v352 < 0)
+    if (v351 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (v354 < 0)
+    if (v353 < 0)
     {
-      operator delete(v353[0]);
+      operator delete(v352[0]);
     }
 
-    if (v356 < 0)
+    if (v355 < 0)
     {
-      operator delete(v355[0]);
+      operator delete(v354[0]);
     }
 
-    if (v358 < 0)
+    if (v357 < 0)
     {
-      operator delete(v357[0]);
+      operator delete(v356[0]);
     }
 
-    if (v360 < 0)
+    if (v359 < 0)
     {
-      operator delete(v359[0]);
+      operator delete(v358[0]);
     }
 
     v314 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v359, [@"UNKNOWN_16_unknown0" UTF8String]);
-    v357[0] = v359;
-    LODWORD(v315) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v359) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v358, [@"UNKNOWN_16_unknown0" UTF8String]);
+    v356[0] = v358;
+    LODWORD(v315) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v358, v356) + 56);
     v316 = [(VNClassificationObservation *)v314 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_16_unknown0" confidence:v315];
-    v363[0] = v316;
+    v362[0] = v316;
     v317 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v357, [@"UNKNOWN_16_unknown1" UTF8String]);
-    v355[0] = v357;
-    LODWORD(v318) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v357) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v356, [@"UNKNOWN_16_unknown1" UTF8String]);
+    v354[0] = v356;
+    LODWORD(v318) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v356, v354) + 56);
     v319 = [(VNClassificationObservation *)v317 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_16_unknown1" confidence:v318];
-    v363[1] = v319;
+    v362[1] = v319;
     v320 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v355, [@"UNKNOWN_16_unknown2" UTF8String]);
-    v353[0] = v355;
-    LODWORD(v321) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v355) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v354, [@"UNKNOWN_16_unknown2" UTF8String]);
+    v352[0] = v354;
+    LODWORD(v321) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v354, v352) + 56);
     v322 = [(VNClassificationObservation *)v320 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_16_unknown2" confidence:v321];
-    v363[2] = v322;
+    v362[2] = v322;
     v323 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v353, [@"UNKNOWN_16_unknown3" UTF8String]);
-    __p[0] = v353;
-    LODWORD(v324) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v353) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v352, [@"UNKNOWN_16_unknown3" UTF8String]);
+    __p[0] = v352;
+    LODWORD(v324) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v352, __p) + 56);
     v325 = [(VNClassificationObservation *)v323 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_16_unknown3" confidence:v324];
-    v363[3] = v325;
+    v362[3] = v325;
     v326 = [VNClassificationObservation alloc];
     std::string::basic_string[abi:ne200100]<0>(__p, [@"UNKNOWN_16_unknown4" UTF8String]);
-    v349[0] = __p;
-    LODWORD(v327) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, __p) + 56);
+    v348[0] = __p;
+    LODWORD(v327) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, __p, v348) + 56);
     v328 = [(VNClassificationObservation *)v326 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_16_unknown4" confidence:v327];
-    v363[4] = v328;
+    v362[4] = v328;
     v329 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v349, [@"UNKNOWN_16_unknown5" UTF8String]);
-    v347[0] = v349;
-    LODWORD(v330) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v349) + 56);
+    std::string::basic_string[abi:ne200100]<0>(v348, [@"UNKNOWN_16_unknown5" UTF8String]);
+    v346[0] = v348;
+    LODWORD(v330) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v348, v346) + 56);
     v331 = [(VNClassificationObservation *)v329 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_16_unknown5" confidence:v330];
-    v363[5] = v331;
-    v332 = [MEMORY[0x1E695DEC8] arrayWithObjects:v363 count:6];
+    v362[5] = v331;
+    v332 = [MEMORY[0x1E695DEC8] arrayWithObjects:v362 count:6];
     vN3iT1YRjjnIuELobV1olJiO1vvItN6Kdq2 = [objectCopy VN3iT1YRjjnIuELobV1olJiO1vvItN6Kdq];
     [vN3iT1YRjjnIuELobV1olJiO1vvItN6Kdq2 setAllLabelsWithConfidences:v332];
 
-    if (v350 < 0)
+    if (v349 < 0)
     {
-      operator delete(v349[0]);
+      operator delete(v348[0]);
     }
 
-    if (v352 < 0)
+    if (v351 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (v354 < 0)
+    if (v353 < 0)
     {
-      operator delete(v353[0]);
+      operator delete(v352[0]);
     }
 
-    if (v356 < 0)
+    if (v355 < 0)
     {
-      operator delete(v355[0]);
+      operator delete(v354[0]);
     }
 
-    if (v358 < 0)
+    if (v357 < 0)
     {
-      operator delete(v357[0]);
+      operator delete(v356[0]);
     }
 
-    if (v360 < 0)
+    if (v359 < 0)
     {
-      operator delete(v359[0]);
+      operator delete(v358[0]);
     }
 
     v334 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v359, [@"UNKNOWN_17_unknown0" UTF8String]);
-    v357[0] = v359;
-    LODWORD(v335) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v359) + 56);
-    v336 = [(VNClassificationObservation *)v334 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_17_unknown0" confidence:v335];
-    v362[0] = v336;
-    v337 = [VNClassificationObservation alloc];
-    std::string::basic_string[abi:ne200100]<0>(v357, [@"UNKNOWN_17_unknown1" UTF8String]);
-    v355[0] = v357;
-    LODWORD(v338) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v357) + 56);
-    v339 = [(VNClassificationObservation *)v337 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_17_unknown1" confidence:v338];
-    v362[1] = v339;
-    v340 = [MEMORY[0x1E695DEC8] arrayWithObjects:v362 count:2];
+    std::string::basic_string[abi:ne200100]<0>(v358, [@"UNKNOWN_17_unknown0" UTF8String]);
+    v356[0] = v358;
+    LODWORD(v335) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v358, v356) + 56);
+    v50 = [(VNClassificationObservation *)v334 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_17_unknown0" confidence:v335];
+    v361[0] = v50;
+    v336 = [VNClassificationObservation alloc];
+    std::string::basic_string[abi:ne200100]<0>(v356, [@"UNKNOWN_17_unknown1" UTF8String]);
+    v354[0] = v356;
+    LODWORD(v337) = *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(map, v356, v354) + 56);
+    v338 = [(VNClassificationObservation *)v336 initWithOriginatingRequestSpecifier:specifierCopy identifier:@"UNKNOWN_17_unknown1" confidence:v337];
+    v361[1] = v338;
+    v339 = [MEMORY[0x1E695DEC8] arrayWithObjects:v361 count:2];
     facemaskCategory2 = [objectCopy facemaskCategory];
-    [facemaskCategory2 setAllLabelsWithConfidences:v340];
+    [facemaskCategory2 setAllLabelsWithConfidences:v339];
 
-    if (v358 < 0)
+    if (v357 < 0)
     {
-      operator delete(v357[0]);
+      operator delete(v356[0]);
     }
 
-    goto LABEL_187;
+    goto LABEL_186;
   }
 
-LABEL_189:
+LABEL_188:
 }
 
 - (vImage_Buffer)prepare_vImageBufferForCVPixelBuffer:(__CVBuffer *)buffer error:(id *)error
@@ -1486,20 +1487,20 @@ LABEL_189:
 
 - (id)processRegionOfInterest:(CGRect)interest croppedPixelBuffer:(const __CVBuffer *)buffer options:(id)options qosClass:(unsigned int)class warningRecorder:(id)recorder error:(id *)error progressHandler:(id)handler
 {
-  v157 = *MEMORY[0x1E69E9840];
+  v158 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   recorderCopy = recorder;
   handlerCopy = handler;
-  v143 = 0;
-  if (![VNValidationUtilities getBOOLValue:&v143 forKey:@"VNFaceAnalyzerMultiDetectorProcessingOptionCreateFaceprint" inOptions:optionsCopy withDefaultValue:0 error:error]|| (v142 = 0, ![VNValidationUtilities getBOOLValue:&v142 forKey:@"VNFaceAnalyzerMultiDetectorProcessingOptionCreateFaceAnalyzer" inOptions:optionsCopy withDefaultValue:0 error:error]))
+  v144 = 0;
+  if (![VNValidationUtilities getBOOLValue:&v144 forKey:@"VNFaceAnalyzerMultiDetectorProcessingOptionCreateFaceprint" inOptions:optionsCopy withDefaultValue:0 error:error]|| (v143 = 0, ![VNValidationUtilities getBOOLValue:&v143 forKey:@"VNFaceAnalyzerMultiDetectorProcessingOptionCreateFaceAnalyzer" inOptions:optionsCopy withDefaultValue:0 error:error]))
   {
     v18 = 0;
     goto LABEL_186;
   }
 
-  [VNError VNAssert:v143 || v142 log:@"Unexpected options parameter passed to face analyzer multi-detector"];
-  v139 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:2];
-  if (v143)
+  [VNError VNAssert:v144 || v143 log:@"Unexpected options parameter passed to face analyzer multi-detector"];
+  v140 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:2];
+  if (v144)
   {
     v16 = VNCloneFaceObservationFromOptions(optionsCopy, error);
     if (!v16)
@@ -1508,9 +1509,9 @@ LABEL_189:
       goto LABEL_185;
     }
 
-    [v139 addObject:v16];
+    [v140 addObject:v16];
     faceprint = [v16 faceprint];
-    v143 = faceprint == 0;
+    v144 = faceprint == 0;
   }
 
   else
@@ -1518,8 +1519,8 @@ LABEL_189:
     v16 = 0;
   }
 
-  v137 = v16;
-  if (v142)
+  v138 = v16;
+  if (v143)
   {
     v19 = VNCloneFaceObservationFromOptions(optionsCopy, error);
     if (!v19)
@@ -1528,24 +1529,24 @@ LABEL_189:
       goto LABEL_184;
     }
 
-    v138 = v19;
-    [v139 addObject:?];
-    faceAttributes = [v138 faceAttributes];
-    v142 = faceAttributes == 0;
+    v139 = v19;
+    [v140 addObject:?];
+    faceAttributes = [v139 faceAttributes];
+    v143 = faceAttributes == 0;
   }
 
   else
   {
-    v138 = 0;
+    v139 = 0;
   }
 
-  v141 = 0;
-  if (![VNValidationUtilities getBOOLValue:&v141 forKey:@"VNDetectorInternalProcessOption_RecordImageTooSmallWarning" inOptions:optionsCopy withDefaultValue:0 error:error])
+  v142 = 0;
+  if (![VNValidationUtilities getBOOLValue:&v142 forKey:@"VNDetectorInternalProcessOption_RecordImageTooSmallWarning" inOptions:optionsCopy withDefaultValue:0 error:error])
   {
     goto LABEL_182;
   }
 
-  if (v141 == 1)
+  if (v142 == 1)
   {
     matrix.data = 0;
     if (![VNValidationUtilities getNSUIntegerValue:&matrix forKey:@"VNDetectorInternalProcessOption_DesiredMinimumFacePrintingLongDimension" inOptions:optionsCopy withDefaultValue:0 error:error])
@@ -1559,7 +1560,7 @@ LABEL_189:
     [v22 recordWarning:@"VNRequestWarningImageMinimumLongDimension" value:v23];
 
     v24 = v22;
-    v25 = v137;
+    v25 = v138;
     v26 = v25;
     if (v25)
     {
@@ -1575,7 +1576,7 @@ LABEL_189:
     goto LABEL_182;
   }
 
-  v136 = optionsCopy;
+  v137 = optionsCopy;
   ptr = self->_mMultiHeadedFaceClassifier.__ptr_;
   if (*(ptr + 6620) == 1)
   {
@@ -1590,16 +1591,16 @@ LABEL_189:
   }
 
   vision::mod::ImageDescriptorAugmenterAbstract::getAugmentedImages(&dest, *ptr);
-  v129 = recorderCopy;
-  v131 = handlerCopy;
+  v130 = recorderCopy;
+  v132 = handlerCopy;
   v31 = dest.data;
-  v148[0] = 0;
-  v148[1] = 0;
-  v147 = v148;
+  v149[0] = 0;
+  v149[1] = 0;
+  v148 = v149;
   height = dest.height;
-  v127 = (dest.height - dest.data) >> 5;
-  v133 = dest.data;
-  if (v127 < 1)
+  v128 = (dest.height - dest.data) >> 5;
+  v134 = dest.data;
+  if (v128 < 1)
   {
 LABEL_88:
     errorCopy = error;
@@ -1716,8 +1717,8 @@ LABEL_88:
               v102->__r_.__value_.__l.__size_ = 0;
               v102->__r_.__value_.__r.__words[2] = 0;
               v102->__r_.__value_.__r.__words[0] = 0;
-              v145.__r_.__value_.__r.__words[0] = &dest;
-              *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(ptr + 6672, &dest) + 56) = v95;
+              v146.__r_.__value_.__r.__words[0] = &dest;
+              *(std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(ptr + 834, &dest, &v146) + 56) = v95;
               if (SHIBYTE(dest.width) < 0)
               {
                 operator delete(dest.data);
@@ -1751,14 +1752,14 @@ LABEL_88:
       }
     }
 
-    recorderCopy = v129;
-    handlerCopy = v131;
-    v31 = v133;
+    recorderCopy = v130;
+    handlerCopy = v132;
+    v31 = v134;
     if (*(ptr + 64) != 1 || (*(*(ptr + 838) + 96) = *(ptr + 19), v30 = (*(**ptr + 24))(*ptr, 0), (v30 & 0x80) != 0))
     {
-      if (height != v133 && (*(ptr + 65) & 1) != 0)
+      if (height != v134 && (*(ptr + 65) & 1) != 0)
       {
-        *(ptr + 1674) = *(ptr + 1674) / v127;
+        *(ptr + 1674) = *(ptr + 1674) / v128;
       }
 
       if (*(ptr + 67) != 1 || (v104 = *(ptr + 831), v105 = *(ptr + 832), v104 == v105))
@@ -1786,12 +1787,12 @@ LABEL_145:
 
           v107 = *(ptr + 21);
           matrix.data = &dest;
-          *(std::__tree<std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferFloat32>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferFloat32>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferFloat32>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(ptr + 6720, &dest)[7] + 96) = v107;
+          std::__tree<std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferFloat32>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferFloat32>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferFloat32>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(ptr + 840, &dest, &matrix)[7][12] = v107;
           v108 = *ptr;
           matrix.data = &dest;
-          v109 = std::__tree<std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferAbstract>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferAbstract>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferAbstract>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v147, &dest)[7];
+          v109 = std::__tree<std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferAbstract>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferAbstract>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferAbstract>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v148, &dest, &matrix)[7];
           matrix.data = &dest;
-          v110 = std::__tree<std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferFloat32>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferFloat32>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferFloat32>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(ptr + 6720, &dest);
+          v110 = std::__tree<std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferFloat32>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferFloat32>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferFloat32>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(ptr + 840, &dest, &matrix);
           v30 = (*(*v108 + 24))(v108, v109, v110[7]);
           if (SHIBYTE(dest.width) < 0)
           {
@@ -1811,21 +1812,21 @@ LABEL_145:
         }
       }
 
-      handlerCopy = v131;
+      handlerCopy = v132;
       error = errorCopy;
-      v31 = v133;
+      v31 = v134;
     }
 
     goto LABEL_148;
   }
 
   v32 = 0;
-  v126 = 4221;
+  v127 = 4221;
   __asm { FMOV            V0.4S, #1.0 }
 
-  v130 = _Q0;
-  v134 = ((dest.height - dest.data) >> 5) & 0x7FFFFFFF;
-  v37 = v134;
+  v131 = _Q0;
+  v135 = ((dest.height - dest.data) >> 5) & 0x7FFFFFFF;
+  v37 = v135;
   while (1)
   {
     --v37;
@@ -1833,7 +1834,7 @@ LABEL_145:
     v39 = *(v38 + 1);
     *&src.data = *v38;
     *&src.width = v39;
-    memset(&v145, 0, 20);
+    memset(&v146, 0, 20);
     if (*(ptr + 20) >= 2)
     {
       if (src.height)
@@ -1875,12 +1876,12 @@ LABEL_145:
       v56 = (src.width * src.height);
       v57 = v48 / v56;
       v58 = v49 / v56;
-      HIDWORD(v145.__r_.__value_.__r.__words[1]) = *(ptr + 17);
+      HIDWORD(v146.__r_.__value_.__r.__words[1]) = *(ptr + 17);
       v59 = v50 / v56;
       if (*(ptr + 75))
       {
-        *&v145.__r_.__value_.__l.__data_ = -v57;
-        *(v145.__r_.__value_.__r.__words + 1) = -v58;
+        *&v146.__r_.__value_.__l.__data_ = -v57;
+        *(v146.__r_.__value_.__r.__words + 1) = -v58;
         v60 = -v59;
       }
 
@@ -1889,18 +1890,18 @@ LABEL_145:
         if (*(ptr + 74) != 1)
         {
 LABEL_49:
-          v145.__r_.__value_.__s.__data_[16] = *(ptr + 73);
+          v146.__r_.__value_.__s.__data_[16] = *(ptr + 73);
           dest = src;
           v61 = espresso_network_bind_input_vimagebuffer_bgra8();
           goto LABEL_52;
         }
 
         v60 = (v57 + (v59 + v58)) / -3.0;
-        *&v145.__r_.__value_.__l.__data_ = v60;
-        *(v145.__r_.__value_.__r.__words + 1) = v60;
+        *&v146.__r_.__value_.__l.__data_ = v60;
+        *(v146.__r_.__value_.__r.__words + 1) = v60;
       }
 
-      *&v145.__r_.__value_.__r.__words[1] = v60;
+      *&v146.__r_.__value_.__r.__words[1] = v60;
       goto LABEL_49;
     }
 
@@ -1951,12 +1952,12 @@ LABEL_49:
     }
 
     v62 = -v55 / (dest.width * dest.height);
-    v63 = v130;
+    v63 = v131;
     *v63.i32 = v62;
     v64 = vzip1q_s32(v63, v63);
     *&v64.i32[2] = v62;
-    *&v145.__r_.__value_.__l.__data_ = v64;
-    v145.__r_.__value_.__s.__data_[16] = 0;
+    *&v146.__r_.__value_.__l.__data_ = v64;
+    v146.__r_.__value_.__s.__data_[16] = 0;
     matrix = dest;
     v61 = espresso_network_bind_input_vimagebuffer_planar8();
 LABEL_52:
@@ -1969,7 +1970,7 @@ LABEL_52:
     if (*(ptr + 64) == 1)
     {
       v65 = malloc_type_malloc(4 * *(ptr + 19), 0x100004052888210uLL);
-      std::shared_ptr<float>::shared_ptr[abi:ne200100]<float,void (*)(void *),0>(&v145, v65);
+      std::shared_ptr<float>::shared_ptr[abi:ne200100]<float,void (*)(void *),0>(&v146, v65, MEMORY[0x1E69E9B38]);
     }
 
     if (*(ptr + 65) == 1)
@@ -1979,7 +1980,7 @@ LABEL_52:
 
     if (*(ptr + 67) == 1)
     {
-      v132 = v37;
+      v133 = v37;
       matrix.height = 0;
       matrix.width = 0;
       matrix.data = &matrix.height;
@@ -1999,7 +2000,7 @@ LABEL_52:
         }
 
         v68 = malloc_type_malloc(4 * *(ptr + 21), 0x100004052888210uLL);
-        std::shared_ptr<float>::shared_ptr[abi:ne200100]<float,void (*)(void *),0>(&v145, v68);
+        std::shared_ptr<float>::shared_ptr[abi:ne200100]<float,void (*)(void *),0>(&v146, v68, MEMORY[0x1E69E9B38]);
       }
 
       v69 = *(ptr + 832);
@@ -2017,7 +2018,7 @@ LABEL_52:
             {
               v74 = *(*(*(ptr + 776) + 168 * v71) + 4 * v73);
               dest.data = (*(ptr + 831) + 24 * v71);
-              *(std::__tree<std::__value_type<std::string,std::shared_ptr<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<float>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&matrix, dest.data)[7] + 4 * v73++) = v74;
+              *(std::__tree<std::__value_type<std::string,std::shared_ptr<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<float>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&matrix, dest.data, &dest)[7] + v73++) = v74;
               v72 = *(ptr + 21);
             }
 
@@ -2038,70 +2039,70 @@ LABEL_52:
       {
         if (*(v75 + 23) < 0)
         {
-          std::string::__init_copy_ctor_external(&v145, *v75, *(v75 + 1));
+          std::string::__init_copy_ctor_external(&v146, *v75, *(v75 + 1));
         }
 
         else
         {
           v77 = *v75;
-          v145.__r_.__value_.__r.__words[2] = *(v75 + 2);
-          *&v145.__r_.__value_.__l.__data_ = v77;
+          v146.__r_.__value_.__r.__words[2] = *(v75 + 2);
+          *&v146.__r_.__value_.__l.__data_ = v77;
         }
 
         *pre_bias = 0;
-        v150 = 0;
         v151 = 0;
+        v152 = 0;
         dest.data = v32;
         std::vector<long long>::push_back[abi:ne200100](pre_bias, &dest);
-        *&v144 = &v145;
-        v78 = std::__tree<std::__value_type<std::string,std::shared_ptr<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<float>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&matrix, &v145);
+        *&v145 = &v146;
+        v78 = std::__tree<std::__value_type<std::string,std::shared_ptr<float>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<float>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<float>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&matrix, &v146, &v145);
         v79 = *(ptr + 21);
         vision::mod::ImageDescriptorBufferAbstract::ImageDescriptorBufferAbstract(&dest, pre_bias, v78[7], 4 * v79, 1, 0);
-        v154 = 1;
-        v155 = 0;
+        v155 = 1;
+        v156 = 0;
         dest.data = &unk_1F19764A8;
-        v153 = v79 & 0x3FFFFFFFFFFFFFFFLL;
+        v154 = v79 & 0x3FFFFFFFFFFFFFFFLL;
         if (!v32)
         {
           DeepCopy = vision::mod::ImageDescriptorBufferAbstract::createDeepCopy(&dest);
-          std::shared_ptr<vision::mod::ImageDescriptorBufferAbstract>::shared_ptr[abi:ne200100]<vision::mod::ImageDescriptorBufferAbstract,0>(&v144, DeepCopy);
+          std::shared_ptr<vision::mod::ImageDescriptorBufferAbstract>::shared_ptr[abi:ne200100]<vision::mod::ImageDescriptorBufferAbstract,0>(&v145, DeepCopy);
         }
 
-        *&v144 = &v145;
-        v80 = std::__tree<std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferAbstract>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferAbstract>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferAbstract>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v147, &v145);
+        *&v145 = &v146;
+        v80 = std::__tree<std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferAbstract>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferAbstract>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferAbstract>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v148, &v146, &v145);
         (*(*v80[7] + 40))(v80[7], &dest);
         dest.data = &unk_1F19764A8;
-        free(v155);
+        free(v156);
         vision::mod::ImageDescriptorBufferAbstract::~ImageDescriptorBufferAbstract(&dest.data);
         if (*pre_bias)
         {
           operator delete(*pre_bias);
         }
 
-        if (SHIBYTE(v145.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v146.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v145.__r_.__value_.__l.__data_);
+          operator delete(v146.__r_.__value_.__l.__data_);
         }
 
         v75 = (v75 + 24);
       }
 
       std::__tree<std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferFloat32>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferFloat32>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferFloat32>>>>::destroy(matrix.height);
-      v31 = v133;
-      v37 = v132;
+      v31 = v134;
+      v37 = v133;
     }
 
-    if (++v32 == v134)
+    if (++v32 == v135)
     {
       goto LABEL_88;
     }
   }
 
-  v126 = 4218;
+  v127 = 4218;
 LABEL_165:
-  v30 = v126;
+  v30 = v127;
 LABEL_148:
-  std::__tree<std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferFloat32>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferFloat32>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferFloat32>>>>::destroy(v148[0]);
+  std::__tree<std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferFloat32>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferFloat32>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<vision::mod::ImageDescriptorBufferFloat32>>>>::destroy(v149[0]);
   if (v31)
   {
     operator delete(v31);
@@ -2111,7 +2112,7 @@ LABEL_150:
   if (error && v30 != 128)
   {
     v111 = MEMORY[0x1E696AEC0];
-    optionsCopy = v136;
+    optionsCopy = v137;
     espresso_plan_get_error_info();
     std::string::basic_string[abi:ne200100]<0>(&dest, v112);
     if ((dest.width & 0x8000000000000000) == 0)
@@ -2138,86 +2139,87 @@ LABEL_150:
   }
 
   free(v28);
-  optionsCopy = v136;
+  optionsCopy = v137;
   if (v30 != 128)
   {
     goto LABEL_182;
   }
 
-  if (!v143)
+  if (!v144)
   {
-    if (v142)
+    if (v143)
     {
-      v117 = self->_mMultiHeadedFaceClassifier.__ptr_;
-      if ((*(v117 + 66) & 1) == 0)
+      v118 = self->_mMultiHeadedFaceClassifier.__ptr_;
+      if ((*(v118 + 66) & 1) == 0)
       {
         if (!error)
         {
           goto LABEL_182;
         }
 
-        v116 = [VNError errorForInternalErrorWithLocalizedDescription:@"Error classifying attributes"];
+        v117 = [VNError errorForInternalErrorWithLocalizedDescription:@"Error classifying attributes"];
 LABEL_173:
         v18 = 0;
-        *error = v116;
+        *error = v117;
         goto LABEL_183;
       }
 
       dest.height = 0;
       dest.width = 0;
       dest.data = &dest.height;
-      FaceAttributesOutput = vision::mod::FaceprintAndAttributes::getFaceAttributesOutput(v117, &dest);
+      FaceAttributesOutput = vision::mod::FaceprintAndAttributes::getFaceAttributesOutput(v118, &dest);
       if (FaceAttributesOutput != 128)
       {
         if (error)
         {
-          v120 = MEMORY[0x1E696AEC0];
+          v121 = MEMORY[0x1E696AEC0];
           espresso_plan_get_error_info();
-          std::string::basic_string[abi:ne200100]<0>(&matrix, v121);
+          std::string::basic_string[abi:ne200100]<0>(&matrix, v122);
           if ((matrix.width & 0x8000000000000000) == 0)
           {
-            v122 = &matrix;
+            v123 = &matrix;
           }
 
           else
           {
-            v122 = matrix.data;
+            v123 = matrix.data;
           }
 
-          v122 = [v120 stringWithFormat:@"Could not get attributes output. Error = %s", v122];
+          v123 = [v121 stringWithFormat:@"Could not get attributes output. Error = %s", v123];
           if (SHIBYTE(matrix.width) < 0)
           {
             operator delete(matrix.data);
           }
 
-          v124 = VNErrorForCVMLStatus(FaceAttributesOutput);
-          *error = [VNError errorForInternalErrorWithLocalizedDescription:v122 underlyingError:v124];
+          v125 = VNErrorForCVMLStatus(FaceAttributesOutput);
+          *error = [VNError errorForInternalErrorWithLocalizedDescription:v123 underlyingError:v125];
         }
 
         std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::destroy(dest.height);
         goto LABEL_182;
       }
 
-      v119 = [(VNFaceAnalyzerMultiDetectorBase *)self _saveFaceAttributes:&dest toFaceObservation:v138 options:v136 error:error];
+      v120 = [(VNFaceAnalyzerMultiDetectorBase *)self _saveFaceAttributes:&dest toFaceObservation:v139 options:v137 error:error];
       std::__tree<std::__value_type<std::string,float>,std::__map_value_compare<std::string,std::__value_type<std::string,float>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,float>>>::destroy(dest.height);
-      if (!v119)
+      if (!v120)
       {
         goto LABEL_182;
       }
     }
 
-    v18 = v139;
+    v18 = v140;
     goto LABEL_183;
   }
 
-  if (*(self->_mMultiHeadedFaceClassifier.__ptr_ + 64))
+  v116 = self->_mMultiHeadedFaceClassifier.__ptr_;
+  if (*(v116 + 64))
   {
-    vision::mod::FaceprintAndAttributes::createDescriptorBuffer(&matrix);
+    vision::mod::FaceprintAndAttributes::createDescriptorBuffer(&matrix, v116);
   }
 
   if (error)
   {
-    v116 = [VNError errorForInternalErrorWithLocalizedDescription:@"Error calculating print"];
+    v117 = [VNError errorForInternalErrorWithLocalizedDescription:@"Error calculating print"];
     goto LABEL_173;
   }
 
@@ -2225,7 +2227,7 @@ LABEL_182:
   v18 = 0;
 LABEL_183:
 
-  v16 = v137;
+  v16 = v138;
 LABEL_184:
 
 LABEL_185:

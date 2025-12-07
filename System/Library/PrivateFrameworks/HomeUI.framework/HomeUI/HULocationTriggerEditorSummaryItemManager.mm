@@ -39,16 +39,16 @@
   }
 
   v12 = objc_alloc(MEMORY[0x277D14B38]);
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __77__HULocationTriggerEditorSummaryItemManager_initWithDelegate_triggerBuilder___block_invoke;
-  v33[3] = &unk_277DB7478;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __77__HULocationTriggerEditorSummaryItemManager_initWithDelegate_triggerBuilder___block_invoke;
+  v34[3] = &unk_277DB7478;
   v13 = builderCopy;
-  v34 = v13;
-  v14 = [v12 initWithResultsBlock:v33];
-  v32.receiver = self;
-  v32.super_class = HULocationTriggerEditorSummaryItemManager;
-  v15 = [(HFItemManager *)&v32 initWithDelegate:delegateCopy sourceItem:v14];
+  v35 = v13;
+  v14 = [v12 initWithResultsBlock:v34];
+  v33.receiver = self;
+  v33.super_class = HULocationTriggerEditorSummaryItemManager;
+  v15 = [(HFItemManager *)&v33 initWithDelegate:delegateCopy sourceItem:v14];
 
   if (v15)
   {
@@ -61,19 +61,19 @@
     conditionEditorModule = v15->_conditionEditorModule;
     v15->_conditionEditorModule = v20;
 
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __77__HULocationTriggerEditorSummaryItemManager_initWithDelegate_triggerBuilder___block_invoke_29;
-    v30[3] = &unk_277DC0DC0;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __77__HULocationTriggerEditorSummaryItemManager_initWithDelegate_triggerBuilder___block_invoke_29;
+    v31[3] = &unk_277DC0DC0;
     v22 = v13;
-    v31 = v22;
-    v23 = __77__HULocationTriggerEditorSummaryItemManager_initWithDelegate_triggerBuilder___block_invoke_29(v30);
-    v24 = [HUPresenceUserPickerItemModule alloc];
+    v32 = v22;
+    v24 = __77__HULocationTriggerEditorSummaryItemManager_initWithDelegate_triggerBuilder___block_invoke_29(v31, v23);
+    v25 = [HUPresenceUserPickerItemModule alloc];
     home2 = [v22 home];
     _userPickerOptions = [(HULocationTriggerEditorSummaryItemManager *)v15 _userPickerOptions];
-    v27 = [(HUPresenceUserPickerItemModule *)v24 initWithItemUpdater:v15 home:home2 presenceEvent:v23 options:_userPickerOptions delegate:v15];
+    v28 = [(HUPresenceUserPickerItemModule *)v25 initWithItemUpdater:v15 home:home2 presenceEvent:v24 options:_userPickerOptions delegate:v15];
     userPickerModule = v15->_userPickerModule;
-    v15->_userPickerModule = v27;
+    v15->_userPickerModule = v28;
   }
 
   return v15;
@@ -106,40 +106,40 @@ id __77__HULocationTriggerEditorSummaryItemManager_initWithDelegate_triggerBuild
   return v8;
 }
 
-id __77__HULocationTriggerEditorSummaryItemManager_initWithDelegate_triggerBuilder___block_invoke_29(uint64_t a1)
+id __77__HULocationTriggerEditorSummaryItemManager_initWithDelegate_triggerBuilder___block_invoke_29(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v2 = [*(a1 + 32) locationInterface];
-  v3 = [v2 locationEventBuilder];
+  v3 = [*(a1 + 32) locationInterface];
+  v4 = [v3 locationEventBuilder];
   if (objc_opt_isKindOfClass())
   {
-    v4 = v3;
+    v5 = v4;
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  v5 = v4;
+  v6 = v5;
 
-  if (!v5)
+  if (!v6)
   {
-    v3 = objc_alloc_init(MEMORY[0x277D14978]);
-    v6 = [*(a1 + 32) locationInterface];
-    v7 = [v6 locationEventBuilder];
-    [v3 setLocationEventType:{objc_msgSend(v7, "locationEventType")}];
+    v4 = objc_alloc_init(MEMORY[0x277D14978]);
+    v7 = [*(a1 + 32) locationInterface];
+    v8 = [v7 locationEventBuilder];
+    [v4 setLocationEventType:{objc_msgSend(v8, "locationEventType")}];
 
-    v8 = [MEMORY[0x277D14A70] currentUserCollection];
-    [v3 setUsers:v8];
+    v9 = [MEMORY[0x277D14A70] currentUserCollection];
+    [v4 setUsers:v9];
 
-    [v3 setActivationGranularity:0];
+    [v4 setActivationGranularity:0];
   }
 
-  v9 = [v3 buildNewEventsFromCurrentState];
-  v10 = [v9 anyObject];
+  v10 = [v4 buildNewEventsFromCurrentState];
+  v11 = [v10 anyObject];
 
-  return v10;
+  return v11;
 }
 
 - (BOOL)isInstructionsItem:(id)item

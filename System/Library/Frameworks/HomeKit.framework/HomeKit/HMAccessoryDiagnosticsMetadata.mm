@@ -46,34 +46,32 @@
 
 - (id)attributeDescriptions
 {
-  v24[6] = *MEMORY[0x1E69E9840];
+  v23[6] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   snapshotPath = [(HMAccessoryDiagnosticsMetadata *)self snapshotPath];
-  v22 = [v3 initWithName:@"snapshotPath" value:snapshotPath];
-  v24[0] = v22;
+  v21 = [v3 initWithName:@"snapshotPath" value:snapshotPath];
+  v23[0] = v21;
   v4 = objc_alloc(MEMORY[0x1E69A29C8]);
   urlParameters = [(HMAccessoryDiagnosticsMetadata *)self urlParameters];
   v5 = [v4 initWithName:@"urlParameters" value:urlParameters];
-  v24[1] = v5;
+  v23[1] = v5;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   privacyPolicyURL = [(HMAccessoryDiagnosticsMetadata *)self privacyPolicyURL];
   v8 = [v6 initWithName:@"privacyPolicyURL" value:privacyPolicyURL];
-  v24[2] = v8;
+  v23[2] = v8;
   v9 = objc_alloc(MEMORY[0x1E69A29C8]);
   uploadDestination = [(HMAccessoryDiagnosticsMetadata *)self uploadDestination];
   v11 = [v9 initWithName:@"uploadDestination" value:uploadDestination];
-  v24[3] = v11;
+  v23[3] = v11;
   v12 = objc_alloc(MEMORY[0x1E69A29C8]);
   consentVersion = [(HMAccessoryDiagnosticsMetadata *)self consentVersion];
   v14 = [v12 initWithName:@"consentVersion" value:consentVersion];
-  v24[4] = v14;
+  v23[4] = v14;
   v15 = objc_alloc(MEMORY[0x1E69A29C8]);
   uploadType = [(HMAccessoryDiagnosticsMetadata *)self uploadType];
   v17 = [v15 initWithName:@"uploadType" value:uploadType];
-  v24[5] = v17;
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:6];
-
-  v19 = *MEMORY[0x1E69E9840];
+  v23[5] = v17;
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:6];
 
   return v18;
 }

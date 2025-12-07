@@ -23,6 +23,7 @@
 - (id)containerWithIdentifier:(id)identifier;
 - (id)description;
 - (void)_addContainer:(id)container;
+- (void)_setBool:(BOOL)bool forKey:(id)key;
 - (void)addAppleID:(id)d DSID:(id)iD altDSID:(id)sID dataClass:(id)class;
 - (void)addAppleIDsFromSet:(id)set dataClass:(id)class;
 - (void)addAssetDescriptionForAppleID:(id)d assetDescription:(id)description;
@@ -183,6 +184,14 @@ LABEL_17:
   bOOLValue = [v5 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)_setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  keyCopy = key;
+  v7 = [NSNumber numberWithBool:boolCopy];
+  [self->_plist setObject:v7 forKeyedSubscript:keyCopy];
 }
 
 - (id)_dataForKey:(id)key
@@ -502,85 +511,83 @@ LABEL_17:
   }
 
   selfCopy = self;
-  v33 = 0u;
-  v34 = 0u;
   v31 = 0u;
   v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   obj = setCopy;
   v8 = classCopy;
-  v30 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
-  if (v30)
+  v28 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+  if (v28)
   {
-    v9 = *v32;
+    v9 = *v30;
     v10 = NSNumber_ptr;
     v11 = NSNumber_ptr;
-    v27 = appleIDs;
+    v25 = appleIDs;
     do
     {
       v12 = 0;
       do
       {
-        if (*v32 != v9)
+        if (*v30 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v31 + 1) + 8 * v12);
-        v14 = v10[6];
+        v13 = *(*(&v29 + 1) + 8 * v12);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           sub_10009B1F0(a2, selfCopy, v13);
         }
 
-        v15 = [appleIDs objectForKeyedSubscript:{v13, selfCopy}];
-        v16 = v11[46];
+        v14 = [appleIDs objectForKeyedSubscript:{v13, selfCopy}];
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0 || (v17 = v15) == 0)
+        if ((objc_opt_isKindOfClass() & 1) == 0 || (v15 = v14) == 0)
         {
-          v17 = +[NSMutableDictionary dictionary];
+          v15 = +[NSMutableDictionary dictionary];
         }
 
         if (v8)
         {
-          v18 = [v17 objectForKeyedSubscript:@"dataClasses"];
-          if (v18)
+          v16 = [v15 objectForKeyedSubscript:@"dataClasses"];
+          if (v16)
           {
-            v19 = v18;
-            [NSMutableSet setWithArray:v18];
-            v20 = v11;
-            v21 = v10;
-            v23 = v22 = v9;
-            [v23 addObject:v8];
-            allObjects = [v23 allObjects];
+            v17 = v16;
+            [NSMutableSet setWithArray:v16];
+            v18 = v11;
+            v19 = v10;
+            v21 = v20 = v9;
+            [v21 addObject:v8];
+            allObjects = [v21 allObjects];
 
-            v9 = v22;
-            v10 = v21;
-            v11 = v20;
-            appleIDs = v27;
+            v9 = v20;
+            v10 = v19;
+            v11 = v18;
+            appleIDs = v25;
           }
 
           else
           {
-            v35 = v8;
-            allObjects = [NSArray arrayWithObjects:&v35 count:1];
+            v33 = v8;
+            allObjects = [NSArray arrayWithObjects:&v33 count:1];
           }
 
-          [v17 setObject:allObjects forKeyedSubscript:@"dataClasses"];
+          [v15 setObject:allObjects forKeyedSubscript:@"dataClasses"];
 
           v8 = classCopy;
         }
 
-        [appleIDs setObject:v17 forKeyedSubscript:v13];
+        [appleIDs setObject:v15 forKeyedSubscript:v13];
 
         v12 = v12 + 1;
       }
 
-      while (v30 != v12);
-      v30 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+      while (v28 != v12);
+      v28 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
-    while (v30);
+    while (v28);
   }
 }
 
@@ -594,140 +601,130 @@ LABEL_17:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138413058;
-    v36 = dCopy;
-    v37 = 2112;
-    v38 = iDCopy;
-    v39 = 2112;
-    v40 = sIDCopy;
-    v41 = 2112;
-    v42 = classCopy;
+    v31 = dCopy;
+    v32 = 2112;
+    v33 = iDCopy;
+    v34 = 2112;
+    v35 = sIDCopy;
+    v36 = 2112;
+    v37 = classCopy;
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "Adding appleID:%@, DSID:%@, altDSID:%@, dataClass:%@", buf, 0x2Au);
-    v32 = sIDCopy;
-    v33 = classCopy;
-    v28 = dCopy;
-    v30 = iDCopy;
-    _MBLog();
+    _MBLog(@"Db", "Adding appleID:%@, DSID:%@, altDSID:%@, dataClass:%@", dCopy, iDCopy, sIDCopy, classCopy);
   }
 
-  if (!dCopy)
+  if (dCopy)
   {
-    appleIDs = MBGetDefaultLog();
-    if (!os_log_type_enabled(appleIDs, OS_LOG_TYPE_ERROR))
+    if (iDCopy | sIDCopy)
     {
-      goto LABEL_35;
-    }
-
-    *buf = 138412802;
-    v36 = iDCopy;
-    v37 = 2112;
-    v38 = sIDCopy;
-    v39 = 2112;
-    v40 = classCopy;
-    _os_log_impl(&_mh_execute_header, appleIDs, OS_LOG_TYPE_ERROR, "nil appleID, DSID:%@, altDSID:%@, dataClass:%@", buf, 0x20u);
-LABEL_31:
-    _MBLog();
-    goto LABEL_35;
-  }
-
-  if (!(iDCopy | sIDCopy))
-  {
-    appleIDs = MBGetDefaultLog();
-    if (!os_log_type_enabled(appleIDs, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_35;
-    }
-
-    *buf = 138412546;
-    v36 = dCopy;
-    v37 = 2112;
-    v38 = classCopy;
-    _os_log_impl(&_mh_execute_header, appleIDs, OS_LOG_TYPE_ERROR, "appleID:%@, nil DSID&altDSID, dataClass:%@", buf, 0x16u);
-    goto LABEL_31;
-  }
-
-  appleIDs = [(MBProperties *)self appleIDs];
-  if (!appleIDs)
-  {
-    appleIDs = +[NSMutableDictionary dictionary];
-    [self->_plist setObject:appleIDs forKeyedSubscript:@"AppleIDs"];
-  }
-
-  v16 = [appleIDs objectForKeyedSubscript:dCopy, v28, v30, v32, v33];
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || (v17 = v16) == 0)
-  {
-    v17 = +[NSMutableDictionary dictionary];
-  }
-
-  if (iDCopy)
-  {
-    v18 = [v17 objectForKeyedSubscript:@"dsid"];
-    v19 = v18;
-    if (v18 && ([v18 isEqualToString:iDCopy] & 1) == 0)
-    {
-      v20 = MBGetDefaultLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      appleIDs = [(MBProperties *)self appleIDs];
+      if (!appleIDs)
       {
-        *buf = 138412546;
-        v36 = v19;
-        v37 = 2112;
-        v38 = iDCopy;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "DSID mismatch: existingDSID:%@ != DSID:%@", buf, 0x16u);
-        v29 = v19;
-        v31 = iDCopy;
-        _MBLog();
+        appleIDs = +[NSMutableDictionary dictionary];
+        [self->_plist setObject:appleIDs forKeyedSubscript:@"AppleIDs"];
       }
-    }
 
-    [v17 setObject:iDCopy forKeyedSubscript:{@"dsid", v29, v31}];
-  }
-
-  if (sIDCopy)
-  {
-    v21 = [v17 objectForKeyedSubscript:@"altDsid"];
-    v22 = v21;
-    if (v21 && ([v21 isEqualToString:sIDCopy] & 1) == 0)
-    {
-      v23 = MBGetDefaultLog();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v16 = [appleIDs objectForKeyedSubscript:dCopy];
+      objc_opt_class();
+      if ((objc_opt_isKindOfClass() & 1) == 0 || (v17 = v16) == 0)
       {
-        *buf = 138412546;
-        v36 = v22;
-        v37 = 2112;
-        v38 = sIDCopy;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "altDSID mismatch: existingAltDSID:%@ != altDSID:%@", buf, 0x16u);
-        v29 = v22;
-        v31 = sIDCopy;
-        _MBLog();
+        v17 = +[NSMutableDictionary dictionary];
       }
-    }
 
-    [v17 setObject:sIDCopy forKeyedSubscript:{@"altDsid", v29, v31}];
-  }
+      if (iDCopy)
+      {
+        v18 = [v17 objectForKeyedSubscript:@"dsid"];
+        v19 = v18;
+        if (v18 && ([v18 isEqualToString:iDCopy] & 1) == 0)
+        {
+          v20 = MBGetDefaultLog();
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138412546;
+            v31 = v19;
+            v32 = 2112;
+            v33 = iDCopy;
+            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "DSID mismatch: existingDSID:%@ != DSID:%@", buf, 0x16u);
+            _MBLog(@"E ", "DSID mismatch: existingDSID:%@ != DSID:%@", v19, iDCopy);
+          }
+        }
 
-  if (classCopy)
-  {
-    v24 = [v17 objectForKeyedSubscript:@"dataClasses"];
-    if (v24)
-    {
-      v25 = v24;
-      v26 = [NSMutableSet setWithArray:v24];
-      [v26 addObject:classCopy];
-      allObjects = [v26 allObjects];
+        [v17 setObject:iDCopy forKeyedSubscript:@"dsid"];
+      }
+
+      if (sIDCopy)
+      {
+        v21 = [v17 objectForKeyedSubscript:@"altDsid"];
+        v22 = v21;
+        if (v21 && ([v21 isEqualToString:sIDCopy] & 1) == 0)
+        {
+          v23 = MBGetDefaultLog();
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138412546;
+            v31 = v22;
+            v32 = 2112;
+            v33 = sIDCopy;
+            _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "altDSID mismatch: existingAltDSID:%@ != altDSID:%@", buf, 0x16u);
+            _MBLog(@"E ", "altDSID mismatch: existingAltDSID:%@ != altDSID:%@", v22, sIDCopy);
+          }
+        }
+
+        [v17 setObject:sIDCopy forKeyedSubscript:@"altDsid"];
+      }
+
+      if (classCopy)
+      {
+        v24 = [v17 objectForKeyedSubscript:@"dataClasses"];
+        if (v24)
+        {
+          v25 = v24;
+          v26 = [NSMutableSet setWithArray:v24];
+          [v26 addObject:classCopy];
+          allObjects = [v26 allObjects];
+        }
+
+        else
+        {
+          v29 = classCopy;
+          allObjects = [NSArray arrayWithObjects:&v29 count:1];
+        }
+
+        [v17 setObject:allObjects forKeyedSubscript:@"dataClasses"];
+      }
+
+      [appleIDs setObject:v17 forKeyedSubscript:dCopy];
     }
 
     else
     {
-      v34 = classCopy;
-      allObjects = [NSArray arrayWithObjects:&v34 count:1];
+      appleIDs = MBGetDefaultLog();
+      if (os_log_type_enabled(appleIDs, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412546;
+        v31 = dCopy;
+        v32 = 2112;
+        v33 = classCopy;
+        _os_log_impl(&_mh_execute_header, appleIDs, OS_LOG_TYPE_ERROR, "appleID:%@, nil DSID&altDSID, dataClass:%@", buf, 0x16u);
+        _MBLog(@"E ", "appleID:%@, nil DSID&altDSID, dataClass:%@", dCopy, classCopy, v28);
+      }
     }
-
-    [v17 setObject:allObjects forKeyedSubscript:@"dataClasses"];
   }
 
-  [appleIDs setObject:v17 forKeyedSubscript:dCopy];
-
-LABEL_35:
+  else
+  {
+    appleIDs = MBGetDefaultLog();
+    if (os_log_type_enabled(appleIDs, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412802;
+      v31 = iDCopy;
+      v32 = 2112;
+      v33 = sIDCopy;
+      v34 = 2112;
+      v35 = classCopy;
+      _os_log_impl(&_mh_execute_header, appleIDs, OS_LOG_TYPE_ERROR, "nil appleID, DSID:%@, altDSID:%@, dataClass:%@", buf, 0x20u);
+      _MBLog(@"E ", "nil appleID, DSID:%@, altDSID:%@, dataClass:%@", iDCopy, sIDCopy, classCopy);
+    }
+  }
 }
 
 - (void)addAssetDescriptionForAppleID:(id)d assetDescription:(id)description
@@ -846,7 +843,7 @@ LABEL_10:
       _os_log_impl(&_mh_execute_header, propertyListForBackupProperties, OS_LOG_TYPE_FAULT, "Duplicate container ID detected: %@", buf, 0xCu);
 
       identifier3 = [containerCopy identifier];
-      _MBLog();
+      _MBLog(@"F ", "Duplicate container ID detected: %@", identifier3);
     }
 
     else

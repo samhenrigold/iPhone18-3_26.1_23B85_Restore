@@ -3381,16 +3381,16 @@ uint64_t __82__RTBluePOITileManager__fetchCandidatesForTilePredownloadingOnCharg
   return MEMORY[0x2821F96F8]();
 }
 
-void __82__RTBluePOITileManager__fetchCandidatesForTilePredownloadingOnChargerWithHandler___block_invoke_2(void *a1)
+void __82__RTBluePOITileManager__fetchCandidatesForTilePredownloadingOnChargerWithHandler___block_invoke_2(void *a1, uint64_t a2)
 {
-  v4 = objc_opt_new();
-  [v4 setObject:a1[4] forKey:@"primaryLOILocations"];
-  [v4 setObject:a1[5] forKey:@"secondaryLOILocations"];
-  [v4 setObject:a1[6] forKey:@"predictedLocations"];
-  v2 = _RTSafeArray();
-  v3 = _RTMultiErrorCreate();
+  v5 = objc_opt_new();
+  [v5 setObject:a1[4] forKey:@"primaryLOILocations"];
+  [v5 setObject:a1[5] forKey:@"secondaryLOILocations"];
+  [v5 setObject:a1[6] forKey:@"predictedLocations"];
+  v3 = _RTSafeArray();
+  v4 = _RTMultiErrorCreate();
 
-  (*(a1[7] + 16))(a1[7], v4, v3);
+  (*(a1[7] + 16))(a1[7], v5, v4);
 }
 
 - (void)storeBluePOITiles:(id)tiles handler:(id)handler
@@ -5236,7 +5236,7 @@ void __55__RTBluePOITileManager_downloadKeysForLocation_radius___block_invoke(ui
   return v13 & 1;
 }
 
-void __42__RTBluePOITileManager__validateMetadata___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6, void *a7)
+void __42__RTBluePOITileManager__validateMetadata___block_invoke(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6, void *a7)
 {
   v31 = *MEMORY[0x277D85DE8];
   v29 = a3;

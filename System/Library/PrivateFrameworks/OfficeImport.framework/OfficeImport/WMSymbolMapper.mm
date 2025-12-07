@@ -103,7 +103,7 @@ LABEL_7:
   return v5;
 }
 
-uint64_t __35__WMSymbolMapper_isSymbolFontName___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__35__WMSymbolMapper_isSymbolFontName___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isEqualToString:*(a1 + 32)];
   *a4 = result;

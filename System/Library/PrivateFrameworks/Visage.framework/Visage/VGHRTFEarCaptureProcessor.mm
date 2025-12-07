@@ -12,9 +12,9 @@
 {
   pathCopy = path;
   rootPathCopy = rootPath;
-  v17.receiver = self;
-  v17.super_class = VGHRTFEarCaptureProcessor;
-  v8 = [(VGHRTFEarCaptureProcessor *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = VGHRTFEarCaptureProcessor;
+  v8 = [(VGHRTFEarCaptureProcessor *)&v16 init];
   v9 = v8;
   v10 = v8;
   if (v8)
@@ -23,27 +23,27 @@
     if (pathCopy)
     {
       v11 = [pathCopy stringByAppendingPathComponent:@"EarCapture"];
-      std::string::basic_string[abi:ne200100]<0>(v15, [v11 UTF8String]);
+      std::string::basic_string[abi:ne200100]<0>(v14, [v11 UTF8String]);
       if (*(&v10->_earCaptureOptions.debugDataPath.__rep_.__l + 23) < 0)
       {
         operator delete(v9->_earCaptureOptions.debugDataPath.__rep_.__l.__data_);
       }
 
-      *v9->_earCaptureOptions.debugDataPath.__rep_.__s.__data_ = *v15;
-      *(&v9->_earCaptureOptions.debugDataPath.__rep_.__l + 2) = v16;
-      HIBYTE(v16) = 0;
-      LOBYTE(v15[0]) = 0;
+      *v9->_earCaptureOptions.debugDataPath.__rep_.__s.__data_ = *v14;
+      *(&v9->_earCaptureOptions.debugDataPath.__rep_.__l + 2) = v15;
+      HIBYTE(v15) = 0;
+      LOBYTE(v14[0]) = 0;
     }
 
     std::string::__assign_external(&v9->_earCaptureOptions.var0, [rootPathCopy UTF8String]);
-    vg::frame_selection::VGEarFrameSelector::create(&v9->_earCaptureOptions, v12);
+    vg::frame_selection::VGEarFrameSelector::create();
   }
 
-  v13 = __VGLogSharedInstance();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v12 = __VGLogSharedInstance(0);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v15[0]) = 0;
-    _os_log_impl(&dword_270F06000, v13, OS_LOG_TYPE_ERROR, " Failed to initialize VGHRTFCaptureProcessor ", v15, 2u);
+    LOWORD(v14[0]) = 0;
+    _os_log_impl(&dword_270F06000, v12, OS_LOG_TYPE_ERROR, " Failed to initialize VGHRTFCaptureProcessor ", v14, 2u);
   }
 
   return 0;
@@ -51,39 +51,37 @@
 
 - (id)initWithDebugDataPath:withModelsRootPath:
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v2 = objc_opt_new();
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v3 = selfCopy;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v11 + 1) + 8 * i) doubleValue];
+        [*(*(&v10 + 1) + 8 * i) doubleValue];
         v8 = [MEMORY[0x277CCABB0] numberWithDouble:ceil(v7 * 100.0) / 100.0];
         [v2 setObject:0 forKeyedSubscript:v8];
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -108,7 +106,7 @@
 
 - (id)processCaptureData:(id)data faceData:(id)faceData
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   faceDataCopy = faceData;
   currentUpdateData = [(VGHRTFEarCaptureProcessor *)self currentUpdateData];
@@ -116,268 +114,269 @@
   colorBuffer = [dataCopy colorBuffer];
   depthBuffer = [dataCopy depthBuffer];
   [dataCopy colorIntrinsics];
-  v57 = v12;
-  *v59 = v11;
-  v55 = v13;
+  v59 = v12;
+  *v61 = v11;
+  v57 = v13;
   depthCalibrationData = [dataCopy depthCalibrationData];
-  v84.columns[1] = v57;
-  v84.columns[0] = *v59;
-  v84.columns[2] = v55;
-  vg::hrtf::Rectify::process(ptr, colorBuffer, depthBuffer, v84, depthCalibrationData, v76);
+  v86.columns[1] = v59;
+  v86.columns[0] = *v61;
+  v86.columns[2] = v57;
+  vg::hrtf::Rectify::process(v78, ptr, colorBuffer, depthBuffer, v86, depthCalibrationData);
 
-  if (v81)
+  if (v83)
   {
-    v60 = objc_opt_new();
-    if ((v81 & 1) == 0)
+    v62 = objc_opt_new();
+    if ((v83 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    CVPixelBufferFromIOSurface = createCVPixelBufferFromIOSurface(v77);
-    v63[0] = MEMORY[0x277D85DD0];
-    v63[1] = 3221225472;
-    v63[2] = __57__VGHRTFEarCaptureProcessor_processCaptureData_faceData___block_invoke;
-    v63[3] = &__block_descriptor_40_e5_v8__0l;
-    v63[4] = CVPixelBufferFromIOSurface;
-    v53 = MEMORY[0x2743B9AA0](v63);
-    [(VGCaptureData *)v60 setDepth:CVPixelBufferFromIOSurface];
-    if ((v81 & 1) == 0)
+    CVPixelBufferFromIOSurface = createCVPixelBufferFromIOSurface(v79);
+    v65[0] = MEMORY[0x277D85DD0];
+    v65[1] = 3221225472;
+    v65[2] = __57__VGHRTFEarCaptureProcessor_processCaptureData_faceData___block_invoke;
+    v65[3] = &__block_descriptor_40_e5_v8__0l;
+    v65[4] = CVPixelBufferFromIOSurface;
+    v55 = MEMORY[0x2743B9AA0](v65);
+    [(VGCaptureData *)v62 setDepth:CVPixelBufferFromIOSurface];
+    if ((v83 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    [(VGCaptureData *)v60 setDepthIntrinsics:v78, v79, v80];
-    if ((v81 & 1) == 0)
+    [(VGCaptureData *)v62 setDepthIntrinsics:v80, v81, v82];
+    if ((v83 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    v16 = createCVPixelBufferFromIOSurface(v76[0]);
-    v62[0] = MEMORY[0x277D85DD0];
-    v62[1] = 3221225472;
-    v62[2] = __57__VGHRTFEarCaptureProcessor_processCaptureData_faceData___block_invoke_2;
-    v62[3] = &__block_descriptor_40_e5_v8__0l;
-    v62[4] = v16;
-    v56 = MEMORY[0x2743B9AA0](v62);
-    [(VGCaptureData *)v60 setYuvRectified:v16];
-    if ((v81 & 1) == 0)
+    v17 = createCVPixelBufferFromIOSurface(v78[0]);
+    v64[0] = MEMORY[0x277D85DD0];
+    v64[1] = 3221225472;
+    v64[2] = __57__VGHRTFEarCaptureProcessor_processCaptureData_faceData___block_invoke_2;
+    v64[3] = &__block_descriptor_40_e5_v8__0l;
+    v64[4] = v17;
+    v58 = MEMORY[0x2743B9AA0](v64);
+    [(VGCaptureData *)v62 setYuvRectified:v17];
+    if ((v83 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    [(VGCaptureData *)v60 setVideoIntrinsics:*&v76[2], *&v76[4], *&v76[6]];
-    [dataCopy timestamp];
-    CMTimeMakeWithSeconds(&v61, v17, 1000000);
-    buf[0] = v61;
-    [(VGCaptureData *)v60 setTimestamp:buf];
-    vg::frame_selection::VGEarFrameSelector::addPoseWithCaptureData(self->_selector.__ptr_, v60, buf);
+    [(VGCaptureData *)v62 setVideoIntrinsics:*&v78[2], *&v78[4], *&v78[6]];
+    objc_msgSend_timestamp(dataCopy);
+    CMTimeMakeWithSeconds(&v63, v18, 1000000);
+    buf[0] = v63;
+    [(VGCaptureData *)v62 setTimestamp:buf];
+    vg::frame_selection::VGEarFrameSelector::addPoseWithCaptureData(&buf[0].value, self->_selector.__ptr_, v62);
     self->_captureState = 1;
     if (LOBYTE(buf[0].value) == 1)
     {
-      v18 = 2;
+      v19 = 2;
       if (!BYTE1(buf[0].value))
       {
-        v18 = 3;
+        v19 = 3;
       }
 
-      self->_captureState = v18;
+      self->_captureState = v19;
     }
 
     self->_progress = *(&buf[0].value + 1);
-    v19 = vg::frame_selection::VGEarSelectionState::leftEarYawAngleCaptured(buf);
-    v20 = detail::getEarPoseList(v19);
+    v20 = vg::frame_selection::VGEarSelectionState::leftEarYawAngleCaptured(buf);
+    v21 = detail::getEarPoseList(v20);
     leftPoseStatus = self->_leftPoseStatus;
-    self->_leftPoseStatus = v20;
+    self->_leftPoseStatus = v21;
 
-    v22 = vg::frame_selection::VGEarSelectionState::rightEarYawAngleCaptured(buf);
-    v23 = detail::getEarPoseList(v22);
+    v23 = vg::frame_selection::VGEarSelectionState::rightEarYawAngleCaptured(buf);
+    v24 = detail::getEarPoseList(v23);
     rightPoseStatus = self->_rightPoseStatus;
-    self->_rightPoseStatus = v23;
+    self->_rightPoseStatus = v24;
 
     [currentUpdateData setProgressType:self->_captureState];
-    *&v25 = self->_progress;
-    [currentUpdateData setProgress:v25];
-    v26 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithDictionary:self->_leftPoseStatus copyItems:1];
-    [currentUpdateData setLeftEarStatusList:v26];
+    *&v26 = self->_progress;
+    [currentUpdateData setProgress:v26];
+    v27 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithDictionary:self->_leftPoseStatus copyItems:1];
+    [currentUpdateData setLeftEarStatusList:v27];
 
-    v27 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithDictionary:self->_rightPoseStatus copyItems:1];
-    [currentUpdateData setRightEarStatusList:v27];
+    v28 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithDictionary:self->_rightPoseStatus copyItems:1];
+    [currentUpdateData setRightEarStatusList:v28];
 
     initEmpty = [[VGHRTFEarCaptureProcessedData alloc] initEmpty];
-    v58 = v60;
-    if (v73)
+    v60 = v62;
+    if (v75)
     {
-      v29 = 0;
+      v30 = 0;
     }
 
     else
     {
       initEmpty2 = [[VGHRTFEarCaptureDetectionData alloc] initEmpty];
-      Width = CVPixelBufferGetWidth([(VGCaptureData *)v58 yuvRectified]);
-      Height = CVPixelBufferGetHeight([(VGCaptureData *)v58 yuvRectified]);
-      v52 = v68;
+      Width = CVPixelBufferGetWidth([(VGCaptureData *)v60 yuvRectified]);
+      Height = CVPixelBufferGetHeight([(VGCaptureData *)v60 yuvRectified]);
+      v36 = Height;
+      v54 = v70;
       if (LODWORD(buf[0].epoch) > 1)
       {
-        v35 = __VGLogSharedInstance();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        v37 = __VGLogSharedInstance(Height);
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
-          *v64 = 0;
-          _os_log_impl(&dword_270F06000, v35, OS_LOG_TYPE_ERROR, " No suitable conversion supported for ear side. ", v64, 2u);
+          *v66 = 0;
+          _os_log_impl(&dword_270F06000, v37, OS_LOG_TYPE_ERROR, " No suitable conversion supported for ear side. ", v66, 2u);
         }
 
-        v29 = 0;
+        v30 = 0;
       }
 
       else
       {
-        [initEmpty2 setEarSide:v68];
-        [initEmpty2 setYawAngle:v66];
-        [initEmpty2 setPitchAngle:v67];
-        [initEmpty2 setBoundingBox:{(Width * *&v52), vmuls_lane_f32(Height, *&v52, 1), ((*(&v52 + 2) - *&v52) * Width), ((*(&v52 + 3) - *(&v52 + 1)) * Height)}];
-        v35 = objc_opt_new();
-        v37 = v69;
-        v38 = v70;
-        if (v69 != v70)
+        [initEmpty2 setEarSide:v70];
+        [initEmpty2 setYawAngle:v68];
+        [initEmpty2 setPitchAngle:v69];
+        [initEmpty2 setBoundingBox:{(Width * *&v54), vmuls_lane_f32(v36, *&v54, 1), ((*(&v54 + 2) - *&v54) * Width), ((*(&v54 + 3) - *(&v54 + 1)) * v36)}];
+        v37 = objc_opt_new();
+        v39 = v71;
+        v40 = v72;
+        if (v71 != v72)
         {
           do
           {
-            LODWORD(v36) = *v37;
-            v39 = [MEMORY[0x277CCABB0] numberWithFloat:v36];
-            [v35 addObject:v39];
+            LODWORD(v38) = *v39;
+            v41 = [MEMORY[0x277CCABB0] numberWithFloat:v38];
+            [v37 addObject:v41];
 
-            ++v37;
+            ++v39;
           }
 
-          while (v37 != v38);
+          while (v39 != v40);
         }
 
-        [initEmpty2 setLandmarkPoints:v35];
-        v29 = initEmpty2;
+        [initEmpty2 setLandmarkPoints:v37];
+        v30 = initEmpty2;
       }
     }
 
-    [initEmpty setDetectionData:v29];
-    if ((v81 & 1) == 0)
+    [initEmpty setDetectionData:v30];
+    if ((v83 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    [initEmpty setRectifiedColorBuffer:v76[0]];
-    if (v73 <= 3)
+    v42 = [initEmpty setRectifiedColorBuffer:v78[0]];
+    if (v75 <= 3)
     {
-      if (v73 > 1)
+      if (v75 > 1)
       {
-        if (v73 == 2)
+        if (v75 == 2)
         {
-          v40 = __VGLogSharedInstance();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+          v43 = __VGLogSharedInstance(v42);
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
           {
-            *v64 = 0;
-            _os_log_impl(&dword_270F06000, v40, OS_LOG_TYPE_DEBUG, " Ear detection failed: low landmark confidence. ", v64, 2u);
+            *v66 = 0;
+            _os_log_impl(&dword_270F06000, v43, OS_LOG_TYPE_DEBUG, " Ear detection failed: low landmark confidence. ", v66, 2u);
           }
 
-          v41 = 5;
+          v44 = 5;
         }
 
         else
         {
-          v40 = __VGLogSharedInstance();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+          v43 = __VGLogSharedInstance(v42);
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
           {
-            *v64 = 0;
-            _os_log_impl(&dword_270F06000, v40, OS_LOG_TYPE_DEBUG, " Front facing pose ", v64, 2u);
+            *v66 = 0;
+            _os_log_impl(&dword_270F06000, v43, OS_LOG_TYPE_DEBUG, " Front facing pose ", v66, 2u);
           }
 
-          v41 = 6;
+          v44 = 6;
         }
 
         goto LABEL_58;
       }
 
-      if (!v73)
+      if (!v75)
       {
-        v41 = 8;
+        v44 = 8;
 LABEL_59:
-        [initEmpty setError:{v41, v52}];
+        [initEmpty setError:{v44, v54}];
         goto LABEL_60;
       }
 
-      if (v73 == 1)
+      if (v75 == 1)
       {
-        v40 = __VGLogSharedInstance();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+        v43 = __VGLogSharedInstance(v42);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
         {
-          *v64 = 0;
-          _os_log_impl(&dword_270F06000, v40, OS_LOG_TYPE_DEBUG, " Ear detection failed: ear not found. ", v64, 2u);
+          *v66 = 0;
+          _os_log_impl(&dword_270F06000, v43, OS_LOG_TYPE_DEBUG, " Ear detection failed: ear not found. ", v66, 2u);
         }
 
-        v41 = 0;
+        v44 = 0;
         goto LABEL_58;
       }
     }
 
     else
     {
-      if (v73 <= 5)
+      if (v75 <= 5)
       {
-        if (v73 == 4)
+        if (v75 == 4)
         {
-          v40 = __VGLogSharedInstance();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+          v43 = __VGLogSharedInstance(v42);
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
           {
-            *v64 = 0;
-            _os_log_impl(&dword_270F06000, v40, OS_LOG_TYPE_DEBUG, " Ear detection failed: ear occluded. ", v64, 2u);
+            *v66 = 0;
+            _os_log_impl(&dword_270F06000, v43, OS_LOG_TYPE_DEBUG, " Ear detection failed: ear occluded. ", v66, 2u);
           }
 
-          v41 = 1;
+          v44 = 1;
         }
 
         else
         {
-          v40 = __VGLogSharedInstance();
-          v41 = 2;
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+          v43 = __VGLogSharedInstance(v42);
+          v44 = 2;
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
           {
-            *v64 = 0;
-            v41 = 2;
-            _os_log_impl(&dword_270F06000, v40, OS_LOG_TYPE_DEBUG, " Ear motion blur detected. ", v64, 2u);
+            *v66 = 0;
+            v44 = 2;
+            _os_log_impl(&dword_270F06000, v43, OS_LOG_TYPE_DEBUG, " Ear motion blur detected. ", v66, 2u);
           }
         }
 
         goto LABEL_58;
       }
 
-      switch(v73)
+      switch(v75)
       {
         case 6:
-          v40 = __VGLogSharedInstance();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+          v43 = __VGLogSharedInstance(v42);
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
           {
-            *v64 = 0;
-            _os_log_impl(&dword_270F06000, v40, OS_LOG_TYPE_DEBUG, " Ear too close to camera. ", v64, 2u);
+            *v66 = 0;
+            _os_log_impl(&dword_270F06000, v43, OS_LOG_TYPE_DEBUG, " Ear too close to camera. ", v66, 2u);
           }
 
-          v41 = 3;
+          v44 = 3;
           goto LABEL_58;
         case 7:
-          v40 = __VGLogSharedInstance();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+          v43 = __VGLogSharedInstance(v42);
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
           {
-            *v64 = 0;
-            _os_log_impl(&dword_270F06000, v40, OS_LOG_TYPE_DEBUG, " Ear too far from camera. ", v64, 2u);
+            *v66 = 0;
+            _os_log_impl(&dword_270F06000, v43, OS_LOG_TYPE_DEBUG, " Ear too far from camera. ", v66, 2u);
           }
 
-          v41 = 4;
+          v44 = 4;
           goto LABEL_58;
         case 8:
-          v40 = __VGLogSharedInstance();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+          v43 = __VGLogSharedInstance(v42);
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
           {
-            *v64 = 0;
-            _os_log_impl(&dword_270F06000, v40, OS_LOG_TYPE_DEBUG, " Ear out of frame ", v64, 2u);
+            *v66 = 0;
+            _os_log_impl(&dword_270F06000, v43, OS_LOG_TYPE_DEBUG, " Ear out of frame ", v66, 2u);
           }
 
-          v41 = 7;
+          v44 = 7;
 LABEL_58:
 
           goto LABEL_59;
@@ -385,57 +384,55 @@ LABEL_58:
     }
 
 LABEL_60:
-    [currentUpdateData setTrackedData:{initEmpty, v52}];
+    [currentUpdateData setTrackedData:{initEmpty, v54}];
     if ([currentUpdateData progressType] == 3)
     {
       initEmpty3 = [[VGHRTFEarsFrameData alloc] initEmpty];
-      v43 = vg::frame_selection::VGEarFrameSelector::leftEarEnrolledPoses(self->_selector.__ptr_);
-      v44 = vg::frame_selection::VGEarFrameSelector::leftEarEnrolledYawToBoundingBox(self->_selector.__ptr_);
-      v45 = detail::getEarFrameData(v43, v44);
-      [initEmpty3 setLeftEarFrames:v45];
-
-      v46 = vg::frame_selection::VGEarFrameSelector::rightEarEnrolledPoses(self->_selector.__ptr_);
-      v47 = vg::frame_selection::VGEarFrameSelector::rightEarEnrolledYawToBoundingBox(self->_selector.__ptr_);
+      v46 = vg::frame_selection::VGEarFrameSelector::leftEarEnrolledPoses(self->_selector.__ptr_);
+      v47 = vg::frame_selection::VGEarFrameSelector::leftEarEnrolledYawToBoundingBox(self->_selector.__ptr_);
       v48 = detail::getEarFrameData(v46, v47);
-      [initEmpty3 setRightEarFrames:v48];
+      [initEmpty3 setLeftEarFrames:v48];
+
+      v49 = vg::frame_selection::VGEarFrameSelector::rightEarEnrolledPoses(self->_selector.__ptr_);
+      v50 = vg::frame_selection::VGEarFrameSelector::rightEarEnrolledYawToBoundingBox(self->_selector.__ptr_);
+      v51 = detail::getEarFrameData(v49, v50);
+      [initEmpty3 setRightEarFrames:v51];
 
       [currentUpdateData setResult:initEmpty3];
     }
 
-    v49 = currentUpdateData;
+    v52 = currentUpdateData;
 
     if (__p)
     {
-      v72 = __p;
+      v74 = __p;
       operator delete(__p);
     }
 
-    if (v69)
+    if (v71)
     {
-      v70 = v69;
-      operator delete(v69);
+      v72 = v71;
+      operator delete(v71);
     }
 
-    v56[2](v56);
+    v58[2](v58);
 
-    v53[2](v53);
+    v55[2](v55);
     goto LABEL_67;
   }
 
-  v30 = __VGLogSharedInstance();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+  v31 = __VGLogSharedInstance(v15);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
   {
     LOWORD(buf[0].value) = 0;
-    _os_log_impl(&dword_270F06000, v30, OS_LOG_TYPE_ERROR, " Failed to rectify ear images. ", buf, 2u);
+    _os_log_impl(&dword_270F06000, v31, OS_LOG_TYPE_ERROR, " Failed to rectify ear images. ", buf, 2u);
   }
 
-  v31 = currentUpdateData;
+  v32 = currentUpdateData;
 LABEL_67:
-  if (v81 == 1)
+  if (v83 == 1)
   {
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 
   return currentUpdateData;
 }
@@ -448,7 +445,7 @@ LABEL_67:
   *&self->_earCaptureOptions.yawCount = xmmword_270FA6680;
   *&self->_earCaptureOptions.yawLimit = xmmword_270FA6690;
   self->_earCaptureOptions.writeDebugData = 0;
-  std::string::basic_string[abi:ne200100]<0>(self->_earCaptureOptions.debugDataPath.__rep_.__s.__data_, "");
+  std::string::basic_string[abi:ne200100]<0>(&self->_earCaptureOptions.debugDataPath.__rep_.__l.__data_, "");
   std::string::basic_string[abi:ne200100]<0>(&self->_earCaptureOptions.var0, "");
   self->_anon_70[16] = 1;
   *&self->_anon_70[20] = 1083808154;

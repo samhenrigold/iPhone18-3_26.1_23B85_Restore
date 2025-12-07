@@ -130,7 +130,7 @@
 
 void __29__HMZone_mergeFromNewObject___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -138,20 +138,19 @@ void __29__HMZone_mergeFromNewObject___block_invoke(uint64_t a1, void *a2)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Removed room via zone merge: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Removed room via zone merge: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __29__HMZone_mergeFromNewObject___block_invoke_39(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -159,15 +158,14 @@ void __29__HMZone_mergeFromNewObject___block_invoke_39(uint64_t a1, void *a2)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Added room via zone merge: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Added room via zone merge: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __29__HMZone_mergeFromNewObject___block_invoke_40(uint64_t a1, void *a2)
@@ -229,7 +227,7 @@ void __29__HMZone_mergeFromNewObject___block_invoke_50(uint64_t a1)
 
 uint64_t __29__HMZone_mergeFromNewObject___block_invoke_2_51(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -237,17 +235,15 @@ uint64_t __29__HMZone_mergeFromNewObject___block_invoke_2_51(uint64_t a1)
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 32);
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Calling didUpdateNameForZone:%@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Calling didUpdateNameForZone:%@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 40) home:*(a1 + 48) didUpdateNameForZone:*(a1 + 32)];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) home:*(a1 + 48) didUpdateNameForZone:*(a1 + 32)];
 }
 
 void __29__HMZone_mergeFromNewObject___block_invoke_2_46(id *a1)
@@ -271,7 +267,7 @@ void __29__HMZone_mergeFromNewObject___block_invoke_2_46(id *a1)
 
 uint64_t __29__HMZone_mergeFromNewObject___block_invoke_3_47(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -280,19 +276,17 @@ uint64_t __29__HMZone_mergeFromNewObject___block_invoke_3_47(uint64_t a1)
     v5 = HMFGetLogIdentifier();
     v7 = *(a1 + 32);
     v6 = *(a1 + 40);
-    v10 = 138543874;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Calling didAddRoom:toZone: with room: %@, zone: %@", &v10, 0x20u);
+    v9 = 138543874;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Calling didAddRoom:toZone: with room: %@, zone: %@", &v9, 0x20u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 48) home:*(a1 + 56) didAddRoom:*(a1 + 40) toZone:*(a1 + 32)];
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 48) home:*(a1 + 56) didAddRoom:*(a1 + 40) toZone:*(a1 + 32)];
 }
 
 void __29__HMZone_mergeFromNewObject___block_invoke_2(id *a1)
@@ -316,7 +310,7 @@ void __29__HMZone_mergeFromNewObject___block_invoke_2(id *a1)
 
 uint64_t __29__HMZone_mergeFromNewObject___block_invoke_3(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -325,19 +319,17 @@ uint64_t __29__HMZone_mergeFromNewObject___block_invoke_3(uint64_t a1)
     v5 = HMFGetLogIdentifier();
     v7 = *(a1 + 32);
     v6 = *(a1 + 40);
-    v10 = 138543874;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Calling didRemoveRoom:fromZone: with room: %@, zone: %@", &v10, 0x20u);
+    v9 = 138543874;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_INFO, "%{public}@Calling didRemoveRoom:fromZone: with room: %@, zone: %@", &v9, 0x20u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 48) home:*(a1 + 56) didRemoveRoom:*(a1 + 40) fromZone:*(a1 + 32)];
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 48) home:*(a1 + 56) didRemoveRoom:*(a1 + 40) fromZone:*(a1 + 32)];
 }
 
 - (HMZone)initWithCoder:(id)coder
@@ -378,7 +370,7 @@ uint64_t __29__HMZone_mergeFromNewObject___block_invoke_3(uint64_t a1)
 
 - (void)_removeRoom:(id)room completionHandler:(id)handler
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   roomCopy = room;
   handlerCopy = handler;
   context = [(HMZone *)self context];
@@ -401,20 +393,20 @@ uint64_t __29__HMZone_mergeFromNewObject___block_invoke_3(uint64_t a1)
           {
             uuid = [roomCopy uuid];
             uuid2 = [(HMZone *)self uuid];
-            v32 = @"kRoomUUID";
+            v31 = @"kRoomUUID";
             uUIDString = [uuid UUIDString];
-            v33 = uUIDString;
-            v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
-            v27[0] = MEMORY[0x1E69E9820];
-            v27[1] = 3221225472;
-            v27[2] = __40__HMZone__removeRoom_completionHandler___block_invoke;
-            v27[3] = &unk_1E754D030;
-            v28 = v9;
-            v30 = uuid;
-            v31 = handlerCopy;
+            v32 = uUIDString;
+            v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+            v26[0] = MEMORY[0x1E69E9820];
+            v26[1] = 3221225472;
+            v26[2] = __40__HMZone__removeRoom_completionHandler___block_invoke;
+            v26[3] = &unk_1E754D030;
+            v27 = v9;
+            v29 = uuid;
+            v30 = handlerCopy;
             selfCopy = self;
             delegateCaller = uuid;
-            [(_HMContext *)v28 sendMessage:uuid2 target:v17 payload:v27 responseHandler:?];
+            [(_HMContext *)v27 sendMessage:uuid2 target:v17 payload:v26 responseHandler:?];
 
 LABEL_16:
             goto LABEL_17;
@@ -459,9 +451,9 @@ LABEL_16:
   {
     v22 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v35 = v22;
-    v36 = 2080;
-    v37 = "[HMZone _removeRoom:completionHandler:]";
+    v34 = v22;
+    v35 = 2080;
+    v36 = "[HMZone _removeRoom:completionHandler:]";
     _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
   }
 
@@ -472,8 +464,6 @@ LABEL_16:
     (*(handlerCopy + 2))(handlerCopy, home);
 LABEL_17:
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __40__HMZone__removeRoom_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -503,29 +493,29 @@ void __40__HMZone__removeRoom_completionHandler___block_invoke(uint64_t a1, void
 
 - (void)removeRoom:(HMRoom *)room completionHandler:(void *)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v6 = room;
   v7 = completion;
   context = [(HMZone *)self context];
   if (!v7)
   {
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMZone removeRoom:completionHandler:]", @"completion"];
-    v18 = objc_autoreleasePoolPush();
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMZone removeRoom:completionHandler:]", @"completion"];
+    v17 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v20 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = HMFGetLogIdentifier();
+      v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v26 = v20;
+      v27 = 2112;
+      v28 = v16;
+      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v18);
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
-    objc_exception_throw(v22);
+    objc_autoreleasePoolPop(v17);
+    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
+    objc_exception_throw(v21);
   }
 
   v9 = context;
@@ -537,8 +527,8 @@ void __40__HMZone__removeRoom_completionHandler___block_invoke(uint64_t a1, void
     block[2] = __39__HMZone_removeRoom_completionHandler___block_invoke;
     block[3] = &unk_1E754E0F8;
     block[4] = self;
-    v24 = v6;
-    v25 = v7;
+    v23 = v6;
+    v24 = v7;
     dispatch_async(queue, block);
   }
 
@@ -551,9 +541,9 @@ void __40__HMZone__removeRoom_completionHandler___block_invoke(uint64_t a1, void
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v14;
-      v28 = 2080;
-      v29 = "[HMZone removeRoom:completionHandler:]";
+      v26 = v14;
+      v27 = 2080;
+      v28 = "[HMZone removeRoom:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -561,13 +551,11 @@ void __40__HMZone__removeRoom_completionHandler___block_invoke(uint64_t a1, void
     v15 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(v7 + 2))(v7, v15);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addRoom:(id)room completionHandler:(id)handler
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   roomCopy = room;
   handlerCopy = handler;
   context = [(HMZone *)self context];
@@ -605,26 +593,26 @@ void __40__HMZone__removeRoom_completionHandler___block_invoke(uint64_t a1, void
             else
             {
               currentRooms = [(HMZone *)self currentRooms];
-              v32 = [currentRooms containsObject:roomCopy];
+              v31 = [currentRooms containsObject:roomCopy];
 
-              if (!v32)
+              if (!v31)
               {
                 uuid6 = [roomCopy uuid];
                 uuid7 = [(HMZone *)self uuid];
-                v42 = @"kRoomUUID";
+                v41 = @"kRoomUUID";
                 uUIDString = [uuid6 UUIDString];
-                v43 = uUIDString;
-                v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
-                v37[0] = MEMORY[0x1E69E9820];
-                v37[1] = 3221225472;
-                v37[2] = __37__HMZone__addRoom_completionHandler___block_invoke;
-                v37[3] = &unk_1E754D030;
-                v38 = v9;
-                v40 = uuid6;
-                v41 = handlerCopy;
+                v42 = uUIDString;
+                v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+                v36[0] = MEMORY[0x1E69E9820];
+                v36[1] = 3221225472;
+                v36[2] = __37__HMZone__addRoom_completionHandler___block_invoke;
+                v36[3] = &unk_1E754D030;
+                v37 = v9;
+                v39 = uuid6;
+                v40 = handlerCopy;
                 selfCopy = self;
                 delegateCaller = uuid6;
-                [(_HMContext *)v38 sendMessage:uuid7 target:v36 payload:v37 responseHandler:?];
+                [(_HMContext *)v37 sendMessage:uuid7 target:v35 payload:v36 responseHandler:?];
 
                 goto LABEL_18;
               }
@@ -681,9 +669,9 @@ LABEL_18:
   {
     v26 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v45 = v26;
-    v46 = 2080;
-    v47 = "[HMZone _addRoom:completionHandler:]";
+    v44 = v26;
+    v45 = 2080;
+    v46 = "[HMZone _addRoom:completionHandler:]";
     _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
   }
 
@@ -694,8 +682,6 @@ LABEL_18:
     (*(handlerCopy + 2))(handlerCopy, home);
 LABEL_19:
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __37__HMZone__addRoom_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -725,29 +711,29 @@ void __37__HMZone__addRoom_completionHandler___block_invoke(uint64_t a1, void *a
 
 - (void)addRoom:(HMRoom *)room completionHandler:(void *)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v6 = room;
   v7 = completion;
   context = [(HMZone *)self context];
   if (!v7)
   {
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMZone addRoom:completionHandler:]", @"completion"];
-    v18 = objc_autoreleasePoolPush();
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMZone addRoom:completionHandler:]", @"completion"];
+    v17 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v20 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = HMFGetLogIdentifier();
+      v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v26 = v20;
+      v27 = 2112;
+      v28 = v16;
+      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v18);
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
-    objc_exception_throw(v22);
+    objc_autoreleasePoolPop(v17);
+    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
+    objc_exception_throw(v21);
   }
 
   v9 = context;
@@ -759,8 +745,8 @@ void __37__HMZone__addRoom_completionHandler___block_invoke(uint64_t a1, void *a
     block[2] = __36__HMZone_addRoom_completionHandler___block_invoke;
     block[3] = &unk_1E754E0F8;
     block[4] = self;
-    v24 = v6;
-    v25 = v7;
+    v23 = v6;
+    v24 = v7;
     dispatch_async(queue, block);
   }
 
@@ -773,9 +759,9 @@ void __37__HMZone__addRoom_completionHandler___block_invoke(uint64_t a1, void *a
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v14;
-      v28 = 2080;
-      v29 = "[HMZone addRoom:completionHandler:]";
+      v26 = v14;
+      v27 = 2080;
+      v28 = "[HMZone addRoom:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -783,13 +769,11 @@ void __37__HMZone__addRoom_completionHandler___block_invoke(uint64_t a1, void *a
     v15 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(v7 + 2))(v7, v15);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateName:(id)name completionHandler:(id)handler
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   handlerCopy = handler;
   context = [(HMZone *)self context];
@@ -810,29 +794,29 @@ void __37__HMZone__addRoom_completionHandler___block_invoke(uint64_t a1, void *a
         if (!home)
         {
           delegateCaller = [v9 delegateCaller];
-          v29 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
-          [delegateCaller callCompletion:handlerCopy error:v29];
+          v28 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
+          [delegateCaller callCompletion:handlerCopy error:v28];
 
           goto LABEL_16;
         }
 
         name = [(HMZone *)self name];
-        v28 = [name isEqualToString:nameCopy];
+        v27 = [name isEqualToString:nameCopy];
 
-        if (!v28)
+        if (!v27)
         {
           uuid = [(HMZone *)self uuid];
-          v36 = @"kZoneName";
-          v37 = nameCopy;
-          v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-          v32[0] = MEMORY[0x1E69E9820];
-          v32[1] = 3221225472;
-          v32[2] = __40__HMZone__updateName_completionHandler___block_invoke;
-          v32[3] = &unk_1E754E480;
-          v33 = v9;
+          v35 = @"kZoneName";
+          v36 = nameCopy;
+          v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+          v31[0] = MEMORY[0x1E69E9820];
+          v31[1] = 3221225472;
+          v31[2] = __40__HMZone__updateName_completionHandler___block_invoke;
+          v31[3] = &unk_1E754E480;
+          v32 = v9;
           selfCopy = self;
-          v35 = handlerCopy;
-          [(_HMContext *)v33 sendMessage:uuid target:v31 payload:v32 responseHandler:?];
+          v34 = handlerCopy;
+          [(_HMContext *)v32 sendMessage:uuid target:v30 payload:v31 responseHandler:?];
 
           goto LABEL_17;
         }
@@ -855,7 +839,7 @@ LABEL_16:
       {
         v14 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v39 = v14;
+        v38 = v14;
         _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@New name is longer than the pre-defined max length", buf, 0xCu);
       }
 
@@ -886,9 +870,9 @@ LABEL_16:
   {
     v21 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v39 = v21;
-    v40 = 2080;
-    v41 = "[HMZone _updateName:completionHandler:]";
+    v38 = v21;
+    v39 = 2080;
+    v40 = "[HMZone _updateName:completionHandler:]";
     _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
   }
 
@@ -899,8 +883,6 @@ LABEL_16:
     (*(handlerCopy + 2))(handlerCopy, home);
 LABEL_17:
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __40__HMZone__updateName_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -930,29 +912,29 @@ void __40__HMZone__updateName_completionHandler___block_invoke(uint64_t a1, void
 
 - (void)updateName:(NSString *)name completionHandler:(void *)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v6 = name;
   v7 = completion;
   context = [(HMZone *)self context];
   if (!v7)
   {
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMZone updateName:completionHandler:]", @"completion"];
-    v18 = objc_autoreleasePoolPush();
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMZone updateName:completionHandler:]", @"completion"];
+    v17 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v20 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = HMFGetLogIdentifier();
+      v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v26 = v20;
+      v27 = 2112;
+      v28 = v16;
+      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v18);
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
-    objc_exception_throw(v22);
+    objc_autoreleasePoolPop(v17);
+    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
+    objc_exception_throw(v21);
   }
 
   v9 = context;
@@ -964,8 +946,8 @@ void __40__HMZone__updateName_completionHandler___block_invoke(uint64_t a1, void
     block[2] = __39__HMZone_updateName_completionHandler___block_invoke;
     block[3] = &unk_1E754E0F8;
     block[4] = self;
-    v24 = v6;
-    v25 = v7;
+    v23 = v6;
+    v24 = v7;
     dispatch_async(queue, block);
   }
 
@@ -978,9 +960,9 @@ void __40__HMZone__updateName_completionHandler___block_invoke(uint64_t a1, void
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v14;
-      v28 = 2080;
-      v29 = "[HMZone updateName:completionHandler:]";
+      v26 = v14;
+      v27 = 2080;
+      v28 = "[HMZone updateName:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -988,8 +970,6 @@ void __40__HMZone__updateName_completionHandler___block_invoke(uint64_t a1, void
     v15 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(v7 + 2))(v7, v15);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)assistantIdentifier
@@ -1099,7 +1079,7 @@ void __40__HMZone__updateName_completionHandler___block_invoke(uint64_t a1, void
 
 - (void)_unconfigure
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   context = self->_context;
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1110,9 +1090,9 @@ void __40__HMZone__updateName_completionHandler___block_invoke(uint64_t a1, void
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       v8 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v8;
-      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Unconfiguring zone", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v8;
+      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Unconfiguring zone", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -1127,15 +1107,13 @@ void __40__HMZone__updateName_completionHandler___block_invoke(uint64_t a1, void
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Skipping unconfigure on already unconfigured object", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Skipping unconfigure on already unconfigured object", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (HMZone)initWithName:(id)name uuid:(id)uuid

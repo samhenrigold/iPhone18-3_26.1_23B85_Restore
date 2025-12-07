@@ -13,7 +13,7 @@
 
   [senderCopy currentPage];
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(qword_27F2180B8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(qword_27F2180B8, &unk_24F947A88);
   sub_24F927178();
 }
 

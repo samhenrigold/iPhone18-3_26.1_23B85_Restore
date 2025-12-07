@@ -82,14 +82,14 @@
 {
   v2 = objc_alloc(MEMORY[0x277CC1E50]);
   identifier = [self identifier];
-  v14 = 0;
-  v4 = [v2 initWithBundleIdentifier:identifier error:&v14];
-  v5 = v14;
+  v16 = 0;
+  v4 = [v2 initWithBundleIdentifier:identifier error:&v16];
+  v5 = v16;
 
   if (v5)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(NSExtension(SafariFoundationExtras) *)v5 _sf_credentialProviderExtensionNeedsToDeclarePasswordSupport];
     }
@@ -97,40 +97,39 @@
     goto LABEL_8;
   }
 
-  v7 = [v4 platform] - 1;
-  if (v7 > 0xB || ((0xC63u >> v7) & 1) == 0)
+  v9 = [v4 platform] - 1;
+  if (v9 > 0xB || ((0xC63u >> v9) & 1) == 0)
   {
 LABEL_8:
-    v12 = 0;
+    v14 = 0;
     goto LABEL_9;
   }
 
-  v8 = qword_26453E550[v7];
+  v10 = qword_26453E550[v9];
   sDKVersion = [v4 SDKVersion];
-  v10 = [sDKVersion componentsSeparatedByString:@"."];
-  firstObject = [v10 firstObject];
+  v12 = [sDKVersion componentsSeparatedByString:@"."];
+  firstObject = [v12 firstObject];
 
   if ([firstObject length])
   {
-    v12 = v8 <= [firstObject intValue];
+    v14 = v10 <= [firstObject intValue];
   }
 
   else
   {
-    v12 = 0;
+    v14 = 0;
   }
 
 LABEL_9:
-  return v12;
+  return v14;
 }
 
 - (void)_sf_credentialProviderExtensionNeedsToDeclarePasswordSupport
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_26450F000, a2, OS_LOG_TYPE_ERROR, "Failed to get application extension record: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_26450F000, a2, OS_LOG_TYPE_ERROR, "Failed to get application extension record: %@", &v2, 0xCu);
 }
 
 @end

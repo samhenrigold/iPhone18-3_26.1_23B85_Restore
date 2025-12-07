@@ -49,7 +49,7 @@
 {
   controllerCopy = controller;
   compositionCopy = composition;
-  [controllerCopy contentEdgeInsets];
+  objc_msgSend_contentEdgeInsets(controllerCopy);
   spec = [compositionCopy spec];
   [spec widgetSpec];
   objc_claimAutoreleasedReturnValue();

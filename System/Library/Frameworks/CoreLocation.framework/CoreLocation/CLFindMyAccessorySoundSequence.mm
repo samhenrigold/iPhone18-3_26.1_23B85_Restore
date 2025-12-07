@@ -39,26 +39,29 @@
 
 + (id)defaultSequence
 {
-  v2 = [[CLFindMyAccessorySoundSequence alloc] initWithType:1];
-  [(CLFindMyAccessorySoundSequence *)v2 addSoundBlockWithAsset:4 loopCount:1 duration:0];
-  [(CLFindMyAccessorySoundSequence *)v2 addSoundBlockWithAsset:5 loopCount:2 duration:0];
+  v2 = [CLFindMyAccessorySoundSequence alloc];
+  v5 = objc_msgSend_initWithType_(v2, v3, 1, v4);
+  objc_msgSend_addSoundBlockWithAsset_loopCount_duration_(v5, v6, 4, 1, 0);
+  objc_msgSend_addSoundBlockWithAsset_loopCount_duration_(v5, v7, 5, 2, 0);
 
-  return v2;
+  return v5;
 }
 
 + (id)shortSequence
 {
-  v2 = [[CLFindMyAccessorySoundSequence alloc] initWithType:0];
+  v2 = [CLFindMyAccessorySoundSequence alloc];
+  v5 = objc_msgSend_initWithType_(v2, v3, 0, v4);
 
-  return v2;
+  return v5;
 }
 
 + (id)rangingSequence
 {
-  v2 = [[CLFindMyAccessorySoundSequence alloc] initWithType:0];
-  [(CLFindMyAccessorySoundSequence *)v2 addSoundBlockWithAsset:4 loopCount:1 duration:0];
+  v2 = [CLFindMyAccessorySoundSequence alloc];
+  v5 = objc_msgSend_initWithType_(v2, v3, 0, v4);
+  objc_msgSend_addSoundBlockWithAsset_loopCount_duration_(v5, v6, 4, 1, 0);
 
-  return v2;
+  return v5;
 }
 
 - (void)dealloc
@@ -73,34 +76,35 @@
   countCopy = count;
   durationCopy = duration;
   assetCopy = asset;
-  [(NSMutableData *)self->_encodedSequence appendBytes:&assetCopy length:1];
-  [(NSMutableData *)self->_encodedSequence appendBytes:&countCopy length:1];
-  [(NSMutableData *)self->_encodedSequence appendBytes:&durationCopy length:2];
+  objc_msgSend_appendBytes_length_(self->_encodedSequence, a2, &assetCopy, 1);
+  objc_msgSend_appendBytes_length_(self->_encodedSequence, v6, &countCopy, 1);
+  objc_msgSend_appendBytes_length_(self->_encodedSequence, v7, &durationCopy, 2);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [CLFindMyAccessorySoundSequence alloc];
   type = self->_type;
-  [(NSMutableData *)self->_encodedSequence mutableCopy];
+  v9 = objc_msgSend_mutableCopy(self->_encodedSequence, v6, v7, v8);
 
-  return MEMORY[0x1EEE66B58](v4, sel_initWithType_encodedSequence_);
+  return MEMORY[0x1EEE66B58](v4, sel_initWithType_encodedSequence_, type, v9);
 }
 
 - (CLFindMyAccessorySoundSequence)initWithCoder:(id)coder
 {
-  [coder decodeIntegerForKey:@"Type"];
-  [coder decodeObjectOfClass:objc_opt_class() forKey:@"EncodedSequence"];
+  v6 = objc_msgSend_decodeIntegerForKey_(coder, a2, @"Type", v3);
+  v7 = objc_opt_class();
+  v9 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v8, v7, @"EncodedSequence");
 
-  return MEMORY[0x1EEE66B58](self, sel_initWithType_encodedSequence_);
+  return MEMORY[0x1EEE66B58](self, sel_initWithType_encodedSequence_, v6, v9);
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  [coder encodeInteger:self->_type forKey:@"Type"];
+  objc_msgSend_encodeInteger_forKey_(coder, a2, self->_type, @"Type");
   encodedSequence = self->_encodedSequence;
 
-  [coder encodeObject:encodedSequence forKey:@"EncodedSequence"];
+  objc_msgSend_encodeObject_forKey_(coder, v5, encodedSequence, @"EncodedSequence");
 }
 
 @end

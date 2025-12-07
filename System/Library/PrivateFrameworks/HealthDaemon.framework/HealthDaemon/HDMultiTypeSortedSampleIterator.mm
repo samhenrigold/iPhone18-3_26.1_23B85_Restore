@@ -47,7 +47,7 @@ HDSortedSampleIterator *__138__HDMultiTypeSortedSampleIterator__upstreamIterator
   v19 = [(HDMultiTypeSortedSampleIterator *)&v30 init];
   if (v19)
   {
-    v20 = [descriptorsCopy copy];
+    v20 = objc_msgSend_copy(descriptorsCopy);
     queryDescriptors = v19->_queryDescriptors;
     v19->_queryDescriptors = v20;
 
@@ -58,13 +58,13 @@ HDSortedSampleIterator *__138__HDMultiTypeSortedSampleIterator__upstreamIterator
     }
 
     v19->_includeDeletedObjects = objectsCopy;
-    v22 = [sortDescriptorsCopy copy];
+    v22 = objc_msgSend_copy(sortDescriptorsCopy);
     sortDescriptors = v19->_sortDescriptors;
     v19->_sortDescriptors = v22;
 
     v19->_bufferSize = size;
     objc_storeWeak(&v19->_profile, profileCopy);
-    v24 = [anchorCopy copy];
+    v24 = objc_msgSend_copy(anchorCopy);
     anchor = v19->_anchor;
     v19->_anchor = v24;
 
@@ -87,31 +87,31 @@ BOOL __62__HDMultiTypeSortedSampleIterator__prepareIteratorsWithError___block_in
 
 uint64_t __62__HDMultiTypeSortedSampleIterator__prepareIteratorsWithError___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v5 = *(a1 + 32);
-  v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     while (2)
     {
       v9 = 0;
       do
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * v9);
-        v19 = 0;
-        v11 = [v10 advanceWithError:&v19];
-        v12 = v19;
+        v10 = *(*(&v19 + 1) + 8 * v9);
+        v18 = 0;
+        v11 = [v10 advanceWithError:&v18];
+        v12 = v18;
         v13 = v12;
         if ((v11 & 1) == 0)
         {
@@ -143,7 +143,7 @@ uint64_t __62__HDMultiTypeSortedSampleIterator__prepareIteratorsWithError___bloc
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v7)
       {
         continue;
@@ -156,7 +156,6 @@ uint64_t __62__HDMultiTypeSortedSampleIterator__prepareIteratorsWithError___bloc
   v14 = 1;
 LABEL_17:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -164,7 +163,7 @@ LABEL_17:
 {
   errorCopy3 = error;
   selfCopy4 = self;
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   if (!self->_isInitialized)
   {
     queryDescriptors = self->_queryDescriptors;
@@ -178,19 +177,19 @@ LABEL_17:
     v13 = WeakRetained;
     v14 = queryDescriptors;
     objc_opt_self();
-    v73 = MEMORY[0x277D85DD0];
-    v74 = 3221225472;
-    v75 = __138__HDMultiTypeSortedSampleIterator__upstreamIteratorsWithQueryDescriptors_includeDeletedObjects_sortDescriptors_anchor_bufferSize_profile___block_invoke;
-    v76 = &unk_278624DA0;
-    v81 = includeDeletedObjects;
-    v77 = v11;
-    v78 = v12;
-    v79 = v13;
-    v80 = bufferSize;
+    v72 = MEMORY[0x277D85DD0];
+    v73 = 3221225472;
+    v74 = __138__HDMultiTypeSortedSampleIterator__upstreamIteratorsWithQueryDescriptors_includeDeletedObjects_sortDescriptors_anchor_bufferSize_profile___block_invoke;
+    v75 = &unk_278624DA0;
+    v80 = includeDeletedObjects;
+    v76 = v11;
+    v77 = v12;
+    v78 = v13;
+    v79 = bufferSize;
     v15 = v13;
     v16 = v12;
     v17 = v11;
-    v18 = [(NSArray *)v14 hk_map:&v73];
+    v18 = [(NSArray *)v14 hk_map:&v72];
 
     v19 = [v18 mutableCopy];
     iterators = self->_iterators;
@@ -203,23 +202,23 @@ LABEL_17:
       v22 = objc_alloc_init(MEMORY[0x277CBEB18]);
       v23 = objc_loadWeakRetained(&self->_profile);
       database = [v23 database];
-      v73 = MEMORY[0x277D85DD0];
-      v74 = 3221225472;
-      v75 = __62__HDMultiTypeSortedSampleIterator__prepareIteratorsWithError___block_invoke_2;
-      v76 = &unk_278613218;
+      v72 = MEMORY[0x277D85DD0];
+      v73 = 3221225472;
+      v74 = __62__HDMultiTypeSortedSampleIterator__prepareIteratorsWithError___block_invoke_2;
+      v75 = &unk_278613218;
       v25 = v21;
-      v77 = v25;
-      v78 = v22;
+      v76 = v25;
+      v77 = v22;
       v26 = v22;
       errorCopy3 = error;
-      v27 = [(HDHealthEntity *)HDDataEntity performReadTransactionWithHealthDatabase:database error:error block:&v73];
+      v27 = [(HDHealthEntity *)HDDataEntity performReadTransactionWithHealthDatabase:database error:error block:&v72];
 
       selfCopy4 = self;
       [(NSMutableArray *)self->_iterators removeObjectsInArray:v26];
 
       if (!v27)
       {
-        goto LABEL_43;
+        return 0;
       }
     }
 
@@ -235,9 +234,9 @@ LABEL_17:
   nextIterator = selfCopy4->_nextIterator;
   if (nextIterator)
   {
-    v67 = 0;
-    v29 = [(HDSortedSampleIterator *)nextIterator advanceWithError:&v67];
-    v30 = v67;
+    v66 = 0;
+    v29 = [(HDSortedSampleIterator *)nextIterator advanceWithError:&v66];
+    v30 = v66;
     v31 = v30;
     if (!v29)
     {
@@ -258,7 +257,7 @@ LABEL_17:
           }
         }
 
-        goto LABEL_43;
+        return 0;
       }
 
       [(NSMutableArray *)selfCopy4->_iterators removeObject:selfCopy4->_nextIterator];
@@ -268,58 +267,56 @@ LABEL_17:
   if (![(NSMutableArray *)selfCopy4->_iterators count])
   {
     [MEMORY[0x277CCA9B8] hk_assignError:errorCopy3 code:900 format:@"All child iterators of the multi-type iterator are exhausted"];
-LABEL_43:
-    result = 0;
-    goto LABEL_44;
+    return 0;
   }
 
   firstObject = [(NSMutableArray *)selfCopy4->_iterators firstObject];
   v33 = selfCopy4->_nextIterator;
   selfCopy4->_nextIterator = firstObject;
 
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
   v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
   obj = selfCopy4->_iterators;
-  v62 = [(NSMutableArray *)obj countByEnumeratingWithState:&v63 objects:v72 count:16];
-  if (v62)
+  v61 = [(NSMutableArray *)obj countByEnumeratingWithState:&v62 objects:v71 count:16];
+  if (v61)
   {
-    v59 = *v64;
+    v58 = *v63;
     do
     {
-      for (i = 0; i != v62; ++i)
+      for (i = 0; i != v61; ++i)
       {
-        if (*v64 != v59)
+        if (*v63 != v58)
         {
           objc_enumerationMutation(obj);
         }
 
-        v35 = *(*(&v63 + 1) + 8 * i);
+        v35 = *(*(&v62 + 1) + 8 * i);
         v36 = selfCopy4->_sortDescriptors;
         v37 = selfCopy4->_nextIterator;
         v38 = v35;
         v39 = v36;
+        v67 = 0u;
         v68 = 0u;
         v69 = 0u;
         v70 = 0u;
-        v71 = 0u;
         v40 = v39;
-        v41 = [(NSArray *)v40 countByEnumeratingWithState:&v68 objects:&v73 count:16];
+        v41 = [(NSArray *)v40 countByEnumeratingWithState:&v67 objects:&v72 count:16];
         if (v41)
         {
           v42 = v41;
-          v43 = *v69;
+          v43 = *v68;
           while (2)
           {
             for (j = 0; j != v42; ++j)
             {
-              if (*v69 != v43)
+              if (*v68 != v43)
               {
                 objc_enumerationMutation(v40);
               }
 
-              v45 = *(*(&v68 + 1) + 8 * j);
+              v45 = *(*(&v67 + 1) + 8 * j);
               sample = [(HDSortedSampleIterator *)v37 sample];
               sample2 = [(HDSortedSampleIterator *)v38 sample];
               v48 = [v45 compareObject:sample toObject:sample2];
@@ -342,7 +339,7 @@ LABEL_43:
               }
             }
 
-            v42 = [(NSArray *)v40 countByEnumeratingWithState:&v68 objects:&v73 count:16];
+            v42 = [(NSArray *)v40 countByEnumeratingWithState:&v67 objects:&v72 count:16];
             if (v42)
             {
               continue;
@@ -371,16 +368,13 @@ LABEL_34:
         self->_nextIterator = v52;
       }
 
-      v62 = [(NSMutableArray *)obj countByEnumeratingWithState:&v63 objects:v72 count:16];
+      v61 = [(NSMutableArray *)obj countByEnumeratingWithState:&v62 objects:v71 count:16];
     }
 
-    while (v62);
+    while (v61);
   }
 
-  result = 1;
-LABEL_44:
-  v57 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (unint64_t)hash
@@ -474,16 +468,16 @@ LABEL_44:
   return v6;
 }
 
-id __48__HDMultiTypeSortedSampleIterator_copyWithZone___block_invoke(uint64_t a1, void *a2)
+id __48__HDMultiTypeSortedSampleIterator_copyWithZone___block_invoke(void x0_0, void *a1)
 {
-  v2 = [a2 copy];
+  v2 = objc_msgSend_copy(a1);
 
   return v2;
 }
 
 - (BOOL)restoreIteratorStateFromData:(id)data error:(id *)error
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (self->_isInitialized)
   {
@@ -495,9 +489,9 @@ id __48__HDMultiTypeSortedSampleIterator_copyWithZone___block_invoke(uint64_t a1
   if (v8)
   {
     v9 = MEMORY[0x277CBEB98];
-    v20[0] = objc_opt_class();
-    v20[1] = objc_opt_class();
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+    v19[0] = objc_opt_class();
+    v19[1] = objc_opt_class();
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
     v11 = [v9 setWithArray:v10];
     v12 = [v8 decodeObjectOfClasses:v11 forKey:@"CurrentAnchor"];
 
@@ -543,7 +537,6 @@ id __48__HDMultiTypeSortedSampleIterator_copyWithZone___block_invoke(uint64_t a1
     v13 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

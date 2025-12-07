@@ -66,25 +66,25 @@
 
 uint64_t __67__TRIContentTracker__addOrDropRefWithContentIdentifier_changeType___block_invoke(uint64_t a1, void *a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2020000000;
-  v32 = 0x7FFFFFFFFFFFFFFFLL;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 0x7FFFFFFFFFFFFFFFLL;
   v4 = [v3 db];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __67__TRIContentTracker__addOrDropRefWithContentIdentifier_changeType___block_invoke_2;
-  v27[3] = &unk_279DDF860;
-  v28 = *(a1 + 32);
   v26[0] = MEMORY[0x277D85DD0];
   v26[1] = 3221225472;
-  v26[2] = __67__TRIContentTracker__addOrDropRefWithContentIdentifier_changeType___block_invoke_3;
-  v26[3] = &unk_279DDFC98;
-  v26[4] = &v29;
+  v26[2] = __67__TRIContentTracker__addOrDropRefWithContentIdentifier_changeType___block_invoke_2;
+  v26[3] = &unk_279DDF860;
+  v27 = *(a1 + 32);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __67__TRIContentTracker__addOrDropRefWithContentIdentifier_changeType___block_invoke_3;
+  v25[3] = &unk_279DDFC98;
+  v25[4] = &v28;
   v5 = [*(*(a1 + 40) + 8) generalErrorHandlerWithOutError:0];
-  v6 = [v4 prepAndRunQuery:@" SELECT refCount FROM     contentReferences WHERE     contentId = :content_id;" onPrep:v27 onRow:v26 onError:v5];
+  v6 = [v4 prepAndRunQuery:@" SELECT refCount FROM     contentReferences WHERE     contentId = :content_id;" onPrep:v26 onRow:v25 onError:v5];
 
   v7 = *MEMORY[0x277D42678];
   if ((v6 & 1) == 0)
@@ -96,7 +96,7 @@ uint64_t __67__TRIContentTracker__addOrDropRefWithContentIdentifier_changeType__
   v9 = 0x7FFFFFFFFFFFFFFFLL;
   if (v8 == 1)
   {
-    v11 = v30[3];
+    v11 = v29[3];
     if (v11 != 0x7FFFFFFFFFFFFFFFLL)
     {
       v9 = v11 - 1;
@@ -113,20 +113,20 @@ LABEL_7:
     goto LABEL_13;
   }
 
-  v10 = v30[3];
+  v10 = v29[3];
   if (v10 == 0x7FFFFFFFFFFFFFFFLL)
   {
     v9 = 1;
 LABEL_11:
     v13 = [v3 db];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __67__TRIContentTracker__addOrDropRefWithContentIdentifier_changeType___block_invoke_4;
-    v23[3] = &unk_279DE1538;
-    v24 = *(a1 + 32);
-    v25 = v9;
-    v14 = [*(*(a1 + 40) + 8) generalErrorHandlerWithOutError:{0, v23[0], 3221225472, __67__TRIContentTracker__addOrDropRefWithContentIdentifier_changeType___block_invoke_4, &unk_279DE1538}];
-    v15 = [v13 prepAndRunQuery:@" INSERT OR REPLACE INTO contentReferences(    contentId onPrep:refCount) VALUES(    :content_id onRow::ref_count);" onError:{v23, 0, v14}];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __67__TRIContentTracker__addOrDropRefWithContentIdentifier_changeType___block_invoke_4;
+    v22[3] = &unk_279DE1538;
+    v23 = *(a1 + 32);
+    v24 = v9;
+    v14 = [*(*(a1 + 40) + 8) generalErrorHandlerWithOutError:{0, v22[0], 3221225472, __67__TRIContentTracker__addOrDropRefWithContentIdentifier_changeType___block_invoke_4, &unk_279DE1538}];
+    v15 = [v13 prepAndRunQuery:@" INSERT OR REPLACE INTO contentReferences(    contentId onPrep:refCount) VALUES(    :content_id onRow::ref_count);" onError:{v22, 0, v14}];
 
     if ((v15 & 1) == 0)
     {
@@ -160,25 +160,24 @@ LABEL_13:
     }
 
     v18 = [*(a1 + 32) str];
-    v19 = __67__TRIContentTracker__addOrDropRefWithContentIdentifier_changeType___block_invoke_5(v30[3]);
+    v19 = __67__TRIContentTracker__addOrDropRefWithContentIdentifier_changeType___block_invoke_5(v29[3]);
     v20 = __67__TRIContentTracker__addOrDropRefWithContentIdentifier_changeType___block_invoke_5(v9);
     *buf = 136315906;
-    v34 = v17;
-    v35 = 2112;
-    v36 = v18;
-    v37 = 2114;
-    v38 = v19;
-    v39 = 2114;
-    v40 = v20;
+    v33 = v17;
+    v34 = 2112;
+    v35 = v18;
+    v36 = 2114;
+    v37 = v19;
+    v38 = 2114;
+    v39 = v20;
     _os_log_impl(&dword_26F567000, v16, OS_LOG_TYPE_DEFAULT, "refCount%s %@: %{public}@ --> %{public}@", buf, 0x2Au);
   }
 
   *(*(*(a1 + 48) + 8) + 24) = v12;
   v7 = *MEMORY[0x277D42670];
 LABEL_19:
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v28, 8);
 
-  v21 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -463,22 +462,22 @@ uint64_t __52__TRIContentTracker_enumerateTrackedItemsWithBlock___block_invoke_2
 
 + (id)contentIdentifierForExperimentArtifactWithDeployment:(id)deployment
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   deploymentCopy = deployment;
   v6 = objc_autoreleasePoolPush();
-  v21[0] = @"exp-artifact";
-  v20[0] = @"0_type";
-  v20[1] = @"1_id";
+  v20[0] = @"exp-artifact";
+  v19[0] = @"0_type";
+  v19[1] = @"1_id";
   experimentId = [deploymentCopy experimentId];
-  v21[1] = experimentId;
-  v20[2] = @"2_dep";
+  v20[1] = experimentId;
+  v19[2] = @"2_dep";
   v8 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(deploymentCopy, "deploymentId")}];
-  v21[2] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
+  v20[2] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
 
-  v19 = 0;
-  v10 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v9 options:2 error:&v19];
-  v11 = v19;
+  v18 = 0;
+  v10 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v9 options:2 error:&v18];
+  v11 = v18;
   if (!v10)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
@@ -496,7 +495,6 @@ uint64_t __52__TRIContentTracker_enumerateTrackedItemsWithBlock___block_invoke_2
   v13 = [[TRIContentTrackingId alloc] initWithStr:v12];
 
   objc_autoreleasePoolPop(v6);
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -549,22 +547,22 @@ uint64_t __52__TRIContentTracker_enumerateTrackedItemsWithBlock___block_invoke_2
 
 + (id)contentIdentifierForRolloutArtifactWithDeployment:(id)deployment
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   deploymentCopy = deployment;
   v6 = objc_autoreleasePoolPush();
-  v21[0] = @"rlo-artifact";
-  v20[0] = @"0_type";
-  v20[1] = @"1_id";
+  v20[0] = @"rlo-artifact";
+  v19[0] = @"0_type";
+  v19[1] = @"1_id";
   rolloutId = [deploymentCopy rolloutId];
-  v21[1] = rolloutId;
-  v20[2] = @"2_dep";
+  v20[1] = rolloutId;
+  v19[2] = @"2_dep";
   v8 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(deploymentCopy, "deploymentId")}];
-  v21[2] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
+  v20[2] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
 
-  v19 = 0;
-  v10 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v9 options:2 error:&v19];
-  v11 = v19;
+  v18 = 0;
+  v10 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v9 options:2 error:&v18];
+  v11 = v18;
   if (!v10)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
@@ -582,24 +580,23 @@ uint64_t __52__TRIContentTracker_enumerateTrackedItemsWithBlock___block_invoke_2
   v13 = [[TRIContentTrackingId alloc] initWithStr:v12];
 
   objc_autoreleasePoolPop(v6);
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 + (id)contentIdentifierForFactorPackSetWithId:(id)id
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   idCopy = id;
   v6 = objc_autoreleasePoolPush();
-  v17[0] = @"0_type";
-  v17[1] = @"1_id";
-  v18[0] = @"fp-set";
-  v18[1] = idCopy;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
-  v16 = 0;
-  v8 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v7 options:2 error:&v16];
-  v9 = v16;
+  v16[0] = @"0_type";
+  v16[1] = @"1_id";
+  v17[0] = @"fp-set";
+  v17[1] = idCopy;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v15 = 0;
+  v8 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v7 options:2 error:&v15];
+  v9 = v15;
   if (!v8)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
@@ -616,14 +613,13 @@ uint64_t __52__TRIContentTracker_enumerateTrackedItemsWithBlock___block_invoke_2
   v11 = [[TRIContentTrackingId alloc] initWithStr:v10];
 
   objc_autoreleasePoolPop(v6);
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 + (id)decodeContentIdentifier:(id)identifier
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v6 = objc_autoreleasePoolPush();
   v7 = [identifierCopy str];
@@ -635,16 +631,16 @@ uint64_t __52__TRIContentTracker_enumerateTrackedItemsWithBlock___block_invoke_2
     [currentHandler handleFailureInMethod:a2 object:self file:@"TRIContentTracker.m" lineNumber:296 description:{@"Invalid parameter not satisfying: %@", @"json"}];
   }
 
-  v45 = 0;
-  v9 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v8 options:0 error:&v45];
-  v10 = v45;
+  v44 = 0;
+  v9 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v8 options:0 error:&v44];
+  v10 = v44;
   if (!v9)
   {
     v13 = TRILogCategory_Server();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v47 = v10;
+      v46 = v10;
       _os_log_error_impl(&dword_26F567000, v13, OS_LOG_TYPE_ERROR, "Unable to decode JSON for content identifier: %{public}@", buf, 0xCu);
     }
 
@@ -680,13 +676,13 @@ LABEL_22:
     v16 = TRILogCategory_Server();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v39 = v6;
-      v40 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v8 encoding:4];
+      v38 = v6;
+      v39 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v8 encoding:4];
       *buf = 138543362;
-      v47 = v40;
+      v46 = v39;
       _os_log_error_impl(&dword_26F567000, v16, OS_LOG_TYPE_ERROR, "Invalid JSON for experiment content identifier: %{public}@", buf, 0xCu);
 
-      v6 = v39;
+      v6 = v38;
     }
 
     goto LABEL_21;
@@ -697,7 +693,7 @@ LABEL_22:
 
   if (v23)
   {
-    v44 = v6;
+    v43 = v6;
     v13 = [v9 objectForKeyedSubscript:@"1_id"];
     v24 = [v9 objectForKeyedSubscript:@"3_cntId"];
     v25 = [v9 objectForKeyedSubscript:@"4_cntType"];
@@ -719,16 +715,16 @@ LABEL_22:
       v27 = TRILogCategory_Server();
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v41 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v8 encoding:4];
+        v40 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v8 encoding:4];
         *buf = 138412290;
-        v47 = v41;
+        v46 = v40;
         _os_log_error_impl(&dword_26F567000, v27, OS_LOG_TYPE_ERROR, "Invalid JSON for treatment content identifier: %@", buf, 0xCu);
       }
 
       v21 = 0;
     }
 
-    v6 = v44;
+    v6 = v43;
     goto LABEL_31;
   }
 
@@ -753,9 +749,9 @@ LABEL_22:
     v16 = TRILogCategory_Server();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v37 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v8 encoding:4];
+      v36 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v8 encoding:4];
       *buf = 138543362;
-      v47 = v37;
+      v46 = v36;
       _os_log_error_impl(&dword_26F567000, v16, OS_LOG_TYPE_ERROR, "Invalid JSON for rollout content identifier: %{public}@", buf, 0xCu);
     }
 
@@ -764,26 +760,26 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  v34 = [v9 objectForKeyedSubscript:@"0_type"];
-  v35 = [@"fp-set" isEqual:v34];
+  v33 = [v9 objectForKeyedSubscript:@"0_type"];
+  v34 = [@"fp-set" isEqual:v33];
 
-  if (v35)
+  if (v34)
   {
-    v36 = [v9 objectForKeyedSubscript:@"1_id"];
-    if (v36)
+    v35 = [v9 objectForKeyedSubscript:@"1_id"];
+    if (v35)
     {
-      v13 = v36;
-      v21 = [[TRIContentDescriptorUnion alloc] initWithType:3 experiment:0 treatment:0 rollout:0 factorPackSet:v36];
+      v13 = v35;
+      v21 = [[TRIContentDescriptorUnion alloc] initWithType:3 experiment:0 treatment:0 rollout:0 factorPackSet:v35];
       goto LABEL_31;
     }
 
-    v38 = TRILogCategory_Server();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v37 = TRILogCategory_Server();
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
-      v42 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v8 encoding:4];
+      v41 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v8 encoding:4];
       *buf = 138543362;
-      v47 = v42;
-      _os_log_error_impl(&dword_26F567000, v38, OS_LOG_TYPE_ERROR, "Invalid JSON for factor pack set identifier: %{public}@", buf, 0xCu);
+      v46 = v41;
+      _os_log_error_impl(&dword_26F567000, v37, OS_LOG_TYPE_ERROR, "Invalid JSON for factor pack set identifier: %{public}@", buf, 0xCu);
     }
 
     v13 = 0;
@@ -794,7 +790,6 @@ LABEL_21:
 LABEL_32:
 
   objc_autoreleasePoolPop(v6);
-  v32 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

@@ -56,10 +56,9 @@
   v5 = NSStringFromClass(v4);
   recipientHREF = self->_recipientHREF;
   payloadAsString = [(CoreDAVLeafItem *)self->_requestStatus payloadAsString];
-  topLevelErrorItem = self->_topLevelErrorItem;
-  v9 = [v3 stringWithFormat:@"%@ %p: RecipientHREF: %@, RequestStatus: %@ CalendarData:\n%@ TopLevelErrorItem: %@ ResponseDescription:\n%@\n", v5, self, recipientHREF, payloadAsString, self->_calendarData, topLevelErrorItem, self->_responseDescription];
+  v8 = [v3 stringWithFormat:@"%@ %p: RecipientHREF: %@, RequestStatus: %@ CalendarData:\n%@ TopLevelErrorItem: %@ ResponseDescription:\n%@\n", v5, self, recipientHREF, payloadAsString, self->_calendarData, self->_topLevelErrorItem, self->_responseDescription];
 
-  return v9;
+  return v8;
 }
 
 @end

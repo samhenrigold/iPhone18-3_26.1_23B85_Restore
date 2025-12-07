@@ -221,7 +221,7 @@
   v19 = behavior2;
   if (behavior2)
   {
-    [behavior2 offsetForAutoScroller:self timeDelta:v16];
+    objc_msgSend_offsetForAutoScroller_timeDelta_(behavior2, v16);
   }
 
   [(_UIAutoScrollAssistant *)self _handleAutoScrollerWithContentOffset:0 direction:0.0, 0.0];

@@ -8,17 +8,15 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v4 = *(&self->super.isa + OBJC_IVAR___SCUpdateUserIDCommand_userID);
-  v5 = *&self->userID[OBJC_IVAR___SCUpdateUserIDCommand_userID];
   coderCopy = coder;
   selfCopy = self;
-  v8 = sub_1DACB92F4();
-  v9 = sub_1DACB92F4();
-  [coderCopy encodeObject:v8 forKey:v9];
+  v6 = sub_1DACB92F4();
+  v7 = sub_1DACB92F4();
+  [coderCopy encodeObject:v6 forKey:v7];
 
-  v10 = *(&selfCopy->super.isa + OBJC_IVAR___SCUpdateUserIDCommand_overwrite);
-  v11 = sub_1DACB92F4();
-  [coderCopy encodeBool:v10 forKey:v11];
+  v8 = *(&selfCopy->super.isa + OBJC_IVAR___SCUpdateUserIDCommand_overwrite);
+  v9 = sub_1DACB92F4();
+  [coderCopy encodeBool:v8 forKey:v9];
 }
 
 - (SCUpdateUserIDCommand)init

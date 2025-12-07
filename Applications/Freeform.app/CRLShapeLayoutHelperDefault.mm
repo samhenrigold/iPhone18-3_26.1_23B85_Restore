@@ -251,7 +251,7 @@
   v14 = v13;
   if (v13)
   {
-    [v13 transform];
+    objc_msgSend_transform(v13);
   }
 
   else

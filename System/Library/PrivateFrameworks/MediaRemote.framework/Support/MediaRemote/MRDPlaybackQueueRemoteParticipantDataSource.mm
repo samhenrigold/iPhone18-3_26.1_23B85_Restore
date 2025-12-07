@@ -24,7 +24,7 @@
       v7->_lock._os_unfair_lock_opaque = 0;
       objc_storeWeak(&v7->_delegate, delegateCopy);
       v9 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-      v10 = sub_10000E9DC();
+      v10 = sub_10000E9DC(v9);
       v11 = dispatch_queue_create_with_target_V2("com.apple.amp.MediaRemote.MRDPlaybackQueueRemoteParticipantDataSource.delegateQueue", v9, v10);
       delegateQueue = v8->_delegateQueue;
       v8->_delegateQueue = v11;

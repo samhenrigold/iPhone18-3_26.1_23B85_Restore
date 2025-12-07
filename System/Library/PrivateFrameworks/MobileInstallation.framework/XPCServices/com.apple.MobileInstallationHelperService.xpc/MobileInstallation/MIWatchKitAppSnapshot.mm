@@ -1,4 +1,5 @@
 @interface MIWatchKitAppSnapshot
+- (BOOL)_copyAppIconsFromBundle:(id)bundle toPlaceholder:(id)placeholder isWatchBundle:(BOOL)watchBundle;
 - (BOOL)_createCompanionAppPlaceholderForApp:(id)app error:(id *)error;
 - (BOOL)_createPlaceholderForApp:(id)app atURL:(id)l error:(id *)error;
 - (BOOL)_createSnapshotWithError:(id *)error;
@@ -58,6 +59,31 @@
   }
 
   return v9;
+}
+
+- (BOOL)_copyAppIconsFromBundle:(id)bundle toPlaceholder:(id)placeholder isWatchBundle:(BOOL)watchBundle
+{
+  watchBundleCopy = watchBundle;
+  placeholderCopy = placeholder;
+  v9 = -[MIWatchKitAppSnapshot _iconDataForBundle:isWatchBundle:error:](self, "_iconDataForBundle:isWatchBundle:error:", [bundle cfBundle], watchBundleCopy, 0);
+  if (v9)
+  {
+    v10 = [placeholderCopy URLByAppendingPathComponent:@"Icon.png" isDirectory:0];
+    v14 = 0;
+    v11 = [v9 writeToURL:v10 options:268435457 error:&v14];
+    v12 = v14;
+    if ((v11 & 1) == 0 && (!gLogHandle || *(gLogHandle + 44) >= 3))
+    {
+      MOLogWrite();
+    }
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  return v11;
 }
 
 - (id)_iconDataForBundle:(__CFBundle *)bundle isWatchBundle:(BOOL)watchBundle error:(id *)error

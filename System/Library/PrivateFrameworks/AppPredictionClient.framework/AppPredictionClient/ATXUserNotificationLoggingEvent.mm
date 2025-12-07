@@ -236,10 +236,11 @@ LABEL_10:
   if (protoCopy)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v5 = protoCopy;
-      selfCopy = [v5 notification];
+      v6 = protoCopy;
+      selfCopy = [v6 notification];
 
       if (!selfCopy)
       {
@@ -248,52 +249,52 @@ LABEL_14:
         goto LABEL_15;
       }
 
-      notification = [v5 notification];
+      notification = [v6 notification];
       objc_opt_class();
-      isKindOfClass = objc_opt_isKindOfClass();
+      v9 = objc_opt_isKindOfClass();
 
-      if (isKindOfClass)
+      if (v9)
       {
-        v9 = [ATXUserNotification alloc];
-        notification2 = [v5 notification];
-        v11 = [(ATXUserNotification *)v9 initWithProto:notification2];
+        v11 = [ATXUserNotification alloc];
+        notification2 = [v6 notification];
+        v13 = [(ATXUserNotification *)v11 initWithProto:notification2];
 
-        eventType = [v5 eventType];
-        [v5 timestamp];
-        v14 = v13;
-        deliveryReason = [v5 deliveryReason];
-        deliveryUI = [v5 deliveryUI];
-        modeIdentifier = [v5 modeIdentifier];
+        eventType = [v6 eventType];
+        [v6 timestamp];
+        v16 = v15;
+        deliveryReason = [v6 deliveryReason];
+        deliveryUI = [v6 deliveryUI];
+        modeIdentifier = [v6 modeIdentifier];
         if (modeIdentifier)
         {
-          v18 = objc_alloc(MEMORY[0x1E696AFB0]);
-          modeIdentifier2 = [v5 modeIdentifier];
-          v20 = [v18 initWithUUIDString:modeIdentifier2];
-          self = [(ATXUserNotificationLoggingEvent *)self initFromUserNotification:v11 eventType:eventType timestamp:deliveryReason deliveryReason:deliveryUI deliveryUI:v20 modeUUID:v14];
+          v20 = objc_alloc(MEMORY[0x1E696AFB0]);
+          modeIdentifier2 = [v6 modeIdentifier];
+          v22 = [v20 initWithUUIDString:modeIdentifier2];
+          self = [(ATXUserNotificationLoggingEvent *)self initFromUserNotification:v13 eventType:eventType timestamp:deliveryReason deliveryReason:deliveryUI deliveryUI:v22 modeUUID:v16];
         }
 
         else
         {
-          self = [(ATXUserNotificationLoggingEvent *)self initFromUserNotification:v11 eventType:eventType timestamp:deliveryReason deliveryReason:deliveryUI deliveryUI:0 modeUUID:v14];
+          self = [(ATXUserNotificationLoggingEvent *)self initFromUserNotification:v13 eventType:eventType timestamp:deliveryReason deliveryReason:deliveryUI deliveryUI:0 modeUUID:v16];
         }
 
         selfCopy = self;
         goto LABEL_14;
       }
 
-      v21 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+      v23 = __atxlog_handle_notification_management(v10);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
       {
-        [ATXMissedNotificationRanking initWithProto:];
+        [ATXMissedNotificationRanking initWithProto:?];
       }
     }
 
     else
     {
-      v5 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v6 = __atxlog_handle_notification_management(isKindOfClass);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [ATXMissedNotificationRanking initWithProto:];
+        [ATXMissedNotificationRanking initWithProto:?];
       }
     }
 

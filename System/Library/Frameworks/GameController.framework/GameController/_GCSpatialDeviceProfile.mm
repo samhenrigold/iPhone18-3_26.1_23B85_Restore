@@ -34,38 +34,38 @@
 
 + (uint64_t)isSpatialController:(uint64_t)controller
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = a2;
   objc_opt_self();
-  underlyingDevice = [v2 underlyingDevice];
-  v4 = [underlyingDevice propertyForKey:@"UniformTypeIdentifiers"];
+  v3 = objc_msgSend_underlyingDevice(v2);
+  v4 = [v3 propertyForKey:@"UniformTypeIdentifiers"];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       while (2)
       {
         v9 = 0;
         do
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v14 + 1) + 8 * v9);
+          v10 = *(*(&v13 + 1) + 8 * v9);
           objc_opt_class();
-          if (objc_opt_isKindOfClass() & 1) != 0 && ([v10 isEqualToString:{@"com.apple.spatial-gamepad", v14}])
+          if (objc_opt_isKindOfClass() & 1) != 0 && ([v10 isEqualToString:{@"com.apple.spatial-gamepad", v13}])
           {
             v11 = 1;
             goto LABEL_14;
@@ -75,7 +75,7 @@
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v7)
         {
           continue;
@@ -94,44 +94,43 @@ LABEL_14:
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 + (uint64_t)isSpatialStylus:(uint64_t)stylus
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = a2;
   objc_opt_self();
-  underlyingDevice = [v2 underlyingDevice];
-  v4 = [underlyingDevice propertyForKey:@"UniformTypeIdentifiers"];
+  v3 = objc_msgSend_underlyingDevice(v2);
+  v4 = [v3 propertyForKey:@"UniformTypeIdentifiers"];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       while (2)
       {
         v9 = 0;
         do
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v14 + 1) + 8 * v9);
+          v10 = *(*(&v13 + 1) + 8 * v9);
           objc_opt_class();
-          if (objc_opt_isKindOfClass() & 1) != 0 && ([v10 isEqualToString:{@"com.apple.spatial-stylus", v14}])
+          if (objc_opt_isKindOfClass() & 1) != 0 && ([v10 isEqualToString:{@"com.apple.spatial-stylus", v13}])
           {
             v11 = 1;
             goto LABEL_14;
@@ -141,7 +140,7 @@ LABEL_14:
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v7)
         {
           continue;
@@ -160,7 +159,6 @@ LABEL_14:
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -183,23 +181,21 @@ LABEL_14:
 
 + (id)physicalDeviceGetHapticCapabilities:(id)capabilities
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   serviceInfo = [capabilities serviceInfo];
   v4 = [serviceInfo numberPropertyForKey:@"HapticsSupported"];
 
   if (v4 && [v4 BOOLValue])
   {
     v5 = [[GCHapticActuator alloc] initWithLabel:@"Actuator" type:1 index:0];
-    v9[0] = v5;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+    v8[0] = v5;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   }
 
   else
   {
     v6 = MEMORY[0x1E695E0F0];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -216,31 +212,20 @@ LABEL_14:
 + (Class)logicalDeviceControllerDescriptionClass:(id)class
 {
   classCopy = class;
-  if (([(_GCSpatialDeviceProfile *)self isSpatialController:classCopy]& 1) != 0)
+  if (([(_GCSpatialDeviceProfile *)self isSpatialController:classCopy]& 1) == 0)
   {
-    v5 = off_1E8418270;
+    [(_GCSpatialDeviceProfile *)self isSpatialStylus:classCopy];
   }
 
-  else
-  {
-    v6 = [(_GCSpatialDeviceProfile *)self isSpatialStylus:classCopy];
-    v5 = off_1E8418360;
-    if (v6)
-    {
-      v5 = off_1E8418368;
-    }
-  }
+  v5 = objc_opt_class();
 
-  v7 = *v5;
-  v8 = objc_opt_class();
-
-  return v8;
+  return v5;
 }
 
 + (id)logicalDeviceControllerUniformTypeIdentifier:(id)identifier
 {
-  underlyingDevice = [identifier underlyingDevice];
-  v4 = [underlyingDevice propertyForKey:@"UniformTypeIdentifiers"];
+  v3 = objc_msgSend_underlyingDevice(identifier, a2);
+  v4 = [v3 propertyForKey:@"UniformTypeIdentifiers"];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -291,64 +276,63 @@ LABEL_7:
 
 + (id)logicalDevice:(id)device makeControllerInputDescriptionWithIdentifier:(id)identifier bindings:(id)bindings
 {
-  v46[1] = *MEMORY[0x1E69E9840];
+  v45[1] = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   identifierCopy = identifier;
   bindingsCopy = bindings;
   LOBYTE(bindings) = [(_GCSpatialDeviceProfile *)self isSpatialController:deviceCopy];
   LOBYTE(identifier) = [(_GCSpatialDeviceProfile *)self isSpatialStylus:deviceCopy];
-  v32 = objc_alloc_init(_GCCControllerManagerDescription);
+  v31 = objc_alloc_init(_GCCControllerManagerDescription);
   v9 = [_GCCControllerHIDServiceInfoDescription alloc];
-  underlyingDevice = [deviceCopy underlyingDevice];
-  serviceInfo = [underlyingDevice serviceInfo];
-  v31 = [(_GCCControllerHIDServiceInfoDescription *)v9 initWithServiceInfo:serviceInfo];
+  v10 = objc_msgSend_underlyingDevice(deviceCopy);
+  serviceInfo = [v10 serviceInfo];
+  v30 = [(_GCCControllerHIDServiceInfoDescription *)v9 initWithServiceInfo:serviceInfo];
 
-  v33 = objc_opt_new();
+  v32 = objc_opt_new();
   v12 = objc_opt_new();
-  v45[0] = 0;
-  v45[1] = v45;
-  v45[2] = 0x2020000000;
-  v45[3] = 0;
+  v44[0] = 0;
+  v44[1] = v44;
+  v44[2] = 0x2020000000;
+  v44[3] = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __95___GCSpatialDeviceProfile_logicalDevice_makeControllerInputDescriptionWithIdentifier_bindings___block_invoke;
   aBlock[3] = &unk_1E841B1D8;
-  v44 = v45;
+  v43 = v44;
   v13 = v12;
-  v43 = v13;
+  v42 = v13;
   v14 = _Block_copy(aBlock);
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __95___GCSpatialDeviceProfile_logicalDevice_makeControllerInputDescriptionWithIdentifier_bindings___block_invoke_157;
-  v37[3] = &unk_1E841B200;
-  v39 = v45;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __95___GCSpatialDeviceProfile_logicalDevice_makeControllerInputDescriptionWithIdentifier_bindings___block_invoke_157;
+  v36[3] = &unk_1E841B200;
+  v38 = v44;
   bindingsCopy2 = bindings;
   identifierCopy2 = identifier;
   v15 = v13;
-  v38 = v15;
-  v16 = _Block_copy(v37);
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __95___GCSpatialDeviceProfile_logicalDevice_makeControllerInputDescriptionWithIdentifier_bindings___block_invoke_169;
-  v34[3] = &unk_1E841B228;
+  v37 = v15;
+  v16 = _Block_copy(v36);
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __95___GCSpatialDeviceProfile_logicalDevice_makeControllerInputDescriptionWithIdentifier_bindings___block_invoke_169;
+  v33[3] = &unk_1E841B228;
   v17 = v16;
-  v35 = v17;
+  v34 = v17;
   v18 = v14;
-  v36 = v18;
-  v19 = _Block_copy(v34);
-  underlyingDevice2 = [deviceCopy underlyingDevice];
-  v21 = [underlyingDevice2 propertyForKey:@"ElementProcessors"];
+  v35 = v18;
+  v19 = _Block_copy(v33);
+  v20 = objc_msgSend_underlyingDevice(deviceCopy);
+  v21 = [v20 propertyForKey:@"ElementProcessors"];
 
   v22 = v19[2](v19, v21);
-  [v33 setElements:v15];
-  v23 = [[_GCCollectionEventHIDAdapterDescription alloc] initWithRootParser:v22 source:v32 service:v31];
+  [v32 setElements:v15];
+  v23 = [[_GCCollectionEventHIDAdapterDescription alloc] initWithRootParser:v22 source:v31 service:v30];
   v24 = [_GCControllerInputComponentDescription alloc];
-  v46[0] = v23;
-  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:1];
-  v26 = [(_GCControllerInputComponentDescription *)v24 initWithIdentifier:identifierCopy controllerInputs:v33 bindings:v25];
+  v45[0] = v23;
+  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:1];
+  v26 = [(_GCControllerInputComponentDescription *)v24 initWithIdentifier:identifierCopy controllerInputs:v32 bindings:v25];
 
-  _Block_object_dispose(v45, 8);
-  v27 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v44, 8);
 
   return v26;
 }

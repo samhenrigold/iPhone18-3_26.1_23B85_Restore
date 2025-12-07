@@ -9,7 +9,7 @@
 
 + (Class)layerClass
 {
-  sub_1000065A8(0, &qword_100AD64F8);
+  sub_1000065A8(0, &qword_100AD64F8, CAGradientLayer_ptr);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -23,13 +23,13 @@
 - (int64_t)semanticContentAttribute
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for GradientView();
+  v3.super_class = type metadata accessor for GradientView(0);
   return [(GradientView *)&v3 semanticContentAttribute];
 }
 
 - (void)setSemanticContentAttribute:(int64_t)attribute
 {
-  v5 = type metadata accessor for GradientView();
+  v5 = type metadata accessor for GradientView(0);
   v9.receiver = self;
   v9.super_class = v5;
   selfCopy = self;

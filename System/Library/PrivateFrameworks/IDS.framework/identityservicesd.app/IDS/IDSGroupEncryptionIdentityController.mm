@@ -17,7 +17,7 @@
 
 - (id)ensurePublicIdentityForDevice:(id)device
 {
-  v5 = sub_100706B30(&qword_100CB3250);
+  v5 = sub_100706B30(&qword_100CB3250, &qword_1009B8BE0);
   __chkstk_darwin(v5 - 8);
   v7 = &v15 - v6;
   v8 = *((swift_isaMask & self->super.isa) + 0x138);

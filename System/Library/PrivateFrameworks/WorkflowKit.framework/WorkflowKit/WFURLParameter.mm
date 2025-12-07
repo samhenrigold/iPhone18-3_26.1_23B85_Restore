@@ -23,13 +23,13 @@
 {
   type metadata accessor for WFUserVisibleString();
   sub_1CA3434EC();
-  sub_1CA94C1C8();
+  v6 = sub_1CA94C1C8();
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = WFURLParameter.rewrite(_:withStrings:)(state);
+  v8 = WFURLParameter.rewrite(_:withStrings:)(state, v6);
   swift_unknownObjectRelease();
 
-  return v7;
+  return v8;
 }
 
 @end

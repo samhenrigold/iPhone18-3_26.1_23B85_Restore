@@ -77,90 +77,90 @@
 
 - (id)newMetadataDictionarySatisfyingRequirement:(id)requirement
 {
-  v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
   metadataKeys = [requirement metadataKeys];
-  v29 = 0;
-  v7 = [(BWE5InferenceStorage *)self _newPackedFloat32SurfaceForRequirement:requirement elementCount:&v29];
-  if (!v7)
+  v31 = 0;
+  v8 = [(BWE5InferenceStorage *)self _newPackedFloat32SurfaceForRequirement:requirement elementCount:&v31];
+  if (!v8)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
-    return v5;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, v30, v31, v32, v33, v34, v35);
+    return v6;
   }
 
-  v8 = v7;
-  BaseAddress = IOSurfaceGetBaseAddress(v7);
+  v9 = v8;
+  BaseAddress = IOSurfaceGetBaseAddress(v8);
   mappingOption = [requirement mappingOption];
-  v11 = mappingOption;
+  v12 = mappingOption;
   if (!mappingOption || mappingOption == 2)
   {
-    v19 = [metadataKeys count];
-    if (v19 >= v29)
+    v20 = [metadataKeys count];
+    if (v20 >= v31)
     {
-      v20 = v29;
+      v21 = v31;
     }
 
     else
     {
-      v20 = v19;
+      v21 = v20;
     }
 
-    if (!v20)
+    if (!v21)
     {
       goto LABEL_25;
     }
 
-    for (i = 0; i != v20; ++i)
+    for (i = 0; i != v21; ++i)
     {
-      v22 = [metadataKeys objectAtIndexedSubscript:i];
-      LODWORD(v23) = BaseAddress[i];
-      [v5 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithFloat:", v23), v22}];
+      v23 = [metadataKeys objectAtIndexedSubscript:i];
+      LODWORD(v24) = BaseAddress[i];
+      [v6 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithFloat:", v24), v23}];
     }
 
-    if (v11 != 2 || v29 <= v20)
+    if (v12 != 2 || v31 <= v21)
     {
       goto LABEL_25;
     }
 
-    v25 = [metadataKeys objectAtIndexedSubscript:v20 - 1];
-    v26 = [v5 objectForKeyedSubscript:v25];
-    v13 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{v26, 0}];
-    while (v20 < v29)
+    v26 = [metadataKeys objectAtIndexedSubscript:v21 - 1];
+    v27 = [v6 objectForKeyedSubscript:v26];
+    v14 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{v27, 0}];
+    while (v21 < v31)
     {
-      LODWORD(v27) = BaseAddress[v20];
-      [v13 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", v27)}];
-      ++v20;
+      LODWORD(v28) = BaseAddress[v21];
+      [v14 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", v28)}];
+      ++v21;
     }
 
-    v17 = v5;
-    v18 = v13;
-    firstObject = v25;
+    v18 = v6;
+    v19 = v14;
+    firstObject = v26;
     goto LABEL_24;
   }
 
   if (mappingOption == 1)
   {
-    v12 = objc_alloc(MEMORY[0x1E695DF70]);
-    v13 = [v12 initWithCapacity:v29];
-    if (v29)
+    v13 = objc_alloc(MEMORY[0x1E695DF70]);
+    v14 = [v13 initWithCapacity:v31];
+    if (v31)
     {
-      for (j = 0; j < v29; ++j)
+      for (j = 0; j < v31; ++j)
       {
-        LODWORD(v14) = BaseAddress[j];
-        [v13 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", v14)}];
+        LODWORD(v15) = BaseAddress[j];
+        [v14 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", v15)}];
       }
     }
 
     firstObject = [metadataKeys firstObject];
-    v17 = v5;
-    v18 = v13;
+    v18 = v6;
+    v19 = v14;
 LABEL_24:
-    [v17 setObject:v18 forKeyedSubscript:firstObject];
+    [v18 setObject:v19 forKeyedSubscript:firstObject];
   }
 
 LABEL_25:
-  CFRelease(v8);
-  return v5;
+  CFRelease(v9);
+  return v6;
 }
 
 @end

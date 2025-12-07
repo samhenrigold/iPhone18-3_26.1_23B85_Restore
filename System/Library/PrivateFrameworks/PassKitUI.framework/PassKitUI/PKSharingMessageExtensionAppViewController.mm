@@ -49,24 +49,42 @@
 {
   if (self->_messageBubbleViewController)
   {
-    [(UIViewController *)self pkui_userInterfaceIdiomSupportsLargeLayouts];
-    PKFloatRoundToPixel();
-    v5 = fmin(v4, 600.0);
-    [(PKMessageExtensionMessageBubbleViewControllerProtocol *)self->_messageBubbleViewController heightThatFitsWidth:v5];
-    v7 = v6;
+    if (fits.height <= fits.width)
+    {
+      height = fits.height;
+    }
+
+    else
+    {
+      height = fits.width;
+    }
+
+    pkui_userInterfaceIdiomSupportsLargeLayouts = [(UIViewController *)self pkui_userInterfaceIdiomSupportsLargeLayouts];
+    v7.n128_u64[0] = 0x3FECCCCCC0000000;
+    if (pkui_userInterfaceIdiomSupportsLargeLayouts)
+    {
+      v7.n128_f64[0] = 0.850000024;
+    }
+
+    v6.n128_u64[0] = 0x4069000000000000;
+    v7.n128_f64[0] = fmax(height * v7.n128_f64[0], 200.0);
+    PKFloatRoundToPixel(v7, v6);
+    v9 = fmin(v8, 600.0);
+    [(PKMessageExtensionMessageBubbleViewControllerProtocol *)self->_messageBubbleViewController heightThatFitsWidth:v9];
+    v11 = v10;
   }
 
   else
   {
-    v10.receiver = self;
-    v10.super_class = PKSharingMessageExtensionAppViewController;
-    [(MSMessagesAppViewController *)&v10 contentSizeThatFits:fits.width, fits.height];
-    v5 = v8;
+    v14.receiver = self;
+    v14.super_class = PKSharingMessageExtensionAppViewController;
+    [(MSMessagesAppViewController *)&v14 contentSizeThatFits:fits.width, fits.height];
+    v9 = v12;
   }
 
-  v9 = v5;
-  result.height = v7;
-  result.width = v9;
+  v13 = v9;
+  result.height = v11;
+  result.width = v13;
   return result;
 }
 

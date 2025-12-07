@@ -14,7 +14,7 @@
 {
   if (!d)
   {
-    [BWSmartFramingPerceptionSinkNode initWithSinkID:captureDevice:inferenceScheduler:];
+    [(BWSmartFramingPerceptionSinkNode *)self initWithSinkID:a2 captureDevice:0 inferenceScheduler:device, scheduler];
 LABEL_11:
 
     return 0;
@@ -22,7 +22,7 @@ LABEL_11:
 
   if (!device)
   {
-    [BWSmartFramingPerceptionSinkNode initWithSinkID:captureDevice:inferenceScheduler:];
+    [BWSmartFramingPerceptionSinkNode initWithSinkID:a2 captureDevice:? inferenceScheduler:?];
     goto LABEL_11;
   }
 
@@ -111,7 +111,7 @@ LABEL_11:
 
 - (id)inputInferenceVideoFormatForAttachedMediaKey:(id)key
 {
-  if (![key isEqualToString:@"PrimaryFormat"])
+  if (!objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
     return 0;
   }
@@ -139,7 +139,7 @@ LABEL_11:
   else
   {
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
   }
 }
 
@@ -150,15 +150,15 @@ LABEL_11:
   {
     if (![(BWFigVideoCaptureDevice *)self->_captureDevice dockedTrackingActive])
     {
-      memset(&v148, 0, sizeof(v148));
-      CMSampleBufferGetPresentationTimeStamp(&v148, bufferCopy);
-      memset(&v147, 0, sizeof(v147));
-      lhs = v148;
+      memset(&v151, 0, sizeof(v151));
+      CMSampleBufferGetPresentationTimeStamp(&v151, bufferCopy);
+      memset(&v150, 0, sizeof(v150));
+      lhs = v151;
       rhs = *(&self->_inferenceSkipInterval.epoch + 4);
-      CMTimeSubtract(&v147, &lhs, &rhs);
+      CMTimeSubtract(&v150, &lhs, &rhs);
       if (self->_faceGroupIDsForInference)
       {
-        lhs = v147;
+        lhs = v150;
         rhs = *(&self->_previousInferenceComplete + 4);
         if (CMTimeCompare(&lhs, &rhs) >= 1)
         {
@@ -170,40 +170,38 @@ LABEL_11:
             os_unfair_lock_lock(&self->_lastInferenceFramePTS.epoch + 1);
             self->_previousInferenceComplete = 0;
             os_unfair_lock_unlock(&self->_lastInferenceFramePTS.epoch + 1);
-            *(&self->_inferenceSkipInterval.epoch + 4) = v148;
+            *(&self->_inferenceSkipInterval.epoch + 4) = v151;
             lhs.value = 0;
             CopyIncludingMetadata = BWCMSampleBufferCreateCopyIncludingMetadata(self->_faceGroupIDsForInference, &lhs);
             if (CopyIncludingMetadata)
             {
-              v85 = v4;
-              LODWORD(v82) = CopyIncludingMetadata;
-              FigDebugAssert3();
+              FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", CopyIncludingMetadata, v4, v90, v94, block, v99, v100, v101);
             }
 
             else
             {
               v9 = [objc_msgSend(CMGetAttachment(bufferCopy *off_1E798A5A8];
               v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
-              v141 = 0u;
-              v142 = 0u;
-              v143 = 0u;
               v144 = 0u;
-              v18 = OUTLINED_FUNCTION_3_87(v10, v11, v12, v13, v14, v15, v16, v17, v82, v85, v88, bufferCopy, block, v96, v97, v98, selfCopy, value, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, *(&v117 + 1), v118, *(&v118 + 1), v119, *(&v119 + 1), v120, *(&v120 + 1), v121, v122, v123, v124, v125, v126, v127, v128, v129, v130, v131, v132, v133, v134, v135, v136, v137, *(&v137 + 1), v138, *(&v138 + 1), v139);
+              v145 = 0u;
+              v146 = 0u;
+              v147 = 0u;
+              v18 = OUTLINED_FUNCTION_3_87(v10, v11, v12, v13, v14, v15, v16, v17, v82, v86, v90, bufferCopy, block, v99, v100, v101, selfCopy, value, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118, v119, v120, *(&v120 + 1), v121, *(&v121 + 1), v122, *(&v122 + 1), v123, *(&v123 + 1), v124, v125, v126, v127, v128, v129, v130, v131, v132, v133, v134, v135, v136, v137, v138, v139, v140, *(&v140 + 1), v141, *(&v141 + 1), v142);
               if (v18)
               {
                 v19 = v18;
-                v20 = *v142;
+                v20 = *v145;
                 v21 = *off_1E798AC70;
                 do
                 {
                   for (i = 0; i != v19; ++i)
                   {
-                    if (*v142 != v20)
+                    if (*v145 != v20)
                     {
                       objc_enumerationMutation(v9);
                     }
 
-                    v23 = [*(*(&v141 + 1) + 8 * i) objectForKeyedSubscript:v21];
+                    v23 = [*(*(&v144 + 1) + 8 * i) objectForKeyedSubscript:v21];
                     if (([*&self->_inferenceLock._os_unfair_lock_opaque containsObject:v23] & 1) == 0)
                     {
                       [*&self->_inferenceLock._os_unfair_lock_opaque insertObject:v23 atIndex:0];
@@ -212,33 +210,33 @@ LABEL_11:
                     v24 = [v10 addObject:v23];
                   }
 
-                  v19 = OUTLINED_FUNCTION_3_87(v24, v25, v26, v27, v28, v29, v30, v31, v83, v86, v89, v92, block, v96, v97, v98, selfCopy, value, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, *(&v117 + 1), v118, *(&v118 + 1), v119, *(&v119 + 1), v120, *(&v120 + 1), v121, v122, v123, v124, v125, v126, v127, v128, v129, v130, v131, v132, v133, v134, v135, v136, v137, *(&v137 + 1), v138, *(&v138 + 1), v139);
+                  v19 = OUTLINED_FUNCTION_3_87(v24, v25, v26, v27, v28, v29, v30, v31, v83, v87, v91, v95, block, v99, v100, v101, selfCopy, value, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118, v119, v120, *(&v120 + 1), v121, *(&v121 + 1), v122, *(&v122 + 1), v123, *(&v123 + 1), v124, v125, v126, v127, v128, v129, v130, v131, v132, v133, v134, v135, v136, v137, v138, v139, v140, *(&v140 + 1), v141, *(&v141 + 1), v142);
                 }
 
                 while (v19);
               }
 
               v32 = objc_alloc_init(MEMORY[0x1E695DF70]);
-              v137 = 0u;
-              v138 = 0u;
-              v139 = 0u;
               v140 = 0u;
+              v141 = 0u;
+              v142 = 0u;
+              v143 = 0u;
               v33 = *&self->_inferenceLock._os_unfair_lock_opaque;
-              v41 = OUTLINED_FUNCTION_1_109(v32, v34, v35, v36, v37, v38, v39, v40, v83, v86, v89, v92, block, v96, v97, v98, selfCopy, value, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, *(&v117 + 1), v118, *(&v118 + 1), v119, *(&v119 + 1), v120, *(&v120 + 1), v121, v122, v123, v124, v125, v126, v127, v128, v129, v130, v131, v132, v133, v134, v135, v136, 0);
+              v41 = OUTLINED_FUNCTION_1_109(v32, v34, v35, v36, v37, v38, v39, v40, v83, v87, v91, v95, block, v99, v100, v101, selfCopy, value, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118, v119, v120, *(&v120 + 1), v121, *(&v121 + 1), v122, *(&v122 + 1), v123, *(&v123 + 1), v124, v125, v126, v127, v128, v129, v130, v131, v132, v133, v134, v135, v136, v137, v138, v139);
               if (v41)
               {
                 v42 = v41;
-                v43 = *v138;
+                v43 = *v141;
                 do
                 {
                   for (j = 0; j != v42; ++j)
                   {
-                    if (*v138 != v43)
+                    if (*v141 != v43)
                     {
                       objc_enumerationMutation(v33);
                     }
 
-                    v45 = *(*(&v137 + 1) + 8 * j);
+                    v45 = *(*(&v140 + 1) + 8 * j);
                     v46 = [v10 containsObject:v45];
                     if ((v46 & 1) == 0)
                     {
@@ -246,7 +244,7 @@ LABEL_11:
                     }
                   }
 
-                  v42 = OUTLINED_FUNCTION_1_109(v46, v47, v48, v49, v50, v51, v52, v53, v84, v87, v90, v93, block, v96, v97, v98, selfCopy, value, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, *(&v117 + 1), v118, *(&v118 + 1), v119, *(&v119 + 1), v120, *(&v120 + 1), v121, v122, v123, v124, v125, v126, v127, v128, v129, v130, v131, v132, v133, v134, v135, v136, v137);
+                  v42 = OUTLINED_FUNCTION_1_109(v46, v47, v48, v49, v50, v51, v52, v53, v84, v88, v92, v96, block, v99, v100, v101, selfCopy, value, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118, v119, v120, *(&v120 + 1), v121, *(&v121 + 1), v122, *(&v122 + 1), v123, *(&v123 + 1), v124, v125, v126, v127, v128, v129, v130, v131, v132, v133, v134, v135, v136, v137, v138, v139);
                 }
 
                 while (v42);
@@ -266,26 +264,26 @@ LABEL_11:
               [*&self->_inferenceLock._os_unfair_lock_opaque removeObjectsInRange:{0, v56}];
               [*&self->_inferenceLock._os_unfair_lock_opaque addObjectsFromArray:v57];
               v58 = objc_alloc_init(MEMORY[0x1E695DF70]);
-              v117 = 0u;
-              v118 = 0u;
-              v119 = 0u;
               v120 = 0u;
-              v66 = OUTLINED_FUNCTION_60_1(v58, v59, v60, v61, v62, v63, v64, v65, v84, v87, v90, v93, block, v96, v97, v98, selfCopy, value, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, 0);
+              v121 = 0u;
+              v122 = 0u;
+              v123 = 0u;
+              v66 = OUTLINED_FUNCTION_60_1(v58, v59, v60, v61, v62, v63, v64, v65, v84, v88, v92, v96, block, v99, v100, v101, selfCopy, value, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118, v119);
               if (v66)
               {
                 v67 = v66;
-                v68 = *v118;
+                v68 = *v121;
                 v69 = *off_1E798AC70;
                 do
                 {
                   for (k = 0; k != v67; ++k)
                   {
-                    if (*v118 != v68)
+                    if (*v121 != v68)
                     {
                       objc_enumerationMutation(v9);
                     }
 
-                    v71 = *(*(&v117 + 1) + 8 * k);
+                    v71 = *(*(&v120 + 1) + 8 * k);
                     v72 = [v57 containsObject:{objc_msgSend(v71, "objectForKeyedSubscript:", v69)}];
                     if (v72)
                     {
@@ -293,7 +291,7 @@ LABEL_11:
                     }
                   }
 
-                  v67 = OUTLINED_FUNCTION_60_1(v72, v73, v74, v75, v76, v77, v78, v79, v82, v85, v91, v94, block, v96, v97, v98, selfCopy, value, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117);
+                  v67 = OUTLINED_FUNCTION_60_1(v72, v73, v74, v75, v76, v77, v78, v79, v85, v89, v93, v97, block, v99, v100, v101, selfCopy, value, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118, v119);
                 }
 
                 while (v67);
@@ -301,14 +299,14 @@ LABEL_11:
 
               CMSetAttachment(lhs.value, *off_1E798A5A0, v58, 1u);
               block = MEMORY[0x1E69E9820];
-              v96 = 3221225472;
-              v97 = __64__BWSmartFramingPerceptionSinkNode_renderSampleBuffer_forInput___block_invoke;
-              v98 = &unk_1E7990178;
+              v99 = 3221225472;
+              v100 = __64__BWSmartFramingPerceptionSinkNode_renderSampleBuffer_forInput___block_invoke;
+              v101 = &unk_1E7990178;
               selfCopy = self;
               value = lhs.value;
               dispatch_async(self->_inferenceQueue, &block);
 
-              bufferCopy = v94;
+              bufferCopy = v97;
             }
           }
         }
@@ -333,7 +331,7 @@ LABEL_11:
   }
 
   self->_faceGroupIDsForInference = v81;
-  [(BWNodeOutput *)self->super.super._output emitSampleBuffer:bufferCopy, v82, v85];
+  [(BWNodeOutput *)self->super.super._output emitSampleBuffer:bufferCopy];
 }
 
 void __64__BWSmartFramingPerceptionSinkNode_renderSampleBuffer_forInput___block_invoke(uint64_t a1)
@@ -346,7 +344,7 @@ void __64__BWSmartFramingPerceptionSinkNode_renderSampleBuffer_forInput___block_
     {
       v3 = v2;
       v4 = [MEMORY[0x1E695DF90] dictionary];
-      v12 = OUTLINED_FUNCTION_1_2(v4, v5, v6, v7, v8, v9, v10, v11, v27, v1, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, 0);
+      v12 = OUTLINED_FUNCTION_1_2(v4, v5, v6, v7, v8, v9, v10, v11, v27, v1, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60);
       if (v12)
       {
         v13 = v12;
@@ -373,7 +371,7 @@ void __64__BWSmartFramingPerceptionSinkNode_renderSampleBuffer_forInput___block_
             }
           }
 
-          v13 = OUTLINED_FUNCTION_1_2(v18, v19, v20, v21, v22, v23, v24, v25, v28, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v62);
+          v13 = OUTLINED_FUNCTION_1_2(v18, v19, v20, v21, v22, v23, v24, v25, v28, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61);
         }
 
         while (v13);

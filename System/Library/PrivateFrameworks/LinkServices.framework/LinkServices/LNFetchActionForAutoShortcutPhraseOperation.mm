@@ -31,28 +31,26 @@
 
 - (void)start
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v9.receiver = self;
-  v9.super_class = LNFetchActionForAutoShortcutPhraseOperation;
-  [(LNConnectionOperation *)&v9 start];
+  v11 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = LNFetchActionForAutoShortcutPhraseOperation;
+  [(LNConnectionOperation *)&v8 start];
   v3 = getLNLogCategoryConnection();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     autoShortcutPhrase = [(LNFetchActionForAutoShortcutPhraseOperation *)self autoShortcutPhrase];
     *buf = 138412290;
-    v11 = autoShortcutPhrase;
+    v10 = autoShortcutPhrase;
   }
 
   connectionInterface = [(LNInterfaceConnectionOperation *)self connectionInterface];
   autoShortcutPhrase2 = [(LNFetchActionForAutoShortcutPhraseOperation *)self autoShortcutPhrase];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __52__LNFetchActionForAutoShortcutPhraseOperation_start__block_invoke;
-  v8[3] = &unk_1E74B1958;
-  v8[4] = self;
-  [connectionInterface fetchActionForAutoShortcutPhrase:autoShortcutPhrase2 completionHandler:v8];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __52__LNFetchActionForAutoShortcutPhraseOperation_start__block_invoke;
+  v7[3] = &unk_1E74B1958;
+  v7[4] = self;
+  [connectionInterface fetchActionForAutoShortcutPhrase:autoShortcutPhrase2 completionHandler:v7];
 }
 
 void __52__LNFetchActionForAutoShortcutPhraseOperation_start__block_invoke(uint64_t a1, void *a2, void *a3)

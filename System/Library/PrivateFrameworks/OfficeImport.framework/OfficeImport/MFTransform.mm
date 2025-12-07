@@ -396,7 +396,7 @@ LABEL_10:
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [[MFTransform allocWithZone:?], "initWithDriver:", self->m_deviceDriver];
-  [(MFTransform *)self getWorldMatrix];
+  objc_msgSend_getWorldMatrix(self);
   [(MFTransform *)v4 setWorldMatrix:v6];
   [(MFTransform *)self getWindowOrg];
   [(MFTransform *)v4 setWindowOrg:?];
@@ -406,7 +406,7 @@ LABEL_10:
   [(MFTransform *)v4 setViewportOrg:?];
   [(MFTransform *)self getViewportExtent];
   [(MFTransform *)v4 setViewportExt:?];
-  [(MFTransform *)self getTransformMatrix];
+  objc_msgSend_getTransformMatrix(self);
   [(MFTransform *)v4 setTransformMatrix:v6];
   [(MFTransform *)v4 setMapMode:[(MFTransform *)self getMapMode]];
   return v4;

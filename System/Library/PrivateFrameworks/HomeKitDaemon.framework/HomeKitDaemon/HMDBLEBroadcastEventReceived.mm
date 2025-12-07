@@ -1,4 +1,5 @@
 @interface HMDBLEBroadcastEventReceived
++ (id)broadcastEventFromAccessory:(id)accessory withExpectedGSN:(BOOL)n;
 - (id)initBroadcastEventFromAccessory:(id)accessory withExpectedGSN:(BOOL)n;
 @end
 
@@ -18,6 +19,15 @@
   }
 
   return v9;
+}
+
++ (id)broadcastEventFromAccessory:(id)accessory withExpectedGSN:(BOOL)n
+{
+  nCopy = n;
+  accessoryCopy = accessory;
+  v6 = [[HMDBLEBroadcastEventReceived alloc] initBroadcastEventFromAccessory:accessoryCopy withExpectedGSN:nCopy];
+
+  return v6;
 }
 
 @end

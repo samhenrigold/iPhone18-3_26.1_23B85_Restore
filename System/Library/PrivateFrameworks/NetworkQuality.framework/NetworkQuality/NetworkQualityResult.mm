@@ -233,11 +233,9 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  downlinkCapacity = self->_downlinkCapacity;
-  downlinkResponsiveness = self->_downlinkResponsiveness;
-  v8 = [v3 stringWithFormat:@"<%@: _downlinkCapacity=%@, _uplinkCapacity=%@, _downlinkResponsiveness=%@, _uplinkResponsiveness=%@>", v5, downlinkCapacity, self->_uplinkCapacity, downlinkResponsiveness, self->_uplinkResponsiveness];
+  v6 = [v3 stringWithFormat:@"<%@: _downlinkCapacity=%@, _uplinkCapacity=%@, _downlinkResponsiveness=%@, _uplinkResponsiveness=%@>", v5, self->_downlinkCapacity, self->_uplinkCapacity, self->_downlinkResponsiveness, self->_uplinkResponsiveness];
 
-  return v8;
+  return v6;
 }
 
 + (int64_t)ratingForResponsivenessScore:(int64_t)score

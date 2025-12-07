@@ -1,4 +1,5 @@
 @interface CameraVideoSettingsController
++ (id)_footerForVideoConfiguration:(id)configuration willUseHEVC:(BOOL)c willUseDolbyVision:(BOOL)vision;
 + (id)_titleForVideoConfiguration:(int64_t)configuration isHEVCEnabled:(BOOL)enabled isHDR10BitVideoEnabled:(BOOL)videoEnabled;
 + (id)_videoConfigurationFooterForPrefixString:(id)string useHEVC:(BOOL)c useDolbyVision:(BOOL)vision;
 + (id)shortTitleForVideoConfiguration:(id)configuration;
@@ -11,6 +12,7 @@
 - (int64_t)_cinematicConfiguration;
 - (int64_t)_slomoConfiguration;
 - (int64_t)_videoConfiguration;
+- (void)_addSwitchWithTitle:(id)title footer:(id)footer domain:(id)domain keyName:(id)name defaultValue:(BOOL)value toSpecifiers:(id)specifiers;
 - (void)_handleConfirmHDRVideoHighEfficiencyLearnMore:(id)more;
 - (void)_handleConfirmHighEfficiencyLearnMore:(id)more;
 - (void)_handleHDR10BitVideoMostCompatibleConfirmed:(id)confirmed;
@@ -23,6 +25,7 @@
 - (void)_showConfirmationSpecifierWithTitle:(id)title prompt:(id)prompt cancelText:(id)text okText:(id)okText target:(id)target confirmationAction:(SEL)action cancelAction:(SEL)cancelAction value:(id)self0;
 - (void)emitNavigationEvent;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -385,6 +388,14 @@ LABEL_84:
   [(CameraVideoSettingsController *)self setTitle:v3];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CameraVideoSettingsController;
+  [(CameraVideoSettingsController *)&v4 viewDidAppear:appear];
+  [(CameraVideoSettingsController *)self emitNavigationEvent];
+}
+
 - (void)emitNavigationEvent
 {
   v3 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Camera/CameraVideoSettingsList"];
@@ -403,6 +414,29 @@ LABEL_84:
   v15 = v13;
   v14 = [NSArray arrayWithObjects:&v15 count:1];
   [(CameraVideoSettingsController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.camera" title:v8 localizedNavigationComponents:v14 deepLink:v3];
+}
+
+- (void)_addSwitchWithTitle:(id)title footer:(id)footer domain:(id)domain keyName:(id)name defaultValue:(BOOL)value toSpecifiers:(id)specifiers
+{
+  valueCopy = value;
+  specifiersCopy = specifiers;
+  nameCopy = name;
+  domainCopy = domain;
+  footerCopy = footer;
+  titleCopy = title;
+  v21 = [PSSpecifier groupSpecifierWithName:0];
+  [v21 setObject:footerCopy forKeyedSubscript:PSFooterTextGroupKey];
+
+  [specifiersCopy addObject:v21];
+  v19 = [PSSpecifier preferenceSpecifierNamed:titleCopy target:self set:"setPreferenceValue:specifier:" get:"readPreferenceValue:" detail:0 cell:6 edit:0];
+
+  [v19 setObject:domainCopy forKeyedSubscript:PSDefaultsKey];
+  [v19 setObject:nameCopy forKeyedSubscript:PSKeyNameKey];
+
+  v20 = [NSNumber numberWithBool:valueCopy];
+  [v19 setObject:v20 forKeyedSubscript:PSDefaultValueKey];
+
+  [specifiersCopy addObject:v19];
 }
 
 - (int64_t)_videoConfiguration
@@ -599,6 +633,113 @@ LABEL_33:
   }
 
   return v4;
+}
+
++ (id)_footerForVideoConfiguration:(id)configuration willUseHEVC:(BOOL)c willUseDolbyVision:(BOOL)vision
+{
+  visionCopy = vision;
+  cCopy = c;
+  integerValue = [configuration integerValue];
+  v9 = 0;
+  if (integerValue > 8)
+  {
+    if (integerValue > 11)
+    {
+      if (integerValue == &dword_C)
+      {
+        v10 = @"CAM_RECORD_VIDEO_4K_25";
+        goto LABEL_27;
+      }
+
+      if (integerValue == (&dword_C + 1))
+      {
+        v10 = @"CAM_RECORD_VIDEO_4K_120";
+      }
+
+      else
+      {
+        if (integerValue != (&dword_C + 2))
+        {
+          goto LABEL_28;
+        }
+
+        v10 = @"CAM_RECORD_VIDEO_4K_100";
+      }
+    }
+
+    else
+    {
+      if (integerValue != (&dword_8 + 1))
+      {
+        if (integerValue == (&dword_8 + 2))
+        {
+          v10 = @"CAM_RECORD_VIDEO_4K_24";
+        }
+
+        else
+        {
+          v10 = @"CAM_RECORD_VIDEO_1080p_25";
+        }
+
+        goto LABEL_27;
+      }
+
+      v10 = @"CAM_RECORD_VIDEO_4K_60";
+    }
+
+    cCopy = 1;
+    goto LABEL_27;
+  }
+
+  if (integerValue > 4)
+  {
+    if (integerValue == (&dword_4 + 1))
+    {
+      v10 = @"CAM_RECORD_VIDEO_4K_30";
+      goto LABEL_27;
+    }
+
+    if (integerValue == (&dword_4 + 2))
+    {
+      v10 = @"CAM_RECORD_VIDEO_720p_30";
+      goto LABEL_27;
+    }
+
+    if (integerValue != (&dword_4 + 3))
+    {
+      goto LABEL_28;
+    }
+  }
+
+  else if (integerValue)
+  {
+    if (integerValue == (&dword_0 + 1))
+    {
+      v10 = @"CAM_RECORD_VIDEO_1080p_60";
+    }
+
+    else
+    {
+      if (integerValue != &dword_4)
+      {
+        goto LABEL_28;
+      }
+
+      cCopy = cCopy | visionCopy;
+      v10 = @"CAM_RECORD_VIDEO_1080P_120";
+    }
+
+    goto LABEL_27;
+  }
+
+  v10 = @"CAM_RECORD_VIDEO_1080p_30";
+LABEL_27:
+  v11 = [self _videoConfigurationFooterForPrefixString:v10 useHEVC:cCopy useDolbyVision:visionCopy];
+  v9 = sub_BCD8(v11);
+
+LABEL_28:
+
+  return v9;
 }
 
 + (id)_videoConfigurationFooterForPrefixString:(id)string useHEVC:(BOOL)c useDolbyVision:(BOOL)vision

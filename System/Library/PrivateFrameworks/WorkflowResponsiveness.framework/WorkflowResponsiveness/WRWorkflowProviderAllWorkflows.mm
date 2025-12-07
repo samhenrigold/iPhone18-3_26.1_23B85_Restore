@@ -38,10 +38,9 @@ uint64_t __56__WRWorkflowProviderAllWorkflows_handleSettingsChanged___block_invo
     Property = objc_getProperty(Property, a2, 32, 1);
   }
 
-  v4 = *(a1 + 40);
-  v5 = Property[2];
+  v3 = Property[2];
 
-  return v5();
+  return v3();
 }
 
 - (uint64_t)handleSettingsChanged:(id)a1 .cold.1(id a1, char *a2)
@@ -103,17 +102,18 @@ LABEL_14:
     ;
   }
 
-  v15 = *__error();
-  v16 = _wrlog();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v15 = __error();
+  v16 = *v15;
+  v17 = _wrlog(v15);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     OUTLINED_FUNCTION_9_0();
-    _os_log_debug_impl(v19, v20, v21, v22, v23, 2u);
+    _os_log_debug_impl(v20, v21, v22, v23, v24, 2u);
   }
 
-  v17 = __error();
+  v18 = __error();
   result = 0;
-  *v17 = v15;
+  *v18 = v16;
   return result;
 }
 

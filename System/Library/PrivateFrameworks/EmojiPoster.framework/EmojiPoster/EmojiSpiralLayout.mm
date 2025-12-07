@@ -68,20 +68,20 @@
 - (id)layoutAttributesForElementsInRect:(CGRect)rect
 {
   selfCopy = self;
-  v4 = sub_249FED7B0();
+  v5 = sub_249FED7B0(selfCopy, v4);
 
-  if (v4)
+  if (v5)
   {
     sub_249FEDA9C();
-    v5 = sub_24A0217C8();
+    v6 = sub_24A0217C8();
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)change

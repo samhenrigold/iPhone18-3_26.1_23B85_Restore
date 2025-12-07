@@ -51,50 +51,46 @@
 
 void __53__SecEscrowRequest_escrowCompletedWithinLastSeconds___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   v5 = secLogObjForScope("escrow");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "resetAllRequests: Failed to get XPC connection: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "resetAllRequests: Failed to get XPC connection: %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __53__SecEscrowRequest_escrowCompletedWithinLastSeconds___block_invoke_99(uint64_t a1, char a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v6 = a3;
   *(*(*(a1 + 32) + 8) + 24) = a2;
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
   v7 = secLogObjForScope("escrow");
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEFAULT, "resetAllRequests: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEFAULT, "resetAllRequests: %@", &v8, 0xCu);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)pendingEscrowUpload:(id *)upload
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v22 = 0;
-  v4 = [(SecEscrowRequest *)self fetchStatuses:&v22];
-  v5 = v22;
+  v25 = *MEMORY[0x1E69E9840];
+  v21 = 0;
+  v4 = [(SecEscrowRequest *)self fetchStatuses:&v21];
+  v5 = v21;
   if (v5)
   {
     v6 = secLogObjForScope("escrow");
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v25 = v5;
+      v24 = v5;
       _os_log_impl(&dword_1887D2000, v6, OS_LOG_TYPE_DEFAULT, "failed to fetch escrow statuses: %@", buf, 0xCu);
     }
 
@@ -116,35 +112,35 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
-  v17 = v4;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v16 = v4;
   allValues = [v4 allValues];
-  v10 = [allValues countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v10 = [allValues countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
     v8 = 0;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
+        v14 = *(*(&v17 + 1) + 8 * i);
         if (([v14 isEqualToString:@"have_prerecord"] & 1) != 0 || (objc_msgSend(v14, "isEqualToString:", @"pending_passcode") & 1) != 0 || objc_msgSend(v14, "isEqualToString:", @"pending_certificate"))
         {
           v8 = 1;
         }
       }
 
-      v11 = [allValues countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v11 = [allValues countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
     while (v11);
@@ -155,10 +151,9 @@ LABEL_20:
     v8 = 0;
   }
 
-  v4 = v17;
+  v4 = v16;
 LABEL_23:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v8 & 1;
 }
 
@@ -207,37 +202,33 @@ LABEL_23:
 
 void __44__SecEscrowRequest_storePrerecordsInEscrow___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   v5 = secLogObjForScope("escrow");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "fetchRequestWaitingOnPasscode: Failed to get XPC connection: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "fetchRequestWaitingOnPasscode: Failed to get XPC connection: %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __44__SecEscrowRequest_storePrerecordsInEscrow___block_invoke_97(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v6 = a3;
   *(*(*(a1 + 32) + 8) + 24) = a2;
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
   v7 = secLogObjForScope("escrow");
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9[0] = 67109378;
-    v9[1] = a2;
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEFAULT, "Stored %d records: %@", v9, 0x12u);
+    v8[0] = 67109378;
+    v8[1] = a2;
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_1887D2000, v7, OS_LOG_TYPE_DEFAULT, "Stored %d records: %@", v8, 0x12u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)resetAllRequests:(id *)requests
@@ -281,34 +272,30 @@ void __44__SecEscrowRequest_storePrerecordsInEscrow___block_invoke_97(uint64_t a
 
 void __37__SecEscrowRequest_resetAllRequests___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   v5 = secLogObjForScope("escrow");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "resetAllRequests: Failed to get XPC connection: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "resetAllRequests: Failed to get XPC connection: %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __37__SecEscrowRequest_resetAllRequests___block_invoke_96(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   v5 = secLogObjForScope("escrow");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "resetAllRequests: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "resetAllRequests: %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)fetchStatuses:(id *)statuses
@@ -359,23 +346,21 @@ void __37__SecEscrowRequest_resetAllRequests___block_invoke_96(uint64_t a1, void
 
 void __34__SecEscrowRequest_fetchStatuses___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   v5 = secLogObjForScope("escrow");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "requestStatuses: Failed to get XPC connection: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "requestStatuses: Failed to get XPC connection: %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __34__SecEscrowRequest_fetchStatuses___block_invoke_94(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
@@ -384,14 +369,12 @@ void __34__SecEscrowRequest_fetchStatuses___block_invoke_94(uint64_t a1, void *a
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *(*(*(a1 + 32) + 8) + 40);
-    v11 = 138412546;
-    v12 = v9;
-    v13 = 2112;
-    v14 = v7;
-    _os_log_impl(&dword_1887D2000, v8, OS_LOG_TYPE_DEFAULT, "Received statuses: %@ %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v9;
+    v12 = 2112;
+    v13 = v7;
+    _os_log_impl(&dword_1887D2000, v8, OS_LOG_TYPE_DEFAULT, "Received statuses: %@ %@", &v10, 0x16u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)fetchRequestWaitingOnPasscode:(id *)passcode
@@ -442,23 +425,21 @@ void __34__SecEscrowRequest_fetchStatuses___block_invoke_94(uint64_t a1, void *a
 
 void __50__SecEscrowRequest_fetchRequestWaitingOnPasscode___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   v5 = secLogObjForScope("escrow");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "fetchRequestWaitingOnPasscode: Failed to get XPC connection: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "fetchRequestWaitingOnPasscode: Failed to get XPC connection: %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __50__SecEscrowRequest_fetchRequestWaitingOnPasscode___block_invoke_92(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
@@ -466,14 +447,12 @@ void __50__SecEscrowRequest_fetchRequestWaitingOnPasscode___block_invoke_92(uint
   v8 = secLogObjForScope("escrow");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412546;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v7;
-    _os_log_impl(&dword_1887D2000, v8, OS_LOG_TYPE_DEFAULT, "Received request waiting on passcode: %@ %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v7;
+    _os_log_impl(&dword_1887D2000, v8, OS_LOG_TYPE_DEFAULT, "Received request waiting on passcode: %@ %@", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)fetchPrerecord:(id)prerecord error:(id *)error
@@ -527,23 +506,21 @@ void __50__SecEscrowRequest_fetchRequestWaitingOnPasscode___block_invoke_92(uint
 
 void __41__SecEscrowRequest_fetchPrerecord_error___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   v5 = secLogObjForScope("escrow");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "fetchprerecord: Failed to get XPC connection: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "fetchprerecord: Failed to get XPC connection: %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __41__SecEscrowRequest_fetchPrerecord_error___block_invoke_90(void *a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   objc_storeStrong((*(a1[5] + 8) + 40), a2);
@@ -552,14 +529,12 @@ void __41__SecEscrowRequest_fetchPrerecord_error___block_invoke_90(void *a1, voi
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = a1[4];
-    v11 = 138412546;
-    v12 = v9;
-    v13 = 2112;
-    v14 = v7;
-    _os_log_impl(&dword_1887D2000, v8, OS_LOG_TYPE_DEFAULT, "Received prerecord for %@: %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v9;
+    v12 = 2112;
+    v13 = v7;
+    _os_log_impl(&dword_1887D2000, v8, OS_LOG_TYPE_DEFAULT, "Received prerecord for %@: %@", &v10, 0x16u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)cachePrerecord:(id)prerecord serializedPrerecord:(id)serializedPrerecord error:(id *)error
@@ -607,37 +582,33 @@ void __41__SecEscrowRequest_fetchPrerecord_error___block_invoke_90(void *a1, voi
 
 void __61__SecEscrowRequest_cachePrerecord_serializedPrerecord_error___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   v5 = secLogObjForScope("escrow");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "cachePrerecord: Failed to get XPC connection: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "cachePrerecord: Failed to get XPC connection: %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __61__SecEscrowRequest_cachePrerecord_serializedPrerecord_error___block_invoke_89(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
   v5 = secLogObjForScope("escrow");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "Cached prerecord for %@: %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v4;
+    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "Cached prerecord for %@: %@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)triggerEscrowUpdate:(id)update options:(id)options error:(id *)error
@@ -685,37 +656,33 @@ void __61__SecEscrowRequest_cachePrerecord_serializedPrerecord_error___block_inv
 
 void __54__SecEscrowRequest_triggerEscrowUpdate_options_error___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   v5 = secLogObjForScope("escrow");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "triggerEscrowUpdate: Failed to get XPC connection: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "triggerEscrowUpdate: Failed to get XPC connection: %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __54__SecEscrowRequest_triggerEscrowUpdate_options_error___block_invoke_88(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = a2;
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
   v5 = secLogObjForScope("escrow");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "Triggered escrow update for '%@': %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v4;
+    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, "Triggered escrow update for '%@': %@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -745,7 +712,7 @@ void __54__SecEscrowRequest_triggerEscrowUpdate_options_error___block_invoke_88(
 
 + (id)request:(id *)request
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v4 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.security.escrow-update" options:0];
   if (v4)
   {
@@ -761,15 +728,13 @@ void __54__SecEscrowRequest_triggerEscrowUpdate_options_error___block_invoke_88(
   else if (request)
   {
     v6 = MEMORY[0x1E696ABC0];
-    v10 = *MEMORY[0x1E696A578];
-    v11[0] = @"Couldn't create connection (no reason given)";
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = *MEMORY[0x1E696A578];
+    v10[0] = @"Couldn't create connection (no reason given)";
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     *request = [v6 errorWithDomain:@"securityd" code:-1 userInfo:v7];
 
     request = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return request;
 }

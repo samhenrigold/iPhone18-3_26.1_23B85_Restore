@@ -60,13 +60,13 @@
   [(SBHFeatherBlurNavigationBar *)self _updateLabel];
   [(SBHFeatherBlurNavigationBar *)self _calculateCompactNavBarFrame];
   featherBlurBackgroundView = self->_featherBlurBackgroundView;
-  [(SBHFeatherBlurNavigationBar *)self bounds];
+  objc_msgSend_bounds(self);
   [(SBFFeatherBlurView *)featherBlurBackgroundView setFrame:?];
   window = [(SBFFeatherBlurView *)self->_featherBlurBackgroundView window];
   v5 = self->_featherBlurBackgroundView;
   if (window)
   {
-    [(SBFFeatherBlurView *)self->_featherBlurBackgroundView bounds];
+    objc_msgSend_bounds(self->_featherBlurBackgroundView);
     [(SBFFeatherBlurView *)v5 convertRect:window toCoordinateSpace:?];
     layer2 = [MEMORY[0x1E69D3FC0] matchMoveAnimationForFrame:window relativeToView:?];
     layer = [(SBFFeatherBlurView *)self->_featherBlurBackgroundView layer];
@@ -161,7 +161,7 @@ Class __67__SBHFeatherBlurNavigationBar__capturedLargeTextLabelContainerView__bl
 {
   [(SBHFeatherBlurNavigationBar *)self _topMargin];
   v4 = v3;
-  [(SBHFeatherBlurNavigationBar *)self bounds];
+  objc_msgSend_bounds(self);
   v6 = -v4;
   v7 = v4 + self->_sb_minimumNavbarHeight + 10.0;
   v8 = 0.0;
@@ -174,7 +174,7 @@ Class __67__SBHFeatherBlurNavigationBar__capturedLargeTextLabelContainerView__bl
 
 - (CGRect)_calculateCompactNavBarFrame
 {
-  [(SBHFeatherBlurNavigationBar *)self bounds];
+  objc_msgSend_bounds(self, a2);
   v4 = v3;
   [(SBHFeatherBlurNavigationBar *)self _defaultHeightForMetrics];
   v6 = v5;
@@ -272,7 +272,7 @@ Class __67__SBHFeatherBlurNavigationBar__capturedLargeTextLabelContainerView__bl
 
 - (void)_updateLabel
 {
-  [(SBHFeatherBlurNavigationBar *)self bounds];
+  objc_msgSend_bounds(self, a2);
   width = v26.size.width;
   if (!CGRectIsEmpty(v26))
   {

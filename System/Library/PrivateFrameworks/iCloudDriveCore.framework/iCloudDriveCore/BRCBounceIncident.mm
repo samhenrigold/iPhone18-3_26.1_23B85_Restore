@@ -131,7 +131,6 @@ LABEL_40:
   else
   {
     v6 = @"UNKNOWN";
-    v7 = self->_bounceReason;
     switch(bounceReason)
     {
       case 0:
@@ -412,9 +411,9 @@ LABEL_40:
     }
   }
 
-  v8 = [v3 stringWithFormat:@"Item ID: %@, Bounce reason: %@, Last Editor Device Name: %@", itemID, v6, self->_lastEditorDeviceName];
+  v7 = [v3 stringWithFormat:@"Item ID: %@, Bounce reason: %@, Last Editor Device Name: %@", itemID, v6, self->_lastEditorDeviceName];
 
-  return v8;
+  return v7;
 }
 
 @end

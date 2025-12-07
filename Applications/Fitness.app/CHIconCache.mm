@@ -14,9 +14,10 @@
 
 + (void)initializeCachePathOnMainQueue
 {
-  if (+[NSThread isMainThread])
+  v2 = +[NSThread isMainThread];
+  if (v2)
   {
-    v2 = sub_100109BB4();
+    v3 = sub_100109BB4(v2);
   }
 
   else
@@ -153,7 +154,7 @@
     v24 = sub_1001350B4;
     v25 = 0;
     v8 = sub_1000B982C(parametersCopy);
-    v9 = sub_100135BDC();
+    v9 = sub_100135BDC(v8);
     v10 = [v9 objectForKey:v8];
     v11 = v21[5];
     v21[5] = v10;
@@ -203,7 +204,7 @@
   v27 = sub_1001350B4;
   v28 = 0;
   v5 = sub_1000B982C(parametersCopy);
-  v6 = sub_100135BDC();
+  v6 = sub_100135BDC(v5);
   v7 = [v6 objectForKey:v5];
   v8 = v24[5];
   v24[5] = v7;
@@ -231,7 +232,7 @@
     v32 = sub_1001350B4;
     v33 = 0;
     v11 = dispatch_semaphore_create(0);
-    v12 = sub_1001361AC();
+    v12 = sub_1001361AC(v11);
     v16[0] = _NSConcreteStackBlock;
     v16[1] = 3221225472;
     v16[2] = sub_1001361F0;
@@ -272,7 +273,7 @@
     v24 = sub_1001350B4;
     v25 = 0;
     v8 = sub_1000B982C(parametersCopy);
-    v9 = sub_100135BDC();
+    v9 = sub_100135BDC(v8);
     v10 = [v9 objectForKey:v8];
     v11 = v21[5];
     v21[5] = v10;
@@ -322,7 +323,7 @@
   v27 = sub_1001350B4;
   v28 = 0;
   v5 = sub_1000B982C(parametersCopy);
-  v6 = sub_100135BDC();
+  v6 = sub_100135BDC(v5);
   v7 = [v6 objectForKey:v5];
   v8 = v24[5];
   v24[5] = v7;
@@ -350,7 +351,7 @@
     v32 = sub_1001350B4;
     v33 = 0;
     v11 = dispatch_semaphore_create(0);
-    v12 = sub_1001361AC();
+    v12 = sub_1001361AC(v11);
     v16[0] = _NSConcreteStackBlock;
     v16[1] = 3221225472;
     v16[2] = sub_100136C3C;

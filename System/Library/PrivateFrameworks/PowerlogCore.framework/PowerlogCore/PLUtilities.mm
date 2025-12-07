@@ -18,6 +18,7 @@
 + (BOOL)inBUIDemoMode;
 + (BOOL)isALSCurveHigherThanDefault;
 + (BOOL)isAppAnalyticsEnabled;
++ (BOOL)isDaemonOrAppleXPCService:(int)service;
 + (BOOL)isEduMode;
 + (BOOL)isFullModeDaemon;
 + (BOOL)isHealthDataSubmissionAllowed;
@@ -45,6 +46,7 @@
 + (id)allSubClassesForClass:(Class)class;
 + (id)binaryPathForPid:(int)pid;
 + (id)buildVersion;
++ (id)bundleIDFromPid:(int)pid;
 + (id)bundleIDFromProcessName:(id)name;
 + (id)bundleIDFromURL:(id)l;
 + (id)bundleVersionFromURL:(id)l;
@@ -106,9 +108,10 @@
 + (unsigned)getHardwarePerfLevels;
 + (void)dispatchSyncIfNotCallerQueue:(id)queue withBlock:(id)block;
 + (void)exitWithReason:(signed __int16)reason action:(signed __int16)action;
++ (void)exitWithReason:(signed __int16)reason connection:(id)connection;
++ (void)exitWithReasonSync:(signed __int16)sync;
 + (void)getCurrentMonotonicAndMachAbsTime:(id *)time machAbsTime:(unint64_t *)absTime machContTime:(unint64_t *)contTime;
 + (void)getDefaultL0bThresholdForDeviceType;
-+ (void)getLastSystemTimeOffset;
 + (void)isImproveFitnessPlusEnabled;
 + (void)maxProcessCount;
 + (void)postNotificationName:(id)name object:(id)object userInfo:(id)info;
@@ -116,6 +119,7 @@
 + (void)refreshBUI;
 + (void)reportZlibResultToCA:(int)a forEvent:(id)event;
 + (void)setMobileOwnerForFile:(id)file;
++ (void)setPermissionsForFile:(id)file toValue:(unsigned __int16)value;
 @end
 
 @implementation PLUtilities
@@ -241,12 +245,13 @@
 
 void __36__PLUtilities_getHardwarePerfLevels__block_invoke()
 {
-  v1 = 4;
-  if (sysctlbyname("hw.nperflevels", &getHardwarePerfLevels_perf_levels, &v1, 0, 0))
+  v2 = 4;
+  v0 = sysctlbyname("hw.nperflevels", &getHardwarePerfLevels_perf_levels, &v2, 0, 0);
+  if (v0)
   {
     getHardwarePerfLevels_perf_levels = 0;
-    v0 = PLLogCommon();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+    v1 = PLLogCommon(v0);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
     {
       __36__PLUtilities_getHardwarePerfLevels__block_invoke_cold_1();
     }
@@ -286,16 +291,16 @@ void __28__PLUtilities_containerPath__block_invoke()
 
 + (BOOL)moveItemAtPath:(id)path toPath:(id)toPath withName:(id)name error:(id *)error
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   toPathCopy = toPath;
   nameCopy = name;
   v11 = nameCopy;
   if (nameCopy)
   {
-    v22 = @"override-fileName";
-    v23[0] = nameCopy;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v20 = @"override-fileName";
+    v21[0] = nameCopy;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
   }
 
   else
@@ -303,21 +308,19 @@ void __28__PLUtilities_containerPath__block_invoke()
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x1E6999640];
-  v14 = [MEMORY[0x1E695DFF8] fileURLWithPath:pathCopy];
-  v15 = PLOSAMoveFileForSubmissions();
+  v13 = [MEMORY[0x1E695DFF8] fileURLWithPath:pathCopy];
+  v14 = PLOSAMoveFileForSubmissions();
 
-  if (v15)
+  if (v14)
   {
-    v16 = MEMORY[0x1E695DFF8];
+    v15 = MEMORY[0x1E695DFF8];
     lastPathComponent = [pathCopy lastPathComponent];
-    v18 = [@"/var/mobile/Library/Logs/CrashReporter/" stringByAppendingPathComponent:lastPathComponent];
-    v19 = [v16 fileURLWithPath:v18];
-    [PPSFileUtilities markAsPurgeable:v19 urgency:512 startDate:0];
+    v17 = [@"/var/mobile/Library/Logs/CrashReporter/" stringByAppendingPathComponent:lastPathComponent];
+    v18 = [v15 fileURLWithPath:v17];
+    [PPSFileUtilities markAsPurgeable:v18 urgency:512 startDate:0];
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-  return v15;
+  return v14;
 }
 
 + (BOOL)PLCopyItemsFromPath:(id)path toPath:(id)toPath
@@ -325,46 +328,47 @@ void __28__PLUtilities_containerPath__block_invoke()
   pathCopy = path;
   toPathCopy = toPath;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
   v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 0;
-  v24 = 0;
-  v8 = [defaultManager contentsOfDirectoryAtPath:pathCopy error:&v24];
-  v9 = v24;
+  v8 = [defaultManager contentsOfDirectoryAtPath:pathCopy error:&v25];
+  v9 = v25;
+  v10 = v9;
   if (v9)
   {
-    v10 = PLLogCommon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = PLLogCommon(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       +[PLUtilities PLCopyItemsFromPath:toPath:];
     }
 
-    v11 = *(v26 + 24);
+    v12 = *(v27 + 24);
   }
 
   else
   {
-    v12 = [MEMORY[0x1E695DFF8] fileURLWithPath:pathCopy isDirectory:1];
-    v13 = [MEMORY[0x1E695DFF8] fileURLWithPath:toPathCopy isDirectory:1];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __42__PLUtilities_PLCopyItemsFromPath_toPath___block_invoke;
-    v17[3] = &unk_1E851A1B8;
-    v14 = v12;
-    v18 = v14;
+    v13 = [MEMORY[0x1E695DFF8] fileURLWithPath:pathCopy isDirectory:1];
+    v14 = [MEMORY[0x1E695DFF8] fileURLWithPath:toPathCopy isDirectory:1];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __42__PLUtilities_PLCopyItemsFromPath_toPath___block_invoke;
+    v18[3] = &unk_1E851A1B8;
     v15 = v13;
     v19 = v15;
-    v23 = &v25;
-    v20 = defaultManager;
-    v21 = pathCopy;
-    v22 = toPathCopy;
-    [v8 enumerateObjectsUsingBlock:v17];
-    v11 = *(v26 + 24);
+    v16 = v14;
+    v20 = v16;
+    v24 = &v26;
+    v21 = defaultManager;
+    v22 = pathCopy;
+    v23 = toPathCopy;
+    [v8 enumerateObjectsUsingBlock:v18];
+    v12 = *(v27 + 24);
   }
 
-  _Block_object_dispose(&v25, 8);
-  return v11 & 1;
+  _Block_object_dispose(&v26, 8);
+  return v12 & 1;
 }
 
 void __42__PLUtilities_PLCopyItemsFromPath_toPath___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -375,9 +379,10 @@ void __42__PLUtilities_PLCopyItemsFromPath_toPath___block_invoke(uint64_t a1, vo
   v9 = [*(a1 + 40) URLByAppendingPathComponent:v7];
 
   v10 = *(a1 + 48);
-  v14 = 0;
-  v11 = [v10 copyItemAtURL:v8 toURL:v9 error:&v14];
-  v12 = v14;
+  v15 = 0;
+  v11 = [v10 copyItemAtURL:v8 toURL:v9 error:&v15];
+  v12 = v15;
+  v13 = v12;
   *(*(*(a1 + 72) + 8) + 24) = v11;
   if (*(*(*(a1 + 72) + 8) + 24))
   {
@@ -386,10 +391,10 @@ void __42__PLUtilities_PLCopyItemsFromPath_toPath___block_invoke(uint64_t a1, vo
 
   else
   {
-    v13 = PLLogCommon();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = PLLogCommon(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      __42__PLUtilities_PLCopyItemsFromPath_toPath___block_invoke_cold_1(a1);
+      __42__PLUtilities_PLCopyItemsFromPath_toPath___block_invoke_cold_1();
     }
 
     *a4 = 1;
@@ -400,9 +405,9 @@ void __42__PLUtilities_PLCopyItemsFromPath_toPath___block_invoke(uint64_t a1, vo
 {
   directoryCopy = directory;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v13 = 0;
-  v5 = [defaultManager createDirectoryAtPath:directoryCopy withIntermediateDirectories:1 attributes:0 error:&v13];
-  v6 = v13;
+  v14 = 0;
+  v5 = [defaultManager createDirectoryAtPath:directoryCopy withIntermediateDirectories:1 attributes:0 error:&v14];
+  v6 = v14;
 
   if (v5)
   {
@@ -417,8 +422,8 @@ void __42__PLUtilities_PLCopyItemsFromPath_toPath___block_invoke(uint64_t a1, vo
     v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLUtilities createAndChownDirectory:]"];
     [PLCoreStorage logMessage:v7 fromFile:lastPathComponent fromFunction:v10 fromLineNumber:217];
 
-    v11 = PLLogCommon();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = PLLogCommon(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
     }
@@ -455,26 +460,57 @@ void __42__PLUtilities_PLCopyItemsFromPath_toPath___block_invoke(uint64_t a1, vo
   chown(fileSystemRepresentation, pw_uid, pw_gid);
 }
 
++ (void)setPermissionsForFile:(id)file toValue:(unsigned __int16)value
+{
+  valueCopy = value;
+  v17[1] = *MEMORY[0x1E69E9840];
+  fileCopy = file;
+  defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+  v16 = *MEMORY[0x1E696A370];
+  v7 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:valueCopy];
+  v17[0] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{objc_msgSend(fileCopy, "UTF8String")}];
+  v15 = 0;
+  v10 = [defaultManager setAttributes:v8 ofItemAtPath:v9 error:&v15];
+  v11 = v15;
+
+  v13 = PLLogCommon(v12);
+  v14 = v13;
+  if (v10)
+  {
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    {
+      +[PLUtilities setPermissionsForFile:toValue:];
+    }
+  }
+
+  else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  {
+    +[PLUtilities setPermissionsForFile:toValue:];
+  }
+}
+
 + (BOOL)compressWithSource:(id)source withDestination:(id)destination withLevel:(int)level
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   sourceCopy = source;
   destinationCopy = destination;
-  v8 = PLLogZlib();
+  v8 = PLLogZlib(destinationCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138412546;
-    v22 = sourceCopy;
-    v23 = 2112;
-    v24 = destinationCopy;
-    _os_log_impl(&dword_1D8611000, v8, OS_LOG_TYPE_DEFAULT, "compressWithSource: source file = %@, destination file = %@", &v21, 0x16u);
+    v22 = 138412546;
+    v23 = sourceCopy;
+    v24 = 2112;
+    v25 = destinationCopy;
+    _os_log_impl(&dword_1D8611000, v8, OS_LOG_TYPE_DEFAULT, "compressWithSource: source file = %@, destination file = %@", &v22, 0x16u);
   }
 
   v9 = fopen([sourceCopy UTF8String], "r");
   if (!v9)
   {
-    v16 = PLLogZlib();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = PLLogZlib(0);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       +[PLUtilities compressWithSource:withDestination:withLevel:];
     }
@@ -484,7 +520,7 @@ void __42__PLUtilities_PLCopyItemsFromPath_toPath___block_invoke(uint64_t a1, vo
 
   v10 = v9;
   v11 = fopen([destinationCopy UTF8String], "w");
-  v12 = PLLogZlib();
+  v12 = PLLogZlib(v11);
   v13 = v12;
   if (!v11)
   {
@@ -493,7 +529,7 @@ void __42__PLUtilities_PLCopyItemsFromPath_toPath___block_invoke(uint64_t a1, vo
       +[PLUtilities compressWithSource:withDestination:withLevel:];
     }
 
-    v15 = v10;
+    v16 = v10;
     goto LABEL_17;
   }
 
@@ -502,47 +538,47 @@ void __42__PLUtilities_PLCopyItemsFromPath_toPath___block_invoke(uint64_t a1, vo
     +[PLUtilities compressWithSource:withDestination:withLevel:];
   }
 
-  if ([PLUtilities compressWithSourceStream:v10 withDestination:v11 withLevel:4])
+  v14 = [PLUtilities compressWithSourceStream:v10 withDestination:v11 withLevel:4];
+  if (v14)
   {
-    v14 = PLLogZlib();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = PLLogZlib(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       +[PLUtilities compressWithSource:withDestination:withLevel:];
     }
 
     fclose(v10);
-    v15 = v11;
+    v16 = v11;
 LABEL_17:
-    fclose(v15);
+    fclose(v16);
 LABEL_18:
-    v17 = 0;
+    v18 = 0;
     goto LABEL_19;
   }
 
   fclose(v10);
-  fclose(v11);
-  v20 = PLLogZlib();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v20 = fclose(v11);
+  v21 = PLLogZlib(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138412546;
-    v22 = sourceCopy;
-    v23 = 2112;
-    v24 = destinationCopy;
-    _os_log_impl(&dword_1D8611000, v20, OS_LOG_TYPE_DEFAULT, "compressWithSource: successfully decompressed %@ to %@", &v21, 0x16u);
+    v22 = 138412546;
+    v23 = sourceCopy;
+    v24 = 2112;
+    v25 = destinationCopy;
+    _os_log_impl(&dword_1D8611000, v21, OS_LOG_TYPE_DEFAULT, "compressWithSource: successfully decompressed %@ to %@", &v22, 0x16u);
   }
 
-  v17 = 1;
+  v18 = 1;
 LABEL_19:
 
-  v18 = *MEMORY[0x1E69E9840];
-  return v17;
+  return v18;
 }
 
 + (int)compressWithSourceStream:(__sFILE *)stream withDestination:(__sFILE *)destination withLevel:(int)level
 {
-  v19[1024] = *MEMORY[0x1E69E9840];
-  memset(&v17, 0, sizeof(v17));
-  v8 = deflateInit2_(&v17, level, 8, 31, 8, 0, "1.2.12", 112);
+  v18[1024] = *MEMORY[0x1E69E9840];
+  memset(&v16, 0, sizeof(v16));
+  v8 = deflateInit2_(&v16, level, 8, 31, 8, 0, "1.2.12", 112);
   if (v8)
   {
     v9 = v8;
@@ -552,37 +588,37 @@ LABEL_19:
   else
   {
 LABEL_3:
-    v10 = fread(v19, 1uLL, 0x2000uLL, stream);
+    v10 = fread(v18, 1uLL, 0x2000uLL, stream);
     if (v10 >= 0xFFFFFFFF)
     {
       +[PLUtilities compressWithSourceStream:withDestination:withLevel:];
     }
 
-    v17.avail_in = v10;
+    v16.avail_in = v10;
     if (!ferror(stream))
     {
       v11 = feof(stream);
-      v17.next_in = v19;
+      v16.next_in = v18;
       while (1)
       {
-        v17.avail_out = 0x2000;
-        v17.next_out = __ptr;
-        v12 = deflate(&v17, 4 * (v11 != 0));
+        v16.avail_out = 0x2000;
+        v16.next_out = __ptr;
+        v12 = deflate(&v16, 4 * (v11 != 0));
         if (v12 == -2)
         {
           +[PLUtilities compressWithSourceStream:withDestination:withLevel:];
         }
 
         v13 = v12;
-        v14 = 0x2000 - v17.avail_out;
+        v14 = 0x2000 - v16.avail_out;
         if (fwrite(__ptr, 1uLL, v14, destination) != v14 || ferror(destination))
         {
           break;
         }
 
-        if (v17.avail_out)
+        if (v16.avail_out)
         {
-          if (v17.avail_in)
+          if (v16.avail_in)
           {
             +[PLUtilities compressWithSourceStream:withDestination:withLevel:];
           }
@@ -594,9 +630,8 @@ LABEL_3:
               +[PLUtilities compressWithSourceStream:withDestination:withLevel:];
             }
 
-            deflateEnd(&v17);
-            v9 = 0;
-            goto LABEL_15;
+            deflateEnd(&v16);
+            return 0;
           }
 
           goto LABEL_3;
@@ -605,19 +640,17 @@ LABEL_3:
     }
 
     v9 = -1;
-    [self reportZlibResultToCA:0xFFFFFFFFLL forEvent:{@"com.apple.powerlog.zlib.compress", v17.next_in}];
-    deflateEnd(&v17);
+    [self reportZlibResultToCA:0xFFFFFFFFLL forEvent:{@"com.apple.powerlog.zlib.compress", v16.next_in}];
+    deflateEnd(&v16);
   }
 
-LABEL_15:
-  v15 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 + (BOOL)decompressWithSource:(id)source withDestination:(id)destination withRemoveSrc:(BOOL)src
 {
   srcCopy = src;
-  v34 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   sourceCopy = source;
   destinationCopy = destination;
   v9 = MEMORY[0x1E696AEC0];
@@ -625,11 +658,12 @@ LABEL_15:
   v11 = [v9 stringWithFormat:@".%@", pathExtension];
 
   v12 = [v11 isEqualToString:@".gz"];
-  v13 = PLLogZlib();
-  v14 = v13;
-  if ((v12 & 1) == 0)
+  v13 = v12;
+  v14 = PLLogZlib(v12);
+  v15 = v14;
+  if ((v13 & 1) == 0)
   {
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       +[PLUtilities decompressWithSource:withDestination:withRemoveSrc:];
     }
@@ -637,20 +671,20 @@ LABEL_15:
     goto LABEL_24;
   }
 
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v31 = sourceCopy;
-    v32 = 2112;
-    v33 = destinationCopy;
-    _os_log_impl(&dword_1D8611000, v14, OS_LOG_TYPE_DEFAULT, "decompressWithSource: source file = %@, destination file = %@", buf, 0x16u);
+    v34 = sourceCopy;
+    v35 = 2112;
+    v36 = destinationCopy;
+    _os_log_impl(&dword_1D8611000, v15, OS_LOG_TYPE_DEFAULT, "decompressWithSource: source file = %@, destination file = %@", buf, 0x16u);
   }
 
-  v15 = fopen([sourceCopy UTF8String], "r");
-  if (!v15)
+  v16 = fopen([sourceCopy UTF8String], "r");
+  if (!v16)
   {
-    v22 = PLLogZlib();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v24 = PLLogZlib(0);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       +[PLUtilities decompressWithSource:withDestination:withRemoveSrc:];
     }
@@ -658,45 +692,46 @@ LABEL_15:
     goto LABEL_20;
   }
 
-  v16 = v15;
-  v17 = fopen([destinationCopy UTF8String], "w");
-  v18 = PLLogZlib();
-  v19 = v18;
-  if (!v17)
+  v17 = v16;
+  v18 = fopen([destinationCopy UTF8String], "w");
+  v19 = PLLogZlib(v18);
+  v20 = v19;
+  if (!v18)
   {
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       +[PLUtilities decompressWithSource:withDestination:withRemoveSrc:];
     }
 
-    fclose(v16);
+    fclose(v17);
     goto LABEL_24;
   }
 
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
     +[PLUtilities decompressWithSource:withDestination:withRemoveSrc:];
   }
 
-  if ([PLUtilities decompressWithSourceStream:v16 withDestinationStream:v17])
+  v21 = [PLUtilities decompressWithSourceStream:v17 withDestinationStream:v18];
+  if (v21)
   {
-    v20 = PLLogZlib();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = PLLogZlib(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       +[PLUtilities decompressWithSource:withDestination:withRemoveSrc:];
     }
 
-    fclose(v16);
     fclose(v17);
+    fclose(v18);
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v29 = 0;
-    [defaultManager removeItemAtPath:destinationCopy error:&v29];
-    v22 = v29;
+    v32 = 0;
+    [defaultManager removeItemAtPath:destinationCopy error:&v32];
+    v24 = v32;
 
-    if (v22)
+    if (v24)
     {
-      v23 = PLLogZlib();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v26 = PLLogZlib(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         +[PLUtilities decompressWithSource:withDestination:withRemoveSrc:];
       }
@@ -705,20 +740,20 @@ LABEL_15:
 LABEL_20:
 
 LABEL_24:
-    v24 = 0;
+    v27 = 0;
     goto LABEL_25;
   }
 
-  fclose(v16);
   fclose(v17);
-  v27 = PLLogZlib();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  v29 = fclose(v18);
+  v30 = PLLogZlib(v29);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v31 = sourceCopy;
-    v32 = 2112;
-    v33 = destinationCopy;
-    _os_log_impl(&dword_1D8611000, v27, OS_LOG_TYPE_DEFAULT, "decompressWithSource: successfully decompressed %@ to %@", buf, 0x16u);
+    v34 = sourceCopy;
+    v35 = 2112;
+    v36 = destinationCopy;
+    _os_log_impl(&dword_1D8611000, v30, OS_LOG_TYPE_DEFAULT, "decompressWithSource: successfully decompressed %@ to %@", buf, 0x16u);
   }
 
   if (srcCopy)
@@ -727,16 +762,15 @@ LABEL_24:
     [defaultManager2 removeItemAtPath:sourceCopy error:0];
   }
 
-  v24 = 1;
+  v27 = 1;
 LABEL_25:
 
-  v25 = *MEMORY[0x1E69E9840];
-  return v24;
+  return v27;
 }
 
 + (int)decompressWithSourceStream:(__sFILE *)stream withDestinationStream:(__sFILE *)destinationStream
 {
-  v18[1024] = *MEMORY[0x1E69E9840];
+  v17[1024] = *MEMORY[0x1E69E9840];
   memset(&strm.avail_in, 0, 104);
   strm.avail_in = 0;
   strm.next_in = 0;
@@ -750,7 +784,7 @@ LABEL_25:
   {
     while (2)
     {
-      v8 = fread(v18, 1uLL, 0x2000uLL, stream);
+      v8 = fread(v17, 1uLL, 0x2000uLL, stream);
       strm.avail_in = v8;
       if (ferror(stream))
       {
@@ -767,7 +801,7 @@ LABEL_16:
       {
         if (v8)
         {
-          strm.next_in = v18;
+          strm.next_in = v17;
           do
           {
             strm.avail_out = 0x2000;
@@ -827,14 +861,13 @@ LABEL_15:
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 + (void)reportZlibResultToCA:(int)a forEvent:(id)event
 {
   eventCopy = event;
-  v5 = PLLogZlib();
+  v5 = PLLogZlib(eventCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     +[PLUtilities reportZlibResultToCA:forEvent:];
@@ -845,13 +878,11 @@ LABEL_15:
 
 id __45__PLUtilities_reportZlibResultToCA_forEvent___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"errorID";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"errorID";
   v1 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -924,33 +955,33 @@ id __45__PLUtilities_reportZlibResultToCA_forEvent___block_invoke(uint64_t a1)
   v11 = 0;
   v5 = [defaultManager contentsOfDirectoryAtPath:pathCopy error:&v11];
   v6 = v11;
+  v7 = v6;
   if (v6)
   {
-    v7 = PLLogCommon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = PLLogCommon(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       +[PLUtilities numFilesAtPath:];
     }
 
-    v8 = -1;
+    LODWORD(v9) = -1;
   }
 
   else
   {
-    v8 = [v5 count];
-    v7 = PLLogCommon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = [v5 count];
+    v8 = PLLogCommon(v9);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       v13 = pathCopy;
       v14 = 1024;
-      v15 = v8;
-      _os_log_impl(&dword_1D8611000, v7, OS_LOG_TYPE_DEFAULT, "Num files at %@ = %d", buf, 0x12u);
+      v15 = v9;
+      _os_log_impl(&dword_1D8611000, v8, OS_LOG_TYPE_DEFAULT, "Num files at %@ = %d", buf, 0x12u);
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v9;
 }
 
 + (int64_t)compareFilesByKey:(id)key file1:(id)file1 file2:(id)file2 sortAscending:(BOOL)ascending
@@ -983,39 +1014,39 @@ id __45__PLUtilities_reportZlibResultToCA_forEvent___block_invoke(uint64_t a1)
 
 + (int)remove:(int)remove oldestFilesFromDirectory:(id)directory containingFileNameSubstring:(id)substring
 {
-  v43[1] = *MEMORY[0x1E69E9840];
+  v44[1] = *MEMORY[0x1E69E9840];
   directoryCopy = directory;
   substringCopy = substring;
   v9 = 0;
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x2020000000;
-  v39 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x2020000000;
+  v40 = 0;
   if (remove >= 1 && directoryCopy)
   {
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v34[0] = 0;
-    v34[1] = v34;
-    v34[2] = 0x3032000000;
-    v34[3] = __Block_byref_object_copy__10;
-    v34[4] = __Block_byref_object_dispose__10;
-    v35 = 0;
+    v35[0] = 0;
+    v35[1] = v35;
+    v35[2] = 0x3032000000;
+    v35[3] = __Block_byref_object_copy__10;
+    v35[4] = __Block_byref_object_dispose__10;
+    v36 = 0;
     v11 = [MEMORY[0x1E695DFF8] URLWithString:directoryCopy];
-    v43[0] = *MEMORY[0x1E695DAA8];
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:1];
-    v33 = 0;
-    v13 = [defaultManager contentsOfDirectoryAtURL:v11 includingPropertiesForKeys:v12 options:4 error:&v33];
-    v14 = v33;
+    v44[0] = *MEMORY[0x1E695DAA8];
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:1];
+    v34 = 0;
+    v13 = [defaultManager contentsOfDirectoryAtURL:v11 includingPropertiesForKeys:v12 options:4 error:&v34];
+    v14 = v34;
 
     if (v14)
     {
-      v15 = PLLogCommon();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = PLLogCommon(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         +[PLUtilities remove:oldestFilesFromDirectory:containingFileNameSubstring:];
       }
 
-      v9 = *(v37 + 6);
+      v9 = *(v38 + 6);
     }
 
     else
@@ -1023,62 +1054,60 @@ id __45__PLUtilities_reportZlibResultToCA_forEvent___block_invoke(uint64_t a1)
       array = [MEMORY[0x1E695DF70] array];
       if (substringCopy)
       {
-        v30[0] = MEMORY[0x1E69E9820];
-        v30[1] = 3221225472;
-        v30[2] = __75__PLUtilities_remove_oldestFilesFromDirectory_containingFileNameSubstring___block_invoke;
-        v30[3] = &unk_1E851A200;
-        v17 = substringCopy;
-        v31 = v17;
-        v18 = array;
+        v31[0] = MEMORY[0x1E69E9820];
+        v31[1] = 3221225472;
+        v31[2] = __75__PLUtilities_remove_oldestFilesFromDirectory_containingFileNameSubstring___block_invoke;
+        v31[3] = &unk_1E851A200;
+        v18 = substringCopy;
         v32 = v18;
-        [v13 enumerateObjectsUsingBlock:v30];
-        v19 = PLLogCommon();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v19 = array;
+        v33 = v19;
+        v20 = PLLogCommon([v13 enumerateObjectsUsingBlock:v31]);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
-          +[PLUtilities remove:oldestFilesFromDirectory:containingFileNameSubstring:].cold.2(v17, v42, [v18 count], v19);
+          +[PLUtilities remove:oldestFilesFromDirectory:containingFileNameSubstring:].cold.2(v18, v43, [v19 count], v20);
         }
 
-        v20 = v31;
+        v21 = v32;
       }
 
       else
       {
-        v18 = [MEMORY[0x1E695DF70] arrayWithArray:v13];
+        v19 = [MEMORY[0x1E695DF70] arrayWithArray:v13];
 
-        v20 = PLLogCommon();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        v21 = PLLogCommon(v22);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
           +[PLUtilities remove:oldestFilesFromDirectory:containingFileNameSubstring:];
         }
       }
 
-      v21 = [v18 sortedArrayUsingComparator:&__block_literal_global_86];
-      v22 = [v21 subarrayWithRange:{0, remove}];
-      v23 = PLLogCommon();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      v23 = [v19 sortedArrayUsingComparator:&__block_literal_global_86];
+      v24 = [v23 subarrayWithRange:{0, remove}];
+      v25 = PLLogCommon(v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v41 = v22;
-        _os_log_impl(&dword_1D8611000, v23, OS_LOG_TYPE_INFO, "Removing files: %@", buf, 0xCu);
+        v42 = v24;
+        _os_log_impl(&dword_1D8611000, v25, OS_LOG_TYPE_INFO, "Removing files: %@", buf, 0xCu);
       }
 
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __75__PLUtilities_remove_oldestFilesFromDirectory_containingFileNameSubstring___block_invoke_87;
-      v26[3] = &unk_1E851A228;
-      v28 = v34;
-      v27 = defaultManager;
-      v29 = &v36;
-      [v22 enumerateObjectsUsingBlock:v26];
-      v9 = *(v37 + 6);
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __75__PLUtilities_remove_oldestFilesFromDirectory_containingFileNameSubstring___block_invoke_87;
+      v27[3] = &unk_1E851A228;
+      v29 = v35;
+      v28 = defaultManager;
+      v30 = &v37;
+      [v24 enumerateObjectsUsingBlock:v27];
+      v9 = *(v38 + 6);
     }
 
-    _Block_object_dispose(v34, 8);
+    _Block_object_dispose(v35, 8);
   }
 
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v37, 8);
 
-  v24 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -1098,73 +1127,73 @@ uint64_t __75__PLUtilities_remove_oldestFilesFromDirectory_containingFileNameSub
 {
   v4 = a2;
   v5 = a3;
-  v19 = 0;
+  v20 = 0;
   v6 = *MEMORY[0x1E695DAA8];
-  v18 = 0;
-  [v4 getResourceValue:&v19 forKey:v6 error:&v18];
-  v7 = v19;
-  v8 = v18;
-  v16 = 0;
+  v19 = 0;
+  [v4 getResourceValue:&v20 forKey:v6 error:&v19];
+  v7 = v20;
+  v8 = v19;
   v17 = 0;
-  [v5 getResourceValue:&v17 forKey:v6 error:&v16];
-  v9 = v17;
-  v10 = v16;
+  v18 = 0;
+  [v5 getResourceValue:&v18 forKey:v6 error:&v17];
+  v9 = v18;
+  v10 = v17;
+  v11 = v10;
   if (v8 | v10)
   {
     if (v8)
     {
-      v11 = PLLogCommon();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        __75__PLUtilities_remove_oldestFilesFromDirectory_containingFileNameSubstring___block_invoke_83_cold_1();
-      }
-    }
-
-    if (v10)
-    {
-      v12 = PLLogCommon();
+      v12 = PLLogCommon(v10);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         __75__PLUtilities_remove_oldestFilesFromDirectory_containingFileNameSubstring___block_invoke_83_cold_1();
       }
     }
 
-    v13 = PLLogCommon();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    if (v11)
+    {
+      v13 = PLLogCommon(v10);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      {
+        __75__PLUtilities_remove_oldestFilesFromDirectory_containingFileNameSubstring___block_invoke_83_cold_1();
+      }
+    }
+
+    v14 = PLLogCommon(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       __75__PLUtilities_remove_oldestFilesFromDirectory_containingFileNameSubstring___block_invoke_83_cold_3();
     }
 
-    v14 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v14 = [v7 compare:v9];
+    v15 = [v7 compare:v9];
   }
 
-  return v14;
+  return v15;
 }
 
 void __75__PLUtilities_remove_oldestFilesFromDirectory_containingFileNameSubstring___block_invoke_87(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = (a1 + 5);
-  v5 = *(a1[5] + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = 0;
+  v4 = *(a1[5] + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = 0;
 
-  v7 = a1[4];
-  v8 = *(a1[5] + 8);
-  obj = *(v8 + 40);
-  [v7 removeItemAtURL:v3 error:&obj];
-  objc_storeStrong((v8 + 40), obj);
+  v6 = a1[4];
+  v7 = *(a1[5] + 8);
+  obj = *(v7 + 40);
+  [v6 removeItemAtURL:v3 error:&obj];
+  objc_storeStrong((v7 + 40), obj);
   if (*(*(a1[5] + 8) + 40))
   {
-    v9 = PLLogCommon();
+    v9 = PLLogCommon(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __75__PLUtilities_remove_oldestFilesFromDirectory_containingFileNameSubstring___block_invoke_87_cold_1(v3, v4);
+      __75__PLUtilities_remove_oldestFilesFromDirectory_containingFileNameSubstring___block_invoke_87_cold_1();
     }
   }
 
@@ -1292,9 +1321,10 @@ void __31__PLUtilities_workQueueForKey___block_invoke()
 
 uint64_t __52__PLUtilities_postNotificationName_object_userInfo___block_invoke()
 {
-  postNotificationName_object_userInfo__notificationQueue = [PLUtilities workQueueForKey:@"PostNotificationQueue"];
+  v0 = [PLUtilities workQueueForKey:@"PostNotificationQueue"];
+  postNotificationName_object_userInfo__notificationQueue = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 void __52__PLUtilities_postNotificationName_object_userInfo___block_invoke_2(void *a1)
@@ -1392,27 +1422,25 @@ uint64_t __35__PLUtilities_getMachbaseTimeRatio__block_invoke()
 
 void __29__PLUtilities_deviceBootTime__block_invoke()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 0;
   v3 = 0;
-  v4 = 0;
-  *v6 = 0x1500000001;
-  v5 = 16;
-  if (sysctl(v6, 2u, &v3, &v5, 0, 0) != -1)
+  *v5 = 0x1500000001;
+  v4 = 16;
+  if (sysctl(v5, 2u, &v2, &v4, 0, 0) != -1)
   {
-    v0 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSince1970:v4 / 1000000.0 + v3];
+    v0 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSince1970:v3 / 1000000.0 + v2];
     v1 = deviceBootTime_bootTime;
     deviceBootTime_bootTime = v0;
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (id)deviceBootUUID
 {
-  v26 = *MEMORY[0x1E69E9840];
-  memset(v25, 0, sizeof(v25));
-  v24 = 37;
-  v2 = sysctlbyname("kern.bootsessionuuid", v25, &v24, 0, 0);
+  v27 = *MEMORY[0x1E69E9840];
+  memset(v26, 0, sizeof(v26));
+  v25 = 37;
+  v2 = sysctlbyname("kern.bootsessionuuid", v26, &v25, 0, 0);
   if (v2)
   {
     if (v2 == -1)
@@ -1441,52 +1469,52 @@ void __29__PLUtilities_deviceBootTime__block_invoke()
         v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLUtilities deviceBootUUID]"];
         [PLCoreStorage logMessage:v4 fromFile:lastPathComponent fromFunction:v7 fromLineNumber:803];
 
-        v8 = PLLogCommon();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+        v9 = PLLogCommon(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
         }
 
-        v9 = 0;
+        v10 = 0;
 LABEL_17:
 
         goto LABEL_19;
       }
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v25[36] = 0;
-    v10 = objc_alloc(MEMORY[0x1E696AFB0]);
-    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v25];
-    v9 = [v10 initWithUUIDString:v11];
+    v26[36] = 0;
+    v11 = objc_alloc(MEMORY[0x1E696AFB0]);
+    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v26];
+    v10 = [v11 initWithUUIDString:v12];
 
     if (+[PLDefaults debugEnabled])
     {
-      v12 = objc_opt_class();
-      v18 = MEMORY[0x1E69E9820];
-      v19 = 3221225472;
-      v20 = __29__PLUtilities_deviceBootUUID__block_invoke_118;
-      v21 = &__block_descriptor_40_e5_v8__0lu32l8;
-      v22 = v12;
+      v13 = objc_opt_class();
+      v19 = MEMORY[0x1E69E9820];
+      v20 = 3221225472;
+      v21 = __29__PLUtilities_deviceBootUUID__block_invoke_118;
+      v22 = &__block_descriptor_40_e5_v8__0lu32l8;
+      v23 = v13;
       if (deviceBootUUID_defaultOnce_116 != -1)
       {
-        dispatch_once(&deviceBootUUID_defaultOnce_116, &v18);
+        dispatch_once(&deviceBootUUID_defaultOnce_116, &v19);
       }
 
       if (deviceBootUUID_classDebugEnabled_117 == 1)
       {
-        v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"system boot session uuid: %@", v9, v18, v19, v20, v21, v22];
-        v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/PLUtilities.m"];
-        lastPathComponent2 = [v13 lastPathComponent];
-        v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLUtilities deviceBootUUID]"];
-        [PLCoreStorage logMessage:v4 fromFile:lastPathComponent2 fromFunction:v15 fromLineNumber:808];
+        v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"system boot session uuid: %@", v10, v19, v20, v21, v22, v23];
+        v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/PLUtilities.m"];
+        lastPathComponent2 = [v14 lastPathComponent];
+        v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLUtilities deviceBootUUID]"];
+        [PLCoreStorage logMessage:v4 fromFile:lastPathComponent2 fromFunction:v16 fromLineNumber:808];
 
-        v8 = PLLogCommon();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+        v9 = PLLogCommon(v17);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
         }
@@ -1497,9 +1525,8 @@ LABEL_17:
   }
 
 LABEL_19:
-  v16 = *MEMORY[0x1E69E9840];
 
-  return v9;
+  return v10;
 }
 
 BOOL __29__PLUtilities_deviceBootUUID__block_invoke(uint64_t a1)
@@ -1570,8 +1597,8 @@ LABEL_9:
   [v6 doubleValue];
   v8 = v7;
 
-  v9 = PLLogCommon();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = PLLogCommon(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     +[PLUtilities getLastSystemTimeOffset];
   }
@@ -1646,10 +1673,10 @@ LABEL_9:
 
 + (void)getCurrentMonotonicAndMachAbsTime:(id *)time machAbsTime:(unint64_t *)absTime machContTime:(unint64_t *)contTime
 {
+  v31 = 0;
+  v32 = 0;
   v29 = 0;
   v30 = 0;
-  v27 = 0;
-  v28 = 0;
   getMachTimebase = [self getMachTimebase];
   if (mach_get_times())
   {
@@ -1674,8 +1701,8 @@ LABEL_9:
         v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLUtilities getCurrentMonotonicAndMachAbsTime:machAbsTime:machContTime:]"];
         [PLCoreStorage logMessage:v10 fromFile:lastPathComponent fromFunction:v13 fromLineNumber:898];
 
-        v14 = PLLogCommon();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        v15 = PLLogCommon(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
         }
@@ -1696,49 +1723,49 @@ LABEL_9:
 
   else
   {
-    v15 = [PLUtilities dateFromTimeval:v29, (v30 / 1000)];
+    v16 = [PLUtilities dateFromTimeval:v31, (v32 / 1000)];
     if (+[PLDefaults debugEnabled])
     {
-      v16 = objc_opt_class();
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __74__PLUtilities_getCurrentMonotonicAndMachAbsTime_machAbsTime_machContTime___block_invoke;
-      v26[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v26[4] = v16;
+      v17 = objc_opt_class();
+      v28[0] = MEMORY[0x1E69E9820];
+      v28[1] = 3221225472;
+      v28[2] = __74__PLUtilities_getCurrentMonotonicAndMachAbsTime_machAbsTime_machContTime___block_invoke;
+      v28[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v28[4] = v17;
       if (getCurrentMonotonicAndMachAbsTime_machAbsTime_machContTime__defaultOnce != -1)
       {
-        dispatch_once(&getCurrentMonotonicAndMachAbsTime_machAbsTime_machContTime__defaultOnce, v26);
+        dispatch_once(&getCurrentMonotonicAndMachAbsTime_machAbsTime_machContTime__defaultOnce, v28);
       }
 
       if (getCurrentMonotonicAndMachAbsTime_machAbsTime_machContTime__classDebugEnabled == 1)
       {
-        v17 = MEMORY[0x1E696AEC0];
+        v18 = MEMORY[0x1E696AEC0];
         monotonicDate = [MEMORY[0x1E695DF00] monotonicDate];
-        v19 = [v17 stringWithFormat:@"Converted monotonic time: %@, reference monotonic time: %@.", v15, monotonicDate];
+        v20 = [v18 stringWithFormat:@"Converted monotonic time: %@, reference monotonic time: %@.", v16, monotonicDate];
 
-        v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/PLUtilities.m"];
-        lastPathComponent2 = [v20 lastPathComponent];
-        v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLUtilities getCurrentMonotonicAndMachAbsTime:machAbsTime:machContTime:]"];
-        [PLCoreStorage logMessage:v19 fromFile:lastPathComponent2 fromFunction:v22 fromLineNumber:887];
+        v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Utilities/PLUtilities.m"];
+        lastPathComponent2 = [v21 lastPathComponent];
+        v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLUtilities getCurrentMonotonicAndMachAbsTime:machAbsTime:machContTime:]"];
+        [PLCoreStorage logMessage:v20 fromFile:lastPathComponent2 fromFunction:v23 fromLineNumber:887];
 
-        v23 = PLLogCommon();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+        v25 = PLLogCommon(v24);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
         }
       }
     }
 
-    v24 = v15;
-    *time = v15;
+    v26 = v16;
+    *time = v16;
     if (absTime)
     {
-      *absTime = v28 * *getMachTimebase / getMachTimebase[1];
+      *absTime = v30 * *getMachTimebase / getMachTimebase[1];
     }
 
     if (contTime)
     {
-      *contTime = v27 * *getMachTimebase / getMachTimebase[1];
+      *contTime = v29 * *getMachTimebase / getMachTimebase[1];
     }
   }
 }
@@ -1853,6 +1880,14 @@ double __30__PLUtilities_getMachTimebase__block_invoke()
   return v7;
 }
 
++ (void)exitWithReason:(signed __int16)reason connection:(id)connection
+{
+  reasonCopy = reason;
+  v5 = [PLUtilities connectionToQuarantine:connection];
+
+  [PLUtilities exitWithReason:reasonCopy action:v5];
+}
+
 + (void)exitWithReason:(signed __int16)reason action:(signed __int16)action
 {
   v6 = dispatch_get_global_queue(0, 0);
@@ -1867,7 +1902,7 @@ double __30__PLUtilities_getMachTimebase__block_invoke()
 
 void __37__PLUtilities_exitWithReason_action___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (+[PLDefaults debugEnabled])
   {
     v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"exitReason=%i", *(a1 + 32)];
@@ -1876,95 +1911,95 @@ void __37__PLUtilities_exitWithReason_action___block_invoke(uint64_t a1)
     v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLUtilities exitWithReason:action:]_block_invoke"];
     [PLCoreStorage logMessage:v2 fromFile:v4 fromFunction:v5 fromLineNumber:978];
 
-    v6 = PLLogCommon();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = PLLogCommon(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v26 = v2;
-      _os_log_debug_impl(&dword_1D8611000, v6, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+      v28 = v2;
+      _os_log_debug_impl(&dword_1D8611000, v7, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
 
-  v7 = *(a1 + 34);
+  v8 = *(a1 + 34);
   if (+[PLUtilities PreUnlockTelemetryEnabled])
   {
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v9 = +[PowerlogCore sharedCore];
-    v10 = [v9 storage];
-    v8 = [v10 storageLocked];
+    v10 = +[PowerlogCore sharedCore];
+    v11 = [v10 storage];
+    v9 = [v11 storageLocked];
   }
 
-  v11 = *(a1 + 32);
-  if (v11 <= 99 && (v8 & 1) == 0)
+  v12 = *(a1 + 32);
+  if (v12 <= 99 && (v9 & 1) == 0)
   {
     if (!+[PLUtilities isPowerlogHelperd](PLUtilities, "isPowerlogHelperd") && !+[PLUtilities isPerfPowerMetricd](PLUtilities, "isPerfPowerMetricd") && !+[PLUtilities isPowerexceptionsd])
     {
-      v12 = +[PowerlogCore sharedCore];
-      v13 = [v12 storage];
-      v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"ExitReason=%i", *(a1 + 32)];
-      [v13 blockingFlushCachesWithReason:v14];
+      v13 = +[PowerlogCore sharedCore];
+      v14 = [v13 storage];
+      v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"ExitReason=%i", *(a1 + 32)];
+      [v14 blockingFlushCachesWithReason:v15];
     }
 
     goto LABEL_21;
   }
 
-  if (v11 < 1001)
+  if (v12 < 1001)
   {
 LABEL_21:
-    v21 = 0;
+    v22 = 0;
     goto LABEL_45;
   }
 
-  v15 = +[PLUtilities containerPath];
-  v16 = [v15 stringByAppendingString:@"/Library/BatteryLife/Quarantine/"];
-  [PLUtilities createAndChownDirectory:v16];
+  v16 = +[PLUtilities containerPath];
+  v17 = [v16 stringByAppendingString:@"/Library/BatteryLife/Quarantine/"];
+  [PLUtilities createAndChownDirectory:v17];
 
-  v17 = +[PLUtilities containerPath];
-  v18 = [v17 stringByAppendingString:@"/Library/PerfPowerTelemetry/Quarantine/"];
-  [PLUtilities createAndChownDirectory:v18];
+  v18 = +[PLUtilities containerPath];
+  v19 = [v18 stringByAppendingString:@"/Library/PerfPowerTelemetry/Quarantine/"];
+  [PLUtilities createAndChownDirectory:v19];
 
-  v19 = 0;
-  v20 = *(a1 + 32);
-  if (v20 > 0x3ED)
+  v20 = 0;
+  v21 = *(a1 + 32);
+  if (v21 > 0x3ED)
   {
     if (*(a1 + 32) <= 0x3EFu)
     {
-      if (v20 == 1006)
+      if (v21 == 1006)
       {
-        v21 = @"PLExitReasonMonotonicTime";
-        v7 = 6;
-        v19 = @"%@MonotonicTimePowerlog_%f%@";
+        v22 = @"PLExitReasonMonotonicTime";
+        v8 = 6;
+        v20 = @"%@MonotonicTimePowerlog_%f%@";
         goto LABEL_39;
       }
 
-      if (v20 == 1007)
+      if (v21 == 1007)
       {
-        v21 = @"PLExitReasonSQLVersionMismatch";
-        v19 = @"%@SQLVersionMismatchPowerlog_%f%@";
+        v22 = @"PLExitReasonSQLVersionMismatch";
+        v20 = @"%@SQLVersionMismatchPowerlog_%f%@";
         goto LABEL_39;
       }
     }
 
     else
     {
-      switch(v20)
+      switch(v21)
       {
         case 0x3F0u:
-          v21 = @"PLExitReasonNewFileRequired";
-          v19 = @"%@NewFileRequiredPowerlog_%f%@";
+          v22 = @"PLExitReasonNewFileRequired";
+          v20 = @"%@NewFileRequiredPowerlog_%f%@";
           goto LABEL_39;
         case 0x3F1u:
-          v21 = @"kPLExitReasonDescKernelTime";
-          v7 = 6;
-          v19 = @"%@KernelTimePowerlog_%f%@";
+          v22 = @"kPLExitReasonDescKernelTime";
+          v8 = 6;
+          v20 = @"%@KernelTimePowerlog_%f%@";
           goto LABEL_39;
         case 0x3F2u:
-          v21 = @"PLExitReasonDescPowerlogReset";
-          v19 = @"%@PowerlogReset_%f%@";
+          v22 = @"PLExitReasonDescPowerlogReset";
+          v20 = @"%@PowerlogReset_%f%@";
           goto LABEL_39;
       }
     }
@@ -1974,41 +2009,41 @@ LABEL_21:
   {
     if (*(a1 + 32) <= 0x3EAu)
     {
-      if (v20 == 1001)
+      if (v21 == 1001)
       {
-        v21 = @"PLExitReasonCorrupt";
-        v19 = @"%@CorruptPowerlog_%f%@";
+        v22 = @"PLExitReasonCorrupt";
+        v20 = @"%@CorruptPowerlog_%f%@";
       }
 
       else
       {
-        v21 = 0;
-        if (v20 != 1002)
+        v22 = 0;
+        if (v21 != 1002)
         {
           goto LABEL_40;
         }
 
-        v7 = 0;
-        v21 = @"PLExitReasonSubmissionTimeout";
-        v19 = @"%@SubmissionTimeoutPowerlog_%f%@";
+        v8 = 0;
+        v22 = @"PLExitReasonSubmissionTimeout";
+        v20 = @"%@SubmissionTimeoutPowerlog_%f%@";
       }
 
       goto LABEL_39;
     }
 
-    switch(v20)
+    switch(v21)
     {
       case 0x3EBu:
-        v21 = @"PLExitReasonArchiveTimeout";
-        v19 = @"%@ArchiveTimeoutPowerlog_%f%@";
+        v22 = @"PLExitReasonArchiveTimeout";
+        v20 = @"%@ArchiveTimeoutPowerlog_%f%@";
         goto LABEL_39;
       case 0x3ECu:
-        v21 = @"PLExitReasonArchiveMaxAttempts";
-        v19 = @"%@ArchiveMaxAttemptsPowerlog_%f%@";
+        v22 = @"PLExitReasonArchiveMaxAttempts";
+        v20 = @"%@ArchiveMaxAttemptsPowerlog_%f%@";
         goto LABEL_39;
       case 0x3EDu:
-        v21 = @"PLExitReasonTooLarge";
-        v19 = @"%@TooLargePowerlog_%f%@";
+        v22 = @"PLExitReasonTooLarge";
+        v20 = @"%@TooLargePowerlog_%f%@";
 LABEL_39:
         PLADClientAddValueForScalarKey();
         AnalyticsSendEventLazy();
@@ -2016,39 +2051,56 @@ LABEL_39:
     }
   }
 
-  v21 = 0;
+  v22 = 0;
 LABEL_40:
   if (+[PLUtilities isPowerlogHelperd](PLUtilities, "isPowerlogHelperd") || +[PLUtilities isPerfPowerMetricd](PLUtilities, "isPerfPowerMetricd") || +[PLUtilities isPowerexceptionsd])
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  [PLUtilities quarantineToPath:v19 action:v7];
+  [PLUtilities quarantineToPath:v20 action:v8];
   [PLDefaults setObject:0 forKey:@"PLUUID" saveToDisk:1];
 LABEL_45:
-  if (!+[PLUtilities isPowerlogHelperd](PLUtilities, "isPowerlogHelperd") && !+[PLUtilities isPerfPowerMetricd](PLUtilities, "isPerfPowerMetricd") && !+[PLUtilities isPowerexceptionsd])
+  v23 = +[PLUtilities isPowerlogHelperd];
+  if ((v23 & 1) == 0)
   {
-    v22 = [MEMORY[0x1E696AD98] numberWithShort:*(a1 + 32)];
-    [PLDefaults setObject:v22 forKey:@"PLExitReasonKey" saveToDisk:1];
+    v23 = +[PLUtilities isPerfPowerMetricd];
+    if ((v23 & 1) == 0)
+    {
+      v23 = +[PLUtilities isPowerexceptionsd];
+      if ((v23 & 1) == 0)
+      {
+        v24 = [MEMORY[0x1E696AD98] numberWithShort:*(a1 + 32)];
+        [PLDefaults setObject:v24 forKey:@"PLExitReasonKey" saveToDisk:1];
+      }
+    }
   }
 
-  v23 = *(a1 + 32);
-  if (v23 >= 1001)
+  v25 = *(a1 + 32);
+  if (v25 >= 1001)
   {
-    v24 = PLLogCommon();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v26 = PLLogCommon(v23);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
     {
       *buf = 138543618;
-      v26 = v21;
-      v27 = 1024;
-      v28 = v7;
-      _os_log_fault_impl(&dword_1D8611000, v24, OS_LOG_TYPE_FAULT, "Exiting due to %{public}@ action=%d", buf, 0x12u);
+      v28 = v22;
+      v29 = 1024;
+      v30 = v8;
+      _os_log_fault_impl(&dword_1D8611000, v26, OS_LOG_TYPE_FAULT, "Exiting due to %{public}@ action=%d", buf, 0x12u);
     }
 
-    LOWORD(v23) = *(a1 + 32);
+    LOWORD(v25) = *(a1 + 32);
   }
 
-  exit(v23 > 99);
+  exit(v25 > 99);
+}
+
++ (void)exitWithReasonSync:(signed __int16)sync
+{
+  syncCopy = sync;
+  dsema = dispatch_semaphore_create(0);
+  [self exitWithReason:syncCopy];
+  dispatch_semaphore_wait(dsema, 0xFFFFFFFFFFFFFFFFLL);
 }
 
 + (void)quarantineToPath:(id)path action:(signed __int16)action
@@ -2061,7 +2113,7 @@ LABEL_45:
   v8 = v7;
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v10 = PLLogCommon();
+  v10 = PLLogCommon(dictionary);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -2143,56 +2195,55 @@ LABEL_45:
   }
 
   v41 = +[PLUtilities shouldCreateQuarantine];
-  v42 = PLLogCommon();
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+  v42 = v41;
+  v43 = PLLogCommon(v41);
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v57 = v41;
-    _os_log_impl(&dword_1D8611000, v42, OS_LOG_TYPE_DEFAULT, "should quarantine: %d", buf, 8u);
+    v57 = v42;
+    _os_log_impl(&dword_1D8611000, v43, OS_LOG_TYPE_DEFAULT, "should quarantine: %d", buf, 8u);
   }
 
   v53[0] = MEMORY[0x1E69E9820];
   v53[1] = 3221225472;
   v53[2] = __39__PLUtilities_quarantineToPath_action___block_invoke;
   v53[3] = &unk_1E851A250;
-  v43 = dictionary;
-  v54 = v43;
-  v55 = v41;
-  [v43 enumerateKeysAndObjectsUsingBlock:v53];
+  v44 = dictionary;
+  v54 = v44;
+  v55 = v42;
+  [v44 enumerateKeysAndObjectsUsingBlock:v53];
   if (+[PLDefaults fullMode]&& (actionCopy == 6 || actionCopy == 1))
   {
-    v44 = MEMORY[0x1E696AEC0];
-    v45 = +[PLUtilities containerPath];
-    v46 = [v45 stringByAppendingString:@"/Library/BatteryLife/Quarantine/"];
-    v47 = [v44 stringWithFormat:pathCopy, v46, v8, @".PLSQL"];
+    v45 = MEMORY[0x1E696AEC0];
+    v46 = +[PLUtilities containerPath];
+    v47 = [v46 stringByAppendingString:@"/Library/BatteryLife/Quarantine/"];
+    v48 = [v45 stringWithFormat:pathCopy, v47, v8, @".PLSQL"];
 
-    lastPathComponent = [v47 lastPathComponent];
-    v49 = [@"/var/mobile/Library/Logs/CrashReporter/" stringByAppendingString:lastPathComponent];
+    lastPathComponent = [v48 lastPathComponent];
+    v50 = [@"/var/mobile/Library/Logs/CrashReporter/" stringByAppendingString:lastPathComponent];
 
-    lastPathComponent2 = [v47 lastPathComponent];
-    [PLUtilities moveItemAtPath:v47 toPath:v49 withName:lastPathComponent2 error:0];
+    lastPathComponent2 = [v48 lastPathComponent];
+    [PLUtilities moveItemAtPath:v48 toPath:v50 withName:lastPathComponent2 error:0];
 
-    v51 = [MEMORY[0x1E695DFF8] fileURLWithPath:v49];
-    [PPSFileUtilities markAsPurgeable:v51 urgency:512 startDate:0];
+    v52 = [MEMORY[0x1E695DFF8] fileURLWithPath:v50];
+    [PPSFileUtilities markAsPurgeable:v52 urgency:512 startDate:0];
 
-    v14 = v47;
+    v14 = v48;
   }
-
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 void __39__PLUtilities_quarantineToPath_action___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [*(a1 + 32) objectForKeyedSubscript:v3];
-  v5 = PLLogCommon();
+  v5 = PLLogCommon(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __39__PLUtilities_quarantineToPath_action___block_invoke_cold_1(v4, v5);
   }
 
-  v6 = PLLogCommon();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = PLLogCommon(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __39__PLUtilities_quarantineToPath_action___block_invoke_cold_2();
   }
@@ -2201,8 +2252,8 @@ void __39__PLUtilities_quarantineToPath_action___block_invoke(uint64_t a1, void 
   {
     [v4 moveDatabaseToPath:v3];
     [objc_opt_class() removeAdditionalFiles:v3];
-    v7 = [MEMORY[0x1E695DFF8] fileURLWithPath:v3];
-    [PPSFileUtilities markAsPurgeable:v7 urgency:512 startDate:0];
+    v8 = [MEMORY[0x1E695DFF8] fileURLWithPath:v3];
+    [PPSFileUtilities markAsPurgeable:v8 urgency:512 startDate:0];
   }
 
   else
@@ -2231,14 +2282,14 @@ void __39__PLUtilities_quarantineToPath_action___block_invoke(uint64_t a1, void 
 
 + (BOOL)allowQueryFromPeer:(id)peer
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   peerCopy = peer;
   xpc_connection_get_audit_token();
   memset(token, 0, 32);
   v4 = SecTaskCreateWithAuditToken(0, token);
   if (!v4)
   {
-    v7 = PLLogCommon();
+    v7 = PLLogCommon(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       +[PLUtilities allowQueryFromPeer:];
@@ -2251,89 +2302,88 @@ void __39__PLUtilities_quarantineToPath_action___block_invoke(uint64_t a1, void 
   CodeSignStatus = SecTaskGetCodeSignStatus(v4);
   v7 = SecTaskCopyValueForEntitlement(v5, @"com.apple.private.perfpowerservices.query.internal", 0);
   CFRelease(v5);
-  v8 = PLLogCommon();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
+  v9 = PLLogCommon(v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG);
 
-  if (v9)
+  if (v10)
   {
     pid = xpc_connection_get_pid(peerCopy);
-    v11 = [PLUtilities processNameForPid:pid];
-    v12 = [PLUtilities bundleIDFromPid:pid];
-    v13 = PLLogCommon();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v13 = [PLUtilities processNameForPid:pid];
+    v14 = [PLUtilities bundleIDFromPid:pid];
+    v15 = PLLogCommon(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *token = 67109890;
       *&token[4] = pid;
       *&token[8] = 2112;
-      *&token[10] = v11;
+      *&token[10] = v13;
       *&token[18] = 2112;
-      *&token[20] = v12;
+      *&token[20] = v14;
       *&token[28] = 1024;
       *&token[30] = CodeSignStatus;
-      _os_log_impl(&dword_1D8611000, v13, OS_LOG_TYPE_INFO, "query from pid:%d procName:%@ bundleID:%@ csStatus:%d", token, 0x22u);
+      _os_log_impl(&dword_1D8611000, v15, OS_LOG_TYPE_INFO, "query from pid:%d procName:%@ bundleID:%@ csStatus:%d", token, 0x22u);
     }
   }
 
   if ((CodeSignStatus & 0xC000001) == 0x4000001)
   {
-    v14 = PLLogCommon();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v16 = PLLogCommon(v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *token = 67109120;
       *&token[4] = CodeSignStatus;
-      v15 = "allowing query %d";
-      v16 = v14;
-      v17 = 8;
+      v17 = "allowing query %d";
+      v18 = v16;
+      v19 = 8;
 LABEL_15:
-      _os_log_impl(&dword_1D8611000, v16, OS_LOG_TYPE_INFO, v15, token, v17);
+      _os_log_impl(&dword_1D8611000, v18, OS_LOG_TYPE_INFO, v17, token, v19);
       goto LABEL_16;
     }
 
     goto LABEL_16;
   }
 
-  if (!v7 || !+[PLPlatform internalBuild])
+  if (!v7 || (v11 = +[PLPlatform internalBuild], !v11))
   {
-    v19 = PLLogCommon();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v21 = PLLogCommon(v11);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *token = 67109120;
       *&token[4] = CodeSignStatus;
-      _os_log_impl(&dword_1D8611000, v19, OS_LOG_TYPE_INFO, "query denied %d", token, 8u);
+      _os_log_impl(&dword_1D8611000, v21, OS_LOG_TYPE_INFO, "query denied %d", token, 8u);
     }
 
 LABEL_20:
-    v18 = 0;
+    v20 = 0;
     goto LABEL_21;
   }
 
-  v14 = PLLogCommon();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  v16 = PLLogCommon(v11);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     *token = 0;
-    v15 = "alloiwng query becaues internal build and has proper entitlements";
-    v16 = v14;
-    v17 = 2;
+    v17 = "alloiwng query becaues internal build and has proper entitlements";
+    v18 = v16;
+    v19 = 2;
     goto LABEL_15;
   }
 
 LABEL_16:
 
-  v18 = 1;
+  v20 = 1;
 LABEL_21:
 
-  v20 = *MEMORY[0x1E69E9840];
-  return v18;
+  return v20;
 }
 
 + (id)getPerfStatsForProcess:(id)process
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF00];
   processCopy = process;
   monotonicDate = [v3 monotonicDate];
   v6 = [monotonicDate dateByAddingTimeInterval:-86400.0];
-  v7 = PLLogCommon();
+  v7 = PLLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     +[PLUtilities getPerfStatsForProcess:];
@@ -2345,43 +2395,42 @@ LABEL_21:
   [monotonicDate timeIntervalSince1970];
   v12 = [v8 stringWithFormat:@"SELECT LaunchdName AS BundleID, SUM(cpu_time) AS cpu_seconds, SUM(cpu_instructions) AS cpu_instructions, SUM(cpu_cycles) AS cpu_cycles FROM %@ where LaunchdName = '%@' AND timestamp >= %f and timestamp < %f", @"PLCoalitionAgent_EventInterval_CoalitionInterval", processCopy, v10, v11];
 
-  v13 = PLLogCommon();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = PLLogCommon(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v26 = v12;
-    _os_log_impl(&dword_1D8611000, v13, OS_LOG_TYPE_DEFAULT, "[Perf Stats Query] %@", buf, 0xCu);
+    v27 = v12;
+    _os_log_impl(&dword_1D8611000, v14, OS_LOG_TYPE_DEFAULT, "[Perf Stats Query] %@", buf, 0xCu);
   }
 
-  v14 = +[PLSQLiteConnection sharedSQLiteConnection];
-  v15 = [v14 performQuery:v12];
+  v15 = +[PLSQLiteConnection sharedSQLiteConnection];
+  v16 = [v15 performQuery:v12];
 
-  if ([v15 count] && (objc_msgSend(v15, "firstObject"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "objectForKeyedSubscript:", @"BundleID"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "isNil"), v17, v16, !v18))
+  v17 = [v16 count];
+  if (v17 && ([v16 firstObject], v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "objectForKeyedSubscript:", @"BundleID"), v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v19, "isNil"), v19, v18, !v20))
   {
-    v21 = PLLogCommon();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v23 = PLLogCommon(v17);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      firstObject = [v15 firstObject];
+      firstObject = [v16 firstObject];
       *buf = 138412290;
-      v26 = firstObject;
-      _os_log_impl(&dword_1D8611000, v21, OS_LOG_TYPE_DEFAULT, "Report perf stats to CA for %@", buf, 0xCu);
+      v27 = firstObject;
+      _os_log_impl(&dword_1D8611000, v23, OS_LOG_TYPE_DEFAULT, "Report perf stats to CA for %@", buf, 0xCu);
     }
 
-    firstObject2 = [v15 firstObject];
+    firstObject2 = [v16 firstObject];
   }
 
   else
   {
-    v19 = PLLogCommon();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = PLLogCommon(v17);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       +[PLUtilities getPerfStatsForProcess:];
     }
 
     firstObject2 = 0;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return firstObject2;
 }
@@ -2443,11 +2492,9 @@ void __40__PLUtilities_launchdNameToProcessName___block_invoke()
 
 + (id)binaryPathForPid:(int)pid
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:buffer length:proc_pidpath(pid encoding:{buffer, 0x1000u), 4}];
   v4 = [MEMORY[0x1E695DFF8] fileURLWithPath:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -2509,90 +2556,104 @@ void __40__PLUtilities_launchdNameToProcessName___block_invoke()
 
 uint64_t __39__PLUtilities_bundleIDFromProcessName___block_invoke()
 {
-  bundleIDFromProcessName__processNameToBundleID = [MEMORY[0x1E695DF90] dictionary];
+  v0 = [MEMORY[0x1E695DF90] dictionary];
+  bundleIDFromProcessName__processNameToBundleID = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 id __39__PLUtilities_bundleIDFromProcessName___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
   v7 = [[PLValueComparison alloc] initWithKey:v5 withValue:*(a1 + 32) withComparisonOperation:0];
 
   v8 = +[PowerlogCore sharedCore];
   v9 = [v8 storage];
-  v14[0] = v7;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = v7;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
   v11 = [v9 lastEntryForKey:v6 withComparisons:v10 isSingleton:1];
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v11;
+}
+
++ (id)bundleIDFromPid:(int)pid
+{
+  v4 = [self binaryPathForPid:*&pid];
+  if (v4)
+  {
+    v5 = _CFBundleCopyBundleURLForExecutableURL();
+    v6 = [self bundleIDFromURL:v5];
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  return v6;
 }
 
 + (id)bundleIDFromURL:(id)l
 {
   if (l)
   {
-    v3 = *MEMORY[0x1E695E480];
     Unique = _CFBundleCreateUnique();
-    v5 = Unique;
+    v4 = Unique;
     if (Unique)
     {
-      v6 = CFBundleGetIdentifier(Unique);
+      v5 = CFBundleGetIdentifier(Unique);
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  return v6;
+  return v5;
 }
 
 + (id)bundleVersionFromURL:(id)l
 {
   if (l)
   {
-    v3 = *MEMORY[0x1E695E480];
     Unique = _CFBundleCreateUnique();
-    v5 = Unique;
+    v4 = Unique;
     if (Unique)
     {
-      v6 = CFBundleGetValueForInfoDictionaryKey(Unique, *MEMORY[0x1E695E148]);
+      v5 = CFBundleGetValueForInfoDictionaryKey(Unique, *MEMORY[0x1E695E148]);
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  return v6;
+  return v5;
 }
 
 + (int)pidForProcessName:(id)name
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v4 = proc_listpids(1u, 0, 0, 0);
   if ((v4 & 0x80000000) != 0)
   {
-    v12 = PLLogCommon();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = PLLogCommon(v4);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       +[PLUtilities pidForProcessName:];
     }
@@ -2605,64 +2666,65 @@ id __39__PLUtilities_bundleIDFromProcessName___block_invoke_2(uint64_t a1, void 
   v7 = malloc_type_malloc(v4, 0x100004052888210uLL);
   if (!v7)
   {
-    v12 = PLLogCommon();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = PLLogCommon(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       +[PLUtilities pidForProcessName:];
     }
 
 LABEL_13:
-    LODWORD(v11) = -1;
+    LODWORD(v12) = -1;
     goto LABEL_14;
   }
 
   v8 = v7;
   memset(v7, 255, v6);
   v9 = proc_listpids(1u, 0, v8, v5);
-  v10 = PLLogCommon();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v10 = v9;
+  v11 = PLLogCommon(v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     +[PLUtilities pidForProcessName:];
   }
 
-  if (v9 >= 4)
+  if (v10 >= 4)
   {
-    if (v9 >> 2 <= 1)
+    if (v10 >> 2 <= 1)
     {
-      v15 = 1;
+      v16 = 1;
     }
 
     else
     {
-      v15 = v9 >> 2;
+      v16 = v10 >> 2;
     }
 
-    v16 = v8;
+    v17 = v8;
     while (1)
     {
-      v17 = *v16++;
-      v11 = v17;
-      if (v17 >= 1)
+      v18 = *v17++;
+      v12 = v18;
+      if (v18 >= 1)
       {
-        v18 = [PLUtilities fullProcessNameForPid:v11];
-        v19 = PLLogCommon();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v19 = [PLUtilities fullProcessNameForPid:v12];
+        v20 = PLLogCommon(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412546;
-          v22 = v18;
-          v23 = 1024;
-          v24 = v11;
-          _os_log_debug_impl(&dword_1D8611000, v19, OS_LOG_TYPE_DEBUG, "checking %@ (%d)", buf, 0x12u);
+          v23 = v19;
+          v24 = 1024;
+          v25 = v12;
+          _os_log_debug_impl(&dword_1D8611000, v20, OS_LOG_TYPE_DEBUG, "checking %@ (%d)", buf, 0x12u);
         }
 
-        v20 = [v18 isEqualToString:nameCopy];
-        if (v20)
+        v21 = [v19 isEqualToString:nameCopy];
+        if (v21)
         {
           break;
         }
       }
 
-      if (!--v15)
+      if (!--v16)
       {
         goto LABEL_6;
       }
@@ -2672,48 +2734,45 @@ LABEL_13:
   else
   {
 LABEL_6:
-    LODWORD(v11) = -1;
+    LODWORD(v12) = -1;
   }
 
   free(v8);
-  v12 = PLLogCommon();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v14 = PLLogCommon(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     +[PLUtilities pidForProcessName:];
   }
 
 LABEL_14:
 
-  v13 = *MEMORY[0x1E69E9840];
-  return v11;
+  return v12;
 }
 
 + (id)processNameForPid:(int)pid
 {
-  v11 = *MEMORY[0x1E69E9840];
-  memset(v10, 0, 512);
-  v6 = 648;
-  *v7 = 0xE00000001;
-  v8 = 1;
+  v10 = *MEMORY[0x1E69E9840];
+  memset(v9, 0, 512);
+  v5 = 648;
+  *v6 = 0xE00000001;
+  v7 = 1;
   pidCopy = pid;
-  if (sysctl(v7, 4u, v10, &v6, 0, 0) < 0)
+  if (sysctl(v6, 4u, v9, &v5, 0, 0) < 0)
   {
     v3 = 0;
   }
 
   else
   {
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:&v10[15] + 3];
+    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:&v9[15] + 3];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 + (id)fullProcessNameForPid:(int)pid
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (pid < 1 || (bzero(buffer, 0x1000uLL), proc_pidpath(pid, buffer, 0x1000u) < 1))
   {
     v4 = 0;
@@ -2725,44 +2784,80 @@ LABEL_14:
     v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:basename(buffer)];
   }
 
-  v5 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 + (id)pUUIDForPid:(int)pid
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = 0;
-  memset(v7, 0, sizeof(v7));
-  v3 = proc_pidinfo(pid, 17, 1uLL, v7, 56);
+  v8 = *MEMORY[0x1E69E9840];
+  v7 = 0;
+  memset(v6, 0, sizeof(v6));
+  v3 = proc_pidinfo(pid, 17, 1uLL, v6, 56);
   v4 = 0;
   if (v3 == 56)
   {
-    v4 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v7];
+    v4 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v6];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 + (unint64_t)maxProcessCount
 {
-  v4 = 8;
-  v5 = 0;
-  if (!sysctlbyname("kern.maxproc", &v5, &v4, 0, 0))
+  v5 = 8;
+  v6 = 0;
+  v2 = sysctlbyname("kern.maxproc", &v6, &v5, 0, 0);
+  if (!v2)
   {
-    return v5;
+    return v6;
   }
 
-  v2 = PLLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = PLLogCommon(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     +[PLUtilities maxProcessCount];
   }
 
   return 0;
+}
+
++ (BOOL)isDaemonOrAppleXPCService:(int)service
+{
+  v3 = *&service;
+  v4 = MEMORY[0x1E69C75D0];
+  v5 = [MEMORY[0x1E696AD98] numberWithInt:?];
+  v12 = 0;
+  v6 = [v4 handleForIdentifier:v5 error:&v12];
+  v7 = v12;
+  identity = [v6 identity];
+
+  if (v7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    +[PLUtilities isDaemonOrAppleXPCService:];
+  }
+
+  if ([identity isDaemon])
+  {
+    v9 = 1;
+  }
+
+  else if ([identity isXPCService])
+  {
+    xpcServiceIdentifier = [identity xpcServiceIdentifier];
+    v9 = [xpcServiceIdentifier hasPrefix:@"com.apple"];
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
+  {
+    [(PLUtilities *)v9 isDaemonOrAppleXPCService:v3];
+  }
+
+  return v9;
 }
 
 + (unint64_t)coalitionIDForPid:(int)pid
@@ -2880,9 +2975,10 @@ void __34__PLUtilities_runningAsMobileUser__block_invoke()
 
 uint64_t __28__PLUtilities_runningAsUser__block_invoke()
 {
-  runningAsUser_userName = NSUserName();
+  v0 = NSUserName();
+  runningAsUser_userName = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 + (BOOL)shouldLogPreUnlockTelemetry
@@ -2988,16 +3084,15 @@ uint64_t __26__PLUtilities_hasGasGauge__block_invoke()
 void __25__PLUtilities_hasBattery__block_invoke()
 {
   v3 = *MEMORY[0x1E69E9840];
-  hasBattery___hasBattery = MGGetBoolAnswer();
-  v0 = PLLogCommon();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v0 = MGGetBoolAnswer();
+  hasBattery___hasBattery = v0;
+  v1 = PLLogCommon(v0);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     v2[0] = 67109120;
     v2[1] = hasBattery___hasBattery;
-    _os_log_impl(&dword_1D8611000, v0, OS_LOG_TYPE_DEFAULT, "Battery detected: %d", v2, 8u);
+    _os_log_impl(&dword_1D8611000, v1, OS_LOG_TYPE_DEFAULT, "Battery detected: %d", v2, 8u);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)inBUIDemoMode
@@ -3068,7 +3163,7 @@ void __28__PLUtilities_isSiriEnabled__block_invoke()
 
 + (BOOL)isImproveFitnessPlusEnabled
 {
-  v2 = PLLogCommon();
+  v2 = PLLogCommon(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     +[PLUtilities isImproveFitnessPlusEnabled];
@@ -3121,16 +3216,17 @@ uint64_t __36__PLUtilities_isAppAnalyticsEnabled__block_invoke()
     if (v4)
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v5 = [v4 objectForKeyedSubscript:@"L0b"];
-        v6 = v5;
-        if (v5)
+        v6 = [v4 objectForKeyedSubscript:@"L0b"];
+        v7 = v6;
+        if (v6)
         {
-          [v5 doubleValue];
-          v8 = v7 * 1.15;
-          v9 = PLLogCommon();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+          doubleValue = [v6 doubleValue];
+          v10 = v9 * 1.15;
+          v11 = PLLogCommon(doubleValue);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
           {
             +[PLUtilities getDefaultL0bThresholdForDeviceType];
           }
@@ -3138,9 +3234,9 @@ uint64_t __36__PLUtilities_isAppAnalyticsEnabled__block_invoke()
 
         else
         {
-          v9 = PLLogCommon();
-          v8 = -1.0;
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+          v11 = PLLogCommon(0);
+          v10 = -1.0;
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
             +[PLUtilities getDefaultL0bThresholdForDeviceType];
           }
@@ -3149,9 +3245,9 @@ uint64_t __36__PLUtilities_isAppAnalyticsEnabled__block_invoke()
 
       else
       {
-        v6 = PLLogCommon();
-        v8 = -1.0;
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v7 = PLLogCommon(isKindOfClass);
+        v10 = -1.0;
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           +[PLUtilities getDefaultL0bThresholdForDeviceType];
         }
@@ -3160,9 +3256,9 @@ uint64_t __36__PLUtilities_isAppAnalyticsEnabled__block_invoke()
 
     else
     {
-      v6 = PLLogCommon();
-      v8 = -1.0;
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = PLLogCommon(0);
+      v10 = -1.0;
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         +[PLUtilities getDefaultL0bThresholdForDeviceType];
       }
@@ -3171,15 +3267,15 @@ uint64_t __36__PLUtilities_isAppAnalyticsEnabled__block_invoke()
 
   else
   {
-    v4 = PLLogCommon();
-    v8 = -1.0;
+    v4 = PLLogCommon(0);
+    v10 = -1.0;
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       +[PLUtilities getDefaultL0bThresholdForDeviceType];
     }
   }
 
-  return v8;
+  return v10;
 }
 
 + (BOOL)isALSCurveHigherThanDefault
@@ -3242,9 +3338,10 @@ uint64_t __26__PLUtilities_hashString___block_invoke(uint64_t a1)
   {
     [*(a1 + 32) generateAndUpdateSaltValue:@"PLSalt"];
   }
-  hashString__salt = ;
+  v2 = ;
+  hashString__salt = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2);
 }
 
 + (id)hashBundleID:(id)d
@@ -3291,16 +3388,15 @@ uint64_t __26__PLUtilities_hashString___block_invoke(uint64_t a1)
 
 + (id)generateHashValue:(id)value withSalt:(id)salt
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   salt = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", value, salt];
   uTF8String = [salt UTF8String];
 
   *md = 0;
-  v11 = 0;
+  v10 = 0;
   v6 = strlen(uTF8String);
   CC_MD5(uTF8String, v6, md);
-  v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X", md[0], md[1], md[2], md[3], md[4], md[5], md[6], md[7], v11, BYTE1(v11), BYTE2(v11), BYTE3(v11), BYTE4(v11), BYTE5(v11), BYTE6(v11), HIBYTE(v11)];
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X", md[0], md[1], md[2], md[3], md[4], md[5], md[6], md[7], v10, BYTE1(v10), BYTE2(v10), BYTE3(v10), BYTE4(v10), BYTE5(v10), BYTE6(v10), HIBYTE(v10)];
 
   return v7;
 }
@@ -3484,9 +3580,10 @@ LABEL_17:
 
 uint64_t __31__PLUtilities_crashReporterKey__block_invoke()
 {
-  crashReporterKey_crkey = MGCopyAnswer();
+  v0 = MGCopyAnswer();
+  crashReporterKey_crkey = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 + (id)mobileUserADG
@@ -3552,31 +3649,31 @@ void __29__PLUtilities_hasInternalKey__block_invoke()
   if ([keyCopy length])
   {
     v4 = [keyCopy componentsSeparatedByString:@""];;
-    if ([v4 count] == 2)
+    v5 = [v4 count];
+    if (v5 == 2)
     {
-      v5 = [v4 objectAtIndexedSubscript:0];
-      v6 = [v5 length] != 0;
+      v6 = [v4 objectAtIndexedSubscript:0];
+      v7 = [v6 length] != 0;
     }
 
     else
     {
-      v7 = PLLogCommon();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = PLLogCommon(v5);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        +[PLUtilities hasInternalKey:].cold.1(keyCopy, v10, [v4 count], v7);
+        +[PLUtilities hasInternalKey:].cold.1(keyCopy, v10, [v4 count], v8);
       }
 
-      v6 = 0;
+      v7 = 0;
     }
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-  return v6;
+  return v7;
 }
 
 + (id)deviceBootArgs
@@ -3594,33 +3691,35 @@ void __29__PLUtilities_hasInternalKey__block_invoke()
 void __29__PLUtilities_deviceBootArgs__block_invoke()
 {
   size = 0;
-  if (sysctlbyname("kern.bootargs", 0, &size, 0, 0))
+  v0 = sysctlbyname("kern.bootargs", 0, &size, 0, 0);
+  if (v0)
   {
-    v0 = PLLogCommon();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v1 = PLLogCommon(v0);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       __29__PLUtilities_deviceBootArgs__block_invoke_cold_1();
     }
   }
 
-  v1 = malloc_type_malloc(size, 0x100004077774924uLL);
-  if (sysctlbyname("kern.bootargs", v1, &size, 0, 0))
+  v2 = malloc_type_malloc(size, 0x100004077774924uLL);
+  v3 = sysctlbyname("kern.bootargs", v2, &size, 0, 0);
+  if (v3)
   {
-    v2 = PLLogCommon();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v4 = PLLogCommon(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __29__PLUtilities_deviceBootArgs__block_invoke_cold_2();
     }
 
-    free(v1);
+    free(v2);
   }
 
-  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v1];
-  v4 = [v3 strip];
+  v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v2];
+  v6 = [v5 strip];
 
-  free(v1);
-  v5 = deviceBootArgs_bootArgs;
-  deviceBootArgs_bootArgs = v4;
+  free(v2);
+  v7 = deviceBootArgs_bootArgs;
+  deviceBootArgs_bootArgs = v6;
 }
 
 + (id)allSubClassesForClass:(Class)class
@@ -3633,8 +3732,8 @@ void __29__PLUtilities_deviceBootArgs__block_invoke()
     v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLUtilities allSubClassesForClass:]"];
     [PLCoreStorage logMessage:v4 fromFile:lastPathComponent fromFunction:v7 fromLineNumber:2147];
 
-    v8 = PLLogCommon();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = PLLogCommon(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
     }
@@ -3642,12 +3741,12 @@ void __29__PLUtilities_deviceBootArgs__block_invoke()
 
   array = [MEMORY[0x1E695DF70] array];
   outCount = 0;
-  v10 = objc_copyClassList(&outCount);
+  v11 = objc_copyClassList(&outCount);
   if (outCount)
   {
     for (i = 0; i < outCount; ++i)
     {
-      Superclass = v10[i];
+      Superclass = v11[i];
       do
       {
         Superclass = class_getSuperclass(Superclass);
@@ -3656,12 +3755,12 @@ void __29__PLUtilities_deviceBootArgs__block_invoke()
       while (Superclass && Superclass != class);
       if (Superclass)
       {
-        [array addObject:v10[i]];
+        [array addObject:v11[i]];
       }
     }
   }
 
-  free(v10);
+  free(v11);
 
   return array;
 }
@@ -3716,24 +3815,24 @@ void __29__PLUtilities_deviceBootArgs__block_invoke()
       v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLUtilities JSONSanitizeDictionary:]"];
       [PLCoreStorage logMessage:dictionaryCopy fromFile:lastPathComponent fromFunction:v7 fromLineNumber:2198];
 
-      v8 = PLLogCommon();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v9 = PLLogCommon(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
     }
 
-    v9 = objc_opt_new();
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __38__PLUtilities_JSONSanitizeDictionary___block_invoke;
-    v13[3] = &unk_1E8519700;
-    v10 = v9;
-    v14 = v10;
-    [dictionaryCopy enumerateKeysAndObjectsUsingBlock:v13];
+    v10 = objc_opt_new();
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __38__PLUtilities_JSONSanitizeDictionary___block_invoke;
+    v14[3] = &unk_1E8519700;
     v11 = v10;
+    v15 = v11;
+    [dictionaryCopy enumerateKeysAndObjectsUsingBlock:v14];
+    v12 = v11;
 
-    dictionaryCopy = v11;
+    dictionaryCopy = v12;
   }
 
   return dictionaryCopy;
@@ -3767,8 +3866,8 @@ void __38__PLUtilities_JSONSanitizeDictionary___block_invoke(uint64_t a1, void *
       v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"+[PLUtilities JSONSanitizeDictionary:]_block_invoke"];
       [PLCoreStorage logMessage:v9 fromFile:v11 fromFunction:v12 fromLineNumber:2209];
 
-      v13 = PLLogCommon();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v14 = PLLogCommon(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -3827,7 +3926,6 @@ void __50__PLUtilities_getKVPairsForCASubmissionFromEntry___block_invoke(uint64_
 
 + (jetsam_priority_info)getJetsamPriority:(int)priority
 {
-  v6 = *MEMORY[0x1E69E9840];
   if (memorystatus_control() == 128)
   {
     v3 = mach_absolute_time();
@@ -3845,7 +3943,6 @@ void __50__PLUtilities_getKVPairsForCASubmissionFromEntry___block_invoke(uint64_
     v3 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   result.var2 = v3;
   result.var0 = v4;
   result.var1 = BYTE4(v4);
@@ -3854,13 +3951,13 @@ void __50__PLUtilities_getKVPairsForCASubmissionFromEntry___block_invoke(uint64_
 
 + (process_memory_limit_info)getProcessMemoryLimit:(int)limit
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
+  v11 = 0;
   v12 = 0;
   v13 = 0;
-  v14 = 0;
+  v8 = 0;
   v9 = 0;
   v10 = 0;
-  v11 = 0;
   if (memorystatus_control() != 24 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     +[PLUtilities getProcessMemoryLimit:];
@@ -3880,23 +3977,22 @@ void __50__PLUtilities_getKVPairsForCASubmissionFromEntry___block_invoke(uint64_
 
   else
   {
-    v6 = v9;
-    v4 = (v11 != 0) << 48;
-    v5 = (BYTE4(v9) & 1) << 32;
+    v6 = v8;
+    v4 = (v10 != 0) << 48;
+    v5 = (BYTE4(v8) & 1) << 32;
   }
 
-  if (v6 != v14 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+  if (v6 != v13 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109632;
     limitCopy = limit;
-    v17 = 1024;
-    v18 = v6;
-    v19 = 1024;
-    v20 = v14;
+    v16 = 1024;
+    v17 = v6;
+    v18 = 1024;
+    v19 = v13;
     _os_log_impl(&dword_1D8611000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "memory limits do not match for pid %i (get_prio_list=%i, get_memlimit_props=%i)", buf, 0x14u);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return (v4 | 0x10000000000 | v5 | v6);
 }
 
@@ -3935,7 +4031,7 @@ void __50__PLUtilities_getKVPairsForCASubmissionFromEntry___block_invoke(uint64_
 
 + (id)cleanLaunchdName:(id)name
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v4 = nameCopy;
   if (!nameCopy)
@@ -3971,24 +4067,24 @@ LABEL_22:
   }
 
   [v11 componentsSeparatedByString:@"-"];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  obj = v30 = 0u;
-  v26 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
-  if (v26)
+  obj = v29 = 0u;
+  v25 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  if (v25)
   {
-    v25 = *v28;
+    v24 = *v27;
     while (2)
     {
-      for (i = 0; i != v26; ++i)
+      for (i = 0; i != v25; ++i)
       {
-        if (*v28 != v25)
+        if (*v27 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:*(*(&v27 + 1) + 8 * i)];
+        v13 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:*(*(&v26 + 1) + 8 * i)];
         v14 = [stringIsUUID_hexChars isSupersetOfSet:v13];
 
         if (!v14)
@@ -3998,8 +4094,8 @@ LABEL_22:
         }
       }
 
-      v26 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
-      if (v26)
+      v25 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      if (v25)
       {
         continue;
       }
@@ -4078,14 +4174,13 @@ LABEL_43:
   v16 = v17;
 
 LABEL_44:
-  v22 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 + (id)intervalPeakCADictionaryForLaunchdName:(id)name intervalMaxKB:(unint64_t)b
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E695DF90];
   if (name)
   {
@@ -4097,17 +4192,15 @@ LABEL_44:
     nameCopy = @"UNKNOWN";
   }
 
-  v14[0] = @"launchd_name";
-  v14[1] = @"interval_peak_footprint_kb";
-  v15[0] = nameCopy;
+  v13[0] = @"launchd_name";
+  v13[1] = @"interval_peak_footprint_kb";
+  v14[0] = nameCopy;
   v7 = MEMORY[0x1E696AD98];
   nameCopy2 = name;
   v9 = [v7 numberWithUnsignedLongLong:b];
-  v15[1] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v14[1] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
   v11 = [v5 dictionaryWithDictionary:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -4164,30 +4257,30 @@ LABEL_44:
 
 + (id)sanitizeCAPayload:(id)payload
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   v4 = [payloadCopy mutableCopy];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = payloadCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
-        if ([v10 rangeOfString:{@"-", v15}] != 0x7FFFFFFFFFFFFFFFLL)
+        v10 = *(*(&v14 + 1) + 8 * i);
+        if ([v10 rangeOfString:{@"-", v14}] != 0x7FFFFFFFFFFFFFFFLL)
         {
           v11 = [v5 objectForKeyedSubscript:v10];
           v12 = [v10 stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
@@ -4197,13 +4290,11 @@ LABEL_44:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -4211,37 +4302,38 @@ LABEL_44:
 + (int)grabSysctlValue:(id)value
 {
   valueCopy = value;
-  v10 = 0;
-  v9 = 4;
-  v4 = sysctlbyname([valueCopy UTF8String], &v10, &v9, 0, 0);
-  v5 = PLLogCommon();
-  v6 = v5;
-  if (v4)
+  v11 = 0;
+  v10 = 4;
+  v4 = sysctlbyname([valueCopy UTF8String], &v11, &v10, 0, 0);
+  v5 = v4;
+  v6 = PLLogCommon(v4);
+  v7 = v6;
+  if (v5)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       +[PLUtilities grabSysctlValue:];
     }
 
-    v7 = -1;
+    v8 = -1;
   }
 
   else
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      [(PLUtilities *)valueCopy grabSysctlValue:?];
+      +[PLUtilities grabSysctlValue:];
     }
 
-    v7 = v10;
+    v8 = v11;
   }
 
-  return v7;
+  return v8;
 }
 
 + (double)scaledPowerBasedOnPoint:(double)point withPowerModel:(id)model
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   modelCopy = model;
   v6 = 0.0;
   if (!+[PLPlatform isHomePod]&& point > 0.0 && modelCopy != 0)
@@ -4249,28 +4341,28 @@ LABEL_44:
     allKeys = [modelCopy allKeys];
     v9 = [allKeys sortedArrayUsingSelector:sel_compareFloat_];
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v33 objects:v37 count:16];
     if (v11)
     {
       v12 = v11;
       v13 = 0;
-      v14 = *v35;
+      v14 = *v34;
 LABEL_8:
       v15 = 0;
       v16 = v13;
       while (1)
       {
-        if (*v35 != v14)
+        if (*v34 != v14)
         {
           objc_enumerationMutation(v10);
         }
 
-        v17 = *(*(&v34 + 1) + 8 * v15);
+        v17 = *(*(&v33 + 1) + 8 * v15);
         [v17 doubleValue];
         v19 = v18;
         v13 = v17;
@@ -4283,7 +4375,7 @@ LABEL_8:
         v16 = v13;
         if (v12 == v15)
         {
-          v12 = [v10 countByEnumeratingWithState:&v34 objects:v38 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v33 objects:v37 count:16];
           if (v12)
           {
             goto LABEL_8;
@@ -4321,13 +4413,12 @@ LABEL_18:
 
       v16 = v13;
 LABEL_19:
-      v13 = [modelCopy objectForKeyedSubscript:{v16, v34}];
+      v13 = [modelCopy objectForKeyedSubscript:{v16, v33}];
       [v13 doubleValue];
       v6 = v31;
     }
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -4370,12 +4461,12 @@ uint64_t __30__PLUtilities_torchTypeString__block_invoke()
 
   else
   {
-    v1 = off_1E851A400[v0 - 1007002];
+    v1 = off_1E851A400[(v0 - 1007002)];
   }
 
   torchTypeString__torchTypeString = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 uint64_t __32__PLUtilities_MavRevStringQuery__block_invoke()
@@ -4388,48 +4479,26 @@ uint64_t __32__PLUtilities_MavRevStringQuery__block_invoke()
 
   else
   {
-    v1 = off_1E851A418[v0 - 1003001];
+    v1 = off_1E851A418[(v0 - 1003001)];
   }
 
   MavRevStringQuery_plMavRevString = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 + (void)PLCopyItemsFromPath:toPath:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __42__PLUtilities_PLCopyItemsFromPath_toPath___block_invoke_cold_1(uint64_t a1)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 56);
-  v8 = *(a1 + 64);
-  OUTLINED_FUNCTION_1_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)setPermissionsForFile:toValue:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)setPermissionsForFile:toValue:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1D8611000, v0, v1, "Successfully set permissions for file %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)compressWithSource:withDestination:withLevel:.cold.1()
@@ -4441,38 +4510,30 @@ void __42__PLUtilities_PLCopyItemsFromPath_toPath___block_invoke_cold_1(uint64_t
 
 + (void)compressWithSource:withDestination:withLevel:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)compressWithSource:withDestination:withLevel:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)compressWithSource:withDestination:withLevel:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)decompressWithSource:withDestination:withRemoveSrc:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)decompressWithSource:withDestination:withRemoveSrc:.cold.2()
@@ -4484,65 +4545,51 @@ void __42__PLUtilities_PLCopyItemsFromPath_toPath___block_invoke_cold_1(uint64_t
 
 + (void)decompressWithSource:withDestination:withRemoveSrc:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)decompressWithSource:withDestination:withRemoveSrc:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)decompressWithSource:withDestination:withRemoveSrc:.cold.5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)decompressWithSource:withDestination:withRemoveSrc:.cold.6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)reportZlibResultToCA:forEvent:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)numFilesAtPath:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)remove:oldestFilesFromDirectory:containingFileNameSubstring:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)remove:(uint64_t)a3 oldestFilesFromDirectory:(os_log_t)log containingFileNameSubstring:.cold.2(uint64_t a1, uint8_t *buf, uint64_t a3, os_log_t log)
@@ -4563,90 +4610,45 @@ void __42__PLUtilities_PLCopyItemsFromPath_toPath___block_invoke_cold_1(uint64_t
 
 void __75__PLUtilities_remove_oldestFilesFromDirectory_containingFileNameSubstring___block_invoke_83_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __75__PLUtilities_remove_oldestFilesFromDirectory_containingFileNameSubstring___block_invoke_83_cold_3()
 {
-  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_6();
   _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-void __75__PLUtilities_remove_oldestFilesFromDirectory_containingFileNameSubstring___block_invoke_87_cold_1(uint64_t a1, uint64_t a2)
+void __75__PLUtilities_remove_oldestFilesFromDirectory_containingFileNameSubstring___block_invoke_87_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *(*(*a2 + 8) + 40);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_5();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 + (void)machTimeFromSeconds:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)machTimeFromSeconds:.cold.2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)machTimeFromSeconds:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)machTimeFromSeconds:.cold.4()
-{
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_11();
-  OUTLINED_FUNCTION_0(&dword_1D8611000, MEMORY[0x1E69E9C10], v0, "Attempted to convert negative seconds (%f) to mach time. Returning 0.", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)getLastSystemTimeOffset
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_11();
-  OUTLINED_FUNCTION_0(&dword_1D8611000, v0, v1, "Returning last known system time offset %f", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __39__PLUtilities_quarantineToPath_action___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = [a1 filePath];
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_1D8611000, a2, OS_LOG_TYPE_DEBUG, "Quarantine src: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __39__PLUtilities_quarantineToPath_action___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1D8611000, v0, v1, "Quarantine dst: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1D8611000, a2, OS_LOG_TYPE_DEBUG, "Quarantine src: %@", v4, 0xCu);
 }
 
 + (void)allowQueryFromPeer:.cold.1()
@@ -4658,11 +4660,9 @@ void __39__PLUtilities_quarantineToPath_action___block_invoke_cold_2()
 
 + (void)getPerfStatsForProcess:.cold.1()
 {
-  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_6();
   _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (void)getPerfStatsForProcess:.cold.2()
@@ -4672,21 +4672,11 @@ void __39__PLUtilities_quarantineToPath_action___block_invoke_cold_2()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-+ (void)pidForProcessName:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1D8611000, v0, v1, "searching for procName %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 + (void)pidForProcessName:.cold.2()
 {
-  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_6();
   _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x12u);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (void)pidForProcessName:.cold.3()
@@ -4698,40 +4688,25 @@ void __39__PLUtilities_quarantineToPath_action___block_invoke_cold_2()
 
 + (void)pidForProcessName:.cold.4()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v6 = *__error();
+  __error();
   OUTLINED_FUNCTION_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)maxProcessCount
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)isDaemonOrAppleXPCService:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)isDaemonOrAppleXPCService:(uint64_t)a1 .cold.2(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = [PLUtilities bundleIDFromPid:a2];
-  v10 = [PLUtilities processNameForPid:a2];
+  v9 = [PLUtilities processNameForPid:a2];
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x22u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (void)isImproveFitnessPlusEnabled
@@ -4759,11 +4734,9 @@ void __39__PLUtilities_quarantineToPath_action___block_invoke_cold_2()
 
 + (void)hasInternalKey:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __29__PLUtilities_deviceBootArgs__block_invoke_cold_1()
@@ -4782,57 +4755,32 @@ void __29__PLUtilities_deviceBootArgs__block_invoke_cold_2()
 
 + (void)getJetsamPriority:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)getProcessMemoryLimit:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)cleanLaunchdName:.cold.2()
-{
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1D8611000, MEMORY[0x1E69E9C10], v0, "cleanLaunchdName: Unknown launchd service name: %@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)grabSysctlValue:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-+ (void)grabSysctlValue:(uint64_t)a1 .cold.2(uint64_t a1, unsigned int *a2)
++ (void)grabSysctlValue:.cold.2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_6();
-  _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 0x12u);
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void __36__PLUtilities_getHardwarePerfLevels__block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x12u);
 }
 
 @end

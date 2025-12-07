@@ -7,7 +7,7 @@
 
 + (id)defaultCalendarIDForNewEventsInStoreWithID:(id)d connection:(id)connection inDatabase:(CalDatabase *)database defaultExists:(BOOL *)exists
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dCopy = d;
   connectionCopy = connection;
   if (dCopy)
@@ -27,8 +27,8 @@
       v27 = CADLogHandle;
       if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v33) = 0;
-        _os_log_impl(&dword_22430B000, v27, OS_LOG_TYPE_ERROR, "NULL calendar returned by CalDatabaseCopyDefaultOrAnyReadWriteCalendarForNewEvents", &v33, 2u);
+        LOWORD(v32) = 0;
+        _os_log_impl(&dword_22430B000, v27, OS_LOG_TYPE_ERROR, "NULL calendar returned by CalDatabaseCopyDefaultOrAnyReadWriteCalendarForNewEvents", &v32, 2u);
       }
 
       CFRelease(v11);
@@ -49,10 +49,10 @@ LABEL_29:
       goto LABEL_29;
     }
 
-    LOWORD(v33) = 0;
+    LOWORD(v32) = 0;
     v26 = "NULL source returned by CalDatabaseCopyStoreWithUID";
 LABEL_28:
-    _os_log_impl(&dword_22430B000, v25, OS_LOG_TYPE_ERROR, v26, &v33, 2u);
+    _os_log_impl(&dword_22430B000, v25, OS_LOG_TYPE_ERROR, v26, &v32, 2u);
     goto LABEL_29;
   }
 
@@ -65,7 +65,7 @@ LABEL_28:
       goto LABEL_29;
     }
 
-    LOWORD(v33) = 0;
+    LOWORD(v32) = 0;
     v26 = "NULL calendar returned by CalDatabaseCopyOrCreateDefaultCalendarForNewEvents";
     goto LABEL_28;
   }
@@ -73,7 +73,7 @@ LABEL_28:
   v13 = DefaultCalendarForNewEvents;
   v11 = 0;
 LABEL_7:
-  v15 = CADEntityCopyObjectID();
+  v15 = CADEntityCopyObjectID(v13);
   v16 = [connectionCopy isCalendarRestricted:v13 forAction:1];
   v17 = CADLogHandle;
   v18 = os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO);
@@ -81,9 +81,9 @@ LABEL_7:
   {
     if (v18)
     {
-      v33 = 138412290;
-      v34 = v15;
-      _os_log_impl(&dword_22430B000, v17, OS_LOG_TYPE_INFO, "Calendar does not allow write from unmanaged -> managed. Finding first calendar that allows it. ObjectID: [%@]", &v33, 0xCu);
+      v32 = 138412290;
+      v33 = v15;
+      _os_log_impl(&dword_22430B000, v17, OS_LOG_TYPE_INFO, "Calendar does not allow write from unmanaged -> managed. Finding first calendar that allows it. ObjectID: [%@]", &v32, 0xCu);
     }
 
     v19 = CalDatabaseCopyOfAllCalendarsInStoreWithOptions();
@@ -92,11 +92,11 @@ LABEL_7:
     {
 
 LABEL_35:
-      v31 = CADLogHandle;
+      v30 = CADLogHandle;
       if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v33) = 0;
-        _os_log_impl(&dword_22430B000, v31, OS_LOG_TYPE_INFO, "No calendar allows write from unmanaged -> managed. Will return nil", &v33, 2u);
+        LOWORD(v32) = 0;
+        _os_log_impl(&dword_22430B000, v30, OS_LOG_TYPE_INFO, "No calendar allows write from unmanaged -> managed. Will return nil", &v32, 2u);
       }
 
       v15 = 0;
@@ -129,13 +129,13 @@ LABEL_35:
       }
     }
 
-    v15 = CADEntityCopyObjectID();
-    v32 = CADLogHandle;
+    v15 = CADEntityCopyObjectID(ValueAtIndex);
+    v31 = CADLogHandle;
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_INFO))
     {
-      v33 = 138412290;
-      v34 = v15;
-      _os_log_impl(&dword_22430B000, v32, OS_LOG_TYPE_INFO, "Found calendar that allows write from unmanaged -> managed. ObjectID: [%@]", &v33, 0xCu);
+      v32 = 138412290;
+      v33 = v15;
+      _os_log_impl(&dword_22430B000, v31, OS_LOG_TYPE_INFO, "Found calendar that allows write from unmanaged -> managed. ObjectID: [%@]", &v32, 0xCu);
     }
 
     if (!v15)
@@ -148,9 +148,9 @@ LABEL_35:
   {
     if (v18)
     {
-      v33 = 138412290;
-      v34 = v15;
-      _os_log_impl(&dword_22430B000, v17, OS_LOG_TYPE_INFO, "Calendar allows write from unmanaged -> managed. Returning ObjectID: [%@]", &v33, 0xCu);
+      v32 = 138412290;
+      v33 = v15;
+      _os_log_impl(&dword_22430B000, v17, OS_LOG_TYPE_INFO, "Calendar allows write from unmanaged -> managed. Returning ObjectID: [%@]", &v32, 0xCu);
     }
 
     v20 = 0;
@@ -176,8 +176,6 @@ LABEL_30:
   }
 
 LABEL_31:
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -278,15 +276,15 @@ LABEL_31:
   return v15;
 }
 
-void __98__CADOperationGroupUtil_defaultCalendarForNewEventsInDelegateSource_withConnection_limitedAccess___block_invoke(uint64_t a1)
+void __98__CADOperationGroupUtil_defaultCalendarForNewEventsInDelegateSource_withConnection_limitedAccess___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = CalDatabaseCopyLimitedAccessVirtualCalendar();
-  v3 = CADEntityCopyObjectID();
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v4 = CalDatabaseCopyLimitedAccessVirtualCalendar();
+  v5 = CADEntityCopyObjectID(v4);
+  v6 = *(*(a1 + 32) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v5;
 
-  CFRelease(v2);
+  CFRelease(v4);
 }
 
 void __98__CADOperationGroupUtil_defaultCalendarForNewEventsInDelegateSource_withConnection_limitedAccess___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -333,9 +331,7 @@ void __98__CADOperationGroupUtil_defaultCalendarForNewEventsInDelegateSource_wit
 uint64_t __98__CADOperationGroupUtil_defaultCalendarForNewEventsInDelegateSource_withConnection_limitedAccess___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = [*(a1 + 56) defaultCalendarIDForNewEventsInStoreWithID:0 connection:*(a1 + 32) inDatabase:a3 defaultExists:*(*(a1 + 48) + 8) + 24];
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  *(*(*(a1 + 40) + 8) + 40) = v4;
 
   return MEMORY[0x2821F96F8](v4);
 }
@@ -377,9 +373,7 @@ void __98__CADOperationGroupUtil_defaultCalendarForNewEventsInDelegateSource_wit
 uint64_t __98__CADOperationGroupUtil_defaultCalendarForNewEventsInDelegateSource_withConnection_limitedAccess___block_invoke_5(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = [*(a1 + 56) defaultCalendarIDForNewEventsInStoreWithID:*(a1 + 32) connection:*(a1 + 40) inDatabase:a3 defaultExists:0];
-  v5 = *(*(a1 + 48) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  *(*(*(a1 + 48) + 8) + 40) = v4;
 
   return MEMORY[0x2821F96F8](v4);
 }

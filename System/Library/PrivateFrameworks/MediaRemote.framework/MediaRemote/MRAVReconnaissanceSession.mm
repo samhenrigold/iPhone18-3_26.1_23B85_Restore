@@ -137,17 +137,16 @@ void __92__MRAVReconnaissanceSession_initWithOutputDeviceUIDs_outputDeviceGroupU
 
 - (void)dealloc
 {
-  serialQueue = self->_serialQueue;
-  v5 = MEMORY[0x1E69E9820];
-  v6 = 3221225472;
-  v7 = __36__MRAVReconnaissanceSession_dealloc__block_invoke;
-  v8 = &unk_1E769A228;
+  v4 = MEMORY[0x1E69E9820];
+  v5 = 3221225472;
+  v6 = __36__MRAVReconnaissanceSession_dealloc__block_invoke;
+  v7 = &unk_1E769A228;
   selfCopy = self;
   msv_dispatch_sync_on_queue();
   [(MRAVRoutingDiscoverySession *)self->_discoverySession removeEndpointsChangedCallback:self->_discoverySessionCallbackToken];
-  v4.receiver = self;
-  v4.super_class = MRAVReconnaissanceSession;
-  [(MRAVReconnaissanceSession *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = MRAVReconnaissanceSession;
+  [(MRAVReconnaissanceSession *)&v3 dealloc];
 }
 
 - (void)beginSearchWithTimeout:(double)timeout completion:(id)completion
@@ -204,7 +203,7 @@ void __72__MRAVReconnaissanceSession_beginSearchWithTimeout_endpointsCompletion_
 
 - (void)beginSearchWithTimeout:(double)timeout mapCompletion:(id)completion
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   date = [MEMORY[0x1E695DF00] date];
   if ([(MRAVReconnaissanceSession *)self shouldLog])
@@ -256,38 +255,36 @@ void __72__MRAVReconnaissanceSession_beginSearchWithTimeout_endpointsCompletion_
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v34 = v11;
+      v33 = v11;
       _os_log_impl(&dword_1A2860000, v20, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
     }
   }
 
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __66__MRAVReconnaissanceSession_beginSearchWithTimeout_mapCompletion___block_invoke;
-  v30[3] = &unk_1E76A48C0;
-  v30[4] = self;
-  v31 = date;
-  v32 = completionCopy;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __66__MRAVReconnaissanceSession_beginSearchWithTimeout_mapCompletion___block_invoke;
+  v29[3] = &unk_1E76A48C0;
+  v29[4] = self;
+  v30 = date;
+  v31 = completionCopy;
   v21 = completionCopy;
   v22 = date;
-  v23 = MEMORY[0x1A58E3570](v30);
+  v23 = MEMORY[0x1A58E3570](v29);
   serialQueue = self->_serialQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __66__MRAVReconnaissanceSession_beginSearchWithTimeout_mapCompletion___block_invoke_26;
   block[3] = &unk_1E769BF28;
   block[4] = self;
-  v28 = v23;
+  v27 = v23;
   timeoutCopy = timeout;
   v25 = v23;
   dispatch_async(serialQueue, block);
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __66__MRAVReconnaissanceSession_beginSearchWithTimeout_mapCompletion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v9 = a2;
   v10 = a3;
   v11 = a4;
@@ -328,11 +325,11 @@ void __66__MRAVReconnaissanceSession_beginSearchWithTimeout_mapCompletion___bloc
       [*(a1 + 40) timeIntervalSinceNow];
       v22 = *(a1 + 32);
       *buf = 138412802;
-      v44 = v21;
-      v45 = 2048;
-      v46 = -v23;
-      v47 = 2114;
-      v48 = v22;
+      v43 = v21;
+      v44 = 2048;
+      v45 = -v23;
+      v46 = 2114;
+      v47 = v22;
       _os_log_impl(&dword_1A2860000, v19, OS_LOG_TYPE_DEFAULT, "[ReconnaissanceSession] WHAPRO: Discovery found %@ in %f seconds %{public}@", buf, 0x20u);
     }
   }
@@ -347,71 +344,71 @@ void __66__MRAVReconnaissanceSession_beginSearchWithTimeout_mapCompletion___bloc
         goto LABEL_14;
       }
 
-      v42 = [*(a1 + 32) details];
-      v35 = [v42 requestID];
-      v36 = [MEMORY[0x1E695DF00] date];
-      [v36 timeIntervalSinceDate:*(a1 + 40)];
+      v41 = [*(a1 + 32) details];
+      v34 = [v41 requestID];
+      v35 = [MEMORY[0x1E695DF00] date];
+      [v35 timeIntervalSinceDate:*(a1 + 40)];
       *buf = 138544130;
-      v44 = @"ReconnaissanceSession.search";
-      v45 = 2114;
-      v46 = *&v35;
-      v47 = 2114;
-      v48 = v12;
-      v49 = 2048;
-      v50 = v37;
+      v43 = @"ReconnaissanceSession.search";
+      v44 = 2114;
+      v45 = *&v34;
+      v46 = 2114;
+      v47 = v12;
+      v48 = 2048;
+      v49 = v36;
       _os_log_error_impl(&dword_1A2860000, v24, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> in %.4lf seconds", buf, 0x2Au);
     }
 
     else
     {
-      v27 = *(a1 + 32);
-      v28 = [v9 allValues];
-      v29 = [(MRAVReconnaissanceSession *)v27 _descriptionObjectFromResultOfOutputDevices:v28 endpoints:v10 unanimousEndpoint:v11];
+      v26 = *(a1 + 32);
+      v27 = [v9 allValues];
+      v28 = [(MRAVReconnaissanceSession *)v26 _descriptionObjectFromResultOfOutputDevices:v27 endpoints:v10 unanimousEndpoint:v11];
 
       v24 = _MRLogForCategory(0xAuLL);
-      v30 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
-      if (v29)
+      v29 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
+      if (v28)
       {
-        if (v30)
+        if (v29)
         {
-          v41 = [*(a1 + 32) details];
-          v31 = [v41 requestID];
-          v32 = *(a1 + 32);
-          v40 = [v9 allValues];
-          v33 = [(MRAVReconnaissanceSession *)v32 _descriptionObjectFromResultOfOutputDevices:v40 endpoints:v10 unanimousEndpoint:v11];
-          v39 = [MEMORY[0x1E695DF00] date];
-          [v39 timeIntervalSinceDate:*(a1 + 40)];
+          v40 = [*(a1 + 32) details];
+          v30 = [v40 requestID];
+          v31 = *(a1 + 32);
+          v39 = [v9 allValues];
+          v32 = [(MRAVReconnaissanceSession *)v31 _descriptionObjectFromResultOfOutputDevices:v39 endpoints:v10 unanimousEndpoint:v11];
+          v38 = [MEMORY[0x1E695DF00] date];
+          [v38 timeIntervalSinceDate:*(a1 + 40)];
           *buf = 138544130;
-          v44 = @"ReconnaissanceSession.search";
-          v45 = 2114;
-          v46 = *&v31;
-          v47 = 2112;
-          v48 = v33;
-          v49 = 2048;
-          v50 = v34;
+          v43 = @"ReconnaissanceSession.search";
+          v44 = 2114;
+          v45 = *&v30;
+          v46 = 2112;
+          v47 = v32;
+          v48 = 2048;
+          v49 = v33;
           _os_log_impl(&dword_1A2860000, v24, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds", buf, 0x2Au);
         }
 
         goto LABEL_14;
       }
 
-      if (!v30)
+      if (!v29)
       {
 LABEL_14:
 
         goto LABEL_15;
       }
 
-      v42 = [*(a1 + 32) details];
-      v35 = [v42 requestID];
-      v36 = [MEMORY[0x1E695DF00] date];
-      [v36 timeIntervalSinceDate:*(a1 + 40)];
+      v41 = [*(a1 + 32) details];
+      v34 = [v41 requestID];
+      v35 = [MEMORY[0x1E695DF00] date];
+      [v35 timeIntervalSinceDate:*(a1 + 40)];
       *buf = 138543874;
-      v44 = @"ReconnaissanceSession.search";
-      v45 = 2114;
-      v46 = *&v35;
-      v47 = 2048;
-      v48 = v38;
+      v43 = @"ReconnaissanceSession.search";
+      v44 = 2114;
+      v45 = *&v34;
+      v46 = 2048;
+      v47 = v37;
       _os_log_impl(&dword_1A2860000, v24, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned in %.4lf seconds", buf, 0x20u);
     }
 
@@ -424,13 +421,11 @@ LABEL_15:
   {
     (*(v25 + 16))(v25, v9, v10, v11, v12);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_onQueue_beginSearchWithTimeout:(uint64_t)timeout
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (timeout)
   {
     if (a2 < 0.0)
@@ -468,8 +463,8 @@ LABEL_15:
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218242;
-          v24 = a2;
-          v25 = 2114;
+          v23 = a2;
+          v24 = 2114;
           timeoutCopy = timeout;
           _os_log_impl(&dword_1A2860000, v15, OS_LOG_TYPE_DEFAULT, "[ReconnaissanceSession] Beginning search with timeout %f %{public}@", buf, 0x16u);
         }
@@ -486,16 +481,16 @@ LABEL_15:
         *(timeout + 8) = a2;
         v16 = objc_alloc(MEMORY[0x1E69B14D8]);
         v17 = *(timeout + 16);
-        v21[0] = MEMORY[0x1E69E9820];
-        v21[1] = 3221225472;
-        v21[2] = __61__MRAVReconnaissanceSession__onQueue_beginSearchWithTimeout___block_invoke;
-        v21[3] = &unk_1E769B178;
-        objc_copyWeak(&v22, buf);
-        v18 = [v16 initWithInterval:v17 queue:v21 block:a2];
+        v20[0] = MEMORY[0x1E69E9820];
+        v20[1] = 3221225472;
+        v20[2] = __61__MRAVReconnaissanceSession__onQueue_beginSearchWithTimeout___block_invoke;
+        v20[3] = &unk_1E769B178;
+        objc_copyWeak(&v21, buf);
+        v18 = [v16 initWithInterval:v17 queue:v20 block:a2];
         v19 = *(timeout + 96);
         *(timeout + 96) = v18;
 
-        objc_destroyWeak(&v22);
+        objc_destroyWeak(&v21);
         objc_destroyWeak(buf);
       }
 
@@ -507,8 +502,6 @@ LABEL_15:
       [MRAVReconnaissanceSession _onQueue_beginSearchWithTimeout:timeout];
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __61__MRAVReconnaissanceSession__onQueue_beginSearchWithTimeout___block_invoke(uint64_t a1)
@@ -558,7 +551,7 @@ uint64_t __55__MRAVReconnaissanceSession__onQueue_processSearchLoop__block_invok
 
 uint64_t __55__MRAVReconnaissanceSession__onQueue_processSearchLoop__block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 deviceSubtype] == 15 && (objc_msgSend(v3, "clusterComposition"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "count"), v6 = objc_msgSend(v3, "configuredClusterSize"), v4, v5 < v6))
   {
@@ -569,13 +562,13 @@ uint64_t __55__MRAVReconnaissanceSession__onQueue_processSearchLoop__block_invok
       {
         v8 = [v3 configuredClusterSize];
         v9 = [*(a1 + 40) shortDescription];
-        v13 = 134218498;
-        v14 = v8;
-        v15 = 2114;
-        v16 = v3;
-        v17 = 2114;
-        v18 = v9;
-        _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "[ReconnaissanceSession] Found incomplete cluster (expected: %lu): %{public}@ in endpoint: %{public}@", &v13, 0x20u);
+        v12 = 134218498;
+        v13 = v8;
+        v14 = 2114;
+        v15 = v3;
+        v16 = 2114;
+        v17 = v9;
+        _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "[ReconnaissanceSession] Found incomplete cluster (expected: %lu): %{public}@ in endpoint: %{public}@", &v12, 0x20u);
       }
     }
 
@@ -588,13 +581,12 @@ uint64_t __55__MRAVReconnaissanceSession__onQueue_processSearchLoop__block_invok
     v10 = 1;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 uint64_t __55__MRAVReconnaissanceSession__onQueue_processSearchLoop__block_invoke_52(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 deviceSubtype] == 15 && (objc_msgSend(v3, "clusterComposition"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "count"), v6 = objc_msgSend(v3, "configuredClusterSize"), v4, v5 < v6))
   {
@@ -603,11 +595,11 @@ uint64_t __55__MRAVReconnaissanceSession__onQueue_processSearchLoop__block_invok
       v7 = _MRLogForCategory(0);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 134218242;
-        v12 = [v3 configuredClusterSize];
-        v13 = 2114;
-        v14 = v3;
-        _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "[ReconnaissanceSession] Found incomplete cluster device (expected: %lu): %{public}@", &v11, 0x16u);
+        v10 = 134218242;
+        v11 = [v3 configuredClusterSize];
+        v12 = 2114;
+        v13 = v3;
+        _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "[ReconnaissanceSession] Found incomplete cluster device (expected: %lu): %{public}@", &v10, 0x16u);
       }
     }
 
@@ -620,7 +612,6 @@ uint64_t __55__MRAVReconnaissanceSession__onQueue_processSearchLoop__block_invok
     v8 = 1;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -649,10 +640,9 @@ uint64_t __55__MRAVReconnaissanceSession__onQueue_processSearchLoop__block_invok
 
 - (void)_onQueue_cancelSearch
 {
-  v11 = *MEMORY[0x1E69E9840];
-  if (self)
+  if (result)
   {
-    OUTLINED_FUNCTION_6_8(self);
+    OUTLINED_FUNCTION_6_8(result);
     if (v1[43] == 1)
     {
       if ([v1 shouldLog])
@@ -671,8 +661,6 @@ uint64_t __55__MRAVReconnaissanceSession__onQueue_processSearchLoop__block_invok
 
     [(MRAVReconnaissanceSession *)v1 _onQueue_endSearch];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_descriptionObjectFromResultOfOutputDevices:(void *)devices endpoints:(void *)endpoints unanimousEndpoint:
@@ -739,10 +727,10 @@ void __66__MRAVReconnaissanceSession_beginSearchWithTimeout_mapCompletion___bloc
 
 - (void)_onQueue_timeoutTimerFired
 {
-  v135 = *MEMORY[0x1E69E9840];
-  if (self)
+  v133 = *MEMORY[0x1E69E9840];
+  if (result)
   {
-    OUTLINED_FUNCTION_6_8(self);
+    OUTLINED_FUNCTION_6_8(result);
     if (*(v1 + 43) == 1)
     {
       *(v1 + 43) = 0;
@@ -751,243 +739,237 @@ void __66__MRAVReconnaissanceSession_beginSearchWithTimeout_mapCompletion___bloc
         v3 = _MRLogForCategory(0);
         if (OUTLINED_FUNCTION_15(v3))
         {
-          v4 = *(v1 + 144);
           OUTLINED_FUNCTION_3_15(*(v1 + 8), 3.8522e-34);
-          v131 = 2048;
-          v132 = v5;
-          v133 = 2114;
-          v134 = v1;
+          v129 = 2048;
+          v130 = v4;
+          v131 = 2114;
+          v132 = v1;
           OUTLINED_FUNCTION_0_28();
-          _os_log_impl(v6, v7, v8, v9, v10, 0x20u);
+          _os_log_impl(v5, v6, v7, v8, v9, 0x20u);
         }
       }
 
       if ([v1 shouldLog])
       {
-        v11 = _MRLogForCategory(0);
-        if (OUTLINED_FUNCTION_15(v11))
+        v10 = _MRLogForCategory(0);
+        if (OUTLINED_FUNCTION_15(v10))
         {
-          LOWORD(v129) = 0;
+          LOWORD(v127) = 0;
           OUTLINED_FUNCTION_0_28();
-          _os_log_impl(v12, v13, v14, v15, v16, 2u);
+          _os_log_impl(v11, v12, v13, v14, v15, 2u);
         }
       }
 
-      v125 = 0u;
-      v126 = 0u;
       v123 = 0u;
       v124 = 0u;
-      v17 = *(v1 + 160);
-      v18 = [v17 countByEnumeratingWithState:&v123 objects:v128 count:16];
-      if (v18)
-      {
-        v20 = v18;
-        v21 = *v124;
-        *&v19 = 138543362;
-        v117 = v19;
-        do
-        {
-          v22 = 0;
-          do
-          {
-            if (*v124 != v21)
-            {
-              objc_enumerationMutation(v17);
-            }
-
-            v23 = *(*(&v123 + 1) + 8 * v22);
-            if ([v1 shouldLog])
-            {
-              v24 = _MRLogForCategory(0);
-              v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
-              if (v25)
-              {
-                OUTLINED_FUNCTION_4_12(v25, v26, v27, v28, v29, v30, v31, v32, v33);
-                OUTLINED_FUNCTION_5_10(&dword_1A2860000, v34, v35, v36, v37);
-              }
-            }
-
-            ++v22;
-          }
-
-          while (v20 != v22);
-          v20 = [v17 countByEnumeratingWithState:&v123 objects:v128 count:16];
-        }
-
-        while (v20);
-      }
-
-      if ([v1 shouldLog])
-      {
-        v38 = _MRLogForCategory(0);
-        if (OUTLINED_FUNCTION_15(v38))
-        {
-          LOWORD(v129) = 0;
-          OUTLINED_FUNCTION_0_28();
-          _os_log_impl(v39, v40, v41, v42, v43, 2u);
-        }
-      }
-
       v121 = 0u;
       v122 = 0u;
-      v119 = 0u;
-      v120 = 0u;
-      v44 = *(v1 + 152);
-      v45 = [v44 countByEnumeratingWithState:&v119 objects:v127 count:16];
-      if (v45)
+      v16 = *(v1 + 160);
+      v17 = [v16 countByEnumeratingWithState:&v121 objects:v126 count:16];
+      if (v17)
       {
-        v47 = v45;
-        v48 = *v120;
-        *&v46 = 138543362;
-        v118 = v46;
+        v19 = v17;
+        v20 = *v122;
+        *&v18 = 138543362;
+        v115 = v18;
         do
         {
-          v49 = 0;
+          v21 = 0;
           do
           {
-            if (*v120 != v48)
+            if (*v122 != v20)
             {
-              objc_enumerationMutation(v44);
+              objc_enumerationMutation(v16);
             }
 
-            v50 = *(*(&v119 + 1) + 8 * v49);
             if ([v1 shouldLog])
             {
-              v51 = _MRLogForCategory(0);
-              v52 = os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT);
-              if (v52)
+              v22 = _MRLogForCategory(0);
+              v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+              if (v23)
               {
-                OUTLINED_FUNCTION_4_12(v52, v53, v54, v55, v56, v57, v58, v59, v60);
-                OUTLINED_FUNCTION_5_10(&dword_1A2860000, v61, v62, v63, v64);
+                OUTLINED_FUNCTION_4_12(v23, v24, v25, v26, v27, v28, v29, v30, v31, v32);
+                OUTLINED_FUNCTION_5_10(&dword_1A2860000, v33, v34, v35, v36);
               }
             }
 
-            ++v49;
+            ++v21;
           }
 
-          while (v47 != v49);
-          v47 = [v44 countByEnumeratingWithState:&v119 objects:v127 count:16];
+          while (v19 != v21);
+          v19 = [v16 countByEnumeratingWithState:&v121 objects:v126 count:16];
         }
 
-        while (v47);
+        while (v19);
       }
 
       if ([v1 shouldLog])
       {
-        v65 = _MRLogForCategory(0);
-        if (OUTLINED_FUNCTION_15(v65))
+        v37 = _MRLogForCategory(0);
+        if (OUTLINED_FUNCTION_15(v37))
+        {
+          LOWORD(v127) = 0;
+          OUTLINED_FUNCTION_0_28();
+          _os_log_impl(v38, v39, v40, v41, v42, 2u);
+        }
+      }
+
+      v119 = 0u;
+      v120 = 0u;
+      v117 = 0u;
+      v118 = 0u;
+      v43 = *(v1 + 152);
+      v44 = [v43 countByEnumeratingWithState:&v117 objects:v125 count:16];
+      if (v44)
+      {
+        v46 = v44;
+        v47 = *v118;
+        *&v45 = 138543362;
+        v116 = v45;
+        do
+        {
+          v48 = 0;
+          do
+          {
+            if (*v118 != v47)
+            {
+              objc_enumerationMutation(v43);
+            }
+
+            if ([v1 shouldLog])
+            {
+              v49 = _MRLogForCategory(0);
+              v50 = os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT);
+              if (v50)
+              {
+                OUTLINED_FUNCTION_4_12(v50, v51, v52, v53, v54, v55, v56, v57, v58, v59);
+                OUTLINED_FUNCTION_5_10(&dword_1A2860000, v60, v61, v62, v63);
+              }
+            }
+
+            ++v48;
+          }
+
+          while (v46 != v48);
+          v46 = [v43 countByEnumeratingWithState:&v117 objects:v125 count:16];
+        }
+
+        while (v46);
+      }
+
+      if ([v1 shouldLog])
+      {
+        v64 = _MRLogForCategory(0);
+        if (OUTLINED_FUNCTION_15(v64))
         {
           OUTLINED_FUNCTION_3_15(*(v1 + 104), 5.8381e-34);
           OUTLINED_FUNCTION_0_28();
-          _os_log_impl(v66, v67, v68, v69, v70, 0xCu);
+          _os_log_impl(v65, v66, v67, v68, v69, 0xCu);
         }
       }
 
       if ([v1 shouldLog])
       {
-        v71 = _MRLogForCategory(0);
-        if (OUTLINED_FUNCTION_15(v71))
+        v70 = _MRLogForCategory(0);
+        if (OUTLINED_FUNCTION_15(v70))
         {
           OUTLINED_FUNCTION_3_15(*(v1 + 72), 5.8381e-34);
           OUTLINED_FUNCTION_0_28();
-          _os_log_impl(v72, v73, v74, v75, v76, 0xCu);
+          _os_log_impl(v71, v72, v73, v74, v75, 0xCu);
         }
       }
 
       if ([v1 shouldLog])
       {
-        v77 = _MRLogForCategory(0);
-        if (OUTLINED_FUNCTION_15(v77))
+        v76 = _MRLogForCategory(0);
+        if (OUTLINED_FUNCTION_15(v76))
         {
           OUTLINED_FUNCTION_3_15(*(v1 + 176), 5.8381e-34);
           OUTLINED_FUNCTION_0_28();
-          _os_log_impl(v78, v79, v80, v81, v82, 0xCu);
+          _os_log_impl(v77, v78, v79, v80, v81, 0xCu);
         }
       }
 
       if ([v1 shouldLog])
       {
-        v83 = _MRLogForCategory(0);
-        if (OUTLINED_FUNCTION_15(v83))
+        v82 = _MRLogForCategory(0);
+        if (OUTLINED_FUNCTION_15(v82))
         {
           OUTLINED_FUNCTION_3_15(*(v1 + 120), 5.8381e-34);
           OUTLINED_FUNCTION_0_28();
-          _os_log_impl(v84, v85, v86, v87, v88, 0xCu);
+          _os_log_impl(v83, v84, v85, v86, v87, 0xCu);
         }
       }
 
       if ([v1 shouldLog])
       {
-        v89 = _MRLogForCategory(0);
-        if (OUTLINED_FUNCTION_15(v89))
+        v88 = _MRLogForCategory(0);
+        if (OUTLINED_FUNCTION_15(v88))
         {
-          v90 = *(v1 + 120);
-          v91 = NSStringFromMRAVEndpointConnectionType([v90 connectionType]);
-          v129 = 138543362;
-          v130 = v91;
+          v89 = *(v1 + 120);
+          v90 = NSStringFromMRAVEndpointConnectionType([v89 connectionType]);
+          v127 = 138543362;
+          v128 = v90;
           OUTLINED_FUNCTION_0_28();
-          _os_log_impl(v92, v93, v94, v95, v96, 0xCu);
+          _os_log_impl(v91, v92, v93, v94, v95, 0xCu);
         }
       }
 
       if ([v1 shouldLog])
       {
-        v97 = _MRLogForCategory(0);
-        if (OUTLINED_FUNCTION_15(v97))
+        v96 = _MRLogForCategory(0);
+        if (OUTLINED_FUNCTION_15(v96))
         {
           endpointFeatures = [v1 endpointFeatures];
-          v129 = 67109120;
-          LODWORD(v130) = endpointFeatures;
+          v127 = 67109120;
+          LODWORD(v128) = endpointFeatures;
           OUTLINED_FUNCTION_0_28();
-          _os_log_impl(v99, v100, v101, v102, v103, 8u);
+          _os_log_impl(v98, v99, v100, v101, v102, 8u);
         }
       }
 
       if ([v1 shouldLog])
       {
-        v104 = _MRLogForCategory(0);
-        if (OUTLINED_FUNCTION_15(v104))
+        v103 = _MRLogForCategory(0);
+        if (OUTLINED_FUNCTION_15(v103))
         {
           shouldWaitForUnanimousEndpoints = [v1 shouldWaitForUnanimousEndpoints];
-          v129 = 67109120;
-          LODWORD(v130) = shouldWaitForUnanimousEndpoints;
+          v127 = 67109120;
+          LODWORD(v128) = shouldWaitForUnanimousEndpoints;
           OUTLINED_FUNCTION_0_28();
-          _os_log_impl(v106, v107, v108, v109, v110, 8u);
+          _os_log_impl(v105, v106, v107, v108, v109, 8u);
         }
       }
 
       Error = MRMediaRemoteCreateError(26);
       if (*(v1 + 40) == 1)
       {
-        v112 = *(v1 + 104);
-        v113 = *(v1 + 112);
-        v114 = *(v1 + 120);
-        v115 = v1;
+        v111 = *(v1 + 104);
+        v112 = *(v1 + 112);
+        v113 = *(v1 + 120);
+        v114 = v1;
       }
 
       else
       {
-        v112 = MEMORY[0x1E695E0F8];
-        v113 = MEMORY[0x1E695E0F0];
-        v115 = v1;
-        v114 = 0;
+        v111 = MEMORY[0x1E695E0F8];
+        v112 = MEMORY[0x1E695E0F0];
+        v114 = v1;
+        v113 = 0;
       }
 
-      [(MRAVReconnaissanceSession *)v115 _onQueue_invokeCompletionWithMatchingDevices:v112 matchingEndpoints:v113 unanimousEndpoint:v114 error:Error];
+      [(MRAVReconnaissanceSession *)v114 _onQueue_invokeCompletionWithMatchingDevices:v111 matchingEndpoints:v112 unanimousEndpoint:v113 error:Error];
     }
 
     [(MRAVReconnaissanceSession *)v1 _onQueue_endSearch];
   }
-
-  v116 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_onQueue_concludeSearch
 {
-  v18 = *MEMORY[0x1E69E9840];
-  if (self)
+  if (result)
   {
-    OUTLINED_FUNCTION_6_8(self);
+    OUTLINED_FUNCTION_6_8(result);
     if (*(v1 + 43) == 1)
     {
       [*(v1 + 104) addEntriesFromDictionary:*(v1 + 24)];
@@ -996,8 +978,8 @@ void __66__MRAVReconnaissanceSession_beginSearchWithTimeout_mapCompletion___bloc
         v3 = _MRLogForCategory(0);
         if (OUTLINED_FUNCTION_15(v3))
         {
-          LODWORD(v16) = 138543362;
-          *(&v16 + 4) = *(v1 + 104);
+          LODWORD(v15) = 138543362;
+          *(&v15 + 4) = *(v1 + 104);
           OUTLINED_FUNCTION_1_25();
           _os_log_impl(v4, v5, v6, v7, v8, 0xCu);
         }
@@ -1008,7 +990,6 @@ void __66__MRAVReconnaissanceSession_beginSearchWithTimeout_mapCompletion___bloc
         v9 = _MRLogForCategory(0);
         if (OUTLINED_FUNCTION_15(v9))
         {
-          v17 = *(v1 + 112);
           OUTLINED_FUNCTION_1_25();
           _os_log_impl(v10, v11, v12, v13, v14, 0xCu);
         }
@@ -1019,8 +1000,6 @@ void __66__MRAVReconnaissanceSession_beginSearchWithTimeout_mapCompletion___bloc
 
     [(MRAVReconnaissanceSession *)v1 _onQueue_endSearch];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_onQueue_endSearch

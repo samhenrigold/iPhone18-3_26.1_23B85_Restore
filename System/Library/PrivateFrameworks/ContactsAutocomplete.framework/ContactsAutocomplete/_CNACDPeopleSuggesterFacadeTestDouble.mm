@@ -63,7 +63,7 @@
 
 - (unint64_t)typeOfHandle:(id)handle
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   if ((*(*MEMORY[0x277CFBD30] + 16))())
   {
@@ -73,9 +73,9 @@
   else
   {
     v5 = MEMORY[0x277CFBE30];
-    v14[0] = handleCopy;
+    v13[0] = handleCopy;
     v4 = 1;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
     v7 = [v5 classificationOfHandleStrings:v6];
 
     phoneNumbers = [v7 phoneNumbers];
@@ -90,7 +90,6 @@
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

@@ -12,7 +12,10 @@
 - (void)deleteItem:(id)item;
 - (void)reloadSpecifiers;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation CACVocabularyListController
@@ -32,6 +35,37 @@
 
   table2 = [(CACVocabularyListController *)self table];
   [table2 setIndexHidden:0 animated:0];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = CACVocabularyListController;
+  [(CACVocabularyListController *)&v5 viewWillAppear:appear];
+  navigationController = [(CACVocabularyListController *)self navigationController];
+  [navigationController setToolbarHidden:0 animated:1];
+
+  [(CACVocabularyListController *)self _updateEditButton];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = CACVocabularyListController;
+  [(CACVocabularyListController *)&v5 viewWillDisappear:disappear];
+  navigationController = [(CACVocabularyListController *)self navigationController];
+  [navigationController setToolbarHidden:1 animated:1];
+
+  [(CACVocabularyListController *)self setToolbarItems:0];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = CACVocabularyListController;
+  [(CACVocabularyListController *)&v4 viewDidDisappear:disappear];
+  [(CACVocabularyListController *)self setEditing:0 animated:0];
+  [(CACVocabularyListController *)self _updateEditButton];
 }
 
 - (void)_updateEditButton

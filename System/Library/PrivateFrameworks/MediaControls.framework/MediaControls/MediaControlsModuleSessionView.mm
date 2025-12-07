@@ -12,23 +12,23 @@
   v4 = MEMORY[0x1E69E7D40];
   v5 = *((*MEMORY[0x1E69E7D40] & self->super.super.super.isa) + 0x130);
   selfCopy = self;
-  LOBYTE(v5) = v5();
-  v7 = (*((*v4 & selfCopy->super.super.super.isa) + 0x160))();
-  v8 = sub_1A2113050();
-  sub_1A2121FCC(v7, v8 & 1, v5);
-  v10 = v9;
+  v7 = v5();
+  v8 = (*((*v4 & selfCopy->super.super.super.isa) + 0x160))();
+  v9 = sub_1A2113050();
+  sub_1A2121FCC(v8, v9 & 1, v7);
+  v11 = v10;
 
-  v11 = width;
-  v12 = v10;
-  result.height = v12;
-  result.width = v11;
+  v12 = width;
+  v13 = v11;
+  result.height = v13;
+  result.width = v12;
   return result;
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1A211CD6C();
+  sub_1A211CD6C(selfCopy, v2);
 }
 
 - (void)tapGestureHandler:(id)handler
@@ -38,10 +38,11 @@
   v4 = v3();
   if (v4)
   {
-    v5 = v4;
+    v6 = v4;
+    v7 = v5;
     v4(selfCopy);
 
-    sub_1A210F5C0(v5);
+    sub_1A210F5C0(v6, v7);
   }
 
   else

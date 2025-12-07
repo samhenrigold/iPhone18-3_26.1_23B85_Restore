@@ -125,7 +125,6 @@ void __60__AKAgeRangeSettingsProvider_refreshAgeRangeWithCompletion___block_invo
 
   objc_storeStrong(&v16, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 @end

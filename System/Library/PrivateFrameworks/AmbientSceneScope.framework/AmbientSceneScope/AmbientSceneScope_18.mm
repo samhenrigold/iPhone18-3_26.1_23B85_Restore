@@ -1,218 +1,3 @@
-void sub_23F0A6EA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  v6 = *(v4 - 88);
-  *(v4 - 88) = 0;
-  if (v6)
-  {
-    (*(*v6 + 8))(v6);
-  }
-
-  sub_23F08FF34(va);
-  _Unwind_Resume(a1);
-}
-
-void sub_23F0A7E4C(uint64_t *a1, uint64_t a2)
-{
-  if (*(a2 + 56) != 1)
-  {
-    __cxa_allocate_exception(0x10uLL);
-    sub_23F0A801C(&v9, a2);
-  }
-
-  v2 = *(a2 + 8);
-  v3 = *(a2 + 16);
-  v9.__r_.__value_.__r.__words[0] = v2;
-  v9.__r_.__value_.__l.__size_ = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    v7 = v2;
-    v8 = v3;
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  else
-  {
-    v7 = v2;
-    v8 = 0;
-  }
-
-  sub_23F0A8128(a1, &v7);
-  v4 = v8;
-  if (v8 && !atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v4->__on_zero_shared)(v4);
-    std::__shared_weak_count::__release_weak(v4);
-  }
-
-  size = v9.__r_.__value_.__l.__size_;
-  if (v9.__r_.__value_.__l.__size_)
-  {
-    if (!atomic_fetch_add((v9.__r_.__value_.__l.__size_ + 8), 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (size->__on_zero_shared)(size);
-      std::__shared_weak_count::__release_weak(size);
-    }
-  }
-}
-
-void sub_23F0A7FC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-    if ((v18 & 1) == 0)
-    {
-LABEL_6:
-      _Unwind_Resume(a1);
-    }
-  }
-
-  else if (!v18)
-  {
-    goto LABEL_6;
-  }
-
-  __cxa_free_exception(v17);
-  _Unwind_Resume(a1);
-}
-
-void sub_23F0A801C(uint64_t a1, uint64_t a2)
-{
-  if ((atomic_load_explicit(&qword_27E394738, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27E394738))
-  {
-    sub_23F08F4A4();
-  }
-
-  if ((atomic_load_explicit(&qword_27E395BD0, memory_order_acquire) & 1) == 0)
-  {
-    if (__cxa_guard_acquire(&qword_27E395BD0))
-    {
-      sub_23F0A0B80();
-    }
-  }
-
-  v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394720, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
-}
-
-uint64_t *sub_23F0A8128(uint64_t *a1, uint64_t *a2)
-{
-  v3 = *a2;
-  v4 = a2[1];
-  if (v4)
-  {
-    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
-    *a1 = v3;
-    a1[1] = v4;
-    atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
-    if (!atomic_fetch_add(&v4->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      v5 = v3;
-      (v4->__on_zero_shared)(v4);
-      std::__shared_weak_count::__release_weak(v4);
-      v3 = v5;
-    }
-  }
-
-  else
-  {
-    *a1 = v3;
-    a1[1] = 0;
-  }
-
-  (*(*v3 + 64))(&v12);
-  v6 = *(v12 + 16);
-  *(a1 + 1) = *v12;
-  a1[4] = v6;
-  v12 = 0;
-  MEMORY[0x245CACD00]();
-  v7 = *a1;
-  v8 = a1[1];
-  if (v8)
-  {
-    atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
-    if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-    {
-      v9 = v7;
-      (v8->__on_zero_shared)(v8);
-      std::__shared_weak_count::__release_weak(v8);
-      v7 = v9;
-    }
-  }
-
-  v10 = (*(*v7 + 104))(v7);
-  *(a1 + 20) = v10 & ((v10 >> 1) >> 15);
-  return a1;
-}
-
-void sub_23F0A82B4(uint64_t *a1, uint64_t a2)
-{
-  if (*(a2 + 56) != 2)
-  {
-    __cxa_allocate_exception(0x10uLL);
-    sub_23F0A8484(&v9, a2);
-  }
-
-  v2 = *(a2 + 8);
-  v3 = *(a2 + 16);
-  v9.__r_.__value_.__r.__words[0] = v2;
-  v9.__r_.__value_.__l.__size_ = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-    v7 = v2;
-    v8 = v3;
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  else
-  {
-    v7 = v2;
-    v8 = 0;
-  }
-
-  sub_23F0A8590(a1, &v7);
-  v4 = v8;
-  if (v8 && !atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v4->__on_zero_shared)(v4);
-    std::__shared_weak_count::__release_weak(v4);
-  }
-
-  size = v9.__r_.__value_.__l.__size_;
-  if (v9.__r_.__value_.__l.__size_)
-  {
-    if (!atomic_fetch_add((v9.__r_.__value_.__l.__size_ + 8), 0xFFFFFFFFFFFFFFFFLL))
-    {
-      (size->__on_zero_shared)(size);
-      std::__shared_weak_count::__release_weak(size);
-    }
-  }
-}
-
-void sub_23F0A8430(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-    if ((v18 & 1) == 0)
-    {
-LABEL_6:
-      _Unwind_Resume(a1);
-    }
-  }
-
-  else if (!v18)
-  {
-    goto LABEL_6;
-  }
-
-  __cxa_free_exception(v17);
-  _Unwind_Resume(a1);
-}
-
 void sub_23F0A8484(uint64_t a1, uint64_t a2)
 {
   if ((atomic_load_explicit(&qword_27E394778, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27E394778))
@@ -229,7 +14,7 @@ void sub_23F0A8484(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394760, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394760, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
 }
 
 uint64_t *sub_23F0A8590(uint64_t *a1, uint64_t *a2)
@@ -415,7 +200,14 @@ void sub_23F0A8AC0(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394840, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394840, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0A8BCC()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0A8C54(__p);
 }
 
 void sub_23F0A8C38(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -428,21 +220,21 @@ void sub_23F0A8C38(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0A8C54()
+void sub_23F0A8C54(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Gray16f]", 31, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Gray16f]", 31, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -680,7 +472,14 @@ void sub_23F0A9570(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394860, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394860, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0A967C()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0A9704(__p);
 }
 
 void sub_23F0A96E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -693,21 +492,21 @@ void sub_23F0A96E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0A9704()
+void sub_23F0A9704(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Gray32f]", 31, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Gray32f]", 31, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -978,7 +777,14 @@ void sub_23F0AA154(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394880, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394880, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0AA260()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0AA2E8(__p);
 }
 
 void sub_23F0AA2CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -991,21 +797,21 @@ void sub_23F0AA2CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0AA2E8()
+void sub_23F0AA2E8(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Two8u]", 29, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Two8u]", 29, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -1226,7 +1032,14 @@ void sub_23F0AABAC(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E3948A0, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E3948A0, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0AACB8()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0AAD40(__p);
 }
 
 void sub_23F0AAD24(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -1239,21 +1052,21 @@ void sub_23F0AAD24(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0AAD40()
+void sub_23F0AAD40(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Two16u]", 30, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Two16u]", 30, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -1474,7 +1287,14 @@ void sub_23F0AB604(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E3948C0, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E3948C0, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0AB710()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0AB798(__p);
 }
 
 void sub_23F0AB77C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -1487,21 +1307,21 @@ void sub_23F0AB77C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0AB798()
+void sub_23F0AB798(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Two16f]", 30, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Two16f]", 30, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -1722,7 +1542,14 @@ void sub_23F0AC05C(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E3948E0, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E3948E0, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0AC168()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0AC1F0(__p);
 }
 
 void sub_23F0AC1D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -1735,21 +1562,21 @@ void sub_23F0AC1D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0AC1F0()
+void sub_23F0AC1F0(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Two32f]", 30, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Two32f]", 30, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -1970,7 +1797,14 @@ void sub_23F0ACAB4(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394900, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394900, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0ACBC0()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0ACC48(__p);
 }
 
 void sub_23F0ACC2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -1983,21 +1817,21 @@ void sub_23F0ACC2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0ACC48()
+void sub_23F0ACC48(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Three8u]", 31, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Three8u]", 31, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -2218,7 +2052,14 @@ void sub_23F0AD50C(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394920, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394920, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0AD618()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0AD6A0(__p);
 }
 
 void sub_23F0AD684(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -2231,21 +2072,21 @@ void sub_23F0AD684(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0AD6A0()
+void sub_23F0AD6A0(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Three16u]", 32, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Three16u]", 32, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -2466,7 +2307,14 @@ void sub_23F0ADF64(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394940, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394940, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0AE070()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0AE0F8(__p);
 }
 
 void sub_23F0AE0DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -2479,21 +2327,21 @@ void sub_23F0AE0DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0AE0F8()
+void sub_23F0AE0F8(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Three16f]", 32, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Three16f]", 32, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -2714,7 +2562,14 @@ void sub_23F0AE9BC(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394960, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394960, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0AEAC8()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0AEB50(__p);
 }
 
 void sub_23F0AEB34(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -2727,21 +2582,21 @@ void sub_23F0AEB34(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0AEB50()
+void sub_23F0AEB50(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Three32f]", 32, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Three32f]", 32, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -2962,7 +2817,14 @@ void sub_23F0AF414(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394980, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394980, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0AF520()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0AF5A8(__p);
 }
 
 void sub_23F0AF58C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -2975,21 +2837,21 @@ void sub_23F0AF58C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0AF5A8()
+void sub_23F0AF5A8(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Four8u]", 30, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Four8u]", 30, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -3210,7 +3072,14 @@ void sub_23F0AFE6C(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E3949A0, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E3949A0, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0AFF78()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0B0000(__p);
 }
 
 void sub_23F0AFFE4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -3223,21 +3092,21 @@ void sub_23F0AFFE4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0B0000()
+void sub_23F0B0000(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Four16u]", 31, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Four16u]", 31, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -3458,7 +3327,14 @@ void sub_23F0B08C4(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E3949C0, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E3949C0, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0B09D0()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0B0A58(__p);
 }
 
 void sub_23F0B0A3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -3471,21 +3347,21 @@ void sub_23F0B0A3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0B0A58()
+void sub_23F0B0A58(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Four16f]", 31, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Four16f]", 31, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -3706,7 +3582,14 @@ void sub_23F0B131C(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E3949E0, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E3949E0, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0B1428()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0B14B0(__p);
 }
 
 void sub_23F0B1494(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -3719,21 +3602,21 @@ void sub_23F0B1494(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0B14B0()
+void sub_23F0B14B0(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Four32f]", 31, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Four32f]", 31, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -3954,7 +3837,14 @@ void sub_23F0B1D74(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394A00, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394A00, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0B1E80()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0B1F08(__p);
 }
 
 void sub_23F0B1EEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -3967,21 +3857,21 @@ void sub_23F0B1EEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0B1F08()
+void sub_23F0B1F08(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Bgr8u]", 29, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Bgr8u]", 29, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -4202,7 +4092,14 @@ void sub_23F0B27CC(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394A20, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394A20, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0B28D8()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0B2960(__p);
 }
 
 void sub_23F0B2944(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -4215,21 +4112,21 @@ void sub_23F0B2944(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0B2960()
+void sub_23F0B2960(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Bgr16u]", 30, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Bgr16u]", 30, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -4450,7 +4347,14 @@ void sub_23F0B3224(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394A40, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394A40, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0B3330()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0B33B8(__p);
 }
 
 void sub_23F0B339C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -4463,21 +4367,21 @@ void sub_23F0B339C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0B33B8()
+void sub_23F0B33B8(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Bgr16f]", 30, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Bgr16f]", 30, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -4698,7 +4602,14 @@ void sub_23F0B3C7C(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394A60, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394A60, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0B3D88()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0B3E10(__p);
 }
 
 void sub_23F0B3DF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -4711,21 +4622,21 @@ void sub_23F0B3DF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0B3E10()
+void sub_23F0B3E10(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Bgr32f]", 30, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Bgr32f]", 30, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -4862,7 +4773,7 @@ void sub_23F0B43CC(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394780, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394780, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
 }
 
 uint64_t *sub_23F0B44D8(uint64_t *a1, uint64_t *a2)
@@ -5050,7 +4961,14 @@ void sub_23F0B4A08(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394A80, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394A80, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0B4B14()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0B4B9C(__p);
 }
 
 void sub_23F0B4B80(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -5063,21 +4981,21 @@ void sub_23F0B4B80(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0B4B9C()
+void sub_23F0B4B9C(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Rgb16u]", 30, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Rgb16u]", 30, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -5317,7 +5235,14 @@ void sub_23F0B54B8(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394AA0, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394AA0, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0B55C4()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0B564C(__p);
 }
 
 void sub_23F0B5630(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -5330,21 +5255,21 @@ void sub_23F0B5630(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0B564C()
+void sub_23F0B564C(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Rgb16f]", 30, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Rgb16f]", 30, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -5584,7 +5509,14 @@ void sub_23F0B5F68(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394AC0, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394AC0, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0B6074()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0B60FC(__p);
 }
 
 void sub_23F0B60E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -5597,21 +5529,21 @@ void sub_23F0B60E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0B60FC()
+void sub_23F0B60FC(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Rgb32f]", 30, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Rgb32f]", 30, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -5851,7 +5783,14 @@ void sub_23F0B6A18(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394AE0, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394AE0, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0B6B24()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0B6BAC(__p);
 }
 
 void sub_23F0B6B90(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -5864,21 +5803,21 @@ void sub_23F0B6B90(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0B6BAC()
+void sub_23F0B6BAC(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Bgra8u]", 30, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Bgra8u]", 30, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -6151,7 +6090,14 @@ void sub_23F0B75FC(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394B00, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394B00, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0B7708()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0B7790(__p);
 }
 
 void sub_23F0B7774(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -6164,21 +6110,21 @@ void sub_23F0B7774(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0B7790()
+void sub_23F0B7790(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Bgra16u]", 31, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Bgra16u]", 31, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -6399,7 +6345,14 @@ void sub_23F0B8054(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394B20, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394B20, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0B8160()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0B81E8(__p);
 }
 
 void sub_23F0B81CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -6412,21 +6365,21 @@ void sub_23F0B81CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0B81E8()
+void sub_23F0B81E8(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Bgra16f]", 31, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Bgra16f]", 31, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -6647,7 +6600,14 @@ void sub_23F0B8AAC(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394B40, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394B40, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0B8BB8()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0B8C40(__p);
 }
 
 void sub_23F0B8C24(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -6660,21 +6620,21 @@ void sub_23F0B8C24(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0B8C40()
+void sub_23F0B8C40(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Bgra32f]", 31, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Bgra32f]", 31, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -6862,7 +6822,14 @@ void sub_23F0B93D0(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394B60, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394B60, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0B94DC()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0B9564(__p);
 }
 
 void sub_23F0B9548(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -6875,21 +6842,21 @@ void sub_23F0B9548(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0B9564()
+void sub_23F0B9564(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Rgba8u]", 30, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Rgba8u]", 30, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -7129,7 +7096,14 @@ void sub_23F0B9E80(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394B80, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394B80, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0B9F8C()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0BA014(__p);
 }
 
 void sub_23F0B9FF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -7142,21 +7116,21 @@ void sub_23F0B9FF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0BA014()
+void sub_23F0BA014(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Rgba16u]", 31, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Rgba16u]", 31, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -7396,7 +7370,14 @@ void sub_23F0BA930(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394BA0, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394BA0, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0BAA3C()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0BAAC4(__p);
 }
 
 void sub_23F0BAAA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -7409,21 +7390,21 @@ void sub_23F0BAAA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0BAAC4()
+void sub_23F0BAAC4(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Rgba16f]", 31, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Rgba16f]", 31, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -7663,7 +7644,14 @@ void sub_23F0BB3E0(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394BC0, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394BC0, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0BB4EC()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0BB574(__p);
 }
 
 void sub_23F0BB558(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -7676,21 +7664,21 @@ void sub_23F0BB558(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0BB574()
+void sub_23F0BB574(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Rgba32f]", 31, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Rgba32f]", 31, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -7930,7 +7918,14 @@ void sub_23F0BBE90(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394BE0, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394BE0, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0BBF9C()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0BC024(__p);
 }
 
 void sub_23F0BC008(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -7943,21 +7938,21 @@ void sub_23F0BC008(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0BC024()
+void sub_23F0BC024(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Abgr8u]", 30, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Abgr8u]", 30, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -8230,7 +8225,14 @@ void sub_23F0BCA74(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394C00, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394C00, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0BCB80()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0BCC08(__p);
 }
 
 void sub_23F0BCBEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -8243,21 +8245,21 @@ void sub_23F0BCBEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0BCC08()
+void sub_23F0BCC08(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Abgr16u]", 31, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Abgr16u]", 31, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -8478,7 +8480,14 @@ void sub_23F0BD4CC(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394C20, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394C20, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0BD5D8()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0BD660(__p);
 }
 
 void sub_23F0BD644(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -8491,21 +8500,21 @@ void sub_23F0BD644(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0BD660()
+void sub_23F0BD660(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Abgr16f]", 31, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Abgr16f]", 31, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -8726,7 +8735,14 @@ void sub_23F0BDF24(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394C40, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394C40, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0BE030()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0BE0B8(__p);
 }
 
 void sub_23F0BE09C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -8739,21 +8755,21 @@ void sub_23F0BE09C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0BE0B8()
+void sub_23F0BE0B8(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Abgr32f]", 31, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Abgr32f]", 31, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -8941,7 +8957,14 @@ void sub_23F0BE848(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394C60, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394C60, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0BE954()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0BE9DC(__p);
 }
 
 void sub_23F0BE9C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -8954,21 +8977,21 @@ void sub_23F0BE9C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0BE9DC()
+void sub_23F0BE9DC(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Argb8u]", 30, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Argb8u]", 30, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -9208,7 +9231,14 @@ void sub_23F0BF2F8(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394C80, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394C80, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0BF404()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0BF48C(__p);
 }
 
 void sub_23F0BF470(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -9221,21 +9251,21 @@ void sub_23F0BF470(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0BF48C()
+void sub_23F0BF48C(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Argb16u]", 31, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Argb16u]", 31, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -9475,7 +9505,14 @@ void sub_23F0BFDA8(uint64_t a1, uint64_t a2)
   }
 
   v3 = *(a2 + 56);
-  sub_23F08CCE0("Attempting to create an ", &unk_27E394CA0, " from an ", &qword_27E395C08, " but the image is of incompatible format ");
+  sub_23F08CCE0("Attempting to create an ", qword_27E394CA0, " from an ", &qword_27E395C08, " but the image is of incompatible format ", &v3);
+}
+
+void sub_23F0BFEB4()
+{
+  v1 = 9;
+  strcpy(__p, "ImageView");
+  sub_23F0BFF3C(__p);
 }
 
 void sub_23F0BFF20(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -9488,21 +9525,21 @@ void sub_23F0BFF20(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F0BFF3C()
+void sub_23F0BFF3C(uint64_t a1)
 {
-  v2[6] = *MEMORY[0x277D85DE8];
-  sub_23F302E84("cv3d::kit::img::Format::Argb16f]", 31, &v0);
-  if (SHIBYTE(v0.__r_.__value_.__r.__words[2]) < 0)
+  v4 = *MEMORY[0x277D85DE8];
+  sub_23F302E84("cv3d::kit::img::Format::Argb16f]", 31, &v1);
+  if (SHIBYTE(v1.__r_.__value_.__r.__words[2]) < 0)
   {
-    sub_23EF34EA4(&__p, v0.__r_.__value_.__l.__data_, v0.__r_.__value_.__l.__size_);
+    sub_23EF34EA4(&__p, v1.__r_.__value_.__l.__data_, v1.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    __p = v0;
+    __p = v1;
   }
 
-  sub_23F301470(&__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1, v2);
+  sub_23F301470(&v3, &__p, "cv3d::kit::img::", 16, &unk_23F3091D6, 0, 1, 1);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);

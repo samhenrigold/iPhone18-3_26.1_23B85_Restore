@@ -197,23 +197,23 @@
   completionCopy = completion;
   client = [(SCDaemonService *)self client];
 
-  v9 = sub_100002AF4();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+  v10 = sub_100002AF4(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
   if (client)
   {
-    if (v10)
+    if (v11)
     {
       sub_1000095C8(requestCopy, self);
     }
   }
 
-  else if (v10)
+  else if (v11)
   {
-    sub_10000966C(requestCopy, v9);
+    sub_10000966C(requestCopy, v10);
   }
 
-  v11 = [SCDaemonError errorWithCode:5];
-  completionCopy[2](completionCopy, 0, v11);
+  v12 = [SCDaemonError errorWithCode:5];
+  completionCopy[2](completionCopy, 0, v12);
 }
 
 - (void)rejectBlockingRequest:(id)request withCompletion:(id)completion
@@ -222,23 +222,23 @@
   completionCopy = completion;
   client = [(SCDaemonService *)self client];
 
-  v9 = sub_100002AF4();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+  v10 = sub_100002AF4(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
   if (client)
   {
-    if (v10)
+    if (v11)
     {
       sub_1000095C8(requestCopy, self);
     }
   }
 
-  else if (v10)
+  else if (v11)
   {
-    sub_10000966C(requestCopy, v9);
+    sub_10000966C(requestCopy, v10);
   }
 
-  v11 = [SCDaemonError errorWithCode:5];
-  completionCopy[2](completionCopy, v11);
+  v12 = [SCDaemonError errorWithCode:5];
+  completionCopy[2](completionCopy, v12);
 }
 
 @end

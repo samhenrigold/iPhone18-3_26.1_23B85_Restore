@@ -358,26 +358,27 @@
 {
   errorCopy = error;
   completionCopy = completion;
-  if ([errorCopy safari_matchesErrorDomain:@"ASExtensionErrorDomain" andCode:101])
+  v8 = [errorCopy safari_matchesErrorDomain:@"ASExtensionErrorDomain" andCode:101];
+  if (v8)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = WBS_LOG_CHANNEL_PREFIXCredentialProviderExtension(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B1C8D000, v8, OS_LOG_TYPE_DEFAULT, "Extension did not find a credential corresponding the identity. Invalidating the identity store.", buf, 2u);
+      _os_log_impl(&dword_1B1C8D000, v10, OS_LOG_TYPE_DEFAULT, "Extension did not find a credential corresponding the identity. Invalidating the identity store.", buf, 2u);
     }
 
     extension = [(_ASCredentialAuthenticationViewController *)self extension];
     sf_bundleIdentifierForContainingApp = [extension sf_bundleIdentifierForContainingApp];
 
-    v11 = objc_alloc_init(MEMORY[0x1E69C8DD8]);
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __81___ASCredentialAuthenticationViewController__requestDidFailWithError_completion___block_invoke;
-    v13[3] = &unk_1E7AF7EC8;
-    v14 = v11;
-    v12 = v11;
-    [v12 removeCredentialIdentityStoreForApplication:sf_bundleIdentifierForContainingApp completion:v13];
+    v13 = objc_alloc_init(MEMORY[0x1E69C8DD8]);
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __81___ASCredentialAuthenticationViewController__requestDidFailWithError_completion___block_invoke;
+    v15[3] = &unk_1E7AF7EC8;
+    v16 = v13;
+    v14 = v13;
+    [v14 removeCredentialIdentityStoreForApplication:sf_bundleIdentifierForContainingApp completion:v15];
   }
 
   [(_ASCredentialAuthenticationViewController *)self _finishWithCredential:0 error:errorCopy completion:completionCopy];

@@ -90,7 +90,7 @@ LABEL_14:
 
 - (void)setShownOptions:(id)options
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   if ([optionsCopy count])
   {
@@ -105,33 +105,33 @@ LABEL_14:
   }
 
   [(DDDataDetectorInterceptReporter *)self setAppleSupport:0];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = optionsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        if ([*(*(&v13 + 1) + 8 * i) integerValue] == 3)
+        if ([*(*(&v12 + 1) + 8 * i) integerValue] == 3)
         {
           [(DDDataDetectorInterceptReporter *)self setAppleSupport:1];
           goto LABEL_15;
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v9)
       {
         continue;
@@ -142,8 +142,6 @@ LABEL_14:
   }
 
 LABEL_15:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)log
@@ -165,28 +163,26 @@ LABEL_15:
 
 - (id)eventRepresentation
 {
-  v13[6] = *MEMORY[0x277D85DE8];
-  v12[0] = @"apple_support";
+  v12[6] = *MEMORY[0x277D85DE8];
+  v11[0] = @"apple_support";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:{-[DDDataDetectorInterceptReporter appleSupport](self, "appleSupport")}];
-  v13[0] = v3;
-  v12[1] = @"contact";
+  v12[0] = v3;
+  v11[1] = @"contact";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:{-[DDDataDetectorInterceptReporter contact](self, "contact")}];
-  v13[1] = v4;
-  v12[2] = @"saved_contact";
+  v12[1] = v4;
+  v11[2] = @"saved_contact";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:{-[DDDataDetectorInterceptReporter savedContact](self, "savedContact")}];
-  v13[2] = v5;
-  v12[3] = @"selected_option";
+  v12[2] = v5;
+  v11[3] = @"selected_option";
   v6 = [(DDDataDetectorInterceptReporter *)self stringForOption:[(DDDataDetectorInterceptReporter *)self selectedOption]];
-  v13[3] = v6;
-  v12[4] = @"shown_option_1";
+  v12[3] = v6;
+  v11[4] = @"shown_option_1";
   v7 = [(DDDataDetectorInterceptReporter *)self stringForOption:[(DDDataDetectorInterceptReporter *)self firstShownOption]];
-  v13[4] = v7;
-  v12[5] = @"shown_option_2";
+  v12[4] = v7;
+  v11[5] = @"shown_option_2";
   v8 = [(DDDataDetectorInterceptReporter *)self stringForOption:[(DDDataDetectorInterceptReporter *)self secondShownOption]];
-  v13[5] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:6];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[5] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:6];
 
   return v9;
 }

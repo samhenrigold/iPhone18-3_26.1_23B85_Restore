@@ -1,4 +1,5 @@
 @interface ReporterFilter
++ (id)filterForId:(unsigned int)id;
 + (id)filterForName:(id)name id:(id)id;
 + (void)enumerateReporterFiltersUsingBlock:(id)block;
 + (void)initialize;
@@ -60,7 +61,7 @@
 
 + (void)enumerateReporterFiltersUsingBlock:(id)block
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v4 = filterLogHandle;
   if (os_log_type_enabled(filterLogHandle, OS_LOG_TYPE_DEBUG))
@@ -74,43 +75,50 @@
   }
 
   v8 = reporterFilters;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __53__ReporterFilter_enumerateReporterFiltersUsingBlock___block_invoke;
-  v11[3] = &unk_27898E628;
-  v12 = blockCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __53__ReporterFilter_enumerateReporterFiltersUsingBlock___block_invoke;
+  v10[3] = &unk_27898E628;
+  v11 = blockCopy;
   v9 = blockCopy;
-  [v8 enumerateKeysAndObjectsUsingBlock:v11];
+  [v8 enumerateKeysAndObjectsUsingBlock:v10];
+}
 
-  v10 = *MEMORY[0x277D85DE8];
++ (id)filterForId:(unsigned int)id
+{
+  v3 = reporterFilters;
+  v4 = [MEMORY[0x277CCABB0] numberWithInt:*&id];
+  v5 = [v3 objectForKey:v4];
+
+  return v5;
 }
 
 - (void)updateTransportFilters
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB28] dataWithLength:{16 * -[NSMutableArray count](self->_symptomFilters, "count")}];
   mutableBytes = [v3 mutableBytes];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = self->_symptomFilters;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v16 objects:v22 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        currentFilter = [*(*(&v16 + 1) + 8 * i) currentFilter];
+        currentFilter = [*(*(&v15 + 1) + 8 * i) currentFilter];
         v12 = currentFilter;
         if (currentFilter)
         {
@@ -124,7 +132,7 @@
         }
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v16 objects:v22 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
     }
 
     while (v7);
@@ -148,11 +156,9 @@ LABEL_14:
   {
     filterMessage = self->_filterMessage;
     *buf = 138412290;
-    v21 = filterMessage;
+    v20 = filterMessage;
     _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "updateTransportFilters: Set filter data to %@", buf, 0xCu);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pushTransportFilters
@@ -165,7 +171,7 @@ LABEL_14:
 
 - (void)pushFinalFilters
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = evaluationLogHandle;
   if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -173,32 +179,32 @@ LABEL_14:
     _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "pushFinalFilters entry", buf, 2u);
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   selfCopy = self;
   v4 = self->_symptomFilters;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v16 objects:v22 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v15 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         v10 = evaluationLogHandle;
         if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v21 = v9;
+          v20 = v9;
           _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "pushFinalFilters check SymptomFilter %@", buf, 0xCu);
         }
 
@@ -210,7 +216,7 @@ LABEL_14:
           if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v21 = v9;
+            v20 = v9;
             _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "pushFinalFilters update SymptomFilter %@", buf, 0xCu);
           }
 
@@ -221,7 +227,7 @@ LABEL_14:
         }
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v16 objects:v22 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v15 objects:v21 count:16];
     }
 
     while (v6);
@@ -229,12 +235,11 @@ LABEL_14:
 
   [(ReporterFilter *)selfCopy updateTransportFilters];
   [(ReporterFilter *)selfCopy pushTransportFilters];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFinalTimer:(int64_t)timer
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (timer)
   {
     finalTimer = self->_finalTimer;
@@ -272,26 +277,24 @@ LABEL_14:
     {
       timingInProgress = self->_timingInProgress;
       *buf = 67109120;
-      v16 = timingInProgress;
+      v15 = timingInProgress;
       _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "Final Timer cancelled, in progress %d", buf, 8u);
     }
 
     self->_timingInProgress = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __32__ReporterFilter_setFinalTimer___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = filterLogHandle;
   if (os_log_type_enabled(filterLogHandle, OS_LOG_TYPE_DEBUG))
   {
     v3 = *(*(a1 + 32) + 16);
-    v6[0] = 67109120;
-    v6[1] = v3;
-    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "Final Timer fired, in progress %d", v6, 8u);
+    v5[0] = 67109120;
+    v5[1] = v3;
+    _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_DEBUG, "Final Timer fired, in progress %d", v5, 8u);
   }
 
   v4 = *(a1 + 32);
@@ -300,13 +303,11 @@ void __32__ReporterFilter_setFinalTimer___block_invoke(uint64_t a1)
     *(v4 + 16) = 0;
     [*(a1 + 32) pushFinalFilters];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (int)configureSymptomFilter:(id)filter
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   filterCopy = filter;
   v5 = [filterCopy objectForKey:@"SYMPTOM_FOR_FILTERING"];
   if (v5)
@@ -349,28 +350,28 @@ LABEL_19:
     }
 
     v11 = [filterCopy objectForKey:@"POSSIBLE_FILTERS"];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
-    v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v19;
+      v14 = *v18;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v19 != v14)
+          if (*v18 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          [(SymptomFilter *)v9 configureItem:*(*(&v18 + 1) + 8 * i)];
+          [(SymptomFilter *)v9 configureItem:*(*(&v17 + 1) + 8 * i)];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v13);
@@ -385,7 +386,6 @@ LABEL_19:
   v10 = -1;
 LABEL_20:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

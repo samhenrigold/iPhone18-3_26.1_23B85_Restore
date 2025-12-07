@@ -236,22 +236,22 @@ LABEL_4:
     {
       timingFunction = [(UICubicTimingParameters *)self timingFunction];
       timingFunction2 = [v5 timingFunction];
-      v8 = [timingFunction isEqual:timingFunction2];
+      isEqual = objc_msgSend_isEqual_(timingFunction);
     }
 
     else
     {
       animationCurve = [(UICubicTimingParameters *)self animationCurve];
-      v8 = animationCurve == [v5 animationCurve];
+      isEqual = animationCurve == [v5 animationCurve];
     }
   }
 
   else
   {
-    v8 = 0;
+    isEqual = 0;
   }
 
-  return v8;
+  return isEqual;
 }
 
 - (void)encodeWithCoder:(id)coder

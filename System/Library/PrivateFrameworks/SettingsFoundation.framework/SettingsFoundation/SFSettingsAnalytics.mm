@@ -33,42 +33,37 @@
 
 id __65__SFSettingsAnalytics_trackingStateOfRequestForSpecificApp_view___block_invoke(uint64_t a1)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v6[0] = @"result";
+  v6[2] = *MEMORY[0x277D85DE8];
+  v5[0] = @"result";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 40)];
-  v6[1] = @"view";
-  v7[0] = v2;
-  v7[1] = *(a1 + 32);
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[1] = @"view";
+  v6[0] = v2;
+  v6[1] = *(a1 + 32);
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   return v3;
 }
 
 id __42__SFSettingsAnalytics_trackingViewVisited__block_invoke()
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v3 = @"result";
-  v4[0] = &unk_28774C978;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
-  v1 = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
+  v2 = @"result";
+  v3[0] = &unk_28774C978;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:&v2 count:1];
 
   return v0;
 }
 
 id __68__SFSettingsAnalytics_trackingStateOfRequest_askAppsToStopTracking___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"result";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"result";
   v2 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 32)];
-  v7[1] = @"askAppsToStopTracking";
-  v8[0] = v2;
+  v6[1] = @"askAppsToStopTracking";
+  v7[0] = v2;
   v3 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 33)];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -96,36 +91,33 @@ id __68__SFSettingsAnalytics_trackingStateOfRequest_askAppsToStopTracking___bloc
 
 id __60__SFSettingsAnalytics_trackingAppAccessTransparencyVisited___block_invoke(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"result";
-  v5[1] = @"app";
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"result";
+  v4[1] = @"app";
   v1 = *(a1 + 32);
-  v6[0] = &unk_28774C978;
-  v6[1] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[0] = &unk_28774C978;
+  v5[1] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
 
   return v2;
 }
 
 id __55__SFSettingsAnalytics_trackingRecordAppActivityVisited__block_invoke()
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v3 = @"result";
-  v4[0] = MEMORY[0x277CBEC38];
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
-  v1 = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
+  v2 = @"result";
+  v3[0] = MEMORY[0x277CBEC38];
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:&v2 count:1];
 
   return v0;
 }
 
 id __47__SFSettingsAnalytics_trackingAppActivitySaved__block_invoke()
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v3 = @"result";
-  v4[0] = &unk_28774C978;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
-  v1 = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
+  v2 = @"result";
+  v3[0] = &unk_28774C978;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:&v2 count:1];
 
   return v0;
 }
@@ -156,19 +148,17 @@ id __47__SFSettingsAnalytics_trackingAppActivitySaved__block_invoke()
 
 id __60__SFSettingsAnalytics_trackingPerformSelector_targetString___block_invoke(uint64_t a1)
 {
-  v8[3] = *MEMORY[0x277D85DE8];
-  v7[0] = @"selector";
-  v7[1] = @"target";
+  v7[3] = *MEMORY[0x277D85DE8];
+  v6[0] = @"selector";
+  v6[1] = @"target";
   v1 = *(a1 + 40);
-  v8[0] = *(a1 + 32);
-  v8[1] = v1;
-  v7[2] = @"bundleID";
+  v7[0] = *(a1 + 32);
+  v7[1] = v1;
+  v6[2] = @"bundleID";
   v2 = [MEMORY[0x277CCA8D8] mainBundle];
   v3 = [v2 bundleIdentifier];
-  v8[2] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[2] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
 
   return v4;
 }
@@ -196,17 +186,15 @@ id __60__SFSettingsAnalytics_trackingPerformSelector_targetString___block_invoke
 
 id __70__SFSettingsAnalytics_trackingViewControllersVisitedInRootController___block_invoke(uint64_t a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v7[0] = @"target";
-  v7[1] = @"bundleID";
-  v8[0] = v1;
+  v6[0] = @"target";
+  v6[1] = @"bundleID";
+  v7[0] = v1;
   v2 = [MEMORY[0x277CCA8D8] mainBundle];
   v3 = [v2 bundleIdentifier];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
@@ -237,19 +225,17 @@ id __70__SFSettingsAnalytics_trackingViewControllersVisitedInRootController___bl
 
 id __58__SFSettingsAnalytics_trackingControlValueChanged_sender___block_invoke(uint64_t a1)
 {
-  v8[3] = *MEMORY[0x277D85DE8];
-  v7[0] = @"target";
-  v7[1] = @"sender";
+  v7[3] = *MEMORY[0x277D85DE8];
+  v6[0] = @"target";
+  v6[1] = @"sender";
   v1 = *(a1 + 40);
-  v8[0] = *(a1 + 32);
-  v8[1] = v1;
-  v7[2] = @"bundleID";
+  v7[0] = *(a1 + 32);
+  v7[1] = v1;
+  v6[2] = @"bundleID";
   v2 = [MEMORY[0x277CCA8D8] mainBundle];
   v3 = [v2 bundleIdentifier];
-  v8[2] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[2] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
 
   return v4;
 }
@@ -263,20 +249,18 @@ id __58__SFSettingsAnalytics_trackingControlValueChanged_sender___block_invoke(u
 
 id __53__SFSettingsAnalytics_trackingSettingsOpenByURL_url___block_invoke(uint64_t a1)
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"fromSearch";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"fromSearch";
   v2 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 40)];
   v3 = *(a1 + 32);
-  v10[0] = v2;
-  v10[1] = v3;
-  v9[1] = @"url";
-  v9[2] = @"bundleID";
+  v9[0] = v2;
+  v9[1] = v3;
+  v8[1] = @"url";
+  v8[2] = @"bundleID";
   v4 = [MEMORY[0x277CCA8D8] mainBundle];
   v5 = [v4 bundleIdentifier];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
@@ -346,37 +330,37 @@ id __191__SFSettingsAnalytics_trackingSettingsSearchUsed_isUser65AgeOrOlder_numb
 
 + (void)trackingStateOfRequestForSpecificApp:(uint64_t)a3 view:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: view is nil", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "+[SFSettingsAnalytics trackingStateOfRequestForSpecificApp:view:]";
+  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: view is nil", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)trackingAppAccessTransparencyVisited:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: appName is nil", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "+[SFSettingsAnalytics trackingAppAccessTransparencyVisited:]";
+  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: appName is nil", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)trackingPerformSelector:(uint64_t)a3 targetString:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: selectorString or targetString is nil", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "+[SFSettingsAnalytics trackingPerformSelector:targetString:]";
+  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: selectorString or targetString is nil", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)trackingViewControllersVisitedInRootController:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: targetString is nil", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "+[SFSettingsAnalytics trackingViewControllersVisitedInRootController:]";
+  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: targetString is nil", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)trackingControlValueChanged:(uint64_t)a3 sender:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: targetClass or sender is nil", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "+[SFSettingsAnalytics trackingControlValueChanged:sender:]";
+  OUTLINED_FUNCTION_3(&dword_2659AD000, a1, a3, "%{Public}s: targetClass or sender is nil", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

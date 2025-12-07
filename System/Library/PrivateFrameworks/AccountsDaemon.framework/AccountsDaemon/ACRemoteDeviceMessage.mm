@@ -1,12 +1,12 @@
 @interface ACRemoteDeviceMessage
 + (id)_whitelistedClasses;
 + (id)actionMessageWithCommand:(id)command account:(id)account options:(id)options;
++ (id)replyForMessage:(id)message withSuccess:(BOOL)success result:(id)result error:(id)error;
 - (ACRemoteDeviceMessage)init;
 - (ACRemoteDeviceMessage)initWithData:(id)data;
 - (BOOL)success;
 - (NSData)data;
 - (id)description;
-- (void)_invalidateCachedData;
 - (void)_setPayloadObject:(id)object forKey:(id)key;
 - (void)setIsReply:(BOOL)reply;
 - (void)setNeedsReply:(BOOL)reply;
@@ -26,12 +26,10 @@
   return v3;
 }
 
-uint64_t __44__ACRemoteDeviceMessage__whitelistedClasses__block_invoke()
+uint64_t __44__ACRemoteDeviceMessage__whitelistedClasses__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = MEMORY[0x277CBEB98];
-  v11 = objc_opt_class();
-  v0 = objc_opt_class();
-  v1 = objc_opt_class();
+  v14 = MEMORY[0x277CBEB98];
+  v13 = objc_opt_class();
   v2 = objc_opt_class();
   v3 = objc_opt_class();
   v4 = objc_opt_class();
@@ -40,7 +38,9 @@ uint64_t __44__ACRemoteDeviceMessage__whitelistedClasses__block_invoke()
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
-  _whitelistedClasses_whitelistedClasses = [v12 setWithObjects:{v11, v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, objc_opt_class(), 0}];
+  v10 = objc_opt_class();
+  v11 = objc_opt_class();
+  _whitelistedClasses_whitelistedClasses = [v14 setWithObjects:{v13, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, objc_opt_class(), 0}];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -157,13 +157,6 @@ LABEL_10:
   }
 }
 
-- (void)_invalidateCachedData
-{
-  data = self->_data;
-  self->_data = 0;
-  MEMORY[0x2821F96F8]();
-}
-
 - (NSData)data
 {
   data = self->_data;
@@ -253,7 +246,7 @@ LABEL_10:
 
 + (id)actionMessageWithCommand:(id)command account:(id)account options:(id)options
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   accountCopy = account;
   optionsCopy = options;
@@ -264,20 +257,19 @@ LABEL_10:
 
   v12 = objc_alloc_init(ACRemoteDeviceMessage);
   [accountCopy _loadAllCachedProperties];
-  [(ACRemoteDeviceMessage *)v12 _setPayloadObject:commandCopy forKey:@"cmd"];
-  v13 = _ACDLogSystem();
+  v13 = _ACDLogSystem([(ACRemoteDeviceMessage *)v12 _setPayloadObject:commandCopy forKey:@"cmd"]);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     internalCredential = [accountCopy internalCredential];
-    v17 = 138413058;
-    v18 = commandCopy;
-    v19 = 2112;
-    v20 = accountCopy;
-    v21 = 2112;
-    v22 = internalCredential;
-    v23 = 2112;
-    v24 = optionsCopy;
-    _os_log_debug_impl(&dword_221D2F000, v13, OS_LOG_TYPE_DEBUG, "@Creating action message with command '%@', account '%@ [credential:%@]', options '%@'", &v17, 0x2Au);
+    v16 = 138413058;
+    v17 = commandCopy;
+    v18 = 2112;
+    v19 = accountCopy;
+    v20 = 2112;
+    v21 = internalCredential;
+    v22 = 2112;
+    v23 = optionsCopy;
+    _os_log_debug_impl(&dword_221D2F000, v13, OS_LOG_TYPE_DEBUG, "@Creating action message with command '%@', account '%@ [credential:%@]', options '%@'", &v16, 0x2Au);
   }
 
   if (accountCopy)
@@ -290,9 +282,35 @@ LABEL_10:
     [(ACRemoteDeviceMessage *)v12 _setPayloadObject:optionsCopy forKey:@"opt"];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v12;
+}
+
++ (id)replyForMessage:(id)message withSuccess:(BOOL)success result:(id)result error:(id)error
+{
+  successCopy = success;
+  messageCopy = message;
+  resultCopy = result;
+  errorCopy = error;
+  if (!messageCopy)
+  {
+    [ACRemoteDeviceMessage(Reply) replyForMessage:a2 withSuccess:self result:? error:?];
+  }
+
+  v14 = objc_alloc_init(ACRemoteDeviceMessage);
+  [(ACRemoteDeviceMessage *)v14 setIsReply:1];
+  v15 = [MEMORY[0x277CCABB0] numberWithBool:successCopy];
+  [(ACRemoteDeviceMessage *)v14 _setPayloadObject:v15 forKey:@"suc"];
+
+  [(ACRemoteDeviceMessage *)v14 _setPayloadObject:errorCopy forKey:@"err"];
+  identifier = [messageCopy identifier];
+  [(ACRemoteDeviceMessage *)v14 _setPayloadObject:identifier forKey:@"sid"];
+
+  if (resultCopy)
+  {
+    [(ACRemoteDeviceMessage *)v14 _setPayloadObject:resultCopy forKey:@"res"];
+  }
+
+  return v14;
 }
 
 - (BOOL)success
@@ -311,11 +329,10 @@ LABEL_10:
 
 - (void)initWithData:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_221D2F000, a2, OS_LOG_TYPE_ERROR, "Failed to decode message data, error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_221D2F000, a2, OS_LOG_TYPE_ERROR, "Failed to decode message data, error: %@", &v2, 0xCu);
 }
 
 @end

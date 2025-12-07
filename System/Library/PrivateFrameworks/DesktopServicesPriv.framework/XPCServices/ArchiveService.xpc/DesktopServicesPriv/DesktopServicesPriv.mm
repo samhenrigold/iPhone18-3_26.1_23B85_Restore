@@ -89,7 +89,7 @@ void sub_100002DD4(uint64_t a1, void *a2, void *a3)
       v9 = [v6 userInfo];
       v10 = [NSMutableDictionary dictionaryWithDictionary:v9];
 
-      TCFURLInfo::LocalizedStringWithFileName(@"ArchiveEnterPassword", *(a1 + 32), &v13);
+      TCFURLInfo::LocalizedStringWithFileName(&v13, @"ArchiveEnterPassword", *(a1 + 32));
       [v10 setObject:v13 forKeyedSubscript:NSLocalizedRecoverySuggestionErrorKey];
       sub_100004348(&v13);
       v11 = [v6 domain];
@@ -108,9 +108,9 @@ void sub_100002DD4(uint64_t a1, void *a2, void *a3)
   [*(a1 + 48) invalidate];
 }
 
-void sub_100002F40(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100002F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100004348(va);
 
   _Unwind_Resume(a1);
@@ -156,7 +156,7 @@ void sub_100003F44(uint64_t a1, void *a2, void *a3)
       v9 = [v6 userInfo];
       v10 = [NSMutableDictionary dictionaryWithDictionary:v9];
 
-      TCFURLInfo::LocalizedStringWithFileName(@"ArchiveEnterPassword", *(a1 + 32), &v14);
+      TCFURLInfo::LocalizedStringWithFileName(&v14, @"ArchiveEnterPassword", *(a1 + 32));
       [v10 setObject:v14 forKeyedSubscript:NSLocalizedRecoverySuggestionErrorKey];
       sub_100004348(&v14);
       v11 = [v6 domain];
@@ -175,9 +175,9 @@ void sub_100003F44(uint64_t a1, void *a2, void *a3)
   [*(a1 + 40) invalidate];
 }
 
-void sub_1000040BC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1000040BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100004348(va);
 
   _Unwind_Resume(a1);
@@ -596,12 +596,12 @@ const void **FileSuffix@<X0>(id *a1@<X0>, TString **a2@<X8>)
   return sub_100004348(&theString);
 }
 
-void sub_10000517C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10000517C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, const void *);
-  sub_100004348(v2);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, const void *);
+  sub_100004348(v3);
   sub_100004348(va);
   sub_100004348(va1);
   _Unwind_Resume(a1);
@@ -643,7 +643,7 @@ const void **FileSuffixChain@<X0>(id *a1@<X0>, CFStringRef *a2@<X8>)
     sub_100004348(&cf);
     if (v4)
     {
-      TString::SubStringFrom(&v17, 1, &cf);
+      TString::SubStringFrom(&cf, &v17, 1);
       sub_100004F88(&theString, &cf);
       CFRetain(&stru_10002D580);
       if (cf)
@@ -761,7 +761,7 @@ const void **RedactedStr@<X0>(CFStringRef *a1@<X0>, CFTypeRef *a2@<X8>)
         }
       }
 
-      TString::SubStringFrom(a1, v6, &v51);
+      TString::SubStringFrom(&v51, a1, v6);
       sub_100004F88(&v50, &v51);
       CFRetain(&stru_10002D580);
       if (v51)
@@ -803,8 +803,8 @@ const void **RedactedStr@<X0>(CFStringRef *a1@<X0>, CFTypeRef *a2@<X8>)
       v47.length = 0;
       v47.location = [(__CFString *)*a1 rangeOfComposedCharacterSequenceAtIndex:v5 - 1];
       v47.length = v13;
-      TString::SubString(a1, &v48, &v46);
-      TString::SubString(a1, &v47, &v45);
+      TString::SubString(&v46, a1, &v48);
+      TString::SubString(&v45, a1, &v47);
       LODWORD(v38.__r_.__value_.__l.__data_) = 0;
       v14 = *a1;
       v51 = _NSConcreteStackBlock;
@@ -1155,7 +1155,8 @@ uint64_t sub_100006878(uint64_t a1, id *a2, uint64_t a3)
     v5 = 8 * a3;
     do
     {
-      sub_1000068F0(a1, a2++);
+      sub_1000068F0(a1, a2, a2);
+      ++a2;
       v5 -= 8;
     }
 
@@ -1165,35 +1166,35 @@ uint64_t sub_100006878(uint64_t a1, id *a2, uint64_t a3)
   return a1;
 }
 
-uint64_t **sub_1000068F0(void *a1, id *a2)
+uint64_t **sub_1000068F0(float *a1, id *a2, uint64_t a3)
 {
-  v4 = sub_100006C14(a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = sub_100006C14(a2);
+  v6 = v5;
+  v7 = *(a1 + 2);
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     sub_100006B4C();
@@ -1201,49 +1202,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!CFEqual(v11[2], *a2))
+  if (!CFEqual(v12[2], *a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_100006B38(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100006B38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100006BC8(va);
   _Unwind_Resume(a1);
 }
@@ -1286,7 +1287,7 @@ CFTypeRef *sub_100006C70(CFTypeRef *a1, __CFString **a2)
   return a1;
 }
 
-void sub_100006CC8(uint64_t a1, size_t __n)
+void sub_100006CC8(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -1302,7 +1303,7 @@ void sub_100006CC8(uint64_t a1, size_t __n)
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -1310,7 +1311,7 @@ void sub_100006CC8(uint64_t a1, size_t __n)
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -1334,7 +1335,7 @@ void sub_100006CC8(uint64_t a1, size_t __n)
     {
 LABEL_6:
 
-      sub_100006DB8(a1, prime);
+      sub_100006DB8(result, prime);
     }
   }
 }
@@ -1391,7 +1392,7 @@ void sub_100006F58(uint64_t a1, const void **a2)
   }
 }
 
-uint64_t sub_100006F9C(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_100006F9C(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1401,14 +1402,14 @@ uint64_t sub_100006F9C(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
   return result;
 }
 
-void sub_100007004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_100007004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   sub_100007144(&a9);
   _Unwind_Resume(a1);
 }
 
-void sub_100007024(uint64_t a1, unint64_t a2)
+void sub_100007024(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -1973,37 +1974,37 @@ void sub_10000870C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_100008834(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100008834(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100004348(va);
   _Unwind_Resume(a1);
 }
 
-void sub_100008AA8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100008AA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100004348(va);
   _Unwind_Resume(a1);
 }
 
-void sub_100008B78(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100008B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100004348(va);
   _Unwind_Resume(a1);
 }
 
-void sub_100008C1C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100008C1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100004348(va);
   _Unwind_Resume(a1);
 }
 
-void sub_100008CC0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100008CC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100004348(va);
   _Unwind_Resume(a1);
 }
@@ -2092,9 +2093,9 @@ const void **TString::SetFromUTF8(CFTypeRef *this, const UInt8 *a2, CFIndex a3)
   }
 }
 
-void sub_1000096E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1000096E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100004348(va);
   _Unwind_Resume(a1);
 }
@@ -2117,7 +2118,7 @@ const void *TString::MutableRef(TString **this, const __CFString *a2)
   return sub_100004BD8(MutableCopy);
 }
 
-void TString::SetFromUniChars(CFTypeRef *this, const unsigned __int16 *a2, CFIndex a3)
+void TString::SetFromUniChars(CFStringRef *this, const unsigned __int16 *a2, CFIndex a3)
 {
   v4 = CFStringCreateWithCharacters(kCFAllocatorDefault, a2, a3);
   if (*this)
@@ -2179,21 +2180,21 @@ void TString::SubString(CFStringRef *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X
   }
 }
 
-void TString::SubStringFrom(CFStringRef *this@<X0>, uint64_t a2@<X1>, CFTypeRef *a3@<X8>)
+void TString::SubStringFrom(CFTypeRef *__return_ptr a1@<X8>, CFStringRef *this@<X0>, uint64_t a3@<X1>)
 {
-  if (a2 == -1)
+  if (a3 == -1)
   {
     v5 = 0;
   }
 
   else
   {
-    v5 = a2;
+    v5 = a3;
   }
 
   v6 = CFStringGetLength(*this) - v5;
 
-  TString::SubString(this, v5, v6, a3);
+  TString::SubString(this, v5, v6, a1);
 }
 
 void TString::SetLength(CFStringRef *this, CFIndex a2)
@@ -2366,7 +2367,7 @@ LABEL_9:
   return v4 | (v5 << 8);
 }
 
-void TString::Str(id *this@<X0>, _BYTE *a2@<X8>)
+void TString::Str(id *this@<X0>, void *a2@<X8>)
 {
   v6 = *this;
   v3 = [v6 UTF8String];
@@ -2382,13 +2383,13 @@ void TString::Str(id *this@<X0>, _BYTE *a2@<X8>)
     operator new();
   }
 
-  a2[23] = v4;
+  *(a2 + 23) = v4;
   if (v4)
   {
     memmove(a2, v3, v4);
   }
 
-  a2[v5] = 0;
+  *(a2 + v5) = 0;
 }
 
 id TString::c_str(id *this)
@@ -2427,17 +2428,17 @@ LABEL_6:
   *v2 = Copy;
 }
 
-void *sub_100009EAC(void *result, uint64_t a2)
+uint64_t *sub_100009EAC(uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_100009F24(result, a2);
+    sub_100009F24(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_100009F08(_Unwind_Exception *exception_object)
@@ -2452,7 +2453,7 @@ void sub_100009F08(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100009F24(uint64_t a1, uint64_t a2)
+void sub_100009F24(uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -2472,7 +2473,7 @@ void sub_100009F5C(uint64_t a1, uint64_t a2)
   sub_100004C48();
 }
 
-void sub_10000A2B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id a34)
+void sub_10000A2B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id a34)
 {
   _Block_object_dispose(&a29, 8);
 
@@ -2569,21 +2570,21 @@ void sub_10000A6C8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void TCFURLInfo::Path(TCFURLInfo **this@<X0>, TString *a2@<X8>)
+void TCFURLInfo::Path(TCFURLInfo **this@<X0>, CFTypeRef *a3@<X8>)
 {
-  v3 = *this;
-  if (v3)
+  v4 = *this;
+  if (v4)
   {
 
-    TCFURLInfo::FileSystemRepresentation(v3, 1, a2);
+    TCFURLInfo::FileSystemRepresentation(v4, 1, a3);
   }
 
   else
   {
-    v4 = sub_100004F08();
-    *a2 = &stru_10002D580;
+    v5 = sub_100004F08();
+    *a3 = &stru_10002D580;
     CFRetain(&stru_10002D580);
-    TString::SetStringRefAsImmutable(a2, *v4);
+    TString::SetStringRefAsImmutable(a3, *v5);
   }
 }
 
@@ -2599,38 +2600,38 @@ CFIndex TCFURLInfo::FetchProperties(const void **this, int a2)
   if (a2)
   {
     CopyItemRequestedPropertyKeys = TCFURLInfo::GetCopyItemRequestedPropertyKeys(this);
-    v34 = CFURLCopyResourcePropertiesForKeys(v2, CopyItemRequestedPropertyKeys, &error);
+    v33 = CFURLCopyResourcePropertiesForKeys(v2, CopyItemRequestedPropertyKeys, &error);
     if (error)
     {
       CFRelease(error);
       error = 0;
+      v29 = 0u;
       v30 = 0u;
       v31 = 0u;
       v32 = 0u;
-      v33 = 0u;
       v7 = TCFURLInfo::GetCopyItemRequestedPropertyKeys(v6);
-      v8 = [v7 countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v29 objects:v35 count:16];
       if (v8)
       {
-        v9 = *v31;
+        v9 = *v30;
         do
         {
           for (i = 0; i != v8; i = i + 1)
           {
-            if (*v31 != v9)
+            if (*v30 != v9)
             {
               objc_enumerationMutation(v7);
             }
 
-            v11 = *(*(&v30 + 1) + 8 * i);
-            v28 = 0;
+            v11 = *(*(&v29 + 1) + 8 * i);
+            v27 = 0;
             propertyValueTypeRefPtr = 0;
-            CFURLCopyResourcePropertyForKey(*this, v11, &propertyValueTypeRefPtr, &v28);
-            sub_100004C14(&v28);
+            CFURLCopyResourcePropertyForKey(*this, v11, &propertyValueTypeRefPtr, &v27);
+            sub_100004C14(&v27);
             sub_1000094D0(&propertyValueTypeRefPtr);
           }
 
-          v8 = [v7 countByEnumeratingWithState:&v30 objects:v36 count:16];
+          v8 = [v7 countByEnumeratingWithState:&v29 objects:v35 count:16];
         }
 
         while (v8);
@@ -2640,56 +2641,55 @@ CFIndex TCFURLInfo::FetchProperties(const void **this, int a2)
 
   else
   {
-    v34 = 0;
+    v33 = 0;
   }
 
   propertyValueTypeRefPtr = 0;
-  v13 = *this;
   if (_CFURLGetResourcePropertyFlags())
   {
-    v16 = propertyValueTypeRefPtr;
-    v17 = propertyValueTypeRefPtr & 0xFFFE;
-    v18 = propertyValueTypeRefPtr >> 1;
-    v19 = *(this + 26);
-    v20 = *(this + 54) & 0xFE | propertyValueTypeRefPtr & 1;
-    *(this + 54) = v20;
-    v21 = v19 & 0xFFFFFFFC | (v17 >> 1) & 2 | (v17 >> 1) & 1;
-    *(this + 26) = v21;
-    if (v18)
+    v15 = propertyValueTypeRefPtr;
+    v16 = propertyValueTypeRefPtr & 0xFFFE;
+    v17 = propertyValueTypeRefPtr >> 1;
+    v18 = *(this + 26);
+    v19 = *(this + 54) & 0xFE | propertyValueTypeRefPtr & 1;
+    *(this + 54) = v19;
+    v20 = v18 & 0xFFFFFFFC | (v16 >> 1) & 2 | (v16 >> 1) & 1;
+    *(this + 26) = v20;
+    if (v17)
     {
-      if (TCFURLInfo::GetBooleanProperty(*this, kCFURLIsPackageKey, v15))
+      if (TCFURLInfo::GetBooleanProperty(*this, kCFURLIsPackageKey, v14))
       {
-        v22 = 4;
+        v21 = 4;
       }
 
       else
       {
-        v22 = 0;
+        v21 = 0;
       }
 
-      LOWORD(v21) = *(this + 26) & 0xFFFB | v22;
-      *(this + 26) = v21;
-      v16 = propertyValueTypeRefPtr;
-      v20 = *(this + 54);
+      LOWORD(v20) = *(this + 26) & 0xFFFB | v21;
+      *(this + 26) = v20;
+      v15 = propertyValueTypeRefPtr;
+      v19 = *(this + 54);
     }
 
-    *(this + 54) = v20 & 0xFD | (v16 >> 4) & 2;
-    v23 = ((v16 >> 2) & 0x20 | (((v16 & 8) != 0) << 7) | (v16 >> 10 << 15) | (v16 >> 2) & 0x10 | v21 & 0x7F4F) ^ 0x20;
-    *(this + 26) = v23;
+    *(this + 54) = v19 & 0xFD | (v15 >> 4) & 2;
+    v22 = ((v15 >> 2) & 0x20 | (((v15 & 8) != 0) << 7) | (v15 >> 10 << 15) | (v15 >> 2) & 0x10 | v20 & 0x7F4F) ^ 0x20;
+    *(this + 26) = v22;
     *(this + 12) = 1;
     if (a2)
     {
-      *(this + 26) = (v16 >> 2) & 0x40 | v16 & 0x7000 | (v16 >> 6) & 8 | v23 & 0x8FB7;
+      *(this + 26) = (v15 >> 2) & 0x40 | v15 & 0x7000 | (v15 >> 6) & 8 | v22 & 0x8FB7;
       *(this + 12) = 2;
     }
 
-    v28 = 0;
-    if (CFURLCopyResourcePropertyForKey(*this, kCFURLNameKey, &v28, &error))
+    v27 = 0;
+    if (CFURLCopyResourcePropertyForKey(*this, kCFURLNameKey, &v27, &error))
     {
-      v24 = v28;
+      v23 = v27;
       cf = &stru_10002D580;
       CFRetain(&stru_10002D580);
-      TString::SetStringRefAsImmutable(&cf, v24);
+      TString::SetStringRefAsImmutable(&cf, v23);
       if (this + 1 != &cf)
       {
         sub_100004F88(this + 1, &cf);
@@ -2705,26 +2705,26 @@ CFIndex TCFURLInfo::FetchProperties(const void **this, int a2)
       sub_100004348(&cf);
     }
 
-    sub_100009484(&v28);
+    sub_100009484(&v27);
   }
 
-  v25 = atomic_load(byte_100031600);
-  if (v25)
+  v24 = atomic_load(byte_100031600);
+  if (v24)
   {
-    *(this + 54) = *(this + 54) & 0xFB | (TCFURLInfo::GetNumericalProperty(*this, _kCFURLFileFlagsKey, v15) >> 28) & 4;
+    *(this + 54) = *(this + 54) & 0xFB | (TCFURLInfo::GetNumericalProperty(*this, _kCFURLFileFlagsKey, v14) >> 28) & 4;
   }
 
-  v12 = TCFURLInfo::TranslateCFError(error, v14);
-  sub_10000E82C(&v34);
+  v12 = TCFURLInfo::TranslateCFError(error, v13);
+  sub_10000E82C(&v33);
   sub_100004C14(&error);
   return v12;
 }
 
-void sub_10000AAE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_10000AAE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va1, a14);
-  va_start(va, a14);
-  v16 = va_arg(va1, const void *);
+  va_start(va1, a21);
+  va_start(va, a21);
+  v23 = va_arg(va1, const void *);
 
   sub_10000E82C(va);
   sub_100004C14(va1);
@@ -2856,9 +2856,9 @@ LABEL_27:
   return 0;
 }
 
-void sub_10000AEC4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10000AEC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __cxa_guard_abort(&qword_1000317F8);
 
   sub_100004348(va);
@@ -2951,9 +2951,9 @@ CFIndex TCFURLInfo::Initialize(CFTypeRef *this, const char *__s)
   return v6;
 }
 
-void sub_10000B1D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10000B1D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100004D1C(va);
   _Unwind_Resume(a1);
 }
@@ -3069,24 +3069,24 @@ const void **TCFURLInfo::StringProperty@<X0>(TCFURLInfo *this@<X0>, const __CFSt
   if (this)
   {
     CFURLCopyResourcePropertyForKey(this, a2, &propertyValueTypeRefPtr, 0);
-    v5 = propertyValueTypeRefPtr;
+    v4 = propertyValueTypeRefPtr;
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
   *a3 = &stru_10002D580;
   CFRetain(&stru_10002D580);
-  TString::SetStringRefAsImmutable(a3, v5);
+  TString::SetStringRefAsImmutable(a3, v4);
   return sub_100009484(&propertyValueTypeRefPtr);
 }
 
-void sub_10000BAB8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10000BAB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_100004348(v2);
+  va_start(va, a3);
+  sub_100004348(v3);
   sub_100009484(va);
   _Unwind_Resume(a1);
 }
@@ -3126,9 +3126,9 @@ TCFURLInfo *TCFURLInfo::TranslatePOSIXError(TCFURLInfo *this, const char *a2, co
   }
 }
 
-void sub_10000BC44(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10000BC44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100004348(va);
 
   _Unwind_Resume(a1);
@@ -3194,11 +3194,12 @@ LABEL_14:
   return this;
 }
 
-void sub_10000BD74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, const void *a10, const void *a11)
+void sub_10000BD74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9, const void *a10, ...)
 {
+  va_start(va, a10);
   sub_100004348(&a9);
   sub_100004C14(&a10);
-  sub_10000E860(&a11);
+  sub_10000E860(va);
   _Unwind_Resume(a1);
 }
 
@@ -3224,9 +3225,9 @@ uint64_t TCFURLInfo::GetBooleanProperty(TCFURLInfo *this, const __CFString *a2, 
   return v3;
 }
 
-void sub_10000BE1C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10000BE1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_10000E8C8(va);
   _Unwind_Resume(a1);
 }
@@ -3259,7 +3260,7 @@ void TCFURLInfo::FileSystemRepresentation(TCFURLInfo *this@<X0>, const __CFURL *
   }
 }
 
-uint64_t TCFURLInfo::GetVolumeInfoRecord(CFURLRef *a1, uint64_t a2)
+CFIndex TCFURLInfo::GetVolumeInfoRecord(CFURLRef *a1, unsigned int *a2)
 {
   if (*a1)
   {
@@ -3277,9 +3278,9 @@ uint64_t TCFURLInfo::GetVolumeInfoRecord(CFURLRef *a1, uint64_t a2)
   return VolumeInfoRecord;
 }
 
-void sub_10000BF90(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10000BF90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100004D1C(va);
   _Unwind_Resume(a1);
 }
@@ -3340,18 +3341,18 @@ LABEL_12:
   return v10;
 }
 
-void sub_10000C18C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10000C18C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   sub_100004C14(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t TCFURLInfo::GetVolumeInfoRecord(void *a1, uint64_t a2)
+CFIndex TCFURLInfo::GetVolumeInfoRecord(void *a1, unsigned int *a2)
 {
   *a2 = 0u;
-  *(a2 + 16) = 0u;
+  *(a2 + 1) = 0u;
   if (a1)
   {
     v3 = a1;
@@ -3391,7 +3392,7 @@ LABEL_31:
             obj = &stru_10002D580;
             CFRetain(&stru_10002D580);
             TString::SetStringRefAsImmutable(&obj, v18);
-            objc_storeStrong((a2 + 24), obj);
+            objc_storeStrong(a2 + 3, obj);
             sub_100004348(&obj);
           }
         }
@@ -3404,18 +3405,18 @@ LABEL_31:
           goto LABEL_30;
         }
 
-        *(a2 + 8) = 4096;
+        *(a2 + 1) = 4096;
         obj = 0;
         CFNumberGetValue(v20, kCFNumberSInt64Type, &obj);
         v21 = obj;
-        v22 = *(a2 + 8);
+        v22 = *(a2 + 1);
         if (!__CFADD__(obj, v22))
         {
           if (!v22)
           {
 LABEL_28:
             v8 = 0;
-            *(a2 + 16) = v22;
+            *(a2 + 2) = v22;
 LABEL_30:
             sub_10000E860(&propertyValueTypeRefPtr);
             goto LABEL_31;
@@ -3476,9 +3477,9 @@ LABEL_30:
   return 4294959238;
 }
 
-void sub_10000C5D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_10000C5D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_100004C14(va);
   _Unwind_Resume(a1);
 }
@@ -3625,11 +3626,11 @@ LABEL_6:
   return v7;
 }
 
-void sub_10000C8C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10000C8C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, const void *);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, const void *);
   sub_100004348(va);
   sub_100004348(va1);
   _Unwind_Resume(a1);
@@ -3834,9 +3835,9 @@ CFBundleRef DesktopServicesCFBundle(void)
   return v1;
 }
 
-void sub_10000CEEC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10000CEEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   sub_10000E930(va);
   _Unwind_Resume(a1);
@@ -3873,9 +3874,9 @@ const void **TCFURLInfo::LocalizedCopyErrorMessage@<X0>(TCFURLInfo *this@<X0>, c
           {
             if (this == -36)
             {
-              v7 = 0;
-              v8 = 1;
-              v9 = @"IOError";
+              v6 = 0;
+              v7 = 1;
+              v8 = @"IOError";
               goto LABEL_44;
             }
 
@@ -3883,9 +3884,9 @@ const void **TCFURLInfo::LocalizedCopyErrorMessage@<X0>(TCFURLInfo *this@<X0>, c
           }
 
 LABEL_38:
-          v7 = 0;
-          v8 = 1;
-          v9 = @"BadName";
+          v6 = 0;
+          v7 = 1;
+          v8 = @"BadName";
           goto LABEL_44;
         }
 
@@ -3901,9 +3902,9 @@ LABEL_38:
       {
         if (this == 100006)
         {
-          v8 = 0;
           v7 = 0;
-          v9 = @"DeviceDisappeared";
+          v6 = 0;
+          v8 = @"DeviceDisappeared";
           goto LABEL_44;
         }
 
@@ -3911,9 +3912,9 @@ LABEL_38:
       }
 
 LABEL_37:
-      v8 = 0;
       v7 = 0;
-      v9 = @"DiskFull";
+      v6 = 0;
+      v8 = @"DiskFull";
       goto LABEL_44;
     }
 
@@ -3921,9 +3922,9 @@ LABEL_37:
     {
       if (this == -1309)
       {
-        v8 = 0;
         v7 = 0;
-        v9 = @"FileTooBig";
+        v6 = 0;
+        v8 = @"FileTooBig";
         goto LABEL_44;
       }
 
@@ -3937,17 +3938,17 @@ LABEL_37:
 
     if (this == -61)
     {
-      v8 = 0;
       v7 = 0;
-      v9 = @"WritePermission";
+      v6 = 0;
+      v8 = @"WritePermission";
       goto LABEL_44;
     }
 
     if (this == -48)
     {
-      v7 = 0;
-      v8 = 1;
-      v9 = @"DuplicateFileName";
+      v6 = 0;
+      v7 = 1;
+      v8 = @"DuplicateFileName";
       goto LABEL_44;
     }
 
@@ -3957,9 +3958,9 @@ LABEL_37:
     }
 
 LABEL_18:
-    v8 = 0;
     v7 = 0;
-    v9 = @"FileBusy";
+    v6 = 0;
+    v8 = @"FileBusy";
     goto LABEL_44;
   }
 
@@ -3971,9 +3972,9 @@ LABEL_18:
       {
         if (this == -5000)
         {
-          v8 = 0;
           v7 = 0;
-          v9 = @"AccessDenied";
+          v6 = 0;
+          v8 = @"AccessDenied";
           goto LABEL_44;
         }
 
@@ -3991,9 +3992,9 @@ LABEL_18:
         goto LABEL_38;
       case 0xFFFFFA87:
 LABEL_30:
-        v8 = 0;
-        v7 = 1;
-        v9 = @"FileNotFound";
+        v7 = 0;
+        v6 = 1;
+        v8 = @"FileNotFound";
         goto LABEL_44;
     }
   }
@@ -4002,17 +4003,17 @@ LABEL_30:
   {
     if (this == -8095)
     {
-      v8 = 0;
       v7 = 0;
-      v9 = @"ReservationError";
+      v6 = 0;
+      v8 = @"ReservationError";
       goto LABEL_44;
     }
 
     if (this == -8089)
     {
-      v7 = 0;
-      v8 = 1;
-      v9 = @"CaseSensitivity";
+      v6 = 0;
+      v7 = 1;
+      v8 = @"CaseSensitivity";
       goto LABEL_44;
     }
   }
@@ -4031,86 +4032,86 @@ LABEL_30:
   }
 
 LABEL_43:
-  v8 = 0;
-  v7 = 1;
-  v9 = @"UnknownError";
+  v7 = 0;
+  v6 = 1;
+  v8 = @"UnknownError";
 LABEL_44:
-  v10 = DesktopServicesCFBundle();
-  v11 = CFBundleCopyLocalizedString(v10, v9, v9, 0);
-  v18 = v11;
-  if (v8)
+  v9 = DesktopServicesCFBundle();
+  v10 = CFBundleCopyLocalizedString(v9, v8, v8, 0);
+  v17 = v10;
+  if (v7)
   {
-    v12 = sub_100004C7C(a2);
-    if (v12)
+    v11 = sub_100004C7C(a2);
+    if (v11)
     {
-      v13 = CFAutorelease(v12);
-      v12 = sub_100004BD8(v13);
+      v12 = CFAutorelease(v11);
+      v11 = sub_100004BD8(v12);
     }
 
-    v14 = CFStringCreateWithFormat(0, 0, v11, v12);
+    v13 = CFStringCreateWithFormat(0, 0, v10, v11);
     goto LABEL_50;
   }
 
-  if (v7)
+  if (v6)
   {
-    v14 = CFStringCreateWithFormat(0, 0, v11, this);
+    v13 = CFStringCreateWithFormat(0, 0, v10, this);
 LABEL_50:
-    v17 = v14;
-    sub_100004F88(&v18, &v17);
-    sub_100004348(&v17);
+    v16 = v13;
+    sub_100004F88(&v17, &v16);
+    sub_100004348(&v16);
   }
 
-  v15 = v18;
+  v14 = v17;
   *a3 = &stru_10002D580;
   CFRetain(&stru_10002D580);
-  TString::SetStringRefAsImmutable(a3, v15);
-  return sub_100004348(&v18);
+  TString::SetStringRefAsImmutable(a3, v14);
+  return sub_100004348(&v17);
 }
 
-void sub_10000D250(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_10000D250(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_100004348(va);
   _Unwind_Resume(a1);
 }
 
-const void **TCFURLInfo::LocalizedStringWithFileName@<X0>(const __CFString *this@<X0>, __CFString *a2@<X1>, CFTypeRef *a3@<X8>)
+const void **TCFURLInfo::LocalizedStringWithFileName@<X0>(CFTypeRef *__return_ptr a1@<X8>, const __CFString *this@<X0>, __CFString *a3@<X1>)
 {
-  TCFURLInfo::StringProperty(a2, kCFURLLocalizedNameKey, &cf);
-  v6 = DesktopServicesCFBundle();
-  v7 = CFBundleCopyLocalizedString(v6, this, this, 0);
-  v14 = v7;
-  v8 = cf;
+  TCFURLInfo::StringProperty(a3, kCFURLLocalizedNameKey, &cf);
+  v5 = DesktopServicesCFBundle();
+  v6 = CFBundleCopyLocalizedString(v5, this, this, 0);
+  v13 = v6;
+  v7 = cf;
   if (cf)
   {
-    v9 = CFRetain(cf);
-    v8 = sub_100004BD8(v9);
-    if (v8)
+    v8 = CFRetain(cf);
+    v7 = sub_100004BD8(v8);
+    if (v7)
     {
-      v10 = CFAutorelease(v8);
-      v8 = sub_100004BD8(v10);
+      v9 = CFAutorelease(v7);
+      v7 = sub_100004BD8(v9);
     }
   }
 
-  v11 = CFStringCreateWithFormat(0, 0, v7, v8);
-  v13 = v11;
-  *a3 = &stru_10002D580;
+  v10 = CFStringCreateWithFormat(0, 0, v6, v7);
+  v12 = v10;
+  *a1 = &stru_10002D580;
   CFRetain(&stru_10002D580);
-  TString::SetStringRefAsImmutable(a3, v11);
+  TString::SetStringRefAsImmutable(a1, v10);
+  sub_100004348(&v12);
   sub_100004348(&v13);
-  sub_100004348(&v14);
   return sub_100004348(&cf);
 }
 
-void sub_10000D34C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10000D34C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, const void *);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v6 = va_arg(va2, const void *);
-  sub_100004348(v2);
+  v7 = va_arg(va2, const void *);
+  sub_100004348(v3);
   sub_100004348(va);
   sub_100004348(va1);
   sub_100004348(va2);
@@ -4119,19 +4120,19 @@ void sub_10000D34C(_Unwind_Exception *a1, uint64_t a2, ...)
 
 const void **TCFURLInfo::LocalizedStringWithKey@<X0>(const __CFString *this@<X0>, CFTypeRef *a2@<X8>)
 {
-  v5 = DesktopServicesCFBundle();
-  v6 = CFBundleCopyLocalizedString(v5, this, this, 0);
-  v8 = v6;
+  v4 = DesktopServicesCFBundle();
+  v5 = CFBundleCopyLocalizedString(v4, this, this, 0);
+  v7 = v5;
   *a2 = &stru_10002D580;
   CFRetain(&stru_10002D580);
-  TString::SetStringRefAsImmutable(a2, v6);
-  return sub_100004348(&v8);
+  TString::SetStringRefAsImmutable(a2, v5);
+  return sub_100004348(&v7);
 }
 
-void sub_10000D3FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10000D3FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  sub_100004348(v2);
+  va_start(va, a3);
+  sub_100004348(v3);
   sub_100004348(va);
   _Unwind_Resume(a1);
 }
@@ -4300,35 +4301,35 @@ LABEL_43:
   return 4294967242;
 }
 
-void sub_10000D6B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_10000D6B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_10000E894(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t TCFURLInfo::CreateFile(TCFURLInfo **a1, id *a2, uint64_t a3, __CFFileSecurity *a4, __CFFileSecurity *a5)
+uint64_t TCFURLInfo::CreateFile(TCFURLInfo **a1, id *a2, uint64_t a3, __CFFileSecurity *a4, __CFFileSecurity *a5, uint64_t a6)
 {
   TCFURLInfo::FileSystemRepresentation(*a1, 1, &theString);
   if (CFStringGetLength(theString))
   {
     Copy = CFFileSecurityCreateCopy(0, a4);
-    v13 = Copy;
+    v14 = Copy;
     if (Copy)
     {
       CFFileSecurityClearProperties(Copy, 2uLL);
     }
 
-    v12 = &stru_10002D580;
+    v13 = &stru_10002D580;
     CFRetain(&stru_10002D580);
-    File = TCFURLInfo::CreateFile(&theString, a2, v13, a5, &v12, v9);
+    File = TCFURLInfo::CreateFile(&theString, a2, v14, a5, &v13, v10);
     if (!File)
     {
       sub_100004D50();
     }
 
-    sub_100004348(&v12);
-    sub_10000E894(&v13);
+    sub_100004348(&v13);
+    sub_10000E894(&v14);
   }
 
   else
@@ -4340,14 +4341,14 @@ uint64_t TCFURLInfo::CreateFile(TCFURLInfo **a1, id *a2, uint64_t a3, __CFFileSe
   return File;
 }
 
-void sub_10000D7E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10000D7E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, const void *);
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v6 = va_arg(va2, const void *);
+  v8 = va_arg(va2, const void *);
   sub_100004348(va);
   sub_10000E894(va1);
   sub_100004348(va2);
@@ -4512,28 +4513,28 @@ void sub_10000DA1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t TCFURLInfo::CreateDirectory(TCFURLInfo **a1, id *a2, uint64_t a3, __CFFileSecurity *a4, __CFFileSecurity *a5)
+uint64_t TCFURLInfo::CreateDirectory(TCFURLInfo **a1, id *a2, BOOL a3, __CFFileSecurity *a4, __CFFileSecurity *a5, uint64_t a6)
 {
   TCFURLInfo::Path(a1, &theString);
   if (CFStringGetLength(theString))
   {
     Copy = CFFileSecurityCreateCopy(0, a4);
-    v13 = Copy;
+    v14 = Copy;
     if (Copy)
     {
       CFFileSecurityClearProperties(Copy, 2uLL);
     }
 
-    v12 = &stru_10002D580;
+    v13 = &stru_10002D580;
     CFRetain(&stru_10002D580);
-    Directory = TCFURLInfo::CreateDirectory(&theString, a2, v13, a5, &v12, v9);
+    Directory = TCFURLInfo::CreateDirectory(&theString, a2, v14, a5, &v13, v10);
     if (!Directory)
     {
       sub_100004D50();
     }
 
-    sub_100004348(&v12);
-    sub_10000E894(&v13);
+    sub_100004348(&v13);
+    sub_10000E894(&v14);
   }
 
   else
@@ -4545,14 +4546,14 @@ uint64_t TCFURLInfo::CreateDirectory(TCFURLInfo **a1, id *a2, uint64_t a3, __CFF
   return Directory;
 }
 
-void sub_10000DB74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10000DB74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, const void *);
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v6 = va_arg(va2, const void *);
+  v8 = va_arg(va2, const void *);
   sub_100004348(va);
   sub_10000E894(va1);
   sub_100004348(va2);
@@ -4711,47 +4712,47 @@ void sub_10000DDD0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void TCFURLInfo::CreateLockDirectory(uint64_t a1, TCFURLInfo **a2, __CFString **a3)
+void TCFURLInfo::CreateLockDirectory(TCFURLInfo **a1, TCFURLInfo **a2, __CFString **a3, __CFFileSecurity *a4, __CFFileSecurity *a5, TCFURLInfo **a6)
 {
   if (a3)
   {
-    v4 = &stru_10002D580;
+    v7 = &stru_10002D580;
     CFRetain(&stru_10002D580);
-    TString::SetStringRefAsImmutable(&v4, *a3);
+    TString::SetStringRefAsImmutable(&v7, *a3);
   }
 
   else
   {
-    TCFURLInfo::Name(*a2, &v4);
+    TCFURLInfo::Name(*a2, &v7);
   }
 
   sub_100004D50();
 }
 
-void sub_10000E030(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, ...)
+void sub_10000E030(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, std::__shared_weak_count *a7, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a7);
+  if (a7)
   {
-    sub_100004CB0(a4);
+    sub_100004CB0(a7);
   }
 
   sub_100004348(va);
   _Unwind_Resume(a1);
 }
 
-void TCFURLInfo::CreateLockFile(uint64_t a1, TCFURLInfo **a2, __CFString **a3)
+void TCFURLInfo::CreateLockFile(TCFURLInfo **a1, TCFURLInfo **a2, __CFString **a3, __CFFileSecurity *a4, __CFFileSecurity *a5, id **a6)
 {
   if (a3)
   {
-    v4 = &stru_10002D580;
+    v7 = &stru_10002D580;
     CFRetain(&stru_10002D580);
-    TString::SetStringRefAsImmutable(&v4, *a3);
+    TString::SetStringRefAsImmutable(&v7, *a3);
   }
 
   else
   {
-    TCFURLInfo::Name(*a2, &v4);
+    TCFURLInfo::Name(*a2, &v7);
   }
 
   sub_100004D50();
@@ -4821,9 +4822,9 @@ LABEL_14:
   return a2;
 }
 
-void sub_10000E410(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10000E410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100009504(va);
   _Unwind_Resume(a1);
 }
@@ -4902,9 +4903,9 @@ id sub_10000E4B8(void *a1, id *a2)
   return result;
 }
 
-void sub_10000E598(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10000E598(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_10000E6A4(va);
   _Unwind_Resume(a1);
 }
@@ -5362,9 +5363,9 @@ void sub_10000FF94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1000103E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1000103E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   sub_100004348(va);
   _Unwind_Resume(a1);
@@ -5386,7 +5387,7 @@ void sub_100010B84(uint64_t a1, void *a2, void *a3, void *a4)
   (*(*(a1 + 32) + 16))();
 }
 
-void sub_100010EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, void *a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, id a35)
+void sub_100010EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, void *a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, id a35)
 {
   _Block_object_dispose(&a30, 8);
 
@@ -5403,140 +5404,141 @@ uint64_t sub_100010F14(uint64_t result, uint64_t a2)
 
 id sub_100010F2C(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v49 = a2;
+  v50 = a2;
   v9 = a3;
   v10 = a4;
-  v48 = v10;
+  v11 = v10;
+  v49 = v10;
   if (*(a1 + 88) == 1)
   {
-    v11 = *(a1 + 32);
-    v12 = [*(a1 + 40) url];
-    v13 = v9;
-    v14 = *(a1 + 80);
-    v54 = 0;
-    v15 = [v11 _createArchivePlaceholderForItems:v49 inFolder:v12 compressionFormat:v14 error:&v54];
-    v16 = v54;
-    v17 = *(*(a1 + 64) + 8);
-    v18 = *(v17 + 40);
-    *(v17 + 40) = v15;
+    v12 = *(a1 + 32);
+    v13 = [*(a1 + 40) url];
+    v14 = v9;
+    v15 = *(a1 + 80);
+    v55 = 0;
+    v16 = [v12 _createArchivePlaceholderForItems:v50 inFolder:v13 compressionFormat:v15 error:&v55];
+    v17 = v55;
+    v18 = *(*(a1 + 64) + 8);
+    v19 = *(v18 + 40);
+    *(v18 + 40) = v16;
 
     if (!*(*(*(a1 + 64) + 8) + 40))
     {
       (*(*(a1 + 56) + 16))();
-      v35 = 0;
+      v36 = 0;
       goto LABEL_24;
     }
 
-    v10 = v48;
+    v11 = v49;
   }
 
-  v19 = sub_10001149C();
+  v20 = sub_10001149C(v10);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000114E0;
   block[3] = &unk_10002D088;
-  v20 = v10;
-  v21 = v9;
-  v22 = v20;
-  v23 = *(a1 + 64);
-  v51 = v20;
-  v53 = v23;
-  v13 = v21;
-  v24 = v21;
-  v52 = v24;
-  dispatch_async(v19, block);
+  v21 = v11;
+  v22 = v9;
+  v23 = v21;
+  v24 = *(a1 + 64);
+  v52 = v21;
+  v54 = v24;
+  v14 = v22;
+  v25 = v22;
+  v53 = v25;
+  dispatch_async(v20, block);
 
-  v25 = [v24 URLByAppendingPathComponent:@"archive-XXXXXX"];
-  v26 = v25;
-  v27 = strdup([v25 fileSystemRepresentation]);
-  if (!v27)
+  v26 = [v25 URLByAppendingPathComponent:@"archive-XXXXXX"];
+  v27 = v26;
+  v28 = strdup([v26 fileSystemRepresentation]);
+  if (!v28)
   {
-    v41 = [NSError ds_errorWithPOSIXCode:*__error() itemURL:v25 debugDescription:@"Couldn't create temporary folder name"];
-    v42 = v41;
+    v42 = [NSError ds_errorWithPOSIXCode:*__error() itemURL:v26 debugDescription:@"Couldn't create temporary folder name"];
+    v43 = v42;
     if (a5)
     {
-      v43 = v41;
-      *a5 = v42;
+      v44 = v42;
+      *a5 = v43;
     }
 
-    v44 = LogObj(0);
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    v45 = LogObj(0);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v56 = v42;
-      _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "Couldn't create temporary folder name: %@", buf, 0xCu);
+      v57 = v43;
+      _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "Couldn't create temporary folder name: %@", buf, 0xCu);
     }
 
-    v35 = 0;
+    v36 = 0;
     goto LABEL_23;
   }
 
-  v28 = v27;
-  v29 = mkstemp(v27);
-  v30 = +[NSFileManager defaultManager];
-  v31 = [v30 stringWithFileSystemRepresentation:v28 length:strlen(v28)];
-  v32 = [NSURL fileURLWithPath:v31];
-  v33 = *(*(a1 + 72) + 8);
-  v34 = *(v33 + 40);
-  *(v33 + 40) = v32;
+  v29 = v28;
+  v30 = mkstemp(v28);
+  v31 = +[NSFileManager defaultManager];
+  v32 = [v31 stringWithFileSystemRepresentation:v29 length:strlen(v29)];
+  v33 = [NSURL fileURLWithPath:v32];
+  v34 = *(*(a1 + 72) + 8);
+  v35 = *(v34 + 40);
+  *(v34 + 40) = v33;
 
-  if ((v29 & 0x80000000) != 0)
+  if ((v30 & 0x80000000) != 0)
   {
-    v45 = [NSError ds_errorWithPOSIXCode:*__error() itemURL:*(*(*(a1 + 72) + 8) + 40) debugDescription:@"Couldn't create temporary folder"];
-    v37 = v45;
+    v46 = [NSError ds_errorWithPOSIXCode:*__error() itemURL:*(*(*(a1 + 72) + 8) + 40) debugDescription:@"Couldn't create temporary folder"];
+    v38 = v46;
     if (a5)
     {
-      v46 = v45;
-      *a5 = v37;
+      v47 = v46;
+      *a5 = v38;
     }
 
-    v39 = LogObj(0);
-    if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    v40 = LogObj(0);
+    if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_21;
     }
 
     *buf = 138412290;
-    v56 = v37;
-    v40 = "Couldn't create temporary folder: %@";
+    v57 = v38;
+    v41 = "Couldn't create temporary folder: %@";
     goto LABEL_20;
   }
 
-  fchmod(v29, 0x1A4u);
-  v35 = [*(a1 + 32) _archiveFromItemURLs:v49 passphrase:*(a1 + 48) addToKeychain:*(a1 + 89) compressionFormat:*(a1 + 80) archiveURL:*(*(*(a1 + 72) + 8) + 40) fd:v29 progress:v22 error:a5];
-  if (close(v29) == -1)
+  fchmod(v30, 0x1A4u);
+  v36 = [*(a1 + 32) _archiveFromItemURLs:v50 passphrase:*(a1 + 48) addToKeychain:*(a1 + 89) compressionFormat:*(a1 + 80) archiveURL:*(*(*(a1 + 72) + 8) + 40) fd:v30 progress:v23 error:a5];
+  if (close(v30) == -1)
   {
-    v36 = [NSError ds_errorWithPOSIXCode:*__error() itemURL:*(*(*(a1 + 72) + 8) + 40) debugDescription:@"Couldn't close temporary folder fd"];
-    v37 = v36;
+    v37 = [NSError ds_errorWithPOSIXCode:*__error() itemURL:*(*(*(a1 + 72) + 8) + 40) debugDescription:@"Couldn't close temporary folder fd"];
+    v38 = v37;
     if (a5)
     {
-      v38 = v36;
-      *a5 = v37;
+      v39 = v37;
+      *a5 = v38;
     }
 
-    v39 = LogObj(0);
-    if (!os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    v40 = LogObj(0);
+    if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_21;
     }
 
     *buf = 138412290;
-    v56 = v37;
-    v40 = "Couldn't close temporary folder fd: %@";
+    v57 = v38;
+    v41 = "Couldn't close temporary folder fd: %@";
 LABEL_20:
-    _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, v40, buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, v41, buf, 0xCu);
 LABEL_21:
 
-    v35 = 0;
+    v36 = 0;
   }
 
-  free(v28);
+  free(v29);
 LABEL_23:
 
-  v16 = v51;
+  v17 = v52;
 LABEL_24:
 
-  return v35;
+  return v36;
 }
 
 void sub_1000113E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, void *a18)
@@ -5546,16 +5548,16 @@ void sub_1000113E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-id sub_10001149C()
+id sub_10001149C(uint64_t a1)
 {
   if (qword_1000318D8 != -1)
   {
     sub_10001C244();
   }
 
-  v1 = qword_1000318D0;
+  v2 = qword_1000318D0;
 
-  return v1;
+  return v2;
 }
 
 id sub_1000114E0(uint64_t a1)
@@ -5679,7 +5681,7 @@ void sub_100011B18(uint64_t a1, void *a2, void *a3)
 unint64_t sub_1000120EC(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
   v9 = a2;
-  v72 = a3;
+  v73 = a3;
   v10 = a4;
   v11 = *(a1 + 32);
   v12 = [v9 firstObject];
@@ -5689,145 +5691,146 @@ unint64_t sub_1000120EC(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 
   v15 = *(a1 + 40);
   v16 = *(*(*(a1 + 72) + 8) + 40);
-  v86 = 0;
-  v17 = [v15 openArchiveFile:v16 error:&v86];
-  v71 = v86;
+  v87 = 0;
+  v17 = [v15 openArchiveFile:v16 error:&v87];
+  v72 = v87;
   *(*(*(a1 + 80) + 8) + 24) = v17;
   if (*(*(*(a1 + 80) + 8) + 24) != -1)
   {
     v18 = *(a1 + 48);
     if (v18)
     {
-      v70 = [v18 mutableCopy];
+      v19 = [v18 mutableCopy];
     }
 
     else
     {
-      v70 = objc_opt_new();
+      v19 = objc_opt_new();
     }
 
+    v71 = v19;
     if ((*(a1 + 128) & 1) == 0 && !v11)
     {
       goto LABEL_32;
     }
 
     context = objc_autoreleasePoolPush();
-    v21 = *(a1 + 40);
-    v22 = *(*(*(a1 + 80) + 8) + 24);
-    v23 = *(*(*(a1 + 72) + 8) + 40);
-    v24 = *(a1 + 120);
-    v85 = 0;
-    v25 = [v21 archivedItemDescriptorsForFD:v22 url:v23 passphrases:v70 progress:v10 formats:v24 destinationFolderURL:v72 error:&v85];
-    v26 = v85;
-    if ([v25 count])
+    v22 = *(a1 + 40);
+    v23 = *(*(*(a1 + 80) + 8) + 24);
+    v24 = *(*(*(a1 + 72) + 8) + 40);
+    v25 = *(a1 + 120);
+    v86 = 0;
+    v26 = [v22 archivedItemDescriptorsForFD:v23 url:v24 passphrases:v71 progress:v10 formats:v25 destinationFolderURL:v73 error:&v86];
+    v27 = v86;
+    if ([v26 count])
     {
-      v84 = 0;
-      v68 = v25;
+      v85 = 0;
+      v69 = v26;
       if (*(a1 + 128) == 1)
       {
-        v27 = *(a1 + 40);
-        v28 = *(*(*(a1 + 72) + 8) + 40);
-        v29 = [*(a1 + 56) url];
-        v30 = *(*(a1 + 96) + 8);
-        v83 = v26;
-        v31 = [v27 _createUnarchivePlaceholderForDescriptors:v68 describingArchive:v28 inFolder:v29 hasMultipleTopLevelItems:v30 + 24 placeholderIsFolder:&v84 error:&v83];
-        v32 = v83;
+        v28 = *(a1 + 40);
+        v29 = *(*(*(a1 + 72) + 8) + 40);
+        v30 = [*(a1 + 56) url];
+        v31 = *(*(a1 + 96) + 8);
+        v84 = v27;
+        v32 = [v28 _createUnarchivePlaceholderForDescriptors:v69 describingArchive:v29 inFolder:v30 hasMultipleTopLevelItems:v31 + 24 placeholderIsFolder:&v85 error:&v84];
+        v33 = v84;
 
-        v33 = *(*(a1 + 88) + 8);
-        v34 = *(v33 + 40);
-        *(v33 + 40) = v31;
+        v34 = *(*(a1 + 88) + 8);
+        v35 = *(v34 + 40);
+        *(v34 + 40) = v32;
 
-        v35 = *(*(*(a1 + 88) + 8) + 40) != 0;
-        v26 = v32;
-        v25 = v68;
+        v36 = *(*(*(a1 + 88) + 8) + 40) != 0;
+        v27 = v33;
+        v26 = v69;
         if (!v11)
         {
           goto LABEL_30;
         }
 
 LABEL_16:
-        if (v35)
+        if (v36)
         {
           if (*(a1 + 128) == 1)
           {
-            v36 = [*(*(*(a1 + 88) + 8) + 40) lastPathComponent];
-            v67 = [UTTypeFolder identifier];
+            v37 = [*(*(*(a1 + 88) + 8) + 40) lastPathComponent];
+            v68 = [UTTypeFolder identifier];
             if (*(*(*(a1 + 96) + 8) + 24))
             {
-              v37 = v36;
+              v38 = v37;
             }
 
             else
             {
-              v38 = UTTypeItem;
-              v39 = *(*(*(a1 + 88) + 8) + 40);
+              v39 = UTTypeItem;
+              v40 = *(*(*(a1 + 88) + 8) + 40);
+              v83 = 0;
               v82 = 0;
-              v81 = 0;
-              v37 = v36;
-              v40 = [v39 getResourceValue:&v82 forKey:NSURLContentTypeKey error:&v81];
-              v64 = v38;
-              v65 = v82;
+              v38 = v37;
+              v41 = [v40 getResourceValue:&v83 forKey:NSURLContentTypeKey error:&v82];
+              v65 = v39;
+              v66 = v83;
 
-              v66 = v81;
-              if (v40)
+              v67 = v82;
+              if (v41)
               {
-                v41 = v65;
+                v42 = v66;
               }
 
               else
               {
-                v42 = LogObj(0);
-                if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+                v43 = LogObj(0);
+                if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
                 {
-                  v43 = SanitizedURL(*(*(*(a1 + 88) + 8) + 40));
+                  v44 = SanitizedURL(*(*(*(a1 + 88) + 8) + 40));
                   *buf = 138543618;
-                  v88 = v43;
-                  v89 = 2112;
-                  v90 = v66;
-                  _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, "Failed to type for placeholder %{public}@: %@", buf, 0x16u);
+                  v89 = v44;
+                  v90 = 2112;
+                  v91 = v67;
+                  _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "Failed to type for placeholder %{public}@: %@", buf, 0x16u);
                 }
 
-                v44 = v64;
-                if (v84)
+                v45 = v65;
+                if (v85)
                 {
-                  v44 = UTTypeFolder;
+                  v45 = UTTypeFolder;
                 }
 
-                v41 = v44;
+                v42 = v45;
               }
 
-              v45 = [(UTType *)v41 identifier];
+              v46 = [(UTType *)v42 identifier];
 
-              v67 = v45;
-              v25 = v68;
+              v68 = v46;
+              v26 = v69;
             }
           }
 
           else
           {
-            v37 = 0;
-            v67 = 0;
+            v38 = 0;
+            v68 = 0;
           }
 
-          v46 = *(a1 + 32);
-          v78[0] = _NSConcreteStackBlock;
-          v78[1] = 3221225472;
-          v78[2] = sub_1000128A4;
-          v78[3] = &unk_10002D128;
-          v47 = v25;
-          v48 = *(a1 + 72);
-          v79 = v47;
+          v47 = *(a1 + 32);
+          v79[0] = _NSConcreteStackBlock;
+          v79[1] = 3221225472;
+          v79[2] = sub_1000128A4;
+          v79[3] = &unk_10002D128;
+          v48 = v26;
+          v49 = *(a1 + 72);
           v80 = v48;
-          v49 = [v46 remoteObjectProxyWithErrorHandler:v78];
-          [v49 receiveArchivedItemsDescriptors:v47 placeholderName:v37 placeholderTypeIdentifier:v67];
+          v81 = v49;
+          v50 = [v47 remoteObjectProxyWithErrorHandler:v79];
+          [v50 receiveArchivedItemsDescriptors:v48 placeholderName:v38 placeholderTypeIdentifier:v68];
 
-          v25 = v68;
+          v26 = v69;
         }
 
         goto LABEL_30;
       }
 
-      v35 = 1;
+      v36 = 1;
       if (v11)
       {
         goto LABEL_16;
@@ -5836,67 +5839,67 @@ LABEL_16:
 
     else
     {
-      v35 = 0;
+      v36 = 0;
     }
 
 LABEL_30:
 
     objc_autoreleasePoolPop(context);
-    if (!v35)
+    if (!v36)
     {
       if (a5)
       {
-        v62 = v26;
-        *a5 = v26;
+        v63 = v27;
+        *a5 = v27;
       }
 
-      v20 = v26 == 0;
+      v21 = v27 == 0;
       goto LABEL_41;
     }
 
 LABEL_32:
-    v50 = sub_10001149C();
+    v51 = sub_10001149C(v19);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1000129B8;
     block[3] = &unk_10002D088;
-    v51 = v10;
-    v52 = *(a1 + 88);
-    v75 = v51;
-    v77 = v52;
-    v53 = v72;
-    v76 = v53;
-    dispatch_async(v50, block);
+    v52 = v10;
+    v53 = *(a1 + 88);
+    v76 = v52;
+    v78 = v53;
+    v54 = v73;
+    v77 = v54;
+    dispatch_async(v51, block);
 
     objc_storeStrong((*(*(a1 + 104) + 8) + 40), a4);
-    v54 = *(a1 + 40);
-    v55 = *(*(*(a1 + 80) + 8) + 24);
-    v56 = *(*(*(a1 + 72) + 8) + 40);
-    v73 = 0;
-    v57 = [v54 _quarantineDataFromArchiveFD:v55 url:v56 error:&v73];
-    v58 = v73;
-    v59 = *(*(a1 + 112) + 8);
-    v60 = *(v59 + 40);
-    *(v59 + 40) = v57;
+    v55 = *(a1 + 40);
+    v56 = *(*(*(a1 + 80) + 8) + 24);
+    v57 = *(*(*(a1 + 72) + 8) + 40);
+    v74 = 0;
+    v58 = [v55 _quarantineDataFromArchiveFD:v56 url:v57 error:&v74];
+    v59 = v74;
+    v60 = *(*(a1 + 112) + 8);
+    v61 = *(v60 + 40);
+    *(v60 + 40) = v58;
 
     if (*(*(*(a1 + 112) + 8) + 40))
     {
-      v20 = [*(a1 + 40) _unarchiveFromArchiveFD:*(*(*(a1 + 80) + 8) + 24) url:*(*(*(a1 + 72) + 8) + 40) passphrases:v70 addToKeychain:*(a1 + 129) destinationURL:v53 formats:*(a1 + 120) progress:v51 readItemGroup:*(a1 + 64) error:a5];
+      v21 = [*(a1 + 40) _unarchiveFromArchiveFD:*(*(*(a1 + 80) + 8) + 24) url:*(*(*(a1 + 72) + 8) + 40) passphrases:v71 addToKeychain:*(a1 + 129) destinationURL:v54 formats:*(a1 + 120) progress:v52 readItemGroup:*(a1 + 64) error:a5];
     }
 
     else if (a5)
     {
-      v61 = v58;
-      v20 = 0;
-      *a5 = v58;
+      v62 = v59;
+      v21 = 0;
+      *a5 = v59;
     }
 
     else
     {
-      v20 = 0;
+      v21 = 0;
     }
 
-    v26 = v75;
+    v27 = v76;
 LABEL_41:
 
     goto LABEL_42;
@@ -5904,19 +5907,19 @@ LABEL_41:
 
   if (a5)
   {
-    v19 = v71;
-    v20 = 0;
-    *a5 = v71;
+    v20 = v72;
+    v21 = 0;
+    *a5 = v72;
   }
 
   else
   {
-    v20 = 0;
+    v21 = 0;
   }
 
 LABEL_42:
 
-  return v20;
+  return v21;
 }
 
 void sub_1000128A4(uint64_t a1, void *a2)
@@ -5962,13 +5965,13 @@ void sub_100012A0C(uint64_t a1, void *a2, void *a3)
 
     if (v8 == -1000)
     {
-      v9 = sub_10001149C();
+      v10 = sub_10001149C(v9);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_100013860;
       block[3] = &unk_10002D178;
       block[4] = *(a1 + 56);
-      dispatch_async(v9, block);
+      dispatch_async(v10, block);
     }
   }
 
@@ -5980,12 +5983,12 @@ void sub_100012A0C(uint64_t a1, void *a2, void *a3)
   {
     if (v5)
     {
-      v25 = [[NSSecurityScopedURLWrapper alloc] initWithURL:v5];
+      v26 = [[NSSecurityScopedURLWrapper alloc] initWithURL:v5];
     }
 
     else
     {
-      v25 = 0;
+      v26 = 0;
     }
 
     goto LABEL_54;
@@ -5993,113 +5996,113 @@ void sub_100012A0C(uint64_t a1, void *a2, void *a3)
 
   if (!v6)
   {
-    v26 = +[NSFileManager defaultManager];
-    v96 = 0;
-    v27 = [v26 contentsOfDirectoryAtURL:v5 includingPropertiesForKeys:0 options:1 error:&v96];
-    v28 = v96;
+    v27 = +[NSFileManager defaultManager];
+    v97 = 0;
+    v28 = [v27 contentsOfDirectoryAtURL:v5 includingPropertiesForKeys:0 options:1 error:&v97];
+    v29 = v97;
 
-    if (v27 && [v27 count])
+    if (v28 && [v28 count])
     {
       if (*(*(*(a1 + 88) + 8) + 24) == 1)
       {
-        v29 = +[NSFileManager defaultManager];
-        v30 = *(*(*(a1 + 64) + 8) + 40);
-        v93 = v28;
-        v94 = 0;
-        v31 = [v29 replaceItemAtURL:v30 withItemAtURL:v5 backupItemName:0 options:1 resultingItemURL:&v94 error:&v93];
-        v32 = v94;
-        v33 = v93;
+        v30 = +[NSFileManager defaultManager];
+        v31 = *(*(*(a1 + 64) + 8) + 40);
+        v94 = v29;
+        v95 = 0;
+        v32 = [v30 replaceItemAtURL:v31 withItemAtURL:v5 backupItemName:0 options:1 resultingItemURL:&v95 error:&v94];
+        v33 = v95;
+        v34 = v94;
 
-        if (v31)
+        if (v32)
         {
-          v34 = 0;
+          v35 = 0;
           goto LABEL_49;
         }
 
-        v38 = LogObj(0);
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        v39 = LogObj(0);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
-          v56 = SanitizedURL(v5);
-          v57 = SanitizedURL(*(*(*(a1 + 64) + 8) + 40));
+          v57 = SanitizedURL(v5);
+          v58 = SanitizedURL(*(*(*(a1 + 64) + 8) + 40));
           buf.st_dev = 138543874;
-          *&buf.st_mode = v56;
+          *&buf.st_mode = v57;
           WORD2(buf.st_ino) = 2114;
-          *(&buf.st_ino + 6) = v57;
+          *(&buf.st_ino + 6) = v58;
           HIWORD(buf.st_gid) = 2112;
-          *&buf.st_rdev = v33;
-          _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "Failed to move %{public}@ into place at %{public}@  %@", &buf, 0x20u);
+          *&buf.st_rdev = v34;
+          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "Failed to move %{public}@ into place at %{public}@  %@", &buf, 0x20u);
         }
       }
 
       else
       {
-        v38 = [v27 objectAtIndexedSubscript:0];
-        v47 = v38;
-        v48 = [v38 fileSystemRepresentation];
+        v39 = [v28 objectAtIndexedSubscript:0];
+        v48 = v39;
+        v49 = [v39 fileSystemRepresentation];
         acl = 0;
-        if (lstat(v48, &buf) || (buf.st_mode & 0xF000) != 0x4000)
+        if (lstat(v49, &buf) || (buf.st_mode & 0xF000) != 0x4000)
         {
-          v79 = 0;
-          v81 = 0;
+          v80 = 0;
+          v82 = 0;
         }
 
         else
         {
-          v81 = (buf.st_mode & 0x80) == 0 && chmod(v48, buf.st_mode & 0xF7F | 0x80) == 0;
-          v91 = 0;
-          v90[1] = 0;
-          v68 = [NSObject getResourceValue:v38 forKey:"getResourceValue:forKey:error:" error:&v91];
-          v69 = v91;
-          v80 = 0;
-          if (v68)
+          v82 = (buf.st_mode & 0x80) == 0 && chmod(v49, buf.st_mode & 0xF7F | 0x80) == 0;
+          v92 = 0;
+          v91[1] = 0;
+          v69 = [NSObject getResourceValue:v39 forKey:"getResourceValue:forKey:error:" error:&v92];
+          v70 = v92;
+          v81 = 0;
+          if (v69)
           {
-            v76 = [v69 BOOLValue];
+            v77 = [v70 BOOLValue];
           }
 
           else
           {
-            v70 = LogObj(0);
-            if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+            v71 = LogObj(0);
+            if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
             {
-              *v105 = 138412290;
-              *&v105[4] = v80;
-              _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_ERROR, "Failed fetching NSURLVolumeIsLocalKey for source: %@", v105, 0xCu);
+              *v106 = 138412290;
+              *&v106[4] = v81;
+              _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_ERROR, "Failed fetching NSURLVolumeIsLocalKey for source: %@", v106, 0xCu);
             }
 
-            v76 = 1;
+            v77 = 1;
           }
 
-          v71 = *(*(*(a1 + 64) + 8) + 40);
-          v89 = 0;
-          v90[0] = 0;
-          v72 = [v71 getResourceValue:v90 forKey:NSURLVolumeIsLocalKey error:&v89];
-          v77 = v90[0];
+          v72 = *(*(*(a1 + 64) + 8) + 40);
+          v90 = 0;
+          v91[0] = 0;
+          v73 = [v72 getResourceValue:v91 forKey:NSURLVolumeIsLocalKey error:&v90];
+          v78 = v91[0];
 
-          v78 = v89;
-          if (v72)
+          v79 = v90;
+          if (v73)
           {
-            v73 = [v77 BOOLValue];
+            v74 = [v78 BOOLValue];
           }
 
           else
           {
-            v74 = LogObj(0);
-            if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+            v75 = LogObj(0);
+            if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
             {
-              *v105 = 138412290;
-              *&v105[4] = v78;
-              _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_ERROR, "Failed fetching NSURLVolumeIsLocalKey for target: %@", v105, 0xCu);
+              *v106 = 138412290;
+              *&v106[4] = v79;
+              _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_ERROR, "Failed fetching NSURLVolumeIsLocalKey for target: %@", v106, 0xCu);
             }
 
-            v73 = 1;
+            v74 = 1;
           }
 
-          if ((v76 & v73) != 1)
+          if ((v77 & v74) != 1)
           {
             goto LABEL_73;
           }
 
-          file = acl_get_file(v48, ACL_TYPE_EXTENDED);
+          file = acl_get_file(v49, ACL_TYPE_EXTENDED);
           if (acl)
           {
             acl_free(acl);
@@ -6108,57 +6111,57 @@ void sub_100012A0C(uint64_t a1, void *a2, void *a3)
           acl = file;
           if (file)
           {
-            *v105 = acl_init(1);
-            v79 = acl_set_file(v48, ACL_TYPE_EXTENDED, *v105) == 0;
-            sub_10000E964(v105);
+            *v106 = acl_init(1);
+            v80 = acl_set_file(v49, ACL_TYPE_EXTENDED, *v106) == 0;
+            sub_10000E964(v106);
           }
 
           else
           {
 LABEL_73:
-            v79 = 0;
+            v80 = 0;
           }
         }
 
-        v49 = +[NSFileManager defaultManager];
-        v50 = *(*(*(a1 + 64) + 8) + 40);
-        v87 = v28;
-        v88 = 0;
-        v51 = [v49 replaceItemAtURL:v50 withItemAtURL:v38 backupItemName:0 options:1 resultingItemURL:&v88 error:&v87];
-        v32 = v88;
-        v33 = v87;
+        v50 = +[NSFileManager defaultManager];
+        v51 = *(*(*(a1 + 64) + 8) + 40);
+        v88 = v29;
+        v89 = 0;
+        v52 = [v50 replaceItemAtURL:v51 withItemAtURL:v39 backupItemName:0 options:1 resultingItemURL:&v89 error:&v88];
+        v33 = v89;
+        v34 = v88;
 
-        if (v51)
+        if (v52)
         {
-          if (v81)
+          if (v82)
           {
-            v52 = v32;
-            v53 = [v32 fileSystemRepresentation];
-            chmod(v53, buf.st_mode & 0xF7F);
+            v53 = v33;
+            v54 = [v33 fileSystemRepresentation];
+            chmod(v54, buf.st_mode & 0xF7F);
           }
 
-          if (v79)
+          if (v80)
           {
-            v54 = v32;
-            v55 = [v32 fileSystemRepresentation];
-            acl_set_file(v55, ACL_TYPE_EXTENDED, acl);
+            v55 = v33;
+            v56 = [v33 fileSystemRepresentation];
+            acl_set_file(v56, ACL_TYPE_EXTENDED, acl);
           }
         }
 
         else
         {
-          v58 = LogObj(0);
-          if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+          v59 = LogObj(0);
+          if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
           {
-            v59 = SanitizedURL(v5);
-            v60 = SanitizedURL(*(*(*(a1 + 64) + 8) + 40));
-            *v105 = 138543874;
-            *&v105[4] = v59;
-            v106 = 2114;
-            v107 = v60;
-            v108 = 2112;
-            v109 = v33;
-            _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_ERROR, "Failed to move %{public}@ into place at %{public}@  %@", v105, 0x20u);
+            v60 = SanitizedURL(v5);
+            v61 = SanitizedURL(*(*(*(a1 + 64) + 8) + 40));
+            *v106 = 138543874;
+            *&v106[4] = v60;
+            v107 = 2114;
+            v108 = v61;
+            v109 = 2112;
+            v110 = v34;
+            _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_ERROR, "Failed to move %{public}@ into place at %{public}@  %@", v106, 0x20u);
           }
         }
 
@@ -6168,158 +6171,158 @@ LABEL_73:
 
     else
     {
-      v35 = +[NSFileManager defaultManager];
-      v36 = *(*(*(a1 + 64) + 8) + 40);
-      v95 = 0;
-      v37 = [v35 removeItemAtURL:v36 error:&v95];
-      v38 = v95;
+      v36 = +[NSFileManager defaultManager];
+      v37 = *(*(*(a1 + 64) + 8) + 40);
+      v96 = 0;
+      v38 = [v36 removeItemAtURL:v37 error:&v96];
+      v39 = v96;
 
-      if ((v37 & 1) == 0)
+      if ((v38 & 1) == 0)
       {
-        v39 = LogObj(0);
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+        v40 = LogObj(0);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
-          v40 = SanitizedURL(*(*(*(a1 + 64) + 8) + 40));
+          v41 = SanitizedURL(*(*(*(a1 + 64) + 8) + 40));
           buf.st_dev = 138543618;
-          *&buf.st_mode = v40;
+          *&buf.st_mode = v41;
           WORD2(buf.st_ino) = 2112;
-          *(&buf.st_ino + 6) = v38;
-          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "Failed to remove placeholder %{public}@: %@", &buf, 0x16u);
+          *(&buf.st_ino + 6) = v39;
+          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "Failed to remove placeholder %{public}@: %@", &buf, 0x16u);
         }
       }
 
-      if (v27)
+      if (v28)
       {
-        v41 = *(a1 + 80);
-        v112[0] = *(*(v41 + 8) + 40);
-        v111[0] = NSURLErrorKey;
-        v111[1] = NSLocalizedDescriptionKey;
-        TCFURLInfo::LocalizedStringWithFileName(@"ArchiveIsEmpty", *(*(v41 + 8) + 40), &buf);
-        v42 = *&buf.st_dev;
-        v112[1] = v42;
-        v43 = [NSDictionary dictionaryWithObjects:v112 forKeys:v111 count:2];
+        v42 = *(a1 + 80);
+        v113[0] = *(*(v42 + 8) + 40);
+        v112[0] = NSURLErrorKey;
+        v112[1] = NSLocalizedDescriptionKey;
+        TCFURLInfo::LocalizedStringWithFileName(&buf, @"ArchiveIsEmpty", *(*(v42 + 8) + 40));
+        v43 = *&buf.st_dev;
+        v113[1] = v43;
+        v44 = [NSDictionary dictionaryWithObjects:v113 forKeys:v112 count:2];
 
         sub_100004348(&buf);
-        v44 = [NSError errorWithDomain:@"com.apple.desktopservices.ArchiveService" code:-1001 userInfo:v43];
+        v45 = [NSError errorWithDomain:@"com.apple.desktopservices.ArchiveService" code:-1001 userInfo:v44];
 
-        v28 = v44;
+        v29 = v45;
       }
 
-      v45 = LogObj(0);
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+      v46 = LogObj(0);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
-        v46 = SanitizedURL(*(*(*(a1 + 80) + 8) + 40));
+        v47 = SanitizedURL(*(*(*(a1 + 80) + 8) + 40));
         buf.st_dev = 138543618;
-        *&buf.st_mode = v46;
+        *&buf.st_mode = v47;
         WORD2(buf.st_ino) = 2112;
-        *(&buf.st_ino + 6) = v28;
-        _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "Nothing was unarchived from %{public}@: %@", &buf, 0x16u);
+        *(&buf.st_ino + 6) = v29;
+        _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_ERROR, "Nothing was unarchived from %{public}@: %@", &buf, 0x16u);
       }
 
-      v32 = 0;
-      v33 = v28;
+      v33 = 0;
+      v34 = v29;
     }
 
-    v61 = +[NSFileManager defaultManager];
-    v86 = 0;
-    v62 = [v61 removeItemAtURL:v5 error:&v86];
-    v34 = v86;
+    v62 = +[NSFileManager defaultManager];
+    v87 = 0;
+    v63 = [v62 removeItemAtURL:v5 error:&v87];
+    v35 = v87;
 
-    if ((v62 & 1) == 0)
+    if ((v63 & 1) == 0)
     {
-      v63 = LogObj(0);
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+      v64 = LogObj(0);
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
       {
-        v64 = SanitizedURL(v5);
+        v65 = SanitizedURL(v5);
         buf.st_dev = 138543618;
-        *&buf.st_mode = v64;
+        *&buf.st_mode = v65;
         WORD2(buf.st_ino) = 2112;
-        *(&buf.st_ino + 6) = v34;
-        _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_ERROR, "Failed to remove unarchive temp destination folder %{public}@: %@", &buf, 0x16u);
+        *(&buf.st_ino + 6) = v35;
+        _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_ERROR, "Failed to remove unarchive temp destination folder %{public}@: %@", &buf, 0x16u);
       }
     }
 
 LABEL_49:
-    if (!v33)
+    if (!v34)
     {
-      v25 = [[NSSecurityScopedURLWrapper alloc] initWithURL:v32];
-      if (v25)
+      v26 = [[NSSecurityScopedURLWrapper alloc] initWithURL:v33];
+      if (v26)
       {
-        v33 = 0;
+        v34 = 0;
         goto LABEL_53;
       }
 
-      v103 = NSURLErrorKey;
-      v104 = v32;
-      v67 = [NSDictionary dictionaryWithObjects:&v104 forKeys:&v103 count:1];
-      v33 = [NSError errorWithDomain:NSCocoaErrorDomain code:257 userInfo:v67];
+      v104 = NSURLErrorKey;
+      v105 = v33;
+      v68 = [NSDictionary dictionaryWithObjects:&v105 forKeys:&v104 count:1];
+      v34 = [NSError errorWithDomain:NSCocoaErrorDomain code:257 userInfo:v68];
     }
 
-    v25 = 0;
+    v26 = 0;
 LABEL_53:
-    v6 = v33;
+    v6 = v34;
 
 LABEL_54:
     close(*(*(*(a1 + 72) + 8) + 24));
-    v65 = v6;
-    v17 = *(a1 + 32);
-    v18 = *(*(a1 + 40) + 24);
-    v82[0] = _NSConcreteStackBlock;
-    v82[1] = 3221225472;
-    v82[2] = sub_1000138C8;
-    v82[3] = &unk_10002D1A0;
-    v19 = &v85;
-    v66 = *(a1 + 48);
-    v84 = v65;
+    v66 = v6;
+    v18 = *(a1 + 32);
+    v19 = *(*(a1 + 40) + 24);
+    v83[0] = _NSConcreteStackBlock;
+    v83[1] = 3221225472;
+    v83[2] = sub_1000138C8;
+    v83[3] = &unk_10002D1A0;
+    v20 = &v86;
+    v67 = *(a1 + 48);
     v85 = v66;
-    v21 = &v83;
+    v86 = v67;
     v22 = &v84;
-    v83 = v25;
-    v13 = v25;
-    v23 = v65;
-    v24 = v82;
+    v23 = &v85;
+    v84 = v26;
+    v14 = v26;
+    v24 = v66;
+    v25 = v83;
     goto LABEL_55;
   }
 
-  v10 = +[NSFileManager defaultManager];
-  v11 = *(*(*(a1 + 64) + 8) + 40);
-  v101 = 0;
-  v12 = [v10 removeItemAtURL:v11 error:&v101];
-  v13 = v101;
+  v11 = +[NSFileManager defaultManager];
+  v12 = *(*(*(a1 + 64) + 8) + 40);
+  v102 = 0;
+  v13 = [v11 removeItemAtURL:v12 error:&v102];
+  v14 = v102;
 
-  if ((v12 & 1) == 0)
+  if ((v13 & 1) == 0)
   {
-    v14 = LogObj(0);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = LogObj(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v15 = SanitizedURL(*(*(*(a1 + 64) + 8) + 40));
+      v16 = SanitizedURL(*(*(*(a1 + 64) + 8) + 40));
       buf.st_dev = 138543618;
-      *&buf.st_mode = v15;
+      *&buf.st_mode = v16;
       WORD2(buf.st_ino) = 2112;
-      *(&buf.st_ino + 6) = v13;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to remove placeholder %{public}@: %@", &buf, 0x16u);
+      *(&buf.st_ino + 6) = v14;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to remove placeholder %{public}@: %@", &buf, 0x16u);
     }
   }
 
   close(*(*(*(a1 + 72) + 8) + 24));
-  v16 = v6;
-  v17 = *(a1 + 32);
-  v18 = *(*(a1 + 40) + 24);
-  v97[0] = _NSConcreteStackBlock;
-  v97[1] = 3221225472;
-  v97[2] = sub_1000138B0;
-  v97[3] = &unk_10002D1A0;
-  v19 = &v100;
-  v20 = *(a1 + 48);
-  v99 = v16;
-  v100 = v20;
-  v21 = &v98;
+  v17 = v6;
+  v18 = *(a1 + 32);
+  v19 = *(*(a1 + 40) + 24);
+  v98[0] = _NSConcreteStackBlock;
+  v98[1] = 3221225472;
+  v98[2] = sub_1000138B0;
+  v98[3] = &unk_10002D1A0;
+  v20 = &v101;
+  v21 = *(a1 + 48);
+  v100 = v17;
+  v101 = v21;
   v22 = &v99;
-  v98 = 0;
-  v23 = v16;
-  v24 = v97;
+  v23 = &v100;
+  v99 = 0;
+  v24 = v17;
+  v25 = v98;
 LABEL_55:
-  dispatch_group_notify(v17, v18, v24);
+  dispatch_group_notify(v18, v19, v25);
 }
 
 void sub_100013664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, void *a49)
@@ -6389,101 +6392,100 @@ void sub_100014AF4(uint64_t a1, void *a2)
     v7 = *(a1 + 40);
     v8 = *(a1 + 56);
     v9 = *(a1 + 88);
-    v33 = 0;
-    v10 = [v7 _temporaryURLAppropriateForURL:v8 calledFromLegacyAPI:v9 error:&v33];
-    v6 = v33;
+    v32 = 0;
+    v10 = [v7 _temporaryURLAppropriateForURL:v8 calledFromLegacyAPI:v9 error:&v32];
+    v6 = v32;
     if (!v10)
     {
       v11 = LogObj(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v36 = v6;
+        v35 = v6;
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to create temporary dir: %@", buf, 0xCu);
       }
 
-      v22 = 0;
+      v21 = 0;
       goto LABEL_27;
     }
 
     v11 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [*(a1 + 32) count]);
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v12 = *(a1 + 32);
-    v13 = [v12 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v13)
     {
-      v14 = *v30;
+      v14 = *v29;
       do
       {
         for (i = 0; i != v13; i = i + 1)
         {
-          if (*v30 != v14)
+          if (*v29 != v14)
           {
             objc_enumerationMutation(v12);
           }
 
-          v16 = [*(*(&v29 + 1) + 8 * i) URL];
+          v16 = [*(*(&v28 + 1) + 8 * i) URL];
           [v11 addObject:v16];
         }
 
-        v13 = [v12 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v13);
     }
 
     v17 = *(a1 + 80);
-    v18 = *(a1 + 64);
-    v28[1] = v6;
-    v19 = (*(v17 + 16))();
-    v20 = v6;
+    v27[1] = v6;
+    v18 = (*(v17 + 16))();
+    v19 = v6;
 
     if ([*(a1 + 40) _isCancelled])
     {
-      v21 = [NSError errorWithDomain:NSCocoaErrorDomain code:3072 userInfo:0];
+      v20 = [NSError errorWithDomain:NSCocoaErrorDomain code:3072 userInfo:0];
     }
 
     else
     {
-      if (v19)
+      if (v18)
       {
-        v22 = v10;
+        v21 = v10;
 LABEL_26:
         [*(a1 + 64) unpublish];
-        v6 = v20;
+        v6 = v19;
 LABEL_27:
 
-        [*(a1 + 40) _cleanupWithResult:v22 error:v6 securityScopedURLs:*(a1 + 48) completionHandler:*(a1 + 72)];
+        [*(a1 + 40) _cleanupWithResult:v21 error:v6 securityScopedURLs:*(a1 + 48) completionHandler:*(a1 + 72)];
         goto LABEL_28;
       }
 
-      v21 = v20;
+      v20 = v19;
     }
 
-    v23 = +[NSFileManager defaultManager];
-    v28[0] = 0;
-    v24 = [v23 removeItemAtURL:v10 error:v28];
-    v25 = v28[0];
+    v22 = +[NSFileManager defaultManager];
+    v27[0] = 0;
+    v23 = [v22 removeItemAtURL:v10 error:v27];
+    v24 = v27[0];
 
-    if ((v24 & 1) == 0)
+    if ((v23 & 1) == 0)
     {
-      v26 = LogObj(0);
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v25 = LogObj(0);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        v27 = SanitizedURL(v10);
+        v26 = SanitizedURL(v10);
         *buf = 138543618;
-        v36 = v27;
-        v37 = 2112;
-        v38 = v25;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Failed to remove unarchive destination folder %{public}@: %@", buf, 0x16u);
+        v35 = v26;
+        v36 = 2112;
+        v37 = v24;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Failed to remove unarchive destination folder %{public}@: %@", buf, 0x16u);
       }
     }
 
-    v22 = 0;
-    v20 = v21;
+    v21 = 0;
+    v19 = v20;
     goto LABEL_26;
   }
 
@@ -6492,9 +6494,9 @@ LABEL_27:
   {
     v5 = *(a1 + 32);
     *buf = 138543618;
-    v36 = v5;
-    v37 = 2112;
-    v38 = v3;
+    v35 = v5;
+    v36 = 2112;
+    v37 = v3;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Failed to perform coordinated read with intents %{public}@ with error: %@", buf, 0x16u);
   }
 
@@ -6514,9 +6516,9 @@ uint64_t sub_100017128(uint64_t a1, int a2, uint64_t a3, uint64_t *a4)
 
   if (a2 == 11)
   {
-    if (!lstat([v13 fileSystemRepresentation], &v27))
+    if (!lstat([v13 fileSystemRepresentation], &v29))
     {
-      v15 = v27.st_mode & 0xF000;
+      v15 = v29.st_mode & 0xF000;
       if (v15 != 0x4000 && v15 != 0x8000 && v15 != 40960)
       {
         v14 = 1;
@@ -6536,7 +6538,7 @@ LABEL_19:
 
   if (([v9 _isCancelled] & 1) == 0)
   {
-    if (!lstat([v13 fileSystemRepresentation], &v27) && (v27.st_mode & 0xF000) == 0x8000)
+    if (!lstat([v13 fileSystemRepresentation], &v29) && (v29.st_mode & 0xF000) == 0x8000)
     {
       v16 = [v10 totalUnitCount];
       if (a4)
@@ -6545,24 +6547,26 @@ LABEL_19:
         if ((v16 & 0x8000000000000000) == 0)
         {
           v18 = a4[1];
-          v23 = *a4;
-          v19 = *(a1 + 24) + v18;
-          v20 = v19 - [v10 completedUnitCount];
-          if (v20 > 9999999 || v17 * 0.1 <= v20)
+          v25 = *a4;
+          v19 = *(a1 + 24);
+          v20 = [v10 completedUnitCount];
+          v21 = v19 + v18;
+          v22 = v19 + v18 - v20;
+          if (v22 > 9999999 || v17 * 0.1 <= v22)
           {
-            v21 = sub_10001149C();
+            v23 = sub_10001149C(v20);
             block[0] = _NSConcreteStackBlock;
             block[1] = 3221225472;
             block[2] = sub_10001BEB0;
             block[3] = &unk_10002D440;
-            v25 = v10;
-            v26 = v19;
-            dispatch_async(v21, block);
+            v27 = v10;
+            v28 = v21;
+            dispatch_async(v23, block);
           }
 
-          if (v18 == v23)
+          if (v18 == v25)
           {
-            *(a1 + 24) += v23;
+            *(a1 + 24) += v25;
           }
         }
       }
@@ -6586,11 +6590,13 @@ id sub_1000173E4(uint64_t a1)
   return [v3 setCompletedUnitCount:v2];
 }
 
-void sub_100017898(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, void *a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_100017898(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, void *a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
-  _Block_object_dispose((v37 - 160), 8);
+  va_start(va, a36);
 
-  _Block_object_dispose(&a37, 8);
+  _Block_object_dispose((v36 - 160), 8);
+  _Block_object_dispose(va, 8);
+
   _Unwind_Resume(a1);
 }
 
@@ -6657,7 +6663,7 @@ LABEL_8:
 
 void sub_100017C18(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_10001149C();
+  v4 = sub_10001149C(a1);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100017CD0;
@@ -6684,10 +6690,11 @@ id sub_100017CD0(uint64_t a1)
   return result;
 }
 
-void sub_1000181B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_1000181B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
-  _Block_object_dispose(&a39, 8);
+  va_start(va, a38);
 
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -6816,7 +6823,7 @@ ssize_t sub_100019478(AAByteStream_impl **a1, void *a2, size_t a3)
   }
 }
 
-void sub_100019C80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36)
+void sub_100019C80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36)
 {
   _Block_object_dispose(&a25, 8);
   objc_destroyWeak(&a30);
@@ -6870,18 +6877,17 @@ id sub_100019E28(uint64_t a1)
 
 void sub_10001A7B8(uint64_t *a1)
 {
-  v1 = *a1;
-  v2 = a1[1];
-  v3 = archive_filter_bytes();
-  v4 = sub_10001149C();
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 3221225472;
-  v6[2] = sub_10001C094;
-  v6[3] = &unk_10002D440;
+  v1 = a1[1];
+  v2 = archive_filter_bytes();
+  v3 = sub_10001149C(v2);
+  v5[0] = _NSConcreteStackBlock;
+  v5[1] = 3221225472;
+  v5[2] = sub_10001C094;
+  v5[3] = &unk_10002D440;
+  v6 = v1;
   v7 = v2;
-  v8 = v3;
-  v5 = v2;
-  dispatch_async(v4, v6);
+  v4 = v1;
+  dispatch_async(v3, v5);
 }
 
 id sub_10001A888(uint64_t a1)
@@ -6892,10 +6898,12 @@ id sub_10001A888(uint64_t a1)
   return [v3 setCompletedUnitCount:v2];
 }
 
-void sub_10001AE64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_10001AE64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, void *a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v35 - 192), 8);
+  va_start(va, a30);
+
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v34 - 192), 8);
 
   _Unwind_Resume(a1);
 }
@@ -7052,7 +7060,7 @@ LABEL_24:
   return v20;
 }
 
-uint64_t sub_10001B47C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
+uint64_t sub_10001B47C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, _BYTE *a6)
 {
   if (archive_read_data_block() == 1)
   {
@@ -7064,10 +7072,10 @@ uint64_t sub_10001B47C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void 
     return 0;
   }
 
-  v9 = [*(a1 + 32) _errorForArchive:a2 itemURL:*(a1 + 40)];
-  v10 = v9;
+  v10 = [*(a1 + 32) _errorForArchive:a2 itemURL:*(a1 + 40)];
+  v11 = v10;
   result = 0;
-  *a5 = v9;
+  *a5 = v10;
   return result;
 }
 
@@ -7116,9 +7124,9 @@ id sub_10001BBE0(uint64_t a1, uint64_t a2, uint64_t a3, char *__s, void *a5)
   return v12;
 }
 
-void sub_10001BD8C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10001BD8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100004348(va);
 
   _Unwind_Resume(a1);
@@ -7179,7 +7187,7 @@ ssize_t sub_10001BF08(AAByteStream_impl **a1, void *a2, size_t a3, off_t a4)
   }
 }
 
-uint64_t sub_10001BF1C(uint64_t a1, void *a2, size_t a3)
+ssize_t sub_10001BF1C(uint64_t a1, void *a2, size_t a3)
 {
   v4 = *a1;
   if (!v4)
@@ -7193,7 +7201,7 @@ uint64_t sub_10001BF1C(uint64_t a1, void *a2, size_t a3)
   {
     v6 = *(a1 + 16);
     v7 = *(a1 + 8);
-    v8 = sub_10001149C();
+    v8 = sub_10001149C(v6);
     v11[0] = _NSConcreteStackBlock;
     v11[1] = 3221225472;
     v11[2] = sub_10001C000;

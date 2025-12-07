@@ -1121,7 +1121,7 @@ LABEL_11:
 
 - (void)composeRecipientViewRequestAddRecipient:(id)recipient
 {
-  v7 = objc_alloc_init(getCNContactPickerViewControllerClass());
+  v7 = objc_alloc_init(getCNContactPickerViewControllerClass(self, a2, recipient));
   [v7 setDelegate:self];
   [v7 setModalPresentationStyle:2];
   [v7 setOverrideUserInterfaceStyle:2];

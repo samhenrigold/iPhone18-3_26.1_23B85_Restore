@@ -18,26 +18,24 @@
 {
   v3 = sub_1D992AD44();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v3);
-  v7 = &v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](*(v4 + 64));
+  v6 = &v7 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D992AD14();
-  static UnifiedMessageStreamHelper.ensureDirectoryExists(at:)();
-  (*(v4 + 8))(v7, v3);
+  static UnifiedMessageStreamHelper.ensureDirectoryExists(at:)(v6);
+  (*(v4 + 8))(v6, v3);
 }
 
 + (id)fileURL
 {
   v2 = sub_1D992AD44();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x1EEE9AC00](v2);
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  static UnifiedMessageStreamHelper.fileURL()(v6);
-  v7 = sub_1D992ACD4();
-  (*(v3 + 8))(v6, v2);
+  MEMORY[0x1EEE9AC00](*(v3 + 64));
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  static UnifiedMessageStreamHelper.fileURL()(v5);
+  v6 = sub_1D992ACD4();
+  (*(v3 + 8))(v5, v2);
 
-  return v7;
+  return v6;
 }
 
 @end

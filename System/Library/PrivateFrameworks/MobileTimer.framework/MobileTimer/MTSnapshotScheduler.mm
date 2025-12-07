@@ -37,25 +37,22 @@
 
 void __39__MTSnapshotScheduler__quiescingWindow__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = +[MTUserDefaults sharedUserDefaults];
-  v3 = MTTimeIntervalIsPositive();
-  [v2 timeIntervalForKey:@"SnapshotWindow" isValid:v3 defaultValue:5.0];
-  _quiescingWindow_quiescingWindow = v4;
+  v10 = *MEMORY[0x1E69E9840];
+  v1 = +[MTUserDefaults sharedUserDefaults];
+  v2 = MTTimeIntervalIsPositive();
+  [v1 timeIntervalForKey:@"SnapshotWindow" isValid:v2 defaultValue:5.0];
+  _quiescingWindow_quiescingWindow = v3;
 
-  v5 = MTLogForCategory(0);
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v4 = MTLogForCategory(0);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 32);
-    v9 = 138543618;
-    v10 = objc_opt_class();
-    v11 = 2050;
-    v12 = _quiescingWindow_quiescingWindow;
-    v7 = v10;
-    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ Using snapshot quiescing window of %{public}f", &v9, 0x16u);
+    v6 = 138543618;
+    v7 = objc_opt_class();
+    v8 = 2050;
+    v9 = _quiescingWindow_quiescingWindow;
+    v5 = v7;
+    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ Using snapshot quiescing window of %{public}f", &v6, 0x16u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

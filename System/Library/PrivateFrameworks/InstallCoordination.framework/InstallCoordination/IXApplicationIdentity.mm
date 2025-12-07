@@ -23,16 +23,14 @@
 
 - (id)possibleSerializationsForPlistKey
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DFD8];
   canonicalSerializationForPlistKey = [(IXApplicationIdentity *)self canonicalSerializationForPlistKey];
-  v10[0] = canonicalSerializationForPlistKey;
+  v9[0] = canonicalSerializationForPlistKey;
   bundleID = [(MIAppIdentity *)self bundleID];
-  v10[1] = bundleID;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+  v9[1] = bundleID;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
   v7 = [v3 setWithArray:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -79,12 +77,12 @@
 
 - (id)resolvePersonaUsingModuleSpecificLogicWithError:(id *)error
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69A8DC8] = [MEMORY[0x1E69A8DC8] sharedInstance];
   bundleID = [(MIAppIdentity *)self bundleID];
-  v25 = 0;
-  v7 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:bundleID allowPlaceholder:1 error:&v25];
-  v8 = v25;
+  v24 = 0;
+  v7 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:bundleID allowPlaceholder:1 error:&v24];
+  v8 = v24;
   if (!v7)
   {
     v16 = IXGetLoggingHandle(kIXLoggingSubsystem);
@@ -105,13 +103,13 @@
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
-      v27 = "[IXApplicationIdentity(IXUtilities) resolvePersonaUsingModuleSpecificLogicWithError:]";
-      v28 = 2112;
-      v29 = bundleID;
-      v30 = 2112;
-      v31 = identities;
-      v32 = 2112;
-      v33 = v8;
+      v26 = "[IXApplicationIdentity(IXUtilities) resolvePersonaUsingModuleSpecificLogicWithError:]";
+      v27 = 2112;
+      v28 = bundleID;
+      v29 = 2112;
+      v30 = identities;
+      v31 = 2112;
+      v32 = v8;
       _os_log_error_impl(&dword_1DA47A000, v19, OS_LOG_TYPE_ERROR, "%s: Discovered multiple personas for app %@, so persona resolution is ambiguous. Found identities: %@ : %@", buf, 0x2Au);
     }
 
@@ -152,48 +150,46 @@ LABEL_14:
 
   v22 = personaUniqueString;
 
-  v23 = *MEMORY[0x1E69E9840];
   return personaUniqueString;
 }
 
 + (id)identitiesForBundleIdentifiers:(id)identifiers
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   v4 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = identifiersCopy;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         v11 = [IXApplicationIdentity alloc];
-        v12 = [(IXApplicationIdentity *)v11 initWithBundleIdentifier:v10, v16];
+        v12 = [(IXApplicationIdentity *)v11 initWithBundleIdentifier:v10, v15];
         [v4 addObject:v12];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
 
   v13 = [v4 copy];
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -281,7 +277,7 @@ LABEL_5:
   v7 = IXGetLoggingHandle(kIXLoggingSubsystem);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
-    [IXApplicationIdentity initWithPlistKeySerialization:];
+    [IXApplicationIdentity initWithPlistKeySerialization:serializationCopy];
   }
 
   selfCopy = 0;
@@ -292,7 +288,7 @@ LABEL_9:
 
 - (id)initFromDelimitedString:(id)string
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v5 = [stringCopy componentsSeparatedByString:@"/"];
   if ([v5 count])
@@ -333,9 +329,9 @@ LABEL_5:
     v8 = objc_opt_new();
     self = [(IXApplicationIdentity *)self initWithBundleIdentifier:v6 personaUniqueString:v7 location:v8];
 
-    v17 = 0;
-    v9 = [(IXApplicationIdentity *)self resolvePersonaWithError:&v17];
-    v10 = v17;
+    v16 = 0;
+    v9 = [(IXApplicationIdentity *)self resolvePersonaWithError:&v16];
+    v10 = v16;
     if (v9)
     {
       [(IXApplicationIdentity *)self setIsPersonalPersonaPlaceholder:[(__CFString *)v7 isEqualToString:@"PersonalPersonaPlaceholderString"]];
@@ -348,13 +344,13 @@ LABEL_5:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315906;
-        v19 = "[IXApplicationIdentity initFromDelimitedString:]";
-        v20 = 2112;
-        v21 = v7;
-        v22 = 2112;
-        v23 = v6;
-        v24 = 2112;
-        v25 = v10;
+        v18 = "[IXApplicationIdentity initFromDelimitedString:]";
+        v19 = 2112;
+        v20 = v7;
+        v21 = 2112;
+        v22 = v6;
+        v23 = 2112;
+        v24 = v10;
         _os_log_fault_impl(&dword_1DA47A000, v14, OS_LOG_TYPE_FAULT, "%s: Failed to resolve persona %@ for %@ : %@", buf, 0x2Au);
       }
 
@@ -368,13 +364,12 @@ LABEL_18:
   selfCopy = 0;
 LABEL_19:
 
-  v15 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (id)initFromPlistDictionary:(id)dictionary
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v5 = [dictionaryCopy objectForKeyedSubscript:@"bundleID"];
   objc_opt_class();
@@ -447,15 +442,15 @@ LABEL_19:
     {
       if (v15)
       {
-        v27 = 0;
-        v19 = [MEMORY[0x1E69A8D88] locationFromPlistDictionary:v15 error:&v27];
-        v11 = v27;
+        v26 = 0;
+        v19 = [MEMORY[0x1E69A8D88] locationFromPlistDictionary:v15 error:&v26];
+        v11 = v26;
         if (v19)
         {
           self = [(IXApplicationIdentity *)self initWithBundleIdentifier:v7 personaUniqueString:v10 location:v19];
-          v26 = v11;
-          v20 = [(IXApplicationIdentity *)self resolvePersonaWithError:&v26];
-          v21 = v26;
+          v25 = v11;
+          v20 = [(IXApplicationIdentity *)self resolvePersonaWithError:&v25];
+          v21 = v25;
 
           if (v20)
           {
@@ -467,18 +462,18 @@ LABEL_19:
 
           else
           {
-            v25 = IXGetLoggingHandle(kIXLoggingSubsystem);
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+            v24 = IXGetLoggingHandle(kIXLoggingSubsystem);
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
             {
               *buf = 136315906;
-              v29 = "[IXApplicationIdentity initFromPlistDictionary:]";
-              v30 = 2112;
-              v31 = v10;
-              v32 = 2112;
-              v33 = v7;
-              v34 = 2112;
-              v35 = v21;
-              _os_log_fault_impl(&dword_1DA47A000, v25, OS_LOG_TYPE_FAULT, "%s: Failed to resolve persona %@ for %@ : %@", buf, 0x2Au);
+              v28 = "[IXApplicationIdentity initFromPlistDictionary:]";
+              v29 = 2112;
+              v30 = v10;
+              v31 = 2112;
+              v32 = v7;
+              v33 = 2112;
+              v34 = v21;
+              _os_log_fault_impl(&dword_1DA47A000, v24, OS_LOG_TYPE_FAULT, "%s: Failed to resolve persona %@ for %@ : %@", buf, 0x2Au);
             }
 
             selfCopy = 0;
@@ -488,8 +483,8 @@ LABEL_19:
           goto LABEL_32;
         }
 
-        v24 = IXGetLoggingHandle(kIXLoggingSubsystem);
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+        v23 = IXGetLoggingHandle(kIXLoggingSubsystem);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
         {
           [IXApplicationIdentity initFromPlistDictionary:];
         }
@@ -532,7 +527,6 @@ LABEL_33:
   selfCopy = 0;
 LABEL_34:
 
-  v22 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -744,50 +738,42 @@ LABEL_13:
 
 - (void)initUsingPersonaFromCurrentThreadAndBundleIdentifier:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[IXApplicationIdentity initUsingPersonaFromCurrentThreadAndBundleIdentifier:]";
-  _os_log_fault_impl(&dword_1DA47A000, log, OS_LOG_TYPE_FAULT, "%s: UserManagement returned nil for the current thread's persona", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[IXApplicationIdentity initUsingPersonaFromCurrentThreadAndBundleIdentifier:]";
+  _os_log_fault_impl(&dword_1DA47A000, log, OS_LOG_TYPE_FAULT, "%s: UserManagement returned nil for the current thread's persona", &v1, 0xCu);
 }
 
-- (void)initWithPlistKeySerialization:.cold.1()
+- (void)initWithPlistKeySerialization:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_1_7();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)initFromDelimitedString:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
   [a2 count];
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_1_7();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x20u);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initFromPlistDictionary:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4[0] = 136315650;
+  v7 = *MEMORY[0x1E69E9840];
+  v3[0] = 136315650;
   OUTLINED_FUNCTION_4_1();
-  v5 = @"location";
-  v6 = v0;
-  v7 = v1;
-  _os_log_fault_impl(&dword_1DA47A000, v2, OS_LOG_TYPE_FAULT, "%s: Plist key [%@] faled to decode; error = %@", v4, 0x20u);
-  v3 = *MEMORY[0x1E69E9840];
+  v4 = @"location";
+  v5 = v0;
+  v6 = v1;
+  _os_log_fault_impl(&dword_1DA47A000, v2, OS_LOG_TYPE_FAULT, "%s: Plist key [%@] faled to decode; error = %@", v3, 0x20u);
 }
 
 - (void)initFromPlistDictionary:(void *)a1 .cold.2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 objectForKeyedSubscript:@"location"];
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
@@ -795,13 +781,10 @@ LABEL_13:
   OUTLINED_FUNCTION_2_3();
   OUTLINED_FUNCTION_1_7();
   _os_log_fault_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initFromPlistDictionary:(void *)a1 .cold.3(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 objectForKeyedSubscript:@"locationType"];
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
@@ -809,13 +792,10 @@ LABEL_13:
   OUTLINED_FUNCTION_2_3();
   OUTLINED_FUNCTION_1_7();
   _os_log_fault_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initFromPlistDictionary:(void *)a1 .cold.4(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 objectForKeyedSubscript:@"personaString"];
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
@@ -823,13 +803,10 @@ LABEL_13:
   OUTLINED_FUNCTION_2_3();
   OUTLINED_FUNCTION_1_7();
   _os_log_fault_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initFromPlistDictionary:(void *)a1 .cold.5(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 objectForKeyedSubscript:@"bundleID"];
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
@@ -837,31 +814,26 @@ LABEL_13:
   OUTLINED_FUNCTION_2_3();
   OUTLINED_FUNCTION_1_7();
   _os_log_fault_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithCoder:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[IXApplicationIdentity initWithCoder:]";
-  _os_log_fault_impl(&dword_1DA47A000, log, OS_LOG_TYPE_FAULT, "%s: Failed to deserialize bundle ID for identity", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[IXApplicationIdentity initWithCoder:]";
+  _os_log_fault_impl(&dword_1DA47A000, log, OS_LOG_TYPE_FAULT, "%s: Failed to deserialize bundle ID for identity", &v1, 0xCu);
 }
 
 - (void)resolvePersonaWithError:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = [a1 bundleID];
-  v9[0] = 136315650;
+  v8[0] = 136315650;
   OUTLINED_FUNCTION_4_1();
-  v10 = v6;
-  v11 = v7;
-  v12 = a2;
-  _os_log_error_impl(&dword_1DA47A000, a3, OS_LOG_TYPE_ERROR, "%s: Client provided invalid persona for %@ : %@", v9, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = v6;
+  v10 = v7;
+  v11 = a2;
+  _os_log_error_impl(&dword_1DA47A000, a3, OS_LOG_TYPE_ERROR, "%s: Client provided invalid persona for %@ : %@", v8, 0x20u);
 }
 
 @end

@@ -5,51 +5,51 @@
 
 void __124__HDNotificationManager_BloodPressureJournal__getBloodPressureJournalDeliveredNotificationIdentifiersWithCompletionHandler___block_invoke(void *a1, void *a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v24 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v23 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = v3;
-  v4 = [obj countByEnumeratingWithState:&v27 objects:v37 count:16];
+  v4 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v28;
-    v23 = a1;
+    v6 = *v27;
+    v22 = a1;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v28 != v6)
+        if (*v27 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v27 + 1) + 8 * i);
+        v8 = *(*(&v26 + 1) + 8 * i);
         _HKInitializeLogging();
         v9 = HKLogBloodPressureJournal();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           v10 = v6;
           v11 = a1[4];
-          v26 = [v8 request];
-          v12 = [v26 identifier];
+          v25 = [v8 request];
+          v12 = [v25 identifier];
           v13 = [v8 request];
           v14 = [v13 content];
           v15 = [v14 categoryIdentifier];
           *buf = 138543874;
-          v32 = v11;
+          v31 = v11;
           v6 = v10;
-          v33 = 2114;
-          v34 = v12;
-          v35 = 2114;
-          v36 = v15;
+          v32 = 2114;
+          v33 = v12;
+          v34 = 2114;
+          v35 = v15;
           _os_log_impl(&dword_229486000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] *** notification: %{public}@ categoryIdentifier  %{public}@", buf, 0x20u);
 
-          a1 = v23;
+          a1 = v22;
         }
 
         v16 = a1[5];
@@ -62,18 +62,17 @@ void __124__HDNotificationManager_BloodPressureJournal__getBloodPressureJournalD
         {
           v20 = [v8 request];
           v21 = [v20 identifier];
-          [v24 addObject:v21];
+          [v23 addObject:v21];
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v27 objects:v37 count:16];
+      v5 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
     }
 
     while (v5);
   }
 
   (*(a1[6] + 16))();
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

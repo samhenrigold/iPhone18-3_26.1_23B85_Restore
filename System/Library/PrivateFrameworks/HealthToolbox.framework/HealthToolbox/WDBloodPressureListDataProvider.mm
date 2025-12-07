@@ -9,33 +9,30 @@
 
 - (WDBloodPressureListDataProvider)initWithDisplayType:(id)type profile:(id)profile
 {
-  v12[2] = *MEMORY[0x277D85DE8];
-  v11.receiver = self;
-  v11.super_class = WDBloodPressureListDataProvider;
-  v4 = [(WDSampleListDataProvider *)&v11 initWithDisplayType:type profile:profile];
+  v11[2] = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = WDBloodPressureListDataProvider;
+  v4 = [(WDSampleListDataProvider *)&v10 initWithDisplayType:type profile:profile];
   if (v4)
   {
     v5 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:*MEMORY[0x277CCC980]];
     v6 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:*MEMORY[0x277CCC978]];
-    v12[0] = v5;
-    v12[1] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+    v11[0] = v5;
+    v11[1] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
     systolicAndDiastolicTypes = v4->_systolicAndDiastolicTypes;
     v4->_systolicAndDiastolicTypes = v7;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (id)sampleTypes
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCD720] correlationTypeForIdentifier:*MEMORY[0x277CCBBA8]];
-  v6[0] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
 
   return v3;
 }
@@ -79,7 +76,7 @@
   return v9;
 }
 
-void __49__WDBloodPressureListDataProvider_textForObject___block_invoke(id *a1, void *a2, unint64_t a3)
+void __49__WDBloodPressureListDataProvider_textForObject___block_invoke(id *a1, void *a2, char *a3)
 {
   v5 = a1[4];
   v6 = a2;

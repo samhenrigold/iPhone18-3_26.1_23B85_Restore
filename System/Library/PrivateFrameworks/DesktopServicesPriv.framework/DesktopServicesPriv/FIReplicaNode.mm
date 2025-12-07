@@ -42,14 +42,13 @@
 
 - (BOOL)isKindOfClass:(Class)class
 {
-  if (objc_opt_class() == class || (v8.receiver = self, v8.super_class = FIReplicaNode, [(FIReplicaNode *)&v8 isKindOfClass:class]))
+  if (objc_opt_class() == class || (v7.receiver = self, v7.super_class = FIReplicaNode, [(FIReplicaNode *)&v7 isKindOfClass:class]))
   {
     isKindOfClass = 1;
   }
 
   else
   {
-    original = self->_original;
     isKindOfClass = objc_opt_isKindOfClass();
   }
 

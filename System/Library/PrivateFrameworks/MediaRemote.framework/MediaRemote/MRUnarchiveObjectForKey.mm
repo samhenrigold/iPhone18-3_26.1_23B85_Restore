@@ -25,12 +25,4 @@ id ___MRUnarchiveObjectForKey_block_invoke(uint64_t a1, void *a2)
   return v6;
 }
 
-void ___MRUnarchiveObjectForKey_block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_14();
-  OUTLINED_FUNCTION_5(&dword_1A2860000, v0, v1, "[MRSerializationUtility] unarchive failed with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 @end

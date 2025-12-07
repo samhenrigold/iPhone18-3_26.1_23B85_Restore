@@ -67,7 +67,7 @@ LABEL_5:
   }
 
 LABEL_6:
-  if ([v14 count])
+  if (objc_msgSend_count(v14))
   {
     v15 = [v14 componentsJoinedByString:@"|"];
     v16 = [self _actionDictionaryWithLogArchive:1 networkInfo:0 crashAndSpinLogs:1 diagnosticExtensions:1];
@@ -115,7 +115,7 @@ LABEL_6:
 {
   completionCopy = completion;
   reasonCopy = reason;
-  v10 = [self _bucketCountDescriptionForCount:objc_msgSend(identifiers policy:{"count"), 1}];
+  v10 = [self _bucketCountDescriptionForCount:objc_msgSend_count(identifiers) policy:1];
   [self _captureSpotlightClientHandlerReindexItemsWithCountDescription:v10 reason:reasonCopy completion:completionCopy];
 }
 

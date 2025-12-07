@@ -11,9 +11,20 @@
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E2AC8[282], v5, v6);
+  v6 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v4, off_2812E2AC8[282], v5);
 
-  sub_2215C86F8();
+  v9 = 0;
+  if (*(v6 + 24))
+  {
+    v7 = *(v6 + 24);
+  }
+
+  else
+  {
+    v7 = &TSCE::_ASTNodeArrayArchive_default_instance_;
+  }
+
+  sub_2215C86F8(v7, &v9);
 }
 
 - (void)dealloc
@@ -28,9 +39,9 @@
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v6 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_22115AA64, off_2812E2AC8[282], v5);
+  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_22115AA64, off_2812E2AC8[282]);
 
-  objc_msgSend_encodeToArchive_(self, v7, v6, v8, v9);
+  objc_msgSend_encodeToArchive_(self, v6, v5, v7);
 }
 
 - (void)encodeToArchive:(void *)archive
@@ -45,7 +56,7 @@
       v6 = *(v6 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v5 = google::protobuf::Arena::CreateMaybeMessage<TSCE::ASTNodeArrayArchive>(v6);
+    v5 = google::protobuf::Arena::CreateMaybeMessage<TSCE::ASTNodeArrayArchive>(v6, a2);
     *(archive + 3) = v5;
   }
 

@@ -72,7 +72,7 @@
 - ($94F468A8D4C62B317260615823C2B210)lifeSpanAtIndexPoint:(CGPoint)point
 {
   v4 = [(KNBuildAnvilSpecksSystem *)self indexFromPoint:point.x, point.y];
-  [(KNBuildAnvilSpecksSystem *)self duration];
+  objc_msgSend_duration(self);
   if (v5 <= 1.0)
   {
     v6 = v5;

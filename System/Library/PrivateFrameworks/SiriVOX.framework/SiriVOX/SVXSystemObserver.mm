@@ -17,50 +17,47 @@
 
 - (void)deviceContextConnection:(id)connection didUpdateLocalDeviceContext:(id)context
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   contextCopy = context;
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
   {
-    v13 = v8;
+    v12 = v8;
     identifier = [contextCopy identifier];
     *buf = 136315650;
-    v19 = "[SVXSystemObserver deviceContextConnection:didUpdateLocalDeviceContext:]";
-    v20 = 2112;
-    v21 = connectionCopy;
-    v22 = 2112;
-    v23 = identifier;
-    _os_log_debug_impl(&dword_2695B9000, v13, OS_LOG_TYPE_DEBUG, "%s deviceContextConnection = %@, localDeviceContext = %@", buf, 0x20u);
+    v18 = "[SVXSystemObserver deviceContextConnection:didUpdateLocalDeviceContext:]";
+    v19 = 2112;
+    v20 = connectionCopy;
+    v21 = 2112;
+    v22 = identifier;
+    _os_log_debug_impl(&dword_2695B9000, v12, OS_LOG_TYPE_DEBUG, "%s deviceContextConnection = %@, localDeviceContext = %@", buf, 0x20u);
   }
 
   performer = [(SVXModule *)self->_module performer];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __73__SVXSystemObserver_deviceContextConnection_didUpdateLocalDeviceContext___block_invoke;
-  v15[3] = &unk_279C68ED0;
-  v15[4] = self;
-  v16 = connectionCopy;
-  v17 = contextCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __73__SVXSystemObserver_deviceContextConnection_didUpdateLocalDeviceContext___block_invoke;
+  v14[3] = &unk_279C68ED0;
+  v14[4] = self;
+  v15 = connectionCopy;
+  v16 = contextCopy;
   v10 = contextCopy;
   v11 = connectionCopy;
-  [performer performBlock:v15];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [performer performBlock:v14];
 }
 
 void __73__SVXSystemObserver_deviceContextConnection_didUpdateLocalDeviceContext___block_invoke(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v1 = a1[5];
   if (*(v2 + 24) == v1)
   {
-    v5 = a1[6];
-    v6 = *MEMORY[0x277D85DE8];
-    v7 = *(v2 + 16);
+    v4 = a1[6];
+    v5 = *(v2 + 16);
 
-    [v7 localDeviceContextDidUpdate:v5];
+    [v5 localDeviceContextDidUpdate:v4];
   }
 
   else
@@ -68,103 +65,95 @@ void __73__SVXSystemObserver_deviceContextConnection_didUpdateLocalDeviceContext
     v3 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
-      v8 = *(v2 + 16);
-      v9 = 136315650;
-      v10 = "[SVXSystemObserver deviceContextConnection:didUpdateLocalDeviceContext:]_block_invoke";
+      v6 = *(v2 + 16);
+      v7 = 136315650;
+      v8 = "[SVXSystemObserver deviceContextConnection:didUpdateLocalDeviceContext:]_block_invoke";
+      v9 = 2112;
+      v10 = v6;
       v11 = 2112;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v1;
-      _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s Ignored because the device context connection is %@, not %@.", &v9, 0x20u);
+      v12 = v1;
+      _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s Ignored because the device context connection is %@, not %@.", &v7, 0x20u);
     }
-
-    v4 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)deviceContextConnectionDidInvalidate:(id)invalidate
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   invalidateCopy = invalidate;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v12 = "[SVXSystemObserver deviceContextConnectionDidInvalidate:]";
-    v13 = 2112;
-    v14 = invalidateCopy;
+    v11 = "[SVXSystemObserver deviceContextConnectionDidInvalidate:]";
+    v12 = 2112;
+    v13 = invalidateCopy;
     _os_log_debug_impl(&dword_2695B9000, v5, OS_LOG_TYPE_DEBUG, "%s deviceContextConnection = %@", buf, 0x16u);
   }
 
   performer = [(SVXModule *)self->_module performer];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __58__SVXSystemObserver_deviceContextConnectionDidInvalidate___block_invoke;
-  v9[3] = &unk_279C68FE8;
-  v9[4] = self;
-  v10 = invalidateCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __58__SVXSystemObserver_deviceContextConnectionDidInvalidate___block_invoke;
+  v8[3] = &unk_279C68FE8;
+  v8[4] = self;
+  v9 = invalidateCopy;
   v7 = invalidateCopy;
-  [performer performBlock:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [performer performBlock:v8];
 }
 
 void __58__SVXSystemObserver_deviceContextConnectionDidInvalidate___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
   v4 = *(v3 + 24);
-  if (v4 != v2)
+  if (v4 == v2)
+  {
+    [v4 invalidate];
+    v7 = objc_alloc(MEMORY[0x277CEF248]);
+    v8 = [*(*(a1 + 32) + 8) performer];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v9 = v8;
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+
+    v10 = [v9 queue];
+    v11 = [*(*(a1 + 32) + 8) instanceContext];
+    v12 = [v7 initWithQueue:v10 instanceContext:v11 delegate:*(a1 + 32)];
+    v13 = *(a1 + 32);
+    v14 = *(v13 + 24);
+    *(v13 + 24) = v12;
+
+    if ([*(*(a1 + 32) + 8) isActive])
+    {
+      v15 = *(a1 + 32);
+
+      [v15 _startObservingDeviceContext];
+    }
+  }
+
+  else
   {
     v5 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
       v6 = *(v3 + 16);
-      v18 = 136315650;
-      v19 = "[SVXSystemObserver deviceContextConnectionDidInvalidate:]_block_invoke";
+      v16 = 136315650;
+      v17 = "[SVXSystemObserver deviceContextConnectionDidInvalidate:]_block_invoke";
+      v18 = 2112;
+      v19 = v6;
       v20 = 2112;
-      v21 = v6;
-      v22 = 2112;
-      v23 = v2;
-      _os_log_error_impl(&dword_2695B9000, v5, OS_LOG_TYPE_ERROR, "%s Ignored because the device context connection is %@, not %@.", &v18, 0x20u);
+      v21 = v2;
+      _os_log_error_impl(&dword_2695B9000, v5, OS_LOG_TYPE_ERROR, "%s Ignored because the device context connection is %@, not %@.", &v16, 0x20u);
     }
-
-LABEL_11:
-    v17 = *MEMORY[0x277D85DE8];
-    return;
   }
-
-  [v4 invalidate];
-  v7 = objc_alloc(MEMORY[0x277CEF248]);
-  v8 = [*(*(a1 + 32) + 8) performer];
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v9 = v8;
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  v10 = [v9 queue];
-  v11 = [*(*(a1 + 32) + 8) instanceContext];
-  v12 = [v7 initWithQueue:v10 instanceContext:v11 delegate:*(a1 + 32)];
-  v13 = *(a1 + 32);
-  v14 = *(v13 + 24);
-  *(v13 + 24) = v12;
-
-  if (![*(*(a1 + 32) + 8) isActive])
-  {
-    goto LABEL_11;
-  }
-
-  v15 = *(a1 + 32);
-  v16 = *MEMORY[0x277D85DE8];
-
-  [v15 _startObservingDeviceContext];
 }
 
 - (void)_logSnapshot
@@ -179,17 +168,15 @@ LABEL_11:
 
 - (void)_startObservingInfo
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   [(SVXSystemObserver *)self _stopObservingInfo];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v4 = 136315138;
-    v5 = "[SVXSystemObserver _startObservingInfo]";
-    _os_log_error_impl(&dword_2695B9000, v2, OS_LOG_TYPE_ERROR, "%s SoundAutoConfig is not available on this platform.", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[SVXSystemObserver _startObservingInfo]";
+    _os_log_error_impl(&dword_2695B9000, v2, OS_LOG_TYPE_ERROR, "%s SoundAutoConfig is not available on this platform.", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sessionDidChangeFromState:(int64_t)state toState:(int64_t)toState

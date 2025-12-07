@@ -56,17 +56,15 @@ uint64_t __35__RTTDatabaseManager_sharedManager__block_invoke()
 
 - (void)logMessage:(id)message
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v4 = AXLogRTT();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
-    v7 = messageCopy;
-    _os_log_impl(&dword_261754000, v4, OS_LOG_TYPE_INFO, "%@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = messageCopy;
+    _os_log_impl(&dword_261754000, v4, OS_LOG_TYPE_INFO, "%@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)callHistoryDBDidChange:(id)change
@@ -78,7 +76,7 @@ uint64_t __35__RTTDatabaseManager_sharedManager__block_invoke()
 
 - (void)_callHistoryDBDidChange:(id)change
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v5 = AXLogRTT();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
@@ -91,42 +89,41 @@ uint64_t __35__RTTDatabaseManager_sharedManager__block_invoke()
   v6 = objc_autoreleasePoolPush();
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__2;
-  v25 = __Block_byref_object_dispose__2;
-  v26 = 0;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__2;
+  v24 = __Block_byref_object_dispose__2;
+  v25 = 0;
   managedObjectContext = [(HCDatabaseManager *)self managedObjectContext];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __46__RTTDatabaseManager__callHistoryDBDidChange___block_invoke;
-  v19[3] = &unk_279AE80C8;
-  v19[4] = self;
-  v19[5] = &buf;
-  [managedObjectContext performBlockAndWait:v19];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __46__RTTDatabaseManager__callHistoryDBDidChange___block_invoke;
+  v18[3] = &unk_279AE80C8;
+  v18[4] = self;
+  v18[5] = &buf;
+  [managedObjectContext performBlockAndWait:v18];
 
   array = [MEMORY[0x277CBEB18] array];
   v9 = *(*(&buf + 1) + 40);
-  v13 = MEMORY[0x277D85DD0];
-  v14 = 3221225472;
-  v15 = __46__RTTDatabaseManager__callHistoryDBDidChange___block_invoke_2;
-  v16 = &unk_279AE80F0;
+  v12 = MEMORY[0x277D85DD0];
+  v13 = 3221225472;
+  v14 = __46__RTTDatabaseManager__callHistoryDBDidChange___block_invoke_2;
+  v15 = &unk_279AE80F0;
   selfCopy = self;
   v10 = array;
-  v18 = v10;
-  [v9 enumerateObjectsUsingBlock:&v13];
+  v17 = v10;
+  [v9 enumerateObjectsUsingBlock:&v12];
   v11 = AXLogRTT();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    *v20 = 138412290;
-    v21 = v10;
-    _os_log_impl(&dword_261754000, v11, OS_LOG_TYPE_INFO, "Deleting %@", v20, 0xCu);
+    *v19 = 138412290;
+    v20 = v10;
+    _os_log_impl(&dword_261754000, v11, OS_LOG_TYPE_INFO, "Deleting %@", v19, 0xCu);
   }
 
-  [(RTTDatabaseManager *)self deleteConversationsWithCallUIDs:v10, v13, v14, v15, v16, selfCopy];
+  [(RTTDatabaseManager *)self deleteConversationsWithCallUIDs:v10, v12, v13, v14, v15, selfCopy];
   _Block_object_dispose(&buf, 8);
 
   objc_autoreleasePoolPop(v6);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __46__RTTDatabaseManager__callHistoryDBDidChange___block_invoke(uint64_t a1)
@@ -142,7 +139,7 @@ void __46__RTTDatabaseManager__callHistoryDBDidChange___block_invoke(uint64_t a1
 
 void __46__RTTDatabaseManager__callHistoryDBDidChange___block_invoke_2(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(a1 + 32) + 24);
   v5 = MEMORY[0x277CCAC30];
@@ -150,32 +147,32 @@ void __46__RTTDatabaseManager__callHistoryDBDidChange___block_invoke_2(uint64_t 
   v7 = [v5 predicateWithFormat:@"uniqueId == %@", v6];
   v8 = [v4 recentCallsWithPredicate:v7];
 
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__2;
-  v26 = __Block_byref_object_dispose__2;
-  v27 = 0;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __46__RTTDatabaseManager__callHistoryDBDidChange___block_invoke_3;
-  v19[3] = &unk_279AE80C8;
-  v21 = &v22;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__2;
+  v25 = __Block_byref_object_dispose__2;
+  v26 = 0;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __46__RTTDatabaseManager__callHistoryDBDidChange___block_invoke_3;
+  v18[3] = &unk_279AE80C8;
+  v20 = &v21;
   v9 = v3;
-  v20 = v9;
-  [RTTTelephonyUtilities performCallCenterTask:v19];
+  v19 = v9;
+  [RTTTelephonyUtilities performCallCenterTask:v18];
   v10 = AXLogRTT();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v11 = v23[5];
+    v11 = v22[5];
     *buf = 138412546;
-    v29 = v8;
-    v30 = 2112;
-    v31 = v11;
+    v28 = v8;
+    v29 = 2112;
+    v30 = v11;
     _os_log_impl(&dword_261754000, v10, OS_LOG_TYPE_INFO, "Recent calls: %@/TU Call %@", buf, 0x16u);
   }
 
-  v12 = [v23[5] status];
+  v12 = [v22[5] status];
   if (![v8 count])
   {
     v13 = [v9 callUID];
@@ -199,8 +196,7 @@ void __46__RTTDatabaseManager__callHistoryDBDidChange___block_invoke_2(uint64_t 
     }
   }
 
-  _Block_object_dispose(&v22, 8);
-  v18 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v21, 8);
 }
 
 void __46__RTTDatabaseManager__callHistoryDBDidChange___block_invoke_3(uint64_t a1)
@@ -215,51 +211,51 @@ void __46__RTTDatabaseManager__callHistoryDBDidChange___block_invoke_3(uint64_t 
 
 - (id)conversationForCallUID:(id)d
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v32 = 0;
-  v33[0] = &v32;
-  v33[1] = 0x3032000000;
-  v33[2] = __Block_byref_object_copy__2;
-  v33[3] = __Block_byref_object_dispose__2;
-  v34 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__2;
+  v35 = __Block_byref_object_dispose__2;
+  v36 = 0;
   v5 = objc_autoreleasePoolPush();
-  *v39 = 0;
-  *&v39[8] = v39;
-  *&v39[16] = 0x3032000000;
-  v40 = __Block_byref_object_copy__2;
-  v41 = __Block_byref_object_dispose__2;
-  v42 = 0;
+  *v41 = 0;
+  *&v41[8] = v41;
+  *&v41[16] = 0x3032000000;
+  v42 = __Block_byref_object_copy__2;
+  v43 = __Block_byref_object_dispose__2;
+  v44 = 0;
   managedObjectContext = [(HCDatabaseManager *)self managedObjectContext];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __45__RTTDatabaseManager_conversationForCallUID___block_invoke;
-  v27[3] = &unk_279AE8118;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __45__RTTDatabaseManager_conversationForCallUID___block_invoke;
+  v26[3] = &unk_279AE8118;
   v7 = dCopy;
-  v28 = v7;
+  v27 = v7;
   selfCopy = self;
-  v30 = v39;
-  v31 = &v32;
-  [managedObjectContext performBlockAndWait:v27];
+  v29 = v41;
+  v30 = &v31;
+  [managedObjectContext performBlockAndWait:v26];
 
   v8 = AXLogRTT();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v9 = *(*&v39[8] + 40);
-    v10 = *(v33[0] + 40);
+    v9 = *(*&v41[8] + 40);
+    v10 = v32[5];
     *buf = 138412546;
-    v36 = v9;
-    v37 = 2112;
-    v38 = v10;
+    v38 = v9;
+    v39 = 2112;
+    v40 = v10;
     _os_log_impl(&dword_261754000, v8, OS_LOG_TYPE_INFO, "Conversation for call UID result: %@/%@", buf, 0x16u);
   }
 
-  if (*(v33[0] + 40))
+  if (v32[5])
   {
     lastObject = AXLogRTT();
     if (os_log_type_enabled(lastObject, OS_LOG_TYPE_ERROR))
     {
-      [RTTDatabaseManager conversationForCallUID:v33];
+      [RTTDatabaseManager conversationForCallUID:];
     }
 
 LABEL_16:
@@ -267,16 +263,16 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  if ([*(*&v39[8] + 40) count] >= 2)
+  if ([*(*&v41[8] + 40) count] >= 2)
   {
     v12 = AXLogRTT();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      [RTTDatabaseManager conversationForCallUID:?];
+      [RTTDatabaseManager conversationForCallUID:];
     }
   }
 
-  lastObject = [*(*&v39[8] + 40) lastObject];
+  lastObject = [*(*&v41[8] + 40) lastObject];
   data = [lastObject data];
   if (!data)
   {
@@ -293,17 +289,17 @@ LABEL_16:
 
   v16 = objc_alloc(MEMORY[0x277CCAAC8]);
   data2 = [lastObject data];
-  v18 = (v33[0] + 40);
-  obj = *(v33[0] + 40);
+  v18 = (v32 + 5);
+  obj = v32[5];
   v19 = [v16 initForReadingFromData:data2 error:&obj];
   objc_storeStrong(v18, obj);
 
-  if (*(v33[0] + 40))
+  if (v32[5])
   {
     v20 = AXLogRTT();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [RTTDatabaseManager conversationForCallUID:v33];
+      [RTTDatabaseManager conversationForCallUID:];
     }
 
     v21 = 0;
@@ -311,26 +307,25 @@ LABEL_16:
 
   else
   {
-    v25 = [MEMORY[0x277CBEB98] setWithObjects:{objc_opt_class(), 0}];
-    v21 = [v19 decodeObjectOfClasses:v25 forKey:*MEMORY[0x277CCA308]];
+    v24 = [MEMORY[0x277CBEB98] setWithObjects:{objc_opt_class(), 0}];
+    v21 = [v19 decodeObjectOfClasses:v24 forKey:*MEMORY[0x277CCA308]];
   }
 
 LABEL_17:
-  _Block_object_dispose(v39, 8);
+  _Block_object_dispose(v41, 8);
 
   objc_autoreleasePoolPop(v5);
   v22 = AXLogRTT();
   if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
   {
-    *v39 = 138412546;
-    *&v39[4] = v7;
-    *&v39[12] = 2112;
-    *&v39[14] = v21;
-    _os_log_impl(&dword_261754000, v22, OS_LOG_TYPE_INFO, "Found conversation for id [%@] - %@", v39, 0x16u);
+    *v41 = 138412546;
+    *&v41[4] = v7;
+    *&v41[12] = 2112;
+    *&v41[14] = v21;
+    _os_log_impl(&dword_261754000, v22, OS_LOG_TYPE_INFO, "Found conversation for id [%@] - %@", v41, 0x16u);
   }
 
-  _Block_object_dispose(&v32, 8);
-  v23 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v31, 8);
 
   return v21;
 }
@@ -354,45 +349,45 @@ void __45__RTTDatabaseManager_conversationForCallUID___block_invoke(uint64_t a1)
 
 - (BOOL)saveConversation:(id)conversation
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   conversationCopy = conversation;
   managedObjectContext = [(HCDatabaseManager *)self managedObjectContext];
 
   if (managedObjectContext)
   {
-    v45 = 0;
-    v46 = &v45;
-    v47 = 0x3032000000;
-    v48 = __Block_byref_object_copy__2;
-    v49 = __Block_byref_object_dispose__2;
-    v50 = 0;
+    v44 = 0;
+    v45 = &v44;
+    v46 = 0x3032000000;
+    v47 = __Block_byref_object_copy__2;
+    v48 = __Block_byref_object_dispose__2;
+    v49 = 0;
     v6 = [objc_alloc(MEMORY[0x277CCAAB0]) initRequiringSecureCoding:1];
     [v6 encodeObject:conversationCopy forKey:*MEMORY[0x277CCA308]];
     [v6 finishEncoding];
     encodedData = [v6 encodedData];
     if ([encodedData length])
     {
-      v39 = 0;
-      v40 = &v39;
-      v41 = 0x3032000000;
-      v42 = __Block_byref_object_copy__2;
-      v43 = __Block_byref_object_dispose__2;
-      v44 = 0;
+      v38 = 0;
+      v39 = &v38;
+      v40 = 0x3032000000;
+      v41 = __Block_byref_object_copy__2;
+      v42 = __Block_byref_object_dispose__2;
+      v43 = 0;
       managedObjectContext2 = [(HCDatabaseManager *)self managedObjectContext];
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __39__RTTDatabaseManager_saveConversation___block_invoke;
-      v34[3] = &unk_279AE8118;
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __39__RTTDatabaseManager_saveConversation___block_invoke;
+      v33[3] = &unk_279AE8118;
       v9 = conversationCopy;
-      v35 = v9;
+      v34 = v9;
       selfCopy = self;
-      v37 = &v39;
-      v38 = &v45;
-      [managedObjectContext2 performBlockAndWait:v34];
+      v36 = &v38;
+      v37 = &v44;
+      [managedObjectContext2 performBlockAndWait:v33];
 
-      lastObject = [v40[5] lastObject];
+      lastObject = [v39[5] lastObject];
       v11 = lastObject;
-      if (lastObject && !v46[5])
+      if (lastObject && !v45[5])
       {
         v14 = lastObject;
       }
@@ -411,25 +406,25 @@ void __45__RTTDatabaseManager_conversationForCallUID___block_invoke(uint64_t a1)
       [v14 setData:encodedData];
       [v14 setNeedsCloudKitUpload:MEMORY[0x277CBEC38]];
 
-      _Block_object_dispose(&v39, 8);
-      v39 = 0;
-      v40 = &v39;
-      v41 = 0x3032000000;
-      v42 = __Block_byref_object_copy__2;
-      v43 = __Block_byref_object_dispose__2;
-      v44 = 0;
+      _Block_object_dispose(&v38, 8);
+      v38 = 0;
+      v39 = &v38;
+      v40 = 0x3032000000;
+      v41 = __Block_byref_object_copy__2;
+      v42 = __Block_byref_object_dispose__2;
+      v43 = 0;
       managedObjectContext4 = [(HCDatabaseManager *)self managedObjectContext];
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __39__RTTDatabaseManager_saveConversation___block_invoke_60;
-      v30[3] = &unk_279AE8140;
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __39__RTTDatabaseManager_saveConversation___block_invoke_60;
+      v29[3] = &unk_279AE8140;
       v18 = v9;
       selfCopy2 = self;
-      v33 = &v39;
-      v31 = v18;
-      [managedObjectContext4 performBlockAndWait:v30];
+      v32 = &v38;
+      v30 = v18;
+      [managedObjectContext4 performBlockAndWait:v29];
 
-      lastObject2 = [v40[5] lastObject];
+      lastObject2 = [v39[5] lastObject];
       if (!lastObject2)
       {
         otherContactPath = [v18 otherContactPath];
@@ -455,12 +450,12 @@ void __45__RTTDatabaseManager_conversationForCallUID___block_invoke(uint64_t a1)
       {
         *buf = 67109378;
         selfCopy3 = self;
-        v53 = 2112;
-        v54 = v18;
+        v52 = 2112;
+        v53 = v18;
         _os_log_impl(&dword_261754000, v27, OS_LOG_TYPE_INFO, "Saved to database[%d]: %@", buf, 0x12u);
       }
 
-      _Block_object_dispose(&v39, 8);
+      _Block_object_dispose(&v38, 8);
     }
 
     else
@@ -474,7 +469,7 @@ void __45__RTTDatabaseManager_conversationForCallUID___block_invoke(uint64_t a1)
       LOBYTE(self) = 0;
     }
 
-    _Block_object_dispose(&v45, 8);
+    _Block_object_dispose(&v44, 8);
   }
 
   else
@@ -488,7 +483,6 @@ void __45__RTTDatabaseManager_conversationForCallUID___block_invoke(uint64_t a1)
     LOBYTE(self) = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return self;
 }
 
@@ -606,12 +600,12 @@ void __54__RTTDatabaseManager_deleteConversationsWithCallUIDs___block_invoke_2(u
 
 - (BOOL)deleteConversationWithCallUID:(id)d
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   if ([dCopy length])
   {
-    v9[0] = dCopy;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = dCopy;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
     v6 = [(RTTDatabaseManager *)self deleteConversationsWithCallUIDs:v5];
   }
 
@@ -620,39 +614,37 @@ void __54__RTTDatabaseManager_deleteConversationsWithCallUIDs___block_invoke_2(u
     v6 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (BOOL)contactIDIsTTYContact:(id)contact
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   contactCopy = contact;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
   v5 = +[RTTTelephonyUtilities sharedUtilityProvider];
   contactStore = [v5 contactStore];
   v7 = MEMORY[0x277CBDA58];
-  v20[0] = contactCopy;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+  v19[0] = contactCopy;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
   v9 = [v7 predicateForContactsWithIdentifiers:v8];
-  v19 = *MEMORY[0x277CBD098];
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+  v18 = *MEMORY[0x277CBD098];
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
   v11 = [contactStore unifiedContactsMatchingPredicate:v9 keysToFetch:v10 error:0];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __44__RTTDatabaseManager_contactIDIsTTYContact___block_invoke;
-  v14[3] = &unk_279AE81B8;
-  v14[4] = self;
-  v14[5] = &v15;
-  [v11 enumerateObjectsUsingBlock:v14];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __44__RTTDatabaseManager_contactIDIsTTYContact___block_invoke;
+  v13[3] = &unk_279AE81B8;
+  v13[4] = self;
+  v13[5] = &v14;
+  [v11 enumerateObjectsUsingBlock:v13];
 
-  LOBYTE(v5) = *(v16 + 24);
-  _Block_object_dispose(&v15, 8);
+  LOBYTE(v5) = *(v15 + 24);
+  _Block_object_dispose(&v14, 8);
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5 & 1;
 }
 
@@ -742,83 +734,54 @@ void __47__RTTDatabaseManager_contactPathWasUsedForTTY___block_invoke(uint64_t a
   [v2 setPredicate:v3];
 
   v4 = [*(a1 + 40) managedObjectContext];
-  v6 = *(a1 + 56);
-  v5 = a1 + 56;
-  v7 = *(v6 + 8);
-  obj = *(v7 + 40);
-  v8 = [v4 executeFetchRequest:v2 error:&obj];
-  objc_storeStrong((v7 + 40), obj);
-  v9 = *(*(v5 - 8) + 8);
-  v10 = *(v9 + 40);
-  *(v9 + 40) = v8;
+  v5 = *(a1 + 56);
+  a1 += 56;
+  v6 = *(v5 + 8);
+  obj = *(v6 + 40);
+  v7 = [v4 executeFetchRequest:v2 error:&obj];
+  objc_storeStrong((v6 + 40), obj);
+  v8 = *(*(a1 - 8) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v7;
 
-  if (*(*(*v5 + 8) + 40))
+  if (*(*(*a1 + 8) + 40))
   {
-    v11 = AXLogRTT();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = AXLogRTT();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __47__RTTDatabaseManager_contactPathWasUsedForTTY___block_invoke_cold_1(v5);
+      __47__RTTDatabaseManager_contactPathWasUsedForTTY___block_invoke_cold_1();
     }
   }
 }
 
-- (void)conversationForCallUID:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)conversationForCallUID:.cold.1()
 {
-  OUTLINED_FUNCTION_1_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_1_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_1(&dword_261754000, v1, v2, "Failed TTYHistory fetch %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_261754000, v0, v1, "Failed TTYHistory fetch %@", v2, v3, v4, v5);
 }
 
-- (void)conversationForCallUID:(uint64_t)a1 .cold.2(uint64_t a1)
+- (void)conversationForCallUID:.cold.2()
 {
-  OUTLINED_FUNCTION_1_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_1_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  _os_log_fault_impl(&dword_261754000, v1, OS_LOG_TYPE_FAULT, "We had two callUID results, %@", v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_261754000, v0, OS_LOG_TYPE_FAULT, "We had two callUID results, %@", v1, 0xCu);
 }
 
-- (void)conversationForCallUID:(uint64_t)a1 .cold.3(uint64_t a1)
+- (void)conversationForCallUID:.cold.3()
 {
-  OUTLINED_FUNCTION_1_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_1_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_1(&dword_261754000, v1, v2, "Failed to create unarchiver with error %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)saveConversation:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_261754000, v0, v1, "Exception encoding data: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)saveConversation:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_261754000, v0, v1, "Not saving conversation because dataBlock was empty: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_261754000, v0, v1, "Failed to create unarchiver with error %@", v2, v3, v4, v5);
 }
 
 - (void)saveConversation:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_261754000, v1, OS_LOG_TYPE_ERROR, "Not saving convo because no object: %@, %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __47__RTTDatabaseManager_contactPathWasUsedForTTY___block_invoke_cold_1(uint64_t a1)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(*(*a1 + 8) + 40);
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_1(&dword_261754000, v2, v3, "Contact path TTY error: %@", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_261754000, v1, OS_LOG_TYPE_ERROR, "Not saving convo because no object: %@, %@", v2, 0x16u);
 }
 
 @end

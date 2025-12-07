@@ -11,9 +11,9 @@
     +[RMLog(subscribedConfigurationReference) subscribedConfigurationReference];
   }
 
-  v1 = subscribedConfigurationReference_result;
+  v2 = subscribedConfigurationReference_result;
 
-  return v1;
+  return v2;
 }
 
 @end

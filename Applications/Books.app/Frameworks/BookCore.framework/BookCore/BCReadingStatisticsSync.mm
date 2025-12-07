@@ -28,7 +28,7 @@
 
   else
   {
-    v7 = BCCloudKitLog();
+    v7 = BCCloudKitLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1E86C4();
@@ -63,18 +63,18 @@
 - (void)_configureFromReadingStatistics:(id)statistics withMergers:(id)mergers
 {
   statisticsCopy = statistics;
-  v11.receiver = self;
-  v11.super_class = BCReadingStatisticsSync;
-  [(BCReadingStatisticsSync *)&v11 configureFromCloudData:statisticsCopy withMergers:mergers];
+  v12.receiver = self;
+  v12.super_class = BCReadingStatisticsSync;
+  [(BCReadingStatisticsSync *)&v12 configureFromCloudData:statisticsCopy withMergers:mergers];
   assetID = [statisticsCopy assetID];
   assetVersion = [statisticsCopy assetVersion];
   readingStatisticsBook = [statisticsCopy readingStatisticsBook];
   [(BCReadingStatisticsSync *)self _mergeInAssetID:assetID assetVersion:assetVersion serializedData:readingStatisticsBook];
 
-  v10 = BCCloudKitLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = BCCloudKitLog(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    sub_1E8700(self, statisticsCopy, v10);
+    sub_1E8700(self, statisticsCopy, v11);
   }
 }
 
@@ -85,10 +85,11 @@
   dataCopy = data;
   v11 = objc_alloc_init(BCReadingStatisticsProtoBook);
   v12 = [[PBDataReader alloc] initWithData:dataCopy];
-  if (!BCReadingStatisticsProtoBookReadFrom(v11, v12))
+  v13 = BCReadingStatisticsProtoBookReadFrom(v11, v12);
+  if (!v13)
   {
-    v50 = BCCloudKitLog();
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+    v54 = BCCloudKitLog(v13);
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
     {
       sub_1E87E8(self);
     }
@@ -97,12 +98,12 @@
   }
 
   assetID = [(BCReadingStatisticsSync *)self assetID];
-  v14 = [assetID isEqualToString:dCopy];
+  v15 = [assetID isEqualToString:dCopy];
 
-  if ((v14 & 1) == 0)
+  if ((v15 & 1) == 0)
   {
-    v15 = BCCloudKitLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = BCCloudKitLog(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_1E8874(self);
     }
@@ -110,36 +111,37 @@
     [(BCReadingStatisticsSync *)self setAssetID:dCopy];
   }
 
-  v16 = objc_alloc_init(BCReadingStatisticsProtoBook);
-  [(BCReadingStatisticsProtoBook *)v16 setAssetID:dCopy];
-  v17 = +[BCReadingStatisticsSyncManager sharedInstance];
-  _appVersion = [v17 _appVersion];
-  [(BCReadingStatisticsProtoBook *)v16 setAppVersion:_appVersion];
+  v18 = objc_alloc_init(BCReadingStatisticsProtoBook);
+  [(BCReadingStatisticsProtoBook *)v18 setAssetID:dCopy];
+  v19 = +[BCReadingStatisticsSyncManager sharedInstance];
+  _appVersion = [v19 _appVersion];
+  [(BCReadingStatisticsProtoBook *)v18 setAppVersion:_appVersion];
 
   readingStatisticsBook = [(BCReadingStatisticsSync *)self readingStatisticsBook];
-  v20 = [readingStatisticsBook length];
+  v22 = [readingStatisticsBook length];
 
-  if (!v20)
+  if (!v22)
   {
 LABEL_59:
     [(BCReadingStatisticsSync *)self setAssetVersion:versionCopy];
-    v75 = objc_alloc_init(PBDataWriter);
-    [(BCReadingStatisticsProtoBook *)v16 writeTo:v75];
-    immutableData = [v75 immutableData];
+    v80 = objc_alloc_init(PBDataWriter);
+    [(BCReadingStatisticsProtoBook *)v18 writeTo:v80];
+    immutableData = [v80 immutableData];
     [(BCReadingStatisticsSync *)self setReadingStatisticsBook:immutableData];
 
-    v50 = v16;
+    v54 = v18;
     goto LABEL_60;
   }
 
-  v21 = [PBDataReader alloc];
+  v23 = [PBDataReader alloc];
   readingStatisticsBook2 = [(BCReadingStatisticsSync *)self readingStatisticsBook];
-  v23 = [v21 initWithData:readingStatisticsBook2];
+  v25 = [v23 initWithData:readingStatisticsBook2];
 
-  if ((BCReadingStatisticsProtoBookReadFrom(v16, v23) & 1) == 0)
+  v26 = BCReadingStatisticsProtoBookReadFrom(v18, v25);
+  if ((v26 & 1) == 0)
   {
-    v51 = BCCloudKitLog();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+    v55 = BCCloudKitLog(v26);
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
     {
       sub_1E8918(self);
     }
@@ -147,151 +149,136 @@ LABEL_59:
     goto LABEL_59;
   }
 
-  v79 = v12;
+  v84 = v12;
   selfCopy = self;
-  v83 = versionCopy;
-  v84 = dCopy;
+  v88 = versionCopy;
+  v89 = dCopy;
 
-  v78 = v16;
-  v24 = v16;
-  v85 = v11;
-  v25 = +[NSMutableDictionary dictionary];
-  v96 = 0u;
-  v97 = 0u;
-  v98 = 0u;
-  v99 = 0u;
-  v86 = v24;
-  tocEntrys = [(BCReadingStatisticsProtoBook *)v24 tocEntrys];
-  v27 = [tocEntrys countByEnumeratingWithState:&v96 objects:v107 count:16];
-  if (v27)
+  v83 = v18;
+  v27 = v18;
+  v90 = v11;
+  v28 = +[NSMutableDictionary dictionary];
+  v101 = 0u;
+  v102 = 0u;
+  v103 = 0u;
+  v104 = 0u;
+  v91 = v27;
+  tocEntrys = [(BCReadingStatisticsProtoBook *)v27 tocEntrys];
+  v30 = [tocEntrys countByEnumeratingWithState:&v101 objects:v112 count:16];
+  if (v30)
   {
-    v28 = v27;
-    v29 = *v97;
+    v31 = v30;
+    v32 = *v102;
     do
     {
-      for (i = 0; i != v28; i = i + 1)
+      for (i = 0; i != v31; i = i + 1)
       {
-        if (*v97 != v29)
+        if (*v102 != v32)
         {
           objc_enumerationMutation(tocEntrys);
         }
 
-        v31 = *(*(&v96 + 1) + 8 * i);
-        href = [v31 href];
-        [v25 setObject:v31 forKeyedSubscript:href];
+        v34 = *(*(&v101 + 1) + 8 * i);
+        href = [v34 href];
+        [v28 setObject:v34 forKeyedSubscript:href];
       }
 
-      v28 = [tocEntrys countByEnumeratingWithState:&v96 objects:v107 count:16];
+      v31 = [tocEntrys countByEnumeratingWithState:&v101 objects:v112 count:16];
     }
 
-    while (v28);
+    while (v31);
   }
 
-  v81 = v11;
-  v82 = dataCopy;
+  v86 = v11;
+  v87 = dataCopy;
 
-  v94 = 0u;
-  v95 = 0u;
-  v92 = 0u;
-  v93 = 0u;
-  tocEntrys2 = [(BCReadingStatisticsProtoBook *)v85 tocEntrys];
-  v34 = [tocEntrys2 countByEnumeratingWithState:&v92 objects:v106 count:16];
-  if (!v34)
+  v99 = 0u;
+  v100 = 0u;
+  v97 = 0u;
+  v98 = 0u;
+  tocEntrys2 = [(BCReadingStatisticsProtoBook *)v90 tocEntrys];
+  v37 = [tocEntrys2 countByEnumeratingWithState:&v97 objects:v111 count:16];
+  if (!v37)
   {
-    v36 = 0;
+    v39 = 0;
     goto LABEL_38;
   }
 
-  v35 = v34;
-  v36 = 0;
-  v37 = *v93;
+  v38 = v37;
+  v39 = 0;
+  v40 = *v98;
   do
   {
-    for (j = 0; j != v35; j = j + 1)
+    for (j = 0; j != v38; j = j + 1)
     {
-      if (*v93 != v37)
+      if (*v98 != v40)
       {
         objc_enumerationMutation(tocEntrys2);
       }
 
-      v39 = *(*(&v92 + 1) + 8 * j);
-      href2 = [v39 href];
-      v41 = [v25 objectForKeyedSubscript:href2];
-      if (v41)
+      v42 = *(*(&v97 + 1) + 8 * j);
+      href2 = [v42 href];
+      v44 = [v28 objectForKeyedSubscript:href2];
+      if (v44)
       {
-        v42 = v41;
-        [v39 readProportion];
-        v44 = v43;
-        [(BCReadingStatisticsProtoTOCEntry *)v42 readProportion];
-        if (v44 <= v45)
+        v45 = v44;
+        [v42 readProportion];
+        v47 = v46;
+        readProportion = [(BCReadingStatisticsProtoTOCEntry *)v45 readProportion];
+        if (v47 <= v49)
         {
           goto LABEL_29;
         }
 
-        v46 = BCReadingStatisticsLog();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
+        v50 = BCReadingStatisticsLog(readProportion);
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
         {
-          [v39 readProportion];
+          [v42 readProportion];
           *buf = 138412546;
-          v103 = href2;
-          v104 = 2048;
-          v105 = v47 * 100.0;
-          _os_log_impl(&dword_0, v46, OS_LOG_TYPE_INFO, "Reading statistics updated: %@ now %.0lf%% read", buf, 0x16u);
+          v108 = href2;
+          v109 = 2048;
+          v110 = v51 * 100.0;
+          _os_log_impl(&dword_0, v50, OS_LOG_TYPE_INFO, "Reading statistics updated: %@ now %.0lf%% read", buf, 0x16u);
         }
 
-        [v39 readProportion];
-        [(BCReadingStatisticsProtoTOCEntry *)v42 setReadProportion:?];
-        [v39 timestamp];
-        [(BCReadingStatisticsProtoTOCEntry *)v42 setTimestamp:?];
+        [v42 readProportion];
+        [(BCReadingStatisticsProtoTOCEntry *)v45 setReadProportion:?];
+        [v42 timestamp];
+        [(BCReadingStatisticsProtoTOCEntry *)v45 setTimestamp:?];
       }
 
       else
       {
-        v42 = objc_alloc_init(BCReadingStatisticsProtoTOCEntry);
-        [v39 copyTo:v42];
-        [v86 addTocEntry:v42];
-        v48 = BCReadingStatisticsLog();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+        v45 = objc_alloc_init(BCReadingStatisticsProtoTOCEntry);
+        [v42 copyTo:v45];
+        v52 = BCReadingStatisticsLog([v91 addTocEntry:v45]);
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
         {
-          [v39 readProportion];
+          [v42 readProportion];
           *buf = 138412546;
-          v103 = href2;
-          v104 = 2048;
-          v105 = v49 * 100.0;
-          _os_log_impl(&dword_0, v48, OS_LOG_TYPE_INFO, "Reading statistics updated: %@ now %.0lf%% read", buf, 0x16u);
+          v108 = href2;
+          v109 = 2048;
+          v110 = v53 * 100.0;
+          _os_log_impl(&dword_0, v52, OS_LOG_TYPE_INFO, "Reading statistics updated: %@ now %.0lf%% read", buf, 0x16u);
         }
       }
 
-      v36 = 1;
+      v39 = 1;
 LABEL_29:
     }
 
-    v35 = [tocEntrys2 countByEnumeratingWithState:&v92 objects:v106 count:16];
+    v38 = [tocEntrys2 countByEnumeratingWithState:&v97 objects:v111 count:16];
   }
 
-  while (v35);
+  while (v38);
 LABEL_38:
 
-  v52 = +[(BCCFISet *)BCMutableCFISet];
-  readCFIs = [v86 readCFIs];
-  v54 = readCFIs;
+  v56 = +[(BCCFISet *)BCMutableCFISet];
+  readCFIs = [v91 readCFIs];
+  v58 = readCFIs;
   if (readCFIs)
   {
-    v55 = readCFIs;
-  }
-
-  else
-  {
-    v55 = &__NSArray0__struct;
-  }
-
-  v56 = v55;
-
-  readCFIs2 = [(BCReadingStatisticsProtoBook *)v85 readCFIs];
-  v58 = readCFIs2;
-  if (readCFIs2)
-  {
-    v59 = readCFIs2;
+    v59 = readCFIs;
   }
 
   else
@@ -299,81 +286,96 @@ LABEL_38:
     v59 = &__NSArray0__struct;
   }
 
-  v77 = v56;
-  v60 = [v56 arrayByAddingObjectsFromArray:v59];
+  v60 = v59;
 
-  v90 = 0u;
-  v91 = 0u;
-  v88 = 0u;
-  v89 = 0u;
-  v61 = v60;
-  v62 = [v61 countByEnumeratingWithState:&v88 objects:buf count:16];
-  if (v62)
+  readCFIs2 = [(BCReadingStatisticsProtoBook *)v90 readCFIs];
+  v62 = readCFIs2;
+  if (readCFIs2)
   {
-    v63 = v62;
-    v64 = *v89;
-    do
-    {
-      for (k = 0; k != v63; k = k + 1)
-      {
-        if (*v89 != v64)
-        {
-          objc_enumerationMutation(v61);
-        }
-
-        v66 = *(*(&v88 + 1) + 8 * k);
-        v87 = 0;
-        [v52 addCFIString:v66 error:&v87];
-        v67 = v87;
-        if (v67)
-        {
-          v68 = BCReadingStatisticsLog();
-          if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
-          {
-            *v100 = 138543362;
-            v101 = v67;
-            _os_log_error_impl(&dword_0, v68, OS_LOG_TYPE_ERROR, "Error merging read CFIs: %{public}@", v100, 0xCu);
-          }
-        }
-      }
-
-      v63 = [v61 countByEnumeratingWithState:&v88 objects:buf count:16];
-    }
-
-    while (v63);
-  }
-
-  allCFIStrings = [v52 allCFIStrings];
-  v70 = [allCFIStrings mutableCopy];
-  v50 = v86;
-  [v86 setReadCFIs:v70];
-
-  if (v36)
-  {
-    v71 = 1;
-    versionCopy = v83;
-    dCopy = v84;
-    dataCopy = v82;
-    v72 = v77;
+    v63 = readCFIs2;
   }
 
   else
   {
-    readCFIs3 = [v86 readCFIs];
-    v72 = v77;
-    v74 = [v77 isEqual:readCFIs3] ^ 1;
+    v63 = &__NSArray0__struct;
+  }
 
-    v71 = v74;
-    versionCopy = v83;
-    dCopy = v84;
-    dataCopy = v82;
+  v82 = v60;
+  v64 = [v60 arrayByAddingObjectsFromArray:v63];
+
+  v95 = 0u;
+  v96 = 0u;
+  v93 = 0u;
+  v94 = 0u;
+  v65 = v64;
+  v66 = [v65 countByEnumeratingWithState:&v93 objects:buf count:16];
+  if (v66)
+  {
+    v67 = v66;
+    v68 = *v94;
+    do
+    {
+      for (k = 0; k != v67; k = k + 1)
+      {
+        if (*v94 != v68)
+        {
+          objc_enumerationMutation(v65);
+        }
+
+        v70 = *(*(&v93 + 1) + 8 * k);
+        v92 = 0;
+        [v56 addCFIString:v70 error:&v92];
+        v71 = v92;
+        v72 = v71;
+        if (v71)
+        {
+          v73 = BCReadingStatisticsLog(v71);
+          if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
+          {
+            *v105 = 138543362;
+            v106 = v72;
+            _os_log_error_impl(&dword_0, v73, OS_LOG_TYPE_ERROR, "Error merging read CFIs: %{public}@", v105, 0xCu);
+          }
+        }
+      }
+
+      v67 = [v65 countByEnumeratingWithState:&v93 objects:buf count:16];
+    }
+
+    while (v67);
+  }
+
+  allCFIStrings = [v56 allCFIStrings];
+  v75 = [allCFIStrings mutableCopy];
+  v54 = v91;
+  [v91 setReadCFIs:v75];
+
+  if (v39)
+  {
+    v76 = 1;
+    versionCopy = v88;
+    dCopy = v89;
+    dataCopy = v87;
+    v77 = v82;
+  }
+
+  else
+  {
+    readCFIs3 = [v91 readCFIs];
+    v77 = v82;
+    v79 = [v82 isEqual:readCFIs3] ^ 1;
+
+    v76 = v79;
+    versionCopy = v88;
+    dCopy = v89;
+    dataCopy = v87;
   }
 
   self = selfCopy;
-  v11 = v81;
-  v16 = v78;
-  v12 = v79;
-  if (v71)
+  v11 = v86;
+  v18 = v83;
+  v12 = v84;
+  if (v76)
   {
     goto LABEL_59;
   }
@@ -384,44 +386,46 @@ LABEL_60:
 - (void)resolveConflictsFromRecord:(id)record withResolvers:(id)resolvers
 {
   recordCopy = record;
-  v16.receiver = self;
-  v16.super_class = BCReadingStatisticsSync;
-  [(BCReadingStatisticsSync *)&v16 resolveConflictsFromRecord:recordCopy withResolvers:resolvers];
+  v19.receiver = self;
+  v19.super_class = BCReadingStatisticsSync;
+  v7 = [(BCReadingStatisticsSync *)&v19 resolveConflictsFromRecord:recordCopy withResolvers:resolvers];
   if (recordCopy)
   {
-    v7 = [BCCloudData localIdentifierFromRecord:recordCopy];
+    v8 = [BCCloudData localIdentifierFromRecord:recordCopy];
     objc_opt_class();
-    v8 = [recordCopy objectForKey:@"assetStatistics"];
-    v9 = BUDynamicCast();
-    fileURL = [v9 fileURL];
+    v9 = [recordCopy objectForKey:@"assetStatistics"];
+    v10 = BUDynamicCast();
+    fileURL = [v10 fileURL];
 
     if (fileURL)
     {
-      v11 = [NSData dataWithContentsOfURL:fileURL];
+      v12 = [NSData dataWithContentsOfURL:fileURL];
     }
 
     else
     {
-      v11 = 0;
+      v12 = 0;
     }
 
-    if (-[NSObject length](v7, "length") && [v11 length])
+    v13 = [v8 length];
+    if (v13 && (v13 = [v12 length]) != 0)
     {
-      v12 = [recordCopy objectForKeyedSubscript:@"assetVersion"];
-      [(BCReadingStatisticsSync *)self _mergeInAssetID:v7 assetVersion:v12 serializedData:v11];
+      v14 = [recordCopy objectForKeyedSubscript:@"assetVersion"];
+      [(BCReadingStatisticsSync *)self _mergeInAssetID:v8 assetVersion:v14 serializedData:v12];
 
       hasChanges = [(BCReadingStatisticsSync *)self hasChanges];
-      v14 = BCReadingStatisticsLog();
-      v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG);
-      if (hasChanges)
+      v16 = hasChanges;
+      v17 = BCReadingStatisticsLog(hasChanges);
+      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG);
+      if (v16)
       {
-        if (v15)
+        if (v18)
         {
           sub_1E8A78(self, recordCopy);
         }
       }
 
-      else if (v15)
+      else if (v18)
       {
         sub_1E89A4(self, recordCopy);
       }
@@ -429,8 +433,8 @@ LABEL_60:
 
     else
     {
-      v14 = BCReadingStatisticsLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v17 = BCReadingStatisticsLog(v13);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         sub_1E8B4C(self);
       }
@@ -439,8 +443,8 @@ LABEL_60:
 
   else
   {
-    v7 = BCCloudKitLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = BCCloudKitLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1E8BD8(self);
     }

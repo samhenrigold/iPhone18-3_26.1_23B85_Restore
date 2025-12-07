@@ -32,17 +32,17 @@
 
 - (id)dictionaryRepresentation
 {
-  v14[3] = *MEMORY[0x277D85DE8];
-  v13[0] = @"type";
+  v13[3] = *MEMORY[0x277D85DE8];
+  v12[0] = @"type";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[SPHistoricalReport type](self, "type")}];
-  v14[0] = v3;
-  v13[1] = @"timestamp";
+  v13[0] = v3;
+  v12[1] = @"timestamp";
   v4 = MEMORY[0x277CCABB0];
   timestamp = [(SPHistoricalReport *)self timestamp];
   [timestamp timeIntervalSinceReferenceDate];
   v6 = [v4 numberWithDouble:?];
-  v14[1] = v6;
-  v13[2] = @"report";
+  v13[1] = v6;
+  v12[2] = @"report";
   report = [(SPHistoricalReport *)self report];
   v8 = report;
   v9 = MEMORY[0x277CBEC10];
@@ -51,10 +51,8 @@
     v9 = report;
   }
 
-  v14[2] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[2] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
 
   return v10;
 }

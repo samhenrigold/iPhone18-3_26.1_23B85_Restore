@@ -12,9 +12,9 @@
 
 - (SiriSharedUISAEViewModel)initWithInputType:(int64_t)type conversationTranscriptItems:(id)items serverUtterances:(id)utterances userUtterance:(id)utterance shouldPreserveResultSpace:(BOOL)space
 {
-  sub_21E43F008(0, &qword_280C14128);
+  sub_21E43F008(0, &qword_280C14128, off_278353790);
   v11 = sub_21E4DD088();
-  sub_21E43F008(0, &unk_280C14130);
+  sub_21E43F008(0, &unk_280C14130, 0x277D47A00);
   v12 = sub_21E4DD088();
   *(self + OBJC_IVAR___SiriSharedUISAEViewModel_inputType) = type;
   *(self + OBJC_IVAR___SiriSharedUISAEViewModel_conversationTranscriptItems) = v11;
@@ -29,9 +29,9 @@
 
 - (id)copyWithInputType:(int64_t)type conversationTranscriptItems:(id)items serverUtterances:(id)utterances speechRecognitionHypothesis:(id)hypothesis shouldPreserveResultSpace:(BOOL)space
 {
-  sub_21E43F008(0, &qword_280C14128);
+  sub_21E43F008(0, &qword_280C14128, off_278353790);
   v11 = sub_21E4DD088();
-  sub_21E43F008(0, &unk_280C14130);
+  sub_21E43F008(0, &unk_280C14130, 0x277D47A00);
   v12 = sub_21E4DD088();
   hypothesisCopy = hypothesis;
   selfCopy = self;
@@ -70,7 +70,7 @@
 
 - (id)copyWithServerUtterances:(id)utterances speechRecognitionHypothesis:(id)hypothesis
 {
-  sub_21E43F008(0, &unk_280C14130);
+  sub_21E43F008(0, &unk_280C14130, 0x277D47A00);
   sub_21E4DD088();
   selfCopy = self;
   hypothesisCopy = hypothesis;
@@ -78,7 +78,7 @@
   conversationTranscriptItems = [(SiriSharedUISAEViewModel *)selfCopy conversationTranscriptItems];
   if (!conversationTranscriptItems)
   {
-    sub_21E43F008(0, &qword_280C14128);
+    sub_21E43F008(0, &qword_280C14128, off_278353790);
     sub_21E4DD088();
     conversationTranscriptItems = sub_21E4DD078();
   }

@@ -259,13 +259,17 @@ void __89__SSDittoRemoteConnection_sendDittoProcessPreheatRequestWithPresentatio
 void __77__SSDittoRemoteConnection_sendDittoProcessEnvironmentDescription_completion___block_invoke_cold_1(void *a1)
 {
   v1 = [a1 error];
-  OUTLINED_FUNCTION_0_0(&dword_1D9E04000, v2, v3, "Didn't hear back from service regarding environment description with error %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_1D9E04000, v2, v3, "Didn't hear back from service regarding environment description with error %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __89__SSDittoRemoteConnection_sendDittoProcessPreheatRequestWithPresentationMode_completion___block_invoke_cold_1(void *a1)
 {
   v1 = [a1 error];
-  OUTLINED_FUNCTION_0_0(&dword_1D9E04000, v2, v3, "Didn't hear back from service regarding preheating presentation mode with error %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_1D9E04000, v2, v3, "Didn't hear back from service regarding preheating presentation mode with error %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

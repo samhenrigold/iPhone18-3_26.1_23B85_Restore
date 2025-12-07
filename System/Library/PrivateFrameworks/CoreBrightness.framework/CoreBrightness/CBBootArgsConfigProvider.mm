@@ -19,16 +19,13 @@
   v3[0] = 1025;
   if (sysctlbyname("kern.bootargs", v6, v3, 0, 0))
   {
-    v5 = 0;
+    return 0;
   }
 
   else
   {
-    v5 = [(CBBootArgsConfigProvider *)selfCopy initWithBootArgs:v6];
+    return [(CBBootArgsConfigProvider *)selfCopy initWithBootArgs:v6];
   }
-
-  *MEMORY[0x1E69E9840];
-  return v5;
 }
 
 - (CBBootArgsConfigProvider)initWithBootArgs:(const char *)args

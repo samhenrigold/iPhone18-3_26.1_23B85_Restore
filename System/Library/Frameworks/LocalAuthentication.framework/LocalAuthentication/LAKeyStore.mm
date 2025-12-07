@@ -111,10 +111,9 @@ void __47___LAKeyStore_fetchItemsWithDomain_completion___block_invoke(uint64_t a
 {
   if (a3)
   {
-    v4 = *(a1 + 48);
-    v5 = *(*(a1 + 48) + 16);
+    v4 = *(*(a1 + 48) + 16);
 
-    v5();
+    v4();
   }
 
   else
@@ -123,34 +122,28 @@ void __47___LAKeyStore_fetchItemsWithDomain_completion___block_invoke(uint64_t a
     WeakRetained = objc_loadWeakRetained((a1 + 56));
     if (WeakRetained)
     {
-      v8[0] = MEMORY[0x1E69E9820];
-      v8[1] = 3221225472;
-      v8[2] = __47___LAKeyStore_fetchItemsWithDomain_completion___block_invoke_2;
-      v8[3] = &unk_1E77CB738;
-      v7 = *(a1 + 40);
-      v10 = *(a1 + 48);
-      v9 = *(a1 + 32);
-      [WeakRetained fetchKeysWithDomain:v7 completion:v8];
+      v7[0] = MEMORY[0x1E69E9820];
+      v7[1] = 3221225472;
+      v7[2] = __47___LAKeyStore_fetchItemsWithDomain_completion___block_invoke_2;
+      v7[3] = &unk_1E77CB738;
+      v6 = *(a1 + 40);
+      v9 = *(a1 + 48);
+      v8 = *(a1 + 32);
+      [WeakRetained fetchKeysWithDomain:v6 completion:v7];
     }
   }
 }
 
 uint64_t __47___LAKeyStore_fetchItemsWithDomain_completion___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (a3)
-  {
-    v4 = *(a1 + 40);
-  }
-
-  else
+  if (!a3)
   {
     [*(a1 + 32) addObjectsFromArray:a2];
-    v6 = *(a1 + 32);
   }
 
-  v5 = *(*(a1 + 40) + 16);
+  v4 = *(*(a1 + 40) + 16);
 
-  return v5();
+  return v4();
 }
 
 void __48___LAKeyStore_removeItemsWithDomain_completion___block_invoke(uint64_t a1, void *a2)

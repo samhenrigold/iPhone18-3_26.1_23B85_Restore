@@ -9,7 +9,7 @@
 
 - (void)_taskDidTimeout:(unint64_t)timeout
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   os_unfair_recursive_lock_lock_with_options();
   expirationHandlers = self->_expirationHandlers;
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:timeout];
@@ -25,26 +25,24 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       name = [v10 name];
-      v14 = 134218498;
+      v13 = 134218498;
       selfCopy = self;
-      v16 = 2048;
+      v15 = 2048;
       timeoutCopy = timeout;
-      v18 = 2114;
-      v19 = name;
-      _os_log_impl(&dword_1AC81F000, v11, OS_LOG_TYPE_DEFAULT, "MSVSonicBackgroundTaskProvider %p Task #%ld [%{public}@] expired", &v14, 0x20u);
+      v17 = 2114;
+      v18 = name;
+      _os_log_impl(&dword_1AC81F000, v11, OS_LOG_TYPE_DEFAULT, "MSVSonicBackgroundTaskProvider %p Task #%ld [%{public}@] expired", &v13, 0x20u);
     }
 
     v7[2](v7);
   }
 
   os_unfair_recursive_lock_unlock();
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endTask:(unint64_t)task
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   os_unfair_recursive_lock_lock_with_options();
   timeoutGuards = self->_timeoutGuards;
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:task];
@@ -73,24 +71,22 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       name = [v10 name];
-      v20 = 134218498;
+      v19 = 134218498;
       selfCopy = self;
-      v22 = 2048;
+      v21 = 2048;
       taskCopy = task;
-      v24 = 2114;
-      v25 = name;
-      _os_log_impl(&dword_1AC81F000, v17, OS_LOG_TYPE_DEFAULT, "MSVSonicBackgroundTaskProvider %p Task #%ld [%{public}@] ended", &v20, 0x20u);
+      v23 = 2114;
+      v24 = name;
+      _os_log_impl(&dword_1AC81F000, v17, OS_LOG_TYPE_DEFAULT, "MSVSonicBackgroundTaskProvider %p Task #%ld [%{public}@] ended", &v19, 0x20u);
     }
   }
 
   os_unfair_recursive_lock_unlock();
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)beginTaskWithName:(id)name expirationHandler:(id)handler
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   handlerCopy = handler;
   os_unfair_recursive_lock_lock_with_options();
@@ -107,20 +103,20 @@
     objc_initWeak(&location, self);
     v9 = [MSVBlockGuard alloc];
     invalidationDuration = self->_invalidationDuration;
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __70__MSVSonicBackgroundTaskProvider_beginTaskWithName_expirationHandler___block_invoke;
-    v26[3] = &unk_1E7981840;
-    objc_copyWeak(v27, &location);
-    v27[1] = v7;
-    v11 = [(MSVBlockGuard *)v9 initWithTimeout:v26 interruptionHandler:invalidationDuration];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __70__MSVSonicBackgroundTaskProvider_beginTaskWithName_expirationHandler___block_invoke_2;
-    v24[3] = &unk_1E7981778;
-    objc_copyWeak(v25, &location);
-    v25[1] = v7;
-    [(MSVSonicAssertion *)v8 setInvalidationHandler:v24];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __70__MSVSonicBackgroundTaskProvider_beginTaskWithName_expirationHandler___block_invoke;
+    v25[3] = &unk_1E7981840;
+    objc_copyWeak(v26, &location);
+    v26[1] = v7;
+    v11 = [(MSVBlockGuard *)v9 initWithTimeout:v25 interruptionHandler:invalidationDuration];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __70__MSVSonicBackgroundTaskProvider_beginTaskWithName_expirationHandler___block_invoke_2;
+    v23[3] = &unk_1E7981778;
+    objc_copyWeak(v24, &location);
+    v24[1] = v7;
+    [(MSVSonicAssertion *)v8 setInvalidationHandler:v23];
     v12 = MEMORY[0x1B26EC6C0](handlerCopy);
     expirationHandlers = self->_expirationHandlers;
     v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v7];
@@ -139,15 +135,15 @@
     {
       *buf = 134218498;
       selfCopy2 = self;
-      v31 = 2048;
-      v32 = v7;
-      v33 = 2114;
-      v34 = nameCopy;
+      v30 = 2048;
+      v31 = v7;
+      v32 = 2114;
+      v33 = nameCopy;
       _os_log_impl(&dword_1AC81F000, v19, OS_LOG_TYPE_DEFAULT, "MSVSonicBackgroundTaskProvider %p Task #%ld [%{public}@] started", buf, 0x20u);
     }
 
-    objc_destroyWeak(v25);
-    objc_destroyWeak(v27);
+    objc_destroyWeak(v24);
+    objc_destroyWeak(v26);
     objc_destroyWeak(&location);
   }
 
@@ -158,10 +154,10 @@
     {
       *buf = 134218498;
       selfCopy2 = self;
-      v31 = 2048;
-      v32 = v7;
-      v33 = 2114;
-      v34 = nameCopy;
+      v30 = 2048;
+      v31 = v7;
+      v32 = 2114;
+      v33 = nameCopy;
       _os_log_impl(&dword_1AC81F000, v20, OS_LOG_TYPE_DEFAULT, "MSVSonicBackgroundTaskProvider %p Task #%ld [%{public}@] failed to start", buf, 0x20u);
     }
 
@@ -170,7 +166,6 @@
 
   os_unfair_recursive_lock_unlock();
 
-  v21 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

@@ -154,7 +154,7 @@ LABEL_6:
   equalCopy = equal;
   if (equalCopy == self)
   {
-    v10 = 1;
+    isEqualToString = 1;
   }
 
   else
@@ -169,26 +169,26 @@ LABEL_6:
       v9 = v8;
       if (v7 == v8)
       {
-        v10 = 1;
+        isEqualToString = 1;
       }
 
       else
       {
-        v10 = 0;
+        isEqualToString = 0;
         if (v7 && v8)
         {
-          v10 = [v7 isEqualToString:v8];
+          isEqualToString = objc_msgSend_isEqualToString_(v7);
         }
       }
     }
 
     else
     {
-      v10 = 0;
+      isEqualToString = 0;
     }
   }
 
-  return v10;
+  return isEqualToString;
 }
 
 - (unint64_t)hash

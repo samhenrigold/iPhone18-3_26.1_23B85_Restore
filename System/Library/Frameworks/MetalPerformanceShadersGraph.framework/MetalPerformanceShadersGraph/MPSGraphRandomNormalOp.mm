@@ -25,147 +25,147 @@
 
 - (void)makeMLIROpWithBuilder:(void *)builder symbolTable:(void *)table inputValues:(void *)values opInitialization:(BOOL)initialization name:(id)name
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  mpsFileLoc("[MPSGraphRandomNormalOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphRandomOps.mm", __p);
+  mpsFileLoc(__p, "[MPSGraphRandomNormalOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphRandomOps.mm");
   v12 = nameCopy;
-  v53 = 260;
-  v52[0] = __p;
-  StringAttr = mlir::Builder::getStringAttr(builder, v52);
-  v15 = mlir::FileLineColLoc::get(StringAttr, 0x120u, 0);
+  v60 = 260;
+  v59[0] = __p;
+  StringAttr = mlir::Builder::getStringAttr(builder, v59);
+  v16 = mlir::FileLineColLoc::get(StringAttr, 0x120u, 0);
   if (v12)
   {
-    v16 = v12;
+    v17 = v12;
     uTF8String = [v12 UTF8String];
-    v18 = strlen(uTF8String);
-    if (v18 >= 0x7FFFFFFFFFFFFFF8)
+    v19 = strlen(uTF8String);
+    if (v19 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v19 = v18;
-    if (v18 >= 0x17)
+    v20 = v19;
+    if (v19 >= 0x17)
     {
       operator new();
     }
 
-    v59[6] = v18;
-    if (v18)
+    *(&__dst[0].__r_.__value_.__s + 23) = v19;
+    if (v19)
     {
-      memmove(&__dst, uTF8String, v18);
+      memmove(__dst, uTF8String, v19);
     }
 
-    v20 = &__dst + v19;
+    v21 = __dst + v20;
   }
 
   else
   {
-    v59[6] = 17;
-    v58 = 108;
-    __dst = *"mps.random_normal";
-    v20 = v59;
+    *(&__dst[0].__r_.__value_.__s + 23) = 17;
+    __dst[0].__r_.__value_.__s.__data_[16] = 108;
+    *&__dst[0].__r_.__value_.__l.__data_ = *"mps.random_normal";
+    v21 = &__dst[0].__r_.__value_.__s.__data_[17];
   }
 
-  *v20 = 0;
-  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, v14, &v54);
-  v21 = v54.__r_.__value_.__r.__words[0];
-  if ((v54.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  *v21 = 0;
+  MPSSymbolTable::insertOpInSymbolTable(table, __dst, &v61, v14, v15);
+  v22 = v61.__r_.__value_.__r.__words[0];
+  if ((v61.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v21 = &v54;
+    v22 = &v61;
   }
 
-  v22 = 1;
-  HIBYTE(v53) = 1;
-  if (v21->__r_.__value_.__s.__data_[0])
+  v23 = 1;
+  HIBYTE(v60) = 1;
+  if (v22->__r_.__value_.__s.__data_[0])
   {
-    v52[0] = v21;
-    v22 = 3;
+    v59[0] = v22;
+    v23 = 3;
   }
 
-  LOBYTE(v53) = v22;
-  v23 = mlir::Builder::getStringAttr(builder, v52);
-  v24 = mlir::NameLoc::get(v23, v15);
-  if (SHIBYTE(v54.__r_.__value_.__r.__words[2]) < 0)
+  LOBYTE(v60) = v23;
+  v24 = mlir::Builder::getStringAttr(builder, v59);
+  v25 = mlir::NameLoc::get(v24, v16);
+  if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v54.__r_.__value_.__l.__data_);
-    if ((v59[6] & 0x80000000) == 0)
+    operator delete(v61.__r_.__value_.__l.__data_);
+    if ((SHIBYTE(__dst[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_16;
     }
   }
 
-  else if ((v59[6] & 0x80000000) == 0)
+  else if ((SHIBYTE(__dst[0].__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_16;
   }
 
-  operator delete(__dst);
+  operator delete(__dst[0].__r_.__value_.__l.__data_);
 LABEL_16:
 
-  if (v46 < 0)
+  if (v53 < 0)
   {
     operator delete(__p[0]);
   }
 
   MLIRElementType = getMLIRElementType(*builder, *(&self->_dataType + 1));
-  v26 = *values;
+  v30 = *values;
   if (*(values + 1) - *values <= 8uLL)
   {
     std::vector<mlir::Value>::__throw_out_of_range[abi:ne200100]();
   }
 
-  v27 = MLIRElementType;
-  v28 = llvm::detail::IEEEFloat::IEEEFloat(v52, self->_mean);
-  v29 = llvm::APFloatBase::IEEEsingle(v28);
-  llvm::APFloat::Storage::Storage(&v51, v52, v29);
-  llvm::detail::IEEEFloat::~IEEEFloat(v52);
-  llvm::detail::IEEEFloat::IEEEFloat(v52, self->_standardDeviation);
-  llvm::APFloat::Storage::Storage(&v50, v52, v29);
-  llvm::detail::IEEEFloat::~IEEEFloat(v52);
+  v31 = MLIRElementType;
+  v32 = llvm::detail::IEEEFloat::IEEEFloat(v59, self->_mean, v27, v28, v29);
+  v33 = llvm::APFloatBase::IEEEsingle(v32);
+  llvm::APFloat::Storage::Storage(&v58, v59, v33);
+  llvm::detail::IEEEFloat::~IEEEFloat(v59);
+  llvm::detail::IEEEFloat::IEEEFloat(v59, self->_standardDeviation, v34, v35, v36);
+  llvm::APFloat::Storage::Storage(&v57, v59, v33);
+  llvm::detail::IEEEFloat::~IEEEFloat(v59);
   samplingMethod = self->_samplingMethod;
-  v47 = v24;
-  Context = mlir::Attribute::getContext(&v47);
-  v32 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::RandomNormalOp,void>::id, Context);
-  if ((v33 & 1) == 0)
+  v54 = v25;
+  Context = mlir::Attribute::getContext(&v54);
+  v39 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::RandomNormalOp,void>::id, Context);
+  if ((v40 & 1) == 0)
   {
-    v56 = 1283;
-    v54.__r_.__value_.__r.__words[2] = "mps.random_normal";
-    v55 = 17;
-    v49 = 259;
-    llvm::operator+(&v54, &v48, &__dst);
-    llvm::report_fatal_error(&__dst, 1);
+    v63 = 1283;
+    v61.__r_.__value_.__r.__words[2] = "mps.random_normal";
+    v62 = 17;
+    v56 = 259;
+    llvm::operator+(&v61, &v55, __dst);
+    llvm::report_fatal_error(__dst, 1);
   }
 
-  mlir::OperationState::OperationState(v52, v24, v32);
-  v34 = *v26;
-  v35 = v26[1];
-  v36 = v51.n128_u64[0];
-  v38 = llvm::APFloatBase::PPCDoubleDouble(v37);
-  if (v38 == v36)
+  mlir::OperationState::OperationState(v59, v25, v39);
+  v41 = *v30;
+  v42 = v30[1];
+  v43 = v58.n128_u64[0];
+  v45 = llvm::APFloatBase::PPCDoubleDouble(v44);
+  if (v45 == v43)
   {
-    llvm::detail::DoubleAPFloat::DoubleAPFloat((&__dst + 8), &v51);
-  }
-
-  else
-  {
-    llvm::detail::IEEEFloat::IEEEFloat(&__dst + 8, &v51);
-  }
-
-  if (v38 == v50.n128_u64[0])
-  {
-    llvm::detail::DoubleAPFloat::DoubleAPFloat(&v54.__r_.__value_.__r.__words[1], &v50);
+    llvm::detail::DoubleAPFloat::DoubleAPFloat(&__dst[0].__r_.__value_.__r.__words[1], &v58);
   }
 
   else
   {
-    llvm::detail::IEEEFloat::IEEEFloat(&v54.__r_.__value_.__l.__size_, &v50);
+    llvm::detail::IEEEFloat::IEEEFloat(&__dst[0].__r_.__value_.__l.__size_, &v58);
   }
 
-  mlir::mps::RandomNormalOp::build(builder, v52, v34, v35, v27, &__dst, &v54, samplingMethod);
-  if (v38 == v54.__r_.__value_.__l.__size_)
+  if (v45 == v57.n128_u64[0])
   {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v54.__r_.__value_.__r.__words[1]);
-    if (v38 != *(&__dst + 1))
+    llvm::detail::DoubleAPFloat::DoubleAPFloat(&v61.__r_.__value_.__r.__words[1], &v57);
+  }
+
+  else
+  {
+    llvm::detail::IEEEFloat::IEEEFloat(&v61.__r_.__value_.__l.__size_, &v57);
+  }
+
+  mlir::mps::RandomNormalOp::build(builder, v59, v41, v42, v31, __dst, &v61, samplingMethod);
+  if (v45 == v61.__r_.__value_.__l.__size_)
+  {
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v61.__r_.__value_.__r.__words[1]);
+    if (v45 != __dst[0].__r_.__value_.__l.__size_)
     {
       goto LABEL_30;
     }
@@ -173,54 +173,54 @@ LABEL_16:
 
   else
   {
-    llvm::detail::IEEEFloat::~IEEEFloat(&v54.__r_.__value_.__r.__words[1]);
-    if (v38 != *(&__dst + 1))
+    llvm::detail::IEEEFloat::~IEEEFloat(&v61.__r_.__value_.__r.__words[1]);
+    if (v45 != __dst[0].__r_.__value_.__l.__size_)
     {
 LABEL_30:
-      llvm::detail::IEEEFloat::~IEEEFloat((&__dst + 8));
+      llvm::detail::IEEEFloat::~IEEEFloat(&__dst[0].__r_.__value_.__r.__words[1]);
       goto LABEL_33;
     }
   }
 
-  llvm::detail::DoubleAPFloat::~DoubleAPFloat((&__dst + 8));
+  llvm::detail::DoubleAPFloat::~DoubleAPFloat(&__dst[0].__r_.__value_.__r.__words[1]);
 LABEL_33:
-  v39 = mlir::OpBuilder::create(builder, v52);
-  v40 = *(*(v39 + 48) + 16);
-  mlir::OperationState::~OperationState(v52);
-  if (v40 == &mlir::detail::TypeIDResolver<mlir::mps::RandomNormalOp,void>::id)
+  v46 = mlir::OpBuilder::create(builder, v59);
+  v47 = *(*(v46 + 6) + 16);
+  mlir::OperationState::~OperationState(v59);
+  if (v47 == &mlir::detail::TypeIDResolver<mlir::mps::RandomNormalOp,void>::id)
   {
-    v41 = v39;
+    v48 = v46;
   }
 
   else
   {
-    v41 = 0;
+    v48 = 0;
   }
 
-  v44 = v41 - 16;
-  if (v38 == v50.n128_u64[0])
+  v51 = v48 - 16;
+  if (v45 == v57.n128_u64[0])
   {
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v50);
-    if (v38 != v51.n128_u64[0])
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v57);
+    if (v45 != v58.n128_u64[0])
     {
       goto LABEL_38;
     }
 
 LABEL_40:
-    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v51);
+    llvm::detail::DoubleAPFloat::~DoubleAPFloat(&v58);
     goto LABEL_41;
   }
 
-  llvm::detail::IEEEFloat::~IEEEFloat(&v50);
-  if (v38 == v51.n128_u64[0])
+  llvm::detail::IEEEFloat::~IEEEFloat(&v57);
+  if (v45 == v58.n128_u64[0])
   {
     goto LABEL_40;
   }
 
 LABEL_38:
-  llvm::detail::IEEEFloat::~IEEEFloat(&v51);
+  llvm::detail::IEEEFloat::~IEEEFloat(&v58);
 LABEL_41:
-  DefiningOp = mlir::Value::getDefiningOp(&v44);
+  DefiningOp = mlir::Value::getDefiningOp(&v51);
 
   return DefiningOp;
 }

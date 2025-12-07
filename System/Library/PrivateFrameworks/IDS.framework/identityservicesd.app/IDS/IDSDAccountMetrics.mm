@@ -274,7 +274,7 @@ LABEL_10:
 + (BOOL)isProductionEnvironment
 {
   v2 = IMGetEnvironmentName();
-  v3 = [v2 isEqualToIgnoringCase:@"prod"];
+  v3 = objc_msgSend_isEqualToIgnoringCase_(v2);
 
   return v3;
 }

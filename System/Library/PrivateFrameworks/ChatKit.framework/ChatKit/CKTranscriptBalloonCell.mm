@@ -143,7 +143,7 @@
       v15 = 0u;
       v12 = 0u;
       v13 = 0u;
-      [balloonView balloonDescriptor];
+      objc_msgSend_balloonDescriptor(balloonView);
       traitCollection = [(CKTranscriptBalloonCell *)self traitCollection];
       v11[4] = v16;
       v11[5] = v17;
@@ -507,7 +507,7 @@ LABEL_11:
   v6 = balloonView;
   if (balloonView)
   {
-    [balloonView balloonDescriptor];
+    objc_msgSend_balloonDescriptor(balloonView);
   }
 
   else
@@ -532,7 +532,7 @@ LABEL_11:
         v14 = layer;
         if (layer)
         {
-          [layer transform];
+          objc_msgSend_transform(layer);
           v15 = v16;
         }
 
@@ -2049,7 +2049,7 @@ uint64_t __54__CKTranscriptBalloonCell__animateLowerBracketToLoop___block_invoke
   memset(&v18, 0, sizeof(v18));
   if (layer)
   {
-    [layer transform];
+    objc_msgSend_transform(layer);
     v12 = 0uLL;
   }
 
@@ -2744,7 +2744,7 @@ LABEL_31:
   v30 = IMLogHandleForCategory();
   if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
-    [CKTranscriptBalloonCell(CKChatItem) configureForChatItem:context:animated:animationDuration:animationCurve:];
+    [CKTranscriptBalloonCell(CKChatItem) configureForChatItem:itemCopy context:? animated:? animationDuration:? animationCurve:?];
   }
 
   balloonView2 = [(CKTranscriptBalloonCell *)self balloonView];
@@ -2752,7 +2752,7 @@ LABEL_31:
 LABEL_47:
 }
 
-uint64_t __110__CKTranscriptBalloonCell_CKChatItem__configureForChatItem_context_animated_animationDuration_animationCurve___block_invoke(uint64_t a1)
+void *__110__CKTranscriptBalloonCell_CKChatItem__configureForChatItem_context_animated_animationDuration_animationCurve___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setFrame:{*(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72)}];
   result = [*(a1 + 40) setNeedsLayout];
@@ -2772,14 +2772,15 @@ uint64_t __110__CKTranscriptBalloonCell_CKChatItem__configureForChatItem_context
   mEMORY[0x1E6994658] = [MEMORY[0x1E6994658] sharedSystemShellSwitcher];
   isClarityBoardEnabled = [mEMORY[0x1E6994658] isClarityBoardEnabled];
 
-  if (CKIsRunningInMessagesViewService() || CKIsRunningInMessagesNotificationExtension() || CKIsRunningInRemoteIntentClient())
+  v6 = CKIsRunningInMessagesViewService();
+  if (v6 || CKIsRunningInMessagesNotificationExtension(v6) || CKIsRunningInRemoteIntentClient())
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v6 = [itemCopy canPerformQuickAction] & (isClarityBoardEnabled ^ 1);
+    v7 = [itemCopy canPerformQuickAction] & (isClarityBoardEnabled ^ 1);
   }
 
   iMChatItem = [itemCopy IMChatItem];
@@ -2797,10 +2798,10 @@ uint64_t __110__CKTranscriptBalloonCell_CKChatItem__configureForChatItem_context
   {
     [(CKTranscriptBalloonCell *)self setIsRichLink:1];
     [(CKTranscriptBalloonCell *)self updateQuickActionButtonVisibility];
-    if ((v6 & 1) == 0)
+    if ((v7 & 1) == 0)
     {
 LABEL_10:
-      v9 = 0;
+      v10 = 0;
       goto LABEL_18;
     }
   }
@@ -2821,8 +2822,8 @@ LABEL_10:
     }
 
     objc_opt_class();
-    v13 = objc_opt_isKindOfClass();
-    if (v13 & v6)
+    v14 = objc_opt_isKindOfClass();
+    if (v14 & v7)
     {
       layoutRecipe = [itemCopy layoutRecipe];
       isLastItem = [layoutRecipe isLastItem];
@@ -2830,24 +2831,24 @@ LABEL_10:
 
     else
     {
-      isLastItem = (v13 ^ 1) & v6;
+      isLastItem = (v14 ^ 1) & v7;
     }
 
-    v16 = MEMORY[0x1E69A5C30];
+    v17 = MEMORY[0x1E69A5C30];
     message = [itemCopy message];
     iMChatItem4 = [itemCopy IMChatItem];
-    v19 = [v16 photosSyndicationIdentifiersForMessage:message transcriptChatItem:iMChatItem4];
+    v20 = [v17 photosSyndicationIdentifiersForMessage:message transcriptChatItem:iMChatItem4];
 
-    [(CKTranscriptBalloonCell *)self setSyndicationIdentifiers:v19];
+    [(CKTranscriptBalloonCell *)self setSyndicationIdentifiers:v20];
     if ((isLastItem & 1) == 0)
     {
       goto LABEL_10;
     }
   }
 
-  v9 = [(CKTranscriptBalloonCell *)self _isCommSafetyRestrictedForChatItem:itemCopy]^ 1;
+  v10 = [(CKTranscriptBalloonCell *)self _isCommSafetyRestrictedForChatItem:itemCopy]^ 1;
 LABEL_18:
-  [(CKTranscriptBalloonCell *)self setCanShowQuickActionButton:v9];
+  [(CKTranscriptBalloonCell *)self setCanShowQuickActionButton:v10];
 }
 
 - (BOOL)_isCommSafetyRestrictedForChatItem:(id)item

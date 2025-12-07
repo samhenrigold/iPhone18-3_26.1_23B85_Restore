@@ -506,7 +506,7 @@ LABEL_3:
         [videoCompressionProperties setObject:pixelTransferProperties forKey:*MEMORY[0x1E6983798]];
       }
 
-      [(AVOutputSettings *)outputSettings minimumFrameDuration];
+      objc_msgSend_minimumFrameDuration(outputSettings);
       v15 = *(*(CMBaseObjectGetVTable() + 16) + 72);
       if (v15)
       {
@@ -523,7 +523,7 @@ LABEL_14:
 
     pixelBufferAttributes = [(AVOutputSettings *)outputSettings pixelBufferAttributes];
     v19 = [AVAssetReaderOutput _figAssetReaderVideoScalingPropertiesFromVideoSettings:outputSettings withFormatDescription:[(AVAssetReaderTrackOutput *)self _formatDescriptions]];
-    [(AVOutputSettings *)outputSettings minimumFrameDuration];
+    objc_msgSend_minimumFrameDuration(outputSettings);
     v20 = *(*(CMBaseObjectGetVTable() + 16) + 48);
     if (!v20)
     {

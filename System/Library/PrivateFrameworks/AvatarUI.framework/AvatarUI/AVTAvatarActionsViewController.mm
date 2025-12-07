@@ -50,17 +50,17 @@
   providerCopy = provider;
   controllerCopy = controller;
   environmentCopy = environment;
-  v15.receiver = self;
-  v15.super_class = AVTAvatarActionsViewController;
-  v12 = [(AVTAvatarActionsViewController *)&v15 initWithNibName:0 bundle:0];
+  v17.receiver = self;
+  v17.super_class = AVTAvatarActionsViewController;
+  v12 = [(AVTAvatarActionsViewController *)&v17 initWithNibName:0 bundle:0];
   v13 = v12;
   if (v12)
   {
     objc_storeStrong(&v12->_sessionProvider, provider);
     objc_storeStrong(&v13->_actionsController, controller);
     objc_storeStrong(&v13->_environment, environment);
-    [controllerCopy setDelegate:v13];
-    v13->_allowFacetracking = AVTUIIsFacetrackingSupported();
+    v14 = [controllerCopy setDelegate:v13];
+    v13->_allowFacetracking = AVTUIIsFacetrackingSupported(v14, v15);
   }
 
   return v13;
@@ -78,19 +78,20 @@
   avtView2 = [sessionCopy avtView];
   [avtView2 setEnableReticle:v11];
 
-  if ((AVTUIForceCameraDisclosures_once() & 1) != 0 || AVTDeviceIsGreenTea())
+  v13 = AVTUIForceCameraDisclosures_once();
+  if ((v13 & 1) != 0 || AVTDeviceIsGreenTea(v13, v14))
   {
-    v13 = AVTUIHasDisplayedCameraDisclosureSplashScreen();
+    v15 = AVTUIHasDisplayedCameraDisclosureSplashScreen();
   }
 
   else
   {
-    v13 = 1;
+    v15 = 1;
   }
 
   allowFacetracking = [(AVTAvatarActionsViewController *)self allowFacetracking];
   avtView3 = [sessionCopy avtView];
-  [avtView3 setEnableFaceTracking:allowFacetracking & v13];
+  [avtView3 setEnableFaceTracking:allowFacetracking & v15];
 
   view = [(AVTAvatarActionsViewController *)self view];
   backgroundColor = [view backgroundColor];
@@ -186,7 +187,7 @@
   if (deviceIsMac)
   {
     v5 = [AVTToolbarButton alloc];
-    v6 = AVTAvatarUIBundle();
+    v6 = AVTAvatarUIBundle(v5);
     v7 = [v6 localizedStringForKey:@"DONE" value:&stru_1F39618F0 table:@"Localized"];
     v8 = [(AVTToolbarButton *)v5 initWithTitle:v7 isDefault:1];
 

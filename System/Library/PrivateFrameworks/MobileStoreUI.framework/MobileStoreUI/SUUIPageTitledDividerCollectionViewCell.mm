@@ -475,13 +475,13 @@ uint64_t __79__SUUIPageTitledDividerCollectionViewCell_reloadWithViewElement_wid
 {
   if (scheme)
   {
-    primaryTextColor = [scheme primaryTextColor];
-    [(UILabel *)self->_dividerLabel setTextColor:primaryTextColor];
-    [(UIButton *)self->_dividerButton setTitleColor:primaryTextColor forState:0];
-    [(UIButton *)self->_dividerButton setTintColor:primaryTextColor];
-    [(UIView *)self->_leftLine setBackgroundColor:primaryTextColor];
+    v13 = objc_msgSend_primaryTextColor(scheme, a2);
+    [(UILabel *)self->_dividerLabel setTextColor:v13];
+    [(UIButton *)self->_dividerButton setTitleColor:v13 forState:0];
+    [(UIButton *)self->_dividerButton setTintColor:v13];
+    [(UIView *)self->_leftLine setBackgroundColor:v13];
     rightLine = self->_rightLine;
-    v5 = primaryTextColor;
+    v5 = v13;
   }
 
   else
@@ -501,7 +501,7 @@ uint64_t __79__SUUIPageTitledDividerCollectionViewCell_reloadWithViewElement_wid
     v12 = self->_rightLine;
     v5 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.2];
     rightLine = v12;
-    primaryTextColor = v5;
+    v13 = v5;
   }
 
   [(UIView *)rightLine setBackgroundColor:v5];
@@ -511,7 +511,7 @@ uint64_t __79__SUUIPageTitledDividerCollectionViewCell_reloadWithViewElement_wid
 {
   titleCopy = title;
   dividerTitle = [(SUUIPageTitledDividerCollectionViewCell *)self dividerTitle];
-  if (dividerTitle != titleCopy && ([titleCopy isEqualToString:dividerTitle] & 1) == 0)
+  if (dividerTitle != titleCopy && (objc_msgSend_isEqualToString_(titleCopy) & 1) == 0)
   {
     dividerLabel = self->_dividerLabel;
     if (titleCopy)

@@ -15,7 +15,7 @@
 - (NSArray)keyCommands
 {
   sub_190B4FB30();
-  sub_1902188FC(0, &qword_1EAD466C8);
+  sub_1902188FC(0, &qword_1EAD466C8, 0x1E69DCBA0);
   v2 = sub_190D57160();
 
   return v2;

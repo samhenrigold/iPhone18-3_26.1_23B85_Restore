@@ -34,12 +34,18 @@
 
   if (identifier)
   {
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v5 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
-  v5 = sub_1000C133C();
+  else
+  {
+    v5 = 0;
+    v6 = 0;
+  }
 
-  return v5;
+  v7 = sub_1000C133C(v5, v6);
+
+  return v7;
 }
 
 - (PHBlockTableViewCell)initWithCoder:(id)coder

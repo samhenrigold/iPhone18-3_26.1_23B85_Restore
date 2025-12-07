@@ -3,13 +3,13 @@
 
 @implementation UISearchControllerView
 
-void __53___UISearchControllerView__ensureViewOfClassIsOnTop___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void __53___UISearchControllerView__ensureViewOfClassIsOnTop___block_invoke(uint64_t a1, void *a2, char *a3, _BYTE *a4)
 {
   v7 = a2;
   if (objc_opt_isKindOfClass())
   {
     v8 = [*(a1 + 32) subviews];
-    v9 = [v8 count] - 1;
+    v9 = ([v8 count] - 1);
 
     if (v9 != a3)
     {

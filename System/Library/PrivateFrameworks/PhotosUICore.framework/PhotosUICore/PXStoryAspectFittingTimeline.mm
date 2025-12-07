@@ -66,9 +66,9 @@ LABEL_3:
         memset(v25, 0, sizeof(v25));
         if (v19)
         {
-          [v19 clipTimeRange];
-          memset(&v24[30], 0, 32);
-          [v19 clipInfo];
+          objc_msgSend_clipTimeRange(v19);
+          v24[31] = 0u;
+          objc_msgSend_clipInfo(v19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         }
 
         else
@@ -213,7 +213,8 @@ void __65__PXStoryAspectFittingTimeline__setupKeySegmentDisplayAssetClips__block
   x = rect.origin.x;
   blockCopy = block;
   memset(&v25[1], 0, sizeof(CMTimeRange));
-  [(PXStoryDerivedTimeline *)self timeRangeForSegmentWithIdentifier:[(PXStoryAspectFittingTimeline *)self keySegmentIdentifier]];
+  [(PXStoryAspectFittingTimeline *)self keySegmentIdentifier];
+  objc_msgSend_timeRangeForSegmentWithIdentifier_(self);
   v12 = *&range->var0.var3;
   *&lhs.start.value = *&range->var0.var0;
   *&lhs.start.epoch = v12;

@@ -550,14 +550,14 @@ LABEL_6:
   }
 }
 
-void __50__GKLeaderboardListViewController_setNeedsRefresh__block_invoke()
+void __50__GKLeaderboardListViewController_setNeedsRefresh__block_invoke(uint64_t a1)
 {
   gk_dispatch_debounce();
-  v0 = dispatch_time(0, 1000000000);
-  dispatch_after(v0, MEMORY[0x277D85CD0], &__block_literal_global_37);
+  v1 = dispatch_time(0, 1000000000);
+  dispatch_after(v1, MEMORY[0x277D85CD0], &__block_literal_global_37);
 }
 
-uint64_t __50__GKLeaderboardListViewController_setNeedsRefresh__block_invoke_2(uint64_t a1)
+void *__50__GKLeaderboardListViewController_setNeedsRefresh__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) isLoading];
   if ((result & 1) == 0)

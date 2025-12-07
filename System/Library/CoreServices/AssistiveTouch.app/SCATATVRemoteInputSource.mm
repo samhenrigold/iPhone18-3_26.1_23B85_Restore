@@ -58,7 +58,7 @@
   eventCopy = event;
   if (![eventCopy creatorHIDEvent])
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"No HID event found. suspicious");
     goto LABEL_17;
   }
 

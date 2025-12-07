@@ -1245,7 +1245,7 @@ LABEL_32:
               v9 = @"\\c";
               goto LABEL_18;
             case 92:
-              v9 = @"\\\\"";
+              v9 = @"\\\";
               goto LABEL_18;
             case 8232:
               v9 = @"\\i";

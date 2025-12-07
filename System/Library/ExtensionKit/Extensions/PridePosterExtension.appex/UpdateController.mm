@@ -7,8 +7,8 @@
 
 - (void)updateDescriptors:(NSDictionary *)descriptors withSessionInfo:(PRUpdatingSessionInfo *)info completion:(id)completion
 {
-  v9 = (*(*(sub_100002398(&qword_10003C328, &qword_100026338) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v9 = sub_100002398(&qword_10003C328, &qword_100026338);
+  __chkstk_darwin(v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(completion);
   v13 = swift_allocObject();

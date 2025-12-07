@@ -1970,7 +1970,7 @@ LABEL_12:
   [UIView animateWithDuration:4 delay:v20 options:0 animations:zoomAnimationDuration completion:v17];
 }
 
-uint64_t __138__UIMovieScrubber_movieScrubberTrackView_clampedSizeWidthDelta_actualSizeWidthDelta_originXDelta_minimumVisibleValue_maximumVisibleValue___block_invoke(uint64_t a1)
+void *__138__UIMovieScrubber_movieScrubberTrackView_clampedSizeWidthDelta_actualSizeWidthDelta_originXDelta_minimumVisibleValue_maximumVisibleValue___block_invoke(uint64_t a1)
 {
   if ((*(*(a1 + 32) + 716) & 0x400) != 0)
   {

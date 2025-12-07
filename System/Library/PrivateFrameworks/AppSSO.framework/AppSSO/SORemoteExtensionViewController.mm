@@ -7,11 +7,11 @@
 
 - (void)viewServiceDidTerminateWithError:(id)error
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   errorCopy = error;
-  v12.receiver = self;
-  v12.super_class = SORemoteExtensionViewController;
-  [(_UIRemoteViewController *)&v12 viewServiceDidTerminateWithError:errorCopy];
+  v11.receiver = self;
+  v11.super_class = SORemoteExtensionViewController;
+  [(_UIRemoteViewController *)&v11 viewServiceDidTerminateWithError:errorCopy];
   if (errorCopy)
   {
     domain = [errorCopy domain];
@@ -38,7 +38,7 @@
     if (os_log_type_enabled(SO_LOG_SORemoteExtensionViewController_log, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v14 = errorCopy;
+      v13 = errorCopy;
       _os_log_impl(&dword_1C1317000, v7, OS_LOG_TYPE_INFO, "viewServiceDidTerminateWithError: %{public}@", buf, 0xCu);
     }
 
@@ -53,8 +53,6 @@
   }
 
 LABEL_12:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (SORemoteExtensionViewControllerDelegate)delegate

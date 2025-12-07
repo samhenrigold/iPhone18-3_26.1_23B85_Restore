@@ -32,7 +32,7 @@
 
 - (void)registerSelectedResponse:(id)response config:(id)config
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   configCopy = config;
   v8 = [SGQuickResponsesReplies normalizeReplyText:responseCopy];
@@ -49,40 +49,38 @@
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v15 = 138412290;
-    v16 = responseCopy;
-    _os_log_error_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "No reply text string exists in config for selected response: %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = responseCopy;
+    _os_log_error_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "No reply text string exists in config for selected response: %@", &v14, 0xCu);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerDisplayedResponses:(id)responses config:(id)config
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   responsesCopy = responses;
   configCopy = config;
-  v20 = objc_opt_new();
+  v19 = objc_opt_new();
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = responsesCopy;
-  v7 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v7 = [obj countByEnumeratingWithState:&v21 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v22;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
+        v11 = *(*(&v21 + 1) + 8 * i);
         v12 = [SGQuickResponsesReplies normalizeReplyText:v11];
         replies = [configCopy replies];
         normalizedReplyTextsSet = [replies normalizedReplyTextsSet];
@@ -90,18 +88,18 @@
 
         if (v15)
         {
-          [v20 addObject:v12];
+          [v19 addObject:v12];
         }
 
         else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v27 = v11;
+          v26 = v11;
           _os_log_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "No reply text string exists in config for displayed response: %@", buf, 0xCu);
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v8 = [obj countByEnumeratingWithState:&v21 objects:v27 count:16];
     }
 
     while (v8);
@@ -109,14 +107,12 @@
 
   store = self->_store;
   language = [configCopy language];
-  [(SGQuickResponsesStore *)store addDisplayedToResponses:v20 language:language];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [(SGQuickResponsesStore *)store addDisplayedToResponses:v19 language:language];
 }
 
 - (id)sortedReplyPositionsForSemanticClass:(unint64_t)class config:(id)config
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   configCopy = config;
   replies = [configCopy replies];
   v8 = [replies replyTextsForIndex:class];
@@ -139,30 +135,30 @@
     }
 
     v16 = objc_opt_new();
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     v17 = v13;
-    v18 = [v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v26;
+      v20 = *v25;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v26 != v20)
+          if (*v25 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          position = [*(*(&v25 + 1) + 8 * i) position];
+          position = [*(*(&v24 + 1) + 8 * i) position];
           [v16 addObject:position];
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v19);
@@ -173,8 +169,6 @@
   {
     v16 = 0;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -321,18 +315,18 @@ double __79__SGQuickResponsesPersonalization_sortedReplyPositionsForSemanticClas
 
 + (id)deduplicatedReplyTextsForReplyPositions:(id)positions semanticClass:(unint64_t)class responseCount:(unint64_t)count config:(id)config
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   positionsCopy = positions;
   configCopy = config;
-  v56 = objc_opt_new();
-  v55 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:class];
+  v55 = objc_opt_new();
+  v54 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:class];
   replies = [configCopy replies];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
   if (isKindOfClass)
   {
-    v51 = configCopy;
+    v50 = configCopy;
     replies2 = [configCopy replies];
     semanticClassStyleGroups = [replies2 semanticClassStyleGroups];
     v15 = [semanticClassStyleGroups objectAtIndexedSubscript:class];
@@ -340,17 +334,17 @@ double __79__SGQuickResponsesPersonalization_sortedReplyPositionsForSemanticClas
     semanticClassReplyTexts = [replies2 semanticClassReplyTexts];
     v17 = [semanticClassReplyTexts objectAtIndexedSubscript:class];
 
-    v50 = replies2;
+    v49 = replies2;
     replyTextParent = [replies2 replyTextParent];
     firstObject = [v15 firstObject];
     unsignedIntegerValue = [firstObject unsignedIntegerValue];
 
-    v49 = v15;
+    v48 = v15;
     v19 = [v15 count];
     firstObject2 = [v17 firstObject];
     unsignedIntegerValue2 = [firstObject2 unsignedIntegerValue];
 
-    v48 = v17;
+    v47 = v17;
     v22 = [v17 count];
     for (i = objc_opt_new(); v19; --v19)
     {
@@ -368,29 +362,29 @@ double __79__SGQuickResponsesPersonalization_sortedReplyPositionsForSemanticClas
       countCopy = v22;
     }
 
-    v52 = positionsCopy;
-    v53 = countCopy;
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
+    v51 = positionsCopy;
+    v52 = countCopy;
     v60 = 0u;
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
     obj = positionsCopy;
-    v26 = [obj countByEnumeratingWithState:&v59 objects:v63 count:16];
+    v26 = [obj countByEnumeratingWithState:&v58 objects:v62 count:16];
     if (v26)
     {
       v27 = v26;
       v28 = 0;
-      v29 = *v60;
+      v29 = *v59;
 LABEL_9:
       v30 = 0;
       while (1)
       {
-        if (*v60 != v29)
+        if (*v59 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v31 = *(*(&v59 + 1) + 8 * v30);
+        v31 = *(*(&v58 + 1) + 8 * v30);
         v32 = [replyTextParent objectAtIndexedSubscript:{objc_msgSend(v31, "unsignedIntegerValue") + unsignedIntegerValue2}];
         unsignedIntegerValue3 = [v32 unsignedIntegerValue];
 
@@ -403,11 +397,11 @@ LABEL_9:
           v37 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInteger:1];
           [i setObject:v37 atIndexedSubscript:v34];
 
-          v38 = [objc_alloc(MEMORY[0x277D42648]) initWithFirst:v55 second:v31];
-          [v56 addObject:v38];
+          v38 = [objc_alloc(MEMORY[0x277D42648]) initWithFirst:v54 second:v31];
+          [v55 addObject:v38];
           ++v28;
 
-          if (v28 >= v53)
+          if (v28 >= v52)
           {
             break;
           }
@@ -415,7 +409,7 @@ LABEL_9:
 
         if (v27 == ++v30)
         {
-          v27 = [obj countByEnumeratingWithState:&v59 objects:v63 count:16];
+          v27 = [obj countByEnumeratingWithState:&v58 objects:v62 count:16];
           if (v27)
           {
             goto LABEL_9;
@@ -426,37 +420,35 @@ LABEL_9:
       }
     }
 
-    configCopy = v51;
-    positionsCopy = v52;
+    configCopy = v50;
+    positionsCopy = v51;
   }
 
   else
   {
-    v41 = [positionsCopy count];
-    if (count && v41)
+    v40 = [positionsCopy count];
+    if (count && v40)
     {
-      v42 = 1;
+      v41 = 1;
       do
       {
-        v43 = objc_alloc(MEMORY[0x277D42648]);
-        v44 = [positionsCopy objectAtIndexedSubscript:v42 - 1];
-        v45 = [v43 initWithFirst:v55 second:v44];
+        v42 = objc_alloc(MEMORY[0x277D42648]);
+        v43 = [positionsCopy objectAtIndexedSubscript:v41 - 1];
+        v44 = [v42 initWithFirst:v54 second:v43];
 
-        [v56 addObject:v45];
-        v46 = [positionsCopy count];
-        if (v42 >= count)
+        [v55 addObject:v44];
+        v45 = [positionsCopy count];
+        if (v41 >= count)
         {
           break;
         }
       }
 
-      while (v42++ < v46);
+      while (v41++ < v45);
     }
   }
 
-  v39 = *MEMORY[0x277D85DE8];
-
-  return v56;
+  return v55;
 }
 
 @end

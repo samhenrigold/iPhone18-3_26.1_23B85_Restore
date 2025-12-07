@@ -60,7 +60,7 @@
   previousItem = self->_previousItem;
   self->_previousItem = v12;
 
-  v14 = +[UIColor blackColor];
+  v14 = objc_msgSend_blackColor(UIColor);
   [(UIBarButtonItem *)self->_previousItem setTintColor:v14];
 
   [(UIBarButtonItem *)self->_previousItem setEnabled:0];
@@ -70,7 +70,7 @@
   nextItem = self->_nextItem;
   self->_nextItem = v17;
 
-  v19 = +[UIColor blackColor];
+  v19 = objc_msgSend_blackColor(UIColor);
   [(UIBarButtonItem *)self->_nextItem setTintColor:v19];
 
   [(UIBarButtonItem *)self->_nextItem setEnabled:0];
@@ -478,9 +478,9 @@ void __52__UIWebFormAccessory__applyTreatmentToAutoFillLabel__block_invoke(uint6
   }
 
   v10 = [customView titleForState:0];
-  v11 = [titleCopy isEqualToString:v10];
+  isEqualToString = objc_msgSend_isEqualToString_(titleCopy);
 
-  if ((v11 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     [customView setTitle:titleCopy forState:0];
   }

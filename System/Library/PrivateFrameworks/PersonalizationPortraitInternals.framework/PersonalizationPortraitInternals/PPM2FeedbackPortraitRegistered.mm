@@ -4,6 +4,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)domainAsString:(int)string;
+- (id)feedbackDomainStatusAsString:(int)string;
+- (id)typeAsString:(int)string;
 - (int)StringAsDomain:(id)domain;
 - (int)StringAsFeedbackDomainStatus:(id)status;
 - (int)StringAsType:(id)type;
@@ -23,7 +26,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 2))
   {
@@ -49,29 +52,29 @@
     [(PPM2FeedbackPortraitRegistered *)self setMappingId:?];
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = *(fromCopy + 5);
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(PPM2FeedbackPortraitRegistered *)self addRecords:*(*(&v12 + 1) + 8 * i), v12];
+        [(PPM2FeedbackPortraitRegistered *)self addRecords:*(*(&v11 + 1) + 8 * i), v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
@@ -87,8 +90,6 @@
     self->_feedbackDomainStatus = *(fromCopy + 7);
     *&self->_has |= 2u;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)hash
@@ -149,7 +150,6 @@ LABEL_6:
     }
   }
 
-  v6 = *(equalCopy + 52);
   if (*&self->_has)
   {
     if ((*(equalCopy + 52) & 1) == 0 || self->_domain != *(equalCopy + 6))
@@ -161,7 +161,7 @@ LABEL_6:
   else if (*(equalCopy + 52))
   {
 LABEL_24:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_25;
   }
 
@@ -202,7 +202,7 @@ LABEL_24:
     }
   }
 
-  v10 = (*(equalCopy + 52) & 2) == 0;
+  v9 = (*(equalCopy + 52) & 2) == 0;
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 52) & 2) == 0 || self->_feedbackDomainStatus != *(equalCopy + 7))
@@ -210,17 +210,17 @@ LABEL_24:
       goto LABEL_24;
     }
 
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_25:
 
-  return v10;
+  return v9;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_clientId copyWithZone:zone];
   v7 = *(v5 + 16);
@@ -244,30 +244,30 @@ LABEL_25:
   v10 = *(v5 + 32);
   *(v5 + 32) = v9;
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v11 = self->_records;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v21;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = [*(*(&v21 + 1) + 8 * i) copyWithZone:{zone, v21}];
+        v16 = [*(*(&v20 + 1) + 8 * i) copyWithZone:{zone, v20}];
         [v5 addRecords:v16];
       }
 
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v13);
@@ -283,7 +283,6 @@ LABEL_25:
     *(v5 + 52) |= 2u;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -345,7 +344,7 @@ LABEL_25:
 
 - (void)writeTo:(id)to
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_clientId)
   {
@@ -355,14 +354,12 @@ LABEL_25:
   has = self->_has;
   if (has)
   {
-    domain = self->_domain;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 
@@ -371,33 +368,32 @@ LABEL_25:
     PBDataWriterWriteStringField();
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v8 = self->_records;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v9)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_records;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v17;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v11)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 
   if (self->_activeTreatments)
@@ -407,16 +403,13 @@ LABEL_25:
 
   if ((*&self->_has & 2) != 0)
   {
-    feedbackDomainStatus = self->_feedbackDomainStatus;
     PBDataWriterWriteInt32Field();
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dictionaryRepresentation
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = dictionary;
   clientId = self->_clientId;
@@ -469,30 +462,30 @@ LABEL_25:
   if ([(NSMutableArray *)self->_records count])
   {
     v12 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_records, "count")}];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v13 = self->_records;
-    v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v25;
+      v16 = *v24;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v25 != v16)
+          if (*v24 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          dictionaryRepresentation = [*(*(&v24 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v23 + 1) + 8 * i) dictionaryRepresentation];
           [v12 addObject:dictionaryRepresentation];
         }
 
-        v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v15);
@@ -522,8 +515,6 @@ LABEL_25:
 
     [v4 setObject:v21 forKey:@"feedbackDomainStatus"];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -576,6 +567,21 @@ LABEL_25:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)feedbackDomainStatusAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278971888[string];
   }
 
   return v4;
@@ -668,6 +674,21 @@ LABEL_25:
   return v4;
 }
 
+- (id)typeAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278971858[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasType:(BOOL)type
 {
   if (type)
@@ -742,6 +763,21 @@ LABEL_25:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)domainAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278971818[string];
   }
 
   return v4;

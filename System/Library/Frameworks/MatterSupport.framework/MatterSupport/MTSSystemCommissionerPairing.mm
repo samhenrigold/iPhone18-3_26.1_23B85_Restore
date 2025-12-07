@@ -13,46 +13,44 @@
 
 - (NSArray)attributeDescriptions
 {
-  v33[9] = *MEMORY[0x277D85DE8];
+  v32[9] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   uuid = [(MTSSystemCommissionerPairing *)self uuid];
-  v31 = [v3 initWithName:@"UUID" value:uuid];
-  v33[0] = v31;
+  v30 = [v3 initWithName:@"UUID" value:uuid];
+  v32[0] = v30;
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   nodeID = [(MTSSystemCommissionerPairing *)self nodeID];
-  v29 = [v4 initWithName:@"Node ID" value:nodeID];
-  v33[1] = v29;
+  v28 = [v4 initWithName:@"Node ID" value:nodeID];
+  v32[1] = v28;
   v5 = objc_alloc(MEMORY[0x277D0F778]);
   vendorID = [(MTSSystemCommissionerPairing *)self vendorID];
-  v27 = [v5 initWithName:@"Vendor ID" value:vendorID];
-  v33[2] = v27;
+  v26 = [v5 initWithName:@"Vendor ID" value:vendorID];
+  v32[2] = v26;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   productID = [(MTSSystemCommissionerPairing *)self productID];
-  v25 = [v6 initWithName:@"Product ID" value:productID];
-  v33[3] = v25;
+  v24 = [v6 initWithName:@"Product ID" value:productID];
+  v32[3] = v24;
   v7 = objc_alloc(MEMORY[0x277D0F778]);
   deviceType = [(MTSSystemCommissionerPairing *)self deviceType];
   v8 = [v7 initWithName:@"Device Type" value:deviceType];
-  v33[4] = v8;
+  v32[4] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   serialNumber = [(MTSSystemCommissionerPairing *)self serialNumber];
   v11 = [v9 initWithName:@"Serial Number" value:serialNumber];
-  v33[5] = v11;
+  v32[5] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   name = [(MTSSystemCommissionerPairing *)self name];
   v14 = [v12 initWithName:@"Name" value:name];
-  v33[6] = v14;
+  v32[6] = v14;
   v15 = objc_alloc(MEMORY[0x277D0F778]);
   setupPayload = [(MTSSystemCommissionerPairing *)self setupPayload];
   v17 = [v15 initWithName:@"Setup Payload" value:setupPayload];
-  v33[7] = v17;
+  v32[7] = v17;
   v18 = objc_alloc(MEMORY[0x277D0F778]);
   threadCredentialManagementEnabled = [(MTSSystemCommissionerPairing *)self threadCredentialManagementEnabled];
   v20 = [v18 initWithName:@"Thread Credential Management" value:threadCredentialManagementEnabled];
-  v33[8] = v20;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:9];
-
-  v22 = *MEMORY[0x277D85DE8];
+  v32[8] = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:9];
 
   return v21;
 }
@@ -66,7 +64,7 @@
 
 - (MTSSystemCommissionerPairing)initWithCoder:(id)coder
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"MTSSCP.uuid"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"MTSSCP.nodeID"];
@@ -80,11 +78,11 @@
     v11 = v6;
     v12 = v9;
     v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"MTSSCP.serialNumber"];
-    v25 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"MTSSCP.name"];
+    v24 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"MTSSCP.name"];
     v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"MTSSCP.setupPayload"];
     v15 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"MTSSCP.threadCM"];
     v16 = v11;
-    selfCopy2 = [(MTSSystemCommissionerPairing *)selfCopy initWithUUID:v10 nodeID:v11 vendorID:v7 productID:v8 deviceType:v12 serialNumber:v13 name:v25 setupPayload:v14 threadCredentialManagementEnabled:v15];
+    selfCopy2 = [(MTSSystemCommissionerPairing *)selfCopy initWithUUID:v10 nodeID:v11 vendorID:v7 productID:v8 deviceType:v12 serialNumber:v13 name:v24 setupPayload:v14 threadCredentialManagementEnabled:v15];
 
     v18 = selfCopy2;
   }
@@ -99,17 +97,17 @@
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138544642;
-      v28 = v22;
-      v29 = 2112;
-      v30 = v10;
-      v31 = 2112;
-      v32 = v6;
-      v33 = 2112;
-      v34 = v7;
-      v35 = 2112;
-      v36 = v8;
-      v37 = 2112;
-      v38 = v19;
+      v27 = v22;
+      v28 = 2112;
+      v29 = v10;
+      v30 = 2112;
+      v31 = v6;
+      v32 = 2112;
+      v33 = v7;
+      v34 = 2112;
+      v35 = v8;
+      v36 = 2112;
+      v37 = v19;
       _os_log_impl(&dword_239824000, v21, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded uuid: %@, nodeID: %@, vendorID: %@, productID: %@, deviceType: %@", buf, 0x3Eu);
     }
 
@@ -119,7 +117,6 @@
     v12 = v19;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -207,25 +204,7 @@
               v24 = HMFEqualObjects();
 
               vendorID = v30;
-              if (!v24)
-              {
-                goto LABEL_20;
-              }
-
-              name = [(MTSSystemCommissionerPairing *)self name];
-              name2 = [v6 name];
-              v22 = HMFEqualObjects();
-
-              if (!v22)
-              {
-                goto LABEL_20;
-              }
-
-              setupPayload = [(MTSSystemCommissionerPairing *)self setupPayload];
-              setupPayload2 = [v6 setupPayload];
-              v23 = HMFEqualObjects();
-
-              if (v23)
+              if (v24 && (-[MTSSystemCommissionerPairing name](self, "name"), v25 = objc_claimAutoreleasedReturnValue(), [v6 name], v17 = objc_claimAutoreleasedReturnValue(), v22 = HMFEqualObjects(), v17, v25, v22) && (-[MTSSystemCommissionerPairing setupPayload](self, "setupPayload"), v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "setupPayload"), v18 = objc_claimAutoreleasedReturnValue(), v23 = HMFEqualObjects(), v18, v26, v23))
               {
                 threadCredentialManagementEnabled = [(MTSSystemCommissionerPairing *)self threadCredentialManagementEnabled];
                 threadCredentialManagementEnabled2 = [v6 threadCredentialManagementEnabled];
@@ -234,7 +213,6 @@
 
               else
               {
-LABEL_20:
                 v20 = 0;
               }
 

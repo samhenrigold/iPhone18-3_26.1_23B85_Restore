@@ -25,7 +25,7 @@
 
 - (void)lostModeStateWithCompletion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   lostModeState = self->_lostModeState;
   if (lostModeState)
@@ -35,53 +35,51 @@
 
     if (v7)
     {
-      v8 = LACLogDTOLostMode();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = LACLogDTOLostMode(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = self->_lostModeState;
+        v10 = self->_lostModeState;
         *buf = 138543618;
         selfCopy2 = self;
-        v18 = 2112;
-        v19 = v9;
-        _os_log_impl(&dword_1B0233000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ will use cached value %@", buf, 0x16u);
+        v19 = 2112;
+        v20 = v10;
+        _os_log_impl(&dword_1B0233000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ will use cached value %@", buf, 0x16u);
       }
 
       completionCopy[2](completionCopy, self->_lostModeState);
       goto LABEL_11;
     }
 
-    v10 = self->_lostModeState;
+    v11 = self->_lostModeState;
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
   self->_lostModeState = 0;
 
-  v11 = LACLogDTOLostMode();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v13 = LACLogDTOLostMode(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     selfCopy2 = self;
-    _os_log_impl(&dword_1B0233000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ will start query", buf, 0xCu);
+    _os_log_impl(&dword_1B0233000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ will start query", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __63__LACDTOLostModeProviderAKAdapter_lostModeStateWithCompletion___block_invoke;
-  v13[3] = &unk_1E7A96880;
-  objc_copyWeak(&v15, buf);
-  v14 = completionCopy;
-  [(LACDTOLostModeProviderAKAdapter *)self _lostModeStateWithCompletion:v13];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __63__LACDTOLostModeProviderAKAdapter_lostModeStateWithCompletion___block_invoke;
+  v14[3] = &unk_1E7A96880;
+  objc_copyWeak(&v16, buf);
+  v15 = completionCopy;
+  [(LACDTOLostModeProviderAKAdapter *)self _lostModeStateWithCompletion:v14];
 
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(buf);
 LABEL_11:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __63__LACDTOLostModeProviderAKAdapter_lostModeStateWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -107,10 +105,10 @@ void __63__LACDTOLostModeProviderAKAdapter_lostModeStateWithCompletion___block_i
 
 void __63__LACDTOLostModeProviderAKAdapter_lostModeStateWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
   v3 = *(a1 + 32);
-  v4 = LACLogDTOLostMode();
+  v4 = LACLogDTOLostMode(a1);
   v5 = v4;
   if (v3)
   {
@@ -130,24 +128,21 @@ void __63__LACDTOLostModeProviderAKAdapter_lostModeStateWithCompletion___block_i
     {
       v8 = *(a1 + 40);
       v9 = *(a1 + 48);
-      v12 = 138543618;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v9;
-      _os_log_impl(&dword_1B0233000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ did finish query with value: %@", &v12, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v9;
+      _os_log_impl(&dword_1B0233000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ did finish query with value: %@", &v10, 0x16u);
     }
 
     objc_storeStrong((*(a1 + 40) + 16), *(a1 + 48));
-    v10 = *(a1 + 48);
     (*(*(a1 + 56) + 16))();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_lostModeStateWithCompletion:(id)completion
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (getAKDeviceListRequestContextClass() && getAKAccountManagerClass() && getAKAppleIDAuthenticationControllerClass())
   {
@@ -164,21 +159,21 @@ void __63__LACDTOLostModeProviderAKAdapter_lostModeStateWithCompletion___block_i
       {
         v11 = objc_alloc_init(getAKDeviceListRequestContextClass());
         [v11 setAltDSID:v10];
-        v20[0] = v6;
-        v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
+        v19[0] = v6;
+        v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
         [v11 setSerialNumbers:v12];
 
         [v11 setFetchDeviceSafetyState:1];
         v13 = objc_alloc_init(getAKAppleIDAuthenticationControllerClass());
-        v16[0] = MEMORY[0x1E69E9820];
-        v16[1] = 3221225472;
-        v16[2] = __64__LACDTOLostModeProviderAKAdapter__lostModeStateWithCompletion___block_invoke;
-        v16[3] = &unk_1E7A968D0;
-        v19 = completionCopy;
-        v17 = v6;
-        v18 = v13;
+        v15[0] = MEMORY[0x1E69E9820];
+        v15[1] = 3221225472;
+        v15[2] = __64__LACDTOLostModeProviderAKAdapter__lostModeStateWithCompletion___block_invoke;
+        v15[3] = &unk_1E7A968D0;
+        v18 = completionCopy;
+        v16 = v6;
+        v17 = v13;
         v14 = v13;
-        [v14 deviceListWithContext:v11 completion:v16];
+        [v14 deviceListWithContext:v11 completion:v15];
       }
 
       else
@@ -200,8 +195,6 @@ void __63__LACDTOLostModeProviderAKAdapter_lostModeStateWithCompletion___block_i
     v6 = [LACError errorWithCode:-1020 debugDescription:@"Missing AuthKit dependencies"];
     (*(completionCopy + 2))(completionCopy, 0, v6);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __64__LACDTOLostModeProviderAKAdapter__lostModeStateWithCompletion___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -265,15 +258,14 @@ uint64_t __64__LACDTOLostModeProviderAKAdapter__lostModeStateWithCompletion___bl
 
 void __63__LACDTOLostModeProviderAKAdapter_lostModeStateWithCompletion___block_invoke_2_cold_1(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 40);
   v4 = *a2;
-  v6 = 138543618;
-  v7 = v3;
-  v8 = 2114;
-  v9 = v4;
-  _os_log_error_impl(&dword_1B0233000, log, OS_LOG_TYPE_ERROR, "%{public}@ did finish query with error: %{public}@", &v6, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543618;
+  v6 = v3;
+  v7 = 2114;
+  v8 = v4;
+  _os_log_error_impl(&dword_1B0233000, log, OS_LOG_TYPE_ERROR, "%{public}@ did finish query with error: %{public}@", &v5, 0x16u);
 }
 
 @end

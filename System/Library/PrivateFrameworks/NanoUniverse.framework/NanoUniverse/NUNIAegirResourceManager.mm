@@ -66,9 +66,9 @@
 
 - (NUNIAegirResourceManager)initWithDisplayPixelFormat:(unint64_t)format
 {
-  v23.receiver = self;
-  v23.super_class = NUNIAegirResourceManager;
-  v4 = [(NUNIAegirResourceManager *)&v23 init];
+  v24.receiver = self;
+  v24.super_class = NUNIAegirResourceManager;
+  v4 = [(NUNIAegirResourceManager *)&v24 init];
   if (v4)
   {
     v5 = objc_opt_new();
@@ -80,25 +80,25 @@
     v4->_device = mEMORY[0x277CFA798];
 
     v9 = v4->_device;
-    v10 = NUNIBundle();
-    v11 = [(MTLDevice *)v9 newDefaultLibraryWithBundle:v10 error:0];
+    v11 = NUNIBundle(v10);
+    v12 = [(MTLDevice *)v9 newDefaultLibraryWithBundle:v11 error:0];
     library = v4->_library;
-    v4->_library = v11;
+    v4->_library = v12;
 
     v4->_displayPixelFormat = format;
     strongToWeakObjectsMapTable = [MEMORY[0x277CCAB00] strongToWeakObjectsMapTable];
     textureGroupHashTable = v4->_textureGroupHashTable;
     v4->_textureGroupHashTable = strongToWeakObjectsMapTable;
 
-    v15 = [_TtC12NanoUniverse22AegirCloudCoverService alloc];
-    LODWORD(v16) = 0.25;
-    v17 = [(AegirCloudCoverService *)v15 initWithImageScale:v16];
+    v16 = [_TtC12NanoUniverse22AegirCloudCoverService alloc];
+    LODWORD(v17) = 0.25;
+    v18 = [(AegirCloudCoverService *)v16 initWithImageScale:v17];
     cloudsService = v4->_cloudsService;
-    v4->_cloudsService = v17;
+    v4->_cloudsService = v18;
 
-    v19 = v4->_cloudsService;
-    v20 = objc_opt_new();
-    [(AegirCloudCoverService *)v19 setFileConverter:v20];
+    v20 = v4->_cloudsService;
+    v21 = objc_opt_new();
+    [(AegirCloudCoverService *)v20 setFileConverter:v21];
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter addObserver:v4 selector:sel__handleCloudCoverTextureExpired name:@"CloudCoverExpiredNotification" object:0];
@@ -236,9 +236,7 @@
   rectVerticesBuffer = self->_rectVerticesBuffer;
   self->_rectVerticesBuffer = v3;
 
-  v5 = [(MTLDevice *)self->_device newBufferWithBytes:&starVertices length:67392 options:1];
-  starVerticesBuffer = self->_starVerticesBuffer;
-  self->_starVerticesBuffer = v5;
+  self->_starVerticesBuffer = [(MTLDevice *)self->_device newBufferWithBytes:&starVertices length:67392 options:1];
 
   MEMORY[0x2821F96F8]();
 }
@@ -497,21 +495,21 @@
 - (id)_generatePipelineVshName:(id)name fshName:(id)fshName config:(unint64_t)config blend0:(unint64_t)blend0 blend1:(unint64_t)blend1 pixelFormat0:(unint64_t)format0 pixelFormat1:(unint64_t)format1
 {
   configCopy = config;
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   fshNameCopy = fshName;
-  v45 = configCopy & 1;
-  v44 = (configCopy & 2) != 0;
+  v44 = configCopy & 1;
+  v43 = (configCopy & 2) != 0;
   v17 = [(MTLFunctionConstantValues *)self->_pipelineConstants copy];
-  [v17 setConstantValue:&v45 type:53 atIndex:35];
-  [v17 setConstantValue:&v44 type:53 atIndex:36];
+  [v17 setConstantValue:&v44 type:53 atIndex:35];
+  [v17 setConstantValue:&v43 type:53 atIndex:36];
   blend1Copy = blend1;
   blend0Copy = blend0;
   v18 = objc_opt_new();
   fshNameCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"(%@)+(%@)", nameCopy, fshNameCopy];
   [v18 setLabel:fshNameCopy];
 
-  v40 = nameCopy;
+  v39 = nameCopy;
   v20 = [(MTLLibrary *)self->_library newFunctionWithName:nameCopy];
   [v18 setVertexFunction:v20];
 
@@ -596,28 +594,26 @@ LABEL_15:
 
   while ((v25 & 1) != 0);
   device = self->_device;
-  v41 = 0;
-  v34 = [(MTLDevice *)device newRenderPipelineStateWithDescriptor:v18 error:&v41];
-  v35 = v41;
+  v40 = 0;
+  v34 = [(MTLDevice *)device newRenderPipelineStateWithDescriptor:v18 error:&v40];
+  v35 = v40;
   if (!v34)
   {
     v36 = NUNILoggingObjectForDomain(0);
     if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
-      v39 = self->_device;
+      v38 = self->_device;
       *buf = 138413058;
-      v47 = v40;
-      v48 = 2112;
-      v49 = fshNameCopy;
-      v50 = 2112;
-      v51 = v39;
-      v52 = 2112;
-      v53 = v35;
+      v46 = v39;
+      v47 = 2112;
+      v48 = fshNameCopy;
+      v49 = 2112;
+      v50 = v38;
+      v51 = 2112;
+      v52 = v35;
       _os_log_error_impl(&dword_25B6D4000, v36, OS_LOG_TYPE_ERROR, "AegirResourceManager: Metal compilation failure Shader=%@+%@ Device=%@ Error=%@", buf, 0x2Au);
     }
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 
   return v34;
 }
@@ -646,28 +642,28 @@ uint64_t __59__NUNIAegirResourceManager__handleCloudCoverTextureExpired__block_i
 
 - (void)purgeAllCloudCoverTextures
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   allCloudLevelFileNames = [(AegirCloudCoverService *)self->_cloudsService allCloudLevelFileNames];
-  v3 = [allCloudLevelFileNames countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [allCloudLevelFileNames countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(allCloudLevelFileNames);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
+        v7 = *(*(&v9 + 1) + 8 * v6);
         mEMORY[0x277CFA7B0] = [MEMORY[0x277CFA7B0] sharedInstance];
         [mEMORY[0x277CFA7B0] purge:v7];
 
@@ -675,13 +671,11 @@ uint64_t __59__NUNIAegirResourceManager__handleCloudCoverTextureExpired__block_i
       }
 
       while (v4 != v6);
-      v4 = [allCloudLevelFileNames countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [allCloudLevelFileNames countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deferredCloudDataFetchIfNeeded
@@ -737,65 +731,61 @@ uint64_t __59__NUNIAegirResourceManager__handleCloudCoverTextureExpired__block_i
 
   if (v6)
   {
-    v7 = [(NUNIAegirResourceManager *)self _provideEarthCloudsAtlasBacking:backingCopy];
+    v8 = [(NUNIAegirResourceManager *)self _provideEarthCloudsAtlasBacking:backingCopy];
   }
 
   else
   {
-    v8 = NUNIBundle();
-    v9 = [v8 pathForResource:backingCopy ofType:@"art"];
+    v9 = NUNIBundle(v7);
+    v10 = [v9 pathForResource:backingCopy ofType:@"art"];
 
-    v10 = NUNILoggingObjectForDomain(0);
-    v11 = v10;
-    if (v9)
+    v11 = NUNILoggingObjectForDomain(0);
+    v12 = v11;
+    if (v10)
     {
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         v14 = 138412546;
         v15 = backingCopy;
         v16 = 2112;
-        v17 = v9;
-        _os_log_impl(&dword_25B6D4000, v11, OS_LOG_TYPE_DEFAULT, "providing artwork for %@ at %@", &v14, 0x16u);
+        v17 = v10;
+        _os_log_impl(&dword_25B6D4000, v12, OS_LOG_TYPE_DEFAULT, "providing artwork for %@ at %@", &v14, 0x16u);
       }
 
-      v7 = [MEMORY[0x277CFA750] atlasBackingWithArt:v9 uuid:backingCopy];
+      v8 = [MEMORY[0x277CFA750] atlasBackingWithArt:v10 uuid:backingCopy];
     }
 
     else
     {
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [(NUNIAegirResourceManager *)backingCopy provideAtlasBacking:v11];
+        [(NUNIAegirResourceManager *)backingCopy provideAtlasBacking:v12];
       }
 
-      v7 = 0;
+      v8 = 0;
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v7;
+  return v8;
 }
 
 + (void)sharedInstanceWithDisplayPixelFormat:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *(__sharedInstance_1 + 32);
-  v4[0] = 67109376;
-  v4[1] = v2;
-  v5 = 1024;
-  v6 = a1;
-  _os_log_error_impl(&dword_25B6D4000, a2, OS_LOG_TYPE_ERROR, "AegirResourceManager: DisplayPixelFormat %d != %d", v4, 0xEu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109376;
+  v3[1] = v2;
+  v4 = 1024;
+  v5 = a1;
+  _os_log_error_impl(&dword_25B6D4000, a2, OS_LOG_TYPE_ERROR, "AegirResourceManager: DisplayPixelFormat %d != %d", v3, 0xEu);
 }
 
 - (void)provideAtlasBacking:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25B6D4000, a2, OS_LOG_TYPE_ERROR, "AegirResourceManager: missing artwork for %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25B6D4000, a2, OS_LOG_TYPE_ERROR, "AegirResourceManager: missing artwork for %@", &v2, 0xCu);
 }
 
 @end

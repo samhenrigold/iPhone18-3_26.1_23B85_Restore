@@ -66,8 +66,8 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"key";
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"key";
   v3 = [(CAFTestComplexItem *)self key];
   null = v3;
   if (!v3)
@@ -75,17 +75,15 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v9[1] = @"value";
-  v10[0] = null;
+  v8[1] = @"value";
+  v9[0] = null;
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[CAFTestComplexItem value](self, "value")}];
-  v10[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v9[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   if (!v3)
   {
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

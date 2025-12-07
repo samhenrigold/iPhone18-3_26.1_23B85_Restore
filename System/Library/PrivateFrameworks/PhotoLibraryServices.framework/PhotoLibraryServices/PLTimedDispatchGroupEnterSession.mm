@@ -76,7 +76,7 @@ uint64_t __52__PLTimedDispatchGroupEnterSession_leaveWithResult___block_invoke(u
   {
     error = [v3 error];
     domain = [error domain];
-    if ([domain isEqualToString:*MEMORY[0x1E696A250]])
+    if (objc_msgSend_isEqualToString_(domain))
     {
       error2 = [v3 error];
       v7 = [error2 code] == 3072;

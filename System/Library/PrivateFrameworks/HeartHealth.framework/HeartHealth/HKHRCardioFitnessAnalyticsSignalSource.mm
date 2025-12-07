@@ -26,7 +26,7 @@
 
 - (NSString)activeWatchProductType
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D2BCF8] = [MEMORY[0x277D2BCF8] sharedInstance];
   getActivePairedDevice = [mEMORY[0x277D2BCF8] getActivePairedDevice];
 
@@ -45,9 +45,9 @@
     v8 = HKLogHeartRateCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
+      v10 = 138543362;
       selfCopy2 = self;
-      _os_log_impl(&dword_228942000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@]: No watch product type retrieved, returning unavailable", &v11, 0xCu);
+      _os_log_impl(&dword_228942000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@]: No watch product type retrieved, returning unavailable", &v10, 0xCu);
     }
   }
 
@@ -57,16 +57,14 @@
     v6 = HKLogHeartRateCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
+      v10 = 138543362;
       selfCopy2 = self;
-      _os_log_impl(&dword_228942000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@]: No active paired device, returning unavailable", &v11, 0xCu);
+      _os_log_impl(&dword_228942000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@]: No active paired device, returning unavailable", &v10, 0xCu);
     }
   }
 
   v7 = @"unavailable";
 LABEL_10:
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

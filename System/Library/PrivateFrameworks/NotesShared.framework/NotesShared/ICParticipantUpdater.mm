@@ -304,7 +304,7 @@ void __64__ICParticipantUpdater_insertMissingParticipantsWithCompletion___block_
 {
   [a1 count];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v1, v2, "found %lu shared notes with missing participants", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v1, v2, "found %lu shared notes with missing participants", v3, v4, v5, v6);
 }
 
 void __64__ICParticipantUpdater_insertMissingParticipantsWithCompletion___block_invoke_4_cold_1(uint64_t a1, NSObject *a2)
@@ -326,7 +326,7 @@ void __65__ICParticipantUpdater_deleteOrphanedParticipantsWithCompletion___block
 {
   v1 = [a1 result];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "%@ orphaned participant records deleted", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "%@ orphaned participant records deleted", v4, v5, v6, v7);
 }
 
 - (void)missingNoteObjectsIDs

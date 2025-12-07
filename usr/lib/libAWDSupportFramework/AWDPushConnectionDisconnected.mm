@@ -201,7 +201,6 @@ LABEL_9:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -221,7 +220,6 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  connectionType = self->_connectionType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -236,7 +234,6 @@ LABEL_6:
   }
 
 LABEL_12:
-  linkQuality = self->_linkQuality;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -248,7 +245,6 @@ LABEL_7:
     }
 
 LABEL_14:
-    sslError = self->_sslError;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 8) == 0)
     {
@@ -259,7 +255,6 @@ LABEL_14:
   }
 
 LABEL_13:
-  error = self->_error;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) != 0)
@@ -274,7 +269,6 @@ LABEL_8:
   }
 
 LABEL_15:
-  genericError = self->_genericError;
 
   PBDataWriterWriteInt32Field();
 }

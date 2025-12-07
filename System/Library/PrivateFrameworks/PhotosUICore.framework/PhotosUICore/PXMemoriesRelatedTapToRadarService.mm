@@ -1129,11 +1129,11 @@ void __60__PXMemoriesRelatedTapToRadarService__libraryStatDictionary__block_invo
   [MEMORY[0x1E69BE3F0] collectMomentsStatWithLibraryContext:v2 completionBlock:v3];
 }
 
-uint64_t __60__PXMemoriesRelatedTapToRadarService__libraryStatDictionary__block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3)
+void *__60__PXMemoriesRelatedTapToRadarService__libraryStatDictionary__block_invoke_2(void *result, uint64_t a2, uint64_t a3)
 {
   if (!a3)
   {
-    return [*(*(*(result + 32) + 8) + 40) addEntriesFromDictionary:a2];
+    return [*(*(result[4] + 8) + 40) addEntriesFromDictionary:a2];
   }
 
   return result;

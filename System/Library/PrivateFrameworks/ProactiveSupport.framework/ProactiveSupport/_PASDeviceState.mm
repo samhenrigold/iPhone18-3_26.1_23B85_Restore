@@ -15,12 +15,12 @@
 
 + (BOOL)isClassCLocked
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v2 = atomic_load(&cb);
   v3 = (*v2)(self, a2);
   if (v3)
   {
-    v32 = v3;
+    v31 = v3;
     pthread_mutex_lock(&cUnlockMutex);
     v4 = cUnlockBlocks;
     v5 = cUnlockBlocks;
@@ -29,11 +29,11 @@
     pthread_mutex_unlock(&cUnlockMutex);
     v6 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
     v7 = dispatch_get_global_queue(33, 0);
-    v37 = dispatch_queue_create_with_target_V2("com.apple.proactive.unlockblocks.user_interactive", v6, v7);
+    v36 = dispatch_queue_create_with_target_V2("com.apple.proactive.unlockblocks.user_interactive", v6, v7);
 
     v8 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
     v9 = dispatch_get_global_queue(25, 0);
-    v36 = dispatch_queue_create_with_target_V2("com.apple.proactive.unlockblocks.user_initiated", v8, v9);
+    v35 = dispatch_queue_create_with_target_V2("com.apple.proactive.unlockblocks.user_initiated", v8, v9);
 
     v10 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
     v11 = dispatch_get_global_queue(21, 0);
@@ -41,39 +41,39 @@
 
     v13 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
     v14 = dispatch_get_global_queue(17, 0);
-    v35 = dispatch_queue_create_with_target_V2("com.apple.proactive.unlockblocks.utility", v13, v14);
+    v34 = dispatch_queue_create_with_target_V2("com.apple.proactive.unlockblocks.utility", v13, v14);
 
     v15 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
     v16 = dispatch_get_global_queue(9, 0);
-    v34 = dispatch_queue_create_with_target_V2("com.apple.proactive.unlockblocks.background", v15, v16);
+    v33 = dispatch_queue_create_with_target_V2("com.apple.proactive.unlockblocks.background", v15, v16);
 
     v17 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
     v18 = dispatch_get_global_queue(0, 0);
-    v33 = dispatch_queue_create_with_target_V2("com.apple.proactive.unlockblocks.unspecified", v17, v18);
+    v32 = dispatch_queue_create_with_target_V2("com.apple.proactive.unlockblocks.unspecified", v17, v18);
 
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v19 = v4;
-    v20 = [v19 countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v39 objects:v43 count:16];
     if (!v20)
     {
       goto LABEL_24;
     }
 
     v21 = v20;
-    v22 = *v41;
+    v22 = *v40;
     while (1)
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v41 != v22)
+        if (*v40 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v40 + 1) + 8 * i);
+        v24 = *(*(&v39 + 1) + 8 * i);
         v25 = v12;
         v26 = *(v24 + 16);
         if (v26 > 20)
@@ -83,10 +83,10 @@
             case 21:
               goto LABEL_22;
             case 25:
-              v27 = v36;
+              v27 = v35;
               goto LABEL_21;
             case 33:
-              v27 = v37;
+              v27 = v36;
               goto LABEL_21;
           }
         }
@@ -95,13 +95,13 @@
         {
           if (v26 == 9)
           {
-            v27 = v34;
+            v27 = v33;
             goto LABEL_21;
           }
 
           if (v26 == 17)
           {
-            v27 = v35;
+            v27 = v34;
 LABEL_21:
             v29 = v27;
 
@@ -112,7 +112,7 @@ LABEL_21:
 
         else
         {
-          v28 = v33;
+          v28 = v32;
 
           v25 = v28;
         }
@@ -132,18 +132,17 @@ LABEL_22:
         dispatch_async(v25, block);
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v39 objects:v43 count:16];
       if (!v21)
       {
 LABEL_24:
 
-        LOBYTE(v3) = v32;
-        break;
+        LOBYTE(v3) = v31;
+        return v3 ^ 1;
       }
     }
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v3 ^ 1;
 }
 

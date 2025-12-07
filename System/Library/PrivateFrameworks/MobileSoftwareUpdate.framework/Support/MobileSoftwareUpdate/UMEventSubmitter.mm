@@ -74,44 +74,44 @@ id __72__UMEventSubmitter_submitEventData_toURL_withOptions_completionHandler___
   [(NSMutableURLRequest *)v2 setHTTPMethod:@"POST"];
   [(NSMutableURLRequest *)v2 setHTTPBody:*(a1 + 56)];
   v3 = *(a1 + 48);
-  [*(a1 + 56) length];
-  logfunction(", 1, @"posting to %@ length = %lu\n"", v4, v5, v6, v7, v8, v3);
-  LOBYTE(v3) = [*(a1 + 56) length];
-  [*(a1 + 56) bytes];
-  logfunction(", 1, @"data = %.*s\n"", v9, v10, v11, v12, v13, v3);
-  v14 = [*(a1 + 32) _defaultSession];
-  if (v14)
+  v4 = [*(a1 + 56) length];
+  logfunction(", 1, @"posting to %@ length = %lu\n"", v5, v6, v7, v8, v9, v3, v4);
+  v10 = [*(a1 + 56) length];
+  v11 = [*(a1 + 56) bytes];
+  logfunction(", 1, @"data = %.*s\n"", v12, v13, v14, v15, v16, v10, v11);
+  v17 = [*(a1 + 32) _defaultSession];
+  if (v17)
   {
-    v20 = v14;
-    v21 = [v14 dataTaskWithRequest:v2];
-    if (v21)
+    v23 = v17;
+    v24 = [v17 dataTaskWithRequest:v2];
+    if (v24)
     {
-      v27 = v21;
-      [*(*(a1 + 32) + 16) setObject:objc_msgSend(*(a1 + 64) forKey:{"copy"), v21}];
-      [v27 resume];
+      v30 = v24;
+      [*(*(a1 + 32) + 16) setObject:objc_msgSend(*(a1 + 64) forKey:{"copy"), v24}];
+      [v30 resume];
     }
 
     else
     {
-      logfunction(", 1, @"unable to create upload task for %@\n"", v22, v23, v24, v25, v26, *(a1 + 48));
-      v31 = *(a1 + 64);
-      v32 = *(a1 + 48);
-      v34 = NSURLErrorFailingURLErrorKey;
-      v35 = v32;
-      (*(v31 + 16))(v31, 0, [NSError errorWithDomain:NSURLErrorDomain code:-1 userInfo:[NSDictionary dictionaryWithObjects:&v35 forKeys:&v34 count:1]]);
+      logfunction(", 1, @"unable to create upload task for %@\n"", v25, v26, v27, v28, v29, *(a1 + 48));
+      v34 = *(a1 + 64);
+      v35 = *(a1 + 48);
+      v36 = NSURLErrorFailingURLErrorKey;
+      v37 = v35;
+      (*(v34 + 16))(v34, 0, [NSError errorWithDomain:NSURLErrorDomain code:-1 userInfo:[NSDictionary dictionaryWithObjects:&v37 forKeys:&v36 count:1]]);
     }
 
-    return [v20 finishTasksAndInvalidate];
+    return [v23 finishTasksAndInvalidate];
   }
 
   else
   {
-    logfunction(", 1, @"unable to create upload session\n"", v15, v16, v17, v18, v19, v33);
-    v28 = *(a1 + 64);
-    v29 = *(a1 + 48);
-    v36 = NSURLErrorFailingURLErrorKey;
-    v37 = v29;
-    return (*(v28 + 16))(v28, 0, [NSError errorWithDomain:NSURLErrorDomain code:-1 userInfo:[NSDictionary dictionaryWithObjects:&v37 forKeys:&v36 count:1]]);
+    logfunction(", 1, @"unable to create upload session\n"", v18, v19, v20, v21, v22);
+    v31 = *(a1 + 64);
+    v32 = *(a1 + 48);
+    v38 = NSURLErrorFailingURLErrorKey;
+    v39 = v32;
+    return (*(v31 + 16))(v31, 0, [NSError errorWithDomain:NSURLErrorDomain code:-1 userInfo:[NSDictionary dictionaryWithObjects:&v39 forKeys:&v38 count:1]]);
   }
 }
 

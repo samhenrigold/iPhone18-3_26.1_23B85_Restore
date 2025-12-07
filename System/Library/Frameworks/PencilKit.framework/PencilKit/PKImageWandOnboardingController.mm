@@ -2,7 +2,6 @@
 + (BOOL)canShowOnboardingView;
 + (void)resetOnboarding;
 - (id)initWithPresentationViewController:(void *)controller toolPicker:;
-- (uint64_t)showOnboardingViewAfterDelay:(uint64_t)result;
 - (void)_dismissOnboardingView;
 - (void)_stopObservingToolPickerWillShowNotification;
 - (void)imageWandOnboardingControllerIsBeingDismissed:(id)dismissed;
@@ -10,6 +9,7 @@
 - (void)keyboardSceneDelegate:(id)delegate inputViewSetVisibilityDidChange:(BOOL)change includedReset:(BOOL)reset;
 - (void)pencilInteraction:(id)interaction didReceiveSqueeze:(id)squeeze;
 - (void)showOnboardingView;
+- (void)showOnboardingViewAfterDelay:(void *)result;
 @end
 
 @implementation PKImageWandOnboardingController
@@ -154,7 +154,7 @@ LABEL_8:
   }
 }
 
-- (uint64_t)showOnboardingViewAfterDelay:(uint64_t)result
+- (void)showOnboardingViewAfterDelay:(void *)result
 {
   if (result)
   {

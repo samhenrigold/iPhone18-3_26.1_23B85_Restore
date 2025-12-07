@@ -207,22 +207,22 @@ LABEL_11:
 
 - (id)_actionName
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_0_4();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0_4(v2);
   return 0;
 }
 
 - (BOOL)_executeWithUndoDelegate:(id)delegate error:(id *)error
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_0_4();
+  v4 = objc_opt_class();
+  OUTLINED_FUNCTION_0_4(v4);
   return 0;
 }
 
 - (Class)_inverseOperationClass
 {
-  objc_opt_class();
-  OUTLINED_FUNCTION_0_4();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0_4(v2);
   return 0;
 }
 

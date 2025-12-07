@@ -206,7 +206,7 @@
 
 - (void)_layoutContainerForTableHeader
 {
-  v46[3] = *MEMORY[0x1E69E9840];
+  v45[3] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ACD8];
   internalContentConstraints = [(OBTableHeaderFooterView *)self internalContentConstraints];
   [v3 deactivateConstraints:internalContentConstraints];
@@ -224,20 +224,20 @@
     topAnchor2 = [(OBTableHeaderFooterView *)self topAnchor];
     [(OBTableHeaderFooterView *)self internalContentPadding];
     v8 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:?];
-    v46[0] = v8;
+    v45[0] = v8;
     internalContentView3 = [(OBTableHeaderFooterView *)self internalContentView];
     leadingAnchor = [internalContentView3 leadingAnchor];
     leadingAnchor2 = [(OBTableHeaderFooterView *)self leadingAnchor];
     [(OBTableHeaderFooterView *)self internalContentPadding];
     v13 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:v12];
-    v46[1] = v13;
+    v45[1] = v13;
     internalContentView4 = [(OBTableHeaderFooterView *)self internalContentView];
     trailingAnchor = [internalContentView4 trailingAnchor];
     trailingAnchor2 = [(OBTableHeaderFooterView *)self trailingAnchor];
     [(OBTableHeaderFooterView *)self internalContentPadding];
     v18 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-v17];
-    v46[2] = v18;
-    v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:3];
+    v45[2] = v18;
+    v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:3];
   }
 
   else
@@ -245,7 +245,7 @@
     v19 = [MEMORY[0x1E695DF30] exceptionWithName:@"Header should never be nil" reason:@"Inconsistent layout" userInfo:0];
     [v19 raise];
 
-    v44 = MEMORY[0x1E695E0F0];
+    v43 = MEMORY[0x1E695E0F0];
   }
 
   hostedView = [(OBTableHeaderFooterView *)self hostedView];
@@ -257,30 +257,30 @@
     internalContentView5 = [(OBTableHeaderFooterView *)self internalContentView];
     bottomAnchor = [internalContentView5 bottomAnchor];
     [(OBTableHeaderFooterView *)self internalContentPadding];
-    v36 = [topAnchor3 constraintEqualToAnchor:bottomAnchor constant:v21];
-    v45[0] = v36;
+    v35 = [topAnchor3 constraintEqualToAnchor:bottomAnchor constant:v21];
+    v44[0] = v35;
     hostedView3 = [(OBTableHeaderFooterView *)self hostedView];
     leadingAnchor3 = [hostedView3 leadingAnchor];
     leadingAnchor4 = [(OBTableHeaderFooterView *)self leadingAnchor];
     [(OBTableHeaderFooterView *)self hostedViewPadding];
     v26 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:v25];
-    v45[1] = v26;
+    v44[1] = v26;
     hostedView4 = [(OBTableHeaderFooterView *)self hostedView];
     trailingAnchor3 = [hostedView4 trailingAnchor];
     trailingAnchor4 = [(OBTableHeaderFooterView *)self trailingAnchor];
     [(OBTableHeaderFooterView *)self hostedViewPadding];
     v31 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:-v30];
-    v45[2] = v31;
-    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:3];
+    v44[2] = v31;
+    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:3];
 
-    v33 = v44;
-    v34 = [v44 arrayByAddingObjectsFromArray:v32];
+    v33 = v43;
+    v34 = [v43 arrayByAddingObjectsFromArray:v32];
   }
 
   else
   {
-    v33 = v44;
-    v34 = v44;
+    v33 = v43;
+    v34 = v43;
     v32 = 0;
   }
 
@@ -288,13 +288,11 @@
   [MEMORY[0x1E696ACD8] activateConstraints:v34];
   [(OBTableHeaderFooterView *)self setHostedConstraints:v32];
   [(OBTableHeaderFooterView *)self setInternalContentConstraints:v33];
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_layoutContainerForTableFooter
 {
-  v50[3] = *MEMORY[0x1E69E9840];
+  v49[3] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ACD8];
   internalContentConstraints = [(OBTableHeaderFooterView *)self internalContentConstraints];
   [v3 deactivateConstraints:internalContentConstraints];
@@ -312,25 +310,25 @@
     topAnchor2 = [(OBTableHeaderFooterView *)self topAnchor];
     [(OBTableHeaderFooterView *)self hostedViewPadding];
     v8 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:?];
-    v50[0] = v8;
+    v49[0] = v8;
     hostedView3 = [(OBTableHeaderFooterView *)self hostedView];
     leadingAnchor = [hostedView3 leadingAnchor];
     leadingAnchor2 = [(OBTableHeaderFooterView *)self leadingAnchor];
     [(OBTableHeaderFooterView *)self hostedViewPadding];
     v13 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:v12];
-    v50[1] = v13;
+    v49[1] = v13;
     hostedView4 = [(OBTableHeaderFooterView *)self hostedView];
     trailingAnchor = [hostedView4 trailingAnchor];
     trailingAnchor2 = [(OBTableHeaderFooterView *)self trailingAnchor];
     [(OBTableHeaderFooterView *)self hostedViewPadding];
     v18 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-v17];
-    v50[2] = v18;
-    v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:3];
+    v49[2] = v18;
+    v47 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:3];
   }
 
   else
   {
-    v48 = MEMORY[0x1E695E0F0];
+    v47 = MEMORY[0x1E695E0F0];
   }
 
   internalContentView = [(OBTableHeaderFooterView *)self internalContentView];
@@ -345,40 +343,40 @@
       bottomAnchor = [(OBTableHeaderFooterView *)self topAnchor];
     }
 
-    v38 = bottomAnchor;
+    v37 = bottomAnchor;
     internalContentView2 = [(OBTableHeaderFooterView *)self internalContentView];
     topAnchor3 = [internalContentView2 topAnchor];
     [(OBTableHeaderFooterView *)self internalContentPadding];
-    v43 = [topAnchor3 constraintEqualToAnchor:bottomAnchor constant:?];
-    v49[0] = v43;
+    v42 = [topAnchor3 constraintEqualToAnchor:bottomAnchor constant:?];
+    v48[0] = v42;
     internalContentView3 = [(OBTableHeaderFooterView *)self internalContentView];
     leadingAnchor3 = [internalContentView3 leadingAnchor];
     leadingAnchor4 = [(OBTableHeaderFooterView *)self leadingAnchor];
     [(OBTableHeaderFooterView *)self internalContentPadding];
-    v37 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:v22];
-    v49[1] = v37;
+    v36 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:v22];
+    v48[1] = v36;
     internalContentView4 = [(OBTableHeaderFooterView *)self internalContentView];
     trailingAnchor3 = [internalContentView4 trailingAnchor];
     trailingAnchor4 = [(OBTableHeaderFooterView *)self trailingAnchor];
     [(OBTableHeaderFooterView *)self internalContentPadding];
     v27 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:-v26];
-    v49[2] = v27;
+    v48[2] = v27;
     internalContentView5 = [(OBTableHeaderFooterView *)self internalContentView];
     bottomAnchor2 = [internalContentView5 bottomAnchor];
     bottomAnchor3 = [(OBTableHeaderFooterView *)self bottomAnchor];
     [(OBTableHeaderFooterView *)self internalContentPadding];
     v32 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3 constant:-v31];
-    v49[3] = v32;
-    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:4];
+    v48[3] = v32;
+    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:4];
 
-    v34 = v48;
-    v35 = [v33 arrayByAddingObjectsFromArray:v48];
+    v34 = v47;
+    v35 = [v33 arrayByAddingObjectsFromArray:v47];
   }
 
   else
   {
-    v34 = v48;
-    v35 = v48;
+    v34 = v47;
+    v35 = v47;
     v33 = 0;
   }
 
@@ -386,8 +384,6 @@
   [MEMORY[0x1E696ACD8] activateConstraints:v35];
   [(OBTableHeaderFooterView *)self setHostedConstraints:v34];
   [(OBTableHeaderFooterView *)self setInternalContentConstraints:v33];
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (UIEdgeInsets)internalContentPadding

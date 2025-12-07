@@ -57,7 +57,7 @@
 
   if (v6)
   {
-    [v6 fDelegate];
+    objc_msgSend_fDelegate(v6);
     v7 = v8;
   }
 

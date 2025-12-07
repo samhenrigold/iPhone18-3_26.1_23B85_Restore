@@ -82,7 +82,7 @@
 - (void)setPerShareMetadataBlock:(void *)perShareMetadataBlock
 {
   v6 = perShareMetadataBlock;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -113,7 +113,7 @@ LABEL_9:
 
 - (void)perShareMetadataBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -150,7 +150,7 @@ LABEL_9:
 - (void)setFetchShareMetadataCompletionBlockIVar:(id)var
 {
   varCopy = var;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -181,7 +181,7 @@ LABEL_9:
 
 - (void)fetchShareMetadataCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -297,33 +297,33 @@ LABEL_9:
 - (BOOL)CKOperationShouldRun:(id *)run
 {
   runCopy = run;
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_shareURLs(self, a2, run);
   v8 = objc_msgSend_count(v5, v6, v7);
 
   if (v8)
   {
     v9 = objc_opt_new();
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v48 = 0u;
     obj = objc_msgSend_shareURLs(self, v10, v11);
-    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v12, &v45, v49, 16);
+    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v12, &v44, v48, 16);
     if (v13)
     {
       v14 = v13;
-      v15 = *v46;
+      v15 = *v45;
 LABEL_4:
       v16 = 0;
       while (1)
       {
-        if (*v46 != v15)
+        if (*v45 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v45 + 1) + 8 * v16);
+        v17 = *(*(&v44 + 1) + 8 * v16);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -370,7 +370,7 @@ LABEL_4:
 
         if (v14 == ++v16)
         {
-          v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v30, &v45, v49, 16);
+          v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v30, &v44, v48, 16);
           if (v14)
           {
             goto LABEL_4;
@@ -396,9 +396,9 @@ LABEL_25:
 
 LABEL_15:
 
-    v44.receiver = self;
-    v44.super_class = CKFetchShareMetadataOperation;
-    LOBYTE(runCopy) = [(CKOperation *)&v44 CKOperationShouldRun:runCopy];
+    v43.receiver = self;
+    v43.super_class = CKFetchShareMetadataOperation;
+    LOBYTE(runCopy) = [(CKOperation *)&v43 CKOperationShouldRun:runCopy];
 LABEL_26:
   }
 
@@ -411,13 +411,12 @@ LABEL_26:
     LOBYTE(runCopy) = 0;
   }
 
-  v41 = *MEMORY[0x1E69E9840];
   return runCopy;
 }
 
 - (void)handleShareMetadataFetchForURL:(id)l shareMetadata:(id)metadata error:(id)error
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   lCopy = l;
   metadataCopy = metadata;
   errorCopy = error;
@@ -469,16 +468,16 @@ LABEL_26:
         goto LABEL_21;
       }
 
-      *v65 = 138412546;
-      *&v65[4] = lCopy;
-      *&v65[12] = 2112;
-      *&v65[14] = v13;
+      *v64 = 138412546;
+      *&v64[4] = lCopy;
+      *&v64[12] = 2112;
+      *&v64[14] = v13;
       v28 = "Shared %@ fetched metadata with error: %@";
       v29 = v22;
       v30 = v27;
       v31 = 22;
 LABEL_20:
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v29, OS_SIGNPOST_EVENT, v30, "CKFetchShareMetadataOperation", v28, v65, v31);
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v29, OS_SIGNPOST_EVENT, v30, "CKFetchShareMetadataOperation", v28, v64, v31);
 LABEL_21:
     }
   }
@@ -516,8 +515,8 @@ LABEL_21:
       goto LABEL_21;
     }
 
-    *v65 = 138412290;
-    *&v65[4] = lCopy;
+    *v64 = 138412290;
+    *&v64[4] = lCopy;
     v28 = "Shared %@ fetched metadata";
     v29 = v22;
     v30 = v40;
@@ -525,7 +524,7 @@ LABEL_21:
     goto LABEL_20;
   }
 
-  v41 = objc_msgSend_CKClientSuitableError(errorCopy, v16, v17, *v65, *&v65[16]);
+  v41 = objc_msgSend_CKClientSuitableError(errorCopy, v16, v17, *v64, *&v64[8]);
 
   if (v41 && (objc_msgSend_canDropItemResultsEarly(self, v42, v43) & 1) == 0)
   {
@@ -556,19 +555,19 @@ LABEL_21:
     v52 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      v55 = v52;
-      v58 = objc_msgSend_operationID(self, v56, v57);
-      v61 = objc_msgSend_share(metadataCopy, v59, v60);
-      v64 = objc_msgSend_recordID(v61, v62, v63);
-      *v65 = 138544130;
-      *&v65[4] = v58;
-      *&v65[12] = 2112;
-      *&v65[14] = lCopy;
-      *&v65[22] = 2112;
-      v66 = v64;
-      v67 = 2112;
-      v68 = v41;
-      _os_log_debug_impl(&dword_1883EA000, v55, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about fetched share metadata for URL %@ with ID %@: %@", v65, 0x2Au);
+      v54 = v52;
+      v57 = objc_msgSend_operationID(self, v55, v56);
+      v60 = objc_msgSend_share(metadataCopy, v58, v59);
+      v63 = objc_msgSend_recordID(v60, v61, v62);
+      *v64 = 138544130;
+      *&v64[4] = v57;
+      *&v64[12] = 2112;
+      *&v64[14] = lCopy;
+      *&v64[22] = 2112;
+      v65 = v63;
+      v66 = 2112;
+      v67 = v41;
+      _os_log_debug_impl(&dword_1883EA000, v54, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling out about fetched share metadata for URL %@ with ID %@: %@", v64, 0x2Au);
     }
 
     if (v41)
@@ -583,13 +582,11 @@ LABEL_21:
 
     (v50)[2](v50, lCopy, v53, v41);
   }
-
-  v54 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finishOnCallbackQueueWithError:(id)error
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -681,19 +678,19 @@ LABEL_21:
     v36 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      v42 = v36;
-      v43 = objc_opt_class();
-      v44 = NSStringFromClass(v43);
-      v47 = objc_msgSend_ckShortDescription(self, v45, v46);
+      v41 = v36;
+      v42 = objc_opt_class();
+      v43 = NSStringFromClass(v42);
+      v46 = objc_msgSend_ckShortDescription(self, v44, v45);
       *buf = 138544130;
-      v50 = v44;
-      v51 = 2048;
+      v49 = v43;
+      v50 = 2048;
       selfCopy = self;
-      v53 = 2114;
-      v54 = v47;
-      v55 = 2112;
-      v56 = errorCopy;
-      _os_log_debug_impl(&dword_1883EA000, v42, OS_LOG_TYPE_DEBUG, "Calling fetchShareMetadataCompletionBlock for operation <%{public}@: %p; %{public}@> with error %@", buf, 0x2Au);
+      v52 = 2114;
+      v53 = v46;
+      v54 = 2112;
+      v55 = errorCopy;
+      _os_log_debug_impl(&dword_1883EA000, v41, OS_LOG_TYPE_DEBUG, "Calling fetchShareMetadataCompletionBlock for operation <%{public}@: %p; %{public}@> with error %@", buf, 0x2Au);
     }
 
     v39 = objc_msgSend_CKClientSuitableError(errorCopy, v37, v38);
@@ -703,16 +700,14 @@ LABEL_21:
   }
 
   objc_msgSend_setPerShareMetadataBlock_(self, v35, 0);
-  v48.receiver = self;
-  v48.super_class = CKFetchShareMetadataOperation;
-  [(CKOperation *)&v48 _finishOnCallbackQueueWithError:errorCopy];
-
-  v41 = *MEMORY[0x1E69E9840];
+  v47.receiver = self;
+  v47.super_class = CKFetchShareMetadataOperation;
+  [(CKOperation *)&v47 _finishOnCallbackQueueWithError:errorCopy];
 }
 
 - (void)ckSignpostBegin
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if (self)
   {
     signpost = self->super._signpost;
@@ -765,28 +760,26 @@ LABEL_21:
       v36 = CKStringForDiscretionaryNetworkBehavior(v35);
       v39 = objc_msgSend_qualityOfService(self, v37, v38);
       v41 = CKStringForQOS(v39, v40);
-      v43 = 138413570;
-      v44 = v17;
-      v45 = 2112;
-      v46 = v20;
-      v47 = 2112;
-      v48 = v26;
-      v49 = 2114;
-      v50 = v29;
-      v51 = 2114;
-      v52 = v36;
-      v53 = 2114;
-      v54 = v41;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKFetchShareMetadataOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v43, 0x3Eu);
+      v42 = 138413570;
+      v43 = v17;
+      v44 = 2112;
+      v45 = v20;
+      v46 = 2112;
+      v47 = v26;
+      v48 = 2114;
+      v49 = v29;
+      v50 = 2114;
+      v51 = v36;
+      v52 = 2114;
+      v53 = v41;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKFetchShareMetadataOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v42, 0x3Eu);
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ckSignpostEndWithError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -830,13 +823,11 @@ LABEL_21:
 
     if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
-      v18 = 138412290;
-      v19 = errorCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKFetchShareMetadataOperation", "Error=%{signpost.description:attribute}@ ", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = errorCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKFetchShareMetadataOperation", "Error=%{signpost.description:attribute}@ ", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)activityCreate

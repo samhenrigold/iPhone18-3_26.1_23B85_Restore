@@ -37,7 +37,7 @@
 
 + (id)representativeTitlePropertySet
 {
-  sub_100003ABC(&unk_1006040A0);
+  sub_100003ABC(&unk_1006040A0, &unk_1004CF310);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_1004C50C0;
   *(v2 + 32) = sub_1004BBE64();

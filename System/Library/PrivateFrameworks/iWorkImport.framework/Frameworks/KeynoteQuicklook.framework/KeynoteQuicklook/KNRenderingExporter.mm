@@ -45,33 +45,31 @@
 - (KNRenderingExporter)initWithDocumentRoot:(id)root
 {
   rootCopy = root;
-  v5 = [KNImager alloc];
-  v7 = objc_msgSend_initWithDocumentRoot_(v5, v6, rootCopy);
-  v22.receiver = self;
-  v22.super_class = KNRenderingExporter;
-  v9 = [(TSARenderingExporter *)&v22 initWithDocumentRoot:rootCopy imager:v7];
-  if (v9)
+  v5 = [[KNImager alloc] initWithDocumentRoot:rootCopy];
+  v13.receiver = self;
+  v13.super_class = KNRenderingExporter;
+  v6 = [(TSARenderingExporter *)&v13 initWithDocumentRoot:rootCopy imager:v5];
+  if (v6)
   {
-    objc_msgSend_setIsPrinting_(v7, v8, 1);
-    objc_msgSend_setShouldShowComments_(v7, v10, v9->_printingComments);
-    objc_msgSend_setShouldShowTextCommentHighlights_(v7, v11, 0);
-    v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    currentSlidesOnPage = v9->_currentSlidesOnPage;
-    v9->_currentSlidesOnPage = v12;
+    [(TSDImager *)v5 setIsPrinting:1];
+    [(TSDImager *)v5 setShouldShowComments:v6->_printingComments];
+    [(TSDImager *)v5 setShouldShowTextCommentHighlights:0];
+    v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    currentSlidesOnPage = v6->_currentSlidesOnPage;
+    v6->_currentSlidesOnPage = v7;
 
-    v16 = objc_msgSend_show(rootCopy, v14, v15);
-    v9->_slidesPerPage = 1;
-    v17 = [KNPdfHyperlinkController alloc];
-    v19 = objc_msgSend_initWithShow_(v17, v18, v16);
-    hyperlinkController = v9->_hyperlinkController;
-    v9->_hyperlinkController = v19;
+    show = [rootCopy show];
+    v6->_slidesPerPage = 1;
+    v10 = [[KNPdfHyperlinkController alloc] initWithShow:show];
+    hyperlinkController = v6->_hyperlinkController;
+    v6->_hyperlinkController = v10;
 
-    v9->_rangeStart = 1;
-    v9->_rangeEnd = -1;
-    v9->_maxRangeValue = -1;
+    v6->_rangeStart = 1;
+    v6->_rangeEnd = -1;
+    v6->_maxRangeValue = -1;
   }
 
-  return v9;
+  return v6;
 }
 
 - (BOOL)exportToURL:(id)l pageNumber:(unint64_t)number delegate:(id)delegate error:(id *)error
@@ -79,10 +77,10 @@
   v10 = *(&self->super.super.isa + *MEMORY[0x277D7FFE8]);
   delegateCopy = delegate;
   lCopy = l;
-  objc_msgSend_setIsPrinting_(v10, v13, 0);
-  v15.receiver = self;
-  v15.super_class = KNRenderingExporter;
-  LOBYTE(error) = [(TSARenderingExporter *)&v15 exportToURL:lCopy pageNumber:number delegate:delegateCopy error:error];
+  [v10 setIsPrinting:0];
+  v14.receiver = self;
+  v14.super_class = KNRenderingExporter;
+  LOBYTE(error) = [(TSARenderingExporter *)&v14 exportToURL:lCopy pageNumber:number delegate:delegateCopy error:error];
 
   return error;
 }
@@ -99,62 +97,60 @@
 
 - (id)currentInfos
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v4 = objc_msgSend_slide(self->_currentSlideNode, a2, v2);
+  v20 = *MEMORY[0x277D85DE8];
+  slide = [(KNSlideNode *)self->_currentSlideNode slide];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v7 = objc_msgSend_infosToDisplay(v4, v5, v6);
-    isPrintingBackgrounds = objc_msgSend_isPrintingBackgrounds(self, v8, v9);
-    v11 = objc_alloc(MEMORY[0x277CBEB18]);
-    v14 = objc_msgSend_count(v7, v12, v13);
-    v16 = objc_msgSend_initWithCapacity_(v11, v15, v14);
-    v29 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v32 = 0u;
-    v17 = v7;
-    v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v29, v33, 16);
-    if (v19)
+    infosToDisplay = [slide infosToDisplay];
+    isPrintingBackgrounds = [(KNRenderingExporter *)self isPrintingBackgrounds];
+    v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(infosToDisplay, "count")}];
+    v15 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    v7 = infosToDisplay;
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v8)
     {
-      v20 = v19;
-      v21 = *v30;
+      v9 = v8;
+      v10 = *v16;
       do
       {
-        for (i = 0; i != v20; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v30 != v21)
+          if (*v16 != v10)
           {
-            objc_enumerationMutation(v17);
+            objc_enumerationMutation(v7);
           }
 
-          v23 = *(*(&v29 + 1) + 8 * i);
+          v12 = *(*(&v15 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             objc_opt_class();
-            if (isPrintingBackgrounds & 1 | ((objc_opt_isKindOfClass() & 1) == 0))
+            if (isPrintingBackgrounds | ((objc_opt_isKindOfClass() & 1) == 0))
             {
-              objc_msgSend_addObject_(v16, v24, v23, v29);
+              [v6 addObject:{v12, v15}];
             }
           }
         }
 
-        v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v24, &v29, v33, 16);
+        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
-      while (v20);
+      while (v9);
     }
 
-    v27 = objc_msgSend_copy(v16, v25, v26);
+    v13 = [v6 copy];
   }
 
   else
   {
-    v27 = 0;
+    v13 = 0;
   }
 
-  return v27;
+  return v13;
 }
 
 - (void)setup
@@ -184,68 +180,68 @@
 
 - (unint64_t)pageCount
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v4 = objc_msgSend_slidesForPrinting(self, a2, v2);
-  v9 = objc_msgSend_count(v4, v5, v6);
-  if (v9 && objc_msgSend_isPrintingBuilds(self, v7, v8))
+  v21 = *MEMORY[0x277D85DE8];
+  slidesForPrinting = [(KNRenderingExporter *)self slidesForPrinting];
+  v4 = [slidesForPrinting count];
+  if (v4 && [(KNRenderingExporter *)self isPrintingBuilds])
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    v10 = v4;
-    v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v26, v30, 16);
-    if (v12)
+    v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v5 = slidesForPrinting;
+    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    if (v6)
     {
-      v15 = v12;
-      v16 = 0;
-      v17 = *v27;
+      v7 = v6;
+      v8 = 0;
+      v9 = *v17;
       do
       {
-        for (i = 0; i != v15; ++i)
+        for (i = 0; i != v7; ++i)
         {
-          if (*v27 != v17)
+          if (*v17 != v9)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v5);
           }
 
-          v19 = *(*(&v26 + 1) + 8 * i);
-          if (objc_msgSend_safeHasBuildEvents(v19, v13, v14, v26))
+          v11 = *(*(&v16 + 1) + 8 * i);
+          if ([v11 safeHasBuildEvents])
           {
-            v16 += objc_msgSend_safeBuildEventCount(v19, v13, v14);
+            v8 += [v11 safeBuildEventCount];
           }
         }
 
-        v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v26, v30, 16);
+        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
-      while (v15);
+      while (v7);
     }
 
     else
     {
-      v16 = 0;
+      v8 = 0;
     }
   }
 
   else
   {
-    v16 = 0;
+    v8 = 0;
   }
 
-  v20 = v16 + v9;
-  v21 = v20 / objc_msgSend_slidesPerPage(self, v7, v8, v26);
-  if (v20 % objc_msgSend_slidesPerPage(self, v22, v23))
+  v12 = v8 + v4;
+  v13 = v12 / [(KNRenderingExporter *)self slidesPerPage];
+  if (v12 % [(KNRenderingExporter *)self slidesPerPage])
   {
-    v24 = v21 + 1;
+    v14 = v13 + 1;
   }
 
   else
   {
-    v24 = v21;
+    v14 = v13;
   }
 
-  return v24;
+  return v14;
 }
 
 - (BOOL)preparePage:(unint64_t)page
@@ -255,26 +251,26 @@
 
   for (; page; --page)
   {
-    objc_msgSend_incrementPage(self, v6, v7);
+    [(KNRenderingExporter *)self incrementPage];
   }
 
-  v8 = objc_msgSend_currentSlideNode(self, v6, v7);
-  v9 = v8 != 0;
+  currentSlideNode = [(KNRenderingExporter *)self currentSlideNode];
+  v7 = currentSlideNode != 0;
 
-  return v9;
+  return v7;
 }
 
 - (BOOL)incrementPage
 {
-  v3 = self->_currentPage + 1;
-  self->_currentPage = v3;
-  return v3 <= objc_msgSend_pageCount(self, a2, v2);
+  v2 = self->_currentPage + 1;
+  self->_currentPage = v2;
+  return v2 <= [(KNRenderingExporter *)self pageCount];
 }
 
 - (unint64_t)rangeStart
 {
   rangeStart = self->_rangeStart;
-  if (rangeStart - 1 >= objc_msgSend_maximumRangeValue(self, a2, v2))
+  if (rangeStart - 1 >= [(KNRenderingExporter *)self maximumRangeValue])
   {
     return 1;
   }
@@ -288,17 +284,17 @@
 - (unint64_t)rangeEnd
 {
   rangeEnd = self->_rangeEnd;
-  v4 = objc_msgSend_maximumRangeValue(self, a2, v2);
-  if (rangeEnd == -1 || rangeEnd > v4)
+  maximumRangeValue = [(KNRenderingExporter *)self maximumRangeValue];
+  if (rangeEnd == -1 || rangeEnd > maximumRangeValue)
   {
-    v7 = v4;
-    v8 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[KNRenderingExporter rangeEnd]");
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNRenderingExporter.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v12, v9, v11, 276, 0, "Expects a value in a valid range for rangeEnd. RangeEnd: '%lu'. Max: '%lu'", rangeEnd, v7);
+    v5 = maximumRangeValue;
+    v6 = MEMORY[0x277D81150];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNRenderingExporter rangeEnd]"];
+    v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNRenderingExporter.m"];
+    [v6 handleFailureInFunction:v7 file:v8 lineNumber:276 isFatal:0 description:{"Expects a value in a valid range for rangeEnd. RangeEnd: '%lu'. Max: '%lu'", rangeEnd, v5}];
 
-    objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v13, v14);
-    return v7;
+    [MEMORY[0x277D81150] logFullBacktrace];
+    return v5;
   }
 
   return rangeEnd;
@@ -307,58 +303,58 @@
 - (NSArray)slidesForPrinting
 {
   selfCopy = self;
-  v4 = objc_msgSend_show(*(&self->super.super.isa + *MEMORY[0x277D7FFD8]), a2, v2);
-  v7 = objc_msgSend_rangeStart(selfCopy, v5, v6);
-  v10 = objc_msgSend_rangeEnd(selfCopy, v8, v9);
-  LOBYTE(selfCopy) = objc_msgSend_isPrintingSkippedSlides(selfCopy, v11, v12);
-  v15 = objc_msgSend_slideTree(v4, v13, v14);
-  v18 = v15;
+  show = [*(&self->super.super.isa + *MEMORY[0x277D7FFD8]) show];
+  rangeStart = [(KNRenderingExporter *)selfCopy rangeStart];
+  rangeEnd = [(KNRenderingExporter *)selfCopy rangeEnd];
+  LOBYTE(selfCopy) = [(KNRenderingExporter *)selfCopy isPrintingSkippedSlides];
+  slideTree = [show slideTree];
+  v7 = slideTree;
   if (selfCopy)
   {
-    objc_msgSend_slideNodes(v15, v16, v17);
+    [slideTree slideNodes];
   }
 
   else
   {
-    objc_msgSend_visibleSlideNodes(v15, v16, v17);
+    [slideTree visibleSlideNodes];
   }
-  v19 = ;
+  v8 = ;
 
-  v20 = v7 - 1;
-  v23 = objc_msgSend_count(v19, v21, v22);
-  if (v10 >= v23)
+  v9 = rangeStart - 1;
+  v10 = [v8 count];
+  if (rangeEnd >= v10)
   {
-    v25 = v23;
+    v11 = v10;
   }
 
   else
   {
-    v25 = v10;
+    v11 = rangeEnd;
   }
 
-  v26 = objc_msgSend_subarrayWithRange_(v19, v24, v20, v25 - v20);
+  v12 = [v8 subarrayWithRange:{v9, v11 - v9}];
 
-  return v26;
+  return v12;
 }
 
 - (id)p_sourceNodes
 {
   objc_opt_class();
   v3 = TSUCheckedDynamicCast();
-  v6 = objc_msgSend_show(v3, v4, v5);
-  v9 = objc_msgSend_slideTree(v6, v7, v8);
-  if (objc_msgSend_isPrintingSkippedSlides(self, v10, v11))
+  show = [v3 show];
+  slideTree = [show slideTree];
+  if ([(KNRenderingExporter *)self isPrintingSkippedSlides])
   {
-    objc_msgSend_slideNodes(v9, v12, v13);
+    [slideTree slideNodes];
   }
 
   else
   {
-    objc_msgSend_visibleSlideNodes(v9, v12, v13);
+    [slideTree visibleSlideNodes];
   }
-  v14 = ;
+  v6 = ;
 
-  return v14;
+  return v6;
 }
 
 - (void)drawBorderForRect:(CGRect)rect context:(CGContext *)context
@@ -367,18 +363,18 @@
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  if (objc_msgSend_isPrintingBorders(self, a2, context))
+  if ([(KNRenderingExporter *)self isPrintingBorders])
   {
-    v11 = MEMORY[0x277D803C0];
-    v12 = objc_msgSend_blackColor(MEMORY[0x277D81180], v9, v10);
-    v15 = objc_msgSend_strokeWithColor_width_(v11, v13, v12, 0.25);
+    v9 = MEMORY[0x277D803C0];
+    blackColor = [MEMORY[0x277D81180] blackColor];
+    v11 = [v9 strokeWithColor:blackColor width:0.25];
 
-    v17.origin.x = x;
-    v17.origin.y = y;
-    v17.size.width = width;
-    v17.size.height = height;
-    v18 = CGRectInset(v17, -0.125, -0.125);
-    objc_msgSend_paintRect_inContext_(v15, v14, context, v18.origin.x, v18.origin.y, v18.size.width, v18.size.height);
+    v13.origin.x = x;
+    v13.origin.y = y;
+    v13.size.width = width;
+    v13.size.height = height;
+    v14 = CGRectInset(v13, -0.125, -0.125);
+    [v11 paintRect:context inContext:{v14.origin.x, v14.origin.y, v14.size.width, v14.size.height}];
   }
 }
 
@@ -395,61 +391,61 @@
 
 - (double)bottomTextVerticalSpace
 {
-  objc_msgSend_bottomTextFontHeightInfo(self, a2, v2, 0, 0);
-  objc_msgSend_bottomTextVerticalPosition(self, v4, v5);
-  return 0.0 + 11.0 + v6;
+  objc_msgSend_bottomTextFontHeightInfo(self, a2, 0, 0);
+  [(KNRenderingExporter *)self bottomTextVerticalPosition];
+  return 0.0 + 11.0 + v3;
 }
 
 - (void)drawDateForRect:(CGRect)rect context:(CGContext *)context
 {
-  if (objc_msgSend_isPrintingDate(self, a2, context, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height))
+  if ([(KNRenderingExporter *)self isPrintingDate:rect.origin.x])
   {
     printTitle = self->_printTitle;
     if (printTitle)
     {
-      v9 = MEMORY[0x277CCACA8];
-      v10 = MEMORY[0x277CCA968];
-      v11 = objc_msgSend_date(MEMORY[0x277CBEAA8], v6, v7);
-      v13 = objc_msgSend_localizedStringFromDate_dateStyle_timeStyle_(v10, v12, v11, 3, 0);
-      v18 = objc_msgSend_stringWithFormat_(v9, v14, @"%@ - %@", printTitle, v13);
+      v7 = MEMORY[0x277CCACA8];
+      v8 = MEMORY[0x277CCA968];
+      date = [MEMORY[0x277CBEAA8] date];
+      v10 = [v8 localizedStringFromDate:date dateStyle:3 timeStyle:0];
+      v13 = [v7 stringWithFormat:@"%@ - %@", printTitle, v10];
     }
 
     else
     {
-      v15 = MEMORY[0x277CCA968];
-      v11 = objc_msgSend_date(MEMORY[0x277CBEAA8], v6, v7);
-      v18 = objc_msgSend_localizedStringFromDate_dateStyle_timeStyle_(v15, v16, v11, 3, 0);
+      v11 = MEMORY[0x277CCA968];
+      date = [MEMORY[0x277CBEAA8] date];
+      v13 = [v11 localizedStringFromDate:date dateStyle:3 timeStyle:0];
     }
 
-    v17 = v18;
-    if (v18)
+    v12 = v13;
+    if (v13)
     {
       CGContextSaveGState(context);
       CGContextRestoreGState(context);
-      v17 = v18;
+      v12 = v13;
     }
   }
 }
 
 - (void)drawNSStringDateForRect:(CGRect)rect context:(CGContext *)context
 {
-  if (objc_msgSend_isPrintingDate(self, a2, context, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height))
+  if ([(KNRenderingExporter *)self isPrintingDate:context])
   {
     printTitle = self->_printTitle;
     if (printTitle)
     {
-      v8 = MEMORY[0x277CCACA8];
-      v9 = MEMORY[0x277CCA968];
-      v10 = objc_msgSend_date(MEMORY[0x277CBEAA8], v5, v6);
-      v12 = objc_msgSend_localizedStringFromDate_dateStyle_timeStyle_(v9, v11, v10, 3, 0);
-      v16 = objc_msgSend_stringWithFormat_(v8, v13, @"%@ - %@", printTitle, v12);
+      v6 = MEMORY[0x277CCACA8];
+      v7 = MEMORY[0x277CCA968];
+      date = [MEMORY[0x277CBEAA8] date];
+      v9 = [v7 localizedStringFromDate:date dateStyle:3 timeStyle:0];
+      v11 = [v6 stringWithFormat:@"%@ - %@", printTitle, v9];
     }
 
     else
     {
-      v14 = MEMORY[0x277CCA968];
-      v10 = objc_msgSend_date(MEMORY[0x277CBEAA8], v5, v6);
-      v16 = objc_msgSend_localizedStringFromDate_dateStyle_timeStyle_(v14, v15, v10, 3, 0);
+      v10 = MEMORY[0x277CCA968];
+      date = [MEMORY[0x277CBEAA8] date];
+      v11 = [v10 localizedStringFromDate:date dateStyle:3 timeStyle:0];
     }
   }
 }
@@ -457,10 +453,10 @@
 - (void)drawSlideNumberForNode:(id)node buildIndex:(unint64_t)index forRect:(CGRect)rect context:(CGContext *)context position:(int64_t)position
 {
   nodeCopy = node;
-  if (objc_msgSend_isPrintingSlideNumbers(self, v10, v11))
+  if ([(KNRenderingExporter *)self isPrintingSlideNumbers])
   {
-    v13 = objc_msgSend_p_slideNumberStringForSlideNode_buildIndex_(self, v12, nodeCopy, index);
-    if (v13)
+    v10 = [(KNRenderingExporter *)self p_slideNumberStringForSlideNode:nodeCopy buildIndex:index];
+    if (v10)
     {
       CGContextSaveGState(context);
       CGContextRestoreGState(context);
@@ -481,124 +477,119 @@
   nodeCopy = node;
   objc_opt_class();
   v18 = TSUDynamicCast();
-  v23 = objc_msgSend_show(v18, v19, v20);
+  show = [v18 show];
   offscreenController = self->_offscreenController;
   if (!offscreenController)
   {
-    v30 = 0;
+    v24 = 0;
     goto LABEL_8;
   }
 
-  objc_msgSend_outputSize(offscreenController, v21, v22);
-  if (v28 != v14 || v27 != v13)
+  [(KNOffscreenController *)offscreenController outputSize];
+  if (v22 != v14 || v21 != v13)
   {
-    v30 = self->_offscreenController;
+    v24 = self->_offscreenController;
 LABEL_8:
     self->_offscreenController = 0;
 
-    v31 = [KNOffscreenController alloc];
-    v33 = objc_msgSend_initWithShow_canvasDelegate_outputSize_(v31, v32, v23, self, v14, v13);
-    v34 = self->_offscreenController;
-    self->_offscreenController = v33;
+    v25 = [[KNOffscreenController alloc] initWithShow:show canvasDelegate:self outputSize:v14, v13];
+    v26 = self->_offscreenController;
+    self->_offscreenController = v25;
   }
 
-  v35 = objc_msgSend_session(self->_offscreenController, v25, v26);
-  objc_msgSend_setIsExportingToPDF_(v35, v36, 1);
-  objc_msgSend_setShouldUseContentlessLayers_(v35, v37, 1);
-  isPrintingSlideBackgroundsWithAlpha = objc_msgSend_isPrintingSlideBackgroundsWithAlpha(self, v38, v39);
-  objc_msgSend_setShouldAllowBackgroundAlpha_(v35, v41, isPrintingSlideBackgroundsWithAlpha);
-  if (objc_msgSend_supportsPrintingComments(self, v42, v43))
+  session = [(KNOffscreenController *)self->_offscreenController session];
+  [session setIsExportingToPDF:1];
+  [session setShouldUseContentlessLayers:1];
+  [session setShouldAllowBackgroundAlpha:{-[KNRenderingExporter isPrintingSlideBackgroundsWithAlpha](self, "isPrintingSlideBackgroundsWithAlpha")}];
+  if ([(KNRenderingExporter *)self supportsPrintingComments])
   {
-    if (objc_msgSend_isPrintingComments(self, v44, v45))
+    if ([(KNRenderingExporter *)self isPrintingComments])
     {
-      objc_msgSend_setFloatingCommentBehavior_(v35, v46, 2);
+      v28 = 2;
     }
 
     else
     {
-      objc_msgSend_setFloatingCommentBehavior_(v35, v46, 1);
+      v28 = 1;
     }
+
+    [session setFloatingCommentBehavior:v28];
   }
 
-  objc_msgSend_gotoSlideNode_andEvent_(self->_offscreenController, v44, nodeCopy, event);
-  objc_msgSend_isPrintingCanvas(self, v47, v48);
-  objc_msgSend_shouldSuppressBackgrounds(self, v49, v50);
+  [(KNOffscreenController *)self->_offscreenController gotoSlideNode:nodeCopy andEvent:event];
+  [(KNRenderingExporter *)self isPrintingCanvas];
+  [(KNRenderingExporter *)self shouldSuppressBackgrounds];
   TSDSetCGContextInfo();
-  memset(&v88, 0, sizeof(v88));
-  CGContextGetTextMatrix(&v88, context);
+  memset(&v38, 0, sizeof(v38));
+  CGContextGetTextMatrix(&v38, context);
   CGContextSaveGState(context);
   CGContextClipToRectSafe();
-  if (objc_msgSend_isPrintingDraftQuality(self, v51, v52))
+  if ([(KNRenderingExporter *)self isPrintingDraftQuality])
   {
     CGContextSetInterpolationQuality(context, kCGInterpolationLow);
-    v55 = self->_offscreenController;
-    isPrintingBuilds = objc_msgSend_isPrintingBuilds(self, v56, v57);
-    v60 = objc_msgSend_copyImageOfCurrentEventIgnoringBuildVisilibity_(v55, v59, isPrintingBuilds ^ 1u);
-    v89.origin.x = x;
-    v89.origin.y = y;
-    v89.size.width = width;
-    v89.size.height = height;
-    CGContextDrawImage(context, v89, v60);
-    CGImageRelease(v60);
+    v29 = [(KNOffscreenController *)self->_offscreenController copyImageOfCurrentEventIgnoringBuildVisilibity:[(KNRenderingExporter *)self isPrintingBuilds]^ 1];
+    v39.origin.x = x;
+    v39.origin.y = y;
+    v39.size.width = width;
+    v39.size.height = height;
+    CGContextDrawImage(context, v39, v29);
+    CGImageRelease(v29);
   }
 
   else
   {
-    v63 = self->_offscreenController;
-    v64 = objc_msgSend_isPrintingBuilds(self, v53, v54);
-    objc_msgSend_drawCurrentEventIntoContext_intoRect_ignoreBuildVisibility_(v63, v65, context, v64 ^ 1u, x, y, width, height);
+    [(KNOffscreenController *)self->_offscreenController drawCurrentEventIntoContext:context intoRect:[(KNRenderingExporter *)self isPrintingBuilds]^ 1 ignoreBuildVisibility:x, y, width, height];
   }
 
-  if ((objc_msgSend_isSkipped(nodeCopy, v61, v62) & 1) == 0)
+  if (([nodeCopy isSkipped] & 1) == 0)
   {
-    v68 = objc_msgSend_currentSlideNumber(self, v66, v67);
-    objc_msgSend_setCurrentSlideNumber_(self->_hyperlinkController, v69, v68);
-    v72 = objc_msgSend_isPrintingBuilds(self, v70, v71);
+    [(KNPdfHyperlinkController *)self->_hyperlinkController setCurrentSlideNumber:[(KNRenderingExporter *)self currentSlideNumber]];
+    isPrintingBuilds = [(KNRenderingExporter *)self isPrintingBuilds];
     hyperlinkController = self->_hyperlinkController;
-    v76 = objc_msgSend_animatedSlideView(self->_offscreenController, v74, v75);
-    v79 = v76;
-    if (v72)
+    animatedSlideView = [(KNOffscreenController *)self->_offscreenController animatedSlideView];
+    v33 = animatedSlideView;
+    if (isPrintingBuilds)
     {
-      v80 = objc_msgSend_repsCurrentlyVisible(v76, v77, v78);
-      objc_msgSend_addHyperlinksForReps_targetRect_context_(hyperlinkController, v81, v80, context, x, y, width, height);
+      repsCurrentlyVisible = [animatedSlideView repsCurrentlyVisible];
+      [(KNPdfHyperlinkController *)hyperlinkController addHyperlinksForReps:repsCurrentlyVisible targetRect:context context:x, y, width, height];
     }
 
     else
     {
-      v80 = objc_msgSend_canvas(v76, v77, v78);
-      v84 = objc_msgSend_topLevelReps(v80, v82, v83);
-      objc_msgSend_addHyperlinksForReps_targetRect_context_(hyperlinkController, v85, v84, context, x, y, width, height);
+      repsCurrentlyVisible = [animatedSlideView canvas];
+      topLevelReps = [repsCurrentlyVisible topLevelReps];
+      [(KNPdfHyperlinkController *)hyperlinkController addHyperlinksForReps:topLevelReps targetRect:context context:x, y, width, height];
     }
   }
 
   CGContextRestoreGState(context);
-  v87 = v88;
-  CGContextSetTextMatrix(context, &v87);
+  v37 = v38;
+  CGContextSetTextMatrix(context, &v37);
 
   return 1;
 }
 
 - (void)addAnchorPointForSlide:(id)slide context:(CGContext *)context
 {
-  memset(&v20, 0, sizeof(v20));
+  memset(&v13, 0, sizeof(v13));
   slideCopy = slide;
-  CGContextGetCTM(&v20, context);
-  v9 = objc_msgSend_show(*(&self->super.super.isa + *MEMORY[0x277D7FFD8]), v7, v8);
-  objc_msgSend_size(v9, v10, v11);
-  point = vaddq_f64(*&v20.tx, vmlaq_f64(vmulq_n_f64(*&v20.c, v12), 0, *&v20.a));
-  v13 = MEMORY[0x277CCACA8];
-  v16 = objc_msgSend_uniqueIdentifier(slideCopy, v14, v15);
+  CGContextGetCTM(&v13, context);
+  show = [*(&self->super.super.isa + *MEMORY[0x277D7FFD8]) show];
+  [show size];
+  point = vaddq_f64(*&v13.tx, vmlaq_f64(vmulq_n_f64(*&v13.c, v8), 0, *&v13.a));
+  v9 = MEMORY[0x277CCACA8];
+  uniqueIdentifier = [slideCopy uniqueIdentifier];
 
-  v18 = objc_msgSend_stringWithFormat_(v13, v17, @"?slideid=%@", v16);
-  CGPDFContextAddDestinationAtPoint(context, v18, point);
+  v11 = [v9 stringWithFormat:@"?slideid=%@", uniqueIdentifier];
+  CGPDFContextAddDestinationAtPoint(context, v11, point);
 }
 
 - (unint64_t)currentSlideNumber
 {
-  v4 = objc_msgSend_slidesForPrinting(self, a2, v2);
-  v6 = objc_msgSend_indexOfObject_(v4, v5, self->_currentSlideNode);
+  slidesForPrinting = [(KNRenderingExporter *)self slidesForPrinting];
+  v4 = [slidesForPrinting indexOfObject:self->_currentSlideNode];
 
-  return v6;
+  return v4;
 }
 
 - (void)setCurrentSlideNode:(id)node
@@ -606,189 +597,186 @@ LABEL_8:
   nodeCopy = node;
   if (self->_currentSlideNode != nodeCopy)
   {
-    v11 = nodeCopy;
+    v8 = nodeCopy;
     objc_storeStrong(&self->_currentSlideNode, node);
     v6 = *(&self->super.super.isa + *MEMORY[0x277D7FFE8]);
-    v9 = objc_msgSend_slide(self->_currentSlideNode, v7, v8);
-    objc_msgSend_setSlide_(v6, v10, v9);
+    slide = [(KNSlideNode *)self->_currentSlideNode slide];
+    [v6 setSlide:slide];
 
-    nodeCopy = v11;
+    nodeCopy = v8;
   }
 }
 
 - (void)setOptions:(id)options
 {
   optionsCopy = options;
-  v106.receiver = self;
-  v106.super_class = KNRenderingExporter;
-  [(TSARenderingExporter *)&v106 setOptions:optionsCopy];
+  v57.receiver = self;
+  v57.super_class = KNRenderingExporter;
+  [(TSARenderingExporter *)&v57 setOptions:optionsCopy];
   self->_maxRangeValue = -1;
-  v7 = objc_msgSend_objectForKey_(optionsCopy, v5, *MEMORY[0x277D80780]);
-  if (v7)
+  v5 = [optionsCopy objectForKey:*MEMORY[0x277D80780]];
+  if (v5)
   {
     objc_opt_class();
-    v8 = TSUDynamicCast();
-    v11 = objc_msgSend_intValue(v7, v9, v10);
-    objc_msgSend_setRenderingQuality_(v8, v12, v11);
+    v6 = TSUDynamicCast();
+    [v6 setRenderingQuality:{objc_msgSend(v5, "intValue")}];
   }
 
-  v13 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v6, @"KNPrintSlideBorders");
-  v16 = v13;
+  v7 = [optionsCopy objectForKeyedSubscript:@"KNPrintSlideBorders"];
+  v8 = v7;
+  if (v7)
+  {
+    self->_printingBorders = [v7 BOOLValue];
+  }
+
+  v9 = [optionsCopy objectForKeyedSubscript:@"KNPrintUsePageMargins"];
+  v10 = v9;
+  if (v9)
+  {
+    self->_printingPageMargins = [v9 BOOLValue];
+  }
+
+  v11 = [optionsCopy objectForKeyedSubscript:@"KNPrintDate"];
+  v12 = v11;
+  if (v11)
+  {
+    self->_printingDate = [v11 BOOLValue];
+  }
+
+  v13 = [optionsCopy objectForKeyedSubscript:@"KNPrintDateTitle"];
   if (v13)
   {
-    self->_printingBorders = objc_msgSend_BOOLValue(v13, v14, v15);
+    objc_storeStrong(&self->_printTitle, v13);
   }
 
-  v17 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v14, @"KNPrintUsePageMargins");
-  v20 = v17;
-  if (v17)
+  v14 = [optionsCopy objectForKeyedSubscript:@"KNPrintSlideNumbers"];
+  v15 = v14;
+  if (v14)
   {
-    self->_printingPageMargins = objc_msgSend_BOOLValue(v17, v18, v19);
+    self->_printingSlideNumbers = [v14 BOOLValue];
   }
 
-  v21 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v18, @"KNPrintDate");
-  v24 = v21;
+  v16 = [optionsCopy objectForKeyedSubscript:@"KNPrintEachBuild"];
+  v17 = v16;
+  if (v16)
+  {
+    self->_printingBuilds = [v16 BOOLValue];
+  }
+
+  v54 = v10;
+  v55 = v8;
+  v18 = [optionsCopy objectForKeyedSubscript:@"KNPrintHiddenSlides"];
+  v19 = v18;
+  if (v18)
+  {
+    self->_printingSkippedSlides = [v18 BOOLValue];
+  }
+
+  v20 = v5;
+  v49 = v19;
+  v21 = [optionsCopy objectForKeyedSubscript:@"KNPrintDraftQuality"];
+  v22 = v21;
   if (v21)
   {
-    self->_printingDate = objc_msgSend_BOOLValue(v21, v22, v23);
+    self->_printingDraftQuality = [v21 BOOLValue];
   }
 
-  v26 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v22, @"KNPrintDateTitle");
-  if (v26)
+  v23 = [optionsCopy objectForKeyedSubscript:*MEMORY[0x277D807B8]];
+  v24 = v23;
+  if (v23)
   {
-    objc_storeStrong(&self->_printTitle, v26);
+    self->_printingComments = [v23 BOOLValue];
   }
 
-  v27 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v25, @"KNPrintSlideNumbers");
-  v30 = v27;
+  v47 = v24;
+  v53 = v12;
+  v25 = [optionsCopy objectForKeyedSubscript:*MEMORY[0x277D807A8]];
+  v26 = v25;
+  if (v25)
+  {
+    self->_printingBackgrounds = [v25 BOOLValue];
+  }
+
+  v46 = v26;
+  v52 = v13;
+  v27 = [optionsCopy objectForKeyedSubscript:@"KNPrintDraftQuality"];
+  v28 = v27;
   if (v27)
   {
-    self->_printingSlideNumbers = objc_msgSend_BOOLValue(v27, v28, v29);
+    self->_printingDraftQuality = [v27 BOOLValue];
   }
 
-  v31 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v28, @"KNPrintEachBuild");
-  v34 = v31;
-  if (v31)
+  v29 = [optionsCopy objectForKeyedSubscript:@"KNPrintSlideRangeStart"];
+  v30 = v29;
+  v51 = v15;
+  if (v29)
   {
-    self->_printingBuilds = objc_msgSend_BOOLValue(v31, v32, v33);
+    unsignedIntegerValue = [v29 unsignedIntegerValue];
   }
 
-  v103 = v20;
-  v104 = v16;
-  v35 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v32, @"KNPrintHiddenSlides");
-  v38 = v35;
+  else
+  {
+    unsignedIntegerValue = 1;
+  }
+
+  [(KNRenderingExporter *)self setSlideRangeStart:unsignedIntegerValue];
+  v32 = [optionsCopy objectForKeyedSubscript:@"KNPrintSlideRangeEnd"];
+  v33 = v32;
+  v50 = v17;
+  if (v32)
+  {
+    unsignedIntegerValue2 = [v32 unsignedIntegerValue];
+  }
+
+  else
+  {
+    unsignedIntegerValue2 = [(KNRenderingExporter *)self maximumRangeValue];
+  }
+
+  v48 = v22;
+  [(KNRenderingExporter *)self setSlideRangeEnd:unsignedIntegerValue2];
+  v35 = [optionsCopy objectForKeyedSubscript:@"KNPrintSlidesPerGridPage"];
+  v36 = v35;
   if (v35)
   {
-    self->_printingSkippedSlides = objc_msgSend_BOOLValue(v35, v36, v37);
+    -[KNRenderingExporter setSlidesPerPage:](self, "setSlidesPerPage:", [v35 integerValue]);
   }
 
-  v39 = v7;
-  v98 = v38;
-  v40 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v36, @"KNPrintDraftQuality");
-  v43 = v40;
-  if (v40)
+  v37 = [optionsCopy objectForKeyedSubscript:@"KNPrintSlidesPerHandoutPage"];
+  v38 = v37;
+  if (v37)
   {
-    self->_printingDraftQuality = objc_msgSend_BOOLValue(v40, v41, v42);
+    -[KNRenderingExporter setSlidesPerPage:](self, "setSlidesPerPage:", [v37 integerValue]);
   }
 
-  v44 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v41, *MEMORY[0x277D807B8]);
-  v47 = v44;
-  if (v44)
+  v56 = v20;
+  v39 = [optionsCopy objectForKeyedSubscript:@"KNPrintAddNotesToHandout"];
+  v40 = v39;
+  if (v39)
   {
-    self->_printingComments = objc_msgSend_BOOLValue(v44, v45, v46);
+    self->_printingNotes = [v39 BOOLValue];
   }
 
-  v96 = v47;
-  v102 = v24;
-  v48 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v45, *MEMORY[0x277D807A8]);
-  v51 = v48;
-  if (v48)
+  v41 = [optionsCopy objectForKeyedSubscript:@"KNPrintRuledLines"];
+  v42 = v41;
+  if (v41)
   {
-    self->_printingBackgrounds = objc_msgSend_BOOLValue(v48, v49, v50);
+    self->_printingRuledLines = [v41 BOOLValue];
   }
 
-  v95 = v51;
-  v101 = v26;
-  v52 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v49, @"KNPrintDraftQuality");
-  v55 = v52;
-  if (v52)
+  v43 = [optionsCopy objectForKeyedSubscript:@"KNPrintSlideBackgroundsWithAlpha"];
+  v44 = v43;
+  if (v43)
   {
-    self->_printingDraftQuality = objc_msgSend_BOOLValue(v52, v53, v54);
-  }
-
-  v56 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v53, @"KNPrintSlideRangeStart");
-  v59 = v56;
-  v100 = v30;
-  if (v56)
-  {
-    v60 = objc_msgSend_unsignedIntegerValue(v56, v57, v58);
-    objc_msgSend_setSlideRangeStart_(self, v61, v60);
+    bOOLValue = [v43 BOOLValue];
   }
 
   else
   {
-    objc_msgSend_setSlideRangeStart_(self, v57, 1);
+    bOOLValue = 1;
   }
 
-  v63 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v62, @"KNPrintSlideRangeEnd");
-  v66 = v63;
-  v99 = v34;
-  if (v63)
-  {
-    v67 = objc_msgSend_unsignedIntegerValue(v63, v64, v65);
-  }
-
-  else
-  {
-    v67 = objc_msgSend_maximumRangeValue(self, v64, v65);
-  }
-
-  v97 = v43;
-  objc_msgSend_setSlideRangeEnd_(self, v68, v67);
-  v70 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v69, @"KNPrintSlidesPerGridPage");
-  v73 = v70;
-  if (v70)
-  {
-    v74 = objc_msgSend_integerValue(v70, v71, v72);
-    objc_msgSend_setSlidesPerPage_(self, v75, v74);
-  }
-
-  v76 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v71, @"KNPrintSlidesPerHandoutPage");
-  v79 = v76;
-  if (v76)
-  {
-    v80 = objc_msgSend_integerValue(v76, v77, v78);
-    objc_msgSend_setSlidesPerPage_(self, v81, v80);
-  }
-
-  v105 = v39;
-  v82 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v77, @"KNPrintAddNotesToHandout");
-  v85 = v82;
-  if (v82)
-  {
-    self->_printingNotes = objc_msgSend_BOOLValue(v82, v83, v84);
-  }
-
-  v86 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v83, @"KNPrintRuledLines");
-  v89 = v86;
-  if (v86)
-  {
-    self->_printingRuledLines = objc_msgSend_BOOLValue(v86, v87, v88);
-  }
-
-  v90 = objc_msgSend_objectForKeyedSubscript_(optionsCopy, v87, @"KNPrintSlideBackgroundsWithAlpha");
-  v93 = v90;
-  if (v90)
-  {
-    v94 = objc_msgSend_BOOLValue(v90, v91, v92);
-  }
-
-  else
-  {
-    v94 = 1;
-  }
-
-  self->_printingSlideBackgroundsWithAlpha = v94;
+  self->_printingSlideBackgroundsWithAlpha = bOOLValue;
 }
 
 - (void)enableRenderAllContent
@@ -802,47 +790,47 @@ LABEL_8:
 - (int64_t)pageIndexFromQuickLookSlideNode:(id)node
 {
   nodeCopy = node;
-  if (objc_msgSend_isPrintingBuilds(self, v5, v6))
+  if ([(KNRenderingExporter *)self isPrintingBuilds])
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[KNRenderingExporter pageIndexFromQuickLookSlideNode:]");
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNRenderingExporter.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v13, v10, v12, 745, 0, "Printing builds not supported in -pageIndexFromSlide");
+    v5 = MEMORY[0x277D81150];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNRenderingExporter pageIndexFromQuickLookSlideNode:]"];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNRenderingExporter.m"];
+    [v5 handleFailureInFunction:v6 file:v7 lineNumber:745 isFatal:0 description:"Printing builds not supported in -pageIndexFromSlide"];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15);
-    v16 = 0x7FFFFFFFFFFFFFFFLL;
+    [MEMORY[0x277D81150] logBacktraceThrottled];
+    v8 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
   else
   {
-    v17 = objc_msgSend_quickLookSlideNodes(self, v7, v8);
-    v16 = objc_msgSend_indexOfObjectIdenticalTo_(v17, v18, nodeCopy);
+    quickLookSlideNodes = [(KNRenderingExporter *)self quickLookSlideNodes];
+    v8 = [quickLookSlideNodes indexOfObjectIdenticalTo:nodeCopy];
   }
 
-  return v16;
+  return v8;
 }
 
 - (id)quickLookSlideNodes
 {
-  v3 = objc_msgSend_show(*(&self->super.super.isa + *MEMORY[0x277D7FFD8]), a2, v2);
-  v6 = objc_msgSend_slideTree(v3, v4, v5);
-  v9 = objc_msgSend_visibleSlideNodes(v6, v7, v8);
+  show = [*(&self->super.super.isa + *MEMORY[0x277D7FFD8]) show];
+  slideTree = [show slideTree];
+  visibleSlideNodes = [slideTree visibleSlideNodes];
 
-  return v9;
+  return visibleSlideNodes;
 }
 
 - (void)setSlideRangeStart:(unint64_t)start
 {
-  v6 = objc_msgSend_maximumRangeValue(self, a2, start);
-  if (start != -1 && (!start || v6 < start))
+  maximumRangeValue = [(KNRenderingExporter *)self maximumRangeValue];
+  if (start != -1 && (!start || maximumRangeValue < start))
   {
-    v8 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[KNRenderingExporter setSlideRangeStart:]");
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNRenderingExporter.m");
-    v12 = NSStringFromSelector(a2);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v13, v9, v11, 761, 0, "%@ expects a value in the range [1, slideTree.visibleSlideNodes.count) ||  [1, slideTree.slideNodes.count)  || NSUIntegerMax", v12);
+    v7 = MEMORY[0x277D81150];
+    v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNRenderingExporter setSlideRangeStart:]"];
+    v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNRenderingExporter.m"];
+    v10 = NSStringFromSelector(a2);
+    [v7 handleFailureInFunction:v8 file:v9 lineNumber:761 isFatal:0 description:{"%@ expects a value in the range [1, slideTree.visibleSlideNodes.count}] ||  [1, slideTree.slideNodes.count)  || NSUIntegerMax", v10);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
   if (start + 1 < 3)
@@ -860,25 +848,24 @@ LABEL_8:
 
 - (void)setSlideRangeEnd:(unint64_t)end
 {
-  endCopy = end;
-  v6 = objc_msgSend_maximumRangeValue(self, a2, end);
-  if (endCopy == -1)
+  maximumRangeValue = [(KNRenderingExporter *)self maximumRangeValue];
+  if (end == -1)
   {
-    endCopy = v6;
+    end = maximumRangeValue;
   }
 
-  else if (!endCopy || v6 < endCopy)
+  else if (!end || maximumRangeValue < end)
   {
-    v8 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[KNRenderingExporter setSlideRangeEnd:]");
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNRenderingExporter.m");
-    v12 = NSStringFromSelector(a2);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v13, v9, v11, 772, 0, "%@ expects a value in the range [1, slideTree.visibleSlideNodes.count) ||  [1, slideTree.slideNodes.count)  || NSUIntegerMax", v12);
+    v7 = MEMORY[0x277D81150];
+    v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNRenderingExporter setSlideRangeEnd:]"];
+    v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNRenderingExporter.m"];
+    v10 = NSStringFromSelector(a2);
+    [v7 handleFailureInFunction:v8 file:v9 lineNumber:772 isFatal:0 description:{"%@ expects a value in the range [1, slideTree.visibleSlideNodes.count}] ||  [1, slideTree.slideNodes.count)  || NSUIntegerMax", v10);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  self->_rangeEnd = endCopy;
+  self->_rangeEnd = end;
 }
 
 - (unint64_t)maximumRangeValue
@@ -886,8 +873,8 @@ LABEL_8:
   result = self->_maxRangeValue;
   if (result == -1)
   {
-    v5 = objc_msgSend_p_sourceNodes(self, a2, v2);
-    self->_maxRangeValue = objc_msgSend_count(v5, v6, v7);
+    p_sourceNodes = [(KNRenderingExporter *)self p_sourceNodes];
+    self->_maxRangeValue = [p_sourceNodes count];
 
     return self->_maxRangeValue;
   }
@@ -898,44 +885,45 @@ LABEL_8:
 - (unint64_t)p_slideNumberForSlideNode:(id)node
 {
   nodeCopy = node;
-  v7 = objc_msgSend_show(*(&self->super.super.isa + *MEMORY[0x277D7FFD8]), v5, v6);
-  if ((objc_msgSend_isPrintingSelectedSlides(self, v8, v9) & 1) != 0 || objc_msgSend_isPrintingSkippedSlides(self, v10, v11))
+  show = [*(&self->super.super.isa + *MEMORY[0x277D7FFD8]) show];
+  if ([(KNRenderingExporter *)self isPrintingSelectedSlides]|| [(KNRenderingExporter *)self isPrintingSkippedSlides])
   {
-    v12 = objc_msgSend_slideTree(v7, v10, v11);
-    v14 = objc_msgSend_indexOfSlideNode_(v12, v13, nodeCopy) + 1;
+    slideTree = [show slideTree];
+    v7 = [slideTree indexOfSlideNode:nodeCopy] + 1;
   }
 
   else
   {
-    v12 = objc_msgSend_slideTree(v7, v10, v11);
-    v14 = objc_msgSend_slideNumberForSlideNode_(v12, v15, nodeCopy);
+    slideTree = [show slideTree];
+    v7 = [slideTree slideNumberForSlideNode:nodeCopy];
   }
 
-  return v14;
+  return v7;
 }
 
 - (id)p_slideNumberStringForSlideNode:(id)node buildIndex:(unint64_t)index
 {
   nodeCopy = node;
-  v8 = objc_msgSend_p_slideNumberForSlideNode_(self, v7, nodeCopy);
-  if (objc_msgSend_isPrintingBuilds(self, v9, v10) && objc_msgSend_hasBuildEvents(nodeCopy, v11, v12))
+  v7 = [(KNRenderingExporter *)self p_slideNumberForSlideNode:nodeCopy];
+  isPrintingBuilds = [(KNRenderingExporter *)self isPrintingBuilds];
+  if (isPrintingBuilds && (isPrintingBuilds = [nodeCopy hasBuildEvents], isPrintingBuilds))
   {
-    v13 = MEMORY[0x277CCACA8];
-    v14 = sub_275DC204C();
-    v16 = objc_msgSend_localizedStringForKey_value_table_(v14, v15, @"%lu-%lu", &stru_2884D8E20, @"Keynote");
-    objc_msgSend_localizedStringWithFormat_(v13, v17, v16, v8, index + 1);
+    v9 = MEMORY[0x277CCACA8];
+    v10 = sub_275DC204C(isPrintingBuilds);
+    v11 = [v10 localizedStringForKey:@"%lu-%lu" value:&stru_2884D8E20 table:@"Keynote"];
+    [v9 localizedStringWithFormat:v11, v7, index + 1];
   }
 
   else
   {
-    v18 = MEMORY[0x277CCACA8];
-    v14 = sub_275DC204C();
-    v16 = objc_msgSend_localizedStringForKey_value_table_(v14, v19, @"%lu", &stru_2884D8E20, @"Keynote");
-    objc_msgSend_localizedStringWithFormat_(v18, v20, v16, v8);
+    v12 = MEMORY[0x277CCACA8];
+    v10 = sub_275DC204C(isPrintingBuilds);
+    v11 = [v10 localizedStringForKey:@"%lu" value:&stru_2884D8E20 table:@"Keynote"];
+    [v12 localizedStringWithFormat:v11, v7, v15];
   }
-  v21 = ;
+  v13 = ;
 
-  return v21;
+  return v13;
 }
 
 - (CGRect)scaledClipRectMinusBottomSpace:(CGRect)space
@@ -944,41 +932,18 @@ LABEL_8:
   width = space.size.width;
   y = space.origin.y;
   x = space.origin.x;
-  if ((objc_msgSend_isPrintingDate(self, a2, v3) & 1) != 0 || objc_msgSend_isPrintingSlideNumbers(self, v9, v10) && objc_msgSend_supportsPrintingComments(self, v15, v16))
+  if ([(KNRenderingExporter *)self isPrintingDate]|| [(KNRenderingExporter *)self isPrintingSlideNumbers]&& [(KNRenderingExporter *)self supportsPrintingComments])
   {
-    objc_msgSend_bottomTextVerticalSpace(self, v9, v10);
-    y = y + v11;
-    objc_msgSend_bottomTextVerticalSpace(self, v12, v13);
-    height = height - v14;
+    [(KNRenderingExporter *)self bottomTextVerticalSpace];
+    y = y + v8;
+    [(KNRenderingExporter *)self bottomTextVerticalSpace];
+    height = height - v9;
   }
 
-  v17 = x;
-  v18 = y;
-  v19 = width;
-  v20 = height;
-  result.size.height = v20;
-  result.size.width = v19;
-  result.origin.y = v18;
-  result.origin.x = v17;
-  return result;
-}
-
-- (CGRect)scaledClipRectForPageCount
-{
-  if (objc_msgSend_isPrinting(*(&self->super.super.isa + *MEMORY[0x277D7FFE8]), a2, v2))
-  {
-    objc_msgSend_unscaledClipRectForPageCount(self, v4, v5);
-    objc_msgSend_viewScaleForPageCount(self, v6, v7);
-  }
-
-  else
-  {
-    objc_msgSend_unscaledClipRect(self, v4, v5);
-  }
-
-  TSUMultiplyRectScalar();
-
-  objc_msgSend_scaledClipRectMinusBottomSpace_(self, v8, v9);
+  v10 = x;
+  v11 = y;
+  v12 = width;
+  v13 = height;
   result.size.height = v13;
   result.size.width = v12;
   result.origin.y = v11;
@@ -986,43 +951,66 @@ LABEL_8:
   return result;
 }
 
+- (CGRect)scaledClipRectForPageCount
+{
+  if ([*(&self->super.super.isa + *MEMORY[0x277D7FFE8]) isPrinting])
+  {
+    [(KNRenderingExporter *)self unscaledClipRectForPageCount];
+    [(KNRenderingExporter *)self viewScaleForPageCount];
+  }
+
+  else
+  {
+    [(TSARenderingExporter *)self unscaledClipRect];
+  }
+
+  TSUMultiplyRectScalar();
+
+  [(KNRenderingExporter *)self scaledClipRectMinusBottomSpace:?];
+  result.size.height = v6;
+  result.size.width = v5;
+  result.origin.y = v4;
+  result.origin.x = v3;
+  return result;
+}
+
 - (CGRect)beginPageInContext:(CGContext *)context viewScale:(double)scale unscaledClipRect:(CGRect)rect createPage:(BOOL)page
 {
   pageCopy = page;
   TSUMultiplyRectScalar();
-  v28.origin.x = v11;
-  v28.origin.y = v12;
-  v28.size.width = v13;
-  v28.size.height = v14;
+  v22.origin.x = v9;
+  v22.origin.y = v10;
+  v22.size.width = v11;
+  v22.size.height = v12;
   if (pageCopy)
   {
-    CGContextBeginPage(context, &v28);
+    CGContextBeginPage(context, &v22);
   }
 
-  v15 = *MEMORY[0x277D7FFE8];
-  if ((objc_msgSend_isPrinting(*(&self->super.super.isa + v15), v9, v10, *&v28.origin) & 1) == 0 && objc_msgSend_useWhiteBackground(self, v16, v17))
+  v13 = *MEMORY[0x277D7FFE8];
+  if (([*(&self->super.super.isa + v13) isPrinting] & 1) == 0 && -[KNRenderingExporter useWhiteBackground](self, "useWhiteBackground"))
   {
     CGContextSetRGBFillColor(context, 1.0, 1.0, 1.0, 1.0);
-    CGContextFillRect(context, v28);
+    CGContextFillRect(context, v22);
   }
 
-  if ((objc_msgSend_isPrinting(*(&self->super.super.isa + v15), v16, v17) & 1) == 0 && (objc_msgSend_supportsPrintingComments(self, v18, v19) & 1) == 0)
+  if (([*(&self->super.super.isa + v13) isPrinting] & 1) == 0 && !-[KNRenderingExporter supportsPrintingComments](self, "supportsPrintingComments"))
   {
-    objc_msgSend_rectBySubtractingDefaultPageMarginsFromRect_(self, v18, v19, *&v28.origin, v28.size.width, v28.size.height);
-    v28.origin.x = v20;
-    v28.origin.y = v21;
-    v28.size.width = v22;
-    v28.size.height = v23;
-    CGContextTranslateCTM(context, v20, v21);
-    v28.origin = *MEMORY[0x277CBF348];
+    [(KNRenderingExporter *)self rectBySubtractingDefaultPageMarginsFromRect:*&v22.origin, v22.size.width, v22.size.height];
+    v22.origin.x = v14;
+    v22.origin.y = v15;
+    v22.size.width = v16;
+    v22.size.height = v17;
+    CGContextTranslateCTM(context, v14, v15);
+    v22.origin = *MEMORY[0x277CBF348];
   }
 
-  objc_msgSend_yellowColor(MEMORY[0x277D81180], v18, v19, *&v28.origin);
+  [MEMORY[0x277D81180] yellowColor];
 
-  y = v28.origin.y;
-  x = v28.origin.x;
-  width = v28.size.width;
-  height = v28.size.height;
+  y = v22.origin.y;
+  x = v22.origin.x;
+  width = v22.size.width;
+  height = v22.size.height;
   result.size.height = height;
   result.size.width = width;
   result.origin.y = y;
@@ -1054,23 +1042,23 @@ LABEL_8:
 - (CGRect)monoSlideRectFromScaledClipRect:(CGRect)rect outScaledClipRect:(CGRect *)clipRect
 {
   v4 = MEMORY[0x277D81150];
-  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNRenderingExporter(Mono) monoSlideRectFromScaledClipRect:outScaledClipRect:]", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
-  v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNRenderingExporter.m");
-  v8 = objc_opt_class();
-  v9 = NSStringFromClass(v8);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v10, v5, v7, 904, 0, "Abstract method not overridden by %{public}@", v9);
+  v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"-[KNRenderingExporter(Mono) monoSlideRectFromScaledClipRect:outScaledClipRect:]", rect.origin.x, rect.origin.y, rect.size.width, rect.size.height}];
+  v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNRenderingExporter.m"];
+  v7 = objc_opt_class();
+  v8 = NSStringFromClass(v7);
+  [v4 handleFailureInFunction:v5 file:v6 lineNumber:904 isFatal:0 description:{"Abstract method not overridden by %{public}@", v8}];
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12);
-  v13 = MEMORY[0x277CBEAD8];
-  v14 = *MEMORY[0x277CBE658];
-  v15 = MEMORY[0x277CCACA8];
-  v16 = objc_opt_class();
-  v17 = NSStringFromClass(v16);
-  v19 = objc_msgSend_stringWithFormat_(v15, v18, @"Abstract method not overridden by %@: %s", v17, "[KNRenderingExporter(Mono) monoSlideRectFromScaledClipRect:outScaledClipRect:]");
-  v21 = objc_msgSend_exceptionWithName_reason_userInfo_(v13, v20, v14, v19, 0);
-  v22 = v21;
+  [MEMORY[0x277D81150] logBacktraceThrottled];
+  v9 = MEMORY[0x277CBEAD8];
+  v10 = *MEMORY[0x277CBE658];
+  v11 = MEMORY[0x277CCACA8];
+  v12 = objc_opt_class();
+  v13 = NSStringFromClass(v12);
+  v14 = [v11 stringWithFormat:@"Abstract method not overridden by %@: %s", v13, "-[KNRenderingExporter(Mono) monoSlideRectFromScaledClipRect:outScaledClipRect:]"];
+  v15 = [v9 exceptionWithName:v10 reason:v14 userInfo:0];
+  v16 = v15;
 
-  objc_exception_throw(v21);
+  objc_exception_throw(v15);
 }
 
 - (BOOL)drawMonoPageInContext:(CGContext *)context viewScale:(double)scale unscaledClipRect:(CGRect)rect createPage:(BOOL)page helper:(id)helper
@@ -1081,49 +1069,49 @@ LABEL_8:
   y = rect.origin.y;
   x = rect.origin.x;
   helperCopy = helper;
-  objc_msgSend_beginPageInContext_viewScale_unscaledClipRect_createPage_(self, v16, context, pageCopy, scale, x, y, width, height);
-  v18 = v17;
-  v20 = v19;
-  v22 = v21;
-  v24 = v23;
-  objc_msgSend_scaledClipRectMinusBottomSpace_(self, v25, v26);
-  v27 = *(MEMORY[0x277CBF3A0] + 16);
-  v54 = *MEMORY[0x277CBF3A0];
-  v55 = v27;
-  objc_msgSend_monoSlideRectFromScaledClipRect_outScaledClipRect_(self, v28, &v54);
+  [(KNRenderingExporter *)self beginPageInContext:context viewScale:pageCopy unscaledClipRect:scale createPage:x, y, width, height];
+  v17 = v16;
+  v19 = v18;
+  v21 = v20;
+  v23 = v22;
+  [(KNRenderingExporter *)self scaledClipRectMinusBottomSpace:?];
+  v24 = *(MEMORY[0x277CBF3A0] + 16);
+  v37 = *MEMORY[0x277CBF3A0];
+  v38 = v24;
+  [(KNRenderingExporter *)self monoSlideRectFromScaledClipRect:&v37 outScaledClipRect:?];
+  v26 = v25;
+  v28 = v27;
   v30 = v29;
   v32 = v31;
-  v34 = v33;
-  v36 = v35;
-  v39 = objc_msgSend_progressContext(self, v37, v38);
-  objc_msgSend_advanceProgress_(v39, v40, v41, 1.0);
+  progressContext = [(TSARenderingExporter *)self progressContext];
+  [progressContext advanceProgress:1.0];
 
-  LODWORD(v39) = objc_msgSend_shouldDrawSlide(helperCopy, v42, v43);
-  if (v39)
+  LODWORD(progressContext) = [helperCopy shouldDrawSlide];
+  if (progressContext)
   {
-    objc_msgSend_drawBorderForRect_context_(self, v44, context, v30, v32, v34, v36);
-    v46 = objc_msgSend_drawImageForSlideNode_event_slideSize_intoRect_annotationFlagsScale_context_(self, v45, self->_currentSlideNode, self->_currentBuildIndex, context, v34, v36, v30, v32, v34, v36, 0.0);
+    [(KNRenderingExporter *)self drawBorderForRect:context context:v26, v28, v30, v32];
+    v34 = [(KNRenderingExporter *)self drawImageForSlideNode:self->_currentSlideNode event:self->_currentBuildIndex slideSize:context intoRect:v30 annotationFlagsScale:v32 context:v26, v28, v30, v32, 0.0];
   }
 
   else
   {
-    v46 = 0;
+    v34 = 0;
   }
 
-  v49 = v46 | objc_msgSend_drawMonoPageExtraContentInContext_scaledClipRect_(self, v44, context, v54, v55);
-  if (v49)
+  v35 = v34 | [(KNRenderingExporter *)self drawMonoPageExtraContentInContext:context scaledClipRect:v37, v38];
+  if (v35)
   {
-    objc_msgSend_drawSlideNumberForNode_buildIndex_forRect_context_position_(self, v47, self->_currentSlideNode, self->_currentBuildIndex, context, 3, v18, v20, v22, v24);
-    objc_msgSend_drawDateForRect_context_(self, v50, context, v18, v20, v22, v24);
+    [(KNRenderingExporter *)self drawSlideNumberForNode:self->_currentSlideNode buildIndex:self->_currentBuildIndex forRect:context context:3 position:v17, v19, v21, v23];
+    [(KNRenderingExporter *)self drawDateForRect:context context:v17, v19, v21, v23];
   }
 
-  if ((objc_msgSend_isPrinting(*(&self->super.super.isa + *MEMORY[0x277D7FFE8]), v47, v48) & 1) == 0 && (objc_msgSend_isSkipped(self->_currentSlideNode, v51, v52) & 1) == 0 && !self->_currentBuildIndex)
+  if (([*(&self->super.super.isa + *MEMORY[0x277D7FFE8]) isPrinting] & 1) == 0 && !-[KNSlideNode isSkipped](self->_currentSlideNode, "isSkipped") && !self->_currentBuildIndex)
   {
-    objc_msgSend_addAnchorPointForSlide_context_(self, v51, self->_currentSlideNode, context);
+    [(KNRenderingExporter *)self addAnchorPointForSlide:self->_currentSlideNode context:context];
   }
 
-  objc_msgSend_endPageInContext_createPage_(self, v51, context, pageCopy);
-  return v49 & 1;
+  [(KNRenderingExporter *)self endPageInContext:context createPage:pageCopy];
+  return v35 & 1;
 }
 
 @end

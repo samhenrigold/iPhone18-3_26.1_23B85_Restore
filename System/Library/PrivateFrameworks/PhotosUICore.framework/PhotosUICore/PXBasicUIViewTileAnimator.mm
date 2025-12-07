@@ -26,13 +26,13 @@
 
     else if (style == 3)
     {
-      [optionsCopy duration];
+      objc_msgSend_duration(optionsCopy);
       [v10 px_animateUsingDefaultDampedEaseInEaseOutWithDuration:animationsCopy animations:completionCopy completion:?];
     }
 
     else
     {
-      [optionsCopy duration];
+      objc_msgSend_duration(optionsCopy);
       v12 = v11;
       [optionsCopy delay];
       [v10 animateWithDuration:2 delay:animationsCopy options:completionCopy animations:v12 completion:v13];

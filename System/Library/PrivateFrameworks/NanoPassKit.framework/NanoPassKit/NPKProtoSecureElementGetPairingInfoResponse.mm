@@ -100,14 +100,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    pending = self->_pending;
     PBDataWriterWriteBOOLField();
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    success = self->_success;
     PBDataWriterWriteBOOLField();
   }
 
@@ -123,7 +121,6 @@
 
   if (*&self->_has)
   {
-    authRandomSet = self->_authRandomSet;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -208,7 +205,6 @@
     goto LABEL_26;
   }
 
-  v5 = *(equalCopy + 28);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 28) & 2) == 0)
@@ -216,7 +212,6 @@
       goto LABEL_26;
     }
 
-    v9 = *(equalCopy + 25);
     if (self->_pending)
     {
       if ((*(equalCopy + 25) & 1) == 0)
@@ -244,7 +239,7 @@
     }
 
 LABEL_26:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_27;
   }
 
@@ -253,7 +248,6 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  v10 = *(equalCopy + 26);
   if (self->_success)
   {
     if ((*(equalCopy + 26) & 1) == 0)
@@ -283,7 +277,7 @@ LABEL_6:
     }
   }
 
-  v8 = (*(equalCopy + 28) & 1) == 0;
+  v7 = (*(equalCopy + 28) & 1) == 0;
   if (*&self->_has)
   {
     if (*(equalCopy + 28))
@@ -299,7 +293,7 @@ LABEL_6:
       else if (!*(equalCopy + 24))
       {
 LABEL_29:
-        v8 = 1;
+        v7 = 1;
         goto LABEL_27;
       }
     }
@@ -309,7 +303,7 @@ LABEL_29:
 
 LABEL_27:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

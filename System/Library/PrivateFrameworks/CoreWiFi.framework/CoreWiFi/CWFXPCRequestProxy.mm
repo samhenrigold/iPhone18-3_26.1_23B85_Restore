@@ -15,9 +15,11 @@
 - (id)__SCNetworkInterfaceWithInterfaceName:(id)name;
 - (id)__SCNetworkServiceWithInterfaceName:(id)name;
 - (id)__apple80211WithInterfaceName:(id)name;
+- (id)__apple80211WithVirtualInterfaceRole:(int)role parentInterfaceName:(id)name;
 - (id)__autojoinStatusWithInterfaceName:(id)name;
 - (id)__cachedKnownNetwork;
 - (id)__currentNetworkProfileWithInterfaceName:(id)name;
+- (id)__currentScanResultWithInterfaceName:(id)name forceNoCache:(BOOL)cache;
 - (id)__deviceUUID;
 - (id)__hashedBSSID:(id)d XPCConnection:(id)connection error:(id *)error;
 - (id)__hashedSSID:(id)d XPCConnection:(id)connection error:(id *)error;
@@ -52,14 +54,17 @@
 - (void)XPCManager:(id)manager invalidatedXPCConnection:(id)connection;
 - (void)XPCManager:(id)manager sendXPCEvent:(id)event reply:(id)reply;
 - (void)__acknowledgeWiFiNetworkSharingNetworkListUpdate:(id)update;
+- (void)__addJoinStatusWithScanResult:(id)result knownNetworkProfile:(id)profile isAutoJoin:(BOOL)join interfaceName:(id)name;
 - (void)__addKnownNetwork:(id)network XPCConnection:(id)connection;
 - (void)__allowBrokenBackhaulPersonalHotspotFallbackForAutoJoinWithNetwork:(id)network reply:(id)reply;
 - (void)__askToShareWiFiNetworkSharingNetworkFromApp:(id)app;
 - (void)__askToShareWiFiNetworkSharingNetworkFromAppex:(id)appex;
+- (void)__autoJoinEndedWithResult:(BOOL)result interfaceName:(id)name;
 - (void)__autoJoinStartedWithTrigger:(int64_t)trigger interfaceName:(id)name;
 - (void)__cancelRequestsWithNamePrefix:(id)prefix;
 - (void)__checkin:(id)__checkin XPCConnection:(id)connection;
 - (void)__confirmBrokenBackhaul:(id)backhaul;
+- (void)__currentScanResultWithInterfaceName:(id)name forceNoCache:(BOOL)cache reply:(id)reply;
 - (void)__detectBrokenBackhaulForAutoJoinWithNetwork:(id)network reply:(id)reply;
 - (void)__disassocWithReason:(int64_t)reason interfaceName:(id)name;
 - (void)__dumpLogs:(id)logs;
@@ -222,167 +227,28 @@
 
 - (CWFXPCRequestProxy)init
 {
-  v112 = *MEMORY[0x1E69E9840];
-  v101.receiver = self;
-  v101.super_class = CWFXPCRequestProxy;
-  v2 = [(CWFXPCRequestProxy *)&v101 init];
-  if (!v2)
+  v110 = *MEMORY[0x1E69E9840];
+  v99.receiver = self;
+  v99.super_class = CWFXPCRequestProxy;
+  v2 = [(CWFXPCRequestProxy *)&v99 init];
+  if (!v2
+    || ([MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.corewifi.XPC-common-internal"], v3 = objc_claimAutoreleasedReturnValue(), v4 = objc_msgSend(v3, "UTF8String"), dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v5 = objc_claimAutoreleasedReturnValue(), v6 = dispatch_queue_create(v4, v5), internalQueue = v2->_internalQueue, v2->_internalQueue = v6, internalQueue, v5, v3, !v2->_internalQueue)
+    || ([MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.corewifi.XPC-common-mutex"], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "UTF8String"), dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v10 = objc_claimAutoreleasedReturnValue(), v11 = dispatch_queue_create(v9, v10), mutexQueue = v2->_mutexQueue, v2->_mutexQueue = v11, mutexQueue, v10, v8, !v2->_mutexQueue)
+    || ([MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.corewifi.XPC-common-event"], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "UTF8String"), dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v15 = objc_claimAutoreleasedReturnValue(), v16 = dispatch_queue_create(v14, v15), eventQueue = v2->_eventQueue, v2->_eventQueue = v16, eventQueue, v15, v13, !v2->_eventQueue)
+    || ([MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.corewifi.apple80211-common-intf"], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "UTF8String"), dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v20 = objc_claimAutoreleasedReturnValue(), v21 = dispatch_queue_create(v19, v20), apple80211InterfaceQueue = v2->_apple80211InterfaceQueue, v2->_apple80211InterfaceQueue = v21, apple80211InterfaceQueue, v20, v18, !v2->_apple80211InterfaceQueue)
+    || ([MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.corewifi.sc-common-intf"], v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "UTF8String"), dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v25 = objc_claimAutoreleasedReturnValue(), v26 = dispatch_queue_create(v24, v25), systemConfigInterfaceQueue = v2->_systemConfigInterfaceQueue, v2->_systemConfigInterfaceQueue = v26, systemConfigInterfaceQueue, v25, v23, !v2->_systemConfigInterfaceQueue)
+    || ([MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.corewifi.cellular-outrank-recommendation"], v28 = objc_claimAutoreleasedReturnValue(), v29 = objc_msgSend(v28, "UTF8String"), dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v30 = objc_claimAutoreleasedReturnValue(), v31 = dispatch_queue_create(v29, v30), cellularOutrankQueue = v2->_cellularOutrankQueue, v2->_cellularOutrankQueue = v31, cellularOutrankQueue, v30, v28, !v2->_cellularOutrankQueue)
+    || (v33 = objc_alloc_init(MEMORY[0x1E695DF90]), mutableLinkDownStatusMap = v2->_mutableLinkDownStatusMap, v2->_mutableLinkDownStatusMap = v33, mutableLinkDownStatusMap, !v2->_mutableLinkDownStatusMap)
+    || (v35 = objc_alloc_init(MEMORY[0x1E695DF90]), mutableLinkDownNetworkMap = v2->_mutableLinkDownNetworkMap, v2->_mutableLinkDownNetworkMap = v35, mutableLinkDownNetworkMap, !v2->_mutableLinkDownNetworkMap)
+    || (v37 = objc_alloc_init(MEMORY[0x1E695DF90]), mutableRoamStatusMap = v2->_mutableRoamStatusMap, v2->_mutableRoamStatusMap = v37, mutableRoamStatusMap, !v2->_mutableRoamStatusMap)
+    || (v39 = objc_alloc_init(MEMORY[0x1E695DF90]), mutableJoinStatusMap = v2->_mutableJoinStatusMap, v2->_mutableJoinStatusMap = v39, mutableJoinStatusMap, !v2->_mutableJoinStatusMap)
+    || (v41 = objc_alloc_init(MEMORY[0x1E695DF90]), mutableAutoJoinTriggerMap = v2->_mutableAutoJoinTriggerMap, v2->_mutableAutoJoinTriggerMap = v41, mutableAutoJoinTriggerMap, !v2->_mutableAutoJoinTriggerMap)
+    || (v43 = objc_alloc_init(MEMORY[0x1E695DF90]), mutableAutoJoinStatusMap = v2->_mutableAutoJoinStatusMap, v2->_mutableAutoJoinStatusMap = v43, mutableAutoJoinStatusMap, !v2->_mutableAutoJoinStatusMap)
+    || (v45 = objc_alloc_init(MEMORY[0x1E695DF90]), mutableLinkQualityMap = v2->_mutableLinkQualityMap, v2->_mutableLinkQualityMap = v45, mutableLinkQualityMap, !v2->_mutableLinkQualityMap)
+    || (v47 = objc_alloc_init(MEMORY[0x1E695DF90]), mutableQueueMap = v2->_mutableQueueMap, v2->_mutableQueueMap = v47, mutableQueueMap, !v2->_mutableQueueMap)
+    || (v49 = objc_alloc_init(MEMORY[0x1E696ADC8]), defaultQueue = v2->_defaultQueue, v2->_defaultQueue = v49, defaultQueue, (v51 = v2->_defaultQueue) == 0)
+    || ([(NSOperationQueue *)v51 setName:@"default-concurrent"], [(NSOperationQueue *)v2->_defaultQueue setMaxConcurrentOperationCount:-1], [(NSOperationQueue *)v2->_defaultQueue setQualityOfService:-1], v52 = objc_alloc_init(MEMORY[0x1E695DF90]), apple80211Map = v2->_apple80211Map, v2->_apple80211Map = v52, apple80211Map, !v2->_apple80211Map))
   {
-    goto LABEL_45;
-  }
-
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.corewifi.XPC-common-internal"];
-  uTF8String = [v3 UTF8String];
-  v5 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v6 = dispatch_queue_create(uTF8String, v5);
-  internalQueue = v2->_internalQueue;
-  v2->_internalQueue = v6;
-
-  if (!v2->_internalQueue)
-  {
-    goto LABEL_45;
-  }
-
-  v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.corewifi.XPC-common-mutex"];
-  uTF8String2 = [v8 UTF8String];
-  v10 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v11 = dispatch_queue_create(uTF8String2, v10);
-  mutexQueue = v2->_mutexQueue;
-  v2->_mutexQueue = v11;
-
-  if (!v2->_mutexQueue)
-  {
-    goto LABEL_45;
-  }
-
-  v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.corewifi.XPC-common-event"];
-  uTF8String3 = [v13 UTF8String];
-  v15 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v16 = dispatch_queue_create(uTF8String3, v15);
-  eventQueue = v2->_eventQueue;
-  v2->_eventQueue = v16;
-
-  if (!v2->_eventQueue)
-  {
-    goto LABEL_45;
-  }
-
-  v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.corewifi.apple80211-common-intf"];
-  uTF8String4 = [v18 UTF8String];
-  v20 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v21 = dispatch_queue_create(uTF8String4, v20);
-  apple80211InterfaceQueue = v2->_apple80211InterfaceQueue;
-  v2->_apple80211InterfaceQueue = v21;
-
-  if (!v2->_apple80211InterfaceQueue)
-  {
-    goto LABEL_45;
-  }
-
-  v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.corewifi.sc-common-intf"];
-  uTF8String5 = [v23 UTF8String];
-  v25 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v26 = dispatch_queue_create(uTF8String5, v25);
-  systemConfigInterfaceQueue = v2->_systemConfigInterfaceQueue;
-  v2->_systemConfigInterfaceQueue = v26;
-
-  if (!v2->_systemConfigInterfaceQueue)
-  {
-    goto LABEL_45;
-  }
-
-  v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.corewifi.cellular-outrank-recommendation"];
-  uTF8String6 = [v28 UTF8String];
-  v30 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v31 = dispatch_queue_create(uTF8String6, v30);
-  cellularOutrankQueue = v2->_cellularOutrankQueue;
-  v2->_cellularOutrankQueue = v31;
-
-  if (!v2->_cellularOutrankQueue)
-  {
-    goto LABEL_45;
-  }
-
-  v33 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  mutableLinkDownStatusMap = v2->_mutableLinkDownStatusMap;
-  v2->_mutableLinkDownStatusMap = v33;
-
-  if (!v2->_mutableLinkDownStatusMap)
-  {
-    goto LABEL_45;
-  }
-
-  v35 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  mutableLinkDownNetworkMap = v2->_mutableLinkDownNetworkMap;
-  v2->_mutableLinkDownNetworkMap = v35;
-
-  if (!v2->_mutableLinkDownNetworkMap)
-  {
-    goto LABEL_45;
-  }
-
-  v37 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  mutableRoamStatusMap = v2->_mutableRoamStatusMap;
-  v2->_mutableRoamStatusMap = v37;
-
-  if (!v2->_mutableRoamStatusMap)
-  {
-    goto LABEL_45;
-  }
-
-  v39 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  mutableJoinStatusMap = v2->_mutableJoinStatusMap;
-  v2->_mutableJoinStatusMap = v39;
-
-  if (!v2->_mutableJoinStatusMap)
-  {
-    goto LABEL_45;
-  }
-
-  v41 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  mutableAutoJoinTriggerMap = v2->_mutableAutoJoinTriggerMap;
-  v2->_mutableAutoJoinTriggerMap = v41;
-
-  if (!v2->_mutableAutoJoinTriggerMap)
-  {
-    goto LABEL_45;
-  }
-
-  v43 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  mutableAutoJoinStatusMap = v2->_mutableAutoJoinStatusMap;
-  v2->_mutableAutoJoinStatusMap = v43;
-
-  if (!v2->_mutableAutoJoinStatusMap)
-  {
-    goto LABEL_45;
-  }
-
-  v45 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  mutableLinkQualityMap = v2->_mutableLinkQualityMap;
-  v2->_mutableLinkQualityMap = v45;
-
-  if (!v2->_mutableLinkQualityMap)
-  {
-    goto LABEL_45;
-  }
-
-  v47 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  mutableQueueMap = v2->_mutableQueueMap;
-  v2->_mutableQueueMap = v47;
-
-  if (!v2->_mutableQueueMap)
-  {
-    goto LABEL_45;
-  }
-
-  v49 = objc_alloc_init(MEMORY[0x1E696ADC8]);
-  defaultQueue = v2->_defaultQueue;
-  v2->_defaultQueue = v49;
-
-  v51 = v2->_defaultQueue;
-  if (!v51 || ([(NSOperationQueue *)v51 setName:@"default-concurrent"], [(NSOperationQueue *)v2->_defaultQueue setMaxConcurrentOperationCount:-1], [(NSOperationQueue *)v2->_defaultQueue setQualityOfService:-1], v52 = objc_alloc_init(MEMORY[0x1E695DF90]), apple80211Map = v2->_apple80211Map, v2->_apple80211Map = v52, apple80211Map, !v2->_apple80211Map))
-  {
-LABEL_45:
     v54 = 0;
 LABEL_46:
 
@@ -484,24 +350,22 @@ LABEL_46:
 
   if (!v2->_configProfileManager)
   {
-    v93 = CWFGetOSLog();
-    if (v93)
+    v92 = CWFGetOSLog();
+    if (v92)
     {
-      v94 = CWFGetOSLog();
+      v93 = CWFGetOSLog();
     }
 
     else
     {
-      v94 = MEMORY[0x1E69E9C10];
-      v97 = MEMORY[0x1E69E9C10];
+      v93 = MEMORY[0x1E69E9C10];
+      v96 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v102) = 0;
-      LODWORD(v100) = 2;
-      v99 = &v102;
-      _os_log_send_and_compose_impl();
+      LOWORD(v100) = 0;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v93, 16, "[corewifi] Failed to initialize CWFConfigurationProfileManager", &v100, 2);
     }
   }
 
@@ -540,19 +404,18 @@ LABEL_46:
 
     if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
     {
-      v102 = 134219010;
-      v103 = v81 / 0x3B9ACA00;
-      v104 = 2048;
-      v105 = v81 % 0x3B9ACA00 / 0x3E8;
+      v100 = 134219010;
+      v101 = v81 / 0x3B9ACA00;
+      v102 = 2048;
+      v103 = v81 % 0x3B9ACA00 / 0x3E8;
+      v104 = 2082;
+      v105 = "[CWFXPCRequestProxy init]";
       v106 = 2082;
-      v107 = "[CWFXPCRequestProxy init]";
-      v108 = 2082;
-      v109 = "CWFXPCRequestProxy.m";
-      v110 = 1024;
-      v111 = 282;
-      LODWORD(v100) = 48;
-      v99 = &v102;
-      _os_log_send_and_compose_impl();
+      v107 = "CWFXPCRequestProxy.m";
+      v108 = 1024;
+      v109 = 282;
+      LODWORD(v98) = 48;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v83, 0, "[corewifi] @[%llu.%06llu] %{public}s (%{public}s:%u) mobileAssetManager could not be initialized", &v100, v98);
     }
   }
 
@@ -582,43 +445,41 @@ LABEL_46:
 
     if (!v2->_wifiNetworkSharingManager)
     {
-      v95 = CWFGetOSLog();
-      if (v95)
+      v94 = CWFGetOSLog();
+      if (v94)
       {
-        v96 = CWFGetOSLog();
+        v95 = CWFGetOSLog();
       }
 
       else
       {
-        v96 = MEMORY[0x1E69E9C10];
-        v98 = MEMORY[0x1E69E9C10];
+        v95 = MEMORY[0x1E69E9C10];
+        v97 = MEMORY[0x1E69E9C10];
       }
 
-      if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
       {
-        v102 = 136446722;
-        v103 = "[CWFXPCRequestProxy init]";
-        v104 = 2082;
-        v105 = "CWFXPCRequestProxy.m";
-        v106 = 1024;
-        LODWORD(v107) = 298;
-        LODWORD(v100) = 28;
-        v99 = &v102;
-        _os_log_send_and_compose_impl();
+        v100 = 136446722;
+        v101 = "[CWFXPCRequestProxy init]";
+        v102 = 2082;
+        v103 = "CWFXPCRequestProxy.m";
+        v104 = 1024;
+        LODWORD(v105) = 298;
+        LODWORD(v98) = 28;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v95, 0, "[corewifi] %{public}s (%{public}s:%u) WiFi Network Sharing manager could not be instantiated", &v100, v98);
       }
     }
   }
 
-  [(CWFXPCRequestProxy *)v2 __setupEventHandlers:v99];
+  [(CWFXPCRequestProxy *)v2 __setupEventHandlers];
 LABEL_44:
 
-  v91 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 - (void)__forwardXPCEvent:(id)event reply:(id)reply
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   replyCopy = reply;
   type = [eventCopy type];
@@ -649,13 +510,13 @@ LABEL_10:
       delegate = [(CWFXPCRequestProxy *)self delegate];
       if (delegate)
       {
-        v22[0] = MEMORY[0x1E69E9820];
-        v22[1] = 3221225472;
-        v22[2] = sub_1E0C98824;
-        v22[3] = &unk_1E86E6AF0;
-        v23 = replyCopy;
-        [delegate XPCRequestProxy:self sendXPCEvent:eventCopy reply:v22];
-        v11 = v23;
+        v21[0] = MEMORY[0x1E69E9820];
+        v21[1] = 3221225472;
+        v21[2] = sub_1E0C98824;
+        v21[3] = &unk_1E86E6AF0;
+        v22 = replyCopy;
+        [delegate XPCRequestProxy:self sendXPCEvent:eventCopy reply:v21];
+        v11 = v22;
         goto LABEL_24;
       }
 
@@ -692,10 +553,10 @@ LABEL_24:
       }
 
       v16 = sub_1E0BC9038([eventCopy type]);
-      v26 = 138543362;
-      v27 = v16;
+      v25 = 138543362;
+      v26 = v16;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v13, 16, "[corewifi] Unhandled event type (%{public}@)", &v25, 12);
 LABEL_21:
-      _os_log_send_and_compose_impl();
 
       goto LABEL_22;
     }
@@ -724,18 +585,18 @@ LABEL_21:
     delegate = [(CWFXPCRequestProxy *)self delegate];
     if (delegate)
     {
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = sub_1E0C98808;
-      v24[3] = &unk_1E86E6AF0;
-      v25 = replyCopy;
-      [delegate XPCRequestProxy:self sendXPCEvent:eventCopy reply:v24];
-      v11 = v25;
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = sub_1E0C98808;
+      v23[3] = &unk_1E86E6AF0;
+      v24 = replyCopy;
+      [delegate XPCRequestProxy:self sendXPCEvent:eventCopy reply:v23];
+      v11 = v24;
       goto LABEL_24;
     }
 
-    v20 = CWFGetOSLog();
-    if (v20)
+    v19 = CWFGetOSLog();
+    if (v19)
     {
       v13 = CWFGetOSLog();
     }
@@ -743,7 +604,7 @@ LABEL_21:
     else
     {
       v13 = MEMORY[0x1E69E9C10];
-      v21 = MEMORY[0x1E69E9C10];
+      v20 = MEMORY[0x1E69E9C10];
     }
 
     if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
@@ -752,15 +613,14 @@ LABEL_21:
     }
 
     v16 = sub_1E0BECB08([eventCopy internalType]);
-    v26 = 138543362;
-    v27 = v16;
+    v25 = 138543362;
+    v26 = v16;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v13, 16, "[corewifi] Unhandled event type (%{public}@)", &v25, 12);
     goto LABEL_21;
   }
 
   [(CWFXPCRequestProxy *)self __handleWillAssocInternalEvent:eventCopy];
 LABEL_26:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)XPCManager:(id)manager sendXPCEvent:(id)event reply:(id)reply
@@ -819,14 +679,14 @@ LABEL_26:
 
 - (BOOL)__didFindMatching80211InterfaceForXPCRequest:(id)request
 {
-  v110 = *MEMORY[0x1E69E9840];
+  v114 = *MEMORY[0x1E69E9840];
   requestCopy = request;
-  v94 = 0;
-  v95 = &v94;
-  v96 = 0x3032000000;
-  v97 = sub_1E0BC2D80;
-  v98 = sub_1E0BC61FC;
-  v99 = 0;
+  v98 = 0;
+  v99 = &v98;
+  v100 = 0x3032000000;
+  v101 = sub_1E0BC2D80;
+  v102 = sub_1E0BC61FC;
+  v103 = 0;
   requestParameters = [requestCopy requestParameters];
   interfaceName = [requestParameters interfaceName];
 
@@ -836,8 +696,8 @@ LABEL_26:
   if (interfaceName)
   {
     v9 = [(CWFXPCRequestProxy *)self apple80211WithInterfaceName:interfaceName];
-    v10 = v95[5];
-    v95[5] = v9;
+    v10 = v99[5];
+    v99[5] = v9;
   }
 
   else
@@ -866,26 +726,24 @@ LABEL_26:
         requestParameters4 = [requestCopy requestParameters];
         v18 = sub_1E0BEE7B4([requestParameters4 virtualInterfaceRole]);
         v19 = sub_1E0BC2FCC([requestCopy type]);
-        v100 = 134218754;
-        v101 = v13 / 0x3B9ACA00;
-        v102 = 2048;
-        v103 = v13 % 0x3B9ACA00 / 0x3E8;
-        v104 = 2114;
-        v105 = v18;
-        v106 = 2114;
-        v107 = v19;
-        LODWORD(v78) = 42;
-        v77 = &v100;
-        _os_log_send_and_compose_impl();
+        v104 = 134218754;
+        v105 = v13 / 0x3B9ACA00;
+        v106 = 2048;
+        v107 = v13 % 0x3B9ACA00 / 0x3E8;
+        v108 = 2114;
+        v109 = v18;
+        v110 = 2114;
+        v111 = v19;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v15, 2, "[corewifi] @[%llu.%06llu] Using default interface role '%{public}@' based on '%{public}@' request type", &v104, 42);
       }
     }
 
     requestParameters5 = [requestCopy requestParameters];
     v21 = -[CWFXPCRequestProxy apple80211WithVirtualInterfaceRole:parentInterfaceName:](self, "apple80211WithVirtualInterfaceRole:parentInterfaceName:", [requestParameters5 virtualInterfaceRole], 0);
-    v22 = v95[5];
-    v95[5] = v21;
+    v22 = v99[5];
+    v99[5] = v21;
 
-    interfaceName2 = [v95[5] interfaceName];
+    interfaceName2 = [v99[5] interfaceName];
     requestParameters6 = [requestCopy requestParameters];
     [requestParameters6 setInterfaceName:interfaceName2];
 
@@ -908,19 +766,20 @@ LABEL_26:
       interfaceName3 = [requestParameters7 interfaceName];
       requestParameters8 = [requestCopy requestParameters];
       v31 = sub_1E0BEE7B4([requestParameters8 virtualInterfaceRole]);
-      v100 = 134218754;
-      v101 = v25 / 0x3B9ACA00;
-      v102 = 2048;
-      v103 = v25 % 0x3B9ACA00 / 0x3E8;
-      v104 = 2114;
-      v105 = interfaceName3;
-      v106 = 2114;
-      v107 = v31;
-      _os_log_send_and_compose_impl();
+      v104 = 134218754;
+      v105 = v25 / 0x3B9ACA00;
+      v106 = 2048;
+      v107 = v25 % 0x3B9ACA00 / 0x3E8;
+      v108 = 2114;
+      v109 = interfaceName3;
+      v110 = 2114;
+      v111 = v31;
+      LODWORD(v82) = 42;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v10, 2, "[corewifi] @[%llu.%06llu] Using %{public}@ based on interface role '%{public}@'", &v104, v82);
     }
   }
 
-  v32 = v95[5];
+  v32 = v99[5];
   if (!v32 && !virtualInterfaceRole)
   {
     requestParameters9 = [requestCopy requestParameters];
@@ -951,182 +810,192 @@ LABEL_26:
         uUID = [requestCopy UUID];
         uUIDString = [uUID UUIDString];
         v51 = [uUIDString substringToIndex:5];
-        v100 = 134219010;
-        v101 = v36 / 0x3B9ACA00;
-        v102 = 2048;
-        v103 = v36 % 0x3B9ACA00 / 0x3E8;
-        v104 = 2114;
-        v105 = interfaceName5;
-        v106 = 2114;
-        v107 = v48;
+        v104 = 134219010;
+        v105 = v36 / 0x3B9ACA00;
+        v106 = 2048;
+        v107 = v36 % 0x3B9ACA00 / 0x3E8;
         v108 = 2114;
-        v109 = v51;
-        _os_log_send_and_compose_impl();
-      }
-
-      goto LABEL_45;
-    }
-
-    apple80211InterfaceQueue = self->_apple80211InterfaceQueue;
-    block[0] = MEMORY[0x1E69E9820];
-    block[1] = 3221225472;
-    block[2] = sub_1E0C99950;
-    block[3] = &unk_1E86E7C08;
-    v40 = interfaceName;
-    v93 = &v94;
-    v90 = v40;
-    selfCopy = self;
-    v41 = requestCopy;
-    v92 = v41;
-    dispatch_sync(apple80211InterfaceQueue, block);
-    if (v95[5])
-    {
-LABEL_44:
-
-      v38 = v90;
-LABEL_45:
-
-      v32 = v95[5];
-      goto LABEL_46;
-    }
-
-    v42 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
-    v43 = CWFGetOSLog();
-    if (v43)
-    {
-      v44 = CWFGetOSLog();
-    }
-
-    else
-    {
-      v44 = MEMORY[0x1E69E9C10];
-      v52 = MEMORY[0x1E69E9C10];
-    }
-
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
-    {
-      v80 = v40;
-      requestParameters12 = [v41 requestParameters];
-      interfaceName6 = [requestParameters12 interfaceName];
-      requestParameters13 = [v41 requestParameters];
-      v53 = sub_1E0BEE7B4([requestParameters13 virtualInterfaceRole]);
-      uUID2 = [v41 UUID];
-      uUIDString2 = [uUID2 UUIDString];
-      v56 = [uUIDString2 substringToIndex:5];
-      v100 = 134219010;
-      v101 = v42 / 0x3B9ACA00;
-      v102 = 2048;
-      v103 = v42 % 0x3B9ACA00 / 0x3E8;
-      v104 = 2114;
-      v105 = interfaceName6;
-      v106 = 2114;
-      v107 = v53;
-      v108 = 2114;
-      v109 = v56;
-      _os_log_send_and_compose_impl();
-
-      v40 = v80;
-    }
-
-    v87[0] = 0;
-    v87[1] = v87;
-    v87[2] = 0x2020000000;
-    v88 = 0;
-    v57 = dispatch_block_create(0, &unk_1F5B89BB0);
-    v84[0] = MEMORY[0x1E69E9820];
-    v84[1] = 3221225472;
-    v84[2] = sub_1E0C99A00;
-    v84[3] = &unk_1E86E7CA8;
-    v86 = v87;
-    v58 = v57;
-    v85 = v58;
-    [(CWFXPCRequestProxy *)self __updateWiFiInterfacesWithReason:@"force" reply:v84];
-    dispatch_block_wait(v58, 0xFFFFFFFFFFFFFFFFLL);
-    if (interfaceName)
-    {
-      v59 = [(CWFXPCRequestProxy *)self apple80211WithInterfaceName:v40];
-      requestParameters14 = v95[5];
-      v95[5] = v59;
-    }
-
-    else
-    {
-      requestParameters14 = [v41 requestParameters];
-      v61 = -[CWFXPCRequestProxy apple80211WithVirtualInterfaceRole:parentInterfaceName:](self, "apple80211WithVirtualInterfaceRole:parentInterfaceName:", [requestParameters14 virtualInterfaceRole], 0);
-      v62 = v95[5];
-      v95[5] = v61;
-    }
-
-    if (v95[5])
-    {
-      v63 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
-      v64 = CWFGetOSLog();
-      if (v64)
-      {
-        v65 = CWFGetOSLog();
-      }
-
-      else
-      {
-        v65 = MEMORY[0x1E69E9C10];
-        v67 = MEMORY[0x1E69E9C10];
-      }
-
-      if (!os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_43;
+        v109 = interfaceName5;
+        v110 = 2114;
+        v111 = v48;
+        v112 = 2114;
+        v113 = v51;
+        LODWORD(v82) = 52;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v38, 0, "[corewifi] @[%llu.%06llu] Non WiFi interface name specified (name=%{public}@, role=%{public}@, uuid=%{public}@)", &v104, v82);
       }
     }
 
     else
     {
-      v63 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
-      v66 = CWFGetOSLog();
-      if (v66)
+      apple80211InterfaceQueue = self->_apple80211InterfaceQueue;
+      block[0] = MEMORY[0x1E69E9820];
+      block[1] = 3221225472;
+      block[2] = sub_1E0C99950;
+      block[3] = &unk_1E86E7C08;
+      v40 = interfaceName;
+      v97 = &v98;
+      v94 = v40;
+      selfCopy = self;
+      v41 = requestCopy;
+      v96 = v41;
+      dispatch_sync(apple80211InterfaceQueue, block);
+      if (!v99[5])
       {
-        v65 = CWFGetOSLog();
+        v42 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+        v43 = CWFGetOSLog();
+        if (v43)
+        {
+          v44 = CWFGetOSLog();
+        }
+
+        else
+        {
+          v44 = MEMORY[0x1E69E9C10];
+          v52 = MEMORY[0x1E69E9C10];
+        }
+
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+        {
+          v84 = v40;
+          requestParameters12 = [v41 requestParameters];
+          interfaceName6 = [requestParameters12 interfaceName];
+          requestParameters13 = [v41 requestParameters];
+          v53 = sub_1E0BEE7B4([requestParameters13 virtualInterfaceRole]);
+          uUID2 = [v41 UUID];
+          uUIDString2 = [uUID2 UUIDString];
+          v56 = [uUIDString2 substringToIndex:5];
+          v104 = 134219010;
+          v105 = v42 / 0x3B9ACA00;
+          v106 = 2048;
+          v107 = v42 % 0x3B9ACA00 / 0x3E8;
+          v108 = 2114;
+          v109 = interfaceName6;
+          v110 = 2114;
+          v111 = v53;
+          v112 = 2114;
+          v113 = v56;
+          LODWORD(v82) = 52;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v44, 0, "[corewifi] @[%llu.%06llu] [iflist] No WiFi matching interface exists, refreshing interface list (name=%{public}@, role=%{public}@, uuid=%{public}@)", &v104, v82);
+
+          v40 = v84;
+        }
+
+        v91[0] = 0;
+        v91[1] = v91;
+        v91[2] = 0x2020000000;
+        v92 = 0;
+        v57 = dispatch_block_create(0, &unk_1F5B89BB0);
+        v88[0] = MEMORY[0x1E69E9820];
+        v88[1] = 3221225472;
+        v88[2] = sub_1E0C99A00;
+        v88[3] = &unk_1E86E7CA8;
+        v90 = v91;
+        v58 = v57;
+        v89 = v58;
+        [(CWFXPCRequestProxy *)self __updateWiFiInterfacesWithReason:@"force" reply:v88];
+        dispatch_block_wait(v58, 0xFFFFFFFFFFFFFFFFLL);
+        if (interfaceName)
+        {
+          v59 = [(CWFXPCRequestProxy *)self apple80211WithInterfaceName:v40];
+          requestParameters14 = v99[5];
+          v99[5] = v59;
+        }
+
+        else
+        {
+          requestParameters14 = [v41 requestParameters];
+          v61 = -[CWFXPCRequestProxy apple80211WithVirtualInterfaceRole:parentInterfaceName:](self, "apple80211WithVirtualInterfaceRole:parentInterfaceName:", [requestParameters14 virtualInterfaceRole], 0);
+          v62 = v99[5];
+          v99[5] = v61;
+        }
+
+        if (v99[5])
+        {
+          v63 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+          v64 = CWFGetOSLog();
+          if (v64)
+          {
+            v65 = CWFGetOSLog();
+          }
+
+          else
+          {
+            v65 = MEMORY[0x1E69E9C10];
+            v68 = MEMORY[0x1E69E9C10];
+          }
+
+          if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
+          {
+            v69 = v40;
+            v70 = sub_1E0BEE7B4(0);
+            uUID3 = [v41 UUID];
+            uUIDString3 = [uUID3 UUIDString];
+            v73 = [uUIDString3 substringToIndex:5];
+            v104 = 134219010;
+            v105 = v63 / 0x3B9ACA00;
+            v106 = 2048;
+            v107 = v63 % 0x3B9ACA00 / 0x3E8;
+            v108 = 2114;
+            v109 = v69;
+            v110 = 2114;
+            v111 = v70;
+            v112 = 2114;
+            v113 = v73;
+            LODWORD(v82) = 52;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v65, 0, "[corewifi] @[%llu.%06llu] [iflist] Found matching WiFi interface after interface list refresh (name=%{public}@, role=%{public}@, uuid=%{public}@)", &v104, v82);
+          }
+        }
+
+        else
+        {
+          v66 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+          v67 = CWFGetOSLog();
+          if (v67)
+          {
+            v65 = CWFGetOSLog();
+          }
+
+          else
+          {
+            v65 = MEMORY[0x1E69E9C10];
+            v74 = MEMORY[0x1E69E9C10];
+          }
+
+          if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+          {
+            v75 = v40;
+            v76 = sub_1E0BEE7B4(0);
+            uUID4 = [v41 UUID];
+            uUIDString4 = [uUID4 UUIDString];
+            v79 = [uUIDString4 substringToIndex:5];
+            v104 = 134219010;
+            v105 = v66 / 0x3B9ACA00;
+            v106 = 2048;
+            v107 = v66 % 0x3B9ACA00 / 0x3E8;
+            v108 = 2114;
+            v109 = v75;
+            v110 = 2114;
+            v111 = v76;
+            v112 = 2114;
+            v113 = v79;
+            LODWORD(v82) = 52;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v65, 16, "[corewifi] @[%llu.%06llu] [iflist] Did NOT find matching WiFi interface after interface list refresh (name=%{public}@, role=%{public}@, uuid=%{public}@)", &v104, v82);
+          }
+        }
+
+        _Block_object_dispose(v91, 8);
       }
 
-      else
-      {
-        v65 = MEMORY[0x1E69E9C10];
-        v68 = MEMORY[0x1E69E9C10];
-      }
-
-      if (!os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
-      {
-        goto LABEL_43;
-      }
+      v38 = v94;
     }
 
-    v69 = v40;
-    v70 = sub_1E0BEE7B4(0);
-    uUID3 = [v41 UUID];
-    uUIDString3 = [uUID3 UUIDString];
-    v73 = [uUIDString3 substringToIndex:5];
-    v100 = 134219010;
-    v101 = v63 / 0x3B9ACA00;
-    v102 = 2048;
-    v103 = v63 % 0x3B9ACA00 / 0x3E8;
-    v104 = 2114;
-    v105 = v69;
-    v106 = 2114;
-    v107 = v70;
-    v108 = 2114;
-    v109 = v73;
-    _os_log_send_and_compose_impl();
-
-LABEL_43:
-    _Block_object_dispose(v87, 8);
-    goto LABEL_44;
+    v32 = v99[5];
   }
 
-LABEL_46:
-  v74 = v32 != 0;
+  v80 = v32 != 0;
 
-  _Block_object_dispose(&v94, 8);
-  v75 = *MEMORY[0x1E69E9840];
-  return v74;
+  _Block_object_dispose(&v98, 8);
+  return v80;
 }
 
 - (BOOL)__allowXPCRequestWithoutAvailableInterface:(id)interface
@@ -1161,7 +1030,7 @@ LABEL_11:
 
 - (void)XPCManager:(id)manager XPCConnection:(id)connection receivedXPCRequest:(id)request
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   connectionCopy = connection;
   val = request;
@@ -1185,173 +1054,174 @@ LABEL_11:
       v15 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      goto LABEL_14;
+      uUID = [val UUID];
+      uUIDString = [uUID UUIDString];
+      v18 = [uUIDString substringToIndex:5];
+      v72 = 138543362;
+      v73 = v18;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v12, 2, "[corewifi] Allowing request even without a matching available WiFi interface (uuid=%{public}@)", &v72, 12, managerCopy, interfaceName);
     }
-
-    goto LABEL_13;
-  }
-
-  if (![(CWFXPCRequestProxy *)self __didFindMatching80211InterfaceForXPCRequest:val])
-  {
-    v14 = 0;
-    goto LABEL_15;
-  }
-
-  v13 = CWFGetOSLog();
-  if (v13)
-  {
-    v12 = CWFGetOSLog();
   }
 
   else
   {
-    v12 = MEMORY[0x1E69E9C10];
-    v16 = MEMORY[0x1E69E9C10];
-  }
+    if (![(CWFXPCRequestProxy *)self __didFindMatching80211InterfaceForXPCRequest:val])
+    {
+      v14 = 0;
+      goto LABEL_15;
+    }
 
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
-  {
-LABEL_13:
-    uUID = [val UUID];
-    uUIDString = [uUID UUIDString];
-    v19 = [uUIDString substringToIndex:5];
-    v73 = 138543362;
-    v74 = v19;
-    LODWORD(v54) = 12;
-    v52 = &v73;
-    _os_log_send_and_compose_impl();
-  }
+    v13 = CWFGetOSLog();
+    if (v13)
+    {
+      v12 = CWFGetOSLog();
+    }
 
-LABEL_14:
+    else
+    {
+      v12 = MEMORY[0x1E69E9C10];
+      v19 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    {
+      uUID2 = [val UUID];
+      uUIDString2 = [uUID2 UUIDString];
+      v22 = [uUIDString2 substringToIndex:5];
+      v72 = 138543362;
+      v73 = v22;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v12, 2, "[corewifi] Did find matching WiFi interface for request (uuid=%{public}@)", &v72, 12, managerCopy, interfaceName);
+    }
+  }
 
   v14 = 1;
 LABEL_15:
   if ([connectionCopy isWiFiNetworkSharingAppExtension])
   {
     info = [val info];
-    v21 = [info objectForKeyedSubscript:@"WiFiNetworkSharingClientID"];
+    v24 = [info objectForKeyedSubscript:@"WiFiNetworkSharingClientID"];
 
     wifiNetworkSharingManager = [(CWFXPCRequestProxy *)self wifiNetworkSharingManager];
-    [wifiNetworkSharingManager extendAppexRuntimeForClientID:v21];
+    [wifiNetworkSharingManager extendAppexRuntimeForClientID:v24];
   }
 
   if (v14)
   {
     response2 = [(CWFXPCRequestProxy *)self __queueForXPCRequest:val];
     objc_initWeak(&location, val);
-    v66[0] = MEMORY[0x1E69E9820];
-    v66[1] = 3221225472;
-    v66[2] = sub_1E0C9A288;
-    v66[3] = &unk_1E86E7C30;
-    objc_copyWeak(&v70, &location);
-    v66[4] = self;
-    v67 = connectionCopy;
-    v23 = managerCopy;
-    v68 = v23;
-    v69 = interfaceName;
-    v71 = virtualInterfaceRole;
-    [val addExecutionBlock:v66];
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
+    v65[0] = MEMORY[0x1E69E9820];
+    v65[1] = 3221225472;
+    v65[2] = sub_1E0C9A288;
+    v65[3] = &unk_1E86E7C30;
+    objc_copyWeak(&v69, &location);
+    v65[4] = self;
+    v66 = connectionCopy;
+    v26 = managerCopy;
+    v67 = v26;
+    v68 = interfaceName;
+    v70 = virtualInterfaceRole;
+    [val addExecutionBlock:v65];
     v63 = 0u;
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
     operations = [response2 operations];
-    v25 = [operations countByEnumeratingWithState:&v62 objects:v77 count:16];
-    if (v25)
+    v28 = [operations countByEnumeratingWithState:&v61 objects:v76 count:16];
+    if (v28)
     {
-      v26 = *v63;
+      v29 = *v62;
       obj = operations;
       do
       {
-        for (i = 0; i != v25; ++i)
+        for (i = 0; i != v28; ++i)
         {
-          if (*v63 != v26)
+          if (*v62 != v29)
           {
             objc_enumerationMutation(obj);
           }
 
-          v28 = *(*(&v62 + 1) + 8 * i);
-          supportedRequestTypes = [v23 supportedRequestTypes];
-          v30 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(val, "type")}];
-          if ([supportedRequestTypes containsObject:v30])
+          v31 = *(*(&v61 + 1) + 8 * i);
+          supportedRequestTypes = [v26 supportedRequestTypes];
+          v33 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(val, "type")}];
+          if ([supportedRequestTypes containsObject:v33])
           {
           }
 
           else
           {
-            name = [v28 name];
-            v32 = sub_1E0BC2E18(val);
-            v33 = [name hasSuffix:v32];
+            name = [v31 name];
+            v35 = sub_1E0BC2E18(val);
+            v36 = [name hasSuffix:v35];
 
-            if (v33)
+            if (v36)
             {
-              v34 = CWFGetOSLog();
-              if (v34)
+              v37 = CWFGetOSLog();
+              if (v37)
               {
-                v35 = CWFGetOSLog();
+                v38 = CWFGetOSLog();
               }
 
               else
               {
-                v35 = MEMORY[0x1E69E9C10];
-                v36 = MEMORY[0x1E69E9C10];
+                v38 = MEMORY[0x1E69E9C10];
+                v39 = MEMORY[0x1E69E9C10];
               }
 
-              if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+              if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
               {
-                name2 = [v28 name];
-                uUID2 = [val UUID];
-                uUIDString2 = [uUID2 UUIDString];
-                v40 = [uUIDString2 substringToIndex:5];
-                v73 = 138543618;
-                v74 = name2;
-                v75 = 2114;
-                v76 = v40;
-                LODWORD(v55) = 22;
-                v53 = &v73;
-                _os_log_send_and_compose_impl();
+                name2 = [v31 name];
+                uUID3 = [val UUID];
+                uUIDString3 = [uUID3 UUIDString];
+                v43 = [uUIDString3 substringToIndex:5];
+                v72 = 138543618;
+                v73 = name2;
+                v74 = 2114;
+                v75 = v43;
+                LODWORD(v54) = 22;
+                _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v38, 2, "[corewifi] Found matching already-pending XPC request (name=%{public}@, uuid=%{public}@), creating dependency to force serialization", &v72, v54);
               }
 
-              [val addDependency:v28];
+              [val addDependency:v31];
             }
           }
         }
 
         operations = obj;
-        v25 = [obj countByEnumeratingWithState:&v62 objects:v77 count:16];
+        v28 = [obj countByEnumeratingWithState:&v61 objects:v76 count:16];
       }
 
-      while (v25);
+      while (v28);
     }
 
     [response2 addOperation:val];
-    objc_destroyWeak(&v70);
+    objc_destroyWeak(&v69);
     objc_destroyWeak(&location);
     goto LABEL_42;
   }
 
-  v41 = CWFGetOSLog();
-  if (v41)
+  v44 = CWFGetOSLog();
+  if (v44)
   {
-    v42 = CWFGetOSLog();
+    v45 = CWFGetOSLog();
   }
 
   else
   {
-    v42 = MEMORY[0x1E69E9C10];
-    v43 = MEMORY[0x1E69E9C10];
+    v45 = MEMORY[0x1E69E9C10];
+    v46 = MEMORY[0x1E69E9C10];
   }
 
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
   {
-    uUID3 = [val UUID];
-    uUIDString3 = [uUID3 UUIDString];
-    v46 = [uUIDString3 substringToIndex:5];
-    v73 = 138543362;
-    v74 = v46;
-    _os_log_send_and_compose_impl();
+    uUID4 = [val UUID];
+    uUIDString4 = [uUID4 UUIDString];
+    v49 = [uUIDString4 substringToIndex:5];
+    v72 = 138543362;
+    v73 = v49;
+    LODWORD(v54) = 12;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v45, 2, "[corewifi] Failed to find a matching available WiFi interface for request (uuid=%{public}@)", &v72, v54);
   }
 
   response = [val response];
@@ -1359,83 +1229,81 @@ LABEL_15:
   if (response)
   {
     response2 = [val response];
-    v48 = *MEMORY[0x1E696A798];
-    v49 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x2DuLL);
-    v50 = CWFErrorWithDescription(v48, 45, v49);
-    (response2)[2](response2, v50, 0);
+    v51 = *MEMORY[0x1E696A798];
+    v52 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x2DuLL);
+    v53 = CWFErrorWithDescription(v51, 45, v52);
+    (response2)[2](response2, v53, 0);
 
 LABEL_42:
   }
-
-  v51 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__cancelRequestsWithNamePrefix:(id)prefix
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   prefixCopy = prefix;
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
   selfCopy = self;
   obj = [(NSMutableDictionary *)self->_mutableQueueMap allValues];
-  v31 = [obj countByEnumeratingWithState:&v47 objects:v54 count:16];
-  if (v31)
+  v30 = [obj countByEnumeratingWithState:&v46 objects:v53 count:16];
+  if (v30)
   {
-    v30 = *v48;
+    v29 = *v47;
     do
     {
       v5 = 0;
       do
       {
-        if (*v48 != v30)
+        if (*v47 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v32 = v5;
-        v6 = *(*(&v47 + 1) + 8 * v5);
+        v31 = v5;
+        v6 = *(*(&v46 + 1) + 8 * v5);
+        v42 = 0u;
         v43 = 0u;
         v44 = 0u;
         v45 = 0u;
-        v46 = 0u;
         allValues = [v6 allValues];
-        v7 = [allValues countByEnumeratingWithState:&v43 objects:v53 count:16];
+        v7 = [allValues countByEnumeratingWithState:&v42 objects:v52 count:16];
         if (v7)
         {
           v8 = v7;
-          v34 = *v44;
+          v33 = *v43;
           do
           {
             for (i = 0; i != v8; ++i)
             {
-              if (*v44 != v34)
+              if (*v43 != v33)
               {
                 objc_enumerationMutation(allValues);
               }
 
-              v10 = *(*(&v43 + 1) + 8 * i);
+              v10 = *(*(&v42 + 1) + 8 * i);
+              v38 = 0u;
               v39 = 0u;
               v40 = 0u;
               v41 = 0u;
-              v42 = 0u;
               operations = [v10 operations];
-              v12 = [operations countByEnumeratingWithState:&v39 objects:v52 count:16];
+              v12 = [operations countByEnumeratingWithState:&v38 objects:v51 count:16];
               if (v12)
               {
                 v13 = v12;
-                v14 = *v40;
+                v14 = *v39;
                 do
                 {
                   for (j = 0; j != v13; ++j)
                   {
-                    if (*v40 != v14)
+                    if (*v39 != v14)
                     {
                       objc_enumerationMutation(operations);
                     }
 
-                    v16 = *(*(&v39 + 1) + 8 * j);
+                    v16 = *(*(&v38 + 1) + 8 * j);
                     name = [v16 name];
                     v18 = [name hasPrefix:prefixCopy];
 
@@ -1445,49 +1313,49 @@ LABEL_42:
                     }
                   }
 
-                  v13 = [operations countByEnumeratingWithState:&v39 objects:v52 count:16];
+                  v13 = [operations countByEnumeratingWithState:&v38 objects:v51 count:16];
                 }
 
                 while (v13);
               }
             }
 
-            v8 = [allValues countByEnumeratingWithState:&v43 objects:v53 count:16];
+            v8 = [allValues countByEnumeratingWithState:&v42 objects:v52 count:16];
           }
 
           while (v8);
         }
 
-        v5 = v32 + 1;
+        v5 = v31 + 1;
       }
 
-      while (v32 + 1 != v31);
-      v31 = [obj countByEnumeratingWithState:&v47 objects:v54 count:16];
+      while (v31 + 1 != v30);
+      v30 = [obj countByEnumeratingWithState:&v46 objects:v53 count:16];
     }
 
-    while (v31);
+    while (v30);
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   operations2 = [(NSOperationQueue *)selfCopy->_defaultQueue operations];
-  v20 = [operations2 countByEnumeratingWithState:&v35 objects:v51 count:16];
+  v20 = [operations2 countByEnumeratingWithState:&v34 objects:v50 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v36;
+    v22 = *v35;
     do
     {
       for (k = 0; k != v21; ++k)
       {
-        if (*v36 != v22)
+        if (*v35 != v22)
         {
           objc_enumerationMutation(operations2);
         }
 
-        v24 = *(*(&v35 + 1) + 8 * k);
+        v24 = *(*(&v34 + 1) + 8 * k);
         name2 = [v24 name];
         v26 = [name2 hasPrefix:prefixCopy];
 
@@ -1497,13 +1365,11 @@ LABEL_42:
         }
       }
 
-      v21 = [operations2 countByEnumeratingWithState:&v35 objects:v51 count:16];
+      v21 = [operations2 countByEnumeratingWithState:&v34 objects:v50 count:16];
     }
 
     while (v21);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)XPCManager:(id)manager XPCConnection:(id)connection canceledXPCRequestsWithUUID:(id)d
@@ -1608,7 +1474,7 @@ LABEL_32:
       {
         LODWORD(location[0]) = 138543362;
         *(location + 4) = interfaceName;
-        _os_log_send_and_compose_impl();
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v11, 16, "[corewifi] PRIVATE MAC: Failed to get HW MAC address from SCNetworkInterface, falling back to network stack (intf=%{public}@)", location, 12);
       }
 
       hardwareAddress = [(CWFXPCRequestProxy *)self __networkStackMACAddressWithInterfaceName:interfaceName];
@@ -1630,7 +1496,8 @@ LABEL_32:
         {
           LODWORD(location[0]) = 138543362;
           *(location + 4) = interfaceName;
-          _os_log_send_and_compose_impl();
+          LODWORD(v27) = 12;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v14, 16, "[corewifi] PRIVATE MAC: Failed to get HW MAC address from the network stack, falling back to WiFi stack (intf=%{public}@)", location, v27);
         }
 
         hardwareAddress = [v6 hardwareMACAddress:0];
@@ -1652,7 +1519,8 @@ LABEL_32:
           {
             LODWORD(location[0]) = 138543362;
             *(location + 4) = interfaceName;
-            _os_log_send_and_compose_impl();
+            LODWORD(v27) = 12;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v17, 16, "[corewifi] PRIVATE MAC: Failed to get HW MAC address from the WiFi stack (intf=%{public}@)", location, v27);
           }
 
           hardwareAddress = 0;
@@ -1705,14 +1573,14 @@ LABEL_32:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       LOWORD(location[0]) = 0;
-      _os_log_send_and_compose_impl();
+      LODWORD(v27) = 2;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v24, 16, "[corewifi] FAILED to initialize private MAC manager", location, v27);
     }
 
     goto LABEL_32;
   }
 
 LABEL_33:
-  v26 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -1815,7 +1683,7 @@ LABEL_33:
 
 - (void)__allowBrokenBackhaulPersonalHotspotFallbackForAutoJoinWithNetwork:(id)network reply:(id)reply
 {
-  v56[1] = *MEMORY[0x1E69E9840];
+  v55[1] = *MEMORY[0x1E69E9840];
   networkCopy = network;
   replyCopy = reply;
   v7 = [(CWFXPCRequestProxy *)self apple80211WithVirtualInterfaceRole:0 parentInterfaceName:0];
@@ -1841,11 +1709,11 @@ LABEL_33:
       v19 = iPv6Router;
       v20 = iPv6Addresses;
       v21 = *MEMORY[0x1E696A798];
-      v55 = *MEMORY[0x1E696A578];
-      v56[0] = @"WiFi has poor RSSI";
+      v54 = *MEMORY[0x1E696A578];
+      v55[0] = @"WiFi has poor RSSI";
       v22 = MEMORY[0x1E695DF20];
-      v23 = v56;
-      v24 = &v55;
+      v23 = v55;
+      v24 = &v54;
 LABEL_39:
       v38 = [v22 dictionaryWithObjects:v23 forKeys:v24 count:1];
       v39 = v21;
@@ -1873,7 +1741,7 @@ LABEL_39:
 
   v26 = v25 || iPv4InterfaceName == 0;
   v27 = !v26;
-  v46 = iPv4InterfaceName;
+  v45 = iPv4InterfaceName;
   if (v26 || ([v7 interfaceName], (v28 = objc_claimAutoreleasedReturnValue()) == 0))
   {
     v29 = 0;
@@ -1883,32 +1751,32 @@ LABEL_39:
       goto LABEL_28;
     }
 
-    v44 = iPv6Addresses;
-    v45 = replyCopy;
-    v43 = 0;
+    v43 = iPv6Addresses;
+    v44 = replyCopy;
+    v42 = 0;
   }
 
   else
   {
     v29 = v28;
-    v45 = replyCopy;
+    v44 = replyCopy;
     replyCopy = [v7 interfaceName];
     if ([iPv4InterfaceName isEqual:replyCopy])
     {
 
-      replyCopy = v45;
+      replyCopy = v44;
       goto LABEL_30;
     }
 
     if (!iPv6Addresses || !iPv6Router || !v16)
     {
 
-      replyCopy = v45;
+      replyCopy = v44;
       goto LABEL_37;
     }
 
-    v44 = iPv6Addresses;
-    v43 = 1;
+    v43 = iPv6Addresses;
+    v42 = 1;
   }
 
   interfaceName2 = [v7 interfaceName];
@@ -1916,16 +1784,16 @@ LABEL_39:
   {
     v32 = interfaceName2;
     [v7 interfaceName];
-    v42 = v29;
+    v41 = v29;
     v33 = v27;
     v35 = v34 = iPv6Router;
     v30 = [v16 isEqual:v35] ^ 1;
 
     iPv6Router = v34;
     v27 = v33;
-    v29 = v42;
+    v29 = v41;
 
-    if (v43)
+    if (v42)
     {
       goto LABEL_23;
     }
@@ -1934,12 +1802,12 @@ LABEL_39:
   else
   {
     v30 = 1;
-    if (v43)
+    if (v42)
     {
 LABEL_23:
 
-      iPv6Addresses = v44;
-      replyCopy = v45;
+      iPv6Addresses = v43;
+      replyCopy = v44;
       if ((v27 & 1) == 0)
       {
         goto LABEL_24;
@@ -1955,19 +1823,19 @@ LABEL_29:
 LABEL_30:
       wifiUserAgentConnection = [(CWFXPCRequestProxy *)self wifiUserAgentConnection];
 
-      iPv4InterfaceName = v46;
+      iPv4InterfaceName = v45;
       if (wifiUserAgentConnection)
       {
         wifiUserAgentConnection2 = [(CWFXPCRequestProxy *)self wifiUserAgentConnection];
-        v50[0] = MEMORY[0x1E69E9820];
-        v50[1] = 3221225472;
-        v50[2] = sub_1E0C9D1E4;
-        v50[3] = &unk_1E86E7D48;
-        v51 = networkCopy;
-        v52 = replyCopy;
-        (wifiUserAgentConnection2)[2](wifiUserAgentConnection2, v50);
+        v49[0] = MEMORY[0x1E69E9820];
+        v49[1] = 3221225472;
+        v49[2] = sub_1E0C9D1E4;
+        v49[3] = &unk_1E86E7D48;
+        v50 = networkCopy;
+        v51 = replyCopy;
+        (wifiUserAgentConnection2)[2](wifiUserAgentConnection2, v49);
 
-        v38 = v51;
+        v38 = v50;
 LABEL_40:
 
         goto LABEL_41;
@@ -1977,8 +1845,8 @@ LABEL_40:
     }
   }
 
-  iPv6Addresses = v44;
-  replyCopy = v45;
+  iPv6Addresses = v43;
+  replyCopy = v44;
 LABEL_28:
   if (v27)
   {
@@ -1992,7 +1860,7 @@ LABEL_24:
   }
 
 LABEL_37:
-  iPv4InterfaceName = v46;
+  iPv4InterfaceName = v45;
   if (replyCopy)
   {
     v17 = MEMORY[0x1E696ABC0];
@@ -2000,17 +1868,15 @@ LABEL_37:
     v19 = iPv6Router;
     v20 = iPv6Addresses;
     v21 = *MEMORY[0x1E696A798];
-    v53 = *MEMORY[0x1E696A578];
-    v54 = @"WiFi is not primary IPv4/IPv6";
+    v52 = *MEMORY[0x1E696A578];
+    v53 = @"WiFi is not primary IPv4/IPv6";
     v22 = MEMORY[0x1E695DF20];
-    v23 = &v54;
-    v24 = &v53;
+    v23 = &v53;
+    v24 = &v52;
     goto LABEL_39;
   }
 
 LABEL_41:
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (CWFAutoJoinManager)autoJoinManager
@@ -2072,20 +1938,20 @@ LABEL_41:
     self->_noiManager = v5;
 
     objc_initWeak(location, self);
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = sub_1E0C9D9A8;
-    v13[3] = &unk_1E86E7E38;
-    objc_copyWeak(&v14, location);
-    [(CWFNetworkOfInterestManager *)self->_noiManager setHomeNetworkDeterminationChangedHandler:v13];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = sub_1E0C9E44C;
-    v11[3] = &unk_1E86E7E38;
-    objc_copyWeak(&v12, location);
-    [(CWFNetworkOfInterestManager *)self->_noiManager setWorkNetworkDeterminationChangedHandler:v11];
-    objc_destroyWeak(&v12);
-    objc_destroyWeak(&v14);
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = sub_1E0C9D9A8;
+    v16[3] = &unk_1E86E7E38;
+    objc_copyWeak(&v17, location);
+    [(CWFNetworkOfInterestManager *)self->_noiManager setHomeNetworkDeterminationChangedHandler:v16];
+    v11 = MEMORY[0x1E69E9820];
+    v12 = 3221225472;
+    v13 = sub_1E0C9E44C;
+    v14 = &unk_1E86E7E38;
+    objc_copyWeak(&v15, location);
+    [(CWFNetworkOfInterestManager *)self->_noiManager setWorkNetworkDeterminationChangedHandler:&v11];
+    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v17);
     objc_destroyWeak(location);
     v3 = self->_noiManager;
     if (!v3)
@@ -2105,7 +1971,7 @@ LABEL_41:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         LOWORD(location[0]) = 0;
-        _os_log_send_and_compose_impl();
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v8, 16, "[corewifi] FAILED to initialize NOI manager", location, 2, v11, v12, v13, v14);
       }
 
       v3 = 0;
@@ -2157,36 +2023,36 @@ LABEL_41:
 
 - (void)__startEventMonitoring
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (!self->_isMonitoringEvents)
   {
     self->_isMonitoringEvents = 1;
     [(CWFXPCRequestProxy *)self __startMonitoringDefaultEventIDs];
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
     v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
     __wifiInterfaceNames = [(CWFXPCRequestProxy *)self __wifiInterfaceNames];
-    v4 = [__wifiInterfaceNames countByEnumeratingWithState:&v9 objects:v13 count:16];
+    v4 = [__wifiInterfaceNames countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v10;
+      v6 = *v9;
       do
       {
         v7 = 0;
         do
         {
-          if (*v10 != v6)
+          if (*v9 != v6)
           {
             objc_enumerationMutation(__wifiInterfaceNames);
           }
 
-          [(CWFXPCRequestProxy *)self __startMonitoringDefaultEventIDsForInterfaceName:*(*(&v9 + 1) + 8 * v7++)];
+          [(CWFXPCRequestProxy *)self __startMonitoringDefaultEventIDsForInterfaceName:*(*(&v8 + 1) + 8 * v7++)];
         }
 
         while (v5 != v7);
-        v5 = [__wifiInterfaceNames countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v5 = [__wifiInterfaceNames countByEnumeratingWithState:&v8 objects:v12 count:16];
       }
 
       while (v5);
@@ -2194,42 +2060,40 @@ LABEL_41:
 
     [(CWFXPCRequestProxy *)self __updateMonitoring:1 eventIDs:self->_mutableEventIDs];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__stopEventMonitoring
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (self->_isMonitoringEvents)
   {
     self->_isMonitoringEvents = 0;
     [(CWFXPCRequestProxy *)self __stopMonitoringDefaultEventIDs];
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
     v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
     __wifiInterfaceNames = [(CWFXPCRequestProxy *)self __wifiInterfaceNames];
-    v4 = [__wifiInterfaceNames countByEnumeratingWithState:&v9 objects:v13 count:16];
+    v4 = [__wifiInterfaceNames countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v10;
+      v6 = *v9;
       do
       {
         v7 = 0;
         do
         {
-          if (*v10 != v6)
+          if (*v9 != v6)
           {
             objc_enumerationMutation(__wifiInterfaceNames);
           }
 
-          [(CWFXPCRequestProxy *)self __stopMonitoringDefaultEventIDsForInterfaceName:*(*(&v9 + 1) + 8 * v7++)];
+          [(CWFXPCRequestProxy *)self __stopMonitoringDefaultEventIDsForInterfaceName:*(*(&v8 + 1) + 8 * v7++)];
         }
 
         while (v5 != v7);
-        v5 = [__wifiInterfaceNames countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v5 = [__wifiInterfaceNames countByEnumeratingWithState:&v8 objects:v12 count:16];
       }
 
       while (v5);
@@ -2237,8 +2101,6 @@ LABEL_41:
 
     [(CWFXPCRequestProxy *)self __updateMonitoring:0 eventIDs:self->_mutableEventIDs];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isMonitoringEvents
@@ -2288,43 +2150,43 @@ LABEL_41:
 
 - (id)__deviceUUID
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = sub_1E0BC2D80;
-  v25 = sub_1E0BC61FC;
-  v26 = 0;
+  v34 = *MEMORY[0x1E69E9840];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_1E0BC2D80;
+  v24 = sub_1E0BC61FC;
+  v25 = 0;
   delegate = [(CWFXPCRequestProxy *)self delegate];
   if (!delegate)
   {
     goto LABEL_6;
   }
 
-  v19[0] = 0;
-  v19[1] = v19;
-  v19[2] = 0x2020000000;
-  v20 = 0;
+  v18[0] = 0;
+  v18[1] = v18;
+  v18[2] = 0x2020000000;
+  v19 = 0;
   v4 = dispatch_block_create(0, &unk_1F5B895D0);
   v5 = objc_alloc_init(CWFXPCRequest);
   [(CWFXPCRequest *)v5 setType:145];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = sub_1E0C9FB74;
-  v15[3] = &unk_1E86E7E80;
-  v17 = &v21;
-  v18 = v19;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_1E0C9FB74;
+  v14[3] = &unk_1E86E7E80;
+  v16 = &v20;
+  v17 = v18;
   v6 = v4;
-  v16 = v6;
-  [(CWFXPCRequest *)v5 setResponse:v15];
+  v15 = v6;
+  [(CWFXPCRequest *)v5 setResponse:v14];
   [delegate XPCRequestProxy:self XPCConnection:self->_internalRequestXPCConnection receivedXPCRequest:v5];
   v7 = dispatch_time(0, 4000000000);
   if (!dispatch_block_wait(v6, v7))
   {
 
-    _Block_object_dispose(v19, 8);
+    _Block_object_dispose(v18, 8);
 LABEL_6:
-    v10 = v22[5];
+    v10 = v21[5];
     goto LABEL_11;
   }
 
@@ -2342,24 +2204,23 @@ LABEL_6:
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v27 = 136446978;
-    v28 = "[CWFXPCRequestProxy __deviceUUID]";
-    v29 = 2082;
-    v30 = "CWFXPCRequestProxy.m";
-    v31 = 1024;
-    v32 = 2120;
-    v33 = 2048;
-    v34 = 4000000000;
-    _os_log_send_and_compose_impl();
+    v26 = 136446978;
+    v27 = "[CWFXPCRequestProxy __deviceUUID]";
+    v28 = 2082;
+    v29 = "CWFXPCRequestProxy.m";
+    v30 = 1024;
+    v31 = 2120;
+    v32 = 2048;
+    v33 = 4000000000;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 16, "[corewifi] %{public}s (%{public}s:%u) FAILED to complete within %lluns, continuing", &v26, 38);
   }
 
-  _Block_object_dispose(v19, 8);
+  _Block_object_dispose(v18, 8);
   v10 = 0;
 LABEL_11:
   v12 = v10;
 
-  _Block_object_dispose(&v21, 8);
-  v13 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v20, 8);
 
   return v12;
 }
@@ -2375,7 +2236,7 @@ LABEL_11:
   {
     [string appendFormat:@"%@, ", uUIDString];
     bundleID = [connectionCopy bundleID];
-    if (bundleID && sub_1E0CC9500())
+    if (bundleID && sub_1E0CC9500(0))
     {
       v17 = 0;
       v18 = &v17;
@@ -2430,7 +2291,7 @@ LABEL_11:
 
 - (id)__hashedSSID:(id)d XPCConnection:(id)connection error:(id *)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dCopy = d;
   connectionCopy = connection;
   if (dCopy)
@@ -2443,9 +2304,9 @@ LABEL_11:
       if (v12)
       {
         v13 = v12;
-        memset(v23, 0, sizeof(v23));
-        CCHmac(2u, [v12 bytes], objc_msgSend(v12, "length"), objc_msgSend(dCopy, "bytes"), objc_msgSend(dCopy, "length"), v23);
-        v14 = [MEMORY[0x1E695DEF0] dataWithBytes:v23 length:32];
+        memset(v22, 0, sizeof(v22));
+        CCHmac(2u, [v12 bytes], objc_msgSend(v12, "length"), objc_msgSend(dCopy, "bytes"), objc_msgSend(dCopy, "length"), v22);
+        v14 = [MEMORY[0x1E695DEF0] dataWithBytes:v22 length:32];
         v15 = [v14 base64EncodedStringWithOptions:0];
         v16 = 0;
         goto LABEL_5;
@@ -2458,14 +2319,14 @@ LABEL_11:
     v11 = 0;
   }
 
-  v20 = *MEMORY[0x1E696A798];
-  v21 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x16uLL);
-  v16 = CWFErrorWithDescription(v20, 22, v21);
+  v19 = *MEMORY[0x1E696A798];
+  v20 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x16uLL);
+  v16 = CWFErrorWithDescription(v19, 22, v20);
 
   v15 = 0;
   if (error && v16)
   {
-    v22 = v16;
+    v21 = v16;
     v15 = 0;
     v13 = 0;
     v14 = 0;
@@ -2481,13 +2342,12 @@ LABEL_11:
 LABEL_5:
   v17 = v15;
 
-  v18 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (id)__hashedBSSID:(id)d XPCConnection:(id)connection error:(id *)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   v9 = CWFEthernetAddressDataFromString(d);
   if (v9)
@@ -2500,9 +2360,9 @@ LABEL_5:
       if (v12)
       {
         v13 = v12;
-        memset(v23, 0, sizeof(v23));
-        CCHmac(2u, [v12 bytes], objc_msgSend(v12, "length"), objc_msgSend(v9, "bytes"), objc_msgSend(v9, "length"), v23);
-        v14 = [MEMORY[0x1E695DEF0] dataWithBytes:v23 length:32];
+        memset(v22, 0, sizeof(v22));
+        CCHmac(2u, [v12 bytes], objc_msgSend(v12, "length"), objc_msgSend(v9, "bytes"), objc_msgSend(v9, "length"), v22);
+        v14 = [MEMORY[0x1E695DEF0] dataWithBytes:v22 length:32];
         v15 = [v14 base64EncodedStringWithOptions:0];
         v16 = 0;
         goto LABEL_5;
@@ -2515,14 +2375,14 @@ LABEL_5:
     v11 = 0;
   }
 
-  v20 = *MEMORY[0x1E696A798];
-  v21 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x16uLL);
-  v16 = CWFErrorWithDescription(v20, 22, v21);
+  v19 = *MEMORY[0x1E696A798];
+  v20 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x16uLL);
+  v16 = CWFErrorWithDescription(v19, 22, v20);
 
   v15 = 0;
   if (error && v16)
   {
-    v22 = v16;
+    v21 = v16;
     v15 = 0;
     v13 = 0;
     v14 = 0;
@@ -2538,7 +2398,6 @@ LABEL_5:
 LABEL_5:
   v17 = v15;
 
-  v18 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -2646,31 +2505,31 @@ LABEL_5:
 
 - (id)__interfaceNames
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   allKeys = [(NSMutableDictionary *)self->_apple80211Map allKeys];
   v4 = [allKeys mutableCopy];
 
   [v4 removeObject:&stru_1F5B8FC80];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   allValues = [(NSMutableDictionary *)self->_apple80211Map allValues];
-  v6 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         if ([v10 virtualInterfaceRole])
         {
           interfaceName = [v10 interfaceName];
@@ -2678,13 +2537,11 @@ LABEL_5:
         }
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -2713,31 +2570,31 @@ LABEL_5:
 
 - (id)__virtualInterfaceNames
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   allKeys = [(NSMutableDictionary *)self->_apple80211Map allKeys];
   v4 = [allKeys mutableCopy];
 
   [v4 removeObject:&stru_1F5B8FC80];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   allValues = [(NSMutableDictionary *)self->_apple80211Map allValues];
-  v6 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         if (![v10 virtualInterfaceRole])
         {
           interfaceName = [v10 interfaceName];
@@ -2745,13 +2602,11 @@ LABEL_5:
         }
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -2780,37 +2635,37 @@ LABEL_5:
 
 - (id)__interfaceSpecificEventIDs:(id)ds
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v5 = [MEMORY[0x1E695DFA8] set];
   allKeys = [(NSMutableDictionary *)self->_apple80211Map allKeys];
   v7 = [allKeys mutableCopy];
 
-  v29 = v7;
+  v28 = v7;
   [v7 removeObject:&stru_1F5B8FC80];
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v8 = dsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v35;
-    v27 = *v35;
-    v28 = v8;
+    v11 = *v34;
+    v26 = *v34;
+    v27 = v8;
     do
     {
       v12 = 0;
       do
       {
-        if (*v35 != v11)
+        if (*v34 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v34 + 1) + 8 * v12);
+        v13 = *(*(&v33 + 1) + 8 * v12);
         interfaceName = [v13 interfaceName];
         if (interfaceName)
         {
@@ -2825,26 +2680,26 @@ LABEL_9:
           goto LABEL_9;
         }
 
-        v32 = 0u;
-        v33 = 0u;
-        v30 = 0u;
         v31 = 0u;
-        v15 = v29;
-        v16 = [v15 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v32 = 0u;
+        v29 = 0u;
+        v30 = 0u;
+        v15 = v28;
+        v16 = [v15 countByEnumeratingWithState:&v29 objects:v37 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v31;
+          v18 = *v30;
           do
           {
             for (i = 0; i != v17; ++i)
             {
-              if (*v31 != v18)
+              if (*v30 != v18)
               {
                 objc_enumerationMutation(v15);
               }
 
-              v20 = *(*(&v30 + 1) + 8 * i);
+              v20 = *(*(&v29 + 1) + 8 * i);
               v21 = [v13 copy];
               v22 = v21;
               if (v21)
@@ -2854,20 +2709,20 @@ LABEL_9:
               }
             }
 
-            v17 = [v15 countByEnumeratingWithState:&v30 objects:v38 count:16];
+            v17 = [v15 countByEnumeratingWithState:&v29 objects:v37 count:16];
           }
 
           while (v17);
         }
 
-        v11 = v27;
-        v8 = v28;
+        v11 = v26;
+        v8 = v27;
 LABEL_10:
         ++v12;
       }
 
       while (v12 != v10);
-      v23 = [v8 countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v23 = [v8 countByEnumeratingWithState:&v33 objects:v38 count:16];
       v10 = v23;
     }
 
@@ -2875,7 +2730,6 @@ LABEL_10:
   }
 
   v24 = [v5 copy];
-  v25 = *MEMORY[0x1E69E9840];
 
   return v24;
 }
@@ -2883,27 +2737,27 @@ LABEL_10:
 - (void)__updateMonitoring:(BOOL)monitoring eventIDs:(id)ds
 {
   monitoringCopy = monitoring;
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v7 = [dsCopy countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v7 = [dsCopy countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v30;
+    v9 = *v29;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(dsCopy);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * i);
+        v11 = *(*(&v28 + 1) + 8 * i);
         type = [v11 type];
         if (type <= 15)
         {
@@ -3062,13 +2916,11 @@ LABEL_33:
 LABEL_37:
       }
 
-      v8 = [dsCopy countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v8 = [dsCopy countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v8);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (id)__linkDownStatusWithInterfaceName:(id)name
@@ -3735,7 +3587,7 @@ LABEL_37:
 
 - (void)__handleBrokenBackhaulState:(int64_t)state timestamp:(id)timestamp
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   timestampCopy = timestamp;
   v7 = CWFGetOSLog();
   if (v7)
@@ -3753,19 +3605,17 @@ LABEL_37:
   {
     v10 = sub_1E0BD3BE8(state);
     v11 = sub_1E0BCC248(timestampCopy);
-    v48 = 136447234;
-    v49 = "[CWFXPCRequestProxy __handleBrokenBackhaulState:timestamp:]";
-    v50 = 2082;
-    v51 = "CWFXPCRequestProxy.m";
-    v52 = 1024;
-    v53 = 3732;
+    v46 = 136447234;
+    v47 = "[CWFXPCRequestProxy __handleBrokenBackhaulState:timestamp:]";
+    v48 = 2082;
+    v49 = "CWFXPCRequestProxy.m";
+    v50 = 1024;
+    v51 = 3732;
+    v52 = 2114;
+    v53 = v10;
     v54 = 2114;
-    v55 = v10;
-    v56 = 2114;
-    v57 = v11;
-    LODWORD(v38) = 48;
-    v37 = &v48;
-    _os_log_send_and_compose_impl();
+    v55 = v11;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v8, 0, "[corewifi] %{public}s (%{public}s:%u) [bbh] Processing broken backhaul state update (state=%{public}@, timestamp=%{public}@", &v46, 48);
   }
 
   v12 = [(CWFXPCRequestProxy *)self apple80211WithVirtualInterfaceRole:0 parentInterfaceName:0];
@@ -3786,28 +3636,29 @@ LABEL_37:
             goto LABEL_13;
           }
 
-          v27 = CWFGetOSLog();
-          if (v27)
+          v26 = CWFGetOSLog();
+          if (v26)
           {
-            v28 = CWFGetOSLog();
+            v27 = CWFGetOSLog();
           }
 
           else
           {
+            v27 = MEMORY[0x1E69E9C10];
             v28 = MEMORY[0x1E69E9C10];
-            v29 = MEMORY[0x1E69E9C10];
           }
 
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
-            v30 = sub_1E0BD3BE8(6);
+            v29 = sub_1E0BD3BE8(6);
             networkName = [v15 networkName];
             redactedForWiFi = [networkName redactedForWiFi];
-            v48 = 138543618;
-            v49 = v30;
-            v50 = 2114;
-            v51 = redactedForWiFi;
-            _os_log_send_and_compose_impl();
+            v46 = 138543618;
+            v47 = v29;
+            v48 = 2114;
+            v49 = redactedForWiFi;
+            LODWORD(v36) = 22;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v27, 0, "[corewifi] [bbh] Broken backhaul indicated (state=%{public}@) for '%{public}@', triggering auto-join", &v46, v36);
           }
 
           v19 = objc_alloc_init(CWFAutoJoinParameters);
@@ -3827,12 +3678,12 @@ LABEL_13:
           [(CWFXPCEvent *)v20 setInterfaceName:interfaceName3];
 
           [(CWFXPCEvent *)v20 setTimestamp:timestampCopy];
-          v46[0] = @"BrokenBackhaulState";
+          v44[0] = @"BrokenBackhaulState";
           v22 = [MEMORY[0x1E696AD98] numberWithInteger:state];
-          v46[1] = @"BrokenBackhaulStateTimestamp";
-          v47[0] = v22;
-          v47[1] = timestampCopy;
-          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:v46 count:2];
+          v44[1] = @"BrokenBackhaulStateTimestamp";
+          v45[0] = v22;
+          v45[1] = timestampCopy;
+          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:v44 count:2];
           [(CWFXPCEvent *)v20 setInfo:v23];
 
           eventQueue = self->_eventQueue;
@@ -3841,7 +3692,7 @@ LABEL_13:
           block[2] = sub_1E0CA8A24;
           block[3] = &unk_1E86E6420;
           block[4] = self;
-          v41 = v20;
+          v39 = v20;
           v25 = v20;
           dispatch_async(eventQueue, block);
 
@@ -3849,47 +3700,26 @@ LABEL_13:
         }
       }
 
-      v16 = [v15 brokenBackhaulState:v37];
+      brokenBackhaulState = [v15 brokenBackhaulState];
       [v15 setBrokenBackhaulState:state];
       [v15 setBrokenBackhaulStateUpdatedAt:timestampCopy];
       v17 = [MEMORY[0x1E695DFD8] setWithObjects:{&unk_1F5BBCA00, &unk_1F5BBCA18, 0}];
       interfaceName4 = [v13 interfaceName];
-      v42[0] = MEMORY[0x1E69E9820];
-      v42[1] = 3221225472;
-      v42[2] = sub_1E0CA882C;
-      v42[3] = &unk_1E86E8038;
-      v43 = v15;
-      v44 = v16;
+      v40[0] = MEMORY[0x1E69E9820];
+      v40[1] = 3221225472;
+      v40[2] = sub_1E0CA882C;
+      v40[3] = &unk_1E86E8038;
+      v41 = v15;
+      v42 = brokenBackhaulState;
       stateCopy = state;
-      [(CWFXPCRequestProxy *)self __updateNetworkProfile:v43 updateProperties:v17 interfaceName:interfaceName4 reply:v42];
+      [(CWFXPCRequestProxy *)self __updateNetworkProfile:v41 updateProperties:v17 interfaceName:interfaceName4 reply:v40];
 
-      v19 = v43;
+      v19 = v41;
 LABEL_12:
 
       goto LABEL_13;
     }
 
-    v34 = CWFGetOSLog();
-    if (v34)
-    {
-      v15 = CWFGetOSLog();
-    }
-
-    else
-    {
-      v15 = MEMORY[0x1E69E9C10];
-      v36 = MEMORY[0x1E69E9C10];
-    }
-
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
-    {
-      LOWORD(v48) = 0;
-      goto LABEL_33;
-    }
-  }
-
-  else
-  {
     v33 = CWFGetOSLog();
     if (v33)
     {
@@ -3904,25 +3734,45 @@ LABEL_12:
 
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v48 = 136446722;
-      v49 = "[CWFXPCRequestProxy __handleBrokenBackhaulState:timestamp:]";
-      v50 = 2082;
-      v51 = "CWFXPCRequestProxy.m";
-      v52 = 1024;
-      v53 = 3736;
-LABEL_33:
-      _os_log_send_and_compose_impl();
+      LOWORD(v46) = 0;
+      LODWORD(v36) = 2;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v15, 16, "[corewifi] [bbh] Failed to get current network, will not updated broken backhaul state", &v46, v36);
+    }
+  }
+
+  else
+  {
+    v32 = CWFGetOSLog();
+    if (v32)
+    {
+      v15 = CWFGetOSLog();
+    }
+
+    else
+    {
+      v15 = MEMORY[0x1E69E9C10];
+      v34 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      v46 = 136446722;
+      v47 = "[CWFXPCRequestProxy __handleBrokenBackhaulState:timestamp:]";
+      v48 = 2082;
+      v49 = "CWFXPCRequestProxy.m";
+      v50 = 1024;
+      v51 = 3736;
+      LODWORD(v36) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v15, 16, "[corewifi] %{public}s (%{public}s:%u) [bbh] Failed to find WiFi interface, will not update broken backhaul state", &v46, v36);
     }
   }
 
 LABEL_14:
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (id)__queryMobileAssetA11:(id *)a11
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = CWFGetOSLog();
   if (v5)
   {
@@ -3937,44 +3787,45 @@ LABEL_14:
 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 136446978;
-    v24 = "[CWFXPCRequestProxy __queryMobileAssetA11:]";
-    v25 = 2082;
-    v26 = "CWFXPCRequestProxy.m";
-    v27 = 1024;
-    v28 = 3813;
-    v29 = 2080;
-    v30 = "[CWFXPCRequestProxy __queryMobileAssetA11:]";
-    _os_log_send_and_compose_impl();
+    v24 = 136446978;
+    v25 = "[CWFXPCRequestProxy __queryMobileAssetA11:]";
+    v26 = 2082;
+    v27 = "CWFXPCRequestProxy.m";
+    v28 = 1024;
+    v29 = 3813;
+    v30 = 2080;
+    v31 = "[CWFXPCRequestProxy __queryMobileAssetA11:]";
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v6, 0, "[corewifi] %{public}s (%{public}s:%u) [OTA] %s: Entering", &v24, 38);
   }
 
   v8 = [(CWFXPCRequestProxy *)self __apple80211WithVirtualInterfaceRole:0 parentInterfaceName:0];
   if (!v8)
   {
     v16 = CWFErrorDescription(@"com.apple.corewifi.error.apple80211", 0xFFFFFFFFFFFFF0C2);
-    v13 = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", -3902, v16);
+    v14 = CWFErrorWithDescription(@"com.apple.corewifi.error.apple80211", -3902, v16);
 
     v17 = CWFGetOSLog();
     if (v17)
     {
-      v12 = CWFGetOSLog();
+      v13 = CWFGetOSLog();
     }
 
     else
     {
-      v12 = MEMORY[0x1E69E9C10];
+      v13 = MEMORY[0x1E69E9C10];
       v20 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v23 = 136446722;
-      v24 = "[CWFXPCRequestProxy __queryMobileAssetA11:]";
-      v25 = 2082;
-      v26 = "CWFXPCRequestProxy.m";
-      v27 = 1024;
-      v28 = 3815;
-      _os_log_send_and_compose_impl();
+      v24 = 136446722;
+      v25 = "[CWFXPCRequestProxy __queryMobileAssetA11:]";
+      v26 = 2082;
+      v27 = "CWFXPCRequestProxy.m";
+      v28 = 1024;
+      v29 = 3815;
+      LODWORD(v22) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v13, 16, "[corewifi] %{public}s (%{public}s:%u) [OTA] Failed to find WiFi interface, will not start mobile asset fetch", &v24, v22);
     }
 
     goto LABEL_27;
@@ -3994,23 +3845,25 @@ LABEL_14:
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    [v8 interfaceName];
-    v23 = 136447234;
-    v25 = 2082;
-    v24 = "[CWFXPCRequestProxy __queryMobileAssetA11:]";
-    v26 = "CWFXPCRequestProxy.m";
-    v27 = 1024;
-    v28 = 3817;
-    v29 = 2080;
-    v30 = "[CWFXPCRequestProxy __queryMobileAssetA11:]";
-    v32 = v31 = 2112;
-    _os_log_send_and_compose_impl();
+    interfaceName = [v8 interfaceName];
+    v24 = 136447234;
+    v26 = 2082;
+    v25 = "[CWFXPCRequestProxy __queryMobileAssetA11:]";
+    v27 = "CWFXPCRequestProxy.m";
+    v28 = 1024;
+    v29 = 3817;
+    v30 = 2080;
+    v31 = "[CWFXPCRequestProxy __queryMobileAssetA11:]";
+    v32 = 2112;
+    v33 = interfaceName;
+    LODWORD(v22) = 48;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v10, 0, "[corewifi] %{public}s (%{public}s:%u) [OTA] %s: Found a11 interface %@", &v24, v22);
   }
 
-  v22 = 0;
-  v12 = [v8 powerTableInfo:&v22];
-  v13 = v22;
-  if (v13)
+  v23 = 0;
+  v13 = [v8 powerTableInfo:&v23];
+  v14 = v23;
+  if (v14)
   {
     v18 = CWFGetOSLog();
     if (v18)
@@ -4026,31 +3879,30 @@ LABEL_14:
 
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v23 = 136447234;
-      v25 = 2082;
-      v24 = "[CWFXPCRequestProxy __queryMobileAssetA11:]";
-      v26 = "CWFXPCRequestProxy.m";
-      v27 = 1024;
-      v28 = 3819;
-      v29 = 2080;
-      v30 = "[CWFXPCRequestProxy __queryMobileAssetA11:]";
-      v31 = 2112;
-      v32 = v13;
-      _os_log_send_and_compose_impl();
+      v24 = 136447234;
+      v26 = 2082;
+      v25 = "[CWFXPCRequestProxy __queryMobileAssetA11:]";
+      v27 = "CWFXPCRequestProxy.m";
+      v28 = 1024;
+      v29 = 3819;
+      v30 = 2080;
+      v31 = "[CWFXPCRequestProxy __queryMobileAssetA11:]";
+      v32 = 2112;
+      v33 = v14;
+      LODWORD(v22) = 48;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v19, 16, "[corewifi] %{public}s (%{public}s:%u) [OTA] %s: Failed to query powerTable info, error=%@", &v24, v22);
     }
 
 LABEL_27:
-    v12 = 0;
-    if (a11 && v13)
+    v13 = 0;
+    if (a11 && v14)
     {
-      v12 = 0;
-      *a11 = [v13 copy];
+      v13 = 0;
+      *a11 = [v14 copy];
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
-  return v12;
+  return v13;
 }
 
 - (void)__setupEventHandlers
@@ -4199,9 +4051,50 @@ LABEL_27:
   objc_destroyWeak(location);
 }
 
+- (void)__addJoinStatusWithScanResult:(id)result knownNetworkProfile:(id)profile isAutoJoin:(BOOL)join interfaceName:(id)name
+{
+  joinCopy = join;
+  v24[1] = *MEMORY[0x1E69E9840];
+  nameCopy = name;
+  profileCopy = profile;
+  resultCopy = result;
+  v13 = objc_alloc_init(CWFJoinStatus);
+  date = [MEMORY[0x1E695DF00] date];
+  [(CWFJoinStatus *)v13 setStartedAt:date];
+
+  [(CWFJoinStatus *)v13 setScanResult:resultCopy];
+  [(CWFJoinStatus *)v13 setKnownNetworkProfile:profileCopy];
+
+  [(CWFJoinStatus *)v13 setInterfaceName:nameCopy];
+  [(CWFJoinStatus *)v13 setAutoJoin:joinCopy];
+  [(NSMutableDictionary *)self->_mutableJoinStatusMap setObject:v13 forKeyedSubscript:nameCopy];
+  v15 = objc_alloc_init(CWFXPCEvent);
+  [(CWFXPCEvent *)v15 setType:13];
+  [(CWFXPCEvent *)v15 setInterfaceName:nameCopy];
+  startedAt = [(CWFJoinStatus *)v13 startedAt];
+  [(CWFXPCEvent *)v15 setTimestamp:startedAt];
+
+  v23 = @"JoinStatus";
+  v17 = [(CWFJoinStatus *)v13 copy];
+  v24[0] = v17;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+  [(CWFXPCEvent *)v15 setInfo:v18];
+
+  eventQueue = self->_eventQueue;
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = sub_1E0CAC864;
+  block[3] = &unk_1E86E6420;
+  block[4] = self;
+  v22 = v15;
+  v20 = v15;
+  dispatch_async(eventQueue, block);
+  [(CWFXPCRequestProxy *)self __updateAutoJoinStatusWithJoin:nameCopy];
+}
+
 - (void)__updateJoinStatusWithAssoc:(id)assoc
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   assocCopy = assoc;
   v5 = [(NSMutableDictionary *)self->_mutableJoinStatusMap objectForKeyedSubscript:assocCopy];
   v6 = v5;
@@ -4219,10 +4112,10 @@ LABEL_27:
       associationEndedAt2 = [v6 associationEndedAt];
       [(CWFXPCEvent *)v9 setTimestamp:associationEndedAt2];
 
-      v18 = @"JoinStatus";
+      v17 = @"JoinStatus";
       v11 = [v6 copy];
-      v19[0] = v11;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+      v18[0] = v11;
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
       [(CWFXPCEvent *)v9 setInfo:v12];
 
       eventQueue = self->_eventQueue;
@@ -4231,19 +4124,17 @@ LABEL_27:
       block[2] = sub_1E0CACAB0;
       block[3] = &unk_1E86E6420;
       block[4] = self;
-      v17 = v9;
+      v16 = v9;
       v14 = v9;
       dispatch_async(eventQueue, block);
       [(CWFXPCRequestProxy *)self __updateAutoJoinStatusWithJoin:assocCopy];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__updateJoinStatusWithError:(id)error interaceName:(id)name
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   nameCopy = name;
   v8 = [(NSMutableDictionary *)self->_mutableJoinStatusMap objectForKeyedSubscript:nameCopy];
@@ -4266,10 +4157,10 @@ LABEL_27:
     associationEndedAt2 = [v9 associationEndedAt];
     [(CWFXPCEvent *)v12 setTimestamp:associationEndedAt2];
 
-    v21 = @"JoinStatus";
+    v20 = @"JoinStatus";
     v14 = [v9 copy];
-    v22[0] = v14;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v21[0] = v14;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     [(CWFXPCEvent *)v12 setInfo:v15];
 
     eventQueue = self->_eventQueue;
@@ -4278,13 +4169,11 @@ LABEL_27:
     block[2] = sub_1E0CACD28;
     block[3] = &unk_1E86E6420;
     block[4] = self;
-    v20 = v12;
+    v19 = v12;
     v17 = v12;
     dispatch_async(eventQueue, block);
     [(CWFXPCRequestProxy *)self __updateAutoJoinStatusWithJoin:nameCopy];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateJoinStatusWithIPv4:(id)pv4
@@ -4337,7 +4226,7 @@ LABEL_27:
 
 - (void)__updateJoinStatusWithAuth:(id)auth
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   authCopy = auth;
   v5 = [(NSMutableDictionary *)self->_mutableJoinStatusMap objectForKeyedSubscript:authCopy];
   v6 = v5;
@@ -4355,10 +4244,10 @@ LABEL_27:
       authenticationEndedAt2 = [v6 authenticationEndedAt];
       [(CWFXPCEvent *)v9 setTimestamp:authenticationEndedAt2];
 
-      v18 = @"JoinStatus";
+      v17 = @"JoinStatus";
       v11 = [v6 copy];
-      v19[0] = v11;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+      v18[0] = v11;
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
       [(CWFXPCEvent *)v9 setInfo:v12];
 
       eventQueue = self->_eventQueue;
@@ -4367,19 +4256,17 @@ LABEL_27:
       block[2] = sub_1E0CAD99C;
       block[3] = &unk_1E86E6420;
       block[4] = self;
-      v17 = v9;
+      v16 = v9;
       v14 = v9;
       dispatch_async(eventQueue, block);
       [(CWFXPCRequestProxy *)self __updateAutoJoinStatusWithJoin:authCopy];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__updateJoinStatusWithLinkUp:(id)up
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   upCopy = up;
   v5 = [(NSMutableDictionary *)self->_mutableJoinStatusMap objectForKeyedSubscript:upCopy];
   v6 = v5;
@@ -4396,10 +4283,10 @@ LABEL_27:
       [(CWFXPCEvent *)v9 setType:13];
       [(CWFXPCEvent *)v9 setInterfaceName:upCopy];
       [(CWFXPCEvent *)v9 setTimestamp:date];
-      v17 = @"JoinStatus";
+      v16 = @"JoinStatus";
       v10 = [v6 copy];
-      v18[0] = v10;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+      v17[0] = v10;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
       [(CWFXPCEvent *)v9 setInfo:v11];
 
       eventQueue = self->_eventQueue;
@@ -4408,14 +4295,12 @@ LABEL_27:
       block[2] = sub_1E0CADBE0;
       block[3] = &unk_1E86E6420;
       block[4] = self;
-      v16 = v9;
+      v15 = v9;
       v13 = v9;
       dispatch_async(eventQueue, block);
       [(CWFXPCRequestProxy *)self __updateAutoJoinStatusWithJoin:upCopy];
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateJoinStatusWithEAP8021X:(id)x
@@ -4451,35 +4336,35 @@ LABEL_27:
 
 - (void)__updateJoinStatusWithKnownNetwork:(id)network
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   networkCopy = network;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   allValues = [(NSMutableDictionary *)self->_mutableJoinStatusMap allValues];
-  v6 = [allValues countByEnumeratingWithState:&v27 objects:v34 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v26 objects:v33 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v28;
-    v23 = v25;
+    v8 = *v27;
+    v22 = v24;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v28 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * i);
+        v10 = *(*(&v26 + 1) + 8 * i);
         knownNetworkProfile = [v10 knownNetworkProfile];
         if (!knownNetworkProfile)
         {
           scanResult = [v10 scanResult];
-          v33 = networkCopy;
-          v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
+          v32 = networkCopy;
+          v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
           v14 = sub_1E0BED85C(scanResult, v13);
 
           if (!v14)
@@ -4496,19 +4381,19 @@ LABEL_27:
           date = [MEMORY[0x1E695DF00] date];
           [(CWFXPCEvent *)v15 setTimestamp:date];
 
-          v31 = @"JoinStatus";
+          v30 = @"JoinStatus";
           v18 = [v10 copy];
-          v32 = v18;
-          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+          v31 = v18;
+          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
           [(CWFXPCEvent *)v15 setInfo:v19];
 
           eventQueue = self->_eventQueue;
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
-          v25[0] = sub_1E0CAE300;
-          v25[1] = &unk_1E86E6420;
-          v25[2] = self;
-          v26 = v15;
+          v24[0] = sub_1E0CAE300;
+          v24[1] = &unk_1E86E6420;
+          v24[2] = self;
+          v25 = v15;
           knownNetworkProfile = v15;
           dispatch_async(eventQueue, block);
           interfaceName2 = [v10 interfaceName];
@@ -4516,18 +4401,16 @@ LABEL_27:
         }
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v27 objects:v34 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v26 objects:v33 count:16];
     }
 
     while (v7);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__updateAutoJoinStatusWithJoin:(id)join
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   joinCopy = join;
   v5 = [(NSMutableDictionary *)self->_mutableAutoJoinStatusMap objectForKeyedSubscript:joinCopy];
   v6 = [(NSMutableDictionary *)self->_mutableJoinStatusMap objectForKeyedSubscript:joinCopy];
@@ -4583,11 +4466,11 @@ LABEL_27:
       v23 = [startedAt count];
       if ([startedAt count])
       {
-        v37 = v23;
+        v36 = v23;
         v24 = 0;
         while (1)
         {
-          v25 = [startedAt objectAtIndexedSubscript:{v24, v37}];
+          v25 = [startedAt objectAtIndexedSubscript:{v24, v36}];
           uUID = [v25 UUID];
           uUID2 = [v7 UUID];
           v28 = [uUID isEqual:uUID2];
@@ -4599,7 +4482,7 @@ LABEL_27:
 
           if (++v24 >= [startedAt count])
           {
-            v23 = v37;
+            v23 = v36;
             goto LABEL_18;
           }
         }
@@ -4627,10 +4510,10 @@ LABEL_18:
       date = [MEMORY[0x1E695DF00] date];
       [(CWFXPCEvent *)v31 setTimestamp:date];
 
-      v40 = @"AutoJoinStatus";
+      v39 = @"AutoJoinStatus";
       deepCopy = [v5 deepCopy];
-      v41[0] = deepCopy;
-      v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
+      v40[0] = deepCopy;
+      v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
       [(CWFXPCEvent *)v31 setInfo:v34];
 
       eventQueue = self->_eventQueue;
@@ -4639,7 +4522,7 @@ LABEL_18:
       block[2] = sub_1E0CAE6FC;
       block[3] = &unk_1E86E6420;
       block[4] = self;
-      v39 = v31;
+      v38 = v31;
       startedAt2 = v31;
       dispatch_async(eventQueue, block);
     }
@@ -4647,8 +4530,6 @@ LABEL_18:
 
 LABEL_23:
   [(CWFAutoJoinManager *)self->_autoJoinManager setJoinStatus:v7];
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__autoJoinStartedWithTrigger:(int64_t)trigger interfaceName:(id)name
@@ -4665,7 +4546,7 @@ LABEL_23:
 
 - (void)__updateAutoJoinState:(int64_t)state interfaceName:(id)name
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v7 = [(NSMutableDictionary *)self->_mutableAutoJoinStatusMap objectForKeyedSubscript:nameCopy];
   if (![v7 state])
@@ -4686,10 +4567,10 @@ LABEL_23:
     date = [MEMORY[0x1E695DF00] date];
     [(CWFXPCEvent *)v9 setTimestamp:date];
 
-    v18 = @"AutoJoinStatus";
+    v17 = @"AutoJoinStatus";
     deepCopy = [v7 deepCopy];
-    v19[0] = deepCopy;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v18[0] = deepCopy;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     [(CWFXPCEvent *)v9 setInfo:v12];
 
     eventQueue = self->_eventQueue;
@@ -4698,12 +4579,53 @@ LABEL_23:
     block[2] = sub_1E0CAEA18;
     block[3] = &unk_1E86E6420;
     block[4] = self;
-    v17 = v9;
+    v16 = v9;
     v14 = v9;
     dispatch_async(eventQueue, block);
   }
+}
 
-  v15 = *MEMORY[0x1E69E9840];
+- (void)__autoJoinEndedWithResult:(BOOL)result interfaceName:(id)name
+{
+  resultCopy = result;
+  v20[1] = *MEMORY[0x1E69E9840];
+  nameCopy = name;
+  v7 = [(NSMutableDictionary *)self->_mutableAutoJoinStatusMap objectForKeyedSubscript:nameCopy];
+  v8 = v7;
+  if (v7)
+  {
+    endedAt = [v7 endedAt];
+
+    if (!endedAt)
+    {
+      [v8 setState:0];
+      [v8 setResult:resultCopy];
+      date = [MEMORY[0x1E695DF00] date];
+      [v8 setEndedAt:date];
+
+      v11 = objc_alloc_init(CWFXPCEvent);
+      [(CWFXPCEvent *)v11 setType:12];
+      [(CWFXPCEvent *)v11 setInterfaceName:nameCopy];
+      endedAt2 = [v8 endedAt];
+      [(CWFXPCEvent *)v11 setTimestamp:endedAt2];
+
+      v19 = @"AutoJoinStatus";
+      deepCopy = [v8 deepCopy];
+      v20[0] = deepCopy;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+      [(CWFXPCEvent *)v11 setInfo:v14];
+
+      eventQueue = self->_eventQueue;
+      block[0] = MEMORY[0x1E69E9820];
+      block[1] = 3221225472;
+      block[2] = sub_1E0CAEC70;
+      block[3] = &unk_1E86E6420;
+      block[4] = self;
+      v18 = v11;
+      v16 = v11;
+      dispatch_async(eventQueue, block);
+    }
+  }
 }
 
 - (void)__handleWillAssocInternalEvent:(id)event
@@ -4750,11 +4672,11 @@ LABEL_23:
 
 - (void)__scheduleNextRecommendedKnownNetworksExpirationTimer
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:0 ascending:1 comparator:&unk_1F5B890D0];
   mutableRecommendedKnownNetworks = self->_mutableRecommendedKnownNetworks;
-  v28[0] = v4;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
+  v27[0] = v4;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
   v7 = [(NSMutableOrderedSet *)mutableRecommendedKnownNetworks sortedArrayUsingDescriptors:v6];
 
   if ([v7 count])
@@ -4820,9 +4742,9 @@ LABEL_23:
 
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = 134217984;
-        v27 = lastObject / 0x3B9ACA00;
-        _os_log_send_and_compose_impl();
+        v25 = 134217984;
+        v26 = lastObject / 0x3B9ACA00;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v20, 0, "[corewifi] Scheduling next recommended known networks expiration timer in %llds", &v25);
       }
 
       v22 = self->_recommendedKnownNetworksExpirationTimer;
@@ -4830,46 +4752,44 @@ LABEL_23:
       dispatch_source_set_timer(v22, v23, 0xFFFFFFFFFFFFFFFFLL, 0);
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__updateRecommendedKnownNetworks
 {
-  v78[2] = *MEMORY[0x1E69E9840];
+  v75[2] = *MEMORY[0x1E69E9840];
   recentlyMatchedCandidates = [(CWFAutoJoinManager *)self->_autoJoinManager recentlyMatchedCandidates];
-  v50 = [recentlyMatchedCandidates objectsPassingTest:&unk_1F5B8ADE0];
+  v47 = [recentlyMatchedCandidates objectsPassingTest:&unk_1F5B8ADE0];
   v2 = [MEMORY[0x1E695DFA0] orderedSetWithSet:?];
   v3 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"matchingKnownNetworkProfile.lastJoinedOnAnyDeviceAt" ascending:0];
-  v48 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"RSSI" ascending:0];
-  v49 = v3;
-  v78[0] = v3;
-  v78[1] = v48;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v78 count:2];
+  v45 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"RSSI" ascending:0];
+  v46 = v3;
+  v75[0] = v3;
+  v75[1] = v45;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v75 count:2];
   [v2 sortUsingDescriptors:v4];
 
   v5 = [MEMORY[0x1E695DFA8] set];
   orderedSet = [MEMORY[0x1E695DFA0] orderedSet];
+  v62 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
-  v67 = 0u;
-  v68 = 0u;
   obj = v2;
-  v7 = [obj countByEnumeratingWithState:&v65 objects:v77 count:16];
+  v7 = [obj countByEnumeratingWithState:&v62 objects:v74 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v66;
+    v9 = *v63;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v66 != v9)
+        if (*v63 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v65 + 1) + 8 * i);
+        v11 = *(*(&v62 + 1) + 8 * i);
         matchingKnownNetworkProfile = [v11 matchingKnownNetworkProfile];
         identifier = [matchingKnownNetworkProfile identifier];
         v14 = [v5 containsObject:identifier];
@@ -4883,38 +4803,38 @@ LABEL_23:
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v65 objects:v77 count:16];
+      v8 = [obj countByEnumeratingWithState:&v62 objects:v74 count:16];
     }
 
     while (v8);
   }
 
   orderedSet2 = [MEMORY[0x1E695DFA0] orderedSet];
+  v58 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   v61 = 0u;
-  v62 = 0u;
-  v63 = 0u;
-  v64 = 0u;
   v17 = self->_mutableRecommendedKnownNetworks;
-  v18 = [(NSMutableOrderedSet *)v17 countByEnumeratingWithState:&v61 objects:v76 count:16];
+  v18 = [(NSMutableOrderedSet *)v17 countByEnumeratingWithState:&v58 objects:v73 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v62;
+    v20 = *v59;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v62 != v20)
+        if (*v59 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        matchingKnownNetworkProfile2 = [*(*(&v61 + 1) + 8 * j) matchingKnownNetworkProfile];
+        matchingKnownNetworkProfile2 = [*(*(&v58 + 1) + 8 * j) matchingKnownNetworkProfile];
         identifier3 = [matchingKnownNetworkProfile2 identifier];
         [orderedSet2 addObject:identifier3];
       }
 
-      v19 = [(NSMutableOrderedSet *)v17 countByEnumeratingWithState:&v61 objects:v76 count:16];
+      v19 = [(NSMutableOrderedSet *)v17 countByEnumeratingWithState:&v58 objects:v73 count:16];
     }
 
     while (v19);
@@ -4922,26 +4842,26 @@ LABEL_23:
 
   array = [MEMORY[0x1E695DF70] array];
   orderedSet3 = [MEMORY[0x1E695DFA0] orderedSet];
+  v54 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
-  v59 = 0u;
-  v60 = 0u;
-  v54 = orderedSet;
-  v26 = [v54 countByEnumeratingWithState:&v57 objects:v75 count:16];
+  v51 = orderedSet;
+  v26 = [v51 countByEnumeratingWithState:&v54 objects:v72 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v58;
+    v28 = *v55;
     do
     {
       for (k = 0; k != v27; ++k)
       {
-        if (*v58 != v28)
+        if (*v55 != v28)
         {
-          objc_enumerationMutation(v54);
+          objc_enumerationMutation(v51);
         }
 
-        v30 = *(*(&v57 + 1) + 8 * k);
+        v30 = *(*(&v54 + 1) + 8 * k);
         matchingKnownNetworkProfile3 = [v30 matchingKnownNetworkProfile];
         identifier4 = [matchingKnownNetworkProfile3 identifier];
         [orderedSet3 addObject:identifier4];
@@ -4950,7 +4870,7 @@ LABEL_23:
         [array addObject:matchingKnownNetworkProfile4];
       }
 
-      v27 = [v54 countByEnumeratingWithState:&v57 objects:v75 count:16];
+      v27 = [v51 countByEnumeratingWithState:&v54 objects:v72 count:16];
     }
 
     while (v27);
@@ -4973,13 +4893,11 @@ LABEL_23:
     if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       mutableRecommendedKnownNetworks = self->_mutableRecommendedKnownNetworks;
-      v71 = 138543618;
-      v72 = mutableRecommendedKnownNetworks;
-      v73 = 2114;
-      v74 = v54;
-      LODWORD(v47) = 22;
-      v46 = &v71;
-      _os_log_send_and_compose_impl();
+      v68 = 138543618;
+      v69 = mutableRecommendedKnownNetworks;
+      v70 = 2114;
+      v71 = v51;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v35, 0, "[corewifi] Updated recommended known networks %{public}@ --> %{public}@", &v68, 22);
     }
 
     v38 = objc_alloc_init(CWFXPCEvent);
@@ -4987,9 +4905,9 @@ LABEL_23:
     date = [MEMORY[0x1E695DF00] date];
     [(CWFXPCEvent *)v38 setTimestamp:date];
 
-    v69 = @"RecommendedKnownNetworks";
-    v70 = array;
-    v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
+    v66 = @"RecommendedKnownNetworks";
+    v67 = array;
+    v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
     [(CWFXPCEvent *)v38 setInfo:v40];
 
     eventQueue = self->_eventQueue;
@@ -4998,23 +4916,22 @@ LABEL_23:
     block[2] = sub_1E0CAFEE8;
     block[3] = &unk_1E86E6420;
     block[4] = self;
-    v56 = v38;
+    v53 = v38;
     v42 = v38;
     dispatch_async(eventQueue, block);
   }
 
-  [(NSMutableOrderedSet *)self->_mutableRecommendedKnownNetworks removeAllObjects:v46];
+  [(NSMutableOrderedSet *)self->_mutableRecommendedKnownNetworks removeAllObjects];
   v43 = self->_mutableRecommendedKnownNetworks;
-  array2 = [v54 array];
+  array2 = [v51 array];
   [(NSMutableOrderedSet *)v43 addObjectsFromArray:array2];
 
   [(CWFXPCRequestProxy *)self __scheduleNextRecommendedKnownNetworksExpirationTimer];
-  v45 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__handleKnownNetworkProfileChangedEvent:(id)event
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   info = [eventCopy info];
   v6 = [info objectForKeyedSubscript:@"Type"];
@@ -5037,30 +4954,30 @@ LABEL_23:
       if (networkName)
       {
         defaultQueue = self->_defaultQueue;
-        v49[0] = MEMORY[0x1E69E9820];
-        v49[1] = 3221225472;
-        v49[2] = sub_1E0CB07CC;
-        v49[3] = &unk_1E86E6420;
-        v50 = v9;
-        v51 = eventCopy;
-        [(NSOperationQueue *)defaultQueue addOperationSerializedByName:@"updateKnownNetwork" block:v49];
+        v46[0] = MEMORY[0x1E69E9820];
+        v46[1] = 3221225472;
+        v46[2] = sub_1E0CB07CC;
+        v46[3] = &unk_1E86E6420;
+        v47 = v9;
+        v48 = eventCopy;
+        [(NSOperationQueue *)defaultQueue addOperationSerializedByName:@"updateKnownNetwork" block:v46];
       }
 
       sSID = [v9 SSID];
       if (sSID)
       {
         v33 = sSID;
-        v34 = sub_1E0BCE1A8();
+        v34 = sub_1E0BCE1A8(0);
 
         if (v34)
         {
           v35 = self->_defaultQueue;
-          v47[0] = MEMORY[0x1E69E9820];
-          v47[1] = 3221225472;
-          v47[2] = sub_1E0CB0900;
-          v47[3] = &unk_1E86E6010;
-          v48 = v9;
-          [(NSOperationQueue *)v35 addOperationSerializedByName:@"updateKnownNetwork" block:v47];
+          v44[0] = MEMORY[0x1E69E9820];
+          v44[1] = 3221225472;
+          v44[2] = sub_1E0CB0900;
+          v44[3] = &unk_1E86E6010;
+          v45 = v9;
+          [(NSOperationQueue *)v35 addOperationSerializedByName:@"updateKnownNetwork" block:v44];
         }
       }
 
@@ -5069,14 +4986,14 @@ LABEL_23:
       if (wifiUserAgentConnection)
       {
         wifiUserAgentConnection2 = [(CWFXPCRequestProxy *)self wifiUserAgentConnection];
-        v45[0] = MEMORY[0x1E69E9820];
-        v45[1] = 3221225472;
-        v45[2] = sub_1E0CB0A18;
-        v45[3] = &unk_1E86E8448;
-        v46 = v9;
-        (wifiUserAgentConnection2)[2](wifiUserAgentConnection2, v45);
+        v42[0] = MEMORY[0x1E69E9820];
+        v42[1] = 3221225472;
+        v42[2] = sub_1E0CB0A18;
+        v42[3] = &unk_1E86E8448;
+        v43 = v9;
+        (wifiUserAgentConnection2)[2](wifiUserAgentConnection2, v42);
 
-        v17 = v46;
+        v17 = v43;
 LABEL_30:
       }
 
@@ -5117,11 +5034,9 @@ LABEL_30:
 
               if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
               {
-                v59 = 138543362;
-                v60 = v9;
-                LODWORD(v44) = 12;
-                v43 = &v59;
-                _os_log_send_and_compose_impl();
+                v56 = 138543362;
+                v57 = v9;
+                _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v28, 0, "[corewifi] PRIVATE MAC: Private MAC setting updated for network (%{public}@)", &v56, 12);
               }
 
               if ((v24 == 1) == (v26 != 1) && (![v11 privateMACAddressDisabledByEvaluation] || objc_msgSend(v9, "privateMACAddressEvaluationState")))
@@ -5134,22 +5049,22 @@ LABEL_30:
         }
       }
 
-      v40 = [(CWFXPCRequestProxy *)self wifiUserAgentConnection:v43];
+      wifiUserAgentConnection3 = [(CWFXPCRequestProxy *)self wifiUserAgentConnection];
 
-      if (!v40)
+      if (!wifiUserAgentConnection3)
       {
         goto LABEL_30;
       }
 
-      wifiUserAgentConnection3 = [(CWFXPCRequestProxy *)self wifiUserAgentConnection];
-      v52[0] = MEMORY[0x1E69E9820];
-      v52[1] = 3221225472;
-      v52[2] = sub_1E0CB07AC;
-      v52[3] = &unk_1E86E8448;
-      v53 = v9;
-      (wifiUserAgentConnection3)[2](wifiUserAgentConnection3, v52);
+      wifiUserAgentConnection4 = [(CWFXPCRequestProxy *)self wifiUserAgentConnection];
+      v49[0] = MEMORY[0x1E69E9820];
+      v49[1] = 3221225472;
+      v49[2] = sub_1E0CB07AC;
+      v49[3] = &unk_1E86E8448;
+      v50 = v9;
+      (wifiUserAgentConnection4)[2](wifiUserAgentConnection4, v49);
 
-      v20 = v53;
+      v20 = v50;
       goto LABEL_29;
     case 1:
       v12 = [(CWFXPCRequestProxy *)self apple80211WithVirtualInterfaceRole:0 parentInterfaceName:0];
@@ -5166,30 +5081,28 @@ LABEL_30:
       block[3] = &unk_1E86E6060;
       block[4] = self;
       v16 = v9;
-      v57 = v16;
+      v54 = v16;
       v17 = v12;
-      v58 = v17;
+      v55 = v17;
       dispatch_async(mutexQueue, block);
-      wifiUserAgentConnection4 = [(CWFXPCRequestProxy *)self wifiUserAgentConnection];
+      wifiUserAgentConnection5 = [(CWFXPCRequestProxy *)self wifiUserAgentConnection];
 
-      if (wifiUserAgentConnection4)
+      if (wifiUserAgentConnection5)
       {
-        wifiUserAgentConnection5 = [(CWFXPCRequestProxy *)self wifiUserAgentConnection];
-        v54[0] = MEMORY[0x1E69E9820];
-        v54[1] = 3221225472;
-        v54[2] = sub_1E0CB078C;
-        v54[3] = &unk_1E86E8448;
-        v55 = v16;
-        (wifiUserAgentConnection5)[2](wifiUserAgentConnection5, v54);
+        wifiUserAgentConnection6 = [(CWFXPCRequestProxy *)self wifiUserAgentConnection];
+        v51[0] = MEMORY[0x1E69E9820];
+        v51[1] = 3221225472;
+        v51[2] = sub_1E0CB078C;
+        v51[3] = &unk_1E86E8448;
+        v52 = v16;
+        (wifiUserAgentConnection6)[2](wifiUserAgentConnection6, v51);
       }
 
-      v20 = v57;
+      v20 = v54;
 LABEL_29:
 
       goto LABEL_30;
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__handleNearbyRecommendedNetworksChangedEvent:(id)event
@@ -5200,45 +5113,160 @@ LABEL_29:
   [autoJoinManager setNearbyRecommendedNetworks:v4];
 }
 
+- (id)__currentScanResultWithInterfaceName:(id)name forceNoCache:(BOOL)cache
+{
+  cacheCopy = cache;
+  v36 = *MEMORY[0x1E69E9840];
+  nameCopy = name;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = sub_1E0BC2D80;
+  v26 = sub_1E0BC61FC;
+  v27 = 0;
+  v20[0] = 0;
+  v20[1] = v20;
+  v20[2] = 0x2020000000;
+  v21 = 0;
+  v7 = dispatch_block_create(0, &unk_1F5B89030);
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = sub_1E0CB0D7C;
+  v16[3] = &unk_1E86E8470;
+  v18 = &v22;
+  v19 = v20;
+  v8 = v7;
+  v17 = v8;
+  [(CWFXPCRequestProxy *)self __currentScanResultWithInterfaceName:nameCopy forceNoCache:cacheCopy reply:v16];
+  v9 = dispatch_time(0, 4000000000);
+  if (dispatch_block_wait(v8, v9))
+  {
+    v10 = CWFGetOSLog();
+    if (v10)
+    {
+      v11 = CWFGetOSLog();
+    }
+
+    else
+    {
+      v11 = MEMORY[0x1E69E9C10];
+      v13 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      v28 = 136446978;
+      v29 = "[CWFXPCRequestProxy __currentScanResultWithInterfaceName:forceNoCache:]";
+      v30 = 2082;
+      v31 = "CWFXPCRequestProxy.m";
+      v32 = 1024;
+      v33 = 5099;
+      v34 = 2048;
+      v35 = 4000000000;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v11, 16, "[corewifi] %{public}s (%{public}s:%u) FAILED to complete within %lluns, continuing", &v28, 38);
+    }
+
+    v12 = 0;
+  }
+
+  else
+  {
+    v12 = v23[5];
+  }
+
+  v14 = v12;
+
+  _Block_object_dispose(v20, 8);
+  _Block_object_dispose(&v22, 8);
+
+  return v14;
+}
+
+- (void)__currentScanResultWithInterfaceName:(id)name forceNoCache:(BOOL)cache reply:(id)reply
+{
+  cacheCopy = cache;
+  nameCopy = name;
+  replyCopy = reply;
+  delegate = [(CWFXPCRequestProxy *)self delegate];
+  if (delegate)
+  {
+    dictionary = [MEMORY[0x1E695DF90] dictionary];
+    v12 = [MEMORY[0x1E696AD98] numberWithBool:cacheCopy];
+    [dictionary setObject:v12 forKeyedSubscript:@"ForceNoCache"];
+
+    v13 = objc_alloc_init(CWFXPCRequest);
+    [(CWFXPCRequest *)v13 setType:57];
+    [(CWFXPCRequest *)v13 setInfo:dictionary];
+    v14 = objc_alloc_init(CWFRequestParameters);
+    [(CWFRequestParameters *)v14 setInterfaceName:nameCopy];
+    [(CWFXPCRequest *)v13 setRequestParameters:v14];
+    date = [MEMORY[0x1E695DF00] date];
+    [(CWFXPCRequest *)v13 setReceivedAt:date];
+
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1E0CB102C;
+    v18[3] = &unk_1E86E6A50;
+    v19 = replyCopy;
+    [(CWFXPCRequest *)v13 setResponse:v18];
+    [delegate XPCRequestProxy:self XPCConnection:self->_internalRequestXPCConnection receivedXPCRequest:v13];
+
+LABEL_5:
+    goto LABEL_6;
+  }
+
+  if (replyCopy)
+  {
+    v16 = *MEMORY[0x1E696A798];
+    dictionary = CWFErrorDescription(*MEMORY[0x1E696A798], 6uLL);
+    v17 = CWFErrorWithDescription(v16, 6, dictionary);
+    (*(replyCopy + 2))(replyCopy, v17, 0);
+
+    goto LABEL_5;
+  }
+
+LABEL_6:
+}
+
 - (id)__userAutoJoinDisabled
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = sub_1E0BC2D80;
-  v25 = sub_1E0BC61FC;
-  v26 = 0;
+  v34 = *MEMORY[0x1E69E9840];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_1E0BC2D80;
+  v24 = sub_1E0BC61FC;
+  v25 = 0;
   delegate = [(CWFXPCRequestProxy *)self delegate];
   if (!delegate)
   {
     goto LABEL_6;
   }
 
-  v19[0] = 0;
-  v19[1] = v19;
-  v19[2] = 0x2020000000;
-  v20 = 0;
+  v18[0] = 0;
+  v18[1] = v18;
+  v18[2] = 0x2020000000;
+  v19 = 0;
   v4 = dispatch_block_create(0, &unk_1F5B89410);
   v5 = objc_alloc_init(CWFXPCRequest);
   [(CWFXPCRequest *)v5 setType:179];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = sub_1E0CB13F4;
-  v15[3] = &unk_1E86E7E80;
-  v17 = &v21;
-  v18 = v19;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_1E0CB13F4;
+  v14[3] = &unk_1E86E7E80;
+  v16 = &v20;
+  v17 = v18;
   v6 = v4;
-  v16 = v6;
-  [(CWFXPCRequest *)v5 setResponse:v15];
+  v15 = v6;
+  [(CWFXPCRequest *)v5 setResponse:v14];
   [delegate XPCRequestProxy:self XPCConnection:self->_internalRequestXPCConnection receivedXPCRequest:v5];
   v7 = dispatch_time(0, 4000000000);
   if (!dispatch_block_wait(v6, v7))
   {
 
-    _Block_object_dispose(v19, 8);
+    _Block_object_dispose(v18, 8);
 LABEL_6:
-    v10 = v22[5];
+    v10 = v21[5];
     goto LABEL_11;
   }
 
@@ -5256,71 +5284,70 @@ LABEL_6:
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v27 = 136446978;
-    v28 = "[CWFXPCRequestProxy __userAutoJoinDisabled]";
-    v29 = 2082;
-    v30 = "CWFXPCRequestProxy.m";
-    v31 = 1024;
-    v32 = 5159;
-    v33 = 2048;
-    v34 = 4000000000;
-    _os_log_send_and_compose_impl();
+    v26 = 136446978;
+    v27 = "[CWFXPCRequestProxy __userAutoJoinDisabled]";
+    v28 = 2082;
+    v29 = "CWFXPCRequestProxy.m";
+    v30 = 1024;
+    v31 = 5159;
+    v32 = 2048;
+    v33 = 4000000000;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 16, "[corewifi] %{public}s (%{public}s:%u) FAILED to complete within %lluns, continuing", &v26, 38);
   }
 
-  _Block_object_dispose(v19, 8);
+  _Block_object_dispose(v18, 8);
   v10 = 0;
 LABEL_11:
   v12 = v10;
 
-  _Block_object_dispose(&v21, 8);
-  v13 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v20, 8);
 
   return v12;
 }
 
 - (id)__currentNetworkProfileWithInterfaceName:(id)name
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = sub_1E0BC2D80;
-  v28 = sub_1E0BC61FC;
-  v29 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = sub_1E0BC2D80;
+  v27 = sub_1E0BC61FC;
+  v28 = 0;
   delegate = [(CWFXPCRequestProxy *)self delegate];
   if (!delegate)
   {
     goto LABEL_6;
   }
 
-  v22[0] = 0;
-  v22[1] = v22;
-  v22[2] = 0x2020000000;
-  v23 = 0;
+  v21[0] = 0;
+  v21[1] = v21;
+  v21[2] = 0x2020000000;
+  v22 = 0;
   v6 = dispatch_block_create(0, &unk_1F5B88FF0);
   v7 = objc_alloc_init(CWFRequestParameters);
   [(CWFRequestParameters *)v7 setInterfaceName:nameCopy];
   v8 = objc_alloc_init(CWFXPCRequest);
   [(CWFXPCRequest *)v8 setRequestParameters:v7];
   [(CWFXPCRequest *)v8 setType:58];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = sub_1E0CB1818;
-  v18[3] = &unk_1E86E7E80;
-  v20 = &v24;
-  v21 = v22;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = sub_1E0CB1818;
+  v17[3] = &unk_1E86E7E80;
+  v19 = &v23;
+  v20 = v21;
   v9 = v6;
-  v19 = v9;
-  [(CWFXPCRequest *)v8 setResponse:v18];
+  v18 = v9;
+  [(CWFXPCRequest *)v8 setResponse:v17];
   [delegate XPCRequestProxy:self XPCConnection:self->_internalRequestXPCConnection receivedXPCRequest:v8];
   v10 = dispatch_time(0, 4000000000);
   if (!dispatch_block_wait(v9, v10))
   {
 
-    _Block_object_dispose(v22, 8);
+    _Block_object_dispose(v21, 8);
 LABEL_6:
-    v13 = v25[5];
+    v13 = v24[5];
     goto LABEL_11;
   }
 
@@ -5338,67 +5365,66 @@ LABEL_6:
 
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    v30 = 136446978;
-    v31 = "[CWFXPCRequestProxy __currentNetworkProfileWithInterfaceName:]";
-    v32 = 2082;
-    v33 = "CWFXPCRequestProxy.m";
-    v34 = 1024;
-    v35 = 5195;
-    v36 = 2048;
-    v37 = 4000000000;
-    _os_log_send_and_compose_impl();
+    v29 = 136446978;
+    v30 = "[CWFXPCRequestProxy __currentNetworkProfileWithInterfaceName:]";
+    v31 = 2082;
+    v32 = "CWFXPCRequestProxy.m";
+    v33 = 1024;
+    v34 = 5195;
+    v35 = 2048;
+    v36 = 4000000000;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v12, 16, "[corewifi] %{public}s (%{public}s:%u) FAILED to complete within %lluns, continuing", &v29, 38);
   }
 
-  _Block_object_dispose(v22, 8);
+  _Block_object_dispose(v21, 8);
   v13 = 0;
 LABEL_11:
   v15 = v13;
 
-  _Block_object_dispose(&v24, 8);
-  v16 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v23, 8);
 
   return v15;
 }
 
 - (id)__knownNetworkProfiles
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = sub_1E0BC2D80;
-  v25 = sub_1E0BC61FC;
-  v26 = 0;
+  v34 = *MEMORY[0x1E69E9840];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_1E0BC2D80;
+  v24 = sub_1E0BC61FC;
+  v25 = 0;
   delegate = [(CWFXPCRequestProxy *)self delegate];
   if (!delegate)
   {
     goto LABEL_6;
   }
 
-  v19[0] = 0;
-  v19[1] = v19;
-  v19[2] = 0x2020000000;
-  v20 = 0;
+  v18[0] = 0;
+  v18[1] = v18;
+  v18[2] = 0x2020000000;
+  v19 = 0;
   v4 = dispatch_block_create(0, &unk_1F5B893D0);
   v5 = objc_alloc_init(CWFXPCRequest);
   [(CWFXPCRequest *)v5 setType:54];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = sub_1E0CB1BF4;
-  v15[3] = &unk_1E86E7E80;
-  v17 = &v21;
-  v18 = v19;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_1E0CB1BF4;
+  v14[3] = &unk_1E86E7E80;
+  v16 = &v20;
+  v17 = v18;
   v6 = v4;
-  v16 = v6;
-  [(CWFXPCRequest *)v5 setResponse:v15];
+  v15 = v6;
+  [(CWFXPCRequest *)v5 setResponse:v14];
   [delegate XPCRequestProxy:self XPCConnection:self->_internalRequestXPCConnection receivedXPCRequest:v5];
   v7 = dispatch_time(0, 4000000000);
   if (!dispatch_block_wait(v6, v7))
   {
 
-    _Block_object_dispose(v19, 8);
+    _Block_object_dispose(v18, 8);
 LABEL_6:
-    v10 = v22[5];
+    v10 = v21[5];
     goto LABEL_11;
   }
 
@@ -5416,24 +5442,23 @@ LABEL_6:
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v27 = 136446978;
-    v28 = "[CWFXPCRequestProxy __knownNetworkProfiles]";
-    v29 = 2082;
-    v30 = "CWFXPCRequestProxy.m";
-    v31 = 1024;
-    v32 = 5226;
-    v33 = 2048;
-    v34 = 4000000000;
-    _os_log_send_and_compose_impl();
+    v26 = 136446978;
+    v27 = "[CWFXPCRequestProxy __knownNetworkProfiles]";
+    v28 = 2082;
+    v29 = "CWFXPCRequestProxy.m";
+    v30 = 1024;
+    v31 = 5226;
+    v32 = 2048;
+    v33 = 4000000000;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 16, "[corewifi] %{public}s (%{public}s:%u) FAILED to complete within %lluns, continuing", &v26, 38);
   }
 
-  _Block_object_dispose(v19, 8);
+  _Block_object_dispose(v18, 8);
   v10 = 0;
 LABEL_11:
   v12 = v10;
 
-  _Block_object_dispose(&v21, 8);
-  v13 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v20, 8);
 
   return v12;
 }
@@ -5461,9 +5486,286 @@ LABEL_11:
   return mutexQueue;
 }
 
+- (id)__apple80211WithVirtualInterfaceRole:(int)role parentInterfaceName:(id)name
+{
+  v4 = *&role;
+  v74 = *MEMORY[0x1E69E9840];
+  nameCopy = name;
+  v7 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+  v8 = CWFGetOSLog();
+  if (v8)
+  {
+    v9 = CWFGetOSLog();
+  }
+
+  else
+  {
+    v9 = MEMORY[0x1E69E9C10];
+    v10 = MEMORY[0x1E69E9C10];
+  }
+
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  {
+    v11 = v7 / 0x3B9ACA00;
+    v12 = v7 % 0x3B9ACA00 / 0x3E8;
+    v13 = sub_1E0BEE7B4(v4);
+    apple80211Map = self->_apple80211Map;
+    v58 = 134219778;
+    v59 = v11;
+    v60 = 2048;
+    v61 = v12;
+    v62 = 2082;
+    v63 = "[CWFXPCRequestProxy __apple80211WithVirtualInterfaceRole:parentInterfaceName:]";
+    v64 = 2082;
+    v65 = "CWFXPCRequestProxy.m";
+    v66 = 1024;
+    v67 = 5253;
+    v68 = 2114;
+    v69 = v13;
+    v70 = 2114;
+    v71 = nameCopy;
+    v72 = 2114;
+    v73 = apple80211Map;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 2, "[corewifi] @[%llu.%06llu] %{public}s (%{public}s:%u) Attempting to match cached interface (role=%{public}@ parent=%{public}@ cache=%{public}@)", &v58, 78);
+  }
+
+  v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  obj = [(NSMutableDictionary *)self->_apple80211Map allValues];
+  v15 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
+  if (!v15)
+  {
+    v34 = 0;
+    v33 = 0;
+    goto LABEL_40;
+  }
+
+  v16 = v15;
+  v51 = 0;
+  v17 = *v54;
+  while (2)
+  {
+    for (i = 0; i != v16; ++i)
+    {
+      if (*v54 != v17)
+      {
+        objc_enumerationMutation(obj);
+      }
+
+      v19 = *(*(&v53 + 1) + 8 * i);
+      interfaceName = [v19 interfaceName];
+
+      if (interfaceName)
+      {
+        if ([v19 virtualInterfaceRole] == v4)
+        {
+          if (!nameCopy)
+          {
+            goto LABEL_34;
+          }
+
+          virtualInterfaceParent = [v19 virtualInterfaceParent];
+          v22 = virtualInterfaceParent;
+          if (virtualInterfaceParent == nameCopy)
+          {
+
+LABEL_34:
+            v35 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+            v36 = CWFGetOSLog();
+            if (v36)
+            {
+              v37 = CWFGetOSLog();
+            }
+
+            else
+            {
+              v37 = MEMORY[0x1E69E9C10];
+              v38 = MEMORY[0x1E69E9C10];
+            }
+
+            v34 = v51;
+
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+            {
+              v58 = 134219266;
+              v59 = v35 / 0x3B9ACA00;
+              v60 = 2048;
+              v61 = v35 % 0x3B9ACA00 / 0x3E8;
+              v62 = 2082;
+              v63 = "[CWFXPCRequestProxy __apple80211WithVirtualInterfaceRole:parentInterfaceName:]";
+              v64 = 2082;
+              v65 = "CWFXPCRequestProxy.m";
+              v66 = 1024;
+              v67 = 5264;
+              v68 = 2114;
+              v69 = v19;
+              LODWORD(v50) = 58;
+              _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v37, 2, "[corewifi] @[%llu.%06llu] %{public}s (%{public}s:%u) Matched cached interface %{public}@", &v58, v50);
+            }
+
+            v33 = v19;
+            goto LABEL_40;
+          }
+
+          virtualInterfaceParent2 = [v19 virtualInterfaceParent];
+          if (virtualInterfaceParent2)
+          {
+            v24 = virtualInterfaceParent2;
+            virtualInterfaceParent3 = [v19 virtualInterfaceParent];
+            v26 = [nameCopy isEqual:virtualInterfaceParent3];
+
+            if (v26)
+            {
+              goto LABEL_34;
+            }
+          }
+
+          else
+          {
+          }
+        }
+
+        if (v4 == 7 && ![v19 virtualInterfaceRole])
+        {
+          if (!nameCopy)
+          {
+            goto LABEL_27;
+          }
+
+          interfaceName2 = [v19 interfaceName];
+          v28 = interfaceName2;
+          if (interfaceName2 == nameCopy)
+          {
+
+LABEL_27:
+            v28 = v51;
+            v51 = v19;
+LABEL_28:
+
+            continue;
+          }
+
+          interfaceName3 = [v19 interfaceName];
+          if (!interfaceName3)
+          {
+            goto LABEL_28;
+          }
+
+          v30 = interfaceName3;
+          interfaceName4 = [v19 interfaceName];
+          v32 = [nameCopy isEqual:interfaceName4];
+
+          if (v32)
+          {
+            goto LABEL_27;
+          }
+        }
+      }
+    }
+
+    v16 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
+    if (v16)
+    {
+      continue;
+    }
+
+    break;
+  }
+
+  v33 = 0;
+  v34 = v51;
+LABEL_40:
+
+  if (v4 == 7 && !v33 && v34)
+  {
+    v39 = [v34 capabilities:0];
+    if (([v39 containsObject:&unk_1F5BBCA30] & 1) != 0 || objc_msgSend(v39, "containsObject:", &unk_1F5BBCA48))
+    {
+      v40 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+      v41 = CWFGetOSLog();
+      if (v41)
+      {
+        v42 = CWFGetOSLog();
+      }
+
+      else
+      {
+        v42 = MEMORY[0x1E69E9C10];
+        v43 = MEMORY[0x1E69E9C10];
+      }
+
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+      {
+        v58 = 134219266;
+        v59 = v40 / 0x3B9ACA00;
+        v60 = 2048;
+        v61 = v40 % 0x3B9ACA00 / 0x3E8;
+        v62 = 2082;
+        v63 = "[CWFXPCRequestProxy __apple80211WithVirtualInterfaceRole:parentInterfaceName:]";
+        v64 = 2082;
+        v65 = "CWFXPCRequestProxy.m";
+        v66 = 1024;
+        v67 = 5283;
+        v68 = 2114;
+        v69 = v34;
+        LODWORD(v50) = 58;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v42, 2, "[corewifi] @[%llu.%06llu] %{public}s (%{public}s:%u) Matched cached interface %{public}@ for APPLE80211_VIRT_IF_ROLE_APSTA", &v58, v50);
+      }
+
+      v33 = v34;
+    }
+
+    else
+    {
+      v33 = 0;
+    }
+  }
+
+  if (!v33)
+  {
+    v44 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+    v45 = CWFGetOSLog();
+    if (v45)
+    {
+      v46 = CWFGetOSLog();
+    }
+
+    else
+    {
+      v46 = MEMORY[0x1E69E9C10];
+      v47 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+    {
+      v48 = sub_1E0BEE7B4(v4);
+      v58 = 134219522;
+      v59 = v44 / 0x3B9ACA00;
+      v60 = 2048;
+      v61 = v44 % 0x3B9ACA00 / 0x3E8;
+      v62 = 2082;
+      v63 = "[CWFXPCRequestProxy __apple80211WithVirtualInterfaceRole:parentInterfaceName:]";
+      v64 = 2082;
+      v65 = "CWFXPCRequestProxy.m";
+      v66 = 1024;
+      v67 = 5291;
+      v68 = 2114;
+      v69 = v48;
+      v70 = 2114;
+      v71 = nameCopy;
+      LODWORD(v50) = 68;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v46, 0, "[corewifi] @[%llu.%06llu] %{public}s (%{public}s:%u) Failed to match cached interface (role=%{public}@ parent=%{public}@)", &v58, v50);
+    }
+  }
+
+  return v33;
+}
+
 - (id)__apple80211WithInterfaceName:(id)name
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   if (nameCopy)
   {
@@ -5478,27 +5780,39 @@ LABEL_11:
   v6 = [(NSMutableDictionary *)self->_apple80211Map objectForKeyedSubscript:v5];
   if (!v6)
   {
-    clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
-    v7 = CWFGetOSLog();
-    if (v7)
+    v7 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+    v8 = CWFGetOSLog();
+    if (v8)
     {
-      v8 = CWFGetOSLog();
+      v9 = CWFGetOSLog();
     }
 
     else
     {
-      v8 = MEMORY[0x1E69E9C10];
       v9 = MEMORY[0x1E69E9C10];
+      v10 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       apple80211Map = self->_apple80211Map;
-      _os_log_send_and_compose_impl();
+      v13 = 134219522;
+      v14 = v7 / 0x3B9ACA00;
+      v15 = 2048;
+      v16 = v7 % 0x3B9ACA00 / 0x3E8;
+      v17 = 2082;
+      v18 = "[CWFXPCRequestProxy __apple80211WithInterfaceName:]";
+      v19 = 2082;
+      v20 = "CWFXPCRequestProxy.m";
+      v21 = 1024;
+      v22 = 5303;
+      v23 = 2114;
+      v24 = nameCopy;
+      v25 = 2114;
+      v26 = apple80211Map;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 0, "[corewifi] @[%llu.%06llu] %{public}s (%{public}s:%u) CWFApple80211 not found with interface name %{public}@, cache=%{public}@", &v13, 68);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -5558,31 +5872,41 @@ LABEL_11:
 
 - (id)__EAP8021XWithInterfaceName:(id)name
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v5 = [(NSMutableDictionary *)self->_EAP8021XMap objectForKeyedSubscript:nameCopy];
   if (!v5)
   {
-    clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
-    v6 = CWFGetOSLog();
-    if (v6)
+    v6 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+    v7 = CWFGetOSLog();
+    if (v7)
     {
-      v7 = CWFGetOSLog();
+      v8 = CWFGetOSLog();
     }
 
     else
     {
-      v7 = MEMORY[0x1E69E9C10];
       v8 = MEMORY[0x1E69E9C10];
+      v9 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v11 = 134219266;
+      v12 = v6 / 0x3B9ACA00;
+      v13 = 2048;
+      v14 = v6 % 0x3B9ACA00 / 0x3E8;
+      v15 = 2082;
+      v16 = "[CWFXPCRequestProxy __EAP8021XWithInterfaceName:]";
+      v17 = 2082;
+      v18 = "CWFXPCRequestProxy.m";
+      v19 = 1024;
+      v20 = 5343;
+      v21 = 2114;
+      v22 = nameCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v8, 0, "[corewifi] @[%llu.%06llu] %{public}s (%{public}s:%u) CWFEAP8021X not found with interface name %{public}@", &v11, 58);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -5615,31 +5939,41 @@ LABEL_11:
 
 - (id)__SCNetworkServiceWithInterfaceName:(id)name
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v5 = [(NSMutableDictionary *)self->_SCNetworkServiceMap objectForKeyedSubscript:nameCopy];
   if (!v5)
   {
-    clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
-    v6 = CWFGetOSLog();
-    if (v6)
+    v6 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+    v7 = CWFGetOSLog();
+    if (v7)
     {
-      v7 = CWFGetOSLog();
+      v8 = CWFGetOSLog();
     }
 
     else
     {
-      v7 = MEMORY[0x1E69E9C10];
       v8 = MEMORY[0x1E69E9C10];
+      v9 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v11 = 134219266;
+      v12 = v6 / 0x3B9ACA00;
+      v13 = 2048;
+      v14 = v6 % 0x3B9ACA00 / 0x3E8;
+      v15 = 2082;
+      v16 = "[CWFXPCRequestProxy __SCNetworkServiceWithInterfaceName:]";
+      v17 = 2082;
+      v18 = "CWFXPCRequestProxy.m";
+      v19 = 1024;
+      v20 = 5369;
+      v21 = 2114;
+      v22 = nameCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v8, 0, "[corewifi] @[%llu.%06llu] %{public}s (%{public}s:%u) CWFSCNetworkService not found with interface name %{public}@", &v11, 58);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -5672,31 +6006,41 @@ LABEL_11:
 
 - (id)__SCNetworkInterfaceWithInterfaceName:(id)name
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v5 = [(NSMutableDictionary *)self->_SCNetworkInterfaceMap objectForKeyedSubscript:nameCopy];
   if (!v5)
   {
-    clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
-    v6 = CWFGetOSLog();
-    if (v6)
+    v6 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW);
+    v7 = CWFGetOSLog();
+    if (v7)
     {
-      v7 = CWFGetOSLog();
+      v8 = CWFGetOSLog();
     }
 
     else
     {
-      v7 = MEMORY[0x1E69E9C10];
       v8 = MEMORY[0x1E69E9C10];
+      v9 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      _os_log_send_and_compose_impl();
+      v11 = 134219266;
+      v12 = v6 / 0x3B9ACA00;
+      v13 = 2048;
+      v14 = v6 % 0x3B9ACA00 / 0x3E8;
+      v15 = 2082;
+      v16 = "[CWFXPCRequestProxy __SCNetworkInterfaceWithInterfaceName:]";
+      v17 = 2082;
+      v18 = "CWFXPCRequestProxy.m";
+      v19 = 1024;
+      v20 = 5395;
+      v21 = 2114;
+      v22 = nameCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v8, 0, "[corewifi] @[%llu.%06llu] %{public}s (%{public}s:%u) CWFSCNetworkInterface not found with interface name %{public}@", &v11, 58);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -5896,7 +6240,7 @@ LABEL_16:
 
 - (void)__performScan:(id)scan XPCConnection:(id)connection
 {
-  v95 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   scanCopy = scan;
   connectionCopy = connection;
   v8 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
@@ -5904,7 +6248,7 @@ LABEL_16:
   interfaceName = [requestParameters interfaceName];
 
   v11 = [(CWFXPCRequestProxy *)self apple80211WithInterfaceName:interfaceName];
-  v76 = interfaceName;
+  v74 = interfaceName;
   if (v11)
   {
     info = [scanCopy info];
@@ -5935,35 +6279,35 @@ LABEL_16:
       selfCopy = self;
       channels = [v13 channels];
 
-      v74 = v11;
-      v75 = connectionCopy;
+      v72 = v11;
+      v73 = connectionCopy;
       if (channels)
       {
-        v70 = v8;
-        v72 = scanCopy;
+        v68 = v8;
+        v70 = scanCopy;
         dictionary = [MEMORY[0x1E695DF90] dictionary];
         array = [MEMORY[0x1E695DF70] array];
+        v81 = 0u;
+        v82 = 0u;
         v83 = 0u;
         v84 = 0u;
-        v85 = 0u;
-        v86 = 0u;
-        v71 = v13;
+        v69 = v13;
         channels2 = [v13 channels];
-        v17 = [channels2 countByEnumeratingWithState:&v83 objects:v93 count:16];
+        v17 = [channels2 countByEnumeratingWithState:&v81 objects:v91 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v84;
+          v19 = *v82;
           do
           {
             for (i = 0; i != v18; ++i)
             {
-              if (*v84 != v19)
+              if (*v82 != v19)
               {
                 objc_enumerationMutation(channels2);
               }
 
-              v21 = *(*(&v83 + 1) + 8 * i);
+              v21 = *(*(&v81 + 1) + 8 * i);
               if ([v21 width] != 20)
               {
                 v22 = CWFGetOSLog();
@@ -5980,11 +6324,10 @@ LABEL_16:
 
                 if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
                 {
-                  v91 = 138543362;
-                  v92 = v21;
-                  LODWORD(v69) = 12;
-                  v68 = &v91;
-                  _os_log_send_and_compose_impl();
+                  v89 = 138543362;
+                  v90 = v21;
+                  LODWORD(v67) = 12;
+                  _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v23, 2, "[corewifi] Specified channel is not 20MHz, but will force 20MHz for scan (%{public}@)", &v89, v67);
                 }
 
                 v25 = +[CWFChannel channelWithNumber:band:width:](CWFChannel, "channelWithNumber:band:width:", [v21 channel], objc_msgSend(v21, "band"), 20);
@@ -6015,18 +6358,18 @@ LABEL_16:
               }
             }
 
-            v18 = [channels2 countByEnumeratingWithState:&v83 objects:v93 count:16];
+            v18 = [channels2 countByEnumeratingWithState:&v81 objects:v91 count:16];
           }
 
           while (v18);
         }
 
-        v33 = v71;
+        v33 = v69;
         v34 = array;
-        [v71 setChannels:array];
-        scanCopy = v72;
-        connectionCopy = v75;
-        v8 = v70;
+        [v69 setChannels:array];
+        scanCopy = v70;
+        connectionCopy = v73;
+        v8 = v68;
       }
 
       else
@@ -6034,33 +6377,33 @@ LABEL_16:
         dictionary = [v11 countryCode:0];
         v35 = [v11 supportedChannelsWithCountryCode:dictionary error:0];
         array2 = [MEMORY[0x1E695DF70] array];
+        v85 = 0u;
+        v86 = 0u;
         v87 = 0u;
         v88 = 0u;
-        v89 = 0u;
-        v90 = 0u;
         v34 = v35;
-        v37 = [v34 countByEnumeratingWithState:&v87 objects:v94 count:16];
+        v37 = [v34 countByEnumeratingWithState:&v85 objects:v92 count:16];
         if (v37)
         {
           v38 = v37;
-          v39 = *v88;
+          v39 = *v86;
           do
           {
             for (j = 0; j != v38; ++j)
             {
-              if (*v88 != v39)
+              if (*v86 != v39)
               {
                 objc_enumerationMutation(v34);
               }
 
-              v41 = *(*(&v87 + 1) + 8 * j);
+              v41 = *(*(&v85 + 1) + 8 * j);
               if ([v41 width] == 20 && (!objc_msgSend(v41, "is6GHz") || objc_msgSend(v41, "is6GHzPSC") && (objc_msgSend(v13, "exclude6GChannels") & 1) == 0) && (!objc_msgSend(v41, "is6GHz") || objc_msgSend(v13, "scanType") != 9))
               {
                 [array2 addObject:v41];
               }
             }
 
-            v38 = [v34 countByEnumeratingWithState:&v87 objects:v94 count:16];
+            v38 = [v34 countByEnumeratingWithState:&v85 objects:v92 count:16];
           }
 
           while (v38);
@@ -6069,11 +6412,11 @@ LABEL_16:
         v33 = v13;
         [v13 setChannels:array2];
 
-        connectionCopy = v75;
+        connectionCopy = v73;
       }
 
       self = selfCopy;
-      v11 = v74;
+      v11 = v72;
 LABEL_47:
       delegate = [(CWFXPCRequestProxy *)self delegate];
       if (delegate)
@@ -6086,16 +6429,16 @@ LABEL_47:
         info2 = [scanCopy info];
         [(CWFXPCRequest *)response2 setInfo:info2];
 
-        v78[0] = MEMORY[0x1E69E9820];
-        v78[1] = 3221225472;
-        v78[2] = sub_1E0CB44C4;
-        v78[3] = &unk_1E86E8498;
+        v76[0] = MEMORY[0x1E69E9820];
+        v76[1] = 3221225472;
+        v76[2] = sub_1E0CB44C4;
+        v76[3] = &unk_1E86E8498;
         v46 = v33;
-        v79 = v33;
-        v80 = scanCopy;
-        v81 = v11;
-        v82 = v8;
-        [(CWFXPCRequest *)response2 setResponse:v78];
+        v77 = v33;
+        v78 = scanCopy;
+        v79 = v11;
+        v80 = v8;
+        [(CWFXPCRequest *)response2 setResponse:v76];
         v47 = CWFGetOSLog();
         if (v47)
         {
@@ -6113,15 +6456,16 @@ LABEL_47:
           info3 = [(CWFXPCRequest *)response2 info];
           [info3 objectForKeyedSubscript:@"ScanParams"];
           v54 = v53 = connectionCopy;
-          v91 = 138543362;
-          v92 = v54;
-          _os_log_send_and_compose_impl();
+          v89 = 138543362;
+          v90 = v54;
+          LODWORD(v67) = 12;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v48, 1, "[corewifi] Passing scan request to daemon (params=%{public}@)", &v89, v67);
 
           connectionCopy = v53;
         }
 
         [delegate XPCRequestProxy:self XPCConnection:connectionCopy receivedXPCRequest:response2];
-        v55 = v79;
+        v55 = v77;
       }
 
       else
@@ -6141,9 +6485,10 @@ LABEL_47:
         if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
         {
           v57 = sub_1E0BC2FCC([scanCopy type]);
-          v91 = 138543362;
-          v92 = v57;
-          _os_log_send_and_compose_impl();
+          v89 = 138543362;
+          v90 = v57;
+          LODWORD(v67) = 12;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v50, 16, "[corewifi] Unhandled request type (%{public}@)", &v89, v67);
         }
 
         response = [scanCopy response];
@@ -6165,21 +6510,21 @@ LABEL_47:
 LABEL_62:
 
       v61 = 0;
-      interfaceName = v76;
+      interfaceName = v74;
       goto LABEL_63;
     }
 
-    v63 = 22;
+    v62 = 22;
   }
 
   else
   {
-    v63 = 6;
+    v62 = 6;
   }
 
-  v64 = *MEMORY[0x1E696A798];
-  v65 = CWFErrorDescription(*MEMORY[0x1E696A798], v63);
-  v61 = CWFErrorWithDescription(v64, v63, v65);
+  v63 = *MEMORY[0x1E696A798];
+  v64 = CWFErrorDescription(*MEMORY[0x1E696A798], v62);
+  v61 = CWFErrorWithDescription(v63, v62, v64);
 
   if (!v61)
   {
@@ -6196,8 +6541,6 @@ LABEL_62:
   }
 
 LABEL_63:
-
-  v62 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__setChannel:(id)channel
@@ -6626,16 +6969,16 @@ LABEL_36:
 
 - (void)__getKnownNetworkMatchingNetworkProfile:(id)profile
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   profileCopy = profile;
   info = [profileCopy info];
   v6 = [info objectForKeyedSubscript:@"NetworkProfile"];
 
   if (!v6)
   {
-    v28 = *MEMORY[0x1E696A798];
-    v29 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x16uLL);
-    v26 = CWFErrorWithDescription(v28, 22, v29);
+    v27 = *MEMORY[0x1E696A798];
+    v28 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x16uLL);
+    v26 = CWFErrorWithDescription(v27, 22, v28);
 
     if (v26)
     {
@@ -6662,30 +7005,30 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   obj = __knownNetworkProfiles;
-  v8 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v8 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (!v8)
   {
     goto LABEL_21;
   }
 
-  v32 = profileCopy;
-  v33 = v6;
-  v9 = *v37;
+  v31 = profileCopy;
+  v32 = v6;
+  v9 = *v36;
   while (2)
   {
     for (i = 0; i != v8; i = i + 1)
     {
-      if (*v37 != v9)
+      if (*v36 != v9)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v36 + 1) + 8 * i);
+      v11 = *(*(&v35 + 1) + 8 * i);
       identifier = [v6 identifier];
       identifier2 = [v11 identifier];
       v14 = identifier2;
@@ -6716,18 +7059,18 @@ LABEL_14:
       identifier5 = [v6 identifier];
       [v11 identifier];
       v21 = v20 = v9;
-      v35 = [identifier5 isEqual:v21];
+      v34 = [identifier5 isEqual:v21];
 
       v9 = v20;
-      v6 = v33;
+      v6 = v32;
 
-      if (v35)
+      if (v34)
       {
         goto LABEL_19;
       }
     }
 
-    v8 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+    v8 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
     if (v8)
     {
       continue;
@@ -6737,7 +7080,7 @@ LABEL_14:
   }
 
 LABEL_20:
-  profileCopy = v32;
+  profileCopy = v31;
 LABEL_21:
 
 LABEL_22:
@@ -6754,8 +7097,6 @@ LABEL_22:
 
   v26 = 0;
 LABEL_25:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__getKnownNetworkMatchingScanResult:(id)result
@@ -6807,7 +7148,7 @@ LABEL_6:
 
 - (void)__addKnownNetwork:(id)network XPCConnection:(id)connection
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   networkCopy = network;
   connectionCopy = connection;
   info = [networkCopy info];
@@ -6830,9 +7171,9 @@ LABEL_6:
 
   v24 = *MEMORY[0x1E696A798];
   v25 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x16uLL);
-  v22 = CWFErrorWithDescription(v24, 22, v25);
+  v23 = CWFErrorWithDescription(v24, 22, v25);
 
-  if (!v22)
+  if (!v23)
   {
 LABEL_5:
     delegate = [(CWFXPCRequestProxy *)self delegate];
@@ -6858,8 +7199,10 @@ LABEL_5:
 
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v28 = sub_1E0BC2FCC([networkCopy type]);
-        _os_log_send_and_compose_impl();
+        v17 = sub_1E0BC2FCC([networkCopy type]);
+        v28 = 138543362;
+        v29 = v17;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v15, 16, "[corewifi] Unhandled request type (%{public}@)", &v28, 12);
       }
 
       response = [networkCopy response];
@@ -6867,14 +7210,14 @@ LABEL_5:
       if (response)
       {
         response2 = [networkCopy response];
-        v19 = *MEMORY[0x1E696A798];
-        v20 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x2DuLL);
-        v21 = CWFErrorWithDescription(v19, 45, v20);
-        (response2)[2](response2, v21, 0);
+        v20 = *MEMORY[0x1E696A798];
+        v21 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x2DuLL);
+        v22 = CWFErrorWithDescription(v20, 45, v21);
+        (response2)[2](response2, v22, 0);
       }
     }
 
-    v22 = 0;
+    v23 = 0;
     goto LABEL_15;
   }
 
@@ -6883,12 +7226,10 @@ LABEL_5:
   if (response3)
   {
     response4 = [networkCopy response];
-    (response4)[2](response4, v22, 0);
+    (response4)[2](response4, v23, 0);
   }
 
 LABEL_15:
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__getApple80211:(id)apple80211
@@ -7418,19 +7759,19 @@ LABEL_93:
 
 - (void)__getWiFiUIStateFlags:(id)flags
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   flagsCopy = flags;
   requestParameters = [flagsCopy requestParameters];
   interfaceName = [requestParameters interfaceName];
 
-  v40 = interfaceName;
+  v36 = interfaceName;
   v7 = [(CWFXPCRequestProxy *)self apple80211WithInterfaceName:interfaceName];
   v8 = v7;
   if (v7)
   {
-    v42 = 0;
-    v9 = [v7 powerOn:&v42];
-    v10 = v42;
+    v38 = 0;
+    v9 = [v7 powerOn:&v38];
+    v10 = v38;
     if (!v9)
     {
       v11 = CWFGetOSLog();
@@ -7447,11 +7788,9 @@ LABEL_93:
 
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v43 = 138543362;
-        v44 = v10;
-        LODWORD(v38) = 12;
-        v36 = &v43;
-        _os_log_send_and_compose_impl();
+        v39 = 138543362;
+        v40 = v10;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v12, 16, "[corewifi] powerOn failed (error=%{public}@)", &v39, 12);
       }
     }
 
@@ -7465,9 +7804,9 @@ LABEL_93:
       v14 = 0;
     }
 
-    v41 = v10;
-    v15 = [v8 opMode:&v41];
-    v16 = v41;
+    v37 = v10;
+    v15 = [v8 opMode:&v37];
+    v16 = v37;
 
     if (!v15)
     {
@@ -7485,11 +7824,10 @@ LABEL_93:
 
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v43 = 138543362;
-        v44 = v16;
-        LODWORD(v39) = 12;
-        v37 = &v43;
-        _os_log_send_and_compose_impl();
+        v39 = 138543362;
+        v40 = v16;
+        LODWORD(v35) = 12;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v18, 16, "[corewifi] opMode failed (error=%{public}@)", &v39, v35);
       }
     }
 
@@ -7497,7 +7835,7 @@ LABEL_93:
     __userAutoJoinDisabled = [(CWFXPCRequestProxy *)self __userAutoJoinDisabled];
     bOOLValue = [__userAutoJoinDisabled BOOLValue];
 
-    v23 = [(CWFXPCRequestProxy *)self __currentScanResultWithInterfaceName:v40 forceNoCache:0];
+    v23 = [(CWFXPCRequestProxy *)self __currentScanResultWithInterfaceName:v36 forceNoCache:0];
 
     if ((unsignedIntegerValue & 8) != 0 || v23 == 0)
     {
@@ -7513,9 +7851,9 @@ LABEL_93:
     goto LABEL_26;
   }
 
-  v32 = *MEMORY[0x1E696A798];
-  v33 = CWFErrorDescription(*MEMORY[0x1E696A798], 6uLL);
-  v9 = CWFErrorWithDescription(v32, 6, v33);
+  v31 = *MEMORY[0x1E696A798];
+  v32 = CWFErrorDescription(*MEMORY[0x1E696A798], 6uLL);
+  v9 = CWFErrorWithDescription(v31, 6, v32);
 
   if (!v9)
   {
@@ -7547,18 +7885,16 @@ LABEL_26:
   }
 
 LABEL_29:
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (id)__networkStackMACAddressWithInterfaceName:(id)name
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   size = 0;
-  *v12 = xmmword_1E0D81890;
-  v13 = 3;
-  v14 = if_nametoindex([name UTF8String]);
-  sysctl(v12, 6u, 0, &size, 0, 0);
+  *v11 = xmmword_1E0D81890;
+  v12 = 3;
+  v13 = if_nametoindex([name UTF8String]);
+  sysctl(v11, 6u, 0, &size, 0, 0);
   if (size)
   {
     v3 = malloc_type_malloc(size, 0x9E18E3E5uLL);
@@ -7567,7 +7903,7 @@ LABEL_29:
       goto LABEL_8;
     }
 
-    if (sysctl(v12, 6u, v3, &size, 0, 0) < 0)
+    if (sysctl(v11, 6u, v3, &size, 0, 0) < 0)
     {
       free(v3);
     }
@@ -7576,9 +7912,9 @@ LABEL_29:
     {
       v4 = &v3[v3[117]];
       v5 = *(v4 + 30);
-      *&v10.octet[4] = *(v4 + 62);
-      *v10.octet = v5;
-      v6 = ether_ntoa(&v10);
+      *&v9.octet[4] = *(v4 + 62);
+      *v9.octet = v5;
+      v6 = ether_ntoa(&v9);
       free(v3);
       if (v6)
       {
@@ -7592,7 +7928,6 @@ LABEL_29:
 
   v3 = 0;
 LABEL_8:
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -7644,7 +7979,7 @@ LABEL_6:
 
 - (void)__getHardwareMACAddress:(id)address
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   addressCopy = address;
   requestParameters = [addressCopy requestParameters];
   interfaceName = [requestParameters interfaceName];
@@ -7678,11 +8013,9 @@ LABEL_6:
 
         if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          v32 = 138543362;
-          v33 = interfaceName;
-          LODWORD(v31) = 12;
-          v30 = &v32;
-          _os_log_send_and_compose_impl();
+          v30 = 138543362;
+          v31 = interfaceName;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v12, 16, "[corewifi] Failed to get HW MAC address from SCNetworkInterface, falling back to network stack (intf=%{public}@)", &v30, 12);
         }
 
         hardwareAddress = [(CWFXPCRequestProxy *)self __networkStackMACAddressWithInterfaceName:interfaceName];
@@ -7705,11 +8038,10 @@ LABEL_6:
 
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          v32 = 138543362;
-          v33 = interfaceName;
-          LODWORD(v31) = 12;
-          v30 = &v32;
-          _os_log_send_and_compose_impl();
+          v30 = 138543362;
+          v31 = interfaceName;
+          LODWORD(v29) = 12;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v15, 16, "[corewifi] Failed to get HW MAC address from the network stack, falling back to WiFi stack (intf=%{public}@)", &v30, v29);
         }
 
         hardwareAddress = [v7 hardwareMACAddress:0];
@@ -7733,25 +8065,24 @@ LABEL_18:
           goto LABEL_21;
         }
 
-        v23 = CWFGetOSLog();
-        if (v23)
+        v22 = CWFGetOSLog();
+        if (v22)
         {
-          v24 = CWFGetOSLog();
+          v23 = CWFGetOSLog();
         }
 
         else
         {
+          v23 = MEMORY[0x1E69E9C10];
           v24 = MEMORY[0x1E69E9C10];
-          v25 = MEMORY[0x1E69E9C10];
         }
 
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          v32 = 138543362;
-          v33 = interfaceName;
-          LODWORD(v31) = 12;
-          v30 = &v32;
-          _os_log_send_and_compose_impl();
+          v30 = 138543362;
+          v31 = interfaceName;
+          LODWORD(v29) = 12;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v23, 16, "[corewifi] Failed to get HW MAC address from the WiFi stack (intf=%{public}@)", &v30, v29);
         }
 
 LABEL_28:
@@ -7766,9 +8097,9 @@ LABEL_28:
     v7 = 0;
   }
 
-  v26 = *MEMORY[0x1E696A798];
-  v27 = CWFErrorDescription(*MEMORY[0x1E696A798], 6uLL);
-  v9 = CWFErrorWithDescription(v26, 6, v27);
+  v25 = *MEMORY[0x1E696A798];
+  v26 = CWFErrorDescription(*MEMORY[0x1E696A798], 6uLL);
+  v9 = CWFErrorWithDescription(v25, 6, v26);
 
   if (!v9)
   {
@@ -7784,8 +8115,6 @@ LABEL_28:
   }
 
 LABEL_21:
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__getEventIDs:(id)ds XPCConnection:(id)connection
@@ -9878,7 +10207,7 @@ LABEL_6:
 
 - (void)__getPlatformCapabilities:(id)capabilities
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   capabilitiesCopy = capabilities;
   v5 = [MEMORY[0x1E695DFA8] set];
   v6 = [(CWFXPCRequestProxy *)self apple80211WithInterfaceName:0];
@@ -9887,26 +10216,26 @@ LABEL_6:
   v8 = [(CWFXPCRequestProxy *)self apple80211WithInterfaceName:0];
   v9 = [v8 virtualInterfaceNames:0];
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   v10 = v7;
-  v11 = [v10 countByEnumeratingWithState:&v45 objects:v51 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v44 objects:v50 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v46;
+    v13 = *v45;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v46 != v13)
+        if (*v45 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [(CWFXPCRequestProxy *)self apple80211WithInterfaceName:*(*(&v45 + 1) + 8 * i)];
+        v15 = [(CWFXPCRequestProxy *)self apple80211WithInterfaceName:*(*(&v44 + 1) + 8 * i)];
         v16 = [v15 capabilities:0];
 
         if (v16)
@@ -9915,32 +10244,32 @@ LABEL_6:
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v45 objects:v51 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v44 objects:v50 count:16];
     }
 
     while (v12);
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v17 = v9;
-  v18 = [v17 countByEnumeratingWithState:&v41 objects:v50 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v40 objects:v49 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v42;
+    v20 = *v41;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v42 != v20)
+        if (*v41 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = [(CWFXPCRequestProxy *)self apple80211WithInterfaceName:*(*(&v41 + 1) + 8 * j), v41];
+        v22 = [(CWFXPCRequestProxy *)self apple80211WithInterfaceName:*(*(&v40 + 1) + 8 * j), v40];
         v23 = [v22 capabilities:0];
 
         if (v23)
@@ -9949,7 +10278,7 @@ LABEL_6:
         }
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v41 objects:v50 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v40 objects:v49 count:16];
     }
 
     while (v19);
@@ -9974,7 +10303,7 @@ LABEL_6:
           [v5 addObject:&unk_1F5BBCAC0];
         }
 
-        v31 = [v28 objectForKey:{@"ranging", v41}];
+        v31 = [v28 objectForKey:{@"ranging", v40}];
         bOOLValue2 = [v31 BOOLValue];
 
         if (bOOLValue2)
@@ -9989,9 +10318,9 @@ LABEL_6:
     }
   }
 
-  v33 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"integerValue" ascending:{1, v41}];
-  v49 = v33;
-  v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v49 count:1];
+  v33 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"integerValue" ascending:{1, v40}];
+  v48 = v33;
+  v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v48 count:1];
   v35 = [v5 sortedArrayUsingDescriptors:v34];
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
@@ -10004,8 +10333,6 @@ LABEL_6:
     v39 = [dictionary copy];
     (response2)[2](response2, 0, v39);
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__updateCurrentKnownBSSWithIPConfigurationForInterfaceName:(id)name
@@ -10510,7 +10837,7 @@ LABEL_27:
 
 - (void)__performAutoJoinWithParameters:(id)parameters interfaceName:(id)name
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   nameCopy = name;
   delegate = [(CWFXPCRequestProxy *)self delegate];
@@ -10518,9 +10845,9 @@ LABEL_27:
   {
     v9 = objc_alloc_init(CWFXPCRequest);
     [(CWFXPCRequest *)v9 setType:177];
-    v14 = @"AutoJoinParams";
-    v15[0] = parametersCopy;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = @"AutoJoinParams";
+    v14[0] = parametersCopy;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     [(CWFXPCRequest *)v9 setInfo:v10];
 
     v11 = objc_alloc_init(CWFRequestParameters);
@@ -10532,23 +10859,21 @@ LABEL_27:
     [(CWFXPCRequest *)v9 setResponse:&unk_1F5B88F50];
     [delegate XPCRequestProxy:self XPCConnection:self->_internalRequestXPCConnection receivedXPCRequest:v9];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__disassocWithReason:(int64_t)reason interfaceName:(id)name
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   delegate = [(CWFXPCRequestProxy *)self delegate];
   if (delegate)
   {
     v8 = objc_alloc_init(CWFXPCRequest);
     [(CWFXPCRequest *)v8 setType:63];
-    v14 = @"DisassocReason";
+    v13 = @"DisassocReason";
     v9 = [MEMORY[0x1E696AD98] numberWithInteger:reason];
-    v15[0] = v9;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v14[0] = v9;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     [(CWFXPCRequest *)v8 setInfo:v10];
 
     v11 = objc_alloc_init(CWFRequestParameters);
@@ -10559,8 +10884,6 @@ LABEL_27:
 
     [delegate XPCRequestProxy:self XPCConnection:self->_internalRequestXPCConnection receivedXPCRequest:v8];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__updateNetworkProfile:(id)profile updateProperties:(id)properties interfaceName:(id)name reply:(id)reply
@@ -10707,7 +11030,7 @@ LABEL_6:
 
 - (void)__privateMACEvaluationCompletedWithState:(int64_t)state knownNetwork:(id)network interfaceName:(id)name
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   networkCopy = network;
   nameCopy = name;
   if (_os_feature_enabled_impl() && [networkCopy privateMACAddressEvaluationState])
@@ -10735,14 +11058,18 @@ LABEL_6:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v16 = sub_1E0BEF284(privateMACAddressEvaluationState);
-      v18 = sub_1E0BEF284(state);
-      _os_log_send_and_compose_impl();
+      v17 = sub_1E0BEF284(state);
+      v18 = 138543874;
+      v19 = v16;
+      v20 = 2114;
+      v21 = v17;
+      v22 = 2114;
+      v23 = networkCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v14, 0, "[corewifi] PRIVATE MAC: Updating evaluation state (%{public}@ -> %{public}@) for network (%{public}@)", &v18, 32);
     }
 
     [(CWFXPCRequestProxy *)self __updateNetworkProfile:networkCopy updateProperties:v12 interfaceName:nameCopy reply:0];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__reportQuickProbeResult:(id)result
@@ -10988,61 +11315,61 @@ LABEL_4:
 
 - (void)__startNetworkRelayBridgeWithHostAPConfiguration:(id)configuration interfaceName:(id)name reply:(id)reply
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   nameCopy = name;
   replyCopy = reply;
   v11 = replyCopy;
   if (self->_netRBClient)
   {
-    v26 = CWFGetOSLog();
-    if (v26)
+    v22 = CWFGetOSLog();
+    if (v22)
     {
-      v27 = CWFGetOSLog();
+      v23 = CWFGetOSLog();
     }
 
     else
     {
-      v27 = MEMORY[0x1E69E9C10];
-      v41 = MEMORY[0x1E69E9C10];
+      v23 = MEMORY[0x1E69E9C10];
+      v37 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *location = 0;
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v23, 16, "[corewifi] NETRB service already running", location, 2);
     }
 
-    v42 = *MEMORY[0x1E696A798];
-    v43 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x25uLL);
-    v24 = CWFErrorWithDescription(v42, 37, v43);
+    v38 = *MEMORY[0x1E696A798];
+    v39 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x25uLL);
+    v21 = CWFErrorWithDescription(v38, 37, v39);
 
     goto LABEL_70;
   }
 
   if (!configurationCopy)
   {
-    v28 = CWFGetOSLog();
-    if (v28)
+    v24 = CWFGetOSLog();
+    if (v24)
     {
-      v29 = CWFGetOSLog();
+      v25 = CWFGetOSLog();
     }
 
     else
     {
-      v29 = MEMORY[0x1E69E9C10];
-      v44 = MEMORY[0x1E69E9C10];
+      v25 = MEMORY[0x1E69E9C10];
+      v40 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       *location = 136446722;
       *&location[4] = "[CWFXPCRequestProxy __startNetworkRelayBridgeWithHostAPConfiguration:interfaceName:reply:]";
-      v66 = 2082;
-      v67 = "CWFXPCRequestProxy.m";
-      v68 = 1024;
-      v69 = 8544;
-      _os_log_send_and_compose_impl();
+      v65 = 2082;
+      v66 = "CWFXPCRequestProxy.m";
+      v67 = 1024;
+      v68 = 8544;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v25, 16, "[corewifi] %{public}s (%{public}s:%u) CWFHostAPConfiguration is NULL", location, 28);
     }
 
     goto LABEL_38;
@@ -11050,37 +11377,37 @@ LABEL_4:
 
   if (!nameCopy)
   {
-    v30 = CWFGetOSLog();
-    if (v30)
+    v26 = CWFGetOSLog();
+    if (v26)
     {
-      v29 = CWFGetOSLog();
+      v25 = CWFGetOSLog();
     }
 
     else
     {
-      v29 = MEMORY[0x1E69E9C10];
-      v47 = MEMORY[0x1E69E9C10];
+      v25 = MEMORY[0x1E69E9C10];
+      v43 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       *location = 136446722;
       *&location[4] = "[CWFXPCRequestProxy __startNetworkRelayBridgeWithHostAPConfiguration:interfaceName:reply:]";
-      v66 = 2082;
-      v67 = "CWFXPCRequestProxy.m";
-      v68 = 1024;
-      v69 = 8549;
-      _os_log_send_and_compose_impl();
+      v65 = 2082;
+      v66 = "CWFXPCRequestProxy.m";
+      v67 = 1024;
+      v68 = 8549;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v25, 16, "[corewifi] %{public}s (%{public}s:%u) interfaceName is NULL", location, 28);
     }
 
 LABEL_38:
 
-    v45 = *MEMORY[0x1E696A798];
-    v46 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x16uLL);
-    v24 = CWFErrorWithDescription(v45, 22, v46);
+    v41 = *MEMORY[0x1E696A798];
+    v42 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x16uLL);
+    v21 = CWFErrorWithDescription(v41, 22, v42);
 
 LABEL_70:
-    v18 = 0;
+    v15 = 0;
     goto LABEL_71;
   }
 
@@ -11089,272 +11416,298 @@ LABEL_70:
   self->_netRBStartServiceReply = v12;
 
   objc_initWeak(location, self);
-  v64 = 0;
-  mutexQueue = self->_mutexQueue;
-  objc_copyWeak(&v63, location);
+  v63 = 0;
+  v61 = MEMORY[0x1E69E9820];
+  objc_copyWeak(&v62, location);
   Internal = _NETRBClientCreateInternal();
   self->_netRBClient = Internal;
   if (!Internal)
   {
-    v31 = CWFGetOSLog();
-    if (v31)
+    v27 = CWFGetOSLog();
+    if (v27)
     {
-      v32 = CWFGetOSLog();
+      v28 = CWFGetOSLog();
     }
 
     else
     {
-      v32 = MEMORY[0x1E69E9C10];
-      v48 = MEMORY[0x1E69E9C10];
+      v28 = MEMORY[0x1E69E9C10];
+      v44 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      v74 = 67109120;
-      v75 = v64;
-      _os_log_send_and_compose_impl();
+      v73[0] = 67109120;
+      v73[1] = v63;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v28, 16, "[corewifi] _NETRBClientCreate() FAILED with error %d", v73);
     }
 
-    objc_destroyWeak(&v63);
+    objc_destroyWeak(&v62);
     objc_destroyWeak(location);
     goto LABEL_51;
   }
 
-  objc_destroyWeak(&v63);
+  objc_destroyWeak(&v62);
   objc_destroyWeak(location);
   if ([configurationCopy bridgeMode] == 201)
   {
-    v74 = 0;
-    v64 = 1020;
-    netRBClient = self->_netRBClient;
+    v73[0] = 0;
+    v63 = 1020;
     if ((_NETRBClientGetGlobalServiceState() & 1) == 0)
     {
-      v37 = CWFGetOSLog();
-      if (v37)
+      v33 = CWFGetOSLog();
+      if (v33)
       {
-        v38 = CWFGetOSLog();
+        v34 = CWFGetOSLog();
       }
 
       else
       {
-        v38 = MEMORY[0x1E69E9C10];
-        v54 = MEMORY[0x1E69E9C10];
+        v34 = MEMORY[0x1E69E9C10];
+        v49 = MEMORY[0x1E69E9C10];
       }
 
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         *location = 136446722;
         *&location[4] = "[CWFXPCRequestProxy __startNetworkRelayBridgeWithHostAPConfiguration:interfaceName:reply:]";
-        v66 = 2082;
-        v67 = "CWFXPCRequestProxy.m";
-        v68 = 1024;
-        v69 = 8625;
-        _os_log_send_and_compose_impl();
+        v65 = 2082;
+        v66 = "CWFXPCRequestProxy.m";
+        v67 = 1024;
+        v68 = 8625;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v34, 16, "[corewifi] %{public}s (%{public}s:%u) _NETRBClientGetGlobalServiceState() FAILED", location, 28, v61, 3221225472, sub_1E0CC0A80, &unk_1E86E8558);
       }
 
-      v55 = 6;
+      v50 = 6;
       goto LABEL_69;
     }
 
-    if (v64 == 1023)
+    if (v63 == 1023)
     {
-      v17 = self->_netRBClient;
       if (_NETRBClientIsAllowedMoreHost())
       {
         goto LABEL_9;
       }
 
-      v40 = CWFGetOSLog();
-      if (v40)
+      v36 = CWFGetOSLog();
+      if (v36)
       {
-        v38 = CWFGetOSLog();
+        v34 = CWFGetOSLog();
       }
 
       else
       {
-        v38 = MEMORY[0x1E69E9C10];
-        v57 = MEMORY[0x1E69E9C10];
+        v34 = MEMORY[0x1E69E9C10];
+        v53 = MEMORY[0x1E69E9C10];
       }
 
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         *location = 136446722;
         *&location[4] = "[CWFXPCRequestProxy __startNetworkRelayBridgeWithHostAPConfiguration:interfaceName:reply:]";
-        v66 = 2082;
-        v67 = "CWFXPCRequestProxy.m";
-        v68 = 1024;
-        v69 = 8634;
+        v65 = 2082;
+        v66 = "CWFXPCRequestProxy.m";
+        v67 = 1024;
+        v68 = 8634;
+        v60 = 28;
+        v52 = "[corewifi] %{public}s (%{public}s:%u) _NETRBClientIsAllowedMoreHost() returned false";
         goto LABEL_67;
       }
     }
 
     else
     {
-      v39 = CWFGetOSLog();
-      if (v39)
+      v35 = CWFGetOSLog();
+      if (v35)
       {
-        v38 = CWFGetOSLog();
+        v34 = CWFGetOSLog();
       }
 
       else
       {
-        v38 = MEMORY[0x1E69E9C10];
-        v56 = MEMORY[0x1E69E9C10];
+        v34 = MEMORY[0x1E69E9C10];
+        v51 = MEMORY[0x1E69E9C10];
       }
 
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         *location = 136447234;
         *&location[4] = "[CWFXPCRequestProxy __startNetworkRelayBridgeWithHostAPConfiguration:interfaceName:reply:]";
-        v66 = 2082;
-        v67 = "CWFXPCRequestProxy.m";
-        v68 = 1024;
-        v69 = 8629;
-        v70 = 1024;
-        v71 = v64;
-        v72 = 1024;
-        v73 = v74;
+        v65 = 2082;
+        v66 = "CWFXPCRequestProxy.m";
+        v67 = 1024;
+        v68 = 8629;
+        v69 = 1024;
+        v70 = v63;
+        v71 = 1024;
+        v72 = v73[0];
+        v60 = 40;
+        v52 = "[corewifi] %{public}s (%{public}s:%u) NETRB service is disabled (state=%d, reason=%d)";
 LABEL_67:
-        v55 = 1;
-        _os_log_send_and_compose_impl();
+        v50 = 1;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v34, 16, v52, location, v60, v61, 3221225472, sub_1E0CC0A80, &unk_1E86E8558);
 LABEL_69:
 
-        v58 = *MEMORY[0x1E696A798];
-        v59 = CWFErrorDescription(*MEMORY[0x1E696A798], v55);
-        v24 = CWFErrorWithDescription(v58, v55, v59);
+        v54 = *MEMORY[0x1E696A798];
+        v55 = CWFErrorDescription(*MEMORY[0x1E696A798], v50);
+        v21 = CWFErrorWithDescription(v54, v50, v55);
 
         goto LABEL_70;
       }
     }
 
-    v55 = 1;
+    v50 = 1;
     goto LABEL_69;
   }
 
 LABEL_9:
-  v18 = xpc_dictionary_create(0, 0, 0);
-  if (!v18)
+  v15 = xpc_dictionary_create(0, 0, 0);
+  if (!v15)
   {
-    v33 = CWFGetOSLog();
-    if (v33)
+    v29 = CWFGetOSLog();
+    if (v29)
     {
-      v34 = CWFGetOSLog();
+      v30 = CWFGetOSLog();
     }
 
     else
     {
-      v34 = MEMORY[0x1E69E9C10];
-      v49 = MEMORY[0x1E69E9C10];
+      v30 = MEMORY[0x1E69E9C10];
+      v45 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       *location = 136446722;
       *&location[4] = "[CWFXPCRequestProxy __startNetworkRelayBridgeWithHostAPConfiguration:interfaceName:reply:]";
-      v66 = 2082;
-      v67 = "CWFXPCRequestProxy.m";
-      v68 = 1024;
-      v69 = 8641;
-      _os_log_send_and_compose_impl();
+      v65 = 2082;
+      v66 = "CWFXPCRequestProxy.m";
+      v67 = 1024;
+      v68 = 8641;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v30, 16, "[corewifi] %{public}s (%{public}s:%u) xpc_dictionary_create() FAILED)", location, 28, v61, 3221225472, sub_1E0CC0A80, &unk_1E86E8558);
     }
 
 LABEL_51:
-    v24 = 0;
-    v18 = 0;
+    v21 = 0;
+    v15 = 0;
     goto LABEL_12;
   }
 
-  v19 = *MEMORY[0x1E69B37A0];
-  v20 = nameCopy;
-  xpc_dictionary_set_string(v18, v19, [nameCopy UTF8String]);
-  xpc_dictionary_set_uint64(v18, *MEMORY[0x1E69B3798], 3uLL);
-  v21 = self->_netRBClient;
+  v16 = *MEMORY[0x1E69B37A0];
+  v17 = nameCopy;
+  xpc_dictionary_set_string(v15, v16, [nameCopy UTF8String]);
+  xpc_dictionary_set_uint64(v15, *MEMORY[0x1E69B3798], 3uLL);
   bridgeInterfaceName = [configurationCopy bridgeInterfaceName];
-  v23 = bridgeInterfaceName;
+  v19 = bridgeInterfaceName;
   [bridgeInterfaceName UTF8String];
   [configurationCopy bridgeMode];
   [configurationCopy bridgeType];
-  LOBYTE(v21) = _NETRBClientStartService();
+  started = _NETRBClientStartService();
 
-  if (v21)
+  if (started)
   {
-    v24 = 0;
+    v21 = 0;
     goto LABEL_12;
   }
 
-  v35 = CWFGetOSLog();
-  if (v35)
+  v31 = CWFGetOSLog();
+  if (v31)
   {
-    v36 = CWFGetOSLog();
+    v32 = CWFGetOSLog();
   }
 
   else
   {
-    v36 = MEMORY[0x1E69E9C10];
-    v50 = MEMORY[0x1E69E9C10];
+    v32 = MEMORY[0x1E69E9C10];
+    v46 = MEMORY[0x1E69E9C10];
   }
 
-  if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
   {
     *location = 136446722;
     *&location[4] = "[CWFXPCRequestProxy __startNetworkRelayBridgeWithHostAPConfiguration:interfaceName:reply:]";
-    v66 = 2082;
-    v67 = "CWFXPCRequestProxy.m";
-    v68 = 1024;
-    v69 = 8648;
-    _os_log_send_and_compose_impl();
+    v65 = 2082;
+    v66 = "CWFXPCRequestProxy.m";
+    v67 = 1024;
+    v68 = 8648;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v32, 16, "[corewifi] %{public}s (%{public}s:%u) _NETRBClientStartService() FAILED", location, 28, v61, 3221225472, sub_1E0CC0A80, &unk_1E86E8558);
   }
 
-  v51 = *MEMORY[0x1E696A798];
-  v52 = CWFErrorDescription(*MEMORY[0x1E696A798], 6uLL);
-  v24 = CWFErrorWithDescription(v51, 6, v52);
+  v47 = *MEMORY[0x1E696A798];
+  v48 = CWFErrorDescription(*MEMORY[0x1E696A798], 6uLL);
+  v21 = CWFErrorWithDescription(v47, 6, v48);
 
-  v53 = self->_netRBClient;
   if ((_NETRBClientDestroy() & 1) == 0)
   {
-    v60 = CWFGetOSLog();
-    if (v60)
+    v56 = CWFGetOSLog();
+    if (v56)
     {
-      v61 = CWFGetOSLog();
+      v57 = CWFGetOSLog();
     }
 
     else
     {
-      v61 = MEMORY[0x1E69E9C10];
-      v62 = MEMORY[0x1E69E9C10];
+      v57 = MEMORY[0x1E69E9C10];
+      v58 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
     {
       *location = 136446722;
       *&location[4] = "[CWFXPCRequestProxy __startNetworkRelayBridgeWithHostAPConfiguration:interfaceName:reply:]";
-      v66 = 2082;
-      v67 = "CWFXPCRequestProxy.m";
-      v68 = 1024;
-      v69 = 8650;
-      _os_log_send_and_compose_impl();
+      v65 = 2082;
+      v66 = "CWFXPCRequestProxy.m";
+      v67 = 1024;
+      v68 = 8650;
+      LODWORD(v59) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v57, 16, "[corewifi] %{public}s (%{public}s:%u) _NETRBClientDestroy() FAILED", location, v59);
     }
   }
 
   self->_netRBClient = 0;
 LABEL_71:
-  if (v11 && v24)
+  if (v11 && v21)
   {
-    (v11)[2](v11, v24);
+    (v11)[2](v11, v21);
   }
 
 LABEL_12:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__stopNetworkRelayBridgeForInterfaceName:(id)name reply:(id)reply
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   replyCopy = reply;
   v8 = replyCopy;
   if (!self->_netRBClient)
+  {
+    v15 = CWFGetOSLog();
+    if (v15)
+    {
+      v16 = CWFGetOSLog();
+    }
+
+    else
+    {
+      v16 = MEMORY[0x1E69E9C10];
+      v21 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(v38) = 0;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v16, 16, "[corewifi] NETRB service not running", &v38, 2);
+    }
+
+    v22 = *MEMORY[0x1E696A798];
+    v23 = CWFErrorDescription(*MEMORY[0x1E696A798], 6uLL);
+    v24 = v22;
+    v25 = 6;
+    goto LABEL_27;
+  }
+
+  if (!nameCopy)
   {
     v17 = CWFGetOSLog();
     if (v17)
@@ -11365,46 +11718,26 @@ LABEL_12:
     else
     {
       v18 = MEMORY[0x1E69E9C10];
-      v23 = MEMORY[0x1E69E9C10];
+      v26 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      _os_log_send_and_compose_impl();
+      v38 = 136446722;
+      v39 = "[CWFXPCRequestProxy __stopNetworkRelayBridgeForInterfaceName:reply:]";
+      v40 = 2082;
+      v41 = "CWFXPCRequestProxy.m";
+      v42 = 1024;
+      v43 = 8680;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v18, 16, "[corewifi] %{public}s (%{public}s:%u) interfaceName is NULL", &v38, 28);
     }
 
-    v24 = *MEMORY[0x1E696A798];
-    v25 = CWFErrorDescription(*MEMORY[0x1E696A798], 6uLL);
-    v26 = v24;
-    v27 = 6;
-    goto LABEL_27;
-  }
-
-  if (!nameCopy)
-  {
-    v19 = CWFGetOSLog();
-    if (v19)
-    {
-      v20 = CWFGetOSLog();
-    }
-
-    else
-    {
-      v20 = MEMORY[0x1E69E9C10];
-      v28 = MEMORY[0x1E69E9C10];
-    }
-
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
-    {
-      _os_log_send_and_compose_impl();
-    }
-
-    v29 = *MEMORY[0x1E696A798];
-    v25 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x16uLL);
-    v26 = v29;
-    v27 = 22;
+    v27 = *MEMORY[0x1E696A798];
+    v23 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x16uLL);
+    v24 = v27;
+    v25 = 22;
 LABEL_27:
-    v15 = CWFErrorWithDescription(v26, v27, v25);
+    v14 = CWFErrorWithDescription(v24, v25, v23);
 
     goto LABEL_34;
   }
@@ -11429,90 +11762,112 @@ LABEL_27:
 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      _os_log_send_and_compose_impl();
+      v38 = 136446722;
+      v39 = "[CWFXPCRequestProxy __stopNetworkRelayBridgeForInterfaceName:reply:]";
+      v40 = 2082;
+      v41 = "CWFXPCRequestProxy.m";
+      v42 = 1024;
+      v43 = 8686;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v12, 16, "[corewifi] %{public}s (%{public}s:%u) IOPMAssertionRelease() FAILED", &v38, 28);
     }
   }
 
-  netRBClient = self->_netRBClient;
   if (_NETRBClientStopService())
   {
-    v15 = 0;
+    v14 = 0;
     goto LABEL_12;
   }
 
-  v21 = CWFGetOSLog();
-  if (v21)
+  v19 = CWFGetOSLog();
+  if (v19)
   {
-    v22 = CWFGetOSLog();
+    v20 = CWFGetOSLog();
   }
 
   else
   {
-    v22 = MEMORY[0x1E69E9C10];
-    v30 = MEMORY[0x1E69E9C10];
+    v20 = MEMORY[0x1E69E9C10];
+    v28 = MEMORY[0x1E69E9C10];
   }
 
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
-    _os_log_send_and_compose_impl();
+    v38 = 136446722;
+    v39 = "[CWFXPCRequestProxy __stopNetworkRelayBridgeForInterfaceName:reply:]";
+    v40 = 2082;
+    v41 = "CWFXPCRequestProxy.m";
+    v42 = 1024;
+    v43 = 8690;
+    LODWORD(v37) = 28;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v20, 16, "[corewifi] %{public}s (%{public}s:%u) _NETRBClientStopService() FAILED", &v38, v37);
   }
 
-  v31 = *MEMORY[0x1E696A798];
-  v32 = CWFErrorDescription(*MEMORY[0x1E696A798], 6uLL);
-  v15 = CWFErrorWithDescription(v31, 6, v32);
+  v29 = *MEMORY[0x1E696A798];
+  v30 = CWFErrorDescription(*MEMORY[0x1E696A798], 6uLL);
+  v14 = CWFErrorWithDescription(v29, 6, v30);
 
-  v33 = self->_netRBClient;
   if ((_NETRBClientSetHostCount() & 1) == 0)
   {
-    v35 = CWFGetOSLog();
-    if (v35)
+    v31 = CWFGetOSLog();
+    if (v31)
     {
-      v36 = CWFGetOSLog();
+      v32 = CWFGetOSLog();
     }
 
     else
     {
-      v36 = MEMORY[0x1E69E9C10];
-      v39 = MEMORY[0x1E69E9C10];
+      v32 = MEMORY[0x1E69E9C10];
+      v35 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      _os_log_send_and_compose_impl();
+      v38 = 136446722;
+      v39 = "[CWFXPCRequestProxy __stopNetworkRelayBridgeForInterfaceName:reply:]";
+      v40 = 2082;
+      v41 = "CWFXPCRequestProxy.m";
+      v42 = 1024;
+      v43 = 8693;
+      LODWORD(v37) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v32, 16, "[corewifi] %{public}s (%{public}s:%u) _NETRBClientSetHostCount() FAILED", &v38, v37);
     }
   }
 
-  v34 = self->_netRBClient;
   if ((_NETRBClientDestroy() & 1) == 0)
   {
-    v37 = CWFGetOSLog();
-    if (v37)
+    v33 = CWFGetOSLog();
+    if (v33)
     {
-      v38 = CWFGetOSLog();
+      v34 = CWFGetOSLog();
     }
 
     else
     {
-      v38 = MEMORY[0x1E69E9C10];
-      v40 = MEMORY[0x1E69E9C10];
+      v34 = MEMORY[0x1E69E9C10];
+      v36 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      _os_log_send_and_compose_impl();
+      v38 = 136446722;
+      v39 = "[CWFXPCRequestProxy __stopNetworkRelayBridgeForInterfaceName:reply:]";
+      v40 = 2082;
+      v41 = "CWFXPCRequestProxy.m";
+      v42 = 1024;
+      v43 = 8695;
+      LODWORD(v37) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v34, 16, "[corewifi] %{public}s (%{public}s:%u) _NETRBClientDestroy() FAILED", &v38, v37);
     }
   }
 
   self->_netRBClient = 0;
 LABEL_34:
-  if (v8 && v15)
+  if (v8 && v14)
   {
-    (v8)[2](v8, v15);
+    (v8)[2](v8, v14);
   }
 
 LABEL_12:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__startHostAPMode:(id)mode XPCConnection:(id)connection
@@ -11568,9 +11923,10 @@ LABEL_10:
 
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
-    sub_1E0BC2FCC([modeCopy type]);
-    v31 = v30 = 138543362;
-    _os_log_send_and_compose_impl();
+    v20 = sub_1E0BC2FCC([modeCopy type]);
+    v30 = 138543362;
+    v31 = v20;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v18, 16, "[corewifi] Unhandled request type (%{public}@)", &v30, 12);
   }
 
   response = [modeCopy response];
@@ -11578,17 +11934,15 @@ LABEL_10:
   if (response)
   {
     response2 = [modeCopy response];
-    v21 = *MEMORY[0x1E696A798];
+    v22 = *MEMORY[0x1E696A798];
     v16 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x2DuLL);
-    v22 = CWFErrorWithDescription(v21, 45, v16);
-    (response2->super.super.super._iop.__nextOp)(response2, v22, 0);
+    v23 = CWFErrorWithDescription(v22, 45, v16);
+    (response2->super.super.super._iop.__nextOp)(response2, v23, 0);
 
     goto LABEL_10;
   }
 
 LABEL_11:
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__stopHostAPMode:(id)mode XPCConnection:(id)connection
@@ -11631,9 +11985,10 @@ LABEL_10:
 
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    sub_1E0BC2FCC([modeCopy type]);
-    v22 = v21 = 138543362;
-    _os_log_send_and_compose_impl();
+    v14 = sub_1E0BC2FCC([modeCopy type]);
+    v21 = 138543362;
+    v22 = v14;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v12, 16, "[corewifi] Unhandled request type (%{public}@)", &v21, 12);
   }
 
   response = [modeCopy response];
@@ -11641,22 +11996,20 @@ LABEL_10:
   if (response)
   {
     response2 = [modeCopy response];
-    v15 = *MEMORY[0x1E696A798];
-    v16 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x2DuLL);
-    v17 = CWFErrorWithDescription(v15, 45, v16);
-    (response2->super.super.super._iop.__nextOp)(response2, v17, 0);
+    v16 = *MEMORY[0x1E696A798];
+    v17 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x2DuLL);
+    v18 = CWFErrorWithDescription(v16, 45, v17);
+    (response2->super.super.super._iop.__nextOp)(response2, v18, 0);
 
     goto LABEL_10;
   }
 
 LABEL_11:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__logLqmSummary:(id)summary
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = [(CWFXPCRequestProxy *)self __apple80211WithInterfaceName:summary];
   v4 = v3;
   if (v3 && ![v3 virtualInterfaceRole])
@@ -11687,7 +12040,10 @@ LABEL_11:
 
           if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
           {
-            _os_log_send_and_compose_impl();
+            v22 = 136446210;
+            v23 = v8;
+            LODWORD(v19) = 12;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v10, 0, "[corewifi] LQM-WiFi: %{public}s", &v22, v19);
           }
         }
 
@@ -11719,7 +12075,10 @@ LABEL_11:
 
           if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
-            _os_log_send_and_compose_impl();
+            v22 = 136446210;
+            v23 = v15;
+            LODWORD(v19) = 12;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v17, 0, "[corewifi] LQM-WiFi: %{public}s", &v22, v19);
           }
         }
 
@@ -11731,8 +12090,6 @@ LABEL_11:
       while (v13);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__getCurrentScanResult:(id)result XPCConnection:(id)connection reply:(id)reply
@@ -11779,23 +12136,22 @@ LABEL_10:
 
   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    sub_1E0BC2FCC([resultCopy type]);
-    v24 = v23 = 138543362;
-    _os_log_send_and_compose_impl();
+    v19 = sub_1E0BC2FCC([resultCopy type]);
+    v23 = 138543362;
+    v24 = v19;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v17, 16, "[corewifi] Unhandled request type (%{public}@)", &v23, 12);
   }
 
   if (replyCopy)
   {
-    v19 = *MEMORY[0x1E696A798];
+    v20 = *MEMORY[0x1E696A798];
     v12 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x2DuLL);
-    v15 = CWFErrorWithDescription(v19, 45, v12);
+    v15 = CWFErrorWithDescription(v20, 45, v12);
     (*(replyCopy + 2))(replyCopy, v15, 0);
     goto LABEL_10;
   }
 
 LABEL_11:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__getCurrentScanResult:(id)result XPCConnection:(id)connection
@@ -12722,26 +13078,24 @@ LABEL_8:
 
 - (void)__getBrokenBackhaulState:(id)state
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   stateCopy = state;
   response = [stateCopy response];
 
   if (response)
   {
     response2 = [stateCopy response];
-    v10 = @"Result";
+    v9 = @"Result";
     v7 = [MEMORY[0x1E696AD98] numberWithInteger:{-[CWFBrokenBackhaulMonitor brokenBackhaulState](self->_bbhMonitor, "brokenBackhaulState")}];
-    v11[0] = v7;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v10[0] = v7;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     (response2)[2](response2, 0, v8);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__getBrokenBackhaulStateUpdatedAt:(id)at
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   atCopy = at;
   brokenBackhaulStateUpdatedAt = [(CWFBrokenBackhaulMonitor *)self->_bbhMonitor brokenBackhaulStateUpdatedAt];
   response = [atCopy response];
@@ -12752,9 +13106,9 @@ LABEL_8:
     v8 = response2;
     if (brokenBackhaulStateUpdatedAt)
     {
-      v11 = @"Result";
-      v12[0] = brokenBackhaulStateUpdatedAt;
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+      v10 = @"Result";
+      v11[0] = brokenBackhaulStateUpdatedAt;
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
       (v8)[2](v8, 0, v9);
     }
 
@@ -12763,13 +13117,11 @@ LABEL_8:
       (*(response2 + 16))(response2, 0, 0);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__confirmBrokenBackhaul:(id)backhaul
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   backhaulCopy = backhaul;
   info = [backhaulCopy info];
   v6 = [info objectForKeyedSubscript:@"ProbeTimeout"];
@@ -12807,7 +13159,7 @@ LABEL_8:
   iPv4Router = [v15 IPv4Router];
   iPv6Addresses = [v15 IPv6Addresses];
   iPv6Router = [v15 IPv6Router];
-  v35 = iPv6Router;
+  v34 = iPv6Router;
   if (iPv4Addresses && iPv4Router || iPv6Addresses && iPv6Router)
   {
     bbhMonitor = self->_bbhMonitor;
@@ -12825,17 +13177,17 @@ LABEL_8:
       v25 = iPv6Router;
     }
 
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = sub_1E0CC6BBC;
-    v36[3] = &unk_1E86E8738;
-    v37 = backhaulCopy;
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = sub_1E0CC6BBC;
+    v35[3] = &unk_1E86E8738;
+    v36 = backhaulCopy;
     v26 = v24;
     interfaceName = v23;
     iPv6Addresses = v22;
     iPv4Addresses = v21;
-    [(CWFBrokenBackhaulMonitor *)bbhMonitor confirmBrokenBackhaulUsingTimeout:v26 count:v12 preflightPingAddress:v25 completion:v36];
-    response2 = v37;
+    [(CWFBrokenBackhaulMonitor *)bbhMonitor confirmBrokenBackhaulUsingTimeout:v26 count:v12 preflightPingAddress:v25 completion:v35];
+    response2 = v36;
   }
 
   else
@@ -12848,25 +13200,24 @@ LABEL_8:
     }
 
     response2 = [backhaulCopy response];
-    v34 = MEMORY[0x1E696ABC0];
-    v30 = *MEMORY[0x1E696A798];
-    v40 = *MEMORY[0x1E696A578];
-    v41[0] = @"WiFi has no IPv4/IPv6";
-    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
-    v32 = [v34 errorWithDomain:v30 code:1 userInfo:v31];
-    v38 = @"Result";
-    v39 = &unk_1F5BBC958;
-    v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-    (response2)[2](response2, v32, v33);
+    v33 = MEMORY[0x1E696ABC0];
+    v29 = *MEMORY[0x1E696A798];
+    v39 = *MEMORY[0x1E696A578];
+    v40[0] = @"WiFi has no IPv4/IPv6";
+    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+    v31 = [v33 errorWithDomain:v29 code:1 userInfo:v30];
+    v37 = @"Result";
+    v38 = &unk_1F5BBC958;
+    v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+    (response2)[2](response2, v31, v32);
   }
 
 LABEL_16:
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__removeUnusedKnownNetworks
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v3 = CWFGetOSLog();
   if (v3)
   {
@@ -12881,21 +13232,19 @@ LABEL_16:
 
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v55) = 0;
-    LODWORD(v48) = 2;
-    v47 = &v55;
-    _os_log_send_and_compose_impl();
+    LOWORD(v53) = 0;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v4, 1, "[corewifi] Checking for obsolete/unused known networks eligible for removal", &v53, 2);
   }
 
   v6 = [(CWFXPCRequestProxy *)self __apple80211WithVirtualInterfaceRole:0 parentInterfaceName:0];
   if (v6)
   {
     __knownNetworkProfiles = [(CWFXPCRequestProxy *)self __knownNetworkProfiles];
+    v49 = 0u;
+    v50 = 0u;
     v51 = 0u;
     v52 = 0u;
-    v53 = 0u;
-    v54 = 0u;
-    v8 = [__knownNetworkProfiles countByEnumeratingWithState:&v51 objects:v57 count:16];
+    v8 = [__knownNetworkProfiles countByEnumeratingWithState:&v49 objects:v55 count:16];
     if (!v8)
     {
       goto LABEL_62;
@@ -12903,18 +13252,18 @@ LABEL_16:
 
     v9 = v8;
     v10 = MEMORY[0x1E69E9C10];
-    v11 = *v52;
+    v11 = *v50;
     while (1)
     {
       v12 = 0;
       do
       {
-        if (*v52 != v11)
+        if (*v50 != v11)
         {
           objc_enumerationMutation(__knownNetworkProfiles);
         }
 
-        v13 = *(*(&v51 + 1) + 8 * v12);
+        v13 = *(*(&v49 + 1) + 8 * v12);
         if ([v13 isProfileBased])
         {
           v38 = CWFGetOSLog();
@@ -12931,17 +13280,13 @@ LABEL_16:
 
           if (os_log_type_enabled(interfaceName, OS_LOG_TYPE_DEBUG))
           {
-            v55 = 138412290;
-            *v56 = v13;
-            LODWORD(v48) = 12;
-            v47 = &v55;
-LABEL_41:
-            _os_log_send_and_compose_impl();
+            v53 = 138412290;
+            *v54 = v13;
+            LODWORD(v46) = 12;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, interfaceName, 2, "[corewifi] Known network is profile-based, will not remove (%@)", &v53, v46);
           }
 
-LABEL_47:
-
-          goto LABEL_48;
+          goto LABEL_47;
         }
 
         if ([v13 isOpen] & 1) != 0 || (objc_msgSend(v13, "isOWE"))
@@ -12957,74 +13302,79 @@ LABEL_47:
 
             if (v16 < 0.0)
             {
-              if (v19 >= -63072000.0)
+              if (v19 < -63072000.0)
               {
-LABEL_19:
-                v20 = CWFGetOSLog();
-                if (v20)
-                {
-                  interfaceName = CWFGetOSLog();
-                }
-
-                else
-                {
-                  v31 = v10;
-                  interfaceName = v10;
-                }
-
-                if (os_log_type_enabled(interfaceName, OS_LOG_TYPE_DEBUG))
-                {
-                  v55 = 67109378;
-                  *v56 = 730;
-                  *&v56[4] = 2112;
-                  *&v56[6] = v13;
-                  LODWORD(v48) = 18;
-                  v47 = &v55;
-                  goto LABEL_41;
-                }
-
-                goto LABEL_47;
+                goto LABEL_22;
               }
-            }
 
-            else if (v19 <= 63072000.0)
-            {
-              goto LABEL_19;
-            }
+LABEL_19:
+              v20 = CWFGetOSLog();
+              if (v20)
+              {
+                interfaceName = CWFGetOSLog();
+              }
 
-            v22 = CWFGetOSLog();
-            if (v22)
-            {
-              v23 = CWFGetOSLog();
+              else
+              {
+                v31 = v10;
+                interfaceName = v10;
+              }
+
+              if (os_log_type_enabled(interfaceName, OS_LOG_TYPE_DEBUG))
+              {
+                v53 = 67109378;
+                *v54 = 730;
+                *&v54[4] = 2112;
+                *&v54[6] = v13;
+                LODWORD(v46) = 18;
+                _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, interfaceName, 2, "[corewifi] Open (captive) known network was not joined more than %d days ago, will not remove (%@)", &v53, v46);
+              }
             }
 
             else
             {
-              v32 = v10;
-              v23 = v10;
-            }
+              if (v19 <= 63072000.0)
+              {
+                goto LABEL_19;
+              }
 
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
-            {
-              v55 = 67109378;
-              *v56 = 730;
-              *&v56[4] = 2112;
-              *&v56[6] = v13;
-              LODWORD(v48) = 18;
-              v47 = &v55;
-              _os_log_send_and_compose_impl();
-            }
+LABEL_22:
+              v22 = CWFGetOSLog();
+              if (v22)
+              {
+                v23 = CWFGetOSLog();
+              }
 
-            interfaceName = [v6 interfaceName];
-            v50[0] = MEMORY[0x1E69E9820];
-            v50[1] = 3221225472;
-            v50[2] = sub_1E0CC74C0;
-            v50[3] = &unk_1E86E84C0;
-            v50[4] = v13;
-            v33 = v50;
+              else
+              {
+                v32 = v10;
+                v23 = v10;
+              }
+
+              if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+              {
+                v53 = 67109378;
+                *v54 = 730;
+                *&v54[4] = 2112;
+                *&v54[6] = v13;
+                LODWORD(v46) = 18;
+                _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v23, 1, "[corewifi] Open (captive) known network was joined more than %d days ago, removing network (%@)", &v53, v46);
+              }
+
+              interfaceName = [v6 interfaceName];
+              v48[0] = MEMORY[0x1E69E9820];
+              v48[1] = 3221225472;
+              v48[2] = sub_1E0CC74C0;
+              v48[3] = &unk_1E86E84C0;
+              v48[4] = v13;
+              v33 = v48;
 LABEL_46:
-            [(CWFXPCRequestProxy *)self __removeNetworkProfile:v13 reason:9 interfaceName:interfaceName reply:v33, v47, v48];
-            goto LABEL_47;
+              [(CWFXPCRequestProxy *)self __removeNetworkProfile:v13 reason:9 interfaceName:interfaceName reply:v33];
+            }
+
+LABEL_47:
+
+            goto LABEL_48;
           }
 
           lastJoinedOnAnyDeviceAt3 = [v13 lastJoinedOnAnyDeviceAt];
@@ -13053,13 +13403,12 @@ LABEL_26:
 
               if (os_log_type_enabled(interfaceName, OS_LOG_TYPE_DEBUG))
               {
-                v55 = 67109378;
-                *v56 = 42;
-                *&v56[4] = 2112;
-                *&v56[6] = v13;
-                LODWORD(v48) = 18;
-                v47 = &v55;
-                goto LABEL_41;
+                v53 = 67109378;
+                *v54 = 42;
+                *&v54[4] = 2112;
+                *&v54[6] = v13;
+                LODWORD(v46) = 18;
+                _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, interfaceName, 2, "[corewifi] Open (non-captive) known network was not joined more than %d days ago, will not remove (%@)", &v53, v46);
               }
 
               goto LABEL_47;
@@ -13085,22 +13434,21 @@ LABEL_26:
 
           if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
           {
-            v55 = 67109378;
-            *v56 = 42;
-            *&v56[4] = 2112;
-            *&v56[6] = v13;
-            LODWORD(v48) = 18;
-            v47 = &v55;
-            _os_log_send_and_compose_impl();
+            v53 = 67109378;
+            *v54 = 42;
+            *&v54[4] = 2112;
+            *&v54[6] = v13;
+            LODWORD(v46) = 18;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v35, 1, "[corewifi] Open (non-captive) known network was joined more than %d days ago, removing network (%@)", &v53, v46);
           }
 
           interfaceName = [v6 interfaceName];
-          v49[0] = MEMORY[0x1E69E9820];
-          v49[1] = 3221225472;
-          v49[2] = sub_1E0CC75CC;
-          v49[3] = &unk_1E86E84C0;
-          v49[4] = v13;
-          v33 = v49;
+          v47[0] = MEMORY[0x1E69E9820];
+          v47[1] = 3221225472;
+          v47[2] = sub_1E0CC75CC;
+          v47[3] = &unk_1E86E84C0;
+          v47[4] = v13;
+          v33 = v47;
           goto LABEL_46;
         }
 
@@ -13118,11 +13466,10 @@ LABEL_26:
 
         if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
         {
-          v55 = 138412290;
-          *v56 = v13;
-          LODWORD(v48) = 12;
-          v47 = &v55;
-          _os_log_send_and_compose_impl();
+          v53 = 138412290;
+          *v54 = v13;
+          LODWORD(v46) = 12;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v40, 2, "[corewifi] Known network is not open/OWE, will not remove (%@)", &v53, v46);
         }
 
 LABEL_48:
@@ -13130,7 +13477,7 @@ LABEL_48:
       }
 
       while (v9 != v12);
-      v43 = [__knownNetworkProfiles countByEnumeratingWithState:&v51 objects:v57 count:16];
+      v43 = [__knownNetworkProfiles countByEnumeratingWithState:&v49 objects:v55 count:16];
       v9 = v43;
       if (!v43)
       {
@@ -13139,8 +13486,8 @@ LABEL_48:
     }
   }
 
-  v45 = CWFGetOSLog();
-  if (v45)
+  v44 = CWFGetOSLog();
+  if (v44)
   {
     __knownNetworkProfiles = CWFGetOSLog();
   }
@@ -13148,18 +13495,17 @@ LABEL_48:
   else
   {
     __knownNetworkProfiles = MEMORY[0x1E69E9C10];
-    v46 = MEMORY[0x1E69E9C10];
+    v45 = MEMORY[0x1E69E9C10];
   }
 
   if (os_log_type_enabled(__knownNetworkProfiles, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v55) = 0;
-    _os_log_send_and_compose_impl();
+    LOWORD(v53) = 0;
+    LODWORD(v46) = 2;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, __knownNetworkProfiles, 16, "[corewifi] Failed to find WiFi interface, will not remove obsolete/unused known networks", &v53, v46);
   }
 
 LABEL_62:
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__setUCMExtProfile:(id)profile

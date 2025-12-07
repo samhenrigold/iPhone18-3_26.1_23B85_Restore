@@ -226,13 +226,12 @@ LABEL_19:
 
 - (void)generateLanguageForRecord:()PreExtractor processedItem:fetchCachedLanguageBlock:cacheLanguageBlock:cancelBlock:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_231B25000, log, OS_LOG_TYPE_DEBUG, "SKGProcessor+Keyphraser#processLanguageOfTextContentFromRecord got language %@ from cache for item %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_231B25000, log, OS_LOG_TYPE_DEBUG, "SKGProcessor+Keyphraser#processLanguageOfTextContentFromRecord got language %@ from cache for item %@", &v3, 0x16u);
 }
 
 @end

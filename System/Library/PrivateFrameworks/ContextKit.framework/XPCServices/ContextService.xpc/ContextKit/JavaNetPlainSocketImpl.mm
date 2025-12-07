@@ -6,10 +6,13 @@
 - (id)socksBind;
 - (int)available;
 - (void)acceptWithJavaNetSocketImpl:(id)impl;
+- (void)bindWithJavaNetInetAddress:(id)address withInt:(int)int;
 - (void)close;
 - (void)connectWithJavaNetSocketAddress:(id)address withInt:(int)int;
+- (void)connectWithNSString:(id)string withInt:(int)int;
 - (void)createWithBoolean:(BOOL)boolean;
 - (void)dealloc;
+- (void)listenWithInt:(int)int;
 - (void)sendUrgentDataWithInt:(int)int;
 - (void)shutdownInput;
 - (void)shutdownOutput;
@@ -90,7 +93,7 @@
   LibcoreIoIoBridge_connectWithJavaIoFileDescriptor_withJavaNetInetAddress_withInt_(v2, v3, v4);
   if (!qword_100554928)
   {
-    v12 = new_JavaNetSocketException_initWithNSString_(@"Invalid SOCKS client");
+    v13 = new_JavaNetSocketException_initWithNSString_(@"Invalid SOCKS client");
     goto LABEL_13;
   }
 
@@ -104,9 +107,9 @@
   v6 = v5;
   if ([(JavaNetSocks4Message *)v5 getCommandOrResult]!= 90)
   {
-    v12 = new_JavaIoIOException_initWithNSString_([(JavaNetSocks4Message *)v6 getErrorStringWithInt:[(JavaNetSocks4Message *)v6 getCommandOrResult]]);
+    v13 = new_JavaIoIOException_initWithNSString_([(JavaNetSocks4Message *)v6 getErrorStringWithInt:[(JavaNetSocks4Message *)v6 getCommandOrResult]]);
 LABEL_13:
-    objc_exception_throw(v12);
+    objc_exception_throw(v13);
   }
 
   if ([(JavaNetSocks4Message *)v6 getIP])
@@ -119,17 +122,17 @@ LABEL_13:
     }
 
     LibcoreIoMemory_pokeIntWithByteArray_withInt_withInt_withJavaNioByteOrder_(v7, 0, getIP, JavaNioByteOrder_BIG_ENDIAN__);
-    v9 = JavaNetInetAddress_getByAddressWithByteArray_(v7);
-    v10 = (self + 8);
+    v10 = JavaNetInetAddress_getByAddressWithByteArray_(v7, v9);
+    v11 = (self + 8);
   }
 
   else
   {
-    v9 = sub_10014947C(self);
-    v10 = (self + 8);
+    v10 = sub_10014947C(self);
+    v11 = (self + 8);
   }
 
-  JreStrongAssign(v10, v9);
+  JreStrongAssign(v11, v10);
   result = [(JavaNetSocks4Message *)v6 getPort];
   *(self + 32) = result;
   return result;
@@ -153,6 +156,19 @@ LABEL_13:
   return v3;
 }
 
+- (void)bindWithJavaNetInetAddress:(id)address withInt:(int)int
+{
+  SocketLocalPortWithJavaIoFileDescriptor = int;
+  LibcoreIoIoBridge_bindWithJavaIoFileDescriptor_withJavaNetInetAddress_withInt_(self->super.fd_, address, *&int);
+  JreStrongAssign(&self->super.address_, address);
+  if (!SocketLocalPortWithJavaIoFileDescriptor)
+  {
+    SocketLocalPortWithJavaIoFileDescriptor = LibcoreIoIoBridge_getSocketLocalPortWithJavaIoFileDescriptor_(self->super.fd_);
+  }
+
+  self->super.localport_ = SocketLocalPortWithJavaIoFileDescriptor;
+}
+
 - (void)close
 {
   objc_sync_enter(self);
@@ -166,6 +182,14 @@ LABEL_13:
   LibcoreIoIoBridge_closeSocketWithJavaIoFileDescriptor_(self->super.fd_);
 
   objc_sync_exit(self);
+}
+
+- (void)connectWithNSString:(id)string withInt:(int)int
+{
+  v4 = *&int;
+  v6 = JavaNetInetAddress_getByNameWithNSString_(string, a2);
+
+  [(JavaNetPlainSocketImpl *)self connectWithJavaNetInetAddress:v6 withInt:v4];
 }
 
 - (void)createWithBoolean:(BOOL)boolean
@@ -213,6 +237,25 @@ LABEL_13:
   v4 = v3;
   objc_sync_exit(self);
   return v4;
+}
+
+- (void)listenWithInt:(int)int
+{
+  v3 = *&int;
+  if (([JavaNetPlainSocketImpl usingSocks]_0(self) & 1) == 0)
+  {
+    if ((atomic_load_explicit(LibcoreIoLibcore__initialized, memory_order_acquire) & 1) == 0)
+    {
+      objc_opt_class();
+    }
+
+    if (!LibcoreIoLibcore_os_)
+    {
+      JreThrowNullPointerException();
+    }
+
+    [LibcoreIoLibcore_os_ listenWithJavaIoFileDescriptor:self->super.fd_ withInt:v3];
+  }
 }
 
 - (void)socksAccept
@@ -294,6 +337,7 @@ LABEL_5:
 
 - (void)connectWithJavaNetSocketAddress:(id)address withInt:(int)int
 {
+  v4 = *&int;
   objc_opt_class();
   if (!address)
   {
@@ -308,7 +352,7 @@ LABEL_5:
   getAddress = [address getAddress];
   getPort = [address getPort];
 
-  sub_100149018(self, getAddress, getPort, int);
+  sub_100149018(self, getAddress, getPort, v4);
 }
 
 - (void)sendUrgentDataWithInt:(int)int
